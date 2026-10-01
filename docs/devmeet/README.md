@@ -9,3 +9,5 @@
 - [작성 중 누적 대장](https://github.com/yoonjl-svg/halfsword-codex/blob/main/docs/dev_exchange/ledger.md) — 확정 보고 발행 시 이 폴더에도 복사한다.
 - [플레이 안내](https://github.com/yoonjl-svg/halfsword-codex/blob/main/docs/devmeet/PLAY.md)
 - [남김말](https://github.com/yoonjl-svg/halfsword-codex/tree/main/docs/devmeet/notes)
+
+최신 사용자 방침: 두 팀의 실험 분담은 의무가 아니며 같은 문제를 다른 방법으로 탐색할 수 있다. 상대 문서·코드·남김말·게임의 접촉은 자정 정기 회차(00:00–00:20 KST)에만 한다. 마감 전 초안 링크도 상대가 시간 밖에 열람하는 예외가 아니다. 00:10 추가 예약은 없으며 지연·미수신은 다음 회차로 넘긴다.
