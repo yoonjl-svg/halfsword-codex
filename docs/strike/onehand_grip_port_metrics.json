@@ -1,0 +1,1586 @@
+{
+  "schemaVersion": 1,
+  "baselineCommit": "5f806a1944f3da16d3edf8b42262f3d852969f2a",
+  "upstreamCommits": [
+    "f53b330e80e90254c90e265861fa70ef38a10af4",
+    "976348469615f2acff9770660d1c754f4ce237df"
+  ],
+  "scope": "Exact upstream guards.js and one-hand constructor selection only. Two-hand estoc and corr-v2 omitted.",
+  "protocol": "Native Fighter/Skill held/inputActive and handOffset deltas follow main frame hand input contract, no renderer/input event injection. B paired legacy, seed7,3s preparation,8s protocol; healthy standing only. Touch release is not physical dropSword. Actual user symptom is not proved reproduced.",
+  "torqueDefinition": "sword.userTorque captured read-only immediately before native solver: total explicit controller torque, including any point-force moments; debug wrist torque is before twist, not final applied wrist torque.",
+  "sourceStableDuringRun": {
+    "before": true,
+    "after": true
+  },
+  "wallSeconds": {
+    "before": 7.598539653,
+    "after": 7.499730621
+  },
+  "sourceHashes": {
+    "before": {
+      "src/fighter.js": "6b02bd2dcf4601585a6a1a64d05da643c2b87be6973a00d68241d85debbfcaf9",
+      "src/guards.js": "a9ae0dd9fcb994f444983a4834fc143eaad4fe95584f4af4f58de35009f97ae3",
+      "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+      "tools/sim/onehand_guard_probe.mjs": "12d53a5f7ebd38f560555ed3b1cbc4bfbd251ed60ec1c2dc728ff1a5c1663e88"
+    },
+    "after": {
+      "src/fighter.js": "cfd1d8199ef06e7f6ef22c2d1275cdeef2dbb2876114c07b323bb1be33ec16bc",
+      "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+      "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+      "tools/sim/onehand_guard_probe.mjs": "12d53a5f7ebd38f560555ed3b1cbc4bfbd251ed60ec1c2dc728ff1a5c1663e88"
+    }
+  },
+  "comparison": [
+    {
+      "weapon": "sabre",
+      "startIdentical": false,
+      "inputIdentical": true,
+      "traceIdentical": false,
+      "twoHandExactRequired": false
+    },
+    {
+      "weapon": "rapier",
+      "startIdentical": false,
+      "inputIdentical": true,
+      "traceIdentical": false,
+      "twoHandExactRequired": false
+    },
+    {
+      "weapon": "tree_branch",
+      "startIdentical": false,
+      "inputIdentical": true,
+      "traceIdentical": false,
+      "twoHandExactRequired": false
+    },
+    {
+      "weapon": "falchion",
+      "startIdentical": false,
+      "inputIdentical": true,
+      "traceIdentical": false,
+      "twoHandExactRequired": false
+    },
+    {
+      "weapon": "qinggang",
+      "startIdentical": false,
+      "inputIdentical": true,
+      "traceIdentical": false,
+      "twoHandExactRequired": false
+    },
+    {
+      "weapon": "pistol",
+      "startIdentical": false,
+      "inputIdentical": true,
+      "traceIdentical": false,
+      "twoHandExactRequired": false
+    },
+    {
+      "weapon": "rubber_chicken",
+      "startIdentical": false,
+      "inputIdentical": true,
+      "traceIdentical": false,
+      "twoHandExactRequired": false
+    },
+    {
+      "weapon": "morgenstern",
+      "startIdentical": false,
+      "inputIdentical": true,
+      "traceIdentical": false,
+      "twoHandExactRequired": false
+    },
+    {
+      "weapon": "longsword",
+      "startIdentical": true,
+      "inputIdentical": true,
+      "traceIdentical": true,
+      "twoHandExactRequired": true
+    },
+    {
+      "weapon": "zweihander",
+      "startIdentical": true,
+      "inputIdentical": true,
+      "traceIdentical": true,
+      "twoHandExactRequired": true
+    },
+    {
+      "weapon": "estoc",
+      "startIdentical": true,
+      "inputIdentical": true,
+      "traceIdentical": true,
+      "twoHandExactRequired": true
+    }
+  ],
+  "rows": {
+    "before": [
+      {
+        "weapon": "sabre",
+        "frames": 960,
+        "twoHand": false,
+        "oneHandStance": true,
+        "max": {
+          "gripAnchorGapM": 3.4786604297276005e-05,
+          "swordAngularSpeedRadps": 16.87998855621212,
+          "swordUserTorqueMagnitudeNm": 18.614828547970173
+        },
+        "grippingFrames": 0,
+        "recoveringFrames": 0,
+        "startSha256": "381a169d49221edb9f40d46886b3d36d1eba10bc8564311e72c17273fd9468f6",
+        "traceSha256": "74725d3fd129751bd7c8793d04ef8e382778249b778873f844fab05f1eee3a53",
+        "inputSha256": "9304e2130cdcfbfd360830ac5c2ceaded056f3d0829ed7ca78947e8895345d59",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      },
+      {
+        "weapon": "rapier",
+        "frames": 960,
+        "twoHand": false,
+        "oneHandStance": true,
+        "max": {
+          "gripAnchorGapM": 2.688718692212824e-05,
+          "swordAngularSpeedRadps": 20.16477007809742,
+          "swordUserTorqueMagnitudeNm": 26.010201142461746
+        },
+        "grippingFrames": 0,
+        "recoveringFrames": 0,
+        "startSha256": "2c60d38dafb7406841ce3b9186b2ce575d49f0657a2f2fc0d1db5779653abe6c",
+        "traceSha256": "30943dd3a82628b0d22129d3392779c21d5d76067e5b9b332d7ede54d1e953cf",
+        "inputSha256": "9304e2130cdcfbfd360830ac5c2ceaded056f3d0829ed7ca78947e8895345d59",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      },
+      {
+        "weapon": "tree_branch",
+        "frames": 960,
+        "twoHand": false,
+        "oneHandStance": true,
+        "max": {
+          "gripAnchorGapM": 4.9574454708594985e-05,
+          "swordAngularSpeedRadps": 20.649315601541506,
+          "swordUserTorqueMagnitudeNm": 26.64915675687272
+        },
+        "grippingFrames": 0,
+        "recoveringFrames": 0,
+        "startSha256": "1e9bdc939233685c139259844e86cbf8ba209f07f21ecc26a20e288f03b59a8e",
+        "traceSha256": "83c1c1bc4b014fd8ad2d464e668fab68b45c87748e4b1432e18a34f6eaf20b50",
+        "inputSha256": "9304e2130cdcfbfd360830ac5c2ceaded056f3d0829ed7ca78947e8895345d59",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      },
+      {
+        "weapon": "falchion",
+        "frames": 960,
+        "twoHand": false,
+        "oneHandStance": true,
+        "max": {
+          "gripAnchorGapM": 2.8960778510937733e-05,
+          "swordAngularSpeedRadps": 15.906418518209914,
+          "swordUserTorqueMagnitudeNm": 19.217706835345943
+        },
+        "grippingFrames": 0,
+        "recoveringFrames": 0,
+        "startSha256": "5c98befd9e61ac634aa8cd84e9ca8cec544a7ccc835cb388e992a9691bc7517f",
+        "traceSha256": "f62d9092abb9f0d8443e78cf35b35fd55f6e30b8ef1f72baf01beb8147e8194c",
+        "inputSha256": "9304e2130cdcfbfd360830ac5c2ceaded056f3d0829ed7ca78947e8895345d59",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      },
+      {
+        "weapon": "qinggang",
+        "frames": 960,
+        "twoHand": false,
+        "oneHandStance": true,
+        "max": {
+          "gripAnchorGapM": 2.8870736032310722e-05,
+          "swordAngularSpeedRadps": 17.4112142481466,
+          "swordUserTorqueMagnitudeNm": 26.22314867748273
+        },
+        "grippingFrames": 0,
+        "recoveringFrames": 0,
+        "startSha256": "365de23a84ab8a3c9fe6ca18b5172d2d2ed064ff4562aec4f14153bc37a9f96b",
+        "traceSha256": "fcd3724596da94c55041b0c5bdf42c01b4e912930b6923126182319071c9f7dd",
+        "inputSha256": "9304e2130cdcfbfd360830ac5c2ceaded056f3d0829ed7ca78947e8895345d59",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      },
+      {
+        "weapon": "pistol",
+        "frames": 960,
+        "twoHand": false,
+        "oneHandStance": true,
+        "max": {
+          "gripAnchorGapM": 6.789713557417748e-06,
+          "swordAngularSpeedRadps": 4.065321121085073,
+          "swordUserTorqueMagnitudeNm": 1.6178606065543861
+        },
+        "grippingFrames": 0,
+        "recoveringFrames": 0,
+        "startSha256": "8a25504c2d2382887d4fcace192822e79412d08d9f676382ede00faea5313ee1",
+        "traceSha256": "fa7ca18e8795d36f763cc4740b8eed2df1ebd9b615e4eaf200e70e4d83a06f9b",
+        "inputSha256": "e70b4e4164ec5408bd674c74e80baad750137011097b5362011e3eac28a93049",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      },
+      {
+        "weapon": "rubber_chicken",
+        "frames": 960,
+        "twoHand": false,
+        "oneHandStance": true,
+        "max": {
+          "gripAnchorGapM": 0.0001740310415411053,
+          "swordAngularSpeedRadps": 41.983607857407236,
+          "swordUserTorqueMagnitudeNm": 28.600954595223325
+        },
+        "grippingFrames": 0,
+        "recoveringFrames": 0,
+        "startSha256": "959ebdecc912340bb2beb0f95ce31c4c08aef209976abe8cc9b41a002db18b33",
+        "traceSha256": "5540988756cde653b3c380290edda230fcdfe37af5fb82231d4324ac752c8a18",
+        "inputSha256": "9304e2130cdcfbfd360830ac5c2ceaded056f3d0829ed7ca78947e8895345d59",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      },
+      {
+        "weapon": "morgenstern",
+        "frames": 960,
+        "twoHand": false,
+        "oneHandStance": true,
+        "max": {
+          "gripAnchorGapM": 3.176434813499625e-05,
+          "swordAngularSpeedRadps": 8.040100059677867,
+          "swordUserTorqueMagnitudeNm": 21.98243977927598
+        },
+        "grippingFrames": 0,
+        "recoveringFrames": 0,
+        "startSha256": "9ee87d88562e4ebc77c7346419d01acffac29e97b1dec6892b3495c4ef429006",
+        "traceSha256": "1e415f5b67b8e56288cc120efde5bc284403c53e73aed6f50d16448010426846",
+        "inputSha256": "9304e2130cdcfbfd360830ac5c2ceaded056f3d0829ed7ca78947e8895345d59",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      },
+      {
+        "weapon": "longsword",
+        "frames": 960,
+        "twoHand": true,
+        "oneHandStance": false,
+        "max": {
+          "gripAnchorGapM": 2.4747678964844422e-05,
+          "swordAngularSpeedRadps": 14.09113427401914,
+          "swordUserTorqueMagnitudeNm": 38.09648969853537
+        },
+        "grippingFrames": 960,
+        "recoveringFrames": 0,
+        "startSha256": "b759fa461d772edaef43ffa8d35bea57f5b488889ed590a3b3d6e00eb396e88d",
+        "traceSha256": "b28d1fd4d4fb1d21d39a94baca9f0fecdc0a42ed380f3f90a16d4446b86627cd",
+        "inputSha256": "9304e2130cdcfbfd360830ac5c2ceaded056f3d0829ed7ca78947e8895345d59",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      },
+      {
+        "weapon": "zweihander",
+        "frames": 960,
+        "twoHand": true,
+        "oneHandStance": false,
+        "max": {
+          "gripAnchorGapM": 2.296053865825037e-05,
+          "swordAngularSpeedRadps": 8.644835988894139,
+          "swordUserTorqueMagnitudeNm": 75.37178106154369
+        },
+        "grippingFrames": 960,
+        "recoveringFrames": 0,
+        "startSha256": "9e8d4cd465737cd15f34226d636fd130132a0d076b558ad831942fa12a6f338a",
+        "traceSha256": "c686787086ca93205007a96b2d74309e8502eae748c2096c6a3b13515070cd08",
+        "inputSha256": "9304e2130cdcfbfd360830ac5c2ceaded056f3d0829ed7ca78947e8895345d59",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      },
+      {
+        "weapon": "estoc",
+        "frames": 960,
+        "twoHand": true,
+        "oneHandStance": false,
+        "max": {
+          "gripAnchorGapM": 2.347445864469754e-05,
+          "swordAngularSpeedRadps": 12.809313032904289,
+          "swordUserTorqueMagnitudeNm": 40.85291014303128
+        },
+        "grippingFrames": 960,
+        "recoveringFrames": 0,
+        "startSha256": "34c2b4739164a47a1fd21ea683ecd8f03f8ee3704ded3df4a1a6bef423c0d7f5",
+        "traceSha256": "7c54a5170738ba065da15e4ac89fbec26abe0026ee3592ff00784ee603d46650",
+        "inputSha256": "9304e2130cdcfbfd360830ac5c2ceaded056f3d0829ed7ca78947e8895345d59",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      }
+    ],
+    "after": [
+      {
+        "weapon": "sabre",
+        "frames": 960,
+        "twoHand": false,
+        "oneHandStance": true,
+        "max": {
+          "gripAnchorGapM": 2.7561917271221963e-05,
+          "swordAngularSpeedRadps": 18.754239468413825,
+          "swordUserTorqueMagnitudeNm": 15.181817541441957
+        },
+        "grippingFrames": 0,
+        "recoveringFrames": 0,
+        "startSha256": "1f4d713fef4f9b174e17206b0b0835952e38996370b26d8eb1ebbbdf99e088d4",
+        "traceSha256": "21bf6b44c0f245d156667c6366a2f2cddfe09739122ead1d332e5f7d6c514ce4",
+        "inputSha256": "9304e2130cdcfbfd360830ac5c2ceaded056f3d0829ed7ca78947e8895345d59",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      },
+      {
+        "weapon": "rapier",
+        "frames": 960,
+        "twoHand": false,
+        "oneHandStance": true,
+        "max": {
+          "gripAnchorGapM": 2.7438985560182995e-05,
+          "swordAngularSpeedRadps": 22.92947674716359,
+          "swordUserTorqueMagnitudeNm": 26.106164876489704
+        },
+        "grippingFrames": 0,
+        "recoveringFrames": 0,
+        "startSha256": "086ec1215aa5460f7efae6db353d360951979d6556d22aaa90df2bff4987d940",
+        "traceSha256": "6df0cf25d2a7a94558d1657015d3b22a7cf7b30db8f6d10fa19aa3cacc65f474",
+        "inputSha256": "9304e2130cdcfbfd360830ac5c2ceaded056f3d0829ed7ca78947e8895345d59",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      },
+      {
+        "weapon": "tree_branch",
+        "frames": 960,
+        "twoHand": false,
+        "oneHandStance": true,
+        "max": {
+          "gripAnchorGapM": 4.0606744699873094e-05,
+          "swordAngularSpeedRadps": 20.705929957335176,
+          "swordUserTorqueMagnitudeNm": 26.686889525845007
+        },
+        "grippingFrames": 0,
+        "recoveringFrames": 0,
+        "startSha256": "05e78c5e3d5464ae5779f1220d43dc614cec4ba2a219f222240facf933139eaa",
+        "traceSha256": "273ca06db41c42c682291a025a6bc38ec6cdf55a441cefbf5ed640c2ec47370d",
+        "inputSha256": "9304e2130cdcfbfd360830ac5c2ceaded056f3d0829ed7ca78947e8895345d59",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      },
+      {
+        "weapon": "falchion",
+        "frames": 960,
+        "twoHand": false,
+        "oneHandStance": true,
+        "max": {
+          "gripAnchorGapM": 2.640977540255742e-05,
+          "swordAngularSpeedRadps": 18.478444474020794,
+          "swordUserTorqueMagnitudeNm": 19.279633209324036
+        },
+        "grippingFrames": 0,
+        "recoveringFrames": 0,
+        "startSha256": "7f17969fafc4402aeb0c4b2ccd734174b508f06838611c1d84acb2a2faaddf7f",
+        "traceSha256": "08145ccc1c23b6d5481035fb70447fb7a527849df2b6e7c7b49c2178a478161b",
+        "inputSha256": "9304e2130cdcfbfd360830ac5c2ceaded056f3d0829ed7ca78947e8895345d59",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      },
+      {
+        "weapon": "qinggang",
+        "frames": 960,
+        "twoHand": false,
+        "oneHandStance": true,
+        "max": {
+          "gripAnchorGapM": 2.5868584572450132e-05,
+          "swordAngularSpeedRadps": 19.303183326610103,
+          "swordUserTorqueMagnitudeNm": 26.31035936861784
+        },
+        "grippingFrames": 0,
+        "recoveringFrames": 0,
+        "startSha256": "bd0eeed5879ef69ca1575957b668a3f1cc3390b102d5e4abfeaacf7e14dab772",
+        "traceSha256": "83a0d88c5300cb8c470ecbe9f96d859234914496c1a9e85b0e96a9476699023c",
+        "inputSha256": "9304e2130cdcfbfd360830ac5c2ceaded056f3d0829ed7ca78947e8895345d59",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      },
+      {
+        "weapon": "pistol",
+        "frames": 960,
+        "twoHand": false,
+        "oneHandStance": true,
+        "max": {
+          "gripAnchorGapM": 6.601243457518886e-06,
+          "swordAngularSpeedRadps": 3.749150898201376,
+          "swordUserTorqueMagnitudeNm": 1.5213483345422867
+        },
+        "grippingFrames": 0,
+        "recoveringFrames": 0,
+        "startSha256": "7efd055dbd46b8e6d440929dcace9753a089be818f952895c6151da26880e32f",
+        "traceSha256": "85936a7c8971df25d987a3e912e25690e83502e76a0df9fcaca64a7542bfcbcb",
+        "inputSha256": "e70b4e4164ec5408bd674c74e80baad750137011097b5362011e3eac28a93049",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      },
+      {
+        "weapon": "rubber_chicken",
+        "frames": 960,
+        "twoHand": false,
+        "oneHandStance": true,
+        "max": {
+          "gripAnchorGapM": 0.00013368037903088096,
+          "swordAngularSpeedRadps": 37.64413756764822,
+          "swordUserTorqueMagnitudeNm": 28.60065512985572
+        },
+        "grippingFrames": 0,
+        "recoveringFrames": 0,
+        "startSha256": "a0957759f17e81aff23c3a4ba4001f7e9c7c8cae4c1b5024fd225beb12779f96",
+        "traceSha256": "b61d7821c6f29fe17dcddaaa8a13663d9273f24c5345a64748ce81acd20a6b77",
+        "inputSha256": "9304e2130cdcfbfd360830ac5c2ceaded056f3d0829ed7ca78947e8895345d59",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      },
+      {
+        "weapon": "morgenstern",
+        "frames": 960,
+        "twoHand": false,
+        "oneHandStance": true,
+        "max": {
+          "gripAnchorGapM": 2.02081603908708e-05,
+          "swordAngularSpeedRadps": 6.205327010966309,
+          "swordUserTorqueMagnitudeNm": 20.846240026228752
+        },
+        "grippingFrames": 0,
+        "recoveringFrames": 0,
+        "startSha256": "e264757623dbd70ac83931078e79da65f043629a35c8223630ca5f95825a5637",
+        "traceSha256": "3c8960af1b2993f38c0b7ec8fcbbd59f9459bab1b253238709a21b3ba7dc9ca3",
+        "inputSha256": "9304e2130cdcfbfd360830ac5c2ceaded056f3d0829ed7ca78947e8895345d59",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      },
+      {
+        "weapon": "longsword",
+        "frames": 960,
+        "twoHand": true,
+        "oneHandStance": false,
+        "max": {
+          "gripAnchorGapM": 2.4747678964844422e-05,
+          "swordAngularSpeedRadps": 14.09113427401914,
+          "swordUserTorqueMagnitudeNm": 38.09648969853537
+        },
+        "grippingFrames": 960,
+        "recoveringFrames": 0,
+        "startSha256": "b759fa461d772edaef43ffa8d35bea57f5b488889ed590a3b3d6e00eb396e88d",
+        "traceSha256": "b28d1fd4d4fb1d21d39a94baca9f0fecdc0a42ed380f3f90a16d4446b86627cd",
+        "inputSha256": "9304e2130cdcfbfd360830ac5c2ceaded056f3d0829ed7ca78947e8895345d59",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      },
+      {
+        "weapon": "zweihander",
+        "frames": 960,
+        "twoHand": true,
+        "oneHandStance": false,
+        "max": {
+          "gripAnchorGapM": 2.296053865825037e-05,
+          "swordAngularSpeedRadps": 8.644835988894139,
+          "swordUserTorqueMagnitudeNm": 75.37178106154369
+        },
+        "grippingFrames": 960,
+        "recoveringFrames": 0,
+        "startSha256": "9e8d4cd465737cd15f34226d636fd130132a0d076b558ad831942fa12a6f338a",
+        "traceSha256": "c686787086ca93205007a96b2d74309e8502eae748c2096c6a3b13515070cd08",
+        "inputSha256": "9304e2130cdcfbfd360830ac5c2ceaded056f3d0829ed7ca78947e8895345d59",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      },
+      {
+        "weapon": "estoc",
+        "frames": 960,
+        "twoHand": true,
+        "oneHandStance": false,
+        "max": {
+          "gripAnchorGapM": 2.347445864469754e-05,
+          "swordAngularSpeedRadps": 12.809313032904289,
+          "swordUserTorqueMagnitudeNm": 40.85291014303128
+        },
+        "grippingFrames": 960,
+        "recoveringFrames": 0,
+        "startSha256": "34c2b4739164a47a1fd21ea683ecd8f03f8ee3704ded3df4a1a6bef423c0d7f5",
+        "traceSha256": "7c54a5170738ba065da15e4ac89fbec26abe0026ee3592ff00784ee603d46650",
+        "inputSha256": "9304e2130cdcfbfd360830ac5c2ceaded056f3d0829ed7ca78947e8895345d59",
+        "finite": true,
+        "gripJointStillExists": true,
+        "pass": true
+      }
+    ]
+  },
+  "pistolTapSmoke": {
+    "method": "Actual Skill.thrust six taps at1.2s intervals, native physics/combat gun; passive opponent, seed5,B/paired/legacy,7.5simseconds",
+    "taps": 6,
+    "shots": [
+      {
+        "timeS": 0.508333333333334,
+        "shots": 1,
+        "ammo": 5
+      },
+      {
+        "timeS": 1.716666666666663,
+        "shots": 2,
+        "ammo": 4
+      },
+      {
+        "timeS": 2.916666666666659,
+        "shots": 3,
+        "ammo": 3
+      },
+      {
+        "timeS": 4.116666666666661,
+        "shots": 4,
+        "ammo": 2
+      },
+      {
+        "timeS": 5.308333333333387,
+        "shots": 5,
+        "ammo": 1
+      },
+      {
+        "timeS": 6.5083333333334465,
+        "shots": 6,
+        "ammo": 0
+      }
+    ],
+    "finalGun": {
+      "cool": 8.008333281613886,
+      "pending": -1,
+      "shots": 6,
+      "hits": 0,
+      "ammo": 0,
+      "reloading": true,
+      "since": 0.9916667183861136,
+      "seed": 1476631044,
+      "sseed": 2008222099,
+      "hseed": 1970609602,
+      "hA": 0.3817995910067111,
+      "hB": 0.31617201468907297,
+      "hT": 1.1959155874699348,
+      "hH": 1.257171034105122,
+      "h": 0.3166242524428237,
+      "t": 7.500000391155481,
+      "rsA": {
+        "yaw": 4.823788292706013,
+        "pitch": -1.431403795722872
+      },
+      "rsB": {
+        "yaw": -1.6499704285524786,
+        "pitch": -4.666906585916877
+      },
+      "rsT": 0.14556560578756028,
+      "rsH": 0.4383272318076343,
+      "rs": {
+        "yaw": 3.1560986373404547,
+        "pitch": -2.2648940083553257
+      },
+      "aim": 0,
+      "what": {
+        "air": 4,
+        "world": 2
+      }
+    },
+    "finite": true,
+    "pass": true
+  },
+  "liveDuels": {
+    "protocol": "Actual AI both fighters, walls, seed7,B paired legacy,20s each. Finite is not physical acceptance; geometry peaks are recorded separately.",
+    "rows": [
+      {
+        "weapon": "sabre",
+        "opponent": "longsword",
+        "seconds": 20,
+        "frames": 2400,
+        "clashes": 44,
+        "wounds": 20,
+        "maxPelvisHeightM": 1.00665283203125,
+        "maxJointAnchorGapM": 0.0025247685978130895,
+        "downEntries": 0,
+        "finite": true,
+        "finalStates": [
+          "stand",
+          "dead"
+        ]
+      },
+      {
+        "weapon": "rapier",
+        "opponent": "longsword",
+        "seconds": 20,
+        "frames": 2400,
+        "clashes": 99,
+        "wounds": 19,
+        "maxPelvisHeightM": 0.9871535301208496,
+        "maxJointAnchorGapM": 0.002999336261781572,
+        "downEntries": 0,
+        "finite": true,
+        "finalStates": [
+          "stand",
+          "stand"
+        ]
+      }
+    ]
+  },
+  "localMobile": {
+    "before": {
+      "base": "http://127.0.0.1:4175/",
+      "tag": "baseline",
+      "method": "Actual mobile landscape Start, stationary weapon-screen side drag to hand-map x≈.52 y≈.03 hold/release/retouch; AI update disabled only. Each hold/release/retouch settles for .4 live simulation seconds using normal RAF; no naturalness/performance acceptance.",
+      "rows": [
+        {
+          "weapon": "sabre",
+          "asset": "./assets/main-BMXD7OHg.js",
+          "hold": {
+            "simTime": 1.716666666666663,
+            "state": "stand",
+            "weapon": "sabre",
+            "twoHand": false,
+            "held": true,
+            "handOffset": {
+              "x": 0.52,
+              "y": 0.030000000000000002
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "guardName": "옆 자세칼을 옆으로 눕혀 뒤로 뺀 자세 · 가로베기 준비",
+            "bladeAxisWorld": [
+              -0.39293683794361556,
+              -0.015138994958135754,
+              0.919440926479119
+            ],
+            "swordPosition": {
+              "x": -2.7808334827423096,
+              "y": 1.3567379713058472,
+              "z": 0.42125844955444336
+            },
+            "swordAngularVelocity": {
+              "x": 4.358578205108643,
+              "y": 0.974820077419281,
+              "z": -11.54637336730957
+            },
+            "finite": true
+          },
+          "release": {
+            "simTime": 2.366666666666661,
+            "state": "stand",
+            "weapon": "sabre",
+            "twoHand": false,
+            "held": false,
+            "handOffset": {
+              "x": 0.18,
+              "y": -0.28
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "guardName": "쟁기 (Pflug)칼자루는 허리, 칼끝은 상대 얼굴 · 기본 자세",
+            "bladeAxisWorld": [
+              0.210965428016614,
+              -0.17464344441219737,
+              0.9617656165880462
+            ],
+            "swordPosition": {
+              "x": -2.4562277793884277,
+              "y": 1.0002012252807617,
+              "z": 0.24764403700828552
+            },
+            "swordAngularVelocity": {
+              "x": 0.4816156327724457,
+              "y": 11.865351676940918,
+              "z": 0.9039030075073242
+            },
+            "finite": true
+          },
+          "retouch": {
+            "simTime": 3.1166666666666583,
+            "state": "stand",
+            "weapon": "sabre",
+            "twoHand": false,
+            "held": true,
+            "handOffset": {
+              "x": 0.18,
+              "y": -0.28
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "guardName": "쟁기 (Pflug)칼자루는 허리, 칼끝은 상대 얼굴 · 기본 자세",
+            "bladeAxisWorld": [
+              0.8795458636064643,
+              0.44807322053422016,
+              -0.16009228510409956
+            ],
+            "swordPosition": {
+              "x": -2.316978693008423,
+              "y": 1.008575201034546,
+              "z": 0.11545784771442413
+            },
+            "swordAngularVelocity": {
+              "x": 0.5547970533370972,
+              "y": 1.3461942672729492,
+              "z": -0.3613934814929962
+            },
+            "finite": true
+          },
+          "pass": true
+        },
+        {
+          "weapon": "rapier",
+          "asset": "./assets/main-BMXD7OHg.js",
+          "hold": {
+            "simTime": 1.7499999999999962,
+            "state": "stand",
+            "weapon": "rapier",
+            "twoHand": false,
+            "held": true,
+            "handOffset": {
+              "x": 0.52,
+              "y": 0.030000000000000002
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "guardName": "옆 자세칼을 옆으로 눕혀 뒤로 뺀 자세 · 가로베기 준비",
+            "bladeAxisWorld": [
+              -0.3328811656232844,
+              0.07091725601156718,
+              0.9402981660068193
+            ],
+            "swordPosition": {
+              "x": -2.6755855083465576,
+              "y": 1.3258426189422607,
+              "z": 0.25905489921569824
+            },
+            "swordAngularVelocity": {
+              "x": 0.6510152220726013,
+              "y": 0.0067785996943712234,
+              "z": -0.1482439786195755
+            },
+            "finite": true
+          },
+          "release": {
+            "simTime": 2.4583333333333273,
+            "state": "stand",
+            "weapon": "rapier",
+            "twoHand": false,
+            "held": false,
+            "handOffset": {
+              "x": 0.18,
+              "y": -0.28
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "guardName": "쟁기 (Pflug)칼자루는 허리, 칼끝은 상대 얼굴 · 기본 자세",
+            "bladeAxisWorld": [
+              0.44166891490147897,
+              0.23088941791881723,
+              0.8669593473596517
+            ],
+            "swordPosition": {
+              "x": -2.4719316959381104,
+              "y": 1.002299427986145,
+              "z": 0.2646510601043701
+            },
+            "swordAngularVelocity": {
+              "x": -2.151501178741455,
+              "y": 14.124231338500977,
+              "z": -1.1671520471572876
+            },
+            "finite": true
+          },
+          "retouch": {
+            "simTime": 3.0999999999999917,
+            "state": "stand",
+            "weapon": "rapier",
+            "twoHand": false,
+            "held": true,
+            "handOffset": {
+              "x": 0.18,
+              "y": -0.28
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "guardName": "쟁기 (Pflug)칼자루는 허리, 칼끝은 상대 얼굴 · 기본 자세",
+            "bladeAxisWorld": [
+              0.8891207175010345,
+              0.44915132575172123,
+              -0.08790658650009187
+            ],
+            "swordPosition": {
+              "x": -2.319615602493286,
+              "y": 1.0134631395339966,
+              "z": 0.12317820638418198
+            },
+            "swordAngularVelocity": {
+              "x": 1.025086760520935,
+              "y": 3.8154656887054443,
+              "z": -0.6353927254676819
+            },
+            "finite": true
+          },
+          "pass": true
+        },
+        {
+          "weapon": "tree_branch",
+          "asset": "./assets/main-BMXD7OHg.js",
+          "hold": {
+            "simTime": 1.716666666666663,
+            "state": "stand",
+            "weapon": "tree_branch",
+            "twoHand": false,
+            "held": true,
+            "handOffset": {
+              "x": 0.52,
+              "y": 0.030000000000000002
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "guardName": "옆 자세칼을 옆으로 눕혀 뒤로 뺀 자세 · 가로베기 준비",
+            "bladeAxisWorld": [
+              -0.3650656275885993,
+              0.04866915518626769,
+              0.929708716534158
+            ],
+            "swordPosition": {
+              "x": -2.677353620529175,
+              "y": 1.3127752542495728,
+              "z": 0.21890413761138916
+            },
+            "swordAngularVelocity": {
+              "x": -0.6420727968215942,
+              "y": 0.19040530920028687,
+              "z": 0.9179840683937073
+            },
+            "finite": true
+          },
+          "release": {
+            "simTime": 2.4333333333333274,
+            "state": "stand",
+            "weapon": "tree_branch",
+            "twoHand": false,
+            "held": false,
+            "handOffset": {
+              "x": 0.18,
+              "y": -0.28
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "guardName": "쟁기 (Pflug)칼자루는 허리, 칼끝은 상대 얼굴 · 기본 자세",
+            "bladeAxisWorld": [
+              0.488319762418985,
+              0.056052391529254564,
+              0.8708628294736032
+            ],
+            "swordPosition": {
+              "x": -2.4670605659484863,
+              "y": 1.0099142789840698,
+              "z": 0.2287978231906891
+            },
+            "swordAngularVelocity": {
+              "x": -3.4547934532165527,
+              "y": 14.728710174560547,
+              "z": -3.6245689392089844
+            },
+            "finite": true
+          },
+          "retouch": {
+            "simTime": 3.0666666666666584,
+            "state": "stand",
+            "weapon": "tree_branch",
+            "twoHand": false,
+            "held": true,
+            "handOffset": {
+              "x": 0.18,
+              "y": -0.28
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "guardName": "쟁기 (Pflug)칼자루는 허리, 칼끝은 상대 얼굴 · 기본 자세",
+            "bladeAxisWorld": [
+              0.8848380967590647,
+              0.44643877444201974,
+              -0.1332446395449587
+            ],
+            "swordPosition": {
+              "x": -2.3608784675598145,
+              "y": 0.9921391606330872,
+              "z": 0.07941150665283203
+            },
+            "swordAngularVelocity": {
+              "x": -0.8764904737472534,
+              "y": -3.0992326736450195,
+              "z": 0.1266760677099228
+            },
+            "finite": true
+          },
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    "after": {
+      "base": "http://127.0.0.1:4175/",
+      "tag": "after",
+      "method": "Actual mobile landscape Start, stationary weapon-screen side drag to hand-map x≈.52 y≈.03 hold/release/retouch; AI update disabled only. Each hold/release/retouch settles for .4 live simulation seconds using normal RAF; no naturalness/performance acceptance.",
+      "rows": [
+        {
+          "weapon": "sabre",
+          "asset": "./assets/main-jgiZXzuB.js",
+          "hold": {
+            "simTime": 1.6666666666666632,
+            "state": "stand",
+            "weapon": "sabre",
+            "twoHand": false,
+            "held": true,
+            "handOffset": {
+              "x": 0.52,
+              "y": 0.030000000000000002
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "guardName": "옆 자세칼을 옆으로 눕혀 뒤로 뺀 자세 · 가로베기 준비",
+            "guardOneHand": true,
+            "supportModel": "legacy",
+            "guardTable": {
+              "count": 14,
+              "side": {
+                "name": "옆 자세",
+                "desc": "칼을 옆으로 눕혀 뒤로 뺀 자세 · 가로베기 준비",
+                "pad": [
+                  0.52,
+                  0.03
+                ],
+                "hand": [
+                  0.14,
+                  0.24,
+                  0.3
+                ],
+                "blade": [
+                  30,
+                  150
+                ],
+                "pelvisYaw": 0.17453292519943295,
+                "chestYaw": 0.08726646259971647,
+                "pitch": 0.03490658503988659,
+                "drop": 0.06,
+                "dir": [
+                  -0.7500000000000001,
+                  0.49999999999999994,
+                  0.4330127018922193
+                ],
+                "low": false
+              },
+              "selected": "SABRE"
+            },
+            "bladeAxisWorld": [
+              -0.820827446213011,
+              0.3874717419800504,
+              0.4196524225879745
+            ],
+            "swordPosition": {
+              "x": -2.909684658050537,
+              "y": 1.467960238456726,
+              "z": 0.44232526421546936
+            },
+            "swordAngularVelocity": {
+              "x": -3.456662178039551,
+              "y": 1.7371848821640015,
+              "z": 3.477315902709961
+            },
+            "finite": true
+          },
+          "release": {
+            "simTime": 2.391666666666661,
+            "state": "stand",
+            "weapon": "sabre",
+            "twoHand": false,
+            "held": false,
+            "handOffset": {
+              "x": 0.18,
+              "y": -0.28
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "guardName": "쟁기 (Pflug)칼자루는 허리, 칼끝은 상대 얼굴 · 기본 자세",
+            "guardOneHand": true,
+            "supportModel": "legacy",
+            "guardTable": {
+              "count": 14,
+              "side": {
+                "name": "옆 자세",
+                "desc": "칼을 옆으로 눕혀 뒤로 뺀 자세 · 가로베기 준비",
+                "pad": [
+                  0.52,
+                  0.03
+                ],
+                "hand": [
+                  0.14,
+                  0.24,
+                  0.3
+                ],
+                "blade": [
+                  30,
+                  150
+                ],
+                "pelvisYaw": 0.17453292519943295,
+                "chestYaw": 0.08726646259971647,
+                "pitch": 0.03490658503988659,
+                "drop": 0.06,
+                "dir": [
+                  -0.7500000000000001,
+                  0.49999999999999994,
+                  0.4330127018922193
+                ],
+                "low": false
+              },
+              "selected": "SABRE"
+            },
+            "bladeAxisWorld": [
+              -0.13761064405150858,
+              0.6091271936096118,
+              0.7810424452323308
+            ],
+            "swordPosition": {
+              "x": -2.4490256309509277,
+              "y": 1.0555185079574585,
+              "z": 0.2763533592224121
+            },
+            "swordAngularVelocity": {
+              "x": -0.2590794861316681,
+              "y": 10.610840797424316,
+              "z": -6.210594177246094
+            },
+            "finite": true
+          },
+          "retouch": {
+            "simTime": 3.0416666666666585,
+            "state": "stand",
+            "weapon": "sabre",
+            "twoHand": false,
+            "held": true,
+            "handOffset": {
+              "x": 0.18,
+              "y": -0.28
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "guardName": "쟁기 (Pflug)칼자루는 허리, 칼끝은 상대 얼굴 · 기본 자세",
+            "guardOneHand": true,
+            "supportModel": "legacy",
+            "guardTable": {
+              "count": 14,
+              "side": {
+                "name": "옆 자세",
+                "desc": "칼을 옆으로 눕혀 뒤로 뺀 자세 · 가로베기 준비",
+                "pad": [
+                  0.52,
+                  0.03
+                ],
+                "hand": [
+                  0.14,
+                  0.24,
+                  0.3
+                ],
+                "blade": [
+                  30,
+                  150
+                ],
+                "pelvisYaw": 0.17453292519943295,
+                "chestYaw": 0.08726646259971647,
+                "pitch": 0.03490658503988659,
+                "drop": 0.06,
+                "dir": [
+                  -0.7500000000000001,
+                  0.49999999999999994,
+                  0.4330127018922193
+                ],
+                "low": false
+              },
+              "selected": "SABRE"
+            },
+            "bladeAxisWorld": [
+              0.895245290934846,
+              0.42053290064574034,
+              -0.14726786352007037
+            ],
+            "swordPosition": {
+              "x": -2.2847084999084473,
+              "y": 1.05414617061615,
+              "z": 0.20710746943950653
+            },
+            "swordAngularVelocity": {
+              "x": -3.1088380813598633,
+              "y": -0.5190632343292236,
+              "z": 0.15691246092319489
+            },
+            "finite": true
+          },
+          "pass": true
+        },
+        {
+          "weapon": "rapier",
+          "asset": "./assets/main-jgiZXzuB.js",
+          "hold": {
+            "simTime": 1.6999999999999964,
+            "state": "stand",
+            "weapon": "rapier",
+            "twoHand": false,
+            "held": true,
+            "handOffset": {
+              "x": 0.52,
+              "y": 0.030000000000000002
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "guardName": "옆 자세칼을 옆으로 눕혀 뒤로 뺀 자세 · 가로베기 준비",
+            "guardOneHand": true,
+            "supportModel": "legacy",
+            "guardTable": {
+              "count": 14,
+              "side": {
+                "name": "옆 자세",
+                "desc": "칼을 옆으로 눕혀 뒤로 뺀 자세 · 가로베기 준비",
+                "pad": [
+                  0.52,
+                  0.03
+                ],
+                "hand": [
+                  0.36,
+                  -0.04,
+                  0.26
+                ],
+                "blade": [
+                  2,
+                  -16
+                ],
+                "pelvisYaw": -0.3490658503988659,
+                "chestYaw": -0.6108652381980153,
+                "pitch": 0.06981317007977318,
+                "drop": 0.06,
+                "dir": [
+                  0.9606761212855751,
+                  0.03489949670250097,
+                  -0.2754694449873076
+                ],
+                "low": false
+              },
+              "selected": "THRUST"
+            },
+            "bladeAxisWorld": [
+              0.938071563297961,
+              -0.035198593441039705,
+              -0.34464897163041286
+            ],
+            "swordPosition": {
+              "x": -2.4780540466308594,
+              "y": 1.1880571842193604,
+              "z": 0.2145594358444214
+            },
+            "swordAngularVelocity": {
+              "x": 0.21874521672725677,
+              "y": 2.9644076824188232,
+              "z": -2.2485806941986084
+            },
+            "finite": true
+          },
+          "release": {
+            "simTime": 2.3749999999999942,
+            "state": "stand",
+            "weapon": "rapier",
+            "twoHand": false,
+            "held": false,
+            "handOffset": {
+              "x": 0.18,
+              "y": -0.28
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "guardName": "쟁기 (Pflug)칼자루는 허리, 칼끝은 상대 얼굴 · 기본 자세",
+            "guardOneHand": true,
+            "supportModel": "legacy",
+            "guardTable": {
+              "count": 14,
+              "side": {
+                "name": "옆 자세",
+                "desc": "칼을 옆으로 눕혀 뒤로 뺀 자세 · 가로베기 준비",
+                "pad": [
+                  0.52,
+                  0.03
+                ],
+                "hand": [
+                  0.36,
+                  -0.04,
+                  0.26
+                ],
+                "blade": [
+                  2,
+                  -16
+                ],
+                "pelvisYaw": -0.3490658503988659,
+                "chestYaw": -0.6108652381980153,
+                "pitch": 0.06981317007977318,
+                "drop": 0.06,
+                "dir": [
+                  0.9606761212855751,
+                  0.03489949670250097,
+                  -0.2754694449873076
+                ],
+                "low": false
+              },
+              "selected": "THRUST"
+            },
+            "bladeAxisWorld": [
+              0.8868996699522791,
+              0.4097758003930121,
+              -0.21329035734537705
+            ],
+            "swordPosition": {
+              "x": -2.4308953285217285,
+              "y": 0.9961241483688354,
+              "z": 0.12580882012844086
+            },
+            "swordAngularVelocity": {
+              "x": 0.10218783468008041,
+              "y": -3.9968478679656982,
+              "z": 1.672260046005249
+            },
+            "finite": true
+          },
+          "retouch": {
+            "simTime": 3.0416666666666585,
+            "state": "stand",
+            "weapon": "rapier",
+            "twoHand": false,
+            "held": true,
+            "handOffset": {
+              "x": 0.18,
+              "y": -0.28
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "guardName": "쟁기 (Pflug)칼자루는 허리, 칼끝은 상대 얼굴 · 기본 자세",
+            "guardOneHand": true,
+            "supportModel": "legacy",
+            "guardTable": {
+              "count": 14,
+              "side": {
+                "name": "옆 자세",
+                "desc": "칼을 옆으로 눕혀 뒤로 뺀 자세 · 가로베기 준비",
+                "pad": [
+                  0.52,
+                  0.03
+                ],
+                "hand": [
+                  0.36,
+                  -0.04,
+                  0.26
+                ],
+                "blade": [
+                  2,
+                  -16
+                ],
+                "pelvisYaw": -0.3490658503988659,
+                "chestYaw": -0.6108652381980153,
+                "pitch": 0.06981317007977318,
+                "drop": 0.06,
+                "dir": [
+                  0.9606761212855751,
+                  0.03489949670250097,
+                  -0.2754694449873076
+                ],
+                "low": false
+              },
+              "selected": "THRUST"
+            },
+            "bladeAxisWorld": [
+              0.8792277229937291,
+              0.4535317675075059,
+              -0.14583413985062776
+            ],
+            "swordPosition": {
+              "x": -2.3276405334472656,
+              "y": 0.9862668514251709,
+              "z": 0.07757905125617981
+            },
+            "swordAngularVelocity": {
+              "x": 1.250307321548462,
+              "y": -2.547072410583496,
+              "z": -0.09914782643318176
+            },
+            "finite": true
+          },
+          "pass": true
+        },
+        {
+          "weapon": "tree_branch",
+          "asset": "./assets/main-jgiZXzuB.js",
+          "hold": {
+            "simTime": 1.7333333333333296,
+            "state": "stand",
+            "weapon": "tree_branch",
+            "twoHand": false,
+            "held": true,
+            "handOffset": {
+              "x": 0.52,
+              "y": 0.030000000000000002
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "guardName": "옆 자세칼을 옆으로 눕혀 뒤로 뺀 자세 · 가로베기 준비",
+            "guardOneHand": true,
+            "supportModel": "legacy",
+            "guardTable": {
+              "count": 14,
+              "side": {
+                "name": "옆 자세",
+                "desc": "칼을 옆으로 눕혀 뒤로 뺀 자세 · 가로베기 준비",
+                "pad": [
+                  0.52,
+                  0.03
+                ],
+                "hand": [
+                  0.14,
+                  0.24,
+                  0.3
+                ],
+                "blade": [
+                  30,
+                  150
+                ],
+                "pelvisYaw": 0.17453292519943295,
+                "chestYaw": 0.08726646259971647,
+                "pitch": 0.03490658503988659,
+                "drop": 0.06,
+                "dir": [
+                  -0.7500000000000001,
+                  0.49999999999999994,
+                  0.4330127018922193
+                ],
+                "low": false
+              },
+              "selected": "SABRE"
+            },
+            "bladeAxisWorld": [
+              -0.78538670772096,
+              0.42454637011785223,
+              0.4504753796411194
+            ],
+            "swordPosition": {
+              "x": -2.6598312854766846,
+              "y": 1.452895998954773,
+              "z": 0.30966734886169434
+            },
+            "swordAngularVelocity": {
+              "x": 1.0318950414657593,
+              "y": -1.5398564338684082,
+              "z": -1.9749902486801147
+            },
+            "finite": true
+          },
+          "release": {
+            "simTime": 2.449999999999994,
+            "state": "stand",
+            "weapon": "tree_branch",
+            "twoHand": false,
+            "held": false,
+            "handOffset": {
+              "x": 0.18,
+              "y": -0.28
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "guardName": "쟁기 (Pflug)칼자루는 허리, 칼끝은 상대 얼굴 · 기본 자세",
+            "guardOneHand": true,
+            "supportModel": "legacy",
+            "guardTable": {
+              "count": 14,
+              "side": {
+                "name": "옆 자세",
+                "desc": "칼을 옆으로 눕혀 뒤로 뺀 자세 · 가로베기 준비",
+                "pad": [
+                  0.52,
+                  0.03
+                ],
+                "hand": [
+                  0.14,
+                  0.24,
+                  0.3
+                ],
+                "blade": [
+                  30,
+                  150
+                ],
+                "pelvisYaw": 0.17453292519943295,
+                "chestYaw": 0.08726646259971647,
+                "pitch": 0.03490658503988659,
+                "drop": 0.06,
+                "dir": [
+                  -0.7500000000000001,
+                  0.49999999999999994,
+                  0.4330127018922193
+                ],
+                "low": false
+              },
+              "selected": "SABRE"
+            },
+            "bladeAxisWorld": [
+              0.5456783590686669,
+              0.3390756892947149,
+              0.7663307070074366
+            ],
+            "swordPosition": {
+              "x": -2.4459753036499023,
+              "y": 1.0686274766921997,
+              "z": 0.2520080804824829
+            },
+            "swordAngularVelocity": {
+              "x": -3.5189313888549805,
+              "y": 10.271093368530273,
+              "z": -21.125822067260742
+            },
+            "finite": true
+          },
+          "retouch": {
+            "simTime": 3.141666666666658,
+            "state": "stand",
+            "weapon": "tree_branch",
+            "twoHand": false,
+            "held": true,
+            "handOffset": {
+              "x": 0.18,
+              "y": -0.28
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "guardName": "쟁기 (Pflug)칼자루는 허리, 칼끝은 상대 얼굴 · 기본 자세",
+            "guardOneHand": true,
+            "supportModel": "legacy",
+            "guardTable": {
+              "count": 14,
+              "side": {
+                "name": "옆 자세",
+                "desc": "칼을 옆으로 눕혀 뒤로 뺀 자세 · 가로베기 준비",
+                "pad": [
+                  0.52,
+                  0.03
+                ],
+                "hand": [
+                  0.14,
+                  0.24,
+                  0.3
+                ],
+                "blade": [
+                  30,
+                  150
+                ],
+                "pelvisYaw": 0.17453292519943295,
+                "chestYaw": 0.08726646259971647,
+                "pitch": 0.03490658503988659,
+                "drop": 0.06,
+                "dir": [
+                  -0.7500000000000001,
+                  0.49999999999999994,
+                  0.4330127018922193
+                ],
+                "low": false
+              },
+              "selected": "SABRE"
+            },
+            "bladeAxisWorld": [
+              0.8791545889137318,
+              0.45098456237659945,
+              -0.15394846383495153
+            ],
+            "swordPosition": {
+              "x": -2.379631519317627,
+              "y": 0.9892221689224243,
+              "z": 0.061793651431798935
+            },
+            "swordAngularVelocity": {
+              "x": -3.4855945110321045,
+              "y": 1.519658088684082,
+              "z": 0.6270356774330139
+            },
+            "finite": true
+          },
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "pass": true
+    }
+  },
+  "rawArtifactsSha256": {
+    "onehand-before.json": "847b22dee8970ee4a695dfdb95163df93783747a6c1e4c057d7ece99d9a2b33e",
+    "onehand-physics-after.json": "e365f726932b7ca4ef2bae658ac86085b5a4436e33474ce943da9568e92e22ff",
+    "onehand-browser-baseline.json": "2ba15dd7e757a2361a71a7b7f2bca71b9f57639e3d8a8355d43d75589d560072",
+    "onehand-browser-after.json": "bbc0a9b803618c6fe6915921583940ed22cbbe2b9a2572a4954de2b6af74c0e1",
+    "onehand-pistol-taps.json": "00a53a431a75049a81d4a904ce92ff17b4d05f89231c73dbd217084900c99d3d",
+    "onehand-live-duels.json": "c3d564eb0acd29edb42a863fe90332f07e9e41442099b1ead43b9885cc85758e"
+  },
+  "limits": [
+    "Healthy stationary input probe; user symptom not proved reproduced.",
+    "Touch release is not physical weapon dropping.",
+    "Gun firing confirmed, aiming accuracy not accepted.",
+    "Two live AI duels had no down entries; not heavy-down coverage.",
+    "Browser rendering and finite state do not prove naturalness."
+  ]
+}

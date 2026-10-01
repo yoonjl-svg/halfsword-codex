@@ -14,7 +14,8 @@ import { BODY, WEAPON, VITALS, BALANCE, SKILL_BODY, GRIP, STEEL, RECOIL, GAIT, A
 import { COMBAT_HOOKS } from './combat.js';
 import { Skill } from './skill.js';
 import { Gait, hybridJointDefs } from './gait.js';
-import { guardAt } from './guards.js';
+import { guardAt, guardBaseOne } from './guards.js';
+import { classifyStyle } from './weapon_class.js';
 import { newFinish, updateFinish, FINISH } from './finish.js';
 import { getWeapon, MATERIALS, weaponMatOpts, DEFAULT_WEAPON, BREAK } from './weapons.js';
 import { breakWeaponLook } from './weapon_looks.js';
@@ -414,6 +415,10 @@ export class Fighter {
     };
     this.weaponBroken = false;
     this.guardPose.oneHand = this.bodyGuard.oneHand = !!spec.oneHandStance; // 한손 무기는 한손 자세표 (guards.js: 칼 든 어깨를 앞으로, 손을 더 뻗는다. weapons.js oneHandStance)
+    // 우화 f53b330/9763484의 한손 자세표와 선택 규칙을 이식한다.
+    // 찌르기/두루 무기는 THRUST, 베기/둔기 등은 SABRE 표. 두손의 기존 표는 유지한다.
+    const gStyle = classifyStyle(spec);
+    this.guardPose.table = this.bodyGuard.table = spec.oneHandStance ? guardBaseOne(gStyle) : undefined;
     // 파손 굴림용 전용 난수 (Math.random 과 분리: 부러지지 않는 한 기존 시뮬의 난수 순서가 바뀌지 않는다).
     //  씨앗은 판 시드(o.breakSeed, 시뮬 하니스가 넘긴다) — 몇 번째로 돌리든 같은 시드면 같은 굴림이 나온다.
     //  시드가 없으면(실제 게임) "이 프로세스에서 몇 번째로 만들어진 파이터인가"로 — 판마다 다른 굴림.
