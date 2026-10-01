@@ -1,0 +1,21 @@
+import * as CONFIG from '/home/user/hs-gun/src/config.js';
+CONFIG.BODY.weightMode = 'hybrid';
+const { newRound, DT, THREE } = await import('/home/user/hs-gun/tools/sim/harness_m.mjs');
+const V = (v) => new THREE.Vector3(v.x, v.y, v.z);
+const Qr = (r) => new THREE.Quaternion(r.x, r.y, r.z, r.w);
+const G = newRound({ walls: true, seed: 7, weapon: 'pistol', weapon2: 'longsword' });
+G.ai.update = () => {};
+const f = G.player;
+f.weaponCfg.aimDamping = Number(process.env.AIMD ?? 0.25);
+let t = 0;
+while (t < 3) { G.step(); t += DT; }
+const c = V(f.bodies.chest.translation());
+const yi = f.yaw.clone().invert();
+const L = (p) => p.clone().sub(c).applyQuaternion(yi).toArray().map((x) => +x.toFixed(3));
+const r = Qr(f.sword.rotation());
+const muz = new THREE.Vector3(f.weapon.muzzleX, f.weaponCfg.hiltLength + f.weaponCfg.bladeLength, 0).applyQuaternion(r).add(V(f.sword.translation()));
+console.log('foe chest', L(V(f.foe.bodies.chest.translation())), 'dist', f.foeDistance().toFixed(2));
+console.log('pose hand', f.skill.thrustPose.hand.map((x) => +x.toFixed(3)), 'dir', f.skill.thrustPose.dir.map((x) => +x.toFixed(3)));
+console.log('handTarget', L(f.handTarget), 'sword origin', L(V(f.sword.translation())), 'muzzle', L(muz));
+console.log('shoulder(uarmS joint approx: uarmS body)', L(V(f.bodies.uarmS.translation())), 'chestYaw applied', (f.bodyPose.chestYaw * 180 / Math.PI).toFixed(1));
+console.log('closeReach', f.closeReach().toFixed(3));

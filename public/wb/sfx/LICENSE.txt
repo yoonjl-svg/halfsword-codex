@@ -1,0 +1,134 @@
+Sound effects in this folder come from Kenney (www.kenney.nl), released under
+Creative Commons Zero (CC0): http://creativecommons.org/publicdomain/zero/1.0/
+They were trimmed, high-passed, peak-normalized and converted to mono MP3.
+
+  punch1-5.mp3  <- "Impact Sounds" (1.0): impactPunch_heavy_000-004.ogg
+  crack1.mp3    <- "RPG Audio": chop.ogg        (used as a bone-crack layer)
+  slide1-2.mp3  <- "RPG Audio": knifeSlice.ogg, knifeSlice2.ogg (blade glance layer)
+
+Thank you, Kenney!
+
+-------------------------------------------------------------------------------
+voice/  — death vocals and short hurt grunts, one small set per character (trimmed, high-passed at
+70 Hz, peak-normalized to -1 dBFS, converted to mono MP3). Sources and licences:
+
+  CC0 (public domain) — HaelDB, "Male Grunt/Yelling sounds"
+    https://opengameart.org/content/male-gruntyelling-sounds
+      player_ko1.mp3      <- 3grunt3.wav       player_ko2.mp3   <- 3grunt5.wav
+      player_bleed1.mp3   <- 3yell10.wav       player_bleed2.mp3 <- 3yell13.wav
+      generic_ko1.mp3     <- yell12.wav        generic_ko2.mp3  <- yell13.wav
+      generic_bleed1.mp3  <- yell3.wav
+      heinrich_ko1.mp3    <- 2yell1.wav        heinrich_ko2.mp3 <- 2yell10.wav
+      heinrich_bleed1.mp3 <- 2yell6.wav
+      liao_ko1.mp3        <- 2yell11.wav (0.33-0.78 s, -4.3 dB)
+      liao_bleed1.mp3     <- 2yell3.wav        liao_bleed2.mp3  <- 2yell9.wav
+      generic_bleed2.mp3  <- yell8.wav         heinrich_bleed2.mp3 <- 2yell8.wav
+    short hurt grunts (<name>_hurt<n>.mp3, cut to 0.6 s at most):
+      player_hurt1.mp3    <- 3grunt1.wav       player_hurt2.mp3   <- 3grunt4.wav
+      generic_hurt1.mp3   <- yell7.wav         generic_hurt2.mp3  <- yell9.wav
+      heinrich_hurt1.mp3  <- 2yell7.wav        heinrich_hurt2.mp3 <- 2yell2.wav
+      liao_hurt1.mp3      <- 2yell4.wav (0.6-1.02 s)   liao_hurt2.mp3 <- 2yell5.wav (0.2-0.72 s)
+    (the pack page lists both OGA-BY 3.0 and CC0; we use it under CC0)
+
+  CC-BY 3.0 — Michel Baradari, "11 male human pain/death sounds"
+    https://opengameart.org/content/11-male-human-paindeath-sounds
+    http://creativecommons.org/licenses/by/3.0/
+      bran_ko1.mp3 <- die1.wav   bran_ko2.mp3 <- deathh.wav   bran_bleed1.mp3 <- die2.wav
+      bran_hurt1.mp3 <- pain1.wav   bran_hurt2.mp3 <- pain3.wav
+
+  CC0 (public domain) — Freesound (https://freesound.org), preview MP3s, cut, high-passed
+  at 70 Hz, peak-normalized to -1 dBFS, not pitch-shifted:
+      bran_bleed2.mp3       <- kanyonwyvern, "Male Groan in Exhaustion"
+                               https://freesound.org/people/kanyonwyvern/sounds/736662/
+                               (level lowered ~5 dB to match the file it replaced)
+      margarethe_ko1.mp3    <- hisoul, "Zisa, Relief, Moan, Tired, Exhale_2.wav"
+      margarethe_bleed1.mp3    (the same clip in both files)
+                               https://freesound.org/people/hisoul/sounds/520276/
+      margarethe_hurt1.mp3  <- hisoul, "Zisa, Pain, Shout Short, Impact_6.wav"
+                               https://freesound.org/people/hisoul/sounds/520275/
+      isolde_ko1.mp3        <- mvVoiceActing, "girl damage" (3.3-4.4 s)
+                               https://freesound.org/people/mvVoiceActing/sounds/855460/
+      isolde_bleed1.mp3     <- mvVoiceActing, "girl damage" (7.8-8.9 s)
+                               https://freesound.org/people/mvVoiceActing/sounds/855460/
+      isolde_hurt1.mp3, isolde_hurt2.mp3 <- mvVoiceActing, "girl damage" (0.4-1.3 s, 1.9-2.7 s)
+                               https://freesound.org/people/mvVoiceActing/sounds/855460/
+      isolde_revive1.mp3    <- mvVoiceActing, "girl damage" (6.55-7.02 s), the short intake of
+                               breath when she gets back up
+
+Thank you, HaelDB, Michel Baradari, kanyonwyvern, hisoul and mvVoiceActing!
+
+(generic_bleed2 and heinrich_bleed2 were raised ~2 dB with a soft limiter to match the
+files they replaced: VoiceBosch CC-BY-SA 4.0 groans, removed on 2026-09-28.)
+
+-------------------------------------------------------------------------------
+step/mud1-8.mp3 — the clearing's wet ash and soil. CC0 (public domain):
+  Kenney "Impact Sounds" footstep_carpet_000-004.ogg (heel thump, www.kenney.nl) mixed with
+  BenDrain, Freesound "Footsteps_Mud_01" (https://freesound.org/people/BenDrain/sounds/488068/,
+  eight single steps cut from it), "Footsteps_Mud_Single_01" (488077) and "_03" (488082):
+  the mud layer band-limited 160 Hz-1.8 kHz, -8 dB, +8-16 ms, pitched down 5-15%; the mix
+  low-passed at 2.6 kHz, faded by 200 ms, peak-normalized.
+
+stage/chant1.mp3 — a short choir phrase, chant-like, for Isolde's revive. CC0 (public domain), Freesound:
+  chant1.mp3 <- Patrick_Corra, "Choir" (0-4.3 s, high-passed at 90 Hz, faded out over 0.9 s,
+                peak-normalized)
+                https://freesound.org/people/Patrick_Corra/sounds/500862/
+
+stage/crow1-3.mp3 — distant crows for the clearing. CC0 (public domain), Freesound:
+  crow1.mp3 <- TheKingOfGeeks360, "Corvids - Fish Crow, Single, One Caw, Distant"
+               https://freesound.org/people/TheKingOfGeeks360/sounds/856323/
+  crow2.mp3 <- TheKingOfGeeks360, "Corvids - American Crow, Single"
+               https://freesound.org/people/TheKingOfGeeks360/sounds/860982/
+  crow3.mp3 <- deadrobotmusic, "Crow SFX 9"
+               https://freesound.org/people/deadrobotmusic/sounds/673554/
+  (cut to one caw, band-limited 350 Hz-3.2 kHz to sit far off, peak-normalized)
+
+breath/  — the player's own breathing while bleeding. CC0 (public domain), Freesound:
+  breath1.mp3  <- Sadiquecat, "Catching breath (Genuine)" (0.05-2.35 s, high-passed at 70 Hz,
+                  low-passed at 5 kHz, peak-normalized to -1 dBFS)
+                  https://freesound.org/people/Sadiquecat/sounds/792641/
+
+-------------------------------------------------------------------------------
+step/ and hit/  — CC0 (public domain), Kenney (www.kenney.nl), fetched from the
+open-game-sfx-index mirror (github.com/Mcamento8/open-game-sfx-index, SHA-256
+checked against its catalog). Trimmed, peak-normalized, mono MP3.
+
+  step/sand1-8.mp3        <- "Impact Sounds": footstep_carpet_000-004.ogg (heel) mixed with
+                             footstep_snow_000-004.ogg (crunch, -6 dB, +12 ms), pitched down
+                             ~10%, low-passed at 2.2 kHz, faded by 200 ms
+  hit/punch_med1-5.mp3    <- "Impact Sounds": impactPunch_medium_000-004.ogg
+  hit/soft1-5.mp3         <- "Impact Sounds": impactSoft_heavy_000-004.ogg
+  hit/wood1-5.mp3         <- "Impact Sounds": impactWood_medium_000-004.ogg
+  hit/wood_heavy1-3.mp3   <- "Impact Sounds": impactWood_heavy_000-002.ogg
+
+-------------------------------------------------------------------------------
+step/gravel1-8.mp3 and stage/leaves1-2.mp3 — CC0 (public domain).
+Fetched from the open-game-sfx-index mirror (SHA-256 checked against its catalog).
+
+  step/gravel1-8.mp3  <- Kenney "Impact Sounds" footstep_carpet_000-004.ogg (heel), mixed with
+                         "Different steps on wood, stone, leaves, gravel and mud" (OpenGameArt,
+                         CC0) gravel.ogg (crunch, -5 dB, +8-20 ms, pitched down 5-22%),
+                         low-passed at 2.6 kHz, faded by 200 ms
+                         https://opengameart.org/content/different-steps-on-wood-stone-leaves-gravel-and-mud
+  stage/leaves1-2.mp3 <- same OpenGameArt pack, leaves01.ogg / leaves02.ogg
+                         (band-limited 300 Hz-7 kHz, peak-normalized)
+
+step/snow1-8.mp3 and step/stone1-8.mp3 — CC0 (public domain), Kenney "Impact Sounds" via the same mirror.
+  step/snow1-8.mp3    <- footstep_carpet_000-004.ogg (heel) + footstep_snow_000-004.ogg (crunch, -2 dB,
+                         +6-16 ms, pitched down 5-15%), low-passed at 3 kHz, faded by 200 ms
+  step/stone1-8.mp3   <- footstep_carpet_000-004.ogg (heel) + footstep_concrete_000-004.ogg (-4 dB,
+                         +6-16 ms, pitched down 10-20%), low-passed at 2.4 kHz, faded by 200 ms
+
+-------------------------------------------------------------------------------
+flesh/  — sword-on-body hit candidate "녹음" (round 33; used only when SOUND.fleshHit is 'rec').
+CC0 (public domain), Freesound preview MP3s, cut to one hit, high-passed at 150 Hz (edge) / 70 Hz (wet),
+low-passed as noted, peak-normalized to -1 dBFS, not pitch-shifted:
+  edge1-4.mp3          <- SoundsForHim, "Knife/sword stab #3.MP3" (hits at 0.95, 3.76, 5.72, 11.63 s, LP 12 kHz)
+                          https://freesound.org/people/SoundsForHim/sounds/399616/
+  edge5.mp3            <- jawbutch, "Knife Stab Melon.wav" (LP 12 kHz)
+                          https://freesound.org/people/jawbutch/sounds/344404/
+    (both found through Freesound's CC0 license filter on 2026-09-30; the sound pages could not be opened
+     that day — Freesound answered 403 — so the page check is still to do before this candidate ships)
+  wet1.mp3             <- _stubb, "Blood Spatter_Squelch_Near_Mono" (LP 3.5 kHz)
+                          https://freesound.org/people/_stubb/sounds/406582/
+  wet2.mp3             <- magnuswaker, "Burst Flesh" (LP 3.5 kHz)
+                          https://freesound.org/people/magnuswaker/sounds/581092/

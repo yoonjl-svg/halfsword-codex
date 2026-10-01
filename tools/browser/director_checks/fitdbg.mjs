@@ -1,0 +1,11 @@
+import { chromium } from '/home/user/halfsword/node_modules/playwright/index.mjs';
+const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--use-gl=angle', '--use-angle=swiftshader', '--no-sandbox'] });
+const page = await browser.newPage({ viewport: { width: 568, height: 320 }, deviceScaleFactor: 2, hasTouch: true, isMobile: true });
+await page.goto('http://127.0.0.1:5173/?stage=castle&foe=isolde&cards=pistol,monohoshizao&foeWeapon=lightsaber', { waitUntil: 'networkidle' });
+await page.waitForFunction(() => window.game?.player?.sword, null, { timeout: 150000 });
+await page.tap('#btnStart');
+await page.waitForFunction(() => window.game.state === 'draw', null, { timeout: 150000 });
+await page.waitForTimeout(800);
+console.log(await page.evaluate(() => { const f = document.querySelector('#draw .wface'); return { pb: getComputedStyle(f).paddingBottom, cls: document.getElementById('draw').className }; }));
+console.log(await page.evaluate(() => [...document.querySelectorAll('#draw .wcard')].map((c) => { const f = c.querySelector('.wface'); const d = c.querySelector('.wdesc'); return { sh: f.scrollHeight, ch: f.clientHeight, desc: c.style.getPropertyValue('--desc'), fs: getComputedStyle(d).fontSize, dh: d.offsetHeight, top: d.offsetTop }; })));
+await browser.close();

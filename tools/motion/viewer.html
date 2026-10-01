@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- BEGIN-ARTIFACT -->
+<title>적막 베기 동작 비교</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600&family=Nanum+Myeongjo:wght@700;800&family=UnifrakturMaguntia&display=swap">
+<style>
+/* 배치: 계측실 작업대 — 큰 무대(막대 인형) 옆에 계측 기록지, 아래로 곡선 띠. 좁으면 한 줄로 쌓는다 */
+:root {
+  --ground: #edf0f3;
+  --panel: #f8f9fb;
+  --ink: #1a2029;
+  --muted: #5a6573;
+  --rule: #d3d9e0;
+  --ref: #27468a;
+  --ref-soft: #8ea3cf;
+  --game: #a4650f;
+  --good: #2b7a4b;
+  --warn: #8a6d0b;
+  --bad: #b3261e;
+  --stage: #e3e8ee;
+  --grid: #c3ccd6;
+  --foe: #9aa6b4;
+  --s1: #7d4f9e;
+  --s2: #1f7f7a;
+  --s3: #6f7d1d;
+  --f-display: 'Nanum Myeongjo', 'Noto Serif KR', 'Apple SD Gothic Neo', serif;
+  --f-body: 'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+  --f-data: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --f-fraktur: 'UnifrakturMaguntia', 'Nanum Myeongjo', serif;
+  --r: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #11151a; --panel: #171d24; --ink: #e2e7ed; --muted: #97a2af; --rule: #2a333d;
+    --ref: #8eaaf0; --ref-soft: #4d6190; --game: #e2a64c; --good: #62c088; --warn: #d8c25c; --bad: #ef7b6e;
+    --stage: #0d1115; --grid: #26303a; --foe: #5b6775; --s1: #c39be6; --s2: #5fd0c6; --s3: #b9c95a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #11151a; --panel: #171d24; --ink: #e2e7ed; --muted: #97a2af; --rule: #2a333d;
+  --ref: #8eaaf0; --ref-soft: #4d6190; --game: #e2a64c; --good: #62c088; --warn: #d8c25c; --bad: #ef7b6e;
+  --stage: #0d1115; --grid: #26303a; --foe: #5b6775; --s1: #c39be6; --s2: #5fd0c6; --s3: #b9c95a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--ground); color: var(--ink); }
+body { margin: 0; font: 14px/1.55 var(--f-body); }
+.wrap { max-width: 1320px; margin: 0 auto; padding-inline: 16px; padding-block: 16px 40px; display: grid; gap: 16px; }
+header.top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; }
+header.top h1 { font: 800 26px/1.2 var(--f-display); margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+header.top p { margin: 0; color: var(--muted); font-size: 13px; }
+.chip { display: inline-flex; align-items: center; gap: 4px; font: 500 11px/1 var(--f-body); letter-spacing: 0.04em; padding: 4px 7px; border-radius: 999px; border: 1px solid var(--rule); color: var(--muted); white-space: nowrap; }
+.chip.good { color: var(--good); border-color: color-mix(in srgb, var(--good) 45%, transparent); }
+.chip.warn { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 45%, transparent); }
+.chip.bad { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 45%, transparent); }
+.chip.na { opacity: 0.7; }
+
+/* 베기 고르기 */
+.cuts { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.cut { text-align: left; font: inherit; color: inherit; background: var(--panel); border: 1px solid var(--rule); border-radius: var(--r); padding: 8px 10px; cursor: pointer; display: grid; gap: 2px; }
+.cut:hover { border-color: var(--ref-soft); }
+.cut[aria-pressed="true"] { border-color: var(--ref); box-shadow: inset 0 0 0 1px var(--ref); }
+.cut .ko { font: 700 15px/1.25 var(--f-display); }
+.cut .de { font: 400 17px/1.1 var(--f-fraktur); color: var(--ref); }
+.cut .fam { font-size: 11px; color: var(--muted); }
+
+.main { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 16px; align-items: start; }
+@media (max-width: 980px) { .main { grid-template-columns: minmax(0, 1fr); } }
+
+.stagebox { display: grid; gap: 8px; min-width: 0; }
+.stage { position: relative; width: 100%; aspect-ratio: 16 / 10; max-width: 100%; background: var(--stage); border-radius: var(--r); overflow: hidden; border: 1px solid var(--rule); }
+@media (max-width: 600px) { .stage { aspect-ratio: 4 / 5; } }
+.stage canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.hud { position: absolute; left: 10px; top: 8px; display: grid; gap: 2px; pointer-events: none; font: 500 12px/1.35 var(--f-data); font-variant-numeric: tabular-nums; color: var(--ink); text-shadow: 0 0 6px var(--stage); }
+.hud .phase { font: 700 17px/1.2 var(--f-display); }
+.legend { position: absolute; right: 10px; top: 8px; display: grid; gap: 3px; font-size: 11px; color: var(--muted); pointer-events: none; text-align: right; }
+.legend b { font-weight: 600; }
+.sw { display: inline-block; width: 18px; height: 3px; border-radius: 2px; vertical-align: middle; margin-left: 6px; }
+
+.bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.bar .grow { flex: 1 1 220px; min-width: 0; }
+button.btn, select, .seg button { font: 500 13px/1 var(--f-body); color: var(--ink); background: var(--panel); border: 1px solid var(--rule); border-radius: var(--r); padding: 7px 10px; cursor: pointer; }
+button.btn:hover, .seg button:hover { border-color: var(--ref-soft); }
+button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--ref); outline-offset: 2px; }
+.seg { display: inline-flex; }
+.seg button { border-radius: 0; margin-left: -1px; }
+.seg button:first-child { border-radius: var(--r) 0 0 var(--r); margin-left: 0; }
+.seg button:last-child { border-radius: 0 var(--r) var(--r) 0; }
+.seg button:disabled, .tog input:disabled { opacity: .35; cursor: not-allowed; }
+.seg button[aria-pressed="true"] { background: var(--ref); color: var(--panel); border-color: var(--ref); position: relative; }
+label.tog { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; color: var(--muted); cursor: pointer; }
+input[type="range"] { width: 100%; accent-color: var(--ref); }
+.scrub { position: relative; }
+.bands { display: flex; height: 6px; border-radius: 3px; overflow: hidden; margin-top: 2px; }
+.bands span { display: block; height: 100%; }
+.bandlbl { display: flex; font-size: 10.5px; color: var(--muted); margin-top: 2px; }
+.bandlbl span { overflow: hidden; white-space: nowrap; text-overflow: clip; }
+
+/* 계측 기록지 */
+.sheet { background: var(--panel); border: 1px solid var(--rule); border-radius: var(--r); padding: 14px; display: grid; gap: 14px; min-width: 0; }
+.sheet h2 { font: 700 18px/1.25 var(--f-display); margin: 0; }
+.sheet h2 .de { font: 400 20px/1 var(--f-fraktur); color: var(--ref); margin-left: 6px; }
+.sheet .desc { margin: 0; color: var(--muted); font-size: 13px; }
+#crits { display: grid; gap: 16px; }
+.crit { display: grid; gap: 6px; }
+.crit + .note { margin-top: -4px; }
+.crit h3 { margin: 0; padding-bottom: 4px; border-bottom: 1px solid var(--rule); font: 700 14px/1.3 var(--f-display); color: var(--ink); display: flex; justify-content: space-between; gap: 8px; }
+.rows { display: grid; gap: 7px; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px; align-items: center; font-size: 13px; }
+.row .v { font: 500 13px/1.3 var(--f-data); font-variant-numeric: tabular-nums; text-align: right; }
+.row .lbl { min-width: 0; }
+.row .lbl small { display: block; color: var(--muted); font-size: 11px; line-height: 1.3; }
+.note { font-size: 12px; color: var(--muted); margin: 0; }
+.src { display: grid; gap: 4px; font-size: 12px; }
+.src a { color: var(--ref); text-decoration: none; }
+.src a:hover { text-decoration: underline; }
+.src .k { font: 500 10.5px/1 var(--f-data); color: var(--muted); border: 1px solid var(--rule); border-radius: 3px; padding: 2px 4px; margin-right: 4px; }
+.overlay { display: grid; gap: 8px; border-top: 1px solid var(--rule); padding-top: 12px; }
+.overlay .row .v { color: var(--game); }
+
+/* 곡선 띠 */
+.charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-top: 4px; }
+figure.chart { margin: 0; background: var(--panel); border: 1px solid var(--rule); border-radius: var(--r); padding: 10px 12px 8px; display: grid; gap: 6px; min-width: 0; }
+figure.chart figcaption { display: flex; justify-content: space-between; align-items: center; gap: 8px; font: 600 13px/1.3 var(--f-body); }
+figure.chart figcaption small { font-weight: 400; color: var(--muted); }
+figure.chart canvas { width: 100%; height: 190px; display: block; }
+.foot { color: var(--muted); font-size: 12px; display: grid; gap: 4px; }
+.foot p { margin: 0; max-width: 90ch; }
+.err { color: var(--bad); font-size: 13px; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/"
+} }
+</script>
+<!-- END-HEAD -->
+</head>
+<body>
+<!-- BEGIN-BODY -->
+<div class="wrap">
+  <header class="top">
+    <h1>베기 동작 비교</h1>
+    <p>롱소드 기준 동작 v0 · 교본 서술과 운동 사슬 측정값으로 저작했다(모션 캡처가 아니다) · 막대 인형 = 게임 뼈대 치수</p>
+  </header>
+
+  <nav class="cuts" id="cuts" aria-label="베기 고르기"></nav>
+
+  <div class="main">
+    <div class="stagebox">
+      <div class="stage" id="stage">
+        <div class="hud" id="hud"><span class="phase" id="hudPhase">—</span><span id="hudT">—</span><span id="hudV">—</span></div>
+        <div class="legend" id="legend"></div>
+      </div>
+      <div class="bar">
+        <button class="btn" id="play" type="button">멈춤</button>
+        <div class="seg" id="speed" role="group" aria-label="재생 빠르기">
+          <button type="button" data-v="1">1×</button><button type="button" data-v="0.5">½×</button><button type="button" data-v="0.25">¼×</button><button type="button" data-v="0.1">⅒×</button>
+        </div>
+        <div class="seg" id="side" role="group" aria-label="베는 쪽">
+          <button type="button" data-v="right">오른쪽에서</button><button type="button" data-v="left">왼쪽에서</button>
+        </div>
+        <div class="seg" id="size" role="group" aria-label="동작 크기">
+          <button type="button" data-v="small">작게 (지금 게임)</button><button type="button" data-v="medium">보통</button><button type="button" data-v="large">크게</button>
+        </div>
+      </div>
+      <div class="scrub">
+        <input type="range" id="scrub" min="0" max="1000" value="0" aria-label="시간">
+        <div class="bands" id="bands"></div>
+        <div class="bandlbl" id="bandlbl"></div>
+      </div>
+      <div class="bar">
+        <label class="tog"><input type="checkbox" id="allSizes"> 세 크기 겹쳐 보기</label>
+        <label class="tog"><input type="checkbox" id="trail" checked> 칼끝·손 길</label>
+        <label class="tog"><input type="checkbox" id="ghosts" checked> 감기·겨눈 선·지나가기 잔상</label>
+        <label class="tog"><input type="checkbox" id="foe" checked> 상대(1.9 m)</label>
+        <div class="seg" id="cam" role="group" aria-label="보는 자리">
+          <button type="button" data-v="back">뒤 (게임 시점)</button><button type="button" data-v="side">옆</button><button type="button" data-v="front">앞</button><button type="button" data-v="top">위</button>
+        </div>
+      </div>
+      <div class="charts">
+        <figure class="chart"><figcaption>칼끝·손 빠르기 <small>m/s · 가로 = 초</small></figcaption><canvas id="chSpeed"></canvas></figure>
+        <figure class="chart"><figcaption>운동 사슬 순서 <small>각자 최고값으로 나눔 · 0 = 칼이 겨눈 선</small></figcaption><canvas id="chSeq"></canvas></figure>
+        <figure class="chart"><figcaption><span>관절 각도</span> <select id="angSel" aria-label="관절 고르기"></select></figcaption><canvas id="chAng"></canvas></figure>
+      </div>
+
+    </div>
+
+    <aside class="sheet" id="sheet" aria-live="polite">
+      <div>
+        <h2 id="sName">—</h2>
+        <p class="desc" id="sDesc"></p>
+      </div>
+      <div id="crits"></div>
+      <div class="overlay">
+        <div class="crit">
+          <h3><span>우리 캐릭터 기록 겹쳐 보기</span></h3>
+          <div class="bar">
+            <select id="rec" aria-label="게임 기록"></select>
+            <label class="tog"><input type="checkbox" id="recAlign" checked> 칼끝 최고 시각 맞춤</label>
+          </div>
+          <label class="tog" for="recFile">기록 파일 열기 (record_game.mjs 형식 JSON)</label>
+          <input type="file" id="recFile" accept="application/json,.json">
+          <div class="rows" id="recRows"></div>
+        </div>
+      </div>
+      <div class="crit">
+        <h3><span>출처</span></h3>
+        <div class="src" id="srcs"></div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="foot">
+    <p>좌표: x 앞(상대 쪽) · y 위 · z 칼 든 쪽. 오른손잡이. 시각 0 = 준비 자세. 표시: 감기 끝(tw) → 손목 풀림(tr) → 칼이 겨눈 선을 지남(tc) → 지나가기 끝(tf) → 복귀(tg).</p>
+    <p>'작게'는 지금 게임의 자세표(src/guards.js)를 그대로 이은 팔 베기, '크게'는 온몸 베기, '보통'은 크게를 겨눈 선 자세 쪽으로 줄인 것이다. 목표 칸은 docs/whole_body_redesign.md §2-6 의 최소 목표이며 '크게'를 기준으로 본다. 최종 판정은 사장님 플레이, 숫자는 보조.</p>
+    <p id="err" class="err" hidden></p>
+  </div>
+</div>
+<script>window.MOTION_DATA_BASE = window.MOTION_DATA_BASE ?? '../../docs/motion/';</script>
+<script type="module" src="./viewer.js"></script>
+<!-- END-BODY -->
+</body>
+</html>

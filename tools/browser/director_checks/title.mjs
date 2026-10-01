@@ -1,0 +1,14 @@
+import { chromium } from '/home/user/halfsword/node_modules/playwright/index.mjs';
+const out = process.argv[2];
+const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--use-gl=angle', '--use-angle=swiftshader', '--no-sandbox'] });
+const page = await browser.newPage({ viewport: { width: 844, height: 390 }, deviceScaleFactor: 2, hasTouch: true, isMobile: true });
+const errors = [];
+page.on('pageerror', (e) => errors.push('pageerror: ' + e));
+page.on('console', (m) => { if (m.type() === 'error') errors.push('console: ' + m.text()); });
+await page.goto('http://127.0.0.1:5173/', { waitUntil: 'networkidle' });
+await page.waitForFunction(() => window.game?.player?.sword, null, { timeout: 90000 });
+await page.waitForTimeout(1500);
+console.log(await page.title(), '|', await page.textContent('#menuTitle'), '|', await page.textContent('#menuSub'));
+await page.screenshot({ path: `${out}/title_844x390.png` });
+console.log(errors.length ? 'ERRORS:\n' + errors.join('\n') : 'ZERO console errors');
+await browser.close();

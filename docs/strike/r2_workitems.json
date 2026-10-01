@@ -1,0 +1,120 @@
+[
+  {
+    "key": "W1",
+    "title": "atlas.js + packed atlas + atlas_check",
+    "files": [
+      "src/strike/atlas.js",
+      "tools/motion/pack_atlas.mjs",
+      "src/strike/clips/atlas_v0.json",
+      "tools/sim/atlas_check.mjs",
+      "src/config.js (ATLAS block)"
+    ],
+    "dependsOn": [],
+    "gates": [
+      "24 v0 clips (zornhau/oberhau/mittelhau/unterhau x right/left x small/medium/large) validate; clip/1 fixture and mutated channel-width fixture throw AtlasError",
+      "small clip start/end hand vs guardAt(startFrom/recoverTo) <= 0.02 m for all 8 small clips",
+      "sample() C0/C1 continuous at dphi 0.001; directions unit within 1e-3 after size and family slerp",
+      "sample() <= 0.02 ms/step (gate 0.05), zero allocations per call",
+      "pack <= 1.5 MB, sourceFormat stillness-motion-clip/2, sha1 per source; atlas.report prints reach/pole-flip/wrist>160 tables (section 4.6)"
+    ],
+    "estimateHours": 12
+  },
+  {
+    "key": "W2",
+    "title": "gesture.js (finger -> S, dir, phi) + SyntheticFinger + AI seam + gesture_eval",
+    "files": [
+      "src/strike/gesture.js (Gesture: input modes 'wind'/'stroke', finger clock, S hold/decay + sSnap, arc0/Lref/vRef stroke load, over, c(S); SyntheticFinger)",
+      "src/config.js (GESTURE block: input, clock, vRef, autoWindPhi, sSnap; no kStroke)",
+      "src/skill.js:405 (1 line: gesture.update replaces detectCommit when GESTURE.on)",
+      "src/fighter.js:233 (1 line: this.ges) + inputScale field",
+      "src/main.js:344 (attachTrace/reset) + main.js:1259 (player.inputScale = inScale) + main.js:1299 (player.stepT) + onCommit('B') kept via gesture + ?input= param and settings toggle",
+      "tools/sim/harness_m.mjs:211 (f.stepT)",
+      "src/ai.js (me.aiSynth, moveHand push before the 0.62 clamp when GESTURE.ai, planStrike definition only; never reads f.strike/f.ges)",
+      "tools/sim/gesture_eval.mjs (--input=wind|stroke)"
+    ],
+    "dependsOn": [],
+    "gates": [
+      "wholebody.mjs detect input set replayed in both input modes: pflug-stroke misclassification (S >= DRIVE.mixX on the arm subset) <= 3 %",
+      "(A) reversal detected on the first kinematic step (0-step latency) at 60/90/120 Hz; (B) stroke start on the first step >= vStrike from rest; same phiDot across Hz (finger clock, no 1/T0 floor)",
+      "3 mm / 8 Hz jitter yields S = 0 throughout; no wind for the straight-down guard change (dead sector); S returns to exactly 0 (sSnap) after every input and busy clears within restDwell of the finger stopping",
+      "synthetic zornhau finger path -> famA diag, side right, S >= 0.9 at the reversal; no-wind pflug stroke at 6 / 12 m/s -> Sstroke 0.39 / 0.78 (arc0 formula), vom Tag long fast stroke -> 1.0 with over > 0; AI rounds byte-identical with GESTURE.ai=false and no per-step cost for the enemy Gesture",
+      "S = 0 identity pass 0 (gesture only, DRIVE.on=false): s0_diff batteries identical against baseline B (GESTURE.on=false COMMIT.minLevel=2) and identical-except-stage-A against baseline A (today's config)"
+    ],
+    "estimateHours": 14
+  },
+  {
+    "key": "W3",
+    "title": "drive.js trunk/anchor/ff chain/ranges/feet/step + puppet mode",
+    "files": [
+      "src/strike/drive.js (w = S, c = smoothstep(0, mixX, S), balanceAssist seam, over continuation, step request at cut start with unclamped duration, footPivot without rate limit)",
+      "src/strike/puppet.js (four sign checks: pelvis yaw, drop, chest.side vs J shS/shO, feet yaw vs pelvis delta and GAIT.rearToe; edge angle report; girdle off and anchor)",
+      "src/config.js (DRIVE block: mixX, balanceAssist, handOnStroke true, edgeFromClip false; no stepDurMin, no footYawRate)",
+      "src/fighter.js:651 (mixBody with c), :716-720 (drive.update, applyTorques), :1321-1324 (anchor yaw stiffness relax x balanceAssist), :1542-1545 (twist clamp, side bend), jointSetLimits in applyTorques (restore on the exact-zero step)",
+      "src/gait.js:226 ('strike': no duration floor), :252 (maxTwist), :686-687 (strike fwd exact + lateral offset), :713 (swingTwist), :742/750 (onLanded), :810 (heel floor), :1038-1039 (toe lever, footPivot)",
+      "src/skill.js:504 (ges.busy = CUT/FOLLOW only), :510-511 (homePad), :529 (drive.stepping)",
+      "tools/sim/puppet.mjs",
+      "src/main.js (?puppet= parse next to :1241; atlas preload after RAPIER.init at :30, beginFight awaits it; attachDrive in newRound)"
+    ],
+    "dependsOn": [
+      "W1"
+    ],
+    "gates": [
+      "puppet: hand <= 0.03 m mean (t0..tf) for 24 clips, sword <= 5 deg, tip <= 0.05 m; sign checks pass for pelvis yaw, drop, chest.side (shoulder-line height sign vs clip J) and feet yaw (stance-foot delta sign = pelvis delta sign over tr->tc; rear toe-out mirrors GAIT.rearToe); reach clamps only the reported cases; run with DRIVE.girdle off (gate) and anchor (report)",
+      "script phi at clip pace, S = 1: pelvis 5 deg within 33 ms (60 Hz) / 25 ms (120 Hz) of drag start; pelvisLag <= 10 deg at S = 1",
+      "staged enable trunk -> ff -> feet -> step as a debugging order: fights12 seeds 1/13/25 at 60/120 Hz, NaN 0; shipped ffGain 0.8 / anchorRelaxYawK 0.9 (doc values); falls vs R1 baseline reported under Q24 if higher, never down-tuned",
+      "shape (trunk part): chest range >= 120 deg, pelvis >= 65 deg, X-factor order; passing step: at scripted clip pace lands within tc +- 50 ms in >= 80 % of S = 1 strokes at 1.6-2.0 m; at finger speeds 4/6/12/20 m/s the tLand - t_tc median/p90 is reported with no threshold; stepRefused and footSlipMax reported; no-wind stroke with S > 0.3 issues the same step (owner-visible, Q7)",
+      "atlas preload: state 'fight' never entered before the pack is decoded; stats.atlasMissing = 0 over all batteries; decode time printed",
+      "S = 0 identity pass 1 (GESTURE.on + DRIVE.on vs baseline B byte-identical; vs baseline A identical except classified stage-A-consumer steps) on the four batteries"
+    ],
+    "estimateHours": 22
+  },
+  {
+    "key": "W4",
+    "title": "drive_arm.js: commanded-chest hand frame, aim, warp, pole hysteresis, solveArmIK, rates, co-contraction, arm feed-forward",
+    "files": [
+      "src/strike/drive_arm.js (mixHand/mixAim with c(S), wAim = R*(swordDot*phiDot) + wChestCmd, omegaFlex(), pole hysteresis, solveArmIK use, rate limits, co-contraction, armFF, onResult)",
+      "src/fighter.js:1564-1565 (co-contraction), :1591 (elbow vz <- lerp(diff, omega_des_flex, S) and raised clamp), :1596 (rateLim), :1660 (shoulder rate + omega_des), :1664-1666 (arm tau_ff before the Hill cap), :1719 (mixHand), :1746 (mixAim), :1748-1752 (wAim from clip rate + chest-frame term), :1925-1953 (armIK -> solveArmIK + shoulder/pole hooks), :2012/:2018 (offArmIK pole/girdle); :1769-1775 flat target untouched (edge not driven, DRIVE.edgeFromClip hook only)",
+      "src/combat.js:467 and :565 (drive.onResult)"
+    ],
+    "dependsOn": [
+      "W1",
+      "W3"
+    ],
+    "gates": [
+      "tracked record vs clip (compare.mjs DTW): hand mean <= 0.08 m after alignment on tc, sword <= 15 deg, hand lag <= 60 ms",
+      "shape (arm part): wind hand >= head top + 0.05 m (overhead), >= 0.10 m behind torso front, shoulder elevation >= 130 deg, blade >= 1.0 m behind chest, follow-through hand side <= -0.30 m diagonal / -0.33 horizontal, hand path >= 1.8 m; at S 0.5 the hand reaches the medium clip's excursion (c(S) = 1), not half of it",
+      "poleFlip adoptions only at the reported mittelhau_large frames; reachClamp count equals the atlas report; rateClip and ffCap reported; elbow motor target velocity follows omega_des_flex (debug.elbowRateErr at S = 1 script pace <= 20 % of the clip rate)",
+      "no hand hitch at cut start (carry-over): hand speed toward the chamber after tCut < 0.5 m/s in the tracked record for wind strokes, (A) no-wind strokes (phi_align) and (B) strokes (autoWind) with handOnStroke true",
+      "S = 0 identity pass 2 on the four batteries at 60/120 Hz x 3 weapons (baselines A/B)"
+    ],
+    "estimateHours": 16
+  },
+  {
+    "key": "W5",
+    "title": "gates and owner build: chain.mjs channels, s0_diff, r2_gates, viewer records, film scenes",
+    "files": [
+      "tools/sim/chain.mjs (gesture/drive debug channels, latency block, mx, chain order, step timing PACE=script / SPEED=..., clock finger vs floor A/B)",
+      "tools/sim/s0_diff.mjs (baseline A today's config, baseline B COMMIT.minLevel=2, stage-A-consumer classifier)",
+      "tools/sim/r2_gates.mjs (+ grep gate: src/ai.js and src/ai_sense.js read no f.strike / f.ges)",
+      "tools/sim/film_wholebody.cjs (scenes zornhau-wind, zornhau-stroke, mittelhau-wind, pflug-drag, pflug-stroke)",
+      "settings toggle mirroring GESTURE.input (A/B) in the test build",
+      "tools/motion record export for puppet/tracked records, docs/motion/records/*",
+      "tools/sim/README.md table rows",
+      "last commit (after s0_diff passes): delete the old commit path (detectCommit/beginCut/confirmCut/startProgram/updateCut/rest, WHOLE.commit, COMMIT program tables) and its two unasked limits (COMMIT.overLight config.js:616 / skill.js:1023; level-scaled program values skill.js:902/987/1230) per docs/decisions.md; fighter.js:622 pf condition becomes sk.detect && WHOLE.on (value unchanged); checkout comparison per spec section 7-8"
+    ],
+    "dependsOn": [
+      "W2",
+      "W3",
+      "W4"
+    ],
+    "gates": [
+      "r2_gates.mjs prints the section 8.2 table at 60/120 Hz x longsword/zweihander/saber x input modes A/B with PASS/FAIL on minimum targets only; speed/energy ratios and the step-landing distribution reported without an upper gate",
+      "60 vs 120 Hz tip +-3 % including 24-45 fps jitter",
+      "perf_ab SWITCH=DRIVE.on: normal step CPU <= +5-10 %, tracking <= 0.05 ms/step, enemy Gesture with no source <= 1 us/step",
+      "AI vs AI 10 min x 60/120 Hz x 3 weapons: NaN 0, glitch 0, falls reported vs R1",
+      "viewer screenshots puppet||clip and tracked||clip for zornhau/oberhau/mittelhau/unterhau right delivered with the test build; the build note tells the owner the (A)/(B) switch and that the gold trail now marks 'body on the clip' (R5 moves it to the cannot-stop window); owner play verdict recorded per mode",
+      "old commit path deleted: pre-deletion vs post-deletion checkout byte-identical on the s0_diff batteries; grep finds no COMMIT.overLight / detectCommit / startProgram"
+    ],
+    "estimateHours": 14
+  }
+]

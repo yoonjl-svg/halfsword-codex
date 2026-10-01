@@ -1,0 +1,15 @@
+import { chromium } from '/home/user/halfsword/node_modules/playwright/index.mjs';
+const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--use-gl=angle', '--use-angle=swiftshader', '--no-sandbox', '--autoplay-policy=no-user-gesture-required'] });
+const page = await browser.newPage({ viewport: { width: 844, height: 390 }, hasTouch: true, isMobile: true });
+const errors = [];
+page.on('pageerror', (e) => errors.push('pageerror: ' + e));
+page.on('console', (m) => { if (m.type() === 'error') errors.push('console: ' + m.text()); });
+page.on('response', (r) => { if (r.status() >= 400) errors.push(`http ${r.status()}: ${r.url()}`); });
+await page.goto('http://127.0.0.1:5173/?stage=castle&foe=isolde&weapon=longsword', { waitUntil: 'networkidle' });
+await page.waitForFunction(() => window.game?.player?.sword, null, { timeout: 90000 });
+await page.tap('#btnStart');
+await page.waitForFunction(() => window.game.state === 'fight', null, { timeout: 90000 });
+const r = await page.evaluate(async () => { const s = window.game.sound; if (!s?.revive) return 'no revive'; s.revive('isolde'); await new Promise((ok) => setTimeout(ok, 5000)); return 'called'; });
+console.log('revive:', r);
+console.log(errors.length ? 'ERRORS:\n' + errors.join('\n') : 'ZERO console errors');
+await browser.close();

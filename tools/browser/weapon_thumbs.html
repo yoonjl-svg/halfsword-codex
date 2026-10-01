@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="data:," />
+    <title>무기 카드 그림 만들기</title>
+    <style>
+      body { margin: 0; padding: 12px; background: #1b1410; color: #f3e9d8; font: 13px system-ui, sans-serif; }
+      #out { display: flex; flex-wrap: wrap; gap: 10px; }
+      figure { margin: 0; text-align: center; }
+      figure img { display: block; width: 128px; height: 128px; background: radial-gradient(circle at 50% 45%, #3a2c20, #17110d 70%); border-radius: 8px; }
+    </style>
+  </head>
+  <body>
+    <!-- 무기 뽑기 카드의 작은 그림을 게임 속 무기 모델 그대로 찍는다 (tools/browser/weapon_thumbs.mjs 가 연다).
+         개발 서버(npm run dev)에서 /tools/browser/weapon_thumbs.html 로 열면 결과를 눈으로도 볼 수 있다 -->
+    <div id="out"></div>
+    <script type="module" src="./weapon_thumbs_page.js"></script>
+  </body>
+</html>

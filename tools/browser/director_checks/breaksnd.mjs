@@ -1,0 +1,14 @@
+import { chromium } from '/home/user/halfsword/node_modules/playwright/index.mjs';
+const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--use-gl=angle', '--use-angle=swiftshader', '--no-sandbox', '--autoplay-policy=no-user-gesture-required'] });
+const page = await browser.newPage({ viewport: { width: 844, height: 390 }, hasTouch: true, isMobile: true });
+const errors = [];
+page.on('pageerror', (e) => errors.push('pageerror: ' + e));
+page.on('console', (m) => { if (m.type() === 'error') errors.push('console: ' + m.text()); });
+await page.goto('http://127.0.0.1:5173/?stage=cathedral&foe=margarethe&weapon=longsword', { waitUntil: 'networkidle' });
+await page.waitForFunction(() => window.game?.player?.sword, null, { timeout: 150000 });
+await page.tap('#btnStart');
+await page.waitForFunction(() => window.game.state === 'fight', null, { timeout: 150000 });
+const r = await page.evaluate(async () => { const s = window.game.sound; const out = []; for (const k of ['steel', 'wood']) { try { s.weaponBreak?.(k); out.push('wb ' + k); } catch (e) { out.push('ERR ' + e); } } try { s.plateBreak?.(150); out.push('plate'); } catch (e) { out.push('ERR ' + e); } window.game.player.breakWeapon(); await new Promise((ok) => setTimeout(ok, 3000)); return out.join(','); });
+console.log('calls:', r);
+console.log(errors.length ? 'ERRORS:\n' + errors.join('\n') : 'ZERO console errors');
+await browser.close();
