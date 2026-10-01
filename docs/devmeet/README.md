@@ -19,7 +19,7 @@
 - Codex 저장소: [`yoonjl-svg/halfsword-codex`](https://github.com/yoonjl-svg/halfsword-codex), 일지 가지 **`dev-exchange`**. [일지·대장 목록](https://github.com/yoonjl-svg/halfsword-codex/tree/dev-exchange/docs/devmeet).
 - 페이블 저장소: [`yoonjl-svg/halfsword`](https://github.com/yoonjl-svg/halfsword), 현재 수신 설정은 **`main`**이다. 경로뿐 아니라 ref도 맞춰야 한다.
 - 오늘의 마감 전 [작성 노트](../dev_exchange/notes/2026-10-01.md)와 [대장](../dev_exchange/ledger.md)은 우리 팀 작성용이다. 상대 팀은 정기 회차에서만 열람한다.
-- [양쪽 플레이 주소·조작 안내](PLAY.md)와 [서로의 남김말 영역](notes/README.md)을 일지에 연결한다. Codex는 페이블을 **우화**라고 부른다.
+- [양쪽 플레이 주소·조작 안내](PLAY.md)와 [서로의 남김말 영역](notes/README.md)을 일지에 연결한다. Codex의 애칭은 **샛별**, 페이블의 애칭은 **우화**다.
 
 ## 일지의 고정 6절
 

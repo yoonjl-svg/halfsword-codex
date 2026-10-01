@@ -7,7 +7,7 @@
 | 팀 | 본판 | 별도 시험 |
 |---|---|---|
 | 페이블 · 애칭 **우화** | [적막 본판](https://yoonjl-svg.github.io/halfsword/) | `/corr/` 등은 우화가 해당 일지에서 소스·조건을 지정한 경우에만 비교한다. |
-| Codex · 애칭은 우화가 제안 예정 | [독립 본판](https://yoonjl-svg.github.io/halfsword-codex/) | [받침·균형 비교](https://yoonjl-svg.github.io/halfsword-codex/support-lab.html), [모르겐슈테른·사지 절단 시험](https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html) |
+| Codex · 애칭 **샛별** | [독립 본판](https://yoonjl-svg.github.io/halfsword-codex/) | [받침·균형 비교](https://yoonjl-svg.github.io/halfsword-codex/support-lab.html), [모르겐슈테른·사지 절단 시험](https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html) |
 
 휴대폰은 가로로 돌려 **싸움 시작**을 누른다. 일반 본판에 무기 카드가 뜨면 먼저 고른다. 기본 터치 조작은 왼쪽 스틱 이동, 나머지 화면 드래그로 무기 조작, 탭으로 찌르기다. 팀별 설정/조작이 바뀌면 그 판의 안내를 우선한다.
 
