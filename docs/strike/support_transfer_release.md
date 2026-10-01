@@ -1,5 +1,7 @@
 # 지지 반작용 2차 릴리스
 
+**철회:** 사용자가 누운 뒤 공중으로 치솟는 중대한 오동작을 보고했다. 지지 연구판 공개 진입을 중단하며 기존 `physicsTrial=support` 주소도 legacy 지지와 철회 안내로 돌린다. 아래 출시 검사는 당시 실행/입력의 확인 기록이며 누운 자세 회복의 안전성을 입증하지 못했다. 근본 수정과 재검증 완료 전 재공개하지 않는다.
+
 구현/측정: [개발 보고](support_transfer_round2.md), [조건·소스 해시·원자료 요약](support_transfer_round2_metrics.json).
 
 사용자가 수용한 paired 그립을 기본 반영한다. 이전 그립은 `force-lab.html`의 `legacyGrip` 비교로 보존한다. 새 지지 후보는 `support-transfer-lab.html` → `physicsTrial=support` 접속에서만 사용한다. 일반 지지는 legacy이며 기립 전환/전진 미끄럼의 알려진 후퇴를 연구판 화면에 표시한다. 인간 자연스러움이나 전신 강타 개선을 수락한 상태가 아니다.

@@ -97,7 +97,10 @@ for (const query of ['', 'physicsTrial=wrong', 'physicsTrial=paired', 'gripReact
 }
 assert.equal(configurePhysicalTrial(new URLSearchParams('physicsTrial=grip'), options, bodyOptions).gripReaction, 'paired');
 assert.equal(configurePhysicalTrial(new URLSearchParams('physicsTrial=legacyGrip'), options, bodyOptions).gripReaction, 'legacy');
-assert.equal(configurePhysicalTrial(new URLSearchParams('physicsTrial=support'), options, bodyOptions).supportModel, 'axial');
+const withdrawnSupport = configurePhysicalTrial(new URLSearchParams('physicsTrial=support'), options, bodyOptions);
+assert.equal(withdrawnSupport.supportModel, 'legacy');
+assert.equal(withdrawnSupport.active, false);
+assert.equal(withdrawnSupport.withdrawn, true);
 assert.equal(options.reactionModel, 'paired');
 assert.equal(configurePhysicalTrial(new URLSearchParams(), options, bodyOptions).gripReaction, 'paired');
 assert.equal(bodyOptions.supportModel, 'legacy');
