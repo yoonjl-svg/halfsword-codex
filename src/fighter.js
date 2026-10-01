@@ -2054,16 +2054,22 @@ export class Fighter {
     this.gripping = true;
     // 스프링: 멀수록 약하게 시작해 손이 닿으면 단단히 쥔다
     const grab = THREE.MathUtils.clamp((GRIP.reach - dist) / (GRIP.reach * 0.5), 0, 1) * Math.min(1, this.muscle) * (0.5 + 0.5 * this.limbs.armO);
-    const vp = sword.velocityAtPoint(pommel);
-    const vh = fo.velocityAtPoint(hand);
+    // 선택 시험: 떨어진 두 점의 횡방향 damper는 순 couple을 만든다.
+    // 가상 공통점에서 속도와 ±힘을 함께 평가해 적용 힘쌍의 순토크를 0으로 한다.
+    // 손/자루의 실제 위치와 IK는 그대로이며, 일반 경로의 연산은 바꾸지 않는다.
+    const paired = GRIP.reactionModel === 'paired';
+    const handPoint = paired ? _gripMid.copy(hand).add(pommel).multiplyScalar(0.5) : hand;
+    const swordPoint = paired ? handPoint : pommel;
+    const vp = sword.velocityAtPoint(swordPoint);
+    const vh = fo.velocityAtPoint(handPoint);
     const F = _gf.set(pommel.x - hand.x, pommel.y - hand.y, pommel.z - hand.z).multiplyScalar(GRIP.k);
     F.x += (vp.x - vh.x) * GRIP.d;
     F.y += (vp.y - vh.y) * GRIP.d;
     F.z += (vp.z - vh.z) * GRIP.d;
     F.multiplyScalar(grab);
     if (F.length() > GRIP.maxForce) F.setLength(GRIP.maxForce);
-    fo.addForceAtPoint(vecArg(F), vecArg(hand), true);
-    sword.addForceAtPoint({ x: -F.x, y: -F.y, z: -F.z }, vecArg(pommel), true);
+    fo.addForceAtPoint(vecArg(F), vecArg(handPoint), true);
+    sword.addForceAtPoint({ x: -F.x, y: -F.y, z: -F.z }, vecArg(swordPoint), true);
   }
 
   /** 빈팔 역운동학 (팔이 아래로 늘어진 몸체 기준: 뼈 방향 −y, 팔꿈치는 앞(+x)으로 접힌다) */
@@ -2364,6 +2370,7 @@ const _gp = new THREE.Vector3();
 const _gw = new THREE.Vector3();
 const _gh = new THREE.Vector3();
 const _gf = new THREE.Vector3();
+const _gripMid = new THREE.Vector3();
 const _v7 = new THREE.Vector3();
 const _v6 = new THREE.Vector3();
 const _qt4 = new THREE.Quaternion();

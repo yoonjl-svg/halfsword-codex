@@ -1,0 +1,5727 @@
+{
+  "schemaVersion": 1,
+  "basisHead": "208154e3ac0d3dd924cbb6ed00c40ae8c302634d",
+  "limits": "File hashes identify uncommitted trial source; no human naturalness verdict. Ledger residuals include unread native reactions, losses, changing mass and finite-step integration. Raw contact values are uncorrected.",
+  "support": {
+    "schemaVersion": 1,
+    "sourceHead": "208154e3ac0d3dd924cbb6ed00c40ae8c302634d",
+    "sourceHashes": {
+      "src/fighter.js": "e6be36ba89e788994a675d1aa9134162042e76d856b32f83dcb6ba4418d34435",
+      "src/gait.js": "2874340a1e1991fb612ca74429523b30f7bb7eb147b1717ca6833a05405cc43f",
+      "src/config.js": "89d7f4acdb0dbf7cd1079a2185fdfc727ac7aabae1ea09b65334a6cabd594c8e",
+      "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+      "tools/sim/force_ledger.mjs": "60523a73ea4cd8ae084243f542663dc8ed8c0bb6322eed90c7cd6729b13cd24d",
+      "tools/sim/body_support_ledger_probe.mjs": "95d8c76a83c63e95d8b876e49c8a93d5f732f2aac2c050b2d28484bd2ade026f"
+    },
+    "dt": 0.008333333333333333,
+    "seed": 7,
+    "wallSeconds": 3.931069232,
+    "sourceStable": true,
+    "scope": "Same live game code, B settings, legacy grip. Each actual state is prepared before removing only the floor collider. State transitions remain enabled. Removal is a causal diagnostic, not a production terrain feature or human success criterion.",
+    "limitation": "Native upright/joint reactions, full contact work, damping loss and changing-mass flux remain unmeasured. Contact forces are RAW and receive no 6/7 correction. Residuals are not automatically engine errors.",
+    "rows": [
+      {
+        "kind": "stand",
+        "floorPresent": true,
+        "matchedStartSha256": "43a7db28ed525e61edd025cb895332ebff2b741bc4d675518bc94f9ca204323e",
+        "start": {
+          "state": "stand",
+          "stateTime": 2.999999999999992,
+          "pelvisY": 0.8420371413230896,
+          "actual": {
+            "mass": 80.69999825954437,
+            "COM": {
+              "x": -2.8488976612919865,
+              "y": 0.8631586775153021,
+              "z": -0.017682928362040624
+            },
+            "P": {
+              "x": -5.868318406853404,
+              "y": 17.72232783389552,
+              "z": -0.8087084507918842
+            },
+            "L": {
+              "x": -0.20154501263807212,
+              "y": -1.5759587988639447,
+              "z": -44.168037978776674
+            },
+            "LaboutCOM": {
+              "x": 0.1831160507475264,
+              "y": 0.6241997612700869,
+              "z": 1.2557703845598596
+            },
+            "K": 3.128633399003742,
+            "Ktranslation": 2.8806664864225455,
+            "Krotation": 0.24796691258119613,
+            "V": 683.334226015048,
+            "E": 686.4628594140518,
+            "bodyCount": 15
+          },
+          "controlMassKg": 75.1,
+          "gaitCachedMgN": 736.731
+        },
+        "transitions": [],
+        "statistics": {
+          "directSupportN": {
+            "min": 65.22278991179329,
+            "mean": 84.33286373274147,
+            "max": 95.58770437160246
+          },
+          "rawFloorVerticalN": {
+            "min": 656.744650921132,
+            "mean": 807.0833361765448,
+            "max": 991.0778959278368
+          },
+          "actualMassKg": {
+            "min": 80.69999825954437,
+            "mean": 80.69999825954437,
+            "max": 80.69999825954437
+          },
+          "KJ": {
+            "min": 0.04236640687577442,
+            "mean": 0.8362147433315736,
+            "max": 3.598771924664484
+          },
+          "unclosedImpulseNs": {
+            "min": 4.843032155632932,
+            "mean": 5.790735860660863,
+            "max": 7.097167514736095
+          }
+        },
+        "unsupportedDirectSupportFrames": 0,
+        "statesSeen": [
+          "stand"
+        ]
+      },
+      {
+        "kind": "stand",
+        "floorPresent": false,
+        "matchedStartSha256": "43a7db28ed525e61edd025cb895332ebff2b741bc4d675518bc94f9ca204323e",
+        "start": {
+          "state": "stand",
+          "stateTime": 2.999999999999992,
+          "pelvisY": 0.8420371413230896,
+          "actual": {
+            "mass": 80.69999825954437,
+            "COM": {
+              "x": -2.8488976612919865,
+              "y": 0.8631586775153021,
+              "z": -0.017682928362040624
+            },
+            "P": {
+              "x": -5.868318406853404,
+              "y": 17.72232783389552,
+              "z": -0.8087084507918842
+            },
+            "L": {
+              "x": -0.20154501263807212,
+              "y": -1.5759587988639447,
+              "z": -44.168037978776674
+            },
+            "LaboutCOM": {
+              "x": 0.1831160507475264,
+              "y": 0.6241997612700869,
+              "z": 1.2557703845598596
+            },
+            "K": 3.128633399003742,
+            "Ktranslation": 2.8806664864225455,
+            "Krotation": 0.24796691258119613,
+            "V": 683.334226015048,
+            "E": 686.4628594140518,
+            "bodyCount": 15
+          },
+          "controlMassKg": 75.1,
+          "gaitCachedMgN": 736.731
+        },
+        "transitions": [],
+        "statistics": {
+          "directSupportN": {
+            "min": 70.3904997410659,
+            "mean": 730.7655168565537,
+            "max": 1220.6726883121075
+          },
+          "rawFloorVerticalN": {
+            "min": 0,
+            "mean": 0,
+            "max": 0
+          },
+          "actualMassKg": {
+            "min": 78.69999837875366,
+            "mean": 79.73333165049553,
+            "max": 80.69999825954437
+          },
+          "KJ": {
+            "min": 1.9739666385719215,
+            "mean": 23.835789197958174,
+            "max": 88.03506533343676
+          },
+          "unclosedImpulseNs": {
+            "min": 0.0007962100117150967,
+            "mean": 0.06157409700862562,
+            "max": 2.7030603787546585
+          }
+        },
+        "unsupportedDirectSupportFrames": 120,
+        "statesSeen": [
+          "stand"
+        ]
+      },
+      {
+        "kind": "kneel",
+        "floorPresent": true,
+        "matchedStartSha256": "ff1c4c5bd5ab9c171e3cd3e6c21b41117b9fbcd3cd65e78bfd814506cfbf855d",
+        "start": {
+          "state": "kneel",
+          "stateTime": 0.5000000000000007,
+          "pelvisY": 0.5506369471549988,
+          "actual": {
+            "mass": 76.69999849796295,
+            "COM": {
+              "x": -2.7659923122063987,
+              "y": 0.6560602853184835,
+              "z": -0.016177727468985225
+            },
+            "P": {
+              "x": 2.02603990096954,
+              "y": 0.0756855466339938,
+              "z": -0.37397591562222454
+            },
+            "L": {
+              "x": -0.2599388086609341,
+              "y": -1.0744332403586863,
+              "z": -1.6530304299197183
+            },
+            "LaboutCOM": {
+              "x": -0.015812482902362285,
+              "y": -0.007242011438089335,
+              "z": -0.11448047428824415
+            },
+            "K": 1.098120412955178,
+            "Ktranslation": 0.5704190438166825,
+            "Krotation": 0.5277013691384953,
+            "V": 493.6374626342933,
+            "E": 494.73558304724844,
+            "bodyCount": 15
+          },
+          "controlMassKg": 75.1,
+          "gaitCachedMgN": 736.731
+        },
+        "transitions": [],
+        "statistics": {
+          "directSupportN": {
+            "min": 436.1982951358851,
+            "mean": 441.456301296943,
+            "max": 447.12791623453603
+          },
+          "rawFloorVerticalN": {
+            "min": 355.62222473803484,
+            "mean": 362.89797287966474,
+            "max": 368.7582108280996
+          },
+          "actualMassKg": {
+            "min": 76.69999849796295,
+            "mean": 76.69999849796295,
+            "max": 76.69999849796295
+          },
+          "KJ": {
+            "min": 1.0960136291843827,
+            "mean": 1.1064903591934496,
+            "max": 1.1196529014827425
+          },
+          "unclosedImpulseNs": {
+            "min": 2.558893885783869,
+            "mean": 2.594639766643603,
+            "max": 2.6353657202027407
+          }
+        },
+        "unsupportedDirectSupportFrames": 0,
+        "statesSeen": [
+          "kneel"
+        ]
+      },
+      {
+        "kind": "kneel",
+        "floorPresent": false,
+        "matchedStartSha256": "ff1c4c5bd5ab9c171e3cd3e6c21b41117b9fbcd3cd65e78bfd814506cfbf855d",
+        "start": {
+          "state": "kneel",
+          "stateTime": 0.5000000000000007,
+          "pelvisY": 0.5506369471549988,
+          "actual": {
+            "mass": 76.69999849796295,
+            "COM": {
+              "x": -2.7659923122063987,
+              "y": 0.6560602853184835,
+              "z": -0.016177727468985225
+            },
+            "P": {
+              "x": 2.02603990096954,
+              "y": 0.0756855466339938,
+              "z": -0.37397591562222454
+            },
+            "L": {
+              "x": -0.2599388086609341,
+              "y": -1.0744332403586863,
+              "z": -1.6530304299197183
+            },
+            "LaboutCOM": {
+              "x": -0.015812482902362285,
+              "y": -0.007242011438089335,
+              "z": -0.11448047428824415
+            },
+            "K": 1.098120412955178,
+            "Ktranslation": 0.5704190438166825,
+            "Krotation": 0.5277013691384953,
+            "V": 493.6374626342933,
+            "E": 494.73558304724844,
+            "bodyCount": 15
+          },
+          "controlMassKg": 75.1,
+          "gaitCachedMgN": 736.731
+        },
+        "transitions": [],
+        "statistics": {
+          "directSupportN": {
+            "min": 445.17142489212716,
+            "mean": 762.1266400919716,
+            "max": 899.4523400328349
+          },
+          "rawFloorVerticalN": {
+            "min": 0,
+            "mean": 0,
+            "max": 0
+          },
+          "actualMassKg": {
+            "min": 76.69999849796295,
+            "mean": 76.69999849796295,
+            "max": 76.69999849796295
+          },
+          "KJ": {
+            "min": 1.0315804775766144,
+            "mean": 5.219669191354535,
+            "max": 12.942848851060988
+          },
+          "unclosedImpulseNs": {
+            "min": 0.00046461778902298704,
+            "mean": 0.00782251179839357,
+            "max": 0.016253388889875542
+          }
+        },
+        "unsupportedDirectSupportFrames": 120,
+        "statesSeen": [
+          "kneel"
+        ]
+      },
+      {
+        "kind": "getup",
+        "floorPresent": true,
+        "matchedStartSha256": "4ff258c9ae8b8695e67e48e2e61e0c45bf04bc774f649272eec0f52bffb84658",
+        "start": {
+          "state": "getup",
+          "stateTime": 1.1999999999999982,
+          "pelvisY": 0.614875078201294,
+          "actual": {
+            "mass": 76.69999849796295,
+            "COM": {
+              "x": -2.7468381484733775,
+              "y": 0.7114260336260049,
+              "z": -0.021243146833421697
+            },
+            "P": {
+              "x": 5.461521102989782,
+              "y": 22.402911382542765,
+              "z": -0.9101545415421535
+            },
+            "L": {
+              "x": -0.43041750945737567,
+              "y": -1.761103245087482,
+              "z": -68.67674796132341
+            },
+            "LaboutCOM": {
+              "x": -0.25881820997683685,
+              "y": 0.854963865351446,
+              "z": -3.254108043021745
+            },
+            "K": 5.078811060403549,
+            "Ktranslation": 4.883116885050243,
+            "Krotation": 0.19569417535330527,
+            "V": 535.2961457202632,
+            "E": 540.3749567806667,
+            "bodyCount": 15
+          },
+          "controlMassKg": 75.1,
+          "gaitCachedMgN": 736.731
+        },
+        "transitions": [
+          {
+            "t": 0.8083333333333333,
+            "from": "getup",
+            "to": "stand"
+          }
+        ],
+        "statistics": {
+          "directSupportN": {
+            "min": 5.3419431699761395,
+            "mean": 463.1398873802527,
+            "max": 696.7203375365699
+          },
+          "rawFloorVerticalN": {
+            "min": 20.048541051597986,
+            "mean": 309.3072590509368,
+            "max": 1395.0185918425757
+          },
+          "actualMassKg": {
+            "min": 76.69999849796295,
+            "mean": 77.49999845027924,
+            "max": 80.69999825954437
+          },
+          "KJ": {
+            "min": 0.5039135807130065,
+            "mean": 6.990236885391692,
+            "max": 32.023247551269655
+          },
+          "unclosedImpulseNs": {
+            "min": 0.12625086743511557,
+            "mean": 2.313720434243562,
+            "max": 12.409172708382942
+          }
+        },
+        "unsupportedDirectSupportFrames": 0,
+        "statesSeen": [
+          "getup",
+          "stand"
+        ]
+      },
+      {
+        "kind": "getup",
+        "floorPresent": false,
+        "matchedStartSha256": "4ff258c9ae8b8695e67e48e2e61e0c45bf04bc774f649272eec0f52bffb84658",
+        "start": {
+          "state": "getup",
+          "stateTime": 1.1999999999999982,
+          "pelvisY": 0.614875078201294,
+          "actual": {
+            "mass": 76.69999849796295,
+            "COM": {
+              "x": -2.7468381484733775,
+              "y": 0.7114260336260049,
+              "z": -0.021243146833421697
+            },
+            "P": {
+              "x": 5.461521102989782,
+              "y": 22.402911382542765,
+              "z": -0.9101545415421535
+            },
+            "L": {
+              "x": -0.43041750945737567,
+              "y": -1.761103245087482,
+              "z": -68.67674796132341
+            },
+            "LaboutCOM": {
+              "x": -0.25881820997683685,
+              "y": 0.854963865351446,
+              "z": -3.254108043021745
+            },
+            "K": 5.078811060403549,
+            "Ktranslation": 4.883116885050243,
+            "Krotation": 0.19569417535330527,
+            "V": 535.2961457202632,
+            "E": 540.3749567806667,
+            "bodyCount": 15
+          },
+          "controlMassKg": 75.1,
+          "gaitCachedMgN": 736.731
+        },
+        "transitions": [
+          {
+            "t": 0.8083333333333333,
+            "from": "getup",
+            "to": "stand"
+          }
+        ],
+        "statistics": {
+          "directSupportN": {
+            "min": 0,
+            "mean": 725.1124194961782,
+            "max": 904.8343094041127
+          },
+          "rawFloorVerticalN": {
+            "min": 0,
+            "mean": 0,
+            "max": 0
+          },
+          "actualMassKg": {
+            "min": 76.69999849796295,
+            "mean": 77.49999845027924,
+            "max": 80.69999825954437
+          },
+          "KJ": {
+            "min": 2.0018937432376274,
+            "mean": 8.61626819765594,
+            "max": 43.640921742924206
+          },
+          "unclosedImpulseNs": {
+            "min": 0.0008072045616964209,
+            "mean": 0.02639416163184856,
+            "max": 2.0985227611266706
+          }
+        },
+        "unsupportedDirectSupportFrames": 116,
+        "statesSeen": [
+          "getup",
+          "stand"
+        ]
+      },
+      {
+        "kind": "down",
+        "floorPresent": true,
+        "matchedStartSha256": "848dfaaf2192a4c3d6d84b20bc49e35692075a9a9302bbb26262350f100adfe9",
+        "start": {
+          "state": "down",
+          "stateTime": 0.4000000000000004,
+          "pelvisY": 0.8917561769485474,
+          "actual": {
+            "mass": 76.69999849796295,
+            "COM": {
+              "x": -2.8242936394469695,
+              "y": 0.9350540649877372,
+              "z": -0.011975731621181332
+            },
+            "P": {
+              "x": 16.93795410835836,
+              "y": -7.814251490650696,
+              "z": -2.0385575592385643
+            },
+            "L": {
+              "x": -1.8313506082562485,
+              "y": -7.368993177764784,
+              "z": 0.6230646929554875
+            },
+            "LaboutCOM": {
+              "x": 0.16839230289369977,
+              "y": -1.4086636369471819,
+              "z": -5.608773247532044
+            },
+            "K": 4.734026796770292,
+            "Ktranslation": 4.398942817653168,
+            "Krotation": 0.3350839791171222,
+            "V": 703.559911178522,
+            "E": 708.2939379752924,
+            "bodyCount": 15
+          },
+          "controlMassKg": 75.1,
+          "gaitCachedMgN": 736.731
+        },
+        "transitions": [],
+        "statistics": {
+          "directSupportN": {
+            "min": 88.81745394941417,
+            "mean": 92.03028185907316,
+            "max": 101.77358935420392
+          },
+          "rawFloorVerticalN": {
+            "min": 699.8923075255293,
+            "mean": 765.6502229149573,
+            "max": 917.182390315259
+          },
+          "actualMassKg": {
+            "min": 76.69999849796295,
+            "mean": 76.69999849796295,
+            "max": 76.69999849796295
+          },
+          "KJ": {
+            "min": 4.942550469958359,
+            "mean": 9.950262937922266,
+            "max": 19.537493663482433
+          },
+          "unclosedImpulseNs": {
+            "min": 5.109676159544589,
+            "mean": 5.515381836231205,
+            "max": 6.692921660403104
+          }
+        },
+        "unsupportedDirectSupportFrames": 0,
+        "statesSeen": [
+          "down"
+        ]
+      },
+      {
+        "kind": "down",
+        "floorPresent": false,
+        "matchedStartSha256": "848dfaaf2192a4c3d6d84b20bc49e35692075a9a9302bbb26262350f100adfe9",
+        "start": {
+          "state": "down",
+          "stateTime": 0.4000000000000004,
+          "pelvisY": 0.8917561769485474,
+          "actual": {
+            "mass": 76.69999849796295,
+            "COM": {
+              "x": -2.8242936394469695,
+              "y": 0.9350540649877372,
+              "z": -0.011975731621181332
+            },
+            "P": {
+              "x": 16.93795410835836,
+              "y": -7.814251490650696,
+              "z": -2.0385575592385643
+            },
+            "L": {
+              "x": -1.8313506082562485,
+              "y": -7.368993177764784,
+              "z": 0.6230646929554875
+            },
+            "LaboutCOM": {
+              "x": 0.16839230289369977,
+              "y": -1.4086636369471819,
+              "z": -5.608773247532044
+            },
+            "K": 4.734026796770292,
+            "Ktranslation": 4.398942817653168,
+            "Krotation": 0.3350839791171222,
+            "V": 703.559911178522,
+            "E": 708.2939379752924,
+            "bodyCount": 15
+          },
+          "controlMassKg": 75.1,
+          "gaitCachedMgN": 736.731
+        },
+        "transitions": [],
+        "statistics": {
+          "directSupportN": {
+            "min": 93.78004633092719,
+            "mean": 454.9075389902918,
+            "max": 919.7880966468578
+          },
+          "rawFloorVerticalN": {
+            "min": 0,
+            "mean": 0,
+            "max": 0
+          },
+          "actualMassKg": {
+            "min": 76.69999849796295,
+            "mean": 76.69999849796295,
+            "max": 76.69999849796295
+          },
+          "KJ": {
+            "min": 5.406899089348126,
+            "mean": 397.5826966283584,
+            "max": 645.242104505054
+          },
+          "unclosedImpulseNs": {
+            "min": 0.00846358004037963,
+            "mean": 0.09290365650153,
+            "max": 0.12748961560443425
+          }
+        },
+        "unsupportedDirectSupportFrames": 120,
+        "statesSeen": [
+          "down"
+        ]
+      }
+    ]
+  },
+  "gripFixtures": {
+    "pass": true,
+    "fixtures": 12,
+    "dt": 0.008333333333333333,
+    "scope": "Native two-body fixtures using actual Fighter.offHand with IK omitted. Zero gravity, no contacts, no other actuators. No human grip validation. Native delta K includes spring response and integration effects; instantaneous power is measured separately. Zero applied net torque does not mean zero finite-step angular-momentum residual: dt-halving convergence is checked.",
+    "rows": [
+      {
+        "model": "legacy",
+        "motion": "rigid_rotation",
+        "timestepS": 0.008333333333333333,
+        "angleRad": 0,
+        "originOffsetM": [
+          0,
+          0,
+          0
+        ],
+        "netForceN": [
+          0,
+          0,
+          0
+        ],
+        "netTorqueNm": [
+          0,
+          0,
+          -0.31999998569488536
+        ],
+        "instantaneousPowerW": -1.2799987983703864,
+        "deltaMomentumNs": [
+          0,
+          7.450580596923828e-09,
+          0
+        ],
+        "deltaAngularMomentumNms": [
+          0,
+          0,
+          -0.002412522957029428
+        ],
+        "torqueImpulseNmS": [
+          0,
+          0,
+          -0.002666666547457378
+        ],
+        "deltaKJ": 0.27747567163371434,
+        "forceApplications": [
+          {
+            "forceN": [
+              59.99999865889549,
+              7.9999926686286855,
+              0
+            ],
+            "pointM": [
+              0,
+              5.364418020903372e-09,
+              0
+            ]
+          },
+          {
+            "forceN": [
+              -59.99999865889549,
+              -7.9999926686286855,
+              0
+            ],
+            "pointM": [
+              0.03999999910593033,
+              5.9604643443123e-10,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "model": "paired",
+        "motion": "rigid_rotation",
+        "timestepS": 0.008333333333333333,
+        "angleRad": 0,
+        "originOffsetM": [
+          0,
+          0,
+          0
+        ],
+        "netForceN": [
+          0,
+          0,
+          0
+        ],
+        "netTorqueNm": [
+          0,
+          0,
+          0
+        ],
+        "instantaneousPowerW": 0,
+        "deltaMomentumNs": [
+          0,
+          -5.960464477539063e-08,
+          0
+        ],
+        "deltaAngularMomentumNms": [
+          0,
+          0,
+          0.0002500267138494383
+        ],
+        "torqueImpulseNmS": [
+          0,
+          0,
+          0
+        ],
+        "deltaKJ": 0.2848090004172259,
+        "forceApplications": [
+          {
+            "forceN": [
+              59.99999865889549,
+              -7.152557379708213e-06,
+              0
+            ],
+            "pointM": [
+              0.019999999552965164,
+              2.980232227667301e-09,
+              0
+            ]
+          },
+          {
+            "forceN": [
+              -59.99999865889549,
+              7.152557379708213e-06,
+              0
+            ],
+            "pointM": [
+              0.019999999552965164,
+              2.980232227667301e-09,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "model": "legacy",
+        "motion": "tangential",
+        "timestepS": 0.008333333333333333,
+        "angleRad": 0,
+        "originOffsetM": [
+          0,
+          0,
+          0
+        ],
+        "netForceN": [
+          0,
+          0,
+          0
+        ],
+        "netTorqueNm": [
+          0,
+          0,
+          -1.9999999552965166
+        ],
+        "instantaneousPowerW": -49.99999284744262,
+        "deltaMomentumNs": [
+          0,
+          1.1920928955078125e-07,
+          0
+        ],
+        "deltaAngularMomentumNms": [
+          0,
+          0,
+          -0.015104162829824852
+        ],
+        "torqueImpulseNmS": [
+          0,
+          0,
+          -0.016666666294137638
+        ],
+        "deltaKJ": -0.0016491832802953965,
+        "forceApplications": [
+          {
+            "forceN": [
+              59.99999865889549,
+              49.99999284744262,
+              0
+            ],
+            "pointM": [
+              0,
+              5.364418020903372e-09,
+              0
+            ]
+          },
+          {
+            "forceN": [
+              -59.99999865889549,
+              -49.99999284744262,
+              0
+            ],
+            "pointM": [
+              0.03999999910593033,
+              5.9604643443123e-10,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "model": "paired",
+        "motion": "tangential",
+        "timestepS": 0.008333333333333333,
+        "angleRad": 0,
+        "originOffsetM": [
+          0,
+          0,
+          0
+        ],
+        "netForceN": [
+          0,
+          0,
+          0
+        ],
+        "netTorqueNm": [
+          0,
+          0,
+          0
+        ],
+        "instantaneousPowerW": -49.99999284744262,
+        "deltaMomentumNs": [
+          0,
+          1.1920928955078125e-07,
+          0
+        ],
+        "deltaAngularMomentumNms": [
+          0,
+          0,
+          0.0015625013472438942
+        ],
+        "torqueImpulseNmS": [
+          0,
+          0,
+          0
+        ],
+        "deltaKJ": 0.007320723587471711,
+        "forceApplications": [
+          {
+            "forceN": [
+              59.99999865889549,
+              49.99999284744262,
+              0
+            ],
+            "pointM": [
+              0.019999999552965164,
+              2.980232227667301e-09,
+              0
+            ]
+          },
+          {
+            "forceN": [
+              -59.99999865889549,
+              -49.99999284744262,
+              0
+            ],
+            "pointM": [
+              0.019999999552965164,
+              2.980232227667301e-09,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "model": "legacy",
+        "motion": "radial",
+        "timestepS": 0.008333333333333333,
+        "angleRad": 0,
+        "originOffsetM": [
+          0,
+          0,
+          0
+        ],
+        "netForceN": [
+          0,
+          0,
+          0
+        ],
+        "netTorqueNm": [
+          0,
+          0,
+          -2.3841857932360705e-07
+        ],
+        "instantaneousPowerW": -109.99999865889549,
+        "deltaMomentumNs": [
+          1.7881393432617188e-07,
+          0,
+          0
+        ],
+        "deltaAngularMomentumNms": [
+          0,
+          0,
+          -1.8227603648668378e-08
+        ],
+        "torqueImpulseNmS": [
+          0,
+          0,
+          -1.986821494363392e-09
+        ],
+        "deltaKJ": 0.040608274153242085,
+        "forceApplications": [
+          {
+            "forceN": [
+              109.99999865889549,
+              -7.152557379708213e-06,
+              0
+            ],
+            "pointM": [
+              0,
+              5.364418020903372e-09,
+              0
+            ]
+          },
+          {
+            "forceN": [
+              -109.99999865889549,
+              7.152557379708213e-06,
+              0
+            ],
+            "pointM": [
+              0.03999999910593033,
+              5.9604643443123e-10,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "model": "paired",
+        "motion": "radial",
+        "timestepS": 0.008333333333333333,
+        "angleRad": 0,
+        "originOffsetM": [
+          0,
+          0,
+          0
+        ],
+        "netForceN": [
+          0,
+          0,
+          0
+        ],
+        "netTorqueNm": [
+          0,
+          0,
+          0
+        ],
+        "instantaneousPowerW": -109.99999865889549,
+        "deltaMomentumNs": [
+          1.7881393432617188e-07,
+          0,
+          0
+        ],
+        "deltaAngularMomentumNms": [
+          0,
+          0,
+          -1.8227603648668378e-08
+        ],
+        "torqueImpulseNmS": [
+          0,
+          0,
+          0
+        ],
+        "deltaKJ": 0.040608274153242085,
+        "forceApplications": [
+          {
+            "forceN": [
+              109.99999865889549,
+              -7.152557379708213e-06,
+              0
+            ],
+            "pointM": [
+              0.019999999552965164,
+              2.980232227667301e-09,
+              0
+            ]
+          },
+          {
+            "forceN": [
+              -109.99999865889549,
+              7.152557379708213e-06,
+              0
+            ],
+            "pointM": [
+              0.019999999552965164,
+              2.980232227667301e-09,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "model": "legacy",
+        "motion": "rigid_rotation",
+        "timestepS": 0.008333333333333333,
+        "angleRad": 0.7,
+        "originOffsetM": [
+          2,
+          1,
+          -3
+        ],
+        "netForceN": [
+          0,
+          0,
+          0
+        ],
+        "netTorqueNm": [
+          -0.20615001192538784,
+          -3.8398439983211574e-08,
+          -0.2447490181552254
+        ],
+        "instantaneousPowerW": -1.2799969538915412,
+        "deltaMomentumNs": [
+          -1.1920928955078125e-07,
+          -7.450580596923828e-09,
+          -1.4901161193847656e-08
+        ],
+        "deltaAngularMomentumNms": [
+          -0.0015541314867535405,
+          1.8872931351054945e-07,
+          -0.0018449275396421605
+        ],
+        "torqueImpulseNmS": [
+          -0.0017179167660448986,
+          -3.1998699986009643e-10,
+          -0.002039575151293545
+        ],
+        "deltaKJ": 0.2774756898113726,
+        "forceApplications": [
+          {
+            "forceN": [
+              45.89044898748398,
+              7.999991178512566,
+              -38.65313529968262
+            ],
+            "pointM": [
+              2,
+              0.9999999904632568,
+              -3
+            ]
+          },
+          {
+            "forceN": [
+              -45.89044898748398,
+              -7.999991178512566,
+              38.65313529968262
+            ],
+            "pointM": [
+              2.0305936336517334,
+              0.9999999856948852,
+              -3.025768756866455
+            ]
+          }
+        ]
+      },
+      {
+        "model": "paired",
+        "motion": "rigid_rotation",
+        "timestepS": 0.008333333333333333,
+        "angleRad": 0.7,
+        "originOffsetM": [
+          2,
+          1,
+          -3
+        ],
+        "netForceN": [
+          0,
+          0,
+          0
+        ],
+        "netTorqueNm": [
+          0,
+          0,
+          0
+        ],
+        "instantaneousPowerW": 1.3676419552410835e-06,
+        "deltaMomentumNs": [
+          -1.1920928955078125e-07,
+          -5.960464477539063e-08,
+          -1.4901161193847656e-08
+        ],
+        "deltaAngularMomentumNms": [
+          0.000160761657295172,
+          1.8972272042283578e-07,
+          0.0001911589794496571
+        ],
+        "torqueImpulseNmS": [
+          0,
+          0,
+          0
+        ],
+        "deltaKJ": 0.2848090176015057,
+        "forceApplications": [
+          {
+            "forceN": [
+              45.89044898748398,
+              -7.152557379708213e-06,
+              -38.65313529968262
+            ],
+            "pointM": [
+              2.0152968168258667,
+              0.9999999880790711,
+              -3.0128843784332275
+            ]
+          },
+          {
+            "forceN": [
+              -45.89044898748398,
+              7.152557379708213e-06,
+              38.65313529968262
+            ],
+            "pointM": [
+              2.0152968168258667,
+              0.9999999880790711,
+              -3.0128843784332275
+            ]
+          }
+        ]
+      },
+      {
+        "model": "legacy",
+        "motion": "rigid_rotation",
+        "timestepS": 0.008333333333333333,
+        "angleRad": -1.1,
+        "originOffsetM": [
+          2,
+          1,
+          -3
+        ],
+        "netForceN": [
+          0,
+          0,
+          0
+        ],
+        "netTorqueNm": [
+          0.2851872392852854,
+          2.7036506367039692e-08,
+          -0.14515137838984057
+        ],
+        "instantaneousPowerW": -1.2800046835116852,
+        "deltaMomentumNs": [
+          -1.1548399925231934e-07,
+          -7.450580596923828e-09,
+          7.450580596923828e-09
+        ],
+        "deltaAngularMomentumNms": [
+          0.0021499552256589727,
+          1.8257811706945404e-07,
+          -0.0010941809626141552
+        ],
+        "torqueImpulseNmS": [
+          0.002376560327377378,
+          2.2530421972533077e-10,
+          -0.0012095948199153381
+        ],
+        "deltaKJ": 0.2774766554649202,
+        "forceApplications": [
+          {
+            "forceN": [
+              27.21583843231201,
+              8.00000607967376,
+              53.47252041101456
+            ],
+            "pointM": [
+              2,
+              0.9999999904632568,
+              -3
+            ]
+          },
+          {
+            "forceN": [
+              -27.21583843231201,
+              -8.00000607967376,
+              -53.47252041101456
+            ],
+            "pointM": [
+              2.018143892288208,
+              0.9999999856948852,
+              -2.9643516540527344
+            ]
+          }
+        ]
+      },
+      {
+        "model": "paired",
+        "motion": "rigid_rotation",
+        "timestepS": 0.008333333333333333,
+        "angleRad": -1.1,
+        "originOffsetM": [
+          2,
+          1,
+          -3
+        ],
+        "netForceN": [
+          0,
+          0,
+          0
+        ],
+        "netTorqueNm": [
+          0,
+          0,
+          0
+        ],
+        "instantaneousPowerW": -1.5936054098553143e-06,
+        "deltaMomentumNs": [
+          -1.1548399925231934e-07,
+          5.339582287433586e-08,
+          7.450580596923828e-09
+        ],
+        "deltaAngularMomentumNms": [
+          -0.00022246925437663378,
+          1.8257811618127562e-07,
+          0.00011352423111965493
+        ],
+        "torqueImpulseNmS": [
+          0,
+          0,
+          0
+        ],
+        "deltaKJ": 0.28481002934938937,
+        "forceApplications": [
+          {
+            "forceN": [
+              27.21583843231201,
+              -7.897615439400596e-06,
+              53.47252041101456
+            ],
+            "pointM": [
+              2.009071946144104,
+              0.9999999880790711,
+              -2.982175827026367
+            ]
+          },
+          {
+            "forceN": [
+              -27.21583843231201,
+              7.897615439400596e-06,
+              -53.47252041101456
+            ],
+            "pointM": [
+              2.009071946144104,
+              0.9999999880790711,
+              -2.982175827026367
+            ]
+          }
+        ]
+      },
+      {
+        "model": "paired",
+        "motion": "tangential",
+        "timestepS": 0.004166666666666667,
+        "angleRad": 0,
+        "originOffsetM": [
+          0,
+          0,
+          0
+        ],
+        "netForceN": [
+          0,
+          0,
+          0
+        ],
+        "netTorqueNm": [
+          0,
+          0,
+          0
+        ],
+        "instantaneousPowerW": -49.99999284744262,
+        "deltaMomentumNs": [
+          0,
+          -1.7881393432617188e-07,
+          0
+        ],
+        "deltaAngularMomentumNms": [
+          0,
+          0,
+          0.0003906177414701867
+        ],
+        "torqueImpulseNmS": [
+          0,
+          0,
+          0
+        ],
+        "deltaKJ": -0.1023366596166746,
+        "forceApplications": [
+          {
+            "forceN": [
+              59.99999865889549,
+              49.99999284744262,
+              0
+            ],
+            "pointM": [
+              0.019999999552965164,
+              2.980232227667301e-09,
+              0
+            ]
+          },
+          {
+            "forceN": [
+              -59.99999865889549,
+              -49.99999284744262,
+              0
+            ],
+            "pointM": [
+              0.019999999552965164,
+              2.980232227667301e-09,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "model": "paired",
+        "motion": "tangential",
+        "timestepS": 0.0020833333333333333,
+        "angleRad": 0,
+        "originOffsetM": [
+          0,
+          0,
+          0
+        ],
+        "netForceN": [
+          0,
+          0,
+          0
+        ],
+        "netTorqueNm": [
+          0,
+          0,
+          0
+        ],
+        "instantaneousPowerW": -49.99999284744262,
+        "deltaMomentumNs": [
+          0,
+          1.4901161193847656e-07,
+          0
+        ],
+        "deltaAngularMomentumNms": [
+          0,
+          0,
+          9.765654504657884e-05
+        ],
+        "torqueImpulseNmS": [
+          0,
+          0,
+          0
+        ],
+        "deltaKJ": -0.07766731197298227,
+        "forceApplications": [
+          {
+            "forceN": [
+              59.99999865889549,
+              49.99999284744262,
+              0
+            ],
+            "pointM": [
+              0.019999999552965164,
+              2.980232227667301e-09,
+              0
+            ]
+          },
+          {
+            "forceN": [
+              -59.99999865889549,
+              -49.99999284744262,
+              0
+            ],
+            "pointM": [
+              0.019999999552965164,
+              2.980232227667301e-09,
+              0
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "ledgerTests": {
+    "createdUTC": "2026-10-01T14:46:11.467Z",
+    "pass": true,
+    "tests": [
+      {
+        "name": "isolated force, momentum, work and restore",
+        "pass": true,
+        "details": {
+          "P": {
+            "x": 11.999959945678711,
+            "y": 0,
+            "z": 0
+          },
+          "K": 35.99975967447335,
+          "workApprox": 36.000012381375385,
+          "residualP": {
+            "x": -4.06801700592041e-05,
+            "y": 0,
+            "z": 0
+          }
+        }
+      },
+      {
+        "name": "gravity and potential use actual COM",
+        "pass": true,
+        "details": {
+          "vY": -4.905006408691406,
+          "gravityImpulse": {
+            "x": 0,
+            "y": -9.810000511631365,
+            "z": 0
+          },
+          "semiImplicitEnergyResidualJ": -0.1001828249520571
+        }
+      },
+      {
+        "name": "world inertia and torque impulse include nonidentity principal frame",
+        "pass": true,
+        "details": {
+          "impulseMeasuredDeltaL": {
+            "x": 0.20000009390033485,
+            "y": -0.10000002512469033,
+            "z": 0.300000094042154
+          },
+          "exactInstantDeltaK": 0.05978154372601613,
+          "residualL": {
+            "x": -0.00020173769702303002,
+            "y": 0.00017107275623998164,
+            "z": 0.00019150719871502409
+          }
+        }
+      },
+      {
+        "name": "off-center impulse, angular origin and exact kinetic increment",
+        "pass": true,
+        "details": {
+          "J": {
+            "x": 2,
+            "y": 0,
+            "z": 0
+          },
+          "angularImpulse": {
+            "x": 0,
+            "y": -4,
+            "z": -2
+          },
+          "deltaK": 28.77777733718163
+        }
+      },
+      {
+        "name": "reset force and torque books preserve independent native resets",
+        "pass": true,
+        "details": {
+          "handle": "0",
+          "label": "unowned:0",
+          "F": {
+            "x": 4,
+            "y": 0,
+            "z": 0
+          },
+          "torqueCOM": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueAboutOrigin": {
+            "x": 0,
+            "y": 0,
+            "z": -12
+          },
+          "byPath": [
+            {
+              "path": "external/unlabelled",
+              "F": {
+                "x": 4,
+                "y": 0,
+                "z": 0
+              },
+              "torqueCOM": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            }
+          ],
+          "mismatchF": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "mismatchT": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        }
+      },
+      {
+        "name": "paired common-point force cancels total impulse/moment while doing work",
+        "pass": true,
+        "details": {
+          "netJ": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "netAngularImpulse": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "signedPairedWorkJ": 7.674076129137451,
+          "residualL": {
+            "x": -7.152557373046875e-07,
+            "y": -6.708657522835892e-07,
+            "z": 0
+          }
+        }
+      },
+      {
+        "name": "deferred additional mass is recorded without recomputation",
+        "pass": true,
+        "details": {
+          "initial": 2,
+          "immediate": 2,
+          "afterStep": 3,
+          "changes": [
+            {
+              "handle": "0",
+              "label": "unowned:0",
+              "kind": "massPropertiesChanged",
+              "beforeMass": 2,
+              "afterMass": 3,
+              "beforeLocalCOM": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "afterLocalCOM": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "beforePrincipalI": {
+                "x": 0.07200000435113907,
+                "y": 0.07200000435113907,
+                "z": 0.07200000435113907
+              },
+              "afterPrincipalI": {
+                "x": 0.1080000028014183,
+                "y": 0.1080000028014183,
+                "z": 0.1080000028014183
+              }
+            },
+            {
+              "handle": "0",
+              "label": "unowned:0",
+              "kind": "massPropertiesChanged",
+              "beforeMass": 2,
+              "afterMass": 3,
+              "beforeLocalCOM": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "afterLocalCOM": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "beforePrincipalI": {
+                "x": 0.07200000435113907,
+                "y": 0.07200000435113907,
+                "z": 0.07200000435113907
+              },
+              "afterPrincipalI": {
+                "x": 0.1080000028014183,
+                "y": 0.1080000028014183,
+                "z": 0.1080000028014183
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "post-physics setAngvel override is distinct from force work",
+        "pass": true,
+        "details": {
+          "physicsK": 0.00048225309946657227,
+          "gamePostK": 0,
+          "override": {
+            "deltaP": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "deltaL": {
+              "x": 0,
+              "y": -0.00833333369785988,
+              "z": 0
+            },
+            "deltaK": -0.00048225309946657227,
+            "calls": 1
+          }
+        }
+      },
+      {
+        "name": "actual game instrumentation preserves identical seeded body trace",
+        "pass": true,
+        "details": {
+          "frames": 240,
+          "traceExact": true,
+          "playerBodyCount": 15,
+          "summary": {
+            "boundary": {
+              "mode": "selectedFighters",
+              "origin": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "angularReference": "fixed world origin; LaboutCOM separately",
+              "initialBodies": [
+                {
+                  "handle": "5e-324",
+                  "label": "0:pelvis",
+                  "owner": 0,
+                  "mass": 10.699999809265137,
+                  "colliderMasses": [
+                    {
+                      "handle": "5e-324",
+                      "mass": 10.699999809265137,
+                      "kind": "pelvis"
+                    }
+                  ]
+                },
+                {
+                  "handle": "1e-323",
+                  "label": "0:abdomen",
+                  "owner": 0,
+                  "mass": 10.399999618530273,
+                  "colliderMasses": [
+                    {
+                      "handle": "1e-323",
+                      "mass": 10.399999618530273,
+                      "kind": "abdomen"
+                    }
+                  ]
+                },
+                {
+                  "handle": "1.5e-323",
+                  "label": "0:chest",
+                  "owner": 0,
+                  "mass": 16.200000762939453,
+                  "colliderMasses": [
+                    {
+                      "handle": "1.5e-323",
+                      "mass": 16.200000762939453,
+                      "kind": "chest"
+                    }
+                  ]
+                },
+                {
+                  "handle": "2e-323",
+                  "label": "0:head",
+                  "owner": 0,
+                  "mass": 6.099999904632568,
+                  "colliderMasses": [
+                    {
+                      "handle": "2e-323",
+                      "mass": 6.099999904632568,
+                      "kind": "head"
+                    }
+                  ]
+                },
+                {
+                  "handle": "2.5e-323",
+                  "label": "0:uarmS",
+                  "owner": 0,
+                  "mass": 2.0999999046325684,
+                  "colliderMasses": [
+                    {
+                      "handle": "2.5e-323",
+                      "mass": 2.0999999046325684,
+                      "kind": "arm"
+                    }
+                  ]
+                },
+                {
+                  "handle": "3e-323",
+                  "label": "0:farmS",
+                  "owner": 0,
+                  "mass": 1.649999976158142,
+                  "colliderMasses": [
+                    {
+                      "handle": "3e-323",
+                      "mass": 1.649999976158142,
+                      "kind": "arm"
+                    }
+                  ]
+                },
+                {
+                  "handle": "3.5e-323",
+                  "label": "0:uarmO",
+                  "owner": 0,
+                  "mass": 2.0999999046325684,
+                  "colliderMasses": [
+                    {
+                      "handle": "3.5e-323",
+                      "mass": 2.0999999046325684,
+                      "kind": "arm"
+                    }
+                  ]
+                },
+                {
+                  "handle": "4e-323",
+                  "label": "0:farmO",
+                  "owner": 0,
+                  "mass": 1.649999976158142,
+                  "colliderMasses": [
+                    {
+                      "handle": "4e-323",
+                      "mass": 1.649999976158142,
+                      "kind": "arm"
+                    }
+                  ]
+                },
+                {
+                  "handle": "4.4e-323",
+                  "label": "0:thighF",
+                  "owner": 0,
+                  "mass": 7.499999523162842,
+                  "colliderMasses": [
+                    {
+                      "handle": "4.4e-323",
+                      "mass": 7.5,
+                      "kind": "leg"
+                    }
+                  ]
+                },
+                {
+                  "handle": "5e-323",
+                  "label": "0:shinF",
+                  "owner": 0,
+                  "mass": 3.499999761581421,
+                  "colliderMasses": [
+                    {
+                      "handle": "5e-323",
+                      "mass": 3.5,
+                      "kind": "leg"
+                    }
+                  ]
+                },
+                {
+                  "handle": "5.4e-323",
+                  "label": "0:footF",
+                  "owner": 0,
+                  "mass": 1.100000023841858,
+                  "colliderMasses": [
+                    {
+                      "handle": "5.4e-323",
+                      "mass": 1.100000023841858,
+                      "kind": "leg"
+                    }
+                  ]
+                },
+                {
+                  "handle": "6e-323",
+                  "label": "0:thighB",
+                  "owner": 0,
+                  "mass": 7.499999523162842,
+                  "colliderMasses": [
+                    {
+                      "handle": "6e-323",
+                      "mass": 7.5,
+                      "kind": "leg"
+                    }
+                  ]
+                },
+                {
+                  "handle": "6.4e-323",
+                  "label": "0:shinB",
+                  "owner": 0,
+                  "mass": 3.499999761581421,
+                  "colliderMasses": [
+                    {
+                      "handle": "6.4e-323",
+                      "mass": 3.5,
+                      "kind": "leg"
+                    }
+                  ]
+                },
+                {
+                  "handle": "7e-323",
+                  "label": "0:footB",
+                  "owner": 0,
+                  "mass": 1.100000023841858,
+                  "colliderMasses": [
+                    {
+                      "handle": "7e-323",
+                      "mass": 1.100000023841858,
+                      "kind": "leg"
+                    }
+                  ]
+                },
+                {
+                  "handle": "8e-323",
+                  "label": "0:sword",
+                  "owner": 0,
+                  "mass": 1.600000023841858,
+                  "colliderMasses": [
+                    {
+                      "handle": "7.4e-323",
+                      "mass": 0.1599999964237213,
+                      "kind": "weapon"
+                    },
+                    {
+                      "handle": "8e-323",
+                      "mass": 0.4180000126361847,
+                      "kind": "weapon"
+                    },
+                    {
+                      "handle": "8.4e-323",
+                      "mass": 0.18000000715255737,
+                      "kind": "weapon"
+                    },
+                    {
+                      "handle": "9e-323",
+                      "mass": 0.8420000076293945,
+                      "kind": "weapon"
+                    }
+                  ]
+                }
+              ],
+              "included": "Selected dynamic rigid bodies, sword and armor collider mass counted once per body; loose dynamic bodies included according to owner/body selection.",
+              "excluded": "Fixed ground/walls and kinematic upright anchors, plus dynamic bodies outside the selection.",
+              "nativeUnmeasured": "Impulse joint/motor/upright forces and work are not read. Contact impulses stay raw and are not used to close the residual; no 6/7 correction.",
+              "potentialDefinition": "V=-sum(m*gravityScale*g dot (worldCOM-origin)); uniform gravity, geometric potential zero at origin."
+            },
+            "initial": {
+              "mass": 76.69999849796295,
+              "COM": {
+                "x": -2.768343095871829,
+                "y": 1.0225722238560493,
+                "z": 0.004172099293394928
+              },
+              "P": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "L": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "LaboutCOM": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "K": 0,
+              "Ktranslation": 0,
+              "Krotation": 0,
+              "V": 769.4109356117507,
+              "E": 769.4109356117507,
+              "bodyCount": 15
+            },
+            "final": {
+              "mass": 80.69999825954437,
+              "COM": {
+                "x": -2.799408125507429,
+                "y": 0.8857841245551684,
+                "z": -0.0032087515392162677
+              },
+              "P": {
+                "x": -1.0435438779556319,
+                "y": 0.09211001705502538,
+                "z": 1.080680749485345
+              },
+              "L": {
+                "x": 1.1719514717952184,
+                "y": 2.9671106397954934,
+                "z": 0.6272529984464499
+              },
+              "LaboutCOM": {
+                "x": 0.21440606202971635,
+                "y": -0.061504304417869804,
+                "z": -0.03924807173891909
+              },
+              "K": 0.07077021990943111,
+              "Ktranslation": 0.05725319530385917,
+              "Krotation": 0.013517024605571953,
+              "V": 701.2460454104537,
+              "E": 701.3168156303631,
+              "bodyCount": 15
+            },
+            "totals": {
+              "frames": 240,
+              "physicsSteps": 240,
+              "explicitForceImpulse": {
+                "x": 25.467705329127078,
+                "y": 476.80872949804575,
+                "z": 37.41426887468646
+              },
+              "gravityImpulse": {
+                "x": 0,
+                "y": -1583.007048431992,
+                "z": 0
+              },
+              "explicitAngularImpulse": {
+                "x": 8.637478209886446,
+                "y": 104.13721363994827,
+                "z": -1258.1477726080495
+              },
+              "gravityAngularImpulse": {
+                "x": 8.813208546393755,
+                "y": 0,
+                "z": 4383.472030611481
+              },
+              "directImpulse": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "directAngularImpulse": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "forceWorkApproxJ": -12.269278064884992,
+              "gravityWorkApproxJ": 67.39451270729728,
+              "impulseDeltaKJ": 0,
+              "stateOverrideDeltaKJ": 0,
+              "massChangingFrames": 1,
+              "velocityOverrideCalls": 0,
+              "residualP": {
+                "x": -26.51124920708272,
+                "y": 1106.2904289510072,
+                "z": -36.33358812520114
+              },
+              "residualL": {
+                "x": -16.278735284484977,
+                "y": -101.17010300015275,
+                "z": -3124.697005004978
+              },
+              "energyResidualApproxJ": -55.824841916502656,
+              "byPath": {
+                "fighter[0].step > fighter[0].driveBalance": {
+                  "forceImpulse": {
+                    "x": -98.28108319641876,
+                    "y": 476.8087286005925,
+                    "z": 10.11997730124839
+                  },
+                  "angularImpulse": {
+                    "x": 9.00886238134934,
+                    "y": 28.64788412399092,
+                    "z": -1258.0086685505748
+                  },
+                  "workApproxJ": -31.679783986784418,
+                  "activePhysicsSteps": 240,
+                  "sumForceMagnitude": 60859.13922943623,
+                  "sumForceMagnitudeSquared": 15663390.229893671,
+                  "maxForceN": 382.1152924523006,
+                  "sumTorqueMagnitude": 153566.38626254728,
+                  "sumTorqueMagnitudeSquared": 100041806.49934189,
+                  "maxTorqueAboutOriginNm": 990.9985309526543,
+                  "meanForceMagnitudeN": 253.57974678931762,
+                  "rmsForceN": 255.46844415287438,
+                  "meanTorqueMagnitudeNm": 639.8599427606136,
+                  "rmsTorqueAboutOriginNm": 645.632140164912,
+                  "statisticDefinition": "Magnitude mean/RMS across all observed physics steps, with zero for absent path; force/moment are net across selected bodies, work is signed."
+                },
+                "nativeUserAccumulator/roundingOrUnattributed": {
+                  "forceImpulse": {
+                    "x": 5.697534057721265e-08,
+                    "y": 8.974531959940766e-07,
+                    "z": 6.205073095013286e-08
+                  },
+                  "angularImpulse": {
+                    "x": -6.136450665223428e-08,
+                    "y": 2.0919952338203852e-07,
+                    "z": -2.452559054273679e-06
+                  },
+                  "workApproxJ": -1.1615948241854021e-07,
+                  "activePhysicsSteps": 240,
+                  "sumForceMagnitude": 0.001102561680438671,
+                  "sumForceMagnitudeSquared": 6.2831643801539115e-09,
+                  "maxForceN": 1.2623208547959373e-05,
+                  "sumTorqueMagnitude": 0.00288563612068926,
+                  "sumTorqueMagnitudeSquared": 4.549558830544129e-08,
+                  "maxTorqueAboutOriginNm": 3.332824082664566e-05,
+                  "meanForceMagnitudeN": 4.594007001827796e-06,
+                  "rmsForceN": 5.116625018894254e-06,
+                  "meanTorqueMagnitudeNm": 1.202348383620525e-05,
+                  "rmsTorqueAboutOriginNm": 1.3768258832280574e-05,
+                  "statisticDefinition": "Magnitude mean/RMS across all observed physics steps, with zero for absent path; force/moment are net across selected bodies, work is signed."
+                },
+                "fighter[0].step > fighter[0].driveSword": {
+                  "forceImpulse": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "angularImpulse": {
+                    "x": -2.233456475320139e-17,
+                    "y": 3.287843088062292e-17,
+                    "z": 1.0430024899310553e-16
+                  },
+                  "workApproxJ": 8.43867866071073,
+                  "activePhysicsSteps": 240,
+                  "sumForceMagnitude": 0,
+                  "sumForceMagnitudeSquared": 0,
+                  "maxForceN": 0,
+                  "sumTorqueMagnitude": 1.3098304998346457e-13,
+                  "sumTorqueMagnitudeSquared": 2.2731923690731122e-28,
+                  "maxTorqueAboutOriginNm": 3.723801035659552e-15,
+                  "meanForceMagnitudeN": 0,
+                  "rmsForceN": 0,
+                  "meanTorqueMagnitudeNm": 5.457627082644357e-16,
+                  "rmsTorqueAboutOriginNm": 9.732232462872004e-16,
+                  "statisticDefinition": "Magnitude mean/RMS across all observed physics steps, with zero for absent path; force/moment are net across selected bodies, work is signed."
+                },
+                "fighter[0].step > fighter[0].driveJoints > fighter[0].manualMuscle": {
+                  "forceImpulse": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "angularImpulse": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "workApproxJ": 2.6742552497470458,
+                  "activePhysicsSteps": 240,
+                  "sumForceMagnitude": 0,
+                  "sumForceMagnitudeSquared": 0,
+                  "maxForceN": 0,
+                  "sumTorqueMagnitude": 0,
+                  "sumTorqueMagnitudeSquared": 0,
+                  "maxTorqueAboutOriginNm": 0,
+                  "meanForceMagnitudeN": 0,
+                  "rmsForceN": 0,
+                  "meanTorqueMagnitudeNm": 0,
+                  "rmsTorqueAboutOriginNm": 0,
+                  "statisticDefinition": "Magnitude mean/RMS across all observed physics steps, with zero for absent path; force/moment are net across selected bodies, work is signed."
+                },
+                "fighter[0].step > fighter[0].elbowGravity": {
+                  "forceImpulse": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "angularImpulse": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "workApproxJ": 7.169093687173209,
+                  "activePhysicsSteps": 240,
+                  "sumForceMagnitude": 0,
+                  "sumForceMagnitudeSquared": 0,
+                  "maxForceN": 0,
+                  "sumTorqueMagnitude": 0,
+                  "sumTorqueMagnitudeSquared": 0,
+                  "maxTorqueAboutOriginNm": 0,
+                  "meanForceMagnitudeN": 0,
+                  "rmsForceN": 0,
+                  "meanTorqueMagnitudeNm": 0,
+                  "rmsTorqueAboutOriginNm": 0,
+                  "statisticDefinition": "Magnitude mean/RMS across all observed physics steps, with zero for absent path; force/moment are net across selected bodies, work is signed."
+                },
+                "fighter[0].step > gait[0].pinFeet": {
+                  "forceImpulse": {
+                    "x": 123.74878846857041,
+                    "y": 0,
+                    "z": 27.29429151138735
+                  },
+                  "angularImpulse": {
+                    "x": -0.10319178947674068,
+                    "y": 75.29048917568586,
+                    "z": 0.4659912793522924
+                  },
+                  "workApproxJ": 0.1250140340708093,
+                  "activePhysicsSteps": 240,
+                  "sumForceMagnitude": 15247.482456172993,
+                  "sumForceMagnitudeSquared": 1023634.3700462962,
+                  "maxForceN": 74.10908901889998,
+                  "sumTorqueMagnitude": 9035.070510590547,
+                  "sumTorqueMagnitudeSquared": 414857.51845470624,
+                  "maxTorqueAboutOriginNm": 67.04817594273025,
+                  "meanForceMagnitudeN": 63.5311769007208,
+                  "rmsForceN": 65.30806388591101,
+                  "meanTorqueMagnitudeNm": 37.646127127460616,
+                  "rmsTorqueAboutOriginNm": 41.576110851801374,
+                  "statisticDefinition": "Magnitude mean/RMS across all observed physics steps, with zero for absent path; force/moment are net across selected bodies, work is signed."
+                },
+                "fighter[0].step > fighter[0].offHand": {
+                  "forceImpulse": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "angularImpulse": {
+                    "x": -0.2681923206216618,
+                    "y": 0.19884013107200266,
+                    "z": -0.6050928842686574
+                  },
+                  "workApproxJ": 1.0034644063571128,
+                  "activePhysicsSteps": 209,
+                  "sumForceMagnitude": 0,
+                  "sumForceMagnitudeSquared": 0,
+                  "maxForceN": 0,
+                  "sumTorqueMagnitude": 92.79410030323226,
+                  "sumTorqueMagnitudeSquared": 330.301706501685,
+                  "maxTorqueAboutOriginNm": 6.853993318794495,
+                  "meanForceMagnitudeN": 0,
+                  "rmsForceN": 0,
+                  "meanTorqueMagnitudeNm": 0.38664208459680105,
+                  "rmsTorqueAboutOriginNm": 1.1731398511787448,
+                  "statisticDefinition": "Magnitude mean/RMS across all observed physics steps, with zero for absent path; force/moment are net across selected bodies, work is signed."
+                }
+              },
+              "maxForceBookMismatch": 1.2641058443749468e-05
+            },
+            "retainedSamples": 2,
+            "sampleEvery": 1,
+            "maxSamples": 2,
+            "warnings": [],
+            "unmeasured": [
+              "native motor/constraint reactions",
+              "contact tangential impulse world basis/work",
+              "mass insertion/removal energy flux",
+              "spring potential and native damping work"
+            ],
+            "residualIsNotError": true
+          },
+          "examplePhysicsBalance": {
+            "explicitForceImpulse": {
+              "x": 0.32538894919844363,
+              "y": 1.9225656876312627,
+              "z": 0.24923623411347628
+            },
+            "explicitAngularImpulse": {
+              "x": 0.03537004323607438,
+              "y": 0.6947330032220996,
+              "z": -5.26013072846524
+            },
+            "gravityImpulse": {
+              "x": 0,
+              "y": -6.5972252017898425,
+              "z": 0
+            },
+            "gravityAngularImpulse": {
+              "x": -0.021891726057873574,
+              "y": 0,
+              "z": 18.467645410781685
+            },
+            "forceWorkApproxJ": -0.00026800754256570006,
+            "gravityWorkApproxJ": -0.006210231537730847,
+            "byPath": {
+              "fighter[0].step > fighter[0].driveBalance": {
+                "forceImpulse": {
+                  "x": -0.258439650489741,
+                  "y": 1.922565654345478,
+                  "z": 0.04788080507385506
+                },
+                "angularImpulse": {
+                  "x": 0.03613791214138276,
+                  "y": 0.13600026123301817,
+                  "z": -5.262366119478091
+                },
+                "workApproxJ": 0.007229994687601428,
+                "bodies": {
+                  "0:pelvis": {
+                    "forceImpulse": {
+                      "x": -0.21967370291627983,
+                      "y": 1.922565654345478,
+                      "z": 0.0406986843127768
+                    },
+                    "torqueCOMImpulse": {
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "angularImpulse": {
+                      "x": 0.027206409050206982,
+                      "y": 0.11552787594464095,
+                      "z": -5.310574467973298
+                    },
+                    "workApproxJ": 0.007154569628406248
+                  },
+                  "0:chest": {
+                    "forceImpulse": {
+                      "x": -0.03876594757346114,
+                      "y": 0,
+                      "z": 0.007182120761078259
+                    },
+                    "torqueCOMImpulse": {
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "angularImpulse": {
+                      "x": 0.008931503091175776,
+                      "y": 0.020472385288377207,
+                      "z": 0.04820834849520759
+                    },
+                    "workApproxJ": 7.542505919517978e-05
+                  }
+                },
+                "netForceN": {
+                  "x": -31.012756441327628,
+                  "y": 230.7078664891045,
+                  "z": 5.745696309201193
+                },
+                "netTorqueAboutOriginNm": {
+                  "x": 4.336549230797265,
+                  "y": 16.32003049680626,
+                  "z": -631.483901402919
+                },
+                "meanPowerApproxW": 0.8675993172633409
+              },
+              "nativeUserAccumulator/roundingOrUnattributed": {
+                "forceImpulse": {
+                  "x": 3.849834814847781e-09,
+                  "y": 3.328578451789623e-08,
+                  "z": 3.5994552347100627e-09
+                },
+                "angularImpulse": {
+                  "x": 7.392207213531752e-12,
+                  "y": -4.504264929131405e-09,
+                  "z": -8.317413955766445e-08
+                },
+                "workApproxJ": -1.6851483373422147e-10,
+                "bodies": {
+                  "0:pelvis": {
+                    "forceImpulse": {
+                      "x": -5.694323472931593e-09,
+                      "y": 3.328578451789623e-08,
+                      "z": 1.0716962765491513e-09
+                    },
+                    "torqueCOMImpulse": {
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "angularImpulse": {
+                      "x": 7.961861465705044e-10,
+                      "y": 3.0425476894555814e-09,
+                      "z": -9.02679681083742e-08
+                    },
+                    "workApproxJ": 1.5313329678864662e-10
+                  },
+                  "0:chest": {
+                    "forceImpulse": {
+                      "x": -1.4723680524792925e-09,
+                      "y": 0,
+                      "z": -1.030567740492215e-10
+                    },
+                    "torqueCOMImpulse": {
+                      "x": 7.341300543250721e-10,
+                      "y": 6.711312023091e-10,
+                      "z": 9.079438267723797e-10
+                    },
+                    "angularImpulse": {
+                      "x": 6.059712657712248e-10,
+                      "y": 3.844145584284494e-10,
+                      "z": 2.738943367093805e-09
+                    },
+                    "workApproxJ": -7.938108891438711e-11
+                  },
+                  "0:uarmS": {
+                    "forceImpulse": {
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "torqueCOMImpulse": {
+                      "x": -5.981122354026718e-10,
+                      "y": -6.051140201053521e-10,
+                      "z": 2.2702738651779125e-09
+                    },
+                    "angularImpulse": {
+                      "x": -5.981122354026718e-10,
+                      "y": -6.051140201053521e-10,
+                      "z": 2.2702738651779125e-09
+                    },
+                    "workApproxJ": -2.4952907751142485e-10
+                  },
+                  "0:farmS": {
+                    "forceImpulse": {
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "torqueCOMImpulse": {
+                      "x": -6.457586210228453e-10,
+                      "y": -4.456772961083675e-11,
+                      "z": -2.2255276561043286e-11
+                    },
+                    "angularImpulse": {
+                      "x": -6.457586210228453e-10,
+                      "y": -4.456772961083675e-11,
+                      "z": -2.2255276561043286e-11
+                    },
+                    "workApproxJ": -9.287927167519967e-11
+                  },
+                  "0:farmO": {
+                    "forceImpulse": {
+                      "x": -6.137131715747118e-10,
+                      "y": 1.1684298212911308e-10,
+                      "z": -1.0037622830911883e-10
+                    },
+                    "torqueCOMImpulse": {
+                      "x": 1.5433193838631513e-10,
+                      "y": -1.355446545659331e-10,
+                      "z": -1.0421230811130497e-10
+                    },
+                    "angularImpulse": {
+                      "x": 7.388183528120532e-11,
+                      "y": -3.328488853138423e-10,
+                      "z": 1.5799791502857068e-10
+                    },
+                    "workApproxJ": 7.407100663453619e-11
+                  },
+                  "0:footF": {
+                    "forceImpulse": {
+                      "x": 5.162424239029594e-09,
+                      "y": 0,
+                      "z": 1.6274246503562162e-10
+                    },
+                    "torqueCOMImpulse": {
+                      "x": -2.621889111190723e-10,
+                      "y": -7.121462150721233e-09,
+                      "z": 2.296722117553995e-10
+                    },
+                    "angularImpulse": {
+                      "x": -2.5712178346710883e-10,
+                      "y": -6.172045207997413e-09,
+                      "z": 6.893566025344629e-11
+                    },
+                    "workApproxJ": -8.379091481578097e-12
+                  },
+                  "0:footB": {
+                    "forceImpulse": {
+                      "x": 5.854102101229073e-09,
+                      "y": 0,
+                      "z": 2.4680732671745115e-09
+                    },
+                    "torqueCOMImpulse": {
+                      "x": -1.3159542984773828e-10,
+                      "y": -7.302128909759992e-09,
+                      "z": -1.3961050636857567e-10
+                    },
+                    "angularImpulse": {
+                      "x": -5.4489714648607434e-11,
+                      "y": -9.642042918543389e-10,
+                      "z": -3.225000240208432e-10
+                    },
+                    "workApproxJ": 2.4036870771407053e-11
+                  },
+                  "0:sword": {
+                    "forceImpulse": {
+                      "x": 6.137131715747118e-10,
+                      "y": -1.1684298212911308e-10,
+                      "z": 1.0037622830911883e-10
+                    },
+                    "torqueCOMImpulse": {
+                      "x": -1.5735246334634725e-11,
+                      "y": -3.8634065555837054e-11,
+                      "z": 2.566269564134414e-09
+                    },
+                    "angularImpulse": {
+                      "x": 8.683531413183061e-11,
+                      "y": 1.8755295786634798e-10,
+                      "z": 2.202433043737913e-09
+                    },
+                    "workApproxJ": 1.0412521653778378e-11
+                  }
+                },
+                "netForceN": {
+                  "x": 4.6198015368759116e-07,
+                  "y": 3.994293933828885e-06,
+                  "z": 4.319346056380624e-07
+                },
+                "netTorqueAboutOriginNm": {
+                  "x": 8.870648193597747e-10,
+                  "y": -5.405117633058833e-07,
+                  "z": -9.98089622637543e-06
+                },
+                "meanPowerApproxW": -2.0221778993458616e-08
+              },
+              "fighter[0].step > fighter[0].driveSword": {
+                "forceImpulse": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "angularImpulse": {
+                  "x": 0,
+                  "y": 8.673617379884035e-19,
+                  "z": 0
+                },
+                "workApproxJ": 0.004621877552826192,
+                "bodies": {
+                  "0:chest": {
+                    "forceImpulse": {
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "torqueCOMImpulse": {
+                      "x": 0.009372370865846651,
+                      "y": -0.00910726024804332,
+                      "z": -0.01502557078539839
+                    },
+                    "angularImpulse": {
+                      "x": 0.009372370865846651,
+                      "y": -0.00910726024804332,
+                      "z": -0.01502557078539839
+                    },
+                    "workApproxJ": 0.0013796755628499567
+                  },
+                  "0:farmS": {
+                    "forceImpulse": {
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "torqueCOMImpulse": {
+                      "x": -0.004310664184931436,
+                      "y": 0.0076696706254412795,
+                      "z": -0.0073375478938859555
+                    },
+                    "angularImpulse": {
+                      "x": -0.004310664184931436,
+                      "y": 0.0076696706254412795,
+                      "z": -0.0073375478938859555
+                    },
+                    "workApproxJ": 0.002210907423944759
+                  },
+                  "0:sword": {
+                    "forceImpulse": {
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "torqueCOMImpulse": {
+                      "x": -0.005061706680915215,
+                      "y": 0.0014375896226020406,
+                      "z": 0.022363118679284345
+                    },
+                    "angularImpulse": {
+                      "x": -0.005061706680915215,
+                      "y": 0.0014375896226020406,
+                      "z": 0.022363118679284345
+                    },
+                    "workApproxJ": 0.0010312945660314763
+                  }
+                },
+                "netForceN": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "netTorqueAboutOriginNm": {
+                  "x": 0,
+                  "y": 1.0408340313023594e-16,
+                  "z": 0
+                },
+                "meanPowerApproxW": 0.5546252774131807
+              },
+              "fighter[0].step > fighter[0].driveJoints > fighter[0].manualMuscle": {
+                "forceImpulse": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "angularImpulse": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "workApproxJ": -0.04365250892289018,
+                "bodies": {
+                  "0:chest": {
+                    "forceImpulse": {
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "torqueCOMImpulse": {
+                      "x": -0.06509746818887382,
+                      "y": 0.017127790139588938,
+                      "z": -0.08067216390639725
+                    },
+                    "angularImpulse": {
+                      "x": -0.06509746818887382,
+                      "y": 0.017127790139588938,
+                      "z": -0.08067216390639725
+                    },
+                    "workApproxJ": -0.0011613485675353353
+                  },
+                  "0:uarmS": {
+                    "forceImpulse": {
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "torqueCOMImpulse": {
+                      "x": 0.06509746818887382,
+                      "y": -0.017127790139588938,
+                      "z": 0.08067216390639725
+                    },
+                    "angularImpulse": {
+                      "x": 0.06509746818887382,
+                      "y": -0.017127790139588938,
+                      "z": 0.08067216390639725
+                    },
+                    "workApproxJ": -0.04249116035535484
+                  }
+                },
+                "netForceN": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "netTorqueAboutOriginNm": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "meanPowerApproxW": -5.2383007975481455
+              },
+              "fighter[0].step > fighter[0].elbowGravity": {
+                "forceImpulse": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "angularImpulse": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "workApproxJ": 0.03159306945210085,
+                "bodies": {
+                  "0:uarmS": {
+                    "forceImpulse": {
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "torqueCOMImpulse": {
+                      "x": -0.04741973436009036,
+                      "y": -0.008580351525621071,
+                      "z": -0.024388959480490427
+                    },
+                    "angularImpulse": {
+                      "x": -0.04741973436009036,
+                      "y": -0.008580351525621071,
+                      "z": -0.024388959480490427
+                    },
+                    "workApproxJ": 0.018807683096963526
+                  },
+                  "0:farmS": {
+                    "forceImpulse": {
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "torqueCOMImpulse": {
+                      "x": 0.04741973436009036,
+                      "y": 0.008580351525621071,
+                      "z": 0.024388959480490427
+                    },
+                    "angularImpulse": {
+                      "x": 0.04741973436009036,
+                      "y": 0.008580351525621071,
+                      "z": 0.024388959480490427
+                    },
+                    "workApproxJ": 0.012785386355137325
+                  }
+                },
+                "netForceN": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "netTorqueAboutOriginNm": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "meanPowerApproxW": 3.791168136527276
+              },
+              "fighter[0].step > fighter[0].offHand": {
+                "forceImpulse": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "angularImpulse": {
+                  "x": -1.146815986211372e-06,
+                  "y": 2.8671386875026017e-06,
+                  "z": 1.223000914343797e-05
+                },
+                "workApproxJ": -0.000791638661510486,
+                "bodies": {
+                  "0:farmO": {
+                    "forceImpulse": {
+                      "x": 0.016828810673253126,
+                      "y": 0.0299897248117551,
+                      "z": -0.005452583914218968
+                    },
+                    "torqueCOMImpulse": {
+                      "x": -0.0010702853019491664,
+                      "y": 0.0013469624838821454,
+                      "z": 0.004105100602330078
+                    },
+                    "angularImpulse": {
+                      "x": -0.0023523388987738126,
+                      "y": -0.015923468523535246,
+                      "z": -0.09484081550541956
+                    },
+                    "workApproxJ": -0.0027423599680646915
+                  },
+                  "0:sword": {
+                    "forceImpulse": {
+                      "x": -0.016828810673253126,
+                      "y": -0.0299897248117551,
+                      "z": 0.005452583914218968
+                    },
+                    "torqueCOMImpulse": {
+                      "x": -0.002866923433097188,
+                      "y": 0.002889087964073527,
+                      "z": 0.0070418065880813304
+                    },
+                    "angularImpulse": {
+                      "x": 0.002351192082787601,
+                      "y": 0.01592633566222275,
+                      "z": 0.094853045514563
+                    },
+                    "workApproxJ": 0.0019507213065542055
+                  }
+                },
+                "netForceN": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "netTorqueAboutOriginNm": {
+                  "x": -0.00013761791116803125,
+                  "y": 0.0003440566245563609,
+                  "z": 0.0014676010206711985
+                },
+                "meanPowerApproxW": -0.09499663442679776
+              },
+              "fighter[0].step > gait[0].pinFeet": {
+                "forceImpulse": {
+                  "x": 0.5838285958383498,
+                  "y": 0,
+                  "z": 0.201355425440166
+                },
+                "angularImpulse": {
+                  "x": -0.0007667220967143727,
+                  "y": 0.5587298793546589,
+                  "z": 0.0022232441778466984
+                },
+                "workApproxJ": 0.000731198517821332,
+                "bodies": {
+                  "0:footF": {
+                    "forceImpulse": {
+                      "x": 0.2837290542315527,
+                      "y": 0,
+                      "z": 0.0973968713974094
+                    },
+                    "torqueCOMImpulse": {
+                      "x": -0.0034086700926494445,
+                      "y": -0.0012354952803903306,
+                      "z": 0.009929874827586407
+                    },
+                    "angularImpulse": {
+                      "x": -0.00037613411524174483,
+                      "y": 0.2981198588426978,
+                      "z": 0.0010957248959908659
+                    },
+                    "workApproxJ": 0.00037539096197478767
+                  },
+                  "0:footB": {
+                    "forceImpulse": {
+                      "x": 0.3000995416067971,
+                      "y": 0,
+                      "z": 0.10395855404275658
+                    },
+                    "torqueCOMImpulse": {
+                      "x": -0.003638384052660925,
+                      "y": -0.0012208516036783163,
+                      "z": 0.010503006668830268
+                    },
+                    "angularImpulse": {
+                      "x": -0.00039058798147262785,
+                      "y": 0.260610020511961,
+                      "z": 0.0011275192818558327
+                    },
+                    "workApproxJ": 0.0003558075558465444
+                  }
+                },
+                "netForceN": {
+                  "x": 70.05942784671808,
+                  "y": 0,
+                  "z": 24.16264979263953
+                },
+                "netTorqueAboutOriginNm": {
+                  "x": -0.09200664680720416,
+                  "y": 67.04758202575518,
+                  "z": 0.26678928742745817
+                },
+                "meanPowerApproxW": 0.08774381756236314
+              }
+            },
+            "massPropertyChanges": [],
+            "deltaP": {
+              "x": -0.012053865259333385,
+              "y": 0.032287771997707035,
+              "z": -0.005184024480959559
+            },
+            "deltaL": {
+              "x": -0.005446500207227922,
+              "y": -0.02992313448226014,
+              "z": -0.0668842617191604
+            },
+            "deltaK": -0.001486871212396712,
+            "deltaE": -0.0051519461501357,
+            "residualP": {
+              "x": -0.337442814457777,
+              "y": 4.706947286156287,
+              "z": -0.25442025859443584
+            },
+            "residualL": {
+              "x": -0.018924817385428727,
+              "y": -0.7246561377043598,
+              "z": -13.274398944035605
+            },
+            "energyResidualApproxJ": -0.00488393860757,
+            "fixedMassBoundary": true,
+            "unmeasured": [
+              "native joint/motor/upright constraint impulses and work",
+              "contact/friction/damping/CCD numerical effects",
+              "elastic storage not modelled"
+            ],
+            "workDefinition": "dt*(F dot midpoint COM velocity + torqueCOM dot midpoint angular velocity); approximate, not motor work"
+          },
+          "contactPairs": 2
+        }
+      }
+    ],
+    "sourceBefore": {
+      "src/fighter.js": "91e24f3f10a8895a72e438e7caa29fb0c3ea3ca6e037968eb24e6d3089c39bd6",
+      "src/gait.js": "2874340a1e1991fb612ca74429523b30f7bb7eb147b1717ca6833a05405cc43f",
+      "src/config.js": "89d7f4acdb0dbf7cd1079a2185fdfc727ac7aabae1ea09b65334a6cabd594c8e",
+      "src/combat.js": "7e807bcd086366cfda8ad84ed33bcd14f02f5506f1df3341bbe47f6d22e25097",
+      "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b"
+    },
+    "sourceAfter": {
+      "src/fighter.js": "91e24f3f10a8895a72e438e7caa29fb0c3ea3ca6e037968eb24e6d3089c39bd6",
+      "src/gait.js": "2874340a1e1991fb612ca74429523b30f7bb7eb147b1717ca6833a05405cc43f",
+      "src/config.js": "89d7f4acdb0dbf7cd1079a2185fdfc727ac7aabae1ea09b65334a6cabd594c8e",
+      "src/combat.js": "7e807bcd086366cfda8ad84ed33bcd14f02f5506f1df3341bbe47f6d22e25097",
+      "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b"
+    },
+    "sourceStable": true
+  },
+  "defaultTrace": {
+    "baseline": {
+      "harness": "/tmp/halfsword-force-baseline-208/tools/sim/harness_m.mjs",
+      "rows": [
+        {
+          "kind": "ai_duel",
+          "frames": 960,
+          "sha256": "f74321064ea1891305528a62ceab01bc774c7e67f89374690a382b6d14b7017b",
+          "playerState": "stand",
+          "enemyState": "stand",
+          "hits": 3,
+          "configuredReaction": "absent (legacy)"
+        },
+        {
+          "kind": "hurt_getup",
+          "frames": 960,
+          "sha256": "ff3474525823978ec1b7af9e5c395c1fd65328072b95b58facdd641ca0c0a6c5",
+          "playerState": "stand",
+          "enemyState": "stand",
+          "hits": 0,
+          "configuredReaction": "absent (legacy)"
+        }
+      ]
+    },
+    "candidateDefault": {
+      "harness": "/workspace/halfsword-codex/tools/sim/harness_m.mjs",
+      "rows": [
+        {
+          "kind": "ai_duel",
+          "frames": 960,
+          "sha256": "f74321064ea1891305528a62ceab01bc774c7e67f89374690a382b6d14b7017b",
+          "playerState": "stand",
+          "enemyState": "stand",
+          "hits": 3,
+          "configuredReaction": "legacy"
+        },
+        {
+          "kind": "hurt_getup",
+          "frames": 960,
+          "sha256": "ff3474525823978ec1b7af9e5c395c1fd65328072b95b58facdd641ca0c0a6c5",
+          "playerState": "stand",
+          "enemyState": "stand",
+          "hits": 0,
+          "configuredReaction": "legacy"
+        }
+      ]
+    },
+    "both960FrameTracesExact": true
+  },
+  "mobileLocal": {
+    "base": "http://127.0.0.1:4175/",
+    "method": "Actual portrait link tap, landscape Start tap, >3s live simulation, CDP touch drag and restart; AI update disabled to isolate input. No naturalness or hardware performance verdict.",
+    "rows": [
+      {
+        "id": "playForceB",
+        "expected": "legacy",
+        "layout": {
+          "width": 390,
+          "scrollWidth": 390
+        },
+        "link": {
+          "href": "./?supportProbe=1&assist=0.1&catch=on&catchScale=1&weapon=longsword&foeWeapon=longsword&foe=default",
+          "firstViewport": true
+        },
+        "menu": {
+          "state": "menu",
+          "simTime": 0,
+          "probe": {
+            "active": true,
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1,
+            "sourceBase": "14bcf1f+혼합수정"
+          },
+          "trial": {
+            "active": false,
+            "kind": null,
+            "gripReaction": "legacy"
+          },
+          "reaction": "legacy",
+          "label": false,
+          "weapon": "longsword",
+          "foeWeapon": "longsword",
+          "gripping": false,
+          "hand": {
+            "x": 0.15,
+            "y": 0
+          },
+          "finite": true
+        },
+        "before": {
+          "state": "fight",
+          "simTime": 3.049999999999992,
+          "probe": {
+            "active": true,
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1,
+            "sourceBase": "14bcf1f+혼합수정"
+          },
+          "trial": {
+            "active": false,
+            "kind": null,
+            "gripReaction": "legacy"
+          },
+          "reaction": "legacy",
+          "label": false,
+          "weapon": "longsword",
+          "foeWeapon": "longsword",
+          "gripping": true,
+          "held": false,
+          "hand": {
+            "x": 0.15,
+            "y": 0
+          },
+          "finite": true
+        },
+        "press": {
+          "state": "fight",
+          "simTime": 3.1499999999999915,
+          "probe": {
+            "active": true,
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1,
+            "sourceBase": "14bcf1f+혼합수정"
+          },
+          "trial": {
+            "active": false,
+            "kind": null,
+            "gripReaction": "legacy"
+          },
+          "reaction": "legacy",
+          "label": false,
+          "weapon": "longsword",
+          "foeWeapon": "longsword",
+          "gripping": true,
+          "held": true,
+          "hand": {
+            "x": 0.15,
+            "y": 0
+          },
+          "finite": true
+        },
+        "drag": {
+          "state": "fight",
+          "simTime": 3.8083333333333225,
+          "probe": {
+            "active": true,
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1,
+            "sourceBase": "14bcf1f+혼합수정"
+          },
+          "trial": {
+            "active": false,
+            "kind": null,
+            "gripReaction": "legacy"
+          },
+          "reaction": "legacy",
+          "label": false,
+          "weapon": "longsword",
+          "foeWeapon": "longsword",
+          "gripping": true,
+          "held": true,
+          "hand": {
+            "x": -0.4082728568784812,
+            "y": -0.4665975507182642
+          },
+          "finite": true
+        },
+        "release": {
+          "state": "fight",
+          "simTime": 3.958333333333322,
+          "probe": {
+            "active": true,
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1,
+            "sourceBase": "14bcf1f+혼합수정"
+          },
+          "trial": {
+            "active": false,
+            "kind": null,
+            "gripReaction": "legacy"
+          },
+          "reaction": "legacy",
+          "label": false,
+          "weapon": "longsword",
+          "foeWeapon": "longsword",
+          "gripping": true,
+          "held": false,
+          "hand": {
+            "x": -0.4082728568784812,
+            "y": -0.4665975507182642
+          },
+          "finite": true
+        },
+        "restart": {
+          "state": "fight",
+          "simTime": 4.341666666666672,
+          "probe": {
+            "active": true,
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1,
+            "sourceBase": "14bcf1f+혼합수정"
+          },
+          "trial": {
+            "active": false,
+            "kind": null,
+            "gripReaction": "legacy"
+          },
+          "reaction": "legacy",
+          "label": false,
+          "weapon": "longsword",
+          "foeWeapon": "longsword",
+          "gripping": false,
+          "hand": {
+            "x": 0.15,
+            "y": 0
+          },
+          "finite": true
+        },
+        "storage": {},
+        "grippingObserved": true,
+        "pass": true
+      },
+      {
+        "id": "playGripTrial",
+        "expected": "paired",
+        "layout": {
+          "width": 390,
+          "scrollWidth": 390
+        },
+        "link": {
+          "href": "./?supportProbe=1&assist=0.1&catch=on&catchScale=1&weapon=longsword&foeWeapon=longsword&foe=default&physicsTrial=grip",
+          "firstViewport": true
+        },
+        "menu": {
+          "state": "menu",
+          "simTime": 0,
+          "probe": {
+            "active": true,
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1,
+            "sourceBase": "14bcf1f+혼합수정"
+          },
+          "trial": {
+            "active": true,
+            "kind": "grip",
+            "gripReaction": "paired"
+          },
+          "reaction": "paired",
+          "label": true,
+          "weapon": "longsword",
+          "foeWeapon": "longsword",
+          "gripping": false,
+          "hand": {
+            "x": 0.15,
+            "y": 0
+          },
+          "finite": true
+        },
+        "before": {
+          "state": "fight",
+          "simTime": 3.0416666666666585,
+          "probe": {
+            "active": true,
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1,
+            "sourceBase": "14bcf1f+혼합수정"
+          },
+          "trial": {
+            "active": true,
+            "kind": "grip",
+            "gripReaction": "paired"
+          },
+          "reaction": "paired",
+          "label": true,
+          "weapon": "longsword",
+          "foeWeapon": "longsword",
+          "gripping": true,
+          "held": false,
+          "hand": {
+            "x": 0.15,
+            "y": 0
+          },
+          "finite": true
+        },
+        "press": {
+          "state": "fight",
+          "simTime": 3.191666666666658,
+          "probe": {
+            "active": true,
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1,
+            "sourceBase": "14bcf1f+혼합수정"
+          },
+          "trial": {
+            "active": true,
+            "kind": "grip",
+            "gripReaction": "paired"
+          },
+          "reaction": "paired",
+          "label": true,
+          "weapon": "longsword",
+          "foeWeapon": "longsword",
+          "gripping": true,
+          "held": true,
+          "hand": {
+            "x": 0.15,
+            "y": 0
+          },
+          "finite": true
+        },
+        "drag": {
+          "state": "fight",
+          "simTime": 3.824999999999989,
+          "probe": {
+            "active": true,
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1,
+            "sourceBase": "14bcf1f+혼합수정"
+          },
+          "trial": {
+            "active": true,
+            "kind": "grip",
+            "gripReaction": "paired"
+          },
+          "reaction": "paired",
+          "label": true,
+          "weapon": "longsword",
+          "foeWeapon": "longsword",
+          "gripping": true,
+          "held": true,
+          "hand": {
+            "x": -0.4082728568784812,
+            "y": -0.4665975507182642
+          },
+          "finite": true
+        },
+        "release": {
+          "state": "fight",
+          "simTime": 3.9749999999999885,
+          "probe": {
+            "active": true,
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1,
+            "sourceBase": "14bcf1f+혼합수정"
+          },
+          "trial": {
+            "active": true,
+            "kind": "grip",
+            "gripReaction": "paired"
+          },
+          "reaction": "paired",
+          "label": true,
+          "weapon": "longsword",
+          "foeWeapon": "longsword",
+          "gripping": true,
+          "held": false,
+          "hand": {
+            "x": -0.4082728568784812,
+            "y": -0.4665975507182642
+          },
+          "finite": true
+        },
+        "restart": {
+          "state": "fight",
+          "simTime": 4.300000000000003,
+          "probe": {
+            "active": true,
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1,
+            "sourceBase": "14bcf1f+혼합수정"
+          },
+          "trial": {
+            "active": true,
+            "kind": "grip",
+            "gripReaction": "paired"
+          },
+          "reaction": "paired",
+          "label": true,
+          "weapon": "longsword",
+          "foeWeapon": "longsword",
+          "gripping": false,
+          "hand": {
+            "x": 0.15,
+            "y": 0
+          },
+          "finite": true
+        },
+        "storage": {},
+        "grippingObserved": true,
+        "pass": true
+      }
+    ],
+    "normal": {
+      "state": "menu",
+      "simTime": 0,
+      "probe": {
+        "active": false,
+        "assist": 0.3,
+        "catchMode": "on",
+        "catchScale": 1,
+        "sourceBase": "14bcf1f+혼합수정"
+      },
+      "trial": {
+        "active": false,
+        "kind": null,
+        "gripReaction": "legacy"
+      },
+      "reaction": "legacy",
+      "label": false,
+      "weapon": "longsword",
+      "foeWeapon": "excalibur_replica",
+      "gripping": false,
+      "hand": {
+        "x": 0.15,
+        "y": 0
+      },
+      "finite": true
+    },
+    "errors": [],
+    "httpFailures": [],
+    "pass": true
+  },
+  "rawEvidenceDirectory": "/workspace/halfsword-hybrid-evidence",
+  "rawEvidence": [
+    {
+      "file": "body-support-ledger-final.json",
+      "sha256": "0621cf098a2870ccc3f52dcf19ff833967fd0b52b493f61f3fec9d531df8b4f7"
+    },
+    {
+      "file": "grip-reaction-fixtures-final.json",
+      "sha256": "551168b1b5d8e5dc4907971c8d832561e981a649da7de356df85761676eb74d8"
+    },
+    {
+      "file": "force-ledger-tests.json",
+      "sha256": "7b729b25f4ce81b452165c1379132ffa48616bfaee7c764ff0ff4efcd08c8b16"
+    },
+    {
+      "file": "force-default-before.json",
+      "sha256": "43140c36fd9f165d648980ed956799a03e2c8f1ddd1c0376ca2ce80b469e3c7c"
+    },
+    {
+      "file": "force-default-after.json",
+      "sha256": "f8c257ae3f609cf16ddbeb76d754532c3f9759fff713a46a5f0279eb81df780d"
+    },
+    {
+      "file": "force-lab-local.json",
+      "sha256": "bae84899640c36d99609fe1db15c69b896173af0ec1a0ad27a854b905d254bab"
+    },
+    {
+      "file": "grip-integration-final.json",
+      "sha256": "29b207d6efa4477e735cbdf28ae62c913c9087286293bf11a31fd4a4d4a46e12"
+    }
+  ],
+  "integrationSmoke": {
+    "createdUTC": "2026-10-01T14:55:54.275Z",
+    "head": "208154e3ac0d3dd924cbb6ed00c40ae8c302634d",
+    "command": "node tools/sim/grip_integration_probe.mjs /workspace/halfsword-hybrid-evidence/grip-integration-final.json",
+    "sourceBefore": {
+      "src/fighter.js": "e6be36ba89e788994a675d1aa9134162042e76d856b32f83dcb6ba4418d34435",
+      "src/gait.js": "2874340a1e1991fb612ca74429523b30f7bb7eb147b1717ca6833a05405cc43f",
+      "src/combat.js": "7e807bcd086366cfda8ad84ed33bcd14f02f5506f1df3341bbe47f6d22e25097",
+      "src/config.js": "89d7f4acdb0dbf7cd1079a2185fdfc727ac7aabae1ea09b65334a6cabd594c8e",
+      "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+      "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+      "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+      "tools/sim/force_ledger.mjs": "60523a73ea4cd8ae084243f542663dc8ed8c0bb6322eed90c7cd6729b13cd24d",
+      "tools/sim/grip_integration_probe.mjs": "376c94c7942200721e982094c0df4b7a20ff68979579a876e496e371e22252d2"
+    },
+    "protocol": {
+      "scenes": 4,
+      "seed": 17,
+      "dt": 0.008333333333333333,
+      "settings": {
+        "weightMode": "hybrid",
+        "assist": 0.3,
+        "catchMode": "on",
+        "catchScale": 1,
+        "limbSeverTrial": false
+      },
+      "duel": "actual AI normal on both actors; longsword vs zweihander, 30 seconds, no park/injury injection or early death exit",
+      "getup": "same force_default_trace hurt_getup: total8s, at3s player legF=.45 and knockDown(false); enemy parked, player has no AI",
+      "ledgerInstalled": false,
+      "scope": "Every frame finite state of all dynamic world bodies and world-transformed anatomical/sword-grip joint anchors; actual Combat wounds/clashes, live grip, fighter state changes. Contact manifolds sampled at10Hz as witnesses only. No human naturalness, balancing, or joint-gap acceptance threshold."
+    },
+    "rows": [
+      {
+        "kind": "ai_duel",
+        "reaction": "legacy",
+        "seconds": 30,
+        "frames": 3600,
+        "bothAI": true,
+        "finite": true,
+        "exceptions": [],
+        "gripFrames": {
+          "player": 3566,
+          "enemy": 2982
+        },
+        "transitions": [
+          {
+            "timeS": 25.08333333333255,
+            "actor": "enemy",
+            "from": "stand",
+            "to": "dead"
+          }
+        ],
+        "maxAnchorGapByActor": {
+          "player": {
+            "abdomen": 0.0010897701243526925,
+            "chest": 0.0002448474616168654,
+            "head": 0.00046326958869575565,
+            "uarmS": 0.003345705662247664,
+            "farmS": 0.0015325890437346648,
+            "uarmO": 0.0018650443305589075,
+            "farmO": 0.0002213066669008034,
+            "thighF": 0.0015228970820369472,
+            "shinF": 0.0024107635325208397,
+            "footF": 0.0011223056538379273,
+            "thighB": 0.0011022372679037817,
+            "shinB": 0.002089390656414127,
+            "footB": 0.0012128953163543154,
+            "swordGrip": 0.0007729803387304555
+          },
+          "enemy": {
+            "abdomen": 0.002705233226925559,
+            "chest": 0.0004901474091854115,
+            "head": 0.0002959010969906045,
+            "uarmS": 0.002141214049555566,
+            "farmS": 0.002116641852346712,
+            "uarmO": 0.0020274125072326506,
+            "farmO": 0.002073638212691219,
+            "thighF": 0.0013446070725031008,
+            "shinF": 0.0030008936838029016,
+            "footF": 0.0011499026544718092,
+            "thighB": 0.0013059462810083293,
+            "shinB": 0.0021154855097925444,
+            "footB": 0.0009707470999613366,
+            "swordGrip": 0.0009460668426751165
+          }
+        },
+        "unexpectedMissingJoints": [],
+        "contactWitnesses": {
+          "sampledFrames": 300,
+          "weaponOpponentManifolds": 75,
+          "positiveRawNormalImpulseManifolds": 37
+        },
+        "samples": [
+          {
+            "timeS": 0.008333333333333333,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": false,
+              "pelvisY": 0.9698065519332886
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": false,
+              "pelvisY": 0.9698094129562378
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 1.0083333333333322,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8962302803993225
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.898718535900116
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 2.008333333333329,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8863776326179504
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.886900782585144
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 3.0083333333333253,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9331373572349548
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9154835343360901
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 4.008333333333322,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9315658807754517
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9348583817481995
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 5.008333333333372,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9101871848106384
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9465412497520447
+            },
+            "hits": 0,
+            "clashes": 1
+          },
+          {
+            "timeS": 6.008333333333422,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9362338185310364
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9491592645645142
+            },
+            "hits": 1,
+            "clashes": 3
+          },
+          {
+            "timeS": 7.008333333333471,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9521274566650391
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9439838528633118
+            },
+            "hits": 3,
+            "clashes": 3
+          },
+          {
+            "timeS": 8.00833333333352,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9054076671600342
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9263251423835754
+            },
+            "hits": 3,
+            "clashes": 3
+          },
+          {
+            "timeS": 9.008333333333463,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9365976452827454
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9425761699676514
+            },
+            "hits": 3,
+            "clashes": 7
+          },
+          {
+            "timeS": 10.008333333333406,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9397273659706116
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9437098503112793
+            },
+            "hits": 3,
+            "clashes": 7
+          },
+          {
+            "timeS": 11.008333333333349,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9465230703353882
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9384884238243103
+            },
+            "hits": 4,
+            "clashes": 7
+          },
+          {
+            "timeS": 12.008333333333292,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9375781416893005
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8371295928955078
+            },
+            "hits": 8,
+            "clashes": 30
+          },
+          {
+            "timeS": 13.008333333333235,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9406843781471252
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9487773180007935
+            },
+            "hits": 9,
+            "clashes": 103
+          },
+          {
+            "timeS": 14.008333333333178,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9187244772911072
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9271925091743469
+            },
+            "hits": 11,
+            "clashes": 159
+          },
+          {
+            "timeS": 15.008333333333121,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9286956787109375
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9315276741981506
+            },
+            "hits": 12,
+            "clashes": 159
+          },
+          {
+            "timeS": 16.008333333333066,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9261925220489502
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9306410551071167
+            },
+            "hits": 12,
+            "clashes": 160
+          },
+          {
+            "timeS": 17.00833333333301,
+            "player": {
+              "state": "stand",
+              "blood": 0.9982477497525044,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9073702096939087
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9283825755119324
+            },
+            "hits": 16,
+            "clashes": 160
+          },
+          {
+            "timeS": 18.008333333332953,
+            "player": {
+              "state": "stand",
+              "blood": 0.995297519183047,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9463801980018616
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9345635771751404
+            },
+            "hits": 16,
+            "clashes": 160
+          },
+          {
+            "timeS": 19.008333333332896,
+            "player": {
+              "state": "stand",
+              "blood": 0.9926810564951821,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9368339776992798
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8891264200210571
+            },
+            "hits": 16,
+            "clashes": 160
+          },
+          {
+            "timeS": 20.00833333333284,
+            "player": {
+              "state": "stand",
+              "blood": 0.9903606015897712,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8981108665466309
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9358377456665039
+            },
+            "hits": 16,
+            "clashes": 161
+          },
+          {
+            "timeS": 21.008333333332782,
+            "player": {
+              "state": "stand",
+              "blood": 0.9883026662738897,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9470356106758118
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9035129547119141
+            },
+            "hits": 16,
+            "clashes": 161
+          },
+          {
+            "timeS": 22.008333333332725,
+            "player": {
+              "state": "stand",
+              "blood": 0.986477550968059,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8538033962249756
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.926264226436615
+            },
+            "hits": 16,
+            "clashes": 180
+          },
+          {
+            "timeS": 23.00833333333267,
+            "player": {
+              "state": "stand",
+              "blood": 0.9848589160897568,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9315225481987
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9346375465393066
+            },
+            "hits": 16,
+            "clashes": 184
+          },
+          {
+            "timeS": 24.00833333333261,
+            "player": {
+              "state": "stand",
+              "blood": 0.9834234019275084,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9450501799583435
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.944291889667511
+            },
+            "hits": 18,
+            "clashes": 192
+          },
+          {
+            "timeS": 25.008333333332555,
+            "player": {
+              "state": "stand",
+              "blood": 0.9821502915196955,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9341826438903809
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9314738512039185
+            },
+            "hits": 18,
+            "clashes": 192
+          },
+          {
+            "timeS": 26.008333333332498,
+            "player": {
+              "state": "stand",
+              "blood": 0.981021211672832,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8968278765678406
+            },
+            "enemy": {
+              "state": "dead",
+              "blood": 0.6074780724512319,
+              "armed": true,
+              "gripping": false,
+              "pelvisY": 0.8835114240646362
+            },
+            "hits": 21,
+            "clashes": 192
+          },
+          {
+            "timeS": 27.00833333333244,
+            "player": {
+              "state": "stand",
+              "blood": 0.9800198678044844,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8852576017379761
+            },
+            "enemy": {
+              "state": "dead",
+              "blood": 0.22940675536958913,
+              "armed": true,
+              "gripping": false,
+              "pelvisY": 0.1858942210674286
+            },
+            "hits": 21,
+            "clashes": 192
+          },
+          {
+            "timeS": 28.008333333332384,
+            "player": {
+              "state": "stand",
+              "blood": 0.9791318087841557,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8882560133934021
+            },
+            "enemy": {
+              "state": "dead",
+              "blood": 0,
+              "armed": true,
+              "gripping": false,
+              "pelvisY": 0.17165899276733398
+            },
+            "hits": 21,
+            "clashes": 192
+          },
+          {
+            "timeS": 29.008333333332327,
+            "player": {
+              "state": "stand",
+              "blood": 0.978344218378386,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8881903886795044
+            },
+            "enemy": {
+              "state": "dead",
+              "blood": 0,
+              "armed": true,
+              "gripping": false,
+              "pelvisY": 0.1720871478319168
+            },
+            "hits": 21,
+            "clashes": 192
+          }
+        ],
+        "walls": false,
+        "wallSeconds": 3.744106198,
+        "traceSha256": "aa92f7455b5e7d4a7cab72f94be0d7144b3bc55ef6dbe3f4cb75ca745ce6b34f",
+        "hits": 21,
+        "clashes": 192,
+        "wounds": [
+          {
+            "timeS": 5.991666666666754,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "chest",
+            "type": "blunt",
+            "energyJ": 29.678834742564337,
+            "severity": 0
+          },
+          {
+            "timeS": 6.008333333333422,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 9.635729751945519,
+            "severity": 0
+          },
+          {
+            "timeS": 6.308333333333437,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 9.653284935859274,
+            "severity": 0
+          },
+          {
+            "timeS": 10.016666666666739,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "leg",
+            "type": "blunt",
+            "energyJ": 15.458760331735723,
+            "severity": 0
+          },
+          {
+            "timeS": 11.191666666666672,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 22.03586215632611,
+            "severity": 0
+          },
+          {
+            "timeS": 11.191666666666672,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "chest",
+            "type": "blunt",
+            "energyJ": 25.817844523576923,
+            "severity": 0
+          },
+          {
+            "timeS": 11.33333333333333,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 10.483703097552016,
+            "severity": 0
+          },
+          {
+            "timeS": 11.94166666666663,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 14.305113112251952,
+            "severity": 0
+          },
+          {
+            "timeS": 12.049999999999956,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 15.381170853284278,
+            "severity": 0
+          },
+          {
+            "timeS": 13.833333333333188,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "head",
+            "type": "blunt",
+            "energyJ": 16.488501659662262,
+            "severity": 0
+          },
+          {
+            "timeS": 13.98333333333318,
+            "attacker": "P",
+            "victim": "E",
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 8.208560657130688,
+            "severity": 0
+          },
+          {
+            "timeS": 14.2166666666665,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "leg",
+            "type": "blunt",
+            "energyJ": 22.42668088432358,
+            "severity": 0
+          },
+          {
+            "timeS": 16.45833333333304,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "arm",
+            "type": "cut",
+            "energyJ": 42.28200875080326,
+            "severity": 0.27829835578467854
+          },
+          {
+            "timeS": 16.533333333333037,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "chest",
+            "type": "blunt",
+            "energyJ": 16.965890190766398,
+            "severity": 0
+          },
+          {
+            "timeS": 16.549999999999702,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 21.22669109416278,
+            "severity": 0
+          },
+          {
+            "timeS": 16.74999999999969,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 13.23116255997843,
+            "severity": 0
+          },
+          {
+            "timeS": 23.066666666666,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "chest",
+            "type": "blunt",
+            "energyJ": 40.36062457080576,
+            "severity": 0
+          },
+          {
+            "timeS": 23.36666666666598,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 7.760812588872455,
+            "severity": 0
+          },
+          {
+            "timeS": 25.074999999999218,
+            "attacker": "P",
+            "victim": "E",
+            "zone": "neck",
+            "type": "cut",
+            "energyJ": 126.53477924456303,
+            "severity": 1.12030740949033
+          },
+          {
+            "timeS": 25.091666666665883,
+            "attacker": "P",
+            "victim": "E",
+            "zone": "chest",
+            "type": "cut",
+            "energyJ": 85.0925160380462,
+            "severity": 0.43453055064693114
+          },
+          {
+            "timeS": 25.66666666666585,
+            "attacker": "P",
+            "victim": "E",
+            "zone": "pelvis",
+            "type": "blunt",
+            "energyJ": 9.876533311535441,
+            "severity": 0
+          }
+        ],
+        "final": [
+          {
+            "name": "P",
+            "state": "stand",
+            "blood": 0.9776512113371678,
+            "limbs": {
+              "armS": 1,
+              "armO": 0.805191150950725,
+              "legF": 1,
+              "legB": 1
+            },
+            "armed": true,
+            "gripping": true,
+            "actualWoundCount": 1
+          },
+          {
+            "name": "E",
+            "state": "dead",
+            "blood": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "armed": true,
+            "gripping": false,
+            "actualWoundCount": 2
+          }
+        ],
+        "pass": true
+      },
+      {
+        "kind": "ai_duel",
+        "reaction": "paired",
+        "seconds": 30,
+        "frames": 3600,
+        "bothAI": true,
+        "finite": true,
+        "exceptions": [],
+        "gripFrames": {
+          "player": 3566,
+          "enemy": 3097
+        },
+        "transitions": [
+          {
+            "timeS": 8.47500000000016,
+            "actor": "player",
+            "from": "stand",
+            "to": "getup"
+          },
+          {
+            "timeS": 10.716666666666699,
+            "actor": "player",
+            "from": "getup",
+            "to": "stand"
+          },
+          {
+            "timeS": 26.04166666666583,
+            "actor": "enemy",
+            "from": "stand",
+            "to": "dead"
+          }
+        ],
+        "maxAnchorGapByActor": {
+          "player": {
+            "abdomen": 0.0010670651575434187,
+            "chest": 0.00030385714305958635,
+            "head": 0.00017761219433760371,
+            "uarmS": 0.001713368225009908,
+            "farmS": 0.006378152988067086,
+            "uarmO": 0.0018655009566154188,
+            "farmO": 0.0003503441500292236,
+            "thighF": 0.0013122130500551408,
+            "shinF": 0.002699736407264062,
+            "footF": 0.0012815727530287703,
+            "thighB": 0.0015028902840201481,
+            "shinB": 0.002401304829881891,
+            "footB": 0.0016043690303013725,
+            "swordGrip": 0.0036886640176264393
+          },
+          "enemy": {
+            "abdomen": 0.0030605256428919,
+            "chest": 0.0005317599473516477,
+            "head": 0.0002668650741680092,
+            "uarmS": 0.0018715286089322784,
+            "farmS": 0.0014581109972667619,
+            "uarmO": 0.005583819864549956,
+            "farmO": 0.0032821801995537936,
+            "thighF": 0.0017874078410243706,
+            "shinF": 0.002985204454865202,
+            "footF": 0.0010839453390600914,
+            "thighB": 0.002958472683379661,
+            "shinB": 0.0032527086195501763,
+            "footB": 0.00186431979701947,
+            "swordGrip": 0.0019436272603576882
+          }
+        },
+        "unexpectedMissingJoints": [],
+        "contactWitnesses": {
+          "sampledFrames": 300,
+          "weaponOpponentManifolds": 164,
+          "positiveRawNormalImpulseManifolds": 69
+        },
+        "samples": [
+          {
+            "timeS": 0.008333333333333333,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": false,
+              "pelvisY": 0.9698065519332886
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": false,
+              "pelvisY": 0.9698094129562378
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 1.0083333333333322,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8964360356330872
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8985469341278076
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 2.008333333333329,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8864309191703796
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8869838714599609
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 3.0083333333333253,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9325506091117859
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9158217310905457
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 4.008333333333322,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9316815733909607
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9343587160110474
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 5.008333333333372,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9356957674026489
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9319533109664917
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 6.008333333333422,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9450869560241699
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9089769721031189
+            },
+            "hits": 0,
+            "clashes": 1
+          },
+          {
+            "timeS": 7.008333333333471,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9498005509376526
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9546800255775452
+            },
+            "hits": 0,
+            "clashes": 1
+          },
+          {
+            "timeS": 8.00833333333352,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9124923944473267
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.946655809879303
+            },
+            "hits": 0,
+            "clashes": 1
+          },
+          {
+            "timeS": 9.008333333333463,
+            "player": {
+              "state": "getup",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.5214762091636658
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 0.9980490597696918,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8409225344657898
+            },
+            "hits": 3,
+            "clashes": 16
+          },
+          {
+            "timeS": 10.008333333333406,
+            "player": {
+              "state": "getup",
+              "blood": 0.9981962013066209,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.5803213715553284
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 0.9949609741907363,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9117766618728638
+            },
+            "hits": 9,
+            "clashes": 16
+          },
+          {
+            "timeS": 11.008333333333349,
+            "player": {
+              "state": "stand",
+              "blood": 0.9960304072213513,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8925630450248718
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 0.9922222524183026,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9499850869178772
+            },
+            "hits": 9,
+            "clashes": 69
+          },
+          {
+            "timeS": 12.008333333333292,
+            "player": {
+              "state": "stand",
+              "blood": 0.9941096355120576,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9478921294212341
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 0.9897933699424037,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.910595178604126
+            },
+            "hits": 10,
+            "clashes": 109
+          },
+          {
+            "timeS": 13.008333333333235,
+            "player": {
+              "state": "stand",
+              "blood": 0.9924061661082424,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9386661648750305
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 0.9876392737720262,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8598228693008423
+            },
+            "hits": 11,
+            "clashes": 109
+          },
+          {
+            "timeS": 14.008333333333178,
+            "player": {
+              "state": "stand",
+              "blood": 0.9908954149889414,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9725582599639893
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 0.9857288765596144,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9112647175788879
+            },
+            "hits": 11,
+            "clashes": 109
+          },
+          {
+            "timeS": 15.008333333333121,
+            "player": {
+              "state": "stand",
+              "blood": 0.9895555793926238,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9220123887062073
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 0.98403460795667,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9318109154701233
+            },
+            "hits": 11,
+            "clashes": 114
+          },
+          {
+            "timeS": 16.008333333333066,
+            "player": {
+              "state": "stand",
+              "blood": 0.9883673231654911,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9359226226806641
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 0.9825320167257608,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9272863864898682
+            },
+            "hits": 13,
+            "clashes": 134
+          },
+          {
+            "timeS": 17.00833333333301,
+            "player": {
+              "state": "stand",
+              "blood": 0.987313497707202,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9045963883399963
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 0.9811994178667135,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.929114818572998
+            },
+            "hits": 13,
+            "clashes": 150
+          },
+          {
+            "timeS": 18.008333333332953,
+            "player": {
+              "state": "stand",
+              "blood": 0.9863788944868026,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8973923921585083
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 0.9800175796644099,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9330853819847107
+            },
+            "hits": 18,
+            "clashes": 196
+          },
+          {
+            "timeS": 19.008333333332896,
+            "player": {
+              "state": "stand",
+              "blood": 0.9825286616204122,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9432510733604431
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 0.9789694461417511,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9164852499961853
+            },
+            "hits": 20,
+            "clashes": 196
+          },
+          {
+            "timeS": 20.00833333333284,
+            "player": {
+              "state": "stand",
+              "blood": 0.9787085827401917,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9277337789535522
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 0.9780398909122959,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9199126958847046
+            },
+            "hits": 22,
+            "clashes": 196
+          },
+          {
+            "timeS": 21.008333333332782,
+            "player": {
+              "state": "stand",
+              "blood": 0.9753206801273342,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9256667494773865
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 0.9772154988802435,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9399251341819763
+            },
+            "hits": 28,
+            "clashes": 198
+          },
+          {
+            "timeS": 22.008333333332725,
+            "player": {
+              "state": "stand",
+              "blood": 0.9723160604652541,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.929108738899231
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 0.9764843726373086,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9277778267860413
+            },
+            "hits": 30,
+            "clashes": 222
+          },
+          {
+            "timeS": 23.00833333333267,
+            "player": {
+              "state": "stand",
+              "blood": 0.9634447495936095,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9132205247879028
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 0.9758359607624671,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9390236735343933
+            },
+            "hits": 33,
+            "clashes": 222
+          },
+          {
+            "timeS": 24.00833333333261,
+            "player": {
+              "state": "stand",
+              "blood": 0.9510788195968645,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9367696642875671
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 0.9752609055466291,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8426682949066162
+            },
+            "hits": 35,
+            "clashes": 241
+          },
+          {
+            "timeS": 25.008333333332555,
+            "player": {
+              "state": "stand",
+              "blood": 0.9401118820387657,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9460192918777466
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 0.9747509079446509,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.915249228477478
+            },
+            "hits": 35,
+            "clashes": 250
+          },
+          {
+            "timeS": 26.008333333332498,
+            "player": {
+              "state": "stand",
+              "blood": 0.9298382579934709,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9181394577026367
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 0.9742986078057103,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8886569738388062
+            },
+            "hits": 37,
+            "clashes": 250
+          },
+          {
+            "timeS": 27.00833333333244,
+            "player": {
+              "state": "stand",
+              "blood": 0.916481852875871,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.925331175327301
+            },
+            "enemy": {
+              "state": "dead",
+              "blood": 0.6784231534126838,
+              "armed": true,
+              "gripping": false,
+              "pelvisY": 0.772723913192749
+            },
+            "hits": 39,
+            "clashes": 251
+          },
+          {
+            "timeS": 28.008333333332384,
+            "player": {
+              "state": "stand",
+              "blood": 0.9046364954329653,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8647928833961487
+            },
+            "enemy": {
+              "state": "dead",
+              "blood": 0.40643116385197076,
+              "armed": true,
+              "gripping": false,
+              "pelvisY": 0.1699448823928833
+            },
+            "hits": 39,
+            "clashes": 251
+          },
+          {
+            "timeS": 29.008333333332327,
+            "player": {
+              "state": "stand",
+              "blood": 0.8941312365916239,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8664747476577759
+            },
+            "enemy": {
+              "state": "dead",
+              "blood": 0.16521039302432333,
+              "armed": true,
+              "gripping": false,
+              "pelvisY": 0.17105023562908173
+            },
+            "hits": 39,
+            "clashes": 251
+          }
+        ],
+        "walls": false,
+        "wallSeconds": 3.1494080710000003,
+        "traceSha256": "9d7063a9966dfc22c49241830ba720a68592bb9182ba6cb11d783bb1c9a27fc4",
+        "hits": 39,
+        "clashes": 251,
+        "wounds": [
+          {
+            "timeS": 8.425000000000162,
+            "attacker": "P",
+            "victim": "E",
+            "zone": "arm",
+            "type": "cut",
+            "energyJ": 48.331087385332594,
+            "severity": 0.29247049228787414
+          },
+          {
+            "timeS": 8.466666666666827,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "head",
+            "type": "blunt",
+            "energyJ": 132.30193994138196,
+            "severity": 0
+          },
+          {
+            "timeS": 8.700000000000147,
+            "attacker": "P",
+            "victim": "E",
+            "zone": "abdomen",
+            "type": "blunt",
+            "energyJ": 10.011886765932532,
+            "severity": 0
+          },
+          {
+            "timeS": 9.025000000000128,
+            "attacker": "P",
+            "victim": "E",
+            "zone": "pelvis",
+            "type": "blunt",
+            "energyJ": 6.333774785986656,
+            "severity": 0
+          },
+          {
+            "timeS": 9.150000000000121,
+            "attacker": "P",
+            "victim": "E",
+            "zone": "leg",
+            "type": "blunt",
+            "energyJ": 6.195319227464095,
+            "severity": 0
+          },
+          {
+            "timeS": 9.200000000000118,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "head",
+            "type": "blunt",
+            "energyJ": 47.571321019578725,
+            "severity": 0
+          },
+          {
+            "timeS": 9.250000000000115,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "arm",
+            "type": "cut",
+            "energyJ": 35.789885285584575,
+            "severity": 0.20947617706248517
+          },
+          {
+            "timeS": 9.250000000000115,
+            "attacker": "P",
+            "victim": "E",
+            "zone": "leg",
+            "type": "blunt",
+            "energyJ": 23.282259470772125,
+            "severity": 0
+          },
+          {
+            "timeS": 9.508333333333434,
+            "attacker": "P",
+            "victim": "E",
+            "zone": "pelvis",
+            "type": "blunt",
+            "energyJ": 12.507832900016492,
+            "severity": 0
+          },
+          {
+            "timeS": 11.824999999999969,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 20.667274132884277,
+            "severity": 0
+          },
+          {
+            "timeS": 12.708333333333252,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "chest",
+            "type": "blunt",
+            "energyJ": 6.689866544391908,
+            "severity": 0
+          },
+          {
+            "timeS": 15.774999999999745,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "pelvis",
+            "type": "blunt",
+            "energyJ": 25.09302726773133,
+            "severity": 0
+          },
+          {
+            "timeS": 15.9666666666664,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 6.565320857226017,
+            "severity": 0
+          },
+          {
+            "timeS": 17.283333333332994,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "abdomen",
+            "type": "blunt",
+            "energyJ": 30.034429785523848,
+            "severity": 0
+          },
+          {
+            "timeS": 17.283333333332994,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "pelvis",
+            "type": "blunt",
+            "energyJ": 30.22522893640373,
+            "severity": 0
+          },
+          {
+            "timeS": 17.408333333332987,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 41.75843815218802,
+            "severity": 0
+          },
+          {
+            "timeS": 17.666666666666305,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 8.82749305406878,
+            "severity": 0
+          },
+          {
+            "timeS": 17.949999999999623,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "pelvis",
+            "type": "blunt",
+            "energyJ": 34.920185802533815,
+            "severity": 0
+          },
+          {
+            "timeS": 18.008333333332953,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "leg",
+            "type": "cut",
+            "energyJ": 24.41074766144508,
+            "severity": 0.00048356414079727805
+          },
+          {
+            "timeS": 18.124999999999613,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "leg",
+            "type": "cut",
+            "energyJ": 45.322062637837526,
+            "severity": 0.24183677070389434
+          },
+          {
+            "timeS": 19.849999999999515,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "chest",
+            "type": "blunt",
+            "energyJ": 11.099449764072107,
+            "severity": 0
+          },
+          {
+            "timeS": 19.874999999999513,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 9.087073118779792,
+            "severity": 0
+          },
+          {
+            "timeS": 20.524999999999476,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "head",
+            "type": "blunt",
+            "energyJ": 44.27855843352981,
+            "severity": 0
+          },
+          {
+            "timeS": 20.558333333332808,
+            "attacker": "P",
+            "victim": "E",
+            "zone": "abdomen",
+            "type": "blunt",
+            "energyJ": 18.368209708374877,
+            "severity": 0
+          },
+          {
+            "timeS": 20.633333333332804,
+            "attacker": "P",
+            "victim": "E",
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 9.25174621160181,
+            "severity": 0
+          },
+          {
+            "timeS": 20.733333333332798,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "chest",
+            "type": "blunt",
+            "energyJ": 9.92621753025227,
+            "severity": 0
+          },
+          {
+            "timeS": 20.88333333333279,
+            "attacker": "P",
+            "victim": "E",
+            "zone": "pelvis",
+            "type": "blunt",
+            "energyJ": 11.091285047643483,
+            "severity": 0
+          },
+          {
+            "timeS": 20.983333333332784,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 12.967735034405687,
+            "severity": 0
+          },
+          {
+            "timeS": 21.166666666666107,
+            "attacker": "P",
+            "victim": "E",
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 6.754208866963519,
+            "severity": 0
+          },
+          {
+            "timeS": 21.274999999999434,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 26.97544904601061,
+            "severity": 0
+          },
+          {
+            "timeS": 22.4333333333327,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "abdomen",
+            "type": "cut",
+            "energyJ": 58.00930017604208,
+            "severity": 0.3065893031731486
+          },
+          {
+            "timeS": 22.441666666666034,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "chest",
+            "type": "blunt",
+            "energyJ": 31.786480523552996,
+            "severity": 0
+          },
+          {
+            "timeS": 22.441666666666034,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "arm",
+            "type": "cut",
+            "energyJ": 33.28718294574766,
+            "severity": 0.1797480484737972
+          },
+          {
+            "timeS": 23.36666666666598,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 8.500498593175296,
+            "severity": 0
+          },
+          {
+            "timeS": 23.666666666665964,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "neck",
+            "type": "blunt",
+            "energyJ": 15.187885582932772,
+            "severity": 0
+          },
+          {
+            "timeS": 25.891666666665838,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "leg",
+            "type": "cut",
+            "energyJ": 48.2726652147368,
+            "severity": 0.3388917452813995
+          },
+          {
+            "timeS": 25.916666666665837,
+            "attacker": "E",
+            "victim": "P",
+            "zone": "leg",
+            "type": "blunt",
+            "energyJ": 8.621395250339047,
+            "severity": 0
+          },
+          {
+            "timeS": 26.033333333332497,
+            "attacker": "P",
+            "victim": "E",
+            "zone": "neck",
+            "type": "cut",
+            "energyJ": 97.77796179571018,
+            "severity": 0.808953853030973
+          },
+          {
+            "timeS": 26.516666666665802,
+            "attacker": "P",
+            "victim": "E",
+            "zone": "neck",
+            "type": "blunt",
+            "energyJ": 13.517722143665065,
+            "severity": 0
+          }
+        ],
+        "final": [
+          {
+            "name": "P",
+            "state": "stand",
+            "blood": 0.8848875760625649,
+            "limbs": {
+              "armS": 0.8741763660683419,
+              "armO": 0.8533666760562604,
+              "legF": 0.8307142605072739,
+              "legB": 0.7624372834044623
+            },
+            "armed": true,
+            "gripping": true,
+            "actualWoundCount": 6
+          },
+          {
+            "name": "E",
+            "state": "dead",
+            "blood": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 0.7952706553984881,
+              "legF": 1,
+              "legB": 1
+            },
+            "armed": true,
+            "gripping": false,
+            "actualWoundCount": 3
+          }
+        ],
+        "pass": true
+      },
+      {
+        "kind": "hurt_getup",
+        "reaction": "legacy",
+        "seconds": 8,
+        "frames": 960,
+        "bothAI": false,
+        "finite": true,
+        "exceptions": [],
+        "gripFrames": {
+          "player": 925,
+          "enemy": 933
+        },
+        "transitions": [
+          {
+            "timeS": 3.0083333333333253,
+            "actor": "player",
+            "from": "stand",
+            "to": "getup"
+          },
+          {
+            "timeS": 5.766666666666743,
+            "actor": "player",
+            "from": "getup",
+            "to": "stand"
+          }
+        ],
+        "maxAnchorGapByActor": {
+          "player": {
+            "abdomen": 0.0017421556043248894,
+            "chest": 0.0002304174551535085,
+            "head": 0.00012647024534695895,
+            "uarmS": 0.0011182465244223671,
+            "farmS": 0.00019774260933620038,
+            "uarmO": 0.0004940349872317282,
+            "farmO": 2.6171911847021105e-05,
+            "thighF": 0.0011125373708876383,
+            "shinF": 0.0010619927716468804,
+            "footF": 0.001125310707726937,
+            "thighB": 0.0010744999061991112,
+            "shinB": 0.002111250796146041,
+            "footB": 0.0006963119454837263,
+            "swordGrip": 6.290567449564637e-06
+          },
+          "enemy": {
+            "abdomen": 0.0007561086894404258,
+            "chest": 0.00011050525404905114,
+            "head": 0.00010158755818249313,
+            "uarmS": 0.001239785476392979,
+            "farmS": 0.000290319957756451,
+            "uarmO": 0.0005109274142725038,
+            "farmO": 2.237481045862043e-05,
+            "thighF": 0.002291067565868036,
+            "shinF": 0.002548434277669588,
+            "footF": 7.942328518537338e-05,
+            "thighB": 0.002191045526803714,
+            "shinB": 0.0011503272459448312,
+            "footB": 7.062711304547583e-05,
+            "swordGrip": 1.4140621600495841e-05
+          }
+        },
+        "unexpectedMissingJoints": [],
+        "contactWitnesses": {
+          "sampledFrames": 80,
+          "weaponOpponentManifolds": 0,
+          "positiveRawNormalImpulseManifolds": 0
+        },
+        "samples": [
+          {
+            "timeS": 0.008333333333333333,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": false,
+              "pelvisY": 0.9698065519332886
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": false,
+              "pelvisY": 0.9698182940483093
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 1.0083333333333322,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8864709138870239
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.943868100643158
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 2.008333333333329,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.886552095413208
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8631518483161926
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 3.0083333333333253,
+            "player": {
+              "state": "getup",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8657694458961487
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.7570299506187439
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 4.008333333333322,
+            "player": {
+              "state": "getup",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.5498972535133362
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.748115599155426
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 5.008333333333372,
+            "player": {
+              "state": "getup",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.7405900955200195
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.7856374382972717
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 6.008333333333422,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9047934412956238
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9184351563453674
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 7.008333333333471,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8616573214530945
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9004850387573242
+            },
+            "hits": 0,
+            "clashes": 0
+          }
+        ],
+        "walls": false,
+        "injury": {
+          "timeS": 3,
+          "legF": 0.45,
+          "source": "synthetic limb function change; not collision injury"
+        },
+        "wallSeconds": 0.7443300290000007,
+        "traceSha256": "ff3474525823978ec1b7af9e5c395c1fd65328072b95b58facdd641ca0c0a6c5",
+        "hits": 0,
+        "clashes": 0,
+        "wounds": [],
+        "final": [
+          {
+            "name": "P",
+            "state": "stand",
+            "blood": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 0.45,
+              "legB": 1
+            },
+            "armed": true,
+            "gripping": true,
+            "actualWoundCount": 0
+          },
+          {
+            "name": "E",
+            "state": "stand",
+            "blood": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "armed": true,
+            "gripping": true,
+            "actualWoundCount": 0
+          }
+        ],
+        "pass": true
+      },
+      {
+        "kind": "hurt_getup",
+        "reaction": "paired",
+        "seconds": 8,
+        "frames": 960,
+        "bothAI": false,
+        "finite": true,
+        "exceptions": [],
+        "gripFrames": {
+          "player": 925,
+          "enemy": 933
+        },
+        "transitions": [
+          {
+            "timeS": 3.0083333333333253,
+            "actor": "player",
+            "from": "stand",
+            "to": "getup"
+          },
+          {
+            "timeS": 5.766666666666743,
+            "actor": "player",
+            "from": "getup",
+            "to": "stand"
+          }
+        ],
+        "maxAnchorGapByActor": {
+          "player": {
+            "abdomen": 0.0017434808178786484,
+            "chest": 0.0002307874984559199,
+            "head": 0.000126071865086269,
+            "uarmS": 0.0011182465244223671,
+            "farmS": 0.00019522472238848014,
+            "uarmO": 0.0004940349872317282,
+            "farmO": 2.6171911847021105e-05,
+            "thighF": 0.001113209213011912,
+            "shinF": 0.0010634019595292768,
+            "footF": 0.0011254490333954094,
+            "thighB": 0.0010742625522212588,
+            "shinB": 0.0021104593303321465,
+            "footB": 0.0006967525131866099,
+            "swordGrip": 6.2173769456488845e-06
+          },
+          "enemy": {
+            "abdomen": 0.0007915714092046565,
+            "chest": 0.00011052257761933696,
+            "head": 0.00010158755818249313,
+            "uarmS": 0.001239785476392979,
+            "farmS": 0.0002947801714449093,
+            "uarmO": 0.0005109274142725038,
+            "farmO": 2.237481045862043e-05,
+            "thighF": 0.002239898205559213,
+            "shinF": 0.0011332558626552856,
+            "footF": 5.7885657581691836e-05,
+            "thighB": 0.0022466273874091076,
+            "shinB": 0.0013914112260145378,
+            "footB": 7.227753269250892e-05,
+            "swordGrip": 1.13082249583689e-05
+          }
+        },
+        "unexpectedMissingJoints": [],
+        "contactWitnesses": {
+          "sampledFrames": 80,
+          "weaponOpponentManifolds": 0,
+          "positiveRawNormalImpulseManifolds": 0
+        },
+        "samples": [
+          {
+            "timeS": 0.008333333333333333,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": false,
+              "pelvisY": 0.9698065519332886
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": false,
+              "pelvisY": 0.9698182940483093
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 1.0083333333333322,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8864734172821045
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9420303702354431
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 2.008333333333329,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.886552095413208
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8634752035140991
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 3.0083333333333253,
+            "player": {
+              "state": "getup",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8657663464546204
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.7634269595146179
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 4.008333333333322,
+            "player": {
+              "state": "getup",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.5498917102813721
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.747567892074585
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 5.008333333333372,
+            "player": {
+              "state": "getup",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.7406103014945984
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.7552995681762695
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 6.008333333333422,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9047529697418213
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8291251063346863
+            },
+            "hits": 0,
+            "clashes": 0
+          },
+          {
+            "timeS": 7.008333333333471,
+            "player": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.8616967797279358
+            },
+            "enemy": {
+              "state": "stand",
+              "blood": 1,
+              "armed": true,
+              "gripping": true,
+              "pelvisY": 0.9350629448890686
+            },
+            "hits": 0,
+            "clashes": 0
+          }
+        ],
+        "walls": false,
+        "injury": {
+          "timeS": 3,
+          "legF": 0.45,
+          "source": "synthetic limb function change; not collision injury"
+        },
+        "wallSeconds": 0.677966683999999,
+        "traceSha256": "3a4beb6ede64853bb5fb5ff252a2e5345ed9277b3ed0603b28a2f6cae76e4cb8",
+        "hits": 0,
+        "clashes": 0,
+        "wounds": [],
+        "final": [
+          {
+            "name": "P",
+            "state": "stand",
+            "blood": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 0.45,
+              "legB": 1
+            },
+            "armed": true,
+            "gripping": true,
+            "actualWoundCount": 0
+          },
+          {
+            "name": "E",
+            "state": "stand",
+            "blood": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "armed": true,
+            "gripping": true,
+            "actualWoundCount": 0
+          }
+        ],
+        "pass": true
+      }
+    ],
+    "sourceAfter": {
+      "src/fighter.js": "e6be36ba89e788994a675d1aa9134162042e76d856b32f83dcb6ba4418d34435",
+      "src/gait.js": "2874340a1e1991fb612ca74429523b30f7bb7eb147b1717ca6833a05405cc43f",
+      "src/combat.js": "7e807bcd086366cfda8ad84ed33bcd14f02f5506f1df3341bbe47f6d22e25097",
+      "src/config.js": "89d7f4acdb0dbf7cd1079a2185fdfc727ac7aabae1ea09b65334a6cabd594c8e",
+      "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+      "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+      "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+      "tools/sim/force_ledger.mjs": "60523a73ea4cd8ae084243f542663dc8ed8c0bb6322eed90c7cd6729b13cd24d",
+      "tools/sim/grip_integration_probe.mjs": "376c94c7942200721e982094c0df4b7a20ff68979579a876e496e371e22252d2"
+    },
+    "sourceStable": true,
+    "totalWallSeconds": 8.425258149,
+    "pass": true
+  }
+}

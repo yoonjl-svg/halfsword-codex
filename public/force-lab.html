@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>적막 · 양손 힘 전달 비교</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, sans-serif; background: #17110c; color: #ece1cb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 24px 16px; }
+    main { max-width: 600px; margin: auto; }
+    h1 { font-size: 24px; margin: 0 0 12px; }
+    p { font-size: 15px; line-height: 1.65; }
+    .note { color: #cfc0a2; }
+    .play { display: block; margin: 12px 0; padding: 18px 16px; border-radius: 8px; background: #e9c47a; color: #17110c; text-align: center; text-decoration: none; font-size: 20px; font-weight: 800; }
+    .trial { background: #30241a; color: #e9c47a; border: 1px solid #735b36; }
+    a { touch-action: manipulation; }
+    a:focus-visible { outline: 2px solid #d9a441; outline-offset: 3px; }
+    nav { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 28px; }
+    nav a { color: #e9c47a; padding: 8px 0; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>양손 힘 전달 비교</h1>
+  <p>두 설정에서 같은 롱소드를 연속으로 휘둘러 보세요.</p>
+  <a id="playForceB" class="play" href="./?supportProbe=1&amp;assist=0.1&amp;catch=on&amp;catchScale=1&amp;weapon=longsword&amp;foeWeapon=longsword&amp;foe=default">▶ 현재 B 플레이</a>
+  <a id="playGripTrial" class="play trial" href="./?supportProbe=1&amp;assist=0.1&amp;catch=on&amp;catchScale=1&amp;weapon=longsword&amp;foeWeapon=longsword&amp;foe=default&amp;physicsTrial=grip">▶ 그립 반작용 시험</a>
+  <p>두 손으로 잡을 때 힘과 반작용이 같은 지점에 걸리도록 바꾼 시험입니다.</p>
+  <p>휴대폰을 <strong>가로</strong>로 돌린 뒤, 게임 화면에서 <strong>싸움 시작</strong>을 누르세요.</p>
+  <p class="note">같은 방향으로 여러 번 휘두르고 손을 뗀 뒤, 힘이 실리는 느낌과 멈춘 뒤 자세를 비교해 주세요. 두 설정 모두 받침 0.1·균형 회복 보조 on·강도 1을 사용합니다.</p>
+  <p class="note">시험 변경은 일반 게임 기본값에 적용하지 않았습니다. 자연스러움도 아직 확정하지 않았습니다.</p>
+  <nav aria-label="다른 플레이 페이지">
+    <a href="./support-lab.html">받침·균형 회복 보조 비교 →</a>
+    <a href="./feature-lab.html">무기·절단 시험 →</a>
+    <a href="./">일반 게임 플레이 →</a>
+  </nav>
+</main>
+</body>
+</html>

@@ -417,6 +417,7 @@ export const BALANCE = {
 
 // 두 손 잡기: 빈손이 칼자루 끝을 쥐는 부드러운 스프링
 export const GRIP = {
+  reactionModel: 'legacy', // paired는 physicsTrial=grip으로만 켜는 공통점 반작용 시험
   on: true,
   along: -0.14, // 칼자루에서 빈손이 쥐는 곳 (칼 든 손 기준 칼끝 반대쪽으로 m). 두 손 사이가 지렛대가 된다
   reach: 0.25, // 손이 이만큼(m) 안으로 들어오면 쥐기 시작
