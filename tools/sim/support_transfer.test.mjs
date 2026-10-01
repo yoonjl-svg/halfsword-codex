@@ -47,7 +47,7 @@ function fixture(name, o = {}) {
   try {
     const pelvis = body(o.pelvis ?? [0, 1, 0], 50), footF = body([0, 0, 0], 5);
     const feet = { F: footF }; if (o.twoLegs) feet.B = body([0, 0, .3], 5);
-    const f = { limbs: { legF: o.healthF ?? 1, legB: o.healthB ?? 1 }, detachedParts: new Set(o.detached ?? []), jointByName: {} };
+    const f = { state: o.state ?? 'stand', limbs: { legF: o.healthF ?? 1, legB: o.healthB ?? 1 }, detachedParts: new Set(o.detached ?? []), jointByName: {} };
     for (const [k, foot] of Object.entries(feet)) {
       const localHip = o.centerAnchors ? { x: 0, y: 0, z: 0 } : { x: 0, y: -.1, z: k === 'B' ? .3 : 0 };
       const localAnkle = o.centerAnchors ? { x: 0, y: 0, z: 0 } : { x: .08, y: .04, z: 0 };
@@ -92,7 +92,21 @@ run('extension positive work', { centerAnchors: true, velocity: [0, 1, 0] }, r =
 run('compression negative work', { centerAnchors: true, velocity: [0, -1, 0] }, r => { close(r.actualPowerW, -80); assert.ok(r.deltaKJ < 0); });
 run('co-rotation no instantaneous work', { rigidRotation: true, yaw: .7, offset: [2, 1, -3] }, r => close(r.actualPowerW, 0, 2e-5));
 run('no supporting contact', { contact: false }, r => { assert.equal(r.applicationCount, 0); close(r.result.unmetUpN, 80); });
-run('near horizontal saturates', { centerAnchors: true, pelvis: [1, 1e-7, 0], cap: 90 }, r => { close(r.result.legs[0].axialForceN, 90); assert.ok(r.result.appliedUpN < 1e-4); });
+const nearHorizontal = [1e-3, 1e-5, 1e-7].map(y => run('approach level continuously ' + y,
+  { centerAnchors: true, pelvis: [1, y, 0], cap: 90 }, r => {
+    assert.ok(r.result.legs[0].axialForceN <= 80 * y * 1.00001);
+    assert.ok(r.result.appliedUpN <= 80 * y * y * 1.00001);
+    assert.ok(r.result.unmetUpN > 79.99);
+  }));
+assert.ok(nearHorizontal[2].result.legs[0].axialForceN < 1e-4, 'no finite lateral force jump at level');
+run('oblique leg does not amplify vertical effort', { centerAnchors: true, pelvis: [Math.sqrt(3), 1, 0] }, r => {
+  close(r.result.legs[0].axialForceN, 40, 2e-6); close(r.result.appliedUpN, 20, 2e-6);
+  close(r.result.unmetUpN, 60, 2e-6);
+});
+for (const state of ['down', 'dead']) run('no extension while ' + state, { state, request: 1800 }, r => {
+  assert.equal(r.result.blockedByState, true); assert.equal(r.applicationCount, 0);
+  close(r.actualPowerW, 0); close(r.result.unmetUpN, 1800);
+});
 for (const y of [0, -.1]) run('nonpositive ny ' + y, { centerAnchors: true, pelvis: [1, y, 0] }, r => assert.equal(r.applicationCount, 0));
 run('coincident endpoints', { centerAnchors: true, pelvis: [0, 0, 0] }, r => assert.equal(r.applicationCount, 0));
 run('asymmetric load', { twoLegs: true, load: { F: 3, B: 1 } }, r => { close(r.result.legs[0].share, .75); close(r.result.legs[1].share, .25); });

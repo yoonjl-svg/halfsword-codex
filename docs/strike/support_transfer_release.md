@@ -1,6 +1,8 @@
 # 지지 반작용 2차 릴리스
 
-**철회:** 사용자가 누운 뒤 공중으로 치솟는 중대한 오동작을 보고했다. 지지 연구판 공개 진입을 중단하며 기존 `physicsTrial=support` 주소도 legacy 지지와 철회 안내로 돌린다. 아래 출시 검사는 당시 실행/입력의 확인 기록이며 누운 자세 회복의 안전성을 입증하지 못했다. 근본 수정과 재검증 완료 전 재공개하지 않는다.
+**현재 공개 상태: 철회 완료.** 기존 `physicsTrial=support` 주소는 legacy 지지로 전환하고 철회 안내를 표시한다. 소스 `b6483ea65f6ff4097b2386493ee9487f711527d4` → main `c8a179be5f9d25746d8ac17d415fc8db6ce068ab`, 전송36894369678·Pages36894534092 성공. 공개 asset `main-6CdBgLzY.js` 및 HTML의 HTTP200·로컬 SHA 일치, 모바일 실제 입력과 일반 URL 복귀를 확인했다. [철회 검증](support_withdrawal_public_metrics.json), [결함·동일 누움 비교·잔여 문제](support_launch_incident.md)를 본다. 수정 연구 코드도 재공개하지 않는다.
+
+아래는 철회 전 최초 출시 기록이다. 당시 실행/입력 검사는 실제 누운 자세 회복의 안정성을 입증하지 못했다.
 
 구현/측정: [개발 보고](support_transfer_round2.md), [조건·소스 해시·원자료 요약](support_transfer_round2_metrics.json).
 

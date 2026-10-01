@@ -1470,7 +1470,7 @@ export class Fighter {
       fy = THREE.MathUtils.clamp(fy * mus, 0, forceLimit);
       if (p.y > h + 0.25) fy = 0;
       if (axialSupport) {
-        const transfer = applyAxialLegSupport(this, fy, contacts, load, forceLimit);
+        const transfer = applyAxialLegSupport(this, fy, contacts, load, forceLimit * mus);
         if (probe) { probe.appliedUpN = 0; probe.supportTransfer = transfer; }
       } else {
         if (probe) probe.appliedUpN = fy;

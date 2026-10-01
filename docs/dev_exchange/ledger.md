@@ -17,7 +17,12 @@
 | A-011 | 2026-10-01 | 독립 탐색 유지·접촉을 자정 정기 회차로 제한 | 같은 실험의 다른 접근 허용, 분담 의무 없음; 시간 밖 API 차단 | `AGENTS.md`, `docs/devmeet/README.md`, `tools/dev_exchange/` | 00:00–00:20 KST만 접촉, 누락은 다음 회차; 별도 재확인 없음 | 새 방침 이후 추가 상대 조회 없음 |
 
 | A-012 | 2026-10-02 | 실제 힘·일·운동량 장부 | 연구 도구, 9교정·계측 trace 동일 | `tools/sim/force_ledger*`, [결과](../strike/force_path_round1.md) | native 미계측·질량 변화·일 근사 한계 함께 가져감 | 미확인 |
-| A-013 | 2026-10-02 | 양손 힘쌍 공통 작용점 | 선택형 시험, 기본 legacy; 강타 개선 미입증 | [소스/배포](../strike/force_path_release.md) | offHand/점속도 경로·cap·좌표계 확인 | 미확인 |
+| A-013 | 2026-10-02 | 양손 힘쌍 공통 작용점 | 사용자 수용 후 기본 paired 승격; 강타 개선 미입증 | [소스/배포](../strike/support_transfer_release.md) | offHand/점속도 경로·cap·좌표계 확인 | 미확인 |
 | A-014 | 2026-10-02 | 네 자세의 바닥 없는 직접 골반 받침 | 진단 완료, 지지 재설계는 다음 단계 | `body_support_ledger_probe.mjs`, [계측](../strike/force_path_round1_metrics.json) | 상태 고정 없이 같은 준비 상태에서 대조 | 미확인 |
+| A-015 | 2026-10-02 | 실제 접촉 기반 축 방향 지지 힘쌍 | 선택 시험 출시 후 사용자 발사 보고로 철회 | [당시 구현](../strike/support_transfer_round2.md), [철회](../strike/support_launch_incident.md) | 현재 후보 전체 채택은 권하지 않음 | 미확인 |
+| A-016 | 2026-10-02 | 초기 VMC 토크 이관 | 과도한 토크/기립 실패로 기각 | `experiments/support_transfer_discovery.mjs` | 실패 조건만 참고 | 미확인 |
+| A-017 | 2026-10-02 | 전진 내부 힘쌍/직접 외력 경로 대조 | 내부 전달도 미끄럼에 관여; 외력 치환은 기각 | [진단](../strike/support_pair_cause_metrics.json) | 접촉 gate와 힘 방향을 함께 검토 | 미확인 |
+| A-018 | 2026-10-02 | 누움 후 발사 사용자 보고·공개 철회 | 기존 직접 URL까지 비활성, 공개 검증 완료 | `b6483ea`→`c8a179be`, [기록](../strike/support_launch_incident.md) | URL 체계 확인 후 철회 조치 이식 가능 | 미확인 |
+| A-019 | 2026-10-02 | 수평 다리 축력 불연속·근육 상한 수정 | 격리 연구 유지; 동일 누움 부상 재넘어짐3회로 재공개 불가 | [소스·측정 해시](../strike/support_launch_incident_metrics.json) | 수정과 실패 재현 함께 검토; 전체 지지 채택 보류 | 미확인 |
 
 결정 이유·실패 조건·실제 배포는 [첫 기록](notes/2026-10-01.md), [다음 기록](notes/2026-10-02.md) 및 그 근거 링크를 읽는다. 이 대장은 일별 보고서를 대신하지 않는다.

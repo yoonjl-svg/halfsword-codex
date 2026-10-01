@@ -1,0 +1,1631 @@
+{
+  "schemaVersion": 1,
+  "incident": "support trial withdrawn after user reports launch from lying",
+  "candidateStatus": "quarantined; not physically accepted; no public trial reactivation",
+  "scope": "Actual game headless heavy down recovery, synthetic limb-health injury, passive opponent, one deterministic trajectory per condition. No exact large user launch reproduction claimed.",
+  "evidence": [
+    {
+      "file": "heavy-down-launch-seed7.json",
+      "sha256": "4a587b2ef363da94d59bc6f7a9352f576324a91849215b4543c246834d46223a"
+    },
+    {
+      "file": "heavy-down-launch-projected-seed7.json",
+      "sha256": "efa312f1c3b6da9c7e0e7901eb3f7d45375dadfa2f230fbacf13892bac3fc3fa"
+    },
+    {
+      "file": "same-lying-recovery-old-gate.json",
+      "sha256": "6043fd68a2ea8a0d356b531870fbb73c0eaf5b6a4e0e9421dd5654a298d3e06f"
+    },
+    {
+      "file": "same-lying-recovery-projected.json",
+      "sha256": "4a6a55b6a740497bf65397367decc1c0c0a273915b4001d332ecec7414a16b73"
+    },
+    {
+      "file": "same-lying-readiness.json",
+      "sha256": "e37d2458cde7f6d3bfe5c389be4a3b25f145447d9cb8435431765c84b38b985a"
+    },
+    {
+      "file": "heavy-down-delayed-ablation-summary.json",
+      "sha256": "623784e5bc4d05c93dd710bd51d31a2c0d4247353742198e60da37fb13da64e5"
+    }
+  ],
+  "sets": {
+    "original": {
+      "sourceCommit": "8c5b0143607ab10ac8d15cab09d5c81739371846",
+      "coreSourceSha256": {
+        "src/config.js": "e84d7b921b6d8678b358a5971b296c22edded192d680a56e45a0b29ab2aa5319",
+        "src/fighter.js": "4b72f60c9073ae8e56ba31ef0a19b28701c1b8916f471bf59ad2f4c38719a7d8",
+        "src/gait.js": "91eba47caf6dddd7fd75a5de141a087614398031c45ef75b2ac814f8c4db9b83",
+        "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+        "src/support_transfer.js": "1e5f9cb2656b82492d4549f1d2e823918f73c93137e4e80f0d92c732ce4e1cab",
+        "tools/sim/force_ledger.mjs": "60523a73ea4cd8ae084243f542663dc8ed8c0bb6322eed90c7cd6729b13cd24d",
+        "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b"
+      },
+      "sourceStableDuringRun": true,
+      "wallSeconds": 38.113392954999995,
+      "simulatedSeconds": 167.99999999999994,
+      "protocol": {
+        "seed": 7,
+        "models": [
+          "legacy",
+          "axial"
+        ],
+        "scenarios": [
+          "healthy_getup",
+          "hurt_getup",
+          "disabled_getup"
+        ],
+        "timestepS": 0.008333333333333333,
+        "assist": 0.1,
+        "catchMode": "on",
+        "catchScale": 1,
+        "grip": "paired",
+        "preparationSupportModel": "legacy",
+        "units": {
+          "position": "m",
+          "velocity": "m/s",
+          "angularVelocity": "rad/s",
+          "momentum": "kg m/s",
+          "mass": "kg",
+          "force": "N",
+          "torque": "Nm",
+          "work": "J approximate midpoint quadrature",
+          "contactImpulse": "Ns raw Rapier API"
+        },
+        "heavyDown": "After legacy3s preparation, call actual knockDown(true); no imposed pose/rotation/impulse. Whether down actually becomes lying is measured rather than assumed.",
+        "injury": "Synthetic controller limb-health values .45 single leg / .2 both; actual knockDown(true). No clinical injury or collision reproduction.",
+        "floorRemoval": "Single actual fixed harness floor collider removed after legacy preparation; no body reposition/freezing/velocity injection. Opponent only uses harness park.",
+        "uprightDefinition": "Game geometry observation: state stand, pelvis>=gait.hNom-GAIT.catchSag, tilt-hunch<=BODY.fallTiltDeg, at least one foot solver point. Not human naturalness/acceptance.",
+        "forceMeaning": "directBalancePaths is full driveBalance path explicit forces, not push-only closure unless source supplies a distinct path. Actual bodywise reactions retained. Native joints/motors/contact work not measured; changing foot mass prevents fixed-mass energy closure.",
+        "slipMeaning": "Relative velocityAtPoint at actual foot/fixed floor solver world points; solver and impulse contact arrays are separate, no index pairing. Raw impulses receive no 6/7 correction.",
+        "statusMeaning": "observed means scene completed, never a human or physically upright success verdict."
+      },
+      "rows": [
+        {
+          "scenario": "healthy_getup",
+          "model": "legacy",
+          "finite": true,
+          "traceSha256": "d7db58ea0fe707cc6b27045a622b33ecf758e8457a7b19aa7616f20d0d61bd20",
+          "startSha256": "6ad2fac2252b45286548940361be00572224859044427820b21b569390e68894",
+          "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+          "transitions": [
+            {
+              "timeS": 2.2083333333333335,
+              "from": "down",
+              "to": "getup",
+              "pelvisHeightM": 0.21034662425518036,
+              "chestTiltDeg": 106.28628957782958,
+              "feetSolverPointCount": 3
+            },
+            {
+              "timeS": 4.216666666666667,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.944446325302124,
+              "chestTiltDeg": 17.369538643640173,
+              "feetSolverPointCount": 1
+            }
+          ],
+          "downGeometry": {
+            "samples": 264,
+            "minPelvisHeightM": 0.19369111955165863,
+            "minChestHeightM": 0.2150721251964569,
+            "maxChestTiltDeg": 105.8321297076015,
+            "diagnosticLowPelvisUnder045Samples": 29
+          },
+          "maxNoNonPredictiveNativeGroundSolverIntervalS": 0,
+          "maxJointAnchorGapM": 0.0026502684923261606,
+          "postStandRefalls": 0,
+          "peakPelvisHeightM": 0.9480926990509033,
+          "peakPelvisVyMps": 0.7158823609352112,
+          "peakCOMVyMps": 0.8901661863333236,
+          "finalState": "stand",
+          "finalPelvisHeightM": 0.888456404209137,
+          "finalPhysicallyUprightGameGeometry": true,
+          "switchSnapshot": {}
+        },
+        {
+          "scenario": "healthy_getup",
+          "model": "axial",
+          "finite": true,
+          "traceSha256": "dd37acfde6fee03dc3b15d762b2256c66c4158d41567950a43dc5f8d376c8df6",
+          "startSha256": "6ad2fac2252b45286548940361be00572224859044427820b21b569390e68894",
+          "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+          "transitions": [
+            {
+              "timeS": 2.2083333333333335,
+              "from": "down",
+              "to": "getup",
+              "pelvisHeightM": 0.19637800753116608,
+              "chestTiltDeg": 88.35760352155772,
+              "feetSolverPointCount": 8
+            },
+            {
+              "timeS": 4.216666666666667,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.6632758975028992,
+              "chestTiltDeg": 18.252634425725375,
+              "feetSolverPointCount": 4
+            },
+            {
+              "timeS": 5.191666666666666,
+              "from": "stand",
+              "to": "getup",
+              "pelvisHeightM": 0.2177799940109253,
+              "chestTiltDeg": 62.62637842392028,
+              "feetSolverPointCount": 3
+            },
+            {
+              "timeS": 7.2,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.6577251553535461,
+              "chestTiltDeg": 18.45162065185329,
+              "feetSolverPointCount": 4
+            },
+            {
+              "timeS": 7.841666666666667,
+              "from": "stand",
+              "to": "getup",
+              "pelvisHeightM": 0.3431524336338043,
+              "chestTiltDeg": 57.557879114621855,
+              "feetSolverPointCount": 2
+            },
+            {
+              "timeS": 9.85,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.6719912886619568,
+              "chestTiltDeg": 22.191121368106884,
+              "feetSolverPointCount": 2
+            }
+          ],
+          "downGeometry": {
+            "samples": 264,
+            "minPelvisHeightM": 0.21536177396774292,
+            "minChestHeightM": 0.33165162801742554,
+            "maxChestTiltDeg": 86.83359503964124,
+            "diagnosticLowPelvisUnder045Samples": 13
+          },
+          "maxNoNonPredictiveNativeGroundSolverIntervalS": 0.20833333333333331,
+          "maxJointAnchorGapM": 0.003612988366022,
+          "postStandRefalls": 2,
+          "peakPelvisHeightM": 1.0117137432098389,
+          "peakPelvisVyMps": 1.7358157634735107,
+          "peakCOMVyMps": 1.517515946003222,
+          "finalState": "stand",
+          "finalPelvisHeightM": 0.8872106075286865,
+          "finalPhysicallyUprightGameGeometry": true,
+          "switchSnapshot": {}
+        },
+        {
+          "scenario": "hurt_getup",
+          "model": "legacy",
+          "finite": true,
+          "traceSha256": "9e2a51a7f1f0c46833c185f5697a4b78e4993df1fd5ece028ce53e24d0aa967e",
+          "startSha256": "6dfffa5fd98d0afbfb15035a5a01929247ba6f7777445b4fb4c439ba3d114a25",
+          "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+          "transitions": [
+            {
+              "timeS": 2.808333333333333,
+              "from": "down",
+              "to": "getup",
+              "pelvisHeightM": 0.19516782462596893,
+              "chestTiltDeg": 102.96590478169814,
+              "feetSolverPointCount": 8
+            },
+            {
+              "timeS": 5.575,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.9216378331184387,
+              "chestTiltDeg": 16.84448133714487,
+              "feetSolverPointCount": 2
+            }
+          ],
+          "downGeometry": {
+            "samples": 336,
+            "minPelvisHeightM": 0.19538173079490662,
+            "minChestHeightM": 0.2154906541109085,
+            "maxChestTiltDeg": 106.77904770141332,
+            "diagnosticLowPelvisUnder045Samples": 87
+          },
+          "maxNoNonPredictiveNativeGroundSolverIntervalS": 0,
+          "maxJointAnchorGapM": 0.0020703899171129704,
+          "postStandRefalls": 0,
+          "peakPelvisHeightM": 0.9236483573913574,
+          "peakPelvisVyMps": 0.6478061079978943,
+          "peakCOMVyMps": 0.7269522479612118,
+          "finalState": "stand",
+          "finalPelvisHeightM": 0.8517472743988037,
+          "finalPhysicallyUprightGameGeometry": true,
+          "switchSnapshot": {}
+        },
+        {
+          "scenario": "hurt_getup",
+          "model": "axial",
+          "finite": true,
+          "traceSha256": "87c3cb44b0f6ef22ebb956bbd49c69c5ba0ac268dbadf4466eed80fb6d532b0d",
+          "startSha256": "6dfffa5fd98d0afbfb15035a5a01929247ba6f7777445b4fb4c439ba3d114a25",
+          "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+          "transitions": [
+            {
+              "timeS": 2.808333333333333,
+              "from": "down",
+              "to": "getup",
+              "pelvisHeightM": 0.19577108323574066,
+              "chestTiltDeg": 103.65199150858433,
+              "feetSolverPointCount": 6
+            },
+            {
+              "timeS": 5.575,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.5580316185951233,
+              "chestTiltDeg": 26.168276760209583,
+              "feetSolverPointCount": 4
+            },
+            {
+              "timeS": 6.225,
+              "from": "stand",
+              "to": "getup",
+              "pelvisHeightM": 0.41861584782600403,
+              "chestTiltDeg": 58.10127605878386,
+              "feetSolverPointCount": 3
+            },
+            {
+              "timeS": 8.991666666666667,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.6102498769760132,
+              "chestTiltDeg": 21.408793306676827,
+              "feetSolverPointCount": 3
+            },
+            {
+              "timeS": 9.633333333333333,
+              "from": "stand",
+              "to": "getup",
+              "pelvisHeightM": 0.2033073455095291,
+              "chestTiltDeg": 67.3349229228816,
+              "feetSolverPointCount": 2
+            },
+            {
+              "timeS": 12.4,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.6438012719154358,
+              "chestTiltDeg": 17.400937914326025,
+              "feetSolverPointCount": 3
+            },
+            {
+              "timeS": 13.15,
+              "from": "stand",
+              "to": "getup",
+              "pelvisHeightM": 0.20124714076519012,
+              "chestTiltDeg": 69.41950081976823,
+              "feetSolverPointCount": 1
+            },
+            {
+              "timeS": 15.916666666666666,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.6774500608444214,
+              "chestTiltDeg": 18.535472886729856,
+              "feetSolverPointCount": 3
+            }
+          ],
+          "downGeometry": {
+            "samples": 336,
+            "minPelvisHeightM": 0.19240552186965942,
+            "minChestHeightM": 0.22398020327091217,
+            "maxChestTiltDeg": 106.53331810422304,
+            "diagnosticLowPelvisUnder045Samples": 50
+          },
+          "maxNoNonPredictiveNativeGroundSolverIntervalS": 0.21666666666666665,
+          "maxJointAnchorGapM": 0.00453252709304611,
+          "postStandRefalls": 3,
+          "peakPelvisHeightM": 1.0095551013946533,
+          "peakPelvisVyMps": 2.0623505115509033,
+          "peakCOMVyMps": 1.513848517991996,
+          "finalState": "stand",
+          "finalPelvisHeightM": 0.8572759032249451,
+          "finalPhysicallyUprightGameGeometry": true,
+          "switchSnapshot": {}
+        },
+        {
+          "scenario": "disabled_getup",
+          "model": "legacy",
+          "finite": true,
+          "traceSha256": "7020ab58a00b2e3d91572c8e97266e400ac242d165d90b76457c530ecf38aa51",
+          "startSha256": "75d8c653bc786723093c103c946d13e9e49bf9ea360671acad0874feda6cfccf",
+          "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+          "transitions": [
+            {
+              "timeS": 3.966666666666667,
+              "from": "down",
+              "to": "getup",
+              "pelvisHeightM": 0.18918685615062714,
+              "chestTiltDeg": 107.628704401695,
+              "feetSolverPointCount": 5
+            },
+            {
+              "timeS": 7.641666666666667,
+              "from": "getup",
+              "to": "kneel",
+              "pelvisHeightM": 0.4957066476345062,
+              "chestTiltDeg": 30.289510606804217,
+              "feetSolverPointCount": 1
+            }
+          ],
+          "downGeometry": {
+            "samples": 475,
+            "minPelvisHeightM": 0.17958228290081024,
+            "minChestHeightM": 0.22740471363067627,
+            "maxChestTiltDeg": 108.87182439488194,
+            "diagnosticLowPelvisUnder045Samples": 155
+          },
+          "maxNoNonPredictiveNativeGroundSolverIntervalS": 0,
+          "maxJointAnchorGapM": 0.0018017312765531853,
+          "postStandRefalls": 0,
+          "peakPelvisHeightM": 0.8782462477684021,
+          "peakPelvisVyMps": 0.5404389500617981,
+          "peakCOMVyMps": 0.5625485431283255,
+          "finalState": "kneel",
+          "finalPelvisHeightM": 0.48023077845573425,
+          "finalPhysicallyUprightGameGeometry": false,
+          "switchSnapshot": {}
+        },
+        {
+          "scenario": "disabled_getup",
+          "model": "axial",
+          "finite": true,
+          "traceSha256": "217d887aee9b868f8885f94a3d3bfc427a45dddf3c085caf8e339dda7feac1c8",
+          "startSha256": "75d8c653bc786723093c103c946d13e9e49bf9ea360671acad0874feda6cfccf",
+          "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+          "transitions": [
+            {
+              "timeS": 3.966666666666667,
+              "from": "down",
+              "to": "getup",
+              "pelvisHeightM": 0.1821313202381134,
+              "chestTiltDeg": 98.52854627919686,
+              "feetSolverPointCount": 8
+            },
+            {
+              "timeS": 7.641666666666667,
+              "from": "getup",
+              "to": "kneel",
+              "pelvisHeightM": 0.3866922855377197,
+              "chestTiltDeg": 30.478964458069452,
+              "feetSolverPointCount": 3
+            }
+          ],
+          "downGeometry": {
+            "samples": 475,
+            "minPelvisHeightM": 0.17510223388671875,
+            "minChestHeightM": 0.2203686684370041,
+            "maxChestTiltDeg": 102.43039562455385,
+            "diagnosticLowPelvisUnder045Samples": 169
+          },
+          "maxNoNonPredictiveNativeGroundSolverIntervalS": 0,
+          "maxJointAnchorGapM": 0.0018245709608017868,
+          "postStandRefalls": 0,
+          "peakPelvisHeightM": 0.861962080001831,
+          "peakPelvisVyMps": 0.4663531184196472,
+          "peakCOMVyMps": 0.2894266263268902,
+          "finalState": "kneel",
+          "finalPelvisHeightM": 0.39288565516471863,
+          "finalPhysicallyUprightGameGeometry": false,
+          "switchSnapshot": {}
+        }
+      ]
+    },
+    "projectedEntireFall": {
+      "sourceCommit": "c8a179be5f9d25746d8ac17d415fc8db6ce068ab",
+      "coreSourceSha256": {
+        "src/config.js": "e84d7b921b6d8678b358a5971b296c22edded192d680a56e45a0b29ab2aa5319",
+        "src/fighter.js": "6b02bd2dcf4601585a6a1a64d05da643c2b87be6973a00d68241d85debbfcaf9",
+        "src/gait.js": "91eba47caf6dddd7fd75a5de141a087614398031c45ef75b2ac814f8c4db9b83",
+        "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+        "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+        "tools/sim/force_ledger.mjs": "60523a73ea4cd8ae084243f542663dc8ed8c0bb6322eed90c7cd6729b13cd24d",
+        "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b"
+      },
+      "sourceStableDuringRun": true,
+      "wallSeconds": 57.048499371,
+      "simulatedSeconds": 167.99999999999994,
+      "protocol": {
+        "seed": 7,
+        "models": [
+          "legacy",
+          "axial"
+        ],
+        "scenarios": [
+          "healthy_getup",
+          "hurt_getup",
+          "disabled_getup"
+        ],
+        "timestepS": 0.008333333333333333,
+        "assist": 0.1,
+        "catchMode": "on",
+        "catchScale": 1,
+        "grip": "paired",
+        "preparationSupportModel": "legacy",
+        "units": {
+          "position": "m",
+          "velocity": "m/s",
+          "angularVelocity": "rad/s",
+          "momentum": "kg m/s",
+          "mass": "kg",
+          "force": "N",
+          "torque": "Nm",
+          "work": "J approximate midpoint quadrature",
+          "contactImpulse": "Ns raw Rapier API"
+        },
+        "heavyDown": "After legacy3s preparation, call actual knockDown(true); no imposed pose/rotation/impulse. Whether down actually becomes lying is measured rather than assumed.",
+        "injury": "Synthetic controller limb-health values .45 single leg / .2 both; actual knockDown(true). No clinical injury or collision reproduction.",
+        "floorRemoval": "Single actual fixed harness floor collider removed after legacy preparation; no body reposition/freezing/velocity injection. Opponent only uses harness park.",
+        "uprightDefinition": "Game geometry observation: state stand, pelvis>=gait.hNom-GAIT.catchSag, tilt-hunch<=BODY.fallTiltDeg, at least one foot solver point. Not human naturalness/acceptance.",
+        "forceMeaning": "directBalancePaths is full driveBalance path explicit forces, not push-only closure unless source supplies a distinct path. Actual bodywise reactions retained. Native joints/motors/contact work not measured; changing foot mass prevents fixed-mass energy closure.",
+        "slipMeaning": "Relative velocityAtPoint at actual foot/fixed floor solver world points; solver and impulse contact arrays are separate, no index pairing. Raw impulses receive no 6/7 correction.",
+        "statusMeaning": "observed means scene completed, never a human or physically upright success verdict."
+      },
+      "rows": [
+        {
+          "scenario": "healthy_getup",
+          "model": "legacy",
+          "finite": true,
+          "traceSha256": "d7db58ea0fe707cc6b27045a622b33ecf758e8457a7b19aa7616f20d0d61bd20",
+          "startSha256": "6ad2fac2252b45286548940361be00572224859044427820b21b569390e68894",
+          "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+          "transitions": [
+            {
+              "timeS": 2.2083333333333335,
+              "from": "down",
+              "to": "getup",
+              "pelvisHeightM": 0.21034662425518036,
+              "chestTiltDeg": 106.28628957782958,
+              "feetSolverPointCount": 3
+            },
+            {
+              "timeS": 4.216666666666667,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.944446325302124,
+              "chestTiltDeg": 17.369538643640173,
+              "feetSolverPointCount": 1
+            }
+          ],
+          "downGeometry": {
+            "samples": 264,
+            "minPelvisHeightM": 0.19369111955165863,
+            "minChestHeightM": 0.2150721251964569,
+            "maxChestTiltDeg": 105.8321297076015,
+            "diagnosticLowPelvisUnder045Samples": 29
+          },
+          "maxNoNonPredictiveNativeGroundSolverIntervalS": 0,
+          "maxJointAnchorGapM": 0.0026502684923261606,
+          "postStandRefalls": 0,
+          "peakPelvisHeightM": 0.9480926990509033,
+          "peakPelvisVyMps": 0.7158823609352112,
+          "peakCOMVyMps": 0.8901661863333236,
+          "finalState": "stand",
+          "finalPelvisHeightM": 0.888456404209137,
+          "finalPhysicallyUprightGameGeometry": true,
+          "switchSnapshot": {}
+        },
+        {
+          "scenario": "healthy_getup",
+          "model": "axial",
+          "finite": true,
+          "traceSha256": "70885cfb5e0115acfa00f30f6cdae5a93eb7eb4242e976bef45cfbe131011a79",
+          "startSha256": "6ad2fac2252b45286548940361be00572224859044427820b21b569390e68894",
+          "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+          "transitions": [
+            {
+              "timeS": 2.2083333333333335,
+              "from": "down",
+              "to": "getup",
+              "pelvisHeightM": 0.6315305829048157,
+              "chestTiltDeg": 83.74515709778909,
+              "feetSolverPointCount": 4
+            },
+            {
+              "timeS": 4.216666666666667,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.7486119270324707,
+              "chestTiltDeg": 22.430378641284328,
+              "feetSolverPointCount": 3
+            }
+          ],
+          "downGeometry": {
+            "samples": 264,
+            "minPelvisHeightM": 0.6413624286651611,
+            "minChestHeightM": 0.8139972686767578,
+            "maxChestTiltDeg": 82.89903972826635,
+            "diagnosticLowPelvisUnder045Samples": 0
+          },
+          "maxNoNonPredictiveNativeGroundSolverIntervalS": 0.11666666666666665,
+          "maxJointAnchorGapM": 0.003292610240154955,
+          "postStandRefalls": 0,
+          "peakPelvisHeightM": 0.988806962966919,
+          "peakPelvisVyMps": 1.457491159439087,
+          "peakCOMVyMps": 1.1390958572280963,
+          "finalState": "stand",
+          "finalPelvisHeightM": 0.8854464292526245,
+          "finalPhysicallyUprightGameGeometry": true,
+          "switchSnapshot": {}
+        },
+        {
+          "scenario": "hurt_getup",
+          "model": "legacy",
+          "finite": true,
+          "traceSha256": "9e2a51a7f1f0c46833c185f5697a4b78e4993df1fd5ece028ce53e24d0aa967e",
+          "startSha256": "6dfffa5fd98d0afbfb15035a5a01929247ba6f7777445b4fb4c439ba3d114a25",
+          "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+          "transitions": [
+            {
+              "timeS": 2.808333333333333,
+              "from": "down",
+              "to": "getup",
+              "pelvisHeightM": 0.19516782462596893,
+              "chestTiltDeg": 102.96590478169814,
+              "feetSolverPointCount": 8
+            },
+            {
+              "timeS": 5.575,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.9216378331184387,
+              "chestTiltDeg": 16.84448133714487,
+              "feetSolverPointCount": 2
+            }
+          ],
+          "downGeometry": {
+            "samples": 336,
+            "minPelvisHeightM": 0.19538173079490662,
+            "minChestHeightM": 0.2154906541109085,
+            "maxChestTiltDeg": 106.77904770141332,
+            "diagnosticLowPelvisUnder045Samples": 87
+          },
+          "maxNoNonPredictiveNativeGroundSolverIntervalS": 0,
+          "maxJointAnchorGapM": 0.0020703899171129704,
+          "postStandRefalls": 0,
+          "peakPelvisHeightM": 0.9236483573913574,
+          "peakPelvisVyMps": 0.6478061079978943,
+          "peakCOMVyMps": 0.7269522479612118,
+          "finalState": "stand",
+          "finalPelvisHeightM": 0.8517472743988037,
+          "finalPhysicallyUprightGameGeometry": true,
+          "switchSnapshot": {}
+        },
+        {
+          "scenario": "hurt_getup",
+          "model": "axial",
+          "finite": true,
+          "traceSha256": "80d00398a2ae6fbc3bc61896e8551962633a6b96f4926cd9c30055ef5904a568",
+          "startSha256": "6dfffa5fd98d0afbfb15035a5a01929247ba6f7777445b4fb4c439ba3d114a25",
+          "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+          "transitions": [
+            {
+              "timeS": 2.808333333333333,
+              "from": "down",
+              "to": "getup",
+              "pelvisHeightM": 0.23447313904762268,
+              "chestTiltDeg": 111.8788714734139,
+              "feetSolverPointCount": 2
+            },
+            {
+              "timeS": 5.575,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.6589802503585815,
+              "chestTiltDeg": 35.071125231900396,
+              "feetSolverPointCount": 3
+            }
+          ],
+          "downGeometry": {
+            "samples": 336,
+            "minPelvisHeightM": 0.2396671175956726,
+            "minChestHeightM": 0.23341535031795502,
+            "maxChestTiltDeg": 116.9875551730588,
+            "diagnosticLowPelvisUnder045Samples": 50
+          },
+          "maxNoNonPredictiveNativeGroundSolverIntervalS": 0.016666666666666666,
+          "maxJointAnchorGapM": 0.0024495267535184343,
+          "postStandRefalls": 0,
+          "peakPelvisHeightM": 0.8925703763961792,
+          "peakPelvisVyMps": 1.0061498880386353,
+          "peakCOMVyMps": 0.8227861052979173,
+          "finalState": "stand",
+          "finalPelvisHeightM": 0.8523566126823425,
+          "finalPhysicallyUprightGameGeometry": true,
+          "switchSnapshot": {}
+        },
+        {
+          "scenario": "disabled_getup",
+          "model": "legacy",
+          "finite": true,
+          "traceSha256": "7020ab58a00b2e3d91572c8e97266e400ac242d165d90b76457c530ecf38aa51",
+          "startSha256": "75d8c653bc786723093c103c946d13e9e49bf9ea360671acad0874feda6cfccf",
+          "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+          "transitions": [
+            {
+              "timeS": 3.966666666666667,
+              "from": "down",
+              "to": "getup",
+              "pelvisHeightM": 0.18918685615062714,
+              "chestTiltDeg": 107.628704401695,
+              "feetSolverPointCount": 5
+            },
+            {
+              "timeS": 7.641666666666667,
+              "from": "getup",
+              "to": "kneel",
+              "pelvisHeightM": 0.4957066476345062,
+              "chestTiltDeg": 30.289510606804217,
+              "feetSolverPointCount": 1
+            }
+          ],
+          "downGeometry": {
+            "samples": 475,
+            "minPelvisHeightM": 0.17958228290081024,
+            "minChestHeightM": 0.22740471363067627,
+            "maxChestTiltDeg": 108.87182439488194,
+            "diagnosticLowPelvisUnder045Samples": 155
+          },
+          "maxNoNonPredictiveNativeGroundSolverIntervalS": 0,
+          "maxJointAnchorGapM": 0.0018017312765531853,
+          "postStandRefalls": 0,
+          "peakPelvisHeightM": 0.8782462477684021,
+          "peakPelvisVyMps": 0.5404389500617981,
+          "peakCOMVyMps": 0.5625485431283255,
+          "finalState": "kneel",
+          "finalPelvisHeightM": 0.48023077845573425,
+          "finalPhysicallyUprightGameGeometry": false,
+          "switchSnapshot": {}
+        },
+        {
+          "scenario": "disabled_getup",
+          "model": "axial",
+          "finite": true,
+          "traceSha256": "c3d1545e83e8593a74fbfe6b240afa68b60d9eb66207498920562c794c7382f7",
+          "startSha256": "75d8c653bc786723093c103c946d13e9e49bf9ea360671acad0874feda6cfccf",
+          "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+          "transitions": [
+            {
+              "timeS": 3.966666666666667,
+              "from": "down",
+              "to": "getup",
+              "pelvisHeightM": 0.12554359436035156,
+              "chestTiltDeg": 74.15980082065978,
+              "feetSolverPointCount": 6
+            },
+            {
+              "timeS": 7.641666666666667,
+              "from": "getup",
+              "to": "kneel",
+              "pelvisHeightM": 0.08440954983234406,
+              "chestTiltDeg": 28.625755657842383,
+              "feetSolverPointCount": 6
+            }
+          ],
+          "downGeometry": {
+            "samples": 475,
+            "minPelvisHeightM": 0.12478860467672348,
+            "minChestHeightM": 0.3317391574382782,
+            "maxChestTiltDeg": 78.02862201414277,
+            "diagnosticLowPelvisUnder045Samples": 270
+          },
+          "maxNoNonPredictiveNativeGroundSolverIntervalS": 0,
+          "maxJointAnchorGapM": 0.0018096433188286012,
+          "postStandRefalls": 0,
+          "peakPelvisHeightM": 0.8612869381904602,
+          "peakPelvisVyMps": 0.4550801217556,
+          "peakCOMVyMps": 0.28151782121457486,
+          "finalState": "kneel",
+          "finalPelvisHeightM": 0.087313711643219,
+          "finalPhysicallyUprightGameGeometry": false,
+          "switchSnapshot": {}
+        }
+      ]
+    },
+    "sameLyingOld": {
+      "sourceCommit": "c8a179be5f9d25746d8ac17d415fc8db6ce068ab",
+      "coreSourceSha256": {
+        "src/config.js": "e84d7b921b6d8678b358a5971b296c22edded192d680a56e45a0b29ab2aa5319",
+        "src/fighter.js": "6b02bd2dcf4601585a6a1a64d05da643c2b87be6973a00d68241d85debbfcaf9",
+        "src/gait.js": "91eba47caf6dddd7fd75a5de141a087614398031c45ef75b2ac814f8c4db9b83",
+        "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+        "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+        "tools/sim/force_ledger.mjs": "60523a73ea4cd8ae084243f542663dc8ed8c0bb6322eed90c7cd6729b13cd24d",
+        "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b"
+      },
+      "sourceStableDuringRun": true,
+      "wallSeconds": 13.555378850999999,
+      "simulatedSeconds": 55.999999999999986,
+      "protocol": {
+        "sameLying": "All preparation uses archived old driveBalance on current fighter. Both groups use old axial until healthy2.2s/hurt2.8s immediately before first getup. Projected only then switches driveBalance to current source. No pose/velocity copying or physics snapshot restoring. Old fulltrace must match existing original raw and world/controller switch hashes must match.",
+        "seed": 7,
+        "models": [
+          "axial"
+        ],
+        "scenarios": [
+          "healthy_getup",
+          "hurt_getup"
+        ],
+        "timestepS": 0.008333333333333333,
+        "assist": 0.1,
+        "catchMode": "on",
+        "catchScale": 1,
+        "grip": "paired",
+        "preparationSupportModel": "legacy",
+        "units": {
+          "position": "m",
+          "velocity": "m/s",
+          "angularVelocity": "rad/s",
+          "momentum": "kg m/s",
+          "mass": "kg",
+          "force": "N",
+          "torque": "Nm",
+          "work": "J approximate midpoint quadrature",
+          "contactImpulse": "Ns raw Rapier API"
+        },
+        "heavyDown": "After legacy3s preparation, call actual knockDown(true); no imposed pose/rotation/impulse. Whether down actually becomes lying is measured rather than assumed.",
+        "injury": "Synthetic controller limb-health values .45 single leg / .2 both; actual knockDown(true). No clinical injury or collision reproduction.",
+        "floorRemoval": "Single actual fixed harness floor collider removed after legacy preparation; no body reposition/freezing/velocity injection. Opponent only uses harness park.",
+        "uprightDefinition": "Game geometry observation: state stand, pelvis>=gait.hNom-GAIT.catchSag, tilt-hunch<=BODY.fallTiltDeg, at least one foot solver point. Not human naturalness/acceptance.",
+        "forceMeaning": "directBalancePaths is full driveBalance path explicit forces, not push-only closure unless source supplies a distinct path. Actual bodywise reactions retained. Native joints/motors/contact work not measured; changing foot mass prevents fixed-mass energy closure.",
+        "slipMeaning": "Relative velocityAtPoint at actual foot/fixed floor solver world points; solver and impulse contact arrays are separate, no index pairing. Raw impulses receive no 6/7 correction.",
+        "statusMeaning": "observed means scene completed, never a human or physically upright success verdict."
+      },
+      "rows": [
+        {
+          "scenario": "healthy_getup",
+          "model": "axial",
+          "finite": true,
+          "traceSha256": "dd37acfde6fee03dc3b15d762b2256c66c4158d41567950a43dc5f8d376c8df6",
+          "startSha256": "6ad2fac2252b45286548940361be00572224859044427820b21b569390e68894",
+          "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+          "transitions": [
+            {
+              "timeS": 2.2083333333333335,
+              "from": "down",
+              "to": "getup",
+              "pelvisHeightM": 0.19637800753116608,
+              "chestTiltDeg": 88.35760352155772,
+              "feetSolverPointCount": 8
+            },
+            {
+              "timeS": 4.216666666666667,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.6632758975028992,
+              "chestTiltDeg": 18.252634425725375,
+              "feetSolverPointCount": 4
+            },
+            {
+              "timeS": 5.191666666666666,
+              "from": "stand",
+              "to": "getup",
+              "pelvisHeightM": 0.2177799940109253,
+              "chestTiltDeg": 62.62637842392028,
+              "feetSolverPointCount": 3
+            },
+            {
+              "timeS": 7.2,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.6577251553535461,
+              "chestTiltDeg": 18.45162065185329,
+              "feetSolverPointCount": 4
+            },
+            {
+              "timeS": 7.841666666666667,
+              "from": "stand",
+              "to": "getup",
+              "pelvisHeightM": 0.3431524336338043,
+              "chestTiltDeg": 57.557879114621855,
+              "feetSolverPointCount": 2
+            },
+            {
+              "timeS": 9.85,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.6719912886619568,
+              "chestTiltDeg": 22.191121368106884,
+              "feetSolverPointCount": 2
+            }
+          ],
+          "downGeometry": {
+            "samples": 264,
+            "minPelvisHeightM": 0.21536177396774292,
+            "minChestHeightM": 0.33165162801742554,
+            "maxChestTiltDeg": 86.83359503964124,
+            "diagnosticLowPelvisUnder045Samples": 13
+          },
+          "maxNoNonPredictiveNativeGroundSolverIntervalS": 0.20833333333333331,
+          "maxJointAnchorGapM": 0.003612988366022,
+          "postStandRefalls": 2,
+          "peakPelvisHeightM": 1.0117137432098389,
+          "peakPelvisVyMps": 1.7358157634735107,
+          "peakCOMVyMps": 1.517515946003222,
+          "finalState": "stand",
+          "finalPelvisHeightM": 0.8872106075286865,
+          "finalPhysicallyUprightGameGeometry": true,
+          "switchSnapshot": {
+            "timeS": 2.2,
+            "nativeWorldSha256": "422e266a6c56c893cd947d1fbacbbcf37e1388d82db0c0a1c6c60268353b26c5",
+            "physicalControlSha256": "c615711363deb80f4682e161e8242c6164ba78909969bda870de24d1bf1035ba",
+            "additionalControllerSha256": "fba440a142405b48d4ccaaa14676043d16bc62775f71dd879b43d5a54e2cc49a",
+            "geometry": {
+              "pelvisHeightM": 0.21536177396774292,
+              "chestHeightM": 0.33165162801742554,
+              "chestTiltDeg": 86.83359503964124,
+              "state": "down",
+              "stateTimeS": 2.199999999999995
+            }
+          }
+        },
+        {
+          "scenario": "hurt_getup",
+          "model": "axial",
+          "finite": true,
+          "traceSha256": "87c3cb44b0f6ef22ebb956bbd49c69c5ba0ac268dbadf4466eed80fb6d532b0d",
+          "startSha256": "6dfffa5fd98d0afbfb15035a5a01929247ba6f7777445b4fb4c439ba3d114a25",
+          "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+          "transitions": [
+            {
+              "timeS": 2.808333333333333,
+              "from": "down",
+              "to": "getup",
+              "pelvisHeightM": 0.19577108323574066,
+              "chestTiltDeg": 103.65199150858433,
+              "feetSolverPointCount": 6
+            },
+            {
+              "timeS": 5.575,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.5580316185951233,
+              "chestTiltDeg": 26.168276760209583,
+              "feetSolverPointCount": 4
+            },
+            {
+              "timeS": 6.225,
+              "from": "stand",
+              "to": "getup",
+              "pelvisHeightM": 0.41861584782600403,
+              "chestTiltDeg": 58.10127605878386,
+              "feetSolverPointCount": 3
+            },
+            {
+              "timeS": 8.991666666666667,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.6102498769760132,
+              "chestTiltDeg": 21.408793306676827,
+              "feetSolverPointCount": 3
+            },
+            {
+              "timeS": 9.633333333333333,
+              "from": "stand",
+              "to": "getup",
+              "pelvisHeightM": 0.2033073455095291,
+              "chestTiltDeg": 67.3349229228816,
+              "feetSolverPointCount": 2
+            },
+            {
+              "timeS": 12.4,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.6438012719154358,
+              "chestTiltDeg": 17.400937914326025,
+              "feetSolverPointCount": 3
+            },
+            {
+              "timeS": 13.15,
+              "from": "stand",
+              "to": "getup",
+              "pelvisHeightM": 0.20124714076519012,
+              "chestTiltDeg": 69.41950081976823,
+              "feetSolverPointCount": 1
+            },
+            {
+              "timeS": 15.916666666666666,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.6774500608444214,
+              "chestTiltDeg": 18.535472886729856,
+              "feetSolverPointCount": 3
+            }
+          ],
+          "downGeometry": {
+            "samples": 336,
+            "minPelvisHeightM": 0.19240552186965942,
+            "minChestHeightM": 0.22398020327091217,
+            "maxChestTiltDeg": 106.53331810422304,
+            "diagnosticLowPelvisUnder045Samples": 50
+          },
+          "maxNoNonPredictiveNativeGroundSolverIntervalS": 0.21666666666666665,
+          "maxJointAnchorGapM": 0.00453252709304611,
+          "postStandRefalls": 3,
+          "peakPelvisHeightM": 1.0095551013946533,
+          "peakPelvisVyMps": 2.0623505115509033,
+          "peakCOMVyMps": 1.513848517991996,
+          "finalState": "stand",
+          "finalPelvisHeightM": 0.8572759032249451,
+          "finalPhysicallyUprightGameGeometry": true,
+          "switchSnapshot": {
+            "timeS": 2.8,
+            "nativeWorldSha256": "228c14abba81b9f12a1a3aeb52fc73dc055b81827a1f7fd98847716b250a001b",
+            "physicalControlSha256": "56f384009047b4ee20415c1a19615e221a9ad338b16691699961b814afcae3b9",
+            "additionalControllerSha256": "8d206406d4c931ff60cb51211be19bbbff3a19f48a2b468e7cda2b9b5ec19b0f",
+            "geometry": {
+              "pelvisHeightM": 0.19621041417121887,
+              "chestHeightM": 0.22786873579025269,
+              "chestTiltDeg": 103.04572696618563,
+              "state": "down",
+              "stateTimeS": 2.7999999999999927
+            }
+          }
+        }
+      ]
+    },
+    "sameLyingProjected": {
+      "sourceCommit": "c8a179be5f9d25746d8ac17d415fc8db6ce068ab",
+      "coreSourceSha256": {
+        "src/config.js": "e84d7b921b6d8678b358a5971b296c22edded192d680a56e45a0b29ab2aa5319",
+        "src/fighter.js": "6b02bd2dcf4601585a6a1a64d05da643c2b87be6973a00d68241d85debbfcaf9",
+        "src/gait.js": "91eba47caf6dddd7fd75a5de141a087614398031c45ef75b2ac814f8c4db9b83",
+        "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+        "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+        "tools/sim/force_ledger.mjs": "60523a73ea4cd8ae084243f542663dc8ed8c0bb6322eed90c7cd6729b13cd24d",
+        "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b"
+      },
+      "sourceStableDuringRun": true,
+      "wallSeconds": 14.746068663,
+      "simulatedSeconds": 55.999999999999986,
+      "protocol": {
+        "sameLying": "All preparation uses archived old driveBalance on current fighter. Both groups use old axial until healthy2.2s/hurt2.8s immediately before first getup. Projected only then switches driveBalance to current source. No pose/velocity copying or physics snapshot restoring. Old fulltrace must match existing original raw and world/controller switch hashes must match.",
+        "seed": 7,
+        "models": [
+          "projected"
+        ],
+        "scenarios": [
+          "healthy_getup",
+          "hurt_getup"
+        ],
+        "timestepS": 0.008333333333333333,
+        "assist": 0.1,
+        "catchMode": "on",
+        "catchScale": 1,
+        "grip": "paired",
+        "preparationSupportModel": "legacy",
+        "units": {
+          "position": "m",
+          "velocity": "m/s",
+          "angularVelocity": "rad/s",
+          "momentum": "kg m/s",
+          "mass": "kg",
+          "force": "N",
+          "torque": "Nm",
+          "work": "J approximate midpoint quadrature",
+          "contactImpulse": "Ns raw Rapier API"
+        },
+        "heavyDown": "After legacy3s preparation, call actual knockDown(true); no imposed pose/rotation/impulse. Whether down actually becomes lying is measured rather than assumed.",
+        "injury": "Synthetic controller limb-health values .45 single leg / .2 both; actual knockDown(true). No clinical injury or collision reproduction.",
+        "floorRemoval": "Single actual fixed harness floor collider removed after legacy preparation; no body reposition/freezing/velocity injection. Opponent only uses harness park.",
+        "uprightDefinition": "Game geometry observation: state stand, pelvis>=gait.hNom-GAIT.catchSag, tilt-hunch<=BODY.fallTiltDeg, at least one foot solver point. Not human naturalness/acceptance.",
+        "forceMeaning": "directBalancePaths is full driveBalance path explicit forces, not push-only closure unless source supplies a distinct path. Actual bodywise reactions retained. Native joints/motors/contact work not measured; changing foot mass prevents fixed-mass energy closure.",
+        "slipMeaning": "Relative velocityAtPoint at actual foot/fixed floor solver world points; solver and impulse contact arrays are separate, no index pairing. Raw impulses receive no 6/7 correction.",
+        "statusMeaning": "observed means scene completed, never a human or physically upright success verdict."
+      },
+      "rows": [
+        {
+          "scenario": "healthy_getup",
+          "model": "projected",
+          "finite": true,
+          "traceSha256": "b51535850381e6f77b5db44727328b9c68d5bd246a2af63b39488694d019d8c4",
+          "startSha256": "6ad2fac2252b45286548940361be00572224859044427820b21b569390e68894",
+          "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+          "transitions": [
+            {
+              "timeS": 2.2083333333333335,
+              "from": "down",
+              "to": "getup",
+              "pelvisHeightM": 0.1963992416858673,
+              "chestTiltDeg": 88.34258441141114,
+              "feetSolverPointCount": 8
+            },
+            {
+              "timeS": 4.216666666666667,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.7414551377296448,
+              "chestTiltDeg": 22.92087434801198,
+              "feetSolverPointCount": 3
+            }
+          ],
+          "downGeometry": {
+            "samples": 264,
+            "minPelvisHeightM": 0.21536177396774292,
+            "minChestHeightM": 0.33165162801742554,
+            "maxChestTiltDeg": 86.83359503964124,
+            "diagnosticLowPelvisUnder045Samples": 13
+          },
+          "maxNoNonPredictiveNativeGroundSolverIntervalS": 0.11666666666666665,
+          "maxJointAnchorGapM": 0.0030869411685577656,
+          "postStandRefalls": 0,
+          "peakPelvisHeightM": 0.9821765422821045,
+          "peakPelvisVyMps": 1.431822419166565,
+          "peakCOMVyMps": 1.1482160725506616,
+          "finalState": "stand",
+          "finalPelvisHeightM": 0.8851736187934875,
+          "finalPhysicallyUprightGameGeometry": true,
+          "switchSnapshot": {
+            "timeS": 2.2,
+            "nativeWorldSha256": "422e266a6c56c893cd947d1fbacbbcf37e1388d82db0c0a1c6c60268353b26c5",
+            "physicalControlSha256": "c615711363deb80f4682e161e8242c6164ba78909969bda870de24d1bf1035ba",
+            "additionalControllerSha256": "fba440a142405b48d4ccaaa14676043d16bc62775f71dd879b43d5a54e2cc49a",
+            "geometry": {
+              "pelvisHeightM": 0.21536177396774292,
+              "chestHeightM": 0.33165162801742554,
+              "chestTiltDeg": 86.83359503964124,
+              "state": "down",
+              "stateTimeS": 2.199999999999995
+            }
+          }
+        },
+        {
+          "scenario": "hurt_getup",
+          "model": "projected",
+          "finite": true,
+          "traceSha256": "83443272f40fa16b99fdc7580ab188b8fcb72bbf4718fdd64dd4501b8dab4212",
+          "startSha256": "6dfffa5fd98d0afbfb15035a5a01929247ba6f7777445b4fb4c439ba3d114a25",
+          "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+          "transitions": [
+            {
+              "timeS": 2.808333333333333,
+              "from": "down",
+              "to": "getup",
+              "pelvisHeightM": 0.1957564502954483,
+              "chestTiltDeg": 103.6248002765172,
+              "feetSolverPointCount": 6
+            },
+            {
+              "timeS": 5.575,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.5451655983924866,
+              "chestTiltDeg": 23.99491474132062,
+              "feetSolverPointCount": 4
+            },
+            {
+              "timeS": 6.216666666666667,
+              "from": "stand",
+              "to": "getup",
+              "pelvisHeightM": 0.22397726774215698,
+              "chestTiltDeg": 72.11911816523478,
+              "feetSolverPointCount": 1
+            },
+            {
+              "timeS": 8.983333333333333,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.6388493776321411,
+              "chestTiltDeg": 34.90785284275662,
+              "feetSolverPointCount": 3
+            },
+            {
+              "timeS": 9.641666666666666,
+              "from": "stand",
+              "to": "getup",
+              "pelvisHeightM": 0.39091047644615173,
+              "chestTiltDeg": 66.61960971565196,
+              "feetSolverPointCount": 2
+            },
+            {
+              "timeS": 12.408333333333333,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.6630176901817322,
+              "chestTiltDeg": 35.12240483841225,
+              "feetSolverPointCount": 3
+            },
+            {
+              "timeS": 13.108333333333333,
+              "from": "stand",
+              "to": "getup",
+              "pelvisHeightM": 0.44150152802467346,
+              "chestTiltDeg": 66.86425139208703,
+              "feetSolverPointCount": 1
+            },
+            {
+              "timeS": 15.875,
+              "from": "getup",
+              "to": "stand",
+              "pelvisHeightM": 0.6595362424850464,
+              "chestTiltDeg": 35.26618982478386,
+              "feetSolverPointCount": 4
+            }
+          ],
+          "downGeometry": {
+            "samples": 336,
+            "minPelvisHeightM": 0.19240552186965942,
+            "minChestHeightM": 0.22398020327091217,
+            "maxChestTiltDeg": 106.53331810422304,
+            "diagnosticLowPelvisUnder045Samples": 50
+          },
+          "maxNoNonPredictiveNativeGroundSolverIntervalS": 0.09999999999999999,
+          "maxJointAnchorGapM": 0.003433885580355494,
+          "postStandRefalls": 3,
+          "peakPelvisHeightM": 0.9392641186714172,
+          "peakPelvisVyMps": 1.3235821723937988,
+          "peakCOMVyMps": 1.191691045997414,
+          "finalState": "stand",
+          "finalPelvisHeightM": 0.8532899022102356,
+          "finalPhysicallyUprightGameGeometry": true,
+          "switchSnapshot": {
+            "timeS": 2.8,
+            "nativeWorldSha256": "228c14abba81b9f12a1a3aeb52fc73dc055b81827a1f7fd98847716b250a001b",
+            "physicalControlSha256": "56f384009047b4ee20415c1a19615e221a9ad338b16691699961b814afcae3b9",
+            "additionalControllerSha256": "8d206406d4c931ff60cb51211be19bbbff3a19f48a2b468e7cda2b9b5ec19b0f",
+            "geometry": {
+              "pelvisHeightM": 0.19621041417121887,
+              "chestHeightM": 0.22786873579025269,
+              "chestTiltDeg": 103.04572696618563,
+              "state": "down",
+              "stateTimeS": 2.7999999999999927
+            }
+          }
+        }
+      ]
+    },
+    "readinessGateRejected": {
+      "sourceCommit": "c8a179be5f9d25746d8ac17d415fc8db6ce068ab",
+      "coreSourceSha256": {
+        "src/config.js": "e84d7b921b6d8678b358a5971b296c22edded192d680a56e45a0b29ab2aa5319",
+        "src/fighter.js": "6b02bd2dcf4601585a6a1a64d05da643c2b87be6973a00d68241d85debbfcaf9",
+        "src/gait.js": "91eba47caf6dddd7fd75a5de141a087614398031c45ef75b2ac814f8c4db9b83",
+        "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+        "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+        "tools/sim/force_ledger.mjs": "60523a73ea4cd8ae084243f542663dc8ed8c0bb6322eed90c7cd6729b13cd24d",
+        "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b"
+      },
+      "sourceStableDuringRun": true,
+      "wallSeconds": 15.029182887000001,
+      "simulatedSeconds": 55.999999999999986,
+      "protocol": {
+        "sameLying": "All preparation uses archived old driveBalance on current fighter. Both groups use old axial until healthy2.2s/hurt2.8s immediately before first getup. Projected only then switches driveBalance to current source. No pose/velocity copying or physics snapshot restoring. Old fulltrace must match existing original raw and world/controller switch hashes must match.",
+        "seed": 7,
+        "models": [
+          "projected"
+        ],
+        "scenarios": [
+          "healthy_getup",
+          "hurt_getup"
+        ],
+        "timestepS": 0.008333333333333333,
+        "assist": 0.1,
+        "catchMode": "on",
+        "catchScale": 1,
+        "grip": "paired",
+        "preparationSupportModel": "legacy",
+        "units": {
+          "position": "m",
+          "velocity": "m/s",
+          "angularVelocity": "rad/s",
+          "momentum": "kg m/s",
+          "mass": "kg",
+          "force": "N",
+          "torque": "Nm",
+          "work": "J approximate midpoint quadrature",
+          "contactImpulse": "Ns raw Rapier API"
+        },
+        "heavyDown": "After legacy3s preparation, call actual knockDown(true); no imposed pose/rotation/impulse. Whether down actually becomes lying is measured rather than assumed.",
+        "injury": "Synthetic controller limb-health values .45 single leg / .2 both; actual knockDown(true). No clinical injury or collision reproduction.",
+        "floorRemoval": "Single actual fixed harness floor collider removed after legacy preparation; no body reposition/freezing/velocity injection. Opponent only uses harness park.",
+        "uprightDefinition": "Game geometry observation: state stand, pelvis>=gait.hNom-GAIT.catchSag, tilt-hunch<=BODY.fallTiltDeg, at least one foot solver point. Not human naturalness/acceptance.",
+        "forceMeaning": "directBalancePaths is full driveBalance path explicit forces, not push-only closure unless source supplies a distinct path. Actual bodywise reactions retained. Native joints/motors/contact work not measured; changing foot mass prevents fixed-mass energy closure.",
+        "slipMeaning": "Relative velocityAtPoint at actual foot/fixed floor solver world points; solver and impulse contact arrays are separate, no index pairing. Raw impulses receive no 6/7 correction.",
+        "statusMeaning": "observed means scene completed, never a human or physically upright success verdict."
+      },
+      "rows": [
+        {
+          "scenario": "healthy_getup",
+          "model": "projected",
+          "finite": true,
+          "traceSha256": "32ad0802909309344ae70cef07d2f864a3b3ccb467f6eccacfacec8cc3c19542",
+          "startSha256": "6ad2fac2252b45286548940361be00572224859044427820b21b569390e68894",
+          "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+          "transitions": [
+            {
+              "timeS": 2.2083333333333335,
+              "from": "down",
+              "to": "getup",
+              "pelvisHeightM": 0.1963992416858673,
+              "chestTiltDeg": 88.34258441141114,
+              "feetSolverPointCount": 8
+            }
+          ],
+          "downGeometry": {
+            "samples": 264,
+            "minPelvisHeightM": 0.21536177396774292,
+            "minChestHeightM": 0.33165162801742554,
+            "maxChestTiltDeg": 86.83359503964124,
+            "diagnosticLowPelvisUnder045Samples": 13
+          },
+          "maxNoNonPredictiveNativeGroundSolverIntervalS": 0,
+          "maxJointAnchorGapM": 0.0030869411685577656,
+          "postStandRefalls": 0,
+          "peakPelvisHeightM": 0.8843622803688049,
+          "peakPelvisVyMps": 0.701221764087677,
+          "peakCOMVyMps": 0.5932712289106488,
+          "finalState": "getup",
+          "finalPelvisHeightM": 0.7585947513580322,
+          "finalPhysicallyUprightGameGeometry": false,
+          "switchSnapshot": {
+            "timeS": 2.2,
+            "nativeWorldSha256": "422e266a6c56c893cd947d1fbacbbcf37e1388d82db0c0a1c6c60268353b26c5",
+            "physicalControlSha256": "c615711363deb80f4682e161e8242c6164ba78909969bda870de24d1bf1035ba",
+            "additionalControllerSha256": "fba440a142405b48d4ccaaa14676043d16bc62775f71dd879b43d5a54e2cc49a",
+            "geometry": {
+              "pelvisHeightM": 0.21536177396774292,
+              "chestHeightM": 0.33165162801742554,
+              "chestTiltDeg": 86.83359503964124,
+              "state": "down",
+              "stateTimeS": 2.199999999999995
+            }
+          }
+        },
+        {
+          "scenario": "hurt_getup",
+          "model": "projected",
+          "finite": true,
+          "traceSha256": "354b12e5166b2e6f6424f60186c17132300e4dd00293236e3dc188d1b7d370f3",
+          "startSha256": "6dfffa5fd98d0afbfb15035a5a01929247ba6f7777445b4fb4c439ba3d114a25",
+          "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+          "transitions": [
+            {
+              "timeS": 2.808333333333333,
+              "from": "down",
+              "to": "getup",
+              "pelvisHeightM": 0.1957564502954483,
+              "chestTiltDeg": 103.6248002765172,
+              "feetSolverPointCount": 6
+            }
+          ],
+          "downGeometry": {
+            "samples": 336,
+            "minPelvisHeightM": 0.19240552186965942,
+            "minChestHeightM": 0.22398020327091217,
+            "maxChestTiltDeg": 106.53331810422304,
+            "diagnosticLowPelvisUnder045Samples": 50
+          },
+          "maxNoNonPredictiveNativeGroundSolverIntervalS": 0,
+          "maxJointAnchorGapM": 0.00215142117314681,
+          "postStandRefalls": 0,
+          "peakPelvisHeightM": 0.8816184997558594,
+          "peakPelvisVyMps": 0.579509973526001,
+          "peakCOMVyMps": 0.49624320959923235,
+          "finalState": "getup",
+          "finalPelvisHeightM": 0.16480347514152527,
+          "finalPhysicallyUprightGameGeometry": false,
+          "switchSnapshot": {
+            "timeS": 2.8,
+            "nativeWorldSha256": "228c14abba81b9f12a1a3aeb52fc73dc055b81827a1f7fd98847716b250a001b",
+            "physicalControlSha256": "56f384009047b4ee20415c1a19615e221a9ad338b16691699961b814afcae3b9",
+            "additionalControllerSha256": "67a588bd43aa35f284df955e7ac32c6c7e5916fcbf02f21504e89af63bef37a8",
+            "geometry": {
+              "pelvisHeightM": 0.19621041417121887,
+              "chestHeightM": 0.22786873579025269,
+              "chestTiltDeg": 103.04572696618563,
+              "state": "down",
+              "stateTimeS": 2.7999999999999927
+            }
+          }
+        }
+      ]
+    }
+  },
+  "sameLyingChecks": [
+    {
+      "scenario": "healthy_getup",
+      "originalTraceExact": true,
+      "sameNativeAndControlState": true,
+      "readinessGateSameNativeAndPhysicalState": true,
+      "readinessGateSameSemanticAdditionalState": true
+    },
+    {
+      "scenario": "hurt_getup",
+      "originalTraceExact": true,
+      "sameNativeAndControlState": true,
+      "readinessGateSameNativeAndPhysicalState": true,
+      "readinessGateSameSemanticAdditionalState": true
+    }
+  ],
+  "delayedAblation": {
+    "sameSwitchState": true,
+    "sourceCommit": "b6483ea",
+    "probe": "heavy_down_axial_upright_delayed_ablation",
+    "protocol": {
+      "seed": 7,
+      "observationSeconds": 25,
+      "preparationSeconds": 3,
+      "assist": 0.1,
+      "catch": "on",
+      "catchScale": 1,
+      "grip": "paired",
+      "initialSupport": "legacy",
+      "testSupport": "axial",
+      "injury": "healthy",
+      "knockDown": "actual knockDown(true), floor retained",
+      "ablationScope": "Identical axial2s after knockDown(true); ablation activates at observation2s/world5s. Before that wrapper passes through. Player driveBalance only. noPair intercepts only pelvis/footF/footB addForceAtPoint within driveBalance (archived source only uses these for axial pair). noUpright configures native upright rotation axes3,4,5 position0 stiffness0 damping0 after driveBalance; other targets/PD unchanged. Control removal is diagnosis, not proposed solution."
+    },
+    "workerSha256": "ff6ecdbe294a4fb9b57091b889542fed5c89b72f34da50c361be74a5cbec0c08",
+    "baselineExactTrace": true,
+    "baselineExactStart": true,
+    "sameInitialState": true,
+    "sameInput": true,
+    "wallSeconds": 27.081491102000005,
+    "originalEvidencePhysicsSourceMatches": {
+      "src/config.js": true,
+      "src/fighter.js": true,
+      "src/gait.js": true,
+      "src/support_contacts.js": true,
+      "src/support_transfer.js": true
+    },
+    "interpretationWarnings": [
+      "balanceProbe supportTransfer appliedUpN remains unmodified controller computation in noPair; actual paired force calls are suppressed and ledger records only actually delivered forces. Do not treat that balanceProbe number as applied force in ablated rows.",
+      "All four rows share axial2s with passthrough wrappers before switch. Native upright/other motors/contact work is not directly metered by explicit force ledger.",
+      "Numerical finite and command exit0 indicate diagnosis completed, not physical acceptance. noUpright and both rows launch violently and final physicallyUprightGameGeometry=false.",
+      "One healthy seed is a narrow ablation diagnosis; it does not prove a general cure or exact public-incident cause."
+    ],
+    "compactSummary": [
+      {
+        "ablation": "oldaxial",
+        "finite": true,
+        "switch": {
+          "observationTimeS": 2,
+          "worldTimeS": 5.000000000000038,
+          "state": "down",
+          "stateTimeS": 1.9999999999999953,
+          "sha256": "f51ff7dd80c855c39767ebe4d95231ef6f37ddf6ee80e11dd23bfc2a7c6133fb",
+          "pelvisHeightM": 0.5992873311042786,
+          "chestHeightM": 0.7652764916419983,
+          "chestTiltDeg": 83.75518719369992
+        },
+        "postSwitchPeakPelvisHeightM": 1.0117137432098389,
+        "postSwitchPeakPelvisVyMps": 1.7358157634735107,
+        "postSwitchPeakCOMHeightM": 1.0454697013837788,
+        "postSwitchPeakCOMVyMps": 1.517515946003222,
+        "peakCOMVyTimeS": 10.591666666666667,
+        "peakPelvisVyTimeS": 10.591666666666667,
+        "downGeometry": {
+          "samples": 264,
+          "minPelvisHeightM": 0.21536177396774292,
+          "minChestHeightM": 0.33165162801742554,
+          "maxChestTiltDeg": 86.83359503964124,
+          "diagnosticLowPelvisUnder045Samples": 13
+        },
+        "noNativeGroundSolverTimeS": 0.2583333333333333,
+        "maxNoNativeGroundSolverIntervalS": 0.20833333333333331,
+        "maxNoConfirmedMeasuredGroupSupportIntervalS": 0.21666666666666665,
+        "maxJointAnchorGapM": 0.003612988366022,
+        "firstStandS": 4.216666666666667,
+        "firstGameGeometryUprightS": 10.616666666666667,
+        "postStandRefalls": 2,
+        "finalState": "stand",
+        "finalPhysicallyUprightGameGeometry": true,
+        "finalPelvisHeightM": 0.8872106075286865,
+        "traceSha256": "dd37acfde6fee03dc3b15d762b2256c66c4158d41567950a43dc5f8d376c8df6",
+        "startSha256": "6ad2fac2252b45286548940361be00572224859044427820b21b569390e68894",
+        "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+        "audit": {
+          "suppressedAxialPointCalls": 0,
+          "uprightZeroConfigurations": 0,
+          "active": true
+        }
+      },
+      {
+        "ablation": "noPair",
+        "finite": true,
+        "switch": {
+          "observationTimeS": 2,
+          "worldTimeS": 5.000000000000038,
+          "state": "down",
+          "stateTimeS": 1.9999999999999953,
+          "sha256": "f51ff7dd80c855c39767ebe4d95231ef6f37ddf6ee80e11dd23bfc2a7c6133fb",
+          "pelvisHeightM": 0.5992873311042786,
+          "chestHeightM": 0.7652764916419983,
+          "chestTiltDeg": 83.75518719369992
+        },
+        "postSwitchPeakPelvisHeightM": 0.9717637300491333,
+        "postSwitchPeakPelvisVyMps": 1.400746464729309,
+        "postSwitchPeakCOMHeightM": 1.0031741486773977,
+        "postSwitchPeakCOMVyMps": 1.0636283504092565,
+        "peakCOMVyTimeS": 4.941666666666666,
+        "peakPelvisVyTimeS": 4.941666666666666,
+        "downGeometry": {
+          "samples": 264,
+          "minPelvisHeightM": 0.20393498241901398,
+          "minChestHeightM": 0.3249717354774475,
+          "maxChestTiltDeg": 85.77860430545675,
+          "diagnosticLowPelvisUnder045Samples": 14
+        },
+        "noNativeGroundSolverTimeS": 0.14166666666666666,
+        "maxNoNativeGroundSolverIntervalS": 0.12499999999999999,
+        "maxNoConfirmedMeasuredGroupSupportIntervalS": 0.13333333333333333,
+        "maxJointAnchorGapM": 0.0031789992757655645,
+        "firstStandS": 4.216666666666667,
+        "firstGameGeometryUprightS": 4.933333333333334,
+        "postStandRefalls": 0,
+        "finalState": "stand",
+        "finalPhysicallyUprightGameGeometry": true,
+        "finalPelvisHeightM": 0.8857760429382324,
+        "traceSha256": "833bf4cbbd2eb8fccc4227d8c33390a72b5cd760cae53e833d0a469084fe9350",
+        "startSha256": "6ad2fac2252b45286548940361be00572224859044427820b21b569390e68894",
+        "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+        "audit": {
+          "suppressedAxialPointCalls": 10364,
+          "uprightZeroConfigurations": 0,
+          "active": true
+        }
+      },
+      {
+        "ablation": "noUpright",
+        "finite": true,
+        "switch": {
+          "observationTimeS": 2,
+          "worldTimeS": 5.000000000000038,
+          "state": "down",
+          "stateTimeS": 1.9999999999999953,
+          "sha256": "f51ff7dd80c855c39767ebe4d95231ef6f37ddf6ee80e11dd23bfc2a7c6133fb",
+          "pelvisHeightM": 0.5992873311042786,
+          "chestHeightM": 0.7652764916419983,
+          "chestTiltDeg": 83.75518719369992
+        },
+        "postSwitchPeakPelvisHeightM": 132.5863037109375,
+        "postSwitchPeakPelvisVyMps": 104.6740951538086,
+        "postSwitchPeakCOMHeightM": 132.60356396135924,
+        "postSwitchPeakCOMVyMps": 54.92791392460912,
+        "peakCOMVyTimeS": 5.95,
+        "peakPelvisVyTimeS": 5.966666666666667,
+        "downGeometry": {
+          "samples": 529,
+          "minPelvisHeightM": -0.02127547562122345,
+          "minChestHeightM": 0.04455210268497467,
+          "maxChestTiltDeg": 154.17019619897818,
+          "diagnosticLowPelvisUnder045Samples": 214
+        },
+        "noNativeGroundSolverTimeS": 19.1,
+        "maxNoNativeGroundSolverIntervalS": 19.04999999999956,
+        "maxNoConfirmedMeasuredGroupSupportIntervalS": 19.10833333333289,
+        "maxJointAnchorGapM": 44.6518627698223,
+        "firstStandS": 4.216666666666667,
+        "firstGameGeometryUprightS": null,
+        "postStandRefalls": 11,
+        "finalState": "getup",
+        "finalPhysicallyUprightGameGeometry": false,
+        "finalPelvisHeightM": -653.156005859375,
+        "traceSha256": "7189a682c389f1d2d2ad419c10369a4ac9d00be2fce9b774ea06f9e2b6e45aae",
+        "startSha256": "6ad2fac2252b45286548940361be00572224859044427820b21b569390e68894",
+        "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+        "audit": {
+          "suppressedAxialPointCalls": 0,
+          "uprightZeroConfigurations": 8280,
+          "active": true
+        }
+      },
+      {
+        "ablation": "noPairNoUpright",
+        "finite": true,
+        "switch": {
+          "observationTimeS": 2,
+          "worldTimeS": 5.000000000000038,
+          "state": "down",
+          "stateTimeS": 1.9999999999999953,
+          "sha256": "f51ff7dd80c855c39767ebe4d95231ef6f37ddf6ee80e11dd23bfc2a7c6133fb",
+          "pelvisHeightM": 0.5992873311042786,
+          "chestHeightM": 0.7652764916419983,
+          "chestTiltDeg": 83.75518719369992
+        },
+        "postSwitchPeakPelvisHeightM": 24.948532104492188,
+        "postSwitchPeakPelvisVyMps": 929.0588989257812,
+        "postSwitchPeakCOMHeightM": 24.85054443317663,
+        "postSwitchPeakCOMVyMps": 22.621538288583217,
+        "peakCOMVyTimeS": 4.3,
+        "peakPelvisVyTimeS": 14.799999999999999,
+        "downGeometry": {
+          "samples": 1589,
+          "minPelvisHeightM": 0.13215884566307068,
+          "minChestHeightM": 0.07808291167020798,
+          "maxChestTiltDeg": 177.0434096373745,
+          "diagnosticLowPelvisUnder045Samples": 107
+        },
+        "noNativeGroundSolverTimeS": 15.908333333333333,
+        "maxNoNativeGroundSolverIntervalS": 4.433333333333343,
+        "maxNoConfirmedMeasuredGroupSupportIntervalS": 4.541666666666682,
+        "maxJointAnchorGapM": 58.56206855042416,
+        "firstStandS": 4.216666666666667,
+        "firstGameGeometryUprightS": null,
+        "postStandRefalls": 10,
+        "finalState": "getup",
+        "finalPhysicallyUprightGameGeometry": false,
+        "finalPelvisHeightM": 0.515839695930481,
+        "traceSha256": "ba290c4a99dd565ba8ce5412701a654b4e121a8675050ce206e52088734b7346",
+        "startSha256": "6ad2fac2252b45286548940361be00572224859044427820b21b569390e68894",
+        "inputSha256": "fe18dc355459964bfd12ff3c614adee9b74b87d9cb91712eb897ae8da1fbb345",
+        "audit": {
+          "suppressedAxialPointCalls": 1462,
+          "uprightZeroConfigurations": 8280,
+          "active": true
+        }
+      }
+    ]
+  },
+  "tests": {
+    "axialFixtures": 23,
+    "gripAndURLFixtures": 12,
+    "contactFixtures": 12,
+    "build": "pass"
+  },
+  "limits": [
+    "Native motor/contact work is unmetered; central force closure is not energy or stability proof.",
+    "Initial seeds7/17 have identical trajectories and are not independent samples.",
+    "Readiness gate is rejected diagnosis, never gameplay. It holds both conditions in getup, so absence of repeated falls is not successful recovery.",
+    "Ablation132m launch is a modified-control failure with large joint separation, not a reproduction of the shipped trial unchanged.",
+    "Readiness hurt raw additional state SHA differs only in two WASM __wbg_ptr addresses at gait legs F/B col.colliderSet.raw; native snapshot and physicalControl are exact; semantic recursive comparison excluding only __wbg_ptr is exact. Original raw files/hashes are retained."
+  ],
+  "readinessGatePortableValidation": {
+    "probe": "rejected_readiness_gate_diagnosis",
+    "sourceCommit": "c8a179be5f9d25746d8ac17d415fc8db6ce068ab",
+    "wallSeconds": 26.916883578,
+    "sourceStableDuringRun": true,
+    "guards": [
+      {
+        "scenario": "healthy_getup",
+        "originalTraceMatchesExpected": true,
+        "sameStart": true,
+        "sameInput": true,
+        "sameSwitchNative": true,
+        "sameSwitchPhysicalController": true,
+        "sameSwitchAdditionalController": true
+      },
+      {
+        "scenario": "hurt_getup",
+        "originalTraceMatchesExpected": true,
+        "sameStart": true,
+        "sameInput": true,
+        "sameSwitchNative": true,
+        "sameSwitchPhysicalController": true,
+        "sameSwitchAdditionalController": true
+      }
+    ],
+    "error": null,
+    "rawSha256": "a77d247734a9336f0df2b8b5f09f78df4a6e49d57fb4efa400b7d3fd192f778c",
+    "traces": [
+      {
+        "scenario": "healthy_getup",
+        "traceExact": true,
+        "endState": "getup",
+        "endPelvisHeightM": 0.7585947513580322
+      },
+      {
+        "scenario": "hurt_getup",
+        "traceExact": true,
+        "endState": "getup",
+        "endPelvisHeightM": 0.16480347514152527
+      }
+    ],
+    "workerRestoredSha256": "25f718ed555dd9953fdd36cb5b137f4fb3379b728e754742c590b65c84020fa8",
+    "auditCorrection": {
+      "change": "Explicitly inject VITALS/BALANCE into diagnostic compiled updateState; getup-only outcome unaffected; avoids ReferenceError if a future condition reaches stand.",
+      "verification": "12 actual harness stand steps exact against original method after 3s preparation",
+      "patchSha256": "8da5859309ff62d5c28b78adaaf9706c9abfc326aafd740c38e193e58dff9f37"
+    }
+  }
+}

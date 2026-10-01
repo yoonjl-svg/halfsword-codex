@@ -1,0 +1,39 @@
+--- a/tools/sim/experiments/same_lying_recovery_probe.mjs
++++ b/tools/sim/experiments/same_lying_recovery_probe.mjs
+@@ -2,6 +2,7 @@
+ // Actual harness support-transfer observations; no force/model replica or pose freezing.
+ import {newRound, CONFIG, DT, THREE} from '../harness_m.mjs';
+ import {installForceLedger, snapshotWorld} from '../force_ledger.mjs';
++import {reviveTick} from '../../../src/revive.js';
+ import {collectSupportContacts} from '../../../src/support_contacts.js';
+ let OldFighter, OLD_CONFIG;
+ import {isMain} from '../is_main.mjs';
+@@ -150,6 +151,19 @@
+     G=newRound({seed,walls:false,weapon:'longsword',AIClass:Passive});G.park();const f=G.player;f.skill.autoGuard=true;f.balanceProbe={};f.handHeld=false;
+     for(const key of ['GAIT','BODY','GRIP'])Object.assign(OLD_CONFIG[key],CONFIG[key]);
+     const currentDrive=f.driveBalance;let useProjected=false;
++    // REJECTED DIAGNOSIS: reusing an observation threshold as a stand-transition gate.
++    // Do not add this to gameplay. It leaves both tested recoveries stuck in getup.
++    const oldStateUpdate=f.updateState;
++    const ready=actor=>{
++      const contacts=collectSupportContacts(actor,{detail:false});
++      return actor.bodies.pelvis.translation().y>=actor.gait.hNom-CONFIG.GAIT.catchSag
++        && actor.tiltDeg()-THREE.MathUtils.radToDeg(actor.hunch)<=CONFIG.BODY.fallTiltDeg
++        && (contacts.groups.footF.hasSupport||contacts.groups.footB.hasSupport);
++    };
++    const stateText=oldStateUpdate.toString().replace(/^updateState\(dt\)/,'function(dt)').replace('else if (this.stateTime > this.kneelTime + this.riseTime)', 'else if (this.stateTime > this.kneelTime + this.riseTime && ready(this))');
++    if(!stateText.includes('&& ready(this)'))throw new Error('State diagnostic injection failed');
++    const heldStateUpdate=new Function('BODY','VITALS','BALANCE','THREE','reviveTick','ready','return '+stateText)(CONFIG.BODY,CONFIG.VITALS,CONFIG.BALANCE,THREE,reviveTick,ready);
++    f.updateState=function(dt){return (useProjected?heldStateUpdate:oldStateUpdate).call(this,dt);};
+     f.driveBalance=function(...args){OLD_CONFIG.BODY.supportModel=CONFIG.BODY.supportModel;return (useProjected?currentDrive:OldFighter.prototype.driveBalance).apply(this,args);};
+     const advance=seconds=>{for(let i=0;i<Math.round(seconds/DT);i++){G.step();finite(physicalControl(f));}};
+     advance(3);if(f.state!=='stand')throw new Error('Legacy preparation did not reach stand');
+@@ -226,7 +240,7 @@
+   }
+  }catch(e){error=e.stack;}finally{if(archiveDir)await rm(archiveDir,{recursive:true,force:true});}
+  const after=await manifest();
+- const result={schemaVersion:1,probe:'same_lying_recovery_diagnosis',command:'node tools/sim/experiments/same_lying_recovery_probe.mjs --out='+output,originalReference:oldRef,sourceCommit:execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT_PATH,encoding:'utf8'}).trim(),sourceSha256:before,sourceSha256After:after,sourceStableDuringRun:JSON.stringify(before)===JSON.stringify(after),wallSeconds:(performance.now()-begin)/1000,protocol:reference.protocol,guards,error,rows};
++ const result={schemaVersion:1,probe:'rejected_readiness_gate_diagnosis',command:'node tools/sim/experiments/same_lying_recovery_probe.mjs --out='+output,originalReference:oldRef,sourceCommit:execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT_PATH,encoding:'utf8'}).trim(),sourceSha256:before,sourceSha256After:after,sourceStableDuringRun:JSON.stringify(before)===JSON.stringify(after),wallSeconds:(performance.now()-begin)/1000,protocol:reference.protocol,guards,error,rows};
+  await writeFile(output,JSON.stringify(result,null,2)+'\n');
+  console.log(JSON.stringify({out:output,rows:rows.length,wallSeconds:result.wallSeconds,sourceStableDuringRun:result.sourceStableDuringRun,guards,error,summary:rows.map(r=>({scenario:r.scenario,model:r.model,finite:r.finite,traceSha256:r.traceSha256,refalls:r.postStandRefallTransitions?.length,peakPelvisHeightM:r.launchObservation?.peaks.pelvisHeight.pelvisHeightM,maxGroundSolverAbsentS:r.launchObservation?.maxNoNonPredictiveNativeGroundSolverIntervalS}))}));
+  if(error||!result.sourceStableDuringRun||rows.length!==4)process.exitCode=1;
