@@ -1,0 +1,139 @@
+name: Daily developer exchange
+
+on:
+  schedule:
+    - cron: '30 14 * * *' # 23:30 Asia/Seoul: publish today's report
+    - cron: '0 15 * * *'  # 00:00 Asia/Seoul: receive the previous day's peer report
+    - cron: '10 15 * * *' # One retry for a delayed/missing peer report
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Validate tooling, publish a closed reporting day, or receive its peer report
+        required: true
+        default: validate
+        type: choice
+        options: [validate, publish, receive]
+      date:
+        description: Reporting day in Korea (YYYY-MM-DD); empty selects from this run's creation date
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: dev-exchange-archive
+  cancel-in-progress: false
+
+jobs:
+  exchange:
+    if: github.repository == 'yoonjl-svg/halfsword-codex' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: source
+          fetch-depth: 0
+      - name: Validate protocol implementation
+        run: python3 -B -m unittest discover -s source/tools/dev_exchange -p 'test_*.py'
+      - name: Verify read access to the peer and document archive
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'validate'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          python3 -B - <<'PY'
+          import sys
+          sys.path.insert(0, 'source/tools/dev_exchange')
+          import exchange
+          cfg = exchange.config('source')
+          for repo, ref in [(cfg['peer_repo'], cfg['peer_ref']), (cfg['repo'], cfg['report_ref'])]:
+              value = exchange.api(f'repos/{repo}/git/ref/heads/{ref}')
+              print(f"Readable branch: {repo}@{ref} = {value['object']['sha']}")
+          PY
+      - name: Resolve reporting day without moving the cutoff
+        id: request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REQUEST_MODE: ${{ inputs.mode }}
+          REQUEST_DATE: ${{ inputs.date }}
+          SCHEDULE: ${{ github.event.schedule }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import datetime as dt, os, subprocess
+          from zoneinfo import ZoneInfo
+          mode = os.environ.get('REQUEST_MODE') or ('publish' if os.environ['SCHEDULE'] == '30 14 * * *' else 'receive')
+          if mode not in {'validate', 'publish', 'receive'}:
+              raise SystemExit('Invalid mode')
+          created = subprocess.check_output(['gh', 'api', 'repos/' + os.environ['GITHUB_REPOSITORY'] + '/actions/runs/' + os.environ['GITHUB_RUN_ID'], '--jq', '.created_at'], text=True).strip()
+          queued = dt.datetime.fromisoformat(created.replace('Z', '+00:00')).astimezone(ZoneInfo('Asia/Seoul'))
+          requested = os.environ.get('REQUEST_DATE')
+          day = dt.date.fromisoformat(requested) if requested else queued.date()
+          if not requested and (mode == 'receive' or (mode == 'publish' and queued.hour < 12)):
+              day -= dt.timedelta(days=1)
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write(f'mode={mode}\ndate={day.isoformat()}\n')
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
+              f.write(f'Mode: `{mode}`. Reporting day (Korea): `{day}`. Run created: `{created}`.\n\nScheduled Actions may be delayed; this is not an exact-time observation or a semantic AI review.\n')
+          PY
+      - uses: actions/checkout@v4
+        if: steps.request.outputs.mode != 'validate'
+        with:
+          path: reports
+          ref: dev-exchange
+          fetch-depth: 1
+      - name: Publish or receive fixed-day documents
+        id: collect
+        if: steps.request.outputs.mode != 'validate'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EXCHANGE_MODE: ${{ steps.request.outputs.mode }}
+          EXCHANGE_DATE: ${{ steps.request.outputs.date }}
+        shell: bash
+        run: |
+          set +e
+          python3 -B source/tools/dev_exchange/exchange.py "$EXCHANGE_MODE" --date "$EXCHANGE_DATE" --repo-root source --output-root reports > "$RUNNER_TEMP/exchange-result.json"
+          result=$?
+          cat "$RUNNER_TEMP/exchange-result.json"
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          path = Path(os.environ['RUNNER_TEMP']) / 'exchange-result.json'
+          value = json.loads(path.read_text()) if path.stat().st_size else {}
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
+              f.write(f"\nDocument status: `{value.get('status', 'failed_before_receipt')}`. Semantic AI review: **not performed**.\n")
+          PY
+          exit "$result"
+      - name: Archive only in the document branch
+        if: steps.request.outputs.mode != 'validate'
+        env:
+          EXCHANGE_MODE: ${{ steps.request.outputs.mode }}
+          EXCHANGE_DATE: ${{ steps.request.outputs.date }}
+        working-directory: reports
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git branch --show-current)" = dev-exchange
+          case "$(git remote get-url origin)" in
+            https://github.com/yoonjl-svg/halfsword-codex|https://github.com/yoonjl-svg/halfsword-codex.git) ;;
+            *) exit 1 ;;
+          esac
+          git add -- docs
+          if git diff --cached --quiet; then
+            printf 'No new report data; existing dated records retained.\n' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "Developer exchange ${EXCHANGE_MODE} ${EXCHANGE_DATE} [skip ci]"
+          git push origin HEAD:refs/heads/dev-exchange
+          printf 'Archived in dev-exchange; game main and peer repository were not written.\n' >> "$GITHUB_STEP_SUMMARY"
+      - name: Surface failure after preserving its receipt
+        if: steps.collect.outcome == 'failure'
+        run: |
+          printf 'Publication/reception failed or is not verified. Any available failure receipt was archived; semantic review is still pending.\n' >> "$GITHUB_STEP_SUMMARY"
+          exit 1
