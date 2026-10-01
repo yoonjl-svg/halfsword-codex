@@ -1,0 +1,204 @@
+diff --git a/src/fighter.js b/src/fighter.js
+index 66f6fd2..05906f2 100644
+--- a/src/fighter.js
++++ b/src/fighter.js
+@@ -14,6 +14,7 @@ import { BODY, WEAPON, VITALS, BALANCE, SKILL_BODY, GRIP, STEEL, RECOIL, GAIT, A
+ import { COMBAT_HOOKS } from './combat.js';
+ import { Skill } from './skill.js';
+ import { Gait, hybridJointDefs } from './gait.js';
++import { Recovery } from './recovery.js';
+ import { guardAt } from './guards.js';
+ import { newFinish, updateFinish, FINISH } from './finish.js';
+ import { getWeapon, MATERIALS, weaponMatOpts, DEFAULT_WEAPON, BREAK } from './weapons.js';
+@@ -526,6 +527,7 @@ export class Fighter {
+ 
+     // 다리가 체중을 싣는 걸음 (BODY.weightMode 'hybrid'). 'levitate'면 없음 → 예전 방식 그대로
+     this.gait = BODY.weightMode === 'hybrid' ? new Gait(this) : null;
++    this.recovery = this.gait && GAIT.recoveryTrial === 'contact' ? new Recovery(this) : null;
+ 
+     this.applyPose(0);
+   }
+@@ -860,6 +862,7 @@ export class Fighter {
+     } else if (this.state === 'down') {
+       if (this.stateTime > this.downTime && this.consciousness > 0.3) this.setState('getup');
+     } else if (this.state === 'getup') {
++      if (this.recovery) { this.recovery.update(dt); return; }
+       if (this.stateTime > this.kneelTime) {
+         // 무릎 꿇은 자세에서 일어서기. 다리가 못 버티면 무릎 꿇은 채로 남는다
+         if (this.legHealth < 0.25) this.setState('kneel');
+@@ -876,6 +879,7 @@ export class Fighter {
+   get kneelAmount() {
+     if (this.state === 'kneel') return 1;
+     if (this.state !== 'getup') return 0;
++    if (this.recovery) return 1 - this.recovery.progress;
+     if (this.stateTime < this.kneelTime) return 1;
+     return THREE.MathUtils.clamp(1 - (this.stateTime - this.kneelTime) / this.riseTime, 0, 1);
+   }
+@@ -883,6 +887,7 @@ export class Fighter {
+   setState(s) {
+     this.state = s;
+     this.stateTime = 0;
++    if (s === 'getup') this.recovery?.reset();
+   }
+ 
+   /**
+@@ -1397,6 +1402,9 @@ export class Fighter {
+       load.F = Math.max(load.F, 0.6);
+       load.B = Math.max(load.B, 0.6);
+     }
++    if (this.state === 'getup' && this.recovery && !this.recovery.supported) {
++      load.F = load.B = 0;
++    }
+     this.crouch = kn * 0.43;
+     const loadSum = load.F + load.B;
+     // Optional observation, never read by control logic: appliedUpN/horizontal* are applied forces.
+@@ -1637,6 +1645,7 @@ export class Fighter {
+       K('shinB', -1.75);
+       K('footB', 0.8); // 뒷발은 발끝으로 땅을 짚는다
+     }
++    if (this.state === 'getup') this.recovery?.pose();
+     const setZ = (name, a) => J[name].target.setFromAxisAngle(Z_AXIS, a);
+     // 빈 손은 앞으로 들어 균형을 잡는다 (다친 팔은 힘없이 늘어진다)
+     const armO = this.limbs.armO;
+diff --git a/src/recovery.js b/src/recovery.js
+new file mode 100644
+index 0000000..469c01c
+--- /dev/null
++++ b/src/recovery.js
+@@ -0,0 +1,136 @@
++// Opt-in recovery research. Thresholds below are engineering trial parameters,
++// not measured human limits. Normal play never constructs this controller.
++import * as THREE from 'three';
++import { BODY } from './config.js';
++
++const PARTS = ['footF', 'footB', 'shinF', 'shinB', 'farmS', 'farmO'];
++const clamp = THREE.MathUtils.clamp;
++
++/** Read the previous completed physics step, not Gait's retained stance loads. */
++export function recoveryContacts(f) {
++  const out = {};
++  for (const name of PARTS) {
++    const body = f.bodies[name];
++    const row = out[name] = { impulse: 0, speed: 0, points: 0 };
++    for (let c = 0; c < body.numColliders(); c++) {
++      const collider = body.collider(c);
++      f.world.contactPairsWith(collider, (other) => {
++        if (!other.parent()?.isFixed()) return;
++        f.world.contactPair(collider, other, (m) => {
++          // Exclude walls. Current arenas have fixed horizontal floors.
++          if (Math.abs(m.normal().y) < 0.8) return;
++          let impulse = 0;
++          for (let i = 0; i < m.numContacts(); i++) impulse += m.contactImpulse(i);
++          if (impulse <= 0) return;
++          row.impulse += impulse * Math.abs(m.normal().y);
++          for (let i = 0; i < m.numSolverContacts(); i++) {
++            if (m.solverContactDist(i) > 0.01) continue;
++            const v = body.velocityAtPoint(m.solverContactPoint(i));
++            row.speed = Math.max(row.speed, Math.hypot(v.x, v.z));
++            row.points++;
++          }
++        });
++      });
++    }
++    row.loaded = row.points > 0 && row.impulse > 1e-5;
++  }
++  return out;
++}
++
++export class Recovery {
++  constructor(f) {
++    this.f = f;
++    this.reset();
++  }
++
++  reset() {
++    this.progress = 0;
++    this.stableTime = 0;
++    this.unsupportedTime = 0;
++    this.yielding = false;
++    this.contacts = null;
++    this.plants = {};
++    this.reason = 'kneeling';
++  }
++
++  update(dt) {
++    const f = this.f;
++    this.contacts = recoveryContacts(f);
++    const c = this.contacts;
++    this.supported = PARTS.some((p) => c[p].loaded);
++    this.unsupportedTime = this.supported ? 0 : this.unsupportedTime + dt;
++    if (f.stateTime < f.kneelTime) return;
++    if (f.legHealth < 0.25) {
++      this.reason = 'leg-capacity';
++      f.setState('kneel');
++      return;
++    }
++    if (this.unsupportedTime > 0.25) {
++      this.reason = 'no-support';
++      f.knockDown(true);
++      return;
++    }
++    if (this.yielding) {
++      this.progress = Math.max(0, this.progress - dt / 0.45);
++      if (this.progress === 0) f.setState('kneel');
++      return;
++    }
++    // Knees/forearms can support the preparation; at least a foot must support
++    // extension. Lost contact pauses extension instead of finishing a timer.
++    const foot = c.footF.loaded || c.footB.loaded;
++    if (this.supported && (this.progress < 0.35 || foot)) {
++      this.progress = Math.min(1, this.progress + dt / f.riseTime);
++    }
++    const v = f.bodies.pelvis.linvel();
++    const height = f.bodies.pelvis.translation().y;
++    const ready = this.progress >= 1 && c.footF.loaded && c.footB.loaded
++      && Math.max(c.footF.speed, c.footB.speed) < 0.4
++      && Math.hypot(v.x, v.z) < 0.5 && v.y > -0.25
++      && height > BODY.standHeight - 0.16
++      && f.tiltDeg() - THREE.MathUtils.radToDeg(f.hunch) < 35;
++    this.stableTime = ready ? this.stableTime + dt : 0;
++    this.reason = ready ? 'settling' : 'finding-support';
++    if (this.stableTime >= 0.1) {
++      this.reason = 'supported-handover';
++      f.setState('stand');
++      f.balance = 60;
++      f.offBalanceTime = 0;
++    } else if (f.stateTime > f.kneelTime + 2 * f.riseTime + 0.5) {
++      this.reason = 'support-timeout';
++      this.yielding = true;
++    }
++  }
++
++  /** Use the ordinary joint motors; no teleport, added force or rigid foot pin. */
++  pose() {
++    const f = this.f;
++    if (!this.contacts || this.progress <= 0) return;
++    for (const side of ['F', 'B']) {
++      const l = f.gait.legs[side];
++      const names = [l.thigh, l.shin, l.foot];
++      const foot = f.bodies[l.foot];
++      if (!this.contacts[l.foot].loaded) {
++        delete this.plants[side];
++        continue;
++      }
++      const ankleJoint = f.jointByName[l.foot];
++      const hipJoint = f.jointByName[l.thigh];
++      const ankle = new THREE.Vector3().copy(ankleJoint.joint.anchor2())
++        .applyQuaternion(new THREE.Quaternion().copy(foot.rotation())).add(foot.translation());
++      const hip = new THREE.Vector3().copy(hipJoint.joint.anchor1())
++        .applyQuaternion(new THREE.Quaternion().copy(f.bodies.pelvis.rotation())).add(f.bodies.pelvis.translation());
++      const forward = new THREE.Vector3(1, 0, 0).applyQuaternion(new THREE.Quaternion().copy(foot.rotation()));
++      let plant = this.plants[side];
++      if (!plant) plant = this.plants[side] = { point: ankle.clone(), yaw: Math.atan2(-forward.z, forward.x) };
++      // Let a slipping contact relocate the target; don't pull a lost foothold
++      // back to an arbitrarily old point through the ground.
++      const delta = ankle.clone().sub(plant.point); delta.y = 0;
++      if (delta.length() > 0.04) plant.point.addScaledVector(delta, 1 - 0.04 / delta.length());
++      plant.point.y = ankle.y;
++      const old = names.map((name) => f.jointByName[name].target.clone());
++      f.gait.legIK(l, hip, plant.point, plant.yaw, 0);
++      const weight = THREE.MathUtils.smoothstep(this.progress, 0, 0.35);
++      names.forEach((name, i) => f.jointByName[name].target.copy(old[i].slerp(f.jointByName[name].target, weight)));
++    }
++  }
++}
