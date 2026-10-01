@@ -2,18 +2,20 @@
 export function configurePhysicalTrial(params, grip, body) {
   const requested = params.get('physicsTrial');
   const kind = ['legacyGrip', 'grip', 'support'].includes(requested) ? requested : null;
+  const withdrawn = kind === 'support';
   grip.reactionModel = kind === 'legacyGrip' ? 'legacy' : 'paired';
-  body.supportModel = kind === 'support' ? 'axial' : 'legacy';
+  body.supportModel = 'legacy';
   return {
-    active: kind !== null,
+    active: kind !== null && !withdrawn,
     kind,
+    withdrawn,
     gripReaction: grip.reactionModel,
     supportModel: body.supportModel,
   };
 }
 
 export function mountPhysicalTrial(info) {
-  if (!info.active || typeof document === 'undefined') return;
+  if ((!info.active && !info.withdrawn) || typeof document === 'undefined') return;
   const menuSub = document.getElementById('menuSub');
   if (!menuSub) return;
   let panel = document.getElementById('physicalTrialInfo');
@@ -24,8 +26,8 @@ export function mountPhysicalTrial(info) {
     menuSub.after(panel);
   }
   const label = document.createElement('span');
-  label.textContent = info.kind === 'support'
-    ? '다리·지면 지지 시험 · 현재 기준 그립 사용 '
+  label.textContent = info.withdrawn
+    ? '지지 연구판 중단 · 공중으로 치솟는 동작 결함으로 철회했습니다. 현재 B와 같은 이전 지지 방식을 사용합니다. '
     : info.kind === 'legacyGrip'
       ? '이전 그립 비교 · 일반 게임과 다른 이전 방식 '
       : '현재 기준 그립 · 양손 무기에 적용 ';
