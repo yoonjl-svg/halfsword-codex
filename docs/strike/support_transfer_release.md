@@ -1,6 +1,6 @@
 # 지지 반작용 2차 릴리스
 
-**현재 공개 상태: 철회 완료.** 기존 `physicsTrial=support` 주소는 legacy 지지로 전환하고 철회 안내를 표시한다. 소스 `b6483ea65f6ff4097b2386493ee9487f711527d4` → main `c8a179be5f9d25746d8ac17d415fc8db6ce068ab`, 전송36894369678·Pages36894534092 성공. 공개 asset `main-6CdBgLzY.js` 및 HTML의 HTTP200·로컬 SHA 일치, 모바일 실제 입력과 일반 URL 복귀를 확인했다. [철회 검증](support_withdrawal_public_metrics.json), [결함·동일 누움 비교·잔여 문제](support_launch_incident.md)를 본다. 수정 연구 코드도 재공개하지 않는다.
+**현재 공개 상태: 철회 유지.** 기존 `physicsTrial=support` 주소는 legacy 지지로 전환하고 철회 안내를 표시한다. 최초 철회는 소스 `b6483ea` → main `c8a179be`, 전송36894369678·Pages36894534092였다. 이후 비활성 연구 코드의 계산 결함과 재현 도구를 소스 `9fcf668` → main `cd691ba088a9e28bd26413c26465ec198fe36ba8`에 저장했다. 전송36896685875·Pages36896740192 성공, 공개 asset `main-BMXD7OHg.js` 및 HTML 네 파일의 HTTP200·로컬 SHA 일치, 모바일 실제 입력과 일반 URL 복귀를 확인했다. 실제 부상 heavy down→getup→stand 15.025초도 관찰했고, 이 한 장면에서는 발사가 없었다. [최종 공개 검증](support_withdrawal_final_metrics.json), [최초 철회 검증](support_withdrawal_public_metrics.json), [결함·동일 누움 비교·잔여 문제](support_launch_incident.md)를 본다. 수정 연구 코드도 공개 재활성화하지 않는다.
 
 아래는 철회 전 최초 출시 기록이다. 당시 실행/입력 검사는 실제 누운 자세 회복의 안정성을 입증하지 못했다.
 
