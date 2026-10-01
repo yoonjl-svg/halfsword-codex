@@ -1,0 +1,552 @@
+{
+  "schemaVersion": 1,
+  "command": "node /workspace/halfsword-hybrid-evidence/support-pair-cause-worker.mjs --models=legacy,axial,axial_external_diag --scenarios=walk_front --seed=7 --ledger=1 --stride=60 --out=/workspace/halfsword-hybrid-evidence/support-pair-cause-diagnosis.json",
+  "rawEvidence": "/workspace/halfsword-hybrid-evidence/support-pair-cause-diagnosis.json",
+  "worker": "/workspace/halfsword-hybrid-evidence/support-pair-cause-worker.mjs",
+  "workerSha256": "bfdce253e9cdee30b85adefc9500a0fe2c9f8e3ec25d0df938284b8df122fb3f",
+  "sourceCommit": "0aba9cc3be3f5b9b31ad17f55dcbad5cc703f579",
+  "sourceSha256": {
+    "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+    "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+    "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+    "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+    "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+    "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+    "src/combat.js": "7e807bcd086366cfda8ad84ed33bcd14f02f5506f1df3341bbe47f6d22e25097",
+    "src/config.js": "e84d7b921b6d8678b358a5971b296c22edded192d680a56e45a0b29ab2aa5319",
+    "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+    "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+    "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+    "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+    "src/fighter.js": "4b72f60c9073ae8e56ba31ef0a19b28701c1b8916f471bf59ad2f4c38719a7d8",
+    "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+    "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+    "src/gait.js": "91eba47caf6dddd7fd75a5de141a087614398031c45ef75b2ac814f8c4db9b83",
+    "src/guards.js": "a9ae0dd9fcb994f444983a4834fc143eaad4fe95584f4af4f58de35009f97ae3",
+    "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+    "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+    "src/input.js": "b5954792bb8c9d005bbe17dc1a7669e296b6297c66a1f0339f487d4a2ff9cd4f",
+    "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+    "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+    "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+    "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+    "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+    "src/main.js": "7c8aa20f886a85b6f8f2e3617ae08030934a1d2f79ae22df73d7ff8f6ac06f6f",
+    "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+    "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+    "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+    "src/physical_trial.js": "7209cc708593f62feac09f111364f266588107a3a0c4b2440312b14f06f2918a",
+    "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+    "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+    "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+    "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+    "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+    "src/sound.js": "7c6dddf5f81675f46d4df64d2fd3c9586e22172351f734a3bd1b273bfd24cac1",
+    "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+    "src/soundlab.js": "3e0f803534d588d2bbf78dbb42cb901077de26f32dcdd13cbc251c2424f12624",
+    "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+    "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+    "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+    "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+    "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+    "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+    "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+    "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+    "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+    "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+    "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+    "src/support_transfer.js": "1e5f9cb2656b82492d4549f1d2e823918f73c93137e4e80f0d92c732ce4e1cab",
+    "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+    "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+    "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+    "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "tools/sim/force_ledger.mjs": "60523a73ea4cd8ae084243f542663dc8ed8c0bb6322eed90c7cd6729b13cd24d",
+    "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+    "tools/sim/support_transfer_probe.mjs": "fe02b63000f02803cb7656cb9cc9a699edddd6f125b8093d5bd20001ca4b0a0d"
+  },
+  "sourceStableDuringRun": true,
+  "wallSeconds": 6.106841468,
+  "matchedStarts": [
+    {
+      "scenario": "walk_front",
+      "samePreparedState": true,
+      "sameRequestedInput": true
+    }
+  ],
+  "protocol": {
+    "diagnosticC": "Only driveBalance pelvis/foot addForceAtPoint axial pair calls are omitted, then captured positive pelvis Fy is added at pelvis COM. No new airborne force or capacity/gate change; all other methods retain calls. A/B identical passthrough capture. This intentionally changes whole-system net force and removes axial lateral/torque/foot reaction together; not an adopted controller.",
+    "seed": 7,
+    "models": [
+      "legacy",
+      "axial",
+      "axial_external_diag"
+    ],
+    "scenarios": [
+      "walk_front"
+    ],
+    "timestepS": 0.008333333333333333,
+    "assist": 0.1,
+    "catchMode": "on",
+    "catchScale": 1,
+    "grip": "paired",
+    "preparationSupportModel": "legacy",
+    "units": {
+      "position": "m",
+      "velocity": "m/s",
+      "angularVelocity": "rad/s",
+      "momentum": "kg m/s",
+      "mass": "kg",
+      "force": "N",
+      "torque": "Nm",
+      "work": "J approximate midpoint quadrature",
+      "contactImpulse": "Ns raw Rapier API"
+    },
+    "injury": "Synthetic controller limb-health values .45 single leg / .2 both; actual knockDown(false). No clinical injury or collision reproduction.",
+    "floorRemoval": "Single actual fixed harness floor collider removed after legacy preparation; no body reposition/freezing/velocity injection. Opponent only uses harness park.",
+    "uprightDefinition": "Game geometry observation: state stand, pelvis>=gait.hNom-GAIT.catchSag, tilt-hunch<=BODY.fallTiltDeg, at least one foot solver point. Not human naturalness/acceptance.",
+    "forceMeaning": "directBalancePaths is full driveBalance path explicit forces, not push-only closure unless source supplies a distinct path. Actual bodywise reactions retained. Native joints/motors/contact work not measured; changing foot mass prevents fixed-mass energy closure.",
+    "slipMeaning": "Relative velocityAtPoint at actual foot/fixed floor solver world points; solver and impulse contact arrays are separate, no index pairing. Raw impulses receive no 6/7 correction.",
+    "statusMeaning": "observed means scene completed, never a human or physically upright success verdict."
+  },
+  "rows": [
+    {
+      "model": "legacy",
+      "startSha256": "9836d05c5b94565e5ff8346b4ed06035f8318e25cf981c82073fb7182b90f2ce",
+      "inputSha256": "aaf9f94f9c0ce209d87b5c73c24ba7fd082a9ce3d27383cab856cda2d21c6674",
+      "traceSha256": "16da15c21069e7ff869bd5c68efa122bb3a5d0dde0d701870d3e96fc1e77d25b",
+      "traceMatchesPrior": true,
+      "allFinite": true,
+      "strictStanceSlip": {
+        "pointSamples": 2125,
+        "frames": 548,
+        "meanMps": 0.042388573520016404,
+        "p95Mps": 0.2332191638068719,
+        "maxMps": 1.2795503857226491,
+        "peak": {
+          "timeS": 3.35,
+          "state": "stand",
+          "stateTimeS": 6.350000000000105,
+          "foot": "F",
+          "stance": true,
+          "gaitActive": true,
+          "levH": 0,
+          "levC": 0,
+          "pelvisPosition": {
+            "x": 3.8280560970306396,
+            "y": 0.8872250318527222,
+            "z": -0.08414372056722641
+          },
+          "pelvisVelocity": {
+            "x": 3.2979109287261963,
+            "y": 0.363217830657959,
+            "z": -0.09051699191331863
+          },
+          "point": {
+            "x": 3.4659905433654785,
+            "y": -0.005470039322972298,
+            "z": 0.06334158033132553
+          },
+          "relativeVelocity": {
+            "x": -1.278813362121582,
+            "y": 2.1587586402893066,
+            "z": -0.04342320188879967
+          },
+          "solverDistanceM": -0.010940074920654297,
+          "predictionPoint": false,
+          "hasSupport": true,
+          "freshNormalGapM": -0.007647959432119773,
+          "minimumReportedGeometryDistanceM": -0.012235879898071289,
+          "rawNormalImpulseNs": 1.4706683158874512,
+          "rawPositiveManifold": true,
+          "cachedGaitN": 1203.4335279464722,
+          "geometryContactCount": 4,
+          "solverPointCount": 4,
+          "speedMps": 1.2795503857226491
+        }
+      },
+      "pelvisForwardNetDisplacementM": 13.356787108417295,
+      "diagnostic": {
+        "steps": 720,
+        "pairApplications": 0,
+        "zeroCaptureSteps": 720,
+        "positiveCaptureWithoutFootSupport": 0,
+        "pairNetForceMagnitudeN": {
+          "mean": 0,
+          "max": 0,
+          "rms": 0
+        },
+        "pairNetTorqueOriginMagnitudeNm": {
+          "mean": 0,
+          "max": 0,
+          "rms": 0
+        },
+        "captureMismatchAbsN": {
+          "mean": 0,
+          "max": 0,
+          "rms": 0
+        },
+        "capturedUpN": {
+          "mean": 0,
+          "max": 0,
+          "rms": 0
+        },
+        "externalNetForceMagnitudeN": {
+          "mean": 0,
+          "max": 0,
+          "rms": 0
+        },
+        "externalNetTorqueOriginMagnitudeNm": {
+          "mean": 0,
+          "max": 0,
+          "rms": 0
+        }
+      },
+      "confirmedSupportSlip": {
+        "pointSamples": 2231,
+        "frames": 587,
+        "meanMps": 0.05345498312707916,
+        "p95Mps": 0.3992044533412139,
+        "maxMps": 1.2795503857226491,
+        "peak": {
+          "timeS": 3.35,
+          "state": "stand",
+          "stateTimeS": 6.350000000000105,
+          "foot": "F",
+          "stance": true,
+          "gaitActive": true,
+          "levH": 0,
+          "levC": 0,
+          "pelvisPosition": {
+            "x": 3.8280560970306396,
+            "y": 0.8872250318527222,
+            "z": -0.08414372056722641
+          },
+          "pelvisVelocity": {
+            "x": 3.2979109287261963,
+            "y": 0.363217830657959,
+            "z": -0.09051699191331863
+          },
+          "point": {
+            "x": 3.4659905433654785,
+            "y": -0.005470039322972298,
+            "z": 0.06334158033132553
+          },
+          "relativeVelocity": {
+            "x": -1.278813362121582,
+            "y": 2.1587586402893066,
+            "z": -0.04342320188879967
+          },
+          "solverDistanceM": -0.010940074920654297,
+          "predictionPoint": false,
+          "hasSupport": true,
+          "freshNormalGapM": -0.007647959432119773,
+          "minimumReportedGeometryDistanceM": -0.012235879898071289,
+          "rawNormalImpulseNs": 1.4706683158874512,
+          "rawPositiveManifold": true,
+          "cachedGaitN": 1203.4335279464722,
+          "geometryContactCount": 4,
+          "solverPointCount": 4,
+          "speedMps": 1.2795503857226491
+        }
+      },
+      "status": "observed"
+    },
+    {
+      "model": "axial",
+      "startSha256": "9836d05c5b94565e5ff8346b4ed06035f8318e25cf981c82073fb7182b90f2ce",
+      "inputSha256": "aaf9f94f9c0ce209d87b5c73c24ba7fd082a9ce3d27383cab856cda2d21c6674",
+      "traceSha256": "ffb131fbd513f8a36b2beded74884fbb62a8e15d52cbacace8db78e2eba9ca95",
+      "traceMatchesPrior": true,
+      "allFinite": true,
+      "strictStanceSlip": {
+        "pointSamples": 2513,
+        "frames": 661,
+        "meanMps": 0.07225240019034736,
+        "p95Mps": 0.556366835675896,
+        "maxMps": 1.4084722255548237,
+        "peak": {
+          "timeS": 3.1333333333333333,
+          "state": "stand",
+          "stateTimeS": 6.133333333333428,
+          "foot": "B",
+          "stance": true,
+          "gaitActive": true,
+          "levH": 0,
+          "levC": 0,
+          "pelvisPosition": {
+            "x": 2.5317611694335938,
+            "y": 0.8769088387489319,
+            "z": -0.06544078886508942
+          },
+          "pelvisVelocity": {
+            "x": 2.6485791206359863,
+            "y": -0.21388709545135498,
+            "z": 0.22472459077835083
+          },
+          "point": {
+            "x": 2.163034439086914,
+            "y": -0.001686789095401764,
+            "z": -0.11339755356311798
+          },
+          "relativeVelocity": {
+            "x": 1.4072158336639404,
+            "y": 0.13949769735336304,
+            "z": -0.0594777911901474
+          },
+          "solverDistanceM": -0.0033735933247953653,
+          "predictionPoint": false,
+          "hasSupport": true,
+          "freshNormalGapM": -0.002496205503090612,
+          "minimumReportedGeometryDistanceM": -0.0033735933247953653,
+          "rawNormalImpulseNs": 0.13460448756814003,
+          "rawPositiveManifold": true,
+          "cachedGaitN": 0,
+          "geometryContactCount": 4,
+          "solverPointCount": 2,
+          "speedMps": 1.4084722255548237
+        }
+      },
+      "pelvisForwardNetDisplacementM": 12.36584148710651,
+      "diagnostic": {
+        "steps": 720,
+        "pairApplications": 1484,
+        "zeroCaptureSteps": 35,
+        "positiveCaptureWithoutFootSupport": 0,
+        "pairNetForceMagnitudeN": {
+          "mean": 0,
+          "max": 0,
+          "rms": 0
+        },
+        "pairNetTorqueOriginMagnitudeNm": {
+          "mean": 2.6884448231163173e-14,
+          "max": 2.27845031657011e-13,
+          "rms": 5.733729528751824e-14
+        },
+        "captureMismatchAbsN": {
+          "mean": 0,
+          "max": 0,
+          "rms": 0
+        },
+        "capturedUpN": {
+          "mean": 141.34805750512385,
+          "max": 538.9689705451959,
+          "rms": 163.75781611631203
+        },
+        "externalNetForceMagnitudeN": {
+          "mean": 0,
+          "max": 0,
+          "rms": 0
+        },
+        "externalNetTorqueOriginMagnitudeNm": {
+          "mean": 0,
+          "max": 0,
+          "rms": 0
+        }
+      },
+      "confirmedSupportSlip": {
+        "pointSamples": 2622,
+        "frames": 686,
+        "meanMps": 0.08258216615627521,
+        "p95Mps": 0.5906095338707935,
+        "maxMps": 1.4084722255548237,
+        "peak": {
+          "timeS": 3.1333333333333333,
+          "state": "stand",
+          "stateTimeS": 6.133333333333428,
+          "foot": "B",
+          "stance": true,
+          "gaitActive": true,
+          "levH": 0,
+          "levC": 0,
+          "pelvisPosition": {
+            "x": 2.5317611694335938,
+            "y": 0.8769088387489319,
+            "z": -0.06544078886508942
+          },
+          "pelvisVelocity": {
+            "x": 2.6485791206359863,
+            "y": -0.21388709545135498,
+            "z": 0.22472459077835083
+          },
+          "point": {
+            "x": 2.163034439086914,
+            "y": -0.001686789095401764,
+            "z": -0.11339755356311798
+          },
+          "relativeVelocity": {
+            "x": 1.4072158336639404,
+            "y": 0.13949769735336304,
+            "z": -0.0594777911901474
+          },
+          "solverDistanceM": -0.0033735933247953653,
+          "predictionPoint": false,
+          "hasSupport": true,
+          "freshNormalGapM": -0.002496205503090612,
+          "minimumReportedGeometryDistanceM": -0.0033735933247953653,
+          "rawNormalImpulseNs": 0.13460448756814003,
+          "rawPositiveManifold": true,
+          "cachedGaitN": 0,
+          "geometryContactCount": 4,
+          "solverPointCount": 2,
+          "speedMps": 1.4084722255548237
+        }
+      },
+      "status": "observed"
+    },
+    {
+      "model": "axial_external_diag",
+      "startSha256": "9836d05c5b94565e5ff8346b4ed06035f8318e25cf981c82073fb7182b90f2ce",
+      "inputSha256": "aaf9f94f9c0ce209d87b5c73c24ba7fd082a9ce3d27383cab856cda2d21c6674",
+      "traceSha256": "3f0cfa00bd30212c2575c4cfa3e1fdeb09e53534dd074914118a719a9043b0b1",
+      "traceMatchesPrior": null,
+      "allFinite": true,
+      "strictStanceSlip": {
+        "pointSamples": 2162,
+        "frames": 573,
+        "meanMps": 0.05167301746203827,
+        "p95Mps": 0.32331967219193347,
+        "maxMps": 2.258534737648296,
+        "peak": {
+          "timeS": 3.1416666666666666,
+          "state": "stand",
+          "stateTimeS": 6.141666666666762,
+          "foot": "B",
+          "stance": true,
+          "gaitActive": true,
+          "levH": 0,
+          "levC": 0,
+          "pelvisPosition": {
+            "x": 3.3654472827911377,
+            "y": 0.8645244240760803,
+            "z": -0.11035973578691483
+          },
+          "pelvisVelocity": {
+            "x": 2.3185129165649414,
+            "y": -0.3684523403644562,
+            "z": 0.04155414178967476
+          },
+          "point": {
+            "x": 2.966984987258911,
+            "y": -0.0001289062201976776,
+            "z": -0.1465172916650772
+          },
+          "relativeVelocity": {
+            "x": 2.2575910091400146,
+            "y": -0.0401269793510437,
+            "z": -0.06528396904468536
+          },
+          "solverDistanceM": -0.00025779008865356445,
+          "predictionPoint": false,
+          "hasSupport": true,
+          "freshNormalGapM": -0.00042932935419381923,
+          "minimumReportedGeometryDistanceM": -0.00025779008865356445,
+          "rawNormalImpulseNs": 1.883984088897705,
+          "rawPositiveManifold": true,
+          "cachedGaitN": 0,
+          "geometryContactCount": 4,
+          "solverPointCount": 2,
+          "speedMps": 2.258534737648296
+        }
+      },
+      "pelvisForwardNetDisplacementM": 13.540714550007442,
+      "diagnostic": {
+        "steps": 720,
+        "pairApplications": 1246,
+        "zeroCaptureSteps": 124,
+        "positiveCaptureWithoutFootSupport": 0,
+        "pairNetForceMagnitudeN": {
+          "mean": 0,
+          "max": 0,
+          "rms": 0
+        },
+        "pairNetTorqueOriginMagnitudeNm": {
+          "mean": 2.397840009728522e-14,
+          "max": 2.2792811097851657e-13,
+          "rms": 5.850566546824051e-14
+        },
+        "captureMismatchAbsN": {
+          "mean": 0,
+          "max": 0,
+          "rms": 0
+        },
+        "capturedUpN": {
+          "mean": 94.95727006279309,
+          "max": 234.42501546362146,
+          "rms": 112.61593041324352
+        },
+        "externalNetForceMagnitudeN": {
+          "mean": 94.95727006279309,
+          "max": 234.42501546362146,
+          "rms": 112.61593041324352
+        },
+        "externalNetTorqueOriginMagnitudeNm": {
+          "mean": 411.9668608197544,
+          "max": 2183.395578956964,
+          "rms": 609.8964638551381
+        }
+      },
+      "confirmedSupportSlip": {
+        "pointSamples": 2250,
+        "frames": 600,
+        "meanMps": 0.0633717079856828,
+        "p95Mps": 0.397558113799749,
+        "maxMps": 2.258534737648296,
+        "peak": {
+          "timeS": 3.1416666666666666,
+          "state": "stand",
+          "stateTimeS": 6.141666666666762,
+          "foot": "B",
+          "stance": true,
+          "gaitActive": true,
+          "levH": 0,
+          "levC": 0,
+          "pelvisPosition": {
+            "x": 3.3654472827911377,
+            "y": 0.8645244240760803,
+            "z": -0.11035973578691483
+          },
+          "pelvisVelocity": {
+            "x": 2.3185129165649414,
+            "y": -0.3684523403644562,
+            "z": 0.04155414178967476
+          },
+          "point": {
+            "x": 2.966984987258911,
+            "y": -0.0001289062201976776,
+            "z": -0.1465172916650772
+          },
+          "relativeVelocity": {
+            "x": 2.2575910091400146,
+            "y": -0.0401269793510437,
+            "z": -0.06528396904468536
+          },
+          "solverDistanceM": -0.00025779008865356445,
+          "predictionPoint": false,
+          "hasSupport": true,
+          "freshNormalGapM": -0.00042932935419381923,
+          "minimumReportedGeometryDistanceM": -0.00025779008865356445,
+          "rawNormalImpulseNs": 1.883984088897705,
+          "rawPositiveManifold": true,
+          "cachedGaitN": 0,
+          "geometryContactCount": 4,
+          "solverPointCount": 2,
+          "speedMps": 2.258534737648296
+        }
+      },
+      "status": "observed"
+    }
+  ],
+  "interpretation": "C reduces mean/p95 relative to B and restores forward net displacement, but remains worse than A in mean/p95 and has greatest maximum. Path changes contribute to behavior; this does not isolate one physical component or validate external force as candidate.",
+  "limits": [
+    "Only this seed and six-second controlled forward scene. No human naturalness verdict.",
+    "C uses the same fresh-contact gates, capacity and damage algorithms as B, but states/contact histories and resulting force histories diverge; it is not an identical-force replay.",
+    "C jointly removes pelvis-foot internal reactions, lateral axial force components and body-level moments; it adds whole-system external vertical momentum/work. Therefore neither pure contact-gate nor single-term causality is proved.",
+    "Pair torque is about world origin. C external world-origin moment depends on location; at pelvis COM its applied force has zero local torque.",
+    "Legacy has its own different support/gating control. All other API calls retain their actual calls; no gameplay/public change.",
+    "C direct external force is applied after original driveBalance; captured replacement records are authoritative for this addition, which is outside original ledger driveBalance path label.",
+    "Strict slip is point-sample horizontal relative velocity; positive raw normal impulse is manifold sum, not individually assigned solver-point load."
+  ],
+  "portableReproduction": "Apply tools/sim/experiments/support_pair_cause_observation.patch to unpatched tools/sim/support_transfer_probe.mjs in a separate worktree. It includes slip observation; do not apply both patches. Run --models=legacy,axial,axial_external_diag --scenarios=walk_front --seed=7 --ledger=1 --stride=60 --out=/tmp/support-pair-cause.json. Original measurement used external worker; only imports/metadata locations change in portable patch.",
+  "rawSha256": "f4dc27dac4f8ff2b7ad16efb51cd76c7ced3d2708428b093bc56c6dac8d63006"
+}
