@@ -1347,7 +1347,8 @@ export class Fighter {
   /** 몸통이 "의도한 자세"(가속할 때 숙인 것 포함)에서 벗어난 각도 */
   tiltDeg() {
     rot(this.bodies.chest, _q1);
-    const up = _v1.set(0, 1, 0).applyQuaternion(_q1);
+    // Gait.update calls this while driveBalance still holds its forward axis in _v1.
+    const up = _tiltUp.set(0, 1, 0).applyQuaternion(_q1);
     const ref = this.anchorUp || UP;
     return THREE.MathUtils.radToDeg(Math.acos(THREE.MathUtils.clamp(up.dot(ref), -1, 1)));
   }
@@ -2379,6 +2380,7 @@ const _eu = new THREE.Euler();
 const _bloodColor = new THREE.Color(0x5a0808);
 const _paleColor = new THREE.Color(0xb8b4a8);
 const _v4 = new THREE.Vector3();
+const _tiltUp = new THREE.Vector3();
 const _v5 = new THREE.Vector3();
 const _ur = new THREE.Vector3();
 const _urq = new THREE.Quaternion();
