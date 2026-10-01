@@ -1,5 +1,7 @@
 # 힘 전달 1차 릴리스 확인
 
+**후속 상태:** 2026-10-02 사용자 시험 수용 뒤 paired를 기본값으로 승격한다. 아래는 1차 출시 당시 기록이다. 최신 소스·배포·지지 후보 상태는 [2차 릴리스](support_transfer_release.md)를 본다.
+
 선택형 시험 주소: https://yoonjl-svg.github.io/halfsword-codex/force-lab.html
 
 일반 게임은 legacy 그립을 유지한다. 두 비교 링크는 같은 B 설정·longsword로 시작하고 후보만 `physicsTrial=grip`을 쓴다. 상세 결과는 [개발 보고](force_path_round1.md)와 [타격 비교](whole_body_strike_probe.md)에 있다.

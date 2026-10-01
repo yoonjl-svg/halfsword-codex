@@ -953,12 +953,21 @@ export class Gait {
         l.Nf = 0;
         continue;
       }
+      // The contact trial must not keep applying cached ground friction in air.
+      const supportContact = BODY.supportModel === 'axial' ? f.supportContacts?.groups[l.foot] : null;
+      if (BODY.supportModel === 'axial' && !supportContact?.hasSupport) {
+        l.Nf = 0; l.pinF = 0; l.pinLim = 0;
+        continue;
+      }
       // 붙잡는 곳: 발바닥 가운데 (뒤꿈치를 들었으면 발끝)
       const toe = l.heel > 0.05;
       const pin = toe ? l.pinT : l.pinC;
       const pt = _s1.copy(toe ? SOLE_T : SOLE_C).applyQuaternion(l.fq).add(l.fp);
       if (pt.y > 0.03) continue;
-      const N = this.groundForce(l) * f.muscle;
+      const rawGround = supportContact
+        ? supportContact.contacts.filter(c => c.hasSupport).reduce((sum, c) => sum + c.rawNormalImpulseNs * c.normalAlignmentWithUp, 0) / (f.lastDt || 1 / 120)
+        : this.groundForce(l);
+      const N = rawGround * f.muscle;
       l.N = N;
       const fb = f.bodies[l.foot];
       const v = fb.linvel();

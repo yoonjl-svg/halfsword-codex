@@ -23,6 +23,8 @@ import { spawnDebris, scatterDebris, debrisEnabled } from './debris.js'; // 흩�
 import { decorateOutfit, setHelmetWear, setPlateWear } from './outfits.js';
 import { reviveOf, tryRevive, reviveTick } from './revive.js';
 import { limbSeverCandidate, detachLimb, disableMissingLegSupport } from './limb_sever.js';
+import { collectSupportContacts } from './support_contacts.js';
+import { applyAxialLegSupport } from './support_transfer.js';
 
 // 충돌 그룹 비트. 자기 몸과 자기 칼끼리는 부딪히지 않게 한다.
 // 롱소드의 칼날 축(비트는 축) 관성 실측값 (칼자루+폼멜+코등이+칼날 합, kg·m²). fighter.js
@@ -1376,7 +1378,13 @@ export class Fighter {
 
   // 골반을 떠받치고, 몸을 세우고, 걷게 한다.
   driveBalance(dt) {
-    if (this.missingSupportLeg) { disableMissingLegSupport(this); return; }
+    if (this.missingSupportLeg) {
+      disableMissingLegSupport(this);
+      this.supportContacts = null;
+      if (this.balanceProbe) Object.assign(this.balanceProbe, { supportModel: BODY.supportModel,
+        supportTransfer: null, actualFootSupport: null, actualAnySupport: null, uprightScale: 0 });
+      return;
+    }
     const pelvis = this.bodies.pelvis;
     const M = this.totalMass;
     const g = 9.81;
@@ -1404,6 +1412,10 @@ export class Fighter {
     this.updateFooting(dt, fwd, rgt, want);
     if (hybrid) G.update(dt, want, fwd, rgt);
     else if (G?.active) G.exit();
+    const axialSupport = BODY.supportModel === 'axial';
+    const contacts = axialSupport ? collectSupportContacts(this, { detail: false }) : null;
+    const footSupport = !!contacts && (contacts.groups.footF.hasSupport || contacts.groups.footB.hasSupport);
+    this.supportContacts = contacts;
     // 두 발이 체중을 얼마나 받는지 (땅에 닿고 몸 아래에 있을수록 1).
     // 걷는 중엔 들어 올리는 발(스윙)에는 체중을 싣지 않는다 → 발을 뗄 수 있다
     const stanceOf = (thigh) => {
@@ -1424,7 +1436,9 @@ export class Fighter {
     // Optional observation, never read by control logic: appliedUpN/horizontal* are applied forces.
     // baseSupportN/heightSpringN/verticalDampingN are demands BEFORE muscle scaling and clamping.
     const probe = this.balanceProbe;
-    if (probe) Object.assign(probe, { appliedUpN: 0, baseSupportN: 0, heightSpringN: 0, verticalDampingN: 0, horizontalXN: 0, horizontalZN: 0, nominalWeightN: M * g, footReaction: BODY.footReaction });
+    if (probe) Object.assign(probe, { appliedUpN: 0, baseSupportN: 0, heightSpringN: 0, verticalDampingN: 0, horizontalXN: 0, horizontalZN: 0, nominalWeightN: M * g, footReaction: BODY.footReaction,
+      supportModel: BODY.supportModel, supportTransfer: null, actualFootSupport: footSupport,
+      actualAnySupport: contacts?.anySupport ?? null, uprightScale: null });
 
     // 다리 근육이 "골반은 위로, 발은 아래로" 민다. 발이 땅을 딛고 있으면 땅이 되받아쳐서 몸이 선다.
     // 발이 공중이면 아무것도 받쳐주지 않으니 그대로 주저앉는다. (보이지 않는 줄에 매달려 있지 않다)
@@ -1452,10 +1466,16 @@ export class Fighter {
       if (probe) Object.assign(probe, { baseSupportN: M * g * share, heightSpringN: BODY.supportStiffness * (h - p.y), verticalDampingN: -BODY.supportDamping * v.y });
       // 다친 다리는 힘을 못 쓴다 → 체중을 버틸 수 있는 한계
       const legPower = (load.F * this.limbs.legF + load.B * this.limbs.legB) / loadSum;
-      fy = THREE.MathUtils.clamp(fy * mus, 0, M * g * (1.2 + 1.3 * legPower) * Math.min(1, loadSum * 1.5));
+      const forceLimit = M * g * (1.2 + 1.3 * legPower) * Math.min(1, loadSum * 1.5);
+      fy = THREE.MathUtils.clamp(fy * mus, 0, forceLimit);
       if (p.y > h + 0.25) fy = 0;
-      if (probe) probe.appliedUpN = fy;
-      push(0, fy, 0);
+      if (axialSupport) {
+        const transfer = applyAxialLegSupport(this, fy, contacts, load, forceLimit);
+        if (probe) { probe.appliedUpN = 0; probe.supportTransfer = transfer; }
+      } else {
+        if (probe) probe.appliedUpN = fy;
+        push(0, fy, 0);
+      }
     }
 
     // 2) 걷기: 딛고 있는 발로 땅을 밀어서 나아간다 (발이 떠 있으면 못 민다, 미끄러우면 미끄러진다)
@@ -1463,8 +1483,9 @@ export class Fighter {
     const dvz = want.z - v.z;
     const grip = Math.min(1, loadSum * 1.5);
     const lim = M * (hybrid ? GAIT.maxAccel : BODY.maxAccel) * grip; // 사람이 발로 낼 수 있는 가속에는 한계가 있다 (다리로 서면 몸이 무거워 조금 더 느리게)
-    const fx = THREE.MathUtils.clamp(M * BODY.moveAccel * dvx, -lim, lim) * mus;
-    const fz = THREE.MathUtils.clamp(M * BODY.moveAccel * dvz, -lim, lim) * mus;
+    const groundGate = axialSupport && !footSupport ? 0 : 1;
+    const fx = THREE.MathUtils.clamp(M * BODY.moveAccel * dvx, -lim, lim) * mus * groundGate;
+    const fz = THREE.MathUtils.clamp(M * BODY.moveAccel * dvz, -lim, lim) * mus * groundGate;
     if (probe) { probe.horizontalXN = fx; probe.horizontalZN = fz; }
     push(fx, 0, fz);
 
@@ -1490,7 +1511,8 @@ export class Fighter {
     this.anchor.setNextKinematicRotation(vecQ(anchorQ));
     this.anchorUp = (this.anchorUp || new THREE.Vector3()).set(0, 1, 0).applyQuaternion(anchorQ);
     const hold = THREE.MathUtils.clamp(1 - this.offBalance / BALANCE.fallRange, 0.15, 1);
-    const assist = BODY.uprightAssist * mus * hold * (0.3 + 0.7 * Math.min(1, loadSum));
+    const assist = BODY.uprightAssist * mus * hold * (0.3 + 0.7 * Math.min(1, loadSum)) * (axialSupport && !contacts.anySupport ? 0 : 1);
+    if (probe) probe.uprightScale = assist;
     const raw = this.uprightJoint.rawSet;
     for (const ax of MOTOR_AXES) {
       const r = this.uprightRelax(ax); // 휘두르거나 부딪히는 동안 덜 붙잡기 (실험, 기본 1)

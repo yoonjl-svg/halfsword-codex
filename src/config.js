@@ -43,6 +43,7 @@ export const BODY = {
   uprightDamping: 330, // 감쇠: 출렁이지 않고 딱 멈추는 값(감쇠비 ≈ 1)
   uprightAssist: 1.0, // 위 보조 힘의 비율
   footReaction: 0, // 체중·추진력의 반작용을 발에 싣는 비율 (실험 중: 1이면 걷다 넘어진다)
+  supportModel: 'legacy', // axial: 실제 발 접촉 아래에서 골반↔발 내부 힘쌍으로 받침을 이관하는 선택 시험
   upperShare: 0.15, // 걸을 때 미는 힘 중 가슴 쪽에 주는 비율 (크면 상체가 앞으로 꺾인다)
   accelLean: 0, // 가속할 때 몸 전체를 앞으로 숙이는 정도 (허리 근육이 대신 버틴다)
   moveSpeed: 2.5, // 걷는 최고 속도 (m/s). 보폭이 커서 빨라진다 (발 빠르기는 그대로)
@@ -417,7 +418,7 @@ export const BALANCE = {
 
 // 두 손 잡기: 빈손이 칼자루 끝을 쥐는 부드러운 스프링
 export const GRIP = {
-  reactionModel: 'legacy', // paired는 physicsTrial=grip으로만 켜는 공통점 반작용 시험
+  reactionModel: 'paired', // 공통점 반작용: 사용자 그립 시험 수용 뒤 기본 반영. legacyGrip URL로 이전과 비교
   on: true,
   along: -0.14, // 칼자루에서 빈손이 쥐는 곳 (칼 든 손 기준 칼끝 반대쪽으로 m). 두 손 사이가 지렛대가 된다
   reach: 0.25, // 손이 이만큼(m) 안으로 들어오면 쥐기 시작
