@@ -10,12 +10,12 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
-export const SCENARIOS = ['stand', 'walk', 'rise', 'getup_refall', 'disturbance', 'swing'];
+export const SCENARIOS = ['stand', 'walk', 'rise', 'getup_refall', 'disturbance', 'swing', 'kneel_hurt', 'kneel_swing', 'kneel_hurt_swing'];
 const MODES = ['on', 'fall', 'off'];
 const SETTLE_SECONDS = Math.max(2.5, CONFIG.ARENA.startHold + 0.5);
 const POST_STAND_SECONDS = 3;
 // Observation windows and perturbations belong to this probe, not game rules.
-const SCENE_SECONDS = { stand: 3, walk: 6, rise: 12, getup_refall: 12, disturbance: 8, swing: 3 };
+const SCENE_SECONDS = { stand: 3, walk: 6, rise: 12, getup_refall: 12, disturbance: 8, swing: 3, kneel_hurt: 12, kneel_swing: 12, kneel_hurt_swing: 12 };
 const SWING_FROM = [0.52, 0.06];
 const SWING_TO = [-0.5, 0.06];
 const SWING_PAD_SPEED_MPS = 6;
@@ -138,7 +138,8 @@ export function runTrial(scenario, seed, ledger = true) {
     const f = G.player;
     if (ledger) f.balanceProbe = {};
     f.skill.autoGuard = true; // Same player flag as main.js.
-    if (scenario === 'swing') {
+    const kneelSwing = scenario === 'kneel_swing' || scenario === 'kneel_hurt_swing';
+    if (scenario === 'swing' || kneelSwing) {
       f.handOffset.set(...SWING_FROM);
       for (const key of ['prev', 'aim', 'aimRaw', 'anchor']) f.skill[key].set(...SWING_FROM);
       f.skill.aimVel.set(0, 0);
@@ -162,8 +163,13 @@ export function runTrial(scenario, seed, ledger = true) {
     let firstStandS = null;
     let handoverEndS = null;
     let handoverObserved = false;
-    const getup = scenario === 'rise' || scenario === 'getup_refall';
+    const getup = scenario === 'rise' || scenario === 'getup_refall' || scenario.startsWith('kneel_');
     if (getup) {
+      if (scenario === 'kneel_hurt' || scenario === 'kneel_hurt_swing') {
+        // Controlled residual leg health, not a simulated wound or a clinical injury model.
+        f.limbs.legF = 0.45;
+        row.protocol.legHealth = { F: f.limbs.legF, B: f.limbs.legB };
+      }
       f.knockDown(scenario === 'getup_refall');
       row.transitions.push({ timeS: 0, from: oldState, to: f.state, previousStateTimeS: beforePulse.stateTimeS, stateTimeS: f.stateTime, source: 'probe knockDown' });
       oldState = f.state;
@@ -188,6 +194,7 @@ export function runTrial(scenario, seed, ledger = true) {
     }
     if (scenario === 'walk') row.protocol.input = 'move.y=+1 for 2s, -1 for 2s, then 0 for 2s';
     if (scenario === 'swing') row.protocol.input = { path: 'handOffset -> Skill.update -> Fighter.driveSword', fromPad: SWING_FROM, toPad: SWING_TO, padSpeedMps: SWING_PAD_SPEED_MPS, releaseAtS: Math.hypot(SWING_TO[0] - SWING_FROM[0], SWING_TO[1] - SWING_FROM[1]) / SWING_PAD_SPEED_MPS, phoneInput: false };
+    if (kneelSwing) row.protocol.input = { path: 'handOffset and handHeld -> Skill.update -> Fighter.driveSword', kind: 'horizontal sweeps during knee-rise and handover', startS: 1, releaseAtS: 4, periodS: 0.8, amplitude: 0.52, phoneInput: false };
     const metricKeys = ['pelvisHeightM', 'pelvisVerticalVelocityMps', 'pelvisHorizontalSpeedMps', 'horizontalDisplacementM', 'tiltDeg', 'correctedChestTiltDeg', 'offBalanceM', 'tipSpeedMps', 'lev', 'levH', 'levC'];
     const sums = Object.fromEntries(metricKeys.map((key) => [key, stat()]));
     const phaseStats = Object.fromEntries(['afterStateReturned', 'afterHandoverEnded'].map((phase) => [phase, {
@@ -218,6 +225,10 @@ export function runTrial(scenario, seed, ledger = true) {
     for (let i = 0; i < Math.ceil(SCENE_SECONDS[scenario] / DT); i++) {
       const t = i * DT;
       f.move.set(0, scenario === 'walk' ? (t < 2 ? 1 : t < 4 ? -1 : 0) : 0);
+      if (kneelSwing) {
+        f.handHeld = t >= 1 && t < 4;
+        if (f.handHeld) f.handOffset.set(0.52 * Math.cos((t - 1) * 2 * Math.PI / 0.8), 0.06);
+      }
       if (scenario === 'swing' && t < row.protocol.input.releaseAtS) {
         const d = Math.hypot(SWING_TO[0] - f.handOffset.x, SWING_TO[1] - f.handOffset.y);
         if (d <= SWING_PAD_SPEED_MPS * DT) f.handOffset.set(...SWING_TO);
@@ -290,7 +301,7 @@ export function runTrial(scenario, seed, ledger = true) {
     row.metrics.standingBothFeetNoGroundContactFraction = standS ? standingBothFeetAirS / standS : null;
     row.inputEvidence = { aiPlayer: false, enemyParked: G.parkEnemy, gaitWalkingS: walkingS, skillSwingingS: swingingS, skillSwingsDelta: f.skill.swings - swingsBefore, handPadChangedSteps: padChanges, filteredHandPadChangedSteps: filteredChanges };
     if (scenario === 'walk' && walkingS === 0) row.failures.push('Walking input did not activate gait.walking');
-    if (scenario === 'swing' && (padChanges === 0 || filteredChanges === 0 || swingingS === 0)) row.failures.push('Fixed swing input did not activate the player hand/skill path');
+    if ((scenario === 'swing' || kneelSwing) && (padChanges === 0 || filteredChanges === 0 || swingingS === 0)) row.failures.push('Fixed swing input did not activate the player hand/skill path');
     if (getup) {
       const later = firstStandS == null ? [] : row.transitions.filter((s) => s.timeS > firstStandS && s.timeS <= firstStandS + POST_STAND_SECONDS && s.to !== 'stand');
       const afterHandover = handoverEndS == null ? [] : row.transitions.filter((s) => s.timeS > handoverEndS && s.to !== 'stand');
