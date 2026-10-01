@@ -16,6 +16,37 @@
 // ─────────────────────────────────────────────────────────────
 import * as THREE from 'three';
 
+/** 고정 철구 둔기의 겉모습. 물리 머리 외피(9cm)와 표면/가시 끝은 각각 1cm 이내다. */
+export function morgensternKit({ headRadius = 0.08, spikeLength = 0.02 } = {}) {
+  return (idx, isHead, shape, color) => {
+    if (!isHead) {
+      if (shape[0] === 'ball') return new THREE.Mesh(new THREE.SphereGeometry(shape[1], 12, 8), metalMat(color));
+      const [, hx, hy] = shape;
+      const mat = idx === 0
+        ? new THREE.MeshStandardMaterial({ color, roughness: 0.88, metalness: 0 })
+        : metalMat(color);
+      return new THREE.Mesh(new THREE.CylinderGeometry(hx, hx, 2 * hy, 14), mat);
+    }
+    // Mesh를 반환해야 기존 bladeMesh의 재질/피 색 갱신 계약과 맞는다.
+    const mat = metalMat(color, { rough: 0.44 });
+    const head = new THREE.Mesh(new THREE.SphereGeometry(headRadius, 20, 14), mat);
+    const directions = [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]];
+    for (const x of [-1, 1]) for (const y of [-1, 1]) for (const z of [-1, 1]) directions.push([x, y, z]);
+    const up = new THREE.Vector3(0, 1, 0);
+    // 밑동을 철구 안으로 5mm 넣어 메쉬가 분리돼 보이지 않는다. 난수를 쓰지 않는다.
+    const height = spikeLength + 0.005;
+    const geo = new THREE.ConeGeometry(0.009, height, 6);
+    for (const a of directions) {
+      const d = new THREE.Vector3(...a).normalize();
+      const spike = new THREE.Mesh(geo, mat);
+      spike.position.copy(d).multiplyScalar(headRadius + spikeLength - height / 2);
+      spike.quaternion.setFromUnitVectors(up, d);
+      head.add(spike);
+    }
+    return head;
+  };
+}
+
 // ── 무기 전용 반사 환경 ──
 // 작은 등장방형(equirect) 데이터 텍스처를 직접 칠한다: 위는 하늘, 수평선 바로 위는 경기장 나무 벽,
 // 아래는 모래, 그리고 해(main.js 의 sun 방향과 같은 쪽). three.js 가 처음 그릴 때 알아서 PMREM 으로

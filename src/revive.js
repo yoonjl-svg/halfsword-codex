@@ -50,6 +50,7 @@ export function reviveOf(spec) {
  *  부활하는 동안의 죽음(피가 모자람 등)도 삼킨다. 남은 횟수가 없으면 false → 보통 죽음
  */
 export function tryRevive(f, cause) {
+  if (f.severedLimbs?.length) return false; // isolated limb trial has no regeneration
   if (f.revival) return true;
   if (f.decapitated) return false; // 참수된 몸은 일어서지 않는다 (현실감 귀결, COMBAT.decapitate — 남은 횟수는 그대로)
   if (cause === '내려찍기') return false; // 찍기 즉사는 참수처럼 되살아나지 않는다 (디렉터 10/1). 남은 횟수는 그대로 (fighter.applyWound h.finish)

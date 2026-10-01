@@ -24,6 +24,8 @@ import { GUN_STANCE } from './gun.js';
 import { attachMadEyes } from './mad_eyes.js';
 import { createSwordTrails } from './sword_trail.js';
 import { createDecapFx } from './decap_fx.js';
+import { createLimbSeverFx } from './limb_sever_fx.js';
+import { previewLimbInjury } from './limb_demo.js';
 import { PerfMeter } from './perfmeter.js';
 import { createRenderCap } from './render_cap.js';
 import { createFighterLight } from './fighter_light.js';
@@ -36,6 +38,9 @@ await RAPIER.init();
 // 테스트용 URL 파라미터: ?weapon=monohoshizao&foeWeapon=chicken (무기 id는 weapons.js의 WEAPONS 키,
 //  Fighter 생성자가 알아서 getWeapon()으로 찾는다. 없으면 기본 롱소드)
 const params = new URLSearchParams(location.search);
+CONFIG.COMBAT.limbSeverTrial = params.get('limbTrial') === '1';
+const limbDemo = CONFIG.COMBAT.limbSeverTrial ? params.get('limbDemo') : null;
+let limbDemoAt = Infinity;
 const supportProbe = configureSupportProbe(params, CONFIG.GAIT);
 // 주인공은 판마다 무기 카드 세 장 중 하나를 골라 받는다 (아래 "무기 뽑기"). 주소에 ?weapon=을 적으면 뽑기 없이 그 무기로 고정.
 //  진짜 엑스칼리버는 주인공만 받을 수 있고, 복제품은 하인리히 몫이라 뽑기에서 뺀다
@@ -200,6 +205,7 @@ resize();
 // ── 물리 세계와 등장인물 ──
 const particles = new Particles(scene);
 const decapFx = createDecapFx(particles); // 참수 목 단면·피 분출 (외형 PM, decap_fx.js — 겉모습만)
+const limbSeverFx = createLimbSeverFx(particles);
 const sound = new Sound();
 // 권총(??? 등급) 총구 섬광·연기·총알 궤적·희미한 조준 레이저 (외형 PM, gun_fx.js — 소리는 그대로 두고 GUN_HOOKS.onShot 을 감싼다).
 //  world·combat 은 판마다 새로 만들어지니, 늘 지금 판 것을 가리키는 얇은 겉감을 넘긴다 (읽기만 한다 — 판정과 무관)
@@ -1022,6 +1028,7 @@ async function startFight() {
 /** 무기를 받았다: 싸움 시작 ("Battle", 조이스틱, 조작 안내) */
 function beginFight() {
   state = 'fight';
+  limbDemoAt = ['armS', 'legF'].includes(limbDemo) ? stats.simTime + 1 : Infinity;
   input.enabled = true;
   emoSeen.player = emoSeen.enemy = null; // 감정 알림은 판마다 새로 (시작 감정도 알린다 — 브란은 분노로 시작한다)
   applyMoveMode();
@@ -1401,6 +1408,11 @@ function frame(now) {
       enemy.cacheState();
       world.step(eventQueue, combat.physicsHooks);
       combat.afterStep(world, eventQueue);
+      if (stats.simTime >= limbDemoAt) {
+        limbDemoAt = Infinity;
+        previewLimbInjury(enemy, limbDemo);
+        showHint('절단 후 움직임 시연 · 상대에게 미리 부상을 준 상태입니다.');
+      }
       swordTrails.sample(PHYSICS.timestep); // 칼 잔상 띠: 이 스텝의 칼 자세를 기록 (읽기만)
       clashCooldown -= PHYSICS.timestep;
       clashStopCooldown -= PHYSICS.timestep;
@@ -1422,6 +1434,7 @@ function frame(now) {
       updateDrips(f, dt * scale);
     }
     decapFx.update([player, enemy], dt * scale); // 참수: 목 단면·피 분출
+    if (CONFIG.COMBAT.limbSeverTrial) limbSeverFx.update([player, enemy], dt * scale);
     updateBindSound();
     for (const b of bodySounds) b.update(dt * scale);
     reviveFx.update(enemy, dt * scale);

@@ -22,6 +22,7 @@ import { spawnDebris, scatterDebris, debrisEnabled } from './debris.js'; // 흩�
 // 방어구 겉모습(찌그러짐·금): 전투 쪽이 투구·판금 내구도가 바뀔 때마다 부른다
 import { decorateOutfit, setHelmetWear, setPlateWear } from './outfits.js';
 import { reviveOf, tryRevive, reviveTick } from './revive.js';
+import { limbSeverCandidate, detachLimb, disableMissingLegSupport } from './limb_sever.js';
 
 // 충돌 그룹 비트. 자기 몸과 자기 칼끼리는 부딪히지 않게 한다.
 // 롱소드의 칼날 축(비트는 축) 관성 실측값 (칼자루+폼멜+코등이+칼날 합, kg·m²). fighter.js
@@ -196,6 +197,7 @@ export class Fighter {
     this._helmStage = 0; // 조각 투구의 파손 단계 (ARMOR.helmets[종류].shed 에서 몇 단계까지 떨어져 나갔나)
     this.armorBroke = false; // 이번 타격에 판금 부위나 투구가 완전히 부서졌다 (main.js onWound 가 깨지는 소리를 한 번 내고 되돌린다)
     this.scene = scene;
+    this.colliderInfo = colliderInfo;
     this.armed = true;
     this.balance = 100; // 휘청임 게이지: 세게 맞으면 줄고, 바닥나면 넘어진다
     this.offBalance = 0; // 무게중심이 발 밖으로 벗어난 거리 (m)
@@ -844,6 +846,10 @@ export class Fighter {
   updateState(dt) {
     this.updateVitals(dt);
     if (this.state === 'dead') return;
+    if (this.missingSupportLeg) {
+      if (this.state !== 'down') this.setState('down');
+      return;
+    }
     const tilt = this.tiltDeg();
     const leg = Math.max(0.3, this.legHealth);
     // 일어나는 데 걸리는 시간: 다리가 다칠수록, 피를 흘릴수록 오래
@@ -890,6 +896,7 @@ export class Fighter {
    * 아니면 무릎이 꺾여 주저앉았다가(무릎 꿇기) 다시 일어난다.
    */
   knockDown(heavy = true) {
+    if (this.missingSupportLeg) heavy = true;
     if (this.state === 'dead' || this.state === 'down') return;
     if (!heavy && (this.state === 'getup' || this.state === 'kneel')) return;
     this.balance = 0;
@@ -930,6 +937,7 @@ export class Fighter {
    *                     severity(0~), energy(J), local(부위 기준 위치), helmet(bool), plate(bool: 남은 판금이 덮은 곳) }
    */
   applyWound(h) {
+    if (this.detachedParts?.has(h.part)) return;
     if (this.state === 'dead' || this.revival) return; // 부활하는 동안엔 상처를 받지 않는다
     const sev = h.severity;
     const Z = h.zone;
@@ -995,6 +1003,8 @@ export class Fighter {
       this.limbs[limb] = Math.max(0, this.limbs[limb] - sev * 0.7);
       if (limb === 'armS' && this.limbs.armS < VITALS.dropSwordArm) this.dropSword();
     }
+    const sever = limbSeverCandidate(this, h);
+    if (sever) detachLimb(this, sever, h, bleed);
     if (Z === 'head' && h.type === 'cut') this.consciousness -= sev * 0.5;
   }
 
@@ -1260,7 +1270,18 @@ export class Fighter {
     const parts = this.weapon.buildParts({}); // 질량 자료만 쓴다 (색은 안 쓴다) — 생성자와 같은 순서라 swordColliders 와 짝이 맞다
     parts.forEach(([shape, y, [pm, pc, pIe, pIt]], i) => {
       const col = this.swordColliders[i];
-      if (!col || shape[0] !== 'box') return;
+      if (!col) return;
+      // A rigid mace head leaves with the broken shaft. No retained invisible
+      // collision or head mass on the handle. Existing box trimming is unchanged.
+      if (shape[0] === 'ball') {
+        if (y - shape[1] >= cutY - 0.005) {
+          col.setEnabled(false);
+          col.setCollisionGroups(0);
+          col.setMassProperties(0, { x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: 0, w: 1 });
+        }
+        return;
+      }
+      if (shape[0] !== 'box') return;
       const [, hx, hy, hz] = shape;
       const lo = y - hy;
       if (y + hy <= cutY) return; // 절단선 아래 부품 (자루·코등이·폼멜)
@@ -1355,6 +1376,7 @@ export class Fighter {
 
   // 골반을 떠받치고, 몸을 세우고, 걷게 한다.
   driveBalance(dt) {
+    if (this.missingSupportLeg) { disableMissingLegSupport(this); return; }
     const pelvis = this.bodies.pelvis;
     const M = this.totalMass;
     const g = 9.81;
@@ -1489,6 +1511,7 @@ export class Fighter {
     //  (발을 들고 디딜 때마다 무게중심이 튀지 않게). 발 몸체의 무게 = 발 콜라이더 무게
     const G = this.gait;
     for (const name in this.bodies) {
+      if (this.detachedParts?.has(name)) continue;
       const b = this.bodies[name];
       const m = G && (name === 'footF' || name === 'footB') ? b.collider(0).mass() : b.mass();
       const c = b.worldCom();
@@ -1739,6 +1762,7 @@ export class Fighter {
 
   /** 팔꿈치 중력 보상: 아래팔과 칼의 무게를 팔꿈치 근육이 미리 버틴다 (엔진 모터는 목표 각도만 쫓으므로 따로 건다) */
   elbowGravity() {
+    if (this.detachedParts?.has('farmS')) return;
     if (this.muscle < 0.12 || this.state === 'dead') return;
     const up = this.bodies.uarmS;
     this.gravityTorque([this.bodies.farmS, this.armed ? this.sword : null], up, 0.15, _mG);
@@ -1781,7 +1805,7 @@ export class Fighter {
     _mT.addScaledVector(wErr.addScaledVector(boneAxis, -wErr.dot(boneAxis)), -d);
     // 중력 보상: 팔과 칼의 무게를 미리 알고 버틴다 (사람도 무게를 예상하고 힘을 준다 → 처지지 않는다)
     const mus = k / j.k;
-    this.gravityTorque([this.bodies.uarmS, this.bodies.farmS, this.armed ? this.sword : null], j.child, -0.15, _mG).multiplyScalar(-mus);
+    this.gravityTorque([this.bodies.uarmS, this.detachedParts?.has('farmS') ? null : this.bodies.farmS, this.armed ? this.sword : null], j.child, -0.15, _mG).multiplyScalar(-mus);
     // 팔꿈치를 굽히면 아래팔과 칼의 무게가 위팔을 길이 방향으로 비튼다 → 그 몫도 미리 버틴다
     //  (되먹임이 아닌 고정 보정이라 비틀기 축이 가벼워도 불안정해지지 않는다)
     const twistFF = THREE.MathUtils.clamp(_mG.dot(boneAxis), -10, 10);

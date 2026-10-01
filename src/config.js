@@ -403,6 +403,7 @@ export const VITALS = {
 //  false 면 예전과 바이트 같다
 export const COMBAT = {
   decapitate: true,
+  limbSeverTrial: false, // isolated ?limbTrial=1, joint-level prototype only
 };
 
 // 진짜 균형: 무게중심이 향하는 곳(캡처 포인트)이 발 밖으로 나가면 비틀거리며 발을 딛고,

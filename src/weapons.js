@@ -13,7 +13,7 @@
 // ─────────────────────────────────────────────────────────────
 import { classifyWeapon } from './weapon_class.js';
 import * as THREE from 'three';
-import { swordKit, metalMat, weaponEnv, hiddenParts, drawTreeBranch, drawRubberChicken, drawFrozenTuna, drawPistol, PISTOL_GRIP, PISTOL_BORE_X } from './weapon_looks.js';
+import { swordKit, metalMat, weaponEnv, hiddenParts, drawTreeBranch, drawRubberChicken, drawFrozenTuna, drawPistol, morgensternKit, PISTOL_GRIP, PISTOL_BORE_X } from './weapon_looks.js';
 
 // 재질별 되튐(반발 계수). 칼끼리 부딪히면 곱해진다(Multiply 규칙) → 강철끼리 0.7² 정도,
 //  고무 대 강철처럼 하나가 낮으면 거의 튕기지 않는다(고무 닭이 칼에 그냥 맞고 만다).
@@ -1056,10 +1056,35 @@ const pistol = finalizeSpec('pistol', {
 // 무기마다 적은 desc 는 무기 뽑기 카드(main.js)의 앞면에 쓰는 한두 줄 설명이다 (\n 으로 줄을 나눈다).
 //  글자 데이터일 뿐 물리·밸런스와는 상관없다. 카드 앞면의 작은 그림은 public/ui/weapons/<id>.webp
 //  (tools/browser/weapon_thumbs.mjs 로 이 무기 모델을 그대로 찍어 만든다 — 겉모습을 바꾸면 다시 돌린다).
+// [I] 선택 가능한 시험안. 특정 유물 실측이 아닌 고정 철구+나무 자루의 대표 설계.
+// 철구는 기존 'blade', 자루는 'hilt' 접촉 이름을 쓰지만 edged=false라 둘 다 둔기다.
+const morgenstern = finalizeSpec('morgenstern', {
+  nameKo: '모르겐슈테른', nameEn: 'Morgenstern',
+  desc: '나무 자루에 가시 철구가 고정된 한손 둔기.\n사슬 없이 앞쪽 무게로 때리는 시험 무기.',
+  trialOnly: true,
+  grip: 'one-hand', material: 'steel',
+  hiltLength: 0.12, bladeLength: 0.53,
+  edged: false, mCut: 0, mThrust: 0, mBlunt: 1,
+  partMesh: morgensternKit({ headRadius: 0.08, spikeLength: 0.02 }),
+  buildParts() {
+    const shaft = boxInertia(0.4, 0.022, 0.31, 0.022);
+    const collar = boxInertia(0.1, 0.028, 0.035, 0.028);
+    const butt = sphereInertia(0.05, 0.025);
+    // 철구 1.10kg의 구 관성 + 대칭 가시 0.15kg의 r=0.09m 점질량 근사.
+    const headI = 0.4 * 1.1 * 0.08 ** 2 + (2 / 3) * 0.15 * 0.09 ** 2;
+    return [
+      partTuple(['box', 0.022, 0.31, 0.022], 0.21, 0.4, 0, shaft.Ie, shaft.It, 0x64432b),
+      partTuple(['ball', 0.025], -0.115, 0.05, 0, butt.Ie, butt.It, 0x676769),
+      partTuple(['box', 0.028, 0.035, 0.028], 0.48, 0.1, 0, collar.Ie, collar.It, 0x73757a),
+      partTuple(['ball', 0.09], 0.55, 1.25, 0, headI, headI, 0x727780, true),
+    ];
+  },
+});
+
 export const WEAPONS = {
   longsword, zweihander, estoc, sabre, rapier, falchion,
   monohoshizao, qinggang, excalibur, excalibur_replica: excaliburReplica, lightsaber, tree_branch: treeBranch,
-  rubber_chicken: rubberChicken, frozen_tuna: frozenTuna, pistol,
+  rubber_chicken: rubberChicken, frozen_tuna: frozenTuna, pistol, morgenstern,
 };
 
 // 다른 담당이 쓰는 짧은 이름 → 정식 id (characters.js의 'branch', URL 파라미터의 'chicken' 등)
@@ -1077,7 +1102,8 @@ export const WEAPON_ALIASES = {
 // 아무 무기도 지정하지 않았을 때(o.weapon 없음) 쓰는 기본 무기.
 export const DEFAULT_WEAPON = 'longsword';
 
-export const WEAPON_LIST = Object.values(WEAPONS);
+export const WEAPON_LIST = Object.values(WEAPONS).filter((w) => !w.trialOnly);
+export const TRIAL_WEAPON_LIST = Object.values(WEAPONS).filter((w) => w.trialOnly);
 
 /** id(또는 별칭)로 무기 사양을 찾는다. 모르는 id면 기본 무기(경고 한 번). */
 const warned = new Set();
