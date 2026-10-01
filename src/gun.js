@@ -384,7 +384,7 @@ function fire(f, world, combat) {
   );
   f.takeJolt?.(GUN.recoilBack + GUN.recoilUp);
   const info = combat.info;
-  const hit = castRay(world, _o, _d, (h) => info.get(h)?.fighter !== f);
+  const hit = castRay(world, _o, _d, (h) => info.get(h)?.fighter !== f && !info.get(h)?.detached);
   sound('onShot', f, _d.clone(), hit ? hit.toi : GUN.range); // 효과 모듈의 총알 궤적이 실제 총알을 따라가게 방향·거리를 넘긴다
   const vi = hit ? info.get(hit.collider.handle) : null;
   // 어디에 맞았나 (검사 도구가 읽는다): 허공·땅벽·칼·몸
@@ -398,6 +398,7 @@ function fire(f, world, combat) {
 
 /** 총알 한 발이 몸 부위(vi = colliderInfo 항목)의 point 에 dir 방향으로 맞았다: 늘 같은 세기의 찌르기 상처 (검사 도구도 부른다) */
 export function bulletHit(f, vi, point, dir, combat) {
+  if (vi.detached) return null; // loose pieces are outside the trial's damage model
   const vic = vi.fighter;
   if (vic.state === 'dead') return null;
   _d.copy(dir);
@@ -505,7 +506,7 @@ function updateLaser(f, g, world, combat) {
   _q.set(r.x, r.y, r.z, r.w);
   const dir = _l.set(0, 1, 0).applyQuaternion(_q);
   const o = muzzle(f, new THREE.Vector3());
-  const hit = castRay(world, o, dir, (h) => combat.info.get(h)?.fighter !== f);
+  const hit = castRay(world, o, dir, (h) => combat.info.get(h)?.fighter !== f && !combat.info.get(h)?.detached);
   const dist = hit ? hit.toi : GUN.range;
   const y0 = f.weaponCfg.hiltLength + f.weaponCfg.bladeLength; // 총구 (칼 기준)
   const mx = f.weapon.muzzleX ?? 0;

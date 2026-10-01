@@ -58,7 +58,7 @@ export function createDecapFx(particles) {
   const done = new WeakMap(); // 검객 → { t, body, head, local, acc, hacc }
 
   const attach = (f) => {
-    const w = f.wounds.find((x) => x.stump);
+    const w = f.wounds.find((x) => x.stump && !x.limbStump);
     const local = w ? w.local.clone() : new THREE.Vector3(0, 0.17, 0);
     local.y = Math.max(local.y, 0.176); // 옷깃(원기둥) 위에 얹는다
     const body = f.groups.chest ? stumpDisc(f.groups.chest, local, UP) : null;

@@ -83,6 +83,7 @@ export class Combat {
     const a = this.info.get(c1);
     const b = this.info.get(c2);
     if (!a || !b || a.fighter === b.fighter) return null;
+    if (a.detached || b.detached) return null;
     if (a.fighter.revival || b.fighter.revival) return null; // 부활하는 동안엔 상처를 주고받지 않는다 (revive.js)
     // 손에서 놓친(땅에 떨어진) 칼은 부딪히기만 하고 상처를 내지 않는다
     if ((a.kind === 'weapon' && !a.fighter.armed) || (b.kind === 'weapon' && !b.fighter.armed)) return null;
@@ -299,6 +300,7 @@ export class Combat {
     const dt = world.timestep;
     this.dt = dt;
     for (const [key, c] of this.cutting) {
+      if (c.pr.v.detached || c.pr.w.fighter.detachedParts?.has('farmS')) { this.cutting.delete(key); continue; }
       if (this.stepNo - c.seen > 2 && !(c.stuckT > 0)) {
         this.cutting.delete(key); // 더 이상 겹치지 않음
         continue;
@@ -321,6 +323,9 @@ export class Combat {
         if (!point) continue; // 아직 실제로 닿지 않음 (가까이만 옴)
         c.applied = true;
         const r = this.strike(c.pr, point, true); // 상처는 처음 닿는 순간에 한 번
+        // Finish this contact's resistance before dropping a detached pair.
+        // The attached proximal segment still resists subsequent contacts.
+        if (c.pr.v.detached) this.cutting.delete(key);
         // 몸이 흡수할 실제 에너지 (판정용 보정 전 값)
         c.Eleft = r ? Math.min(r.energy, r.absorb) / STRIKE.energyScale : 0;
         c.stuck = r ? r.stuck : false;
@@ -537,6 +542,7 @@ export class Combat {
 
   /** 실제 접촉점에서 다시 정확히 분석하고 상처/에너지 전달을 적용 */
   strike(pr, point, passing) {
+    if (pr.v.detached || pr.w.fighter.detachedParts?.has('farmS')) return null;
     const att = pr.w.fighter;
     const vic = pr.v.fighter;
     const key = `${att.index}:${pr.v.part}`;

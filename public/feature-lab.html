@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>적막 · 무기와 절단 시험</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, sans-serif; background: #17110c; color: #ece1cb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 24px 16px; }
+    main { max-width: 600px; margin: auto; }
+    h1 { font-size: 24px; margin: 0 0 12px; }
+    h2 { font-size: 18px; margin: 24px 0 10px; }
+    p { font-size: 15px; line-height: 1.65; }
+    .note { color: #cfc0a2; }
+    a { touch-action: manipulation; }
+    a:focus-visible { outline: 2px solid #d9a441; outline-offset: 3px; }
+    .play { display: block; padding: 18px 16px; border-radius: 8px; background: #e9c47a; color: #17110c; text-align: center; text-decoration: none; font-size: 20px; font-weight: 800; }
+    .secondary { background: #30241a; color: #e9c47a; border: 1px solid #735b36; }
+    .demos { display: grid; gap: 10px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .demo { display: block; padding: 14px 10px; border: 1px solid #735b36; border-radius: 6px; color: #e9c47a; text-align: center; text-decoration: none; line-height: 1.5; }
+    nav { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 28px; }
+    nav a { color: #e9c47a; padding: 8px 0; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>무기와 절단 시험</h1>
+  <p>아래 버튼을 눌러 직접 플레이해 보세요.</p>
+  <a id="playMorgenstern" class="play" href="./?supportProbe=1&amp;assist=0.1&amp;catch=on&amp;catchScale=1&amp;weapon=morgenstern&amp;foeWeapon=longsword&amp;foe=default">▶ 모르겐슈테른 플레이</a>
+  <p class="note">가시 달린 철퇴입니다. 사슬 없이 손잡이와 머리가 단단히 이어져 있습니다.</p>
+  <p>휴대폰을 <strong>가로</strong>로 돌린 뒤, 게임 화면에서 <strong>싸움 시작</strong>을 누르세요.</p>
+  <a id="playLimb" class="play secondary" href="./?supportProbe=1&amp;assist=0.1&amp;catch=on&amp;catchScale=1&amp;weapon=longsword&amp;foeWeapon=longsword&amp;foe=default&amp;limbTrial=1">▶ 사지 절단 전투 시험</a>
+  <p class="note">롱소드로 싸우며 팔꿈치·무릎 부위의 절단을 시험합니다. 일반 게임에서는 사지 절단이 꺼져 있습니다.</p>
+  <h2>절단 후 모습 보기</h2>
+  <p class="note">상대에게 미리 부상을 주는 시연입니다. 싸움 시작 후 약 1초 뒤 적용되며, 실제 베기의 힘이나 절단 조건을 검증하는 시험은 아닙니다.</p>
+  <div class="demos">
+    <a id="demoArm" class="demo" href="./?supportProbe=1&amp;assist=0.1&amp;catch=on&amp;catchScale=1&amp;weapon=longsword&amp;foeWeapon=longsword&amp;foe=default&amp;limbTrial=1&amp;limbDemo=armS">팔 절단 후 보기 →</a>
+    <a id="demoLeg" class="demo" href="./?supportProbe=1&amp;assist=0.1&amp;catch=on&amp;catchScale=1&amp;weapon=longsword&amp;foeWeapon=longsword&amp;foe=default&amp;limbTrial=1&amp;limbDemo=legF">다리 절단 후 보기 →</a>
+  </div>
+  <nav aria-label="다른 플레이 페이지">
+    <a href="./support-lab.html">받침·균형 회복 보조 비교 →</a>
+    <a href="./">일반 게임 플레이 →</a>
+  </nav>
+</main>
+</body>
+</html>
