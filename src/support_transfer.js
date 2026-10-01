@@ -10,12 +10,15 @@ const point = (body, local, out) => {
  * pair, not a measurement of human muscle strength or of native joint work.
  * Fresh joint anchors define the line of action; endpoint forces are central.
  * Only confirmed supporting feet receive a share. Unmet demand is not replaced
- * by another external pelvis force. maxForceN is the existing aggregate demand
- * ceiling, now applied to axial force before projecting onto the vertical.
+ * by another external pelvis force. maxForceN is the muscle-scaled actuator
+ * ceiling. Vertical effort is projected onto the extension axis, never divided
+ * by its vertical component. This stays continuous as a prone leg crosses level.
  */
 export function applyAxialLegSupport(fighter, requestedUpN, contacts, load, maxForceN) {
   const result = { requestedUpN, appliedUpN: 0, unmetUpN: Math.max(0, requestedUpN),
-    netForceN: { x: 0, y: 0, z: 0 }, instantaneousPowerW: 0, legs: [] };
+    netForceN: { x: 0, y: 0, z: 0 }, instantaneousPowerW: 0, legs: [],
+    blockedByState: fighter.state === 'down' || fighter.state === 'dead' };
+  if (result.blockedByState) return result;
   if (!(requestedUpN > 0) || !Number.isFinite(requestedUpN) || !(maxForceN > 0) || !Number.isFinite(maxForceN)) return result;
   const eligible = [];
   let total = 0, rawTotal = 0;
@@ -42,8 +45,11 @@ export function applyAxialLegSupport(fighter, requestedUpN, contacts, load, maxF
     // Health must reduce capacity, not disappear when allocation is normalized.
     const capacityShare = rawWeight / rawTotal * health;
     const cap = maxForceN * capacityShare;
-    // Saturate before dividing a near-horizontal direction; no 1/ny blow-up.
-    const axial = desired >= cap * n.y ? cap : desired / n.y;
+    // The old inverse mapping saturated at full axial force as ny approached 0+,
+    // then switched off at 0. Projection fades continuously to zero instead.
+    // Before saturation the delivered vertical component is desired * ny^2;
+    // the unmet effort is intentional, not an excuse for external rescue force.
+    const axial = Math.min(cap, desired * n.y);
     F.copy(n).multiplyScalar(axial);
     const positive = { x: F.x, y: F.y, z: F.z }, negative = { x: -F.x, y: -F.y, z: -F.z };
     const hipPoint = { x: h.x, y: h.y, z: h.z }, anklePoint = { x: a.x, y: a.y, z: a.z };

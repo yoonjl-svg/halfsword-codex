@@ -1,0 +1,406 @@
+{
+  "schemaVersion": 1,
+  "originalReference": "b6483ea65f6ff4097b2386493ee9487f711527d4",
+  "originalSourceSha256": {
+    "src/fighter.js": "4b72f60c9073ae8e56ba31ef0a19b28701c1b8916f471bf59ad2f4c38719a7d8",
+    "src/config.js": "e84d7b921b6d8678b358a5971b296c22edded192d680a56e45a0b29ab2aa5319",
+    "src/gait.js": "91eba47caf6dddd7fd75a5de141a087614398031c45ef75b2ac814f8c4db9b83",
+    "src/support_transfer.js": "1e5f9cb2656b82492d4549f1d2e823918f73c93137e4e80f0d92c732ce4e1cab",
+    "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+    "src/combat.js": "7e807bcd086366cfda8ad84ed33bcd14f02f5506f1df3341bbe47f6d22e25097"
+  },
+  "expectedOriginalTraceSha256": {
+    "healthy_getup": "dd37acfde6fee03dc3b15d762b2256c66c4158d41567950a43dc5f8d376c8df6",
+    "hurt_getup": "87c3cb44b0f6ef22ebb956bbd49c69c5ba0ac268dbadf4466eed80fb6d532b0d"
+  },
+  "protocol": {
+    "seed": 7,
+    "prepareSeconds": 3,
+    "observationSeconds": 25,
+    "assist": 0.1,
+    "catchMode": "on",
+    "catchScale": 1,
+    "grip": "paired",
+    "weightMode": "hybrid",
+    "startSupport": "legacy",
+    "handHeld": false,
+    "move": [
+      0,
+      0
+    ],
+    "walls": false,
+    "knockDownHeavy": true,
+    "switchAtS": {
+      "healthy_getup": 2.2,
+      "hurt_getup": 2.8
+    },
+    "sameLying": "Old original driveBalance controls preparation and natural fall; only driveBalance changes after identical low-down native/world/controller checkpoint. No pose/velocity copying."
+  },
+  "rows": [
+    {
+      "scenario": "healthy_getup",
+      "sameLying": {
+        "original": {
+          "maxPelvisHeightM": 1.0117137432098389,
+          "maxPelvisVyMps": 1.7358157634735107,
+          "maxCOMHeightM": 1.0454697013837788,
+          "maxCOMVyMps": 1.517515946003222,
+          "maxNativeGroundSolverAbsentS": 0.20833333333333331,
+          "postStandRefalls": 2,
+          "finalState": "stand",
+          "finalPelvisHeightM": 0.8872106075286865,
+          "finite": true
+        },
+        "projected": {
+          "maxPelvisHeightM": 0.9821765422821045,
+          "maxPelvisVyMps": 1.431822419166565,
+          "maxCOMHeightM": 1.0077895544086783,
+          "maxCOMVyMps": 1.1482160725506616,
+          "maxNativeGroundSolverAbsentS": 0.11666666666666665,
+          "postStandRefalls": 0,
+          "finalState": "stand",
+          "finalPelvisHeightM": 0.8851736187934875,
+          "finite": true
+        },
+        "switchTimeS": 2.2,
+        "switchGeometry": {
+          "pelvisHeightM": 0.21536177396774292,
+          "chestHeightM": 0.33165162801742554,
+          "chestTiltDeg": 86.83359503964124,
+          "state": "down",
+          "stateTimeS": 2.199999999999995
+        },
+        "switchHashMatches": {
+          "nativeWorldSha256": true,
+          "physicalControlSha256": true,
+          "additionalControllerSha256": true
+        },
+        "originalTraceSha256": "dd37acfde6fee03dc3b15d762b2256c66c4158d41567950a43dc5f8d376c8df6",
+        "projectedTraceSha256": "b51535850381e6f77b5db44727328b9c68d5bd246a2af63b39488694d019d8c4"
+      },
+      "wholeFallComparison": {
+        "original": {
+          "downGeometry": {
+            "samples": 264,
+            "minPelvisHeightM": 0.21536177396774292,
+            "minChestHeightM": 0.33165162801742554,
+            "maxChestTiltDeg": 86.83359503964124,
+            "diagnosticLowPelvisUnder045Samples": 13
+          },
+          "firstStandS": 4.216666666666667,
+          "postStandRefalls": 2,
+          "maxGroundSolverAbsentIntervalS": 0.20833333333333331,
+          "maxMeasuredSupportAbsentIntervalS": 0.21666666666666665,
+          "peakPelvisHeightM": 1.0117137432098389,
+          "peakPelvisVyMps": 1.7358157634735107,
+          "peakCOMHeightM": 1.0454697013837788,
+          "peakCOMVyMps": 1.517515946003222,
+          "finalState": "stand",
+          "finalPelvisHeightM": 0.8872106075286865,
+          "finalSupport": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "touchingEnvironment": true,
+                "rawNormalImpulseNs": 4.547516822814941,
+                "rawNormalForceN": 545.7019902772164,
+                "solverPointCount": 4
+              },
+              "footB": {
+                "hasSupport": true,
+                "touchingEnvironment": true,
+                "rawNormalImpulseNs": 3.1486610174179077,
+                "rawNormalForceN": 377.8393023842937,
+                "solverPointCount": 4
+              },
+              "shinF": {
+                "hasSupport": false,
+                "touchingEnvironment": false,
+                "rawNormalImpulseNs": 0,
+                "rawNormalForceN": 0,
+                "solverPointCount": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "touchingEnvironment": false,
+                "rawNormalImpulseNs": 0,
+                "rawNormalForceN": 0,
+                "solverPointCount": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "touchingEnvironment": false,
+                "rawNormalImpulseNs": 0,
+                "rawNormalForceN": 0,
+                "solverPointCount": 0
+              }
+            }
+          },
+          "handover": {
+            "positiveObserved": true,
+            "endS": 12.933333333333334,
+            "postEndObservedSeconds": 12.066666666666666,
+            "threeSecondsAfterEndObserved": true
+          },
+          "explicitWorkApproxJ": -779.461155582843
+        },
+        "projected": {
+          "downGeometry": {
+            "samples": 264,
+            "minPelvisHeightM": 0.6413624286651611,
+            "minChestHeightM": 0.8139972686767578,
+            "maxChestTiltDeg": 82.89903972826635,
+            "diagnosticLowPelvisUnder045Samples": 0
+          },
+          "firstStandS": 4.216666666666667,
+          "postStandRefalls": 0,
+          "maxGroundSolverAbsentIntervalS": 0.11666666666666665,
+          "maxMeasuredSupportAbsentIntervalS": 0.12499999999999999,
+          "peakPelvisHeightM": 0.988806962966919,
+          "peakPelvisVyMps": 1.457491159439087,
+          "peakCOMHeightM": 1.0153111389942322,
+          "peakCOMVyMps": 1.1390958572280963,
+          "finalState": "stand",
+          "finalPelvisHeightM": 0.8854464292526245,
+          "finalSupport": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "touchingEnvironment": true,
+                "rawNormalImpulseNs": 4.494120717048645,
+                "rawNormalForceN": 539.2944579194397,
+                "solverPointCount": 4
+              },
+              "footB": {
+                "hasSupport": true,
+                "touchingEnvironment": true,
+                "rawNormalImpulseNs": 3.20308381319046,
+                "rawNormalForceN": 384.3700375363956,
+                "solverPointCount": 4
+              },
+              "shinF": {
+                "hasSupport": false,
+                "touchingEnvironment": false,
+                "rawNormalImpulseNs": 0,
+                "rawNormalForceN": 0,
+                "solverPointCount": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "touchingEnvironment": false,
+                "rawNormalImpulseNs": 0,
+                "rawNormalForceN": 0,
+                "solverPointCount": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "touchingEnvironment": false,
+                "rawNormalImpulseNs": 0,
+                "rawNormalForceN": 0,
+                "solverPointCount": 0
+              }
+            }
+          },
+          "handover": {
+            "positiveObserved": true,
+            "endS": 7.316666666666666,
+            "postEndObservedSeconds": 17.683333333333334,
+            "threeSecondsAfterEndObserved": true
+          },
+          "explicitWorkApproxJ": -59.62391341763358
+        },
+        "interpretation": "Applies repair before heavy-down, so fall geometry changes; not same-prone recovery comparison."
+      }
+    },
+    {
+      "scenario": "hurt_getup",
+      "sameLying": {
+        "original": {
+          "maxPelvisHeightM": 1.0095551013946533,
+          "maxPelvisVyMps": 2.0623505115509033,
+          "maxCOMHeightM": 1.0252031974107476,
+          "maxCOMVyMps": 1.513848517991996,
+          "maxNativeGroundSolverAbsentS": 0.21666666666666665,
+          "postStandRefalls": 3,
+          "finalState": "stand",
+          "finalPelvisHeightM": 0.8572759032249451,
+          "finite": true
+        },
+        "projected": {
+          "maxPelvisHeightM": 0.9392641186714172,
+          "maxPelvisVyMps": 1.3235821723937988,
+          "maxCOMHeightM": 0.9747297290690086,
+          "maxCOMVyMps": 1.191691045997414,
+          "maxNativeGroundSolverAbsentS": 0.09999999999999999,
+          "postStandRefalls": 3,
+          "finalState": "stand",
+          "finalPelvisHeightM": 0.8532899022102356,
+          "finite": true
+        },
+        "switchTimeS": 2.8,
+        "switchGeometry": {
+          "pelvisHeightM": 0.19621041417121887,
+          "chestHeightM": 0.22786873579025269,
+          "chestTiltDeg": 103.04572696618563,
+          "state": "down",
+          "stateTimeS": 2.7999999999999927
+        },
+        "switchHashMatches": {
+          "nativeWorldSha256": true,
+          "physicalControlSha256": true,
+          "additionalControllerSha256": true
+        },
+        "originalTraceSha256": "87c3cb44b0f6ef22ebb956bbd49c69c5ba0ac268dbadf4466eed80fb6d532b0d",
+        "projectedTraceSha256": "83443272f40fa16b99fdc7580ab188b8fcb72bbf4718fdd64dd4501b8dab4212"
+      },
+      "wholeFallComparison": {
+        "original": {
+          "downGeometry": {
+            "samples": 336,
+            "minPelvisHeightM": 0.19240552186965942,
+            "minChestHeightM": 0.22398020327091217,
+            "maxChestTiltDeg": 106.53331810422304,
+            "diagnosticLowPelvisUnder045Samples": 50
+          },
+          "firstStandS": 5.575,
+          "postStandRefalls": 3,
+          "maxGroundSolverAbsentIntervalS": 0.21666666666666665,
+          "maxMeasuredSupportAbsentIntervalS": 0.22499999999999998,
+          "peakPelvisHeightM": 1.0095551013946533,
+          "peakPelvisVyMps": 2.0623505115509033,
+          "peakCOMHeightM": 1.0252031974107476,
+          "peakCOMVyMps": 1.513848517991996,
+          "finalState": "stand",
+          "finalPelvisHeightM": 0.8572759032249451,
+          "finalSupport": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "touchingEnvironment": true,
+                "rawNormalImpulseNs": 4.531671702861786,
+                "rawNormalForceN": 543.8005759820041,
+                "solverPointCount": 4
+              },
+              "footB": {
+                "hasSupport": true,
+                "touchingEnvironment": true,
+                "rawNormalImpulseNs": 3.1647855043411255,
+                "rawNormalForceN": 379.77424071416493,
+                "solverPointCount": 4
+              },
+              "shinF": {
+                "hasSupport": false,
+                "touchingEnvironment": false,
+                "rawNormalImpulseNs": 0,
+                "rawNormalForceN": 0,
+                "solverPointCount": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "touchingEnvironment": false,
+                "rawNormalImpulseNs": 0,
+                "rawNormalForceN": 0,
+                "solverPointCount": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "touchingEnvironment": false,
+                "rawNormalImpulseNs": 0,
+                "rawNormalForceN": 0,
+                "solverPointCount": 0
+              }
+            }
+          },
+          "handover": {
+            "positiveObserved": true,
+            "endS": 18.791666666666668,
+            "postEndObservedSeconds": 6.208333333333332,
+            "threeSecondsAfterEndObserved": true
+          },
+          "explicitWorkApproxJ": -458.86949512475934
+        },
+        "projected": {
+          "downGeometry": {
+            "samples": 336,
+            "minPelvisHeightM": 0.2396671175956726,
+            "minChestHeightM": 0.23341535031795502,
+            "maxChestTiltDeg": 116.9875551730588,
+            "diagnosticLowPelvisUnder045Samples": 50
+          },
+          "firstStandS": 5.575,
+          "postStandRefalls": 0,
+          "maxGroundSolverAbsentIntervalS": 0.016666666666666666,
+          "maxMeasuredSupportAbsentIntervalS": 0.025,
+          "peakPelvisHeightM": 0.8925703763961792,
+          "peakPelvisVyMps": 1.0061498880386353,
+          "peakCOMHeightM": 0.9308203219481986,
+          "peakCOMVyMps": 0.8227861052979173,
+          "finalState": "stand",
+          "finalPelvisHeightM": 0.8523566126823425,
+          "finalSupport": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "touchingEnvironment": true,
+                "rawNormalImpulseNs": 3.7816699147224426,
+                "rawNormalForceN": 453.8003660991597,
+                "solverPointCount": 4
+              },
+              "footB": {
+                "hasSupport": true,
+                "touchingEnvironment": true,
+                "rawNormalImpulseNs": 3.9159619212150574,
+                "rawNormalForceN": 469.9154060378086,
+                "solverPointCount": 4
+              },
+              "shinF": {
+                "hasSupport": false,
+                "touchingEnvironment": false,
+                "rawNormalImpulseNs": 0,
+                "rawNormalForceN": 0,
+                "solverPointCount": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "touchingEnvironment": false,
+                "rawNormalImpulseNs": 0,
+                "rawNormalForceN": 0,
+                "solverPointCount": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "touchingEnvironment": false,
+                "rawNormalImpulseNs": 0,
+                "rawNormalForceN": 0,
+                "solverPointCount": 0
+              }
+            }
+          },
+          "handover": {
+            "positiveObserved": true,
+            "endS": 8.675,
+            "postEndObservedSeconds": 16.325,
+            "threeSecondsAfterEndObserved": true
+          },
+          "explicitWorkApproxJ": 200.40261477498126
+        },
+        "interpretation": "Applies repair before heavy-down, so fall geometry changes; not same-prone recovery comparison."
+      }
+    }
+  ],
+  "evidence": {
+    "sameLyingOriginal": "/workspace/halfsword-hybrid-evidence/same-lying-recovery-old-gate.json",
+    "sameLyingProjected": "/workspace/halfsword-hybrid-evidence/same-lying-recovery-projected.json",
+    "wholeFallComparison": "/workspace/halfsword-hybrid-evidence/heavy-down-launch-projected-summary.json"
+  },
+  "limits": [
+    "Old lexical method mix must reproduce original full trace exactly; native and both controller hashes at switch are hard gates.",
+    "Whole-fall repair and same-prone repair are distinct experiments. Same-prone hurt repeats three stand/getup failures despite whole-fall result showing zero.",
+    "Native motor/upright/contact work unmeasured; raw impulse uncorrected. No naturalness/clinical or user-issue-resolution claim.",
+    "Single passive seed, synthetic leg health; live inputs/opponent collision are not reproduced."
+  ]
+}
