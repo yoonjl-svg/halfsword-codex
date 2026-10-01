@@ -208,6 +208,7 @@ export function runTrial(scenario, seed, ledger = true) {
     row.forceLedger = {
       requested: ledger, available: false, units: 'N except dimensionless footReaction',
       scope: 'Balance controller only. Components are before clamp; appliedUpN is after clamp. Not total external force or joint torque.',
+      timing: 'For each sample, force is the input applied before world.step; geometry/contact is the resulting state after that step.',
       samples: [],
     };
     const states = {};
@@ -304,6 +305,7 @@ export function runTrial(scenario, seed, ledger = true) {
     if ((scenario === 'swing' || kneelSwing) && (padChanges === 0 || filteredChanges === 0 || swingingS === 0)) row.failures.push('Fixed swing input did not activate the player hand/skill path');
     if (getup) {
       const later = firstStandS == null ? [] : row.transitions.filter((s) => s.timeS > firstStandS && s.timeS <= firstStandS + POST_STAND_SECONDS && s.to !== 'stand');
+      const allPostStand = firstStandS == null ? [] : row.transitions.filter((s) => s.timeS > firstStandS && s.to !== 'stand');
       const afterHandover = handoverEndS == null ? [] : row.transitions.filter((s) => s.timeS > handoverEndS && s.to !== 'stand');
       row.getup = {
         enteredGetup: row.transitions.some((s) => s.to === 'getup'), firstStandS,
@@ -311,6 +313,7 @@ export function runTrial(scenario, seed, ledger = true) {
         physicallyUprightAtEnd: previous.physicallyUpright,
         postStandObservedS: firstStandS == null ? 0 : elapsed - firstStandS,
         refellWithin3S: later.length > 0, postStandTransitions: later,
+        leftStandDuringObservation: allPostStand.length > 0, allPostStandTransitions: allPostStand,
         handoverObserved, handoverEndS,
         postHandoverObservedS: handoverEndS == null ? 0 : elapsed - handoverEndS,
         refellWithin3SAfterHandover: afterHandover.length > 0,
@@ -327,6 +330,7 @@ export function runTrial(scenario, seed, ledger = true) {
       if (row.getup.refellWithin3S) row.failures.push('Left stand within the 3s post-getup observation window');
       if (handoverEndS == null || row.getup.postHandoverObservedS < POST_STAND_SECONDS - DT / 2) row.failures.push('Handover end plus 3s observation incomplete within the 12s window');
       if (row.getup.refellWithin3SAfterHandover) row.failures.push('Left stand within the 3s post-handover observation window');
+      if (allPostStand.length) row.failures.push('Left stand between first state return and observation end (including any delayed handover)');
     }
     if (row.disturbance) {
       row.disturbance.after = previous;
@@ -363,7 +367,7 @@ export function runProbe(options) {
     return {
       schemaVersion: 1, probe: 'support_probe',
       scope: 'new limited scripted scenes; not historical 12/12 reproduction, AI fights, or phone input',
-      interpretation: 'No human acceptance thresholds. stand state is a timed game transition, not successful physical standing. fail denotes invalid/inactive scene, nonfinite state, incomplete handover observation, or observed getup/refall failure within explicit windows. Geometry is reported separately.',
+      interpretation: 'No human acceptance thresholds. stand state is a timed game transition, not successful physical standing. fail denotes invalid/inactive scene, nonfinite state, incomplete handover observation, any state exit after initial getup, or a final posture outside the stated game-geometry condition. Continuous posture statistics are also reported; ok does not establish natural motion.',
       candidate: { assist: gait.assist, catchMode: options.catchMode, catchScale: options.catchScale, catchOptionsPresent: original.catchMode.exists && original.catchScale.exists, legConfigUnchanged: true },
       harness: 'tools/sim/harness_m.mjs:newRound/step', timestepS: DT, seeds: options.seeds,
       scenarios: options.scenarios, ledgerRequested: options.ledger, rows, status: rows.some((row) => row.status === 'fail') ? 'fail' : 'ok',
