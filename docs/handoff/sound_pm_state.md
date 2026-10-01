@@ -1,5 +1,13 @@
 # 사운드 PM 상태 (늘 최신으로)
 
+## 독립 저장소의 후속 적용 — 2026-10-01
+
+사용자가 이전 `slash35_heavy` 변경 사운드를 찾아 적용하라고 승인했다. 정확한 이름의 파일은 현재 기록에 없지만, 35차 강베기 구현은 커밋 `7119944eaa117f2c42fa04ead0b79e2a8c3e6243`의 `SYNTH.slashHit(kind='heavy')`와 `slashHeavy` 뱅크로 보존돼 있다. 이 35차 후보에 대응하는 요청으로 판단하여, 인계서의 적용 방식대로 독립 저장소 `SOUND.fleshHit` 기본값을 `samsho`로 바꿨다.
+
+일반 베기는 `slashCut`, 112 J 이상 베기는 `slashHeavy`, 베고 지나감은 `slashThrough`, 찌르기는 `slashStab`를 사용한다. 합성 함수·세기 문턱은 원래 35차 구현 그대로이며, 사운드 비교 페이지에서 적용안과 이전 기본을 표시한다. 비교용 다른 후보는 남겨 둔다. 원본 저장소는 수정하지 않는다.
+
+아래는 Fable 팀의 당시 기록이며, 35차 선택 대기는 위 승인으로 해소됐다.
+
 갱신: 2026-09-30 (30차 뒤). 브랜치 `claude/pm-sound-impact`. 디렉터 `session_014nJCzE4hyxiYc9innhSUng`. 자세한 규칙은 `sound_pm_handoff.md`, 작업 기록은 `pm-sound-impact.md`.
 
 ## 맡은 일
