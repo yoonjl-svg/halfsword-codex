@@ -43,3 +43,17 @@ node tools/sim/support_transfer_probe.mjs --models=legacy,axial --scenarios=walk
 ```
 
 `rows[].filteredSlip`에 접촉점별 mean/p95/max와 peak 당시 상태가 생긴다. 기존 probe의 프레임별 최대 점속도 평균과 정의가 다르다. raw 충격량은 매니폴드 합이며 개별 solver점의 하중으로 대응시키지 않는다.
+
+## 내부 힘쌍 경로 원인 분리
+
+`support_pair_cause_observation.patch`는 위 slip 관찰을 포함한 별도 진단이다. **패치하지 않은 probe에 이것 하나만** 적용한다. 두 패치를 겹쳐 적용하지 않는다. 게임 소스는 바꾸지 않지만, 진단 C는 실행 중 driveBalance의 내부 힘쌍을 가로채 골반 외력으로 바꾼다. 플레이 후보가 아니다.
+
+위와 같은 별도 worktree에서 이 패치를 적용한 뒤 실행한다.
+
+```sh
+git apply --check tools/sim/experiments/support_pair_cause_observation.patch
+git apply tools/sim/experiments/support_pair_cause_observation.patch
+node tools/sim/support_transfer_probe.mjs --models=legacy,axial,axial_external_diag --scenarios=walk_front --seed=7 --ledger=1 --stride=60 --out=/tmp/support-pair-cause.json
+```
+
+A/B 물리 trace exact와 세 조건 준비/입력 동일을 확인한 최초 외부 worker 측정은 `docs/strike/support_pair_cause_metrics.json`에 있다. 이식 패치는 경로만 정규화하고 적용 검사를 통과했다. C는 평균/p95 미끄럼을 줄이지만 최대값은 더 나빠져 채택하지 않는다. 내부 수평 성분·발 반작용·골반 모멘트·전체 외력이 함께 달라지므로 특정 항 하나의 원인으로 단정하지 않는다.
