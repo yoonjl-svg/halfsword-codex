@@ -85,7 +85,9 @@ export const CLOSE = {
 // 다리가 체중을 싣는 걸음 (BODY.weightMode = 'hybrid', gait.js)
 export const GAIT = {
   footExtra: 2, // 딛은 발 무게에 더하는 몫(kg): 신발·쇠 발싸개. 딛은 발의 물리 계산이 더 잘 수렴한다 (내딛는 발은 원래 무게)
-  assist: 0.3, // 보이지 않는 힘이 받쳐 주는 몸무게 비율 (나머지는 다리 관절 → 발 → 땅). 0이면 다리가 전부
+  assist: 0.3, // 기본 받침 비율. 0이어도 높이 스프링·감쇠·기립 보조는 남는다.
+  catchMode: 'on', // on: 처짐·기울기·균형 이탈, fall: 균형 이탈만, off: 붙잡기 반사 끔
+  catchScale: 1, // 붙잡기 반사 요구의 비율(0~1). 일어선 직후 넘겨받기 levH는 별도다.
   handover: 0.6,
   handoverMax: 2.5, // 발을 다 고쳐 딛지 못해도 이 시간(초)이 지나면 넘겨받는다
   handoverSlow: 0.6, // 넘겨받는 동안 걷는 속도를 이 비율만큼 줄인다 // 일어선 직후 보조 힘을 100%에서 assist로 줄이는 시간(초)

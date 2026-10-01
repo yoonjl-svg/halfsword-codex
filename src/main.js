@@ -29,12 +29,14 @@ import { createRenderCap } from './render_cap.js';
 import { createFighterLight } from './fighter_light.js';
 import { tickDebris, clearDebris, debrisCount } from './debris.js';
 import { ReviveFx } from './revive_fx.js';
+import { configureSupportProbe, mountSupportProbe } from './support_probe.js';
 
 await RAPIER.init();
 
 // 테스트용 URL 파라미터: ?weapon=monohoshizao&foeWeapon=chicken (무기 id는 weapons.js의 WEAPONS 키,
 //  Fighter 생성자가 알아서 getWeapon()으로 찾는다. 없으면 기본 롱소드)
 const params = new URLSearchParams(location.search);
+const supportProbe = configureSupportProbe(params, CONFIG.GAIT);
 // 주인공은 판마다 무기 카드 세 장 중 하나를 골라 받는다 (아래 "무기 뽑기"). 주소에 ?weapon=을 적으면 뽑기 없이 그 무기로 고정.
 //  진짜 엑스칼리버는 주인공만 받을 수 있고, 복제품은 하인리히 몫이라 뽑기에서 뺀다
 const PLAYER_WEAPON_POOL = WEAPON_LIST.map((w) => w.id).filter((id) => id !== 'excalibur_replica');
@@ -613,6 +615,7 @@ function updateDrips(f, dt) {
 // ── UI ──
 const $ = (id) => document.getElementById(id);
 const menu = $('menu');
+mountSupportProbe(supportProbe);
 const hud = $('hud');
 const topButtons = $('topButtons');
 const toast = $('toast');
@@ -1486,6 +1489,7 @@ window.game = {
   trail,
   stats,
   config: CONFIG,
+  supportProbe,
   THREE,
   camera,
   freeCam: false,

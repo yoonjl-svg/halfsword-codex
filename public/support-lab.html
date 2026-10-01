@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>적막 · 받침 비교 후보</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, sans-serif; background: #17110c; color: #ece1cb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 24px 16px; }
+    main { max-width: 600px; margin: auto; }
+    h1 { font-size: 24px; margin: 0 0 12px; }
+    p, li { font-size: 15px; line-height: 1.65; }
+    .note { color: #cfc0a2; }
+    .candidates { display: grid; gap: 10px; margin: 24px 0; }
+    .candidate { display: block; padding: 16px; color: inherit; background: #30241a; border: 1px solid #735b36; border-radius: 6px; text-decoration: none; }
+    .candidate strong { display: block; color: #e9c47a; font-size: 17px; margin-bottom: 6px; }
+    .candidate span { display: block; font-size: 14px; line-height: 1.6; }
+    a:focus-visible { outline: 2px solid #d9a441; outline-offset: 3px; }
+    .back { color: #e9c47a; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>받침 비교 후보</h1>
+  <p>서고, 걷고, 베어 보며 몸의 무게와 움직임을 비교합니다. 아직 선택한 승자는 없습니다.</p>
+  <p class="note">본판의 검술 보정으로 받침과 반사를 비교합니다. 이전 /corr/ 5차 시험판과는 검술 동작이 다릅니다.</p>
+  <div class="candidates">
+    <a class="candidate" href="./?supportProbe=1&amp;assist=0.3&amp;catch=on&amp;catchScale=1&amp;weapon=longsword&amp;foeWeapon=longsword&amp;foe=default"><strong>기본 대조</strong><span>받침 0.3 · 반사 on · 반사 세기 1</span></a>
+    <a class="candidate" href="./?supportProbe=1&amp;assist=0.1&amp;catch=on&amp;catchScale=0.5&amp;weapon=longsword&amp;foeWeapon=longsword&amp;foe=default"><strong>비교 후보 A</strong><span>받침 0.1 · 반사 on · 반사 세기 0.5</span></a>
+    <a class="candidate" href="./?supportProbe=1&amp;assist=0.1&amp;catch=on&amp;catchScale=1&amp;weapon=longsword&amp;foeWeapon=longsword&amp;foe=default"><strong>비교 후보 B</strong><span>받침 0.1 · 반사 on · 반사 세기 1</span></a>
+    <a class="candidate" href="./?supportProbe=1&amp;assist=0&amp;catch=off&amp;catchScale=0&amp;weapon=longsword&amp;foeWeapon=longsword&amp;foe=default"><strong>기본 받침 0·반사 끔 대조</strong><span>받침 0 · 반사 off · 반사 세기 0</span></a>
+  </div>
+  <p>같은 검술 보정과 이동 설정으로 비교해 주세요. 각 후보는 내 무기와 상대 무기를 롱소드로 맞춥니다.</p>
+  <ol>
+    <li>서 있기: 손을 떼고 서 있을 때 골반이 처지거나 발이 뜨는지 봅니다.</li>
+    <li>다시 일어서기: 맞고 넘어진 뒤 몸을 제대로 세우는지, 일어선 뒤 다시 주저앉는지 봅니다.</li>
+    <li>보행: 앞뒤와 옆으로 걷고 멈출 때 발이 미끄러지거나 몸이 흔들리는지 봅니다.</li>
+    <li>베기: 같은 짧은 대각·가로 베기를 하고 손을 뗍니다. 힘 전달, 자세 복귀, 의도와 다른 꺾임을 비교합니다.</li>
+  </ol>
+  <p class="note">기본 받침 0에서도 높이 스프링·감쇠와 기립 보조는 남습니다. 반사 off는 추가 붙잡기 반사를 끄며, 일어선 뒤 보조 인계와 균형을 잡는 걸음은 남습니다. 이 옵션은 이번 접속에만 적용되며 저장하지 않습니다.</p>
+  <a class="back" href="./">일반 게임으로 돌아가기</a>
+</main>
+</body>
+</html>

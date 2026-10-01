@@ -265,11 +265,16 @@ export class Gait {
     //  보조가 커지면 딛은 발의 정지 마찰(pinFeet)도 약해져서 발이 끌려가며 버틴다
     {
       const sag = Math.max(this.h, this.hNom - 0.04) - f.bodies.pelvis.translation().y;
-      const need = Math.max(
+      const mode = GAIT.catchMode;
+      const scale = mode === 'off' ? 0 : GAIT.catchScale;
+      const falling = clamp((f.offBalance - GAIT.catchOff) / 0.25, 0, 1);
+      const need = scale * (mode === 'fall' ? falling : Math.max(
         clamp((sag - GAIT.catchSag) / 0.08, 0, 1),
         clamp((f.tiltDeg() - GAIT.catchTilt) / 20, 0, 1),
-        clamp((f.offBalance - GAIT.catchOff) / 0.25, 0, 1),
-      );
+        falling,
+      ));
+      // 설정을 낮추거나 끈 뒤 이전 반사가 새 강도를 넘겨 남지 않게 한다. levH는 건드리지 않는다.
+      this.levC = Math.min(this.levC, scale);
       if (need > this.levC) this.levC += (need - this.levC) * Math.min(1, dt * 30);
       this.lev = Math.max(this.levH, this.levC);
     }

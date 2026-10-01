@@ -1399,6 +1399,10 @@ export class Fighter {
     }
     this.crouch = kn * 0.43;
     const loadSum = load.F + load.B;
+    // Optional observation, never read by control logic: appliedUpN/horizontal* are applied forces.
+    // baseSupportN/heightSpringN/verticalDampingN are demands BEFORE muscle scaling and clamping.
+    const probe = this.balanceProbe;
+    if (probe) Object.assign(probe, { appliedUpN: 0, baseSupportN: 0, heightSpringN: 0, verticalDampingN: 0, horizontalXN: 0, horizontalZN: 0, nominalWeightN: M * g, footReaction: BODY.footReaction });
 
     // 다리 근육이 "골반은 위로, 발은 아래로" 민다. 발이 땅을 딛고 있으면 땅이 되받아쳐서 몸이 선다.
     // 발이 공중이면 아무것도 받쳐주지 않으니 그대로 주저앉는다. (보이지 않는 줄에 매달려 있지 않다)
@@ -1423,10 +1427,12 @@ export class Fighter {
       // hybrid: 보조 힘은 몸무게의 GAIT.assist만 (일어선 직후엔 100%에서 천천히 줄인다). 나머지는 다리 관절이 받친다
       const share = hybrid ? G.supportShare(M * g) : BODY.support;
       let fy = M * g * share + BODY.supportStiffness * (h - p.y) - BODY.supportDamping * v.y;
+      if (probe) Object.assign(probe, { baseSupportN: M * g * share, heightSpringN: BODY.supportStiffness * (h - p.y), verticalDampingN: -BODY.supportDamping * v.y });
       // 다친 다리는 힘을 못 쓴다 → 체중을 버틸 수 있는 한계
       const legPower = (load.F * this.limbs.legF + load.B * this.limbs.legB) / loadSum;
       fy = THREE.MathUtils.clamp(fy * mus, 0, M * g * (1.2 + 1.3 * legPower) * Math.min(1, loadSum * 1.5));
       if (p.y > h + 0.25) fy = 0;
+      if (probe) probe.appliedUpN = fy;
       push(0, fy, 0);
     }
 
@@ -1437,6 +1443,7 @@ export class Fighter {
     const lim = M * (hybrid ? GAIT.maxAccel : BODY.maxAccel) * grip; // 사람이 발로 낼 수 있는 가속에는 한계가 있다 (다리로 서면 몸이 무거워 조금 더 느리게)
     const fx = THREE.MathUtils.clamp(M * BODY.moveAccel * dvx, -lim, lim) * mus;
     const fz = THREE.MathUtils.clamp(M * BODY.moveAccel * dvz, -lim, lim) * mus;
+    if (probe) { probe.horizontalXN = fx; probe.horizontalZN = fz; }
     push(fx, 0, fz);
 
     // 3) 똑바로 서기: 주로 딛고 있는 다리의 엉덩이 관절이 골반을 세운다 (applyPose 참고).
