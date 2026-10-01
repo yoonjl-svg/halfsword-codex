@@ -1,0 +1,3450 @@
+{
+  "schemaVersion": 1,
+  "command": "node tools/sim/body_model_inventory.mjs",
+  "sourceCommit": "36bd9e039ce0a740ad3c8a456717bfb75278786f",
+  "sourceHashes": {
+    "src/fighter.js": "b536fb73de229bc70495551f94ce2136fc7344d0f52a2cd7461e7a4922bc0bb0",
+    "src/gait.js": "2874340a1e1991fb612ca74429523b30f7bb7eb147b1717ca6833a05405cc43f",
+    "src/config.js": "65005dfecf0840a4d0af298c03dc5a5c230135cad08b924fce57681de8d36ec4",
+    "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+    "tools/sim/body_model_inventory.mjs": "9bcbe904127bd0d44f4974a7103b3be5306baad45259ab0de8448ac0064a205b"
+  },
+  "protocol": "actual newRound(seed7); construction-only; no world.step/render or force replacement; realize mass properties through native recompute; inspect hybrid and levitate joint construction",
+  "scope": "geometry/model inventory, not validated anthropometry or human resemblance",
+  "sourceComment": {
+    "declaredRigidBodyCount": 13,
+    "reference": "src/fighter.js:4; src/metadata file is absent in this checkout"
+  },
+  "ik": {
+    "sword": {
+      "shoulder": [
+        0,
+        0.1,
+        0.2
+      ],
+      "upper": 0.3,
+      "fore": 0.27,
+      "slack": 0.005
+    },
+    "off": {
+      "upper": 0.3,
+      "fore": 0.275,
+      "forcePointLocalM": [
+        0,
+        -0.135,
+        0
+      ]
+    }
+  },
+  "models": [
+    {
+      "weightMode": "hybrid",
+      "bodyCount": 14,
+      "anatomicalJointCount": 13,
+      "bodyMassSumKg": 75.0999984741211,
+      "controllerTotalMassKg": 75.1,
+      "swordMassKg": 1.600000023841858,
+      "extraObjects": {
+        "sword": "separate dynamic body",
+        "uprightAnchor": "separate kinematic body",
+        "gripJoint": {
+          "type": "Generic",
+          "forearmAnchorLocalM": [
+            0.12999999523162842,
+            0,
+            0
+          ]
+        },
+        "uprightJoint": {
+          "type": "Generic"
+        }
+      },
+      "parts": {
+        "pelvis": {
+          "massKg": 10.699999809265137,
+          "bodyWorldM": [
+            -2.799999952316284,
+            0.9700000286102295,
+            0
+          ],
+          "principalInertiaKgM2": [
+            0.1170758306980133,
+            0.12697334587574005,
+            0.06143583357334137
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Cuboid",
+              "massKg": 10.699999809265137,
+              "worldPositionM": [
+                -2.799999952316284,
+                0.9700000286102295,
+                0
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "fullDimensionsLocalM": [
+                0.20000000298023224,
+                0.17000000178813934,
+                0.3199999928474426
+              ]
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "BoxGeometry",
+            "parameters": {
+              "width": 0.21,
+              "height": 0.18,
+              "depth": 0.33,
+              "widthSegments": 1,
+              "heightSegments": 1,
+              "depthSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "abdomen": {
+          "massKg": 10.399999618530273,
+          "bodyWorldM": [
+            -2.799999952316284,
+            1.1299999952316284,
+            0
+          ],
+          "principalInertiaKgM2": [
+            0.4949866533279419,
+            0.5126667022705078,
+            0.451653391122818
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Cuboid",
+              "massKg": 10.399999618530273,
+              "worldPositionM": [
+                -2.799999952316284,
+                1.1299999952316284,
+                0
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "fullDimensionsLocalM": [
+                0.20000000298023224,
+                0.14000000059604645,
+                0.30000001192092896
+              ]
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "BoxGeometry",
+            "parameters": {
+              "width": 0.22,
+              "height": 0.155,
+              "depth": 0.32,
+              "widthSegments": 1,
+              "heightSegments": 1,
+              "depthSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "chest": {
+          "massKg": 16.200000762939453,
+          "bodyWorldM": [
+            -2.799999952316284,
+            1.3300000429153442,
+            0
+          ],
+          "principalInertiaKgM2": [
+            0.2662200331687927,
+            0.2403000146150589,
+            0.1565999984741211
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Cuboid",
+              "massKg": 16.200000762939453,
+              "worldPositionM": [
+                -2.799999952316284,
+                1.3300000429153442,
+                0
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "fullDimensionsLocalM": [
+                0.2199999988079071,
+                0.25999999046325684,
+                0.36000001430511475
+              ]
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "BoxGeometry",
+            "parameters": {
+              "width": 0.24,
+              "height": 0.28,
+              "depth": 0.37,
+              "widthSegments": 1,
+              "heightSegments": 1,
+              "depthSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "head": {
+          "massKg": 6.099999904632568,
+          "bodyWorldM": [
+            -2.799999952316284,
+            1.6200000047683716,
+            0
+          ],
+          "principalInertiaKgM2": [
+            0.024400001391768456,
+            0.024400001391768456,
+            0.024400001391768456
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Ball",
+              "massKg": 6.099999904632568,
+              "worldPositionM": [
+                -2.799999952316284,
+                1.6200000047683716,
+                0
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "radiusM": 0.10000000149011612
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "SphereGeometry",
+            "parameters": {
+              "radius": 0.1,
+              "widthSegments": 18,
+              "heightSegments": 14,
+              "phiStart": 0,
+              "phiLength": 6.283185307179586,
+              "thetaStart": 0,
+              "thetaLength": 3.141592653589793
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "uarmS": {
+          "massKg": 2.0999999046325684,
+          "bodyWorldM": [
+            -2.6500000953674316,
+            1.4299999475479126,
+            0.20000000298023224
+          ],
+          "principalInertiaKgM2": [
+            0.006031749304383993,
+            0.014006121084094048,
+            0.014006121084094048
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Capsule",
+              "massKg": 2.0999999046325684,
+              "worldPositionM": [
+                -2.6500000953674316,
+                1.4299999475479126,
+                0.20000000298023224
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                -0.7071067690849304,
+                0.7071067690849304
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "radiusM": 0.04500000178813934,
+              "halfCylinderLengthM": 0.10499999672174454,
+              "endToEndLengthM": 0.29999999701976776
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "CapsuleGeometry",
+            "parameters": {
+              "radius": 0.053,
+              "height": 0.21,
+              "capSegments": 4,
+              "radialSegments": 10,
+              "heightSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0.7071067811865475,
+              0.7071067811865476
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "farmS": {
+          "massKg": 1.649999976158142,
+          "bodyWorldM": [
+            -2.365000009536743,
+            1.4299999475479126,
+            0.20000000298023224
+          ],
+          "principalInertiaKgM2": [
+            0.005262136925011873,
+            0.008917117491364479,
+            0.008917117491364479
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Capsule",
+              "massKg": 1.649999976158142,
+              "worldPositionM": [
+                -2.365000009536743,
+                1.4299999475479126,
+                0.20000000298023224
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                -0.7071067690849304,
+                0.7071067690849304
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "radiusM": 0.03999999910593033,
+              "halfCylinderLengthM": 0.0949999988079071,
+              "endToEndLengthM": 0.26999999582767487
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "CapsuleGeometry",
+            "parameters": {
+              "radius": 0.044,
+              "height": 0.19,
+              "capSegments": 4,
+              "radialSegments": 10,
+              "heightSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0.7071067811865475,
+              0.7071067811865476
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "uarmO": {
+          "massKg": 2.0999999046325684,
+          "bodyWorldM": [
+            -2.799999952316284,
+            1.2799999713897705,
+            -0.20000000298023224
+          ],
+          "principalInertiaKgM2": [
+            0.014006122946739197,
+            0.0020317495800554752,
+            0.014006122946739197
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Capsule",
+              "massKg": 2.0999999046325684,
+              "worldPositionM": [
+                -2.799999952316284,
+                1.2799999713897705,
+                -0.20000000298023224
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "radiusM": 0.04500000178813934,
+              "halfCylinderLengthM": 0.10499999672174454,
+              "endToEndLengthM": 0.29999999701976776
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "CapsuleGeometry",
+            "parameters": {
+              "radius": 0.053,
+              "height": 0.21,
+              "capSegments": 4,
+              "radialSegments": 10,
+              "heightSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "farmO": {
+          "massKg": 1.649999976158142,
+          "bodyWorldM": [
+            -2.799999952316284,
+            0.9900000095367432,
+            -0.20000000298023224
+          ],
+          "principalInertiaKgM2": [
+            0.008917119354009628,
+            0.0012621368514373899,
+            0.008917119354009628
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Capsule",
+              "massKg": 1.649999976158142,
+              "worldPositionM": [
+                -2.799999952316284,
+                0.9900000095367432,
+                -0.20000000298023224
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "radiusM": 0.03999999910593033,
+              "halfCylinderLengthM": 0.0949999988079071,
+              "endToEndLengthM": 0.26999999582767487
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "CapsuleGeometry",
+            "parameters": {
+              "radius": 0.044,
+              "height": 0.19,
+              "capSegments": 4,
+              "radialSegments": 10,
+              "heightSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "thighF": {
+          "massKg": 7.499999523162842,
+          "bodyWorldM": [
+            -2.799999952316284,
+            0.7149999737739563,
+            0.0949999988079071
+          ],
+          "principalInertiaKgM2": [
+            0.10274531692266464,
+            0.015133512206375599,
+            0.10274531692266464
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Capsule",
+              "massKg": 7.5,
+              "worldPositionM": [
+                -2.799999952316284,
+                0.7149999737739563,
+                0.0949999988079071
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "radiusM": 0.06499999761581421,
+              "halfCylinderLengthM": 0.15000000596046448,
+              "endToEndLengthM": 0.4300000071525574
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "CapsuleGeometry",
+            "parameters": {
+              "radius": 0.065,
+              "height": 0.3,
+              "capSegments": 4,
+              "radialSegments": 10,
+              "heightSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "shinF": {
+          "massKg": 3.499999761581421,
+          "bodyWorldM": [
+            -2.799999952316284,
+            0.28999999165534973,
+            0.0949999988079071
+          ],
+          "principalInertiaKgM2": [
+            0.046199996024370193,
+            0.004224138334393501,
+            0.046199996024370193
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Capsule",
+              "massKg": 3.5,
+              "worldPositionM": [
+                -2.799999952316284,
+                0.28999999165534973,
+                0.0949999988079071
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "radiusM": 0.05000000074505806,
+              "halfCylinderLengthM": 0.1599999964237213,
+              "endToEndLengthM": 0.41999999433755875
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "CapsuleGeometry",
+            "parameters": {
+              "radius": 0.05,
+              "height": 0.32,
+              "capSegments": 4,
+              "radialSegments": 10,
+              "heightSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "footF": {
+          "massKg": 1.100000023841858,
+          "bodyWorldM": [
+            -2.75,
+            0.04500000178813934,
+            0.0949999988079071
+          ],
+          "principalInertiaKgM2": [
+            0.0013658334501087666,
+            0.0061966669745743275,
+            0.00572916679084301
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Cuboid",
+              "massKg": 1.100000023841858,
+              "worldPositionM": [
+                -2.75,
+                0.04500000178813934,
+                0.0949999988079071
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 4194321,
+              "friction": 0.8999999761581421,
+              "fullDimensionsLocalM": [
+                0.23999999463558197,
+                0.07000000029802322,
+                0.10000000149011612
+              ]
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "BoxGeometry",
+            "parameters": {
+              "width": 0.25,
+              "height": 0.075,
+              "depth": 0.11,
+              "widthSegments": 1,
+              "heightSegments": 1,
+              "depthSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "thighB": {
+          "massKg": 7.499999523162842,
+          "bodyWorldM": [
+            -2.799999952316284,
+            0.7149999737739563,
+            -0.0949999988079071
+          ],
+          "principalInertiaKgM2": [
+            0.10274531692266464,
+            0.015133512206375599,
+            0.10274531692266464
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Capsule",
+              "massKg": 7.5,
+              "worldPositionM": [
+                -2.799999952316284,
+                0.7149999737739563,
+                -0.0949999988079071
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "radiusM": 0.06499999761581421,
+              "halfCylinderLengthM": 0.15000000596046448,
+              "endToEndLengthM": 0.4300000071525574
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "CapsuleGeometry",
+            "parameters": {
+              "radius": 0.065,
+              "height": 0.3,
+              "capSegments": 4,
+              "radialSegments": 10,
+              "heightSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "shinB": {
+          "massKg": 3.499999761581421,
+          "bodyWorldM": [
+            -2.799999952316284,
+            0.28999999165534973,
+            -0.0949999988079071
+          ],
+          "principalInertiaKgM2": [
+            0.046199996024370193,
+            0.004224138334393501,
+            0.046199996024370193
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Capsule",
+              "massKg": 3.5,
+              "worldPositionM": [
+                -2.799999952316284,
+                0.28999999165534973,
+                -0.0949999988079071
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "radiusM": 0.05000000074505806,
+              "halfCylinderLengthM": 0.1599999964237213,
+              "endToEndLengthM": 0.41999999433755875
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "CapsuleGeometry",
+            "parameters": {
+              "radius": 0.05,
+              "height": 0.32,
+              "capSegments": 4,
+              "radialSegments": 10,
+              "heightSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "footB": {
+          "massKg": 1.100000023841858,
+          "bodyWorldM": [
+            -2.75,
+            0.04500000178813934,
+            -0.0949999988079071
+          ],
+          "principalInertiaKgM2": [
+            0.0013658334501087666,
+            0.0061966669745743275,
+            0.00572916679084301
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Cuboid",
+              "massKg": 1.100000023841858,
+              "worldPositionM": [
+                -2.75,
+                0.04500000178813934,
+                -0.0949999988079071
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 4194321,
+              "friction": 0.8999999761581421,
+              "fullDimensionsLocalM": [
+                0.23999999463558197,
+                0.07000000029802322,
+                0.10000000149011612
+              ]
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "BoxGeometry",
+            "parameters": {
+              "width": 0.25,
+              "height": 0.075,
+              "depth": 0.11,
+              "widthSegments": 1,
+              "heightSegments": 1,
+              "depthSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        }
+      },
+      "joints": [
+        {
+          "name": "abdomen",
+          "parent": "pelvis",
+          "child": "abdomen",
+          "modelType": "ball",
+          "nativeType": "Generic",
+          "nominalRotationalDOF": 3,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            0.09000000357627869,
+            0
+          ],
+          "childAnchorLocalM": [
+            0,
+            -0.07000000029802322,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            1.0600000321865082,
+            0
+          ],
+          "childAnchorWorldM": [
+            -2.799999952316284,
+            1.0599999949336052,
+            0
+          ],
+          "initialAnchorGapM": 3.725290298461914e-8,
+          "hingeAxisWorld": null,
+          "angularLimits": {
+            "bodyLocalX": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": -0.3499999940395355,
+              "maxRad": 0.3499999940395355
+            },
+            "bodyLocalY": {
+              "rawAxis": 4,
+              "enabled": true,
+              "minRad": -0.5,
+              "maxRad": 0.5
+            },
+            "bodyLocalZ": {
+              "rawAxis": 5,
+              "enabled": true,
+              "minRad": -0.699999988079071,
+              "maxRad": 0.30000001192092896
+            }
+          },
+          "motorParameters": {
+            "k": 1800,
+            "d": 180,
+            "nominalMax": 500,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "chest",
+          "parent": "abdomen",
+          "child": "chest",
+          "modelType": "ball",
+          "nativeType": "Generic",
+          "nominalRotationalDOF": 3,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            0.07000000029802322,
+            0
+          ],
+          "childAnchorLocalM": [
+            0,
+            -0.12999999523162842,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            1.1999999955296516,
+            0
+          ],
+          "childAnchorWorldM": [
+            -2.799999952316284,
+            1.2000000476837158,
+            0
+          ],
+          "initialAnchorGapM": 5.21540641784668e-8,
+          "hingeAxisWorld": null,
+          "angularLimits": {
+            "bodyLocalX": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": -0.30000001192092896,
+              "maxRad": 0.30000001192092896
+            },
+            "bodyLocalY": {
+              "rawAxis": 4,
+              "enabled": true,
+              "minRad": -0.6000000238418579,
+              "maxRad": 0.6000000238418579
+            },
+            "bodyLocalZ": {
+              "rawAxis": 5,
+              "enabled": true,
+              "minRad": -0.5,
+              "maxRad": 0.25
+            }
+          },
+          "motorParameters": {
+            "k": 1600,
+            "d": 160,
+            "nominalMax": 440,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "head",
+          "parent": "chest",
+          "child": "head",
+          "modelType": "ball",
+          "nativeType": "Generic",
+          "nominalRotationalDOF": 3,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            0.17000000178813934,
+            0
+          ],
+          "childAnchorLocalM": [
+            0,
+            -0.11999999731779099,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            1.5000000447034836,
+            0
+          ],
+          "childAnchorWorldM": [
+            -2.799999952316284,
+            1.5000000074505806,
+            0
+          ],
+          "initialAnchorGapM": 3.725290298461914e-8,
+          "hingeAxisWorld": null,
+          "angularLimits": {
+            "bodyLocalX": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": -0.5,
+              "maxRad": 0.5
+            },
+            "bodyLocalY": {
+              "rawAxis": 4,
+              "enabled": true,
+              "minRad": -1,
+              "maxRad": 1
+            },
+            "bodyLocalZ": {
+              "rawAxis": 5,
+              "enabled": true,
+              "minRad": -0.699999988079071,
+              "maxRad": 0.5
+            }
+          },
+          "motorParameters": {
+            "k": 280,
+            "d": 16,
+            "nominalMax": 80,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "uarmS",
+          "parent": "chest",
+          "child": "uarmS",
+          "modelType": "ball",
+          "nativeType": "Generic",
+          "nominalRotationalDOF": 3,
+          "manual": true,
+          "parentAnchorLocalM": [
+            0,
+            0.10000000149011612,
+            0.20000000298023224
+          ],
+          "childAnchorLocalM": [
+            -0.15000000596046448,
+            0,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            1.4300000444054604,
+            0.20000000298023224
+          ],
+          "childAnchorWorldM": [
+            -2.800000101327896,
+            1.4299999475479126,
+            0.20000000298023224
+          ],
+          "initialAnchorGapM": 1.7772406998092776e-7,
+          "hingeAxisWorld": null,
+          "angularLimits": {
+            "bodyLocalX": {
+              "rawAxis": 3,
+              "enabled": false,
+              "minRad": -3.4028234663852886e+38,
+              "maxRad": 3.4028234663852886e+38
+            },
+            "bodyLocalY": {
+              "rawAxis": 4,
+              "enabled": false,
+              "minRad": -3.4028234663852886e+38,
+              "maxRad": 3.4028234663852886e+38
+            },
+            "bodyLocalZ": {
+              "rawAxis": 5,
+              "enabled": false,
+              "minRad": -3.4028234663852886e+38,
+              "maxRad": 3.4028234663852886e+38
+            }
+          },
+          "motorParameters": {
+            "k": 320,
+            "d": 26,
+            "nominalMax": 80,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "farmS",
+          "parent": "uarmS",
+          "child": "farmS",
+          "modelType": "hinge",
+          "nativeType": "Revolute",
+          "nominalRotationalDOF": 1,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0.15000000596046448,
+            0,
+            0
+          ],
+          "childAnchorLocalM": [
+            -0.13500000536441803,
+            0,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.500000089406967,
+            1.4299999475479126,
+            0.20000000298023224
+          ],
+          "childAnchorWorldM": [
+            -2.500000014901161,
+            1.4299999475479126,
+            0.20000000298023224
+          ],
+          "initialAnchorGapM": 7.450580596923828e-8,
+          "hingeAxisWorld": [
+            0,
+            0,
+            1
+          ],
+          "angularLimits": {
+            "physicalBodyLocalZ": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": 0,
+              "maxRad": 2.5
+            }
+          },
+          "motorParameters": {
+            "k": 400,
+            "d": 38,
+            "nominalMax": 80,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "uarmO",
+          "parent": "chest",
+          "child": "uarmO",
+          "modelType": "ball",
+          "nativeType": "Generic",
+          "nominalRotationalDOF": 3,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            0.10000000149011612,
+            -0.20000000298023224
+          ],
+          "childAnchorLocalM": [
+            0,
+            0.15000000596046448,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            1.4300000444054604,
+            -0.20000000298023224
+          ],
+          "childAnchorWorldM": [
+            -2.799999952316284,
+            1.429999977350235,
+            -0.20000000298023224
+          ],
+          "initialAnchorGapM": 6.705522537231445e-8,
+          "hingeAxisWorld": null,
+          "angularLimits": {
+            "bodyLocalX": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": -2.4000000953674316,
+              "maxRad": 2.4000000953674316
+            },
+            "bodyLocalY": {
+              "rawAxis": 4,
+              "enabled": true,
+              "minRad": -1.5,
+              "maxRad": 1.5
+            },
+            "bodyLocalZ": {
+              "rawAxis": 5,
+              "enabled": true,
+              "minRad": -1,
+              "maxRad": 2.9000000953674316
+            }
+          },
+          "motorParameters": {
+            "k": 400,
+            "d": 36,
+            "nominalMax": 140,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "farmO",
+          "parent": "uarmO",
+          "child": "farmO",
+          "modelType": "hinge",
+          "nativeType": "Revolute",
+          "nominalRotationalDOF": 1,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            -0.15000000596046448,
+            0
+          ],
+          "childAnchorLocalM": [
+            0,
+            0.14000000059604645,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            1.129999965429306,
+            -0.20000000298023224
+          ],
+          "childAnchorWorldM": [
+            -2.799999952316284,
+            1.1300000101327896,
+            -0.20000000298023224
+          ],
+          "initialAnchorGapM": 4.470348358154297e-8,
+          "hingeAxisWorld": [
+            0,
+            0,
+            1
+          ],
+          "angularLimits": {
+            "physicalBodyLocalZ": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": 0,
+              "maxRad": 2.5
+            }
+          },
+          "motorParameters": {
+            "k": 240,
+            "d": 20,
+            "nominalMax": 100,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "thighF",
+          "parent": "pelvis",
+          "child": "thighF",
+          "modelType": "ball",
+          "nativeType": "Generic",
+          "nominalRotationalDOF": 3,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            -0.03999999910593033,
+            0.0949999988079071
+          ],
+          "childAnchorLocalM": [
+            0,
+            0.2150000035762787,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            0.9300000295042992,
+            0.0949999988079071
+          ],
+          "childAnchorWorldM": [
+            -2.799999952316284,
+            0.929999977350235,
+            0.0949999988079071
+          ],
+          "initialAnchorGapM": 5.21540641784668e-8,
+          "hingeAxisWorld": null,
+          "angularLimits": {
+            "bodyLocalX": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": -0.6000000238418579,
+              "maxRad": 0.6000000238418579
+            },
+            "bodyLocalY": {
+              "rawAxis": 4,
+              "enabled": true,
+              "minRad": -0.8999999761581421,
+              "maxRad": 0.8999999761581421
+            },
+            "bodyLocalZ": {
+              "rawAxis": 5,
+              "enabled": true,
+              "minRad": -0.5,
+              "maxRad": 2
+            }
+          },
+          "motorParameters": {
+            "k": 1800,
+            "d": 160,
+            "nominalMax": 560,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "shinF",
+          "parent": "thighF",
+          "child": "shinF",
+          "modelType": "hinge",
+          "nativeType": "Revolute",
+          "nominalRotationalDOF": 1,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            -0.2150000035762787,
+            0
+          ],
+          "childAnchorLocalM": [
+            0,
+            0.20999999344348907,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            0.4999999701976776,
+            0.0949999988079071
+          ],
+          "childAnchorWorldM": [
+            -2.799999952316284,
+            0.4999999850988388,
+            0.0949999988079071
+          ],
+          "initialAnchorGapM": 1.4901161193847656e-8,
+          "hingeAxisWorld": [
+            0,
+            0,
+            1
+          ],
+          "angularLimits": {
+            "physicalBodyLocalZ": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": -2.5,
+              "maxRad": 0.019999999552965164
+            }
+          },
+          "motorParameters": {
+            "k": 1600,
+            "d": 100,
+            "nominalMax": 500,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "footF",
+          "parent": "shinF",
+          "child": "footF",
+          "modelType": "ball",
+          "nativeType": "Generic",
+          "nominalRotationalDOF": 3,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            -0.20999999344348907,
+            0
+          ],
+          "childAnchorLocalM": [
+            -0.05000000074505806,
+            0.03500000014901161,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            0.07999999821186066,
+            0.0949999988079071
+          ],
+          "childAnchorWorldM": [
+            -2.800000000745058,
+            0.08000000193715096,
+            0.0949999988079071
+          ],
+          "initialAnchorGapM": 4.857184294762201e-8,
+          "hingeAxisWorld": null,
+          "angularLimits": {
+            "bodyLocalX": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": -0.4000000059604645,
+              "maxRad": 0.4000000059604645
+            },
+            "bodyLocalY": {
+              "rawAxis": 4,
+              "enabled": true,
+              "minRad": -0.30000001192092896,
+              "maxRad": 0.30000001192092896
+            },
+            "bodyLocalZ": {
+              "rawAxis": 5,
+              "enabled": true,
+              "minRad": -0.6000000238418579,
+              "maxRad": 0.800000011920929
+            }
+          },
+          "motorParameters": {
+            "k": 700,
+            "d": 24,
+            "nominalMax": 240,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "thighB",
+          "parent": "pelvis",
+          "child": "thighB",
+          "modelType": "ball",
+          "nativeType": "Generic",
+          "nominalRotationalDOF": 3,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            -0.03999999910593033,
+            -0.0949999988079071
+          ],
+          "childAnchorLocalM": [
+            0,
+            0.2150000035762787,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            0.9300000295042992,
+            -0.0949999988079071
+          ],
+          "childAnchorWorldM": [
+            -2.799999952316284,
+            0.929999977350235,
+            -0.0949999988079071
+          ],
+          "initialAnchorGapM": 5.21540641784668e-8,
+          "hingeAxisWorld": null,
+          "angularLimits": {
+            "bodyLocalX": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": -0.6000000238418579,
+              "maxRad": 0.6000000238418579
+            },
+            "bodyLocalY": {
+              "rawAxis": 4,
+              "enabled": true,
+              "minRad": -0.8999999761581421,
+              "maxRad": 0.8999999761581421
+            },
+            "bodyLocalZ": {
+              "rawAxis": 5,
+              "enabled": true,
+              "minRad": -0.5,
+              "maxRad": 2
+            }
+          },
+          "motorParameters": {
+            "k": 1800,
+            "d": 160,
+            "nominalMax": 560,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "shinB",
+          "parent": "thighB",
+          "child": "shinB",
+          "modelType": "hinge",
+          "nativeType": "Revolute",
+          "nominalRotationalDOF": 1,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            -0.2150000035762787,
+            0
+          ],
+          "childAnchorLocalM": [
+            0,
+            0.20999999344348907,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            0.4999999701976776,
+            -0.0949999988079071
+          ],
+          "childAnchorWorldM": [
+            -2.799999952316284,
+            0.4999999850988388,
+            -0.0949999988079071
+          ],
+          "initialAnchorGapM": 1.4901161193847656e-8,
+          "hingeAxisWorld": [
+            0,
+            0,
+            1
+          ],
+          "angularLimits": {
+            "physicalBodyLocalZ": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": -2.5,
+              "maxRad": 0.019999999552965164
+            }
+          },
+          "motorParameters": {
+            "k": 1600,
+            "d": 100,
+            "nominalMax": 500,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "footB",
+          "parent": "shinB",
+          "child": "footB",
+          "modelType": "ball",
+          "nativeType": "Generic",
+          "nominalRotationalDOF": 3,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            -0.20999999344348907,
+            0
+          ],
+          "childAnchorLocalM": [
+            -0.05000000074505806,
+            0.03500000014901161,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            0.07999999821186066,
+            -0.0949999988079071
+          ],
+          "childAnchorWorldM": [
+            -2.800000000745058,
+            0.08000000193715096,
+            -0.0949999988079071
+          ],
+          "initialAnchorGapM": 4.857184294762201e-8,
+          "hingeAxisWorld": null,
+          "angularLimits": {
+            "bodyLocalX": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": -0.4000000059604645,
+              "maxRad": 0.4000000059604645
+            },
+            "bodyLocalY": {
+              "rawAxis": 4,
+              "enabled": true,
+              "minRad": -0.30000001192092896,
+              "maxRad": 0.30000001192092896
+            },
+            "bodyLocalZ": {
+              "rawAxis": 5,
+              "enabled": true,
+              "minRad": -0.6000000238418579,
+              "maxRad": 0.800000011920929
+            }
+          },
+          "motorParameters": {
+            "k": 700,
+            "d": 24,
+            "nominalMax": 240,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        }
+      ],
+      "lengths": {
+        "swordUpperM": 0.30000001192092896,
+        "swordForeToGripM": 0.26500000059604645,
+        "offUpperM": 0.30000001192092896,
+        "offForeToForcePointM": 0.27500000059604646,
+        "thighFM": 0.4300000071525574,
+        "shinFM": 0.41999998688697815,
+        "thighBM": 0.4300000071525574,
+        "shinBM": 0.41999998688697815
+      },
+      "visualCounts": {
+        "bones": 0,
+        "skinnedMeshes": 0,
+        "handSphereMeshes": {
+          "farmS": 1,
+          "farmO": 1
+        }
+      },
+      "collisionGroupChecks": {
+        "allPrimarySelfBodyPairsFiltered": true,
+        "allPrimaryBodyAgainstOwnSwordFiltered": true,
+        "note": "group compatibility only, not geometric overlap test; primary colliders examined"
+      },
+      "torso": {
+        "pelvis": {
+          "colliderFullXYZM": [
+            0.20000000298023224,
+            0.17000000178813934,
+            0.3199999928474426
+          ],
+          "visualPrimaryFullXYZM": [
+            0.21,
+            0.18,
+            0.33
+          ]
+        },
+        "abdomen": {
+          "colliderFullXYZM": [
+            0.20000000298023224,
+            0.14000000059604645,
+            0.30000001192092896
+          ],
+          "visualPrimaryFullXYZM": [
+            0.22,
+            0.155,
+            0.32
+          ]
+        },
+        "chest": {
+          "colliderFullXYZM": [
+            0.2199999988079071,
+            0.25999999046325684,
+            0.36000001430511475
+          ],
+          "visualPrimaryFullXYZM": [
+            0.24,
+            0.28,
+            0.37
+          ]
+        }
+      },
+      "footMass": {
+        "configuredExtraPerStanceFootKg": 2,
+        "constructionFootMassKg": {
+          "F": 1.100000023841858,
+          "B": 1.100000023841858
+        },
+        "afterActualGaitEnterFootMassKg": {
+          "F": 3.0999999046325684,
+          "B": 3.0999999046325684
+        },
+        "afterEnterBodyMassSumKg": 79.09999823570251,
+        "afterEnterControllerTotalMassKg": 75.1,
+        "note": "stance initializes additional mass through existing footMass; no integration or gait benchmark"
+      }
+    },
+    {
+      "weightMode": "levitate",
+      "bodyCount": 14,
+      "anatomicalJointCount": 13,
+      "bodyMassSumKg": 75.0999984741211,
+      "controllerTotalMassKg": 75.1,
+      "swordMassKg": 1.600000023841858,
+      "extraObjects": {
+        "sword": "separate dynamic body",
+        "uprightAnchor": "separate kinematic body",
+        "gripJoint": {
+          "type": "Generic",
+          "forearmAnchorLocalM": [
+            0.12999999523162842,
+            0,
+            0
+          ]
+        },
+        "uprightJoint": {
+          "type": "Generic"
+        }
+      },
+      "parts": {
+        "pelvis": {
+          "massKg": 10.699999809265137,
+          "bodyWorldM": [
+            -2.799999952316284,
+            0.9700000286102295,
+            0
+          ],
+          "principalInertiaKgM2": [
+            0.1170758306980133,
+            0.12697334587574005,
+            0.06143583357334137
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Cuboid",
+              "massKg": 10.699999809265137,
+              "worldPositionM": [
+                -2.799999952316284,
+                0.9700000286102295,
+                0
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "fullDimensionsLocalM": [
+                0.20000000298023224,
+                0.17000000178813934,
+                0.3199999928474426
+              ]
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "BoxGeometry",
+            "parameters": {
+              "width": 0.21,
+              "height": 0.18,
+              "depth": 0.33,
+              "widthSegments": 1,
+              "heightSegments": 1,
+              "depthSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "abdomen": {
+          "massKg": 10.399999618530273,
+          "bodyWorldM": [
+            -2.799999952316284,
+            1.1299999952316284,
+            0
+          ],
+          "principalInertiaKgM2": [
+            0.4949866533279419,
+            0.5126667022705078,
+            0.451653391122818
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Cuboid",
+              "massKg": 10.399999618530273,
+              "worldPositionM": [
+                -2.799999952316284,
+                1.1299999952316284,
+                0
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "fullDimensionsLocalM": [
+                0.20000000298023224,
+                0.14000000059604645,
+                0.30000001192092896
+              ]
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "BoxGeometry",
+            "parameters": {
+              "width": 0.22,
+              "height": 0.155,
+              "depth": 0.32,
+              "widthSegments": 1,
+              "heightSegments": 1,
+              "depthSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "chest": {
+          "massKg": 16.200000762939453,
+          "bodyWorldM": [
+            -2.799999952316284,
+            1.3300000429153442,
+            0
+          ],
+          "principalInertiaKgM2": [
+            0.2662200331687927,
+            0.2403000146150589,
+            0.1565999984741211
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Cuboid",
+              "massKg": 16.200000762939453,
+              "worldPositionM": [
+                -2.799999952316284,
+                1.3300000429153442,
+                0
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "fullDimensionsLocalM": [
+                0.2199999988079071,
+                0.25999999046325684,
+                0.36000001430511475
+              ]
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "BoxGeometry",
+            "parameters": {
+              "width": 0.24,
+              "height": 0.28,
+              "depth": 0.37,
+              "widthSegments": 1,
+              "heightSegments": 1,
+              "depthSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "head": {
+          "massKg": 6.099999904632568,
+          "bodyWorldM": [
+            -2.799999952316284,
+            1.6200000047683716,
+            0
+          ],
+          "principalInertiaKgM2": [
+            0.024400001391768456,
+            0.024400001391768456,
+            0.024400001391768456
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Ball",
+              "massKg": 6.099999904632568,
+              "worldPositionM": [
+                -2.799999952316284,
+                1.6200000047683716,
+                0
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "radiusM": 0.10000000149011612
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "SphereGeometry",
+            "parameters": {
+              "radius": 0.1,
+              "widthSegments": 18,
+              "heightSegments": 14,
+              "phiStart": 0,
+              "phiLength": 6.283185307179586,
+              "thetaStart": 0,
+              "thetaLength": 3.141592653589793
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "uarmS": {
+          "massKg": 2.0999999046325684,
+          "bodyWorldM": [
+            -2.6500000953674316,
+            1.4299999475479126,
+            0.20000000298023224
+          ],
+          "principalInertiaKgM2": [
+            0.006031749304383993,
+            0.014006121084094048,
+            0.014006121084094048
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Capsule",
+              "massKg": 2.0999999046325684,
+              "worldPositionM": [
+                -2.6500000953674316,
+                1.4299999475479126,
+                0.20000000298023224
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                -0.7071067690849304,
+                0.7071067690849304
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "radiusM": 0.04500000178813934,
+              "halfCylinderLengthM": 0.10499999672174454,
+              "endToEndLengthM": 0.29999999701976776
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "CapsuleGeometry",
+            "parameters": {
+              "radius": 0.053,
+              "height": 0.21,
+              "capSegments": 4,
+              "radialSegments": 10,
+              "heightSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0.7071067811865475,
+              0.7071067811865476
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "farmS": {
+          "massKg": 1.649999976158142,
+          "bodyWorldM": [
+            -2.365000009536743,
+            1.4299999475479126,
+            0.20000000298023224
+          ],
+          "principalInertiaKgM2": [
+            0.005262136925011873,
+            0.008917117491364479,
+            0.008917117491364479
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Capsule",
+              "massKg": 1.649999976158142,
+              "worldPositionM": [
+                -2.365000009536743,
+                1.4299999475479126,
+                0.20000000298023224
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                -0.7071067690849304,
+                0.7071067690849304
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "radiusM": 0.03999999910593033,
+              "halfCylinderLengthM": 0.0949999988079071,
+              "endToEndLengthM": 0.26999999582767487
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "CapsuleGeometry",
+            "parameters": {
+              "radius": 0.044,
+              "height": 0.19,
+              "capSegments": 4,
+              "radialSegments": 10,
+              "heightSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0.7071067811865475,
+              0.7071067811865476
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "uarmO": {
+          "massKg": 2.0999999046325684,
+          "bodyWorldM": [
+            -2.799999952316284,
+            1.2799999713897705,
+            -0.20000000298023224
+          ],
+          "principalInertiaKgM2": [
+            0.014006122946739197,
+            0.0020317495800554752,
+            0.014006122946739197
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Capsule",
+              "massKg": 2.0999999046325684,
+              "worldPositionM": [
+                -2.799999952316284,
+                1.2799999713897705,
+                -0.20000000298023224
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "radiusM": 0.04500000178813934,
+              "halfCylinderLengthM": 0.10499999672174454,
+              "endToEndLengthM": 0.29999999701976776
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "CapsuleGeometry",
+            "parameters": {
+              "radius": 0.053,
+              "height": 0.21,
+              "capSegments": 4,
+              "radialSegments": 10,
+              "heightSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "farmO": {
+          "massKg": 1.649999976158142,
+          "bodyWorldM": [
+            -2.799999952316284,
+            0.9900000095367432,
+            -0.20000000298023224
+          ],
+          "principalInertiaKgM2": [
+            0.008917119354009628,
+            0.0012621368514373899,
+            0.008917119354009628
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Capsule",
+              "massKg": 1.649999976158142,
+              "worldPositionM": [
+                -2.799999952316284,
+                0.9900000095367432,
+                -0.20000000298023224
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "radiusM": 0.03999999910593033,
+              "halfCylinderLengthM": 0.0949999988079071,
+              "endToEndLengthM": 0.26999999582767487
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "CapsuleGeometry",
+            "parameters": {
+              "radius": 0.044,
+              "height": 0.19,
+              "capSegments": 4,
+              "radialSegments": 10,
+              "heightSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "thighF": {
+          "massKg": 7.499999523162842,
+          "bodyWorldM": [
+            -2.799999952316284,
+            0.7149999737739563,
+            0.0949999988079071
+          ],
+          "principalInertiaKgM2": [
+            0.10274531692266464,
+            0.015133512206375599,
+            0.10274531692266464
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Capsule",
+              "massKg": 7.5,
+              "worldPositionM": [
+                -2.799999952316284,
+                0.7149999737739563,
+                0.0949999988079071
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "radiusM": 0.06499999761581421,
+              "halfCylinderLengthM": 0.15000000596046448,
+              "endToEndLengthM": 0.4300000071525574
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "CapsuleGeometry",
+            "parameters": {
+              "radius": 0.065,
+              "height": 0.3,
+              "capSegments": 4,
+              "radialSegments": 10,
+              "heightSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "shinF": {
+          "massKg": 3.499999761581421,
+          "bodyWorldM": [
+            -2.799999952316284,
+            0.28999999165534973,
+            0.0949999988079071
+          ],
+          "principalInertiaKgM2": [
+            0.046199996024370193,
+            0.004224138334393501,
+            0.046199996024370193
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Capsule",
+              "massKg": 3.5,
+              "worldPositionM": [
+                -2.799999952316284,
+                0.28999999165534973,
+                0.0949999988079071
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "radiusM": 0.05000000074505806,
+              "halfCylinderLengthM": 0.1599999964237213,
+              "endToEndLengthM": 0.41999999433755875
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "CapsuleGeometry",
+            "parameters": {
+              "radius": 0.05,
+              "height": 0.32,
+              "capSegments": 4,
+              "radialSegments": 10,
+              "heightSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "footF": {
+          "massKg": 1.100000023841858,
+          "bodyWorldM": [
+            -2.75,
+            0.04500000178813934,
+            0.0949999988079071
+          ],
+          "principalInertiaKgM2": [
+            0.0013658334501087666,
+            0.0061966669745743275,
+            0.00572916679084301
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Cuboid",
+              "massKg": 1.100000023841858,
+              "worldPositionM": [
+                -2.75,
+                0.04500000178813934,
+                0.0949999988079071
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 4194321,
+              "friction": 0.8999999761581421,
+              "fullDimensionsLocalM": [
+                0.23999999463558197,
+                0.07000000029802322,
+                0.10000000149011612
+              ]
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "BoxGeometry",
+            "parameters": {
+              "width": 0.25,
+              "height": 0.075,
+              "depth": 0.11,
+              "widthSegments": 1,
+              "heightSegments": 1,
+              "depthSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "thighB": {
+          "massKg": 7.499999523162842,
+          "bodyWorldM": [
+            -2.799999952316284,
+            0.7149999737739563,
+            -0.0949999988079071
+          ],
+          "principalInertiaKgM2": [
+            0.10274531692266464,
+            0.015133512206375599,
+            0.10274531692266464
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Capsule",
+              "massKg": 7.5,
+              "worldPositionM": [
+                -2.799999952316284,
+                0.7149999737739563,
+                -0.0949999988079071
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "radiusM": 0.06499999761581421,
+              "halfCylinderLengthM": 0.15000000596046448,
+              "endToEndLengthM": 0.4300000071525574
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "CapsuleGeometry",
+            "parameters": {
+              "radius": 0.065,
+              "height": 0.3,
+              "capSegments": 4,
+              "radialSegments": 10,
+              "heightSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "shinB": {
+          "massKg": 3.499999761581421,
+          "bodyWorldM": [
+            -2.799999952316284,
+            0.28999999165534973,
+            -0.0949999988079071
+          ],
+          "principalInertiaKgM2": [
+            0.046199996024370193,
+            0.004224138334393501,
+            0.046199996024370193
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Capsule",
+              "massKg": 3.5,
+              "worldPositionM": [
+                -2.799999952316284,
+                0.28999999165534973,
+                -0.0949999988079071
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 131097,
+              "friction": 0.25,
+              "radiusM": 0.05000000074505806,
+              "halfCylinderLengthM": 0.1599999964237213,
+              "endToEndLengthM": 0.41999999433755875
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "CapsuleGeometry",
+            "parameters": {
+              "radius": 0.05,
+              "height": 0.32,
+              "capSegments": 4,
+              "radialSegments": 10,
+              "heightSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        },
+        "footB": {
+          "massKg": 1.100000023841858,
+          "bodyWorldM": [
+            -2.75,
+            0.04500000178813934,
+            -0.0949999988079071
+          ],
+          "principalInertiaKgM2": [
+            0.0013658334501087666,
+            0.0061966669745743275,
+            0.00572916679084301
+          ],
+          "principalFrameQuaternion": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "colliders": [
+            {
+              "shape": "Cuboid",
+              "massKg": 1.100000023841858,
+              "worldPositionM": [
+                -2.75,
+                0.04500000178813934,
+                -0.0949999988079071
+              ],
+              "worldQuaternion": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "collisionGroups": 4194321,
+              "friction": 0.8999999761581421,
+              "fullDimensionsLocalM": [
+                0.23999999463558197,
+                0.07000000029802322,
+                0.10000000149011612
+              ]
+            }
+          ],
+          "primaryVisualGeometry": {
+            "type": "BoxGeometry",
+            "parameters": {
+              "width": 0.25,
+              "height": 0.075,
+              "depth": 0.11,
+              "widthSegments": 1,
+              "heightSegments": 1,
+              "depthSegments": 1
+            },
+            "meshScale": [
+              1,
+              1,
+              1
+            ],
+            "parentLocalQuaternion": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "meaning": "primary dressed mesh only; clothing, hand spheres and armor decorations may extend farther"
+          }
+        }
+      },
+      "joints": [
+        {
+          "name": "abdomen",
+          "parent": "pelvis",
+          "child": "abdomen",
+          "modelType": "ball",
+          "nativeType": "Generic",
+          "nominalRotationalDOF": 3,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            0.09000000357627869,
+            0
+          ],
+          "childAnchorLocalM": [
+            0,
+            -0.07000000029802322,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            1.0600000321865082,
+            0
+          ],
+          "childAnchorWorldM": [
+            -2.799999952316284,
+            1.0599999949336052,
+            0
+          ],
+          "initialAnchorGapM": 3.725290298461914e-8,
+          "hingeAxisWorld": null,
+          "angularLimits": {
+            "bodyLocalX": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": -0.3499999940395355,
+              "maxRad": 0.3499999940395355
+            },
+            "bodyLocalY": {
+              "rawAxis": 4,
+              "enabled": true,
+              "minRad": -0.5,
+              "maxRad": 0.5
+            },
+            "bodyLocalZ": {
+              "rawAxis": 5,
+              "enabled": true,
+              "minRad": -0.699999988079071,
+              "maxRad": 0.30000001192092896
+            }
+          },
+          "motorParameters": {
+            "k": 1800,
+            "d": 180,
+            "nominalMax": 500,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "chest",
+          "parent": "abdomen",
+          "child": "chest",
+          "modelType": "ball",
+          "nativeType": "Generic",
+          "nominalRotationalDOF": 3,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            0.07000000029802322,
+            0
+          ],
+          "childAnchorLocalM": [
+            0,
+            -0.12999999523162842,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            1.1999999955296516,
+            0
+          ],
+          "childAnchorWorldM": [
+            -2.799999952316284,
+            1.2000000476837158,
+            0
+          ],
+          "initialAnchorGapM": 5.21540641784668e-8,
+          "hingeAxisWorld": null,
+          "angularLimits": {
+            "bodyLocalX": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": -0.30000001192092896,
+              "maxRad": 0.30000001192092896
+            },
+            "bodyLocalY": {
+              "rawAxis": 4,
+              "enabled": true,
+              "minRad": -0.6000000238418579,
+              "maxRad": 0.6000000238418579
+            },
+            "bodyLocalZ": {
+              "rawAxis": 5,
+              "enabled": true,
+              "minRad": -0.5,
+              "maxRad": 0.25
+            }
+          },
+          "motorParameters": {
+            "k": 1600,
+            "d": 160,
+            "nominalMax": 440,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "head",
+          "parent": "chest",
+          "child": "head",
+          "modelType": "ball",
+          "nativeType": "Generic",
+          "nominalRotationalDOF": 3,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            0.17000000178813934,
+            0
+          ],
+          "childAnchorLocalM": [
+            0,
+            -0.11999999731779099,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            1.5000000447034836,
+            0
+          ],
+          "childAnchorWorldM": [
+            -2.799999952316284,
+            1.5000000074505806,
+            0
+          ],
+          "initialAnchorGapM": 3.725290298461914e-8,
+          "hingeAxisWorld": null,
+          "angularLimits": {
+            "bodyLocalX": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": -0.5,
+              "maxRad": 0.5
+            },
+            "bodyLocalY": {
+              "rawAxis": 4,
+              "enabled": true,
+              "minRad": -1,
+              "maxRad": 1
+            },
+            "bodyLocalZ": {
+              "rawAxis": 5,
+              "enabled": true,
+              "minRad": -0.699999988079071,
+              "maxRad": 0.5
+            }
+          },
+          "motorParameters": {
+            "k": 280,
+            "d": 16,
+            "nominalMax": 80,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "uarmS",
+          "parent": "chest",
+          "child": "uarmS",
+          "modelType": "ball",
+          "nativeType": "Generic",
+          "nominalRotationalDOF": 3,
+          "manual": true,
+          "parentAnchorLocalM": [
+            0,
+            0.10000000149011612,
+            0.20000000298023224
+          ],
+          "childAnchorLocalM": [
+            -0.15000000596046448,
+            0,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            1.4300000444054604,
+            0.20000000298023224
+          ],
+          "childAnchorWorldM": [
+            -2.800000101327896,
+            1.4299999475479126,
+            0.20000000298023224
+          ],
+          "initialAnchorGapM": 1.7772406998092776e-7,
+          "hingeAxisWorld": null,
+          "angularLimits": {
+            "bodyLocalX": {
+              "rawAxis": 3,
+              "enabled": false,
+              "minRad": -3.4028234663852886e+38,
+              "maxRad": 3.4028234663852886e+38
+            },
+            "bodyLocalY": {
+              "rawAxis": 4,
+              "enabled": false,
+              "minRad": -3.4028234663852886e+38,
+              "maxRad": 3.4028234663852886e+38
+            },
+            "bodyLocalZ": {
+              "rawAxis": 5,
+              "enabled": false,
+              "minRad": -3.4028234663852886e+38,
+              "maxRad": 3.4028234663852886e+38
+            }
+          },
+          "motorParameters": {
+            "k": 320,
+            "d": 26,
+            "nominalMax": 80,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "farmS",
+          "parent": "uarmS",
+          "child": "farmS",
+          "modelType": "hinge",
+          "nativeType": "Revolute",
+          "nominalRotationalDOF": 1,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0.15000000596046448,
+            0,
+            0
+          ],
+          "childAnchorLocalM": [
+            -0.13500000536441803,
+            0,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.500000089406967,
+            1.4299999475479126,
+            0.20000000298023224
+          ],
+          "childAnchorWorldM": [
+            -2.500000014901161,
+            1.4299999475479126,
+            0.20000000298023224
+          ],
+          "initialAnchorGapM": 7.450580596923828e-8,
+          "hingeAxisWorld": [
+            0,
+            0,
+            1
+          ],
+          "angularLimits": {
+            "physicalBodyLocalZ": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": 0,
+              "maxRad": 2.5
+            }
+          },
+          "motorParameters": {
+            "k": 400,
+            "d": 38,
+            "nominalMax": 80,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "uarmO",
+          "parent": "chest",
+          "child": "uarmO",
+          "modelType": "ball",
+          "nativeType": "Generic",
+          "nominalRotationalDOF": 3,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            0.10000000149011612,
+            -0.20000000298023224
+          ],
+          "childAnchorLocalM": [
+            0,
+            0.15000000596046448,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            1.4300000444054604,
+            -0.20000000298023224
+          ],
+          "childAnchorWorldM": [
+            -2.799999952316284,
+            1.429999977350235,
+            -0.20000000298023224
+          ],
+          "initialAnchorGapM": 6.705522537231445e-8,
+          "hingeAxisWorld": null,
+          "angularLimits": {
+            "bodyLocalX": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": -2.4000000953674316,
+              "maxRad": 2.4000000953674316
+            },
+            "bodyLocalY": {
+              "rawAxis": 4,
+              "enabled": true,
+              "minRad": -1.5,
+              "maxRad": 1.5
+            },
+            "bodyLocalZ": {
+              "rawAxis": 5,
+              "enabled": true,
+              "minRad": -1,
+              "maxRad": 2.9000000953674316
+            }
+          },
+          "motorParameters": {
+            "k": 400,
+            "d": 36,
+            "nominalMax": 140,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "farmO",
+          "parent": "uarmO",
+          "child": "farmO",
+          "modelType": "hinge",
+          "nativeType": "Revolute",
+          "nominalRotationalDOF": 1,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            -0.15000000596046448,
+            0
+          ],
+          "childAnchorLocalM": [
+            0,
+            0.14000000059604645,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            1.129999965429306,
+            -0.20000000298023224
+          ],
+          "childAnchorWorldM": [
+            -2.799999952316284,
+            1.1300000101327896,
+            -0.20000000298023224
+          ],
+          "initialAnchorGapM": 4.470348358154297e-8,
+          "hingeAxisWorld": [
+            0,
+            0,
+            1
+          ],
+          "angularLimits": {
+            "physicalBodyLocalZ": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": 0,
+              "maxRad": 2.5
+            }
+          },
+          "motorParameters": {
+            "k": 240,
+            "d": 20,
+            "nominalMax": 100,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "thighF",
+          "parent": "pelvis",
+          "child": "thighF",
+          "modelType": "ball",
+          "nativeType": "Generic",
+          "nominalRotationalDOF": 3,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            -0.03999999910593033,
+            0.0949999988079071
+          ],
+          "childAnchorLocalM": [
+            0,
+            0.2150000035762787,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            0.9300000295042992,
+            0.0949999988079071
+          ],
+          "childAnchorWorldM": [
+            -2.799999952316284,
+            0.929999977350235,
+            0.0949999988079071
+          ],
+          "initialAnchorGapM": 5.21540641784668e-8,
+          "hingeAxisWorld": null,
+          "angularLimits": {
+            "bodyLocalX": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": -0.6000000238418579,
+              "maxRad": 0.6000000238418579
+            },
+            "bodyLocalY": {
+              "rawAxis": 4,
+              "enabled": true,
+              "minRad": -0.6000000238418579,
+              "maxRad": 0.6000000238418579
+            },
+            "bodyLocalZ": {
+              "rawAxis": 5,
+              "enabled": true,
+              "minRad": -0.5,
+              "maxRad": 2
+            }
+          },
+          "motorParameters": {
+            "k": 1800,
+            "d": 160,
+            "nominalMax": 560,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "shinF",
+          "parent": "thighF",
+          "child": "shinF",
+          "modelType": "hinge",
+          "nativeType": "Revolute",
+          "nominalRotationalDOF": 1,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            -0.2150000035762787,
+            0
+          ],
+          "childAnchorLocalM": [
+            0,
+            0.20999999344348907,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            0.4999999701976776,
+            0.0949999988079071
+          ],
+          "childAnchorWorldM": [
+            -2.799999952316284,
+            0.4999999850988388,
+            0.0949999988079071
+          ],
+          "initialAnchorGapM": 1.4901161193847656e-8,
+          "hingeAxisWorld": [
+            0,
+            0,
+            1
+          ],
+          "angularLimits": {
+            "physicalBodyLocalZ": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": -2.5,
+              "maxRad": 0.019999999552965164
+            }
+          },
+          "motorParameters": {
+            "k": 1600,
+            "d": 100,
+            "nominalMax": 500,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "footF",
+          "parent": "shinF",
+          "child": "footF",
+          "modelType": "hinge",
+          "nativeType": "Revolute",
+          "nominalRotationalDOF": 1,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            -0.20999999344348907,
+            0
+          ],
+          "childAnchorLocalM": [
+            -0.05000000074505806,
+            0.03500000014901161,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            0.07999999821186066,
+            0.0949999988079071
+          ],
+          "childAnchorWorldM": [
+            -2.800000000745058,
+            0.08000000193715096,
+            0.0949999988079071
+          ],
+          "initialAnchorGapM": 4.857184294762201e-8,
+          "hingeAxisWorld": [
+            0,
+            0,
+            1
+          ],
+          "angularLimits": {
+            "physicalBodyLocalZ": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": -0.6000000238418579,
+              "maxRad": 0.800000011920929
+            }
+          },
+          "motorParameters": {
+            "k": 700,
+            "d": 24,
+            "nominalMax": 240,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "thighB",
+          "parent": "pelvis",
+          "child": "thighB",
+          "modelType": "ball",
+          "nativeType": "Generic",
+          "nominalRotationalDOF": 3,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            -0.03999999910593033,
+            -0.0949999988079071
+          ],
+          "childAnchorLocalM": [
+            0,
+            0.2150000035762787,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            0.9300000295042992,
+            -0.0949999988079071
+          ],
+          "childAnchorWorldM": [
+            -2.799999952316284,
+            0.929999977350235,
+            -0.0949999988079071
+          ],
+          "initialAnchorGapM": 5.21540641784668e-8,
+          "hingeAxisWorld": null,
+          "angularLimits": {
+            "bodyLocalX": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": -0.6000000238418579,
+              "maxRad": 0.6000000238418579
+            },
+            "bodyLocalY": {
+              "rawAxis": 4,
+              "enabled": true,
+              "minRad": -0.6000000238418579,
+              "maxRad": 0.6000000238418579
+            },
+            "bodyLocalZ": {
+              "rawAxis": 5,
+              "enabled": true,
+              "minRad": -0.5,
+              "maxRad": 2
+            }
+          },
+          "motorParameters": {
+            "k": 1800,
+            "d": 160,
+            "nominalMax": 560,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "shinB",
+          "parent": "thighB",
+          "child": "shinB",
+          "modelType": "hinge",
+          "nativeType": "Revolute",
+          "nominalRotationalDOF": 1,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            -0.2150000035762787,
+            0
+          ],
+          "childAnchorLocalM": [
+            0,
+            0.20999999344348907,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            0.4999999701976776,
+            -0.0949999988079071
+          ],
+          "childAnchorWorldM": [
+            -2.799999952316284,
+            0.4999999850988388,
+            -0.0949999988079071
+          ],
+          "initialAnchorGapM": 1.4901161193847656e-8,
+          "hingeAxisWorld": [
+            0,
+            0,
+            1
+          ],
+          "angularLimits": {
+            "physicalBodyLocalZ": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": -2.5,
+              "maxRad": 0.019999999552965164
+            }
+          },
+          "motorParameters": {
+            "k": 1600,
+            "d": 100,
+            "nominalMax": 500,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        },
+        {
+          "name": "footB",
+          "parent": "shinB",
+          "child": "footB",
+          "modelType": "hinge",
+          "nativeType": "Revolute",
+          "nominalRotationalDOF": 1,
+          "manual": false,
+          "parentAnchorLocalM": [
+            0,
+            -0.20999999344348907,
+            0
+          ],
+          "childAnchorLocalM": [
+            -0.05000000074505806,
+            0.03500000014901161,
+            0
+          ],
+          "parentAnchorWorldM": [
+            -2.799999952316284,
+            0.07999999821186066,
+            -0.0949999988079071
+          ],
+          "childAnchorWorldM": [
+            -2.800000000745058,
+            0.08000000193715096,
+            -0.0949999988079071
+          ],
+          "initialAnchorGapM": 4.857184294762201e-8,
+          "hingeAxisWorld": [
+            0,
+            0,
+            1
+          ],
+          "angularLimits": {
+            "physicalBodyLocalZ": {
+              "rawAxis": 3,
+              "enabled": true,
+              "minRad": -0.6000000238418579,
+              "maxRad": 0.800000011920929
+            }
+          },
+          "motorParameters": {
+            "k": 700,
+            "d": 24,
+            "nominalMax": 240,
+            "meaning": "configuration/target-error budget, not measured total applied torque"
+          }
+        }
+      ],
+      "lengths": {
+        "swordUpperM": 0.30000001192092896,
+        "swordForeToGripM": 0.26500000059604645,
+        "offUpperM": 0.30000001192092896,
+        "offForeToForcePointM": 0.27500000059604646,
+        "thighFM": 0.4300000071525574,
+        "shinFM": 0.41999998688697815,
+        "thighBM": 0.4300000071525574,
+        "shinBM": 0.41999998688697815
+      },
+      "visualCounts": {
+        "bones": 0,
+        "skinnedMeshes": 0,
+        "handSphereMeshes": {
+          "farmS": 1,
+          "farmO": 1
+        }
+      },
+      "collisionGroupChecks": {
+        "allPrimarySelfBodyPairsFiltered": true,
+        "allPrimaryBodyAgainstOwnSwordFiltered": true,
+        "note": "group compatibility only, not geometric overlap test; primary colliders examined"
+      },
+      "torso": {
+        "pelvis": {
+          "colliderFullXYZM": [
+            0.20000000298023224,
+            0.17000000178813934,
+            0.3199999928474426
+          ],
+          "visualPrimaryFullXYZM": [
+            0.21,
+            0.18,
+            0.33
+          ]
+        },
+        "abdomen": {
+          "colliderFullXYZM": [
+            0.20000000298023224,
+            0.14000000059604645,
+            0.30000001192092896
+          ],
+          "visualPrimaryFullXYZM": [
+            0.22,
+            0.155,
+            0.32
+          ]
+        },
+        "chest": {
+          "colliderFullXYZM": [
+            0.2199999988079071,
+            0.25999999046325684,
+            0.36000001430511475
+          ],
+          "visualPrimaryFullXYZM": [
+            0.24,
+            0.28,
+            0.37
+          ]
+        }
+      },
+      "footMass": {
+        "configuredExtraPerStanceFootKg": 2,
+        "constructionFootMassKg": {
+          "F": 1.100000023841858,
+          "B": 1.100000023841858
+        }
+      }
+    }
+  ],
+  "structuralLimits": {
+    "hands": "No separately articulated hand/finger rigid bodies. farm includes hand mass; visual hand sphere; main spherical grip and off-hand spring approximate grasp.",
+    "wristReaction": "driveSword splits opposite torque between forearm and chest: forearm-axis twist goes directly to chest (fighter.js:1948-1956), an abstract transmission path; total opposite torque remains paired.",
+    "torso": "Pelvis/abdomen/chest boxes with two spherical torso joints. No independent rib cage/scapula/clavicle chain or distributed spinal articulation in the measured topology.",
+    "collision": "Self body/weapon collisions filtered; foot groups also omit enemy body/foot. Joint topology alone does not prevent anatomical penetration.",
+    "continuousExecution": "Connected rigid bodies exist, but goals come from separate heading/balance/pose/arm/sword/grip controllers. Inventory alone cannot establish continuous human coordination.",
+    "note": "Model limitations are confirmed representational omissions; severity of feel/physics consequences needs controlled dynamics and user assessment."
+  },
+  "consistency": {
+    "declaredBodyCountMatches": false,
+    "swordUpperIkMinusMeasuredM": -1.1920928966180355e-8,
+    "swordForeIkMinusMeasuredM": 0.00499999940395357,
+    "offUpperIkMinusMeasuredM": -1.1920928966180355e-8,
+    "offForeIkMinusMeasuredM": -5.9604643443123e-10,
+    "description": "compare immutable body-local joint anchors and actual grip/force point, not moving world endpoint separation"
+  }
+}
