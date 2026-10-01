@@ -7,6 +7,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+from unittest.mock import patch
 
 import exchange
 
@@ -147,7 +148,7 @@ class ExchangeTests(unittest.TestCase):
 
     def test_valid_peer_idempotent_but_not_semantically_reviewed(self):
         gh, calls = self.peer_api()
-        now = datetime(2026, 10, 2, tzinfo=timezone.utc)
+        now = exchange.iso('2026-10-02T00:00:00+09:00')
         first = exchange.receive('2026-10-01', self.root, self.output, gh=gh, now=now)
         directory = self.output / 'docs/dev_exchange/inbox/2026-10-01'
         snapshot = (directory / 'peer.md').read_bytes()
@@ -183,8 +184,8 @@ class ExchangeTests(unittest.TestCase):
     def test_receipt_cutoff_and_api_classification(self):
         def unexpected(_):
             self.fail('Early receive must not call API')
-        with self.assertRaises(ValueError):
-            exchange.receive('2026-10-01', self.root, self.output, gh=unexpected, now='2026-10-01T23:59:59+09:00')
+        deferred = exchange.receive('2026-10-01', self.root, self.output, gh=unexpected, now='2026-10-01T23:59:59+09:00')
+        self.assertEqual(deferred['status'], 'deferred_outside_exchange_window')
         for status, expected in ((404, 'peer_missing'), (403, 'api_error')):
             def failed(_):
                 raise exchange.APIError(status)
@@ -347,6 +348,116 @@ class ExchangeTests(unittest.TestCase):
         self.assertEqual(result['status'], 'published')
         self.assertTrue((self.output / 'docs/devmeet/2026-10-01.json').exists())
         self.assertEqual(ledger.read_bytes(), before)
+
+    def test_exchange_window_boundaries_and_zero_contact_outside(self):
+        for stamp in ('2026-10-02T00:20:00+09:00', '2026-10-02T12:00:00+09:00', '2026-10-01T23:59:59+09:00', '2026-10-02T23:00:00+09:00'):
+            calls = []
+            def forbidden(endpoint):
+                calls.append(endpoint)
+                self.fail('Peer API must never be called outside exchange window')
+            result = exchange.receive('2026-10-01', self.root, self.output, gh=forbidden, now=stamp)
+            self.assertEqual(result['status'], 'deferred_outside_exchange_window')
+            self.assertFalse(result['semantic_review_performed'])
+            self.assertEqual(calls, [])
+        gh, calls = self.peer_api()
+        result = exchange.receive('2026-10-01', self.root, self.output, gh=gh, now='2026-10-02T00:19:59+09:00')
+        self.assertEqual(result['status'], 'peer_received')
+        self.assertEqual(len(calls), 5)
+
+    def test_contact_stops_when_window_closes_mid_receive(self):
+        for closing_read, expected_calls in ((6, 2), (10, 4)):
+            gh, calls = self.peer_api()
+            ticks = [0]
+            def clock():
+                ticks[0] += 1
+                return '2026-10-02T00:20:00+09:00' if ticks[0] >= closing_read else '2026-10-02T00:19:59+09:00'
+            result = exchange.receive('2026-10-01', self.root, self.output, gh=gh, now=clock)
+            self.assertEqual(result['status'], 'deferred_outside_exchange_window')
+            self.assertEqual(len(calls), expected_calls)
+            self.assertFalse(result['semantic_review_performed'])
+            directory = self.output / 'docs/dev_exchange/inbox/2026-10-01'
+            self.assertFalse((directory / 'peer.json').exists())
+            self.assertFalse((directory / 'peer.md').exists())
+
+    def test_final_response_after_deadline_is_deferred_before_snapshot(self):
+        gh, calls = self.peer_api()
+        ticks = [0]
+        def clock():
+            ticks[0] += 1
+            return '2026-10-02T00:20:00+09:00' if ticks[0] >= 11 else '2026-10-02T00:19:59+09:00'
+        result = exchange.receive('2026-10-01', self.root, self.output, gh=gh, now=clock)
+        self.assertEqual(len(calls), 5)
+        self.assertEqual(result['status'], 'deferred_outside_exchange_window')
+        self.assertFalse((self.output / 'docs/dev_exchange/inbox/2026-10-01/peer.md').exists())
+
+    def test_actual_api_uses_remaining_window_timeout_without_network(self):
+        ticks = [0]
+        def clock():
+            ticks[0] += 1
+            return '2026-10-02T00:20:00+09:00' if ticks[0] >= 3 else '2026-10-02T00:19:59+09:00'
+        with patch.object(exchange.subprocess, 'run', side_effect=subprocess.TimeoutExpired('gh', 1)) as run:
+            result = exchange.receive('2026-10-01', self.root, self.output, gh=exchange.api, now=clock)
+        self.assertEqual(run.call_count, 1)
+        self.assertEqual(run.call_args.kwargs['timeout'], 1.0)
+        self.assertEqual(result['status'], 'deferred_outside_exchange_window')
+        with patch.object(exchange.subprocess, 'run', side_effect=subprocess.TimeoutExpired('gh', 1)):
+            result = exchange.receive('2026-10-01', self.root, self.output, gh=exchange.api, now='2026-10-02T00:00:00+09:00')
+        self.assertEqual(result['status'], 'api_error')
+
+    def test_plain_markdown_response_after_deadline_is_not_saved(self):
+        ended = [False]
+        def clock():
+            return '2026-10-02T00:20:00+09:00' if ended[0] else '2026-10-02T00:19:59+09:00'
+        def gh(endpoint):
+            if '/git/ref/' in endpoint:
+                return {'object': {'sha': 'b' * 40}}
+            if '.json?' in endpoint:
+                raise exchange.APIError(404)
+            ended[0] = True
+            data = b'# 2026-10-01 peer daily\n'
+            return {'encoding': 'base64', 'size': len(data), 'content': base64.b64encode(data).decode()}
+        result = exchange.receive('2026-10-01', self.root, self.output, gh=gh, now=clock)
+        self.assertEqual(result['status'], 'deferred_outside_exchange_window')
+        self.assertFalse((self.output / 'docs/dev_exchange/inbox/2026-10-01/peer-unverified.md').exists())
+
+    def test_partial_strict_snapshot_is_cleaned_and_next_midnight_can_retry(self):
+        for boundary, existing_review in ((14, True), (15, False)):
+            gh, _ = self.peer_api()
+            ticks = [0]
+            def clock():
+                ticks[0] += 1
+                return '2026-10-02T00:20:00+09:00' if ticks[0] >= boundary else '2026-10-02T00:19:59+09:00'
+            output = self.output / str(boundary)
+            directory = output / 'docs/dev_exchange/inbox/2026-10-01'
+            directory.mkdir(parents=True)
+            prior = directory / 'peer-unverified.md'
+            prior.write_text('# Older unverified snapshot remains\n')
+            review = directory / 'review.md'
+            if existing_review:
+                review.write_text('Prior human review preserved')
+            result = exchange.receive('2026-10-01', self.root, output, gh=gh, now=clock)
+            self.assertEqual(result['status'], 'deferred_outside_exchange_window')
+            self.assertEqual(ticks[0], boundary)
+            self.assertFalse((directory / 'peer.json').exists())
+            self.assertFalse((directory / 'peer.md').exists())
+            self.assertIn('Older unverified', prior.read_text())
+            if existing_review:
+                self.assertEqual(review.read_text(), 'Prior human review preserved')
+            else:
+                self.assertFalse(review.exists())
+            retry = exchange.receive('2026-10-01', self.root, output, gh=gh, now='2026-10-03T00:00:00+09:00')
+            self.assertEqual(retry['status'], 'peer_received')
+            self.assertTrue((directory / 'peer.json').exists())
+            self.assertTrue((directory / 'peer.md').exists())
+            self.assertTrue(review.exists())
+            self.assertIn('Older unverified', prior.read_text())
+
+
+    def test_past_unreceived_day_allowed_during_later_midnight_window(self):
+        gh, calls = self.peer_api()
+        result = exchange.receive('2026-10-01', self.root, self.output, gh=gh, now='2026-10-03T00:00:00+09:00')
+        self.assertEqual(result['status'], 'peer_received')
+        self.assertEqual(len(calls), 5)
 
 
 if __name__ == '__main__':

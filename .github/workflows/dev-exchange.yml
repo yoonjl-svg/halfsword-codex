@@ -4,11 +4,10 @@ on:
   schedule:
     - cron: '30 14 * * *' # 23:30 Asia/Seoul: publish today's report
     - cron: '0 15 * * *'  # 00:00 Asia/Seoul: receive the previous day's peer report
-    - cron: '10 15 * * *' # One retry for a delayed/missing peer report
   workflow_dispatch:
     inputs:
       mode:
-        description: Validate tooling, publish a closed reporting day, or receive its peer report
+        description: Validate our tooling, publish a closed day, or receive only during 00:00–00:20 KST
         required: true
         default: validate
         type: choice
@@ -38,7 +37,7 @@ jobs:
           fetch-depth: 0
       - name: Validate protocol implementation
         run: python3 -B -m unittest discover -s source/tools/dev_exchange -p 'test_*.py'
-      - name: Verify read access to the peer and document archive
+      - name: Verify read access to our document archive only
         if: github.event_name == 'workflow_dispatch' && inputs.mode == 'validate'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -49,7 +48,7 @@ jobs:
           sys.path.insert(0, 'source/tools/dev_exchange')
           import exchange
           cfg = exchange.config('source')
-          for repo, ref in [(cfg['peer_repo'], cfg['peer_ref']), (cfg['repo'], cfg['report_ref'])]:
+          for repo, ref in [(cfg['repo'], cfg['report_ref'])]:
               value = exchange.api(f'repos/{repo}/git/ref/heads/{ref}')
               print(f"Readable branch: {repo}@{ref} = {value['object']['sha']}")
           PY

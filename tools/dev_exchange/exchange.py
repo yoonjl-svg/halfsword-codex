@@ -23,6 +23,22 @@ class APIError(RuntimeError):
         super().__init__('GitHub API read failed' + (f' (HTTP {status})' if status else ''))
 
 
+class ExchangeWindowClosed(RuntimeError):
+    def __init__(self, checked_at):
+        self.checked_at = checked_at
+        super().__init__('Peer contact deferred outside exchange window')
+
+
+def check_exchange_window(cfg, clock):
+    if clock.tzinfo is None:
+        raise ValueError('Timestamp must include a timezone')
+    local = clock.astimezone(ZoneInfo(cfg['timezone']))
+    start = time.fromisoformat(cfg.get('exchange_window_start', '00:00'))
+    end = time.fromisoformat(cfg.get('exchange_window_end', '00:20'))
+    if not start <= local.time() < end:
+        raise ExchangeWindowClosed(clock)
+
+
 def digest(data):
     return hashlib.sha256(data).hexdigest()
 
@@ -48,6 +64,10 @@ def config(root):
         path = value[key]
         if not isinstance(path, str) or not path.startswith('docs/') or '\\' in path or any(p in ('', '.', '..') for p in path.split('/')):
             raise ValueError('Unsafe public report path')
+    value.setdefault('exchange_window_start', '00:00')
+    value.setdefault('exchange_window_end', '00:20')
+    if not time.fromisoformat(value['exchange_window_start']) < time.fromisoformat(value['exchange_window_end']):
+        raise ValueError('Invalid exchange window')
     return value
 
 
@@ -71,8 +91,11 @@ def git(root, *args):
     return subprocess.check_output(['git', '-C', str(root), *args], stderr=subprocess.PIPE)
 
 
-def api(endpoint):
-    result = subprocess.run(['gh', 'api', '--method', 'GET', endpoint], capture_output=True)
+def api(endpoint, timeout=None):
+    try:
+        result = subprocess.run(['gh', 'api', '--method', 'GET', endpoint], capture_output=True, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        raise APIError() from None
     if result.returncode:
         match = re.search(rb'HTTP[ :]+(\d{3})', result.stderr)
         raise APIError(int(match[1]) if match else None)
@@ -328,16 +351,44 @@ def receive(day, root, output, gh=api, now=None):
         raise ValueError('Output must be outside the read-only source checkout')
     cfg = config(root)
     _, end = window(day, cfg)
-    clock = now or datetime.now(timezone.utc)
-    clock = iso(clock) if isinstance(clock, str) else clock
-    if clock.tzinfo is None or clock < end + timedelta(minutes=30):
-        raise ValueError('Refusing receipt before reporting cutoff plus 30 minutes')
+    def read_clock():
+        value = now() if callable(now) else now if now is not None else datetime.now(timezone.utc)
+        return iso(value) if isinstance(value, str) else value
+    clock = read_clock()
     directory = Path(output) / 'docs/dev_exchange/inbox' / day
     receipt = {'date': day, 'peer_repo': cfg['peer_repo'], 'peer_ref': cfg['peer_ref'],
                'received_at': clock.isoformat(), 'status': 'peer_invalid',
                'semantic_review_performed': False, 'review_status': 'review_pending'}
     phase = 'report'
+    created_snapshots = []
+    def save_snapshot(path, data, rollback=True):
+        check_exchange_window(cfg, read_clock())
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open('xb') as out:
+            if rollback:
+                created_snapshots.append(path)
+            out.write(data)
+    raw_gh = gh
+    def guarded_gh(endpoint):
+        before = read_clock()
+        check_exchange_window(cfg, before)
+        local = before.astimezone(ZoneInfo(cfg['timezone']))
+        deadline = datetime.combine(local.date(), time.fromisoformat(cfg['exchange_window_end']), local.tzinfo)
+        remaining = (deadline - local).total_seconds()
+        try:
+            response = raw_gh(endpoint, timeout=remaining) if raw_gh is api else raw_gh(endpoint)
+        except Exception:
+            # A request that timed out at the boundary is a deferred contact,
+            # even when its underlying failure would otherwise be APIError.
+            check_exchange_window(cfg, read_clock())
+            raise
+        check_exchange_window(cfg, read_clock())
+        return response
+    gh = guarded_gh
     try:
+        check_exchange_window(cfg, clock)
+        if clock < end + timedelta(minutes=30):
+            raise ValueError('Refusing receipt before reporting cutoff plus 30 minutes')
         existing_md, existing_json = directory / 'peer.md', directory / 'peer.json'
         if existing_md.exists() or existing_json.exists():
             if not existing_md.exists() or not existing_json.exists() or existing_md.stat().st_size > MAX_MD or existing_json.stat().st_size > MAX_JSON:
@@ -365,12 +416,13 @@ def receive(day, root, output, gh=api, now=None):
             first_line = text.lstrip().splitlines()[0] if text.strip() else ''
             if not re.fullmatch(r'# [^\n]*' + re.escape(day) + r'[^\n]*', first_line):
                 raise ValueError('Plain peer document lacks dated header')
+            check_exchange_window(cfg, read_clock())
             target = directory / 'peer-unverified.md'
             if target.exists() and target.read_bytes() != markdown:
                 stamp = clock.astimezone(timezone.utc).strftime('%Y%m%dT%H%M%S.%fZ')
                 target = directory / ('peer-unverified-' + stamp + '-' + digest(markdown)[:12] + '.md')
             if not target.exists():
-                write_once(target, markdown)
+                save_snapshot(target, markdown, rollback=False)
             elif target.read_bytes() != markdown:
                 raise ValueError('Existing legacy snapshot differs')
             receipt.update(status='document_received_unverified', markdown_sha256=digest(markdown),
@@ -378,7 +430,7 @@ def receive(day, root, output, gh=api, now=None):
                            snapshot_path=target.name)
             review = directory / 'review.md'
             if not review.exists():
-                write_once(review, b'# Peer document review\n\nreview_pending\nsemantic_review_performed=false\nsource_provenance_unverified=true\n')
+                save_snapshot(review, b'# Peer document review\n\nreview_pending\nsemantic_review_performed=false\nsource_provenance_unverified=true\n', rollback=False)
             return append_receipt(directory, clock, receipt)
         value = json.loads(raw)
         validate(value, markdown, cfg['peer_repo'], day, report_id(cfg['peer_repo'], end))
@@ -397,6 +449,7 @@ def receive(day, root, output, gh=api, now=None):
                 raise ValueError('Peer source note hash mismatch')
         receipt['provenance_status'] = 'source_commit_and_notes_verified' if value['authored_decision_record'] == 'present' else 'source_commit_verified_no_authored_notes'
         phase = 'snapshot'
+        check_exchange_window(cfg, read_clock())
         # An existing snapshot cannot silently become a different report.
         for name, data in (('peer.json', raw), ('peer.md', markdown)):
             path = directory / name
@@ -404,24 +457,32 @@ def receive(day, root, output, gh=api, now=None):
                 raise ValueError('Existing peer snapshot differs')
         for name, data in (('peer.json', raw), ('peer.md', markdown)):
             if not (directory / name).exists():
-                write_once(directory / name, data)
+                save_snapshot(directory / name, data)
         review = directory / 'review.md'
         if not review.exists():
-            write_once(review, b'# Peer report review\n\nreview_pending\nsemantic_review_performed=false\n')
+            save_snapshot(review, b'# Peer report review\n\nreview_pending\nsemantic_review_performed=false\n')
         receipt.update(status='peer_received', report_id=value['report_id'], markdown_sha256=digest(markdown),
                        manifest_sha256=digest(raw), notes_blob_sha=value.get('notes_blob_sha'), notes_sha256=value.get('notes_sha256'))
         receipt.update(source_sha=value['source_sha'], previous_report_id=value.get('previous_report_id'),
                        previous_source_sha=value.get('previous_source_sha'),
                        workflow_run_url=f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}" if os.environ.get('GITHUB_REPOSITORY') and os.environ.get('GITHUB_RUN_ID') else None)
     except Exception as error:
-        if phase == 'provenance':
+        # Only files exclusively created for this strict receipt are removed;
+        # prior verified/review/legacy artifacts and attempt receipts survive.
+        for path in reversed(created_snapshots):
+            path.unlink(missing_ok=True)
+        if isinstance(error, ExchangeWindowClosed):
+            receipt['status'] = 'deferred_outside_exchange_window'
+            receipt['deferred_at'] = error.checked_at.isoformat()
+            receipt['exchange_window'] = {'timezone': cfg['timezone'], 'start_inclusive': cfg['exchange_window_start'], 'end_exclusive': cfg['exchange_window_end']}
+        elif phase == 'provenance':
             receipt['status'] = 'provenance_unverified'
         elif isinstance(error, APIError):
             receipt['status'] = 'peer_missing' if error.status == 404 else 'api_error'
         elif isinstance(error, RuntimeError):
             receipt['status'] = 'api_error'
         receipt['error_type'] = type(error).__name__
-        receipt['error'] = str(error)[:300] if isinstance(error, (ValueError, APIError)) else 'Peer read or verification failed'
+        receipt['error'] = str(error)[:300] if isinstance(error, (ValueError, APIError, ExchangeWindowClosed)) else 'Peer read or verification failed'
     return append_receipt(directory, clock, receipt)
 
 
