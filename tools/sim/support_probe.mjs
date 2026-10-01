@@ -107,6 +107,7 @@ function snapshot(G, t, start) {
     timeS: t, state: f.state, stateTimeS: f.stateTime,
     pelvisPositionM: vector(p), pelvisVelocityMps: vector(v),
     pelvisHeightM: p.y, pelvisVerticalVelocityMps: v.y,
+    nominalPelvisTargetM: f.gait.hNom, pelvisTargetM: f.gait.h,
     pelvisHorizontalSpeedMps: Math.hypot(v.x, v.z),
     horizontalDisplacementM: Math.hypot(p.x - start.x, p.z - start.z),
     tiltDeg: f.tiltDeg(), correctedChestTiltDeg: f.tiltDeg() - THREE.MathUtils.radToDeg(f.hunch), offBalanceM: f.offBalance,
@@ -117,7 +118,7 @@ function snapshot(G, t, start) {
     tipSpeedMps: f.tipVel.length(), handPad: [f.handOffset.x, f.handOffset.y],
     filteredHandPad: [f.skill.aim.x, f.skill.aim.y],
     skillSwinging: f.skill.swinging, skillSwings: f.skill.swings,
-    physicallyUpright: p.y >= CONFIG.GAIT.guardHeight - CONFIG.GAIT.catchSag &&
+    physicallyUpright: f.state === 'stand' && p.y >= f.gait.hNom - CONFIG.GAIT.catchSag &&
       f.tiltDeg() - THREE.MathUtils.radToDeg(f.hunch) <= CONFIG.BODY.fallTiltDeg && ground.some(Boolean),
   };
 }
@@ -177,10 +178,11 @@ export function runTrial(scenario, seed, ledger = true) {
       row.protocol.postStandObservationS = POST_STAND_SECONDS;
       row.protocol.postHandoverObservationS = POST_STAND_SECONDS;
       row.protocol.physicallyUprightDefinition = {
-        pelvisMinimumHeightM: CONFIG.GAIT.guardHeight - CONFIG.GAIT.catchSag,
+        pelvisMinimumHeight: 'current gait.hNom - GAIT.catchSag (includes intended injury/posture lowering)',
+        allowedSagM: CONFIG.GAIT.catchSag,
         correctedChestMaximumTiltDeg: CONFIG.BODY.fallTiltDeg,
         groundContact: 'at least one foot with a ground solver contact',
-        basis: 'existing game guardHeight, catchSag and fallTiltDeg; probe geometry condition, not a human acceptance threshold or proof of muscle-supported standing',
+        basis: 'stand state plus current nominal gait height, catchSag and fallTiltDeg; probe geometry condition, not a human acceptance threshold or proof of muscle-supported standing',
       };
     }
     if (PULSE_NS[scenario]) {
@@ -195,7 +197,7 @@ export function runTrial(scenario, seed, ledger = true) {
     if (scenario === 'walk') row.protocol.input = 'move.y=+1 for 2s, -1 for 2s, then 0 for 2s';
     if (scenario === 'swing') row.protocol.input = { path: 'handOffset -> Skill.update -> Fighter.driveSword', fromPad: SWING_FROM, toPad: SWING_TO, padSpeedMps: SWING_PAD_SPEED_MPS, releaseAtS: Math.hypot(SWING_TO[0] - SWING_FROM[0], SWING_TO[1] - SWING_FROM[1]) / SWING_PAD_SPEED_MPS, phoneInput: false };
     if (kneelSwing) row.protocol.input = { path: 'handOffset and handHeld -> Skill.update -> Fighter.driveSword', kind: 'horizontal sweeps during knee-rise and handover', startS: 1, releaseAtS: 4, periodS: 0.8, amplitude: 0.52, phoneInput: false };
-    const metricKeys = ['pelvisHeightM', 'pelvisVerticalVelocityMps', 'pelvisHorizontalSpeedMps', 'horizontalDisplacementM', 'tiltDeg', 'correctedChestTiltDeg', 'offBalanceM', 'tipSpeedMps', 'lev', 'levH', 'levC'];
+    const metricKeys = ['pelvisHeightM', 'nominalPelvisTargetM', 'pelvisTargetM', 'pelvisVerticalVelocityMps', 'pelvisHorizontalSpeedMps', 'horizontalDisplacementM', 'tiltDeg', 'correctedChestTiltDeg', 'offBalanceM', 'tipSpeedMps', 'lev', 'levH', 'levC'];
     const sums = Object.fromEntries(metricKeys.map((key) => [key, stat()]));
     const phaseStats = Object.fromEntries(['afterStateReturned', 'afterHandoverEnded'].map((phase) => [phase, {
       samples: 0, physicallyUprightSamples: 0, bothFeetNoGroundContactS: 0,
