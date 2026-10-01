@@ -8,6 +8,8 @@
 
 [공개 검증 기록](support_withdrawal_public_metrics.json): HTML 네 파일과 실행 JS HTTP200·배포 바이트 일치, 실제 모바일 크기에서 시작/드래그/해제/재시작과 일반 URL 복귀, JS/HTTP 오류0. 이 검사는 연결·입력·철회를 확인하며 물리 안정성 전체나 실제 기기 체감을 보장하지 않는다.
 
+최종 Pages [36896740192](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/36896740192), main `cd691ba0`, asset `main-BMXD7OHg.js`에서도 철회를 유지한다. [최종 검증](support_withdrawal_final_metrics.json)에서 바이트·입력·직접 URL 차단을 다시 확인하고 실제 브라우저의 편측 .45 손상 heavy down을15.025 sim초 관찰했다. 수동 dt 이동 없이45.13 wall초, down→getup2.817초→stand5.592초, 골반 높이 최소 .127m/최대 .970m·상향속도 최대 .688m/s·관절 간격 최대1.414mm·최종 발 접점4+4였다. 이 장면에서는 발사가 없었다. AI update를 끈 한 장면이고 극값은 렌더 프레임 표본이므로 전투 전체·휴대폰 실기 성능·자연스러움의 수락을 뜻하지 않는다.
+
 기존 `support_transfer_probe`의 기립은 `knockDown(false)`로 바로 getup에 들어갔다. 바닥 제거 down 시험은 있었지만 **바닥 위에서 실제로 누워졌다가 일어나는 경로**가 빠졌다. 30초 AI 대조도 down 진입이 없었다. 유한값·내부 순힘0·마지막 stand만으로 공개 판단을 내린 검증 범위가 부족했다.
 
 ## 재현과 확인된 결함
@@ -25,6 +27,8 @@
 - down/dead에서는 이 가상 다리 신전 힘쌍을 사용하지 않는다.
 
 축력 교정23·그립/URL12·접촉12와 빌드를 통과했다. 기존 legacy 건강/편측/양측 손상 궤적은 수정 전후 exact였다. 이 결과는 확인된 계산 결함의 수정이며 기립 해결 판정이 아니다.
+
+이 수정과 재현 도구의 소스는 [`9fcf668f4ec7e10657085992670b60e6ee960f39`](https://github.com/yoonjl-svg/halfsword-codex/commit/9fcf668f4ec7e10657085992670b60e6ee960f39)다. 전송 [36896685875](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/36896685875) 성공 후 main/작업 가지 `cd691ba088a9e28bd26413c26465ec198fe36ba8`의 동일성, 소스 tree 일치와 선조 관계를 확인했다. 격리된 후보의 코드 저장이며 공개 재활성화가 아니다.
 
 ## 같은 누운 상태에서 비교한 결과
 
