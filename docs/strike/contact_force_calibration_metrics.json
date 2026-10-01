@@ -1,0 +1,55 @@
+{
+  "scope": "One isolated resting 75kg box on a horizontal fixed floor. Unit calibration of contactImpulse/dt for this Rapier/solver configuration only; not character/joint load validation or a universal correction.",
+  "rapierVersion": "0.19.3",
+  "timestepS": 0.008333333333333333,
+  "solverIterations": 6,
+  "gravityMps2": -9.81,
+  "requestedMassKg": 75,
+  "measuredMassKg": 75,
+  "expectedMgN": 735.75,
+  "settleS": 3,
+  "observeS": 1,
+  "sampleTiming": "Immediately after each completed world.step; manifold normal impulses summed, vertical projection magnitude used on a horizontal floor.",
+  "canSleep": false,
+  "settled": {
+    "position": {
+      "x": -1.048221520250081e-06,
+      "y": 0.29872316122055054,
+      "z": -1.2387789638523827e-06
+    },
+    "velocity": {
+      "x": -3.787785374242958e-07,
+      "y": 3.487966750981286e-07,
+      "z": -5.137207494954055e-07
+    },
+    "sleeping": false
+  },
+  "statistics": {
+    "rawVerticalForceN": {
+      "min": 858.3749055862427,
+      "mean": 858.3751219511032,
+      "max": 858.3753061294556
+    },
+    "correctedSixSeventhsN": {
+      "min": 735.7499190739223,
+      "mean": 735.7501045295172,
+      "max": 735.7502623966762
+    },
+    "rawToMg": 1.1666668324174017,
+    "correctedToMg": 1.0000001420720588,
+    "empiricalCorrection": 0.8571427353668243,
+    "verticalVelocityMps": {
+      "min": 3.33953494191519e-07,
+      "mean": 3.4624078087593565e-07,
+      "max": 3.6202413866703864e-07
+    },
+    "boxHeightM": {
+      "min": 0.29872316122055054,
+      "mean": 0.29872316122055054,
+      "max": 0.29872316122055054
+    },
+    "sleepingSamples": 0
+  },
+  "rawSha256": "96620fa4755b1ba97e6b3257804768ae06b3ebe8a2cabc9ffd5c80fe38028209",
+  "rawFile": "recovery-force-calibration.json"
+}

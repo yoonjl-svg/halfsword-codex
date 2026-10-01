@@ -1,0 +1,3354 @@
+{
+  "purpose": "Observations, not naturalness or successful recovery verdicts. R0 rejected: healthy also fails, and unsupported down still receives artificial lift.",
+  "rawLocation": "Raw snapshots retained outside repository in /workspace/halfsword-hybrid-evidence. See hashes below.",
+  "runs": [
+    {
+      "rawFile": "recovery-support-b-initial.json",
+      "rawSha256": "9a2ed24db8cce2594363dc22c23a1132d88f41abf89bf6bbe16d52b44ff1d5d5",
+      "sourceCommit": "5763d3ac3d7705abae18b98b12943e58f7e6f1aa",
+      "sourceBefore": {
+        "src/fighter.js": "b536fb73de229bc70495551f94ce2136fc7344d0f52a2cd7461e7a4922bc0bb0",
+        "src/gait.js": "2874340a1e1991fb612ca74429523b30f7bb7eb147b1717ca6833a05405cc43f",
+        "src/config.js": "65005dfecf0840a4d0af298c03dc5a5c230135cad08b924fce57681de8d36ec4",
+        "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+        "tools/sim/recovery_support_probe.mjs": "7d9a91535ee748e810ca10856b150b9e2d1b53377fce8e5378e1ea646ea35485"
+      },
+      "sourceUnchangedDuringRun": true,
+      "protocol": {
+        "settleS": 2.5,
+        "start": "actual knockDown(false), not supine recovery",
+        "injury": "hurt changes only legF=.45; wound applies cut severity.8/60J with actual bleeding; disabled changes both legs=.2. Synthetic injuries, not clinical calibration.",
+        "input": "player move0, autoGuard true, enemy parked; harness G.step intact",
+        "forceMeaning": "contactImpulse sum / DT is raw API interpretation; historical 6/7 is unvalidated here, retained separately",
+        "pointMeaning": "actual solver world contact point; velocityAtPoint minus fixed floor velocity; not COM speed. Contact existence alone is not load-bearing.",
+        "jointMeaning": "rest-relative rotation vector in joint frame; x/y magnitude is off-local-z bending, not clinical knee valgus",
+        "outcomeMeaning": "observed means tool completed, not human-like recovery success"
+      },
+      "rows": [
+        {
+          "candidateName": "B",
+          "candidate": {
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1
+          },
+          "condition": "healthy",
+          "seed": 7,
+          "status": "observed",
+          "error": null,
+          "events": [
+            {
+              "kind": "knockDown",
+              "heavy": false,
+              "timeS": 0,
+              "state": "getup"
+            }
+          ],
+          "summary": {
+            "getup": {
+              "storedSamples": 61,
+              "minPelvisHeightM": 0.5146616101264954,
+              "maxPointHorizontalSpeedMps": 4.157659183223398,
+              "meanFootRawVerticalN": 383.1901348329561
+            },
+            "kneel": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "stand": {
+              "storedSamples": 210,
+              "minPelvisHeightM": 0.8853989839553833,
+              "maxPointHorizontalSpeedMps": 1.3693920234104622,
+              "meanFootRawVerticalN": 791.6538862586021
+            },
+            "down": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "dead": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            }
+          },
+          "traceSha256": "8ee253e7da2951df2e471c2d9a24c25d8b6f3f76d865632117076f4d25a5fabb",
+          "sideImpulseApplied": false,
+          "transitions": [
+            {
+              "from": "getup",
+              "to": "stand",
+              "preStep": {
+                "timeS": 2,
+                "state": "getup",
+                "stateTimeS": 1.9999999999999953,
+                "kneelAmount": 5.329070518200751e-15,
+                "pelvisHeightM": 0.9365349411964417,
+                "pelvisVelocityMps": [
+                  0.04195462539792061,
+                  0.2565132975578308,
+                  -0.016709016636013985
+                ],
+                "chestTiltDeg": 12.958198504698967,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 40.55695451796055,
+                "shinRawVerticalN": 0,
+                "recovery": null,
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 30.352742671966553,
+                    "historicalSixSeventhsVerticalN": 26.01663657597133,
+                    "maxContactHorizontalSpeedMps": 1.0864733597864227,
+                    "solverPointCount": 2
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 10.204211845993996,
+                    "historicalSixSeventhsVerticalN": 8.746467296566282,
+                    "maxContactHorizontalSpeedMps": 0.6378807597063195,
+                    "solverPointCount": 2
+                  }
+                },
+                "balanceForces": null
+              },
+              "postStep": {
+                "timeS": 2.0083333333333333,
+                "state": "stand",
+                "stateTimeS": 0,
+                "kneelAmount": 0,
+                "pelvisHeightM": 0.9389007687568665,
+                "pelvisVelocityMps": [
+                  0.07609265297651291,
+                  0.2186092883348465,
+                  0.04311560094356537
+                ],
+                "chestTiltDeg": 13.00086671894365,
+                "retainedGaitN": {
+                  "F": 30.32217146689477,
+                  "B": 10.193934189825944
+                },
+                "footRawVerticalN": 208.56893330812454,
+                "shinRawVerticalN": 0,
+                "recovery": null,
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 89.08914495259523,
+                    "historicalSixSeventhsVerticalN": 76.36212424508163,
+                    "maxContactHorizontalSpeedMps": 1.3693920234104622,
+                    "solverPointCount": 2
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 119.47978835552931,
+                    "historicalSixSeventhsVerticalN": 102.41124716188226,
+                    "maxContactHorizontalSpeedMps": 0.5679817893488303,
+                    "solverPointCount": 2
+                  }
+                },
+                "balanceForces": null
+              }
+            }
+          ],
+          "final": {
+            "timeS": 9,
+            "state": "stand",
+            "stateTimeS": 6.991666666666804,
+            "kneelAmount": 0,
+            "pelvisHeightM": 0.8855050206184387,
+            "pelvisVelocityMps": [
+              -0.004462045151740313,
+              0.0020240338053554296,
+              -3.0509912903653458e-05
+            ],
+            "chestTiltDeg": 13.373344502686823,
+            "retainedGaitN": {
+              "F": 388.83338212966856,
+              "B": 435.6890881061547
+            },
+            "footRawVerticalN": 824.4461810588837,
+            "shinRawVerticalN": 0,
+            "recovery": null,
+            "feet": {
+              "footF": {
+                "rawVerticalForceMagnitudeN": 388.801531791687,
+                "historicalSixSeventhsVerticalN": 333.25845582144603,
+                "maxContactHorizontalSpeedMps": 0.0015650786480290975,
+                "solverPointCount": 4
+              },
+              "footB": {
+                "rawVerticalForceMagnitudeN": 435.64464926719666,
+                "historicalSixSeventhsVerticalN": 373.4096993718828,
+                "maxContactHorizontalSpeedMps": 0.0015123628200917536,
+                "solverPointCount": 4
+              }
+            },
+            "balanceForces": null
+          }
+        },
+        {
+          "candidateName": "B",
+          "candidate": {
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1
+          },
+          "condition": "hurt",
+          "seed": 7,
+          "status": "observed",
+          "error": null,
+          "events": [
+            {
+              "kind": "knockDown",
+              "heavy": false,
+              "timeS": 0,
+              "state": "getup"
+            }
+          ],
+          "summary": {
+            "getup": {
+              "storedSamples": 84,
+              "minPelvisHeightM": 0.5007286071777344,
+              "maxPointHorizontalSpeedMps": 4.021302786757659,
+              "meanFootRawVerticalN": 390.7893043849617
+            },
+            "kneel": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "stand": {
+              "storedSamples": 188,
+              "minPelvisHeightM": 0.8329367637634277,
+              "maxPointHorizontalSpeedMps": 1.3206186227490342,
+              "meanFootRawVerticalN": 752.2066998671978
+            },
+            "down": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "dead": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            }
+          },
+          "traceSha256": "da2defe955c5bf612b9d32b7cc7dccea6bc320120cd2c2482500401ec045a4c6",
+          "sideImpulseApplied": false,
+          "transitions": [
+            {
+              "from": "getup",
+              "to": "stand",
+              "preStep": {
+                "timeS": 2.7583333333333333,
+                "state": "getup",
+                "stateTimeS": 2.758333333333326,
+                "kneelAmount": 0.00023148148148732783,
+                "pelvisHeightM": 0.9261292219161987,
+                "pelvisVelocityMps": [
+                  0.031178142875432968,
+                  0.19892241060733795,
+                  -0.023677997291088104
+                ],
+                "chestTiltDeg": 13.658966239518675,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 102.94844448566437,
+                "shinRawVerticalN": 0,
+                "recovery": null,
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 73.74829173088074,
+                    "historicalSixSeventhsVerticalN": 63.21282148361206,
+                    "maxContactHorizontalSpeedMps": 0.6317569713611002,
+                    "solverPointCount": 2
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 29.20015275478363,
+                    "historicalSixSeventhsVerticalN": 25.028702361243113,
+                    "maxContactHorizontalSpeedMps": 0.4770044264834772,
+                    "solverPointCount": 2
+                  }
+                },
+                "balanceForces": null
+              },
+              "postStep": {
+                "timeS": 2.7666666666666666,
+                "state": "stand",
+                "stateTimeS": 0,
+                "kneelAmount": 0,
+                "pelvisHeightM": 0.9281538724899292,
+                "pelvisVelocityMps": [
+                  0.0772332176566124,
+                  0.1883549839258194,
+                  0.05043943226337433
+                ],
+                "chestTiltDeg": 13.68141700015401,
+                "retainedGaitN": {
+                  "F": 73.74024834626219,
+                  "B": 29.196968029361326
+                },
+                "footRawVerticalN": 383.5695281624794,
+                "shinRawVerticalN": 0,
+                "recovery": null,
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 160.31124025583267,
+                    "historicalSixSeventhsVerticalN": 137.40963450499945,
+                    "maxContactHorizontalSpeedMps": 0.8930664652419891,
+                    "solverPointCount": 2
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 223.25828790664673,
+                    "historicalSixSeventhsVerticalN": 191.36424677712577,
+                    "maxContactHorizontalSpeedMps": 0.24449929030375894,
+                    "solverPointCount": 2
+                  }
+                },
+                "balanceForces": null
+              }
+            }
+          ],
+          "final": {
+            "timeS": 9,
+            "state": "stand",
+            "stateTimeS": 6.233333333333433,
+            "kneelAmount": 0,
+            "pelvisHeightM": 0.8525883555412292,
+            "pelvisVelocityMps": [
+              0.014382312074303627,
+              0.002439478412270546,
+              0.0015802796697244048
+            ],
+            "chestTiltDeg": 13.479790147471126,
+            "retainedGaitN": {
+              "F": 376.7296850681299,
+              "B": 431.40748500823906
+            },
+            "footRawVerticalN": 808.1889653205872,
+            "shinRawVerticalN": 0,
+            "recovery": null,
+            "feet": {
+              "footF": {
+                "rawVerticalForceMagnitudeN": 376.6764736175537,
+                "historicalSixSeventhsVerticalN": 322.86554881504605,
+                "maxContactHorizontalSpeedMps": 0.0018454327348043067,
+                "solverPointCount": 4
+              },
+              "footB": {
+                "rawVerticalForceMagnitudeN": 431.51249170303345,
+                "historicalSixSeventhsVerticalN": 369.86785003117154,
+                "maxContactHorizontalSpeedMps": 0.0016800388325416212,
+                "solverPointCount": 4
+              }
+            },
+            "balanceForces": null
+          }
+        },
+        {
+          "candidateName": "B",
+          "candidate": {
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1
+          },
+          "condition": "disabled",
+          "seed": 7,
+          "status": "observed",
+          "error": null,
+          "events": [
+            {
+              "kind": "knockDown",
+              "heavy": false,
+              "timeS": 0,
+              "state": "getup"
+            }
+          ],
+          "summary": {
+            "getup": {
+              "storedSamples": 111,
+              "minPelvisHeightM": 0.49981969594955444,
+              "maxPointHorizontalSpeedMps": 3.0133669956821714,
+              "meanFootRawVerticalN": 502.24263130989226
+            },
+            "kneel": {
+              "storedSamples": 160,
+              "minPelvisHeightM": 0.5664186477661133,
+              "maxPointHorizontalSpeedMps": 0.010254528714305251,
+              "meanFootRawVerticalN": 414.02246250907774
+            },
+            "stand": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "down": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "dead": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            }
+          },
+          "traceSha256": "9c1af77b8e5f3538d4e37c301be76bd10e32d151eb02e89aa736bf154b6a8169",
+          "sideImpulseApplied": false,
+          "transitions": [
+            {
+              "from": "getup",
+              "to": "kneel",
+              "preStep": {
+                "timeS": 3.6666666666666665,
+                "state": "getup",
+                "stateTimeS": 3.6666666666666563,
+                "kneelAmount": 1,
+                "pelvisHeightM": 0.5782300233840942,
+                "pelvisVelocityMps": [
+                  -0.029415983706712723,
+                  0.005442056804895401,
+                  0.019259124994277954
+                ],
+                "chestTiltDeg": 28.9408260039004,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 434.61570739746094,
+                "shinRawVerticalN": 0,
+                "recovery": null,
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 434.61570739746094,
+                    "historicalSixSeventhsVerticalN": 372.52774919782365,
+                    "maxContactHorizontalSpeedMps": 0.00633774294689278,
+                    "solverPointCount": 4
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": null
+              },
+              "postStep": {
+                "timeS": 3.675,
+                "state": "kneel",
+                "stateTimeS": 0,
+                "kneelAmount": 1,
+                "pelvisHeightM": 0.5782094597816467,
+                "pelvisVelocityMps": [
+                  -0.08896587789058685,
+                  -0.006001635454595089,
+                  -0.03282024338841438
+                ],
+                "chestTiltDeg": 28.972003753224975,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 441.3615131378174,
+                "shinRawVerticalN": 0,
+                "recovery": null,
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 441.3615131378174,
+                    "historicalSixSeventhsVerticalN": 378.3098684038435,
+                    "maxContactHorizontalSpeedMps": 0.004461703058238319,
+                    "solverPointCount": 4
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": null
+              }
+            }
+          ],
+          "final": {
+            "timeS": 9,
+            "state": "kneel",
+            "stateTimeS": 5.325000000000054,
+            "kneelAmount": 1,
+            "pelvisHeightM": 0.5663759112358093,
+            "pelvisVelocityMps": [
+              0.017875414341688156,
+              0.014821360819041729,
+              0.023028789088129997
+            ],
+            "chestTiltDeg": 28.32642669745684,
+            "retainedGaitN": {
+              "F": 409.7503101825714,
+              "B": 321.1993432044983
+            },
+            "footRawVerticalN": 400.67547082901,
+            "shinRawVerticalN": 0,
+            "recovery": null,
+            "feet": {
+              "footF": {
+                "rawVerticalForceMagnitudeN": 400.67547082901,
+                "historicalSixSeventhsVerticalN": 343.43611785343717,
+                "maxContactHorizontalSpeedMps": 0.010136678095579901,
+                "solverPointCount": 3
+              },
+              "footB": {
+                "rawVerticalForceMagnitudeN": 0,
+                "historicalSixSeventhsVerticalN": 0,
+                "maxContactHorizontalSpeedMps": null,
+                "solverPointCount": 0
+              }
+            },
+            "balanceForces": null
+          }
+        }
+      ]
+    },
+    {
+      "rawFile": "recovery-support-b-wound.json",
+      "rawSha256": "b32c4ae6a0262c549f3c258afc804aac23fca23dbaae560eedc0a0cb0bc6ca12",
+      "sourceCommit": "5763d3ac3d7705abae18b98b12943e58f7e6f1aa",
+      "sourceBefore": {
+        "src/fighter.js": "b536fb73de229bc70495551f94ce2136fc7344d0f52a2cd7461e7a4922bc0bb0",
+        "src/gait.js": "2874340a1e1991fb612ca74429523b30f7bb7eb147b1717ca6833a05405cc43f",
+        "src/config.js": "65005dfecf0840a4d0af298c03dc5a5c230135cad08b924fce57681de8d36ec4",
+        "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+        "tools/sim/recovery_support_probe.mjs": "7d9a91535ee748e810ca10856b150b9e2d1b53377fce8e5378e1ea646ea35485"
+      },
+      "sourceUnchangedDuringRun": true,
+      "protocol": {
+        "settleS": 2.5,
+        "start": "actual knockDown(false), not supine recovery",
+        "injury": "hurt changes only legF=.45; wound applies cut severity.8/60J with actual bleeding; disabled changes both legs=.2. Synthetic injuries, not clinical calibration.",
+        "input": "player move0, autoGuard true, enemy parked; harness G.step intact",
+        "forceMeaning": "contactImpulse sum / DT is raw API interpretation; historical 6/7 is unvalidated here, retained separately",
+        "pointMeaning": "actual solver world contact point; velocityAtPoint minus fixed floor velocity; not COM speed. Contact existence alone is not load-bearing.",
+        "jointMeaning": "rest-relative rotation vector in joint frame; x/y magnitude is off-local-z bending, not clinical knee valgus",
+        "outcomeMeaning": "observed means tool completed, not human-like recovery success"
+      },
+      "rows": [
+        {
+          "candidateName": "B",
+          "candidate": {
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1
+          },
+          "condition": "wound",
+          "seed": 7,
+          "status": "observed",
+          "error": null,
+          "events": [
+            {
+              "kind": "syntheticApplyWound",
+              "timeS": 0,
+              "part": "thighF",
+              "zone": "leg",
+              "type": "cut",
+              "severity": 0.8,
+              "energy": 60,
+              "bleedPerSev": 0.015,
+              "local": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "kind": "knockDown",
+              "heavy": false,
+              "timeS": 0,
+              "state": "getup"
+            }
+          ],
+          "summary": {
+            "getup": {
+              "storedSamples": 85,
+              "minPelvisHeightM": 0.4944268465042114,
+              "maxPointHorizontalSpeedMps": 4.003440363570331,
+              "meanFootRawVerticalN": 426.7975135176059
+            },
+            "kneel": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "stand": {
+              "storedSamples": 277,
+              "minPelvisHeightM": 0.8307831883430481,
+              "maxPointHorizontalSpeedMps": 1.097965558501783,
+              "meanFootRawVerticalN": 765.3233140576564
+            },
+            "down": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "dead": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            }
+          },
+          "traceSha256": "42775622b71ab51729111ad95a1200d011c09154a50cdfce8ad2bfda97d9fecf",
+          "sideImpulseApplied": false,
+          "transitions": [
+            {
+              "from": "getup",
+              "to": "stand",
+              "preStep": {
+                "timeS": 2.775,
+                "state": "getup",
+                "stateTimeS": 2.774999999999993,
+                "kneelAmount": 0.0022222222222281207,
+                "pelvisHeightM": 0.9247522950172424,
+                "pelvisVelocityMps": [
+                  0.07297152280807495,
+                  0.2027306705713272,
+                  0.010024107992649078
+                ],
+                "chestTiltDeg": 13.77296613592814,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 115.74111342430115,
+                "shinRawVerticalN": 0,
+                "recovery": null,
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 75.39106965065002,
+                    "historicalSixSeventhsVerticalN": 64.6209168434143,
+                    "maxContactHorizontalSpeedMps": 0.5738182028303862,
+                    "solverPointCount": 2
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 40.35004377365112,
+                    "historicalSixSeventhsVerticalN": 34.585751805986675,
+                    "maxContactHorizontalSpeedMps": 0.4666523694860197,
+                    "solverPointCount": 2
+                  }
+                },
+                "balanceForces": null
+              },
+              "postStep": {
+                "timeS": 2.783333333333333,
+                "state": "stand",
+                "stateTimeS": 0,
+                "kneelAmount": 0,
+                "pelvisHeightM": 0.9267855882644653,
+                "pelvisVelocityMps": [
+                  0.030237480998039246,
+                  0.1755843460559845,
+                  0.008059844374656677
+                ],
+                "chestTiltDeg": 13.85909808559821,
+                "retainedGaitN": {
+                  "F": 75.31820253247261,
+                  "B": 40.31104457359012
+                },
+                "footRawVerticalN": 373.1304416432977,
+                "shinRawVerticalN": 0,
+                "recovery": null,
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 152.38130271434784,
+                    "historicalSixSeventhsVerticalN": 130.61254518372672,
+                    "maxContactHorizontalSpeedMps": 0.9407410206016982,
+                    "solverPointCount": 2
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 220.74913892894983,
+                    "historicalSixSeventhsVerticalN": 189.21354765338558,
+                    "maxContactHorizontalSpeedMps": 0.2302223632833992,
+                    "solverPointCount": 2
+                  }
+                },
+                "balanceForces": null
+              }
+            }
+          ],
+          "final": {
+            "timeS": 12,
+            "state": "stand",
+            "stateTimeS": 9.216666666666784,
+            "kneelAmount": 0,
+            "pelvisHeightM": 0.8521136045455933,
+            "pelvisVelocityMps": [
+              0.007976156659424305,
+              0.0022026579827070236,
+              0.0004951985320076346
+            ],
+            "chestTiltDeg": 13.294265837544547,
+            "retainedGaitN": {
+              "F": 360.9560251235956,
+              "B": 447.2648262977593
+            },
+            "footRawVerticalN": 808.2286334037781,
+            "shinRawVerticalN": 0,
+            "recovery": null,
+            "feet": {
+              "footF": {
+                "rawVerticalForceMagnitudeN": 360.86066007614136,
+                "historicalSixSeventhsVerticalN": 309.3091372081212,
+                "maxContactHorizontalSpeedMps": 0.0019362583982410848,
+                "solverPointCount": 4
+              },
+              "footB": {
+                "rawVerticalForceMagnitudeN": 447.3679733276367,
+                "historicalSixSeventhsVerticalN": 383.45826285226,
+                "maxContactHorizontalSpeedMps": 0.0018217027424718756,
+                "solverPointCount": 4
+              }
+            },
+            "balanceForces": null
+          }
+        },
+        {
+          "candidateName": "B",
+          "candidate": {
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1
+          },
+          "condition": "wound_side_pos",
+          "seed": 7,
+          "status": "observed",
+          "error": null,
+          "events": [
+            {
+              "kind": "syntheticApplyWound",
+              "timeS": 0,
+              "part": "thighF",
+              "zone": "leg",
+              "type": "cut",
+              "severity": 0.8,
+              "energy": 60,
+              "bleedPerSev": 0.015,
+              "local": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "kind": "knockDown",
+              "heavy": false,
+              "timeS": 0,
+              "state": "getup"
+            },
+            {
+              "kind": "lateralImpulse",
+              "timeS": 1.8416666666666666,
+              "impulseWorldNs": [
+                -0.06469799025686575,
+                0,
+                17.99988372657048
+              ],
+              "magnitudeNs": 18
+            }
+          ],
+          "summary": {
+            "getup": {
+              "storedSamples": 85,
+              "minPelvisHeightM": 0.4944268465042114,
+              "maxPointHorizontalSpeedMps": 4.003440363570331,
+              "meanFootRawVerticalN": 424.8348760852481
+            },
+            "kneel": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "stand": {
+              "storedSamples": 277,
+              "minPelvisHeightM": 0.8308447599411011,
+              "maxPointHorizontalSpeedMps": 1.1047977017886075,
+              "meanFootRawVerticalN": 766.9727041540056
+            },
+            "down": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "dead": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            }
+          },
+          "traceSha256": "9472cb3143b5e0446e336748b315fa9b5704089690ecf2476c6d6db458f7bf59",
+          "sideImpulseApplied": true,
+          "transitions": [
+            {
+              "from": "getup",
+              "to": "stand",
+              "preStep": {
+                "timeS": 2.775,
+                "state": "getup",
+                "stateTimeS": 2.774999999999993,
+                "kneelAmount": 0.0022222222222281207,
+                "pelvisHeightM": 0.9244412779808044,
+                "pelvisVelocityMps": [
+                  0.02672291360795498,
+                  0.2005472034215927,
+                  -0.03315383940935135
+                ],
+                "chestTiltDeg": 13.835283123204894,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 109.72884178161621,
+                "shinRawVerticalN": 0,
+                "recovery": null,
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 78.04525852203369,
+                    "historicalSixSeventhsVerticalN": 66.89593587602887,
+                    "maxContactHorizontalSpeedMps": 0.6042844758328331,
+                    "solverPointCount": 2
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 31.68358325958252,
+                    "historicalSixSeventhsVerticalN": 27.15735707964216,
+                    "maxContactHorizontalSpeedMps": 0.4554824528397872,
+                    "solverPointCount": 2
+                  }
+                },
+                "balanceForces": null
+              },
+              "postStep": {
+                "timeS": 2.783333333333333,
+                "state": "stand",
+                "stateTimeS": 0,
+                "kneelAmount": 0,
+                "pelvisHeightM": 0.9265002012252808,
+                "pelvisVelocityMps": [
+                  0.07652883231639862,
+                  0.19181688129901886,
+                  0.042945004999637604
+                ],
+                "chestTiltDeg": 13.86511139680619,
+                "retainedGaitN": {
+                  "F": 77.96982607224534,
+                  "B": 31.652960383207926
+                },
+                "footRawVerticalN": 392.3641884326935,
+                "shinRawVerticalN": 0,
+                "recovery": null,
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 170.08213743567467,
+                    "historicalSixSeventhsVerticalN": 145.7846892305783,
+                    "maxContactHorizontalSpeedMps": 0.8754404774211942,
+                    "solverPointCount": 2
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 222.2820509970188,
+                    "historicalSixSeventhsVerticalN": 190.52747228315897,
+                    "maxContactHorizontalSpeedMps": 0.24444383197670363,
+                    "solverPointCount": 2
+                  }
+                },
+                "balanceForces": null
+              }
+            }
+          ],
+          "final": {
+            "timeS": 12,
+            "state": "stand",
+            "stateTimeS": 9.216666666666784,
+            "kneelAmount": 0,
+            "pelvisHeightM": 0.8522262573242188,
+            "pelvisVelocityMps": [
+              0.010031331330537796,
+              0.0022427504882216454,
+              0.0006976186414249241
+            ],
+            "chestTiltDeg": 13.266361042723306,
+            "retainedGaitN": {
+              "F": 357.24221706390324,
+              "B": 451.35995864868096
+            },
+            "footRawVerticalN": 808.5786437988281,
+            "shinRawVerticalN": 0,
+            "recovery": null,
+            "feet": {
+              "footF": {
+                "rawVerticalForceMagnitudeN": 357.13679552078247,
+                "historicalSixSeventhsVerticalN": 306.11725330352783,
+                "maxContactHorizontalSpeedMps": 0.0019237403603953014,
+                "solverPointCount": 4
+              },
+              "footB": {
+                "rawVerticalForceMagnitudeN": 451.44184827804565,
+                "historicalSixSeventhsVerticalN": 386.95015566689625,
+                "maxContactHorizontalSpeedMps": 0.0018234747339081396,
+                "solverPointCount": 4
+              }
+            },
+            "balanceForces": null
+          }
+        },
+        {
+          "candidateName": "B",
+          "candidate": {
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1
+          },
+          "condition": "wound_side_neg",
+          "seed": 7,
+          "status": "observed",
+          "error": null,
+          "events": [
+            {
+              "kind": "syntheticApplyWound",
+              "timeS": 0,
+              "part": "thighF",
+              "zone": "leg",
+              "type": "cut",
+              "severity": 0.8,
+              "energy": 60,
+              "bleedPerSev": 0.015,
+              "local": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "kind": "knockDown",
+              "heavy": false,
+              "timeS": 0,
+              "state": "getup"
+            },
+            {
+              "kind": "lateralImpulse",
+              "timeS": 1.8416666666666666,
+              "impulseWorldNs": [
+                0.06469799025686575,
+                0,
+                -17.99988372657048
+              ],
+              "magnitudeNs": 18
+            }
+          ],
+          "summary": {
+            "getup": {
+              "storedSamples": 85,
+              "minPelvisHeightM": 0.4944268465042114,
+              "maxPointHorizontalSpeedMps": 4.003440363570331,
+              "meanFootRawVerticalN": 425.39096847132726
+            },
+            "kneel": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "stand": {
+              "storedSamples": 277,
+              "minPelvisHeightM": 0.8301254510879517,
+              "maxPointHorizontalSpeedMps": 1.0886433129850877,
+              "meanFootRawVerticalN": 764.4414398020691
+            },
+            "down": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "dead": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            }
+          },
+          "traceSha256": "29e3bfd26e3d11a2ce258bce0a523c265de438ebb35dc137885e75b9d32aaa74",
+          "sideImpulseApplied": true,
+          "transitions": [
+            {
+              "from": "getup",
+              "to": "stand",
+              "preStep": {
+                "timeS": 2.775,
+                "state": "getup",
+                "stateTimeS": 2.774999999999993,
+                "kneelAmount": 0.0022222222222281207,
+                "pelvisHeightM": 0.9245783090591431,
+                "pelvisVelocityMps": [
+                  0.08207722008228302,
+                  0.21318519115447998,
+                  0.027286244556307793
+                ],
+                "chestTiltDeg": 13.800594885259182,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 115.68108022212982,
+                "shinRawVerticalN": 0,
+                "recovery": null,
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 72.9610276222229,
+                    "historicalSixSeventhsVerticalN": 62.53802367619106,
+                    "maxContactHorizontalSpeedMps": 0.6034255552500369,
+                    "solverPointCount": 2
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 42.72005259990692,
+                    "historicalSixSeventhsVerticalN": 36.61718794277736,
+                    "maxContactHorizontalSpeedMps": 0.4795685952489459,
+                    "solverPointCount": 2
+                  }
+                },
+                "balanceForces": null
+              },
+              "postStep": {
+                "timeS": 2.783333333333333,
+                "state": "stand",
+                "stateTimeS": 0,
+                "kneelAmount": 0,
+                "pelvisHeightM": 0.926688015460968,
+                "pelvisVelocityMps": [
+                  0.016660921275615692,
+                  0.17818397283554077,
+                  -0.001907065394334495
+                ],
+                "chestTiltDeg": 13.907085603102765,
+                "retainedGaitN": {
+                  "F": 72.89050919282894,
+                  "B": 42.67876273446573
+                },
+                "footRawVerticalN": 345.58037761598825,
+                "shinRawVerticalN": 0,
+                "recovery": null,
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 137.31981486082077,
+                    "historicalSixSeventhsVerticalN": 117.70269845213208,
+                    "maxContactHorizontalSpeedMps": 1.0051790732518593,
+                    "solverPointCount": 2
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 208.26056275516748,
+                    "historicalSixSeventhsVerticalN": 178.50905379014355,
+                    "maxContactHorizontalSpeedMps": 0.23882218851584563,
+                    "solverPointCount": 2
+                  }
+                },
+                "balanceForces": null
+              }
+            }
+          ],
+          "final": {
+            "timeS": 12,
+            "state": "stand",
+            "stateTimeS": 9.216666666666784,
+            "kneelAmount": 0,
+            "pelvisHeightM": 0.8519994020462036,
+            "pelvisVelocityMps": [
+              0.008115853182971478,
+              0.0022379944566637278,
+              0.0006733909249305725
+            ],
+            "chestTiltDeg": 13.30333296971122,
+            "retainedGaitN": {
+              "F": 361.78567171096745,
+              "B": 446.1119341850274
+            },
+            "footRawVerticalN": 807.906585931778,
+            "shinRawVerticalN": 0,
+            "recovery": null,
+            "feet": {
+              "footF": {
+                "rawVerticalForceMagnitudeN": 361.69467329978943,
+                "historicalSixSeventhsVerticalN": 310.0240056855338,
+                "maxContactHorizontalSpeedMps": 0.0019348890580402997,
+                "solverPointCount": 4
+              },
+              "footB": {
+                "rawVerticalForceMagnitudeN": 446.2119126319885,
+                "historicalSixSeventhsVerticalN": 382.4673536845616,
+                "maxContactHorizontalSpeedMps": 0.00178927666169291,
+                "solverPointCount": 4
+              }
+            },
+            "balanceForces": null
+          }
+        }
+      ]
+    },
+    {
+      "rawFile": "recovery-support-r-contact-initial.json",
+      "rawSha256": "6c64f84918cdf3c885a3c93e6175d41db2d676601872922637c35f9c093fcfb4",
+      "sourceCommit": "5763d3ac3d7705abae18b98b12943e58f7e6f1aa",
+      "sourceBefore": {
+        "src/fighter.js": "79718bb37dc7fd2174434c6c3569bb65bcdb6322860ff08c04eab6aa5ce7a613",
+        "src/gait.js": "2874340a1e1991fb612ca74429523b30f7bb7eb147b1717ca6833a05405cc43f",
+        "src/recovery.js": "0e053d02b7c4ccd15611a12262c2bda5240761afb3ddc59738871373d82690a5",
+        "src/config.js": "65005dfecf0840a4d0af298c03dc5a5c230135cad08b924fce57681de8d36ec4",
+        "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+        "tools/sim/recovery_support_probe.mjs": "ce8373843ad64d6ce9f482ef5090b269417e86385e6ef758b5aa0670ed89a442"
+      },
+      "sourceUnchangedDuringRun": true,
+      "protocol": {
+        "settleS": 2.5,
+        "start": "actual knockDown(false), not supine recovery",
+        "injury": "hurt changes only legF=.45; wound applies cut severity.8/60J with actual bleeding; disabled changes both legs=.2. Synthetic injuries, not clinical calibration.",
+        "input": "player move0, autoGuard true, enemy parked; harness G.step intact",
+        "unsupported": "after settling verify single fixed floor and remove its collider; no artificial velocity/force or motor change",
+        "balanceForces": "existing optional balanceProbe applied forces, not a complete force/torque ledger; recovery fields are controller state",
+        "forceMeaning": "contactImpulse sum / DT is raw API interpretation; historical 6/7 is unvalidated here, retained separately",
+        "pointMeaning": "actual solver world contact point; velocityAtPoint minus fixed floor velocity; not COM speed. Contact existence alone is not load-bearing.",
+        "jointMeaning": "rest-relative rotation vector in joint frame; x/y magnitude is off-local-z bending, not clinical knee valgus",
+        "outcomeMeaning": "observed means tool completed, not human-like recovery success"
+      },
+      "rows": [
+        {
+          "candidateName": "R",
+          "candidate": {
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1,
+            "recoveryTrial": "contact"
+          },
+          "condition": "healthy",
+          "seed": 7,
+          "status": "observed",
+          "error": null,
+          "events": [
+            {
+              "kind": "knockDown",
+              "heavy": false,
+              "timeS": 0,
+              "state": "getup"
+            }
+          ],
+          "summary": {
+            "getup": {
+              "storedSamples": 117,
+              "minPelvisHeightM": 0.5144067406654358,
+              "maxPointHorizontalSpeedMps": 4.157659183223398,
+              "meanFootRawVerticalN": 239.86565272502887
+            },
+            "kneel": {
+              "storedSamples": 245,
+              "minPelvisHeightM": 0.5576009750366211,
+              "maxPointHorizontalSpeedMps": 0.32181967397094263,
+              "meanFootRawVerticalN": 337.8462606887428
+            },
+            "stand": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "down": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "dead": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            }
+          },
+          "traceSha256": "58c8f1e1af08ee5b2038eb5ded9723d051e5ff28db734bee585972182e041e08",
+          "sideImpulseApplied": false,
+          "transitions": [
+            {
+              "from": "getup",
+              "to": "kneel",
+              "preStep": {
+                "timeS": 3.8583333333333334,
+                "state": "getup",
+                "stateTimeS": 3.8583333333333223,
+                "kneelAmount": 0.9999999999999989,
+                "pelvisHeightM": 0.801197350025177,
+                "pelvisVelocityMps": [
+                  0.03973091021180153,
+                  -1.6207619905471802,
+                  -0.005761097185313702
+                ],
+                "chestTiltDeg": 24.85560601207897,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 0,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 1.1657341758564144e-15,
+                  "reason": "support-timeout",
+                  "supported": false,
+                  "yielding": true,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 0.09999999999999999
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 0,
+                  "baseSupportN": 0,
+                  "heightSpringN": 0,
+                  "verticalDampingN": 0,
+                  "horizontalXN": 0,
+                  "horizontalZN": 0,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              },
+              "postStep": {
+                "timeS": 3.8666666666666667,
+                "state": "kneel",
+                "stateTimeS": 0,
+                "kneelAmount": 1,
+                "pelvisHeightM": 0.787754476070404,
+                "pelvisVelocityMps": [
+                  0.035632286220788956,
+                  -1.6164621114730835,
+                  -0.05073174834251404
+                ],
+                "chestTiltDeg": 24.712859084497993,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 0,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 0,
+                  "reason": "support-timeout",
+                  "supported": false,
+                  "yielding": true,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 0.10833333333333332
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 0,
+                  "baseSupportN": 736.731,
+                  "heightSpringN": -731.1131100654602,
+                  "verticalDampingN": 421.39811754226685,
+                  "horizontalXN": -32.821687707700406,
+                  "horizontalZN": 4.759239888088742,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              }
+            }
+          ],
+          "final": {
+            "timeS": 12,
+            "state": "kneel",
+            "stateTimeS": 8.133333333333512,
+            "kneelAmount": 1,
+            "pelvisHeightM": 0.6222265362739563,
+            "pelvisVelocityMps": [
+              -0.038123719394207,
+              0.0004267777258064598,
+              -0.026616455987095833
+            ],
+            "chestTiltDeg": 28.59324670813564,
+            "retainedGaitN": {
+              "F": 409.7503101825714,
+              "B": 321.1993432044983
+            },
+            "footRawVerticalN": 335.3440546989441,
+            "shinRawVerticalN": 0,
+            "recovery": {
+              "progress": 0,
+              "reason": "support-timeout",
+              "supported": false,
+              "yielding": true,
+              "stableTimeS": 0,
+              "unsupportedTimeS": 0.10833333333333332
+            },
+            "feet": {
+              "footF": {
+                "rawVerticalForceMagnitudeN": 335.3440546989441,
+                "historicalSixSeventhsVerticalN": 287.4377611705235,
+                "maxContactHorizontalSpeedMps": 0.00224811059608553,
+                "solverPointCount": 4
+              },
+              "footB": {
+                "rawVerticalForceMagnitudeN": 0,
+                "historicalSixSeventhsVerticalN": 0,
+                "maxContactHorizontalSpeedMps": null,
+                "solverPointCount": 0
+              }
+            },
+            "balanceForces": {
+              "appliedUpN": 467.97452288246086,
+              "baseSupportN": 736.731,
+              "heightSpringN": -265.68686771392817,
+              "verticalDampingN": -3.0696094036102295,
+              "horizontalXN": -17.984694388322502,
+              "horizontalZN": -21.05074701234695,
+              "nominalWeightN": 736.731,
+              "footReaction": 0
+            }
+          }
+        },
+        {
+          "candidateName": "R",
+          "candidate": {
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1,
+            "recoveryTrial": "contact"
+          },
+          "condition": "hurt",
+          "seed": 7,
+          "status": "observed",
+          "error": null,
+          "events": [
+            {
+              "kind": "knockDown",
+              "heavy": false,
+              "timeS": 0,
+              "state": "getup"
+            }
+          ],
+          "summary": {
+            "getup": {
+              "storedSamples": 150,
+              "minPelvisHeightM": 0.5010074973106384,
+              "maxPointHorizontalSpeedMps": 4.4302054163211455,
+              "meanFootRawVerticalN": 284.86855325717477
+            },
+            "kneel": {
+              "storedSamples": 212,
+              "minPelvisHeightM": 0.5388897061347961,
+              "maxPointHorizontalSpeedMps": 0.16111020629987816,
+              "meanFootRawVerticalN": 334.97495492533693
+            },
+            "stand": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "down": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "dead": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            }
+          },
+          "traceSha256": "77ac2adb8de9c28b1b89981b3c41884651cca366065ffa0ec8efdff157c1177e",
+          "sideImpulseApplied": false,
+          "transitions": [
+            {
+              "from": "getup",
+              "to": "kneel",
+              "preStep": {
+                "timeS": 4.95,
+                "state": "getup",
+                "stateTimeS": 4.950000000000036,
+                "kneelAmount": 0.9999999999999989,
+                "pelvisHeightM": 0.5680931210517883,
+                "pelvisVelocityMps": [
+                  0.12794746458530426,
+                  -0.5907432436943054,
+                  -0.09061658382415771
+                ],
+                "chestTiltDeg": 21.13243151424973,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 111.99580192565918,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 1.1657341758564144e-15,
+                  "reason": "support-timeout",
+                  "supported": true,
+                  "yielding": true,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 0
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 111.99580192565918,
+                    "historicalSixSeventhsVerticalN": 95.996401650565,
+                    "maxContactHorizontalSpeedMps": 0.7187369519309968,
+                    "solverPointCount": 1
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 684.4819185141132,
+                  "baseSupportN": 736.731,
+                  "heightSpringN": -209.67351865768305,
+                  "verticalDampingN": 157.4244475364685,
+                  "horizontalXN": -54.524365342305124,
+                  "horizontalZN": 134.98446249113368,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              },
+              "postStep": {
+                "timeS": 4.958333333333333,
+                "state": "kneel",
+                "stateTimeS": 0,
+                "kneelAmount": 1,
+                "pelvisHeightM": 0.5636721849441528,
+                "pelvisVelocityMps": [
+                  0.053957171738147736,
+                  -0.5123631358146667,
+                  -0.11729107797145844
+                ],
+                "chestTiltDeg": 21.40857382856587,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 235.67461967468262,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 0,
+                  "reason": "support-timeout",
+                  "supported": true,
+                  "yielding": true,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 0
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 235.67461967468262,
+                    "historicalSixSeventhsVerticalN": 202.00681686401367,
+                    "maxContactHorizontalSpeedMps": 0.023047930555254833,
+                    "solverPointCount": 1
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 693.7821184705539,
+                  "baseSupportN": 736.731,
+                  "heightSpringN": -196.5421147346497,
+                  "verticalDampingN": 153.5932433605194,
+                  "horizontalXN": -105.69739894676196,
+                  "horizontalZN": 74.85835880138882,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              }
+            }
+          ],
+          "final": {
+            "timeS": 12,
+            "state": "kneel",
+            "stateTimeS": 7.041666666666806,
+            "kneelAmount": 1,
+            "pelvisHeightM": 0.602428138256073,
+            "pelvisVelocityMps": [
+              0.02048019878566265,
+              0.009632397443056107,
+              0.01387494895607233
+            ],
+            "chestTiltDeg": 28.425111996377584,
+            "retainedGaitN": {
+              "F": 409.7503101825714,
+              "B": 321.1993432044983
+            },
+            "footRawVerticalN": 351.1888074874878,
+            "shinRawVerticalN": 0,
+            "recovery": {
+              "progress": 0,
+              "reason": "support-timeout",
+              "supported": true,
+              "yielding": true,
+              "stableTimeS": 0,
+              "unsupportedTimeS": 0
+            },
+            "feet": {
+              "footF": {
+                "rawVerticalForceMagnitudeN": 351.1888074874878,
+                "historicalSixSeventhsVerticalN": 301.0189778464181,
+                "maxContactHorizontalSpeedMps": 0.0029420972172612414,
+                "solverPointCount": 3
+              },
+              "footB": {
+                "rawVerticalForceMagnitudeN": 0,
+                "historicalSixSeventhsVerticalN": 0,
+                "maxContactHorizontalSpeedMps": null,
+                "solverPointCount": 0
+              }
+            },
+            "balanceForces": {
+              "appliedUpN": 450.95136624583347,
+              "baseSupportN": 736.731,
+              "heightSpringN": -285.90831232070923,
+              "verticalDampingN": 0.1286785665433854,
+              "horizontalXN": 33.8167192742228,
+              "horizontalZN": 32.715003152564115,
+              "nominalWeightN": 736.731,
+              "footReaction": 0
+            }
+          }
+        },
+        {
+          "candidateName": "R",
+          "candidate": {
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1,
+            "recoveryTrial": "contact"
+          },
+          "condition": "wound",
+          "seed": 7,
+          "status": "observed",
+          "error": null,
+          "events": [
+            {
+              "kind": "syntheticApplyWound",
+              "timeS": 0,
+              "part": "thighF",
+              "zone": "leg",
+              "type": "cut",
+              "severity": 0.8,
+              "energy": 60,
+              "bleedPerSev": 0.015,
+              "local": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "kind": "knockDown",
+              "heavy": false,
+              "timeS": 0,
+              "state": "getup"
+            }
+          ],
+          "summary": {
+            "getup": {
+              "storedSamples": 151,
+              "minPelvisHeightM": 0.4932714104652405,
+              "maxPointHorizontalSpeedMps": 4.003440363570331,
+              "meanFootRawVerticalN": 286.42305943461145
+            },
+            "kneel": {
+              "storedSamples": 211,
+              "minPelvisHeightM": 0.5357450842857361,
+              "maxPointHorizontalSpeedMps": 0.19554694259246572,
+              "meanFootRawVerticalN": 331.52955885817653
+            },
+            "stand": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "down": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "dead": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            }
+          },
+          "traceSha256": "ec44535ea0ea46246bc499d5faa765653e3a2df43cf9c339fc62fbc04998b15e",
+          "sideImpulseApplied": false,
+          "transitions": [
+            {
+              "from": "getup",
+              "to": "kneel",
+              "preStep": {
+                "timeS": 4.983333333333333,
+                "state": "getup",
+                "stateTimeS": 4.983333333333371,
+                "kneelAmount": 0.9999999999999989,
+                "pelvisHeightM": 0.5634092688560486,
+                "pelvisVelocityMps": [
+                  0.06057515740394592,
+                  -0.6109545826911926,
+                  -0.1612541526556015
+                ],
+                "chestTiltDeg": 20.735258812939723,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 124.40767765045166,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 1.1657341758564144e-15,
+                  "reason": "support-timeout",
+                  "supported": true,
+                  "yielding": true,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 0
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 124.40767765045166,
+                    "historicalSixSeventhsVerticalN": 106.63515227181571,
+                    "maxContactHorizontalSpeedMps": 0.6682745880802454,
+                    "solverPointCount": 1
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 695.635568181301,
+                  "baseSupportN": 736.731,
+                  "heightSpringN": -198.85330753326303,
+                  "verticalDampingN": 157.7579629421234,
+                  "horizontalXN": -87.48405045681595,
+                  "horizontalZN": 102.77871003630335,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              },
+              "postStep": {
+                "timeS": 4.991666666666666,
+                "state": "kneel",
+                "stateTimeS": 0,
+                "kneelAmount": 1,
+                "pelvisHeightM": 0.5588476657867432,
+                "pelvisVelocityMps": [
+                  0.09210424870252609,
+                  -0.5119662880897522,
+                  -0.07872848212718964
+                ],
+                "chestTiltDeg": 20.99910025441408,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 240.3632926940918,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 0,
+                  "reason": "support-timeout",
+                  "supported": true,
+                  "yielding": true,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 0
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 240.3632926940918,
+                    "historicalSixSeventhsVerticalN": 206.0256794520787,
+                    "maxContactHorizontalSpeedMps": 0.01609174302745952,
+                    "solverPointCount": 1
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 709.9150064231583,
+                  "baseSupportN": 736.731,
+                  "heightSpringN": -185.66409902572647,
+                  "verticalDampingN": 158.84819149971008,
+                  "horizontalXN": -50.041131465771265,
+                  "horizontalZN": 133.21203936178068,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              }
+            }
+          ],
+          "final": {
+            "timeS": 12,
+            "state": "kneel",
+            "stateTimeS": 7.008333333333471,
+            "kneelAmount": 1,
+            "pelvisHeightM": 0.6019502878189087,
+            "pelvisVelocityMps": [
+              -0.0409209281206131,
+              -0.0005027643055655062,
+              -0.039395771920681
+            ],
+            "chestTiltDeg": 28.460847468735068,
+            "retainedGaitN": {
+              "F": 409.7503101825714,
+              "B": 321.1993432044983
+            },
+            "footRawVerticalN": 354.92135524749756,
+            "shinRawVerticalN": 0,
+            "recovery": {
+              "progress": 0,
+              "reason": "support-timeout",
+              "supported": true,
+              "yielding": true,
+              "stableTimeS": 0,
+              "unsupportedTimeS": 0
+            },
+            "feet": {
+              "footF": {
+                "rawVerticalForceMagnitudeN": 354.92135524749756,
+                "historicalSixSeventhsVerticalN": 304.21830449785506,
+                "maxContactHorizontalSpeedMps": 0.004777619594321298,
+                "solverPointCount": 3
+              },
+              "footB": {
+                "rawVerticalForceMagnitudeN": 0,
+                "historicalSixSeventhsVerticalN": 0,
+                "maxContactHorizontalSpeedMps": null,
+                "solverPointCount": 0
+              }
+            },
+            "balanceForces": {
+              "appliedUpN": 448.48076658150467,
+              "baseSupportN": 736.731,
+              "heightSpringN": -285.7560689926149,
+              "verticalDampingN": -2.494164425879717,
+              "horizontalXN": -16.881131789274487,
+              "horizontalZN": -11.629461581911873,
+              "nominalWeightN": 736.731,
+              "footReaction": 0
+            }
+          }
+        },
+        {
+          "candidateName": "R",
+          "candidate": {
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1,
+            "recoveryTrial": "contact"
+          },
+          "condition": "wound_side_pos",
+          "seed": 7,
+          "status": "observed",
+          "error": null,
+          "events": [
+            {
+              "kind": "syntheticApplyWound",
+              "timeS": 0,
+              "part": "thighF",
+              "zone": "leg",
+              "type": "cut",
+              "severity": 0.8,
+              "energy": 60,
+              "bleedPerSev": 0.015,
+              "local": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "kind": "knockDown",
+              "heavy": false,
+              "timeS": 0,
+              "state": "getup"
+            },
+            {
+              "kind": "lateralImpulse",
+              "timeS": 1.9,
+              "impulseWorldNs": [
+                -0.016280191092946258,
+                0,
+                17.999992637647882
+              ],
+              "magnitudeNs": 18
+            }
+          ],
+          "summary": {
+            "getup": {
+              "storedSamples": 151,
+              "minPelvisHeightM": 0.4932714104652405,
+              "maxPointHorizontalSpeedMps": 4.003440363570331,
+              "meanFootRawVerticalN": 307.60169523095846
+            },
+            "kneel": {
+              "storedSamples": 211,
+              "minPelvisHeightM": 0.5114172697067261,
+              "maxPointHorizontalSpeedMps": 0.2842502653666045,
+              "meanFootRawVerticalN": 330.01397306955823
+            },
+            "stand": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "down": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "dead": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            }
+          },
+          "traceSha256": "3c86603b85d567b257ad24767779134462652090dd846d09f084ee58e65cd130",
+          "sideImpulseApplied": true,
+          "transitions": [
+            {
+              "from": "getup",
+              "to": "kneel",
+              "preStep": {
+                "timeS": 4.983333333333333,
+                "state": "getup",
+                "stateTimeS": 4.983333333333371,
+                "kneelAmount": 0.9999999999999989,
+                "pelvisHeightM": 0.5408144593238831,
+                "pelvisVelocityMps": [
+                  0.07701561599969864,
+                  -0.7491438984870911,
+                  -0.12418607622385025
+                ],
+                "chestTiltDeg": 21.529589026290218,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 150.14419555664062,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 1.1657341758564144e-15,
+                  "reason": "support-timeout",
+                  "supported": true,
+                  "yielding": true,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 0
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 150.14419555664062,
+                    "historicalSixSeventhsVerticalN": 128.69502476283483,
+                    "maxContactHorizontalSpeedMps": 0.4927073276579642,
+                    "solverPointCount": 1
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": 0.5720214445698075,
+                    "solverPointCount": 1
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 796.3683350530251,
+                  "baseSupportN": 736.731,
+                  "heightSpringN": -143.66496162414438,
+                  "verticalDampingN": 203.3023965358734,
+                  "horizontalXN": -8.462067832120878,
+                  "horizontalZN": 160.0084969242752,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              },
+              "postStep": {
+                "timeS": 4.991666666666666,
+                "state": "kneel",
+                "stateTimeS": 0,
+                "kneelAmount": 1,
+                "pelvisHeightM": 0.5351240038871765,
+                "pelvisVelocityMps": [
+                  0.019080139696598053,
+                  -0.655449390411377,
+                  -0.14895962178707123
+                ],
+                "chestTiltDeg": 21.7273345866427,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 449.8731279373169,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 0,
+                  "reason": "support-timeout",
+                  "supported": true,
+                  "yielding": true,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 0
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 257.5224781036377,
+                    "historicalSixSeventhsVerticalN": 220.73355266026087,
+                    "maxContactHorizontalSpeedMps": 0.003541467893036967,
+                    "solverPointCount": 1
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 192.3506498336792,
+                    "historicalSixSeventhsVerticalN": 164.87198557172502,
+                    "maxContactHorizontalSpeedMps": 0.00461815020982518,
+                    "solverPointCount": 1
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 804.5907218378084,
+                  "baseSupportN": 736.731,
+                  "heightSpringN": -126.91759424209611,
+                  "verticalDampingN": 194.77741360664368,
+                  "horizontalXN": -63.62259266547489,
+                  "horizontalZN": 102.59010513328306,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              }
+            }
+          ],
+          "final": {
+            "timeS": 12,
+            "state": "kneel",
+            "stateTimeS": 7.008333333333471,
+            "kneelAmount": 1,
+            "pelvisHeightM": 0.6012850999832153,
+            "pelvisVelocityMps": [
+              0.020174970850348473,
+              0.009263715706765652,
+              0.013062565587460995
+            ],
+            "chestTiltDeg": 28.417960352632665,
+            "retainedGaitN": {
+              "F": 409.7503101825714,
+              "B": 321.1993432044983
+            },
+            "footRawVerticalN": 349.41720485687256,
+            "shinRawVerticalN": 0,
+            "recovery": {
+              "progress": 0,
+              "reason": "support-timeout",
+              "supported": true,
+              "yielding": true,
+              "stableTimeS": 0,
+              "unsupportedTimeS": 0
+            },
+            "feet": {
+              "footF": {
+                "rawVerticalForceMagnitudeN": 349.41720485687256,
+                "historicalSixSeventhsVerticalN": 299.5004613058908,
+                "maxContactHorizontalSpeedMps": 0.005062655942604964,
+                "solverPointCount": 3
+              },
+              "footB": {
+                "rawVerticalForceMagnitudeN": 0,
+                "historicalSixSeventhsVerticalN": 0,
+                "maxContactHorizontalSpeedMps": null,
+                "solverPointCount": 0
+              }
+            },
+            "balanceForces": {
+              "appliedUpN": 452.6702346740226,
+              "baseSupportN": 736.731,
+              "heightSpringN": -284.23424320220965,
+              "verticalDampingN": 0.17347787623293698,
+              "horizontalXN": 34.11988008692855,
+              "horizontalZN": 33.41165445186192,
+              "nominalWeightN": 736.731,
+              "footReaction": 0
+            }
+          }
+        },
+        {
+          "candidateName": "R",
+          "candidate": {
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1,
+            "recoveryTrial": "contact"
+          },
+          "condition": "wound_side_neg",
+          "seed": 7,
+          "status": "observed",
+          "error": null,
+          "events": [
+            {
+              "kind": "syntheticApplyWound",
+              "timeS": 0,
+              "part": "thighF",
+              "zone": "leg",
+              "type": "cut",
+              "severity": 0.8,
+              "energy": 60,
+              "bleedPerSev": 0.015,
+              "local": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "kind": "knockDown",
+              "heavy": false,
+              "timeS": 0,
+              "state": "getup"
+            },
+            {
+              "kind": "lateralImpulse",
+              "timeS": 1.9,
+              "impulseWorldNs": [
+                0.016280191092946258,
+                0,
+                -17.999992637647882
+              ],
+              "magnitudeNs": 18
+            }
+          ],
+          "summary": {
+            "getup": {
+              "storedSamples": 151,
+              "minPelvisHeightM": 0.4932714104652405,
+              "maxPointHorizontalSpeedMps": 4.003440363570331,
+              "meanFootRawVerticalN": 285.9732130714476
+            },
+            "kneel": {
+              "storedSamples": 211,
+              "minPelvisHeightM": 0.5065668225288391,
+              "maxPointHorizontalSpeedMps": 0.43340454357937896,
+              "meanFootRawVerticalN": 280.15586014183776
+            },
+            "stand": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "down": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "dead": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            }
+          },
+          "traceSha256": "656576f30d57e37bff9b5d7453db0d8878fd04263962fa299dbf7a6be5a0600a",
+          "sideImpulseApplied": true,
+          "transitions": [
+            {
+              "from": "getup",
+              "to": "kneel",
+              "preStep": {
+                "timeS": 4.983333333333333,
+                "state": "getup",
+                "stateTimeS": 4.983333333333371,
+                "kneelAmount": 0.9999999999999989,
+                "pelvisHeightM": 0.5273111462593079,
+                "pelvisVelocityMps": [
+                  0.14759930968284607,
+                  -0.5849031805992126,
+                  -0.11448527127504349
+                ],
+                "chestTiltDeg": 25.422357434943386,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 150.32784461975098,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 1.1657341758564144e-15,
+                  "reason": "support-timeout",
+                  "supported": true,
+                  "yielding": true,
+                  "stableTimeS": 0.008333333333333333,
+                  "unsupportedTimeS": 0
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 150.32784461975098,
+                    "historicalSixSeventhsVerticalN": 128.85243824550085,
+                    "maxContactHorizontalSpeedMps": 0.5499122781601611,
+                    "solverPointCount": 1
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": 0.7130687341945151,
+                    "solverPointCount": 1
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 790.3656319006141,
+                  "baseSupportN": 736.731,
+                  "heightSpringN": -104.88381938934212,
+                  "verticalDampingN": 158.51855039596558,
+                  "horizontalXN": -63.14022486176804,
+                  "horizontalZN": 150.19241508599362,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              },
+              "postStep": {
+                "timeS": 4.991666666666666,
+                "state": "kneel",
+                "stateTimeS": 0,
+                "kneelAmount": 1,
+                "pelvisHeightM": 0.5230137705802917,
+                "pelvisVelocityMps": [
+                  0.08092883229255676,
+                  -0.491941899061203,
+                  -0.12484969198703766
+                ],
+                "chestTiltDeg": 25.61015260274665,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 361.3538074493408,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 0,
+                  "reason": "support-timeout",
+                  "supported": true,
+                  "yielding": true,
+                  "stableTimeS": 0.008333333333333333,
+                  "unsupportedTimeS": 0
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 225.01379013061523,
+                    "historicalSixSeventhsVerticalN": 192.86896296909876,
+                    "maxContactHorizontalSpeedMps": 0.009542897112005035,
+                    "solverPointCount": 1
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 136.3400173187256,
+                    "historicalSixSeventhsVerticalN": 116.86287198747907,
+                    "maxContactHorizontalSpeedMps": 0.030437957609462322,
+                    "solverPointCount": 1
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 796.9967500753426,
+                  "baseSupportN": 736.731,
+                  "heightSpringN": -91.80898027420061,
+                  "verticalDampingN": 152.0748269557953,
+                  "horizontalXN": -121.93177494930046,
+                  "horizontalZN": 94.5762711364535,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              }
+            }
+          ],
+          "final": {
+            "timeS": 12,
+            "state": "kneel",
+            "stateTimeS": 7.008333333333471,
+            "kneelAmount": 1,
+            "pelvisHeightM": 0.5696454048156738,
+            "pelvisVelocityMps": [
+              0.039498019963502884,
+              -0.004800866357982159,
+              0.056874100118875504
+            ],
+            "chestTiltDeg": 28.975706197967448,
+            "retainedGaitN": {
+              "F": 409.7503101825714,
+              "B": 321.1993432044983
+            },
+            "footRawVerticalN": 248.81680011749268,
+            "shinRawVerticalN": 0,
+            "recovery": {
+              "progress": 0,
+              "reason": "support-timeout",
+              "supported": true,
+              "yielding": true,
+              "stableTimeS": 0.008333333333333333,
+              "unsupportedTimeS": 0
+            },
+            "feet": {
+              "footF": {
+                "rawVerticalForceMagnitudeN": 248.81680011749268,
+                "historicalSixSeventhsVerticalN": 213.27154295785087,
+                "maxContactHorizontalSpeedMps": 0.012203201384200743,
+                "solverPointCount": 2
+              },
+              "footB": {
+                "rawVerticalForceMagnitudeN": 0,
+                "historicalSixSeventhsVerticalN": 0,
+                "maxContactHorizontalSpeedMps": null,
+                "solverPointCount": 0
+              }
+            },
+            "balanceForces": {
+              "appliedUpN": 537.921354154258,
+              "baseSupportN": 736.731,
+              "heightSpringN": -202.12507801055924,
+              "verticalDampingN": 3.3154321648180485,
+              "horizontalXN": 19.693012184463406,
+              "horizontalZN": -2.826646636403161,
+              "nominalWeightN": 736.731,
+              "footReaction": 0
+            }
+          }
+        },
+        {
+          "candidateName": "R",
+          "candidate": {
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1,
+            "recoveryTrial": "contact"
+          },
+          "condition": "disabled",
+          "seed": 7,
+          "status": "observed",
+          "error": null,
+          "events": [
+            {
+              "kind": "knockDown",
+              "heavy": false,
+              "timeS": 0,
+              "state": "getup"
+            }
+          ],
+          "summary": {
+            "getup": {
+              "storedSamples": 111,
+              "minPelvisHeightM": 0.4999295771121979,
+              "maxPointHorizontalSpeedMps": 3.0133669956821714,
+              "meanFootRawVerticalN": 501.98000514904993
+            },
+            "kneel": {
+              "storedSamples": 250,
+              "minPelvisHeightM": 0.5659162998199463,
+              "maxPointHorizontalSpeedMps": 0.01086816238530756,
+              "meanFootRawVerticalN": 404.1412140528113
+            },
+            "stand": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "down": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "dead": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            }
+          },
+          "traceSha256": "9803dd90cb5895d248fa25a469b80fb8f7922cd5a6ef4e80c6351be5a9a8eb80",
+          "sideImpulseApplied": false,
+          "transitions": [
+            {
+              "from": "getup",
+              "to": "kneel",
+              "preStep": {
+                "timeS": 3.6666666666666665,
+                "state": "getup",
+                "stateTimeS": 3.6666666666666563,
+                "kneelAmount": 1,
+                "pelvisHeightM": 0.5776318311691284,
+                "pelvisVelocityMps": [
+                  -0.08686931431293488,
+                  -0.005332560744136572,
+                  -0.03343387320637703
+                ],
+                "chestTiltDeg": 28.95959129679765,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 439.8607850074768,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 0,
+                  "reason": "kneeling",
+                  "supported": true,
+                  "yielding": false,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 0
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 439.8607850074768,
+                    "historicalSixSeventhsVerticalN": 377.0235300064087,
+                    "maxContactHorizontalSpeedMps": 0.0045623101507918,
+                    "solverPointCount": 4
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 377.1061068445923,
+                  "baseSupportN": 736.731,
+                  "heightSpringN": -357.88336372375517,
+                  "verticalDampingN": -1.6072220634669065,
+                  "horizontalXN": 22.506529278435384,
+                  "horizontalZN": -15.390868584805883,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              },
+              "postStep": {
+                "timeS": 3.675,
+                "state": "kneel",
+                "stateTimeS": 0,
+                "kneelAmount": 1,
+                "pelvisHeightM": 0.5775373578071594,
+                "pelvisVelocityMps": [
+                  -0.026716966181993484,
+                  0.006327339448034763,
+                  0.01885242387652397
+                ],
+                "chestTiltDeg": 28.914315635116157,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 432.357702255249,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 0,
+                  "reason": "leg-capacity",
+                  "supported": true,
+                  "yielding": false,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 0
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 432.357702255249,
+                    "historicalSixSeventhsVerticalN": 370.5923162187849,
+                    "maxContactHorizontalSpeedMps": 0.006487870542395885,
+                    "solverPointCount": 4
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 380.1438300212626,
+                  "baseSupportN": 736.731,
+                  "heightSpringN": -357.84276103973417,
+                  "verticalDampingN": 1.3864657934755087,
+                  "horizontalXN": 71.73804280422421,
+                  "horizontalZN": 27.610217096337152,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              }
+            }
+          ],
+          "final": {
+            "timeS": 12,
+            "state": "kneel",
+            "stateTimeS": 8.325000000000168,
+            "kneelAmount": 1,
+            "pelvisHeightM": 0.5659525394439697,
+            "pelvisVelocityMps": [
+              -0.042045146226882935,
+              0.0030110743828117847,
+              -0.031205564737319946
+            ],
+            "chestTiltDeg": 28.361763061733907,
+            "retainedGaitN": {
+              "F": 409.7503101825714,
+              "B": 321.1993432044983
+            },
+            "footRawVerticalN": 407.2489070892334,
+            "shinRawVerticalN": 0,
+            "recovery": {
+              "progress": 0,
+              "reason": "leg-capacity",
+              "supported": true,
+              "yielding": false,
+              "stableTimeS": 0,
+              "unsupportedTimeS": 0
+            },
+            "feet": {
+              "footF": {
+                "rawVerticalForceMagnitudeN": 407.2489070892334,
+                "historicalSixSeventhsVerticalN": 349.0704917907715,
+                "maxContactHorizontalSpeedMps": 0.0091768352811931,
+                "solverPointCount": 3
+              },
+              "footB": {
+                "rawVerticalForceMagnitudeN": 0,
+                "historicalSixSeventhsVerticalN": 0,
+                "maxContactHorizontalSpeedMps": null,
+                "solverPointCount": 0
+              }
+            },
+            "balanceForces": {
+              "appliedUpN": 405.42243003225235,
+              "baseSupportN": 736.731,
+              "heightSpringN": -327.3750958442691,
+              "verticalDampingN": -3.933474123477936,
+              "horizontalXN": -14.408320037089263,
+              "horizontalZN": -17.3286902112886,
+              "nominalWeightN": 736.731,
+              "footReaction": 0
+            }
+          }
+        },
+        {
+          "candidateName": "R",
+          "candidate": {
+            "assist": 0.1,
+            "catchMode": "on",
+            "catchScale": 1,
+            "recoveryTrial": "contact"
+          },
+          "condition": "unsupported",
+          "seed": 7,
+          "status": "observed",
+          "error": null,
+          "events": [
+            {
+              "kind": "removeFloorCollider",
+              "timeS": 0,
+              "handle": 0,
+              "translationM": [
+                0,
+                -0.5,
+                0
+              ],
+              "halfExtentsM": [
+                30,
+                0.5,
+                30
+              ],
+              "fixedBodyCount": 1
+            },
+            {
+              "kind": "knockDown",
+              "heavy": false,
+              "timeS": 0,
+              "state": "getup"
+            }
+          ],
+          "summary": {
+            "getup": {
+              "storedSamples": 136,
+              "minPelvisHeightM": -5.533401012420654,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": 0
+            },
+            "kneel": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "stand": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            },
+            "down": {
+              "storedSamples": 230,
+              "minPelvisHeightM": -8.557304382324219,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": 0
+            },
+            "dead": {
+              "storedSamples": 0,
+              "minPelvisHeightM": null,
+              "maxPointHorizontalSpeedMps": null,
+              "meanFootRawVerticalN": null
+            }
+          },
+          "traceSha256": "2967cabbf7037ad689dc0c7cc1b7a717b6f4344d2d6c045d86add29bad03974c",
+          "sideImpulseApplied": false,
+          "transitions": [
+            {
+              "from": "getup",
+              "to": "down",
+              "preStep": {
+                "timeS": 1.1,
+                "state": "getup",
+                "stateTimeS": 1.0999999999999985,
+                "kneelAmount": 1,
+                "pelvisHeightM": -4.884526252746582,
+                "pelvisVelocityMps": [
+                  -0.0330384224653244,
+                  -10.395928382873535,
+                  -0.001116135623306036
+                ],
+                "chestTiltDeg": 18.23864405835334,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 0,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 0,
+                  "reason": "kneeling",
+                  "supported": false,
+                  "yielding": false,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 1.0999999999999985
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 0,
+                  "baseSupportN": 0,
+                  "heightSpringN": 0,
+                  "verticalDampingN": 0,
+                  "horizontalXN": 0,
+                  "horizontalZN": 0,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              },
+              "postStep": {
+                "timeS": 1.1083333333333334,
+                "state": "down",
+                "stateTimeS": 0,
+                "kneelAmount": 0,
+                "pelvisHeightM": -4.9671950340271,
+                "pelvisVelocityMps": [
+                  0.5336754322052002,
+                  -9.681262016296387,
+                  -0.03498400002717972
+                ],
+                "chestTiltDeg": 15.599122507194156,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 0,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 0,
+                  "reason": "no-support",
+                  "supported": false,
+                  "yielding": false,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 1.1083333333333318
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 1841.8274999999999,
+                  "baseSupportN": 736.731,
+                  "heightSpringN": 15169.768257138767,
+                  "verticalDampingN": 2702.941379547119,
+                  "horizontalXN": 23.84070219828435,
+                  "horizontalZN": 0.8054094300677866,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              }
+            },
+            {
+              "from": "down",
+              "to": "getup",
+              "preStep": {
+                "timeS": 3.308333333333333,
+                "state": "down",
+                "stateTimeS": 2.199999999999995,
+                "kneelAmount": 0,
+                "pelvisHeightM": -1.235512614250183,
+                "pelvisVelocityMps": [
+                  0.0195542573928833,
+                  9.743195533752441,
+                  -0.16561336815357208
+                ],
+                "chestTiltDeg": 96.78745086947949,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 0,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 0,
+                  "reason": "no-support",
+                  "supported": false,
+                  "yielding": false,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 1.1083333333333318
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 408.544715889317,
+                  "baseSupportN": 736.731,
+                  "heightSpringN": 5893.764300346375,
+                  "verticalDampingN": -2545.048141479492,
+                  "horizontalXN": -1.9062898698012996,
+                  "horizontalZN": 13.26323231586407,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              },
+              "postStep": {
+                "timeS": 3.3166666666666664,
+                "state": "getup",
+                "stateTimeS": 0,
+                "kneelAmount": 1,
+                "pelvisHeightM": -1.153206467628479,
+                "pelvisVelocityMps": [
+                  0.3779616057872772,
+                  9.90872859954834,
+                  -0.41965988278388977
+                ],
+                "chestTiltDeg": 96.78576760310784,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 0,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 0,
+                  "reason": "kneeling",
+                  "supported": false,
+                  "yielding": false,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 0
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 0,
+                  "baseSupportN": 0,
+                  "heightSpringN": 0,
+                  "verticalDampingN": 0,
+                  "horizontalXN": 0,
+                  "horizontalZN": 0,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              }
+            },
+            {
+              "from": "getup",
+              "to": "down",
+              "preStep": {
+                "timeS": 4.416666666666667,
+                "state": "getup",
+                "stateTimeS": 1.0999999999999985,
+                "kneelAmount": 1,
+                "pelvisHeightM": 3.3105688095092773,
+                "pelvisVelocityMps": [
+                  -0.3019585907459259,
+                  -1.1913244724273682,
+                  0.031872715801000595
+                ],
+                "chestTiltDeg": 15.73462682673432,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 0,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 0,
+                  "reason": "kneeling",
+                  "supported": false,
+                  "yielding": false,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 1.0999999999999985
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 0,
+                  "baseSupportN": 0,
+                  "heightSpringN": 0,
+                  "verticalDampingN": 0,
+                  "horizontalXN": 0,
+                  "horizontalZN": 0,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              },
+              "postStep": {
+                "timeS": 4.425,
+                "state": "down",
+                "stateTimeS": 0,
+                "kneelAmount": 0,
+                "pelvisHeightM": 3.303365707397461,
+                "pelvisVelocityMps": [
+                  -0.01906895451247692,
+                  -0.7233244180679321,
+                  0.5571936964988708
+                ],
+                "chestTiltDeg": 13.397076221203205,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 0,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 0,
+                  "reason": "no-support",
+                  "supported": false,
+                  "yielding": false,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 1.1083333333333318
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 0,
+                  "baseSupportN": 736.731,
+                  "heightSpringN": -6137.47890472412,
+                  "verticalDampingN": 309.7443628311157,
+                  "horizontalXN": 2.164171298870977e-08,
+                  "horizontalZN": -2.164171298870977e-08,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              }
+            },
+            {
+              "from": "down",
+              "to": "getup",
+              "preStep": {
+                "timeS": 6.625,
+                "state": "down",
+                "stateTimeS": 2.199999999999995,
+                "kneelAmount": 0,
+                "pelvisHeightM": -4.074088096618652,
+                "pelvisVelocityMps": [
+                  0.14584501087665558,
+                  4.1455278396606445,
+                  -0.08131860941648483
+                ],
+                "chestTiltDeg": 104.69141262410196,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 0,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 0,
+                  "reason": "no-support",
+                  "supported": false,
+                  "yielding": false,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 1.1083333333333318
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 1282.5682768957108,
+                  "baseSupportN": 736.731,
+                  "heightSpringN": 13151.859493255615,
+                  "verticalDampingN": -1062.9077243804932,
+                  "horizontalXN": -12.138690656203138,
+                  "horizontalZN": 6.096044775659069,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              },
+              "postStep": {
+                "timeS": 6.633333333333333,
+                "state": "getup",
+                "stateTimeS": 0,
+                "kneelAmount": 1,
+                "pelvisHeightM": -4.038603782653809,
+                "pelvisVelocityMps": [
+                  0.5593733787536621,
+                  4.287421703338623,
+                  -0.02747461386024952
+                ],
+                "chestTiltDeg": 104.70443902328132,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 0,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 0,
+                  "reason": "kneeling",
+                  "supported": false,
+                  "yielding": false,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 0
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 0,
+                  "baseSupportN": 0,
+                  "heightSpringN": 0,
+                  "verticalDampingN": 0,
+                  "horizontalXN": 0,
+                  "horizontalZN": 0,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              }
+            },
+            {
+              "from": "getup",
+              "to": "down",
+              "preStep": {
+                "timeS": 7.733333333333333,
+                "state": "getup",
+                "stateTimeS": 1.0999999999999985,
+                "kneelAmount": 1,
+                "pelvisHeightM": -5.6948089599609375,
+                "pelvisVelocityMps": [
+                  -0.26203691959381104,
+                  -6.563801288604736,
+                  -0.132327139377594
+                ],
+                "chestTiltDeg": 21.291606714296297,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 0,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 0,
+                  "reason": "kneeling",
+                  "supported": false,
+                  "yielding": false,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 1.0999999999999985
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 0,
+                  "baseSupportN": 0,
+                  "heightSpringN": 0,
+                  "verticalDampingN": 0,
+                  "horizontalXN": 0,
+                  "horizontalZN": 0,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              },
+              "postStep": {
+                "timeS": 7.741666666666666,
+                "state": "down",
+                "stateTimeS": 0,
+                "kneelAmount": 0,
+                "pelvisHeightM": -5.745616436004639,
+                "pelvisVelocityMps": [
+                  0.058540087193250656,
+                  -5.8826680183410645,
+                  -0.6346690058708191
+                ],
+                "chestTiltDeg": 18.54127783882183,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 0,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 0,
+                  "reason": "no-support",
+                  "supported": false,
+                  "yielding": false,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 1.1083333333333318
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 1841.8274999999999,
+                  "baseSupportN": 736.731,
+                  "heightSpringN": 17276.503295898438,
+                  "verticalDampingN": 1706.5883350372314,
+                  "horizontalXN": 187.998806774029,
+                  "horizontalZN": 94.93831764383124,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              }
+            },
+            {
+              "from": "down",
+              "to": "getup",
+              "preStep": {
+                "timeS": 9.941666666666666,
+                "state": "down",
+                "stateTimeS": 2.199999999999995,
+                "kneelAmount": 0,
+                "pelvisHeightM": -0.060788389295339584,
+                "pelvisVelocityMps": [
+                  0.04602416604757309,
+                  5.175978660583496,
+                  -0.06129401549696922
+                ],
+                "chestTiltDeg": 82.46641177171124,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 0,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 0,
+                  "reason": "no-support",
+                  "supported": false,
+                  "yielding": false,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 1.1083333333333318
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 211.52304626180435,
+                  "baseSupportN": 736.731,
+                  "heightSpringN": 2740.7549691200256,
+                  "verticalDampingN": -1362.255506515503,
+                  "horizontalXN": -3.6193504970007035,
+                  "horizontalZN": 5.071385232913128,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              },
+              "postStep": {
+                "timeS": 9.95,
+                "state": "getup",
+                "stateTimeS": 0,
+                "kneelAmount": 1,
+                "pelvisHeightM": -0.017127715051174164,
+                "pelvisVelocityMps": [
+                  -0.10760664939880371,
+                  5.280712604522705,
+                  -0.4693511426448822
+                ],
+                "chestTiltDeg": 83.29599027935828,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 0,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 0,
+                  "reason": "kneeling",
+                  "supported": false,
+                  "yielding": false,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 0
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 0,
+                  "baseSupportN": 0,
+                  "heightSpringN": 0,
+                  "verticalDampingN": 0,
+                  "horizontalXN": 0,
+                  "horizontalZN": 0,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              }
+            },
+            {
+              "from": "getup",
+              "to": "down",
+              "preStep": {
+                "timeS": 11.05,
+                "state": "getup",
+                "stateTimeS": 1.0999999999999985,
+                "kneelAmount": 1,
+                "pelvisHeightM": -0.44422245025634766,
+                "pelvisVelocityMps": [
+                  -0.0009191237622871995,
+                  -5.591177463531494,
+                  -0.010666891932487488
+                ],
+                "chestTiltDeg": 19.747078179787383,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 0,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 0,
+                  "reason": "kneeling",
+                  "supported": false,
+                  "yielding": false,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 1.0999999999999985
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 0,
+                  "baseSupportN": 0,
+                  "heightSpringN": 0,
+                  "verticalDampingN": 0,
+                  "horizontalXN": 0,
+                  "horizontalZN": 0,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              },
+              "postStep": {
+                "timeS": 11.058333333333334,
+                "state": "down",
+                "stateTimeS": 0,
+                "kneelAmount": 0,
+                "pelvisHeightM": -0.4868195950984955,
+                "pelvisVelocityMps": [
+                  0.5807971954345703,
+                  -4.886859893798828,
+                  -0.011877505108714104
+                ],
+                "chestTiltDeg": 17.18465955837934,
+                "retainedGaitN": {
+                  "F": 409.7503101825714,
+                  "B": 321.1993432044983
+                },
+                "footRawVerticalN": 0,
+                "shinRawVerticalN": 0,
+                "recovery": {
+                  "progress": 0,
+                  "reason": "no-support",
+                  "supported": false,
+                  "yielding": false,
+                  "stableTimeS": 0,
+                  "unsupportedTimeS": 1.1083333333333318
+                },
+                "feet": {
+                  "footF": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  },
+                  "footB": {
+                    "rawVerticalForceMagnitudeN": 0,
+                    "historicalSixSeventhsVerticalN": 0,
+                    "maxContactHorizontalSpeedMps": null,
+                    "solverPointCount": 0
+                  }
+                },
+                "balanceForces": {
+                  "appliedUpN": 1841.8274999999999,
+                  "baseSupportN": 736.731,
+                  "heightSpringN": 3624.978370666504,
+                  "verticalDampingN": 1453.7061405181885,
+                  "horizontalXN": 0.6594268122808865,
+                  "horizontalZN": 7.652978665768623,
+                  "nominalWeightN": 736.731,
+                  "footReaction": 0
+                }
+              }
+            }
+          ],
+          "final": {
+            "timeS": 12,
+            "state": "down",
+            "stateTimeS": 0.9416666666666658,
+            "kneelAmount": 0,
+            "pelvisHeightM": -2.706737995147705,
+            "pelvisVelocityMps": [
+              -0.06932038813829422,
+              -1.0078086853027344,
+              0.03168193995952606
+            ],
+            "chestTiltDeg": 94.21615292083601,
+            "retainedGaitN": {
+              "F": 409.7503101825714,
+              "B": 321.1993432044983
+            },
+            "footRawVerticalN": 0,
+            "shinRawVerticalN": 0,
+            "recovery": {
+              "progress": 0,
+              "reason": "no-support",
+              "supported": false,
+              "yielding": false,
+              "stableTimeS": 0,
+              "unsupportedTimeS": 1.1083333333333318
+            },
+            "feet": {
+              "footF": {
+                "rawVerticalForceMagnitudeN": 0,
+                "historicalSixSeventhsVerticalN": 0,
+                "maxContactHorizontalSpeedMps": null,
+                "solverPointCount": 0
+              },
+              "footB": {
+                "rawVerticalForceMagnitudeN": 0,
+                "historicalSixSeventhsVerticalN": 0,
+                "maxContactHorizontalSpeedMps": null,
+                "solverPointCount": 0
+              }
+            },
+            "balanceForces": {
+              "appliedUpN": 1049.3008152632624,
+              "baseSupportN": 736.731,
+              "heightSpringN": 9485.205907821655,
+              "verticalDampingN": 270.52685022354126,
+              "horizontalXN": 5.584040412049368,
+              "horizontalZN": -2.427894592056665,
+              "nominalWeightN": 736.731,
+              "footReaction": 0
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
