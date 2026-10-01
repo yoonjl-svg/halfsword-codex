@@ -33,4 +33,4 @@ npm run build
 
 ## 배포
 
-소스 검증 완료. 공개 배포 SHA·Actions·최종 모바일 확인은 완료 후 아래에 기록한다.
+소스 `d4cacb68641d5b5b5a6c74478c1c9c2141689d86` → 독립 main `8eb4c51729a7c119a2aebfa9b8cce4296bea7e12`. [전송36899168286](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/36899168286)과 [Pages36899257654](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/36899257654)가 성공했다. 원격 main/작업 가지 일치·source tree 일치·소스 선조 관계를 다시 fetch하여 검증했다. 공개 index/게임 asset/철회 HTML은 HTTP200이고 로컬 빌드와 바이트 exact다. 게임 asset은 `main-jgiZXzuB.js`, SHA256 `579d58cb586c58cb7ba21e80ad8bb12612d101b1cf1a1817555f4f82ac32e74a`다. 최종 공개 모바일에서도 세이버·레이피어·나뭇가지의 실제 Start/옆 드래그/해제/재입력을 한 회씩 통과했다. 활성 THRUST/SABRE 표·legacy 지지·입력 이동0·유한 상태·JS/console 오류0을 확인했다. [공개 확인 결과](onehand_grip_port_release.json). 이후 문서만 추가하며 이 배포의 게임 파일은 바뀌지 않는다.
