@@ -7,6 +7,10 @@ on:
         description: Exact commit in the uploaded development bundle
         required: true
         type: string
+      expected_base:
+        description: Exact API preparation commit; reject concurrent changes
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -27,11 +31,17 @@ jobs:
       - name: Verify bundle and preserve both histories
         env:
           EXPECTED_HEAD: ${{ inputs.expected_head }}
+          EXPECTED_BASE: ${{ inputs.expected_base }}
         shell: bash
         run: |
           set -euo pipefail
           [[ "$EXPECTED_HEAD" =~ ^[0-9a-f]{40}$ ]]
-          test "$(git remote get-url origin)" = "https://github.com/yoonjl-svg/halfsword-codex"
+          [[ "$EXPECTED_BASE" =~ ^[0-9a-f]{40}$ ]]
+          test "$GITHUB_SHA" = "$EXPECTED_BASE"
+          case "$(git remote get-url origin)" in
+            https://github.com/yoonjl-svg/halfsword-codex|https://github.com/yoonjl-svg/halfsword-codex.git) ;;
+            *) exit 1 ;;
+          esac
           test -f .codex-transfer/work.bundle
 
           # Read the public original only; every write below targets this repository.
