@@ -1,0 +1,61 @@
+--- a/tools/sim/support_transfer_probe.mjs
++++ b/tools/sim/support_transfer_probe.mjs
+@@ -71,6 +71,29 @@
+     for(const [label,x]of Object.entries(p.bodies)){const a=b.applicationBodies[label]??={signedWorkApproxJ:0,forceImpulseNs:{x:0,y:0,z:0},angularImpulseAboutOriginNms:{x:0,y:0,z:0}};a.signedWorkApproxJ+=x.workApproxJ;for(const k of ['x','y','z']){a.forceImpulseNs[k]+=x.forceImpulse[k];a.angularImpulseAboutOriginNms[k]+=x.angularImpulse[k];}}
+   }
+ }
++
++const FILTERS=['allSolverPoints','confirmedSupportPoints','nonPredictiveSupportPoints','rawPositiveManifoldSupportPoints','stanceFlagSupportPoints','activeStanceSupportPoints','rawPositiveActiveStancePoints'];
++function slipBucket(){return Object.fromEntries(FILTERS.map(k=>[k,{values:[],peak:null,frames:new Set()}]));}
++function slipAdd(bucket,category,speed,peak,frame){const b=bucket[category];b.values.push(speed);b.frames.add(frame);if(!b.peak||speed>b.peak.speedMps)b.peak={...peak,speedMps:speed};}
++function detailedSlip(f,timeS,frame,buckets){
++ const support=collectSupportContacts(f,{detail:true});
++ for(const side of ['F','B']){
++  const leg=f.gait.legs[side],body=f.bodies['foot'+side];
++  for(const c of support.groups['foot'+side].contacts){
++   if(!c.isEnvironment||!c.fixed)continue;
++   for(const point of c.solverPoints){
++    const speed=Math.hypot(point.relativeVelocity.x,point.relativeVelocity.z);
++    const confirmed=c.hasSupport&&point.withinSlop;
++    const nonPredictive=confirmed&&point.distanceM<=0&&c.geometryContacts.some(g=>g.reportedDistanceM<=0&&g.freshNormalGapM<=0);
++    const peak={timeS,state:f.state,stateTimeS:f.stateTime,foot:side,stance:leg.stance,gaitActive:f.gait.active,levH:f.gait.levH,levC:f.gait.levC,pelvisPosition:vec(f.bodies.pelvis.translation()),pelvisVelocity:vec(f.bodies.pelvis.linvel()),point:point.point,relativeVelocity:point.relativeVelocity,solverDistanceM:point.distanceM,predictionPoint:point.predictionContact,hasSupport:c.hasSupport,freshNormalGapM:c.minimumFreshGapM,minimumReportedGeometryDistanceM:Math.min(...c.geometryContacts.map(g=>g.reportedDistanceM)),rawNormalImpulseNs:c.rawNormalImpulseNs,rawPositiveManifold:c.rawNormalImpulseNs>0,cachedGaitN:leg.N,geometryContactCount:c.geometryContactCount,solverPointCount:c.solverPointCount};
++    const categories=['allSolverPoints'];if(confirmed)categories.push('confirmedSupportPoints');if(nonPredictive)categories.push('nonPredictiveSupportPoints');if(confirmed&&c.rawNormalImpulseNs>0)categories.push('rawPositiveManifoldSupportPoints');if(confirmed&&leg.stance)categories.push('stanceFlagSupportPoints');if(confirmed&&leg.stance&&f.gait.active)categories.push('activeStanceSupportPoints');if(confirmed&&leg.stance&&f.gait.active&&c.rawNormalImpulseNs>0)categories.push('rawPositiveActiveStancePoints');
++    for(const b of buckets)for(const category of categories)slipAdd(b,category,speed,peak,frame);
++   }
++  }
++ }
++}
++function finalizeSlip(bucket){return Object.fromEntries(Object.entries(bucket).map(([name,b])=>{const xs=b.values.sort((a,b)=>a-b),n=xs.length;return[name,{pointSamples:n,frames:b.frames.size,meanMps:n?xs.reduce((a,b)=>a+b,0)/n:null,p95Mps:n?xs[Math.ceil(.95*n)-1]:null,maxMps:n?xs[n-1]:null,peak:b.peak}];}));}
++
+ export function runSupportTransfer({scenario='stand',model='legacy',seed=7,ledgerOn=true,sampleStride=12}={}){
+   if(!SCENARIOS.includes(scenario)||!['legacy','axial'].includes(model))throw new Error('Unknown scenario/model');
+   if(model==='axial'&&!Object.hasOwn(CONFIG.BODY,'supportModel'))throw new Error('Axial core API not installed');
+@@ -92,6 +115,7 @@
+     if(ledgerOn)ledger=installForceLedger(G,{fighters:[f],maxSamples:0,contacts:false});
+     const total=()=>ledger?ledger.snapshot().total:snapshotWorld(G.world,{bodies:bodies(f)}).total;
+     row.initial=observe(G,0,total());row.samples.push(row.initial);const trace=createHash('sha256'),input=createHash('sha256'),all=bucket(),phases={},pathBook={};
++    const slipStartPelvis=V(f.bodies.pelvis.translation()),slipForward=f.forward().clone(),slipAll=slipBucket(),slipAfterStand=slipBucket(),slipAfterLevH=slipBucket();
+     const seconds=row.floorRemoved?1:scenario.startsWith('walk_')?6:scenario.endsWith('_getup')?10:3;row.observationSeconds=seconds;
+     let previous=row.initial,hadHandover=f.gait.levH>0,firstStandS=f.state==='stand'?0:null,handoverEndS=null,firstGameGeometryUprightS=row.initial.physicallyUprightGameGeometry?0:null;
+     for(let i=0;i<Math.round(seconds/DT);i++){
+@@ -101,9 +125,11 @@
+       if(s.state!==previous.state){row.transitions.push({timeS:s.timeS,from:previous.state,to:s.state,pelvisHeightM:s.pelvisHeightM,chestTiltDeg:s.chestTiltDeg,feetSolverPointCount:Object.values(s.feet).reduce((a,c)=>a+c.solverPointCount,0)});if(s.state==='stand'&&firstStandS==null)firstStandS=s.timeS;}
+       if(s.levH>0)hadHandover=true;if(hadHandover&&s.levH===0&&handoverEndS==null)handoverEndS=s.timeS;
+       if(s.physicallyUprightGameGeometry&&firstGameGeometryUprightS==null)firstGameGeometryUprightS=s.timeS;
++      detailedSlip(f,s.timeS,i,[slipAll,...(firstStandS!=null?[slipAfterStand]:[]),...(handoverEndS!=null?[slipAfterLevH]:[])]);
+       record(all,s);record(phases[s.state]??=bucket(),s);if(firstStandS!=null)record(phases.afterFirstStand??=bucket(),s);if(handoverEndS!=null)record(phases.afterLevHEnd??=bucket(),s);
+       if(ledger)ledgerPaths(ledger.latest,pathBook);trace.update(JSON.stringify(physicalControl(f)));if(i%sampleStride===0||s.state!==previous.state||i===Math.round(seconds/DT)-1)row.samples.push(s);previous=s;
+     }
++    const slipDelta=V(f.bodies.pelvis.translation()).sub(slipStartPelvis);row.filteredSlip={all:finalizeSlip(slipAll),afterFirstStand:finalizeSlip(slipAfterStand),afterLevHEnd:finalizeSlip(slipAfterLevH),pelvisDisplacementM:vec(slipDelta),pelvisForwardTravelM:slipDelta.dot(slipForward),pelvisHorizontalTravelM:Math.hypot(slipDelta.x,slipDelta.z),forwardReferenceAtStart:vec(slipForward),definition:'Point sample distributions of relative velocityAtPoint horizontal speed. Confirmed=c.hasSupport and native solverPoint.withinSlop. NonPredictive also requires solver distance<=0 and an actual/fresh geometry gap<=0. rawPositive is manifold sum>0; individual impulse entries cannot be paired to solver points. stanceFlag is separate from activeStance.'};
+     row.final=previous;row.traceSha256=trace.digest('hex');row.inputSha256=input.digest('hex');row.firstStandS=firstStandS;row.firstGameGeometryUprightS=firstGameGeometryUprightS;row.handover={positiveObserved:hadHandover,endS:handoverEndS,postEndObservedSeconds:handoverEndS==null?0:Math.max(0,seconds-handoverEndS),threeSecondsAfterEndObserved:handoverEndS!=null&&seconds-handoverEndS>=3};
+     row.postStandRefallTransitions=row.transitions.filter(t=>firstStandS!=null&&t.timeS>firstStandS&&['getup','down'].includes(t.to));row.statistics=finishBucket(all);row.phaseStatistics=Object.fromEntries(Object.entries(phases).map(([k,b])=>[k,finishBucket(b)]));
+     row.directBalancePaths=Object.fromEntries(Object.entries(pathBook).map(([path,b])=>[path,{...b,netForceN:done(b.netForceN),netTorqueAboutOriginNm:done(b.netTorqueAboutOriginNm),netTorqueAboutPreStepCOMNm:done(b.netTorqueAboutPreStepCOMNm),statisticDefinition:'Magnitude min/mean/max over frames where this path exists; ledger.summary additionally gives all-physics-step means/RMS with absent paths zero. Torque references fixed origin or pre-step selected-body COM as named.'}]));row.ledger=ledger?{available:true,summary:ledger.summary()}:{available:false};row.finite=true;
+@@ -118,7 +144,7 @@
+   const manifest=async()=>{const files=[...await sourceFiles('src'),'tools/sim/harness_m.mjs','tools/sim/force_ledger.mjs','tools/sim/support_transfer_probe.mjs'].sort();return Object.fromEntries(await Promise.all(files.map(async p=>[p,hash(await readFile(new URL('../../'+p,import.meta.url)))])));};
+   const before=await manifest(),begin=performance.now(),rows=[];for(const scenario of scenarios)for(const model of models)rows.push(runSupportTransfer({scenario,model,seed,ledgerOn,sampleStride}));const after=await manifest();
+   const matchedStarts=scenarios.map(s=>{const xs=rows.filter(r=>r.scenario===s);return{scenario:s,samePreparedState:xs.every(r=>r.startSha256===xs[0].startSha256),sameRequestedInput:xs.every(r=>r.inputSha256===xs[0].inputSha256)};});
+-  const result={schemaVersion:1,probe:'support_transfer_probe',sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8',cwd:new URL('../..',import.meta.url)}).trim(),sourceSha256:before,sourceSha256After:after,sourceStableDuringRun:JSON.stringify(before)===JSON.stringify(after),wallSeconds:(performance.now()-begin)/1000,simulatedSeconds:rows.reduce((a,r)=>a+(r.prepareSeconds??0)+(r.observationSeconds??0),0),matchedStarts,
++  const result={schemaVersion:1,probe:'support_slip_filter_diagnosis',sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8',cwd:new URL('../..',import.meta.url)}).trim(),sourceSha256:before,sourceSha256After:after,sourceStableDuringRun:JSON.stringify(before)===JSON.stringify(after),wallSeconds:(performance.now()-begin)/1000,simulatedSeconds:rows.reduce((a,r)=>a+(r.prepareSeconds??0)+(r.observationSeconds??0),0),matchedStarts,
+     protocol:{seed,models,scenarios,timestepS:DT,assist:.1,catchMode:'on',catchScale:1,grip:'paired',preparationSupportModel:'legacy',units:{position:'m',velocity:'m/s',angularVelocity:'rad/s',momentum:'kg m/s',mass:'kg',force:'N',torque:'Nm',work:'J approximate midpoint quadrature',contactImpulse:'Ns raw Rapier API'},injury:'Synthetic controller limb-health values .45 single leg / .2 both; actual knockDown(false). No clinical injury or collision reproduction.',floorRemoval:'Single actual fixed harness floor collider removed after legacy preparation; no body reposition/freezing/velocity injection. Opponent only uses harness park.',uprightDefinition:'Game geometry observation: state stand, pelvis>=gait.hNom-GAIT.catchSag, tilt-hunch<=BODY.fallTiltDeg, at least one foot solver point. Not human naturalness/acceptance.',forceMeaning:'directBalancePaths is full driveBalance path explicit forces, not push-only closure unless source supplies a distinct path. Actual bodywise reactions retained. Native joints/motors/contact work not measured; changing foot mass prevents fixed-mass energy closure.',slipMeaning:'Relative velocityAtPoint at actual foot/fixed floor solver world points; solver and impulse contact arrays are separate, no index pairing. Raw impulses receive no 6/7 correction.',statusMeaning:'observed means scene completed, never a human or physically upright success verdict.'},rows};
+   if(o.out)await writeFile(o.out,JSON.stringify(result,null,2)+'\n');else process.stdout.write(JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify({out:o.out??null,rows:rows.length,wallSeconds:result.wallSeconds,sourceStableDuringRun:result.sourceStableDuringRun,matchedStarts,summary:rows.map(r=>({scenario:r.scenario,model:r.model,status:r.status,firstStandS:r.firstStandS,handover:r.handover,pelvis:r.statistics?.metrics.pelvisHeightM,directUp:r.statistics?.metrics.directAppliedUpN,error:r.error??null}))}));
+   if(rows.some(r=>r.status==='error')||!result.sourceStableDuringRun||matchedStarts.some(m=>!m.samePreparedState||!m.sameRequestedInput))process.exitCode=1;

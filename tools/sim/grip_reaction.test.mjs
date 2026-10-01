@@ -89,12 +89,18 @@ function fixture(model, motion, angle = 0, offset = new THREE.Vector3(), dt = DT
 }
 
 const options = { reactionModel: 'legacy' };
+const bodyOptions = { supportModel: 'axial' };
 for (const query of ['', 'physicsTrial=wrong', 'physicsTrial=paired', 'gripReaction=paired']) {
-  assert.equal(configurePhysicalTrial(new URLSearchParams(query), options).active, false);
-  assert.equal(options.reactionModel, 'legacy');
+  assert.equal(configurePhysicalTrial(new URLSearchParams(query), options, bodyOptions).active, false);
+  assert.equal(options.reactionModel, 'paired');
+  assert.equal(bodyOptions.supportModel, 'legacy');
 }
-assert.equal(configurePhysicalTrial(new URLSearchParams('physicsTrial=grip'), options).gripReaction, 'paired');
-assert.equal(configurePhysicalTrial(new URLSearchParams(), options).gripReaction, 'legacy');
+assert.equal(configurePhysicalTrial(new URLSearchParams('physicsTrial=grip'), options, bodyOptions).gripReaction, 'paired');
+assert.equal(configurePhysicalTrial(new URLSearchParams('physicsTrial=legacyGrip'), options, bodyOptions).gripReaction, 'legacy');
+assert.equal(configurePhysicalTrial(new URLSearchParams('physicsTrial=support'), options, bodyOptions).supportModel, 'axial');
+assert.equal(options.reactionModel, 'paired');
+assert.equal(configurePhysicalTrial(new URLSearchParams(), options, bodyOptions).gripReaction, 'paired');
+assert.equal(bodyOptions.supportModel, 'legacy');
 
 const rows = [];
 for (const motion of ['rigid_rotation', 'tangential', 'radial']) for (const model of ['legacy', 'paired']) rows.push(fixture(model, motion));
