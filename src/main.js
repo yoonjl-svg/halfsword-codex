@@ -32,6 +32,7 @@ import { createFighterLight } from './fighter_light.js';
 import { tickDebris, clearDebris, debrisCount } from './debris.js';
 import { ReviveFx } from './revive_fx.js';
 import { configureSupportProbe, mountSupportProbe } from './support_probe.js';
+import { configurePhysicalTrial, mountPhysicalTrial } from './physical_trial.js';
 
 await RAPIER.init();
 
@@ -42,6 +43,7 @@ CONFIG.COMBAT.limbSeverTrial = params.get('limbTrial') === '1';
 const limbDemo = CONFIG.COMBAT.limbSeverTrial ? params.get('limbDemo') : null;
 let limbDemoAt = Infinity;
 const supportProbe = configureSupportProbe(params, CONFIG.GAIT);
+const physicalTrial = configurePhysicalTrial(params, CONFIG.GRIP);
 // 주인공은 판마다 무기 카드 세 장 중 하나를 골라 받는다 (아래 "무기 뽑기"). 주소에 ?weapon=을 적으면 뽑기 없이 그 무기로 고정.
 //  진짜 엑스칼리버는 주인공만 받을 수 있고, 복제품은 하인리히 몫이라 뽑기에서 뺀다
 const PLAYER_WEAPON_POOL = WEAPON_LIST.map((w) => w.id).filter((id) => id !== 'excalibur_replica');
@@ -622,6 +624,7 @@ function updateDrips(f, dt) {
 const $ = (id) => document.getElementById(id);
 const menu = $('menu');
 mountSupportProbe(supportProbe);
+mountPhysicalTrial(physicalTrial);
 const hud = $('hud');
 const topButtons = $('topButtons');
 const toast = $('toast');
@@ -1503,6 +1506,7 @@ window.game = {
   stats,
   config: CONFIG,
   supportProbe,
+  physicalTrial,
   THREE,
   camera,
   freeCam: false,
