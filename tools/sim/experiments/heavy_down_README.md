@@ -28,7 +28,7 @@ node tools/sim/experiments/heavy_down_delayed_ablation.mjs --source-ref=b6483ea 
 
 동일 초기/입력/switch 전체 상태 SHA, 소스 고정, finite를 관문으로 검사한다. b6483ea·seed7·25초 baseline trace는 `dd37acfde6fee03dc3b15d762b2256c66c4158d41567950a43dc5f8d376c8df6`과 exact 비교한다. 다른 커밋은 `--expected-baseline-trace=SHA256`을 지정하거나 미검사(null)로 남긴다.
 
-**switch=2는 완전히 낮게 누운 자세를 보장하지 않는다.** 최초 재현의 switch 골반은 .5993m, 가슴 기울기83.755°였고 최저 .215m는 이후였다. 반드시 switchWitness를 읽는다. 자세에 맞춘 별도 `same_lying_recovery_probe.mjs`와 구별한다. 삭제 조건의 회복 불능·폭발은 실패 관찰로 보존하며 삭제를 해결책으로 채택하지 않는다. 원자료는 수십 MB가 될 수 있으므로 저장소에 커밋하지 않는다.
+**switch=2는 완전히 낮게 누운 자세를 보장하지 않는다.** 최초 재현의 switch 골반은 .5993m, 가슴 기울기83.755°였고 최저 .215m는 이후였다. 반드시 switchWitness를 읽는다. 자세에 맞춘 별도 `same_lying_recovery_probe.mjs`와 구별한다. 0계수 설정 조건의 회복 불능·폭발은 실패 관찰로 보존한다. 후속 zero_motor_probe에서 k=d=0이 실제 모터 연결 제거와 다르다고 확인했으므로 noUpright라는 이름을 비활성화의 증거로 해석하지 않는다. 원자료는 수십 MB가 될 수 있으므로 저장소에 커밋하지 않는다.
 
 ## 같은 낮은 누움에서 회복만 비교
 

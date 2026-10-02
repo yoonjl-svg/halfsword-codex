@@ -127,7 +127,7 @@ function launchFrame(G,f,s,ledger){
   if(c.solverPointCount)groundByBody.push({label,rawNormalImpulseNs:c.rawNormalImpulseNs,solverPoints:c.solverPointCount,nonPredictiveSolverPoints:actual});
  }
  const t=ledger.latest.postGame.total;
- return {timeS:s.timeS,state:s.state,stateTimeS:s.stateTime,pelvisHeightM:s.pelvisHeightM,pelvisPositionM:vec(f.bodies.pelvis.translation()),pelvisVelocityMps:vec(f.bodies.pelvis.linvel()),pelvisOmegaRadps:vec(f.bodies.pelvis.angvel()),chestHeightM:f.bodies.chest.translation().y,chestTiltDeg:s.chestTiltDeg,COM:t.COM,COMVelocityMps:{x:t.P.x/t.mass,y:t.P.y/t.mass,z:t.P.z/t.mass},KJ:t.K,massKg:t.mass,massChanges:q.balance.massPropertyChanges,explicitNetForceN:{x:q.balance.explicitForceImpulse.x/DT,y:q.balance.explicitForceImpulse.y/DT,z:q.balance.explicitForceImpulse.z/DT},explicitWorkApproxJ:q.balance.forceWorkApproxJ,byPath,nativeResidualImpulseNs:q.balance.residualP,rawGroundImpulseNs,nonPredictiveSolverPoints,groundByBody,support:s.postStepActualSupport,controllerSupport:s.controllerPreStepSupport,balanceProbe:s.balanceProbe,muscle:f.muscle,kneelAmount:f.kneelAmount,kneelTime:f.kneelTime,riseTime:f.riseTime,downTime:f.downTime,gaitActive:f.gait.active,levH:f.gait.levH,levC:f.gait.levC,feetHeld:f.feetHeld,handHeld:f.handHeld,anchor:{p:vec(f.anchor.translation()),q:{...f.anchor.rotation()}},maxJointAnchorGapM:s.maxJointAnchorGapM,jointTargets:f.joints.map(j=>({name:j.name,gain:j.gain??1,target:j.target?.toArray(),manual:j.manual??false,type:j.type}))};
+ return {timeS:s.timeS,state:s.state,stateTimeS:s.stateTime,physicallyUprightGameGeometry:s.physicallyUprightGameGeometry,correctedChestTiltDeg:s.correctedChestTiltDeg,pelvisHeightM:s.pelvisHeightM,pelvisPositionM:vec(f.bodies.pelvis.translation()),pelvisVelocityMps:vec(f.bodies.pelvis.linvel()),pelvisOmegaRadps:vec(f.bodies.pelvis.angvel()),chestHeightM:f.bodies.chest.translation().y,chestTiltDeg:s.chestTiltDeg,COM:t.COM,COMVelocityMps:{x:t.P.x/t.mass,y:t.P.y/t.mass,z:t.P.z/t.mass},KJ:t.K,massKg:t.mass,massChanges:q.balance.massPropertyChanges,explicitNetForceN:{x:q.balance.explicitForceImpulse.x/DT,y:q.balance.explicitForceImpulse.y/DT,z:q.balance.explicitForceImpulse.z/DT},explicitWorkApproxJ:q.balance.forceWorkApproxJ,byPath,nativeResidualImpulseNs:q.balance.residualP,rawGroundImpulseNs,nonPredictiveSolverPoints,groundByBody,support:s.postStepActualSupport,controllerSupport:s.controllerPreStepSupport,balanceProbe:s.balanceProbe,muscle:f.muscle,kneelAmount:f.kneelAmount,kneelTime:f.kneelTime,riseTime:f.riseTime,downTime:f.downTime,gaitActive:f.gait.active,levH:f.gait.levH,levC:f.gait.levC,feetHeld:f.feetHeld,handHeld:f.handHeld,anchor:{p:vec(f.anchor.translation()),q:{...f.anchor.rotation()}},maxJointAnchorGapM:s.maxJointAnchorGapM,jointTargets:f.joints.map(j=>({name:j.name,gain:j.gain??1,target:j.target?.toArray(),manual:j.manual??false,type:j.type}))};
 }
 function finalizeLaunch(frames){
  const peak=key=>frames.reduce((a,b)=>key(b)>key(a)?b:a,frames[0]);
@@ -140,7 +140,7 @@ function finalizeLaunch(frames){
  return {peaks,downGeometry:{samples:down.length,minPelvisHeightM:down.length?Math.min(...down.map(f=>f.pelvisHeightM)):null,minChestHeightM:down.length?Math.min(...down.map(f=>f.chestHeightM)):null,maxChestTiltDeg:down.length?Math.max(...down.map(f=>f.chestTiltDeg)):null,diagnosticLowPelvisUnder045Samples:down.filter(f=>f.pelvisHeightM<.45).length},noNonPredictiveNativeGroundSolverTimeS:frames.filter(f=>f.nonPredictiveSolverPoints===0).length*DT,maxNoNonPredictiveNativeGroundSolverIntervalS:maxNoGroundSolverS,maxNoConfirmedMeasuredGroupSupportIntervalS:maxUnsupportedGroupsS,explicitWorkApproxJ:frames.reduce((n,f)=>n+f.explicitWorkApproxJ,0),denseFrames:[...indexes].sort((a,b)=>a-b).map(i=>frames[i]),compactPerStep:frames.map(({jointTargets,byPath,groundByBody,anchor,support,balanceProbe,...x})=>x),definition:'Peaks/dense are actual per-step observations. No-ground-native solver excludes positive-distance predicted contacts but is not fresh whole-body geometric contact certification. Group-support has current shape checks. Native motor/upright/contact residual is unmeasured, not numerical error. Diagnostic thresholds locate events only.'};
 }
 
-function runSameLyingRecovery({scenario='healthy_getup',model='axial',seed=7,ledgerOn=true,sampleStride=120,expectedSwitch=null}={}){
+export function runSameLyingRecovery({scenario='healthy_getup',model='axial',seed=7,ledgerOn=true,sampleStride=120,expectedSwitch=null,intervention=null}={}){
   if(!SCENARIOS.includes(scenario)||!['legacy','axial','projected'].includes(model))throw new Error('Unknown scenario/model');
   if(model==='axial'&&!Object.hasOwn(CONFIG.BODY,'supportModel'))throw new Error('Axial core API not installed');
   const saved={assist:CONFIG.GAIT.assist,catchMode:CONFIG.GAIT.catchMode,catchScale:CONFIG.GAIT.catchScale,reaction:CONFIG.GRIP.reactionModel,support:CONFIG.BODY.supportModel,weightMode:CONFIG.BODY.weightMode,hasSupport:Object.hasOwn(CONFIG.BODY,'supportModel')},random=Math.random;
@@ -177,6 +177,7 @@ function runSameLyingRecovery({scenario='healthy_getup',model='axial',seed=7,led
        if(model==='projected'){
         if(!expectedSwitch||['nativeWorldSha256','physicalControlSha256','additionalControllerSha256'].some(k=>row.switchSnapshot[k]!==expectedSwitch[k]))throw new Error('STOP: native/controller switch hashes differ');
         row.switchGuardPassed=true;useProjected=true;
+        intervention?.activate?.({G,f,row,DT});
        }
       }
       f.move.set(scenario==='walk_side'?1:0,scenario==='walk_front'?1:0);input.update(JSON.stringify(f.move.toArray()));G.step();
@@ -186,6 +187,9 @@ function runSameLyingRecovery({scenario='healthy_getup',model='axial',seed=7,led
       if(s.levH>0)hadHandover=true;if(hadHandover&&s.levH===0&&handoverEndS==null)handoverEndS=s.timeS;
       if(s.physicallyUprightGameGeometry&&firstGameGeometryUprightS==null)firstGameGeometryUprightS=s.timeS;
       compactFrames.push(launchFrame(G,f,s,ledger));
+      const slipBuckets=[slipAll];if(firstStandS!=null)slipBuckets.push(slipAfterStand);if(handoverEndS!=null)slipBuckets.push(slipAfterLevH);
+      detailedSlip(f,s.timeS,i,slipBuckets);
+      intervention?.afterStep?.({G,f,row,DT,observation:s,iteration:i});
       record(all,s);record(phases[s.state]??=bucket(),s);if(firstStandS!=null)record(phases.afterFirstStand??=bucket(),s);if(handoverEndS!=null)record(phases.afterLevHEnd??=bucket(),s);
       if(ledger)ledgerPaths(ledger.latest,pathBook);trace.update(JSON.stringify(physicalControl(f)));if(i%sampleStride===0||s.state!==previous.state||i===Math.round(seconds/DT)-1)row.samples.push(s);previous=s;
     }
@@ -194,8 +198,23 @@ function runSameLyingRecovery({scenario='healthy_getup',model='axial',seed=7,led
     row.postStandRefallTransitions=row.transitions.filter(t=>firstStandS!=null&&t.timeS>firstStandS&&['getup','down'].includes(t.to));row.statistics=finishBucket(all);row.phaseStatistics=Object.fromEntries(Object.entries(phases).map(([k,b])=>[k,finishBucket(b)]));
     row.directBalancePaths=Object.fromEntries(Object.entries(pathBook).map(([path,b])=>[path,{...b,netForceN:done(b.netForceN),netTorqueAboutOriginNm:done(b.netTorqueAboutOriginNm),netTorqueAboutPreStepCOMNm:done(b.netTorqueAboutPreStepCOMNm),statisticDefinition:'Magnitude min/mean/max over frames where this path exists; ledger.summary additionally gives all-physics-step means/RMS with absent paths zero. Torque references fixed origin or pre-step selected-body COM as named.'}]));row.ledger=ledger?{available:true,summary:ledger.summary()}:{available:false};row.finite=true;
   }catch(e){row.status='error';row.error=e.stack;}
-  finally{ledger?.restore();G?.eventQueue.free();G?.world.free();Math.random=random;Object.assign(CONFIG.GAIT,{assist:saved.assist,catchMode:saved.catchMode,catchScale:saved.catchScale});CONFIG.GRIP.reactionModel=saved.reaction;CONFIG.BODY.weightMode=saved.weightMode;if(saved.hasSupport)CONFIG.BODY.supportModel=saved.support;else delete CONFIG.BODY.supportModel;}
+  finally{intervention?.restore?.();ledger?.restore();G?.eventQueue.free();G?.world.free();Math.random=random;Object.assign(CONFIG.GAIT,{assist:saved.assist,catchMode:saved.catchMode,catchScale:saved.catchScale});CONFIG.GRIP.reactionModel=saved.reaction;CONFIG.BODY.weightMode=saved.weightMode;if(saved.hasSupport)CONFIG.BODY.supportModel=saved.support;else delete CONFIG.BODY.supportModel;}
   return row;
+}
+
+export async function withOriginalRecovery(callback) {
+ const reference=JSON.parse(await readFile(REFERENCE,'utf8')),oldRef=reference.originalReference;
+ if(oldRef!=='b6483ea65f6ff4097b2386493ee9487f711527d4')throw new Error('Unexpected original reference');
+ const archiveDir=await mkdtemp(join(tmpdir(),'halfsword-own-recovery-control-'));
+ try {
+  const archive=execFileSync('git',['archive',oldRef,'src','package.json'],{cwd:ROOT_PATH,maxBuffer:64*1024*1024});
+  execFileSync('tar',['-xf','-','-C',archiveDir],{input:archive});
+  await symlink(join(ROOT_PATH,'node_modules'),join(archiveDir,'node_modules'),'dir');
+  for(const [p,expected] of Object.entries(reference.originalSourceSha256))if(hash(await readFile(join(archiveDir,p)))!==expected)throw new Error('Original archive mismatch: '+p);
+  OLD_CONFIG=await import(pathToFileURL(join(archiveDir,'src/config.js')).href);
+  ({Fighter:OldFighter}=await import(pathToFileURL(join(archiveDir,'src/fighter.js')).href));
+  return await callback(reference);
+ } finally { await rm(archiveDir,{recursive:true,force:true}); }
 }
 
 async function main(){
