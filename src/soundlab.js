@@ -147,7 +147,7 @@ function withScale(s, v, fn) {
     s._hitScale = prev;
   }
 }
-// 칼→몸 소리 비교: 누르는 동안만 fleshHit 을 바꾼다. 게임 기본은 승인된 35차 SOUND.fleshHit
+// 칼→몸 소리 비교: 누르는 동안만 fleshHit 을 바꾼다. 게임 기본은 승인된 A2/B2 단축형 SOUND.fleshHit
 function withFlesh(s, mode, fn) {
   const prev = s._fleshHit;
   s.fleshHit = mode;
@@ -163,12 +163,12 @@ const ROWS = [
   ['칼끼리 부딪힘', '맞닿는 속도 2 / 5 / 10 m/s', [2, 5, 10], (s, v) => s.clash(v, 0)],
   ['스치며 긁고 지나감', '빗맞은 칼: 부딪힘 1.5 / 3 / 6 + 미끄러짐 7 m/s', [1.5, 3, 6], (s, v) => s.clash(v, 7)],
   ['투구', '투구 + 타박 30 / 70 / 120 J (게임에서 함께 난다)', [30, 70, 120], (s, v) => (s.helmet(v), s.blunt(v))],
-  ['베기', '35 / 70 / 140 J', [35, 70, 140], (s, v) => s.cut(v, false)],
+  ['베기 · 새 기본', '짧은 A2 약베기 / 더 긴 B2 강베기 · 35 / 70 / 140 J', [35, 70, 140], (s, v) => s.cut(v, false)],
   ['베고 지나감', '60 / 110 / 180 J', [60, 110, 180], (s, v) => s.cut(v, true)],
   ['찌르기', '20 / 50 / 100 J', [20, 50, 100], (s, v) => s.stab(v)],
   ['타박 (칼 면·손잡이)', '10 / 35 / 100 J', [10, 35, 100], (s, v) => s.blunt(v)],
   ['뼈 (머리·팔·다리 베기)', '베기 + 뼈 80 / 130 / 200 J', [80, 130, 200], (s, v) => (s.cut(v, false), s.bone(v))],
-  ['칼→몸 소리 비교', '35차 강베기 적용 / 날 선 칼 녹음 / 날 선 칼 합성 / 이전 기본 — 각각 베기 40·90·140, 베고 지나감 110, 찌르기 60·110, 칼 면 40 J 을 차례로 (칼 면은 모두 같다)', ['samsho', 'rec', 'synth', 'legacy'], (s, v) => withFlesh(s, v, () => {}) || FLESH_SCENE({ cut: (J, t) => withFlesh(s, v, () => s.cut(J, t)), stab: (J) => withFlesh(s, v, () => s.stab(J)), blunt: (J) => withFlesh(s, v, () => s.blunt(J)) }), ['35차 강베기 (적용)', '녹음', '합성', '이전 기본']],
+  ['칼→몸 소리 비교', 'A2/B2 단축형 적용 / 35차 / 날 선 칼 녹음 / 날 선 칼 합성 / 이전 기본 — 각각 베기 40·90·140, 베고 지나감 110, 찌르기 60·110, 칼 면 40 J 을 차례로 (칼 면은 모두 같다)', ['drawn', 'samsho', 'rec', 'synth', 'legacy'], (s, v) => withFlesh(s, v, () => {}) || FLESH_SCENE({ cut: (J, t) => withFlesh(s, v, () => s.cut(J, t)), stab: (J) => withFlesh(s, v, () => s.stab(J)), blunt: (J) => withFlesh(s, v, () => s.blunt(J)) }), ['A2/B2 단축 (적용)', '35차', '녹음', '합성', '이전 기본']],
   ['세기 눈금 A/B: 베기', 'A 지금 / B 로그 무게 — 150 / 300 / 500 J (200 J 까지는 같다)', AB_VALS, (s, v) => withScale(s, v, (J) => s.cut(J, false)), AB_LABELS],
   ['세기 눈금 A/B: 찌르기', 'A 지금 / B 로그 무게 — 150 / 300 / 500 J', AB_VALS, (s, v) => withScale(s, v, (J) => s.stab(J)), AB_LABELS],
   ['세기 눈금 A/B: 강철 × 강철', 'A 지금 / B 로그 무게 — 150 / 300 / 500 J', AB_VALS, (s, v) => withScale(s, v, (J) => s.impact({ a: 'steel', b: 'steel', energy: J })), AB_LABELS],
