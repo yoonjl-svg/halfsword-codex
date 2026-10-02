@@ -32,9 +32,6 @@ jobs:
         github.event.workflow_run.head_repository.full_name == 'yoonjl-svg/halfsword-codex'))
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    env:
-      CHECK_OUTPUT: ${{ runner.temp }}/development-checks-${{ github.run_id }}-${{ github.run_attempt }}
-      CHECK_CACHE: ${{ runner.temp }}/development-check-cache
     steps:
       - uses: actions/checkout@v4
         with:
@@ -44,6 +41,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          CHECK_OUTPUT="$RUNNER_TEMP/development-checks-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          CHECK_CACHE="$RUNNER_TEMP/development-check-cache"
+          printf 'CHECK_OUTPUT=%s\nCHECK_CACHE=%s\n' "$CHECK_OUTPUT" "$CHECK_CACHE" >> "$GITHUB_ENV"
           mkdir -p "$CHECK_OUTPUT-meta"
           git rev-parse HEAD > "$CHECK_OUTPUT-meta/checkout-sha.txt"
           printf 'Checked main SHA: `%s`\n\nTrigger: `%s`\n' "$(git rev-parse HEAD)" "$GITHUB_EVENT_NAME" >> "$GITHUB_STEP_SUMMARY"
