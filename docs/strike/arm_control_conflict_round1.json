@@ -1,0 +1,1103 @@
+{
+  "schemaVersion": 1,
+  "dateKST": "2026-10-03",
+  "sourceCommit": "7fba1c2e838ce1d92ac3ec12f8105c73ecc16da1",
+  "status": "research only; follow candidate rejected; no runtime change",
+  "executions": 17,
+  "distinctExternalStrokes": 1,
+  "runs": [
+    {
+      "name": "arm-control-conflict-early",
+      "rawPath": "/workspace/halfsword-hybrid-evidence/arm-control-conflict-early.json",
+      "rawSHA256": "f24101d2ae5c84c9009d0f0254823cf8bcf7c56bfce19efa784326aa0f8664ad",
+      "bytes": 12269560,
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/arm_control_conflict_probe.mjs",
+        "--level=0",
+        "--out=/tmp/arm-control-conflict-early.json"
+      ],
+      "wallSeconds": 4.543716288,
+      "checks": {
+        "sourceStable": true,
+        "observerExact": true,
+        "preparedNativeExact": true,
+        "preparedControllerExact": true,
+        "externalInputExact": true,
+        "prefixExact": true
+      },
+      "sourceStable": true,
+      "sourceManifest": {
+        "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+        "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+        "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+        "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+        "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+        "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+        "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+        "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+        "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+        "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+        "src/cut_trial.js": "4703aea051c3a6650dd0d3ed9b1058ad9f19b7b298d0e1924300462025f33ab9",
+        "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+        "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+        "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+        "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+        "src/fighter.js": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+        "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+        "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+        "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+        "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+        "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+        "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+        "src/input.js": "f6a73744e19090c0406b6cf4229081e7fea24435d89d18e1af682de201ff9ae7",
+        "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+        "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+        "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+        "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+        "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+        "src/main.js": "9de8ff891f1f56dbce9e81d8178b25438a7899b26f55a6b9391946ee6c386284",
+        "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+        "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+        "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+        "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+        "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+        "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+        "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+        "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+        "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+        "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+        "src/slash_draw.js": "c7d3d5a52ab9880323e72f21270d9e85aa6564187aef5a7a95e57954a11fdd8a",
+        "src/sound.js": "5751ada2d02597067df219798ea31b42bbbc3409251ce3ff93ecd1e8d2a7bad3",
+        "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+        "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+        "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+        "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+        "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+        "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+        "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+        "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+        "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+        "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+        "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+        "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+        "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+        "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+        "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+        "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+        "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+        "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+        "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+        "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+        "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+        "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+        "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+        "tools/sim/whole_body_strike_probe.mjs": "f32dae889eb75860ffa185433dfca877e571b36a4184976557b4e88f7a3b51f4",
+        "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+        "tools/sim/experiments/elbow_coordination_probe.mjs": "8899d1115b0f2355d6c2307b2d38157bae1f3fd21b17ddecb13da4b2d0f4d719",
+        "tools/sim/experiments/elbow_coherent_candidate.mjs": "64c820351c4344aad0daf76a1ba35f6d6a3a49e468c05ffcf8ec8b91beb8441e",
+        "tools/sim/experiments/arm_control_conflict_probe.mjs": "5329164a9e64ac9c7355d48783a62e06aee28535abb1a2b3c8d74fdc833b9bd2",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b"
+      },
+      "rows": [
+        {
+          "mode": "baseline",
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 120
+          },
+          "metrics": {
+            "afterAxisTravelRad": 0.6200389716579237,
+            "finalBladeErrorRad": 0.07997109788051428,
+            "finalSwordKJ": 0.00037938067692759906,
+            "peakTipMps": 7.287744122493039,
+            "strokeMaxBladeErrorRad": 0.20456043141376173
+          },
+          "trace": "b42388cd6fcd3e043415f8d2423fef132ebe3b5ae58dea2e857e189b1861c22d",
+          "prefix": "8e5c9d80450d3e0c894f32e21e7bcf17a1366a40dc79ae93b3babfa1a4eff01c",
+          "phaseWork": {
+            "early": {
+              "driveSword": 5.123933972418799,
+              "manualMuscle": 16.394792337504555,
+              "elbowGravity": 1.8513594855891249,
+              "offHand": -0.953504733013726
+            },
+            "stroke_late": {
+              "driveSword": 0.8093345521762022,
+              "manualMuscle": -5.027640684077749,
+              "elbowGravity": -1.0529425562559813,
+              "offHand": -1.950774635056263
+            },
+            "stop_early": {
+              "driveSword": -0.03368961004322041,
+              "manualMuscle": -7.892963169566883,
+              "elbowGravity": -0.23441165550556387,
+              "offHand": -3.5309997139993827
+            },
+            "stop_late": {
+              "driveSword": -0.6913386773194782,
+              "manualMuscle": -8.05727425271104,
+              "elbowGravity": 1.4834424297832571,
+              "offHand": 0.7983773593219503
+            }
+          },
+          "suppressedCalls": 0,
+          "lastWindowExplicitSignedWorkApproxJ": {
+            "driveSword": 0.06639087523491957,
+            "offHand": -0.364190279160887,
+            "manualMuscle": 0.09732149732100878,
+            "elbowGravity": -0.2941374623026335
+          },
+          "momentCosineRange_075_150s": [
+            0.7045952369055364,
+            0.9974836062993697
+          ]
+        },
+        {
+          "mode": "observe",
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 120
+          },
+          "metrics": {
+            "afterAxisTravelRad": 0.6200389716579237,
+            "finalBladeErrorRad": 0.07997109788051428,
+            "finalSwordKJ": 0.00037938067692759906,
+            "peakTipMps": 7.287744122493039,
+            "strokeMaxBladeErrorRad": 0.20456043141376173
+          },
+          "trace": "b42388cd6fcd3e043415f8d2423fef132ebe3b5ae58dea2e857e189b1861c22d",
+          "prefix": "8e5c9d80450d3e0c894f32e21e7bcf17a1366a40dc79ae93b3babfa1a4eff01c",
+          "phaseWork": {
+            "early": {
+              "driveSword": 5.123933972418799,
+              "manualMuscle": 16.394792337504555,
+              "elbowGravity": 1.8513594855891249,
+              "offHand": -0.953504733013726
+            },
+            "stroke_late": {
+              "driveSword": 0.8093345521762022,
+              "manualMuscle": -5.027640684077749,
+              "elbowGravity": -1.0529425562559813,
+              "offHand": -1.950774635056263
+            },
+            "stop_early": {
+              "driveSword": -0.03368961004322041,
+              "manualMuscle": -7.892963169566883,
+              "elbowGravity": -0.23441165550556387,
+              "offHand": -3.5309997139993827
+            },
+            "stop_late": {
+              "driveSword": -0.6913386773194782,
+              "manualMuscle": -8.05727425271104,
+              "elbowGravity": 1.4834424297832571,
+              "offHand": 0.7983773593219503
+            }
+          },
+          "suppressedCalls": 0,
+          "lastWindowExplicitSignedWorkApproxJ": {
+            "driveSword": 0.06639087523491957,
+            "offHand": -0.364190279160887,
+            "manualMuscle": 0.09732149732100878,
+            "elbowGravity": -0.2941374623026335
+          },
+          "momentCosineRange_075_150s": [
+            0.7045952369055364,
+            0.9974836062993697
+          ]
+        },
+        {
+          "mode": "intact",
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 120
+          },
+          "metrics": {
+            "afterAxisTravelRad": 1.2612088724370114,
+            "finalBladeErrorRad": 0.016397267952714678,
+            "finalSwordKJ": 0.05129198543673186,
+            "peakTipMps": 9.010620851698704,
+            "strokeMaxBladeErrorRad": 0.3774009984337021
+          },
+          "trace": "9b7c0647e3570814dc3f9613b5822baa5adc8435b5a7a762800cf792c0fa3cba",
+          "prefix": "a776d981c766ca8e8e192e89b65e4ea0b2c56bd1a017af77492b8bb493be0c53",
+          "phaseWork": {
+            "early": {
+              "driveSword": -2.9923835451368537,
+              "manualMuscle": 18.466211627560323,
+              "elbowGravity": 5.4130515634659515,
+              "offHand": -0.566894053555044
+            },
+            "stroke_late": {
+              "driveSword": -3.981966286790598,
+              "manualMuscle": -18.437001581053085,
+              "elbowGravity": 8.328581728002298,
+              "offHand": -1.9271678461636266
+            },
+            "stop_early": {
+              "driveSword": 0.41536043716918625,
+              "manualMuscle": -12.14152055341451,
+              "elbowGravity": 3.292566608028622,
+              "offHand": -1.778476514076998
+            },
+            "stop_late": {
+              "driveSword": -6.025091737516016,
+              "manualMuscle": -2.460871589199527,
+              "elbowGravity": 2.0773035315862485,
+              "offHand": 1.350185148790878
+            }
+          },
+          "suppressedCalls": 0,
+          "lastWindowExplicitSignedWorkApproxJ": {
+            "driveSword": -0.8000128773407061,
+            "offHand": -0.597132687275062,
+            "manualMuscle": -3.0500827298245494,
+            "elbowGravity": 2.238224368353782
+          },
+          "momentCosineRange_075_150s": [
+            -0.9999647379561224,
+            -0.8979391105426276
+          ]
+        },
+        {
+          "mode": "noWrist",
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 120
+          },
+          "metrics": {
+            "afterAxisTravelRad": 1.747711702893775,
+            "finalBladeErrorRad": 0.4405883646084257,
+            "finalSwordKJ": 0.986491177050785,
+            "peakTipMps": 10.667948728076958,
+            "strokeMaxBladeErrorRad": 0.8516087503917953
+          },
+          "trace": "5d2d3b32e0f7487dcd737003add6549254a3a7a48539cd833e84e12ab9cdb5bc",
+          "prefix": "a776d981c766ca8e8e192e89b65e4ea0b2c56bd1a017af77492b8bb493be0c53",
+          "phaseWork": {
+            "early": {
+              "driveSword": 0.008961953426927325,
+              "manualMuscle": 11.196943753577354,
+              "elbowGravity": 5.80913954344673,
+              "offHand": -3.7289095617599903
+            },
+            "stroke_late": {
+              "manualMuscle": 6.852438511272921,
+              "elbowGravity": 6.713917106356684,
+              "offHand": -0.7180575032067844
+            },
+            "stop_early": {
+              "manualMuscle": -10.13668552652346,
+              "elbowGravity": 1.0905639606636648,
+              "offHand": -1.920020665269006
+            },
+            "stop_late": {
+              "manualMuscle": -4.955421641810625,
+              "elbowGravity": 1.675627245382012,
+              "offHand": 0.250271614544443
+            }
+          },
+          "suppressedCalls": 603,
+          "lastWindowExplicitSignedWorkApproxJ": {
+            "driveSword": 0,
+            "offHand": -0.33147716310941727,
+            "manualMuscle": -3.629170396041451,
+            "elbowGravity": 1.1597772720885309
+          },
+          "momentCosineRange_075_150s": [
+            -0.9924614862325515,
+            -0.9924614862325515
+          ]
+        },
+        {
+          "mode": "noGrip",
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 120
+          },
+          "metrics": {
+            "afterAxisTravelRad": 0.8881745092738839,
+            "finalBladeErrorRad": 0.021042455718381228,
+            "finalSwordKJ": 0.46306165810815647,
+            "peakTipMps": 8.309619591796308,
+            "strokeMaxBladeErrorRad": 0.287473855182376
+          },
+          "trace": "434e8af1706d94d9fcf86c30c0f01efd1ef62a87b0c516395307e3e048e9d7c4",
+          "prefix": "a776d981c766ca8e8e192e89b65e4ea0b2c56bd1a017af77492b8bb493be0c53",
+          "phaseWork": {
+            "early": {
+              "driveSword": 2.741548635106834,
+              "manualMuscle": 20.75912782521504,
+              "elbowGravity": 5.397120739229028,
+              "offHand": -0.07137614452420649
+            },
+            "stroke_late": {
+              "driveSword": -0.5928493656506117,
+              "manualMuscle": -24.058994269460573,
+              "elbowGravity": 7.734340651906846
+            },
+            "stop_early": {
+              "driveSword": 8.021112683121359,
+              "manualMuscle": -21.500484895998866,
+              "elbowGravity": 3.5159346881621887
+            },
+            "stop_late": {
+              "driveSword": -9.283034376046052,
+              "manualMuscle": 4.76023291801748,
+              "elbowGravity": 3.46027868180052
+            }
+          },
+          "suppressedCalls": 346,
+          "lastWindowExplicitSignedWorkApproxJ": {
+            "driveSword": -6.673011712730817,
+            "offHand": 0,
+            "manualMuscle": 6.327491545931213,
+            "elbowGravity": 2.999126145776198
+          },
+          "momentCosineRange_075_150s": [
+            -0.9924614862325515,
+            -0.9924614862325515
+          ]
+        },
+        {
+          "mode": "noPrimary",
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 120
+          },
+          "metrics": {
+            "afterAxisTravelRad": 2.945087949929799,
+            "finalBladeErrorRad": 0.3604130811115359,
+            "finalSwordKJ": 4.895494412397342,
+            "peakTipMps": 10.01808101982751,
+            "strokeMaxBladeErrorRad": 0.5286152667233451
+          },
+          "trace": "c34f0b6f658230032e7fd1e1967034e027a917d9d2d382aefcf1ddd651c27fa0",
+          "prefix": "a776d981c766ca8e8e192e89b65e4ea0b2c56bd1a017af77492b8bb493be0c53",
+          "phaseWork": {
+            "early": {
+              "driveSword": -4.035460712125393,
+              "manualMuscle": -1.2607984343401557,
+              "elbowGravity": 5.94323980670074,
+              "offHand": -4.365091425834829
+            },
+            "stroke_late": {
+              "driveSword": 14.728205614854488,
+              "elbowGravity": 1.5427890616294568,
+              "offHand": -4.742524453598982
+            },
+            "stop_early": {
+              "driveSword": -4.4747588095388515,
+              "elbowGravity": 0.03599661687809294,
+              "offHand": -2.28873582540919
+            },
+            "stop_late": {
+              "driveSword": 10.141441120648368,
+              "elbowGravity": 1.4675155118996157,
+              "offHand": -2.989537390567032
+            }
+          },
+          "suppressedCalls": 402,
+          "lastWindowExplicitSignedWorkApproxJ": {
+            "driveSword": 11.816863736940341,
+            "offHand": -1.049365631672658,
+            "manualMuscle": 0,
+            "elbowGravity": 0.9576517234433614
+          },
+          "momentCosineRange_075_150s": [
+            -0.9999647379561224,
+            -0.8670945405839459
+          ]
+        }
+      ]
+    },
+    {
+      "name": "elbow-offhand-follow-smoke",
+      "rawPath": "/workspace/halfsword-hybrid-evidence/elbow-offhand-follow-smoke.json",
+      "rawSHA256": "bfe2e585661801759c1ae41992cb096cc4b523d38a103c2ecacdc236dac2f52c",
+      "bytes": 17232527,
+      "command": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node /workspace/halfsword-codex/tools/sim/experiments/elbow_offhand_follow_probe.mjs --level=0 --weapons=zweihander --directions=cross --endings=target_hold --out=/tmp/elbow-offhand-follow-smoke.json",
+      "wallSeconds": 4.751364158,
+      "checks": [
+        {
+          "weapon": "zweihander",
+          "direction": "cross",
+          "ending": "target_hold",
+          "reaction": "paired",
+          "seed": 7,
+          "prepareS": 3,
+          "durationS": 0.55,
+          "afterS": 1.2,
+          "sampleHz": 120,
+          "preparedNativeExact": true,
+          "preparedControllerExact": true,
+          "requestedInputExact": true,
+          "observerTraceExact": true,
+          "installsNativeUnchanged": true
+        }
+      ],
+      "sourceStable": true,
+      "sourceManifest": {
+        "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+        "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+        "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+        "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+        "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+        "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+        "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+        "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+        "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+        "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+        "src/cut_trial.js": "4703aea051c3a6650dd0d3ed9b1058ad9f19b7b298d0e1924300462025f33ab9",
+        "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+        "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+        "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+        "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+        "src/fighter.js": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+        "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+        "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+        "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+        "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+        "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+        "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+        "src/input.js": "f6a73744e19090c0406b6cf4229081e7fea24435d89d18e1af682de201ff9ae7",
+        "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+        "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+        "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+        "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+        "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+        "src/main.js": "9de8ff891f1f56dbce9e81d8178b25438a7899b26f55a6b9391946ee6c386284",
+        "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+        "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+        "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+        "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+        "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+        "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+        "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+        "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+        "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+        "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+        "src/slash_draw.js": "c7d3d5a52ab9880323e72f21270d9e85aa6564187aef5a7a95e57954a11fdd8a",
+        "src/sound.js": "5751ada2d02597067df219798ea31b42bbbc3409251ce3ff93ecd1e8d2a7bad3",
+        "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+        "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+        "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+        "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+        "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+        "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+        "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+        "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+        "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+        "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+        "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+        "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+        "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+        "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+        "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+        "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+        "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+        "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+        "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+        "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+        "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+        "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+        "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+        "tools/sim/whole_body_strike_probe.mjs": "f32dae889eb75860ffa185433dfca877e571b36a4184976557b4e88f7a3b51f4",
+        "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+        "tools/sim/experiments/elbow_coordination_probe.mjs": "8899d1115b0f2355d6c2307b2d38157bae1f3fd21b17ddecb13da4b2d0f4d719",
+        "tools/sim/experiments/elbow_coherent_candidate.mjs": "64c820351c4344aad0daf76a1ba35f6d6a3a49e468c05ffcf8ec8b91beb8441e",
+        "tools/sim/experiments/elbow_offhand_follow_probe.mjs": "4ecb703bf2e21097ccaa3e713e1ee4ff37ae8d7cac01cf148253bc175f65d916",
+        "tools/sim/experiments/offhand_follow_candidate.mjs": "1cf6d780aa240dda4195868d194b796092bed45510a9bfd8eb2d148e7e4df0a1",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b"
+      },
+      "rows": [
+        {
+          "mode": "baseline",
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 120
+          },
+          "metrics": {
+            "strokePeakTipMps": 7.287744122493039,
+            "strokeMaxHandErrorM": 0.1911735861754396,
+            "strokeMaxBladeAimErrorRad": 0.20456043141376173,
+            "afterAxisTravelRad": 0.6200389716579237,
+            "finalBladeAimErrorRad": 0.07997109788051428,
+            "finalHandErrorM": 0.05714531936642419,
+            "finalSwordKJ": 0.00037938067692759906,
+            "afterMaxBladeAimErrorRad": 0.26945018265883475,
+            "maxSwordOmegaRadps": 12.669278690957022,
+            "originalRawHandMaxErrorM": 0.1911735861754396,
+            "secondaryUnreachableFrames": null
+          },
+          "traceSha256": "b42388cd6fcd3e043415f8d2423fef132ebe3b5ae58dea2e857e189b1861c22d"
+        },
+        {
+          "mode": "observe",
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 120
+          },
+          "metrics": {
+            "strokePeakTipMps": 7.287744122493039,
+            "strokeMaxHandErrorM": 0.1911735861754396,
+            "strokeMaxBladeAimErrorRad": 0.20456043141376173,
+            "afterAxisTravelRad": 0.6200389716579237,
+            "finalBladeAimErrorRad": 0.07997109788051428,
+            "finalHandErrorM": 0.05714531936642419,
+            "finalSwordKJ": 0.00037938067692759906,
+            "afterMaxBladeAimErrorRad": 0.26945018265883475,
+            "maxSwordOmegaRadps": 12.669278690957022,
+            "originalRawHandMaxErrorM": 0.19117358617543964,
+            "secondaryUnreachableFrames": 162
+          },
+          "traceSha256": "b42388cd6fcd3e043415f8d2423fef132ebe3b5ae58dea2e857e189b1861c22d"
+        },
+        {
+          "mode": "follow",
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 120
+          },
+          "metrics": {
+            "strokePeakTipMps": 7.382499571308749,
+            "strokeMaxHandErrorM": 0.16376765771284846,
+            "strokeMaxBladeAimErrorRad": 0.2533777653031561,
+            "afterAxisTravelRad": 0.6613635281329459,
+            "finalBladeAimErrorRad": 0.08555221788888087,
+            "finalHandErrorM": 0.05820883811409502,
+            "finalSwordKJ": 0.0002961474875980374,
+            "afterMaxBladeAimErrorRad": 0.2789686799024507,
+            "maxSwordOmegaRadps": 12.730345491922497,
+            "originalRawHandMaxErrorM": 0.16376765771284843,
+            "secondaryUnreachableFrames": 161
+          },
+          "traceSha256": "6d01202cd50b1ae22a593c4e04bfd7dc7937b6d71f7ed173685368de635e94d9"
+        },
+        {
+          "mode": "candidate",
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 120
+          },
+          "metrics": {
+            "strokePeakTipMps": 8.283784276685035,
+            "strokeMaxHandErrorM": 0.21394059421471256,
+            "strokeMaxBladeAimErrorRad": 0.2065842061338278,
+            "afterAxisTravelRad": 0.7690789960469857,
+            "finalBladeAimErrorRad": 0.15286096374887628,
+            "finalHandErrorM": 0.04801753530075319,
+            "finalSwordKJ": 0.000579717020382991,
+            "afterMaxBladeAimErrorRad": 0.3960073526093724,
+            "maxSwordOmegaRadps": 9.68121768876625,
+            "originalRawHandMaxErrorM": 0.19189645203572855,
+            "secondaryUnreachableFrames": 166
+          },
+          "traceSha256": "98c1f495078b9306f779b96e287480a77c3b4dbb607f962f54b5eaa6a99cdb7e"
+        },
+        {
+          "mode": "relativeFollow",
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 120
+          },
+          "metrics": {
+            "strokePeakTipMps": 8.410162063770931,
+            "strokeMaxHandErrorM": 0.17405136151482792,
+            "strokeMaxBladeAimErrorRad": 0.27370670739906117,
+            "afterAxisTravelRad": 0.8133258317876331,
+            "finalBladeAimErrorRad": 0.1608837918560224,
+            "finalHandErrorM": 0.05013947301121616,
+            "finalSwordKJ": 0.0005941812166589042,
+            "afterMaxBladeAimErrorRad": 0.4180905911812318,
+            "maxSwordOmegaRadps": 9.727544972832522,
+            "originalRawHandMaxErrorM": 0.17396930641133598,
+            "secondaryUnreachableFrames": 166
+          },
+          "traceSha256": "7db7e05d72e79acd6e2632fa41e989eab4568e32a8f6c1d76254ec6af6c8e6f6"
+        },
+        {
+          "mode": "coupled",
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 120
+          },
+          "metrics": {
+            "strokePeakTipMps": 7.92043911228015,
+            "strokeMaxHandErrorM": 0.21394059421471256,
+            "strokeMaxBladeAimErrorRad": 0.2065842061338278,
+            "afterAxisTravelRad": 1.0222407520985537,
+            "finalBladeAimErrorRad": 0.03808714912058278,
+            "finalHandErrorM": 0.08324523244168182,
+            "finalSwordKJ": 0.8248821942046224,
+            "afterMaxBladeAimErrorRad": 0.4011180887400842,
+            "maxSwordOmegaRadps": 13.43118715225791,
+            "originalRawHandMaxErrorM": 0.40487903483353754,
+            "secondaryUnreachableFrames": 0
+          },
+          "traceSha256": "9360959bde07ce506dd6942d64dc72bf0fe77f007128329bcb851bb8df8434b6"
+        },
+        {
+          "mode": "coupledFollow",
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 120
+          },
+          "metrics": {
+            "strokePeakTipMps": 8.189388166402564,
+            "strokeMaxHandErrorM": 0.17405136151482792,
+            "strokeMaxBladeAimErrorRad": 0.27370670739906117,
+            "afterAxisTravelRad": 1.120702359897461,
+            "finalBladeAimErrorRad": 0.017555788088336608,
+            "finalHandErrorM": 0.01969984423033749,
+            "finalSwordKJ": 0.5912310580269942,
+            "afterMaxBladeAimErrorRad": 0.4202122546773332,
+            "maxSwordOmegaRadps": 12.040336396318226,
+            "originalRawHandMaxErrorM": 0.3458980890395712,
+            "secondaryUnreachableFrames": 0
+          },
+          "traceSha256": "7c9a293075647f5bca6dc2694194263cfa94be59d5f0253b01136da628e3133b"
+        }
+      ]
+    },
+    {
+      "name": "arm-control-conflict-late",
+      "rawPath": "/workspace/halfsword-hybrid-evidence/arm-control-conflict-late.json",
+      "rawSHA256": "393405674655e3079f24e75a4a0d2171673828c7b8d9cfcca6df74107344cc13",
+      "bytes": 8634329,
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/arm_control_conflict_probe.mjs",
+        "--level=0",
+        "--base=coupled",
+        "--start=1",
+        "--modes=intact,noWrist,noGrip,noPrimary",
+        "--out=/tmp/arm-control-conflict-late.json"
+      ],
+      "wallSeconds": 2.9565474400000005,
+      "checks": {
+        "sourceStable": true,
+        "observerExact": true,
+        "preparedNativeExact": true,
+        "preparedControllerExact": true,
+        "externalInputExact": true,
+        "prefixExact": true
+      },
+      "sourceStable": true,
+      "sourceManifest": {
+        "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+        "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+        "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+        "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+        "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+        "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+        "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+        "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+        "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+        "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+        "src/cut_trial.js": "4703aea051c3a6650dd0d3ed9b1058ad9f19b7b298d0e1924300462025f33ab9",
+        "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+        "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+        "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+        "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+        "src/fighter.js": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+        "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+        "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+        "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+        "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+        "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+        "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+        "src/input.js": "f6a73744e19090c0406b6cf4229081e7fea24435d89d18e1af682de201ff9ae7",
+        "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+        "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+        "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+        "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+        "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+        "src/main.js": "9de8ff891f1f56dbce9e81d8178b25438a7899b26f55a6b9391946ee6c386284",
+        "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+        "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+        "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+        "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+        "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+        "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+        "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+        "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+        "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+        "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+        "src/slash_draw.js": "c7d3d5a52ab9880323e72f21270d9e85aa6564187aef5a7a95e57954a11fdd8a",
+        "src/sound.js": "5751ada2d02597067df219798ea31b42bbbc3409251ce3ff93ecd1e8d2a7bad3",
+        "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+        "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+        "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+        "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+        "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+        "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+        "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+        "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+        "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+        "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+        "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+        "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+        "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+        "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+        "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+        "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+        "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+        "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+        "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+        "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+        "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+        "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+        "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+        "tools/sim/whole_body_strike_probe.mjs": "f32dae889eb75860ffa185433dfca877e571b36a4184976557b4e88f7a3b51f4",
+        "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+        "tools/sim/experiments/elbow_coordination_probe.mjs": "8899d1115b0f2355d6c2307b2d38157bae1f3fd21b17ddecb13da4b2d0f4d719",
+        "tools/sim/experiments/elbow_coherent_candidate.mjs": "64c820351c4344aad0daf76a1ba35f6d6a3a49e468c05ffcf8ec8b91beb8441e",
+        "tools/sim/experiments/arm_control_conflict_probe.mjs": "5329164a9e64ac9c7355d48783a62e06aee28535abb1a2b3c8d74fdc833b9bd2",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b"
+      },
+      "rows": [
+        {
+          "mode": "intact",
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 120
+          },
+          "metrics": {
+            "afterAxisTravelRad": 1.0222407520985537,
+            "finalBladeErrorRad": 0.03808714912058278,
+            "finalSwordKJ": 0.8248821942046224,
+            "peakTipMps": 7.92043911228015,
+            "strokeMaxBladeErrorRad": 0.2065842061338278
+          },
+          "trace": "9360959bde07ce506dd6942d64dc72bf0fe77f007128329bcb851bb8df8434b6",
+          "prefix": "7cf89935119eab3b47f9aa8076257cad209304901e963f47e0aca29e4e763dab",
+          "phaseWork": {
+            "early": {
+              "driveSword": 7.281424350083798,
+              "manualMuscle": 18.837817311480595,
+              "elbowGravity": 5.105341548854809,
+              "offHand": -0.8412088995327803
+            },
+            "stroke_late": {
+              "driveSword": -2.759265343900944,
+              "manualMuscle": -7.871000091069061,
+              "elbowGravity": 7.6889117684856,
+              "offHand": -2.3433595283006787
+            },
+            "stop_early": {
+              "driveSword": 3.19242647813369,
+              "manualMuscle": -14.377567847079264,
+              "elbowGravity": 3.766563025202901,
+              "offHand": -4.031019218737055
+            },
+            "stop_late": {
+              "driveSword": 0.16880727982504024,
+              "manualMuscle": -2.0298997360403943,
+              "elbowGravity": -1.3183583228661815,
+              "offHand": 0.5966434215439491
+            }
+          },
+          "suppressedCalls": 0,
+          "lastWindowExplicitSignedWorkApproxJ": {
+            "driveSword": -5.752177837343316,
+            "offHand": 3.3781763825364157,
+            "manualMuscle": 11.513143451656216,
+            "elbowGravity": -2.0515905797371436
+          },
+          "momentCosineRange_075_150s": [
+            0.9424742649694735,
+            0.9991999802426533
+          ]
+        },
+        {
+          "mode": "noWrist",
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 120
+          },
+          "metrics": {
+            "afterAxisTravelRad": 1.436956687713476,
+            "finalBladeErrorRad": 0.41842281995296543,
+            "finalSwordKJ": 0.13524970678170056,
+            "peakTipMps": 7.92043911228015,
+            "strokeMaxBladeErrorRad": 0.2065842061338278
+          },
+          "trace": "bc77749a12e374a61c2e1a701edb10365296e50d4ae1291b50ccbebb8094723c",
+          "prefix": "7cf89935119eab3b47f9aa8076257cad209304901e963f47e0aca29e4e763dab",
+          "phaseWork": {
+            "early": {
+              "driveSword": 7.281424350083798,
+              "manualMuscle": 18.837817311480595,
+              "elbowGravity": 5.105341548854809,
+              "offHand": -0.8412088995327803
+            },
+            "stroke_late": {
+              "driveSword": -2.759265343900944,
+              "manualMuscle": -7.871000091069061,
+              "elbowGravity": 7.6889117684856,
+              "offHand": -2.3433595283006787
+            },
+            "stop_early": {
+              "driveSword": 3.19242647813369,
+              "manualMuscle": -14.377567847079264,
+              "elbowGravity": 3.766563025202901,
+              "offHand": -4.031019218737055
+            },
+            "stop_late": {
+              "driveSword": 5.920985117168356,
+              "manualMuscle": -2.0485082315502914,
+              "elbowGravity": -1.308608348298501,
+              "offHand": -1.276869207273721
+            }
+          },
+          "suppressedCalls": 270,
+          "lastWindowExplicitSignedWorkApproxJ": {
+            "driveSword": 0,
+            "offHand": 1.504663753718745,
+            "manualMuscle": 11.494534956146317,
+            "elbowGravity": -2.0418406051694644
+          },
+          "momentCosineRange_075_150s": [
+            0.9424742649694735,
+            0.9991999802426533
+          ]
+        },
+        {
+          "mode": "noGrip",
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 120
+          },
+          "metrics": {
+            "afterAxisTravelRad": 1.043499973193202,
+            "finalBladeErrorRad": 0.05598917688179657,
+            "finalSwordKJ": 0.8612496824227921,
+            "peakTipMps": 7.92043911228015,
+            "strokeMaxBladeErrorRad": 0.2065842061338278
+          },
+          "trace": "b03eb73ea3a20cc45b24cb2ed26c27e61390dba15a57a445bc441b82b898f394",
+          "prefix": "7cf89935119eab3b47f9aa8076257cad209304901e963f47e0aca29e4e763dab",
+          "phaseWork": {
+            "early": {
+              "driveSword": 7.281424350083798,
+              "manualMuscle": 18.837817311480595,
+              "elbowGravity": 5.105341548854809,
+              "offHand": -0.8412088995327803
+            },
+            "stroke_late": {
+              "driveSword": -2.759265343900944,
+              "manualMuscle": -7.871000091069061,
+              "elbowGravity": 7.6889117684856,
+              "offHand": -2.3433595283006787
+            },
+            "stop_early": {
+              "driveSword": 3.19242647813369,
+              "manualMuscle": -14.377567847079264,
+              "elbowGravity": 3.766563025202901,
+              "offHand": -4.031019218737055
+            },
+            "stop_late": {
+              "driveSword": -0.5900094990153313,
+              "manualMuscle": -0.8133250794979083,
+              "elbowGravity": -0.275164076543405,
+              "offHand": -2.7815329609924664
+            }
+          },
+          "suppressedCalls": 180,
+          "lastWindowExplicitSignedWorkApproxJ": {
+            "driveSword": -6.510994616183686,
+            "offHand": 0,
+            "manualMuscle": 12.7297181081987,
+            "elbowGravity": -1.0083963334143686
+          },
+          "momentCosineRange_075_150s": [
+            0.9424742649694735,
+            0.9991999802426533
+          ]
+        },
+        {
+          "mode": "noPrimary",
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 120
+          },
+          "metrics": {
+            "afterAxisTravelRad": 1.7907466336808473,
+            "finalBladeErrorRad": 0.6117627042807012,
+            "finalSwordKJ": 4.313886690885824,
+            "peakTipMps": 7.92043911228015,
+            "strokeMaxBladeErrorRad": 0.2065842061338278
+          },
+          "trace": "67666da42de21868c86ada22c5314346d5bd733dd8e6a71a5ac856d9a0406455",
+          "prefix": "7cf89935119eab3b47f9aa8076257cad209304901e963f47e0aca29e4e763dab",
+          "phaseWork": {
+            "early": {
+              "driveSword": 7.281424350083798,
+              "manualMuscle": 18.837817311480595,
+              "elbowGravity": 5.105341548854809,
+              "offHand": -0.8412088995327803
+            },
+            "stroke_late": {
+              "driveSword": -2.759265343900944,
+              "manualMuscle": -7.871000091069061,
+              "elbowGravity": 7.6889117684856,
+              "offHand": -2.3433595283006787
+            },
+            "stop_early": {
+              "driveSword": 3.19242647813369,
+              "manualMuscle": -14.377567847079264,
+              "elbowGravity": 3.766563025202901,
+              "offHand": -4.031019218737055
+            },
+            "stop_late": {
+              "driveSword": 34.96374961793441,
+              "manualMuscle": -13.54304318769661,
+              "elbowGravity": 1.3981679468829802,
+              "offHand": -17.268786902063678
+            }
+          },
+          "suppressedCalls": 180,
+          "lastWindowExplicitSignedWorkApproxJ": {
+            "driveSword": 29.04276450076606,
+            "offHand": -14.487253941071211,
+            "manualMuscle": 0,
+            "elbowGravity": 0.664935690012017
+          },
+          "momentCosineRange_075_150s": [
+            0.9424742649694735,
+            0.9991999802426533
+          ]
+        }
+      ]
+    }
+  ],
+  "wallSeconds": 12.251627886000001,
+  "limitations": [
+    "One zweihander slanted cross stroke at skill 0, seed7, prepared3s, drag .55s, hold1.2s; no contact/wounds/browser/player acceptance.",
+    "Moment opposition is not itself a defect or wasted energy. Signed midpoint work excludes native joint/contact/damping work.",
+    "Late run has no observer pair of its own; original-forwarding invariance comes from early diagnostic and follow probe.",
+    "Same-prefix hash covers native snapshot and selected joint target/history/input fields, not every hidden JavaScript state field.",
+    "Removing a complete explicit action/reaction path is causal diagnosis only; native motors and IK remain.",
+    "Raw evidence is local and outside the Git bundle; no external backup or publication established."
+  ]
+}
