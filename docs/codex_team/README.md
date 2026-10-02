@@ -20,6 +20,8 @@
 
 **절삭 비교 후보:** [공통점 반작용·실제 에너지 차감](../strike/cut_reaction_round1.md)을 순수 browser helper와 공유했다. 기본 legacy, 정확히 `cutTrial=budgeted`일 때만 후보이며 `/feature-lab.html#cut-comparison`의 A/B로 연결한다. 33fixture·20전투(실제 runtime↔연구 후보4개 exact, 기존16개 exact)·로컬 모바일4조건/재시작/기본복귀를 통과했다. [통합 근거](../strike/cut_reaction_trial_metrics.json). 부상 판정·기립·전신/사용자 체감 해결로 선언하지 않는다. 메이저 일반 적용은 보류한다.
 
+절삭 비교 공개: 소스 `3ad893a` → main `7362025`, 전송36961428526·Pages36961476733 성공. 공개 index/HTML/asset 바이트·모바일4조건까지 검증했다. [실제 전달 상태](../strike/cut_reaction_trial_release.json). 현재 일반 게임의 paired 그립/legacy 지지/legacy 절삭은 유지한다.
+
 **기립 제어 재검증:** [native 모터 의미 1차](../strike/support_control_semantics_round1.md), [실제 발 하중 인계 2차](../strike/support_recovery_load_round2.md)에 이어 [폭주·모터 힘 한도 3차](../strike/support_motor_limits_round3.md)를 수행했다. 폭주 직전772프레임/native 상태 exact 대조에서0계수 upright를 실제 제거하자 해당 급증은 사라졌으나 재넘어짐은 남았다. 위치오차만의 근력 한도를 목표속도/감쇠 토크가 넘는 결함도 분리 fixture에서 확인했다. 실제 벡터 토크를 제한하는 다리 제어기는6교정 통과에도 전신 회복이 악화해 채택하지 않는다. 발 추가 질량 삭제도 조합별 후퇴가 남았다. 후속 서기24분기에서 한 스텝 뒤 앞 고관절/무릎/발목 응답은 자유 두 강체 예측의7.81/26.73/2.82%였고 방향·크기 의존성도 확인했다. 다음은 회복 자세별 결합 응답과 손/무릎→발 지지 인계를 설계한다. 공개 게임 코드 변경 없음.
 
 **한손 자세 수정:** 사용자의 우화 패치 직접 이식 요청에 따라 `f53b330`의 THRUST/SABRE 표와 `9763484`의 한손 선택 규칙을 가져왔다. [범위·검증·배포](../strike/onehand_grip_port.md)를 참고한다. 한손 8종/두손 3종 입력 검사, 두손 전후 궤적 일치, 모바일 잡기/놓기/재입력을 확인했다. corr v2 전체나 두손 에스토크 변경은 가져오지 않았다. 아래 지지 연구판 철회는 계속 유지한다.
