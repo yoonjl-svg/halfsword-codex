@@ -1,0 +1,6692 @@
+{
+  "schemaVersion": 1,
+  "createdUTC": "2026-10-02T11:53:58.430Z",
+  "scope": "Real combat/wound regression of Gait.enter Nf-only lifecycle reset; all arm/cut modes legacy.",
+  "sourceCommit": "e5d2f081de320e42634526e27a68804baf754993",
+  "command": "node tools/sim/experiments/stance_memory_combat_probe.mjs --seconds=30 --seeds=7,17 --scenes=cloth,plate --scripted=1 --out=/workspace/halfsword-hybrid-evidence/stance-memory-combat-r3.json",
+  "configuration": {
+    "seconds": 30,
+    "prepare": 1,
+    "seeds": [
+      7,
+      17
+    ],
+    "scenes": [
+      "cloth",
+      "plate"
+    ],
+    "scriptedFallback": true,
+    "DT": 0.008333333333333333,
+    "AI": "Both original AI classes; ordinary combat/wound/death. Player knockDown(true) only in explicitly forced fallback.",
+    "cut": "legacy",
+    "arms": "legacy",
+    "grip": "paired",
+    "support": {
+      "assist": 0.3,
+      "catchMode": "on",
+      "catchScale": 1
+    }
+  },
+  "artifact": {
+    "path": "/workspace/halfsword-hybrid-evidence/stance-memory-combat-r3.json",
+    "sha256": "94a77bb7350c1fab2ee6756a8b145058142f1fbf5f283f7c399cfba426c67b2f",
+    "bytes": 12281871
+  },
+  "checkpoints": {
+    "path": "/workspace/halfsword-hybrid-evidence/stance-memory-combat-r3.json.runs.jsonl",
+    "sha256": "d35517d1a88fcca449dcc1b74ccaf7c5833b2b6888405d8c65660d2aca2882e2",
+    "bytes": 10272640
+  },
+  "initialManifest": {
+    "path": "/workspace/halfsword-hybrid-evidence/stance-memory-combat-r3.json.start.json",
+    "sha256": "b32372eb0d99b3dabcd5ea2f7dce93d59d0717d3ca44c3357338c106bdae4c4f",
+    "bytes": 6110
+  },
+  "probeSHA256": "2d26d3ff11d7592368c21d715018d8dd43f1cbdd141b67595204b24ff9ae6abf",
+  "reportSHA256": "b26664c2b272947560805ed61e1e75d9eedb0f231bf0bc7eed2bff7226c361a3",
+  "sourceBefore": {
+    "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+    "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+    "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+    "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+    "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+    "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+    "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+    "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+    "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+    "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+    "src/config.js": "e84d7b921b6d8678b358a5971b296c22edded192d680a56e45a0b29ab2aa5319",
+    "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+    "src/cut_trial.js": "3ef89c41c9b40b3e18a5d19cd92277af49e972c8eae030efaa915a39dfc4fcbf",
+    "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+    "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+    "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+    "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+    "src/fighter.js": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+    "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+    "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+    "src/gait.js": "91eba47caf6dddd7fd75a5de141a087614398031c45ef75b2ac814f8c4db9b83",
+    "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+    "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+    "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+    "src/input.js": "b5954792bb8c9d005bbe17dc1a7669e296b6297c66a1f0339f487d4a2ff9cd4f",
+    "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+    "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+    "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+    "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+    "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+    "src/main.js": "b407150693be04cdcb3da5b3488d22dc9d131ab28d309f7f58b9dae16c86d86a",
+    "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+    "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+    "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+    "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+    "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+    "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+    "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+    "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+    "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+    "src/sound.js": "7c6dddf5f81675f46d4df64d2fd3c9586e22172351f734a3bd1b273bfd24cac1",
+    "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+    "src/soundlab.js": "3e0f803534d588d2bbf78dbb42cb901077de26f32dcdd13cbc251c2424f12624",
+    "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+    "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+    "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+    "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+    "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+    "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+    "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+    "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+    "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+    "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+    "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+    "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+    "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+    "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+    "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+    "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "tools/sim/experiments/recovery_contact_memory_candidate.mjs": "e2cba53be7a3d45ef3d0c5a4bdacd9a25947be4b7f40fd16f8ca648b7e01b4a5",
+    "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+    "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b"
+  },
+  "sourceAfter": {
+    "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+    "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+    "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+    "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+    "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+    "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+    "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+    "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+    "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+    "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+    "src/config.js": "e84d7b921b6d8678b358a5971b296c22edded192d680a56e45a0b29ab2aa5319",
+    "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+    "src/cut_trial.js": "3ef89c41c9b40b3e18a5d19cd92277af49e972c8eae030efaa915a39dfc4fcbf",
+    "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+    "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+    "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+    "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+    "src/fighter.js": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+    "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+    "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+    "src/gait.js": "91eba47caf6dddd7fd75a5de141a087614398031c45ef75b2ac814f8c4db9b83",
+    "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+    "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+    "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+    "src/input.js": "b5954792bb8c9d005bbe17dc1a7669e296b6297c66a1f0339f487d4a2ff9cd4f",
+    "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+    "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+    "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+    "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+    "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+    "src/main.js": "b407150693be04cdcb3da5b3488d22dc9d131ab28d309f7f58b9dae16c86d86a",
+    "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+    "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+    "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+    "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+    "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+    "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+    "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+    "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+    "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+    "src/sound.js": "7c6dddf5f81675f46d4df64d2fd3c9586e22172351f734a3bd1b273bfd24cac1",
+    "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+    "src/soundlab.js": "3e0f803534d588d2bbf78dbb42cb901077de26f32dcdd13cbc251c2424f12624",
+    "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+    "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+    "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+    "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+    "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+    "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+    "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+    "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+    "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+    "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+    "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+    "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+    "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+    "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+    "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+    "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "tools/sim/experiments/recovery_contact_memory_candidate.mjs": "e2cba53be7a3d45ef3d0c5a4bdacd9a25947be4b7f40fd16f8ca648b7e01b4a5",
+    "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+    "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b"
+  },
+  "sourceStable": true,
+  "historicalSourceExact": true,
+  "history": {
+    "path": "/workspace/halfsword-hybrid-evidence/q05-arm-cut-r3.bounded.json",
+    "sha256": "f6453ef0412928dedad2e74b78d3145c6720a4ea5029a66ea80165b01aa434f2",
+    "sourceCommit": "86a9fa06e64bd216f8952b4f3f2ef6754f18a6f1"
+  },
+  "comparisons": [
+    {
+      "scene": "cloth",
+      "seed": 7,
+      "forced": false,
+      "checkpointExact": true,
+      "checkpointOrderSensitiveControlExact": false,
+      "baselineHistoricalFullTraceExact": true,
+      "baselineHistoricalInputsExact": true,
+      "baselineResetFullTraceExact": false,
+      "baselineResetInputsExact": true,
+      "baselineResetTargetsExact": true,
+      "baselineResetSemanticTraceExact": true,
+      "baselineResetPhysicalTraceExact": true,
+      "firstOrderSensitiveTraceDifferenceFrame": 0,
+      "firstTraceDifferenceFrame": -1,
+      "firstPhysicalDifferenceFrame": -1,
+      "firstInputDifferenceFrame": -1,
+      "firstTargetDifferenceFrame": -1,
+      "forcedKnockPrestateExact": null,
+      "firstRecoveryEntryPrestateExact": null,
+      "actualRecoveryEntries": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "actualNonzeroResetEntries": [
+        0,
+        0
+      ],
+      "note": "Exact baseline/history proves observer preservation when source/settings match. Real AI can diverge after a nonzero Nf reset; synthetic knockdown is labelled separately."
+    },
+    {
+      "scene": "cloth",
+      "seed": 17,
+      "forced": false,
+      "checkpointExact": true,
+      "checkpointOrderSensitiveControlExact": false,
+      "baselineHistoricalFullTraceExact": true,
+      "baselineHistoricalInputsExact": true,
+      "baselineResetFullTraceExact": false,
+      "baselineResetInputsExact": false,
+      "baselineResetTargetsExact": false,
+      "baselineResetSemanticTraceExact": false,
+      "baselineResetPhysicalTraceExact": false,
+      "firstOrderSensitiveTraceDifferenceFrame": 0,
+      "firstTraceDifferenceFrame": 1165,
+      "firstPhysicalDifferenceFrame": 1165,
+      "firstInputDifferenceFrame": 1166,
+      "firstTargetDifferenceFrame": 1166,
+      "forcedKnockPrestateExact": null,
+      "firstRecoveryEntryPrestateExact": true,
+      "actualRecoveryEntries": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "actualNonzeroResetEntries": [
+        1,
+        0
+      ],
+      "note": "Exact baseline/history proves observer preservation when source/settings match. Real AI can diverge after a nonzero Nf reset; synthetic knockdown is labelled separately."
+    },
+    {
+      "scene": "plate",
+      "seed": 7,
+      "forced": false,
+      "checkpointExact": true,
+      "checkpointOrderSensitiveControlExact": false,
+      "baselineHistoricalFullTraceExact": true,
+      "baselineHistoricalInputsExact": true,
+      "baselineResetFullTraceExact": false,
+      "baselineResetInputsExact": true,
+      "baselineResetTargetsExact": true,
+      "baselineResetSemanticTraceExact": true,
+      "baselineResetPhysicalTraceExact": true,
+      "firstOrderSensitiveTraceDifferenceFrame": 0,
+      "firstTraceDifferenceFrame": -1,
+      "firstPhysicalDifferenceFrame": -1,
+      "firstInputDifferenceFrame": -1,
+      "firstTargetDifferenceFrame": -1,
+      "forcedKnockPrestateExact": null,
+      "firstRecoveryEntryPrestateExact": null,
+      "actualRecoveryEntries": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "actualNonzeroResetEntries": [
+        0,
+        0
+      ],
+      "note": "Exact baseline/history proves observer preservation when source/settings match. Real AI can diverge after a nonzero Nf reset; synthetic knockdown is labelled separately."
+    },
+    {
+      "scene": "plate",
+      "seed": 17,
+      "forced": false,
+      "checkpointExact": true,
+      "checkpointOrderSensitiveControlExact": false,
+      "baselineHistoricalFullTraceExact": true,
+      "baselineHistoricalInputsExact": true,
+      "baselineResetFullTraceExact": false,
+      "baselineResetInputsExact": false,
+      "baselineResetTargetsExact": false,
+      "baselineResetSemanticTraceExact": false,
+      "baselineResetPhysicalTraceExact": false,
+      "firstOrderSensitiveTraceDifferenceFrame": 0,
+      "firstTraceDifferenceFrame": 1495,
+      "firstPhysicalDifferenceFrame": 1496,
+      "firstInputDifferenceFrame": 1520,
+      "firstTargetDifferenceFrame": 1496,
+      "forcedKnockPrestateExact": null,
+      "firstRecoveryEntryPrestateExact": true,
+      "actualRecoveryEntries": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "actualNonzeroResetEntries": [
+        2,
+        0
+      ],
+      "note": "Exact baseline/history proves observer preservation when source/settings match. Real AI can diverge after a nonzero Nf reset; synthetic knockdown is labelled separately."
+    }
+  ],
+  "executionPass": true,
+  "rows": [
+    {
+      "mode": "baseline",
+      "scene": "cloth",
+      "seed": 7,
+      "forced": false,
+      "seconds": 30,
+      "wallSeconds": 29.201265269000004,
+      "runtime": {
+        "cut": "legacy",
+        "arms": [
+          "legacy",
+          "legacy"
+        ]
+      },
+      "checkpoint": {
+        "timeS": 0.9999999999999989,
+        "native": "e2e9e4dba83cc651b68bee5db582cc8e0f27c56a5e3172313942c05e9ba49ab0",
+        "control": "75481e85c2bdc488b51df58c347da34ae18b8544d061dc6eda3beb519f623dcc",
+        "controlOrderSensitive": "b48a3ee8c3d1198d057f1a3b29999c2f79e7da03b365a2d8b0c37e99cbe379ab",
+        "input": "c57b1fc3b4a96de95787ce20d0f85b4489d9a32fe2c5339a853ecd2b697b84e9"
+      },
+      "stats": {
+        "finite": true,
+        "steps": 3600,
+        "enterCalls": [
+          1,
+          1
+        ],
+        "postInitialEnterCalls": [
+          0,
+          0
+        ],
+        "recoveryEnterCalls": [
+          0,
+          0
+        ],
+        "nonzeroMemoryRecoveryClears": [
+          0,
+          0
+        ],
+        "helperCalls": [
+          0,
+          0
+        ],
+        "helperOnlyNf": true,
+        "falls": [
+          0,
+          0
+        ],
+        "getups": [
+          0,
+          0
+        ],
+        "deaths": [
+          0,
+          0
+        ],
+        "stateFrames": [
+          {
+            "stand": 3600
+          },
+          {
+            "stand": 3600
+          }
+        ],
+        "maxBodySpeedMps": 7.624869930502547,
+        "maxBodyAngularRadps": 89.43403570672237,
+        "angularPeak": {
+          "frame": 1189,
+          "timeS": 10.916666666666687,
+          "label": "0:sword",
+          "handle": "8e-323",
+          "mass": 1.600000023841858,
+          "omega": {
+            "x": 69.4930648803711,
+            "y": -51.868648529052734,
+            "z": -21.881589889526367
+          },
+          "Krotation": 16.87042083859295,
+          "contexts": [
+            {
+              "fighter": 0,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 1,
+              "consciousness": 0.8871928656914543,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            },
+            {
+              "fighter": 1,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 0.9859408384864763,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 0.7174671920056004,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            }
+          ]
+        },
+        "peakWholeKJ": 222.78970473167556,
+        "peakWholeRotationalKJ": 69.87201442858016,
+        "wholeKPeak": {
+          "frame": 3184,
+          "timeS": 27.541666666665744,
+          "K": 222.78970473167556,
+          "Krotation": 15.85864558196526,
+          "contexts": [
+            {
+              "fighter": 0,
+              "state": "stand",
+              "alive": true,
+              "armed": false,
+              "blood": 0.9033239375184914,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 0.0033461512150461115,
+                "armO": 1,
+                "legF": 0.6966947491843867,
+                "legB": 0.8390713831740895
+              }
+            },
+            {
+              "fighter": 1,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 0.7664838885769931,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 0.7174671920056004,
+                "armO": 0.9187592607183706,
+                "legF": 1,
+                "legB": 1
+              }
+            }
+          ]
+        },
+        "maxJointGapM": [
+          0.0031388724966997608,
+          0.004320021264042838
+        ],
+        "maxGripGapM": [
+          0.0005847053693132761,
+          0.002173745311705377
+        ],
+        "maxHandTargetErrorM": [
+          0.7219069903372813,
+          0.8649167444918975
+        ],
+        "maxFootDesDistanceM": [
+          2.8010723608130377,
+          2.811588595920797
+        ]
+      },
+      "entries": [
+        {
+          "frame": -120,
+          "timeS": 0,
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "call": 1,
+          "startedBefore": false,
+          "recovery": false,
+          "before": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          },
+          "preNative": "cddd684e2c427833ccc5f797294e946031eca3a7b22adf612f7e1a0b08b95171",
+          "preTargets": "0987fe98a3cbc68611c132b839fe03190e1afcf8b5cb51a520cb0ef158f38565",
+          "preControl": "2f333e141cfd7c3caf15f308f67c9e2d83d4fa1971e834dc5681b58301207eab",
+          "preInput": "50352fea814ca3da5ddf84fd24278227835422ae981fc3c09a27e8e9fe16a2fc",
+          "afterOriginal": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          }
+        },
+        {
+          "frame": -120,
+          "timeS": 0,
+          "fighter": 1,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "call": 1,
+          "startedBefore": false,
+          "recovery": false,
+          "before": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          },
+          "preNative": "b3d8792a4f4a5364c863887dc3fc106f125d49e1becbf5d17f8395b0bd4799c2",
+          "preTargets": "0987fe98a3cbc68611c132b839fe03190e1afcf8b5cb51a520cb0ef158f38565",
+          "preControl": "01c7b04cd1863b96ca864a35bb844af75830e80a00a6c0f6bd81484172e0c1fa",
+          "preInput": "50352fea814ca3da5ddf84fd24278227835422ae981fc3c09a27e8e9fe16a2fc",
+          "afterOriginal": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          }
+        }
+      ],
+      "transitions": [],
+      "wounds": [
+        {
+          "t": 7.341666666666821,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 63.87074119446196,
+          "severity": 0.4036182971348567
+        },
+        {
+          "t": 7.391666666666824,
+          "att": 0,
+          "vic": 1,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 23.070597346251546,
+          "severity": 0
+        },
+        {
+          "t": 8.225000000000174,
+          "att": 1,
+          "vic": 0,
+          "zone": "head",
+          "type": "blunt",
+          "energy": 28.856969692679638,
+          "severity": 0
+        },
+        {
+          "t": 8.350000000000167,
+          "att": 1,
+          "vic": 0,
+          "zone": "neck",
+          "type": "blunt",
+          "energy": 15.520210926123303,
+          "severity": 0
+        },
+        {
+          "t": 8.641666666666817,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 6.010296169887233,
+          "severity": 0
+        },
+        {
+          "t": 8.65000000000015,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 9.98740000560152,
+          "severity": 0
+        },
+        {
+          "t": 9.050000000000127,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 8.010482748451647,
+          "severity": 0
+        },
+        {
+          "t": 11.10000000000001,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "cut",
+          "energy": 142.04256828302596,
+          "severity": 1.0757155949829247
+        },
+        {
+          "t": 11.708333333333309,
+          "att": 1,
+          "vic": 0,
+          "zone": "leg",
+          "type": "cut",
+          "energy": 50.56283018479839,
+          "severity": 0.3099043537574624
+        },
+        {
+          "t": 12.433333333333268,
+          "att": 0,
+          "vic": 1,
+          "zone": "neck",
+          "type": "blunt",
+          "energy": 12.729791577807635,
+          "severity": 0
+        },
+        {
+          "t": 12.549999999999928,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 9.732811761357896,
+          "severity": 0
+        },
+        {
+          "t": 12.624999999999924,
+          "att": 1,
+          "vic": 0,
+          "zone": "leg",
+          "type": "cut",
+          "energy": 42.72966041050017,
+          "severity": 0.22989802403701512
+        },
+        {
+          "t": 18.541666666666256,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 7.010444837845678,
+          "severity": 0
+        },
+        {
+          "t": 18.61666666666625,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 23.1181029682765,
+          "severity": 0
+        },
+        {
+          "t": 19.741666666666188,
+          "att": 1,
+          "vic": 0,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 14.355956188515126,
+          "severity": 0
+        },
+        {
+          "t": 20.874999999999456,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 19.755707765875872,
+          "severity": 0
+        },
+        {
+          "t": 20.891666666666122,
+          "att": 0,
+          "vic": 1,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 11.972529527572766,
+          "severity": 0
+        },
+        {
+          "t": 21.23333333333277,
+          "att": 1,
+          "vic": 0,
+          "zone": "leg",
+          "type": "cut",
+          "energy": 30.597368682335507,
+          "severity": 0.1233888616934137
+        },
+        {
+          "t": 21.491666666666088,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 8.269200874181163,
+          "severity": 0
+        },
+        {
+          "t": 21.941666666666062,
+          "att": 1,
+          "vic": 0,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 14.414316229305584,
+          "severity": 0
+        },
+        {
+          "t": 21.96666666666606,
+          "att": 1,
+          "vic": 0,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 12.942975551233417,
+          "severity": 0
+        },
+        {
+          "t": 22.4333333333327,
+          "att": 1,
+          "vic": 0,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 7.495309505238829,
+          "severity": 0
+        },
+        {
+          "t": 22.4333333333327,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 8.213040156949404,
+          "severity": 0
+        },
+        {
+          "t": 22.524999999999363,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 8.858735326514555,
+          "severity": 0
+        },
+        {
+          "t": 22.674999999999354,
+          "att": 0,
+          "vic": 1,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 14.13476062409672,
+          "severity": 0
+        },
+        {
+          "t": 22.77499999999935,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 8.606209757812687,
+          "severity": 0
+        },
+        {
+          "t": 22.95833333333267,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 12.334716344610577,
+          "severity": 0
+        },
+        {
+          "t": 22.98333333333267,
+          "att": 1,
+          "vic": 0,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 24.681143731789547,
+          "severity": 0
+        },
+        {
+          "t": 23.041666666666,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 13.411527897162909,
+          "severity": 0
+        },
+        {
+          "t": 23.82499999999929,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 10.676892145075819,
+          "severity": 0
+        },
+        {
+          "t": 24.249999999999265,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 35.64924974894073,
+          "severity": 0.1160581989737563
+        },
+        {
+          "t": 25.43333333333253,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 90.21089160334998,
+          "severity": 0.9081765857139245
+        },
+        {
+          "t": 25.45833333333253,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 61.12874905843156,
+          "severity": 0.5156146268360098
+        },
+        {
+          "t": 29.583333333332295,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 21.416235233657297,
+          "severity": 0
+        },
+        {
+          "t": 29.68333333333229,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 15.552390829897432,
+          "severity": 0
+        }
+      ],
+      "final": [
+        {
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": false,
+          "blood": 0.8596253995791299,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 0.0033461512150461115,
+            "armO": 1,
+            "legF": 0.6966947491843867,
+            "legB": 0.8390713831740895
+          },
+          "causeOfDeath": null,
+          "woundRecords": 5
+        },
+        {
+          "fighter": 1,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 0.7520224915341248,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 0.7174671920056004,
+            "armO": 0.9187592607183706,
+            "legF": 1,
+            "legB": 1
+          },
+          "causeOfDeath": null,
+          "woundRecords": 3
+        }
+      ],
+      "traceSHA256": "cf525addf644a798890056d8793354a317e773e6385543a5e62bbbe16076d88e",
+      "semanticTraceSHA256": "c996826dc61aa24cf3787c6789a08cfdd16cea7eaeeb9f6bd7e5b8197033f882",
+      "physicalTraceSHA256": "aeefc2e239274e3bdcd97b25e3dad707abcbd935307fef4efc753b515c423b86",
+      "inputTraceSHA256": "1b8474b159f37892f8185cc4a6fa8738b221496274169a0b88f9f134ef299658",
+      "targetTraceSHA256": "d63fe177708c1ec87eb30b9584895337e86a60e842923aa0ce042ab67697a7e4"
+    },
+    {
+      "mode": "reset",
+      "scene": "cloth",
+      "seed": 7,
+      "forced": false,
+      "seconds": 30,
+      "wallSeconds": 28.529753442999997,
+      "runtime": {
+        "cut": "legacy",
+        "arms": [
+          "legacy",
+          "legacy"
+        ]
+      },
+      "checkpoint": {
+        "timeS": 0.9999999999999989,
+        "native": "e2e9e4dba83cc651b68bee5db582cc8e0f27c56a5e3172313942c05e9ba49ab0",
+        "control": "75481e85c2bdc488b51df58c347da34ae18b8544d061dc6eda3beb519f623dcc",
+        "controlOrderSensitive": "f1583d9e8acad05fd3a11b16f9f9b68a6e5fd1c08e603fe0956b03558279f7ff",
+        "input": "c57b1fc3b4a96de95787ce20d0f85b4489d9a32fe2c5339a853ecd2b697b84e9"
+      },
+      "stats": {
+        "finite": true,
+        "steps": 3600,
+        "enterCalls": [
+          1,
+          1
+        ],
+        "postInitialEnterCalls": [
+          0,
+          0
+        ],
+        "recoveryEnterCalls": [
+          0,
+          0
+        ],
+        "nonzeroMemoryRecoveryClears": [
+          0,
+          0
+        ],
+        "helperCalls": [
+          1,
+          1
+        ],
+        "helperOnlyNf": true,
+        "falls": [
+          0,
+          0
+        ],
+        "getups": [
+          0,
+          0
+        ],
+        "deaths": [
+          0,
+          0
+        ],
+        "stateFrames": [
+          {
+            "stand": 3600
+          },
+          {
+            "stand": 3600
+          }
+        ],
+        "maxBodySpeedMps": 7.624869930502547,
+        "maxBodyAngularRadps": 89.43403570672237,
+        "angularPeak": {
+          "frame": 1189,
+          "timeS": 10.916666666666687,
+          "label": "0:sword",
+          "handle": "8e-323",
+          "mass": 1.600000023841858,
+          "omega": {
+            "x": 69.4930648803711,
+            "y": -51.868648529052734,
+            "z": -21.881589889526367
+          },
+          "Krotation": 16.87042083859295,
+          "contexts": [
+            {
+              "fighter": 0,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 1,
+              "consciousness": 0.8871928656914543,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            },
+            {
+              "fighter": 1,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 0.9859408384864763,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 0.7174671920056004,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            }
+          ]
+        },
+        "peakWholeKJ": 222.78970473167556,
+        "peakWholeRotationalKJ": 69.87201442858016,
+        "wholeKPeak": {
+          "frame": 3184,
+          "timeS": 27.541666666665744,
+          "K": 222.78970473167556,
+          "Krotation": 15.85864558196526,
+          "contexts": [
+            {
+              "fighter": 0,
+              "state": "stand",
+              "alive": true,
+              "armed": false,
+              "blood": 0.9033239375184914,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 0.0033461512150461115,
+                "armO": 1,
+                "legF": 0.6966947491843867,
+                "legB": 0.8390713831740895
+              }
+            },
+            {
+              "fighter": 1,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 0.7664838885769931,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 0.7174671920056004,
+                "armO": 0.9187592607183706,
+                "legF": 1,
+                "legB": 1
+              }
+            }
+          ]
+        },
+        "maxJointGapM": [
+          0.0031388724966997608,
+          0.004320021264042838
+        ],
+        "maxGripGapM": [
+          0.0005847053693132761,
+          0.002173745311705377
+        ],
+        "maxHandTargetErrorM": [
+          0.7219069903372813,
+          0.8649167444918975
+        ],
+        "maxFootDesDistanceM": [
+          2.8010723608130377,
+          2.811588595920797
+        ]
+      },
+      "entries": [
+        {
+          "frame": -120,
+          "timeS": 0,
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "call": 1,
+          "startedBefore": false,
+          "recovery": false,
+          "before": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          },
+          "preNative": "cddd684e2c427833ccc5f797294e946031eca3a7b22adf612f7e1a0b08b95171",
+          "preTargets": "0987fe98a3cbc68611c132b839fe03190e1afcf8b5cb51a520cb0ef158f38565",
+          "preControl": "2f333e141cfd7c3caf15f308f67c9e2d83d4fa1971e834dc5681b58301207eab",
+          "preInput": "50352fea814ca3da5ddf84fd24278227835422ae981fc3c09a27e8e9fe16a2fc",
+          "helperOnlyNf": true,
+          "afterReset": {
+            "F": {
+              "Nf": 0,
+              "N": null
+            },
+            "B": {
+              "Nf": 0,
+              "N": null
+            }
+          },
+          "afterOriginal": {
+            "F": {
+              "Nf": 0,
+              "N": null
+            },
+            "B": {
+              "Nf": 0,
+              "N": null
+            }
+          }
+        },
+        {
+          "frame": -120,
+          "timeS": 0,
+          "fighter": 1,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "call": 1,
+          "startedBefore": false,
+          "recovery": false,
+          "before": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          },
+          "preNative": "b3d8792a4f4a5364c863887dc3fc106f125d49e1becbf5d17f8395b0bd4799c2",
+          "preTargets": "0987fe98a3cbc68611c132b839fe03190e1afcf8b5cb51a520cb0ef158f38565",
+          "preControl": "01c7b04cd1863b96ca864a35bb844af75830e80a00a6c0f6bd81484172e0c1fa",
+          "preInput": "50352fea814ca3da5ddf84fd24278227835422ae981fc3c09a27e8e9fe16a2fc",
+          "helperOnlyNf": true,
+          "afterReset": {
+            "F": {
+              "Nf": 0,
+              "N": null
+            },
+            "B": {
+              "Nf": 0,
+              "N": null
+            }
+          },
+          "afterOriginal": {
+            "F": {
+              "Nf": 0,
+              "N": null
+            },
+            "B": {
+              "Nf": 0,
+              "N": null
+            }
+          }
+        }
+      ],
+      "transitions": [],
+      "wounds": [
+        {
+          "t": 7.341666666666821,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 63.87074119446196,
+          "severity": 0.4036182971348567
+        },
+        {
+          "t": 7.391666666666824,
+          "att": 0,
+          "vic": 1,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 23.070597346251546,
+          "severity": 0
+        },
+        {
+          "t": 8.225000000000174,
+          "att": 1,
+          "vic": 0,
+          "zone": "head",
+          "type": "blunt",
+          "energy": 28.856969692679638,
+          "severity": 0
+        },
+        {
+          "t": 8.350000000000167,
+          "att": 1,
+          "vic": 0,
+          "zone": "neck",
+          "type": "blunt",
+          "energy": 15.520210926123303,
+          "severity": 0
+        },
+        {
+          "t": 8.641666666666817,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 6.010296169887233,
+          "severity": 0
+        },
+        {
+          "t": 8.65000000000015,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 9.98740000560152,
+          "severity": 0
+        },
+        {
+          "t": 9.050000000000127,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 8.010482748451647,
+          "severity": 0
+        },
+        {
+          "t": 11.10000000000001,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "cut",
+          "energy": 142.04256828302596,
+          "severity": 1.0757155949829247
+        },
+        {
+          "t": 11.708333333333309,
+          "att": 1,
+          "vic": 0,
+          "zone": "leg",
+          "type": "cut",
+          "energy": 50.56283018479839,
+          "severity": 0.3099043537574624
+        },
+        {
+          "t": 12.433333333333268,
+          "att": 0,
+          "vic": 1,
+          "zone": "neck",
+          "type": "blunt",
+          "energy": 12.729791577807635,
+          "severity": 0
+        },
+        {
+          "t": 12.549999999999928,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 9.732811761357896,
+          "severity": 0
+        },
+        {
+          "t": 12.624999999999924,
+          "att": 1,
+          "vic": 0,
+          "zone": "leg",
+          "type": "cut",
+          "energy": 42.72966041050017,
+          "severity": 0.22989802403701512
+        },
+        {
+          "t": 18.541666666666256,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 7.010444837845678,
+          "severity": 0
+        },
+        {
+          "t": 18.61666666666625,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 23.1181029682765,
+          "severity": 0
+        },
+        {
+          "t": 19.741666666666188,
+          "att": 1,
+          "vic": 0,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 14.355956188515126,
+          "severity": 0
+        },
+        {
+          "t": 20.874999999999456,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 19.755707765875872,
+          "severity": 0
+        },
+        {
+          "t": 20.891666666666122,
+          "att": 0,
+          "vic": 1,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 11.972529527572766,
+          "severity": 0
+        },
+        {
+          "t": 21.23333333333277,
+          "att": 1,
+          "vic": 0,
+          "zone": "leg",
+          "type": "cut",
+          "energy": 30.597368682335507,
+          "severity": 0.1233888616934137
+        },
+        {
+          "t": 21.491666666666088,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 8.269200874181163,
+          "severity": 0
+        },
+        {
+          "t": 21.941666666666062,
+          "att": 1,
+          "vic": 0,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 14.414316229305584,
+          "severity": 0
+        },
+        {
+          "t": 21.96666666666606,
+          "att": 1,
+          "vic": 0,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 12.942975551233417,
+          "severity": 0
+        },
+        {
+          "t": 22.4333333333327,
+          "att": 1,
+          "vic": 0,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 7.495309505238829,
+          "severity": 0
+        },
+        {
+          "t": 22.4333333333327,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 8.213040156949404,
+          "severity": 0
+        },
+        {
+          "t": 22.524999999999363,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 8.858735326514555,
+          "severity": 0
+        },
+        {
+          "t": 22.674999999999354,
+          "att": 0,
+          "vic": 1,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 14.13476062409672,
+          "severity": 0
+        },
+        {
+          "t": 22.77499999999935,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 8.606209757812687,
+          "severity": 0
+        },
+        {
+          "t": 22.95833333333267,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 12.334716344610577,
+          "severity": 0
+        },
+        {
+          "t": 22.98333333333267,
+          "att": 1,
+          "vic": 0,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 24.681143731789547,
+          "severity": 0
+        },
+        {
+          "t": 23.041666666666,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 13.411527897162909,
+          "severity": 0
+        },
+        {
+          "t": 23.82499999999929,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 10.676892145075819,
+          "severity": 0
+        },
+        {
+          "t": 24.249999999999265,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 35.64924974894073,
+          "severity": 0.1160581989737563
+        },
+        {
+          "t": 25.43333333333253,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 90.21089160334998,
+          "severity": 0.9081765857139245
+        },
+        {
+          "t": 25.45833333333253,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 61.12874905843156,
+          "severity": 0.5156146268360098
+        },
+        {
+          "t": 29.583333333332295,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 21.416235233657297,
+          "severity": 0
+        },
+        {
+          "t": 29.68333333333229,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 15.552390829897432,
+          "severity": 0
+        }
+      ],
+      "final": [
+        {
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": false,
+          "blood": 0.8596253995791299,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 0.0033461512150461115,
+            "armO": 1,
+            "legF": 0.6966947491843867,
+            "legB": 0.8390713831740895
+          },
+          "causeOfDeath": null,
+          "woundRecords": 5
+        },
+        {
+          "fighter": 1,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 0.7520224915341248,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 0.7174671920056004,
+            "armO": 0.9187592607183706,
+            "legF": 1,
+            "legB": 1
+          },
+          "causeOfDeath": null,
+          "woundRecords": 3
+        }
+      ],
+      "traceSHA256": "f462dc4897cf096a3bfd79315caf4929974425749aa24d52f85475ac2002093f",
+      "semanticTraceSHA256": "c996826dc61aa24cf3787c6789a08cfdd16cea7eaeeb9f6bd7e5b8197033f882",
+      "physicalTraceSHA256": "aeefc2e239274e3bdcd97b25e3dad707abcbd935307fef4efc753b515c423b86",
+      "inputTraceSHA256": "1b8474b159f37892f8185cc4a6fa8738b221496274169a0b88f9f134ef299658",
+      "targetTraceSHA256": "d63fe177708c1ec87eb30b9584895337e86a60e842923aa0ce042ab67697a7e4"
+    },
+    {
+      "mode": "baseline",
+      "scene": "cloth",
+      "seed": 17,
+      "forced": false,
+      "seconds": 30,
+      "wallSeconds": 28.556151735999993,
+      "runtime": {
+        "cut": "legacy",
+        "arms": [
+          "legacy",
+          "legacy"
+        ]
+      },
+      "checkpoint": {
+        "timeS": 0.9999999999999989,
+        "native": "b2ca84601309ddc4ef83cb80bde7be3258aadd1b95d1b325ce45d2809fe5c318",
+        "control": "31612452d575b97eb0c3feec54f60e22db8b5ea887613f82078100ada2b518ad",
+        "controlOrderSensitive": "7e4583f598e6230d4ec6575facb535370e91d4a8657754e09fb6e33b5b620709",
+        "input": "cd0e51575949dfa57bbb065ac306c302a4918853ff9cff18a9497ca32dc1af2b"
+      },
+      "stats": {
+        "finite": true,
+        "steps": 3600,
+        "enterCalls": [
+          2,
+          1
+        ],
+        "postInitialEnterCalls": [
+          1,
+          0
+        ],
+        "recoveryEnterCalls": [
+          1,
+          0
+        ],
+        "nonzeroMemoryRecoveryClears": [
+          0,
+          0
+        ],
+        "helperCalls": [
+          0,
+          0
+        ],
+        "helperOnlyNf": true,
+        "falls": [
+          0,
+          0
+        ],
+        "getups": [
+          1,
+          0
+        ],
+        "deaths": [
+          0,
+          1
+        ],
+        "stateFrames": [
+          {
+            "stand": 3331,
+            "getup": 269
+          },
+          {
+            "stand": 3004,
+            "dead": 596
+          }
+        ],
+        "maxBodySpeedMps": 6.686171572665876,
+        "maxBodyAngularRadps": 81.17864000578113,
+        "angularPeak": {
+          "frame": 1931,
+          "timeS": 17.09999999999967,
+          "label": "0:sword",
+          "handle": "8e-323",
+          "mass": 1.600000023841858,
+          "omega": {
+            "x": 61.10272979736328,
+            "y": -36.15890884399414,
+            "z": -39.35684585571289
+          },
+          "Krotation": 19.491290025110324,
+          "contexts": [
+            {
+              "fighter": 0,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 0.9872230784386402,
+              "consciousness": 0.6848856538594695,
+              "limbs": {
+                "armS": 1,
+                "armO": 0.8533666760562604,
+                "legF": 1,
+                "legB": 1
+              }
+            },
+            {
+              "fighter": 1,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 0.9810850795641287,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 1,
+                "armO": 0.7952706553984881,
+                "legF": 1,
+                "legB": 1
+              }
+            }
+          ]
+        },
+        "peakWholeKJ": 397.18869196735693,
+        "peakWholeRotationalKJ": 83.7625404206316,
+        "wholeKPeak": {
+          "frame": 3160,
+          "timeS": 27.341666666665756,
+          "K": 397.18869196735693,
+          "Krotation": 11.2907411391325,
+          "contexts": [
+            {
+              "fighter": 0,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 0.912374371886678,
+              "consciousness": 0.6812879356370741,
+              "limbs": {
+                "armS": 0.8741763660683419,
+                "armO": 0.8533666760562604,
+                "legF": 0.8307142605072739,
+                "legB": 0.7624372834044623
+              }
+            },
+            {
+              "fighter": 1,
+              "state": "dead",
+              "alive": false,
+              "armed": true,
+              "blood": 0.5841075591625083,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 1,
+                "armO": 0.7952706553984881,
+                "legF": 1,
+                "legB": 1
+              }
+            }
+          ]
+        },
+        "maxJointGapM": [
+          0.006378152988067086,
+          0.005583819864549956
+        ],
+        "maxGripGapM": [
+          0.0036886640176264393,
+          0.0019436272603576882
+        ],
+        "maxHandTargetErrorM": [
+          0.7408263506727697,
+          0.6904442729421759
+        ],
+        "maxFootDesDistanceM": [
+          2.8011686889628953,
+          2.8038371512130773
+        ]
+      },
+      "entries": [
+        {
+          "frame": -120,
+          "timeS": 0,
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "call": 1,
+          "startedBefore": false,
+          "recovery": false,
+          "before": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          },
+          "preNative": "cddd684e2c427833ccc5f797294e946031eca3a7b22adf612f7e1a0b08b95171",
+          "preTargets": "0987fe98a3cbc68611c132b839fe03190e1afcf8b5cb51a520cb0ef158f38565",
+          "preControl": "0b46e373ed0b66582ec48a087f5661a77b45011018e0dd36a1fd2b98c92cb754",
+          "preInput": "3acb4589e48e3d2b0d0d53d0df7a1d358f11b35c83aadb3e62aa4ab99d70b7bf",
+          "afterOriginal": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          }
+        },
+        {
+          "frame": -120,
+          "timeS": 0,
+          "fighter": 1,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "call": 1,
+          "startedBefore": false,
+          "recovery": false,
+          "before": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          },
+          "preNative": "b3d8792a4f4a5364c863887dc3fc106f125d49e1becbf5d17f8395b0bd4799c2",
+          "preTargets": "0987fe98a3cbc68611c132b839fe03190e1afcf8b5cb51a520cb0ef158f38565",
+          "preControl": "7729efd9fac94f4b67fbfa53a406101cdadccd0cd6f7e52868580463542f04e9",
+          "preInput": "3acb4589e48e3d2b0d0d53d0df7a1d358f11b35c83aadb3e62aa4ab99d70b7bf",
+          "afterOriginal": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          }
+        },
+        {
+          "frame": 1165,
+          "timeS": 10.708333333333366,
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 0.9966354674318495,
+          "consciousness": 0.4933856538594906,
+          "limbs": {
+            "armS": 1,
+            "armO": 0.8533666760562604,
+            "legF": 1,
+            "legB": 1
+          },
+          "call": 2,
+          "startedBefore": true,
+          "recovery": true,
+          "before": {
+            "F": {
+              "Nf": 0,
+              "N": 0
+            },
+            "B": {
+              "Nf": 321.22682653344333,
+              "N": 214.42992702126503
+            }
+          },
+          "preNative": "47a6c3927d04e3a04bbdc349f1f606588b2ee4d0818e1b773b2616e5fba18488",
+          "preTargets": "35709f2ef2a6487c7bfc6daee3da44c612020ff6749abb8a2824c715f0efccbf",
+          "preControl": "a0fcb6e272da4132c78fe318374ec22278d72d6b3e6bda88a4c4e18422d4235a",
+          "preInput": "d2ab50ddcc9cc19d9bb48b19b66fd669d64a9218d2e24bd0827d1ed48f767cd1",
+          "afterOriginal": {
+            "F": {
+              "Nf": 0,
+              "N": 0
+            },
+            "B": {
+              "Nf": 321.22682653344333,
+              "N": 214.42992702126503
+            }
+          }
+        }
+      ],
+      "transitions": [
+        {
+          "frame": 896,
+          "timeS": 8.466666666666827,
+          "from": "stand",
+          "to": "getup",
+          "fighter": 0,
+          "state": "getup",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 0.6219944573103373,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          }
+        },
+        {
+          "frame": 1165,
+          "timeS": 10.708333333333366,
+          "from": "getup",
+          "to": "stand",
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 0.9966354674318495,
+          "consciousness": 0.4933856538594906,
+          "limbs": {
+            "armS": 1,
+            "armO": 0.8533666760562604,
+            "legF": 1,
+            "legB": 1
+          }
+        },
+        {
+          "frame": 3004,
+          "timeS": 26.033333333332497,
+          "from": "stand",
+          "to": "dead",
+          "fighter": 1,
+          "state": "dead",
+          "alive": false,
+          "armed": true,
+          "blood": 0.9742844464373355,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 0.7952706553984881,
+            "legF": 1,
+            "legB": 1
+          }
+        }
+      ],
+      "wounds": [
+        {
+          "t": 8.425000000000162,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 48.331087385332594,
+          "severity": 0.29247049228787414
+        },
+        {
+          "t": 8.466666666666827,
+          "att": 1,
+          "vic": 0,
+          "zone": "head",
+          "type": "blunt",
+          "energy": 132.30193994138196,
+          "severity": 0
+        },
+        {
+          "t": 8.700000000000147,
+          "att": 0,
+          "vic": 1,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 10.011886765932532,
+          "severity": 0
+        },
+        {
+          "t": 9.025000000000128,
+          "att": 0,
+          "vic": 1,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 6.333774785986656,
+          "severity": 0
+        },
+        {
+          "t": 9.150000000000121,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 6.195319227464095,
+          "severity": 0
+        },
+        {
+          "t": 9.200000000000118,
+          "att": 1,
+          "vic": 0,
+          "zone": "head",
+          "type": "blunt",
+          "energy": 47.571321019578725,
+          "severity": 0
+        },
+        {
+          "t": 9.250000000000115,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 35.789885285584575,
+          "severity": 0.20947617706248517
+        },
+        {
+          "t": 9.250000000000115,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 23.282259470772125,
+          "severity": 0
+        },
+        {
+          "t": 9.508333333333434,
+          "att": 0,
+          "vic": 1,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 12.507832900016492,
+          "severity": 0
+        },
+        {
+          "t": 11.824999999999969,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 20.667274132884277,
+          "severity": 0
+        },
+        {
+          "t": 12.708333333333252,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 6.689866544391908,
+          "severity": 0
+        },
+        {
+          "t": 15.774999999999745,
+          "att": 1,
+          "vic": 0,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 25.09302726773133,
+          "severity": 0
+        },
+        {
+          "t": 15.9666666666664,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 6.565320857226017,
+          "severity": 0
+        },
+        {
+          "t": 17.283333333332994,
+          "att": 1,
+          "vic": 0,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 30.034429785523848,
+          "severity": 0
+        },
+        {
+          "t": 17.283333333332994,
+          "att": 1,
+          "vic": 0,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 30.22522893640373,
+          "severity": 0
+        },
+        {
+          "t": 17.408333333332987,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 41.75843815218802,
+          "severity": 0
+        },
+        {
+          "t": 17.666666666666305,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 8.82749305406878,
+          "severity": 0
+        },
+        {
+          "t": 17.949999999999623,
+          "att": 1,
+          "vic": 0,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 34.920185802533815,
+          "severity": 0
+        },
+        {
+          "t": 18.008333333332953,
+          "att": 1,
+          "vic": 0,
+          "zone": "leg",
+          "type": "cut",
+          "energy": 24.41074766144508,
+          "severity": 0.00048356414079727805
+        },
+        {
+          "t": 18.124999999999613,
+          "att": 1,
+          "vic": 0,
+          "zone": "leg",
+          "type": "cut",
+          "energy": 45.322062637837526,
+          "severity": 0.24183677070389434
+        },
+        {
+          "t": 19.849999999999515,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 11.099449764072107,
+          "severity": 0
+        },
+        {
+          "t": 19.874999999999513,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 9.087073118779792,
+          "severity": 0
+        },
+        {
+          "t": 20.524999999999476,
+          "att": 1,
+          "vic": 0,
+          "zone": "head",
+          "type": "blunt",
+          "energy": 44.27855843352981,
+          "severity": 0
+        },
+        {
+          "t": 20.558333333332808,
+          "att": 0,
+          "vic": 1,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 18.368209708374877,
+          "severity": 0
+        },
+        {
+          "t": 20.633333333332804,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 9.25174621160181,
+          "severity": 0
+        },
+        {
+          "t": 20.733333333332798,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 9.92621753025227,
+          "severity": 0
+        },
+        {
+          "t": 20.88333333333279,
+          "att": 0,
+          "vic": 1,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 11.091285047643483,
+          "severity": 0
+        },
+        {
+          "t": 20.983333333332784,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 12.967735034405687,
+          "severity": 0
+        },
+        {
+          "t": 21.166666666666107,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 6.754208866963519,
+          "severity": 0
+        },
+        {
+          "t": 21.274999999999434,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 26.97544904601061,
+          "severity": 0
+        },
+        {
+          "t": 22.4333333333327,
+          "att": 1,
+          "vic": 0,
+          "zone": "abdomen",
+          "type": "cut",
+          "energy": 58.00930017604208,
+          "severity": 0.3065893031731486
+        },
+        {
+          "t": 22.441666666666034,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 31.786480523552996,
+          "severity": 0
+        },
+        {
+          "t": 22.441666666666034,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 33.28718294574766,
+          "severity": 0.1797480484737972
+        },
+        {
+          "t": 23.36666666666598,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 8.500498593175296,
+          "severity": 0
+        },
+        {
+          "t": 23.666666666665964,
+          "att": 1,
+          "vic": 0,
+          "zone": "neck",
+          "type": "blunt",
+          "energy": 15.187885582932772,
+          "severity": 0
+        },
+        {
+          "t": 25.891666666665838,
+          "att": 1,
+          "vic": 0,
+          "zone": "leg",
+          "type": "cut",
+          "energy": 48.2726652147368,
+          "severity": 0.3388917452813995
+        },
+        {
+          "t": 25.916666666665837,
+          "att": 1,
+          "vic": 0,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 8.621395250339047,
+          "severity": 0
+        },
+        {
+          "t": 26.033333333332497,
+          "att": 0,
+          "vic": 1,
+          "zone": "neck",
+          "type": "cut",
+          "energy": 97.77796179571018,
+          "severity": 0.808953853030973
+        },
+        {
+          "t": 26.516666666665802,
+          "att": 0,
+          "vic": 1,
+          "zone": "neck",
+          "type": "blunt",
+          "energy": 13.517722143665065,
+          "severity": 0
+        }
+      ],
+      "final": [
+        {
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 0.8766165680117326,
+          "consciousness": 0.791037935637062,
+          "limbs": {
+            "armS": 0.8741763660683419,
+            "armO": 0.8533666760562604,
+            "legF": 0.8307142605072739,
+            "legB": 0.7624372834044623
+          },
+          "causeOfDeath": null,
+          "woundRecords": 6
+        },
+        {
+          "fighter": 1,
+          "state": "dead",
+          "alive": false,
+          "armed": true,
+          "blood": 0,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 0.7952706553984881,
+            "legF": 1,
+            "legB": 1
+          },
+          "causeOfDeath": "목",
+          "woundRecords": 3
+        }
+      ],
+      "traceSHA256": "e6bb44b724c48c61a32cc6fcddb5e536d47c5ebf1fbaa92d182f83dcf77f2184",
+      "semanticTraceSHA256": "fd555066569acc3b7c61b91a28ea204a0635424562340250543b2aae457593ab",
+      "physicalTraceSHA256": "86803d0b695b39efdd977786bc6dae3f44ce6ba4db20ce571ecc772a0e62d9b0",
+      "inputTraceSHA256": "feb69ffcb31d33c5cc6287e80186886d0bfc4413dfeabc9e99103c5538211231",
+      "targetTraceSHA256": "a1cdfa303e298a7e28b8f47fe07beece40c3b1f9575b06a7485ee23a5b3bd3a0"
+    },
+    {
+      "mode": "reset",
+      "scene": "cloth",
+      "seed": 17,
+      "forced": false,
+      "seconds": 30,
+      "wallSeconds": 28.635348123999997,
+      "runtime": {
+        "cut": "legacy",
+        "arms": [
+          "legacy",
+          "legacy"
+        ]
+      },
+      "checkpoint": {
+        "timeS": 0.9999999999999989,
+        "native": "b2ca84601309ddc4ef83cb80bde7be3258aadd1b95d1b325ce45d2809fe5c318",
+        "control": "31612452d575b97eb0c3feec54f60e22db8b5ea887613f82078100ada2b518ad",
+        "controlOrderSensitive": "6fab5b25e55a9d03b7ea56953a7ee3430a268c965baf85452650af27f53d89fc",
+        "input": "cd0e51575949dfa57bbb065ac306c302a4918853ff9cff18a9497ca32dc1af2b"
+      },
+      "stats": {
+        "finite": true,
+        "steps": 3600,
+        "enterCalls": [
+          2,
+          1
+        ],
+        "postInitialEnterCalls": [
+          1,
+          0
+        ],
+        "recoveryEnterCalls": [
+          1,
+          0
+        ],
+        "nonzeroMemoryRecoveryClears": [
+          1,
+          0
+        ],
+        "helperCalls": [
+          2,
+          1
+        ],
+        "helperOnlyNf": true,
+        "falls": [
+          0,
+          0
+        ],
+        "getups": [
+          1,
+          0
+        ],
+        "deaths": [
+          0,
+          1
+        ],
+        "stateFrames": [
+          {
+            "stand": 3331,
+            "getup": 269
+          },
+          {
+            "stand": 2520,
+            "dead": 1080
+          }
+        ],
+        "maxBodySpeedMps": 6.609561416759785,
+        "maxBodyAngularRadps": 116.62934714168141,
+        "angularPeak": {
+          "frame": 3461,
+          "timeS": 29.849999999998946,
+          "label": "0:sword",
+          "handle": "8e-323",
+          "mass": 1.600000023841858,
+          "omega": {
+            "x": 8.249061584472656,
+            "y": 114.87442779541016,
+            "z": 18.390851974487305
+          },
+          "Krotation": 7.2537495452781044,
+          "contexts": [
+            {
+              "fighter": 0,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 0.9808202755771279,
+              "consciousness": 0.9076938927397854,
+              "limbs": {
+                "armS": 1,
+                "armO": 0.8533666760562604,
+                "legF": 1,
+                "legB": 1
+              }
+            },
+            {
+              "fighter": 1,
+              "state": "dead",
+              "alive": false,
+              "armed": true,
+              "blood": 0,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 0.8716395568761394,
+                "armO": 0.7952706553984881,
+                "legF": 1,
+                "legB": 1
+              }
+            }
+          ]
+        },
+        "peakWholeKJ": 297.6105873232792,
+        "peakWholeRotationalKJ": 83.7625404206316,
+        "wholeKPeak": {
+          "frame": 2716,
+          "timeS": 23.641666666665966,
+          "K": 297.6105873232792,
+          "Krotation": 45.56531688602857,
+          "contexts": [
+            {
+              "fighter": 0,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 0.9827777343191602,
+              "consciousness": 0.7214438927398059,
+              "limbs": {
+                "armS": 1,
+                "armO": 0.8533666760562604,
+                "legF": 1,
+                "legB": 1
+              }
+            },
+            {
+              "fighter": 1,
+              "state": "dead",
+              "alive": false,
+              "armed": true,
+              "blood": 0.1066309810325865,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 0.8716395568761394,
+                "armO": 0.7952706553984881,
+                "legF": 1,
+                "legB": 1
+              }
+            }
+          ]
+        },
+        "maxJointGapM": [
+          0.0027112855153528155,
+          0.0030908576473226705
+        ],
+        "maxGripGapM": [
+          0.000602431519887367,
+          0.0030908576473226705
+        ],
+        "maxHandTargetErrorM": [
+          0.7408263506727697,
+          0.6743348931828378
+        ],
+        "maxFootDesDistanceM": [
+          2.8011686889628953,
+          2.8038371512130773
+        ]
+      },
+      "entries": [
+        {
+          "frame": -120,
+          "timeS": 0,
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "call": 1,
+          "startedBefore": false,
+          "recovery": false,
+          "before": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          },
+          "preNative": "cddd684e2c427833ccc5f797294e946031eca3a7b22adf612f7e1a0b08b95171",
+          "preTargets": "0987fe98a3cbc68611c132b839fe03190e1afcf8b5cb51a520cb0ef158f38565",
+          "preControl": "0b46e373ed0b66582ec48a087f5661a77b45011018e0dd36a1fd2b98c92cb754",
+          "preInput": "3acb4589e48e3d2b0d0d53d0df7a1d358f11b35c83aadb3e62aa4ab99d70b7bf",
+          "helperOnlyNf": true,
+          "afterReset": {
+            "F": {
+              "Nf": 0,
+              "N": null
+            },
+            "B": {
+              "Nf": 0,
+              "N": null
+            }
+          },
+          "afterOriginal": {
+            "F": {
+              "Nf": 0,
+              "N": null
+            },
+            "B": {
+              "Nf": 0,
+              "N": null
+            }
+          }
+        },
+        {
+          "frame": -120,
+          "timeS": 0,
+          "fighter": 1,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "call": 1,
+          "startedBefore": false,
+          "recovery": false,
+          "before": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          },
+          "preNative": "b3d8792a4f4a5364c863887dc3fc106f125d49e1becbf5d17f8395b0bd4799c2",
+          "preTargets": "0987fe98a3cbc68611c132b839fe03190e1afcf8b5cb51a520cb0ef158f38565",
+          "preControl": "7729efd9fac94f4b67fbfa53a406101cdadccd0cd6f7e52868580463542f04e9",
+          "preInput": "3acb4589e48e3d2b0d0d53d0df7a1d358f11b35c83aadb3e62aa4ab99d70b7bf",
+          "helperOnlyNf": true,
+          "afterReset": {
+            "F": {
+              "Nf": 0,
+              "N": null
+            },
+            "B": {
+              "Nf": 0,
+              "N": null
+            }
+          },
+          "afterOriginal": {
+            "F": {
+              "Nf": 0,
+              "N": null
+            },
+            "B": {
+              "Nf": 0,
+              "N": null
+            }
+          }
+        },
+        {
+          "frame": 1165,
+          "timeS": 10.708333333333366,
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 0.9966354674318495,
+          "consciousness": 0.4933856538594906,
+          "limbs": {
+            "armS": 1,
+            "armO": 0.8533666760562604,
+            "legF": 1,
+            "legB": 1
+          },
+          "call": 2,
+          "startedBefore": true,
+          "recovery": true,
+          "before": {
+            "F": {
+              "Nf": 0,
+              "N": 0
+            },
+            "B": {
+              "Nf": 321.22682653344333,
+              "N": 214.42992702126503
+            }
+          },
+          "preNative": "47a6c3927d04e3a04bbdc349f1f606588b2ee4d0818e1b773b2616e5fba18488",
+          "preTargets": "35709f2ef2a6487c7bfc6daee3da44c612020ff6749abb8a2824c715f0efccbf",
+          "preControl": "a0fcb6e272da4132c78fe318374ec22278d72d6b3e6bda88a4c4e18422d4235a",
+          "preInput": "d2ab50ddcc9cc19d9bb48b19b66fd669d64a9218d2e24bd0827d1ed48f767cd1",
+          "helperOnlyNf": true,
+          "afterReset": {
+            "F": {
+              "Nf": 0,
+              "N": 0
+            },
+            "B": {
+              "Nf": 0,
+              "N": 214.42992702126503
+            }
+          },
+          "afterOriginal": {
+            "F": {
+              "Nf": 0,
+              "N": 0
+            },
+            "B": {
+              "Nf": 0,
+              "N": 214.42992702126503
+            }
+          }
+        }
+      ],
+      "transitions": [
+        {
+          "frame": 896,
+          "timeS": 8.466666666666827,
+          "from": "stand",
+          "to": "getup",
+          "fighter": 0,
+          "state": "getup",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 0.6219944573103373,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          }
+        },
+        {
+          "frame": 1165,
+          "timeS": 10.708333333333366,
+          "from": "getup",
+          "to": "stand",
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 0.9966354674318495,
+          "consciousness": 0.4933856538594906,
+          "limbs": {
+            "armS": 1,
+            "armO": 0.8533666760562604,
+            "legF": 1,
+            "legB": 1
+          }
+        },
+        {
+          "frame": 2520,
+          "timeS": 21.999999999999392,
+          "from": "stand",
+          "to": "dead",
+          "fighter": 1,
+          "state": "dead",
+          "alive": false,
+          "armed": true,
+          "blood": 0.9047968834080707,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 0.8716395568761394,
+            "armO": 0.7952706553984881,
+            "legF": 1,
+            "legB": 1
+          }
+        }
+      ],
+      "wounds": [
+        {
+          "t": 8.425000000000162,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 48.331087385332594,
+          "severity": 0.29247049228787414
+        },
+        {
+          "t": 8.466666666666827,
+          "att": 1,
+          "vic": 0,
+          "zone": "head",
+          "type": "blunt",
+          "energy": 132.30193994138196,
+          "severity": 0
+        },
+        {
+          "t": 8.700000000000147,
+          "att": 0,
+          "vic": 1,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 10.011886765932532,
+          "severity": 0
+        },
+        {
+          "t": 9.025000000000128,
+          "att": 0,
+          "vic": 1,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 6.333774785986656,
+          "severity": 0
+        },
+        {
+          "t": 9.150000000000121,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 6.195319227464095,
+          "severity": 0
+        },
+        {
+          "t": 9.200000000000118,
+          "att": 1,
+          "vic": 0,
+          "zone": "head",
+          "type": "blunt",
+          "energy": 47.571321019578725,
+          "severity": 0
+        },
+        {
+          "t": 9.250000000000115,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 35.789885285584575,
+          "severity": 0.20947617706248517
+        },
+        {
+          "t": 9.250000000000115,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 23.282259470772125,
+          "severity": 0
+        },
+        {
+          "t": 9.508333333333434,
+          "att": 0,
+          "vic": 1,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 12.507832900016492,
+          "severity": 0
+        },
+        {
+          "t": 11.79999999999997,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 8.354390183232363,
+          "severity": 0
+        },
+        {
+          "t": 14.833333333333131,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 13.533068809654136,
+          "severity": 0
+        },
+        {
+          "t": 14.85833333333313,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 38.79811957948124,
+          "severity": 0.18337206160551522
+        },
+        {
+          "t": 15.816666666666409,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 13.363917924124856,
+          "severity": 0
+        },
+        {
+          "t": 15.866666666666406,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "cut",
+          "energy": 110.09541383537986,
+          "severity": 0.5630303782816038
+        },
+        {
+          "t": 16.124999999999726,
+          "att": 1,
+          "vic": 0,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 14.350730688945983,
+          "severity": 0
+        },
+        {
+          "t": 17.808333333332964,
+          "att": 1,
+          "vic": 0,
+          "zone": "neck",
+          "type": "blunt",
+          "energy": 22.35684655674988,
+          "severity": 0
+        },
+        {
+          "t": 21.38333333333276,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 8.74011259646036,
+          "severity": 0
+        },
+        {
+          "t": 21.999999999999392,
+          "att": 0,
+          "vic": 1,
+          "zone": "neck",
+          "type": "cut",
+          "energy": 143.20381318560595,
+          "severity": 1.3238031697757735
+        },
+        {
+          "t": 22.008333333332725,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "cut",
+          "energy": 56.69290467415938,
+          "severity": 0.24866103357475314
+        },
+        {
+          "t": 22.041666666666057,
+          "att": 0,
+          "vic": 1,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 8.561538308555214,
+          "severity": 0
+        },
+        {
+          "t": 22.041666666666057,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 9.025612709203608,
+          "severity": 0
+        },
+        {
+          "t": 22.299999999999375,
+          "att": 0,
+          "vic": 1,
+          "zone": "neck",
+          "type": "blunt",
+          "energy": 14.914541248952204,
+          "severity": 0
+        },
+        {
+          "t": 23.024999999999334,
+          "att": 0,
+          "vic": 1,
+          "zone": "neck",
+          "type": "blunt",
+          "energy": 15.197401409586114,
+          "severity": 0
+        },
+        {
+          "t": 23.666666666665964,
+          "att": 1,
+          "vic": 0,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 81.21200268161469,
+          "severity": 0
+        }
+      ],
+      "final": [
+        {
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 0.980592285492167,
+          "consciousness": 0.9421938927397816,
+          "limbs": {
+            "armS": 1,
+            "armO": 0.8533666760562604,
+            "legF": 1,
+            "legB": 1
+          },
+          "causeOfDeath": null,
+          "woundRecords": 1
+        },
+        {
+          "fighter": 1,
+          "state": "dead",
+          "alive": false,
+          "armed": true,
+          "blood": 0,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 0.8716395568761394,
+            "armO": 0.7952706553984881,
+            "legF": 1,
+            "legB": 1
+          },
+          "causeOfDeath": "목",
+          "woundRecords": 5
+        }
+      ],
+      "traceSHA256": "316af545a6dbb62ac0129b7c80d1de2319b38dc7bc39af550536c23ce58a62b4",
+      "semanticTraceSHA256": "f51bec14bdf4025dce3a8f03bb00b1f5eca63565ec6fa3c04eb31f63048b9cfe",
+      "physicalTraceSHA256": "4d081097c2778206febe08cdf99efe7502ed6b742f69577531f3e3b51e998d26",
+      "inputTraceSHA256": "58ac8cfa058f4ca086c8a7008eb9ae9d8720444d167c0b23fa4aaee5d55743b2",
+      "targetTraceSHA256": "d2939c3c9adac84d48f0421a332abab42ade2d33c444c76f095945dd13012bc9"
+    },
+    {
+      "mode": "baseline",
+      "scene": "plate",
+      "seed": 7,
+      "forced": false,
+      "seconds": 30,
+      "wallSeconds": 29.875042929999996,
+      "runtime": {
+        "cut": "legacy",
+        "arms": [
+          "legacy",
+          "legacy"
+        ]
+      },
+      "checkpoint": {
+        "timeS": 0.9999999999999989,
+        "native": "91319dd1bcf189ec747223ea9ab221a3494b4c50c9a75695c7240187fb28b9a0",
+        "control": "ccd13e2229fdeecfb5c0ee5f212948b3e050b81e190ad4c5e371f793c7517efd",
+        "controlOrderSensitive": "245773b186d1fc65443dace7bb0b3e0bc38c08eda742d2537caf046b2f647707",
+        "input": "de20b6fec249337dae7ac66fea855fa7cbe481cab19050db6042a49d8ae64f70"
+      },
+      "stats": {
+        "finite": true,
+        "steps": 3600,
+        "enterCalls": [
+          1,
+          1
+        ],
+        "postInitialEnterCalls": [
+          0,
+          0
+        ],
+        "recoveryEnterCalls": [
+          0,
+          0
+        ],
+        "nonzeroMemoryRecoveryClears": [
+          0,
+          0
+        ],
+        "helperCalls": [
+          0,
+          0
+        ],
+        "helperOnlyNf": true,
+        "falls": [
+          0,
+          0
+        ],
+        "getups": [
+          0,
+          0
+        ],
+        "deaths": [
+          0,
+          0
+        ],
+        "stateFrames": [
+          {
+            "stand": 3600
+          },
+          {
+            "stand": 3600
+          }
+        ],
+        "maxBodySpeedMps": 7.769487560778983,
+        "maxBodyAngularRadps": 70.0135100964113,
+        "angularPeak": {
+          "frame": 2294,
+          "timeS": 20.1249999999995,
+          "label": "1:sword",
+          "handle": "1.6e-322",
+          "mass": 1.600000023841858,
+          "omega": {
+            "x": -15.083667755126953,
+            "y": -52.78606414794922,
+            "z": 43.45119094848633
+          },
+          "Krotation": 12.747853103497723,
+          "contexts": [
+            {
+              "fighter": 0,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 1,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            },
+            {
+              "fighter": 1,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 0.9705935984986186,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 1,
+                "armO": 0.9128571619507674,
+                "legF": 0.7992345626437038,
+                "legB": 1
+              }
+            }
+          ]
+        },
+        "peakWholeKJ": 207.04539217168306,
+        "peakWholeRotationalKJ": 71.44676846449033,
+        "wholeKPeak": {
+          "frame": 666,
+          "timeS": 6.558333333333449,
+          "K": 207.04539217168306,
+          "Krotation": 37.579667254101935,
+          "contexts": [
+            {
+              "fighter": 0,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 1,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            },
+            {
+              "fighter": 1,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 0.9975082634080493,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 0.7992345626437038,
+                "legB": 1
+              }
+            }
+          ]
+        },
+        "maxJointGapM": [
+          0.00293049964436044,
+          0.0043499736391305905
+        ],
+        "maxGripGapM": [
+          0.0009198245041180082,
+          0.0028187000719170053
+        ],
+        "maxHandTargetErrorM": [
+          0.7134095426452688,
+          0.6440670181944672
+        ],
+        "maxFootDesDistanceM": [
+          2.8057321103290844,
+          2.8068326170323497
+        ]
+      },
+      "entries": [
+        {
+          "frame": -120,
+          "timeS": 0,
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "call": 1,
+          "startedBefore": false,
+          "recovery": false,
+          "before": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          },
+          "preNative": "9169732459c49a158fc432186404283b082b8c28722873e0aebb80b9d93aa13f",
+          "preTargets": "0987fe98a3cbc68611c132b839fe03190e1afcf8b5cb51a520cb0ef158f38565",
+          "preControl": "a43f9590e295bdecab0f8ec3dca2de60b7b3997dc5fa8e7a129df1d7b34bbb0c",
+          "preInput": "b197c874887d57fc1fe5c988f51aeb82b1d0b61a48c99db59980dcf08a6f2eb6",
+          "afterOriginal": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          }
+        },
+        {
+          "frame": -120,
+          "timeS": 0,
+          "fighter": 1,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "call": 1,
+          "startedBefore": false,
+          "recovery": false,
+          "before": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          },
+          "preNative": "553addd3ed319365b7b3ce0d2383df09886ee4693a19d7f7e02dc9332e7fad4e",
+          "preTargets": "0987fe98a3cbc68611c132b839fe03190e1afcf8b5cb51a520cb0ef158f38565",
+          "preControl": "9eb9b28ba93e3e99d1ed940cff9be2ab75d553129062ed526240eef54928cfe2",
+          "preInput": "b197c874887d57fc1fe5c988f51aeb82b1d0b61a48c99db59980dcf08a6f2eb6",
+          "afterOriginal": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          }
+        }
+      ],
+      "transitions": [],
+      "wounds": [
+        {
+          "t": 5.950000000000085,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "cut",
+          "energy": 46.644600117147704,
+          "severity": 0.28680776765185173
+        },
+        {
+          "t": 6.266666666666768,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 15.614412460059741,
+          "severity": 0
+        },
+        {
+          "t": 6.275000000000102,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 7.057973587005851,
+          "severity": 0
+        },
+        {
+          "t": 6.466666666666778,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 42.929338241649305,
+          "severity": 0
+        },
+        {
+          "t": 6.491666666666779,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 14.124391209069152,
+          "severity": 0
+        },
+        {
+          "t": 6.550000000000115,
+          "att": 0,
+          "vic": 1,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 14.249712680675891,
+          "severity": 0
+        },
+        {
+          "t": 9.041666666666794,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 13.236191818438206,
+          "severity": 0
+        },
+        {
+          "t": 11.241666666666669,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 15.166222017776176,
+          "severity": 0
+        },
+        {
+          "t": 11.349999999999996,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 11.073090558265223,
+          "severity": 0
+        },
+        {
+          "t": 11.441666666666658,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 10.284810980950157,
+          "severity": 0
+        },
+        {
+          "t": 11.516666666666653,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 9.105561008379485,
+          "severity": 0
+        },
+        {
+          "t": 11.94166666666663,
+          "att": 0,
+          "vic": 1,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 61.01987150368866,
+          "severity": 0
+        },
+        {
+          "t": 11.958333333333295,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 44.816458885694324,
+          "severity": 0
+        },
+        {
+          "t": 12.024999999999958,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 6.581112685439737,
+          "severity": 0
+        },
+        {
+          "t": 12.449999999999934,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 8.184371398402131,
+          "severity": 0
+        },
+        {
+          "t": 12.4666666666666,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 8.478361320318747,
+          "severity": 0
+        },
+        {
+          "t": 12.958333333333238,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 22.845211858525147,
+          "severity": 0
+        },
+        {
+          "t": 12.983333333333237,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 9.39104909608963,
+          "severity": 0
+        },
+        {
+          "t": 13.066666666666565,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 12.193026431401476,
+          "severity": 0
+        },
+        {
+          "t": 15.683333333333083,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 18.75086621965314,
+          "severity": 0
+        },
+        {
+          "t": 15.716666666666415,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 7.297301370235758,
+          "severity": 0
+        },
+        {
+          "t": 15.899999999999737,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 18.916195838911104,
+          "severity": 0
+        },
+        {
+          "t": 15.899999999999737,
+          "att": 0,
+          "vic": 1,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 15.948839801149957,
+          "severity": 0
+        },
+        {
+          "t": 16.10833333333306,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 6.874249339909584,
+          "severity": 0
+        },
+        {
+          "t": 17.24166666666633,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 23.05733733427708,
+          "severity": 0
+        },
+        {
+          "t": 17.633333333332974,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 7.93728311888802,
+          "severity": 0
+        },
+        {
+          "t": 18.949999999999566,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 13.165691254390048,
+          "severity": 0
+        },
+        {
+          "t": 19.008333333332896,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 33.4286757519241,
+          "severity": 0
+        },
+        {
+          "t": 19.01666666666623,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 18.385608361766124,
+          "severity": 0
+        },
+        {
+          "t": 19.649999999999526,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 7.012880247411584,
+          "severity": 0
+        },
+        {
+          "t": 20.033333333332838,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 22.86637295335273,
+          "severity": 0
+        },
+        {
+          "t": 20.049999999999503,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 29.637319764756946,
+          "severity": 0.1244897686417609
+        },
+        {
+          "t": 20.133333333332832,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 18.756415482050198,
+          "severity": 0
+        },
+        {
+          "t": 20.149999999999498,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 28.400351941042317,
+          "severity": 0
+        },
+        {
+          "t": 20.316666666666155,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 22.26587200065256,
+          "severity": 0
+        },
+        {
+          "t": 20.6833333333328,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 14.64458855938835,
+          "severity": 0
+        },
+        {
+          "t": 20.79999999999946,
+          "att": 0,
+          "vic": 1,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 7.350014829736637,
+          "severity": 0
+        },
+        {
+          "t": 20.88333333333279,
+          "att": 0,
+          "vic": 1,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 27.330793457889488,
+          "severity": 0
+        },
+        {
+          "t": 20.908333333332788,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 26.715405503663458,
+          "severity": 0
+        },
+        {
+          "t": 21.716666666666075,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 98.20810502782518,
+          "severity": 0.9681299525472418
+        },
+        {
+          "t": 22.091666666666054,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 8.079803501979189,
+          "severity": 0
+        },
+        {
+          "t": 24.999999999999222,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 6.263510758591754,
+          "severity": 0
+        },
+        {
+          "t": 25.233333333332542,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 8.965350594626102,
+          "severity": 0
+        },
+        {
+          "t": 25.274999999999206,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 12.8418236576005,
+          "severity": 0
+        },
+        {
+          "t": 27.333333333332423,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "cut",
+          "energy": 91.38358089529795,
+          "severity": 0.3297878600011275
+        },
+        {
+          "t": 27.516666666665746,
+          "att": 0,
+          "vic": 1,
+          "zone": "head",
+          "type": "blunt",
+          "energy": 14.324387799656815,
+          "severity": 0
+        },
+        {
+          "t": 27.59166666666574,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 7.90291071542314,
+          "severity": 0
+        },
+        {
+          "t": 27.899999999999057,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 8.445818925922607,
+          "severity": 0
+        },
+        {
+          "t": 27.99999999999905,
+          "att": 0,
+          "vic": 1,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 38.29323212490774,
+          "severity": 0
+        },
+        {
+          "t": 28.49166666666569,
+          "att": 0,
+          "vic": 1,
+          "zone": "head",
+          "type": "blunt",
+          "energy": 12.503822537772717,
+          "severity": 0
+        },
+        {
+          "t": 30.6499999999989,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 52.36658983846932,
+          "severity": 0
+        },
+        {
+          "t": 30.73333333333223,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 34.25560282737562,
+          "severity": 0
+        },
+        {
+          "t": 30.741666666665562,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 30.969580577317718,
+          "severity": 0.22279601270825486
+        }
+      ],
+      "final": [
+        {
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "causeOfDeath": null,
+          "woundRecords": 0
+        },
+        {
+          "fighter": 1,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 0.8667184244238016,
+          "consciousness": 0.9126199261612062,
+          "limbs": {
+            "armS": 0.16635182432115245,
+            "armO": 0.9128571619507674,
+            "legF": 0.7992345626437038,
+            "legB": 1
+          },
+          "causeOfDeath": null,
+          "woundRecords": 5
+        }
+      ],
+      "traceSHA256": "7bba2d7ecb3b6900114165b6617449bcd5679e2426bf09403b849cab31c2591a",
+      "semanticTraceSHA256": "714baf8fda7c65bab973567cef96e6a22a5241d2cce0a7508b086986765f6e9e",
+      "physicalTraceSHA256": "83705429c4882dc9719c81f278413ea0ce61cca730c87ab532c3ed9e82d41fde",
+      "inputTraceSHA256": "7188699b6ed1b827dd02b124940fef0fb042915952e4214088f1a8f754b7ab69",
+      "targetTraceSHA256": "627054f6968e4b59588a68f54444a7a070ac41bd397dbdccfcb3c92f9ff28439"
+    },
+    {
+      "mode": "reset",
+      "scene": "plate",
+      "seed": 7,
+      "forced": false,
+      "seconds": 30,
+      "wallSeconds": 28.560541828000016,
+      "runtime": {
+        "cut": "legacy",
+        "arms": [
+          "legacy",
+          "legacy"
+        ]
+      },
+      "checkpoint": {
+        "timeS": 0.9999999999999989,
+        "native": "91319dd1bcf189ec747223ea9ab221a3494b4c50c9a75695c7240187fb28b9a0",
+        "control": "ccd13e2229fdeecfb5c0ee5f212948b3e050b81e190ad4c5e371f793c7517efd",
+        "controlOrderSensitive": "f5eca8305a567fbc641f8a90e4079c0101029a77fedb49486503bcd35ce09d88",
+        "input": "de20b6fec249337dae7ac66fea855fa7cbe481cab19050db6042a49d8ae64f70"
+      },
+      "stats": {
+        "finite": true,
+        "steps": 3600,
+        "enterCalls": [
+          1,
+          1
+        ],
+        "postInitialEnterCalls": [
+          0,
+          0
+        ],
+        "recoveryEnterCalls": [
+          0,
+          0
+        ],
+        "nonzeroMemoryRecoveryClears": [
+          0,
+          0
+        ],
+        "helperCalls": [
+          1,
+          1
+        ],
+        "helperOnlyNf": true,
+        "falls": [
+          0,
+          0
+        ],
+        "getups": [
+          0,
+          0
+        ],
+        "deaths": [
+          0,
+          0
+        ],
+        "stateFrames": [
+          {
+            "stand": 3600
+          },
+          {
+            "stand": 3600
+          }
+        ],
+        "maxBodySpeedMps": 7.769487560778983,
+        "maxBodyAngularRadps": 70.0135100964113,
+        "angularPeak": {
+          "frame": 2294,
+          "timeS": 20.1249999999995,
+          "label": "1:sword",
+          "handle": "1.6e-322",
+          "mass": 1.600000023841858,
+          "omega": {
+            "x": -15.083667755126953,
+            "y": -52.78606414794922,
+            "z": 43.45119094848633
+          },
+          "Krotation": 12.747853103497723,
+          "contexts": [
+            {
+              "fighter": 0,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 1,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            },
+            {
+              "fighter": 1,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 0.9705935984986186,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 1,
+                "armO": 0.9128571619507674,
+                "legF": 0.7992345626437038,
+                "legB": 1
+              }
+            }
+          ]
+        },
+        "peakWholeKJ": 207.04539217168306,
+        "peakWholeRotationalKJ": 71.44676846449033,
+        "wholeKPeak": {
+          "frame": 666,
+          "timeS": 6.558333333333449,
+          "K": 207.04539217168306,
+          "Krotation": 37.579667254101935,
+          "contexts": [
+            {
+              "fighter": 0,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 1,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            },
+            {
+              "fighter": 1,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 0.9975082634080493,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 0.7992345626437038,
+                "legB": 1
+              }
+            }
+          ]
+        },
+        "maxJointGapM": [
+          0.00293049964436044,
+          0.0043499736391305905
+        ],
+        "maxGripGapM": [
+          0.0009198245041180082,
+          0.0028187000719170053
+        ],
+        "maxHandTargetErrorM": [
+          0.7134095426452688,
+          0.6440670181944672
+        ],
+        "maxFootDesDistanceM": [
+          2.8057321103290844,
+          2.8068326170323497
+        ]
+      },
+      "entries": [
+        {
+          "frame": -120,
+          "timeS": 0,
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "call": 1,
+          "startedBefore": false,
+          "recovery": false,
+          "before": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          },
+          "preNative": "9169732459c49a158fc432186404283b082b8c28722873e0aebb80b9d93aa13f",
+          "preTargets": "0987fe98a3cbc68611c132b839fe03190e1afcf8b5cb51a520cb0ef158f38565",
+          "preControl": "a43f9590e295bdecab0f8ec3dca2de60b7b3997dc5fa8e7a129df1d7b34bbb0c",
+          "preInput": "b197c874887d57fc1fe5c988f51aeb82b1d0b61a48c99db59980dcf08a6f2eb6",
+          "helperOnlyNf": true,
+          "afterReset": {
+            "F": {
+              "Nf": 0,
+              "N": null
+            },
+            "B": {
+              "Nf": 0,
+              "N": null
+            }
+          },
+          "afterOriginal": {
+            "F": {
+              "Nf": 0,
+              "N": null
+            },
+            "B": {
+              "Nf": 0,
+              "N": null
+            }
+          }
+        },
+        {
+          "frame": -120,
+          "timeS": 0,
+          "fighter": 1,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "call": 1,
+          "startedBefore": false,
+          "recovery": false,
+          "before": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          },
+          "preNative": "553addd3ed319365b7b3ce0d2383df09886ee4693a19d7f7e02dc9332e7fad4e",
+          "preTargets": "0987fe98a3cbc68611c132b839fe03190e1afcf8b5cb51a520cb0ef158f38565",
+          "preControl": "9eb9b28ba93e3e99d1ed940cff9be2ab75d553129062ed526240eef54928cfe2",
+          "preInput": "b197c874887d57fc1fe5c988f51aeb82b1d0b61a48c99db59980dcf08a6f2eb6",
+          "helperOnlyNf": true,
+          "afterReset": {
+            "F": {
+              "Nf": 0,
+              "N": null
+            },
+            "B": {
+              "Nf": 0,
+              "N": null
+            }
+          },
+          "afterOriginal": {
+            "F": {
+              "Nf": 0,
+              "N": null
+            },
+            "B": {
+              "Nf": 0,
+              "N": null
+            }
+          }
+        }
+      ],
+      "transitions": [],
+      "wounds": [
+        {
+          "t": 5.950000000000085,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "cut",
+          "energy": 46.644600117147704,
+          "severity": 0.28680776765185173
+        },
+        {
+          "t": 6.266666666666768,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 15.614412460059741,
+          "severity": 0
+        },
+        {
+          "t": 6.275000000000102,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 7.057973587005851,
+          "severity": 0
+        },
+        {
+          "t": 6.466666666666778,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 42.929338241649305,
+          "severity": 0
+        },
+        {
+          "t": 6.491666666666779,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 14.124391209069152,
+          "severity": 0
+        },
+        {
+          "t": 6.550000000000115,
+          "att": 0,
+          "vic": 1,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 14.249712680675891,
+          "severity": 0
+        },
+        {
+          "t": 9.041666666666794,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 13.236191818438206,
+          "severity": 0
+        },
+        {
+          "t": 11.241666666666669,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 15.166222017776176,
+          "severity": 0
+        },
+        {
+          "t": 11.349999999999996,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 11.073090558265223,
+          "severity": 0
+        },
+        {
+          "t": 11.441666666666658,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 10.284810980950157,
+          "severity": 0
+        },
+        {
+          "t": 11.516666666666653,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 9.105561008379485,
+          "severity": 0
+        },
+        {
+          "t": 11.94166666666663,
+          "att": 0,
+          "vic": 1,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 61.01987150368866,
+          "severity": 0
+        },
+        {
+          "t": 11.958333333333295,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 44.816458885694324,
+          "severity": 0
+        },
+        {
+          "t": 12.024999999999958,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 6.581112685439737,
+          "severity": 0
+        },
+        {
+          "t": 12.449999999999934,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 8.184371398402131,
+          "severity": 0
+        },
+        {
+          "t": 12.4666666666666,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 8.478361320318747,
+          "severity": 0
+        },
+        {
+          "t": 12.958333333333238,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 22.845211858525147,
+          "severity": 0
+        },
+        {
+          "t": 12.983333333333237,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 9.39104909608963,
+          "severity": 0
+        },
+        {
+          "t": 13.066666666666565,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 12.193026431401476,
+          "severity": 0
+        },
+        {
+          "t": 15.683333333333083,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 18.75086621965314,
+          "severity": 0
+        },
+        {
+          "t": 15.716666666666415,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 7.297301370235758,
+          "severity": 0
+        },
+        {
+          "t": 15.899999999999737,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 18.916195838911104,
+          "severity": 0
+        },
+        {
+          "t": 15.899999999999737,
+          "att": 0,
+          "vic": 1,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 15.948839801149957,
+          "severity": 0
+        },
+        {
+          "t": 16.10833333333306,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 6.874249339909584,
+          "severity": 0
+        },
+        {
+          "t": 17.24166666666633,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 23.05733733427708,
+          "severity": 0
+        },
+        {
+          "t": 17.633333333332974,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 7.93728311888802,
+          "severity": 0
+        },
+        {
+          "t": 18.949999999999566,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 13.165691254390048,
+          "severity": 0
+        },
+        {
+          "t": 19.008333333332896,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 33.4286757519241,
+          "severity": 0
+        },
+        {
+          "t": 19.01666666666623,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 18.385608361766124,
+          "severity": 0
+        },
+        {
+          "t": 19.649999999999526,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 7.012880247411584,
+          "severity": 0
+        },
+        {
+          "t": 20.033333333332838,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 22.86637295335273,
+          "severity": 0
+        },
+        {
+          "t": 20.049999999999503,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 29.637319764756946,
+          "severity": 0.1244897686417609
+        },
+        {
+          "t": 20.133333333332832,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 18.756415482050198,
+          "severity": 0
+        },
+        {
+          "t": 20.149999999999498,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 28.400351941042317,
+          "severity": 0
+        },
+        {
+          "t": 20.316666666666155,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 22.26587200065256,
+          "severity": 0
+        },
+        {
+          "t": 20.6833333333328,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 14.64458855938835,
+          "severity": 0
+        },
+        {
+          "t": 20.79999999999946,
+          "att": 0,
+          "vic": 1,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 7.350014829736637,
+          "severity": 0
+        },
+        {
+          "t": 20.88333333333279,
+          "att": 0,
+          "vic": 1,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 27.330793457889488,
+          "severity": 0
+        },
+        {
+          "t": 20.908333333332788,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 26.715405503663458,
+          "severity": 0
+        },
+        {
+          "t": 21.716666666666075,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 98.20810502782518,
+          "severity": 0.9681299525472418
+        },
+        {
+          "t": 22.091666666666054,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 8.079803501979189,
+          "severity": 0
+        },
+        {
+          "t": 24.999999999999222,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 6.263510758591754,
+          "severity": 0
+        },
+        {
+          "t": 25.233333333332542,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 8.965350594626102,
+          "severity": 0
+        },
+        {
+          "t": 25.274999999999206,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 12.8418236576005,
+          "severity": 0
+        },
+        {
+          "t": 27.333333333332423,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "cut",
+          "energy": 91.38358089529795,
+          "severity": 0.3297878600011275
+        },
+        {
+          "t": 27.516666666665746,
+          "att": 0,
+          "vic": 1,
+          "zone": "head",
+          "type": "blunt",
+          "energy": 14.324387799656815,
+          "severity": 0
+        },
+        {
+          "t": 27.59166666666574,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 7.90291071542314,
+          "severity": 0
+        },
+        {
+          "t": 27.899999999999057,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 8.445818925922607,
+          "severity": 0
+        },
+        {
+          "t": 27.99999999999905,
+          "att": 0,
+          "vic": 1,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 38.29323212490774,
+          "severity": 0
+        },
+        {
+          "t": 28.49166666666569,
+          "att": 0,
+          "vic": 1,
+          "zone": "head",
+          "type": "blunt",
+          "energy": 12.503822537772717,
+          "severity": 0
+        },
+        {
+          "t": 30.6499999999989,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 52.36658983846932,
+          "severity": 0
+        },
+        {
+          "t": 30.73333333333223,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 34.25560282737562,
+          "severity": 0
+        },
+        {
+          "t": 30.741666666665562,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 30.969580577317718,
+          "severity": 0.22279601270825486
+        }
+      ],
+      "final": [
+        {
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "causeOfDeath": null,
+          "woundRecords": 0
+        },
+        {
+          "fighter": 1,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 0.8667184244238016,
+          "consciousness": 0.9126199261612062,
+          "limbs": {
+            "armS": 0.16635182432115245,
+            "armO": 0.9128571619507674,
+            "legF": 0.7992345626437038,
+            "legB": 1
+          },
+          "causeOfDeath": null,
+          "woundRecords": 5
+        }
+      ],
+      "traceSHA256": "7b65a1a87bbe144c18a6365a66cdb67bc10256e022c0bade39b4ef2306eaef76",
+      "semanticTraceSHA256": "714baf8fda7c65bab973567cef96e6a22a5241d2cce0a7508b086986765f6e9e",
+      "physicalTraceSHA256": "83705429c4882dc9719c81f278413ea0ce61cca730c87ab532c3ed9e82d41fde",
+      "inputTraceSHA256": "7188699b6ed1b827dd02b124940fef0fb042915952e4214088f1a8f754b7ab69",
+      "targetTraceSHA256": "627054f6968e4b59588a68f54444a7a070ac41bd397dbdccfcb3c92f9ff28439"
+    },
+    {
+      "mode": "baseline",
+      "scene": "plate",
+      "seed": 17,
+      "forced": false,
+      "seconds": 30,
+      "wallSeconds": 31.697209166000015,
+      "runtime": {
+        "cut": "legacy",
+        "arms": [
+          "legacy",
+          "legacy"
+        ]
+      },
+      "checkpoint": {
+        "timeS": 0.9999999999999989,
+        "native": "263bf7f85024a39614b0cc96a5b7b8d966ada559dec78d502652b3b858ff6cee",
+        "control": "305ec633f011a6a17373fadc06c955ca0798c02b1a660ca938ec3d7af91ec35e",
+        "controlOrderSensitive": "a6f67a0d869d30fb4b602f6c099f200d39a76bec61951f247f50e9d9896133f2",
+        "input": "7b358c12fd38024a377ad13df282dad3d7b079f847f18c0e325395395c83bb36"
+      },
+      "stats": {
+        "finite": true,
+        "steps": 3600,
+        "enterCalls": [
+          2,
+          1
+        ],
+        "postInitialEnterCalls": [
+          1,
+          0
+        ],
+        "recoveryEnterCalls": [
+          1,
+          0
+        ],
+        "nonzeroMemoryRecoveryClears": [
+          0,
+          0
+        ],
+        "helperCalls": [
+          0,
+          0
+        ],
+        "helperOnlyNf": true,
+        "falls": [
+          0,
+          0
+        ],
+        "getups": [
+          1,
+          0
+        ],
+        "deaths": [
+          0,
+          1
+        ],
+        "stateFrames": [
+          {
+            "stand": 3291,
+            "getup": 309
+          },
+          {
+            "stand": 2114,
+            "dead": 1486
+          }
+        ],
+        "maxBodySpeedMps": 6.803141345518319,
+        "maxBodyAngularRadps": 51.443757313316375,
+        "angularPeak": {
+          "frame": 1856,
+          "timeS": 16.474999999999707,
+          "label": "1:sword",
+          "handle": "1.6e-322",
+          "mass": 1.600000023841858,
+          "omega": {
+            "x": -45.39631271362305,
+            "y": -12.15884017944336,
+            "z": -20.923612594604492
+          },
+          "Krotation": 4.19191053364673,
+          "contexts": [
+            {
+              "fighter": 0,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 0.9385703258390398,
+              "consciousness": 0.7065598399062991,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            },
+            {
+              "fighter": 1,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 0.9667559103390954,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            }
+          ]
+        },
+        "peakWholeKJ": 316.2560581847054,
+        "peakWholeRotationalKJ": 108.10501419428522,
+        "wholeKPeak": {
+          "frame": 2261,
+          "timeS": 19.849999999999515,
+          "K": 316.2560581847054,
+          "Krotation": 19.512481766884445,
+          "contexts": [
+            {
+              "fighter": 0,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 0.9037415628798684,
+              "consciousness": 0.807809839906288,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            },
+            {
+              "fighter": 1,
+              "state": "dead",
+              "alive": false,
+              "armed": true,
+              "blood": 0,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            }
+          ]
+        },
+        "maxJointGapM": [
+          0.002536712276512721,
+          0.0033456669659802795
+        ],
+        "maxGripGapM": [
+          0.001088800663762259,
+          0.0033456669659802795
+        ],
+        "maxHandTargetErrorM": [
+          0.633072989004876,
+          0.7136562604695078
+        ],
+        "maxFootDesDistanceM": [
+          2.8021926629423333,
+          2.802366207248123
+        ]
+      },
+      "entries": [
+        {
+          "frame": -120,
+          "timeS": 0,
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "call": 1,
+          "startedBefore": false,
+          "recovery": false,
+          "before": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          },
+          "preNative": "9169732459c49a158fc432186404283b082b8c28722873e0aebb80b9d93aa13f",
+          "preTargets": "0987fe98a3cbc68611c132b839fe03190e1afcf8b5cb51a520cb0ef158f38565",
+          "preControl": "a83d8a690e362c1ec02b05396c8c9192ca8d7bf6633f6494327c943c4d77c67b",
+          "preInput": "3acb4589e48e3d2b0d0d53d0df7a1d358f11b35c83aadb3e62aa4ab99d70b7bf",
+          "afterOriginal": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          }
+        },
+        {
+          "frame": -120,
+          "timeS": 0,
+          "fighter": 1,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "call": 1,
+          "startedBefore": false,
+          "recovery": false,
+          "before": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          },
+          "preNative": "553addd3ed319365b7b3ce0d2383df09886ee4693a19d7f7e02dc9332e7fad4e",
+          "preTargets": "0987fe98a3cbc68611c132b839fe03190e1afcf8b5cb51a520cb0ef158f38565",
+          "preControl": "389ab86df0255344b09f9ebe2e443ec6598aadd7f817fbc82c9f8c9541c1d55e",
+          "preInput": "3acb4589e48e3d2b0d0d53d0df7a1d358f11b35c83aadb3e62aa4ab99d70b7bf",
+          "afterOriginal": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          }
+        },
+        {
+          "frame": 1495,
+          "timeS": 13.45833333333321,
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 0.9840481027316577,
+          "consciousness": 0.616309839906309,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "call": 2,
+          "startedBefore": true,
+          "recovery": true,
+          "before": {
+            "F": {
+              "Nf": 0,
+              "N": 0
+            },
+            "B": {
+              "Nf": 696.4590954780579,
+              "N": 696.4590954780579
+            }
+          },
+          "preNative": "6f4077014773764765b39a1b83a880f6be6f7247c6fb9f4a3583c38bc30b7b93",
+          "preTargets": "9f1c5a67cb70c18bd354f7878f00c4ef1d4a6f7b0597b7dbda81733987274486",
+          "preControl": "0c17539b6f896f246ef3095002e5aa96165f503a66499408e491ce065bf7f21d",
+          "preInput": "22175706741aa2c35a639b3bc421cc01b5f009c91324d53292c933c2e0c9407e",
+          "afterOriginal": {
+            "F": {
+              "Nf": 0,
+              "N": 0
+            },
+            "B": {
+              "Nf": 696.4590954780579,
+              "N": 696.4590954780579
+            }
+          }
+        }
+      ],
+      "transitions": [
+        {
+          "frame": 1186,
+          "timeS": 10.883333333333356,
+          "from": "stand",
+          "to": "getup",
+          "fighter": 0,
+          "state": "getup",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 0.5500660434254305,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          }
+        },
+        {
+          "frame": 1495,
+          "timeS": 13.45833333333321,
+          "from": "getup",
+          "to": "stand",
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 0.9840481027316577,
+          "consciousness": 0.616309839906309,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          }
+        },
+        {
+          "frame": 2114,
+          "timeS": 18.61666666666625,
+          "from": "stand",
+          "to": "dead",
+          "fighter": 1,
+          "state": "dead",
+          "alive": false,
+          "armed": true,
+          "blood": 0.859920251570026,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          }
+        }
+      ],
+      "wounds": [
+        {
+          "t": 6.691666666666789,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 51.50854890066577,
+          "severity": 0
+        },
+        {
+          "t": 6.700000000000123,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 45.21274512744351,
+          "severity": 0
+        },
+        {
+          "t": 6.891666666666799,
+          "att": 0,
+          "vic": 1,
+          "zone": "pelvis",
+          "type": "cut",
+          "energy": 36.2404717475257,
+          "severity": 0.010777363491562476
+        },
+        {
+          "t": 6.933333333333468,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 14.415757830779171,
+          "severity": 0
+        },
+        {
+          "t": 7.608333333333501,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 11.314957075007731,
+          "severity": 0
+        },
+        {
+          "t": 10.883333333333356,
+          "att": 1,
+          "vic": 0,
+          "zone": "head",
+          "type": "blunt",
+          "energy": 157.4768848010993,
+          "severity": 0
+        },
+        {
+          "t": 10.991666666666683,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 7.703565818942264,
+          "severity": 0
+        },
+        {
+          "t": 11.000000000000016,
+          "att": 0,
+          "vic": 1,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 9.529454959154611,
+          "severity": 0
+        },
+        {
+          "t": 11.200000000000005,
+          "att": 0,
+          "vic": 1,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 6.331267321561142,
+          "severity": 0
+        },
+        {
+          "t": 11.383333333333328,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 17.86769550849638,
+          "severity": 0
+        },
+        {
+          "t": 11.716666666666642,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 7.115082218056021,
+          "severity": 0
+        },
+        {
+          "t": 11.774999999999972,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 17.00678913797421,
+          "severity": 0
+        },
+        {
+          "t": 12.61666666666659,
+          "att": 1,
+          "vic": 0,
+          "zone": "head",
+          "type": "cut",
+          "energy": 51.091896401732214,
+          "severity": 0.022012407038225885
+        },
+        {
+          "t": 12.61666666666659,
+          "att": 1,
+          "vic": 0,
+          "zone": "neck",
+          "type": "cut",
+          "energy": 57.646465179793815,
+          "severity": 0.0962806481726712
+        },
+        {
+          "t": 15.916666666666403,
+          "att": 0,
+          "vic": 1,
+          "zone": "neck",
+          "type": "cut",
+          "energy": 60.27966362713599,
+          "severity": 0.3006275279702121
+        },
+        {
+          "t": 15.933333333333069,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 35.17244854052594,
+          "severity": 0
+        },
+        {
+          "t": 15.933333333333069,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 22.031679897511477,
+          "severity": 0
+        },
+        {
+          "t": 16.533333333333037,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 6.461893654545813,
+          "severity": 0
+        },
+        {
+          "t": 16.824999999999687,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 46.46377672078498,
+          "severity": 0
+        },
+        {
+          "t": 18.61666666666625,
+          "att": 0,
+          "vic": 1,
+          "zone": "neck",
+          "type": "cut",
+          "energy": 163.34732087515528,
+          "severity": 1.829194946355099
+        },
+        {
+          "t": 18.633333333332917,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "cut",
+          "energy": 101.03504300590446,
+          "severity": 0.5031903014673896
+        },
+        {
+          "t": 18.658333333332916,
+          "att": 0,
+          "vic": 1,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 17.876675181849592,
+          "severity": 0
+        },
+        {
+          "t": 18.66666666666625,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 6.356393660705868,
+          "severity": 0
+        },
+        {
+          "t": 19.058333333332893,
+          "att": 0,
+          "vic": 1,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 12.092750241112205,
+          "severity": 0
+        },
+        {
+          "t": 19.19166666666622,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 8.285158472114956,
+          "severity": 0
+        },
+        {
+          "t": 19.19999999999955,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 10.2209958409223,
+          "severity": 0
+        },
+        {
+          "t": 19.31666666666621,
+          "att": 0,
+          "vic": 1,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 6.43742879294732,
+          "severity": 0
+        },
+        {
+          "t": 19.533333333332866,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 7.287532975835025,
+          "severity": 0
+        },
+        {
+          "t": 19.5416666666662,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 6.047373343422768,
+          "severity": 0
+        }
+      ],
+      "final": [
+        {
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 0.8523073482576703,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "causeOfDeath": null,
+          "woundRecords": 2
+        },
+        {
+          "fighter": 1,
+          "state": "dead",
+          "alive": false,
+          "armed": true,
+          "blood": 0,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "causeOfDeath": "목",
+          "woundRecords": 4
+        }
+      ],
+      "traceSHA256": "7720f317a503b00a8f5a1777889b8a994d0d08e44df6669bfbaf25c76524bee4",
+      "semanticTraceSHA256": "7a74ab9d8bb5b20eb60a5c841cce79f6e557d1400de48fe05cfecf24be001328",
+      "physicalTraceSHA256": "9e73151efe9f234eacbdae4a5d39b63b21c2601bd449d39074b22a1b9fdb7b74",
+      "inputTraceSHA256": "d333a08492057fb3d0095f014f85638a08758fd2e8a72e11e1e7fdc2a90995c2",
+      "targetTraceSHA256": "72631009a2b89e5ff8d0d5db95d35355c4104aecd92cd207e908765c6e8b1fc6"
+    },
+    {
+      "mode": "reset",
+      "scene": "plate",
+      "seed": 17,
+      "forced": false,
+      "seconds": 30,
+      "wallSeconds": 31.31604993899999,
+      "runtime": {
+        "cut": "legacy",
+        "arms": [
+          "legacy",
+          "legacy"
+        ]
+      },
+      "checkpoint": {
+        "timeS": 0.9999999999999989,
+        "native": "263bf7f85024a39614b0cc96a5b7b8d966ada559dec78d502652b3b858ff6cee",
+        "control": "305ec633f011a6a17373fadc06c955ca0798c02b1a660ca938ec3d7af91ec35e",
+        "controlOrderSensitive": "739a5662b3b01c22a69d19b83388143a9b034fd05df86469831f024c0f0050dd",
+        "input": "7b358c12fd38024a377ad13df282dad3d7b079f847f18c0e325395395c83bb36"
+      },
+      "stats": {
+        "finite": true,
+        "steps": 3600,
+        "enterCalls": [
+          3,
+          1
+        ],
+        "postInitialEnterCalls": [
+          2,
+          0
+        ],
+        "recoveryEnterCalls": [
+          2,
+          0
+        ],
+        "nonzeroMemoryRecoveryClears": [
+          2,
+          0
+        ],
+        "helperCalls": [
+          3,
+          1
+        ],
+        "helperOnlyNf": true,
+        "falls": [
+          0,
+          0
+        ],
+        "getups": [
+          2,
+          0
+        ],
+        "deaths": [
+          0,
+          0
+        ],
+        "stateFrames": [
+          {
+            "stand": 3048,
+            "getup": 552
+          },
+          {
+            "stand": 3600
+          }
+        ],
+        "maxBodySpeedMps": 6.803141345518319,
+        "maxBodyAngularRadps": 81.87878510192395,
+        "angularPeak": {
+          "frame": 1921,
+          "timeS": 17.016666666666342,
+          "label": "1:sword",
+          "handle": "1.6e-322",
+          "mass": 1.600000023841858,
+          "omega": {
+            "x": 34.354122161865234,
+            "y": 71.50218200683594,
+            "z": -20.282201766967773
+          },
+          "Krotation": 9.073001208769483,
+          "contexts": [
+            {
+              "fighter": 0,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 0.9319880987012791,
+              "consciousness": 0.7228098399062973,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            },
+            {
+              "fighter": 1,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 0.9987369406419914,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            }
+          ]
+        },
+        "peakWholeKJ": 276.9721965223898,
+        "peakWholeRotationalKJ": 108.10501419428522,
+        "wholeKPeak": {
+          "frame": 2410,
+          "timeS": 21.09166666666611,
+          "K": 276.9721965223898,
+          "Krotation": 98.68135545452792,
+          "contexts": [
+            {
+              "fighter": 0,
+              "state": "getup",
+              "alive": true,
+              "armed": true,
+              "blood": 0.8940867345984498,
+              "consciousness": 0.32119189712309615,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            },
+            {
+              "fighter": 1,
+              "state": "stand",
+              "alive": true,
+              "armed": true,
+              "blood": 0.9985306522846523,
+              "consciousness": 1,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            }
+          ]
+        },
+        "maxJointGapM": [
+          0.0024567636894178555,
+          0.0032144822933271268
+        ],
+        "maxGripGapM": [
+          0.001088800663762259,
+          0.0008301873248004009
+        ],
+        "maxHandTargetErrorM": [
+          0.7846770164708411,
+          0.7136562604695078
+        ],
+        "maxFootDesDistanceM": [
+          2.8021926629423333,
+          2.802366207248123
+        ]
+      },
+      "entries": [
+        {
+          "frame": -120,
+          "timeS": 0,
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "call": 1,
+          "startedBefore": false,
+          "recovery": false,
+          "before": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          },
+          "preNative": "9169732459c49a158fc432186404283b082b8c28722873e0aebb80b9d93aa13f",
+          "preTargets": "0987fe98a3cbc68611c132b839fe03190e1afcf8b5cb51a520cb0ef158f38565",
+          "preControl": "a83d8a690e362c1ec02b05396c8c9192ca8d7bf6633f6494327c943c4d77c67b",
+          "preInput": "3acb4589e48e3d2b0d0d53d0df7a1d358f11b35c83aadb3e62aa4ab99d70b7bf",
+          "helperOnlyNf": true,
+          "afterReset": {
+            "F": {
+              "Nf": 0,
+              "N": null
+            },
+            "B": {
+              "Nf": 0,
+              "N": null
+            }
+          },
+          "afterOriginal": {
+            "F": {
+              "Nf": 0,
+              "N": null
+            },
+            "B": {
+              "Nf": 0,
+              "N": null
+            }
+          }
+        },
+        {
+          "frame": -120,
+          "timeS": 0,
+          "fighter": 1,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "call": 1,
+          "startedBefore": false,
+          "recovery": false,
+          "before": {
+            "F": {
+              "Nf": null,
+              "N": null
+            },
+            "B": {
+              "Nf": null,
+              "N": null
+            }
+          },
+          "preNative": "553addd3ed319365b7b3ce0d2383df09886ee4693a19d7f7e02dc9332e7fad4e",
+          "preTargets": "0987fe98a3cbc68611c132b839fe03190e1afcf8b5cb51a520cb0ef158f38565",
+          "preControl": "389ab86df0255344b09f9ebe2e443ec6598aadd7f817fbc82c9f8c9541c1d55e",
+          "preInput": "3acb4589e48e3d2b0d0d53d0df7a1d358f11b35c83aadb3e62aa4ab99d70b7bf",
+          "helperOnlyNf": true,
+          "afterReset": {
+            "F": {
+              "Nf": 0,
+              "N": null
+            },
+            "B": {
+              "Nf": 0,
+              "N": null
+            }
+          },
+          "afterOriginal": {
+            "F": {
+              "Nf": 0,
+              "N": null
+            },
+            "B": {
+              "Nf": 0,
+              "N": null
+            }
+          }
+        },
+        {
+          "frame": 1495,
+          "timeS": 13.45833333333321,
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 0.9840481027316577,
+          "consciousness": 0.616309839906309,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "call": 2,
+          "startedBefore": true,
+          "recovery": true,
+          "before": {
+            "F": {
+              "Nf": 0,
+              "N": 0
+            },
+            "B": {
+              "Nf": 696.4590954780579,
+              "N": 696.4590954780579
+            }
+          },
+          "preNative": "6f4077014773764765b39a1b83a880f6be6f7247c6fb9f4a3583c38bc30b7b93",
+          "preTargets": "9f1c5a67cb70c18bd354f7878f00c4ef1d4a6f7b0597b7dbda81733987274486",
+          "preControl": "0c17539b6f896f246ef3095002e5aa96165f503a66499408e491ce065bf7f21d",
+          "preInput": "22175706741aa2c35a639b3bc421cc01b5f009c91324d53292c933c2e0c9407e",
+          "helperOnlyNf": true,
+          "afterReset": {
+            "F": {
+              "Nf": 0,
+              "N": 0
+            },
+            "B": {
+              "Nf": 0,
+              "N": 696.4590954780579
+            }
+          },
+          "afterOriginal": {
+            "F": {
+              "Nf": 0,
+              "N": 0
+            },
+            "B": {
+              "Nf": 0,
+              "N": 696.4590954780579
+            }
+          }
+        },
+        {
+          "frame": 2652,
+          "timeS": 23.09999999999933,
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 0.8811720196359043,
+          "consciousness": 0.1255598919085732,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "call": 3,
+          "startedBefore": true,
+          "recovery": true,
+          "before": {
+            "F": {
+              "Nf": 471.14111059423686,
+              "N": 471.14111059423686
+            },
+            "B": {
+              "Nf": 0,
+              "N": 0
+            }
+          },
+          "preNative": "5e402d806c1b0ad5d6001e9117fc4fe89d16100544bcca5be9c2a2a92fb069cf",
+          "preTargets": "840ce233327ee21803ccb2a8530213aaba74614499fca1acf7a2c988caea9cd3",
+          "preControl": "1b50451daf282d271c1e29a0ef029470236dc2ae916107e4593fdef05b3d702c",
+          "preInput": "53cbd547c29ce7028d4402e61dd4972fe96e8144a14e3065663b39eaddf11b2d",
+          "helperOnlyNf": true,
+          "afterReset": {
+            "F": {
+              "Nf": 0,
+              "N": 471.14111059423686
+            },
+            "B": {
+              "Nf": 0,
+              "N": 0
+            }
+          },
+          "afterOriginal": {
+            "F": {
+              "Nf": 0,
+              "N": 471.14111059423686
+            },
+            "B": {
+              "Nf": 0,
+              "N": 0
+            }
+          }
+        }
+      ],
+      "transitions": [
+        {
+          "frame": 1186,
+          "timeS": 10.883333333333356,
+          "from": "stand",
+          "to": "getup",
+          "fighter": 0,
+          "state": "getup",
+          "alive": true,
+          "armed": true,
+          "blood": 1,
+          "consciousness": 0.5500660434254305,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          }
+        },
+        {
+          "frame": 1495,
+          "timeS": 13.45833333333321,
+          "from": "getup",
+          "to": "stand",
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 0.9840481027316577,
+          "consciousness": 0.616309839906309,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          }
+        },
+        {
+          "frame": 2409,
+          "timeS": 21.074999999999445,
+          "from": "stand",
+          "to": "getup",
+          "fighter": 0,
+          "state": "getup",
+          "alive": true,
+          "armed": true,
+          "blood": 0.8941468522994632,
+          "consciousness": 0.3209418971230962,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          }
+        },
+        {
+          "frame": 2652,
+          "timeS": 23.09999999999933,
+          "from": "getup",
+          "to": "stand",
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 0.8811720196359043,
+          "consciousness": 0.1255598919085732,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          }
+        }
+      ],
+      "wounds": [
+        {
+          "t": 6.691666666666789,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 51.50854890066577,
+          "severity": 0
+        },
+        {
+          "t": 6.700000000000123,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 45.21274512744351,
+          "severity": 0
+        },
+        {
+          "t": 6.891666666666799,
+          "att": 0,
+          "vic": 1,
+          "zone": "pelvis",
+          "type": "cut",
+          "energy": 36.2404717475257,
+          "severity": 0.010777363491562476
+        },
+        {
+          "t": 6.933333333333468,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 14.415757830779171,
+          "severity": 0
+        },
+        {
+          "t": 7.608333333333501,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 11.314957075007731,
+          "severity": 0
+        },
+        {
+          "t": 10.883333333333356,
+          "att": 1,
+          "vic": 0,
+          "zone": "head",
+          "type": "blunt",
+          "energy": 157.4768848010993,
+          "severity": 0
+        },
+        {
+          "t": 10.991666666666683,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 7.703565818942264,
+          "severity": 0
+        },
+        {
+          "t": 11.000000000000016,
+          "att": 0,
+          "vic": 1,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 9.529454959154611,
+          "severity": 0
+        },
+        {
+          "t": 11.200000000000005,
+          "att": 0,
+          "vic": 1,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 6.331267321561142,
+          "severity": 0
+        },
+        {
+          "t": 11.383333333333328,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 17.86769550849638,
+          "severity": 0
+        },
+        {
+          "t": 11.716666666666642,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 7.115082218056021,
+          "severity": 0
+        },
+        {
+          "t": 11.774999999999972,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 17.00678913797421,
+          "severity": 0
+        },
+        {
+          "t": 12.61666666666659,
+          "att": 1,
+          "vic": 0,
+          "zone": "head",
+          "type": "cut",
+          "energy": 51.091896401732214,
+          "severity": 0.022012407038225885
+        },
+        {
+          "t": 12.61666666666659,
+          "att": 1,
+          "vic": 0,
+          "zone": "neck",
+          "type": "cut",
+          "energy": 57.646465179793815,
+          "severity": 0.0962806481726712
+        },
+        {
+          "t": 18.333333333332934,
+          "att": 1,
+          "vic": 0,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 10.318574076452897,
+          "severity": 0
+        },
+        {
+          "t": 18.43333333333293,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 18.885746868192445,
+          "severity": 0
+        },
+        {
+          "t": 19.841666666666182,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 9.813861651586521,
+          "severity": 0
+        },
+        {
+          "t": 20.06666666666617,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 7.968404112717339,
+          "severity": 0
+        },
+        {
+          "t": 20.083333333332835,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 11.18143899946799,
+          "severity": 0
+        },
+        {
+          "t": 20.958333333332785,
+          "att": 0,
+          "vic": 1,
+          "zone": "pelvis",
+          "type": "blunt",
+          "energy": 33.76790377525562,
+          "severity": 0
+        },
+        {
+          "t": 20.966666666666118,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 10.159155813049757,
+          "severity": 0
+        },
+        {
+          "t": 21.074999999999445,
+          "att": 1,
+          "vic": 0,
+          "zone": "head",
+          "type": "blunt",
+          "energy": 120.23806189934635,
+          "severity": 0
+        },
+        {
+          "t": 21.074999999999445,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 17.225479637670613,
+          "severity": 0
+        },
+        {
+          "t": 21.249999999999435,
+          "att": 0,
+          "vic": 1,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 16.180394551674798,
+          "severity": 0
+        },
+        {
+          "t": 21.666666666666078,
+          "att": 1,
+          "vic": 0,
+          "zone": "neck",
+          "type": "blunt",
+          "energy": 35.85848073003295,
+          "severity": 0
+        },
+        {
+          "t": 21.833333333332735,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 15.087279799409027,
+          "severity": 0
+        },
+        {
+          "t": 21.866666666666067,
+          "att": 1,
+          "vic": 0,
+          "zone": "leg",
+          "type": "blunt",
+          "energy": 14.766809645830389,
+          "severity": 0
+        },
+        {
+          "t": 22.099999999999387,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 7.0434224145757,
+          "severity": 0
+        },
+        {
+          "t": 22.391666666666037,
+          "att": 1,
+          "vic": 0,
+          "zone": "head",
+          "type": "blunt",
+          "energy": 8.543043249274897,
+          "severity": 0
+        },
+        {
+          "t": 24.99166666666589,
+          "att": 0,
+          "vic": 1,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 21.36244674491277,
+          "severity": 0
+        },
+        {
+          "t": 25.016666666665888,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 23.400910246539258,
+          "severity": 0.03926680809502834
+        },
+        {
+          "t": 25.02499999999922,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 12.726793609773509,
+          "severity": 0
+        },
+        {
+          "t": 25.19999999999921,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 21.27298673844095,
+          "severity": 0
+        },
+        {
+          "t": 25.683333333332516,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 18.460475555415485,
+          "severity": 0
+        },
+        {
+          "t": 25.916666666665837,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 6.289483734522048,
+          "severity": 0
+        },
+        {
+          "t": 26.433333333332474,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 7.236940151126204,
+          "severity": 0
+        },
+        {
+          "t": 26.85833333333245,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 11.981568877344207,
+          "severity": 0
+        },
+        {
+          "t": 30.841666666665557,
+          "att": 0,
+          "vic": 1,
+          "zone": "abdomen",
+          "type": "blunt",
+          "energy": 37.973042323145634,
+          "severity": 0
+        },
+        {
+          "t": 30.858333333332222,
+          "att": 0,
+          "vic": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energy": 18.655290582967567,
+          "severity": 0
+        },
+        {
+          "t": 30.866666666665555,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 27.932369285721087,
+          "severity": 0
+        },
+        {
+          "t": 30.866666666665555,
+          "att": 0,
+          "vic": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energy": 25.179986646008928,
+          "severity": 0
+        }
+      ],
+      "final": [
+        {
+          "fighter": 0,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 0.8523073482576703,
+          "consciousness": 0.36230989190856094,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "causeOfDeath": null,
+          "woundRecords": 2
+        },
+        {
+          "fighter": 1,
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "blood": 0.9962929516517072,
+          "consciousness": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 0.9725132343334801,
+            "legF": 1,
+            "legB": 1
+          },
+          "causeOfDeath": null,
+          "woundRecords": 2
+        }
+      ],
+      "traceSHA256": "cf274e5f5002c93514b2782ae87aead1fab2c5ce07e72cdac466bd7fb0c3c704",
+      "semanticTraceSHA256": "d71aff04e9d40656e56f4c5c2ad50387f56aa90901900931e6b158dff853bebc",
+      "physicalTraceSHA256": "459244ef4373ac97b1199e2278d050b82d3337804d16717a7b63583b5c24d341",
+      "inputTraceSHA256": "0532b19c34fbe20cb8a83875a23c74a7c753838875bfaeebfa4651d535024a90",
+      "targetTraceSHA256": "786efbf98474647d7e2670287bdc480c0e9bb2aadc6d085cd763d488e0c4929d"
+    }
+  ],
+  "actualTriggerCoverage": {
+    "normalRecoveryEntriesAcrossBranchRows": 5,
+    "resetCasesWithNonzeroRecoveryMemory": [
+      {
+        "scene": "cloth",
+        "seed": 17,
+        "clears": [
+          1,
+          0
+        ]
+      },
+      {
+        "scene": "plate",
+        "seed": 17,
+        "clears": [
+          2,
+          0
+        ]
+      }
+    ],
+    "syntheticRows": 0,
+    "note": "Initial undefined Nf to0 is not a recovery intervention. Branched entries and replays are not independent samples."
+  },
+  "plate17AdditionalGetup": {
+    "firstGetup": {
+      "frame": 1186,
+      "timeS": 10.883333333333356,
+      "from": "stand",
+      "to": "getup",
+      "fighter": 0,
+      "state": "getup",
+      "alive": true,
+      "armed": true,
+      "blood": 1,
+      "consciousness": 0.5500660434254305,
+      "limbs": {
+        "armS": 1,
+        "armO": 1,
+        "legF": 1,
+        "legB": 1
+      }
+    },
+    "extraTransition": {
+      "frame": 2409,
+      "timeS": 21.074999999999445,
+      "from": "stand",
+      "to": "getup",
+      "fighter": 0,
+      "state": "getup",
+      "alive": true,
+      "armed": true,
+      "blood": 0.8941468522994632,
+      "consciousness": 0.3209418971230962,
+      "limbs": {
+        "armS": 1,
+        "armO": 1,
+        "legF": 1,
+        "legB": 1
+      }
+    },
+    "actualSameFrameWounds": [
+      {
+        "frame": 2409,
+        "timeS": 21.074999999999445,
+        "attacker": 1,
+        "victim": 0,
+        "result": {
+          "type": "blunt",
+          "zone": "head",
+          "energy": 120.23806189934635,
+          "ephys": 60.119030949673174,
+          "mFree": 0.24193005681713575,
+          "severity": 0,
+          "pass": false,
+          "absorb": 140,
+          "bleedPerSev": 0.03,
+          "local": [
+            0.0048850138740046236,
+            0.02543165201591217,
+            -0.07044986803997541
+          ],
+          "point": [
+            -0.019996313378214836,
+            1.6011803150177002,
+            0.5685223937034607
+          ],
+          "dir": [
+            -0.19977007389192977,
+            -0.7803346676000672,
+            0.5925957510130375
+          ],
+          "speed": 14.89530376215952,
+          "mEff": 0.5419300568171357,
+          "t": 0.8618894460292392,
+          "helmet": true,
+          "helmetBlunt": 0.609969179734799,
+          "plate": false,
+          "thr": 147.50770506630025,
+          "eff": 119.51016879748617,
+          "bladeAxis": [
+            -0.9742228448805177,
+            0.22325578602541496,
+            -0.03235214272110554
+          ],
+          "finish": false
+        },
+        "victimContext": {
+          "fighter": 0,
+          "state": "getup",
+          "alive": true,
+          "armed": true,
+          "blood": 0.8941468522994632,
+          "consciousness": 0.3209418971230962,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          }
+        }
+      }
+    ],
+    "baselineEnemyDeath": {
+      "frame": 2114,
+      "timeS": 18.61666666666625,
+      "from": "stand",
+      "to": "dead",
+      "fighter": 1,
+      "state": "dead",
+      "alive": false,
+      "armed": true,
+      "blood": 0.859920251570026,
+      "consciousness": 1,
+      "limbs": {
+        "armS": 1,
+        "armO": 1,
+        "legF": 1,
+        "legB": 1
+      }
+    },
+    "baselineStats": {
+      "finite": true,
+      "steps": 3600,
+      "enterCalls": [
+        2,
+        1
+      ],
+      "postInitialEnterCalls": [
+        1,
+        0
+      ],
+      "recoveryEnterCalls": [
+        1,
+        0
+      ],
+      "nonzeroMemoryRecoveryClears": [
+        0,
+        0
+      ],
+      "helperCalls": [
+        0,
+        0
+      ],
+      "helperOnlyNf": true,
+      "falls": [
+        0,
+        0
+      ],
+      "getups": [
+        1,
+        0
+      ],
+      "deaths": [
+        0,
+        1
+      ],
+      "stateFrames": [
+        {
+          "stand": 3291,
+          "getup": 309
+        },
+        {
+          "stand": 2114,
+          "dead": 1486
+        }
+      ],
+      "maxBodySpeedMps": 6.803141345518319,
+      "maxBodyAngularRadps": 51.443757313316375,
+      "angularPeak": {
+        "frame": 1856,
+        "timeS": 16.474999999999707,
+        "label": "1:sword",
+        "handle": "1.6e-322",
+        "mass": 1.600000023841858,
+        "omega": {
+          "x": -45.39631271362305,
+          "y": -12.15884017944336,
+          "z": -20.923612594604492
+        },
+        "Krotation": 4.19191053364673,
+        "contexts": [
+          {
+            "fighter": 0,
+            "state": "stand",
+            "alive": true,
+            "armed": true,
+            "blood": 0.9385703258390398,
+            "consciousness": 0.7065598399062991,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          {
+            "fighter": 1,
+            "state": "stand",
+            "alive": true,
+            "armed": true,
+            "blood": 0.9667559103390954,
+            "consciousness": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        ]
+      },
+      "peakWholeKJ": 316.2560581847054,
+      "peakWholeRotationalKJ": 108.10501419428522,
+      "wholeKPeak": {
+        "frame": 2261,
+        "timeS": 19.849999999999515,
+        "K": 316.2560581847054,
+        "Krotation": 19.512481766884445,
+        "contexts": [
+          {
+            "fighter": 0,
+            "state": "stand",
+            "alive": true,
+            "armed": true,
+            "blood": 0.9037415628798684,
+            "consciousness": 0.807809839906288,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          {
+            "fighter": 1,
+            "state": "dead",
+            "alive": false,
+            "armed": true,
+            "blood": 0,
+            "consciousness": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        ]
+      },
+      "maxJointGapM": [
+        0.002536712276512721,
+        0.0033456669659802795
+      ],
+      "maxGripGapM": [
+        0.001088800663762259,
+        0.0033456669659802795
+      ],
+      "maxHandTargetErrorM": [
+        0.633072989004876,
+        0.7136562604695078
+      ],
+      "maxFootDesDistanceM": [
+        2.8021926629423333,
+        2.802366207248123
+      ]
+    },
+    "resetStats": {
+      "finite": true,
+      "steps": 3600,
+      "enterCalls": [
+        3,
+        1
+      ],
+      "postInitialEnterCalls": [
+        2,
+        0
+      ],
+      "recoveryEnterCalls": [
+        2,
+        0
+      ],
+      "nonzeroMemoryRecoveryClears": [
+        2,
+        0
+      ],
+      "helperCalls": [
+        3,
+        1
+      ],
+      "helperOnlyNf": true,
+      "falls": [
+        0,
+        0
+      ],
+      "getups": [
+        2,
+        0
+      ],
+      "deaths": [
+        0,
+        0
+      ],
+      "stateFrames": [
+        {
+          "stand": 3048,
+          "getup": 552
+        },
+        {
+          "stand": 3600
+        }
+      ],
+      "maxBodySpeedMps": 6.803141345518319,
+      "maxBodyAngularRadps": 81.87878510192395,
+      "angularPeak": {
+        "frame": 1921,
+        "timeS": 17.016666666666342,
+        "label": "1:sword",
+        "handle": "1.6e-322",
+        "mass": 1.600000023841858,
+        "omega": {
+          "x": 34.354122161865234,
+          "y": 71.50218200683594,
+          "z": -20.282201766967773
+        },
+        "Krotation": 9.073001208769483,
+        "contexts": [
+          {
+            "fighter": 0,
+            "state": "stand",
+            "alive": true,
+            "armed": true,
+            "blood": 0.9319880987012791,
+            "consciousness": 0.7228098399062973,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          {
+            "fighter": 1,
+            "state": "stand",
+            "alive": true,
+            "armed": true,
+            "blood": 0.9987369406419914,
+            "consciousness": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        ]
+      },
+      "peakWholeKJ": 276.9721965223898,
+      "peakWholeRotationalKJ": 108.10501419428522,
+      "wholeKPeak": {
+        "frame": 2410,
+        "timeS": 21.09166666666611,
+        "K": 276.9721965223898,
+        "Krotation": 98.68135545452792,
+        "contexts": [
+          {
+            "fighter": 0,
+            "state": "getup",
+            "alive": true,
+            "armed": true,
+            "blood": 0.8940867345984498,
+            "consciousness": 0.32119189712309615,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          {
+            "fighter": 1,
+            "state": "stand",
+            "alive": true,
+            "armed": true,
+            "blood": 0.9985306522846523,
+            "consciousness": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        ]
+      },
+      "maxJointGapM": [
+        0.0024567636894178555,
+        0.0032144822933271268
+      ],
+      "maxGripGapM": [
+        0.001088800663762259,
+        0.0008301873248004009
+      ],
+      "maxHandTargetErrorM": [
+        0.7846770164708411,
+        0.7136562604695078
+      ],
+      "maxFootDesDistanceM": [
+        2.8021926629423333,
+        2.802366207248123
+      ]
+    },
+    "interpretation": "Additional getup coincides with a real120.238J head blunt after AI/target divergence; baseline opponent had already died. This does not isolate an unprovoked support refall or establish same-input recovery regression."
+  },
+  "anomalyReview": [
+    {
+      "scene": "cloth",
+      "seed": 7,
+      "speedTripwire": false,
+      "gapTripwire": false,
+      "wholeKRatio": 1,
+      "angularRatio": 1,
+      "note": "Baseline-relative coarse anomaly gates, not naturalness thresholds. Both K/rotation peaks and contexts are retained."
+    },
+    {
+      "scene": "cloth",
+      "seed": 17,
+      "speedTripwire": false,
+      "gapTripwire": false,
+      "wholeKRatio": 0.7492926997723752,
+      "angularRatio": 1.4366999389664037,
+      "note": "Baseline-relative coarse anomaly gates, not naturalness thresholds. Both K/rotation peaks and contexts are retained."
+    },
+    {
+      "scene": "plate",
+      "seed": 7,
+      "speedTripwire": false,
+      "gapTripwire": false,
+      "wholeKRatio": 1,
+      "angularRatio": 1,
+      "note": "Baseline-relative coarse anomaly gates, not naturalness thresholds. Both K/rotation peaks and contexts are retained."
+    },
+    {
+      "scene": "plate",
+      "seed": 17,
+      "speedTripwire": false,
+      "gapTripwire": false,
+      "wholeKRatio": 0.8757846351219228,
+      "angularRatio": 1.5916175135351045,
+      "note": "Baseline-relative coarse anomaly gates, not naturalness thresholds. Both K/rotation peaks and contexts are retained."
+    }
+  ],
+  "anyCoarseAnomaly": false,
+  "comparisonOnlyEligible": true,
+  "generalPromotion": false,
+  "observationContract": {
+    "oldQ05BaselineOrderSensitiveTrace": "All4 historical baselines exact, including actual inputs; valid only while frozen source/setting hashes match.",
+    "canonicalController": "Recursively sort object keys, retain array order/all values. Initial clear inserts Nf early, so unsorted JSON hashes differ even when semantic state is equal.",
+    "initialCheckpoint": "Native snapshot, canonical controller and actual input must match; unsorted control hash recorded separately.",
+    "beforeActualReset": "First real recovery enter captures native snapshot, canonical controller, actual input, target hash and F/B Nf/N; all matched between branches.",
+    "physicalTrace": "Independent per-frame selected dynamic-body mass/p/q/COM/v/w/inertia/userForce/userTorque hash; no controller-property order."
+  },
+  "correctionHistory": {
+    "r1Reason": "Raw ownState JSON key order changes after initial undefined Nf→0. R1 misleading frame0 differences and prepared raw control hash are observation-contract failures, not physics differences.",
+    "r2Reason": "Added canonical per-frame/entry and independent physical hashes; prepared checkpoint still used unsorted control. Stopped to correct that remaining contract.",
+    "replays": [
+      {
+        "artifact": {
+          "path": "/workspace/halfsword-hybrid-evidence/stance-memory-combat-r1.json",
+          "sha256": "30f4a055c6dfbec66d920a79e7d142c569974bf47b45a3d562d51d45900ca3f0",
+          "bytes": 7898018
+        },
+        "completedRows": 8,
+        "comparison": [
+          {
+            "mode": "baseline",
+            "scene": "cloth",
+            "seed": 7,
+            "found": true,
+            "orderSensitiveTraceExact": true,
+            "actualInputExact": true,
+            "actualTargetsExact": true
+          },
+          {
+            "mode": "reset",
+            "scene": "cloth",
+            "seed": 7,
+            "found": true,
+            "orderSensitiveTraceExact": true,
+            "actualInputExact": true,
+            "actualTargetsExact": true
+          },
+          {
+            "mode": "baseline",
+            "scene": "cloth",
+            "seed": 17,
+            "found": true,
+            "orderSensitiveTraceExact": true,
+            "actualInputExact": true,
+            "actualTargetsExact": true
+          },
+          {
+            "mode": "reset",
+            "scene": "cloth",
+            "seed": 17,
+            "found": true,
+            "orderSensitiveTraceExact": true,
+            "actualInputExact": true,
+            "actualTargetsExact": true
+          },
+          {
+            "mode": "baseline",
+            "scene": "plate",
+            "seed": 7,
+            "found": true,
+            "orderSensitiveTraceExact": true,
+            "actualInputExact": true,
+            "actualTargetsExact": true
+          },
+          {
+            "mode": "reset",
+            "scene": "plate",
+            "seed": 7,
+            "found": true,
+            "orderSensitiveTraceExact": true,
+            "actualInputExact": true,
+            "actualTargetsExact": true
+          },
+          {
+            "mode": "baseline",
+            "scene": "plate",
+            "seed": 17,
+            "found": true,
+            "orderSensitiveTraceExact": true,
+            "actualInputExact": true,
+            "actualTargetsExact": true
+          },
+          {
+            "mode": "reset",
+            "scene": "plate",
+            "seed": 17,
+            "found": true,
+            "orderSensitiveTraceExact": true,
+            "actualInputExact": true,
+            "actualTargetsExact": true
+          }
+        ]
+      },
+      {
+        "artifact": {
+          "path": "/workspace/halfsword-hybrid-evidence/stance-memory-combat-r2.json.runs.jsonl",
+          "sha256": "40958cb2e7b98a35377ffd43a9cab2f6b78e3fa96962a6c12c0d08026ce4df3d",
+          "bytes": 5118766
+        },
+        "completedRows": 4,
+        "comparison": [
+          {
+            "mode": "baseline",
+            "scene": "cloth",
+            "seed": 7,
+            "found": true,
+            "orderSensitiveTraceExact": true,
+            "actualInputExact": true,
+            "actualTargetsExact": true
+          },
+          {
+            "mode": "reset",
+            "scene": "cloth",
+            "seed": 7,
+            "found": true,
+            "orderSensitiveTraceExact": true,
+            "actualInputExact": true,
+            "actualTargetsExact": true
+          },
+          {
+            "mode": "baseline",
+            "scene": "cloth",
+            "seed": 17,
+            "found": true,
+            "orderSensitiveTraceExact": true,
+            "actualInputExact": true,
+            "actualTargetsExact": true
+          },
+          {
+            "mode": "reset",
+            "scene": "cloth",
+            "seed": 17,
+            "found": true,
+            "orderSensitiveTraceExact": true,
+            "actualInputExact": true,
+            "actualTargetsExact": true
+          }
+        ]
+      }
+    ],
+    "note": "Reexecution was necessary to repair observation guards. No new gain/source/helper/AI/engine contract and no new independent samples."
+  },
+  "limitations": [
+    "Standard real combat may never reenter stance; initial undefined Nf reset alone cannot show recovery efficacy.",
+    "Forced fallback uses synthetic game knockDown(true), not a collision-caused fall, with AI/combat/wounds active.",
+    "Only Nf is cleared before actual Gait.enter; N/Nsum/plant/targets/masses/gains/native parameters are not modified by the helper.",
+    "Native work and naturalness/mobile acceptance unmeasured; differing AI inputs and wound totals do not show damage benefit.",
+    "maxFootDesDistance includes recovery/death/inactive-gait periods; retained descriptor target distance, not a stance error verdict.",
+    "Nf friction memory fix does not replace legacy direct support or establish ground-reaction realism.",
+    "maxFootDesDistance is retained raw descriptor distance including uninitialized/stance/inactive des values; excluded from performance judgment.",
+    "Hand target error includes actual combat/blocking/grip conditions, not isolated tracking efficacy.",
+    "Decision allows only isolated legacy-support comparison with runtime-parity/mobile checks; does not justify general promotion or resurrect projected support trial."
+  ]
+}

@@ -1,5 +1,7 @@
 # GitHub 전송과 휴대폰용 웹 배포
 
+**2026-10-02 21:02 KST 상태 변경:** 아래 API+Actions 성공은 과거 확인 기록이다. 현재 같은 환경의 API 조회는 `401 Bad credentials`, git 읽기는 비대화형 인증 실패다. 환경 초안의 GH_TOKEN 요구사항 저장도 초안/요구사항 충돌로 실패했다. 새 기립 후보 `232e772`는 로컬 검증만 완료했고 원격 쓰기/Pages 배포를 하지 못했다. 환경 설정에서 독립 저장소의 GitHub 인증을 복구한 뒤 아래 절차를 재개한다. 기존 공개 팔·절삭 페이지는200으로 열리지만 새 기립 수정은 없다. [현재 후보 상태](../strike/stance_memory_trial.md).
+
 ## 실제 확인한 범위
 
 대상은 `yoonjl-svg/halfsword-codex` 하나다. 원본 `yoonjl-svg/halfsword`는 공개 기준 커밋을 읽을 때만 사용하고 절대 푸시하지 않는다.

@@ -1,0 +1,905 @@
+{
+  "schemaVersion": 1,
+  "experiment": "stance-memory mobile browser round 1",
+  "createdUTC": "2026-10-02T11:58:14.169Z",
+  "pass": true,
+  "scope": "Local Chromium emulation against Vite at 127.0.0.1:4201. It is not a public deployment or a physical-phone test. The re-entry check intentionally pauses AI after first stand and calls one synthetic player.knockDown(true); it does not test a naturally caused fall or human naturalness.",
+  "source": {
+    "headBefore": "232e772fd5e4873fe0410d184832a36d3add1cac",
+    "headAfter": "232e772fd5e4873fe0410d184832a36d3add1cac",
+    "stable": true,
+    "checkedFileSHA256": {
+      "src/main.js": "d691a72694f20c8e0784b52884934dc6f660f2046c087f3ff8e12568cc859884",
+      "src/fighter.js": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+      "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+      "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+      "public/feature-lab.html": "f279589481d5e19df29ec9e0bfd62d5fa59181e4ab73a64394a2c0404257b12c",
+      "tools/browser/stance_memory_trial.mjs": "105221b1436db0ffce11aae856404d0b622e1cf9d840211f10ce33ff19a79571"
+    },
+    "beforeAfterHashesEqual": true
+  },
+  "execution": {
+    "base": "http://127.0.0.1:4201/",
+    "command": "HALFSWORD_EVIDENCE_TAG=q07-stance-memory-232e772-run1 HALFSWORD_EVIDENCE_DIR=/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1 node tools/browser/stance_memory_trial.mjs",
+    "browserExecutable": "/usr/bin/chromium",
+    "module": "playwright",
+    "rawPath": "/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1/stance-memory-trial-q07-stance-memory-232e772-run1.json",
+    "rawBytes": 61250,
+    "rawSHA256": "1be6832753941e72b12bc335e27c9c6675ea01ec16528c642058e4bb231a6d06",
+    "integrityPath": "/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1/integrity.json",
+    "screenshotCount": 18,
+    "evidenceDirectory": "/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1"
+  },
+  "summary": {
+    "rows": 4,
+    "passedRows": 4,
+    "failedRows": 0,
+    "renderedFiniteSamples": 352,
+    "renderedNonfiniteSamples": 0,
+    "jointGapSamples": 9856,
+    "maxObservedJointGapM": 0.001338650943336407,
+    "maxObservedJointGapMm": 1.338650943336407,
+    "consoleOrPageErrors": 0,
+    "httpFailures": 0,
+    "requestFailures": 0
+  },
+  "findings": {
+    "legacy": "Both legs retained the previous positive Nf values across actual Gait.enter; the two plantAt calls observed that retained memory.",
+    "fresh": "Both legs had Nf=0 immediately after actual Gait.enter and before both plantAt calls. Later rendered-frame observations recorded positive Nf again from real simulation updates.",
+    "interpretation": "Confirms URL option delivery and the observed in-game lifecycle behavior under this synthetic setup only; it does not assess physical quality."
+  },
+  "rows": [
+    {
+      "model": "legacy",
+      "initialOrientation": "portrait",
+      "pass": true,
+      "actualFeatureHref": "http://127.0.0.1:4201/?supportProbe=1&assist=0.1&catch=on&catchScale=1&weapon=longsword&foeWeapon=longsword&foe=default&stanceTrial=legacy",
+      "configuration": {
+        "stanceMemory": "legacy",
+        "stanceTrial": {
+          "active": true,
+          "model": "legacy"
+        },
+        "supportModel": "legacy",
+        "weapon": "longsword",
+        "opponentWeapon": "longsword",
+        "gripReaction": "paired",
+        "supportProbe": {
+          "active": true,
+          "assist": 0.1,
+          "catchMode": "on",
+          "catchScale": 1,
+          "sourceBase": "14bcf1f+혼합수정"
+        }
+      },
+      "mobileGates": {
+        "allObservedLayoutsWithoutHorizontalOverflow": true,
+        "layoutChecks": [
+          {
+            "width": 390,
+            "height": 844,
+            "horizontalOverflow": false
+          },
+          {
+            "width": 844,
+            "height": 390,
+            "horizontalOverflow": false
+          },
+          {
+            "width": 844,
+            "height": 390,
+            "horizontalOverflow": false
+          },
+          {
+            "width": 390,
+            "height": 844,
+            "horizontalOverflow": false
+          }
+        ],
+        "landscapeRotateGuidanceHidden": true,
+        "portraitFightRotateGuidanceVisible": true,
+        "optionInfoVisible": true,
+        "canvasTouchDownObserved": true,
+        "dragFrameAdvance": {
+          "start": 1.549999999999997,
+          "end": 1.9416666666666622,
+          "requiredSeconds": 0.35
+        },
+        "releaseFrameAdvance": {
+          "start": 2.091666666666662,
+          "end": 2.4583333333333273,
+          "requiredSeconds": 0.35
+        },
+        "retouchFrameAdvance": {
+          "start": 2.558333333333327,
+          "end": 2.9583333333333255,
+          "requiredSeconds": 0.35
+        }
+      },
+      "oldPositiveNf": {
+        "timeS": 3.2333333333333245,
+        "values": {
+          "F": 620.3845381736755,
+          "B": 186.0486602783203
+        },
+        "positive": true
+      },
+      "syntheticKnockdown": {
+        "timeS": 3.2333333333333245,
+        "state": "down",
+        "downTime": 2.2,
+        "nf": {
+          "F": 620.3845381736755,
+          "B": 186.0486602783203
+        }
+      },
+      "firstActualReentry": {
+        "timeS": 7.441666666666826,
+        "state": "stand",
+        "startedBefore": true,
+        "nfBefore": {
+          "F": 620.3845381736755,
+          "B": 186.0486602783203
+        },
+        "legsBefore": {
+          "F": {
+            "N": 620.3845381736755,
+            "Nf": 620.3845381736755,
+            "pinF": 10.66207537126533,
+            "pinLim": 558.346084356308,
+            "stance": true
+          },
+          "B": {
+            "N": 186.0486602783203,
+            "Nf": 186.0486602783203,
+            "pinF": 12.758658526177957,
+            "pinLim": 167.44379425048828,
+            "stance": true
+          }
+        },
+        "nfAfter": {
+          "F": 620.3845381736755,
+          "B": 186.0486602783203
+        },
+        "legsAfter": {
+          "F": {
+            "N": 620.3845381736755,
+            "Nf": 620.3845381736755,
+            "pinF": 10.66207537126533,
+            "pinLim": 558.346084356308,
+            "stance": true
+          },
+          "B": {
+            "N": 186.0486602783203,
+            "Nf": 186.0486602783203,
+            "pinF": 12.758658526177957,
+            "pinLim": 167.44379425048828,
+            "stance": true
+          }
+        },
+        "plantCalls": [
+          {
+            "timeS": 7.441666666666826,
+            "leg": "F",
+            "nfBefore": {
+              "F": 620.3845381736755,
+              "B": 186.0486602783203
+            }
+          },
+          {
+            "timeS": 7.441666666666826,
+            "leg": "B",
+            "nfBefore": {
+              "F": 620.3845381736755,
+              "B": 186.0486602783203
+            }
+          }
+        ],
+        "seenStates": [
+          "stand",
+          "down",
+          "getup"
+        ],
+        "recomputedNf": null,
+        "currentNf": {
+          "F": 311.80003183374697,
+          "B": 183.67282677503619
+        }
+      },
+      "renderedFrameAndGapSamples": {
+        "finiteSamples": 89,
+        "nonfiniteSamples": 0,
+        "jointGapSamples": 2492,
+        "maxJointGapM": 0.001178643650575506,
+        "maxJointGapMm": 1.178643650575506,
+        "sampling": "requestAnimationFrame callbacks, at most once per rendered frame when simTime has advanced; not every physics step"
+      },
+      "restart": {
+        "newCombat": true,
+        "newPlayer": true,
+        "newEnemy": true,
+        "stanceMemory": "legacy",
+        "playerMemory": null,
+        "enemyMemory": null
+      },
+      "ordinaryUrlFallback": {
+        "stanceMemory": "legacy",
+        "trial": {
+          "active": false,
+          "model": "legacy"
+        },
+        "infoPresent": false
+      },
+      "invalidOptionURL": "http://127.0.0.1:4201/?supportProbe=1&assist=0.1&catch=on&catchScale=1&weapon=longsword&foeWeapon=longsword&foe=default&stanceTrial=FRESH",
+      "invalidOptionFallback": {
+        "stanceMemory": "legacy",
+        "trial": {
+          "active": false,
+          "model": "legacy"
+        },
+        "infoPresent": false
+      },
+      "localStorageHasNoTrialPersistence": true,
+      "screenshotPaths": [
+        {
+          "key": "linksScreenshot",
+          "path": "/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1/stance-memory-q07-stance-memory-232e772-run1-portrait-legacy-links.png"
+        },
+        {
+          "key": "menuScreenshot",
+          "path": "/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1/stance-memory-q07-stance-memory-232e772-run1-portrait-legacy-menu.png"
+        },
+        {
+          "key": "rotateScreenshot",
+          "path": "/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1/stance-memory-q07-stance-memory-232e772-run1-portrait-legacy-rotate.png"
+        },
+        {
+          "key": "touchScreenshot",
+          "path": "/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1/stance-memory-q07-stance-memory-232e772-run1-portrait-legacy-touch.png"
+        },
+        {
+          "key": "reentryScreenshot",
+          "path": "/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1/stance-memory-q07-stance-memory-232e772-run1-portrait-legacy-reentry.png"
+        }
+      ]
+    },
+    {
+      "model": "fresh",
+      "initialOrientation": "portrait",
+      "pass": true,
+      "actualFeatureHref": "http://127.0.0.1:4201/?supportProbe=1&assist=0.1&catch=on&catchScale=1&weapon=longsword&foeWeapon=longsword&foe=default&stanceTrial=fresh",
+      "configuration": {
+        "stanceMemory": "fresh",
+        "stanceTrial": {
+          "active": true,
+          "model": "fresh"
+        },
+        "supportModel": "legacy",
+        "weapon": "longsword",
+        "opponentWeapon": "longsword",
+        "gripReaction": "paired",
+        "supportProbe": {
+          "active": true,
+          "assist": 0.1,
+          "catchMode": "on",
+          "catchScale": 1,
+          "sourceBase": "14bcf1f+혼합수정"
+        }
+      },
+      "mobileGates": {
+        "allObservedLayoutsWithoutHorizontalOverflow": true,
+        "layoutChecks": [
+          {
+            "width": 390,
+            "height": 844,
+            "horizontalOverflow": false
+          },
+          {
+            "width": 844,
+            "height": 390,
+            "horizontalOverflow": false
+          },
+          {
+            "width": 844,
+            "height": 390,
+            "horizontalOverflow": false
+          },
+          {
+            "width": 390,
+            "height": 844,
+            "horizontalOverflow": false
+          }
+        ],
+        "landscapeRotateGuidanceHidden": true,
+        "portraitFightRotateGuidanceVisible": true,
+        "optionInfoVisible": true,
+        "canvasTouchDownObserved": true,
+        "dragFrameAdvance": {
+          "start": 1.5416666666666636,
+          "end": 1.8999999999999957,
+          "requiredSeconds": 0.35
+        },
+        "releaseFrameAdvance": {
+          "start": 2.0499999999999954,
+          "end": 2.449999999999994,
+          "requiredSeconds": 0.35
+        },
+        "retouchFrameAdvance": {
+          "start": 2.5999999999999934,
+          "end": 2.999999999999992,
+          "requiredSeconds": 0.35
+        }
+      },
+      "oldPositiveNf": {
+        "timeS": 3.274999999999991,
+        "values": {
+          "F": 630.2982759475708,
+          "B": 188.20592164993286
+        },
+        "positive": true
+      },
+      "syntheticKnockdown": {
+        "timeS": 3.274999999999991,
+        "state": "down",
+        "downTime": 2.2,
+        "nf": {
+          "F": 630.2982759475708,
+          "B": 188.20592164993286
+        }
+      },
+      "firstActualReentry": {
+        "timeS": 7.483333333333495,
+        "state": "stand",
+        "startedBefore": true,
+        "nfBefore": {
+          "F": 630.2982759475708,
+          "B": 188.20592164993286
+        },
+        "legsBefore": {
+          "F": {
+            "N": 630.2982759475708,
+            "Nf": 630.2982759475708,
+            "pinF": 10.589747500751715,
+            "pinLim": 567.2684483528137,
+            "stance": true
+          },
+          "B": {
+            "N": 188.20592164993286,
+            "Nf": 188.20592164993286,
+            "pinF": 11.55944868576357,
+            "pinLim": 169.38532948493958,
+            "stance": true
+          }
+        },
+        "nfAfter": {
+          "F": 0,
+          "B": 0
+        },
+        "legsAfter": {
+          "F": {
+            "N": 630.2982759475708,
+            "Nf": 0,
+            "pinF": 10.589747500751715,
+            "pinLim": 567.2684483528137,
+            "stance": true
+          },
+          "B": {
+            "N": 188.20592164993286,
+            "Nf": 0,
+            "pinF": 11.55944868576357,
+            "pinLim": 169.38532948493958,
+            "stance": true
+          }
+        },
+        "plantCalls": [
+          {
+            "timeS": 7.483333333333495,
+            "leg": "F",
+            "nfBefore": {
+              "F": 0,
+              "B": 0
+            }
+          },
+          {
+            "timeS": 7.483333333333495,
+            "leg": "B",
+            "nfBefore": {
+              "F": 0,
+              "B": 0
+            }
+          }
+        ],
+        "seenStates": [
+          "stand",
+          "down",
+          "getup"
+        ],
+        "recomputedNf": {
+          "timeS": 7.550000000000165,
+          "values": {
+            "F": 28.136207290962922,
+            "B": 119.77176959509711
+          },
+          "positive": true
+        },
+        "currentNf": {
+          "F": 0,
+          "B": 0
+        }
+      },
+      "renderedFrameAndGapSamples": {
+        "finiteSamples": 90,
+        "nonfiniteSamples": 0,
+        "jointGapSamples": 2520,
+        "maxJointGapM": 0.0012068499283335711,
+        "maxJointGapMm": 1.2068499283335712,
+        "sampling": "requestAnimationFrame callbacks, at most once per rendered frame when simTime has advanced; not every physics step"
+      },
+      "restart": {
+        "newCombat": true,
+        "newPlayer": true,
+        "newEnemy": true,
+        "stanceMemory": "fresh",
+        "playerMemory": null,
+        "enemyMemory": null
+      },
+      "ordinaryUrlFallback": {
+        "stanceMemory": "legacy",
+        "trial": {
+          "active": false,
+          "model": "legacy"
+        },
+        "infoPresent": false
+      },
+      "invalidOptionURL": "http://127.0.0.1:4201/?supportProbe=1&assist=0.1&catch=on&catchScale=1&weapon=longsword&foeWeapon=longsword&foe=default&stanceTrial=FRESH",
+      "invalidOptionFallback": {
+        "stanceMemory": "legacy",
+        "trial": {
+          "active": false,
+          "model": "legacy"
+        },
+        "infoPresent": false
+      },
+      "localStorageHasNoTrialPersistence": true,
+      "screenshotPaths": [
+        {
+          "key": "linksScreenshot",
+          "path": "/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1/stance-memory-q07-stance-memory-232e772-run1-portrait-fresh-links.png"
+        },
+        {
+          "key": "menuScreenshot",
+          "path": "/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1/stance-memory-q07-stance-memory-232e772-run1-portrait-fresh-menu.png"
+        },
+        {
+          "key": "rotateScreenshot",
+          "path": "/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1/stance-memory-q07-stance-memory-232e772-run1-portrait-fresh-rotate.png"
+        },
+        {
+          "key": "touchScreenshot",
+          "path": "/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1/stance-memory-q07-stance-memory-232e772-run1-portrait-fresh-touch.png"
+        },
+        {
+          "key": "reentryScreenshot",
+          "path": "/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1/stance-memory-q07-stance-memory-232e772-run1-portrait-fresh-reentry.png"
+        }
+      ]
+    },
+    {
+      "model": "legacy",
+      "initialOrientation": "landscape",
+      "pass": true,
+      "actualFeatureHref": "http://127.0.0.1:4201/?supportProbe=1&assist=0.1&catch=on&catchScale=1&weapon=longsword&foeWeapon=longsword&foe=default&stanceTrial=legacy",
+      "configuration": {
+        "stanceMemory": "legacy",
+        "stanceTrial": {
+          "active": true,
+          "model": "legacy"
+        },
+        "supportModel": "legacy",
+        "weapon": "longsword",
+        "opponentWeapon": "longsword",
+        "gripReaction": "paired",
+        "supportProbe": {
+          "active": true,
+          "assist": 0.1,
+          "catchMode": "on",
+          "catchScale": 1,
+          "sourceBase": "14bcf1f+혼합수정"
+        }
+      },
+      "mobileGates": {
+        "allObservedLayoutsWithoutHorizontalOverflow": true,
+        "layoutChecks": [
+          {
+            "width": 844,
+            "height": 390,
+            "horizontalOverflow": false
+          },
+          {
+            "width": 844,
+            "height": 390,
+            "horizontalOverflow": false
+          },
+          {
+            "width": 844,
+            "height": 390,
+            "horizontalOverflow": false
+          }
+        ],
+        "landscapeRotateGuidanceHidden": true,
+        "portraitFightRotateGuidanceVisible": null,
+        "optionInfoVisible": true,
+        "canvasTouchDownObserved": true,
+        "dragFrameAdvance": {
+          "start": 1.4499999999999973,
+          "end": 1.824999999999996,
+          "requiredSeconds": 0.35
+        },
+        "releaseFrameAdvance": {
+          "start": 1.9499999999999955,
+          "end": 2.3499999999999943,
+          "requiredSeconds": 0.35
+        },
+        "retouchFrameAdvance": {
+          "start": 2.508333333333327,
+          "end": 2.891666666666659,
+          "requiredSeconds": 0.35
+        }
+      },
+      "oldPositiveNf": {
+        "timeS": 3.1749999999999914,
+        "values": {
+          "F": 600.1424217224121,
+          "B": 194.64905977249146
+        },
+        "positive": true
+      },
+      "syntheticKnockdown": {
+        "timeS": 3.1749999999999914,
+        "state": "down",
+        "downTime": 2.2,
+        "nf": {
+          "F": 600.1424217224121,
+          "B": 194.64905977249146
+        }
+      },
+      "firstActualReentry": {
+        "timeS": 7.38333333333349,
+        "state": "stand",
+        "startedBefore": true,
+        "nfBefore": {
+          "F": 600.1424217224121,
+          "B": 194.64905977249146
+        },
+        "legsBefore": {
+          "F": {
+            "N": 600.1424217224121,
+            "Nf": 600.1424217224121,
+            "pinF": 10.942658777859405,
+            "pinLim": 540.1281795501709,
+            "stance": true
+          },
+          "B": {
+            "N": 194.64905977249146,
+            "Nf": 194.64905977249146,
+            "pinF": 11.15909033230868,
+            "pinLim": 175.1841537952423,
+            "stance": true
+          }
+        },
+        "nfAfter": {
+          "F": 600.1424217224121,
+          "B": 194.64905977249146
+        },
+        "legsAfter": {
+          "F": {
+            "N": 600.1424217224121,
+            "Nf": 600.1424217224121,
+            "pinF": 10.942658777859405,
+            "pinLim": 540.1281795501709,
+            "stance": true
+          },
+          "B": {
+            "N": 194.64905977249146,
+            "Nf": 194.64905977249146,
+            "pinF": 11.15909033230868,
+            "pinLim": 175.1841537952423,
+            "stance": true
+          }
+        },
+        "plantCalls": [
+          {
+            "timeS": 7.38333333333349,
+            "leg": "F",
+            "nfBefore": {
+              "F": 600.1424217224121,
+              "B": 194.64905977249146
+            }
+          },
+          {
+            "timeS": 7.38333333333349,
+            "leg": "B",
+            "nfBefore": {
+              "F": 600.1424217224121,
+              "B": 194.64905977249146
+            }
+          }
+        ],
+        "seenStates": [
+          "stand",
+          "down",
+          "getup"
+        ],
+        "recomputedNf": null,
+        "currentNf": {
+          "F": 379.37128270904464,
+          "B": 277.5289337914081
+        }
+      },
+      "renderedFrameAndGapSamples": {
+        "finiteSamples": 88,
+        "nonfiniteSamples": 0,
+        "jointGapSamples": 2464,
+        "maxJointGapM": 0.001338650943336407,
+        "maxJointGapMm": 1.338650943336407,
+        "sampling": "requestAnimationFrame callbacks, at most once per rendered frame when simTime has advanced; not every physics step"
+      },
+      "restart": {
+        "newCombat": true,
+        "newPlayer": true,
+        "newEnemy": true,
+        "stanceMemory": "legacy",
+        "playerMemory": null,
+        "enemyMemory": null
+      },
+      "ordinaryUrlFallback": {
+        "stanceMemory": "legacy",
+        "trial": {
+          "active": false,
+          "model": "legacy"
+        },
+        "infoPresent": false
+      },
+      "invalidOptionURL": "http://127.0.0.1:4201/?supportProbe=1&assist=0.1&catch=on&catchScale=1&weapon=longsword&foeWeapon=longsword&foe=default&stanceTrial=FRESH",
+      "invalidOptionFallback": {
+        "stanceMemory": "legacy",
+        "trial": {
+          "active": false,
+          "model": "legacy"
+        },
+        "infoPresent": false
+      },
+      "localStorageHasNoTrialPersistence": true,
+      "screenshotPaths": [
+        {
+          "key": "linksScreenshot",
+          "path": "/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1/stance-memory-q07-stance-memory-232e772-run1-landscape-legacy-links.png"
+        },
+        {
+          "key": "menuScreenshot",
+          "path": "/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1/stance-memory-q07-stance-memory-232e772-run1-landscape-legacy-menu.png"
+        },
+        {
+          "key": "touchScreenshot",
+          "path": "/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1/stance-memory-q07-stance-memory-232e772-run1-landscape-legacy-touch.png"
+        },
+        {
+          "key": "reentryScreenshot",
+          "path": "/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1/stance-memory-q07-stance-memory-232e772-run1-landscape-legacy-reentry.png"
+        }
+      ]
+    },
+    {
+      "model": "fresh",
+      "initialOrientation": "landscape",
+      "pass": true,
+      "actualFeatureHref": "http://127.0.0.1:4201/?supportProbe=1&assist=0.1&catch=on&catchScale=1&weapon=longsword&foeWeapon=longsword&foe=default&stanceTrial=fresh",
+      "configuration": {
+        "stanceMemory": "fresh",
+        "stanceTrial": {
+          "active": true,
+          "model": "fresh"
+        },
+        "supportModel": "legacy",
+        "weapon": "longsword",
+        "opponentWeapon": "longsword",
+        "gripReaction": "paired",
+        "supportProbe": {
+          "active": true,
+          "assist": 0.1,
+          "catchMode": "on",
+          "catchScale": 1,
+          "sourceBase": "14bcf1f+혼합수정"
+        }
+      },
+      "mobileGates": {
+        "allObservedLayoutsWithoutHorizontalOverflow": true,
+        "layoutChecks": [
+          {
+            "width": 844,
+            "height": 390,
+            "horizontalOverflow": false
+          },
+          {
+            "width": 844,
+            "height": 390,
+            "horizontalOverflow": false
+          },
+          {
+            "width": 844,
+            "height": 390,
+            "horizontalOverflow": false
+          }
+        ],
+        "landscapeRotateGuidanceHidden": true,
+        "portraitFightRotateGuidanceVisible": null,
+        "optionInfoVisible": true,
+        "canvasTouchDownObserved": true,
+        "dragFrameAdvance": {
+          "start": 1.4583333333333306,
+          "end": 1.824999999999996,
+          "requiredSeconds": 0.35
+        },
+        "releaseFrameAdvance": {
+          "start": 1.9583333333333288,
+          "end": 2.316666666666661,
+          "requiredSeconds": 0.35
+        },
+        "retouchFrameAdvance": {
+          "start": 2.4666666666666606,
+          "end": 2.8249999999999926,
+          "requiredSeconds": 0.35
+        }
+      },
+      "oldPositiveNf": {
+        "timeS": 3.1499999999999915,
+        "values": {
+          "F": 582.6548910140991,
+          "B": 183.25682187080383
+        },
+        "positive": true
+      },
+      "syntheticKnockdown": {
+        "timeS": 3.1499999999999915,
+        "state": "down",
+        "downTime": 2.2,
+        "nf": {
+          "F": 582.6548910140991,
+          "B": 183.25682187080383
+        }
+      },
+      "firstActualReentry": {
+        "timeS": 7.358333333333489,
+        "state": "stand",
+        "startedBefore": true,
+        "nfBefore": {
+          "F": 582.6548910140991,
+          "B": 183.25682187080383
+        },
+        "legsBefore": {
+          "F": {
+            "N": 582.6548910140991,
+            "Nf": 582.6548910140991,
+            "pinF": 10.882696876671936,
+            "pinLim": 524.3894019126892,
+            "stance": true
+          },
+          "B": {
+            "N": 182.7690625190735,
+            "Nf": 183.25682187080383,
+            "pinF": 10.636163218533392,
+            "pinLim": 164.93113968372344,
+            "stance": true
+          }
+        },
+        "nfAfter": {
+          "F": 0,
+          "B": 0
+        },
+        "legsAfter": {
+          "F": {
+            "N": 582.6548910140991,
+            "Nf": 0,
+            "pinF": 10.882696876671936,
+            "pinLim": 524.3894019126892,
+            "stance": true
+          },
+          "B": {
+            "N": 182.7690625190735,
+            "Nf": 0,
+            "pinF": 10.636163218533392,
+            "pinLim": 164.93113968372344,
+            "stance": true
+          }
+        },
+        "plantCalls": [
+          {
+            "timeS": 7.358333333333489,
+            "leg": "F",
+            "nfBefore": {
+              "F": 0,
+              "B": 0
+            }
+          },
+          {
+            "timeS": 7.358333333333489,
+            "leg": "B",
+            "nfBefore": {
+              "F": 0,
+              "B": 0
+            }
+          }
+        ],
+        "seenStates": [
+          "stand",
+          "down",
+          "getup"
+        ],
+        "recomputedNf": {
+          "timeS": 7.366666666666823,
+          "values": {
+            "F": 41.418059423751515,
+            "B": 0
+          },
+          "positive": true
+        },
+        "currentNf": {
+          "F": 41.418059423751515,
+          "B": 0
+        }
+      },
+      "renderedFrameAndGapSamples": {
+        "finiteSamples": 85,
+        "nonfiniteSamples": 0,
+        "jointGapSamples": 2380,
+        "maxJointGapM": 0.0012669968718048129,
+        "maxJointGapMm": 1.2669968718048128,
+        "sampling": "requestAnimationFrame callbacks, at most once per rendered frame when simTime has advanced; not every physics step"
+      },
+      "restart": {
+        "newCombat": true,
+        "newPlayer": true,
+        "newEnemy": true,
+        "stanceMemory": "fresh",
+        "playerMemory": null,
+        "enemyMemory": null
+      },
+      "ordinaryUrlFallback": {
+        "stanceMemory": "legacy",
+        "trial": {
+          "active": false,
+          "model": "legacy"
+        },
+        "infoPresent": false
+      },
+      "invalidOptionURL": "http://127.0.0.1:4201/?supportProbe=1&assist=0.1&catch=on&catchScale=1&weapon=longsword&foeWeapon=longsword&foe=default&stanceTrial=FRESH",
+      "invalidOptionFallback": {
+        "stanceMemory": "legacy",
+        "trial": {
+          "active": false,
+          "model": "legacy"
+        },
+        "infoPresent": false
+      },
+      "localStorageHasNoTrialPersistence": true,
+      "screenshotPaths": [
+        {
+          "key": "linksScreenshot",
+          "path": "/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1/stance-memory-q07-stance-memory-232e772-run1-landscape-fresh-links.png"
+        },
+        {
+          "key": "menuScreenshot",
+          "path": "/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1/stance-memory-q07-stance-memory-232e772-run1-landscape-fresh-menu.png"
+        },
+        {
+          "key": "touchScreenshot",
+          "path": "/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1/stance-memory-q07-stance-memory-232e772-run1-landscape-fresh-touch.png"
+        },
+        {
+          "key": "reentryScreenshot",
+          "path": "/workspace/halfsword-hybrid-evidence/q07-stance-memory-browser-232e772-run1/stance-memory-q07-stance-memory-232e772-run1-landscape-fresh-reentry.png"
+        }
+      ]
+    }
+  ]
+}

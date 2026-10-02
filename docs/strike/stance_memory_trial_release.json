@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "recordedKST": "2026-10-02 21:02",
+  "status": "local_verified_remote_blocked",
+  "sourceCommit": "232e772fd5e4873fe0410d184832a36d3add1cac",
+  "default": "legacy",
+  "freshSupportScope": "legacy only",
+  "checks": {
+    "build": "pass",
+    "runtimeRows": 6,
+    "runtimeResearchTraceParity": "all exact",
+    "combatRows": 8,
+    "combatEfficacy": "mixed; no default adoption",
+    "localBrowserRows": 4,
+    "localBrowserPass": true
+  },
+  "runtimeMetrics": "stance_memory_runtime_metrics.json",
+  "combatMetrics": "stance_memory_combat_round1_metrics.json",
+  "browserMetrics": "stance_memory_mobile_round1_metrics.json",
+  "integrationAudit": {
+    "sha256": "4fe66be577afcfa8c100674e5ea9b676368c7d7c76a3e3b1c3ac6dcd7c7a9580",
+    "record": {
+      "scope": "commit232e772 선택형 runtime 연결 독립 읽기 감사. 새 실행/네트워크 조회/공유파일 수정 없음.",
+      "head": "232e772fd5e4873fe0410d184832a36d3add1cac",
+      "runtime": {
+        "path": "/workspace/halfsword-hybrid-evidence/stance-memory-runtime-r1.json",
+        "sha256": "3aeb04fb7e59bf609bf3dddd0e14e4cc2a7586eae9ae1d70f990051aa1803b9b",
+        "metricsSHAExact": true,
+        "rows": 6,
+        "sourceStable": true,
+        "headStable": true,
+        "currentSourceChanges": [],
+        "error": null,
+        "allRuntimeGuardsTrue": true,
+        "researchParity": [
+          {
+            "scenario": "healthy_getup",
+            "variant": "baseline",
+            "frames": 3000,
+            "researchTraceExact": true,
+            "traceSHA256": "bddf50b3e959a5f4181ea764ee545970938f859978104c35ef5abcafb4297dee",
+            "resetEntries": 1,
+            "resetNfZero": null
+          },
+          {
+            "scenario": "healthy_getup",
+            "variant": "observe",
+            "frames": 3000,
+            "researchTraceExact": true,
+            "traceSHA256": "bddf50b3e959a5f4181ea764ee545970938f859978104c35ef5abcafb4297dee",
+            "resetEntries": 1,
+            "resetNfZero": null
+          },
+          {
+            "scenario": "healthy_getup",
+            "variant": "memoryReset",
+            "frames": 3000,
+            "researchTraceExact": true,
+            "traceSHA256": "2928e3e50bd9e2555cd85921809aaf6eaaefc974cbab85f01c123a61b766786a",
+            "resetEntries": 1,
+            "resetNfZero": true
+          },
+          {
+            "scenario": "hurt_getup",
+            "variant": "baseline",
+            "frames": 3000,
+            "researchTraceExact": true,
+            "traceSHA256": "b14b17018a4d8e2eef073dbebbba8d23bce1e4ec91acf695fe3c1d83a3b031f3",
+            "resetEntries": 1,
+            "resetNfZero": null
+          },
+          {
+            "scenario": "hurt_getup",
+            "variant": "observe",
+            "frames": 3000,
+            "researchTraceExact": true,
+            "traceSHA256": "b14b17018a4d8e2eef073dbebbba8d23bce1e4ec91acf695fe3c1d83a3b031f3",
+            "resetEntries": 1,
+            "resetNfZero": null
+          },
+          {
+            "scenario": "hurt_getup",
+            "variant": "memoryReset",
+            "frames": 3000,
+            "researchTraceExact": true,
+            "traceSHA256": "b71b9c35b4b79533d8b31aa0e1d4ec59243b631503c675f2755ea8a89f27eb39",
+            "resetEntries": 1,
+            "resetNfZero": true
+          }
+        ]
+      },
+      "sourceReview": {
+        "defaultLegacy": true,
+        "freshExactStringOnly": true,
+        "ordinaryOrUnsupportedOverridesPriorSetting": true,
+        "legacySupportConditional": true,
+        "helperOnlyNfReset": true,
+        "noPersistenceInNewModules": true,
+        "bothFightersShareGaitConfig": true,
+        "urlConfigureBeforeGameConstruction": true,
+        "withdrawnSupportRemainsLegacy": true,
+        "rendererNoPhysicsWritesInMount": true
+      },
+      "codeEvidence": {
+        "enter": "src/gait.js:139 before active/sense/plantAt/footMass; helper does not write N, targets, mass, body pose/velocity or gains",
+        "options": "src/stance_trial.js:2-6 exact fresh vs legacy; main.js:52 configures once from current URL; restart uses same global GAIT config",
+        "persistence": "New stance modules have no storage read/write; ordinary reload assigns legacy regardless of previous module config. Browser ordinary/typo paths independently pending.",
+        "runtimeInstrumentation": "tools/sim/experiments/stance_memory_runtime_probe.mjs:44-51 delegates original production Gait.enter and observes Nf afterward; does not call research reset helper. No duplicate physical reset injected.",
+        "classification": "6 runtime rows = healthy/hurt × baseline/observe/fresh, not six independent fall conditions. Earlier18 legacy research rows cover6 conditions separately."
+      },
+      "combatEvidence": {
+        "path": "/workspace/halfsword-hybrid-evidence/stance-memory-combat-r3.json",
+        "sha256": "94a77bb7350c1fab2ee6756a8b145058142f1fbf5f283f7c399cfba426c67b2f",
+        "metricsSHAExact": true,
+        "executionPass": true,
+        "sourceStableAtResearchRun": true,
+        "researchSource": "e5d2f081de320e42634526e27a68804baf754993",
+        "currentSourceDifferentByExpectedIntegration": true,
+        "interpretation": "8 combat rows are4 starts×baseline/reset. Actual post-start resettrigger coverage2scene/seed starts; seed7 no-entry rows are no-intervention controls. Branches after clear have reactive AI/input/contact differences, not matched-input efficacy comparisons. Rotation/hand-error regressions and plate17 additional recovery context are explicitly retained."
+      },
+      "findings": [],
+      "limitations": [
+        "이 감사에서는 URL parser/지원조건을코드로읽었고새unit/browser실행을하지않았다. 진행중모바일4조건결과는이파일의PASS근거에포함하지않음.",
+        "일반기본값legacy코드와무외란건강/부상baseline역사trace보존을확인했다. 모든무기/모든실전의완전동일성을별도증명하지않음.",
+        "runtime6행은격리helper연구trace재현을증명하며,해당결과를새독립효능표본으로중복집계하지않는다.",
+        "원격인증/업로드/Pages배포를조회하거나실행하지않았다. 로컬commit/build/runtime증거와공개배포완료는별도이며새사용자용publicURL검증근거없음.",
+        "기본승격/전체회복해결/철회한axial재공개근거아님. 선택형legacy지원경로만검토했다."
+      ],
+      "decision": "출시 연결 코드에서 차단 결함 발견 없음. 일반legacy/URL-only/fresh+legacy조건과Nf-only수명초기화가명확하고runtime6행의기존연구trace재현이확인됨. 모바일완료및원격배포검증을별도기다려야하며공개완료로말하면안됨.",
+      "createdUTC": "2026-10-02T11:57:54.161302+00:00",
+      "evidenceAuditPassed": true
+    }
+  },
+  "publishing": {
+    "completed": false,
+    "githubAPI": "HTTP 401 Bad credentials",
+    "gitRead": "exit128: noninteractive username unavailable",
+    "gitPushAttempted": false,
+    "environmentDraftSaved": false,
+    "environmentDraftError": "INVALID_ARGUMENT: draft changed or secret requirement conflicts",
+    "writesToGitHub": 0,
+    "publicCandidateVerified": false,
+    "existingLabHTTPStatus": 200,
+    "existingLabSHA256": "c217beb9402414126e33335c4454cc8140644a30da206bf4cb0e10d5db1ce07e",
+    "existingLabHasStanceSection": false
+  },
+  "limitations": [
+    "local mobile emulation, not actual device or public candidate",
+    "runtime6 is two scenarios times three variants, not six independent fall conditions",
+    "combat AI diverges after intervention; mixed changes are not same-input efficacy proof",
+    "no full physical realism or recovery completion"
+  ]
+}
