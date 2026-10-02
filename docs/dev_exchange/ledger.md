@@ -31,3 +31,5 @@
 
 결정 이유·실패 조건·실제 배포는 [첫 기록](notes/2026-10-01.md), [다음 기록](notes/2026-10-02.md) 및 그 근거 링크를 읽는다. 이 대장은 일별 보고서를 대신하지 않는다.
 | A-023 | 2026-10-02 | 실제 실행을 검증한 발 하중 인계 대조 | 계측 dispatch 결함 수정·11검사 통과, 후보30행·모든 새 보행 후보 기각/보류 | [후보·실패·명령·해시](../strike/support_recovery_load_round2.md) | source gait 모듈 복제+같은 누움+force-ledger 의존; 원본 파일 수정 없음 | 미확인 |
+
+| A-024 | 2026-10-02 | 동일 폭주 직전 분리·전체 모터 토크 상한 | native0 제약 기여/위치오차 cap 결함 확인; bounded 전신·질량 조합 채택 보류 | [소스·관문·명령·수치](../strike/support_motor_limits_round3.md) | 같은 Rapier/누움 checkpoint/계측기 의존; bounded helper의 자유 두 강체 근사를 전신 해결로 이식하지 않음 | 미확인 |
