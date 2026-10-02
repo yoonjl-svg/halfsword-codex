@@ -48,3 +48,7 @@
 
 | A-031 | 2026-10-02 | 자율 개발 미션·무인 회귀와 증거 보존 | 지시 대기 없이 활성 개발 지속. 소스 전송 뒤/2시간 검사, 동일 성공·실패 캐시; 실제 workflow_run6검사PASS | `6585599`·context수정`f0afe5f`·후속`e652fa9`, [미션](../codex_team/DEVELOPMENT_MISSION.md), [계약·실행](../codex_team/automatic_checks.md) | 충돌 예상 AGENTS/README/workflow/run_checks. 현재 대화의 AI 재기동은 없음; 검사를 자동 코딩으로 부르지 않음 | 미확인 |
 | A-032 | 2026-10-02 | 실제 native bit로 기립 보조 인과 분리 | 첫창zero0건; 일괄off는 건강후퇴/이전삭제trace exact. 이후zero만off는 손상refall3→1이나 첫실패유지; 격리 | `e652fa9`, [14행·실패·후처리·명령](../strike/native_recovery_round6.md) | 별도엔진/API교정/동일누움 의존. 충돌 예상 native_recovery 연구도구, 공개엔진 미변경. 전체회복 미해결 | 미확인 |
+
+| A-038 | 2026-10-03 | 실제 자세 연속 손 목표·양손 제약/공통 목표 | 36+5+6실행; 양손 사선 추종/정지 후퇴로 후보 미채택 | `04831d8` [실패 근거](../strike/elbow_continuity_round2.md) | 연구도구/기하 계약 이식 가능, 새 gain·런타임 적용 권고 없음 | 미확인 |
+| A-039 | 2026-10-03 | 생성부터 보정 약/끔 고정 선택형 | 72실행·legacy7쌍·실제 접촉/폰/빌드 검증; 로컬 선택형, 일반값 유지/미공개 | `04831d8` [구현](../strike/target_correction_trial.md) | main/helper/feature-lab 충돌 예상; 상대 난이도normal session고정, 저장값보존 | 미확인 |
+| A-040 | 2026-10-03 | headless와 라운드 종료 계약 | 8전투+observer, 큰gap 반례는종료후stress로범위정정; actual defect자료유지 | `04831d8` [진단](../strike/skill_manual_combat_round1.md) | 엔진동일·브라우저완전동등아님; 소스와원자료/종료계약같이이식 | 미확인 |
