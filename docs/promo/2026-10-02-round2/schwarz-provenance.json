@@ -1,0 +1,251 @@
+{
+  "sourceCommit": "25163ddde8c3b0324e6e28be88257756a8a708a5",
+  "url": "http://127.0.0.1:4201/?stage=cathedral&foe=margarethe&weapon=zweihander&foeWeapon=longsword",
+  "seed": 1701,
+  "labelKo": "재현용 조작 입력으로 실제 게임에서 촬영한 슈바르츠 투구 뿔 파손",
+  "claimScope": "Actual sword collision caused partial helmet horn breakage. Remaining bowl/nape/spire/plume stayed attached. Complete helmet destruction and glancing angle are not claimed. Fragment motion uses the original game cosmetic debris system.",
+  "control": {
+    "attacker": "Scripted hand input x=.02: y=.55 to-.35 over.22s, period1.6s, .7s preparation/.18s bottom hold/.5s return. Held hand=true; aimRaw uses same target. Movement input clamps 1.7*(measured chest distance-1.12) to[-.55,.55], using existing gait. A standard hard AI constructor sets its ordinary player skill/strength; bot decisions are not used in this sweep mode.",
+    "defender": "Scripted hand target(.12,-.48), smoothly approached at min(1,dt*4); held hand=true, neutral movement/stick. Existing body controller/physics continues.",
+    "unchanged": "No source edits, no body position/velocity/health/durability mutation, no direct synthetic combat.strike or applyWound invocation. Observer calls original applyWound with the exact normal combat argument.",
+    "render": "During scouting only render cap2. Before snapshots cap disabled, viewport1920x1080 deviceScaleFactor1, paused game + free camera, DOM overlays hidden. Browser screenshot records the actual game renderer without image editing."
+  },
+  "helmetEvents": [
+    {
+      "t": 9.35000000000011,
+      "step": 1123,
+      "energy": 37.26408997821885,
+      "type": "blunt",
+      "zone": "head",
+      "severity": 0,
+      "local": [
+        0.03117370066442608,
+        0.007157126911036423,
+        0.09903820855565937
+      ],
+      "dir": [
+        -0.059748859039910285,
+        0.9129068796458925,
+        0.4037711021589197
+      ],
+      "helmet": true,
+      "passing": false,
+      "pass": false,
+      "speed": 3.1817582214085425,
+      "before": {
+        "integrity": 1,
+        "stage": 0,
+        "hasHelmet": true,
+        "pieces": [
+          "bowl",
+          "nape",
+          "spire",
+          "crest",
+          "hornR",
+          "hornL",
+          "plume"
+        ]
+      },
+      "after": {
+        "integrity": 0.6867655857454016,
+        "stage": 1,
+        "hasHelmet": true,
+        "pieces": [
+          "bowl",
+          "nape",
+          "spire",
+          "crest",
+          "hornL",
+          "plume"
+        ]
+      },
+      "removed": [
+        "hornR"
+      ]
+    }
+  ],
+  "candidates": [
+    {
+      "file": "03-schwarz-helmet-contact.png",
+      "source": "run07/attempt-1-stage-1-shed.png",
+      "sha256": "9deba352ea68ae5d54f9d7ba9509742892723306cdc8921eafacb68cf4f531b9",
+      "nativePixels": [
+        1920,
+        1080
+      ],
+      "capture": {
+        "filename": "attempt-1-stage-1-shed.png",
+        "event": {
+          "t": 9.35000000000011,
+          "step": 1123,
+          "energy": 37.26408997821885,
+          "type": "blunt",
+          "zone": "head",
+          "severity": 0,
+          "local": [
+            0.03117370066442608,
+            0.007157126911036423,
+            0.09903820855565937
+          ],
+          "dir": [
+            -0.059748859039910285,
+            0.9129068796458925,
+            0.4037711021589197
+          ],
+          "helmet": true,
+          "passing": false,
+          "pass": false,
+          "speed": 3.1817582214085425,
+          "before": {
+            "integrity": 1,
+            "stage": 0,
+            "hasHelmet": true,
+            "pieces": [
+              "bowl",
+              "nape",
+              "spire",
+              "crest",
+              "hornR",
+              "hornL",
+              "plume"
+            ]
+          },
+          "after": {
+            "integrity": 0.6867655857454016,
+            "stage": 1,
+            "hasHelmet": true,
+            "pieces": [
+              "bowl",
+              "nape",
+              "spire",
+              "crest",
+              "hornL",
+              "plume"
+            ]
+          },
+          "removed": [
+            "hornR"
+          ]
+        },
+        "t": 9.358333333333443,
+        "stage": "cathedral",
+        "playerWeapon": "zweihander",
+        "enemyWeapon": "longsword",
+        "helm": 0.6867655857454016,
+        "hasHelmet": true,
+        "debris": 2,
+        "stats": {
+          "hits": [
+            "나->chest:cut(관통) 128J 심각도0.87",
+            "나->arm:cut(관통) 120J 심각도1.03",
+            "마르그레테 슈바르츠->leg:blunt 17J 심각도0.00",
+            "나->abdomen:blunt 11J 심각도0.00",
+            "마르그레테 슈바르츠->leg:blunt 7J 심각도0.00",
+            "나->chest:cut(관통) 149J 심각도1.11",
+            "나->abdomen:blunt 18J 심각도0.00",
+            "나->chest:cut(관통) 117J 심각도1.41",
+            "나->arm:cut(관통) 61J 심각도0.40",
+            "나->abdomen:blunt 11J 심각도0.00",
+            "나->head:blunt 37J 심각도0.00"
+          ],
+          "clashes": 1,
+          "simTime": 9.358333333333443,
+          "passes": 5
+        },
+        "camera": [
+          1.7881854118019225,
+          1.389092457294464,
+          2.647974726369912
+        ],
+        "cameraTarget": [
+          2.0242448449134827,
+          1.2390924572944642,
+          0.04667198657989502
+        ],
+        "state": "paused"
+      },
+      "selected_source_file": "01-schwarz-helmet-contact.png"
+    },
+    {
+      "file": "04-schwarz-helmet-fragment.png",
+      "source": "run07/attempt-1-stage-1-shed-sim-after100ms-reverse.png",
+      "sha256": "040f9cda291caa99655175797480d18c441f1145dd0ebc891ac9534b8544bf5f",
+      "nativePixels": [
+        1920,
+        1080
+      ],
+      "capture": {
+        "filename": "attempt-1-stage-1-shed-sim-after100ms-reverse.png",
+        "event": {
+          "t": 9.35000000000011,
+          "step": 1123,
+          "energy": 37.26408997821885,
+          "type": "blunt",
+          "zone": "head",
+          "severity": 0,
+          "local": [
+            0.03117370066442608,
+            0.007157126911036423,
+            0.09903820855565937
+          ],
+          "dir": [
+            -0.059748859039910285,
+            0.9129068796458925,
+            0.4037711021589197
+          ],
+          "helmet": true,
+          "passing": false,
+          "pass": false,
+          "speed": 3.1817582214085425,
+          "before": {
+            "integrity": 1,
+            "stage": 0,
+            "hasHelmet": true,
+            "pieces": [
+              "bowl",
+              "nape",
+              "spire",
+              "crest",
+              "hornR",
+              "hornL",
+              "plume"
+            ]
+          },
+          "after": {
+            "integrity": 0.6867655857454016,
+            "stage": 1,
+            "hasHelmet": true,
+            "pieces": [
+              "bowl",
+              "nape",
+              "spire",
+              "crest",
+              "hornL",
+              "plume"
+            ]
+          },
+          "removed": [
+            "hornR"
+          ]
+        },
+        "t": 9.491666666666768,
+        "state": "paused",
+        "alive": [
+          true,
+          true
+        ],
+        "debris": 2,
+        "camera": [
+          2.3153839765876647,
+          1.389092457294464,
+          -2.536986753901774
+        ]
+      },
+      "selected_source_file": "02-schwarz-horn-fragment.png"
+    }
+  ],
+  "excluded": "Stage2 PNGs are excluded: a later browser clock.pauseAt error occurred before their matching event metadata was written.",
+  "errorsRecordedInRaw": [],
+  "selectedSourceManifestSha256": "2f33d1757e21eacda5f0ccc33710b583033a446d3135048404a030db937ca5fd",
+  "eventRecord": "schwarz-helmet-events.json"
+}
