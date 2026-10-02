@@ -48,3 +48,5 @@ guard selftest는 비정상 exit/JSON false/sourceStable false/JSON 미생성/ti
 그 뒤 originRun/currentRun metadata, cache-hit 원자료 중복 업로드 방지와 malformed tests/runs JSON의 TypeError 격리를 추가했다. 이 마지막 도구/워크플로 버전은 guard selftest·기존6개 원자료의 계약 재확인·문법/정책 검사로 확인했고, 같은 물리suite를 반복하지 않았다. 마지막 바이트 기준 실제 Actions schedule/dispatch/workflow_run 결과는 아직 미검증이며 전송 후 run 영수증으로 확인한다.
 
 [로컬 원자료 해시·실행 소스·후속 검증 영수증](automatic_checks_validation.json)에 성공과 최초 실패를 함께 보존했다.
+
+첫 GitHub dispatch는 HTTP422로 거부됐다. job 수준 `env`에서 `runner.temp` 표현식을 지원하지 않는다는 실제 서버 검증 결과다. 로컬 YAML 구문 검사는 Actions의 context 유효성까지 보장하지 못했다. 첫 shell step의 `RUNNER_TEMP`로 경로를 만들고 `GITHUB_ENV`로 다음 step에 전달하도록 수정했다. 등록 상태 active만으로 실행 성공이라고 판정하지 않으며, 수정 뒤 실제 run을 검증한다.
