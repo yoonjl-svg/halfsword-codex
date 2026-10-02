@@ -85,13 +85,13 @@ function sample(f,timeS,phase) {
 }
 
 /** ledgerFactory(G) must return {samples, summary(), restore()}; observer only. */
-export function runStroke({ weapon='longsword', direction='down', reaction='legacy', ending='release', seed=7, durationS=0.55, prepareS=3, afterS=1.2, sampleHz=30, ledgerFactory=null }={}) {
-  if (!['down','up'].includes(direction) || !['legacy','paired'].includes(reaction) || !['release','target_hold'].includes(ending)) throw new Error('unsupported controlled condition');
+export function runStroke({ weapon='longsword', direction='down', reaction='legacy', ending='release', seed=7, durationS=0.55, prepareS=3, afterS=1.2, sampleHz=30, ledgerFactory=null, intervention=null }={}) {
+  if (!['down','up','cross'].includes(direction) || !['legacy','paired'].includes(reaction) || !['release','target_hold'].includes(ending)) throw new Error('unsupported controlled condition');
   if (reaction==='paired' && !Object.hasOwn(CONFIG.GRIP,'reactionModel')) throw new Error('paired model is unavailable in this loaded source');
   const originalReaction = CONFIG.GRIP.reactionModel;
   CONFIG.GRIP.reactionModel='legacy'; // All matched preparation remains the original controller.
   const G=newRound({seed,walls:false,weapon,weapon2:'longsword'});
-  G.park();const f=G.player;const [from,to]=direction==='down'?[HIGH,LOW]:[LOW,HIGH];
+  G.park();const f=G.player;const [from,to]=direction==='cross'?[[-0.42,0.25],[0.42,-0.30]]:direction==='down'?[HIGH,LOW]:[LOW,HIGH];
   let ledger=null;
   try {
     f.handOffset.set(...from);
@@ -100,9 +100,10 @@ export function runStroke({ weapon='longsword', direction='down', reaction='lega
     f.handHeld=true;f.inputActive=false;f.skill.autoGuard=true;
     for(let i=0;i<Math.round(prepareS/DT);i++){G.step();finite(f);}
     const startState=physicalControlState(f), startSha256=sha(JSON.stringify(startState));
-    const initial=sample(f,0,'start');
+    const initial=sample(f,0,'start'),startNativeSha256=sha(G.world.takeSnapshot());
     CONFIG.GRIP.reactionModel=reaction;
     if(ledgerFactory) ledger=ledgerFactory(G);
+    intervention?.activate?.({G,f,DT,ledger,startState,initial});
     const samples=[],trace=createHash('sha256'),inputTrace=createHash('sha256'),ledgerBook=ledgerObservations();
     const steps=Math.ceil((durationS+afterS)/DT),stride=Math.max(1,Math.round(1/(sampleHz*DT)));
     let peak=null,strokePeak=null,endSample=null,lastAxis=V(initial.bladeAxisWorld),afterAxisTravelRad=0;
@@ -116,6 +117,7 @@ export function runStroke({ weapon='longsword', direction='down', reaction='lega
       if(ledger)accumulateLedger(ledgerBook,ledger.latest);
       const s=sample(f,(i+1)*DT,inStroke?'stroke':'after_input');
       finiteNumbers(s);
+      intervention?.afterStep?.({G,f,DT,ledger,sample:s,iteration:i});
       const axis=V(s.bladeAxisWorld);if(!inStroke)afterAxisTravelRad+=angle(lastAxis,axis);lastAxis=axis;
       if(!peak||s.tipSpeedMps>peak.tipSpeedMps)peak=s;
       if(inStroke&&(!strokePeak||s.tipSpeedMps>strokePeak.tipSpeedMps))strokePeak=s;
@@ -126,11 +128,11 @@ export function runStroke({ weapon='longsword', direction='down', reaction='lega
       if(i%stride===0||i===steps-1||Math.abs((i+1)*DT-durationS)<DT/2)samples.push(s);
     }
     return {weapon,direction,reaction,ending,seed,durationS,prepareS,afterS,timestepS:DT,
-      startSha256,inputSha256:inputTrace.digest('hex'),traceSha256:trace.digest('hex'),initial,strokePeak,peak,endSample,final:samples.at(-1),
+      startSha256,startNativeSha256,inputSha256:inputTrace.digest('hex'),traceSha256:trace.digest('hex'),initial,strokePeak,peak,endSample,final:samples.at(-1),
       summary:{grippingFraction:grippingSteps/steps,wristBrakingFraction:brakingSteps/steps,maxHandTargetErrorM,maxOffHandGapM,afterInputBladeAxisTravelRad:afterAxisTravelRad},
       ledger:ledger?{available:true,summary:ledger.summary(),observations:finishLedger(ledgerBook),samples:ledger.samples}:{available:false},samples,finite:true,
       controlMeaning:'release=handHeld false after identical drag; target_hold=handHeld true after identical drag. Both retain all original controllers. Auto recovery can change actual handOffset after release; this is recorded, not free-flight or a forced angular-velocity brake.'};
-  } finally {ledger?.restore();G.eventQueue.free();G.world.free();if(originalReaction===undefined)delete CONFIG.GRIP.reactionModel;else CONFIG.GRIP.reactionModel=originalReaction;}
+  } finally {intervention?.restore?.();ledger?.restore();G.eventQueue.free();G.world.free();if(originalReaction===undefined)delete CONFIG.GRIP.reactionModel;else CONFIG.GRIP.reactionModel=originalReaction;}
 }
 
 async function main() {
