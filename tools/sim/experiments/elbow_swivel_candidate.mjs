@@ -9,18 +9,19 @@ export function installElbowSwivelCandidate({f,ledger,observe=false}){
   const b=V(ej.joint.anchor2()).distanceTo(V(f.gripJoint.anchor1()));
   const original=f.constructor.prototype.driveJoints;
   const restore=ledger.replaceObservedMethod(f,'driveJoints',function(...args){
-    const before=sj.target.clone();
+    const before=sj.target.clone(),beforeUnit=before.clone().normalize();
     const beta=2*Math.atan2(ej.target.z,ej.target.w);
     const chain=new THREE.Vector3(a+b*Math.cos(beta),b*Math.sin(beta),0);
-    const desired=chain.clone().applyQuaternion(before);
-    const actual=Q(this.bodies.chest.rotation()).invert().multiply(Q(this.bodies.uarmS.rotation()));
+    const desired=chain.clone().applyQuaternion(beforeUnit);
+    const actual=Q(this.bodies.chest.rotation()).invert().multiply(Q(this.bodies.uarmS.rotation())).normalize();
     const actualDirection=chain.clone().applyQuaternion(actual).normalize();
     const candidate=new THREE.Quaternion().setFromUnitVectors(actualDirection,desired.clone().normalize()).multiply(actual).normalize();
     const active=!observe&&this.guardWeight()===0&&this.skill.thrustPose.w===0;
     if(active)sj.target.copy(candidate);
-    records.push({active,betaRad:beta,before:before.toArray(),after:sj.target.toArray(),actual:actual.toArray(),
+    records.push({active,betaRad:beta,before:before.toArray(),after:sj.target.toArray(),actual:actual.toArray(),beforeNorm:before.length(),
       oldErrorRad:actual.angleTo(before),newErrorRad:actual.angleTo(sj.target),
-      endpointDeltaM:chain.clone().applyQuaternion(sj.target).distanceTo(desired)});
+      rawEndpointDeltaM:chain.clone().applyQuaternion(sj.target).distanceTo(chain.clone().applyQuaternion(before)),
+      endpointDeltaM:chain.clone().applyQuaternion(sj.target.clone().normalize()).distanceTo(desired)});
     return original.apply(this,args);
   });
   return {records,restore};
