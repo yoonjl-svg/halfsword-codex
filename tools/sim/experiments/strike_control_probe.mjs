@@ -15,7 +15,7 @@ const V=v=>new THREE.Vector3(v.x,v.y,v.z),Q=q=>new THREE.Quaternion(q.x,q.y,q.z,
 const opts=Object.fromEntries(process.argv.slice(2).map(x=>{const m=/^--(out|variants|weapons|directions|endings)=(.+)$/.exec(x);if(!m)throw Error('Use --out/variants/weapons/directions/endings=value');return[m[1],m[2]];}));
 const output=opts.out??'/tmp/strike-control.json',variants=(opts.variants??'baseline,clone,chest,gravityOffAll,gravityOffShoulder,gravityOffElbow,gravityOffWrist').split(',');
 const weapons=(opts.weapons??'longsword,zweihander').split(','),directions=(opts.directions??'down,up,cross').split(','),endings=(opts.endings??'release').split(',');
-if(variants.some(v=>!['baseline','clone','chest','gravityOffAll','gravityOffShoulder','gravityOffElbow','gravityOffWrist'].includes(v)))throw Error('Unknown variant');
+if(variants.some(v=>!['baseline','clone','chest','chestYaw','gravityOffAll','gravityOffShoulder','gravityOffElbow','gravityOffWrist'].includes(v)))throw Error('Unknown variant');
 try{await access(output);throw Error('Refusing to overwrite evidence');}catch(e){if(e.code!=='ENOENT')throw e;}
 async function manifest(){
  async function files(dir){let out=[];for(const e of await readdir(new URL(dir,root),{withFileTypes:true})){const p=dir+'/'+e.name;if(e.isDirectory())out.push(...await files(p));else if(e.name.endsWith('.js'))out.push(p);}return out;}
@@ -28,8 +28,8 @@ function intervention(variant,modules){
  let frameControl=null;
  return {record,activate({G,f,ledger}){
   record.initialChest={...f.bodies.chest.rotation()};
-  if(variant==='chest')record.calibration=modules.captureCalibration(f);
-  const drive=variant==='chest'?modules.candidate:variant==='clone'?modules.clone:Fighter.prototype.driveSword;
+  if(variant==='chest'||variant==='chestYaw'){record.calibration=modules.captureCalibration(f,{rotation:variant==='chestYaw'?'yaw':'full'});undo.push(()=>modules.clearCalibration(f));}
+  const drive=(variant==='chest'||variant==='chestYaw')?modules.candidate:variant==='clone'?modules.clone:Fighter.prototype.driveSword;
   undo.push(ledger.replaceObservedMethod(f,'driveSword',function(...args){
    record.driveCalls++;
    const chest=Q(this.bodies.chest.rotation()),c=V(this.bodies.chest.translation());
@@ -37,7 +37,7 @@ function intervention(variant,modules){
    frameControl={chestRotation:{...this.bodies.chest.rotation()},chestOmega:plain(this.bodies.chest.angvel()),
     handTarget:plain(this.handTarget),handTargetInActualChest:plain(this.handTarget.clone().sub(c).applyQuaternion(chest.clone().invert())),
     aimTarget:plain(this.aimDirW),armTarget:this.jointByName.uarmS.target.toArray()};
-   if(variant==='chest')record.controller=modules.calibrationInfo(this);
+   if(variant==='chest'||variant==='chestYaw')record.controller=modules.calibrationInfo(this);
    return result;
   }));
   if(variant.startsWith('gravityOff'))undo.push(ledger.replaceObservedMethod(f,'gravityTorque',function(bodies,pivot,localX,out){
@@ -92,7 +92,7 @@ try{
    const g={weapon,direction,ending,variant,nativeStartExact:row.startNativeSha256===plain.startNativeSha256,controlStartExact:row.startSha256===plain.startSha256,inputExact:row.inputSha256===plain.inputSha256,driveExecuted:experiment.record.driveCalls>0};
    if(variant==='baseline'){baseline=row;g.observerTraceExact=row.traceSha256===plain.traceSha256;}
    if(variant==='clone')g.cloneTraceExact=row.traceSha256===baseline.traceSha256;
-   if(variant==='chest')g.transportedExecuted=experiment.record.controller?.transportedCalls>0;
+   if(variant==='chest'||variant==='chestYaw')g.transportedExecuted=experiment.record.controller?.transportedCalls>0;
    if(variant.startsWith('gravityOff'))g.gravityRemovalExecuted=experiment.record.removedGravityCalls>0;
    guards.push(g);if(Object.values(g).some(x=>x===false))throw Error('Evidence gate failed: '+JSON.stringify(g));
    console.log(JSON.stringify({progress:true,weapon,direction,variant,trace:row.traceSha256,peakTipMps:row.peak.tipSpeedMps,guards:g}));

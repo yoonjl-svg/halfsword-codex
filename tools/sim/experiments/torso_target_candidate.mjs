@@ -12,6 +12,7 @@ export const torsoTargetScope = Object.freeze({
   name: 'checkpoint-relative calibrated chest frame',
   calibration: 'C = inverse(heading at checkpoint) * actual chest at checkpoint; frame = actual chest now * inverse(C). The checkpoint can already be bent/twisted; it is not an anatomical neutral stance.',
   contract: 'The frame equals heading at capture. Later actual chest rotation, including chest following a heading change, transports the hand offset, blade aim and resting blade face together. Origin remains actual chest translation.',
+  yawOnly: 'rotation=yaw projects the corrected frame +X forward onto world XZ and uses atan2(-forward.z,forward.x) around world Y. Pitch/roll transport is excluded. Horizontal squared length < 1e-12 is a numerical axis singularity fallback to heading, not a human motion acceptance threshold.',
   offHand: 'Existing offHand uses the transported aimDirW * gripAlong + actual sword translation. Actual pommel, grip spring and common-point paired reaction are unchanged.',
   worldAim: 'Existing driveSword arithmetic uses heading whenever skill.tap is active, thrustPose.w > 0, finish.amt > 0, or weapon.gun is true; these commands derive local coordinates from world targets using heading.',
   untouched: ['armIK', 'offArmIK', 'offHand', 'manualMuscle', 'wrist gravity compensation', 'muscle strengths/caps', 'body pose', 'all force application and reaction code'],
@@ -30,19 +31,27 @@ function torsoTargetReadChest(f) {
   const q = f.bodies.chest.rotation();
   return new THREE.Quaternion(q.x, q.y, q.z, q.w).normalize();
 }
-export function captureTorsoTargetCalibration(f) {
+function torsoTargetYawFrame(frame) {
+  const forward=new THREE.Vector3(1,0,0).applyQuaternion(frame);
+  const horizontalSquared=forward.x*forward.x+forward.z*forward.z;
+  if (!Number.isFinite(horizontalSquared) || horizontalSquared<1e-12) return null;
+  return new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),Math.atan2(-forward.z,forward.x));
+}
+export function captureTorsoTargetCalibration(f, {rotation='full'}={}) {
+  if (!['full','yaw'].includes(rotation)) throw TypeError('rotation must be full or yaw');
   if (!f?.yaw || !f.bodies?.chest || !f.handTarget || !f.aimDirW) throw TypeError('Provide an actual Fighter at the matched checkpoint');
   const chest = torsoTargetReadChest(f);
   const heading = f.yaw.clone().normalize();
   const relative = heading.clone().invert().multiply(chest).normalize();
   const inverse = relative.clone().invert();
-  const frame = chest.clone().multiply(inverse).normalize();
+  let frame = chest.clone().multiply(inverse).normalize();
+  if (rotation==='yaw') frame=torsoTargetYawFrame(frame) || heading;
   const c = f.bodies.chest.translation();
   const offset = f.handTarget.clone().sub(new THREE.Vector3(c.x,c.y,c.z));
   const reproject = offset.clone().applyQuaternion(heading.clone().invert()).applyQuaternion(frame);
   const aimReproject = f.aimDirW.clone().applyQuaternion(heading.clone().invert()).applyQuaternion(frame);
-  const state = {inverse, calls:0, transportedCalls:0, fallbackCalls:0, fallbackReasons:{}, last:null,
-    calibration:{name:'checkpoint-relative calibrated chest frame', heading:heading.toArray(),
+  const state = {inverse, rotation, calls:0, transportedCalls:0, fallbackCalls:0, fallbackReasons:{}, last:null,
+    calibration:{name:'checkpoint-relative calibrated chest frame', rotation, heading:heading.toArray(),
       chest:chest.toArray(), relative:relative.toArray(), frame:frame.toArray(),
       frameAgreementChord:Math.min(Math.hypot(frame.x-heading.x,frame.y-heading.y,frame.z-heading.z,frame.w-heading.w),Math.hypot(frame.x+heading.x,frame.y+heading.y,frame.z+heading.z,frame.w+heading.w)),
       targetOffsetReprojectionErrorM:reproject.distanceTo(offset), aimReprojectionError:aimReproject.distanceTo(f.aimDirW)}};
@@ -69,7 +78,18 @@ function torsoTargetFrame(f) {
     s.last={transported:false,reasons,frame:f.yaw.toArray()};
     return f.yaw;
   }
-  const frame=torsoTargetReadChest(f).multiply(s.inverse).normalize();
+  let frame=torsoTargetReadChest(f).multiply(s.inverse).normalize();
+  if (s.rotation==='yaw') {
+    const projected=torsoTargetYawFrame(frame);
+    if (!projected) {
+      const reason='yawForwardHorizontalDegenerate';
+      s.fallbackCalls++;
+      s.fallbackReasons[reason]=(s.fallbackReasons[reason]||0)+1;
+      s.last={transported:false,reasons:[reason],frame:f.yaw.toArray()};
+      return f.yaw;
+    }
+    frame=projected;
+  }
   s.transportedCalls++;
   s.last={transported:true,reasons:[],frame:frame.toArray()};
   return frame;
@@ -120,16 +140,17 @@ export async function loadTorsoTargetCandidates() {
       scope:torsoTargetScope, cleanup,
     };
     api.installer = ({f, ledger, variant}) => {
-      if (!['clone','chest'].includes(variant)) throw TypeError('variant must be clone or chest');
+      if (!['clone','chest','chestYaw'].includes(variant)) throw TypeError('variant must be clone, chest or chestYaw');
       if (!ledger?.replaceObservedMethod) throw TypeError('Provide the actual force ledger');
-      const summary={variant,dispatchCalls:0,calibration:variant==='chest'?api.captureCalibration(f):null,controller:null};
+      const calibrated=variant!=='clone';
+      const summary={variant,dispatchCalls:0,calibration:calibrated?api.captureCalibration(f,{rotation:variant==='chestYaw'?'yaw':'full'}):null,controller:null};
       const implementation=variant==='clone'?api.clone:api.candidate;
       const restoreDispatch=ledger.replaceObservedMethod(f,'driveSword',function(...args){
         summary.dispatchCalls++;
         try {return implementation.apply(this,args);}
-        finally {if(variant==='chest')summary.controller=api.calibrationInfo(this);}
+        finally {if(calibrated)summary.controller=api.calibrationInfo(this);}
       });
-      return {summary,restore(){restoreDispatch();if(variant==='chest')api.clearCalibration(f);}};
+      return {summary,restore(){restoreDispatch();if(calibrated)api.clearCalibration(f);}};
     };
     return api;
   } catch (error) {

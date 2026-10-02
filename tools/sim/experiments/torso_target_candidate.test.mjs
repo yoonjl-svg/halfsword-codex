@@ -9,7 +9,11 @@ import { installForceLedger } from '../force_ledger.mjs';
 import { loadTorsoTargetCandidates, transformTorsoTargetFighter } from './torso_target_candidate.mjs';
 
 const root = new URL('../../../', import.meta.url);
-const output = process.argv[2] || '/workspace/halfsword-hybrid-evidence/torso-target-candidate-tests.json';
+const previousEvidencePath='/workspace/halfsword-hybrid-evidence/torso-target-candidate-tests.json';
+const output = process.argv[2] || '/workspace/halfsword-hybrid-evidence/torso-target-candidate-yaw-tests.json';
+if (output===previousEvidencePath) throw Error('Preserve the original full-mode evidence; use a new output path');
+const previousEvidenceBytes=await readFile(previousEvidencePath);
+const previousEvidence=JSON.parse(previousEvidenceBytes);
 const files = ['src/fighter.js','src/config.js','src/skill.js','src/guards.js',
   'tools/sim/harness_m.mjs','tools/sim/force_ledger.mjs',
   'tools/sim/experiments/torso_target_candidate.mjs','tools/sim/experiments/torso_target_candidate.test.mjs'];
@@ -70,7 +74,24 @@ try {
     assert.equal(chest.summary.controller.transportedCalls,100);
     assert.ok(chest.summary.calibration.frameAgreementChord<1e-14);
     assert.ok(chest.ledgerPaths.some(p=>p.includes('driveSword')));
-    return {classification:'Execution/finite component check; no performance or natural-motion acceptance.',frames:100,traceSha256:hash(JSON.stringify(chest.frames)),...chest.summary};
+    const traceSha256=hash(JSON.stringify(chest.frames));
+    const previous=previousEvidence.tests.find(t=>t.name==='chest candidate executes through actual observed dispatch with finite states');
+    assert.ok(previous?.pass);
+    assert.equal(traceSha256,previous.details.traceSha256);
+    assert.equal(modules.sourceHashes.original,previousEvidence.sourceHashes.original);
+    assert.equal(modules.sourceHashes.clone,previousEvidence.sourceHashes.clone);
+    assert.notEqual(modules.sourceHashes.candidate,previousEvidence.sourceHashes.candidate);
+    return {classification:'Execution/finite component check; no performance or natural-motion acceptance.',frames:100,traceSha256,
+      previousFullTraceSha256:previous.details.traceSha256,fullModeTracePreservedExactly:true,...chest.summary};
+  });
+  await test('yaw candidate executes through actual observed dispatch',() => {
+    const yaw=actualRun('chestYaw');
+    assert.equal(yaw.summary.dispatchCalls,100);
+    assert.equal(yaw.summary.controller.transportedCalls,100);
+    assert.equal(yaw.summary.calibration.rotation,'yaw');
+    assert.ok(yaw.summary.calibration.frameAgreementChord<1e-14);
+    return {classification:'Execution/finite component check; no whole-body performance acceptance.',frames:100,
+      traceSha256:hash(JSON.stringify(yaw.frames)),...yaw.summary};
   });
   await test('bent checkpoint target continuity, synthetic chest transport and world-aim fallbacks',() => {
     const G = newRound({seed:7,walls:false,AIClass:Passive}); G.park(); const f = G.player;
@@ -114,12 +135,67 @@ try {
         syntheticWorldYawIncrementRad:.2,transportedHandErrorM,transportedAimError,fallbackChecks,controller};
     } finally {modules.clearCalibration(f);G.world.free();}
   });
+  await test('synthetic yaw mode transports yaw, excludes tilt, and guards vertical forward singularity',() => {
+    const G=newRound({seed:7,walls:false,AIClass:Passive});G.park();const f=G.player;
+    try {
+      for(let i=0;i<30;i++)G.step();
+      assert.throws(()=>modules.captureCalibration(f,{rotation:'bad'}),/full or yaw/);
+      const calibration=modules.captureCalibration(f,{rotation:'yaw'});
+      modules.clone.call(f);const baseHand=f.handTarget.clone(),baseAim=f.aimDirW.clone();
+      modules.candidate.call(f);
+      const checkpointHandErrorM=f.handTarget.distanceTo(baseHand),checkpointAimError=f.aimDirW.distanceTo(baseAim);
+      assert.ok(checkpointHandErrorM<1e-14);assert.ok(checkpointAimError<1e-14);
+      const headingAngle=2*Math.atan2(f.yaw.y,f.yaw.w),center=new THREE.Vector3().copy(f.bodies.chest.translation());
+      const C=new THREE.Quaternion().fromArray(calibration.relative);
+      const yawIncrement=.3,pitch=-.4,roll=.5;
+      const corrected=new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),headingAngle+yawIncrement)
+        .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,0,1),pitch))
+        .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1,0,0),roll));
+      // Native body setters are confined to this synthetic coordinate fixture.
+      // No world.step follows them; none of their motion is strike evidence.
+      f.bodies.chest.setRotation(corrected.clone().multiply(C),true);
+      modules.candidate.call(f);
+      const deltaYaw=new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),yawIncrement);
+      const predictedHand=baseHand.clone().sub(center).applyQuaternion(deltaYaw).add(center);
+      const predictedAim=baseAim.clone().applyQuaternion(deltaYaw);
+      const yawHandErrorM=f.handTarget.distanceTo(predictedHand),yawAimError=f.aimDirW.distanceTo(predictedAim);
+      const handVerticalDifferenceM=Math.abs(f.handTarget.y-baseHand.y);
+      assert.ok(yawHandErrorM<1e-7);assert.ok(yawAimError<1e-7);assert.ok(handVerticalDifferenceM<1e-14);
+      const frame=new THREE.Quaternion().fromArray(modules.calibrationInfo(f).last.frame);
+      assert.equal(frame.x,0);assert.equal(frame.z,0);
+      const tiltedPrediction=baseHand.clone().sub(center).applyQuaternion(f.yaw.clone().invert()).applyQuaternion(corrected).add(center);
+      const excludedTiltDifferenceM=f.handTarget.distanceTo(tiltedPrediction);assert.ok(excludedTiltDifferenceM>.02);
+      const vertical=new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),headingAngle)
+        .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,0,1),Math.PI/2));
+      f.bodies.chest.setRotation(vertical.multiply(C),true);
+      modules.clone.call(f);const singularHand=f.handTarget.toArray(),singularAim=f.aimDirW.toArray();
+      modules.candidate.call(f);
+      assert.deepEqual(f.handTarget.toArray(),singularHand);assert.deepEqual(f.aimDirW.toArray(),singularAim);
+      assert.equal(modules.calibrationInfo(f).fallbackReasons.yawForwardHorizontalDegenerate,1);
+      f.bodies.chest.setRotation(corrected.clone().multiply(C),true);
+      const originalWeapon=f.weapon,fallbackChecks=[];
+      for(const reason of ['tap','thrust','finish','gun']) {
+        f.skill.tap=reason==='tap'?{}:null;f.skill.thrustPose.w=reason==='thrust'?.2:0;
+        f.skill.thrustPose.hand=[.3,.1,.1];f.skill.thrustPose.dir=[1,0,0];
+        f.finish.amt=reason==='finish'?.2:0;f.weapon={...originalWeapon,gun:reason==='gun'};
+        modules.clone.call(f);const hand=f.handTarget.toArray(),aim=f.aimDirW.toArray();
+        modules.candidate.call(f);assert.deepEqual(f.handTarget.toArray(),hand);assert.deepEqual(f.aimDirW.toArray(),aim);
+        fallbackChecks.push({reason,handExact:true,aimExact:true});
+      }
+      f.weapon=originalWeapon;
+      return {classification:'Synthetic coordinate fixture only; single-axis comparison, no physical performance or gain tuning claim.',
+        calibration,checkpointHandErrorM,checkpointAimError,yawIncrementRad:yawIncrement,pitchRad:pitch,rollRad:roll,
+        yawHandErrorM,yawAimError,handVerticalDifferenceM,excludedTiltDifferenceM,singularityFallbackExact:true,fallbackChecks,
+        controller:modules.calibrationInfo(f)};
+    } finally {modules.clearCalibration(f);G.world.free();}
+  });
 } finally { await modules.cleanup(); }
 
 const sourceAfter=await manifest();
 const sourceStable=JSON.stringify(sourceBefore)===JSON.stringify(sourceAfter);
 const result={schemaVersion:1,createdUTC:new Date().toISOString(),command:'node tools/sim/experiments/torso_target_candidate.test.mjs '+output,
   scope:modules.scope,sourceBefore,sourceAfter,sourceStable,sourceHashes:modules.sourceHashes,
+  previousEvidence:{path:previousEvidencePath,sha256:hash(previousEvidenceBytes),sourceHashes:previousEvidence.sourceHashes},
   pass:sourceStable&&tests.every(t=>t.pass),tests};
 await mkdir(dirname(output),{recursive:true});
 await writeFile(output,JSON.stringify(result,null,2)+'\n');
