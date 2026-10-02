@@ -33,6 +33,7 @@ import { tickDebris, clearDebris, debrisCount } from './debris.js';
 import { ReviveFx } from './revive_fx.js';
 import { configureSupportProbe, mountSupportProbe } from './support_probe.js';
 import { configurePhysicalTrial, mountPhysicalTrial } from './physical_trial.js';
+import { configureCutTrial, mountCutTrial } from './cut_trial.js';
 
 await RAPIER.init();
 
@@ -44,6 +45,7 @@ const limbDemo = CONFIG.COMBAT.limbSeverTrial ? params.get('limbDemo') : null;
 let limbDemoAt = Infinity;
 const supportProbe = configureSupportProbe(params, CONFIG.GAIT);
 const physicalTrial = configurePhysicalTrial(params, CONFIG.GRIP, CONFIG.BODY);
+const cutTrial = configureCutTrial(params);
 // 주인공은 판마다 무기 카드 세 장 중 하나를 골라 받는다 (아래 "무기 뽑기"). 주소에 ?weapon=을 적으면 뽑기 없이 그 무기로 고정.
 //  진짜 엑스칼리버는 주인공만 받을 수 있고, 복제품은 하인리히 몫이라 뽑기에서 뺀다
 const PLAYER_WEAPON_POOL = WEAPON_LIST.map((w) => w.id).filter((id) => id !== 'excalibur_replica');
@@ -429,6 +431,7 @@ function newRound(weaponId) {
   player.skill.autoGuard = true; // 베고 나면 기본 자세로 돌아간다 (AI는 스스로 자세를 고른다)
   player.canShove = true; // 근접 밀치기: 플레이어는 스틱으로 (CLOSE.on 이 통째로 끄고 켠다)
   combat = new Combat(colliderInfo, { onWound, onClash });
+  combat.cutReactionModel = cutTrial.model;
   // 몸 소리(발소리·쓰러짐·무기 부러짐·죽음 목소리): 캐릭터마다 목소리가 다르다
   const foeVoice = voiceOf(currentFoe);
   bodySounds = [new BodySounds(sound, player, 'player', true), new BodySounds(sound, enemy, foeVoice)];
@@ -625,6 +628,7 @@ const $ = (id) => document.getElementById(id);
 const menu = $('menu');
 mountSupportProbe(supportProbe);
 mountPhysicalTrial(physicalTrial);
+mountCutTrial(cutTrial);
 const hud = $('hud');
 const topButtons = $('topButtons');
 const toast = $('toast');

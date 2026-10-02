@@ -1,0 +1,5784 @@
+{
+  "schema": 1,
+  "scope": "Opt-in runtime integration, legacy regression and mobile input; no full-body realism or human acceptance",
+  "evidence": [
+    {
+      "file": "cut-reaction-runtime-phase-exact-tests.json",
+      "sha256": "9a6babf87b2e00e188ffc206f31c36728ebb2737ea5125ac58eb61c29f4b6b4a",
+      "bytes": 810713,
+      "createdUTC": "2026-10-02T03:39:26.945Z",
+      "baselineCommit": "298cd69c7eb9aa0821ba1a830483b354eb8ca037",
+      "command": "node tools/sim/experiments/cut_reaction_candidate.test.mjs [outside-repo-output.json]",
+      "pass": true,
+      "tolerances": {
+        "momentum": 5e-05,
+        "angular": 0.0002,
+        "energy": 8e-05,
+        "speed": 0.0001,
+        "covariance": 0.0002,
+        "timer": 5e-09
+      },
+      "Float32": "native Rapier Float32; assertions use stated abs+relative envelopes",
+      "scope": "instant explicit cutting impulses; actual afterStep on 2 free native bodies and real manifold; empty other event paths",
+      "limitations": [
+        "No whole-body native joint/contact response claim",
+        "Wound/analyze paths intentionally excluded by pre-applied cutting fixture",
+        "Candidate preserves legacy Eleft J*s; budgeted debits instantaneous paired kinetic loss only",
+        "No whole-body native energy budget claim",
+        "Runtime opt-in branch is present; default legacy retained; browser activation tested separately"
+      ],
+      "sourceBefore": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+      "sourceAfter": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+      "sharedHelperBefore": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+      "sharedHelperAfter": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+      "sourceStable": true,
+      "sourceStabilityScope": [
+        "src/combat.js",
+        "src/cut_reaction.js"
+      ],
+      "tests": [
+        {
+          "name": "source transform is exact-once guarded and original fallback preserved",
+          "pass": true
+        },
+        {
+          "name": "paired free-body baseline; request 0.001",
+          "pass": true
+        },
+        {
+          "name": "paired free-body baseline; request 100",
+          "pass": true
+        },
+        {
+          "name": "paired free-body world rotation; request 0.001",
+          "pass": true
+        },
+        {
+          "name": "paired free-body world rotation; request 100",
+          "pass": true
+        },
+        {
+          "name": "paired free-body rotation and translation; request 0.001",
+          "pass": true
+        },
+        {
+          "name": "paired free-body rotation and translation; request 100",
+          "pass": true
+        },
+        {
+          "name": "paired free-body heavy sword light target; request 0.001",
+          "pass": true
+        },
+        {
+          "name": "paired free-body heavy sword light target; request 100",
+          "pass": true
+        },
+        {
+          "name": "paired free-body extremely low sword axial inertia; request 0.001",
+          "pass": true
+        },
+        {
+          "name": "paired free-body extremely low sword axial inertia; request 100",
+          "pass": true
+        },
+        {
+          "name": "paired free-body light sword heavy target; request 0.001",
+          "pass": true
+        },
+        {
+          "name": "paired free-body light sword heavy target; request 100",
+          "pass": true
+        },
+        {
+          "name": "passive cap exposes uncapped common-point axial spin energy injection",
+          "pass": true
+        },
+        {
+          "name": "cap and signed energy are covariant under rigid world transform",
+          "pass": true
+        },
+        {
+          "name": "separating, zero request and zero mobility perform no impulses",
+          "pass": true
+        },
+        {
+          "name": "actual Combat.afterStep drag: original counterexample and guarded clone",
+          "pass": true
+        },
+        {
+          "name": "actual Combat.afterStep stuck: original counterexample and guarded clone",
+          "pass": true
+        },
+        {
+          "name": "actual afterStep drag: rotation/translation and mass/inertia variations",
+          "pass": true
+        },
+        {
+          "name": "actual afterStep stuck: rotation/translation and mass/inertia variations",
+          "pass": true
+        },
+        {
+          "name": "actual afterStep stuck continuation after contact disappears uses shared stored blade point passively",
+          "pass": true
+        },
+        {
+          "name": "budgeted transform has independent exact-once request/debit guards",
+          "pass": true
+        },
+        {
+          "name": "budgeted actual afterStep drag loss closes Eleft 100 and delays stuck until actual depletion",
+          "pass": true
+        },
+        {
+          "name": "budgeted actual afterStep drag loss closes Eleft 4 and delays stuck until actual depletion",
+          "pass": true
+        },
+        {
+          "name": "budgeted actual afterStep drag loss closes Eleft 0.01 and delays stuck until actual depletion",
+          "pass": true
+        },
+        {
+          "name": "budgeted actual afterStep drag loss closes Eleft 0.0015 and delays stuck until actual depletion",
+          "pass": true
+        },
+        {
+          "name": "budgeted drag with early legacy depletion does not start stuck while paired budget remains",
+          "pass": true
+        },
+        {
+          "name": "budgeted stuck preserves native timer policy; continuingContact=true",
+          "pass": true
+        },
+        {
+          "name": "budgeted stuck preserves native timer policy; continuingContact=false",
+          "pass": true
+        },
+        {
+          "name": "budgeted drag under rotation translation and asymmetric low axial inertia closes budget",
+          "pass": true
+        },
+        {
+          "name": "budgeted actual native three-step drag-to-stuck transition preserves residual and does not reset timer",
+          "pass": true
+        },
+        {
+          "name": "budgeted same-cut recontact retains completed phase; genuinely new cut resets phase before real first application",
+          "pass": true
+        },
+        {
+          "name": "browser helper identity and real runtime budgeted branch exactly match independent source transform at phase boundaries",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "file": "cut-reaction-runtime-integration-20run.json",
+      "sha256": "4ebb1597ee1b45570c263fb762b7ec4e14e9f194b9b237cbe0393830052409a1",
+      "bytes": 33086804,
+      "createdUTC": "2026-10-02T03:42:18.314Z",
+      "baselineCommit": "298cd69c7eb9aa0821ba1a830483b354eb8ca037",
+      "command": "node tools/sim/experiments/cut_reaction_integration_probe.mjs --seconds=30 --seeds=7,17 --out=/workspace/halfsword-hybrid-evidence/cut-reaction-runtime-integration-20run.json --baseline=/workspace/halfsword-hybrid-evidence/cut-reaction-integration-budgeted-grip-observed.json",
+      "configuration": {
+        "seconds": 30,
+        "seeds": [
+          7,
+          17
+        ],
+        "weapons": [
+          [
+            "longsword",
+            "zweihander"
+          ],
+          [
+            "zweihander",
+            "longsword"
+          ]
+        ],
+        "AI": "real AI on both fighters",
+        "walls": false,
+        "DT": 0.008333333333333333,
+        "gripReaction": "paired",
+        "weightMode": "hybrid",
+        "support": {
+          "assist": 0.3,
+          "catchMode": "on",
+          "catchScale": 1
+        }
+      },
+      "tolerance": {
+        "momentumAbsPlusRelative": 8e-05,
+        "angularAbsPlusRelative": 0.0003,
+        "energyAbsPlusRelative": 0.0002,
+        "speedAbsPlusRelative": 0.0002
+      },
+      "sourceBefore": {
+        "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+        "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+        "src/fighter.js": "cfd1d8199ef06e7f6ef22c2d1275cdeef2dbb2876114c07b323bb1be33ec16bc",
+        "src/gait.js": "91eba47caf6dddd7fd75a5de141a087614398031c45ef75b2ac814f8c4db9b83",
+        "src/config.js": "e84d7b921b6d8678b358a5971b296c22edded192d680a56e45a0b29ab2aa5319",
+        "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+        "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b"
+      },
+      "sourceAfter": {
+        "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+        "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+        "src/fighter.js": "cfd1d8199ef06e7f6ef22c2d1275cdeef2dbb2876114c07b323bb1be33ec16bc",
+        "src/gait.js": "91eba47caf6dddd7fd75a5de141a087614398031c45ef75b2ac814f8c4db9b83",
+        "src/config.js": "e84d7b921b6d8678b358a5971b296c22edded192d680a56e45a0b29ab2aa5319",
+        "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+        "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b"
+      },
+      "sourceStable": true,
+      "comparisons": [
+        {
+          "seed": 7,
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "preparationNativeExact": true,
+          "preparationControlExact": true,
+          "originalCloneFullTraceExact": true,
+          "originalCloneInputTraceExact": true,
+          "runtimeBudgetedFullTraceExact": true,
+          "runtimeBudgetedInputTraceExact": true,
+          "firstCandidateTraceDifferenceFrame": 881,
+          "firstCandidateReactiveInputDifferenceFrame": 883,
+          "firstBudgetedTraceDifferenceFrame": 881,
+          "firstBudgetedReactiveInputDifferenceFrame": 883,
+          "inputInterpretation": "Same seed, native initial state, controllers and AI classes. Candidate changes physics; reactive AI inputs can diverge afterward. Not a same-input candidate comparison."
+        },
+        {
+          "seed": 17,
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "preparationNativeExact": true,
+          "preparationControlExact": true,
+          "originalCloneFullTraceExact": true,
+          "originalCloneInputTraceExact": true,
+          "runtimeBudgetedFullTraceExact": true,
+          "runtimeBudgetedInputTraceExact": true,
+          "firstCandidateTraceDifferenceFrame": 1011,
+          "firstCandidateReactiveInputDifferenceFrame": 1013,
+          "firstBudgetedTraceDifferenceFrame": 1011,
+          "firstBudgetedReactiveInputDifferenceFrame": 1013,
+          "inputInterpretation": "Same seed, native initial state, controllers and AI classes. Candidate changes physics; reactive AI inputs can diverge afterward. Not a same-input candidate comparison."
+        },
+        {
+          "seed": 7,
+          "weapons": [
+            "zweihander",
+            "longsword"
+          ],
+          "preparationNativeExact": true,
+          "preparationControlExact": true,
+          "originalCloneFullTraceExact": true,
+          "originalCloneInputTraceExact": true,
+          "runtimeBudgetedFullTraceExact": true,
+          "runtimeBudgetedInputTraceExact": true,
+          "firstCandidateTraceDifferenceFrame": 718,
+          "firstCandidateReactiveInputDifferenceFrame": 720,
+          "firstBudgetedTraceDifferenceFrame": 718,
+          "firstBudgetedReactiveInputDifferenceFrame": 720,
+          "inputInterpretation": "Same seed, native initial state, controllers and AI classes. Candidate changes physics; reactive AI inputs can diverge afterward. Not a same-input candidate comparison."
+        },
+        {
+          "seed": 17,
+          "weapons": [
+            "zweihander",
+            "longsword"
+          ],
+          "preparationNativeExact": true,
+          "preparationControlExact": true,
+          "originalCloneFullTraceExact": true,
+          "originalCloneInputTraceExact": true,
+          "runtimeBudgetedFullTraceExact": true,
+          "runtimeBudgetedInputTraceExact": true,
+          "firstCandidateTraceDifferenceFrame": 1108,
+          "firstCandidateReactiveInputDifferenceFrame": 1146,
+          "firstBudgetedTraceDifferenceFrame": 1108,
+          "firstBudgetedReactiveInputDifferenceFrame": 1146,
+          "inputInterpretation": "Same seed, native initial state, controllers and AI classes. Candidate changes physics; reactive AI inputs can diverge afterward. Not a same-input candidate comparison."
+        }
+      ],
+      "runs": [
+        {
+          "mode": "original",
+          "seed": 7,
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "seconds": 30,
+          "wallSeconds": 11.700404518000001,
+          "initialNative": "cddd684e2c427833ccc5f797294e946031eca3a7b22adf612f7e1a0b08b95171",
+          "initialControls": "7d9e946614b54ce8d38491b786c5d94641fd05d99993959ab22959ad5ec92799",
+          "traceSHA256": "69aaf91246b2bb7a9a92c90de7e7ec1f6788bbcf612c883da0f08bae3e789117",
+          "inputSHA256": "33962e173e34ef00197db24b10e041221a772836a4b24aa666434f4d8966b3ca",
+          "stats": {
+            "finite": true,
+            "steps": 3600,
+            "falls": [
+              0,
+              0
+            ],
+            "stateFrames": [
+              {
+                "stand": 3600
+              },
+              {
+                "stand": 3600
+              }
+            ],
+            "maxGripGapM": [
+              4.764802824559237,
+              0.00217374568940539
+            ],
+            "maxOffHandGapM": [
+              0.23074973438734497,
+              0.27148641223306696
+            ],
+            "maxValidMainGripJointGapM": [
+              0.0005847053693132761,
+              0.002173745311705377
+            ],
+            "mainGripJointValidFrames": [
+              3055,
+              3600
+            ],
+            "mainGripJointInvalidFrames": [
+              545,
+              0
+            ],
+            "mainGripArmedJointMismatchFrames": [
+              0,
+              0
+            ],
+            "offHandGrippingFrames": [
+              3020,
+              3384
+            ],
+            "mainGripJointEpisodes": [
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3054,
+                  "endTimeS": 25.458333333333332,
+                  "durationS": 25.458333333333332
+                },
+                {
+                  "frame": 3055,
+                  "timeS": 25.466666666665862,
+                  "jointValid": false,
+                  "armed": false,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 0.9397056710884166,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 3055,
+                  "startTimeS": 25.458333333333332,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 4.541666666666667
+                }
+              ],
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ]
+            ],
+            "gripGapAllFramePeak": [
+              {
+                "frame": 3568,
+                "timeS": 29.74166666666562,
+                "jointValid": false,
+                "armed": false,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.8734718345461641,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 4.764802824559237
+              },
+              {
+                "frame": 3455,
+                "timeS": 28.799999999999006,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.7605163886556103,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.00217374568940539
+              }
+            ],
+            "validMainGripJointGapPeak": [
+              {
+                "frame": 2215,
+                "timeS": 18.46666666666626,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9640161520200643,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0005847053693132761
+              },
+              {
+                "frame": 3455,
+                "timeS": 28.799999999999006,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.7605163886556103,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.002173745311705377
+              }
+            ],
+            "peakTotalKJ": 222.78970473167556,
+            "peakSwordKJ": [
+              57.2944277191884,
+              78.69827913702613
+            ],
+            "maxBodySpeedMps": 7.624869930502547,
+            "maxBodyAngularSpeedRadps": 89.43403570672237,
+            "cutImpulsePairs": 140,
+            "cutMapActiveFrames": 672,
+            "candidateCallbacks": 0,
+            "candidatePositivePairs": 0,
+            "candidateRequestedSumNs": 0,
+            "candidateAppliedSumNs": 0,
+            "candidatePredictedDeltaKSumJ": 0,
+            "candidateActualDeltaKSumJ": 0,
+            "maxInstantPairDeltaP": 0,
+            "maxInstantPairDeltaL": 0,
+            "maxInstantEnergyPredictionErrorJ": 0,
+            "instantClosurePass": true,
+            "instantPassivityPass": true,
+            "budgetedDragPairs": 0,
+            "budgetClosurePass": true,
+            "budgetDebitSumJ": 0,
+            "maxBudgetMeasuredLossErrorJ": 0,
+            "observedDispatchPreserved": true
+          },
+          "damage": {
+            "woundEvents": 35,
+            "byType": {
+              "cut": 8,
+              "blunt": 27
+            },
+            "sumReportedEnergyJ": 887.9308148896166,
+            "sumSeverity": 3.682374543129363,
+            "final": [
+              {
+                "blood": 0.8704560667583895,
+                "consciousness": 1,
+                "pain": 0.0014575070903647003,
+                "limbs": {
+                  "armS": 0.0033461512150461115,
+                  "armO": 1,
+                  "legF": 0.6966947491843867,
+                  "legB": 0.8390713831740895
+                },
+                "wounds": 5,
+                "state": "stand",
+                "causeOfDeath": null
+              },
+              {
+                "blood": 0.7556067436785737,
+                "consciousness": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 0.7174671920056004,
+                  "armO": 0.9187592607183706,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 3,
+                "state": "stand",
+                "causeOfDeath": null
+              }
+            ]
+          }
+        },
+        {
+          "mode": "clone",
+          "seed": 7,
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "seconds": 30,
+          "wallSeconds": 9.281030526999999,
+          "initialNative": "cddd684e2c427833ccc5f797294e946031eca3a7b22adf612f7e1a0b08b95171",
+          "initialControls": "7d9e946614b54ce8d38491b786c5d94641fd05d99993959ab22959ad5ec92799",
+          "traceSHA256": "69aaf91246b2bb7a9a92c90de7e7ec1f6788bbcf612c883da0f08bae3e789117",
+          "inputSHA256": "33962e173e34ef00197db24b10e041221a772836a4b24aa666434f4d8966b3ca",
+          "stats": {
+            "finite": true,
+            "steps": 3600,
+            "falls": [
+              0,
+              0
+            ],
+            "stateFrames": [
+              {
+                "stand": 3600
+              },
+              {
+                "stand": 3600
+              }
+            ],
+            "maxGripGapM": [
+              4.764802824559237,
+              0.00217374568940539
+            ],
+            "maxOffHandGapM": [
+              0.23074973438734497,
+              0.27148641223306696
+            ],
+            "maxValidMainGripJointGapM": [
+              0.0005847053693132761,
+              0.002173745311705377
+            ],
+            "mainGripJointValidFrames": [
+              3055,
+              3600
+            ],
+            "mainGripJointInvalidFrames": [
+              545,
+              0
+            ],
+            "mainGripArmedJointMismatchFrames": [
+              0,
+              0
+            ],
+            "offHandGrippingFrames": [
+              3020,
+              3384
+            ],
+            "mainGripJointEpisodes": [
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3054,
+                  "endTimeS": 25.458333333333332,
+                  "durationS": 25.458333333333332
+                },
+                {
+                  "frame": 3055,
+                  "timeS": 25.466666666665862,
+                  "jointValid": false,
+                  "armed": false,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 0.9397056710884166,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 3055,
+                  "startTimeS": 25.458333333333332,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 4.541666666666667
+                }
+              ],
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ]
+            ],
+            "gripGapAllFramePeak": [
+              {
+                "frame": 3568,
+                "timeS": 29.74166666666562,
+                "jointValid": false,
+                "armed": false,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.8734718345461641,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 4.764802824559237
+              },
+              {
+                "frame": 3455,
+                "timeS": 28.799999999999006,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.7605163886556103,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.00217374568940539
+              }
+            ],
+            "validMainGripJointGapPeak": [
+              {
+                "frame": 2215,
+                "timeS": 18.46666666666626,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9640161520200643,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0005847053693132761
+              },
+              {
+                "frame": 3455,
+                "timeS": 28.799999999999006,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.7605163886556103,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.002173745311705377
+              }
+            ],
+            "peakTotalKJ": 222.78970473167556,
+            "peakSwordKJ": [
+              57.2944277191884,
+              78.69827913702613
+            ],
+            "maxBodySpeedMps": 7.624869930502547,
+            "maxBodyAngularSpeedRadps": 89.43403570672237,
+            "cutImpulsePairs": 140,
+            "cutMapActiveFrames": 672,
+            "candidateCallbacks": 0,
+            "candidatePositivePairs": 0,
+            "candidateRequestedSumNs": 0,
+            "candidateAppliedSumNs": 0,
+            "candidatePredictedDeltaKSumJ": 0,
+            "candidateActualDeltaKSumJ": 0,
+            "maxInstantPairDeltaP": 0,
+            "maxInstantPairDeltaL": 0,
+            "maxInstantEnergyPredictionErrorJ": 0,
+            "instantClosurePass": true,
+            "instantPassivityPass": true,
+            "budgetedDragPairs": 0,
+            "budgetClosurePass": true,
+            "budgetDebitSumJ": 0,
+            "maxBudgetMeasuredLossErrorJ": 0,
+            "observedDispatchPreserved": true
+          },
+          "damage": {
+            "woundEvents": 35,
+            "byType": {
+              "cut": 8,
+              "blunt": 27
+            },
+            "sumReportedEnergyJ": 887.9308148896166,
+            "sumSeverity": 3.682374543129363,
+            "final": [
+              {
+                "blood": 0.8704560667583895,
+                "consciousness": 1,
+                "pain": 0.0014575070903647003,
+                "limbs": {
+                  "armS": 0.0033461512150461115,
+                  "armO": 1,
+                  "legF": 0.6966947491843867,
+                  "legB": 0.8390713831740895
+                },
+                "wounds": 5,
+                "state": "stand",
+                "causeOfDeath": null
+              },
+              {
+                "blood": 0.7556067436785737,
+                "consciousness": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 0.7174671920056004,
+                  "armO": 0.9187592607183706,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 3,
+                "state": "stand",
+                "causeOfDeath": null
+              }
+            ]
+          }
+        },
+        {
+          "mode": "candidate",
+          "seed": 7,
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "seconds": 30,
+          "wallSeconds": 10.573109232999998,
+          "initialNative": "cddd684e2c427833ccc5f797294e946031eca3a7b22adf612f7e1a0b08b95171",
+          "initialControls": "7d9e946614b54ce8d38491b786c5d94641fd05d99993959ab22959ad5ec92799",
+          "traceSHA256": "be154d3ce5720e2d7f3716135222ae406e490b4e52a2b12b88dcd950aa8d34d8",
+          "inputSHA256": "d7e8008fb8d322629f400e147525dc55bffda16111e49e55b9d81c6fb7e69f9c",
+          "stats": {
+            "finite": true,
+            "steps": 3600,
+            "falls": [
+              0,
+              0
+            ],
+            "stateFrames": [
+              {
+                "stand": 3600
+              },
+              {
+                "stand": 3600
+              }
+            ],
+            "maxGripGapM": [
+              0.0014341272545973691,
+              0.0016079100906437097
+            ],
+            "maxOffHandGapM": [
+              0.23074973438734497,
+              0.27093620166469307
+            ],
+            "maxValidMainGripJointGapM": [
+              0.0014341285304660448,
+              0.0016079086529061498
+            ],
+            "mainGripJointValidFrames": [
+              3600,
+              3600
+            ],
+            "mainGripJointInvalidFrames": [
+              0,
+              0
+            ],
+            "mainGripArmedJointMismatchFrames": [
+              0,
+              0
+            ],
+            "offHandGrippingFrames": [
+              3564,
+              3467
+            ],
+            "mainGripJointEpisodes": [
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ],
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ]
+            ],
+            "gripGapAllFramePeak": [
+              {
+                "frame": 1555,
+                "timeS": 12.96666666666657,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9909057456423034,
+                "consciousness": 0.7686436292786673,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0014341272545973691
+              },
+              {
+                "frame": 904,
+                "timeS": 7.541666666666831,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9990818183347571,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0016079100906437097
+              }
+            ],
+            "validMainGripJointGapPeak": [
+              {
+                "frame": 1555,
+                "timeS": 12.96666666666657,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9909057456423034,
+                "consciousness": 0.7686436292786673,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0014341285304660448
+              },
+              {
+                "frame": 904,
+                "timeS": 7.541666666666831,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9990818183347571,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0016079086529061498
+              }
+            ],
+            "peakTotalKJ": 193.2401852617243,
+            "peakSwordKJ": [
+              39.97268526414278,
+              78.85557839883467
+            ],
+            "maxBodySpeedMps": 7.0602802268476355,
+            "maxBodyAngularSpeedRadps": 71.53460739805517,
+            "cutImpulsePairs": 224,
+            "cutMapActiveFrames": 690,
+            "candidateCallbacks": 224,
+            "candidatePositivePairs": 224,
+            "candidateRequestedSumNs": 66.61782464557032,
+            "candidateAppliedSumNs": 54.46021873641073,
+            "candidatePredictedDeltaKSumJ": -115.76816401287026,
+            "candidateActualDeltaKSumJ": -115.76814856246024,
+            "maxInstantPairDeltaP": 5.860477418145103e-07,
+            "maxInstantPairDeltaL": 4.910772881050576e-06,
+            "maxInstantEnergyPredictionErrorJ": 3.568716454260823e-05,
+            "instantClosurePass": true,
+            "instantPassivityPass": true,
+            "budgetedDragPairs": 0,
+            "budgetClosurePass": true,
+            "budgetDebitSumJ": 0,
+            "maxBudgetMeasuredLossErrorJ": 0,
+            "observedDispatchPreserved": true
+          },
+          "damage": {
+            "woundEvents": 37,
+            "byType": {
+              "cut": 4,
+              "blunt": 33
+            },
+            "sumReportedEnergyJ": 850.286313329351,
+            "sumSeverity": 2.401998451384279,
+            "final": [
+              {
+                "blood": 0.9539442972111091,
+                "consciousness": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 0.639161974806526,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 1,
+                "state": "stand",
+                "causeOfDeath": null
+              },
+              {
+                "blood": 0.7855790954108016,
+                "consciousness": 0.9798149315415133,
+                "pain": 0,
+                "limbs": {
+                  "armS": 0.2521993481997399,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 3,
+                "state": "stand",
+                "causeOfDeath": null
+              }
+            ]
+          }
+        },
+        {
+          "mode": "budgeted",
+          "seed": 7,
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "seconds": 30,
+          "wallSeconds": 9.893487347000002,
+          "initialNative": "cddd684e2c427833ccc5f797294e946031eca3a7b22adf612f7e1a0b08b95171",
+          "initialControls": "7d9e946614b54ce8d38491b786c5d94641fd05d99993959ab22959ad5ec92799",
+          "traceSHA256": "59d1d50e2ff8d9f780bd94de0d8f9c334c023b7ee99453bb2182635de5e2eeb9",
+          "inputSHA256": "aafbd777e6a2cf84b5a1b4ccfb4eef8ebc49d9892e56143a330ca390a73879ea",
+          "stats": {
+            "finite": true,
+            "steps": 3600,
+            "falls": [
+              0,
+              0
+            ],
+            "stateFrames": [
+              {
+                "stand": 3600
+              },
+              {
+                "stand": 3600
+              }
+            ],
+            "maxGripGapM": [
+              0.0009732766702927619,
+              0.0016079100906437097
+            ],
+            "maxOffHandGapM": [
+              0.23074973438734497,
+              0.27093620166469307
+            ],
+            "maxValidMainGripJointGapM": [
+              0.0009732744634682077,
+              0.0016079086529061498
+            ],
+            "mainGripJointValidFrames": [
+              3600,
+              3600
+            ],
+            "mainGripJointInvalidFrames": [
+              0,
+              0
+            ],
+            "mainGripArmedJointMismatchFrames": [
+              0,
+              0
+            ],
+            "offHandGrippingFrames": [
+              3564,
+              3467
+            ],
+            "mainGripJointEpisodes": [
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ],
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ]
+            ],
+            "gripGapAllFramePeak": [
+              {
+                "frame": 3406,
+                "timeS": 28.391666666665696,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9920513323328322,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0009732766702927619
+              },
+              {
+                "frame": 904,
+                "timeS": 7.541666666666831,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9990818183347571,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0016079100906437097
+              }
+            ],
+            "validMainGripJointGapPeak": [
+              {
+                "frame": 3406,
+                "timeS": 28.391666666665696,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9920513323328322,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0009732744634682077
+              },
+              {
+                "frame": 904,
+                "timeS": 7.541666666666831,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9990818183347571,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0016079086529061498
+              }
+            ],
+            "peakTotalKJ": 193.2401852617243,
+            "peakSwordKJ": [
+              43.87254938057932,
+              78.85557839883467
+            ],
+            "maxBodySpeedMps": 7.0602802268476355,
+            "maxBodyAngularSpeedRadps": 57.958846401936675,
+            "cutImpulsePairs": 106,
+            "cutMapActiveFrames": 615,
+            "candidateCallbacks": 106,
+            "candidatePositivePairs": 106,
+            "candidateRequestedSumNs": 75.1999567843832,
+            "candidateAppliedSumNs": 31.54275798487567,
+            "candidatePredictedDeltaKSumJ": -71.31656887803122,
+            "candidateActualDeltaKSumJ": -71.31654301893148,
+            "maxInstantPairDeltaP": 3.9361545423922664e-07,
+            "maxInstantPairDeltaL": 4.910772881050576e-06,
+            "maxInstantEnergyPredictionErrorJ": 3.568716454260823e-05,
+            "instantClosurePass": true,
+            "instantPassivityPass": true,
+            "budgetedDragPairs": 76,
+            "budgetClosurePass": true,
+            "budgetDebitSumJ": 61.3041677004167,
+            "maxBudgetMeasuredLossErrorJ": 3.568716454260823e-05,
+            "observedDispatchPreserved": true
+          },
+          "damage": {
+            "woundEvents": 18,
+            "byType": {
+              "cut": 4,
+              "blunt": 14
+            },
+            "sumReportedEnergyJ": 418.6658688102686,
+            "sumSeverity": 0.7700876804406859,
+            "final": [
+              {
+                "blood": 0.9902891979012453,
+                "consciousness": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 0.9409534132368091,
+                  "armO": 1,
+                  "legF": 0.9465283433745852,
+                  "legB": 1
+                },
+                "wounds": 2,
+                "state": "stand",
+                "causeOfDeath": null
+              },
+              {
+                "blood": 0.9455377101657603,
+                "consciousness": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 0.5734568670801256,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 2,
+                "state": "stand",
+                "causeOfDeath": null
+              }
+            ]
+          }
+        },
+        {
+          "mode": "runtime",
+          "seed": 7,
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "seconds": 30,
+          "wallSeconds": 9.38827581,
+          "initialNative": "cddd684e2c427833ccc5f797294e946031eca3a7b22adf612f7e1a0b08b95171",
+          "initialControls": "7d9e946614b54ce8d38491b786c5d94641fd05d99993959ab22959ad5ec92799",
+          "traceSHA256": "59d1d50e2ff8d9f780bd94de0d8f9c334c023b7ee99453bb2182635de5e2eeb9",
+          "inputSHA256": "aafbd777e6a2cf84b5a1b4ccfb4eef8ebc49d9892e56143a330ca390a73879ea",
+          "stats": {
+            "finite": true,
+            "steps": 3600,
+            "falls": [
+              0,
+              0
+            ],
+            "stateFrames": [
+              {
+                "stand": 3600
+              },
+              {
+                "stand": 3600
+              }
+            ],
+            "maxGripGapM": [
+              0.0009732766702927619,
+              0.0016079100906437097
+            ],
+            "maxOffHandGapM": [
+              0.23074973438734497,
+              0.27093620166469307
+            ],
+            "maxValidMainGripJointGapM": [
+              0.0009732744634682077,
+              0.0016079086529061498
+            ],
+            "mainGripJointValidFrames": [
+              3600,
+              3600
+            ],
+            "mainGripJointInvalidFrames": [
+              0,
+              0
+            ],
+            "mainGripArmedJointMismatchFrames": [
+              0,
+              0
+            ],
+            "offHandGrippingFrames": [
+              3564,
+              3467
+            ],
+            "mainGripJointEpisodes": [
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ],
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ]
+            ],
+            "gripGapAllFramePeak": [
+              {
+                "frame": 3406,
+                "timeS": 28.391666666665696,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9920513323328322,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0009732766702927619
+              },
+              {
+                "frame": 904,
+                "timeS": 7.541666666666831,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9990818183347571,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0016079100906437097
+              }
+            ],
+            "validMainGripJointGapPeak": [
+              {
+                "frame": 3406,
+                "timeS": 28.391666666665696,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9920513323328322,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0009732744634682077
+              },
+              {
+                "frame": 904,
+                "timeS": 7.541666666666831,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9990818183347571,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0016079086529061498
+              }
+            ],
+            "peakTotalKJ": 193.2401852617243,
+            "peakSwordKJ": [
+              43.87254938057932,
+              78.85557839883467
+            ],
+            "maxBodySpeedMps": 7.0602802268476355,
+            "maxBodyAngularSpeedRadps": 57.958846401936675,
+            "cutImpulsePairs": 106,
+            "cutMapActiveFrames": 615,
+            "candidateCallbacks": 106,
+            "candidatePositivePairs": 106,
+            "candidateRequestedSumNs": 75.1999567843832,
+            "candidateAppliedSumNs": 31.54275798487567,
+            "candidatePredictedDeltaKSumJ": -71.31656887803122,
+            "candidateActualDeltaKSumJ": -71.31654301893148,
+            "maxInstantPairDeltaP": 3.9361545423922664e-07,
+            "maxInstantPairDeltaL": 4.910772881050576e-06,
+            "maxInstantEnergyPredictionErrorJ": 3.568716454260823e-05,
+            "instantClosurePass": true,
+            "instantPassivityPass": true,
+            "budgetedDragPairs": 76,
+            "budgetClosurePass": true,
+            "budgetDebitSumJ": 61.3041677004167,
+            "maxBudgetMeasuredLossErrorJ": 3.568716454260823e-05,
+            "observedDispatchPreserved": true
+          },
+          "damage": {
+            "woundEvents": 18,
+            "byType": {
+              "cut": 4,
+              "blunt": 14
+            },
+            "sumReportedEnergyJ": 418.6658688102686,
+            "sumSeverity": 0.7700876804406859,
+            "final": [
+              {
+                "blood": 0.9902891979012453,
+                "consciousness": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 0.9409534132368091,
+                  "armO": 1,
+                  "legF": 0.9465283433745852,
+                  "legB": 1
+                },
+                "wounds": 2,
+                "state": "stand",
+                "causeOfDeath": null
+              },
+              {
+                "blood": 0.9455377101657603,
+                "consciousness": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 0.5734568670801256,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 2,
+                "state": "stand",
+                "causeOfDeath": null
+              }
+            ]
+          }
+        },
+        {
+          "mode": "original",
+          "seed": 17,
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "seconds": 30,
+          "wallSeconds": 10.726476975999999,
+          "initialNative": "cddd684e2c427833ccc5f797294e946031eca3a7b22adf612f7e1a0b08b95171",
+          "initialControls": "7d9e946614b54ce8d38491b786c5d94641fd05d99993959ab22959ad5ec92799",
+          "traceSHA256": "c3597c4dfe0873743124f23ac30a302099d3c0d4bb653fbcee6eb9bad1cafef4",
+          "inputSHA256": "5153029653531e89a6f877c30f7863ca10bee17502ce9a56139ab1a4bd5494cb",
+          "stats": {
+            "finite": true,
+            "steps": 3600,
+            "falls": [
+              0,
+              0
+            ],
+            "stateFrames": [
+              {
+                "stand": 3331,
+                "getup": 269
+              },
+              {
+                "stand": 3124,
+                "dead": 476
+              }
+            ],
+            "maxGripGapM": [
+              0.0036886610599537717,
+              0.0019436279997311966
+            ],
+            "maxOffHandGapM": [
+              0.23537765650869408,
+              0.2232332725849515
+            ],
+            "maxValidMainGripJointGapM": [
+              0.0036886640176264393,
+              0.0019436272603576882
+            ],
+            "mainGripJointValidFrames": [
+              3600,
+              3600
+            ],
+            "mainGripJointInvalidFrames": [
+              0,
+              0
+            ],
+            "mainGripArmedJointMismatchFrames": [
+              0,
+              0
+            ],
+            "offHandGrippingFrames": [
+              3566,
+              3097
+            ],
+            "mainGripJointEpisodes": [
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ],
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ]
+            ],
+            "gripGapAllFramePeak": [
+              {
+                "frame": 2070,
+                "timeS": 17.258333333332995,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9870692245150985,
+                "consciousness": 0.689635653859469,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0036886610599537717
+              },
+              {
+                "frame": 3125,
+                "timeS": 26.049999999999162,
+                "jointValid": true,
+                "armed": true,
+                "alive": false,
+                "state": "dead",
+                "blood": 0.9715844020982328,
+                "consciousness": 1,
+                "causeOfDeath": "목",
+                "primaryForearmDetached": false,
+                "gapM": 0.0019436279997311966
+              }
+            ],
+            "validMainGripJointGapPeak": [
+              {
+                "frame": 2070,
+                "timeS": 17.258333333332995,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9870692245150985,
+                "consciousness": 0.689635653859469,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0036886640176264393
+              },
+              {
+                "frame": 3125,
+                "timeS": 26.049999999999162,
+                "jointValid": true,
+                "armed": true,
+                "alive": false,
+                "state": "dead",
+                "blood": 0.9715844020982328,
+                "consciousness": 1,
+                "causeOfDeath": "목",
+                "primaryForearmDetached": false,
+                "gapM": 0.0019436272603576882
+              }
+            ],
+            "peakTotalKJ": 397.18869196735693,
+            "peakSwordKJ": [
+              61.468060556718825,
+              90.50721822686056
+            ],
+            "maxBodySpeedMps": 6.686171572665876,
+            "maxBodyAngularSpeedRadps": 81.17864000578113,
+            "cutImpulsePairs": 506,
+            "cutMapActiveFrames": 759,
+            "candidateCallbacks": 0,
+            "candidatePositivePairs": 0,
+            "candidateRequestedSumNs": 0,
+            "candidateAppliedSumNs": 0,
+            "candidatePredictedDeltaKSumJ": 0,
+            "candidateActualDeltaKSumJ": 0,
+            "maxInstantPairDeltaP": 0,
+            "maxInstantPairDeltaL": 0,
+            "maxInstantEnergyPredictionErrorJ": 0,
+            "instantClosurePass": true,
+            "instantPassivityPass": true,
+            "budgetedDragPairs": 0,
+            "budgetClosurePass": true,
+            "budgetDebitSumJ": 0,
+            "maxBudgetMeasuredLossErrorJ": 0,
+            "observedDispatchPreserved": true
+          },
+          "damage": {
+            "woundEvents": 39,
+            "byType": {
+              "cut": 8,
+              "blunt": 31
+            },
+            "sumReportedEnergyJ": 1071.60040660182,
+            "sumSeverity": 2.3784499541543695,
+            "final": [
+              {
+                "blood": 0.8848875760625649,
+                "consciousness": 0.7610379356370653,
+                "pain": 0,
+                "limbs": {
+                  "armS": 0.8741763660683419,
+                  "armO": 0.8533666760562604,
+                  "legF": 0.8307142605072739,
+                  "legB": 0.7624372834044623
+                },
+                "wounds": 6,
+                "state": "stand",
+                "causeOfDeath": null
+              },
+              {
+                "blood": 0,
+                "consciousness": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 0.7952706553984881,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 3,
+                "state": "dead",
+                "causeOfDeath": "목"
+              }
+            ]
+          }
+        },
+        {
+          "mode": "clone",
+          "seed": 17,
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "seconds": 30,
+          "wallSeconds": 9.381889942999994,
+          "initialNative": "cddd684e2c427833ccc5f797294e946031eca3a7b22adf612f7e1a0b08b95171",
+          "initialControls": "7d9e946614b54ce8d38491b786c5d94641fd05d99993959ab22959ad5ec92799",
+          "traceSHA256": "c3597c4dfe0873743124f23ac30a302099d3c0d4bb653fbcee6eb9bad1cafef4",
+          "inputSHA256": "5153029653531e89a6f877c30f7863ca10bee17502ce9a56139ab1a4bd5494cb",
+          "stats": {
+            "finite": true,
+            "steps": 3600,
+            "falls": [
+              0,
+              0
+            ],
+            "stateFrames": [
+              {
+                "stand": 3331,
+                "getup": 269
+              },
+              {
+                "stand": 3124,
+                "dead": 476
+              }
+            ],
+            "maxGripGapM": [
+              0.0036886610599537717,
+              0.0019436279997311966
+            ],
+            "maxOffHandGapM": [
+              0.23537765650869408,
+              0.2232332725849515
+            ],
+            "maxValidMainGripJointGapM": [
+              0.0036886640176264393,
+              0.0019436272603576882
+            ],
+            "mainGripJointValidFrames": [
+              3600,
+              3600
+            ],
+            "mainGripJointInvalidFrames": [
+              0,
+              0
+            ],
+            "mainGripArmedJointMismatchFrames": [
+              0,
+              0
+            ],
+            "offHandGrippingFrames": [
+              3566,
+              3097
+            ],
+            "mainGripJointEpisodes": [
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ],
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ]
+            ],
+            "gripGapAllFramePeak": [
+              {
+                "frame": 2070,
+                "timeS": 17.258333333332995,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9870692245150985,
+                "consciousness": 0.689635653859469,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0036886610599537717
+              },
+              {
+                "frame": 3125,
+                "timeS": 26.049999999999162,
+                "jointValid": true,
+                "armed": true,
+                "alive": false,
+                "state": "dead",
+                "blood": 0.9715844020982328,
+                "consciousness": 1,
+                "causeOfDeath": "목",
+                "primaryForearmDetached": false,
+                "gapM": 0.0019436279997311966
+              }
+            ],
+            "validMainGripJointGapPeak": [
+              {
+                "frame": 2070,
+                "timeS": 17.258333333332995,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9870692245150985,
+                "consciousness": 0.689635653859469,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0036886640176264393
+              },
+              {
+                "frame": 3125,
+                "timeS": 26.049999999999162,
+                "jointValid": true,
+                "armed": true,
+                "alive": false,
+                "state": "dead",
+                "blood": 0.9715844020982328,
+                "consciousness": 1,
+                "causeOfDeath": "목",
+                "primaryForearmDetached": false,
+                "gapM": 0.0019436272603576882
+              }
+            ],
+            "peakTotalKJ": 397.18869196735693,
+            "peakSwordKJ": [
+              61.468060556718825,
+              90.50721822686056
+            ],
+            "maxBodySpeedMps": 6.686171572665876,
+            "maxBodyAngularSpeedRadps": 81.17864000578113,
+            "cutImpulsePairs": 506,
+            "cutMapActiveFrames": 759,
+            "candidateCallbacks": 0,
+            "candidatePositivePairs": 0,
+            "candidateRequestedSumNs": 0,
+            "candidateAppliedSumNs": 0,
+            "candidatePredictedDeltaKSumJ": 0,
+            "candidateActualDeltaKSumJ": 0,
+            "maxInstantPairDeltaP": 0,
+            "maxInstantPairDeltaL": 0,
+            "maxInstantEnergyPredictionErrorJ": 0,
+            "instantClosurePass": true,
+            "instantPassivityPass": true,
+            "budgetedDragPairs": 0,
+            "budgetClosurePass": true,
+            "budgetDebitSumJ": 0,
+            "maxBudgetMeasuredLossErrorJ": 0,
+            "observedDispatchPreserved": true
+          },
+          "damage": {
+            "woundEvents": 39,
+            "byType": {
+              "cut": 8,
+              "blunt": 31
+            },
+            "sumReportedEnergyJ": 1071.60040660182,
+            "sumSeverity": 2.3784499541543695,
+            "final": [
+              {
+                "blood": 0.8848875760625649,
+                "consciousness": 0.7610379356370653,
+                "pain": 0,
+                "limbs": {
+                  "armS": 0.8741763660683419,
+                  "armO": 0.8533666760562604,
+                  "legF": 0.8307142605072739,
+                  "legB": 0.7624372834044623
+                },
+                "wounds": 6,
+                "state": "stand",
+                "causeOfDeath": null
+              },
+              {
+                "blood": 0,
+                "consciousness": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 0.7952706553984881,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 3,
+                "state": "dead",
+                "causeOfDeath": "목"
+              }
+            ]
+          }
+        },
+        {
+          "mode": "candidate",
+          "seed": 17,
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "seconds": 30,
+          "wallSeconds": 10.002247287000005,
+          "initialNative": "cddd684e2c427833ccc5f797294e946031eca3a7b22adf612f7e1a0b08b95171",
+          "initialControls": "7d9e946614b54ce8d38491b786c5d94641fd05d99993959ab22959ad5ec92799",
+          "traceSHA256": "494ec80604d6d673b92aaebcc73cb3bea72a0ae4f6639274d7d0a0f0b54dc677",
+          "inputSHA256": "f52f5f1299931a4dcdf5165c33065b57ba7588e5ccefc05e67a2cb38d8d35e8f",
+          "stats": {
+            "finite": true,
+            "steps": 3600,
+            "falls": [
+              0,
+              0
+            ],
+            "stateFrames": [
+              {
+                "stand": 3285,
+                "getup": 315
+              },
+              {
+                "stand": 2179,
+                "getup": 306,
+                "dead": 1115
+              }
+            ],
+            "maxGripGapM": [
+              0.0013010246550367597,
+              3.5974610791527426
+            ],
+            "maxOffHandGapM": [
+              0.27182056805990557,
+              0.2232332725849515
+            ],
+            "maxValidMainGripJointGapM": [
+              0.0013010239100817592,
+              0.000170618259778331
+            ],
+            "mainGripJointValidFrames": [
+              3600,
+              1733
+            ],
+            "mainGripJointInvalidFrames": [
+              0,
+              1867
+            ],
+            "mainGripArmedJointMismatchFrames": [
+              0,
+              0
+            ],
+            "offHandGrippingFrames": [
+              3480,
+              1706
+            ],
+            "mainGripJointEpisodes": [
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ],
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 1732,
+                  "endTimeS": 14.441666666666666,
+                  "durationS": 14.441666666666666
+                },
+                {
+                  "frame": 1733,
+                  "timeS": 14.44999999999982,
+                  "jointValid": false,
+                  "armed": false,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 0.9849554428352191,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 1733,
+                  "startTimeS": 14.441666666666666,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 15.558333333333334
+                }
+              ]
+            ],
+            "gripGapAllFramePeak": [
+              {
+                "frame": 2272,
+                "timeS": 18.941666666666233,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 1,
+                "consciousness": 0.7292228040931177,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0013010246550367597
+              },
+              {
+                "frame": 2768,
+                "timeS": 23.07499999999933,
+                "jointValid": false,
+                "armed": false,
+                "alive": false,
+                "state": "dead",
+                "blood": 0,
+                "consciousness": 1,
+                "causeOfDeath": "목",
+                "primaryForearmDetached": false,
+                "gapM": 3.5974610791527426
+              }
+            ],
+            "validMainGripJointGapPeak": [
+              {
+                "frame": 2272,
+                "timeS": 18.941666666666233,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 1,
+                "consciousness": 0.7292228040931177,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0013010239100817592
+              },
+              {
+                "frame": 1011,
+                "timeS": 8.433333333333495,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 1,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.000170618259778331
+              }
+            ],
+            "peakTotalKJ": 335.51072290188637,
+            "peakSwordKJ": [
+              61.52664659367451,
+              56.69821292017926
+            ],
+            "maxBodySpeedMps": 8.596227459801096,
+            "maxBodyAngularSpeedRadps": 194.91150850249235,
+            "cutImpulsePairs": 107,
+            "cutMapActiveFrames": 300,
+            "candidateCallbacks": 107,
+            "candidatePositivePairs": 107,
+            "candidateRequestedSumNs": 31.882204545214147,
+            "candidateAppliedSumNs": 30.18130858724217,
+            "candidatePredictedDeltaKSumJ": -100.41335346253325,
+            "candidateActualDeltaKSumJ": -100.41337474813088,
+            "maxInstantPairDeltaP": 5.384309738504487e-07,
+            "maxInstantPairDeltaL": 1.403399820456708e-06,
+            "maxInstantEnergyPredictionErrorJ": 9.767213077438441e-06,
+            "instantClosurePass": true,
+            "instantPassivityPass": true,
+            "budgetedDragPairs": 0,
+            "budgetClosurePass": true,
+            "budgetDebitSumJ": 0,
+            "maxBudgetMeasuredLossErrorJ": 0,
+            "observedDispatchPreserved": true
+          },
+          "damage": {
+            "woundEvents": 25,
+            "byType": {
+              "cut": 7,
+              "blunt": 18
+            },
+            "sumReportedEnergyJ": 1008.1041154831651,
+            "sumSeverity": 4.213476215542449,
+            "final": [
+              {
+                "blood": 1,
+                "consciousness": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 0,
+                "state": "stand",
+                "causeOfDeath": null
+              },
+              {
+                "blood": 0,
+                "consciousness": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 0,
+                  "armO": 0.5548043122296603,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 6,
+                "state": "dead",
+                "causeOfDeath": "목"
+              }
+            ]
+          }
+        },
+        {
+          "mode": "budgeted",
+          "seed": 17,
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "seconds": 30,
+          "wallSeconds": 10.052034490000006,
+          "initialNative": "cddd684e2c427833ccc5f797294e946031eca3a7b22adf612f7e1a0b08b95171",
+          "initialControls": "7d9e946614b54ce8d38491b786c5d94641fd05d99993959ab22959ad5ec92799",
+          "traceSHA256": "875ebf10af5b24c07b30748cabfc0da304eb8f79b5bda0a5f9a81711156b10ed",
+          "inputSHA256": "30064335a2df038537244cb1b1a1843eff842d3211a15516862ee68c20a7978c",
+          "stats": {
+            "finite": true,
+            "steps": 3600,
+            "falls": [
+              0,
+              0
+            ],
+            "stateFrames": [
+              {
+                "stand": 3285,
+                "getup": 315
+              },
+              {
+                "stand": 2695,
+                "getup": 834,
+                "dead": 71
+              }
+            ],
+            "maxGripGapM": [
+              0.001231456874015642,
+              3.6096173112967427
+            ],
+            "maxOffHandGapM": [
+              0.25203887568798133,
+              0.2232332725849515
+            ],
+            "maxValidMainGripJointGapM": [
+              0.001231459231614979,
+              0.000170618259778331
+            ],
+            "mainGripJointValidFrames": [
+              3600,
+              1733
+            ],
+            "mainGripJointInvalidFrames": [
+              0,
+              1867
+            ],
+            "mainGripArmedJointMismatchFrames": [
+              0,
+              0
+            ],
+            "offHandGrippingFrames": [
+              3546,
+              1706
+            ],
+            "mainGripJointEpisodes": [
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ],
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 1732,
+                  "endTimeS": 14.441666666666666,
+                  "durationS": 14.441666666666666
+                },
+                {
+                  "frame": 1733,
+                  "timeS": 14.44999999999982,
+                  "jointValid": false,
+                  "armed": false,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 0.9849554428352191,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 1733,
+                  "startTimeS": 14.441666666666666,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 15.558333333333334
+                }
+              ]
+            ],
+            "gripGapAllFramePeak": [
+              {
+                "frame": 1044,
+                "timeS": 8.70833333333348,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "getup",
+                "blood": 1,
+                "consciousness": 0.629404288536298,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.001231456874015642
+              },
+              {
+                "frame": 2830,
+                "timeS": 23.59166666666597,
+                "jointValid": false,
+                "armed": false,
+                "alive": true,
+                "state": "getup",
+                "blood": 0.7713308849805112,
+                "consciousness": 0.8119890612945013,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 3.6096173112967427
+              }
+            ],
+            "validMainGripJointGapPeak": [
+              {
+                "frame": 1044,
+                "timeS": 8.70833333333348,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "getup",
+                "blood": 1,
+                "consciousness": 0.629404288536298,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.001231459231614979
+              },
+              {
+                "frame": 1011,
+                "timeS": 8.433333333333495,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 1,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.000170618259778331
+              }
+            ],
+            "peakTotalKJ": 246.7782720743761,
+            "peakSwordKJ": [
+              54.05112106390599,
+              56.69821292017926
+            ],
+            "maxBodySpeedMps": 7.304623824831928,
+            "maxBodyAngularSpeedRadps": 69.8342550975049,
+            "cutImpulsePairs": 197,
+            "cutMapActiveFrames": 430,
+            "candidateCallbacks": 197,
+            "candidatePositivePairs": 197,
+            "candidateRequestedSumNs": 72.08261520638393,
+            "candidateAppliedSumNs": 62.86910068284806,
+            "candidatePredictedDeltaKSumJ": -170.30897329986422,
+            "candidateActualDeltaKSumJ": -170.30895897073742,
+            "maxInstantPairDeltaP": 1.1560004291023519e-06,
+            "maxInstantPairDeltaL": 7.233713672983915e-06,
+            "maxInstantEnergyPredictionErrorJ": 2.2910386455521348e-05,
+            "instantClosurePass": true,
+            "instantPassivityPass": true,
+            "budgetedDragPairs": 137,
+            "budgetClosurePass": true,
+            "budgetDebitSumJ": 145.79862869371024,
+            "maxBudgetMeasuredLossErrorJ": 2.2910386455521348e-05,
+            "observedDispatchPreserved": true
+          },
+          "damage": {
+            "woundEvents": 37,
+            "byType": {
+              "cut": 12,
+              "blunt": 25
+            },
+            "sumReportedEnergyJ": 1451.9225845734206,
+            "sumSeverity": 6.93049775845563,
+            "final": [
+              {
+                "blood": 1,
+                "consciousness": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 0,
+                "state": "stand",
+                "causeOfDeath": null
+              },
+              {
+                "blood": 0.4221276889239021,
+                "consciousness": 0.9044986230917234,
+                "pain": 1.0950000000000193,
+                "limbs": {
+                  "armS": 0,
+                  "armO": 0.21148115757078512,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 12,
+                "state": "dead",
+                "causeOfDeath": "출혈"
+              }
+            ]
+          }
+        },
+        {
+          "mode": "runtime",
+          "seed": 17,
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "seconds": 30,
+          "wallSeconds": 8.861246447000012,
+          "initialNative": "cddd684e2c427833ccc5f797294e946031eca3a7b22adf612f7e1a0b08b95171",
+          "initialControls": "7d9e946614b54ce8d38491b786c5d94641fd05d99993959ab22959ad5ec92799",
+          "traceSHA256": "875ebf10af5b24c07b30748cabfc0da304eb8f79b5bda0a5f9a81711156b10ed",
+          "inputSHA256": "30064335a2df038537244cb1b1a1843eff842d3211a15516862ee68c20a7978c",
+          "stats": {
+            "finite": true,
+            "steps": 3600,
+            "falls": [
+              0,
+              0
+            ],
+            "stateFrames": [
+              {
+                "stand": 3285,
+                "getup": 315
+              },
+              {
+                "stand": 2695,
+                "getup": 834,
+                "dead": 71
+              }
+            ],
+            "maxGripGapM": [
+              0.001231456874015642,
+              3.6096173112967427
+            ],
+            "maxOffHandGapM": [
+              0.25203887568798133,
+              0.2232332725849515
+            ],
+            "maxValidMainGripJointGapM": [
+              0.001231459231614979,
+              0.000170618259778331
+            ],
+            "mainGripJointValidFrames": [
+              3600,
+              1733
+            ],
+            "mainGripJointInvalidFrames": [
+              0,
+              1867
+            ],
+            "mainGripArmedJointMismatchFrames": [
+              0,
+              0
+            ],
+            "offHandGrippingFrames": [
+              3546,
+              1706
+            ],
+            "mainGripJointEpisodes": [
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ],
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 1732,
+                  "endTimeS": 14.441666666666666,
+                  "durationS": 14.441666666666666
+                },
+                {
+                  "frame": 1733,
+                  "timeS": 14.44999999999982,
+                  "jointValid": false,
+                  "armed": false,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 0.9849554428352191,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 1733,
+                  "startTimeS": 14.441666666666666,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 15.558333333333334
+                }
+              ]
+            ],
+            "gripGapAllFramePeak": [
+              {
+                "frame": 1044,
+                "timeS": 8.70833333333348,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "getup",
+                "blood": 1,
+                "consciousness": 0.629404288536298,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.001231456874015642
+              },
+              {
+                "frame": 2830,
+                "timeS": 23.59166666666597,
+                "jointValid": false,
+                "armed": false,
+                "alive": true,
+                "state": "getup",
+                "blood": 0.7713308849805112,
+                "consciousness": 0.8119890612945013,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 3.6096173112967427
+              }
+            ],
+            "validMainGripJointGapPeak": [
+              {
+                "frame": 1044,
+                "timeS": 8.70833333333348,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "getup",
+                "blood": 1,
+                "consciousness": 0.629404288536298,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.001231459231614979
+              },
+              {
+                "frame": 1011,
+                "timeS": 8.433333333333495,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 1,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.000170618259778331
+              }
+            ],
+            "peakTotalKJ": 246.7782720743761,
+            "peakSwordKJ": [
+              54.05112106390599,
+              56.69821292017926
+            ],
+            "maxBodySpeedMps": 7.304623824831928,
+            "maxBodyAngularSpeedRadps": 69.8342550975049,
+            "cutImpulsePairs": 197,
+            "cutMapActiveFrames": 430,
+            "candidateCallbacks": 197,
+            "candidatePositivePairs": 197,
+            "candidateRequestedSumNs": 72.08261520638393,
+            "candidateAppliedSumNs": 62.86910068284806,
+            "candidatePredictedDeltaKSumJ": -170.30897329986422,
+            "candidateActualDeltaKSumJ": -170.30895897073742,
+            "maxInstantPairDeltaP": 1.1560004291023519e-06,
+            "maxInstantPairDeltaL": 7.233713672983915e-06,
+            "maxInstantEnergyPredictionErrorJ": 2.2910386455521348e-05,
+            "instantClosurePass": true,
+            "instantPassivityPass": true,
+            "budgetedDragPairs": 137,
+            "budgetClosurePass": true,
+            "budgetDebitSumJ": 145.79862869371024,
+            "maxBudgetMeasuredLossErrorJ": 2.2910386455521348e-05,
+            "observedDispatchPreserved": true
+          },
+          "damage": {
+            "woundEvents": 37,
+            "byType": {
+              "cut": 12,
+              "blunt": 25
+            },
+            "sumReportedEnergyJ": 1451.9225845734206,
+            "sumSeverity": 6.93049775845563,
+            "final": [
+              {
+                "blood": 1,
+                "consciousness": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 0,
+                "state": "stand",
+                "causeOfDeath": null
+              },
+              {
+                "blood": 0.4221276889239021,
+                "consciousness": 0.9044986230917234,
+                "pain": 1.0950000000000193,
+                "limbs": {
+                  "armS": 0,
+                  "armO": 0.21148115757078512,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 12,
+                "state": "dead",
+                "causeOfDeath": "출혈"
+              }
+            ]
+          }
+        },
+        {
+          "mode": "original",
+          "seed": 7,
+          "weapons": [
+            "zweihander",
+            "longsword"
+          ],
+          "seconds": 30,
+          "wallSeconds": 8.524536387999992,
+          "initialNative": "9169732459c49a158fc432186404283b082b8c28722873e0aebb80b9d93aa13f",
+          "initialControls": "7d9e946614b54ce8d38491b786c5d94641fd05d99993959ab22959ad5ec92799",
+          "traceSHA256": "01ec20c6f2a98b662e987b1b4b93ac4475819f1a134f49d4601d74962cbd5f96",
+          "inputSHA256": "85e02d641cb5ed0af549735979aaa04faab8a2a43fef24931588f3b64dfd119f",
+          "stats": {
+            "finite": true,
+            "steps": 3600,
+            "falls": [
+              0,
+              0
+            ],
+            "stateFrames": [
+              {
+                "stand": 3291,
+                "getup": 309
+              },
+              {
+                "stand": 2886,
+                "getup": 714
+              }
+            ],
+            "maxGripGapM": [
+              0.0008913641277459124,
+              0.0011240995130900326
+            ],
+            "maxOffHandGapM": [
+              0.2568503041781134,
+              0.25040656071366163
+            ],
+            "maxValidMainGripJointGapM": [
+              0.0008913671354990226,
+              0.001124099257391188
+            ],
+            "mainGripJointValidFrames": [
+              3600,
+              3600
+            ],
+            "mainGripJointInvalidFrames": [
+              0,
+              0
+            ],
+            "mainGripArmedJointMismatchFrames": [
+              0,
+              0
+            ],
+            "offHandGrippingFrames": [
+              3516,
+              3502
+            ],
+            "mainGripJointEpisodes": [
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ],
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ]
+            ],
+            "gripGapAllFramePeak": [
+              {
+                "frame": 2847,
+                "timeS": 23.733333333332627,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.8327043609010373,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0008913641277459124
+              },
+              {
+                "frame": 3174,
+                "timeS": 26.458333333332472,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.6204058804746717,
+                "consciousness": 0.2976429045406046,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0011240995130900326
+              }
+            ],
+            "validMainGripJointGapPeak": [
+              {
+                "frame": 2847,
+                "timeS": 23.733333333332627,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.8327043609010373,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0008913671354990226
+              },
+              {
+                "frame": 3174,
+                "timeS": 26.458333333332472,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.6204058804746717,
+                "consciousness": 0.2976429045406046,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.001124099257391188
+              }
+            ],
+            "peakTotalKJ": 255.68558545856527,
+            "peakSwordKJ": [
+              59.23865566688512,
+              89.79110668868287
+            ],
+            "maxBodySpeedMps": 8.13436735721033,
+            "maxBodyAngularSpeedRadps": 137.75844468852532,
+            "cutImpulsePairs": 939,
+            "cutMapActiveFrames": 1304,
+            "candidateCallbacks": 0,
+            "candidatePositivePairs": 0,
+            "candidateRequestedSumNs": 0,
+            "candidateAppliedSumNs": 0,
+            "candidatePredictedDeltaKSumJ": 0,
+            "candidateActualDeltaKSumJ": 0,
+            "maxInstantPairDeltaP": 0,
+            "maxInstantPairDeltaL": 0,
+            "maxInstantEnergyPredictionErrorJ": 0,
+            "instantClosurePass": true,
+            "instantPassivityPass": true,
+            "budgetedDragPairs": 0,
+            "budgetClosurePass": true,
+            "budgetDebitSumJ": 0,
+            "maxBudgetMeasuredLossErrorJ": 0,
+            "observedDispatchPreserved": true
+          },
+          "damage": {
+            "woundEvents": 67,
+            "byType": {
+              "cut": 14,
+              "blunt": 53
+            },
+            "sumReportedEnergyJ": 1670.1539884101076,
+            "sumSeverity": 6.208145726155293,
+            "final": [
+              {
+                "blood": 0.7049946259135768,
+                "consciousness": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 0.44290680927819803,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 4,
+                "state": "stand",
+                "causeOfDeath": null
+              },
+              {
+                "blood": 0.5725254900986153,
+                "consciousness": 0.23525331060121565,
+                "pain": 0.80379686195175,
+                "limbs": {
+                  "armS": 0.3506368255711073,
+                  "armO": 0.34305693369118523,
+                  "legF": 1,
+                  "legB": 0.8644582031243452
+                },
+                "wounds": 10,
+                "state": "stand",
+                "causeOfDeath": null
+              }
+            ]
+          }
+        },
+        {
+          "mode": "clone",
+          "seed": 7,
+          "weapons": [
+            "zweihander",
+            "longsword"
+          ],
+          "seconds": 30,
+          "wallSeconds": 8.585428025,
+          "initialNative": "9169732459c49a158fc432186404283b082b8c28722873e0aebb80b9d93aa13f",
+          "initialControls": "7d9e946614b54ce8d38491b786c5d94641fd05d99993959ab22959ad5ec92799",
+          "traceSHA256": "01ec20c6f2a98b662e987b1b4b93ac4475819f1a134f49d4601d74962cbd5f96",
+          "inputSHA256": "85e02d641cb5ed0af549735979aaa04faab8a2a43fef24931588f3b64dfd119f",
+          "stats": {
+            "finite": true,
+            "steps": 3600,
+            "falls": [
+              0,
+              0
+            ],
+            "stateFrames": [
+              {
+                "stand": 3291,
+                "getup": 309
+              },
+              {
+                "stand": 2886,
+                "getup": 714
+              }
+            ],
+            "maxGripGapM": [
+              0.0008913641277459124,
+              0.0011240995130900326
+            ],
+            "maxOffHandGapM": [
+              0.2568503041781134,
+              0.25040656071366163
+            ],
+            "maxValidMainGripJointGapM": [
+              0.0008913671354990226,
+              0.001124099257391188
+            ],
+            "mainGripJointValidFrames": [
+              3600,
+              3600
+            ],
+            "mainGripJointInvalidFrames": [
+              0,
+              0
+            ],
+            "mainGripArmedJointMismatchFrames": [
+              0,
+              0
+            ],
+            "offHandGrippingFrames": [
+              3516,
+              3502
+            ],
+            "mainGripJointEpisodes": [
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ],
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ]
+            ],
+            "gripGapAllFramePeak": [
+              {
+                "frame": 2847,
+                "timeS": 23.733333333332627,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.8327043609010373,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0008913641277459124
+              },
+              {
+                "frame": 3174,
+                "timeS": 26.458333333332472,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.6204058804746717,
+                "consciousness": 0.2976429045406046,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0011240995130900326
+              }
+            ],
+            "validMainGripJointGapPeak": [
+              {
+                "frame": 2847,
+                "timeS": 23.733333333332627,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.8327043609010373,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0008913671354990226
+              },
+              {
+                "frame": 3174,
+                "timeS": 26.458333333332472,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.6204058804746717,
+                "consciousness": 0.2976429045406046,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.001124099257391188
+              }
+            ],
+            "peakTotalKJ": 255.68558545856527,
+            "peakSwordKJ": [
+              59.23865566688512,
+              89.79110668868287
+            ],
+            "maxBodySpeedMps": 8.13436735721033,
+            "maxBodyAngularSpeedRadps": 137.75844468852532,
+            "cutImpulsePairs": 939,
+            "cutMapActiveFrames": 1304,
+            "candidateCallbacks": 0,
+            "candidatePositivePairs": 0,
+            "candidateRequestedSumNs": 0,
+            "candidateAppliedSumNs": 0,
+            "candidatePredictedDeltaKSumJ": 0,
+            "candidateActualDeltaKSumJ": 0,
+            "maxInstantPairDeltaP": 0,
+            "maxInstantPairDeltaL": 0,
+            "maxInstantEnergyPredictionErrorJ": 0,
+            "instantClosurePass": true,
+            "instantPassivityPass": true,
+            "budgetedDragPairs": 0,
+            "budgetClosurePass": true,
+            "budgetDebitSumJ": 0,
+            "maxBudgetMeasuredLossErrorJ": 0,
+            "observedDispatchPreserved": true
+          },
+          "damage": {
+            "woundEvents": 67,
+            "byType": {
+              "cut": 14,
+              "blunt": 53
+            },
+            "sumReportedEnergyJ": 1670.1539884101076,
+            "sumSeverity": 6.208145726155293,
+            "final": [
+              {
+                "blood": 0.7049946259135768,
+                "consciousness": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 0.44290680927819803,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 4,
+                "state": "stand",
+                "causeOfDeath": null
+              },
+              {
+                "blood": 0.5725254900986153,
+                "consciousness": 0.23525331060121565,
+                "pain": 0.80379686195175,
+                "limbs": {
+                  "armS": 0.3506368255711073,
+                  "armO": 0.34305693369118523,
+                  "legF": 1,
+                  "legB": 0.8644582031243452
+                },
+                "wounds": 10,
+                "state": "stand",
+                "causeOfDeath": null
+              }
+            ]
+          }
+        },
+        {
+          "mode": "candidate",
+          "seed": 7,
+          "weapons": [
+            "zweihander",
+            "longsword"
+          ],
+          "seconds": 30,
+          "wallSeconds": 8.195333192000005,
+          "initialNative": "9169732459c49a158fc432186404283b082b8c28722873e0aebb80b9d93aa13f",
+          "initialControls": "7d9e946614b54ce8d38491b786c5d94641fd05d99993959ab22959ad5ec92799",
+          "traceSHA256": "a569a079d981cdd9b0c51397df3f9471138b5fc49febf7020e274d9e8fa235ab",
+          "inputSHA256": "3f4b4afb7f28263de326fbf45dec25118e73147b5b9d887c68ad70b5e8bd286c",
+          "stats": {
+            "finite": true,
+            "steps": 3600,
+            "falls": [
+              0,
+              0
+            ],
+            "stateFrames": [
+              {
+                "stand": 3600
+              },
+              {
+                "stand": 3600
+              }
+            ],
+            "maxGripGapM": [
+              0.0014372466595109674,
+              0.004887162964687176
+            ],
+            "maxOffHandGapM": [
+              0.2295333541696047,
+              0.25601481577654606
+            ],
+            "maxValidMainGripJointGapM": [
+              0.0014372484266941849,
+              0.004887159404823661
+            ],
+            "mainGripJointValidFrames": [
+              3600,
+              3600
+            ],
+            "mainGripJointInvalidFrames": [
+              0,
+              0
+            ],
+            "mainGripArmedJointMismatchFrames": [
+              0,
+              0
+            ],
+            "offHandGrippingFrames": [
+              3571,
+              3548
+            ],
+            "mainGripJointEpisodes": [
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ],
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ]
+            ],
+            "gripGapAllFramePeak": [
+              {
+                "frame": 2935,
+                "timeS": 24.46666666666592,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9985565346915477,
+                "consciousness": 0.782902971584629,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0014372466595109674
+              },
+              {
+                "frame": 1154,
+                "timeS": 9.625000000000094,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9898335216638884,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.004887162964687176
+              }
+            ],
+            "validMainGripJointGapPeak": [
+              {
+                "frame": 2935,
+                "timeS": 24.46666666666592,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9985565346915477,
+                "consciousness": 0.782902971584629,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0014372484266941849
+              },
+              {
+                "frame": 1154,
+                "timeS": 9.625000000000094,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9898335216638884,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.004887159404823661
+              }
+            ],
+            "peakTotalKJ": 188.88311442027089,
+            "peakSwordKJ": [
+              70.87590141351335,
+              53.33771754836967
+            ],
+            "maxBodySpeedMps": 6.631219252873511,
+            "maxBodyAngularSpeedRadps": 102.94024999619396,
+            "cutImpulsePairs": 798,
+            "cutMapActiveFrames": 1127,
+            "candidateCallbacks": 798,
+            "candidatePositivePairs": 798,
+            "candidateRequestedSumNs": 495.0455088534479,
+            "candidateAppliedSumNs": 284.41970400797095,
+            "candidatePredictedDeltaKSumJ": -343.96991880346985,
+            "candidateActualDeltaKSumJ": -343.96991855954076,
+            "maxInstantPairDeltaP": 6.822803098259518e-07,
+            "maxInstantPairDeltaL": 2.3663871770328177e-06,
+            "maxInstantEnergyPredictionErrorJ": 4.7104367189021445e-06,
+            "instantClosurePass": true,
+            "instantPassivityPass": true,
+            "budgetedDragPairs": 0,
+            "budgetClosurePass": true,
+            "budgetDebitSumJ": 0,
+            "maxBudgetMeasuredLossErrorJ": 0,
+            "observedDispatchPreserved": true
+          },
+          "damage": {
+            "woundEvents": 50,
+            "byType": {
+              "cut": 11,
+              "blunt": 39
+            },
+            "sumReportedEnergyJ": 1019.4988361051261,
+            "sumSeverity": 2.107031174824574,
+            "final": [
+              {
+                "blood": 0.9778193932433322,
+                "consciousness": 0.9489029715846107,
+                "pain": 0,
+                "limbs": {
+                  "armS": 0.6908329222664958,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 3,
+                "state": "stand",
+                "causeOfDeath": null
+              },
+              {
+                "blood": 0.7593291547075735,
+                "consciousness": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 0.7306327607852087,
+                  "legF": 1,
+                  "legB": 0.7504799116111336
+                },
+                "wounds": 8,
+                "state": "stand",
+                "causeOfDeath": null
+              }
+            ]
+          }
+        },
+        {
+          "mode": "budgeted",
+          "seed": 7,
+          "weapons": [
+            "zweihander",
+            "longsword"
+          ],
+          "seconds": 30,
+          "wallSeconds": 8.014767318999992,
+          "initialNative": "9169732459c49a158fc432186404283b082b8c28722873e0aebb80b9d93aa13f",
+          "initialControls": "7d9e946614b54ce8d38491b786c5d94641fd05d99993959ab22959ad5ec92799",
+          "traceSHA256": "f1d45fcd144c4a9ce0a9bba64950828d75ceed1bf979f41a2625e41acfe6f748",
+          "inputSHA256": "ea8c49df8b4d03fb81f9bc7e8215c990e94261c3c05a12c549d35974e503776d",
+          "stats": {
+            "finite": true,
+            "steps": 3600,
+            "falls": [
+              0,
+              0
+            ],
+            "stateFrames": [
+              {
+                "stand": 3358,
+                "getup": 242
+              },
+              {
+                "stand": 3600
+              }
+            ],
+            "maxGripGapM": [
+              0.0006173817310910679,
+              0.0012345543392086975
+            ],
+            "maxOffHandGapM": [
+              0.2295333541696047,
+              0.23648862161615486
+            ],
+            "maxValidMainGripJointGapM": [
+              0.0006173840953503171,
+              0.0012345516531446386
+            ],
+            "mainGripJointValidFrames": [
+              3600,
+              3600
+            ],
+            "mainGripJointInvalidFrames": [
+              0,
+              0
+            ],
+            "mainGripArmedJointMismatchFrames": [
+              0,
+              0
+            ],
+            "offHandGrippingFrames": [
+              3571,
+              3566
+            ],
+            "mainGripJointEpisodes": [
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ],
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ]
+            ],
+            "gripGapAllFramePeak": [
+              {
+                "frame": 2522,
+                "timeS": 21.024999999999448,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9987788048020962,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0006173817310910679
+              },
+              {
+                "frame": 3316,
+                "timeS": 27.64166666666574,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9733798356536909,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0012345543392086975
+              }
+            ],
+            "validMainGripJointGapPeak": [
+              {
+                "frame": 2522,
+                "timeS": 21.024999999999448,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9987788048020962,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0006173840953503171
+              },
+              {
+                "frame": 3316,
+                "timeS": 27.64166666666574,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9733798356536909,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0012345516531446386
+              }
+            ],
+            "peakTotalKJ": 228.44097939137205,
+            "peakSwordKJ": [
+              68.30897263302288,
+              48.3087712663512
+            ],
+            "maxBodySpeedMps": 7.018355733237684,
+            "maxBodyAngularSpeedRadps": 130.11991049678608,
+            "cutImpulsePairs": 349,
+            "cutMapActiveFrames": 741,
+            "candidateCallbacks": 349,
+            "candidatePositivePairs": 349,
+            "candidateRequestedSumNs": 273.5203361008776,
+            "candidateAppliedSumNs": 172.20433368090562,
+            "candidatePredictedDeltaKSumJ": -235.5858244006243,
+            "candidateActualDeltaKSumJ": -235.5858247406273,
+            "maxInstantPairDeltaP": 6.822803098259518e-07,
+            "maxInstantPairDeltaL": 2.3777167587203034e-06,
+            "maxInstantEnergyPredictionErrorJ": 3.042179310241977e-06,
+            "instantClosurePass": true,
+            "instantPassivityPass": true,
+            "budgetedDragPairs": 157,
+            "budgetClosurePass": true,
+            "budgetDebitSumJ": 131.8146801759056,
+            "maxBudgetMeasuredLossErrorJ": 3.042179310241977e-06,
+            "observedDispatchPreserved": true
+          },
+          "damage": {
+            "woundEvents": 32,
+            "byType": {
+              "cut": 4,
+              "blunt": 28
+            },
+            "sumReportedEnergyJ": 843.6904093249234,
+            "sumSeverity": 1.4855649833792466,
+            "final": [
+              {
+                "blood": 0.9922512457211687,
+                "consciousness": 0.6448428739725689,
+                "pain": 1.860000000000003,
+                "limbs": {
+                  "armS": 0.7955438995699746,
+                  "armO": 1,
+                  "legF": 0.9896687667821356,
+                  "legB": 1
+                },
+                "wounds": 3,
+                "state": "stand",
+                "causeOfDeath": null
+              },
+              {
+                "blood": 0.9728527746461583,
+                "consciousness": 1,
+                "pain": 0.12769008714472221,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 0.7986968744218548,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 1,
+                "state": "stand",
+                "causeOfDeath": null
+              }
+            ]
+          }
+        },
+        {
+          "mode": "runtime",
+          "seed": 7,
+          "weapons": [
+            "zweihander",
+            "longsword"
+          ],
+          "seconds": 30,
+          "wallSeconds": 8.051605561999983,
+          "initialNative": "9169732459c49a158fc432186404283b082b8c28722873e0aebb80b9d93aa13f",
+          "initialControls": "7d9e946614b54ce8d38491b786c5d94641fd05d99993959ab22959ad5ec92799",
+          "traceSHA256": "f1d45fcd144c4a9ce0a9bba64950828d75ceed1bf979f41a2625e41acfe6f748",
+          "inputSHA256": "ea8c49df8b4d03fb81f9bc7e8215c990e94261c3c05a12c549d35974e503776d",
+          "stats": {
+            "finite": true,
+            "steps": 3600,
+            "falls": [
+              0,
+              0
+            ],
+            "stateFrames": [
+              {
+                "stand": 3358,
+                "getup": 242
+              },
+              {
+                "stand": 3600
+              }
+            ],
+            "maxGripGapM": [
+              0.0006173817310910679,
+              0.0012345543392086975
+            ],
+            "maxOffHandGapM": [
+              0.2295333541696047,
+              0.23648862161615486
+            ],
+            "maxValidMainGripJointGapM": [
+              0.0006173840953503171,
+              0.0012345516531446386
+            ],
+            "mainGripJointValidFrames": [
+              3600,
+              3600
+            ],
+            "mainGripJointInvalidFrames": [
+              0,
+              0
+            ],
+            "mainGripArmedJointMismatchFrames": [
+              0,
+              0
+            ],
+            "offHandGrippingFrames": [
+              3571,
+              3566
+            ],
+            "mainGripJointEpisodes": [
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ],
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ]
+            ],
+            "gripGapAllFramePeak": [
+              {
+                "frame": 2522,
+                "timeS": 21.024999999999448,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9987788048020962,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0006173817310910679
+              },
+              {
+                "frame": 3316,
+                "timeS": 27.64166666666574,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9733798356536909,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0012345543392086975
+              }
+            ],
+            "validMainGripJointGapPeak": [
+              {
+                "frame": 2522,
+                "timeS": 21.024999999999448,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9987788048020962,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0006173840953503171
+              },
+              {
+                "frame": 3316,
+                "timeS": 27.64166666666574,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9733798356536909,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0012345516531446386
+              }
+            ],
+            "peakTotalKJ": 228.44097939137205,
+            "peakSwordKJ": [
+              68.30897263302288,
+              48.3087712663512
+            ],
+            "maxBodySpeedMps": 7.018355733237684,
+            "maxBodyAngularSpeedRadps": 130.11991049678608,
+            "cutImpulsePairs": 349,
+            "cutMapActiveFrames": 741,
+            "candidateCallbacks": 349,
+            "candidatePositivePairs": 349,
+            "candidateRequestedSumNs": 273.5203361008776,
+            "candidateAppliedSumNs": 172.20433368090562,
+            "candidatePredictedDeltaKSumJ": -235.5858244006243,
+            "candidateActualDeltaKSumJ": -235.5858247406273,
+            "maxInstantPairDeltaP": 6.822803098259518e-07,
+            "maxInstantPairDeltaL": 2.3777167587203034e-06,
+            "maxInstantEnergyPredictionErrorJ": 3.042179310241977e-06,
+            "instantClosurePass": true,
+            "instantPassivityPass": true,
+            "budgetedDragPairs": 157,
+            "budgetClosurePass": true,
+            "budgetDebitSumJ": 131.8146801759056,
+            "maxBudgetMeasuredLossErrorJ": 3.042179310241977e-06,
+            "observedDispatchPreserved": true
+          },
+          "damage": {
+            "woundEvents": 32,
+            "byType": {
+              "cut": 4,
+              "blunt": 28
+            },
+            "sumReportedEnergyJ": 843.6904093249234,
+            "sumSeverity": 1.4855649833792466,
+            "final": [
+              {
+                "blood": 0.9922512457211687,
+                "consciousness": 0.6448428739725689,
+                "pain": 1.860000000000003,
+                "limbs": {
+                  "armS": 0.7955438995699746,
+                  "armO": 1,
+                  "legF": 0.9896687667821356,
+                  "legB": 1
+                },
+                "wounds": 3,
+                "state": "stand",
+                "causeOfDeath": null
+              },
+              {
+                "blood": 0.9728527746461583,
+                "consciousness": 1,
+                "pain": 0.12769008714472221,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 0.7986968744218548,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 1,
+                "state": "stand",
+                "causeOfDeath": null
+              }
+            ]
+          }
+        },
+        {
+          "mode": "original",
+          "seed": 17,
+          "weapons": [
+            "zweihander",
+            "longsword"
+          ],
+          "seconds": 30,
+          "wallSeconds": 7.918104855000013,
+          "initialNative": "9169732459c49a158fc432186404283b082b8c28722873e0aebb80b9d93aa13f",
+          "initialControls": "7d9e946614b54ce8d38491b786c5d94641fd05d99993959ab22959ad5ec92799",
+          "traceSHA256": "5d2d69f0468f8573766ec5af24564f75b6642b83b9d57438265f194f8f8e6bc1",
+          "inputSHA256": "bab53c9bc8aeaef569d92743740b0027c2304e9e946b58404730b716c5bdaaec",
+          "stats": {
+            "finite": true,
+            "steps": 3600,
+            "falls": [
+              0,
+              0
+            ],
+            "stateFrames": [
+              {
+                "stand": 3600
+              },
+              {
+                "stand": 3359,
+                "getup": 241
+              }
+            ],
+            "maxGripGapM": [
+              0.0005044371050570112,
+              0.0009680750599880078
+            ],
+            "maxOffHandGapM": [
+              0.2717383071394121,
+              0.23538292457769414
+            ],
+            "maxValidMainGripJointGapM": [
+              0.0005044410467630971,
+              0.0009680777571058984
+            ],
+            "mainGripJointValidFrames": [
+              3600,
+              3600
+            ],
+            "mainGripJointInvalidFrames": [
+              0,
+              0
+            ],
+            "mainGripArmedJointMismatchFrames": [
+              0,
+              0
+            ],
+            "offHandGrippingFrames": [
+              3462,
+              1075
+            ],
+            "mainGripJointEpisodes": [
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ],
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ]
+            ],
+            "gripGapAllFramePeak": [
+              {
+                "frame": 1341,
+                "timeS": 11.183333333333339,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9994248462077076,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0005044371050570112
+              },
+              {
+                "frame": 1108,
+                "timeS": 9.241666666666783,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 1,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0009680750599880078
+              }
+            ],
+            "validMainGripJointGapPeak": [
+              {
+                "frame": 1341,
+                "timeS": 11.183333333333339,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9994248462077076,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0005044410467630971
+              },
+              {
+                "frame": 1108,
+                "timeS": 9.241666666666783,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 1,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0009680777571058984
+              }
+            ],
+            "peakTotalKJ": 271.56536072592564,
+            "peakSwordKJ": [
+              66.28965549153665,
+              58.892134079879426
+            ],
+            "maxBodySpeedMps": 7.002826791539593,
+            "maxBodyAngularSpeedRadps": 82.38747031543107,
+            "cutImpulsePairs": 365,
+            "cutMapActiveFrames": 602,
+            "candidateCallbacks": 0,
+            "candidatePositivePairs": 0,
+            "candidateRequestedSumNs": 0,
+            "candidateAppliedSumNs": 0,
+            "candidatePredictedDeltaKSumJ": 0,
+            "candidateActualDeltaKSumJ": 0,
+            "maxInstantPairDeltaP": 0,
+            "maxInstantPairDeltaL": 0,
+            "maxInstantEnergyPredictionErrorJ": 0,
+            "instantClosurePass": true,
+            "instantPassivityPass": true,
+            "budgetedDragPairs": 0,
+            "budgetClosurePass": true,
+            "budgetDebitSumJ": 0,
+            "maxBudgetMeasuredLossErrorJ": 0,
+            "observedDispatchPreserved": true
+          },
+          "damage": {
+            "woundEvents": 24,
+            "byType": {
+              "cut": 6,
+              "blunt": 18
+            },
+            "sumReportedEnergyJ": 842.7311746902594,
+            "sumSeverity": 2.8968538011045903,
+            "final": [
+              {
+                "blood": 0.9784519279535777,
+                "consciousness": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 0.9915143343623232,
+                  "armO": 1,
+                  "legF": 0.9826265776998463,
+                  "legB": 1
+                },
+                "wounds": 3,
+                "state": "stand",
+                "causeOfDeath": null
+              },
+              {
+                "blood": 0.7776249743398346,
+                "consciousness": 0.6275874010147472,
+                "pain": 0,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 0,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 3,
+                "state": "stand",
+                "causeOfDeath": null
+              }
+            ]
+          }
+        },
+        {
+          "mode": "clone",
+          "seed": 17,
+          "weapons": [
+            "zweihander",
+            "longsword"
+          ],
+          "seconds": 30,
+          "wallSeconds": 7.871722064000002,
+          "initialNative": "9169732459c49a158fc432186404283b082b8c28722873e0aebb80b9d93aa13f",
+          "initialControls": "7d9e946614b54ce8d38491b786c5d94641fd05d99993959ab22959ad5ec92799",
+          "traceSHA256": "5d2d69f0468f8573766ec5af24564f75b6642b83b9d57438265f194f8f8e6bc1",
+          "inputSHA256": "bab53c9bc8aeaef569d92743740b0027c2304e9e946b58404730b716c5bdaaec",
+          "stats": {
+            "finite": true,
+            "steps": 3600,
+            "falls": [
+              0,
+              0
+            ],
+            "stateFrames": [
+              {
+                "stand": 3600
+              },
+              {
+                "stand": 3359,
+                "getup": 241
+              }
+            ],
+            "maxGripGapM": [
+              0.0005044371050570112,
+              0.0009680750599880078
+            ],
+            "maxOffHandGapM": [
+              0.2717383071394121,
+              0.23538292457769414
+            ],
+            "maxValidMainGripJointGapM": [
+              0.0005044410467630971,
+              0.0009680777571058984
+            ],
+            "mainGripJointValidFrames": [
+              3600,
+              3600
+            ],
+            "mainGripJointInvalidFrames": [
+              0,
+              0
+            ],
+            "mainGripArmedJointMismatchFrames": [
+              0,
+              0
+            ],
+            "offHandGrippingFrames": [
+              3462,
+              1075
+            ],
+            "mainGripJointEpisodes": [
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ],
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ]
+            ],
+            "gripGapAllFramePeak": [
+              {
+                "frame": 1341,
+                "timeS": 11.183333333333339,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9994248462077076,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0005044371050570112
+              },
+              {
+                "frame": 1108,
+                "timeS": 9.241666666666783,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 1,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0009680750599880078
+              }
+            ],
+            "validMainGripJointGapPeak": [
+              {
+                "frame": 1341,
+                "timeS": 11.183333333333339,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9994248462077076,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0005044410467630971
+              },
+              {
+                "frame": 1108,
+                "timeS": 9.241666666666783,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 1,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0009680777571058984
+              }
+            ],
+            "peakTotalKJ": 271.56536072592564,
+            "peakSwordKJ": [
+              66.28965549153665,
+              58.892134079879426
+            ],
+            "maxBodySpeedMps": 7.002826791539593,
+            "maxBodyAngularSpeedRadps": 82.38747031543107,
+            "cutImpulsePairs": 365,
+            "cutMapActiveFrames": 602,
+            "candidateCallbacks": 0,
+            "candidatePositivePairs": 0,
+            "candidateRequestedSumNs": 0,
+            "candidateAppliedSumNs": 0,
+            "candidatePredictedDeltaKSumJ": 0,
+            "candidateActualDeltaKSumJ": 0,
+            "maxInstantPairDeltaP": 0,
+            "maxInstantPairDeltaL": 0,
+            "maxInstantEnergyPredictionErrorJ": 0,
+            "instantClosurePass": true,
+            "instantPassivityPass": true,
+            "budgetedDragPairs": 0,
+            "budgetClosurePass": true,
+            "budgetDebitSumJ": 0,
+            "maxBudgetMeasuredLossErrorJ": 0,
+            "observedDispatchPreserved": true
+          },
+          "damage": {
+            "woundEvents": 24,
+            "byType": {
+              "cut": 6,
+              "blunt": 18
+            },
+            "sumReportedEnergyJ": 842.7311746902594,
+            "sumSeverity": 2.8968538011045903,
+            "final": [
+              {
+                "blood": 0.9784519279535777,
+                "consciousness": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 0.9915143343623232,
+                  "armO": 1,
+                  "legF": 0.9826265776998463,
+                  "legB": 1
+                },
+                "wounds": 3,
+                "state": "stand",
+                "causeOfDeath": null
+              },
+              {
+                "blood": 0.7776249743398346,
+                "consciousness": 0.6275874010147472,
+                "pain": 0,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 0,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 3,
+                "state": "stand",
+                "causeOfDeath": null
+              }
+            ]
+          }
+        },
+        {
+          "mode": "candidate",
+          "seed": 17,
+          "weapons": [
+            "zweihander",
+            "longsword"
+          ],
+          "seconds": 30,
+          "wallSeconds": 7.902433037999988,
+          "initialNative": "9169732459c49a158fc432186404283b082b8c28722873e0aebb80b9d93aa13f",
+          "initialControls": "7d9e946614b54ce8d38491b786c5d94641fd05d99993959ab22959ad5ec92799",
+          "traceSHA256": "73dba345be804076965fe06686d35a712b28b658268260b976c796390cb2794b",
+          "inputSHA256": "97e84d34666d683f7e0db1d3c14780e80990f5f72b4e0e0a19be8802bc9b0fc8",
+          "stats": {
+            "finite": true,
+            "steps": 3600,
+            "falls": [
+              0,
+              0
+            ],
+            "stateFrames": [
+              {
+                "stand": 3202,
+                "getup": 398
+              },
+              {
+                "stand": 3600
+              }
+            ],
+            "maxGripGapM": [
+              0.0006625756671607533,
+              0.0010370113540578644
+            ],
+            "maxOffHandGapM": [
+              0.2552685307541862,
+              0.23538292457769414
+            ],
+            "maxValidMainGripJointGapM": [
+              0.0006625774673201957,
+              0.0010370153324768137
+            ],
+            "mainGripJointValidFrames": [
+              3600,
+              3600
+            ],
+            "mainGripJointInvalidFrames": [
+              0,
+              0
+            ],
+            "mainGripArmedJointMismatchFrames": [
+              0,
+              0
+            ],
+            "offHandGrippingFrames": [
+              3527,
+              1075
+            ],
+            "mainGripJointEpisodes": [
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ],
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ]
+            ],
+            "gripGapAllFramePeak": [
+              {
+                "frame": 2421,
+                "timeS": 20.18333333333283,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9867206578037312,
+                "consciousness": 0.4101044629564417,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0006625756671607533
+              },
+              {
+                "frame": 1605,
+                "timeS": 13.383333333333214,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9421163235088529,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0010370113540578644
+              }
+            ],
+            "validMainGripJointGapPeak": [
+              {
+                "frame": 2421,
+                "timeS": 20.18333333333283,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9867206578037312,
+                "consciousness": 0.4101044629564417,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0006625774673201957
+              },
+              {
+                "frame": 1605,
+                "timeS": 13.383333333333214,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9421163235088529,
+                "consciousness": 1,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0010370153324768137
+              }
+            ],
+            "peakTotalKJ": 178.99877162911946,
+            "peakSwordKJ": [
+              66.28965549153665,
+              59.84133587100381
+            ],
+            "maxBodySpeedMps": 6.634532263335398,
+            "maxBodyAngularSpeedRadps": 63.00390972687768,
+            "cutImpulsePairs": 249,
+            "cutMapActiveFrames": 830,
+            "candidateCallbacks": 249,
+            "candidatePositivePairs": 249,
+            "candidateRequestedSumNs": 122.8861428306017,
+            "candidateAppliedSumNs": 90.8374641535324,
+            "candidatePredictedDeltaKSumJ": -184.48177329356685,
+            "candidateActualDeltaKSumJ": -184.4817926579772,
+            "maxInstantPairDeltaP": 4.191615848700343e-07,
+            "maxInstantPairDeltaL": 2.4465079686018464e-06,
+            "maxInstantEnergyPredictionErrorJ": 1.0686772448309512e-05,
+            "instantClosurePass": true,
+            "instantPassivityPass": true,
+            "budgetedDragPairs": 0,
+            "budgetClosurePass": true,
+            "budgetDebitSumJ": 0,
+            "maxBudgetMeasuredLossErrorJ": 0,
+            "observedDispatchPreserved": true
+          },
+          "damage": {
+            "woundEvents": 41,
+            "byType": {
+              "cut": 11,
+              "blunt": 30
+            },
+            "sumReportedEnergyJ": 1152.6448528526241,
+            "sumSeverity": 3.5903097385122384,
+            "final": [
+              {
+                "blood": 0.9252513033692207,
+                "consciousness": 0.7046044629564093,
+                "pain": 0,
+                "limbs": {
+                  "armS": 0.47009198337629887,
+                  "armO": 0.7460790363604737,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 7,
+                "state": "stand",
+                "causeOfDeath": null
+              },
+              {
+                "blood": 0.7974598180315504,
+                "consciousness": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 0,
+                  "legF": 0.5678382622001169,
+                  "legB": 0.7369431723091884
+                },
+                "wounds": 4,
+                "state": "stand",
+                "causeOfDeath": null
+              }
+            ]
+          }
+        },
+        {
+          "mode": "budgeted",
+          "seed": 17,
+          "weapons": [
+            "zweihander",
+            "longsword"
+          ],
+          "seconds": 30,
+          "wallSeconds": 8.312197484000004,
+          "initialNative": "9169732459c49a158fc432186404283b082b8c28722873e0aebb80b9d93aa13f",
+          "initialControls": "7d9e946614b54ce8d38491b786c5d94641fd05d99993959ab22959ad5ec92799",
+          "traceSHA256": "25774195a31b8cf36a4f96c49ad0a3c717922bd63260cb2572a72881bbadf22b",
+          "inputSHA256": "b708ad1d64901814dc4bd481dcfe3c665f63ff7c137a2f9f1004963df1b0f2ec",
+          "stats": {
+            "finite": true,
+            "steps": 3600,
+            "falls": [
+              0,
+              0
+            ],
+            "stateFrames": [
+              {
+                "stand": 3244,
+                "getup": 356
+              },
+              {
+                "stand": 3600
+              }
+            ],
+            "maxGripGapM": [
+              1.1245325641237909,
+              0.001402578439959084
+            ],
+            "maxOffHandGapM": [
+              0.2552685307541862,
+              0.23538292457769414
+            ],
+            "maxValidMainGripJointGapM": [
+              0.0007152386222896424,
+              0.0014025776983753503
+            ],
+            "mainGripJointValidFrames": [
+              3553,
+              3600
+            ],
+            "mainGripJointInvalidFrames": [
+              47,
+              0
+            ],
+            "mainGripArmedJointMismatchFrames": [
+              0,
+              0
+            ],
+            "offHandGrippingFrames": [
+              3481,
+              1075
+            ],
+            "mainGripJointEpisodes": [
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3552,
+                  "endTimeS": 29.608333333333334,
+                  "durationS": 29.608333333333334
+                },
+                {
+                  "frame": 3553,
+                  "timeS": 29.616666666665626,
+                  "jointValid": false,
+                  "armed": false,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 0.9621427774703282,
+                  "consciousness": 0.6931044629564106,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 3553,
+                  "startTimeS": 29.608333333333334,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 0.39166666666666666
+                }
+              ],
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ]
+            ],
+            "gripGapAllFramePeak": [
+              {
+                "frame": 3580,
+                "timeS": 29.841666666665613,
+                "jointValid": false,
+                "armed": false,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9568933165246093,
+                "consciousness": 0.6998544629564099,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 1.1245325641237909
+              },
+              {
+                "frame": 3584,
+                "timeS": 29.874999999998945,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.7762408085401957,
+                "consciousness": 0.8424602684456212,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.001402578439959084
+              }
+            ],
+            "validMainGripJointGapPeak": [
+              {
+                "frame": 2474,
+                "timeS": 20.62499999999947,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9897084021752742,
+                "consciousness": 0.42335446295644025,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0007152386222896424
+              },
+              {
+                "frame": 3584,
+                "timeS": 29.874999999998945,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.7762408085401957,
+                "consciousness": 0.8424602684456212,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0014025776983753503
+              }
+            ],
+            "peakTotalKJ": 221.82065340496226,
+            "peakSwordKJ": [
+              66.28965549153665,
+              59.84133587100381
+            ],
+            "maxBodySpeedMps": 6.634532263335398,
+            "maxBodyAngularSpeedRadps": 63.00390972687768,
+            "cutImpulsePairs": 281,
+            "cutMapActiveFrames": 758,
+            "candidateCallbacks": 281,
+            "candidatePositivePairs": 281,
+            "candidateRequestedSumNs": 138.3263022973412,
+            "candidateAppliedSumNs": 79.9790454756698,
+            "candidatePredictedDeltaKSumJ": -179.51756176450758,
+            "candidateActualDeltaKSumJ": -179.51758706597104,
+            "maxInstantPairDeltaP": 2.9442503157106003e-07,
+            "maxInstantPairDeltaL": 2.4465079686018464e-06,
+            "maxInstantEnergyPredictionErrorJ": 7.590739400598068e-06,
+            "instantClosurePass": true,
+            "instantPassivityPass": true,
+            "budgetedDragPairs": 191,
+            "budgetClosurePass": true,
+            "budgetDebitSumJ": 149.3277680163063,
+            "maxBudgetMeasuredLossErrorJ": 7.590739400598068e-06,
+            "observedDispatchPreserved": true
+          },
+          "damage": {
+            "woundEvents": 33,
+            "byType": {
+              "cut": 11,
+              "blunt": 22
+            },
+            "sumReportedEnergyJ": 1148.099478172437,
+            "sumSeverity": 4.744164008667394,
+            "final": [
+              {
+                "blood": 0.9532833422315817,
+                "consciousness": 0.7046044629564093,
+                "pain": 1.770000000000005,
+                "limbs": {
+                  "armS": 0,
+                  "armO": 0.8130469377179824,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 7,
+                "state": "stand",
+                "causeOfDeath": null
+              },
+              {
+                "blood": 0.7746131025751616,
+                "consciousness": 0.8462102684456208,
+                "pain": 0,
+                "limbs": {
+                  "armS": 0.9342701225608063,
+                  "armO": 0,
+                  "legF": 0.8305371142897302,
+                  "legB": 1
+                },
+                "wounds": 4,
+                "state": "stand",
+                "causeOfDeath": null
+              }
+            ]
+          }
+        },
+        {
+          "mode": "runtime",
+          "seed": 17,
+          "weapons": [
+            "zweihander",
+            "longsword"
+          ],
+          "seconds": 30,
+          "wallSeconds": 8.278452114000014,
+          "initialNative": "9169732459c49a158fc432186404283b082b8c28722873e0aebb80b9d93aa13f",
+          "initialControls": "7d9e946614b54ce8d38491b786c5d94641fd05d99993959ab22959ad5ec92799",
+          "traceSHA256": "25774195a31b8cf36a4f96c49ad0a3c717922bd63260cb2572a72881bbadf22b",
+          "inputSHA256": "b708ad1d64901814dc4bd481dcfe3c665f63ff7c137a2f9f1004963df1b0f2ec",
+          "stats": {
+            "finite": true,
+            "steps": 3600,
+            "falls": [
+              0,
+              0
+            ],
+            "stateFrames": [
+              {
+                "stand": 3244,
+                "getup": 356
+              },
+              {
+                "stand": 3600
+              }
+            ],
+            "maxGripGapM": [
+              1.1245325641237909,
+              0.001402578439959084
+            ],
+            "maxOffHandGapM": [
+              0.2552685307541862,
+              0.23538292457769414
+            ],
+            "maxValidMainGripJointGapM": [
+              0.0007152386222896424,
+              0.0014025776983753503
+            ],
+            "mainGripJointValidFrames": [
+              3553,
+              3600
+            ],
+            "mainGripJointInvalidFrames": [
+              47,
+              0
+            ],
+            "mainGripArmedJointMismatchFrames": [
+              0,
+              0
+            ],
+            "offHandGrippingFrames": [
+              3481,
+              1075
+            ],
+            "mainGripJointEpisodes": [
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3552,
+                  "endTimeS": 29.608333333333334,
+                  "durationS": 29.608333333333334
+                },
+                {
+                  "frame": 3553,
+                  "timeS": 29.616666666665626,
+                  "jointValid": false,
+                  "armed": false,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 0.9621427774703282,
+                  "consciousness": 0.6931044629564106,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 3553,
+                  "startTimeS": 29.608333333333334,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 0.39166666666666666
+                }
+              ],
+              [
+                {
+                  "frame": 0,
+                  "timeS": 0.008333333333333333,
+                  "jointValid": true,
+                  "armed": true,
+                  "alive": true,
+                  "state": "stand",
+                  "blood": 1,
+                  "consciousness": 1,
+                  "causeOfDeath": null,
+                  "primaryForearmDetached": false,
+                  "startFrame": 0,
+                  "startTimeS": 0,
+                  "endFrame": 3599,
+                  "endTimeS": 30,
+                  "durationS": 30
+                }
+              ]
+            ],
+            "gripGapAllFramePeak": [
+              {
+                "frame": 3580,
+                "timeS": 29.841666666665613,
+                "jointValid": false,
+                "armed": false,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9568933165246093,
+                "consciousness": 0.6998544629564099,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 1.1245325641237909
+              },
+              {
+                "frame": 3584,
+                "timeS": 29.874999999998945,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.7762408085401957,
+                "consciousness": 0.8424602684456212,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.001402578439959084
+              }
+            ],
+            "validMainGripJointGapPeak": [
+              {
+                "frame": 2474,
+                "timeS": 20.62499999999947,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.9897084021752742,
+                "consciousness": 0.42335446295644025,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0007152386222896424
+              },
+              {
+                "frame": 3584,
+                "timeS": 29.874999999998945,
+                "jointValid": true,
+                "armed": true,
+                "alive": true,
+                "state": "stand",
+                "blood": 0.7762408085401957,
+                "consciousness": 0.8424602684456212,
+                "causeOfDeath": null,
+                "primaryForearmDetached": false,
+                "gapM": 0.0014025776983753503
+              }
+            ],
+            "peakTotalKJ": 221.82065340496226,
+            "peakSwordKJ": [
+              66.28965549153665,
+              59.84133587100381
+            ],
+            "maxBodySpeedMps": 6.634532263335398,
+            "maxBodyAngularSpeedRadps": 63.00390972687768,
+            "cutImpulsePairs": 281,
+            "cutMapActiveFrames": 758,
+            "candidateCallbacks": 281,
+            "candidatePositivePairs": 281,
+            "candidateRequestedSumNs": 138.3263022973412,
+            "candidateAppliedSumNs": 79.9790454756698,
+            "candidatePredictedDeltaKSumJ": -179.51756176450758,
+            "candidateActualDeltaKSumJ": -179.51758706597104,
+            "maxInstantPairDeltaP": 2.9442503157106003e-07,
+            "maxInstantPairDeltaL": 2.4465079686018464e-06,
+            "maxInstantEnergyPredictionErrorJ": 7.590739400598068e-06,
+            "instantClosurePass": true,
+            "instantPassivityPass": true,
+            "budgetedDragPairs": 191,
+            "budgetClosurePass": true,
+            "budgetDebitSumJ": 149.3277680163063,
+            "maxBudgetMeasuredLossErrorJ": 7.590739400598068e-06,
+            "observedDispatchPreserved": true
+          },
+          "damage": {
+            "woundEvents": 33,
+            "byType": {
+              "cut": 11,
+              "blunt": 22
+            },
+            "sumReportedEnergyJ": 1148.099478172437,
+            "sumSeverity": 4.744164008667394,
+            "final": [
+              {
+                "blood": 0.9532833422315817,
+                "consciousness": 0.7046044629564093,
+                "pain": 1.770000000000005,
+                "limbs": {
+                  "armS": 0,
+                  "armO": 0.8130469377179824,
+                  "legF": 1,
+                  "legB": 1
+                },
+                "wounds": 7,
+                "state": "stand",
+                "causeOfDeath": null
+              },
+              {
+                "blood": 0.7746131025751616,
+                "consciousness": 0.8462102684456208,
+                "pain": 0,
+                "limbs": {
+                  "armS": 0.9342701225608063,
+                  "armO": 0,
+                  "legF": 0.8305371142897302,
+                  "legB": 1
+                },
+                "wounds": 4,
+                "state": "stand",
+                "causeOfDeath": null
+              }
+            ]
+          }
+        }
+      ],
+      "historicalBaseline": {
+        "path": "/workspace/halfsword-hybrid-evidence/cut-reaction-integration-budgeted-grip-observed.json",
+        "sha256": "3ca026c4c01bd48905f6dea00f119893c1c2129bcf673ec66b434f4adfacb07b",
+        "baselineCommit": "566bd78c72bf6e0b174beb5c15859a98a2b677f3"
+      },
+      "historicalRegression": [
+        {
+          "mode": "original",
+          "seed": 7,
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "found": true,
+          "fullTraceExact": true,
+          "inputTraceExact": true,
+          "initialNativeExact": true,
+          "initialControlExact": true
+        },
+        {
+          "mode": "clone",
+          "seed": 7,
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "found": true,
+          "fullTraceExact": true,
+          "inputTraceExact": true,
+          "initialNativeExact": true,
+          "initialControlExact": true
+        },
+        {
+          "mode": "candidate",
+          "seed": 7,
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "found": true,
+          "fullTraceExact": true,
+          "inputTraceExact": true,
+          "initialNativeExact": true,
+          "initialControlExact": true
+        },
+        {
+          "mode": "budgeted",
+          "seed": 7,
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "found": true,
+          "fullTraceExact": true,
+          "inputTraceExact": true,
+          "initialNativeExact": true,
+          "initialControlExact": true
+        },
+        {
+          "mode": "original",
+          "seed": 17,
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "found": true,
+          "fullTraceExact": true,
+          "inputTraceExact": true,
+          "initialNativeExact": true,
+          "initialControlExact": true
+        },
+        {
+          "mode": "clone",
+          "seed": 17,
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "found": true,
+          "fullTraceExact": true,
+          "inputTraceExact": true,
+          "initialNativeExact": true,
+          "initialControlExact": true
+        },
+        {
+          "mode": "candidate",
+          "seed": 17,
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "found": true,
+          "fullTraceExact": true,
+          "inputTraceExact": true,
+          "initialNativeExact": true,
+          "initialControlExact": true
+        },
+        {
+          "mode": "budgeted",
+          "seed": 17,
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "found": true,
+          "fullTraceExact": true,
+          "inputTraceExact": true,
+          "initialNativeExact": true,
+          "initialControlExact": true
+        },
+        {
+          "mode": "original",
+          "seed": 7,
+          "weapons": [
+            "zweihander",
+            "longsword"
+          ],
+          "found": true,
+          "fullTraceExact": true,
+          "inputTraceExact": true,
+          "initialNativeExact": true,
+          "initialControlExact": true
+        },
+        {
+          "mode": "clone",
+          "seed": 7,
+          "weapons": [
+            "zweihander",
+            "longsword"
+          ],
+          "found": true,
+          "fullTraceExact": true,
+          "inputTraceExact": true,
+          "initialNativeExact": true,
+          "initialControlExact": true
+        },
+        {
+          "mode": "candidate",
+          "seed": 7,
+          "weapons": [
+            "zweihander",
+            "longsword"
+          ],
+          "found": true,
+          "fullTraceExact": true,
+          "inputTraceExact": true,
+          "initialNativeExact": true,
+          "initialControlExact": true
+        },
+        {
+          "mode": "budgeted",
+          "seed": 7,
+          "weapons": [
+            "zweihander",
+            "longsword"
+          ],
+          "found": true,
+          "fullTraceExact": true,
+          "inputTraceExact": true,
+          "initialNativeExact": true,
+          "initialControlExact": true
+        },
+        {
+          "mode": "original",
+          "seed": 17,
+          "weapons": [
+            "zweihander",
+            "longsword"
+          ],
+          "found": true,
+          "fullTraceExact": true,
+          "inputTraceExact": true,
+          "initialNativeExact": true,
+          "initialControlExact": true
+        },
+        {
+          "mode": "clone",
+          "seed": 17,
+          "weapons": [
+            "zweihander",
+            "longsword"
+          ],
+          "found": true,
+          "fullTraceExact": true,
+          "inputTraceExact": true,
+          "initialNativeExact": true,
+          "initialControlExact": true
+        },
+        {
+          "mode": "candidate",
+          "seed": 17,
+          "weapons": [
+            "zweihander",
+            "longsword"
+          ],
+          "found": true,
+          "fullTraceExact": true,
+          "inputTraceExact": true,
+          "initialNativeExact": true,
+          "initialControlExact": true
+        },
+        {
+          "mode": "budgeted",
+          "seed": 17,
+          "weapons": [
+            "zweihander",
+            "longsword"
+          ],
+          "found": true,
+          "fullTraceExact": true,
+          "inputTraceExact": true,
+          "initialNativeExact": true,
+          "initialControlExact": true
+        }
+      ],
+      "researchSourceSHA256": {
+        "cut_reaction_candidate.mjs": "f8856505d4c1fa87dad3fb434343bf0b8cd3f44a40e509713e7aab73018c5b06",
+        "cut_reaction_candidate.test.mjs": "5f1fc9f4b7f896ba283700d997f695fe1c5a55d164e89f58269ec1e17baa7bed",
+        "cut_reaction_integration_probe.mjs": "bbf2e002c12fdae2ae400e750bb68523c4b70bcb69c2beda67d9cac33ad1045c"
+      },
+      "gapDefinitions": {
+        "mainHand": "farmS local (+.13,0,0) to sword origin; all frames",
+        "validMainGripJoint": "live native joint anchor1/body1 to anchor2/body2; only gripJoint.isValid() frames",
+        "unboundPeriods": "gripJoint.isValid() false frame counts/episodes; armed/alive/detached and causeOfDeath observed, not inferred defects",
+        "offHand": "farmO local (0,-.135,0) to sword local (0,weaponCfg.gripAlong,0); only actual gripping frames"
+      },
+      "limitations": [
+        "Instant cutting pair conservation is distinct from native collision/joint/motor residuals",
+        "Candidate keeps legacy requested-J*s Eleft; budgeted closes only instant paired kinetic loss, not later native/body energy",
+        "AI reacts to changed physical state after branching; candidate inputs are not held identical",
+        "Naturalness/play feel and native whole-body realism remain unverified",
+        "Runtime opt-in branch present; browser option activation checked separately"
+      ],
+      "pass": true
+    },
+    {
+      "file": "cut-trial-browser-cut-local.json",
+      "sha256": "175fa610a8aeef9f717d15d6a2f6f87f1bd2ca24fc9f4ef77edbfba6e79ef290",
+      "bytes": 54762,
+      "schemaVersion": 1,
+      "createdUTC": "2026-10-02T03:40:53.121Z",
+      "base": "http://127.0.0.1:4191/",
+      "tag": "cut-local",
+      "method": "Actual mobile feature-lab link tap, portrait/landscape overflow and rotate guidance, landscape Start, CDP canvas drag/release/retouch, restart with new Combat object, same-context ordinary and misspelled-option URL fallback. Normal RAF advances simulation; AI update disabled only for input isolation. No cutting/naturalness/performance claim. TLS verification enabled; HTTPS uses session proxy.",
+      "viewports": {
+        "portrait": {
+          "width": 390,
+          "height": 844
+        },
+        "landscape": {
+          "width": 844,
+          "height": 390
+        }
+      },
+      "rows": [
+        {
+          "id": "playCutLegacy",
+          "model": "legacy",
+          "initialOrientation": "portrait",
+          "landingLayout": {
+            "width": 390,
+            "height": 844,
+            "scrollWidth": 390,
+            "bodyScrollWidth": 390,
+            "horizontalOverflow": false,
+            "card": null,
+            "rotateVisible": false,
+            "rotateText": ""
+          },
+          "menu": {
+            "url": "http://127.0.0.1:4191/?supportProbe=1&assist=0.3&catch=on&catchScale=1&weapon=zweihander&foeWeapon=longsword&foe=default&cutTrial=legacy",
+            "state": "menu",
+            "simTime": 0,
+            "cutReactionModel": "legacy",
+            "weapon": "zweihander",
+            "foeWeapon": "longsword",
+            "probe": {
+              "active": true,
+              "assist": 0.3,
+              "catchMode": "on",
+              "catchScale": 1,
+              "sourceBase": "14bcf1f+혼합수정"
+            },
+            "gripReaction": "paired",
+            "supportModel": "legacy",
+            "physicalTrial": {
+              "active": false,
+              "kind": null,
+              "withdrawn": false,
+              "gripReaction": "paired",
+              "supportModel": "legacy"
+            },
+            "hand": {
+              "x": 0.15,
+              "y": 0
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "info": {
+              "present": true,
+              "text": "절삭 비교 A · 현재 방식 비교 화면으로",
+              "visible": true
+            },
+            "finite": true
+          },
+          "initialMenuLayout": {
+            "width": 390,
+            "height": 844,
+            "scrollWidth": 390,
+            "bodyScrollWidth": 390,
+            "horizontalOverflow": false,
+            "card": {
+              "left": 16,
+              "right": 374,
+              "top": 16,
+              "bottom": 828,
+              "scrollHeight": 826,
+              "clientHeight": 810
+            },
+            "rotateVisible": false,
+            "rotateText": "📱↻폰을 가로로 돌려주세요"
+          },
+          "initialAdvance": {
+            "start": 0,
+            "end": 0.6250000000000002,
+            "requiredSeconds": 0.6
+          },
+          "dragAdvance": {
+            "start": 1.5749999999999968,
+            "end": 1.9749999999999954,
+            "requiredSeconds": 0.35
+          },
+          "releaseAdvance": {
+            "start": 2.0833333333333286,
+            "end": 2.483333333333327,
+            "requiredSeconds": 0.35
+          },
+          "retouchAdvance": {
+            "start": 2.6333333333333266,
+            "end": 2.9916666666666587,
+            "requiredSeconds": 0.35
+          },
+          "newCombatObject": true,
+          "restartAdvance": {
+            "start": 3.491666666666657,
+            "end": 3.8583333333333223,
+            "requiredSeconds": 0.35
+          },
+          "normal": {
+            "url": "http://127.0.0.1:4191/",
+            "state": "menu",
+            "simTime": 0,
+            "cutReactionModel": "legacy",
+            "weapon": "longsword",
+            "foeWeapon": "excalibur_replica",
+            "probe": {
+              "active": false,
+              "assist": 0.3,
+              "catchMode": "on",
+              "catchScale": 1,
+              "sourceBase": "14bcf1f+혼합수정"
+            },
+            "gripReaction": "paired",
+            "supportModel": "legacy",
+            "physicalTrial": {
+              "active": false,
+              "kind": null,
+              "withdrawn": false,
+              "gripReaction": "paired",
+              "supportModel": "legacy"
+            },
+            "hand": {
+              "x": 0.15,
+              "y": 0
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "info": {
+              "present": false,
+              "text": "",
+              "visible": false
+            },
+            "finite": true
+          },
+          "typo": {
+            "url": "http://127.0.0.1:4191/?cutTrial=bugeted",
+            "state": "menu",
+            "simTime": 0,
+            "cutReactionModel": "legacy",
+            "weapon": "longsword",
+            "foeWeapon": "excalibur_replica",
+            "probe": {
+              "active": false,
+              "assist": 0.3,
+              "catchMode": "on",
+              "catchScale": 1,
+              "sourceBase": "14bcf1f+혼합수정"
+            },
+            "gripReaction": "paired",
+            "supportModel": "legacy",
+            "physicalTrial": {
+              "active": false,
+              "kind": null,
+              "withdrawn": false,
+              "gripReaction": "paired",
+              "supportModel": "legacy"
+            },
+            "hand": {
+              "x": 0.15,
+              "y": 0
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "info": {
+              "present": false,
+              "text": "",
+              "visible": false
+            },
+            "finite": true
+          },
+          "pass": true
+        },
+        {
+          "id": "playCutBudgeted",
+          "model": "budgeted",
+          "initialOrientation": "portrait",
+          "landingLayout": {
+            "width": 390,
+            "height": 844,
+            "scrollWidth": 390,
+            "bodyScrollWidth": 390,
+            "horizontalOverflow": false,
+            "card": null,
+            "rotateVisible": false,
+            "rotateText": ""
+          },
+          "menu": {
+            "url": "http://127.0.0.1:4191/?supportProbe=1&assist=0.3&catch=on&catchScale=1&weapon=zweihander&foeWeapon=longsword&foe=default&cutTrial=budgeted",
+            "state": "menu",
+            "simTime": 0,
+            "cutReactionModel": "budgeted",
+            "weapon": "zweihander",
+            "foeWeapon": "longsword",
+            "probe": {
+              "active": true,
+              "assist": 0.3,
+              "catchMode": "on",
+              "catchScale": 1,
+              "sourceBase": "14bcf1f+혼합수정"
+            },
+            "gripReaction": "paired",
+            "supportModel": "legacy",
+            "physicalTrial": {
+              "active": false,
+              "kind": null,
+              "withdrawn": false,
+              "gripReaction": "paired",
+              "supportModel": "legacy"
+            },
+            "hand": {
+              "x": 0.15,
+              "y": 0
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "info": {
+              "present": true,
+              "text": "절삭 비교 B · 새 저항과 반작용 시험 비교 화면으로",
+              "visible": true
+            },
+            "finite": true
+          },
+          "initialMenuLayout": {
+            "width": 390,
+            "height": 844,
+            "scrollWidth": 390,
+            "bodyScrollWidth": 390,
+            "horizontalOverflow": false,
+            "card": {
+              "left": 16,
+              "right": 374,
+              "top": 16,
+              "bottom": 828,
+              "scrollHeight": 826,
+              "clientHeight": 810
+            },
+            "rotateVisible": false,
+            "rotateText": "📱↻폰을 가로로 돌려주세요"
+          },
+          "initialAdvance": {
+            "start": 0,
+            "end": 0.6166666666666669,
+            "requiredSeconds": 0.6
+          },
+          "dragAdvance": {
+            "start": 1.5416666666666636,
+            "end": 1.9249999999999956,
+            "requiredSeconds": 0.35
+          },
+          "releaseAdvance": {
+            "start": 2.0749999999999953,
+            "end": 2.4333333333333274,
+            "requiredSeconds": 0.35
+          },
+          "retouchAdvance": {
+            "start": 2.583333333333327,
+            "end": 2.9833333333333254,
+            "requiredSeconds": 0.35
+          },
+          "newCombatObject": true,
+          "restartAdvance": {
+            "start": 3.4583333333333237,
+            "end": 3.8166666666666558,
+            "requiredSeconds": 0.35
+          },
+          "normal": {
+            "url": "http://127.0.0.1:4191/",
+            "state": "menu",
+            "simTime": 0,
+            "cutReactionModel": "legacy",
+            "weapon": "longsword",
+            "foeWeapon": "excalibur_replica",
+            "probe": {
+              "active": false,
+              "assist": 0.3,
+              "catchMode": "on",
+              "catchScale": 1,
+              "sourceBase": "14bcf1f+혼합수정"
+            },
+            "gripReaction": "paired",
+            "supportModel": "legacy",
+            "physicalTrial": {
+              "active": false,
+              "kind": null,
+              "withdrawn": false,
+              "gripReaction": "paired",
+              "supportModel": "legacy"
+            },
+            "hand": {
+              "x": 0.15,
+              "y": 0
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "info": {
+              "present": false,
+              "text": "",
+              "visible": false
+            },
+            "finite": true
+          },
+          "typo": {
+            "url": "http://127.0.0.1:4191/?cutTrial=bugeted",
+            "state": "menu",
+            "simTime": 0,
+            "cutReactionModel": "legacy",
+            "weapon": "longsword",
+            "foeWeapon": "excalibur_replica",
+            "probe": {
+              "active": false,
+              "assist": 0.3,
+              "catchMode": "on",
+              "catchScale": 1,
+              "sourceBase": "14bcf1f+혼합수정"
+            },
+            "gripReaction": "paired",
+            "supportModel": "legacy",
+            "physicalTrial": {
+              "active": false,
+              "kind": null,
+              "withdrawn": false,
+              "gripReaction": "paired",
+              "supportModel": "legacy"
+            },
+            "hand": {
+              "x": 0.15,
+              "y": 0
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "info": {
+              "present": false,
+              "text": "",
+              "visible": false
+            },
+            "finite": true
+          },
+          "pass": true
+        },
+        {
+          "id": "playCutLegacy",
+          "model": "legacy",
+          "initialOrientation": "landscape",
+          "landingLayout": {
+            "width": 844,
+            "height": 390,
+            "scrollWidth": 844,
+            "bodyScrollWidth": 844,
+            "horizontalOverflow": false,
+            "card": null,
+            "rotateVisible": false,
+            "rotateText": ""
+          },
+          "menu": {
+            "url": "http://127.0.0.1:4191/?supportProbe=1&assist=0.3&catch=on&catchScale=1&weapon=zweihander&foeWeapon=longsword&foe=default&cutTrial=legacy",
+            "state": "menu",
+            "simTime": 0,
+            "cutReactionModel": "legacy",
+            "weapon": "zweihander",
+            "foeWeapon": "longsword",
+            "probe": {
+              "active": true,
+              "assist": 0.3,
+              "catchMode": "on",
+              "catchScale": 1,
+              "sourceBase": "14bcf1f+혼합수정"
+            },
+            "gripReaction": "paired",
+            "supportModel": "legacy",
+            "physicalTrial": {
+              "active": false,
+              "kind": null,
+              "withdrawn": false,
+              "gripReaction": "paired",
+              "supportModel": "legacy"
+            },
+            "hand": {
+              "x": 0.15,
+              "y": 0
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "info": {
+              "present": true,
+              "text": "절삭 비교 A · 현재 방식 비교 화면으로",
+              "visible": true
+            },
+            "finite": true
+          },
+          "initialMenuLayout": {
+            "width": 844,
+            "height": 390,
+            "scrollWidth": 844,
+            "bodyScrollWidth": 844,
+            "horizontalOverflow": false,
+            "card": {
+              "left": 142,
+              "right": 702,
+              "top": 16,
+              "bottom": 374,
+              "scrollHeight": 516,
+              "clientHeight": 356
+            },
+            "rotateVisible": false,
+            "rotateText": "📱↻폰을 가로로 돌려주세요"
+          },
+          "initialAdvance": {
+            "start": 0,
+            "end": 0.6000000000000003,
+            "requiredSeconds": 0.6
+          },
+          "dragAdvance": {
+            "start": 1.4499999999999973,
+            "end": 1.8499999999999959,
+            "requiredSeconds": 0.35
+          },
+          "releaseAdvance": {
+            "start": 1.9999999999999953,
+            "end": 2.399999999999994,
+            "requiredSeconds": 0.35
+          },
+          "retouchAdvance": {
+            "start": 2.5499999999999936,
+            "end": 2.916666666666659,
+            "requiredSeconds": 0.35
+          },
+          "newCombatObject": true,
+          "restartAdvance": {
+            "start": 3.416666666666657,
+            "end": 3.8166666666666558,
+            "requiredSeconds": 0.35
+          },
+          "normal": {
+            "url": "http://127.0.0.1:4191/",
+            "state": "menu",
+            "simTime": 0,
+            "cutReactionModel": "legacy",
+            "weapon": "longsword",
+            "foeWeapon": "excalibur_replica",
+            "probe": {
+              "active": false,
+              "assist": 0.3,
+              "catchMode": "on",
+              "catchScale": 1,
+              "sourceBase": "14bcf1f+혼합수정"
+            },
+            "gripReaction": "paired",
+            "supportModel": "legacy",
+            "physicalTrial": {
+              "active": false,
+              "kind": null,
+              "withdrawn": false,
+              "gripReaction": "paired",
+              "supportModel": "legacy"
+            },
+            "hand": {
+              "x": 0.15,
+              "y": 0
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "info": {
+              "present": false,
+              "text": "",
+              "visible": false
+            },
+            "finite": true
+          },
+          "typo": {
+            "url": "http://127.0.0.1:4191/?cutTrial=bugeted",
+            "state": "menu",
+            "simTime": 0,
+            "cutReactionModel": "legacy",
+            "weapon": "longsword",
+            "foeWeapon": "excalibur_replica",
+            "probe": {
+              "active": false,
+              "assist": 0.3,
+              "catchMode": "on",
+              "catchScale": 1,
+              "sourceBase": "14bcf1f+혼합수정"
+            },
+            "gripReaction": "paired",
+            "supportModel": "legacy",
+            "physicalTrial": {
+              "active": false,
+              "kind": null,
+              "withdrawn": false,
+              "gripReaction": "paired",
+              "supportModel": "legacy"
+            },
+            "hand": {
+              "x": 0.15,
+              "y": 0
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "info": {
+              "present": false,
+              "text": "",
+              "visible": false
+            },
+            "finite": true
+          },
+          "pass": true
+        },
+        {
+          "id": "playCutBudgeted",
+          "model": "budgeted",
+          "initialOrientation": "landscape",
+          "landingLayout": {
+            "width": 844,
+            "height": 390,
+            "scrollWidth": 844,
+            "bodyScrollWidth": 844,
+            "horizontalOverflow": false,
+            "card": null,
+            "rotateVisible": false,
+            "rotateText": ""
+          },
+          "menu": {
+            "url": "http://127.0.0.1:4191/?supportProbe=1&assist=0.3&catch=on&catchScale=1&weapon=zweihander&foeWeapon=longsword&foe=default&cutTrial=budgeted",
+            "state": "menu",
+            "simTime": 0,
+            "cutReactionModel": "budgeted",
+            "weapon": "zweihander",
+            "foeWeapon": "longsword",
+            "probe": {
+              "active": true,
+              "assist": 0.3,
+              "catchMode": "on",
+              "catchScale": 1,
+              "sourceBase": "14bcf1f+혼합수정"
+            },
+            "gripReaction": "paired",
+            "supportModel": "legacy",
+            "physicalTrial": {
+              "active": false,
+              "kind": null,
+              "withdrawn": false,
+              "gripReaction": "paired",
+              "supportModel": "legacy"
+            },
+            "hand": {
+              "x": 0.15,
+              "y": 0
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "info": {
+              "present": true,
+              "text": "절삭 비교 B · 새 저항과 반작용 시험 비교 화면으로",
+              "visible": true
+            },
+            "finite": true
+          },
+          "initialMenuLayout": {
+            "width": 844,
+            "height": 390,
+            "scrollWidth": 844,
+            "bodyScrollWidth": 844,
+            "horizontalOverflow": false,
+            "card": {
+              "left": 142,
+              "right": 702,
+              "top": 16,
+              "bottom": 374,
+              "scrollHeight": 516,
+              "clientHeight": 356
+            },
+            "rotateVisible": false,
+            "rotateText": "📱↻폰을 가로로 돌려주세요"
+          },
+          "initialAdvance": {
+            "start": 0,
+            "end": 0.6333333333333335,
+            "requiredSeconds": 0.6
+          },
+          "dragAdvance": {
+            "start": 1.4833333333333305,
+            "end": 1.883333333333329,
+            "requiredSeconds": 0.35
+          },
+          "releaseAdvance": {
+            "start": 1.9833333333333287,
+            "end": 2.3583333333333276,
+            "requiredSeconds": 0.35
+          },
+          "retouchAdvance": {
+            "start": 2.508333333333327,
+            "end": 2.9083333333333257,
+            "requiredSeconds": 0.35
+          },
+          "newCombatObject": true,
+          "restartAdvance": {
+            "start": 3.3916666666666573,
+            "end": 3.791666666666656,
+            "requiredSeconds": 0.35
+          },
+          "normal": {
+            "url": "http://127.0.0.1:4191/",
+            "state": "menu",
+            "simTime": 0,
+            "cutReactionModel": "legacy",
+            "weapon": "longsword",
+            "foeWeapon": "excalibur_replica",
+            "probe": {
+              "active": false,
+              "assist": 0.3,
+              "catchMode": "on",
+              "catchScale": 1,
+              "sourceBase": "14bcf1f+혼합수정"
+            },
+            "gripReaction": "paired",
+            "supportModel": "legacy",
+            "physicalTrial": {
+              "active": false,
+              "kind": null,
+              "withdrawn": false,
+              "gripReaction": "paired",
+              "supportModel": "legacy"
+            },
+            "hand": {
+              "x": 0.15,
+              "y": 0
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "info": {
+              "present": false,
+              "text": "",
+              "visible": false
+            },
+            "finite": true
+          },
+          "typo": {
+            "url": "http://127.0.0.1:4191/?cutTrial=bugeted",
+            "state": "menu",
+            "simTime": 0,
+            "cutReactionModel": "legacy",
+            "weapon": "longsword",
+            "foeWeapon": "excalibur_replica",
+            "probe": {
+              "active": false,
+              "assist": 0.3,
+              "catchMode": "on",
+              "catchScale": 1,
+              "sourceBase": "14bcf1f+혼합수정"
+            },
+            "gripReaction": "paired",
+            "supportModel": "legacy",
+            "physicalTrial": {
+              "active": false,
+              "kind": null,
+              "withdrawn": false,
+              "gripReaction": "paired",
+              "supportModel": "legacy"
+            },
+            "hand": {
+              "x": 0.15,
+              "y": 0
+            },
+            "move": {
+              "x": 0,
+              "y": 0
+            },
+            "info": {
+              "present": false,
+              "text": "",
+              "visible": false
+            },
+            "finite": true
+          },
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "httpFailures": [],
+      "requestFailures": [],
+      "pass": true
+    },
+    {
+      "file": "cut-trial-build.json",
+      "sha256": "b0cba249feea001fd0d81e87bdc6ad069cb865aaf551a583416398fd8e803fe7",
+      "bytes": 947,
+      "sourceBase": "298cd69c7eb9aa0821ba1a830483b354eb8ca037",
+      "files": {
+        "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+        "src/cut_trial.js": "3ef89c41c9b40b3e18a5d19cd92277af49e972c8eae030efaa915a39dfc4fcbf",
+        "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+        "src/main.js": "562133289b12924a3382306e9b17fadb8af002f2769eafd62530cb0f9419bca7",
+        "public/feature-lab.html": "b85659d95b40083646cae344e4cc11536ccfd88ba1a99f919cfbca5de64fe8f5",
+        "dist/index.html": "abef993e9fee6eebd8b583a05800e3d4e1ad74cefe57803dabb4c9774d0cf59e",
+        "dist/feature-lab.html": "b85659d95b40083646cae344e4cc11536ccfd88ba1a99f919cfbca5de64fe8f5",
+        "dist/assets/main-87Mueu1p.js": "d533a3ccdedb31eef02bbab8cc90b4fb2936e2acfd9182d711342d334d489633"
+      },
+      "asset": "assets/main-87Mueu1p.js",
+      "build": "npm run build; exit0; 66modules; existing largechunk warning"
+    }
+  ]
+}

@@ -11,7 +11,8 @@ import * as THREE from 'three';
 import {Combat as OriginalCombat} from '../../../src/combat.js';
 import {STRIKE} from '../../../src/config.js';
 import {snapshotWorld} from '../force_ledger.mjs';
-import {applyPairedCutImpulse,loadCutReactionCombat,transformCutReactionSource,transformBudgetedCutReactionSource} from './cut_reaction_candidate.mjs';
+import {applyPairedCutImpulse,pointDirectionalMobility,loadCutReactionCombat,transformCutReactionSource,transformBudgetedCutReactionSource} from './cut_reaction_candidate.mjs';
+import {applyPairedCutImpulse as browserPairedCutImpulse,pointDirectionalMobility as browserPointMobility} from '../../../src/cut_reaction.js';
 
 await RAPIER.init();
 const repo=fileURLToPath(new URL('../../../',import.meta.url));
@@ -19,6 +20,8 @@ const sourcePath=new URL('../../../src/combat.js',import.meta.url);
 const source=fs.readFileSync(sourcePath,'utf8');
 const sha=s=>crypto.createHash('sha256').update(s).digest('hex');
 const sourceBefore=sha(source), results=[];
+const sharedHelperURL=new URL('../../../src/cut_reaction.js',import.meta.url);
+const sharedHelperBefore=sha(fs.readFileSync(sharedHelperURL));
 const legacy=await loadCutReactionCombat({mode:'legacy'});
 const candidate=await loadCutReactionCombat();
 const budgeted=await loadCutReactionCombat({mode:'budgeted'});
@@ -313,15 +316,31 @@ await test('budgeted same-cut recontact retains completed phase; genuinely new c
   const r=cuttingFixture(budgeted.Combat,'drag',{cutEnergy:.0015,willStuck:true,verifyLifecycle:true});
   assert.ok(r.lifecycle);return r.lifecycle;
 });
+await test('browser helper identity and real runtime budgeted branch exactly match independent source transform at phase boundaries',()=>{
+  assert.equal(applyPairedCutImpulse,browserPairedCutImpulse);
+  assert.equal(pointDirectionalMobility,browserPointMobility);
+  class RuntimeCombat extends OriginalCombat {
+    constructor(...args){super(...args);assert.equal(this.cutReactionModel,'legacy');this.cutReactionModel='budgeted';}
+  }
+  const rows=[];
+  for(const [regime,options] of [['drag',{}],['stuck',{}],['stuck',{continuingContact:false}],
+    ['drag',{cutEnergy:.0015,willStuck:true,steps:3}],['drag',{cutEnergy:.0015,willStuck:true,verifyLifecycle:true}]]){
+    const transformed=cuttingFixture(budgeted.Combat,regime,options),runtime=cuttingFixture(RuntimeCombat,regime,options);
+    assert.deepEqual(runtime,transformed);rows.push({regime,options,exact:true,runtime});
+  }
+  return {sharedExportIdentity:true,rows};
+});
 const sourceAfter=sha(fs.readFileSync(sourcePath,'utf8'));
+const sharedHelperAfter=sha(fs.readFileSync(sharedHelperURL));
 const report={createdUTC:new Date().toISOString(),baselineCommit:execFileSync('git',['rev-parse','HEAD'],{cwd:repo,encoding:'utf8'}).trim(),
   command:'node tools/sim/experiments/cut_reaction_candidate.test.mjs [outside-repo-output.json]',
-  pass:results.every(r=>r.pass)&&sourceBefore===sourceAfter,tolerances:TOL,Float32:'native Rapier Float32; assertions use stated abs+relative envelopes',
+  pass:results.every(r=>r.pass)&&sourceBefore===sourceAfter&&sharedHelperBefore===sharedHelperAfter,tolerances:TOL,Float32:'native Rapier Float32; assertions use stated abs+relative envelopes',
   scope:'instant explicit cutting impulses; actual afterStep on 2 free native bodies and real manifold; empty other event paths',
   limitations:['No whole-body native joint/contact response claim','Wound/analyze paths intentionally excluded by pre-applied cutting fixture',
     'Candidate preserves legacy Eleft J*s; budgeted debits instantaneous paired kinetic loss only',
-    'No whole-body native energy budget claim','No public activation or game src edit'],
-  sourceBefore,sourceAfter,sourceStable:sourceBefore===sourceAfter,tests:results};
+    'No whole-body native energy budget claim','Runtime opt-in branch is present; default legacy retained; browser activation tested separately'],
+  sourceBefore,sourceAfter,sharedHelperBefore,sharedHelperAfter,sourceStable:sourceBefore===sourceAfter&&sharedHelperBefore===sharedHelperAfter,
+  sourceStabilityScope:['src/combat.js','src/cut_reaction.js'],tests:results};
 const out=process.argv[2]||'/tmp/halfsword-cut-reaction-budgeted-tests.json';
 fs.writeFileSync(out,JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({pass:report.pass,tests:results.length,failures:results.filter(r=>!r.pass).map(r=>r.name),sourceStable:report.sourceStable,out}));

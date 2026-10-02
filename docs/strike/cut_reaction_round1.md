@@ -32,6 +32,8 @@ fixture의 `sourceStable`은 **src/combat.js 한 파일**의 전후 일치다. h
 
 초기 integration의 손↔검 gap 정의는 잘못되어 해석에서 제외했다. 교정 후에도 무기를 놓은 이후의 거리는 파지 관절 오차와 다르므로, 살아 있는 native grip joint의 anchor gap과 joint 없는 구간을 구분하여 한 차례 재계측했다. 최종 원자료·해시·그 범위의 판정은 [metrics](cut_reaction_round1_metrics.json)에 남긴다.
 
+재계측한 16행은 계측 추가 전의 모든 물리/입력 궤적과 정확히 같았다. 4.765m/3.610m/1.125m의 큰 손–검 거리는 모두 `gripJoint`가 유효하지 않고 `armed=false`인 프레임이었다. 이를 파지 관절 붕괴로 해석하지 않는다. 후보의 유효 주손 관절 최대 anchor gap은 1.608mm, armed와 관절 유효성의 불일치 프레임은 0이었다. 무기를 놓은 시점과 기간도 남겼으며, 그 원인이 모두 바람직한 실제 부상 반응이라는 뜻은 아니다.
+
 ## 재현 및 활성 상태
 
 ```sh
@@ -40,3 +42,17 @@ node tools/sim/experiments/cut_reaction_integration_probe.mjs --seconds=30 --see
 ```
 
 메타데이터의 기준 커밋·파일별 해시와 실제 호출 수를 확인한다. fixture의 작은 관문을 인간 수락 기준으로 바꾸지 않는다. 공개 비교를 연결하려면 순수 helper를 브라우저와 공유하고 기본 궤적 exact, 후보 실제 실행, 재시작/일반 URL 복귀, 모바일 입력·빌드를 추가로 검증해야 한다. 선택형 비교 공개와 일반 기본값 승격은 별도이며 후자는 사용자 확인을 따른다.
+
+## 선택형 웹 통합 검증
+
+연구 소스 `298cd69`를 고정한 뒤 순수 수학을 `src/cut_reaction.js`로 옮겨 실제 Combat과 연구 fixture가 공유한다. `cutTrial=budgeted`만 후보를 켜고, `cutTrial=legacy`·누락·오타는 기존 방식이다. 설정을 저장하지 않으며 매 판 새 Combat에 현재 페이지 옵션을 적용한다. 기존 상처 초기화 뒤의 절삭 저항만 바꾸고 일반 충돌·튕김 루프는 계속 실행한다.
+
+[통합 metrics](cut_reaction_trial_metrics.json)에 다음 결과와 해시를 보존했다.
+
+- 기존 32fixture와 실제 runtime↔변환 모듈의 drag/stuck/접촉 종료/3스텝 전이/새 cut deepEqual 묶음, 총 33검사 PASS.
+- 원래 네 모드에 실제 runtime 모드를 더한 20×30초 양방향 AI 전투 PASS. runtime의 4전투 전체 물리/입력 궤적이 검증한 budgeted와 exact이며, 기존 연구16행도 native/제어 시작과 전체 물리/입력이 exact다. runtime의 실제 절삭쌍은 각각 106/197/349/281회였다. 같은 결과의 복제·회귀를 새로운 독립 전투 표본으로 세지 않는다.
+- core/harness 7개 파일의 실행 전후 해시 일치. 이후 `main.js`·메뉴 연결은 모바일 검사로 별도 확인했다.
+- build 성공, `assets/main-87Mueu1p.js` SHA256 `d533a3ccdedb31eef02bbab8cc90b4fb2936e2acfd9182d711342d334d489633`. 기존 큰 bundle 경고는 남는다.
+- 로컬 모바일 390×844/844×390 × A/B 4조건 모두 통과했다. 실제 링크·싸움 시작·끌기/놓기/재입력·새 Combat 재시작·일반 및 오타 URL 복귀, 화면 넘침·sim 전진을 확인했다. JS/HTTP/요청 오류 0. 세로 플레이는 기존 가로 회전 안내를 따랐다. 입력 검사에서만 AI를 멈췄으며 절삭 물리·자연스러움·휴대폰 성능 합격으로 바꾸지 않는다.
+
+재현 도구는 `tools/browser/cut_trial.mjs`다. Playwright는 기존 브라우저 도구처럼 저장소 설치 의존성이 아니며 `PLAYWRIGHT_MODULE`로 설치 경로, `PW_CHROMIUM`으로 실행 파일, `HALFSWORD_EVIDENCE_DIR/TAG`로 원자료 위치를 정할 수 있다. HTTPS는 세션 proxy와 TLS 검증을 유지한다. 공개 배포의 실제 주소/바이트/동작 확인은 전달 기록으로 따로 남긴다.

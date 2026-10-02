@@ -25,6 +25,7 @@ import * as THREE from 'three';
 import { STRIKE, ANATOMY, STEEL, ARMOR } from './config.js';
 import { BREAK } from './weapons.js';
 import { updateGun } from './gun.js';
+import { applyBudgetedCutResistance } from './cut_reaction.js';
 
 // 전투 사건 갈고리 (gun.js GUN_HOOKS 와 같은 식): 비어 있으면 아무 일도 없다. 판정·난수와 무관
 //  onDecapitate(f, headBody): 참수된 순간 한 번 (fighter.applyWound, die 뒤) — 사운드 PM 이 소리를 건다
@@ -63,6 +64,7 @@ export class Combat {
     this.hooks = hooks;
     this.cutting = new Map(); // "칼콜라이더:몸콜라이더" → { seen, applied, until }
     this.stepNo = 0;
+    this.cutReactionModel = 'legacy'; // Optional research trial; ordinary combat preserves legacy resistance.
     // 칼끼리 닿아 있는 상태 (소리용): 처음 부딪히는 순간 = "쨍", 맞댄 채 미끄러지는 동안 = 긁히는 소리
     //  last/start = 마지막으로·처음으로 닿은 스텝, slide = 미끄러지는 속도(m/s), press = 누르는 힘(N)
     this.bladeContact = { last: -1e9, start: 0, slide: 0, press: 0 };
@@ -342,6 +344,11 @@ export class Combat {
       const s = rel.length();
       if (s < 1e-3) continue;
       const dir = rel.divideScalar(s);
+      if (this.cutReactionModel === 'budgeted') {
+        const cutReaction = applyBudgetedCutResistance({ sw, vb, point, dir, s, dt, cut: c, strike: STRIKE, step: this.stepNo, key });
+        if (cutReaction) this.onCutReaction?.(cutReaction);
+        continue;
+      }
       let J = 0;
       if (c.Eleft > 0) {
         // 끌림: 이번 순간에 흡수하는 에너지 = min(남은 에너지, c·속도²·dt). 한 순간에 속도를 크게 꺾지는 않는다

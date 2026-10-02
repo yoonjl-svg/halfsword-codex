@@ -17,13 +17,14 @@ const V=v=>new THREE.Vector3(v.x,v.y,v.z);
 const add=(a,b)=>V(a).add(V(b));
 const length=v=>Math.hypot(v.x,v.y,v.z);
 const sha=s=>crypto.createHash('sha256').update(s).digest('hex');
-const sourceFiles=['src/combat.js','src/fighter.js','src/gait.js','src/config.js','src/ai.js','tools/sim/harness_m.mjs'];
+const sourceFiles=['src/combat.js','src/cut_reaction.js','src/fighter.js','src/gait.js','src/config.js','src/ai.js','tools/sim/harness_m.mjs'];
 const hashes=()=>Object.fromEntries(sourceFiles.map(p=>[p,sha(fs.readFileSync(repo+p))]));
 const sourceBefore=hashes();
 const cloned=await loadCutReactionCombat({mode:'legacy'}),candidate=await loadCutReactionCombat(),budgeted=await loadCutReactionCombat({mode:'budgeted'});
 const args=Object.fromEntries(process.argv.slice(2).filter(a=>a.startsWith('--')).map(a=>{const i=a.indexOf('=');return [a.slice(2,i),a.slice(i+1)];}));
 const seconds=Number(args.seconds??30),seeds=(args.seeds??'7,17').split(',').map(Number);
 const out=args.out??'/workspace/halfsword-hybrid-evidence/cut-reaction-integration-budgeted.json';
+const previous=args.baseline?JSON.parse(fs.readFileSync(args.baseline,'utf8')):null;
 const tolerance={momentumAbsPlusRelative:8e-5,angularAbsPlusRelative:3e-4,energyAbsPlusRelative:2e-4,speedAbsPlusRelative:2e-4};
 const within=(error,scale,tol)=>Math.abs(error)<=tol*(1+scale);
 function controls(f){return {state:f.state,stateTime:f.stateTime,handOffset:f.handOffset.toArray(),handHeld:f.handHeld,
@@ -42,7 +43,8 @@ function run({mode,seed,weapons}){
   const start=performance.now(),G=newRound({seed,walls:false,weapon:weapons[0],weapon2:weapons[1],AIClass:AI,AI2Class:AI});
   const ledger=installForceLedger(G,{maxSamples:0}),wrapper=G.combat.afterStep;
   let undo=null;
-  if(mode!=='original')undo=ledger.replaceObservedMethod(G.combat,'afterStep',(mode==='clone'?cloned:mode==='budgeted'?budgeted:candidate).Combat.prototype.afterStep);
+  if(mode==='runtime')G.combat.cutReactionModel='budgeted';
+  else if(mode!=='original')undo=ledger.replaceObservedMethod(G.combat,'afterStep',(mode==='clone'?cloned:mode==='budgeted'?budgeted:candidate).Combat.prototype.afterStep);
   const traceHash=crypto.createHash('sha256'),inputHash=crypto.createHash('sha256'),frameHashes=[],inputHashes=[];
   const initialNative=sha(G.world.takeSnapshot()),initialControls=sha(JSON.stringify([controls(G.player),controls(G.enemy)]));
   const stats={finite:true,steps:0,falls:[0,0],stateFrames:[{},{}],maxGripGapM:[0,0],maxOffHandGapM:[0,0],
@@ -103,7 +105,7 @@ function run({mode,seed,weapons}){
       const cutOps=latest.operations.filter(e=>e.path==='combat.afterStep'&&e.method==='applyImpulseAtPoint');
       if(cutOps.length%2)throw new Error('Odd cutting impulse operation count');
       stats.cutImpulsePairs+=cutOps.length/2;
-      if(mode==='candidate'||mode==='budgeted'){
+      if(mode==='candidate'||mode==='budgeted'||mode==='runtime'){
         const positive=callbacks.filter(d=>d.J>0);
         if(positive.length*2!==cutOps.length)throw new Error('Candidate diagnostic/observed operation count mismatch');
         stats.candidateCallbacks+=callbacks.length;
@@ -125,7 +127,7 @@ function run({mode,seed,weapons}){
           stats.maxInstantEnergyPredictionErrorJ=Math.max(stats.maxInstantEnergyPredictionErrorJ,Math.abs(deltaK-d.deltaKPredicted));
           stats.instantClosurePass&&=closure;stats.instantPassivityPass&&=passive&&prediction;
           let budgetClosurePass=null;
-          if(mode==='budgeted'&&d.regime==='drag'){
+          if((mode==='budgeted'||mode==='runtime')&&d.regime==='drag'){
             stats.budgetedDragPairs++;stats.budgetDebitSumJ+=d.budgetDebitJ;
             const budgetError=d.budgetBeforeJ-d.budgetAfterJ+deltaK;
             stats.maxBudgetMeasuredLossErrorJ=Math.max(stats.maxBudgetMeasuredLossErrorJ,Math.abs(budgetError));
@@ -154,29 +156,41 @@ function run({mode,seed,weapons}){
 const runs=[],comparisons=[];
 for(const weapons of [['longsword','zweihander'],['zweihander','longsword']])for(const seed of seeds){
   const group=[];
-  for(const mode of ['original','clone','candidate','budgeted']){
+  for(const mode of ['original','clone','candidate','budgeted','runtime']){
     const r=run({mode,seed,weapons});runs.push(r);group.push(r);
     console.log(JSON.stringify({mode,seed,weapons,seconds:r.seconds,wallSeconds:r.wallSeconds,finite:r.stats.finite,
       cuts:r.stats.cutImpulsePairs,candidateCalls:r.stats.candidateCallbacks,falls:r.stats.falls,wounds:r.damage.woundEvents,peakK:r.stats.peakTotalKJ}));
   }
-  const [a,b,c,d]=group;
+  const [a,b,c,d,e]=group;
   comparisons.push({seed,weapons,preparationNativeExact:group.every(r=>a.initialNative===r.initialNative),
     preparationControlExact:group.every(r=>a.initialControls===r.initialControls),
     originalCloneFullTraceExact:a.traceSHA256===b.traceSHA256&&JSON.stringify(a.frameHashes)===JSON.stringify(b.frameHashes),
     originalCloneInputTraceExact:a.inputSHA256===b.inputSHA256,
+    runtimeBudgetedFullTraceExact:d.traceSHA256===e.traceSHA256&&JSON.stringify(d.frameHashes)===JSON.stringify(e.frameHashes),
+    runtimeBudgetedInputTraceExact:d.inputSHA256===e.inputSHA256&&JSON.stringify(d.inputHashes)===JSON.stringify(e.inputHashes),
     firstCandidateTraceDifferenceFrame:a.frameHashes.findIndex((h,i)=>h!==c.frameHashes[i]),
     firstCandidateReactiveInputDifferenceFrame:a.inputHashes.findIndex((h,i)=>h!==c.inputHashes[i]),
     firstBudgetedTraceDifferenceFrame:a.frameHashes.findIndex((h,i)=>h!==d.frameHashes[i]),
     firstBudgetedReactiveInputDifferenceFrame:a.inputHashes.findIndex((h,i)=>h!==d.inputHashes[i]),
     inputInterpretation:'Same seed, native initial state, controllers and AI classes. Candidate changes physics; reactive AI inputs can diverge afterward. Not a same-input candidate comparison.'});
 }
+const historicalRegression=previous?previous.runs.map(old=>{
+  const current=runs.find(r=>r.mode===old.mode&&r.seed===old.seed&&JSON.stringify(r.weapons)===JSON.stringify(old.weapons));
+  return {mode:old.mode,seed:old.seed,weapons:old.weapons,found:!!current,
+    fullTraceExact:!!current&&current.traceSHA256===old.traceSHA256&&JSON.stringify(current.frameHashes)===JSON.stringify(old.frameHashes),
+    inputTraceExact:!!current&&current.inputSHA256===old.inputSHA256&&JSON.stringify(current.inputHashes)===JSON.stringify(old.inputHashes),
+    initialNativeExact:!!current&&current.initialNative===old.initialNative,
+    initialControlExact:!!current&&current.initialControls===old.initialControls};
+}):null;
 const sourceAfter=hashes();
 const report={createdUTC:new Date().toISOString(),baselineCommit:execFileSync('git',['rev-parse','HEAD'],{cwd:repo,encoding:'utf8'}).trim(),
-  command:`node tools/sim/experiments/cut_reaction_integration_probe.mjs --seconds=${seconds} --seeds=${seeds.join(',')} --out=${out}`,
+  command:`node tools/sim/experiments/cut_reaction_integration_probe.mjs --seconds=${seconds} --seeds=${seeds.join(',')} --out=${out}${args.baseline?' --baseline='+args.baseline:''}`,
   configuration:{seconds,seeds,weapons:[['longsword','zweihander'],['zweihander','longsword']],AI:'real AI on both fighters',
     walls:false,DT,gripReaction:CONFIG.GRIP.reactionModel,weightMode:CONFIG.BODY.weightMode,
     support:{assist:CONFIG.GAIT.assist,catchMode:CONFIG.GAIT.catchMode,catchScale:CONFIG.GAIT.catchScale}},
   tolerance,sourceBefore,sourceAfter,sourceStable:JSON.stringify(sourceBefore)===JSON.stringify(sourceAfter),comparisons,runs,
+  historicalBaseline:previous?{path:args.baseline,sha256:sha(fs.readFileSync(args.baseline)),baselineCommit:previous.baselineCommit}:null,
+  historicalRegression,
   researchSourceSHA256:Object.fromEntries(['cut_reaction_candidate.mjs','cut_reaction_candidate.test.mjs','cut_reaction_integration_probe.mjs']
     .map(p=>[p,sha(fs.readFileSync(new URL(p,import.meta.url)))])),
   gapDefinitions:{mainHand:'farmS local (+.13,0,0) to sword origin; all frames',
@@ -186,10 +200,11 @@ const report={createdUTC:new Date().toISOString(),baselineCommit:execFileSync('g
   limitations:['Instant cutting pair conservation is distinct from native collision/joint/motor residuals',
     'Candidate keeps legacy requested-J*s Eleft; budgeted closes only instant paired kinetic loss, not later native/body energy',
     'AI reacts to changed physical state after branching; candidate inputs are not held identical',
-    'Naturalness/play feel and native whole-body realism remain unverified','Research only, no activation or deployment']};
-report.pass=report.sourceStable&&comparisons.every(c=>c.preparationNativeExact&&c.preparationControlExact&&c.originalCloneFullTraceExact&&c.originalCloneInputTraceExact)
+    'Naturalness/play feel and native whole-body realism remain unverified','Runtime opt-in branch present; browser option activation checked separately']};
+report.pass=report.sourceStable&&comparisons.every(c=>c.preparationNativeExact&&c.preparationControlExact&&c.originalCloneFullTraceExact&&c.originalCloneInputTraceExact&&c.runtimeBudgetedFullTraceExact&&c.runtimeBudgetedInputTraceExact)
   &&runs.every(r=>r.stats.finite&&r.stats.observedDispatchPreserved&&r.stats.instantClosurePass&&r.stats.instantPassivityPass&&r.stats.budgetClosurePass)
-  &&runs.filter(r=>r.mode==='candidate'||r.mode==='budgeted').every(r=>r.stats.candidateCallbacks>0&&r.stats.candidatePositivePairs>0);
+  &&runs.filter(r=>r.mode==='candidate'||r.mode==='budgeted'||r.mode==='runtime').every(r=>r.stats.candidateCallbacks>0&&r.stats.candidatePositivePairs>0)
+  &&(!historicalRegression||historicalRegression.every(r=>r.found&&r.fullTraceExact&&r.inputTraceExact&&r.initialNativeExact&&r.initialControlExact));
 fs.writeFileSync(out,JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({pass:report.pass,runs:runs.length,out,sourceStable:report.sourceStable,comparisons}));
 process.exitCode=report.pass?0:1;
