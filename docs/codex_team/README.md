@@ -14,6 +14,8 @@
 
 ## 현재 작업
 
+**지속 미션:** [자동 개발·개선](DEVELOPMENT_MISSION.md)을 운영 미션으로 명시했다. 사용자 무응답과 개별 패치 완료 뒤에도 활성 실행 중 다음 승인 과제를 이어간다. [예약 회귀 검사](automatic_checks.md)와 디렉터의 AI 개발을 구분하며, 대화 종료 뒤 실행되지 않는 작업을 계속 진행 중이라고 말하지 않는다.
+
 **전체 완료 기준:** 사용자가 전신 물리 목표 전체의 해결을 재확인했다. [P-01~P-06 추적표](../strike/physical_realism_plan.md)는 중력 이점, 체중 지지/부상 회복, 몸통→팔→검 전달, 가속·관성·제동, 실제 충돌 전달, 신체 모델/모바일 체감을 모두 미완료 목표로 추적한다. 기립 수치 통과나 칼끝 속도 상승만으로 전체 목표를 닫지 않는다. 기립 제어와 타격/충돌 경로를 병행 검증한다.
 
 **팔 근력·기립 인계 병행:** [어깨·손목/팔꿈치 130행](../strike/arm_capacity_round1.md)에서 최종 twist를 기존 cap에 포함하는 finalCap을 분리했다. 팔꿈치 자유 두 강체 교체는 cap에 닿기도 전에 목표 추종이 약해져 기각했다. [선택형 팔 비교](../strike/arm_capacity_trial.md)는 finalCap-only이며 실제 코드 72행이 기존 연구/기준 trace와 exact다. [기립 5차](../strike/recovery_handoff_round5.md)는 .85m 다리에 .92~.95m flat plant를 요청하는 전환 기하와 목표속도 단절을 확인했다. 보간/접촉 pivot/upright 단순 제거는 회복 해결로 채택하지 않는다. 소스 `9dc396e` → 공개 main `ca1a590`, 전투24행·공개 모바일8조건을 통과했다. [휴대폰 팔 비교](https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#arm-comparison)와 [배포 증거](../strike/arm_capacity_trial_release.json)를 제공한다. 일반 arm 제어는 legacy다.
