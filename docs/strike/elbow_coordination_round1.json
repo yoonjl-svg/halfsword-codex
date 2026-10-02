@@ -1,0 +1,3708 @@
+{
+  "schemaVersion": 1,
+  "createdUTC": "2026-10-02T13:22:15.976921+00:00",
+  "pass": true,
+  "conditions": 36,
+  "actualGameRuns": 72,
+  "distinctDragInputsAcrossSkillLevels": 18,
+  "holdReleaseBranchesIndependent": false,
+  "datasets": [
+    {
+      "level": 0.0,
+      "rawPath": "/tmp/elbow-coordination-level0-round1.json",
+      "rawSHA256": "d638db57601da3ebbcc472ca0599e3d4a9469a49fb126f27984a75be8c431c57",
+      "sourceCommit": "7b72c4e3bc4a50fc56786362de6509c9d2270757",
+      "sourceBefore": {
+        "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+        "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+        "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+        "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+        "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+        "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+        "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+        "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+        "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+        "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+        "src/cut_trial.js": "3ef89c41c9b40b3e18a5d19cd92277af49e972c8eae030efaa915a39dfc4fcbf",
+        "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+        "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+        "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+        "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+        "src/fighter.js": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+        "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+        "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+        "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+        "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+        "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+        "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+        "src/input.js": "b5954792bb8c9d005bbe17dc1a7669e296b6297c66a1f0339f487d4a2ff9cd4f",
+        "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+        "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+        "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+        "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+        "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+        "src/main.js": "d691a72694f20c8e0784b52884934dc6f660f2046c087f3ff8e12568cc859884",
+        "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+        "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+        "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+        "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+        "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+        "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+        "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+        "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+        "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+        "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+        "src/slash_draw.js": "c7d3d5a52ab9880323e72f21270d9e85aa6564187aef5a7a95e57954a11fdd8a",
+        "src/sound.js": "5751ada2d02597067df219798ea31b42bbbc3409251ce3ff93ecd1e8d2a7bad3",
+        "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+        "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+        "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+        "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+        "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+        "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+        "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+        "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+        "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+        "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+        "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+        "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+        "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+        "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+        "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+        "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+        "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+        "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+        "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+        "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+        "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+        "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+        "tools/sim/whole_body_strike_probe.mjs": "f32dae889eb75860ffa185433dfca877e571b36a4184976557b4e88f7a3b51f4",
+        "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+        "tools/sim/experiments/elbow_coordination_probe.mjs": "5763e2337bcd04b568980718980999b9e8c35720ea88cb986fde40fa790d070f",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b"
+      },
+      "sourceAfter": {
+        "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+        "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+        "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+        "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+        "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+        "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+        "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+        "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+        "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+        "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+        "src/cut_trial.js": "3ef89c41c9b40b3e18a5d19cd92277af49e972c8eae030efaa915a39dfc4fcbf",
+        "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+        "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+        "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+        "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+        "src/fighter.js": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+        "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+        "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+        "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+        "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+        "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+        "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+        "src/input.js": "b5954792bb8c9d005bbe17dc1a7669e296b6297c66a1f0339f487d4a2ff9cd4f",
+        "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+        "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+        "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+        "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+        "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+        "src/main.js": "d691a72694f20c8e0784b52884934dc6f660f2046c087f3ff8e12568cc859884",
+        "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+        "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+        "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+        "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+        "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+        "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+        "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+        "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+        "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+        "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+        "src/slash_draw.js": "c7d3d5a52ab9880323e72f21270d9e85aa6564187aef5a7a95e57954a11fdd8a",
+        "src/sound.js": "5751ada2d02597067df219798ea31b42bbbc3409251ce3ff93ecd1e8d2a7bad3",
+        "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+        "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+        "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+        "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+        "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+        "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+        "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+        "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+        "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+        "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+        "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+        "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+        "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+        "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+        "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+        "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+        "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+        "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+        "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+        "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+        "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+        "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+        "tools/sim/whole_body_strike_probe.mjs": "f32dae889eb75860ffa185433dfca877e571b36a4184976557b4e88f7a3b51f4",
+        "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+        "tools/sim/experiments/elbow_coordination_probe.mjs": "5763e2337bcd04b568980718980999b9e8c35720ea88cb986fde40fa790d070f",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b"
+      },
+      "sourceStable": true,
+      "command": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node /workspace/halfsword-codex/tools/sim/experiments/elbow_coordination_probe.mjs --level=0 --out=/tmp/elbow-coordination-level0-round1.json",
+      "protocol": {
+        "skillLevel": 0,
+        "guardWeight": 0,
+        "inputHelperSHA256": "acbdc798a15168405b891a0508f1062042c149e28058d33d411ccb710d0d9186",
+        "skillPreparation": "Skill level passed to actual newRound before 3s preparation. For non-default levels only the existing test helper constructor gains a literal skill option in a temporary module; all actual game classes/step/native solver remain unchanged.",
+        "engine": "Unmodified installed npm Rapier; no engine rebuild, native motor replacement, or candidate",
+        "measurements": "Actual hinge rotation vector relative to rest, angular velocity projections, native configure inputs, actual rigid body energies and tip velocity",
+        "velocityDecomposition": "base at shoulder + chest rotation at tip; shoulder relative rotation at tip; elbow relative rotation at tip; wrist relative rotation at tip. Closure residual reports anchor/solver velocity differences. Signed projections are kinematic contributions, never work or energy.",
+        "work": "Existing force ledger signed midpoint work for explicit shoulder manualMuscle, sword driveSword with reactions, and elbowGravity. Native motor/constraint/contact work unmeasured.",
+        "timing": "Targets/configure precede native integration; angle/velocity/energy follow it. Peak times are descriptions, not proof of anatomical or causal transfer.",
+        "samples": "12 conditions, 24 actual game runs by default. Same drag hold/release branches are not independent strokes; single deterministic seed; no opponent or mobile claims."
+      },
+      "wallSeconds": 11.860533655,
+      "pass": true,
+      "checks": [
+        {
+          "weapon": "sabre",
+          "direction": "down",
+          "ending": "target_hold",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "sabre",
+          "direction": "down",
+          "ending": "release",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "sabre",
+          "direction": "up",
+          "ending": "target_hold",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "sabre",
+          "direction": "up",
+          "ending": "release",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "sabre",
+          "direction": "cross",
+          "ending": "target_hold",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "sabre",
+          "direction": "cross",
+          "ending": "release",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "zweihander",
+          "direction": "down",
+          "ending": "target_hold",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "zweihander",
+          "direction": "down",
+          "ending": "release",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "zweihander",
+          "direction": "up",
+          "ending": "target_hold",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "zweihander",
+          "direction": "up",
+          "ending": "release",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "zweihander",
+          "direction": "cross",
+          "ending": "target_hold",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "zweihander",
+          "direction": "cross",
+          "ending": "release",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        }
+      ],
+      "rows": [
+        {
+          "condition": {
+            "weapon": "sabre",
+            "direction": "down",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 66,
+            "actualFlexRangeRad": [
+              0.2080294122789339,
+              0.3254425222463963
+            ],
+            "targetFlexRangeRad": [
+              0.2654706141598404,
+              0.2654706141598404
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.6194856328975867,
+              0.6570275364716892
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.18333333333333332,
+              "radps": 4.2617094821636865
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.11666666666666667,
+              "radps": 4.787344933870059
+            },
+            "peakElbowExtension": {
+              "timeS": 0.21666666666666667,
+              "radps": -0.4398997192699194
+            },
+            "peakTip": {
+              "timeS": 0.23333333333333334,
+              "mps": 8.28950236566312,
+              "elbowFlexRad": 0.29440892176606537,
+              "elbowRateRadps": -0.4227052221438122,
+              "velocityProjectionMps": {
+                "base": -0.13611002243758413,
+                "shoulder": 5.743914063255332,
+                "elbow": 0.454046735073342,
+                "wrist": 2.215553725313101
+              },
+              "closureResidualMps": 0.033375754467013276
+            },
+            "peakUpperToTipLagS": 0.05000000000000002,
+            "peakExtensionToTipLagS": 0.016666666666666663,
+            "maxVelocityClosureResidualMps": 0.06120998565044443,
+            "maxJointGapM": 0.0006268103057937989,
+            "afterInputActualFlexRangeRad": [
+              0.20288427986184235,
+              0.24340802480741316
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 2.444419657698577,
+              "manualMuscle": -16.57282080046501,
+              "elbowGravity": 0.14829639037695802
+            },
+            "after_input": {
+              "driveSword": 0.35419490817752286,
+              "manualMuscle": -9.904254342335742,
+              "elbowGravity": 1.3067183707188719
+            }
+          },
+          "baselineTraceSha256": "bcb88636e447961f9831a61cd6c290056a767ec28d4dc4c352eb8daa1285be4f",
+          "observedTraceSha256": "bcb88636e447961f9831a61cd6c290056a767ec28d4dc4c352eb8daa1285be4f"
+        },
+        {
+          "condition": {
+            "weapon": "sabre",
+            "direction": "down",
+            "ending": "release",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 66,
+            "actualFlexRangeRad": [
+              0.2080294122789339,
+              0.3254425222463963
+            ],
+            "targetFlexRangeRad": [
+              0.2654706141598404,
+              0.2654706141598404
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.6194856328975867,
+              0.6570275364716892
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.18333333333333332,
+              "radps": 4.2617094821636865
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.11666666666666667,
+              "radps": 4.787344933870059
+            },
+            "peakElbowExtension": {
+              "timeS": 0.21666666666666667,
+              "radps": -0.4398997192699194
+            },
+            "peakTip": {
+              "timeS": 0.23333333333333334,
+              "mps": 8.28950236566312,
+              "elbowFlexRad": 0.29440892176606537,
+              "elbowRateRadps": -0.4227052221438122,
+              "velocityProjectionMps": {
+                "base": -0.13611002243758413,
+                "shoulder": 5.743914063255332,
+                "elbow": 0.454046735073342,
+                "wrist": 2.215553725313101
+              },
+              "closureResidualMps": 0.033375754467013276
+            },
+            "peakUpperToTipLagS": 0.05000000000000002,
+            "peakExtensionToTipLagS": 0.016666666666666663,
+            "maxVelocityClosureResidualMps": 0.06120998565044443,
+            "maxJointGapM": 0.0006268103057937989,
+            "afterInputActualFlexRangeRad": [
+              0.20288427986184235,
+              0.24340802480741316
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 2.444419657698577,
+              "manualMuscle": -16.57282080046501,
+              "elbowGravity": 0.14829639037695802
+            },
+            "after_input": {
+              "driveSword": 0.35419490817752286,
+              "manualMuscle": -9.904254342335742,
+              "elbowGravity": 1.3067183707188719
+            }
+          },
+          "baselineTraceSha256": "24fd48a36727bb6a02416eb286ddecd05d91783a5d23b465bc16e6ccfbb62e24",
+          "observedTraceSha256": "24fd48a36727bb6a02416eb286ddecd05d91783a5d23b465bc16e6ccfbb62e24"
+        },
+        {
+          "condition": {
+            "weapon": "sabre",
+            "direction": "up",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 66,
+            "actualFlexRangeRad": [
+              0.19082465818153307,
+              0.23783640277605742
+            ],
+            "targetFlexRangeRad": [
+              0.2654706141598404,
+              0.2654706141598404
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.619030803914912,
+              0.6496890651707952
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.20833333333333334,
+              "radps": 3.640875437997057
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.21666666666666667,
+              "radps": 4.151823521691388
+            },
+            "peakElbowExtension": {
+              "timeS": 0.4166666666666667,
+              "radps": -0.26104995125158903
+            },
+            "peakTip": {
+              "timeS": 0.55,
+              "mps": 7.508634397462608,
+              "elbowFlexRad": 0.21783245424328937,
+              "elbowRateRadps": 0.34699426240406445,
+              "velocityProjectionMps": {
+                "base": -0.28087161849351094,
+                "shoulder": 5.31357712743986,
+                "elbow": 0.3367052459263004,
+                "wrist": 2.0941923583254
+              },
+              "closureResidualMps": 0.054856506733243625
+            },
+            "peakUpperToTipLagS": 0.3416666666666667,
+            "peakExtensionToTipLagS": 0.13333333333333336,
+            "maxVelocityClosureResidualMps": 0.07067097673855886,
+            "maxJointGapM": 0.0005435024526448681,
+            "afterInputActualFlexRangeRad": [
+              0.22064406147389387,
+              0.3033112974415512
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 1.5306295159085137,
+              "manualMuscle": 32.96159570518473,
+              "elbowGravity": 0.8590302212703037
+            },
+            "after_input": {
+              "driveSword": -1.124963627966832,
+              "manualMuscle": -2.18142080272371,
+              "elbowGravity": 0.11687587374188048
+            }
+          },
+          "baselineTraceSha256": "d87d88e62c277d959a1dc7cf876003e39547e0e3c104de550b568faf096f8040",
+          "observedTraceSha256": "d87d88e62c277d959a1dc7cf876003e39547e0e3c104de550b568faf096f8040"
+        },
+        {
+          "condition": {
+            "weapon": "sabre",
+            "direction": "up",
+            "ending": "release",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 66,
+            "actualFlexRangeRad": [
+              0.19082465818153307,
+              0.23783640277605742
+            ],
+            "targetFlexRangeRad": [
+              0.2654706141598404,
+              0.2654706141598404
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.619030803914912,
+              0.6496890651707952
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.20833333333333334,
+              "radps": 3.640875437997057
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.21666666666666667,
+              "radps": 4.151823521691388
+            },
+            "peakElbowExtension": {
+              "timeS": 0.4166666666666667,
+              "radps": -0.26104995125158903
+            },
+            "peakTip": {
+              "timeS": 0.55,
+              "mps": 7.508634397462608,
+              "elbowFlexRad": 0.21783245424328937,
+              "elbowRateRadps": 0.34699426240406445,
+              "velocityProjectionMps": {
+                "base": -0.28087161849351094,
+                "shoulder": 5.31357712743986,
+                "elbow": 0.3367052459263004,
+                "wrist": 2.0941923583254
+              },
+              "closureResidualMps": 0.054856506733243625
+            },
+            "peakUpperToTipLagS": 0.3416666666666667,
+            "peakExtensionToTipLagS": 0.13333333333333336,
+            "maxVelocityClosureResidualMps": 0.07067097673855886,
+            "maxJointGapM": 0.0005435024526448681,
+            "afterInputActualFlexRangeRad": [
+              0.22064406147389387,
+              0.3033112974415512
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 1.5306295159085137,
+              "manualMuscle": 32.96159570518473,
+              "elbowGravity": 0.8590302212703037
+            },
+            "after_input": {
+              "driveSword": -1.124963627966832,
+              "manualMuscle": -2.18142080272371,
+              "elbowGravity": 0.11687587374188048
+            }
+          },
+          "baselineTraceSha256": "7883c3be9181ed8be3b2834f12a61c52814fb60227f9fb98271f00d129bd177e",
+          "observedTraceSha256": "7883c3be9181ed8be3b2834f12a61c52814fb60227f9fb98271f00d129bd177e"
+        },
+        {
+          "condition": {
+            "weapon": "sabre",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 66,
+            "actualFlexRangeRad": [
+              0.22707406813480405,
+              0.3002157911264049
+            ],
+            "targetFlexRangeRad": [
+              0.2654706141598404,
+              0.2654706141598404
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.6094016670960639,
+              0.6947931788873972
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.25,
+              "radps": 3.4336351121700295
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.25,
+              "radps": 4.707303704359049
+            },
+            "peakElbowExtension": {
+              "timeS": 0.25,
+              "radps": -0.5323579755999447
+            },
+            "peakTip": {
+              "timeS": 0.23333333333333334,
+              "mps": 6.304122265290989,
+              "elbowFlexRad": 0.27753525781823435,
+              "elbowRateRadps": -0.234879269255566,
+              "velocityProjectionMps": {
+                "base": 0.5507931854752347,
+                "shoulder": 4.694588947868698,
+                "elbow": 0.2657877581900243,
+                "wrist": 0.7899937578925895
+              },
+              "closureResidualMps": 0.024940772807153015
+            },
+            "peakUpperToTipLagS": -0.016666666666666663,
+            "peakExtensionToTipLagS": -0.016666666666666663,
+            "maxVelocityClosureResidualMps": 0.04353299199473036,
+            "maxJointGapM": 0.0005803019775220329,
+            "afterInputActualFlexRangeRad": [
+              0.19828980659669243,
+              0.24375015964501265
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 1.2593281847742133,
+              "manualMuscle": -6.516678627256235,
+              "elbowGravity": 0.5184190744712669
+            },
+            "after_input": {
+              "driveSword": 0.13899468165962722,
+              "manualMuscle": -9.22589658832459,
+              "elbowGravity": 1.37281781496556
+            }
+          },
+          "baselineTraceSha256": "dd6d906af439239beb8b4d13f3b43247d148098c66ff3cc31dcf09cef034c610",
+          "observedTraceSha256": "dd6d906af439239beb8b4d13f3b43247d148098c66ff3cc31dcf09cef034c610"
+        },
+        {
+          "condition": {
+            "weapon": "sabre",
+            "direction": "cross",
+            "ending": "release",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 66,
+            "actualFlexRangeRad": [
+              0.22707406813480405,
+              0.3002157911264049
+            ],
+            "targetFlexRangeRad": [
+              0.2654706141598404,
+              0.2654706141598404
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.6094016670960639,
+              0.6947931788873972
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.25,
+              "radps": 3.4336351121700295
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.25,
+              "radps": 4.707303704359049
+            },
+            "peakElbowExtension": {
+              "timeS": 0.25,
+              "radps": -0.5323579755999447
+            },
+            "peakTip": {
+              "timeS": 0.23333333333333334,
+              "mps": 6.304122265290989,
+              "elbowFlexRad": 0.27753525781823435,
+              "elbowRateRadps": -0.234879269255566,
+              "velocityProjectionMps": {
+                "base": 0.5507931854752347,
+                "shoulder": 4.694588947868698,
+                "elbow": 0.2657877581900243,
+                "wrist": 0.7899937578925895
+              },
+              "closureResidualMps": 0.024940772807153015
+            },
+            "peakUpperToTipLagS": -0.016666666666666663,
+            "peakExtensionToTipLagS": -0.016666666666666663,
+            "maxVelocityClosureResidualMps": 0.04353299199473036,
+            "maxJointGapM": 0.0005803019775220329,
+            "afterInputActualFlexRangeRad": [
+              0.19828980659669243,
+              0.24375015964501265
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 1.2593281847742133,
+              "manualMuscle": -6.516678627256235,
+              "elbowGravity": 0.5184190744712669
+            },
+            "after_input": {
+              "driveSword": 0.13899468165962722,
+              "manualMuscle": -9.22589658832459,
+              "elbowGravity": 1.37281781496556
+            }
+          },
+          "baselineTraceSha256": "4d9299d591523ca1041befa7606a90aa7529ffa4cc4a660dea2688922b966ca7",
+          "observedTraceSha256": "4d9299d591523ca1041befa7606a90aa7529ffa4cc4a660dea2688922b966ca7"
+        },
+        {
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "down",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 66,
+            "actualFlexRangeRad": [
+              0.08291278147224651,
+              0.44436490912997373
+            ],
+            "targetFlexRangeRad": [
+              0.2654706141598404,
+              0.2654706141598404
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.6208876827492174,
+              0.656975534171648
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.35,
+              "radps": 4.639198247473271
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.4083333333333333,
+              "radps": 7.77324104733114
+            },
+            "peakElbowExtension": {
+              "timeS": 0.3833333333333333,
+              "radps": -1.5791321855286382
+            },
+            "peakTip": {
+              "timeS": 0.325,
+              "mps": 10.732838397164844,
+              "elbowFlexRad": 0.4231565972620542,
+              "elbowRateRadps": -0.732185911690323,
+              "velocityProjectionMps": {
+                "base": -0.146058186774233,
+                "shoulder": 7.8180106140996335,
+                "elbow": 1.147403071914965,
+                "wrist": 1.8539781038183611
+              },
+              "closureResidualMps": 0.06227412399250597
+            },
+            "peakUpperToTipLagS": -0.024999999999999967,
+            "peakExtensionToTipLagS": -0.05833333333333329,
+            "maxVelocityClosureResidualMps": 0.16962634222483805,
+            "maxJointGapM": 0.001030570545213259,
+            "afterInputActualFlexRangeRad": [
+              0.0432899602584809,
+              0.22730014431423112
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 20.039865028344476,
+              "manualMuscle": -30.906445531636873,
+              "elbowGravity": -2.796126248653591
+            },
+            "after_input": {
+              "driveSword": -2.4338124740279587,
+              "manualMuscle": -23.321057756462874,
+              "elbowGravity": 8.367960403653356
+            }
+          },
+          "baselineTraceSha256": "d49827655e43511492ba527b13d9e77047d52b26e9a147b8584d8bfd7451472d",
+          "observedTraceSha256": "d49827655e43511492ba527b13d9e77047d52b26e9a147b8584d8bfd7451472d"
+        },
+        {
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "down",
+            "ending": "release",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 66,
+            "actualFlexRangeRad": [
+              0.08291278147224651,
+              0.44436490912997373
+            ],
+            "targetFlexRangeRad": [
+              0.2654706141598404,
+              0.2654706141598404
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.6208876827492174,
+              0.656975534171648
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.35,
+              "radps": 4.639198247473271
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.4083333333333333,
+              "radps": 7.77324104733114
+            },
+            "peakElbowExtension": {
+              "timeS": 0.3833333333333333,
+              "radps": -1.5791321855286382
+            },
+            "peakTip": {
+              "timeS": 0.325,
+              "mps": 10.732838397164844,
+              "elbowFlexRad": 0.4231565972620542,
+              "elbowRateRadps": -0.732185911690323,
+              "velocityProjectionMps": {
+                "base": -0.146058186774233,
+                "shoulder": 7.8180106140996335,
+                "elbow": 1.147403071914965,
+                "wrist": 1.8539781038183611
+              },
+              "closureResidualMps": 0.06227412399250597
+            },
+            "peakUpperToTipLagS": -0.024999999999999967,
+            "peakExtensionToTipLagS": -0.05833333333333329,
+            "maxVelocityClosureResidualMps": 0.16962634222483805,
+            "maxJointGapM": 0.001030570545213259,
+            "afterInputActualFlexRangeRad": [
+              0.0432899602584809,
+              0.22730014431423112
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 20.039865028344476,
+              "manualMuscle": -30.906445531636873,
+              "elbowGravity": -2.796126248653591
+            },
+            "after_input": {
+              "driveSword": -2.4338124740279587,
+              "manualMuscle": -23.321057756462874,
+              "elbowGravity": 8.367960403653356
+            }
+          },
+          "baselineTraceSha256": "3fad54491e89d0fe95018518cf96a252b068877c364cfa5b90d1de823361e293",
+          "observedTraceSha256": "3fad54491e89d0fe95018518cf96a252b068877c364cfa5b90d1de823361e293"
+        },
+        {
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "up",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 66,
+            "actualFlexRangeRad": [
+              0.12572596104757236,
+              0.20627884043181932
+            ],
+            "targetFlexRangeRad": [
+              0.2654706141598404,
+              0.2654706141598404
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.613587929003548,
+              0.6449277411921235
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.39166666666666666,
+              "radps": 2.4776552387308666
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.55,
+              "radps": 3.3364391392036157
+            },
+            "peakElbowExtension": {
+              "timeS": 0.09166666666666666,
+              "radps": -0.020875210538219058
+            },
+            "peakTip": {
+              "timeS": 0.55,
+              "mps": 8.294552858362136,
+              "elbowFlexRad": 0.1589999463244433,
+              "elbowRateRadps": 0.6968686469646705,
+              "velocityProjectionMps": {
+                "base": -0.4194142418398341,
+                "shoulder": 3.9057205000658666,
+                "elbow": 0.8137887141521782,
+                "wrist": 3.95456718694754
+              },
+              "closureResidualMps": 0.06741985584589669
+            },
+            "peakUpperToTipLagS": 0.15833333333333338,
+            "peakExtensionToTipLagS": 0.45833333333333337,
+            "maxVelocityClosureResidualMps": 0.12393850727212741,
+            "maxJointGapM": 0.0007911865175626453,
+            "afterInputActualFlexRangeRad": [
+              0.1627504595549176,
+              0.37116771779315244
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 8.685870716641324,
+              "manualMuscle": 34.579246652600226,
+              "elbowGravity": 4.139573877353435
+            },
+            "after_input": {
+              "driveSword": 3.706026833691974,
+              "manualMuscle": 21.806411684126356,
+              "elbowGravity": 0.944105490023714
+            }
+          },
+          "baselineTraceSha256": "0f60c8448e63164d61645a06f73dd54d0c89789196f417bba2a0e8157ea77ec3",
+          "observedTraceSha256": "0f60c8448e63164d61645a06f73dd54d0c89789196f417bba2a0e8157ea77ec3"
+        },
+        {
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "up",
+            "ending": "release",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 66,
+            "actualFlexRangeRad": [
+              0.12572596104757236,
+              0.20627884043181932
+            ],
+            "targetFlexRangeRad": [
+              0.2654706141598404,
+              0.2654706141598404
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.613587929003548,
+              0.6449277411921235
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.39166666666666666,
+              "radps": 2.4776552387308666
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.55,
+              "radps": 3.3364391392036157
+            },
+            "peakElbowExtension": {
+              "timeS": 0.09166666666666666,
+              "radps": -0.020875210538219058
+            },
+            "peakTip": {
+              "timeS": 0.55,
+              "mps": 8.294552858362136,
+              "elbowFlexRad": 0.1589999463244433,
+              "elbowRateRadps": 0.6968686469646705,
+              "velocityProjectionMps": {
+                "base": -0.4194142418398341,
+                "shoulder": 3.9057205000658666,
+                "elbow": 0.8137887141521782,
+                "wrist": 3.95456718694754
+              },
+              "closureResidualMps": 0.06741985584589669
+            },
+            "peakUpperToTipLagS": 0.15833333333333338,
+            "peakExtensionToTipLagS": 0.45833333333333337,
+            "maxVelocityClosureResidualMps": 0.12393850727212741,
+            "maxJointGapM": 0.0007911865175626453,
+            "afterInputActualFlexRangeRad": [
+              0.1627504595549176,
+              0.37116771779315244
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 8.685870716641324,
+              "manualMuscle": 34.579246652600226,
+              "elbowGravity": 4.139573877353435
+            },
+            "after_input": {
+              "driveSword": 3.706026833691974,
+              "manualMuscle": 21.806411684126356,
+              "elbowGravity": 0.944105490023714
+            }
+          },
+          "baselineTraceSha256": "7c52da0dc82d7bd16533419900fae3cfbe9b2b49d3190f37f076867db8cdfd05",
+          "observedTraceSha256": "7c52da0dc82d7bd16533419900fae3cfbe9b2b49d3190f37f076867db8cdfd05"
+        },
+        {
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 66,
+            "actualFlexRangeRad": [
+              0.20675904926009475,
+              0.3933079904156817
+            ],
+            "targetFlexRangeRad": [
+              0.2654706141598404,
+              0.2654706141598404
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.5988620555945621,
+              0.6868531039942787
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.2916666666666667,
+              "radps": 3.7376258951509636
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.375,
+              "radps": 5.400964350078657
+            },
+            "peakElbowExtension": {
+              "timeS": 0.3416666666666667,
+              "radps": -0.9123073993588222
+            },
+            "peakTip": {
+              "timeS": 0.3833333333333333,
+              "mps": 7.287744122493039,
+              "elbowFlexRad": 0.2967155257999976,
+              "elbowRateRadps": -0.7300488846261255,
+              "velocityProjectionMps": {
+                "base": 2.1650421200564893,
+                "shoulder": 5.944910651782554,
+                "elbow": 1.086532329455879,
+                "wrist": -1.8827423802788894
+              },
+              "closureResidualMps": 0.04920695885938227
+            },
+            "peakUpperToTipLagS": 0.09166666666666662,
+            "peakExtensionToTipLagS": 0.04166666666666663,
+            "maxVelocityClosureResidualMps": 0.10462997504526585,
+            "maxJointGapM": 0.001068713749972442,
+            "afterInputActualFlexRangeRad": [
+              0.16809547396308297,
+              0.30167735911877
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 5.933268524595,
+              "manualMuscle": 11.367151653426808,
+              "elbowGravity": 0.798416929333144
+            },
+            "after_input": {
+              "driveSword": -0.7250282873626986,
+              "manualMuscle": -15.950237422277919,
+              "elbowGravity": 1.2490307742776943
+            }
+          },
+          "baselineTraceSha256": "b42388cd6fcd3e043415f8d2423fef132ebe3b5ae58dea2e857e189b1861c22d",
+          "observedTraceSha256": "b42388cd6fcd3e043415f8d2423fef132ebe3b5ae58dea2e857e189b1861c22d"
+        },
+        {
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "release",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 66,
+            "actualFlexRangeRad": [
+              0.20675904926009475,
+              0.3933079904156817
+            ],
+            "targetFlexRangeRad": [
+              0.2654706141598404,
+              0.2654706141598404
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.5988620555945621,
+              0.6868531039942787
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.2916666666666667,
+              "radps": 3.7376258951509636
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.375,
+              "radps": 5.400964350078657
+            },
+            "peakElbowExtension": {
+              "timeS": 0.3416666666666667,
+              "radps": -0.9123073993588222
+            },
+            "peakTip": {
+              "timeS": 0.3833333333333333,
+              "mps": 7.287744122493039,
+              "elbowFlexRad": 0.2967155257999976,
+              "elbowRateRadps": -0.7300488846261255,
+              "velocityProjectionMps": {
+                "base": 2.1650421200564893,
+                "shoulder": 5.944910651782554,
+                "elbow": 1.086532329455879,
+                "wrist": -1.8827423802788894
+              },
+              "closureResidualMps": 0.04920695885938227
+            },
+            "peakUpperToTipLagS": 0.09166666666666662,
+            "peakExtensionToTipLagS": 0.04166666666666663,
+            "maxVelocityClosureResidualMps": 0.10462997504526585,
+            "maxJointGapM": 0.001068713749972442,
+            "afterInputActualFlexRangeRad": [
+              0.16809547396308297,
+              0.30167735911877
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 5.933268524595,
+              "manualMuscle": 11.367151653426808,
+              "elbowGravity": 0.798416929333144
+            },
+            "after_input": {
+              "driveSword": -0.7250282873626986,
+              "manualMuscle": -15.950237422277919,
+              "elbowGravity": 1.2490307742776943
+            }
+          },
+          "baselineTraceSha256": "d3854c3934e0d9a9ed9a0d95e2927570da61f0ac88671f74cddd9c46ce9e06b7",
+          "observedTraceSha256": "d3854c3934e0d9a9ed9a0d95e2927570da61f0ac88671f74cddd9c46ce9e06b7"
+        }
+      ]
+    },
+    {
+      "level": 0.4,
+      "rawPath": "/tmp/elbow-coordination-level0.4-round1.json",
+      "rawSHA256": "1d1dbae8ea2d599460c3e4261081c0964088c12016ed513b24cf7cc2c53a2bb1",
+      "sourceCommit": "7b72c4e3bc4a50fc56786362de6509c9d2270757",
+      "sourceBefore": {
+        "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+        "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+        "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+        "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+        "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+        "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+        "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+        "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+        "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+        "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+        "src/cut_trial.js": "3ef89c41c9b40b3e18a5d19cd92277af49e972c8eae030efaa915a39dfc4fcbf",
+        "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+        "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+        "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+        "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+        "src/fighter.js": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+        "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+        "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+        "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+        "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+        "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+        "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+        "src/input.js": "b5954792bb8c9d005bbe17dc1a7669e296b6297c66a1f0339f487d4a2ff9cd4f",
+        "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+        "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+        "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+        "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+        "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+        "src/main.js": "d691a72694f20c8e0784b52884934dc6f660f2046c087f3ff8e12568cc859884",
+        "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+        "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+        "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+        "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+        "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+        "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+        "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+        "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+        "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+        "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+        "src/slash_draw.js": "c7d3d5a52ab9880323e72f21270d9e85aa6564187aef5a7a95e57954a11fdd8a",
+        "src/sound.js": "5751ada2d02597067df219798ea31b42bbbc3409251ce3ff93ecd1e8d2a7bad3",
+        "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+        "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+        "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+        "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+        "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+        "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+        "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+        "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+        "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+        "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+        "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+        "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+        "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+        "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+        "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+        "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+        "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+        "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+        "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+        "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+        "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+        "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+        "tools/sim/whole_body_strike_probe.mjs": "f32dae889eb75860ffa185433dfca877e571b36a4184976557b4e88f7a3b51f4",
+        "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+        "tools/sim/experiments/elbow_coordination_probe.mjs": "5763e2337bcd04b568980718980999b9e8c35720ea88cb986fde40fa790d070f",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b"
+      },
+      "sourceAfter": {
+        "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+        "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+        "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+        "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+        "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+        "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+        "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+        "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+        "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+        "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+        "src/cut_trial.js": "3ef89c41c9b40b3e18a5d19cd92277af49e972c8eae030efaa915a39dfc4fcbf",
+        "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+        "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+        "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+        "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+        "src/fighter.js": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+        "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+        "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+        "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+        "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+        "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+        "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+        "src/input.js": "b5954792bb8c9d005bbe17dc1a7669e296b6297c66a1f0339f487d4a2ff9cd4f",
+        "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+        "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+        "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+        "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+        "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+        "src/main.js": "d691a72694f20c8e0784b52884934dc6f660f2046c087f3ff8e12568cc859884",
+        "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+        "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+        "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+        "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+        "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+        "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+        "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+        "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+        "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+        "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+        "src/slash_draw.js": "c7d3d5a52ab9880323e72f21270d9e85aa6564187aef5a7a95e57954a11fdd8a",
+        "src/sound.js": "5751ada2d02597067df219798ea31b42bbbc3409251ce3ff93ecd1e8d2a7bad3",
+        "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+        "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+        "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+        "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+        "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+        "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+        "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+        "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+        "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+        "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+        "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+        "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+        "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+        "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+        "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+        "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+        "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+        "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+        "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+        "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+        "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+        "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+        "tools/sim/whole_body_strike_probe.mjs": "f32dae889eb75860ffa185433dfca877e571b36a4184976557b4e88f7a3b51f4",
+        "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+        "tools/sim/experiments/elbow_coordination_probe.mjs": "5763e2337bcd04b568980718980999b9e8c35720ea88cb986fde40fa790d070f",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b"
+      },
+      "sourceStable": true,
+      "command": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node /workspace/halfsword-codex/tools/sim/experiments/elbow_coordination_probe.mjs --level=0.4 --out=/tmp/elbow-coordination-level0.4-round1.json",
+      "protocol": {
+        "skillLevel": 0.4,
+        "guardWeight": 0.6400000000000001,
+        "inputHelperSHA256": "daa4699f18f5ca6e4756a4a3b950386f82df52a18ee00a0c7cf13ff28aed0336",
+        "skillPreparation": "Skill level passed to actual newRound before 3s preparation. For non-default levels only the existing test helper constructor gains a literal skill option in a temporary module; all actual game classes/step/native solver remain unchanged.",
+        "engine": "Unmodified installed npm Rapier; no engine rebuild, native motor replacement, or candidate",
+        "measurements": "Actual hinge rotation vector relative to rest, angular velocity projections, native configure inputs, actual rigid body energies and tip velocity",
+        "velocityDecomposition": "base at shoulder + chest rotation at tip; shoulder relative rotation at tip; elbow relative rotation at tip; wrist relative rotation at tip. Closure residual reports anchor/solver velocity differences. Signed projections are kinematic contributions, never work or energy.",
+        "work": "Existing force ledger signed midpoint work for explicit shoulder manualMuscle, sword driveSword with reactions, and elbowGravity. Native motor/constraint/contact work unmeasured.",
+        "timing": "Targets/configure precede native integration; angle/velocity/energy follow it. Peak times are descriptions, not proof of anatomical or causal transfer.",
+        "samples": "12 conditions, 24 actual game runs by default. Same drag hold/release branches are not independent strokes; single deterministic seed; no opponent or mobile claims."
+      },
+      "wallSeconds": 11.690023665999998,
+      "pass": true,
+      "checks": [
+        {
+          "weapon": "sabre",
+          "direction": "down",
+          "ending": "target_hold",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "sabre",
+          "direction": "down",
+          "ending": "release",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "sabre",
+          "direction": "up",
+          "ending": "target_hold",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "sabre",
+          "direction": "up",
+          "ending": "release",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "sabre",
+          "direction": "cross",
+          "ending": "target_hold",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "sabre",
+          "direction": "cross",
+          "ending": "release",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "zweihander",
+          "direction": "down",
+          "ending": "target_hold",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "zweihander",
+          "direction": "down",
+          "ending": "release",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "zweihander",
+          "direction": "up",
+          "ending": "target_hold",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "zweihander",
+          "direction": "up",
+          "ending": "release",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "zweihander",
+          "direction": "cross",
+          "ending": "target_hold",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "zweihander",
+          "direction": "cross",
+          "ending": "release",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        }
+      ],
+      "rows": [
+        {
+          "condition": {
+            "weapon": "sabre",
+            "direction": "down",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.4
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 2,
+            "actualFlexRangeRad": [
+              0.31011434631576273,
+              1.4361192794852937
+            ],
+            "targetFlexRangeRad": [
+              0.2654706141598404,
+              1.3486648949702942
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.44563447792770633,
+              0.5654252901236859
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.425,
+              "radps": 10.140723192711395
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.13333333333333333,
+              "radps": 14.400647773147243
+            },
+            "peakElbowExtension": {
+              "timeS": 0.26666666666666666,
+              "radps": -13.522825542487316
+            },
+            "peakTip": {
+              "timeS": 0.275,
+              "mps": 14.22783207701691,
+              "elbowFlexRad": 0.7564751604932163,
+              "elbowRateRadps": -13.21485979101703,
+              "velocityProjectionMps": {
+                "base": -0.003875534839246242,
+                "shoulder": -2.0296416566487085,
+                "elbow": 15.456369188775472,
+                "wrist": 0.8349892824942567
+              },
+              "closureResidualMps": 0.19182033320086928
+            },
+            "peakUpperToTipLagS": -0.14999999999999997,
+            "peakExtensionToTipLagS": 0.00833333333333336,
+            "maxVelocityClosureResidualMps": 0.19182033320086928,
+            "maxJointGapM": 0.0009296856138325067,
+            "afterInputActualFlexRangeRad": [
+              0.31591518788993067,
+              0.7495838614986906
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 8.686237337350786,
+              "manualMuscle": -24.737700545707167,
+              "elbowGravity": -2.136624784604483
+            },
+            "after_input": {
+              "driveSword": -2.736744894281139,
+              "manualMuscle": -2.2085020689678942,
+              "elbowGravity": -1.1572434480193947
+            }
+          },
+          "baselineTraceSha256": "392355d32cece0449435f1d67f85576771138f73fc25eae3baddee43831856f9",
+          "observedTraceSha256": "392355d32cece0449435f1d67f85576771138f73fc25eae3baddee43831856f9"
+        },
+        {
+          "condition": {
+            "weapon": "sabre",
+            "direction": "down",
+            "ending": "release",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.4
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 2,
+            "actualFlexRangeRad": [
+              0.31011434631576273,
+              1.4361192794852937
+            ],
+            "targetFlexRangeRad": [
+              0.2654706141598404,
+              1.3486648949702942
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.44563447792770633,
+              0.5654252901236859
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.425,
+              "radps": 10.140723192711395
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.13333333333333333,
+              "radps": 14.400647773147243
+            },
+            "peakElbowExtension": {
+              "timeS": 0.26666666666666666,
+              "radps": -13.522825542487316
+            },
+            "peakTip": {
+              "timeS": 0.275,
+              "mps": 14.22783207701691,
+              "elbowFlexRad": 0.7564751604932163,
+              "elbowRateRadps": -13.21485979101703,
+              "velocityProjectionMps": {
+                "base": -0.003875534839246242,
+                "shoulder": -2.0296416566487085,
+                "elbow": 15.456369188775472,
+                "wrist": 0.8349892824942567
+              },
+              "closureResidualMps": 0.19182033320086928
+            },
+            "peakUpperToTipLagS": -0.14999999999999997,
+            "peakExtensionToTipLagS": 0.00833333333333336,
+            "maxVelocityClosureResidualMps": 0.19182033320086928,
+            "maxJointGapM": 0.0009296856138325067,
+            "afterInputActualFlexRangeRad": [
+              0.33228210449101864,
+              1.0094975189729496
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 8.686237337350786,
+              "manualMuscle": -24.737700545707167,
+              "elbowGravity": -2.136624784604483
+            },
+            "after_input": {
+              "driveSword": -0.24477684412252032,
+              "manualMuscle": -6.096085180136616,
+              "elbowGravity": 2.120862854492592
+            }
+          },
+          "baselineTraceSha256": "3148d9fc563f4dccb3ef0c19e0e6b5ade1583c3aab357032432507d6c04d6344",
+          "observedTraceSha256": "3148d9fc563f4dccb3ef0c19e0e6b5ade1583c3aab357032432507d6c04d6344"
+        },
+        {
+          "condition": {
+            "weapon": "sabre",
+            "direction": "up",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.4
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 0,
+            "actualFlexRangeRad": [
+              0.3145517564585078,
+              1.3576415780222024
+            ],
+            "targetFlexRangeRad": [
+              0.34423536047628334,
+              1.4161438825276917
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.43342121030952346,
+              0.5616013458982106
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.2583333333333333,
+              "radps": 10.309284359348167
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.2833333333333333,
+              "radps": 9.00459840740133
+            },
+            "peakElbowExtension": {
+              "timeS": 0.2583333333333333,
+              "radps": -12.192415724550273
+            },
+            "peakTip": {
+              "timeS": 0.525,
+              "mps": 11.915869545857824,
+              "elbowFlexRad": 1.2515364622556966,
+              "elbowRateRadps": -3.6314452805615103,
+              "velocityProjectionMps": {
+                "base": 0.3749158463916988,
+                "shoulder": 4.4121720782483775,
+                "elbow": -2.5042793692584833,
+                "wrist": 9.605372620444683
+              },
+              "closureResidualMps": 0.10574526662698712
+            },
+            "peakUpperToTipLagS": 0.2666666666666667,
+            "peakExtensionToTipLagS": 0.2666666666666667,
+            "maxVelocityClosureResidualMps": 0.14893740620185034,
+            "maxJointGapM": 0.0006663270791571874,
+            "afterInputActualFlexRangeRad": [
+              1.0634592320121081,
+              1.1520600738709674
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 8.055280347101252,
+              "manualMuscle": 14.97808199555292,
+              "elbowGravity": 5.217902838404864
+            },
+            "after_input": {
+              "driveSword": 0.7526294554888274,
+              "manualMuscle": -2.1979355150009368,
+              "elbowGravity": 0.08414237064383996
+            }
+          },
+          "baselineTraceSha256": "0d8eb8a339ef365e52769fb1fe155f6a01a9f593a6969c59fb571b3fcf307690",
+          "observedTraceSha256": "0d8eb8a339ef365e52769fb1fe155f6a01a9f593a6969c59fb571b3fcf307690"
+        },
+        {
+          "condition": {
+            "weapon": "sabre",
+            "direction": "up",
+            "ending": "release",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.4
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 0,
+            "actualFlexRangeRad": [
+              0.3145517564585078,
+              1.3576415780222024
+            ],
+            "targetFlexRangeRad": [
+              0.34423536047628334,
+              1.4161438825276917
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.43342121030952346,
+              0.5616013458982106
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.2583333333333333,
+              "radps": 10.309284359348167
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.2833333333333333,
+              "radps": 9.00459840740133
+            },
+            "peakElbowExtension": {
+              "timeS": 0.2583333333333333,
+              "radps": -12.192415724550273
+            },
+            "peakTip": {
+              "timeS": 0.525,
+              "mps": 11.915869545857824,
+              "elbowFlexRad": 1.2515364622556966,
+              "elbowRateRadps": -3.6314452805615103,
+              "velocityProjectionMps": {
+                "base": 0.3749158463916988,
+                "shoulder": 4.4121720782483775,
+                "elbow": -2.5042793692584833,
+                "wrist": 9.605372620444683
+              },
+              "closureResidualMps": 0.10574526662698712
+            },
+            "peakUpperToTipLagS": 0.2666666666666667,
+            "peakExtensionToTipLagS": 0.2666666666666667,
+            "maxVelocityClosureResidualMps": 0.14893740620185034,
+            "maxJointGapM": 0.0008089415117801211,
+            "afterInputActualFlexRangeRad": [
+              0.6061924810435435,
+              1.419048096309416
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 8.055280347101252,
+              "manualMuscle": 14.97808199555292,
+              "elbowGravity": 5.217902838404864
+            },
+            "after_input": {
+              "driveSword": 14.79421454083771,
+              "manualMuscle": -17.442450550730886,
+              "elbowGravity": -0.6818384378046997
+            }
+          },
+          "baselineTraceSha256": "fb5046eb5b50d3767fe326d62141b09f745ef3c012b2533f92b11575bdf31151",
+          "observedTraceSha256": "fb5046eb5b50d3767fe326d62141b09f745ef3c012b2533f92b11575bdf31151"
+        },
+        {
+          "condition": {
+            "weapon": "sabre",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.4
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 0,
+            "actualFlexRangeRad": [
+              0.5289641978632686,
+              1.5220818974278971
+            ],
+            "targetFlexRangeRad": [
+              0.5499556835488661,
+              1.5105995080845904
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.41550691464434375,
+              0.5486462657743982
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.4083333333333333,
+              "radps": 10.044429683411362
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.058333333333333334,
+              "radps": 13.799975318348945
+            },
+            "peakElbowExtension": {
+              "timeS": 0.25,
+              "radps": -14.125716527089093
+            },
+            "peakTip": {
+              "timeS": 0.26666666666666666,
+              "mps": 13.931500084458738,
+              "elbowFlexRad": 0.8237412736776807,
+              "elbowRateRadps": -11.913020333113035,
+              "velocityProjectionMps": {
+                "base": -0.508181020435752,
+                "shoulder": -1.1706119325848996,
+                "elbow": 14.207204474421637,
+                "wrist": 1.4170938509035982
+              },
+              "closureResidualMps": 0.15471229710777526
+            },
+            "peakUpperToTipLagS": -0.14166666666666666,
+            "peakExtensionToTipLagS": 0.016666666666666663,
+            "maxVelocityClosureResidualMps": 0.16082453414804287,
+            "maxJointGapM": 0.0008403508202718662,
+            "afterInputActualFlexRangeRad": [
+              1.3685336726486308,
+              1.4668543483307748
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 6.996457179501989,
+              "manualMuscle": -8.739357291988753,
+              "elbowGravity": 1.6631280807205786
+            },
+            "after_input": {
+              "driveSword": -2.11555414382467,
+              "manualMuscle": -3.7439009584181506,
+              "elbowGravity": 0.9132087816467691
+            }
+          },
+          "baselineTraceSha256": "f90e16f2e6030288eb0c22f25edcc18053e668734ee95e6383a01ad58187f7c5",
+          "observedTraceSha256": "f90e16f2e6030288eb0c22f25edcc18053e668734ee95e6383a01ad58187f7c5"
+        },
+        {
+          "condition": {
+            "weapon": "sabre",
+            "direction": "cross",
+            "ending": "release",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.4
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 0,
+            "actualFlexRangeRad": [
+              0.5289641978632686,
+              1.5220818974278971
+            ],
+            "targetFlexRangeRad": [
+              0.5499556835488661,
+              1.5105995080845904
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.41550691464434375,
+              0.5486462657743982
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.4083333333333333,
+              "radps": 10.044429683411362
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.058333333333333334,
+              "radps": 13.799975318348945
+            },
+            "peakElbowExtension": {
+              "timeS": 0.25,
+              "radps": -14.125716527089093
+            },
+            "peakTip": {
+              "timeS": 0.26666666666666666,
+              "mps": 13.931500084458738,
+              "elbowFlexRad": 0.8237412736776807,
+              "elbowRateRadps": -11.913020333113035,
+              "velocityProjectionMps": {
+                "base": -0.508181020435752,
+                "shoulder": -1.1706119325848996,
+                "elbow": 14.207204474421637,
+                "wrist": 1.4170938509035982
+              },
+              "closureResidualMps": 0.15471229710777526
+            },
+            "peakUpperToTipLagS": -0.14166666666666666,
+            "peakExtensionToTipLagS": 0.016666666666666663,
+            "maxVelocityClosureResidualMps": 0.16082453414804287,
+            "maxJointGapM": 0.0008403508202718662,
+            "afterInputActualFlexRangeRad": [
+              1.040191057010589,
+              1.4668543483307748
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 6.996457179501989,
+              "manualMuscle": -8.739357291988753,
+              "elbowGravity": 1.6631280807205786
+            },
+            "after_input": {
+              "driveSword": 4.793133455860289,
+              "manualMuscle": 1.0851142630050326,
+              "elbowGravity": -0.847728760273156
+            }
+          },
+          "baselineTraceSha256": "4821f490088f90a07ca7364df257b3fcdce37cb523273e21db6f452eaf94436d",
+          "observedTraceSha256": "4821f490088f90a07ca7364df257b3fcdce37cb523273e21db6f452eaf94436d"
+        },
+        {
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "down",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.4
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 30,
+            "actualFlexRangeRad": [
+              0.1673089370898287,
+              1.0757082339261004
+            ],
+            "targetFlexRangeRad": [
+              0.2654706141598404,
+              1.0464575003702832
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.49396741194720256,
+              0.580922521020393
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.4166666666666667,
+              "radps": 10.074859526104387
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.49166666666666664,
+              "radps": 14.391539339192535
+            },
+            "peakElbowExtension": {
+              "timeS": 0.5333333333333333,
+              "radps": -9.588595585166873
+            },
+            "peakTip": {
+              "timeS": 0.55,
+              "mps": 12.729000605742135,
+              "elbowFlexRad": 0.1673089370898287,
+              "elbowRateRadps": 1.6688122502138043,
+              "velocityProjectionMps": {
+                "base": 2.6637592803967296,
+                "shoulder": 5.837356483224383,
+                "elbow": -1.9540026232474208,
+                "wrist": 6.157833062968845
+              },
+              "closureResidualMps": 0.03215035874270831
+            },
+            "peakUpperToTipLagS": 0.13333333333333336,
+            "peakExtensionToTipLagS": 0.01666666666666672,
+            "maxVelocityClosureResidualMps": 0.3144028535425025,
+            "maxJointGapM": 0.0016000055003344885,
+            "afterInputActualFlexRangeRad": [
+              0.0702539789342626,
+              0.24532822360745768
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 3.9554055553857808,
+              "manualMuscle": -3.433713257126357,
+              "elbowGravity": -6.150964350165055
+            },
+            "after_input": {
+              "driveSword": -12.694299567646935,
+              "manualMuscle": -14.94660015414668,
+              "elbowGravity": 6.123425891162558
+            }
+          },
+          "baselineTraceSha256": "442f07360905a7885d16d893ce8a6d34b2064652bccb2cbc266ff37d0852f0af",
+          "observedTraceSha256": "442f07360905a7885d16d893ce8a6d34b2064652bccb2cbc266ff37d0852f0af"
+        },
+        {
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "down",
+            "ending": "release",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.4
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 30,
+            "actualFlexRangeRad": [
+              0.1673089370898287,
+              1.0757082339261004
+            ],
+            "targetFlexRangeRad": [
+              0.2654706141598404,
+              1.0464575003702832
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.49396741194720256,
+              0.580922521020393
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.4166666666666667,
+              "radps": 10.074859526104387
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.49166666666666664,
+              "radps": 14.391539339192535
+            },
+            "peakElbowExtension": {
+              "timeS": 0.5333333333333333,
+              "radps": -9.588595585166873
+            },
+            "peakTip": {
+              "timeS": 0.55,
+              "mps": 12.729000605742135,
+              "elbowFlexRad": 0.1673089370898287,
+              "elbowRateRadps": 1.6688122502138043,
+              "velocityProjectionMps": {
+                "base": 2.6637592803967296,
+                "shoulder": 5.837356483224383,
+                "elbow": -1.9540026232474208,
+                "wrist": 6.157833062968845
+              },
+              "closureResidualMps": 0.03215035874270831
+            },
+            "peakUpperToTipLagS": 0.13333333333333336,
+            "peakExtensionToTipLagS": 0.01666666666666672,
+            "maxVelocityClosureResidualMps": 0.3144028535425025,
+            "maxJointGapM": 0.0016000055003344885,
+            "afterInputActualFlexRangeRad": [
+              0.0702539789342626,
+              0.4553100034735405
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 3.9554055553857808,
+              "manualMuscle": -3.433713257126357,
+              "elbowGravity": -6.150964350165055
+            },
+            "after_input": {
+              "driveSword": -5.8403633602266884,
+              "manualMuscle": -21.687865642589344,
+              "elbowGravity": 9.405403413512197
+            }
+          },
+          "baselineTraceSha256": "e9f999b39cc40fd33bb02e8233f443d54af623de431455c38dff31d833dbbbe0",
+          "observedTraceSha256": "e9f999b39cc40fd33bb02e8233f443d54af623de431455c38dff31d833dbbbe0"
+        },
+        {
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "up",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.4
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 16,
+            "actualFlexRangeRad": [
+              0.16329708197431372,
+              0.9309038320081712
+            ],
+            "targetFlexRangeRad": [
+              0.2654706141598404,
+              1.2211397378147544
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.4673298426174044,
+              0.5904404309335701
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.14166666666666666,
+              "radps": 8.414878910421043
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.5166666666666666,
+              "radps": 9.742755141239035
+            },
+            "peakElbowExtension": {
+              "timeS": 0.5166666666666666,
+              "radps": -8.66509677406915
+            },
+            "peakTip": {
+              "timeS": 0.5416666666666666,
+              "mps": 10.005061622509057,
+              "elbowFlexRad": 0.43550805419095007,
+              "elbowRateRadps": -6.1092217158084825,
+              "velocityProjectionMps": {
+                "base": -0.8156534206152596,
+                "shoulder": 2.642141702772193,
+                "elbow": -5.640938739134519,
+                "wrist": 13.777301168173057
+              },
+              "closureResidualMps": 0.14936360783226582
+            },
+            "peakUpperToTipLagS": 0.39999999999999997,
+            "peakExtensionToTipLagS": 0.025000000000000022,
+            "maxVelocityClosureResidualMps": 0.2439415579523497,
+            "maxJointGapM": 0.0012841548876378883,
+            "afterInputActualFlexRangeRad": [
+              0.147897758861078,
+              0.35550677465897607
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 4.616195076028367,
+              "manualMuscle": 0.5446971044500226,
+              "elbowGravity": 9.199348005505868
+            },
+            "after_input": {
+              "driveSword": 4.315926513001608,
+              "manualMuscle": 25.506144172592485,
+              "elbowGravity": -1.0854164401432926
+            }
+          },
+          "baselineTraceSha256": "6a26347143c1ffafd566bb0532af27b4e5217e992feb7b7d2a83d8821ea7f2c3",
+          "observedTraceSha256": "6a26347143c1ffafd566bb0532af27b4e5217e992feb7b7d2a83d8821ea7f2c3"
+        },
+        {
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "up",
+            "ending": "release",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.4
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 16,
+            "actualFlexRangeRad": [
+              0.16329708197431372,
+              0.9309038320081712
+            ],
+            "targetFlexRangeRad": [
+              0.2654706141598404,
+              1.2211397378147544
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.4673298426174044,
+              0.5904404309335701
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.14166666666666666,
+              "radps": 8.414878910421043
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.5166666666666666,
+              "radps": 9.742755141239035
+            },
+            "peakElbowExtension": {
+              "timeS": 0.5166666666666666,
+              "radps": -8.66509677406915
+            },
+            "peakTip": {
+              "timeS": 0.5416666666666666,
+              "mps": 10.005061622509057,
+              "elbowFlexRad": 0.43550805419095007,
+              "elbowRateRadps": -6.1092217158084825,
+              "velocityProjectionMps": {
+                "base": -0.8156534206152596,
+                "shoulder": 2.642141702772193,
+                "elbow": -5.640938739134519,
+                "wrist": 13.777301168173057
+              },
+              "closureResidualMps": 0.14936360783226582
+            },
+            "peakUpperToTipLagS": 0.39999999999999997,
+            "peakExtensionToTipLagS": 0.025000000000000022,
+            "maxVelocityClosureResidualMps": 0.2439415579523497,
+            "maxJointGapM": 0.0012841548876378883,
+            "afterInputActualFlexRangeRad": [
+              0.147897758861078,
+              1.012315985554281
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 4.616195076028367,
+              "manualMuscle": 0.5446971044500226,
+              "elbowGravity": 9.199348005505868
+            },
+            "after_input": {
+              "driveSword": 39.59605962038582,
+              "manualMuscle": -25.666347023350504,
+              "elbowGravity": -0.9557245694064763
+            }
+          },
+          "baselineTraceSha256": "3fdef91ae180d8aa36545a3fa8ba8a9d2fba6bac86ecb825d892661d9de872d8",
+          "observedTraceSha256": "3fdef91ae180d8aa36545a3fa8ba8a9d2fba6bac86ecb825d892661d9de872d8"
+        },
+        {
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.4
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 0,
+            "actualFlexRangeRad": [
+              0.5927870812938755,
+              1.3736859247399056
+            ],
+            "targetFlexRangeRad": [
+              0.6136551404434729,
+              1.3670868554229354
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.44234959533217527,
+              0.543454578661321
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.4083333333333333,
+              "radps": 8.385848440720201
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.45,
+              "radps": 12.847323700711579
+            },
+            "peakElbowExtension": {
+              "timeS": 0.2583333333333333,
+              "radps": -9.118326866532227
+            },
+            "peakTip": {
+              "timeS": 0.55,
+              "mps": 11.524218893504294,
+              "elbowFlexRad": 0.7185366394814771,
+              "elbowRateRadps": 4.887041132829769,
+              "velocityProjectionMps": {
+                "base": 2.327641383147591,
+                "shoulder": 2.924391587610463,
+                "elbow": -7.177520658682081,
+                "wrist": 13.435902521910952
+              },
+              "closureResidualMps": 0.03742033592775825
+            },
+            "peakUpperToTipLagS": 0.14166666666666672,
+            "peakExtensionToTipLagS": 0.29166666666666674,
+            "maxVelocityClosureResidualMps": 0.19265463856966727,
+            "maxJointGapM": 0.0015135951143616143,
+            "afterInputActualFlexRangeRad": [
+              0.7570910658905803,
+              0.9078868480940793
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 16.393406453305627,
+              "manualMuscle": -9.990811021820496,
+              "elbowGravity": -4.366584652415181
+            },
+            "after_input": {
+              "driveSword": -5.887458454355813,
+              "manualMuscle": -12.253738741724401,
+              "elbowGravity": 5.891648813052287
+            }
+          },
+          "baselineTraceSha256": "71f69f52dc7b119f561241fe09059300563d6bceb4ce9de864c0a9ac7c61e515",
+          "observedTraceSha256": "71f69f52dc7b119f561241fe09059300563d6bceb4ce9de864c0a9ac7c61e515"
+        },
+        {
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "release",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.4
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 0,
+            "actualFlexRangeRad": [
+              0.5927870812938755,
+              1.3736859247399056
+            ],
+            "targetFlexRangeRad": [
+              0.6136551404434729,
+              1.3670868554229354
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.44234959533217527,
+              0.543454578661321
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.4083333333333333,
+              "radps": 8.385848440720201
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.45,
+              "radps": 12.847323700711579
+            },
+            "peakElbowExtension": {
+              "timeS": 0.2583333333333333,
+              "radps": -9.118326866532227
+            },
+            "peakTip": {
+              "timeS": 0.55,
+              "mps": 11.524218893504294,
+              "elbowFlexRad": 0.7185366394814771,
+              "elbowRateRadps": 4.887041132829769,
+              "velocityProjectionMps": {
+                "base": 2.327641383147591,
+                "shoulder": 2.924391587610463,
+                "elbow": -7.177520658682081,
+                "wrist": 13.435902521910952
+              },
+              "closureResidualMps": 0.03742033592775825
+            },
+            "peakUpperToTipLagS": 0.14166666666666672,
+            "peakExtensionToTipLagS": 0.29166666666666674,
+            "maxVelocityClosureResidualMps": 0.19265463856966727,
+            "maxJointGapM": 0.0015135951143616143,
+            "afterInputActualFlexRangeRad": [
+              0.3461010946898056,
+              0.9063567663697806
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 16.393406453305627,
+              "manualMuscle": -9.990811021820496,
+              "elbowGravity": -4.366584652415181
+            },
+            "after_input": {
+              "driveSword": 12.019322403927317,
+              "manualMuscle": -3.9118054769713617,
+              "elbowGravity": 1.044150872765766
+            }
+          },
+          "baselineTraceSha256": "806e6b8448151aa9b5ad40e16c8e4719258e96403206fbad6e00c06f31e84d01",
+          "observedTraceSha256": "806e6b8448151aa9b5ad40e16c8e4719258e96403206fbad6e00c06f31e84d01"
+        }
+      ]
+    },
+    {
+      "level": 0.7,
+      "rawPath": "/tmp/elbow-coordination-level0.7-round1.json",
+      "rawSHA256": "aac9544932b83ccedf546199ca793e9cd7016d7e1ccf278cb72d6c9584abd1c0",
+      "sourceCommit": "7b72c4e3bc4a50fc56786362de6509c9d2270757",
+      "sourceBefore": {
+        "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+        "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+        "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+        "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+        "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+        "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+        "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+        "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+        "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+        "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+        "src/cut_trial.js": "3ef89c41c9b40b3e18a5d19cd92277af49e972c8eae030efaa915a39dfc4fcbf",
+        "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+        "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+        "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+        "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+        "src/fighter.js": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+        "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+        "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+        "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+        "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+        "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+        "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+        "src/input.js": "b5954792bb8c9d005bbe17dc1a7669e296b6297c66a1f0339f487d4a2ff9cd4f",
+        "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+        "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+        "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+        "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+        "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+        "src/main.js": "d691a72694f20c8e0784b52884934dc6f660f2046c087f3ff8e12568cc859884",
+        "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+        "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+        "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+        "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+        "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+        "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+        "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+        "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+        "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+        "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+        "src/slash_draw.js": "c7d3d5a52ab9880323e72f21270d9e85aa6564187aef5a7a95e57954a11fdd8a",
+        "src/sound.js": "5751ada2d02597067df219798ea31b42bbbc3409251ce3ff93ecd1e8d2a7bad3",
+        "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+        "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+        "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+        "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+        "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+        "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+        "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+        "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+        "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+        "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+        "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+        "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+        "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+        "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+        "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+        "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+        "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+        "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+        "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+        "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+        "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+        "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+        "tools/sim/whole_body_strike_probe.mjs": "f32dae889eb75860ffa185433dfca877e571b36a4184976557b4e88f7a3b51f4",
+        "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+        "tools/sim/experiments/elbow_coordination_probe.mjs": "5763e2337bcd04b568980718980999b9e8c35720ea88cb986fde40fa790d070f",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b"
+      },
+      "sourceAfter": {
+        "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+        "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+        "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+        "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+        "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+        "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+        "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+        "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+        "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+        "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+        "src/cut_trial.js": "3ef89c41c9b40b3e18a5d19cd92277af49e972c8eae030efaa915a39dfc4fcbf",
+        "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+        "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+        "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+        "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+        "src/fighter.js": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+        "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+        "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+        "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+        "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+        "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+        "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+        "src/input.js": "b5954792bb8c9d005bbe17dc1a7669e296b6297c66a1f0339f487d4a2ff9cd4f",
+        "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+        "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+        "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+        "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+        "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+        "src/main.js": "d691a72694f20c8e0784b52884934dc6f660f2046c087f3ff8e12568cc859884",
+        "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+        "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+        "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+        "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+        "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+        "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+        "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+        "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+        "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+        "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+        "src/slash_draw.js": "c7d3d5a52ab9880323e72f21270d9e85aa6564187aef5a7a95e57954a11fdd8a",
+        "src/sound.js": "5751ada2d02597067df219798ea31b42bbbc3409251ce3ff93ecd1e8d2a7bad3",
+        "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+        "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+        "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+        "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+        "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+        "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+        "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+        "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+        "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+        "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+        "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+        "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+        "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+        "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+        "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+        "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+        "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+        "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+        "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+        "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+        "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+        "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+        "tools/sim/whole_body_strike_probe.mjs": "f32dae889eb75860ffa185433dfca877e571b36a4184976557b4e88f7a3b51f4",
+        "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+        "tools/sim/experiments/elbow_coordination_probe.mjs": "5763e2337bcd04b568980718980999b9e8c35720ea88cb986fde40fa790d070f",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b"
+      },
+      "sourceStable": true,
+      "command": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node /workspace/halfsword-codex/tools/sim/experiments/elbow_coordination_probe.mjs --level=0.7 --out=/tmp/elbow-coordination-level0.7-round1.json",
+      "protocol": {
+        "skillLevel": 0.7,
+        "guardWeight": 1,
+        "inputHelperSHA256": null,
+        "skillPreparation": "Skill level passed to actual newRound before 3s preparation. For non-default levels only the existing test helper constructor gains a literal skill option in a temporary module; all actual game classes/step/native solver remain unchanged.",
+        "engine": "Unmodified installed npm Rapier; no engine rebuild, native motor replacement, or candidate",
+        "measurements": "Actual hinge rotation vector relative to rest, angular velocity projections, native configure inputs, actual rigid body energies and tip velocity",
+        "velocityDecomposition": "base at shoulder + chest rotation at tip; shoulder relative rotation at tip; elbow relative rotation at tip; wrist relative rotation at tip. Closure residual reports anchor/solver velocity differences. Signed projections are kinematic contributions, never work or energy.",
+        "work": "Existing force ledger signed midpoint work for explicit shoulder manualMuscle, sword driveSword with reactions, and elbowGravity. Native motor/constraint/contact work unmeasured.",
+        "timing": "Targets/configure precede native integration; angle/velocity/energy follow it. Peak times are descriptions, not proof of anatomical or causal transfer.",
+        "samples": "12 conditions, 24 actual game runs by default. Same drag hold/release branches are not independent strokes; single deterministic seed; no opponent or mobile claims."
+      },
+      "wallSeconds": 11.317711458000002,
+      "pass": true,
+      "checks": [
+        {
+          "weapon": "sabre",
+          "direction": "down",
+          "ending": "target_hold",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "sabre",
+          "direction": "down",
+          "ending": "release",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "sabre",
+          "direction": "up",
+          "ending": "target_hold",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "sabre",
+          "direction": "up",
+          "ending": "release",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "sabre",
+          "direction": "cross",
+          "ending": "target_hold",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "sabre",
+          "direction": "cross",
+          "ending": "release",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "zweihander",
+          "direction": "down",
+          "ending": "target_hold",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "zweihander",
+          "direction": "down",
+          "ending": "release",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "zweihander",
+          "direction": "up",
+          "ending": "target_hold",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "zweihander",
+          "direction": "up",
+          "ending": "release",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "zweihander",
+          "direction": "cross",
+          "ending": "target_hold",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        },
+        {
+          "weapon": "zweihander",
+          "direction": "cross",
+          "ending": "release",
+          "samePreparedNative": true,
+          "samePreparedControl": true,
+          "sameRequestedInput": true,
+          "observerTraceExact": true,
+          "installationNativeUnchanged": true,
+          "actualMotorCalls": 210,
+          "expectedMotorCalls": 210
+        }
+      ],
+      "rows": [
+        {
+          "condition": {
+            "weapon": "sabre",
+            "direction": "down",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.7
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 0,
+            "actualFlexRangeRad": [
+              0.8192896031800853,
+              1.926639400773453
+            ],
+            "targetFlexRangeRad": [
+              0.6707827212114837,
+              1.849415026916775
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.3440137838914053,
+              0.5383310593317492
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.4083333333333333,
+              "radps": 14.08351174173642
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.24166666666666667,
+              "radps": 16.93475626915632
+            },
+            "peakElbowExtension": {
+              "timeS": 0.25,
+              "radps": -14.037724495518836
+            },
+            "peakTip": {
+              "timeS": 0.2916666666666667,
+              "mps": 15.563116595806282,
+              "elbowFlexRad": 0.9541636897586492,
+              "elbowRateRadps": -5.997165527576085,
+              "velocityProjectionMps": {
+                "base": 0.006356606385143571,
+                "shoulder": 1.2005295886579384,
+                "elbow": 7.093433872601561,
+                "wrist": 7.277982859252006
+              },
+              "closureResidualMps": 0.16451981357933784
+            },
+            "peakUpperToTipLagS": -0.11666666666666664,
+            "peakExtensionToTipLagS": 0.041666666666666685,
+            "maxVelocityClosureResidualMps": 0.19529108119759217,
+            "maxJointGapM": 0.0008511786891845654,
+            "afterInputActualFlexRangeRad": [
+              0.8220020738108992,
+              0.9842618891722619
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": -0.11373791941031897,
+              "manualMuscle": -31.182211185431484,
+              "elbowGravity": -0.6797297058244305
+            },
+            "after_input": {
+              "driveSword": -12.850392326051534,
+              "manualMuscle": 3.3667867122453283,
+              "elbowGravity": 0.3464875974176445
+            }
+          },
+          "baselineTraceSha256": "5b3b2e25c52d80c557944a5de0cf08320d8061e8aecb45dbbe66d6b939eb7935",
+          "observedTraceSha256": "5b3b2e25c52d80c557944a5de0cf08320d8061e8aecb45dbbe66d6b939eb7935"
+        },
+        {
+          "condition": {
+            "weapon": "sabre",
+            "direction": "down",
+            "ending": "release",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.7
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 0,
+            "actualFlexRangeRad": [
+              0.8192896031800853,
+              1.926639400773453
+            ],
+            "targetFlexRangeRad": [
+              0.6707827212114837,
+              1.849415026916775
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.3440137838914053,
+              0.5383310593317492
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.4083333333333333,
+              "radps": 14.08351174173642
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.24166666666666667,
+              "radps": 16.93475626915632
+            },
+            "peakElbowExtension": {
+              "timeS": 0.25,
+              "radps": -14.037724495518836
+            },
+            "peakTip": {
+              "timeS": 0.2916666666666667,
+              "mps": 15.563116595806282,
+              "elbowFlexRad": 0.9541636897586492,
+              "elbowRateRadps": -5.997165527576085,
+              "velocityProjectionMps": {
+                "base": 0.006356606385143571,
+                "shoulder": 1.2005295886579384,
+                "elbow": 7.093433872601561,
+                "wrist": 7.277982859252006
+              },
+              "closureResidualMps": 0.16451981357933784
+            },
+            "peakUpperToTipLagS": -0.11666666666666664,
+            "peakExtensionToTipLagS": 0.041666666666666685,
+            "maxVelocityClosureResidualMps": 0.19529108119759217,
+            "maxJointGapM": 0.0008511786891845654,
+            "afterInputActualFlexRangeRad": [
+              0.8312993354267975,
+              1.3652266857683766
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": -0.11373791941031897,
+              "manualMuscle": -31.182211185431484,
+              "elbowGravity": -0.6797297058244305
+            },
+            "after_input": {
+              "driveSword": -6.522218591065821,
+              "manualMuscle": -1.5940147603136257,
+              "elbowGravity": 2.7124547462313413
+            }
+          },
+          "baselineTraceSha256": "50763410e24e0bc10e3fceb344de21604e4dd3a8d3611c93a5f9210d3ff3444c",
+          "observedTraceSha256": "50763410e24e0bc10e3fceb344de21604e4dd3a8d3611c93a5f9210d3ff3444c"
+        },
+        {
+          "condition": {
+            "weapon": "sabre",
+            "direction": "up",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.7
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 0,
+            "actualFlexRangeRad": [
+              0.8176711270086158,
+              1.861607063170305
+            ],
+            "targetFlexRangeRad": [
+              0.8201811961900772,
+              1.9406946481003837
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.3230072097840961,
+              0.522875101597445
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.2916666666666667,
+              "radps": 9.759396068412721
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.2583333333333333,
+              "radps": 11.390503220714209
+            },
+            "peakElbowExtension": {
+              "timeS": 0.25,
+              "radps": -14.168994020829587
+            },
+            "peakTip": {
+              "timeS": 0.55,
+              "mps": 11.785910443869946,
+              "elbowFlexRad": 1.5538456222286867,
+              "elbowRateRadps": -1.8615105405961125,
+              "velocityProjectionMps": {
+                "base": 0.9231696111996536,
+                "shoulder": 5.5551410664995124,
+                "elbow": 0.455977596514987,
+                "wrist": 4.827404032389084
+              },
+              "closureResidualMps": 0.1306244362863878
+            },
+            "peakUpperToTipLagS": 0.25833333333333336,
+            "peakExtensionToTipLagS": 0.30000000000000004,
+            "maxVelocityClosureResidualMps": 0.16480145116776931,
+            "maxJointGapM": 0.0008614641220293309,
+            "afterInputActualFlexRangeRad": [
+              1.508460759319068,
+              1.6634165081474146
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 7.14558551238037,
+              "manualMuscle": 11.768394491301947,
+              "elbowGravity": 5.385231964365684
+            },
+            "after_input": {
+              "driveSword": 7.2218518967896435,
+              "manualMuscle": -5.414016005737059,
+              "elbowGravity": -0.17710418231723718
+            }
+          },
+          "baselineTraceSha256": "e87f4ab9e9145eaeb133abd71956df785a226dc6e3d1844d569368b4cce24a04",
+          "observedTraceSha256": "e87f4ab9e9145eaeb133abd71956df785a226dc6e3d1844d569368b4cce24a04"
+        },
+        {
+          "condition": {
+            "weapon": "sabre",
+            "direction": "up",
+            "ending": "release",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.7
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 0,
+            "actualFlexRangeRad": [
+              0.8176711270086158,
+              1.861607063170305
+            ],
+            "targetFlexRangeRad": [
+              0.8201811961900772,
+              1.9406946481003837
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.3230072097840961,
+              0.522875101597445
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.2916666666666667,
+              "radps": 9.759396068412721
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.2583333333333333,
+              "radps": 11.390503220714209
+            },
+            "peakElbowExtension": {
+              "timeS": 0.25,
+              "radps": -14.168994020829587
+            },
+            "peakTip": {
+              "timeS": 0.55,
+              "mps": 11.785910443869946,
+              "elbowFlexRad": 1.5538456222286867,
+              "elbowRateRadps": -1.8615105405961125,
+              "velocityProjectionMps": {
+                "base": 0.9231696111996536,
+                "shoulder": 5.5551410664995124,
+                "elbow": 0.455977596514987,
+                "wrist": 4.827404032389084
+              },
+              "closureResidualMps": 0.1306244362863878
+            },
+            "peakUpperToTipLagS": 0.25833333333333336,
+            "peakExtensionToTipLagS": 0.30000000000000004,
+            "maxVelocityClosureResidualMps": 0.1910002128961705,
+            "maxJointGapM": 0.0008614641220293309,
+            "afterInputActualFlexRangeRad": [
+              0.8398570736695802,
+              1.9159417871185938
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 7.14558551238037,
+              "manualMuscle": 11.768394491301947,
+              "elbowGravity": 5.385231964365684
+            },
+            "after_input": {
+              "driveSword": 21.592854238296738,
+              "manualMuscle": -6.077690803398903,
+              "elbowGravity": -2.166880145680858
+            }
+          },
+          "baselineTraceSha256": "ae9b96ef834974c20ead9c1afddc2681642299d0d32e151100fd0201279ec59f",
+          "observedTraceSha256": "ae9b96ef834974c20ead9c1afddc2681642299d0d32e151100fd0201279ec59f"
+        },
+        {
+          "condition": {
+            "weapon": "sabre",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.7
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 0,
+            "actualFlexRangeRad": [
+              0.9731068188667994,
+              2.2476612425618705
+            ],
+            "targetFlexRangeRad": [
+              0.8123802260789641,
+              2.21666985725085
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.2557201751530397,
+              0.5237548542008306
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.39166666666666666,
+              "radps": 13.539148464287567
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.225,
+              "radps": 15.661864796103773
+            },
+            "peakElbowExtension": {
+              "timeS": 0.24166666666666667,
+              "radps": -13.884633459563151
+            },
+            "peakTip": {
+              "timeS": 0.26666666666666666,
+              "mps": 15.649187123372128,
+              "elbowFlexRad": 1.2233062395430885,
+              "elbowRateRadps": -9.556002425618441,
+              "velocityProjectionMps": {
+                "base": 0.000759968288841617,
+                "shoulder": -3.3692349989543247,
+                "elbow": 10.701245974893668,
+                "wrist": 8.275395008242889
+              },
+              "closureResidualMps": 0.17140032747648076
+            },
+            "peakUpperToTipLagS": -0.125,
+            "peakExtensionToTipLagS": 0.024999999999999994,
+            "maxVelocityClosureResidualMps": 0.2273819071848855,
+            "maxJointGapM": 0.0010447224876796181,
+            "afterInputActualFlexRangeRad": [
+              1.6858871863706726,
+              1.8088447137654755
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 9.711066942092085,
+              "manualMuscle": -13.54049254101016,
+              "elbowGravity": 2.7051537696885566
+            },
+            "after_input": {
+              "driveSword": -3.8857304117476996,
+              "manualMuscle": -4.766881480098997,
+              "elbowGravity": 0.36998838522685323
+            }
+          },
+          "baselineTraceSha256": "ea77e161e2a9f1a65d5d0765ac15bd5bcd5306154bc5716d987d014643c3162b",
+          "observedTraceSha256": "ea77e161e2a9f1a65d5d0765ac15bd5bcd5306154bc5716d987d014643c3162b"
+        },
+        {
+          "condition": {
+            "weapon": "sabre",
+            "direction": "cross",
+            "ending": "release",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.7
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 0,
+            "actualFlexRangeRad": [
+              0.9731068188667994,
+              2.2476612425618705
+            ],
+            "targetFlexRangeRad": [
+              0.8123802260789641,
+              2.21666985725085
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.2557201751530397,
+              0.5237548542008306
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.39166666666666666,
+              "radps": 13.539148464287567
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.225,
+              "radps": 15.661864796103773
+            },
+            "peakElbowExtension": {
+              "timeS": 0.24166666666666667,
+              "radps": -13.884633459563151
+            },
+            "peakTip": {
+              "timeS": 0.26666666666666666,
+              "mps": 15.649187123372128,
+              "elbowFlexRad": 1.2233062395430885,
+              "elbowRateRadps": -9.556002425618441,
+              "velocityProjectionMps": {
+                "base": 0.000759968288841617,
+                "shoulder": -3.3692349989543247,
+                "elbow": 10.701245974893668,
+                "wrist": 8.275395008242889
+              },
+              "closureResidualMps": 0.17140032747648076
+            },
+            "peakUpperToTipLagS": -0.125,
+            "peakExtensionToTipLagS": 0.024999999999999994,
+            "maxVelocityClosureResidualMps": 0.2273819071848855,
+            "maxJointGapM": 0.0010447224876796181,
+            "afterInputActualFlexRangeRad": [
+              1.3387523250982583,
+              1.8088447137654755
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 9.711066942092085,
+              "manualMuscle": -13.54049254101016,
+              "elbowGravity": 2.7051537696885566
+            },
+            "after_input": {
+              "driveSword": 4.506383234759094,
+              "manualMuscle": 0.08420140829648058,
+              "elbowGravity": -0.9642902330675216
+            }
+          },
+          "baselineTraceSha256": "356168444361dc57423cbc318e39ce88c8a9485ea440d9b10faa043d5cd4b194",
+          "observedTraceSha256": "356168444361dc57423cbc318e39ce88c8a9485ea440d9b10faa043d5cd4b194"
+        },
+        {
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "down",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.7
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 1,
+            "actualFlexRangeRad": [
+              0.4540460557729048,
+              1.4657597232971853
+            ],
+            "targetFlexRangeRad": [
+              0.2654706141598404,
+              1.5609512417554599
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.40557968145850976,
+              0.5668648436591481
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.19166666666666665,
+              "radps": 7.010061389650031
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.4666666666666667,
+              "radps": 13.029356912485522
+            },
+            "peakElbowExtension": {
+              "timeS": 0.5416666666666666,
+              "radps": -9.51912649267526
+            },
+            "peakTip": {
+              "timeS": 0.55,
+              "mps": 16.93226769573576,
+              "elbowFlexRad": 0.4540460557729048,
+              "elbowRateRadps": -2.492162065296197,
+              "velocityProjectionMps": {
+                "base": 1.4226660926499726,
+                "shoulder": 1.2343078522396178,
+                "elbow": 2.5173959417823966,
+                "wrist": 11.745098809792152
+              },
+              "closureResidualMps": 0.07887975955770297
+            },
+            "peakUpperToTipLagS": 0.3583333333333334,
+            "peakExtensionToTipLagS": 0.008333333333333415,
+            "maxVelocityClosureResidualMps": 0.21258121010564976,
+            "maxJointGapM": 0.0015479204003673885,
+            "afterInputActualFlexRangeRad": [
+              0.21308871023056056,
+              0.441993881055435
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": -7.25180969964655,
+              "manualMuscle": 25.513690252225775,
+              "elbowGravity": -11.234591103864036
+            },
+            "after_input": {
+              "driveSword": -17.508332026626327,
+              "manualMuscle": -15.750842169819087,
+              "elbowGravity": 2.9098028894572527
+            }
+          },
+          "baselineTraceSha256": "f85939e2f9f9edfcc497c77c0d3043cc7b4ffd590085f5a32ab148944ffa6743",
+          "observedTraceSha256": "f85939e2f9f9edfcc497c77c0d3043cc7b4ffd590085f5a32ab148944ffa6743"
+        },
+        {
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "down",
+            "ending": "release",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.7
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 1,
+            "actualFlexRangeRad": [
+              0.4540460557729048,
+              1.4657597232971853
+            ],
+            "targetFlexRangeRad": [
+              0.2654706141598404,
+              1.5609512417554599
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.40557968145850976,
+              0.5668648436591481
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.19166666666666665,
+              "radps": 7.010061389650031
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.4666666666666667,
+              "radps": 13.029356912485522
+            },
+            "peakElbowExtension": {
+              "timeS": 0.5416666666666666,
+              "radps": -9.51912649267526
+            },
+            "peakTip": {
+              "timeS": 0.55,
+              "mps": 16.93226769573576,
+              "elbowFlexRad": 0.4540460557729048,
+              "elbowRateRadps": -2.492162065296197,
+              "velocityProjectionMps": {
+                "base": 1.4226660926499726,
+                "shoulder": 1.2343078522396178,
+                "elbow": 2.5173959417823966,
+                "wrist": 11.745098809792152
+              },
+              "closureResidualMps": 0.07887975955770297
+            },
+            "peakUpperToTipLagS": 0.3583333333333334,
+            "peakExtensionToTipLagS": 0.008333333333333415,
+            "maxVelocityClosureResidualMps": 0.21258121010564976,
+            "maxJointGapM": 0.0015479204003673885,
+            "afterInputActualFlexRangeRad": [
+              0.26404307221490275,
+              0.7169515901677365
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": -7.25180969964655,
+              "manualMuscle": 25.513690252225775,
+              "elbowGravity": -11.234591103864036
+            },
+            "after_input": {
+              "driveSword": -6.882767712494846,
+              "manualMuscle": -24.319184223830426,
+              "elbowGravity": 7.093347752960822
+            }
+          },
+          "baselineTraceSha256": "a684bd1a474e9ec07b5612239c22155c60cd27508d55607c67a7d5fd79eeba5e",
+          "observedTraceSha256": "a684bd1a474e9ec07b5612239c22155c60cd27508d55607c67a7d5fd79eeba5e"
+        },
+        {
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "up",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.7
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 0,
+            "actualFlexRangeRad": [
+              0.21504181186601445,
+              1.2312567607098264
+            ],
+            "targetFlexRangeRad": [
+              0.27363156091945345,
+              1.6562548032266688
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.38609917353253426,
+              0.5646883516375978
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.15,
+              "radps": 6.12906174631175
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.5083333333333333,
+              "radps": 17.05430961910611
+            },
+            "peakElbowExtension": {
+              "timeS": 0.49166666666666664,
+              "radps": -10.042105365933574
+            },
+            "peakTip": {
+              "timeS": 0.5,
+              "mps": 10.142928144584946,
+              "elbowFlexRad": 0.8461838931909721,
+              "elbowRateRadps": -9.567999502329508,
+              "velocityProjectionMps": {
+                "base": 0.9771263653306252,
+                "shoulder": 0.11298614542301388,
+                "elbow": -9.60880228110384,
+                "wrist": 18.60317923485402
+              },
+              "closureResidualMps": 0.27841628254818207
+            },
+            "peakUpperToTipLagS": 0.35,
+            "peakExtensionToTipLagS": 0.00833333333333336,
+            "maxVelocityClosureResidualMps": 0.3662218156513358,
+            "maxJointGapM": 0.0013974955400086364,
+            "afterInputActualFlexRangeRad": [
+              0.5511671707715956,
+              0.792975649412606
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 6.073509926655204,
+              "manualMuscle": -6.897352372060301,
+              "elbowGravity": 11.461956229085688
+            },
+            "after_input": {
+              "driveSword": 7.371574755255132,
+              "manualMuscle": 44.948495886581995,
+              "elbowGravity": -0.30685152630715573
+            }
+          },
+          "baselineTraceSha256": "d4fe15facfa02e1153ee70b90d699ee081db9a59b19ef7aa655fdf50f6486bcb",
+          "observedTraceSha256": "d4fe15facfa02e1153ee70b90d699ee081db9a59b19ef7aa655fdf50f6486bcb"
+        },
+        {
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "up",
+            "ending": "release",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.7
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 0,
+            "actualFlexRangeRad": [
+              0.21504181186601445,
+              1.2312567607098264
+            ],
+            "targetFlexRangeRad": [
+              0.27363156091945345,
+              1.6562548032266688
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.38609917353253426,
+              0.5646883516375978
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.15,
+              "radps": 6.12906174631175
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.5083333333333333,
+              "radps": 17.05430961910611
+            },
+            "peakElbowExtension": {
+              "timeS": 0.49166666666666664,
+              "radps": -10.042105365933574
+            },
+            "peakTip": {
+              "timeS": 0.5,
+              "mps": 10.142928144584946,
+              "elbowFlexRad": 0.8461838931909721,
+              "elbowRateRadps": -9.567999502329508,
+              "velocityProjectionMps": {
+                "base": 0.9771263653306252,
+                "shoulder": 0.11298614542301388,
+                "elbow": -9.60880228110384,
+                "wrist": 18.60317923485402
+              },
+              "closureResidualMps": 0.27841628254818207
+            },
+            "peakUpperToTipLagS": 0.35,
+            "peakExtensionToTipLagS": 0.00833333333333336,
+            "maxVelocityClosureResidualMps": 0.3348465215979652,
+            "maxJointGapM": 0.0013120507338545907,
+            "afterInputActualFlexRangeRad": [
+              0.5477558563192382,
+              1.5377345965069176
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 6.073509926655204,
+              "manualMuscle": -6.897352372060301,
+              "elbowGravity": 11.461956229085688
+            },
+            "after_input": {
+              "driveSword": 10.569015483093287,
+              "manualMuscle": 37.16441673808834,
+              "elbowGravity": -10.149265049039908
+            }
+          },
+          "baselineTraceSha256": "98e90900fc9a2679e3a486165e4aafdc33ad5733d0c9743d336cfd211ba0f180",
+          "observedTraceSha256": "98e90900fc9a2679e3a486165e4aafdc33ad5733d0c9743d336cfd211ba0f180"
+        },
+        {
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "target_hold",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.7
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 0,
+            "actualFlexRangeRad": [
+              0.6221320727461086,
+              1.99016327651673
+            ],
+            "targetFlexRangeRad": [
+              0.6660370429433599,
+              1.9744759630542754
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.31506445597476723,
+              0.5387734070411245
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.125,
+              "radps": 9.249276910508216
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.44166666666666665,
+              "radps": 13.887718894182619
+            },
+            "peakElbowExtension": {
+              "timeS": 0.425,
+              "radps": -8.340183060043861
+            },
+            "peakTip": {
+              "timeS": 0.55,
+              "mps": 15.132760046560632,
+              "elbowFlexRad": 0.8727807150603349,
+              "elbowRateRadps": 5.083572250946855,
+              "velocityProjectionMps": {
+                "base": 1.6660087247272473,
+                "shoulder": 1.6619468661462147,
+                "elbow": -7.4352975967434745,
+                "wrist": 19.25123919298489
+              },
+              "closureResidualMps": 0.04365498504779789
+            },
+            "peakUpperToTipLagS": 0.42500000000000004,
+            "peakExtensionToTipLagS": 0.12500000000000006,
+            "maxVelocityClosureResidualMps": 0.5909555599546282,
+            "maxJointGapM": 0.0017602499843314074,
+            "afterInputActualFlexRangeRad": [
+              0.9096305963686072,
+              1.0785446759996464
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 24.157004006348583,
+              "manualMuscle": -19.07239117093534,
+              "elbowGravity": -6.400897801378981
+            },
+            "after_input": {
+              "driveSword": 2.322666961346115,
+              "manualMuscle": -4.7417749795416535,
+              "elbowGravity": 4.083393424533574
+            }
+          },
+          "baselineTraceSha256": "d68313a41be453e48c22a214d218c818f04780462814830e96531ce91b9304ab",
+          "observedTraceSha256": "d68313a41be453e48c22a214d218c818f04780462814830e96531ce91b9304ab"
+        },
+        {
+          "condition": {
+            "weapon": "zweihander",
+            "direction": "cross",
+            "ending": "release",
+            "reaction": "paired",
+            "seed": 7,
+            "prepareS": 3,
+            "durationS": 0.55,
+            "afterS": 1.2,
+            "sampleHz": 30,
+            "skillLevel": 0.7
+          },
+          "summary": {
+            "strokeFrames": 66,
+            "reachSaturatedFrames": 0,
+            "actualFlexRangeRad": [
+              0.6221320727461086,
+              1.99016327651673
+            ],
+            "targetFlexRangeRad": [
+              0.6660370429433599,
+              1.9744759630542754
+            ],
+            "requestedShoulderDistanceRangeM": [
+              0.31506445597476723,
+              0.5387734070411245
+            ],
+            "peakUpperRelativeSwing": {
+              "timeS": 0.125,
+              "radps": 9.249276910508216
+            },
+            "peakForearmAbsoluteAngular": {
+              "timeS": 0.44166666666666665,
+              "radps": 13.887718894182619
+            },
+            "peakElbowExtension": {
+              "timeS": 0.425,
+              "radps": -8.340183060043861
+            },
+            "peakTip": {
+              "timeS": 0.55,
+              "mps": 15.132760046560632,
+              "elbowFlexRad": 0.8727807150603349,
+              "elbowRateRadps": 5.083572250946855,
+              "velocityProjectionMps": {
+                "base": 1.6660087247272473,
+                "shoulder": 1.6619468661462147,
+                "elbow": -7.4352975967434745,
+                "wrist": 19.25123919298489
+              },
+              "closureResidualMps": 0.04365498504779789
+            },
+            "peakUpperToTipLagS": 0.42500000000000004,
+            "peakExtensionToTipLagS": 0.12500000000000006,
+            "maxVelocityClosureResidualMps": 0.5909555599546282,
+            "maxJointGapM": 0.0017602499843314074,
+            "afterInputActualFlexRangeRad": [
+              0.5490815633510387,
+              1.0785446759996464
+            ]
+          },
+          "phaseExplicitWorkApproxJ": {
+            "stroke": {
+              "driveSword": 24.157004006348583,
+              "manualMuscle": -19.07239117093534,
+              "elbowGravity": -6.400897801378981
+            },
+            "after_input": {
+              "driveSword": 24.916681704347855,
+              "manualMuscle": -7.311579396787124,
+              "elbowGravity": 0.41318051740152006
+            }
+          },
+          "baselineTraceSha256": "2d7d494591eeab14af58d7766d38faaed3fa8fb3caaa9710a0e0446072f002ac",
+          "observedTraceSha256": "2d7d494591eeab14af58d7766d38faaed3fa8fb3caaa9710a0e0446072f002ac"
+        }
+      ]
+    }
+  ],
+  "interpretation": "Kinematic signed tip-speed projections are not actuator work or proof of causal energy transfer. Explicit ledger midpoint work excludes native motors/constraints/contacts. No candidate, runtime edit, engine rebuild, or general integration."
+}

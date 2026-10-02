@@ -1,5 +1,7 @@
 # Q06 팔 한도·절삭 옵션의 모바일 실행 확인
 
+**후속 판정:** 이 문서는 당시 링크/소스의 역사적 결과다. 사용자의 절삭 자세 붕괴 보고 뒤 B 추천 버튼을 로컬에서 제거했다. 아래 `arm_cut_interaction.mjs`와 기존 `cut_trial.mjs`는 그 버튼을 요구하므로 현재 안내 화면의 검사 도구로 쓰지 않는다. 과거 결과는 해당 소스에서 재현하며 최신 UI PASS로 인용하지 않는다. [후퇴 진단](cut_posture_round2.md), [현재 입력 비교 검증](mobile_vertical_input_round1.md)을 따른다. 공개 버튼 제거는 인증 복구/배포 전까지 미반영이다.
+
 2026-10-02. 기존 선택형 `armTrial=legacy/sharedCap` × `cutTrial=legacy/budgeted` 네 조합을 모바일 브라우저 모드의 세로/가로 시작에서 각각 검사해 **8/8 PASS**, console/page/request/HTTP 오류 0이었다. 게임 제어·기본값·공개 비교 링크를 새로 바꾼 결과가 아니다. Q06 전체 물리 수락이나 기립 연구판 재공개를 뜻하지 않는다.
 
 [검사 도구](../../tools/browser/arm_cut_interaction.mjs)는 실제 `feature-lab.html`의 arm/cut 링크 값을 조합해 게임 URL로 접속한다. 검사한 무기는 **zweihander 대 longsword**다. 캐릭터 옵션을 evaluate로 직접 주입하지 않는다. 양측 Fighter의 armTorqueModel과 Combat.cutReactionModel을 메뉴·플레이·재시작에서 확인했다.

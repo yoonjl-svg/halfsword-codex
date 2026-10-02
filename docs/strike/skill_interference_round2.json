@@ -1,0 +1,4044 @@
+{
+  "probe": "skill_interference_round2",
+  "sourceCommit": "7b72c4e3bc4a50fc56786362de6509c9d2270757",
+  "sourceCommitAfter": "7b72c4e3bc4a50fc56786362de6509c9d2270757",
+  "createdUTC": "2026-10-02T13:18:40.344Z",
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+    "/workspace/halfsword-codex/tools/sim/experiments/skill_interference_round2.mjs",
+    "/workspace/halfsword-hybrid-evidence/skill-interference-round2.json"
+  ],
+  "wallSeconds": 9.816149304,
+  "sourceStable": true,
+  "sourceBefore": {
+    "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+    "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+    "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+    "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+    "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+    "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+    "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+    "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+    "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+    "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+    "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+    "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+    "src/cut_trial.js": "3ef89c41c9b40b3e18a5d19cd92277af49e972c8eae030efaa915a39dfc4fcbf",
+    "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+    "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+    "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+    "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+    "src/fighter.js": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+    "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+    "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+    "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+    "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+    "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+    "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+    "src/input.js": "b5954792bb8c9d005bbe17dc1a7669e296b6297c66a1f0339f487d4a2ff9cd4f",
+    "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+    "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+    "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+    "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+    "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+    "src/main.js": "d691a72694f20c8e0784b52884934dc6f660f2046c087f3ff8e12568cc859884",
+    "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+    "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+    "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+    "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+    "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+    "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+    "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+    "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+    "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+    "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+    "src/slash_draw.js": "c7d3d5a52ab9880323e72f21270d9e85aa6564187aef5a7a95e57954a11fdd8a",
+    "src/sound.js": "5751ada2d02597067df219798ea31b42bbbc3409251ce3ff93ecd1e8d2a7bad3",
+    "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+    "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+    "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+    "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+    "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+    "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+    "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+    "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+    "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+    "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+    "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+    "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+    "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+    "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+    "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+    "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+    "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+    "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+    "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+    "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "tools/sim/experiments/skill_interference_round2.mjs": "e9b2f223b59ebf934b6e60da96bd0fc4cb415a6b4daf032abf62754fef3d9d9f",
+    "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b"
+  },
+  "probeSHA256": "e9b2f223b59ebf934b6e60da96bd0fc4cb415a6b4daf032abf62754fef3d9d9f",
+  "protocol": {
+    "motions": {
+      "down": [
+        [
+          0.02,
+          0.52
+        ],
+        [
+          0.02,
+          -0.45
+        ]
+      ],
+      "up": [
+        [
+          0.02,
+          -0.45
+        ],
+        [
+          0.02,
+          0.52
+        ]
+      ],
+      "horizontal": [
+        [
+          -0.42,
+          0.03
+        ],
+        [
+          0.42,
+          0.03
+        ]
+      ]
+    },
+    "weapon": "zweihander",
+    "seed": 7,
+    "preparationLevel": 0.7,
+    "prepareS": 3,
+    "dragS": 0.55,
+    "afterS": 1.5,
+    "variants": {
+      "weak": {
+        "level": 0.4,
+        "autoGuard": true,
+        "followGain": 0.6
+      },
+      "noAuto": {
+        "level": 0.4,
+        "autoGuard": false,
+        "followGain": 0.6
+      },
+      "noFollow": {
+        "level": 0.4,
+        "autoGuard": true,
+        "followGain": 0
+      },
+      "both": {
+        "level": 0.4,
+        "autoGuard": false,
+        "followGain": 0
+      },
+      "off": {
+        "level": 0,
+        "autoGuard": true,
+        "followGain": 0.6
+      }
+    },
+    "arm": "sharedCap",
+    "grip": "paired",
+    "cut": "budgeted",
+    "sameState": "Each motion prepares at original .7 autoGuard/normal follow/legacy grip. Ablation values change after matching native/controller preparation. Every global option restored before next prep.",
+    "reference": "True original-input intent benchmark is the uncorrected guardDir/raw hand mapping evaluated at externally requested offset, held at drag endpoint after input. Both current-body yaw and fixed initial-world yaw axis errors are recorded. This is an explicit raw-mapping reference, not proof of a human intended angle.",
+    "hashes": "Requested input hash includes full external path and ending handHeld/inputActive flags; automatic changes to actual handOffset are recorded separately.",
+    "limits": "No contact/wound/AI-duel/browser/mobile/user-scene reproduction. No claim of ergonomic calibration equivalence. Axis travel omits twist, omega includes twist. Controller target readouts pre-step versus actual body post-step; raw hand reference uses post-step chest/yaw."
+  },
+  "observationsRestored": true,
+  "groups": [
+    {
+      "motion": "down",
+      "ending": "hold",
+      "nativeExact": true,
+      "controllerExact": true,
+      "requestedInputAndEndingExact": true,
+      "zeroStartFollow": true
+    },
+    {
+      "motion": "down",
+      "ending": "release",
+      "nativeExact": true,
+      "controllerExact": true,
+      "requestedInputAndEndingExact": true,
+      "zeroStartFollow": true
+    },
+    {
+      "motion": "up",
+      "ending": "hold",
+      "nativeExact": true,
+      "controllerExact": true,
+      "requestedInputAndEndingExact": true,
+      "zeroStartFollow": true
+    },
+    {
+      "motion": "up",
+      "ending": "release",
+      "nativeExact": true,
+      "controllerExact": true,
+      "requestedInputAndEndingExact": true,
+      "zeroStartFollow": true
+    },
+    {
+      "motion": "horizontal",
+      "ending": "hold",
+      "nativeExact": true,
+      "controllerExact": true,
+      "requestedInputAndEndingExact": true,
+      "zeroStartFollow": true
+    },
+    {
+      "motion": "horizontal",
+      "ending": "release",
+      "nativeExact": true,
+      "controllerExact": true,
+      "requestedInputAndEndingExact": true,
+      "zeroStartFollow": true
+    }
+  ],
+  "observers": [
+    {
+      "variant": "weak",
+      "motion": "down",
+      "ending": "release",
+      "traceExact": true,
+      "inputExact": true
+    },
+    {
+      "variant": "both",
+      "motion": "up",
+      "ending": "hold",
+      "traceExact": true,
+      "inputExact": true
+    },
+    {
+      "variant": "off",
+      "motion": "horizontal",
+      "ending": "release",
+      "traceExact": true,
+      "inputExact": true
+    }
+  ],
+  "rows": [
+    {
+      "variant": "weak",
+      "motion": "down",
+      "ending": "hold",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": true,
+        "followGain": 0.6,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "74d0594a3545e699db291ca63a71142751b48dd723f8fdda82fec8878dd075d7",
+        "control": "79e5264a5419cbfd85000a3bda2141e352df3b86f6d84dc3beb3ad8ef47ab574",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "6a5b627f0f56e814eb748dc2ad88e1a0a203452eca42bbc5e95672d2afac887f",
+      "traceSha256": "a12fb7011e5b3fdfd1a4adb6e796672f93c6d14f44b107c72d8a3bbf83d8dddb",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 0.7185545362711221,
+        "afterGoalTravelRad": 0.40623032420896293,
+        "afterOriginalRawGoalTravelRad": 0.00007466904838523786,
+        "maxSwordAngularRadps": 12.346081146789492,
+        "maxFollowM": 0.06,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.04464039606463974,
+        "originalRawAimErrorIntegralRads": 0.10540909549384567,
+        "fixedWorldRawAimErrorIntegralRads": 0.10539336254103128,
+        "maxRawHandErrorM": 0.4607266645095589,
+        "maxOwnHandErrorM": 0.3642378749609486,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.029760264043093215,
+        "afterOriginalRawAimMeanErrorRad": 0.07027273032923058,
+        "afterFixedWorldRawAimMeanErrorRad": 0.07026224169402098
+      },
+      "peakGoal": {
+        "speedRadps": 27.50099022731792,
+        "timeS": 0.19166666666666665,
+        "phase": "stroke",
+        "stepRad": 0.22917491856098268
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.02,
+          -0.44999999999999996
+        ],
+        "actualHandOffsetM": [
+          0.02,
+          -0.44999999999999973
+        ],
+        "handHeld": true,
+        "inputActive": false,
+        "followM": [
+          0,
+          -0.00040427681994512397
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.02,
+          -0.43040427681994486
+        ],
+        "filteredAimM": [
+          0.02,
+          -0.4306852021048778
+        ],
+        "bodyPose": {
+          "pelvisYaw": 0.05841560221291064,
+          "chestYaw": 0.07138824082172172,
+          "pitch": 0.08317393272096035,
+          "drop": 0.006402575237351159
+        },
+        "desiredAxis": [
+          0.8599467396913023,
+          -0.509924686040763,
+          -0.021643000266343953
+        ],
+        "actualAxis": [
+          0.8659154186498359,
+          -0.4997295337281963,
+          -0.021477152773303865
+        ],
+        "originalRawAxis": [
+          0.8242663028772323,
+          -0.5646424733950354,
+          -0.04199927593941928
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.8242690581415917,
+          -0.5646424733950354,
+          -0.04194516692910149
+        ],
+        "actualHandWorldM": [
+          -2.36144881585683,
+          0.9345292504111338,
+          0.05868594787085561
+        ],
+        "ownHandGoalWorldM": [
+          -2.340390290035673,
+          0.9205518697860293,
+          0.05435223232603882
+        ],
+        "rawHandGoalWorldM": [
+          -2.291008573827351,
+          0.8984318017959595,
+          0.11129035167498301
+        ],
+        "ownAimErrorRad": 0.01179865045291667,
+        "originalRawAimErrorRad": 0.07982789129826356,
+        "fixedWorldOriginalRawAimErrorRad": 0.07981254407356646,
+        "ownHandErrorM": 0.025643903160844337,
+        "rawHandErrorM": 0.09503723898180325,
+        "swordAngularRadps": 0.008700407375266395,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "noAuto",
+      "motion": "down",
+      "ending": "hold",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": false,
+        "followGain": 0.6,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "74d0594a3545e699db291ca63a71142751b48dd723f8fdda82fec8878dd075d7",
+        "control": "79e5264a5419cbfd85000a3bda2141e352df3b86f6d84dc3beb3ad8ef47ab574",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "6a5b627f0f56e814eb748dc2ad88e1a0a203452eca42bbc5e95672d2afac887f",
+      "traceSha256": "4f0003866c587fa7dff2a44ceb0e85e3cab2e73208b9dd5af201b0228faa8575",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 0.7185545362711221,
+        "afterGoalTravelRad": 0.40623032420896293,
+        "afterOriginalRawGoalTravelRad": 0.00007466904838523786,
+        "maxSwordAngularRadps": 12.346081146789492,
+        "maxFollowM": 0.06,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.04464039606463974,
+        "originalRawAimErrorIntegralRads": 0.10540909549384567,
+        "fixedWorldRawAimErrorIntegralRads": 0.10539336254103128,
+        "maxRawHandErrorM": 0.4607266645095589,
+        "maxOwnHandErrorM": 0.3642378749609486,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.029760264043093215,
+        "afterOriginalRawAimMeanErrorRad": 0.07027273032923058,
+        "afterFixedWorldRawAimMeanErrorRad": 0.07026224169402098
+      },
+      "peakGoal": {
+        "speedRadps": 27.50099022731792,
+        "timeS": 0.19166666666666665,
+        "phase": "stroke",
+        "stepRad": 0.22917491856098268
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.02,
+          -0.44999999999999996
+        ],
+        "actualHandOffsetM": [
+          0.02,
+          -0.44999999999999973
+        ],
+        "handHeld": true,
+        "inputActive": false,
+        "followM": [
+          0,
+          -0.00040427681994512397
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.02,
+          -0.43040427681994486
+        ],
+        "filteredAimM": [
+          0.02,
+          -0.4306852021048778
+        ],
+        "bodyPose": {
+          "pelvisYaw": 0.05841560221291064,
+          "chestYaw": 0.07138824082172172,
+          "pitch": 0.08317393272096035,
+          "drop": 0.006402575237351159
+        },
+        "desiredAxis": [
+          0.8599467396913023,
+          -0.509924686040763,
+          -0.021643000266343953
+        ],
+        "actualAxis": [
+          0.8659154186498359,
+          -0.4997295337281963,
+          -0.021477152773303865
+        ],
+        "originalRawAxis": [
+          0.8242663028772323,
+          -0.5646424733950354,
+          -0.04199927593941928
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.8242690581415917,
+          -0.5646424733950354,
+          -0.04194516692910149
+        ],
+        "actualHandWorldM": [
+          -2.36144881585683,
+          0.9345292504111338,
+          0.05868594787085561
+        ],
+        "ownHandGoalWorldM": [
+          -2.340390290035673,
+          0.9205518697860293,
+          0.05435223232603882
+        ],
+        "rawHandGoalWorldM": [
+          -2.291008573827351,
+          0.8984318017959595,
+          0.11129035167498301
+        ],
+        "ownAimErrorRad": 0.01179865045291667,
+        "originalRawAimErrorRad": 0.07982789129826356,
+        "fixedWorldOriginalRawAimErrorRad": 0.07981254407356646,
+        "ownHandErrorM": 0.025643903160844337,
+        "rawHandErrorM": 0.09503723898180325,
+        "swordAngularRadps": 0.008700407375266395,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "noFollow",
+      "motion": "down",
+      "ending": "hold",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": true,
+        "followGain": 0,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "74d0594a3545e699db291ca63a71142751b48dd723f8fdda82fec8878dd075d7",
+        "control": "79e5264a5419cbfd85000a3bda2141e352df3b86f6d84dc3beb3ad8ef47ab574",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "6a5b627f0f56e814eb748dc2ad88e1a0a203452eca42bbc5e95672d2afac887f",
+      "traceSha256": "5c015cdd43b24fbe3413d8b960836b118c86db10abfda07a6dd5314e122bd0ca",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 0.9133694276976868,
+        "afterGoalTravelRad": 0.5392894418066148,
+        "afterOriginalRawGoalTravelRad": 0.0000830831387224557,
+        "maxSwordAngularRadps": 10.732887658949442,
+        "maxFollowM": 0,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.06700411065610248,
+        "originalRawAimErrorIntegralRads": 0.1332640008374586,
+        "fixedWorldRawAimErrorIntegralRads": 0.13325537510718122,
+        "maxRawHandErrorM": 0.4674809414122919,
+        "maxOwnHandErrorM": 0.3436170957884882,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.04466940710406841,
+        "afterOriginalRawAimMeanErrorRad": 0.08884266722497257,
+        "afterFixedWorldRawAimMeanErrorRad": 0.08883691673812098
+      },
+      "peakGoal": {
+        "speedRadps": 24.109492721161757,
+        "timeS": 0.2,
+        "phase": "stroke",
+        "stepRad": 0.20091243934301464
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.02,
+          -0.44999999999999996
+        ],
+        "actualHandOffsetM": [
+          0.02,
+          -0.44999999999999973
+        ],
+        "handHeld": true,
+        "inputActive": false,
+        "followM": [
+          0,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.02,
+          -0.4299999999999997
+        ],
+        "filteredAimM": [
+          0.02,
+          -0.4299999849948844
+        ],
+        "bodyPose": {
+          "pelvisYaw": 0.058094085575071716,
+          "chestYaw": 0.07073821978796425,
+          "pitch": 0.08307372831006106,
+          "drop": 0.006402582576104325
+        },
+        "desiredAxis": [
+          0.8608456448259356,
+          -0.5084016439203788,
+          -0.021738082787491796
+        ],
+        "actualAxis": [
+          0.8668180645530218,
+          -0.498150014644719,
+          -0.02174526084812478
+        ],
+        "originalRawAxis": [
+          0.8242662779473147,
+          -0.5646424733950354,
+          -0.041999765204308155
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.8242690581415917,
+          -0.5646424733950354,
+          -0.04194516692910149
+        ],
+        "actualHandWorldM": [
+          -2.361951694008133,
+          0.9346293543008776,
+          0.05862908428163765
+        ],
+        "ownHandGoalWorldM": [
+          -2.3406370722228687,
+          0.9208566002486116,
+          0.05449186986756871
+        ],
+        "rawHandGoalWorldM": [
+          -2.2912972274726733,
+          0.8984648227691651,
+          0.11135786003624049
+        ],
+        "ownAimErrorRad": 0.011870842901113603,
+        "originalRawAimErrorRad": 0.08152285568980805,
+        "fixedWorldOriginalRawAimErrorRad": 0.08150783981825495,
+        "ownHandErrorM": 0.025712222757689737,
+        "rawHandErrorM": 0.09529034985190175,
+        "swordAngularRadps": 0.017643760220484715,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "both",
+      "motion": "down",
+      "ending": "hold",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": false,
+        "followGain": 0,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "74d0594a3545e699db291ca63a71142751b48dd723f8fdda82fec8878dd075d7",
+        "control": "79e5264a5419cbfd85000a3bda2141e352df3b86f6d84dc3beb3ad8ef47ab574",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "6a5b627f0f56e814eb748dc2ad88e1a0a203452eca42bbc5e95672d2afac887f",
+      "traceSha256": "4c44faacac1157c41ef0afa41375093b9c30afd7ef3b0127a0c677ebc53e62c6",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 0.9133694276976868,
+        "afterGoalTravelRad": 0.5392894418066148,
+        "afterOriginalRawGoalTravelRad": 0.0000830831387224557,
+        "maxSwordAngularRadps": 10.732887658949442,
+        "maxFollowM": 0,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.06700411065610248,
+        "originalRawAimErrorIntegralRads": 0.1332640008374586,
+        "fixedWorldRawAimErrorIntegralRads": 0.13325537510718122,
+        "maxRawHandErrorM": 0.4674809414122919,
+        "maxOwnHandErrorM": 0.3436170957884882,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.04466940710406841,
+        "afterOriginalRawAimMeanErrorRad": 0.08884266722497257,
+        "afterFixedWorldRawAimMeanErrorRad": 0.08883691673812098
+      },
+      "peakGoal": {
+        "speedRadps": 24.109492721161757,
+        "timeS": 0.2,
+        "phase": "stroke",
+        "stepRad": 0.20091243934301464
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.02,
+          -0.44999999999999996
+        ],
+        "actualHandOffsetM": [
+          0.02,
+          -0.44999999999999973
+        ],
+        "handHeld": true,
+        "inputActive": false,
+        "followM": [
+          0,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.02,
+          -0.4299999999999997
+        ],
+        "filteredAimM": [
+          0.02,
+          -0.4299999849948844
+        ],
+        "bodyPose": {
+          "pelvisYaw": 0.058094085575071716,
+          "chestYaw": 0.07073821978796425,
+          "pitch": 0.08307372831006106,
+          "drop": 0.006402582576104325
+        },
+        "desiredAxis": [
+          0.8608456448259356,
+          -0.5084016439203788,
+          -0.021738082787491796
+        ],
+        "actualAxis": [
+          0.8668180645530218,
+          -0.498150014644719,
+          -0.02174526084812478
+        ],
+        "originalRawAxis": [
+          0.8242662779473147,
+          -0.5646424733950354,
+          -0.041999765204308155
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.8242690581415917,
+          -0.5646424733950354,
+          -0.04194516692910149
+        ],
+        "actualHandWorldM": [
+          -2.361951694008133,
+          0.9346293543008776,
+          0.05862908428163765
+        ],
+        "ownHandGoalWorldM": [
+          -2.3406370722228687,
+          0.9208566002486116,
+          0.05449186986756871
+        ],
+        "rawHandGoalWorldM": [
+          -2.2912972274726733,
+          0.8984648227691651,
+          0.11135786003624049
+        ],
+        "ownAimErrorRad": 0.011870842901113603,
+        "originalRawAimErrorRad": 0.08152285568980805,
+        "fixedWorldOriginalRawAimErrorRad": 0.08150783981825495,
+        "ownHandErrorM": 0.025712222757689737,
+        "rawHandErrorM": 0.09529034985190175,
+        "swordAngularRadps": 0.017643760220484715,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "off",
+      "motion": "down",
+      "ending": "hold",
+      "observed": true,
+      "config": {
+        "level": 0,
+        "autoGuard": true,
+        "followGain": 0.6,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "74d0594a3545e699db291ca63a71142751b48dd723f8fdda82fec8878dd075d7",
+        "control": "79e5264a5419cbfd85000a3bda2141e352df3b86f6d84dc3beb3ad8ef47ab574",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "6a5b627f0f56e814eb748dc2ad88e1a0a203452eca42bbc5e95672d2afac887f",
+      "traceSha256": "f3039175e9319be8ecdd0bc46af888d0be7298f16663cff9a023bce3c8e6ff89",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 0.3866928249839009,
+        "afterGoalTravelRad": 0.14553341502141645,
+        "afterOriginalRawGoalTravelRad": 0.0000417897392328738,
+        "maxSwordAngularRadps": 7.234280896664264,
+        "maxFollowM": 0,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.057057792175799454,
+        "originalRawAimErrorIntegralRads": 0.06245729011999249,
+        "fixedWorldRawAimErrorIntegralRads": 0.06245857769622942,
+        "maxRawHandErrorM": 0.4012041120700477,
+        "maxOwnHandErrorM": 0.27386311445442135,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.03803852811719971,
+        "afterOriginalRawAimMeanErrorRad": 0.0416381934133284,
+        "afterFixedWorldRawAimMeanErrorRad": 0.041639051797486365
+      },
+      "peakGoal": {
+        "speedRadps": 6.030948381438054,
+        "timeS": 0.20833333333333334,
+        "phase": "stroke",
+        "stepRad": 0.05025790317865045
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.02,
+          -0.44999999999999996
+        ],
+        "actualHandOffsetM": [
+          0.02,
+          -0.44999999999999973
+        ],
+        "handHeld": true,
+        "inputActive": false,
+        "followM": [
+          0,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.02,
+          -0.4299999999999997
+        ],
+        "filteredAimM": [
+          0.02,
+          -0.4299999849948844
+        ],
+        "bodyPose": {
+          "pelvisYaw": -1.229720836613173e-13,
+          "chestYaw": -7.196729736168343e-11,
+          "pitch": 9.341961865743379e-14,
+          "drop": -5.5359943069879534e-15
+        },
+        "desiredAxis": [
+          0.8337356245570107,
+          -0.5505308410925308,
+          -0.04243467156090917
+        ],
+        "actualAxis": [
+          0.8413839255703848,
+          -0.5386923962735889,
+          -0.043401026430145706
+        ],
+        "originalRawAxis": [
+          0.8242686680712489,
+          -0.5646424733950354,
+          -0.04195283154193653
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.8242690581415917,
+          -0.5646424733950354,
+          -0.04194516692910149
+        ],
+        "actualHandWorldM": [
+          -2.379268263816291,
+          0.9762142225185062,
+          0.11854923849267737
+        ],
+        "ownHandGoalWorldM": [
+          -2.315793368666788,
+          0.9281260354366342,
+          0.10873345360349579
+        ],
+        "rawHandGoalWorldM": [
+          -2.33206362682472,
+          0.9081256628036499,
+          0.10873136391385367
+        ],
+        "ownAimErrorRad": 0.014125343782038684,
+        "originalRawAimErrorRad": 0.031120039531417766,
+        "fixedWorldOriginalRawAimErrorRad": 0.03112018265002082,
+        "ownHandErrorM": 0.0802364361375319,
+        "rawHandErrorM": 0.08343093178668858,
+        "swordAngularRadps": 0.014902904394409913,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "weak",
+      "motion": "down",
+      "ending": "release",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": true,
+        "followGain": 0.6,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "74d0594a3545e699db291ca63a71142751b48dd723f8fdda82fec8878dd075d7",
+        "control": "79e5264a5419cbfd85000a3bda2141e352df3b86f6d84dc3beb3ad8ef47ab574",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "93823e1a29328482d9fc934781cf9152b7ee20efeb1e90556ec21ad1d0c3b073",
+      "traceSha256": "f0833391968e4401103247c8c26d39abf776fedc7a8cacbf0bbe786314b79a07",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 1.5347800619032064,
+        "afterGoalTravelRad": 1.0758581826573124,
+        "afterOriginalRawGoalTravelRad": 0.00020360362622181527,
+        "maxSwordAngularRadps": 12.346081146789492,
+        "maxFollowM": 0.06,
+        "recoveringSteps": 23,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.07559380345091568,
+        "originalRawAimErrorIntegralRads": 0.770865822816408,
+        "fixedWorldRawAimErrorIntegralRads": 0.7708678808132879,
+        "maxRawHandErrorM": 0.4607266645095589,
+        "maxOwnHandErrorM": 0.3642378749609486,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.05039586896727722,
+        "afterOriginalRawAimMeanErrorRad": 0.513910548544273,
+        "afterFixedWorldRawAimMeanErrorRad": 0.5139119205421929
+      },
+      "peakGoal": {
+        "speedRadps": 27.50099022731792,
+        "timeS": 0.19166666666666665,
+        "phase": "stroke",
+        "stepRad": 0.22917491856098268
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.02,
+          -0.44999999999999996
+        ],
+        "actualHandOffsetM": [
+          0.18,
+          -0.28
+        ],
+        "handHeld": false,
+        "inputActive": false,
+        "followM": [
+          0,
+          -0.00040427681994512397
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.16628994402936215,
+          -0.2949656766593142
+        ],
+        "filteredAimM": [
+          0.1662877252139286,
+          -0.2952488139755221
+        ],
+        "bodyPose": {
+          "pelvisYaw": -0.12466885264105701,
+          "chestYaw": -0.2542903394944383,
+          "pitch": 0.0573426744836421,
+          "drop": 0.0064078082095063715
+        },
+        "desiredAxis": [
+          0.9905426164710183,
+          0.132477594158142,
+          -0.03570731018741241
+        ],
+        "actualAxis": [
+          0.989423120592158,
+          0.14189371007487572,
+          -0.030136271238638157
+        ],
+        "originalRawAxis": [
+          0.8242683671878429,
+          -0.5646424733950354,
+          -0.04195874273407375
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.8242690581415917,
+          -0.5646424733950354,
+          -0.04194516692910149
+        ],
+        "actualHandWorldM": [
+          -2.4033005273125974,
+          0.9798298465683491,
+          0.18712270399061282
+        ],
+        "ownHandGoalWorldM": [
+          -2.400768545150048,
+          0.9803263667388047,
+          0.1860698887538362
+        ],
+        "rawHandGoalWorldM": [
+          -2.313038393674845,
+          0.8995752573013306,
+          0.11683276716836145
+        ],
+        "ownAimErrorRad": 0.010991944147926288,
+        "originalRawAimErrorRad": 0.7426258370541519,
+        "fixedWorldOriginalRawAimErrorRad": 0.7426254310921381,
+        "ownHandErrorM": 0.002786733907987319,
+        "rawHandErrorM": 0.1397452220497482,
+        "swordAngularRadps": 0.020149097956450084,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "noAuto",
+      "motion": "down",
+      "ending": "release",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": false,
+        "followGain": 0.6,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "74d0594a3545e699db291ca63a71142751b48dd723f8fdda82fec8878dd075d7",
+        "control": "79e5264a5419cbfd85000a3bda2141e352df3b86f6d84dc3beb3ad8ef47ab574",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "93823e1a29328482d9fc934781cf9152b7ee20efeb1e90556ec21ad1d0c3b073",
+      "traceSha256": "72d1f5390bdbfb5d9c45e4b69b5ff5372b7fefcd90b47abefba985866b221b5d",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 0.7185545362711221,
+        "afterGoalTravelRad": 0.40623032420896293,
+        "afterOriginalRawGoalTravelRad": 0.00007466904838523786,
+        "maxSwordAngularRadps": 12.346081146789492,
+        "maxFollowM": 0.06,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.04464039606463974,
+        "originalRawAimErrorIntegralRads": 0.10540909549384567,
+        "fixedWorldRawAimErrorIntegralRads": 0.10539336254103128,
+        "maxRawHandErrorM": 0.4607266645095589,
+        "maxOwnHandErrorM": 0.3642378749609486,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.029760264043093215,
+        "afterOriginalRawAimMeanErrorRad": 0.07027273032923058,
+        "afterFixedWorldRawAimMeanErrorRad": 0.07026224169402098
+      },
+      "peakGoal": {
+        "speedRadps": 27.50099022731792,
+        "timeS": 0.19166666666666665,
+        "phase": "stroke",
+        "stepRad": 0.22917491856098268
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.02,
+          -0.44999999999999996
+        ],
+        "actualHandOffsetM": [
+          0.02,
+          -0.44999999999999973
+        ],
+        "handHeld": false,
+        "inputActive": false,
+        "followM": [
+          0,
+          -0.00040427681994512397
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.02,
+          -0.43040427681994486
+        ],
+        "filteredAimM": [
+          0.02,
+          -0.4306852021048778
+        ],
+        "bodyPose": {
+          "pelvisYaw": 0.05841560221291064,
+          "chestYaw": 0.07138824082172172,
+          "pitch": 0.08317393272096035,
+          "drop": 0.006402575237351159
+        },
+        "desiredAxis": [
+          0.8599467396913023,
+          -0.509924686040763,
+          -0.021643000266343953
+        ],
+        "actualAxis": [
+          0.8659154186498359,
+          -0.4997295337281963,
+          -0.021477152773303865
+        ],
+        "originalRawAxis": [
+          0.8242663028772323,
+          -0.5646424733950354,
+          -0.04199927593941928
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.8242690581415917,
+          -0.5646424733950354,
+          -0.04194516692910149
+        ],
+        "actualHandWorldM": [
+          -2.36144881585683,
+          0.9345292504111338,
+          0.05868594787085561
+        ],
+        "ownHandGoalWorldM": [
+          -2.340390290035673,
+          0.9205518697860293,
+          0.05435223232603882
+        ],
+        "rawHandGoalWorldM": [
+          -2.291008573827351,
+          0.8984318017959595,
+          0.11129035167498301
+        ],
+        "ownAimErrorRad": 0.01179865045291667,
+        "originalRawAimErrorRad": 0.07982789129826356,
+        "fixedWorldOriginalRawAimErrorRad": 0.07981254407356646,
+        "ownHandErrorM": 0.025643903160844337,
+        "rawHandErrorM": 0.09503723898180325,
+        "swordAngularRadps": 0.008700407375266395,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "noFollow",
+      "motion": "down",
+      "ending": "release",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": true,
+        "followGain": 0,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "74d0594a3545e699db291ca63a71142751b48dd723f8fdda82fec8878dd075d7",
+        "control": "79e5264a5419cbfd85000a3bda2141e352df3b86f6d84dc3beb3ad8ef47ab574",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "93823e1a29328482d9fc934781cf9152b7ee20efeb1e90556ec21ad1d0c3b073",
+      "traceSha256": "72048e21c0c57a7651b929fb7bf4d5e08a561febf83eabf0d3b39a4ce1d2b99a",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 1.6840134400143782,
+        "afterGoalTravelRad": 1.1867160994836907,
+        "afterOriginalRawGoalTravelRad": 0.00018962201888222689,
+        "maxSwordAngularRadps": 10.732887658949442,
+        "maxFollowM": 0,
+        "recoveringSteps": 23,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.09721747047068602,
+        "originalRawAimErrorIntegralRads": 0.8103145024012309,
+        "fixedWorldRawAimErrorIntegralRads": 0.8103210489684238,
+        "maxRawHandErrorM": 0.4674809414122919,
+        "maxOwnHandErrorM": 0.3436170957884882,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.06481164698045747,
+        "afterOriginalRawAimMeanErrorRad": 0.5402096682674883,
+        "afterFixedWorldRawAimMeanErrorRad": 0.540214032645617
+      },
+      "peakGoal": {
+        "speedRadps": 24.109492721161757,
+        "timeS": 0.2,
+        "phase": "stroke",
+        "stepRad": 0.20091243934301464
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.02,
+          -0.44999999999999996
+        ],
+        "actualHandOffsetM": [
+          0.18,
+          -0.28
+        ],
+        "handHeld": false,
+        "inputActive": false,
+        "followM": [
+          0,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.16628994402936215,
+          -0.2945613998393691
+        ],
+        "filteredAimM": [
+          0.1662877252139286,
+          -0.2945635968655285
+        ],
+        "bodyPose": {
+          "pelvisYaw": -0.12483052994774306,
+          "chestYaw": -0.25463121452210563,
+          "pitch": 0.05731842706905802,
+          "drop": 0.006407823992958354
+        },
+        "desiredAxis": [
+          0.9904179819218446,
+          0.13336133146147655,
+          -0.03587445270221291
+        ],
+        "actualAxis": [
+          0.9892300759438379,
+          0.1431856149899744,
+          -0.030361221343191747
+        ],
+        "originalRawAxis": [
+          0.82426831119448,
+          -0.5646424733950354,
+          -0.041959842694373535
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.8242690581415917,
+          -0.5646424733950354,
+          -0.04194516692910149
+        ],
+        "actualHandWorldM": [
+          -2.404039518925711,
+          0.9797412107147986,
+          0.18675335790385875
+        ],
+        "ownHandGoalWorldM": [
+          -2.401140577817499,
+          0.9806480931510163,
+          0.186180755862647
+        ],
+        "rawHandGoalWorldM": [
+          -2.3135122095878633,
+          0.8996284246444702,
+          0.11691480298233543
+        ],
+        "ownAimErrorRad": 0.011325082999520791,
+        "originalRawAimErrorRad": 0.7439250307808516,
+        "fixedWorldOriginalRawAimErrorRad": 0.7439245976199048,
+        "ownHandErrorM": 0.0030909817857115757,
+        "rawHandErrorM": 0.13960901110396554,
+        "swordAngularRadps": 0.013360259906989136,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "both",
+      "motion": "down",
+      "ending": "release",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": false,
+        "followGain": 0,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "74d0594a3545e699db291ca63a71142751b48dd723f8fdda82fec8878dd075d7",
+        "control": "79e5264a5419cbfd85000a3bda2141e352df3b86f6d84dc3beb3ad8ef47ab574",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "93823e1a29328482d9fc934781cf9152b7ee20efeb1e90556ec21ad1d0c3b073",
+      "traceSha256": "c2fe6bd3c60b5119c57446ef0676cf3d5a19864da98543c31098a1d66f721e87",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 0.9133694276976868,
+        "afterGoalTravelRad": 0.5392894418066148,
+        "afterOriginalRawGoalTravelRad": 0.0000830831387224557,
+        "maxSwordAngularRadps": 10.732887658949442,
+        "maxFollowM": 0,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.06700411065610248,
+        "originalRawAimErrorIntegralRads": 0.1332640008374586,
+        "fixedWorldRawAimErrorIntegralRads": 0.13325537510718122,
+        "maxRawHandErrorM": 0.4674809414122919,
+        "maxOwnHandErrorM": 0.3436170957884882,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.04466940710406841,
+        "afterOriginalRawAimMeanErrorRad": 0.08884266722497257,
+        "afterFixedWorldRawAimMeanErrorRad": 0.08883691673812098
+      },
+      "peakGoal": {
+        "speedRadps": 24.109492721161757,
+        "timeS": 0.2,
+        "phase": "stroke",
+        "stepRad": 0.20091243934301464
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.02,
+          -0.44999999999999996
+        ],
+        "actualHandOffsetM": [
+          0.02,
+          -0.44999999999999973
+        ],
+        "handHeld": false,
+        "inputActive": false,
+        "followM": [
+          0,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.02,
+          -0.4299999999999997
+        ],
+        "filteredAimM": [
+          0.02,
+          -0.4299999849948844
+        ],
+        "bodyPose": {
+          "pelvisYaw": 0.058094085575071716,
+          "chestYaw": 0.07073821978796425,
+          "pitch": 0.08307372831006106,
+          "drop": 0.006402582576104325
+        },
+        "desiredAxis": [
+          0.8608456448259356,
+          -0.5084016439203788,
+          -0.021738082787491796
+        ],
+        "actualAxis": [
+          0.8668180645530218,
+          -0.498150014644719,
+          -0.02174526084812478
+        ],
+        "originalRawAxis": [
+          0.8242662779473147,
+          -0.5646424733950354,
+          -0.041999765204308155
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.8242690581415917,
+          -0.5646424733950354,
+          -0.04194516692910149
+        ],
+        "actualHandWorldM": [
+          -2.361951694008133,
+          0.9346293543008776,
+          0.05862908428163765
+        ],
+        "ownHandGoalWorldM": [
+          -2.3406370722228687,
+          0.9208566002486116,
+          0.05449186986756871
+        ],
+        "rawHandGoalWorldM": [
+          -2.2912972274726733,
+          0.8984648227691651,
+          0.11135786003624049
+        ],
+        "ownAimErrorRad": 0.011870842901113603,
+        "originalRawAimErrorRad": 0.08152285568980805,
+        "fixedWorldOriginalRawAimErrorRad": 0.08150783981825495,
+        "ownHandErrorM": 0.025712222757689737,
+        "rawHandErrorM": 0.09529034985190175,
+        "swordAngularRadps": 0.017643760220484715,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "off",
+      "motion": "down",
+      "ending": "release",
+      "observed": true,
+      "config": {
+        "level": 0,
+        "autoGuard": true,
+        "followGain": 0.6,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "74d0594a3545e699db291ca63a71142751b48dd723f8fdda82fec8878dd075d7",
+        "control": "79e5264a5419cbfd85000a3bda2141e352df3b86f6d84dc3beb3ad8ef47ab574",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "93823e1a29328482d9fc934781cf9152b7ee20efeb1e90556ec21ad1d0c3b073",
+      "traceSha256": "9b2337a242caeb2b9d56fe708ebda809725cce500bd96e5223f76ec28364c069",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 0.3866928249839009,
+        "afterGoalTravelRad": 0.14553341502141645,
+        "afterOriginalRawGoalTravelRad": 0.0000417897392328738,
+        "maxSwordAngularRadps": 7.234280896664264,
+        "maxFollowM": 0,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.057057792175799454,
+        "originalRawAimErrorIntegralRads": 0.06245729011999249,
+        "fixedWorldRawAimErrorIntegralRads": 0.06245857769622942,
+        "maxRawHandErrorM": 0.4012041120700477,
+        "maxOwnHandErrorM": 0.27386311445442135,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.03803852811719971,
+        "afterOriginalRawAimMeanErrorRad": 0.0416381934133284,
+        "afterFixedWorldRawAimMeanErrorRad": 0.041639051797486365
+      },
+      "peakGoal": {
+        "speedRadps": 6.030948381438054,
+        "timeS": 0.20833333333333334,
+        "phase": "stroke",
+        "stepRad": 0.05025790317865045
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.02,
+          -0.44999999999999996
+        ],
+        "actualHandOffsetM": [
+          0.02,
+          -0.44999999999999973
+        ],
+        "handHeld": false,
+        "inputActive": false,
+        "followM": [
+          0,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.02,
+          -0.4299999999999997
+        ],
+        "filteredAimM": [
+          0.02,
+          -0.4299999849948844
+        ],
+        "bodyPose": {
+          "pelvisYaw": -1.229720836613173e-13,
+          "chestYaw": -7.196729736168343e-11,
+          "pitch": 9.341961865743379e-14,
+          "drop": -5.5359943069879534e-15
+        },
+        "desiredAxis": [
+          0.8337356245570107,
+          -0.5505308410925308,
+          -0.04243467156090917
+        ],
+        "actualAxis": [
+          0.8413839255703848,
+          -0.5386923962735889,
+          -0.043401026430145706
+        ],
+        "originalRawAxis": [
+          0.8242686680712489,
+          -0.5646424733950354,
+          -0.04195283154193653
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.8242690581415917,
+          -0.5646424733950354,
+          -0.04194516692910149
+        ],
+        "actualHandWorldM": [
+          -2.379268263816291,
+          0.9762142225185062,
+          0.11854923849267737
+        ],
+        "ownHandGoalWorldM": [
+          -2.315793368666788,
+          0.9281260354366342,
+          0.10873345360349579
+        ],
+        "rawHandGoalWorldM": [
+          -2.33206362682472,
+          0.9081256628036499,
+          0.10873136391385367
+        ],
+        "ownAimErrorRad": 0.014125343782038684,
+        "originalRawAimErrorRad": 0.031120039531417766,
+        "fixedWorldOriginalRawAimErrorRad": 0.03112018265002082,
+        "ownHandErrorM": 0.0802364361375319,
+        "rawHandErrorM": 0.08343093178668858,
+        "swordAngularRadps": 0.014902904394409913,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "weak",
+      "motion": "up",
+      "ending": "hold",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": true,
+        "followGain": 0.6,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "8cd747d04d2abcfbcdbf45db1906d2075c86ad7250de40b9938651afa7405fc3",
+        "control": "bcf2012b412228b0ca85e2364f420481410350fb80190d29060a7ca7a7f1e76f",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "e2b4690294ea6c37f7a542d8892cac7705638582a226f853d8e88527ed2e2f5e",
+      "traceSha256": "c62161200904bdbc4aacd2f4b2d203056b5e3d738c9a63213cc1c4351a7f564b",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 1.310717646161739,
+        "afterGoalTravelRad": 0.22634171025077823,
+        "afterOriginalRawGoalTravelRad": 0.00004961766477002221,
+        "maxSwordAngularRadps": 8.284629802504734,
+        "maxFollowM": 0.06,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.14520077934557832,
+        "originalRawAimErrorIntegralRads": 0.3357125230858686,
+        "fixedWorldRawAimErrorIntegralRads": 0.33571509293274854,
+        "maxRawHandErrorM": 0.5821717976046307,
+        "maxOwnHandErrorM": 0.5387127733977002,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.09680051956371906,
+        "afterOriginalRawAimMeanErrorRad": 0.2238083487239128,
+        "afterFixedWorldRawAimMeanErrorRad": 0.22381006195516612
+      },
+      "peakGoal": {
+        "speedRadps": 23.47022355214187,
+        "timeS": 0.5,
+        "phase": "stroke",
+        "stepRad": 0.19558519626784893
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.02,
+          0.52
+        ],
+        "actualHandOffsetM": [
+          0.02,
+          0.5199999999999998
+        ],
+        "handHeld": true,
+        "inputActive": false,
+        "followM": [
+          0,
+          0.00040427681994512397
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.02,
+          0.5004042768199449
+        ],
+        "filteredAimM": [
+          0.02,
+          0.500685202104878
+        ],
+        "bodyPose": {
+          "pelvisYaw": -0.13808578752768394,
+          "chestYaw": -0.33104276438448704,
+          "pitch": 0.0006567970093946038,
+          "drop": -0.006154790263755759
+        },
+        "desiredAxis": [
+          -0.012400671676858318,
+          0.9999078884715444,
+          -0.005517056673657137
+        ],
+        "actualAxis": [
+          0.012952170130006834,
+          0.9990017793059357,
+          -0.042751448616433825
+        ],
+        "originalRawAxis": [
+          0.18350703870185744,
+          0.9829736952225624,
+          -0.009374499846707013
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.18350785760615998,
+          0.9829736952225624,
+          -0.009358455924896517
+        ],
+        "actualHandWorldM": [
+          -2.5253411767405662,
+          1.8015324818703378,
+          0.09914704088088143
+        ],
+        "ownHandGoalWorldM": [
+          -2.5203242655174156,
+          1.820183903829657,
+          0.09183677276823643
+        ],
+        "rawHandGoalWorldM": [
+          -2.3942195898412537,
+          1.8753073167800904,
+          0.1295390160132215
+        ],
+        "ownAimErrorRad": 0.04505919368572556,
+        "originalRawAimErrorRad": 0.17474986652671112,
+        "fixedWorldOriginalRawAimErrorRad": 0.17475375057029638,
+        "ownHandErrorM": 0.02065151227402741,
+        "rawHandErrorM": 0.15349028949545962,
+        "swordAngularRadps": 0.017694355479819433,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "noAuto",
+      "motion": "up",
+      "ending": "hold",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": false,
+        "followGain": 0.6,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "8cd747d04d2abcfbcdbf45db1906d2075c86ad7250de40b9938651afa7405fc3",
+        "control": "bcf2012b412228b0ca85e2364f420481410350fb80190d29060a7ca7a7f1e76f",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "e2b4690294ea6c37f7a542d8892cac7705638582a226f853d8e88527ed2e2f5e",
+      "traceSha256": "1affff8cff8d4a108e7b04cb08744edc1699feeaf251a3c99decf333d8cd7eae",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 1.310717646161739,
+        "afterGoalTravelRad": 0.22634171025077823,
+        "afterOriginalRawGoalTravelRad": 0.00004961766477002221,
+        "maxSwordAngularRadps": 8.284629802504734,
+        "maxFollowM": 0.06,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.14520077934557832,
+        "originalRawAimErrorIntegralRads": 0.3357125230858686,
+        "fixedWorldRawAimErrorIntegralRads": 0.33571509293274854,
+        "maxRawHandErrorM": 0.5821717976046307,
+        "maxOwnHandErrorM": 0.5387127733977002,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.09680051956371906,
+        "afterOriginalRawAimMeanErrorRad": 0.2238083487239128,
+        "afterFixedWorldRawAimMeanErrorRad": 0.22381006195516612
+      },
+      "peakGoal": {
+        "speedRadps": 23.47022355214187,
+        "timeS": 0.5,
+        "phase": "stroke",
+        "stepRad": 0.19558519626784893
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.02,
+          0.52
+        ],
+        "actualHandOffsetM": [
+          0.02,
+          0.5199999999999998
+        ],
+        "handHeld": true,
+        "inputActive": false,
+        "followM": [
+          0,
+          0.00040427681994512397
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.02,
+          0.5004042768199449
+        ],
+        "filteredAimM": [
+          0.02,
+          0.500685202104878
+        ],
+        "bodyPose": {
+          "pelvisYaw": -0.13808578752768394,
+          "chestYaw": -0.33104276438448704,
+          "pitch": 0.0006567970093946038,
+          "drop": -0.006154790263755759
+        },
+        "desiredAxis": [
+          -0.012400671676858318,
+          0.9999078884715444,
+          -0.005517056673657137
+        ],
+        "actualAxis": [
+          0.012952170130006834,
+          0.9990017793059357,
+          -0.042751448616433825
+        ],
+        "originalRawAxis": [
+          0.18350703870185744,
+          0.9829736952225624,
+          -0.009374499846707013
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.18350785760615998,
+          0.9829736952225624,
+          -0.009358455924896517
+        ],
+        "actualHandWorldM": [
+          -2.5253411767405662,
+          1.8015324818703378,
+          0.09914704088088143
+        ],
+        "ownHandGoalWorldM": [
+          -2.5203242655174156,
+          1.820183903829657,
+          0.09183677276823643
+        ],
+        "rawHandGoalWorldM": [
+          -2.3942195898412537,
+          1.8753073167800904,
+          0.1295390160132215
+        ],
+        "ownAimErrorRad": 0.04505919368572556,
+        "originalRawAimErrorRad": 0.17474986652671112,
+        "fixedWorldOriginalRawAimErrorRad": 0.17475375057029638,
+        "ownHandErrorM": 0.02065151227402741,
+        "rawHandErrorM": 0.15349028949545962,
+        "swordAngularRadps": 0.017694355479819433,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "noFollow",
+      "motion": "up",
+      "ending": "hold",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": true,
+        "followGain": 0,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "8cd747d04d2abcfbcdbf45db1906d2075c86ad7250de40b9938651afa7405fc3",
+        "control": "bcf2012b412228b0ca85e2364f420481410350fb80190d29060a7ca7a7f1e76f",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "e2b4690294ea6c37f7a542d8892cac7705638582a226f853d8e88527ed2e2f5e",
+      "traceSha256": "e827b703592dc9cfc931ecf950820a61fa4e9fcfa45bc732399154fb769e6cfc",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 1.5163055622179946,
+        "afterGoalTravelRad": 0.4234194834915492,
+        "afterOriginalRawGoalTravelRad": 0.000048015436146027036,
+        "maxSwordAngularRadps": 8.148110112289329,
+        "maxFollowM": 0,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.1569929794934258,
+        "originalRawAimErrorIntegralRads": 0.3391872414139906,
+        "fixedWorldRawAimErrorIntegralRads": 0.3391900086157639,
+        "maxRawHandErrorM": 0.5142629524500842,
+        "maxOwnHandErrorM": 0.47158704046263117,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.10466198632895074,
+        "afterOriginalRawAimMeanErrorRad": 0.2261248276093275,
+        "afterFixedWorldRawAimMeanErrorRad": 0.2261266724105097
+      },
+      "peakGoal": {
+        "speedRadps": 23.335892613533495,
+        "timeS": 0.5333333333333333,
+        "phase": "stroke",
+        "stepRad": 0.1944657717794458
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.02,
+          0.52
+        ],
+        "actualHandOffsetM": [
+          0.02,
+          0.5199999999999998
+        ],
+        "handHeld": true,
+        "inputActive": false,
+        "followM": [
+          0,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.02,
+          0.4999999999999998
+        ],
+        "filteredAimM": [
+          0.02,
+          0.49999998499488446
+        ],
+        "bodyPose": {
+          "pelvisYaw": -0.13805799356794254,
+          "chestYaw": -0.33094930007815204,
+          "pitch": 0.0006717740233657955,
+          "drop": -0.006150353213725963
+        },
+        "desiredAxis": [
+          -0.01142405303245012,
+          0.9999192070482252,
+          -0.005574081840145464
+        ],
+        "actualAxis": [
+          0.013706926472058317,
+          0.9989975501838443,
+          -0.04261472708318208
+        ],
+        "originalRawAxis": [
+          0.18350704355109793,
+          0.9829736952225624,
+          -0.00937440492171958
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.18350785760615998,
+          0.9829736952225624,
+          -0.009358455924896517
+        ],
+        "actualHandWorldM": [
+          -2.524763599990982,
+          1.8013530958268533,
+          0.09917140328570079
+        ],
+        "ownHandGoalWorldM": [
+          -2.5197927577570645,
+          1.8199276693920137,
+          0.09183082697383989
+        ],
+        "rawHandGoalWorldM": [
+          -2.393989577978095,
+          1.875348563194275,
+          0.12952553011367388
+        ],
+        "ownAimErrorRad": 0.04477454422648176,
+        "originalRawAimErrorRad": 0.17398287823455005,
+        "fixedWorldOriginalRawAimErrorRad": 0.17398674000034672,
+        "ownHandErrorM": 0.02058174230312643,
+        "rawHandErrorM": 0.15329235806079455,
+        "swordAngularRadps": 0.020310814152288054,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "both",
+      "motion": "up",
+      "ending": "hold",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": false,
+        "followGain": 0,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "8cd747d04d2abcfbcdbf45db1906d2075c86ad7250de40b9938651afa7405fc3",
+        "control": "bcf2012b412228b0ca85e2364f420481410350fb80190d29060a7ca7a7f1e76f",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "e2b4690294ea6c37f7a542d8892cac7705638582a226f853d8e88527ed2e2f5e",
+      "traceSha256": "21d9a52107d501e43f229bab59265d9407178c10bf5c3b6e3d1b5c91a3fbb021",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 1.5163055622179946,
+        "afterGoalTravelRad": 0.4234194834915492,
+        "afterOriginalRawGoalTravelRad": 0.000048015436146027036,
+        "maxSwordAngularRadps": 8.148110112289329,
+        "maxFollowM": 0,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.1569929794934258,
+        "originalRawAimErrorIntegralRads": 0.3391872414139906,
+        "fixedWorldRawAimErrorIntegralRads": 0.3391900086157639,
+        "maxRawHandErrorM": 0.5142629524500842,
+        "maxOwnHandErrorM": 0.47158704046263117,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.10466198632895074,
+        "afterOriginalRawAimMeanErrorRad": 0.2261248276093275,
+        "afterFixedWorldRawAimMeanErrorRad": 0.2261266724105097
+      },
+      "peakGoal": {
+        "speedRadps": 23.335892613533495,
+        "timeS": 0.5333333333333333,
+        "phase": "stroke",
+        "stepRad": 0.1944657717794458
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.02,
+          0.52
+        ],
+        "actualHandOffsetM": [
+          0.02,
+          0.5199999999999998
+        ],
+        "handHeld": true,
+        "inputActive": false,
+        "followM": [
+          0,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.02,
+          0.4999999999999998
+        ],
+        "filteredAimM": [
+          0.02,
+          0.49999998499488446
+        ],
+        "bodyPose": {
+          "pelvisYaw": -0.13805799356794254,
+          "chestYaw": -0.33094930007815204,
+          "pitch": 0.0006717740233657955,
+          "drop": -0.006150353213725963
+        },
+        "desiredAxis": [
+          -0.01142405303245012,
+          0.9999192070482252,
+          -0.005574081840145464
+        ],
+        "actualAxis": [
+          0.013706926472058317,
+          0.9989975501838443,
+          -0.04261472708318208
+        ],
+        "originalRawAxis": [
+          0.18350704355109793,
+          0.9829736952225624,
+          -0.00937440492171958
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.18350785760615998,
+          0.9829736952225624,
+          -0.009358455924896517
+        ],
+        "actualHandWorldM": [
+          -2.524763599990982,
+          1.8013530958268533,
+          0.09917140328570079
+        ],
+        "ownHandGoalWorldM": [
+          -2.5197927577570645,
+          1.8199276693920137,
+          0.09183082697383989
+        ],
+        "rawHandGoalWorldM": [
+          -2.393989577978095,
+          1.875348563194275,
+          0.12952553011367388
+        ],
+        "ownAimErrorRad": 0.04477454422648176,
+        "originalRawAimErrorRad": 0.17398287823455005,
+        "fixedWorldOriginalRawAimErrorRad": 0.17398674000034672,
+        "ownHandErrorM": 0.02058174230312643,
+        "rawHandErrorM": 0.15329235806079455,
+        "swordAngularRadps": 0.020310814152288054,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "off",
+      "motion": "up",
+      "ending": "hold",
+      "observed": true,
+      "config": {
+        "level": 0,
+        "autoGuard": true,
+        "followGain": 0.6,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "8cd747d04d2abcfbcdbf45db1906d2075c86ad7250de40b9938651afa7405fc3",
+        "control": "bcf2012b412228b0ca85e2364f420481410350fb80190d29060a7ca7a7f1e76f",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "e2b4690294ea6c37f7a542d8892cac7705638582a226f853d8e88527ed2e2f5e",
+      "traceSha256": "80d5b8f58738060cbadea65cc29d14fcefd668fb0d931728b7b4f96940a1ac3e",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 1.0913563322676847,
+        "afterGoalTravelRad": 0.4365907769764771,
+        "afterOriginalRawGoalTravelRad": 0.000024734691875787684,
+        "maxSwordAngularRadps": 5.927651375256131,
+        "maxFollowM": 0,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.12265342745359595,
+        "originalRawAimErrorIntegralRads": 0.18405526724406934,
+        "fixedWorldRawAimErrorIntegralRads": 0.18405642868515062,
+        "maxRawHandErrorM": 0.4990290881770188,
+        "maxOwnHandErrorM": 0.32609498411277493,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.0817689516357308,
+        "afterOriginalRawAimMeanErrorRad": 0.12270351149604647,
+        "afterFixedWorldRawAimMeanErrorRad": 0.12270428579010065
+      },
+      "peakGoal": {
+        "speedRadps": 5.835664002392168,
+        "timeS": 0.4083333333333333,
+        "phase": "stroke",
+        "stepRad": 0.048630533353268064
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.02,
+          0.52
+        ],
+        "actualHandOffsetM": [
+          0.02,
+          0.5199999999999998
+        ],
+        "handHeld": true,
+        "inputActive": false,
+        "followM": [
+          0,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.02,
+          0.4999999999999998
+        ],
+        "filteredAimM": [
+          0.02,
+          0.49999998499488446
+        ],
+        "bodyPose": {
+          "pelvisYaw": 5.783227485339091e-14,
+          "chestYaw": 1.775803419185742e-11,
+          "pitch": 1.8360334872664887e-11,
+          "drop": 5.6795628268870695e-15
+        },
+        "desiredAxis": [
+          0.24785296632328777,
+          0.9687150878293896,
+          -0.01264854523038306
+        ],
+        "actualAxis": [
+          0.2911279394071307,
+          0.9540791908206261,
+          -0.07055090159510691
+        ],
+        "originalRawAxis": [
+          0.18350753193386604,
+          0.9829736952225624,
+          -0.00936483977663568
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.18350785760615998,
+          0.9829736952225624,
+          -0.009358455924896517
+        ],
+        "actualHandWorldM": [
+          -2.4231662135700165,
+          1.785469674398798,
+          0.14685144972423342
+        ],
+        "ownHandGoalWorldM": [
+          -2.3638190972724114,
+          1.8587324230823479,
+          0.12441818813828222
+        ],
+        "rawHandGoalWorldM": [
+          -2.387303184639745,
+          1.8787436437606813,
+          0.12439863557386062
+        ],
+        "ownAimErrorRad": 0.07377041439137254,
+        "originalRawAimErrorRad": 0.12721077273078216,
+        "fixedWorldOriginalRawAimErrorRad": 0.12721357541100903,
+        "ownHandErrorM": 0.09691626170511422,
+        "rawHandErrorM": 0.10242225865428974,
+        "swordAngularRadps": 0.022577590450909613,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "weak",
+      "motion": "up",
+      "ending": "release",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": true,
+        "followGain": 0.6,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "8cd747d04d2abcfbcdbf45db1906d2075c86ad7250de40b9938651afa7405fc3",
+        "control": "bcf2012b412228b0ca85e2364f420481410350fb80190d29060a7ca7a7f1e76f",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "52c5293ad161d6b0a6d7a70caf101b72d17e231cae31728c76d0dab7580a0845",
+      "traceSha256": "60d8ead13e5de092d9e87aac24858faa36f150e183339f5319b8a3a28e8e14a0",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 3.706247911154559,
+        "afterGoalTravelRad": 2.2564980164903146,
+        "afterOriginalRawGoalTravelRad": 0.00009714010364350365,
+        "maxSwordAngularRadps": 8.284629802504734,
+        "maxFollowM": 0.06,
+        "recoveringSteps": 81,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.46160438937772,
+        "originalRawAimErrorIntegralRads": 1.3489975705489585,
+        "fixedWorldRawAimErrorIntegralRads": 1.3489984891291313,
+        "maxRawHandErrorM": 1.0301973419071002,
+        "maxOwnHandErrorM": 0.5387127733977002,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.3077362595851473,
+        "afterOriginalRawAimMeanErrorRad": 0.8993317136993074,
+        "afterFixedWorldRawAimMeanErrorRad": 0.8993323260860893
+      },
+      "peakGoal": {
+        "speedRadps": 23.47022355214187,
+        "timeS": 0.5,
+        "phase": "stroke",
+        "stepRad": 0.19558519626784893
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.02,
+          0.52
+        ],
+        "actualHandOffsetM": [
+          0.18,
+          -0.28
+        ],
+        "handHeld": false,
+        "inputActive": false,
+        "followM": [
+          0,
+          0.00040427681994512397
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.17607767729723622,
+          -0.2599841096662365
+        ],
+        "filteredAimM": [
+          0.1759612089467201,
+          -0.25912099890785045
+        ],
+        "bodyPose": {
+          "pelvisYaw": -0.12968968698741723,
+          "chestYaw": -0.2584539841003386,
+          "pitch": 0.05696189104356625,
+          "drop": 0.006410706854276052
+        },
+        "desiredAxis": [
+          0.9849732152236328,
+          0.16920080300377222,
+          -0.034624464687527994
+        ],
+        "actualAxis": [
+          0.9849018044972295,
+          0.17224127998598782,
+          -0.01736107959297506
+        ],
+        "originalRawAxis": [
+          0.18350735059238402,
+          0.9829736952225624,
+          -0.009368392555010565
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.18350785760615998,
+          0.9829736952225624,
+          -0.009358455924896517
+        ],
+        "actualHandWorldM": [
+          -2.3603768013319675,
+          1.0266724442924267,
+          0.24048868615806598
+        ],
+        "ownHandGoalWorldM": [
+          -2.378548522182146,
+          0.9950542024748726,
+          0.20509099505104786
+        ],
+        "rawHandGoalWorldM": [
+          -2.3674823169874215,
+          1.870141978263855,
+          0.13078660505496498
+        ],
+        "ownAimErrorRad": 0.017528599882544255,
+        "originalRawAimErrorRad": 1.2130031550396265,
+        "fixedWorldOriginalRawAimErrorRad": 1.2130028060933633,
+        "ownHandErrorM": 0.050822447697823445,
+        "rawHandErrorM": 0.8506032504576149,
+        "swordAngularRadps": 2.7838889749663775,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "noAuto",
+      "motion": "up",
+      "ending": "release",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": false,
+        "followGain": 0.6,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "8cd747d04d2abcfbcdbf45db1906d2075c86ad7250de40b9938651afa7405fc3",
+        "control": "bcf2012b412228b0ca85e2364f420481410350fb80190d29060a7ca7a7f1e76f",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "52c5293ad161d6b0a6d7a70caf101b72d17e231cae31728c76d0dab7580a0845",
+      "traceSha256": "b5fb84f9fdb731ffc025eb99ad91a1da1a54959884a099a0e9b6336704286fc3",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 1.310717646161739,
+        "afterGoalTravelRad": 0.22634171025077823,
+        "afterOriginalRawGoalTravelRad": 0.00004961766477002221,
+        "maxSwordAngularRadps": 8.284629802504734,
+        "maxFollowM": 0.06,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.14520077934557832,
+        "originalRawAimErrorIntegralRads": 0.3357125230858686,
+        "fixedWorldRawAimErrorIntegralRads": 0.33571509293274854,
+        "maxRawHandErrorM": 0.5821717976046307,
+        "maxOwnHandErrorM": 0.5387127733977002,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.09680051956371906,
+        "afterOriginalRawAimMeanErrorRad": 0.2238083487239128,
+        "afterFixedWorldRawAimMeanErrorRad": 0.22381006195516612
+      },
+      "peakGoal": {
+        "speedRadps": 23.47022355214187,
+        "timeS": 0.5,
+        "phase": "stroke",
+        "stepRad": 0.19558519626784893
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.02,
+          0.52
+        ],
+        "actualHandOffsetM": [
+          0.02,
+          0.5199999999999998
+        ],
+        "handHeld": false,
+        "inputActive": false,
+        "followM": [
+          0,
+          0.00040427681994512397
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.02,
+          0.5004042768199449
+        ],
+        "filteredAimM": [
+          0.02,
+          0.500685202104878
+        ],
+        "bodyPose": {
+          "pelvisYaw": -0.13808578752768394,
+          "chestYaw": -0.33104276438448704,
+          "pitch": 0.0006567970093946038,
+          "drop": -0.006154790263755759
+        },
+        "desiredAxis": [
+          -0.012400671676858318,
+          0.9999078884715444,
+          -0.005517056673657137
+        ],
+        "actualAxis": [
+          0.012952170130006834,
+          0.9990017793059357,
+          -0.042751448616433825
+        ],
+        "originalRawAxis": [
+          0.18350703870185744,
+          0.9829736952225624,
+          -0.009374499846707013
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.18350785760615998,
+          0.9829736952225624,
+          -0.009358455924896517
+        ],
+        "actualHandWorldM": [
+          -2.5253411767405662,
+          1.8015324818703378,
+          0.09914704088088143
+        ],
+        "ownHandGoalWorldM": [
+          -2.5203242655174156,
+          1.820183903829657,
+          0.09183677276823643
+        ],
+        "rawHandGoalWorldM": [
+          -2.3942195898412537,
+          1.8753073167800904,
+          0.1295390160132215
+        ],
+        "ownAimErrorRad": 0.04505919368572556,
+        "originalRawAimErrorRad": 0.17474986652671112,
+        "fixedWorldOriginalRawAimErrorRad": 0.17475375057029638,
+        "ownHandErrorM": 0.02065151227402741,
+        "rawHandErrorM": 0.15349028949545962,
+        "swordAngularRadps": 0.017694355479819433,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "noFollow",
+      "motion": "up",
+      "ending": "release",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": true,
+        "followGain": 0,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "8cd747d04d2abcfbcdbf45db1906d2075c86ad7250de40b9938651afa7405fc3",
+        "control": "bcf2012b412228b0ca85e2364f420481410350fb80190d29060a7ca7a7f1e76f",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "52c5293ad161d6b0a6d7a70caf101b72d17e231cae31728c76d0dab7580a0845",
+      "traceSha256": "20a157e984ed8f9fdb71b5bb14da143d9e645fa6efd4c05cf27a2c7dee9ae167",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 3.8346946737989502,
+        "afterGoalTravelRad": 2.439324052187038,
+        "afterOriginalRawGoalTravelRad": 0.00009662651669927957,
+        "maxSwordAngularRadps": 8.148110112289329,
+        "maxFollowM": 0,
+        "recoveringSteps": 81,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.4674845401920019,
+        "originalRawAimErrorIntegralRads": 1.3516643818146938,
+        "fixedWorldRawAimErrorIntegralRads": 1.3516653471466,
+        "maxRawHandErrorM": 1.0288028721024958,
+        "maxOwnHandErrorM": 0.47158704046263117,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.31165636012800185,
+        "afterOriginalRawAimMeanErrorRad": 0.9011095878764643,
+        "afterFixedWorldRawAimMeanErrorRad": 0.9011102314310684
+      },
+      "peakGoal": {
+        "speedRadps": 23.335892613533495,
+        "timeS": 0.5333333333333333,
+        "phase": "stroke",
+        "stepRad": 0.1944657717794458
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.02,
+          0.52
+        ],
+        "actualHandOffsetM": [
+          0.18,
+          -0.28
+        ],
+        "handHeld": false,
+        "inputActive": false,
+        "followM": [
+          0,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.17607767729723622,
+          -0.2603883864861816
+        ],
+        "filteredAimM": [
+          0.1759612089467201,
+          -0.25980621601784404
+        ],
+        "bodyPose": {
+          "pelvisYaw": -0.12964868653714084,
+          "chestYaw": -0.25843833099419705,
+          "pitch": 0.05696684281737257,
+          "drop": 0.0064107803062425075
+        },
+        "desiredAxis": [
+          0.9850756408786604,
+          0.168622445426089,
+          -0.03453190765107595
+        ],
+        "actualAxis": [
+          0.9835751303778313,
+          0.17972440385312005,
+          -0.01670819189128281
+        ],
+        "originalRawAxis": [
+          0.18350735247477107,
+          0.9829736952225624,
+          -0.009368355682885318
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.18350785760615998,
+          0.9829736952225624,
+          -0.009358455924896517
+        ],
+        "actualHandWorldM": [
+          -2.360275286325719,
+          1.028622070870334,
+          0.24087571854826778
+        ],
+        "ownHandGoalWorldM": [
+          -2.3793347366046205,
+          0.9948883381811423,
+          0.20485506667439704
+        ],
+        "rawHandGoalWorldM": [
+          -2.368132985400796,
+          1.8702459287643434,
+          0.1305806379753638
+        ],
+        "ownAimErrorRad": 0.02105098824863857,
+        "originalRawAimErrorRad": 1.2054057034346186,
+        "fixedWorldOriginalRawAimErrorRad": 1.2054053485810592,
+        "ownHandErrorM": 0.05290288014369681,
+        "rawHandErrorM": 0.8488565640965107,
+        "swordAngularRadps": 2.6211915853459318,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "both",
+      "motion": "up",
+      "ending": "release",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": false,
+        "followGain": 0,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "8cd747d04d2abcfbcdbf45db1906d2075c86ad7250de40b9938651afa7405fc3",
+        "control": "bcf2012b412228b0ca85e2364f420481410350fb80190d29060a7ca7a7f1e76f",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "52c5293ad161d6b0a6d7a70caf101b72d17e231cae31728c76d0dab7580a0845",
+      "traceSha256": "fbc8ef452395678cef32bce1008e84666fbfebcc6a335cba4206021126ac344b",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 1.5163055622179946,
+        "afterGoalTravelRad": 0.4234194834915492,
+        "afterOriginalRawGoalTravelRad": 0.000048015436146027036,
+        "maxSwordAngularRadps": 8.148110112289329,
+        "maxFollowM": 0,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.1569929794934258,
+        "originalRawAimErrorIntegralRads": 0.3391872414139906,
+        "fixedWorldRawAimErrorIntegralRads": 0.3391900086157639,
+        "maxRawHandErrorM": 0.5142629524500842,
+        "maxOwnHandErrorM": 0.47158704046263117,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.10466198632895074,
+        "afterOriginalRawAimMeanErrorRad": 0.2261248276093275,
+        "afterFixedWorldRawAimMeanErrorRad": 0.2261266724105097
+      },
+      "peakGoal": {
+        "speedRadps": 23.335892613533495,
+        "timeS": 0.5333333333333333,
+        "phase": "stroke",
+        "stepRad": 0.1944657717794458
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.02,
+          0.52
+        ],
+        "actualHandOffsetM": [
+          0.02,
+          0.5199999999999998
+        ],
+        "handHeld": false,
+        "inputActive": false,
+        "followM": [
+          0,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.02,
+          0.4999999999999998
+        ],
+        "filteredAimM": [
+          0.02,
+          0.49999998499488446
+        ],
+        "bodyPose": {
+          "pelvisYaw": -0.13805799356794254,
+          "chestYaw": -0.33094930007815204,
+          "pitch": 0.0006717740233657955,
+          "drop": -0.006150353213725963
+        },
+        "desiredAxis": [
+          -0.01142405303245012,
+          0.9999192070482252,
+          -0.005574081840145464
+        ],
+        "actualAxis": [
+          0.013706926472058317,
+          0.9989975501838443,
+          -0.04261472708318208
+        ],
+        "originalRawAxis": [
+          0.18350704355109793,
+          0.9829736952225624,
+          -0.00937440492171958
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.18350785760615998,
+          0.9829736952225624,
+          -0.009358455924896517
+        ],
+        "actualHandWorldM": [
+          -2.524763599990982,
+          1.8013530958268533,
+          0.09917140328570079
+        ],
+        "ownHandGoalWorldM": [
+          -2.5197927577570645,
+          1.8199276693920137,
+          0.09183082697383989
+        ],
+        "rawHandGoalWorldM": [
+          -2.393989577978095,
+          1.875348563194275,
+          0.12952553011367388
+        ],
+        "ownAimErrorRad": 0.04477454422648176,
+        "originalRawAimErrorRad": 0.17398287823455005,
+        "fixedWorldOriginalRawAimErrorRad": 0.17398674000034672,
+        "ownHandErrorM": 0.02058174230312643,
+        "rawHandErrorM": 0.15329235806079455,
+        "swordAngularRadps": 0.020310814152288054,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "off",
+      "motion": "up",
+      "ending": "release",
+      "observed": true,
+      "config": {
+        "level": 0,
+        "autoGuard": true,
+        "followGain": 0.6,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "8cd747d04d2abcfbcdbf45db1906d2075c86ad7250de40b9938651afa7405fc3",
+        "control": "bcf2012b412228b0ca85e2364f420481410350fb80190d29060a7ca7a7f1e76f",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "52c5293ad161d6b0a6d7a70caf101b72d17e231cae31728c76d0dab7580a0845",
+      "traceSha256": "9984b1cbdbc21b8e8d517a46f863ef582d1cfd0c234d7603ab6402c72327b668",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 1.0913563322676847,
+        "afterGoalTravelRad": 0.4365907769764771,
+        "afterOriginalRawGoalTravelRad": 0.000024734691875787684,
+        "maxSwordAngularRadps": 5.927651375256131,
+        "maxFollowM": 0,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.12265342745359595,
+        "originalRawAimErrorIntegralRads": 0.18405526724406934,
+        "fixedWorldRawAimErrorIntegralRads": 0.18405642868515062,
+        "maxRawHandErrorM": 0.4990290881770188,
+        "maxOwnHandErrorM": 0.32609498411277493,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.0817689516357308,
+        "afterOriginalRawAimMeanErrorRad": 0.12270351149604647,
+        "afterFixedWorldRawAimMeanErrorRad": 0.12270428579010065
+      },
+      "peakGoal": {
+        "speedRadps": 5.835664002392168,
+        "timeS": 0.4083333333333333,
+        "phase": "stroke",
+        "stepRad": 0.048630533353268064
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.02,
+          0.52
+        ],
+        "actualHandOffsetM": [
+          0.02,
+          0.5199999999999998
+        ],
+        "handHeld": false,
+        "inputActive": false,
+        "followM": [
+          0,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.02,
+          0.4999999999999998
+        ],
+        "filteredAimM": [
+          0.02,
+          0.49999998499488446
+        ],
+        "bodyPose": {
+          "pelvisYaw": 5.783227485339091e-14,
+          "chestYaw": 1.775803419185742e-11,
+          "pitch": 1.8360334872664887e-11,
+          "drop": 5.6795628268870695e-15
+        },
+        "desiredAxis": [
+          0.24785296632328777,
+          0.9687150878293896,
+          -0.01264854523038306
+        ],
+        "actualAxis": [
+          0.2911279394071307,
+          0.9540791908206261,
+          -0.07055090159510691
+        ],
+        "originalRawAxis": [
+          0.18350753193386604,
+          0.9829736952225624,
+          -0.00936483977663568
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.18350785760615998,
+          0.9829736952225624,
+          -0.009358455924896517
+        ],
+        "actualHandWorldM": [
+          -2.4231662135700165,
+          1.785469674398798,
+          0.14685144972423342
+        ],
+        "ownHandGoalWorldM": [
+          -2.3638190972724114,
+          1.8587324230823479,
+          0.12441818813828222
+        ],
+        "rawHandGoalWorldM": [
+          -2.387303184639745,
+          1.8787436437606813,
+          0.12439863557386062
+        ],
+        "ownAimErrorRad": 0.07377041439137254,
+        "originalRawAimErrorRad": 0.12721077273078216,
+        "fixedWorldOriginalRawAimErrorRad": 0.12721357541100903,
+        "ownHandErrorM": 0.09691626170511422,
+        "rawHandErrorM": 0.10242225865428974,
+        "swordAngularRadps": 0.022577590450909613,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "weak",
+      "motion": "horizontal",
+      "ending": "hold",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": true,
+        "followGain": 0.6,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "63002571741e5517ca40b090cc1a0a6c41df27cbe0d3921d0532cfe2ceae0e24",
+        "control": "f9772960b00e6382de02c85bd7e10642cdec78fb12f36c676c17d56cb2be34a7",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "19e6714af201e357ae58c62fc14f8c589611fd4f60a0a2489cafea9b1c39a757",
+      "traceSha256": "79c18298a278f8c991e8d195aa58e23d58d74590fbe6fa77fcad60f4081c3e5c",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 2.7446490112534234,
+        "afterGoalTravelRad": 0.21803899012388508,
+        "afterOriginalRawGoalTravelRad": 0.0009825172359647079,
+        "maxSwordAngularRadps": 19.777583588795547,
+        "maxFollowM": 0.06,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.3080015269443557,
+        "originalRawAimErrorIntegralRads": 1.3108880006145358,
+        "fixedWorldRawAimErrorIntegralRads": 1.3107996315939685,
+        "maxRawHandErrorM": 0.6364058358241941,
+        "maxOwnHandErrorM": 0.5244932442585404,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.2053343512962375,
+        "afterOriginalRawAimMeanErrorRad": 0.8739253337430255,
+        "afterFixedWorldRawAimMeanErrorRad": 0.8738664210626473
+      },
+      "peakGoal": {
+        "speedRadps": 29.52349743502284,
+        "timeS": 0.2,
+        "phase": "stroke",
+        "stepRad": 0.246029145291857
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.42,
+          0.03
+        ],
+        "actualHandOffsetM": [
+          0.41999999999999976,
+          0.03
+        ],
+        "handHeld": true,
+        "inputActive": false,
+        "followM": [
+          0.00040427681994512397,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.4004042768199449,
+          0.03
+        ],
+        "filteredAimM": [
+          0.40068520400191315,
+          0.03
+        ],
+        "bodyPose": {
+          "pelvisYaw": -0.16690175773448254,
+          "chestYaw": -0.4944353754417354,
+          "pitch": 0.0235137806681776,
+          "drop": 0.0004793635696514241
+        },
+        "desiredAxis": [
+          0.11739366067799305,
+          0.02165514506792319,
+          0.9928493254893753
+        ],
+        "actualAxis": [
+          0.10598781156765824,
+          0.037557320277493034,
+          0.9936579208262728
+        ],
+        "originalRawAxis": [
+          0.8058386987306375,
+          -0.07692393372001735,
+          0.587117279637681
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.8058033342983824,
+          -0.07692393372001735,
+          0.5871658154683799
+        ],
+        "actualHandWorldM": [
+          -2.5857415404900816,
+          1.4100421186010845,
+          0.393660436179462
+        ],
+        "ownHandGoalWorldM": [
+          -2.523825197216757,
+          1.3735676472981178,
+          0.3111682893887654
+        ],
+        "rawHandGoalWorldM": [
+          -2.317849495455608,
+          1.38084912776947,
+          0.4749000571472579
+        ],
+        "ownAimErrorRad": 0.019585875811342315,
+        "originalRawAimErrorRad": 0.8420783468588747,
+        "fixedWorldOriginalRawAimErrorRad": 0.8420187231530692,
+        "ownHandErrorM": 0.10940281030809465,
+        "rawHandErrorM": 0.281457376029548,
+        "swordAngularRadps": 0.8120124178684869,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "noAuto",
+      "motion": "horizontal",
+      "ending": "hold",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": false,
+        "followGain": 0.6,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "63002571741e5517ca40b090cc1a0a6c41df27cbe0d3921d0532cfe2ceae0e24",
+        "control": "f9772960b00e6382de02c85bd7e10642cdec78fb12f36c676c17d56cb2be34a7",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "19e6714af201e357ae58c62fc14f8c589611fd4f60a0a2489cafea9b1c39a757",
+      "traceSha256": "db41588dc3f910df46040ced911a2960be2bbedebc81ab03d7c276ba4120301f",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 2.7446490112534234,
+        "afterGoalTravelRad": 0.21803899012388508,
+        "afterOriginalRawGoalTravelRad": 0.0009825172359647079,
+        "maxSwordAngularRadps": 19.777583588795547,
+        "maxFollowM": 0.06,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.3080015269443557,
+        "originalRawAimErrorIntegralRads": 1.3108880006145358,
+        "fixedWorldRawAimErrorIntegralRads": 1.3107996315939685,
+        "maxRawHandErrorM": 0.6364058358241941,
+        "maxOwnHandErrorM": 0.5244932442585404,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.2053343512962375,
+        "afterOriginalRawAimMeanErrorRad": 0.8739253337430255,
+        "afterFixedWorldRawAimMeanErrorRad": 0.8738664210626473
+      },
+      "peakGoal": {
+        "speedRadps": 29.52349743502284,
+        "timeS": 0.2,
+        "phase": "stroke",
+        "stepRad": 0.246029145291857
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.42,
+          0.03
+        ],
+        "actualHandOffsetM": [
+          0.41999999999999976,
+          0.03
+        ],
+        "handHeld": true,
+        "inputActive": false,
+        "followM": [
+          0.00040427681994512397,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.4004042768199449,
+          0.03
+        ],
+        "filteredAimM": [
+          0.40068520400191315,
+          0.03
+        ],
+        "bodyPose": {
+          "pelvisYaw": -0.16690175773448254,
+          "chestYaw": -0.4944353754417354,
+          "pitch": 0.0235137806681776,
+          "drop": 0.0004793635696514241
+        },
+        "desiredAxis": [
+          0.11739366067799305,
+          0.02165514506792319,
+          0.9928493254893753
+        ],
+        "actualAxis": [
+          0.10598781156765824,
+          0.037557320277493034,
+          0.9936579208262728
+        ],
+        "originalRawAxis": [
+          0.8058386987306375,
+          -0.07692393372001735,
+          0.587117279637681
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.8058033342983824,
+          -0.07692393372001735,
+          0.5871658154683799
+        ],
+        "actualHandWorldM": [
+          -2.5857415404900816,
+          1.4100421186010845,
+          0.393660436179462
+        ],
+        "ownHandGoalWorldM": [
+          -2.523825197216757,
+          1.3735676472981178,
+          0.3111682893887654
+        ],
+        "rawHandGoalWorldM": [
+          -2.317849495455608,
+          1.38084912776947,
+          0.4749000571472579
+        ],
+        "ownAimErrorRad": 0.019585875811342315,
+        "originalRawAimErrorRad": 0.8420783468588747,
+        "fixedWorldOriginalRawAimErrorRad": 0.8420187231530692,
+        "ownHandErrorM": 0.10940281030809465,
+        "rawHandErrorM": 0.281457376029548,
+        "swordAngularRadps": 0.8120124178684869,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "noFollow",
+      "motion": "horizontal",
+      "ending": "hold",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": true,
+        "followGain": 0,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "63002571741e5517ca40b090cc1a0a6c41df27cbe0d3921d0532cfe2ceae0e24",
+        "control": "f9772960b00e6382de02c85bd7e10642cdec78fb12f36c676c17d56cb2be34a7",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "19e6714af201e357ae58c62fc14f8c589611fd4f60a0a2489cafea9b1c39a757",
+      "traceSha256": "9fad3151905b1493dd00582410e97c51eafcab3a0f305bd577abb48117dfb504",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 2.608922545889494,
+        "afterGoalTravelRad": 0.875798000773811,
+        "afterOriginalRawGoalTravelRad": 0.0009673408616776898,
+        "maxSwordAngularRadps": 23.84284269271381,
+        "maxFollowM": 0,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.2736626269711769,
+        "originalRawAimErrorIntegralRads": 1.2378430595674497,
+        "fixedWorldRawAimErrorIntegralRads": 1.2377348032283335,
+        "maxRawHandErrorM": 0.6353803773984875,
+        "maxOwnHandErrorM": 0.5137137970509512,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.18244175131411827,
+        "afterOriginalRawAimMeanErrorRad": 0.8252287063783014,
+        "afterFixedWorldRawAimMeanErrorRad": 0.8251565354855572
+      },
+      "peakGoal": {
+        "speedRadps": 28.112977430718935,
+        "timeS": 0.20833333333333334,
+        "phase": "stroke",
+        "stepRad": 0.23427481192265778
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.42,
+          0.03
+        ],
+        "actualHandOffsetM": [
+          0.41999999999999976,
+          0.03
+        ],
+        "handHeld": true,
+        "inputActive": false,
+        "followM": [
+          0,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.39999999999999974,
+          0.03
+        ],
+        "filteredAimM": [
+          0.39999998698751194,
+          0.03
+        ],
+        "bodyPose": {
+          "pelvisYaw": -0.16686051397831786,
+          "chestYaw": -0.4941974518705376,
+          "pitch": 0.023530531595962186,
+          "drop": 0.0004846910678126835
+        },
+        "desiredAxis": [
+          0.11824574862592377,
+          0.021568209269004854,
+          0.9927500970943409
+        ],
+        "actualAxis": [
+          0.11897855419714531,
+          0.030311293329928546,
+          0.992434007101501
+        ],
+        "originalRawAxis": [
+          0.8058283755377607,
+          -0.07692393372001735,
+          0.587131448313929
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.8058033342983824,
+          -0.07692393372001735,
+          0.5871658154683799
+        ],
+        "actualHandWorldM": [
+          -2.562007000346953,
+          1.4148366232526333,
+          0.37779525820108906
+        ],
+        "ownHandGoalWorldM": [
+          -2.5139836229946275,
+          1.3734080639420427,
+          0.3077364493762346
+        ],
+        "rawHandGoalWorldM": [
+          -2.3078276591878875,
+          1.3805475282669066,
+          0.4714327131575381
+        ],
+        "ownAimErrorRad": 0.00878348553087233,
+        "originalRawAimErrorRad": 0.8281580500823263,
+        "fixedWorldOriginalRawAimErrorRad": 0.8281157955499847,
+        "ownHandErrorM": 0.0945029470060721,
+        "rawHandErrorM": 0.27304001991964083,
+        "swordAngularRadps": 0.4615298289962868,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "both",
+      "motion": "horizontal",
+      "ending": "hold",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": false,
+        "followGain": 0,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "63002571741e5517ca40b090cc1a0a6c41df27cbe0d3921d0532cfe2ceae0e24",
+        "control": "f9772960b00e6382de02c85bd7e10642cdec78fb12f36c676c17d56cb2be34a7",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "19e6714af201e357ae58c62fc14f8c589611fd4f60a0a2489cafea9b1c39a757",
+      "traceSha256": "d8225a7808a63f40e3032ac0e62ad0c9338dfbd24c3c84f74a317efe65e47236",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 2.608922545889494,
+        "afterGoalTravelRad": 0.875798000773811,
+        "afterOriginalRawGoalTravelRad": 0.0009673408616776898,
+        "maxSwordAngularRadps": 23.84284269271381,
+        "maxFollowM": 0,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.2736626269711769,
+        "originalRawAimErrorIntegralRads": 1.2378430595674497,
+        "fixedWorldRawAimErrorIntegralRads": 1.2377348032283335,
+        "maxRawHandErrorM": 0.6353803773984875,
+        "maxOwnHandErrorM": 0.5137137970509512,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.18244175131411827,
+        "afterOriginalRawAimMeanErrorRad": 0.8252287063783014,
+        "afterFixedWorldRawAimMeanErrorRad": 0.8251565354855572
+      },
+      "peakGoal": {
+        "speedRadps": 28.112977430718935,
+        "timeS": 0.20833333333333334,
+        "phase": "stroke",
+        "stepRad": 0.23427481192265778
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.42,
+          0.03
+        ],
+        "actualHandOffsetM": [
+          0.41999999999999976,
+          0.03
+        ],
+        "handHeld": true,
+        "inputActive": false,
+        "followM": [
+          0,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.39999999999999974,
+          0.03
+        ],
+        "filteredAimM": [
+          0.39999998698751194,
+          0.03
+        ],
+        "bodyPose": {
+          "pelvisYaw": -0.16686051397831786,
+          "chestYaw": -0.4941974518705376,
+          "pitch": 0.023530531595962186,
+          "drop": 0.0004846910678126835
+        },
+        "desiredAxis": [
+          0.11824574862592377,
+          0.021568209269004854,
+          0.9927500970943409
+        ],
+        "actualAxis": [
+          0.11897855419714531,
+          0.030311293329928546,
+          0.992434007101501
+        ],
+        "originalRawAxis": [
+          0.8058283755377607,
+          -0.07692393372001735,
+          0.587131448313929
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.8058033342983824,
+          -0.07692393372001735,
+          0.5871658154683799
+        ],
+        "actualHandWorldM": [
+          -2.562007000346953,
+          1.4148366232526333,
+          0.37779525820108906
+        ],
+        "ownHandGoalWorldM": [
+          -2.5139836229946275,
+          1.3734080639420427,
+          0.3077364493762346
+        ],
+        "rawHandGoalWorldM": [
+          -2.3078276591878875,
+          1.3805475282669066,
+          0.4714327131575381
+        ],
+        "ownAimErrorRad": 0.00878348553087233,
+        "originalRawAimErrorRad": 0.8281580500823263,
+        "fixedWorldOriginalRawAimErrorRad": 0.8281157955499847,
+        "ownHandErrorM": 0.0945029470060721,
+        "rawHandErrorM": 0.27304001991964083,
+        "swordAngularRadps": 0.4615298289962868,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "off",
+      "motion": "horizontal",
+      "ending": "hold",
+      "observed": true,
+      "config": {
+        "level": 0,
+        "autoGuard": true,
+        "followGain": 0.6,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "63002571741e5517ca40b090cc1a0a6c41df27cbe0d3921d0532cfe2ceae0e24",
+        "control": "f9772960b00e6382de02c85bd7e10642cdec78fb12f36c676c17d56cb2be34a7",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "19e6714af201e357ae58c62fc14f8c589611fd4f60a0a2489cafea9b1c39a757",
+      "traceSha256": "25f2e35a7f77a2569804f24c60232fd175a0e3f541715a67e86209e1ec1e272a",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 1.0301183799875608,
+        "afterGoalTravelRad": 0.19435969849916068,
+        "afterOriginalRawGoalTravelRad": 0.0004751375576472194,
+        "maxSwordAngularRadps": 32.80136841336271,
+        "maxFollowM": 0,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.1730945197646396,
+        "originalRawAimErrorIntegralRads": 0.13665021140649392,
+        "fixedWorldRawAimErrorIntegralRads": 0.1366505805739581,
+        "maxRawHandErrorM": 0.5476425153952644,
+        "maxOwnHandErrorM": 0.4591594086188646,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.11539634650975995,
+        "afterOriginalRawAimMeanErrorRad": 0.09110014093766279,
+        "afterFixedWorldRawAimMeanErrorRad": 0.09110038704930558
+      },
+      "peakGoal": {
+        "speedRadps": 3.1738038170383827,
+        "timeS": 0.24166666666666667,
+        "phase": "stroke",
+        "stepRad": 0.02644836514198652
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.42,
+          0.03
+        ],
+        "actualHandOffsetM": [
+          0.41999999999999976,
+          0.03
+        ],
+        "handHeld": true,
+        "inputActive": false,
+        "followM": [
+          0,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.39999999999999974,
+          0.03
+        ],
+        "filteredAimM": [
+          0.39999998698751194,
+          0.03
+        ],
+        "bodyPose": {
+          "pelvisYaw": 5.502889976877376e-13,
+          "chestYaw": 3.2523457012808733e-10,
+          "pitch": 1.4860681068303163e-11,
+          "drop": 5.72485264517517e-16
+        },
+        "desiredAxis": [
+          0.8253092378784137,
+          -0.07692393372001737,
+          0.5594169914237416
+        ],
+        "actualAxis": [
+          0.8049651838146477,
+          -0.05774948541335734,
+          0.5905049032374343
+        ],
+        "originalRawAxis": [
+          0.8058157287364901,
+          -0.07692393372001735,
+          0.5871488054504731
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.8058033342983824,
+          -0.07692393372001735,
+          0.5871658154683799
+        ],
+        "actualHandWorldM": [
+          -2.319260491102793,
+          1.3881433705791453,
+          0.40427207635058904
+        ],
+        "ownHandGoalWorldM": [
+          -2.2959794172475245,
+          1.3856499242782592,
+          0.4490068314043283
+        ],
+        "rawHandGoalWorldM": [
+          -2.3102170922555625,
+          1.3856489706039428,
+          0.4689523396595542
+        ],
+        "ownAimErrorRad": 0.041812222909845646,
+        "originalRawAimErrorRad": 0.019485054074798794,
+        "fixedWorldOriginalRawAimErrorRad": 0.019481594085476155,
+        "ownHandErrorM": 0.050491820961695535,
+        "rawHandErrorM": 0.0653570314171585,
+        "swordAngularRadps": 0.010988844473810197,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "weak",
+      "motion": "horizontal",
+      "ending": "release",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": true,
+        "followGain": 0.6,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "63002571741e5517ca40b090cc1a0a6c41df27cbe0d3921d0532cfe2ceae0e24",
+        "control": "f9772960b00e6382de02c85bd7e10642cdec78fb12f36c676c17d56cb2be34a7",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "8e322d497deb60a1bb58ae58aba3f02649e4ad5cb23099bb4a2cf9fbf463f1ef",
+      "traceSha256": "8d0a9948002c0e1f4b4f12458abbf42591c3caa0be49ef03e57c164ee66d2afa",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 4.932986441047011,
+        "afterGoalTravelRad": 1.7670996973054767,
+        "afterOriginalRawGoalTravelRad": 0.0010286072570515744,
+        "maxSwordAngularRadps": 19.96718233587378,
+        "maxFollowM": 0.06,
+        "recoveringSteps": 39,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.6582097804047535,
+        "originalRawAimErrorIntegralRads": 1.2509393666743724,
+        "fixedWorldRawAimErrorIntegralRads": 1.2509976123570004,
+        "maxRawHandErrorM": 0.7145519731107276,
+        "maxOwnHandErrorM": 0.5244932442585404,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.4388065202698365,
+        "afterOriginalRawAimMeanErrorRad": 0.8339595777829165,
+        "afterFixedWorldRawAimMeanErrorRad": 0.8339984082380019
+      },
+      "peakGoal": {
+        "speedRadps": 29.52349743502284,
+        "timeS": 0.2,
+        "phase": "stroke",
+        "stepRad": 0.246029145291857
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.42,
+          0.03
+        ],
+        "actualHandOffsetM": [
+          0.18,
+          -0.28
+        ],
+        "handHeld": false,
+        "inputActive": false,
+        "followM": [
+          0.00040427681994512397,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.19264773581188493,
+          -0.26418552207903506
+        ],
+        "filteredAimM": [
+          0.19293739741233185,
+          -0.2641740582612559
+        ],
+        "bodyPose": {
+          "pelvisYaw": -0.13083657835090554,
+          "chestYaw": -0.26564853120799764,
+          "pitch": 0.05647106271303771,
+          "drop": 0.006419709617256921
+        },
+        "desiredAxis": [
+          0.9868499901840263,
+          0.1605739140919306,
+          -0.018523363274105132
+        ],
+        "actualAxis": [
+          0.9880788494166532,
+          0.14070099542069414,
+          0.062476778110843956
+        ],
+        "originalRawAxis": [
+          0.8057985581562572,
+          -0.07692393372001735,
+          0.5871723700024849
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.8058033342983824,
+          -0.07692393372001735,
+          0.5871658154683799
+        ],
+        "actualHandWorldM": [
+          -2.3886667082011033,
+          1.03870142926115,
+          0.20407913933393948
+        ],
+        "ownHandGoalWorldM": [
+          -2.4100536505218315,
+          0.992981166093844,
+          0.13695022386740038
+        ],
+        "rawHandGoalWorldM": [
+          -2.298913863647187,
+          1.380282049179077,
+          0.4565911748054603
+        ],
+        "ownAimErrorRad": 0.08343604139531065,
+        "originalRawAimErrorRad": 0.6057876167379391,
+        "fixedWorldOriginalRawAimErrorRad": 0.6057800479833741,
+        "ownHandErrorM": 0.0839883031000843,
+        "rawHandErrorM": 0.4341603633071602,
+        "swordAngularRadps": 4.563700553550582,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "noAuto",
+      "motion": "horizontal",
+      "ending": "release",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": false,
+        "followGain": 0.6,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "63002571741e5517ca40b090cc1a0a6c41df27cbe0d3921d0532cfe2ceae0e24",
+        "control": "f9772960b00e6382de02c85bd7e10642cdec78fb12f36c676c17d56cb2be34a7",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "8e322d497deb60a1bb58ae58aba3f02649e4ad5cb23099bb4a2cf9fbf463f1ef",
+      "traceSha256": "29fdccc406caa66b51058523ab059d49c2985ad55301b06e9ff040255a6ab7cf",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 2.7446490112534234,
+        "afterGoalTravelRad": 0.21803899012388508,
+        "afterOriginalRawGoalTravelRad": 0.0009825172359647079,
+        "maxSwordAngularRadps": 19.777583588795547,
+        "maxFollowM": 0.06,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.3080015269443557,
+        "originalRawAimErrorIntegralRads": 1.3108880006145358,
+        "fixedWorldRawAimErrorIntegralRads": 1.3107996315939685,
+        "maxRawHandErrorM": 0.6364058358241941,
+        "maxOwnHandErrorM": 0.5244932442585404,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.2053343512962375,
+        "afterOriginalRawAimMeanErrorRad": 0.8739253337430255,
+        "afterFixedWorldRawAimMeanErrorRad": 0.8738664210626473
+      },
+      "peakGoal": {
+        "speedRadps": 29.52349743502284,
+        "timeS": 0.2,
+        "phase": "stroke",
+        "stepRad": 0.246029145291857
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.42,
+          0.03
+        ],
+        "actualHandOffsetM": [
+          0.41999999999999976,
+          0.03
+        ],
+        "handHeld": false,
+        "inputActive": false,
+        "followM": [
+          0.00040427681994512397,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.4004042768199449,
+          0.03
+        ],
+        "filteredAimM": [
+          0.40068520400191315,
+          0.03
+        ],
+        "bodyPose": {
+          "pelvisYaw": -0.16690175773448254,
+          "chestYaw": -0.4944353754417354,
+          "pitch": 0.0235137806681776,
+          "drop": 0.0004793635696514241
+        },
+        "desiredAxis": [
+          0.11739366067799305,
+          0.02165514506792319,
+          0.9928493254893753
+        ],
+        "actualAxis": [
+          0.10598781156765824,
+          0.037557320277493034,
+          0.9936579208262728
+        ],
+        "originalRawAxis": [
+          0.8058386987306375,
+          -0.07692393372001735,
+          0.587117279637681
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.8058033342983824,
+          -0.07692393372001735,
+          0.5871658154683799
+        ],
+        "actualHandWorldM": [
+          -2.5857415404900816,
+          1.4100421186010845,
+          0.393660436179462
+        ],
+        "ownHandGoalWorldM": [
+          -2.523825197216757,
+          1.3735676472981178,
+          0.3111682893887654
+        ],
+        "rawHandGoalWorldM": [
+          -2.317849495455608,
+          1.38084912776947,
+          0.4749000571472579
+        ],
+        "ownAimErrorRad": 0.019585875811342315,
+        "originalRawAimErrorRad": 0.8420783468588747,
+        "fixedWorldOriginalRawAimErrorRad": 0.8420187231530692,
+        "ownHandErrorM": 0.10940281030809465,
+        "rawHandErrorM": 0.281457376029548,
+        "swordAngularRadps": 0.8120124178684869,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "noFollow",
+      "motion": "horizontal",
+      "ending": "release",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": true,
+        "followGain": 0,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "63002571741e5517ca40b090cc1a0a6c41df27cbe0d3921d0532cfe2ceae0e24",
+        "control": "f9772960b00e6382de02c85bd7e10642cdec78fb12f36c676c17d56cb2be34a7",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "8e322d497deb60a1bb58ae58aba3f02649e4ad5cb23099bb4a2cf9fbf463f1ef",
+      "traceSha256": "581abb7fe05a9b40cd51d46dc48e57ea023c275e6a38de61c56106040f2779fd",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 4.506859980467622,
+        "afterGoalTravelRad": 2.404746222663538,
+        "afterOriginalRawGoalTravelRad": 0.0009808237662900978,
+        "maxSwordAngularRadps": 23.556328079146912,
+        "maxFollowM": 0,
+        "recoveringSteps": 39,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.6025443296647235,
+        "originalRawAimErrorIntegralRads": 1.1350531768272734,
+        "fixedWorldRawAimErrorIntegralRads": 1.1351039338780495,
+        "maxRawHandErrorM": 0.6674820655271723,
+        "maxOwnHandErrorM": 0.5137137970509512,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.4016962197764831,
+        "afterOriginalRawAimMeanErrorRad": 0.7567021178848503,
+        "afterFixedWorldRawAimMeanErrorRad": 0.7567359559187011
+      },
+      "peakGoal": {
+        "speedRadps": 28.112977430718935,
+        "timeS": 0.20833333333333334,
+        "phase": "stroke",
+        "stepRad": 0.23427481192265778
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.42,
+          0.03
+        ],
+        "actualHandOffsetM": [
+          0.18,
+          -0.28
+        ],
+        "handHeld": false,
+        "inputActive": false,
+        "followM": [
+          0,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.19224345899193981,
+          -0.26418552207903506
+        ],
+        "filteredAimM": [
+          0.19225218039793057,
+          -0.2641740582612559
+        ],
+        "bodyPose": {
+          "pelvisYaw": -0.1308158284383518,
+          "chestYaw": -0.2655460200020576,
+          "pitch": 0.05648286487547444,
+          "drop": 0.0064192008017154205
+        },
+        "desiredAxis": [
+          0.9867982492129909,
+          0.16081429074392334,
+          -0.019182785061227503
+        ],
+        "actualAxis": [
+          0.9883111104170931,
+          0.1462622344073118,
+          0.04299565595388399
+        ],
+        "originalRawAxis": [
+          0.8058161881453844,
+          -0.07692393372001735,
+          0.587148174947245
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.8058033342983824,
+          -0.07692393372001735,
+          0.5871658154683799
+        ],
+        "actualHandWorldM": [
+          -2.3990964693235095,
+          1.0157700054076173,
+          0.18791911808213488
+        ],
+        "ownHandGoalWorldM": [
+          -2.4104351988782904,
+          0.9924990112764134,
+          0.14136030954511164
+        ],
+        "rawHandGoalWorldM": [
+          -2.299404879398852,
+          1.3797799396514892,
+          0.4609932710479129
+        ],
+        "ownAimErrorRad": 0.06388645410561207,
+        "originalRawAimErrorRad": 0.6259774204204086,
+        "fixedWorldOriginalRawAimErrorRad": 0.6259978081601483,
+        "ownHandErrorM": 0.05327127376136389,
+        "rawHandErrorM": 0.46584454311273316,
+        "swordAngularRadps": 0.3545382029298758,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "both",
+      "motion": "horizontal",
+      "ending": "release",
+      "observed": true,
+      "config": {
+        "level": 0.4,
+        "autoGuard": false,
+        "followGain": 0,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "63002571741e5517ca40b090cc1a0a6c41df27cbe0d3921d0532cfe2ceae0e24",
+        "control": "f9772960b00e6382de02c85bd7e10642cdec78fb12f36c676c17d56cb2be34a7",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "8e322d497deb60a1bb58ae58aba3f02649e4ad5cb23099bb4a2cf9fbf463f1ef",
+      "traceSha256": "e865bf8d62dfd6c9c1db8e68d6b7cec57df2dbf572a5ad70cc4b6424f13bd8d9",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 2.608922545889494,
+        "afterGoalTravelRad": 0.875798000773811,
+        "afterOriginalRawGoalTravelRad": 0.0009673408616776898,
+        "maxSwordAngularRadps": 23.84284269271381,
+        "maxFollowM": 0,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.2736626269711769,
+        "originalRawAimErrorIntegralRads": 1.2378430595674497,
+        "fixedWorldRawAimErrorIntegralRads": 1.2377348032283335,
+        "maxRawHandErrorM": 0.6353803773984875,
+        "maxOwnHandErrorM": 0.5137137970509512,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.18244175131411827,
+        "afterOriginalRawAimMeanErrorRad": 0.8252287063783014,
+        "afterFixedWorldRawAimMeanErrorRad": 0.8251565354855572
+      },
+      "peakGoal": {
+        "speedRadps": 28.112977430718935,
+        "timeS": 0.20833333333333334,
+        "phase": "stroke",
+        "stepRad": 0.23427481192265778
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.42,
+          0.03
+        ],
+        "actualHandOffsetM": [
+          0.41999999999999976,
+          0.03
+        ],
+        "handHeld": false,
+        "inputActive": false,
+        "followM": [
+          0,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.39999999999999974,
+          0.03
+        ],
+        "filteredAimM": [
+          0.39999998698751194,
+          0.03
+        ],
+        "bodyPose": {
+          "pelvisYaw": -0.16686051397831786,
+          "chestYaw": -0.4941974518705376,
+          "pitch": 0.023530531595962186,
+          "drop": 0.0004846910678126835
+        },
+        "desiredAxis": [
+          0.11824574862592377,
+          0.021568209269004854,
+          0.9927500970943409
+        ],
+        "actualAxis": [
+          0.11897855419714531,
+          0.030311293329928546,
+          0.992434007101501
+        ],
+        "originalRawAxis": [
+          0.8058283755377607,
+          -0.07692393372001735,
+          0.587131448313929
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.8058033342983824,
+          -0.07692393372001735,
+          0.5871658154683799
+        ],
+        "actualHandWorldM": [
+          -2.562007000346953,
+          1.4148366232526333,
+          0.37779525820108906
+        ],
+        "ownHandGoalWorldM": [
+          -2.5139836229946275,
+          1.3734080639420427,
+          0.3077364493762346
+        ],
+        "rawHandGoalWorldM": [
+          -2.3078276591878875,
+          1.3805475282669066,
+          0.4714327131575381
+        ],
+        "ownAimErrorRad": 0.00878348553087233,
+        "originalRawAimErrorRad": 0.8281580500823263,
+        "fixedWorldOriginalRawAimErrorRad": 0.8281157955499847,
+        "ownHandErrorM": 0.0945029470060721,
+        "rawHandErrorM": 0.27304001991964083,
+        "swordAngularRadps": 0.4615298289962868,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    },
+    {
+      "variant": "off",
+      "motion": "horizontal",
+      "ending": "release",
+      "observed": true,
+      "config": {
+        "level": 0,
+        "autoGuard": true,
+        "followGain": 0.6,
+        "arm": "sharedCap",
+        "grip": "paired",
+        "cut": "budgeted"
+      },
+      "start": {
+        "native": "63002571741e5517ca40b090cc1a0a6c41df27cbe0d3921d0532cfe2ceae0e24",
+        "control": "f9772960b00e6382de02c85bd7e10642cdec78fb12f36c676c17d56cb2be34a7",
+        "followM": [
+          0,
+          0
+        ]
+      },
+      "inputSha256": "8e322d497deb60a1bb58ae58aba3f02649e4ad5cb23099bb4a2cf9fbf463f1ef",
+      "traceSha256": "dbf81f1bd102ed3983cab50d326d866ed8a0500df5ff96bddcdcc4729e2faab2",
+      "stats": {
+        "finite": true,
+        "afterAxisTravelRad": 1.0301183799875608,
+        "afterGoalTravelRad": 0.19435969849916068,
+        "afterOriginalRawGoalTravelRad": 0.0004751375576472194,
+        "maxSwordAngularRadps": 32.80136841336271,
+        "maxFollowM": 0,
+        "recoveringSteps": 0,
+        "maxCutContacts": 0,
+        "ownAimErrorIntegralRads": 0.1730945197646396,
+        "originalRawAimErrorIntegralRads": 0.13665021140649392,
+        "fixedWorldRawAimErrorIntegralRads": 0.1366505805739581,
+        "maxRawHandErrorM": 0.5476425153952644,
+        "maxOwnHandErrorM": 0.4591594086188646,
+        "afterDurationS": 1.4999999999999971,
+        "afterOwnAimMeanErrorRad": 0.11539634650975995,
+        "afterOriginalRawAimMeanErrorRad": 0.09110014093766279,
+        "afterFixedWorldRawAimMeanErrorRad": 0.09110038704930558
+      },
+      "peakGoal": {
+        "speedRadps": 3.1738038170383827,
+        "timeS": 0.24166666666666667,
+        "phase": "stroke",
+        "stepRad": 0.02644836514198652
+      },
+      "final": {
+        "timeS": 2.05,
+        "phase": "after",
+        "requestedHandOffsetM": [
+          0.42,
+          0.03
+        ],
+        "actualHandOffsetM": [
+          0.41999999999999976,
+          0.03
+        ],
+        "handHeld": false,
+        "inputActive": false,
+        "followM": [
+          0,
+          0
+        ],
+        "recovering": false,
+        "rawAimM": [
+          0.39999999999999974,
+          0.03
+        ],
+        "filteredAimM": [
+          0.39999998698751194,
+          0.03
+        ],
+        "bodyPose": {
+          "pelvisYaw": 5.502889976877376e-13,
+          "chestYaw": 3.2523457012808733e-10,
+          "pitch": 1.4860681068303163e-11,
+          "drop": 5.72485264517517e-16
+        },
+        "desiredAxis": [
+          0.8253092378784137,
+          -0.07692393372001737,
+          0.5594169914237416
+        ],
+        "actualAxis": [
+          0.8049651838146477,
+          -0.05774948541335734,
+          0.5905049032374343
+        ],
+        "originalRawAxis": [
+          0.8058157287364901,
+          -0.07692393372001735,
+          0.5871488054504731
+        ],
+        "fixedWorldOriginalRawAxis": [
+          0.8058033342983824,
+          -0.07692393372001735,
+          0.5871658154683799
+        ],
+        "actualHandWorldM": [
+          -2.319260491102793,
+          1.3881433705791453,
+          0.40427207635058904
+        ],
+        "ownHandGoalWorldM": [
+          -2.2959794172475245,
+          1.3856499242782592,
+          0.4490068314043283
+        ],
+        "rawHandGoalWorldM": [
+          -2.3102170922555625,
+          1.3856489706039428,
+          0.4689523396595542
+        ],
+        "ownAimErrorRad": 0.041812222909845646,
+        "originalRawAimErrorRad": 0.019485054074798794,
+        "fixedWorldOriginalRawAimErrorRad": 0.019481594085476155,
+        "ownHandErrorM": 0.050491820961695535,
+        "rawHandErrorM": 0.0653570314171585,
+        "swordAngularRadps": 0.010988844473810197,
+        "state": "stand"
+      },
+      "sampleCount": 246
+    }
+  ],
+  "raw": {
+    "path": "/workspace/halfsword-hybrid-evidence/skill-interference-round2.json",
+    "sha256": "d1b78bd3b6ee6ae0a276d35953f893dac9862b617e3fdb6ad09995565a991951"
+  },
+  "measuredHoldReleaseParity": [
+    {
+      "motion": "down",
+      "variant": "noAuto",
+      "measuredFramesExcludingHandHeldExact": true,
+      "fullControlHashEqual": false
+    },
+    {
+      "motion": "down",
+      "variant": "both",
+      "measuredFramesExcludingHandHeldExact": true,
+      "fullControlHashEqual": false
+    },
+    {
+      "motion": "down",
+      "variant": "off",
+      "measuredFramesExcludingHandHeldExact": true,
+      "fullControlHashEqual": false
+    },
+    {
+      "motion": "up",
+      "variant": "noAuto",
+      "measuredFramesExcludingHandHeldExact": true,
+      "fullControlHashEqual": false
+    },
+    {
+      "motion": "up",
+      "variant": "both",
+      "measuredFramesExcludingHandHeldExact": true,
+      "fullControlHashEqual": false
+    },
+    {
+      "motion": "up",
+      "variant": "off",
+      "measuredFramesExcludingHandHeldExact": true,
+      "fullControlHashEqual": false
+    },
+    {
+      "motion": "horizontal",
+      "variant": "noAuto",
+      "measuredFramesExcludingHandHeldExact": true,
+      "fullControlHashEqual": false
+    },
+    {
+      "motion": "horizontal",
+      "variant": "both",
+      "measuredFramesExcludingHandHeldExact": true,
+      "fullControlHashEqual": false
+    },
+    {
+      "motion": "horizontal",
+      "variant": "off",
+      "measuredFramesExcludingHandHeldExact": true,
+      "fullControlHashEqual": false
+    }
+  ],
+  "precisionNote": "Full trace hashes differ across hold/release because control encodes handHeld. Frame equality reported here excludes only handHeld and compares all measured output/target/hand/sword-angle fields; native velocity/snapshot equality across endings was not separately recorded."
+}

@@ -42,6 +42,10 @@ await RAPIER.init();
 // 테스트용 URL 파라미터: ?weapon=monohoshizao&foeWeapon=chicken (무기 id는 weapons.js의 WEAPONS 키,
 //  Fighter 생성자가 알아서 getWeapon()으로 찾는다. 없으면 기본 롱소드)
 const params = new URLSearchParams(location.search);
+// A/B input trials use the same session-only menu values; saved preferences survive.
+const inputComparison = params.get('inputComparison') === 'vertical';
+const comparisonSettings = inputComparison ? { skill: '0', difficulty: 'normal' } : {};
+const settingValue = (key) => comparisonSettings[key] ?? settings[key];
 CONFIG.COMBAT.limbSeverTrial = params.get('limbTrial') === '1';
 const limbDemo = CONFIG.COMBAT.limbSeverTrial ? params.get('limbDemo') : null;
 let limbDemoAt = Infinity;
@@ -426,14 +430,14 @@ function newRound(weaponId) {
   //  캐릭터가 없으면(기본 상대) 예전처럼 메뉴의 난이도 설정 + 무작위 성격을 쓴다
   //  캐릭터가 평소와 다른 무기를 들었으면(브란의 주워 온 칼) 유파 꾸러미도 그 무기 것으로 (없으면 롱소드 기본)
   const persona = currentFoe && foeWeapon !== currentFoe.weapon ? { ...currentFoe.ai.persona, school: foeWeapon } : currentFoe?.ai.persona;
-  ai = currentFoe ? new AI(enemy, player, currentFoe.ai.level, persona) : new AI(enemy, player, settings.difficulty);
+  ai = currentFoe ? new AI(enemy, player, currentFoe.ai.level, persona) : new AI(enemy, player, settingValue('difficulty'));
   // 플레이어 감정 (emotions.js): 상대 AI와 같은 규칙으로 겁먹고 화내고 물고 늘어진다. ?emo=0 이면 끔, ?emo=0.5 면 문턱값 셋 다 0.5
   const emoParam = params.get('emo');
   const emoTh = emoParam === '0' ? 0 : emoParam ? +emoParam || 0.3 : 0.3;
   playerEmo = new Emotions({ fearful: emoTh, angry: emoTh, dogged: emoTh });
   playerEv = { hurt: false, parried: false, landed: false };
   player.emoMods = playerEmo.mods;
-  player.skill.level = +settings.skill;
+  player.skill.level = +settingValue('skill');
   player.skill.autoGuard = true; // 베고 나면 기본 자세로 돌아간다 (AI는 스스로 자세를 고른다)
   player.canShove = true; // 근접 밀치기: 플레이어는 스틱으로 (CLOSE.on 이 통째로 끄고 켠다)
   combat = new Combat(colliderInfo, { onWound, onClash });
@@ -637,6 +641,14 @@ mountPhysicalTrial(physicalTrial);
 mountCutTrial(cutTrial);
 mountArmTrial(armTrial);
 mountStanceTrial(stanceTrial);
+if (inputComparison || input.mobileIntent.source === 'url') {
+  const info = document.createElement('p');
+  info.id = 'mobileIntentInfo';
+  info.className = 'sub';
+  info.textContent = `수직 터치 ${input.mobileIntent.verticalGain.toFixed(2)}배` +
+    (inputComparison ? ` · 비교 조건: 검술 보정 끔 / ${params.get('foe') === 'default' ? '상대 보통' : '지정 상대는 고유 난이도'} · 저장 설정은 유지됩니다.` : ' · 이번 접속에만 적용됩니다.');
+  $('menuSub').after(info);
+}
 const hud = $('hud');
 const topButtons = $('topButtons');
 const toast = $('toast');
@@ -655,7 +667,10 @@ function refreshSettingsUI() {
   document.querySelectorAll('[data-setting]').forEach((el) => {
     const key = el.dataset.setting;
     if (el.classList.contains('seg')) {
-      el.querySelectorAll('button').forEach((b) => b.classList.toggle('on', b.dataset.v === settings[key]));
+      el.querySelectorAll('button').forEach((b) => {
+        b.classList.toggle('on', b.dataset.v === settingValue(key));
+        b.disabled = Object.hasOwn(comparisonSettings, key);
+      });
     } else {
       el.classList.toggle('on', !!settings[key]);
     }
@@ -673,6 +688,7 @@ document.querySelectorAll('[data-setting]').forEach((el) => {
   if (el.classList.contains('seg')) {
     el.querySelectorAll('button').forEach((b) =>
       b.addEventListener('click', () => {
+        if (Object.hasOwn(comparisonSettings, key)) return;
         settings[key] = b.dataset.v;
         if (key === 'difficulty' && ai && !currentFoe) ai.setLevel(settings.difficulty); // 캐릭터를 골랐으면 그 캐릭터의 난이도를 따로 지킨다
         if (key === 'skill' && player) player.skill.level = +settings.skill;
@@ -1521,6 +1537,7 @@ window.game = {
   physicalTrial,
   armTrial,
   stanceTrial,
+  inputComparison,
   THREE,
   camera,
   freeCam: false,

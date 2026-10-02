@@ -6,10 +6,12 @@
 // ─────────────────────────────────────────────────────────────
 import { INPUT } from './config.js';
 import { flushHaptic } from './effects.js';
+import { configureMobileIntent, mapMobileHandDelta } from './mobile_intent.js';
 
 export class Input {
   constructor(canvas) {
     this.canvas = canvas;
+    this.mobileIntent = configureMobileIntent(new URLSearchParams(window.location.search), 1);
     this.handDX = 0; // 누적된 손 이동량(m). +x = 화면 오른쪽
     this.handDY = 0; // +y = 위
     this.keys = new Set();
@@ -80,9 +82,11 @@ export class Input {
     }
     if (e.pointerId !== this.activeTouch) return;
     if (this.press?.id === e.pointerId) this.press.moved = Math.max(this.press.moved, Math.hypot(e.clientX - this.press.x, e.clientY - this.press.y));
-    const scale = INPUT.touchSensitivity / Math.max(320, window.innerHeight);
-    this.handDX += (e.clientX - this.lastX) * scale;
-    this.handDY -= (e.clientY - this.lastY) * scale;
+    const delta = mapMobileHandDelta({ dx: e.clientX - this.lastX, dy: e.clientY - this.lastY,
+      height: window.innerHeight, sensitivity: INPUT.touchSensitivity,
+      pointerType: e.pointerType, verticalGain: this.mobileIntent.verticalGain });
+    this.handDX += delta.x;
+    this.handDY += delta.y;
     this.lastX = e.clientX;
     this.lastY = e.clientY;
     this.trail?.addTouch(e.clientX, e.clientY, performance.now() / 1000);

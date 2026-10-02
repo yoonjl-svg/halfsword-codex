@@ -30,6 +30,11 @@
 | A-022 | 2026-10-02 | 지지·보행 인계 원인 분리 | air 접촉 초기실험은 후보 미실행으로 무효·재검증, gain/질량 삭제는 부분변화만; 보류 | 같은 보고의 대조표·해시, `tools/sim/experiments/recovery_control_probe.mjs` | 기존 same-lying/force-ledger 의존, 새 인체 한도 아님 | 미확인 |
 
 결정 이유·실패 조건·실제 배포는 [첫 기록](notes/2026-10-01.md), [다음 기록](notes/2026-10-02.md) 및 그 근거 링크를 읽는다. 이 대장은 일별 보고서를 대신하지 않는다.
+| A-033 | 2026-10-02 | 절삭 후보 자세 붕괴·시험 설정 혼입 | 사용자 수락 실패, 재시험 권유 중단·14실행 혼합후퇴 확인 | `7b72c4e` 기준 [진단](../strike/cut_posture_round2.md) | 수동성/자세 품질 구별, feature-lab/cut_trial 충돌 예상 | 미확인 |
+| A-034 | 2026-10-02 | 검술 자동 보정 존속 의무 제거·원인 분리 | 30조건+관찰3, follow/자동복귀 단순제거 혼합결과; 전역 변경 없음 | `7b72c4e` 기준 [진단](../strike/skill_interference_round2.md) | 원래 입력 의도/수정된 목표 오차 구분, 연구도구 이식 가능 | 미확인 |
+| A-035 | 2026-10-02 | COM 중력 일·실제 접촉점·피해 근사 분리 | 설명/검증 계획, 피해 배율 추가 없음 | [수식과 코드](../strike/realism_feedback_round2.md) | 고정 팔 도움/에너지 배율을 실제 인체 일로 오인하지 않음 | 미확인 |
+| A-036 | 2026-10-02 | 보정 off 팔꿈치 목표 도달 포화 | 36조건/72실행 진단, 여섯 베기 목표각 고정; 협응 후보 연구 | `7b72c4e` 기준 [관절 진단](../strike/elbow_coordination_round1.md) | solver 교체 없이 손 경로 문제 분리, 속도 투영은 일 아님 | 미확인 |
+| A-037 | 2026-10-02 | 모바일 수직 입력1.35배 선택형 | 로컬 구현, 일반1; 입력/저장 선호 검증과 사용자 조정 별도 | [구현·검증](../strike/mobile_vertical_input_round1.md) | input/main/helper/feature-lab 충돌 예상, 힘/피해 증폭 아님 | 미확인 |
 | A-023 | 2026-10-02 | 실제 실행을 검증한 발 하중 인계 대조 | 계측 dispatch 결함 수정·11검사 통과, 후보30행·모든 새 보행 후보 기각/보류 | [후보·실패·명령·해시](../strike/support_recovery_load_round2.md) | source gait 모듈 복제+같은 누움+force-ledger 의존; 원본 파일 수정 없음 | 미확인 |
 
 | A-024 | 2026-10-02 | 동일 폭주 직전 분리·전체 모터 토크 상한 | native0 제약 기여/위치오차 cap 결함 확인; bounded 전신·질량 조합 채택 보류 | [소스·관문·명령·수치](../strike/support_motor_limits_round3.md) | 같은 Rapier/누움 checkpoint/계측기 의존; bounded helper의 자유 두 강체 근사를 전신 해결로 이식하지 않음 | 미확인 |

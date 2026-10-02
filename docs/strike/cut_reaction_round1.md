@@ -55,6 +55,6 @@ node tools/sim/experiments/cut_reaction_integration_probe.mjs --seconds=30 --see
 - build 성공, `assets/main-87Mueu1p.js` SHA256 `d533a3ccdedb31eef02bbab8cc90b4fb2936e2acfd9182d711342d334d489633`. 기존 큰 bundle 경고는 남는다.
 - 로컬 모바일 390×844/844×390 × A/B 4조건 모두 통과했다. 실제 링크·싸움 시작·끌기/놓기/재입력·새 Combat 재시작·일반 및 오타 URL 복귀, 화면 넘침·sim 전진을 확인했다. JS/HTTP/요청 오류 0. 세로 플레이는 기존 가로 회전 안내를 따랐다. 입력 검사에서만 AI를 멈췄으며 절삭 물리·자연스러움·휴대폰 성능 합격으로 바꾸지 않는다.
 
-재현 도구는 `tools/browser/cut_trial.mjs`다. Playwright는 기존 브라우저 도구처럼 저장소 설치 의존성이 아니며 `PLAYWRIGHT_MODULE`로 설치 경로, `PW_CHROMIUM`으로 실행 파일, `HALFSWORD_EVIDENCE_DIR/TAG`로 원자료 위치를 정할 수 있다. HTTPS는 세션 proxy와 TLS 검증을 유지한다. 공개 배포의 실제 주소/바이트/동작 확인은 전달 기록으로 따로 남긴다.
+재현 도구는 `tools/browser/cut_trial.mjs`다. **후속 사용자 자세 붕괴 보고로 B 추천 버튼을 제거했으므로 이 도구의 링크 검증은 당시 소스 전용이다. 현재 UI 검사로 쓰지 않는다.** Playwright는 기존 브라우저 도구처럼 저장소 설치 의존성이 아니며 `PLAYWRIGHT_MODULE`로 설치 경로, `PW_CHROMIUM`으로 실행 파일, `HALFSWORD_EVIDENCE_DIR/TAG`로 원자료 위치를 정할 수 있다. HTTPS는 세션 proxy와 TLS 검증을 유지한다. 공개 배포의 실제 주소/바이트/동작 확인은 전달 기록으로 따로 남긴다.
 
 **공개 검증 완료:** 소스 `3ad893a` → main `7362025`, 전송 `36961428526`·Pages `36961476733` 성공. [A/B 모바일 비교](https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#cut-comparison)의 index·비교 HTML·실제 asset SHA가 로컬 build와 같다. 공개 주소에서도 동일 모바일4조건·새 Combat 재시작·일반/오타 legacy 복귀가 모두 통과했고 JS/HTTP/요청 오류 0이었다. [전달·공개 검증 기록](cut_reaction_trial_release.json)을 본다. 검증 환경의 읽기 전용 인증서 저장소 문제로 첫 두 시도는 페이지 로드 전에 실패했으며, 승인된 브라우저 실행 환경에서 정상 CA 신뢰 접근으로 재검증했다. TLS 검증을 우회하지 않았고 이 과정의 게임 소스 변경은 없다.

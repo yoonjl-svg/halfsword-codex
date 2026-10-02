@@ -20,7 +20,7 @@ export function mountCutTrial(info) {
   }
   const label = document.createElement('span');
   label.textContent = info.model === 'budgeted'
-    ? '절삭 비교 B · 새 저항과 반작용 시험 '
+    ? '절삭 B · 자세 이상으로 재검증 중인 이전 시험 '
     : '절삭 비교 A · 현재 방식 ';
   const link = document.createElement('a');
   link.href = './feature-lab.html#cut-comparison';
