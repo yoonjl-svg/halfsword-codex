@@ -1,0 +1,3039 @@
+{
+  "schemaVersion": 1,
+  "scope": "Q03 first screen only; native engine/default adoption, impact/duel/mobile, human naturalness and whole-body budget unverified.",
+  "pass": true,
+  "executedRows": 53,
+  "uniqueConditionModeRows": 50,
+  "cheapDuplicateRows": 3,
+  "seeds": [
+    7
+  ],
+  "sourceCommit": "48c9c2bf054e52d0ae290ede682a8b9a95a522cb",
+  "executedSourceHashes": {
+    "src/fighter.js": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+    "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+    "src/gait.js": "91eba47caf6dddd7fd75a5de141a087614398031c45ef75b2ac814f8c4db9b83",
+    "src/config.js": "e84d7b921b6d8678b358a5971b296c22edded192d680a56e45a0b29ab2aa5319",
+    "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+    "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+    "tools/sim/whole_body_strike_probe.mjs": "f32dae889eb75860ffa185433dfca877e571b36a4184976557b4e88f7a3b51f4",
+    "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+    "tools/sim/experiments/native_motor_api_probe.mjs": "9eba24d3bd10f76a8d53569cf8064b006015133134de02375948a0b4d75c849c",
+    "tools/sim/experiments/native_elbow_candidate.mjs": "9933beab1e1c4cc9851bcb6cca949b0c9d74a121476da407796b9b0f7239a5e6",
+    "tools/sim/experiments/elbow_actuator_candidate.mjs": "726bafb980abdbd59494cd8b291002eb2bb7edab1fe60a80d77bf3409c5e13d0",
+    "tools/sim/experiments/native_elbow_followthrough_probe.mjs": "ed912c72fb0b2d9f4b8bbcd322672b2955bd526c994b918b8b6803aa50a39d59",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e"
+  },
+  "engine": {
+    "module": "file:///workspace/halfsword-engine-research/rapier.js/rapier-compat/builds/3d/pkg/rapier.mjs",
+    "sha256": "a3be9d8361b386b0b664ee7ba771f14ae60e93eda9a4ab825f1de1260dbb5623",
+    "sha256After": "a3be9d8361b386b0b664ee7ba771f14ae60e93eda9a4ab825f1de1260dbb5623",
+    "calibrationPath": "/workspace/halfsword-hybrid-evidence/native-motor-api-r1.json",
+    "calibrationSHA256": "90a7ef5a2e34c18ea601d61a04fff36e4b6a766e8a360a10a85196d5fa8a4089",
+    "calibrationSourceSHA256": "9eba24d3bd10f76a8d53569cf8064b006015133134de02375948a0b4d75c849c"
+  },
+  "protocol": {
+    "seed": 7,
+    "prepareS": 3,
+    "durationS": 0.55,
+    "afterS": 1.2,
+    "reaction": "paired",
+    "cases": [
+      {
+        "weapon": "sabre",
+        "direction": "down",
+        "ending": "target_hold",
+        "condition": "healthy"
+      },
+      {
+        "weapon": "sabre",
+        "direction": "down",
+        "ending": "release",
+        "condition": "healthy"
+      },
+      {
+        "weapon": "sabre",
+        "direction": "up",
+        "ending": "target_hold",
+        "condition": "healthy"
+      },
+      {
+        "weapon": "sabre",
+        "direction": "up",
+        "ending": "release",
+        "condition": "healthy"
+      },
+      {
+        "weapon": "zweihander",
+        "direction": "down",
+        "ending": "target_hold",
+        "condition": "healthy"
+      },
+      {
+        "weapon": "zweihander",
+        "direction": "down",
+        "ending": "release",
+        "condition": "healthy"
+      },
+      {
+        "weapon": "zweihander",
+        "direction": "up",
+        "ending": "target_hold",
+        "condition": "healthy"
+      },
+      {
+        "weapon": "zweihander",
+        "direction": "up",
+        "ending": "release",
+        "condition": "healthy"
+      }
+    ],
+    "modeList": [
+      "baseline",
+      "observe",
+      "nativeCap",
+      "explicitCap",
+      "combined"
+    ],
+    "preparation": "Unmodified actual game high/low preparation under legacy grip, per existing runStroke contract. Candidate selection follows matched checkpoint.",
+    "release": "handHeld false with normal autocenter/recovery retained; not free coast.",
+    "candidateKnobs": [
+      "Existing one-axis native farmS cap including its existing gravity FF",
+      "Existing runtime sharedCap for explicit shoulder/wrist"
+    ],
+    "input": "Same external requested drag/hold/release schedule within each case; actual controller feedback can diverge under candidate dynamics.",
+    "wound": "Optional separate screen invokes real applyWound with one documented bounded synthetic payload. It is not a sword-contact wound and not a direct limb-health-field injection.",
+    "motorReadout": "Last native solver substep only; no outer-step motor impulse or native work inferred.",
+    "contactReadout": "Actual post-solver fixed-floor contact point relative tangential speeds; impulse and solver-point arrays are not paired or used as weights.",
+    "K": "Actual rigid-body translational plus rotational kinetic energy. It is not wound energy, physiological work, or a native actuator energy budget."
+  },
+  "provenance": [
+    {
+      "screen": "cheap",
+      "path": "/workspace/halfsword-hybrid-evidence/native-elbow-followthrough-r1-cheap.json",
+      "sha256": "2fc16d1a4432e51a42a75949ab43c6f1384bd0a4e7554492d1806cfa6c37b489",
+      "pass": true,
+      "executionPass": true,
+      "sourceStable": true,
+      "error": null,
+      "failedRun": null,
+      "rows": 3,
+      "wallSeconds": 2.3683710639999997,
+      "actualExecutedCommand": "node tools/sim/experiments/native_elbow_followthrough_probe.mjs --screen=cheap > /workspace/halfsword-hybrid-evidence/native-elbow-followthrough-r1-cheap.log 2>&1",
+      "expandedEquivalentCommand": "node tools/sim/experiments/native_elbow_followthrough_probe.mjs --module=/workspace/halfsword-engine-research/rapier.js/rapier-compat/builds/3d/pkg/rapier.mjs --calibration=/workspace/halfsword-hybrid-evidence/native-motor-api-r1.json --screen=cheap --out=/workspace/halfsword-hybrid-evidence/native-elbow-followthrough-r1-cheap.json",
+      "transformedImportModuleHashes": {
+        "harnessSha256": "c292e3d89a33692cc53b946e4146e8ae18406bf2b01e713f24762745875b274a",
+        "strokeSha256": "ea16b9ca565e6ba81dba9835c66c276586567c36dcc4390756ab196230b513d3"
+      },
+      "numericalReview": []
+    },
+    {
+      "screen": "healthy",
+      "path": "/workspace/halfsword-hybrid-evidence/native-elbow-followthrough-r1-healthy.json",
+      "sha256": "23dbffddd8eedf86daf0aaf2ebfa790686b06e99d2d330e8626f92e419e63086",
+      "pass": true,
+      "executionPass": true,
+      "sourceStable": true,
+      "error": null,
+      "failedRun": null,
+      "rows": 40,
+      "wallSeconds": 22.670033048999997,
+      "actualExecutedCommand": "node tools/sim/experiments/native_elbow_followthrough_probe.mjs --screen=healthy > /workspace/halfsword-hybrid-evidence/native-elbow-followthrough-r1-healthy.log 2>&1",
+      "expandedEquivalentCommand": "node tools/sim/experiments/native_elbow_followthrough_probe.mjs --module=/workspace/halfsword-engine-research/rapier.js/rapier-compat/builds/3d/pkg/rapier.mjs --calibration=/workspace/halfsword-hybrid-evidence/native-motor-api-r1.json --screen=healthy --out=/workspace/halfsword-hybrid-evidence/native-elbow-followthrough-r1-healthy.json",
+      "transformedImportModuleHashes": {
+        "harnessSha256": "c292e3d89a33692cc53b946e4146e8ae18406bf2b01e713f24762745875b274a",
+        "strokeSha256": "30ab3c843d8357c956fede7d589fa600506787552c20d690aa6bb7aedb9f899f"
+      },
+      "numericalReview": []
+    },
+    {
+      "screen": "wound",
+      "path": "/workspace/halfsword-hybrid-evidence/native-elbow-followthrough-r1-wound.json",
+      "sha256": "213f913e9fe2067f29d3faf624566de33e018094f686f011590254b020db669d",
+      "pass": true,
+      "executionPass": true,
+      "sourceStable": true,
+      "error": null,
+      "failedRun": null,
+      "rows": 10,
+      "wallSeconds": 6.424771719000001,
+      "actualExecutedCommand": "node tools/sim/experiments/native_elbow_followthrough_probe.mjs --screen=wound > /workspace/halfsword-hybrid-evidence/native-elbow-followthrough-r1-wound.log 2>&1",
+      "expandedEquivalentCommand": "node tools/sim/experiments/native_elbow_followthrough_probe.mjs --module=/workspace/halfsword-engine-research/rapier.js/rapier-compat/builds/3d/pkg/rapier.mjs --calibration=/workspace/halfsword-hybrid-evidence/native-motor-api-r1.json --screen=wound --out=/workspace/halfsword-hybrid-evidence/native-elbow-followthrough-r1-wound.json",
+      "transformedImportModuleHashes": {
+        "harnessSha256": "c292e3d89a33692cc53b946e4146e8ae18406bf2b01e713f24762745875b274a",
+        "strokeSha256": "bbe7562d92d73b16537d11b47c326ef0f45b06bf3c61a90110a714e5639df374"
+      },
+      "numericalReview": []
+    }
+  ],
+  "cases": [
+    {
+      "weapon": "sabre",
+      "direction": "down",
+      "ending": "target_hold",
+      "condition": "healthy",
+      "guards": {
+        "samePreparedNative": true,
+        "samePreparedController": true,
+        "sameConfiguredNative": true,
+        "sameConfiguredController": true,
+        "sameRequestedInput": true,
+        "observerFullPhysicalControlTraceExact": true,
+        "observerAllNativeBodyTraceExact": true,
+        "observerActualControllerTraceExact": true
+      },
+      "modes": {
+        "baseline": {
+          "executionPass": true,
+          "strokePeakTipMps": 15.563116595806282,
+          "wholePeakTipMps": 15.563116595806282,
+          "maxHandTargetErrorM": 0.30047507705782667,
+          "maxOffHandGapM": 0.7635838086147332,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 1.8595824341457619,
+            "bladeAxisTravelRad": 0.7117706704419987,
+            "strokeEndSwordKJ": 8.871334162151214,
+            "meanSwordKJ": 0.2775814792032211,
+            "peakSwordKJ": 7.159325405853155,
+            "finalSwordKJ": 0.0008512004393905641,
+            "finalWholeKJ": 0.0053024192008323074,
+            "finalTipMps": 0.05794336513958144,
+            "finalHandErrorM": 0.0072139618130839045
+          },
+          "floorSlipMaxMps": 0.12200805716029607,
+          "floorSlipMeanMps": 0.0020589803615745205,
+          "maxJointGapM": 0.0008511786891845654,
+          "maxPelvisHeightM": 0.8973573446273804,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 11.284813030324303,
+              "explicitActuatorWorkApproxJ": -31.97567881066623
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -0.5013041515774888,
+              "explicitActuatorWorkApproxJ": -9.137118016388573
+            }
+          },
+          "native": null,
+          "physicalControlTraceSHA256": "5b3b2e25c52d80c557944a5de0cf08320d8061e8aecb45dbbe66d6b939eb7935",
+          "allNativeBodyTraceSHA256": "b454ba381e9cb41ce41ec1c7b2f6c3a4d7830194c2bce3e901f28ad63a57310f",
+          "actualControllerSHA256": "c1e5fb03808fa2f502b7b79fecaddf1dd79e72003cd3e891d821b90a6768e1bc",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "observe": {
+          "executionPass": true,
+          "strokePeakTipMps": 15.563116595806282,
+          "wholePeakTipMps": 15.563116595806282,
+          "maxHandTargetErrorM": 0.30047507705782667,
+          "maxOffHandGapM": 0.7635838086147332,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 1.8595824341457619,
+            "bladeAxisTravelRad": 0.7117706704419987,
+            "strokeEndSwordKJ": 8.871334162151214,
+            "meanSwordKJ": 0.2775814792032211,
+            "peakSwordKJ": 7.159325405853155,
+            "finalSwordKJ": 0.0008512004393905641,
+            "finalWholeKJ": 0.0053024192008323074,
+            "finalTipMps": 0.05794336513958144,
+            "finalHandErrorM": 0.0072139618130839045
+          },
+          "floorSlipMaxMps": 0.12200805716029607,
+          "floorSlipMeanMps": 0.0020589803615745205,
+          "maxJointGapM": 0.0008511786891845654,
+          "maxPelvisHeightM": 0.8973573446273804,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 11.284813030324303,
+              "explicitActuatorWorkApproxJ": -31.97567881066623
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -0.5013041515774888,
+              "explicitActuatorWorkApproxJ": -9.137118016388573
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 0,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 0.5299220234155655,
+            "limitedAtLastSubstep": 0,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "5b3b2e25c52d80c557944a5de0cf08320d8061e8aecb45dbbe66d6b939eb7935",
+          "allNativeBodyTraceSHA256": "b454ba381e9cb41ce41ec1c7b2f6c3a4d7830194c2bce3e901f28ad63a57310f",
+          "actualControllerSHA256": "c1e5fb03808fa2f502b7b79fecaddf1dd79e72003cd3e891d821b90a6768e1bc",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "nativeCap": {
+          "executionPass": true,
+          "strokePeakTipMps": 15.563807262574205,
+          "wholePeakTipMps": 15.563807262574205,
+          "maxHandTargetErrorM": 0.30043917188342284,
+          "maxOffHandGapM": 0.7636255194576177,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 1.8588926721065089,
+            "bladeAxisTravelRad": 0.7064421317786757,
+            "strokeEndSwordKJ": 8.870400816420899,
+            "meanSwordKJ": 0.2774492023046418,
+            "peakSwordKJ": 7.15771684260654,
+            "finalSwordKJ": 0.0008486160591133974,
+            "finalWholeKJ": 0.005299102310745992,
+            "finalTipMps": 0.05779180042479691,
+            "finalHandErrorM": 0.007142261086960026
+          },
+          "floorSlipMaxMps": 0.1215640430042217,
+          "floorSlipMeanMps": 0.0020578149568302707,
+          "maxJointGapM": 0.0009371729584252034,
+          "maxPelvisHeightM": 0.8973573446273804,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 0
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 11.284522141673241,
+              "explicitActuatorWorkApproxJ": -31.281110704725734
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -0.5011786451867782,
+              "explicitActuatorWorkApproxJ": -9.47862907732685
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 210,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 0.5488066524267197,
+            "limitedAtLastSubstep": 0,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "9ace46ee840e983279ad74e576cbbbaaa30e4fe752ce0fb8b8c647b38c213fdf",
+          "allNativeBodyTraceSHA256": "e6d86282f44c8f5e3e1a9440668f1faa515870e6874b740ed7af01bb651c421d",
+          "actualControllerSHA256": "c1e5fb03808fa2f502b7b79fecaddf1dd79e72003cd3e891d821b90a6768e1bc",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "explicitCap": {
+          "executionPass": true,
+          "strokePeakTipMps": 16.16409509674588,
+          "wholePeakTipMps": 16.16409509674588,
+          "maxHandTargetErrorM": 0.3112035488012537,
+          "maxOffHandGapM": 0.772338623194811,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 1.8961671313042925,
+            "bladeAxisTravelRad": 0.9531410091077788,
+            "strokeEndSwordKJ": 8.578459595012433,
+            "meanSwordKJ": 0.48341665971182834,
+            "peakSwordKJ": 7.417599621891718,
+            "finalSwordKJ": 0.0015255275610991867,
+            "finalWholeKJ": 0.006311048999513838,
+            "finalTipMps": 0.07447043944824168,
+            "finalHandErrorM": 0.0073193111345725105
+          },
+          "floorSlipMaxMps": 0.04074109574018287,
+          "floorSlipMeanMps": 0.001717798446931609,
+          "maxJointGapM": 0.0008636920405791243,
+          "maxPelvisHeightM": 0.897344172000885,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 11.736365442292685,
+              "explicitActuatorWorkApproxJ": -38.575192390289864
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -0.9502291619088021,
+              "explicitActuatorWorkApproxJ": -7.240838446686073
+            }
+          },
+          "native": null,
+          "physicalControlTraceSHA256": "6b62b02b8dbceafc722961e9cb00b0acbe5550b5a6ae6002a9f651979c54e03e",
+          "allNativeBodyTraceSHA256": "e9b949ef91fcdadb76d82f8a7f6ab3e3ec9ed33f53d9a199a358fd61b05daeb4",
+          "actualControllerSHA256": "c1e5fb03808fa2f502b7b79fecaddf1dd79e72003cd3e891d821b90a6768e1bc",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "combined": {
+          "executionPass": true,
+          "strokePeakTipMps": 16.164456656639366,
+          "wholePeakTipMps": 16.164456656639366,
+          "maxHandTargetErrorM": 0.3111858493208988,
+          "maxOffHandGapM": 0.7723955689592262,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 1.8956354287080341,
+            "bladeAxisTravelRad": 0.9496298812837491,
+            "strokeEndSwordKJ": 8.578699136230046,
+            "meanSwordKJ": 0.48305758947262145,
+            "peakSwordKJ": 7.417351928713442,
+            "finalSwordKJ": 0.0015199327256145492,
+            "finalWholeKJ": 0.006308271291154292,
+            "finalTipMps": 0.07435627410996422,
+            "finalHandErrorM": 0.007249903815511887
+          },
+          "floorSlipMaxMps": 0.04073584213718727,
+          "floorSlipMeanMps": 0.001717733356421238,
+          "maxJointGapM": 0.0008968187007722774,
+          "maxPelvisHeightM": 0.8973440527915955,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 0
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 11.735990271377572,
+              "explicitActuatorWorkApproxJ": -38.195969013277136
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -0.950065728808928,
+              "explicitActuatorWorkApproxJ": -7.693716620290352
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 210,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 0.5461855307221413,
+            "limitedAtLastSubstep": 0,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "b4d5f8e16fa784690dbad52c77bf32ed00b69353ba71c76a91069f9ab4de9b09",
+          "allNativeBodyTraceSHA256": "d2dffcf66b47fa7da678eb473bcceec0d956c115e12b4ae68e78e1d2556385e3",
+          "actualControllerSHA256": "c1e5fb03808fa2f502b7b79fecaddf1dd79e72003cd3e891d821b90a6768e1bc",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        }
+      }
+    },
+    {
+      "weapon": "sabre",
+      "direction": "down",
+      "ending": "release",
+      "condition": "healthy",
+      "guards": {
+        "samePreparedNative": true,
+        "samePreparedController": true,
+        "sameConfiguredNative": true,
+        "sameConfiguredController": true,
+        "sameRequestedInput": true,
+        "observerFullPhysicalControlTraceExact": true,
+        "observerAllNativeBodyTraceExact": true,
+        "observerActualControllerTraceExact": true
+      },
+      "modes": {
+        "baseline": {
+          "executionPass": true,
+          "strokePeakTipMps": 15.563116595806282,
+          "wholePeakTipMps": 15.563116595806282,
+          "maxHandTargetErrorM": 0.30047507705782667,
+          "maxOffHandGapM": 0.7635838086147332,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 3.6656538712948685,
+            "bladeAxisTravelRad": 1.7620508220521272,
+            "strokeEndSwordKJ": 8.871334162151214,
+            "meanSwordKJ": 0.7762706281133835,
+            "peakSwordKJ": 7.159325405853155,
+            "finalSwordKJ": 0.050368207392615064,
+            "finalWholeKJ": 1.2676021452156931,
+            "finalTipMps": 0.7539260608629362,
+            "finalHandErrorM": 0.021465296335084733
+          },
+          "floorSlipMaxMps": 0.12200805716029607,
+          "floorSlipMeanMps": 0.0022551075893505763,
+          "maxJointGapM": 0.0008511786891845654,
+          "maxPelvisHeightM": 0.8973573446273804,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 11.284813030324303,
+              "explicitActuatorWorkApproxJ": -31.97567881066623
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -3.561420168004482,
+              "explicitActuatorWorkApproxJ": -5.403778605148131
+            }
+          },
+          "native": null,
+          "physicalControlTraceSHA256": "50763410e24e0bc10e3fceb344de21604e4dd3a8d3611c93a5f9210d3ff3444c",
+          "allNativeBodyTraceSHA256": "7921648411a99b71f51b07cfa75f01e6318a694b02bf401310cfd021c2acab06",
+          "actualControllerSHA256": "65c83baca2c28d9aa021d446d6d2861e24529381dbf329a40277ef1dd7d69019",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "observe": {
+          "executionPass": true,
+          "strokePeakTipMps": 15.563116595806282,
+          "wholePeakTipMps": 15.563116595806282,
+          "maxHandTargetErrorM": 0.30047507705782667,
+          "maxOffHandGapM": 0.7635838086147332,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 3.6656538712948685,
+            "bladeAxisTravelRad": 1.7620508220521272,
+            "strokeEndSwordKJ": 8.871334162151214,
+            "meanSwordKJ": 0.7762706281133835,
+            "peakSwordKJ": 7.159325405853155,
+            "finalSwordKJ": 0.050368207392615064,
+            "finalWholeKJ": 1.2676021452156931,
+            "finalTipMps": 0.7539260608629362,
+            "finalHandErrorM": 0.021465296335084733
+          },
+          "floorSlipMaxMps": 0.12200805716029607,
+          "floorSlipMeanMps": 0.0022551075893505763,
+          "maxJointGapM": 0.0008511786891845654,
+          "maxPelvisHeightM": 0.8973573446273804,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 11.284813030324303,
+              "explicitActuatorWorkApproxJ": -31.97567881066623
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -3.561420168004482,
+              "explicitActuatorWorkApproxJ": -5.403778605148131
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 0,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 0.5299220234155655,
+            "limitedAtLastSubstep": 0,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "50763410e24e0bc10e3fceb344de21604e4dd3a8d3611c93a5f9210d3ff3444c",
+          "allNativeBodyTraceSHA256": "7921648411a99b71f51b07cfa75f01e6318a694b02bf401310cfd021c2acab06",
+          "actualControllerSHA256": "65c83baca2c28d9aa021d446d6d2861e24529381dbf329a40277ef1dd7d69019",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "nativeCap": {
+          "executionPass": true,
+          "strokePeakTipMps": 15.563807262574205,
+          "wholePeakTipMps": 15.563807262574205,
+          "maxHandTargetErrorM": 0.30043917188342284,
+          "maxOffHandGapM": 0.7636255194576177,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 3.664878228875574,
+            "bladeAxisTravelRad": 1.7621056695231465,
+            "strokeEndSwordKJ": 8.870400816420899,
+            "meanSwordKJ": 0.7767417789020787,
+            "peakSwordKJ": 7.15771684260654,
+            "finalSwordKJ": 0.05189721484172067,
+            "finalWholeKJ": 1.2737997999912452,
+            "finalTipMps": 0.7649626902765653,
+            "finalHandErrorM": 0.020719846762443844
+          },
+          "floorSlipMaxMps": 0.1215640430042217,
+          "floorSlipMeanMps": 0.002249972315078988,
+          "maxJointGapM": 0.0009371729584252034,
+          "maxPelvisHeightM": 0.8973573446273804,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 0
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 11.284522141673241,
+              "explicitActuatorWorkApproxJ": -31.281110704725734
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -3.5636377933439713,
+              "explicitActuatorWorkApproxJ": -8.098843451286776
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 210,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 0.5488066524267197,
+            "limitedAtLastSubstep": 0,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "ee321a49f983bf7ef0811ddd5679c174457d2b5b1b93be68a8e8d19ba9a4c738",
+          "allNativeBodyTraceSHA256": "6234b48c9a6c403d0306b850a6655048afa060d5d8b72845741cf3ac9d323200",
+          "actualControllerSHA256": "65c83baca2c28d9aa021d446d6d2861e24529381dbf329a40277ef1dd7d69019",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "explicitCap": {
+          "executionPass": true,
+          "strokePeakTipMps": 16.16409509674588,
+          "wholePeakTipMps": 16.16409509674588,
+          "maxHandTargetErrorM": 0.3112035488012537,
+          "maxOffHandGapM": 0.772338623194811,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 3.9176479298872695,
+            "bladeAxisTravelRad": 1.9983764517969638,
+            "strokeEndSwordKJ": 8.578459595012433,
+            "meanSwordKJ": 1.0007444533584022,
+            "peakSwordKJ": 7.417599621891718,
+            "finalSwordKJ": 0.15263011304542762,
+            "finalWholeKJ": 1.362070334354712,
+            "finalTipMps": 0.3803925273723083,
+            "finalHandErrorM": 0.03002940981673917
+          },
+          "floorSlipMaxMps": 0.04074109574018287,
+          "floorSlipMeanMps": 0.0020061414486626677,
+          "maxJointGapM": 0.0008636920405791243,
+          "maxPelvisHeightM": 0.897344172000885,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 11.736365442292685,
+              "explicitActuatorWorkApproxJ": -38.575192390289864
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -3.978943766832914,
+              "explicitActuatorWorkApproxJ": -3.4341265137706025
+            }
+          },
+          "native": null,
+          "physicalControlTraceSHA256": "ac1a9f3d8bfd6ce94a649ccff8bcf124bb799ae6cff938889d97aa6f596c9c9f",
+          "allNativeBodyTraceSHA256": "0936071df9c5344ae32546026d9bc17a92e4802c8bb1f0810fb4172c1298b08a",
+          "actualControllerSHA256": "65c83baca2c28d9aa021d446d6d2861e24529381dbf329a40277ef1dd7d69019",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "combined": {
+          "executionPass": true,
+          "strokePeakTipMps": 16.164456656639366,
+          "wholePeakTipMps": 16.164456656639366,
+          "maxHandTargetErrorM": 0.3111858493208988,
+          "maxOffHandGapM": 0.7723955689592262,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 3.9151292123644823,
+            "bladeAxisTravelRad": 1.9989800831434583,
+            "strokeEndSwordKJ": 8.578699136230046,
+            "meanSwordKJ": 0.9999947744544446,
+            "peakSwordKJ": 7.417351928713442,
+            "finalSwordKJ": 0.15224283988005904,
+            "finalWholeKJ": 1.3615282134089024,
+            "finalTipMps": 0.3801557586922612,
+            "finalHandErrorM": 0.029895921545189285
+          },
+          "floorSlipMaxMps": 0.04073584213718727,
+          "floorSlipMeanMps": 0.0020054864083136987,
+          "maxJointGapM": 0.0008968187007722774,
+          "maxPelvisHeightM": 0.8973440527915955,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 0
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 11.735990271377572,
+              "explicitActuatorWorkApproxJ": -38.195969013277136
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -3.9789120580870856,
+              "explicitActuatorWorkApproxJ": -6.220070867420245
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 210,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 0.5461855307221413,
+            "limitedAtLastSubstep": 0,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "cde5c38e87c116799bd403f96a911ffb53d076804e9814a20445522185c24d46",
+          "allNativeBodyTraceSHA256": "1b8ac431596072657b7d1539affbad8271da6ca8c6f10b9d5722324c2aaaeab8",
+          "actualControllerSHA256": "65c83baca2c28d9aa021d446d6d2861e24529381dbf329a40277ef1dd7d69019",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        }
+      }
+    },
+    {
+      "weapon": "sabre",
+      "direction": "up",
+      "ending": "target_hold",
+      "condition": "healthy",
+      "guards": {
+        "samePreparedNative": true,
+        "samePreparedController": true,
+        "sameConfiguredNative": true,
+        "sameConfiguredController": true,
+        "sameRequestedInput": true,
+        "observerFullPhysicalControlTraceExact": true,
+        "observerAllNativeBodyTraceExact": true,
+        "observerActualControllerTraceExact": true
+      },
+      "modes": {
+        "baseline": {
+          "executionPass": true,
+          "strokePeakTipMps": 11.785910443869946,
+          "wholePeakTipMps": 12.448353739758149,
+          "maxHandTargetErrorM": 0.3375391350611125,
+          "maxOffHandGapM": 0.8410430554911634,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 3.7853588280197252,
+            "bladeAxisTravelRad": 1.0386133534931206,
+            "strokeEndSwordKJ": 18.869989350838054,
+            "meanSwordKJ": 1.8240671037960878,
+            "peakSwordKJ": 20.503243430672317,
+            "finalSwordKJ": 0.11368768049209704,
+            "finalWholeKJ": 1.8246880721713754,
+            "finalTipMps": 0.4967498095383873,
+            "finalHandErrorM": 0.017739094799992833
+          },
+          "floorSlipMaxMps": 0.3501380551323757,
+          "floorSlipMeanMps": 0.002712070226027347,
+          "maxJointGapM": 0.0008614641220293309,
+          "maxPelvisHeightM": 0.898137629032135,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": -9.826830102804703,
+              "explicitActuatorWorkApproxJ": 24.299211968047995
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -1.6776295441328533,
+              "explicitActuatorWorkApproxJ": 1.6307317087353532
+            }
+          },
+          "native": null,
+          "physicalControlTraceSHA256": "e87f4ab9e9145eaeb133abd71956df785a226dc6e3d1844d569368b4cce24a04",
+          "allNativeBodyTraceSHA256": "1b0c8f9d21b4c1c6522f61433121d8567a4bbfef753d93b2fad0bcf229a90b6a",
+          "actualControllerSHA256": "07764bdc9cc7d22838a3f4d0b6e907f4bacec562dfc884eafe9bfeda54132b68",
+          "requestedInputSHA256": "fc0d96c410a831dba7f5bbfd96188b30d4ebfd5419005d97bd436cf38aebca1a"
+        },
+        "observe": {
+          "executionPass": true,
+          "strokePeakTipMps": 11.785910443869946,
+          "wholePeakTipMps": 12.448353739758149,
+          "maxHandTargetErrorM": 0.3375391350611125,
+          "maxOffHandGapM": 0.8410430554911634,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 3.7853588280197252,
+            "bladeAxisTravelRad": 1.0386133534931206,
+            "strokeEndSwordKJ": 18.869989350838054,
+            "meanSwordKJ": 1.8240671037960878,
+            "peakSwordKJ": 20.503243430672317,
+            "finalSwordKJ": 0.11368768049209704,
+            "finalWholeKJ": 1.8246880721713754,
+            "finalTipMps": 0.4967498095383873,
+            "finalHandErrorM": 0.017739094799992833
+          },
+          "floorSlipMaxMps": 0.3501380551323757,
+          "floorSlipMeanMps": 0.002712070226027347,
+          "maxJointGapM": 0.0008614641220293309,
+          "maxPelvisHeightM": 0.898137629032135,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": -9.826830102804703,
+              "explicitActuatorWorkApproxJ": 24.299211968047995
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -1.6776295441328533,
+              "explicitActuatorWorkApproxJ": 1.6307317087353532
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 0,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 0.3212863616645336,
+            "limitedAtLastSubstep": 0,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "e87f4ab9e9145eaeb133abd71956df785a226dc6e3d1844d569368b4cce24a04",
+          "allNativeBodyTraceSHA256": "1b0c8f9d21b4c1c6522f61433121d8567a4bbfef753d93b2fad0bcf229a90b6a",
+          "actualControllerSHA256": "07764bdc9cc7d22838a3f4d0b6e907f4bacec562dfc884eafe9bfeda54132b68",
+          "requestedInputSHA256": "fc0d96c410a831dba7f5bbfd96188b30d4ebfd5419005d97bd436cf38aebca1a"
+        },
+        "nativeCap": {
+          "executionPass": true,
+          "strokePeakTipMps": 11.787561217596645,
+          "wholePeakTipMps": 12.45022305380009,
+          "maxHandTargetErrorM": 0.33754917135672585,
+          "maxOffHandGapM": 0.8410239160830573,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 3.7882535314453025,
+            "bladeAxisTravelRad": 1.0390700828250967,
+            "strokeEndSwordKJ": 18.87401272566187,
+            "meanSwordKJ": 1.8248935186994397,
+            "peakSwordKJ": 20.50891722991448,
+            "finalSwordKJ": 0.1137954289015066,
+            "finalWholeKJ": 1.8263985383775887,
+            "finalTipMps": 0.4967567021888497,
+            "finalHandErrorM": 0.017755155105740838
+          },
+          "floorSlipMaxMps": 0.35013676372490204,
+          "floorSlipMeanMps": 0.0027116547452836638,
+          "maxJointGapM": 0.0007489128022716634,
+          "maxPelvisHeightM": 0.8981382250785828,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 0
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": -9.827840930582008,
+              "explicitActuatorWorkApproxJ": 18.915625547371373
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -1.6765203704359708,
+              "explicitActuatorWorkApproxJ": 1.8161040772864394
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 210,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 0.3804449290037155,
+            "limitedAtLastSubstep": 0,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "ce0734dd662f29090f0342c8acae9965c208993c38dcdda796e40df067c63add",
+          "allNativeBodyTraceSHA256": "0f2281c06f05b60396e4a9c526416a03a50d166cff449d12a1a64263b3bfa0c7",
+          "actualControllerSHA256": "07764bdc9cc7d22838a3f4d0b6e907f4bacec562dfc884eafe9bfeda54132b68",
+          "requestedInputSHA256": "fc0d96c410a831dba7f5bbfd96188b30d4ebfd5419005d97bd436cf38aebca1a"
+        },
+        "explicitCap": {
+          "executionPass": true,
+          "strokePeakTipMps": 11.215029348888626,
+          "wholePeakTipMps": 11.433044401929537,
+          "maxHandTargetErrorM": 0.3428242375780512,
+          "maxOffHandGapM": 0.8365724571838419,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 3.3239945290172206,
+            "bladeAxisTravelRad": 0.866888442438158,
+            "strokeEndSwordKJ": 16.527587840324237,
+            "meanSwordKJ": 1.619208895103572,
+            "peakSwordKJ": 17.972835842920624,
+            "finalSwordKJ": 0.06875550341175016,
+            "finalWholeKJ": 1.6550384346968252,
+            "finalTipMps": 0.7140135624528393,
+            "finalHandErrorM": 0.02041027050762706
+          },
+          "floorSlipMaxMps": 0.28871568816936477,
+          "floorSlipMeanMps": 0.0022490565340776104,
+          "maxJointGapM": 0.0008210949076121088,
+          "maxPelvisHeightM": 0.8979031443595886,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": -9.446901216735947,
+              "explicitActuatorWorkApproxJ": 18.67061452410487
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -2.0485155924932017,
+              "explicitActuatorWorkApproxJ": 4.242442490418513
+            }
+          },
+          "native": null,
+          "physicalControlTraceSHA256": "a2d58e3417db38f254d0f533d961cd7ed55e24bed41f28dc20ffba5311dd50a6",
+          "allNativeBodyTraceSHA256": "65e2770f30f2a66e82421bf547c301bb048d2ff944ee37cace82606201a1a988",
+          "actualControllerSHA256": "07764bdc9cc7d22838a3f4d0b6e907f4bacec562dfc884eafe9bfeda54132b68",
+          "requestedInputSHA256": "fc0d96c410a831dba7f5bbfd96188b30d4ebfd5419005d97bd436cf38aebca1a"
+        },
+        "combined": {
+          "executionPass": true,
+          "strokePeakTipMps": 11.216978729000358,
+          "wholePeakTipMps": 11.434522976830046,
+          "maxHandTargetErrorM": 0.3428314592360949,
+          "maxOffHandGapM": 0.8365796738702259,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 3.326908272747882,
+            "bladeAxisTravelRad": 0.8669788059796589,
+            "strokeEndSwordKJ": 16.532437333827865,
+            "meanSwordKJ": 1.6196605045249124,
+            "peakSwordKJ": 17.977117953069314,
+            "finalSwordKJ": 0.06876275143838143,
+            "finalWholeKJ": 1.655446449388327,
+            "finalTipMps": 0.7140779500460873,
+            "finalHandErrorM": 0.020420310918077073
+          },
+          "floorSlipMaxMps": 0.2888371001130126,
+          "floorSlipMeanMps": 0.0022500398475880238,
+          "maxJointGapM": 0.0008186921783246341,
+          "maxPelvisHeightM": 0.8979040384292603,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 0
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": -9.448176677795932,
+              "explicitActuatorWorkApproxJ": 13.307059666563235
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -2.0471243809167285,
+              "explicitActuatorWorkApproxJ": 4.396282612877246
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 210,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 0.4602556005120277,
+            "limitedAtLastSubstep": 0,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "8027369e82c8ddfd0e2215c3ed706e87a047e616e9420f26d029336f031fda72",
+          "allNativeBodyTraceSHA256": "ff617acdebb190b171405561e30e68e0873bd275d0211ea8f454366eaf58e4fe",
+          "actualControllerSHA256": "07764bdc9cc7d22838a3f4d0b6e907f4bacec562dfc884eafe9bfeda54132b68",
+          "requestedInputSHA256": "fc0d96c410a831dba7f5bbfd96188b30d4ebfd5419005d97bd436cf38aebca1a"
+        }
+      }
+    },
+    {
+      "weapon": "sabre",
+      "direction": "up",
+      "ending": "release",
+      "condition": "healthy",
+      "guards": {
+        "samePreparedNative": true,
+        "samePreparedController": true,
+        "sameConfiguredNative": true,
+        "sameConfiguredController": true,
+        "sameRequestedInput": true,
+        "observerFullPhysicalControlTraceExact": true,
+        "observerAllNativeBodyTraceExact": true,
+        "observerActualControllerTraceExact": true
+      },
+      "modes": {
+        "baseline": {
+          "executionPass": true,
+          "strokePeakTipMps": 11.785910443869946,
+          "wholePeakTipMps": 12.852118157484533,
+          "maxHandTargetErrorM": 0.3375391350611125,
+          "maxOffHandGapM": 0.8410430554911634,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 7.171429543912248,
+            "bladeAxisTravelRad": 3.4281312952013394,
+            "strokeEndSwordKJ": 18.869989350838054,
+            "meanSwordKJ": 4.238459079281799,
+            "peakSwordKJ": 20.503243430672317,
+            "finalSwordKJ": 0.21842520971887147,
+            "finalWholeKJ": 1.7164874038804032,
+            "finalTipMps": 0.48147857485332557,
+            "finalHandErrorM": 0.031393425649331626
+          },
+          "floorSlipMaxMps": 0.3501380551323757,
+          "floorSlipMeanMps": 0.0033816675796435117,
+          "maxJointGapM": 0.0008614641220293309,
+          "maxPelvisHeightM": 0.8994198441505432,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": -9.826830102804703,
+              "explicitActuatorWorkApproxJ": 24.299211968047995
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 6.20757859694144,
+              "explicitActuatorWorkApproxJ": 13.348283289216983
+            }
+          },
+          "native": null,
+          "physicalControlTraceSHA256": "ae9b96ef834974c20ead9c1afddc2681642299d0d32e151100fd0201279ec59f",
+          "allNativeBodyTraceSHA256": "cec5deb3d272a776d26f6026924faae5f5edcb71d76ff96a7beee242373de902",
+          "actualControllerSHA256": "d4da6379ef77bf499f5fb66a1d58ca1b1ed9625965477ca3cb5b28baff0d5266",
+          "requestedInputSHA256": "fc0d96c410a831dba7f5bbfd96188b30d4ebfd5419005d97bd436cf38aebca1a"
+        },
+        "observe": {
+          "executionPass": true,
+          "strokePeakTipMps": 11.785910443869946,
+          "wholePeakTipMps": 12.852118157484533,
+          "maxHandTargetErrorM": 0.3375391350611125,
+          "maxOffHandGapM": 0.8410430554911634,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 7.171429543912248,
+            "bladeAxisTravelRad": 3.4281312952013394,
+            "strokeEndSwordKJ": 18.869989350838054,
+            "meanSwordKJ": 4.238459079281799,
+            "peakSwordKJ": 20.503243430672317,
+            "finalSwordKJ": 0.21842520971887147,
+            "finalWholeKJ": 1.7164874038804032,
+            "finalTipMps": 0.48147857485332557,
+            "finalHandErrorM": 0.031393425649331626
+          },
+          "floorSlipMaxMps": 0.3501380551323757,
+          "floorSlipMeanMps": 0.0033816675796435117,
+          "maxJointGapM": 0.0008614641220293309,
+          "maxPelvisHeightM": 0.8994198441505432,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": -9.826830102804703,
+              "explicitActuatorWorkApproxJ": 24.299211968047995
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 6.20757859694144,
+              "explicitActuatorWorkApproxJ": 13.348283289216983
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 0,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 0.46121693775057787,
+            "limitedAtLastSubstep": 0,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "ae9b96ef834974c20ead9c1afddc2681642299d0d32e151100fd0201279ec59f",
+          "allNativeBodyTraceSHA256": "cec5deb3d272a776d26f6026924faae5f5edcb71d76ff96a7beee242373de902",
+          "actualControllerSHA256": "d4da6379ef77bf499f5fb66a1d58ca1b1ed9625965477ca3cb5b28baff0d5266",
+          "requestedInputSHA256": "fc0d96c410a831dba7f5bbfd96188b30d4ebfd5419005d97bd436cf38aebca1a"
+        },
+        "nativeCap": {
+          "executionPass": true,
+          "strokePeakTipMps": 11.787561217596645,
+          "wholePeakTipMps": 12.851668078788764,
+          "maxHandTargetErrorM": 0.33754917135672585,
+          "maxOffHandGapM": 0.8410239160830573,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 7.174189314984223,
+            "bladeAxisTravelRad": 3.428806193180789,
+            "strokeEndSwordKJ": 18.87401272566187,
+            "meanSwordKJ": 4.238961723920253,
+            "peakSwordKJ": 20.50891722991448,
+            "finalSwordKJ": 0.2178726661323227,
+            "finalWholeKJ": 1.7148906533672021,
+            "finalTipMps": 0.4811832766254593,
+            "finalHandErrorM": 0.03131470417285403
+          },
+          "floorSlipMaxMps": 0.35013676372490204,
+          "floorSlipMeanMps": 0.003378737447159222,
+          "maxJointGapM": 0.0009064557959454878,
+          "maxPelvisHeightM": 0.8994196653366089,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 0
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": -9.827840930582008,
+              "explicitActuatorWorkApproxJ": 18.915625547371373
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 6.208354120780099,
+              "explicitActuatorWorkApproxJ": 15.529942556728752
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 210,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 0.509601105004549,
+            "limitedAtLastSubstep": 0,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "525ae091d4125ba6713dbe65d71077a9778c4d2fb7544222b24bd97a26594e90",
+          "allNativeBodyTraceSHA256": "286b4018d3cfa2573054aa868a0b8f2cd4c88a3fa7727d246e6a014c39433d8a",
+          "actualControllerSHA256": "d4da6379ef77bf499f5fb66a1d58ca1b1ed9625965477ca3cb5b28baff0d5266",
+          "requestedInputSHA256": "fc0d96c410a831dba7f5bbfd96188b30d4ebfd5419005d97bd436cf38aebca1a"
+        },
+        "explicitCap": {
+          "executionPass": true,
+          "strokePeakTipMps": 11.215029348888626,
+          "wholePeakTipMps": 12.915137786802237,
+          "maxHandTargetErrorM": 0.3428242375780512,
+          "maxOffHandGapM": 0.8365724571838419,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 6.743032638602294,
+            "bladeAxisTravelRad": 3.2846213454830884,
+            "strokeEndSwordKJ": 16.527587840324237,
+            "meanSwordKJ": 4.078167906070771,
+            "peakSwordKJ": 20.450059383740744,
+            "finalSwordKJ": 0.2573199814762014,
+            "finalWholeKJ": 1.7527847714269167,
+            "finalTipMps": 0.50114556239983,
+            "finalHandErrorM": 0.026951075527498872
+          },
+          "floorSlipMaxMps": 0.28871568816936477,
+          "floorSlipMeanMps": 0.0023950185681754325,
+          "maxJointGapM": 0.0008210949076121088,
+          "maxPelvisHeightM": 0.8993854522705078,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": -9.446901216735947,
+              "explicitActuatorWorkApproxJ": 18.67061452410487
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 5.8128035377385014,
+              "explicitActuatorWorkApproxJ": 16.780289782802743
+            }
+          },
+          "native": null,
+          "physicalControlTraceSHA256": "d8f0c6c358d9c834a0e87789b574b365843fb356f6dab1237518a4126462829b",
+          "allNativeBodyTraceSHA256": "000dcb1ef592d527607bba6696ac6bb0d12c2d9b29a01e4c1a6baba8dd008ead",
+          "actualControllerSHA256": "d4da6379ef77bf499f5fb66a1d58ca1b1ed9625965477ca3cb5b28baff0d5266",
+          "requestedInputSHA256": "fc0d96c410a831dba7f5bbfd96188b30d4ebfd5419005d97bd436cf38aebca1a"
+        },
+        "combined": {
+          "executionPass": true,
+          "strokePeakTipMps": 11.216978729000358,
+          "wholePeakTipMps": 12.914088377817093,
+          "maxHandTargetErrorM": 0.3428314592360949,
+          "maxOffHandGapM": 0.8365796738702259,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 6.745920417045656,
+            "bladeAxisTravelRad": 3.284553277665147,
+            "strokeEndSwordKJ": 16.532437333827865,
+            "meanSwordKJ": 4.078078043778287,
+            "peakSwordKJ": 20.44624631749387,
+            "finalSwordKJ": 0.2566238727764397,
+            "finalWholeKJ": 1.7510553353395184,
+            "finalTipMps": 0.5006018265678804,
+            "finalHandErrorM": 0.026911142009306534
+          },
+          "floorSlipMaxMps": 0.2888371001130126,
+          "floorSlipMeanMps": 0.002395849413387533,
+          "maxJointGapM": 0.0009074677725834318,
+          "maxPelvisHeightM": 0.8993855118751526,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 0
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": -9.448176677795932,
+              "explicitActuatorWorkApproxJ": 13.307059666563235
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 5.813914332360819,
+              "explicitActuatorWorkApproxJ": 18.909994556445003
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 210,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 0.5128753781318665,
+            "limitedAtLastSubstep": 0,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "4335c2940c6e433624a21589bada75c12a4d0f44f25843cecdf6b5c55c556ab1",
+          "allNativeBodyTraceSHA256": "ae10f4fd4e191e77c9cdf6bc8d43f490f4e5a1064e35b875d6ebe0cb3d8c46ed",
+          "actualControllerSHA256": "d4da6379ef77bf499f5fb66a1d58ca1b1ed9625965477ca3cb5b28baff0d5266",
+          "requestedInputSHA256": "fc0d96c410a831dba7f5bbfd96188b30d4ebfd5419005d97bd436cf38aebca1a"
+        }
+      }
+    },
+    {
+      "weapon": "zweihander",
+      "direction": "down",
+      "ending": "target_hold",
+      "condition": "healthy",
+      "guards": {
+        "samePreparedNative": true,
+        "samePreparedController": true,
+        "sameConfiguredNative": true,
+        "sameConfiguredController": true,
+        "sameRequestedInput": true,
+        "observerFullPhysicalControlTraceExact": true,
+        "observerAllNativeBodyTraceExact": true,
+        "observerActualControllerTraceExact": true
+      },
+      "modes": {
+        "baseline": {
+          "executionPass": true,
+          "strokePeakTipMps": 16.93226769573576,
+          "wholePeakTipMps": 16.93226769573576,
+          "maxHandTargetErrorM": 0.4322463406632583,
+          "maxOffHandGapM": 0.0937439286790549,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 1.077505161512684,
+            "bladeAxisTravelRad": 0.9722446985355896,
+            "strokeEndSwordKJ": 66.94172770524133,
+            "meanSwordKJ": 3.4985210544351872,
+            "peakSwordKJ": 64.14177525184495,
+            "finalSwordKJ": 0.0005532375229982315,
+            "finalWholeKJ": 0.006088055875391924,
+            "finalTipMps": 0.044915237663184525,
+            "finalHandErrorM": 0.006757242567626465
+          },
+          "floorSlipMaxMps": 0.6900928635010973,
+          "floorSlipMeanMps": 0.007930686635262507,
+          "maxJointGapM": 0.0015479204003673885,
+          "maxPelvisHeightM": 0.8992307186126709,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 29.66581494769281,
+              "explicitActuatorWorkApproxJ": 7.027289448715187
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 8.530246228727945,
+              "explicitActuatorWorkApproxJ": -30.349371306988175
+            }
+          },
+          "native": null,
+          "physicalControlTraceSHA256": "f85939e2f9f9edfcc497c77c0d3043cc7b4ffd590085f5a32ab148944ffa6743",
+          "allNativeBodyTraceSHA256": "fc7c899d1beb84f01895c9fd5cdb52d6a45c9621bb19928aeca75f7a9d23a9e1",
+          "actualControllerSHA256": "25fe9c975b3a93e4341bfd39c0765afeaa514dba4b196ff5a6c7dfe7c7fbf0ce",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "observe": {
+          "executionPass": true,
+          "strokePeakTipMps": 16.93226769573576,
+          "wholePeakTipMps": 16.93226769573576,
+          "maxHandTargetErrorM": 0.4322463406632583,
+          "maxOffHandGapM": 0.0937439286790549,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 1.077505161512684,
+            "bladeAxisTravelRad": 0.9722446985355896,
+            "strokeEndSwordKJ": 66.94172770524133,
+            "meanSwordKJ": 3.4985210544351872,
+            "peakSwordKJ": 64.14177525184495,
+            "finalSwordKJ": 0.0005532375229982315,
+            "finalWholeKJ": 0.006088055875391924,
+            "finalTipMps": 0.044915237663184525,
+            "finalHandErrorM": 0.006757242567626465
+          },
+          "floorSlipMaxMps": 0.6900928635010973,
+          "floorSlipMeanMps": 0.007930686635262507,
+          "maxJointGapM": 0.0015479204003673885,
+          "maxPelvisHeightM": 0.8992307186126709,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 29.66581494769281,
+              "explicitActuatorWorkApproxJ": 7.027289448715187
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 8.530246228727945,
+              "explicitActuatorWorkApproxJ": -30.349371306988175
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 0,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 1.0353034436702728,
+            "limitedAtLastSubstep": 2,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "f85939e2f9f9edfcc497c77c0d3043cc7b4ffd590085f5a32ab148944ffa6743",
+          "allNativeBodyTraceSHA256": "fc7c899d1beb84f01895c9fd5cdb52d6a45c9621bb19928aeca75f7a9d23a9e1",
+          "actualControllerSHA256": "25fe9c975b3a93e4341bfd39c0765afeaa514dba4b196ff5a6c7dfe7c7fbf0ce",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "nativeCap": {
+          "executionPass": true,
+          "strokePeakTipMps": 16.86047223423489,
+          "wholePeakTipMps": 16.86047223423489,
+          "maxHandTargetErrorM": 0.43880317178188644,
+          "maxOffHandGapM": 0.09374393812261841,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 1.1770899275368714,
+            "bladeAxisTravelRad": 1.0417126467880644,
+            "strokeEndSwordKJ": 66.11847309788507,
+            "meanSwordKJ": 3.7827668208311636,
+            "peakSwordKJ": 63.57127571136029,
+            "finalSwordKJ": 0.0006447245875142382,
+            "finalWholeKJ": 0.006336971085693653,
+            "finalTipMps": 0.04859682348731147,
+            "finalHandErrorM": 0.006546722417078692
+          },
+          "floorSlipMaxMps": 0.9060898665399412,
+          "floorSlipMeanMps": 0.013475114046555466,
+          "maxJointGapM": 0.0016003168232486902,
+          "maxPelvisHeightM": 0.8992305397987366,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 0
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 29.0636300985614,
+              "explicitActuatorWorkApproxJ": 21.626950859750526
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 9.290134840769685,
+              "explicitActuatorWorkApproxJ": -35.27423280168243
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 210,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 1.0000000074505806,
+            "limitedAtLastSubstep": 4,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "8ac373268370be0e3b6242f89bf94a6e02229e8c51e35cc5ce25e664230e6f5d",
+          "allNativeBodyTraceSHA256": "501ed06263140ba52f88a8a680126ce81e9ab8da28e144e825d55021472c85f8",
+          "actualControllerSHA256": "25fe9c975b3a93e4341bfd39c0765afeaa514dba4b196ff5a6c7dfe7c7fbf0ce",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "explicitCap": {
+          "executionPass": true,
+          "strokePeakTipMps": 16.93840514817109,
+          "wholePeakTipMps": 16.93840514817109,
+          "maxHandTargetErrorM": 0.43273272531835905,
+          "maxOffHandGapM": 0.09367017089873861,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 1.0757429806614,
+            "bladeAxisTravelRad": 0.9669203265176602,
+            "strokeEndSwordKJ": 66.92863462035287,
+            "meanSwordKJ": 3.5096854727118503,
+            "peakSwordKJ": 64.19326876647514,
+            "finalSwordKJ": 0.0005558136794158776,
+            "finalWholeKJ": 0.006093543482797812,
+            "finalTipMps": 0.04510269828265545,
+            "finalHandErrorM": 0.006746673973238956
+          },
+          "floorSlipMaxMps": 0.7388645737352233,
+          "floorSlipMeanMps": 0.008659186987493345,
+          "maxJointGapM": 0.0015321162102542357,
+          "maxPelvisHeightM": 0.8992303609848022,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 29.58527626105107,
+              "explicitActuatorWorkApproxJ": 7.146082226341264
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 8.583059775531309,
+              "explicitActuatorWorkApproxJ": -30.486567635819064
+            }
+          },
+          "native": null,
+          "physicalControlTraceSHA256": "c555337871962f8f27a8b833e65c8aa9b1cb6609f33db5b520841c44d6ea1823",
+          "allNativeBodyTraceSHA256": "9682e778c87ff5c601ede513887133e84c564298afa3b0b3b9dd6d22034c60f5",
+          "actualControllerSHA256": "25fe9c975b3a93e4341bfd39c0765afeaa514dba4b196ff5a6c7dfe7c7fbf0ce",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "combined": {
+          "executionPass": true,
+          "strokePeakTipMps": 16.870133881344472,
+          "wholePeakTipMps": 16.870133881344472,
+          "maxHandTargetErrorM": 0.4388800850708513,
+          "maxOffHandGapM": 0.0936712716951659,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 1.1736972540444395,
+            "bladeAxisTravelRad": 1.0380677887069312,
+            "strokeEndSwordKJ": 66.1302175739164,
+            "meanSwordKJ": 3.787982946472411,
+            "peakSwordKJ": 63.602978510120906,
+            "finalSwordKJ": 0.0006512449933017262,
+            "finalWholeKJ": 0.006330650160740591,
+            "finalTipMps": 0.048869270244644616,
+            "finalHandErrorM": 0.00655573455429888
+          },
+          "floorSlipMaxMps": 0.8976690896151999,
+          "floorSlipMeanMps": 0.013162977739587297,
+          "maxJointGapM": 0.0015830941074069745,
+          "maxPelvisHeightM": 0.8992300629615784,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 0
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 29.01307007051085,
+              "explicitActuatorWorkApproxJ": 21.567296246225844
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 9.327675357856293,
+              "explicitActuatorWorkApproxJ": -35.25495864116842
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 210,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 1.0000000074505806,
+            "limitedAtLastSubstep": 4,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "5b1bc6501f8bc9b1a19155172553e3f41f4e9c4ff6388c645a11a729b5916a8c",
+          "allNativeBodyTraceSHA256": "1bcf21fd37fd7b24792dcf5110571b6b78d49ebac03f59ea671edf4e91a39c72",
+          "actualControllerSHA256": "25fe9c975b3a93e4341bfd39c0765afeaa514dba4b196ff5a6c7dfe7c7fbf0ce",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        }
+      }
+    },
+    {
+      "weapon": "zweihander",
+      "direction": "down",
+      "ending": "release",
+      "condition": "healthy",
+      "guards": {
+        "samePreparedNative": true,
+        "samePreparedController": true,
+        "sameConfiguredNative": true,
+        "sameConfiguredController": true,
+        "sameRequestedInput": true,
+        "observerFullPhysicalControlTraceExact": true,
+        "observerAllNativeBodyTraceExact": true,
+        "observerActualControllerTraceExact": true
+      },
+      "modes": {
+        "baseline": {
+          "executionPass": true,
+          "strokePeakTipMps": 16.93226769573576,
+          "wholePeakTipMps": 16.93226769573576,
+          "maxHandTargetErrorM": 0.4322463406632583,
+          "maxOffHandGapM": 0.0937439286790549,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 2.3675868061152574,
+            "bladeAxisTravelRad": 2.084034940361779,
+            "strokeEndSwordKJ": 66.94172770524133,
+            "meanSwordKJ": 4.835764232348963,
+            "peakSwordKJ": 64.14177525184495,
+            "finalSwordKJ": 0.017149611612509746,
+            "finalWholeKJ": 0.12458466730960287,
+            "finalTipMps": 0.1352593313999647,
+            "finalHandErrorM": 0.026963192243701417
+          },
+          "floorSlipMaxMps": 0.6900928635010973,
+          "floorSlipMeanMps": 0.00791475915432347,
+          "maxJointGapM": 0.0015479204003673885,
+          "maxPelvisHeightM": 0.8992307186126709,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 29.66581494769281,
+              "explicitActuatorWorkApproxJ": 7.027289448715187
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -0.11987468082235045,
+              "explicitActuatorWorkApproxJ": -24.108604183364452
+            }
+          },
+          "native": null,
+          "physicalControlTraceSHA256": "a684bd1a474e9ec07b5612239c22155c60cd27508d55607c67a7d5fd79eeba5e",
+          "allNativeBodyTraceSHA256": "8e9bfedaeca07f52f342b13316346f5197809ced97e71df7629c8fd14c022234",
+          "actualControllerSHA256": "156da20f83b720d0c089131c0514aacc8c0d2652c5ce5a517ce939c7a5bbc8c3",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "observe": {
+          "executionPass": true,
+          "strokePeakTipMps": 16.93226769573576,
+          "wholePeakTipMps": 16.93226769573576,
+          "maxHandTargetErrorM": 0.4322463406632583,
+          "maxOffHandGapM": 0.0937439286790549,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 2.3675868061152574,
+            "bladeAxisTravelRad": 2.084034940361779,
+            "strokeEndSwordKJ": 66.94172770524133,
+            "meanSwordKJ": 4.835764232348963,
+            "peakSwordKJ": 64.14177525184495,
+            "finalSwordKJ": 0.017149611612509746,
+            "finalWholeKJ": 0.12458466730960287,
+            "finalTipMps": 0.1352593313999647,
+            "finalHandErrorM": 0.026963192243701417
+          },
+          "floorSlipMaxMps": 0.6900928635010973,
+          "floorSlipMeanMps": 0.00791475915432347,
+          "maxJointGapM": 0.0015479204003673885,
+          "maxPelvisHeightM": 0.8992307186126709,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 29.66581494769281,
+              "explicitActuatorWorkApproxJ": 7.027289448715187
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -0.11987468082235045,
+              "explicitActuatorWorkApproxJ": -24.108604183364452
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 0,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 1.0353034436702728,
+            "limitedAtLastSubstep": 2,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "a684bd1a474e9ec07b5612239c22155c60cd27508d55607c67a7d5fd79eeba5e",
+          "allNativeBodyTraceSHA256": "8e9bfedaeca07f52f342b13316346f5197809ced97e71df7629c8fd14c022234",
+          "actualControllerSHA256": "156da20f83b720d0c089131c0514aacc8c0d2652c5ce5a517ce939c7a5bbc8c3",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "nativeCap": {
+          "executionPass": true,
+          "strokePeakTipMps": 16.86047223423489,
+          "wholePeakTipMps": 16.86047223423489,
+          "maxHandTargetErrorM": 0.43880317178188644,
+          "maxOffHandGapM": 0.09374393812261841,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 2.4641594715183723,
+            "bladeAxisTravelRad": 2.152252753245941,
+            "strokeEndSwordKJ": 66.11847309788507,
+            "meanSwordKJ": 5.107187866952997,
+            "peakSwordKJ": 63.57127571136029,
+            "finalSwordKJ": 0.016731540461111517,
+            "finalWholeKJ": 0.12056231984017045,
+            "finalTipMps": 0.12970164131018738,
+            "finalHandErrorM": 0.02628026587154218
+          },
+          "floorSlipMaxMps": 0.9060898665399412,
+          "floorSlipMeanMps": 0.01345440449462876,
+          "maxJointGapM": 0.0016003168232486902,
+          "maxPelvisHeightM": 0.8992305397987366,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 0
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 29.0636300985614,
+              "explicitActuatorWorkApproxJ": 21.626950859750526
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 0.6287546388490601,
+              "explicitActuatorWorkApproxJ": -33.01241785756136
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 210,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 1.0000000074505806,
+            "limitedAtLastSubstep": 4,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "14f7afdeabf35e885ff017f5ea36b10f28db0b356ae5779db0b09e62c96942db",
+          "allNativeBodyTraceSHA256": "5e2b672c996bf6f1c46e439d3cd171d194b6b7c3f9f5d0f8f70095bf87ad3896",
+          "actualControllerSHA256": "156da20f83b720d0c089131c0514aacc8c0d2652c5ce5a517ce939c7a5bbc8c3",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "explicitCap": {
+          "executionPass": true,
+          "strokePeakTipMps": 16.93840514817109,
+          "wholePeakTipMps": 16.93840514817109,
+          "maxHandTargetErrorM": 0.43273272531835905,
+          "maxOffHandGapM": 0.09367017089873861,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 2.361957803144712,
+            "bladeAxisTravelRad": 2.072167371916114,
+            "strokeEndSwordKJ": 66.92863462035287,
+            "meanSwordKJ": 4.8294810015873075,
+            "peakSwordKJ": 64.19326876647514,
+            "finalSwordKJ": 0.016555253439101966,
+            "finalWholeKJ": 0.12133426140885419,
+            "finalTipMps": 0.13313440445826435,
+            "finalHandErrorM": 0.026768156778700987
+          },
+          "floorSlipMaxMps": 0.7388645737352233,
+          "floorSlipMeanMps": 0.008645731706666979,
+          "maxJointGapM": 0.0015321162102542357,
+          "maxPelvisHeightM": 0.8992303609848022,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 29.58527626105107,
+              "explicitActuatorWorkApproxJ": 7.146082226341264
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -0.07638761913599965,
+              "explicitActuatorWorkApproxJ": -24.44114766929223
+            }
+          },
+          "native": null,
+          "physicalControlTraceSHA256": "471cf1ab2658322765ddaba9f419aac30484e6cf871d0d016050788a5e5469f0",
+          "allNativeBodyTraceSHA256": "18155069d40db0a83968d14b3fe24662a69e9506f0addc1f2fa34954e559f3c0",
+          "actualControllerSHA256": "156da20f83b720d0c089131c0514aacc8c0d2652c5ce5a517ce939c7a5bbc8c3",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "combined": {
+          "executionPass": true,
+          "strokePeakTipMps": 16.870133881344472,
+          "wholePeakTipMps": 16.870133881344472,
+          "maxHandTargetErrorM": 0.4388800850708513,
+          "maxOffHandGapM": 0.0936712716951659,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 2.461110978970174,
+            "bladeAxisTravelRad": 2.151999523315198,
+            "strokeEndSwordKJ": 66.1302175739164,
+            "meanSwordKJ": 5.113121689182775,
+            "peakSwordKJ": 63.602978510120906,
+            "finalSwordKJ": 0.01679050127784159,
+            "finalWholeKJ": 0.12078752399370132,
+            "finalTipMps": 0.12954143288493852,
+            "finalHandErrorM": 0.026309888936526554
+          },
+          "floorSlipMaxMps": 0.8976690896151999,
+          "floorSlipMeanMps": 0.013143112403057523,
+          "maxJointGapM": 0.0015830941074069745,
+          "maxPelvisHeightM": 0.8992300629615784,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 0
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 29.01307007051085,
+              "explicitActuatorWorkApproxJ": 21.567296246225844
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 0.6661758632992243,
+              "explicitActuatorWorkApproxJ": -32.990898582301504
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 210,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 1.0000000074505806,
+            "limitedAtLastSubstep": 4,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "7684147e6db66aceedeedbe55d2dfbc002f08ff0989b2251cf36161a5b20b86b",
+          "allNativeBodyTraceSHA256": "ef30009163ae16149cb1edd9c9de80a77547576e93243ce2d71aa69121cd8080",
+          "actualControllerSHA256": "156da20f83b720d0c089131c0514aacc8c0d2652c5ce5a517ce939c7a5bbc8c3",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        }
+      }
+    },
+    {
+      "weapon": "zweihander",
+      "direction": "up",
+      "ending": "target_hold",
+      "condition": "healthy",
+      "guards": {
+        "samePreparedNative": true,
+        "samePreparedController": true,
+        "sameConfiguredNative": true,
+        "sameConfiguredController": true,
+        "sameRequestedInput": true,
+        "observerFullPhysicalControlTraceExact": true,
+        "observerAllNativeBodyTraceExact": true,
+        "observerActualControllerTraceExact": true
+      },
+      "modes": {
+        "baseline": {
+          "executionPass": true,
+          "strokePeakTipMps": 10.142928144584946,
+          "wholePeakTipMps": 10.142928144584946,
+          "maxHandTargetErrorM": 0.6588502816317949,
+          "maxOffHandGapM": 0.08095419848142352,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 4.333392548431672,
+            "bladeAxisTravelRad": 1.7543458238911531,
+            "strokeEndSwordKJ": 21.940608562287252,
+            "meanSwordKJ": 5.971847531912896,
+            "peakSwordKJ": 22.678373014751983,
+            "finalSwordKJ": 0.3449972437128452,
+            "finalWholeKJ": 5.745054936851409,
+            "finalTipMps": 0.5891273389821761,
+            "finalHandErrorM": 0.039446514971981615
+          },
+          "floorSlipMaxMps": 0.5179898447369934,
+          "floorSlipMeanMps": 0.003219715906204879,
+          "maxJointGapM": 0.0013974955400086364,
+          "maxPelvisHeightM": 0.8953903317451477,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": -18.32113623680511,
+              "explicitActuatorWorkApproxJ": 10.638113783680572
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -22.01606715265735,
+              "explicitActuatorWorkApproxJ": 52.013219115529985
+            }
+          },
+          "native": null,
+          "physicalControlTraceSHA256": "d4fe15facfa02e1153ee70b90d699ee081db9a59b19ef7aa655fdf50f6486bcb",
+          "allNativeBodyTraceSHA256": "1351602f8744e0ae50e5c5bd3dad11e4c7d3dac855484b97ea1d84450ea9091a",
+          "actualControllerSHA256": "341b7d2b050e42a714a095e28aca7b620b7cb60d3fa65e3cf1706e69eef9050b",
+          "requestedInputSHA256": "fc0d96c410a831dba7f5bbfd96188b30d4ebfd5419005d97bd436cf38aebca1a"
+        },
+        "observe": {
+          "executionPass": true,
+          "strokePeakTipMps": 10.142928144584946,
+          "wholePeakTipMps": 10.142928144584946,
+          "maxHandTargetErrorM": 0.6588502816317949,
+          "maxOffHandGapM": 0.08095419848142352,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 4.333392548431672,
+            "bladeAxisTravelRad": 1.7543458238911531,
+            "strokeEndSwordKJ": 21.940608562287252,
+            "meanSwordKJ": 5.971847531912896,
+            "peakSwordKJ": 22.678373014751983,
+            "finalSwordKJ": 0.3449972437128452,
+            "finalWholeKJ": 5.745054936851409,
+            "finalTipMps": 0.5891273389821761,
+            "finalHandErrorM": 0.039446514971981615
+          },
+          "floorSlipMaxMps": 0.5179898447369934,
+          "floorSlipMeanMps": 0.003219715906204879,
+          "maxJointGapM": 0.0013974955400086364,
+          "maxPelvisHeightM": 0.8953903317451477,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": -18.32113623680511,
+              "explicitActuatorWorkApproxJ": 10.638113783680572
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -22.01606715265735,
+              "explicitActuatorWorkApproxJ": 52.013219115529985
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 0,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 0.7381928712129593,
+            "limitedAtLastSubstep": 0,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "d4fe15facfa02e1153ee70b90d699ee081db9a59b19ef7aa655fdf50f6486bcb",
+          "allNativeBodyTraceSHA256": "1351602f8744e0ae50e5c5bd3dad11e4c7d3dac855484b97ea1d84450ea9091a",
+          "actualControllerSHA256": "341b7d2b050e42a714a095e28aca7b620b7cb60d3fa65e3cf1706e69eef9050b",
+          "requestedInputSHA256": "fc0d96c410a831dba7f5bbfd96188b30d4ebfd5419005d97bd436cf38aebca1a"
+        },
+        "nativeCap": {
+          "executionPass": true,
+          "strokePeakTipMps": 10.146719713501328,
+          "wholePeakTipMps": 10.146719713501328,
+          "maxHandTargetErrorM": 0.6586381450349175,
+          "maxOffHandGapM": 0.08095116494123558,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 4.327186184317786,
+            "bladeAxisTravelRad": 1.7542149349988077,
+            "strokeEndSwordKJ": 21.980694617885398,
+            "meanSwordKJ": 5.975362211998775,
+            "peakSwordKJ": 22.69342394536227,
+            "finalSwordKJ": 0.32985737587735103,
+            "finalWholeKJ": 5.511422029404014,
+            "finalTipMps": 0.589157603850531,
+            "finalHandErrorM": 0.03856012187646897
+          },
+          "floorSlipMaxMps": 0.5177032040267484,
+          "floorSlipMeanMps": 0.0032151495604644522,
+          "maxJointGapM": 0.001437830919953588,
+          "maxPelvisHeightM": 0.8953922390937805,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 0
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": -18.3302338639916,
+              "explicitActuatorWorkApproxJ": -0.8249345400237409
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -21.98732821471621,
+              "explicitActuatorWorkApproxJ": 52.05141557348864
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 210,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 0.755490705370903,
+            "limitedAtLastSubstep": 0,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "66d10e0c3d5b196c8ae255f75933b8af83544c9884120304a56824557bd34993",
+          "allNativeBodyTraceSHA256": "8c513e4516ec3c116a8425904746f6e65c9d61cf577f7fabe008ce09f4430128",
+          "actualControllerSHA256": "341b7d2b050e42a714a095e28aca7b620b7cb60d3fa65e3cf1706e69eef9050b",
+          "requestedInputSHA256": "fc0d96c410a831dba7f5bbfd96188b30d4ebfd5419005d97bd436cf38aebca1a"
+        },
+        "explicitCap": {
+          "executionPass": true,
+          "strokePeakTipMps": 10.035383542955476,
+          "wholePeakTipMps": 10.035383542955476,
+          "maxHandTargetErrorM": 0.6721825070316133,
+          "maxOffHandGapM": 0.08015134381929694,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 4.354823364872383,
+            "bladeAxisTravelRad": 1.7493262275646628,
+            "strokeEndSwordKJ": 21.284337864000957,
+            "meanSwordKJ": 5.887992756901129,
+            "peakSwordKJ": 22.190676862434916,
+            "finalSwordKJ": 0.2416985394070422,
+            "finalWholeKJ": 4.1613917088435395,
+            "finalTipMps": 0.5647125258163703,
+            "finalHandErrorM": 0.033590681940427435
+          },
+          "floorSlipMaxMps": 0.4983719365808453,
+          "floorSlipMeanMps": 0.0031094865722355977,
+          "maxJointGapM": 0.0013689800271505835,
+          "maxPelvisHeightM": 0.8954838514328003,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": -17.81047711532905,
+              "explicitActuatorWorkApproxJ": 8.528434314026889
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -22.429428659144495,
+              "explicitActuatorWorkApproxJ": 51.628763854814544
+            }
+          },
+          "native": null,
+          "physicalControlTraceSHA256": "984d7d947bb7357b29f6cc78b9771eb5a0e2e1d91b655a65623f08f4ddee4ba5",
+          "allNativeBodyTraceSHA256": "df35b2847541db48aaf60ba291c3d2e7c8d10cea8593fab181b1d51370bbd2a6",
+          "actualControllerSHA256": "341b7d2b050e42a714a095e28aca7b620b7cb60d3fa65e3cf1706e69eef9050b",
+          "requestedInputSHA256": "fc0d96c410a831dba7f5bbfd96188b30d4ebfd5419005d97bd436cf38aebca1a"
+        },
+        "combined": {
+          "executionPass": true,
+          "strokePeakTipMps": 10.03885127374736,
+          "wholePeakTipMps": 10.03885127374736,
+          "maxHandTargetErrorM": 0.6720031856016477,
+          "maxOffHandGapM": 0.08019182001031176,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 4.337822076022448,
+            "bladeAxisTravelRad": 1.7417592100425447,
+            "strokeEndSwordKJ": 21.32809667046267,
+            "meanSwordKJ": 5.89276052211851,
+            "peakSwordKJ": 22.203383587477976,
+            "finalSwordKJ": 0.2171923666364359,
+            "finalWholeKJ": 3.2535609030427746,
+            "finalTipMps": 0.5362197652750118,
+            "finalHandErrorM": 0.02948913186726696
+          },
+          "floorSlipMaxMps": 0.4979027914206293,
+          "floorSlipMeanMps": 0.0030838549757066245,
+          "maxJointGapM": 0.00137347975776533,
+          "maxPelvisHeightM": 0.8954859375953674,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 0
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": -17.81838802265102,
+              "explicitActuatorWorkApproxJ": -3.093191917202608
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -22.328541656267497,
+              "explicitActuatorWorkApproxJ": 50.81771082384606
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 210,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 0.7543966323137283,
+            "limitedAtLastSubstep": 0,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "aedaf363cd7215f4bab5ab3c6ebcc08f2710c5e12c6dd11fabf09cf5ecf26040",
+          "allNativeBodyTraceSHA256": "9a5bc45e8df9610bdab48feffda093caa75f2b1e67aa856413eeea9b9bb101b0",
+          "actualControllerSHA256": "341b7d2b050e42a714a095e28aca7b620b7cb60d3fa65e3cf1706e69eef9050b",
+          "requestedInputSHA256": "fc0d96c410a831dba7f5bbfd96188b30d4ebfd5419005d97bd436cf38aebca1a"
+        }
+      }
+    },
+    {
+      "weapon": "zweihander",
+      "direction": "up",
+      "ending": "release",
+      "condition": "healthy",
+      "guards": {
+        "samePreparedNative": true,
+        "samePreparedController": true,
+        "sameConfiguredNative": true,
+        "sameConfiguredController": true,
+        "sameRequestedInput": true,
+        "observerFullPhysicalControlTraceExact": true,
+        "observerAllNativeBodyTraceExact": true,
+        "observerActualControllerTraceExact": true
+      },
+      "modes": {
+        "baseline": {
+          "executionPass": true,
+          "strokePeakTipMps": 10.142928144584946,
+          "wholePeakTipMps": 12.16806941560487,
+          "maxHandTargetErrorM": 0.6588502816317949,
+          "maxOffHandGapM": 0.08095419848142352,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 8.027463101810396,
+            "bladeAxisTravelRad": 4.373896255903575,
+            "strokeEndSwordKJ": 21.940608562287252,
+            "meanSwordKJ": 17.11847975556385,
+            "peakSwordKJ": 42.0507151472321,
+            "finalSwordKJ": 0.2973146110817027,
+            "finalWholeKJ": 0.8726673470405959,
+            "finalTipMps": 0.8130943227651323,
+            "finalHandErrorM": 0.14456076378871652
+          },
+          "floorSlipMaxMps": 0.5179898447369934,
+          "floorSlipMeanMps": 0.0035642055549160974,
+          "maxJointGapM": 0.0013120507338545907,
+          "maxPelvisHeightM": 0.8957862257957458,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": -18.32113623680511,
+              "explicitActuatorWorkApproxJ": 10.638113783680572
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 19.821255338551236,
+              "explicitActuatorWorkApproxJ": 37.584167172141726
+            }
+          },
+          "native": null,
+          "physicalControlTraceSHA256": "98e90900fc9a2679e3a486165e4aafdc33ad5733d0c9743d336cfd211ba0f180",
+          "allNativeBodyTraceSHA256": "b231d84325a4c626366b90d9ad582064e21743eb52f9b267a89ef7158ea04f2d",
+          "actualControllerSHA256": "405277eb766c93541faab6bab366342da4e2663aa4edcfdb89ae46879c463d52",
+          "requestedInputSHA256": "fc0d96c410a831dba7f5bbfd96188b30d4ebfd5419005d97bd436cf38aebca1a"
+        },
+        "observe": {
+          "executionPass": true,
+          "strokePeakTipMps": 10.142928144584946,
+          "wholePeakTipMps": 12.16806941560487,
+          "maxHandTargetErrorM": 0.6588502816317949,
+          "maxOffHandGapM": 0.08095419848142352,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 8.027463101810396,
+            "bladeAxisTravelRad": 4.373896255903575,
+            "strokeEndSwordKJ": 21.940608562287252,
+            "meanSwordKJ": 17.11847975556385,
+            "peakSwordKJ": 42.0507151472321,
+            "finalSwordKJ": 0.2973146110817027,
+            "finalWholeKJ": 0.8726673470405959,
+            "finalTipMps": 0.8130943227651323,
+            "finalHandErrorM": 0.14456076378871652
+          },
+          "floorSlipMaxMps": 0.5179898447369934,
+          "floorSlipMeanMps": 0.0035642055549160974,
+          "maxJointGapM": 0.0013120507338545907,
+          "maxPelvisHeightM": 0.8957862257957458,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": -18.32113623680511,
+              "explicitActuatorWorkApproxJ": 10.638113783680572
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 19.821255338551236,
+              "explicitActuatorWorkApproxJ": 37.584167172141726
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 0,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 0.7617076635360718,
+            "limitedAtLastSubstep": 0,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "98e90900fc9a2679e3a486165e4aafdc33ad5733d0c9743d336cfd211ba0f180",
+          "allNativeBodyTraceSHA256": "b231d84325a4c626366b90d9ad582064e21743eb52f9b267a89ef7158ea04f2d",
+          "actualControllerSHA256": "405277eb766c93541faab6bab366342da4e2663aa4edcfdb89ae46879c463d52",
+          "requestedInputSHA256": "fc0d96c410a831dba7f5bbfd96188b30d4ebfd5419005d97bd436cf38aebca1a"
+        },
+        "nativeCap": {
+          "executionPass": true,
+          "strokePeakTipMps": 10.146719713501328,
+          "wholePeakTipMps": 12.279400721501185,
+          "maxHandTargetErrorM": 0.6586381450349175,
+          "maxOffHandGapM": 0.08426482940930202,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 8.293294551397494,
+            "bladeAxisTravelRad": 4.4427683559035485,
+            "strokeEndSwordKJ": 21.980694617885398,
+            "meanSwordKJ": 17.514940349370928,
+            "peakSwordKJ": 42.40339402346255,
+            "finalSwordKJ": 0.2611038790470777,
+            "finalWholeKJ": 0.9315929462161883,
+            "finalTipMps": 1.116561542799243,
+            "finalHandErrorM": 0.15323872980282194
+          },
+          "floorSlipMaxMps": 0.5313245024784685,
+          "floorSlipMeanMps": 0.004423938065197006,
+          "maxJointGapM": 0.0013620790398032353,
+          "maxPelvisHeightM": 0.8957595229148865,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 0
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": -18.3302338639916,
+              "explicitActuatorWorkApproxJ": -0.8249345400237409
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 20.101115755442905,
+              "explicitActuatorWorkApproxJ": 46.56060652503581
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 210,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 0.780737467110157,
+            "limitedAtLastSubstep": 0,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "ec25eff436a4c6e26cb45adeb2d28b6276f3d4f801b6350f1ab5484c959ed181",
+          "allNativeBodyTraceSHA256": "7fd1e2fbccfed5e79a4e5bb9133780c1d9108869acac7ab56b00077a79ab9096",
+          "actualControllerSHA256": "405277eb766c93541faab6bab366342da4e2663aa4edcfdb89ae46879c463d52",
+          "requestedInputSHA256": "fc0d96c410a831dba7f5bbfd96188b30d4ebfd5419005d97bd436cf38aebca1a"
+        },
+        "explicitCap": {
+          "executionPass": true,
+          "strokePeakTipMps": 10.035383542955476,
+          "wholePeakTipMps": 12.933194842054869,
+          "maxHandTargetErrorM": 0.6721825070316133,
+          "maxOffHandGapM": 0.11849818055511752,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 7.639257134054421,
+            "bladeAxisTravelRad": 4.333346768847005,
+            "strokeEndSwordKJ": 21.284337864000957,
+            "meanSwordKJ": 18.05233596417274,
+            "peakSwordKJ": 50.00932190163235,
+            "finalSwordKJ": 1.196547855635462,
+            "finalWholeKJ": 1.519849180648352,
+            "finalTipMps": 2.2491551989580585,
+            "finalHandErrorM": 0.1413114800104325
+          },
+          "floorSlipMaxMps": 0.4983719365808453,
+          "floorSlipMeanMps": 0.00449231429843574,
+          "maxJointGapM": 0.0018517883326442158,
+          "maxPelvisHeightM": 0.8954838514328003,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": -17.81047711532905,
+              "explicitActuatorWorkApproxJ": 8.528434314026889
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 19.657189536583733,
+              "explicitActuatorWorkApproxJ": 46.87938042863141
+            }
+          },
+          "native": null,
+          "physicalControlTraceSHA256": "f0620150e6d801468bcdac9e76e04628ae0e2d501267a9688bc8621234d2163f",
+          "allNativeBodyTraceSHA256": "442e881d573c7a15b0bd56f92942ff4d933fa39da97e6cd07fd3e234c4112429",
+          "actualControllerSHA256": "405277eb766c93541faab6bab366342da4e2663aa4edcfdb89ae46879c463d52",
+          "requestedInputSHA256": "fc0d96c410a831dba7f5bbfd96188b30d4ebfd5419005d97bd436cf38aebca1a"
+        },
+        "combined": {
+          "executionPass": true,
+          "strokePeakTipMps": 10.03885127374736,
+          "wholePeakTipMps": 12.904822908539888,
+          "maxHandTargetErrorM": 0.6720031856016477,
+          "maxOffHandGapM": 0.11782330432542411,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 7.681084384204405,
+            "bladeAxisTravelRad": 4.353989929515316,
+            "strokeEndSwordKJ": 21.32809667046267,
+            "meanSwordKJ": 18.049417012215727,
+            "peakSwordKJ": 49.604271467339174,
+            "finalSwordKJ": 1.2074630326239908,
+            "finalWholeKJ": 1.5276576388959362,
+            "finalTipMps": 2.2609085683993833,
+            "finalHandErrorM": 0.13542388457793159
+          },
+          "floorSlipMaxMps": 0.4979027914206293,
+          "floorSlipMeanMps": 0.004956463993174382,
+          "maxJointGapM": 0.001948555237714663,
+          "maxPelvisHeightM": 0.8954859375953674,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 0
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": -17.81838802265102,
+              "explicitActuatorWorkApproxJ": -3.093191917202608
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 19.56965420597288,
+              "explicitActuatorWorkApproxJ": 58.609124932612815
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 210,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 0.8717845156788825,
+            "limitedAtLastSubstep": 0,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "d030a70f031f6a86f601e88618ea042794619ead99afec91ab43fc61f99f354a",
+          "allNativeBodyTraceSHA256": "2b89731211dc7c5e126c787b6d724ee215bad446c5dbb7ce910c59d5a66b8bbe",
+          "actualControllerSHA256": "405277eb766c93541faab6bab366342da4e2663aa4edcfdb89ae46879c463d52",
+          "requestedInputSHA256": "fc0d96c410a831dba7f5bbfd96188b30d4ebfd5419005d97bd436cf38aebca1a"
+        }
+      }
+    },
+    {
+      "weapon": "sabre",
+      "direction": "down",
+      "ending": "target_hold",
+      "condition": "armCut",
+      "guards": {
+        "samePreparedNative": true,
+        "samePreparedController": true,
+        "sameConfiguredNative": true,
+        "sameConfiguredController": true,
+        "sameRequestedInput": true,
+        "observerFullPhysicalControlTraceExact": true,
+        "observerAllNativeBodyTraceExact": true,
+        "observerActualControllerTraceExact": true
+      },
+      "modes": {
+        "baseline": {
+          "executionPass": true,
+          "strokePeakTipMps": 12.05457840191175,
+          "wholePeakTipMps": 12.05457840191175,
+          "maxHandTargetErrorM": 0.3252797328815709,
+          "maxOffHandGapM": 0.7769865001847254,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 1.5518603903987802,
+            "bladeAxisTravelRad": 1.1484798882115639,
+            "strokeEndSwordKJ": 12.73126207558738,
+            "meanSwordKJ": 0.5683571735103592,
+            "peakSwordKJ": 11.49413936520294,
+            "finalSwordKJ": 0.0004331356947540966,
+            "finalWholeKJ": 0.007732448217969759,
+            "finalTipMps": 0.04499316691013133,
+            "finalHandErrorM": 0.020354408098385568
+          },
+          "floorSlipMaxMps": 1.2769677584215717,
+          "floorSlipMeanMps": 0.004587322474870989,
+          "maxJointGapM": 0.0006388882702263241,
+          "maxPelvisHeightM": 0.8955946564674377,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 11.99919528588419,
+              "explicitActuatorWorkApproxJ": -23.483319186985753
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -1.0929561087976345,
+              "explicitActuatorWorkApproxJ": -2.6810476893258297
+            }
+          },
+          "native": null,
+          "physicalControlTraceSHA256": "904a90f37fb2f7490fa3107e2405aeb2131873625fe6c2cd835ac49cd68568ef",
+          "allNativeBodyTraceSHA256": "678220419c35fee118e6555dafcd82769a94a1c7517854b2dcdcc679debf648c",
+          "actualControllerSHA256": "c1e5fb03808fa2f502b7b79fecaddf1dd79e72003cd3e891d821b90a6768e1bc",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "observe": {
+          "executionPass": true,
+          "strokePeakTipMps": 12.05457840191175,
+          "wholePeakTipMps": 12.05457840191175,
+          "maxHandTargetErrorM": 0.3252797328815709,
+          "maxOffHandGapM": 0.7769865001847254,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 1.5518603903987802,
+            "bladeAxisTravelRad": 1.1484798882115639,
+            "strokeEndSwordKJ": 12.73126207558738,
+            "meanSwordKJ": 0.5683571735103592,
+            "peakSwordKJ": 11.49413936520294,
+            "finalSwordKJ": 0.0004331356947540966,
+            "finalWholeKJ": 0.007732448217969759,
+            "finalTipMps": 0.04499316691013133,
+            "finalHandErrorM": 0.020354408098385568
+          },
+          "floorSlipMaxMps": 1.2769677584215717,
+          "floorSlipMeanMps": 0.004587322474870989,
+          "maxJointGapM": 0.0006388882702263241,
+          "maxPelvisHeightM": 0.8955946564674377,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 11.99919528588419,
+              "explicitActuatorWorkApproxJ": -23.483319186985753
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -1.0929561087976345,
+              "explicitActuatorWorkApproxJ": -2.6810476893258297
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 0,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 0.924560921536248,
+            "limitedAtLastSubstep": 0,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "904a90f37fb2f7490fa3107e2405aeb2131873625fe6c2cd835ac49cd68568ef",
+          "allNativeBodyTraceSHA256": "678220419c35fee118e6555dafcd82769a94a1c7517854b2dcdcc679debf648c",
+          "actualControllerSHA256": "c1e5fb03808fa2f502b7b79fecaddf1dd79e72003cd3e891d821b90a6768e1bc",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "nativeCap": {
+          "executionPass": true,
+          "strokePeakTipMps": 11.892580012888708,
+          "wholePeakTipMps": 11.892580012888708,
+          "maxHandTargetErrorM": 0.32827368431493936,
+          "maxOffHandGapM": 0.7695967301734059,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 1.622018984259987,
+            "bladeAxisTravelRad": 1.199185153595245,
+            "strokeEndSwordKJ": 12.719071796818433,
+            "meanSwordKJ": 0.601319306798048,
+            "peakSwordKJ": 11.480508418130269,
+            "finalSwordKJ": 0.00042369181739451483,
+            "finalWholeKJ": 0.007700957129304398,
+            "finalTipMps": 0.04468332499664338,
+            "finalHandErrorM": 0.020309546750329643
+          },
+          "floorSlipMaxMps": 0.8751827993466356,
+          "floorSlipMeanMps": 0.003177461298732381,
+          "maxJointGapM": 0.0006801700143401051,
+          "maxPelvisHeightM": 0.8956518769264221,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 0
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 11.882554452728977,
+              "explicitActuatorWorkApproxJ": -21.041460137347496
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -0.9313455748164198,
+              "explicitActuatorWorkApproxJ": -4.245500195608348
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 210,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 1.0000000891856409,
+            "limitedAtLastSubstep": 4,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "dbc6c234c3adfcbd4bf33f80fbae816fe96b3320d57ebb5d95ee02a5ceebe2e3",
+          "allNativeBodyTraceSHA256": "c729cd06d4e8daa010a0cdcc66c0796f6c9d2c7a76bce95f98f780d41238f648",
+          "actualControllerSHA256": "c1e5fb03808fa2f502b7b79fecaddf1dd79e72003cd3e891d821b90a6768e1bc",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "explicitCap": {
+          "executionPass": true,
+          "strokePeakTipMps": 11.87567397708543,
+          "wholePeakTipMps": 11.87567397708543,
+          "maxHandTargetErrorM": 0.33983088994538857,
+          "maxOffHandGapM": 0.7877444832535085,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 1.6293419659582042,
+            "bladeAxisTravelRad": 1.1359412036201029,
+            "strokeEndSwordKJ": 13.33156734130066,
+            "meanSwordKJ": 0.6123227862620904,
+            "peakSwordKJ": 12.092345812707789,
+            "finalSwordKJ": 0.0004715235532114422,
+            "finalWholeKJ": 0.007757304424024228,
+            "finalTipMps": 0.046352907355994045,
+            "finalHandErrorM": 0.020484420817614177
+          },
+          "floorSlipMaxMps": 0.9725664135333546,
+          "floorSlipMeanMps": 0.0031541537376872796,
+          "maxJointGapM": 0.0007186495248875036,
+          "maxPelvisHeightM": 0.8955748677253723,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 11.964177181258345,
+              "explicitActuatorWorkApproxJ": -24.522903918805284
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -1.0645072969296299,
+              "explicitActuatorWorkApproxJ": -3.0753903258221644
+            }
+          },
+          "native": null,
+          "physicalControlTraceSHA256": "3d2ca596c965a93f5a529f3684a38106506185dcc8c272944965fd2be131a099",
+          "allNativeBodyTraceSHA256": "6694e5eac5a0a5c60710d99d3f28c1be8ebac6f479bc3747f03ef1fcad870178",
+          "actualControllerSHA256": "c1e5fb03808fa2f502b7b79fecaddf1dd79e72003cd3e891d821b90a6768e1bc",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "combined": {
+          "executionPass": true,
+          "strokePeakTipMps": 11.713769495061626,
+          "wholePeakTipMps": 11.713769495061626,
+          "maxHandTargetErrorM": 0.3427755512697046,
+          "maxOffHandGapM": 0.78075598088229,
+          "grippingFraction": 0,
+          "ending": {
+            "fullOrientationTravelRad": 1.65801803540632,
+            "bladeAxisTravelRad": 1.2006454564936375,
+            "strokeEndSwordKJ": 13.28119950694644,
+            "meanSwordKJ": 0.6405418153467612,
+            "peakSwordKJ": 12.046420080056897,
+            "finalSwordKJ": 0.0004262274952181928,
+            "finalWholeKJ": 0.0077005107309115455,
+            "finalTipMps": 0.044610813656635016,
+            "finalHandErrorM": 0.020419845316752557
+          },
+          "floorSlipMaxMps": 1.0822681969876136,
+          "floorSlipMeanMps": 0.0037692173640234915,
+          "maxJointGapM": 0.0006839134841170396,
+          "maxPelvisHeightM": 0.8956287503242493,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 0
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 11.840684349178307,
+              "explicitActuatorWorkApproxJ": -22.03642841162331
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": -0.8936360325666453,
+              "explicitActuatorWorkApproxJ": -4.111801030248889
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 210,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 1.0000000891856409,
+            "limitedAtLastSubstep": 4,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "e195866dd29f20b60c27272dc7865f265bb0ea707fa113b715d7ba9538fd938a",
+          "allNativeBodyTraceSHA256": "a5d66d825bff31ba3158501d01401b75470521c182e87f1e86fb998ce672c0d1",
+          "actualControllerSHA256": "c1e5fb03808fa2f502b7b79fecaddf1dd79e72003cd3e891d821b90a6768e1bc",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        }
+      },
+      "wound": {
+        "payload": {
+          "part": "farmS",
+          "zone": "arm",
+          "type": "cut",
+          "severity": 0.6,
+          "energy": 76,
+          "bleedPerSev": 0.012,
+          "local": [
+            0,
+            0,
+            0
+          ],
+          "helmet": false,
+          "plate": false,
+          "pass": true,
+          "passing": false
+        },
+        "actualWoundAdded": true,
+        "bodyNativeUnchanged": true,
+        "before": {
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "pain": 0,
+          "balance": 100,
+          "bleed": 0
+        },
+        "after": {
+          "limbs": {
+            "armS": 0.5800000000000001,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "pain": 0.9866666666666667,
+          "balance": 62,
+          "bleed": 0.0072
+        }
+      }
+    },
+    {
+      "weapon": "zweihander",
+      "direction": "down",
+      "ending": "target_hold",
+      "condition": "armCut",
+      "guards": {
+        "samePreparedNative": true,
+        "samePreparedController": true,
+        "sameConfiguredNative": true,
+        "sameConfiguredController": true,
+        "sameRequestedInput": true,
+        "observerFullPhysicalControlTraceExact": true,
+        "observerAllNativeBodyTraceExact": true,
+        "observerActualControllerTraceExact": true
+      },
+      "modes": {
+        "baseline": {
+          "executionPass": true,
+          "strokePeakTipMps": 12.088156644920547,
+          "wholePeakTipMps": 13.099586480911224,
+          "maxHandTargetErrorM": 0.48347916342248853,
+          "maxOffHandGapM": 0.11497734186295049,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 2.1122827663368144,
+            "bladeAxisTravelRad": 1.608058521734828,
+            "strokeEndSwordKJ": 36.92499896251533,
+            "meanSwordKJ": 5.330450184943468,
+            "peakSwordKJ": 37.671088355569594,
+            "finalSwordKJ": 0.004753416999769782,
+            "finalWholeKJ": 0.011791864366500265,
+            "finalTipMps": 0.09834658514125254,
+            "finalHandErrorM": 0.034879185248992924
+          },
+          "floorSlipMaxMps": 0.9968683501767168,
+          "floorSlipMeanMps": 0.01863813478004834,
+          "maxJointGapM": 0.0008058031948901797,
+          "maxPelvisHeightM": 0.8977982401847839,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 20.654969091224608,
+              "explicitActuatorWorkApproxJ": -2.668614643511919
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 18.430206686627177,
+              "explicitActuatorWorkApproxJ": -30.080686794049225
+            }
+          },
+          "native": null,
+          "physicalControlTraceSHA256": "42b5efb9ebb4d79989c21c280a289729ba63a11cc9bc06db67a69f677186c038",
+          "allNativeBodyTraceSHA256": "415477c86ec8a571c2a1dce6bb21d599e8030e7604f01fb5c7c534776366e073",
+          "actualControllerSHA256": "25fe9c975b3a93e4341bfd39c0765afeaa514dba4b196ff5a6c7dfe7c7fbf0ce",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "observe": {
+          "executionPass": true,
+          "strokePeakTipMps": 12.088156644920547,
+          "wholePeakTipMps": 13.099586480911224,
+          "maxHandTargetErrorM": 0.48347916342248853,
+          "maxOffHandGapM": 0.11497734186295049,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 2.1122827663368144,
+            "bladeAxisTravelRad": 1.608058521734828,
+            "strokeEndSwordKJ": 36.92499896251533,
+            "meanSwordKJ": 5.330450184943468,
+            "peakSwordKJ": 37.671088355569594,
+            "finalSwordKJ": 0.004753416999769782,
+            "finalWholeKJ": 0.011791864366500265,
+            "finalTipMps": 0.09834658514125254,
+            "finalHandErrorM": 0.034879185248992924
+          },
+          "floorSlipMaxMps": 0.9968683501767168,
+          "floorSlipMeanMps": 0.01863813478004834,
+          "maxJointGapM": 0.0008058031948901797,
+          "maxPelvisHeightM": 0.8977982401847839,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 20.654969091224608,
+              "explicitActuatorWorkApproxJ": -2.668614643511919
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 18.430206686627177,
+              "explicitActuatorWorkApproxJ": -30.080686794049225
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 0,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 1.3149160037604246,
+            "limitedAtLastSubstep": 10,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "42b5efb9ebb4d79989c21c280a289729ba63a11cc9bc06db67a69f677186c038",
+          "allNativeBodyTraceSHA256": "415477c86ec8a571c2a1dce6bb21d599e8030e7604f01fb5c7c534776366e073",
+          "actualControllerSHA256": "25fe9c975b3a93e4341bfd39c0765afeaa514dba4b196ff5a6c7dfe7c7fbf0ce",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "nativeCap": {
+          "executionPass": true,
+          "strokePeakTipMps": 11.290634854914003,
+          "wholePeakTipMps": 12.539570731067041,
+          "maxHandTargetErrorM": 0.46075434123639813,
+          "maxOffHandGapM": 0.10745025878598811,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 2.1704139408858505,
+            "bladeAxisTravelRad": 1.7534617881677563,
+            "strokeEndSwordKJ": 30.364611293233708,
+            "meanSwordKJ": 5.313526237537959,
+            "peakSwordKJ": 32.249433904476916,
+            "finalSwordKJ": 0.001330086947735705,
+            "finalWholeKJ": 0.007603090586974126,
+            "finalTipMps": 0.05323231151912804,
+            "finalHandErrorM": 0.03328306700104227
+          },
+          "floorSlipMaxMps": 0.6354596027404463,
+          "floorSlipMeanMps": 0.007040335952312655,
+          "maxJointGapM": 0.000987783557899094,
+          "maxPelvisHeightM": 0.8977981805801392,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 0
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 19.512340264565214,
+              "explicitActuatorWorkApproxJ": -3.012281315704647
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 19.398700682728652,
+              "explicitActuatorWorkApproxJ": -30.16454227572452
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 210,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 1.0000000891856409,
+            "limitedAtLastSubstep": 10,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "9637de2997a171aac804e146467a6d18c2e040463462c421ffe6be9a4cce7146",
+          "allNativeBodyTraceSHA256": "be2078b82f322a83d15875181d3aad2d3611b4b9159b2cd8bd7ff81b386c8e07",
+          "actualControllerSHA256": "25fe9c975b3a93e4341bfd39c0765afeaa514dba4b196ff5a6c7dfe7c7fbf0ce",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "explicitCap": {
+          "executionPass": true,
+          "strokePeakTipMps": 12.082640926425716,
+          "wholePeakTipMps": 13.090499169062177,
+          "maxHandTargetErrorM": 0.48318562931731,
+          "maxOffHandGapM": 0.1154967847099314,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 2.1165718546017116,
+            "bladeAxisTravelRad": 1.6102705437772273,
+            "strokeEndSwordKJ": 36.867788890529575,
+            "meanSwordKJ": 5.334710651457627,
+            "peakSwordKJ": 37.58742533245319,
+            "finalSwordKJ": 0.004917838424180006,
+            "finalWholeKJ": 0.012096307100548667,
+            "finalTipMps": 0.10010675694893231,
+            "finalHandErrorM": 0.03494419633825983
+          },
+          "floorSlipMaxMps": 1.0117078793795,
+          "floorSlipMeanMps": 0.01937704857326716,
+          "maxJointGapM": 0.000806008308892302,
+          "maxPelvisHeightM": 0.8977980017662048,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 210
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 20.607951963796417,
+              "explicitActuatorWorkApproxJ": -2.1652858268813127
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 18.47427949181505,
+              "explicitActuatorWorkApproxJ": -30.656687056115
+            }
+          },
+          "native": null,
+          "physicalControlTraceSHA256": "aedf9b793fe681fe1fb3eaa9dacf4c3121b8d4da2529f025cfffc90946db20d4",
+          "allNativeBodyTraceSHA256": "11238c3e7a0628758b1b797693fda9a562280b12dd28fdc7ab069b0a68ddc3ae",
+          "actualControllerSHA256": "25fe9c975b3a93e4341bfd39c0765afeaa514dba4b196ff5a6c7dfe7c7fbf0ce",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        },
+        "combined": {
+          "executionPass": true,
+          "strokePeakTipMps": 11.251827436560543,
+          "wholePeakTipMps": 12.531233646836386,
+          "maxHandTargetErrorM": 0.4611758678247836,
+          "maxOffHandGapM": 0.10741935236699238,
+          "grippingFraction": 1,
+          "ending": {
+            "fullOrientationTravelRad": 2.1785642820723017,
+            "bladeAxisTravelRad": 1.7510865822482717,
+            "strokeEndSwordKJ": 30.418329787559664,
+            "meanSwordKJ": 5.312806290033415,
+            "peakSwordKJ": 32.05589350597389,
+            "finalSwordKJ": 0.0013236143398143649,
+            "finalWholeKJ": 0.0074708177308642106,
+            "finalTipMps": 0.05315813963239549,
+            "finalHandErrorM": 0.03339545936082563
+          },
+          "floorSlipMaxMps": 0.6449748859034351,
+          "floorSlipMeanMps": 0.0067810581538216095,
+          "maxJointGapM": 0.000929456117163635,
+          "maxPelvisHeightM": 0.8977978825569153,
+          "dispatch": {
+            "driveSword": 210,
+            "driveJoints": 210,
+            "baselineElbowGravity": 0
+          },
+          "jointPreserved": true,
+          "explicitFFDuplicateCalls": 0,
+          "phase": {
+            "stroke": {
+              "frames": 66,
+              "swordGravityWorkApproxJ": 19.427081448512872,
+              "explicitActuatorWorkApproxJ": -2.285002922506015
+            },
+            "after_input": {
+              "frames": 144,
+              "swordGravityWorkApproxJ": 19.472192722782715,
+              "explicitActuatorWorkApproxJ": -30.687109371817076
+            }
+          },
+          "native": {
+            "nativeCalls": 210,
+            "explicitGravityCalls": 210,
+            "measurements": 210,
+            "errors": [],
+            "maxLastSubstepCapRatio": 1.0000000891856409,
+            "limitedAtLastSubstep": 10,
+            "jointRecreated": false
+          },
+          "physicalControlTraceSHA256": "0e689f6699e61da2dd9620fa38b243c55dfbdf5c4c6306c8e98653961c52249f",
+          "allNativeBodyTraceSHA256": "293f01b45b68471d0bc125482f10671d742af105f1eacec419d65c200229ca2e",
+          "actualControllerSHA256": "25fe9c975b3a93e4341bfd39c0765afeaa514dba4b196ff5a6c7dfe7c7fbf0ce",
+          "requestedInputSHA256": "4e468db69ad14c2e5e3b201f5d636b6845ca18f6eb746f97e727eaa324646760"
+        }
+      },
+      "wound": {
+        "payload": {
+          "part": "farmS",
+          "zone": "arm",
+          "type": "cut",
+          "severity": 0.6,
+          "energy": 76,
+          "bleedPerSev": 0.012,
+          "local": [
+            0,
+            0,
+            0
+          ],
+          "helmet": false,
+          "plate": false,
+          "pass": true,
+          "passing": false
+        },
+        "actualWoundAdded": true,
+        "bodyNativeUnchanged": true,
+        "before": {
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "pain": 0,
+          "balance": 100,
+          "bleed": 0
+        },
+        "after": {
+          "limbs": {
+            "armS": 0.5800000000000001,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "pain": 0.9866666666666667,
+          "balance": 62,
+          "bleed": 0.0072
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "applyWound is a bounded synthetic API payload, not blade impact or direct armS injection.",
+    "Release retains normal autocenter/recovery and is not free coast.",
+    "Native cap/readback refers only to one axis and the last solver substep; passive limits/other motors are separate.",
+    "Moving FF into native changes explicit-work measurement boundary; explicit work sum cannot compare total muscle work/efficiency.",
+    "Floor contact slip includes all selected body parts, not only planted feet.",
+    "No existing source/tools/package or public default engine was changed.",
+    "The floorSlip* source-field names denote diagnostic tangential relative speed at floor manifold solver points. No fresh-contact/positive-normal-impulse support filter is applied; these values do not establish confirmed load-bearing support slip. Impulse and solver-point arrays are not paired or used as weights."
+  ],
+  "contactReadoutInterpretation": "Floor contact-point diagnostic speed; unweighted aggregation of all selected fighter floor manifold solver points, without fresh/positive-impulse support filtering. Not confirmed support slip."
+}

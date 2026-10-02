@@ -1,0 +1,3987 @@
+{
+  "probe": "recovery_reach_load",
+  "command": "node tools/sim/experiments/recovery_reach_load_probe.mjs --out=/workspace/halfsword-hybrid-evidence/recovery-reach-load-r1.json",
+  "createdUTC": "2026-10-02T07:44:21.054Z",
+  "headBefore": "48c9c2bf054e52d0ae290ede682a8b9a95a522cb",
+  "headAfter": "48c9c2bf054e52d0ae290ede682a8b9a95a522cb",
+  "headStable": true,
+  "sourceBefore": {
+    "docs/strike/same_lying_recovery_summary.json": "0487cf99ebb9509057d360d64ac375db993094f5e8d99b3000348c5d0b046949",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+    "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+    "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+    "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+    "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+    "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+    "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+    "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+    "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+    "src/config.js": "e84d7b921b6d8678b358a5971b296c22edded192d680a56e45a0b29ab2aa5319",
+    "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+    "src/cut_trial.js": "3ef89c41c9b40b3e18a5d19cd92277af49e972c8eae030efaa915a39dfc4fcbf",
+    "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+    "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+    "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+    "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+    "src/fighter.js": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+    "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+    "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+    "src/gait.js": "91eba47caf6dddd7fd75a5de141a087614398031c45ef75b2ac814f8c4db9b83",
+    "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+    "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+    "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+    "src/input.js": "b5954792bb8c9d005bbe17dc1a7669e296b6297c66a1f0339f487d4a2ff9cd4f",
+    "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+    "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+    "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+    "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+    "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+    "src/main.js": "b407150693be04cdcb3da5b3488d22dc9d131ab28d309f7f58b9dae16c86d86a",
+    "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+    "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+    "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+    "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+    "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+    "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+    "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+    "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+    "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+    "src/sound.js": "7c6dddf5f81675f46d4df64d2fd3c9586e22172351f734a3bd1b273bfd24cac1",
+    "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+    "src/soundlab.js": "3e0f803534d588d2bbf78dbb42cb901077de26f32dcdd13cbc251c2424f12624",
+    "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+    "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+    "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+    "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+    "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+    "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+    "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+    "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+    "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+    "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+    "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+    "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+    "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+    "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+    "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+    "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "tools/sim/experiments/recovery_reach_load_probe.mjs": "ac6189ed0e93da3d4dde58a36ac8ced6c3f4655798cb55beca657d0e3f11024c",
+    "tools/sim/experiments/same_lying_recovery_probe.mjs": "b0ce8060e322005cadcaf6ea93835c2468efbbb82db81e83bc9f63bf66e19d45",
+    "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+    "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b"
+  },
+  "sourceAfter": {
+    "docs/strike/same_lying_recovery_summary.json": "0487cf99ebb9509057d360d64ac375db993094f5e8d99b3000348c5d0b046949",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+    "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+    "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+    "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+    "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+    "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+    "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+    "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+    "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+    "src/config.js": "e84d7b921b6d8678b358a5971b296c22edded192d680a56e45a0b29ab2aa5319",
+    "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+    "src/cut_trial.js": "3ef89c41c9b40b3e18a5d19cd92277af49e972c8eae030efaa915a39dfc4fcbf",
+    "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+    "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+    "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+    "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+    "src/fighter.js": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+    "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+    "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+    "src/gait.js": "91eba47caf6dddd7fd75a5de141a087614398031c45ef75b2ac814f8c4db9b83",
+    "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+    "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+    "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+    "src/input.js": "b5954792bb8c9d005bbe17dc1a7669e296b6297c66a1f0339f487d4a2ff9cd4f",
+    "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+    "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+    "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+    "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+    "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+    "src/main.js": "b407150693be04cdcb3da5b3488d22dc9d131ab28d309f7f58b9dae16c86d86a",
+    "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+    "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+    "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+    "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+    "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+    "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+    "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+    "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+    "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+    "src/sound.js": "7c6dddf5f81675f46d4df64d2fd3c9586e22172351f734a3bd1b273bfd24cac1",
+    "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+    "src/soundlab.js": "3e0f803534d588d2bbf78dbb42cb901077de26f32dcdd13cbc251c2424f12624",
+    "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+    "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+    "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+    "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+    "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+    "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+    "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+    "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+    "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+    "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+    "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+    "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+    "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+    "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+    "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+    "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "tools/sim/experiments/recovery_reach_load_probe.mjs": "ac6189ed0e93da3d4dde58a36ac8ced6c3f4655798cb55beca657d0e3f11024c",
+    "tools/sim/experiments/same_lying_recovery_probe.mjs": "b0ce8060e322005cadcaf6ea93835c2468efbbb82db81e83bc9f63bf66e19d45",
+    "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+    "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b"
+  },
+  "sourceStable": true,
+  "cloneSha256": "642f4e32f2ce47f728ae898d900b67e5feb71ed138099c515f890fdbd9231653",
+  "wallSeconds": 90.47046086799999,
+  "error": null,
+  "guards": [
+    {
+      "scenario": "healthy_getup",
+      "variant": "baseline",
+      "observed": true,
+      "lowCheckpointExact": true,
+      "sameInput": true,
+      "entryPresent": true,
+      "dispatchExecuted": true
+    },
+    {
+      "scenario": "healthy_getup",
+      "variant": "clone",
+      "observed": true,
+      "lowCheckpointExact": true,
+      "sameInput": true,
+      "entryPresent": true,
+      "dispatchExecuted": true,
+      "enterCheckpointExact": true,
+      "sourceCloneExecuted": true,
+      "cloneTraceExact": true
+    },
+    {
+      "scenario": "healthy_getup",
+      "variant": "observedPlant",
+      "observed": true,
+      "lowCheckpointExact": true,
+      "sameInput": true,
+      "entryPresent": true,
+      "dispatchExecuted": true,
+      "enterCheckpointExact": true,
+      "sourceCloneExecuted": true,
+      "candidateApplied": true,
+      "nativePreserved": true,
+      "bodyPreserved": true
+    },
+    {
+      "scenario": "healthy_getup",
+      "variant": "unsupportedReach",
+      "observed": true,
+      "lowCheckpointExact": true,
+      "sameInput": true,
+      "entryPresent": true,
+      "dispatchExecuted": true,
+      "enterCheckpointExact": true,
+      "sourceCloneExecuted": true,
+      "firstReachExact": true,
+      "applicationDisposition": true,
+      "noopTraceExact": true
+    },
+    {
+      "scenario": "hurt_getup",
+      "variant": "baseline",
+      "observed": true,
+      "lowCheckpointExact": true,
+      "sameInput": true,
+      "entryPresent": true,
+      "dispatchExecuted": true
+    },
+    {
+      "scenario": "hurt_getup",
+      "variant": "clone",
+      "observed": true,
+      "lowCheckpointExact": true,
+      "sameInput": true,
+      "entryPresent": true,
+      "dispatchExecuted": true,
+      "enterCheckpointExact": true,
+      "sourceCloneExecuted": true,
+      "cloneTraceExact": true
+    },
+    {
+      "scenario": "hurt_getup",
+      "variant": "observedPlant",
+      "observed": true,
+      "lowCheckpointExact": true,
+      "sameInput": true,
+      "entryPresent": true,
+      "dispatchExecuted": true,
+      "enterCheckpointExact": true,
+      "sourceCloneExecuted": true,
+      "candidateApplied": true,
+      "nativePreserved": true,
+      "bodyPreserved": true
+    },
+    {
+      "scenario": "hurt_getup",
+      "variant": "unsupportedReach",
+      "observed": true,
+      "lowCheckpointExact": true,
+      "sameInput": true,
+      "entryPresent": true,
+      "dispatchExecuted": true,
+      "enterCheckpointExact": true,
+      "sourceCloneExecuted": true,
+      "firstReachExact": true,
+      "applicationDisposition": true
+    }
+  ],
+  "protocol": {
+    "seed": 7,
+    "A_LEN": 0.43,
+    "B_LEN": 0.42,
+    "HIP_DROP": 0.04,
+    "maxIKReachM": 0.8493201848045918,
+    "kneeMinRad": 0.08,
+    "variantScope": "observedPlant: first recovery enter plant/pin references measured foot geometry only. unsupportedReach: first stand42steps, unsupported stance foot only; preserve target Y, project XZ into existing kneeMin reach. Vertical infeasible requests unchanged. SwingPull/des/rel untouched.",
+    "nativeSettings": "Original engine and native controller law/base k/d/caps/gains/mass rules retained. Effective configured k/d may vary through original error-based torque cap and dynamic feedback; recorded requests are not delivered torques.",
+    "support": "Fresh supported contact raw impulse projected upward. handO is forearm/palm proxy and shin is whole shin/knee proxy; no isolated palm/knee force or calibrated load.",
+    "limitations": "Two deterministic game scenarios, not human samples. No pose/velocity teleport, new upright gain, threshold blocking stand, extra force or candidate adoption."
+  },
+  "rawEvidence": {
+    "path": "/workspace/halfsword-hybrid-evidence/recovery-reach-load-r1.json",
+    "bytes": 283530386,
+    "sha256": "7bc4cbc6a9de7748ac4b3b8a8bdfd87ad7f92b29552024ab9b8c42d02cc12f2b"
+  },
+  "rows": [
+    {
+      "scenario": "healthy_getup",
+      "variant": "baseline",
+      "traceSHA256": "b51535850381e6f77b5db44727328b9c68d5bd246a2af63b39488694d019d8c4",
+      "applications": 0,
+      "verticalInfeasible": 0,
+      "firstStandS": 4.216666666666667,
+      "refalls": [],
+      "first42": {
+        "physicsSteps": 42,
+        "maxRawRequestedReachM": 0.903048245323672,
+        "maxInternalIKReachM": 0.8493201848045918,
+        "unreachableRequests": 46,
+        "unsupportedRequests": 14
+      },
+      "postFirstStand": {
+        "maxKJ": 84.1165517059927,
+        "maxHeightM": 0.9821765422821045,
+        "maxGapM": 0.0024495135782475314,
+        "confirmedFootPointSlip": {
+          "pointSamples": 18445,
+          "frames": 2473,
+          "meanMps": 0.005003715318616527,
+          "p95Mps": 0.0025057204790159245,
+          "maxMps": 3.590570422138351
+        },
+        "measuredGroupSupport": {
+          "groups": {
+            "footF": {
+              "supportSeconds": 19.216666666666665,
+              "confirmedUpwardImpulseNs": 8904.745884810109,
+              "rawNormalImpulseNs": 8904.745884810109,
+              "firstSupportS": 4.216666666666667,
+              "lastSupportS": 25,
+              "maxConfirmedSlipMps": 2.8903276246871865
+            },
+            "footB": {
+              "supportSeconds": 19.941666666666666,
+              "confirmedUpwardImpulseNs": 10247.342574561946,
+              "rawNormalImpulseNs": 10247.342574561946,
+              "firstSupportS": 4.216666666666667,
+              "lastSupportS": 25,
+              "maxConfirmedSlipMps": 3.590570422138351
+            },
+            "shinF": {
+              "supportSeconds": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "rawNormalImpulseNs": 0,
+              "firstSupportS": null,
+              "lastSupportS": null,
+              "maxConfirmedSlipMps": null
+            },
+            "shinB": {
+              "supportSeconds": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "rawNormalImpulseNs": 0,
+              "firstSupportS": null,
+              "lastSupportS": null,
+              "maxConfirmedSlipMps": null
+            },
+            "handO": {
+              "supportSeconds": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "rawNormalImpulseNs": 0,
+              "firstSupportS": null,
+              "lastSupportS": null,
+              "maxConfirmedSlipMps": null
+            }
+          },
+          "noGroupSupportSeconds": 0.18333333333333332,
+          "maxNoGroupSupportIntervalS": 0.12499999999999999
+        }
+      },
+      "entry": {
+        "timeS": 4.216666666666667,
+        "before": {
+          "F": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.6434318442868783,
+              "y": 0.7095936639705339,
+              "z": -0.614285309120158
+            },
+            "ankle": {
+              "x": -2.5554327235008856,
+              "y": 0.06747294373178164,
+              "z": -0.0676791915145836
+            },
+            "plant": {
+              "x": -2.5238271751892714,
+              "y": 0.062,
+              "z": 0.10330802629339904
+            },
+            "hipToActualAnkleM": 0.8478449813632682,
+            "hipToPlantM": 0.9739728053260434,
+            "actualKneeParent": {
+              "x": -2.568558935322012,
+              "y": 0.3880885119236597,
+              "z": -0.3388451581411466
+            },
+            "actualKneeChild": {
+              "x": -2.5686176559534206,
+              "y": 0.3876433751639804,
+              "z": -0.33903981416356604
+            },
+            "actualKneeBendRad": 0.14370432919985054,
+            "targetKneeBendRad": 0.2199999999993898,
+            "thighHipToKneeM": 0.42992882208673266,
+            "shinKneeToAnkleM": 0.41990419756380337,
+            "soleY": -0.0005900665876299727,
+            "toeY": -0.00939244276872929,
+            "heel": 0.16235634206842908,
+            "extraMassKg": 0,
+            "pinC": {
+              "x": -2.467605326225727,
+              "y": 0.008383903927780254,
+              "z": 0.10303008879109748
+            },
+            "pinT": {
+              "x": -2.348115671828754,
+              "y": 0.01941388202341786,
+              "z": 0.10228037549342665
+            },
+            "phi": 0.1,
+            "yaw": 0.006274212305287834
+          },
+          "B": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.6389399562051374,
+              "y": 0.6922221069949366,
+              "z": -0.8034361800562259
+            },
+            "ankle": {
+              "x": -3.2422466476927263,
+              "y": 0.12281907383509784,
+              "z": -0.6720444033465661
+            },
+            "plant": {
+              "x": -3.1415810505899637,
+              "y": 0.062,
+              "z": -0.11669076516433954
+            },
+            "hipToActualAnkleM": 0.8399181967026588,
+            "hipToPlantM": 1.0589840597405338,
+            "actualKneeParent": {
+              "x": -2.8980382227878154,
+              "y": 0.3601133199436356,
+              "z": -0.7142456618849238
+            },
+            "actualKneeChild": {
+              "x": -2.898025699605824,
+              "y": 0.35979771742349065,
+              "z": -0.7141808272025042
+            },
+            "actualKneeBendRad": 0.3202417594509619,
+            "targetKneeBendRad": 0.14000000000368548,
+            "thighHipToKneeM": 0.4305613855357912,
+            "shinKneeToAnkleM": 0.4200266858596102,
+            "soleY": -0.004160958802021213,
+            "toeY": -0.0010830546234423186,
+            "heel": 0,
+            "extraMassKg": 0,
+            "pinC": {
+              "x": -3.0910615839454403,
+              "y": 0.0009493795593278065,
+              "z": -0.12530482161441311
+            },
+            "pinT": {
+              "x": -2.97298033894133,
+              "y": 0.0030998499612617456,
+              "z": -0.14656969934851954
+            },
+            "phi": 0.1,
+            "yaw": 0.17817704719623764
+          }
+        },
+        "legacyAfter": {
+          "F": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.6434318442868783,
+              "y": 0.7095936639705339,
+              "z": -0.614285309120158
+            },
+            "ankle": {
+              "x": -2.5554327235008856,
+              "y": 0.06747294373178164,
+              "z": -0.0676791915145836
+            },
+            "plant": {
+              "x": -2.5554327235008856,
+              "y": 0.062,
+              "z": -0.0676791915145836
+            },
+            "hipToActualAnkleM": 0.8478449813632682,
+            "hipToPlantM": 0.851997445229578,
+            "actualKneeParent": {
+              "x": -2.568558935322012,
+              "y": 0.3880885119236597,
+              "z": -0.3388451581411466
+            },
+            "actualKneeChild": {
+              "x": -2.5686176559534206,
+              "y": 0.3876433751639804,
+              "z": -0.33903981416356604
+            },
+            "actualKneeBendRad": 0.14370432919985054,
+            "targetKneeBendRad": 0.2199999999993898,
+            "thighHipToKneeM": 0.42992882208673266,
+            "shinKneeToAnkleM": 0.41990419756380337,
+            "soleY": 0.02243054057699329,
+            "toeY": 0.02695302386848656,
+            "heel": 0.16235634206842908,
+            "extraMassKg": 2,
+            "pinC": {
+              "x": -2.5168610004986434,
+              "y": 0.02243054057699329,
+              "z": -0.005362227637103006
+            },
+            "pinT": {
+              "x": -2.400089003573602,
+              "y": 0.02695302386848656,
+              "z": 0.021911346746782794
+            },
+            "phi": 0.1,
+            "yaw": -0.22944937689797956
+          },
+          "B": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.6389399562051374,
+              "y": 0.6922221069949366,
+              "z": -0.8034361800562259
+            },
+            "ankle": {
+              "x": -3.2422466476927263,
+              "y": 0.12281907383509784,
+              "z": -0.6720444033465661
+            },
+            "plant": {
+              "x": -3.29591321245944,
+              "y": 0.062,
+              "z": -0.6585113396264878
+            },
+            "hipToActualAnkleM": 0.8399181967026588,
+            "hipToPlantM": 0.9218443322774749,
+            "actualKneeParent": {
+              "x": -2.8980382227878154,
+              "y": 0.3601133199436356,
+              "z": -0.7142456618849238
+            },
+            "actualKneeChild": {
+              "x": -2.898025699605824,
+              "y": 0.35979771742349065,
+              "z": -0.7141808272025042
+            },
+            "actualKneeBendRad": 0.3202417594509619,
+            "targetKneeBendRad": 0.14000000000368548,
+            "thighHipToKneeM": 0.4305613855357912,
+            "shinKneeToAnkleM": 0.4200266858596102,
+            "soleY": 0.04443079404930761,
+            "toeY": -0.009036097163365578,
+            "heel": 0,
+            "extraMassKg": 2,
+            "pinC": {
+              "x": -3.2489666399017887,
+              "y": 0,
+              "z": -0.6413061274775728
+            },
+            "pinT": {
+              "x": -3.1362948657634253,
+              "y": 0,
+              "z": -0.6000136183201765
+            },
+            "phi": 0.1,
+            "yaw": -0.35128460063079037
+          }
+        },
+        "support": {
+          "anySupport": true,
+          "groups": {
+            "footF": {
+              "hasSupport": true,
+              "rawNormalImpulseNs": 2.3752689957618713,
+              "confirmedUpwardImpulseNs": 2.3752689957618713,
+              "confirmedPointCount": 2,
+              "maxConfirmedSlipMps": 0.5746862270027002,
+              "proxy": null
+            },
+            "footB": {
+              "hasSupport": true,
+              "rawNormalImpulseNs": 4.514934539794922,
+              "confirmedUpwardImpulseNs": 4.514934539794922,
+              "confirmedPointCount": 1,
+              "maxConfirmedSlipMps": 0.05593310069707913,
+              "proxy": null
+            },
+            "shinF": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "whole shin collider, not isolated knee"
+            },
+            "shinB": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "whole shin collider, not isolated knee"
+            },
+            "handO": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "farmO forearm collider, not palm/fingers"
+            }
+          }
+        }
+      },
+      "wholeObservationMeasuredSupport": {
+        "groups": {
+          "footF": {
+            "supportSeconds": 23.366666666666667,
+            "confirmedUpwardImpulseNs": 10911.622851169224,
+            "rawNormalImpulseNs": 10911.622851169224,
+            "firstSupportS": 0.016666666666666666,
+            "lastSupportS": 25,
+            "maxConfirmedSlipMps": 2.8903276246871865
+          },
+          "footB": {
+            "supportSeconds": 23.575,
+            "confirmedUpwardImpulseNs": 11230.356721921358,
+            "rawNormalImpulseNs": 11230.356721921358,
+            "firstSupportS": 0.008333333333333333,
+            "lastSupportS": 25,
+            "maxConfirmedSlipMps": 3.7155970302258896
+          },
+          "shinF": {
+            "supportSeconds": 0.26666666666666666,
+            "confirmedUpwardImpulseNs": 32.784837041050196,
+            "rawNormalImpulseNs": 32.784837041050196,
+            "firstSupportS": 2.3583333333333334,
+            "lastSupportS": 2.6916666666666664,
+            "maxConfirmedSlipMps": 0.30608169867407425
+          },
+          "shinB": {
+            "supportSeconds": 0.5083333333333333,
+            "confirmedUpwardImpulseNs": 87.79582316449978,
+            "rawNormalImpulseNs": 87.79582316449978,
+            "firstSupportS": 2.725,
+            "lastSupportS": 3.3333333333333335,
+            "maxConfirmedSlipMps": 0.34547904575163635
+          },
+          "handO": {
+            "supportSeconds": 0.30833333333333335,
+            "confirmedUpwardImpulseNs": 42.53317571617663,
+            "rawNormalImpulseNs": 42.53317571617663,
+            "firstSupportS": 2.1416666666666666,
+            "lastSupportS": 2.533333333333333,
+            "maxConfirmedSlipMps": 2.8459861991254516
+          }
+        },
+        "noGroupSupportSeconds": 0.18333333333333332,
+        "maxNoGroupSupportIntervalS": 0.12499999999999999
+      }
+    },
+    {
+      "scenario": "healthy_getup",
+      "variant": "clone",
+      "traceSHA256": "b51535850381e6f77b5db44727328b9c68d5bd246a2af63b39488694d019d8c4",
+      "applications": 0,
+      "verticalInfeasible": 0,
+      "firstStandS": 4.216666666666667,
+      "refalls": [],
+      "first42": {
+        "physicsSteps": 42,
+        "maxRawRequestedReachM": 0.903048245323672,
+        "maxInternalIKReachM": 0.8493201848045918,
+        "unreachableRequests": 46,
+        "unsupportedRequests": 14
+      },
+      "postFirstStand": {
+        "maxKJ": 84.1165517059927,
+        "maxHeightM": 0.9821765422821045,
+        "maxGapM": 0.0024495135782475314,
+        "confirmedFootPointSlip": {
+          "pointSamples": 18445,
+          "frames": 2473,
+          "meanMps": 0.005003715318616527,
+          "p95Mps": 0.0025057204790159245,
+          "maxMps": 3.590570422138351
+        },
+        "measuredGroupSupport": {
+          "groups": {
+            "footF": {
+              "supportSeconds": 19.216666666666665,
+              "confirmedUpwardImpulseNs": 8904.745884810109,
+              "rawNormalImpulseNs": 8904.745884810109,
+              "firstSupportS": 4.216666666666667,
+              "lastSupportS": 25,
+              "maxConfirmedSlipMps": 2.8903276246871865
+            },
+            "footB": {
+              "supportSeconds": 19.941666666666666,
+              "confirmedUpwardImpulseNs": 10247.342574561946,
+              "rawNormalImpulseNs": 10247.342574561946,
+              "firstSupportS": 4.216666666666667,
+              "lastSupportS": 25,
+              "maxConfirmedSlipMps": 3.590570422138351
+            },
+            "shinF": {
+              "supportSeconds": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "rawNormalImpulseNs": 0,
+              "firstSupportS": null,
+              "lastSupportS": null,
+              "maxConfirmedSlipMps": null
+            },
+            "shinB": {
+              "supportSeconds": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "rawNormalImpulseNs": 0,
+              "firstSupportS": null,
+              "lastSupportS": null,
+              "maxConfirmedSlipMps": null
+            },
+            "handO": {
+              "supportSeconds": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "rawNormalImpulseNs": 0,
+              "firstSupportS": null,
+              "lastSupportS": null,
+              "maxConfirmedSlipMps": null
+            }
+          },
+          "noGroupSupportSeconds": 0.18333333333333332,
+          "maxNoGroupSupportIntervalS": 0.12499999999999999
+        }
+      },
+      "entry": {
+        "timeS": 4.216666666666667,
+        "before": {
+          "F": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.6434318442868783,
+              "y": 0.7095936639705339,
+              "z": -0.614285309120158
+            },
+            "ankle": {
+              "x": -2.5554327235008856,
+              "y": 0.06747294373178164,
+              "z": -0.0676791915145836
+            },
+            "plant": {
+              "x": -2.5238271751892714,
+              "y": 0.062,
+              "z": 0.10330802629339904
+            },
+            "hipToActualAnkleM": 0.8478449813632682,
+            "hipToPlantM": 0.9739728053260434,
+            "actualKneeParent": {
+              "x": -2.568558935322012,
+              "y": 0.3880885119236597,
+              "z": -0.3388451581411466
+            },
+            "actualKneeChild": {
+              "x": -2.5686176559534206,
+              "y": 0.3876433751639804,
+              "z": -0.33903981416356604
+            },
+            "actualKneeBendRad": 0.14370432919985054,
+            "targetKneeBendRad": 0.2199999999993898,
+            "thighHipToKneeM": 0.42992882208673266,
+            "shinKneeToAnkleM": 0.41990419756380337,
+            "soleY": -0.0005900665876299727,
+            "toeY": -0.00939244276872929,
+            "heel": 0.16235634206842908,
+            "extraMassKg": 0,
+            "pinC": {
+              "x": -2.467605326225727,
+              "y": 0.008383903927780254,
+              "z": 0.10303008879109748
+            },
+            "pinT": {
+              "x": -2.348115671828754,
+              "y": 0.01941388202341786,
+              "z": 0.10228037549342665
+            },
+            "phi": 0.1,
+            "yaw": 0.006274212305287834
+          },
+          "B": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.6389399562051374,
+              "y": 0.6922221069949366,
+              "z": -0.8034361800562259
+            },
+            "ankle": {
+              "x": -3.2422466476927263,
+              "y": 0.12281907383509784,
+              "z": -0.6720444033465661
+            },
+            "plant": {
+              "x": -3.1415810505899637,
+              "y": 0.062,
+              "z": -0.11669076516433954
+            },
+            "hipToActualAnkleM": 0.8399181967026588,
+            "hipToPlantM": 1.0589840597405338,
+            "actualKneeParent": {
+              "x": -2.8980382227878154,
+              "y": 0.3601133199436356,
+              "z": -0.7142456618849238
+            },
+            "actualKneeChild": {
+              "x": -2.898025699605824,
+              "y": 0.35979771742349065,
+              "z": -0.7141808272025042
+            },
+            "actualKneeBendRad": 0.3202417594509619,
+            "targetKneeBendRad": 0.14000000000368548,
+            "thighHipToKneeM": 0.4305613855357912,
+            "shinKneeToAnkleM": 0.4200266858596102,
+            "soleY": -0.004160958802021213,
+            "toeY": -0.0010830546234423186,
+            "heel": 0,
+            "extraMassKg": 0,
+            "pinC": {
+              "x": -3.0910615839454403,
+              "y": 0.0009493795593278065,
+              "z": -0.12530482161441311
+            },
+            "pinT": {
+              "x": -2.97298033894133,
+              "y": 0.0030998499612617456,
+              "z": -0.14656969934851954
+            },
+            "phi": 0.1,
+            "yaw": 0.17817704719623764
+          }
+        },
+        "legacyAfter": {
+          "F": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.6434318442868783,
+              "y": 0.7095936639705339,
+              "z": -0.614285309120158
+            },
+            "ankle": {
+              "x": -2.5554327235008856,
+              "y": 0.06747294373178164,
+              "z": -0.0676791915145836
+            },
+            "plant": {
+              "x": -2.5554327235008856,
+              "y": 0.062,
+              "z": -0.0676791915145836
+            },
+            "hipToActualAnkleM": 0.8478449813632682,
+            "hipToPlantM": 0.851997445229578,
+            "actualKneeParent": {
+              "x": -2.568558935322012,
+              "y": 0.3880885119236597,
+              "z": -0.3388451581411466
+            },
+            "actualKneeChild": {
+              "x": -2.5686176559534206,
+              "y": 0.3876433751639804,
+              "z": -0.33903981416356604
+            },
+            "actualKneeBendRad": 0.14370432919985054,
+            "targetKneeBendRad": 0.2199999999993898,
+            "thighHipToKneeM": 0.42992882208673266,
+            "shinKneeToAnkleM": 0.41990419756380337,
+            "soleY": 0.02243054057699329,
+            "toeY": 0.02695302386848656,
+            "heel": 0.16235634206842908,
+            "extraMassKg": 2,
+            "pinC": {
+              "x": -2.5168610004986434,
+              "y": 0.02243054057699329,
+              "z": -0.005362227637103006
+            },
+            "pinT": {
+              "x": -2.400089003573602,
+              "y": 0.02695302386848656,
+              "z": 0.021911346746782794
+            },
+            "phi": 0.1,
+            "yaw": -0.22944937689797956
+          },
+          "B": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.6389399562051374,
+              "y": 0.6922221069949366,
+              "z": -0.8034361800562259
+            },
+            "ankle": {
+              "x": -3.2422466476927263,
+              "y": 0.12281907383509784,
+              "z": -0.6720444033465661
+            },
+            "plant": {
+              "x": -3.29591321245944,
+              "y": 0.062,
+              "z": -0.6585113396264878
+            },
+            "hipToActualAnkleM": 0.8399181967026588,
+            "hipToPlantM": 0.9218443322774749,
+            "actualKneeParent": {
+              "x": -2.8980382227878154,
+              "y": 0.3601133199436356,
+              "z": -0.7142456618849238
+            },
+            "actualKneeChild": {
+              "x": -2.898025699605824,
+              "y": 0.35979771742349065,
+              "z": -0.7141808272025042
+            },
+            "actualKneeBendRad": 0.3202417594509619,
+            "targetKneeBendRad": 0.14000000000368548,
+            "thighHipToKneeM": 0.4305613855357912,
+            "shinKneeToAnkleM": 0.4200266858596102,
+            "soleY": 0.04443079404930761,
+            "toeY": -0.009036097163365578,
+            "heel": 0,
+            "extraMassKg": 2,
+            "pinC": {
+              "x": -3.2489666399017887,
+              "y": 0,
+              "z": -0.6413061274775728
+            },
+            "pinT": {
+              "x": -3.1362948657634253,
+              "y": 0,
+              "z": -0.6000136183201765
+            },
+            "phi": 0.1,
+            "yaw": -0.35128460063079037
+          }
+        },
+        "support": {
+          "anySupport": true,
+          "groups": {
+            "footF": {
+              "hasSupport": true,
+              "rawNormalImpulseNs": 2.3752689957618713,
+              "confirmedUpwardImpulseNs": 2.3752689957618713,
+              "confirmedPointCount": 2,
+              "maxConfirmedSlipMps": 0.5746862270027002,
+              "proxy": null
+            },
+            "footB": {
+              "hasSupport": true,
+              "rawNormalImpulseNs": 4.514934539794922,
+              "confirmedUpwardImpulseNs": 4.514934539794922,
+              "confirmedPointCount": 1,
+              "maxConfirmedSlipMps": 0.05593310069707913,
+              "proxy": null
+            },
+            "shinF": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "whole shin collider, not isolated knee"
+            },
+            "shinB": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "whole shin collider, not isolated knee"
+            },
+            "handO": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "farmO forearm collider, not palm/fingers"
+            }
+          }
+        }
+      },
+      "wholeObservationMeasuredSupport": {
+        "groups": {
+          "footF": {
+            "supportSeconds": 23.366666666666667,
+            "confirmedUpwardImpulseNs": 10911.622851169224,
+            "rawNormalImpulseNs": 10911.622851169224,
+            "firstSupportS": 0.016666666666666666,
+            "lastSupportS": 25,
+            "maxConfirmedSlipMps": 2.8903276246871865
+          },
+          "footB": {
+            "supportSeconds": 23.575,
+            "confirmedUpwardImpulseNs": 11230.356721921358,
+            "rawNormalImpulseNs": 11230.356721921358,
+            "firstSupportS": 0.008333333333333333,
+            "lastSupportS": 25,
+            "maxConfirmedSlipMps": 3.7155970302258896
+          },
+          "shinF": {
+            "supportSeconds": 0.26666666666666666,
+            "confirmedUpwardImpulseNs": 32.784837041050196,
+            "rawNormalImpulseNs": 32.784837041050196,
+            "firstSupportS": 2.3583333333333334,
+            "lastSupportS": 2.6916666666666664,
+            "maxConfirmedSlipMps": 0.30608169867407425
+          },
+          "shinB": {
+            "supportSeconds": 0.5083333333333333,
+            "confirmedUpwardImpulseNs": 87.79582316449978,
+            "rawNormalImpulseNs": 87.79582316449978,
+            "firstSupportS": 2.725,
+            "lastSupportS": 3.3333333333333335,
+            "maxConfirmedSlipMps": 0.34547904575163635
+          },
+          "handO": {
+            "supportSeconds": 0.30833333333333335,
+            "confirmedUpwardImpulseNs": 42.53317571617663,
+            "rawNormalImpulseNs": 42.53317571617663,
+            "firstSupportS": 2.1416666666666666,
+            "lastSupportS": 2.533333333333333,
+            "maxConfirmedSlipMps": 2.8459861991254516
+          }
+        },
+        "noGroupSupportSeconds": 0.18333333333333332,
+        "maxNoGroupSupportIntervalS": 0.12499999999999999
+      }
+    },
+    {
+      "scenario": "healthy_getup",
+      "variant": "observedPlant",
+      "traceSHA256": "f0c547480d0a5aa121caae75906e2ec3518e6cb6779194ce71739850268639c0",
+      "applications": 2,
+      "verticalInfeasible": 0,
+      "firstStandS": 4.216666666666667,
+      "refalls": [],
+      "first42": {
+        "physicsSteps": 42,
+        "maxRawRequestedReachM": 0.8694183107589938,
+        "maxInternalIKReachM": 0.8493201848045918,
+        "unreachableRequests": 37,
+        "unsupportedRequests": 15
+      },
+      "postFirstStand": {
+        "maxKJ": 92.383372413598,
+        "maxHeightM": 0.9765901565551758,
+        "maxGapM": 0.002553307549167593,
+        "confirmedFootPointSlip": {
+          "pointSamples": 18487,
+          "frames": 2473,
+          "meanMps": 0.005686902711652111,
+          "p95Mps": 0.002158884796414063,
+          "maxMps": 4.085353066468811
+        },
+        "measuredGroupSupport": {
+          "groups": {
+            "footF": {
+              "supportSeconds": 19.266666666666666,
+              "confirmedUpwardImpulseNs": 9152.850055173883,
+              "rawNormalImpulseNs": 9152.850055173883,
+              "firstSupportS": 4.216666666666667,
+              "lastSupportS": 25,
+              "maxConfirmedSlipMps": 4.085353066468811
+            },
+            "footB": {
+              "supportSeconds": 19.941666666666666,
+              "confirmedUpwardImpulseNs": 9995.117059219629,
+              "rawNormalImpulseNs": 9995.117059219629,
+              "firstSupportS": 4.216666666666667,
+              "lastSupportS": 25,
+              "maxConfirmedSlipMps": 3.479781654404771
+            },
+            "shinF": {
+              "supportSeconds": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "rawNormalImpulseNs": 0,
+              "firstSupportS": null,
+              "lastSupportS": null,
+              "maxConfirmedSlipMps": null
+            },
+            "shinB": {
+              "supportSeconds": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "rawNormalImpulseNs": 0,
+              "firstSupportS": null,
+              "lastSupportS": null,
+              "maxConfirmedSlipMps": null
+            },
+            "handO": {
+              "supportSeconds": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "rawNormalImpulseNs": 0,
+              "firstSupportS": null,
+              "lastSupportS": null,
+              "maxConfirmedSlipMps": null
+            }
+          },
+          "noGroupSupportSeconds": 0.18333333333333332,
+          "maxNoGroupSupportIntervalS": 0.15
+        }
+      },
+      "entry": {
+        "timeS": 4.216666666666667,
+        "before": {
+          "F": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.6434318442868783,
+              "y": 0.7095936639705339,
+              "z": -0.614285309120158
+            },
+            "ankle": {
+              "x": -2.5554327235008856,
+              "y": 0.06747294373178164,
+              "z": -0.0676791915145836
+            },
+            "plant": {
+              "x": -2.5238271751892714,
+              "y": 0.062,
+              "z": 0.10330802629339904
+            },
+            "hipToActualAnkleM": 0.8478449813632682,
+            "hipToPlantM": 0.9739728053260434,
+            "actualKneeParent": {
+              "x": -2.568558935322012,
+              "y": 0.3880885119236597,
+              "z": -0.3388451581411466
+            },
+            "actualKneeChild": {
+              "x": -2.5686176559534206,
+              "y": 0.3876433751639804,
+              "z": -0.33903981416356604
+            },
+            "actualKneeBendRad": 0.14370432919985054,
+            "targetKneeBendRad": 0.2199999999993898,
+            "thighHipToKneeM": 0.42992882208673266,
+            "shinKneeToAnkleM": 0.41990419756380337,
+            "soleY": -0.0005900665876299727,
+            "toeY": -0.00939244276872929,
+            "heel": 0.16235634206842908,
+            "extraMassKg": 0,
+            "pinC": {
+              "x": -2.467605326225727,
+              "y": 0.008383903927780254,
+              "z": 0.10303008879109748
+            },
+            "pinT": {
+              "x": -2.348115671828754,
+              "y": 0.01941388202341786,
+              "z": 0.10228037549342665
+            },
+            "phi": 0.1,
+            "yaw": 0.006274212305287834
+          },
+          "B": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.6389399562051374,
+              "y": 0.6922221069949366,
+              "z": -0.8034361800562259
+            },
+            "ankle": {
+              "x": -3.2422466476927263,
+              "y": 0.12281907383509784,
+              "z": -0.6720444033465661
+            },
+            "plant": {
+              "x": -3.1415810505899637,
+              "y": 0.062,
+              "z": -0.11669076516433954
+            },
+            "hipToActualAnkleM": 0.8399181967026588,
+            "hipToPlantM": 1.0589840597405338,
+            "actualKneeParent": {
+              "x": -2.8980382227878154,
+              "y": 0.3601133199436356,
+              "z": -0.7142456618849238
+            },
+            "actualKneeChild": {
+              "x": -2.898025699605824,
+              "y": 0.35979771742349065,
+              "z": -0.7141808272025042
+            },
+            "actualKneeBendRad": 0.3202417594509619,
+            "targetKneeBendRad": 0.14000000000368548,
+            "thighHipToKneeM": 0.4305613855357912,
+            "shinKneeToAnkleM": 0.4200266858596102,
+            "soleY": -0.004160958802021213,
+            "toeY": -0.0010830546234423186,
+            "heel": 0,
+            "extraMassKg": 0,
+            "pinC": {
+              "x": -3.0910615839454403,
+              "y": 0.0009493795593278065,
+              "z": -0.12530482161441311
+            },
+            "pinT": {
+              "x": -2.97298033894133,
+              "y": 0.0030998499612617456,
+              "z": -0.14656969934851954
+            },
+            "phi": 0.1,
+            "yaw": 0.17817704719623764
+          }
+        },
+        "legacyAfter": {
+          "F": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.6434318442868783,
+              "y": 0.7095936639705339,
+              "z": -0.614285309120158
+            },
+            "ankle": {
+              "x": -2.5554327235008856,
+              "y": 0.06747294373178164,
+              "z": -0.0676791915145836
+            },
+            "plant": {
+              "x": -2.5554327235008856,
+              "y": 0.062,
+              "z": -0.0676791915145836
+            },
+            "hipToActualAnkleM": 0.8478449813632682,
+            "hipToPlantM": 0.851997445229578,
+            "actualKneeParent": {
+              "x": -2.568558935322012,
+              "y": 0.3880885119236597,
+              "z": -0.3388451581411466
+            },
+            "actualKneeChild": {
+              "x": -2.5686176559534206,
+              "y": 0.3876433751639804,
+              "z": -0.33903981416356604
+            },
+            "actualKneeBendRad": 0.14370432919985054,
+            "targetKneeBendRad": 0.2199999999993898,
+            "thighHipToKneeM": 0.42992882208673266,
+            "shinKneeToAnkleM": 0.41990419756380337,
+            "soleY": 0.02243054057699329,
+            "toeY": 0.02695302386848656,
+            "heel": 0.16235634206842908,
+            "extraMassKg": 2,
+            "pinC": {
+              "x": -2.5168610004986434,
+              "y": 0.02243054057699329,
+              "z": -0.005362227637103006
+            },
+            "pinT": {
+              "x": -2.400089003573602,
+              "y": 0.02695302386848656,
+              "z": 0.021911346746782794
+            },
+            "phi": 0.1,
+            "yaw": -0.22944937689797956
+          },
+          "B": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.6389399562051374,
+              "y": 0.6922221069949366,
+              "z": -0.8034361800562259
+            },
+            "ankle": {
+              "x": -3.2422466476927263,
+              "y": 0.12281907383509784,
+              "z": -0.6720444033465661
+            },
+            "plant": {
+              "x": -3.29591321245944,
+              "y": 0.062,
+              "z": -0.6585113396264878
+            },
+            "hipToActualAnkleM": 0.8399181967026588,
+            "hipToPlantM": 0.9218443322774749,
+            "actualKneeParent": {
+              "x": -2.8980382227878154,
+              "y": 0.3601133199436356,
+              "z": -0.7142456618849238
+            },
+            "actualKneeChild": {
+              "x": -2.898025699605824,
+              "y": 0.35979771742349065,
+              "z": -0.7141808272025042
+            },
+            "actualKneeBendRad": 0.3202417594509619,
+            "targetKneeBendRad": 0.14000000000368548,
+            "thighHipToKneeM": 0.4305613855357912,
+            "shinKneeToAnkleM": 0.4200266858596102,
+            "soleY": 0.04443079404930761,
+            "toeY": -0.009036097163365578,
+            "heel": 0,
+            "extraMassKg": 2,
+            "pinC": {
+              "x": -3.2489666399017887,
+              "y": 0,
+              "z": -0.6413061274775728
+            },
+            "pinT": {
+              "x": -3.1362948657634253,
+              "y": 0,
+              "z": -0.6000136183201765
+            },
+            "phi": 0.1,
+            "yaw": -0.35128460063079037
+          }
+        },
+        "support": {
+          "anySupport": true,
+          "groups": {
+            "footF": {
+              "hasSupport": true,
+              "rawNormalImpulseNs": 2.3752689957618713,
+              "confirmedUpwardImpulseNs": 2.3752689957618713,
+              "confirmedPointCount": 2,
+              "maxConfirmedSlipMps": 0.5746862270027002,
+              "proxy": null
+            },
+            "footB": {
+              "hasSupport": true,
+              "rawNormalImpulseNs": 4.514934539794922,
+              "confirmedUpwardImpulseNs": 4.514934539794922,
+              "confirmedPointCount": 1,
+              "maxConfirmedSlipMps": 0.05593310069707913,
+              "proxy": null
+            },
+            "shinF": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "whole shin collider, not isolated knee"
+            },
+            "shinB": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "whole shin collider, not isolated knee"
+            },
+            "handO": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "farmO forearm collider, not palm/fingers"
+            }
+          }
+        },
+        "candidateAfter": {
+          "F": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.6434318442868783,
+              "y": 0.7095936639705339,
+              "z": -0.614285309120158
+            },
+            "ankle": {
+              "x": -2.5554327235008856,
+              "y": 0.06747294373178164,
+              "z": -0.0676791915145836
+            },
+            "plant": {
+              "x": -2.5554327235008856,
+              "y": 0.06747294373178164,
+              "z": -0.0676791915145836
+            },
+            "hipToActualAnkleM": 0.8478449813632682,
+            "hipToPlantM": 0.8478449813632682,
+            "actualKneeParent": {
+              "x": -2.568558935322012,
+              "y": 0.3880885119236597,
+              "z": -0.3388451581411466
+            },
+            "actualKneeChild": {
+              "x": -2.5686176559534206,
+              "y": 0.3876433751639804,
+              "z": -0.33903981416356604
+            },
+            "actualKneeBendRad": 0.14370432919985054,
+            "targetKneeBendRad": 0.2199999999993898,
+            "thighHipToKneeM": 0.42992882208673266,
+            "shinKneeToAnkleM": 0.41990419756380337,
+            "soleY": 0.02243054057699329,
+            "toeY": 0.02695302386848656,
+            "heel": 0.16235634206842908,
+            "extraMassKg": 2,
+            "pinC": {
+              "x": -2.5168610004986434,
+              "y": 0.02243054057699329,
+              "z": -0.005362227637103006
+            },
+            "pinT": {
+              "x": -2.400089003573602,
+              "y": 0.02695302386848656,
+              "z": 0.021911346746782794
+            },
+            "phi": 0.1,
+            "yaw": -0.22944937689797956
+          },
+          "B": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.6389399562051374,
+              "y": 0.6922221069949366,
+              "z": -0.8034361800562259
+            },
+            "ankle": {
+              "x": -3.2422466476927263,
+              "y": 0.12281907383509784,
+              "z": -0.6720444033465661
+            },
+            "plant": {
+              "x": -3.2422466476927263,
+              "y": 0.12281907383509784,
+              "z": -0.6720444033465661
+            },
+            "hipToActualAnkleM": 0.8399181967026588,
+            "hipToPlantM": 0.8399181967026588,
+            "actualKneeParent": {
+              "x": -2.8980382227878154,
+              "y": 0.3601133199436356,
+              "z": -0.7142456618849238
+            },
+            "actualKneeChild": {
+              "x": -2.898025699605824,
+              "y": 0.35979771742349065,
+              "z": -0.7141808272025042
+            },
+            "actualKneeBendRad": 0.3202417594509619,
+            "targetKneeBendRad": 0.14000000000368548,
+            "thighHipToKneeM": 0.4305613855357912,
+            "shinKneeToAnkleM": 0.4200266858596102,
+            "soleY": 0.04443079404930761,
+            "toeY": -0.009036097163365578,
+            "heel": 0,
+            "extraMassKg": 2,
+            "pinC": {
+              "x": -3.237164650504749,
+              "y": 0.04443079404930761,
+              "z": -0.6369808760205904
+            },
+            "pinT": {
+              "x": -3.1362948657634253,
+              "y": -0.009036097163365578,
+              "z": -0.6000136183201765
+            },
+            "phi": 0.1,
+            "yaw": -0.35128460063079037
+          }
+        },
+        "nativePreserved": true,
+        "bodyPreserved": true
+      },
+      "wholeObservationMeasuredSupport": {
+        "groups": {
+          "footF": {
+            "supportSeconds": 23.416666666666668,
+            "confirmedUpwardImpulseNs": 11159.727021532999,
+            "rawNormalImpulseNs": 11159.727021532999,
+            "firstSupportS": 0.016666666666666666,
+            "lastSupportS": 25,
+            "maxConfirmedSlipMps": 4.085353066468811
+          },
+          "footB": {
+            "supportSeconds": 23.575,
+            "confirmedUpwardImpulseNs": 10978.13120657904,
+            "rawNormalImpulseNs": 10978.13120657904,
+            "firstSupportS": 0.008333333333333333,
+            "lastSupportS": 25,
+            "maxConfirmedSlipMps": 3.7155970302258896
+          },
+          "shinF": {
+            "supportSeconds": 0.26666666666666666,
+            "confirmedUpwardImpulseNs": 32.784837041050196,
+            "rawNormalImpulseNs": 32.784837041050196,
+            "firstSupportS": 2.3583333333333334,
+            "lastSupportS": 2.6916666666666664,
+            "maxConfirmedSlipMps": 0.30608169867407425
+          },
+          "shinB": {
+            "supportSeconds": 0.5083333333333333,
+            "confirmedUpwardImpulseNs": 87.79582316449978,
+            "rawNormalImpulseNs": 87.79582316449978,
+            "firstSupportS": 2.725,
+            "lastSupportS": 3.3333333333333335,
+            "maxConfirmedSlipMps": 0.34547904575163635
+          },
+          "handO": {
+            "supportSeconds": 0.30833333333333335,
+            "confirmedUpwardImpulseNs": 42.53317571617663,
+            "rawNormalImpulseNs": 42.53317571617663,
+            "firstSupportS": 2.1416666666666666,
+            "lastSupportS": 2.533333333333333,
+            "maxConfirmedSlipMps": 2.8459861991254516
+          }
+        },
+        "noGroupSupportSeconds": 0.18333333333333332,
+        "maxNoGroupSupportIntervalS": 0.15
+      }
+    },
+    {
+      "scenario": "healthy_getup",
+      "variant": "unsupportedReach",
+      "traceSHA256": "b51535850381e6f77b5db44727328b9c68d5bd246a2af63b39488694d019d8c4",
+      "applications": 0,
+      "verticalInfeasible": 0,
+      "firstStandS": 4.216666666666667,
+      "refalls": [],
+      "first42": {
+        "physicsSteps": 42,
+        "maxRawRequestedReachM": 0.903048245323672,
+        "maxInternalIKReachM": 0.8493201848045918,
+        "unreachableRequests": 46,
+        "unsupportedRequests": 14
+      },
+      "postFirstStand": {
+        "maxKJ": 84.1165517059927,
+        "maxHeightM": 0.9821765422821045,
+        "maxGapM": 0.0024495135782475314,
+        "confirmedFootPointSlip": {
+          "pointSamples": 18445,
+          "frames": 2473,
+          "meanMps": 0.005003715318616527,
+          "p95Mps": 0.0025057204790159245,
+          "maxMps": 3.590570422138351
+        },
+        "measuredGroupSupport": {
+          "groups": {
+            "footF": {
+              "supportSeconds": 19.216666666666665,
+              "confirmedUpwardImpulseNs": 8904.745884810109,
+              "rawNormalImpulseNs": 8904.745884810109,
+              "firstSupportS": 4.216666666666667,
+              "lastSupportS": 25,
+              "maxConfirmedSlipMps": 2.8903276246871865
+            },
+            "footB": {
+              "supportSeconds": 19.941666666666666,
+              "confirmedUpwardImpulseNs": 10247.342574561946,
+              "rawNormalImpulseNs": 10247.342574561946,
+              "firstSupportS": 4.216666666666667,
+              "lastSupportS": 25,
+              "maxConfirmedSlipMps": 3.590570422138351
+            },
+            "shinF": {
+              "supportSeconds": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "rawNormalImpulseNs": 0,
+              "firstSupportS": null,
+              "lastSupportS": null,
+              "maxConfirmedSlipMps": null
+            },
+            "shinB": {
+              "supportSeconds": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "rawNormalImpulseNs": 0,
+              "firstSupportS": null,
+              "lastSupportS": null,
+              "maxConfirmedSlipMps": null
+            },
+            "handO": {
+              "supportSeconds": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "rawNormalImpulseNs": 0,
+              "firstSupportS": null,
+              "lastSupportS": null,
+              "maxConfirmedSlipMps": null
+            }
+          },
+          "noGroupSupportSeconds": 0.18333333333333332,
+          "maxNoGroupSupportIntervalS": 0.12499999999999999
+        }
+      },
+      "entry": {
+        "timeS": 4.216666666666667,
+        "before": {
+          "F": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.6434318442868783,
+              "y": 0.7095936639705339,
+              "z": -0.614285309120158
+            },
+            "ankle": {
+              "x": -2.5554327235008856,
+              "y": 0.06747294373178164,
+              "z": -0.0676791915145836
+            },
+            "plant": {
+              "x": -2.5238271751892714,
+              "y": 0.062,
+              "z": 0.10330802629339904
+            },
+            "hipToActualAnkleM": 0.8478449813632682,
+            "hipToPlantM": 0.9739728053260434,
+            "actualKneeParent": {
+              "x": -2.568558935322012,
+              "y": 0.3880885119236597,
+              "z": -0.3388451581411466
+            },
+            "actualKneeChild": {
+              "x": -2.5686176559534206,
+              "y": 0.3876433751639804,
+              "z": -0.33903981416356604
+            },
+            "actualKneeBendRad": 0.14370432919985054,
+            "targetKneeBendRad": 0.2199999999993898,
+            "thighHipToKneeM": 0.42992882208673266,
+            "shinKneeToAnkleM": 0.41990419756380337,
+            "soleY": -0.0005900665876299727,
+            "toeY": -0.00939244276872929,
+            "heel": 0.16235634206842908,
+            "extraMassKg": 0,
+            "pinC": {
+              "x": -2.467605326225727,
+              "y": 0.008383903927780254,
+              "z": 0.10303008879109748
+            },
+            "pinT": {
+              "x": -2.348115671828754,
+              "y": 0.01941388202341786,
+              "z": 0.10228037549342665
+            },
+            "phi": 0.1,
+            "yaw": 0.006274212305287834
+          },
+          "B": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.6389399562051374,
+              "y": 0.6922221069949366,
+              "z": -0.8034361800562259
+            },
+            "ankle": {
+              "x": -3.2422466476927263,
+              "y": 0.12281907383509784,
+              "z": -0.6720444033465661
+            },
+            "plant": {
+              "x": -3.1415810505899637,
+              "y": 0.062,
+              "z": -0.11669076516433954
+            },
+            "hipToActualAnkleM": 0.8399181967026588,
+            "hipToPlantM": 1.0589840597405338,
+            "actualKneeParent": {
+              "x": -2.8980382227878154,
+              "y": 0.3601133199436356,
+              "z": -0.7142456618849238
+            },
+            "actualKneeChild": {
+              "x": -2.898025699605824,
+              "y": 0.35979771742349065,
+              "z": -0.7141808272025042
+            },
+            "actualKneeBendRad": 0.3202417594509619,
+            "targetKneeBendRad": 0.14000000000368548,
+            "thighHipToKneeM": 0.4305613855357912,
+            "shinKneeToAnkleM": 0.4200266858596102,
+            "soleY": -0.004160958802021213,
+            "toeY": -0.0010830546234423186,
+            "heel": 0,
+            "extraMassKg": 0,
+            "pinC": {
+              "x": -3.0910615839454403,
+              "y": 0.0009493795593278065,
+              "z": -0.12530482161441311
+            },
+            "pinT": {
+              "x": -2.97298033894133,
+              "y": 0.0030998499612617456,
+              "z": -0.14656969934851954
+            },
+            "phi": 0.1,
+            "yaw": 0.17817704719623764
+          }
+        },
+        "legacyAfter": {
+          "F": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.6434318442868783,
+              "y": 0.7095936639705339,
+              "z": -0.614285309120158
+            },
+            "ankle": {
+              "x": -2.5554327235008856,
+              "y": 0.06747294373178164,
+              "z": -0.0676791915145836
+            },
+            "plant": {
+              "x": -2.5554327235008856,
+              "y": 0.062,
+              "z": -0.0676791915145836
+            },
+            "hipToActualAnkleM": 0.8478449813632682,
+            "hipToPlantM": 0.851997445229578,
+            "actualKneeParent": {
+              "x": -2.568558935322012,
+              "y": 0.3880885119236597,
+              "z": -0.3388451581411466
+            },
+            "actualKneeChild": {
+              "x": -2.5686176559534206,
+              "y": 0.3876433751639804,
+              "z": -0.33903981416356604
+            },
+            "actualKneeBendRad": 0.14370432919985054,
+            "targetKneeBendRad": 0.2199999999993898,
+            "thighHipToKneeM": 0.42992882208673266,
+            "shinKneeToAnkleM": 0.41990419756380337,
+            "soleY": 0.02243054057699329,
+            "toeY": 0.02695302386848656,
+            "heel": 0.16235634206842908,
+            "extraMassKg": 2,
+            "pinC": {
+              "x": -2.5168610004986434,
+              "y": 0.02243054057699329,
+              "z": -0.005362227637103006
+            },
+            "pinT": {
+              "x": -2.400089003573602,
+              "y": 0.02695302386848656,
+              "z": 0.021911346746782794
+            },
+            "phi": 0.1,
+            "yaw": -0.22944937689797956
+          },
+          "B": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.6389399562051374,
+              "y": 0.6922221069949366,
+              "z": -0.8034361800562259
+            },
+            "ankle": {
+              "x": -3.2422466476927263,
+              "y": 0.12281907383509784,
+              "z": -0.6720444033465661
+            },
+            "plant": {
+              "x": -3.29591321245944,
+              "y": 0.062,
+              "z": -0.6585113396264878
+            },
+            "hipToActualAnkleM": 0.8399181967026588,
+            "hipToPlantM": 0.9218443322774749,
+            "actualKneeParent": {
+              "x": -2.8980382227878154,
+              "y": 0.3601133199436356,
+              "z": -0.7142456618849238
+            },
+            "actualKneeChild": {
+              "x": -2.898025699605824,
+              "y": 0.35979771742349065,
+              "z": -0.7141808272025042
+            },
+            "actualKneeBendRad": 0.3202417594509619,
+            "targetKneeBendRad": 0.14000000000368548,
+            "thighHipToKneeM": 0.4305613855357912,
+            "shinKneeToAnkleM": 0.4200266858596102,
+            "soleY": 0.04443079404930761,
+            "toeY": -0.009036097163365578,
+            "heel": 0,
+            "extraMassKg": 2,
+            "pinC": {
+              "x": -3.2489666399017887,
+              "y": 0,
+              "z": -0.6413061274775728
+            },
+            "pinT": {
+              "x": -3.1362948657634253,
+              "y": 0,
+              "z": -0.6000136183201765
+            },
+            "phi": 0.1,
+            "yaw": -0.35128460063079037
+          }
+        },
+        "support": {
+          "anySupport": true,
+          "groups": {
+            "footF": {
+              "hasSupport": true,
+              "rawNormalImpulseNs": 2.3752689957618713,
+              "confirmedUpwardImpulseNs": 2.3752689957618713,
+              "confirmedPointCount": 2,
+              "maxConfirmedSlipMps": 0.5746862270027002,
+              "proxy": null
+            },
+            "footB": {
+              "hasSupport": true,
+              "rawNormalImpulseNs": 4.514934539794922,
+              "confirmedUpwardImpulseNs": 4.514934539794922,
+              "confirmedPointCount": 1,
+              "maxConfirmedSlipMps": 0.05593310069707913,
+              "proxy": null
+            },
+            "shinF": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "whole shin collider, not isolated knee"
+            },
+            "shinB": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "whole shin collider, not isolated knee"
+            },
+            "handO": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "farmO forearm collider, not palm/fingers"
+            }
+          }
+        }
+      },
+      "wholeObservationMeasuredSupport": {
+        "groups": {
+          "footF": {
+            "supportSeconds": 23.366666666666667,
+            "confirmedUpwardImpulseNs": 10911.622851169224,
+            "rawNormalImpulseNs": 10911.622851169224,
+            "firstSupportS": 0.016666666666666666,
+            "lastSupportS": 25,
+            "maxConfirmedSlipMps": 2.8903276246871865
+          },
+          "footB": {
+            "supportSeconds": 23.575,
+            "confirmedUpwardImpulseNs": 11230.356721921358,
+            "rawNormalImpulseNs": 11230.356721921358,
+            "firstSupportS": 0.008333333333333333,
+            "lastSupportS": 25,
+            "maxConfirmedSlipMps": 3.7155970302258896
+          },
+          "shinF": {
+            "supportSeconds": 0.26666666666666666,
+            "confirmedUpwardImpulseNs": 32.784837041050196,
+            "rawNormalImpulseNs": 32.784837041050196,
+            "firstSupportS": 2.3583333333333334,
+            "lastSupportS": 2.6916666666666664,
+            "maxConfirmedSlipMps": 0.30608169867407425
+          },
+          "shinB": {
+            "supportSeconds": 0.5083333333333333,
+            "confirmedUpwardImpulseNs": 87.79582316449978,
+            "rawNormalImpulseNs": 87.79582316449978,
+            "firstSupportS": 2.725,
+            "lastSupportS": 3.3333333333333335,
+            "maxConfirmedSlipMps": 0.34547904575163635
+          },
+          "handO": {
+            "supportSeconds": 0.30833333333333335,
+            "confirmedUpwardImpulseNs": 42.53317571617663,
+            "rawNormalImpulseNs": 42.53317571617663,
+            "firstSupportS": 2.1416666666666666,
+            "lastSupportS": 2.533333333333333,
+            "maxConfirmedSlipMps": 2.8459861991254516
+          }
+        },
+        "noGroupSupportSeconds": 0.18333333333333332,
+        "maxNoGroupSupportIntervalS": 0.12499999999999999
+      }
+    },
+    {
+      "scenario": "hurt_getup",
+      "variant": "baseline",
+      "traceSHA256": "83443272f40fa16b99fdc7580ab188b8fcb72bbf4718fdd64dd4501b8dab4212",
+      "applications": 0,
+      "verticalInfeasible": 0,
+      "firstStandS": 5.575,
+      "refalls": [
+        {
+          "timeS": 6.216666666666667,
+          "from": "stand",
+          "to": "getup",
+          "pelvisHeightM": 0.22397726774215698,
+          "chestTiltDeg": 72.11911816523478,
+          "feetSolverPointCount": 1
+        },
+        {
+          "timeS": 9.641666666666666,
+          "from": "stand",
+          "to": "getup",
+          "pelvisHeightM": 0.39091047644615173,
+          "chestTiltDeg": 66.61960971565196,
+          "feetSolverPointCount": 2
+        },
+        {
+          "timeS": 13.108333333333333,
+          "from": "stand",
+          "to": "getup",
+          "pelvisHeightM": 0.44150152802467346,
+          "chestTiltDeg": 66.86425139208703,
+          "feetSolverPointCount": 1
+        }
+      ],
+      "first42": {
+        "physicsSteps": 42,
+        "maxRawRequestedReachM": 0.9466837466618481,
+        "maxInternalIKReachM": 0.8493201848045918,
+        "unreachableRequests": 9,
+        "unsupportedRequests": 23
+      },
+      "postFirstStand": {
+        "maxKJ": 291.66818151951003,
+        "maxHeightM": 0.9392641186714172,
+        "maxGapM": 0.003433885580355494,
+        "confirmedFootPointSlip": {
+          "pointSamples": 9879,
+          "frames": 2291,
+          "meanMps": 0.0530152282587688,
+          "p95Mps": 0.23961766633562284,
+          "maxMps": 7.941504109824588
+        },
+        "measuredGroupSupport": {
+          "groups": {
+            "footF": {
+              "supportSeconds": 16.725,
+              "confirmedUpwardImpulseNs": 7467.32812023256,
+              "rawNormalImpulseNs": 7467.32812023256,
+              "firstSupportS": 5.575,
+              "lastSupportS": 25,
+              "maxConfirmedSlipMps": 7.941504109824588
+            },
+            "footB": {
+              "supportSeconds": 13.316666666666666,
+              "confirmedUpwardImpulseNs": 6785.410005920567,
+              "rawNormalImpulseNs": 6785.410005920567,
+              "firstSupportS": 5.575,
+              "lastSupportS": 25,
+              "maxConfirmedSlipMps": 6.658746979922956
+            },
+            "shinF": {
+              "supportSeconds": 5.383333333333333,
+              "confirmedUpwardImpulseNs": 1960.3266346213472,
+              "rawNormalImpulseNs": 1960.3266346213472,
+              "firstSupportS": 6.108333333333333,
+              "lastSupportS": 15.066666666666666,
+              "maxConfirmedSlipMps": 2.092519458530168
+            },
+            "shinB": {
+              "supportSeconds": 3.275,
+              "confirmedUpwardImpulseNs": 835.7992212832993,
+              "rawNormalImpulseNs": 835.7992212832993,
+              "firstSupportS": 5.916666666666667,
+              "lastSupportS": 15.025,
+              "maxConfirmedSlipMps": 2.7547529516611156
+            },
+            "handO": {
+              "supportSeconds": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "rawNormalImpulseNs": 0,
+              "firstSupportS": null,
+              "lastSupportS": null,
+              "maxConfirmedSlipMps": null
+            }
+          },
+          "noGroupSupportSeconds": 0.18333333333333332,
+          "maxNoGroupSupportIntervalS": 0.13333333333333333
+        }
+      },
+      "entry": {
+        "timeS": 5.575,
+        "before": {
+          "F": {
+            "stance": true,
+            "health": 0.45,
+            "hip": {
+              "x": -2.293305678509504,
+              "y": 0.516983643325194,
+              "z": -0.792560703890429
+            },
+            "ankle": {
+              "x": -2.511557111356527,
+              "y": 0.1616184550913679,
+              "z": -0.07306429629826477
+            },
+            "plant": {
+              "x": -2.5238271751892714,
+              "y": 0.062,
+              "z": 0.10330802629339904
+            },
+            "hipToActualAnkleM": 0.831620818333855,
+            "hipToPlantM": 1.030888479829963,
+            "actualKneeParent": {
+              "x": -2.3736457598469425,
+              "y": 0.2602658221928482,
+              "z": -0.4574303668102171
+            },
+            "actualKneeChild": {
+              "x": -2.3741039607381778,
+              "y": 0.2597903535157268,
+              "z": -0.4575947344458687
+            },
+            "actualKneeBendRad": 0.4156159584185488,
+            "targetKneeBendRad": 0.22028472222222822,
+            "thighHipToKneeM": 0.4297335350979043,
+            "shinKneeToAnkleM": 0.41999374771196474,
+            "soleY": -0.0005900665876299727,
+            "toeY": -0.00939244276872929,
+            "heel": 0.16235634206842908,
+            "extraMassKg": 0,
+            "pinC": {
+              "x": -2.467605326225727,
+              "y": 0.008383903927780254,
+              "z": 0.10303008879109748
+            },
+            "pinT": {
+              "x": -2.348115671828754,
+              "y": 0.01941388202341786,
+              "z": 0.10228037549342665
+            },
+            "phi": 0.1,
+            "yaw": 0.006274212305287834
+          },
+          "B": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.300529862468548,
+              "y": 0.49429256699107493,
+              "z": -0.981062497648644
+            },
+            "ankle": {
+              "x": -2.981389645859086,
+              "y": 0.06496418858396759,
+              "z": -0.741268667060027
+            },
+            "plant": {
+              "x": -3.1415810505899637,
+              "y": 0.062,
+              "z": -0.11669076516433954
+            },
+            "hipToActualAnkleM": 0.8398773614835969,
+            "hipToPlantM": 1.2811644923405017,
+            "actualKneeParent": {
+              "x": -2.6122327555506653,
+              "y": 0.25693349114129377,
+              "z": -0.8015514623016264
+            },
+            "actualKneeChild": {
+              "x": -2.6121665852646214,
+              "y": 0.2562572224769303,
+              "z": -0.801331113685118
+            },
+            "actualKneeBendRad": 0.3302097106515869,
+            "targetKneeBendRad": 0.14037268518519305,
+            "thighHipToKneeM": 0.4309550281124262,
+            "shinKneeToAnkleM": 0.42015020026808225,
+            "soleY": -0.004160958802021213,
+            "toeY": -0.0010830546234423186,
+            "heel": 0,
+            "extraMassKg": 0,
+            "pinC": {
+              "x": -3.0910615839454403,
+              "y": 0.0009493795593278065,
+              "z": -0.12530482161441311
+            },
+            "pinT": {
+              "x": -2.97298033894133,
+              "y": 0.0030998499612617456,
+              "z": -0.14656969934851954
+            },
+            "phi": 0.1,
+            "yaw": 0.17817704719623764
+          }
+        },
+        "legacyAfter": {
+          "F": {
+            "stance": true,
+            "health": 0.45,
+            "hip": {
+              "x": -2.293305678509504,
+              "y": 0.516983643325194,
+              "z": -0.792560703890429
+            },
+            "ankle": {
+              "x": -2.511557111356527,
+              "y": 0.1616184550913679,
+              "z": -0.07306429629826477
+            },
+            "plant": {
+              "x": -2.5975947245543476,
+              "y": 0.062,
+              "z": -0.018508291777074283
+            },
+            "hipToActualAnkleM": 0.831620818333855,
+            "hipToPlantM": 0.9480290480438093,
+            "actualKneeParent": {
+              "x": -2.3736457598469425,
+              "y": 0.2602658221928482,
+              "z": -0.4574303668102171
+            },
+            "actualKneeChild": {
+              "x": -2.3741039607381778,
+              "y": 0.2597903535157268,
+              "z": -0.4575947344458687
+            },
+            "actualKneeBendRad": 0.4156159584185488,
+            "targetKneeBendRad": 0.22028472222222822,
+            "thighHipToKneeM": 0.4297335350979043,
+            "shinKneeToAnkleM": 0.41999374771196474,
+            "soleY": 0.1225548578410806,
+            "toeY": 0.021001946678234726,
+            "heel": 0.16235634206842908,
+            "extraMassKg": 2,
+            "pinC": {
+              "x": -2.548483157851055,
+              "y": 0,
+              "z": -0.009124581639391931
+            },
+            "pinT": {
+              "x": -2.4306153977631526,
+              "y": 0,
+              "z": 0.013396322691045709
+            },
+            "phi": 0.1,
+            "yaw": -0.18879373727083518
+          },
+          "B": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.300529862468548,
+              "y": 0.49429256699107493,
+              "z": -0.981062497648644
+            },
+            "ankle": {
+              "x": -2.981389645859086,
+              "y": 0.06496418858396759,
+              "z": -0.741268667060027
+            },
+            "plant": {
+              "x": -2.981389645859086,
+              "y": 0.062,
+              "z": -0.741268667060027
+            },
+            "hipToActualAnkleM": 0.8398773614835969,
+            "hipToPlantM": 0.8413964519194891,
+            "actualKneeParent": {
+              "x": -2.6122327555506653,
+              "y": 0.25693349114129377,
+              "z": -0.8015514623016264
+            },
+            "actualKneeChild": {
+              "x": -2.6121665852646214,
+              "y": 0.2562572224769303,
+              "z": -0.801331113685118
+            },
+            "actualKneeBendRad": 0.3302097106515869,
+            "targetKneeBendRad": 0.14037268518519305,
+            "thighHipToKneeM": 0.4309550281124262,
+            "shinKneeToAnkleM": 0.42015020026808225,
+            "soleY": 0.027477659244230804,
+            "toeY": 0.020148741485363247,
+            "heel": 0,
+            "extraMassKg": 2,
+            "pinC": {
+              "x": -3.013328362788557,
+              "y": 0.027477659244230804,
+              "z": -0.6707372554709249
+            },
+            "pinT": {
+              "x": -2.9579963377129252,
+              "y": 0.020148741485363247,
+              "z": -0.5645079947047456
+            },
+            "phi": 0.1,
+            "yaw": -1.0905895670473504
+          }
+        },
+        "support": {
+          "anySupport": true,
+          "groups": {
+            "footF": {
+              "hasSupport": true,
+              "rawNormalImpulseNs": 3.757142424583435,
+              "confirmedUpwardImpulseNs": 3.757142424583435,
+              "confirmedPointCount": 2,
+              "maxConfirmedSlipMps": 0.061155987964020525,
+              "proxy": null
+            },
+            "footB": {
+              "hasSupport": true,
+              "rawNormalImpulseNs": 3.6902801990509033,
+              "confirmedUpwardImpulseNs": 3.6902801990509033,
+              "confirmedPointCount": 2,
+              "maxConfirmedSlipMps": 0.07733846270258976,
+              "proxy": null
+            },
+            "shinF": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "whole shin collider, not isolated knee"
+            },
+            "shinB": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "whole shin collider, not isolated knee"
+            },
+            "handO": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "farmO forearm collider, not palm/fingers"
+            }
+          }
+        }
+      },
+      "wholeObservationMeasuredSupport": {
+        "groups": {
+          "footF": {
+            "supportSeconds": 22.141666666666666,
+            "confirmedUpwardImpulseNs": 9938.78292709263,
+            "rawNormalImpulseNs": 9938.78292709263,
+            "firstSupportS": 0.016666666666666666,
+            "lastSupportS": 25,
+            "maxConfirmedSlipMps": 7.941504109824588
+          },
+          "footB": {
+            "supportSeconds": 17.683333333333334,
+            "confirmedUpwardImpulseNs": 7941.149727190248,
+            "rawNormalImpulseNs": 7941.149727190248,
+            "firstSupportS": 0.008333333333333333,
+            "lastSupportS": 25,
+            "maxConfirmedSlipMps": 6.658746979922956
+          },
+          "shinF": {
+            "supportSeconds": 6.591666666666667,
+            "confirmedUpwardImpulseNs": 2179.8360472812215,
+            "rawNormalImpulseNs": 2179.8360472812215,
+            "firstSupportS": 2.9916666666666667,
+            "lastSupportS": 15.066666666666666,
+            "maxConfirmedSlipMps": 2.092519458530168
+          },
+          "shinB": {
+            "supportSeconds": 4.466666666666667,
+            "confirmedUpwardImpulseNs": 1100.7489819355021,
+            "rawNormalImpulseNs": 1100.7489819355021,
+            "firstSupportS": 3.3249999999999997,
+            "lastSupportS": 15.025,
+            "maxConfirmedSlipMps": 2.7547529516611156
+          },
+          "handO": {
+            "supportSeconds": 0.425,
+            "confirmedUpwardImpulseNs": 40.91623985208571,
+            "rawNormalImpulseNs": 40.91623985208571,
+            "firstSupportS": 2.4416666666666664,
+            "lastSupportS": 3.1083333333333334,
+            "maxConfirmedSlipMps": 2.4259959403304427
+          }
+        },
+        "noGroupSupportSeconds": 0.18333333333333332,
+        "maxNoGroupSupportIntervalS": 0.13333333333333333
+      }
+    },
+    {
+      "scenario": "hurt_getup",
+      "variant": "clone",
+      "traceSHA256": "83443272f40fa16b99fdc7580ab188b8fcb72bbf4718fdd64dd4501b8dab4212",
+      "applications": 0,
+      "verticalInfeasible": 0,
+      "firstStandS": 5.575,
+      "refalls": [
+        {
+          "timeS": 6.216666666666667,
+          "from": "stand",
+          "to": "getup",
+          "pelvisHeightM": 0.22397726774215698,
+          "chestTiltDeg": 72.11911816523478,
+          "feetSolverPointCount": 1
+        },
+        {
+          "timeS": 9.641666666666666,
+          "from": "stand",
+          "to": "getup",
+          "pelvisHeightM": 0.39091047644615173,
+          "chestTiltDeg": 66.61960971565196,
+          "feetSolverPointCount": 2
+        },
+        {
+          "timeS": 13.108333333333333,
+          "from": "stand",
+          "to": "getup",
+          "pelvisHeightM": 0.44150152802467346,
+          "chestTiltDeg": 66.86425139208703,
+          "feetSolverPointCount": 1
+        }
+      ],
+      "first42": {
+        "physicsSteps": 42,
+        "maxRawRequestedReachM": 0.9466837466618481,
+        "maxInternalIKReachM": 0.8493201848045918,
+        "unreachableRequests": 9,
+        "unsupportedRequests": 23
+      },
+      "postFirstStand": {
+        "maxKJ": 291.66818151951003,
+        "maxHeightM": 0.9392641186714172,
+        "maxGapM": 0.003433885580355494,
+        "confirmedFootPointSlip": {
+          "pointSamples": 9879,
+          "frames": 2291,
+          "meanMps": 0.0530152282587688,
+          "p95Mps": 0.23961766633562284,
+          "maxMps": 7.941504109824588
+        },
+        "measuredGroupSupport": {
+          "groups": {
+            "footF": {
+              "supportSeconds": 16.725,
+              "confirmedUpwardImpulseNs": 7467.32812023256,
+              "rawNormalImpulseNs": 7467.32812023256,
+              "firstSupportS": 5.575,
+              "lastSupportS": 25,
+              "maxConfirmedSlipMps": 7.941504109824588
+            },
+            "footB": {
+              "supportSeconds": 13.316666666666666,
+              "confirmedUpwardImpulseNs": 6785.410005920567,
+              "rawNormalImpulseNs": 6785.410005920567,
+              "firstSupportS": 5.575,
+              "lastSupportS": 25,
+              "maxConfirmedSlipMps": 6.658746979922956
+            },
+            "shinF": {
+              "supportSeconds": 5.383333333333333,
+              "confirmedUpwardImpulseNs": 1960.3266346213472,
+              "rawNormalImpulseNs": 1960.3266346213472,
+              "firstSupportS": 6.108333333333333,
+              "lastSupportS": 15.066666666666666,
+              "maxConfirmedSlipMps": 2.092519458530168
+            },
+            "shinB": {
+              "supportSeconds": 3.275,
+              "confirmedUpwardImpulseNs": 835.7992212832993,
+              "rawNormalImpulseNs": 835.7992212832993,
+              "firstSupportS": 5.916666666666667,
+              "lastSupportS": 15.025,
+              "maxConfirmedSlipMps": 2.7547529516611156
+            },
+            "handO": {
+              "supportSeconds": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "rawNormalImpulseNs": 0,
+              "firstSupportS": null,
+              "lastSupportS": null,
+              "maxConfirmedSlipMps": null
+            }
+          },
+          "noGroupSupportSeconds": 0.18333333333333332,
+          "maxNoGroupSupportIntervalS": 0.13333333333333333
+        }
+      },
+      "entry": {
+        "timeS": 5.575,
+        "before": {
+          "F": {
+            "stance": true,
+            "health": 0.45,
+            "hip": {
+              "x": -2.293305678509504,
+              "y": 0.516983643325194,
+              "z": -0.792560703890429
+            },
+            "ankle": {
+              "x": -2.511557111356527,
+              "y": 0.1616184550913679,
+              "z": -0.07306429629826477
+            },
+            "plant": {
+              "x": -2.5238271751892714,
+              "y": 0.062,
+              "z": 0.10330802629339904
+            },
+            "hipToActualAnkleM": 0.831620818333855,
+            "hipToPlantM": 1.030888479829963,
+            "actualKneeParent": {
+              "x": -2.3736457598469425,
+              "y": 0.2602658221928482,
+              "z": -0.4574303668102171
+            },
+            "actualKneeChild": {
+              "x": -2.3741039607381778,
+              "y": 0.2597903535157268,
+              "z": -0.4575947344458687
+            },
+            "actualKneeBendRad": 0.4156159584185488,
+            "targetKneeBendRad": 0.22028472222222822,
+            "thighHipToKneeM": 0.4297335350979043,
+            "shinKneeToAnkleM": 0.41999374771196474,
+            "soleY": -0.0005900665876299727,
+            "toeY": -0.00939244276872929,
+            "heel": 0.16235634206842908,
+            "extraMassKg": 0,
+            "pinC": {
+              "x": -2.467605326225727,
+              "y": 0.008383903927780254,
+              "z": 0.10303008879109748
+            },
+            "pinT": {
+              "x": -2.348115671828754,
+              "y": 0.01941388202341786,
+              "z": 0.10228037549342665
+            },
+            "phi": 0.1,
+            "yaw": 0.006274212305287834
+          },
+          "B": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.300529862468548,
+              "y": 0.49429256699107493,
+              "z": -0.981062497648644
+            },
+            "ankle": {
+              "x": -2.981389645859086,
+              "y": 0.06496418858396759,
+              "z": -0.741268667060027
+            },
+            "plant": {
+              "x": -3.1415810505899637,
+              "y": 0.062,
+              "z": -0.11669076516433954
+            },
+            "hipToActualAnkleM": 0.8398773614835969,
+            "hipToPlantM": 1.2811644923405017,
+            "actualKneeParent": {
+              "x": -2.6122327555506653,
+              "y": 0.25693349114129377,
+              "z": -0.8015514623016264
+            },
+            "actualKneeChild": {
+              "x": -2.6121665852646214,
+              "y": 0.2562572224769303,
+              "z": -0.801331113685118
+            },
+            "actualKneeBendRad": 0.3302097106515869,
+            "targetKneeBendRad": 0.14037268518519305,
+            "thighHipToKneeM": 0.4309550281124262,
+            "shinKneeToAnkleM": 0.42015020026808225,
+            "soleY": -0.004160958802021213,
+            "toeY": -0.0010830546234423186,
+            "heel": 0,
+            "extraMassKg": 0,
+            "pinC": {
+              "x": -3.0910615839454403,
+              "y": 0.0009493795593278065,
+              "z": -0.12530482161441311
+            },
+            "pinT": {
+              "x": -2.97298033894133,
+              "y": 0.0030998499612617456,
+              "z": -0.14656969934851954
+            },
+            "phi": 0.1,
+            "yaw": 0.17817704719623764
+          }
+        },
+        "legacyAfter": {
+          "F": {
+            "stance": true,
+            "health": 0.45,
+            "hip": {
+              "x": -2.293305678509504,
+              "y": 0.516983643325194,
+              "z": -0.792560703890429
+            },
+            "ankle": {
+              "x": -2.511557111356527,
+              "y": 0.1616184550913679,
+              "z": -0.07306429629826477
+            },
+            "plant": {
+              "x": -2.5975947245543476,
+              "y": 0.062,
+              "z": -0.018508291777074283
+            },
+            "hipToActualAnkleM": 0.831620818333855,
+            "hipToPlantM": 0.9480290480438093,
+            "actualKneeParent": {
+              "x": -2.3736457598469425,
+              "y": 0.2602658221928482,
+              "z": -0.4574303668102171
+            },
+            "actualKneeChild": {
+              "x": -2.3741039607381778,
+              "y": 0.2597903535157268,
+              "z": -0.4575947344458687
+            },
+            "actualKneeBendRad": 0.4156159584185488,
+            "targetKneeBendRad": 0.22028472222222822,
+            "thighHipToKneeM": 0.4297335350979043,
+            "shinKneeToAnkleM": 0.41999374771196474,
+            "soleY": 0.1225548578410806,
+            "toeY": 0.021001946678234726,
+            "heel": 0.16235634206842908,
+            "extraMassKg": 2,
+            "pinC": {
+              "x": -2.548483157851055,
+              "y": 0,
+              "z": -0.009124581639391931
+            },
+            "pinT": {
+              "x": -2.4306153977631526,
+              "y": 0,
+              "z": 0.013396322691045709
+            },
+            "phi": 0.1,
+            "yaw": -0.18879373727083518
+          },
+          "B": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.300529862468548,
+              "y": 0.49429256699107493,
+              "z": -0.981062497648644
+            },
+            "ankle": {
+              "x": -2.981389645859086,
+              "y": 0.06496418858396759,
+              "z": -0.741268667060027
+            },
+            "plant": {
+              "x": -2.981389645859086,
+              "y": 0.062,
+              "z": -0.741268667060027
+            },
+            "hipToActualAnkleM": 0.8398773614835969,
+            "hipToPlantM": 0.8413964519194891,
+            "actualKneeParent": {
+              "x": -2.6122327555506653,
+              "y": 0.25693349114129377,
+              "z": -0.8015514623016264
+            },
+            "actualKneeChild": {
+              "x": -2.6121665852646214,
+              "y": 0.2562572224769303,
+              "z": -0.801331113685118
+            },
+            "actualKneeBendRad": 0.3302097106515869,
+            "targetKneeBendRad": 0.14037268518519305,
+            "thighHipToKneeM": 0.4309550281124262,
+            "shinKneeToAnkleM": 0.42015020026808225,
+            "soleY": 0.027477659244230804,
+            "toeY": 0.020148741485363247,
+            "heel": 0,
+            "extraMassKg": 2,
+            "pinC": {
+              "x": -3.013328362788557,
+              "y": 0.027477659244230804,
+              "z": -0.6707372554709249
+            },
+            "pinT": {
+              "x": -2.9579963377129252,
+              "y": 0.020148741485363247,
+              "z": -0.5645079947047456
+            },
+            "phi": 0.1,
+            "yaw": -1.0905895670473504
+          }
+        },
+        "support": {
+          "anySupport": true,
+          "groups": {
+            "footF": {
+              "hasSupport": true,
+              "rawNormalImpulseNs": 3.757142424583435,
+              "confirmedUpwardImpulseNs": 3.757142424583435,
+              "confirmedPointCount": 2,
+              "maxConfirmedSlipMps": 0.061155987964020525,
+              "proxy": null
+            },
+            "footB": {
+              "hasSupport": true,
+              "rawNormalImpulseNs": 3.6902801990509033,
+              "confirmedUpwardImpulseNs": 3.6902801990509033,
+              "confirmedPointCount": 2,
+              "maxConfirmedSlipMps": 0.07733846270258976,
+              "proxy": null
+            },
+            "shinF": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "whole shin collider, not isolated knee"
+            },
+            "shinB": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "whole shin collider, not isolated knee"
+            },
+            "handO": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "farmO forearm collider, not palm/fingers"
+            }
+          }
+        }
+      },
+      "wholeObservationMeasuredSupport": {
+        "groups": {
+          "footF": {
+            "supportSeconds": 22.141666666666666,
+            "confirmedUpwardImpulseNs": 9938.78292709263,
+            "rawNormalImpulseNs": 9938.78292709263,
+            "firstSupportS": 0.016666666666666666,
+            "lastSupportS": 25,
+            "maxConfirmedSlipMps": 7.941504109824588
+          },
+          "footB": {
+            "supportSeconds": 17.683333333333334,
+            "confirmedUpwardImpulseNs": 7941.149727190248,
+            "rawNormalImpulseNs": 7941.149727190248,
+            "firstSupportS": 0.008333333333333333,
+            "lastSupportS": 25,
+            "maxConfirmedSlipMps": 6.658746979922956
+          },
+          "shinF": {
+            "supportSeconds": 6.591666666666667,
+            "confirmedUpwardImpulseNs": 2179.8360472812215,
+            "rawNormalImpulseNs": 2179.8360472812215,
+            "firstSupportS": 2.9916666666666667,
+            "lastSupportS": 15.066666666666666,
+            "maxConfirmedSlipMps": 2.092519458530168
+          },
+          "shinB": {
+            "supportSeconds": 4.466666666666667,
+            "confirmedUpwardImpulseNs": 1100.7489819355021,
+            "rawNormalImpulseNs": 1100.7489819355021,
+            "firstSupportS": 3.3249999999999997,
+            "lastSupportS": 15.025,
+            "maxConfirmedSlipMps": 2.7547529516611156
+          },
+          "handO": {
+            "supportSeconds": 0.425,
+            "confirmedUpwardImpulseNs": 40.91623985208571,
+            "rawNormalImpulseNs": 40.91623985208571,
+            "firstSupportS": 2.4416666666666664,
+            "lastSupportS": 3.1083333333333334,
+            "maxConfirmedSlipMps": 2.4259959403304427
+          }
+        },
+        "noGroupSupportSeconds": 0.18333333333333332,
+        "maxNoGroupSupportIntervalS": 0.13333333333333333
+      }
+    },
+    {
+      "scenario": "hurt_getup",
+      "variant": "observedPlant",
+      "traceSHA256": "aa0f0817927756d1ad394eba9d6acff0e1b9e283573f18afc9efe2da15f7e167",
+      "applications": 2,
+      "verticalInfeasible": 0,
+      "firstStandS": 5.575,
+      "refalls": [
+        {
+          "timeS": 6.208333333333333,
+          "from": "stand",
+          "to": "getup",
+          "pelvisHeightM": 0.2535724341869354,
+          "chestTiltDeg": 68.36138674186394,
+          "feetSolverPointCount": 2
+        },
+        {
+          "timeS": 9.541666666666666,
+          "from": "stand",
+          "to": "getup",
+          "pelvisHeightM": 0.30280905961990356,
+          "chestTiltDeg": 68.62204600588399,
+          "feetSolverPointCount": 2
+        }
+      ],
+      "first42": {
+        "physicsSteps": 42,
+        "maxRawRequestedReachM": 0.9467421640444178,
+        "maxInternalIKReachM": 0.8493201848045918,
+        "unreachableRequests": 9,
+        "unsupportedRequests": 24
+      },
+      "postFirstStand": {
+        "maxKJ": 277.153928836582,
+        "maxHeightM": 0.9513450264930725,
+        "maxGapM": 0.0034062336741452195,
+        "confirmedFootPointSlip": {
+          "pointSamples": 12007,
+          "frames": 2294,
+          "meanMps": 0.03475085627421357,
+          "p95Mps": 0.06778005392388069,
+          "maxMps": 9.258228859673883
+        },
+        "measuredGroupSupport": {
+          "groups": {
+            "footF": {
+              "supportSeconds": 17.40833333333333,
+              "confirmedUpwardImpulseNs": 7456.566907599714,
+              "rawNormalImpulseNs": 7456.566907599714,
+              "firstSupportS": 5.575,
+              "lastSupportS": 25,
+              "maxConfirmedSlipMps": 7.294123984526563
+            },
+            "footB": {
+              "supportSeconds": 14.566666666666666,
+              "confirmedUpwardImpulseNs": 7612.50118120946,
+              "rawNormalImpulseNs": 7612.50118120946,
+              "firstSupportS": 5.575,
+              "lastSupportS": 25,
+              "maxConfirmedSlipMps": 9.258228859673883
+            },
+            "shinF": {
+              "supportSeconds": 3.275,
+              "confirmedUpwardImpulseNs": 1333.5315933535835,
+              "rawNormalImpulseNs": 1333.5315933535835,
+              "firstSupportS": 6.25,
+              "lastSupportS": 11.233333333333333,
+              "maxConfirmedSlipMps": 0.3283059835873518
+            },
+            "shinB": {
+              "supportSeconds": 2.6333333333333333,
+              "confirmedUpwardImpulseNs": 755.2732833626337,
+              "rawNormalImpulseNs": 755.2732833626337,
+              "firstSupportS": 5.916666666666667,
+              "lastSupportS": 11.558333333333334,
+              "maxConfirmedSlipMps": 2.400001906145872
+            },
+            "handO": {
+              "supportSeconds": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "rawNormalImpulseNs": 0,
+              "firstSupportS": null,
+              "lastSupportS": null,
+              "maxConfirmedSlipMps": null
+            }
+          },
+          "noGroupSupportSeconds": 0.19166666666666665,
+          "maxNoGroupSupportIntervalS": 0.11666666666666665
+        }
+      },
+      "entry": {
+        "timeS": 5.575,
+        "before": {
+          "F": {
+            "stance": true,
+            "health": 0.45,
+            "hip": {
+              "x": -2.293305678509504,
+              "y": 0.516983643325194,
+              "z": -0.792560703890429
+            },
+            "ankle": {
+              "x": -2.511557111356527,
+              "y": 0.1616184550913679,
+              "z": -0.07306429629826477
+            },
+            "plant": {
+              "x": -2.5238271751892714,
+              "y": 0.062,
+              "z": 0.10330802629339904
+            },
+            "hipToActualAnkleM": 0.831620818333855,
+            "hipToPlantM": 1.030888479829963,
+            "actualKneeParent": {
+              "x": -2.3736457598469425,
+              "y": 0.2602658221928482,
+              "z": -0.4574303668102171
+            },
+            "actualKneeChild": {
+              "x": -2.3741039607381778,
+              "y": 0.2597903535157268,
+              "z": -0.4575947344458687
+            },
+            "actualKneeBendRad": 0.4156159584185488,
+            "targetKneeBendRad": 0.22028472222222822,
+            "thighHipToKneeM": 0.4297335350979043,
+            "shinKneeToAnkleM": 0.41999374771196474,
+            "soleY": -0.0005900665876299727,
+            "toeY": -0.00939244276872929,
+            "heel": 0.16235634206842908,
+            "extraMassKg": 0,
+            "pinC": {
+              "x": -2.467605326225727,
+              "y": 0.008383903927780254,
+              "z": 0.10303008879109748
+            },
+            "pinT": {
+              "x": -2.348115671828754,
+              "y": 0.01941388202341786,
+              "z": 0.10228037549342665
+            },
+            "phi": 0.1,
+            "yaw": 0.006274212305287834
+          },
+          "B": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.300529862468548,
+              "y": 0.49429256699107493,
+              "z": -0.981062497648644
+            },
+            "ankle": {
+              "x": -2.981389645859086,
+              "y": 0.06496418858396759,
+              "z": -0.741268667060027
+            },
+            "plant": {
+              "x": -3.1415810505899637,
+              "y": 0.062,
+              "z": -0.11669076516433954
+            },
+            "hipToActualAnkleM": 0.8398773614835969,
+            "hipToPlantM": 1.2811644923405017,
+            "actualKneeParent": {
+              "x": -2.6122327555506653,
+              "y": 0.25693349114129377,
+              "z": -0.8015514623016264
+            },
+            "actualKneeChild": {
+              "x": -2.6121665852646214,
+              "y": 0.2562572224769303,
+              "z": -0.801331113685118
+            },
+            "actualKneeBendRad": 0.3302097106515869,
+            "targetKneeBendRad": 0.14037268518519305,
+            "thighHipToKneeM": 0.4309550281124262,
+            "shinKneeToAnkleM": 0.42015020026808225,
+            "soleY": -0.004160958802021213,
+            "toeY": -0.0010830546234423186,
+            "heel": 0,
+            "extraMassKg": 0,
+            "pinC": {
+              "x": -3.0910615839454403,
+              "y": 0.0009493795593278065,
+              "z": -0.12530482161441311
+            },
+            "pinT": {
+              "x": -2.97298033894133,
+              "y": 0.0030998499612617456,
+              "z": -0.14656969934851954
+            },
+            "phi": 0.1,
+            "yaw": 0.17817704719623764
+          }
+        },
+        "legacyAfter": {
+          "F": {
+            "stance": true,
+            "health": 0.45,
+            "hip": {
+              "x": -2.293305678509504,
+              "y": 0.516983643325194,
+              "z": -0.792560703890429
+            },
+            "ankle": {
+              "x": -2.511557111356527,
+              "y": 0.1616184550913679,
+              "z": -0.07306429629826477
+            },
+            "plant": {
+              "x": -2.5975947245543476,
+              "y": 0.062,
+              "z": -0.018508291777074283
+            },
+            "hipToActualAnkleM": 0.831620818333855,
+            "hipToPlantM": 0.9480290480438093,
+            "actualKneeParent": {
+              "x": -2.3736457598469425,
+              "y": 0.2602658221928482,
+              "z": -0.4574303668102171
+            },
+            "actualKneeChild": {
+              "x": -2.3741039607381778,
+              "y": 0.2597903535157268,
+              "z": -0.4575947344458687
+            },
+            "actualKneeBendRad": 0.4156159584185488,
+            "targetKneeBendRad": 0.22028472222222822,
+            "thighHipToKneeM": 0.4297335350979043,
+            "shinKneeToAnkleM": 0.41999374771196474,
+            "soleY": 0.1225548578410806,
+            "toeY": 0.021001946678234726,
+            "heel": 0.16235634206842908,
+            "extraMassKg": 2,
+            "pinC": {
+              "x": -2.548483157851055,
+              "y": 0,
+              "z": -0.009124581639391931
+            },
+            "pinT": {
+              "x": -2.4306153977631526,
+              "y": 0,
+              "z": 0.013396322691045709
+            },
+            "phi": 0.1,
+            "yaw": -0.18879373727083518
+          },
+          "B": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.300529862468548,
+              "y": 0.49429256699107493,
+              "z": -0.981062497648644
+            },
+            "ankle": {
+              "x": -2.981389645859086,
+              "y": 0.06496418858396759,
+              "z": -0.741268667060027
+            },
+            "plant": {
+              "x": -2.981389645859086,
+              "y": 0.062,
+              "z": -0.741268667060027
+            },
+            "hipToActualAnkleM": 0.8398773614835969,
+            "hipToPlantM": 0.8413964519194891,
+            "actualKneeParent": {
+              "x": -2.6122327555506653,
+              "y": 0.25693349114129377,
+              "z": -0.8015514623016264
+            },
+            "actualKneeChild": {
+              "x": -2.6121665852646214,
+              "y": 0.2562572224769303,
+              "z": -0.801331113685118
+            },
+            "actualKneeBendRad": 0.3302097106515869,
+            "targetKneeBendRad": 0.14037268518519305,
+            "thighHipToKneeM": 0.4309550281124262,
+            "shinKneeToAnkleM": 0.42015020026808225,
+            "soleY": 0.027477659244230804,
+            "toeY": 0.020148741485363247,
+            "heel": 0,
+            "extraMassKg": 2,
+            "pinC": {
+              "x": -3.013328362788557,
+              "y": 0.027477659244230804,
+              "z": -0.6707372554709249
+            },
+            "pinT": {
+              "x": -2.9579963377129252,
+              "y": 0.020148741485363247,
+              "z": -0.5645079947047456
+            },
+            "phi": 0.1,
+            "yaw": -1.0905895670473504
+          }
+        },
+        "support": {
+          "anySupport": true,
+          "groups": {
+            "footF": {
+              "hasSupport": true,
+              "rawNormalImpulseNs": 3.757142424583435,
+              "confirmedUpwardImpulseNs": 3.757142424583435,
+              "confirmedPointCount": 2,
+              "maxConfirmedSlipMps": 0.061155987964020525,
+              "proxy": null
+            },
+            "footB": {
+              "hasSupport": true,
+              "rawNormalImpulseNs": 3.6902801990509033,
+              "confirmedUpwardImpulseNs": 3.6902801990509033,
+              "confirmedPointCount": 2,
+              "maxConfirmedSlipMps": 0.07733846270258976,
+              "proxy": null
+            },
+            "shinF": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "whole shin collider, not isolated knee"
+            },
+            "shinB": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "whole shin collider, not isolated knee"
+            },
+            "handO": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "farmO forearm collider, not palm/fingers"
+            }
+          }
+        },
+        "candidateAfter": {
+          "F": {
+            "stance": true,
+            "health": 0.45,
+            "hip": {
+              "x": -2.293305678509504,
+              "y": 0.516983643325194,
+              "z": -0.792560703890429
+            },
+            "ankle": {
+              "x": -2.511557111356527,
+              "y": 0.1616184550913679,
+              "z": -0.07306429629826477
+            },
+            "plant": {
+              "x": -2.511557111356527,
+              "y": 0.1616184550913679,
+              "z": -0.07306429629826477
+            },
+            "hipToActualAnkleM": 0.831620818333855,
+            "hipToPlantM": 0.831620818333855,
+            "actualKneeParent": {
+              "x": -2.3736457598469425,
+              "y": 0.2602658221928482,
+              "z": -0.4574303668102171
+            },
+            "actualKneeChild": {
+              "x": -2.3741039607381778,
+              "y": 0.2597903535157268,
+              "z": -0.4575947344458687
+            },
+            "actualKneeBendRad": 0.4156159584185488,
+            "targetKneeBendRad": 0.22028472222222822,
+            "thighHipToKneeM": 0.4297335350979043,
+            "shinKneeToAnkleM": 0.41999374771196474,
+            "soleY": 0.1225548578410806,
+            "toeY": 0.021001946678234726,
+            "heel": 0.16235634206842908,
+            "extraMassKg": 2,
+            "pinC": {
+              "x": -2.4934091606415536,
+              "y": 0.1225548578410806,
+              "z": 0.0013983656137414105
+            },
+            "pinT": {
+              "x": -2.4306153977631526,
+              "y": 0.021001946678234726,
+              "z": 0.013396322691045709
+            },
+            "phi": 0.1,
+            "yaw": -0.18879373727083518
+          },
+          "B": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.300529862468548,
+              "y": 0.49429256699107493,
+              "z": -0.981062497648644
+            },
+            "ankle": {
+              "x": -2.981389645859086,
+              "y": 0.06496418858396759,
+              "z": -0.741268667060027
+            },
+            "plant": {
+              "x": -2.981389645859086,
+              "y": 0.06496418858396759,
+              "z": -0.741268667060027
+            },
+            "hipToActualAnkleM": 0.8398773614835969,
+            "hipToPlantM": 0.8398773614835969,
+            "actualKneeParent": {
+              "x": -2.6122327555506653,
+              "y": 0.25693349114129377,
+              "z": -0.8015514623016264
+            },
+            "actualKneeChild": {
+              "x": -2.6121665852646214,
+              "y": 0.2562572224769303,
+              "z": -0.801331113685118
+            },
+            "actualKneeBendRad": 0.3302097106515869,
+            "targetKneeBendRad": 0.14037268518519305,
+            "thighHipToKneeM": 0.4309550281124262,
+            "shinKneeToAnkleM": 0.42015020026808225,
+            "soleY": 0.027477659244230804,
+            "toeY": 0.020148741485363247,
+            "heel": 0,
+            "extraMassKg": 2,
+            "pinC": {
+              "x": -3.013328362788557,
+              "y": 0.027477659244230804,
+              "z": -0.6707372554709249
+            },
+            "pinT": {
+              "x": -2.9579963377129252,
+              "y": 0.020148741485363247,
+              "z": -0.5645079947047456
+            },
+            "phi": 0.1,
+            "yaw": -1.0905895670473504
+          }
+        },
+        "nativePreserved": true,
+        "bodyPreserved": true
+      },
+      "wholeObservationMeasuredSupport": {
+        "groups": {
+          "footF": {
+            "supportSeconds": 22.825,
+            "confirmedUpwardImpulseNs": 9928.021714459785,
+            "rawNormalImpulseNs": 9928.021714459785,
+            "firstSupportS": 0.016666666666666666,
+            "lastSupportS": 25,
+            "maxConfirmedSlipMps": 7.294123984526563
+          },
+          "footB": {
+            "supportSeconds": 18.933333333333334,
+            "confirmedUpwardImpulseNs": 8768.240902479141,
+            "rawNormalImpulseNs": 8768.240902479141,
+            "firstSupportS": 0.008333333333333333,
+            "lastSupportS": 25,
+            "maxConfirmedSlipMps": 9.258228859673883
+          },
+          "shinF": {
+            "supportSeconds": 4.483333333333333,
+            "confirmedUpwardImpulseNs": 1553.0410060134577,
+            "rawNormalImpulseNs": 1553.0410060134577,
+            "firstSupportS": 2.9916666666666667,
+            "lastSupportS": 11.233333333333333,
+            "maxConfirmedSlipMps": 0.3283059835873518
+          },
+          "shinB": {
+            "supportSeconds": 3.8249999999999997,
+            "confirmedUpwardImpulseNs": 1020.2230440148364,
+            "rawNormalImpulseNs": 1020.2230440148364,
+            "firstSupportS": 3.3249999999999997,
+            "lastSupportS": 11.558333333333334,
+            "maxConfirmedSlipMps": 2.400001906145872
+          },
+          "handO": {
+            "supportSeconds": 0.425,
+            "confirmedUpwardImpulseNs": 40.91623985208571,
+            "rawNormalImpulseNs": 40.91623985208571,
+            "firstSupportS": 2.4416666666666664,
+            "lastSupportS": 3.1083333333333334,
+            "maxConfirmedSlipMps": 2.4259959403304427
+          }
+        },
+        "noGroupSupportSeconds": 0.19166666666666665,
+        "maxNoGroupSupportIntervalS": 0.11666666666666665
+      }
+    },
+    {
+      "scenario": "hurt_getup",
+      "variant": "unsupportedReach",
+      "traceSHA256": "14d31e216f4298e24006c6968ad304ec364b2577b25451b29daa464bde73a0bd",
+      "applications": 2,
+      "verticalInfeasible": 0,
+      "firstStandS": 5.575,
+      "refalls": [
+        {
+          "timeS": 6.033333333333333,
+          "from": "stand",
+          "to": "getup",
+          "pelvisHeightM": 0.5196943879127502,
+          "chestTiltDeg": 68.40984543093069,
+          "feetSolverPointCount": 2
+        }
+      ],
+      "first42": {
+        "physicsSteps": 42,
+        "maxRawRequestedReachM": 0.9466837466618481,
+        "maxInternalIKReachM": 0.8493201848045918,
+        "unreachableRequests": 7,
+        "unsupportedRequests": 22
+      },
+      "postFirstStand": {
+        "maxKJ": 210.18724439985752,
+        "maxHeightM": 0.9424426555633545,
+        "maxGapM": 0.004050891150493806,
+        "confirmedFootPointSlip": {
+          "pointSamples": 14192,
+          "frames": 2238,
+          "meanMps": 0.019690393236030352,
+          "p95Mps": 0.024599721742515283,
+          "maxMps": 6.378310494041457
+        },
+        "measuredGroupSupport": {
+          "groups": {
+            "footF": {
+              "supportSeconds": 16.933333333333334,
+              "confirmedUpwardImpulseNs": 7857.764009407256,
+              "rawNormalImpulseNs": 7857.764009407256,
+              "firstSupportS": 5.575,
+              "lastSupportS": 25,
+              "maxConfirmedSlipMps": 6.228161044394288
+            },
+            "footB": {
+              "supportSeconds": 16.541666666666668,
+              "confirmedUpwardImpulseNs": 8329.216212469153,
+              "rawNormalImpulseNs": 8329.216212469153,
+              "firstSupportS": 5.575,
+              "lastSupportS": 25,
+              "maxConfirmedSlipMps": 6.378310494041457
+            },
+            "shinF": {
+              "supportSeconds": 1.4416666666666667,
+              "confirmedUpwardImpulseNs": 569.6240296744713,
+              "rawNormalImpulseNs": 569.6240296744713,
+              "firstSupportS": 6.316666666666666,
+              "lastSupportS": 7.766666666666667,
+              "maxConfirmedSlipMps": 0.42938217386565064
+            },
+            "shinB": {
+              "supportSeconds": 1.1416666666666666,
+              "confirmedUpwardImpulseNs": 441.30503538019644,
+              "rawNormalImpulseNs": 441.30503538019644,
+              "firstSupportS": 5.916666666666667,
+              "lastSupportS": 8.016666666666666,
+              "maxConfirmedSlipMps": 4.593746151373431
+            },
+            "handO": {
+              "supportSeconds": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "rawNormalImpulseNs": 0,
+              "firstSupportS": null,
+              "lastSupportS": null,
+              "maxConfirmedSlipMps": null
+            }
+          },
+          "noGroupSupportSeconds": 0.20833333333333334,
+          "maxNoGroupSupportIntervalS": 0.19999999999999998
+        }
+      },
+      "entry": {
+        "timeS": 5.575,
+        "before": {
+          "F": {
+            "stance": true,
+            "health": 0.45,
+            "hip": {
+              "x": -2.293305678509504,
+              "y": 0.516983643325194,
+              "z": -0.792560703890429
+            },
+            "ankle": {
+              "x": -2.511557111356527,
+              "y": 0.1616184550913679,
+              "z": -0.07306429629826477
+            },
+            "plant": {
+              "x": -2.5238271751892714,
+              "y": 0.062,
+              "z": 0.10330802629339904
+            },
+            "hipToActualAnkleM": 0.831620818333855,
+            "hipToPlantM": 1.030888479829963,
+            "actualKneeParent": {
+              "x": -2.3736457598469425,
+              "y": 0.2602658221928482,
+              "z": -0.4574303668102171
+            },
+            "actualKneeChild": {
+              "x": -2.3741039607381778,
+              "y": 0.2597903535157268,
+              "z": -0.4575947344458687
+            },
+            "actualKneeBendRad": 0.4156159584185488,
+            "targetKneeBendRad": 0.22028472222222822,
+            "thighHipToKneeM": 0.4297335350979043,
+            "shinKneeToAnkleM": 0.41999374771196474,
+            "soleY": -0.0005900665876299727,
+            "toeY": -0.00939244276872929,
+            "heel": 0.16235634206842908,
+            "extraMassKg": 0,
+            "pinC": {
+              "x": -2.467605326225727,
+              "y": 0.008383903927780254,
+              "z": 0.10303008879109748
+            },
+            "pinT": {
+              "x": -2.348115671828754,
+              "y": 0.01941388202341786,
+              "z": 0.10228037549342665
+            },
+            "phi": 0.1,
+            "yaw": 0.006274212305287834
+          },
+          "B": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.300529862468548,
+              "y": 0.49429256699107493,
+              "z": -0.981062497648644
+            },
+            "ankle": {
+              "x": -2.981389645859086,
+              "y": 0.06496418858396759,
+              "z": -0.741268667060027
+            },
+            "plant": {
+              "x": -3.1415810505899637,
+              "y": 0.062,
+              "z": -0.11669076516433954
+            },
+            "hipToActualAnkleM": 0.8398773614835969,
+            "hipToPlantM": 1.2811644923405017,
+            "actualKneeParent": {
+              "x": -2.6122327555506653,
+              "y": 0.25693349114129377,
+              "z": -0.8015514623016264
+            },
+            "actualKneeChild": {
+              "x": -2.6121665852646214,
+              "y": 0.2562572224769303,
+              "z": -0.801331113685118
+            },
+            "actualKneeBendRad": 0.3302097106515869,
+            "targetKneeBendRad": 0.14037268518519305,
+            "thighHipToKneeM": 0.4309550281124262,
+            "shinKneeToAnkleM": 0.42015020026808225,
+            "soleY": -0.004160958802021213,
+            "toeY": -0.0010830546234423186,
+            "heel": 0,
+            "extraMassKg": 0,
+            "pinC": {
+              "x": -3.0910615839454403,
+              "y": 0.0009493795593278065,
+              "z": -0.12530482161441311
+            },
+            "pinT": {
+              "x": -2.97298033894133,
+              "y": 0.0030998499612617456,
+              "z": -0.14656969934851954
+            },
+            "phi": 0.1,
+            "yaw": 0.17817704719623764
+          }
+        },
+        "legacyAfter": {
+          "F": {
+            "stance": true,
+            "health": 0.45,
+            "hip": {
+              "x": -2.293305678509504,
+              "y": 0.516983643325194,
+              "z": -0.792560703890429
+            },
+            "ankle": {
+              "x": -2.511557111356527,
+              "y": 0.1616184550913679,
+              "z": -0.07306429629826477
+            },
+            "plant": {
+              "x": -2.5975947245543476,
+              "y": 0.062,
+              "z": -0.018508291777074283
+            },
+            "hipToActualAnkleM": 0.831620818333855,
+            "hipToPlantM": 0.9480290480438093,
+            "actualKneeParent": {
+              "x": -2.3736457598469425,
+              "y": 0.2602658221928482,
+              "z": -0.4574303668102171
+            },
+            "actualKneeChild": {
+              "x": -2.3741039607381778,
+              "y": 0.2597903535157268,
+              "z": -0.4575947344458687
+            },
+            "actualKneeBendRad": 0.4156159584185488,
+            "targetKneeBendRad": 0.22028472222222822,
+            "thighHipToKneeM": 0.4297335350979043,
+            "shinKneeToAnkleM": 0.41999374771196474,
+            "soleY": 0.1225548578410806,
+            "toeY": 0.021001946678234726,
+            "heel": 0.16235634206842908,
+            "extraMassKg": 2,
+            "pinC": {
+              "x": -2.548483157851055,
+              "y": 0,
+              "z": -0.009124581639391931
+            },
+            "pinT": {
+              "x": -2.4306153977631526,
+              "y": 0,
+              "z": 0.013396322691045709
+            },
+            "phi": 0.1,
+            "yaw": -0.18879373727083518
+          },
+          "B": {
+            "stance": true,
+            "health": 1,
+            "hip": {
+              "x": -2.300529862468548,
+              "y": 0.49429256699107493,
+              "z": -0.981062497648644
+            },
+            "ankle": {
+              "x": -2.981389645859086,
+              "y": 0.06496418858396759,
+              "z": -0.741268667060027
+            },
+            "plant": {
+              "x": -2.981389645859086,
+              "y": 0.062,
+              "z": -0.741268667060027
+            },
+            "hipToActualAnkleM": 0.8398773614835969,
+            "hipToPlantM": 0.8413964519194891,
+            "actualKneeParent": {
+              "x": -2.6122327555506653,
+              "y": 0.25693349114129377,
+              "z": -0.8015514623016264
+            },
+            "actualKneeChild": {
+              "x": -2.6121665852646214,
+              "y": 0.2562572224769303,
+              "z": -0.801331113685118
+            },
+            "actualKneeBendRad": 0.3302097106515869,
+            "targetKneeBendRad": 0.14037268518519305,
+            "thighHipToKneeM": 0.4309550281124262,
+            "shinKneeToAnkleM": 0.42015020026808225,
+            "soleY": 0.027477659244230804,
+            "toeY": 0.020148741485363247,
+            "heel": 0,
+            "extraMassKg": 2,
+            "pinC": {
+              "x": -3.013328362788557,
+              "y": 0.027477659244230804,
+              "z": -0.6707372554709249
+            },
+            "pinT": {
+              "x": -2.9579963377129252,
+              "y": 0.020148741485363247,
+              "z": -0.5645079947047456
+            },
+            "phi": 0.1,
+            "yaw": -1.0905895670473504
+          }
+        },
+        "support": {
+          "anySupport": true,
+          "groups": {
+            "footF": {
+              "hasSupport": true,
+              "rawNormalImpulseNs": 3.757142424583435,
+              "confirmedUpwardImpulseNs": 3.757142424583435,
+              "confirmedPointCount": 2,
+              "maxConfirmedSlipMps": 0.061155987964020525,
+              "proxy": null
+            },
+            "footB": {
+              "hasSupport": true,
+              "rawNormalImpulseNs": 3.6902801990509033,
+              "confirmedUpwardImpulseNs": 3.6902801990509033,
+              "confirmedPointCount": 2,
+              "maxConfirmedSlipMps": 0.07733846270258976,
+              "proxy": null
+            },
+            "shinF": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "whole shin collider, not isolated knee"
+            },
+            "shinB": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "whole shin collider, not isolated knee"
+            },
+            "handO": {
+              "hasSupport": false,
+              "rawNormalImpulseNs": 0,
+              "confirmedUpwardImpulseNs": 0,
+              "confirmedPointCount": 0,
+              "maxConfirmedSlipMps": null,
+              "proxy": "farmO forearm collider, not palm/fingers"
+            }
+          }
+        }
+      },
+      "wholeObservationMeasuredSupport": {
+        "groups": {
+          "footF": {
+            "supportSeconds": 22.35,
+            "confirmedUpwardImpulseNs": 10329.218816267326,
+            "rawNormalImpulseNs": 10329.218816267326,
+            "firstSupportS": 0.016666666666666666,
+            "lastSupportS": 25,
+            "maxConfirmedSlipMps": 6.228161044394288
+          },
+          "footB": {
+            "supportSeconds": 20.90833333333333,
+            "confirmedUpwardImpulseNs": 9484.955933738835,
+            "rawNormalImpulseNs": 9484.955933738835,
+            "firstSupportS": 0.008333333333333333,
+            "lastSupportS": 25,
+            "maxConfirmedSlipMps": 6.378310494041457
+          },
+          "shinF": {
+            "supportSeconds": 2.65,
+            "confirmedUpwardImpulseNs": 789.1334423343455,
+            "rawNormalImpulseNs": 789.1334423343455,
+            "firstSupportS": 2.9916666666666667,
+            "lastSupportS": 7.766666666666667,
+            "maxConfirmedSlipMps": 0.42938217386565064
+          },
+          "shinB": {
+            "supportSeconds": 2.3333333333333335,
+            "confirmedUpwardImpulseNs": 706.2547960323991,
+            "rawNormalImpulseNs": 706.2547960323991,
+            "firstSupportS": 3.3249999999999997,
+            "lastSupportS": 8.016666666666666,
+            "maxConfirmedSlipMps": 4.593746151373431
+          },
+          "handO": {
+            "supportSeconds": 0.425,
+            "confirmedUpwardImpulseNs": 40.91623985208571,
+            "rawNormalImpulseNs": 40.91623985208571,
+            "firstSupportS": 2.4416666666666664,
+            "lastSupportS": 3.1083333333333334,
+            "maxConfirmedSlipMps": 2.4259959403304427
+          }
+        },
+        "noGroupSupportSeconds": 0.20833333333333334,
+        "maxNoGroupSupportIntervalS": 0.19999999999999998
+      }
+    }
+  ],
+  "status": "isolated-research-not-adopted",
+  "publicGameChanged": false,
+  "userNaturalnessAccepted": false,
+  "supportPhaseAnalysis": {
+    "rawSha256": "7bc4cbc6a9de7748ac4b3b8a8bdfd87ad7f92b29552024ab9b8c42d02cc12f2b",
+    "analysisSha256": "f2c5af92b04aa10f070d095bb38bf32ed191abe21db2d0b433001f105ea7485a",
+    "scope": "First down/getup phases include post-physics samples before first stand. firstStand42 is exactly42steps. Whole and post-stand extremes/contacts are separate.",
+    "limitations": [
+      "Native motor law/base coefficients/caps untouched; effective k/d can change through existing target-error cap/feedback.",
+      "Fresh confirmed upward raw contact impulse is uncalibrated; palm/knee names describe forearm/shin proxies.",
+      "Support presence is separate from impulse positivity and body-weight share. Group sum is not all-body ground force.",
+      "No human-naturalness or adopted recovery claim."
+    ],
+    "phaseSummarySha256": "c5dc40c0f8a6121790760759753b2497bb2e268bc055a7fed4184c1e6efc0acf",
+    "cases": [
+      {
+        "scenario": "healthy_getup",
+        "firstGetupS": 2.2083333333333335,
+        "firstStandS": 4.216666666666667,
+        "baselinePhases": {
+          "firstDown": {
+            "frames": 264,
+            "durationS": 2.2,
+            "groups": {
+              "footF": {
+                "supportSeconds": 2.1916666666666664,
+                "positiveImpulseSupportSeconds": 2.1916666666666664,
+                "confirmedUpwardImpulseNs": 1080.4788521938026,
+                "rawNormalImpulseNs": 1080.4788521938026,
+                "firstSupportS": 0.016666666666666666,
+                "lastSupportS": 2.2,
+                "firstPositiveImpulseS": 0.016666666666666666,
+                "lastPositiveImpulseS": 2.2
+              },
+              "footB": {
+                "supportSeconds": 2.1666666666666665,
+                "positiveImpulseSupportSeconds": 2.1666666666666665,
+                "confirmedUpwardImpulseNs": 590.5863201729953,
+                "rawNormalImpulseNs": 590.5863201729953,
+                "firstSupportS": 0.008333333333333333,
+                "lastSupportS": 2.2,
+                "firstPositiveImpulseS": 0.008333333333333333,
+                "lastPositiveImpulseS": 2.2
+              },
+              "shinF": {
+                "supportSeconds": 0.0,
+                "positiveImpulseSupportSeconds": 0.0,
+                "confirmedUpwardImpulseNs": 0,
+                "rawNormalImpulseNs": 0,
+                "firstSupportS": null,
+                "lastSupportS": null,
+                "firstPositiveImpulseS": null,
+                "lastPositiveImpulseS": null
+              },
+              "shinB": {
+                "supportSeconds": 0.0,
+                "positiveImpulseSupportSeconds": 0.0,
+                "confirmedUpwardImpulseNs": 0,
+                "rawNormalImpulseNs": 0,
+                "firstSupportS": null,
+                "lastSupportS": null,
+                "firstPositiveImpulseS": null,
+                "lastPositiveImpulseS": null
+              },
+              "handO": {
+                "supportSeconds": 0.06666666666666667,
+                "positiveImpulseSupportSeconds": 0.06666666666666667,
+                "confirmedUpwardImpulseNs": 28.158818185329437,
+                "rawNormalImpulseNs": 28.158818185329437,
+                "firstSupportS": 2.1416666666666666,
+                "lastSupportS": 2.2,
+                "firstPositiveImpulseS": 2.1416666666666666,
+                "lastPositiveImpulseS": 2.2
+              }
+            },
+            "anyGroupSupportSeconds": 2.2
+          },
+          "firstGetup": {
+            "frames": 241,
+            "durationS": 2.0083333333333333,
+            "groups": {
+              "footF": {
+                "supportSeconds": 1.9583333333333333,
+                "positiveImpulseSupportSeconds": 1.9583333333333333,
+                "confirmedUpwardImpulseNs": 926.398114165313,
+                "rawNormalImpulseNs": 926.398114165313,
+                "firstSupportS": 2.2083333333333335,
+                "lastSupportS": 4.208333333333333,
+                "firstPositiveImpulseS": 2.2083333333333335,
+                "lastPositiveImpulseS": 4.208333333333333
+              },
+              "footB": {
+                "supportSeconds": 1.4666666666666666,
+                "positiveImpulseSupportSeconds": 1.4166666666666667,
+                "confirmedUpwardImpulseNs": 392.42782718641683,
+                "rawNormalImpulseNs": 392.42782718641683,
+                "firstSupportS": 2.2083333333333335,
+                "lastSupportS": 4.208333333333333,
+                "firstPositiveImpulseS": 2.2083333333333335,
+                "lastPositiveImpulseS": 4.208333333333333
+              },
+              "shinF": {
+                "supportSeconds": 0.26666666666666666,
+                "positiveImpulseSupportSeconds": 0.24166666666666667,
+                "confirmedUpwardImpulseNs": 32.784837041050196,
+                "rawNormalImpulseNs": 32.784837041050196,
+                "firstSupportS": 2.3583333333333334,
+                "lastSupportS": 2.6916666666666664,
+                "firstPositiveImpulseS": 2.3583333333333334,
+                "lastPositiveImpulseS": 2.6666666666666665
+              },
+              "shinB": {
+                "supportSeconds": 0.5083333333333333,
+                "positiveImpulseSupportSeconds": 0.5083333333333333,
+                "confirmedUpwardImpulseNs": 87.79582316449978,
+                "rawNormalImpulseNs": 87.79582316449978,
+                "firstSupportS": 2.725,
+                "lastSupportS": 3.3333333333333335,
+                "firstPositiveImpulseS": 2.725,
+                "lastPositiveImpulseS": 3.3333333333333335
+              },
+              "handO": {
+                "supportSeconds": 0.24166666666666667,
+                "positiveImpulseSupportSeconds": 0.24166666666666667,
+                "confirmedUpwardImpulseNs": 14.374357530847192,
+                "rawNormalImpulseNs": 14.374357530847192,
+                "firstSupportS": 2.2083333333333335,
+                "lastSupportS": 2.533333333333333,
+                "firstPositiveImpulseS": 2.2083333333333335,
+                "lastPositiveImpulseS": 2.533333333333333
+              }
+            },
+            "anyGroupSupportSeconds": 2.0083333333333333
+          },
+          "firstStand42": {
+            "frames": 42,
+            "durationS": 0.35,
+            "groups": {
+              "footF": {
+                "supportSeconds": 0.35,
+                "positiveImpulseSupportSeconds": 0.35,
+                "confirmedUpwardImpulseNs": 144.7944375704974,
+                "rawNormalImpulseNs": 144.7944375704974,
+                "firstSupportS": 4.216666666666667,
+                "lastSupportS": 4.558333333333334,
+                "firstPositiveImpulseS": 4.216666666666667,
+                "lastPositiveImpulseS": 4.558333333333334
+              },
+              "footB": {
+                "supportSeconds": 0.23333333333333334,
+                "positiveImpulseSupportSeconds": 0.23333333333333334,
+                "confirmedUpwardImpulseNs": 240.4323204755783,
+                "rawNormalImpulseNs": 240.4323204755783,
+                "firstSupportS": 4.216666666666667,
+                "lastSupportS": 4.558333333333334,
+                "firstPositiveImpulseS": 4.216666666666667,
+                "lastPositiveImpulseS": 4.558333333333334
+              },
+              "shinF": {
+                "supportSeconds": 0.0,
+                "positiveImpulseSupportSeconds": 0.0,
+                "confirmedUpwardImpulseNs": 0,
+                "rawNormalImpulseNs": 0,
+                "firstSupportS": null,
+                "lastSupportS": null,
+                "firstPositiveImpulseS": null,
+                "lastPositiveImpulseS": null
+              },
+              "shinB": {
+                "supportSeconds": 0.0,
+                "positiveImpulseSupportSeconds": 0.0,
+                "confirmedUpwardImpulseNs": 0,
+                "rawNormalImpulseNs": 0,
+                "firstSupportS": null,
+                "lastSupportS": null,
+                "firstPositiveImpulseS": null,
+                "lastPositiveImpulseS": null
+              },
+              "handO": {
+                "supportSeconds": 0.0,
+                "positiveImpulseSupportSeconds": 0.0,
+                "confirmedUpwardImpulseNs": 0,
+                "rawNormalImpulseNs": 0,
+                "firstSupportS": null,
+                "lastSupportS": null,
+                "firstPositiveImpulseS": null,
+                "lastPositiveImpulseS": null
+              }
+            },
+            "anyGroupSupportSeconds": 0.35
+          }
+        },
+        "handReleaseToStandS": 1.6833333333333336,
+        "shinReleaseToStandS": 0.8833333333333333,
+        "firstActualSupportLossAfterStand": {
+          "footF": {
+            "absentAtStand": false,
+            "firstLossS": 4.566666666666666
+          },
+          "footB": {
+            "absentAtStand": false,
+            "firstLossS": 4.275
+          },
+          "handO": {
+            "absentAtStand": true,
+            "firstLossS": null
+          },
+          "shinF": {
+            "absentAtStand": true,
+            "firstLossS": null
+          },
+          "shinB": {
+            "absentAtStand": true,
+            "firstLossS": null
+          },
+          "anyGroup": {
+            "absentAtStand": false,
+            "firstLossS": 5.008333333333333
+          }
+        }
+      },
+      {
+        "scenario": "hurt_getup",
+        "firstGetupS": 2.808333333333333,
+        "firstStandS": 5.575,
+        "baselinePhases": {
+          "firstDown": {
+            "frames": 336,
+            "durationS": 2.8,
+            "groups": {
+              "footF": {
+                "supportSeconds": 2.6916666666666664,
+                "positiveImpulseSupportSeconds": 2.6666666666666665,
+                "confirmedUpwardImpulseNs": 1297.9666899079457,
+                "rawNormalImpulseNs": 1297.9666899079457,
+                "firstSupportS": 0.016666666666666666,
+                "lastSupportS": 2.8,
+                "firstPositiveImpulseS": 0.016666666666666666,
+                "lastPositiveImpulseS": 2.8
+              },
+              "footB": {
+                "supportSeconds": 2.7583333333333333,
+                "positiveImpulseSupportSeconds": 2.75,
+                "confirmedUpwardImpulseNs": 697.8790533983702,
+                "rawNormalImpulseNs": 697.8790533983702,
+                "firstSupportS": 0.008333333333333333,
+                "lastSupportS": 2.8,
+                "firstPositiveImpulseS": 0.008333333333333333,
+                "lastPositiveImpulseS": 2.8
+              },
+              "shinF": {
+                "supportSeconds": 0.0,
+                "positiveImpulseSupportSeconds": 0.0,
+                "confirmedUpwardImpulseNs": 0,
+                "rawNormalImpulseNs": 0,
+                "firstSupportS": null,
+                "lastSupportS": null,
+                "firstPositiveImpulseS": null,
+                "lastPositiveImpulseS": null
+              },
+              "shinB": {
+                "supportSeconds": 0.0,
+                "positiveImpulseSupportSeconds": 0.0,
+                "confirmedUpwardImpulseNs": 0,
+                "rawNormalImpulseNs": 0,
+                "firstSupportS": null,
+                "lastSupportS": null,
+                "firstPositiveImpulseS": null,
+                "lastPositiveImpulseS": null
+              },
+              "handO": {
+                "supportSeconds": 0.24166666666666667,
+                "positiveImpulseSupportSeconds": 0.24166666666666667,
+                "confirmedUpwardImpulseNs": 35.3373703584075,
+                "rawNormalImpulseNs": 35.3373703584075,
+                "firstSupportS": 2.4416666666666664,
+                "lastSupportS": 2.8,
+                "firstPositiveImpulseS": 2.4416666666666664,
+                "lastPositiveImpulseS": 2.8
+              }
+            },
+            "anyGroupSupportSeconds": 2.8
+          },
+          "firstGetup": {
+            "frames": 332,
+            "durationS": 2.7666666666666666,
+            "groups": {
+              "footF": {
+                "supportSeconds": 2.725,
+                "positiveImpulseSupportSeconds": 2.725,
+                "confirmedUpwardImpulseNs": 1173.488116952125,
+                "rawNormalImpulseNs": 1173.488116952125,
+                "firstSupportS": 2.85,
+                "lastSupportS": 5.566666666666666,
+                "firstPositiveImpulseS": 2.85,
+                "lastPositiveImpulseS": 5.566666666666666
+              },
+              "footB": {
+                "supportSeconds": 1.6083333333333334,
+                "positiveImpulseSupportSeconds": 1.55,
+                "confirmedUpwardImpulseNs": 457.8606678713113,
+                "rawNormalImpulseNs": 457.8606678713113,
+                "firstSupportS": 2.808333333333333,
+                "lastSupportS": 5.566666666666666,
+                "firstPositiveImpulseS": 2.808333333333333,
+                "lastPositiveImpulseS": 5.566666666666666
+              },
+              "shinF": {
+                "supportSeconds": 1.2083333333333333,
+                "positiveImpulseSupportSeconds": 1.2083333333333333,
+                "confirmedUpwardImpulseNs": 219.50941265987422,
+                "rawNormalImpulseNs": 219.50941265987422,
+                "firstSupportS": 2.9916666666666667,
+                "lastSupportS": 4.408333333333333,
+                "firstPositiveImpulseS": 2.9916666666666667,
+                "lastPositiveImpulseS": 4.408333333333333
+              },
+              "shinB": {
+                "supportSeconds": 1.1916666666666667,
+                "positiveImpulseSupportSeconds": 1.1916666666666667,
+                "confirmedUpwardImpulseNs": 264.94976065220277,
+                "rawNormalImpulseNs": 264.94976065220277,
+                "firstSupportS": 3.3249999999999997,
+                "lastSupportS": 4.558333333333334,
+                "firstPositiveImpulseS": 3.3249999999999997,
+                "lastPositiveImpulseS": 4.558333333333334
+              },
+              "handO": {
+                "supportSeconds": 0.18333333333333332,
+                "positiveImpulseSupportSeconds": 0.175,
+                "confirmedUpwardImpulseNs": 5.578869493678212,
+                "rawNormalImpulseNs": 5.578869493678212,
+                "firstSupportS": 2.808333333333333,
+                "lastSupportS": 3.1083333333333334,
+                "firstPositiveImpulseS": 2.808333333333333,
+                "lastPositiveImpulseS": 3.1083333333333334
+              }
+            },
+            "anyGroupSupportSeconds": 2.7666666666666666
+          },
+          "firstStand42": {
+            "frames": 42,
+            "durationS": 0.35,
+            "groups": {
+              "footF": {
+                "supportSeconds": 0.23333333333333334,
+                "positiveImpulseSupportSeconds": 0.23333333333333334,
+                "confirmedUpwardImpulseNs": 180.80616368574556,
+                "rawNormalImpulseNs": 180.80616368574556,
+                "firstSupportS": 5.575,
+                "lastSupportS": 5.916666666666667,
+                "firstPositiveImpulseS": 5.575,
+                "lastPositiveImpulseS": 5.916666666666667
+              },
+              "footB": {
+                "supportSeconds": 0.275,
+                "positiveImpulseSupportSeconds": 0.275,
+                "confirmedUpwardImpulseNs": 80.99665521178395,
+                "rawNormalImpulseNs": 80.99665521178395,
+                "firstSupportS": 5.575,
+                "lastSupportS": 5.916666666666667,
+                "firstPositiveImpulseS": 5.575,
+                "lastPositiveImpulseS": 5.916666666666667
+              },
+              "shinF": {
+                "supportSeconds": 0.0,
+                "positiveImpulseSupportSeconds": 0.0,
+                "confirmedUpwardImpulseNs": 0,
+                "rawNormalImpulseNs": 0,
+                "firstSupportS": null,
+                "lastSupportS": null,
+                "firstPositiveImpulseS": null,
+                "lastPositiveImpulseS": null
+              },
+              "shinB": {
+                "supportSeconds": 0.008333333333333333,
+                "positiveImpulseSupportSeconds": 0.008333333333333333,
+                "confirmedUpwardImpulseNs": 3.948214054107666,
+                "rawNormalImpulseNs": 3.948214054107666,
+                "firstSupportS": 5.916666666666667,
+                "lastSupportS": 5.916666666666667,
+                "firstPositiveImpulseS": 5.916666666666667,
+                "lastPositiveImpulseS": 5.916666666666667
+              },
+              "handO": {
+                "supportSeconds": 0.0,
+                "positiveImpulseSupportSeconds": 0.0,
+                "confirmedUpwardImpulseNs": 0,
+                "rawNormalImpulseNs": 0,
+                "firstSupportS": null,
+                "lastSupportS": null,
+                "firstPositiveImpulseS": null,
+                "lastPositiveImpulseS": null
+              }
+            },
+            "anyGroupSupportSeconds": 0.35
+          }
+        },
+        "handReleaseToStandS": 2.466666666666667,
+        "shinReleaseToStandS": 1.0166666666666666,
+        "firstActualSupportLossAfterStand": {
+          "footF": {
+            "absentAtStand": false,
+            "firstLossS": 5.608333333333333
+          },
+          "footB": {
+            "absentAtStand": false,
+            "firstLossS": 5.833333333333333
+          },
+          "handO": {
+            "absentAtStand": true,
+            "firstLossS": null
+          },
+          "shinF": {
+            "absentAtStand": true,
+            "firstLossS": null
+          },
+          "shinB": {
+            "absentAtStand": true,
+            "firstLossS": null
+          },
+          "anyGroup": {
+            "absentAtStand": false,
+            "firstLossS": 6.216666666666667
+          }
+        }
+      }
+    ]
+  }
+}
