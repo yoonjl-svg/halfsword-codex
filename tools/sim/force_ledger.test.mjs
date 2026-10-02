@@ -43,6 +43,61 @@ await test('deferred additional mass is recorded without recomputation',()=>{
 await test('post-physics setAngvel override is distinct from force work',()=>{
  const G=simple(),b=ball(G),ledger=installForceLedger(G,{maxSamples:1});G.before=()=>b.addTorque({x:0,y:1,z:0},true);G.after=()=>b.setAngvel({x:0,y:0,z:0},true);G.step();const s=ledger.latest;assert.ok(s.physics[0].post.total.K>s.postGame.total.K);assert.ok(s.balance.stateOverride.deltaK<0);near(s.balance.stateOverride.calls,1,0);assert.ok(s.operations.some(e=>e.method==='setAngvel'&&e.phase==='postPhysics'));ledger.restore();G.world.free();return {physicsK:s.physics[0].post.total.K,gamePostK:s.postGame.total.K,override:s.balance.stateOverride};
 });
+await test('observed replacement executes inside the same wrapper and force path; undo restores dispatch',()=>{
+ const G=simple(),b=ball(G),token={},failure=new Error('candidate sentinel'),force={x:6,y:0,z:0};
+ class Actor{constructor(){this.index=0;this.bodies={body:b};this.originalCalls=0;}drive(force,result){this.originalCalls++;return result;}}
+ const actor=G.player=new Actor(),original=actor.drive,ledger=installForceLedger(G,{maxSamples:1}),wrapper=actor.drive;
+ let calls=0;
+ try{
+  const undo=ledger.replaceObservedMethod(actor,'drive',function(...args){
+   assert.equal(this,actor);assert.equal(args[0],force);assert.equal(args[1],token);calls++;
+   b.addForce(args[0],true);if(args[2])throw args[2];return args[1];
+  });
+  assert.equal(actor.drive,wrapper);
+  G.before=()=>{
+   b.resetForces(true);
+   assert.equal(actor.drive(force,token),token);
+   assert.throws(()=>actor.drive(force,token,failure),error=>error===failure);
+   // A thrown candidate must pop the path stack, including when its caller catches it.
+   b.addForce({x:0,y:1,z:0},true);
+  };
+  G.step();assert.equal(calls,2);assert.equal(actor.originalCalls,0);
+  const events=ledger.latest.operations.filter(e=>e.method==='addForce');
+  assert.deepEqual(events.map(e=>e.path),['fighter[0].drive','fighter[0].drive','external/unlabelled']);
+  const path=ledger.latest.physics[0].balance.byPath['fighter[0].drive'];
+  assert.ok(path);near(path.forceImpulse.x,12*DT,1e-8);
+  undo();assert.equal(actor.drive,wrapper);assert.equal(actor.drive(force,token),token);
+  assert.equal(actor.originalCalls,1);assert.equal(calls,2);
+  ledger.restore();assert.equal(actor.drive,original);
+  return {candidateCalls:calls,originalCalls:actor.originalCalls,wrapperPreserved:true,forcePath:'fighter[0].drive',forceImpulse:path.forceImpulse,exceptionIdentityPreserved:true};
+ }finally{ledger.restore();G.world.free();}
+});
+await test('observed replacement rejects unsafe phase, unknown/overwritten wrappers and invalid undo lifetime',()=>{
+ const G=simple(),b=ball(G);
+ class Actor{constructor(){this.index=0;this.bodies={body:b};}drive(){return 'original';}}
+ const actor=G.player=new Actor(),ledger=installForceLedger(G,{maxSamples:1}),wrapper=actor.drive;
+ try{
+  assert.throws(()=>ledger.replaceObservedMethod(actor,'missing',()=>{}),/Unknown observed/);
+  assert.throws(()=>ledger.replaceObservedMethod(actor,'drive',wrapper),/observer wrapper/);
+  G.before=()=>assert.throws(()=>ledger.replaceObservedMethod(actor,'drive',()=>{}),/idle/);
+  G.step();assert.equal(actor.drive(),'original');
+  actor.drive=()=>{};
+  assert.throws(()=>ledger.replaceObservedMethod(actor,'drive',()=>{}),/no longer current/);
+  actor.drive=wrapper;
+  const undoA=ledger.replaceObservedMethod(actor,'drive',()=> 'A');
+  const undoB=ledger.replaceObservedMethod(actor,'drive',()=> 'B');
+  assert.throws(undoA,/no longer current/);assert.equal(actor.drive(),'B');
+  G.before=()=>assert.throws(undoB,/idle/);G.step();assert.equal(actor.drive(),'B');
+  undoB();assert.equal(actor.drive(),'A');undoA();assert.equal(actor.drive(),'original');
+  assert.throws(undoA,/no longer current/);
+  const undo=ledger.replaceObservedMethod(actor,'drive',()=> 'pending');
+  actor.drive=()=>{};assert.throws(undo,/no longer current/);actor.drive=wrapper;
+  ledger.restore();assert.equal(actor.drive(),'original');
+  assert.throws(undo,/restored/);
+  assert.throws(()=>ledger.replaceObservedMethod(actor,'drive',()=>{}),/restored/);
+  return {midFrameRejected:true,unknownRejected:true,overwrittenWrapperRejected:true,lifoUndo:true,duplicateUndoRejected:true,restoredLedgerRejected:true};
+ }finally{ledger.restore();G.world.free();}
+});
 await test('actual game instrumentation preserves identical seeded body trace',()=>{
  class Passive{update(){}}
  function run(observed){const G=newRound({seed:7,walls:false,AIClass:Passive});G.park();G.before=t=>{G.player.move.set(.3*Math.sin(t*2),.1);G.player.handOffset.set(.18*Math.sin(t*3),.3*Math.cos(t*2));G.player.handHeld=true;};const ledger=observed?installForceLedger(G,{fighters:[G.player],maxSamples:2}):null,trace=[];for(let i=0;i<240;i++){G.step();trace.push(JSON.stringify({t:G.t,p:Object.entries(G.player.bodies).map(([n,b])=>[n,b.mass(),b.translation(),b.rotation(),b.linvel(),b.angvel()]),s:[G.player.sword.translation(),G.player.sword.rotation(),G.player.sword.linvel(),G.player.sword.angvel()],state:G.player.state,wounds:G.wounds.map(w=>[w.t,w.energy,w.severity])}));}const summary=ledger?.summary(),last=ledger?.latest;ledger?.restore();G.world.free();return {trace,summary,last};}
