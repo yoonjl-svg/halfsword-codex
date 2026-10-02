@@ -54,3 +54,6 @@
 | A-040 | 2026-10-03 | headless와 라운드 종료 계약 | 8전투+observer, 큰gap 반례는종료후stress로범위정정; actual defect자료유지 | `04831d8` [진단](../strike/skill_manual_combat_round1.md) | 엔진동일·브라우저완전동등아님; 소스와원자료/종료계약같이이식 | 미확인 |
 
 | A-041 | 2026-10-03 | 팔 제어 경로 분리·실제 폼멜 IK | 17실행/한 사선; 힘 제거·폼멜 추종 후보 후퇴로 기각 | 기준 `7fba1c2`·실행 파일SHA는 [진단](../strike/arm_control_conflict_round1.md), 본판반영 없음 | harness/ledger/coherent 의존; 진단/실패조건만 이식 가능, 연구도구·대장 충돌 예상 | 미확인 |
+
+| A-042 | 2026-10-03 | 팔 목표 자세/속도·최소 어깨 회전면 분리 | 48실행, 최초 기하 관문4실패 보존; 다른 베기/제동 후퇴로 미채택 | `563e526`~`1ed7754`, [수치·소스SHA·명령](../strike/arm_target_terms_round2.md) | 도구/실패근거 이식 가능. 연구도구·대장 충돌 예상. raw 각속도 null 해석은 실제 bone축 투영 뒤 성립 안 함 | 미확인 |
+| A-043 | 2026-10-03 | 명령한 날 방향 기억·실제 전환 검증 | 정지6베기 개선, 무접촉 재입력 후퇴로 공개/기본 연결 보류 | runtime `92fe406`, 후속 도구 `d4015d0`·`0cdedcf`, [81실행](../strike/intent_edge_round1.md) | fighter/edge_intent/연구도구 충돌 예상. runtime 훅은 연구 전용, 일반 적용 권고 없음; 정지 효과만 이식 근거로 쓰지 않음 | 미확인 |
