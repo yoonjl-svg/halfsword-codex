@@ -11,6 +11,8 @@ const original = fs.readFileSync(originalURL, 'utf8');
 const rawPath = process.argv[2];
 if (!rawPath || !process.argv.includes('--round-window')) throw Error('Usage: probe.mjs fresh.json --round-window');
 const isolated = process.argv.includes('--isolated-tap');
+const noTap = process.argv.includes('--no-tap');
+if (noTap && !isolated) throw Error('--no-tap requires --isolated-tap');
 let source = original;
 const replace = (before, after) => {
   if (source.split(before).length !== 2) throw Error('Expected one transformation: ' + before);
@@ -32,6 +34,10 @@ if (isolated) {
   replace("f.move.set(0,time<2?.25:((time%4.4)<.6?.08:0));", "f.move.set(0,0);");
   replace("combat:'18s scripted player versus original reactive normal AI longsword, sabre/zweihander×seed7/19×legacy/commandedPlane8rows + sabre7commandedPlane exact observer duplicate. Start gap1.85m, no walls, paired grip, both arm legacy, cut legacy.'", "combat:'Isolated tap: six seconds from spawn, gap6m, enemy AI.update disabled, manual move0. Scripted real tap at2.2s, original lunge/recovery and hand reinput. Both weapons seed7, two edge modes4rows plus candidate sabre observer1. Contact/wound count must be0; enemy bodies remain dynamic. Not a real duel or same prepared-state comparison.'");
   replace("input:'External hand path/tap commands fixed by time; forward stick .25 first2s then .08 during guard phases. No player AI. Enemy original AI reacts normally. Once player dies external hand writes obey alive gate.'", "input:'External hand/tap script unchanged, movement stick zero. Enemy AI disabled; foe exists for actual Skill.thrust. Both fighters native physics remain active.'");
+  if (noTap) {
+    replace('[2.2,6.6,11,15.4].findIndex', '[].findIndex');
+    source = source.replace('Scripted real tap at2.2s, original lunge/recovery and hand reinput.', 'Tap-free counterpart: no thrust request, identical external hand script.');
+  }
 }
 replace("primary:'12 reinput rows (2weapons×3directions×2modes) + zweihander cross hold weak/off2rows; observer repeats weak/off cross reinput2rows'", "primary:'Skipped: round-window combat only. Both modes correction0/autoGuardfalse; candidate enabled before first game step. No gain or body-state changes.'");
 const sha = v => crypto.createHash('sha256').update(v).digest('hex');
