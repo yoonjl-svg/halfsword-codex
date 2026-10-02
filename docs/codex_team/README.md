@@ -24,6 +24,8 @@
 
 **Native 한도 기반 확보:** [엔진 API·실제 팔꿈치 1차](../strike/native_motor_api_round1.md)의 독립34검사/게임32행을 통과했다. 기존 관절을 유지하면서 native PD와 중력 FF를 하나의 축 한도로 제한했다. 건강 조건의 큰 힘 손실은 피했지만 약화 시 속도 후퇴가 남아 격리 연구다. 별도 빌드/계측 도구만 보존하며 공개 npm 엔진은 교체하지 않았다. getter는 마지막 solver substep이고 전체 일로 환산할 수 없다. [native 기립 6차](../strike/native_recovery_round6.md)는 첫 기립42스텝의 실제 계수가 모두 양수임을 확인했다. 전부 off는 기존 삭제 대조와 전체 trace exact·건강 후퇴였고, 이후 실제 zero 요청만 off는 손상 재넘어짐3→1이나 첫 실패는 남았다. 첫 변화 계측의 빈 비교를 raw 후처리로 정정했으며 공개 미반영이다. 다음은 모터의 올바른 on/off를 도달 가능한 발 배치·실제 하중 이전과 결합한다.
 
+**48시간 계획의 첫 실행:** [기립 7차 8행](../strike/recovery_reach_load_round7.md)은 도달 가능한 발목 요청과 실제 발목 plant/pin 후보를 분리했다. 재넘어짐 수 개선에도 첫 실패/관절 gap/건강 조건 후퇴가 남아 미채택이다. 첫 getup 내 실제 전완/정강이/발 지지를 측정했으며 전완 지지 부재나 전체 지지 공백은 관찰되지 않았다. 다음은 접촉 아래 COM·발 배치·하중 분담과 stand 인계다. [팔꿈치·제동 2차](../strike/native_elbow_followthrough_round2.md)는 건강40/합성 상처10행에서 native 한도와 기존 어깨/손목 finalCap을 개별·결합 비교했다. 종료 회전량/에너지의 혼합 결과로 격리 연구를 유지한다. 실제 충돌 상처·모바일 수락은 미완료다.
+
 **전신 제어 병행 검증:** [몸통 목표·중력 보상 2차](../strike/whole_body_control_round2.md)의 42행+48행은 동일 native/입력·복제·실제 dispatch 관문을 통과했다(18행은 같은 궤적의 반복). 가슴 full/yaw 목표는 횡베기를 빠르게 했지만 내려베기·목표 오차·제동에 후퇴가 있어 채택하지 않는다. 보상 일괄 제거도 방향/무기별 결과가 달랐다. [회복 자세 응답 4차](../strike/recovery_joint_response_round4.md)의 4자세×18분기는 접촉·자세에 따른 강한 응답 차이를 확인했으며 고정 gain이나 회복 해결 후보로 채택하지 않는다. 두 연구 모두 공개 제어에 연결하지 않았다.
 
 **절삭 비교 후보:** [공통점 반작용·실제 에너지 차감](../strike/cut_reaction_round1.md)을 순수 browser helper와 공유했다. 기본 legacy, 정확히 `cutTrial=budgeted`일 때만 후보이며 `/feature-lab.html#cut-comparison`의 A/B로 연결한다. 33fixture·20전투(실제 runtime↔연구 후보4개 exact, 기존16개 exact)·로컬 모바일4조건/재시작/기본복귀를 통과했다. [통합 근거](../strike/cut_reaction_trial_metrics.json). 부상 판정·기립·전신/사용자 체감 해결로 선언하지 않는다. 메이저 일반 적용은 보류한다.

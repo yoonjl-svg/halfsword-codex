@@ -58,9 +58,9 @@ Q03~Q05의 순서는 재현 가능한 첫 반례에 따라 바꿀 수 있다. Q0
 
 | ID | 현재 상태 | 마지막 근거 / 다음 행동 |
 |---|---|---|
-| Q01 | 진행 중 | 10/2 16:36 KST PM에 새 도구 소유권·건강/손상 조건·최대 2개 개입·실제 dispatch/인계 관문을 위임. 도구 구현과 첫 실행을 수행 중이며 PASS 결과는 아직 없음 |
-| Q02 | 준비 대기 | Q01의 실제 최종 목표와 지원 접촉의 첫 실패 시점을 받아 설계 |
-| Q03 | 진행 중 · 첫 종료/제동 화면 없는 실험 | 10/2 16:43 KST 타격 제어 PM에 `native_elbow_followthrough_probe.mjs` 소유권을 위임. sabre/zweihander 내려/올려베기 × hold/release, 기준/관찰/nativeCap부터 비교. 실제 wound/충돌은 별도 후속이며 아직 실행 근거 없음 |
+| Q01 | 첫 선별 완료 · 후보 미채택 | [7차 8행](../strike/recovery_reach_load_round7.md): clone/native/controller/실제 개입 관문 통과. 손상 재넘어짐 수는 줄었으나 첫 실패가 앞당겨지고 일부 gap/건강 지표 후퇴. getup 중 측정 지지가 전부 사라지는 공백은 없었음. 접촉 순서·원자료를 Q02에 인계 |
+| Q02 | 다음 실행 · 준비됨 | Q01의 실제 접촉 아래 COM/발 배치·하중 분담과 stand/Gait 인계 뒤 지지 손실을 함께 설계. 전완 지지 부재를 가정한 팔 목표 변경은 하지 않음. 첫 후보 예상 3~5h |
+| Q03 | 첫 선별 완료 · 확장 미완료 | [제동 2차](../strike/native_elbow_followthrough_round2.md): 건강 40행(8조건)·합성 applyWound 10행(2조건), 관찰 대조/state/source 관문 통과. 근력 한도는 지켰으나 종료 회전량과 잔여 에너지의 이득/손실 혼재. 실제 검 충돌·부상 release·모바일은 미실행. 총 native 일/제동 해결 미선언, Q04 입력 경로 병행 |
 | Q04 | 준비됨 | `whole_body_control_round2.md`의 full/yaw 기각과 입력/제동 반례를 시작점으로 사용 |
 | Q05 | 준비됨 | `cut_reaction_round1.md`, `cut_reaction_trial_metrics.json`의 기존 후보 재사용 |
 | Q06 | 후보 대기 | 새 회복 후보를 아직 공개하지 않음. 기존 팔/절삭 비교판의 수락과 구분 |
