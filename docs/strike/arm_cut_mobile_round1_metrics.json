@@ -1,0 +1,678 @@
+{
+  "schemaVersion": 1,
+  "createdUTC": "2026-10-02T11:00:49.662Z",
+  "base": "http://127.0.0.1:4201/",
+  "tag": "q06-mobile-options",
+  "method": "Real feature-lab arm/cut href parameters combined into an actual gameplay URL, fixed zweihander versus longsword. Checks both models, option labels, 390x844/844x390 overflow and rotate guidance, Start, CDP canvas touch drag/release/retouch, normal simulation frame advance, pause/restart with new Combat and both Fighter instances, same-context ordinary URL legacy fallback and localStorage persistence absence. AI update disabled only for input isolation. This is runtime-option delivery and UI interaction smoke coverage; it does not evaluate physical performance, naturalness, or device performance.",
+  "viewports": {
+    "portrait": {
+      "width": 390,
+      "height": 844
+    },
+    "landscape": {
+      "width": 844,
+      "height": 390
+    }
+  },
+  "requestedGesture": {
+    "press": [
+      650,
+      135
+    ],
+    "drag": [
+      [
+        658,
+        142
+      ],
+      [
+        666,
+        149
+      ],
+      [
+        674,
+        156
+      ],
+      [
+        682,
+        163
+      ],
+      [
+        690,
+        170
+      ],
+      [
+        698,
+        177
+      ]
+    ],
+    "moveSpacingWallMs": 45,
+    "release": true,
+    "retouch": [
+      698,
+      177
+    ],
+    "physicsReplayExact": false
+  },
+  "errors": [],
+  "httpFailures": [],
+  "requestFailures": [],
+  "pass": true,
+  "raw": {
+    "path": "/workspace/halfsword-hybrid-evidence/q06-mobile-options/arm-cut-interaction-q06-mobile-options.json",
+    "sha256": "55deaa74ffc3f0e41354c50159207e6771dfe10a389d591a4bcde974d2a6e0e5"
+  },
+  "tool": {
+    "path": "tools/browser/arm_cut_interaction.mjs",
+    "sha256": "f813ec6b5ed0bb646ade0e71ced1837dcb05183352f62e3924096bf10194dd9c"
+  },
+  "rows": [
+    {
+      "id": "arm-legacy__cut-legacy",
+      "arm": "legacy",
+      "cut": "legacy",
+      "weapon": "zweihander",
+      "foeWeapon": "longsword",
+      "initialOrientation": "portrait",
+      "actualTrialURL": "http://127.0.0.1:4201/?supportProbe=1&assist=0.3&catch=on&catchScale=1&weapon=zweihander&foeWeapon=longsword&foe=default&armTrial=legacy&cutTrial=legacy",
+      "pass": true,
+      "initialAdvance": {
+        "start": 0,
+        "end": 0.6166666666666669,
+        "requiredSeconds": 0.6
+      },
+      "dragAdvance": {
+        "start": 1.5833333333333302,
+        "end": 1.9833333333333287,
+        "requiredSeconds": 0.35
+      },
+      "releaseAdvance": {
+        "start": 2.1333333333333284,
+        "end": 2.533333333333327,
+        "requiredSeconds": 0.35
+      },
+      "retouchAdvance": {
+        "start": 2.6833333333333265,
+        "end": 3.083333333333325,
+        "requiredSeconds": 0.35
+      },
+      "restartAdvance": {
+        "start": 3.5583333333333234,
+        "end": 3.9249999999999887,
+        "requiredSeconds": 0.35
+      },
+      "newCombatObject": true,
+      "newFighterObjects": true,
+      "normal": {
+        "url": "http://127.0.0.1:4201/",
+        "state": "menu",
+        "simTime": 0,
+        "armTorqueModel": "legacy",
+        "enemyArmTorqueModel": "legacy",
+        "cutReactionModel": "legacy",
+        "weapon": "longsword",
+        "foeWeapon": "excalibur_replica",
+        "probe": {
+          "active": false,
+          "assist": 0.3,
+          "catchMode": "on",
+          "catchScale": 1,
+          "sourceBase": "14bcf1f+혼합수정"
+        },
+        "gripReaction": "paired",
+        "supportModel": "legacy",
+        "hand": {
+          "x": 0.15,
+          "y": 0
+        },
+        "move": {
+          "x": 0,
+          "y": 0
+        },
+        "armInfo": {
+          "present": false,
+          "text": "",
+          "visible": false
+        },
+        "cutInfo": {
+          "present": false,
+          "text": "",
+          "visible": false
+        },
+        "finite": true
+      },
+      "storage": {}
+    },
+    {
+      "id": "arm-legacy__cut-budgeted",
+      "arm": "legacy",
+      "cut": "budgeted",
+      "weapon": "zweihander",
+      "foeWeapon": "longsword",
+      "initialOrientation": "portrait",
+      "actualTrialURL": "http://127.0.0.1:4201/?supportProbe=1&assist=0.3&catch=on&catchScale=1&weapon=zweihander&foeWeapon=longsword&foe=default&armTrial=legacy&cutTrial=budgeted",
+      "pass": true,
+      "initialAdvance": {
+        "start": 0,
+        "end": 0.6166666666666669,
+        "requiredSeconds": 0.6
+      },
+      "dragAdvance": {
+        "start": 1.6416666666666633,
+        "end": 2.041666666666662,
+        "requiredSeconds": 0.35
+      },
+      "releaseAdvance": {
+        "start": 2.1916666666666615,
+        "end": 2.59166666666666,
+        "requiredSeconds": 0.35
+      },
+      "retouchAdvance": {
+        "start": 2.699999999999993,
+        "end": 3.0999999999999917,
+        "requiredSeconds": 0.35
+      },
+      "restartAdvance": {
+        "start": 3.6499999999999897,
+        "end": 4.049999999999991,
+        "requiredSeconds": 0.35
+      },
+      "newCombatObject": true,
+      "newFighterObjects": true,
+      "normal": {
+        "url": "http://127.0.0.1:4201/",
+        "state": "menu",
+        "simTime": 0,
+        "armTorqueModel": "legacy",
+        "enemyArmTorqueModel": "legacy",
+        "cutReactionModel": "legacy",
+        "weapon": "longsword",
+        "foeWeapon": "excalibur_replica",
+        "probe": {
+          "active": false,
+          "assist": 0.3,
+          "catchMode": "on",
+          "catchScale": 1,
+          "sourceBase": "14bcf1f+혼합수정"
+        },
+        "gripReaction": "paired",
+        "supportModel": "legacy",
+        "hand": {
+          "x": 0.15,
+          "y": 0
+        },
+        "move": {
+          "x": 0,
+          "y": 0
+        },
+        "armInfo": {
+          "present": false,
+          "text": "",
+          "visible": false
+        },
+        "cutInfo": {
+          "present": false,
+          "text": "",
+          "visible": false
+        },
+        "finite": true
+      },
+      "storage": {}
+    },
+    {
+      "id": "arm-sharedCap__cut-legacy",
+      "arm": "sharedCap",
+      "cut": "legacy",
+      "weapon": "zweihander",
+      "foeWeapon": "longsword",
+      "initialOrientation": "portrait",
+      "actualTrialURL": "http://127.0.0.1:4201/?supportProbe=1&assist=0.3&catch=on&catchScale=1&weapon=zweihander&foeWeapon=longsword&foe=default&armTrial=sharedCap&cutTrial=legacy",
+      "pass": true,
+      "initialAdvance": {
+        "start": 0,
+        "end": 0.6333333333333335,
+        "requiredSeconds": 0.6
+      },
+      "dragAdvance": {
+        "start": 1.7499999999999962,
+        "end": 2.1416666666666617,
+        "requiredSeconds": 0.35
+      },
+      "releaseAdvance": {
+        "start": 2.291666666666661,
+        "end": 2.6499999999999932,
+        "requiredSeconds": 0.35
+      },
+      "retouchAdvance": {
+        "start": 2.7999999999999927,
+        "end": 3.1833333333333247,
+        "requiredSeconds": 0.35
+      },
+      "restartAdvance": {
+        "start": 3.691666666666656,
+        "end": 4.066666666666658,
+        "requiredSeconds": 0.35
+      },
+      "newCombatObject": true,
+      "newFighterObjects": true,
+      "normal": {
+        "url": "http://127.0.0.1:4201/",
+        "state": "menu",
+        "simTime": 0,
+        "armTorqueModel": "legacy",
+        "enemyArmTorqueModel": "legacy",
+        "cutReactionModel": "legacy",
+        "weapon": "longsword",
+        "foeWeapon": "excalibur_replica",
+        "probe": {
+          "active": false,
+          "assist": 0.3,
+          "catchMode": "on",
+          "catchScale": 1,
+          "sourceBase": "14bcf1f+혼합수정"
+        },
+        "gripReaction": "paired",
+        "supportModel": "legacy",
+        "hand": {
+          "x": 0.15,
+          "y": 0
+        },
+        "move": {
+          "x": 0,
+          "y": 0
+        },
+        "armInfo": {
+          "present": false,
+          "text": "",
+          "visible": false
+        },
+        "cutInfo": {
+          "present": false,
+          "text": "",
+          "visible": false
+        },
+        "finite": true
+      },
+      "storage": {}
+    },
+    {
+      "id": "arm-sharedCap__cut-budgeted",
+      "arm": "sharedCap",
+      "cut": "budgeted",
+      "weapon": "zweihander",
+      "foeWeapon": "longsword",
+      "initialOrientation": "portrait",
+      "actualTrialURL": "http://127.0.0.1:4201/?supportProbe=1&assist=0.3&catch=on&catchScale=1&weapon=zweihander&foeWeapon=longsword&foe=default&armTrial=sharedCap&cutTrial=budgeted",
+      "pass": true,
+      "initialAdvance": {
+        "start": 0,
+        "end": 0.6000000000000003,
+        "requiredSeconds": 0.6
+      },
+      "dragAdvance": {
+        "start": 1.549999999999997,
+        "end": 1.9499999999999955,
+        "requiredSeconds": 0.35
+      },
+      "releaseAdvance": {
+        "start": 2.099999999999995,
+        "end": 2.499999999999994,
+        "requiredSeconds": 0.35
+      },
+      "retouchAdvance": {
+        "start": 2.66666666666666,
+        "end": 3.0416666666666585,
+        "requiredSeconds": 0.35
+      },
+      "restartAdvance": {
+        "start": 3.52499999999999,
+        "end": 3.9249999999999887,
+        "requiredSeconds": 0.35
+      },
+      "newCombatObject": true,
+      "newFighterObjects": true,
+      "normal": {
+        "url": "http://127.0.0.1:4201/",
+        "state": "menu",
+        "simTime": 0,
+        "armTorqueModel": "legacy",
+        "enemyArmTorqueModel": "legacy",
+        "cutReactionModel": "legacy",
+        "weapon": "longsword",
+        "foeWeapon": "excalibur_replica",
+        "probe": {
+          "active": false,
+          "assist": 0.3,
+          "catchMode": "on",
+          "catchScale": 1,
+          "sourceBase": "14bcf1f+혼합수정"
+        },
+        "gripReaction": "paired",
+        "supportModel": "legacy",
+        "hand": {
+          "x": 0.15,
+          "y": 0
+        },
+        "move": {
+          "x": 0,
+          "y": 0
+        },
+        "armInfo": {
+          "present": false,
+          "text": "",
+          "visible": false
+        },
+        "cutInfo": {
+          "present": false,
+          "text": "",
+          "visible": false
+        },
+        "finite": true
+      },
+      "storage": {}
+    },
+    {
+      "id": "arm-legacy__cut-legacy",
+      "arm": "legacy",
+      "cut": "legacy",
+      "weapon": "zweihander",
+      "foeWeapon": "longsword",
+      "initialOrientation": "landscape",
+      "actualTrialURL": "http://127.0.0.1:4201/?supportProbe=1&assist=0.3&catch=on&catchScale=1&weapon=zweihander&foeWeapon=longsword&foe=default&armTrial=legacy&cutTrial=legacy",
+      "pass": true,
+      "initialAdvance": {
+        "start": 0,
+        "end": 0.6000000000000003,
+        "requiredSeconds": 0.6
+      },
+      "dragAdvance": {
+        "start": 1.3999999999999975,
+        "end": 1.799999999999996,
+        "requiredSeconds": 0.35
+      },
+      "releaseAdvance": {
+        "start": 1.9499999999999955,
+        "end": 2.3499999999999943,
+        "requiredSeconds": 0.35
+      },
+      "retouchAdvance": {
+        "start": 2.4666666666666606,
+        "end": 2.866666666666659,
+        "requiredSeconds": 0.35
+      },
+      "restartAdvance": {
+        "start": 3.383333333333324,
+        "end": 3.7833333333333226,
+        "requiredSeconds": 0.35
+      },
+      "newCombatObject": true,
+      "newFighterObjects": true,
+      "normal": {
+        "url": "http://127.0.0.1:4201/",
+        "state": "menu",
+        "simTime": 0,
+        "armTorqueModel": "legacy",
+        "enemyArmTorqueModel": "legacy",
+        "cutReactionModel": "legacy",
+        "weapon": "longsword",
+        "foeWeapon": "excalibur_replica",
+        "probe": {
+          "active": false,
+          "assist": 0.3,
+          "catchMode": "on",
+          "catchScale": 1,
+          "sourceBase": "14bcf1f+혼합수정"
+        },
+        "gripReaction": "paired",
+        "supportModel": "legacy",
+        "hand": {
+          "x": 0.15,
+          "y": 0
+        },
+        "move": {
+          "x": 0,
+          "y": 0
+        },
+        "armInfo": {
+          "present": false,
+          "text": "",
+          "visible": false
+        },
+        "cutInfo": {
+          "present": false,
+          "text": "",
+          "visible": false
+        },
+        "finite": true
+      },
+      "storage": {}
+    },
+    {
+      "id": "arm-legacy__cut-budgeted",
+      "arm": "legacy",
+      "cut": "budgeted",
+      "weapon": "zweihander",
+      "foeWeapon": "longsword",
+      "initialOrientation": "landscape",
+      "actualTrialURL": "http://127.0.0.1:4201/?supportProbe=1&assist=0.3&catch=on&catchScale=1&weapon=zweihander&foeWeapon=longsword&foe=default&armTrial=legacy&cutTrial=budgeted",
+      "pass": true,
+      "initialAdvance": {
+        "start": 0,
+        "end": 0.6000000000000003,
+        "requiredSeconds": 0.6
+      },
+      "dragAdvance": {
+        "start": 1.3999999999999975,
+        "end": 1.7916666666666627,
+        "requiredSeconds": 0.35
+      },
+      "releaseAdvance": {
+        "start": 1.9416666666666622,
+        "end": 2.341666666666661,
+        "requiredSeconds": 0.35
+      },
+      "retouchAdvance": {
+        "start": 2.5416666666666603,
+        "end": 2.941666666666659,
+        "requiredSeconds": 0.35
+      },
+      "restartAdvance": {
+        "start": 3.433333333333324,
+        "end": 3.8083333333333225,
+        "requiredSeconds": 0.35
+      },
+      "newCombatObject": true,
+      "newFighterObjects": true,
+      "normal": {
+        "url": "http://127.0.0.1:4201/",
+        "state": "menu",
+        "simTime": 0,
+        "armTorqueModel": "legacy",
+        "enemyArmTorqueModel": "legacy",
+        "cutReactionModel": "legacy",
+        "weapon": "longsword",
+        "foeWeapon": "excalibur_replica",
+        "probe": {
+          "active": false,
+          "assist": 0.3,
+          "catchMode": "on",
+          "catchScale": 1,
+          "sourceBase": "14bcf1f+혼합수정"
+        },
+        "gripReaction": "paired",
+        "supportModel": "legacy",
+        "hand": {
+          "x": 0.15,
+          "y": 0
+        },
+        "move": {
+          "x": 0,
+          "y": 0
+        },
+        "armInfo": {
+          "present": false,
+          "text": "",
+          "visible": false
+        },
+        "cutInfo": {
+          "present": false,
+          "text": "",
+          "visible": false
+        },
+        "finite": true
+      },
+      "storage": {}
+    },
+    {
+      "id": "arm-sharedCap__cut-legacy",
+      "arm": "sharedCap",
+      "cut": "legacy",
+      "weapon": "zweihander",
+      "foeWeapon": "longsword",
+      "initialOrientation": "landscape",
+      "actualTrialURL": "http://127.0.0.1:4201/?supportProbe=1&assist=0.3&catch=on&catchScale=1&weapon=zweihander&foeWeapon=longsword&foe=default&armTrial=sharedCap&cutTrial=legacy",
+      "pass": true,
+      "initialAdvance": {
+        "start": 0,
+        "end": 0.6083333333333336,
+        "requiredSeconds": 0.6
+      },
+      "dragAdvance": {
+        "start": 1.466666666666664,
+        "end": 1.8416666666666626,
+        "requiredSeconds": 0.35
+      },
+      "releaseAdvance": {
+        "start": 1.991666666666662,
+        "end": 2.391666666666661,
+        "requiredSeconds": 0.35
+      },
+      "retouchAdvance": {
+        "start": 2.5416666666666603,
+        "end": 2.941666666666659,
+        "requiredSeconds": 0.35
+      },
+      "restartAdvance": {
+        "start": 3.4583333333333237,
+        "end": 3.824999999999989,
+        "requiredSeconds": 0.35
+      },
+      "newCombatObject": true,
+      "newFighterObjects": true,
+      "normal": {
+        "url": "http://127.0.0.1:4201/",
+        "state": "menu",
+        "simTime": 0,
+        "armTorqueModel": "legacy",
+        "enemyArmTorqueModel": "legacy",
+        "cutReactionModel": "legacy",
+        "weapon": "longsword",
+        "foeWeapon": "excalibur_replica",
+        "probe": {
+          "active": false,
+          "assist": 0.3,
+          "catchMode": "on",
+          "catchScale": 1,
+          "sourceBase": "14bcf1f+혼합수정"
+        },
+        "gripReaction": "paired",
+        "supportModel": "legacy",
+        "hand": {
+          "x": 0.15,
+          "y": 0
+        },
+        "move": {
+          "x": 0,
+          "y": 0
+        },
+        "armInfo": {
+          "present": false,
+          "text": "",
+          "visible": false
+        },
+        "cutInfo": {
+          "present": false,
+          "text": "",
+          "visible": false
+        },
+        "finite": true
+      },
+      "storage": {}
+    },
+    {
+      "id": "arm-sharedCap__cut-budgeted",
+      "arm": "sharedCap",
+      "cut": "budgeted",
+      "weapon": "zweihander",
+      "foeWeapon": "longsword",
+      "initialOrientation": "landscape",
+      "actualTrialURL": "http://127.0.0.1:4201/?supportProbe=1&assist=0.3&catch=on&catchScale=1&weapon=zweihander&foeWeapon=longsword&foe=default&armTrial=sharedCap&cutTrial=budgeted",
+      "pass": true,
+      "initialAdvance": {
+        "start": 0,
+        "end": 0.6000000000000003,
+        "requiredSeconds": 0.6
+      },
+      "dragAdvance": {
+        "start": 1.4583333333333306,
+        "end": 1.8583333333333292,
+        "requiredSeconds": 0.35
+      },
+      "releaseAdvance": {
+        "start": 2.008333333333329,
+        "end": 2.4083333333333274,
+        "requiredSeconds": 0.35
+      },
+      "retouchAdvance": {
+        "start": 2.5749999999999935,
+        "end": 2.949999999999992,
+        "requiredSeconds": 0.35
+      },
+      "restartAdvance": {
+        "start": 3.466666666666657,
+        "end": 3.8666666666666556,
+        "requiredSeconds": 0.35
+      },
+      "newCombatObject": true,
+      "newFighterObjects": true,
+      "normal": {
+        "url": "http://127.0.0.1:4201/",
+        "state": "menu",
+        "simTime": 0,
+        "armTorqueModel": "legacy",
+        "enemyArmTorqueModel": "legacy",
+        "cutReactionModel": "legacy",
+        "weapon": "longsword",
+        "foeWeapon": "excalibur_replica",
+        "probe": {
+          "active": false,
+          "assist": 0.3,
+          "catchMode": "on",
+          "catchScale": 1,
+          "sourceBase": "14bcf1f+혼합수정"
+        },
+        "gripReaction": "paired",
+        "supportModel": "legacy",
+        "hand": {
+          "x": 0.15,
+          "y": 0
+        },
+        "move": {
+          "x": 0,
+          "y": 0
+        },
+        "armInfo": {
+          "present": false,
+          "text": "",
+          "visible": false
+        },
+        "cutInfo": {
+          "present": false,
+          "text": "",
+          "visible": false
+        },
+        "finite": true
+      },
+      "storage": {}
+    }
+  ]
+}

@@ -1,0 +1,1455 @@
+{
+  "schemaVersion": 1,
+  "scope": "Q04 first isolated candidate, two healthy conditions; rejected for broad adoption",
+  "decision": "Do not adopt or expand. Shoulder target-twist speed correction is mechanically verified but creates mixed tracking and ending-motion changes; exact common shoulder+wrist ceiling replay removes the down tracking gain.",
+  "sourceCommit": "86a9fa06e64bd216f8952b4f3f2ef6754f18a6f1",
+  "sourceSHA256": {
+    "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+    "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+    "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+    "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+    "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+    "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+    "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+    "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+    "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+    "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+    "src/config.js": "e84d7b921b6d8678b358a5971b296c22edded192d680a56e45a0b29ab2aa5319",
+    "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+    "src/cut_trial.js": "3ef89c41c9b40b3e18a5d19cd92277af49e972c8eae030efaa915a39dfc4fcbf",
+    "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+    "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+    "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+    "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+    "src/fighter.js": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+    "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+    "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+    "src/gait.js": "91eba47caf6dddd7fd75a5de141a087614398031c45ef75b2ac814f8c4db9b83",
+    "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+    "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+    "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+    "src/input.js": "b5954792bb8c9d005bbe17dc1a7669e296b6297c66a1f0339f487d4a2ff9cd4f",
+    "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+    "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+    "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+    "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+    "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+    "src/main.js": "b407150693be04cdcb3da5b3488d22dc9d131ab28d309f7f58b9dae16c86d86a",
+    "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+    "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+    "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+    "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+    "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+    "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+    "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+    "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+    "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+    "src/sound.js": "7c6dddf5f81675f46d4df64d2fd3c9586e22172351f734a3bd1b273bfd24cac1",
+    "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+    "src/soundlab.js": "3e0f803534d588d2bbf78dbb42cb901077de26f32dcdd13cbc251c2424f12624",
+    "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+    "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+    "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+    "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+    "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+    "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+    "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+    "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+    "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+    "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+    "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+    "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+    "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+    "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+    "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+    "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "tools/sim/experiments/body_input_transfer_candidate.mjs": "142b70e6bd95ac808cafb34e8350bc527efab84e7d9e88b502118a65ad50f963",
+    "tools/sim/experiments/body_input_transfer_probe.mjs": "45be06a0ed536177c4e2e806bf4b4b625e93ffbe2a9e7a19d1afd340653bac53",
+    "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+    "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+    "tools/sim/whole_body_strike_probe.mjs": "f32dae889eb75860ffa185433dfca877e571b36a4184976557b4e88f7a3b51f4"
+  },
+  "sourceStable": true,
+  "executedFinalRows": 16,
+  "distinctConditions": 2,
+  "seed": 7,
+  "wallSeconds": 9.99481112,
+  "rawEvidence": {
+    "path": "/workspace/halfsword-hybrid-evidence/q04-body-input-final.json",
+    "sha256": "4f48f5c35603c7818d9d7eeb849f939c06779cc8a9e24cc9f7bb2ddaa21d564f",
+    "bytes": 27485506
+  },
+  "fixtureEvidence": {
+    "path": "/workspace/halfsword-hybrid-evidence/q04-body-input-fixtures.json",
+    "sha256": "f2acc78d7331a28a7880473d5864f391731cf4d710fc6fe0fb416ce7fb081a73",
+    "pass": true,
+    "maxTorqueDeltaErrorNm": 5.306866057708248e-13
+  },
+  "reusedUnchangedObservationContract": {
+    "tools/sim/force_ledger.mjs": {
+      "historicalSHA256": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+      "currentSHA256": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+      "same": true
+    },
+    "tools/sim/harness_m.mjs": {
+      "historicalSHA256": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+      "currentSHA256": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+      "same": true
+    },
+    "tools/sim/whole_body_strike_probe.mjs": {
+      "historicalSHA256": "f32dae889eb75860ffa185433dfca877e571b36a4184976557b4e88f7a3b51f4",
+      "currentSHA256": "f32dae889eb75860ffa185433dfca877e571b36a4184976557b4e88f7a3b51f4",
+      "same": true
+    },
+    "package-lock.json": {
+      "historicalSHA256": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+      "currentSHA256": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+      "same": true
+    }
+  },
+  "engine": {
+    "path": "node_modules/@dimforge/rapier3d-compat/rapier.mjs",
+    "sha256": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+    "wasmSHA256": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+    "version": "0.19.3",
+    "nativeAPIChanged": false,
+    "customNativeAPICalibration": "Not invoked: no custom readback/configuration added. Q03 custom-engine native API calibration cannot establish npm native work; previous observation/source contract reused only where exact."
+  },
+  "protocol": {
+    "candidate": "Shoulder twist damping: −0.8*(relative twist omega − IK target twist omega). All driveSword/armIK input/world targets and torque gains retained; no chest full/yaw follow.",
+    "preparation": "Legacy preparation3s; paired measurement; drag.55s; ending observation1.2s; seed7; actual native G.step.",
+    "sameTarget": "Same world mapping/input/first target; later target equality cannot be claimed across diverging dynamic chest translations and skill feedback.",
+    "budget": "Legacy comparisons retain nominal gains/caps. capBaseline/capCandidate both use existing sharedCap; same nominal law, state-dependent Hill ceilings differ. budgetBaseline/budgetCandidate replay identical per-step final shoulder and wrist ceilings from capBaseline. Native motor/elbowGravity/offHand budgets unchanged, not included in a total cap.",
+    "work": "Explicit path midpoint quadrature only; sword gravity exact COM potential difference. No native total-work or efficiency claim.",
+    "scope": "Unopposed healthy strokes; release includes original automatic return. No collision, human naturalness or mobile acceptance."
+  },
+  "temporarySourceHashes": {
+    "original": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+    "clone": "db608f9db22ccaf892494ae63960e2a6bd8eef8245573f9175720fd08dc7daa0",
+    "observe": "d6c6e403d9f6b51f89470cc5ad90c2f64562d7f8d2458f1e1951910d6849a3be",
+    "candidate": "d6136a10c081417bb1891d97060013f7bc3ecf9a7a852f2231fb88a55b9b9f5a",
+    "budgetBaseline": "23538bb1f10c1aeba2bfd3df301fe12af666efd79403e24797e8aa6f3305c1ae",
+    "budgetCandidate": "288f4c667b47c8bdfba38957b4e8d1dd0ba2bb794047d74f4f96360dd6db179b"
+  },
+  "guards": [
+    {
+      "weapon": "longsword",
+      "direction": "down",
+      "ending": "release",
+      "mode": "baseline",
+      "startNativeExact": true,
+      "startControllerExact": true,
+      "inputRequestExact": true,
+      "nativeGeometryPreserved": true,
+      "finite": true
+    },
+    {
+      "weapon": "longsword",
+      "direction": "down",
+      "ending": "release",
+      "mode": "observe",
+      "startNativeExact": true,
+      "startControllerExact": true,
+      "inputRequestExact": true,
+      "nativeGeometryPreserved": true,
+      "finite": true,
+      "physicalControlTraceExact": true,
+      "nativeTraceExact": true,
+      "actualControllerTraceExact": true
+    },
+    {
+      "weapon": "longsword",
+      "direction": "down",
+      "ending": "release",
+      "mode": "clone",
+      "startNativeExact": true,
+      "startControllerExact": true,
+      "inputRequestExact": true,
+      "nativeGeometryPreserved": true,
+      "finite": true,
+      "physicalControlTraceExact": true,
+      "nativeTraceExact": true,
+      "actualControllerTraceExact": true,
+      "observedBodyTraceExact": true,
+      "cloneExecuted": true
+    },
+    {
+      "weapon": "longsword",
+      "direction": "down",
+      "ending": "release",
+      "mode": "candidate",
+      "startNativeExact": true,
+      "startControllerExact": true,
+      "inputRequestExact": true,
+      "nativeGeometryPreserved": true,
+      "finite": true,
+      "candidateExecuted": true,
+      "sameFirstHandAimTargets": true
+    },
+    {
+      "weapon": "longsword",
+      "direction": "down",
+      "ending": "release",
+      "mode": "capBaseline",
+      "startNativeExact": true,
+      "startControllerExact": true,
+      "inputRequestExact": true,
+      "nativeGeometryPreserved": true,
+      "finite": true
+    },
+    {
+      "weapon": "longsword",
+      "direction": "down",
+      "ending": "release",
+      "mode": "capCandidate",
+      "startNativeExact": true,
+      "startControllerExact": true,
+      "inputRequestExact": true,
+      "nativeGeometryPreserved": true,
+      "finite": true,
+      "candidateExecuted": true,
+      "sameFirstHandAimTargets": true
+    },
+    {
+      "weapon": "longsword",
+      "direction": "down",
+      "ending": "release",
+      "mode": "budgetBaseline",
+      "startNativeExact": true,
+      "startControllerExact": true,
+      "inputRequestExact": true,
+      "nativeGeometryPreserved": true,
+      "finite": true,
+      "numericBudgetExact": true,
+      "finalShoulderCapHeld": true,
+      "budgetReplayBaselineTraceExact": true
+    },
+    {
+      "weapon": "longsword",
+      "direction": "down",
+      "ending": "release",
+      "mode": "budgetCandidate",
+      "startNativeExact": true,
+      "startControllerExact": true,
+      "inputRequestExact": true,
+      "nativeGeometryPreserved": true,
+      "finite": true,
+      "candidateExecuted": true,
+      "sameFirstHandAimTargets": true,
+      "numericBudgetExact": true,
+      "finalShoulderCapHeld": true
+    },
+    {
+      "weapon": "longsword",
+      "direction": "cross",
+      "ending": "target_hold",
+      "mode": "baseline",
+      "startNativeExact": true,
+      "startControllerExact": true,
+      "inputRequestExact": true,
+      "nativeGeometryPreserved": true,
+      "finite": true
+    },
+    {
+      "weapon": "longsword",
+      "direction": "cross",
+      "ending": "target_hold",
+      "mode": "observe",
+      "startNativeExact": true,
+      "startControllerExact": true,
+      "inputRequestExact": true,
+      "nativeGeometryPreserved": true,
+      "finite": true,
+      "physicalControlTraceExact": true,
+      "nativeTraceExact": true,
+      "actualControllerTraceExact": true
+    },
+    {
+      "weapon": "longsword",
+      "direction": "cross",
+      "ending": "target_hold",
+      "mode": "clone",
+      "startNativeExact": true,
+      "startControllerExact": true,
+      "inputRequestExact": true,
+      "nativeGeometryPreserved": true,
+      "finite": true,
+      "physicalControlTraceExact": true,
+      "nativeTraceExact": true,
+      "actualControllerTraceExact": true,
+      "observedBodyTraceExact": true,
+      "cloneExecuted": true
+    },
+    {
+      "weapon": "longsword",
+      "direction": "cross",
+      "ending": "target_hold",
+      "mode": "candidate",
+      "startNativeExact": true,
+      "startControllerExact": true,
+      "inputRequestExact": true,
+      "nativeGeometryPreserved": true,
+      "finite": true,
+      "candidateExecuted": true,
+      "sameFirstHandAimTargets": true
+    },
+    {
+      "weapon": "longsword",
+      "direction": "cross",
+      "ending": "target_hold",
+      "mode": "capBaseline",
+      "startNativeExact": true,
+      "startControllerExact": true,
+      "inputRequestExact": true,
+      "nativeGeometryPreserved": true,
+      "finite": true
+    },
+    {
+      "weapon": "longsword",
+      "direction": "cross",
+      "ending": "target_hold",
+      "mode": "capCandidate",
+      "startNativeExact": true,
+      "startControllerExact": true,
+      "inputRequestExact": true,
+      "nativeGeometryPreserved": true,
+      "finite": true,
+      "candidateExecuted": true,
+      "sameFirstHandAimTargets": true
+    },
+    {
+      "weapon": "longsword",
+      "direction": "cross",
+      "ending": "target_hold",
+      "mode": "budgetBaseline",
+      "startNativeExact": true,
+      "startControllerExact": true,
+      "inputRequestExact": true,
+      "nativeGeometryPreserved": true,
+      "finite": true,
+      "numericBudgetExact": true,
+      "finalShoulderCapHeld": true,
+      "budgetReplayBaselineTraceExact": true
+    },
+    {
+      "weapon": "longsword",
+      "direction": "cross",
+      "ending": "target_hold",
+      "mode": "budgetCandidate",
+      "startNativeExact": true,
+      "startControllerExact": true,
+      "inputRequestExact": true,
+      "nativeGeometryPreserved": true,
+      "finite": true,
+      "candidateExecuted": true,
+      "sameFirstHandAimTargets": true,
+      "numericBudgetExact": true,
+      "finalShoulderCapHeld": true
+    }
+  ],
+  "strictBudgetReadout": [
+    {
+      "direction": "down",
+      "mode": "budgetBaseline",
+      "scheduleSHA256": "aa66921f1f1a7854d52d46b3c311bda7a0d8cae09428f231bd2f8fbcf77485e8",
+      "maxWristCapOverrunNm": 3.552713678800501e-15,
+      "pass": true
+    },
+    {
+      "direction": "down",
+      "mode": "budgetCandidate",
+      "scheduleSHA256": "aa66921f1f1a7854d52d46b3c311bda7a0d8cae09428f231bd2f8fbcf77485e8",
+      "maxWristCapOverrunNm": 7.105427357601002e-15,
+      "pass": true
+    },
+    {
+      "direction": "cross",
+      "mode": "budgetBaseline",
+      "scheduleSHA256": "30a0a10007c1aa60dcc8ea15a68baec77101bbabdb86380c3803f163f0c022ef",
+      "maxWristCapOverrunNm": 3.552713678800501e-15,
+      "pass": true
+    },
+    {
+      "direction": "cross",
+      "mode": "budgetCandidate",
+      "scheduleSHA256": "30a0a10007c1aa60dcc8ea15a68baec77101bbabdb86380c3803f163f0c022ef",
+      "maxWristCapOverrunNm": 3.552713678800501e-15,
+      "pass": true
+    }
+  ],
+  "summary": [
+    {
+      "weapon": "longsword",
+      "direction": "down",
+      "ending": "release",
+      "mode": "observe",
+      "strokePeakTipMps": 17.541792337043873,
+      "maxHandTargetErrorM": 0.37092862490063905,
+      "afterInputAxisTravelRad": 1.3440259227479587,
+      "endSwordKJ": 0.0038056502299879634,
+      "endBladeAimErrorRad": 0.016020293309952877,
+      "calls": 210,
+      "actualSword": {
+        "massKg": 1.600000023841858,
+        "localCOM": {
+          "x": 0,
+          "y": 0.24008147418498993,
+          "z": 0
+        },
+        "worldCOM": {
+          "x": -2.643063545227051,
+          "y": 2.018331289291382,
+          "z": 0.06754476577043533
+        },
+        "principalInertiaKgM2": {
+          "x": 0.18019315600395203,
+          "y": 0.0010136800119653344,
+          "z": 0.18019315600395203
+        },
+        "principalInertiaLocalFrame": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "w": 1
+        }
+      },
+      "nominalLimits": {
+        "shoulderMaxNm": 80,
+        "wristMaxNm": 22,
+        "shoulderVmax": 18,
+        "wristVmax": 30,
+        "legacyArmTorqueModel": "legacy"
+      },
+      "phases": {
+        "stroke": {
+          "steps": 66,
+          "shoulderWorkApproxJ": -31.085670444170102,
+          "wristWorkApproxJ": 2.1861050344092408,
+          "elbowGravityWorkApproxJ": -3.8994655953041164,
+          "swordGravityWorkJ": 21.51686327381228,
+          "maxAppliedShoulderNm": 113.57360494045018,
+          "maxAppliedWristNm": 26.893869018301263,
+          "maxHandTargetErrorM": 0.37092862490063905,
+          "maxBladeTargetErrorRad": 1.7732745705682036,
+          "maxJointGapM": 0.0015101124600862298,
+          "maxTargetTwistRadps": 3.0187583707140204,
+          "nonStandSteps": 0,
+          "capOverrunNm": 4.722020166443759
+        },
+        "after_input": {
+          "steps": 144,
+          "shoulderWorkApproxJ": -3.5797857876223595,
+          "wristWorkApproxJ": 5.472190261760057,
+          "elbowGravityWorkApproxJ": 4.165609116981795,
+          "swordGravityWorkJ": -6.1389777716841945,
+          "maxAppliedShoulderNm": 107.38503968634504,
+          "maxAppliedWristNm": 25.98087750859776,
+          "maxHandTargetErrorM": 0.2864212887374114,
+          "maxBladeTargetErrorRad": 0.3639463579004246,
+          "maxJointGapM": 0.0013534078232675256,
+          "maxTargetTwistRadps": 0.2916452282459824,
+          "nonStandSteps": 0,
+          "capOverrunNm": 2.1053058162394365
+        }
+      }
+    },
+    {
+      "weapon": "longsword",
+      "direction": "down",
+      "ending": "release",
+      "mode": "clone",
+      "strokePeakTipMps": 17.541792337043873,
+      "maxHandTargetErrorM": 0.37092862490063905,
+      "afterInputAxisTravelRad": 1.3440259227479587,
+      "endSwordKJ": 0.0038056502299879634,
+      "endBladeAimErrorRad": 0.016020293309952877,
+      "calls": 210,
+      "actualSword": {
+        "massKg": 1.600000023841858,
+        "localCOM": {
+          "x": 0,
+          "y": 0.24008147418498993,
+          "z": 0
+        },
+        "worldCOM": {
+          "x": -2.643063545227051,
+          "y": 2.018331289291382,
+          "z": 0.06754476577043533
+        },
+        "principalInertiaKgM2": {
+          "x": 0.18019315600395203,
+          "y": 0.0010136800119653344,
+          "z": 0.18019315600395203
+        },
+        "principalInertiaLocalFrame": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "w": 1
+        }
+      },
+      "nominalLimits": {
+        "shoulderMaxNm": 80,
+        "wristMaxNm": 22,
+        "shoulderVmax": 18,
+        "wristVmax": 30,
+        "legacyArmTorqueModel": "legacy"
+      },
+      "phases": {
+        "stroke": {
+          "steps": 66,
+          "shoulderWorkApproxJ": -31.085670444170102,
+          "wristWorkApproxJ": 2.1861050344092408,
+          "elbowGravityWorkApproxJ": -3.8994655953041164,
+          "swordGravityWorkJ": 21.51686327381228,
+          "maxAppliedShoulderNm": 0,
+          "maxAppliedWristNm": 26.893869018301263,
+          "maxHandTargetErrorM": 0.37092862490063905,
+          "maxBladeTargetErrorRad": 1.7732745705682036,
+          "maxJointGapM": 0.0015101124600862298,
+          "maxTargetTwistRadps": 0,
+          "nonStandSteps": 0,
+          "capOverrunNm": 0
+        },
+        "after_input": {
+          "steps": 144,
+          "shoulderWorkApproxJ": -3.5797857876223595,
+          "wristWorkApproxJ": 5.472190261760057,
+          "elbowGravityWorkApproxJ": 4.165609116981795,
+          "swordGravityWorkJ": -6.1389777716841945,
+          "maxAppliedShoulderNm": 0,
+          "maxAppliedWristNm": 25.98087750859776,
+          "maxHandTargetErrorM": 0.2864212887374114,
+          "maxBladeTargetErrorRad": 0.3639463579004246,
+          "maxJointGapM": 0.0013534078232675256,
+          "maxTargetTwistRadps": 0,
+          "nonStandSteps": 0,
+          "capOverrunNm": 0
+        }
+      }
+    },
+    {
+      "weapon": "longsword",
+      "direction": "down",
+      "ending": "release",
+      "mode": "candidate",
+      "strokePeakTipMps": 17.58147679947338,
+      "maxHandTargetErrorM": 0.3696573570119352,
+      "afterInputAxisTravelRad": 1.3486989497989035,
+      "endSwordKJ": 0.00359986619636867,
+      "endBladeAimErrorRad": 0.016048732653180624,
+      "calls": 210,
+      "actualSword": {
+        "massKg": 1.600000023841858,
+        "localCOM": {
+          "x": 0,
+          "y": 0.24008147418498993,
+          "z": 0
+        },
+        "worldCOM": {
+          "x": -2.643063545227051,
+          "y": 2.018331289291382,
+          "z": 0.06754476577043533
+        },
+        "principalInertiaKgM2": {
+          "x": 0.18019315600395203,
+          "y": 0.0010136800119653344,
+          "z": 0.18019315600395203
+        },
+        "principalInertiaLocalFrame": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "w": 1
+        }
+      },
+      "nominalLimits": {
+        "shoulderMaxNm": 80,
+        "wristMaxNm": 22,
+        "shoulderVmax": 18,
+        "wristVmax": 30,
+        "legacyArmTorqueModel": "legacy"
+      },
+      "phases": {
+        "stroke": {
+          "steps": 66,
+          "shoulderWorkApproxJ": -31.848886209022858,
+          "wristWorkApproxJ": 2.677526758610502,
+          "elbowGravityWorkApproxJ": -3.8974839567357424,
+          "swordGravityWorkJ": 21.63599959284067,
+          "maxAppliedShoulderNm": 114.00503014913366,
+          "maxAppliedWristNm": 26.695690710937654,
+          "maxHandTargetErrorM": 0.3696573570119352,
+          "maxBladeTargetErrorRad": 1.7429103606609218,
+          "maxJointGapM": 0.0015110260374901696,
+          "maxTargetTwistRadps": 2.421619805784078,
+          "nonStandSteps": 0,
+          "capOverrunNm": 3.38892866062964
+        },
+        "after_input": {
+          "steps": 144,
+          "shoulderWorkApproxJ": -3.4718645136956674,
+          "wristWorkApproxJ": 5.359123252764503,
+          "elbowGravityWorkApproxJ": 4.198605996325825,
+          "swordGravityWorkJ": -6.257373131534056,
+          "maxAppliedShoulderNm": 107.57388086454941,
+          "maxAppliedWristNm": 25.818791310763483,
+          "maxHandTargetErrorM": 0.2998434001016415,
+          "maxBladeTargetErrorRad": 0.37548979876846234,
+          "maxJointGapM": 0.0013385702099230849,
+          "maxTargetTwistRadps": 0.3037464449698789,
+          "nonStandSteps": 0,
+          "capOverrunNm": 2.0915565805943004
+        }
+      }
+    },
+    {
+      "weapon": "longsword",
+      "direction": "down",
+      "ending": "release",
+      "mode": "capBaseline",
+      "strokePeakTipMps": 17.526188318804028,
+      "maxHandTargetErrorM": 0.37110235050596074,
+      "afterInputAxisTravelRad": 1.3451478891866464,
+      "endSwordKJ": 0.0038311970174200395,
+      "endBladeAimErrorRad": 0.016015031812024166,
+      "calls": 210,
+      "actualSword": {
+        "massKg": 1.600000023841858,
+        "localCOM": {
+          "x": 0,
+          "y": 0.24008147418498993,
+          "z": 0
+        },
+        "worldCOM": {
+          "x": -2.643063545227051,
+          "y": 2.018331289291382,
+          "z": 0.06754476577043533
+        },
+        "principalInertiaKgM2": {
+          "x": 0.18019315600395203,
+          "y": 0.0010136800119653344,
+          "z": 0.18019315600395203
+        },
+        "principalInertiaLocalFrame": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "w": 1
+        }
+      },
+      "nominalLimits": {
+        "shoulderMaxNm": 80,
+        "wristMaxNm": 22,
+        "shoulderVmax": 18,
+        "wristVmax": 30,
+        "legacyArmTorqueModel": "legacy"
+      },
+      "phases": {
+        "stroke": {
+          "steps": 66,
+          "shoulderWorkApproxJ": -32.446988299611164,
+          "wristWorkApproxJ": 2.183508957089974,
+          "elbowGravityWorkApproxJ": -3.541855596939643,
+          "swordGravityWorkJ": 21.529868417171663,
+          "maxAppliedShoulderNm": 111.72423892439255,
+          "maxAppliedWristNm": 26.88077911184743,
+          "maxHandTargetErrorM": 0.37110235050596074,
+          "maxBladeTargetErrorRad": 1.7737107755383372,
+          "maxJointGapM": 0.0015085110036360773,
+          "maxTargetTwistRadps": 3.0187583707140204,
+          "nonStandSteps": 0,
+          "capOverrunNm": 1.4210854715202004e-14
+        },
+        "after_input": {
+          "steps": 144,
+          "shoulderWorkApproxJ": -3.167568855438613,
+          "wristWorkApproxJ": 5.5799171598580575,
+          "elbowGravityWorkApproxJ": 4.040430839514138,
+          "swordGravityWorkJ": -6.151472102276568,
+          "maxAppliedShoulderNm": 106.04209497548264,
+          "maxAppliedWristNm": 25.36342426664612,
+          "maxHandTargetErrorM": 0.2915066346910274,
+          "maxBladeTargetErrorRad": 0.3618635248824649,
+          "maxJointGapM": 0.0013334636675679588,
+          "maxTargetTwistRadps": 0.305998568545353,
+          "nonStandSteps": 0,
+          "capOverrunNm": 1.4210854715202004e-14
+        }
+      }
+    },
+    {
+      "weapon": "longsword",
+      "direction": "down",
+      "ending": "release",
+      "mode": "capCandidate",
+      "strokePeakTipMps": 17.56296203545381,
+      "maxHandTargetErrorM": 0.3698682496337776,
+      "afterInputAxisTravelRad": 1.3460701600445935,
+      "endSwordKJ": 0.0036444221580557864,
+      "endBladeAimErrorRad": 0.016041605953976062,
+      "calls": 210,
+      "actualSword": {
+        "massKg": 1.600000023841858,
+        "localCOM": {
+          "x": 0,
+          "y": 0.24008147418498993,
+          "z": 0
+        },
+        "worldCOM": {
+          "x": -2.643063545227051,
+          "y": 2.018331289291382,
+          "z": 0.06754476577043533
+        },
+        "principalInertiaKgM2": {
+          "x": 0.18019315600395203,
+          "y": 0.0010136800119653344,
+          "z": 0.18019315600395203
+        },
+        "principalInertiaLocalFrame": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "w": 1
+        }
+      },
+      "nominalLimits": {
+        "shoulderMaxNm": 80,
+        "wristMaxNm": 22,
+        "shoulderVmax": 18,
+        "wristVmax": 30,
+        "legacyArmTorqueModel": "legacy"
+      },
+      "phases": {
+        "stroke": {
+          "steps": 66,
+          "shoulderWorkApproxJ": -33.21580821270941,
+          "wristWorkApproxJ": 2.6467139525326937,
+          "elbowGravityWorkApproxJ": -3.582172477394704,
+          "swordGravityWorkJ": 21.637853861896012,
+          "maxAppliedShoulderNm": 111.45170902786943,
+          "maxAppliedWristNm": 26.67267739674455,
+          "maxHandTargetErrorM": 0.3698682496337776,
+          "maxBladeTargetErrorRad": 1.7431698911577906,
+          "maxJointGapM": 0.0015087423975186963,
+          "maxTargetTwistRadps": 2.454644246964161,
+          "nonStandSteps": 0,
+          "capOverrunNm": 1.4210854715202004e-14
+        },
+        "after_input": {
+          "steps": 144,
+          "shoulderWorkApproxJ": -2.9767225964487527,
+          "wristWorkApproxJ": 5.599114742553947,
+          "elbowGravityWorkApproxJ": 4.069940640980425,
+          "swordGravityWorkJ": -6.25878581885674,
+          "maxAppliedShoulderNm": 105.80991419196397,
+          "maxAppliedWristNm": 25.216875728536113,
+          "maxHandTargetErrorM": 0.30278311824151494,
+          "maxBladeTargetErrorRad": 0.3730513106593082,
+          "maxJointGapM": 0.0013286406300440736,
+          "maxTargetTwistRadps": 0.32012874420121273,
+          "nonStandSteps": 0,
+          "capOverrunNm": 1.4210854715202004e-14
+        }
+      }
+    },
+    {
+      "weapon": "longsword",
+      "direction": "down",
+      "ending": "release",
+      "mode": "budgetBaseline",
+      "strokePeakTipMps": 17.526188318804028,
+      "maxHandTargetErrorM": 0.37110235050596074,
+      "afterInputAxisTravelRad": 1.3451478891866464,
+      "endSwordKJ": 0.0038311970174200395,
+      "endBladeAimErrorRad": 0.016015031812024166,
+      "calls": 210,
+      "actualSword": {
+        "massKg": 1.600000023841858,
+        "localCOM": {
+          "x": 0,
+          "y": 0.24008147418498993,
+          "z": 0
+        },
+        "worldCOM": {
+          "x": -2.643063545227051,
+          "y": 2.018331289291382,
+          "z": 0.06754476577043533
+        },
+        "principalInertiaKgM2": {
+          "x": 0.18019315600395203,
+          "y": 0.0010136800119653344,
+          "z": 0.18019315600395203
+        },
+        "principalInertiaLocalFrame": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "w": 1
+        }
+      },
+      "nominalLimits": {
+        "shoulderMaxNm": 80,
+        "wristMaxNm": 22,
+        "shoulderVmax": 18,
+        "wristVmax": 30,
+        "legacyArmTorqueModel": "legacy"
+      },
+      "phases": {
+        "stroke": {
+          "steps": 66,
+          "shoulderWorkApproxJ": -32.446988299611164,
+          "wristWorkApproxJ": 2.183508957089974,
+          "elbowGravityWorkApproxJ": -3.541855596939643,
+          "swordGravityWorkJ": 21.529868417171663,
+          "maxAppliedShoulderNm": 111.72423892439255,
+          "maxAppliedWristNm": 26.88077911184743,
+          "maxHandTargetErrorM": 0.37110235050596074,
+          "maxBladeTargetErrorRad": 1.7737107755383372,
+          "maxJointGapM": 0.0015085110036360773,
+          "maxTargetTwistRadps": 3.0187583707140204,
+          "nonStandSteps": 0,
+          "capOverrunNm": 1.4210854715202004e-14
+        },
+        "after_input": {
+          "steps": 144,
+          "shoulderWorkApproxJ": -3.167568855438613,
+          "wristWorkApproxJ": 5.5799171598580575,
+          "elbowGravityWorkApproxJ": 4.040430839514138,
+          "swordGravityWorkJ": -6.151472102276568,
+          "maxAppliedShoulderNm": 106.04209497548264,
+          "maxAppliedWristNm": 25.36342426664612,
+          "maxHandTargetErrorM": 0.2915066346910274,
+          "maxBladeTargetErrorRad": 0.3618635248824649,
+          "maxJointGapM": 0.0013334636675679588,
+          "maxTargetTwistRadps": 0.305998568545353,
+          "nonStandSteps": 0,
+          "capOverrunNm": 1.4210854715202004e-14
+        }
+      }
+    },
+    {
+      "weapon": "longsword",
+      "direction": "down",
+      "ending": "release",
+      "mode": "budgetCandidate",
+      "strokePeakTipMps": 17.370175418483036,
+      "maxHandTargetErrorM": 0.37190969921544537,
+      "afterInputAxisTravelRad": 1.33875116713968,
+      "endSwordKJ": 0.0036926737731094836,
+      "endBladeAimErrorRad": 0.016043788072067237,
+      "calls": 210,
+      "actualSword": {
+        "massKg": 1.600000023841858,
+        "localCOM": {
+          "x": 0,
+          "y": 0.24008147418498993,
+          "z": 0
+        },
+        "worldCOM": {
+          "x": -2.643063545227051,
+          "y": 2.018331289291382,
+          "z": 0.06754476577043533
+        },
+        "principalInertiaKgM2": {
+          "x": 0.18019315600395203,
+          "y": 0.0010136800119653344,
+          "z": 0.18019315600395203
+        },
+        "principalInertiaLocalFrame": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "w": 1
+        }
+      },
+      "nominalLimits": {
+        "shoulderMaxNm": 80,
+        "wristMaxNm": 22,
+        "shoulderVmax": 18,
+        "wristVmax": 30,
+        "legacyArmTorqueModel": "legacy"
+      },
+      "phases": {
+        "stroke": {
+          "steps": 66,
+          "shoulderWorkApproxJ": -32.447280237842854,
+          "wristWorkApproxJ": 2.807103435105898,
+          "elbowGravityWorkApproxJ": -3.7372856239556396,
+          "swordGravityWorkJ": 21.567774279591053,
+          "maxAppliedShoulderNm": 111.72423892439255,
+          "maxAppliedWristNm": 26.880779111847442,
+          "maxHandTargetErrorM": 0.37190969921544537,
+          "maxBladeTargetErrorRad": 1.7380589774327386,
+          "maxJointGapM": 0.0015050785017594428,
+          "maxTargetTwistRadps": 2.401745752283433,
+          "nonStandSteps": 0,
+          "capOverrunNm": 2.842170943040401e-14
+        },
+        "after_input": {
+          "steps": 144,
+          "shoulderWorkApproxJ": -3.1262923871386348,
+          "wristWorkApproxJ": 5.4626987749571905,
+          "elbowGravityWorkApproxJ": 4.143715573595892,
+          "swordGravityWorkJ": -6.189415386876691,
+          "maxAppliedShoulderNm": 106.04209497548264,
+          "maxAppliedWristNm": 25.363424266646124,
+          "maxHandTargetErrorM": 0.29490146715199905,
+          "maxBladeTargetErrorRad": 0.36036420425144816,
+          "maxJointGapM": 0.0013401874905929847,
+          "maxTargetTwistRadps": 0.3301204319403308,
+          "nonStandSteps": 0,
+          "capOverrunNm": 1.4210854715202004e-14
+        }
+      }
+    },
+    {
+      "weapon": "longsword",
+      "direction": "cross",
+      "ending": "target_hold",
+      "mode": "observe",
+      "strokePeakTipMps": 14.768830110852324,
+      "maxHandTargetErrorM": 0.2995255484310962,
+      "afterInputAxisTravelRad": 1.4507881593048488,
+      "endSwordKJ": 0.0024444696782873723,
+      "endBladeAimErrorRad": 0.07320401411294895,
+      "calls": 210,
+      "actualSword": {
+        "massKg": 1.600000023841858,
+        "localCOM": {
+          "x": 0,
+          "y": 0.24008147418498993,
+          "z": 0
+        },
+        "worldCOM": {
+          "x": -2.5925981998443604,
+          "y": 1.6398144960403442,
+          "z": -0.2743699252605438
+        },
+        "principalInertiaKgM2": {
+          "x": 0.18019315600395203,
+          "y": 0.0010136800119653344,
+          "z": 0.18019315600395203
+        },
+        "principalInertiaLocalFrame": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "w": 1
+        }
+      },
+      "nominalLimits": {
+        "shoulderMaxNm": 80,
+        "wristMaxNm": 22,
+        "shoulderVmax": 18,
+        "wristVmax": 30,
+        "legacyArmTorqueModel": "legacy"
+      },
+      "phases": {
+        "stroke": {
+          "steps": 66,
+          "shoulderWorkApproxJ": -1.798915577841231,
+          "wristWorkApproxJ": 20.019421287722356,
+          "elbowGravityWorkApproxJ": -3.046105087353981,
+          "swordGravityWorkJ": 13.676349464123685,
+          "maxAppliedShoulderNm": 112.76681676587074,
+          "maxAppliedWristNm": 24.037378870310434,
+          "maxHandTargetErrorM": 0.2995255484310962,
+          "maxBladeTargetErrorRad": 1.9862363261230818,
+          "maxJointGapM": 0.0013160040781508352,
+          "maxTargetTwistRadps": 2.4549886760366886,
+          "nonStandSteps": 0,
+          "capOverrunNm": 3.5022003776495865
+        },
+        "after_input": {
+          "steps": 144,
+          "shoulderWorkApproxJ": -8.49478602652684,
+          "wristWorkApproxJ": 7.804238201099807,
+          "elbowGravityWorkApproxJ": 2.1558920296308277,
+          "swordGravityWorkJ": 0.5509078270034156,
+          "maxAppliedShoulderNm": 54.325773138336764,
+          "maxAppliedWristNm": 22.00864947231098,
+          "maxHandTargetErrorM": 0.08524168374130307,
+          "maxBladeTargetErrorRad": 0.7043863084993169,
+          "maxJointGapM": 0.0004511814214418324,
+          "maxTargetTwistRadps": 0.39514474431921454,
+          "nonStandSteps": 0,
+          "capOverrunNm": 0
+        }
+      }
+    },
+    {
+      "weapon": "longsword",
+      "direction": "cross",
+      "ending": "target_hold",
+      "mode": "clone",
+      "strokePeakTipMps": 14.768830110852324,
+      "maxHandTargetErrorM": 0.2995255484310962,
+      "afterInputAxisTravelRad": 1.4507881593048488,
+      "endSwordKJ": 0.0024444696782873723,
+      "endBladeAimErrorRad": 0.07320401411294895,
+      "calls": 210,
+      "actualSword": {
+        "massKg": 1.600000023841858,
+        "localCOM": {
+          "x": 0,
+          "y": 0.24008147418498993,
+          "z": 0
+        },
+        "worldCOM": {
+          "x": -2.5925981998443604,
+          "y": 1.6398144960403442,
+          "z": -0.2743699252605438
+        },
+        "principalInertiaKgM2": {
+          "x": 0.18019315600395203,
+          "y": 0.0010136800119653344,
+          "z": 0.18019315600395203
+        },
+        "principalInertiaLocalFrame": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "w": 1
+        }
+      },
+      "nominalLimits": {
+        "shoulderMaxNm": 80,
+        "wristMaxNm": 22,
+        "shoulderVmax": 18,
+        "wristVmax": 30,
+        "legacyArmTorqueModel": "legacy"
+      },
+      "phases": {
+        "stroke": {
+          "steps": 66,
+          "shoulderWorkApproxJ": -1.798915577841231,
+          "wristWorkApproxJ": 20.019421287722356,
+          "elbowGravityWorkApproxJ": -3.046105087353981,
+          "swordGravityWorkJ": 13.676349464123685,
+          "maxAppliedShoulderNm": 0,
+          "maxAppliedWristNm": 24.037378870310434,
+          "maxHandTargetErrorM": 0.2995255484310962,
+          "maxBladeTargetErrorRad": 1.9862363261230818,
+          "maxJointGapM": 0.0013160040781508352,
+          "maxTargetTwistRadps": 0,
+          "nonStandSteps": 0,
+          "capOverrunNm": 0
+        },
+        "after_input": {
+          "steps": 144,
+          "shoulderWorkApproxJ": -8.49478602652684,
+          "wristWorkApproxJ": 7.804238201099807,
+          "elbowGravityWorkApproxJ": 2.1558920296308277,
+          "swordGravityWorkJ": 0.5509078270034156,
+          "maxAppliedShoulderNm": 0,
+          "maxAppliedWristNm": 22.00864947231098,
+          "maxHandTargetErrorM": 0.08524168374130307,
+          "maxBladeTargetErrorRad": 0.7043863084993169,
+          "maxJointGapM": 0.0004511814214418324,
+          "maxTargetTwistRadps": 0,
+          "nonStandSteps": 0,
+          "capOverrunNm": 0
+        }
+      }
+    },
+    {
+      "weapon": "longsword",
+      "direction": "cross",
+      "ending": "target_hold",
+      "mode": "candidate",
+      "strokePeakTipMps": 14.765525197269122,
+      "maxHandTargetErrorM": 0.30021736494233886,
+      "afterInputAxisTravelRad": 1.4516332082249006,
+      "endSwordKJ": 0.00241916532734695,
+      "endBladeAimErrorRad": 0.07318880638671242,
+      "calls": 210,
+      "actualSword": {
+        "massKg": 1.600000023841858,
+        "localCOM": {
+          "x": 0,
+          "y": 0.24008147418498993,
+          "z": 0
+        },
+        "worldCOM": {
+          "x": -2.5925981998443604,
+          "y": 1.6398144960403442,
+          "z": -0.2743699252605438
+        },
+        "principalInertiaKgM2": {
+          "x": 0.18019315600395203,
+          "y": 0.0010136800119653344,
+          "z": 0.18019315600395203
+        },
+        "principalInertiaLocalFrame": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "w": 1
+        }
+      },
+      "nominalLimits": {
+        "shoulderMaxNm": 80,
+        "wristMaxNm": 22,
+        "shoulderVmax": 18,
+        "wristVmax": 30,
+        "legacyArmTorqueModel": "legacy"
+      },
+      "phases": {
+        "stroke": {
+          "steps": 66,
+          "shoulderWorkApproxJ": -1.6300786596244494,
+          "wristWorkApproxJ": 20.09696415500026,
+          "elbowGravityWorkApproxJ": -3.0474405262332236,
+          "swordGravityWorkJ": 13.675799358066904,
+          "maxAppliedShoulderNm": 113.12051695528417,
+          "maxAppliedWristNm": 24.035346015309003,
+          "maxHandTargetErrorM": 0.30021736494233886,
+          "maxBladeTargetErrorRad": 1.9863598181336684,
+          "maxJointGapM": 0.0013181531983463752,
+          "maxTargetTwistRadps": 2.474233010468424,
+          "nonStandSteps": 0,
+          "capOverrunNm": 3.4735711161993947
+        },
+        "after_input": {
+          "steps": 144,
+          "shoulderWorkApproxJ": -8.475038959427684,
+          "wristWorkApproxJ": 7.8037541119725296,
+          "elbowGravityWorkApproxJ": 2.162509180860195,
+          "swordGravityWorkJ": 0.551470095268936,
+          "maxAppliedShoulderNm": 55.69501288403354,
+          "maxAppliedWristNm": 22.042661806075998,
+          "maxHandTargetErrorM": 0.08413836020864698,
+          "maxBladeTargetErrorRad": 0.7096842986711873,
+          "maxJointGapM": 0.0004545393943875249,
+          "maxTargetTwistRadps": 0.3954769503614663,
+          "nonStandSteps": 0,
+          "capOverrunNm": 0
+        }
+      }
+    },
+    {
+      "weapon": "longsword",
+      "direction": "cross",
+      "ending": "target_hold",
+      "mode": "capBaseline",
+      "strokePeakTipMps": 14.660908218143359,
+      "maxHandTargetErrorM": 0.3029480836990409,
+      "afterInputAxisTravelRad": 1.383159003414302,
+      "endSwordKJ": 0.0025603354483307262,
+      "endBladeAimErrorRad": 0.07286809404835616,
+      "calls": 210,
+      "actualSword": {
+        "massKg": 1.600000023841858,
+        "localCOM": {
+          "x": 0,
+          "y": 0.24008147418498993,
+          "z": 0
+        },
+        "worldCOM": {
+          "x": -2.5925981998443604,
+          "y": 1.6398144960403442,
+          "z": -0.2743699252605438
+        },
+        "principalInertiaKgM2": {
+          "x": 0.18019315600395203,
+          "y": 0.0010136800119653344,
+          "z": 0.18019315600395203
+        },
+        "principalInertiaLocalFrame": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "w": 1
+        }
+      },
+      "nominalLimits": {
+        "shoulderMaxNm": 80,
+        "wristMaxNm": 22,
+        "shoulderVmax": 18,
+        "wristVmax": 30,
+        "legacyArmTorqueModel": "legacy"
+      },
+      "phases": {
+        "stroke": {
+          "steps": 66,
+          "shoulderWorkApproxJ": -2.16937097972928,
+          "wristWorkApproxJ": 20.161971469295796,
+          "elbowGravityWorkApproxJ": -3.0074689531310415,
+          "swordGravityWorkJ": 13.629231196362243,
+          "maxAppliedShoulderNm": 112.00000000000001,
+          "maxAppliedWristNm": 24.010888568904395,
+          "maxHandTargetErrorM": 0.3029480836990409,
+          "maxBladeTargetErrorRad": 1.986238763255431,
+          "maxJointGapM": 0.0013118046539560948,
+          "maxTargetTwistRadps": 2.421211679795296,
+          "nonStandSteps": 0,
+          "capOverrunNm": 1.4210854715202004e-14
+        },
+        "after_input": {
+          "steps": 144,
+          "shoulderWorkApproxJ": -8.595617057157002,
+          "wristWorkApproxJ": 8.455743360620776,
+          "elbowGravityWorkApproxJ": 2.279533585045321,
+          "swordGravityWorkJ": 0.5972102912248705,
+          "maxAppliedShoulderNm": 44.986383313274125,
+          "maxAppliedWristNm": 21.648942629241763,
+          "maxHandTargetErrorM": 0.08527220077827913,
+          "maxBladeTargetErrorRad": 0.7088989195096802,
+          "maxJointGapM": 0.00043242940513927116,
+          "maxTargetTwistRadps": 0.3935859837847294,
+          "nonStandSteps": 0,
+          "capOverrunNm": 0
+        }
+      }
+    },
+    {
+      "weapon": "longsword",
+      "direction": "cross",
+      "ending": "target_hold",
+      "mode": "capCandidate",
+      "strokePeakTipMps": 14.655854573290119,
+      "maxHandTargetErrorM": 0.3036294970430668,
+      "afterInputAxisTravelRad": 1.3904403448902307,
+      "endSwordKJ": 0.002504042035907243,
+      "endBladeAimErrorRad": 0.07285650208324779,
+      "calls": 210,
+      "actualSword": {
+        "massKg": 1.600000023841858,
+        "localCOM": {
+          "x": 0,
+          "y": 0.24008147418498993,
+          "z": 0
+        },
+        "worldCOM": {
+          "x": -2.5925981998443604,
+          "y": 1.6398144960403442,
+          "z": -0.2743699252605438
+        },
+        "principalInertiaKgM2": {
+          "x": 0.18019315600395203,
+          "y": 0.0010136800119653344,
+          "z": 0.18019315600395203
+        },
+        "principalInertiaLocalFrame": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "w": 1
+        }
+      },
+      "nominalLimits": {
+        "shoulderMaxNm": 80,
+        "wristMaxNm": 22,
+        "shoulderVmax": 18,
+        "wristVmax": 30,
+        "legacyArmTorqueModel": "legacy"
+      },
+      "phases": {
+        "stroke": {
+          "steps": 66,
+          "shoulderWorkApproxJ": -2.0559919704090275,
+          "wristWorkApproxJ": 20.238029330123208,
+          "elbowGravityWorkApproxJ": -3.0074661170450936,
+          "swordGravityWorkJ": 13.626954056664614,
+          "maxAppliedShoulderNm": 112,
+          "maxAppliedWristNm": 24.00898396623738,
+          "maxHandTargetErrorM": 0.3036294970430668,
+          "maxBladeTargetErrorRad": 1.9863606476928322,
+          "maxJointGapM": 0.0013138611869588062,
+          "maxTargetTwistRadps": 2.4361887669098845,
+          "nonStandSteps": 0,
+          "capOverrunNm": 1.4210854715202004e-14
+        },
+        "after_input": {
+          "steps": 144,
+          "shoulderWorkApproxJ": -8.702723890139614,
+          "wristWorkApproxJ": 8.377010602875787,
+          "elbowGravityWorkApproxJ": 2.3181347253355415,
+          "swordGravityWorkJ": 0.5995145620035309,
+          "maxAppliedShoulderNm": 55.17227852838926,
+          "maxAppliedWristNm": 21.75401609050011,
+          "maxHandTargetErrorM": 0.08317426983426744,
+          "maxBladeTargetErrorRad": 0.7140199090766889,
+          "maxJointGapM": 0.000468819365845635,
+          "maxTargetTwistRadps": 0.39358651693719754,
+          "nonStandSteps": 0,
+          "capOverrunNm": 0
+        }
+      }
+    },
+    {
+      "weapon": "longsword",
+      "direction": "cross",
+      "ending": "target_hold",
+      "mode": "budgetBaseline",
+      "strokePeakTipMps": 14.660908218143359,
+      "maxHandTargetErrorM": 0.3029480836990409,
+      "afterInputAxisTravelRad": 1.383159003414302,
+      "endSwordKJ": 0.0025603354483307262,
+      "endBladeAimErrorRad": 0.07286809404835616,
+      "calls": 210,
+      "actualSword": {
+        "massKg": 1.600000023841858,
+        "localCOM": {
+          "x": 0,
+          "y": 0.24008147418498993,
+          "z": 0
+        },
+        "worldCOM": {
+          "x": -2.5925981998443604,
+          "y": 1.6398144960403442,
+          "z": -0.2743699252605438
+        },
+        "principalInertiaKgM2": {
+          "x": 0.18019315600395203,
+          "y": 0.0010136800119653344,
+          "z": 0.18019315600395203
+        },
+        "principalInertiaLocalFrame": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "w": 1
+        }
+      },
+      "nominalLimits": {
+        "shoulderMaxNm": 80,
+        "wristMaxNm": 22,
+        "shoulderVmax": 18,
+        "wristVmax": 30,
+        "legacyArmTorqueModel": "legacy"
+      },
+      "phases": {
+        "stroke": {
+          "steps": 66,
+          "shoulderWorkApproxJ": -2.16937097972928,
+          "wristWorkApproxJ": 20.161971469295796,
+          "elbowGravityWorkApproxJ": -3.0074689531310415,
+          "swordGravityWorkJ": 13.629231196362243,
+          "maxAppliedShoulderNm": 112.00000000000001,
+          "maxAppliedWristNm": 24.010888568904395,
+          "maxHandTargetErrorM": 0.3029480836990409,
+          "maxBladeTargetErrorRad": 1.986238763255431,
+          "maxJointGapM": 0.0013118046539560948,
+          "maxTargetTwistRadps": 2.421211679795296,
+          "nonStandSteps": 0,
+          "capOverrunNm": 1.4210854715202004e-14
+        },
+        "after_input": {
+          "steps": 144,
+          "shoulderWorkApproxJ": -8.595617057157002,
+          "wristWorkApproxJ": 8.455743360620776,
+          "elbowGravityWorkApproxJ": 2.279533585045321,
+          "swordGravityWorkJ": 0.5972102912248705,
+          "maxAppliedShoulderNm": 44.986383313274125,
+          "maxAppliedWristNm": 21.648942629241763,
+          "maxHandTargetErrorM": 0.08527220077827913,
+          "maxBladeTargetErrorRad": 0.7088989195096802,
+          "maxJointGapM": 0.00043242940513927116,
+          "maxTargetTwistRadps": 0.3935859837847294,
+          "nonStandSteps": 0,
+          "capOverrunNm": 0
+        }
+      }
+    },
+    {
+      "weapon": "longsword",
+      "direction": "cross",
+      "ending": "target_hold",
+      "mode": "budgetCandidate",
+      "strokePeakTipMps": 14.64977326442969,
+      "maxHandTargetErrorM": 0.30376226506073223,
+      "afterInputAxisTravelRad": 1.3868537706139594,
+      "endSwordKJ": 0.0025005372710380663,
+      "endBladeAimErrorRad": 0.07287382899225808,
+      "calls": 210,
+      "actualSword": {
+        "massKg": 1.600000023841858,
+        "localCOM": {
+          "x": 0,
+          "y": 0.24008147418498993,
+          "z": 0
+        },
+        "worldCOM": {
+          "x": -2.5925981998443604,
+          "y": 1.6398144960403442,
+          "z": -0.2743699252605438
+        },
+        "principalInertiaKgM2": {
+          "x": 0.18019315600395203,
+          "y": 0.0010136800119653344,
+          "z": 0.18019315600395203
+        },
+        "principalInertiaLocalFrame": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "w": 1
+        }
+      },
+      "nominalLimits": {
+        "shoulderMaxNm": 80,
+        "wristMaxNm": 22,
+        "shoulderVmax": 18,
+        "wristVmax": 30,
+        "legacyArmTorqueModel": "legacy"
+      },
+      "phases": {
+        "stroke": {
+          "steps": 66,
+          "shoulderWorkApproxJ": -2.1340488624345024,
+          "wristWorkApproxJ": 20.2077785257733,
+          "elbowGravityWorkApproxJ": -3.0004424119465587,
+          "swordGravityWorkJ": 13.620983347728597,
+          "maxAppliedShoulderNm": 112,
+          "maxAppliedWristNm": 24.01088856890439,
+          "maxHandTargetErrorM": 0.30376226506073223,
+          "maxBladeTargetErrorRad": 1.9863714142183955,
+          "maxJointGapM": 0.0013097486642906083,
+          "maxTargetTwistRadps": 2.4356222887138457,
+          "nonStandSteps": 0,
+          "capOverrunNm": 1.4210854715202004e-14
+        },
+        "after_input": {
+          "steps": 144,
+          "shoulderWorkApproxJ": -8.926628096696376,
+          "wristWorkApproxJ": 8.407543122823235,
+          "elbowGravityWorkApproxJ": 2.352100759609216,
+          "swordGravityWorkJ": 0.6054955620392501,
+          "maxAppliedShoulderNm": 67.19405418766604,
+          "maxAppliedWristNm": 21.648942629241763,
+          "maxHandTargetErrorM": 0.08297156494008814,
+          "maxBladeTargetErrorRad": 0.7134074811125968,
+          "maxJointGapM": 0.0006027249050937346,
+          "maxTargetTwistRadps": 0.38992786007010716,
+          "nonStandSteps": 0,
+          "capOverrunNm": 0
+        }
+      }
+    }
+  ],
+  "baselineTelemetry": "baseline has no force observer; its work counters are unavailable, not measured zero. Use observe for work comparisons. clone has no target-omega telemetry, but ledger requests/work are recorded.",
+  "supersededExecutions": [
+    {
+      "log": "/workspace/halfsword-hybrid-evidence/q04-body-input-cheap.log",
+      "status": "12 physics rows ran; terminal Git spawn serialization EPERM; no raw JSON persisted. Fixed by read-only HEAD lookup."
+    },
+    {
+      "raw": "/workspace/halfsword-hybrid-evidence/q04-body-input-cheap-valid.json",
+      "sha256": "bd4a0174f9dd729a1d3e313d4fd557195c97453e95fc72c1e7e1197cfb3162a8",
+      "status": "12 guard-passed rows; elbowGravity telemetry path typo omitted that path. Replaced by final16rows; repeated trajectories are not independent samples."
+    }
+  ],
+  "limitations": [
+    "No up/light/heavy extension because first two conditions already show regression; only longsword down/release and cross/target_hold.",
+    "No direct wound, collision, duel or mobile acceptance.",
+    "Same input/mapping and first targets verified; later world targets may move with divergent actual chest and reactive skill state.",
+    "Numerical common budget covers explicit final shoulder and sword wrist torque ceilings; native elbow, elbowGravity and offHand are outside that bound.",
+    "Explicit work is path signed midpoint quadrature, not total positive muscle work or native total work.",
+    "release retains automatic center return; ending blade axis is accumulated path, not stopping distance."
+  ],
+  "nextHypothesis": "Observe first post-release skill recovery/aim-target angular-velocity reversal together with shoulder targetOmega and wrist wAim, then isolate existing auto-return versus held endpoint without altering body transforms or native limits. Do not continue twist-gain scans."
+}
