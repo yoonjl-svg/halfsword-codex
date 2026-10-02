@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 import { performance } from 'node:perf_hooks';
 import { execFileSync } from 'node:child_process';
 import { runStroke,observer,summarize,inputHelperSHA256,cleanupInputHelper } from './elbow_coordination_probe.mjs';
-import {loadShoulderTaskVelocity} from './shoulder_task_velocity_candidate.mjs';
+import {loadIntentEdge} from './intent_edge_candidate.mjs';
 import { installElbowSwivelCandidate } from './elbow_swivel_candidate.mjs';
 import { installElbowCoherentCandidate } from './elbow_coherent_candidate.mjs';
 import { installForceLedger } from '../force_ledger.mjs';
@@ -14,14 +14,14 @@ const base=opts.base??'coupled';if(!['candidate','coupled','coherent'].includes(
 let sourceCommit;try{sourceCommit=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();}catch(e){if(e.status!==0||!e.stdout)throw e;sourceCommit=e.stdout.trim();}
 const files=[...(await readdir(new URL('src/',root))).filter(n=>n.endsWith('.js')).sort().map(n=>'src/'+n),
   'tools/sim/harness_m.mjs','tools/sim/whole_body_strike_probe.mjs','tools/sim/force_ledger.mjs','tools/sim/experiments/elbow_coordination_probe.mjs',
-  'tools/sim/experiments/elbow_coherent_candidate.mjs','tools/sim/experiments/elbow_task_velocity_probe.mjs','tools/sim/experiments/shoulder_task_velocity_candidate.mjs','tools/sim/experiments/elbow_swivel_candidate.mjs','node_modules/@dimforge/rapier3d-compat/rapier.mjs'];
+  'tools/sim/experiments/elbow_coherent_candidate.mjs','tools/sim/experiments/intent_edge_probe.mjs','tools/sim/experiments/intent_edge_candidate.mjs','tools/sim/experiments/elbow_swivel_candidate.mjs','node_modules/@dimforge/rapier3d-compat/rapier.mjs'];
 const manifest=async()=>Object.fromEntries(await Promise.all(files.map(async p=>[p,sha(await readFile(new URL(p,root)))])));
-const before=await manifest(),begin=performance.now(),rows=[],checks=[],loaded=await loadShoulderTaskVelocity();
+const before=await manifest(),begin=performance.now(),rows=[],checks=[],loaded=await loadIntentEdge();
 for(const weapon of(opts.weapons??'sabre,zweihander').split(','))for(const direction of(opts.directions??'down,up,cross').split(','))for(const ending of(opts.endings??'target_hold,release').split(',')){
   const c={weapon,direction,ending,reaction:'paired',seed:7,prepareS:3,durationS:.55,afterS:1.2,sampleHz:120},group=[];
-  for(const mode of['baseline','observe','intact','swivel','taskVelocity','combined']){
-    const o=observer();let candidate=null,follow=null,installUnchanged=true,undoTerms=null;const taskFrames=[];
-    const exp={activate(ctx){o.activate(ctx);if(mode!=='baseline'){const native=sha(ctx.G.world.takeSnapshot());candidate=installElbowCoherentCandidate({...ctx,mode:mode==='observe'?'observe':base}); if(['swivel','observe','combined'].includes(mode))follow=installElbowSwivelCandidate({...ctx,observe:mode==='observe'});if(['observe','taskVelocity','combined'].includes(mode)){ctx.f.shoulderTaskVelocity=mode!=='observe';undoTerms=ctx.ledger.replaceObservedMethod(ctx.f,'manualMuscle',loaded.module.Fighter.prototype.manualMuscle);}installUnchanged=native===sha(ctx.G.world.takeSnapshot());}},afterStep(ctx){o.afterStep(ctx);taskFrames.push(loaded.module.readTaskVelocity(ctx.f)??null);},restore(){undoTerms?.();follow?.restore();candidate?.restore();o.restore();}};
+  for(const mode of['baseline','observe','edge','intact','swivel','combined']){
+    const o=observer();let candidate=null,follow=null,installUnchanged=true,undoEdge=null;const edgeFrames=[];
+    const exp={activate(ctx){o.activate(ctx);if(mode!=='baseline'){const native=sha(ctx.G.world.takeSnapshot()); if(['observe','edge','combined'].includes(mode)){ctx.f.intentEdgeEnabled=mode!=='observe'; const proto=ctx.f.constructor.prototype, old=proto.driveSword;proto.driveSword=loaded.module.Fighter.prototype.driveSword;undoEdge=()=>{proto.driveSword=old;};}candidate=installElbowCoherentCandidate({...ctx,mode:['observe','edge'].includes(mode)?'observe':base}); if(['swivel','observe','combined'].includes(mode))follow=installElbowSwivelCandidate({...ctx,observe:mode==='observe'});installUnchanged=native===sha(ctx.G.world.takeSnapshot());}},afterStep(ctx){o.afterStep(ctx);edgeFrames.push(loaded.module.readEdge(ctx.f)??null);},restore(){follow?.restore();candidate?.restore();undoEdge?.();o.restore();}};
     const r=runStroke({...c,ledgerFactory:G=>installForceLedger(G,{fighters:[G.player],maxSamples:0}),intervention:exp});
     const evidence=o.evidence();
     if(candidate)for(let i=0;i<evidence.frames.length;i++)evidence.frames[i].requestShoulderDistanceM=candidate.records[i].appliedRadiusM;
@@ -37,19 +37,19 @@ for(const weapon of(opts.weapons??'sabre,zweihander').split(','))for(const direc
     const row={condition:c,mode,startNativeSha256:r.startNativeSha256,startSha256:r.startSha256,inputSha256:r.inputSha256,traceSha256:r.traceSha256,
       controllerAxisTraceSha256:sha(JSON.stringify(r.samples.map(s=>({phase:s.phase,aim:s.desiredBladeAxisWorldFromPreStep,offset:s.handOffsetM,filtered:s.filteredAimM})))),
       installUnchanged,summary:summarize(evidence.frames),metrics,phaseExplicitWorkApproxJ:evidence.phaseWork,frames:evidence.frames,samples:r.samples,
-      taskFrames,swivel:follow?.records??null,candidate:candidate?{geometry:candidate.geometry,records:candidate.records}:null};
+      edgeFrames,swivel:follow?.records??null,candidate:candidate?{geometry:candidate.geometry,records:candidate.records}:null};
     group.push(row);rows.push(row);
   }
-  const [b,ob,co,sw,tv,ca]=group;
+  const [b,ob,ed,co,sw,ca]=group;
   const check={...c,preparedNativeExact:group.every(r=>r.startNativeSha256===b.startNativeSha256),preparedControllerExact:group.every(r=>r.startSha256===b.startSha256),
-    requestedInputExact:group.every(r=>r.inputSha256===b.inputSha256),observerTraceExact:ob.traceSha256===b.traceSha256,installsNativeUnchanged:group.every(r=>r.installUnchanged),endpointPreserved:sw.swivel.every(r=>r.endpointDeltaM<1e-12),closestOrientation:sw.swivel.every(r=>r.newErrorRad<=r.oldErrorRad+1e-7),combinedEndpointPreserved:ca.swivel.every(r=>r.endpointDeltaM<1e-12),combinedClosestOrientation:ca.swivel.every(r=>r.newErrorRad<=r.oldErrorRad+1e-7),rawAngularNullCheck:[tv,ca].every(row=>row.taskFrames.every(r=>r.rawAngularCrossReachMps<1e-12))};
+    requestedInputExact:group.every(r=>r.inputSha256===b.inputSha256),observerTraceExact:ob.traceSha256===b.traceSha256,installsNativeUnchanged:group.every(r=>r.installUnchanged),endpointPreserved:sw.swivel.every(r=>r.endpointDeltaM<1e-12),closestOrientation:sw.swivel.every(r=>r.newErrorRad<=r.oldErrorRad+1e-7),combinedEndpointPreserved:ca.swivel.every(r=>r.endpointDeltaM<1e-12),combinedClosestOrientation:ca.swivel.every(r=>r.newErrorRad<=r.oldErrorRad+1e-7)};
   checks.push(check);console.log(JSON.stringify({check,rows:group.map(r=>({mode:r.mode,metrics:r.metrics,summary:r.summary}))}));
 }
 const after=await manifest(),sourceStable=JSON.stringify(before)===JSON.stringify(after);
-const executionPass=sourceStable&&checks.every(c=>c.preparedNativeExact&&c.preparedControllerExact&&c.requestedInputExact&&c.observerTraceExact&&c.installsNativeUnchanged&&c.endpointPreserved&&c.closestOrientation&&c.combinedEndpointPreserved&&c.combinedClosestOrientation&&c.rawAngularNullCheck);
-const report={schemaVersion:1,generatedModuleSHA256:loaded.generatedSHA256,base,createdUTC:new Date().toISOString(),sourceCommit,command:process.argv.join(' '),sourceBefore:before,sourceAfter:after,sourceStable,inputHelperSHA256,
+const executionPass=sourceStable&&checks.every(c=>c.preparedNativeExact&&c.preparedControllerExact&&c.requestedInputExact&&c.observerTraceExact&&c.installsNativeUnchanged&&c.endpointPreserved&&c.closestOrientation&&c.combinedEndpointPreserved&&c.combinedClosestOrientation);
+const report={schemaVersion:1,base,generatedModuleSHA256:loaded.generatedSHA256,createdUTC:new Date().toISOString(),sourceCommit,command:process.argv.join(' '),sourceBefore:before,sourceAfter:after,sourceStable,inputHelperSHA256,
   wallSeconds:(performance.now()-begin)/1000,executionPass,
-  hypothesis:'REJECTED: nearest actual elbow plane plus raw target-speed filtering. Raw cross(reach)=0 does not preserve the downstream bone-axis projected swing feedforward. The observer now reports that nonzero change. Same nominal gains/caps, state-dependent numeric cap can differ. No direct body pose/velocity changes.',
+  hypothesis:'Retain commanded cutting-plane normal as blade flat target instead of motion-feedback edge alignment and resting RIGHT recovery. Gains/torque caps/reaction formulas unchanged, resulting torques differ. Compare alone and combined with closest-shoulder IK.',
   limitations:'Same prepared state and external input, realized targets and work can differ. Actual-pose dependent target velocity may weaken damping or drift the elbow plane; assess measured outcome, not just smaller joint error. Native motor work unmeasured. Open-space strokes only; no contact, mobile or player acceptance.', checks,rows};
-await writeFile(opts.out??'/tmp/elbow-task-velocity.json',JSON.stringify(report,null,2)+'\n',{flag:'wx'});await cleanupInputHelper();await loaded.cleanup();
+await writeFile(opts.out??'/tmp/intent-edge.json',JSON.stringify(report,null,2)+'\n',{flag:'wx'});await cleanupInputHelper();await loaded.cleanup();
 console.log(JSON.stringify({executionPass,sourceStable,rows:rows.length,wallSeconds:report.wallSeconds}));if(!executionPass)process.exitCode=1;

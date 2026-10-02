@@ -1,6 +1,6 @@
-// Redundant elbow swivel must not become an end-effector velocity command.
-// Remove only target-velocity along the IK shoulder-to-hand axis; this angular
-// component contributes zero to the requested hand endpoint's instantaneous v.
+// Rejected research hypothesis: remove raw target-velocity along the IK reach.
+// Its raw cross(reach) is zero, but the subsequent bone-axis swing projection
+// generally destroys that property. Neither actual endpoint force nor v is kept.
 import {readFile,writeFile,mkdtemp,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
@@ -19,8 +19,12 @@ export async function loadShoulderTaskVelocity(){
     const reach=new THREE.Vector3(a+b*Math.cos(beta),b*Math.sin(beta),0).applyQuaternion(j.target.clone().normalize()).applyQuaternion(_qp.clone().normalize());
     const axis=reach.clone().normalize();
     if(this.shoulderTaskVelocity && this.guardWeight()===0 && this.skill.thrustPose.w===0) wT.addScaledVector(axis,-wT.dot(axis));
+    const removed=termBefore.clone().sub(wT);
+    const projected=removed.clone().addScaledVector(boneAxis,-removed.dot(boneAxis));
     const taskRecord={before:termBefore.toArray(),after:wT.toArray(),axis:axis.toArray(),
-      removedRadps:termBefore.clone().sub(wT).length(),endpointVelocityDeltaMps:termBefore.clone().sub(wT).cross(reach).length()};
+      removedRadps:removed.length(),rawAngularCrossReachMps:removed.clone().cross(reach).length(),
+      projectedSwingFeedforwardDeltaNm:projected.clone().multiplyScalar(d).toArray(),
+      projectedAngularCrossReachMps:projected.clone().cross(reach).length()};
     taskVelocityRecords.set(this,taskRecord);
     // 휘두르는 방향(뼈에 수직)`);
   source=once(source,'    j.child.addTorque(vecArg(_mT), true);','    Object.assign(taskRecord,{appliedTorqueNm:_mT.toArray(),capNm:cap});\n    j.child.addTorque(vecArg(_mT), true);');
