@@ -21,7 +21,7 @@ const before=await manifest(),started=performance.now(),rows=[],loaded=await loa
 const condition={weapon:opts.weapon??'zweihander',direction:opts.direction??'cross',ending:'target_hold',reaction:'paired',seed:7,prepareS:3,durationS:.55,afterS:1.2,sampleHz:120};
 const modes=(opts.modes??'original,intact,observe,noShoulderVelocity,noElbowVelocity,noShoulderPosition,noElbowPosition').split(',');
 for(const mode of modes){
-  if(!['original','intact','observe','noShoulderVelocity','noElbowVelocity','noShoulderPosition','noElbowPosition'].includes(mode))throw Error('Invalid mode');
+  if(!['original','intact','observe','noShoulderVelocity','noElbowVelocity','noShoulderPosition','noElbowPosition','noShoulderSwingPosition','noShoulderTwistPosition','noElbowStiffness'].includes(mode))throw Error('Invalid mode');
   let f,candidate,ledger,step=0;const undo=[],frames=[],prefix=createHash('sha256');
   const intervention={activate(ctx){
     f=ctx.f;ledger=ctx.ledger;

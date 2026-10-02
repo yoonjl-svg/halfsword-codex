@@ -15,8 +15,8 @@ export function transformArmTargetTerms(source){
     const armTermActive = this.armTermActive;
     if (armTermActive && this.armTermMode === 'noShoulderVelocity') wT.set(0,0,0);
     // 휘두르는 방향(뼈에 수직)`);
-  s=once(s,'_mT.copy(_mE).addScaledVector(boneAxis, -eTw).multiplyScalar(k);',"_mT.copy(_mE).addScaledVector(boneAxis, -eTw).multiplyScalar(armTermActive && this.armTermMode === 'noShoulderPosition' ? 0 : k);");
-  s=once(s,'eTw * 25 - wTw * 0.8',"(armTermActive && this.armTermMode === 'noShoulderPosition' ? 0 : eTw * 25) - wTw * 0.8");
+  s=once(s,'_mT.copy(_mE).addScaledVector(boneAxis, -eTw).multiplyScalar(k);',"_mT.copy(_mE).addScaledVector(boneAxis, -eTw).multiplyScalar(armTermActive && ['noShoulderPosition','noShoulderSwingPosition'].includes(this.armTermMode) ? 0 : k);");
+  s=once(s,'eTw * 25 - wTw * 0.8',"(armTermActive && ['noShoulderPosition','noShoulderTwistPosition'].includes(this.armTermMode) ? 0 : eTw * 25) - wTw * 0.8");
   s=once(s,'    const tlen = _mT.length();','    armTermObserve.preCapSwingRequestNm = _mT.toArray();\n    const tlen = _mT.length();');
   s=once(s,'    j.child.addTorque(vecArg(_mT), true);',`    Object.assign(armTermObserve,{appliedNm:_mT.toArray(), capNm:cap, appliedTargetOmegaWorld:wT.toArray(), twistFFNm:twistFF});
     armTermRecords.get(this).shoulder = armTermObserve;
@@ -31,8 +31,10 @@ export function transformArmTargetTerms(source){
           if (this.armTermActive && this.armTermMode === 'noElbowVelocity') vz = 0;
           if (this.armTermActive && this.armTermMode === 'noElbowPosition') tz = _cur.z;
           data.appliedPositionRad=tz;data.appliedVelocityRadps=vz;
+          data.appliedStiffness=this.armTermActive && this.armTermMode === 'noElbowStiffness' ? 0 : k;
           armTermRecords.get(this).elbow=data;
         }`);
+  s=once(s,'raw.jointConfigureMotor(j.joint.handle, HINGE_AXIS, tz, vz, k, d);',"raw.jointConfigureMotor(j.joint.handle, HINGE_AXIS, tz, vz, n === 'farmS' && this.armTermActive && this.armTermMode === 'noElbowStiffness' ? 0 : k, d);");
   return 'const armTermRecords=new WeakMap();\nexport const readArmTerms=f=>armTermRecords.get(f);\n'+s;
 }
 export async function loadArmTargetTerms(){
