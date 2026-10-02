@@ -16,7 +16,9 @@
 
 **전체 완료 기준:** 사용자가 전신 물리 목표 전체의 해결을 재확인했다. [P-01~P-06 추적표](../strike/physical_realism_plan.md)는 중력 이점, 체중 지지/부상 회복, 몸통→팔→검 전달, 가속·관성·제동, 실제 충돌 전달, 신체 모델/모바일 체감을 모두 미완료 목표로 추적한다. 기립 수치 통과나 칼끝 속도 상승만으로 전체 목표를 닫지 않는다. 기립 제어와 타격/충돌 경로를 병행 검증한다.
 
-**팔 근력·기립 인계 병행:** [어깨·손목/팔꿈치 130행](../strike/arm_capacity_round1.md)에서 최종 twist를 기존 cap에 포함하는 finalCap을 분리했다. 팔꿈치 자유 두 강체 교체는 cap에 닿기도 전에 목표 추종이 약해져 기각했다. [선택형 팔 비교](../strike/arm_capacity_trial.md)는 finalCap-only이며 실제 코드 72행이 기존 연구/기준 trace와 exact다. [기립 5차](../strike/recovery_handoff_round5.md)는 .85m 다리에 .92~.95m flat plant를 요청하는 전환 기하와 목표속도 단절을 확인했다. 보간/접촉 pivot/upright 단순 제거는 회복 해결로 채택하지 않는다. 배포 상태는 해당 선택형 비교 문서를 따른다.
+**팔 근력·기립 인계 병행:** [어깨·손목/팔꿈치 130행](../strike/arm_capacity_round1.md)에서 최종 twist를 기존 cap에 포함하는 finalCap을 분리했다. 팔꿈치 자유 두 강체 교체는 cap에 닿기도 전에 목표 추종이 약해져 기각했다. [선택형 팔 비교](../strike/arm_capacity_trial.md)는 finalCap-only이며 실제 코드 72행이 기존 연구/기준 trace와 exact다. [기립 5차](../strike/recovery_handoff_round5.md)는 .85m 다리에 .92~.95m flat plant를 요청하는 전환 기하와 목표속도 단절을 확인했다. 보간/접촉 pivot/upright 단순 제거는 회복 해결로 채택하지 않는다. 소스 `9dc396e` → 공개 main `ca1a590`, 전투24행·공개 모바일8조건을 통과했다. [휴대폰 팔 비교](https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#arm-comparison)와 [배포 증거](../strike/arm_capacity_trial_release.json)를 제공한다. 일반 arm 제어는 legacy다.
+
+**Native 한도 기반 확보:** [엔진 API·실제 팔꿈치 1차](../strike/native_motor_api_round1.md)의 독립34검사/게임32행을 통과했다. 기존 관절을 유지하면서 native PD와 중력 FF를 하나의 축 한도로 제한했다. 건강 조건의 큰 힘 손실은 피했지만 약화 시 속도 후퇴가 남아 격리 연구다. 별도 빌드/계측 도구만 보존하며 공개 npm 엔진은 교체하지 않았다. getter는 마지막 solver substep이고 전체 일로 환산할 수 없다. 다음은 같은 누움에서 0계수 upright의 enabled bit만 끄는 대조로 삭제/재생성 이력 혼입을 줄이는 것이다.
 
 **전신 제어 병행 검증:** [몸통 목표·중력 보상 2차](../strike/whole_body_control_round2.md)의 42행+48행은 동일 native/입력·복제·실제 dispatch 관문을 통과했다(18행은 같은 궤적의 반복). 가슴 full/yaw 목표는 횡베기를 빠르게 했지만 내려베기·목표 오차·제동에 후퇴가 있어 채택하지 않는다. 보상 일괄 제거도 방향/무기별 결과가 달랐다. [회복 자세 응답 4차](../strike/recovery_joint_response_round4.md)의 4자세×18분기는 접촉·자세에 따른 강한 응답 차이를 확인했으며 고정 gain이나 회복 해결 후보로 채택하지 않는다. 두 연구 모두 공개 제어에 연결하지 않았다.
 
