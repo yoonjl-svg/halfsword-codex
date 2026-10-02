@@ -1,0 +1,51 @@
+diff --git a/src/dynamics/impulse_joint.rs b/src/dynamics/impulse_joint.rs
+index bfbdf12..34e95f2 100644
+--- a/src/dynamics/impulse_joint.rs
++++ b/src/dynamics/impulse_joint.rs
+@@ -108,6 +108,46 @@ impl RawImpulseJointSet {
+         })
+     }
+ 
++    /// Research binding: native per-axis motor force/torque bound, in N or Nm.
++    /// This changes neither the motor target nor its enabled state.
++    pub fn jointSetMotorMaxForce(
++        &mut self,
++        handle: FlatHandle,
++        axis: RawJointAxis,
++        maxForce: f32,
++    ) -> Result<(), JsValue> {
++        if !maxForce.is_finite() || maxForce < 0.0 {
++            return Err(JsValue::from_str("Motor maximum force must be finite and nonnegative"));
++        }
++        self.map_mut(handle, |j| {
++            j.data.set_motor_max_force(axis.into(), maxForce);
++        });
++        Ok(())
++    }
++
++    pub fn jointMotorMaxForce(&self, handle: FlatHandle, axis: RawJointAxis) -> f32 {
++        self.map(handle, |j| j.data.motors[axis as usize].max_force)
++    }
++
++    /// Research binding: toggle only the native motor axis, preserving the joint,
++    /// limits, targets, and constraint history. A later configureMotor enables it again.
++    pub fn jointSetMotorEnabled(&mut self, handle: FlatHandle, axis: RawJointAxis, enabled: bool) {
++        self.map_mut(handle, |j| {
++            j.data.motor_axes.set(JointAxis::from(axis).into(), enabled);
++        });
++    }
++
++    pub fn jointMotorEnabled(&self, handle: FlatHandle, axis: RawJointAxis) -> bool {
++        self.map(handle, |j| j.data.motor_axes.contains(JointAxis::from(axis).into()))
++    }
++
++    /// Last native solver motor writeback, excluding limit/locked-axis impulses.
++    /// It may be stale while the motor is disabled. Step/substep units require
++    /// independent calibration before converting this value into torque or work.
++    pub fn jointMotorImpulse(&self, handle: FlatHandle, axis: RawJointAxis) -> f32 {
++        self.map(handle, |j| j.data.motors[axis as usize].impulse)
++    }
++
+     /*
+     #[cfg(feature = "dim3")]
+     pub fn jointConfigureBallMotorVelocity(

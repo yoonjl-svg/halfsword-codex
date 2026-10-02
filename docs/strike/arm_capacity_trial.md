@@ -25,9 +25,9 @@
 
 24행 모두 finite/실제 dispatch/상태 보존/진단을 통과했고 baseline 대비 새 속도·골반 높이·관절 gap 검토 문턱에 걸린 행은 0이었다. 이 문턱은 시험의 이상 탐지용이며 게임의 속도/높이를 덮어쓰지 않는다. 최대 골반 높이/관절 gap은 original 1.06392m/7.362mm, finalCap·runtimeFinalCap 1.07256m/3.478mm, runtimeFresh 1.09210m/4.141mm다. 연구 finalCap 46,798개 진단과 combined 50,972개 진단에서 실제 토크/순간 power 차이는 0, cap 초과는 0이었다. 실제 runtime은 후보 함수로 바꾸지 않고 imported Fighter 메서드를 실행했다. runtime 어깨의 별도 cap readout은 없으므로 직접 측정한 것처럼 쓰지 않으며 finalCap 전체 trace exact를 함께 근거로 삼는다.
 
-피격·부상·사망 결과는 후보에 따라 달라졌다. 이를 승률 개선이나 인간다운 동작의 증거로 삼지 않는다. 최초 duel 도구의 RNG 관찰 closure 오류는 0행에서 중단했고 실패 JSON/log를 보존했다. 수정 후 전체 실행이 sourceStable을 통과했다. [통합 수치·72개 exact 대조·원자료 해시](arm_capacity_trial_metrics.json)에 근거를 보존했다. 공개 배포는 별도 영수증으로 확인한다.
+피격·부상·사망 결과는 후보에 따라 달라졌다. 이를 승률 개선이나 인간다운 동작의 증거로 삼지 않는다. 최초 duel 도구의 RNG 관찰 closure 오류는 0행에서 중단했고 실패 JSON/log를 보존했다. 수정 후 전체 실행이 sourceStable을 통과했다. [통합 수치·72개 exact 대조·원자료 해시](arm_capacity_trial_metrics.json)에 근거를 보존했다. [공개 배포·모바일 검사 영수증](arm_capacity_trial_release.json)에 배포 commit·Actions run·공개 바이트와 브라우저 원자료 해시를 보존했다.
 
-로컬 모바일 8조건은 링크 진입·메뉴·터치 이동/놓기/재입력·새 양쪽 Fighter로 재시작·일반/오타 옵션 복귀·유한값·화면 넘침을 통과했다. 오류 0건이다. AI만 입력 분리 구간에서 중지했으며 렌더링 RAF가 실제 물리 시간을 진행했다. 기기 성능이나 자연스러움 검사가 아니다. 최초 로컬 빌드 뒤 버튼 문구를 `B · 새 방식`으로 단축했고 게임 JavaScript는 바꾸지 않았다. 공개 검사는 최종 문구를 확인한다.
+로컬 모바일 8조건은 링크 진입·메뉴·터치 이동/놓기/재입력·새 양쪽 Fighter로 재시작·일반/오타 옵션 복귀·유한값·화면 넘침을 통과했다. 오류 0건이다. AI만 입력 분리 구간에서 중지했으며 렌더링 RAF가 실제 물리 시간을 진행했다. 기기 성능이나 자연스러움 검사가 아니다. 최초 로컬 빌드 뒤 버튼 문구를 `B · 새 방식`으로 단축했고 게임 JavaScript는 바꾸지 않았다. 공개 모바일 검사도 최종 문구 `B · 새 방식`과 같은 8조건을 통과했다. source `9dc396eb4b656dc6aad08be04efa4063769b10d8` → main `ca1a590ce33be77e547b046fc814bc5b64b69bfb`, transfer [36974632175](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/36974632175)와 Pages [36974803663](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/36974803663)를 확인한 기존 기록에 근거한다. 공개 index·feature-lab·main JS 바이트는 최종 빌드와 exact였고, portrait/landscape × 세이버/큰 양손검 × A/B 8행 모두 PASS, JavaScript·HTTP·request 오류는 각각 0건이다. [공개 비교 링크](https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#arm-comparison)와 원자료 `arm-trial-browser-arm-public-r1.json`의 SHA256은 [release receipt](arm_capacity_trial_release.json)에 보존했다. 브라우저 입력 검사는 물리 trace 재생·토크 한도 검증·기기 성능·인간 자연스러움의 입증이 아니다.
 
 ```sh
 node tools/sim/experiments/arm_capacity_probe.mjs --conditions=healthy,armWeak --variants=baseline,clone,runtimeFinalCap --out=/tmp/arm-runtime-rerun.json
@@ -38,4 +38,4 @@ PLAYWRIGHT_MODULE=/workspace/halfsword-review-tools/node_modules/playwright/inde
 
 ## 이어갈 과제
 
-[기립 인계 5차](recovery_handoff_round5.md)에서 목표 연속성과 지지 기하의 차이를 확인했다. 자세 보간과 upright 단순 제거는 채택하지 않는다. 다음 근력 연구는 native 결합 solver의 모터 한도를 실제로 제한·관찰할 수 있는지 먼저 확인한다. 자유 두 강체 implicit PD로 native 모터를 대체한 팔꿈치의 실패를 반복하지 않는다. 그 뒤 native 팔꿈치/다리·중력 보상·몸통에서 검으로의 전달을 같은 예산 안에서 검증한다.
+[기립 인계 5차](recovery_handoff_round5.md)에서 목표 연속성과 지지 기하의 차이를 확인했다. 자세 보간과 upright 단순 제거는 채택하지 않는다. [native 모터 API 1차](native_motor_api_round1.md)는 새 raw API 34검사와 실제 게임 32조건의 결과를 별도로 기록한다. 이 연구 엔진은 공개 비교판에 연결하지 않았으며 전신 힘 전달과 누움→기립은 여전히 미완료다. 다음 근력 연구는 확인된 native 결합 solver API로 모터 한도·반작용을 실제로 제한·관찰하는 범위를 이어 검증한다. 자유 두 강체 implicit PD로 native 모터를 대체한 팔꿈치의 실패를 반복하지 않는다. 그 뒤 native 팔꿈치/다리·중력 보상·몸통에서 검으로의 전달을 같은 예산 안에서 검증한다.
