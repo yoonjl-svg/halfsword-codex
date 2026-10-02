@@ -85,6 +85,7 @@ export const CLOSE = {
 
 // 다리가 체중을 싣는 걸음 (BODY.weightMode = 'hybrid', gait.js)
 export const GAIT = {
+  stanceMemory: 'legacy', // fresh: 선택형 시험에서 새 서기의 마찰 하중 기록을 초기화
   footExtra: 2, // 딛은 발 무게에 더하는 몫(kg): 신발·쇠 발싸개. 딛은 발의 물리 계산이 더 잘 수렴한다 (내딛는 발은 원래 무게)
   assist: 0.3, // 기본 받침 비율. 0이어도 높이 스프링·감쇠·기립 보조는 남는다.
   catchMode: 'on', // on: 처짐·기울기·균형 이탈, fall: 균형 이탈만, off: 붙잡기 반사 끔

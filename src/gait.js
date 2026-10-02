@@ -21,6 +21,7 @@
 // ─────────────────────────────────────────────────────────────
 import * as THREE from 'three';
 import { BODY, GAIT } from './config.js';
+import { clearStanceFrictionMemory } from './stance_memory.js';
 
 const A_LEN = 0.43; // 허벅지 (엉덩이 → 무릎)
 const B_LEN = 0.42; // 정강이 (무릎 → 발목)
@@ -135,6 +136,9 @@ export class Gait {
 
   /** 서기 시작(라운드 시작, 일어선 직후): 두 발을 지금 자리에 딛고, 보조 힘을 천천히 줄인다 */
   enter() {
+    // Old contact peaks belong to the previous stance. The trial is confined
+    // to legacy support; the withdrawn axial recovery trial is unchanged.
+    if (GAIT.stanceMemory === 'fresh' && BODY.supportModel === 'legacy') clearStanceFrictionMemory(this);
     this.active = true;
     this.sense();
     for (const k of ['F', 'B']) {
