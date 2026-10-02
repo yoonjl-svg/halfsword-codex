@@ -50,3 +50,5 @@ guard selftest는 비정상 exit/JSON false/sourceStable false/JSON 미생성/ti
 [로컬 원자료 해시·실행 소스·후속 검증 영수증](automatic_checks_validation.json)에 성공과 최초 실패를 함께 보존했다.
 
 첫 GitHub dispatch는 HTTP422로 거부됐다. job 수준 `env`에서 `runner.temp` 표현식을 지원하지 않는다는 실제 서버 검증 결과다. 로컬 YAML 구문 검사는 Actions의 context 유효성까지 보장하지 못했다. 첫 shell step의 `RUNNER_TEMP`로 경로를 만들고 `GITHUB_ENV`로 다음 step에 전달하도록 수정했다. 등록 상태 active만으로 실행 성공이라고 판정하지 않으며, 수정 뒤 실제 run을 검증한다.
+
+수정 뒤 `workflow_run` [36977150768](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/36977150768)이 실제 자동 실행되어6검사 PASS(128.23초, cacheUsed=false)였다. source `f0afe5f` → main `44ff6c9`, 전송36977129231·main/작업 가지·소스 tree 일치를 확인했다. 일반 job log에서 실제 checkout SHA와 검사 결과도 재확인했다. artifact API의 digest/보존은 확인했지만 archive 다운로드는 Forbidden이라 바이트까지 내려받지는 못했다. [원격 실행 영수증](automatic_checks_release.json)에 범위를 구분했다. 이 제약에도 실패를 진단할 수 있도록 후속 runner는 검사별 판정·checkout·sourceStable·실패 로그 끝부분을 일반 Actions log에도 남긴다. 이 후속 출력 변경의 실제 실행은 다음 run으로 검증한다. cron 등록은 확인했고 다음 정시 schedule 실행 자체는 아직 관찰하지 않았다.
