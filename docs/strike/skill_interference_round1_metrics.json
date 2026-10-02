@@ -1,0 +1,499 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "7cbac075e093c5b9450e718ef9b7790347eab7de",
+  "sourceCommitAfter": "7cbac075e093c5b9450e718ef9b7790347eab7de",
+  "sourceStable": true,
+  "probeSha256": "25248e9f39b08fb6ded6bb9a0b59c5ffc3539f98a28018d64d0295c0ddb22899",
+  "raw": {
+    "path": "/workspace/halfsword-hybrid-evidence/skill-interference-round1-final.json",
+    "sha256": "d43e516d29caf5528d64b34b5fb807c911b8dc67c056e1a413fcdbc0f639d23c"
+  },
+  "wallSeconds": 4.666101139,
+  "simulatedSecondsIncludingObserverControls": 70.7,
+  "sameStartNative": true,
+  "sameStartControl": true,
+  "sameRequestedDragOnly": true,
+  "inputHashScope": "Inherited runStroke input hash covers time and externally requested handOffset during drag only; deliberately excludes hold/release boolean. Per-step observations record handHeld/inputActive and actual handOffset separately.",
+  "observerChecks": [
+    {
+      "level": 0,
+      "arm": "legacy",
+      "physicalControlTraceExact": true,
+      "inputExact": true
+    },
+    {
+      "level": 0.4,
+      "arm": "sharedCap",
+      "physicalControlTraceExact": true,
+      "inputExact": true
+    }
+  ],
+  "protocol": {
+    "weapon": "zweihander",
+    "direction": "down",
+    "seed": 7,
+    "levels": [
+      0,
+      0.4,
+      0.7
+    ],
+    "arm": [
+      "legacy",
+      "sharedCap"
+    ],
+    "cut": "budgeted",
+    "grip": "paired",
+    "prepareLevel": 0.7,
+    "preparation": "All rows prepare at level .7 with legacy arm/legacy grip for 3 seconds; level and arm changed only after identical preparation. This tests same-state incremental correction, not a whole game started at each level.",
+    "requestedInput": "Identical [.02,.52] to [.02,-.45] linear drag over .55s, then 1.5s hold or release; no post-stroke drag. Recovery may change actual handOffset after release.",
+    "inputHashScope": "Inherited runStroke input hash covers time and externally requested handOffset during drag only; deliberately excludes hold/release boolean. Per-step observations record handHeld/inputActive and actual handOffset separately.",
+    "exclusions": "Enemy parked; no combat contacts expected, no wounds/mobile/user-scene reproduction. Blade axis ignores twist. Angular speed includes twist. Readout targets precede native world step; actual body readouts follow it."
+  },
+  "rows": [
+    {
+      "level": 0,
+      "guardWeight": 0,
+      "arm": "legacy",
+      "ending": "target_hold",
+      "finite": true,
+      "peakTipMps": 12.036121973368,
+      "maxHandErrorM": 0.2731995301397389,
+      "finalAimErrorRad": 0.014118493148229385,
+      "maxSwordAngularRadps": 7.235411230535344,
+      "maxDesiredAxisAngularRadps": 6.030948381440176,
+      "maxFollowM": 0,
+      "afterStopDesiredAxisTravelRad": 0.14553341889938273,
+      "afterStopActualAxisTravelRad": 0.37817779133818546,
+      "recoveringSteps": 0,
+      "maxCorrectedHandGoalStepM": 0.016427813484034156,
+      "peakGoalStep": {
+        "radps": 6.030948381440177,
+        "timeS": 0.20833333333333334,
+        "phase": "stroke",
+        "stepRad": 0.05025790317866813,
+        "filteredPadM": [
+          0.02,
+          0.3105044114450664
+        ],
+        "guardNearestIndex": 2
+      },
+      "minAuthoredRBFDirectionNorm": 0.5413836673768634,
+      "maxCutContacts": 0,
+      "firstRecoverTimeS": null,
+      "finalHandOffsetM": [
+        0.02,
+        -0.44999999999999973
+      ],
+      "endingHeldFlagExact": true,
+      "endingInputInactiveExact": true
+    },
+    {
+      "level": 0,
+      "guardWeight": 0,
+      "arm": "sharedCap",
+      "ending": "target_hold",
+      "finite": true,
+      "peakTipMps": 12.024493811611578,
+      "maxHandErrorM": 0.27386311445442135,
+      "finalAimErrorRad": 0.014125343782038684,
+      "maxSwordAngularRadps": 7.234280896664263,
+      "maxDesiredAxisAngularRadps": 6.030948381438054,
+      "maxFollowM": 0,
+      "afterStopDesiredAxisTravelRad": 0.14553341502141645,
+      "afterStopActualAxisTravelRad": 0.3866928249839009,
+      "recoveringSteps": 0,
+      "maxCorrectedHandGoalStepM": 0.016429056452848652,
+      "peakGoalStep": {
+        "radps": 6.030948381438055,
+        "timeS": 0.20833333333333334,
+        "phase": "stroke",
+        "stepRad": 0.05025790317865045,
+        "filteredPadM": [
+          0.02,
+          0.3105044114450664
+        ],
+        "guardNearestIndex": 2
+      },
+      "minAuthoredRBFDirectionNorm": 0.5413836673768634,
+      "maxCutContacts": 0,
+      "firstRecoverTimeS": null,
+      "finalHandOffsetM": [
+        0.02,
+        -0.44999999999999973
+      ],
+      "endingHeldFlagExact": true,
+      "endingInputInactiveExact": true
+    },
+    {
+      "level": 0.4,
+      "guardWeight": 0.6400000000000001,
+      "arm": "legacy",
+      "ending": "target_hold",
+      "finite": true,
+      "peakTipMps": 13.064425314980388,
+      "maxHandErrorM": 0.363890674401511,
+      "finalAimErrorRad": 0.011803131650089362,
+      "maxSwordAngularRadps": 12.300709572174782,
+      "maxDesiredAxisAngularRadps": 27.500990228203115,
+      "maxFollowM": 0.06,
+      "afterStopDesiredAxisTravelRad": 0.4062303246986582,
+      "afterStopActualAxisTravelRad": 0.7274349017372244,
+      "recoveringSteps": 0,
+      "maxCorrectedHandGoalStepM": 0.03546687519617612,
+      "peakGoalStep": {
+        "radps": 27.50099022820312,
+        "timeS": 0.19166666666666665,
+        "phase": "stroke",
+        "stepRad": 0.22917491856835928,
+        "filteredPadM": [
+          0.02,
+          0.3232718433591925
+        ],
+        "guardNearestIndex": 0
+      },
+      "minAuthoredRBFDirectionNorm": 0.5436767949201925,
+      "maxCutContacts": 0,
+      "firstRecoverTimeS": null,
+      "finalHandOffsetM": [
+        0.02,
+        -0.44999999999999973
+      ],
+      "endingHeldFlagExact": true,
+      "endingInputInactiveExact": true
+    },
+    {
+      "level": 0.4,
+      "guardWeight": 0.6400000000000001,
+      "arm": "sharedCap",
+      "ending": "target_hold",
+      "finite": true,
+      "peakTipMps": 13.075368522842256,
+      "maxHandErrorM": 0.3642378749609486,
+      "finalAimErrorRad": 0.01179865045291667,
+      "maxSwordAngularRadps": 12.346081146789494,
+      "maxDesiredAxisAngularRadps": 27.50099022731792,
+      "maxFollowM": 0.06,
+      "afterStopDesiredAxisTravelRad": 0.40623032420896293,
+      "afterStopActualAxisTravelRad": 0.7185545362711221,
+      "recoveringSteps": 0,
+      "maxCorrectedHandGoalStepM": 0.035477183061852394,
+      "peakGoalStep": {
+        "radps": 27.500990227317928,
+        "timeS": 0.19166666666666665,
+        "phase": "stroke",
+        "stepRad": 0.22917491856098268,
+        "filteredPadM": [
+          0.02,
+          0.3232718433591925
+        ],
+        "guardNearestIndex": 0
+      },
+      "minAuthoredRBFDirectionNorm": 0.5436767949201925,
+      "maxCutContacts": 0,
+      "firstRecoverTimeS": null,
+      "finalHandOffsetM": [
+        0.02,
+        -0.44999999999999973
+      ],
+      "endingHeldFlagExact": true,
+      "endingInputInactiveExact": true
+    },
+    {
+      "level": 0.7,
+      "guardWeight": 1,
+      "arm": "legacy",
+      "ending": "target_hold",
+      "finite": true,
+      "peakTipMps": 16.93226769573576,
+      "maxHandErrorM": 0.4322463406632583,
+      "finalAimErrorRad": 0.01169483291360715,
+      "maxSwordAngularRadps": 24.462645742362238,
+      "maxDesiredAxisAngularRadps": 41.34157569086723,
+      "maxFollowM": 0.105,
+      "afterStopDesiredAxisTravelRad": 0.39254578508414567,
+      "afterStopActualAxisTravelRad": 0.9747664804998778,
+      "recoveringSteps": 0,
+      "maxCorrectedHandGoalStepM": 0.049879311995029006,
+      "peakGoalStep": {
+        "radps": 41.34157569086724,
+        "timeS": 0.18333333333333332,
+        "phase": "stroke",
+        "stepRad": 0.3445131307572269,
+        "filteredPadM": [
+          0.02,
+          0.3290510394523051
+        ],
+        "guardNearestIndex": 0
+      },
+      "minAuthoredRBFDirectionNorm": 0.5381036865850146,
+      "maxCutContacts": 0,
+      "firstRecoverTimeS": null,
+      "finalHandOffsetM": [
+        0.02,
+        -0.44999999999999973
+      ],
+      "endingHeldFlagExact": true,
+      "endingInputInactiveExact": true
+    },
+    {
+      "level": 0.7,
+      "guardWeight": 1,
+      "arm": "sharedCap",
+      "ending": "target_hold",
+      "finite": true,
+      "peakTipMps": 16.93840514817109,
+      "maxHandErrorM": 0.43273272531835905,
+      "finalAimErrorRad": 0.0116857480569833,
+      "maxSwordAngularRadps": 24.463536269115306,
+      "maxDesiredAxisAngularRadps": 41.34157568532709,
+      "maxFollowM": 0.105,
+      "afterStopDesiredAxisTravelRad": 0.3925458725033263,
+      "afterStopActualAxisTravelRad": 0.9704980860533821,
+      "recoveringSteps": 0,
+      "maxCorrectedHandGoalStepM": 0.049881296735715765,
+      "peakGoalStep": {
+        "radps": 41.3415756853271,
+        "timeS": 0.18333333333333332,
+        "phase": "stroke",
+        "stepRad": 0.3445131307110591,
+        "filteredPadM": [
+          0.02,
+          0.3290510394523051
+        ],
+        "guardNearestIndex": 0
+      },
+      "minAuthoredRBFDirectionNorm": 0.5381036865850146,
+      "maxCutContacts": 0,
+      "firstRecoverTimeS": null,
+      "finalHandOffsetM": [
+        0.02,
+        -0.44999999999999973
+      ],
+      "endingHeldFlagExact": true,
+      "endingInputInactiveExact": true
+    },
+    {
+      "level": 0,
+      "guardWeight": 0,
+      "arm": "legacy",
+      "ending": "release",
+      "finite": true,
+      "peakTipMps": 12.036121973368,
+      "maxHandErrorM": 0.2731995301397389,
+      "finalAimErrorRad": 0.014118493148229385,
+      "maxSwordAngularRadps": 7.235411230535344,
+      "maxDesiredAxisAngularRadps": 6.030948381440176,
+      "maxFollowM": 0,
+      "afterStopDesiredAxisTravelRad": 0.14553341889938273,
+      "afterStopActualAxisTravelRad": 0.37817779133818546,
+      "recoveringSteps": 0,
+      "maxCorrectedHandGoalStepM": 0.016427813484034156,
+      "peakGoalStep": {
+        "radps": 6.030948381440177,
+        "timeS": 0.20833333333333334,
+        "phase": "stroke",
+        "stepRad": 0.05025790317866813,
+        "filteredPadM": [
+          0.02,
+          0.3105044114450664
+        ],
+        "guardNearestIndex": 2
+      },
+      "minAuthoredRBFDirectionNorm": 0.5413836673768634,
+      "maxCutContacts": 0,
+      "firstRecoverTimeS": null,
+      "finalHandOffsetM": [
+        0.02,
+        -0.44999999999999973
+      ],
+      "endingHeldFlagExact": true,
+      "endingInputInactiveExact": true
+    },
+    {
+      "level": 0,
+      "guardWeight": 0,
+      "arm": "sharedCap",
+      "ending": "release",
+      "finite": true,
+      "peakTipMps": 12.024493811611578,
+      "maxHandErrorM": 0.27386311445442135,
+      "finalAimErrorRad": 0.014125343782038684,
+      "maxSwordAngularRadps": 7.234280896664263,
+      "maxDesiredAxisAngularRadps": 6.030948381438054,
+      "maxFollowM": 0,
+      "afterStopDesiredAxisTravelRad": 0.14553341502141645,
+      "afterStopActualAxisTravelRad": 0.3866928249839009,
+      "recoveringSteps": 0,
+      "maxCorrectedHandGoalStepM": 0.016429056452848652,
+      "peakGoalStep": {
+        "radps": 6.030948381438055,
+        "timeS": 0.20833333333333334,
+        "phase": "stroke",
+        "stepRad": 0.05025790317865045,
+        "filteredPadM": [
+          0.02,
+          0.3105044114450664
+        ],
+        "guardNearestIndex": 2
+      },
+      "minAuthoredRBFDirectionNorm": 0.5413836673768634,
+      "maxCutContacts": 0,
+      "firstRecoverTimeS": null,
+      "finalHandOffsetM": [
+        0.02,
+        -0.44999999999999973
+      ],
+      "endingHeldFlagExact": true,
+      "endingInputInactiveExact": true
+    },
+    {
+      "level": 0.4,
+      "guardWeight": 0.6400000000000001,
+      "arm": "legacy",
+      "ending": "release",
+      "finite": true,
+      "peakTipMps": 13.064425314980388,
+      "maxHandErrorM": 0.363890674401511,
+      "finalAimErrorRad": 0.010991742465836516,
+      "maxSwordAngularRadps": 12.300709572174782,
+      "maxDesiredAxisAngularRadps": 27.500990228203115,
+      "maxFollowM": 0.06,
+      "afterStopDesiredAxisTravelRad": 1.0758581945999783,
+      "afterStopActualAxisTravelRad": 1.5371005951826089,
+      "recoveringSteps": 23,
+      "maxCorrectedHandGoalStepM": 0.03546687519617612,
+      "peakGoalStep": {
+        "radps": 27.50099022820312,
+        "timeS": 0.19166666666666665,
+        "phase": "stroke",
+        "stepRad": 0.22917491856835928,
+        "filteredPadM": [
+          0.02,
+          0.3232718433591925
+        ],
+        "guardNearestIndex": 0
+      },
+      "minAuthoredRBFDirectionNorm": 0.5436767949201925,
+      "maxCutContacts": 0,
+      "firstRecoverTimeS": 0.8083333333333333,
+      "finalHandOffsetM": [
+        0.18,
+        -0.28
+      ],
+      "endingHeldFlagExact": true,
+      "endingInputInactiveExact": true
+    },
+    {
+      "level": 0.4,
+      "guardWeight": 0.6400000000000001,
+      "arm": "sharedCap",
+      "ending": "release",
+      "finite": true,
+      "peakTipMps": 13.075368522842256,
+      "maxHandErrorM": 0.3642378749609486,
+      "finalAimErrorRad": 0.010991944147926288,
+      "maxSwordAngularRadps": 12.346081146789494,
+      "maxDesiredAxisAngularRadps": 27.50099022731792,
+      "maxFollowM": 0.06,
+      "afterStopDesiredAxisTravelRad": 1.0758581826573124,
+      "afterStopActualAxisTravelRad": 1.5347800619032064,
+      "recoveringSteps": 23,
+      "maxCorrectedHandGoalStepM": 0.035477183061852394,
+      "peakGoalStep": {
+        "radps": 27.500990227317928,
+        "timeS": 0.19166666666666665,
+        "phase": "stroke",
+        "stepRad": 0.22917491856098268,
+        "filteredPadM": [
+          0.02,
+          0.3232718433591925
+        ],
+        "guardNearestIndex": 0
+      },
+      "minAuthoredRBFDirectionNorm": 0.5436767949201925,
+      "maxCutContacts": 0,
+      "firstRecoverTimeS": 0.8083333333333333,
+      "finalHandOffsetM": [
+        0.18,
+        -0.28
+      ],
+      "endingHeldFlagExact": true,
+      "endingInputInactiveExact": true
+    },
+    {
+      "level": 0.7,
+      "guardWeight": 1,
+      "arm": "legacy",
+      "ending": "release",
+      "finite": true,
+      "peakTipMps": 16.93226769573576,
+      "maxHandErrorM": 0.4322463406632583,
+      "finalAimErrorRad": 0.03858733198550196,
+      "maxSwordAngularRadps": 24.462645742362238,
+      "maxDesiredAxisAngularRadps": 41.34157569086723,
+      "maxFollowM": 0.105,
+      "afterStopDesiredAxisTravelRad": 1.3494769812078897,
+      "afterStopActualAxisTravelRad": 2.0916973904161766,
+      "recoveringSteps": 23,
+      "maxCorrectedHandGoalStepM": 0.049879311995029006,
+      "peakGoalStep": {
+        "radps": 41.34157569086724,
+        "timeS": 0.18333333333333332,
+        "phase": "stroke",
+        "stepRad": 0.3445131307572269,
+        "filteredPadM": [
+          0.02,
+          0.3290510394523051
+        ],
+        "guardNearestIndex": 0
+      },
+      "minAuthoredRBFDirectionNorm": 0.5381036865850146,
+      "maxCutContacts": 0,
+      "firstRecoverTimeS": 0.8083333333333333,
+      "finalHandOffsetM": [
+        0.18,
+        -0.28
+      ],
+      "endingHeldFlagExact": true,
+      "endingInputInactiveExact": true
+    },
+    {
+      "level": 0.7,
+      "guardWeight": 1,
+      "arm": "sharedCap",
+      "ending": "release",
+      "finite": true,
+      "peakTipMps": 16.93840514817109,
+      "maxHandErrorM": 0.43273272531835905,
+      "finalAimErrorRad": 0.038557986600455195,
+      "maxSwordAngularRadps": 24.463536269115306,
+      "maxDesiredAxisAngularRadps": 41.34157568532709,
+      "maxFollowM": 0.105,
+      "afterStopDesiredAxisTravelRad": 1.3494771367607876,
+      "afterStopActualAxisTravelRad": 2.0772997021709316,
+      "recoveringSteps": 23,
+      "maxCorrectedHandGoalStepM": 0.049881296735715765,
+      "peakGoalStep": {
+        "radps": 41.3415756853271,
+        "timeS": 0.18333333333333332,
+        "phase": "stroke",
+        "stepRad": 0.3445131307110591,
+        "filteredPadM": [
+          0.02,
+          0.3290510394523051
+        ],
+        "guardNearestIndex": 0
+      },
+      "minAuthoredRBFDirectionNorm": 0.5381036865850146,
+      "maxCutContacts": 0,
+      "firstRecoverTimeS": 0.8083333333333333,
+      "finalHandOffsetM": [
+        0.18,
+        -0.28
+      ],
+      "endingHeldFlagExact": true,
+      "endingInputInactiveExact": true
+    }
+  ],
+  "limits": "12 cells are controlled branches, one seed/weapon/direction, two repeats are observer controls, final rerun is same evidence not additional independent samples. No browser or exact user scene reproduction. Fallback analysis recomputes the actual two-hand no-finish RBF weights from per-step filtered aim; all norms stay >.35."
+}

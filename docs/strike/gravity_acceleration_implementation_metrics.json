@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "headBefore": "7cbac075e093c5b9450e718ef9b7790347eab7de",
+  "headAfter": "7cbac075e093c5b9450e718ef9b7790347eab7de",
+  "sourceBefore": {
+    "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+    "src/main.js": "d691a72694f20c8e0784b52884934dc6f660f2046c087f3ff8e12568cc859884",
+    "src/fighter.js": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+    "tools/sim/experiments/gravity_acceleration_explain.mjs": "fed6cf884ff3b3410a415332a7a08a07df0629b2d9abc705a076b58e48008110",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e"
+  },
+  "sourceAfter": {
+    "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+    "src/main.js": "d691a72694f20c8e0784b52884934dc6f660f2046c087f3ff8e12568cc859884",
+    "src/fighter.js": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+    "tools/sim/experiments/gravity_acceleration_explain.mjs": "fed6cf884ff3b3410a415332a7a08a07df0629b2d9abc705a076b58e48008110",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e"
+  },
+  "sourceStable": true,
+  "pass": true,
+  "laws": [
+    {
+      "massKg": 1,
+      "gravityMps2": -9.81,
+      "dtS": 0.008333333333333333,
+      "seconds": 1,
+      "forceN": {
+        "x": 3,
+        "y": 0,
+        "z": 0
+      },
+      "torqueNm": {
+        "x": 0,
+        "y": 0,
+        "z": 0.1
+      },
+      "inertiaKgM2": {
+        "x": 0.01600000075995922,
+        "y": 0.01600000075995922,
+        "z": 0.01600000075995922
+      },
+      "first": {
+        "velocity": {
+          "x": 0.02500000223517418,
+          "y": -0.08175000548362732,
+          "z": 0
+        },
+        "omega": {
+          "x": 0,
+          "y": 0,
+          "z": 0.0520833320915699
+        },
+        "position": {
+          "x": 0.00013020835467614233,
+          "y": 9.999573707580566,
+          "z": 0
+        }
+      },
+      "actual": {
+        "velocity": {
+          "x": 2.9999899864196777,
+          "y": -9.810016632080078,
+          "z": 0
+        },
+        "omega": {
+          "x": 0,
+          "y": 0,
+          "z": 6.2500176429748535
+        }
+      },
+      "expected": {
+        "vy": -9.81,
+        "vx": 3,
+        "wz": 6.2499997031409436
+      },
+      "errors": {
+        "vy": -1.663208007762762e-05,
+        "vx": -1.0013580322265625e-05,
+        "wz": 1.7939833909963454e-05
+      },
+      "instantImpulse": {
+        "xNs": 1,
+        "actualDeltaV": 1,
+        "expectedDeltaV": 1
+      },
+      "pass": true
+    },
+    {
+      "massKg": 3,
+      "gravityMps2": -9.81,
+      "dtS": 0.008333333333333333,
+      "seconds": 1,
+      "forceN": {
+        "x": 3,
+        "y": 0,
+        "z": 0
+      },
+      "torqueNm": {
+        "x": 0,
+        "y": 0,
+        "z": 0.1
+      },
+      "inertiaKgM2": {
+        "x": 0.04800000414252281,
+        "y": 0.04800000414252281,
+        "z": 0.04800000414252281
+      },
+      "first": {
+        "velocity": {
+          "x": 0.008333333767950535,
+          "y": -0.08175000548362732,
+          "z": 0
+        },
+        "omega": {
+          "x": 0,
+          "y": 0,
+          "z": 0.0173611119389534
+        },
+        "position": {
+          "x": 4.340278246672824e-05,
+          "y": 9.999573707580566,
+          "z": 0
+        }
+      },
+      "actual": {
+        "velocity": {
+          "x": 1.0000061988830566,
+          "y": -9.810016632080078,
+          "z": 0
+        },
+        "omega": {
+          "x": 0,
+          "y": 0,
+          "z": 2.083336591720581
+        }
+      },
+      "expected": {
+        "vy": -9.81,
+        "vx": 1,
+        "wz": 2.0833331535363517
+      },
+      "errors": {
+        "vy": -1.663208007762762e-05,
+        "vx": 6.198883056640625e-06,
+        "wz": 3.43818422932074e-06
+      },
+      "instantImpulse": {
+        "xNs": 1,
+        "actualDeltaV": 0.3333333730697632,
+        "expectedDeltaV": 0.3333333333333333
+      },
+      "pass": true
+    }
+  ],
+  "weapons": [
+    {
+      "weapon": "longsword",
+      "dynamic": true,
+      "massKg": 1.600000023841858,
+      "localCOM": {
+        "x": 0,
+        "y": 0.24008147418498993,
+        "z": 0
+      },
+      "principalInertiaKgM2": {
+        "x": 0.18019315600395203,
+        "y": 0.0010136800119653344,
+        "z": 0.18019315600395203
+      },
+      "angularDamping": 0.30000001192092896,
+      "gravityScale": 1,
+      "weightN": 15.696000233888627,
+      "gravityWorkForOneMeterCOMDropJ": 15.696000233888627
+    },
+    {
+      "weapon": "zweihander",
+      "dynamic": true,
+      "massKg": 2.9000000953674316,
+      "localCOM": {
+        "x": 0,
+        "y": 0.3296758234500885,
+        "z": 0
+      },
+      "principalInertiaKgM2": {
+        "x": 0.45154914259910583,
+        "y": 0.002785254502668977,
+        "z": 0.45154914259910583
+      },
+      "angularDamping": 0.30000001192092896,
+      "gravityScale": 1,
+      "weightN": 28.449000935554505,
+      "gravityWorkForOneMeterCOMDropJ": 28.449000935554505
+    }
+  ],
+  "scope": "No floor, joints, muscle controllers or damping in isolated sphere fixtures. Actual game weapons inspected at construction. No claim of reproducing held-sword acceleration, combat or perceived realism.",
+  "rawPath": "/workspace/halfsword-hybrid-evidence/gravity-acceleration-explain-20261002.json",
+  "rawSHA256": "94ef367100dc199f23faba9e00aa60ce747ae584e85523da150f914616186b5d"
+}
