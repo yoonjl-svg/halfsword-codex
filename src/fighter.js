@@ -1844,6 +1844,9 @@ export class Fighter {
     // 비틀기: 위팔 자체의 비틀림 관성은 ≈0.003kg·m²로 아주 작다 → 안정 한계(강도 ≤10, 감쇠 ≤0.2) 안에서만
     //  (엔진 쪽 회전 감쇠(팔 몸체 1.5)가 함께 잡아줘서 조금 더 세게 걸 수 있다)
     _mT.addScaledVector(boneAxis, THREE.MathUtils.clamp(eTw * 25 - wTw * 0.8, -20, 20) + twistFF);
+    // 선택형 비교: 휘두르기와 비틀기가 기존 어깨 한도를 함께 사용한다.
+    // native 팔꿈치/다른 관절까지 포함한 전신 근력 한도는 아니다.
+    if (this.armTorqueModel === 'sharedCap' && _mT.length() > cap) _mT.setLength(cap);
     j.child.addTorque(vecArg(_mT), true);
     j.parent.addTorque({ x: -_mT.x, y: -_mT.y, z: -_mT.z }, true);
   }
@@ -1996,6 +1999,8 @@ export class Fighter {
     const twist = new THREE.Vector3().crossVectors(flat, flatTarget).projectOnVector(blade).multiplyScalar(4 * this.twistScale);
     twist.addScaledVector(wTwist, -0.12 * this.twistScale);
     torque.add(twist);
+    // 최종 벡터를 제한한 뒤 아래팔/가슴 반작용도 같은 벡터에서 구한다.
+    if (this.armTorqueModel === 'sharedCap' && torque.length() > cap) torque.setLength(cap);
     sword.addTorque(vecArg(torque), true);
     // 손목 근육의 반작용은 아래팔로 간다. 단, 아래팔 길이 방향으로 비트는 몫은
     // 아래팔이 너무 가늘어(관성이 작아) 받으면 팽이처럼 돈다 → 팔뚝 뼈(요골·척골)가 그러듯
