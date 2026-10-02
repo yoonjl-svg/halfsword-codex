@@ -1,0 +1,5234 @@
+{
+  "schema": 1,
+  "artifacts": [
+    {
+      "path": "/workspace/halfsword-hybrid-evidence/native-recovery-r1.json",
+      "bytes": 220741497,
+      "sha256": "f64365b62960badf61b0cc71c66644eb5e13150a3e12b09afd6a4521029cebc8"
+    },
+    {
+      "path": "/workspace/halfsword-hybrid-evidence/native-recovery-r1.summary.json",
+      "bytes": 495182,
+      "sha256": "ab420d493efc0e8f7f4c46ca2fdd1898fd01579c01b073e64f79319db05d6f39"
+    },
+    {
+      "path": "/workspace/halfsword-hybrid-evidence/native-recovery-r1.analysis.json",
+      "bytes": 2391,
+      "sha256": "fed0b55b94ff3f686c2c2e983f6e2877a3abb878c712de143e3f6275bbc682ff"
+    },
+    {
+      "path": "/workspace/halfsword-hybrid-evidence/native-recovery-r2.json",
+      "bytes": 15604,
+      "sha256": "f13e0a05473aac9a36332659e7e061e22b8fe6c1a24088e1d3cc005363d2445b"
+    },
+    {
+      "path": "/workspace/halfsword-hybrid-evidence/native-recovery-r3.json",
+      "bytes": 109050139,
+      "sha256": "313925d04ef449eebe8b7c32647a02139f7e9e8c43577c3073cac09ce5df2672"
+    },
+    {
+      "path": "/workspace/halfsword-hybrid-evidence/native-recovery-r3.summary.json",
+      "bytes": 509308,
+      "sha256": "555de54b70b896571e5f97b8edd582d4a70fb3f187210948bfb17efa5bf3041a"
+    },
+    {
+      "path": "/workspace/halfsword-hybrid-evidence/native-recovery-r3.analysis.json",
+      "bytes": 47549,
+      "sha256": "9e322b930397ba66251d07390e9ddba6dab733e728b5983c63ccd4d95fc8f964"
+    }
+  ],
+  "r1": {
+    "sourceCommit": "5e6ef218eef0e3b3aba0f389cec6239045544458",
+    "sourceHashes": {
+      "docs/strike/same_lying_recovery_summary.json": "0487cf99ebb9509057d360d64ac375db993094f5e8d99b3000348c5d0b046949",
+      "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+      "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+      "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+      "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+      "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+      "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+      "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+      "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+      "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+      "src/config.js": "e84d7b921b6d8678b358a5971b296c22edded192d680a56e45a0b29ab2aa5319",
+      "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+      "src/cut_trial.js": "3ef89c41c9b40b3e18a5d19cd92277af49e972c8eae030efaa915a39dfc4fcbf",
+      "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+      "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+      "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+      "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+      "src/fighter.js": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+      "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+      "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+      "src/gait.js": "91eba47caf6dddd7fd75a5de141a087614398031c45ef75b2ac814f8c4db9b83",
+      "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+      "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+      "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+      "src/input.js": "b5954792bb8c9d005bbe17dc1a7669e296b6297c66a1f0339f487d4a2ff9cd4f",
+      "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+      "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+      "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+      "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+      "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+      "src/main.js": "b407150693be04cdcb3da5b3488d22dc9d131ab28d309f7f58b9dae16c86d86a",
+      "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+      "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+      "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+      "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+      "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+      "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+      "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+      "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+      "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+      "src/sound.js": "7c6dddf5f81675f46d4df64d2fd3c9586e22172351f734a3bd1b273bfd24cac1",
+      "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+      "src/soundlab.js": "3e0f803534d588d2bbf78dbb42cb901077de26f32dcdd13cbc251c2424f12624",
+      "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+      "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+      "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+      "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+      "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+      "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+      "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+      "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+      "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+      "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+      "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+      "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+      "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+      "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+      "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+      "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+      "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+      "tools/sim/experiments/native_recovery_candidate.mjs": "c5ca4b24fe15a6bab1e4774f22641e11062f6be120abe64adafa0347d3b14aeb",
+      "tools/sim/experiments/native_recovery_probe.mjs": "0020c6a06b3486f31908e53a53d70fdaedb2def370a257084a00fb5c5bb42a94",
+      "tools/sim/experiments/same_lying_recovery_probe.mjs": "b0ce8060e322005cadcaf6ea93835c2468efbbb82db81e83bc9f63bf66e19d45",
+      "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+      "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+      "/workspace/halfsword-engine-research/rapier.js/rapier-compat/builds/3d/pkg/rapier.mjs": "a3be9d8361b386b0b664ee7ba771f14ae60e93eda9a4ab825f1de1260dbb5623",
+      "/workspace/halfsword-hybrid-evidence/native-motor-api-r1.json": "90a7ef5a2e34c18ea601d61a04fff36e4b6a766e8a360a10a85196d5fa8a4089"
+    },
+    "sourceStable": true,
+    "guards": [
+      {
+        "engine": "npm",
+        "scenario": "healthy_getup",
+        "variant": "baseline",
+        "observed": true,
+        "switchExact": true,
+        "sameInput": true,
+        "dispatchExecuted": true,
+        "window42": true,
+        "preStandPresent": true
+      },
+      {
+        "engine": "npm",
+        "scenario": "hurt_getup",
+        "variant": "baseline",
+        "observed": true,
+        "switchExact": true,
+        "sameInput": true,
+        "dispatchExecuted": true,
+        "window42": true,
+        "preStandPresent": true
+      },
+      {
+        "engine": "rebuilt",
+        "scenario": "healthy_getup",
+        "variant": "baseline",
+        "observed": true,
+        "switchExact": true,
+        "sameInput": true,
+        "dispatchExecuted": true,
+        "window42": true,
+        "preStandPresent": true,
+        "setterBodyPreserved": true,
+        "structurePreserved": true,
+        "configureReenabled": true,
+        "positiveEnabled": true,
+        "windowBitsCorrect": true
+      },
+      {
+        "engine": "rebuilt",
+        "scenario": "healthy_getup",
+        "variant": "observe",
+        "observed": true,
+        "switchExact": true,
+        "sameInput": true,
+        "dispatchExecuted": true,
+        "window42": true,
+        "preStandPresent": true,
+        "preStandExact": true,
+        "firstZeroExact": true,
+        "setterBodyPreserved": true,
+        "structurePreserved": true,
+        "configureReenabled": true,
+        "positiveEnabled": true,
+        "windowBitsCorrect": true,
+        "cloneTraceExact": true
+      },
+      {
+        "engine": "rebuilt",
+        "scenario": "healthy_getup",
+        "variant": "enabledOff",
+        "observed": true,
+        "switchExact": true,
+        "sameInput": true,
+        "dispatchExecuted": true,
+        "window42": true,
+        "preStandPresent": true,
+        "preStandExact": true,
+        "firstZeroExact": true,
+        "setterBodyPreserved": true,
+        "structurePreserved": true,
+        "configureReenabled": true,
+        "positiveEnabled": true,
+        "windowBitsCorrect": true,
+        "zeroRequestDisposition": true,
+        "firstStepInputsSame": true
+      },
+      {
+        "engine": "rebuilt",
+        "scenario": "hurt_getup",
+        "variant": "baseline",
+        "observed": true,
+        "switchExact": true,
+        "sameInput": true,
+        "dispatchExecuted": true,
+        "window42": true,
+        "preStandPresent": true,
+        "setterBodyPreserved": true,
+        "structurePreserved": true,
+        "configureReenabled": true,
+        "positiveEnabled": true,
+        "windowBitsCorrect": true
+      },
+      {
+        "engine": "rebuilt",
+        "scenario": "hurt_getup",
+        "variant": "observe",
+        "observed": true,
+        "switchExact": true,
+        "sameInput": true,
+        "dispatchExecuted": true,
+        "window42": true,
+        "preStandPresent": true,
+        "preStandExact": true,
+        "firstZeroExact": true,
+        "setterBodyPreserved": true,
+        "structurePreserved": true,
+        "configureReenabled": true,
+        "positiveEnabled": true,
+        "windowBitsCorrect": true,
+        "cloneTraceExact": true
+      },
+      {
+        "engine": "rebuilt",
+        "scenario": "hurt_getup",
+        "variant": "enabledOff",
+        "observed": true,
+        "switchExact": true,
+        "sameInput": true,
+        "dispatchExecuted": true,
+        "window42": true,
+        "preStandPresent": true,
+        "preStandExact": true,
+        "firstZeroExact": true,
+        "setterBodyPreserved": true,
+        "structurePreserved": true,
+        "configureReenabled": true,
+        "positiveEnabled": true,
+        "windowBitsCorrect": true,
+        "zeroRequestDisposition": true,
+        "firstStepInputsSame": true
+      }
+    ],
+    "analysis": {
+      "rawSha256": "f64365b62960badf61b0cc71c66644eb5e13150a3e12b09afd6a4521029cebc8",
+      "sourceCommit": "5e6ef218eef0e3b3aba0f389cec6239045544458",
+      "sourceStable": true,
+      "wallSeconds": 104.43868734200001,
+      "cases": [
+        {
+          "scenario": "healthy_getup",
+          "engineOriginalTraceExact": true,
+          "engineLowNativeExact": true,
+          "allProjectedTraceExact": true,
+          "firstTimeS": 4.216666666666667,
+          "requestCount42": 126,
+          "kRange42": [
+            536.4854391629007,
+            2451.64486988146
+          ],
+          "dRange42": [
+            70.8160779695029,
+            323.61712282435275
+          ],
+          "firstRequests": [
+            {
+              "axis": 3,
+              "target": 0,
+              "k": 915.6578407456326,
+              "d": 120.8668349784235,
+              "api": "position"
+            },
+            {
+              "axis": 4,
+              "target": 0,
+              "k": 915.6578407456326,
+              "d": 120.8668349784235,
+              "api": "position"
+            },
+            {
+              "axis": 5,
+              "target": 0,
+              "k": 915.6578407456326,
+              "d": 120.8668349784235,
+              "api": "position"
+            }
+          ],
+          "allEnabled42": true,
+          "windowZeroRequests": 0,
+          "windowAnySupportSteps": 42,
+          "firstKJ": 22.270816943066546,
+          "firstStepDeltaKJ": 19.540769283676052
+        },
+        {
+          "scenario": "hurt_getup",
+          "engineOriginalTraceExact": true,
+          "engineLowNativeExact": true,
+          "allProjectedTraceExact": true,
+          "firstTimeS": 5.575,
+          "requestCount42": 126,
+          "kRange42": [
+            169.27012253731462,
+            1070.0778704016616
+          ],
+          "dRange42": [
+            22.343656174925528,
+            141.25027889301933
+          ],
+          "firstRequests": [
+            {
+              "axis": 3,
+              "target": 0,
+              "k": 170.55038033068948,
+              "d": 22.512650203651013,
+              "api": "position"
+            },
+            {
+              "axis": 4,
+              "target": 0,
+              "k": 170.55038033068948,
+              "d": 22.512650203651013,
+              "api": "position"
+            },
+            {
+              "axis": 5,
+              "target": 0,
+              "k": 170.55038033068948,
+              "d": 22.512650203651013,
+              "api": "position"
+            }
+          ],
+          "allEnabled42": true,
+          "windowZeroRequests": 0,
+          "windowAnySupportSteps": 42,
+          "firstKJ": 16.39659114026678,
+          "firstStepDeltaKJ": 14.694926575694568
+        }
+      ]
+    }
+  },
+  "r3": {
+    "sourceCommit": "7f792dc8a87f735bb4b8d2bdbea85a2804d96397",
+    "sourceHashes": {
+      "docs/strike/same_lying_recovery_summary.json": "0487cf99ebb9509057d360d64ac375db993094f5e8d99b3000348c5d0b046949",
+      "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+      "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+      "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+      "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+      "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+      "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+      "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+      "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+      "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+      "src/config.js": "e84d7b921b6d8678b358a5971b296c22edded192d680a56e45a0b29ab2aa5319",
+      "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+      "src/cut_trial.js": "3ef89c41c9b40b3e18a5d19cd92277af49e972c8eae030efaa915a39dfc4fcbf",
+      "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+      "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+      "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+      "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+      "src/fighter.js": "f482ed5a00abaaa9acac837ddeefa0a6f9ea1f22c73c70aa74b4c0d41961d675",
+      "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+      "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+      "src/gait.js": "91eba47caf6dddd7fd75a5de141a087614398031c45ef75b2ac814f8c4db9b83",
+      "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+      "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+      "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+      "src/input.js": "b5954792bb8c9d005bbe17dc1a7669e296b6297c66a1f0339f487d4a2ff9cd4f",
+      "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+      "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+      "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+      "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+      "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+      "src/main.js": "b407150693be04cdcb3da5b3488d22dc9d131ab28d309f7f58b9dae16c86d86a",
+      "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+      "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+      "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+      "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+      "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+      "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+      "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+      "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+      "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+      "src/sound.js": "7c6dddf5f81675f46d4df64d2fd3c9586e22172351f734a3bd1b273bfd24cac1",
+      "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+      "src/soundlab.js": "3e0f803534d588d2bbf78dbb42cb901077de26f32dcdd13cbc251c2424f12624",
+      "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+      "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+      "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+      "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+      "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+      "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+      "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+      "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+      "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+      "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+      "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+      "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+      "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+      "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+      "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+      "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+      "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+      "tools/sim/experiments/native_recovery_candidate.mjs": "cc3419d9cdbae58a25abacb8d6e1b6f716ffe9269c64522f1ba08eb3735e6195",
+      "tools/sim/experiments/native_recovery_probe.mjs": "fcca593adfca3db05e118c045111dad760039bced3709f49d8db68a02b6c8be5",
+      "tools/sim/experiments/same_lying_recovery_probe.mjs": "b0ce8060e322005cadcaf6ea93835c2468efbbb82db81e83bc9f63bf66e19d45",
+      "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+      "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b",
+      "/workspace/halfsword-engine-research/rapier.js/rapier-compat/builds/3d/pkg/rapier.mjs": "a3be9d8361b386b0b664ee7ba771f14ae60e93eda9a4ab825f1de1260dbb5623",
+      "/workspace/halfsword-hybrid-evidence/native-motor-api-r1.json": "90a7ef5a2e34c18ea601d61a04fff36e4b6a766e8a360a10a85196d5fa8a4089"
+    },
+    "sourceStable": true,
+    "guards": [
+      {
+        "engine": "rebuilt",
+        "scenario": "healthy_getup",
+        "variant": "baseline",
+        "observed": true,
+        "switchExact": true,
+        "sameInput": true,
+        "dispatchExecuted": true,
+        "window42": true,
+        "preStandPresent": true,
+        "reusedBaselineTraceExact": true,
+        "priorCloneDispatchExact": true,
+        "setterBodyPreserved": true,
+        "structurePreserved": true,
+        "configureReenabled": true,
+        "positiveEnabled": true,
+        "windowBitsCorrect": true
+      },
+      {
+        "engine": "rebuilt",
+        "scenario": "healthy_getup",
+        "variant": "allOff42",
+        "observed": true,
+        "switchExact": true,
+        "sameInput": true,
+        "dispatchExecuted": true,
+        "window42": true,
+        "preStandPresent": true,
+        "preStandExact": true,
+        "firstConfiguredExact": true,
+        "setterBodyPreserved": true,
+        "structurePreserved": true,
+        "configureReenabled": true,
+        "positiveEnabled": true,
+        "windowBitsCorrect": true,
+        "all126AxesDisabled": true,
+        "firstStepInputsSame": true
+      },
+      {
+        "engine": "rebuilt",
+        "scenario": "healthy_getup",
+        "variant": "zeroAfterStand",
+        "observed": true,
+        "switchExact": true,
+        "sameInput": true,
+        "dispatchExecuted": true,
+        "window42": true,
+        "preStandPresent": true,
+        "preStandExact": true,
+        "firstConfiguredExact": true,
+        "firstZeroExact": true,
+        "setterBodyPreserved": true,
+        "structurePreserved": true,
+        "configureReenabled": true,
+        "positiveEnabled": true,
+        "windowBitsCorrect": true,
+        "zeroRequestDisposition": true,
+        "firstStepInputsSame": true
+      },
+      {
+        "engine": "rebuilt",
+        "scenario": "hurt_getup",
+        "variant": "baseline",
+        "observed": true,
+        "switchExact": true,
+        "sameInput": true,
+        "dispatchExecuted": true,
+        "window42": true,
+        "preStandPresent": true,
+        "reusedBaselineTraceExact": true,
+        "priorCloneDispatchExact": true,
+        "setterBodyPreserved": true,
+        "structurePreserved": true,
+        "configureReenabled": true,
+        "positiveEnabled": true,
+        "windowBitsCorrect": true
+      },
+      {
+        "engine": "rebuilt",
+        "scenario": "hurt_getup",
+        "variant": "allOff42",
+        "observed": true,
+        "switchExact": true,
+        "sameInput": true,
+        "dispatchExecuted": true,
+        "window42": true,
+        "preStandPresent": true,
+        "preStandExact": true,
+        "firstConfiguredExact": true,
+        "setterBodyPreserved": true,
+        "structurePreserved": true,
+        "configureReenabled": true,
+        "positiveEnabled": true,
+        "windowBitsCorrect": true,
+        "all126AxesDisabled": true,
+        "firstStepInputsSame": true
+      },
+      {
+        "engine": "rebuilt",
+        "scenario": "hurt_getup",
+        "variant": "zeroAfterStand",
+        "observed": true,
+        "switchExact": true,
+        "sameInput": true,
+        "dispatchExecuted": true,
+        "window42": true,
+        "preStandPresent": true,
+        "preStandExact": true,
+        "firstConfiguredExact": true,
+        "firstZeroExact": true,
+        "setterBodyPreserved": true,
+        "structurePreserved": true,
+        "configureReenabled": true,
+        "positiveEnabled": true,
+        "windowBitsCorrect": true,
+        "zeroRequestDisposition": true,
+        "firstStepInputsSame": true
+      }
+    ],
+    "protocol": {
+      "seed": 7,
+      "DT": 0.008333333333333333,
+      "windowS": 0.35,
+      "windowPhysicsSteps": 42,
+      "intervention": "allOff42: after final configure requests disable all upright axes3/4/5 for first stand42 physics steps. zeroAfterStand: disable only actual requested k=d=0 axes from first stand through25s. Existing handle/anchors retained; later configure re-enables before applicable disable. No removal/recreation, cap or body pose/velocity setters.",
+      "readout": "Native getter is last solver-substep signed readout. Disabled values may be stale. It is never converted to whole-step work.",
+      "comparison": "Original traces checked against historic reference only for npm; separate-engine original trajectories may differ. Within-engine exact low native/controller and real inputs mandatory. Rebuilt clone entire physical trace exact. First stand and first zero pre-change prefix/native/controller exact."
+    },
+    "wallSeconds": 50.290420592000004,
+    "summary": [
+      {
+        "scenario": "healthy_getup",
+        "variant": "baseline",
+        "status": "observed",
+        "traceSha256": "b51535850381e6f77b5db44727328b9c68d5bd246a2af63b39488694d019d8c4",
+        "firstStandS": 4.216666666666667,
+        "refalls": [],
+        "motor": {
+          "handle": "6.4e-323",
+          "requests": 8208,
+          "batches": 2736,
+          "zeroBatches": 22,
+          "disableCalls": 0,
+          "setterBodyPreserved": true,
+          "setterStructurePreserved": true,
+          "configureReenabled": true,
+          "positiveEnabled": true,
+          "windowBitsCorrect": true,
+          "firstZero": {
+            "timeS": 5.016666666666861,
+            "nativeBeforeSha256": "347adceb21f0067870e26a3a9fb559f745cfbb8c9d6fec587cbb49bd7c6a8e92",
+            "controllerSha256": "1ba6ff9be488c11e156ff8b254273d03b43b0e7d0688ddbe74718e4561e6f546",
+            "prefixSha256": "45824f575759e07bccccdc3e2f830495f24cb6df52d6b9154fa55967807ef949",
+            "prefixFrames": 337,
+            "requests": [
+              {
+                "axis": 3,
+                "target": 0,
+                "velocity": 0,
+                "k": 0,
+                "d": 0,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 4,
+                "target": 0,
+                "velocity": 0,
+                "k": 0,
+                "d": 0,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 5,
+                "target": 0,
+                "velocity": 0,
+                "k": 0,
+                "d": 0,
+                "api": "position",
+                "enabledAfterConfigure": true
+              }
+            ],
+            "handle": "6.4e-323"
+          },
+          "firstRequest": {
+            "timeS": 4.216666666666823,
+            "nativeBeforeSha256": "b2d9d2a948ed36d943f049f7d63ed079b8fb99ccf5604d71a57fe7ba24af7488",
+            "controllerSha256": "16c94d903eb80c7eef2c14ac84feccc765db086e8dd2fef9d6d366a5845d8a4b",
+            "prefixSha256": "26f73b3a714d453ed2f4039ecc31b7677684d1f848a48bc2c677c9061add84a3",
+            "prefixFrames": 241,
+            "requests": [
+              {
+                "axis": 3,
+                "target": 0,
+                "velocity": 0,
+                "k": 915.6578407456326,
+                "d": 120.8668349784235,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 4,
+                "target": 0,
+                "velocity": 0,
+                "k": 915.6578407456326,
+                "d": 120.8668349784235,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 5,
+                "target": 0,
+                "velocity": 0,
+                "k": 915.6578407456326,
+                "d": 120.8668349784235,
+                "api": "position",
+                "enabledAfterConfigure": true
+              }
+            ],
+            "handle": "6.4e-323"
+          },
+          "lastConfigured": {
+            "3": {
+              "axis": 3,
+              "target": 0,
+              "velocity": 0,
+              "k": 2499.999999999996,
+              "d": 329.9999999999995,
+              "api": "position"
+            },
+            "4": {
+              "axis": 4,
+              "target": 0,
+              "velocity": 0,
+              "k": 2499.999999999996,
+              "d": 329.9999999999995,
+              "api": "position"
+            },
+            "5": {
+              "axis": 5,
+              "target": 0,
+              "velocity": 0,
+              "k": 2499.999999999996,
+              "d": 329.9999999999995,
+              "api": "position"
+            }
+          },
+          "requestApis": {
+            "position": 8208,
+            "general": 0
+          },
+          "originalStructure": {
+            "handles": [
+              "0",
+              "5e-324",
+              "1e-323",
+              "1.5e-323",
+              "2e-323",
+              "2.5e-323",
+              "3e-323",
+              "3.5e-323",
+              "4e-323",
+              "4.4e-323",
+              "5e-323",
+              "5.4e-323",
+              "6e-323",
+              "6.4e-323",
+              "7e-323",
+              "7.4e-323",
+              "8e-323",
+              "8.4e-323",
+              "9e-323",
+              "9.4e-323",
+              "1e-322",
+              "1.04e-322",
+              "1.1e-322",
+              "1.14e-322",
+              "1.2e-322",
+              "1.24e-322",
+              "1.3e-322",
+              "1.33e-322",
+              "1.4e-322",
+              "1.43e-322"
+            ],
+            "handle": "6.4e-323",
+            "valid": true,
+            "a": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "b": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "frame1": {
+              "x": -0.7071067690849304,
+              "y": 0,
+              "z": 0,
+              "w": 0.7071067690849304
+            },
+            "frame2": {
+              "x": -0.7071067690849304,
+              "y": 0,
+              "z": 0,
+              "w": 0.7071067690849304
+            }
+          }
+        },
+        "afterFirstStand": {
+          "maxKJ": 84.1165517059927,
+          "maxHeightM": 0.9821765422821045,
+          "maxGapM": 0.0024495135782475314,
+          "slip": {
+            "allSolverPoints": {
+              "pointSamples": 18535,
+              "frames": 2478,
+              "meanMps": 0.006983249426748885,
+              "p95Mps": 0.0027225570503023573,
+              "maxMps": 3.9793060892445817,
+              "peak": {
+                "timeS": 4.9,
+                "state": "stand",
+                "stateTimeS": 0.6833333333333333,
+                "foot": "B",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9998059622284512,
+                "pelvisPosition": {
+                  "x": -2.5336058139801025,
+                  "y": 0.8338688611984253,
+                  "z": -0.7549024820327759
+                },
+                "pelvisVelocity": {
+                  "x": -0.04688360169529915,
+                  "y": 0.5772955417633057,
+                  "z": 0.051378291100263596
+                },
+                "point": {
+                  "x": -2.959543228149414,
+                  "y": -0.004596490412950516,
+                  "z": -0.8043612241744995
+                },
+                "relativeVelocity": {
+                  "x": 3.911459445953369,
+                  "y": 2.467381477355957,
+                  "z": 0.7316843271255493
+                },
+                "solverDistanceM": -0.009193003177642822,
+                "predictionPoint": false,
+                "hasSupport": false,
+                "freshNormalGapM": 0.013573840097236917,
+                "minimumReportedGeometryDistanceM": -0.009193003177642822,
+                "rawNormalImpulseNs": 0.09148659557104111,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 2,
+                "speedMps": 3.9793060892445817
+              }
+            },
+            "confirmedSupportPoints": {
+              "pointSamples": 18445,
+              "frames": 2473,
+              "meanMps": 0.005003715318616527,
+              "p95Mps": 0.0025057204790159245,
+              "maxMps": 3.590570422138351,
+              "peak": {
+                "timeS": 4.4,
+                "state": "stand",
+                "stateTimeS": 0.18333333333333332,
+                "foot": "B",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.918416985772728,
+                "pelvisPosition": {
+                  "x": -2.6917355060577393,
+                  "y": 0.7140706777572632,
+                  "z": -0.7119203805923462
+                },
+                "pelvisVelocity": {
+                  "x": -0.6233299374580383,
+                  "y": -0.5017696619033813,
+                  "z": -0.0670224279165268
+                },
+                "point": {
+                  "x": -3.003211498260498,
+                  "y": -0.0007384605705738068,
+                  "z": -0.6793719530105591
+                },
+                "relativeVelocity": {
+                  "x": 2.8649628162384033,
+                  "y": 0.6246457099914551,
+                  "z": -2.164297580718994
+                },
+                "solverDistanceM": -0.001476883888244629,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": 6.232799817980361e-05,
+                "minimumReportedGeometryDistanceM": -0.001476883888244629,
+                "rawNormalImpulseNs": 0.5147333145141602,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 3.590570422138351
+              }
+            },
+            "nonPredictiveSupportPoints": {
+              "pointSamples": 18438,
+              "frames": 2473,
+              "meanMps": 0.004739522914348717,
+              "p95Mps": 0.002499262909112147,
+              "maxMps": 2.8903276246871865,
+              "peak": {
+                "timeS": 4.558333333333334,
+                "state": "stand",
+                "stateTimeS": 0.3416666666666669,
+                "foot": "F",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9989097685702827,
+                "pelvisPosition": {
+                  "x": -2.5938260555267334,
+                  "y": 0.7735582590103149,
+                  "z": -0.7323057651519775
+                },
+                "pelvisVelocity": {
+                  "x": 0.32881712913513184,
+                  "y": 0.6368662118911743,
+                  "z": -0.0715656578540802
+                },
+                "point": {
+                  "x": -2.578500509262085,
+                  "y": -0.003420919179916382,
+                  "z": -0.13874942064285278
+                },
+                "relativeVelocity": {
+                  "x": 1.0313857793807983,
+                  "y": 0.26593533158302307,
+                  "z": -2.7000439167022705
+                },
+                "solverDistanceM": -0.006841838825494051,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.006121757682736678,
+                "minimumReportedGeometryDistanceM": -0.006841838825494051,
+                "rawNormalImpulseNs": 1.018986165523529,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 2.8903276246871865
+              }
+            },
+            "rawPositiveManifoldSupportPoints": {
+              "pointSamples": 18435,
+              "frames": 2472,
+              "meanMps": 0.004713734231458218,
+              "p95Mps": 0.0024949321425214686,
+              "maxMps": 3.590570422138351,
+              "peak": {
+                "timeS": 4.4,
+                "state": "stand",
+                "stateTimeS": 0.18333333333333332,
+                "foot": "B",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.918416985772728,
+                "pelvisPosition": {
+                  "x": -2.6917355060577393,
+                  "y": 0.7140706777572632,
+                  "z": -0.7119203805923462
+                },
+                "pelvisVelocity": {
+                  "x": -0.6233299374580383,
+                  "y": -0.5017696619033813,
+                  "z": -0.0670224279165268
+                },
+                "point": {
+                  "x": -3.003211498260498,
+                  "y": -0.0007384605705738068,
+                  "z": -0.6793719530105591
+                },
+                "relativeVelocity": {
+                  "x": 2.8649628162384033,
+                  "y": 0.6246457099914551,
+                  "z": -2.164297580718994
+                },
+                "solverDistanceM": -0.001476883888244629,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": 6.232799817980361e-05,
+                "minimumReportedGeometryDistanceM": -0.001476883888244629,
+                "rawNormalImpulseNs": 0.5147333145141602,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 3.590570422138351
+              }
+            },
+            "stanceFlagSupportPoints": {
+              "pointSamples": 18389,
+              "frames": 2473,
+              "meanMps": 0.0033513920591932457,
+              "p95Mps": 0.0024493980474603557,
+              "maxMps": 1.1203844048383778,
+              "peak": {
+                "timeS": 4.216666666666667,
+                "state": "stand",
+                "stateTimeS": 0,
+                "foot": "B",
+                "stance": true,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.1860883726743015,
+                "pelvisPosition": {
+                  "x": -2.6383213996887207,
+                  "y": 0.7414551377296448,
+                  "z": -0.7121489644050598
+                },
+                "pelvisVelocity": {
+                  "x": -0.23317593336105347,
+                  "y": 0.06738953292369843,
+                  "z": 0.05641946941614151
+                },
+                "point": {
+                  "x": -3.1302053928375244,
+                  "y": -0.014485258609056473,
+                  "z": -0.6454617977142334
+                },
+                "relativeVelocity": {
+                  "x": 1.1189069747924805,
+                  "y": 0.14714479446411133,
+                  "z": 0.05751866102218628
+                },
+                "solverDistanceM": -0.028970539569854736,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.02535574638129648,
+                "minimumReportedGeometryDistanceM": -0.028970539569854736,
+                "rawNormalImpulseNs": 0.6632788777351379,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 1.1203844048383778
+              }
+            },
+            "activeStanceSupportPoints": {
+              "pointSamples": 18389,
+              "frames": 2473,
+              "meanMps": 0.0033513920591932457,
+              "p95Mps": 0.0024493980474603557,
+              "maxMps": 1.1203844048383778,
+              "peak": {
+                "timeS": 4.216666666666667,
+                "state": "stand",
+                "stateTimeS": 0,
+                "foot": "B",
+                "stance": true,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.1860883726743015,
+                "pelvisPosition": {
+                  "x": -2.6383213996887207,
+                  "y": 0.7414551377296448,
+                  "z": -0.7121489644050598
+                },
+                "pelvisVelocity": {
+                  "x": -0.23317593336105347,
+                  "y": 0.06738953292369843,
+                  "z": 0.05641946941614151
+                },
+                "point": {
+                  "x": -3.1302053928375244,
+                  "y": -0.014485258609056473,
+                  "z": -0.6454617977142334
+                },
+                "relativeVelocity": {
+                  "x": 1.1189069747924805,
+                  "y": 0.14714479446411133,
+                  "z": 0.05751866102218628
+                },
+                "solverDistanceM": -0.028970539569854736,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.02535574638129648,
+                "minimumReportedGeometryDistanceM": -0.028970539569854736,
+                "rawNormalImpulseNs": 0.6632788777351379,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 1.1203844048383778
+              }
+            },
+            "rawPositiveActiveStancePoints": {
+              "pointSamples": 18385,
+              "frames": 2472,
+              "meanMps": 0.0032426290198478997,
+              "p95Mps": 0.002444409561692494,
+              "maxMps": 1.1203844048383778,
+              "peak": {
+                "timeS": 4.216666666666667,
+                "state": "stand",
+                "stateTimeS": 0,
+                "foot": "B",
+                "stance": true,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.1860883726743015,
+                "pelvisPosition": {
+                  "x": -2.6383213996887207,
+                  "y": 0.7414551377296448,
+                  "z": -0.7121489644050598
+                },
+                "pelvisVelocity": {
+                  "x": -0.23317593336105347,
+                  "y": 0.06738953292369843,
+                  "z": 0.05641946941614151
+                },
+                "point": {
+                  "x": -3.1302053928375244,
+                  "y": -0.014485258609056473,
+                  "z": -0.6454617977142334
+                },
+                "relativeVelocity": {
+                  "x": 1.1189069747924805,
+                  "y": 0.14714479446411133,
+                  "z": 0.05751866102218628
+                },
+                "solverDistanceM": -0.028970539569854736,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.02535574638129648,
+                "minimumReportedGeometryDistanceM": -0.028970539569854736,
+                "rawNormalImpulseNs": 0.6632788777351379,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 1.1203844048383778
+              }
+            }
+          }
+        },
+        "wholeObservationMaxNoGroupSupportS": 0.12499999999999999
+      },
+      {
+        "scenario": "healthy_getup",
+        "variant": "allOff42",
+        "status": "observed",
+        "traceSha256": "000f73c3f1df96444011ac2d29b8bde93fc2d75d3a947323badd219dfede9d78",
+        "firstStandS": 4.216666666666667,
+        "refalls": [
+          {
+            "timeS": 4.525,
+            "from": "stand",
+            "to": "getup",
+            "pelvisHeightM": 0.6507442593574524,
+            "chestTiltDeg": 69.71982383282106,
+            "feetSolverPointCount": 1
+          }
+        ],
+        "motor": {
+          "handle": "6.4e-323",
+          "requests": 8208,
+          "batches": 2736,
+          "zeroBatches": 4,
+          "disableCalls": 126,
+          "setterBodyPreserved": true,
+          "setterStructurePreserved": true,
+          "configureReenabled": true,
+          "positiveEnabled": true,
+          "windowBitsCorrect": true,
+          "firstZero": {
+            "timeS": 4.5333333333335055,
+            "nativeBeforeSha256": "88e0674be4e5415a0b499718588e53f0a996178e45af04867958262dc6091438",
+            "controllerSha256": "8f13d8ea7da853a6e850e0885b864ce21cbbf75e8dcf5f3a820d44d5893aabc3",
+            "prefixSha256": "26f73b3a714d453ed2f4039ecc31b7677684d1f848a48bc2c677c9061add84a3",
+            "prefixFrames": 241,
+            "requests": [
+              {
+                "axis": 3,
+                "target": 0,
+                "velocity": 0,
+                "k": 0,
+                "d": 0,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 4,
+                "target": 0,
+                "velocity": 0,
+                "k": 0,
+                "d": 0,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 5,
+                "target": 0,
+                "velocity": 0,
+                "k": 0,
+                "d": 0,
+                "api": "position",
+                "enabledAfterConfigure": true
+              }
+            ],
+            "handle": "6.4e-323"
+          },
+          "firstRequest": {
+            "timeS": 4.216666666666823,
+            "nativeBeforeSha256": "b2d9d2a948ed36d943f049f7d63ed079b8fb99ccf5604d71a57fe7ba24af7488",
+            "controllerSha256": "16c94d903eb80c7eef2c14ac84feccc765db086e8dd2fef9d6d366a5845d8a4b",
+            "prefixSha256": "26f73b3a714d453ed2f4039ecc31b7677684d1f848a48bc2c677c9061add84a3",
+            "prefixFrames": 241,
+            "requests": [
+              {
+                "axis": 3,
+                "target": 0,
+                "velocity": 0,
+                "k": 915.6578407456326,
+                "d": 120.8668349784235,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 4,
+                "target": 0,
+                "velocity": 0,
+                "k": 915.6578407456326,
+                "d": 120.8668349784235,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 5,
+                "target": 0,
+                "velocity": 0,
+                "k": 915.6578407456326,
+                "d": 120.8668349784235,
+                "api": "position",
+                "enabledAfterConfigure": true
+              }
+            ],
+            "handle": "6.4e-323"
+          },
+          "lastConfigured": {
+            "3": {
+              "axis": 3,
+              "target": 0,
+              "velocity": 0,
+              "k": 2499.999999999996,
+              "d": 329.9999999999995,
+              "api": "position"
+            },
+            "4": {
+              "axis": 4,
+              "target": 0,
+              "velocity": 0,
+              "k": 2499.999999999996,
+              "d": 329.9999999999995,
+              "api": "position"
+            },
+            "5": {
+              "axis": 5,
+              "target": 0,
+              "velocity": 0,
+              "k": 2499.999999999996,
+              "d": 329.9999999999995,
+              "api": "position"
+            }
+          },
+          "requestApis": {
+            "position": 8208,
+            "general": 0
+          },
+          "originalStructure": {
+            "handles": [
+              "0",
+              "5e-324",
+              "1e-323",
+              "1.5e-323",
+              "2e-323",
+              "2.5e-323",
+              "3e-323",
+              "3.5e-323",
+              "4e-323",
+              "4.4e-323",
+              "5e-323",
+              "5.4e-323",
+              "6e-323",
+              "6.4e-323",
+              "7e-323",
+              "7.4e-323",
+              "8e-323",
+              "8.4e-323",
+              "9e-323",
+              "9.4e-323",
+              "1e-322",
+              "1.04e-322",
+              "1.1e-322",
+              "1.14e-322",
+              "1.2e-322",
+              "1.24e-322",
+              "1.3e-322",
+              "1.33e-322",
+              "1.4e-322",
+              "1.43e-322"
+            ],
+            "handle": "6.4e-323",
+            "valid": true,
+            "a": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "b": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "frame1": {
+              "x": -0.7071067690849304,
+              "y": 0,
+              "z": 0,
+              "w": 0.7071067690849304
+            },
+            "frame2": {
+              "x": -0.7071067690849304,
+              "y": 0,
+              "z": 0,
+              "w": 0.7071067690849304
+            }
+          }
+        },
+        "afterFirstStand": {
+          "maxKJ": 286.203649920547,
+          "maxHeightM": 0.998332142829895,
+          "maxGapM": 0.003946308771858003,
+          "slip": {
+            "allSolverPoints": {
+              "pointSamples": 17115,
+              "frames": 2469,
+              "meanMps": 0.01423291167391385,
+              "p95Mps": 0.018692908164082672,
+              "maxMps": 4.201240747429673,
+              "peak": {
+                "timeS": 7.225,
+                "state": "stand",
+                "stateTimeS": 0.6916666666666667,
+                "foot": "B",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.999998025030858,
+                "pelvisPosition": {
+                  "x": -2.5219268798828125,
+                  "y": 0.8061299324035645,
+                  "z": -1.3010026216506958
+                },
+                "pelvisVelocity": {
+                  "x": 0.061397045850753784,
+                  "y": 0.635859489440918,
+                  "z": -0.008040609769523144
+                },
+                "point": {
+                  "x": -2.954638719558716,
+                  "y": -0.0058405958116054535,
+                  "z": -1.2643190622329712
+                },
+                "relativeVelocity": {
+                  "x": 4.034046649932861,
+                  "y": 2.667569398880005,
+                  "z": 1.173410177230835
+                },
+                "solverDistanceM": -0.01168119814246893,
+                "predictionPoint": false,
+                "hasSupport": false,
+                "freshNormalGapM": 0.012698166441580588,
+                "minimumReportedGeometryDistanceM": -0.01168119814246893,
+                "rawNormalImpulseNs": 0.17699958384037018,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 2,
+                "speedMps": 4.201240747429673
+              }
+            },
+            "confirmedSupportPoints": {
+              "pointSamples": 16994,
+              "frames": 2459,
+              "meanMps": 0.01129655490174812,
+              "p95Mps": 0.014319081957962335,
+              "maxMps": 2.1776586030625267,
+              "peak": {
+                "timeS": 6.875,
+                "state": "stand",
+                "stateTimeS": 0.3416666666666669,
+                "foot": "F",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9985237794172125,
+                "pelvisPosition": {
+                  "x": -2.575472354888916,
+                  "y": 0.762737512588501,
+                  "z": -1.2538750171661377
+                },
+                "pelvisVelocity": {
+                  "x": 0.08491763472557068,
+                  "y": 0.36501142382621765,
+                  "z": -0.0921836718916893
+                },
+                "point": {
+                  "x": -2.4972100257873535,
+                  "y": -0.0038077756762504578,
+                  "z": -0.66629958152771
+                },
+                "relativeVelocity": {
+                  "x": 0.03930894285440445,
+                  "y": 0.5922892689704895,
+                  "z": -2.1773037910461426
+                },
+                "solverDistanceM": -0.007615536451339722,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.003424180771975288,
+                "minimumReportedGeometryDistanceM": -0.007615536451339722,
+                "rawNormalImpulseNs": 0.39298033714294434,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 2.1776586030625267
+              }
+            },
+            "nonPredictiveSupportPoints": {
+              "pointSamples": 16991,
+              "frames": 2459,
+              "meanMps": 0.011275040792874603,
+              "p95Mps": 0.014263853339177384,
+              "maxMps": 2.1776586030625267,
+              "peak": {
+                "timeS": 6.875,
+                "state": "stand",
+                "stateTimeS": 0.3416666666666669,
+                "foot": "F",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9985237794172125,
+                "pelvisPosition": {
+                  "x": -2.575472354888916,
+                  "y": 0.762737512588501,
+                  "z": -1.2538750171661377
+                },
+                "pelvisVelocity": {
+                  "x": 0.08491763472557068,
+                  "y": 0.36501142382621765,
+                  "z": -0.0921836718916893
+                },
+                "point": {
+                  "x": -2.4972100257873535,
+                  "y": -0.0038077756762504578,
+                  "z": -0.66629958152771
+                },
+                "relativeVelocity": {
+                  "x": 0.03930894285440445,
+                  "y": 0.5922892689704895,
+                  "z": -2.1773037910461426
+                },
+                "solverDistanceM": -0.007615536451339722,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.003424180771975288,
+                "minimumReportedGeometryDistanceM": -0.007615536451339722,
+                "rawNormalImpulseNs": 0.39298033714294434,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 2.1776586030625267
+              }
+            },
+            "rawPositiveManifoldSupportPoints": {
+              "pointSamples": 16986,
+              "frames": 2458,
+              "meanMps": 0.011076660176578813,
+              "p95Mps": 0.013811440141076266,
+              "maxMps": 2.1776586030625267,
+              "peak": {
+                "timeS": 6.875,
+                "state": "stand",
+                "stateTimeS": 0.3416666666666669,
+                "foot": "F",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9985237794172125,
+                "pelvisPosition": {
+                  "x": -2.575472354888916,
+                  "y": 0.762737512588501,
+                  "z": -1.2538750171661377
+                },
+                "pelvisVelocity": {
+                  "x": 0.08491763472557068,
+                  "y": 0.36501142382621765,
+                  "z": -0.0921836718916893
+                },
+                "point": {
+                  "x": -2.4972100257873535,
+                  "y": -0.0038077756762504578,
+                  "z": -0.66629958152771
+                },
+                "relativeVelocity": {
+                  "x": 0.03930894285440445,
+                  "y": 0.5922892689704895,
+                  "z": -2.1773037910461426
+                },
+                "solverDistanceM": -0.007615536451339722,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.003424180771975288,
+                "minimumReportedGeometryDistanceM": -0.007615536451339722,
+                "rawNormalImpulseNs": 0.39298033714294434,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 2.1776586030625267
+              }
+            },
+            "stanceFlagSupportPoints": {
+              "pointSamples": 16426,
+              "frames": 2451,
+              "meanMps": 0.008433330707706476,
+              "p95Mps": 0.0038701342758499526,
+              "maxMps": 1.332189125304573,
+              "peak": {
+                "timeS": 7.341666666666667,
+                "state": "stand",
+                "stateTimeS": 0.8083333333333329,
+                "foot": "F",
+                "stance": true,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9999991668098933,
+                "pelvisPosition": {
+                  "x": -2.5158560276031494,
+                  "y": 0.9274284243583679,
+                  "z": -1.308921217918396
+                },
+                "pelvisVelocity": {
+                  "x": 0.01056220754981041,
+                  "y": 1.423300862312317,
+                  "z": -0.01702297106385231
+                },
+                "point": {
+                  "x": -2.532348394393921,
+                  "y": -0.011050545610487461,
+                  "z": -1.0971486568450928
+                },
+                "relativeVelocity": {
+                  "x": -1.3298300504684448,
+                  "y": 1.371483564376831,
+                  "z": -0.07924583554267883
+                },
+                "solverDistanceM": -0.02210107445716858,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.014588709124622339,
+                "minimumReportedGeometryDistanceM": -0.02210107445716858,
+                "rawNormalImpulseNs": 1.9908840954303741,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 2111.122537267177,
+                "geometryContactCount": 4,
+                "solverPointCount": 4,
+                "speedMps": 1.332189125304573
+              }
+            },
+            "activeStanceSupportPoints": {
+              "pointSamples": 16197,
+              "frames": 2222,
+              "meanMps": 0.004009302323202412,
+              "p95Mps": 0.0026671160231738294,
+              "maxMps": 1.332189125304573,
+              "peak": {
+                "timeS": 7.341666666666667,
+                "state": "stand",
+                "stateTimeS": 0.8083333333333329,
+                "foot": "F",
+                "stance": true,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9999991668098933,
+                "pelvisPosition": {
+                  "x": -2.5158560276031494,
+                  "y": 0.9274284243583679,
+                  "z": -1.308921217918396
+                },
+                "pelvisVelocity": {
+                  "x": 0.01056220754981041,
+                  "y": 1.423300862312317,
+                  "z": -0.01702297106385231
+                },
+                "point": {
+                  "x": -2.532348394393921,
+                  "y": -0.011050545610487461,
+                  "z": -1.0971486568450928
+                },
+                "relativeVelocity": {
+                  "x": -1.3298300504684448,
+                  "y": 1.371483564376831,
+                  "z": -0.07924583554267883
+                },
+                "solverDistanceM": -0.02210107445716858,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.014588709124622339,
+                "minimumReportedGeometryDistanceM": -0.02210107445716858,
+                "rawNormalImpulseNs": 1.9908840954303741,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 2111.122537267177,
+                "geometryContactCount": 4,
+                "solverPointCount": 4,
+                "speedMps": 1.332189125304573
+              }
+            },
+            "rawPositiveActiveStancePoints": {
+              "pointSamples": 16193,
+              "frames": 2221,
+              "meanMps": 0.003852144321711688,
+              "p95Mps": 0.002609202659239661,
+              "maxMps": 1.332189125304573,
+              "peak": {
+                "timeS": 7.341666666666667,
+                "state": "stand",
+                "stateTimeS": 0.8083333333333329,
+                "foot": "F",
+                "stance": true,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9999991668098933,
+                "pelvisPosition": {
+                  "x": -2.5158560276031494,
+                  "y": 0.9274284243583679,
+                  "z": -1.308921217918396
+                },
+                "pelvisVelocity": {
+                  "x": 0.01056220754981041,
+                  "y": 1.423300862312317,
+                  "z": -0.01702297106385231
+                },
+                "point": {
+                  "x": -2.532348394393921,
+                  "y": -0.011050545610487461,
+                  "z": -1.0971486568450928
+                },
+                "relativeVelocity": {
+                  "x": -1.3298300504684448,
+                  "y": 1.371483564376831,
+                  "z": -0.07924583554267883
+                },
+                "solverDistanceM": -0.02210107445716858,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.014588709124622339,
+                "minimumReportedGeometryDistanceM": -0.02210107445716858,
+                "rawNormalImpulseNs": 1.9908840954303741,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 2111.122537267177,
+                "geometryContactCount": 4,
+                "solverPointCount": 4,
+                "speedMps": 1.332189125304573
+              }
+            }
+          }
+        },
+        "wholeObservationMaxNoGroupSupportS": 0.24166666666666664
+      },
+      {
+        "scenario": "healthy_getup",
+        "variant": "zeroAfterStand",
+        "status": "observed",
+        "traceSha256": "7eaee2d01e5a5fa68115ca8ace745dce3b8d5c86ab1201c126ef857e1dc114e5",
+        "firstStandS": 4.216666666666667,
+        "refalls": [],
+        "motor": {
+          "handle": "6.4e-323",
+          "requests": 8208,
+          "batches": 2736,
+          "zeroBatches": 22,
+          "disableCalls": 66,
+          "setterBodyPreserved": true,
+          "setterStructurePreserved": true,
+          "configureReenabled": true,
+          "positiveEnabled": true,
+          "windowBitsCorrect": true,
+          "firstZero": {
+            "timeS": 5.016666666666861,
+            "nativeBeforeSha256": "347adceb21f0067870e26a3a9fb559f745cfbb8c9d6fec587cbb49bd7c6a8e92",
+            "controllerSha256": "1ba6ff9be488c11e156ff8b254273d03b43b0e7d0688ddbe74718e4561e6f546",
+            "prefixSha256": "45824f575759e07bccccdc3e2f830495f24cb6df52d6b9154fa55967807ef949",
+            "prefixFrames": 337,
+            "requests": [
+              {
+                "axis": 3,
+                "target": 0,
+                "velocity": 0,
+                "k": 0,
+                "d": 0,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 4,
+                "target": 0,
+                "velocity": 0,
+                "k": 0,
+                "d": 0,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 5,
+                "target": 0,
+                "velocity": 0,
+                "k": 0,
+                "d": 0,
+                "api": "position",
+                "enabledAfterConfigure": true
+              }
+            ],
+            "handle": "6.4e-323"
+          },
+          "firstRequest": {
+            "timeS": 4.216666666666823,
+            "nativeBeforeSha256": "b2d9d2a948ed36d943f049f7d63ed079b8fb99ccf5604d71a57fe7ba24af7488",
+            "controllerSha256": "16c94d903eb80c7eef2c14ac84feccc765db086e8dd2fef9d6d366a5845d8a4b",
+            "prefixSha256": "26f73b3a714d453ed2f4039ecc31b7677684d1f848a48bc2c677c9061add84a3",
+            "prefixFrames": 241,
+            "requests": [
+              {
+                "axis": 3,
+                "target": 0,
+                "velocity": 0,
+                "k": 915.6578407456326,
+                "d": 120.8668349784235,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 4,
+                "target": 0,
+                "velocity": 0,
+                "k": 915.6578407456326,
+                "d": 120.8668349784235,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 5,
+                "target": 0,
+                "velocity": 0,
+                "k": 915.6578407456326,
+                "d": 120.8668349784235,
+                "api": "position",
+                "enabledAfterConfigure": true
+              }
+            ],
+            "handle": "6.4e-323"
+          },
+          "lastConfigured": {
+            "3": {
+              "axis": 3,
+              "target": 0,
+              "velocity": 0,
+              "k": 2499.999999999996,
+              "d": 329.9999999999995,
+              "api": "position"
+            },
+            "4": {
+              "axis": 4,
+              "target": 0,
+              "velocity": 0,
+              "k": 2499.999999999996,
+              "d": 329.9999999999995,
+              "api": "position"
+            },
+            "5": {
+              "axis": 5,
+              "target": 0,
+              "velocity": 0,
+              "k": 2499.999999999996,
+              "d": 329.9999999999995,
+              "api": "position"
+            }
+          },
+          "requestApis": {
+            "position": 8208,
+            "general": 0
+          },
+          "originalStructure": {
+            "handles": [
+              "0",
+              "5e-324",
+              "1e-323",
+              "1.5e-323",
+              "2e-323",
+              "2.5e-323",
+              "3e-323",
+              "3.5e-323",
+              "4e-323",
+              "4.4e-323",
+              "5e-323",
+              "5.4e-323",
+              "6e-323",
+              "6.4e-323",
+              "7e-323",
+              "7.4e-323",
+              "8e-323",
+              "8.4e-323",
+              "9e-323",
+              "9.4e-323",
+              "1e-322",
+              "1.04e-322",
+              "1.1e-322",
+              "1.14e-322",
+              "1.2e-322",
+              "1.24e-322",
+              "1.3e-322",
+              "1.33e-322",
+              "1.4e-322",
+              "1.43e-322"
+            ],
+            "handle": "6.4e-323",
+            "valid": true,
+            "a": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "b": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "frame1": {
+              "x": -0.7071067690849304,
+              "y": 0,
+              "z": 0,
+              "w": 0.7071067690849304
+            },
+            "frame2": {
+              "x": -0.7071067690849304,
+              "y": 0,
+              "z": 0,
+              "w": 0.7071067690849304
+            }
+          }
+        },
+        "afterFirstStand": {
+          "maxKJ": 78.16117149472902,
+          "maxHeightM": 0.9846503734588623,
+          "maxGapM": 0.0024495135782475314,
+          "slip": {
+            "allSolverPoints": {
+              "pointSamples": 18707,
+              "frames": 2477,
+              "meanMps": 0.006290574117443379,
+              "p95Mps": 0.0025027025973198653,
+              "maxMps": 3.9793060892445817,
+              "peak": {
+                "timeS": 4.9,
+                "state": "stand",
+                "stateTimeS": 0.6833333333333333,
+                "foot": "B",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9998059622284512,
+                "pelvisPosition": {
+                  "x": -2.5336058139801025,
+                  "y": 0.8338688611984253,
+                  "z": -0.7549024820327759
+                },
+                "pelvisVelocity": {
+                  "x": -0.04688360169529915,
+                  "y": 0.5772955417633057,
+                  "z": 0.051378291100263596
+                },
+                "point": {
+                  "x": -2.959543228149414,
+                  "y": -0.004596490412950516,
+                  "z": -0.8043612241744995
+                },
+                "relativeVelocity": {
+                  "x": 3.911459445953369,
+                  "y": 2.467381477355957,
+                  "z": 0.7316843271255493
+                },
+                "solverDistanceM": -0.009193003177642822,
+                "predictionPoint": false,
+                "hasSupport": false,
+                "freshNormalGapM": 0.013573840097236917,
+                "minimumReportedGeometryDistanceM": -0.009193003177642822,
+                "rawNormalImpulseNs": 0.09148659557104111,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 2,
+                "speedMps": 3.9793060892445817
+              }
+            },
+            "confirmedSupportPoints": {
+              "pointSamples": 18590,
+              "frames": 2473,
+              "meanMps": 0.003972816937748066,
+              "p95Mps": 0.002267255743441016,
+              "maxMps": 3.590570422138351,
+              "peak": {
+                "timeS": 4.4,
+                "state": "stand",
+                "stateTimeS": 0.18333333333333332,
+                "foot": "B",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.918416985772728,
+                "pelvisPosition": {
+                  "x": -2.6917355060577393,
+                  "y": 0.7140706777572632,
+                  "z": -0.7119203805923462
+                },
+                "pelvisVelocity": {
+                  "x": -0.6233299374580383,
+                  "y": -0.5017696619033813,
+                  "z": -0.0670224279165268
+                },
+                "point": {
+                  "x": -3.003211498260498,
+                  "y": -0.0007384605705738068,
+                  "z": -0.6793719530105591
+                },
+                "relativeVelocity": {
+                  "x": 2.8649628162384033,
+                  "y": 0.6246457099914551,
+                  "z": -2.164297580718994
+                },
+                "solverDistanceM": -0.001476883888244629,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": 6.232799817980361e-05,
+                "minimumReportedGeometryDistanceM": -0.001476883888244629,
+                "rawNormalImpulseNs": 0.5147333145141602,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 3.590570422138351
+              }
+            },
+            "nonPredictiveSupportPoints": {
+              "pointSamples": 18582,
+              "frames": 2472,
+              "meanMps": 0.0036784770508640242,
+              "p95Mps": 0.0022603699649037046,
+              "maxMps": 2.8903276246871865,
+              "peak": {
+                "timeS": 4.558333333333334,
+                "state": "stand",
+                "stateTimeS": 0.3416666666666669,
+                "foot": "F",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9989097685702827,
+                "pelvisPosition": {
+                  "x": -2.5938260555267334,
+                  "y": 0.7735582590103149,
+                  "z": -0.7323057651519775
+                },
+                "pelvisVelocity": {
+                  "x": 0.32881712913513184,
+                  "y": 0.6368662118911743,
+                  "z": -0.0715656578540802
+                },
+                "point": {
+                  "x": -2.578500509262085,
+                  "y": -0.003420919179916382,
+                  "z": -0.13874942064285278
+                },
+                "relativeVelocity": {
+                  "x": 1.0313857793807983,
+                  "y": 0.26593533158302307,
+                  "z": -2.7000439167022705
+                },
+                "solverDistanceM": -0.006841838825494051,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.006121757682736678,
+                "minimumReportedGeometryDistanceM": -0.006841838825494051,
+                "rawNormalImpulseNs": 1.018986165523529,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 2.8903276246871865
+              }
+            },
+            "rawPositiveManifoldSupportPoints": {
+              "pointSamples": 18586,
+              "frames": 2472,
+              "meanMps": 0.0038653638666811363,
+              "p95Mps": 0.002263147246631754,
+              "maxMps": 3.590570422138351,
+              "peak": {
+                "timeS": 4.4,
+                "state": "stand",
+                "stateTimeS": 0.18333333333333332,
+                "foot": "B",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.918416985772728,
+                "pelvisPosition": {
+                  "x": -2.6917355060577393,
+                  "y": 0.7140706777572632,
+                  "z": -0.7119203805923462
+                },
+                "pelvisVelocity": {
+                  "x": -0.6233299374580383,
+                  "y": -0.5017696619033813,
+                  "z": -0.0670224279165268
+                },
+                "point": {
+                  "x": -3.003211498260498,
+                  "y": -0.0007384605705738068,
+                  "z": -0.6793719530105591
+                },
+                "relativeVelocity": {
+                  "x": 2.8649628162384033,
+                  "y": 0.6246457099914551,
+                  "z": -2.164297580718994
+                },
+                "solverDistanceM": -0.001476883888244629,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": 6.232799817980361e-05,
+                "minimumReportedGeometryDistanceM": -0.001476883888244629,
+                "rawNormalImpulseNs": 0.5147333145141602,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 3.590570422138351
+              }
+            },
+            "stanceFlagSupportPoints": {
+              "pointSamples": 18565,
+              "frames": 2473,
+              "meanMps": 0.002734239504673893,
+              "p95Mps": 0.0022376339010091216,
+              "maxMps": 1.1203844048383778,
+              "peak": {
+                "timeS": 4.216666666666667,
+                "state": "stand",
+                "stateTimeS": 0,
+                "foot": "B",
+                "stance": true,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.1860883726743015,
+                "pelvisPosition": {
+                  "x": -2.6383213996887207,
+                  "y": 0.7414551377296448,
+                  "z": -0.7121489644050598
+                },
+                "pelvisVelocity": {
+                  "x": -0.23317593336105347,
+                  "y": 0.06738953292369843,
+                  "z": 0.05641946941614151
+                },
+                "point": {
+                  "x": -3.1302053928375244,
+                  "y": -0.014485258609056473,
+                  "z": -0.6454617977142334
+                },
+                "relativeVelocity": {
+                  "x": 1.1189069747924805,
+                  "y": 0.14714479446411133,
+                  "z": 0.05751866102218628
+                },
+                "solverDistanceM": -0.028970539569854736,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.02535574638129648,
+                "minimumReportedGeometryDistanceM": -0.028970539569854736,
+                "rawNormalImpulseNs": 0.6632788777351379,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 1.1203844048383778
+              }
+            },
+            "activeStanceSupportPoints": {
+              "pointSamples": 18565,
+              "frames": 2473,
+              "meanMps": 0.002734239504673893,
+              "p95Mps": 0.0022376339010091216,
+              "maxMps": 1.1203844048383778,
+              "peak": {
+                "timeS": 4.216666666666667,
+                "state": "stand",
+                "stateTimeS": 0,
+                "foot": "B",
+                "stance": true,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.1860883726743015,
+                "pelvisPosition": {
+                  "x": -2.6383213996887207,
+                  "y": 0.7414551377296448,
+                  "z": -0.7121489644050598
+                },
+                "pelvisVelocity": {
+                  "x": -0.23317593336105347,
+                  "y": 0.06738953292369843,
+                  "z": 0.05641946941614151
+                },
+                "point": {
+                  "x": -3.1302053928375244,
+                  "y": -0.014485258609056473,
+                  "z": -0.6454617977142334
+                },
+                "relativeVelocity": {
+                  "x": 1.1189069747924805,
+                  "y": 0.14714479446411133,
+                  "z": 0.05751866102218628
+                },
+                "solverDistanceM": -0.028970539569854736,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.02535574638129648,
+                "minimumReportedGeometryDistanceM": -0.028970539569854736,
+                "rawNormalImpulseNs": 0.6632788777351379,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 1.1203844048383778
+              }
+            },
+            "rawPositiveActiveStancePoints": {
+              "pointSamples": 18561,
+              "frames": 2472,
+              "meanMps": 0.002626374783560684,
+              "p95Mps": 0.0022323978889326065,
+              "maxMps": 1.1203844048383778,
+              "peak": {
+                "timeS": 4.216666666666667,
+                "state": "stand",
+                "stateTimeS": 0,
+                "foot": "B",
+                "stance": true,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.1860883726743015,
+                "pelvisPosition": {
+                  "x": -2.6383213996887207,
+                  "y": 0.7414551377296448,
+                  "z": -0.7121489644050598
+                },
+                "pelvisVelocity": {
+                  "x": -0.23317593336105347,
+                  "y": 0.06738953292369843,
+                  "z": 0.05641946941614151
+                },
+                "point": {
+                  "x": -3.1302053928375244,
+                  "y": -0.014485258609056473,
+                  "z": -0.6454617977142334
+                },
+                "relativeVelocity": {
+                  "x": 1.1189069747924805,
+                  "y": 0.14714479446411133,
+                  "z": 0.05751866102218628
+                },
+                "solverDistanceM": -0.028970539569854736,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.02535574638129648,
+                "minimumReportedGeometryDistanceM": -0.028970539569854736,
+                "rawNormalImpulseNs": 0.6632788777351379,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 1.1203844048383778
+              }
+            }
+          }
+        },
+        "wholeObservationMaxNoGroupSupportS": 0.14166666666666666
+      },
+      {
+        "scenario": "hurt_getup",
+        "variant": "baseline",
+        "status": "observed",
+        "traceSha256": "83443272f40fa16b99fdc7580ab188b8fcb72bbf4718fdd64dd4501b8dab4212",
+        "firstStandS": 5.575,
+        "refalls": [
+          {
+            "timeS": 6.216666666666667,
+            "from": "stand",
+            "to": "getup",
+            "pelvisHeightM": 0.22397726774215698,
+            "chestTiltDeg": 72.11911816523478,
+            "feetSolverPointCount": 1
+          },
+          {
+            "timeS": 9.641666666666666,
+            "from": "stand",
+            "to": "getup",
+            "pelvisHeightM": 0.39091047644615173,
+            "chestTiltDeg": 66.61960971565196,
+            "feetSolverPointCount": 2
+          },
+          {
+            "timeS": 13.108333333333333,
+            "from": "stand",
+            "to": "getup",
+            "pelvisHeightM": 0.44150152802467346,
+            "chestTiltDeg": 66.86425139208703,
+            "feetSolverPointCount": 1
+          }
+        ],
+        "motor": {
+          "handle": "6.4e-323",
+          "requests": 7992,
+          "batches": 2664,
+          "zeroBatches": 22,
+          "disableCalls": 0,
+          "setterBodyPreserved": true,
+          "setterStructurePreserved": true,
+          "configureReenabled": true,
+          "positiveEnabled": true,
+          "windowBitsCorrect": true,
+          "firstZero": {
+            "timeS": 6.225000000000126,
+            "nativeBeforeSha256": "4406de345758a9ce9c652e23c92f5b871150c61343cfa24186e3788945040714",
+            "controllerSha256": "2072b9eee145ecf8916a95f86d1cc01e8b27348ea350cadb621099c3a9e78fdf",
+            "prefixSha256": "54050adb48b78713dc9062a8e68621b86adc2980f1cbe3dbbdf7e6a4672b7871",
+            "prefixFrames": 410,
+            "requests": [
+              {
+                "axis": 3,
+                "target": 0,
+                "velocity": 0,
+                "k": 0,
+                "d": 0,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 4,
+                "target": 0,
+                "velocity": 0,
+                "k": 0,
+                "d": 0,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 5,
+                "target": 0,
+                "velocity": 0,
+                "k": 0,
+                "d": 0,
+                "api": "position",
+                "enabledAfterConfigure": true
+              }
+            ],
+            "handle": "6.4e-323"
+          },
+          "firstRequest": {
+            "timeS": 5.575000000000163,
+            "nativeBeforeSha256": "a72130145ebf6a40618b0f290785f790d1298a6649fe54c8e684e24f6e37d377",
+            "controllerSha256": "9dfea5b00a4ea8f0181dc6ae2b06c2877baffd76caff6e907c032bb25cebd70d",
+            "prefixSha256": "58661e203dd7dbeb153537c62edfaf2fa60dd52008c398edf4bb0b3bf5a5c502",
+            "prefixFrames": 332,
+            "requests": [
+              {
+                "axis": 3,
+                "target": 0,
+                "velocity": 0,
+                "k": 170.55038033068948,
+                "d": 22.512650203651013,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 4,
+                "target": 0,
+                "velocity": 0,
+                "k": 170.55038033068948,
+                "d": 22.512650203651013,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 5,
+                "target": 0,
+                "velocity": 0,
+                "k": 170.55038033068948,
+                "d": 22.512650203651013,
+                "api": "position",
+                "enabledAfterConfigure": true
+              }
+            ],
+            "handle": "6.4e-323"
+          },
+          "lastConfigured": {
+            "3": {
+              "axis": 3,
+              "target": 0,
+              "velocity": 0,
+              "k": 2499.999999999996,
+              "d": 329.9999999999995,
+              "api": "position"
+            },
+            "4": {
+              "axis": 4,
+              "target": 0,
+              "velocity": 0,
+              "k": 2499.999999999996,
+              "d": 329.9999999999995,
+              "api": "position"
+            },
+            "5": {
+              "axis": 5,
+              "target": 0,
+              "velocity": 0,
+              "k": 2499.999999999996,
+              "d": 329.9999999999995,
+              "api": "position"
+            }
+          },
+          "requestApis": {
+            "position": 7992,
+            "general": 0
+          },
+          "originalStructure": {
+            "handles": [
+              "0",
+              "5e-324",
+              "1e-323",
+              "1.5e-323",
+              "2e-323",
+              "2.5e-323",
+              "3e-323",
+              "3.5e-323",
+              "4e-323",
+              "4.4e-323",
+              "5e-323",
+              "5.4e-323",
+              "6e-323",
+              "6.4e-323",
+              "7e-323",
+              "7.4e-323",
+              "8e-323",
+              "8.4e-323",
+              "9e-323",
+              "9.4e-323",
+              "1e-322",
+              "1.04e-322",
+              "1.1e-322",
+              "1.14e-322",
+              "1.2e-322",
+              "1.24e-322",
+              "1.3e-322",
+              "1.33e-322",
+              "1.4e-322",
+              "1.43e-322"
+            ],
+            "handle": "6.4e-323",
+            "valid": true,
+            "a": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "b": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "frame1": {
+              "x": -0.7071067690849304,
+              "y": 0,
+              "z": 0,
+              "w": 0.7071067690849304
+            },
+            "frame2": {
+              "x": -0.7071067690849304,
+              "y": 0,
+              "z": 0,
+              "w": 0.7071067690849304
+            }
+          }
+        },
+        "afterFirstStand": {
+          "maxKJ": 291.66818151951003,
+          "maxHeightM": 0.9392641186714172,
+          "maxGapM": 0.003433885580355494,
+          "slip": {
+            "allSolverPoints": {
+              "pointSamples": 10394,
+              "frames": 2320,
+              "meanMps": 0.06894430554023497,
+              "p95Mps": 0.3177440311444192,
+              "maxMps": 7.941504109824588,
+              "peak": {
+                "timeS": 6.05,
+                "state": "stand",
+                "stateTimeS": 0.47500000000000064,
+                "foot": "F",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9999999433038881,
+                "pelvisPosition": {
+                  "x": -2.025212287902832,
+                  "y": 0.29972684383392334,
+                  "z": -1.0412706136703491
+                },
+                "pelvisVelocity": {
+                  "x": 0.08979189395904541,
+                  "y": -0.8819800019264221,
+                  "z": -0.37656423449516296
+                },
+                "point": {
+                  "x": -2.251983165740967,
+                  "y": -0.003536846488714218,
+                  "z": -0.4307629466056824
+                },
+                "relativeVelocity": {
+                  "x": 7.272727966308594,
+                  "y": -0.34817948937416077,
+                  "z": -3.189814329147339
+                },
+                "solverDistanceM": -0.007073730230331421,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.0054538769811389165,
+                "minimumReportedGeometryDistanceM": -0.007073730230331421,
+                "rawNormalImpulseNs": 0.03530497848987579,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 7.941504109824588
+              }
+            },
+            "confirmedSupportPoints": {
+              "pointSamples": 9879,
+              "frames": 2291,
+              "meanMps": 0.0530152282587688,
+              "p95Mps": 0.23961766633562284,
+              "maxMps": 7.941504109824588,
+              "peak": {
+                "timeS": 6.05,
+                "state": "stand",
+                "stateTimeS": 0.47500000000000064,
+                "foot": "F",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9999999433038881,
+                "pelvisPosition": {
+                  "x": -2.025212287902832,
+                  "y": 0.29972684383392334,
+                  "z": -1.0412706136703491
+                },
+                "pelvisVelocity": {
+                  "x": 0.08979189395904541,
+                  "y": -0.8819800019264221,
+                  "z": -0.37656423449516296
+                },
+                "point": {
+                  "x": -2.251983165740967,
+                  "y": -0.003536846488714218,
+                  "z": -0.4307629466056824
+                },
+                "relativeVelocity": {
+                  "x": 7.272727966308594,
+                  "y": -0.34817948937416077,
+                  "z": -3.189814329147339
+                },
+                "solverDistanceM": -0.007073730230331421,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.0054538769811389165,
+                "minimumReportedGeometryDistanceM": -0.007073730230331421,
+                "rawNormalImpulseNs": 0.03530497848987579,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 7.941504109824588
+              }
+            },
+            "nonPredictiveSupportPoints": {
+              "pointSamples": 9855,
+              "frames": 2291,
+              "meanMps": 0.052850798057949,
+              "p95Mps": 0.23788055021788787,
+              "maxMps": 7.941504109824588,
+              "peak": {
+                "timeS": 6.05,
+                "state": "stand",
+                "stateTimeS": 0.47500000000000064,
+                "foot": "F",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9999999433038881,
+                "pelvisPosition": {
+                  "x": -2.025212287902832,
+                  "y": 0.29972684383392334,
+                  "z": -1.0412706136703491
+                },
+                "pelvisVelocity": {
+                  "x": 0.08979189395904541,
+                  "y": -0.8819800019264221,
+                  "z": -0.37656423449516296
+                },
+                "point": {
+                  "x": -2.251983165740967,
+                  "y": -0.003536846488714218,
+                  "z": -0.4307629466056824
+                },
+                "relativeVelocity": {
+                  "x": 7.272727966308594,
+                  "y": -0.34817948937416077,
+                  "z": -3.189814329147339
+                },
+                "solverDistanceM": -0.007073730230331421,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.0054538769811389165,
+                "minimumReportedGeometryDistanceM": -0.007073730230331421,
+                "rawNormalImpulseNs": 0.03530497848987579,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 7.941504109824588
+              }
+            },
+            "rawPositiveManifoldSupportPoints": {
+              "pointSamples": 9834,
+              "frames": 2284,
+              "meanMps": 0.05080995564368486,
+              "p95Mps": 0.21527530960258826,
+              "maxMps": 7.941504109824588,
+              "peak": {
+                "timeS": 6.05,
+                "state": "stand",
+                "stateTimeS": 0.47500000000000064,
+                "foot": "F",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9999999433038881,
+                "pelvisPosition": {
+                  "x": -2.025212287902832,
+                  "y": 0.29972684383392334,
+                  "z": -1.0412706136703491
+                },
+                "pelvisVelocity": {
+                  "x": 0.08979189395904541,
+                  "y": -0.8819800019264221,
+                  "z": -0.37656423449516296
+                },
+                "point": {
+                  "x": -2.251983165740967,
+                  "y": -0.003536846488714218,
+                  "z": -0.4307629466056824
+                },
+                "relativeVelocity": {
+                  "x": 7.272727966308594,
+                  "y": -0.34817948937416077,
+                  "z": -3.189814329147339
+                },
+                "solverDistanceM": -0.007073730230331421,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.0054538769811389165,
+                "minimumReportedGeometryDistanceM": -0.007073730230331421,
+                "rawNormalImpulseNs": 0.03530497848987579,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 7.941504109824588
+              }
+            },
+            "stanceFlagSupportPoints": {
+              "pointSamples": 9650,
+              "frames": 2281,
+              "meanMps": 0.03805611572651094,
+              "p95Mps": 0.19125105004749798,
+              "maxMps": 6.658746979922956,
+              "peak": {
+                "timeS": 9.641666666666666,
+                "state": "getup",
+                "stateTimeS": 0,
+                "foot": "B",
+                "stance": true,
+                "gaitActive": false,
+                "levH": 1,
+                "levC": 0.9999999998651535,
+                "pelvisPosition": {
+                  "x": -1.5377681255340576,
+                  "y": 0.39091047644615173,
+                  "z": -1.0296931266784668
+                },
+                "pelvisVelocity": {
+                  "x": 0.11164652556180954,
+                  "y": 0.8127087354660034,
+                  "z": -0.04873162508010864
+                },
+                "point": {
+                  "x": -2.2866108417510986,
+                  "y": -0.005295790731906891,
+                  "z": -1.012596845626831
+                },
+                "relativeVelocity": {
+                  "x": 2.4850029945373535,
+                  "y": -0.20657873153686523,
+                  "z": -6.177675247192383
+                },
+                "solverDistanceM": -0.010591596364974976,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.008958751684829167,
+                "minimumReportedGeometryDistanceM": -0.010591596364974976,
+                "rawNormalImpulseNs": 1.93923819065094,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 246.2626420285919,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 6.658746979922956
+              }
+            },
+            "activeStanceSupportPoints": {
+              "pointSamples": 7628,
+              "frames": 1309,
+              "meanMps": 0.028306829207157946,
+              "p95Mps": 0.1084548140116236,
+              "maxMps": 3.175762898675382,
+              "peak": {
+                "timeS": 5.6,
+                "state": "stand",
+                "stateTimeS": 0.025,
+                "foot": "F",
+                "stance": true,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.68359375,
+                "pelvisPosition": {
+                  "x": -2.2931816577911377,
+                  "y": 0.5423336625099182,
+                  "z": -0.8915359973907471
+                },
+                "pelvisVelocity": {
+                  "x": -0.04311705380678177,
+                  "y": -0.173519566655159,
+                  "z": 0.1981969177722931
+                },
+                "point": {
+                  "x": -2.4767041206359863,
+                  "y": -0.0019825398921966553,
+                  "z": -0.008258121088147163
+                },
+                "relativeVelocity": {
+                  "x": 2.60982346534729,
+                  "y": 0.11638206243515015,
+                  "z": -1.8095003366470337
+                },
+                "solverDistanceM": -0.003965109586715698,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.0011929528359577446,
+                "minimumReportedGeometryDistanceM": -0.003965109586715698,
+                "rawNormalImpulseNs": 0.2114851325750351,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 187.66453055193173,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 3.175762898675382
+              }
+            },
+            "rawPositiveActiveStancePoints": {
+              "pointSamples": 7597,
+              "frames": 1300,
+              "meanMps": 0.0266681667395477,
+              "p95Mps": 0.08701144871652947,
+              "maxMps": 3.175762898675382,
+              "peak": {
+                "timeS": 5.6,
+                "state": "stand",
+                "stateTimeS": 0.025,
+                "foot": "F",
+                "stance": true,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.68359375,
+                "pelvisPosition": {
+                  "x": -2.2931816577911377,
+                  "y": 0.5423336625099182,
+                  "z": -0.8915359973907471
+                },
+                "pelvisVelocity": {
+                  "x": -0.04311705380678177,
+                  "y": -0.173519566655159,
+                  "z": 0.1981969177722931
+                },
+                "point": {
+                  "x": -2.4767041206359863,
+                  "y": -0.0019825398921966553,
+                  "z": -0.008258121088147163
+                },
+                "relativeVelocity": {
+                  "x": 2.60982346534729,
+                  "y": 0.11638206243515015,
+                  "z": -1.8095003366470337
+                },
+                "solverDistanceM": -0.003965109586715698,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.0011929528359577446,
+                "minimumReportedGeometryDistanceM": -0.003965109586715698,
+                "rawNormalImpulseNs": 0.2114851325750351,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 187.66453055193173,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 3.175762898675382
+              }
+            }
+          }
+        },
+        "wholeObservationMaxNoGroupSupportS": 0.13333333333333333
+      },
+      {
+        "scenario": "hurt_getup",
+        "variant": "allOff42",
+        "status": "observed",
+        "traceSha256": "a662f70241e0088a5ce041c31d9c09235d7e828a178325dd3cc74a30446af55a",
+        "firstStandS": 5.575,
+        "refalls": [
+          {
+            "timeS": 5.925,
+            "from": "stand",
+            "to": "getup",
+            "pelvisHeightM": 0.3373098075389862,
+            "chestTiltDeg": 69.05287360825979,
+            "feetSolverPointCount": 2
+          },
+          {
+            "timeS": 9.216666666666667,
+            "from": "stand",
+            "to": "getup",
+            "pelvisHeightM": 0.4904877841472626,
+            "chestTiltDeg": 65.80387088959101,
+            "feetSolverPointCount": 4
+          }
+        ],
+        "motor": {
+          "handle": "6.4e-323",
+          "requests": 7992,
+          "batches": 2664,
+          "zeroBatches": 0,
+          "disableCalls": 126,
+          "setterBodyPreserved": true,
+          "setterStructurePreserved": true,
+          "configureReenabled": true,
+          "positiveEnabled": true,
+          "windowBitsCorrect": true,
+          "firstZero": null,
+          "firstRequest": {
+            "timeS": 5.575000000000163,
+            "nativeBeforeSha256": "a72130145ebf6a40618b0f290785f790d1298a6649fe54c8e684e24f6e37d377",
+            "controllerSha256": "9dfea5b00a4ea8f0181dc6ae2b06c2877baffd76caff6e907c032bb25cebd70d",
+            "prefixSha256": "58661e203dd7dbeb153537c62edfaf2fa60dd52008c398edf4bb0b3bf5a5c502",
+            "prefixFrames": 332,
+            "requests": [
+              {
+                "axis": 3,
+                "target": 0,
+                "velocity": 0,
+                "k": 170.55038033068948,
+                "d": 22.512650203651013,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 4,
+                "target": 0,
+                "velocity": 0,
+                "k": 170.55038033068948,
+                "d": 22.512650203651013,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 5,
+                "target": 0,
+                "velocity": 0,
+                "k": 170.55038033068948,
+                "d": 22.512650203651013,
+                "api": "position",
+                "enabledAfterConfigure": true
+              }
+            ],
+            "handle": "6.4e-323"
+          },
+          "lastConfigured": {
+            "3": {
+              "axis": 3,
+              "target": 0,
+              "velocity": 0,
+              "k": 2499.999999999996,
+              "d": 329.9999999999995,
+              "api": "position"
+            },
+            "4": {
+              "axis": 4,
+              "target": 0,
+              "velocity": 0,
+              "k": 2499.999999999996,
+              "d": 329.9999999999995,
+              "api": "position"
+            },
+            "5": {
+              "axis": 5,
+              "target": 0,
+              "velocity": 0,
+              "k": 2499.999999999996,
+              "d": 329.9999999999995,
+              "api": "position"
+            }
+          },
+          "requestApis": {
+            "position": 7992,
+            "general": 0
+          },
+          "originalStructure": {
+            "handles": [
+              "0",
+              "5e-324",
+              "1e-323",
+              "1.5e-323",
+              "2e-323",
+              "2.5e-323",
+              "3e-323",
+              "3.5e-323",
+              "4e-323",
+              "4.4e-323",
+              "5e-323",
+              "5.4e-323",
+              "6e-323",
+              "6.4e-323",
+              "7e-323",
+              "7.4e-323",
+              "8e-323",
+              "8.4e-323",
+              "9e-323",
+              "9.4e-323",
+              "1e-322",
+              "1.04e-322",
+              "1.1e-322",
+              "1.14e-322",
+              "1.2e-322",
+              "1.24e-322",
+              "1.3e-322",
+              "1.33e-322",
+              "1.4e-322",
+              "1.43e-322"
+            ],
+            "handle": "6.4e-323",
+            "valid": true,
+            "a": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "b": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "frame1": {
+              "x": -0.7071067690849304,
+              "y": 0,
+              "z": 0,
+              "w": 0.7071067690849304
+            },
+            "frame2": {
+              "x": -0.7071067690849304,
+              "y": 0,
+              "z": 0,
+              "w": 0.7071067690849304
+            }
+          }
+        },
+        "afterFirstStand": {
+          "maxKJ": 308.26122595842173,
+          "maxHeightM": 0.9518724679946899,
+          "maxGapM": 0.0033741893652233677,
+          "slip": {
+            "allSolverPoints": {
+              "pointSamples": 13559,
+              "frames": 2319,
+              "meanMps": 0.019210003484130697,
+              "p95Mps": 0.03343155286733364,
+              "maxMps": 8.877234075791701,
+              "peak": {
+                "timeS": 9,
+                "state": "stand",
+                "stateTimeS": 0.30833333333333346,
+                "foot": "F",
+                "stance": true,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9999821216263793,
+                "pelvisPosition": {
+                  "x": -1.7172304391860962,
+                  "y": 0.504490077495575,
+                  "z": -1.3922972679138184
+                },
+                "pelvisVelocity": {
+                  "x": 0.48225900530815125,
+                  "y": -0.02802550047636032,
+                  "z": -0.06567098945379257
+                },
+                "point": {
+                  "x": -1.5129306316375732,
+                  "y": -0.006116390228271484,
+                  "z": -1.0542335510253906
+                },
+                "relativeVelocity": {
+                  "x": 8.415022850036621,
+                  "y": 0.8259141445159912,
+                  "z": -2.827131986618042
+                },
+                "solverDistanceM": -0.012232780456542969,
+                "predictionPoint": false,
+                "hasSupport": false,
+                "freshNormalGapM": 0.010628635510303491,
+                "minimumReportedGeometryDistanceM": -0.012232780456542969,
+                "rawNormalImpulseNs": 0.7392101287841797,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 8.877234075791701
+              }
+            },
+            "confirmedSupportPoints": {
+              "pointSamples": 13304,
+              "frames": 2315,
+              "meanMps": 0.014282689751964816,
+              "p95Mps": 0.029243509064685203,
+              "maxMps": 4.6933853087685335,
+              "peak": {
+                "timeS": 9.15,
+                "state": "stand",
+                "stateTimeS": 0.4583333333333339,
+                "foot": "B",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9999998992069122,
+                "pelvisPosition": {
+                  "x": -1.7165310382843018,
+                  "y": 0.464646577835083,
+                  "z": -1.4465134143829346
+                },
+                "pelvisVelocity": {
+                  "x": -0.4749661982059479,
+                  "y": 0.27212709188461304,
+                  "z": -0.429634690284729
+                },
+                "point": {
+                  "x": -2.421217203140259,
+                  "y": -0.003200821578502655,
+                  "z": -1.091414451599121
+                },
+                "relativeVelocity": {
+                  "x": 4.17393684387207,
+                  "y": 0.5232818722724915,
+                  "z": -2.146186590194702
+                },
+                "solverDistanceM": -0.006401597987860441,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": 6.970431110814301e-05,
+                "minimumReportedGeometryDistanceM": -0.006401597987860441,
+                "rawNormalImpulseNs": 0,
+                "rawPositiveManifold": false,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 4.6933853087685335
+              }
+            },
+            "nonPredictiveSupportPoints": {
+              "pointSamples": 13287,
+              "frames": 2315,
+              "meanMps": 0.013901856825709843,
+              "p95Mps": 0.02916253789535459,
+              "maxMps": 4.653472392120355,
+              "peak": {
+                "timeS": 9.141666666666666,
+                "state": "stand",
+                "stateTimeS": 0.45000000000000057,
+                "foot": "B",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9999998656092163,
+                "pelvisPosition": {
+                  "x": -1.7123571634292603,
+                  "y": 0.46253809332847595,
+                  "z": -1.4428232908248901
+                },
+                "pelvisVelocity": {
+                  "x": -0.5671280026435852,
+                  "y": 0.23879684507846832,
+                  "z": -0.5405675768852234
+                },
+                "point": {
+                  "x": -2.450491189956665,
+                  "y": -0.003998968750238419,
+                  "z": -1.068802833557129
+                },
+                "relativeVelocity": {
+                  "x": 3.852017879486084,
+                  "y": -0.19904664158821106,
+                  "z": -2.6108932495117188
+                },
+                "solverDistanceM": -0.00799793004989624,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.006401654763444786,
+                "minimumReportedGeometryDistanceM": -0.00799793004989624,
+                "rawNormalImpulseNs": 0.33897295594215393,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 4.653472392120355
+              }
+            },
+            "rawPositiveManifoldSupportPoints": {
+              "pointSamples": 13298,
+              "frames": 2315,
+              "meanMps": 0.013826751176768267,
+              "p95Mps": 0.02913164947459406,
+              "maxMps": 4.653472392120355,
+              "peak": {
+                "timeS": 9.141666666666666,
+                "state": "stand",
+                "stateTimeS": 0.45000000000000057,
+                "foot": "B",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9999998656092163,
+                "pelvisPosition": {
+                  "x": -1.7123571634292603,
+                  "y": 0.46253809332847595,
+                  "z": -1.4428232908248901
+                },
+                "pelvisVelocity": {
+                  "x": -0.5671280026435852,
+                  "y": 0.23879684507846832,
+                  "z": -0.5405675768852234
+                },
+                "point": {
+                  "x": -2.450491189956665,
+                  "y": -0.003998968750238419,
+                  "z": -1.068802833557129
+                },
+                "relativeVelocity": {
+                  "x": 3.852017879486084,
+                  "y": -0.19904664158821106,
+                  "z": -2.6108932495117188
+                },
+                "solverDistanceM": -0.00799793004989624,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.006401654763444786,
+                "minimumReportedGeometryDistanceM": -0.00799793004989624,
+                "rawNormalImpulseNs": 0.33897295594215393,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 4.653472392120355
+              }
+            },
+            "stanceFlagSupportPoints": {
+              "pointSamples": 12895,
+              "frames": 2315,
+              "meanMps": 0.01040065363919302,
+              "p95Mps": 0.02519875065633162,
+              "maxMps": 3.3624817838382937,
+              "peak": {
+                "timeS": 9.025,
+                "state": "stand",
+                "stateTimeS": 0.33333333333333354,
+                "foot": "F",
+                "stance": true,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9999924575611288,
+                "pelvisPosition": {
+                  "x": -1.708329677581787,
+                  "y": 0.4916898012161255,
+                  "z": -1.4013447761535645
+                },
+                "pelvisVelocity": {
+                  "x": 0.3722291588783264,
+                  "y": -0.5628154873847961,
+                  "z": -0.3104255199432373
+                },
+                "point": {
+                  "x": -1.3814997673034668,
+                  "y": -0.00571485236287117,
+                  "z": -1.0840935707092285
+                },
+                "relativeVelocity": {
+                  "x": 3.153038501739502,
+                  "y": 0.4005028009414673,
+                  "z": -1.1681746244430542
+                },
+                "solverDistanceM": -0.01142972707748413,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.010836131061453882,
+                "minimumReportedGeometryDistanceM": -0.01142972707748413,
+                "rawNormalImpulseNs": 3.6381587982177734,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 3.3624817838382937
+              }
+            },
+            "activeStanceSupportPoints": {
+              "pointSamples": 11535,
+              "frames": 1651,
+              "meanMps": 0.007359660747756291,
+              "p95Mps": 0.0032129763325419334,
+              "maxMps": 3.3624817838382937,
+              "peak": {
+                "timeS": 9.025,
+                "state": "stand",
+                "stateTimeS": 0.33333333333333354,
+                "foot": "F",
+                "stance": true,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9999924575611288,
+                "pelvisPosition": {
+                  "x": -1.708329677581787,
+                  "y": 0.4916898012161255,
+                  "z": -1.4013447761535645
+                },
+                "pelvisVelocity": {
+                  "x": 0.3722291588783264,
+                  "y": -0.5628154873847961,
+                  "z": -0.3104255199432373
+                },
+                "point": {
+                  "x": -1.3814997673034668,
+                  "y": -0.00571485236287117,
+                  "z": -1.0840935707092285
+                },
+                "relativeVelocity": {
+                  "x": 3.153038501739502,
+                  "y": 0.4005028009414673,
+                  "z": -1.1681746244430542
+                },
+                "solverDistanceM": -0.01142972707748413,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.010836131061453882,
+                "minimumReportedGeometryDistanceM": -0.01142972707748413,
+                "rawNormalImpulseNs": 3.6381587982177734,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 3.3624817838382937
+              }
+            },
+            "rawPositiveActiveStancePoints": {
+              "pointSamples": 11530,
+              "frames": 1650,
+              "meanMps": 0.007236626602138923,
+              "p95Mps": 0.003188059692213718,
+              "maxMps": 3.3624817838382937,
+              "peak": {
+                "timeS": 9.025,
+                "state": "stand",
+                "stateTimeS": 0.33333333333333354,
+                "foot": "F",
+                "stance": true,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9999924575611288,
+                "pelvisPosition": {
+                  "x": -1.708329677581787,
+                  "y": 0.4916898012161255,
+                  "z": -1.4013447761535645
+                },
+                "pelvisVelocity": {
+                  "x": 0.3722291588783264,
+                  "y": -0.5628154873847961,
+                  "z": -0.3104255199432373
+                },
+                "point": {
+                  "x": -1.3814997673034668,
+                  "y": -0.00571485236287117,
+                  "z": -1.0840935707092285
+                },
+                "relativeVelocity": {
+                  "x": 3.153038501739502,
+                  "y": 0.4005028009414673,
+                  "z": -1.1681746244430542
+                },
+                "solverDistanceM": -0.01142972707748413,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.010836131061453882,
+                "minimumReportedGeometryDistanceM": -0.01142972707748413,
+                "rawNormalImpulseNs": 3.6381587982177734,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 3.3624817838382937
+              }
+            }
+          }
+        },
+        "wholeObservationMaxNoGroupSupportS": 0.12499999999999999
+      },
+      {
+        "scenario": "hurt_getup",
+        "variant": "zeroAfterStand",
+        "status": "observed",
+        "traceSha256": "2a6c21ec8fcce6d5da12f759708abbeaecf12a621a8e408f5d3f49e40cd99c1c",
+        "firstStandS": 5.575,
+        "refalls": [
+          {
+            "timeS": 6.216666666666667,
+            "from": "stand",
+            "to": "getup",
+            "pelvisHeightM": 0.22397726774215698,
+            "chestTiltDeg": 72.11911816523478,
+            "feetSolverPointCount": 1
+          }
+        ],
+        "motor": {
+          "handle": "6.4e-323",
+          "requests": 7992,
+          "batches": 2664,
+          "zeroBatches": 20,
+          "disableCalls": 60,
+          "setterBodyPreserved": true,
+          "setterStructurePreserved": true,
+          "configureReenabled": true,
+          "positiveEnabled": true,
+          "windowBitsCorrect": true,
+          "firstZero": {
+            "timeS": 6.225000000000126,
+            "nativeBeforeSha256": "4406de345758a9ce9c652e23c92f5b871150c61343cfa24186e3788945040714",
+            "controllerSha256": "2072b9eee145ecf8916a95f86d1cc01e8b27348ea350cadb621099c3a9e78fdf",
+            "prefixSha256": "54050adb48b78713dc9062a8e68621b86adc2980f1cbe3dbbdf7e6a4672b7871",
+            "prefixFrames": 410,
+            "requests": [
+              {
+                "axis": 3,
+                "target": 0,
+                "velocity": 0,
+                "k": 0,
+                "d": 0,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 4,
+                "target": 0,
+                "velocity": 0,
+                "k": 0,
+                "d": 0,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 5,
+                "target": 0,
+                "velocity": 0,
+                "k": 0,
+                "d": 0,
+                "api": "position",
+                "enabledAfterConfigure": true
+              }
+            ],
+            "handle": "6.4e-323"
+          },
+          "firstRequest": {
+            "timeS": 5.575000000000163,
+            "nativeBeforeSha256": "a72130145ebf6a40618b0f290785f790d1298a6649fe54c8e684e24f6e37d377",
+            "controllerSha256": "9dfea5b00a4ea8f0181dc6ae2b06c2877baffd76caff6e907c032bb25cebd70d",
+            "prefixSha256": "58661e203dd7dbeb153537c62edfaf2fa60dd52008c398edf4bb0b3bf5a5c502",
+            "prefixFrames": 332,
+            "requests": [
+              {
+                "axis": 3,
+                "target": 0,
+                "velocity": 0,
+                "k": 170.55038033068948,
+                "d": 22.512650203651013,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 4,
+                "target": 0,
+                "velocity": 0,
+                "k": 170.55038033068948,
+                "d": 22.512650203651013,
+                "api": "position",
+                "enabledAfterConfigure": true
+              },
+              {
+                "axis": 5,
+                "target": 0,
+                "velocity": 0,
+                "k": 170.55038033068948,
+                "d": 22.512650203651013,
+                "api": "position",
+                "enabledAfterConfigure": true
+              }
+            ],
+            "handle": "6.4e-323"
+          },
+          "lastConfigured": {
+            "3": {
+              "axis": 3,
+              "target": 0,
+              "velocity": 0,
+              "k": 2499.999999999996,
+              "d": 329.9999999999995,
+              "api": "position"
+            },
+            "4": {
+              "axis": 4,
+              "target": 0,
+              "velocity": 0,
+              "k": 2499.999999999996,
+              "d": 329.9999999999995,
+              "api": "position"
+            },
+            "5": {
+              "axis": 5,
+              "target": 0,
+              "velocity": 0,
+              "k": 2499.999999999996,
+              "d": 329.9999999999995,
+              "api": "position"
+            }
+          },
+          "requestApis": {
+            "position": 7992,
+            "general": 0
+          },
+          "originalStructure": {
+            "handles": [
+              "0",
+              "5e-324",
+              "1e-323",
+              "1.5e-323",
+              "2e-323",
+              "2.5e-323",
+              "3e-323",
+              "3.5e-323",
+              "4e-323",
+              "4.4e-323",
+              "5e-323",
+              "5.4e-323",
+              "6e-323",
+              "6.4e-323",
+              "7e-323",
+              "7.4e-323",
+              "8e-323",
+              "8.4e-323",
+              "9e-323",
+              "9.4e-323",
+              "1e-322",
+              "1.04e-322",
+              "1.1e-322",
+              "1.14e-322",
+              "1.2e-322",
+              "1.24e-322",
+              "1.3e-322",
+              "1.33e-322",
+              "1.4e-322",
+              "1.43e-322"
+            ],
+            "handle": "6.4e-323",
+            "valid": true,
+            "a": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "b": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "frame1": {
+              "x": -0.7071067690849304,
+              "y": 0,
+              "z": 0,
+              "w": 0.7071067690849304
+            },
+            "frame2": {
+              "x": -0.7071067690849304,
+              "y": 0,
+              "z": 0,
+              "w": 0.7071067690849304
+            }
+          }
+        },
+        "afterFirstStand": {
+          "maxKJ": 291.66818151951003,
+          "maxHeightM": 0.9513259530067444,
+          "maxGapM": 0.0022225928873313263,
+          "slip": {
+            "allSolverPoints": {
+              "pointSamples": 14542,
+              "frames": 2315,
+              "meanMps": 0.027700305501540186,
+              "p95Mps": 0.03301210936502505,
+              "maxMps": 8.468239109531387,
+              "peak": {
+                "timeS": 9.608333333333333,
+                "state": "stand",
+                "stateTimeS": 0.6250000000000002,
+                "foot": "B",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9999999996803638,
+                "pelvisPosition": {
+                  "x": -1.6114096641540527,
+                  "y": 0.6827954053878784,
+                  "z": -1.2159568071365356
+                },
+                "pelvisVelocity": {
+                  "x": 0.3869505226612091,
+                  "y": 0.6169292330741882,
+                  "z": -0.2883776128292084
+                },
+                "point": {
+                  "x": -1.762031078338623,
+                  "y": 7.659196853637695e-05,
+                  "z": -1.343778371810913
+                },
+                "relativeVelocity": {
+                  "x": 8.26410961151123,
+                  "y": -0.12583237886428833,
+                  "z": -1.8481249809265137
+                },
+                "solverDistanceM": 0.0001531839370727539,
+                "predictionPoint": true,
+                "hasSupport": false,
+                "freshNormalGapM": 0.0037822706359673663,
+                "minimumReportedGeometryDistanceM": 0.0001531839370727539,
+                "rawNormalImpulseNs": 0,
+                "rawPositiveManifold": false,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 8.468239109531387
+              }
+            },
+            "confirmedSupportPoints": {
+              "pointSamples": 14374,
+              "frames": 2305,
+              "meanMps": 0.022839281476672954,
+              "p95Mps": 0.029309020872476815,
+              "maxMps": 7.941504109824588,
+              "peak": {
+                "timeS": 6.05,
+                "state": "stand",
+                "stateTimeS": 0.47500000000000064,
+                "foot": "F",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9999999433038881,
+                "pelvisPosition": {
+                  "x": -2.025212287902832,
+                  "y": 0.29972684383392334,
+                  "z": -1.0412706136703491
+                },
+                "pelvisVelocity": {
+                  "x": 0.08979189395904541,
+                  "y": -0.8819800019264221,
+                  "z": -0.37656423449516296
+                },
+                "point": {
+                  "x": -2.251983165740967,
+                  "y": -0.003536846488714218,
+                  "z": -0.4307629466056824
+                },
+                "relativeVelocity": {
+                  "x": 7.272727966308594,
+                  "y": -0.34817948937416077,
+                  "z": -3.189814329147339
+                },
+                "solverDistanceM": -0.007073730230331421,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.0054538769811389165,
+                "minimumReportedGeometryDistanceM": -0.007073730230331421,
+                "rawNormalImpulseNs": 0.03530497848987579,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 7.941504109824588
+              }
+            },
+            "nonPredictiveSupportPoints": {
+              "pointSamples": 14359,
+              "frames": 2305,
+              "meanMps": 0.022633588634652473,
+              "p95Mps": 0.029047416553780844,
+              "maxMps": 7.941504109824588,
+              "peak": {
+                "timeS": 6.05,
+                "state": "stand",
+                "stateTimeS": 0.47500000000000064,
+                "foot": "F",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9999999433038881,
+                "pelvisPosition": {
+                  "x": -2.025212287902832,
+                  "y": 0.29972684383392334,
+                  "z": -1.0412706136703491
+                },
+                "pelvisVelocity": {
+                  "x": 0.08979189395904541,
+                  "y": -0.8819800019264221,
+                  "z": -0.37656423449516296
+                },
+                "point": {
+                  "x": -2.251983165740967,
+                  "y": -0.003536846488714218,
+                  "z": -0.4307629466056824
+                },
+                "relativeVelocity": {
+                  "x": 7.272727966308594,
+                  "y": -0.34817948937416077,
+                  "z": -3.189814329147339
+                },
+                "solverDistanceM": -0.007073730230331421,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.0054538769811389165,
+                "minimumReportedGeometryDistanceM": -0.007073730230331421,
+                "rawNormalImpulseNs": 0.03530497848987579,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 7.941504109824588
+              }
+            },
+            "rawPositiveManifoldSupportPoints": {
+              "pointSamples": 14351,
+              "frames": 2301,
+              "meanMps": 0.021604140167401104,
+              "p95Mps": 0.028195384986193298,
+              "maxMps": 7.941504109824588,
+              "peak": {
+                "timeS": 6.05,
+                "state": "stand",
+                "stateTimeS": 0.47500000000000064,
+                "foot": "F",
+                "stance": false,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.9999999433038881,
+                "pelvisPosition": {
+                  "x": -2.025212287902832,
+                  "y": 0.29972684383392334,
+                  "z": -1.0412706136703491
+                },
+                "pelvisVelocity": {
+                  "x": 0.08979189395904541,
+                  "y": -0.8819800019264221,
+                  "z": -0.37656423449516296
+                },
+                "point": {
+                  "x": -2.251983165740967,
+                  "y": -0.003536846488714218,
+                  "z": -0.4307629466056824
+                },
+                "relativeVelocity": {
+                  "x": 7.272727966308594,
+                  "y": -0.34817948937416077,
+                  "z": -3.189814329147339
+                },
+                "solverDistanceM": -0.007073730230331421,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.0054538769811389165,
+                "minimumReportedGeometryDistanceM": -0.007073730230331421,
+                "rawNormalImpulseNs": 0.03530497848987579,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 0,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 7.941504109824588
+              }
+            },
+            "stanceFlagSupportPoints": {
+              "pointSamples": 14184,
+              "frames": 2302,
+              "meanMps": 0.013657409543625107,
+              "p95Mps": 0.01929805843215366,
+              "maxMps": 3.175762898675382,
+              "peak": {
+                "timeS": 5.6,
+                "state": "stand",
+                "stateTimeS": 0.025,
+                "foot": "F",
+                "stance": true,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.68359375,
+                "pelvisPosition": {
+                  "x": -2.2931816577911377,
+                  "y": 0.5423336625099182,
+                  "z": -0.8915359973907471
+                },
+                "pelvisVelocity": {
+                  "x": -0.04311705380678177,
+                  "y": -0.173519566655159,
+                  "z": 0.1981969177722931
+                },
+                "point": {
+                  "x": -2.4767041206359863,
+                  "y": -0.0019825398921966553,
+                  "z": -0.008258121088147163
+                },
+                "relativeVelocity": {
+                  "x": 2.60982346534729,
+                  "y": 0.11638206243515015,
+                  "z": -1.8095003366470337
+                },
+                "solverDistanceM": -0.003965109586715698,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.0011929528359577446,
+                "minimumReportedGeometryDistanceM": -0.003965109586715698,
+                "rawNormalImpulseNs": 0.2114851325750351,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 187.66453055193173,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 3.175762898675382
+              }
+            },
+            "activeStanceSupportPoints": {
+              "pointSamples": 13793,
+              "frames": 1982,
+              "meanMps": 0.01077810890143365,
+              "p95Mps": 0.00431587379429247,
+              "maxMps": 3.175762898675382,
+              "peak": {
+                "timeS": 5.6,
+                "state": "stand",
+                "stateTimeS": 0.025,
+                "foot": "F",
+                "stance": true,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.68359375,
+                "pelvisPosition": {
+                  "x": -2.2931816577911377,
+                  "y": 0.5423336625099182,
+                  "z": -0.8915359973907471
+                },
+                "pelvisVelocity": {
+                  "x": -0.04311705380678177,
+                  "y": -0.173519566655159,
+                  "z": 0.1981969177722931
+                },
+                "point": {
+                  "x": -2.4767041206359863,
+                  "y": -0.0019825398921966553,
+                  "z": -0.008258121088147163
+                },
+                "relativeVelocity": {
+                  "x": 2.60982346534729,
+                  "y": 0.11638206243515015,
+                  "z": -1.8095003366470337
+                },
+                "solverDistanceM": -0.003965109586715698,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.0011929528359577446,
+                "minimumReportedGeometryDistanceM": -0.003965109586715698,
+                "rawNormalImpulseNs": 0.2114851325750351,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 187.66453055193173,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 3.175762898675382
+              }
+            },
+            "rawPositiveActiveStancePoints": {
+              "pointSamples": 13780,
+              "frames": 1978,
+              "meanMps": 0.010338111501081545,
+              "p95Mps": 0.004239532480446174,
+              "maxMps": 3.175762898675382,
+              "peak": {
+                "timeS": 5.6,
+                "state": "stand",
+                "stateTimeS": 0.025,
+                "foot": "F",
+                "stance": true,
+                "gaitActive": true,
+                "levH": 1,
+                "levC": 0.68359375,
+                "pelvisPosition": {
+                  "x": -2.2931816577911377,
+                  "y": 0.5423336625099182,
+                  "z": -0.8915359973907471
+                },
+                "pelvisVelocity": {
+                  "x": -0.04311705380678177,
+                  "y": -0.173519566655159,
+                  "z": 0.1981969177722931
+                },
+                "point": {
+                  "x": -2.4767041206359863,
+                  "y": -0.0019825398921966553,
+                  "z": -0.008258121088147163
+                },
+                "relativeVelocity": {
+                  "x": 2.60982346534729,
+                  "y": 0.11638206243515015,
+                  "z": -1.8095003366470337
+                },
+                "solverDistanceM": -0.003965109586715698,
+                "predictionPoint": false,
+                "hasSupport": true,
+                "freshNormalGapM": -0.0011929528359577446,
+                "minimumReportedGeometryDistanceM": -0.003965109586715698,
+                "rawNormalImpulseNs": 0.2114851325750351,
+                "rawPositiveManifold": true,
+                "cachedGaitN": 187.66453055193173,
+                "geometryContactCount": 4,
+                "solverPointCount": 1,
+                "speedMps": 3.175762898675382
+              }
+            }
+          }
+        },
+        "wholeObservationMaxNoGroupSupportS": 0.15
+      }
+    ],
+    "analysis": {
+      "rawSha256": "313925d04ef449eebe8b7c32647a02139f7e9e8c43577c3073cac09ce5df2672",
+      "sourceStable": true,
+      "sourceCommit": "7f792dc8a87f735bb4b8d2bdbea85a2804d96397",
+      "wallSeconds": 50.290420592000004,
+      "postRunDriverSha256": "a8cf035b83d9b837686f19668217118ed5f28e9bb89ed7ad31fc642f4393c635",
+      "executedDriverSha256": "fcca593adfca3db05e118c045111dad760039bced3709f49d8db68a02b6c8be5",
+      "postRunChange": "Observer frame times canonicalized to frame*DT; missing first-change input frame now throws. Syntax checked; no new physical simulation. Existing r3 first-change input guard was vacuous for late zero due ~1e-13 clock difference; below revalidates actual recorded frames.",
+      "cases": [
+        {
+          "scenario": "healthy_getup",
+          "variant": "allOff42",
+          "firstChangeFrame": 506,
+          "firstChangeTimeS": 4.216666666666667,
+          "reportedEventTimeS": 4.216666666666823,
+          "nativeControllerPrefixExact": true,
+          "firstChangeInputsRevalidated": {
+            "nativeRequests": true,
+            "uprightRequests": true,
+            "bodyGoals": true,
+            "forceImpulseNs": true,
+            "angularImpulseNms": true,
+            "massChanges": true,
+            "pathForceTorque": true
+          },
+          "firstChangeNativeRequestCount": 28,
+          "firstChangeExplicitPathCount": 7,
+          "baselineKJ": 22.270816943066546,
+          "candidateKJ": 16.59949262679581,
+          "beforeKJ": 2.7300476593904928,
+          "firstChangeDifferenceKJ": -5.671324316270734,
+          "firstChangeNativeReadout": [
+            {
+              "axis": 3,
+              "enabled": false,
+              "lastConfigured": {
+                "axis": 3,
+                "target": 0,
+                "velocity": 0,
+                "k": 915.6578407456326,
+                "d": 120.8668349784235,
+                "api": "position"
+              },
+              "lastSubstepSignedImpulseNms": -0.3148503005504608,
+              "interpretation": "Last solver-substep signed readout only; disabled values may be stale. No full-step work or energy conversion."
+            },
+            {
+              "axis": 4,
+              "enabled": false,
+              "lastConfigured": {
+                "axis": 4,
+                "target": 0,
+                "velocity": 0,
+                "k": 915.6578407456326,
+                "d": 120.8668349784235,
+                "api": "position"
+              },
+              "lastSubstepSignedImpulseNms": 0.5330744385719299,
+              "interpretation": "Last solver-substep signed readout only; disabled values may be stale. No full-step work or energy conversion."
+            },
+            {
+              "axis": 5,
+              "enabled": false,
+              "lastConfigured": {
+                "axis": 5,
+                "target": 0,
+                "velocity": 0,
+                "k": 915.6578407456326,
+                "d": 120.8668349784235,
+                "api": "position"
+              },
+              "lastSubstepSignedImpulseNms": -0.06859586387872696,
+              "interpretation": "Last solver-substep signed readout only; disabled values may be stale. No full-step work or energy conversion."
+            }
+          ],
+          "firstStandWindow": {
+            "before": {
+              "timeS": 4.208333333333333,
+              "state": "getup",
+              "physicallyUprightGameGeometry": false,
+              "correctedChestTiltDeg": 15.619259327269935,
+              "pelvisHeightM": 0.7405027151107788,
+              "pelvisPositionM": {
+                "x": -2.6367380619049072,
+                "y": 0.7405027151107788,
+                "z": -0.7123914957046509
+              },
+              "pelvisVelocityMps": {
+                "x": -0.19731152057647705,
+                "y": 0.11382924020290375,
+                "z": 0.06170859560370445
+              },
+              "pelvisOmegaRadps": {
+                "x": -0.0007414427236653864,
+                "y": 0.015804274007678032,
+                "z": -0.32702139019966125
+              },
+              "chestHeightM": 1.082952618598938,
+              "chestTiltDeg": 22.908343406758334,
+              "COM": {
+                "x": -2.5782136897854397,
+                "y": 0.8180670647107751,
+                "z": -0.6730820291344871
+              },
+              "COMVelocityMps": {
+                "x": -0.14194008393401167,
+                "y": 0.0596601752842996,
+                "z": 0.06061751407658408
+              },
+              "KJ": 2.7300476593904928,
+              "massKg": 76.69999849796295,
+              "massChanges": [],
+              "explicitNetForceN": {
+                "x": 114.62674166550599,
+                "y": 3.051757971661573e-05,
+                "z": -89.8301467061862
+              },
+              "explicitWorkApproxJ": 0.9417313517503105,
+              "nativeResidualImpulseNs": {
+                "x": -1.2801803099128808,
+                "y": 5.907272975032013,
+                "z": 0.7052702594330293
+              },
+              "rawGroundImpulseNs": 6.890203535556793,
+              "nonPredictiveSolverPoints": 3,
+              "controllerSupport": {
+                "available": true,
+                "anySupport": true,
+                "footSupport": true
+              },
+              "muscle": 0.9988145051371328,
+              "kneelAmount": 5.329070518200751e-15,
+              "kneelTime": 1.1,
+              "riseTime": 0.9,
+              "downTime": 2.2,
+              "gaitActive": false,
+              "levH": 0,
+              "levC": 0,
+              "feetHeld": false,
+              "handHeld": false,
+              "maxJointAnchorGapM": 0.0008163662758469011
+            },
+            "first": {
+              "timeS": 4.216666666666667,
+              "state": "stand",
+              "physicallyUprightGameGeometry": false,
+              "correctedChestTiltDeg": 16.034165604219243,
+              "pelvisHeightM": 0.7408196330070496,
+              "pelvisPositionM": {
+                "x": -2.6387076377868652,
+                "y": 0.7408196330070496,
+                "z": -0.7122215032577515
+              },
+              "pelvisVelocityMps": {
+                "x": -0.1850609928369522,
+                "y": 0.0028794012032449245,
+                "z": 0.004470573738217354
+              },
+              "pelvisOmegaRadps": {
+                "x": -0.1655065268278122,
+                "y": 3.288745403289795,
+                "z": -1.2622411251068115
+              },
+              "chestHeightM": 1.083100438117981,
+              "chestTiltDeg": 22.759234427843474,
+              "COM": {
+                "x": -2.5934251319012147,
+                "y": 0.78070670521166,
+                "z": -0.6558489549254324
+              },
+              "COMVelocityMps": {
+                "x": -0.10277012926718777,
+                "y": 0.015898535902823946,
+                "z": 0.0938076725455229
+              },
+              "KJ": 16.59949262679581,
+              "massKg": 80.69999825954437,
+              "massChanges": [
+                {
+                  "handle": "5.4e-323",
+                  "label": "0:footF",
+                  "kind": "massPropertiesChanged",
+                  "beforeMass": 1.100000023841858,
+                  "afterMass": 3.0999999046325684,
+                  "beforeLocalCOM": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "afterLocalCOM": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "beforePrincipalI": {
+                    "x": 0.0013658334501087666,
+                    "y": 0.0061966669745743275,
+                    "z": 0.00572916679084301
+                  },
+                  "afterPrincipalI": {
+                    "x": 0.0038491669110953808,
+                    "y": 0.017463333904743195,
+                    "z": 0.01614583283662796
+                  }
+                },
+                {
+                  "handle": "7e-323",
+                  "label": "0:footB",
+                  "kind": "massPropertiesChanged",
+                  "beforeMass": 1.100000023841858,
+                  "afterMass": 3.0999999046325684,
+                  "beforeLocalCOM": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "afterLocalCOM": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "beforePrincipalI": {
+                    "x": 0.0013658334501087666,
+                    "y": 0.0061966669745743275,
+                    "z": 0.00572916679084301
+                  },
+                  "afterPrincipalI": {
+                    "x": 0.0038491669110953808,
+                    "y": 0.017463333904743195,
+                    "z": 0.01614583283662796
+                  }
+                }
+              ],
+              "explicitNetForceN": {
+                "x": 109.47362898525121,
+                "y": 0,
+                "z": 76.71720070407075
+              },
+              "explicitWorkApproxJ": 0.9732709994489206,
+              "nativeResidualImpulseNs": {
+                "x": 1.6809747300004663,
+                "y": 2.977301669219393,
+                "z": 2.2816057666641036
+              },
+              "rawGroundImpulseNs": 4.6369558572769165,
+              "nonPredictiveSolverPoints": 3,
+              "controllerSupport": {
+                "available": true,
+                "anySupport": true,
+                "footSupport": true
+              },
+              "muscle": 0.9988540216325617,
+              "kneelAmount": 0,
+              "kneelTime": 1.1,
+              "riseTime": 0.9,
+              "downTime": 2.2,
+              "gaitActive": true,
+              "levH": 1,
+              "levC": 0.1860883726743015,
+              "feetHeld": false,
+              "handHeld": false,
+              "maxJointAnchorGapM": 0.0009338487985559543
+            },
+            "last": {
+              "timeS": 4.558333333333334,
+              "state": "getup",
+              "physicallyUprightGameGeometry": false,
+              "correctedChestTiltDeg": 57.97813394682129,
+              "pelvisHeightM": 0.61757493019104,
+              "pelvisPositionM": {
+                "x": -2.550294876098633,
+                "y": 0.61757493019104,
+                "z": -0.8316528797149658
+              },
+              "pelvisVelocityMps": {
+                "x": 1.1049983501434326,
+                "y": -1.1680381298065186,
+                "z": -0.07554260641336441
+              },
+              "pelvisOmegaRadps": {
+                "x": 0.5431018471717834,
+                "y": 0.13829664885997772,
+                "z": -0.6622015833854675
+              },
+              "chestHeightM": 0.7493510246276855,
+              "chestTiltDeg": 76.7263739289261,
+              "COM": {
+                "x": -2.41127080273506,
+                "y": 0.6085886061180604,
+                "z": -0.6777551747584841
+              },
+              "COMVelocityMps": {
+                "x": 0.8573523326528045,
+                "y": -1.5435528434362358,
+                "z": 0.042068084209365225
+              },
+              "KJ": 176.288499785463,
+              "massKg": 76.69999849796295,
+              "massChanges": [],
+              "explicitNetForceN": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "explicitWorkApproxJ": -0.20154385585681628,
+              "nativeResidualImpulseNs": {
+                "x": 9.384500931373552,
+                "y": 14.85748741823615,
+                "z": 4.545489573903797
+              },
+              "rawGroundImpulseNs": 14.81013360619545,
+              "nonPredictiveSolverPoints": 2,
+              "controllerSupport": {
+                "available": true,
+                "anySupport": false,
+                "footSupport": false
+              },
+              "muscle": 0.7404741151434421,
+              "kneelAmount": 1,
+              "kneelTime": 1.1,
+              "riseTime": 0.9,
+              "downTime": 2.2,
+              "gaitActive": false,
+              "levH": 1,
+              "levC": 0.9993609823874148,
+              "feetHeld": false,
+              "handHeld": false,
+              "maxJointAnchorGapM": 0.0018186269087842723
+            },
+            "physicsSteps": 42,
+            "deltaKJ": 173.5584521260725,
+            "deltaMechanicalJ": 15.941207049193622,
+            "explicitWorkApproxJ": -85.30888530375643,
+            "rawGroundImpulseNs": 170.144581977278,
+            "confirmedUpwardImpulseNs": 169.76381431892514,
+            "noSupportSteps": 4,
+            "maxKJ": 286.203649920547,
+            "maxGapM": 0.0019138226961510642
+          },
+          "next035Window": {
+            "lastTimeS": 4.558333333333334,
+            "baselineDeltaKJ": 58.7916875592049,
+            "candidateDeltaKJ": 173.5584521260725,
+            "baselineMaxKJ": 77.59141168063556,
+            "candidateMaxKJ": 286.203649920547
+          },
+          "priorRemoveComparison": {
+            "path": "/workspace/halfsword-hybrid-evidence/recovery-handoff-upright-causal-r2.json",
+            "window42AllPhysicalFieldsExact": true,
+            "fields": [
+              "state",
+              "KJ",
+              "COM",
+              "massKg",
+              "pelvisPositionM",
+              "pelvisVelocityMps",
+              "pelvisOmegaRadps",
+              "chestHeightM",
+              "chestTiltDeg",
+              "maxJointAnchorGapM",
+              "rawGroundImpulseNs",
+              "explicitNetForceN"
+            ],
+            "fullTraceExact": true,
+            "priorTrace": "000f73c3f1df96444011ac2d29b8bde93fc2d75d3a947323badd219dfede9d78",
+            "currentTrace": "000f73c3f1df96444011ac2d29b8bde93fc2d75d3a947323badd219dfede9d78"
+          }
+        },
+        {
+          "scenario": "healthy_getup",
+          "variant": "zeroAfterStand",
+          "firstChangeFrame": 602,
+          "firstChangeTimeS": 5.016666666666667,
+          "reportedEventTimeS": 5.016666666666861,
+          "nativeControllerPrefixExact": true,
+          "firstChangeInputsRevalidated": {
+            "nativeRequests": true,
+            "uprightRequests": true,
+            "bodyGoals": true,
+            "forceImpulseNs": true,
+            "angularImpulseNms": true,
+            "massChanges": true,
+            "pathForceTorque": true
+          },
+          "firstChangeNativeRequestCount": 28,
+          "firstChangeExplicitPathCount": 7,
+          "baselineKJ": 49.35717547907217,
+          "candidateKJ": 49.478954518642894,
+          "beforeKJ": 62.76029822936388,
+          "firstChangeDifferenceKJ": 0.12177903957072544,
+          "firstChangeNativeReadout": [
+            {
+              "axis": 3,
+              "enabled": false,
+              "lastConfigured": {
+                "axis": 3,
+                "target": 0,
+                "velocity": 0,
+                "k": 0,
+                "d": 0,
+                "api": "position"
+              },
+              "lastSubstepSignedImpulseNms": -0.005517805926501751,
+              "interpretation": "Last solver-substep signed readout only; disabled values may be stale. No full-step work or energy conversion."
+            },
+            {
+              "axis": 4,
+              "enabled": false,
+              "lastConfigured": {
+                "axis": 4,
+                "target": 0,
+                "velocity": 0,
+                "k": 0,
+                "d": 0,
+                "api": "position"
+              },
+              "lastSubstepSignedImpulseNms": 0.37320300936698914,
+              "interpretation": "Last solver-substep signed readout only; disabled values may be stale. No full-step work or energy conversion."
+            },
+            {
+              "axis": 5,
+              "enabled": false,
+              "lastConfigured": {
+                "axis": 5,
+                "target": 0,
+                "velocity": 0,
+                "k": 0,
+                "d": 0,
+                "api": "position"
+              },
+              "lastSubstepSignedImpulseNms": 0.053026556968688965,
+              "interpretation": "Last solver-substep signed readout only; disabled values may be stale. No full-step work or energy conversion."
+            }
+          ],
+          "firstStandWindow": {
+            "before": {
+              "timeS": 4.208333333333333,
+              "state": "getup",
+              "physicallyUprightGameGeometry": false,
+              "correctedChestTiltDeg": 15.619259327269935,
+              "pelvisHeightM": 0.7405027151107788,
+              "pelvisPositionM": {
+                "x": -2.6367380619049072,
+                "y": 0.7405027151107788,
+                "z": -0.7123914957046509
+              },
+              "pelvisVelocityMps": {
+                "x": -0.19731152057647705,
+                "y": 0.11382924020290375,
+                "z": 0.06170859560370445
+              },
+              "pelvisOmegaRadps": {
+                "x": -0.0007414427236653864,
+                "y": 0.015804274007678032,
+                "z": -0.32702139019966125
+              },
+              "chestHeightM": 1.082952618598938,
+              "chestTiltDeg": 22.908343406758334,
+              "COM": {
+                "x": -2.5782136897854397,
+                "y": 0.8180670647107751,
+                "z": -0.6730820291344871
+              },
+              "COMVelocityMps": {
+                "x": -0.14194008393401167,
+                "y": 0.0596601752842996,
+                "z": 0.06061751407658408
+              },
+              "KJ": 2.7300476593904928,
+              "massKg": 76.69999849796295,
+              "massChanges": [],
+              "explicitNetForceN": {
+                "x": 114.62674166550599,
+                "y": 3.051757971661573e-05,
+                "z": -89.8301467061862
+              },
+              "explicitWorkApproxJ": 0.9417313517503105,
+              "nativeResidualImpulseNs": {
+                "x": -1.2801803099128808,
+                "y": 5.907272975032013,
+                "z": 0.7052702594330293
+              },
+              "rawGroundImpulseNs": 6.890203535556793,
+              "nonPredictiveSolverPoints": 3,
+              "controllerSupport": {
+                "available": true,
+                "anySupport": true,
+                "footSupport": true
+              },
+              "muscle": 0.9988145051371328,
+              "kneelAmount": 5.329070518200751e-15,
+              "kneelTime": 1.1,
+              "riseTime": 0.9,
+              "downTime": 2.2,
+              "gaitActive": false,
+              "levH": 0,
+              "levC": 0,
+              "feetHeld": false,
+              "handHeld": false,
+              "maxJointAnchorGapM": 0.0008163662758469011
+            },
+            "first": {
+              "timeS": 4.216666666666667,
+              "state": "stand",
+              "physicallyUprightGameGeometry": false,
+              "correctedChestTiltDeg": 16.19580552438775,
+              "pelvisHeightM": 0.7414551377296448,
+              "pelvisPositionM": {
+                "x": -2.6383213996887207,
+                "y": 0.7414551377296448,
+                "z": -0.7121489644050598
+              },
+              "pelvisVelocityMps": {
+                "x": -0.23317593336105347,
+                "y": 0.06738953292369843,
+                "z": 0.05641946941614151
+              },
+              "pelvisOmegaRadps": {
+                "x": 0.11999226361513138,
+                "y": 8.532755851745605,
+                "z": -1.5566303730010986
+              },
+              "chestHeightM": 1.0835260152816772,
+              "chestTiltDeg": 22.92087434801198,
+              "COM": {
+                "x": -2.5934031523541305,
+                "y": 0.7807395521716682,
+                "z": -0.6558687469630492
+              },
+              "COMVelocityMps": {
+                "x": -0.09974859699682163,
+                "y": 0.025111443345829394,
+                "z": 0.08941190834746776
+              },
+              "KJ": 22.270816943066546,
+              "massKg": 80.69999825954437,
+              "massChanges": [
+                {
+                  "handle": "5.4e-323",
+                  "label": "0:footF",
+                  "kind": "massPropertiesChanged",
+                  "beforeMass": 1.100000023841858,
+                  "afterMass": 3.0999999046325684,
+                  "beforeLocalCOM": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "afterLocalCOM": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "beforePrincipalI": {
+                    "x": 0.0013658334501087666,
+                    "y": 0.0061966669745743275,
+                    "z": 0.00572916679084301
+                  },
+                  "afterPrincipalI": {
+                    "x": 0.0038491669110953808,
+                    "y": 0.017463333904743195,
+                    "z": 0.01614583283662796
+                  }
+                },
+                {
+                  "handle": "7e-323",
+                  "label": "0:footB",
+                  "kind": "massPropertiesChanged",
+                  "beforeMass": 1.100000023841858,
+                  "afterMass": 3.0999999046325684,
+                  "beforeLocalCOM": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "afterLocalCOM": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "beforePrincipalI": {
+                    "x": 0.0013658334501087666,
+                    "y": 0.0061966669745743275,
+                    "z": 0.00572916679084301
+                  },
+                  "afterPrincipalI": {
+                    "x": 0.0038491669110953808,
+                    "y": 0.017463333904743195,
+                    "z": 0.01614583283662796
+                  }
+                }
+              ],
+              "explicitNetForceN": {
+                "x": 109.47362898525121,
+                "y": 0,
+                "z": 76.71720070407075
+              },
+              "explicitWorkApproxJ": 0.12161018893707487,
+              "nativeResidualImpulseNs": {
+                "x": 1.924812378960171,
+                "y": 3.720783283835276,
+                "z": 1.9268676035316863
+              },
+              "rawGroundImpulseNs": 5.380751967430115,
+              "nonPredictiveSolverPoints": 3,
+              "controllerSupport": {
+                "available": true,
+                "anySupport": true,
+                "footSupport": true
+              },
+              "muscle": 0.9988540216325617,
+              "kneelAmount": 0,
+              "kneelTime": 1.1,
+              "riseTime": 0.9,
+              "downTime": 2.2,
+              "gaitActive": true,
+              "levH": 1,
+              "levC": 0.1860883726743015,
+              "feetHeld": false,
+              "handHeld": false,
+              "maxJointAnchorGapM": 0.0011665999737101131
+            },
+            "last": {
+              "timeS": 4.558333333333334,
+              "state": "stand",
+              "physicallyUprightGameGeometry": false,
+              "correctedChestTiltDeg": 9.099141712258689,
+              "pelvisHeightM": 0.7735582590103149,
+              "pelvisPositionM": {
+                "x": -2.5938260555267334,
+                "y": 0.7735582590103149,
+                "z": -0.7323057651519775
+              },
+              "pelvisVelocityMps": {
+                "x": 0.32881712913513184,
+                "y": 0.6368662118911743,
+                "z": -0.0715656578540802
+              },
+              "pelvisOmegaRadps": {
+                "x": 0.09884841740131378,
+                "y": -0.9924883246421814,
+                "z": -1.0173267126083374
+              },
+              "chestHeightM": 1.1240814924240112,
+              "chestTiltDeg": 17.747540512144234,
+              "COM": {
+                "x": -2.5614098903284983,
+                "y": 0.8273015749884663,
+                "z": -0.7007036500434503
+              },
+              "COMVelocityMps": {
+                "x": 0.5504366166841294,
+                "y": 0.7358161285339773,
+                "z": -0.10681290331364078
+              },
+              "KJ": 61.521735218595396,
+              "massKg": 78.69999837875366,
+              "massChanges": [],
+              "explicitNetForceN": {
+                "x": -39.48651328985079,
+                "y": 0,
+                "z": 212.1054726596045
+              },
+              "explicitWorkApproxJ": -0.8781911641153405,
+              "nativeResidualImpulseNs": {
+                "x": 0.9729669643418788,
+                "y": 2.885093464773308,
+                "z": -0.4025380805975076
+              },
+              "rawGroundImpulseNs": 3.820861518383026,
+              "nonPredictiveSolverPoints": 3,
+              "controllerSupport": {
+                "available": true,
+                "anySupport": true,
+                "footSupport": true
+              },
+              "muscle": 0.9997145547043478,
+              "kneelAmount": 0,
+              "kneelTime": 1.1,
+              "riseTime": 0.9,
+              "downTime": 2.2,
+              "gaitActive": true,
+              "levH": 1,
+              "levC": 0.9989097685702827,
+              "feetHeld": false,
+              "handHeld": false,
+              "maxJointAnchorGapM": 0.0004848900081181781
+            },
+            "physicsSteps": 42,
+            "deltaKJ": 58.7916875592049,
+            "deltaMechanicalJ": 81.97163822163861,
+            "explicitWorkApproxJ": 29.139872561147865,
+            "rawGroundImpulseNs": 386.85079686157405,
+            "confirmedUpwardImpulseNs": 385.2267580460757,
+            "noSupportSteps": 0,
+            "maxKJ": 77.59141168063556,
+            "maxGapM": 0.002419736892330869
+          },
+          "next035Window": {
+            "lastTimeS": 5.358333333333333,
+            "baselineDeltaKJ": -60.08561989463204,
+            "candidateDeltaKJ": -58.487270636723956,
+            "baselineMaxKJ": 84.1165517059927,
+            "candidateMaxKJ": 74.21380850105008
+          }
+        },
+        {
+          "scenario": "hurt_getup",
+          "variant": "allOff42",
+          "firstChangeFrame": 669,
+          "firstChangeTimeS": 5.575,
+          "reportedEventTimeS": 5.575000000000163,
+          "nativeControllerPrefixExact": true,
+          "firstChangeInputsRevalidated": {
+            "nativeRequests": true,
+            "uprightRequests": true,
+            "bodyGoals": true,
+            "forceImpulseNs": true,
+            "angularImpulseNms": true,
+            "massChanges": true,
+            "pathForceTorque": true
+          },
+          "firstChangeNativeRequestCount": 28,
+          "firstChangeExplicitPathCount": 7,
+          "baselineKJ": 16.39659114026678,
+          "candidateKJ": 15.797489836273176,
+          "beforeKJ": 1.7016645645722106,
+          "firstChangeDifferenceKJ": -0.5991013039936028,
+          "firstChangeNativeReadout": [
+            {
+              "axis": 3,
+              "enabled": false,
+              "lastConfigured": {
+                "axis": 3,
+                "target": 0,
+                "velocity": 0,
+                "k": 170.55038033068948,
+                "d": 22.512650203651013,
+                "api": "position"
+              },
+              "lastSubstepSignedImpulseNms": -0.510940432548523,
+              "interpretation": "Last solver-substep signed readout only; disabled values may be stale. No full-step work or energy conversion."
+            },
+            {
+              "axis": 4,
+              "enabled": false,
+              "lastConfigured": {
+                "axis": 4,
+                "target": 0,
+                "velocity": 0,
+                "k": 170.55038033068948,
+                "d": 22.512650203651013,
+                "api": "position"
+              },
+              "lastSubstepSignedImpulseNms": 0.46843528747558594,
+              "interpretation": "Last solver-substep signed readout only; disabled values may be stale. No full-step work or energy conversion."
+            },
+            {
+              "axis": 5,
+              "enabled": false,
+              "lastConfigured": {
+                "axis": 5,
+                "target": 0,
+                "velocity": 0,
+                "k": 170.55038033068948,
+                "d": 22.512650203651013,
+                "api": "position"
+              },
+              "lastSubstepSignedImpulseNms": 0.09747195243835449,
+              "interpretation": "Last solver-substep signed readout only; disabled values may be stale. No full-step work or energy conversion."
+            }
+          ],
+          "firstStandWindow": {
+            "before": {
+              "timeS": 5.566666666666666,
+              "state": "getup",
+              "physicallyUprightGameGeometry": false,
+              "correctedChestTiltDeg": 16.90922598614777,
+              "pelvisHeightM": 0.5449544787406921,
+              "pelvisPositionM": {
+                "x": -2.29145884513855,
+                "y": 0.5449544787406921,
+                "z": -0.8917535543441772
+              },
+              "pelvisVelocityMps": {
+                "x": -0.026584014296531677,
+                "y": 0.08044297993183136,
+                "z": -0.06942904740571976
+              },
+              "pelvisOmegaRadps": {
+                "x": -0.17955529689788818,
+                "y": -0.07713917642831802,
+                "z": 0.057453058660030365
+              },
+              "chestHeightM": 0.8846290111541748,
+              "chestTiltDeg": 24.20096264802104,
+              "COM": {
+                "x": -2.2613474451289752,
+                "y": 0.6484559288694618,
+                "z": -0.8381272251088833
+              },
+              "COMVelocityMps": {
+                "x": -0.01991138634424713,
+                "y": 0.1020940584323964,
+                "z": -0.02921811163747273
+              },
+              "KJ": 1.7016645645722106,
+              "massKg": 76.69999849796295,
+              "massChanges": [],
+              "explicitNetForceN": {
+                "x": -28.98759182477841,
+                "y": 1.5258789858307864e-05,
+                "z": 10.91262051752464
+              },
+              "explicitWorkApproxJ": 0.007707527200050437,
+              "nativeResidualImpulseNs": {
+                "x": -0.028808450689771448,
+                "y": 6.417441699379411,
+                "z": -0.3096737429381684
+              },
+              "rawGroundImpulseNs": 7.447422623634338,
+              "nonPredictiveSolverPoints": 4,
+              "controllerSupport": {
+                "available": true,
+                "anySupport": true,
+                "footSupport": true
+              },
+              "muscle": 0.9998810710829703,
+              "kneelAmount": 0.00023148148148732783,
+              "kneelTime": 1.517241379310345,
+              "riseTime": 1.2413793103448276,
+              "downTime": 2.805,
+              "gaitActive": false,
+              "levH": 0,
+              "levC": 0,
+              "feetHeld": false,
+              "handHeld": false,
+              "maxJointAnchorGapM": 0.0014354021575887631
+            },
+            "first": {
+              "timeS": 5.575,
+              "state": "stand",
+              "physicallyUprightGameGeometry": false,
+              "correctedChestTiltDeg": 16.74192709081319,
+              "pelvisHeightM": 0.5451986193656921,
+              "pelvisPositionM": {
+                "x": -2.2920637130737305,
+                "y": 0.5451986193656921,
+                "z": -0.8927911520004272
+              },
+              "pelvisVelocityMps": {
+                "x": -0.06557909399271011,
+                "y": 0.002153768204152584,
+                "z": -0.1627720296382904
+              },
+              "pelvisOmegaRadps": {
+                "x": 0.8122234344482422,
+                "y": 4.535611629486084,
+                "z": -2.6757404804229736
+              },
+              "chestHeightM": 0.8850541114807129,
+              "chestTiltDeg": 23.953122577929246,
+              "COM": {
+                "x": -2.285201328924462,
+                "y": 0.6212720984423186,
+                "z": -0.8144083037075304
+              },
+              "COMVelocityMps": {
+                "x": -0.029280072600586918,
+                "y": 0.0986342923064887,
+                "z": 0.006513486247694751
+              },
+              "KJ": 15.797489836273176,
+              "massKg": 80.69999825954437,
+              "massChanges": [
+                {
+                  "handle": "5.4e-323",
+                  "label": "0:footF",
+                  "kind": "massPropertiesChanged",
+                  "beforeMass": 1.100000023841858,
+                  "afterMass": 3.0999999046325684,
+                  "beforeLocalCOM": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "afterLocalCOM": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "beforePrincipalI": {
+                    "x": 0.0013658334501087666,
+                    "y": 0.0061966669745743275,
+                    "z": 0.00572916679084301
+                  },
+                  "afterPrincipalI": {
+                    "x": 0.0038491669110953808,
+                    "y": 0.017463333904743195,
+                    "z": 0.01614583283662796
+                  }
+                },
+                {
+                  "handle": "7e-323",
+                  "label": "0:footB",
+                  "kind": "massPropertiesChanged",
+                  "beforeMass": 1.100000023841858,
+                  "afterMass": 3.0999999046325684,
+                  "beforeLocalCOM": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "afterLocalCOM": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "beforePrincipalI": {
+                    "x": 0.0013658334501087666,
+                    "y": 0.0061966669745743275,
+                    "z": 0.00572916679084301
+                  },
+                  "afterPrincipalI": {
+                    "x": 0.0038491669110953808,
+                    "y": 0.017463333904743195,
+                    "z": 0.01614583283662796
+                  }
+                }
+              ],
+              "explicitNetForceN": {
+                "x": 12.340588259578595,
+                "y": 8.160568970572157e-07,
+                "z": 39.461224706683744
+              },
+              "explicitWorkApproxJ": 1.7932521362316836,
+              "nativeResidualImpulseNs": {
+                "x": -0.9385367407070704,
+                "y": 6.399398286474992,
+                "z": 2.43782390833764
+              },
+              "rawGroundImpulseNs": 7.867172732949257,
+              "nonPredictiveSolverPoints": 4,
+              "controllerSupport": {
+                "available": true,
+                "anySupport": true,
+                "footSupport": true
+              },
+              "muscle": 0.9998850353802047,
+              "kneelAmount": 0,
+              "kneelTime": 1.517241379310345,
+              "riseTime": 1.2413793103448276,
+              "downTime": 2.805,
+              "gaitActive": true,
+              "levH": 1,
+              "levC": 0.25,
+              "feetHeld": false,
+              "handHeld": false,
+              "maxJointAnchorGapM": 0.0008835235231313895
+            },
+            "last": {
+              "timeS": 5.916666666666667,
+              "state": "stand",
+              "physicallyUprightGameGeometry": false,
+              "correctedChestTiltDeg": 55.554337124164086,
+              "pelvisHeightM": 0.33456265926361084,
+              "pelvisPositionM": {
+                "x": -2.2311513423919678,
+                "y": 0.33456265926361084,
+                "z": -0.8886752724647522
+              },
+              "pelvisVelocityMps": {
+                "x": -0.2140568047761917,
+                "y": 0.5130936503410339,
+                "z": -0.4088880717754364
+              },
+              "pelvisOmegaRadps": {
+                "x": 1.093540906906128,
+                "y": 1.4574259519577026,
+                "z": -10.821876525878906
+              },
+              "chestHeightM": 0.5041241645812988,
+              "chestTiltDeg": 62.981370680532905,
+              "COM": {
+                "x": -2.078559416945848,
+                "y": 0.37798699669266017,
+                "z": -0.8756519114990459
+              },
+              "COMVelocityMps": {
+                "x": 0.7424644972505529,
+                "y": -0.7848886171551893,
+                "z": -0.512763724304514
+              },
+              "KJ": 208.57390643765478,
+              "massKg": 78.69999837875366,
+              "massChanges": [],
+              "explicitNetForceN": {
+                "x": 246.46781299467833,
+                "y": 0,
+                "z": 132.04782411705494
+              },
+              "explicitWorkApproxJ": 2.662770189871252,
+              "nativeResidualImpulseNs": {
+                "x": -13.260061117879633,
+                "y": 32.240524515166484,
+                "z": -4.768114111687769
+              },
+              "rawGroundImpulseNs": 32.911799013614655,
+              "nonPredictiveSolverPoints": 7,
+              "controllerSupport": {
+                "available": true,
+                "anySupport": true,
+                "footSupport": true
+              },
+              "muscle": 0.9999713641105109,
+              "kneelAmount": 0,
+              "kneelTime": 1.517241379310345,
+              "riseTime": 1.2413793103448276,
+              "downTime": 2.805,
+              "gaitActive": true,
+              "levH": 1,
+              "levC": 0.9999943431708466,
+              "feetHeld": false,
+              "handHeld": false,
+              "maxJointAnchorGapM": 0.0012725976600838245
+            },
+            "physicsSteps": 42,
+            "deltaKJ": 206.87224187308257,
+            "deltaMechanicalJ": 10.780223060519234,
+            "explicitWorkApproxJ": 67.64596489773709,
+            "rawGroundImpulseNs": 229.23563594929874,
+            "confirmedUpwardImpulseNs": 207.04793299548328,
+            "noSupportSteps": 0,
+            "maxKJ": 208.57390643765478,
+            "maxGapM": 0.0015900397714900592
+          },
+          "next035Window": {
+            "lastTimeS": 5.916666666666667,
+            "baselineDeltaKJ": 125.35926239631081,
+            "candidateDeltaKJ": 206.87224187308257,
+            "baselineMaxKJ": 139.29972101651774,
+            "candidateMaxKJ": 208.57390643765478
+          },
+          "priorRemoveComparison": {
+            "path": "/workspace/halfsword-hybrid-evidence/recovery-handoff-upright-causal-r2.json",
+            "window42AllPhysicalFieldsExact": true,
+            "fields": [
+              "state",
+              "KJ",
+              "COM",
+              "massKg",
+              "pelvisPositionM",
+              "pelvisVelocityMps",
+              "pelvisOmegaRadps",
+              "chestHeightM",
+              "chestTiltDeg",
+              "maxJointAnchorGapM",
+              "rawGroundImpulseNs",
+              "explicitNetForceN"
+            ],
+            "fullTraceExact": true,
+            "priorTrace": "a662f70241e0088a5ce041c31d9c09235d7e828a178325dd3cc74a30446af55a",
+            "currentTrace": "a662f70241e0088a5ce041c31d9c09235d7e828a178325dd3cc74a30446af55a"
+          }
+        },
+        {
+          "scenario": "hurt_getup",
+          "variant": "zeroAfterStand",
+          "firstChangeFrame": 747,
+          "firstChangeTimeS": 6.225,
+          "reportedEventTimeS": 6.225000000000126,
+          "nativeControllerPrefixExact": true,
+          "firstChangeInputsRevalidated": {
+            "nativeRequests": true,
+            "uprightRequests": true,
+            "bodyGoals": true,
+            "forceImpulseNs": true,
+            "angularImpulseNms": true,
+            "massChanges": true,
+            "pathForceTorque": true
+          },
+          "firstChangeNativeRequestCount": 28,
+          "firstChangeExplicitPathCount": 6,
+          "baselineKJ": 209.41906798682228,
+          "candidateKJ": 223.45366890545236,
+          "beforeKJ": 291.66818151951003,
+          "firstChangeDifferenceKJ": 14.034600918630076,
+          "firstChangeNativeReadout": [
+            {
+              "axis": 3,
+              "enabled": false,
+              "lastConfigured": {
+                "axis": 3,
+                "target": 0,
+                "velocity": 0,
+                "k": 0,
+                "d": 0,
+                "api": "position"
+              },
+              "lastSubstepSignedImpulseNms": -1.3819818496704102,
+              "interpretation": "Last solver-substep signed readout only; disabled values may be stale. No full-step work or energy conversion."
+            },
+            {
+              "axis": 4,
+              "enabled": false,
+              "lastConfigured": {
+                "axis": 4,
+                "target": 0,
+                "velocity": 0,
+                "k": 0,
+                "d": 0,
+                "api": "position"
+              },
+              "lastSubstepSignedImpulseNms": -0.9042066931724548,
+              "interpretation": "Last solver-substep signed readout only; disabled values may be stale. No full-step work or energy conversion."
+            },
+            {
+              "axis": 5,
+              "enabled": false,
+              "lastConfigured": {
+                "axis": 5,
+                "target": 0,
+                "velocity": 0,
+                "k": 0,
+                "d": 0,
+                "api": "position"
+              },
+              "lastSubstepSignedImpulseNms": 1.4995583295822144,
+              "interpretation": "Last solver-substep signed readout only; disabled values may be stale. No full-step work or energy conversion."
+            }
+          ],
+          "firstStandWindow": {
+            "before": {
+              "timeS": 5.566666666666666,
+              "state": "getup",
+              "physicallyUprightGameGeometry": false,
+              "correctedChestTiltDeg": 16.90922598614777,
+              "pelvisHeightM": 0.5449544787406921,
+              "pelvisPositionM": {
+                "x": -2.29145884513855,
+                "y": 0.5449544787406921,
+                "z": -0.8917535543441772
+              },
+              "pelvisVelocityMps": {
+                "x": -0.026584014296531677,
+                "y": 0.08044297993183136,
+                "z": -0.06942904740571976
+              },
+              "pelvisOmegaRadps": {
+                "x": -0.17955529689788818,
+                "y": -0.07713917642831802,
+                "z": 0.057453058660030365
+              },
+              "chestHeightM": 0.8846290111541748,
+              "chestTiltDeg": 24.20096264802104,
+              "COM": {
+                "x": -2.2613474451289752,
+                "y": 0.6484559288694618,
+                "z": -0.8381272251088833
+              },
+              "COMVelocityMps": {
+                "x": -0.01991138634424713,
+                "y": 0.1020940584323964,
+                "z": -0.02921811163747273
+              },
+              "KJ": 1.7016645645722106,
+              "massKg": 76.69999849796295,
+              "massChanges": [],
+              "explicitNetForceN": {
+                "x": -28.98759182477841,
+                "y": 1.5258789858307864e-05,
+                "z": 10.91262051752464
+              },
+              "explicitWorkApproxJ": 0.007707527200050437,
+              "nativeResidualImpulseNs": {
+                "x": -0.028808450689771448,
+                "y": 6.417441699379411,
+                "z": -0.3096737429381684
+              },
+              "rawGroundImpulseNs": 7.447422623634338,
+              "nonPredictiveSolverPoints": 4,
+              "controllerSupport": {
+                "available": true,
+                "anySupport": true,
+                "footSupport": true
+              },
+              "muscle": 0.9998810710829703,
+              "kneelAmount": 0.00023148148148732783,
+              "kneelTime": 1.517241379310345,
+              "riseTime": 1.2413793103448276,
+              "downTime": 2.805,
+              "gaitActive": false,
+              "levH": 0,
+              "levC": 0,
+              "feetHeld": false,
+              "handHeld": false,
+              "maxJointAnchorGapM": 0.0014354021575887631
+            },
+            "first": {
+              "timeS": 5.575,
+              "state": "stand",
+              "physicallyUprightGameGeometry": false,
+              "correctedChestTiltDeg": 16.783719254204563,
+              "pelvisHeightM": 0.5451655983924866,
+              "pelvisPositionM": {
+                "x": -2.2920145988464355,
+                "y": 0.5451655983924866,
+                "z": -0.8929838538169861
+              },
+              "pelvisVelocityMps": {
+                "x": -0.08342339843511581,
+                "y": 0.008165900595486164,
+                "z": -0.1956893503665924
+              },
+              "pelvisOmegaRadps": {
+                "x": 1.0017492771148682,
+                "y": 5.4959564208984375,
+                "z": -2.7688004970550537
+              },
+              "chestHeightM": 0.8850570917129517,
+              "chestTiltDeg": 23.99491474132062,
+              "COM": {
+                "x": -2.285210058535824,
+                "y": 0.6212772570964732,
+                "z": -0.8144170429528256
+              },
+              "COMVelocityMps": {
+                "x": -0.03218955726290706,
+                "y": 0.10025727814840504,
+                "z": 0.0034595614020592404
+              },
+              "KJ": 16.39659114026678,
+              "massKg": 80.69999825954437,
+              "massChanges": [
+                {
+                  "handle": "5.4e-323",
+                  "label": "0:footF",
+                  "kind": "massPropertiesChanged",
+                  "beforeMass": 1.100000023841858,
+                  "afterMass": 3.0999999046325684,
+                  "beforeLocalCOM": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "afterLocalCOM": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "beforePrincipalI": {
+                    "x": 0.0013658334501087666,
+                    "y": 0.0061966669745743275,
+                    "z": 0.00572916679084301
+                  },
+                  "afterPrincipalI": {
+                    "x": 0.0038491669110953808,
+                    "y": 0.017463333904743195,
+                    "z": 0.01614583283662796
+                  }
+                },
+                {
+                  "handle": "7e-323",
+                  "label": "0:footB",
+                  "kind": "massPropertiesChanged",
+                  "beforeMass": 1.100000023841858,
+                  "afterMass": 3.0999999046325684,
+                  "beforeLocalCOM": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "afterLocalCOM": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "beforePrincipalI": {
+                    "x": 0.0013658334501087666,
+                    "y": 0.0061966669745743275,
+                    "z": 0.00572916679084301
+                  },
+                  "afterPrincipalI": {
+                    "x": 0.0038491669110953808,
+                    "y": 0.017463333904743195,
+                    "z": 0.01614583283662796
+                  }
+                }
+              ],
+              "explicitNetForceN": {
+                "x": 12.340588259578595,
+                "y": 8.160568970572157e-07,
+                "z": 39.461224706683744
+              },
+              "explicitWorkApproxJ": 1.579982611641632,
+              "nativeResidualImpulseNs": {
+                "x": -1.1733321478924768,
+                "y": 6.5303732410929065,
+                "z": 2.191372178610075
+              },
+              "rawGroundImpulseNs": 7.998199954628944,
+              "nonPredictiveSolverPoints": 4,
+              "controllerSupport": {
+                "available": true,
+                "anySupport": true,
+                "footSupport": true
+              },
+              "muscle": 0.9998850353802047,
+              "kneelAmount": 0,
+              "kneelTime": 1.517241379310345,
+              "riseTime": 1.2413793103448276,
+              "downTime": 2.805,
+              "gaitActive": true,
+              "levH": 1,
+              "levC": 0.25,
+              "feetHeld": false,
+              "handHeld": false,
+              "maxJointAnchorGapM": 0.0008193347989022381
+            },
+            "last": {
+              "timeS": 5.916666666666667,
+              "state": "stand",
+              "physicallyUprightGameGeometry": false,
+              "correctedChestTiltDeg": 27.3513438856437,
+              "pelvisHeightM": 0.39453667402267456,
+              "pelvisPositionM": {
+                "x": -2.185711145401001,
+                "y": 0.39453667402267456,
+                "z": -0.9440569877624512
+              },
+              "pelvisVelocityMps": {
+                "x": 1.9966119527816772,
+                "y": -0.9020755290985107,
+                "z": -1.024808406829834
+              },
+              "pelvisOmegaRadps": {
+                "x": 1.129664659500122,
+                "y": 0.6249671578407288,
+                "z": 7.2042975425720215
+              },
+              "chestHeightM": 0.7047914266586304,
+              "chestTiltDeg": 36.16215399072598,
+              "COM": {
+                "x": -2.125492667960647,
+                "y": 0.47004826055281407,
+                "z": -0.9021851868997144
+              },
+              "COMVelocityMps": {
+                "x": 1.042863593942503,
+                "y": -0.36834633229803987,
+                "z": -0.7189304980646913
+              },
+              "KJ": 127.06092696088302,
+              "massKg": 80.69999825954437,
+              "massChanges": [
+                {
+                  "handle": "7e-323",
+                  "label": "0:footB",
+                  "kind": "massPropertiesChanged",
+                  "beforeMass": 1.100000023841858,
+                  "afterMass": 3.0999999046325684,
+                  "beforeLocalCOM": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "afterLocalCOM": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  },
+                  "beforePrincipalI": {
+                    "x": 0.0013658334501087666,
+                    "y": 0.0061966669745743275,
+                    "z": 0.00572916679084301
+                  },
+                  "afterPrincipalI": {
+                    "x": 0.0038491669110953808,
+                    "y": 0.017463333904743195,
+                    "z": 0.01614583283662796
+                  }
+                }
+              ],
+              "explicitNetForceN": {
+                "x": 193.50546510918576,
+                "y": 0,
+                "z": 81.43460126252606
+              },
+              "explicitWorkApproxJ": -0.23262616686517046,
+              "nativeResidualImpulseNs": {
+                "x": 7.058127219096015,
+                "y": 16.525454711829614,
+                "z": -4.784563798903481
+              },
+              "rawGroundImpulseNs": 16.343075156211853,
+              "nonPredictiveSolverPoints": 6,
+              "controllerSupport": {
+                "available": true,
+                "anySupport": true,
+                "footSupport": true
+              },
+              "muscle": 0.9999713641105109,
+              "kneelAmount": 0,
+              "kneelTime": 1.517241379310345,
+              "riseTime": 1.2413793103448276,
+              "downTime": 2.805,
+              "gaitActive": true,
+              "levH": 1,
+              "levC": 0.9999943431708466,
+              "feetHeld": false,
+              "handHeld": false,
+              "maxJointAnchorGapM": 0.001292587170191137
+            },
+            "physicsSteps": 42,
+            "deltaKJ": 125.35926239631081,
+            "deltaMechanicalJ": 9.565211021357584,
+            "explicitWorkApproxJ": 52.25341523113006,
+            "rawGroundImpulseNs": 270.24507079587784,
+            "confirmedUpwardImpulseNs": 265.75103295163717,
+            "noSupportSteps": 0,
+            "maxKJ": 139.29972101651774,
+            "maxGapM": 0.0017299775674781616
+          },
+          "next035Window": {
+            "lastTimeS": 6.566666666666666,
+            "baselineDeltaKJ": -268.7056231321708,
+            "candidateDeltaKJ": -266.6435446437429,
+            "baselineMaxKJ": 209.41906798682228,
+            "candidateMaxKJ": 223.45366890545236
+          }
+        }
+      ]
+    }
+  },
+  "rootIndependentRawFrameChecks": [
+    {
+      "scenario": "healthy_getup",
+      "variant": "allOff42",
+      "checkpoint": "firstConfigured",
+      "uniqueExistingFrame": true,
+      "actualFirstInputEquality": {
+        "nativeRequests": true,
+        "uprightRequests": true,
+        "bodyGoals": true,
+        "forceImpulseNs": true,
+        "angularImpulseNms": true,
+        "massChanges": true,
+        "pathForceTorque": true
+      },
+      "baselineAllEnabled": true,
+      "candidateAllDisabled": true
+    },
+    {
+      "scenario": "healthy_getup",
+      "variant": "zeroAfterStand",
+      "checkpoint": "firstZero",
+      "uniqueExistingFrame": true,
+      "actualFirstInputEquality": {
+        "nativeRequests": true,
+        "uprightRequests": true,
+        "bodyGoals": true,
+        "forceImpulseNs": true,
+        "angularImpulseNms": true,
+        "massChanges": true,
+        "pathForceTorque": true
+      },
+      "baselineAllEnabled": true,
+      "candidateAllDisabled": true
+    },
+    {
+      "scenario": "hurt_getup",
+      "variant": "allOff42",
+      "checkpoint": "firstConfigured",
+      "uniqueExistingFrame": true,
+      "actualFirstInputEquality": {
+        "nativeRequests": true,
+        "uprightRequests": true,
+        "bodyGoals": true,
+        "forceImpulseNs": true,
+        "angularImpulseNms": true,
+        "massChanges": true,
+        "pathForceTorque": true
+      },
+      "baselineAllEnabled": true,
+      "candidateAllDisabled": true
+    },
+    {
+      "scenario": "hurt_getup",
+      "variant": "zeroAfterStand",
+      "checkpoint": "firstZero",
+      "uniqueExistingFrame": true,
+      "actualFirstInputEquality": {
+        "nativeRequests": true,
+        "uprightRequests": true,
+        "bodyGoals": true,
+        "forceImpulseNs": true,
+        "angularImpulseNms": true,
+        "massChanges": true,
+        "pathForceTorque": true
+      },
+      "baselineAllEnabled": true,
+      "candidateAllDisabled": true
+    }
+  ],
+  "firstInputGateCorrectedByPostprocessing": true,
+  "postRunDriverOnlySyntaxAndProvenanceChecked": true,
+  "publicRuntimeChanged": false
+}

@@ -1,0 +1,108 @@
+{
+  "verifiedUTC": "2026-10-02T07:16:14.538269+00:00",
+  "source": "f0afe5f38c473693053192b1b90e96ffa6b1bbbc",
+  "missionSource": "65855993be5ac96bad464f9a042d8d626faad97e",
+  "main": "44ff6c93b7628b7963d734ad70fc1b86f8855f4d",
+  "workBranch": "44ff6c93b7628b7963d734ad70fc1b86f8855f4d",
+  "sourceTreeExact": true,
+  "sourceAncestor": true,
+  "transferRun": 36977129231,
+  "run": {
+    "id": 36977150768,
+    "event": "workflow_run",
+    "head_sha": "44ff6c93b7628b7963d734ad70fc1b86f8855f4d",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/36977150768",
+    "created_at": "2026-10-02T07:10:05Z",
+    "updated_at": "2026-10-02T07:12:29Z"
+  },
+  "steps": [
+    {
+      "name": "Set up job",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/checkout@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Record actual main checkout and trigger",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-node@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Fingerprint source, fixtures and runtime",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/cache/restore@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Install locked game dependencies",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run independent checks or preserve identical cached result",
+      "conclusion": "success"
+    },
+    {
+      "name": "Save new success or failure evidence cache",
+      "conclusion": "success"
+    },
+    {
+      "name": "Preserve fresh evidence and logs",
+      "conclusion": "success"
+    },
+    {
+      "name": "Preserve cached run receipt without duplicate raw evidence",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Post Run actions/setup-node@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/checkout@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "conclusion": "success"
+    }
+  ],
+  "workflowSHA256": "6d48585f883c4f8ec7c07e902562e805b5acfab609be28e6bc5e8fb5e1a96a50",
+  "runnerSHA256": "cfba78bae4e0b8dcbf6f544f9175264b9a1f27e8206347c082ca32ba08d93d05",
+  "artifacts": [
+    {
+      "id": 11213708347,
+      "name": "development-checks-36977150768-1",
+      "size_in_bytes": 1094406,
+      "expired": false,
+      "digest": "sha256:754ccd223a254d604f872ca7daea3736560d82c2b3f6a6221c0c4735836a8e15"
+    }
+  ],
+  "artifactDownloadVerified": false,
+  "artifactDownloadLimitation": "Artifact archive download returned Forbidden. Job logs were readable and independently confirm actual checkout and six-check PASS; archive bytes not locally verified.",
+  "schedule": "17 */2 * * * UTC",
+  "scheduleClockRunObserved": false,
+  "workflowRunTriggerObserved": true,
+  "automaticAICoding": false,
+  "jobLog": {
+    "path": "/workspace/halfsword-hybrid-evidence/automatic-checks-36977150768.log",
+    "sha256": "0cab20e8abac34724065752e50bfb95da5dd59d405c52122762e6b512a91f183",
+    "checkoutSHA": "44ff6c93b7628b7963d734ad70fc1b86f8855f4d",
+    "checkoutSHAConfirmedInLog": true,
+    "reportedResult": {
+      "result": "/home/runner/work/_temp/development-checks-36977150768-1/result.json",
+      "pass": true,
+      "cacheUsed": false,
+      "wallSeconds": 128.225414644,
+      "tests": 6
+    }
+  }
+}

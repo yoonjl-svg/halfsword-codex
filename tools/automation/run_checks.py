@@ -158,7 +158,19 @@ def run_suite(out, cache, force=False):
    stream.write(f"Result: {'PASS' if report['pass'] else 'FAIL'}; cached={report['cacheUsed']}; wall={report['wallSeconds']:.2f}s.\n\n")
    for row in report['tests']:stream.write(f"- {row['id']}: {'PASS' if row['pass'] else 'FAIL'} (exit {row['exitCode']}, measured command wall {row['wallSeconds']:.2f}s)\n")
    stream.write('\nRegression checks only; no AI coding, automatic fixes or realism-completion claim.\n')
- print(json.dumps({'result':str(out/'result.json'),'pass':report['pass'],'cacheUsed':report['cacheUsed'],'wallSeconds':report['wallSeconds'],'tests':len(report['tests'])}))
+ # Keep actionable results in ordinary Actions logs as well as the downloadable
+ # artifact. Some clients can read job logs but cannot fetch artifact archives.
+ console_rows=[]
+ for row in report['tests']:
+  item={key:row.get(key) for key in ['id','pass','exitCode','error','resultError']}
+  if not row['pass']:
+   try:item['logTail']='\n'.join((out/row['log']).read_text(errors='replace').splitlines()[-8:])[-1800:]
+   except OSError:item['logTail']=None
+  console_rows.append(item)
+ print(json.dumps({'result':str(out/'result.json'),'checkoutSHA':report['checkoutSHA'],
+                   'evidenceCheckoutSHA':report.get('evidenceCheckoutSHA',report['checkoutSHA']),
+                   'sourceStable':report['sourceStable'],'pass':report['pass'],'cacheUsed':report['cacheUsed'],
+                   'wallSeconds':report['wallSeconds'],'tests':len(report['tests']),'testResults':console_rows}))
  return 0 if report['pass'] else 1
 
 def self_test():
