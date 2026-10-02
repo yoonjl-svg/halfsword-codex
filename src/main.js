@@ -34,6 +34,7 @@ import { ReviveFx } from './revive_fx.js';
 import { configureSupportProbe, mountSupportProbe } from './support_probe.js';
 import { configurePhysicalTrial, mountPhysicalTrial } from './physical_trial.js';
 import { configureCutTrial, mountCutTrial } from './cut_trial.js';
+import { configureArmTrial, mountArmTrial } from './arm_trial.js';
 
 await RAPIER.init();
 
@@ -46,6 +47,7 @@ let limbDemoAt = Infinity;
 const supportProbe = configureSupportProbe(params, CONFIG.GAIT);
 const physicalTrial = configurePhysicalTrial(params, CONFIG.GRIP, CONFIG.BODY);
 const cutTrial = configureCutTrial(params);
+const armTrial = configureArmTrial(params);
 // 주인공은 판마다 무기 카드 세 장 중 하나를 골라 받는다 (아래 "무기 뽑기"). 주소에 ?weapon=을 적으면 뽑기 없이 그 무기로 고정.
 //  진짜 엑스칼리버는 주인공만 받을 수 있고, 복제품은 하인리히 몫이라 뽑기에서 뺀다
 const PLAYER_WEAPON_POOL = WEAPON_LIST.map((w) => w.id).filter((id) => id !== 'excalibur_replica');
@@ -399,6 +401,8 @@ function newRound(weaponId) {
     weapon: foeWeapon, // prepareRound 가 정한 상대 무기
     revive: currentFoe?.revive, // 부활 (이졸데: 처음 죽으면 한 번 다시 일어선다, src/revive.js)
   });
+  // 같은 선택형 팔 제어를 양쪽에 적용하고 재시작 때도 주소 설정을 유지한다.
+  for (const f of [player, enemy]) f.armTorqueModel = armTrial.model;
   // 진짜 엑스칼리버의 기운 (보여 주기만)
   for (const a of auras) a.dispose();
   auras = [player, enemy].map(attachAura).filter(Boolean);
@@ -629,6 +633,7 @@ const menu = $('menu');
 mountSupportProbe(supportProbe);
 mountPhysicalTrial(physicalTrial);
 mountCutTrial(cutTrial);
+mountArmTrial(armTrial);
 const hud = $('hud');
 const topButtons = $('topButtons');
 const toast = $('toast');
@@ -1511,6 +1516,7 @@ window.game = {
   config: CONFIG,
   supportProbe,
   physicalTrial,
+  armTrial,
   THREE,
   camera,
   freeCam: false,
