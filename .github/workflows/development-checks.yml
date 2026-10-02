@@ -1,0 +1,110 @@
+name: Development regression checks
+
+on:
+  schedule:
+    - cron: '17 */2 * * *'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Re-run even if identical success or failure evidence is cached
+        required: false
+        default: false
+        type: boolean
+  workflow_run:
+    workflows: ['Import verified Codex development commits']
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: development-checks-main
+  cancel-in-progress: false
+
+jobs:
+  checks:
+    if: >-
+      github.repository == 'yoonjl-svg/halfsword-codex' &&
+      (github.event_name != 'workflow_run' ||
+       (github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.head_branch == 'main' &&
+        github.event.workflow_run.head_repository.full_name == 'yoonjl-svg/halfsword-codex'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CHECK_OUTPUT: ${{ runner.temp }}/development-checks-${{ github.run_id }}-${{ github.run_attempt }}
+      CHECK_CACHE: ${{ runner.temp }}/development-check-cache
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Record actual main checkout and trigger
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$CHECK_OUTPUT-meta"
+          git rev-parse HEAD > "$CHECK_OUTPUT-meta/checkout-sha.txt"
+          printf 'Checked main SHA: `%s`\n\nTrigger: `%s`\n' "$(git rev-parse HEAD)" "$GITHUB_EVENT_NAME" >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Fingerprint source, fixtures and runtime
+        id: fingerprint
+        shell: bash
+        run: |
+          set -euo pipefail
+          key="$(python tools/automation/run_checks.py --fingerprint)"
+          [[ "$key" =~ ^[0-9a-f]{64}$ ]]
+          printf 'key=%s\n' "$key" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache/restore@v4
+        id: cache
+        with:
+          path: ${{ env.CHECK_CACHE }}
+          key: development-checks-v1-${{ runner.os }}-${{ steps.fingerprint.outputs.key }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            development-checks-v1-${{ runner.os }}-${{ steps.fingerprint.outputs.key }}-
+      - name: Install locked game dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm ci 2>&1 | tee "$CHECK_OUTPUT-meta/npm-ci.log"
+      - name: Run independent checks or preserve identical cached result
+        id: run
+        env:
+          FORCE_CHECKS: ${{ github.event_name == 'workflow_dispatch' && inputs.force || false }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          extra=()
+          if [[ "$FORCE_CHECKS" == true ]]; then extra+=(--force); fi
+          python tools/automation/run_checks.py --out "$CHECK_OUTPUT" --cache-dir "$CHECK_CACHE" "${extra[@]}"
+      - name: Save new success or failure evidence cache
+        if: always() && steps.run.outputs.cache_used == 'false'
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ env.CHECK_CACHE }}
+          key: development-checks-v1-${{ runner.os }}-${{ steps.fingerprint.outputs.key }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Preserve fresh evidence and logs
+        if: always() && steps.run.outputs.cache_used != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: development-checks-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ env.CHECK_OUTPUT }}/*.json
+            ${{ env.CHECK_OUTPUT }}/*.log
+            ${{ env.CHECK_OUTPUT }}-meta/*
+          retention-days: 14
+          if-no-files-found: warn
+      - name: Preserve cached run receipt without duplicate raw evidence
+        if: always() && steps.run.outputs.cache_used == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: development-checks-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ env.CHECK_OUTPUT }}/result.json
+            ${{ env.CHECK_OUTPUT }}-meta/*
+          retention-days: 14
+          if-no-files-found: warn
