@@ -1,0 +1,3974 @@
+{
+  "schemaVersion": 1,
+  "experiment": "natural_recovery_joint_response",
+  "sourceCommit": "ca0809d098cbcb2b8526e94d0550ac526f3a9529",
+  "sourceHashes": {
+    "docs/strike/same_lying_recovery_summary.json": "0487cf99ebb9509057d360d64ac375db993094f5e8d99b3000348c5d0b046949",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+    "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+    "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+    "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+    "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+    "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+    "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+    "src/combat.js": "7e807bcd086366cfda8ad84ed33bcd14f02f5506f1df3341bbe47f6d22e25097",
+    "src/config.js": "e84d7b921b6d8678b358a5971b296c22edded192d680a56e45a0b29ab2aa5319",
+    "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+    "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+    "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+    "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+    "src/fighter.js": "cfd1d8199ef06e7f6ef22c2d1275cdeef2dbb2876114c07b323bb1be33ec16bc",
+    "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+    "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+    "src/gait.js": "91eba47caf6dddd7fd75a5de141a087614398031c45ef75b2ac814f8c4db9b83",
+    "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+    "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+    "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+    "src/input.js": "b5954792bb8c9d005bbe17dc1a7669e296b6297c66a1f0339f487d4a2ff9cd4f",
+    "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+    "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+    "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+    "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+    "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+    "src/main.js": "7c8aa20f886a85b6f8f2e3617ae08030934a1d2f79ae22df73d7ff8f6ac06f6f",
+    "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+    "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+    "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+    "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+    "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+    "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+    "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+    "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+    "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+    "src/sound.js": "7c6dddf5f81675f46d4df64d2fd3c9586e22172351f734a3bd1b273bfd24cac1",
+    "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+    "src/soundlab.js": "3e0f803534d588d2bbf78dbb42cb901077de26f32dcdd13cbc251c2424f12624",
+    "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+    "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+    "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+    "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+    "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+    "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+    "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+    "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+    "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+    "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+    "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+    "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+    "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+    "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+    "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+    "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "tools/sim/experiments/bounded_joint_motor.mjs": "14c744e60787a905e64e402c03f39b2422ee3f9040f86ea0661f8d8e794bf95f",
+    "tools/sim/experiments/recovery_joint_response_probe.mjs": "43ce64bf4a01b053ed1b994e8d2dcdbf2a98c3e821b8cf9a1ff33338d2051af4",
+    "tools/sim/experiments/same_lying_recovery_probe.mjs": "b0ce8060e322005cadcaf6ea93835c2468efbbb82db81e83bc9f63bf66e19d45",
+    "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+    "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b"
+  },
+  "sourceHashesAfter": {
+    "docs/strike/same_lying_recovery_summary.json": "0487cf99ebb9509057d360d64ac375db993094f5e8d99b3000348c5d0b046949",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+    "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+    "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+    "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+    "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+    "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+    "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+    "src/combat.js": "7e807bcd086366cfda8ad84ed33bcd14f02f5506f1df3341bbe47f6d22e25097",
+    "src/config.js": "e84d7b921b6d8678b358a5971b296c22edded192d680a56e45a0b29ab2aa5319",
+    "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+    "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+    "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+    "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+    "src/fighter.js": "cfd1d8199ef06e7f6ef22c2d1275cdeef2dbb2876114c07b323bb1be33ec16bc",
+    "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+    "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+    "src/gait.js": "91eba47caf6dddd7fd75a5de141a087614398031c45ef75b2ac814f8c4db9b83",
+    "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+    "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+    "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+    "src/input.js": "b5954792bb8c9d005bbe17dc1a7669e296b6297c66a1f0339f487d4a2ff9cd4f",
+    "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+    "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+    "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+    "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+    "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+    "src/main.js": "7c8aa20f886a85b6f8f2e3617ae08030934a1d2f79ae22df73d7ff8f6ac06f6f",
+    "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+    "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+    "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+    "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+    "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+    "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+    "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+    "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+    "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+    "src/sound.js": "7c6dddf5f81675f46d4df64d2fd3c9586e22172351f734a3bd1b273bfd24cac1",
+    "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+    "src/soundlab.js": "3e0f803534d588d2bbf78dbb42cb901077de26f32dcdd13cbc251c2424f12624",
+    "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+    "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+    "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+    "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+    "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+    "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+    "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+    "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+    "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+    "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+    "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+    "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+    "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+    "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+    "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+    "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "tools/sim/experiments/bounded_joint_motor.mjs": "14c744e60787a905e64e402c03f39b2422ee3f9040f86ea0661f8d8e794bf95f",
+    "tools/sim/experiments/recovery_joint_response_probe.mjs": "43ce64bf4a01b053ed1b994e8d2dcdbf2a98c3e821b8cf9a1ff33338d2051af4",
+    "tools/sim/experiments/same_lying_recovery_probe.mjs": "b0ce8060e322005cadcaf6ea93835c2468efbbb82db81e83bc9f63bf66e19d45",
+    "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+    "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b"
+  },
+  "sourceStableDuringRun": true,
+  "evidence": {
+    "recovery-joint-response.json": {
+      "path": "/workspace/halfsword-hybrid-evidence/recovery-joint-response.json",
+      "bytes": 3821208,
+      "sha256": "ac93531f24a7a7487ddfd52a63ceb1182791129bf0dcf1b236d221120ff09ab1"
+    },
+    "recovery-joint-response.summary.json": {
+      "path": "/workspace/halfsword-hybrid-evidence/recovery-joint-response.summary.json",
+      "bytes": 34894,
+      "sha256": "a61b2a85c1f908e2e166ee9f5bade36d4f9531b276c8c966431eb87e3ae4d840"
+    },
+    "recovery-joint-response.log": {
+      "path": "/workspace/halfsword-hybrid-evidence/recovery-joint-response.log",
+      "bytes": 22308,
+      "sha256": "797ff98635d2575ecd336c4971d0d8031fa695eee5e33275fdd902799e31fd28"
+    }
+  },
+  "command": "node tools/sim/experiments/recovery_joint_response_probe.mjs > /workspace/halfsword-hybrid-evidence/recovery-joint-response.log 2>&1",
+  "wallSeconds": 28.014860016000004,
+  "error": null,
+  "protocol": {
+    "scenarios": [
+      "healthy_getup",
+      "hurt_getup"
+    ],
+    "phases": [
+      "lowDown",
+      "firstStand"
+    ],
+    "impulsesNms": [
+      0.001,
+      0.01
+    ],
+    "axis": "parent local Z expressed in world, fixed at the checkpoint",
+    "controllerUpdatesPerBranch": 0,
+    "physicsStepsPerBranch": 1,
+    "forcePolicy": "All dynamic bodies resetForces(true)/resetTorques(true) identically before the shared response snapshot. No pose/velocity/mass setters. Gravity unchanged. Passive leg joint recreation drops leg solver history; upper/upright native retained. Cached native combat hooks are used; combat/controller updates are not run.",
+    "interpretation": "State-dependent coupled one-step response, not an exact effective inertia identification, a motor gain prescription, a recovery acceptance test or a human material measurement."
+  },
+  "traceGuards": [
+    {
+      "scenario": "healthy_getup",
+      "originalExact": true,
+      "originalTraceSha256": "dd37acfde6fee03dc3b15d762b2256c66c4158d41567950a43dc5f8d376c8df6",
+      "projectedExact": true,
+      "projectedTraceSha256": "b51535850381e6f77b5db44727328b9c68d5bd246a2af63b39488694d019d8c4",
+      "switchExact": true,
+      "sameInput": true,
+      "firstStandS": 4.216666666666667,
+      "capturedBoth": true
+    },
+    {
+      "scenario": "hurt_getup",
+      "originalExact": true,
+      "originalTraceSha256": "87c3cb44b0f6ef22ebb956bbd49c69c5ba0ac268dbadf4466eed80fb6d532b0d",
+      "projectedExact": true,
+      "projectedTraceSha256": "83443272f40fa16b99fdc7580ab188b8fcb72bbf4718fdd64dd4501b8dab4212",
+      "switchExact": true,
+      "sameInput": true,
+      "firstStandS": 5.575,
+      "capturedBoth": true
+    }
+  ],
+  "experimentBranchCount": 72,
+  "checkpointCount": 4,
+  "branchCountDefinition": "4 natural checkpoints × 3 selected joints × (2 zero repeats + 2 signs × 2 impulse magnitudes) = 72 simulation branches; not human participants or independent human samples.",
+  "measurementDefinitions": {
+    "centralGain": "(omega_plus_after - omega_minus_after)/(2*impulseMagnitudeNms), fixed checkpoint world axis; (rad/s)/(N*m*s).",
+    "plusMinusZeroGain": "(omega_plus_after - omega_zero_after)/impulseMagnitudeNms.",
+    "minusMinusZeroGain": "(omega_minus_after - omega_zero_after)/(-impulseMagnitudeNms).",
+    "evenResponseRadS": "(omega_plus_after + omega_minus_after - 2*omega_zero_after)/2.",
+    "freePairInverseInertia": "axis dot (effectiveWorldInvInertia_child + effectiveWorldInvInertia_parent) axis; predicts immediate impulse response before constraints step.",
+    "centralToFreePairRatio": "Measured post-step centralGain divided by freePairInverseInertia; a constrained one-step response ratio, not intrinsic inertia.",
+    "nativeSerialization": "Original snapshot bytes shared by all branches; restored body state exactly matches original and all restored-native hashes match one another. Restored native reserialization differs from original byte stream."
+  },
+  "rows": [
+    {
+      "scenario": "healthy_getup",
+      "phase": "lowDown",
+      "timeS": 2.2,
+      "state": "down",
+      "pelvisHeightM": 0.21536177396774292,
+      "chestTiltDeg": 86.83359503964124,
+      "levH": 0,
+      "limbs": {
+        "armS": 1,
+        "armO": 1,
+        "legF": 1,
+        "legB": 1
+      },
+      "muscle": 0.10000000000074863,
+      "uprightScale": 0.036249943186299795,
+      "nativeSha256": "422e266a6c56c893cd947d1fbacbbcf37e1388d82db0c0a1c6c60268353b26c5",
+      "bodySha256": "842d11e8246d4ebfe4b0e522b6977b8ca8e40b6d685060959248c87fda293ee7",
+      "support": {
+        "anySupport": true,
+        "groups": {
+          "footF": {
+            "hasSupport": true,
+            "rawNormalImpulseNs": 0.9251531846821308,
+            "supportRawNormalImpulseNs": 0.9251531846821308
+          },
+          "footB": {
+            "hasSupport": true,
+            "rawNormalImpulseNs": 1.201932080090046,
+            "supportRawNormalImpulseNs": 1.201932080090046
+          },
+          "shinF": {
+            "hasSupport": false,
+            "rawNormalImpulseNs": 0,
+            "supportRawNormalImpulseNs": 0
+          },
+          "shinB": {
+            "hasSupport": false,
+            "rawNormalImpulseNs": 0,
+            "supportRawNormalImpulseNs": 0
+          },
+          "handO": {
+            "hasSupport": true,
+            "rawNormalImpulseNs": 1.9982085824012756,
+            "supportRawNormalImpulseNs": 1.9982085824012756
+          }
+        }
+      },
+      "guards": {
+        "captureBodyExact": true,
+        "recreationPreservesBodies": true,
+        "jointCountPreserved": true,
+        "sameInputSnapshot": true,
+        "sameInitialBodyExact": true,
+        "sameInitialNativeExact": true,
+        "deterministicZero": true,
+        "finite": true,
+        "immediateFreePairPrediction": true,
+        "neverConfiguredLegMotors": true
+      },
+      "responses": [
+        {
+          "joint": "thighF",
+          "impulseMagnitudeNms": 0.001,
+          "freePairInverseInertia": 39.66762865848439,
+          "immediatePlusGain": 39.66762561588658,
+          "immediateMinusGain": 39.667628280560805,
+          "immediateAbsoluteTolerance": 0.00027933525731696875,
+          "plusMinusZeroGain": 14.215593613409405,
+          "minusMinusZeroGain": 13.653234589625528,
+          "centralGain": 13.934414101517467,
+          "centralToFreePairRatio": 0.35127923127154403,
+          "evenResponseRadS": 0.000281179511891938,
+          "plusMinusGainDifference": 0.5623590237838769
+        },
+        {
+          "joint": "thighF",
+          "impulseMagnitudeNms": 0.01,
+          "freePairInverseInertia": 39.66762865848439,
+          "immediatePlusGain": 39.6676300402609,
+          "immediateMinusGain": 39.66762900754409,
+          "immediateAbsoluteTolerance": 9.933525731696877e-05,
+          "plusMinusZeroGain": 13.754752818858407,
+          "minusMinusZeroGain": 13.68963732467564,
+          "centralGain": 13.722195071767024,
+          "centralToFreePairRatio": 0.3459293014439376,
+          "evenResponseRadS": 0.00032557747091382927,
+          "plusMinusGainDifference": 0.0651154941827663
+        },
+        {
+          "joint": "shinF",
+          "impulseMagnitudeNms": 0.001,
+          "freePairInverseInertia": 31.3779744728166,
+          "immediatePlusGain": 31.377980970857255,
+          "immediateMinusGain": 31.377980970857145,
+          "immediateAbsoluteTolerance": 0.00026275594894563316,
+          "plusMinusZeroGain": 10.532724553309668,
+          "minusMinusZeroGain": 10.504259211948863,
+          "centralGain": 10.518491882629267,
+          "centralToFreePairRatio": 0.3352189572256061,
+          "evenResponseRadS": 1.4232670680403015e-05,
+          "plusMinusGainDifference": 0.02846534136080514
+        },
+        {
+          "joint": "shinF",
+          "impulseMagnitudeNms": 0.01,
+          "freePairInverseInertia": 31.3779744728166,
+          "immediatePlusGain": 31.377972687552845,
+          "immediateMinusGain": 31.377975202178238,
+          "immediateAbsoluteTolerance": 8.275594894563319e-05,
+          "plusMinusZeroGain": 10.465972219719157,
+          "minusMinusZeroGain": 10.635934308099959,
+          "centralGain": 10.550953263909559,
+          "centralToFreePairRatio": 0.3362534848465146,
+          "evenResponseRadS": -0.0008498104419040198,
+          "plusMinusGainDifference": -0.1699620883808013
+        },
+        {
+          "joint": "footF",
+          "impulseMagnitudeNms": 0.001,
+          "freePairInverseInertia": 209.6176553666754,
+          "immediatePlusGain": 209.61764947483846,
+          "immediateMinusGain": 209.61764947483832,
+          "immediateAbsoluteTolerance": 0.0006192353107333508,
+          "plusMinusZeroGain": 20.07678956315595,
+          "minusMinusZeroGain": 21.76869815319543,
+          "centralGain": 20.92274385817569,
+          "centralToFreePairRatio": 0.09981384355042236,
+          "evenResponseRadS": -0.0008459542950197685,
+          "plusMinusGainDifference": -1.691908590039482
+        },
+        {
+          "joint": "footF",
+          "impulseMagnitudeNms": 0.01,
+          "freePairInverseInertia": 209.6176553666754,
+          "immediatePlusGain": 209.61765241852333,
+          "immediateMinusGain": 209.61766455403193,
+          "immediateAbsoluteTolerance": 0.0004392353107333508,
+          "plusMinusZeroGain": 18.916321304919748,
+          "minusMinusZeroGain": 27.551769865103946,
+          "centralGain": 23.23404558501185,
+          "centralToFreePairRatio": 0.11084011766265349,
+          "evenResponseRadS": -0.043177242800921,
+          "plusMinusGainDifference": -8.635448560184198
+        }
+      ],
+      "responseCheckpoint": {
+        "inputNativeSha256": "317ce34d34267301aa79df504fa478af1f821011aebb67cdb4dd4601b2f09bb8",
+        "bodySha256": "0cbacf11ecca91e4e09340a8a349244d22adb7b641d1a40b439df9544e5b96e8",
+        "dt": 0.008333333767950535,
+        "gravity": {
+          "x": 0,
+          "y": -9.8100004196167,
+          "z": 0
+        },
+        "solverIterations": 6,
+        "zeroLegMotorRequests": true,
+        "measuredJoints": [
+          {
+            "name": "thighF",
+            "parent": 5e-324,
+            "child": 4.4e-323,
+            "axisWorld": {
+              "x": 0.0896948178957474,
+              "y": 0.71529303868413,
+              "z": 0.6930445096301358
+            },
+            "freePairInverseInertia": 39.66762865848439
+          },
+          {
+            "name": "shinF",
+            "parent": 4.4e-323,
+            "child": 5e-323,
+            "axisWorld": {
+              "x": 0.1840494899075279,
+              "y": 0.9566419891244275,
+              "z": 0.22574744431266314
+            },
+            "freePairInverseInertia": 31.3779744728166
+          },
+          {
+            "name": "footF",
+            "parent": 5e-323,
+            "child": 5.4e-323,
+            "axisWorld": {
+              "x": 0.17913062549769476,
+              "y": 0.9577046954435818,
+              "z": 0.22519826344665317
+            },
+            "freePairInverseInertia": 209.6176553666754
+          }
+        ]
+      },
+      "branchCount": 18,
+      "restoredNativeInitialSha256": "008e7c2429f39d43d0d7f61d40c0a3dc4443a34d175b560ec40319137ffa2e67",
+      "allOriginalNativeReserializationsExact": false,
+      "branchWitnesses": [
+        {
+          "joint": "thighF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "317ce34d34267301aa79df504fa478af1f821011aebb67cdb4dd4601b2f09bb8",
+          "initialBodySha256": "0cbacf11ecca91e4e09340a8a349244d22adb7b641d1a40b439df9544e5b96e8",
+          "initialNativeSha256": "008e7c2429f39d43d0d7f61d40c0a3dc4443a34d175b560ec40319137ffa2e67",
+          "relativeOmegaBeforeRadS": 0.14002864223568678,
+          "relativeOmegaImmediateRadS": 0.14002864223568678,
+          "relativeOmegaAfterRadS": -0.19505698282636696,
+          "postBodySha256": "30daeb7873c28f43075091caaa81192bf925b10ed4142b5a1a1ae528d58dd8f3",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.34279931895434856,
+                "supportRawNormalImpulseNs": 0.34279931895434856
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7074878551065922,
+                "supportRawNormalImpulseNs": 1.7074878551065922
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7171494960784912,
+                "supportRawNormalImpulseNs": 1.7171494960784912
+              }
+            }
+          }
+        },
+        {
+          "joint": "thighF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "317ce34d34267301aa79df504fa478af1f821011aebb67cdb4dd4601b2f09bb8",
+          "initialBodySha256": "0cbacf11ecca91e4e09340a8a349244d22adb7b641d1a40b439df9544e5b96e8",
+          "initialNativeSha256": "008e7c2429f39d43d0d7f61d40c0a3dc4443a34d175b560ec40319137ffa2e67",
+          "relativeOmegaBeforeRadS": 0.14002864223568678,
+          "relativeOmegaImmediateRadS": 0.14002864223568678,
+          "relativeOmegaAfterRadS": -0.19505698282636696,
+          "postBodySha256": "30daeb7873c28f43075091caaa81192bf925b10ed4142b5a1a1ae528d58dd8f3",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.34279931895434856,
+                "supportRawNormalImpulseNs": 0.34279931895434856
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7074878551065922,
+                "supportRawNormalImpulseNs": 1.7074878551065922
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7171494960784912,
+                "supportRawNormalImpulseNs": 1.7171494960784912
+              }
+            }
+          }
+        },
+        {
+          "joint": "thighF",
+          "impulseNms": 0.001,
+          "inputSnapshotSha256": "317ce34d34267301aa79df504fa478af1f821011aebb67cdb4dd4601b2f09bb8",
+          "initialBodySha256": "0cbacf11ecca91e4e09340a8a349244d22adb7b641d1a40b439df9544e5b96e8",
+          "initialNativeSha256": "008e7c2429f39d43d0d7f61d40c0a3dc4443a34d175b560ec40319137ffa2e67",
+          "relativeOmegaBeforeRadS": 0.14002864223568678,
+          "relativeOmegaImmediateRadS": 0.17969626785157336,
+          "relativeOmegaAfterRadS": -0.18084138921295756,
+          "postBodySha256": "d7d7b39f046fe99679c011f5b428cce4fb6b6ef98c6ca5fdae60cad7dab8e6d0",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.34557939134538174,
+                "supportRawNormalImpulseNs": 0.34557939134538174
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.707259390503168,
+                "supportRawNormalImpulseNs": 1.707259390503168
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.717199444770813,
+                "supportRawNormalImpulseNs": 1.717199444770813
+              }
+            }
+          }
+        },
+        {
+          "joint": "thighF",
+          "impulseNms": -0.001,
+          "inputSnapshotSha256": "317ce34d34267301aa79df504fa478af1f821011aebb67cdb4dd4601b2f09bb8",
+          "initialBodySha256": "0cbacf11ecca91e4e09340a8a349244d22adb7b641d1a40b439df9544e5b96e8",
+          "initialNativeSha256": "008e7c2429f39d43d0d7f61d40c0a3dc4443a34d175b560ec40319137ffa2e67",
+          "relativeOmegaBeforeRadS": 0.14002864223568678,
+          "relativeOmegaImmediateRadS": 0.10036101395512598,
+          "relativeOmegaAfterRadS": -0.2087102174159925,
+          "postBodySha256": "03aa910b82441b6124103cf5fc3a9b1c8edda135ff8fdc7b4036f702b9538a5e",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.3399713560938835,
+                "supportRawNormalImpulseNs": 0.3399713560938835
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7076948024332523,
+                "supportRawNormalImpulseNs": 1.7076948024332523
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7171021103858948,
+                "supportRawNormalImpulseNs": 1.7171021103858948
+              }
+            }
+          }
+        },
+        {
+          "joint": "thighF",
+          "impulseNms": 0.01,
+          "inputSnapshotSha256": "317ce34d34267301aa79df504fa478af1f821011aebb67cdb4dd4601b2f09bb8",
+          "initialBodySha256": "0cbacf11ecca91e4e09340a8a349244d22adb7b641d1a40b439df9544e5b96e8",
+          "initialNativeSha256": "008e7c2429f39d43d0d7f61d40c0a3dc4443a34d175b560ec40319137ffa2e67",
+          "relativeOmegaBeforeRadS": 0.14002864223568678,
+          "relativeOmegaImmediateRadS": 0.5367049426382958,
+          "relativeOmegaAfterRadS": -0.0575094546377829,
+          "postBodySha256": "530ad94e561a97a2f2b7a3109331459888ca6a3c90ad36a7cc363446ecdd740f",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.3708280511200428,
+                "supportRawNormalImpulseNs": 0.3708280511200428
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.705400262027979,
+                "supportRawNormalImpulseNs": 1.705400262027979
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7175384163856506,
+                "supportRawNormalImpulseNs": 1.7175384163856506
+              }
+            }
+          }
+        },
+        {
+          "joint": "thighF",
+          "impulseNms": -0.01,
+          "inputSnapshotSha256": "317ce34d34267301aa79df504fa478af1f821011aebb67cdb4dd4601b2f09bb8",
+          "initialBodySha256": "0cbacf11ecca91e4e09340a8a349244d22adb7b641d1a40b439df9544e5b96e8",
+          "initialNativeSha256": "008e7c2429f39d43d0d7f61d40c0a3dc4443a34d175b560ec40319137ffa2e67",
+          "relativeOmegaBeforeRadS": 0.14002864223568678,
+          "relativeOmegaImmediateRadS": -0.2566476478397542,
+          "relativeOmegaAfterRadS": -0.3319533560731234,
+          "postBodySha256": "e5e1934ed92c2d9dc533c630be4bd4e16176511ee434d4b3e8e994d807fc4ec6",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.3150145672261715,
+                "supportRawNormalImpulseNs": 0.3150145672261715
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7096121050417423,
+                "supportRawNormalImpulseNs": 1.7096121050417423
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.716784656047821,
+                "supportRawNormalImpulseNs": 1.716784656047821
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "317ce34d34267301aa79df504fa478af1f821011aebb67cdb4dd4601b2f09bb8",
+          "initialBodySha256": "0cbacf11ecca91e4e09340a8a349244d22adb7b641d1a40b439df9544e5b96e8",
+          "initialNativeSha256": "008e7c2429f39d43d0d7f61d40c0a3dc4443a34d175b560ec40319137ffa2e67",
+          "relativeOmegaBeforeRadS": -0.3101871734881165,
+          "relativeOmegaImmediateRadS": -0.3101871734881165,
+          "relativeOmegaAfterRadS": -0.205813992378662,
+          "postBodySha256": "30daeb7873c28f43075091caaa81192bf925b10ed4142b5a1a1ae528d58dd8f3",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.34279931895434856,
+                "supportRawNormalImpulseNs": 0.34279931895434856
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7074878551065922,
+                "supportRawNormalImpulseNs": 1.7074878551065922
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7171494960784912,
+                "supportRawNormalImpulseNs": 1.7171494960784912
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "317ce34d34267301aa79df504fa478af1f821011aebb67cdb4dd4601b2f09bb8",
+          "initialBodySha256": "0cbacf11ecca91e4e09340a8a349244d22adb7b641d1a40b439df9544e5b96e8",
+          "initialNativeSha256": "008e7c2429f39d43d0d7f61d40c0a3dc4443a34d175b560ec40319137ffa2e67",
+          "relativeOmegaBeforeRadS": -0.3101871734881165,
+          "relativeOmegaImmediateRadS": -0.3101871734881165,
+          "relativeOmegaAfterRadS": -0.205813992378662,
+          "postBodySha256": "30daeb7873c28f43075091caaa81192bf925b10ed4142b5a1a1ae528d58dd8f3",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.34279931895434856,
+                "supportRawNormalImpulseNs": 0.34279931895434856
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7074878551065922,
+                "supportRawNormalImpulseNs": 1.7074878551065922
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7171494960784912,
+                "supportRawNormalImpulseNs": 1.7171494960784912
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": 0.001,
+          "inputSnapshotSha256": "317ce34d34267301aa79df504fa478af1f821011aebb67cdb4dd4601b2f09bb8",
+          "initialBodySha256": "0cbacf11ecca91e4e09340a8a349244d22adb7b641d1a40b439df9544e5b96e8",
+          "initialNativeSha256": "008e7c2429f39d43d0d7f61d40c0a3dc4443a34d175b560ec40319137ffa2e67",
+          "relativeOmegaBeforeRadS": -0.3101871734881165,
+          "relativeOmegaImmediateRadS": -0.2788091925172592,
+          "relativeOmegaAfterRadS": -0.19528126782535232,
+          "postBodySha256": "29c19dd6dc2a968af3cd6c3a149901b4580c3f52883041342f68fd12c4e28e46",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.3456156048923731,
+                "supportRawNormalImpulseNs": 0.3456156048923731
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7075285650789738,
+                "supportRawNormalImpulseNs": 1.7075285650789738
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7170951962471008,
+                "supportRawNormalImpulseNs": 1.7170951962471008
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": -0.001,
+          "inputSnapshotSha256": "317ce34d34267301aa79df504fa478af1f821011aebb67cdb4dd4601b2f09bb8",
+          "initialBodySha256": "0cbacf11ecca91e4e09340a8a349244d22adb7b641d1a40b439df9544e5b96e8",
+          "initialNativeSha256": "008e7c2429f39d43d0d7f61d40c0a3dc4443a34d175b560ec40319137ffa2e67",
+          "relativeOmegaBeforeRadS": -0.3101871734881165,
+          "relativeOmegaImmediateRadS": -0.3415651544589736,
+          "relativeOmegaAfterRadS": -0.21631825159061085,
+          "postBodySha256": "a5107ebe8e3e06a89a3150176cd9491e526f6133e1bf1f93f055af7fbe00ebf5",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.34000465646386147,
+                "supportRawNormalImpulseNs": 0.34000465646386147
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7074326016008854,
+                "supportRawNormalImpulseNs": 1.7074326016008854
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7171910405158997,
+                "supportRawNormalImpulseNs": 1.7171910405158997
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": 0.01,
+          "inputSnapshotSha256": "317ce34d34267301aa79df504fa478af1f821011aebb67cdb4dd4601b2f09bb8",
+          "initialBodySha256": "0cbacf11ecca91e4e09340a8a349244d22adb7b641d1a40b439df9544e5b96e8",
+          "initialNativeSha256": "008e7c2429f39d43d0d7f61d40c0a3dc4443a34d175b560ec40319137ffa2e67",
+          "relativeOmegaBeforeRadS": -0.3101871734881165,
+          "relativeOmegaImmediateRadS": 0.0035925533874120175,
+          "relativeOmegaAfterRadS": -0.10115427018147041,
+          "postBodySha256": "9264701862bde08115e40aaf7814289ad1bb1d746de8e84f9c6e2dac48ec159c",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.37089313566684723,
+                "supportRawNormalImpulseNs": 0.37089313566684723
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.70787987485528,
+                "supportRawNormalImpulseNs": 1.70787987485528
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7167816758155823,
+                "supportRawNormalImpulseNs": 1.7167816758155823
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": -0.01,
+          "inputSnapshotSha256": "317ce34d34267301aa79df504fa478af1f821011aebb67cdb4dd4601b2f09bb8",
+          "initialBodySha256": "0cbacf11ecca91e4e09340a8a349244d22adb7b641d1a40b439df9544e5b96e8",
+          "initialNativeSha256": "008e7c2429f39d43d0d7f61d40c0a3dc4443a34d175b560ec40319137ffa2e67",
+          "relativeOmegaBeforeRadS": -0.3101871734881165,
+          "relativeOmegaImmediateRadS": -0.6239669255098989,
+          "relativeOmegaAfterRadS": -0.3121733354596616,
+          "postBodySha256": "1ca99e1bddbfe71ae0387466d55f3fc989d1a744dfe156e2f480d9536bd8c7af",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.3150429204106331,
+                "supportRawNormalImpulseNs": 0.3150429204106331
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7071618176996708,
+                "supportRawNormalImpulseNs": 1.7071618176996708
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7175110578536987,
+                "supportRawNormalImpulseNs": 1.7175110578536987
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "317ce34d34267301aa79df504fa478af1f821011aebb67cdb4dd4601b2f09bb8",
+          "initialBodySha256": "0cbacf11ecca91e4e09340a8a349244d22adb7b641d1a40b439df9544e5b96e8",
+          "initialNativeSha256": "008e7c2429f39d43d0d7f61d40c0a3dc4443a34d175b560ec40319137ffa2e67",
+          "relativeOmegaBeforeRadS": 0.40171102140869236,
+          "relativeOmegaImmediateRadS": 0.40171102140869236,
+          "relativeOmegaAfterRadS": 0.33904306748003754,
+          "postBodySha256": "30daeb7873c28f43075091caaa81192bf925b10ed4142b5a1a1ae528d58dd8f3",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.34279931895434856,
+                "supportRawNormalImpulseNs": 0.34279931895434856
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7074878551065922,
+                "supportRawNormalImpulseNs": 1.7074878551065922
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7171494960784912,
+                "supportRawNormalImpulseNs": 1.7171494960784912
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "317ce34d34267301aa79df504fa478af1f821011aebb67cdb4dd4601b2f09bb8",
+          "initialBodySha256": "0cbacf11ecca91e4e09340a8a349244d22adb7b641d1a40b439df9544e5b96e8",
+          "initialNativeSha256": "008e7c2429f39d43d0d7f61d40c0a3dc4443a34d175b560ec40319137ffa2e67",
+          "relativeOmegaBeforeRadS": 0.40171102140869236,
+          "relativeOmegaImmediateRadS": 0.40171102140869236,
+          "relativeOmegaAfterRadS": 0.33904306748003754,
+          "postBodySha256": "30daeb7873c28f43075091caaa81192bf925b10ed4142b5a1a1ae528d58dd8f3",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.34279931895434856,
+                "supportRawNormalImpulseNs": 0.34279931895434856
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7074878551065922,
+                "supportRawNormalImpulseNs": 1.7074878551065922
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7171494960784912,
+                "supportRawNormalImpulseNs": 1.7171494960784912
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": 0.001,
+          "inputSnapshotSha256": "317ce34d34267301aa79df504fa478af1f821011aebb67cdb4dd4601b2f09bb8",
+          "initialBodySha256": "0cbacf11ecca91e4e09340a8a349244d22adb7b641d1a40b439df9544e5b96e8",
+          "initialNativeSha256": "008e7c2429f39d43d0d7f61d40c0a3dc4443a34d175b560ec40319137ffa2e67",
+          "relativeOmegaBeforeRadS": 0.40171102140869236,
+          "relativeOmegaImmediateRadS": 0.6113286708835308,
+          "relativeOmegaAfterRadS": 0.3591198570431935,
+          "postBodySha256": "a4c923fab94f0c0589e5b8897789f7edc52d1f2847ebe4e959d2572df56449ef",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.33863707073032856,
+                "supportRawNormalImpulseNs": 0.33863707073032856
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7073043920099735,
+                "supportRawNormalImpulseNs": 1.7073043920099735
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.717202365398407,
+                "supportRawNormalImpulseNs": 1.717202365398407
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": -0.001,
+          "inputSnapshotSha256": "317ce34d34267301aa79df504fa478af1f821011aebb67cdb4dd4601b2f09bb8",
+          "initialBodySha256": "0cbacf11ecca91e4e09340a8a349244d22adb7b641d1a40b439df9544e5b96e8",
+          "initialNativeSha256": "008e7c2429f39d43d0d7f61d40c0a3dc4443a34d175b560ec40319137ffa2e67",
+          "relativeOmegaBeforeRadS": 0.40171102140869236,
+          "relativeOmegaImmediateRadS": 0.19209337193385403,
+          "relativeOmegaAfterRadS": 0.3172743693268421,
+          "postBodySha256": "33b19b5ba889d193a00732a3b998f0e876b80a2de7ff721f5067da56f6995b29",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.34749300591647625,
+                "supportRawNormalImpulseNs": 0.34749300591647625
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7076096273958683,
+                "supportRawNormalImpulseNs": 1.7076096273958683
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7170814871788025,
+                "supportRawNormalImpulseNs": 1.7170814871788025
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": 0.01,
+          "inputSnapshotSha256": "317ce34d34267301aa79df504fa478af1f821011aebb67cdb4dd4601b2f09bb8",
+          "initialBodySha256": "0cbacf11ecca91e4e09340a8a349244d22adb7b641d1a40b439df9544e5b96e8",
+          "initialNativeSha256": "008e7c2429f39d43d0d7f61d40c0a3dc4443a34d175b560ec40319137ffa2e67",
+          "relativeOmegaBeforeRadS": 0.40171102140869236,
+          "relativeOmegaImmediateRadS": 2.4978875455939256,
+          "relativeOmegaAfterRadS": 0.528206280529235,
+          "postBodySha256": "a4cd4d4f390432b3fce3a546083b1e8578c761ccb110e7b3803af20bea34cda8",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.30453962087631226,
+                "supportRawNormalImpulseNs": 0.30453962087631226
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7063116766512394,
+                "supportRawNormalImpulseNs": 1.7063116766512394
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7174724340438843,
+                "supportRawNormalImpulseNs": 1.7174724340438843
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": -0.01,
+          "inputSnapshotSha256": "317ce34d34267301aa79df504fa478af1f821011aebb67cdb4dd4601b2f09bb8",
+          "initialBodySha256": "0cbacf11ecca91e4e09340a8a349244d22adb7b641d1a40b439df9544e5b96e8",
+          "initialNativeSha256": "008e7c2429f39d43d0d7f61d40c0a3dc4443a34d175b560ec40319137ffa2e67",
+          "relativeOmegaBeforeRadS": 0.40171102140869236,
+          "relativeOmegaImmediateRadS": -1.694465624131627,
+          "relativeOmegaAfterRadS": 0.06352536882899809,
+          "postBodySha256": "1983a930b0a5c1097cd8f403ea7284b0cdbfee56f96c4d45fa0a36b455537936",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.41214604722335935,
+                "supportRawNormalImpulseNs": 0.41214604722335935
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.7086944915354252,
+                "supportRawNormalImpulseNs": 1.7086944915354252
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 1.716199278831482,
+                "supportRawNormalImpulseNs": 1.716199278831482
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "healthy_getup",
+      "phase": "firstStand",
+      "timeS": 4.216666666666667,
+      "state": "stand",
+      "pelvisHeightM": 0.7414551377296448,
+      "chestTiltDeg": 22.92087434801198,
+      "levH": 1,
+      "limbs": {
+        "armS": 1,
+        "armO": 1,
+        "legF": 1,
+        "legB": 1
+      },
+      "muscle": 0.9988540216325617,
+      "uprightScale": 0.366263136298253,
+      "nativeSha256": "501d6de5c723dc41c00e6db7a1db6d6be941cafe65db0ce52958eeadb23ad53a",
+      "bodySha256": "18a31d629b23e7663e494d65ce29c16e774e56e061246cb0c5732ac9fbd6d82b",
+      "support": {
+        "anySupport": true,
+        "groups": {
+          "footF": {
+            "hasSupport": true,
+            "rawNormalImpulseNs": 4.717473089694977,
+            "supportRawNormalImpulseNs": 4.717473089694977
+          },
+          "footB": {
+            "hasSupport": true,
+            "rawNormalImpulseNs": 0.6632788777351379,
+            "supportRawNormalImpulseNs": 0.6632788777351379
+          },
+          "shinF": {
+            "hasSupport": false,
+            "rawNormalImpulseNs": 0,
+            "supportRawNormalImpulseNs": 0
+          },
+          "shinB": {
+            "hasSupport": false,
+            "rawNormalImpulseNs": 0,
+            "supportRawNormalImpulseNs": 0
+          },
+          "handO": {
+            "hasSupport": false,
+            "rawNormalImpulseNs": 0,
+            "supportRawNormalImpulseNs": 0
+          }
+        }
+      },
+      "guards": {
+        "captureBodyExact": true,
+        "recreationPreservesBodies": true,
+        "jointCountPreserved": true,
+        "sameInputSnapshot": true,
+        "sameInitialBodyExact": true,
+        "sameInitialNativeExact": true,
+        "deterministicZero": true,
+        "finite": true,
+        "immediateFreePairPrediction": true,
+        "neverConfiguredLegMotors": true
+      },
+      "responses": [
+        {
+          "joint": "thighF",
+          "impulseMagnitudeNms": 0.001,
+          "freePairInverseInertia": 45.08513056387334,
+          "immediatePlusGain": 45.085105845823705,
+          "immediateMinusGain": 45.08510584582381,
+          "immediateAbsoluteTolerance": 0.00029553726768381995,
+          "plusMinusZeroGain": 13.265535706440623,
+          "minusMinusZeroGain": 13.32743285821092,
+          "centralGain": 13.296484282325771,
+          "centralToFreePairRatio": 0.2949195026393076,
+          "evenResponseRadS": -3.094857588514799e-05,
+          "plusMinusGainDifference": -0.06189715177029598
+        },
+        {
+          "joint": "thighF",
+          "impulseMagnitudeNms": 0.01,
+          "freePairInverseInertia": 45.08513056387334,
+          "immediatePlusGain": 45.08513547057089,
+          "immediateMinusGain": 45.08513250662519,
+          "immediateAbsoluteTolerance": 0.000110706961783354,
+          "plusMinusZeroGain": 13.216686972547187,
+          "minusMinusZeroGain": 13.219769118666314,
+          "centralGain": 13.21822804560675,
+          "centralToFreePairRatio": 0.29318375881999775,
+          "evenResponseRadS": -1.5410730595633026e-05,
+          "plusMinusGainDifference": -0.0030821461191266053
+        },
+        {
+          "joint": "shinF",
+          "impulseMagnitudeNms": 0.001,
+          "freePairInverseInertia": 31.38526213264056,
+          "immediatePlusGain": 31.385245178964905,
+          "immediateMinusGain": 31.38524517896535,
+          "immediateAbsoluteTolerance": 0.0004471633626469245,
+          "plusMinusZeroGain": 6.1378139019838684,
+          "minusMinusZeroGain": 5.403791332441621,
+          "centralGain": 5.770802617212745,
+          "centralToFreePairRatio": 0.18386982376709643,
+          "evenResponseRadS": 0.00036701128477112377,
+          "plusMinusGainDifference": 0.7340225695422475
+        },
+        {
+          "joint": "shinF",
+          "impulseMagnitudeNms": 0.01,
+          "freePairInverseInertia": 31.38526213264056,
+          "immediatePlusGain": 31.385260829300552,
+          "immediateMinusGain": 31.3852653795216,
+          "immediateAbsoluteTolerance": 0.00010120980810344546,
+          "plusMinusZeroGain": 5.547225949888457,
+          "minusMinusZeroGain": 5.586221231752564,
+          "centralGain": 5.56672359082051,
+          "centralToFreePairRatio": 0.17736743976502073,
+          "evenResponseRadS": -0.00019497640932097937,
+          "plusMinusGainDifference": -0.038995281864107056
+        },
+        {
+          "joint": "footF",
+          "impulseMagnitudeNms": 0.001,
+          "freePairInverseInertia": 84.71119188031317,
+          "immediatePlusGain": 84.71118465557392,
+          "immediateMinusGain": 84.71118414695434,
+          "immediateAbsoluteTolerance": 0.0003694223837606263,
+          "plusMinusZeroGain": 1.6689334143431545,
+          "minusMinusZeroGain": 2.3772754636395277,
+          "centralGain": 2.023104438991341,
+          "centralToFreePairRatio": 0.023882374856084507,
+          "evenResponseRadS": -0.00035417102464840866,
+          "plusMinusGainDifference": -0.7083420492963732
+        },
+        {
+          "joint": "footF",
+          "impulseMagnitudeNms": 0.01,
+          "freePairInverseInertia": 84.71119188031317,
+          "immediatePlusGain": 84.71120024501424,
+          "immediateMinusGain": 84.7112001941523,
+          "immediateAbsoluteTolerance": 0.00018942238376062632,
+          "plusMinusZeroGain": 1.9087535734104932,
+          "minusMinusZeroGain": 1.8139299162950984,
+          "centralGain": 1.8613417448527958,
+          "centralToFreePairRatio": 0.02197279607968036,
+          "evenResponseRadS": 0.00047411828557697433,
+          "plusMinusGainDifference": 0.09482365711539487
+        }
+      ],
+      "responseCheckpoint": {
+        "inputNativeSha256": "c8f07f634fe9bf4201d077fd755c48fdc99b8830e590ab500f166257215d264b",
+        "bodySha256": "039166810720447ff4617071005b2a0bfd59b515b84a3aac3b6a79f63617bda9",
+        "dt": 0.008333333767950535,
+        "gravity": {
+          "x": 0,
+          "y": -9.8100004196167,
+          "z": 0
+        },
+        "solverIterations": 6,
+        "zeroLegMotorRequests": true,
+        "measuredJoints": [
+          {
+            "name": "thighF",
+            "parent": 5e-324,
+            "child": 4.4e-323,
+            "axisWorld": {
+              "x": 0.051734338515638134,
+              "y": 0.09068303366249514,
+              "z": 0.9945351412981576
+            },
+            "freePairInverseInertia": 45.08513056387334
+          },
+          {
+            "name": "shinF",
+            "parent": 4.4e-323,
+            "child": 5e-323,
+            "axisWorld": {
+              "x": -0.08430738556204675,
+              "y": 0.640399954736395,
+              "z": 0.763400402762537
+            },
+            "freePairInverseInertia": 31.38526213264056
+          },
+          {
+            "name": "footF",
+            "parent": 5e-323,
+            "child": 5.4e-323,
+            "axisWorld": {
+              "x": -0.11543541852857908,
+              "y": 0.6421281207177216,
+              "z": 0.7578562644908171
+            },
+            "freePairInverseInertia": 84.71119188031317
+          }
+        ]
+      },
+      "branchCount": 18,
+      "restoredNativeInitialSha256": "4ee82c0aee9c886fc47d6a8ec0256c934eb7fa6020131efc00e52353364a90a0",
+      "allOriginalNativeReserializationsExact": false,
+      "branchWitnesses": [
+        {
+          "joint": "thighF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "c8f07f634fe9bf4201d077fd755c48fdc99b8830e590ab500f166257215d264b",
+          "initialBodySha256": "039166810720447ff4617071005b2a0bfd59b515b84a3aac3b6a79f63617bda9",
+          "initialNativeSha256": "4ee82c0aee9c886fc47d6a8ec0256c934eb7fa6020131efc00e52353364a90a0",
+          "relativeOmegaBeforeRadS": 1.0268350327803666,
+          "relativeOmegaImmediateRadS": 1.0268350327803666,
+          "relativeOmegaAfterRadS": 5.727055105302998,
+          "postBodySha256": "e9cdaffd424e7c4c580f9eb10ad1cad23e2faa7c8d0e26447f4d4c65ca1fdc6d",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 3.6768213510513306,
+                "supportRawNormalImpulseNs": 3.6768213510513306
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.15214818716049194,
+                "supportRawNormalImpulseNs": 0.15214818716049194
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "thighF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "c8f07f634fe9bf4201d077fd755c48fdc99b8830e590ab500f166257215d264b",
+          "initialBodySha256": "039166810720447ff4617071005b2a0bfd59b515b84a3aac3b6a79f63617bda9",
+          "initialNativeSha256": "4ee82c0aee9c886fc47d6a8ec0256c934eb7fa6020131efc00e52353364a90a0",
+          "relativeOmegaBeforeRadS": 1.0268350327803666,
+          "relativeOmegaImmediateRadS": 1.0268350327803666,
+          "relativeOmegaAfterRadS": 5.727055105302998,
+          "postBodySha256": "e9cdaffd424e7c4c580f9eb10ad1cad23e2faa7c8d0e26447f4d4c65ca1fdc6d",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 3.6768213510513306,
+                "supportRawNormalImpulseNs": 3.6768213510513306
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.15214818716049194,
+                "supportRawNormalImpulseNs": 0.15214818716049194
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "thighF",
+          "impulseNms": 0.001,
+          "inputSnapshotSha256": "c8f07f634fe9bf4201d077fd755c48fdc99b8830e590ab500f166257215d264b",
+          "initialBodySha256": "039166810720447ff4617071005b2a0bfd59b515b84a3aac3b6a79f63617bda9",
+          "initialNativeSha256": "4ee82c0aee9c886fc47d6a8ec0256c934eb7fa6020131efc00e52353364a90a0",
+          "relativeOmegaBeforeRadS": 1.0268350327803666,
+          "relativeOmegaImmediateRadS": 1.0719201386261903,
+          "relativeOmegaAfterRadS": 5.740320641009439,
+          "postBodySha256": "514016724b6df68f7d3f6b38f7a3c584e37fa6ef0b992c6dfd2a9a0c171a124d",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 3.6764755249023438,
+                "supportRawNormalImpulseNs": 3.6764755249023438
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.1520484983921051,
+                "supportRawNormalImpulseNs": 0.1520484983921051
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "thighF",
+          "impulseNms": -0.001,
+          "inputSnapshotSha256": "c8f07f634fe9bf4201d077fd755c48fdc99b8830e590ab500f166257215d264b",
+          "initialBodySha256": "039166810720447ff4617071005b2a0bfd59b515b84a3aac3b6a79f63617bda9",
+          "initialNativeSha256": "4ee82c0aee9c886fc47d6a8ec0256c934eb7fa6020131efc00e52353364a90a0",
+          "relativeOmegaBeforeRadS": 1.0268350327803666,
+          "relativeOmegaImmediateRadS": 0.9817499269345428,
+          "relativeOmegaAfterRadS": 5.713727672444787,
+          "postBodySha256": "1e05d9e8aaee78b695f039e978733ee446ed07443c1692e8ca3a51299ea2b477",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 3.6771050691604614,
+                "supportRawNormalImpulseNs": 3.6771050691604614
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.15219596028327942,
+                "supportRawNormalImpulseNs": 0.15219596028327942
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "thighF",
+          "impulseNms": 0.01,
+          "inputSnapshotSha256": "c8f07f634fe9bf4201d077fd755c48fdc99b8830e590ab500f166257215d264b",
+          "initialBodySha256": "039166810720447ff4617071005b2a0bfd59b515b84a3aac3b6a79f63617bda9",
+          "initialNativeSha256": "4ee82c0aee9c886fc47d6a8ec0256c934eb7fa6020131efc00e52353364a90a0",
+          "relativeOmegaBeforeRadS": 1.0268350327803666,
+          "relativeOmegaImmediateRadS": 1.4776863874860755,
+          "relativeOmegaAfterRadS": 5.85922197502847,
+          "postBodySha256": "11a3958a3bd69105cf759296a7589370fa18fceca0ca53349de0db9583fa2836",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 3.6743868589401245,
+                "supportRawNormalImpulseNs": 3.6743868589401245
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.1513441950082779,
+                "supportRawNormalImpulseNs": 0.1513441950082779
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "thighF",
+          "impulseNms": -0.01,
+          "inputSnapshotSha256": "c8f07f634fe9bf4201d077fd755c48fdc99b8830e590ab500f166257215d264b",
+          "initialBodySha256": "039166810720447ff4617071005b2a0bfd59b515b84a3aac3b6a79f63617bda9",
+          "initialNativeSha256": "4ee82c0aee9c886fc47d6a8ec0256c934eb7fa6020131efc00e52353364a90a0",
+          "relativeOmegaBeforeRadS": 1.0268350327803666,
+          "relativeOmegaImmediateRadS": 0.5759837077141147,
+          "relativeOmegaAfterRadS": 5.594857414116335,
+          "postBodySha256": "74e74a9c4cc825f116a4517f34ffdef028df865fb609e8d7c60c1c3343283eb2",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 3.679313063621521,
+                "supportRawNormalImpulseNs": 3.679313063621521
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.15290647745132446,
+                "supportRawNormalImpulseNs": 0.15290647745132446
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "c8f07f634fe9bf4201d077fd755c48fdc99b8830e590ab500f166257215d264b",
+          "initialBodySha256": "039166810720447ff4617071005b2a0bfd59b515b84a3aac3b6a79f63617bda9",
+          "initialNativeSha256": "4ee82c0aee9c886fc47d6a8ec0256c934eb7fa6020131efc00e52353364a90a0",
+          "relativeOmegaBeforeRadS": -1.9219641919082173,
+          "relativeOmegaImmediateRadS": -1.9219641919082173,
+          "relativeOmegaAfterRadS": -4.522747157842523,
+          "postBodySha256": "e9cdaffd424e7c4c580f9eb10ad1cad23e2faa7c8d0e26447f4d4c65ca1fdc6d",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 3.6768213510513306,
+                "supportRawNormalImpulseNs": 3.6768213510513306
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.15214818716049194,
+                "supportRawNormalImpulseNs": 0.15214818716049194
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "c8f07f634fe9bf4201d077fd755c48fdc99b8830e590ab500f166257215d264b",
+          "initialBodySha256": "039166810720447ff4617071005b2a0bfd59b515b84a3aac3b6a79f63617bda9",
+          "initialNativeSha256": "4ee82c0aee9c886fc47d6a8ec0256c934eb7fa6020131efc00e52353364a90a0",
+          "relativeOmegaBeforeRadS": -1.9219641919082173,
+          "relativeOmegaImmediateRadS": -1.9219641919082173,
+          "relativeOmegaAfterRadS": -4.522747157842523,
+          "postBodySha256": "e9cdaffd424e7c4c580f9eb10ad1cad23e2faa7c8d0e26447f4d4c65ca1fdc6d",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 3.6768213510513306,
+                "supportRawNormalImpulseNs": 3.6768213510513306
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.15214818716049194,
+                "supportRawNormalImpulseNs": 0.15214818716049194
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": 0.001,
+          "inputSnapshotSha256": "c8f07f634fe9bf4201d077fd755c48fdc99b8830e590ab500f166257215d264b",
+          "initialBodySha256": "039166810720447ff4617071005b2a0bfd59b515b84a3aac3b6a79f63617bda9",
+          "initialNativeSha256": "4ee82c0aee9c886fc47d6a8ec0256c934eb7fa6020131efc00e52353364a90a0",
+          "relativeOmegaBeforeRadS": -1.9219641919082173,
+          "relativeOmegaImmediateRadS": -1.8905789467292524,
+          "relativeOmegaAfterRadS": -4.516609343940539,
+          "postBodySha256": "cd64d5fc19c8cfbb84ce4fb07bba5f455453ee15745d1af674a6aae0cb8012f9",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 3.679422378540039,
+                "supportRawNormalImpulseNs": 3.679422378540039
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.15219435095787048,
+                "supportRawNormalImpulseNs": 0.15219435095787048
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": -0.001,
+          "inputSnapshotSha256": "c8f07f634fe9bf4201d077fd755c48fdc99b8830e590ab500f166257215d264b",
+          "initialBodySha256": "039166810720447ff4617071005b2a0bfd59b515b84a3aac3b6a79f63617bda9",
+          "initialNativeSha256": "4ee82c0aee9c886fc47d6a8ec0256c934eb7fa6020131efc00e52353364a90a0",
+          "relativeOmegaBeforeRadS": -1.9219641919082173,
+          "relativeOmegaImmediateRadS": -1.9533494370871827,
+          "relativeOmegaAfterRadS": -4.5281509491749645,
+          "postBodySha256": "3d0cafcc78188958d98f3dccf7a64484e1086c2a34289744e1cfc5370fcd56f4",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 3.674065589904785,
+                "supportRawNormalImpulseNs": 3.674065589904785
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.1520417481660843,
+                "supportRawNormalImpulseNs": 0.1520417481660843
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": 0.01,
+          "inputSnapshotSha256": "c8f07f634fe9bf4201d077fd755c48fdc99b8830e590ab500f166257215d264b",
+          "initialBodySha256": "039166810720447ff4617071005b2a0bfd59b515b84a3aac3b6a79f63617bda9",
+          "initialNativeSha256": "4ee82c0aee9c886fc47d6a8ec0256c934eb7fa6020131efc00e52353364a90a0",
+          "relativeOmegaBeforeRadS": -1.9219641919082173,
+          "relativeOmegaImmediateRadS": -1.6081115836152118,
+          "relativeOmegaAfterRadS": -4.467274898343638,
+          "postBodySha256": "41ed4f32c7a655309aba00ee223de9f9256891e3daaf30fc3a6706de3153a45e",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 3.703920602798462,
+                "supportRawNormalImpulseNs": 3.703920602798462
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.15294116735458374,
+                "supportRawNormalImpulseNs": 0.15294116735458374
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": -0.01,
+          "inputSnapshotSha256": "c8f07f634fe9bf4201d077fd755c48fdc99b8830e590ab500f166257215d264b",
+          "initialBodySha256": "039166810720447ff4617071005b2a0bfd59b515b84a3aac3b6a79f63617bda9",
+          "initialNativeSha256": "4ee82c0aee9c886fc47d6a8ec0256c934eb7fa6020131efc00e52353364a90a0",
+          "relativeOmegaBeforeRadS": -1.9219641919082173,
+          "relativeOmegaImmediateRadS": -2.2358168457034333,
+          "relativeOmegaAfterRadS": -4.5786093701600485,
+          "postBodySha256": "f6e392cad9fc291f0116780af7bee693368406855411fca1753b1728880ee3c1",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 3.64949369430542,
+                "supportRawNormalImpulseNs": 3.64949369430542
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.1513199508190155,
+                "supportRawNormalImpulseNs": 0.1513199508190155
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "c8f07f634fe9bf4201d077fd755c48fdc99b8830e590ab500f166257215d264b",
+          "initialBodySha256": "039166810720447ff4617071005b2a0bfd59b515b84a3aac3b6a79f63617bda9",
+          "initialNativeSha256": "4ee82c0aee9c886fc47d6a8ec0256c934eb7fa6020131efc00e52353364a90a0",
+          "relativeOmegaBeforeRadS": -0.13990034068810098,
+          "relativeOmegaImmediateRadS": -0.13990034068810098,
+          "relativeOmegaAfterRadS": 2.1899000623460134,
+          "postBodySha256": "e9cdaffd424e7c4c580f9eb10ad1cad23e2faa7c8d0e26447f4d4c65ca1fdc6d",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 3.6768213510513306,
+                "supportRawNormalImpulseNs": 3.6768213510513306
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.15214818716049194,
+                "supportRawNormalImpulseNs": 0.15214818716049194
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "c8f07f634fe9bf4201d077fd755c48fdc99b8830e590ab500f166257215d264b",
+          "initialBodySha256": "039166810720447ff4617071005b2a0bfd59b515b84a3aac3b6a79f63617bda9",
+          "initialNativeSha256": "4ee82c0aee9c886fc47d6a8ec0256c934eb7fa6020131efc00e52353364a90a0",
+          "relativeOmegaBeforeRadS": -0.13990034068810098,
+          "relativeOmegaImmediateRadS": -0.13990034068810098,
+          "relativeOmegaAfterRadS": 2.1899000623460134,
+          "postBodySha256": "e9cdaffd424e7c4c580f9eb10ad1cad23e2faa7c8d0e26447f4d4c65ca1fdc6d",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 3.6768213510513306,
+                "supportRawNormalImpulseNs": 3.6768213510513306
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.15214818716049194,
+                "supportRawNormalImpulseNs": 0.15214818716049194
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": 0.001,
+          "inputSnapshotSha256": "c8f07f634fe9bf4201d077fd755c48fdc99b8830e590ab500f166257215d264b",
+          "initialBodySha256": "039166810720447ff4617071005b2a0bfd59b515b84a3aac3b6a79f63617bda9",
+          "initialNativeSha256": "4ee82c0aee9c886fc47d6a8ec0256c934eb7fa6020131efc00e52353364a90a0",
+          "relativeOmegaBeforeRadS": -0.13990034068810098,
+          "relativeOmegaImmediateRadS": -0.055189156032527054,
+          "relativeOmegaAfterRadS": 2.1915689957603566,
+          "postBodySha256": "a71e3d1f5f9ac891dd27808662cb94171d99ec8bbcc2a9bb27b3bb63189e36ed",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 3.6748799085617065,
+                "supportRawNormalImpulseNs": 3.6748799085617065
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.15205344557762146,
+                "supportRawNormalImpulseNs": 0.15205344557762146
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": -0.001,
+          "inputSnapshotSha256": "c8f07f634fe9bf4201d077fd755c48fdc99b8830e590ab500f166257215d264b",
+          "initialBodySha256": "039166810720447ff4617071005b2a0bfd59b515b84a3aac3b6a79f63617bda9",
+          "initialNativeSha256": "4ee82c0aee9c886fc47d6a8ec0256c934eb7fa6020131efc00e52353364a90a0",
+          "relativeOmegaBeforeRadS": -0.13990034068810098,
+          "relativeOmegaImmediateRadS": -0.2246115248350553,
+          "relativeOmegaAfterRadS": 2.187522786882374,
+          "postBodySha256": "6f9e60c720b17f664ac4b3ef07d19af7c3ac39b3b62e267e4cacacd6de31a52a",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 3.6787608861923218,
+                "supportRawNormalImpulseNs": 3.6787608861923218
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.15213154256343842,
+                "supportRawNormalImpulseNs": 0.15213154256343842
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": 0.01,
+          "inputSnapshotSha256": "c8f07f634fe9bf4201d077fd755c48fdc99b8830e590ab500f166257215d264b",
+          "initialBodySha256": "039166810720447ff4617071005b2a0bfd59b515b84a3aac3b6a79f63617bda9",
+          "initialNativeSha256": "4ee82c0aee9c886fc47d6a8ec0256c934eb7fa6020131efc00e52353364a90a0",
+          "relativeOmegaBeforeRadS": -0.13990034068810098,
+          "relativeOmegaImmediateRadS": 0.7072116617620414,
+          "relativeOmegaAfterRadS": 2.2089875980801184,
+          "postBodySha256": "f8a8f8273437a1043af6356d9cf8b5207b22064960f2511231bb0330a83035a0",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 3.6574432849884033,
+                "supportRawNormalImpulseNs": 3.6574432849884033
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.15189304947853088,
+                "supportRawNormalImpulseNs": 0.15189304947853088
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": -0.01,
+          "inputSnapshotSha256": "c8f07f634fe9bf4201d077fd755c48fdc99b8830e590ab500f166257215d264b",
+          "initialBodySha256": "039166810720447ff4617071005b2a0bfd59b515b84a3aac3b6a79f63617bda9",
+          "initialNativeSha256": "4ee82c0aee9c886fc47d6a8ec0256c934eb7fa6020131efc00e52353364a90a0",
+          "relativeOmegaBeforeRadS": -0.13990034068810098,
+          "relativeOmegaImmediateRadS": -0.987012342629624,
+          "relativeOmegaAfterRadS": 2.1717607631830624,
+          "postBodySha256": "2feb202fd9362378e1b5676710b2071acffbfb5672f611af9b4d9c98cb4d9741",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 3.696209192276001,
+                "supportRawNormalImpulseNs": 3.696209192276001
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.15232416987419128,
+                "supportRawNormalImpulseNs": 0.15232416987419128
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "hurt_getup",
+      "phase": "lowDown",
+      "timeS": 2.8,
+      "state": "down",
+      "pelvisHeightM": 0.19621041417121887,
+      "chestTiltDeg": 103.04572696618563,
+      "levH": 0,
+      "limbs": {
+        "armS": 1,
+        "armO": 1,
+        "legF": 0.45,
+        "legB": 1
+      },
+      "muscle": 0.10000000000000038,
+      "uprightScale": 0.03086111604681886,
+      "nativeSha256": "228c14abba81b9f12a1a3aeb52fc73dc055b81827a1f7fd98847716b250a001b",
+      "bodySha256": "a5e83fba96d2fb9bf86c759370d21d1effeb76356a0a029ad5129b799635ad2e",
+      "support": {
+        "anySupport": true,
+        "groups": {
+          "footF": {
+            "hasSupport": true,
+            "rawNormalImpulseNs": 0.6183179840445518,
+            "supportRawNormalImpulseNs": 0.6183179840445518
+          },
+          "footB": {
+            "hasSupport": true,
+            "rawNormalImpulseNs": 0.9397650063037872,
+            "supportRawNormalImpulseNs": 0.9397650063037872
+          },
+          "shinF": {
+            "hasSupport": false,
+            "rawNormalImpulseNs": 0,
+            "supportRawNormalImpulseNs": 0
+          },
+          "shinB": {
+            "hasSupport": false,
+            "rawNormalImpulseNs": 0,
+            "supportRawNormalImpulseNs": 0
+          },
+          "handO": {
+            "hasSupport": true,
+            "rawNormalImpulseNs": 0.337556391954422,
+            "supportRawNormalImpulseNs": 0.337556391954422
+          }
+        }
+      },
+      "guards": {
+        "captureBodyExact": true,
+        "recreationPreservesBodies": true,
+        "jointCountPreserved": true,
+        "sameInputSnapshot": true,
+        "sameInitialBodyExact": true,
+        "sameInitialNativeExact": true,
+        "deterministicZero": true,
+        "finite": true,
+        "immediateFreePairPrediction": true,
+        "neverConfiguredLegMotors": true
+      },
+      "responses": [
+        {
+          "joint": "thighF",
+          "impulseMagnitudeNms": 0.001,
+          "freePairInverseInertia": 33.942831536589985,
+          "immediatePlusGain": 33.942820404283424,
+          "immediateMinusGain": 33.94282040428354,
+          "immediateAbsoluteTolerance": 0.00026788566307317995,
+          "plusMinusZeroGain": 7.544432525724953,
+          "minusMinusZeroGain": 7.692913681582092,
+          "centralGain": 7.6186731036535225,
+          "centralToFreePairRatio": 0.2244560267590133,
+          "evenResponseRadS": -7.424057792859706e-05,
+          "plusMinusGainDifference": -0.14848115585713906
+        },
+        {
+          "joint": "thighF",
+          "impulseMagnitudeNms": 0.01,
+          "freePairInverseInertia": 33.942831536589985,
+          "immediatePlusGain": 33.94282908460025,
+          "immediateMinusGain": 33.94282818784847,
+          "immediateAbsoluteTolerance": 8.788566307317997e-05,
+          "plusMinusZeroGain": 7.581022274226245,
+          "minusMinusZeroGain": 7.619898019683719,
+          "centralGain": 7.6004601469549815,
+          "centralToFreePairRatio": 0.22391944934711097,
+          "evenResponseRadS": -0.00019437872728733652,
+          "plusMinusGainDifference": -0.03887574545747352
+        },
+        {
+          "joint": "shinF",
+          "impulseMagnitudeNms": 0.001,
+          "freePairInverseInertia": 31.37789710553333,
+          "immediatePlusGain": 31.37787612973164,
+          "immediateMinusGain": 31.377876129731753,
+          "immediateAbsoluteTolerance": 0.00026275579421106664,
+          "plusMinusZeroGain": 9.760295321521339,
+          "minusMinusZeroGain": 9.241420389921872,
+          "centralGain": 9.500857855721605,
+          "centralToFreePairRatio": 0.3027882277696098,
+          "evenResponseRadS": 0.0002594374657997611,
+          "plusMinusGainDifference": 0.5188749315994663
+        },
+        {
+          "joint": "shinF",
+          "impulseMagnitudeNms": 0.01,
+          "freePairInverseInertia": 31.37789710553333,
+          "immediatePlusGain": 31.377899739496506,
+          "immediateMinusGain": 31.377899762300583,
+          "immediateAbsoluteTolerance": 8.275579421106665e-05,
+          "plusMinusZeroGain": 9.398985625390427,
+          "minusMinusZeroGain": 8.203345893354241,
+          "centralGain": 8.801165759372333,
+          "centralToFreePairRatio": 0.28048934349460575,
+          "evenResponseRadS": 0.005978198660180956,
+          "plusMinusGainDifference": 1.1956397320361862
+        },
+        {
+          "joint": "footF",
+          "impulseMagnitudeNms": 0.001,
+          "freePairInverseInertia": 215.60086305176227,
+          "immediatePlusGain": 215.60085403153377,
+          "immediateMinusGain": 215.60085044708205,
+          "immediateAbsoluteTolerance": 0.0006312017261035245,
+          "plusMinusZeroGain": -6.674723094673706,
+          "minusMinusZeroGain": 11.38229225815629,
+          "centralGain": 2.3537845817412917,
+          "centralToFreePairRatio": 0.010917324487593475,
+          "evenResponseRadS": -0.009028507676414999,
+          "plusMinusGainDifference": -18.057015352829996
+        },
+        {
+          "joint": "footF",
+          "impulseMagnitudeNms": 0.01,
+          "freePairInverseInertia": 215.60086305176227,
+          "immediatePlusGain": 215.60087291802589,
+          "immediateMinusGain": 215.60086444971915,
+          "immediateAbsoluteTolerance": 0.0004512017261035245,
+          "plusMinusZeroGain": 82.75234857437148,
+          "minusMinusZeroGain": 68.12578848496781,
+          "centralGain": 75.43906852966964,
+          "centralToFreePairRatio": 0.34990151459439167,
+          "evenResponseRadS": 0.07313280044701836,
+          "plusMinusGainDifference": 14.626560089403668
+        }
+      ],
+      "responseCheckpoint": {
+        "inputNativeSha256": "30dc51ef307d414ebae2b4a7a86aae61537abfdbff12a00a71b313d5cdb52411",
+        "bodySha256": "e8c22f7dc69f248e8385f01ff451db0faf285da88c8161d614e1f4cf5081719d",
+        "dt": 0.008333333767950535,
+        "gravity": {
+          "x": 0,
+          "y": -9.8100004196167,
+          "z": 0
+        },
+        "solverIterations": 6,
+        "zeroLegMotorRequests": true,
+        "measuredJoints": [
+          {
+            "name": "thighF",
+            "parent": 5e-324,
+            "child": 4.4e-323,
+            "axisWorld": {
+              "x": 0.0019912935241137575,
+              "y": 0.7986443474404008,
+              "z": 0.6017999362122377
+            },
+            "freePairInverseInertia": 33.942831536589985
+          },
+          {
+            "name": "shinF",
+            "parent": 4.4e-323,
+            "child": 5e-323,
+            "axisWorld": {
+              "x": 0.2448567990072794,
+              "y": 0.9381082273138359,
+              "z": 0.2449452013689476
+            },
+            "freePairInverseInertia": 31.37789710553333
+          },
+          {
+            "name": "footF",
+            "parent": 5e-323,
+            "child": 5.4e-323,
+            "axisWorld": {
+              "x": 0.24054848216686242,
+              "y": 0.9396491409009797,
+              "z": 0.24330166935671418
+            },
+            "freePairInverseInertia": 215.60086305176227
+          }
+        ]
+      },
+      "branchCount": 18,
+      "restoredNativeInitialSha256": "acce62584a0a37cb3ba6264f4fb1e2903e3b5bc76e99de7ffa590eef9f955dc6",
+      "allOriginalNativeReserializationsExact": false,
+      "branchWitnesses": [
+        {
+          "joint": "thighF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "30dc51ef307d414ebae2b4a7a86aae61537abfdbff12a00a71b313d5cdb52411",
+          "initialBodySha256": "e8c22f7dc69f248e8385f01ff451db0faf285da88c8161d614e1f4cf5081719d",
+          "initialNativeSha256": "acce62584a0a37cb3ba6264f4fb1e2903e3b5bc76e99de7ffa590eef9f955dc6",
+          "relativeOmegaBeforeRadS": 0.03163108761255018,
+          "relativeOmegaImmediateRadS": 0.03163108761255018,
+          "relativeOmegaAfterRadS": 0.38380885554408706,
+          "postBodySha256": "af6f49f2841f7baeb3af6c9c54a27185558b5a425e93d8467ab19323b651dc59",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.1253667026758194,
+                "supportRawNormalImpulseNs": 0.1253667026758194
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4797210693359375,
+                "supportRawNormalImpulseNs": 0.4797210693359375
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.3413964956998825,
+                "supportRawNormalImpulseNs": 0.3413964956998825
+              }
+            }
+          }
+        },
+        {
+          "joint": "thighF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "30dc51ef307d414ebae2b4a7a86aae61537abfdbff12a00a71b313d5cdb52411",
+          "initialBodySha256": "e8c22f7dc69f248e8385f01ff451db0faf285da88c8161d614e1f4cf5081719d",
+          "initialNativeSha256": "acce62584a0a37cb3ba6264f4fb1e2903e3b5bc76e99de7ffa590eef9f955dc6",
+          "relativeOmegaBeforeRadS": 0.03163108761255018,
+          "relativeOmegaImmediateRadS": 0.03163108761255018,
+          "relativeOmegaAfterRadS": 0.38380885554408706,
+          "postBodySha256": "af6f49f2841f7baeb3af6c9c54a27185558b5a425e93d8467ab19323b651dc59",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.1253667026758194,
+                "supportRawNormalImpulseNs": 0.1253667026758194
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4797210693359375,
+                "supportRawNormalImpulseNs": 0.4797210693359375
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.3413964956998825,
+                "supportRawNormalImpulseNs": 0.3413964956998825
+              }
+            }
+          }
+        },
+        {
+          "joint": "thighF",
+          "impulseNms": 0.001,
+          "inputSnapshotSha256": "30dc51ef307d414ebae2b4a7a86aae61537abfdbff12a00a71b313d5cdb52411",
+          "initialBodySha256": "e8c22f7dc69f248e8385f01ff451db0faf285da88c8161d614e1f4cf5081719d",
+          "initialNativeSha256": "acce62584a0a37cb3ba6264f4fb1e2903e3b5bc76e99de7ffa590eef9f955dc6",
+          "relativeOmegaBeforeRadS": 0.03163108761255018,
+          "relativeOmegaImmediateRadS": 0.0655739080168336,
+          "relativeOmegaAfterRadS": 0.391353288069812,
+          "postBodySha256": "4601ad072ced39a882a0fffe142b2b4c5888f22e7871bccfb845b39f5fa5397c",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.12533786427229643,
+                "supportRawNormalImpulseNs": 0.12533786427229643
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4793555587530136,
+                "supportRawNormalImpulseNs": 0.4793555587530136
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "thighF",
+          "impulseNms": -0.001,
+          "inputSnapshotSha256": "30dc51ef307d414ebae2b4a7a86aae61537abfdbff12a00a71b313d5cdb52411",
+          "initialBodySha256": "e8c22f7dc69f248e8385f01ff451db0faf285da88c8161d614e1f4cf5081719d",
+          "initialNativeSha256": "acce62584a0a37cb3ba6264f4fb1e2903e3b5bc76e99de7ffa590eef9f955dc6",
+          "relativeOmegaBeforeRadS": 0.03163108761255018,
+          "relativeOmegaImmediateRadS": -0.0023117327917333563,
+          "relativeOmegaAfterRadS": 0.37611594186250497,
+          "postBodySha256": "be1941e48d2cef0b50623d12db7a47e294f0188d69f506cdbe8e7ec6355cabcb",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.1253987094387412,
+                "supportRawNormalImpulseNs": 0.1253987094387412
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4800948053598404,
+                "supportRawNormalImpulseNs": 0.4800948053598404
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "thighF",
+          "impulseNms": 0.01,
+          "inputSnapshotSha256": "30dc51ef307d414ebae2b4a7a86aae61537abfdbff12a00a71b313d5cdb52411",
+          "initialBodySha256": "e8c22f7dc69f248e8385f01ff451db0faf285da88c8161d614e1f4cf5081719d",
+          "initialNativeSha256": "acce62584a0a37cb3ba6264f4fb1e2903e3b5bc76e99de7ffa590eef9f955dc6",
+          "relativeOmegaBeforeRadS": 0.03163108761255018,
+          "relativeOmegaImmediateRadS": 0.37105937845855264,
+          "relativeOmegaAfterRadS": 0.4596190782863495,
+          "postBodySha256": "8af8670593cbeea7ed488920b8d3ab44b63504414f6ca587fdac8ee2d65c7889",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.12504767626523972,
+                "supportRawNormalImpulseNs": 0.12504767626523972
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4759341850876808,
+                "supportRawNormalImpulseNs": 0.4759341850876808
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "thighF",
+          "impulseNms": -0.01,
+          "inputSnapshotSha256": "30dc51ef307d414ebae2b4a7a86aae61537abfdbff12a00a71b313d5cdb52411",
+          "initialBodySha256": "e8c22f7dc69f248e8385f01ff451db0faf285da88c8161d614e1f4cf5081719d",
+          "initialNativeSha256": "acce62584a0a37cb3ba6264f4fb1e2903e3b5bc76e99de7ffa590eef9f955dc6",
+          "relativeOmegaBeforeRadS": 0.03163108761255018,
+          "relativeOmegaImmediateRadS": -0.30779719426593455,
+          "relativeOmegaAfterRadS": 0.3076098753472499,
+          "postBodySha256": "0c4fea287d879597acc390868e9ba0188b290e0f13215e71f3efe8f736778bea",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.12571282964199781,
+                "supportRawNormalImpulseNs": 0.12571282964199781
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.48349837958812714,
+                "supportRawNormalImpulseNs": 0.48349837958812714
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "30dc51ef307d414ebae2b4a7a86aae61537abfdbff12a00a71b313d5cdb52411",
+          "initialBodySha256": "e8c22f7dc69f248e8385f01ff451db0faf285da88c8161d614e1f4cf5081719d",
+          "initialNativeSha256": "acce62584a0a37cb3ba6264f4fb1e2903e3b5bc76e99de7ffa590eef9f955dc6",
+          "relativeOmegaBeforeRadS": 0.751296884396987,
+          "relativeOmegaImmediateRadS": 0.751296884396987,
+          "relativeOmegaAfterRadS": 0.4406837396600288,
+          "postBodySha256": "af6f49f2841f7baeb3af6c9c54a27185558b5a425e93d8467ab19323b651dc59",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.1253667026758194,
+                "supportRawNormalImpulseNs": 0.1253667026758194
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4797210693359375,
+                "supportRawNormalImpulseNs": 0.4797210693359375
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.3413964956998825,
+                "supportRawNormalImpulseNs": 0.3413964956998825
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "30dc51ef307d414ebae2b4a7a86aae61537abfdbff12a00a71b313d5cdb52411",
+          "initialBodySha256": "e8c22f7dc69f248e8385f01ff451db0faf285da88c8161d614e1f4cf5081719d",
+          "initialNativeSha256": "acce62584a0a37cb3ba6264f4fb1e2903e3b5bc76e99de7ffa590eef9f955dc6",
+          "relativeOmegaBeforeRadS": 0.751296884396987,
+          "relativeOmegaImmediateRadS": 0.751296884396987,
+          "relativeOmegaAfterRadS": 0.4406837396600288,
+          "postBodySha256": "af6f49f2841f7baeb3af6c9c54a27185558b5a425e93d8467ab19323b651dc59",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.1253667026758194,
+                "supportRawNormalImpulseNs": 0.1253667026758194
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4797210693359375,
+                "supportRawNormalImpulseNs": 0.4797210693359375
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.3413964956998825,
+                "supportRawNormalImpulseNs": 0.3413964956998825
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": 0.001,
+          "inputSnapshotSha256": "30dc51ef307d414ebae2b4a7a86aae61537abfdbff12a00a71b313d5cdb52411",
+          "initialBodySha256": "e8c22f7dc69f248e8385f01ff451db0faf285da88c8161d614e1f4cf5081719d",
+          "initialNativeSha256": "acce62584a0a37cb3ba6264f4fb1e2903e3b5bc76e99de7ffa590eef9f955dc6",
+          "relativeOmegaBeforeRadS": 0.751296884396987,
+          "relativeOmegaImmediateRadS": 0.7826747605267187,
+          "relativeOmegaAfterRadS": 0.4504440349815501,
+          "postBodySha256": "ba8114db948d796050d3f31bed800ffa114396a1036c120824a89b3e0e54df6f",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.12549783941358328,
+                "supportRawNormalImpulseNs": 0.12549783941358328
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.47986267507076263,
+                "supportRawNormalImpulseNs": 0.47986267507076263
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": -0.001,
+          "inputSnapshotSha256": "30dc51ef307d414ebae2b4a7a86aae61537abfdbff12a00a71b313d5cdb52411",
+          "initialBodySha256": "e8c22f7dc69f248e8385f01ff451db0faf285da88c8161d614e1f4cf5081719d",
+          "initialNativeSha256": "acce62584a0a37cb3ba6264f4fb1e2903e3b5bc76e99de7ffa590eef9f955dc6",
+          "relativeOmegaBeforeRadS": 0.751296884396987,
+          "relativeOmegaImmediateRadS": 0.7199190082672553,
+          "relativeOmegaAfterRadS": 0.4314423192701069,
+          "postBodySha256": "fbabcafcdca865f71e6aeb8c5dd4634dfa0427771f337d726789a279dd970628",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.1252309437841177,
+                "supportRawNormalImpulseNs": 0.1252309437841177
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4796031713485718,
+                "supportRawNormalImpulseNs": 0.4796031713485718
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": 0.01,
+          "inputSnapshotSha256": "30dc51ef307d414ebae2b4a7a86aae61537abfdbff12a00a71b313d5cdb52411",
+          "initialBodySha256": "e8c22f7dc69f248e8385f01ff451db0faf285da88c8161d614e1f4cf5081719d",
+          "initialNativeSha256": "acce62584a0a37cb3ba6264f4fb1e2903e3b5bc76e99de7ffa590eef9f955dc6",
+          "relativeOmegaBeforeRadS": 0.751296884396987,
+          "relativeOmegaImmediateRadS": 1.0650758817919521,
+          "relativeOmegaAfterRadS": 0.534673595913933,
+          "postBodySha256": "946eabe16c805467e69b874b0ce60b7ad98ebb3027c60bd017a0a5a59cf625b9",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.12693814560770988,
+                "supportRawNormalImpulseNs": 0.12693814560770988
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.48082610964775085,
+                "supportRawNormalImpulseNs": 0.48082610964775085
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.3413443863391876,
+                "supportRawNormalImpulseNs": 0.3413443863391876
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": -0.01,
+          "inputSnapshotSha256": "30dc51ef307d414ebae2b4a7a86aae61537abfdbff12a00a71b313d5cdb52411",
+          "initialBodySha256": "e8c22f7dc69f248e8385f01ff451db0faf285da88c8161d614e1f4cf5081719d",
+          "initialNativeSha256": "acce62584a0a37cb3ba6264f4fb1e2903e3b5bc76e99de7ffa590eef9f955dc6",
+          "relativeOmegaBeforeRadS": 0.751296884396987,
+          "relativeOmegaImmediateRadS": 0.43751788677398123,
+          "relativeOmegaAfterRadS": 0.35865028072648636,
+          "postBodySha256": "83891ebea30046aaeef7af92abce1a40fa93f499d475d0788aad7899e76c2097",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.12091581895947456,
+                "supportRawNormalImpulseNs": 0.12091581895947456
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.478578545153141,
+                "supportRawNormalImpulseNs": 0.478578545153141
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.3414516746997833,
+                "supportRawNormalImpulseNs": 0.3414516746997833
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "30dc51ef307d414ebae2b4a7a86aae61537abfdbff12a00a71b313d5cdb52411",
+          "initialBodySha256": "e8c22f7dc69f248e8385f01ff451db0faf285da88c8161d614e1f4cf5081719d",
+          "initialNativeSha256": "acce62584a0a37cb3ba6264f4fb1e2903e3b5bc76e99de7ffa590eef9f955dc6",
+          "relativeOmegaBeforeRadS": -0.3435229957861821,
+          "relativeOmegaImmediateRadS": -0.3435229957861821,
+          "relativeOmegaAfterRadS": -0.17366553018528297,
+          "postBodySha256": "af6f49f2841f7baeb3af6c9c54a27185558b5a425e93d8467ab19323b651dc59",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.1253667026758194,
+                "supportRawNormalImpulseNs": 0.1253667026758194
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4797210693359375,
+                "supportRawNormalImpulseNs": 0.4797210693359375
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.3413964956998825,
+                "supportRawNormalImpulseNs": 0.3413964956998825
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "30dc51ef307d414ebae2b4a7a86aae61537abfdbff12a00a71b313d5cdb52411",
+          "initialBodySha256": "e8c22f7dc69f248e8385f01ff451db0faf285da88c8161d614e1f4cf5081719d",
+          "initialNativeSha256": "acce62584a0a37cb3ba6264f4fb1e2903e3b5bc76e99de7ffa590eef9f955dc6",
+          "relativeOmegaBeforeRadS": -0.3435229957861821,
+          "relativeOmegaImmediateRadS": -0.3435229957861821,
+          "relativeOmegaAfterRadS": -0.17366553018528297,
+          "postBodySha256": "af6f49f2841f7baeb3af6c9c54a27185558b5a425e93d8467ab19323b651dc59",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.1253667026758194,
+                "supportRawNormalImpulseNs": 0.1253667026758194
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4797210693359375,
+                "supportRawNormalImpulseNs": 0.4797210693359375
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.3413964956998825,
+                "supportRawNormalImpulseNs": 0.3413964956998825
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": 0.001,
+          "inputSnapshotSha256": "30dc51ef307d414ebae2b4a7a86aae61537abfdbff12a00a71b313d5cdb52411",
+          "initialBodySha256": "e8c22f7dc69f248e8385f01ff451db0faf285da88c8161d614e1f4cf5081719d",
+          "initialNativeSha256": "acce62584a0a37cb3ba6264f4fb1e2903e3b5bc76e99de7ffa590eef9f955dc6",
+          "relativeOmegaBeforeRadS": -0.3435229957861821,
+          "relativeOmegaImmediateRadS": -0.12792214175464833,
+          "relativeOmegaAfterRadS": -0.18034025327995667,
+          "postBodySha256": "b797a69adbabedc812eaca942b256f2268517bf44ee94558655dc3c5644f6749",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.12442301027476788,
+                "supportRawNormalImpulseNs": 0.12442301027476788
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4799284189939499,
+                "supportRawNormalImpulseNs": 0.4799284189939499
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.3414183259010315,
+                "supportRawNormalImpulseNs": 0.3414183259010315
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": -0.001,
+          "inputSnapshotSha256": "30dc51ef307d414ebae2b4a7a86aae61537abfdbff12a00a71b313d5cdb52411",
+          "initialBodySha256": "e8c22f7dc69f248e8385f01ff451db0faf285da88c8161d614e1f4cf5081719d",
+          "initialNativeSha256": "acce62584a0a37cb3ba6264f4fb1e2903e3b5bc76e99de7ffa590eef9f955dc6",
+          "relativeOmegaBeforeRadS": -0.3435229957861821,
+          "relativeOmegaImmediateRadS": -0.5591238462332642,
+          "relativeOmegaAfterRadS": -0.18504782244343926,
+          "postBodySha256": "6e8f52f3e7d3f98aedf0fd2cc258793f3ad99b0c56a334baeaa8e417a5690bfd",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.12589477933943272,
+                "supportRawNormalImpulseNs": 0.12589477933943272
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.47956255078315735,
+                "supportRawNormalImpulseNs": 0.47956255078315735
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.3413807153701782,
+                "supportRawNormalImpulseNs": 0.3413807153701782
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": 0.01,
+          "inputSnapshotSha256": "30dc51ef307d414ebae2b4a7a86aae61537abfdbff12a00a71b313d5cdb52411",
+          "initialBodySha256": "e8c22f7dc69f248e8385f01ff451db0faf285da88c8161d614e1f4cf5081719d",
+          "initialNativeSha256": "acce62584a0a37cb3ba6264f4fb1e2903e3b5bc76e99de7ffa590eef9f955dc6",
+          "relativeOmegaBeforeRadS": -0.3435229957861821,
+          "relativeOmegaImmediateRadS": 1.8124857333940765,
+          "relativeOmegaAfterRadS": 0.6538579555584318,
+          "postBodySha256": "956be82c26c475a211983692847c10a480fcab14c6a5edd9760e040d7a4d3449",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.10555837582796812,
+                "supportRawNormalImpulseNs": 0.10555837582796812
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.48160505667328835,
+                "supportRawNormalImpulseNs": 0.48160505667328835
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.34155526757240295,
+                "supportRawNormalImpulseNs": 0.34155526757240295
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": -0.01,
+          "inputSnapshotSha256": "30dc51ef307d414ebae2b4a7a86aae61537abfdbff12a00a71b313d5cdb52411",
+          "initialBodySha256": "e8c22f7dc69f248e8385f01ff451db0faf285da88c8161d614e1f4cf5081719d",
+          "initialNativeSha256": "acce62584a0a37cb3ba6264f4fb1e2903e3b5bc76e99de7ffa590eef9f955dc6",
+          "relativeOmegaBeforeRadS": -0.3435229957861821,
+          "relativeOmegaImmediateRadS": -2.4995316402833736,
+          "relativeOmegaAfterRadS": -0.854923415034961,
+          "postBodySha256": "4f735461f38ac17df2854af2ec9e01d32553c348af3573a83b2aeed37a21059c",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.12447557598352432,
+                "supportRawNormalImpulseNs": 0.12447557598352432
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.47778892517089844,
+                "supportRawNormalImpulseNs": 0.47778892517089844
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "hurt_getup",
+      "phase": "firstStand",
+      "timeS": 5.575,
+      "state": "stand",
+      "pelvisHeightM": 0.5451655983924866,
+      "chestTiltDeg": 23.99491474132062,
+      "levH": 1,
+      "limbs": {
+        "armS": 1,
+        "armO": 1,
+        "legF": 0.45,
+        "legB": 1
+      },
+      "muscle": 0.9998850353802047,
+      "uprightScale": 0.0682201521322758,
+      "nativeSha256": "081c2e9472b95de93bd8fad6e8834c262a0907651208568edc50c2790cca1cfd",
+      "bodySha256": "b37b76389336cd28149d8d2b20c0369890e8d535dcaba7180a7b4704883b3dd4",
+      "support": {
+        "anySupport": true,
+        "groups": {
+          "footF": {
+            "hasSupport": true,
+            "rawNormalImpulseNs": 3.9397828727960587,
+            "supportRawNormalImpulseNs": 3.9397828727960587
+          },
+          "footB": {
+            "hasSupport": true,
+            "rawNormalImpulseNs": 4.058417081832886,
+            "supportRawNormalImpulseNs": 4.058417081832886
+          },
+          "shinF": {
+            "hasSupport": false,
+            "rawNormalImpulseNs": 0,
+            "supportRawNormalImpulseNs": 0
+          },
+          "shinB": {
+            "hasSupport": false,
+            "rawNormalImpulseNs": 0,
+            "supportRawNormalImpulseNs": 0
+          },
+          "handO": {
+            "hasSupport": false,
+            "rawNormalImpulseNs": 0,
+            "supportRawNormalImpulseNs": 0
+          }
+        }
+      },
+      "guards": {
+        "captureBodyExact": true,
+        "recreationPreservesBodies": true,
+        "jointCountPreserved": true,
+        "sameInputSnapshot": true,
+        "sameInitialBodyExact": true,
+        "sameInitialNativeExact": true,
+        "deterministicZero": true,
+        "finite": true,
+        "immediateFreePairPrediction": true,
+        "neverConfiguredLegMotors": true
+      },
+      "responses": [
+        {
+          "joint": "thighF",
+          "impulseMagnitudeNms": 0.001,
+          "freePairInverseInertia": 53.08279904582011,
+          "immediatePlusGain": 53.08276299279962,
+          "immediateMinusGain": 53.082762992799566,
+          "immediateAbsoluteTolerance": 0.0003061655980916402,
+          "plusMinusZeroGain": 0.8931325718579686,
+          "minusMinusZeroGain": 1.0909900339792777,
+          "centralGain": 0.9920613029186232,
+          "centralToFreePairRatio": 0.018688941064737258,
+          "evenResponseRadS": -9.892873106043254e-05,
+          "plusMinusGainDifference": -0.19785746212130917
+        },
+        {
+          "joint": "thighF",
+          "impulseMagnitudeNms": 0.01,
+          "freePairInverseInertia": 53.08279904582011,
+          "immediatePlusGain": 53.08280258937344,
+          "immediateMinusGain": 53.082803265572295,
+          "immediateAbsoluteTolerance": 0.0001261655980916402,
+          "plusMinusZeroGain": 0.9294172591676642,
+          "minusMinusZeroGain": 0.916512568514527,
+          "centralGain": 0.9229649138410956,
+          "centralToFreePairRatio": 0.017387269142390343,
+          "evenResponseRadS": 6.452345326568576e-05,
+          "plusMinusGainDifference": 0.012904690653137152
+        },
+        {
+          "joint": "shinF",
+          "impulseMagnitudeNms": 0.001,
+          "freePairInverseInertia": 31.38090172314328,
+          "immediatePlusGain": 31.38092297732875,
+          "immediateMinusGain": 31.38092297732764,
+          "immediateAbsoluteTolerance": 0.0004156212680106737,
+          "plusMinusZeroGain": 2.8999404632620296,
+          "minusMinusZeroGain": 3.1762419513293727,
+          "centralGain": 3.038091207295701,
+          "centralToFreePairRatio": 0.09681338140309467,
+          "evenResponseRadS": -0.00013815074403367156,
+          "plusMinusGainDifference": -0.2763014880673431
+        },
+        {
+          "joint": "shinF",
+          "impulseMagnitudeNms": 0.01,
+          "freePairInverseInertia": 31.38090172314328,
+          "immediatePlusGain": 31.38090378713878,
+          "immediateMinusGain": 31.380903787138713,
+          "immediateAbsoluteTolerance": 9.804774990272528e-05,
+          "plusMinusZeroGain": 3.0542430642721716,
+          "minusMinusZeroGain": 3.0625860820413853,
+          "centralGain": 3.0584145731567784,
+          "centralToFreePairRatio": 0.09746101626204103,
+          "evenResponseRadS": -4.171508884609487e-05,
+          "plusMinusGainDifference": -0.008343017769213645
+        },
+        {
+          "joint": "footF",
+          "impulseMagnitudeNms": 0.001,
+          "freePairInverseInertia": 98.6751171967952,
+          "immediatePlusGain": 98.67500097124982,
+          "immediateMinusGain": 98.67500097124892,
+          "immediateAbsoluteTolerance": 0.0008033927314864372,
+          "plusMinusZeroGain": 69.92828650022442,
+          "minusMinusZeroGain": 70.216395077753,
+          "centralGain": 70.07234078898871,
+          "centralToFreePairRatio": 0.7101318222834048,
+          "evenResponseRadS": -0.00014405428876429482,
+          "plusMinusGainDifference": -0.28810857752858965
+        },
+        {
+          "joint": "footF",
+          "impulseMagnitudeNms": 0.01,
+          "freePairInverseInertia": 98.6751171967952,
+          "immediatePlusGain": 98.67512985481817,
+          "immediateMinusGain": 98.67512985481812,
+          "immediateAbsoluteTolerance": 0.00025795448410287505,
+          "plusMinusZeroGain": 70.70654527422411,
+          "minusMinusZeroGain": 69.35120629740811,
+          "centralGain": 70.02887578581611,
+          "centralToFreePairRatio": 0.7096913363290186,
+          "evenResponseRadS": 0.006776694884079948,
+          "plusMinusGainDifference": 1.3553389768160002
+        }
+      ],
+      "responseCheckpoint": {
+        "inputNativeSha256": "f51580dbf26ccd74ee0c871bdc3e2d558b24d702a7341ac1eb67185a18fc0f92",
+        "bodySha256": "a615fe9cdb20dab15012fc793fb406251c88c30ce062aba381d258d190f7ad54",
+        "dt": 0.008333333767950535,
+        "gravity": {
+          "x": 0,
+          "y": -9.8100004196167,
+          "z": 0
+        },
+        "solverIterations": 6,
+        "zeroLegMotorRequests": true,
+        "measuredJoints": [
+          {
+            "name": "thighF",
+            "parent": 5e-324,
+            "child": 4.4e-323,
+            "axisWorld": {
+              "x": 0.086080243617081,
+              "y": 0.11344733772246374,
+              "z": 0.9898080087801844
+            },
+            "freePairInverseInertia": 53.08279904582011
+          },
+          {
+            "name": "shinF",
+            "parent": 4.4e-323,
+            "child": 5e-323,
+            "axisWorld": {
+              "x": 0.9053568211367207,
+              "y": 0.2009238856440163,
+              "z": 0.3741105897758814
+            },
+            "freePairInverseInertia": 31.38090172314328
+          },
+          {
+            "name": "footF",
+            "parent": 5e-323,
+            "child": 5.4e-323,
+            "axisWorld": {
+              "x": 0.8977857037642423,
+              "y": 0.23110881551135165,
+              "z": 0.37492602895328986
+            },
+            "freePairInverseInertia": 98.6751171967952
+          }
+        ]
+      },
+      "branchCount": 18,
+      "restoredNativeInitialSha256": "86344c5ca5f19c3c2150b500dd58576bb9f899eb572cedf580cff3427b18d83c",
+      "allOriginalNativeReserializationsExact": false,
+      "branchWitnesses": [
+        {
+          "joint": "thighF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "f51580dbf26ccd74ee0c871bdc3e2d558b24d702a7341ac1eb67185a18fc0f92",
+          "initialBodySha256": "a615fe9cdb20dab15012fc793fb406251c88c30ce062aba381d258d190f7ad54",
+          "initialNativeSha256": "86344c5ca5f19c3c2150b500dd58576bb9f899eb572cedf580cff3427b18d83c",
+          "relativeOmegaBeforeRadS": -0.5267672435531937,
+          "relativeOmegaImmediateRadS": -0.5267672435531937,
+          "relativeOmegaAfterRadS": 2.161246350684862,
+          "postBodySha256": "88e7d91d10607e1636562071278ab2f31b90763f8b57b90d5e36c5757ab4f56b",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4279760420322418,
+                "supportRawNormalImpulseNs": 0.4279760420322418
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.697817400097847,
+                "supportRawNormalImpulseNs": 0.697817400097847
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "thighF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "f51580dbf26ccd74ee0c871bdc3e2d558b24d702a7341ac1eb67185a18fc0f92",
+          "initialBodySha256": "a615fe9cdb20dab15012fc793fb406251c88c30ce062aba381d258d190f7ad54",
+          "initialNativeSha256": "86344c5ca5f19c3c2150b500dd58576bb9f899eb572cedf580cff3427b18d83c",
+          "relativeOmegaBeforeRadS": -0.5267672435531937,
+          "relativeOmegaImmediateRadS": -0.5267672435531937,
+          "relativeOmegaAfterRadS": 2.161246350684862,
+          "postBodySha256": "88e7d91d10607e1636562071278ab2f31b90763f8b57b90d5e36c5757ab4f56b",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4279760420322418,
+                "supportRawNormalImpulseNs": 0.4279760420322418
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.697817400097847,
+                "supportRawNormalImpulseNs": 0.697817400097847
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "thighF",
+          "impulseNms": 0.001,
+          "inputSnapshotSha256": "f51580dbf26ccd74ee0c871bdc3e2d558b24d702a7341ac1eb67185a18fc0f92",
+          "initialBodySha256": "a615fe9cdb20dab15012fc793fb406251c88c30ce062aba381d258d190f7ad54",
+          "initialNativeSha256": "86344c5ca5f19c3c2150b500dd58576bb9f899eb572cedf580cff3427b18d83c",
+          "relativeOmegaBeforeRadS": -0.5267672435531937,
+          "relativeOmegaImmediateRadS": -0.4736844805603941,
+          "relativeOmegaAfterRadS": 2.16213948325672,
+          "postBodySha256": "d8a79695a2564d890615a2244660a823cf15c0fdded1b2011f2ba9e447e89b42",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4279760420322418,
+                "supportRawNormalImpulseNs": 0.4279760420322418
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.697940856218338,
+                "supportRawNormalImpulseNs": 0.697940856218338
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "thighF",
+          "impulseNms": -0.001,
+          "inputSnapshotSha256": "f51580dbf26ccd74ee0c871bdc3e2d558b24d702a7341ac1eb67185a18fc0f92",
+          "initialBodySha256": "a615fe9cdb20dab15012fc793fb406251c88c30ce062aba381d258d190f7ad54",
+          "initialNativeSha256": "86344c5ca5f19c3c2150b500dd58576bb9f899eb572cedf580cff3427b18d83c",
+          "relativeOmegaBeforeRadS": -0.5267672435531937,
+          "relativeOmegaImmediateRadS": -0.5798500065459933,
+          "relativeOmegaAfterRadS": 2.1601553606508825,
+          "postBodySha256": "b4a0326300d8b0f8d8f29fe0aedae20d25e8b72f393c814e30b3f95af6f7c056",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4279760420322418,
+                "supportRawNormalImpulseNs": 0.4279760420322418
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.6975352615118027,
+                "supportRawNormalImpulseNs": 0.6975352615118027
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "thighF",
+          "impulseNms": 0.01,
+          "inputSnapshotSha256": "f51580dbf26ccd74ee0c871bdc3e2d558b24d702a7341ac1eb67185a18fc0f92",
+          "initialBodySha256": "a615fe9cdb20dab15012fc793fb406251c88c30ce062aba381d258d190f7ad54",
+          "initialNativeSha256": "86344c5ca5f19c3c2150b500dd58576bb9f899eb572cedf580cff3427b18d83c",
+          "relativeOmegaBeforeRadS": -0.5267672435531937,
+          "relativeOmegaImmediateRadS": 0.004060782340540747,
+          "relativeOmegaAfterRadS": 2.1705405232765385,
+          "postBodySha256": "45fb48067682cfebf0767c40ace389571d878b9eb4814e97c035449d1331d937",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4279760420322418,
+                "supportRawNormalImpulseNs": 0.4279760420322418
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.6996609419584274,
+                "supportRawNormalImpulseNs": 0.6996609419584274
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "thighF",
+          "impulseNms": -0.01,
+          "inputSnapshotSha256": "f51580dbf26ccd74ee0c871bdc3e2d558b24d702a7341ac1eb67185a18fc0f92",
+          "initialBodySha256": "a615fe9cdb20dab15012fc793fb406251c88c30ce062aba381d258d190f7ad54",
+          "initialNativeSha256": "86344c5ca5f19c3c2150b500dd58576bb9f899eb572cedf580cff3427b18d83c",
+          "relativeOmegaBeforeRadS": -0.5267672435531937,
+          "relativeOmegaImmediateRadS": -1.0575952762089167,
+          "relativeOmegaAfterRadS": 2.1520812249997165,
+          "postBodySha256": "77aebeae2e0e6cd0b167d381d4ea49c8403a4cbffaf5d40366b4a17b7d29ee99",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4279760420322418,
+                "supportRawNormalImpulseNs": 0.4279760420322418
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.6959023624658585,
+                "supportRawNormalImpulseNs": 0.6959023624658585
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "f51580dbf26ccd74ee0c871bdc3e2d558b24d702a7341ac1eb67185a18fc0f92",
+          "initialBodySha256": "a615fe9cdb20dab15012fc793fb406251c88c30ce062aba381d258d190f7ad54",
+          "initialNativeSha256": "86344c5ca5f19c3c2150b500dd58576bb9f899eb572cedf580cff3427b18d83c",
+          "relativeOmegaBeforeRadS": 1.7642973228219359,
+          "relativeOmegaImmediateRadS": 1.7642973228219359,
+          "relativeOmegaAfterRadS": -0.5230113084186719,
+          "postBodySha256": "88e7d91d10607e1636562071278ab2f31b90763f8b57b90d5e36c5757ab4f56b",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4279760420322418,
+                "supportRawNormalImpulseNs": 0.4279760420322418
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.697817400097847,
+                "supportRawNormalImpulseNs": 0.697817400097847
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "f51580dbf26ccd74ee0c871bdc3e2d558b24d702a7341ac1eb67185a18fc0f92",
+          "initialBodySha256": "a615fe9cdb20dab15012fc793fb406251c88c30ce062aba381d258d190f7ad54",
+          "initialNativeSha256": "86344c5ca5f19c3c2150b500dd58576bb9f899eb572cedf580cff3427b18d83c",
+          "relativeOmegaBeforeRadS": 1.7642973228219359,
+          "relativeOmegaImmediateRadS": 1.7642973228219359,
+          "relativeOmegaAfterRadS": -0.5230113084186719,
+          "postBodySha256": "88e7d91d10607e1636562071278ab2f31b90763f8b57b90d5e36c5757ab4f56b",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4279760420322418,
+                "supportRawNormalImpulseNs": 0.4279760420322418
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.697817400097847,
+                "supportRawNormalImpulseNs": 0.697817400097847
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": 0.001,
+          "inputSnapshotSha256": "f51580dbf26ccd74ee0c871bdc3e2d558b24d702a7341ac1eb67185a18fc0f92",
+          "initialBodySha256": "a615fe9cdb20dab15012fc793fb406251c88c30ce062aba381d258d190f7ad54",
+          "initialNativeSha256": "86344c5ca5f19c3c2150b500dd58576bb9f899eb572cedf580cff3427b18d83c",
+          "relativeOmegaBeforeRadS": 1.7642973228219359,
+          "relativeOmegaImmediateRadS": 1.7956782457992646,
+          "relativeOmegaAfterRadS": -0.5201113679554099,
+          "postBodySha256": "8022716ec4b2c73abb458aaf5c75a8fb641c27843228bcda58a0f8b99e26b808",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4279760420322418,
+                "supportRawNormalImpulseNs": 0.4279760420322418
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.6977899521589279,
+                "supportRawNormalImpulseNs": 0.6977899521589279
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": -0.001,
+          "inputSnapshotSha256": "f51580dbf26ccd74ee0c871bdc3e2d558b24d702a7341ac1eb67185a18fc0f92",
+          "initialBodySha256": "a615fe9cdb20dab15012fc793fb406251c88c30ce062aba381d258d190f7ad54",
+          "initialNativeSha256": "86344c5ca5f19c3c2150b500dd58576bb9f899eb572cedf580cff3427b18d83c",
+          "relativeOmegaBeforeRadS": 1.7642973228219359,
+          "relativeOmegaImmediateRadS": 1.7329163998446082,
+          "relativeOmegaAfterRadS": -0.5261875503700013,
+          "postBodySha256": "e37f413ae82c2c36caccdf67abb7cceb39821ca14bd639792e6f5da6895db9ce",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4279760420322418,
+                "supportRawNormalImpulseNs": 0.4279760420322418
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.6978123933076859,
+                "supportRawNormalImpulseNs": 0.6978123933076859
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": 0.01,
+          "inputSnapshotSha256": "f51580dbf26ccd74ee0c871bdc3e2d558b24d702a7341ac1eb67185a18fc0f92",
+          "initialBodySha256": "a615fe9cdb20dab15012fc793fb406251c88c30ce062aba381d258d190f7ad54",
+          "initialNativeSha256": "86344c5ca5f19c3c2150b500dd58576bb9f899eb572cedf580cff3427b18d83c",
+          "relativeOmegaBeforeRadS": 1.7642973228219359,
+          "relativeOmegaImmediateRadS": 2.0781063606933237,
+          "relativeOmegaAfterRadS": -0.4924688777759502,
+          "postBodySha256": "696b0e79dbc583f077f1f551e67a0fa29525eb8d65254ac080a384dc21b56469",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4279760420322418,
+                "supportRawNormalImpulseNs": 0.4279760420322418
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.6973120272159576,
+                "supportRawNormalImpulseNs": 0.6973120272159576
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "shinF",
+          "impulseNms": -0.01,
+          "inputSnapshotSha256": "f51580dbf26ccd74ee0c871bdc3e2d558b24d702a7341ac1eb67185a18fc0f92",
+          "initialBodySha256": "a615fe9cdb20dab15012fc793fb406251c88c30ce062aba381d258d190f7ad54",
+          "initialNativeSha256": "86344c5ca5f19c3c2150b500dd58576bb9f899eb572cedf580cff3427b18d83c",
+          "relativeOmegaBeforeRadS": 1.7642973228219359,
+          "relativeOmegaImmediateRadS": 1.4504882849505487,
+          "relativeOmegaAfterRadS": -0.5536371692390858,
+          "postBodySha256": "3009ba885d19d7eb192c7fa33630c07e480d6a7846fb16c9c90db28484dd4e50",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4279760420322418,
+                "supportRawNormalImpulseNs": 0.4279760420322418
+              },
+              "footB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "f51580dbf26ccd74ee0c871bdc3e2d558b24d702a7341ac1eb67185a18fc0f92",
+          "initialBodySha256": "a615fe9cdb20dab15012fc793fb406251c88c30ce062aba381d258d190f7ad54",
+          "initialNativeSha256": "86344c5ca5f19c3c2150b500dd58576bb9f899eb572cedf580cff3427b18d83c",
+          "relativeOmegaBeforeRadS": 3.030212485464234,
+          "relativeOmegaImmediateRadS": 3.030212485464234,
+          "relativeOmegaAfterRadS": 3.4681277809192137,
+          "postBodySha256": "88e7d91d10607e1636562071278ab2f31b90763f8b57b90d5e36c5757ab4f56b",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4279760420322418,
+                "supportRawNormalImpulseNs": 0.4279760420322418
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.697817400097847,
+                "supportRawNormalImpulseNs": 0.697817400097847
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": 0,
+          "inputSnapshotSha256": "f51580dbf26ccd74ee0c871bdc3e2d558b24d702a7341ac1eb67185a18fc0f92",
+          "initialBodySha256": "a615fe9cdb20dab15012fc793fb406251c88c30ce062aba381d258d190f7ad54",
+          "initialNativeSha256": "86344c5ca5f19c3c2150b500dd58576bb9f899eb572cedf580cff3427b18d83c",
+          "relativeOmegaBeforeRadS": 3.030212485464234,
+          "relativeOmegaImmediateRadS": 3.030212485464234,
+          "relativeOmegaAfterRadS": 3.4681277809192137,
+          "postBodySha256": "88e7d91d10607e1636562071278ab2f31b90763f8b57b90d5e36c5757ab4f56b",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4279760420322418,
+                "supportRawNormalImpulseNs": 0.4279760420322418
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.697817400097847,
+                "supportRawNormalImpulseNs": 0.697817400097847
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": 0.001,
+          "inputSnapshotSha256": "f51580dbf26ccd74ee0c871bdc3e2d558b24d702a7341ac1eb67185a18fc0f92",
+          "initialBodySha256": "a615fe9cdb20dab15012fc793fb406251c88c30ce062aba381d258d190f7ad54",
+          "initialNativeSha256": "86344c5ca5f19c3c2150b500dd58576bb9f899eb572cedf580cff3427b18d83c",
+          "relativeOmegaBeforeRadS": 3.030212485464234,
+          "relativeOmegaImmediateRadS": 3.1288874864354836,
+          "relativeOmegaAfterRadS": 3.538056067419438,
+          "postBodySha256": "0d4a4a929ebc21a07ca6f5bbeda437bae4665499d873cc6ae3e2a6870402de44",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4279760420322418,
+                "supportRawNormalImpulseNs": 0.4279760420322418
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.6977698057889938,
+                "supportRawNormalImpulseNs": 0.6977698057889938
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": -0.001,
+          "inputSnapshotSha256": "f51580dbf26ccd74ee0c871bdc3e2d558b24d702a7341ac1eb67185a18fc0f92",
+          "initialBodySha256": "a615fe9cdb20dab15012fc793fb406251c88c30ce062aba381d258d190f7ad54",
+          "initialNativeSha256": "86344c5ca5f19c3c2150b500dd58576bb9f899eb572cedf580cff3427b18d83c",
+          "relativeOmegaBeforeRadS": 3.030212485464234,
+          "relativeOmegaImmediateRadS": 2.931537484492985,
+          "relativeOmegaAfterRadS": 3.3979113858414607,
+          "postBodySha256": "5ba3d1d4f4a58c05b8b5ff2d7a2d8348b53e97d976597d5b9f0bef641d30299c",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4279760420322418,
+                "supportRawNormalImpulseNs": 0.4279760420322418
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.6977113634347916,
+                "supportRawNormalImpulseNs": 0.6977113634347916
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": 0.01,
+          "inputSnapshotSha256": "f51580dbf26ccd74ee0c871bdc3e2d558b24d702a7341ac1eb67185a18fc0f92",
+          "initialBodySha256": "a615fe9cdb20dab15012fc793fb406251c88c30ce062aba381d258d190f7ad54",
+          "initialNativeSha256": "86344c5ca5f19c3c2150b500dd58576bb9f899eb572cedf580cff3427b18d83c",
+          "relativeOmegaBeforeRadS": 3.030212485464234,
+          "relativeOmegaImmediateRadS": 4.0169637840124155,
+          "relativeOmegaAfterRadS": 4.175193233661455,
+          "postBodySha256": "aaa4163b878394755e4f453a942eceb9ec4ac9e12d1d98be26bb89b081ff70bb",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4279760420322418,
+                "supportRawNormalImpulseNs": 0.4279760420322418
+              },
+              "footB": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.6978843808174133,
+                "supportRawNormalImpulseNs": 0.6978843808174133
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        },
+        {
+          "joint": "footF",
+          "impulseNms": -0.01,
+          "inputSnapshotSha256": "f51580dbf26ccd74ee0c871bdc3e2d558b24d702a7341ac1eb67185a18fc0f92",
+          "initialBodySha256": "a615fe9cdb20dab15012fc793fb406251c88c30ce062aba381d258d190f7ad54",
+          "initialNativeSha256": "86344c5ca5f19c3c2150b500dd58576bb9f899eb572cedf580cff3427b18d83c",
+          "relativeOmegaBeforeRadS": 3.030212485464234,
+          "relativeOmegaImmediateRadS": 2.0434611869160526,
+          "relativeOmegaAfterRadS": 2.7746157179451325,
+          "postBodySha256": "6f290612e01401a5c0a34d31f7e8e3b4353817efc45c12012825041ea3f980ec",
+          "supportAfter": {
+            "anySupport": true,
+            "groups": {
+              "footF": {
+                "hasSupport": true,
+                "rawNormalImpulseNs": 0.4279760420322418,
+                "supportRawNormalImpulseNs": 0.4279760420322418
+              },
+              "footB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinF": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "shinB": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              },
+              "handO": {
+                "hasSupport": false,
+                "rawNormalImpulseNs": 0,
+                "supportRawNormalImpulseNs": 0
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "acceptance": {
+    "adoptedRecovery": false,
+    "fixedGainChosen": false,
+    "humanPhysicsValidated": false,
+    "weakLegSingleCauseEstablished": false
+  },
+  "limits": [
+    "Only one deterministic seed and one controller path per healthy/hurt scenario.",
+    "The snapshots retain pose-specific upper native motors and upright; no zero-upright ablation in this experiment.",
+    "Six leg joint recreation removes leg motor/solver history; those motors stay never configured.",
+    "All dynamic user forces/torques are reset uniformly before response snapshot; this differs from a full controller step with current support forces.",
+    "One-step response includes constraints, contacts/friction, damping, upper motors and native solver effects.",
+    "Healthy/hurt checkpoints differ in pose, contact, mass/inertia and upper motor settings; not a weak-leg-only causal comparison.",
+    "Snapshot byte streams are restored during execution but not exported; hashes and explicit states are recorded."
+  ]
+}
