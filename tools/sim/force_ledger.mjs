@@ -73,7 +73,7 @@ export function installForceLedger(G,options={}){
  if(!Number.isInteger(sampleEvery)||sampleEvery<1||!Number.isInteger(maxSamples)||maxSamples<0)throw new RangeError('sampleEvery>=1, maxSamples>=0 must be integers.');
  const fighters=[...new Set([G.player,G.enemy,...(options.fighters||[])].filter(Boolean))],selectedOwners=options.fighters?new Set(options.fighters):null;
  const selectedHandles=options.bodies?new Set([...options.bodies].map(b=>String(typeof b==='object'?b.handle:b))):null;
- const bodyMeta=new Map(),books=new Map(),restorers=[],warnings=[],stack=[],samples=[],pending=[],knownBodies=new Map();
+ const bodyMeta=new Map(),books=new Map(),restorers=[],warnings=[],stack=[],samples=[],pending=[],knownBodies=new Map(),observedMethods=new WeakMap();
  let frame=null,phase='idle',restored=false,index=0,lastEnd=null,latest=null;
  const totals={frames:0,physicsSteps:0,explicitForceImpulse:z(),gravityImpulse:z(),explicitAngularImpulse:z(),gravityAngularImpulse:z(),directImpulse:z(),directAngularImpulse:z(),forceWorkApproxJ:0,gravityWorkApproxJ:0,impulseDeltaKJ:0,stateOverrideDeltaKJ:0,massChangingFrames:0,velocityOverrideCalls:0,residualP:z(),residualL:z(),energyResidualApproxJ:0,byPath:{},maxForceBookMismatch:0};
  const ownership=()=>{
@@ -100,7 +100,33 @@ export function installForceLedger(G,options={}){
   if(!obj)return;
   const names=new Set();let proto=Object.getPrototypeOf(obj);
   while(proto&&proto!==Object.prototype){for(const n of Object.getOwnPropertyNames(proto))if(n!=='constructor'&&typeof Object.getOwnPropertyDescriptor(proto,n)?.value==='function')names.add(n);proto=Object.getPrototypeOf(proto);}
-  for(const name of names)replace(obj,name,original=>function(...args){stack.push({label:`${prefix}.${name}`,ownerObject});try{return original.apply(this,args);}finally{stack.pop();}});
+  const methods=new Map();observedMethods.set(obj,methods);
+  for(const name of names)replace(obj,name,original=>{
+   const entry={dispatch:{implementation:original},wrapper:null};
+   entry.wrapper=function(...args){stack.push({label:`${prefix}.${name}`,ownerObject});try{return entry.dispatch.implementation.apply(this,args);}finally{stack.pop();}};
+   methods.set(name,entry);return entry.wrapper;
+  });
+ }
+ // Change only a labelled method's implementation; its observer and path stay installed.
+ // Undo is LIFO for each method and is valid only while this ledger still owns the wrapper.
+ function replaceObservedMethod(obj,name,implementation){
+  function current(){
+   if(restored)throw new Error('Force ledger has been restored');
+   if(frame||phase!=='idle'||stack.length)throw new Error('Observed methods may only be replaced while idle');
+   const entry=observedMethods.get(obj)?.get(name);
+   if(!entry)throw new Error(`Unknown observed method: ${String(name)}`);
+   if(obj[name]!==entry.wrapper)throw new Error(`Observed wrapper is no longer current: ${String(name)}`);
+   return entry;
+  }
+  const entry=current();
+  if(typeof implementation!=='function'||implementation===entry.wrapper)throw new TypeError('Provide an implementation function, not the observer wrapper');
+  const previous=entry.dispatch,replacement={implementation};entry.dispatch=replacement;
+  let undone=false;
+  return ()=>{
+   const active=current();
+   if(undone||active.dispatch!==replacement)throw new Error(`Observed method undo is no longer current: ${String(name)}`);
+   active.dispatch=previous;undone=true;
+  };
  }
  const addBook=(map,key,force)=>map.set(key,add(map.get(key)||z(),force));
  function observeBody(b){
@@ -201,6 +227,6 @@ export function installForceLedger(G,options={}){
  const initial=lastEnd;
  const boundary={mode:selectedHandles?'explicitBodies':selectedOwners?'selectedFighters':'allDynamic',origin,angularReference:'fixed world origin; LaboutCOM separately',initialBodies:initial.bodies.map(b=>({handle:b.handle,label:b.label,owner:b.owner,mass:b.mass,colliderMasses:b.colliderMasses})),
   included:'Selected dynamic rigid bodies, sword and armor collider mass counted once per body; loose dynamic bodies included according to owner/body selection.',excluded:'Fixed ground/walls and kinematic upright anchors, plus dynamic bodies outside the selection.',forceClassification:'Direct-body calls include internal reaction pairs and external helpers; byPath net sums and application-body entries preserve the distinction without guessing from method names.',nativeUnmeasured:'Impulse joint/motor/upright forces and work are not read. Contact impulses stay raw and are not used to close the residual; no 6/7 correction.',potentialDefinition:'V=-sum(m*gravityScale*g dot (worldCOM-origin)); uniform gravity, geometric potential zero at origin.'};
- const api={samples,boundary,snapshot,get latest(){return latest;},summary:()=>({boundary,initial:initial.total,final:lastEnd.total,totals:{...clone(totals),byPath:Object.fromEntries(Object.entries(totals.byPath).map(([path,p])=>[path,{...clone(p),meanForceMagnitudeN:p.sumForceMagnitude/(totals.physicsSteps||1),rmsForceN:Math.sqrt(p.sumForceMagnitudeSquared/(totals.physicsSteps||1)),meanTorqueMagnitudeNm:p.sumTorqueMagnitude/(totals.physicsSteps||1),rmsTorqueAboutOriginNm:Math.sqrt(p.sumTorqueMagnitudeSquared/(totals.physicsSteps||1)),statisticDefinition:'Magnitude mean/RMS across all observed physics steps, with zero for absent path; force/moment are net across selected bodies, work is signed.'}]))},retainedSamples:samples.length,sampleEvery,maxSamples,warnings:[...warnings],unmeasured:['native motor/constraint reactions','contact tangential impulse world basis/work','mass insertion/removal energy flux','spring potential and native damping work'],residualIsNotError:true}),restore(){if(restored)return;for(const f of restorers.reverse())f();delete G[INSTALLED];delete world[INSTALLED];restored=true;}};
+ const api={samples,boundary,snapshot,replaceObservedMethod,get latest(){return latest;},summary:()=>({boundary,initial:initial.total,final:lastEnd.total,totals:{...clone(totals),byPath:Object.fromEntries(Object.entries(totals.byPath).map(([path,p])=>[path,{...clone(p),meanForceMagnitudeN:p.sumForceMagnitude/(totals.physicsSteps||1),rmsForceN:Math.sqrt(p.sumForceMagnitudeSquared/(totals.physicsSteps||1)),meanTorqueMagnitudeNm:p.sumTorqueMagnitude/(totals.physicsSteps||1),rmsTorqueAboutOriginNm:Math.sqrt(p.sumTorqueMagnitudeSquared/(totals.physicsSteps||1)),statisticDefinition:'Magnitude mean/RMS across all observed physics steps, with zero for absent path; force/moment are net across selected bodies, work is signed.'}]))},retainedSamples:samples.length,sampleEvery,maxSamples,warnings:[...warnings],unmeasured:['native motor/constraint reactions','contact tangential impulse world basis/work','mass insertion/removal energy flux','spring potential and native damping work'],residualIsNotError:true}),restore(){if(restored)return;for(const f of restorers.reverse())f();delete G[INSTALLED];delete world[INSTALLED];restored=true;}};
  G[INSTALLED]=world[INSTALLED]=api;return api;
 }

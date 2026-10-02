@@ -177,7 +177,7 @@ export function runSameLyingRecovery({scenario='healthy_getup',model='axial',see
        if(model==='projected'){
         if(!expectedSwitch||['nativeWorldSha256','physicalControlSha256','additionalControllerSha256'].some(k=>row.switchSnapshot[k]!==expectedSwitch[k]))throw new Error('STOP: native/controller switch hashes differ');
         row.switchGuardPassed=true;useProjected=true;
-        intervention?.activate?.({G,f,row,DT});
+        intervention?.activate?.({G,f,row,DT,ledger});
        }
       }
       f.move.set(scenario==='walk_side'?1:0,scenario==='walk_front'?1:0);input.update(JSON.stringify(f.move.toArray()));G.step();

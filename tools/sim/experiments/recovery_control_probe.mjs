@@ -10,13 +10,14 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {createUprightMotorState,configureUprightMotor} from './upright_motor_candidate.mjs';
+import {transformRecoveryLoadGait} from './recovery_load_candidate.mjs';
 
 const root=new URL('../../../',import.meta.url);
 const hash=x=>createHash('sha256').update(x).digest('hex');
 const opts=Object.fromEntries(process.argv.slice(2).map(a=>{const m=/^--(out|variants|scenarios|analyze)=(.+)$/.exec(a);if(!m)throw Error('Use --out/variants/scenarios=value');return[m[1],m[2]];}));
 const variants=(opts.variants??'projected,zeroUpright,removedUpright,noTargetVelocity,resetOnHandover').split(',');
 const scenarios=(opts.scenarios??'healthy_getup,hurt_getup').split(',');
-if(variants.some(v=>!['projected','zeroUpright','removedUpright','safeUprightGate','nativeGate','noTargetVelocity','resetOnHandover','stanceCapacity','constantFootMass','safeGateStanceCapacity','cloneGait','contactAirborne','safeGateContactAirborne'].includes(v))||scenarios.some(s=>!['healthy_getup','hurt_getup'].includes(s)))throw Error('Unknown variant/scenario');
+if(variants.some(v=>!['projected','zeroUpright','removedUpright','safeUprightGate','nativeGate','noTargetVelocity','resetOnHandover','stanceCapacity','constantFootMass','safeGateStanceCapacity','cloneGait','contactAirborne','safeGateContactAirborne','catchLoad','catchPreload','nativeCatchPreload','nativeContactAirborne','catchHold','catchShift','nativeCatchShift'].includes(v))||scenarios.some(s=>!['healthy_getup','hurt_getup'].includes(s)))throw Error('Unknown variant/scenario');
 let gaitModules=null;
 async function prepareGaitModules(){
  const original=await readFile(new URL('src/gait.js',root),'utf8');
@@ -30,28 +31,46 @@ async function prepareGaitModules(){
  const directory=await mkdtemp(join(tmpdir(),'halfsword-contact-air-gait-'));
  try{
   const clonePath=join(directory,'clone.mjs'),candidatePath=join(directory,'contact-air.mjs');
+  const contactModuleUrl=new URL('src/support_contacts.js',root).href;
+  const loadSource=transformRecoveryLoadGait(imports,{preload:false,contactModuleUrl});
+  const preloadSource=transformRecoveryLoadGait(imports,{preload:true,contactModuleUrl});
+  const loadPath=join(directory,'catch-load.mjs'),preloadPath=join(directory,'catch-preload.mjs');
+  await writeFile(loadPath,loadSource);await writeFile(preloadPath,preloadSource);
+  const [catchLoad,catchPreload]=await Promise.all([import(pathToFileURL(loadPath).href),import(pathToFileURL(preloadPath).href)]);
   await writeFile(clonePath,imports);await writeFile(candidatePath,candidate);
   const [clone,contactAirborne]=await Promise.all([import(pathToFileURL(clonePath).href),import(pathToFileURL(candidatePath).href)]);
-  return {directory,clone:clone.Gait,contactAirborne:contactAirborne.Gait,
-   sourceHashes:{original:hash(original),clone:hash(imports),contactAirborne:hash(candidate)},
-   scope:'Shared original THREE/config/contact modules; copied Gait prototype is installed only after matched native checkpoint. Contact candidate adds AND !actual.hasSupport solely to existing air condition.'};
+  const holdSource=transformRecoveryLoadGait(imports,{preload:false,selectByLoad:false,contactModuleUrl});
+  const shiftSource=transformRecoveryLoadGait(imports,{preload:true,selectByLoad:false,contactModuleUrl});
+  const holdPath=join(directory,'catch-hold.mjs'),shiftPath=join(directory,'catch-shift.mjs');
+  await writeFile(holdPath,holdSource);await writeFile(shiftPath,shiftSource);
+  const [catchHold,catchShift]=await Promise.all([import(pathToFileURL(holdPath).href),import(pathToFileURL(shiftPath).href)]);
+  return {directory,catchHold:catchHold.Gait,catchShift:catchShift.Gait,clone:clone.Gait,contactAirborne:contactAirborne.Gait,catchLoad:catchLoad.Gait,catchPreload:catchPreload.Gait,
+   sourceHashes:{original:hash(original),clone:hash(imports),contactAirborne:hash(candidate),catchLoad:hash(loadSource),catchPreload:hash(preloadSource),catchHold:hash(holdSource),catchShift:hash(shiftSource)},
+   scope:'Shared original THREE/config/contact modules; all copied Gait method implementations replace observed dispatch only after matched native checkpoint, preserving ledger wrappers. Candidate update execution is mandatory. Contact-only adds AND !actual.hasSupport solely to air; load candidates also select/defer/preload catch during levH>0.'};
  }catch(error){await rm(directory,{recursive:true,force:true});throw error;}
 }
 async function manifest(){
  async function files(dir){let out=[];for(const e of await readdir(new URL(dir,root),{withFileTypes:true})){let p=dir+'/'+e.name;if(e.isDirectory())out.push(...await files(p));else if(e.name.endsWith('.js'))out.push(p);}return out;}
- const ps=[...await files('src'),'tools/sim/experiments/recovery_control_probe.mjs','tools/sim/experiments/same_lying_recovery_probe.mjs','tools/sim/experiments/upright_motor_candidate.mjs','tools/sim/harness_m.mjs','tools/sim/force_ledger.mjs','package-lock.json'];
+ const ps=[...await files('src'),'tools/sim/experiments/recovery_control_probe.mjs','tools/sim/experiments/recovery_load_candidate.mjs','tools/sim/experiments/same_lying_recovery_probe.mjs','tools/sim/experiments/upright_motor_candidate.mjs','tools/sim/harness_m.mjs','tools/sim/force_ledger.mjs','package-lock.json'];
  return Object.fromEntries(await Promise.all(ps.sort().map(async p=>[p,hash(await readFile(new URL(p,root)))])));
 }
 function intervention(kind){
  const undo=[];
- return {activate({G,f,row}){
+ return {activate({G,f,row,ledger}){
   row.intervention={kind,afterMatchedCheckpoint:true,motorCallsChanged:0};
   row.intervention.stepEvents=[];
-  if(['cloneGait','contactAirborne','safeGateContactAirborne'].includes(kind)){
-   const oldPrototype=Object.getPrototypeOf(f.gait);
-   Object.setPrototypeOf(f.gait,kind==='cloneGait'?gaitModules.clone.prototype:gaitModules.contactAirborne.prototype);
-   undo.push(()=>Object.setPrototypeOf(f.gait,oldPrototype));
-   row.intervention.gaitPrototypeReplaced=true;
+  if(['cloneGait','contactAirborne','safeGateContactAirborne','catchLoad','catchPreload','nativeCatchPreload','nativeContactAirborne','catchHold','catchShift','nativeCatchShift'].includes(kind)){
+   if(typeof ledger?.replaceObservedMethod!=='function')throw Error('Ledger needs observed method dispatch replacement');
+   const moduleKey=kind==='nativeCatchShift'?'catchShift':kind==='cloneGait'?'clone':kind==='nativeCatchPreload'?'catchPreload':(kind==='safeGateContactAirborne'||kind==='nativeContactAirborne')?'contactAirborne':kind;
+   const prototype=gaitModules[moduleKey].prototype;
+   row.intervention.gaitCandidateUpdateCalls=0;
+   for(const name of Object.getOwnPropertyNames(prototype)){
+    const candidate=Object.getOwnPropertyDescriptor(prototype,name)?.value;
+    if(name==='constructor'||typeof candidate!=='function')continue;
+    const replacement=name==='update'?function(...args){row.intervention.gaitCandidateUpdateCalls++;return candidate.apply(this,args);}:candidate;
+    undo.push(ledger.replaceObservedMethod(f.gait,name,replacement));
+   }
+   row.intervention.gaitObservedDispatchReplaced=true;
   }
   const oldBegin=f.gait.begin,oldBeginDescriptor=Object.getOwnPropertyDescriptor(f.gait,'begin');
   f.gait.begin=function(l,stepKind,T){
@@ -59,7 +78,7 @@ function intervention(kind){
    row.intervention.stepEvents.push({timeS:G.t-row.prepareSeconds,foot:l.k,kind:stepKind,T,levH:this.levH,levC:this.levC,pelvisHeightM:f.bodies.pelvis.translation().y,footSupport:Object.fromEntries(['F','B'].map(k=>{
     const leg=this.legs[k],horizontalReachM=Math.hypot(leg.hip.x-leg.plant.x,leg.hip.z-leg.plant.z);
     const airByOriginalCondition=leg.soleY>CONFIG.GAIT.airFoot&&(this.levH>0||(leg.toeY>CONFIG.GAIT.airFoot*.75&&(leg.N||0)<.05*this.Mg));
-    return[k,{stance:leg.stance,soleY:leg.soleY,toeY:leg.toeY,hasSupport:contacts.groups['foot'+k].hasSupport,rawNormalForceN:contacts.groups['foot'+k].rawNormalForceN,N:leg.N,horizontalReachM,reachExceedsLimit:horizontalReachM>CONFIG.GAIT.reachMax,airByOriginalCondition,wouldSuppressAirCondition:airByOriginalCondition&&contacts.groups['foot'+k].hasSupport}];
+    return[k,{stance:leg.stance,soleY:leg.soleY,toeY:leg.toeY,hasSupport:contacts.groups['foot'+k].hasSupport,rawNormalForceN:contacts.groups['foot'+k].rawNormalForceN,N:leg.N,horizontalReachM,actualAnkleReachM:Math.hypot(leg.hip.x-leg.ankle.x,leg.hip.z-leg.ankle.z),plantOffsetFromAnkleM:Math.hypot(leg.plant.x-leg.ankle.x,leg.plant.z-leg.ankle.z),reachExceedsLimit:horizontalReachM>CONFIG.GAIT.reachMax,airByOriginalCondition,wouldSuppressAirCondition:airByOriginalCondition&&contacts.groups['foot'+k].hasSupport}];
    }))});
    return oldBegin.call(this,l,stepKind,T);
   };
@@ -72,7 +91,7 @@ function intervention(kind){
   if(kind==='constantFootMass'){
    const oldMass=f.gait.footMass;f.gait.footMass=function(){};undo.push(()=>{f.gait.footMass=oldMass;});
   }
-  if(kind==='nativeGate') {
+  if(kind==='nativeGate'||kind==='nativeCatchPreload'||kind==='nativeContactAirborne'||kind==='nativeCatchShift') {
    const raw=f.uprightJoint.rawSet,old=raw.jointConfigureMotorPosition,owned=new Set([f.uprightJoint.handle]);
    const state=createUprightMotorState({world:G.world,joint:f.uprightJoint,activeAxes:[3,4,5],createJoint(){
     const joint=G.world.createImpulseJoint(RAPIER.JointData.generic({x:0,y:0,z:0},{x:0,y:0,z:0},{x:1,y:0,z:0},0),f.anchor,f.bodies.pelvis,true);
@@ -126,7 +145,7 @@ function intervention(kind){
    f.driveJoints=function(...args){if(this.gait.active&&!previous){for(const j of this.joints)if(!j.manual)delete j.prevRV;row.intervention.motorCallsChanged++;}previous=this.gait.active;return old.apply(this,args);};
    undo.push(()=>{f.driveJoints=old;});
   }
- },restore(){for(const fn of undo.reverse())fn();}};
+ },afterStep({f,row}){if(f.gait.recoveryLoadProbe)row.intervention.recoveryLoadProbe=JSON.parse(JSON.stringify(f.gait.recoveryLoadProbe));},restore(){for(const fn of undo.reverse())fn();}};
 }
 function summarize(r){
  const frames=r.launchObservation?.compactPerStep??[],start=r.switchAtS,post=frames.filter(f=>f.timeS>start);
@@ -136,7 +155,7 @@ function summarize(r){
  for(let i=1;i<post.length;i++){const a=post[i-1],b=post[i];const deltaK=b.KJ-a.KJ,deltaMechanical=deltaK+9.81*(b.massKg*b.COM.y-a.massKg*a.COM.y);if(!maxDelta||deltaMechanical>maxDelta.deltaMechanicalJ)maxDelta={timeS:b.timeS,state:b.state,deltaKJ:deltaK,deltaMechanicalJ:deltaMechanical,massBeforeKg:a.massKg,massAfterKg:b.massKg,massChanges:b.massChanges,explicitWorkApproxJ:b.explicitWorkApproxJ,nativeResidualImpulseNs:b.nativeResidualImpulseNs,maxJointAnchorGapM:b.maxJointAnchorGapM};}
  let tail=0,longest=0,exits=0,lastHandoverEndS=null;
  for(let i=0;i<post.length;i++){const b=post[i],a=post[i-1];tail=b.physicallyUprightGameGeometry?tail+1/120:0;longest=Math.max(longest,tail);if(a?.physicallyUprightGameGeometry&&!b.physicallyUprightGameGeometry)exits++;if(a?.levH>0&&b.levH<=0)lastHandoverEndS=b.timeS;}
- return {scenario:r.scenario,variant:r.variant,status:r.status,error:r.error??null,trace:r.traceSha256,refalls:r.postStandRefallTransitions?.length,finalState:r.final?.state,finalGeometryUpright:r.final?.physicallyUprightGameGeometry,finalHeightM:r.final?.pelvisHeightM,firstStandS:r.firstStandS,firstGeometryS:r.firstGameGeometryUprightS,handover:r.handover,geometryObservation:{tailUprightS:tail,longestUprightS:longest,uprightExitCount:exits,lastHandoverEndS,secondsAfterLastHandover:lastHandoverEndS==null?null:r.observationSeconds-lastHandoverEndS,definition:'Existing game geometry per-step observer, not human naturalness or a controller gate.'},maxHeightM:max(x=>x.pelvisHeightM)?.pelvisHeightM,maxCOMUpMps:max(x=>x.COMVelocityMps.y)?.COMVelocityMps.y,maxPelvisUpMps:max(x=>x.pelvisVelocityMps.y)?.pelvisVelocityMps.y,maxGapM:gap?.maxJointAnchorGapM,maxKJ:energy?.KJ,maxEnergyStep:maxDelta,maxNoNativeContactS:r.launchObservation?.maxNoNonPredictiveNativeGroundSolverIntervalS,slip:r.filteredSlip?.all?.nonPredictiveSupportPoints};
+ return {scenario:r.scenario,variant:r.variant,status:r.status,error:r.error??null,trace:r.traceSha256,refalls:r.postStandRefallTransitions?.length,finalState:r.final?.state,finalGeometryUpright:r.final?.physicallyUprightGameGeometry,finalHeightM:r.final?.pelvisHeightM,firstStandS:r.firstStandS,firstGeometryS:r.firstGameGeometryUprightS,handover:r.handover,recoveryLoadProbe:r.intervention?.recoveryLoadProbe??null,geometryObservation:{tailUprightS:tail,longestUprightS:longest,uprightExitCount:exits,lastHandoverEndS,secondsAfterLastHandover:lastHandoverEndS==null?null:r.observationSeconds-lastHandoverEndS,definition:'Existing game geometry per-step observer, not human naturalness or a controller gate.'},maxHeightM:max(x=>x.pelvisHeightM)?.pelvisHeightM,maxCOMUpMps:max(x=>x.COMVelocityMps.y)?.COMVelocityMps.y,maxPelvisUpMps:max(x=>x.pelvisVelocityMps.y)?.pelvisVelocityMps.y,maxGapM:gap?.maxJointAnchorGapM,maxKJ:energy?.KJ,maxEnergyStep:maxDelta,maxNoNativeContactS:r.launchObservation?.maxNoNonPredictiveNativeGroundSolverIntervalS,slip:r.filteredSlip?.all?.nonPredictiveSupportPoints};
 }
 if(opts.analyze){
  if(!opts.out||opts.out===opts.analyze)throw Error('Analysis requires a separate --out path');
@@ -147,7 +166,7 @@ if(opts.analyze){
 const before=await manifest(),begin=performance.now(),rows=[],guards=[];
 let error=null;
 try {
- if(variants.some(v=>['cloneGait','contactAirborne','safeGateContactAirborne'].includes(v)))gaitModules=await prepareGaitModules();
+ if(variants.some(v=>['cloneGait','contactAirborne','safeGateContactAirborne','catchLoad','catchPreload','nativeCatchPreload','nativeContactAirborne','catchHold','catchShift','nativeCatchShift'].includes(v)))gaitModules=await prepareGaitModules();
  await withOriginalRecovery(async reference=>{
  for(const scenario of scenarios){
   const original=runSameLyingRecovery({scenario,model:'axial'});original.variant='original';rows.push(original);
@@ -157,6 +176,8 @@ try {
   for(const variant of orderedVariants){
    const row=runSameLyingRecovery({scenario,model:'projected',expectedSwitch:original.switchSnapshot,intervention:intervention(variant)});row.variant=variant;rows.push(row);
    const gate={scenario,variant,status:row.status,matchedNative:row.switchSnapshot?.nativeWorldSha256===original.switchSnapshot.nativeWorldSha256,matchedControl:row.switchSnapshot?.physicalControlSha256===original.switchSnapshot.physicalControlSha256&&row.switchSnapshot?.additionalControllerSha256===original.switchSnapshot.additionalControllerSha256,sameInput:row.inputSha256===original.inputSha256,slipObserved:(row.filteredSlip?.all?.allSolverPoints?.pointSamples??0)>0};guards.push(gate);
+   if(row.intervention?.gaitObservedDispatchReplaced){gate.candidateUpdateExecuted=row.intervention.gaitCandidateUpdateCalls>0;if(!gate.candidateUpdateExecuted)throw Error('Candidate Gait update was never executed: '+variant);}
+   if(['catchLoad','catchPreload','nativeCatchPreload','catchHold','catchShift','nativeCatchShift'].includes(variant)){gate.loadProbeExecuted=(row.intervention?.recoveryLoadProbe?.updateCount??0)>0;if(!gate.loadProbeExecuted)throw Error('Load candidate body was never executed: '+variant);}
    if(row.status!=='observed'||!gate.matchedNative||!gate.matchedControl||!gate.sameInput||!gate.slipObserved)throw Error('Evidence gate failed: '+JSON.stringify(gate)+' '+row.error);
    if(variant==='projected')projected=row;
    if(variant==='cloneGait'){

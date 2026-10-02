@@ -27,6 +27,7 @@
 
 | A-020 | 2026-10-02 | 우화 한손 자세표 이식 | 사용자 직접 요청; 한손 8종·두손 3종/모바일 검증 완료 | `guards.js`, `fighter.js`, [출처·소스·배포](../strike/onehand_grip_port.md) | `f53b330` 표 그대로, `9763484` 한손 부분만; corr v2 제외 | 원본 코드 채택 |
 | A-021 | 2026-10-02 | native 0계수 모터 의미 정정·비활성화 helper | 별도8변형/6그룹 검증, 같은누움 건강0·손상1재넘어짐; 공개 미반영 | [출처·수치·코드](../strike/support_control_semantics_round1.md) | 실제 제거/재생성은 solver 이력도 초기화; 전체 기립 채택 보류 | 미확인 |
-| A-022 | 2026-10-02 | 지지·보행 인계 원인 분리 | air 접촉 조건은 trace변화0, gain/질량 삭제는 부분변화만; 기각/보류 | 같은 보고의 대조표·해시, `tools/sim/experiments/recovery_control_probe.mjs` | 기존 same-lying/force-ledger 의존, 새 인체 한도 아님 | 미확인 |
+| A-022 | 2026-10-02 | 지지·보행 인계 원인 분리 | air 접촉 초기실험은 후보 미실행으로 무효·재검증, gain/질량 삭제는 부분변화만; 보류 | 같은 보고의 대조표·해시, `tools/sim/experiments/recovery_control_probe.mjs` | 기존 same-lying/force-ledger 의존, 새 인체 한도 아님 | 미확인 |
 
 결정 이유·실패 조건·실제 배포는 [첫 기록](notes/2026-10-01.md), [다음 기록](notes/2026-10-02.md) 및 그 근거 링크를 읽는다. 이 대장은 일별 보고서를 대신하지 않는다.
+| A-023 | 2026-10-02 | 실제 실행을 검증한 발 하중 인계 대조 | 계측 dispatch 결함 수정·11검사 통과, 후보30행·모든 새 보행 후보 기각/보류 | [후보·실패·명령·해시](../strike/support_recovery_load_round2.md) | source gait 모듈 복제+같은 누움+force-ledger 의존; 원본 파일 수정 없음 | 미확인 |

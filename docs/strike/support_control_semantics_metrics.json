@@ -6978,5 +6978,17 @@
     "tools/sim/experiments/upright_motor_candidate.mjs": "f09bc3b8cdcae8aa36a97e93192d84f16e3623a34e22ee6d40f824aaca1c8d00",
     "tools/sim/experiments/upright_motor_candidate.test.mjs": "25fd87f1d1cd0f3216eceadc0150165e8374507241f2c402c5a3e69907e3ebd1",
     "tools/sim/experiments/zero_motor_probe.mjs": "aab5b9dc8a1836aef25ec6b56ac415864a0d3d485e1c5ad4053ff2f5905ced79"
+  },
+  "laterValidityCorrection": {
+    "status": "prototype-only Gait interventions invalid as candidate execution evidence",
+    "cause": "force_ledger installed own method wrappers closing original implementations; Object.setPrototypeOf did not replace dispatched Gait methods",
+    "invalidVariants": [
+      "cloneGait",
+      "contactAirborne",
+      "safeGateContactAirborne"
+    ],
+    "nativeMotorAblationsAffected": false,
+    "replacementEvidence": "support_recovery_load_round2.md",
+    "rawRetained": true
   }
 }
