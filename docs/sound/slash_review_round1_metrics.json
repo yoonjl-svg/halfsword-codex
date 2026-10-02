@@ -1,0 +1,90 @@
+{
+  "sampleRate": 48000,
+  "targetLUFS": -21.05,
+  "method": "EBU R128 integrated over three spaced 140 J hits; one constant linear gain per variant; no added dynamics processor",
+  "onsetsS": [
+    0.25,
+    2.05,
+    3.85
+  ],
+  "rows": [
+    {
+      "variant": "current",
+      "file": "00-current.mp3",
+      "rawLUFS": -19.55,
+      "gainDb": -1.2200000000000024,
+      "finalLUFS": -21.04,
+      "truePeakDbTP": -3.04,
+      "first150msBandEnergy": {
+        "35-300Hz": 141.15565198475426,
+        "300-2500Hz": 80.09950385816659,
+        "2500-12000Hz": 38.23507851465575
+      },
+      "wavSHA256": "e9f0dd2c14fff2ae60997231a21920ca868351e3ed33e7ca3f4150f627d4ba96",
+      "mp3SHA256": "2c553816a964067436d596d82494f132f6899949794ca2274c472b37130e631a",
+      "bytes": 140588
+    },
+    {
+      "variant": "edge",
+      "file": "01-A-sharp-cut.mp3",
+      "rawLUFS": -24.27,
+      "gainDb": 3.4899999999999984,
+      "finalLUFS": -21.03,
+      "truePeakDbTP": -3.03,
+      "first150msBandEnergy": {
+        "35-300Hz": 6.116803919395039,
+        "300-2500Hz": 29.36122018827201,
+        "2500-12000Hz": 48.79556253382425
+      },
+      "wavSHA256": "abee83f77015953e3805a24c79c936d13a23d2e360e42f9ad7540c7d757b0e8c",
+      "mp3SHA256": "948289b8874e401244f534621f2e7d35c91b92da54fa7ccf2559c11325a510b5",
+      "bytes": 140588
+    },
+    {
+      "variant": "cleave",
+      "file": "02-B-deep-cleave.mp3",
+      "rawLUFS": -21.93,
+      "gainDb": 1.129999999999999,
+      "finalLUFS": -21.07,
+      "truePeakDbTP": -2.47,
+      "first150msBandEnergy": {
+        "35-300Hz": 7.494345648912966,
+        "300-2500Hz": 24.347022304366625,
+        "2500-12000Hz": 25.552122963334185
+      },
+      "wavSHA256": "f0f19b6ce54409cf2454258421834e85f17f67c7db29e11896834cd6de3611c0",
+      "mp3SHA256": "a1884dfd0c20b146c2a52f5d88b0ce8ecc7694da7fab56dab6b99b704b2da14e",
+      "bytes": 140588
+    }
+  ],
+  "comparison": {
+    "file": "03-current-A-B.mp3",
+    "order": [
+      {
+        "variant": "current",
+        "onsetS": 0.25
+      },
+      {
+        "variant": "edge",
+        "onsetS": 2.45
+      },
+      {
+        "variant": "cleave",
+        "onsetS": 4.65
+      }
+    ],
+    "sha256": "d8198428479d7eb00509f8226112a42246108a456a10773f33c297c2b2603665"
+  },
+  "baseCommit": "79ce8201c28841284c337015b9aba7a74981384f",
+  "sourceHashes": {
+    "src/sound.js": "7c6dddf5f81675f46d4df64d2fd3c9586e22172351f734a3bd1b273bfd24cac1",
+    "src/config.js": "e84d7b921b6d8678b358a5971b296c22edded192d680a56e45a0b29ab2aa5319",
+    "tools/audio/package_slash_review.py": "f8afbc715e5f6f6c67e44f4075c30e9d5bd740fd646c167c04f3a833b7ca85ee",
+    "tools/audio/render_slash_review.mjs": "38c8b367b9bf89acd05ec82752f7f51e14c65257ba86b328ad2f96e7805318bf",
+    "tools/audio/slash_review_candidate.mjs": "fd0e3d450922abf56c72375a60a9f86e032fe206df7ca0a756d76ace2fda7e75"
+  },
+  "renderEvidenceSHA256": "9061b44d616c26e0646994624315e5253fba85fc37c326dfcc345d020367e2d6",
+  "gameDefaultsChanged": false,
+  "humanListeningAccepted": false,
+  "subjectiveQualityNotYetAssessed": true
+}
