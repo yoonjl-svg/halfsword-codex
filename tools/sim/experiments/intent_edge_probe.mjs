@@ -19,7 +19,7 @@ const manifest=async()=>Object.fromEntries(await Promise.all(files.map(async p=>
 const before=await manifest(),begin=performance.now(),rows=[],checks=[],loaded=await loadIntentEdge();
 for(const weapon of(opts.weapons??'sabre,zweihander').split(','))for(const direction of(opts.directions??'down,up,cross').split(','))for(const ending of(opts.endings??'target_hold,release').split(',')){
   const c={weapon,direction,ending,reaction:'paired',seed:7,prepareS:3,durationS:.55,afterS:1.2,sampleHz:120},group=[];
-  for(const mode of['baseline','observe','edge','intact','swivel','combined']){
+  for(const mode of(opts.modes??'baseline,observe,edge,intact,swivel,combined').split(',')){
     const o=observer();let candidate=null,follow=null,installUnchanged=true,undoEdge=null;const edgeFrames=[];
     const exp={activate(ctx){o.activate(ctx);if(mode!=='baseline'){const native=sha(ctx.G.world.takeSnapshot()); if(['observe','edge','combined'].includes(mode)){ctx.f.intentEdgeEnabled=mode!=='observe'; const proto=ctx.f.constructor.prototype, old=proto.driveSword;proto.driveSword=loaded.module.Fighter.prototype.driveSword;undoEdge=()=>{proto.driveSword=old;};}candidate=installElbowCoherentCandidate({...ctx,mode:['observe','edge'].includes(mode)?'observe':base}); if(['swivel','observe','combined'].includes(mode))follow=installElbowSwivelCandidate({...ctx,observe:mode==='observe'});installUnchanged=native===sha(ctx.G.world.takeSnapshot());}},afterStep(ctx){o.afterStep(ctx);edgeFrames.push(loaded.module.readEdge(ctx.f)??null);},restore(){follow?.restore();candidate?.restore();undoEdge?.();o.restore();}};
     const r=runStroke({...c,ledgerFactory:G=>installForceLedger(G,{fighters:[G.player],maxSamples:0}),intervention:exp});
@@ -40,13 +40,14 @@ for(const weapon of(opts.weapons??'sabre,zweihander').split(','))for(const direc
       edgeFrames,swivel:follow?.records??null,candidate:candidate?{geometry:candidate.geometry,records:candidate.records}:null};
     group.push(row);rows.push(row);
   }
-  const [b,ob,ed,co,sw,ca]=group;
+  const find=mode=>group.find(r=>r.mode===mode),b=find('baseline'),ob=find('observe'),ed=find('edge'),sw=find('swivel'),ca=find('combined');
+  if(!b||!ob)throw Error('Baseline and observe required');
   const check={...c,preparedNativeExact:group.every(r=>r.startNativeSha256===b.startNativeSha256),preparedControllerExact:group.every(r=>r.startSha256===b.startSha256),
-    requestedInputExact:group.every(r=>r.inputSha256===b.inputSha256),observerTraceExact:ob.traceSha256===b.traceSha256,installsNativeUnchanged:group.every(r=>r.installUnchanged),endpointPreserved:sw.swivel.every(r=>r.endpointDeltaM<1e-12),closestOrientation:sw.swivel.every(r=>r.newErrorRad<=r.oldErrorRad+1e-7),combinedEndpointPreserved:ca.swivel.every(r=>r.endpointDeltaM<1e-12),combinedClosestOrientation:ca.swivel.every(r=>r.newErrorRad<=r.oldErrorRad+1e-7)};
+    requestedInputExact:group.every(r=>r.inputSha256===b.inputSha256),observerTraceExact:ob.traceSha256===b.traceSha256,installsNativeUnchanged:group.every(r=>r.installUnchanged),endpointPreserved:!sw||sw.swivel.every(r=>r.endpointDeltaM<1e-12),closestOrientation:!sw||sw.swivel.every(r=>r.newErrorRad<=r.oldErrorRad+1e-7),combinedEndpointPreserved:!ca||ca.swivel.every(r=>r.endpointDeltaM<1e-12),combinedClosestOrientation:!ca||ca.swivel.every(r=>r.newErrorRad<=r.oldErrorRad+1e-7),edgeFirstStepExact:!ed||JSON.stringify(ed.samples[0])===JSON.stringify(b.samples[0]),edgeCommandsFinite:!ed||ed.edgeFrames.every((r,i)=>r&&(!i||(Number.isFinite(r.commandSpeedMps)&&Number.isFinite(r.commandBlend))))};
   checks.push(check);console.log(JSON.stringify({check,rows:group.map(r=>({mode:r.mode,metrics:r.metrics,summary:r.summary}))}));
 }
 const after=await manifest(),sourceStable=JSON.stringify(before)===JSON.stringify(after);
-const executionPass=sourceStable&&checks.every(c=>c.preparedNativeExact&&c.preparedControllerExact&&c.requestedInputExact&&c.observerTraceExact&&c.installsNativeUnchanged&&c.endpointPreserved&&c.closestOrientation&&c.combinedEndpointPreserved&&c.combinedClosestOrientation);
+const executionPass=sourceStable&&checks.every(c=>c.preparedNativeExact&&c.preparedControllerExact&&c.requestedInputExact&&c.observerTraceExact&&c.installsNativeUnchanged&&c.endpointPreserved&&c.closestOrientation&&c.combinedEndpointPreserved&&c.combinedClosestOrientation&&c.edgeFirstStepExact&&c.edgeCommandsFinite);
 const report={schemaVersion:1,base,generatedModuleSHA256:loaded.generatedSHA256,createdUTC:new Date().toISOString(),sourceCommit,command:process.argv.join(' '),sourceBefore:before,sourceAfter:after,sourceStable,inputHelperSHA256,
   wallSeconds:(performance.now()-begin)/1000,executionPass,
   hypothesis:'Retain commanded cutting-plane normal as blade flat target instead of motion-feedback edge alignment and resting RIGHT recovery. Gains/torque caps/reaction formulas unchanged, resulting torques differ. Compare alone and combined with closest-shoulder IK.',
