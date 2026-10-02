@@ -1,0 +1,269 @@
+{
+  "source_commit": "d0de72c326dd15118291ab37d039670397db49aa",
+  "captured_utc": "2026-10-02",
+  "renderer": "Chromium, real game WebGL, 1920x1080",
+  "controls": "Existing game AI controls both fighters in the original physics loop. No direct pose or body edits.",
+  "presentation": "Dialogue and HUD hidden with CSS; paused actual gameplay; free camera adjusted. No image editing or generated effects.",
+  "settings": {
+    "pixel": false,
+    "blood": true,
+    "sound": false,
+    "guardNames": false,
+    "trail": true,
+    "fpsCap": false
+  },
+  "random_seed": 1701,
+  "repeatability_limit": "Seed recorded; browser scheduling can change capture timing. Not an exact deterministic physics replay.",
+  "shots": [
+    {
+      "file": "01-greatsword-parry.png",
+      "caption": "양손 대검과 받아내기",
+      "sha256": "263d6020250351c48437de88dc4fbf298b18510dc8c911342d4e32d38bbf06dc",
+      "bytes": 862614,
+      "url": "http://127.0.0.1:4201/?stage=castle&foe=isolde&weapon=zweihander&foeWeapon=longsword",
+      "browser_errors": [],
+      "captured_state": {
+        "filename": "castle-1.png",
+        "t": 7.291666666666819,
+        "stats": {
+          "hits": [],
+          "clashes": 1,
+          "simTime": 7.291666666666819,
+          "passes": 0
+        },
+        "state": "paused",
+        "stage": "castle",
+        "playerWeapon": "zweihander",
+        "foeWeapon": "longsword",
+        "playerAlive": true,
+        "enemyAlive": true,
+        "binding": false,
+        "playerBlood": 1,
+        "enemyBlood": 1,
+        "playerPosition": {
+          "x": -0.48852118849754333,
+          "y": 1.3016592264175415,
+          "z": 0.07091249525547028
+        },
+        "enemyPosition": {
+          "x": 1.3427654504776,
+          "y": 1.299268126487732,
+          "z": 0.13732631504535675
+        },
+        "camera": [
+          -0.09946341368272277,
+          1.3544999999999998,
+          3.587323054686528
+        ],
+        "cameraTarget": [
+          0.4271221309900284,
+          1.0045,
+          0.10411940515041351
+        ],
+        "captureReason": "contact",
+        "fov": 43
+      }
+    },
+    {
+      "file": "02-cut-impact.png",
+      "caption": "베기와 출혈",
+      "sha256": "e3fc33206a9a6dd78d1376fcdf2a9dc149d4d6c169cd9d2ea24e7bf7b3608bbe",
+      "bytes": 720713,
+      "url": "http://127.0.0.1:4201/?stage=poseidon&foe=heinrich&weapon=longsword&foeWeapon=excalibur_replica",
+      "browser_errors": [],
+      "captured_state": {
+        "filename": "poseidon-2.png",
+        "t": 7.391666666666824,
+        "stats": {
+          "hits": [
+            "나->arm:cut(관통) 163J 심각도1.03"
+          ],
+          "clashes": 1,
+          "simTime": 7.391666666666824,
+          "passes": 1
+        },
+        "state": "paused",
+        "stage": "poseidon",
+        "playerWeapon": "longsword",
+        "foeWeapon": "excalibur_replica",
+        "playerAlive": true,
+        "enemyAlive": true,
+        "binding": false,
+        "playerBlood": 1,
+        "enemyBlood": 0.9996898428039176,
+        "playerPosition": {
+          "x": -0.9061231017112732,
+          "y": 1.2797256708145142,
+          "z": -0.05750136449933052
+        },
+        "enemyPosition": {
+          "x": 0.7544906735420227,
+          "y": 1.2827314138412476,
+          "z": -0.20750896632671356
+        },
+        "camera": [
+          1.035821715636118,
+          1.3544999999999998,
+          3.281328619821136
+        ],
+        "cameraTarget": [
+          -0.07581621408462524,
+          1.0045,
+          -0.13250516541302204
+        ],
+        "captureReason": "contact",
+        "fov": 43
+      }
+    },
+    {
+      "file": "03-rapier-duel.png",
+      "caption": "레이피어와 청강검의 교전",
+      "sha256": "457ec1330a1160a2eede21caae77cb8e744132a53a6b94973d127f1759babcbc",
+      "bytes": 1010581,
+      "url": "http://127.0.0.1:4201/?stage=temple&foe=liao&weapon=rapier&foeWeapon=qinggang",
+      "browser_errors": [],
+      "captured_state": {
+        "filename": "temple-2.png",
+        "t": 6.2500000000001,
+        "stats": {
+          "hits": [],
+          "clashes": 2,
+          "simTime": 6.2500000000001,
+          "passes": 0
+        },
+        "state": "paused",
+        "stage": "temple",
+        "playerWeapon": "rapier",
+        "foeWeapon": "qinggang",
+        "playerAlive": true,
+        "enemyAlive": true,
+        "binding": false,
+        "playerBlood": 1,
+        "enemyBlood": 1,
+        "playerPosition": {
+          "x": -1.114251971244812,
+          "y": 1.2888468503952026,
+          "z": -0.10805558413267136
+        },
+        "enemyPosition": {
+          "x": 1.0649220943450928,
+          "y": 1.2846052646636963,
+          "z": 0.10673047602176666
+        },
+        "camera": [
+          0.4212293992457547,
+          1.3544999999999998,
+          3.6313487456439906
+        ],
+        "cameraTarget": [
+          -0.02466493844985962,
+          1.0045,
+          -0.0006625540554523468
+        ],
+        "captureReason": "contact",
+        "fov": 43
+      }
+    },
+    {
+      "file": "04-cathedral-duel.png",
+      "caption": "성당에서 맞부딪친 검",
+      "sha256": "73177e6a6cd9917627566bcc51b03195aabae25635ca5a054190bf071e7ebc4c",
+      "bytes": 910703,
+      "url": "http://127.0.0.1:4201/?stage=cathedral&foe=margarethe&weapon=longsword&foeWeapon=longsword",
+      "browser_errors": [],
+      "captured_state": {
+        "filename": "cathedral-1.png",
+        "t": 6.98333333333347,
+        "stats": {
+          "hits": [],
+          "clashes": 1,
+          "simTime": 6.98333333333347,
+          "passes": 0
+        },
+        "state": "paused",
+        "stage": "cathedral",
+        "playerWeapon": "longsword",
+        "foeWeapon": "longsword",
+        "playerAlive": true,
+        "enemyAlive": true,
+        "binding": false,
+        "playerBlood": 1,
+        "enemyBlood": 1,
+        "playerPosition": {
+          "x": -0.04091072082519531,
+          "y": 1.2646981477737427,
+          "z": 0.28531867265701294
+        },
+        "enemyPosition": {
+          "x": 1.9973026514053345,
+          "y": 1.3106012344360352,
+          "z": 0.03404512628912926
+        },
+        "camera": [
+          1.0094438714790195,
+          1.3544999999999998,
+          3.682326299403159
+        ],
+        "cameraTarget": [
+          0.9781959652900696,
+          1.0045,
+          0.1596818994730711
+        ],
+        "captureReason": "contact",
+        "fov": 43
+      }
+    },
+    {
+      "file": "05-rainy-clearing.png",
+      "caption": "빗속 숲의 근접전",
+      "sha256": "e93569bc8a28ae38569e8a6c1251ffe5073355725f3e6119a2b742fd495378e1",
+      "bytes": 949051,
+      "url": "http://127.0.0.1:4201/?stage=clearing&foe=bran&weapon=sabre&foeWeapon=tree_branch",
+      "browser_errors": [],
+      "captured_state": {
+        "filename": "clearing-1.png",
+        "t": 5.966666666666753,
+        "stats": {
+          "hits": [
+            "나->neck:cut(관통) 164J 심각도2.24",
+            "나->chest:cut(관통) 75J 심각도0.63"
+          ],
+          "clashes": 0,
+          "simTime": 5.966666666666753,
+          "passes": 2
+        },
+        "state": "paused",
+        "stage": "clearing",
+        "playerWeapon": "sabre",
+        "foeWeapon": "tree_branch",
+        "playerAlive": true,
+        "enemyAlive": false,
+        "binding": false,
+        "playerBlood": 1,
+        "enemyBlood": 0.9850419335763628,
+        "playerPosition": {
+          "x": -1.2969269752502441,
+          "y": 1.276917815208435,
+          "z": -0.11641722917556763
+        },
+        "enemyPosition": {
+          "x": 0.12749704718589783,
+          "y": 1.3052308559417725,
+          "z": -0.1235022321343422
+        },
+        "camera": [
+          -0.9632276143752767,
+          1.6795179031517584,
+          4.2010187140334905
+        ],
+        "cameraTarget": [
+          -0.5847149640321732,
+          1.3295179031517586,
+          -0.11995973065495491
+        ],
+        "captureReason": "contact",
+        "fov": 43
+      }
+    }
+  ]
+}
