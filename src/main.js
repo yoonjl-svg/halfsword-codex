@@ -36,6 +36,7 @@ import { configurePhysicalTrial, mountPhysicalTrial } from './physical_trial.js'
 import { configureCutTrial, mountCutTrial } from './cut_trial.js';
 import { configureArmTrial, mountArmTrial } from './arm_trial.js';
 import { configureStanceTrial, mountStanceTrial } from './stance_trial.js';
+import { configureTargetCorrectionTrial, applyTargetCorrectionTrial, mountTargetCorrectionTrial } from './target_correction_trial.js';
 
 await RAPIER.init();
 
@@ -44,7 +45,8 @@ await RAPIER.init();
 const params = new URLSearchParams(location.search);
 // A/B input trials use the same session-only menu values; saved preferences survive.
 const inputComparison = params.get('inputComparison') === 'vertical';
-const comparisonSettings = inputComparison ? { skill: '0', difficulty: 'normal' } : {};
+const targetCorrectionTrial = configureTargetCorrectionTrial(params);
+const comparisonSettings = inputComparison ? { skill: '0', difficulty: 'normal' } : targetCorrectionTrial.settings;
 const settingValue = (key) => comparisonSettings[key] ?? settings[key];
 CONFIG.COMBAT.limbSeverTrial = params.get('limbTrial') === '1';
 const limbDemo = CONFIG.COMBAT.limbSeverTrial ? params.get('limbDemo') : null;
@@ -439,6 +441,7 @@ function newRound(weaponId) {
   player.emoMods = playerEmo.mods;
   player.skill.level = +settingValue('skill');
   player.skill.autoGuard = true; // 베고 나면 기본 자세로 돌아간다 (AI는 스스로 자세를 고른다)
+  applyTargetCorrectionTrial(targetCorrectionTrial, player); // 선택형 보정은 첫 스텝 전에 새 플레이어에만 적용한다.
   player.canShove = true; // 근접 밀치기: 플레이어는 스틱으로 (CLOSE.on 이 통째로 끄고 켠다)
   combat = new Combat(colliderInfo, { onWound, onClash });
   combat.cutReactionModel = cutTrial.model;
@@ -641,6 +644,7 @@ mountPhysicalTrial(physicalTrial);
 mountCutTrial(cutTrial);
 mountArmTrial(armTrial);
 mountStanceTrial(stanceTrial);
+mountTargetCorrectionTrial(targetCorrectionTrial);
 if (inputComparison || input.mobileIntent.source === 'url') {
   const info = document.createElement('p');
   info.id = 'mobileIntentInfo';
@@ -1538,6 +1542,7 @@ window.game = {
   armTrial,
   stanceTrial,
   inputComparison,
+  targetCorrectionTrial,
   THREE,
   camera,
   freeCam: false,
