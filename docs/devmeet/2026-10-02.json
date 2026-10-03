@@ -1,0 +1,949 @@
+{
+  "schema_version": 1,
+  "status": "published",
+  "date": "2026-10-02",
+  "report_id": "yoonjl-svg/halfsword-codex@2026-10-02T23:30+09:00",
+  "team": "codex",
+  "repo": "yoonjl-svg/halfsword-codex",
+  "window": {
+    "start_exclusive": "2026-10-01T23:30:00+09:00",
+    "end_inclusive": "2026-10-02T23:30:00+09:00"
+  },
+  "technical_base": "14bcf1fe6bd205c775db91aa4ca36b9841b6d2bd",
+  "source_observed_head": "9ba4b34ecd7c3a7d97d718774eb86a659c3567e2",
+  "source_observed_at": "2026-10-03T08:06:10.417255+00:00",
+  "source_sha": "406395d7a00358eb6bedb179bf43aaecc74bac51",
+  "source_committed_at": "2026-10-02T14:20:48+00:00",
+  "selection_basis": "first-parent committer time; not historical remote state",
+  "notes_path": "docs/dev_exchange/notes/2026-10-02.md",
+  "notes_blob_sha": "68f5380d0ac3ec31a6d1f21167ef83485ce4156f",
+  "notes_sha256": "120504b6f9bd0ade26303726c6c8ca6a6c4e9b3f3be4c3c09726b578f539d4f2",
+  "authored_decision_record": "present",
+  "commit_count": 66,
+  "commits": [
+    {
+      "sha": "406395d7a00358eb6bedb179bf43aaecc74bac51",
+      "committed_at": "2026-10-02T14:20:48Z",
+      "subject": "Prepare mobile development plan and prioritize GitHub authentication recovery",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/github_delivery.md",
+        "public/development-plan.html",
+        "public/feature-lab.html",
+        "tools/docs/export_development_plan.py"
+      ],
+      "path_count": 5
+    },
+    {
+      "sha": "f18fc7bcd4c7cbf1a8e5e2fefcb5c2c7e68f6705",
+      "committed_at": "2026-10-02T13:32:06Z",
+      "subject": "Add vertical touch trial and diagnose cut posture and elbow reach regressions",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/PLAYTEST_STAGES.md",
+        "docs/codex_team/README.md",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-02.md",
+        "docs/strike/arm_cut_mobile_round1.md",
+        "docs/strike/cut_posture_round2.json",
+        "docs/strike/cut_posture_round2.md",
+        "docs/strike/cut_reaction_round1.md",
+        "docs/strike/elbow_coordination_round1.json",
+        "docs/strike/elbow_coordination_round1.md",
+        "docs/strike/elbow_reach_round1.json",
+        "docs/strike/elbow_reach_round1.md",
+        "docs/strike/gravity_acceleration_implementation.md",
+        "docs/strike/mobile_vertical_input_round1.md"
+      ],
+      "path_count": 32
+    },
+    {
+      "sha": "7b72c4e3bc4a50fc56786362de6509c9d2270757",
+      "committed_at": "2026-10-02T12:19:05Z",
+      "subject": "Diagnose fencing correction interference and document gravity acceleration laws",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/README.md",
+        "docs/strike/gravity_acceleration_implementation.md",
+        "docs/strike/gravity_acceleration_implementation_metrics.json",
+        "docs/strike/skill_interference_round1.md",
+        "docs/strike/skill_interference_round1_metrics.json",
+        "tools/sim/experiments/gravity_acceleration_explain.mjs",
+        "tools/sim/experiments/skill_interference_probe.mjs"
+      ],
+      "path_count": 8
+    },
+    {
+      "sha": "7cbac075e093c5b9450e718ef9b7790347eab7de",
+      "committed_at": "2026-10-02T12:12:55Z",
+      "subject": "Apply selected shortened A2 and B2 slash sounds by impact energy",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/README.md",
+        "docs/handoff/sound_pm_state.md",
+        "docs/sound/samples/2026-10-02-selected-short/01-A2-short-weak.mp3",
+        "docs/sound/samples/2026-10-02-selected-short/02-B2-short-strong.mp3",
+        "docs/sound/samples/2026-10-02-selected-short/03-weak-strong-comparison.mp3",
+        "docs/sound/slash_selected_short.md",
+        "docs/sound/slash_selected_short_browser.json",
+        "docs/sound/slash_selected_short_metrics.json",
+        "src/config.js",
+        "src/slash_draw.js",
+        "src/sound.js",
+        "src/soundlab.js",
+        "tools/audio/package_selected_slash.py",
+        "tools/audio/render_selected_slash.mjs"
+      ],
+      "path_count": 16
+    },
+    {
+      "sha": "4f47eb6ddc1d3b080017211784da0e7843f2688d",
+      "committed_at": "2026-10-02T12:03:28Z",
+      "subject": "Preserve recovery friction-memory evidence and playtest delivery status",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/PLAYTEST_STAGES.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/github_delivery.md",
+        "docs/strike/reachable_held_endpoint_round2.md",
+        "docs/strike/reachable_held_endpoint_round2_metrics.json",
+        "docs/strike/recovery_capture_round9.md",
+        "docs/strike/recovery_capture_round9_metrics.json",
+        "docs/strike/recovery_contact_memory_round10.md",
+        "docs/strike/recovery_contact_memory_round10_metrics.json",
+        "docs/strike/recovery_touchdown_round9_metrics.json",
+        "docs/strike/stance_memory_combat_round1.md",
+        "docs/strike/stance_memory_combat_round1_metrics.json",
+        "docs/strike/stance_memory_mobile_round1.md",
+        "docs/strike/stance_memory_mobile_round1_metrics.json"
+      ],
+      "path_count": 32
+    },
+    {
+      "sha": "232e772fd5e4873fe0410d184832a36d3add1cac",
+      "committed_at": "2026-10-02T11:54:49Z",
+      "subject": "Add opt-in fresh stance friction memory comparison",
+      "paths": [
+        "public/feature-lab.html",
+        "src/config.js",
+        "src/gait.js",
+        "src/main.js",
+        "src/stance_memory.js",
+        "src/stance_trial.js"
+      ],
+      "path_count": 6
+    },
+    {
+      "sha": "e5d2f081de320e42634526e27a68804baf754993",
+      "committed_at": "2026-10-02T11:08:30Z",
+      "subject": "Import verified Codex source a10b716d874a565d4d440ab53bd172b9ac7f0c0a",
+      "paths": [
+        ".codex-transfer/work.bundle",
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/README.md",
+        "docs/strike/arm_cut_interaction_round1.md",
+        "docs/strike/arm_cut_interaction_round1_metrics.json",
+        "docs/strike/arm_cut_mobile_round1.md",
+        "docs/strike/arm_cut_mobile_round1_metrics.json",
+        "docs/strike/body_input_transfer_round1.md",
+        "docs/strike/body_input_transfer_round1_metrics.json",
+        "docs/strike/held_follow_endpoint_round1.md",
+        "docs/strike/held_follow_endpoint_round1_metrics.json",
+        "docs/strike/physical_realism_plan.md",
+        "docs/strike/recovery_com_transfer_round8.md",
+        "docs/strike/recovery_com_transfer_round8_metrics.json",
+        "docs/strike/release_intent_diagnosis_round1.md"
+      ],
+      "path_count": 29
+    },
+    {
+      "sha": "a10b716d874a565d4d440ab53bd172b9ac7f0c0a",
+      "committed_at": "2026-10-02T11:07:57Z",
+      "subject": "Advance recovery load transfer and strike-control research",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/README.md",
+        "docs/strike/arm_cut_interaction_round1.md",
+        "docs/strike/arm_cut_interaction_round1_metrics.json",
+        "docs/strike/arm_cut_mobile_round1.md",
+        "docs/strike/arm_cut_mobile_round1_metrics.json",
+        "docs/strike/body_input_transfer_round1.md",
+        "docs/strike/body_input_transfer_round1_metrics.json",
+        "docs/strike/held_follow_endpoint_round1.md",
+        "docs/strike/held_follow_endpoint_round1_metrics.json",
+        "docs/strike/physical_realism_plan.md",
+        "docs/strike/recovery_com_transfer_round8.md",
+        "docs/strike/recovery_com_transfer_round8_metrics.json",
+        "docs/strike/release_intent_diagnosis_round1.md",
+        "docs/strike/release_intent_diagnosis_round1_metrics.json"
+      ],
+      "path_count": 28
+    },
+    {
+      "sha": "86a9fa06e64bd216f8952b4f3f2ef6754f18a6f1",
+      "committed_at": "2026-10-02T10:21:47Z",
+      "subject": "Import verified Codex source 4a6d5c3d1671dec745a52a848ed849684c0c8421",
+      "paths": [
+        ".codex-transfer/work.bundle",
+        "docs/promo/2026-10-02-round2/01-heinrich-temple-clash.png",
+        "docs/promo/2026-10-02-round2/02-heinrich-poseidon-statue.png",
+        "docs/promo/2026-10-02-round2/03-schwarz-helmet-contact.png",
+        "docs/promo/2026-10-02-round2/04-schwarz-helmet-fragment.png",
+        "docs/promo/2026-10-02-round2/README.md",
+        "docs/promo/2026-10-02-round2/heinrich-provenance.json",
+        "docs/promo/2026-10-02-round2/schwarz-helmet-events.json",
+        "docs/promo/2026-10-02-round2/schwarz-provenance.json"
+      ],
+      "path_count": 9
+    },
+    {
+      "sha": "4a6d5c3d1671dec745a52a848ed849684c0c8421",
+      "committed_at": "2026-10-02T10:21:20Z",
+      "subject": "Capture Heinrich temple clashes and Schwarz helmet breakage",
+      "paths": [
+        "docs/promo/2026-10-02-round2/01-heinrich-temple-clash.png",
+        "docs/promo/2026-10-02-round2/02-heinrich-poseidon-statue.png",
+        "docs/promo/2026-10-02-round2/03-schwarz-helmet-contact.png",
+        "docs/promo/2026-10-02-round2/04-schwarz-helmet-fragment.png",
+        "docs/promo/2026-10-02-round2/README.md",
+        "docs/promo/2026-10-02-round2/heinrich-provenance.json",
+        "docs/promo/2026-10-02-round2/schwarz-helmet-events.json",
+        "docs/promo/2026-10-02-round2/schwarz-provenance.json"
+      ],
+      "path_count": 8
+    },
+    {
+      "sha": "25163ddde8c3b0324e6e28be88257756a8a708a5",
+      "committed_at": "2026-10-02T09:47:58Z",
+      "subject": "Import verified Codex source 5574c9f29d71e1e7fc9c1d69368813973f137243",
+      "paths": [
+        ".codex-transfer/work.bundle",
+        "docs/promo/2026-10-02/01-greatsword-parry.png",
+        "docs/promo/2026-10-02/02-cut-impact.png",
+        "docs/promo/2026-10-02/03-rapier-duel.png",
+        "docs/promo/2026-10-02/04-cathedral-duel.png",
+        "docs/promo/2026-10-02/05-rainy-clearing.png",
+        "docs/promo/2026-10-02/README.md",
+        "docs/promo/2026-10-02/capture-provenance.json",
+        "docs/promo/2026-10-02/manuscript-provenance.json",
+        "docs/promo/2026-10-02/paulus-kal-cgm1507-58r.jpg",
+        "docs/promo/2026-10-02/paulus-kal-cgm1507-59r.jpg"
+      ],
+      "path_count": 11
+    },
+    {
+      "sha": "5574c9f29d71e1e7fc9c1d69368813973f137243",
+      "committed_at": "2026-10-02T09:47:27Z",
+      "subject": "Add gameplay promotion screenshots and manuscript sources",
+      "paths": [
+        "docs/promo/2026-10-02/01-greatsword-parry.png",
+        "docs/promo/2026-10-02/02-cut-impact.png",
+        "docs/promo/2026-10-02/03-rapier-duel.png",
+        "docs/promo/2026-10-02/04-cathedral-duel.png",
+        "docs/promo/2026-10-02/05-rainy-clearing.png",
+        "docs/promo/2026-10-02/README.md",
+        "docs/promo/2026-10-02/capture-provenance.json",
+        "docs/promo/2026-10-02/manuscript-provenance.json",
+        "docs/promo/2026-10-02/paulus-kal-cgm1507-58r.jpg",
+        "docs/promo/2026-10-02/paulus-kal-cgm1507-59r.jpg"
+      ],
+      "path_count": 10
+    },
+    {
+      "sha": "d0de72c326dd15118291ab37d039670397db49aa",
+      "committed_at": "2026-10-02T08:13:22Z",
+      "subject": "Import verified Codex source e260c8cd11c7b0432bb92ec5241e5aef725cccf6",
+      "paths": [
+        ".codex-transfer/work.bundle",
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/README.md",
+        "docs/sound/samples/2026-10-02-round3/02-A3-linked-cut.mp3",
+        "docs/sound/samples/2026-10-02-round3/03-B3-linked-heavy.mp3",
+        "docs/sound/samples/2026-10-02-round3/04-A3-B3-comparison.mp3",
+        "docs/sound/samples/2026-10-02-round3/05-A2-A3-B3.mp3",
+        "docs/sound/slash_review_round3.md",
+        "docs/sound/slash_review_round3_metrics.json",
+        "tools/audio/package_slash_linked.py",
+        "tools/audio/render_slash_linked.mjs",
+        "tools/audio/slash_linked_candidate.mjs"
+      ],
+      "path_count": 12
+    },
+    {
+      "sha": "e260c8cd11c7b0432bb92ec5241e5aef725cccf6",
+      "committed_at": "2026-10-02T08:12:56Z",
+      "subject": "Shape connected slash entry and follow-through listening candidates",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/README.md",
+        "docs/sound/samples/2026-10-02-round3/02-A3-linked-cut.mp3",
+        "docs/sound/samples/2026-10-02-round3/03-B3-linked-heavy.mp3",
+        "docs/sound/samples/2026-10-02-round3/04-A3-B3-comparison.mp3",
+        "docs/sound/samples/2026-10-02-round3/05-A2-A3-B3.mp3",
+        "docs/sound/slash_review_round3.md",
+        "docs/sound/slash_review_round3_metrics.json",
+        "tools/audio/package_slash_linked.py",
+        "tools/audio/render_slash_linked.mjs",
+        "tools/audio/slash_linked_candidate.mjs"
+      ],
+      "path_count": 11
+    },
+    {
+      "sha": "be0fe39657efac267988bc8d21e1e3a1f7dac004",
+      "committed_at": "2026-10-02T08:05:23Z",
+      "subject": "Import verified Codex source b149fcbd9e8c55a38a8521aa6c17037a5261f5f5",
+      "paths": [
+        ".codex-transfer/work.bundle",
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/README.md",
+        "docs/sound/samples/2026-10-02-round2/02-A2-drawn-edge.mp3",
+        "docs/sound/samples/2026-10-02-round2/03-B2-drawn-fiber.mp3",
+        "docs/sound/samples/2026-10-02-round2/04-A2-B2-comparison.mp3",
+        "docs/sound/samples/2026-10-02-round2/05-previous-A-A2-B2.mp3",
+        "docs/sound/slash_review_round2.md",
+        "docs/sound/slash_review_round2_metrics.json",
+        "tools/audio/package_slash_draw.py",
+        "tools/audio/render_slash_draw.mjs",
+        "tools/audio/slash_draw_candidate.mjs"
+      ],
+      "path_count": 12
+    },
+    {
+      "sha": "b149fcbd9e8c55a38a8521aa6c17037a5261f5f5",
+      "committed_at": "2026-10-02T08:04:49Z",
+      "subject": "Add sustained slicing sound candidates from listening feedback",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/README.md",
+        "docs/sound/samples/2026-10-02-round2/02-A2-drawn-edge.mp3",
+        "docs/sound/samples/2026-10-02-round2/03-B2-drawn-fiber.mp3",
+        "docs/sound/samples/2026-10-02-round2/04-A2-B2-comparison.mp3",
+        "docs/sound/samples/2026-10-02-round2/05-previous-A-A2-B2.mp3",
+        "docs/sound/slash_review_round2.md",
+        "docs/sound/slash_review_round2_metrics.json",
+        "tools/audio/package_slash_draw.py",
+        "tools/audio/render_slash_draw.mjs",
+        "tools/audio/slash_draw_candidate.mjs"
+      ],
+      "path_count": 11
+    },
+    {
+      "sha": "917c08444db2db9488bacc4e381d8a228f4aaaf5",
+      "committed_at": "2026-10-02T07:54:55Z",
+      "subject": "Import verified Codex source 7f15a33f57c2912900fa791a17e4ec02d50fb743",
+      "paths": [
+        ".codex-transfer/work.bundle",
+        "AGENTS.md",
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/DEVELOPMENT_MISSION.md",
+        "docs/codex_team/README.md",
+        "docs/sound/samples/2026-10-02/00-current.mp3",
+        "docs/sound/samples/2026-10-02/01-A-sharp-cut.mp3",
+        "docs/sound/samples/2026-10-02/02-B-deep-cleave.mp3",
+        "docs/sound/slash_review_round1.md",
+        "docs/sound/slash_review_round1_metrics.json",
+        "docs/strike/native_elbow_followthrough_round2.md",
+        "docs/strike/native_elbow_followthrough_round2_metrics.json",
+        "docs/strike/physical_realism_plan.md",
+        "docs/strike/recovery_reach_load_round7.md",
+        "docs/strike/recovery_reach_load_round7_metrics.json"
+      ],
+      "path_count": 20
+    },
+    {
+      "sha": "7f15a33f57c2912900fa791a17e4ec02d50fb743",
+      "committed_at": "2026-10-02T07:54:20Z",
+      "subject": "Record first recovery and braking screens against the 48-hour plan",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/README.md",
+        "docs/strike/native_elbow_followthrough_round2.md",
+        "docs/strike/native_elbow_followthrough_round2_metrics.json",
+        "docs/strike/physical_realism_plan.md",
+        "docs/strike/recovery_reach_load_round7.md",
+        "docs/strike/recovery_reach_load_round7_metrics.json",
+        "tools/sim/experiments/native_elbow_followthrough_probe.mjs",
+        "tools/sim/experiments/recovery_reach_load_probe.mjs"
+      ],
+      "path_count": 9
+    },
+    {
+      "sha": "48c9c2bf054e52d0ae290ede682a8b9a95a522cb",
+      "committed_at": "2026-10-02T07:41:27Z",
+      "subject": "Define rolling 48-hour development plan and autonomous work queue",
+      "paths": [
+        "AGENTS.md",
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/DEVELOPMENT_MISSION.md",
+        "docs/codex_team/README.md"
+      ],
+      "path_count": 4
+    },
+    {
+      "sha": "3778b2007b6063c59f10c5d488c26706660308f5",
+      "committed_at": "2026-10-02T07:35:04Z",
+      "subject": "Add isolated sharp-cut and heavy-cleave listening candidates",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/sound/samples/2026-10-02/00-current.mp3",
+        "docs/sound/samples/2026-10-02/01-A-sharp-cut.mp3",
+        "docs/sound/samples/2026-10-02/02-B-deep-cleave.mp3",
+        "docs/sound/slash_review_round1.md",
+        "docs/sound/slash_review_round1_metrics.json",
+        "tools/audio/package_slash_review.py",
+        "tools/audio/render_slash_review.mjs",
+        "tools/audio/slash_review_candidate.mjs"
+      ],
+      "path_count": 9
+    },
+    {
+      "sha": "79ce8201c28841284c337015b9aba7a74981384f",
+      "committed_at": "2026-10-02T07:22:42Z",
+      "subject": "Import verified Codex source 731fb5d76445a60f9d93ac81a7cfbbb9c6177413",
+      "paths": [
+        ".codex-transfer/work.bundle",
+        "docs/codex_team/automatic_checks.md",
+        "docs/codex_team/automatic_checks_release.json",
+        "docs/codex_team/automatic_checks_validation.json",
+        "docs/dev_exchange/notes/2026-10-02.md"
+      ],
+      "path_count": 5
+    },
+    {
+      "sha": "731fb5d76445a60f9d93ac81a7cfbbb9c6177413",
+      "committed_at": "2026-10-02T07:22:23Z",
+      "subject": "Record verified automatic regression runs and readable outcomes",
+      "paths": [
+        "docs/codex_team/automatic_checks.md",
+        "docs/codex_team/automatic_checks_release.json",
+        "docs/codex_team/automatic_checks_validation.json",
+        "docs/dev_exchange/notes/2026-10-02.md"
+      ],
+      "path_count": 4
+    },
+    {
+      "sha": "11a3f01756b0c8e199fc841a8e69cbf5c272f139",
+      "committed_at": "2026-10-02T07:18:32Z",
+      "subject": "Import verified Codex source 41ebf569a9190fac0b794d766e55f622a2ef125d",
+      "paths": [
+        ".codex-transfer/work.bundle",
+        "docs/codex_team/DEVELOPMENT_MISSION.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/automatic_checks.md",
+        "docs/codex_team/automatic_checks_release.json",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-02.md",
+        "docs/strike/native_recovery_round6.md",
+        "docs/strike/native_recovery_round6_metrics.json",
+        "docs/strike/physical_realism_plan.md",
+        "tools/automation/run_checks.py",
+        "tools/sim/experiments/native_recovery_candidate.mjs",
+        "tools/sim/experiments/native_recovery_probe.mjs"
+      ],
+      "path_count": 13
+    },
+    {
+      "sha": "e652fa9723d64fc97ce9c500346eb4d58cec0e6e",
+      "committed_at": "2026-10-02T07:17:23Z",
+      "subject": "Preserve native recovery controls and verified unattended checks",
+      "paths": [
+        "docs/codex_team/DEVELOPMENT_MISSION.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/automatic_checks.md",
+        "docs/codex_team/automatic_checks_release.json",
+        "docs/strike/native_recovery_round6.md",
+        "docs/strike/native_recovery_round6_metrics.json",
+        "docs/strike/physical_realism_plan.md",
+        "tools/automation/run_checks.py",
+        "tools/sim/experiments/native_recovery_candidate.mjs",
+        "tools/sim/experiments/native_recovery_probe.mjs"
+      ],
+      "path_count": 10
+    },
+    {
+      "sha": "44ff6c93b7628b7963d734ad70fc1b86f8855f4d",
+      "committed_at": "2026-10-02T07:09:59Z",
+      "subject": "Import verified Codex source f0afe5f38c473693053192b1b90e96ffa6b1bbbc",
+      "paths": [
+        ".codex-transfer/work.bundle",
+        "docs/codex_team/automatic_checks.md"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "a76f5993e0989b0f45fa931817905f10b255d658",
+      "committed_at": "2026-10-02T07:09:46Z",
+      "subject": "Prepare verified source transfer [skip ci]",
+      "paths": [
+        ".github/workflows/development-checks.yml"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "f0afe5f38c473693053192b1b90e96ffa6b1bbbc",
+      "committed_at": "2026-10-02T07:09:39Z",
+      "subject": "Initialize scheduled check paths in supported runner context",
+      "paths": [
+        ".github/workflows/development-checks.yml",
+        "docs/codex_team/automatic_checks.md"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "7f792dc8a87f735bb4b8d2bdbea85a2804d96397",
+      "committed_at": "2026-10-02T07:07:38Z",
+      "subject": "Import verified Codex source 65855993be5ac96bad464f9a042d8d626faad97e",
+      "paths": [
+        ".codex-transfer/work.bundle",
+        "AGENTS.md",
+        "docs/codex_team/DEVELOPMENT_MISSION.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/automatic_checks.md",
+        "docs/codex_team/automatic_checks_validation.json",
+        "tools/automation/run_checks.py"
+      ],
+      "path_count": 7
+    },
+    {
+      "sha": "3856f54161250bc75ca498304f086fadbd62b0b3",
+      "committed_at": "2026-10-02T07:07:25Z",
+      "subject": "Prepare verified source transfer [skip ci]",
+      "paths": [
+        ".github/workflows/development-checks.yml"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "65855993be5ac96bad464f9a042d8d626faad97e",
+      "committed_at": "2026-10-02T07:07:17Z",
+      "subject": "Make continuous improvement a mission and schedule game regressions",
+      "paths": [
+        ".github/workflows/development-checks.yml",
+        "AGENTS.md",
+        "docs/codex_team/DEVELOPMENT_MISSION.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/automatic_checks.md",
+        "docs/codex_team/automatic_checks_validation.json",
+        "tools/automation/run_checks.py"
+      ],
+      "path_count": 7
+    },
+    {
+      "sha": "5e6ef218eef0e3b3aba0f389cec6239045544458",
+      "committed_at": "2026-10-02T06:53:19Z",
+      "subject": "Import verified Codex source 654e09804f6e7266352c1fe9fc285edaa3b728ee",
+      "paths": [
+        ".codex-transfer/work.bundle",
+        "docs/codex_team/README.md",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-02.md",
+        "docs/strike/arm_capacity_trial.md",
+        "docs/strike/arm_capacity_trial_release.json",
+        "docs/strike/native_motor_api_round1.md",
+        "docs/strike/native_motor_api_round1_metrics.json",
+        "docs/strike/physical_realism_plan.md",
+        "tools/engine/README.md",
+        "tools/engine/bootstrap_workspace.py",
+        "tools/engine/build_3d_compat.sh",
+        "tools/engine/engine_env.sh",
+        "tools/engine/import_smoke.mjs",
+        "tools/engine/native_motor_binding.patch"
+      ],
+      "path_count": 23
+    },
+    {
+      "sha": "4de09aac9d4420f176742c63e9bd81b195dd8e33",
+      "committed_at": "2026-10-02T06:52:30Z",
+      "subject": "Validate native motor caps without replacing game joints",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/strike/arm_capacity_trial.md",
+        "docs/strike/arm_capacity_trial_release.json",
+        "docs/strike/native_motor_api_round1.md",
+        "docs/strike/native_motor_api_round1_metrics.json",
+        "docs/strike/physical_realism_plan.md",
+        "tools/engine/README.md",
+        "tools/engine/bootstrap_workspace.py",
+        "tools/engine/build_3d_compat.sh",
+        "tools/engine/engine_env.sh",
+        "tools/engine/import_smoke.mjs",
+        "tools/engine/native_motor_binding.patch",
+        "tools/engine/prepare_checkout.sh",
+        "tools/engine/prepare_compat_3d.py",
+        "tools/engine/recipe_provenance.json"
+      ],
+      "path_count": 20
+    },
+    {
+      "sha": "ca1a590ce33be77e547b046fc814bc5b64b69bfb",
+      "committed_at": "2026-10-02T06:39:56Z",
+      "subject": "Import verified Codex source 9dc396eb4b656dc6aad08be04efa4063769b10d8",
+      "paths": [
+        ".codex-transfer/work.bundle",
+        "docs/codex_team/README.md",
+        "docs/strike/arm_capacity_round1.md",
+        "docs/strike/arm_capacity_round1_metrics.json",
+        "docs/strike/arm_capacity_trial.md",
+        "docs/strike/arm_capacity_trial_metrics.json",
+        "docs/strike/physical_realism_plan.md",
+        "docs/strike/recovery_handoff_round5.md",
+        "docs/strike/recovery_handoff_round5_metrics.json",
+        "public/feature-lab.html",
+        "src/arm_trial.js",
+        "src/fighter.js",
+        "src/main.js",
+        "tools/browser/arm_trial.mjs",
+        "tools/sim/experiments/arm_capacity_candidate.mjs"
+      ],
+      "path_count": 22
+    },
+    {
+      "sha": "9dc396eb4b656dc6aad08be04efa4063769b10d8",
+      "committed_at": "2026-10-02T06:39:28Z",
+      "subject": "Add opt-in shared shoulder and wrist torque cap trial",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/strike/arm_capacity_round1.md",
+        "docs/strike/arm_capacity_round1_metrics.json",
+        "docs/strike/arm_capacity_trial.md",
+        "docs/strike/arm_capacity_trial_metrics.json",
+        "docs/strike/physical_realism_plan.md",
+        "docs/strike/recovery_handoff_round5.md",
+        "docs/strike/recovery_handoff_round5_metrics.json",
+        "public/feature-lab.html",
+        "src/arm_trial.js",
+        "src/fighter.js",
+        "src/main.js",
+        "tools/browser/arm_trial.mjs",
+        "tools/sim/experiments/arm_capacity_candidate.mjs",
+        "tools/sim/experiments/arm_capacity_candidate.test.mjs"
+      ],
+      "path_count": 21
+    },
+    {
+      "sha": "bc4c85d3ec2ef39835d69a70f5e195f72bde35ab",
+      "committed_at": "2026-10-02T03:50:43Z",
+      "subject": "Import verified Codex source 65e73d3ce9149e17b7226df8d39424819e4ec66b",
+      "paths": [
+        ".codex-transfer/work.bundle",
+        "docs/codex_team/README.md",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-02.md",
+        "docs/strike/cut_reaction_round1.md",
+        "docs/strike/cut_reaction_trial_release.json"
+      ],
+      "path_count": 6
+    },
+    {
+      "sha": "65e73d3ce9149e17b7226df8d39424819e4ec66b",
+      "committed_at": "2026-10-02T03:50:25Z",
+      "subject": "Record verified public cutting trial and remaining physics goals",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-02.md",
+        "docs/strike/cut_reaction_round1.md",
+        "docs/strike/cut_reaction_trial_release.json"
+      ],
+      "path_count": 5
+    },
+    {
+      "sha": "7362025d5696462bfe0fe617db4e63a3b9aba493",
+      "committed_at": "2026-10-02T03:43:50Z",
+      "subject": "Import verified Codex source 3ad893a6ef3c044c796ee44c2ff2fa5328ffa407",
+      "paths": [
+        ".codex-transfer/work.bundle",
+        "docs/codex_team/README.md",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-02.md",
+        "docs/strike/cut_reaction_round1.md",
+        "docs/strike/cut_reaction_round1_metrics.json",
+        "docs/strike/cut_reaction_trial_metrics.json",
+        "docs/strike/physical_realism_plan.md",
+        "docs/strike/recovery_joint_response_round4.md",
+        "docs/strike/recovery_joint_response_round4_metrics.json",
+        "docs/strike/whole_body_control_round2.md",
+        "docs/strike/whole_body_control_round2_metrics.json",
+        "public/feature-lab.html",
+        "src/combat.js",
+        "src/cut_reaction.js"
+      ],
+      "path_count": 26
+    },
+    {
+      "sha": "3ad893a6ef3c044c796ee44c2ff2fa5328ffa407",
+      "committed_at": "2026-10-02T03:43:28Z",
+      "subject": "Add opt-in mobile comparison for passive cutting reactions",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-02.md",
+        "docs/strike/cut_reaction_round1.md",
+        "docs/strike/cut_reaction_round1_metrics.json",
+        "docs/strike/cut_reaction_trial_metrics.json",
+        "public/feature-lab.html",
+        "src/combat.js",
+        "src/cut_reaction.js",
+        "src/cut_trial.js",
+        "src/main.js",
+        "tools/browser/cut_trial.mjs",
+        "tools/sim/experiments/cut_reaction_candidate.mjs",
+        "tools/sim/experiments/cut_reaction_candidate.test.mjs",
+        "tools/sim/experiments/cut_reaction_integration_probe.mjs"
+      ],
+      "path_count": 15
+    },
+    {
+      "sha": "298cd69c7eb9aa0821ba1a830483b354eb8ca037",
+      "committed_at": "2026-10-02T03:37:02Z",
+      "subject": "Measure whole-body controls and verify passive cutting reaction candidate",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/dev_exchange/ledger.md",
+        "docs/strike/cut_reaction_round1.md",
+        "docs/strike/cut_reaction_round1_metrics.json",
+        "docs/strike/physical_realism_plan.md",
+        "docs/strike/recovery_joint_response_round4.md",
+        "docs/strike/recovery_joint_response_round4_metrics.json",
+        "docs/strike/whole_body_control_round2.md",
+        "docs/strike/whole_body_control_round2_metrics.json",
+        "tools/sim/experiments/cut_reaction_candidate.mjs",
+        "tools/sim/experiments/cut_reaction_candidate.test.mjs",
+        "tools/sim/experiments/cut_reaction_integration_probe.mjs",
+        "tools/sim/experiments/strike_control_probe.mjs",
+        "tools/sim/experiments/torso_target_candidate.mjs",
+        "tools/sim/experiments/torso_target_candidate.test.mjs"
+      ],
+      "path_count": 15
+    },
+    {
+      "sha": "566bd78c72bf6e0b174beb5c15859a98a2b677f3",
+      "committed_at": "2026-10-02T03:25:07Z",
+      "subject": "Track full-body physics goals and add matched strike diagnostics",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/strike/physical_realism_plan.md",
+        "tools/sim/experiments/recovery_joint_response_probe.mjs",
+        "tools/sim/experiments/strike_control_probe.mjs",
+        "tools/sim/experiments/torso_target_candidate.mjs",
+        "tools/sim/experiments/torso_target_candidate.test.mjs",
+        "tools/sim/whole_body_strike_probe.mjs"
+      ],
+      "path_count": 7
+    },
+    {
+      "sha": "ca0809d098cbcb2b8526e94d0550ac526f3a9529",
+      "committed_at": "2026-10-02T03:14:46Z",
+      "subject": "Import verified Codex source 4911f78fb94ab4a0e47c5a73bd88c4e73e44ab8c",
+      "paths": [
+        ".codex-transfer/work.bundle",
+        "docs/codex_team/README.md",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-02.md",
+        "docs/strike/support_motor_limits_round3.md",
+        "docs/strike/support_motor_limits_round3_metrics.json",
+        "tools/sim/experiments/bounded_joint_motor.mjs",
+        "tools/sim/experiments/bounded_joint_motor.test.mjs",
+        "tools/sim/experiments/joint_response_probe.mjs",
+        "tools/sim/experiments/late_upright_probe.mjs",
+        "tools/sim/experiments/native_motor_limit_probe.mjs",
+        "tools/sim/experiments/recovery_control_probe.mjs"
+      ],
+      "path_count": 12
+    },
+    {
+      "sha": "4911f78fb94ab4a0e47c5a73bd88c4e73e44ab8c",
+      "committed_at": "2026-10-02T03:14:26Z",
+      "subject": "Isolate recovery motor failures and bounded actuator limits",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-02.md",
+        "docs/strike/support_motor_limits_round3.md",
+        "docs/strike/support_motor_limits_round3_metrics.json",
+        "tools/sim/experiments/bounded_joint_motor.mjs",
+        "tools/sim/experiments/bounded_joint_motor.test.mjs",
+        "tools/sim/experiments/joint_response_probe.mjs",
+        "tools/sim/experiments/late_upright_probe.mjs",
+        "tools/sim/experiments/native_motor_limit_probe.mjs",
+        "tools/sim/experiments/recovery_control_probe.mjs"
+      ],
+      "path_count": 11
+    },
+    {
+      "sha": "320e8e8e53979e8ffd6c4fe35b2f4c5648f5ffee",
+      "committed_at": "2026-10-02T01:49:02Z",
+      "subject": "Import verified Codex source 3a447c0b6deb1940f19e0cfdf3fb726f2567a875",
+      "paths": [
+        ".codex-transfer/work.bundle",
+        "docs/codex_team/README.md",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-02.md",
+        "docs/strike/support_control_semantics_metrics.json",
+        "docs/strike/support_control_semantics_round1.md",
+        "docs/strike/support_recovery_load_round2.md",
+        "docs/strike/support_recovery_load_round2_metrics.json",
+        "tools/sim/experiments/recovery_control_probe.mjs",
+        "tools/sim/experiments/recovery_load_candidate.mjs",
+        "tools/sim/experiments/same_lying_recovery_probe.mjs",
+        "tools/sim/force_ledger.mjs",
+        "tools/sim/force_ledger.test.mjs"
+      ],
+      "path_count": 13
+    },
+    {
+      "sha": "3a447c0b6deb1940f19e0cfdf3fb726f2567a875",
+      "committed_at": "2026-10-02T01:48:45Z",
+      "subject": "Validate actual recovery interventions and reject unstable load transfer candidates",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-02.md",
+        "docs/strike/support_control_semantics_metrics.json",
+        "docs/strike/support_control_semantics_round1.md",
+        "docs/strike/support_recovery_load_round2.md",
+        "docs/strike/support_recovery_load_round2_metrics.json",
+        "tools/sim/experiments/recovery_control_probe.mjs",
+        "tools/sim/experiments/recovery_load_candidate.mjs",
+        "tools/sim/experiments/same_lying_recovery_probe.mjs",
+        "tools/sim/force_ledger.mjs",
+        "tools/sim/force_ledger.test.mjs"
+      ],
+      "path_count": 12
+    },
+    {
+      "sha": "d797eb1128540557ad286f57d96c658ea67dde4e",
+      "committed_at": "2026-10-02T01:33:39Z",
+      "subject": "Import verified Codex source b312d5355bdd0fa0b6f455a261ca7a89795717e9",
+      "paths": [
+        ".codex-transfer/work.bundle",
+        "AGENTS.md",
+        "docs/codex_team/README.md",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-02.md",
+        "docs/strike/support_control_semantics_metrics.json",
+        "docs/strike/support_control_semantics_round1.md",
+        "docs/strike/support_launch_incident.md",
+        "tools/sim/experiments/heavy_down_README.md",
+        "tools/sim/experiments/recovery_control_probe.mjs",
+        "tools/sim/experiments/same_lying_recovery_probe.mjs",
+        "tools/sim/experiments/upright_motor_candidate.mjs",
+        "tools/sim/experiments/upright_motor_candidate.test.mjs",
+        "tools/sim/experiments/zero_motor_probe.mjs"
+      ],
+      "path_count": 14
+    },
+    {
+      "sha": "b312d5355bdd0fa0b6f455a261ca7a89795717e9",
+      "committed_at": "2026-10-02T01:33:22Z",
+      "subject": "Diagnose zero-coefficient motors and preserve recovery control experiments",
+      "paths": [
+        "AGENTS.md",
+        "docs/codex_team/README.md",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-02.md",
+        "docs/strike/support_control_semantics_metrics.json",
+        "docs/strike/support_control_semantics_round1.md",
+        "docs/strike/support_launch_incident.md",
+        "tools/sim/experiments/heavy_down_README.md",
+        "tools/sim/experiments/recovery_control_probe.mjs",
+        "tools/sim/experiments/same_lying_recovery_probe.mjs",
+        "tools/sim/experiments/upright_motor_candidate.mjs",
+        "tools/sim/experiments/upright_motor_candidate.test.mjs",
+        "tools/sim/experiments/zero_motor_probe.mjs"
+      ],
+      "path_count": 13
+    },
+    {
+      "sha": "626729f6482e8b2270187e896e57b51eba9ba3df",
+      "committed_at": "2026-10-01T17:28:10Z",
+      "subject": "Import verified Codex source 215389446a739ab693b4e227ddce5155a892c823",
+      "paths": [
+        ".codex-transfer/work.bundle",
+        "docs/dev_exchange/notes/2026-10-02.md",
+        "docs/strike/onehand_grip_port.md",
+        "docs/strike/onehand_grip_port_release.json"
+      ],
+      "path_count": 4
+    },
+    {
+      "sha": "215389446a739ab693b4e227ddce5155a892c823",
+      "committed_at": "2026-10-01T17:27:48Z",
+      "subject": "Record one-hand guard deployment and public mobile verification",
+      "paths": [
+        "docs/dev_exchange/notes/2026-10-02.md",
+        "docs/strike/onehand_grip_port.md",
+        "docs/strike/onehand_grip_port_release.json"
+      ],
+      "path_count": 3
+    },
+    {
+      "sha": "8eb4c51729a7c119a2aebfa9b8cce4296bea7e12",
+      "committed_at": "2026-10-01T17:24:48Z",
+      "subject": "Import verified Codex source d4cacb68641d5b5b5a6c74478c1c9c2141689d86",
+      "paths": [
+        ".codex-transfer/work.bundle",
+        "docs/codex_team/README.md",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-02.md",
+        "docs/strike/onehand_grip_port.md",
+        "docs/strike/onehand_grip_port_metrics.json",
+        "src/fighter.js",
+        "src/guards.js",
+        "tools/sim/onehand_guard_probe.mjs"
+      ],
+      "path_count": 9
+    },
+    {
+      "sha": "d4cacb68641d5b5b5a6c74478c1c9c2141689d86",
+      "committed_at": "2026-10-01T17:24:30Z",
+      "subject": "Port Fable one-hand guard tables and weapon style selection",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-02.md",
+        "docs/strike/onehand_grip_port.md",
+        "docs/strike/onehand_grip_port_metrics.json",
+        "src/fighter.js",
+        "src/guards.js",
+        "tools/sim/onehand_guard_probe.mjs"
+      ],
+      "path_count": 8
+    }
+  ],
+  "previous_report_id": "yoonjl-svg/halfsword-codex@2026-10-01T23:30+09:00",
+  "previous_source_sha": "208154e3ac0d3dd924cbb6ed00c40ae8c302634d",
+  "deployment": {
+    "status": "observed_success",
+    "query_limit": 100,
+    "run_url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/36974803663",
+    "head_sha": "ca1a590ce33be77e547b046fc814bc5b64b69bfb",
+    "observed_updated_at": "2026-10-02T06:42:21Z",
+    "cutoff_time_basis": "run updated_at; conservative completion proxy",
+    "currently_live_verified": false
+  },
+  "workflow_run_url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37108554334",
+  "notes_heading_normalization": {
+    "policy": "trailing-unnumbered-h2-to-h3-v1",
+    "count": 2,
+    "trailing_appendices_demoted": [
+      {
+        "line": 110,
+        "from": "## 팔 힘 한도·기립 인계·native 모터 후속",
+        "to": "### 팔 힘 한도·기립 인계·native 모터 후속"
+      },
+      {
+        "line": 119,
+        "from": "## 지속 미션과 native 회복 후속",
+        "to": "### 지속 미션과 native 회복 후속"
+      }
+    ],
+    "raw_notes_hash_preserved": true
+  },
+  "notes_link_rewrite": {
+    "basis": "source-note-relative paths pinned to source_sha",
+    "count": 31,
+    "raw_notes_hash_preserved": true
+  },
+  "markdown_sha256": "20023f74757ec6b201d73cc09cb4e21b2fc2d24d1ad222f9e8b101893d281bf4"
+}
