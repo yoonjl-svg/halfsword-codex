@@ -61,7 +61,7 @@ export function afterWristResponse(f, before, consumedActivation) {
   const wAim = wAimClamped.clone().addScaledVector(blade, -wAimClamped.dot(blade));
   const str = before.strength * consumedActivation * (.35 + .65 * before.armHealth);
   const baseCap = cfg.maxAimTorque * str;
-  let latch = before.incomingBrake, damping = cfg.aimDamping;
+  let latch = before.incomingBrake, latchAngle = before.incomingBrakeAngle, damping = cfg.aimDamping, releaseBranchEntered = false;
   let toward = null, tgtSp = null, brakeAcc = null, stopAngle = null, relief = null, releaseThreshold = null;
   const gate = { nonparallel: sinA > 1e-5, unlatched: null, towardAbove3: null, fasterThanTarget: null, angleAbove025: null };
   if (gate.nonparallel) {
@@ -75,8 +75,8 @@ export function afterWristResponse(f, before, consumedActivation) {
       relief = before.finishAmount > 0 && aim.y < blade.y && !(before.tapDown && !before.tapGo)
         ? 1 - FINISH.brakeRelief * before.finishAmount : 1;
       releaseThreshold = stopAngle * cfg.releaseMargin * relief;
-      if (angle > releaseThreshold) damping = cfg.releaseDamping;
-      else latch = true;
+      if (angle > releaseThreshold) { damping = cfg.releaseDamping; releaseBranchEntered = true; }
+      else { latch = true; latchAngle = angle; }
     }
   }
   const position = new THREE.Vector3();
@@ -97,7 +97,11 @@ export function afterWristResponse(f, before, consumedActivation) {
   const torqueError = normDifference(predicted, f.debug.wristTorque);
   const hillError = Math.abs(hillAfter - f.wristHill);
   const latchExact = latch === (f.wristBrake ?? false);
-  if (Math.max(capError, torqueError, hillError) > 1e-9 || !latchExact) throw Error('Derived wrist terms do not match original call outputs');
+  const latchAngleExact = latchAngle === (f.wristBrakeAng ?? null);
+  if (![capError, torqueError, hillError].every(Number.isFinite) ||
+      Math.max(capError, torqueError, hillError) > 1e-9 || !latchExact || !latchAngleExact ||
+      (latchAngle !== null && !Number.isFinite(latchAngle)))
+    throw Error('Derived wrist terms do not match original call outputs');
   const localAim = aim.clone().applyQuaternion(new THREE.Quaternion().fromArray(before.yaw).invert());
   let yawOnlyRate = null, localOnlyRate = null;
   if (before.previousAim && before.previousYaw && before.dt > 0) {
@@ -115,6 +119,7 @@ export function afterWristResponse(f, before, consumedActivation) {
     targetOmegaBeforeClamp: wAimRaw.toArray(), targetOmegaAfterClamp: wAimClamped.toArray(), targetOmegaProjected: wAim.toArray(),
     yawOnlyCounterfactualRate: yawOnlyRate, localOnlyCounterfactualRate: localOnlyRate,
     towardRadps: toward, targetTowardRadps: tgtSp, gate, selectedDamping: damping,
+    releaseBranchEntered, configuredAimDamping: cfg.aimDamping, configuredReleaseDamping: cfg.releaseDamping,
     releaseSelected: damping === cfg.releaseDamping && damping !== cfg.aimDamping,
     brakeAccRadps2: brakeAcc, stopAngleRad: stopAngle, finishRelief: relief, releaseThresholdRad: releaseThreshold,
     baseCapBeforeHillNm: baseCap, positionTorqueNm: position.toArray(), dampingTorqueNm: dampingTorque.toArray(),
@@ -123,6 +128,6 @@ export function afterWristResponse(f, before, consumedActivation) {
     instantaneousHill: h, filteredHill: hillAfter, capAfterHillNm: finalCap, capSaturated: tl > finalCap,
     dampingInstantaneousSwordPowerW: dampingTorque.dot(w),
     dampingRelativeTargetPowerW: dampingTorque.dot(wSwing.clone().sub(wAim)),
-    originalOutputCheck: { capError, torqueError, hillError, latchExact },
+    originalOutputCheck: { capError, torqueError, hillError, latchExact, latchAngleExact },
   };
 }

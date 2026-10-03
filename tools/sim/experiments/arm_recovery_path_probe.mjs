@@ -14,17 +14,19 @@ const opts = Object.fromEntries(process.argv.slice(2).map(arg => {
   if (!match) throw Error('Use --out=NEW_PATH --reference=FROM_SPAWN_RAW');
   return [match[1], match[2]];
 }));
-if (Object.keys(opts).some(key => !['out', 'reference', 'case', 'response', 'audio-reference'].includes(key))) throw Error('Unknown option');
+if (Object.keys(opts).some(key => !['out', 'reference', 'case', 'response', 'audio-reference', 'hold-damping'].includes(key))) throw Error('Unknown option');
 const output = opts.out, referencePath = opts.reference;
 if (!output || fs.existsSync(output) || !referencePath || !fs.existsSync(referencePath)) throw Error('New output and received reference required');
 const scene = opts.case ?? 'wounded';
 if (!['wounded', 'healthyStop'].includes(scene)) throw Error('Unknown diagnostic case');
 const responseMode = opts.response === 'derived';
 if ((opts.response && !responseMode) || (responseMode && scene !== 'healthyStop')) throw Error('Derived response is restricted to healthyStop');
+const holdDamping = opts['hold-damping'] === 'full';
+if (opts['hold-damping'] && (!holdDamping || !responseMode)) throw Error('Full hold damping requires healthyStop derived response');
 const weapon = scene === 'wounded' ? 'falchion' : 'sabre', seed = scene === 'wounded' ? 7 : 19;
 const seconds = 18, windowSteps = 60;
-const modes = scene === 'wounded' ? ['full', 'swordOrdinary', 'jointsOrdinary', 'allOrdinary'] : ['full', 'allOrdinary'];
-const observerModes = scene === 'wounded' || responseMode ? ['full', 'allOrdinary'] : [];
+const modes = holdDamping ? ['full'] : scene === 'wounded' ? ['full', 'swordOrdinary', 'jointsOrdinary', 'allOrdinary'] : ['full', 'allOrdinary'];
+const observerModes = holdDamping ? ['full'] : scene === 'wounded' || responseMode ? ['full', 'allOrdinary'] : [];
 const referenceBytes = fs.readFileSync(referencePath);
 const reference = JSON.parse(referenceBytes);
 const referenceRun = reference.rows.find(row => row.weapon === weapon && row.seed === seed && row.mode === 'independent' && row.observed);
@@ -231,6 +233,7 @@ function run(weapon, seed, mode, observed) {
       const original = f[name];
       f[name] = function (...args) {
         const previousActuator = actuator, previousMode = this.armRecoveryModel;
+        const previousWeaponCfg = this.weaponCfg;
         const filterBefore = readMainArmRecovery(this);
         const routed = !!branch && (mode === 'allOrdinary' ||
           (mode === 'swordOrdinary' && name === 'driveSword') ||
@@ -242,20 +245,33 @@ function run(weapon, seed, mode, observed) {
         const previousAim = this.prevAim?.toArray() ?? null;
         const responseBefore = responseMode && observed && branch && name === 'driveSword' && gate && this.armed
           ? beforeWristResponse(this, previousAimYaw) : null;
+        const holdDampingApplied = holdDamping && !!branch && name === 'driveSword';
+        if (holdDampingApplied) {
+          if (!this.handHeld || this.inputActive) throw Error('Hold damping must remain held with zero requested input');
+          // Research-only policy ablation. Same stiffness, strength/cap, goals,
+          // native state and original method; only the release damping changes.
+          this.weaponCfg = { ...previousWeaponCfg, releaseDamping: previousWeaponCfg.aimDamping };
+        }
         let restoredFilterExact = false;
+        let response = null;
         try {
           return original.apply(this, args);
         } finally {
-          this.armRecoveryModel = previousMode;
-          actuator = previousActuator;
+          try {
+            response = responseBefore ? afterWristResponse(this, responseBefore, consumedActivation) : null;
+          } finally {
+            this.weaponCfg = previousWeaponCfg;
+            this.armRecoveryModel = previousMode;
+            actuator = previousActuator;
+          }
           restoredFilterExact = JSON.stringify(readMainArmRecovery(this)) === JSON.stringify(filterBefore);
           if (!restoredFilterExact) throw Error('Temporary routing changed the persistent activation filter');
-          const response = responseBefore ? afterWristResponse(this, responseBefore, consumedActivation) : null;
           if (responseMode && observed && name === 'driveSword' && gate && this.armed) previousAimYaw = this.yaw.toArray();
           if (branch) {
             dispatchCounts[name]++;
             stepDispatch[name] = (stepDispatch[name] ?? 0) + 1;
-            if (observed) dispatchRows.push({ method: name, routed, consumedActivation,
+            if (observed) dispatchRows.push({ method: name, routed, holdDampingApplied,
+              weaponCfgRestored: this.weaponCfg === previousWeaponCfg, consumedActivation,
               ordinaryActivation: this.muscle, independentActivation: filterBefore.value,
               muscleGateAt012: gate, restoredFilterExact, filterTarget: filterBefore.target,
               previousAim, currentAim: this.debug.aim.toArray(),
@@ -450,7 +466,7 @@ try {
   for (const row of rows) {
     const prior = row.traceFrames.filter(f => f.tick < row.branch.tick);
     const exactPrefix = prior.every((f, i) => fields.every(key => f[key] === baseline.traceFrames[i][key]));
-    const originalPrefixExact = row.traceFrames.filter(f => f.tick < row.branch.tick || row.mode === 'full')
+    const originalPrefixExact = row.traceFrames.filter(f => f.tick < row.branch.tick || (row.mode === 'full' && !holdDamping))
       .every(f => fields.every(key => f[key] === referenceRun.traceFrames[f.tick][key]));
     prefixChecks.push({ mode: row.mode, observed: row.observed, branchTick: row.branch.tick,
       exactPrefix, originalPrefixExact, branchStateExact: JSON.stringify(row.branch) === JSON.stringify(baseline.branch),
@@ -469,13 +485,13 @@ const report = { schemaVersion: 1, probe: 'arm_recovery_path_ablation', sourceCo
   wallSeconds: (performance.now() - begin) / 1000, referenceSourceExact, referenceSourceCompatible, audioCompatibility, reference: { path: referencePath, bytes: referenceBytes.length,
     sha256: sha(referenceBytes), sourceCommit: reference.sourceCommit }, measurementValid,
   executionCount: rows.length, error, schedule, requestedScheduleSha256, prefixChecks, observerChecks, rows,
-  protocol: { scene, weapon, seed, windowSteps, DT, modes, observerModes, responseMode,
+  protocol: { scene, weapon, seed, windowSteps, DT, modes, observerModes, responseMode, holdDamping,
     branch: 'Wounded case requires first actual main-arm wound; healthyStop diagnoses a known healthy-arm recovery counterexample. Armed getup with extra activation >1e-4, then first active-to-held-zero-delta boundary. All runs are independent from spawn and replay exactly up to that same complete-step boundary.',
-    treatment: 'Temporary ordinary-muscle routing only inside original driveSword and/or driveJoints+elbowGravity calls. Independent filter updates continue in original step; flag and filter are restored/unchanged before next method. allOrdinary is a diagnostic ablation after independent prefix, NOT legacy from spawn.',
+    treatment: holdDamping ? 'After held-zero branch, original player driveSword temporarily reads a shallow weaponCfg copy with releaseDamping=aimDamping. All activation remains independent. Configuration reference and flag are restored before other methods. No force-cap/stiffness/goal/native edits. Research-only braking policy ablation, not a public candidate.' : 'Temporary ordinary-muscle routing only inside original driveSword and/or driveJoints+elbowGravity calls. Independent filter updates continue in original step; flag and filter are restored/unchanged before next method. allOrdinary is a diagnostic ablation after independent prefix, NOT legacy from spawn.',
     scope: 'driveSword includes IK gate and wrist torque/braking; driveJoints includes manual shoulder and native elbow; jointsOrdinary also routes separate elbowGravity. Other muscles, inputs, gains, strength, health, native poses and AI are unchanged.',
     observation: 'Original methods called exactly once. Actual addTorque values include final twist and actual recipients; instantaneous pre-solver recipient power is NOT integrated native work. Elbow motor settings are requests, not achieved torque/whole-substep work. Contact points/normal impulses remain last-solver-substep raw; no per-point load or COP inference.',
     inference: 'First dispatch and first physics response are local same-state path contrasts. Direct same-recorded-event windows and complete .5s reactive-AI outcomes are reported separately; later treatment-induced AI/contact changes are mediators of total game effect, not automatically invalidating paired whole-window regression. Not equal-torque efficiency or human acceptance.',
-    referenceGate: 'All pre-branch and full-mode post-branch frame digests must match the previously received original from-spawn raw, including original control/event/input digests. Observer off still retains mandatory hashes, routing/dispatch counters and flag/filter assertions; optional torque/motor/contact/metrics reads are removed.',
+    referenceGate: holdDamping ? 'All pre-branch frame digests and branch state must match original from-spawn raw. Post-branch treatment effects are expected and compared separately to the recorded observed full baseline. Observer on/off must remain exact.' : 'All pre-branch and full-mode post-branch frame digests must match the previously received original from-spawn raw, including original control/event/input digests. Observer off still retains mandatory hashes, routing/dispatch counters and flag/filter assertions; optional torque/motor/contact/metrics reads are removed.',
     release: 'Research only. No runtime source/default/UI/public candidate change. Existing failed support/cut candidates remain withdrawn; one-hand recovery remains held.' } };
 fs.mkdirSync(path.dirname(output), { recursive: true });
 fs.writeFileSync(output, JSON.stringify(report, null, 2) + '\n', { flag: 'wx' });
