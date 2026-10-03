@@ -7,17 +7,21 @@ import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { newRound, CONFIG, DT, THREE, handPos } from '../harness_m.mjs';
-import { setSwordDrag } from './sword_drag_candidate.mjs';
+import { setInertiaCandidate } from './sword_drag_candidate.mjs';
 
 const root = fileURLToPath(new URL('../../../', import.meta.url));
 const opts = Object.fromEntries(process.argv.slice(2).map(a => {
-  const m = /^--(out)=(.+)$/.exec(a); if (!m) throw Error('Use --out=NEW_PATH'); return [m[1],m[2]];
+  const m = /^--(out|trial)=(.+)$/.exec(a); if (!m) throw Error('Use --out=NEW_PATH [--trial=drag|brake]'); return [m[1],m[2]];
 }));
 if (!opts.out || fs.existsSync(opts.out)) throw Error('Preserve evidence; use a new output path');
+const trial=opts.trial??'drag';if(!['drag','brake'].includes(trial))throw Error('Unknown trial');
+const modes=['original',trial==='drag'?'free':'candidate'];
 const sha = v => createHash('sha256').update(v).digest('hex');
 const head = () => execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();
 const V = v => new THREE.Vector3(v.x,v.y,v.z), Q = q => new THREE.Quaternion(q.x,q.y,q.z,q.w);
-const angle = (a,b) => Math.acos(THREE.MathUtils.clamp(a.dot(b),-1,1));
+// Native f32 rotations need not preserve vector length exactly. atan2 is
+// scale invariant and avoids accumulating acos rounding into false travel.
+const angle = (a,b) => Math.atan2(new THREE.Vector3().crossVectors(a,b).length(),a.dot(b));
 function sourceFiles(d) {
   return fs.readdirSync(path.join(root,d),{withFileTypes:true}).flatMap(e => e.isDirectory() ? sourceFiles(d+'/'+e.name) : e.name.endsWith('.js') ? [d+'/'+e.name] : []);
 }
@@ -87,7 +91,7 @@ function run(weapon,ending,mode,observed=true) {
     const prefix=[];
     for(let i=0;i<prepareSteps;i++){G.step();prefix.push({native:sha(G.world.takeSnapshot()),control:sha(JSON.stringify(control(G)))});}
     const before={native:sha(G.world.takeSnapshot()),control:sha(JSON.stringify(control(G))),sword:body(f.sword)};
-    const properties=bodyWithoutDrag(f.sword),selection=setSwordDrag(f,mode);
+    const properties=bodyWithoutDrag(f.sword),selection=setInertiaCandidate(f,mode,trial);
     if(JSON.stringify(properties)!==JSON.stringify(bodyWithoutDrag(f.sword)))throw Error('Drag setting changed pose/velocity/mass/inertia');
     for(const name of Object.keys(counts)){
       const original=f[name];f[name]=function(...args){const prior=activePath;activePath=name;counts[name]++;try{return original.apply(this,args);}finally{activePath=prior;}};
@@ -123,6 +127,7 @@ function run(weapon,ending,mode,observed=true) {
           bladeTwistRadps:bladeOmega.dot(axis),bodyAndSwordKJ:kinetic(f.sword)+Object.values(f.bodies).reduce((s,b)=>s+kinetic(b),0),
           pelvis:body(f.bodies.pelvis),chest:body(f.bodies.chest),upperArm:body(f.bodies.uarmS),forearm:body(f.bodies.farmS),
           jointGaps,maxGapM:Math.max(...jointGaps.map(g=>g.m)),wristCapNm:f.debug.wristCap,wristTorqueBeforeTwist:f.debug.wristTorque.toArray(),
+          wristBrake:f.wristBrake??false,wristBrakeAngleRad:f.wristBrakeAng??null,releaseMargin:f.weaponCfg.releaseMargin,
           torques,reactionClosureNm:closure,afterAxisTravelRad,reverseAxisTravelRad});
       }
     }
@@ -137,10 +142,10 @@ function run(weapon,ending,mode,observed=true) {
 }
 const rows=[],checks=[];let error=null;
 try {
-  for(const weapon of ['sabre','zweihander'])for(const ending of ['hold','release','reverse'])for(const mode of ['original','free']){
+  for(const weapon of ['sabre','zweihander'])for(const ending of ['hold','release','reverse'])for(const mode of modes){
     rows.push(run(weapon,ending,mode));console.log(JSON.stringify({weapon,ending,mode}));
   }
-  for(const mode of ['original','free'])rows.push(run('zweihander','reverse',mode,false));
+  for(const mode of modes)rows.push(run('zweihander','reverse',mode,false));
   for(const ending of ['hold','release','reverse'])for(const weapon of ['sabre','zweihander']){
     const pair=rows.filter(r=>r.weapon===weapon&&r.ending===ending&&r.observed);
     const [a,b]=pair;const prefixExact=JSON.stringify(a.prefix)===JSON.stringify(b.prefix),branchExact=JSON.stringify(a.before)===JSON.stringify(b.before);
@@ -157,9 +162,9 @@ const sourceAfter=manifest(),sourceCommitAfter=head(),sourceStable=sourceCommit=
 const measurementValid=!error&&sourceStable&&rows.length===14&&checks.every(c=>Object.entries(c).every(([k,v])=>typeof v!=='boolean'||v));
 const report={schemaVersion:1,sourceCommit,sourceCommitAfter,sourceBefore,sourceAfter,sourceStable,measurementValid,error,
   createdUTC:new Date().toISOString(),wallSeconds:(performance.now()-started)/1000,executionCount:rows.length,checks,rows,
-  protocol:{prepareS:3,strokeS:.55,afterS:1.2,DT,skill:0,seed:7,grip:'paired',support:'legacy',
+  protocol:{trial,prepareS:3,strokeS:.55,afterS:1.2,DT,skill:0,seed:7,grip:'paired',support:'legacy',
     scene:'Unopposed fixture uses existing G.park at setup; original Fighter/Combat/world step and native contacts remain active. Only hand command state is initialized at time0. No player pose/velocity/health changes or native restore.',
-    treatment:'After identical original preparation, only player sword angularDamping0.3→0; mass, inertia, controllers and joint/body damping unchanged. This is not from-spawn efficacy or calibrated air resistance.',
+    treatment:trial==='drag'?'After identical original preparation, only player sword angularDamping0.3→0; mass, inertia, controllers and joint/body damping unchanged. This is not from-spawn efficacy or calibrated air resistance.':'After identical original preparation, only player releaseMargin1.4→1.0; original stopAngle estimate, masses, inertia, all actuator caps/damping and input path remain. Planning hypothesis, not measured human anticipation.',
     release:'Original handHeld=false behavior remains; automatic center return may change actual handOffset, so requested schedule and actual pad are separately recorded.',
     observations:'Actual final explicit torque and instantaneous pre-solver recipient power, not native integrated work. Torque reaction closure is not a muscle budget. Larger error/travel is not failure or realism acceptance.',
     status:'Research only; no production source/default/UI change or human acceptance.'}};

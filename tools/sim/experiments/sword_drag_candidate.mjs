@@ -11,3 +11,16 @@ export function setSwordDrag(f, mode) {
   if (mode === 'free' ? after !== 0 : after !== before) throw Error('Sword drag selection failed');
   return { mode, beforePerS: before, afterPerS: after };
 }
+
+/** Research-only braking at the existing constant-acceleration stopping estimate.
+ * The original1.4 anticipatory margin becomes1.0; all physical properties and
+ * actuator limits stay intact. This is a planning hypothesis, not human data.
+ */
+export function setInertiaCandidate(f, mode, trial='drag') {
+  if(trial==='drag')return setSwordDrag(f,mode);
+  if(trial!=='brake'||!['original','candidate'].includes(mode))throw Error('Unknown inertia candidate');
+  const before=f.weaponCfg.releaseMargin;
+  if(before!==1.4)throw Error('Unexpected original braking margin');
+  if(mode==='candidate')f.weaponCfg={...f.weaponCfg,releaseMargin:1};
+  return {trial,mode,beforeMargin:before,afterMargin:f.weaponCfg.releaseMargin};
+}

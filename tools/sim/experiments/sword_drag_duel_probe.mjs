@@ -5,10 +5,13 @@ import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {newRound,AI,DT,CONFIG,THREE} from '../harness_m.mjs';
-import {setSwordDrag} from './sword_drag_candidate.mjs';
+import {setInertiaCandidate} from './sword_drag_candidate.mjs';
 const root=fileURLToPath(new URL('../../../',import.meta.url));
-const arg=process.argv[2]?.match(/^--out=(.+)$/);if(process.argv.length!==3||!arg||fs.existsSync(arg[1]))throw Error('Use --out=NEW_PATH');
-const out=arg[1],sha=x=>createHash('sha256').update(x).digest('hex');
+const opts=Object.fromEntries(process.argv.slice(2).map(a=>{const m=/^--(out|trial)=(.+)$/.exec(a);if(!m)throw Error('Use --out=NEW_PATH [--trial=drag|brake]');return [m[1],m[2]];}));
+if(!opts.out||fs.existsSync(opts.out))throw Error('Preserve evidence; use --out=NEW_PATH');
+const trial=opts.trial??'drag';if(!['drag','brake'].includes(trial))throw Error('Unknown trial');
+const modes=['original',trial==='drag'?'free':'candidate'];
+const out=opts.out,sha=x=>createHash('sha256').update(x).digest('hex');
 const V=v=>new THREE.Vector3(v.x,v.y,v.z),Q=q=>new THREE.Quaternion(q.x,q.y,q.z,q.w);
 const head=()=>execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();
 function scan(d){return fs.readdirSync(path.join(root,d),{withFileTypes:true}).flatMap(e=>e.isDirectory()?scan(d+'/'+e.name):e.name.endsWith('.js')?[d+'/'+e.name]:[]);}
@@ -42,11 +45,12 @@ function run(weapon,seed,mode,observed=true){
     G=newRound({seed,walls:false,weapon,weapon2:'longsword',AIClass:AI,AI2Class:AI,skill:.7,onFighter:f=>{
       if(f.index!==0)return;
       const properties=()=>JSON.stringify({p:f.sword.translation(),q:f.sword.rotation(),v:f.sword.linvel(),w:f.sword.angvel(),m:f.sword.mass(),I:f.sword.principalInertia(),localCom:f.sword.localCom(),IFrame:f.sword.principalInertiaLocalFrame()});
-      const before=properties();selection=setSwordDrag(f,mode);postCreateInvariant=before===properties();
+      const before=properties();selection=setInertiaCandidate(f,mode,trial);postCreateInvariant=before===properties();
     }});
     if(!postCreateInvariant||G.t!==0||G.enemy.sword.angularDamping()===0)throw Error('Creation-only scope violated');
     const f=G.player,first={timeS:G.t,controllerSha256:sha(JSON.stringify(control(G))),
       playerDragPerS:f.sword.angularDamping(),enemyDragPerS:G.enemy.sword.angularDamping(),
+      playerReleaseMargin:f.weaponCfg.releaseMargin,enemyReleaseMargin:G.enemy.weaponCfg.releaseMargin,
       armed:f.armed,alive:f.alive,grip:CONFIG.GRIP.reactionModel,support:CONFIG.BODY.supportModel};
     for(const name of Object.keys(counts)){
       const original=f[name];f[name]=function(...args){const prior=method;method=name;counts[name]++;try{return original.apply(this,args);}finally{method=prior;}};
@@ -55,7 +59,7 @@ function run(weapon,seed,mode,observed=true){
     if(observed)for(const [part,b]of [...Object.entries(f.bodies),['sword',f.sword]]){
       const original=b.addTorque;b.addTorque=function(t,wake){if(method){const w=this.angvel();ops.push({path:method,part,T:[t.x,t.y,t.z],omega:[w.x,w.y,w.z],instantaneousPowerW:t.x*w.x+t.y*w.y+t.z*w.z});}return original.call(this,t,wake);};undo.push(()=>{delete b.addTorque;});
     }
-    let currentInput,afterClashInputSteps=0,firstClash=null,firstPlayerWound=null,maxGap=0,maxPelvisHeight=0,maxPelvisUpwardSpeed=0,maxBodySpeed=0,maxSwordK=0,maxBladeTwist=0,maxReactionClosure=0;
+    let currentInput,previousHand,afterClashHandChangeSteps=0,firstClash=null,firstPlayerCallback=null,firstPositivePlayerWound=null,maxGap=0,maxPelvisHeight=0,maxPelvisUpwardSpeed=0,maxBodySpeed=0,maxSwordK=0,maxBladeTwist=0,maxReactionClosure=0;
     G.before=()=>{currentInput=[G.player,G.enemy].map(p=>({hand:p.handOffset.toArray(),held:p.handHeld,active:p.inputActive,move:p.move.toArray()}));};
     for(let i=0;i<Math.round(18/DT);i++){
       if(!G.player.alive||!G.enemy.alive)break;
@@ -64,9 +68,13 @@ function run(weapon,seed,mode,observed=true){
       const n=sha(G.world.takeSnapshot()),c=sha(JSON.stringify(control(G))),input=sha(JSON.stringify(currentInput));native.update(n);controllers.update(c);inputs.update(input);
       const events={clashes:G.clashes,wounds:G.wounds.map(w=>({t:w.t,att:w.att.index,vic:w.vic.index,zone:w.zone,type:w.type,energy:w.energy,severity:w.severity}))};
       frames.push({i,timeS:G.t,native:n,controller:c,input,eventSha256:sha(JSON.stringify(events)),state:f.state,alive:f.alive,armed:f.armed});
+      // AI writes handOffset directly; inputActive is a browser-only flag.
+      // Count changed commands on steps strictly after the first clash.
+      if(firstClash&&previousHand&&currentInput[0].hand.some((v,k)=>v!==previousHand[k]))afterClashHandChangeSteps++;
+      previousHand=currentInput[0].hand.slice();
       if(!firstClash&&G.clashes)firstClash={timeS:G.t,i};
-      if(firstClash&&f.inputActive)afterClashInputSteps++;
-      if(!firstPlayerWound){const w=G.wounds.find(w=>w.vic.index===0);if(w)firstPlayerWound={timeS:w.t,zone:w.zone,severity:w.severity};}
+      if(!firstPlayerCallback){const w=G.wounds.find(w=>w.vic.index===0);if(w)firstPlayerCallback={timeS:w.t,zone:w.zone,severity:w.severity};}
+      if(!firstPositivePlayerWound){const w=G.wounds.find(w=>w.vic.index===0&&w.severity>0);if(w)firstPositivePlayerWound={timeS:w.t,zone:w.zone,severity:w.severity};}
       if(observed){
         const gap=gaps(f),pelvis=f.bodies.pelvis,axis=new THREE.Vector3(0,1,0).applyQuaternion(Q(f.sword.rotation()));
         const reaction=Object.fromEntries(Object.keys(counts).map(p=>[p,ops.filter(t=>t.path===p).reduce((s,t)=>s.map((v,k)=>v+t.T[k]),[0,0,0])]));
@@ -79,9 +87,10 @@ function run(weapon,seed,mode,observed=true){
       }
     }
     if(Object.values(counts).some(n=>n!==frames.length))throw Error('Original actuator dispatch mismatch');
-    return {weapon,seed,mode,observed,selection,postCreateInvariant,first,frames,samples,counts,nativeTraceSha256:native.digest('hex'),
+    const finalEvents=G.wounds.map(w=>({t:w.t,att:w.att.index,vic:w.vic.index,zone:w.zone,type:w.type,energy:w.energy,severity:w.severity}));
+    return {weapon,seed,mode,observed,selection,postCreateInvariant,first,frames,samples,counts,finalEvents,nativeTraceSha256:native.digest('hex'),
       controllerTraceSha256:controllers.digest('hex'),inputSha256:inputs.digest('hex'),wallSeconds:(performance.now()-begin)/1000,
-      summary:{steps:frames.length,durationS:G.t,firstClash,firstPlayerWound,afterClashInputSteps,clashes:G.clashes,wounds:G.wounds.length,
+      summary:{steps:frames.length,durationS:G.t,firstClash,firstPlayerCallback,firstPositivePlayerWound,afterClashHandChangeSteps,clashes:G.clashes,wounds:G.wounds.length,
         playerAlive:f.alive,enemyAlive:G.enemy.alive,playerArmed:f.armed,finite:true,maxGapM:maxGap,maxPelvisHeightM:maxPelvisHeight,
         maxPelvisUpwardSpeedMps:maxPelvisUpwardSpeed,maxBodySpeedMps:maxBodySpeed,maxSwordKJ:maxSwordK,maxBladeTwistRadps:maxBladeTwist,maxSelectedReactionClosureNm:maxReactionClosure}};
   }finally{undo.reverse().forEach(fn=>fn());G?.eventQueue.free();G?.world.free();Math.random=random;
@@ -89,15 +98,15 @@ function run(weapon,seed,mode,observed=true){
 }
 const rows=[],checks=[];let error=null;
 try{
-  for(const weapon of ['sabre','zweihander'])for(const seed of [7,19])for(const mode of ['original','free']){const r=run(weapon,seed,mode);rows.push(r);console.log(JSON.stringify({weapon,seed,mode,summary:r.summary}));}
-  for(const mode of ['original','free'])rows.push(run('zweihander',7,mode,false));
+  for(const weapon of ['sabre','zweihander'])for(const seed of [7,19])for(const mode of modes){const r=run(weapon,seed,mode);rows.push(r);console.log(JSON.stringify({weapon,seed,mode,summary:r.summary}));}
+  for(const mode of modes)rows.push(run('zweihander',7,mode,false));
   for(const r of rows.filter(r=>!r.observed)){
     const a=rows.find(x=>x.observed&&x.weapon===r.weapon&&x.seed===r.seed&&x.mode===r.mode);
     checks.push({mode:r.mode,observerNativeExact:a.nativeTraceSha256===r.nativeTraceSha256,observerControllerExact:a.controllerTraceSha256===r.controllerTraceSha256,
       observerInputExact:a.inputSha256===r.inputSha256,eventExact:JSON.stringify(a.frames.map(f=>f.eventSha256))===JSON.stringify(r.frames.map(f=>f.eventSha256))});
   }
   for(const weapon of ['sabre','zweihander'])for(const seed of [7,19]){
-    const a=rows.find(r=>r.weapon===weapon&&r.seed===seed&&r.mode==='original'&&r.observed),b=rows.find(r=>r.weapon===weapon&&r.seed===seed&&r.mode==='free'&&r.observed);
+    const a=rows.find(r=>r.weapon===weapon&&r.seed===seed&&r.mode==='original'&&r.observed),b=rows.find(r=>r.weapon===weapon&&r.seed===seed&&r.mode===modes[1]&&r.observed);
     checks.push({weapon,seed,creationControllerExact:a.first.controllerSha256===b.first.controllerSha256,firstActualInputExact:a.frames[0].input===b.frames[0].input,
       firstActualTorquesExact:JSON.stringify(a.samples[0].ops)===JSON.stringify(b.samples[0].ops),propertiesUntouched:a.postCreateInvariant&&b.postCreateInvariant});
   }
@@ -106,7 +115,7 @@ const sourceAfter=manifest(),sourceCommitAfter=head(),sourceStable=sourceCommit=
 const measurementValid=!error&&sourceStable&&rows.length===10&&checks.every(c=>Object.entries(c).every(([k,v])=>typeof v!=='boolean'||v));
 const report={schemaVersion:1,sourceCommit,sourceCommitAfter,sourceBefore,sourceAfter,sourceStable,measurementValid,error,executionCount:rows.length,
   createdUTC:new Date().toISOString(),wallSeconds:(performance.now()-started)/1000,rows,checks,
-  protocol:{treatment:'Only player sword angular drag0.3→0 immediately after Fighter construction before AI/firststep. Opponent and all other physical properties/controllers unchanged.',
+  protocol:{trial,treatment:trial==='drag'?'Only player sword angular drag0.3→0 immediately after Fighter construction before AI/firststep. Opponent and all other physical properties/controllers unchanged.':'Only player releaseMargin1.4→1.0 immediately after Fighter construction before AI/firststep. Opponent margin1.4; all damping, masses, inertia, target paths and strength limits unchanged.',
     scene:'Original two reactive AIs/Combat/native contacts. No park, wound injection, pose/velocity edit, AI freeze or native restore. Horizon18s or first death.',
     meaning:'Same initial preparation/controller and first requested actuation; native config differs intentionally at t0. Later AI/input/contacts react to treatment and are episode outcomes, not equal-input efficiency or same-wound direct contrasts.',
     observation:'Selected driveSword/driveJoints/elbowGravity actual torque closure and instantaneous pre-solver power only. Native motor/grip/offHand/contact/body drag work excluded. Controller digest is a stated subset.',
