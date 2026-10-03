@@ -9,7 +9,7 @@ import { newRound, CONFIG, DT, THREE } from '../harness_m.mjs';
 const root = fileURLToPath(new URL('../../../', import.meta.url));
 const options = Object.fromEntries(process.argv.slice(2).map(arg => {
   const match = /^--([^=]+)=(.+)$/.exec(arg);
-  if (!match) throw Error('Use --out=NEW_PATH [--weapons=sabre,falchion,rapier,longsword] [--skill=0] [--observerRepeats=true]');
+  if (!match) throw Error('Use --out=NEW_PATH [--weapons=sabre,falchion,rapier,qinggang,longsword] [--skill=0] [--model=legacy|manual|both] [--sequence=pose|motion] [--autoGuard=false] [--observerRepeats=true]');
   return [match[1], match[2]];
 }));
 if (Object.keys(options).some(key => !['out', 'weapons', 'skill', 'observerRepeats', 'model', 'sequence', 'autoGuard'].includes(key))) throw Error('Unknown option');
@@ -21,8 +21,8 @@ const models = (options.model ?? 'legacy') === 'both' ? ['legacy', 'manual'] : [
 const sequence = options.sequence ?? 'pose';
 const autoGuard = options.autoGuard === 'true';
 const repeatObservers = options.observerRepeats !== 'false';
-if (!output || fs.existsSync(output) || fs.existsSync(receiptPath) || !weapons.length || weapons.length > 4 ||
-    new Set(weapons).size !== weapons.length || weapons.some(w => !['sabre', 'falchion', 'rapier', 'longsword'].includes(w)) ||
+if (!output || fs.existsSync(output) || fs.existsSync(receiptPath) || !weapons.length || weapons.length > 5 ||
+    new Set(weapons).size !== weapons.length || weapons.some(w => !['sabre', 'falchion', 'rapier', 'qinggang', 'longsword'].includes(w)) ||
     models.some(m => !['legacy', 'manual'].includes(m)) || !['pose', 'motion'].includes(sequence) || (options.autoGuard && !['true','false'].includes(options.autoGuard)) || !Number.isFinite(skill) || skill < 0 || skill > 1 ||
     (options.observerRepeats && !['true', 'false'].includes(options.observerRepeats))) throw Error('Invalid options or existing output');
 
@@ -254,7 +254,7 @@ function run(weapon, observed, model) {
           cutPending: f.skill.cutPending, idleS: f.skill.idle, quietS: f.skill.quiet, swinging: f.skill.swinging,
           inputVelocityMps: f.skill.vel.toArray(), followOffsetM: f.skill.follow.toArray(), anchorM: f.skill.anchor.toArray(),
           aimVelocityMps: f.skill.aimVel.toArray(), guardFollow: f.skill.guardFollow ?? null },
-        guardWeight: f.guardWeight(), nearestGuard: f.guardPose.nearest, runtimeGuardMap: { hand: [...f.guardPose.hand], dir: [...f.guardPose.dir] },
+        guardWeight: f.guardWeight(), onehandReachScale: f.onehandReachScale ?? null, finishWeight: f.finish.amt, finishOn: f.finish.on, nearestGuard: f.guardPose.nearest, runtimeGuardMap: { hand: [...f.guardPose.hand], dir: [...f.guardPose.dir] },
         handHeld: f.handHeld, inputActive: f.inputActive, thrustWeight: f.skill.thrustPose.w,
         preSolverPose: preSolver.pose, elbowMotorRequests: motorRows, shoulderRequests: shoulderRows,
         postSolverPose: anatomy(f), contacts: activeContacts(G, f, labels),
@@ -294,11 +294,11 @@ const report = { schemaVersion: 1, probe: 'onehand_pose', sourceCommit, sourceCo
   wallSeconds: (performance.now() - started) / 1000, error, schedule, scheduleSha256, observerChecks, rows,
   protocol: { weapons, seed: 7, timestepSeconds: DT, requestedSteps: schedule.length, models, sequence, skill, autoGuard,
     settings: 'Current runtime defaults; scripted player input and original normal longsword enemy AI; gap1.85m, no walls, player movement0; motion sequence uses an original Skill.thrust call once as a tap command. No AI2, park, wound/state/pose/velocity injection, source transforms. Explicit autoGuard and onehandArm model is installed on both fighters before the first controller/physics step.',
-    input: 'Initial native spawn handOffset(.15,0) retained. Nominal consecutive pad deltas generate side(.52,.03) and high(.02,.52) intent with .6s drags and2s held zero-delta intervals. Actual pad is separate from nominal intention; hand/aim targets remain under original Skill/Fighter control.',
+    input: 'Initial native spawn handOffset(.15,0) retained. Pose: side(.52,.03), overhead(.02,.52), .6s drags/2s holds. Motion: side/extension(.61,.03)/release/reverse(-.42,.03)/tap/shoulder-high(.42,.42)/release; full per-tick schedule and tap acceptance/start are recorded. Actual pad is separate from nominal intention; hand/aim targets remain under original Skill/Fighter control.',
     observations: 'Pre-solver anatomy is read after both original Fighter/cache steps and before original world.step exactly once. Motor requests and shoulder parameters wrap original calls exactly once. Post-solver contact data and all physical endpoints are read-only. Observer-off removes optional motor/manual/anatomy/contact/frame reads; hash/input/event/world-step recorder remains.',
     coordinates: 'World metre points/vectors. Physical swordRoot is the sword rigid-body origin/grip; bladeRoot/tip follow runtime local +y hiltLength/bladeLength. This does not measure rendered fingers or curved visual mesh endpoints. ElbowCurrentZRad reproduces Fighter toRotVec(restInv*parent^-1*child). Native limits are public joint getter values. IK endpoint reconstruction uses current chest and controller shoulder/elbow targets, not achieved native motor motion.',
     interpretation: 'Fixed-arm/reverse-grip appearance is not certified by these data. Sword/forearm axis dot is a geometric relation, not proof of grip style. Shoulder is manual and has no native motor/angle limits. Native elbow motor values are requests. At skill0 guard map is observed but guardWeight0 does not apply its hand/direction blend. Recorded injury/death/drop and healthy held-frame coverage limit pose interpretation; measurementValid is numerical/source/observer validity, not symptom reproduction or acceptance.',
-    limitations: 'Four weapon conditions plus up to two observer repeats are not independent efficacy samples. Same input phases in different reactive combats are descriptive, not identical contacts. Fixed120Hz actual physics, no browser rendering/camera/rAF/hit-stop or human appearance judgment.',
+    limitations: 'Paired weapon/models and observer repeats are not independent efficacy samples. Same input phases in different reactive combats are descriptive, not identical contacts. Fixed120Hz actual physics, no browser rendering/camera/rAF/hit-stop or human appearance judgment.',
   } };
 fs.mkdirSync(path.dirname(output), { recursive: true });
 const bytes = Buffer.from(JSON.stringify(report, null, 2) + '\n');

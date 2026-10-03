@@ -660,6 +660,13 @@ mountTargetCorrectionTrial(targetCorrectionTrial);
 mountEdgeTorqueTrial(edgeTorqueTrial);
 mountArmRecoveryTrial(armRecoveryTrial);
 mountWristBrakingTrial(wristBrakingTrial);
+if (onehandArmModel === 'manual') {
+  const info = document.createElement('p');
+  info.id = 'onehandArmInfo';
+  info.className = 'sub';
+  info.textContent = '한손 자유 조작 비교판 · 손을 더 끌어 팔 움직임을 비교하세요. 일반 게임은 기존 방식입니다.';
+  $('menuSub').after(info);
+}
 if (inputComparison || input.mobileIntent.source === 'url') {
   const info = document.createElement('p');
   info.id = 'mobileIntentInfo';

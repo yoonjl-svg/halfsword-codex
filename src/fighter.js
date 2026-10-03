@@ -1894,7 +1894,7 @@ export class Fighter {
         .multiplyScalar(this.onehandReachScale).add(_v6);
       // Fallen-opponent finishing takes over gradually through its existing
       // activation, instead of discarding the finishing hand/direction target.
-      if (this.finish.amt > 0) handLocal.lerp(_v6.set(...G.hand), this.finish.amt);
+      if (this.finish.amt > 0 && gw > 0) handLocal.lerp(_v6.set(...G.hand), gw * this.finish.amt);
     } else if (gw > 0) handLocal.lerp(_v6.set(G.hand[0], G.hand[1], G.hand[2]), gw);
     // 탭 찌르기(skill.thrustPose)는 보정이 아니라 명령이라 검술 보정 세기(gw)와 무관하게 덧씌운다 — 보정 0 에서도 찌른다.
     //  찌르기는 지금 손 목표(handBase, 덧씌우기 전)에서 뻗어 나간다 (skill.thrust)
@@ -1926,7 +1926,7 @@ export class Fighter {
     // 자세에서 자세로 손을 옮기면 칼이 크게(최대 100° 넘게) 돌며 베기가 된다.
     const aim = _v3.set(...guardDir(off.x, off.y));
     if (this.edgeIntentModel === 'commandedPlaneC1') smoothIntentElevation(aim, off.x, off.y);
-    const aimGuideWeight = manualOnehand ? this.finish.amt : gw;
+    const aimGuideWeight = manualOnehand ? gw * this.finish.amt : gw;
     if (aimGuideWeight > 0) {
       aim.lerp(_v6.set(G.dir[0], G.dir[1], G.dir[2]), aimGuideWeight);
       if (aim.lengthSq() < 0.04) aim.set(G.dir[0], G.dir[1], G.dir[2]);
