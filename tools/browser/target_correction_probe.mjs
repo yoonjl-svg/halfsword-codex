@@ -99,7 +99,7 @@ const nativeInputs = async () => {
 try {
   await page.goto(new URL('feature-lab.html', base).href, { waitUntil: 'networkidle' });
   const landing = await layout(); assertLayout(landing);
-  assert.equal(await page.locator('a[href*="targetCorrection="]').count(), 4);
+  assert.equal(await page.locator('#target-correction-comparison a[href*="targetCorrection="]').count(), 4);
   const links = await page.evaluate(() => Object.fromEntries(['Sabre', 'Zwei'].flatMap(weapon => ['Weak', 'None'].map(mode => {
     const id = 'playCorrection' + weapon + mode;
     return [id, document.getElementById(id).href];

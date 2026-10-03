@@ -37,6 +37,7 @@ import { configureCutTrial, mountCutTrial } from './cut_trial.js';
 import { configureArmTrial, mountArmTrial } from './arm_trial.js';
 import { configureStanceTrial, mountStanceTrial } from './stance_trial.js';
 import { configureTargetCorrectionTrial, applyTargetCorrectionTrial, mountTargetCorrectionTrial } from './target_correction_trial.js';
+import { configureEdgeTorqueTrial, applyEdgeTorqueTrial, mountEdgeTorqueTrial } from './edge_torque_trial.js';
 
 await RAPIER.init();
 
@@ -55,6 +56,7 @@ const supportProbe = configureSupportProbe(params, CONFIG.GAIT);
 const physicalTrial = configurePhysicalTrial(params, CONFIG.GRIP, CONFIG.BODY);
 const cutTrial = configureCutTrial(params);
 const armTrial = configureArmTrial(params);
+const edgeTorqueTrial = configureEdgeTorqueTrial(params);
 const stanceTrial = configureStanceTrial(params, CONFIG.GAIT);
 // 주인공은 판마다 무기 카드 세 장 중 하나를 골라 받는다 (아래 "무기 뽑기"). 주소에 ?weapon=을 적으면 뽑기 없이 그 무기로 고정.
 //  진짜 엑스칼리버는 주인공만 받을 수 있고, 복제품은 하인리히 몫이라 뽑기에서 뺀다
@@ -411,6 +413,7 @@ function newRound(weaponId) {
   });
   // 같은 선택형 팔 제어를 양쪽에 적용하고 재시작 때도 주소 설정을 유지한다.
   for (const f of [player, enemy]) f.armTorqueModel = armTrial.model;
+  applyEdgeTorqueTrial(edgeTorqueTrial, player);
   // 진짜 엑스칼리버의 기운 (보여 주기만)
   for (const a of auras) a.dispose();
   auras = [player, enemy].map(attachAura).filter(Boolean);
@@ -645,6 +648,7 @@ mountCutTrial(cutTrial);
 mountArmTrial(armTrial);
 mountStanceTrial(stanceTrial);
 mountTargetCorrectionTrial(targetCorrectionTrial);
+mountEdgeTorqueTrial(edgeTorqueTrial);
 if (inputComparison || input.mobileIntent.source === 'url') {
   const info = document.createElement('p');
   info.id = 'mobileIntentInfo';
@@ -1543,6 +1547,7 @@ window.game = {
   stanceTrial,
   inputComparison,
   targetCorrectionTrial,
+  edgeTorqueTrial,
   THREE,
   camera,
   freeCam: false,
