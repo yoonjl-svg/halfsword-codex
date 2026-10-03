@@ -14,6 +14,13 @@ export async function loadEdgeTransition(){
     const active = diag && diag.now() + 1e-12 >= diag.startS;
     const beforePlane = this.intentEdgePlane?.clone();
     const beforeLocalAim = this.intentEdgePreviousAim?.clone();`);
+  replace('    const aim = _v3.set(...guardDir(off.x, off.y));',`    const aim = _v3.set(...guardDir(off.x, off.y));
+    if (active && diag.mode === 'c1Aim' && off.y > .05 && off.y < .15) {
+      const t=(off.y-.05)/.1;
+      const elevation=-.055+.11*t+.11*t*t;
+      const azimuth=THREE.MathUtils.clamp((off.x-.05)*1.7,-1.1,1.3);
+      aim.set(Math.cos(elevation)*Math.cos(azimuth),Math.sin(elevation),Math.cos(elevation)*Math.sin(azimuth));
+    }`);
   replace("    if (this.edgeIntentModel === 'commandedPlane') updateIntentEdgePlane(this, aim, blade, flatTarget, flat);",`    const legacyFlat = flatTarget.clone();
     if (this.edgeIntentModel === 'commandedPlane') updateIntentEdgePlane(this, aim, blade, flatTarget, flat);
     const requestedPlane = this.intentEdgePlane?.clone();
@@ -41,7 +48,7 @@ export async function loadEdgeTransition(){
       const localAim=aim.clone().applyQuaternion(this.yaw.clone().invert()).normalize();
       const command = beforeLocalAim ? new THREE.Vector3().crossVectors(beforeLocalAim,localAim).multiplyScalar(1/this.lastDt) : new THREE.Vector3();
       const speed = command.length()*(this.weaponCfg.hiltLength+.7*this.weaponCfg.bladeLength);
-      transitionRecords.set(this,{timeS:diag.now(),active,mode:diag.mode,aim:aim.toArray(),blade:blade.toArray(),flat:flat.toArray(),flatTarget:flatTarget.toArray(),legacyFlatTarget:legacyFlat.toArray(),beforePlane:beforePlane?.toArray()??null,requestedPlane:requestedPlane?.toArray()??null,appliedPlane:this.intentEdgePlane?.toArray()??null,commandSpeedMps:speed,commandBlend:THREE.MathUtils.smoothstep(speed,.5,2.5),flatErrorRad:flatError,
+      transitionRecords.set(this,{timeS:diag.now(),active,mode:diag.mode,filteredAimM:off.toArray(),yaw:this.yaw.toArray(),aim:aim.toArray(),blade:blade.toArray(),flat:flat.toArray(),flatTarget:flatTarget.toArray(),legacyFlatTarget:legacyFlat.toArray(),beforePlane:beforePlane?.toArray()??null,requestedPlane:requestedPlane?.toArray()??null,appliedPlane:this.intentEdgePlane?.toArray()??null,commandSpeedMps:speed,commandBlend:THREE.MathUtils.smoothstep(speed,.5,2.5),flatErrorRad:flatError,
         k,d,effectiveBladeInertia:1/inverseI,kDtSquaredOverI:k*this.lastDt**2*inverseI,dDtOverI:d*this.lastDt*inverseI,
         preStepOmegaAxisRadps:omega,relativeForearmOmegaAxisRadps:omega-new THREE.Vector3(fw.x,fw.y,fw.z).dot(blade),positionTwistNm:positionTwist.dot(blade),dampingTwistNm:dampingTwist.dot(blade),appliedTwistNm:twist.dot(blade),finalTorqueNm:torque.toArray(),finalTorqueAxisNm:torque.dot(blade),
         twistWorkApproxJ:twist.dot(w)*this.lastDt,twistDeltaOmegaFreeBodyRadps:twist.dot(blade)*inverseI*this.lastDt,dt:this.lastDt,capNm:cap});
