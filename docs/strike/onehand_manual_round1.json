@@ -1,0 +1,261 @@
+{
+  "schemaVersion": 1,
+  "coreSource": "458195d99b168d253268777dc766787a95536296",
+  "rawRoot": "/workspace/halfsword-handoff/onehand-pose-20261004",
+  "physicsRuns": 32,
+  "runs": [
+    {
+      "rawPath": "/workspace/halfsword-handoff/onehand-pose-20261004/run-01.json",
+      "rawBytes": 59842656,
+      "rawSha256": "4014e987be2e93b04e1560463e09fdc8b610eec7fdc1408bcbe7cc8b2a28c5f7",
+      "sourceCommit": "b447b95d9c089d336d3c5ca1abd25760e8135123",
+      "probeSha256": "a8f030c40317f6766dc02b582976062b30b26c354539065c0fd46148eb5f142b",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/onehand_pose_probe.mjs",
+        "--out=/workspace/halfsword-handoff/onehand-pose-20261004/run-01.json"
+      ],
+      "sourceStable": true,
+      "measurementValid": true,
+      "executionCount": 6
+    },
+    {
+      "rawPath": "/workspace/halfsword-handoff/onehand-pose-20261004/run-normal-01.json",
+      "rawBytes": 30813829,
+      "rawSha256": "95d5bae383cb90b523d901fa9033aee71c9e7f28d310e090bf9569c2f88cac2a",
+      "sourceCommit": "b447b95d9c089d336d3c5ca1abd25760e8135123",
+      "probeSha256": "564cc89339355c503833f1c7f370be183439f2c454624deb2aa0eecccba3ae75",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/onehand_pose_probe.mjs",
+        "--weapons=sabre,rapier",
+        "--skill=0.7",
+        "--observerRepeats=false",
+        "--out=/workspace/halfsword-handoff/onehand-pose-20261004/run-normal-01.json"
+      ],
+      "sourceStable": true,
+      "measurementValid": true,
+      "executionCount": 2
+    },
+    {
+      "rawPath": "/workspace/halfsword-handoff/onehand-pose-20261004/candidate-normal-01.json",
+      "rawBytes": 30780341,
+      "rawSha256": "847505c9b63129ef1fb6c4071724f2e1bbbce2c7088fe37de7fca9d0631309fb",
+      "sourceCommit": "e3dd0cfb1a0f65b499bfa56c6e48602cdb0af797",
+      "probeSha256": "f0b696ea20a6eb36d6905f29832c2b01f63c660a7644596483e739dc74753151",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/onehand_pose_probe.mjs",
+        "--weapons=sabre,rapier",
+        "--skill=0.7",
+        "--model=bladeAware",
+        "--observerRepeats=false",
+        "--out=/workspace/halfsword-handoff/onehand-pose-20261004/candidate-normal-01.json"
+      ],
+      "sourceStable": true,
+      "measurementValid": true,
+      "executionCount": 2
+    },
+    {
+      "rawPath": "/workspace/halfsword-handoff/onehand-pose-20261004/candidate-normal-02.json",
+      "rawBytes": 29190994,
+      "rawSha256": "2ca302667719d2d6c3f1ab4be0115c4d95d04be405da7ff5402e29197b2ccd83",
+      "sourceCommit": "09fafffd0b0c6e91671f485212d7cb9b530f73a1",
+      "probeSha256": "f0b696ea20a6eb36d6905f29832c2b01f63c660a7644596483e739dc74753151",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/onehand_pose_probe.mjs",
+        "--weapons=sabre,rapier",
+        "--skill=0.7",
+        "--model=bladeAware",
+        "--observerRepeats=false",
+        "--out=/workspace/halfsword-handoff/onehand-pose-20261004/candidate-normal-02.json"
+      ],
+      "sourceStable": true,
+      "measurementValid": true,
+      "executionCount": 2
+    },
+    {
+      "rawPath": "/workspace/halfsword-handoff/onehand-pose-20261004/manual-normal-01.json",
+      "rawBytes": 30542145,
+      "rawSha256": "6dcdbc5b9daec7bc4ca6725d7746c942eb8cb67806d2c808ffd89c25862f7bc5",
+      "sourceCommit": "e3e74da6251608b8c3a6384fe1e9c5f372beafe0",
+      "probeSha256": "e02afeae9abeff5f2c486867aebe90efc53a31cb02c4966806be7faa0094f951",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/onehand_pose_probe.mjs",
+        "--weapons=sabre,rapier",
+        "--skill=0.7",
+        "--model=manual",
+        "--observerRepeats=false",
+        "--out=/workspace/halfsword-handoff/onehand-pose-20261004/manual-normal-01.json"
+      ],
+      "sourceStable": true,
+      "measurementValid": true,
+      "executionCount": 2
+    },
+    {
+      "rawPath": "/workspace/halfsword-handoff/onehand-pose-20261004/motion-normal-01.json",
+      "rawBytes": 135401030,
+      "rawSha256": "8a864c549b0a0a9239d6c267ed445002401ff7ca9181f5b8207fcd48b0ac1e5c",
+      "sourceCommit": "748c7076cc8356d9f0780a8d4e0043b9e0aba9bf",
+      "probeSha256": "fe718e670ac292183340ef291e29b5736aa8e934fdfa1b71363f18e9f065414c",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/onehand_pose_probe.mjs",
+        "--weapons=sabre,falchion,rapier,longsword",
+        "--skill=0.7",
+        "--model=both",
+        "--sequence=motion",
+        "--autoGuard=true",
+        "--observerRepeats=false",
+        "--out=/workspace/halfsword-handoff/onehand-pose-20261004/motion-normal-01.json"
+      ],
+      "sourceStable": true,
+      "measurementValid": true,
+      "executionCount": 8
+    },
+    {
+      "rawPath": "/workspace/halfsword-handoff/onehand-pose-20261004/motion-off-01.json",
+      "rawBytes": 105988426,
+      "rawSha256": "6210539c72d027da06950a82a77a468a7f4c13c141691bd1e0c0d8fbbca66f25",
+      "sourceCommit": "458195d99b168d253268777dc766787a95536296",
+      "probeSha256": "15598789af9c135f0f38052adb082adc6098dfc21d90ebc00d907abccf97f349",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/onehand_pose_probe.mjs",
+        "--weapons=sabre,rapier,qinggang",
+        "--skill=0",
+        "--model=both",
+        "--sequence=motion",
+        "--autoGuard=false",
+        "--observerRepeats=true",
+        "--out=/workspace/halfsword-handoff/onehand-pose-20261004/motion-off-01.json"
+      ],
+      "sourceStable": true,
+      "measurementValid": true,
+      "executionCount": 10
+    }
+  ],
+  "candidate": "onehandArm=manual; oneHandStance && !twoHand; ordinary default legacy",
+  "engine": {
+    "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+    "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+    "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+    "src/fighter.js": "46bd2db238b6a39612056b74b52b4c87560a592c79d74d70318292480c918871",
+    "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+    "src/main.js": "343b0a3bb4d096e090f18f6f2dad2368b56c25d64e14504e75ea507486af0287",
+    "src/skill.js": "b69b73e00d8524e733842a630d54f2d7392807f883d7a75c9f9767b78d71f512"
+  },
+  "acceptance": {
+    "stage": "optional public comparison; ordinary promotion pending",
+    "heldPose": "manual normal:4x240 no positive-severity wound or limb loss; strict healthy916/960; negative physical forearm/blade dot0; no armFull/reach exceed",
+    "rapierTradeoff": "side/high mean hand error33.81/17.17->60.32/60.30mm; high aim.00724->.05185rad",
+    "motion": "normal8/off10runs; all14observed taps accepted; h0-handBase<=1.39e-17m; 4observer checks exact; twohand native/input/events exact",
+    "injury": "normal falchion4.35s real uarmS cut severity1.3165896254 / health.0783872622 / drop; thereafter excluded",
+    "limits": "no grip-finger/anatomical/human-naturalness certificate; actual enemy down-finishing-recovery not exercised; source/skill/contacts differ between stages"
+  },
+  "failures": [
+    {
+      "source": "e3dd0cfb1a0f65b499bfa56c6e48602cdb0af797",
+      "decision": "reject; goal jump.122->.573rad and incomplete reverse-proxy relief"
+    },
+    {
+      "source": "09fafffd0b0c6e91671f485212d7cb9b530f73a1",
+      "decision": "reject; rapier high hand41.1mm/aim.1128rad; good poses changed; source path removed from final"
+    }
+  ],
+  "technicalSources": [
+    {
+      "repo": "yoonjl-svg/halfsword",
+      "commits": [
+        "739721fd60410e75b310c0ff51be82d975ec06cd",
+        "27d26b682d84c1b8eff56ea29e1ae8a389294a4f"
+      ],
+      "used": "manual/rest separation and home shoulder-hand distance calibration concept; full corr-v2/rope/roll implementation not ported"
+    },
+    {
+      "repo": "yoonjl-svg/halfsword",
+      "commit": "f580e75307d9de195148d5e15ab0504717fb3fc6",
+      "used": "review only; tip carry patch does not apply to own absent controller"
+    }
+  ],
+  "controllerContract": {
+    "path": "/workspace/halfsword-handoff/onehand-pose-20261004/controller-contract.json",
+    "bytes": 3391,
+    "sha256": "560851385b0d479b1cc6aa552d0f9191b338d5ce8abf2fa916704b1d13681c50",
+    "pass": true,
+    "sourceStable": true,
+    "scope": "7 controller unit contracts; supplied target fixtures, not native finishing",
+    "toolSha256": "9e63cedcf089a8d3e11288f36888336c0cf55cc0a3fe70460df01f1dbffb89e2"
+  },
+  "regression": {
+    "path": "/workspace/halfsword-handoff/onehand-pose-20261004/regression/result.json",
+    "bytes": 232214,
+    "sha256": "c7fb3f8db99f0222411b7cf6c0d7d32e296a360dd1453f288297da80942d7771",
+    "pass": true,
+    "sourceStable": true,
+    "scope": "6 common regression suites; cacheUsedfalse,165.5s"
+  },
+  "detailsOutsideGit": {
+    "manual-analysis.json": {
+      "bytes": 233792,
+      "sha256": "f11d916dfaa5ead53149648860365e8eb2bf72126ff1a33ec176be5d6f870fac"
+    },
+    "round2-analysis.json": {
+      "bytes": 166518,
+      "sha256": "4deb925ebe10093228d278c80c23501a7998c52f17ae2b6ab9370aa1dc155149"
+    },
+    "MOTION_ANALYSIS.json": {
+      "bytes": 3250526,
+      "sha256": "1ca361ef66562c7a09761f1883bfd51803d27e9578ffc708d828d56e2a7b892b"
+    },
+    "probe-run-01.mjs": {
+      "bytes": 23333,
+      "sha256": "a8f030c40317f6766dc02b582976062b30b26c354539065c0fd46148eb5f142b"
+    },
+    "probe-run-normal-01.mjs": {
+      "bytes": 23778,
+      "sha256": "564cc89339355c503833f1c7f370be183439f2c454624deb2aa0eecccba3ae75"
+    }
+  },
+  "localBrowser": {
+    "path": "/workspace/halfsword-handoff/onehand-pose-20261004/browser-final-local-timed/summary.json",
+    "bytes": 9735,
+    "sha256": "0b0eaed1061e7ddd1079a01a372c2e2e1175471275ddc0027884d9ec93286cf8",
+    "pass": true,
+    "sourceStable": true,
+    "sourceCommit": "458195d99b168d253268777dc766787a95536296",
+    "scriptSha256": "5b32a663a7656805aeb840a1daeb0f4a3fa54f1a49d2253c238b3f0c98372423",
+    "rows": 6,
+    "compiled": [
+      {
+        "url": "http://127.0.0.1:4279/assets/main-DcpWxde_.js",
+        "bytes": 3488565,
+        "sha256": "a460b48a55c0ff3b91484fc8a0e78b4162f5ed5f26a275fcd5cd9e01a82f24f4"
+      }
+    ],
+    "scope": "Compiled module hash, portrait entry, trusted drag/extend/release/tap(80ms explicit event-time contract, not device latency), new Fighter restart, saved preferences and selected first-step mode. Live enemy AI/native contacts; no force/pose/health writes. Camera presentation only. Browser scenes not matched injury/AI input comparisons."
+  },
+  "browserDriverAttempts": [
+    {
+      "path": "/workspace/halfsword-handoff/onehand-pose-20261004/browser-final-local/summary.json",
+      "bytes": 1725,
+      "sha256": "554715ad5160f3d8f4f5e687d391a35b13c380a53621f95ea08edb4d997050a3",
+      "pass": false,
+      "rows": 0,
+      "scriptSha256": "f94a4e3f142a4577c1dc6d4d2997caeda94a9621b8e2de009d7995367688ecf4",
+      "failure": "first tap not classified; no thrust call. Earlier driver lacked explicit event-time contract; no device timing verdict"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/onehand-pose-20261004/browser-final-local-retry/summary.json",
+      "bytes": 1731,
+      "sha256": "aa7050a708cc5430f1a43bdf54c3f621c27ac4635f39d96f20efd329d6069dfe",
+      "pass": false,
+      "rows": 0,
+      "scriptSha256": "a74438fc5da25e26feab9237036578480f681ac24f635dea446202c7d748f5cd",
+      "failure": "first tap not classified; no thrust call. Earlier driver lacked explicit event-time contract; no device timing verdict"
+    }
+  ]
+}
