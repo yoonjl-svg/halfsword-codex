@@ -1,6 +1,7 @@
 import { updateIntentEdgePlane, smoothIntentElevation } from './edge_intent.js';
 import { applyPlaneAlignmentPotential } from './edge_torque.js';
 import { updateMainArmRecovery, mainArmMuscle } from './arm_recovery_activation.js';
+import { estimateWristStopBudget } from './wrist_braking.js';
 // ─────────────────────────────────────────────────────────────
 //  검투사 한 명 = "액티브 래그돌"
 //
@@ -1862,6 +1863,7 @@ export class Fighter {
   //  예전처럼 손을 보이지 않는 줄로 끌지 않는다. 손이 갈 곳 → 어깨·팔꿈치 각도(역운동학, IK)를 계산해서
   //  관절 근육의 목표로 준다. 칼의 무게와 관성은 팔과 몸통이 그대로 버틴다.
   driveSword() {
+    if (this.wristBrakingModel === 'available') this.debug.wristStopBudget = null;
     const sword = this.sword;
     const chest = this.bodies.chest;
     const mus = mainArmMuscle(this);
@@ -1973,7 +1975,22 @@ export class Fighter {
       const tgtSp = wAim.dot(axis) / sinA;
       if (this.wristBrake && (toward < 1 || angle > this.wristBrakeAng + 0.35)) this.wristBrake = false;
       if (!this.wristBrake && toward > 3 && toward > tgtSp && angle > 0.25) {
-        const brakeAcc = (cap * this.weaponCfg.brakeEcc) / this.swordIhand;
+        let brakingTorque = cap * this.weaponCfg.brakeEcc;
+        if (this.wristBrakingModel === 'available' && (!this.armTorqueModel || this.armTorqueModel === 'legacy')) {
+          const fw = forearm.angvel();
+          const budget = estimateWristStopBudget({positionTorque: torque, swingOmega: wSwing,
+            targetOmega: wAim, relativeOmega: w.clone().sub(new THREE.Vector3(fw.x, fw.y, fw.z)),
+            axisUnit: axis.clone().divideScalar(sinA),
+            gravityTorque: this.gravityTorque([sword], forearm, .13, new THREE.Vector3()),
+            strengthScale: str, baseCap: cap, damping: this.weaponCfg.aimDamping,
+            incomingHill: this.wristHill, dt: this.lastDt,
+            vmax: this.weaponCfg.wristVmax * Math.sqrt(this.strength), eccentric: this.weaponCfg.brakeEcc, hill});
+          this.debug.wristStopBudget = budget;
+          // A still-accelerating full request is not evidence of zero human
+          // braking capacity. Preserve the old decision instead of latching it.
+          if (budget.applicable) brakingTorque = budget.opposingNm;
+        }
+        const brakeAcc = brakingTorque / this.swordIhand;
         const stopAngle = (toward * toward) / (2 * brakeAcc);
         // 쓰러진 상대를 내려찍을 때는 늦게 세운다 (finish.js). 마무리 찌르기가 겨눔으로 칼을 옮기는 동안(skill.plungePose)은 치는 게 아니라 예전대로 세운다
         const tap = this.skill.tap;

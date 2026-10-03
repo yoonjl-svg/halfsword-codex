@@ -34,6 +34,7 @@ export function beforeWristResponse(f, previousYaw) {
     skillAim: f.skill.aim.toArray(), skillAimRaw: f.skill.aimRaw.toArray(),
     skillAimVelocity: f.skill.aimVel.toArray(), handOffset: f.handOffset.toArray(),
     skillLevel: f.skill.level, thrustWeight: f.skill.thrustPose.w,
+    wristBrakingModel: f.wristBrakingModel ?? 'legacy', armTorqueModel: f.armTorqueModel ?? 'legacy',
     thrustDirection: [...f.skill.thrustPose.dir], elbow: elbowResponse(f),
   };
 }
@@ -61,6 +62,14 @@ export function afterWristResponse(f, before, consumedActivation) {
   const wAim = wAimClamped.clone().addScaledVector(blade, -wAimClamped.dot(blade));
   const str = before.strength * consumedActivation * (.35 + .65 * before.armHealth);
   const baseCap = cfg.maxAimTorque * str;
+  const position = new THREE.Vector3();
+  if (sinA > 1e-5) position.copy(axis).multiplyScalar(cfg.aimStiffness * angle / sinA);
+  const pivot = new THREE.Vector3(.13, 0, 0).applyQuaternion(new THREE.Quaternion().fromArray(before.forearmRotation)).add(from(before.forearmPosition));
+  const arm = from(before.swordCom).sub(pivot);
+  const rawGravity = new THREE.Vector3(arm.z * before.swordMass * 9.81, 0, -arm.x * before.swordMass * 9.81);
+  const gravity = rawGravity.clone().multiplyScalar(-Math.min(1, str));
+  const relativeOmega = w.clone().sub(from(before.forearmOmega));
+  let stopBudget = null;
   let latch = before.incomingBrake, latchAngle = before.incomingBrakeAngle, damping = cfg.aimDamping, releaseBranchEntered = false;
   let toward = null, tgtSp = null, brakeAcc = null, stopAngle = null, relief = null, releaseThreshold = null;
   const gate = { nonparallel: sinA > 1e-5, unlatched: null, towardAbove3: null, fasterThanTarget: null, angleAbove025: null };
@@ -71,6 +80,26 @@ export function afterWristResponse(f, before, consumedActivation) {
     gate.fasterThanTarget = toward > tgtSp; gate.angleAbove025 = angle > .25;
     if (gate.unlatched && gate.towardAbove3 && gate.fasterThanTarget && gate.angleAbove025) {
       brakeAcc = baseCap * cfg.brakeEcc / before.swordIhand;
+      if (before.wristBrakingModel === 'available' && before.armTorqueModel === 'legacy') {
+        const full = position.clone().addScaledVector(wSwing.clone().sub(wAim), -cfg.aimDamping).add(gravity);
+        const size = full.length();
+        const speed = size > 1e-6 ? relativeOmega.dot(full) / size : 0;
+        const highHill = derivedHill(speed, cfg.wristVmax * Math.sqrt(before.strength), .25, cfg.brakeEcc);
+        const prior = before.incomingHill ?? highHill;
+        const previewHill = prior + (highHill - prior) * Math.min(1, (before.dt || 1 / 120) / .03);
+        const previewCap = baseCap * previewHill;
+        if (size > previewCap) full.setLength(previewCap);
+        const opposingNm = -full.clone().add(rawGravity).dot(axis.clone().divideScalar(sinA));
+        const applicable = Number.isFinite(opposingNm) && opposingNm > 0;
+        const actual = f.debug.wristStopBudget;
+        const errors = [Math.abs(opposingNm - actual.opposingNm), Math.abs(previewHill - actual.previewHill),
+          Math.abs(previewCap - actual.previewCap), normDifference(full, from(actual.previewTorque))];
+        if (applicable !== actual.applicable || !errors.every(Number.isFinite) || Math.max(...errors) > 1e-9)
+          throw Error('Stopping preview does not match independent read-only reconstruction');
+        stopBudget = {applicable, reason: actual.reason, opposingNm, previewHill, previewCap,
+          previewTorque: full.toArray(), maximumReconstructionError: Math.max(...errors)};
+        if (applicable) brakeAcc = opposingNm / before.swordIhand;
+      }
       stopAngle = toward * toward / (2 * brakeAcc);
       relief = before.finishAmount > 0 && aim.y < blade.y && !(before.tapDown && !before.tapGo)
         ? 1 - FINISH.brakeRelief * before.finishAmount : 1;
@@ -79,14 +108,8 @@ export function afterWristResponse(f, before, consumedActivation) {
       else { latch = true; latchAngle = angle; }
     }
   }
-  const position = new THREE.Vector3();
-  if (sinA > 1e-5) position.copy(axis).multiplyScalar(cfg.aimStiffness * angle / sinA);
   const dampingTorque = wSwing.clone().sub(wAim).multiplyScalar(-damping);
-  const pivot = new THREE.Vector3(.13, 0, 0).applyQuaternion(new THREE.Quaternion().fromArray(before.forearmRotation)).add(from(before.forearmPosition));
-  const arm = from(before.swordCom).sub(pivot);
-  const gravity = new THREE.Vector3(arm.z * before.swordMass * 9.81, 0, -arm.x * before.swordMass * 9.81).multiplyScalar(-Math.min(1, str));
   const requested = position.clone().add(dampingTorque).add(gravity), tl = requested.length();
-  const relativeOmega = w.clone().sub(from(before.forearmOmega));
   const vAlong = tl > 1e-6 ? relativeOmega.dot(requested) / tl : 0;
   const h = derivedHill(vAlong, cfg.wristVmax * Math.sqrt(before.strength), .25, cfg.brakeEcc);
   const hillBefore = before.incomingHill ?? h;
@@ -119,6 +142,7 @@ export function afterWristResponse(f, before, consumedActivation) {
     targetOmegaBeforeClamp: wAimRaw.toArray(), targetOmegaAfterClamp: wAimClamped.toArray(), targetOmegaProjected: wAim.toArray(),
     yawOnlyCounterfactualRate: yawOnlyRate, localOnlyCounterfactualRate: localOnlyRate,
     towardRadps: toward, targetTowardRadps: tgtSp, gate, selectedDamping: damping,
+    stopBudget,
     releaseBranchEntered, configuredAimDamping: cfg.aimDamping, configuredReleaseDamping: cfg.releaseDamping,
     releaseSelected: damping === cfg.releaseDamping && damping !== cfg.aimDamping,
     brakeAccRadps2: brakeAcc, stopAngleRad: stopAngle, finishRelief: relief, releaseThresholdRad: releaseThreshold,
