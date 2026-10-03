@@ -97,7 +97,8 @@ function contract(s, want) {
   assert.deepEqual(s.settings, { skill: '0.7', difficulty: 'hard' });
   for (const key of ['stanceTrial', 'targetCorrection', 'mobileVerticalGain', 'edgeTrial', 'armRecoveryTrial', 'armRecoveryModel', 'cutTrial']) assert.equal(Object.hasOwn(s.saved, key), false, `Trial persisted: ${key}`);
   assert.equal(s.weapon, want.weapon); assert.equal(s.foeWeapon, want.foeWeapon); assert.equal(s.player.level, want.level);
-  assert.equal(s.player.autoGuard, want.autoGuard); assert.equal(s.difficulty, want.difficulty); assert.equal(s.enemy.level, .7);
+  assert.equal(s.player.autoGuard, want.autoGuard); assert.equal(s.difficulty, want.difficulty);
+  assert.equal(s.enemy.level, want.difficulty === 'hard' ? .85 : .7);
   assert.equal(s.player.arm, 'legacy'); assert.equal(s.enemy.arm, 'legacy'); assert.equal(s.cut, 'legacy');
   assert.equal(s.stance.model, want.stance); assert.equal(s.stance.active, want.stanceActive); assert.equal(s.stanceMemory, want.stance);
   assert.equal(s.correction.active, !!want.target); assert.equal(s.correction.model, want.target || 'legacy');
