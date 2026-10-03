@@ -8,14 +8,20 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { newRound, CONFIG, DT, THREE, handPos } from '../harness_m.mjs';
 import { setInertiaCandidate } from './sword_drag_candidate.mjs';
+import {mainArmMuscle} from '../../../src/arm_recovery_activation.js';
+import {beforeWristResponse,afterWristResponse} from './derive_wrist_response.mjs';
 
 const root = fileURLToPath(new URL('../../../', import.meta.url));
 const opts = Object.fromEntries(process.argv.slice(2).map(a => {
-  const m = /^--(out|trial)=(.+)$/.exec(a); if (!m) throw Error('Use --out=NEW_PATH [--trial=drag|brake]'); return [m[1],m[2]];
+  const m = /^--(out|trial|weapons|endings|response)=(.+)$/.exec(a); if (!m) throw Error('Unknown probe argument'); return [m[1],m[2]];
 }));
 if (!opts.out || fs.existsSync(opts.out)) throw Error('Preserve evidence; use a new output path');
 const trial=opts.trial??'drag';if(!['drag','brake'].includes(trial))throw Error('Unknown trial');
 const modes=['original',trial==='drag'?'free':'candidate'];
+const weapons=(opts.weapons??'sabre,zweihander').split(','),endings=(opts.endings??'hold,release,reverse').split(',');
+if(weapons.some(w=>!['sabre','zweihander'].includes(w))||new Set(weapons).size!==weapons.length||endings.some(e=>!['hold','release','reverse'].includes(e))||new Set(endings).size!==endings.length)throw Error('Use unique supported conditions');
+if(opts.response&&!['on','off'].includes(opts.response))throw Error('Use response=on|off');
+const responseMode=opts.response==='on',expectedRows=weapons.length*endings.length*modes.length+2;
 const sha = v => createHash('sha256').update(v).digest('hex');
 const head = () => execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();
 const V = v => new THREE.Vector3(v.x,v.y,v.z), Q = q => new THREE.Quaternion(q.x,q.y,q.z,q.w);
@@ -26,7 +32,7 @@ function sourceFiles(d) {
   return fs.readdirSync(path.join(root,d),{withFileTypes:true}).flatMap(e => e.isDirectory() ? sourceFiles(d+'/'+e.name) : e.name.endsWith('.js') ? [d+'/'+e.name] : []);
 }
 const files = [...sourceFiles('src'),'tools/sim/harness_m.mjs','tools/sim/experiments/sword_drag_probe.mjs',
-  'tools/sim/experiments/sword_drag_candidate.mjs','package-lock.json',
+  'tools/sim/experiments/sword_drag_candidate.mjs','tools/sim/experiments/derive_wrist_response.mjs','package-lock.json',
   'node_modules/@dimforge/rapier3d-compat/rapier.mjs','node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm'].sort();
 const manifest = () => Object.fromEntries(files.map(f => [f,sha(fs.readFileSync(path.join(root,f)))]));
 function ownState(object) {
@@ -81,7 +87,7 @@ const sourceBefore=manifest(),sourceCommit=head(),started=performance.now();
 const originalRandom=Math.random,originalConfig={grip:CONFIG.GRIP.reactionModel,support:CONFIG.BODY.supportModel,stance:CONFIG.GAIT.stanceMemory};
 function run(weapon,ending,mode,observed=true) {
   const begin=performance.now(),requests=schedule(ending),frames=[],metrics=[],undo=[];
-  const counts={driveSword:0,driveJoints:0,elbowGravity:0};let G,activePath=null,torques=[];
+  const counts={driveSword:0,driveJoints:0,elbowGravity:0};let G,activePath=null,torques=[],response=null;
   try {
     CONFIG.GRIP.reactionModel='paired';CONFIG.BODY.supportModel='legacy';CONFIG.GAIT.stanceMemory='legacy';
     G=newRound({seed:7,walls:false,weapon,weapon2:'longsword',skill:0});G.park();
@@ -94,7 +100,12 @@ function run(weapon,ending,mode,observed=true) {
     const properties=bodyWithoutDrag(f.sword),selection=setInertiaCandidate(f,mode,trial);
     if(JSON.stringify(properties)!==JSON.stringify(bodyWithoutDrag(f.sword)))throw Error('Drag setting changed pose/velocity/mass/inertia');
     for(const name of Object.keys(counts)){
-      const original=f[name];f[name]=function(...args){const prior=activePath;activePath=name;counts[name]++;try{return original.apply(this,args);}finally{activePath=prior;}};
+      const original=f[name];f[name]=function(...args){
+        const prior=activePath;activePath=name;counts[name]++;
+        const activation=mainArmMuscle(this);
+        const before=responseMode&&observed&&name==='driveSword'&&this.armed&&activation>=.12?beforeWristResponse(this,null):null;
+        try{return original.apply(this,args);}finally{try{if(before)response=afterWristResponse(this,before,activation);}finally{activePath=prior;}}
+      };
       undo.push(()=>{delete f[name];});
     }
     if(observed)for(const [part,b] of [...Object.entries(f.bodies),['sword',f.sword]]){
@@ -108,7 +119,7 @@ function run(weapon,ending,mode,observed=true) {
     for(const request of requests){
       if(request.target)f.handOffset.set(...request.target);
       f.handHeld=request.held;f.inputActive=request.active;
-      const applied={...request,appliedOffset:f.handOffset.toArray()};input.update(JSON.stringify(applied));torques=[];
+      const applied={...request,appliedOffset:f.handOffset.toArray()};input.update(JSON.stringify(applied));torques=[];response=null;
       const beforeCalls={native:sha(G.world.takeSnapshot()),control:sha(JSON.stringify(control(G)))};
       G.step();
       if([...Object.values(f.bodies),f.sword].some(b=>[b.translation(),b.rotation(),b.linvel(),b.angvel()].some(v=>Object.values(v).some(x=>!Number.isFinite(x)))))throw Error('Nonfinite actual game body');
@@ -128,7 +139,7 @@ function run(weapon,ending,mode,observed=true) {
           pelvis:body(f.bodies.pelvis),chest:body(f.bodies.chest),upperArm:body(f.bodies.uarmS),forearm:body(f.bodies.farmS),
           jointGaps,maxGapM:Math.max(...jointGaps.map(g=>g.m)),wristCapNm:f.debug.wristCap,wristTorqueBeforeTwist:f.debug.wristTorque.toArray(),
           wristBrake:f.wristBrake??false,wristBrakeAngleRad:f.wristBrakeAng??null,releaseMargin:f.weaponCfg.releaseMargin,
-          torques,reactionClosureNm:closure,afterAxisTravelRad,reverseAxisTravelRad});
+          torques,...(responseMode?{wristResponse:response}:{}),reactionClosureNm:closure,afterAxisTravelRad,reverseAxisTravelRad});
       }
     }
     if(Object.values(counts).some(n=>n!==requests.length))throw Error('Original actuator dispatch count mismatch');
@@ -142,11 +153,11 @@ function run(weapon,ending,mode,observed=true) {
 }
 const rows=[],checks=[];let error=null;
 try {
-  for(const weapon of ['sabre','zweihander'])for(const ending of ['hold','release','reverse'])for(const mode of modes){
+  for(const weapon of weapons)for(const ending of endings)for(const mode of modes){
     rows.push(run(weapon,ending,mode));console.log(JSON.stringify({weapon,ending,mode}));
   }
-  for(const mode of modes)rows.push(run('zweihander','reverse',mode,false));
-  for(const ending of ['hold','release','reverse'])for(const weapon of ['sabre','zweihander']){
+  for(const mode of modes)rows.push(run(weapons.at(-1),endings.at(-1),mode,false));
+  for(const ending of endings)for(const weapon of weapons){
     const pair=rows.filter(r=>r.weapon===weapon&&r.ending===ending&&r.observed);
     const [a,b]=pair;const prefixExact=JSON.stringify(a.prefix)===JSON.stringify(b.prefix),branchExact=JSON.stringify(a.before)===JSON.stringify(b.before);
     const requestExact=a.frames.every((f,i)=>JSON.stringify({...f.applied,appliedOffset:null})===JSON.stringify({...b.frames[i].applied,appliedOffset:null}));
@@ -159,10 +170,10 @@ try {
   }
 }catch(e){error=String(e?.stack??e);}
 const sourceAfter=manifest(),sourceCommitAfter=head(),sourceStable=sourceCommit===sourceCommitAfter&&JSON.stringify(sourceBefore)===JSON.stringify(sourceAfter);
-const measurementValid=!error&&sourceStable&&rows.length===14&&checks.every(c=>Object.entries(c).every(([k,v])=>typeof v!=='boolean'||v));
+const measurementValid=!error&&sourceStable&&rows.length===expectedRows&&checks.every(c=>Object.entries(c).every(([k,v])=>typeof v!=='boolean'||v));
 const report={schemaVersion:1,sourceCommit,sourceCommitAfter,sourceBefore,sourceAfter,sourceStable,measurementValid,error,
   createdUTC:new Date().toISOString(),wallSeconds:(performance.now()-started)/1000,executionCount:rows.length,checks,rows,
-  protocol:{trial,prepareS:3,strokeS:.55,afterS:1.2,DT,skill:0,seed:7,grip:'paired',support:'legacy',
+  protocol:{trial,weapons,endings,responseMode,prepareS:3,strokeS:.55,afterS:1.2,DT,skill:0,seed:7,grip:'paired',support:'legacy',
     scene:'Unopposed fixture uses existing G.park at setup; original Fighter/Combat/world step and native contacts remain active. Only hand command state is initialized at time0. No player pose/velocity/health changes or native restore.',
     treatment:trial==='drag'?'After identical original preparation, only player sword angularDamping0.3→0; mass, inertia, controllers and joint/body damping unchanged. This is not from-spawn efficacy or calibrated air resistance.':'After identical original preparation, only player releaseMargin1.4→1.0; original stopAngle estimate, masses, inertia, all actuator caps/damping and input path remain. Planning hypothesis, not measured human anticipation.',
     release:'Original handHeld=false behavior remains; automatic center return may change actual handOffset, so requested schedule and actual pad are separately recorded.',
