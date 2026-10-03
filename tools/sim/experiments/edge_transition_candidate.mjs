@@ -12,10 +12,11 @@ export async function loadEdgeTransition(){
   replace('  driveSword() {',`  driveSword() {
     const diag = transitionOptions.get(this);
     const active = diag && diag.now() + 1e-12 >= diag.startS;
+    const usePoint = diag && (diag.base === 'pointIntent' || (active && diag.mode === 'pointIntent'));
     const beforePlane = this.intentEdgePlane?.clone();
     const beforeLocalAim = this.intentEdgePreviousAim?.clone();`);
   replace('    const aim = _v3.set(...guardDir(off.x, off.y));',`    const aim = _v3.set(...guardDir(off.x, off.y));
-    if (active && ['c1Aim','pointIntent','legacyC1'].includes(diag.mode) && off.y > .05 && off.y < .15) {
+    if ((usePoint || (active && ['c1Aim','legacyC1'].includes(diag.mode))) && off.y > .05 && off.y < .15) {
       const t=(off.y-.05)/.1;
       const elevation=-.055+.11*t+.11*t*t;
       const azimuth=THREE.MathUtils.clamp((off.x-.05)*1.7,-1.1,1.3);
@@ -25,26 +26,38 @@ export async function loadEdgeTransition(){
     if (this.edgeIntentModel === 'commandedPlane' || this.edgeIntentModel === 'commandedPlaneC1') updateIntentEdgePlane(this, aim, blade, flatTarget, flat);
     const requestedPlane = this.intentEdgePlane?.clone();
     let pointCommandSpeed = null, pointCommandVelocity = null;
-    if (active && diag.mode === 'pointIntent') {
+    let pointHandVelocity=null, pointAxisVelocity=null, pointRawNormal=null, pointSignedNormal=null;
+    let pointBlend=null, memorySignFlipped=null, flatSignFlipped=null, pointProjectionLength=null;
+    if (usePoint) {
       const inverseYaw=this.yaw.clone().invert();
       const localAim=aim.clone().applyQuaternion(inverseYaw).normalize();
       const commandPoint=handLocal.clone().addScaledVector(localAim,this.weaponCfg.hiltLength+.7*this.weaponCfg.bladeLength);
       if(this.intentEdgePreviousPoint){
         pointCommandVelocity=commandPoint.clone().sub(this.intentEdgePreviousPoint).multiplyScalar(1/this.lastDt);
-        const normal=new THREE.Vector3().crossVectors(localAim,pointCommandVelocity);
+        pointAxisVelocity=localAim.clone().sub(beforeLocalAim).multiplyScalar((this.weaponCfg.hiltLength+.7*this.weaponCfg.bladeLength)/this.lastDt);
+        pointHandVelocity=pointCommandVelocity.clone().sub(pointAxisVelocity);
+        const chosenVelocity=active&&diag.mode==='handOnly'?pointHandVelocity:active&&diag.mode==='axisOnly'?pointAxisVelocity:pointCommandVelocity;
+        const normal=new THREE.Vector3().crossVectors(localAim,chosenVelocity);
+        pointRawNormal=normal.clone();
         pointCommandSpeed=normal.length();
         this.intentEdgePlane.copy(beforePlane);
         const blend=THREE.MathUtils.smoothstep(pointCommandSpeed,.5,2.5);
+        pointBlend=blend;
         if(blend>0){
           normal.normalize();
-          if(normal.dot(this.intentEdgePlane)<0)normal.negate();
+          const signReference=active&&diag.mode==='flatSign'?flat.clone().applyQuaternion(inverseYaw):this.intentEdgePlane;
+          memorySignFlipped=normal.dot(signReference)<0;
+          if(memorySignFlipped)normal.negate();
+          pointSignedNormal=normal.clone();
           this.intentEdgePlane.lerp(normal,blend).normalize();
         }
         flatTarget.copy(this.intentEdgePlane).applyQuaternion(this.yaw);
         flatTarget.addScaledVector(blade,-flatTarget.dot(blade));
+        pointProjectionLength=flatTarget.length();
         if(flatTarget.lengthSq()<1e-8)flatTarget.copy(flat);
         flatTarget.normalize();
-        if(flatTarget.dot(flat)<0)flatTarget.negate();
+        flatSignFlipped=flatTarget.dot(flat)<0;
+        if(flatSignFlipped)flatTarget.negate();
       }
       (this.intentEdgePreviousPoint ||= new THREE.Vector3()).copy(commandPoint);
     }
@@ -74,6 +87,8 @@ export async function loadEdgeTransition(){
   replace('    twist.addScaledVector(wTwist, -0.12 * this.twistScale);',`    const positionTwist = twist.clone();
     const dampingTwist = wTwist.clone().multiplyScalar(-0.12 * this.twistScale);
     if (active && diag.mode === 'noPosition') twist.set(0,0,0);
+    if (active && diag.mode === 'planePotential') twist.multiplyScalar(flat.dot(flatTarget));
+    const appliedPositionTwist = twist.clone();
     if (!(active && diag.mode === 'noDamping')) twist.addScaledVector(wTwist, -0.12 * this.twistScale);`);
   replace('    sword.addTorque(vecArg(torque), true);',`    if (diag) {
       const principal = sword.principalInertia();
@@ -87,8 +102,10 @@ export async function loadEdgeTransition(){
       const speed = command.length()*(this.weaponCfg.hiltLength+.7*this.weaponCfg.bladeLength);
       transitionRecords.set(this,{timeS:diag.now(),active,mode:diag.mode,filteredAimM:off.toArray(),yaw:this.yaw.toArray(),aim:aim.toArray(),blade:blade.toArray(),flat:flat.toArray(),flatTarget:flatTarget.toArray(),legacyFlatTarget:legacyFlat.toArray(),beforePlane:beforePlane?.toArray()??null,requestedPlane:requestedPlane?.toArray()??null,appliedPlane:this.intentEdgePlane?.toArray()??null,actualCutPointVelocityMps:[bv.x,bv.y,bv.z],actualSpeedMps:ev,actualBlend:moving,commandSpeedMps:speed,commandBlend:THREE.MathUtils.smoothstep(speed,.5,2.5),flatErrorRad:flatError,
         pointCommandSpeedMps:pointCommandSpeed,pointCommandVelocityLocalMps:pointCommandVelocity?.toArray()??null,
+        pointHandVelocityLocalMps:pointHandVelocity?.toArray()??null,pointAxisVelocityLocalMps:pointAxisVelocity?.toArray()??null,
+        pointRawNormal:pointRawNormal?.toArray()??null,pointSignedNormal:pointSignedNormal?.toArray()??null,pointBlend,memorySignFlipped,flatSignFlipped,pointProjectionLength,
         k,d,effectiveBladeInertia:1/inverseI,kDtSquaredOverI:k*this.lastDt**2*inverseI,dDtOverI:d*this.lastDt*inverseI,
-        preStepOmegaAxisRadps:omega,relativeForearmOmegaAxisRadps:omega-new THREE.Vector3(fw.x,fw.y,fw.z).dot(blade),positionTwistNm:positionTwist.dot(blade),dampingTwistNm:dampingTwist.dot(blade),appliedTwistNm:twist.dot(blade),finalTorqueNm:torque.toArray(),finalTorqueAxisNm:torque.dot(blade),
+        preStepOmegaAxisRadps:omega,relativeForearmOmegaAxisRadps:omega-new THREE.Vector3(fw.x,fw.y,fw.z).dot(blade),positionTwistNm:positionTwist.dot(blade),appliedPositionTwistNm:appliedPositionTwist.dot(blade),dampingTwistNm:dampingTwist.dot(blade),appliedTwistNm:twist.dot(blade),finalTorqueNm:torque.toArray(),finalTorqueAxisNm:torque.dot(blade),
         twistWorkApproxJ:twist.dot(w)*this.lastDt,twistDeltaOmegaFreeBodyRadps:twist.dot(blade)*inverseI*this.lastDt,dt:this.lastDt,capNm:cap});
     }
     sword.addTorque(vecArg(torque), true);`);

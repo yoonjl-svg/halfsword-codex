@@ -7,9 +7,10 @@ import {fileURLToPath,pathToFileURL} from 'node:url';
 import {loadEdgeTransition} from './edge_transition_candidate.mjs';
 const root=fileURLToPath(new URL('../../../',import.meta.url)),originalURL=new URL('./skill_manual_combat_probe.mjs',import.meta.url);
 const opts=Object.fromEntries(process.argv.slice(2).map(v=>{const m=v.match(/^--([^=]+)=(.*)$/);if(!m)throw Error('Use --name=value');return [m[1],m[2]];}));
+const baseMode=opts.base??'commandedPlane';if(!['commandedPlane','pointIntent'].includes(baseMode))throw Error('Invalid base');
 const startS=Number(opts.start??3.6),duration=Number(opts.duration??6),weapons=(opts.weapons??'zweihander').split(','),modes=(opts.modes??'legacy,edge,observe,freezePlane,noPosition,noDamping').split(',');
 if(!Number.isFinite(startS)||startS<0||!Number.isFinite(duration)||duration<=startS)throw Error('Invalid time');
-if(modes.some(m=>!['legacy','edge','observe','freezePlane','noPosition','noDamping','c1Aim','motionMemory','runtimeC1','legacyObserve','pointIntent','legacyC1'].includes(m)))throw Error('Invalid mode');
+if(modes.some(m=>!['legacy','edge','observe','freezePlane','noPosition','noDamping','c1Aim','motionMemory','runtimeC1','legacyObserve','pointIntent','legacyC1','pointObserve','handOnly','axisOnly','flatSign','planePotential'].includes(m)))throw Error('Invalid mode');
 const sha=x=>crypto.createHash('sha256').update(x).digest('hex');
 const original=fs.readFileSync(originalURL,'utf8'),split='const narrowDiagnosis=diagnose&&!roundWindow;';
 if(original.split(split).length!==2)throw Error('Main marker');let source=original.split(split)[0];
@@ -40,12 +41,12 @@ try{
   for(const weapon of weapons){
     const group=[];
     for(const mode of modes){
-      const hooks={install(G,f,m){if(['legacy','edge','runtimeC1'].includes(m))return;loaded.module.setTransition(f,{mode:m,startS,now:()=>G.t});f.driveSword=loaded.module.Fighter.prototype.driveSword;},read:f=>loaded.module.readTransition(f)};
+      const hooks={install(G,f,m){if(baseMode==='commandedPlane'&&['legacy','edge','runtimeC1'].includes(m))return;loaded.module.setTransition(f,{mode:m,base:baseMode,startS,now:()=>G.t});f.driveSword=loaded.module.Fighter.prototype.driveSword;},read:f=>loaded.module.readTransition(f)};
       const r=harness.combatRun(weapon,7,mode,true,hooks);group.push(r);rows.push(r);
       console.log(JSON.stringify({weapon,mode,prefix:r.prefixSHA256,summary:r.summary}));
     }
-    const base=group.find(r=>r.mode==='edge'),observe=group.find(r=>r.mode==='observe');
-    if(!base||!observe)throw Error('edge and observe required');
+    const base=group.find(r=>r.mode===(baseMode==='pointIntent'?'pointIntent':'edge')),observe=group.find(r=>r.mode===(baseMode==='pointIntent'?'pointObserve':'observe'));
+    if(!base||!observe)throw Error('Base and observer required');
     const c={weapon,observerNativeExact:base.nativeTraceSha256===observe.nativeTraceSha256,observerControllerExact:base.controllerTraceSha256===observe.controllerTraceSha256,prefixExact:group.filter(r=>!['legacy','legacyObserve','legacyC1','runtimeC1'].includes(r.mode)).every(r=>r.prefixSHA256===base.prefixSHA256),initialNativeExact:group.every(r=>r.first.native===base.first.native),externalInputExact:group.every(r=>r.externalRequestedInputSha256===base.externalRequestedInputSha256),noContacts:group.every(r=>r.summary.contactWounds===0&&r.summary.clashes===0),noTap:group.every(r=>r.tapRequests.length===0),finite:group.every(r=>r.finite)};
     const legacyObserver=group.find(r=>r.mode==='legacyObserve');if(legacyObserver){const legacy=group.find(r=>r.mode==='legacy');if(!legacy)throw Error('legacyObserve requires legacy');c.legacyObserverNativeExact=legacyObserver.nativeTraceSha256===legacy.nativeTraceSha256;c.legacyObserverControllerExact=legacyObserver.controllerTraceSha256===legacy.controllerTraceSha256;}
     const legacyC1=group.find(r=>r.mode==='legacyC1');if(legacyC1){const legacy=group.find(r=>r.mode==='legacy');if(!legacy)throw Error('legacyC1 requires legacy');c.legacyC1PrefixExact=legacyC1.prefixSHA256===legacy.prefixSHA256;}
@@ -54,7 +55,7 @@ try{
     checks.push(c);
   }
   const after=manifest(),sourceStable=JSON.stringify(before)===JSON.stringify(after),executionPass=sourceStable&&checks.every(c=>Object.values(c).every(v=>v!==false));
-  const report={schemaVersion:1,createdUTC:new Date().toISOString(),sourceCommit:head,sourceBefore:before,sourceAfter:after,sourceStable,command:process.argv,startS,durationS:duration,generatedHarnessSHA256:sha(source),generatedFighterSHA256:loaded.generatedSHA256,wallSeconds:(performance.now()-begin)/1000,executionPass,checks,rows,
-    contract:'Identical original input script as previous isolated no-tap: gap6m, enemy AI disabled, manual movement0, skill0/autoGuardfalse, paired grip, legacy arms/cut. Intervention only from startS, same complete native/controller prefix within commandedPlane modes. Diagnostic mutations only desired plane, elevation mapping or twist terms, not poses/velocities. runtimeC1 is enabled from spawn and compared to c1Aim native trace plus recorded physical/target frames; mode identifier differs in full controller state. legacyObserve observes ordinary alignment without plane memory. Explicit pre-step torque dot angular velocity dt is approximate work; free-body torque/I is not actual coupled solver response. No user/mobile/contact acceptance.'};
+  const report={schemaVersion:1,createdUTC:new Date().toISOString(),sourceCommit:head,sourceBefore:before,sourceAfter:after,sourceStable,baseMode,command:process.argv,startS,durationS:duration,generatedHarnessSHA256:sha(source),generatedFighterSHA256:loaded.generatedSHA256,wallSeconds:(performance.now()-begin)/1000,executionPass,checks,rows,
+    contract:'Identical original input script as previous isolated no-tap: gap6m, enemy AI disabled, manual movement0, skill0/autoGuardfalse, paired grip, legacy arms/cut. Default base commandedPlane: intervention only from startS. Optional base pointIntent applies C1+commanded cut-point plane from spawn, then interventions from startS. Same complete native/controller prefix within each declared base. pointIntent/pointObserve perform identical calculations; their observer check is a duplicate-mode check, not full removal of instrumentation. Check archived prior pointIntent traces for before/after instrumentation equivalence. Diagnostic mutations only desired plane, elevation mapping or twist terms, not poses/velocities. runtimeC1 is enabled from spawn and compared to c1Aim native trace plus recorded physical/target frames; mode identifier differs in full controller state. legacyObserve observes ordinary alignment without plane memory. Explicit pre-step torque dot angular velocity dt is approximate work; free-body torque/I is not actual coupled solver response. No user/mobile/contact acceptance.'};
   fs.writeFileSync(opts.out??'/tmp/edge-transition.json',JSON.stringify(report,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify({executionPass,checks,wallSeconds:report.wallSeconds,rows:rows.length}));if(!executionPass)process.exitCode=1;
 }finally{harness?.cleanup();await loaded.cleanup();fs.rmSync(dir,{recursive:true,force:true});}
