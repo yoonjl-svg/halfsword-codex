@@ -257,5 +257,219 @@
       "scriptSha256": "a74438fc5da25e26feab9237036578480f681ac24f635dea446202c7d748f5cd",
       "failure": "first tap not classified; no thrust call. Earlier driver lacked explicit event-time contract; no device timing verdict"
     }
-  ]
+  ],
+  "liveContactFollowup": {
+    "executions": 6,
+    "sourceCommit": "d3e5f0f7a617b88473695659f0bb29c4ca552e1f",
+    "scope": "Original AI2 and enemy AI; post-Combat observations, default ARENA gap, actual native contacts. No injected injury/state/pose/velocity. Not matched human input or naturalness certification. Different contact/injury histories prohibit efficiency/win-rate inference.",
+    "runs": [
+      {
+        "path": "/workspace/halfsword-handoff/onehand-pose-20261004/live-recovery-01b.json",
+        "bytes": 22808870,
+        "sha256": "2588392ed94263746f192bd5e7263db4603195eef446f9c5929f671c259b0826",
+        "sourceCommit": "d3e5f0f7a617b88473695659f0bb29c4ca552e1f",
+        "sourceStable": true,
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+          "/workspace/halfsword-codex/tools/sim/experiments/onehand_live_recovery_probe.mjs",
+          "/workspace/halfsword-handoff/onehand-pose-20261004/live-recovery-01b.json"
+        ],
+        "probeSha256": "9fb2fa64f4b32d8ec4055d986e71a989389a94e4dd8f13a5e461e1930732558e",
+        "wallSeconds": 8.522722545999999,
+        "rows": [
+          {
+            "weapon": "sabre",
+            "model": "legacy",
+            "steps": 2400,
+            "positiveWounds": 1,
+            "playerArmHealthMin": 1,
+            "playerLegHealthMin": 1,
+            "finishFramesBoth": 0,
+            "transitions": [
+              {
+                "timeS": 15.816666666666409,
+                "fighter": 0,
+                "from": "stand",
+                "to": "getup"
+              },
+              {
+                "timeS": 17.82499999999963,
+                "fighter": 0,
+                "from": "getup",
+                "to": "stand"
+              }
+            ],
+            "maxJointGapM": 0.007361978489065397
+          },
+          {
+            "weapon": "sabre",
+            "model": "manual",
+            "steps": 2400,
+            "positiveWounds": 8,
+            "playerArmHealthMin": 0.8367218333659788,
+            "playerLegHealthMin": 1,
+            "finishFramesBoth": 0,
+            "transitions": [],
+            "maxJointGapM": 0.003332456299240654
+          },
+          {
+            "weapon": "qinggang",
+            "model": "legacy",
+            "steps": 2400,
+            "positiveWounds": 8,
+            "playerArmHealthMin": 0,
+            "playerLegHealthMin": 1,
+            "finishFramesBoth": 0,
+            "transitions": [
+              {
+                "timeS": 9.208333333333451,
+                "fighter": 0,
+                "from": "stand",
+                "to": "getup"
+              },
+              {
+                "timeS": 11.416666666666659,
+                "fighter": 0,
+                "from": "getup",
+                "to": "stand"
+              },
+              {
+                "timeS": 19.10833333333289,
+                "fighter": 0,
+                "from": "stand",
+                "to": "getup"
+              }
+            ],
+            "maxJointGapM": 0.002603610289887699
+          },
+          {
+            "weapon": "qinggang",
+            "model": "manual",
+            "steps": 2400,
+            "positiveWounds": 10,
+            "playerArmHealthMin": 0.8980962829464343,
+            "playerLegHealthMin": 0.8307080217641127,
+            "finishFramesBoth": 0,
+            "transitions": [
+              {
+                "timeS": 7.458333333333494,
+                "fighter": 0,
+                "from": "stand",
+                "to": "getup"
+              },
+              {
+                "timeS": 8.091666666666848,
+                "fighter": 1,
+                "from": "stand",
+                "to": "getup"
+              },
+              {
+                "timeS": 9.533333333333433,
+                "fighter": 0,
+                "from": "getup",
+                "to": "stand"
+              },
+              {
+                "timeS": 10.433333333333382,
+                "fighter": 1,
+                "from": "getup",
+                "to": "stand"
+              }
+            ],
+            "maxJointGapM": 0.0030747389334547445
+          }
+        ]
+      },
+      {
+        "path": "/workspace/halfsword-handoff/onehand-pose-20261004/live-recovery-02.json",
+        "bytes": 21011925,
+        "sha256": "2e5068cee2a977acd61ab9d0f4056e2174ebdb22ef3c98119cb74c34817707be",
+        "sourceCommit": "d3e5f0f7a617b88473695659f0bb29c4ca552e1f",
+        "sourceStable": true,
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+          "/workspace/halfsword-codex/tools/sim/experiments/onehand_live_recovery_probe.mjs",
+          "/workspace/halfsword-handoff/onehand-pose-20261004/live-recovery-02.json",
+          "--weapons=falchion",
+          "--seed=19",
+          "--seconds=30"
+        ],
+        "probeSha256": "81e11bf8b437bc9b63e54759448f82523fb5b250a5945a0125cff715785b2ada",
+        "wallSeconds": 6.490323045999999,
+        "rows": [
+          {
+            "weapon": "falchion",
+            "model": "legacy",
+            "steps": 3600,
+            "positiveWounds": 5,
+            "playerArmHealthMin": 1,
+            "playerLegHealthMin": 1,
+            "finishFramesBoth": 0,
+            "transitions": [
+              {
+                "timeS": 13.624999999999867,
+                "fighter": 1,
+                "from": "stand",
+                "to": "dead"
+              }
+            ],
+            "maxJointGapM": 0.0036109918341343736
+          },
+          {
+            "weapon": "falchion",
+            "model": "manual",
+            "steps": 3600,
+            "positiveWounds": 17,
+            "playerArmHealthMin": 0.8938770077620064,
+            "playerLegHealthMin": 0.9982922521438693,
+            "finishFramesBoth": 0,
+            "transitions": [
+              {
+                "timeS": 7.233333333333483,
+                "fighter": 1,
+                "from": "stand",
+                "to": "getup"
+              },
+              {
+                "timeS": 10.22500000000006,
+                "fighter": 1,
+                "from": "getup",
+                "to": "stand"
+              },
+              {
+                "timeS": 21.458333333332757,
+                "fighter": 1,
+                "from": "stand",
+                "to": "getup"
+              },
+              {
+                "timeS": 25.466666666665862,
+                "fighter": 1,
+                "from": "getup",
+                "to": "stand"
+              },
+              {
+                "timeS": 26.474999999999138,
+                "fighter": 1,
+                "from": "stand",
+                "to": "dead"
+              }
+            ],
+            "maxJointGapM": 0.003363541398501579
+          }
+        ]
+      }
+    ],
+    "initialDriverFailure": {
+      "path": "/workspace/halfsword-handoff/onehand-pose-20261004/live-recovery-01.json",
+      "bytes": 14745,
+      "sha256": "80843b2500b007a1947c39784c3c110e71be12de05b6a99d910c49a51c5fed53",
+      "status": "before_first_step, undefined handBase read. No physics run counted; frozen failed tool preserved outside Git"
+    },
+    "decision": "Some actual injury then getup to stand observed; down and finish ramps absent in all6. Actual finishing remains uncovered; do not expand random seed scanning. General promotion still awaits user pose/feel and rapier tracking/finish checks.",
+    "firstProbeFrozen": {
+      "path": "/workspace/halfsword-handoff/onehand-pose-20261004/live-probe-01.mjs",
+      "sha256": "9fb2fa64f4b32d8ec4055d986e71a989389a94e4dd8f13a5e461e1930732558e"
+    }
+  }
 }
