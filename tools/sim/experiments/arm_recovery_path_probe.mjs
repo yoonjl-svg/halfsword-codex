@@ -12,15 +12,19 @@ const opts = Object.fromEntries(process.argv.slice(2).map(arg => {
   if (!match) throw Error('Use --out=NEW_PATH --reference=FROM_SPAWN_RAW');
   return [match[1], match[2]];
 }));
-if (Object.keys(opts).some(key => !['out', 'reference'].includes(key))) throw Error('Unknown option');
+if (Object.keys(opts).some(key => !['out', 'reference', 'case'].includes(key))) throw Error('Unknown option');
 const output = opts.out, referencePath = opts.reference;
 if (!output || fs.existsSync(output) || !referencePath || !fs.existsSync(referencePath)) throw Error('New output and received reference required');
-const weapons = ['falchion'], seeds = [7], seconds = 18, windowSteps = 60;
-const modes = ['full', 'swordOrdinary', 'jointsOrdinary', 'allOrdinary'];
+const scene = opts.case ?? 'wounded';
+if (!['wounded', 'healthyStop'].includes(scene)) throw Error('Unknown diagnostic case');
+const weapon = scene === 'wounded' ? 'falchion' : 'sabre', seed = scene === 'wounded' ? 7 : 19;
+const seconds = 18, windowSteps = 60;
+const modes = scene === 'wounded' ? ['full', 'swordOrdinary', 'jointsOrdinary', 'allOrdinary'] : ['full', 'allOrdinary'];
+const observerModes = scene === 'wounded' ? ['full', 'allOrdinary'] : [];
 const referenceBytes = fs.readFileSync(referencePath);
 const reference = JSON.parse(referenceBytes);
-const referenceRun = reference.rows.find(row => row.weapon === 'falchion' && row.seed === 7 && row.mode === 'independent' && row.observed);
-if (!reference.measurementValid || !referenceRun) throw Error('A valid original falchion7 independent reference is required');
+const referenceRun = reference.rows.find(row => row.weapon === weapon && row.seed === seed && row.mode === 'independent' && row.observed);
+if (!reference.measurementValid || !referenceRun) throw Error('A valid original independent reference is required');
 const sha = value => createHash('sha256').update(value).digest('hex');
 const hash = () => createHash('sha256');
 const V = value => new THREE.Vector3(value.x, value.y, value.z);
@@ -305,7 +309,7 @@ function run(weapon, seed, mode, observed) {
     for (let tick = 0; tick < schedule.length; tick++) {
       if (!f.alive || !G.enemy.alive) { stopReason = 'first_fighter_death'; break; }
       const activationBefore = readMainArmRecovery(f), nextRequest = schedule[tick];
-      if (!branch && firstArmWound && f.state === 'getup' && f.armed && f.gripJoint?.isValid() &&
+      if (!branch && (scene === 'healthyStop' || firstArmWound) && f.state === 'getup' && f.armed && f.gripJoint?.isValid() &&
           activationBefore.value - f.muscle > 1e-4 && nextRequest.held && !nextRequest.active &&
           appliedRequest?.request.active) {
         branch = { tick, timeS: G.t, nativeSha256: sha(G.world.takeSnapshot()),
@@ -370,6 +374,10 @@ function run(weapon, seed, mode, observed) {
     const firstPostBranchRecordedContact = branch ? events.find(event => event.afterStepTimeS > branch.timeS + 1e-10) ?? null : null;
     const latentFilterRecoverySteps = metrics.filter(row => row.health.alive && row.health.armed &&
       row.health.state === 'getup' && row.health.armHealth < 1 && row.extraArmActivation > activationEpsilon).length;
+    const actualRecoveryExtraActivationStepsByPath = Object.fromEntries(Object.keys(dispatchCounts).map(name => [name,
+      metrics.filter(row => row.health.alive && row.health.armed && row.health.state === 'getup' &&
+        row.pathDispatch.some(call => call.method === name &&
+          call.consumedActivation - call.ordinaryActivation > activationEpsilon)).length]));
     const actualExtraActivationStepsByPath = Object.fromEntries(Object.keys(dispatchCounts).map(name => [name,
       metrics.filter(row => row.health.alive && row.health.armed && row.health.state === 'getup' &&
         row.health.armHealth < 1 && row.pathDispatch.some(call => call.method === name &&
@@ -377,7 +385,7 @@ function run(weapon, seed, mode, observed) {
     return { weapon, seed, mode, observed, requestedScheduleSha256, first, branch, dispatchCounts, firstGetup,
       firstObservedStoredActivationAfterBranch: firstExtraArmActivation,
       firstArmWound, firstDeath, firstDrop, firstPostBranchRecordedContact, latentFilterRecoverySteps,
-      actualExtraActivationStepsByPath, stopReason,
+      actualExtraActivationStepsByPath, actualRecoveryExtraActivationStepsByPath, stopReason,
       durationS: G.t, finite: true, wallSeconds: (performance.now() - started) / 1000,
       nativeTraceSha256: nativeTrace.digest('hex'), fullControllerTraceSha256: fullControllerTrace.digest('hex'),
       physicalControllerTraceSha256: physicalControllerTrace.digest('hex'), appliedInputSha256: appliedInputTrace.digest('hex'),
@@ -396,12 +404,12 @@ const rows = [], prefixChecks = [], observerChecks = [];
 let error = null;
 try {
   for (const mode of modes) {
-    const row = run('falchion', 7, mode, true); rows.push(row);
+    const row = run(weapon, seed, mode, true); rows.push(row);
     console.log(JSON.stringify({ mode, branch: row.branch?.timeS, durationS: row.durationS,
       observedSteps: row.metrics.length, dispatchCounts: row.dispatchCounts }));
   }
-  for (const mode of ['full', 'allOrdinary']) {
-    const row = run('falchion', 7, mode, false); rows.push(row);
+  for (const mode of observerModes) {
+    const row = run(weapon, seed, mode, false); rows.push(row);
     const a = rows.find(r => r.mode === mode && r.observed);
     observerChecks.push({ mode, nativeTraceExact: a.nativeTraceSha256 === row.nativeTraceSha256,
       controllerTraceExact: a.fullControllerTraceSha256 === row.fullControllerTraceSha256,
@@ -425,16 +433,17 @@ try {
 } catch (e) { error = String(e?.stack ?? e); }
 const sourceAfter = manifest(), sourceCommitAfter = head();
 const sourceStable = sourceCommit === sourceCommitAfter && JSON.stringify(sourceBefore) === JSON.stringify(sourceAfter);
-const measurementValid = !error && sourceStable && referenceSourceExact && rows.length === 6 &&
-  prefixChecks.length === 6 && prefixChecks.every(c => c.exactPrefix && c.originalPrefixExact && c.branchStateExact && c.totalWindowSteps === windowSteps && c.allDispatchOnce) &&
-  observerChecks.length === 2 && observerChecks.every(c => Object.entries(c).every(([key, v]) => key === 'mode' || v === true));
+const expectedRows = modes.length + observerModes.length;
+const measurementValid = !error && sourceStable && referenceSourceExact && rows.length === expectedRows &&
+  prefixChecks.length === expectedRows && prefixChecks.every(c => c.exactPrefix && c.originalPrefixExact && c.branchStateExact && c.totalWindowSteps === windowSteps && c.allDispatchOnce) &&
+  observerChecks.length === observerModes.length && observerChecks.every(c => Object.entries(c).every(([key, v]) => key === 'mode' || v === true));
 const report = { schemaVersion: 1, probe: 'arm_recovery_path_ablation', sourceCommit, sourceCommitAfter,
   sourceBefore, sourceAfter, sourceStable, command: process.argv, createdUTC: new Date().toISOString(),
   wallSeconds: (performance.now() - begin) / 1000, referenceSourceExact, reference: { path: referencePath, bytes: referenceBytes.length,
     sha256: sha(referenceBytes), sourceCommit: reference.sourceCommit }, measurementValid,
   executionCount: rows.length, error, schedule, requestedScheduleSha256, prefixChecks, observerChecks, rows,
-  protocol: { weapon: 'falchion', seed: 7, windowSteps, DT, modes,
-    branch: 'First actual main-arm wound, armed getup with extra activation >1e-4, then first active-to-held-zero-delta boundary. All runs are independent from spawn and replay exactly up to that same complete-step boundary.',
+  protocol: { scene, weapon, seed, windowSteps, DT, modes, observerModes,
+    branch: 'Wounded case requires first actual main-arm wound; healthyStop diagnoses a known healthy-arm recovery counterexample. Armed getup with extra activation >1e-4, then first active-to-held-zero-delta boundary. All runs are independent from spawn and replay exactly up to that same complete-step boundary.',
     treatment: 'Temporary ordinary-muscle routing only inside original driveSword and/or driveJoints+elbowGravity calls. Independent filter updates continue in original step; flag and filter are restored/unchanged before next method. allOrdinary is a diagnostic ablation after independent prefix, NOT legacy from spawn.',
     scope: 'driveSword includes IK gate and wrist torque/braking; driveJoints includes manual shoulder and native elbow; jointsOrdinary also routes separate elbowGravity. Other muscles, inputs, gains, strength, health, native poses and AI are unchanged.',
     observation: 'Original methods called exactly once. Actual addTorque values include final twist and actual recipients; instantaneous pre-solver recipient power is NOT integrated native work. Elbow motor settings are requests, not achieved torque/whole-substep work. Contact points/normal impulses remain last-solver-substep raw; no per-point load or COP inference.',
