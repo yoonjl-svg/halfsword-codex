@@ -1,0 +1,637 @@
+{
+  "schema_version": 1,
+  "status": "published",
+  "date": "2026-10-03",
+  "report_id": "yoonjl-svg/halfsword-codex@2026-10-03T23:30+09:00",
+  "team": "codex",
+  "repo": "yoonjl-svg/halfsword-codex",
+  "window": {
+    "start_exclusive": "2026-10-02T23:30:00+09:00",
+    "end_inclusive": "2026-10-03T23:30:00+09:00"
+  },
+  "technical_base": "14bcf1fe6bd205c775db91aa4ca36b9841b6d2bd",
+  "source_observed_head": "b0d861f1b2a75b3242d22dcb9af6e37135d66299",
+  "source_observed_at": "2026-10-03T16:30:05.848369+00:00",
+  "source_sha": "b23f73225ab8f884cf48d3a66174cec7585eb449",
+  "source_committed_at": "2026-10-03T13:40:57+00:00",
+  "selection_basis": "first-parent committer time; not historical remote state",
+  "notes_path": "docs/dev_exchange/notes/2026-10-03.md",
+  "notes_blob_sha": "ebe735ed68fc73d3969f3e0678d4c8b996861f8b",
+  "notes_sha256": "b7465c5cef4d54a18c3d011714aa71a457dbd9c5194cab945f08f5d8c1305c4b",
+  "authored_decision_record": "present",
+  "commit_count": 66,
+  "commits": [
+    {
+      "sha": "b23f73225ab8f884cf48d3a66174cec7585eb449",
+      "committed_at": "2026-10-03T13:40:57Z",
+      "subject": "Record inertia candidates and withhold unproven gameplay changes",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/README.md",
+        "docs/strike/inertia_followthrough_round1.json",
+        "docs/strike/inertia_followthrough_round1.md",
+        "docs/strike/inertia_gameplay_direction.md",
+        "public/development-plan.html",
+        "tools/browser/inertia_research_screen.mjs",
+        "tools/sim/experiments/summarize_sword_drag.py",
+        "tools/sim/experiments/sword_drag_duel_probe.mjs"
+      ],
+      "path_count": 9
+    },
+    {
+      "sha": "99c2b42738db5772f34061fa8a772ee40c4b3fb4",
+      "committed_at": "2026-10-03T13:31:22Z",
+      "subject": "Trace first braking intervention inside real combat",
+      "paths": [
+        "tools/sim/experiments/sword_drag_duel_probe.mjs"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "e8bcec461b052f6d044ddb5348084aa3d2c2b2bb",
+      "committed_at": "2026-10-03T13:29:26Z",
+      "subject": "Observe exact braking selection and original wrist outputs",
+      "paths": [
+        "tools/sim/experiments/sword_drag_probe.mjs"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "dc0198068385cf082d383a917bc86ef6d0d24e42",
+      "committed_at": "2026-10-03T13:27:25Z",
+      "subject": "Correct inertia observations and isolate later braking planning",
+      "paths": [
+        "tools/sim/experiments/summarize_sword_drag.py",
+        "tools/sim/experiments/sword_drag_candidate.mjs",
+        "tools/sim/experiments/sword_drag_duel_probe.mjs",
+        "tools/sim/experiments/sword_drag_probe.mjs"
+      ],
+      "path_count": 4
+    },
+    {
+      "sha": "7208f9fe07cc300c4b7d196979bfe2aee25885f7",
+      "committed_at": "2026-10-03T13:16:41Z",
+      "subject": "Screen passive sword drag from creation in real reactive duels",
+      "paths": [
+        "tools/sim/experiments/sword_drag_duel_probe.mjs"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "1aa5e53b4c1040249da5b3a6be88d3d7c4ef906a",
+      "committed_at": "2026-10-03T13:13:29Z",
+      "subject": "Prepare real-game comparison of passive sword rotation drag",
+      "paths": [
+        "tools/sim/experiments/sword_drag_candidate.mjs",
+        "tools/sim/experiments/sword_drag_probe.mjs"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "875997f3f25e0758692c3764927d87e95c5a70e5",
+      "committed_at": "2026-10-03T12:59:24Z",
+      "subject": "Set gameplay judgment and human feel criteria for inertia development",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/README.md",
+        "docs/strike/hold_response_round1.md",
+        "docs/strike/inertia_gameplay_direction.md",
+        "public/development-plan.html"
+      ],
+      "path_count": 5
+    },
+    {
+      "sha": "bcef141c7ae88493e2a2707277a5018d22a8f628",
+      "committed_at": "2026-10-03T12:52:24Z",
+      "subject": "Preserve intended inertia and record hold-response policy comparison",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/README.md",
+        "docs/sound/sound_balance_20261003.md",
+        "docs/strike/hold_response_round1.json",
+        "docs/strike/hold_response_round1.md",
+        "public/development-plan.html",
+        "tools/sim/experiments/summarize_hold_response.py"
+      ],
+      "path_count": 7
+    },
+    {
+      "sha": "58fc62fff8acb48393e81836080ae785fbbb6fb3",
+      "committed_at": "2026-10-03T12:47:13Z",
+      "subject": "Add isolated hold release-policy comparison and harden response checks",
+      "paths": [
+        "tools/sim/experiments/arm_recovery_path_probe.mjs",
+        "tools/sim/experiments/derive_wrist_response.mjs"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "ac1cbcd22a8c3f7a6239447df5475c1ab10e17ca",
+      "committed_at": "2026-10-03T12:40:50Z",
+      "subject": "Observe actual hold target and wrist response without changing control",
+      "paths": [
+        "tools/sim/experiments/arm_recovery_path_probe.mjs",
+        "tools/sim/experiments/derive_wrist_response.mjs"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "d023cf83d1568c2085d68d9953805e4edf455f9d",
+      "committed_at": "2026-10-03T12:33:43Z",
+      "subject": "Adjust breathing and selected slash playback volumes",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/README.md",
+        "docs/sound/sound_balance_20261003.json",
+        "docs/sound/sound_balance_20261003.md",
+        "public/development-plan.html",
+        "src/slash_draw.js",
+        "src/sound.js"
+      ],
+      "path_count": 7
+    },
+    {
+      "sha": "91bddea67d7af4f2c2c6c0794b9017884726af2e",
+      "committed_at": "2026-10-03T11:15:57Z",
+      "subject": "Record recovery path contrasts and next target-response study",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/README.md",
+        "docs/strike/arm_recovery_path_round1.json",
+        "docs/strike/arm_recovery_path_round1.md",
+        "public/development-plan.html",
+        "tools/sim/experiments/summarize_arm_recovery_path.py"
+      ],
+      "path_count": 6
+    },
+    {
+      "sha": "62dd47d6409b353331d807270ac9741d591cffda",
+      "committed_at": "2026-10-03T11:04:47Z",
+      "subject": "Add bounded healthy recovery counterexample to path probe",
+      "paths": [
+        "tools/sim/experiments/arm_recovery_path_probe.mjs"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "601dec3bad2118d7a35353c04fa86270508a435f",
+      "committed_at": "2026-10-03T11:01:04Z",
+      "subject": "Add same-state recovery actuator path probe",
+      "paths": [
+        "tools/sim/experiments/arm_recovery_path_probe.mjs"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "dc782b317214fefa71d1313f8062d845924aabe3",
+      "committed_at": "2026-10-03T08:56:56Z",
+      "subject": "Record verified supplemental research handoff",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/DELIVERY_BACKLOG_20261003.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/SUPPLEMENT_RESTORATION_20261003.md",
+        "docs/codex_team/supplement_restoration_20261003.json",
+        "public/development-plan.html"
+      ],
+      "path_count": 6
+    },
+    {
+      "sha": "f24645f904f7528f2438ef92fbfc4854b93a6749",
+      "committed_at": "2026-10-03T08:46:06Z",
+      "subject": "Record verified research restoration and recovery combat gates",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/DELIVERY_BACKLOG_20261003.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/research_restoration_20261003.json",
+        "docs/strike/arm_recovery_from_spawn_round1.json",
+        "docs/strike/arm_recovery_from_spawn_round1.md",
+        "docs/strike/physical_realism_plan.md",
+        "public/development-plan.html",
+        "tools/sim/experiments/summarize_arm_recovery_from_spawn.py"
+      ],
+      "path_count": 9
+    },
+    {
+      "sha": "d351c5384a3514c701d395ce6c625ec261a6df53",
+      "committed_at": "2026-10-03T08:33:49Z",
+      "subject": "Add actual combat recovery probe from fighter creation",
+      "paths": [
+        "tools/sim/experiments/arm_recovery_from_spawn_probe.mjs"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "47bdfe4a6fb0032febc88f2c8e6559285ec73098",
+      "committed_at": "2026-10-03T08:29:12Z",
+      "subject": "Record verified public delivery and resume gated research",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/DELIVERY_BACKLOG_20261003.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/delivery_release_20261003.json",
+        "docs/strike/physical_realism_plan.md",
+        "public/development-plan.html",
+        "tools/browser/backlog_release_smoke.mjs"
+      ],
+      "path_count": 7
+    },
+    {
+      "sha": "9ba4b34ecd7c3a7d97d718774eb86a659c3567e2",
+      "committed_at": "2026-10-03T07:59:21Z",
+      "subject": "Update delivery status and remove stale research instructions",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/DELIVERY_BACKLOG_20261003.md",
+        "docs/codex_team/README.md",
+        "public/development-plan.html"
+      ],
+      "path_count": 4
+    },
+    {
+      "sha": "5aa3bc33aa3e2c81ab3df24eb77a13f77fac8230",
+      "committed_at": "2026-10-03T07:55:00Z",
+      "subject": "Match mobile delivery check to the selected enemy difficulty",
+      "paths": [
+        "tools/browser/backlog_release_smoke.mjs"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "59df1f654c789d086ee369c19135ce9f772a221b",
+      "committed_at": "2026-10-03T07:51:39Z",
+      "subject": "Deliver approved backlog and hold unverified public trials",
+      "paths": [
+        ".github/workflows/codex-transfer.yml",
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/DELIVERY_BACKLOG_20261003.md",
+        "docs/codex_team/README.md",
+        "public/development-plan.html",
+        "public/feature-lab.html",
+        "src/arm_recovery_trial.js",
+        "src/cut_trial.js",
+        "src/main.js",
+        "tools/browser/backlog_release_smoke.mjs",
+        "tools/browser/selected_slash_smoke.mjs",
+        "tools/github/verify_pages.py"
+      ],
+      "path_count": 12
+    },
+    {
+      "sha": "0e950b6f5074e39b94700034a56a942bfefe2cfd",
+      "committed_at": "2026-10-03T04:16:31Z",
+      "subject": "docs: verify one-hand recovery trial and record two-hand regression",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/PLAYTEST_STAGES.md",
+        "docs/codex_team/README.md",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-03.md",
+        "docs/strike/arm_recovery_activation_round1.json",
+        "docs/strike/arm_recovery_activation_round1.md",
+        "public/development-plan.html",
+        "tools/browser/arm_recovery_trial.mjs",
+        "tools/sim/experiments/summarize_arm_recovery_activation.py"
+      ],
+      "path_count": 10
+    },
+    {
+      "sha": "912e0f65cb82c9082e82514989832c6379a19d74",
+      "committed_at": "2026-10-03T04:10:58Z",
+      "subject": "feat: add optional one-hand recovery activation trial",
+      "paths": [
+        "public/feature-lab.html",
+        "src/arm_recovery_activation.js",
+        "src/arm_recovery_trial.js",
+        "src/fighter.js",
+        "src/main.js",
+        "tools/sim/experiments/arm_hit_terms_probe.mjs",
+        "tools/sim/experiments/arm_recovery_activation_candidate.mjs",
+        "tools/tests/arm_recovery_activation.mjs"
+      ],
+      "path_count": 8
+    },
+    {
+      "sha": "f673e1693c455d543d28238d8e775179302933ad",
+      "committed_at": "2026-10-03T04:04:37Z",
+      "subject": "test: keep both weapon arms on a consistent recovery activation",
+      "paths": [
+        "tools/sim/experiments/arm_hit_terms_probe.mjs",
+        "tools/sim/experiments/arm_recovery_activation_candidate.mjs"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "f7053b855b0b399879a2a2deee4d2fb6e9d5fde6",
+      "committed_at": "2026-10-03T04:02:46Z",
+      "subject": "test: screen recovery activation across healthy and wounded two-hand control",
+      "paths": [
+        "tools/sim/experiments/arm_hit_terms_probe.mjs"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "1c2c6c9e8b825972d14827ddba0dd0e2671977d7",
+      "committed_at": "2026-10-03T04:00:32Z",
+      "subject": "test: add healthy controls for recovery activation split",
+      "paths": [
+        "tools/sim/experiments/arm_hit_terms_probe.mjs",
+        "tools/sim/experiments/arm_recovery_activation_candidate.mjs"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "eae180ad1760634e5e7a3afd601f4325db06a13f",
+      "committed_at": "2026-10-03T03:59:14Z",
+      "subject": "test: isolate main arm activation during actual injury recovery",
+      "paths": [
+        "tools/sim/experiments/arm_hit_terms_probe.mjs",
+        "tools/sim/experiments/arm_recovery_activation_candidate.mjs"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "605fd47a89d5299d501aff7e53ab8aaee09c02bc",
+      "committed_at": "2026-10-03T03:36:57Z",
+      "subject": "docs: record actual arm-hit control and recovery tradeoffs",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/README.md",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-03.md",
+        "docs/strike/arm_hit_reinput_round1.json",
+        "docs/strike/arm_hit_reinput_round1.md",
+        "public/development-plan.html",
+        "tools/sim/experiments/summarize_arm_hit_reinput.py"
+      ],
+      "path_count": 8
+    },
+    {
+      "sha": "ee3929099183eedfcb4307c2d60c56a4de18bf59",
+      "committed_at": "2026-10-03T03:31:33Z",
+      "subject": "test: read arm reach envelope from runtime geometry",
+      "paths": [
+        "tools/sim/experiments/arm_hit_reinput_probe.mjs"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "cd4b1fe37305ce2f3bafc66b73464bd660a1b30a",
+      "committed_at": "2026-10-03T03:31:09Z",
+      "subject": "test: observe real hit recovery and renewed foot support",
+      "paths": [
+        "tools/sim/experiments/arm_hit_reinput_probe.mjs"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "3e93fc817660d72f72c057f5f678675e78497326",
+      "committed_at": "2026-10-03T03:28:58Z",
+      "subject": "test: replay actual arm wounds into interrupted input",
+      "paths": [
+        "tools/sim/experiments/arm_hit_reinput_probe.mjs"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "78c225ed44e5af0d0f59bfcae9d4316b937a0da0",
+      "committed_at": "2026-10-03T02:32:45Z",
+      "subject": "Record turn and guard regressions and bounded arm injury follow-up",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/README.md",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-03.md",
+        "docs/strike/edge_arm_wound_round1.json",
+        "docs/strike/edge_turn_guard_round4.json",
+        "docs/strike/edge_turn_guard_round4.md",
+        "docs/strike/edge_turn_input_boundary.json",
+        "public/development-plan.html",
+        "tools/sim/experiments/summarize_edge_turn_guard.py"
+      ],
+      "path_count": 10
+    },
+    {
+      "sha": "60edb7680012d2de0e8d07b67b087098fa9b49b6",
+      "committed_at": "2026-10-03T02:30:14Z",
+      "subject": "Derive touch activity from the actual delta at segment boundaries",
+      "paths": [
+        "tools/sim/experiments/edge_turn_guard_probe.mjs"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "26fd635d9e3c6e605311f935ea2b2125034d13da",
+      "committed_at": "2026-10-03T02:25:56Z",
+      "subject": "Start bounded arm-injury follow-up through the actual wound API",
+      "paths": [
+        "tools/sim/experiments/edge_turn_guard_probe.mjs"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "0573f079c56d9ed010e321b4dadbf616485156c9",
+      "committed_at": "2026-10-03T02:22:45Z",
+      "subject": "Test independent plane-potential blending at the mixed-normal boundary",
+      "paths": [
+        "tools/sim/experiments/edge_transition_candidate.mjs",
+        "tools/sim/experiments/edge_turn_guard_probe.mjs"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "716b100c0a165d995d4aa6bd0e73f99bb2930e46",
+      "committed_at": "2026-10-03T02:21:09Z",
+      "subject": "Isolate position and reaction-relative damping after an identical turn prefix",
+      "paths": [
+        "tools/sim/experiments/edge_transition_candidate.mjs",
+        "tools/sim/experiments/edge_turn_guard_probe.mjs"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "3451fcf83e91341fb5ff7700227d07ccac74d240",
+      "committed_at": "2026-10-03T02:18:32Z",
+      "subject": "Accumulate guard reinput deltas after actual auto-return",
+      "paths": [
+        "tools/sim/experiments/edge_turn_guard_probe.mjs"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "d0b56d87b5bd47ae6a43f6a71b5e0a3875523755",
+      "committed_at": "2026-10-03T02:18:31Z",
+      "subject": "Add isolated native body-turn and guard transition probe",
+      "paths": [
+        "tools/sim/experiments/edge_turn_guard_probe.mjs"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "fc7234d20e586c9fb1266a2dfea1d5eceae2028e",
+      "committed_at": "2026-10-03T01:37:38Z",
+      "subject": "Record blade-plane torque evidence and mobile trial validation",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/README.md",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-03.md",
+        "docs/strike/edge_plane_torque_mobile.json",
+        "docs/strike/edge_plane_torque_round3.json",
+        "docs/strike/edge_plane_torque_round3.md",
+        "public/development-plan.html",
+        "tools/sim/experiments/summarize_edge_plane.py"
+      ],
+      "path_count": 9
+    },
+    {
+      "sha": "65c30a7586e6f4ddcf5a8e762ab1ed5e4bc58b43",
+      "committed_at": "2026-10-03T01:31:14Z",
+      "subject": "Prepare a session-only player blade-plane comparison for mobile",
+      "paths": [
+        "public/feature-lab.html",
+        "src/edge_torque_trial.js",
+        "src/main.js",
+        "tools/browser/edge_torque_trial.mjs",
+        "tools/browser/target_correction_probe.mjs"
+      ],
+      "path_count": 5
+    },
+    {
+      "sha": "ab23a8daacec40af86fcc30aef38c8e65367faca",
+      "committed_at": "2026-10-03T01:26:59Z",
+      "subject": "Check plane torque from spawn across strokes, release and weak correction",
+      "paths": [
+        "tools/sim/experiments/edge_plane_strokes_probe.mjs"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "f0293433469a7d3625831778f57c3489bf2e87bf",
+      "committed_at": "2026-10-03T01:23:29Z",
+      "subject": "Add an isolated continuous blade-plane alignment torque option",
+      "paths": [
+        "src/edge_torque.js",
+        "src/fighter.js",
+        "tools/sim/edge_torque.test.mjs",
+        "tools/sim/experiments/edge_transition_probe.mjs",
+        "tools/sim/experiments/intent_edge_combat_probe.mjs"
+      ],
+      "path_count": 5
+    },
+    {
+      "sha": "15d15380159300c5bb56dadee624338910e4981e",
+      "committed_at": "2026-10-03T01:21:35Z",
+      "subject": "Compare plane torque against equal-peak strength and ordinary alignment",
+      "paths": [
+        "tools/sim/experiments/edge_transition_candidate.mjs",
+        "tools/sim/experiments/edge_transition_probe.mjs"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "bfc16b15571721f4e55fc52ca95128baea0ff748",
+      "committed_at": "2026-10-03T01:19:58Z",
+      "subject": "Split point-plane transition terms and test a continuous plane torque",
+      "paths": [
+        "tools/sim/experiments/edge_transition_candidate.mjs",
+        "tools/sim/experiments/edge_transition_probe.mjs"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "7f236ce38c39b69f47675a4c503ba4734b9fde2f",
+      "committed_at": "2026-10-03T01:03:44Z",
+      "subject": "Record edge transition diagnostics, candidate limits and next control experiment",
+      "paths": [
+        "docs/codex_team/ACTIVE_PLAN.md",
+        "docs/codex_team/README.md",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-03.md",
+        "docs/strike/edge_transition_round2.json",
+        "docs/strike/edge_transition_round2.md",
+        "public/development-plan.html",
+        "tools/sim/experiments/summarize_edge_transition.py"
+      ],
+      "path_count": 8
+    },
+    {
+      "sha": "6e86ca652c35ab10d95586f06a087be2704f7f2e",
+      "committed_at": "2026-10-03T01:02:35Z",
+      "subject": "Separate continuous elevation from commanded plane memory",
+      "paths": [
+        "tools/sim/experiments/edge_transition_candidate.mjs",
+        "tools/sim/experiments/edge_transition_probe.mjs"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "9a581855b23555419553740d9fab6649493bc273",
+      "committed_at": "2026-10-03T00:58:15Z",
+      "subject": "Test commanded cut-point translation as a plane input",
+      "paths": [
+        "tools/sim/experiments/edge_transition_candidate.mjs",
+        "tools/sim/experiments/edge_transition_probe.mjs"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "f84ba8812eb3d8086ec31ebe60e4941bd9e778ae",
+      "committed_at": "2026-10-03T00:54:02Z",
+      "subject": "Observe ordinary edge alignment alongside the continuous target candidate",
+      "paths": [
+        "tools/sim/experiments/edge_transition_probe.mjs"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "bc69b22ffc3bc84e4fc1db28f4cf69f8647e64e3",
+      "committed_at": "2026-10-03T00:52:07Z",
+      "subject": "Add an isolated continuous-elevation edge-plane research option",
+      "paths": [
+        "src/edge_intent.js",
+        "src/fighter.js",
+        "tools/sim/edge_intent.test.mjs",
+        "tools/sim/experiments/edge_transition_candidate.mjs",
+        "tools/sim/experiments/edge_transition_probe.mjs",
+        "tools/sim/experiments/intent_edge_combat_probe.mjs"
+      ],
+      "path_count": 6
+    },
+    {
+      "sha": "c2183babbf81f52663951ec17bf7154451abf50e",
+      "committed_at": "2026-10-03T00:48:49Z",
+      "subject": "Compare measured-motion plane memory against commanded plane transitions",
+      "paths": [
+        "tools/sim/experiments/edge_transition_candidate.mjs",
+        "tools/sim/experiments/edge_transition_probe.mjs"
+      ],
+      "path_count": 2
+    }
+  ],
+  "previous_report_id": "yoonjl-svg/halfsword-codex@2026-10-02T23:30+09:00",
+  "previous_source_sha": "406395d7a00358eb6bedb179bf43aaecc74bac51",
+  "deployment": {
+    "status": "observed_success",
+    "query_limit": 100,
+    "run_url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37127010949",
+    "head_sha": "b23f73225ab8f884cf48d3a66174cec7585eb449",
+    "observed_updated_at": "2026-10-03T13:41:29Z",
+    "cutoff_time_basis": "run updated_at; conservative completion proxy",
+    "currently_live_verified": false
+  },
+  "workflow_run_url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37137062642",
+  "notes_heading_normalization": {
+    "policy": "trailing-unnumbered-h2-to-h3-v1",
+    "count": 0,
+    "trailing_appendices_demoted": [],
+    "raw_notes_hash_preserved": true
+  },
+  "notes_link_rewrite": {
+    "basis": "source-note-relative paths pinned to source_sha",
+    "count": 13,
+    "raw_notes_hash_preserved": true
+  },
+  "markdown_sha256": "08b5a61b5dd03b82fddd508ae684e82e0816bdabcbf5d433c12945b523c827c9"
+}
