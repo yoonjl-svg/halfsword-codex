@@ -1,0 +1,248 @@
+{
+  "schemaVersion": 1,
+  "verifiedUTC": "2026-10-03T16:20:28.826035+00:00",
+  "codeSourceCommit": "41bbe619de58a4ed953f0e3c415ec37abcba39cf",
+  "deliveryVerifiedCommit": "41bbe619de58a4ed953f0e3c415ec37abcba39cf",
+  "repository": "yoonjl-svg/halfsword-codex",
+  "publicGame": "https://yoonjl-svg.github.io/halfsword-codex/",
+  "legacyInput": "https://yoonjl-svg.github.io/halfsword-codex/?mobileVerticalGain=1",
+  "developmentPlan": "https://yoonjl-svg.github.io/halfsword-codex/development-plan.html",
+  "pass": true,
+  "decisionBasis": "User preferred B and requested compensation of both distance and speed. Existing touch-only Y gain1.35 is now ordinary default; physical controller limits/defaults are not promoted.",
+  "actions": {
+    "pages": {
+      "id": 37136157289,
+      "headSha": "41bbe619de58a4ed953f0e3c415ec37abcba39cf",
+      "conclusion": "success"
+    },
+    "regression": {
+      "id": 37136156786,
+      "headSha": "41bbe619de58a4ed953f0e3c415ec37abcba39cf",
+      "actualCheckoutSHA": "41bbe619de58a4ed953f0e3c415ec37abcba39cf",
+      "sourceStable": true,
+      "cacheUsed": false,
+      "conclusion": "success",
+      "checks": [
+        {
+          "id": "force_ledger",
+          "pass": true,
+          "exitCode": 0,
+          "error": null,
+          "resultError": null
+        },
+        {
+          "id": "grip_reaction",
+          "pass": true,
+          "exitCode": 0,
+          "error": null,
+          "resultError": null
+        },
+        {
+          "id": "cut_reaction",
+          "pass": true,
+          "exitCode": 0,
+          "error": null,
+          "resultError": null
+        },
+        {
+          "id": "arm_capacity",
+          "pass": true,
+          "exitCode": 0,
+          "error": null,
+          "resultError": null
+        },
+        {
+          "id": "arm_duel",
+          "pass": true,
+          "exitCode": 0,
+          "error": null,
+          "resultError": null
+        },
+        {
+          "id": "build",
+          "pass": true,
+          "exitCode": 0,
+          "error": null,
+          "resultError": null
+        }
+      ]
+    }
+  },
+  "local": {
+    "pass": true,
+    "rows": 5,
+    "regressionPass": true,
+    "regressionSourceStable": true,
+    "pureMappingChecks": 51
+  },
+  "publicMobile": {
+    "pass": true,
+    "rows": 5,
+    "errorCount": 0,
+    "HTTPFailureCount": 0,
+    "requestFailureCount": 0,
+    "blockedRequests": 0,
+    "TLSValidationEnabled": true,
+    "cases": [
+      {
+        "id": "ordinary-root-card-entry",
+        "pass": true,
+        "inputGain": 1.35,
+        "newObjects": {
+          "player": true,
+          "enemy": true,
+          "world": true,
+          "combat": true
+        },
+        "gestureMoveCount": 7
+      },
+      {
+        "id": "default-input-mobileVerticalGain=1",
+        "pass": true,
+        "inputGain": 1,
+        "newObjects": {
+          "player": true,
+          "enemy": true,
+          "world": true,
+          "combat": true
+        },
+        "gestureMoveCount": 7
+      },
+      {
+        "id": "default-input-mobileVerticalGain=NaN",
+        "pass": true,
+        "inputGain": 1.35,
+        "newObjects": {
+          "player": true,
+          "enemy": true,
+          "world": true,
+          "combat": true
+        },
+        "gestureMoveCount": 7
+      },
+      {
+        "id": "default-input-wristBraking=available",
+        "pass": true,
+        "inputGain": 1.35,
+        "newObjects": {
+          "player": true,
+          "enemy": true,
+          "world": true,
+          "combat": true
+        },
+        "gestureMoveCount": 7
+      },
+      {
+        "id": "development-plan",
+        "pass": true,
+        "inputGain": null,
+        "newObjects": null,
+        "gestureMoveCount": 0
+      }
+    ],
+    "scope": "Public root portrait menu/landscape card0 play and card1 new-round restart, actual native trusted tap/drag/release/reinput and consumed sums; explicit gain1, invalid override fallback1.35, disabled wrist research URL; responsive phone plan portrait/landscape. No physical-device feel or contact efficacy claim."
+  },
+  "publicFiles": [
+    {
+      "path": "index.html",
+      "HTTP": 200,
+      "bytes": 19274,
+      "sha256": "797fca450b4df3856302362bc27677fc41cbf92fee76112683971c4bc84eb771",
+      "expectedSHA256": "797fca450b4df3856302362bc27677fc41cbf92fee76112683971c4bc84eb771",
+      "exact": true
+    },
+    {
+      "path": "feature-lab.html",
+      "HTTP": 200,
+      "bytes": 13422,
+      "sha256": "b3f2512159e6665cc2b3574cb1175381edb2d953c76b375a4cf52129bacffef7",
+      "expectedSHA256": "b3f2512159e6665cc2b3574cb1175381edb2d953c76b375a4cf52129bacffef7",
+      "exact": true
+    },
+    {
+      "path": "sounds.html",
+      "HTTP": 200,
+      "bytes": 3202,
+      "sha256": "ee6af3df878f84b01b2e66930016698ab4bec7fb8266b665776c3d49d1eade40",
+      "expectedSHA256": "ee6af3df878f84b01b2e66930016698ab4bec7fb8266b665776c3d49d1eade40",
+      "exact": true
+    },
+    {
+      "path": "development-plan.html",
+      "HTTP": 200,
+      "bytes": 55611,
+      "sha256": "b1d6e5f9110e5fc4130022d08ff31f5c9b9898b984424abaaf84b9160bec44d1",
+      "expectedSHA256": "b1d6e5f9110e5fc4130022d08ff31f5c9b9898b984424abaaf84b9160bec44d1",
+      "exact": true
+    },
+    {
+      "path": "assets/main-DtIBkKL2.js",
+      "HTTP": 200,
+      "bytes": 3487364,
+      "sha256": "b580772aa709984ec5afe795b33013486603a115846db331bbbd95711400d223",
+      "expectedSHA256": "b580772aa709984ec5afe795b33013486603a115846db331bbbd95711400d223",
+      "exact": true
+    },
+    {
+      "path": "assets/sound-BHoekYBu.js",
+      "HTTP": 200,
+      "bytes": 83421,
+      "sha256": "bbefd90c10c59099be122e217279b043ce749d788d0657baaae6c88e985e15b4",
+      "expectedSHA256": "bbefd90c10c59099be122e217279b043ce749d788d0657baaae6c88e985e15b4",
+      "exact": true
+    },
+    {
+      "path": "assets/soundgen-BDle7v6J.js",
+      "HTTP": 200,
+      "bytes": 35448,
+      "sha256": "0dfd106288146aee573b3b46c7d346284a813d9371170431266054299125cdaf",
+      "expectedSHA256": "0dfd106288146aee573b3b46c7d346284a813d9371170431266054299125cdaf",
+      "exact": true
+    },
+    {
+      "path": "assets/sounds-B3gpbtj4.js",
+      "HTTP": 200,
+      "bytes": 19744,
+      "sha256": "b5a6c2da466d40f64f07b08f91bdc180002efd263e926805390e90e15cba6325",
+      "expectedSHA256": "b5a6c2da466d40f64f07b08f91bdc180002efd263e926805390e90e15cba6325",
+      "exact": true
+    }
+  ],
+  "evidence": {
+    "local-default-01/result.json": {
+      "bytes": 161000,
+      "sha256": "da8defc064aa3f9791c0966f78bb7cc6260937a109b63441f34c0ac52708b0a3"
+    },
+    "public-default-01/result.json": {
+      "bytes": 161984,
+      "sha256": "26b33b96056ebd03dd294aa54c438745d7253939a03e17e5021131e1e1d1193e"
+    },
+    "public-bytes.json": {
+      "bytes": 2424,
+      "sha256": "859e283433fb61990493a937ff5e257010538de52f8770c7464838bba17f539c"
+    },
+    "regression-02/result.json": {
+      "bytes": 231829,
+      "sha256": "1e941a3cb24e460bbaf227dc9dbab575b7683284d32338b68d6cf5c1f8e29442"
+    },
+    "mobile-default-smoke.mjs": {
+      "bytes": 27901,
+      "sha256": "f56a97ca12eaed1bdca4657d24c32cc4804739b0fa6b13f610e9cd141f8afaef"
+    },
+    "mobile-default-public-smoke.mjs": {
+      "bytes": 28334,
+      "sha256": "5175735b3efd1a6f1292ea20cf7a45de830235efd3d372ed277d9fd557a19ba4"
+    }
+  },
+  "earlierIncompleteRegression": {
+    "sourceCommit": "cd0eabccfc0b80018757db3fbd8160ae523b72e4",
+    "outcome": "arm_duel timeout180s under concurrent rendered browser, source stable. Original raw failure preserved. Full suite rerun alone on41bbe61 passed149.2s. Incomplete batch not counted as pass."
+  },
+  "wristPlanningCandidate": {
+    "publicActive": false,
+    "researchSourceCommit": "63be055002eb617bb2d7283207b78ee855d768e9",
+    "physicsExecutions": 20,
+    "compiledTouchCases": 4,
+    "decision": "Withheld: strong downstroke retained, no controlled held-stop change, small post-reversal difference and direction-error regression; credible gameplay opening not established."
+  }
+}

@@ -6,7 +6,7 @@
 
 `?mobileVerticalGain=1`로 이전 배율을 실행할 수 있다. 잘못된 override는1.35로 돌아온다. `inputComparison=vertical`의 비교판은 계속 검술 보정0/보통 고정이고, 일반 게임은 기존 저장한 검술 보정·난이도를 사용한다. fresh profile 검술 보정.7/보통/autoGuardtrue를 입력 배율과 혼동하지 않는다. 사용자 엄지의 실측 최적값이나 전신 물리 완성을 선언하지 않는다.
 
-순수 기존 매핑51검사 PASS. 완성 빌드·공개 root 카드 진입·실제 touch 소비·중단/재입력·재시작·이전 배율/잘못된 override·보류 제동 URL·폰 계획 검사를 준비했다. 실제 전달 상태는 별도 영수증에 기록하며 커밋·push·Actions만으로 공개 반영을 선언하지 않는다.
+소스 `41bbe61`의 실제 전달을 완료했다. 순수 매핑51검사, 단독 전체 회귀6묶음, 로컬/공개 완성 게임4조건 및 폰 계획1조건 PASS다. 공개 root 실제 카드0 플레이/카드1 새 world 재시작, native trusted tap·drag·중단·재입력의 소비 합계, 이전1배/잘못된 override1.35/보류 제동 URL, 계획 세로/가로 화면을 확인했다. 오류/HTTP 실패0, 공개8파일이 build와 byte exact다. Pages37136157289·회귀37136156786 성공과 실제 checkout/source stable을 확인했다. [전달 영수증](mobile_vertical_default_release.json). 실제 기기 엄지의 추가 최적화나 접촉 효능 검사는 아니다.
 
 - 일반 게임: https://yoonjl-svg.github.io/halfsword-codex/
 - 이전 배율: https://yoonjl-svg.github.io/halfsword-codex/?mobileVerticalGain=1
