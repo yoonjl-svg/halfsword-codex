@@ -47,7 +47,7 @@ await RAPIER.init();
 //  Fighter 생성자가 알아서 getWeapon()으로 찾는다. 없으면 기본 롱소드)
 const params = new URLSearchParams(location.search);
 // Internal comparison; ordinary games retain the existing arm until validated.
-const onehandArmModel = params.get('onehandArm') === 'bladeAware' ? 'bladeAware' : 'legacy';
+const onehandArmModel = params.get('onehandArm') === 'manual' ? 'manual' : 'legacy';
 // A/B input trials use the same session-only menu values; saved preferences survive.
 const inputComparison = params.get('inputComparison') === 'vertical';
 const targetCorrectionTrial = configureTargetCorrectionTrial(params);

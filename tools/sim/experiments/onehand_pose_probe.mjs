@@ -21,7 +21,7 @@ const model = options.model ?? 'legacy';
 const repeatObservers = options.observerRepeats !== 'false';
 if (!output || fs.existsSync(output) || fs.existsSync(receiptPath) || !weapons.length || weapons.length > 4 ||
     new Set(weapons).size !== weapons.length || weapons.some(w => !['sabre', 'falchion', 'rapier', 'longsword'].includes(w)) ||
-    !['legacy', 'bladeAware'].includes(model) || !Number.isFinite(skill) || skill < 0 || skill > 1 ||
+    !['legacy', 'manual'].includes(model) || !Number.isFinite(skill) || skill < 0 || skill > 1 ||
     (options.observerRepeats && !['true', 'false'].includes(options.observerRepeats))) throw Error('Invalid options or existing output');
 
 const sha = value => createHash('sha256').update(value).digest('hex');

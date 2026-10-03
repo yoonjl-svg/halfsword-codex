@@ -10,7 +10,7 @@ const base=new URL(args.base??'http://127.0.0.1:4279/'),out=args.out;assert.ok(o
 assert.ok(base.hostname==='127.0.0.1'||base.hostname==='localhost'||(base.origin==='https://yoonjl-svg.github.io'&&base.pathname==='/halfsword-codex/'));
 const weapons=(args.weapons??'sabre,rapier').split(','),poses=(args.poses??'side,high').split(',');
 assert.ok(poses.every(x=>['side','high'].includes(x)));const correction=args.correction??'none';assert.ok(['none','weak','normal'].includes(correction));
-const model=args.model??'legacy';assert.ok(['legacy','bladeAware'].includes(model));
+const model=args.model??'legacy';assert.ok(['legacy','manual'].includes(model));
 const launch={executablePath:'/usr/bin/chromium',args:['--no-sandbox','--disable-background-networking','--use-gl=angle','--use-angle=swiftshader']};
 if(base.protocol==='https:'){const p=new URL(process.env.HTTPS_PROXY||process.env.HTTP_PROXY);launch.proxy={server:`${p.protocol}//${p.host}`};}
 const browser=await chromium.launch(launch),rows=[],started=new Date();
