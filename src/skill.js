@@ -109,7 +109,8 @@ export class Skill {
     if (f.weapon?.gun) return gunCanFire(f, { now: true }); // 권총: 찌르는 동작 없이 사격 자세(gunPose, 자동 조준 + 흔들림)의 지금 총신 방향으로 바로 쏜다 (AI 조준 보정은 gunAI)
     // 지금 손 목표 (몸 기준 [앞, 위, 칼 든 쪽]). 검술 보정이 다 걸려 있으면 자세 지도의 손, 덜 걸려 있으면(보정 약·끔)
     //  날것 손 위치와 섞인 실제 손 목표(fighter.handBase)에서 뻗는다 — 자세 지도의 손에서 뻗으면 실제 손보다 뒤에서 시작해 덜 나갔다
-    const g = f.guardWeight() >= 1 || !f.handBase ? f.guardPose.hand : f.handBase;
+    const manualOnehand = f.onehandArmModel === 'manual' && f.guardPose.oneHand && !f.weaponCfg.twoHand;
+    const g = (!manualOnehand && f.guardWeight() >= 1) || !f.handBase ? f.guardPose.hand : f.handBase;
     const down = f.finish.on && f.finish.amt > 0.5; // 쓰러진 상대: 누운 몸을 내리찌른다 (finish.js 가 겨눈 곳)
     // 찌르기 무기(weapons.js THRUST_STYLE)는 더 멀리 찌르고 더 빨리 자세로 돌아온다.
     //  (겨누기·뻗기까지 빠르게 하면 팔이 손 목표를 따라가지 못해 오히려 덜 뻗는다 — 측정: 레이피어 탭 상처 60% → 20%)

@@ -46,7 +46,7 @@ await RAPIER.init();
 // 테스트용 URL 파라미터: ?weapon=monohoshizao&foeWeapon=chicken (무기 id는 weapons.js의 WEAPONS 키,
 //  Fighter 생성자가 알아서 getWeapon()으로 찾는다. 없으면 기본 롱소드)
 const params = new URLSearchParams(location.search);
-// Internal comparison; ordinary games retain the existing arm until validated.
+// Session-only comparison; ordinary games retain their current hand mapping.
 const onehandArmModel = params.get('onehandArm') === 'manual' ? 'manual' : 'legacy';
 // A/B input trials use the same session-only menu values; saved preferences survive.
 const inputComparison = params.get('inputComparison') === 'vertical';
@@ -1368,7 +1368,8 @@ let guardShown = -1;
 let guardTimer = 0;
 function updateGuardName(dt) {
   const gun = player.weapon?.gun; // 권총: 칼 자세 대신 '사격 자세' 하나만 (gun.js GUN_STANCE)
-  const g = settings.guardNames && (gun || player.guardWeight() > 0.5) && player.alive ? (gun ? 'gun' : player.guardPose.nearest) : -1;
+  const manualOnehand = player.onehandArmModel === 'manual' && player.guardPose.oneHand && !player.weaponCfg.twoHand;
+  const g = settings.guardNames && !manualOnehand && (gun || player.guardWeight() > 0.5) && player.alive ? (gun ? 'gun' : player.guardPose.nearest) : -1;
   if (g !== guardShown && (g === 'gun' || g >= 0)) {
     guardShown = g;
     guardName.innerHTML = '';

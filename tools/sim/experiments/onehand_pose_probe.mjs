@@ -12,16 +12,18 @@ const options = Object.fromEntries(process.argv.slice(2).map(arg => {
   if (!match) throw Error('Use --out=NEW_PATH [--weapons=sabre,falchion,rapier,longsword] [--skill=0] [--observerRepeats=true]');
   return [match[1], match[2]];
 }));
-if (Object.keys(options).some(key => !['out', 'weapons', 'skill', 'observerRepeats', 'model'].includes(key))) throw Error('Unknown option');
+if (Object.keys(options).some(key => !['out', 'weapons', 'skill', 'observerRepeats', 'model', 'sequence', 'autoGuard'].includes(key))) throw Error('Unknown option');
 const output = options.out;
 const receiptPath = output ? output + '.receipt.json' : null;
 const weapons = (options.weapons ?? 'sabre,falchion,rapier,longsword').split(',');
 const skill = Number(options.skill ?? 0);
-const model = options.model ?? 'legacy';
+const models = (options.model ?? 'legacy') === 'both' ? ['legacy', 'manual'] : [options.model ?? 'legacy'];
+const sequence = options.sequence ?? 'pose';
+const autoGuard = options.autoGuard === 'true';
 const repeatObservers = options.observerRepeats !== 'false';
 if (!output || fs.existsSync(output) || fs.existsSync(receiptPath) || !weapons.length || weapons.length > 4 ||
     new Set(weapons).size !== weapons.length || weapons.some(w => !['sabre', 'falchion', 'rapier', 'longsword'].includes(w)) ||
-    !['legacy', 'manual'].includes(model) || !Number.isFinite(skill) || skill < 0 || skill > 1 ||
+    models.some(m => !['legacy', 'manual'].includes(m)) || !['pose', 'motion'].includes(sequence) || (options.autoGuard && !['true','false'].includes(options.autoGuard)) || !Number.isFinite(skill) || skill < 0 || skill > 1 ||
     (options.observerRepeats && !['true', 'false'].includes(options.observerRepeats))) throw Error('Invalid options or existing output');
 
 const sha = value => createHash('sha256').update(value).digest('hex');
@@ -75,12 +77,25 @@ const manifest = () => Object.fromEntries(files.sort().map(file => [file, sha(fs
 const head = () => execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim();
 
 // Consecutive nominal changes are added to the live pad; holds never overwrite the pad.
-const phases = [
+const phases = sequence === 'pose' ? [
   { name: 'spawn_hold', seconds: .25, targetM: [.15, 0] },
   { name: 'drag_side', seconds: .6, targetM: [.52, .03] },
   { name: 'side_hold', seconds: 2, targetM: [.52, .03] },
   { name: 'drag_high', seconds: .6, targetM: [.02, .52] },
   { name: 'high_hold', seconds: 2, targetM: [.02, .52] },
+] : [
+  { name: 'spawn_hold', seconds: .25, targetM: [.15, 0] },
+  { name: 'drag_side', seconds: .6, targetM: [.52, .03] },
+  { name: 'side_hold', seconds: .4, targetM: [.52, .03] },
+  { name: 'extend_side', seconds: .35, targetM: [.61, .03] },
+  { name: 'extended_hold', seconds: .5, targetM: [.61, .03] },
+  { name: 'release', seconds: .5, targetM: [.61, .03], held: false },
+  { name: 'reverse', seconds: .6, targetM: [-.42, .03] },
+  { name: 'reverse_hold', seconds: .5, targetM: [-.42, .03] },
+  { name: 'tap', seconds: .5, targetM: [-.42, .03], held: false, tap: true },
+  { name: 'drag_high', seconds: .6, targetM: [.42, .42] },
+  { name: 'high_hold', seconds: .75, targetM: [.42, .42] },
+  { name: 'release_high', seconds: .5, targetM: [.42, .42], held: false },
 ];
 const schedule = [];
 let nominal = [.15, 0];
@@ -90,7 +105,7 @@ for (const phase of phases) {
     const next = start.map((x, axis) => x + (phase.targetM[axis] - x) * (index + 1) / count);
     const deltaM = next.map((x, axis) => x - nominal[axis]);
     schedule.push({ tick: schedule.length, timeS: schedule.length * DT, phase: phase.name,
-      intendedOffsetM: next, deltaM, held: true, active: Math.abs(deltaM[0]) + Math.abs(deltaM[1]) > 1e-5, move: [0, 0], tap: false });
+      intendedOffsetM: next, deltaM, held: phase.held !== false, active: Math.abs(deltaM[0]) + Math.abs(deltaM[1]) > 1e-5, move: [0, 0], tap: !!phase.tap && index === 0 });
     nominal = next;
   }
 }
@@ -159,7 +174,7 @@ function activeContacts(G, f, labels) {
   }
   return result;
 }
-function run(weapon, observed) {
+function run(weapon, observed, model) {
   let G, preSolver = null, motorRows = [], shoulderRows = [], currentInput = null;
   const frames = [], events = [], traceFrames = [], restores = [];
   const nativeTrace = createHash('sha256'), controllerTrace = createHash('sha256'), inputTrace = createHash('sha256');
@@ -169,11 +184,11 @@ function run(weapon, observed) {
     G = newRound({ seed: 7, walls: false, weapon, weapon2: 'longsword', gap: 1.85, skill, difficulty: 'normal', onFighter: f => { f.onehandArmModel = model; } });
     const f = G.player;
     if (f.weapon.id !== weapon || G.ai2 || G.parkEnemy || G.t !== 0) throw Error('Actual user-path scope violated');
-    f.skill.level = skill; f.skill.autoGuard = false;
+    f.skill.level = skill; f.skill.autoGuard = autoGuard;
     const first = { nativeSha256: sha(G.world.takeSnapshot()), controllerSha256: sha(JSON.stringify(controller(G))),
       player: health(f), enemy: health(G.enemy), handOffsetM: f.handOffset.toArray(),
       weapon: f.weapon.id, twoHand: f.weaponCfg.twoHand, oneHandStance: !!f.guardPose.oneHand,
-      guardTableNames: (f.guardPose.table ?? []).map(g => g.name), skill, autoGuard: false,
+      guardTableNames: (f.guardPose.table ?? []).map(g => g.name), skill, autoGuard,
       models: { grip: CONFIG.GRIP.reactionModel, support: CONFIG.BODY.supportModel, weightMode: CONFIG.BODY.weightMode,
         onehandArm: f.onehandArmModel, arm: f.armTorqueModel ?? 'legacy', edge: f.edgeTorqueModel ?? 'legacy', armRecovery: f.armRecoveryModel ?? 'legacy',
         cutting: G.combat.cutReactionModel ?? 'legacy', assist: CONFIG.GAIT.assist, catchMode: CONFIG.GAIT.catchMode, catchScale: CONFIG.GAIT.catchScale } };
@@ -216,10 +231,11 @@ function run(weapon, observed) {
     G.before = () => {
       const tick = Math.round(G.t / DT), request = schedule[tick];
       const beforePadM = f.handOffset.toArray();
-      f.skill.level = skill; f.skill.autoGuard = false;
+      f.skill.level = skill; f.skill.autoGuard = autoGuard;
       f.handOffset.x += request.deltaM[0]; f.handOffset.y += request.deltaM[1];
       f.handHeld = request.held; f.inputActive = request.active; f.move.set(0, 0); f.stickX = f.stickY = 0;
-      currentInput = { request, beforePadM, appliedPadM: f.handOffset.toArray(), skill: f.skill.level, autoGuard: f.skill.autoGuard };
+      const tapAccepted = request.tap ? f.skill.thrust() : null;
+      currentInput = { request, tapAccepted, handBaseM: f.handBase ? [...f.handBase] : null, tapStartM: f.skill.tap?.h0 ? [...f.skill.tap.h0] : null, beforePadM, appliedPadM: f.handOffset.toArray(), skill: f.skill.level, autoGuard: f.skill.autoGuard };
       inputTrace.update(JSON.stringify(currentInput));
     };
     for (let tick = 0; tick < schedule.length; tick++) {
@@ -244,7 +260,7 @@ function run(weapon, observed) {
         postSolverPose: anatomy(f), contacts: activeContacts(G, f, labels),
         wristCapNm: f.debug.wristCap ?? null, wristSwingBeforeTwistNm: f.debug.wristTorque.toArray(), wristBrake: !!f.wristBrake });
     }
-    return { weapon, seed: 7, observed, first, stopReason, durationS: G.t, frames, traceFrames, events,
+    return { weapon, model, seed: 7, observed, first, stopReason, durationS: G.t, frames, traceFrames, events,
       nativeTraceSha256: nativeTrace.digest('hex'), controllerTraceSha256: controllerTrace.digest('hex'), inputTraceSha256: inputTrace.digest('hex'),
       eventsSha256: sha(JSON.stringify(events)), finite: true, wallSeconds: (performance.now() - begin) / 1000,
       final: { player: health(f), enemy: health(G.enemy) } };
@@ -257,27 +273,27 @@ function run(weapon, observed) {
 const rows = [], observerChecks = [];
 let error = null;
 try {
-  for (const weapon of weapons) {
-    const row = run(weapon, true); rows.push(row);
-    console.log(JSON.stringify({ weapon, observed: true, durationS: row.durationS, stopReason: row.stopReason, recordedSteps: row.frames.length, events: row.events.length }));
+  for (const model of models) for (const weapon of weapons) {
+    const row = run(weapon, true, model); rows.push(row);
+    console.log(JSON.stringify({ weapon, model, observed: true, durationS: row.durationS, stopReason: row.stopReason, recordedSteps: row.frames.length, events: row.events.length }));
   }
-  if (repeatObservers) for (const weapon of [...new Set([weapons[0], weapons.at(-1)])]) {
-    const original = rows.find(row => row.weapon === weapon && row.observed), repeat = run(weapon, false); rows.push(repeat);
+  if (repeatObservers) for (const model of models) for (const weapon of [...new Set([weapons[0], weapons.at(-1)])]) {
+    const original = rows.find(row => row.weapon === weapon && row.model === model && row.observed), repeat = run(weapon, false, model); rows.push(repeat);
     const fields = ['nativeTraceSha256', 'controllerTraceSha256', 'inputTraceSha256', 'eventsSha256', 'durationS'];
-    observerChecks.push({ weapon, traceExact: fields.every(field => original[field] === repeat[field]),
+    observerChecks.push({ weapon, model, traceExact: fields.every(field => original[field] === repeat[field]),
       firstExact: JSON.stringify(original.first) === JSON.stringify(repeat.first), framesExact: JSON.stringify(original.traceFrames) === JSON.stringify(repeat.traceFrames) });
   }
 } catch (failure) { error = String(failure?.stack ?? failure); }
 const sourceAfter = manifest(), sourceCommitAfter = head();
 const sourceStable = sourceCommit === sourceCommitAfter && JSON.stringify(sourceBefore) === JSON.stringify(sourceAfter);
-const expectedRows = weapons.length + (repeatObservers ? new Set([weapons[0], weapons.at(-1)]).size : 0);
+const expectedRows = models.length * (weapons.length + (repeatObservers ? new Set([weapons[0], weapons.at(-1)]).size : 0));
 const measurementValid = !error && sourceStable && rows.length === expectedRows && rows.every(row => row.finite && row.traceFrames.length > 0) &&
   observerChecks.every(check => check.traceExact && check.firstExact && check.framesExact);
 const report = { schemaVersion: 1, probe: 'onehand_pose', sourceCommit, sourceCommitAfter, sourceBefore, sourceAfter, sourceStable,
   measurementValid, executionCount: rows.length, createdUTC: new Date().toISOString(), command: process.argv,
   wallSeconds: (performance.now() - started) / 1000, error, schedule, scheduleSha256, observerChecks, rows,
-  protocol: { weapons, seed: 7, timestepSeconds: DT, requestedSteps: schedule.length, model, skill, autoGuard: false,
-    settings: 'Current runtime defaults; scripted player input and original normal longsword enemy AI; gap1.85m, no walls, player movement0, no new tap. No AI2, park, wound/state/pose/velocity injection, source transforms. Explicit onehandArm model is installed on both fighters before the first controller/physics step.',
+  protocol: { weapons, seed: 7, timestepSeconds: DT, requestedSteps: schedule.length, models, sequence, skill, autoGuard,
+    settings: 'Current runtime defaults; scripted player input and original normal longsword enemy AI; gap1.85m, no walls, player movement0; motion sequence uses an original Skill.thrust call once as a tap command. No AI2, park, wound/state/pose/velocity injection, source transforms. Explicit autoGuard and onehandArm model is installed on both fighters before the first controller/physics step.',
     input: 'Initial native spawn handOffset(.15,0) retained. Nominal consecutive pad deltas generate side(.52,.03) and high(.02,.52) intent with .6s drags and2s held zero-delta intervals. Actual pad is separate from nominal intention; hand/aim targets remain under original Skill/Fighter control.',
     observations: 'Pre-solver anatomy is read after both original Fighter/cache steps and before original world.step exactly once. Motor requests and shoulder parameters wrap original calls exactly once. Post-solver contact data and all physical endpoints are read-only. Observer-off removes optional motor/manual/anatomy/contact/frame reads; hash/input/event/world-step recorder remains.',
     coordinates: 'World metre points/vectors. Physical swordRoot is the sword rigid-body origin/grip; bladeRoot/tip follow runtime local +y hiltLength/bladeLength. This does not measure rendered fingers or curved visual mesh endpoints. ElbowCurrentZRad reproduces Fighter toRotVec(restInv*parent^-1*child). Native limits are public joint getter values. IK endpoint reconstruction uses current chest and controller shoulder/elbow targets, not achieved native motor motion.',
