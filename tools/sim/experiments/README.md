@@ -1,5 +1,7 @@
 # 채택하지 않은 연구 시제품
 
+최신 회차는 [실험 색인](../../../docs/strike/EXPERIMENT_INDEX.md), [일지 계약](../../../docs/strike/EXPERIMENT_LOGGING.md)에서 찾는다. 아래는 실패 시제품의 역사 재현 안내다. 옛 결과를 재현할 때는 보고서의 고정source SHA·당시 패치/엔진/입력 해시를 준비한다. 현재HEAD 실행을 옛 결과의 재현으로 주장하지 않는다. 아래 `RECORDED_SOURCE_SHA`는 해당 원보고에서 확인해 지정하는 값이며 자동 최신HEAD가 아니다.
+
 `recovery_contact_r0.patch`는 B(받침 .1 / 반사 on / 강도 1) 위에서 시험한 첫 접촉 기반 기립 제어다. 공개 게임에는 설치하지 않는다. **정상 기립을 막고, down 상태의 공중 받침을 해소하지 못해 기각했다.**
 
 원형을 보존하는 이유는 같은 실패를 반복하지 않고 실제 실행 결과를 재검증할 수 있게 하기 위해서다. 보조 힘에서 실제 하중으로의 이전을 설계하는 근거이지 출시 후보가 아니다. 관련 계측은 `docs/strike/recovery_contact_round1_metrics.json`과 `docs/strike/physical_realism_plan.md`를 본다.
@@ -7,7 +9,7 @@
 재현은 현재 독립 저장소에서 별도 worktree를 만든 뒤 그 안에서만 한다.
 
 ```sh
-git worktree add --detach /tmp/halfsword-recovery-r0 HEAD
+git worktree add --detach /tmp/halfsword-recovery-r0 RECORDED_SOURCE_SHA
 cd /tmp/halfsword-recovery-r0
 npm ci
 git apply --check tools/sim/experiments/recovery_contact_r0.patch
@@ -34,7 +36,7 @@ node tools/sim/experiments/support_transfer_discovery.mjs legacy 1 /tmp/support-
 `support_slip_observation.patch`는 2차 probe에 읽기 전용 접촉점 분포를 추가한다. 실제 접촉/양의 raw 충격량/stance를 분리하며, 게임 소스는 변경하지 않는다. 최초 측정은 저장소 밖 worker로 수행했고 기존 6개 전체 물리 trace가 exact였다. 패치는 그 worker의 import/metadata 경로만 이식 가능하게 바꾼 것이며 적용 검사를 통과했다. 원자료 정의/해시는 2차 metrics의 `slipDiagnosis`를 본다.
 
 ```sh
-git worktree add --detach /tmp/halfsword-slip-observation HEAD
+git worktree add --detach /tmp/halfsword-slip-observation RECORDED_SOURCE_SHA
 cd /tmp/halfsword-slip-observation
 npm ci
 git apply --check tools/sim/experiments/support_slip_observation.patch

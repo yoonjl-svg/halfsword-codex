@@ -254,7 +254,7 @@ async function checkDevelopmentPlan() {
     headings: await page.locator('main h2').allTextContents(), ledgerLinks: await page.locator('a[href*="DELIVERY_BACKLOG"]').evaluateAll(nodes => nodes.map(a => ({ text: a.textContent, href: a.href }))) };
   rows.push(plan);
   fit(plan.portrait); assert.ok(plan.characters > 1000);
-  for (const title of ['중장기 방향', '48시간 작업표', '비용과 실험 규칙', '사용자 무응답·중단·승인 처리', '실제 실행 대장 · 복원 전 연구·전달 역사', '다음 승인 작업 · 재개 위치']) assert.ok(plan.headings.includes(title), `Development plan section missing: ${title}`);
+  for (const title of ['중장기 방향', '24시간 작업표', '비용과 실험 규칙', '사용자 무응답·중단·승인 처리', '실제 실행 대장 · 복원 전 연구·전달 역사', '다음 승인 작업 · 재개 위치']) assert.ok(plan.headings.includes(title), `Development plan section missing: ${title}`);
   assert.ok(plan.ledgerLinks.some(a => a.href === 'https://github.com/yoonjl-svg/halfsword-codex/blob/main/docs/codex_team/DELIVERY_BACKLOG_20261003.md'), 'Development plan has no independent-repository delivery ledger link');
   await page.screenshot({ path: join(out, 'development-plan-portrait.png'), fullPage: true });
   await page.setViewportSize(landscape); plan.landscape = await layout(); fit(plan.landscape);

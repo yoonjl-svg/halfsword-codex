@@ -72,3 +72,7 @@
 같은 입력에서 의도한 부담/빈틈이 실제로 달라지고 회전·관절·발 지지·화면 관문이 통과하면 폰 두 판으로 짧게 체감을 묻는다. 전신 물리 완성을 그 시험의 선행 조건으로 삼지 않는다. 새 근거가 없으면 이 둘을 재권유하지 않고 실제 근력 한도 경로로 이동한다. 한손 회복 활성 후보의 공개 보류, 실패한 projected 지지·budgeted 절삭 철회와 메이저 일반 적용의 사용자 확인은 유지한다.
 
 재현 도구는 `tools/sim/experiments/sword_drag_probe.mjs`, `sword_drag_duel_probe.mjs`, `summarize_sword_drag.py`다. 기본은 첫 저항 대조이며 `--trial=brake`가 별도 계획 후보다. `--weapons=zweihander --endings=reverse --response=on`/`--weapons=sabre --seeds=19 --response=on`은 이번 원인 검증의 좁은 설정이다. 항상 새 `--out` 경로를 사용한다. `tools/browser/inertia_research_screen.mjs NEW_OUTPUT`은4197포트 로컬 완성 빌드용이고 `--engage-side`/`--brake-side`가 각각 실제 접근·측면 관찰이다. Playwright/Chromium/영상용 ffmpeg를 준비해야 하며 공개 플레이 링크가 아니다. 원자료/브라우저 영상은 저장소 밖에 보존했고 집계/해시만 공개한다.
+
+## 재현 입구 보충 · 2026-10-04
+
+[실험 색인](EXPERIMENT_INDEX.md)에 고정 full SHA·protocol에서 재구성한 완전CLI·현재raw경로/bytes/SHA 지도를 연결했다. 당시argv와 재구성 명령을 구분한다. 원자료/기존결과는 바꾸지 않았고 보완을 위한 물리 재실행은 없다.

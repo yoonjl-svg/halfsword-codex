@@ -128,11 +128,11 @@ def main():
     digest = hashlib.sha256(source.encode()).hexdigest()
     content, sections = render_markdown(source)
     navigation = ''.join('<a href="#' + anchor + '">' + html.escape(title) + '</a>' for anchor, title in sections)
-    status = '로컬 생성본 · 공개 전달 확인 전' if args.publication_status == 'local' else '공개 전달 확인 완료'
+    status = '실행 계획 생성본 · 전달 상태는 기록 참조' if args.publication_status == 'local' else '공개 전달 확인 완료'
     document = '''<!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>개발 실행 계획 · Half Sword</title>
-<meta name="description" content="중장기 방향, 48시간 작업표, 실제 실행 대장과 다음 승인 작업 전체를 휴대폰에서 읽는 페이지.">
+<meta name="description" content="작은 플레이 결과물 중심의 24시간 작업표, 실험 기록과 다음 개발 과제를 휴대폰에서 읽는 페이지.">
 <style>
 :root{color-scheme:dark;--bg:#121517;--panel:#1d2226;--text:#ecedef;--muted:#bfc7cd;--link:#f2c77a;--border:#41494f}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:17px/1.7 system-ui,-apple-system,sans-serif;overflow-wrap:anywhere}
