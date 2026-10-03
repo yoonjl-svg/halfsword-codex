@@ -85,12 +85,22 @@ export async function loadEdgeTransition(){
     }
     const flatError = Math.atan2(new THREE.Vector3().crossVectors(flat,flatTarget).dot(blade),flat.dot(flatTarget));`);
   replace('    twist.addScaledVector(wTwist, -0.12 * this.twistScale);',`    const positionTwist = twist.clone();
-    const dampingTwist = wTwist.clone().multiplyScalar(-0.12 * this.twistScale);
+    const dampingReference = new THREE.Vector3();
+    if(active && diag.mode === 'reactionDamping') {
+      // Match the actual reaction split: transverse to forearm, axial to chest.
+      const rq=forearm.rotation(),cw=chest.angvel();
+      const fa=new THREE.Vector3(1,0,0).applyQuaternion(new THREE.Quaternion(rq.x,rq.y,rq.z,rq.w));
+      dampingReference.set(fw.x,fw.y,fw.z).addScaledVector(fa,(cw.x-fw.x)*fa.x+(cw.y-fw.y)*fa.y+(cw.z-fw.z)*fa.z);
+    }
+    const dampingTwist = active && diag.mode === 'reactionDamping'
+      ? blade.clone().multiplyScalar(-.12*this.twistScale*(w.dot(blade)-dampingReference.dot(blade)))
+      : wTwist.clone().multiplyScalar(-0.12 * this.twistScale);
     if (active && diag.mode === 'noPosition') twist.set(0,0,0);
     if (active && diag.mode === 'planePotential') twist.multiplyScalar(flat.dot(flatTarget));
     if (active && diag.mode === 'halfPosition') twist.multiplyScalar(.5);
     const appliedPositionTwist = twist.clone();
-    if (!(active && diag.mode === 'noDamping')) twist.addScaledVector(wTwist, -0.12 * this.twistScale);`);
+    if(active && diag.mode === 'reactionDamping') twist.add(dampingTwist);
+    else if (!(active && diag.mode === 'noDamping')) twist.addScaledVector(wTwist, -0.12 * this.twistScale);`);
   replace('    sword.addTorque(vecArg(torque), true);',`    if (diag) {
       const principal = sword.principalInertia();
       const frame = sword.principalInertiaLocalFrame();
@@ -105,6 +115,7 @@ export async function loadEdgeTransition(){
         pointCommandSpeedMps:pointCommandSpeed,pointCommandVelocityLocalMps:pointCommandVelocity?.toArray()??null,
         pointHandVelocityLocalMps:pointHandVelocity?.toArray()??null,pointAxisVelocityLocalMps:pointAxisVelocity?.toArray()??null,
         pointRawNormal:pointRawNormal?.toArray()??null,pointSignedNormal:pointSignedNormal?.toArray()??null,pointBlend,memorySignFlipped,flatSignFlipped,pointProjectionLength,
+        dampingReferenceOmega:dampingReference.toArray(),dampingReferenceAxisRadps:dampingReference.dot(blade),
         k,d,effectiveBladeInertia:1/inverseI,kDtSquaredOverI:k*this.lastDt**2*inverseI,dDtOverI:d*this.lastDt*inverseI,
         preStepOmegaAxisRadps:omega,relativeForearmOmegaAxisRadps:omega-new THREE.Vector3(fw.x,fw.y,fw.z).dot(blade),positionTwistNm:positionTwist.dot(blade),appliedPositionTwistNm:appliedPositionTwist.dot(blade),dampingTwistNm:dampingTwist.dot(blade),appliedTwistNm:twist.dot(blade),finalTorqueNm:torque.toArray(),finalTorqueAxisNm:torque.dot(blade),
         twistWorkApproxJ:twist.dot(w)*this.lastDt,twistDeltaOmegaFreeBodyRadps:twist.dot(blade)*inverseI*this.lastDt,dt:this.lastDt,capNm:cap});
