@@ -3,8 +3,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { execFileSync } from 'node:child_process';
 import { newRound, CONFIG, DT, THREE, handPos } from '../harness_m.mjs';
 import { mainArmMuscle, readMainArmRecovery } from '../../../src/arm_recovery_activation.js';
+import { beforeWristResponse, afterWristResponse, elbowResponse } from './derive_wrist_response.mjs';
 
 const root = fileURLToPath(new URL('../../../', import.meta.url));
 const opts = Object.fromEntries(process.argv.slice(2).map(arg => {
@@ -12,15 +14,17 @@ const opts = Object.fromEntries(process.argv.slice(2).map(arg => {
   if (!match) throw Error('Use --out=NEW_PATH --reference=FROM_SPAWN_RAW');
   return [match[1], match[2]];
 }));
-if (Object.keys(opts).some(key => !['out', 'reference', 'case'].includes(key))) throw Error('Unknown option');
+if (Object.keys(opts).some(key => !['out', 'reference', 'case', 'response', 'audio-reference'].includes(key))) throw Error('Unknown option');
 const output = opts.out, referencePath = opts.reference;
 if (!output || fs.existsSync(output) || !referencePath || !fs.existsSync(referencePath)) throw Error('New output and received reference required');
 const scene = opts.case ?? 'wounded';
 if (!['wounded', 'healthyStop'].includes(scene)) throw Error('Unknown diagnostic case');
+const responseMode = opts.response === 'derived';
+if ((opts.response && !responseMode) || (responseMode && scene !== 'healthyStop')) throw Error('Derived response is restricted to healthyStop');
 const weapon = scene === 'wounded' ? 'falchion' : 'sabre', seed = scene === 'wounded' ? 7 : 19;
 const seconds = 18, windowSteps = 60;
 const modes = scene === 'wounded' ? ['full', 'swordOrdinary', 'jointsOrdinary', 'allOrdinary'] : ['full', 'allOrdinary'];
-const observerModes = scene === 'wounded' ? ['full', 'allOrdinary'] : [];
+const observerModes = scene === 'wounded' || responseMode ? ['full', 'allOrdinary'] : [];
 const referenceBytes = fs.readFileSync(referencePath);
 const reference = JSON.parse(referenceBytes);
 const referenceRun = reference.rows.find(row => row.weapon === weapon && row.seed === seed && row.mode === 'independent' && row.observed);
@@ -46,7 +50,7 @@ function sourceFiles(directory) {
 }
 const files = [...sourceFiles('src'), 'tools/sim/harness_m.mjs',
   'tools/sim/experiments/arm_recovery_from_spawn_probe.mjs',
-  'tools/sim/experiments/arm_recovery_path_probe.mjs', 'package-lock.json',
+  'tools/sim/experiments/arm_recovery_path_probe.mjs', 'tools/sim/experiments/derive_wrist_response.mjs', 'package-lock.json',
   'node_modules/@dimforge/rapier3d-compat/rapier.mjs', 'node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm'];
 const manifest = () => Object.fromEntries(files.sort().map(file => [file, sha(fs.readFileSync(path.join(root, file)))]));
 
@@ -172,11 +176,29 @@ const originalConfig = { grip: CONFIG.GRIP.reactionModel, support: CONFIG.BODY.s
   stance: CONFIG.GAIT.stanceMemory, assist: CONFIG.GAIT.assist, catchMode: CONFIG.GAIT.catchMode, catchScale: CONFIG.GAIT.catchScale };
 const sourceBefore = manifest(), sourceCommit = head(), begin = performance.now();
 const referenceSourceExact = Object.entries(reference.sourceBefore).every(([file, digest]) => sourceBefore[file] === digest);
-if (!referenceSourceExact || sha(referenceBytes) !== '5c7df8c24ac3165815b2591578302807f1f8bcfa6c77cd0280851d5f7126c1d1')
+const referenceSourceDifferences = Object.entries(reference.sourceBefore).filter(([file, digest]) => sourceBefore[file] !== digest);
+let audioCompatibility = null;
+if (opts['audio-reference']) {
+  const commit = opts['audio-reference'];
+  if (!/^[a-f0-9]{40}$/.test(commit)) throw Error('Explicit audio-only reference commit must be a full SHA');
+  const expected = ['src/slash_draw.js', 'src/sound.js'];
+  const changed = execFileSync('git', ['diff', '--name-only', commit + '^', commit, '--', 'src'], { cwd: root, encoding: 'utf8' }).trim().split('\n').sort();
+  if (JSON.stringify(changed) !== JSON.stringify(expected)) throw Error('Reference commit is not strictly the two audio files');
+  if (JSON.stringify(referenceSourceDifferences.map(([file]) => file).sort()) !== JSON.stringify(expected)) throw Error('Non-audio reference source drift');
+  const differences = referenceSourceDifferences.map(([file, referenceHash]) => {
+    const audioCommitHash = sha(execFileSync('git', ['show', commit + ':' + file], { cwd: root }));
+    if (sourceBefore[file] !== audioCommitHash) throw Error('Current audio differs from the declared delivery commit');
+    return { file, referenceHash, audioCommitHash, currentHash: sourceBefore[file] };
+  });
+  audioCompatibility = { commit, differences, nonAudioReferenceFilesExact: true };
+}
+const referenceSourceCompatible = referenceSourceExact || !!audioCompatibility;
+if (!referenceSourceCompatible || sha(referenceBytes) !== '5c7df8c24ac3165815b2591578302807f1f8bcfa6c77cd0280851d5f7126c1d1')
   throw Error('Received original raw or its core/engine/probe source hashes differ');
 
 function run(weapon, seed, mode, observed) {
   let branch = null, actuator = null;
+  let previousAimYaw = null;
   let torqueRows = [], motorRows = [], dispatchRows = [], shoulderRequests = [];
   let stepDispatch = {};
   const restores = [], dispatchCounts = { driveSword: 0, driveJoints: 0, elbowGravity: 0 };
@@ -218,6 +240,8 @@ function run(weapon, seed, mode, observed) {
         const consumedActivation = mainArmMuscle(this);
         const gate = name === 'driveJoints' ? null : consumedActivation >= .12;
         const previousAim = this.prevAim?.toArray() ?? null;
+        const responseBefore = responseMode && observed && branch && name === 'driveSword' && gate && this.armed
+          ? beforeWristResponse(this, previousAimYaw) : null;
         let restoredFilterExact = false;
         try {
           return original.apply(this, args);
@@ -226,6 +250,8 @@ function run(weapon, seed, mode, observed) {
           actuator = previousActuator;
           restoredFilterExact = JSON.stringify(readMainArmRecovery(this)) === JSON.stringify(filterBefore);
           if (!restoredFilterExact) throw Error('Temporary routing changed the persistent activation filter');
+          const response = responseBefore ? afterWristResponse(this, responseBefore, consumedActivation) : null;
+          if (responseMode && observed && name === 'driveSword' && gate && this.armed) previousAimYaw = this.yaw.toArray();
           if (branch) {
             dispatchCounts[name]++;
             stepDispatch[name] = (stepDispatch[name] ?? 0) + 1;
@@ -234,7 +260,7 @@ function run(weapon, seed, mode, observed) {
               muscleGateAt012: gate, restoredFilterExact, filterTarget: filterBefore.target,
               previousAim, currentAim: this.debug.aim.toArray(),
               wristHill: this.wristHill ?? null, wristBrake: this.wristBrake ?? false,
-              wristBrakeAng: this.wristBrakeAng ?? null });
+              wristBrakeAng: this.wristBrakeAng ?? null, ...(responseMode ? { derivedResponse: response } : {}) });
           }
         }
       };
@@ -366,6 +392,7 @@ function run(weapon, seed, mode, observed) {
         wristCapNm: f.debug.wristCap, wristSwingBeforeTwistNm: f.debug.wristTorque.toArray(),
         wristBrake: f.wristBrake ?? false, wristBrakeAng: f.wristBrakeAng ?? null,
         wristHill: f.wristHill ?? null,
+        ...(responseMode ? { postSolverSwordOmega: V(f.sword.angvel()).toArray(), postSolverElbow: elbowResponse(f) } : {}),
         jointTargets: { shoulder: f.jointByName.uarmS.target.toArray(), elbow: f.jointByName.farmS.target.toArray() },
         footMemory: Object.fromEntries(Object.entries(f.gait.legs).map(([key, leg]) => [key, { N: leg.N ?? null, Nf: leg.Nf ?? null, stance: leg.stance }])) });
     }
@@ -434,15 +461,15 @@ try {
 const sourceAfter = manifest(), sourceCommitAfter = head();
 const sourceStable = sourceCommit === sourceCommitAfter && JSON.stringify(sourceBefore) === JSON.stringify(sourceAfter);
 const expectedRows = modes.length + observerModes.length;
-const measurementValid = !error && sourceStable && referenceSourceExact && rows.length === expectedRows &&
+const measurementValid = !error && sourceStable && referenceSourceCompatible && rows.length === expectedRows &&
   prefixChecks.length === expectedRows && prefixChecks.every(c => c.exactPrefix && c.originalPrefixExact && c.branchStateExact && c.totalWindowSteps === windowSteps && c.allDispatchOnce) &&
   observerChecks.length === observerModes.length && observerChecks.every(c => Object.entries(c).every(([key, v]) => key === 'mode' || v === true));
 const report = { schemaVersion: 1, probe: 'arm_recovery_path_ablation', sourceCommit, sourceCommitAfter,
   sourceBefore, sourceAfter, sourceStable, command: process.argv, createdUTC: new Date().toISOString(),
-  wallSeconds: (performance.now() - begin) / 1000, referenceSourceExact, reference: { path: referencePath, bytes: referenceBytes.length,
+  wallSeconds: (performance.now() - begin) / 1000, referenceSourceExact, referenceSourceCompatible, audioCompatibility, reference: { path: referencePath, bytes: referenceBytes.length,
     sha256: sha(referenceBytes), sourceCommit: reference.sourceCommit }, measurementValid,
   executionCount: rows.length, error, schedule, requestedScheduleSha256, prefixChecks, observerChecks, rows,
-  protocol: { scene, weapon, seed, windowSteps, DT, modes, observerModes,
+  protocol: { scene, weapon, seed, windowSteps, DT, modes, observerModes, responseMode,
     branch: 'Wounded case requires first actual main-arm wound; healthyStop diagnoses a known healthy-arm recovery counterexample. Armed getup with extra activation >1e-4, then first active-to-held-zero-delta boundary. All runs are independent from spawn and replay exactly up to that same complete-step boundary.',
     treatment: 'Temporary ordinary-muscle routing only inside original driveSword and/or driveJoints+elbowGravity calls. Independent filter updates continue in original step; flag and filter are restored/unchanged before next method. allOrdinary is a diagnostic ablation after independent prefix, NOT legacy from spawn.',
     scope: 'driveSword includes IK gate and wrist torque/braking; driveJoints includes manual shoulder and native elbow; jointsOrdinary also routes separate elbowGravity. Other muscles, inputs, gains, strength, health, native poses and AI are unchanged.',
