@@ -13,7 +13,7 @@ const output=opts.out;if(!output||fs.existsSync(output))throw Error('Fresh --out
 const weapons=(opts.weapons??'sabre,zweihander').split(','),scenarios=(opts.scenarios??'guard,yawHold,yawGuard').split(','),levels=(opts.levels??'0,0.4').split(',').map(Number),modes=(opts.modes??'legacy,planePotential').split(',');
 const startS=Number(opts.start??0),duration=9,base=opts.base??'legacy';
 const runtimeModes=['legacy','planePotential'];
-if(!runtimeModes.includes(base)||!Number.isFinite(startS)||startS<0||startS>=duration||levels.some(v=>![0,.4].includes(v))||scenarios.some(v=>!['guard','yawHold','yawGuard'].includes(v))||modes.some(v=>![...runtimeModes,'noPosition','reactionDamping'].includes(v)))throw Error('Unsupported conditions');
+if(!runtimeModes.includes(base)||!Number.isFinite(startS)||startS<0||startS>=duration||levels.some(v=>![0,.4].includes(v))||scenarios.some(v=>!['guard','yawHold','yawGuard'].includes(v))||modes.some(v=>![...runtimeModes,'noPosition','reactionDamping','planeMixture'].includes(v)))throw Error('Unsupported conditions');
 const sha=v=>crypto.createHash('sha256').update(v).digest('hex');
 const V=v=>new THREE.Vector3(v.x,v.y,v.z),Q=q=>new THREE.Quaternion(q.x,q.y,q.z,q.w);
 const originalRandom=Math.random,originalGrip=CONFIG.GRIP.reactionModel;

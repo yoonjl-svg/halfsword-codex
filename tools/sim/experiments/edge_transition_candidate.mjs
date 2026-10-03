@@ -98,6 +98,18 @@ export async function loadEdgeTransition(){
     if (active && diag.mode === 'noPosition') twist.set(0,0,0);
     if (active && diag.mode === 'planePotential') twist.multiplyScalar(flat.dot(flatTarget));
     if (active && diag.mode === 'halfPosition') twist.multiplyScalar(.5);
+    if (active && diag.mode === 'planeMixture') {
+      // Blend two unoriented plane potentials, not sign-selected normal vectors.
+      const rest=RIGHT_LOCAL.clone().applyQuaternion(this.yaw);
+      rest.addScaledVector(blade,-rest.dot(blade));
+      if(rest.lengthSq()<1e-4)rest.copy(flat);
+      rest.normalize();
+      const motion=new THREE.Vector3().crossVectors(blade,new THREE.Vector3(bv.x,bv.y,bv.z));
+      if(motion.lengthSq()>0)motion.normalize();
+      twist.crossVectors(flat,rest).multiplyScalar((1-moving)*flat.dot(rest));
+      if(moving>0)twist.add(new THREE.Vector3().crossVectors(flat,motion).multiplyScalar(moving*flat.dot(motion)));
+      twist.projectOnVector(blade).multiplyScalar(4*this.twistScale);
+    }
     const appliedPositionTwist = twist.clone();
     if(active && diag.mode === 'reactionDamping') twist.add(dampingTwist);
     else if (!(active && diag.mode === 'noDamping')) twist.addScaledVector(wTwist, -0.12 * this.twistScale);`);
