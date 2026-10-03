@@ -180,6 +180,58 @@ def report_id(repo, end):
     return repo + '@' + end.isoformat(timespec='minutes')
 
 
+def note_sections(text):
+    """Find top-level H2 headings outside Markdown fenced code blocks."""
+    visible_offsets, offset, fence = set(), 0, None
+    for line in text.splitlines(keepends=True):
+        if fence:
+            if re.fullmatch(r' {0,3}' + re.escape(fence[0]) + '{' + str(fence[1]) + r',}\s*', line):
+                fence = None
+        else:
+            opening = re.match(r' {0,3}(`{3,}|~{3,})', line)
+            if opening:
+                fence = (opening[1][0], len(opening[1]))
+            elif line.startswith('## ') and not line.startswith('## #'):
+                visible_offsets.add(offset)
+        offset += len(line)
+    return [m for m in re.finditer(r'^## (?!#).+$', text, re.M) if m.start() in visible_offsets]
+
+
+def prepare_note_sections(text, allow_trailing_appendices=False):
+    """Keep six numbered sections; optionally demote historical trailing appendices.
+
+    Old source commits remain immutable. Only heading depth changes in the
+    rendered report, and the caller records each change separately from raw hashes.
+    Current authored notes use strict validation before publication.
+    """
+    sections = note_sections(text)
+    numbered = [re.match(r'^##\s+([1-6])[.)]', section[0]) for section in sections[:6]]
+    valid = len(numbered) == 6 and all(numbered) and [n[1] for n in numbered] == list('123456')
+    extra = sections[6:]
+    if (not valid or (extra and not allow_trailing_appendices)
+            or any(re.match(r'^##\s+\d+[.)]', section[0]) for section in extra)):
+        raise ValueError('Authored note must contain exactly six H2 sections')
+    changes = [{'line': text.count('\n', 0, section.start()) + 1,
+                'from': section[0], 'to': '#' + section[0]} for section in extra]
+    for section in reversed(extra):
+        text = text[:section.start()] + '#' + text[section.start():]
+    return text, changes
+
+
+def validate_notes(root):
+    """Validate actual authored files, not only synthetic unit-test fixtures."""
+    directory = Path(root) / 'docs/dev_exchange/notes'
+    paths = sorted(directory.glob('*.md'))
+    if not paths:
+        raise ValueError('No authored notes found')
+    for path in paths:
+        try:
+            prepare_note_sections(path.read_text(encoding='utf-8'))
+        except ValueError as error:
+            raise ValueError(f'{path.name}: {error}') from error
+    return {'status': 'notes_valid', 'count': len(paths), 'notes': [p.name for p in paths]}
+
+
 def published_pair(directory, day, repo, rid):
     md, js = directory / (day + '.md'), directory / (day + '.json')
     if not md.exists() and not js.exists():
@@ -305,13 +357,17 @@ def publish(day, root, output, now=None, gh=api):
              f'- 관찰 HEAD: {head} / 관찰 시각: {observed_at.isoformat()}', f'- 선택 소스: {selected} ({selected_at.isoformat()})',
              '- 선택은 커밋 시각 기준이며 당시 원격 상태를 증명하지 않습니다.',
              '- 배포 기록은 제한된 API 관찰이며 현재 서비스 중임을 증명하지 않습니다.', '']
-    rendered_note, rewritten = rewrite_note_links(note.decode('utf-8'), cfg['repo'], selected, note_path) if note is not None else (missing_note_sections(), 0)
+    normalized_note, heading_changes = prepare_note_sections(
+        note.decode('utf-8') if note is not None else missing_note_sections(),
+        allow_trailing_appendices=True)
+    rendered_note, rewritten = rewrite_note_links(normalized_note, cfg['repo'], selected, note_path) if note is not None else (normalized_note, 0)
+    manifest['notes_heading_normalization'] = {'policy': 'trailing-unnumbered-h2-to-h3-v1', 'count': len(heading_changes), 'trailing_appendices_demoted': heading_changes, 'raw_notes_hash_preserved': True}
     manifest['notes_link_rewrite'] = {'basis': 'source-note-relative paths pinned to source_sha', 'count': rewritten, 'raw_notes_hash_preserved': True}
     automatic = ['', f'### 자동 소스 변경 ({len(commits)}건; 최대 50건 표시)', '']
     for commit in commits[:50]:
         automatic += [f"- {commit['sha'][:12]} {commit['subject']} ({commit['committed_at']})",
                   '  경로: ' + ', '.join(commit['paths']) + (f" 외 {commit['path_count'] - 15}개" if commit['path_count'] > 15 else '')]
-    sections = list(re.finditer(r'^## (?!#).+$', rendered_note, re.M))
+    sections = note_sections(rendered_note)
     numbers = [re.match(r'^##\s+([1-6])[.)]', s[0]) for s in sections]
     if len(sections) != 6 or any(n is None for n in numbers) or [n[1] for n in numbers] != list('123456'):
         raise ValueError('Authored note must contain exactly six H2 sections')
@@ -501,6 +557,8 @@ def append_receipt(directory, clock, receipt):
 def main():
     parser = argparse.ArgumentParser()
     sub = parser.add_subparsers(dest='command', required=True)
+    check = sub.add_parser('validate-notes')
+    check.add_argument('--repo-root', required=True)
     for command in ('publish', 'receive'):
         p = sub.add_parser(command)
         p.add_argument('--date', required=True)
@@ -508,6 +566,9 @@ def main():
         p.add_argument('--output-root', required=True)
     args = parser.parse_args()
     try:
+        if args.command == 'validate-notes':
+            print(json.dumps(validate_notes(args.repo_root), ensure_ascii=False))
+            return 0
         result = globals()[args.command](args.date, args.repo_root, args.output_root)
         print(json.dumps(result, ensure_ascii=False))
         return 0 if args.command == 'publish' or result['status'] in ('peer_received', 'already_received', 'document_received_unverified') else 1

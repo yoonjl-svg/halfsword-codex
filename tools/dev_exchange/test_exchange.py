@@ -460,5 +460,49 @@ class ExchangeTests(unittest.TestCase):
         self.assertEqual(len(calls), 5)
 
 
+    def test_historical_trailing_appendices_preserve_raw_hash_and_are_immutable(self):
+        note = exchange.missing_note_sections() + '\n\n## First follow-up\nEvidence one.\n\n## Second follow-up\nEvidence two.\n'
+        path = 'docs/dev_exchange/notes/2026-10-01.md'
+        source = self.commit('historical appendices', '2026-10-01T21:00:00+09:00', path, note)
+        first = self.publish()
+        markdown = (self.output / 'docs/devmeet/2026-10-01.md').read_text()
+        self.assertEqual(len(exchange.note_sections(markdown)), 6)
+        self.assertIn('### First follow-up\nEvidence one.', markdown)
+        self.assertIn('### Second follow-up\nEvidence two.', markdown)
+        self.assertEqual(first['notes_sha256'], exchange.digest(note.encode()))
+        self.assertEqual(first['source_sha'], source)
+        self.assertEqual(first['notes_heading_normalization']['count'], 2)
+        self.assertEqual(first['notes_heading_normalization']['trailing_appendices_demoted'][0]['from'], '## First follow-up')
+        exchange.validate(first, markdown.encode(), self.cfg['repo'], '2026-10-01', first['report_id'])
+        self.assertEqual(self.publish()['status'], 'unchanged')
+        self.assertEqual((self.output / 'docs/devmeet/2026-10-01.md').read_text(), markdown)
+
+    def test_strict_current_note_lint_rejects_appendices_and_identifies_file(self):
+        path = self.root / 'docs/dev_exchange/notes/2026-10-01.md'
+        path.parent.mkdir(parents=True)
+        path.write_text(exchange.missing_note_sections() + '\n## Appendix\ntext')
+        with self.assertRaisesRegex(ValueError, '2026-10-01.md'):
+            exchange.validate_notes(self.root)
+        path.write_text(exchange.missing_note_sections() + '\n### Appendix\ntext')
+        self.assertEqual(exchange.validate_notes(self.root)['count'], 1)
+
+    def test_historical_normalization_does_not_repair_numbering_or_early_appendices(self):
+        valid = exchange.missing_note_sections()
+        for text in (valid + '\n## 7. Extra', valid + '\n## 0) Extra', valid + '\n## 3. Duplicate',
+                     valid.replace('## 4.', '## 5.'), valid.replace('## 2.', '## Appendix\n\n## 2.'),
+                     valid[:valid.index('## 6.')]):
+            with self.subTest(text=text[-40:]), self.assertRaises(ValueError):
+                exchange.prepare_note_sections(text, allow_trailing_appendices=True)
+
+    def test_code_block_headings_are_not_sections_or_normalized(self):
+        note = exchange.missing_note_sections() + '\n```md\n## 7. Code example\n```\n~~~~\n## Other code\n~~~~\n'
+        normalized, changes = exchange.prepare_note_sections(note, allow_trailing_appendices=True)
+        self.assertEqual(normalized, note)
+        self.assertEqual(changes, [])
+        self.assertEqual(len(exchange.note_sections(note)), 6)
+        self.commit('code block note', '2026-10-01T21:00:00+09:00', 'docs/dev_exchange/notes/2026-10-01.md', note)
+        self.assertEqual(self.publish()['notes_heading_normalization']['count'], 0)
+
+
 if __name__ == '__main__':
     unittest.main()

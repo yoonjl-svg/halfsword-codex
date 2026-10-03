@@ -78,6 +78,9 @@ jobs:
           with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
               f.write(f'Mode: `{mode}`. Reporting day (Korea): `{day}`. Run created: `{created}`.\n\nScheduled Actions may be delayed; this is not an exact-time observation or a semantic AI review.\n')
           PY
+      - name: Validate current authored notes before publication
+        if: steps.request.outputs.mode == 'publish' || steps.request.outputs.mode == 'validate'
+        run: python3 -B source/tools/dev_exchange/exchange.py validate-notes --repo-root source
       - uses: actions/checkout@v4
         if: steps.request.outputs.mode != 'validate'
         with:
