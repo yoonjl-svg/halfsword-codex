@@ -1,4 +1,4 @@
-import { updateIntentEdgePlane } from './edge_intent.js';
+import { updateIntentEdgePlane, smoothIntentElevation } from './edge_intent.js';
 // ─────────────────────────────────────────────────────────────
 //  검투사 한 명 = "액티브 래그돌"
 //
@@ -1900,6 +1900,7 @@ export class Fighter {
     //  허리 아래로     → 칼끝이 내려감(아래 자세)
     // 자세에서 자세로 손을 옮기면 칼이 크게(최대 100° 넘게) 돌며 베기가 된다.
     const aim = _v3.set(...guardDir(off.x, off.y));
+    if (this.edgeIntentModel === 'commandedPlaneC1') smoothIntentElevation(aim, off.x, off.y);
     if (gw > 0) {
       aim.lerp(_v6.set(G.dir[0], G.dir[1], G.dir[2]), gw);
       if (aim.lengthSq() < 0.04) aim.set(G.dir[0], G.dir[1], G.dir[2]);
@@ -1949,7 +1950,7 @@ export class Fighter {
       flatTarget.normalize();
     }
     // Isolated research mode; ordinary games keep their existing edge alignment.
-    if (this.edgeIntentModel === 'commandedPlane') updateIntentEdgePlane(this, aim, blade, flatTarget, flat);
+    if (this.edgeIntentModel === 'commandedPlane' || this.edgeIntentModel === 'commandedPlaneC1') updateIntentEdgePlane(this, aim, blade, flatTarget, flat);
     // 칼날 축(길쭉한 방향)으로 도는 회전은 관성이 아주 작아서, 큰 힘을 주면
     // 계산이 폭주해 칼이 팽이처럼 돈다. 그래서 비틀림은 아주 약하게 따로 다룬다.
     const w = angvel(sword, new THREE.Vector3());

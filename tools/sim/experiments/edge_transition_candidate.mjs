@@ -21,8 +21,8 @@ export async function loadEdgeTransition(){
       const azimuth=THREE.MathUtils.clamp((off.x-.05)*1.7,-1.1,1.3);
       aim.set(Math.cos(elevation)*Math.cos(azimuth),Math.sin(elevation),Math.cos(elevation)*Math.sin(azimuth));
     }`);
-  replace("    if (this.edgeIntentModel === 'commandedPlane') updateIntentEdgePlane(this, aim, blade, flatTarget, flat);",`    const legacyFlat = flatTarget.clone();
-    if (this.edgeIntentModel === 'commandedPlane') updateIntentEdgePlane(this, aim, blade, flatTarget, flat);
+  replace("    if (this.edgeIntentModel === 'commandedPlane' || this.edgeIntentModel === 'commandedPlaneC1') updateIntentEdgePlane(this, aim, blade, flatTarget, flat);",`    const legacyFlat = flatTarget.clone();
+    if (this.edgeIntentModel === 'commandedPlane' || this.edgeIntentModel === 'commandedPlaneC1') updateIntentEdgePlane(this, aim, blade, flatTarget, flat);
     const requestedPlane = this.intentEdgePlane?.clone();
     if (active && diag.mode === 'motionMemory') {
       this.intentEdgePlane.copy(beforePlane || legacyFlat.clone().applyQuaternion(this.yaw.clone().invert()));

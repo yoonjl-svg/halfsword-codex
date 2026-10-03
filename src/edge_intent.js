@@ -1,5 +1,18 @@
 import * as THREE from 'three';
 
+/** Research-only C1 join for the guard elevation slope change at y=.1.
+ * Preserve the existing mapping outside (.05,.15), including both endpoints.
+ * Inside, the intended elevation changes by at most .0275 rad (1.58 degrees).
+ * This changes a controller target, not gravity, inertia or muscle strength.
+ */
+export function smoothIntentElevation(aim, x, y) {
+  if (y <= .05 || y >= .15) return;
+  const t = (y - .05) / .1;
+  const elevation = -.055 + .11 * t + .11 * t * t;
+  const azimuth = THREE.MathUtils.clamp((x - .05) * 1.7, -1.1, 1.3);
+  aim.set(Math.cos(elevation) * Math.cos(azimuth), Math.sin(elevation), Math.cos(elevation) * Math.sin(azimuth));
+}
+
 /** Research mode: retain the player's commanded cutting plane at rest.
  * The caller supplies the existing flat target; all wrist torque/reaction laws
  * run afterwards. This never changes a rigid body's pose or velocity directly.

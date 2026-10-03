@@ -12,6 +12,7 @@ const rawPath = process.argv[2];
 if (!rawPath || !process.argv.includes('--round-window')) throw Error('Usage: probe.mjs fresh.json --round-window');
 const isolated = process.argv.includes('--isolated-tap');
 const noTap = process.argv.includes('--no-tap');
+const edgeModel = process.argv.includes('--c1') ? 'commandedPlaneC1' : 'commandedPlane';
 if (noTap && !isolated) throw Error('--no-tap requires --isolated-tap');
 let source = original;
 const replace = (before, after) => {
@@ -21,7 +22,7 @@ const replace = (before, after) => {
 replace("const root=fileURLToPath(new URL('../../../',import.meta.url)),rawPath", 'const root=' + JSON.stringify(root) + ',rawPath');
 replace("new URL('./skill_from_start_probe.mjs',import.meta.url)", 'new URL(' + JSON.stringify(new URL('./skill_from_start_probe.mjs', import.meta.url).href) + ')');
 replace("const modes={weak:{level:.4,autoGuard:true},off:{level:0,autoGuard:false}}", "const modes={legacy:{level:0,autoGuard:false},edge:{level:0,autoGuard:false}}");
-replace("f.skill.autoGuard=modes[mode].autoGuard;f.armTorqueModel='legacy'", "f.skill.autoGuard=modes[mode].autoGuard;if(mode==='edge')f.edgeIntentModel='commandedPlane';f.armTorqueModel='legacy'");
+replace("f.skill.autoGuard=modes[mode].autoGuard;f.armTorqueModel='legacy'", "f.skill.autoGuard=modes[mode].autoGuard;if(mode==='edge')f.edgeIntentModel='" + edgeModel + "';f.armTorqueModel='legacy'");
 source = source.replaceAll("['weak','off']", "['legacy','edge']").replaceAll("'off'", "'edge'");
 replace("probe:'skill_manual_combat_probe'", "probe:'intent_edge_combat_probe'");
 replace("'tools/sim/experiments/skill_manual_combat_probe.mjs','package-lock.json'", "'tools/sim/experiments/skill_manual_combat_probe.mjs','tools/sim/experiments/intent_edge_combat_probe.mjs','package-lock.json'");
@@ -40,8 +41,9 @@ if (isolated) {
   }
 }
 replace("primary:'12 reinput rows (2weapons×3directions×2modes) + zweihander cross hold weak/off2rows; observer repeats weak/off cross reinput2rows'", "primary:'Skipped: round-window combat only. Both modes correction0/autoGuardfalse; candidate enabled before first game step. No gain or body-state changes.'");
+if (edgeModel === 'commandedPlaneC1') source = source.replaceAll('legacy/commandedPlane', 'legacy/commandedPlaneC1');
 const sha = v => crypto.createHash('sha256').update(v).digest('hex');
-replace("helper:{originalSourceSha256", 'transform:' + JSON.stringify({isolated,originalScript:'tools/sim/experiments/skill_manual_combat_probe.mjs',originalSHA256:sha(original),wrapperSHA256:sha(fs.readFileSync(fileURLToPath(import.meta.url))),contract:'Rebased imports/root/helper URL; two modes correction0/autoGuardfalse; only edge mode sets edgeIntentModel before first step. Uses existing actual tap/release/reinput/round-window implementation. Isolated mode additionally changes gap/AI/manual move/duration/seeds as recorded in protocol.'}) + ',helper:{originalSourceSha256');
+replace("helper:{originalSourceSha256", 'transform:' + JSON.stringify({isolated,edgeModel,originalScript:'tools/sim/experiments/skill_manual_combat_probe.mjs',originalSHA256:sha(original),wrapperSHA256:sha(fs.readFileSync(fileURLToPath(import.meta.url))),contract:'Rebased imports/root/helper URL; two modes correction0/autoGuardfalse; only edge mode sets edgeIntentModel before first step. Uses existing actual tap/release/reinput/round-window implementation. Isolated mode additionally changes gap/AI/manual move/duration/seeds as recorded in protocol.'}) + ',helper:{originalSourceSha256');
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'intent-edge-combat-'));
 try {
   const file = path.join(dir, 'probe.mjs');
