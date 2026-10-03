@@ -10,7 +10,7 @@
 | [목표/감쇠6실행](hold_response_round1.md) | 측정 유효/기각. `ac1cbcd`/`58fc62f` | 원보고의 재현3명령·raw command·[수치](hold_response_round1.json) |
 | [생성부터 한손 전투10실행](arm_recovery_from_spawn_round1.md) | 공개 보류, 후속 같은 상태의 참조. `d351c53` | raw reference / [수치](arm_recovery_from_spawn_round1.json) |
 | [세로 터치 기본 반영](mobile_vertical_default_20261003.md) | 사용자 선택 전달 완료. `41bbe61` | 입력51검사·[실제 배포 영수증](mobile_vertical_default_release.json); 물리 실험과 구분 |
-| [한손 팔 고정 선택형](onehand_manual_round1.md) | swivel2종 기각, 수동 목표 공개 비교 대상. core `458195d` | 물리32(관찰반복6 포함)·[명령/해시 지도](onehand_manual_round1.json); 일반 승격 보류 |
+| [한손 팔 고정 선택형](onehand_manual_round1.md) | swivel2종 기각, 수동 목표 공개 비교 전달. core `458195d` | 물리32(관찰반복6 포함)·[명령/해시 지도](onehand_manual_round1.json)·[전달 영수증](onehand_manual_release.json); 일반 승격 보류 |
 
 ## 이번 감사의 범위
 

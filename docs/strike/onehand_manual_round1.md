@@ -15,7 +15,7 @@
 
 총32물리 실행은 기준8·실패4·수동 자세2·모션18이며 관찰 반복6개를 포함한다. 실행 시간193.6초는 설계/화면/감사 시간을 포함하지 않는다. 엔진은 게임 npm Rapier0.19.3이다. **실제 적 down→마무리→복귀와 부상 후 조작, 사용자 체감 수락은 남았다.** 마무리 활성량 fixture 검사는 실제 마무리 전투가 아니다.
 
-판정: [공개 A/B](https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#onehand-comparison) 전달 대상인 선택형이다. 세이버·청강검·레이피어의 A/B는 모두 보정 끔·동일 상대이며 저장된 보정 값은 바꾸지 않는다. 실제 공개 확인은 배포 영수증으로 별도 남긴다. 일반 승격/새 연구보다 이 문제의 남은 반례를 우선한다. 제거한 swivel2종의 재시험은 권하지 않는다. 되돌림은 `onehandArm=legacy` 또는 일반 주소다.
+판정: [공개 A/B](https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#onehand-comparison) 전달 완료, 일반 승격 전 선택형이다. 세이버·청강검·레이피어의 A/B는 모두 보정 끔·동일 상대이며 저장된 보정 값은 바꾸지 않는다. [실제 배포 영수증](onehand_manual_release.json): `ed5c9bdf12d256b2a39e881e87d44c293838ff3c`의 Pages/CI6 성공, 공개8파일 byte exact, 공개3무기의 모바일 touch/tap/새 Fighter 재시작, 비교 버튼 이동·일반 카드 선택 포함4진입 PASS. 작업 시작부터 공개 확인까지 약50분. 기기 체감은 자동 검사와 구분한다. 일반 승격/새 연구보다 이 문제의 남은 반례를 우선한다. 제거한 swivel2종의 재시험은 권하지 않는다. 되돌림은 `onehandArm=legacy` 또는 일반 주소다.
 
 소스·당시 argv·원자료7개 bytes/SHA·도구/엔진 SHA·기각 근거는 [수치/재현 지도](onehand_manual_round1.json)에 모았다. 게임 core는 `458195d99b168d253268777dc766787a95536296`; 모션 정상은 `748c7076cc8356d9f0780a8d4e0043b9e0aba9bf`이므로 최종 마무리 기록으로 확대하지 않는다. 배치 중 핵심 소스는 고정했다. 정상 자세 단계 간 접촉/상처 분기가 있어 인과·효율 비교를 제한한다.
 
