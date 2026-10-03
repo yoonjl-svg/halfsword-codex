@@ -80,6 +80,9 @@ try{
         // Main accumulates touch deltas. Do not jump to an old absolute endpoint after auto-return.
         const delta=r.write?r.offset.map((v,i)=>v-previousRequest.offset[i]):[0,0];
         if(r.write){f.handOffset.x+=delta[0];f.handOffset.y+=delta[1];externalGoal=f.handOffset.toArray();}
+        // A floating-point segment boundary can request a zero delta for one tick.
+        // Match main's input-active rule instead of marking the whole segment active.
+        r.active=Math.abs(delta[0])+Math.abs(delta[1])>1e-5;
         f.handHeld=r.held;f.inputActive=r.active;f.move.set(...r.move);f.stickX=r.move[0];f.stickY=r.move[1];G.enemy.move.set(0,0);
         inputTrace.update(JSON.stringify({tick,...r,delta}));G.step();
         const native=sha(G.world.takeSnapshot()),ctrl=control(G);nativeTrace.update(native);trace.update(JSON.stringify({native,ctrl}));if(!atSwitch)prefix.update(JSON.stringify({native,ctrl}));
