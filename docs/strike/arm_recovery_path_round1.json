@@ -1,0 +1,4516 @@
+{
+  "schemaVersion": 1,
+  "createdUTC": "2026-10-03T11:08:22.227256+00:00",
+  "probe": "arm_recovery_path_ablation_round1",
+  "executionCount": 8,
+  "measurementValid": true,
+  "releaseAccepted": false,
+  "defaultPromotionAccepted": false,
+  "cases": [
+    {
+      "schemaVersion": 1,
+      "probe": "arm_recovery_path_ablation",
+      "sourceCommit": "601dec3bad2118d7a35353c04fa86270508a435f",
+      "sourceBefore": {
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+        "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+        "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+        "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+        "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+        "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+        "src/arm_recovery_activation.js": "ae025cc8d9bbc9855ea8ab2793d3e7818a66a4662329014a776a2ac88966435e",
+        "src/arm_recovery_trial.js": "ebda992abc5c7cd25a12c751d0f9b30f8fddf998babc8f4a7f49c9f4a0817c09",
+        "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+        "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+        "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+        "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+        "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+        "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+        "src/cut_trial.js": "427d58d0500ceac482424e092a7d457a8cea48371c254f1b4edecb3a511be5a6",
+        "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+        "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+        "src/edge_intent.js": "b4e17a6ea08d659732c330448b3b3aaffeac2942fa5096e82db551a12d580c87",
+        "src/edge_torque.js": "436995e6d45e816517ea5a9a8f83c9fb147d143871aab1601f82baa7b36bc0fa",
+        "src/edge_torque_trial.js": "1280a3fe32c1874b6ce56b75932db44852162855d8962ae13f3aeb3e7d832cae",
+        "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+        "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+        "src/fighter.js": "8289dccb1038f6fa4da90cb62d627953072e7584b8688d9cd7877e85ee2b38b6",
+        "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+        "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+        "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+        "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+        "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+        "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+        "src/input.js": "f6a73744e19090c0406b6cf4229081e7fea24435d89d18e1af682de201ff9ae7",
+        "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+        "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+        "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+        "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+        "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+        "src/main.js": "1e04399fcb3eb2f3b6f8e9cf586fa53f7c2c5544b31f951c8d23731d0fd144d2",
+        "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+        "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+        "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+        "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+        "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+        "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+        "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+        "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+        "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+        "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+        "src/slash_draw.js": "c7d3d5a52ab9880323e72f21270d9e85aa6564187aef5a7a95e57954a11fdd8a",
+        "src/sound.js": "5751ada2d02597067df219798ea31b42bbbc3409251ce3ff93ecd1e8d2a7bad3",
+        "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+        "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+        "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+        "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+        "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+        "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+        "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+        "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+        "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+        "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+        "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+        "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+        "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+        "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+        "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+        "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+        "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+        "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+        "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+        "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+        "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+        "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+        "tools/sim/experiments/arm_recovery_from_spawn_probe.mjs": "b2fde3179f6a58e591db41c37f8cc606a1dc92ab0ab7c1665c99fd74ec61b853",
+        "tools/sim/experiments/arm_recovery_path_probe.mjs": "29abe77fa3d711da652ba998e1c11bf5ad6bbe5e1b6599af8754bd8c5f423fd6",
+        "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b"
+      },
+      "sourceStable": true,
+      "measurementValid": true,
+      "sourceAndRecordedTraceHashesReverified": true,
+      "referenceSourceExact": true,
+      "raw": {
+        "path": "/workspace/halfsword-handoff/research-arm-path-20261003/run-01.json",
+        "bytes": 15657618,
+        "sha256": "a2a0d96f783b0508eaf386fe20328913b4dc1dbea741a5fc1b9b6a63b44f6bef"
+      },
+      "reference": {
+        "path": "/workspace/halfsword-handoff/research-from-spawn/run-01.json",
+        "bytes": 139125108,
+        "sha256": "5c7df8c24ac3165815b2591578302807f1f8bcfa6c77cd0280851d5f7126c1d1",
+        "sourceCommit": "d351c5384a3514c701d395ce6c625ec261a6df53"
+      },
+      "wallSeconds": 69.060946268,
+      "protocol": {
+        "weapon": "falchion",
+        "seed": 7,
+        "windowSteps": 60,
+        "DT": 0.008333333333333333,
+        "modes": [
+          "full",
+          "swordOrdinary",
+          "jointsOrdinary",
+          "allOrdinary"
+        ],
+        "branch": "First actual main-arm wound, armed getup with extra activation >1e-4, then first active-to-held-zero-delta boundary. All runs are independent from spawn and replay exactly up to that same complete-step boundary.",
+        "treatment": "Temporary ordinary-muscle routing only inside original driveSword and/or driveJoints+elbowGravity calls. Independent filter updates continue in original step; flag and filter are restored/unchanged before next method. allOrdinary is a diagnostic ablation after independent prefix, NOT legacy from spawn.",
+        "scope": "driveSword includes IK gate and wrist torque/braking; driveJoints includes manual shoulder and native elbow; jointsOrdinary also routes separate elbowGravity. Other muscles, inputs, gains, strength, health, native poses and AI are unchanged.",
+        "observation": "Original methods called exactly once. Actual addTorque values include final twist and actual recipients; instantaneous pre-solver recipient power is NOT integrated native work. Elbow motor settings are requests, not achieved torque/whole-substep work. Contact points/normal impulses remain last-solver-substep raw; no per-point load or COP inference.",
+        "inference": "First dispatch and first physics response are local same-state path contrasts. Direct same-recorded-event windows and complete .5s reactive-AI outcomes are reported separately; later treatment-induced AI/contact changes are mediators of total game effect, not automatically invalidating paired whole-window regression. Not equal-torque efficiency or human acceptance.",
+        "referenceGate": "All pre-branch and full-mode post-branch frame digests must match the previously received original from-spawn raw, including original control/event/input digests. Observer off still retains mandatory hashes, routing/dispatch counters and flag/filter assertions; optional torque/motor/contact/metrics reads are removed.",
+        "release": "Research only. No runtime source/default/UI/public candidate change. Existing failed support/cut candidates remain withdrawn; one-hand recovery remains held."
+      },
+      "executionCount": 6,
+      "prefixChecks": [
+        {
+          "mode": "full",
+          "observed": true,
+          "branchTick": 1585,
+          "exactPrefix": true,
+          "originalPrefixExact": true,
+          "branchStateExact": true,
+          "totalWindowSteps": 60,
+          "allDispatchOnce": true
+        },
+        {
+          "mode": "swordOrdinary",
+          "observed": true,
+          "branchTick": 1585,
+          "exactPrefix": true,
+          "originalPrefixExact": true,
+          "branchStateExact": true,
+          "totalWindowSteps": 60,
+          "allDispatchOnce": true
+        },
+        {
+          "mode": "jointsOrdinary",
+          "observed": true,
+          "branchTick": 1585,
+          "exactPrefix": true,
+          "originalPrefixExact": true,
+          "branchStateExact": true,
+          "totalWindowSteps": 60,
+          "allDispatchOnce": true
+        },
+        {
+          "mode": "allOrdinary",
+          "observed": true,
+          "branchTick": 1585,
+          "exactPrefix": true,
+          "originalPrefixExact": true,
+          "branchStateExact": true,
+          "totalWindowSteps": 60,
+          "allDispatchOnce": true
+        },
+        {
+          "mode": "full",
+          "observed": false,
+          "branchTick": 1585,
+          "exactPrefix": true,
+          "originalPrefixExact": true,
+          "branchStateExact": true,
+          "totalWindowSteps": 60,
+          "allDispatchOnce": true
+        },
+        {
+          "mode": "allOrdinary",
+          "observed": false,
+          "branchTick": 1585,
+          "exactPrefix": true,
+          "originalPrefixExact": true,
+          "branchStateExact": true,
+          "totalWindowSteps": 60,
+          "allDispatchOnce": true
+        }
+      ],
+      "observerChecks": [
+        {
+          "mode": "full",
+          "nativeTraceExact": true,
+          "controllerTraceExact": true,
+          "inputTraceExact": true,
+          "eventTraceExact": true,
+          "frameCountExact": true,
+          "dispatchCountsExact": true
+        },
+        {
+          "mode": "allOrdinary",
+          "nativeTraceExact": true,
+          "controllerTraceExact": true,
+          "inputTraceExact": true,
+          "eventTraceExact": true,
+          "frameCountExact": true,
+          "dispatchCountsExact": true
+        }
+      ],
+      "branch": {
+        "tick": 1585,
+        "timeS": 13.208333333333224,
+        "nativeSha256": "5c0734e5cc39ea4f751e0259f38223031f41cc5ed76bbbb9a45c77ab75239854",
+        "fullControllerSha256": "901e0bd8f89267062474f10535a5ead0b7261949d84907dfc9be0f0e2103f585",
+        "eventsPrefixSha256": "82fd128c2b70802ecee25a5a86005887c3c9349e494529c1094204a49c06d738",
+        "inputPrefixSha256": "c2cdc416bfbf21e4a8674296dbe93a03099dfb50ae25f8da3717a0ba28fa87e6",
+        "activation": {
+          "enabled": true,
+          "value": 0.6000234449555935,
+          "target": 0.6
+        },
+        "health": {
+          "state": "getup",
+          "stateTimeS": 0.6000000000000003,
+          "alive": true,
+          "armed": true,
+          "gripValid": true,
+          "armHealth": 0.9526510952502474,
+          "legHealth": 0.9630617252497189,
+          "limbs": {
+            "armS": 0.9526510952502474,
+            "armO": 0,
+            "legF": 0.9261234504994377,
+            "legB": 1
+          },
+          "muscle": 0.34017468565334813,
+          "vigor": 0.6,
+          "pain": 1.6332403668513678,
+          "blood": 0.8073666783366606,
+          "consciousness": 0.5980209576718396,
+          "woundCount": 6,
+          "detached": []
+        },
+        "previousRequest": {
+          "tick": 1584,
+          "timeS": 13.2,
+          "phase": "reinput",
+          "held": true,
+          "active": true,
+          "deltaM": [
+            -0.00416666666666643,
+            0.005104166666666354
+          ],
+          "intendedOffsetM": [
+            -0.005454545454548876,
+            0.5346969696969723
+          ],
+          "move": [
+            0,
+            0
+          ],
+          "tap": false
+        },
+        "nextRequest": {
+          "tick": 1585,
+          "timeS": 13.208333333333334,
+          "phase": "guard",
+          "held": true,
+          "active": false,
+          "deltaM": [
+            -7.945033519973776e-16,
+            9.992007221626409e-16
+          ],
+          "intendedOffsetM": [
+            -0.00545454545454967,
+            0.5346969696969733
+          ],
+          "move": [
+            0,
+            0.08
+          ],
+          "tap": false
+        }
+      },
+      "firstActualArmWound": {
+        "id": 65,
+        "kind": "strike",
+        "timeS": 12.73333333333325,
+        "afterStepTimeS": 12.741666666666584,
+        "attacker": 1,
+        "victim": 0,
+        "part": "uarmS",
+        "result": {
+          "type": "cut",
+          "zone": "arm",
+          "energy": 28.376435112887826,
+          "ephys": 14.188217556443913,
+          "mFree": 0.19280801463616887,
+          "severity": 0.06764129249964665,
+          "pass": true,
+          "absorb": 45,
+          "bleedPerSev": 0.012,
+          "local": [
+            0.0030301716170818014,
+            -0.04007415027641191,
+            -0.03137489199059706
+          ],
+          "point": [
+            -0.05256793783217706,
+            1.1427486006361571,
+            0.33429593150774123
+          ],
+          "dir": [
+            0.06530669983970509,
+            -0.7336568446061134,
+            0.6763746515938099
+          ],
+          "speed": 7.588222143740697,
+          "mEff": 0.49280801463616886,
+          "t": 0.9334446110023099,
+          "helmet": false,
+          "helmetBlunt": 1,
+          "plate": false,
+          "thr": 22,
+          "eff": 28.0877163249682,
+          "bladeAxis": [
+            -0.9795629762296443,
+            0.14298091965868975,
+            0.14146605512872945
+          ],
+          "finish": false,
+          "stuck": true
+        },
+        "pointM": [
+          -0.05256793783217706,
+          1.1427486006361571,
+          0.33429593150774123
+        ],
+        "before": {
+          "state": "getup",
+          "stateTimeS": 0.13333333333333333,
+          "alive": true,
+          "armed": true,
+          "gripValid": true,
+          "armHealth": 1,
+          "legHealth": 0.9630617252497189,
+          "limbs": {
+            "armS": 1,
+            "armO": 0,
+            "legF": 0.9261234504994377,
+            "legB": 1
+          },
+          "muscle": 0.31359317299239325,
+          "vigor": 0.6,
+          "pain": 1.6699510987657256,
+          "blood": 0.8260905856888974,
+          "consciousness": 0.5840209576718411,
+          "woundCount": 5,
+          "detached": []
+        },
+        "after": {
+          "state": "getup",
+          "stateTimeS": 0.13333333333333333,
+          "alive": true,
+          "armed": true,
+          "gripValid": true,
+          "armHealth": 0.9526510952502474,
+          "legHealth": 0.9630617252497189,
+          "limbs": {
+            "armS": 0.9526510952502474,
+            "armO": 0,
+            "legF": 0.9261234504994377,
+            "legB": 1
+          },
+          "muscle": 0.31359317299239325,
+          "vigor": 0.6,
+          "pain": 1.9132403668513618,
+          "blood": 0.8260905856888974,
+          "consciousness": 0.5840209576718411,
+          "woundCount": 6,
+          "detached": []
+        }
+      },
+      "aggregationScriptSHA256": "6bc8bea045db3cc9b2d627115f11c11e04afb9470c10f7fae9c3548aec19612c",
+      "comparisons": [
+        {
+          "mode": "full",
+          "zeroDeltaToleranceM": 1e-12,
+          "maxRequestedDeltaM": 9.992007221626409e-16,
+          "requestExact": true,
+          "livePadExact": true,
+          "allRequestsHeldZeroDelta": true,
+          "latentFilterRecoverySteps": 60,
+          "actualExtraActivationStepsByPath": {
+            "driveSword": 60,
+            "driveJoints": 60,
+            "elbowGravity": 60
+          },
+          "firstStep": {
+            "timeS": 13.216666666666557,
+            "health": {
+              "state": "getup",
+              "stateTimeS": 0.6083333333333336,
+              "alive": true,
+              "armed": true,
+              "gripValid": true,
+              "armHealth": 0.9526510952502474,
+              "legHealth": 0.9630617252497189,
+              "limbs": {
+                "armS": 0.9526510952502474,
+                "armO": 0,
+                "legF": 0.9261234504994377,
+                "legB": 1
+              },
+              "muscle": 0.34222675727792407,
+              "vigor": 0.6,
+              "pain": 1.6282403668513679,
+              "blood": 0.807041764590146,
+              "consciousness": 0.5982709576718396,
+              "woundCount": 6,
+              "detached": []
+            },
+            "activationFilter": {
+              "enabled": true,
+              "value": 0.6000211004600341,
+              "target": 0.6
+            },
+            "pathDispatch": [
+              {
+                "method": "driveSword",
+                "routed": false,
+                "consumedActivation": 0.6000211004600341,
+                "ordinaryActivation": 0.34222675727792407,
+                "independentActivation": 0.6000211004600341,
+                "muscleGateAt012": true,
+                "restoredFilterExact": true,
+                "filterTarget": 0.6,
+                "previousAim": [
+                  0.44324036946807377,
+                  0.8963946445791033,
+                  0.003823093473673104
+                ],
+                "currentAim": [
+                  0.4283108378114961,
+                  0.9036314628378816,
+                  -7.471736321628575e-05
+                ],
+                "wristHill": 0.9017848522200074,
+                "wristBrake": false,
+                "wristBrakeAng": 0.4859045015061985
+              },
+              {
+                "method": "driveJoints",
+                "routed": false,
+                "consumedActivation": 0.6000211004600341,
+                "ordinaryActivation": 0.34222675727792407,
+                "independentActivation": 0.6000211004600341,
+                "muscleGateAt012": null,
+                "restoredFilterExact": true,
+                "filterTarget": 0.6,
+                "previousAim": [
+                  0.4283108378114961,
+                  0.9036314628378816,
+                  -7.471736321628575e-05
+                ],
+                "currentAim": [
+                  0.4283108378114961,
+                  0.9036314628378816,
+                  -7.471736321628575e-05
+                ],
+                "wristHill": 0.9017848522200074,
+                "wristBrake": false,
+                "wristBrakeAng": 0.4859045015061985
+              },
+              {
+                "method": "elbowGravity",
+                "routed": false,
+                "consumedActivation": 0.6000211004600341,
+                "ordinaryActivation": 0.34222675727792407,
+                "independentActivation": 0.6000211004600341,
+                "muscleGateAt012": true,
+                "restoredFilterExact": true,
+                "filterTarget": 0.6,
+                "previousAim": [
+                  0.4283108378114961,
+                  0.9036314628378816,
+                  -7.471736321628575e-05
+                ],
+                "currentAim": [
+                  0.4283108378114961,
+                  0.9036314628378816,
+                  -7.471736321628575e-05
+                ],
+                "wristHill": 0.9017848522200074,
+                "wristBrake": false,
+                "wristBrakeAng": 0.4859045015061985
+              }
+            ],
+            "actualTorques": [
+              {
+                "actuator": "driveSword",
+                "part": "sword",
+                "torqueNm": [
+                  0.5034831047630753,
+                  -0.2470393252524095,
+                  1.0755929646661146
+                ],
+                "preSolverOmegaRadps": [
+                  -0.039999641478061676,
+                  1.0651164054870605,
+                  2.0967631340026855
+                ],
+                "instantaneousPowerW": 1.9719988936969828
+              },
+              {
+                "actuator": "driveSword",
+                "part": "farmS",
+                "torqueNm": [
+                  -0.464047770702336,
+                  0.2811901610881682,
+                  -1.0836188492906387
+                ],
+                "preSolverOmegaRadps": [
+                  -1.0194456577301025,
+                  0.261499285697937,
+                  1.5752873420715332
+                ],
+                "instantaneousPowerW": -1.160408545825989
+              },
+              {
+                "actuator": "driveSword",
+                "part": "chest",
+                "torqueNm": [
+                  -0.039435334060739326,
+                  -0.03415083583575872,
+                  0.008025884624524074
+                ],
+                "preSolverOmegaRadps": [
+                  -0.11410117149353027,
+                  0.29144734144210815,
+                  0.14214274287223816
+                ],
+                "instantaneousPowerW": -0.004312731243282705
+              },
+              {
+                "actuator": "driveJoints",
+                "part": "uarmS",
+                "torqueNm": [
+                  1.767027346986596,
+                  -0.6051713903731049,
+                  10.820221431109385
+                ],
+                "preSolverOmegaRadps": [
+                  -1.1013550758361816,
+                  0.31451594829559326,
+                  1.3936278820037842
+                ],
+                "instantaneousPowerW": 12.942901684379336
+              },
+              {
+                "actuator": "driveJoints",
+                "part": "chest",
+                "torqueNm": [
+                  -1.767027346986596,
+                  0.6051713903731049,
+                  -10.820221431109385
+                ],
+                "preSolverOmegaRadps": [
+                  -0.11410117149353027,
+                  0.29144734144210815,
+                  0.14214274287223816
+                ],
+                "instantaneousPowerW": -1.160020469509521
+              },
+              {
+                "actuator": "elbowGravity",
+                "part": "farmS",
+                "torqueNm": [
+                  0.9782532672893666,
+                  -0.6192190049976003,
+                  2.1711126024217937
+                ],
+                "preSolverOmegaRadps": [
+                  -1.0194456577301025,
+                  0.261499285697937,
+                  1.5752873420715332
+                ],
+                "instantaneousPowerW": 2.260924827811147
+              },
+              {
+                "actuator": "elbowGravity",
+                "part": "uarmS",
+                "torqueNm": [
+                  -0.9782532672893666,
+                  0.6192190049976003,
+                  -2.1711126024217937
+                ],
+                "preSolverOmegaRadps": [
+                  -1.1013550758361816,
+                  0.31451594829559326,
+                  1.3936278820037842
+                ],
+                "instantaneousPowerW": -1.7535646037628616
+              }
+            ],
+            "shoulderRequests": [
+              {
+                "joint": "uarmS",
+                "k": 185.64283555410157,
+                "d": 19.803294930592724,
+                "maxTorqueRequestNm": 46.41070888852539,
+                "targetQuaternion": [
+                  0.4344404005574743,
+                  0.8652051112320686,
+                  -0.24028809831459852,
+                  -0.07030848931472648
+                ]
+              }
+            ],
+            "elbowMotorRequests": [
+              {
+                "joint": "farmS",
+                "axis": 3,
+                "targetPositionRad": 0.26547061415984063,
+                "targetVelocityRadps": 0,
+                "stiffness": 232.05354444262696,
+                "damping": 28.943277206250908
+              }
+            ],
+            "jointTargets": {
+              "shoulder": [
+                0.4344404005574743,
+                0.8652051112320686,
+                -0.24028809831459852,
+                -0.07030848931472648
+              ],
+              "elbow": [
+                0,
+                0,
+                0.13234588055079416,
+                0.991203595585304
+              ]
+            },
+            "wristCapNm": 11.537612438130026,
+            "wristSwingBeforeTwistNm": [
+              0.5002907927407592,
+              -0.2533349867876217,
+              1.0755949787196644
+            ],
+            "wristBrake": false,
+            "wristHill": 0.9017848522200074,
+            "swordKJ": 1.0925578315349116,
+            "bodyAndSwordKJ": 2.5956437937149945,
+            "handErrorM": 0.09272517651905605,
+            "ownAimErrorRad": 0.010174728501849813,
+            "maxGapM": 0.0002582578490612169,
+            "maxSolverPointHorizontalMps": 0.018457084759580585
+          },
+          "firstRecordedEventOrLifecycleBoundary": null,
+          "directWindow": {
+            "full": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5494104934391004,
+              "negativeExplicitSwordTorquePowerSteps": 48,
+              "meanHandErrorM": 0.09637079861425288,
+              "meanOwnAimErrorRad": 0.015589284746628065,
+              "meanExternalAimErrorRad": 0.10297581284477778,
+              "maxSwordKJ": 1.0925578315349116,
+              "maxBodyAndSwordKJ": 2.5956437937149945,
+              "maxGapM": 0.0002582578490612169,
+              "maxSolverPointHorizontalMps": 0.02400608227580401,
+              "swordWholeRotationIntegralRad": 1.0355949449729862,
+              "maxPelvisUpwardMps": 0.042834892868995667,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 8.881784197001252e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 12.422710741827117,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5546270834866559
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 10.955755905402928,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5349122938905758
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 5.856207201581337,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.028152325773897754
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.9572746475486127
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.0194697447053276
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.637705765145368
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.35113480991194795
+                  }
+                }
+              }
+            },
+            "variant": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5494104934391004,
+              "negativeExplicitSwordTorquePowerSteps": 48,
+              "meanHandErrorM": 0.09637079861425288,
+              "meanOwnAimErrorRad": 0.015589284746628065,
+              "meanExternalAimErrorRad": 0.10297581284477778,
+              "maxSwordKJ": 1.0925578315349116,
+              "maxBodyAndSwordKJ": 2.5956437937149945,
+              "maxGapM": 0.0002582578490612169,
+              "maxSolverPointHorizontalMps": 0.02400608227580401,
+              "swordWholeRotationIntegralRad": 1.0355949449729862,
+              "maxPelvisUpwardMps": 0.042834892868995667,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 8.881784197001252e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 12.422710741827117,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5546270834866559
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 10.955755905402928,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5349122938905758
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 5.856207201581337,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.028152325773897754
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.9572746475486127
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.0194697447053276
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.637705765145368
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.35113480991194795
+                  }
+                }
+              }
+            }
+          },
+          "commonRecoveryWindow": {
+            "full": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5494104934391004,
+              "negativeExplicitSwordTorquePowerSteps": 48,
+              "meanHandErrorM": 0.09637079861425288,
+              "meanOwnAimErrorRad": 0.015589284746628065,
+              "meanExternalAimErrorRad": 0.10297581284477778,
+              "maxSwordKJ": 1.0925578315349116,
+              "maxBodyAndSwordKJ": 2.5956437937149945,
+              "maxGapM": 0.0002582578490612169,
+              "maxSolverPointHorizontalMps": 0.02400608227580401,
+              "swordWholeRotationIntegralRad": 1.0355949449729862,
+              "maxPelvisUpwardMps": 0.042834892868995667,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 8.881784197001252e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 12.422710741827117,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5546270834866559
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 10.955755905402928,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5349122938905758
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 5.856207201581337,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.028152325773897754
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.9572746475486127
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.0194697447053276
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.637705765145368
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.35113480991194795
+                  }
+                }
+              }
+            },
+            "variant": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5494104934391004,
+              "negativeExplicitSwordTorquePowerSteps": 48,
+              "meanHandErrorM": 0.09637079861425288,
+              "meanOwnAimErrorRad": 0.015589284746628065,
+              "meanExternalAimErrorRad": 0.10297581284477778,
+              "maxSwordKJ": 1.0925578315349116,
+              "maxBodyAndSwordKJ": 2.5956437937149945,
+              "maxGapM": 0.0002582578490612169,
+              "maxSolverPointHorizontalMps": 0.02400608227580401,
+              "swordWholeRotationIntegralRad": 1.0355949449729862,
+              "maxPelvisUpwardMps": 0.042834892868995667,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 8.881784197001252e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 12.422710741827117,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5546270834866559
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 10.955755905402928,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5349122938905758
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 5.856207201581337,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.028152325773897754
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.9572746475486127
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.0194697447053276
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.637705765145368
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.35113480991194795
+                  }
+                }
+              }
+            }
+          },
+          "commonWoundedRecoveryWindow": {
+            "full": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5494104934391004,
+              "negativeExplicitSwordTorquePowerSteps": 48,
+              "meanHandErrorM": 0.09637079861425288,
+              "meanOwnAimErrorRad": 0.015589284746628065,
+              "meanExternalAimErrorRad": 0.10297581284477778,
+              "maxSwordKJ": 1.0925578315349116,
+              "maxBodyAndSwordKJ": 2.5956437937149945,
+              "maxGapM": 0.0002582578490612169,
+              "maxSolverPointHorizontalMps": 0.02400608227580401,
+              "swordWholeRotationIntegralRad": 1.0355949449729862,
+              "maxPelvisUpwardMps": 0.042834892868995667,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 8.881784197001252e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 12.422710741827117,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5546270834866559
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 10.955755905402928,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5349122938905758
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 5.856207201581337,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.028152325773897754
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.9572746475486127
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.0194697447053276
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.637705765145368
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.35113480991194795
+                  }
+                }
+              }
+            },
+            "variant": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5494104934391004,
+              "negativeExplicitSwordTorquePowerSteps": 48,
+              "meanHandErrorM": 0.09637079861425288,
+              "meanOwnAimErrorRad": 0.015589284746628065,
+              "meanExternalAimErrorRad": 0.10297581284477778,
+              "maxSwordKJ": 1.0925578315349116,
+              "maxBodyAndSwordKJ": 2.5956437937149945,
+              "maxGapM": 0.0002582578490612169,
+              "maxSolverPointHorizontalMps": 0.02400608227580401,
+              "swordWholeRotationIntegralRad": 1.0355949449729862,
+              "maxPelvisUpwardMps": 0.042834892868995667,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 8.881784197001252e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 12.422710741827117,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5546270834866559
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 10.955755905402928,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5349122938905758
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 5.856207201581337,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.028152325773897754
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.9572746475486127
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.0194697447053276
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.637705765145368
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.35113480991194795
+                  }
+                }
+              }
+            }
+          },
+          "entireWindow": {
+            "steps": 60,
+            "durationS": 0.5,
+            "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+            "meanUnprojectedAimCrossOverDtRadps": 0.5494104934391004,
+            "negativeExplicitSwordTorquePowerSteps": 48,
+            "meanHandErrorM": 0.09637079861425288,
+            "meanOwnAimErrorRad": 0.015589284746628065,
+            "meanExternalAimErrorRad": 0.10297581284477778,
+            "maxSwordKJ": 1.0925578315349116,
+            "maxBodyAndSwordKJ": 2.5956437937149945,
+            "maxGapM": 0.0002582578490612169,
+            "maxSolverPointHorizontalMps": 0.02400608227580401,
+            "swordWholeRotationIntegralRad": 1.0355949449729862,
+            "maxPelvisUpwardMps": 0.042834892868995667,
+            "wristBrakeSteps": 0,
+            "maxReactionTorqueClosureNm": 8.881784197001252e-16,
+            "appliedTorquesByPathAndRecipient": {
+              "driveSword": {
+                "sword": {
+                  "maxAppliedTorqueNm": 12.422710741827117,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.5546270834866559
+                },
+                "farmS": {
+                  "maxAppliedTorqueNm": 10.955755905402928,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.5349122938905758
+                },
+                "chest": {
+                  "maxAppliedTorqueNm": 5.856207201581337,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.028152325773897754
+                }
+              },
+              "driveJoints": {
+                "uarmS": {
+                  "maxAppliedTorqueNm": 24.1440260533523,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 1.9572746475486127
+                },
+                "chest": {
+                  "maxAppliedTorqueNm": 24.1440260533523,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 1.0194697447053276
+                }
+              },
+              "elbowGravity": {
+                "farmS": {
+                  "maxAppliedTorqueNm": 2.4605165237216498,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.637705765145368
+                },
+                "uarmS": {
+                  "maxAppliedTorqueNm": 2.4605165237216498,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.35113480991194795
+                }
+              }
+            }
+          },
+          "firstDrop": null,
+          "firstDeath": null
+        },
+        {
+          "mode": "swordOrdinary",
+          "zeroDeltaToleranceM": 1e-12,
+          "maxRequestedDeltaM": 9.992007221626409e-16,
+          "requestExact": true,
+          "livePadExact": true,
+          "allRequestsHeldZeroDelta": true,
+          "latentFilterRecoverySteps": 60,
+          "actualExtraActivationStepsByPath": {
+            "driveSword": 0,
+            "driveJoints": 60,
+            "elbowGravity": 60
+          },
+          "firstStep": {
+            "timeS": 13.216666666666557,
+            "health": {
+              "state": "getup",
+              "stateTimeS": 0.6083333333333336,
+              "alive": true,
+              "armed": true,
+              "gripValid": true,
+              "armHealth": 0.9526510952502474,
+              "legHealth": 0.9630617252497189,
+              "limbs": {
+                "armS": 0.9526510952502474,
+                "armO": 0,
+                "legF": 0.9261234504994377,
+                "legB": 1
+              },
+              "muscle": 0.34222675727792407,
+              "vigor": 0.6,
+              "pain": 1.6282403668513679,
+              "blood": 0.807041764590146,
+              "consciousness": 0.5982709576718396,
+              "woundCount": 6,
+              "detached": []
+            },
+            "activationFilter": {
+              "enabled": true,
+              "value": 0.6000211004600341,
+              "target": 0.6
+            },
+            "pathDispatch": [
+              {
+                "method": "driveSword",
+                "routed": true,
+                "consumedActivation": 0.34222675727792407,
+                "ordinaryActivation": 0.34222675727792407,
+                "independentActivation": 0.6000211004600341,
+                "muscleGateAt012": true,
+                "restoredFilterExact": true,
+                "filterTarget": 0.6,
+                "previousAim": [
+                  0.44324036946807377,
+                  0.8963946445791033,
+                  0.003823093473673104
+                ],
+                "currentAim": [
+                  0.4283108378114961,
+                  0.9036314628378816,
+                  -7.471736321628575e-05
+                ],
+                "wristHill": 0.9009492760037756,
+                "wristBrake": false,
+                "wristBrakeAng": 0.4859045015061985
+              },
+              {
+                "method": "driveJoints",
+                "routed": false,
+                "consumedActivation": 0.6000211004600341,
+                "ordinaryActivation": 0.34222675727792407,
+                "independentActivation": 0.6000211004600341,
+                "muscleGateAt012": null,
+                "restoredFilterExact": true,
+                "filterTarget": 0.6,
+                "previousAim": [
+                  0.4283108378114961,
+                  0.9036314628378816,
+                  -7.471736321628575e-05
+                ],
+                "currentAim": [
+                  0.4283108378114961,
+                  0.9036314628378816,
+                  -7.471736321628575e-05
+                ],
+                "wristHill": 0.9009492760037756,
+                "wristBrake": false,
+                "wristBrakeAng": 0.4859045015061985
+              },
+              {
+                "method": "elbowGravity",
+                "routed": false,
+                "consumedActivation": 0.6000211004600341,
+                "ordinaryActivation": 0.34222675727792407,
+                "independentActivation": 0.6000211004600341,
+                "muscleGateAt012": true,
+                "restoredFilterExact": true,
+                "filterTarget": 0.6,
+                "previousAim": [
+                  0.4283108378114961,
+                  0.9036314628378816,
+                  -7.471736321628575e-05
+                ],
+                "currentAim": [
+                  0.4283108378114961,
+                  0.9036314628378816,
+                  -7.471736321628575e-05
+                ],
+                "wristHill": 0.9009492760037756,
+                "wristBrake": false,
+                "wristBrakeAng": 0.4859045015061985
+              }
+            ],
+            "actualTorques": [
+              {
+                "actuator": "driveSword",
+                "part": "sword",
+                "torqueNm": [
+                  0.5033075836967461,
+                  -0.2470393252524095,
+                  0.7989270497347517
+                ],
+                "preSolverOmegaRadps": [
+                  -0.039999641478061676,
+                  1.0651164054870605,
+                  2.0967631340026855
+                ],
+                "instantaneousPowerW": 1.3919030236135028
+              },
+              {
+                "actuator": "driveSword",
+                "part": "farmS",
+                "torqueNm": [
+                  -0.43253780297531547,
+                  0.30832566201394745,
+                  -0.8133301252633687
+                ],
+                "preSolverOmegaRadps": [
+                  -1.0194456577301025,
+                  0.261499285697937,
+                  1.5752873420715332
+                ],
+                "instantaneousPowerW": -0.7596529258265444
+              },
+              {
+                "actuator": "driveSword",
+                "part": "chest",
+                "torqueNm": [
+                  -0.07076978072143063,
+                  -0.06128633676153798,
+                  0.014403075528616981
+                ],
+                "preSolverOmegaRadps": [
+                  -0.11410117149353027,
+                  0.29144734144210815,
+                  0.14214274287223816
+                ],
+                "instantaneousPowerW": -0.0077395323677868656
+              },
+              {
+                "actuator": "driveJoints",
+                "part": "uarmS",
+                "torqueNm": [
+                  1.767027346986596,
+                  -0.6051713903731049,
+                  10.820221431109385
+                ],
+                "preSolverOmegaRadps": [
+                  -1.1013550758361816,
+                  0.31451594829559326,
+                  1.3936278820037842
+                ],
+                "instantaneousPowerW": 12.942901684379336
+              },
+              {
+                "actuator": "driveJoints",
+                "part": "chest",
+                "torqueNm": [
+                  -1.767027346986596,
+                  0.6051713903731049,
+                  -10.820221431109385
+                ],
+                "preSolverOmegaRadps": [
+                  -0.11410117149353027,
+                  0.29144734144210815,
+                  0.14214274287223816
+                ],
+                "instantaneousPowerW": -1.160020469509521
+              },
+              {
+                "actuator": "elbowGravity",
+                "part": "farmS",
+                "torqueNm": [
+                  0.9782532672893666,
+                  -0.6192190049976003,
+                  2.1711126024217937
+                ],
+                "preSolverOmegaRadps": [
+                  -1.0194456577301025,
+                  0.261499285697937,
+                  1.5752873420715332
+                ],
+                "instantaneousPowerW": 2.260924827811147
+              },
+              {
+                "actuator": "elbowGravity",
+                "part": "uarmS",
+                "torqueNm": [
+                  -0.9782532672893666,
+                  0.6192190049976003,
+                  -2.1711126024217937
+                ],
+                "preSolverOmegaRadps": [
+                  -1.1013550758361816,
+                  0.31451594829559326,
+                  1.3936278820037842
+                ],
+                "instantaneousPowerW": -1.7535646037628616
+              }
+            ],
+            "shoulderRequests": [
+              {
+                "joint": "uarmS",
+                "k": 185.64283555410157,
+                "d": 19.803294930592724,
+                "maxTorqueRequestNm": 46.41070888852539,
+                "targetQuaternion": [
+                  0.4344404005574743,
+                  0.8652051112320686,
+                  -0.24028809831459852,
+                  -0.07030848931472648
+                ]
+              }
+            ],
+            "elbowMotorRequests": [
+              {
+                "joint": "farmS",
+                "axis": 3,
+                "targetPositionRad": 0.26547061415984063,
+                "targetVelocityRadps": 0,
+                "stiffness": 232.05354444262696,
+                "damping": 28.943277206250908
+              }
+            ],
+            "jointTargets": {
+              "shoulder": [
+                0.4344404005574743,
+                0.8652051112320686,
+                -0.24028809831459852,
+                -0.07030848931472648
+              ],
+              "elbow": [
+                0,
+                0,
+                0.13234588055079416,
+                0.991203595585304
+              ]
+            },
+            "wristCapNm": 6.574470638295697,
+            "wristSwingBeforeTwistNm": [
+              0.5001152716744299,
+              -0.2533349867876217,
+              0.7989290637883014
+            ],
+            "wristBrake": false,
+            "wristHill": 0.9009492760037756,
+            "swordKJ": 1.0871544767859038,
+            "bodyAndSwordKJ": 2.593998502203666,
+            "handErrorM": 0.09271405585564738,
+            "ownAimErrorRad": 0.010294444199368837,
+            "maxGapM": 0.0002584198408818383,
+            "maxSolverPointHorizontalMps": 0.018458812086808885
+          },
+          "firstRecordedEventOrLifecycleBoundary": {
+            "tick": 1600,
+            "postStepTimeS": 13.34166666666655,
+            "cause": "recordedEventOrLifecycleDivergence"
+          },
+          "directWindow": {
+            "full": {
+              "steps": 15,
+              "durationS": 0.125,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 1.4873401995512736,
+              "negativeExplicitSwordTorquePowerSteps": 12,
+              "meanHandErrorM": 0.09788403412872132,
+              "meanOwnAimErrorRad": 0.00839627728226985,
+              "meanExternalAimErrorRad": 0.21440213993990268,
+              "maxSwordKJ": 1.0925578315349116,
+              "maxBodyAndSwordKJ": 2.5956437937149945,
+              "maxGapM": 0.0002582578490612169,
+              "maxSolverPointHorizontalMps": 0.020514854880249664,
+              "swordWholeRotationIntegralRad": 0.36150402524881003,
+              "maxPelvisUpwardMps": 0.01111841481178999,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 7.850462293418876e-17,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 1.778229534496991,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.19093883181643728
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 1.6335507583793163,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.18109169254551566
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 0.7025754079755501,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.001766712004128063
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 10.980246348555365,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5473753891346586
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 10.980246348555365,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.14393155493973497
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.2595261966571271
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.19175015703306708
+                  }
+                }
+              }
+            },
+            "variant": {
+              "steps": 15,
+              "durationS": 0.125,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 1.487340129146294,
+              "negativeExplicitSwordTorquePowerSteps": 12,
+              "meanHandErrorM": 0.09786630184267893,
+              "meanOwnAimErrorRad": 0.008337211139335728,
+              "meanExternalAimErrorRad": 0.21544689487030147,
+              "maxSwordKJ": 1.0871544767859038,
+              "maxBodyAndSwordKJ": 2.593998502203666,
+              "maxGapM": 0.0002584198408818383,
+              "maxSolverPointHorizontalMps": 0.020505027989957854,
+              "swordWholeRotationIntegralRad": 0.3612032959039894,
+              "maxPelvisUpwardMps": 0.01112325955182314,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 1.2412670766236366e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 1.76489114884296,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.1836193436917479
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 1.6210367731207938,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.1764496914220943
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 0.6979115988756475,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.0017790799273191887
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 10.980246348555365,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5425897219955286
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 10.980246348555365,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.14347666691726454
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.2597174817836839
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.19187773663824698
+                  }
+                }
+              }
+            }
+          },
+          "commonRecoveryWindow": {
+            "full": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5494104934391004,
+              "negativeExplicitSwordTorquePowerSteps": 48,
+              "meanHandErrorM": 0.09637079861425288,
+              "meanOwnAimErrorRad": 0.015589284746628065,
+              "meanExternalAimErrorRad": 0.10297581284477778,
+              "maxSwordKJ": 1.0925578315349116,
+              "maxBodyAndSwordKJ": 2.5956437937149945,
+              "maxGapM": 0.0002582578490612169,
+              "maxSolverPointHorizontalMps": 0.02400608227580401,
+              "swordWholeRotationIntegralRad": 1.0355949449729862,
+              "maxPelvisUpwardMps": 0.042834892868995667,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 8.881784197001252e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 12.422710741827117,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5546270834866559
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 10.955755905402928,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5349122938905758
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 5.856207201581337,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.028152325773897754
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.9572746475486127
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.0194697447053276
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.637705765145368
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.35113480991194795
+                  }
+                }
+              }
+            },
+            "variant": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5494125231855231,
+              "negativeExplicitSwordTorquePowerSteps": 48,
+              "meanHandErrorM": 0.09636976091850438,
+              "meanOwnAimErrorRad": 0.015164549372586428,
+              "meanExternalAimErrorRad": 0.10451339365634862,
+              "maxSwordKJ": 1.0871544767859038,
+              "maxBodyAndSwordKJ": 2.593998502203666,
+              "maxGapM": 0.0002584198408818383,
+              "maxSolverPointHorizontalMps": 0.024013319482513992,
+              "swordWholeRotationIntegralRad": 1.0294693831201696,
+              "maxPelvisUpwardMps": 0.042838018387556076,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 6.661338147750939e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 9.829397166499314,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5426430372035899
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 8.647638943899828,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5344311051086256
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 4.672835780866666,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.02851236820529001
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 24.206846353999676,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.9541524927596032
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 24.206846353999676,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.0185742364197463
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.638326351109496
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.3519139370321207
+                  }
+                }
+              }
+            }
+          },
+          "commonWoundedRecoveryWindow": {
+            "full": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5494104934391004,
+              "negativeExplicitSwordTorquePowerSteps": 48,
+              "meanHandErrorM": 0.09637079861425288,
+              "meanOwnAimErrorRad": 0.015589284746628065,
+              "meanExternalAimErrorRad": 0.10297581284477778,
+              "maxSwordKJ": 1.0925578315349116,
+              "maxBodyAndSwordKJ": 2.5956437937149945,
+              "maxGapM": 0.0002582578490612169,
+              "maxSolverPointHorizontalMps": 0.02400608227580401,
+              "swordWholeRotationIntegralRad": 1.0355949449729862,
+              "maxPelvisUpwardMps": 0.042834892868995667,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 8.881784197001252e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 12.422710741827117,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5546270834866559
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 10.955755905402928,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5349122938905758
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 5.856207201581337,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.028152325773897754
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.9572746475486127
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.0194697447053276
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.637705765145368
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.35113480991194795
+                  }
+                }
+              }
+            },
+            "variant": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5494125231855231,
+              "negativeExplicitSwordTorquePowerSteps": 48,
+              "meanHandErrorM": 0.09636976091850438,
+              "meanOwnAimErrorRad": 0.015164549372586428,
+              "meanExternalAimErrorRad": 0.10451339365634862,
+              "maxSwordKJ": 1.0871544767859038,
+              "maxBodyAndSwordKJ": 2.593998502203666,
+              "maxGapM": 0.0002584198408818383,
+              "maxSolverPointHorizontalMps": 0.024013319482513992,
+              "swordWholeRotationIntegralRad": 1.0294693831201696,
+              "maxPelvisUpwardMps": 0.042838018387556076,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 6.661338147750939e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 9.829397166499314,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5426430372035899
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 8.647638943899828,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5344311051086256
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 4.672835780866666,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.02851236820529001
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 24.206846353999676,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.9541524927596032
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 24.206846353999676,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.0185742364197463
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.638326351109496
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.3519139370321207
+                  }
+                }
+              }
+            }
+          },
+          "entireWindow": {
+            "steps": 60,
+            "durationS": 0.5,
+            "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+            "meanUnprojectedAimCrossOverDtRadps": 0.5494125231855231,
+            "negativeExplicitSwordTorquePowerSteps": 48,
+            "meanHandErrorM": 0.09636976091850438,
+            "meanOwnAimErrorRad": 0.015164549372586428,
+            "meanExternalAimErrorRad": 0.10451339365634862,
+            "maxSwordKJ": 1.0871544767859038,
+            "maxBodyAndSwordKJ": 2.593998502203666,
+            "maxGapM": 0.0002584198408818383,
+            "maxSolverPointHorizontalMps": 0.024013319482513992,
+            "swordWholeRotationIntegralRad": 1.0294693831201696,
+            "maxPelvisUpwardMps": 0.042838018387556076,
+            "wristBrakeSteps": 0,
+            "maxReactionTorqueClosureNm": 6.661338147750939e-16,
+            "appliedTorquesByPathAndRecipient": {
+              "driveSword": {
+                "sword": {
+                  "maxAppliedTorqueNm": 9.829397166499314,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.5426430372035899
+                },
+                "farmS": {
+                  "maxAppliedTorqueNm": 8.647638943899828,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.5344311051086256
+                },
+                "chest": {
+                  "maxAppliedTorqueNm": 4.672835780866666,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.02851236820529001
+                }
+              },
+              "driveJoints": {
+                "uarmS": {
+                  "maxAppliedTorqueNm": 24.206846353999676,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 1.9541524927596032
+                },
+                "chest": {
+                  "maxAppliedTorqueNm": 24.206846353999676,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 1.0185742364197463
+                }
+              },
+              "elbowGravity": {
+                "farmS": {
+                  "maxAppliedTorqueNm": 2.4605165237216498,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.638326351109496
+                },
+                "uarmS": {
+                  "maxAppliedTorqueNm": 2.4605165237216498,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.3519139370321207
+                }
+              }
+            }
+          },
+          "firstDrop": null,
+          "firstDeath": null
+        },
+        {
+          "mode": "jointsOrdinary",
+          "zeroDeltaToleranceM": 1e-12,
+          "maxRequestedDeltaM": 9.992007221626409e-16,
+          "requestExact": true,
+          "livePadExact": true,
+          "allRequestsHeldZeroDelta": true,
+          "latentFilterRecoverySteps": 60,
+          "actualExtraActivationStepsByPath": {
+            "driveSword": 60,
+            "driveJoints": 0,
+            "elbowGravity": 0
+          },
+          "firstStep": {
+            "timeS": 13.216666666666557,
+            "health": {
+              "state": "getup",
+              "stateTimeS": 0.6083333333333336,
+              "alive": true,
+              "armed": true,
+              "gripValid": true,
+              "armHealth": 0.9526510952502474,
+              "legHealth": 0.9630617252497189,
+              "limbs": {
+                "armS": 0.9526510952502474,
+                "armO": 0,
+                "legF": 0.9261234504994377,
+                "legB": 1
+              },
+              "muscle": 0.34222675727792407,
+              "vigor": 0.6,
+              "pain": 1.6282403668513679,
+              "blood": 0.807041764590146,
+              "consciousness": 0.5982709576718396,
+              "woundCount": 6,
+              "detached": []
+            },
+            "activationFilter": {
+              "enabled": true,
+              "value": 0.6000211004600341,
+              "target": 0.6
+            },
+            "pathDispatch": [
+              {
+                "method": "driveSword",
+                "routed": false,
+                "consumedActivation": 0.6000211004600341,
+                "ordinaryActivation": 0.34222675727792407,
+                "independentActivation": 0.6000211004600341,
+                "muscleGateAt012": true,
+                "restoredFilterExact": true,
+                "filterTarget": 0.6,
+                "previousAim": [
+                  0.44324036946807377,
+                  0.8963946445791033,
+                  0.003823093473673104
+                ],
+                "currentAim": [
+                  0.4283108378114961,
+                  0.9036314628378816,
+                  -7.471736321628575e-05
+                ],
+                "wristHill": 0.9017848522200074,
+                "wristBrake": false,
+                "wristBrakeAng": 0.4859045015061985
+              },
+              {
+                "method": "driveJoints",
+                "routed": true,
+                "consumedActivation": 0.34222675727792407,
+                "ordinaryActivation": 0.34222675727792407,
+                "independentActivation": 0.6000211004600341,
+                "muscleGateAt012": null,
+                "restoredFilterExact": true,
+                "filterTarget": 0.6,
+                "previousAim": [
+                  0.4283108378114961,
+                  0.9036314628378816,
+                  -7.471736321628575e-05
+                ],
+                "currentAim": [
+                  0.4283108378114961,
+                  0.9036314628378816,
+                  -7.471736321628575e-05
+                ],
+                "wristHill": 0.9017848522200074,
+                "wristBrake": false,
+                "wristBrakeAng": 0.4859045015061985
+              },
+              {
+                "method": "elbowGravity",
+                "routed": true,
+                "consumedActivation": 0.34222675727792407,
+                "ordinaryActivation": 0.34222675727792407,
+                "independentActivation": 0.6000211004600341,
+                "muscleGateAt012": true,
+                "restoredFilterExact": true,
+                "filterTarget": 0.6,
+                "previousAim": [
+                  0.4283108378114961,
+                  0.9036314628378816,
+                  -7.471736321628575e-05
+                ],
+                "currentAim": [
+                  0.4283108378114961,
+                  0.9036314628378816,
+                  -7.471736321628575e-05
+                ],
+                "wristHill": 0.9017848522200074,
+                "wristBrake": false,
+                "wristBrakeAng": 0.4859045015061985
+              }
+            ],
+            "actualTorques": [
+              {
+                "actuator": "driveSword",
+                "part": "sword",
+                "torqueNm": [
+                  0.5034831047630753,
+                  -0.2470393252524095,
+                  1.0755929646661146
+                ],
+                "preSolverOmegaRadps": [
+                  -0.039999641478061676,
+                  1.0651164054870605,
+                  2.0967631340026855
+                ],
+                "instantaneousPowerW": 1.9719988936969828
+              },
+              {
+                "actuator": "driveSword",
+                "part": "farmS",
+                "torqueNm": [
+                  -0.464047770702336,
+                  0.2811901610881682,
+                  -1.0836188492906387
+                ],
+                "preSolverOmegaRadps": [
+                  -1.0194456577301025,
+                  0.261499285697937,
+                  1.5752873420715332
+                ],
+                "instantaneousPowerW": -1.160408545825989
+              },
+              {
+                "actuator": "driveSword",
+                "part": "chest",
+                "torqueNm": [
+                  -0.039435334060739326,
+                  -0.03415083583575872,
+                  0.008025884624524074
+                ],
+                "preSolverOmegaRadps": [
+                  -0.11410117149353027,
+                  0.29144734144210815,
+                  0.14214274287223816
+                ],
+                "instantaneousPowerW": -0.004312731243282705
+              },
+              {
+                "actuator": "driveJoints",
+                "part": "uarmS",
+                "torqueNm": [
+                  1.6712776337111084,
+                  -0.6948795573046038,
+                  5.541901167101817
+                ],
+                "preSolverOmegaRadps": [
+                  -1.1013550758361816,
+                  0.31451594829559326,
+                  1.3936278820037842
+                ],
+                "instantaneousPowerW": 5.6641271778463125
+              },
+              {
+                "actuator": "driveJoints",
+                "part": "chest",
+                "torqueNm": [
+                  -1.6712776337111084,
+                  0.6948795573046038,
+                  -5.541901167101817
+                ],
+                "preSolverOmegaRadps": [
+                  -0.11410117149353027,
+                  0.29144734144210815,
+                  0.14214274287223816
+                ],
+                "instantaneousPowerW": -0.3945254971224416
+              },
+              {
+                "actuator": "elbowGravity",
+                "part": "farmS",
+                "torqueNm": [
+                  0.5579544506089804,
+                  -0.35317643323329495,
+                  1.2383111611281334
+                ],
+                "preSolverOmegaRadps": [
+                  -1.0194456577301025,
+                  0.261499285697937,
+                  1.5752873420715332
+                ],
+                "instantaneousPowerW": 1.2895362707706894
+              },
+              {
+                "actuator": "elbowGravity",
+                "part": "uarmS",
+                "torqueNm": [
+                  -0.5579544506089804,
+                  0.35317643323329495,
+                  -1.2383111611281334
+                ],
+                "preSolverOmegaRadps": [
+                  -1.1013550758361816,
+                  0.31451594829559326,
+                  1.3936278820037842
+                ],
+                "instantaneousPowerW": -1.0001593736670338
+              }
+            ],
+            "shoulderRequests": [
+              {
+                "joint": "uarmS",
+                "k": 105.88285241110582,
+                "d": 14.955852557392408,
+                "maxTorqueRequestNm": 26.470713102776454,
+                "targetQuaternion": [
+                  0.4344404005574743,
+                  0.8652051112320686,
+                  -0.24028809831459852,
+                  -0.07030848931472648
+                ]
+              }
+            ],
+            "elbowMotorRequests": [
+              {
+                "joint": "farmS",
+                "axis": 3,
+                "targetPositionRad": 0.26547061415984063,
+                "targetVelocityRadps": 0,
+                "stiffness": 132.35356551388227,
+                "damping": 21.858553737727366
+              }
+            ],
+            "jointTargets": {
+              "shoulder": [
+                0.4344404005574743,
+                0.8652051112320686,
+                -0.24028809831459852,
+                -0.07030848931472648
+              ],
+              "elbow": [
+                0,
+                0,
+                0.13234588055079416,
+                0.991203595585304
+              ]
+            },
+            "wristCapNm": 11.537612438130026,
+            "wristSwingBeforeTwistNm": [
+              0.5002907927407592,
+              -0.2533349867876217,
+              1.0755949787196644
+            ],
+            "wristBrake": false,
+            "wristHill": 0.9017848522200074,
+            "swordKJ": 1.0766422426039308,
+            "bodyAndSwordKJ": 2.536110377552715,
+            "handErrorM": 0.09279637458453073,
+            "ownAimErrorRad": 0.009756910967050033,
+            "maxGapM": 0.00025598037198026923,
+            "maxSolverPointHorizontalMps": 0.018347262836266216
+          },
+          "firstRecordedEventOrLifecycleBoundary": {
+            "tick": 1600,
+            "postStepTimeS": 13.34166666666655,
+            "cause": "recordedEventOrLifecycleDivergence"
+          },
+          "directWindow": {
+            "full": {
+              "steps": 15,
+              "durationS": 0.125,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 1.4873401995512736,
+              "negativeExplicitSwordTorquePowerSteps": 12,
+              "meanHandErrorM": 0.09788403412872132,
+              "meanOwnAimErrorRad": 0.00839627728226985,
+              "meanExternalAimErrorRad": 0.21440213993990268,
+              "maxSwordKJ": 1.0925578315349116,
+              "maxBodyAndSwordKJ": 2.5956437937149945,
+              "maxGapM": 0.0002582578490612169,
+              "maxSolverPointHorizontalMps": 0.020514854880249664,
+              "swordWholeRotationIntegralRad": 0.36150402524881003,
+              "maxPelvisUpwardMps": 0.01111841481178999,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 7.850462293418876e-17,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 1.778229534496991,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.19093883181643728
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 1.6335507583793163,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.18109169254551566
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 0.7025754079755501,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.001766712004128063
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 10.980246348555365,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5473753891346586
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 10.980246348555365,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.14393155493973497
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.2595261966571271
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.19175015703306708
+                  }
+                }
+              }
+            },
+            "variant": {
+              "steps": 15,
+              "durationS": 0.125,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 1.4873295442437464,
+              "negativeExplicitSwordTorquePowerSteps": 14,
+              "meanHandErrorM": 0.09905333151121637,
+              "meanOwnAimErrorRad": 0.0079038761717782,
+              "meanExternalAimErrorRad": 0.21318375253390492,
+              "maxSwordKJ": 1.0766422426039308,
+              "maxBodyAndSwordKJ": 2.536110377552715,
+              "maxGapM": 0.00025598037198026923,
+              "maxSolverPointHorizontalMps": 0.020196671151659344,
+              "swordWholeRotationIntegralRad": 0.3653809798115205,
+              "maxPelvisUpwardMps": 0.011573795229196548,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 1.2412670766236366e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 1.5496737358659995,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.19751840072654137
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 1.4112529058512575,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.1750897888562476
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 0.6401984131694032,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.0014624445593725175
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 6.765502457887008,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.3112991063168974
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 6.765502457887008,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.10146839946385307
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 1.4033749654743979,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.12602073599365113
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 1.4033749654743979,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.09657706315080453
+                  }
+                }
+              }
+            }
+          },
+          "commonRecoveryWindow": {
+            "full": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5494104934391004,
+              "negativeExplicitSwordTorquePowerSteps": 48,
+              "meanHandErrorM": 0.09637079861425288,
+              "meanOwnAimErrorRad": 0.015589284746628065,
+              "meanExternalAimErrorRad": 0.10297581284477778,
+              "maxSwordKJ": 1.0925578315349116,
+              "maxBodyAndSwordKJ": 2.5956437937149945,
+              "maxGapM": 0.0002582578490612169,
+              "maxSolverPointHorizontalMps": 0.02400608227580401,
+              "swordWholeRotationIntegralRad": 1.0355949449729862,
+              "maxPelvisUpwardMps": 0.042834892868995667,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 8.881784197001252e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 12.422710741827117,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5546270834866559
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 10.955755905402928,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5349122938905758
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 5.856207201581337,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.028152325773897754
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.9572746475486127
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.0194697447053276
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.637705765145368
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.35113480991194795
+                  }
+                }
+              }
+            },
+            "variant": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5494311990653418,
+              "negativeExplicitSwordTorquePowerSteps": 45,
+              "meanHandErrorM": 0.10054469104127436,
+              "meanOwnAimErrorRad": 0.015333022530931016,
+              "meanExternalAimErrorRad": 0.10381526602141612,
+              "maxSwordKJ": 1.0766422426039308,
+              "maxBodyAndSwordKJ": 2.536110377552715,
+              "maxGapM": 0.00025598037198026923,
+              "maxSolverPointHorizontalMps": 0.023942927192933734,
+              "swordWholeRotationIntegralRad": 0.8618488543310381,
+              "maxPelvisUpwardMps": 0.04634515196084976,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 8.881784197001252e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 12.501745865916632,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.47495077862771573
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 10.818607408764647,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.44773851112917745
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 6.265092289793262,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.03076137676621394
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 21.557223517403866,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.6288058870371431
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 21.557223517403866,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.9454818201763199
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 1.4554531824127441,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.3450878814028973
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 1.4554531824127441,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.2055050092813776
+                  }
+                }
+              }
+            }
+          },
+          "commonWoundedRecoveryWindow": {
+            "full": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5494104934391004,
+              "negativeExplicitSwordTorquePowerSteps": 48,
+              "meanHandErrorM": 0.09637079861425288,
+              "meanOwnAimErrorRad": 0.015589284746628065,
+              "meanExternalAimErrorRad": 0.10297581284477778,
+              "maxSwordKJ": 1.0925578315349116,
+              "maxBodyAndSwordKJ": 2.5956437937149945,
+              "maxGapM": 0.0002582578490612169,
+              "maxSolverPointHorizontalMps": 0.02400608227580401,
+              "swordWholeRotationIntegralRad": 1.0355949449729862,
+              "maxPelvisUpwardMps": 0.042834892868995667,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 8.881784197001252e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 12.422710741827117,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5546270834866559
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 10.955755905402928,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5349122938905758
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 5.856207201581337,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.028152325773897754
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.9572746475486127
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.0194697447053276
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.637705765145368
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.35113480991194795
+                  }
+                }
+              }
+            },
+            "variant": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5494311990653418,
+              "negativeExplicitSwordTorquePowerSteps": 45,
+              "meanHandErrorM": 0.10054469104127436,
+              "meanOwnAimErrorRad": 0.015333022530931016,
+              "meanExternalAimErrorRad": 0.10381526602141612,
+              "maxSwordKJ": 1.0766422426039308,
+              "maxBodyAndSwordKJ": 2.536110377552715,
+              "maxGapM": 0.00025598037198026923,
+              "maxSolverPointHorizontalMps": 0.023942927192933734,
+              "swordWholeRotationIntegralRad": 0.8618488543310381,
+              "maxPelvisUpwardMps": 0.04634515196084976,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 8.881784197001252e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 12.501745865916632,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.47495077862771573
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 10.818607408764647,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.44773851112917745
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 6.265092289793262,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.03076137676621394
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 21.557223517403866,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.6288058870371431
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 21.557223517403866,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.9454818201763199
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 1.4554531824127441,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.3450878814028973
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 1.4554531824127441,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.2055050092813776
+                  }
+                }
+              }
+            }
+          },
+          "entireWindow": {
+            "steps": 60,
+            "durationS": 0.5,
+            "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+            "meanUnprojectedAimCrossOverDtRadps": 0.5494311990653418,
+            "negativeExplicitSwordTorquePowerSteps": 45,
+            "meanHandErrorM": 0.10054469104127436,
+            "meanOwnAimErrorRad": 0.015333022530931016,
+            "meanExternalAimErrorRad": 0.10381526602141612,
+            "maxSwordKJ": 1.0766422426039308,
+            "maxBodyAndSwordKJ": 2.536110377552715,
+            "maxGapM": 0.00025598037198026923,
+            "maxSolverPointHorizontalMps": 0.023942927192933734,
+            "swordWholeRotationIntegralRad": 0.8618488543310381,
+            "maxPelvisUpwardMps": 0.04634515196084976,
+            "wristBrakeSteps": 0,
+            "maxReactionTorqueClosureNm": 8.881784197001252e-16,
+            "appliedTorquesByPathAndRecipient": {
+              "driveSword": {
+                "sword": {
+                  "maxAppliedTorqueNm": 12.501745865916632,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.47495077862771573
+                },
+                "farmS": {
+                  "maxAppliedTorqueNm": 10.818607408764647,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.44773851112917745
+                },
+                "chest": {
+                  "maxAppliedTorqueNm": 6.265092289793262,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.03076137676621394
+                }
+              },
+              "driveJoints": {
+                "uarmS": {
+                  "maxAppliedTorqueNm": 21.557223517403866,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 1.6288058870371431
+                },
+                "chest": {
+                  "maxAppliedTorqueNm": 21.557223517403866,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.9454818201763199
+                }
+              },
+              "elbowGravity": {
+                "farmS": {
+                  "maxAppliedTorqueNm": 1.4554531824127441,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.3450878814028973
+                },
+                "uarmS": {
+                  "maxAppliedTorqueNm": 1.4554531824127441,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.2055050092813776
+                }
+              }
+            }
+          },
+          "firstDrop": null,
+          "firstDeath": null
+        },
+        {
+          "mode": "allOrdinary",
+          "zeroDeltaToleranceM": 1e-12,
+          "maxRequestedDeltaM": 9.992007221626409e-16,
+          "requestExact": true,
+          "livePadExact": true,
+          "allRequestsHeldZeroDelta": true,
+          "latentFilterRecoverySteps": 60,
+          "actualExtraActivationStepsByPath": {
+            "driveSword": 0,
+            "driveJoints": 0,
+            "elbowGravity": 0
+          },
+          "firstStep": {
+            "timeS": 13.216666666666557,
+            "health": {
+              "state": "getup",
+              "stateTimeS": 0.6083333333333336,
+              "alive": true,
+              "armed": true,
+              "gripValid": true,
+              "armHealth": 0.9526510952502474,
+              "legHealth": 0.9630617252497189,
+              "limbs": {
+                "armS": 0.9526510952502474,
+                "armO": 0,
+                "legF": 0.9261234504994377,
+                "legB": 1
+              },
+              "muscle": 0.34222675727792407,
+              "vigor": 0.6,
+              "pain": 1.6282403668513679,
+              "blood": 0.807041764590146,
+              "consciousness": 0.5982709576718396,
+              "woundCount": 6,
+              "detached": []
+            },
+            "activationFilter": {
+              "enabled": true,
+              "value": 0.6000211004600341,
+              "target": 0.6
+            },
+            "pathDispatch": [
+              {
+                "method": "driveSword",
+                "routed": true,
+                "consumedActivation": 0.34222675727792407,
+                "ordinaryActivation": 0.34222675727792407,
+                "independentActivation": 0.6000211004600341,
+                "muscleGateAt012": true,
+                "restoredFilterExact": true,
+                "filterTarget": 0.6,
+                "previousAim": [
+                  0.44324036946807377,
+                  0.8963946445791033,
+                  0.003823093473673104
+                ],
+                "currentAim": [
+                  0.4283108378114961,
+                  0.9036314628378816,
+                  -7.471736321628575e-05
+                ],
+                "wristHill": 0.9009492760037756,
+                "wristBrake": false,
+                "wristBrakeAng": 0.4859045015061985
+              },
+              {
+                "method": "driveJoints",
+                "routed": true,
+                "consumedActivation": 0.34222675727792407,
+                "ordinaryActivation": 0.34222675727792407,
+                "independentActivation": 0.6000211004600341,
+                "muscleGateAt012": null,
+                "restoredFilterExact": true,
+                "filterTarget": 0.6,
+                "previousAim": [
+                  0.4283108378114961,
+                  0.9036314628378816,
+                  -7.471736321628575e-05
+                ],
+                "currentAim": [
+                  0.4283108378114961,
+                  0.9036314628378816,
+                  -7.471736321628575e-05
+                ],
+                "wristHill": 0.9009492760037756,
+                "wristBrake": false,
+                "wristBrakeAng": 0.4859045015061985
+              },
+              {
+                "method": "elbowGravity",
+                "routed": true,
+                "consumedActivation": 0.34222675727792407,
+                "ordinaryActivation": 0.34222675727792407,
+                "independentActivation": 0.6000211004600341,
+                "muscleGateAt012": true,
+                "restoredFilterExact": true,
+                "filterTarget": 0.6,
+                "previousAim": [
+                  0.4283108378114961,
+                  0.9036314628378816,
+                  -7.471736321628575e-05
+                ],
+                "currentAim": [
+                  0.4283108378114961,
+                  0.9036314628378816,
+                  -7.471736321628575e-05
+                ],
+                "wristHill": 0.9009492760037756,
+                "wristBrake": false,
+                "wristBrakeAng": 0.4859045015061985
+              }
+            ],
+            "actualTorques": [
+              {
+                "actuator": "driveSword",
+                "part": "sword",
+                "torqueNm": [
+                  0.5033075836967461,
+                  -0.2470393252524095,
+                  0.7989270497347517
+                ],
+                "preSolverOmegaRadps": [
+                  -0.039999641478061676,
+                  1.0651164054870605,
+                  2.0967631340026855
+                ],
+                "instantaneousPowerW": 1.3919030236135028
+              },
+              {
+                "actuator": "driveSword",
+                "part": "farmS",
+                "torqueNm": [
+                  -0.43253780297531547,
+                  0.30832566201394745,
+                  -0.8133301252633687
+                ],
+                "preSolverOmegaRadps": [
+                  -1.0194456577301025,
+                  0.261499285697937,
+                  1.5752873420715332
+                ],
+                "instantaneousPowerW": -0.7596529258265444
+              },
+              {
+                "actuator": "driveSword",
+                "part": "chest",
+                "torqueNm": [
+                  -0.07076978072143063,
+                  -0.06128633676153798,
+                  0.014403075528616981
+                ],
+                "preSolverOmegaRadps": [
+                  -0.11410117149353027,
+                  0.29144734144210815,
+                  0.14214274287223816
+                ],
+                "instantaneousPowerW": -0.0077395323677868656
+              },
+              {
+                "actuator": "driveJoints",
+                "part": "uarmS",
+                "torqueNm": [
+                  1.6712776337111084,
+                  -0.6948795573046038,
+                  5.541901167101817
+                ],
+                "preSolverOmegaRadps": [
+                  -1.1013550758361816,
+                  0.31451594829559326,
+                  1.3936278820037842
+                ],
+                "instantaneousPowerW": 5.6641271778463125
+              },
+              {
+                "actuator": "driveJoints",
+                "part": "chest",
+                "torqueNm": [
+                  -1.6712776337111084,
+                  0.6948795573046038,
+                  -5.541901167101817
+                ],
+                "preSolverOmegaRadps": [
+                  -0.11410117149353027,
+                  0.29144734144210815,
+                  0.14214274287223816
+                ],
+                "instantaneousPowerW": -0.3945254971224416
+              },
+              {
+                "actuator": "elbowGravity",
+                "part": "farmS",
+                "torqueNm": [
+                  0.5579544506089804,
+                  -0.35317643323329495,
+                  1.2383111611281334
+                ],
+                "preSolverOmegaRadps": [
+                  -1.0194456577301025,
+                  0.261499285697937,
+                  1.5752873420715332
+                ],
+                "instantaneousPowerW": 1.2895362707706894
+              },
+              {
+                "actuator": "elbowGravity",
+                "part": "uarmS",
+                "torqueNm": [
+                  -0.5579544506089804,
+                  0.35317643323329495,
+                  -1.2383111611281334
+                ],
+                "preSolverOmegaRadps": [
+                  -1.1013550758361816,
+                  0.31451594829559326,
+                  1.3936278820037842
+                ],
+                "instantaneousPowerW": -1.0001593736670338
+              }
+            ],
+            "shoulderRequests": [
+              {
+                "joint": "uarmS",
+                "k": 105.88285241110582,
+                "d": 14.955852557392408,
+                "maxTorqueRequestNm": 26.470713102776454,
+                "targetQuaternion": [
+                  0.4344404005574743,
+                  0.8652051112320686,
+                  -0.24028809831459852,
+                  -0.07030848931472648
+                ]
+              }
+            ],
+            "elbowMotorRequests": [
+              {
+                "joint": "farmS",
+                "axis": 3,
+                "targetPositionRad": 0.26547061415984063,
+                "targetVelocityRadps": 0,
+                "stiffness": 132.35356551388227,
+                "damping": 21.858553737727366
+              }
+            ],
+            "jointTargets": {
+              "shoulder": [
+                0.4344404005574743,
+                0.8652051112320686,
+                -0.24028809831459852,
+                -0.07030848931472648
+              ],
+              "elbow": [
+                0,
+                0,
+                0.13234588055079416,
+                0.991203595585304
+              ]
+            },
+            "wristCapNm": 6.574470638295697,
+            "wristSwingBeforeTwistNm": [
+              0.5001152716744299,
+              -0.2533349867876217,
+              0.7989290637883014
+            ],
+            "wristBrake": false,
+            "wristHill": 0.9009492760037756,
+            "swordKJ": 1.0711436131849943,
+            "bodyAndSwordKJ": 2.5340496559727814,
+            "handErrorM": 0.09278450915022354,
+            "ownAimErrorRad": 0.009880027999676464,
+            "maxGapM": 0.00025611842068672656,
+            "maxSolverPointHorizontalMps": 0.018346360670496636
+          },
+          "firstRecordedEventOrLifecycleBoundary": {
+            "tick": 1600,
+            "postStepTimeS": 13.34166666666655,
+            "cause": "recordedEventOrLifecycleDivergence"
+          },
+          "directWindow": {
+            "full": {
+              "steps": 15,
+              "durationS": 0.125,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 1.4873401995512736,
+              "negativeExplicitSwordTorquePowerSteps": 12,
+              "meanHandErrorM": 0.09788403412872132,
+              "meanOwnAimErrorRad": 0.00839627728226985,
+              "meanExternalAimErrorRad": 0.21440213993990268,
+              "maxSwordKJ": 1.0925578315349116,
+              "maxBodyAndSwordKJ": 2.5956437937149945,
+              "maxGapM": 0.0002582578490612169,
+              "maxSolverPointHorizontalMps": 0.020514854880249664,
+              "swordWholeRotationIntegralRad": 0.36150402524881003,
+              "maxPelvisUpwardMps": 0.01111841481178999,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 7.850462293418876e-17,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 1.778229534496991,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.19093883181643728
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 1.6335507583793163,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.18109169254551566
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 0.7025754079755501,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.001766712004128063
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 10.980246348555365,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5473753891346586
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 10.980246348555365,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.14393155493973497
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.2595261966571271
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.19175015703306708
+                  }
+                }
+              }
+            },
+            "variant": {
+              "steps": 15,
+              "durationS": 0.125,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 1.4873296389629351,
+              "negativeExplicitSwordTorquePowerSteps": 14,
+              "meanHandErrorM": 0.09902663260449879,
+              "meanOwnAimErrorRad": 0.00769968468640174,
+              "meanExternalAimErrorRad": 0.21422988374283566,
+              "maxSwordKJ": 1.0711436131849943,
+              "maxBodyAndSwordKJ": 2.5340496559727814,
+              "maxGapM": 0.00025611842068672656,
+              "maxSolverPointHorizontalMps": 0.02019429886041231,
+              "swordWholeRotationIntegralRad": 0.36513389333345064,
+              "maxPelvisUpwardMps": 0.011603500694036484,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 1.1102230246251565e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 1.5379817391093051,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.1891902792939183
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 1.4003967599637863,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.1700558029007425
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 0.6358276759848636,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.0014825504410407378
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 6.768036476026069,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.3081319853503315
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 6.768036476026069,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.10107968895632774
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 1.4033749654743979,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.12619697770986663
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 1.4033749654743979,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.09669887963478822
+                  }
+                }
+              }
+            }
+          },
+          "commonRecoveryWindow": {
+            "full": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5494104934391004,
+              "negativeExplicitSwordTorquePowerSteps": 48,
+              "meanHandErrorM": 0.09637079861425288,
+              "meanOwnAimErrorRad": 0.015589284746628065,
+              "meanExternalAimErrorRad": 0.10297581284477778,
+              "maxSwordKJ": 1.0925578315349116,
+              "maxBodyAndSwordKJ": 2.5956437937149945,
+              "maxGapM": 0.0002582578490612169,
+              "maxSolverPointHorizontalMps": 0.02400608227580401,
+              "swordWholeRotationIntegralRad": 1.0355949449729862,
+              "maxPelvisUpwardMps": 0.042834892868995667,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 8.881784197001252e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 12.422710741827117,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5546270834866559
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 10.955755905402928,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5349122938905758
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 5.856207201581337,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.028152325773897754
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.9572746475486127
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.0194697447053276
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.637705765145368
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.35113480991194795
+                  }
+                }
+              }
+            },
+            "variant": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5494318503753097,
+              "negativeExplicitSwordTorquePowerSteps": 45,
+              "meanHandErrorM": 0.10053891858871392,
+              "meanOwnAimErrorRad": 0.014977857133397861,
+              "meanExternalAimErrorRad": 0.10528574169984016,
+              "maxSwordKJ": 1.0711436131849943,
+              "maxBodyAndSwordKJ": 2.5340496559727814,
+              "maxGapM": 0.00025611842068672656,
+              "maxSolverPointHorizontalMps": 0.02394584155680859,
+              "swordWholeRotationIntegralRad": 0.8415739101621419,
+              "maxPelvisUpwardMps": 0.0464564673602581,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 6.280369834735101e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 9.746068924884103,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.447301589085834
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 8.44534112380687,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.44773564849462427
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 4.864367641604453,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.03118503965539309
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 21.564974277907464,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.616145829335838
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 21.564974277907464,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.9458361850683202
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 1.4569741952986568,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.34521209801299385
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 1.4569741952986568,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.20596214204343552
+                  }
+                }
+              }
+            }
+          },
+          "commonWoundedRecoveryWindow": {
+            "full": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5494104934391004,
+              "negativeExplicitSwordTorquePowerSteps": 48,
+              "meanHandErrorM": 0.09637079861425288,
+              "meanOwnAimErrorRad": 0.015589284746628065,
+              "meanExternalAimErrorRad": 0.10297581284477778,
+              "maxSwordKJ": 1.0925578315349116,
+              "maxBodyAndSwordKJ": 2.5956437937149945,
+              "maxGapM": 0.0002582578490612169,
+              "maxSolverPointHorizontalMps": 0.02400608227580401,
+              "swordWholeRotationIntegralRad": 1.0355949449729862,
+              "maxPelvisUpwardMps": 0.042834892868995667,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 8.881784197001252e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 12.422710741827117,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5546270834866559
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 10.955755905402928,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.5349122938905758
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 5.856207201581337,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.028152325773897754
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.9572746475486127
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 24.1440260533523,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.0194697447053276
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.637705765145368
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.4605165237216498,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.35113480991194795
+                  }
+                }
+              }
+            },
+            "variant": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5494318503753097,
+              "negativeExplicitSwordTorquePowerSteps": 45,
+              "meanHandErrorM": 0.10053891858871392,
+              "meanOwnAimErrorRad": 0.014977857133397861,
+              "meanExternalAimErrorRad": 0.10528574169984016,
+              "maxSwordKJ": 1.0711436131849943,
+              "maxBodyAndSwordKJ": 2.5340496559727814,
+              "maxGapM": 0.00025611842068672656,
+              "maxSolverPointHorizontalMps": 0.02394584155680859,
+              "swordWholeRotationIntegralRad": 0.8415739101621419,
+              "maxPelvisUpwardMps": 0.0464564673602581,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 6.280369834735101e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 9.746068924884103,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.447301589085834
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 8.44534112380687,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.44773564849462427
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 4.864367641604453,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.03118503965539309
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 21.564974277907464,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.616145829335838
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 21.564974277907464,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.9458361850683202
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 1.4569741952986568,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.34521209801299385
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 1.4569741952986568,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.20596214204343552
+                  }
+                }
+              }
+            }
+          },
+          "entireWindow": {
+            "steps": 60,
+            "durationS": 0.5,
+            "maxUnprojectedAimCrossOverDtRadps": 2.0450559425493715,
+            "meanUnprojectedAimCrossOverDtRadps": 0.5494318503753097,
+            "negativeExplicitSwordTorquePowerSteps": 45,
+            "meanHandErrorM": 0.10053891858871392,
+            "meanOwnAimErrorRad": 0.014977857133397861,
+            "meanExternalAimErrorRad": 0.10528574169984016,
+            "maxSwordKJ": 1.0711436131849943,
+            "maxBodyAndSwordKJ": 2.5340496559727814,
+            "maxGapM": 0.00025611842068672656,
+            "maxSolverPointHorizontalMps": 0.02394584155680859,
+            "swordWholeRotationIntegralRad": 0.8415739101621419,
+            "maxPelvisUpwardMps": 0.0464564673602581,
+            "wristBrakeSteps": 0,
+            "maxReactionTorqueClosureNm": 6.280369834735101e-16,
+            "appliedTorquesByPathAndRecipient": {
+              "driveSword": {
+                "sword": {
+                  "maxAppliedTorqueNm": 9.746068924884103,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.447301589085834
+                },
+                "farmS": {
+                  "maxAppliedTorqueNm": 8.44534112380687,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.44773564849462427
+                },
+                "chest": {
+                  "maxAppliedTorqueNm": 4.864367641604453,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.03118503965539309
+                }
+              },
+              "driveJoints": {
+                "uarmS": {
+                  "maxAppliedTorqueNm": 21.564974277907464,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 1.616145829335838
+                },
+                "chest": {
+                  "maxAppliedTorqueNm": 21.564974277907464,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.9458361850683202
+                }
+              },
+              "elbowGravity": {
+                "farmS": {
+                  "maxAppliedTorqueNm": 1.4569741952986568,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.34521209801299385
+                },
+                "uarmS": {
+                  "maxAppliedTorqueNm": 1.4569741952986568,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.20596214204343552
+                }
+              }
+            }
+          },
+          "firstDrop": null,
+          "firstDeath": null
+        }
+      ],
+      "publicReleaseAccepted": false,
+      "generalDefaultPromotionAccepted": false,
+      "definitions": {
+        "pathClosure": "Sum of explicit recipient torques, a reaction-pair closure residual, not force budget.",
+        "preSolverPower": "Instantaneous actual explicit-recipient power; summed absolute power*DT is only a pre-solver effort proxy, not integrated native/constraint/muscle work.",
+        "directWindow": "Same recorded strike/clash prefix and alive+armed+getup state. Persistent solver contacts may already differ; direct first-step path requests are the strongest same-state contrast.",
+        "fullWindow": "Same external schedule from same candidate-history branch with reactive AI. Changed subsequent events are part of the total local episode effect. Not population efficacy.",
+        "footSpeed": "All fixed-ground solver point horizontal speeds at last solver substep, not loaded-foot slip or COP.",
+        "allOrdinary": "Ablation of activation consumption after an independent-from-spawn history; not an ordinary-from-spawn treatment."
+      },
+      "caseName": "actualWoundedRecovery"
+    },
+    {
+      "schemaVersion": 1,
+      "probe": "arm_recovery_path_ablation",
+      "sourceCommit": "62dd47d6409b353331d807270ac9741d591cffda",
+      "sourceBefore": {
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+        "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+        "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+        "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+        "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+        "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+        "src/arm_recovery_activation.js": "ae025cc8d9bbc9855ea8ab2793d3e7818a66a4662329014a776a2ac88966435e",
+        "src/arm_recovery_trial.js": "ebda992abc5c7cd25a12c751d0f9b30f8fddf998babc8f4a7f49c9f4a0817c09",
+        "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+        "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+        "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+        "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+        "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+        "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+        "src/cut_trial.js": "427d58d0500ceac482424e092a7d457a8cea48371c254f1b4edecb3a511be5a6",
+        "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+        "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+        "src/edge_intent.js": "b4e17a6ea08d659732c330448b3b3aaffeac2942fa5096e82db551a12d580c87",
+        "src/edge_torque.js": "436995e6d45e816517ea5a9a8f83c9fb147d143871aab1601f82baa7b36bc0fa",
+        "src/edge_torque_trial.js": "1280a3fe32c1874b6ce56b75932db44852162855d8962ae13f3aeb3e7d832cae",
+        "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+        "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+        "src/fighter.js": "8289dccb1038f6fa4da90cb62d627953072e7584b8688d9cd7877e85ee2b38b6",
+        "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+        "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+        "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+        "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+        "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+        "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+        "src/input.js": "f6a73744e19090c0406b6cf4229081e7fea24435d89d18e1af682de201ff9ae7",
+        "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+        "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+        "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+        "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+        "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+        "src/main.js": "1e04399fcb3eb2f3b6f8e9cf586fa53f7c2c5544b31f951c8d23731d0fd144d2",
+        "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+        "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+        "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+        "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+        "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+        "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+        "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+        "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+        "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+        "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+        "src/slash_draw.js": "c7d3d5a52ab9880323e72f21270d9e85aa6564187aef5a7a95e57954a11fdd8a",
+        "src/sound.js": "5751ada2d02597067df219798ea31b42bbbc3409251ce3ff93ecd1e8d2a7bad3",
+        "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+        "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+        "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+        "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+        "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+        "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+        "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+        "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+        "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+        "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+        "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+        "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+        "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+        "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+        "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+        "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+        "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+        "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+        "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+        "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+        "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+        "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+        "tools/sim/experiments/arm_recovery_from_spawn_probe.mjs": "b2fde3179f6a58e591db41c37f8cc606a1dc92ab0ab7c1665c99fd74ec61b853",
+        "tools/sim/experiments/arm_recovery_path_probe.mjs": "b771b770179ce174e5b8d869a0eabef7c958554746bcc6f1853f54d91ac0591d",
+        "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b"
+      },
+      "sourceStable": true,
+      "measurementValid": true,
+      "sourceAndRecordedTraceHashesReverified": true,
+      "referenceSourceExact": true,
+      "raw": {
+        "path": "/workspace/halfsword-handoff/research-arm-path-20261003/run-02.json",
+        "bytes": 5824198,
+        "sha256": "8d39dc950f6e7bccef6550c8eed1d2da641ae5cdcb7044eafa2d58ca9e282c49"
+      },
+      "reference": {
+        "path": "/workspace/halfsword-handoff/research-from-spawn/run-01.json",
+        "bytes": 139125108,
+        "sha256": "5c7df8c24ac3165815b2591578302807f1f8bcfa6c77cd0280851d5f7126c1d1",
+        "sourceCommit": "d351c5384a3514c701d395ce6c625ec261a6df53"
+      },
+      "wallSeconds": 21.014636785000004,
+      "protocol": {
+        "scene": "healthyStop",
+        "weapon": "sabre",
+        "seed": 19,
+        "windowSteps": 60,
+        "DT": 0.008333333333333333,
+        "modes": [
+          "full",
+          "allOrdinary"
+        ],
+        "observerModes": [],
+        "branch": "Wounded case requires first actual main-arm wound; healthyStop diagnoses a known healthy-arm recovery counterexample. Armed getup with extra activation >1e-4, then first active-to-held-zero-delta boundary. All runs are independent from spawn and replay exactly up to that same complete-step boundary.",
+        "treatment": "Temporary ordinary-muscle routing only inside original driveSword and/or driveJoints+elbowGravity calls. Independent filter updates continue in original step; flag and filter are restored/unchanged before next method. allOrdinary is a diagnostic ablation after independent prefix, NOT legacy from spawn.",
+        "scope": "driveSword includes IK gate and wrist torque/braking; driveJoints includes manual shoulder and native elbow; jointsOrdinary also routes separate elbowGravity. Other muscles, inputs, gains, strength, health, native poses and AI are unchanged.",
+        "observation": "Original methods called exactly once. Actual addTorque values include final twist and actual recipients; instantaneous pre-solver recipient power is NOT integrated native work. Elbow motor settings are requests, not achieved torque/whole-substep work. Contact points/normal impulses remain last-solver-substep raw; no per-point load or COP inference.",
+        "inference": "First dispatch and first physics response are local same-state path contrasts. Direct same-recorded-event windows and complete .5s reactive-AI outcomes are reported separately; later treatment-induced AI/contact changes are mediators of total game effect, not automatically invalidating paired whole-window regression. Not equal-torque efficiency or human acceptance.",
+        "referenceGate": "All pre-branch and full-mode post-branch frame digests must match the previously received original from-spawn raw, including original control/event/input digests. Observer off still retains mandatory hashes, routing/dispatch counters and flag/filter assertions; optional torque/motor/contact/metrics reads are removed.",
+        "release": "Research only. No runtime source/default/UI/public candidate change. Existing failed support/cut candidates remain withdrawn; one-hand recovery remains held."
+      },
+      "executionCount": 2,
+      "prefixChecks": [
+        {
+          "mode": "full",
+          "observed": true,
+          "branchTick": 1416,
+          "exactPrefix": true,
+          "originalPrefixExact": true,
+          "branchStateExact": true,
+          "totalWindowSteps": 60,
+          "allDispatchOnce": true
+        },
+        {
+          "mode": "allOrdinary",
+          "observed": true,
+          "branchTick": 1416,
+          "exactPrefix": true,
+          "originalPrefixExact": true,
+          "branchStateExact": true,
+          "totalWindowSteps": 60,
+          "allDispatchOnce": true
+        }
+      ],
+      "observerChecks": [],
+      "branch": {
+        "tick": 1416,
+        "timeS": 11.79999999999997,
+        "nativeSha256": "4b6c63d345ed159812af1460dd4d014cb7347332a0d72e3c5869dbe9c83a203c",
+        "fullControllerSha256": "9ecbcd721a3dcaac41b1a5911f7cff736eb1421d93c6c604600971ffef721f47",
+        "eventsPrefixSha256": "962d4ab1bc08e5b31dec710b36f2a022135e61dffabcdb65a6b72353ca468664",
+        "inputPrefixSha256": "3fafcb3e61de32715b42c323f7e619588e094bdd84a170d7dcc52c364e3c68a2",
+        "activation": {
+          "enabled": true,
+          "value": 0.6111786474021405,
+          "target": 0.6387247223945751
+        },
+        "health": {
+          "state": "getup",
+          "stateTimeS": 0.6666666666666667,
+          "alive": true,
+          "armed": true,
+          "gripValid": true,
+          "armHealth": 1,
+          "legHealth": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 0.7318489050610493,
+            "legF": 1,
+            "legB": 1
+          },
+          "muscle": 0.37658255536398366,
+          "vigor": 0.6387247223945751,
+          "pain": 0.903188194013562,
+          "blood": 0.9758913115219061,
+          "consciousness": 0.5051200581248348,
+          "woundCount": 1,
+          "detached": []
+        },
+        "previousRequest": {
+          "tick": 1415,
+          "timeS": 11.791666666666666,
+          "phase": "cross",
+          "held": true,
+          "active": true,
+          "deltaM": [
+            0.012727272727272032,
+            0
+          ],
+          "intendedOffsetM": [
+            0.3945454545454503,
+            0.04469696969697337
+          ],
+          "move": [
+            0,
+            0
+          ],
+          "tap": false
+        },
+        "nextRequest": {
+          "tick": 1416,
+          "timeS": 11.8,
+          "phase": "hold",
+          "held": true,
+          "active": false,
+          "deltaM": [
+            0,
+            0
+          ],
+          "intendedOffsetM": [
+            0.3945454545454503,
+            0.04469696969697337
+          ],
+          "move": [
+            0,
+            0
+          ],
+          "tap": false
+        }
+      },
+      "firstActualArmWound": null,
+      "aggregationScriptSHA256": "6bc8bea045db3cc9b2d627115f11c11e04afb9470c10f7fae9c3548aec19612c",
+      "comparisons": [
+        {
+          "mode": "full",
+          "zeroDeltaToleranceM": 1e-12,
+          "maxRequestedDeltaM": 0,
+          "requestExact": true,
+          "livePadExact": true,
+          "allRequestsHeldZeroDelta": true,
+          "latentFilterRecoverySteps": 0,
+          "actualExtraActivationStepsByPath": {
+            "driveSword": 60,
+            "driveJoints": 60,
+            "elbowGravity": 60
+          },
+          "firstStep": {
+            "timeS": 11.808333333333303,
+            "health": {
+              "state": "getup",
+              "stateTimeS": 0.675,
+              "alive": true,
+              "armed": true,
+              "gripValid": true,
+              "armHealth": 1,
+              "legHealth": 1,
+              "limbs": {
+                "armS": 1,
+                "armO": 0.7318489050610493,
+                "legF": 1,
+                "legB": 1
+              },
+              "muscle": 0.37990209239112493,
+              "vigor": 0.6407247223945751,
+              "pain": 0.898188194013562,
+              "blood": 0.9758771129111072,
+              "consciousness": 0.5053700581248348,
+              "woundCount": 1,
+              "detached": []
+            },
+            "activationFilter": {
+              "enabled": true,
+              "value": 0.6121635165685549,
+              "target": 0.6407247223945751
+            },
+            "pathDispatch": [
+              {
+                "method": "driveSword",
+                "routed": false,
+                "consumedActivation": 0.6121635165685549,
+                "ordinaryActivation": 0.37990209239112493,
+                "independentActivation": 0.6121635165685549,
+                "muscleGateAt012": true,
+                "restoredFilterExact": true,
+                "filterTarget": 0.6407247223945751,
+                "previousAim": [
+                  0.9374181920043553,
+                  -0.06072779061021845,
+                  0.34286917147344603
+                ],
+                "currentAim": [
+                  0.9298871110764879,
+                  -0.06073640156795097,
+                  0.36279615513177654
+                ],
+                "wristHill": 1.1034240903939838,
+                "wristBrake": false,
+                "wristBrakeAng": 0.2620549795279956
+              },
+              {
+                "method": "driveJoints",
+                "routed": false,
+                "consumedActivation": 0.6121635165685549,
+                "ordinaryActivation": 0.37990209239112493,
+                "independentActivation": 0.6121635165685549,
+                "muscleGateAt012": null,
+                "restoredFilterExact": true,
+                "filterTarget": 0.6407247223945751,
+                "previousAim": [
+                  0.9298871110764879,
+                  -0.06073640156795097,
+                  0.36279615513177654
+                ],
+                "currentAim": [
+                  0.9298871110764879,
+                  -0.06073640156795097,
+                  0.36279615513177654
+                ],
+                "wristHill": 1.1034240903939838,
+                "wristBrake": false,
+                "wristBrakeAng": 0.2620549795279956
+              },
+              {
+                "method": "elbowGravity",
+                "routed": false,
+                "consumedActivation": 0.6121635165685549,
+                "ordinaryActivation": 0.37990209239112493,
+                "independentActivation": 0.6121635165685549,
+                "muscleGateAt012": true,
+                "restoredFilterExact": true,
+                "filterTarget": 0.6407247223945751,
+                "previousAim": [
+                  0.9298871110764879,
+                  -0.06073640156795097,
+                  0.36279615513177654
+                ],
+                "currentAim": [
+                  0.9298871110764879,
+                  -0.06073640156795097,
+                  0.36279615513177654
+                ],
+                "wristHill": 1.1034240903939838,
+                "wristBrake": false,
+                "wristBrakeAng": 0.2620549795279956
+              }
+            ],
+            "actualTorques": [
+              {
+                "actuator": "driveSword",
+                "part": "sword",
+                "torqueNm": [
+                  -2.4419482339476644,
+                  -14.52795084889036,
+                  1.951747227495451
+                ],
+                "preSolverOmegaRadps": [
+                  0.38096919655799866,
+                  0.46727654337882996,
+                  0.015154915861785412
+                ],
+                "instantaneousPowerW": -7.6892991467541245
+              },
+              {
+                "actuator": "driveSword",
+                "part": "farmS",
+                "torqueNm": [
+                  -1.8596175812652649,
+                  14.024194402680859,
+                  -0.8423061678857413
+                ],
+                "preSolverOmegaRadps": [
+                  -1.2957478761672974,
+                  -1.0578250885009766,
+                  0.014173814095556736
+                ],
+                "instantaneousPowerW": -12.4374878447981
+              },
+              {
+                "actuator": "driveSword",
+                "part": "chest",
+                "torqueNm": [
+                  4.301565815212929,
+                  0.5037564462095008,
+                  -1.1094410596097097
+                ],
+                "preSolverOmegaRadps": [
+                  -0.24326510727405548,
+                  -0.34512829780578613,
+                  -0.29983991384506226
+                ],
+                "instantaneousPowerW": -0.8876267625436103
+              },
+              {
+                "actuator": "driveJoints",
+                "part": "uarmS",
+                "torqueNm": [
+                  0.5215987330501992,
+                  -31.479851022216447,
+                  10.757511967032363
+                ],
+                "preSolverOmegaRadps": [
+                  -1.3479996919631958,
+                  -1.983906626701355,
+                  -0.6083537936210632
+                ],
+                "instantaneousPowerW": 55.205596903998455
+              },
+              {
+                "actuator": "driveJoints",
+                "part": "chest",
+                "torqueNm": [
+                  -0.5215987330501992,
+                  31.479851022216447,
+                  -10.757511967032363
+                ],
+                "preSolverOmegaRadps": [
+                  -0.24326510727405548,
+                  -0.34512829780578613,
+                  -0.29983991384506226
+                ],
+                "instantaneousPowerW": -7.512169165345621
+              },
+              {
+                "actuator": "elbowGravity",
+                "part": "farmS",
+                "torqueNm": [
+                  0.11209085181101139,
+                  2.0654555502347454,
+                  1.377434826549003
+                ],
+                "preSolverOmegaRadps": [
+                  -1.2957478761672974,
+                  -1.0578250885009766,
+                  0.014173814095556736
+                ],
+                "instantaneousPowerW": -2.310608678233553
+              },
+              {
+                "actuator": "elbowGravity",
+                "part": "uarmS",
+                "torqueNm": [
+                  -0.11209085181101139,
+                  -2.0654555502347454,
+                  -1.377434826549003
+                ],
+                "preSolverOmegaRadps": [
+                  -1.3479996919631958,
+                  -1.983906626701355,
+                  -0.6083537936210632
+                ],
+                "instantaneousPowerW": 5.086737089177798
+              }
+            ],
+            "shoulderRequests": [
+              {
+                "joint": "uarmS",
+                "k": 195.89232530193757,
+                "d": 20.34262857155739,
+                "maxTorqueRequestNm": 48.973081325484394,
+                "targetQuaternion": [
+                  -0.267668131396792,
+                  -0.2782907740311709,
+                  0.020947852171470716,
+                  0.9222088722263972
+                ]
+              }
+            ],
+            "elbowMotorRequests": [
+              {
+                "joint": "farmS",
+                "axis": 3,
+                "targetPositionRad": 0.47701191051330416,
+                "targetVelocityRadps": 0.6887124620091467,
+                "stiffness": 244.86540662742198,
+                "damping": 29.731534066122343
+              }
+            ],
+            "jointTargets": {
+              "shoulder": [
+                -0.267668131396792,
+                -0.2782907740311709,
+                0.020947852171470716,
+                0.9222088722263972
+              ],
+              "elbow": [
+                0,
+                0,
+                0.2362511392754381,
+                0.9716920289840076
+              ]
+            },
+            "wristCapNm": 14.860471371724882,
+            "wristSwingBeforeTwistNm": [
+              -2.453833287734361,
+              -14.52525048246867,
+              1.9568878372061302
+            ],
+            "wristBrake": false,
+            "wristHill": 1.1034240903939838,
+            "swordKJ": 0.16509381128173609,
+            "bodyAndSwordKJ": 3.0622762134928685,
+            "handErrorM": 0.19921412852125825,
+            "ownAimErrorRad": 0.7901642688477828,
+            "maxGapM": 0.0005281417907622632,
+            "maxSolverPointHorizontalMps": 0.017892612036270655
+          },
+          "firstRecordedEventOrLifecycleBoundary": null,
+          "directWindow": {
+            "full": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.5561702697138173,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5389153232679055,
+              "negativeExplicitSwordTorquePowerSteps": 25,
+              "meanHandErrorM": 0.12148785067928479,
+              "meanOwnAimErrorRad": 0.9823678069560999,
+              "meanExternalAimErrorRad": 1.0444720859993177,
+              "maxSwordKJ": 4.205310072234882,
+              "maxBodyAndSwordKJ": 6.449697409840064,
+              "maxGapM": 0.0005281417907622632,
+              "maxSolverPointHorizontalMps": 0.2890154191600448,
+              "swordWholeRotationIntegralRad": 2.5943771836873877,
+              "maxPelvisUpwardMps": 0.20987959206104279,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 9.155133597044475e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 15.722254090506613,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 7.363523286015849
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 15.318186898043294,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 7.932466291337332
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 5.278939124510282,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.29417424012144106
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 33.493194401859306,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 13.816052416244789
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 33.493194401859306,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 3.490353263866765
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.5132730602568842,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.9865092945400188
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.5132730602568842,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.0346456815801086
+                  }
+                }
+              }
+            },
+            "variant": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.5561702697138173,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5389153232679055,
+              "negativeExplicitSwordTorquePowerSteps": 25,
+              "meanHandErrorM": 0.12148785067928479,
+              "meanOwnAimErrorRad": 0.9823678069560999,
+              "meanExternalAimErrorRad": 1.0444720859993177,
+              "maxSwordKJ": 4.205310072234882,
+              "maxBodyAndSwordKJ": 6.449697409840064,
+              "maxGapM": 0.0005281417907622632,
+              "maxSolverPointHorizontalMps": 0.2890154191600448,
+              "swordWholeRotationIntegralRad": 2.5943771836873877,
+              "maxPelvisUpwardMps": 0.20987959206104279,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 9.155133597044475e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 15.722254090506613,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 7.363523286015849
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 15.318186898043294,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 7.932466291337332
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 5.278939124510282,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.29417424012144106
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 33.493194401859306,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 13.816052416244789
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 33.493194401859306,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 3.490353263866765
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.5132730602568842,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.9865092945400188
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.5132730602568842,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.0346456815801086
+                  }
+                }
+              }
+            }
+          },
+          "commonRecoveryWindow": {
+            "full": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.5561702697138173,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5389153232679055,
+              "negativeExplicitSwordTorquePowerSteps": 25,
+              "meanHandErrorM": 0.12148785067928479,
+              "meanOwnAimErrorRad": 0.9823678069560999,
+              "meanExternalAimErrorRad": 1.0444720859993177,
+              "maxSwordKJ": 4.205310072234882,
+              "maxBodyAndSwordKJ": 6.449697409840064,
+              "maxGapM": 0.0005281417907622632,
+              "maxSolverPointHorizontalMps": 0.2890154191600448,
+              "swordWholeRotationIntegralRad": 2.5943771836873877,
+              "maxPelvisUpwardMps": 0.20987959206104279,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 9.155133597044475e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 15.722254090506613,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 7.363523286015849
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 15.318186898043294,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 7.932466291337332
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 5.278939124510282,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.29417424012144106
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 33.493194401859306,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 13.816052416244789
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 33.493194401859306,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 3.490353263866765
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.5132730602568842,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.9865092945400188
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.5132730602568842,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.0346456815801086
+                  }
+                }
+              }
+            },
+            "variant": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.5561702697138173,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5389153232679055,
+              "negativeExplicitSwordTorquePowerSteps": 25,
+              "meanHandErrorM": 0.12148785067928479,
+              "meanOwnAimErrorRad": 0.9823678069560999,
+              "meanExternalAimErrorRad": 1.0444720859993177,
+              "maxSwordKJ": 4.205310072234882,
+              "maxBodyAndSwordKJ": 6.449697409840064,
+              "maxGapM": 0.0005281417907622632,
+              "maxSolverPointHorizontalMps": 0.2890154191600448,
+              "swordWholeRotationIntegralRad": 2.5943771836873877,
+              "maxPelvisUpwardMps": 0.20987959206104279,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 9.155133597044475e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 15.722254090506613,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 7.363523286015849
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 15.318186898043294,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 7.932466291337332
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 5.278939124510282,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.29417424012144106
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 33.493194401859306,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 13.816052416244789
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 33.493194401859306,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 3.490353263866765
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.5132730602568842,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.9865092945400188
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.5132730602568842,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.0346456815801086
+                  }
+                }
+              }
+            }
+          },
+          "commonWoundedRecoveryWindow": {
+            "full": {
+              "steps": 0,
+              "durationS": 0.0,
+              "maxUnprojectedAimCrossOverDtRadps": null,
+              "meanUnprojectedAimCrossOverDtRadps": null,
+              "negativeExplicitSwordTorquePowerSteps": 0,
+              "meanHandErrorM": null,
+              "meanOwnAimErrorRad": null,
+              "meanExternalAimErrorRad": null,
+              "maxSwordKJ": null,
+              "maxBodyAndSwordKJ": null,
+              "maxGapM": null,
+              "maxSolverPointHorizontalMps": null,
+              "swordWholeRotationIntegralRad": 0,
+              "maxPelvisUpwardMps": null,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": null,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {},
+                "driveJoints": {},
+                "elbowGravity": {}
+              }
+            },
+            "variant": {
+              "steps": 0,
+              "durationS": 0.0,
+              "maxUnprojectedAimCrossOverDtRadps": null,
+              "meanUnprojectedAimCrossOverDtRadps": null,
+              "negativeExplicitSwordTorquePowerSteps": 0,
+              "meanHandErrorM": null,
+              "meanOwnAimErrorRad": null,
+              "meanExternalAimErrorRad": null,
+              "maxSwordKJ": null,
+              "maxBodyAndSwordKJ": null,
+              "maxGapM": null,
+              "maxSolverPointHorizontalMps": null,
+              "swordWholeRotationIntegralRad": 0,
+              "maxPelvisUpwardMps": null,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": null,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {},
+                "driveJoints": {},
+                "elbowGravity": {}
+              }
+            }
+          },
+          "entireWindow": {
+            "steps": 60,
+            "durationS": 0.5,
+            "maxUnprojectedAimCrossOverDtRadps": 2.5561702697138173,
+            "meanUnprojectedAimCrossOverDtRadps": 0.5389153232679055,
+            "negativeExplicitSwordTorquePowerSteps": 25,
+            "meanHandErrorM": 0.12148785067928479,
+            "meanOwnAimErrorRad": 0.9823678069560999,
+            "meanExternalAimErrorRad": 1.0444720859993177,
+            "maxSwordKJ": 4.205310072234882,
+            "maxBodyAndSwordKJ": 6.449697409840064,
+            "maxGapM": 0.0005281417907622632,
+            "maxSolverPointHorizontalMps": 0.2890154191600448,
+            "swordWholeRotationIntegralRad": 2.5943771836873877,
+            "maxPelvisUpwardMps": 0.20987959206104279,
+            "wristBrakeSteps": 0,
+            "maxReactionTorqueClosureNm": 9.155133597044475e-16,
+            "appliedTorquesByPathAndRecipient": {
+              "driveSword": {
+                "sword": {
+                  "maxAppliedTorqueNm": 15.722254090506613,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 7.363523286015849
+                },
+                "farmS": {
+                  "maxAppliedTorqueNm": 15.318186898043294,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 7.932466291337332
+                },
+                "chest": {
+                  "maxAppliedTorqueNm": 5.278939124510282,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.29417424012144106
+                }
+              },
+              "driveJoints": {
+                "uarmS": {
+                  "maxAppliedTorqueNm": 33.493194401859306,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 13.816052416244789
+                },
+                "chest": {
+                  "maxAppliedTorqueNm": 33.493194401859306,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 3.490353263866765
+                }
+              },
+              "elbowGravity": {
+                "farmS": {
+                  "maxAppliedTorqueNm": 2.5132730602568842,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.9865092945400188
+                },
+                "uarmS": {
+                  "maxAppliedTorqueNm": 2.5132730602568842,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 1.0346456815801086
+                }
+              }
+            }
+          },
+          "firstDrop": null,
+          "firstDeath": null
+        },
+        {
+          "mode": "allOrdinary",
+          "zeroDeltaToleranceM": 1e-12,
+          "maxRequestedDeltaM": 0,
+          "requestExact": true,
+          "livePadExact": true,
+          "allRequestsHeldZeroDelta": true,
+          "latentFilterRecoverySteps": 0,
+          "actualExtraActivationStepsByPath": {
+            "driveSword": 0,
+            "driveJoints": 0,
+            "elbowGravity": 0
+          },
+          "firstStep": {
+            "timeS": 11.808333333333303,
+            "health": {
+              "state": "getup",
+              "stateTimeS": 0.675,
+              "alive": true,
+              "armed": true,
+              "gripValid": true,
+              "armHealth": 1,
+              "legHealth": 1,
+              "limbs": {
+                "armS": 1,
+                "armO": 0.7318489050610493,
+                "legF": 1,
+                "legB": 1
+              },
+              "muscle": 0.37990209239112493,
+              "vigor": 0.6407247223945751,
+              "pain": 0.898188194013562,
+              "blood": 0.9758771129111072,
+              "consciousness": 0.5053700581248348,
+              "woundCount": 1,
+              "detached": []
+            },
+            "activationFilter": {
+              "enabled": true,
+              "value": 0.6121635165685549,
+              "target": 0.6407247223945751
+            },
+            "pathDispatch": [
+              {
+                "method": "driveSword",
+                "routed": true,
+                "consumedActivation": 0.37990209239112493,
+                "ordinaryActivation": 0.37990209239112493,
+                "independentActivation": 0.6121635165685549,
+                "muscleGateAt012": true,
+                "restoredFilterExact": true,
+                "filterTarget": 0.6407247223945751,
+                "previousAim": [
+                  0.9374181920043553,
+                  -0.06072779061021845,
+                  0.34286917147344603
+                ],
+                "currentAim": [
+                  0.9298871110764879,
+                  -0.06073640156795097,
+                  0.36279615513177654
+                ],
+                "wristHill": 1.10350957921646,
+                "wristBrake": false,
+                "wristBrakeAng": 0.2620549795279956
+              },
+              {
+                "method": "driveJoints",
+                "routed": true,
+                "consumedActivation": 0.37990209239112493,
+                "ordinaryActivation": 0.37990209239112493,
+                "independentActivation": 0.6121635165685549,
+                "muscleGateAt012": null,
+                "restoredFilterExact": true,
+                "filterTarget": 0.6407247223945751,
+                "previousAim": [
+                  0.9298871110764879,
+                  -0.06073640156795097,
+                  0.36279615513177654
+                ],
+                "currentAim": [
+                  0.9298871110764879,
+                  -0.06073640156795097,
+                  0.36279615513177654
+                ],
+                "wristHill": 1.10350957921646,
+                "wristBrake": false,
+                "wristBrakeAng": 0.2620549795279956
+              },
+              {
+                "method": "elbowGravity",
+                "routed": true,
+                "consumedActivation": 0.37990209239112493,
+                "ordinaryActivation": 0.37990209239112493,
+                "independentActivation": 0.6121635165685549,
+                "muscleGateAt012": true,
+                "restoredFilterExact": true,
+                "filterTarget": 0.6407247223945751,
+                "previousAim": [
+                  0.9298871110764879,
+                  -0.06073640156795097,
+                  0.36279615513177654
+                ],
+                "currentAim": [
+                  0.9298871110764879,
+                  -0.06073640156795097,
+                  0.36279615513177654
+                ],
+                "wristHill": 1.10350957921646,
+                "wristBrake": false,
+                "wristBrakeAng": 0.2620549795279956
+              }
+            ],
+            "actualTorques": [
+              {
+                "actuator": "driveSword",
+                "part": "sword",
+                "torqueNm": [
+                  -1.5423304539188658,
+                  -9.021469233747778,
+                  1.139093500150341
+                ],
+                "preSolverOmegaRadps": [
+                  0.38096919655799866,
+                  0.46727654337882996,
+                  0.015154915861785412
+                ],
+                "instantaneousPowerW": -4.785838487447042
+              },
+              {
+                "actuator": "driveSword",
+                "part": "farmS",
+                "torqueNm": [
+                  -1.1354426988725717,
+                  8.707875174013822,
+                  -0.4484539489616285
+                ],
+                "preSolverOmegaRadps": [
+                  -1.2957478761672974,
+                  -1.0578250885009766,
+                  0.014173814095556736
+                ],
+                "instantaneousPowerW": -7.746517663935829
+              },
+              {
+                "actuator": "driveSword",
+                "part": "chest",
+                "torqueNm": [
+                  2.6777731527914375,
+                  0.3135940597339557,
+                  -0.6906395511887126
+                ],
+                "preSolverOmegaRadps": [
+                  -0.24326510727405548,
+                  -0.34512829780578613,
+                  -0.29983991384506226
+                ],
+                "instantaneousPowerW": -0.5525576537809649
+              },
+              {
+                "actuator": "driveJoints",
+                "part": "uarmS",
+                "torqueNm": [
+                  2.474371013515662,
+                  -19.976710874295826,
+                  6.6506091009306445
+                ],
+                "preSolverOmegaRadps": [
+                  -1.3479996919631958,
+                  -1.983906626701355,
+                  -0.6083537936210632
+                ],
+                "instantaneousPowerW": 32.25055444274881
+              },
+              {
+                "actuator": "driveJoints",
+                "part": "chest",
+                "torqueNm": [
+                  -2.474371013515662,
+                  19.976710874295826,
+                  -6.6506091009306445
+                ],
+                "preSolverOmegaRadps": [
+                  -0.24326510727405548,
+                  -0.34512829780578613,
+                  -0.29983991384506226
+                ],
+                "instantaneousPowerW": -4.298482029925124
+              },
+              {
+                "actuator": "elbowGravity",
+                "part": "farmS",
+                "torqueNm": [
+                  0.06956237669896796,
+                  1.2817994931704957,
+                  0.8548212341559402
+                ],
+                "preSolverOmegaRadps": [
+                  -1.2957478761672974,
+                  -1.0578250885009766,
+                  0.014173814095556736
+                ],
+                "instantaneousPowerW": -1.4339388869145633
+              },
+              {
+                "actuator": "elbowGravity",
+                "part": "uarmS",
+                "torqueNm": [
+                  -0.06956237669896796,
+                  -1.2817994931704957,
+                  -0.8548212341559402
+                ],
+                "preSolverOmegaRadps": [
+                  -1.3479996919631958,
+                  -1.983906626701355,
+                  -0.6083537936210632
+                ],
+                "instantaneousPowerW": 3.156774311632427
+              }
+            ],
+            "shoulderRequests": [
+              {
+                "joint": "uarmS",
+                "k": 121.56866956515998,
+                "d": 16.02541152221685,
+                "maxTorqueRequestNm": 30.392167391289995,
+                "targetQuaternion": [
+                  -0.267668131396792,
+                  -0.2782907740311709,
+                  0.020947852171470716,
+                  0.9222088722263972
+                ]
+              }
+            ],
+            "elbowMotorRequests": [
+              {
+                "joint": "farmS",
+                "axis": 3,
+                "targetPositionRad": 0.47701191051330416,
+                "targetVelocityRadps": 0.6887124620091467,
+                "stiffness": 151.96083695644998,
+                "damping": 23.421755301701545
+              }
+            ],
+            "jointTargets": {
+              "shoulder": [
+                -0.267668131396792,
+                -0.2782907740311709,
+                0.020947852171470716,
+                0.9222088722263972
+              ],
+              "elbow": [
+                0,
+                0,
+                0.2362511392754381,
+                0.9716920289840076
+              ]
+            },
+            "wristCapNm": 9.222963158595624,
+            "wristSwingBeforeTwistNm": [
+              -1.5542155077055624,
+              -9.018768867326088,
+              1.1442341098610203
+            ],
+            "wristBrake": false,
+            "wristHill": 1.10350957921646,
+            "swordKJ": 0.17077743432260545,
+            "bodyAndSwordKJ": 3.0414564967695985,
+            "handErrorM": 0.19904561969941942,
+            "ownAimErrorRad": 0.7904310784092339,
+            "maxGapM": 0.00033796956791963545,
+            "maxSolverPointHorizontalMps": 0.018210373716577216
+          },
+          "firstRecordedEventOrLifecycleBoundary": {
+            "tick": 1430,
+            "postStepTimeS": 11.924999999999963,
+            "cause": "recordedEventOrLifecycleDivergence"
+          },
+          "directWindow": {
+            "full": {
+              "steps": 14,
+              "durationS": 0.11666666666666667,
+              "maxUnprojectedAimCrossOverDtRadps": 2.5561702697138173,
+              "meanUnprojectedAimCrossOverDtRadps": 1.4100883906599715,
+              "negativeExplicitSwordTorquePowerSteps": 14,
+              "meanHandErrorM": 0.1987597734213618,
+              "meanOwnAimErrorRad": 0.9161613830013008,
+              "meanExternalAimErrorRad": 1.0428320405820064,
+              "maxSwordKJ": 0.26492697367231366,
+              "maxBodyAndSwordKJ": 3.0622762134928685,
+              "maxGapM": 0.0005281417907622632,
+              "maxSolverPointHorizontalMps": 0.0829933814478054,
+              "swordWholeRotationIntegralRad": 0.1024594671158072,
+              "maxPelvisUpwardMps": 0.11265239864587784,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 9.155133597044475e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 15.710810146689226,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.4396059500581115
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 15.301009524260365,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 2.4312339934651575
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 4.470805127094449,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.05119906116511528
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 33.493194401859306,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 6.067580226738798
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 33.493194401859306,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.3428076263602099
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.485155466051433,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.373643703772501
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.485155466051433,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.543022480727597
+                  }
+                }
+              }
+            },
+            "variant": {
+              "steps": 14,
+              "durationS": 0.11666666666666667,
+              "maxUnprojectedAimCrossOverDtRadps": 2.5561702697138173,
+              "meanUnprojectedAimCrossOverDtRadps": 1.4075889059414237,
+              "negativeExplicitSwordTorquePowerSteps": 14,
+              "meanHandErrorM": 0.19883354836762862,
+              "meanOwnAimErrorRad": 0.9186349291897421,
+              "meanExternalAimErrorRad": 1.0452619145965507,
+              "maxSwordKJ": 0.2981069203597927,
+              "maxBodyAndSwordKJ": 3.0414564967695985,
+              "maxGapM": 0.0003563780911087299,
+              "maxSolverPointHorizontalMps": 0.07475485358138596,
+              "swordWholeRotationIntegralRad": 0.10493856908219173,
+              "maxPelvisUpwardMps": 0.11420511454343796,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 8.881784197001252e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 10.774498313048763,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.976333199762914
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 10.537370879855546,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.8927232772193876
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 2.783126529961792,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.034552117394149436
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 26.36295958564505,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 3.453349022862059
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 26.36295958564505,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.369882489351918
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 1.633850834812487,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.3161683943360781
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 1.633850834812487,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.35622950049740093
+                  }
+                }
+              }
+            }
+          },
+          "commonRecoveryWindow": {
+            "full": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.5561702697138173,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5389153232679055,
+              "negativeExplicitSwordTorquePowerSteps": 25,
+              "meanHandErrorM": 0.12148785067928479,
+              "meanOwnAimErrorRad": 0.9823678069560999,
+              "meanExternalAimErrorRad": 1.0444720859993177,
+              "maxSwordKJ": 4.205310072234882,
+              "maxBodyAndSwordKJ": 6.449697409840064,
+              "maxGapM": 0.0005281417907622632,
+              "maxSolverPointHorizontalMps": 0.2890154191600448,
+              "swordWholeRotationIntegralRad": 2.5943771836873877,
+              "maxPelvisUpwardMps": 0.20987959206104279,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 9.155133597044475e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 15.722254090506613,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 7.363523286015849
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 15.318186898043294,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 7.932466291337332
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 5.278939124510282,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.29417424012144106
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 33.493194401859306,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 13.816052416244789
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 33.493194401859306,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 3.490353263866765
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.5132730602568842,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.9865092945400188
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.5132730602568842,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 1.0346456815801086
+                  }
+                }
+              }
+            },
+            "variant": {
+              "steps": 60,
+              "durationS": 0.5,
+              "maxUnprojectedAimCrossOverDtRadps": 2.5561702697138173,
+              "meanUnprojectedAimCrossOverDtRadps": 0.5320926494771021,
+              "negativeExplicitSwordTorquePowerSteps": 29,
+              "meanHandErrorM": 0.12723084168074036,
+              "meanOwnAimErrorRad": 0.9812207981378099,
+              "meanExternalAimErrorRad": 1.0426374780255663,
+              "maxSwordKJ": 5.560740047032855,
+              "maxBodyAndSwordKJ": 7.599807399589546,
+              "maxGapM": 0.0003881961601325389,
+              "maxSolverPointHorizontalMps": 0.2963026902310826,
+              "swordWholeRotationIntegralRad": 2.6138885658181934,
+              "maxPelvisUpwardMps": 0.21072529256343842,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": 9.155133597044475e-16,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {
+                  "sword": {
+                    "maxAppliedTorqueNm": 12.565464806981003,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 6.303615119433665
+                  },
+                  "farmS": {
+                    "maxAppliedTorqueNm": 11.950066664897047,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 5.752341362292031
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 3.92803632858217,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.25933130050762193
+                  }
+                },
+                "driveJoints": {
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 30.12436117793854,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 9.951579406111433
+                  },
+                  "chest": {
+                    "maxAppliedTorqueNm": 30.12436117793854,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 2.510601115264099
+                  }
+                },
+                "elbowGravity": {
+                  "farmS": {
+                    "maxAppliedTorqueNm": 2.4029692170188075,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.7472521273171789
+                  },
+                  "uarmS": {
+                    "maxAppliedTorqueNm": 2.4029692170188075,
+                    "sumAbsPreSolverPowerTimesDtProxyJ": 0.7164116553543256
+                  }
+                }
+              }
+            }
+          },
+          "commonWoundedRecoveryWindow": {
+            "full": {
+              "steps": 0,
+              "durationS": 0.0,
+              "maxUnprojectedAimCrossOverDtRadps": null,
+              "meanUnprojectedAimCrossOverDtRadps": null,
+              "negativeExplicitSwordTorquePowerSteps": 0,
+              "meanHandErrorM": null,
+              "meanOwnAimErrorRad": null,
+              "meanExternalAimErrorRad": null,
+              "maxSwordKJ": null,
+              "maxBodyAndSwordKJ": null,
+              "maxGapM": null,
+              "maxSolverPointHorizontalMps": null,
+              "swordWholeRotationIntegralRad": 0,
+              "maxPelvisUpwardMps": null,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": null,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {},
+                "driveJoints": {},
+                "elbowGravity": {}
+              }
+            },
+            "variant": {
+              "steps": 0,
+              "durationS": 0.0,
+              "maxUnprojectedAimCrossOverDtRadps": null,
+              "meanUnprojectedAimCrossOverDtRadps": null,
+              "negativeExplicitSwordTorquePowerSteps": 0,
+              "meanHandErrorM": null,
+              "meanOwnAimErrorRad": null,
+              "meanExternalAimErrorRad": null,
+              "maxSwordKJ": null,
+              "maxBodyAndSwordKJ": null,
+              "maxGapM": null,
+              "maxSolverPointHorizontalMps": null,
+              "swordWholeRotationIntegralRad": 0,
+              "maxPelvisUpwardMps": null,
+              "wristBrakeSteps": 0,
+              "maxReactionTorqueClosureNm": null,
+              "appliedTorquesByPathAndRecipient": {
+                "driveSword": {},
+                "driveJoints": {},
+                "elbowGravity": {}
+              }
+            }
+          },
+          "entireWindow": {
+            "steps": 60,
+            "durationS": 0.5,
+            "maxUnprojectedAimCrossOverDtRadps": 2.5561702697138173,
+            "meanUnprojectedAimCrossOverDtRadps": 0.5320926494771021,
+            "negativeExplicitSwordTorquePowerSteps": 29,
+            "meanHandErrorM": 0.12723084168074036,
+            "meanOwnAimErrorRad": 0.9812207981378099,
+            "meanExternalAimErrorRad": 1.0426374780255663,
+            "maxSwordKJ": 5.560740047032855,
+            "maxBodyAndSwordKJ": 7.599807399589546,
+            "maxGapM": 0.0003881961601325389,
+            "maxSolverPointHorizontalMps": 0.2963026902310826,
+            "swordWholeRotationIntegralRad": 2.6138885658181934,
+            "maxPelvisUpwardMps": 0.21072529256343842,
+            "wristBrakeSteps": 0,
+            "maxReactionTorqueClosureNm": 9.155133597044475e-16,
+            "appliedTorquesByPathAndRecipient": {
+              "driveSword": {
+                "sword": {
+                  "maxAppliedTorqueNm": 12.565464806981003,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 6.303615119433665
+                },
+                "farmS": {
+                  "maxAppliedTorqueNm": 11.950066664897047,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 5.752341362292031
+                },
+                "chest": {
+                  "maxAppliedTorqueNm": 3.92803632858217,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.25933130050762193
+                }
+              },
+              "driveJoints": {
+                "uarmS": {
+                  "maxAppliedTorqueNm": 30.12436117793854,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 9.951579406111433
+                },
+                "chest": {
+                  "maxAppliedTorqueNm": 30.12436117793854,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 2.510601115264099
+                }
+              },
+              "elbowGravity": {
+                "farmS": {
+                  "maxAppliedTorqueNm": 2.4029692170188075,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.7472521273171789
+                },
+                "uarmS": {
+                  "maxAppliedTorqueNm": 2.4029692170188075,
+                  "sumAbsPreSolverPowerTimesDtProxyJ": 0.7164116553543256
+                }
+              }
+            }
+          },
+          "firstDrop": null,
+          "firstDeath": null
+        }
+      ],
+      "publicReleaseAccepted": false,
+      "generalDefaultPromotionAccepted": false,
+      "definitions": {
+        "pathClosure": "Sum of explicit recipient torques, a reaction-pair closure residual, not force budget.",
+        "preSolverPower": "Instantaneous actual explicit-recipient power; summed absolute power*DT is only a pre-solver effort proxy, not integrated native/constraint/muscle work.",
+        "directWindow": "Same recorded strike/clash prefix and alive+armed+getup state. Persistent solver contacts may already differ; direct first-step path requests are the strongest same-state contrast.",
+        "fullWindow": "Same external schedule from same candidate-history branch with reactive AI. Changed subsequent events are part of the total local episode effect. Not population efficacy.",
+        "footSpeed": "All fixed-ground solver point horizontal speeds at last solver substep, not loaded-foot slip or COP.",
+        "allOrdinary": "Ablation of activation consumption after an independent-from-spawn history; not an ordinary-from-spawn treatment."
+      },
+      "caseName": "healthyArmKnownCounterexample"
+    }
+  ],
+  "decision": {
+    "actualWoundedEpisode": "Same-state route requests separated; mild actual arm damage(.95265 remaining health), large solver-point-speed regression not reproduced. No efficacy or severe-injury claim.",
+    "healthyCounterexample": "Routing all paths to ordinary activation after identical candidate history leaves mean direction error almost unchanged (.98237/.98122rad) and raises .5s max sword K(4.205/5.561J). This does not establish activation reduction as a fix.",
+    "causalWindows": "Different recorded callbacks after .125/.11667s; under24step direct-mechanism window. .5s reactive-AI outcomes remain local total-episode effects. Persistent solver contacts need not be identical before callback divergence.",
+    "braking": "wristBrake latch entered0 times in both episodes; aimDamping and other control torques still act.",
+    "next": "Same sabre19 hold boundary: observe target angular velocity, current blade/relative angular velocity, toward/tgtSp, cap/release/brake condition terms and native elbow request-response before any new candidate. Do not sweep gains or revive withdrawn candidates."
+  },
+  "limitations": [
+    "Two selected diagnostic episodes, not random independent population samples.",
+    "Wounded case has mild actual main-arm damage; healthy case is not wounded efficacy.",
+    "same-event direct windows15/14steps are too short for a sustained .2s direct-braking conclusion.",
+    "All-ordinary diagnostic is not ordinary-from-spawn. Equal effort/torque/native work not imposed or measured.",
+    "Last-solver-substep point speed/normal impulse are not per-point loaded slip or COP.",
+    "No new product physics/UI/default changes and no human naturalness acceptance.",
+    "Wounded case has two same-mode observer repeats; healthy case has original-reference full replay, no new observer-off repetition."
+  ],
+  "aggregationCorrection": {
+    "initialAggregation": "Stopped before writing summary because exact [0,0] delta assertion failed at the existing scripted floating-point boundary.",
+    "measuredBoundaryResidueM": 9.992007221626409e-16,
+    "correction": "Use explicit <=1e-12m numerical zero tolerance and report actual maximum; all planned request and live hand-pad values are exact between paired runs.",
+    "physicsRerunBecauseOfAggregationCorrection": false,
+    "rawRunsOverwritten": false
+  },
+  "independentAudit": {
+    "pass": true,
+    "rawFirstStepFieldsExact": true,
+    "firstStepJointTargetsAndRecipientAngularVelocitiesExact": true,
+    "metricsAndDirectWindowsIndependentlyRecomputed": true,
+    "scope": "Read-only audit; no duplicate physics execution or fresh observer repetition in healthy case. Source/raw full-file hash duplication not required."
+  }
+}
