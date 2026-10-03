@@ -2,15 +2,21 @@
 
 이 문서는 이번 작업에서 새로 작성한 인계서다. 최초 첨부 패치와 원래 `AGENTS.md`/팀 README는 확보하지 못했다.
 
-## 최신 전달 상태 · 2026-10-03 17:26 KST
+## 최신 전달·복원·연구 상태 · 2026-10-03 17:40 KST
 
-사용자가 요청한 **승인 A4와 선택형 B4의 전달 검증을 완료**했다. [A~D 전달 대장](DELIVERY_BACKLOG_20261003.md)과 [전달 영수증](delivery_release_20261003.json)에 항목별 승인·소스·원격·웹·남은 연구를 구분했다. 실제 게임 릴리스는 [9ba4b34](https://github.com/yoonjl-svg/halfsword-codex/commit/9ba4b34ecd7c3a7d97d718774eb86a659c3567e2) / tree `458c1664a9b51076addab02e057b939b61bf6077`이며 원격 `main`·`codex/hybrid-support`가 같다. 복원52커밋은 `recovered/20261003`에 HEAD `0e950b6f5074e39b94700034a56a942bfefe2cfd` / tree `da7b9dfbd8436ad40f8a6bec3845fcfe0c5a7fa1`로 보존했다. 과거401·지원 대기는 당시 역사이며 재연결을 요구하지 않는다.
+사용자가 요청한 **승인 A4와 선택형 B4의 전달 검증을 완료**했다. [A~D 전달 대장](DELIVERY_BACKLOG_20261003.md)과 [전달 영수증](delivery_release_20261003.json)에 항목별 승인·소스·원격·웹·남은 연구를 구분했다. 실제 게임 릴리스는 [9ba4b34](https://github.com/yoonjl-svg/halfsword-codex/commit/9ba4b34ecd7c3a7d97d718774eb86a659c3567e2) / tree `458c1664a9b51076addab02e057b939b61bf6077`이며 게임 전송 당시 원격 `main`·`codex/hybrid-support`의 일치를 확인했다. 복원52커밋은 `recovered/20261003`에 HEAD `0e950b6f5074e39b94700034a56a942bfefe2cfd` / tree `da7b9dfbd8436ad40f8a6bec3845fcfe0c5a7fa1`로 보존했다. 과거401·지원 대기는 당시 역사이며 재연결을 요구하지 않는다.
 
 공통6검사144.59초·실제 결투10행 PASS, 검사 소스59df1f6과 릴리스의 게임/검사 코드 동일, 로컬 폰17조건 PASS다. [Pages37108497860](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37108497860) SUCCESS와 인증서 검증을 유지한 공개8파일의 크기·SHA 일치를 확인했다. 공개 모바일은 **게임16조건 PASS + 제목 기준을 정정한 계획 단독1조건 PASS로17조건 충족**이다. 원래 통합 실행의 제목 하드코딩 실패와 `pass=false`는 보존하며 전체17조건 재실행 PASS로 쓰지 않는다. 공개 오디오도 Worker/대체2조건·drawn·running44.1kHz·분기/음소거·새 라벨·오류0 PASS다. [원격 회귀37108533174](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37108533174) SUCCESS도 API로 확인했으며 세부 시험 수는 별도로 주장하지 않는다.
 
 일지 수정은 [validate37108508130](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37108508130)의32검사·3노트·자체 보관 읽기와 [10/02 publish37108554334](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37108554334)를 통과했다. 자체 보고6절·제목2개 렌더링 정규화·원문 SHA 보존·보고/manifest/Git blob/보관 tree를 검증했다. 시간창 밖 수신 보류는 버그로 재실행하지 않았고 상대 신규 열람·의미 검토는 수행하지 않았다.
 
-한손 팔 활성은 생성부터 실제 전투·다른 한손·제동/발 지지 수락이 미완료여서 공개 CTA·직접 URL을 보류한다. C의 projected 지지와 budgeted 절삭 철회는 유지하며 메이저 물리 기본값 승격은 없다. D의 첫60–90분 재개 위치는 헤드리스 `newRound(opts.onFighter)` 콜백에서 **fighter 생성 직후·AI/첫 `G.step` 전에 index0에 `armRecoveryModel='independent'` 직접 설정**하는 좁은 전투 대조다. 기존 skill_from_start 실행은 budgeted+parked이므로 실행하지 않고 중립 직렬화 계측만 재사용한다. 원래 저장소 밖 raw/native 자료는 추가 미수신이며 복원 소스·요약·새 검증과 구별한다. 이 최신 문서/계획의 후속 커밋·배포는 위 게임 릴리스와 별도 기록한다.
+한손 팔 활성은 생성부터 실제 전투·다른 한손·제동/발 지지 수락이 미완료여서 공개 CTA·직접 URL을 보류한다. C의 projected 지지와 budgeted 절삭 철회는 유지하며 메이저 물리 기본값 승격은 없다. D의 첫60–90분 재개 위치는 헤드리스 `newRound(opts.onFighter)` 콜백에서 **fighter 생성 직후·AI/첫 `G.step` 전에 index0에 `armRecoveryModel='independent'` 직접 설정**하는 좁은 전투 대조다. 기존 skill_from_start 실행은 budgeted+parked이므로 실행하지 않고 중립 직렬화 계측만 재사용한다. 추가 raw/native 자료는 아래 실제 복원 결과로 확보를 확인했다. 공개 보류는 자료 부재가 아니라 실제 전투/제동·발 지지 수락 미완료 때문이다.
+
+완료 문서 [47bdfe4](https://github.com/yoonjl-svg/halfsword-codex/commit/47bdfe4a6fb0032febc88f2c8e6559285ec73098)의 [Pages37109860328](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37109860328)·공개8파일·계획 폰 검증도 완료했고 런타임 자산이 게임9ba4b34와 같다. 이번 추가 복원/연구 기록의 후속 커밋·공개 바이트는 그 완료 문서와 별도 확인한다.
+
+추가 연구자료의 전송·실제 복원과 독립 감사를 완료했다. [복원 영수증](research_restoration_20261003.json)에 암호화 인덱스 인증·17파트/두 payload SHA와 AES-GCM/원문 해시·복원 경로·엔진/교정 검증을 남겼다. 원래 HEAD `0e950b6f5074e39b94700034a56a942bfefe2cfd` 대응 core는 우선21파일/530,726,868bytes·engine6/2,419,172bytes·provenance34/24,116,033bytes, 별도 full은943파일/10,693,838,162bytes다. 두 실제 복사본의 우선21 SHA와 기존 보고17 기대 해시가 맞다. 정확한 `rapier.mjs` SHA `a3be9d8361b386b0b664ee7ba771f14ae60e93eda9a4ab825f1de1260dbb5623` 및 matching calibration SHA `90a7ef5a2e34c18ea601d61a04fff36e4b6a766e8a360a10a85196d5fa8a4089`를 확인했다. 새 import/init·World/5API/1스텝과 native API33/33 PASS, 원래 공통33 세부·readout exact다. 원래34번째 npm↔rebuilt 동작 fixture·재빌드·전체 과거 연구 재실행은 하지 않았다. 개인 기록/키·인증·전체 old workspace/tmp·빌드 캐시/node_modules/Rust 도구체인은 제외하며 npm 엔진과 게임 기본값은 교체하지 않는다.
+
+[생성부터 켠 실제 전투 1차](../strike/arm_recovery_from_spawn_round1.md): 현재 소스 `d351c53`의 생성 직후·첫 스텝 전 활성 실제 전투10실행은 **측정 유효성만 통과**했고 공개 보류를 유지한다. sabre7/falchion19는18초 동안 활성 사건이 없어 native exact이며 효능 증거가 아니다. 첫 추가활성부터 접촉 분기까지 동일 준비의 효과 관찰창은 sabre19 .1초, falchion7 1스텝이다. 이 창을 넘어 달라진 피격을 같은 준비 효과로 비교하지 않는다. falchion7 후보의 상처/getup344는 기준과 피격 분기가 달라 같은 상처의 개선으로 비교하지 않는다. sabre19 중단 뒤 손 오차 .143→.083m 감소에도 방향 오차 .170→.400rad·고정 지면의 solver 발 접점 수평속도 .348→.740m/s·관절 gap1.215→1.845mm로 후퇴했다. 이 발 접점 속도는 마지막 solver의 접점 읽기이며 전체 지지 하중이나 COP를 뜻하지 않는다. 다음은 같은 실제 회복 상태에서 주팔 활성·어깨/손목 요구와 stop 시 발 반작용을 분리한다. 동일 토크 예산을 맞추지 않은 결과를 전달 효율 개선으로 부르지 않으며 gain 전수 탐색하지 않는다.
 
 ## 목표와 기준
 
@@ -24,7 +30,7 @@
 
 ## 현재 작업
 
-**현재 연구 위치 · 2026-10-03:** [회복 중 팔 활성 분리·한손 선택형](../strike/arm_recovery_activation_round1.md)을 구현했다(`912e0f6`). 같은 실제 피격에서 팔꿈치보다 상완 추종 지연이 컸고, getup의 전신 활성 곡선에서 주팔을 분리하면 seed7 손 최대 오차 .664→.273m로 감소했다. 양손은 정지 비틀림 .488→1.412rad 후퇴로 제외했다. 물리58회(연구36+runtime22), native/input/사건·물리frame 동등성14행, 헬퍼7검사·모바일4조건·77모듈 build·읽기 감사 근거를 보존한다. 실제 재접촉 뒤 발속도 등 후퇴가 남아 연구는 미완료이며 일반 승격·공개 CTA·직접 URL을 보류한다. 승인 항목 전달 검증을 마쳤으며, 생성 직후·첫 스텝 전 활성한 실제 전투·다른 한손무기·제동/발 지지를 위 헤드리스 경로에서 검사할 재개 위치를 기록했다.
+**현재 연구 위치 · 2026-10-03:** `arm_recovery_from_spawn_round1` 새 보고 작성 중의 실제10실행을 마쳐 제동/발 지지 후퇴를 확인했다. 다음은 동일한 실제 회복 상태의 주팔 활성·어깨/손목 요구와 stop 발 반작용을 좁게 분리한다. [이전 팔 활성1차](../strike/arm_recovery_activation_round1.md)의58실행·runtime14행·헬퍼7·모바일4조건과 양손 정지 비틀림 반례는 당시 근거로 보존하며 일반 승격/공개 보류 판정은 유지한다.
 
 ## 연구·전달 이력 · 당시 상태
 

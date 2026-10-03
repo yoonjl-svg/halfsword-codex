@@ -1,6 +1,6 @@
 # 전달 대장 · 2026-10-03
 
-갱신: **2026-10-03 17:27 KST**. 사용자가 요청한 **승인 A4와 선택형 B4의 전달 검증을 완료**했다. C의 철회와 한손 팔 공개 보류는 유지하고 승인된 D 연구의 재개 위치를 기록한다. 연구·사람 체감 수락·일반 물리 기본값 승격은 미완료다. [기계 판독 전달 영수증](delivery_release_20261003.json)은 항목별 승인·소스·원격·웹 범위와 외부 증거의 SHA·크기를 담는다.
+갱신: **2026-10-03 17:40 KST**. 사용자가 요청한 **승인 A4와 선택형 B4의 전달 검증을 완료**했다. C의 철회와 한손 팔 공개 보류는 유지하고 추가자료의 실제 복원과 D 실제10실행 뒤 다음 원인 분리를 기록한다. 연구·사람 체감 수락·일반 물리 기본값 승격은 미완료다. [기계 판독 전달 영수증](delivery_release_20261003.json)은 항목별 승인·소스·원격·웹 범위와 외부 증거의 SHA·크기를 담는다.
 
 ## 실제 소스·원격·공개 검증
 
@@ -12,7 +12,7 @@
 
 공개 오디오 Worker/대체2조건도 drawn·AudioContext running44.1kHz·강약 분기/음소거·새 라벨/이전 기본 라벨 제거·오류0 PASS다. 최초 브라우저 CA 신뢰 오류는 원래 영수증에 남기고 인증서 검증을 끄지 않은 채 신뢰 설정을 정정하여 재검사했다. 사람의 새 청취 수락이나 장시간 전투의 효능까지 증명하는 검사는 아니다.
 
-현재 주소: [일반 게임](https://yoonjl-svg.github.io/halfsword-codex/) · [선택형 비교](https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html) · [휴대폰 실행 계획](https://yoonjl-svg.github.io/halfsword-codex/development-plan.html). **이번 최신 대장·영수증·계획 문구의 후속 커밋/Pages/공개 바이트는 위 게임 릴리스와 별도로 확인한다.**
+현재 주소: [일반 게임](https://yoonjl-svg.github.io/halfsword-codex/) · [선택형 비교](https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html) · [휴대폰 실행 계획](https://yoonjl-svg.github.io/halfsword-codex/development-plan.html). 완료 문서47bdfe4의 Pages37109860328·공개8파일·계획 폰 검증까지 PASS이고 런타임 자산은 게임9ba4b34와 같다. 이번 추가자료/연구 문서의 후속 공개는 별도 확인한다.
 
 ## A · 승인 항목과 수정4개 전달 완료
 
@@ -44,10 +44,15 @@
 
 발사 문제의 projected 지지판과 사용자 수락 실패한 budgeted 절삭은 재공개·재권유·다른 후보에 자동 결합하지 않는다. 일반 legacy 지지/절삭과 철회 안내를 유지한다. B의 Nf 기록 선택형은 철회된 projected와 다른 후보다. 에너지·운동량 장부 PASS, stand 진입, AI 승률만으로 사람의 자연스러움이나 전체 회복을 수락하지 않는다. 기각된 회복/끝점·양손 활성·C1/기억은 재현 소스와 실패 기록으로 보존한다.
 
-## D · 승인 연구 재개 위치
+## D · 실제 전투10실행 뒤 다음 원인 분리
 
-전달 검증을 마쳤으므로 첫 **60–90분**은 공개 URL 없이 실제 한손 전투 대조를 재개한다. 헤드리스 `newRound(opts.onFighter)` 콜백에서 **fighter 생성 직후·AI/첫 `G.step` 전에 index0에 `armRecoveryModel='independent'`를 직접 설정**한다. 생성 이전 직접 설정으로 설명하지 않는다. 기준/후보의 legacy support·arm·cut 및 실제 AI/일반 전투를 유지하고 첫 getup 전 동등성, 이후 접촉/부상 분기·다른 한손·중단 뒤 제동/발 지지를 구분한다. 반복 후퇴는 같은 상태의 허용 활성/어깨/손목 요구로 분리하고 gain 전수 탐색하지 않는다. 기존 skill_from_start 실행은 budgeted+parked여서 실행하지 않으며 중립 직렬화 계측만 재사용한다.
+[생성부터 켠 실제 전투 1차](../strike/arm_recovery_from_spawn_round1.md): 현재 소스 `d351c53`의 생성 직후·첫 스텝 전 활성 실제 전투10실행은 **측정 유효성만 통과**했고 공개 보류를 유지한다. sabre7/falchion19는18초 동안 활성 사건이 없어 native exact이며 효능 증거가 아니다. 첫 추가활성부터 접촉 분기까지 동일 준비의 효과 관찰창은 sabre19 .1초, falchion7 1스텝이다. 이 창을 넘어 달라진 피격을 같은 준비 효과로 비교하지 않는다. falchion7 후보의 상처/getup344는 기준과 피격 분기가 달라 같은 상처의 개선으로 비교하지 않는다. sabre19 중단 뒤 손 오차 .143→.083m 감소에도 방향 오차 .170→.400rad·고정 지면의 solver 발 접점 수평속도 .348→.740m/s·관절 gap1.215→1.845mm로 후퇴했다. 이 발 접점 속도는 마지막 solver의 접점 읽기이며 전체 지지 하중이나 COP를 뜻하지 않는다. 다음은 같은 실제 회복 상태에서 주팔 활성·어깨/손목 요구와 stop 시 발 반작용을 분리한다. 동일 토크 예산을 맞추지 않은 결과를 전달 효율 개선으로 부르지 않으며 gain 전수 탐색하지 않는다.
 
+헤드리스 `newRound(opts.onFighter)`에서 fighter 생성 직후·AI/첫 `G.step` 전 index0에 `armRecoveryModel='independent'` 직접 설정하는 계약을 유지한다. legacy support/arm/cut·실제 AI/전투를 보존하고 기존 skill_from_start의 budgeted+parked 실행은 사용하지 않는다. 중립 직렬화 계측만 재사용하며 공개 CTA/직접 URL·양손 확대는 보류한다.
 이후 Q05는 **현재 legacy 접촉·힘 전달 장부 검사**로 진행하며 budgeted 재시험·결합·재권유를 하지 않는다. 몸통→팔→검 전달/제동, 체중 지지·부상 기립, 신체 표현/휴대폰 체감과 [P-01~P-06](../strike/physical_realism_plan.md)의 미완료를 이어가고 [다음48시간 계획](ACTIVE_PLAN.md)을 실제 결과로 갱신한다. 이미 승인된 전달/좁은 연구는 다시 승인받지 않는다. 메이저 일반 기본값 승격은 비교 가능한 구현/근거를 준비한 뒤 별도 사용자 결정이다.
 
-원래 저장소 밖 raw JSON·원래 모바일 raw·custom native engine/API 교정 원자료는 **추가 미수신**이다. 복원 소스·요약·새 일반 npm 엔진 검증과 구별하며 외부 원자료 복원까지 완료했다고 하지 않는다. 상대 신규 수신·열람은00:00–00:20 KST에만 한다. 이 대장은 실제 프로세스/예약 없이 응답 뒤 연구가 계속 실행된다고 주장하지 않는다.
+## 추가자료 · 실제 복원 완료
+
+추가 연구자료의 전송·실제 복원과 독립 감사를 완료했다. [복원 영수증](research_restoration_20261003.json)에 암호화 인덱스 인증·17파트/두 payload SHA와 AES-GCM/원문 해시·복원 경로·엔진/교정 검증을 남겼다. 원래 HEAD `0e950b6f5074e39b94700034a56a942bfefe2cfd` 대응 core는 우선21파일/530,726,868bytes·engine6/2,419,172bytes·provenance34/24,116,033bytes, 별도 full은943파일/10,693,838,162bytes다. 두 실제 복사본의 우선21 SHA와 기존 보고17 기대 해시가 맞다. 정확한 `rapier.mjs` SHA `a3be9d8361b386b0b664ee7ba771f14ae60e93eda9a4ab825f1de1260dbb5623` 및 matching calibration SHA `90a7ef5a2e34c18ea601d61a04fff36e4b6a766e8a360a10a85196d5fa8a4089`를 확인했다. 새 import/init·World/5API/1스텝과 native API33/33 PASS, 원래 공통33 세부·readout exact다. 원래34번째 npm↔rebuilt 동작 fixture·재빌드·전체 과거 연구 재실행은 하지 않았다. 개인 기록/키·인증·전체 old workspace/tmp·빌드 캐시/node_modules/Rust 도구체인은 제외하며 npm 엔진과 게임 기본값은 교체하지 않는다.
+
+원래 외부 자료의 확보는 해소했지만 실제 전투/제동/발 지지 수락과 전체 물리 목표는 여전히 미완료다. 복원 자료의 존재를 실패 후보의 공개·일반 채택 근거로 쓰지 않는다. 상대 신규 수신·열람은00:00–00:20 KST에만 한다. 이 대장은 실제 프로세스/예약 없이 응답 뒤 연구가 계속 실행된다고 주장하지 않는다.

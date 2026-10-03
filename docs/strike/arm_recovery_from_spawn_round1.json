@@ -1,0 +1,978 @@
+{
+  "schemaVersion": 1,
+  "probe": "arm_recovery_from_spawn",
+  "sourceCommit": "d351c5384a3514c701d395ce6c625ec261a6df53",
+  "summaryTool": "tools/sim/experiments/summarize_arm_recovery_from_spawn.py",
+  "summaryToolSha256": "78a87c178d59af5aee55cf89a8dfeff50fb9297bbd4d617b48ab3a99b91de177",
+  "summaryCommand": [
+    "python",
+    "tools/sim/experiments/summarize_arm_recovery_from_spawn.py",
+    "--raw=/workspace/halfsword-handoff/research-from-spawn/run-01.json",
+    "--out=/workspace/halfsword-handoff/research-from-spawn/summary-draft-03.json"
+  ],
+  "rawEvidence": {
+    "path": "/workspace/halfsword-handoff/research-from-spawn/run-01.json",
+    "bytes": 139125108,
+    "sha256": "5c7df8c24ac3165815b2591578302807f1f8bcfa6c77cd0280851d5f7126c1d1"
+  },
+  "sourceArchiveAllFilesExact": true,
+  "sourceArchiveFiles": 71,
+  "installedEngineFilesExact": {
+    "node_modules/@dimforge/rapier3d-compat/rapier.mjs": true,
+    "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": true
+  },
+  "sourceBefore": {
+    "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+    "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+    "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+    "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+    "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+    "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+    "src/arm_recovery_activation.js": "ae025cc8d9bbc9855ea8ab2793d3e7818a66a4662329014a776a2ac88966435e",
+    "src/arm_recovery_trial.js": "ebda992abc5c7cd25a12c751d0f9b30f8fddf998babc8f4a7f49c9f4a0817c09",
+    "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+    "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+    "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+    "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+    "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+    "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+    "src/cut_trial.js": "427d58d0500ceac482424e092a7d457a8cea48371c254f1b4edecb3a511be5a6",
+    "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+    "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+    "src/edge_intent.js": "b4e17a6ea08d659732c330448b3b3aaffeac2942fa5096e82db551a12d580c87",
+    "src/edge_torque.js": "436995e6d45e816517ea5a9a8f83c9fb147d143871aab1601f82baa7b36bc0fa",
+    "src/edge_torque_trial.js": "1280a3fe32c1874b6ce56b75932db44852162855d8962ae13f3aeb3e7d832cae",
+    "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+    "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+    "src/fighter.js": "8289dccb1038f6fa4da90cb62d627953072e7584b8688d9cd7877e85ee2b38b6",
+    "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+    "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+    "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+    "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+    "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+    "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+    "src/input.js": "f6a73744e19090c0406b6cf4229081e7fea24435d89d18e1af682de201ff9ae7",
+    "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+    "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+    "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+    "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+    "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+    "src/main.js": "1e04399fcb3eb2f3b6f8e9cf586fa53f7c2c5544b31f951c8d23731d0fd144d2",
+    "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+    "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+    "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+    "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+    "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+    "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+    "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+    "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+    "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+    "src/skill.js": "86a1347376da1a0b88e9893df5bf5ba37414c5db180cbdb02cd39fbb5f8d55cc",
+    "src/slash_draw.js": "c7d3d5a52ab9880323e72f21270d9e85aa6564187aef5a7a95e57954a11fdd8a",
+    "src/sound.js": "5751ada2d02597067df219798ea31b42bbbc3409251ce3ff93ecd1e8d2a7bad3",
+    "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+    "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+    "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+    "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+    "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+    "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+    "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+    "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+    "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+    "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+    "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+    "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+    "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+    "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+    "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+    "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+    "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+    "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+    "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+    "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+    "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "tools/sim/experiments/arm_recovery_from_spawn_probe.mjs": "b2fde3179f6a58e591db41c37f8cc606a1dc92ab0ab7c1665c99fd74ec61b853",
+    "tools/sim/harness_m.mjs": "bd86da1b28f6bf928e1215736b4039cdb4c6f95be03dc43300554f87a012f01b"
+  },
+  "sourceStable": true,
+  "measurementValid": true,
+  "executionCount": 10,
+  "runWallSeconds": 146.060658795,
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+    "/workspace/halfsword-codex/tools/sim/experiments/arm_recovery_from_spawn_probe.mjs",
+    "--out=/workspace/halfsword-handoff/research-from-spawn/run-01.json"
+  ],
+  "timestepSeconds": 0.008333333333333333,
+  "runtimeEngine": {
+    "name": "@dimforge/rapier3d-compat",
+    "version": "0.19.3",
+    "source": "Published npm game engine from harness_m; imported research sidecar was not used."
+  },
+  "requestedScheduleSha256": "9fc2d547170595c044311f9d17bbb7ae4a0507f442074ab7c00df06ef973c838",
+  "protocol": {
+    "weapons": [
+      "sabre",
+      "falchion"
+    ],
+    "seeds": [
+      7,
+      19
+    ],
+    "seconds": 18,
+    "modes": [
+      "legacy",
+      "independent"
+    ],
+    "activationEpsilon": 1e-12,
+    "initialization": "Actual Fighter/newRound; onFighter sets independent only on the newly created player before any G.step. Legacy has no own mode flag. Enemy retains normal AI and current runtime. No source transforms or controller clones.",
+    "settings": "paired grip, legacy support/stance/arm/edge/cutting, assist .3/catch on/1, correction0/autoGuardfalse, enemy normal longsword, gap1.85m, no walls",
+    "input": "Identical complete physics-clock delta/held/movement/tap schedule; no injury-triggered rescheduling. Actual pad and accepted taps are recorded separately from requested inputs.",
+    "observations": "Hash/event/input recorder is present in both observer modes. Optional post-step helper/kinetic/contact/hand/gap reads are enabled only in observed runs. Original Combat strike and hooks execute once. No AI freeze, parking, wound/health or native pose/velocity injection.",
+    "controllerScope": "Physical controller digest removes only player.armRecoveryModel; all other serialized controller fields remain. WeakMap eligibility/value metadata is outside this digest. Full controller equality is required only for same-mode observer repeats.",
+    "targetScope": "handErrorM compares actual hand with the current runtime handTarget. ownAimErrorRad compares actual sword axis with the current filtered runtime aim. externalRawAimErrorRad uses the independent fixed input schedule and the existing raw mapping/yaw; these goals are recorded separately and are not interchangeable. Actual pad may differ after controller/contact divergence even when requested delta schedules are identical.",
+    "lifecycle": "Stops at first fighter death or fixed horizon. Sword controllability comparisons are limited to the common alive+armed window; detached sword and post-drop states are separate. Report shared window lengths and censor inadequate recovery/hold exposure.",
+    "interpretation": "Initial and pre-effect common-prefix equality are causal gates; later reactive AI/contact/wound divergence is a regression comparison, not same-hit efficacy. Contact-event comparisons cover recorded strike/clash callbacks, not persistent solver contacts. Contact data is last-solver-substep geometry/impulse, not complete COP or native work. K is state energy, not muscle work. A few exposed steps or no actual wounded getup cannot establish efficacy. Measurement validity does not authorize public release or general promotion."
+  },
+  "traceChecks": [
+    {
+      "weapon": "sabre",
+      "seed": 7,
+      "mode": "legacy",
+      "observed": true,
+      "rebuiltTraceDigestsExact": true
+    },
+    {
+      "weapon": "sabre",
+      "seed": 7,
+      "mode": "independent",
+      "observed": true,
+      "rebuiltTraceDigestsExact": true
+    },
+    {
+      "weapon": "sabre",
+      "seed": 19,
+      "mode": "legacy",
+      "observed": true,
+      "rebuiltTraceDigestsExact": true
+    },
+    {
+      "weapon": "sabre",
+      "seed": 19,
+      "mode": "independent",
+      "observed": true,
+      "rebuiltTraceDigestsExact": true
+    },
+    {
+      "weapon": "falchion",
+      "seed": 7,
+      "mode": "legacy",
+      "observed": true,
+      "rebuiltTraceDigestsExact": true
+    },
+    {
+      "weapon": "falchion",
+      "seed": 7,
+      "mode": "independent",
+      "observed": true,
+      "rebuiltTraceDigestsExact": true
+    },
+    {
+      "weapon": "falchion",
+      "seed": 19,
+      "mode": "legacy",
+      "observed": true,
+      "rebuiltTraceDigestsExact": true
+    },
+    {
+      "weapon": "falchion",
+      "seed": 19,
+      "mode": "independent",
+      "observed": true,
+      "rebuiltTraceDigestsExact": true
+    },
+    {
+      "weapon": "falchion",
+      "seed": 7,
+      "mode": "legacy",
+      "observed": false,
+      "rebuiltTraceDigestsExact": true
+    },
+    {
+      "weapon": "falchion",
+      "seed": 7,
+      "mode": "independent",
+      "observed": false,
+      "rebuiltTraceDigestsExact": true
+    }
+  ],
+  "observerChecks": [
+    {
+      "weapon": "falchion",
+      "seed": 7,
+      "mode": "legacy",
+      "nativeControllerInputEventsDurationExact": true,
+      "scope": "Basic hash/event recorder stays on; optional post-step numeric/helper/contact reads are off."
+    },
+    {
+      "weapon": "falchion",
+      "seed": 7,
+      "mode": "independent",
+      "nativeControllerInputEventsDurationExact": true,
+      "scope": "Basic hash/event recorder stays on; optional post-step numeric/helper/contact reads are off."
+    }
+  ],
+  "pairs": [
+    {
+      "weapon": "sabre",
+      "seed": 7,
+      "startS": null,
+      "commonEffectEndS": 17.99999999999962,
+      "commonAliveArmedEndS": 17.99999999999962,
+      "firstUnequalRecordedContactS": null,
+      "firstUnequalStateS": null,
+      "preEffectPrefixSteps": 2160,
+      "preEffectNativePhysicalControllerEventsExact": true,
+      "fullNativeTraceExact": true,
+      "fullModeExcludedControllerTraceExact": true,
+      "actualPadCommonPrefixExact": true,
+      "firstArmWounds": {
+        "legacy": null,
+        "independent": null
+      },
+      "deathOrDrop": {
+        "legacy": {
+          "death": null,
+          "drop": null
+        },
+        "independent": {
+          "death": null,
+          "drop": null
+        }
+      },
+      "coverage": "incomplete_no_actual_wounded_recovery_exposure",
+      "scopes": {
+        "commonEffect": {
+          "legacy": {
+            "frames": 0,
+            "seconds": 0
+          },
+          "independent": {
+            "frames": 0,
+            "seconds": 0
+          }
+        },
+        "commonAliveArmedPostEffectRegression": {
+          "legacy": {
+            "frames": 0,
+            "seconds": 0
+          },
+          "independent": {
+            "frames": 0,
+            "seconds": 0
+          }
+        },
+        "zeroDeltaHoldReleaseRegression": {
+          "legacy": {
+            "frames": 0,
+            "seconds": 0
+          },
+          "independent": {
+            "frames": 0,
+            "seconds": 0
+          }
+        },
+        "fullObservedRun": {
+          "legacy": {
+            "frames": 2160,
+            "seconds": 18.0,
+            "handMeanM": 0.09607684867962482,
+            "handMaxM": 0.7585061523074024,
+            "ownAimMeanRad": 0.10369633528002459,
+            "rawAimMeanRad": 0.2552271671585043,
+            "omegaMaxRadps": 62.27857641047564,
+            "totalRotationIntegralRad": 75.3759134040022,
+            "twistIntegralRad": 52.83527772514902,
+            "swordKMaxJ": 12.514474467649617,
+            "bodyAndSwordKMaxJ": 49.80595530210762,
+            "gapMaxM": 0.0025338641674259588,
+            "contactPointHorizontalMaxMps": 1.927262837029461,
+            "positiveImpulseNearPointHorizontalMaxMps": 1.927262837029461,
+            "pelvisUpwardMaxMps": 0.39421918988227844,
+            "pelvisHeightMaxM": 0.9696431159973145,
+            "contactPointCount": 14224,
+            "noFootSolverPointFrames": 19,
+            "positiveImpulseNearPointCount": 14179,
+            "noPositiveImpulseNearPointFrames": 24,
+            "holdReleaseFrames": 481,
+            "getupFrames": 0,
+            "woundedGetupFrames": 0
+          },
+          "independent": {
+            "frames": 2160,
+            "seconds": 18.0,
+            "handMeanM": 0.09607684867962482,
+            "handMaxM": 0.7585061523074024,
+            "ownAimMeanRad": 0.10369633528002459,
+            "rawAimMeanRad": 0.2552271671585043,
+            "omegaMaxRadps": 62.27857641047564,
+            "totalRotationIntegralRad": 75.3759134040022,
+            "twistIntegralRad": 52.83527772514902,
+            "swordKMaxJ": 12.514474467649617,
+            "bodyAndSwordKMaxJ": 49.80595530210762,
+            "gapMaxM": 0.0025338641674259588,
+            "contactPointHorizontalMaxMps": 1.927262837029461,
+            "positiveImpulseNearPointHorizontalMaxMps": 1.927262837029461,
+            "pelvisUpwardMaxMps": 0.39421918988227844,
+            "pelvisHeightMaxM": 0.9696431159973145,
+            "contactPointCount": 14224,
+            "noFootSolverPointFrames": 19,
+            "positiveImpulseNearPointCount": 14179,
+            "noPositiveImpulseNearPointFrames": 24,
+            "holdReleaseFrames": 481,
+            "getupFrames": 0,
+            "woundedGetupFrames": 0
+          }
+        }
+      }
+    },
+    {
+      "weapon": "sabre",
+      "seed": 19,
+      "startS": 11.141666666666675,
+      "commonEffectEndS": 11.241666666666669,
+      "commonAliveArmedEndS": 17.99999999999962,
+      "firstUnequalRecordedContactS": 11.241666666666669,
+      "firstUnequalStateS": 13.191666666666558,
+      "preEffectPrefixSteps": 1336,
+      "preEffectNativePhysicalControllerEventsExact": true,
+      "fullNativeTraceExact": false,
+      "fullModeExcludedControllerTraceExact": false,
+      "actualPadCommonPrefixExact": true,
+      "firstArmWounds": {
+        "legacy": null,
+        "independent": null
+      },
+      "deathOrDrop": {
+        "legacy": {
+          "death": null,
+          "drop": null
+        },
+        "independent": {
+          "death": null,
+          "drop": null
+        }
+      },
+      "coverage": "incomplete_no_actual_wounded_recovery_exposure",
+      "scopes": {
+        "commonEffect": {
+          "legacy": {
+            "frames": 12,
+            "seconds": 0.1,
+            "handMeanM": 0.15260621027784474,
+            "handMaxM": 0.15833315571370662,
+            "ownAimMeanRad": 0.3249359218329084,
+            "rawAimMeanRad": 0.3102383419527868,
+            "omegaMaxRadps": 12.174455909975418,
+            "totalRotationIntegralRad": 0.735096164526479,
+            "twistIntegralRad": 0.4499748745643019,
+            "swordKMaxJ": 10.075608661826246,
+            "bodyAndSwordKMaxJ": 104.64866069873763,
+            "gapMaxM": 0.0018032399355162353,
+            "contactPointHorizontalMaxMps": 3.800261272444695,
+            "positiveImpulseNearPointHorizontalMaxMps": 3.800261272444695,
+            "pelvisUpwardMaxMps": -0.4337446391582489,
+            "pelvisHeightMaxM": 0.8824334144592285,
+            "contactPointCount": 30,
+            "noFootSolverPointFrames": 0,
+            "positiveImpulseNearPointCount": 30,
+            "noPositiveImpulseNearPointFrames": 0,
+            "holdReleaseFrames": 0,
+            "getupFrames": 12,
+            "woundedGetupFrames": 0
+          },
+          "independent": {
+            "frames": 12,
+            "seconds": 0.1,
+            "handMeanM": 0.1430169697389802,
+            "handMaxM": 0.1534340382099255,
+            "ownAimMeanRad": 0.3098322871737195,
+            "rawAimMeanRad": 0.3040982414440882,
+            "omegaMaxRadps": 12.364106972665105,
+            "totalRotationIntegralRad": 0.7284937338284023,
+            "twistIntegralRad": 0.48181319985875576,
+            "swordKMaxJ": 11.190996544830693,
+            "bodyAndSwordKMaxJ": 104.63627607216537,
+            "gapMaxM": 0.0018025423383917077,
+            "contactPointHorizontalMaxMps": 3.800470452314425,
+            "positiveImpulseNearPointHorizontalMaxMps": 3.800470452314425,
+            "pelvisUpwardMaxMps": -0.4324924647808075,
+            "pelvisHeightMaxM": 0.8824352025985718,
+            "contactPointCount": 30,
+            "noFootSolverPointFrames": 0,
+            "positiveImpulseNearPointCount": 30,
+            "noPositiveImpulseNearPointFrames": 0,
+            "holdReleaseFrames": 0,
+            "getupFrames": 12,
+            "woundedGetupFrames": 0
+          }
+        },
+        "commonAliveArmedPostEffectRegression": {
+          "legacy": {
+            "frames": 823,
+            "seconds": 6.858333333333333,
+            "handMeanM": 0.1200017481664162,
+            "handMaxM": 0.47145348320119235,
+            "ownAimMeanRad": 0.13491026696395572,
+            "rawAimMeanRad": 0.28518405680755166,
+            "omegaMaxRadps": 40.10823560373178,
+            "totalRotationIntegralRad": 31.551376671096566,
+            "twistIntegralRad": 23.881784053357485,
+            "swordKMaxJ": 12.592525196642065,
+            "bodyAndSwordKMaxJ": 104.64866069873763,
+            "gapMaxM": 0.0018244055662645963,
+            "contactPointHorizontalMaxMps": 3.800261272444695,
+            "positiveImpulseNearPointHorizontalMaxMps": 3.800261272444695,
+            "pelvisUpwardMaxMps": 0.712414562702179,
+            "pelvisHeightMaxM": 0.9496055841445923,
+            "contactPointCount": 4222,
+            "noFootSolverPointFrames": 2,
+            "positiveImpulseNearPointCount": 4103,
+            "noPositiveImpulseNearPointFrames": 22,
+            "holdReleaseFrames": 193,
+            "getupFrames": 246,
+            "woundedGetupFrames": 0
+          },
+          "independent": {
+            "frames": 823,
+            "seconds": 6.858333333333333,
+            "handMeanM": 0.09467194890806552,
+            "handMaxM": 0.47050053470054864,
+            "ownAimMeanRad": 0.1859794876345265,
+            "rawAimMeanRad": 0.3407778377727695,
+            "omegaMaxRadps": 62.153461397286264,
+            "totalRotationIntegralRad": 34.074112495033305,
+            "twistIntegralRad": 26.079601090251323,
+            "swordKMaxJ": 14.649191105159804,
+            "bodyAndSwordKMaxJ": 104.63627607216537,
+            "gapMaxM": 0.0018453496197485197,
+            "contactPointHorizontalMaxMps": 3.800470452314425,
+            "positiveImpulseNearPointHorizontalMaxMps": 3.800470452314425,
+            "pelvisUpwardMaxMps": 0.7163523435592651,
+            "pelvisHeightMaxM": 0.9519392848014832,
+            "contactPointCount": 3737,
+            "noFootSolverPointFrames": 3,
+            "positiveImpulseNearPointCount": 3632,
+            "noPositiveImpulseNearPointFrames": 4,
+            "holdReleaseFrames": 193,
+            "getupFrames": 300,
+            "woundedGetupFrames": 0
+          }
+        },
+        "zeroDeltaHoldReleaseRegression": {
+          "legacy": {
+            "frames": 193,
+            "seconds": 1.6083333333333334,
+            "handMeanM": 0.14304569375197917,
+            "handMaxM": 0.47021585315123826,
+            "ownAimMeanRad": 0.1701730872240173,
+            "rawAimMeanRad": 0.21489098139092705,
+            "omegaMaxRadps": 35.57684974276271,
+            "totalRotationIntegralRad": 7.188718494005952,
+            "twistIntegralRad": 6.565625198454599,
+            "swordKMaxJ": 5.200020973092908,
+            "bodyAndSwordKMaxJ": 14.720784962708919,
+            "gapMaxM": 0.001215200323629584,
+            "contactPointHorizontalMaxMps": 0.3481772260071186,
+            "positiveImpulseNearPointHorizontalMaxMps": 0.3055034511796628,
+            "pelvisUpwardMaxMps": 0.3398422598838806,
+            "pelvisHeightMaxM": 0.9278726577758789,
+            "contactPointCount": 979,
+            "noFootSolverPointFrames": 0,
+            "positiveImpulseNearPointCount": 966,
+            "noPositiveImpulseNearPointFrames": 0,
+            "holdReleaseFrames": 193,
+            "getupFrames": 73,
+            "woundedGetupFrames": 0
+          },
+          "independent": {
+            "frames": 193,
+            "seconds": 1.6083333333333334,
+            "handMeanM": 0.08298275704336981,
+            "handMaxM": 0.20786658644162495,
+            "ownAimMeanRad": 0.39957263415724437,
+            "rawAimMeanRad": 0.43881187470578714,
+            "omegaMaxRadps": 26.137998523562842,
+            "totalRotationIntegralRad": 7.409302332942077,
+            "twistIntegralRad": 6.4342852669672554,
+            "swordKMaxJ": 9.457779526854718,
+            "bodyAndSwordKMaxJ": 30.858169512967656,
+            "gapMaxM": 0.0018453496197485197,
+            "contactPointHorizontalMaxMps": 0.739866851172288,
+            "positiveImpulseNearPointHorizontalMaxMps": 0.6618540432510914,
+            "pelvisUpwardMaxMps": 0.5533180236816406,
+            "pelvisHeightMaxM": 0.9466997981071472,
+            "contactPointCount": 912,
+            "noFootSolverPointFrames": 3,
+            "positiveImpulseNearPointCount": 847,
+            "noPositiveImpulseNearPointFrames": 4,
+            "holdReleaseFrames": 193,
+            "getupFrames": 73,
+            "woundedGetupFrames": 0
+          }
+        },
+        "fullObservedRun": {
+          "legacy": {
+            "frames": 2160,
+            "seconds": 18.0,
+            "handMeanM": 0.10530827259216798,
+            "handMaxM": 0.5535199830211875,
+            "ownAimMeanRad": 0.10617739533541772,
+            "rawAimMeanRad": 0.2524767717579774,
+            "omegaMaxRadps": 97.7974291249315,
+            "totalRotationIntegralRad": 74.2448045939693,
+            "twistIntegralRad": 50.29680091921169,
+            "swordKMaxJ": 12.592525196642065,
+            "bodyAndSwordKMaxJ": 104.64866069873763,
+            "gapMaxM": 0.002057495688888998,
+            "contactPointHorizontalMaxMps": 3.800261272444695,
+            "positiveImpulseNearPointHorizontalMaxMps": 3.800261272444695,
+            "pelvisUpwardMaxMps": 0.712414562702179,
+            "pelvisHeightMaxM": 0.9696431159973145,
+            "contactPointCount": 13348,
+            "noFootSolverPointFrames": 15,
+            "positiveImpulseNearPointCount": 13203,
+            "noPositiveImpulseNearPointFrames": 37,
+            "holdReleaseFrames": 481,
+            "getupFrames": 247,
+            "woundedGetupFrames": 0
+          },
+          "independent": {
+            "frames": 2160,
+            "seconds": 18.0,
+            "handMeanM": 0.09565801963101728,
+            "handMaxM": 0.5535199830211875,
+            "ownAimMeanRad": 0.12563717269251504,
+            "rawAimMeanRad": 0.27365738647994453,
+            "omegaMaxRadps": 97.7974291249315,
+            "totalRotationIntegralRad": 76.76814085675572,
+            "twistIntegralRad": 52.495270540342545,
+            "swordKMaxJ": 14.649191105159804,
+            "bodyAndSwordKMaxJ": 104.63627607216537,
+            "gapMaxM": 0.002057495688888998,
+            "contactPointHorizontalMaxMps": 3.800470452314425,
+            "positiveImpulseNearPointHorizontalMaxMps": 3.800470452314425,
+            "pelvisUpwardMaxMps": 0.7163523435592651,
+            "pelvisHeightMaxM": 0.9696431159973145,
+            "contactPointCount": 12859,
+            "noFootSolverPointFrames": 16,
+            "positiveImpulseNearPointCount": 12728,
+            "noPositiveImpulseNearPointFrames": 19,
+            "holdReleaseFrames": 481,
+            "getupFrames": 301,
+            "woundedGetupFrames": 0
+          }
+        }
+      }
+    },
+    {
+      "weapon": "falchion",
+      "seed": 7,
+      "startS": 8.88333333333347,
+      "commonEffectEndS": 8.891666666666802,
+      "commonAliveArmedEndS": 17.99999999999962,
+      "firstUnequalRecordedContactS": 8.891666666666802,
+      "firstUnequalStateS": 11.524999999999986,
+      "preEffectPrefixSteps": 1065,
+      "preEffectNativePhysicalControllerEventsExact": true,
+      "fullNativeTraceExact": false,
+      "fullModeExcludedControllerTraceExact": false,
+      "actualPadCommonPrefixExact": true,
+      "firstArmWounds": {
+        "legacy": null,
+        "independent": {
+          "timeS": 12.741666666666584,
+          "part": "uarmS",
+          "severity": 0.06764129249964665,
+          "armHealthBefore": 1,
+          "armHealthAfter": 0.9526510952502474
+        }
+      },
+      "deathOrDrop": {
+        "legacy": {
+          "death": null,
+          "drop": null
+        },
+        "independent": {
+          "death": null,
+          "drop": null
+        }
+      },
+      "coverage": "actual_wounded_recovery_exposed",
+      "scopes": {
+        "commonEffect": {
+          "legacy": {
+            "frames": 1,
+            "seconds": 0.008333333333333333,
+            "handMeanM": 0.08586724262237826,
+            "handMaxM": 0.08586724262237826,
+            "ownAimMeanRad": 0.018817303103978937,
+            "rawAimMeanRad": 0.1785902356808565,
+            "omegaMaxRadps": 2.6976979217984134,
+            "totalRotationIntegralRad": 0.022480816014986776,
+            "twistIntegralRad": 0.020318155623652592,
+            "swordKMaxJ": 0.6875990159702107,
+            "bodyAndSwordKMaxJ": 116.27638124100514,
+            "gapMaxM": 0.0019690434587399056,
+            "contactPointHorizontalMaxMps": 3.99893549460346,
+            "positiveImpulseNearPointHorizontalMaxMps": 3.99893549460346,
+            "pelvisUpwardMaxMps": -0.05644810199737549,
+            "pelvisHeightMaxM": 0.890347421169281,
+            "contactPointCount": 8,
+            "noFootSolverPointFrames": 0,
+            "positiveImpulseNearPointCount": 8,
+            "noPositiveImpulseNearPointFrames": 0,
+            "holdReleaseFrames": 0,
+            "getupFrames": 1,
+            "woundedGetupFrames": 0
+          },
+          "independent": {
+            "frames": 1,
+            "seconds": 0.008333333333333333,
+            "handMeanM": 0.08586750120496961,
+            "handMaxM": 0.08586750120496961,
+            "ownAimMeanRad": 0.018817257030209474,
+            "rawAimMeanRad": 0.17858908597337914,
+            "omegaMaxRadps": 2.6981268767622426,
+            "totalRotationIntegralRad": 0.022484390639685353,
+            "twistIntegralRad": 0.020322533926919788,
+            "swordKMaxJ": 0.6888230713617751,
+            "bodyAndSwordKMaxJ": 116.28503467011312,
+            "gapMaxM": 0.0019690981393253727,
+            "contactPointHorizontalMaxMps": 3.9989250216626138,
+            "positiveImpulseNearPointHorizontalMaxMps": 3.9989250216626138,
+            "pelvisUpwardMaxMps": -0.05645952746272087,
+            "pelvisHeightMaxM": 0.8903473615646362,
+            "contactPointCount": 8,
+            "noFootSolverPointFrames": 0,
+            "positiveImpulseNearPointCount": 8,
+            "noPositiveImpulseNearPointFrames": 0,
+            "holdReleaseFrames": 0,
+            "getupFrames": 1,
+            "woundedGetupFrames": 0
+          }
+        },
+        "commonAliveArmedPostEffectRegression": {
+          "legacy": {
+            "frames": 1094,
+            "seconds": 9.116666666666667,
+            "handMeanM": 0.08887296063081954,
+            "handMaxM": 0.49849050033545084,
+            "ownAimMeanRad": 0.08692672795548084,
+            "rawAimMeanRad": 0.25962457141894807,
+            "omegaMaxRadps": 40.36513530698032,
+            "totalRotationIntegralRad": 36.35599600063119,
+            "twistIntegralRad": 24.9784002541585,
+            "swordKMaxJ": 10.333517712047687,
+            "bodyAndSwordKMaxJ": 134.38992272472095,
+            "gapMaxM": 0.0019690434587399056,
+            "contactPointHorizontalMaxMps": 3.99893549460346,
+            "positiveImpulseNearPointHorizontalMaxMps": 3.99893549460346,
+            "pelvisUpwardMaxMps": 0.6624118685722351,
+            "pelvisHeightMaxM": 0.9093614220619202,
+            "contactPointCount": 5723,
+            "noFootSolverPointFrames": 13,
+            "positiveImpulseNearPointCount": 5706,
+            "noPositiveImpulseNearPointFrames": 15,
+            "holdReleaseFrames": 241,
+            "getupFrames": 546,
+            "woundedGetupFrames": 0
+          },
+          "independent": {
+            "frames": 1094,
+            "seconds": 9.116666666666667,
+            "handMeanM": 0.0769263841253196,
+            "handMaxM": 0.29479903188775114,
+            "ownAimMeanRad": 0.06502931984353572,
+            "rawAimMeanRad": 0.24660054854091676,
+            "omegaMaxRadps": 37.849284438485,
+            "totalRotationIntegralRad": 32.19049170502225,
+            "twistIntegralRad": 21.661795392991984,
+            "swordKMaxJ": 10.624190323748891,
+            "bodyAndSwordKMaxJ": 116.28503467011312,
+            "gapMaxM": 0.0019690981393253727,
+            "contactPointHorizontalMaxMps": 3.9989250216626138,
+            "positiveImpulseNearPointHorizontalMaxMps": 3.9989250216626138,
+            "pelvisUpwardMaxMps": 0.5747860670089722,
+            "pelvisHeightMaxM": 0.9021015763282776,
+            "contactPointCount": 5255,
+            "noFootSolverPointFrames": 3,
+            "positiveImpulseNearPointCount": 5233,
+            "noPositiveImpulseNearPointFrames": 3,
+            "holdReleaseFrames": 241,
+            "getupFrames": 768,
+            "woundedGetupFrames": 344
+          }
+        },
+        "zeroDeltaHoldReleaseRegression": {
+          "legacy": {
+            "frames": 241,
+            "seconds": 2.0083333333333333,
+            "handMeanM": 0.08753768470649674,
+            "handMaxM": 0.3012155207854729,
+            "ownAimMeanRad": 0.11987202732013365,
+            "rawAimMeanRad": 0.14552209158407117,
+            "omegaMaxRadps": 23.81488905612704,
+            "totalRotationIntegralRad": 5.148276281545411,
+            "twistIntegralRad": 3.7379158812719524,
+            "swordKMaxJ": 7.246640042976592,
+            "bodyAndSwordKMaxJ": 70.70620207923956,
+            "gapMaxM": 0.0018256779505590492,
+            "contactPointHorizontalMaxMps": 0.5615429776389561,
+            "positiveImpulseNearPointHorizontalMaxMps": 0.5615429776389561,
+            "pelvisUpwardMaxMps": 0.24750733375549316,
+            "pelvisHeightMaxM": 0.8924524784088135,
+            "contactPointCount": 1172,
+            "noFootSolverPointFrames": 0,
+            "positiveImpulseNearPointCount": 1170,
+            "noPositiveImpulseNearPointFrames": 0,
+            "holdReleaseFrames": 241,
+            "getupFrames": 120,
+            "woundedGetupFrames": 0
+          },
+          "independent": {
+            "frames": 241,
+            "seconds": 2.0083333333333333,
+            "handMeanM": 0.040504734872693966,
+            "handMaxM": 0.09904228547041731,
+            "ownAimMeanRad": 0.09777340723190217,
+            "rawAimMeanRad": 0.1211549646334715,
+            "omegaMaxRadps": 21.49654839842536,
+            "totalRotationIntegralRad": 5.056788623851141,
+            "twistIntegralRad": 3.747478867300935,
+            "swordKMaxJ": 8.29921450598236,
+            "bodyAndSwordKMaxJ": 9.677671437804733,
+            "gapMaxM": 0.0005588894349602086,
+            "contactPointHorizontalMaxMps": 0.6924094941234282,
+            "positiveImpulseNearPointHorizontalMaxMps": 0.6215990046889841,
+            "pelvisUpwardMaxMps": 0.22290334105491638,
+            "pelvisHeightMaxM": 0.9021015763282776,
+            "contactPointCount": 1247,
+            "noFootSolverPointFrames": 0,
+            "positiveImpulseNearPointCount": 1237,
+            "noPositiveImpulseNearPointFrames": 0,
+            "holdReleaseFrames": 241,
+            "getupFrames": 153,
+            "woundedGetupFrames": 48
+          }
+        },
+        "fullObservedRun": {
+          "legacy": {
+            "frames": 2160,
+            "seconds": 18.0,
+            "handMeanM": 0.0936096061599217,
+            "handMaxM": 0.553631592139299,
+            "ownAimMeanRad": 0.09387468434922372,
+            "rawAimMeanRad": 0.2579841635338861,
+            "omegaMaxRadps": 55.80967252764609,
+            "totalRotationIntegralRad": 78.02645049677623,
+            "twistIntegralRad": 55.01639256370457,
+            "swordKMaxJ": 11.390458407835625,
+            "bodyAndSwordKMaxJ": 134.38992272472095,
+            "gapMaxM": 0.0020708301759751425,
+            "contactPointHorizontalMaxMps": 3.99893549460346,
+            "positiveImpulseNearPointHorizontalMaxMps": 3.99893549460346,
+            "pelvisUpwardMaxMps": 0.6624118685722351,
+            "pelvisHeightMaxM": 0.9696430563926697,
+            "contactPointCount": 13140,
+            "noFootSolverPointFrames": 26,
+            "positiveImpulseNearPointCount": 13105,
+            "noPositiveImpulseNearPointFrames": 30,
+            "holdReleaseFrames": 481,
+            "getupFrames": 547,
+            "woundedGetupFrames": 0
+          },
+          "independent": {
+            "frames": 2160,
+            "seconds": 18.0,
+            "handMeanM": 0.08756086210787384,
+            "handMaxM": 0.553631592139299,
+            "ownAimMeanRad": 0.08278455487283372,
+            "rawAimMeanRad": 0.25138653975879527,
+            "omegaMaxRadps": 55.80967252764609,
+            "totalRotationIntegralRad": 73.86149194800598,
+            "twistIntegralRad": 51.70038145313623,
+            "swordKMaxJ": 11.390458407835625,
+            "bodyAndSwordKMaxJ": 116.28503467011312,
+            "gapMaxM": 0.0020708301759751425,
+            "contactPointHorizontalMaxMps": 3.9989250216626138,
+            "positiveImpulseNearPointHorizontalMaxMps": 3.9989250216626138,
+            "pelvisUpwardMaxMps": 0.5747860670089722,
+            "pelvisHeightMaxM": 0.9696430563926697,
+            "contactPointCount": 12676,
+            "noFootSolverPointFrames": 16,
+            "positiveImpulseNearPointCount": 12636,
+            "noPositiveImpulseNearPointFrames": 18,
+            "holdReleaseFrames": 481,
+            "getupFrames": 768,
+            "woundedGetupFrames": 344
+          }
+        }
+      }
+    },
+    {
+      "weapon": "falchion",
+      "seed": 19,
+      "startS": null,
+      "commonEffectEndS": 17.99999999999962,
+      "commonAliveArmedEndS": 17.99999999999962,
+      "firstUnequalRecordedContactS": null,
+      "firstUnequalStateS": null,
+      "preEffectPrefixSteps": 2160,
+      "preEffectNativePhysicalControllerEventsExact": true,
+      "fullNativeTraceExact": true,
+      "fullModeExcludedControllerTraceExact": true,
+      "actualPadCommonPrefixExact": true,
+      "firstArmWounds": {
+        "legacy": {
+          "timeS": 14.949999999999791,
+          "part": "farmS",
+          "severity": 0.044090055595140495,
+          "armHealthBefore": 1,
+          "armHealthAfter": 0.9691369610834016
+        },
+        "independent": {
+          "timeS": 14.949999999999791,
+          "part": "farmS",
+          "severity": 0.044090055595140495,
+          "armHealthBefore": 1,
+          "armHealthAfter": 0.9691369610834016
+        }
+      },
+      "deathOrDrop": {
+        "legacy": {
+          "death": null,
+          "drop": null
+        },
+        "independent": {
+          "death": null,
+          "drop": null
+        }
+      },
+      "coverage": "incomplete_no_actual_wounded_recovery_exposure",
+      "scopes": {
+        "commonEffect": {
+          "legacy": {
+            "frames": 0,
+            "seconds": 0
+          },
+          "independent": {
+            "frames": 0,
+            "seconds": 0
+          }
+        },
+        "commonAliveArmedPostEffectRegression": {
+          "legacy": {
+            "frames": 0,
+            "seconds": 0
+          },
+          "independent": {
+            "frames": 0,
+            "seconds": 0
+          }
+        },
+        "zeroDeltaHoldReleaseRegression": {
+          "legacy": {
+            "frames": 0,
+            "seconds": 0
+          },
+          "independent": {
+            "frames": 0,
+            "seconds": 0
+          }
+        },
+        "fullObservedRun": {
+          "legacy": {
+            "frames": 2160,
+            "seconds": 18.0,
+            "handMeanM": 0.09476006632608493,
+            "handMaxM": 0.553631592139299,
+            "ownAimMeanRad": 0.07852844528645006,
+            "rawAimMeanRad": 0.2361037083083755,
+            "omegaMaxRadps": 59.379465525444594,
+            "totalRotationIntegralRad": 78.90469268227051,
+            "twistIntegralRad": 54.65923286298691,
+            "swordKMaxJ": 13.465953960660517,
+            "bodyAndSwordKMaxJ": 43.15708195959733,
+            "gapMaxM": 0.003447575871376335,
+            "contactPointHorizontalMaxMps": 2.364829119442635,
+            "positiveImpulseNearPointHorizontalMaxMps": 2.364829119442635,
+            "pelvisUpwardMaxMps": 0.4918461740016937,
+            "pelvisHeightMaxM": 0.9696430563926697,
+            "contactPointCount": 14350,
+            "noFootSolverPointFrames": 22,
+            "positiveImpulseNearPointCount": 14311,
+            "noPositiveImpulseNearPointFrames": 27,
+            "holdReleaseFrames": 481,
+            "getupFrames": 0,
+            "woundedGetupFrames": 0
+          },
+          "independent": {
+            "frames": 2160,
+            "seconds": 18.0,
+            "handMeanM": 0.09476006632608493,
+            "handMaxM": 0.553631592139299,
+            "ownAimMeanRad": 0.07852844528645006,
+            "rawAimMeanRad": 0.2361037083083755,
+            "omegaMaxRadps": 59.379465525444594,
+            "totalRotationIntegralRad": 78.90469268227051,
+            "twistIntegralRad": 54.65923286298691,
+            "swordKMaxJ": 13.465953960660517,
+            "bodyAndSwordKMaxJ": 43.15708195959733,
+            "gapMaxM": 0.003447575871376335,
+            "contactPointHorizontalMaxMps": 2.364829119442635,
+            "positiveImpulseNearPointHorizontalMaxMps": 2.364829119442635,
+            "pelvisUpwardMaxMps": 0.4918461740016937,
+            "pelvisHeightMaxM": 0.9696430563926697,
+            "contactPointCount": 14350,
+            "noFootSolverPointFrames": 22,
+            "positiveImpulseNearPointCount": 14311,
+            "noPositiveImpulseNearPointFrames": 27,
+            "holdReleaseFrames": 481,
+            "getupFrames": 0,
+            "woundedGetupFrames": 0
+          }
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "commonEffect": "Metric samples [first extra activation, first unequal recorded contact/state or shared death/drop/horizon). Callback equality does not establish identical persistent contacts. Frame-count seconds are n*DT; post-step sample intervals have one-tick boundary resolution.",
+    "commonAliveArmedPostEffectRegression": "Samples [first extra activation, shared alive+armed end). Same requests, potentially different reactive AI/contact/wound histories; not same-injury efficacy.",
+    "zeroDeltaHoldReleaseRegression": "Hold/release samples within that common post-effect regression window; requested delta is zero. Existing thrust/body motion/heading/contacts can continue. This is not isolated braking or a physically stopped sword.",
+    "fullObservedRun": "Whole saved run; separate from causal/shared post-effect windows and unsuitable for uncensored comparative controllability after death/drop.",
+    "handMeanM": "Actual hand versus current runtime handTarget; not joint separation and not independent external input intent.",
+    "ownAimMeanRad": "Actual sword axis versus current runtime filtered aim.",
+    "rawAimMeanRad": "Actual axis versus fixed external input schedule through existing raw direction/yaw mapping; goal differs from current filtered aim.",
+    "totalRotationIntegralRad": "Integral of absolute sword angular velocity magnitude, sum(|omega|*DT); not axis travel or forearm-relative rotation.",
+    "twistIntegralRad": "Integral of absolute world angular velocity projected on current sword axis; not relative wrist rotation.",
+    "contactPointHorizontalMaxMps": "All fixed-ground solver points' horizontal body point velocity, last solver substep; not loaded slip, COP, a complete contact impulse history or force capacity.",
+    "positiveImpulseNearPointHorizontalMaxMps": "Postprocessing subset: manifold summed normal impulse >1e-6 Ns and point solver distance <=.01 m. Not individual point load proof. Thresholds are report filters only, not hidden runtime caps.",
+    "K": "State kinetic energy, not measured muscle/native motor/constraint work."
+  },
+  "decision": {
+    "publicUrl": "held",
+    "publicCTA": "held",
+    "ordinaryDefault": "unchanged",
+    "failedSupportAndCuttingCandidates": "remain withdrawn; not reapplied or recommended",
+    "reason": "No shared causal wounded-main-arm recovery exposure; short causal windows and mixed contact-divergent hold/release regressions. Numerical execution validity is not efficacy or human acceptance."
+  },
+  "limitations": [
+    "Four weapon/seed conditions plus paired modes and two observer repeats, not ten independent efficacy samples.",
+    "Two seeds/no wall/gap1.85/correction0 are a bounded selection, not broad gameplay acceptance.",
+    "Fixed physics-clock 120 Hz; no rendering, browser hit-stop/time dilation/rAF cadence or real phone input/feel.",
+    "No native-sidecar engine substitution; separate 33-fixture sidecar calibration is a different task."
+  ]
+}
