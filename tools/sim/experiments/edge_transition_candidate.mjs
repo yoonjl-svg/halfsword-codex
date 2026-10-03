@@ -15,7 +15,7 @@ export async function loadEdgeTransition(){
     const beforePlane = this.intentEdgePlane?.clone();
     const beforeLocalAim = this.intentEdgePreviousAim?.clone();`);
   replace('    const aim = _v3.set(...guardDir(off.x, off.y));',`    const aim = _v3.set(...guardDir(off.x, off.y));
-    if (active && ['c1Aim','pointIntent'].includes(diag.mode) && off.y > .05 && off.y < .15) {
+    if (active && ['c1Aim','pointIntent','legacyC1'].includes(diag.mode) && off.y > .05 && off.y < .15) {
       const t=(off.y-.05)/.1;
       const elevation=-.055+.11*t+.11*t*t;
       const azimuth=THREE.MathUtils.clamp((off.x-.05)*1.7,-1.1,1.3);
