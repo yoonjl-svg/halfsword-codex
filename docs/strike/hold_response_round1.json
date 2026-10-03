@@ -1,0 +1,1227 @@
+{
+  "schemaVersion": 1,
+  "measurementValid": true,
+  "raw": {
+    "observation": {
+      "bytes": 10213670,
+      "sha256": "f472937c5743e81848a363a60bd736117ac3d395d19fea2e858d9ece67f4b7e6",
+      "sourceCommit": "ac1cbcd22a8c3f7a6239447df5475c1ab10e17ca",
+      "executions": 4,
+      "wallSeconds": 42.017936619,
+      "derivedRowsFiniteAndLatchAngleVerifiedOffline": 120,
+      "sourceAndRecordedTraceHashesReverified": true
+    },
+    "policy": {
+      "bytes": 5519171,
+      "sha256": "af10fd12463e8c48bb6cd9e517341184335c38633d9a013acdaf336eb7401d07",
+      "sourceCommit": "58fc62fff8acb48393e81836080ae785fbbb6fb3",
+      "executions": 2,
+      "wallSeconds": 19.466795474,
+      "derivedRowsFiniteAndLatchAngleVerifiedOffline": 60,
+      "sourceAndRecordedTraceHashesReverified": true
+    }
+  },
+  "executionCount": 6,
+  "branch": {
+    "tick": 1416,
+    "timeS": 11.79999999999997,
+    "nativeSha256": "4b6c63d345ed159812af1460dd4d014cb7347332a0d72e3c5869dbe9c83a203c",
+    "fullControllerSha256": "9ecbcd721a3dcaac41b1a5911f7cff736eb1421d93c6c604600971ffef721f47",
+    "eventsPrefixSha256": "962d4ab1bc08e5b31dec710b36f2a022135e61dffabcdb65a6b72353ca468664",
+    "inputPrefixSha256": "3fafcb3e61de32715b42c323f7e619588e094bdd84a170d7dcc52c364e3c68a2",
+    "activation": {
+      "enabled": true,
+      "value": 0.6111786474021405,
+      "target": 0.6387247223945751
+    },
+    "health": {
+      "state": "getup",
+      "stateTimeS": 0.6666666666666667,
+      "alive": true,
+      "armed": true,
+      "gripValid": true,
+      "armHealth": 1,
+      "legHealth": 1,
+      "limbs": {
+        "armS": 1,
+        "armO": 0.7318489050610493,
+        "legF": 1,
+        "legB": 1
+      },
+      "muscle": 0.37658255536398366,
+      "vigor": 0.6387247223945751,
+      "pain": 0.903188194013562,
+      "blood": 0.9758913115219061,
+      "consciousness": 0.5051200581248348,
+      "woundCount": 1,
+      "detached": []
+    },
+    "previousRequest": {
+      "tick": 1415,
+      "timeS": 11.791666666666666,
+      "phase": "cross",
+      "held": true,
+      "active": true,
+      "deltaM": [
+        0.012727272727272032,
+        0
+      ],
+      "intendedOffsetM": [
+        0.3945454545454503,
+        0.04469696969697337
+      ],
+      "move": [
+        0,
+        0
+      ],
+      "tap": false
+    },
+    "nextRequest": {
+      "tick": 1416,
+      "timeS": 11.8,
+      "phase": "hold",
+      "held": true,
+      "active": false,
+      "deltaM": [
+        0,
+        0
+      ],
+      "intendedOffsetM": [
+        0.3945454545454503,
+        0.04469696969697337
+      ],
+      "move": [
+        0,
+        0
+      ],
+      "tap": false
+    }
+  },
+  "audioCompatibility": {
+    "commit": "d023cf83d1568c2085d68d9953805e4edf455f9d",
+    "differences": [
+      {
+        "file": "src/slash_draw.js",
+        "referenceHash": "c7d3d5a52ab9880323e72f21270d9e85aa6564187aef5a7a95e57954a11fdd8a",
+        "audioCommitHash": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+        "currentHash": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13"
+      },
+      {
+        "file": "src/sound.js",
+        "referenceHash": "5751ada2d02597067df219798ea31b42bbbc3409251ce3ff93ecd1e8d2a7bad3",
+        "audioCommitHash": "f02a5a9c9ad60ce282806c02b956715c2ca01aced92ba021b63a799faf4c8fb4",
+        "currentHash": "f02a5a9c9ad60ce282806c02b956715c2ca01aced92ba021b63a799faf4c8fb4"
+      }
+    ],
+    "nonAudioReferenceFilesExact": true
+  },
+  "observerChecks": [
+    {
+      "mode": "full",
+      "nativeTraceExact": true,
+      "controllerTraceExact": true,
+      "inputTraceExact": true,
+      "eventTraceExact": true,
+      "frameCountExact": true,
+      "dispatchCountsExact": true
+    },
+    {
+      "mode": "allOrdinary",
+      "nativeTraceExact": true,
+      "controllerTraceExact": true,
+      "inputTraceExact": true,
+      "eventTraceExact": true,
+      "frameCountExact": true,
+      "dispatchCountsExact": true
+    },
+    {
+      "mode": "full",
+      "nativeTraceExact": true,
+      "controllerTraceExact": true,
+      "inputTraceExact": true,
+      "eventTraceExact": true,
+      "frameCountExact": true,
+      "dispatchCountsExact": true
+    }
+  ],
+  "prefixChecks": [
+    {
+      "mode": "full",
+      "observed": true,
+      "branchTick": 1416,
+      "exactPrefix": true,
+      "originalPrefixExact": true,
+      "branchStateExact": true,
+      "totalWindowSteps": 60,
+      "allDispatchOnce": true
+    },
+    {
+      "mode": "allOrdinary",
+      "observed": true,
+      "branchTick": 1416,
+      "exactPrefix": true,
+      "originalPrefixExact": true,
+      "branchStateExact": true,
+      "totalWindowSteps": 60,
+      "allDispatchOnce": true
+    },
+    {
+      "mode": "full",
+      "observed": false,
+      "branchTick": 1416,
+      "exactPrefix": true,
+      "originalPrefixExact": true,
+      "branchStateExact": true,
+      "totalWindowSteps": 60,
+      "allDispatchOnce": true
+    },
+    {
+      "mode": "allOrdinary",
+      "observed": false,
+      "branchTick": 1416,
+      "exactPrefix": true,
+      "originalPrefixExact": true,
+      "branchStateExact": true,
+      "totalWindowSteps": 60,
+      "allDispatchOnce": true
+    },
+    {
+      "mode": "full",
+      "observed": true,
+      "branchTick": 1416,
+      "exactPrefix": true,
+      "originalPrefixExact": true,
+      "branchStateExact": true,
+      "totalWindowSteps": 60,
+      "allDispatchOnce": true
+    },
+    {
+      "mode": "full",
+      "observed": false,
+      "branchTick": 1416,
+      "exactPrefix": true,
+      "originalPrefixExact": true,
+      "branchStateExact": true,
+      "totalWindowSteps": 60,
+      "allDispatchOnce": true
+    }
+  ],
+  "aggregationScriptSHA256": "d4088570c027016065ee99259057bea37d9bce4a7b270b36b4e59804a5b3fd96",
+  "observations": [
+    {
+      "activationMode": "full",
+      "entireWindow": {
+        "steps": 60,
+        "beforeCallAngleRad": {
+          "min": 0.6311238094418964,
+          "mean": 0.9896083258113821,
+          "max": 1.117758239587798
+        },
+        "postSolverMeanAngleRad": 0.9823678069560999,
+        "postSolverMeanHandErrorM": 0.12148785067928479,
+        "postSolverFinalAngleRad": 0.5919979108819842,
+        "meanSwordKJ": 0.7171800837774287,
+        "meanTotalSwordOmegaRadps": 5.1887543673747745,
+        "maxTotalSwordOmegaRadps": 26.137998523562842,
+        "towardRadps": {
+          "min": -1.1123557699496194,
+          "mean": 0.7883924980772927,
+          "max": 4.629497362204024
+        },
+        "targetTowardRadps": {
+          "min": -0.03348449206960658,
+          "mean": 0.5230457475414771,
+          "max": 2.4887804406857468
+        },
+        "targetBeforeClampRadps": {
+          "min": 0.001128493063750497,
+          "mean": 0.5389153232679055,
+          "max": 2.5561702697138173
+        },
+        "yawOnlyCounterfactualRadps": {
+          "min": 0.007895252907766064,
+          "mean": 0.15329829127775504,
+          "max": 0.37766095602678706
+        },
+        "localOnlyCounterfactualRadps": {
+          "min": 0.007957848896489081,
+          "mean": 0.3886592054111351,
+          "max": 2.422059095745088
+        },
+        "positionRequestNm": {
+          "min": 37.86742856651378,
+          "mean": 59.37649954868293,
+          "max": 67.0654943752679
+        },
+        "dampingRequestNm": {
+          "min": 3.590758821785262,
+          "mean": 14.200884019185846,
+          "max": 34.65896631025262
+        },
+        "capAfterHillNm": {
+          "min": 9.063519744190751,
+          "mean": 14.211750389660475,
+          "max": 15.722242911325772
+        },
+        "capSaturatedSteps": 60,
+        "lowerDampingSteps": 8,
+        "releaseBranchSteps": 8,
+        "negativeInstantaneousDampingSwordPowerSteps": 57,
+        "maxSwordKJ": 4.205310072234882,
+        "maxBodyAndSwordKJ": 6.449697409840064,
+        "maxGapM": 0.0005281417907622632,
+        "maxSolverPointHorizontalMps": 0.2890154191600448,
+        "maxPelvisUpwardMps": 0.20987959206104279
+      }
+    },
+    {
+      "activationMode": "allOrdinary",
+      "entireWindow": {
+        "steps": 60,
+        "beforeCallAngleRad": {
+          "min": 0.5573547059679681,
+          "mean": 0.9895652131827093,
+          "max": 1.1352514976930725
+        },
+        "postSolverMeanAngleRad": 0.9812207981378099,
+        "postSolverMeanHandErrorM": 0.12723084168074036,
+        "postSolverFinalAngleRad": 0.5213581766787022,
+        "meanSwordKJ": 1.064189505745237,
+        "meanTotalSwordOmegaRadps": 5.227777131636387,
+        "maxTotalSwordOmegaRadps": 26.902540406737636,
+        "towardRadps": {
+          "min": -1.1114682957011728,
+          "mean": 0.9300018121982664,
+          "max": 4.710911402348939
+        },
+        "targetTowardRadps": {
+          "min": -0.027555345374450042,
+          "mean": 0.5142357744795125,
+          "max": 2.4887804406857468
+        },
+        "targetBeforeClampRadps": {
+          "min": 0.0051246782265427036,
+          "mean": 0.5320926494771021,
+          "max": 2.5561702697138173
+        },
+        "yawOnlyCounterfactualRadps": {
+          "min": 0.0007007443311532912,
+          "mean": 0.14690686999026187,
+          "max": 0.3662131100885133
+        },
+        "localOnlyCounterfactualRadps": {
+          "min": 0.007957848896529111,
+          "mean": 0.3886592054111356,
+          "max": 2.422059095745088
+        },
+        "positionRequestNm": {
+          "min": 33.441282358078084,
+          "mean": 59.37391279096256,
+          "max": 68.11508986158435
+        },
+        "dampingRequestNm": {
+          "min": 2.5541064827990385,
+          "mean": 12.355971210721584,
+          "max": 33.66229804430382
+        },
+        "capAfterHillNm": {
+          "min": 8.562234695539614,
+          "mean": 10.719313703113095,
+          "max": 12.564017927485892
+        },
+        "capSaturatedSteps": 60,
+        "lowerDampingSteps": 14,
+        "releaseBranchSteps": 14,
+        "negativeInstantaneousDampingSwordPowerSteps": 58,
+        "maxSwordKJ": 5.560740047032855,
+        "maxBodyAndSwordKJ": 7.599807399589546,
+        "maxGapM": 0.0003881961601325389,
+        "maxSolverPointHorizontalMps": 0.2963026902310826,
+        "maxPelvisUpwardMps": 0.21072529256343842
+      }
+    }
+  ],
+  "policyEntireWindow": {
+    "steps": 60,
+    "beforeCallAngleRad": {
+      "min": 0.661219648126543,
+      "mean": 0.9910523585786334,
+      "max": 1.117758239587798
+    },
+    "postSolverMeanAngleRad": 0.9844665947404969,
+    "postSolverMeanHandErrorM": 0.12084647732273995,
+    "postSolverFinalAngleRad": 0.6313159754580919,
+    "meanSwordKJ": 0.5559552442005823,
+    "meanTotalSwordOmegaRadps": 4.833261221070609,
+    "maxTotalSwordOmegaRadps": 26.382863761098488,
+    "towardRadps": {
+      "min": -1.1123557699496194,
+      "mean": 0.7284925924180662,
+      "max": 3.980609575457996
+    },
+    "targetTowardRadps": {
+      "min": -0.029977849356763616,
+      "mean": 0.5231126590764277,
+      "max": 2.4887804406857468
+    },
+    "targetBeforeClampRadps": {
+      "min": 0.00010517891508367938,
+      "mean": 0.5387052530957814,
+      "max": 2.5561702697138173
+    },
+    "yawOnlyCounterfactualRadps": {
+      "min": 0.007895252907766064,
+      "mean": 0.15312233242269074,
+      "max": 0.37766095602678706
+    },
+    "localOnlyCounterfactualRadps": {
+      "min": 0.007957848896535794,
+      "mean": 0.38865920541113586,
+      "max": 2.422059095745088
+    },
+    "positionRequestNm": {
+      "min": 39.67317888759258,
+      "mean": 59.463141514718004,
+      "max": 67.0654943752679
+    },
+    "dampingRequestNm": {
+      "min": 3.590758821785262,
+      "mean": 18.862821269952352,
+      "max": 44.87647584393483
+    },
+    "capAfterHillNm": {
+      "min": 11.902908893413867,
+      "mean": 14.503853155155747,
+      "max": 15.722242911325772
+    },
+    "capSaturatedSteps": 56,
+    "lowerDampingSteps": 0,
+    "releaseBranchSteps": 8,
+    "negativeInstantaneousDampingSwordPowerSteps": 57,
+    "maxSwordKJ": 1.8523954016250928,
+    "maxBodyAndSwordKJ": 6.157850477108489,
+    "maxGapM": 0.0005281417907622632,
+    "maxSolverPointHorizontalMps": 0.2890154191600448,
+    "maxPelvisUpwardMps": 0.20987959206104279
+  },
+  "affectedWindow": {
+    "baseline": {
+      "steps": 8,
+      "beforeCallAngleRad": {
+        "min": 0.6311238094418964,
+        "mean": 0.7633520365588734,
+        "max": 0.885386730031263
+      },
+      "postSolverMeanAngleRad": 0.726787526472263,
+      "postSolverMeanHandErrorM": 0.06183891984107931,
+      "postSolverFinalAngleRad": 0.5919979108819842,
+      "meanSwordKJ": 2.971346322756345,
+      "meanTotalSwordOmegaRadps": 17.146417444764253,
+      "maxTotalSwordOmegaRadps": 25.404980059211294,
+      "towardRadps": {
+        "min": 3.336980292914793,
+        "mean": 4.2159598436651935,
+        "max": 4.629497362204024
+      },
+      "targetTowardRadps": {
+        "min": -0.03348449206960658,
+        "mean": -0.012649228996443686,
+        "max": 0.0035847883846916364
+      },
+      "targetBeforeClampRadps": {
+        "min": 0.001128493063750497,
+        "mean": 0.015301556185311314,
+        "max": 0.03856619791011461
+      },
+      "yawOnlyCounterfactualRadps": {
+        "min": 0.01095086207873033,
+        "mean": 0.02510813218129162,
+        "max": 0.046524046028656924
+      },
+      "localOnlyCounterfactualRadps": {
+        "min": 0.007957848896489081,
+        "mean": 0.01101551838024654,
+        "max": 0.014658137316024136
+      },
+      "positionRequestNm": {
+        "min": 37.86742856651378,
+        "mean": 45.80112219353241,
+        "max": 53.123203801875775
+      },
+      "dampingRequestNm": {
+        "min": 5.325629562152607,
+        "mean": 7.855316082338383,
+        "max": 9.697942492074432
+      },
+      "capAfterHillNm": {
+        "min": 9.063519744190751,
+        "mean": 10.033655758993635,
+        "max": 11.749761183757704
+      },
+      "capSaturatedSteps": 8,
+      "lowerDampingSteps": 8,
+      "releaseBranchSteps": 8,
+      "negativeInstantaneousDampingSwordPowerSteps": 8,
+      "maxSwordKJ": 4.205310072234882,
+      "maxBodyAndSwordKJ": 6.449697409840064,
+      "maxGapM": 0.0003446982810595615,
+      "maxSolverPointHorizontalMps": 0.008132136730554905,
+      "maxPelvisUpwardMps": 0.18336141109466553
+    },
+    "policy": {
+      "steps": 8,
+      "beforeCallAngleRad": {
+        "min": 0.661219648126543,
+        "mean": 0.7741822823132569,
+        "max": 0.885386730031263
+      },
+      "postSolverMeanAngleRad": 0.7425284348552408,
+      "postSolverMeanHandErrorM": 0.05702861966699295,
+      "postSolverFinalAngleRad": 0.6313159754580919,
+      "meanSwordKJ": 1.7621600259299963,
+      "meanTotalSwordOmegaRadps": 14.480218847483005,
+      "maxTotalSwordOmegaRadps": 26.382863761098488,
+      "towardRadps": {
+        "min": 3.336980292914793,
+        "mean": 3.7667105512209957,
+        "max": 3.980609575457996
+      },
+      "targetTowardRadps": {
+        "min": -0.029977849356763616,
+        "mean": -0.012147392484314791,
+        "max": 0.0035847883846916364
+      },
+      "targetBeforeClampRadps": {
+        "min": 0.00010517891508367938,
+        "mean": 0.013726029894381398,
+        "max": 0.0316074464298852
+      },
+      "yawOnlyCounterfactualRadps": {
+        "min": 0.01095086207873033,
+        "mean": 0.023788440768309275,
+        "max": 0.039565294683797714
+      },
+      "localOnlyCounterfactualRadps": {
+        "min": 0.007957848896535794,
+        "mean": 0.011015518380252382,
+        "max": 0.014658137316024136
+      },
+      "positionRequestNm": {
+        "min": 39.67317888759258,
+        "mean": 46.450936938795415,
+        "max": 53.123203801875775
+      },
+      "dampingRequestNm": {
+        "min": 39.05461678911912,
+        "mean": 42.81984546308719,
+        "max": 44.87647584393483
+      },
+      "capAfterHillNm": {
+        "min": 11.902908893413867,
+        "mean": 12.22442650020818,
+        "max": 13.044288315852693
+      },
+      "capSaturatedSteps": 4,
+      "lowerDampingSteps": 0,
+      "releaseBranchSteps": 8,
+      "negativeInstantaneousDampingSwordPowerSteps": 8,
+      "maxSwordKJ": 1.8523954016250928,
+      "maxBodyAndSwordKJ": 4.370156783675417,
+      "maxGapM": 0.0003517955126814299,
+      "maxSolverPointHorizontalMps": 0.008107289216320097,
+      "maxPelvisUpwardMps": 0.185957670211792
+    }
+  },
+  "postBranchExactStepsBeforeFirstPolicyEffect": 52,
+  "firstPolicyEffect": {
+    "tick": 1468,
+    "callTimeS": 12.23333333333328,
+    "postStepTimeS": 12.241666666666612,
+    "beforeCallStateExact": true,
+    "baselineDerived": {
+      "method": "Read-only reconstruction from real call-boundary values, validated against original cap, Hill, latch and pre-twist torque outputs.",
+      "before": {
+        "yaw": [
+          0,
+          -0.03461021012051683,
+          0,
+          0.999400887209639
+        ],
+        "previousYaw": [
+          0,
+          -0.034655895847155206,
+          0,
+          0.9993993040236876
+        ],
+        "previousAim": [
+          0.8126133876067617,
+          -0.06079545057346918,
+          0.5796234945823294
+        ],
+        "swordRotation": [
+          0.7560322284698486,
+          0.5319896936416626,
+          0.21395781636238098,
+          -0.31563323736190796
+        ],
+        "swordOmega": [
+          23.331619262695312,
+          -9.438541412353516,
+          -7.052974224090576
+        ],
+        "forearmOmega": [
+          0.20709945261478424,
+          -0.9278595447540283,
+          -0.5571715831756592
+        ],
+        "forearmRotation": [
+          -0.48427119851112366,
+          -0.16471537947654724,
+          0.02633536420762539,
+          0.8588694930076599
+        ],
+        "forearmPosition": [
+          0.24971623718738556,
+          1.0293974876403809,
+          0.32982197403907776
+        ],
+        "swordCom": [
+          0.6706841588020325,
+          0.9815407991409302,
+          0.28406351804733276
+        ],
+        "swordMass": 0.949999988079071,
+        "incomingBrake": false,
+        "incomingBrakeAngle": 0.2620549795279956,
+        "incomingHill": 0.8664132172548802,
+        "dt": 0.008333333333333333,
+        "strength": 1,
+        "armHealth": 1,
+        "swordIhand": 0.17900067105478934,
+        "finishAmount": 0,
+        "tapDown": false,
+        "tapGo": false,
+        "skillAim": [
+          0.3737541541981281,
+          0.04469727744400661
+        ],
+        "skillAimRaw": [
+          0.3745454545454503,
+          0.04469696969697397
+        ],
+        "skillAimVelocity": [
+          0.008638412408032089,
+          -3.3745973265317644e-06
+        ],
+        "handOffset": [
+          0.3945454545454503,
+          0.04469696969697337
+        ],
+        "skillLevel": 0,
+        "thrustWeight": 0,
+        "thrustDirection": [
+          0.9764496702243799,
+          -0.21151816286001446,
+          -0.042498332896999245
+        ],
+        "elbow": {
+          "relativeBodyQuaternion": [
+            -1.3454751309982527e-05,
+            5.753553810788903e-05,
+            0.23073463966440477,
+            0.9730168375941567
+          ],
+          "hingeAxisWorld": [
+            -0.3085565091329068,
+            0.8231518523173165,
+            0.47666975083566676
+          ],
+          "relativeHingeSpeedRadps": -1.7700259810582237
+        }
+      },
+      "aimWorld": [
+        0.8125954456386896,
+        -0.06079548145005804,
+        0.57964864457921
+      ],
+      "aimLocalResolved": [
+        0.8507481679331755,
+        -0.06079548145005804,
+        0.5220454618073037
+      ],
+      "blade": [
+        0.9394671036884823,
+        -0.2347253553352875,
+        -0.2496110932860276
+      ],
+      "axis": [
+        -0.1512334606600722,
+        -0.7473936708649049,
+        0.1336213998461448
+      ],
+      "sinA": 0.7741598913460854,
+      "angleRad": 0.885386730031263,
+      "swordSwingOmega": [
+        -0.9961203566919252,
+        -3.3602686295754713,
+        -0.5892314706384791
+      ],
+      "targetOmegaBeforeClamp": [
+        -0.00018133303151285363,
+        -0.0037004172476473585,
+        -0.00013390569151089382
+      ],
+      "targetOmegaAfterClamp": [
+        -0.00018133303151285363,
+        -0.0037004172476473585,
+        -0.00013390569151089382
+      ],
+      "targetOmegaProjected": [
+        -0.000868693838687165,
+        -0.0035286805161810915,
+        4.872218538562185e-05
+      ],
+      "yawOnlyCounterfactualRate": [
+        0.0005420278556739211,
+        0.010930605675558702,
+        0.0003865819919388058
+      ],
+      "localOnlyCounterfactualRate": [
+        -0.000723361162470737,
+        -0.014631022881912426,
+        -0.0005204878797851475
+      ],
+      "towardRadps": 3.336980292914793,
+      "targetTowardRadps": 0.0035847883846916364,
+      "gate": {
+        "nonparallel": true,
+        "unlatched": true,
+        "towardAbove3": true,
+        "fasterThanTarget": true,
+        "angleAbove025": true
+      },
+      "selectedDamping": 1.5,
+      "releaseSelected": true,
+      "brakeAccRadps2": 103.54869078146959,
+      "stopAngleRad": 0.053769088683130045,
+      "finishRelief": 1,
+      "releaseThresholdRad": 0.07527672415638206,
+      "baseCapBeforeHillNm": 14.257911643636874,
+      "positionTorqueNm": [
+        -10.377708845570256,
+        -51.286493580224636,
+        9.1691612232406
+      ],
+      "dampingTorqueNm": [
+        1.492877494279857,
+        5.035109923588935,
+        0.8839202892357971
+      ],
+      "gravityCompensationNm": [
+        0.4785037608919011,
+        0,
+        1.801096161530983
+      ],
+      "requestedBeforeCapNm": [
+        -8.406327590398497,
+        -46.2513836566357,
+        11.854177674007381
+      ],
+      "relativeSwordForearmOmega": [
+        23.12451981008053,
+        -8.510681867599487,
+        -6.495802640914917
+      ],
+      "vAlongRadps": 2.52133575576434,
+      "instantaneousHill": 0.7140392267736649,
+      "filteredHill": 0.8240871087878759,
+      "capAfterHillNm": 11.749761183757704,
+      "capSaturated": true,
+      "dampingInstantaneousSwordPowerW": -18.927111243292856,
+      "dampingRelativeTargetPowerW": -18.908220155515853,
+      "originalOutputCheck": {
+        "capError": 0,
+        "torqueError": 0,
+        "hillError": 0,
+        "latchExact": true
+      }
+    },
+    "policyDerived": {
+      "method": "Read-only reconstruction from real call-boundary values, validated against original cap, Hill, latch and pre-twist torque outputs.",
+      "before": {
+        "yaw": [
+          0,
+          -0.03461021012051683,
+          0,
+          0.999400887209639
+        ],
+        "previousYaw": [
+          0,
+          -0.034655895847155206,
+          0,
+          0.9993993040236876
+        ],
+        "previousAim": [
+          0.8126133876067617,
+          -0.06079545057346918,
+          0.5796234945823294
+        ],
+        "swordRotation": [
+          0.7560322284698486,
+          0.5319896936416626,
+          0.21395781636238098,
+          -0.31563323736190796
+        ],
+        "swordOmega": [
+          23.331619262695312,
+          -9.438541412353516,
+          -7.052974224090576
+        ],
+        "forearmOmega": [
+          0.20709945261478424,
+          -0.9278595447540283,
+          -0.5571715831756592
+        ],
+        "forearmRotation": [
+          -0.48427119851112366,
+          -0.16471537947654724,
+          0.02633536420762539,
+          0.8588694930076599
+        ],
+        "forearmPosition": [
+          0.24971623718738556,
+          1.0293974876403809,
+          0.32982197403907776
+        ],
+        "swordCom": [
+          0.6706841588020325,
+          0.9815407991409302,
+          0.28406351804733276
+        ],
+        "swordMass": 0.949999988079071,
+        "incomingBrake": false,
+        "incomingBrakeAngle": 0.2620549795279956,
+        "incomingHill": 0.8664132172548802,
+        "dt": 0.008333333333333333,
+        "strength": 1,
+        "armHealth": 1,
+        "swordIhand": 0.17900067105478934,
+        "finishAmount": 0,
+        "tapDown": false,
+        "tapGo": false,
+        "skillAim": [
+          0.3737541541981281,
+          0.04469727744400661
+        ],
+        "skillAimRaw": [
+          0.3745454545454503,
+          0.04469696969697397
+        ],
+        "skillAimVelocity": [
+          0.008638412408032089,
+          -3.3745973265317644e-06
+        ],
+        "handOffset": [
+          0.3945454545454503,
+          0.04469696969697337
+        ],
+        "skillLevel": 0,
+        "thrustWeight": 0,
+        "thrustDirection": [
+          0.9764496702243799,
+          -0.21151816286001446,
+          -0.042498332896999245
+        ],
+        "elbow": {
+          "relativeBodyQuaternion": [
+            -1.3454751309982527e-05,
+            5.753553810788903e-05,
+            0.23073463966440477,
+            0.9730168375941567
+          ],
+          "hingeAxisWorld": [
+            -0.3085565091329068,
+            0.8231518523173165,
+            0.47666975083566676
+          ],
+          "relativeHingeSpeedRadps": -1.7700259810582237
+        }
+      },
+      "aimWorld": [
+        0.8125954456386896,
+        -0.06079548145005804,
+        0.57964864457921
+      ],
+      "aimLocalResolved": [
+        0.8507481679331755,
+        -0.06079548145005804,
+        0.5220454618073037
+      ],
+      "blade": [
+        0.9394671036884823,
+        -0.2347253553352875,
+        -0.2496110932860276
+      ],
+      "axis": [
+        -0.1512334606600722,
+        -0.7473936708649049,
+        0.1336213998461448
+      ],
+      "sinA": 0.7741598913460854,
+      "angleRad": 0.885386730031263,
+      "swordSwingOmega": [
+        -0.9961203566919252,
+        -3.3602686295754713,
+        -0.5892314706384791
+      ],
+      "targetOmegaBeforeClamp": [
+        -0.00018133303151285363,
+        -0.0037004172476473585,
+        -0.00013390569151089382
+      ],
+      "targetOmegaAfterClamp": [
+        -0.00018133303151285363,
+        -0.0037004172476473585,
+        -0.00013390569151089382
+      ],
+      "targetOmegaProjected": [
+        -0.000868693838687165,
+        -0.0035286805161810915,
+        4.872218538562185e-05
+      ],
+      "yawOnlyCounterfactualRate": [
+        0.0005420278556739211,
+        0.010930605675558702,
+        0.0003865819919388058
+      ],
+      "localOnlyCounterfactualRate": [
+        -0.000723361162470737,
+        -0.014631022881912426,
+        -0.0005204878797851475
+      ],
+      "towardRadps": 3.336980292914793,
+      "targetTowardRadps": 0.0035847883846916364,
+      "gate": {
+        "nonparallel": true,
+        "unlatched": true,
+        "towardAbove3": true,
+        "fasterThanTarget": true,
+        "angleAbove025": true
+      },
+      "selectedDamping": 11,
+      "releaseBranchEntered": true,
+      "configuredAimDamping": 11,
+      "configuredReleaseDamping": 11,
+      "releaseSelected": false,
+      "brakeAccRadps2": 103.54869078146959,
+      "stopAngleRad": 0.053769088683130045,
+      "finishRelief": 1,
+      "releaseThresholdRad": 0.07527672415638206,
+      "baseCapBeforeHillNm": 14.257911643636874,
+      "positionTorqueNm": [
+        -10.377708845570256,
+        -51.286493580224636,
+        9.1691612232406
+      ],
+      "dampingTorqueNm": [
+        10.94776829138562,
+        36.924139439652194,
+        6.482082121062513
+      ],
+      "gravityCompensationNm": [
+        0.4785037608919011,
+        0,
+        1.801096161530983
+      ],
+      "requestedBeforeCapNm": [
+        1.048563206707265,
+        -14.362354140572442,
+        17.452339505834097
+      ],
+      "relativeSwordForearmOmega": [
+        23.12451981008053,
+        -8.510681867599487,
+        -6.495802640914917
+      ],
+      "vAlongRadps": 1.4635015777587952,
+      "instantaneousHill": 0.816392163144516,
+      "filteredHill": 0.8525184800020013,
+      "capAfterHillNm": 12.155133162436142,
+      "capSaturated": true,
+      "dampingInstantaneousSwordPowerW": -138.79881578414756,
+      "dampingRelativeTargetPowerW": -138.66028114044957,
+      "originalOutputCheck": {
+        "capError": 0,
+        "torqueError": 0,
+        "hillError": 0,
+        "latchExact": true,
+        "latchAngleExact": true
+      }
+    },
+    "baselineFinalTorques": [
+      {
+        "actuator": "driveSword",
+        "part": "sword",
+        "torqueNm": [
+          -2.0515742462150963,
+          -11.205911875365778,
+          2.876751530576415
+        ],
+        "preSolverOmegaRadps": [
+          23.331619262695312,
+          -9.438541412353516,
+          -7.052974224090576
+        ],
+        "instantaneousPowerW": 37.61125970271362
+      },
+      {
+        "actuator": "driveSword",
+        "part": "farmS",
+        "torqueNm": [
+          -1.2456135526904157,
+          10.490956203926206,
+          -3.775568914470906
+        ],
+        "preSolverOmegaRadps": [
+          0.20709945261478424,
+          -0.9278595447540283,
+          -0.5571715831756592
+        ],
+        "instantaneousPowerW": -7.888460022876602
+      },
+      {
+        "actuator": "driveSword",
+        "part": "chest",
+        "torqueNm": [
+          3.297187798905512,
+          0.7149556714395727,
+          0.8988173838944913
+        ],
+        "preSolverOmegaRadps": [
+          0.10207564383745193,
+          -0.48472899198532104,
+          0.027959607541561127
+        ],
+        "instantaneousPowerW": 0.015133406800401369
+      },
+      {
+        "actuator": "driveJoints",
+        "part": "uarmS",
+        "torqueNm": [
+          -3.6784593888824295,
+          -12.335155800596274,
+          14.042290074853016
+        ],
+        "preSolverOmegaRadps": [
+          -0.3417443037033081,
+          0.5162917375564575,
+          0.30699247121810913
+        ],
+        "instantaneousPowerW": -0.80056914712429
+      },
+      {
+        "actuator": "driveJoints",
+        "part": "chest",
+        "torqueNm": [
+          3.6784593888824295,
+          12.335155800596274,
+          -14.042290074853016
+        ],
+        "preSolverOmegaRadps": [
+          0.10207564383745193,
+          -0.48472899198532104,
+          0.027959607541561127
+        ],
+        "instantaneousPowerW": -5.996343446232473
+      },
+      {
+        "actuator": "elbowGravity",
+        "part": "farmS",
+        "torqueNm": [
+          -0.7123050925156369,
+          1.9002524301529078,
+          1.1003958137929124
+        ],
+        "preSolverOmegaRadps": [
+          0.20709945261478424,
+          -0.9278595447540283,
+          -0.5571715831756592
+        ],
+        "instantaneousPowerW": -2.52379462720499
+      },
+      {
+        "actuator": "elbowGravity",
+        "part": "uarmS",
+        "torqueNm": [
+          0.7123050925156369,
+          -1.9002524301529078,
+          -1.1003958137929124
+        ],
+        "preSolverOmegaRadps": [
+          -0.3417443037033081,
+          0.5162917375564575,
+          0.30699247121810913
+        ],
+        "instantaneousPowerW": -1.5623240670199507
+      }
+    ],
+    "policyFinalTorques": [
+      {
+        "actuator": "driveSword",
+        "part": "sword",
+        "torqueNm": [
+          0.5490746613878232,
+          -7.711998530313257,
+          9.379290323454985
+        ],
+        "preSolverOmegaRadps": [
+          23.331619262695312,
+          -9.438541412353516,
+          -7.052974224090576
+        ],
+        "instantaneousPowerW": 19.448925555074993
+      },
+      {
+        "actuator": "driveSword",
+        "part": "farmS",
+        "torqueNm": [
+          0.7294302368962076,
+          7.98922700007008,
+          -9.03076834106945
+        ],
+        "preSolverOmegaRadps": [
+          0.20709945261478424,
+          -0.9278595447540283,
+          -0.5571715831756592
+        ],
+        "instantaneousPowerW": -2.2301284305534512
+      },
+      {
+        "actuator": "driveSword",
+        "part": "chest",
+        "torqueNm": [
+          -1.2785048982840308,
+          -0.2772284697568228,
+          -0.3485219823855343
+        ],
+        "preSolverOmegaRadps": [
+          0.10207564383745193,
+          -0.48472899198532104,
+          0.027959607541561127
+        ],
+        "instantaneousPowerW": -0.005868071793927074
+      },
+      {
+        "actuator": "driveJoints",
+        "part": "uarmS",
+        "torqueNm": [
+          -3.6784593888824295,
+          -12.335155800596274,
+          14.042290074853016
+        ],
+        "preSolverOmegaRadps": [
+          -0.3417443037033081,
+          0.5162917375564575,
+          0.30699247121810913
+        ],
+        "instantaneousPowerW": -0.80056914712429
+      },
+      {
+        "actuator": "driveJoints",
+        "part": "chest",
+        "torqueNm": [
+          3.6784593888824295,
+          12.335155800596274,
+          -14.042290074853016
+        ],
+        "preSolverOmegaRadps": [
+          0.10207564383745193,
+          -0.48472899198532104,
+          0.027959607541561127
+        ],
+        "instantaneousPowerW": -5.996343446232473
+      },
+      {
+        "actuator": "elbowGravity",
+        "part": "farmS",
+        "torqueNm": [
+          -0.7123050925156369,
+          1.9002524301529078,
+          1.1003958137929124
+        ],
+        "preSolverOmegaRadps": [
+          0.20709945261478424,
+          -0.9278595447540283,
+          -0.5571715831756592
+        ],
+        "instantaneousPowerW": -2.52379462720499
+      },
+      {
+        "actuator": "elbowGravity",
+        "part": "uarmS",
+        "torqueNm": [
+          0.7123050925156369,
+          -1.9002524301529078,
+          -1.1003958137929124
+        ],
+        "preSolverOmegaRadps": [
+          -0.3417443037033081,
+          0.5162917375564575,
+          0.30699247121810913
+        ],
+        "instantaneousPowerW": -1.5623240670199507
+      }
+    ],
+    "baselinePostSolverSwordOmega": [
+      22.438295364379883,
+      -9.96229362487793,
+      -6.5336527824401855
+    ],
+    "policyPostSolverSwordOmega": [
+      23.62238121032715,
+      -9.938495635986328,
+      -6.266171932220459
+    ],
+    "baselinePostSolverElbow": {
+      "relativeBodyQuaternion": [
+        -1.6453849682629418e-05,
+        7.109139910532747e-05,
+        0.2248179185839656,
+        0.9744007997296521
+      ],
+      "hingeAxisWorld": [
+        -0.3099260824288521,
+        0.821911059773333,
+        0.4779205492500562
+      ],
+      "relativeHingeSpeedRadps": -1.5192862059453185
+    },
+    "policyPostSolverElbow": {
+      "relativeBodyQuaternion": [
+        -1.904284162446146e-05,
+        8.481603912924296e-05,
+        0.22424873830782321,
+        0.9745319728566063
+      ],
+      "hingeAxisWorld": [
+        -0.3079381114119091,
+        0.8239386704144671,
+        0.47570905097310145
+      ],
+      "relativeHingeSpeedRadps": -1.6697975545286203
+    }
+  },
+  "firstRecordedEventDifference": null,
+  "publicCandidateAccepted": false,
+  "generalDefaultPromotionAccepted": false,
+  "definitions": {
+    "purpose": "Separate target filtering, low-damping release policy and bounded physical response. Faster stopping is not an acceptance criterion; inertia and finite strength are intentional.",
+    "episodes": "One recorded sabre19 recovery scene with healthy main arm and injured off-arm. Six executions include two activation diagnostics and observer checks, not six independent injury cases.",
+    "derived": "Read-only source reconstruction agrees with original cap/Hill/latch/pre-twist outputs; agreement does not independently instrument every intermediate.",
+    "counterfactualRates": "Yaw-only and local-only finite-angle rates are not an additive decomposition.",
+    "power": "Instantaneous pre-solver sword power, not native integrated work. Relative-target residual power is a controller diagnostic, not recipient mechanical work.",
+    "policy": "Temporary original driveSword config substitution releaseDamping=aimDamping changes damping policy; same configured strength/cap is not equal delivered torque or equal budget.",
+    "wholeWindow": "Later reactive AI and contact changes are episode effects, not same-state direct mechanism.",
+    "foot": "Last-solver contact point speed, not loaded slip, whole ground impulse or COP."
+  }
+}
