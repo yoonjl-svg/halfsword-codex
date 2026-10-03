@@ -1,0 +1,341 @@
+{
+  "schema_version": 1,
+  "status": "verified_supplement_and_combined_reception",
+  "observed_at_utc": "2026-10-03T08:56:05.976373+00:00",
+  "repository": "yoonjl-svg/halfsword-codex",
+  "transport": {
+    "cipherSHA256": "18891092e03a372a8945f59728d8daed86e78016f0f363e6fc2afff6900555e5",
+    "cipherBytes": 56117820,
+    "GCMAuthenticated": true,
+    "plaintextSHA256": "d6fa6c21e14c361e32a309e8ae49d830ee5e71a92951ee94cc05e165ec57b094",
+    "plaintextBytes": 56117782,
+    "wallSeconds": 21.882
+  },
+  "supplement": {
+    "destination": "/workspace/halfsword-research-supplement-20261003",
+    "projectHEAD": "0e950b6f5074e39b94700034a56a942bfefe2cfd",
+    "dataFiles": 118,
+    "dataBytes": 303568252,
+    "totalFiles": 120,
+    "totalBytes": 303605794,
+    "categories": {
+      "tmp-research": {
+        "files": 89,
+        "bytes": 299419166
+      },
+      "papers": {
+        "files": 12,
+        "bytes": 744286
+      },
+      "sound": {
+        "files": 9,
+        "bytes": 3334928
+      },
+      "historical-notes": {
+        "files": 8,
+        "bytes": 69872
+      }
+    },
+    "managementFiles": [
+      {
+        "path": "SUPPLEMENT_README.md",
+        "bytes": 1533,
+        "sha256": "6fd9611aafac95c45d7254462afff544b8a7c786796197b48ece3fa5904c3e9c",
+        "integrityBasis": "Authenticated archive plaintext SHA256"
+      },
+      {
+        "path": "supplement-manifest.json",
+        "bytes": 36009,
+        "sha256": "4bf34086f83f0d997ca0abdd84d1411946a2462b59b669bc761fe4ffb409453a",
+        "integrityBasis": "Authenticated archive plaintext SHA256"
+      }
+    ],
+    "manifestPackagingState": "prepared locally only; not uploaded",
+    "packagingStateScope": "Historical preparation snapshot; current authenticated transfer and member verification recorded here."
+  },
+  "supplement_verification": {
+    "all118_actual_sizes_sha256_match": true,
+    "actual_paths_exact": true,
+    "unexpected_or_missing_files": 0,
+    "symlinks": 0,
+    "fresh_destination": true,
+    "README_read": true,
+    "management_integrity": "Whole AES-GCM-authenticated archive has expected plaintext SHA256; management SHA computed separately.",
+    "independent_all118_actual_sizes_sha256_match": true,
+    "independent_four_elbow_original_report_hash_matches": [
+      {
+        "path": "tmp-research/elbow-bimanual-smoke.json",
+        "bytes": 11898468,
+        "sha256": "38b9e4418398d310b94275472ed70676a9450b0c9e01c9213275cdcb47964be1",
+        "payloadVerified": true,
+        "reportSHA256References": [
+          {
+            "report": "docs/strike/elbow_continuity_round2.json",
+            "pointer": "/runs/1/rawSHA256",
+            "rawPath": "/tmp/elbow-bimanual-smoke.json",
+            "name": "bimanual"
+          }
+        ]
+      },
+      {
+        "path": "tmp-research/elbow-coherent-smoke.json",
+        "bytes": 14759349,
+        "sha256": "6b9c5a7ada0dbcc694b2b8af492b3ff2fe65a9ed8ec16a9b9232a3962022c288",
+        "payloadVerified": true,
+        "reportSHA256References": [
+          {
+            "report": "docs/strike/elbow_continuity_round2.json",
+            "pointer": "/runs/2/rawSHA256",
+            "rawPath": "/tmp/elbow-coherent-smoke.json",
+            "name": "coherent"
+          }
+        ]
+      },
+      {
+        "path": "tmp-research/elbow-continuity-round2.json",
+        "bytes": 83354569,
+        "sha256": "4692076624ae25f73a373d65c98b1f3af45f1ebd3562a692f20d985a7eb921af",
+        "payloadVerified": true,
+        "reportSHA256References": [
+          {
+            "report": "docs/strike/elbow_continuity_round2.json",
+            "pointer": "/runs/0/rawSHA256",
+            "rawPath": "/tmp/elbow-continuity-round2.json",
+            "name": "continuity"
+          }
+        ]
+      },
+      {
+        "path": "tmp-research/elbow-reach-round1.json",
+        "bytes": 80288270,
+        "sha256": "9c1aee454306ba9c62b4bfd9c65a2fa0a089880da4a677bf4bf6a1aceee6ea2c",
+        "payloadVerified": true,
+        "reportSHA256References": [
+          {
+            "report": "docs/strike/elbow_reach_round1.json",
+            "pointer": "/rawSHA256",
+            "rawPath": "/tmp/elbow-reach-round1.json",
+            "name": null
+          }
+        ]
+      }
+    ],
+    "independent_failure_status": {
+      "reach": "rejected",
+      "continuityAndFollowups": "research-only; not accepted for runtime",
+      "decision": "Preserve failure evidence. No acceptance, runtime reinstatement or repeated play-test recommendation is implied."
+    },
+    "independent_sound_reference_scope": {
+      "readmeExplicitListeningPresentation": true,
+      "readmeExplicitNoAutomaticRuntimeReplacement": true,
+      "runtimeSynthesizesDrawnBanks": true,
+      "runtimeDefaultDrawn": true,
+      "synthesisSourceNoRecordings": true,
+      "approvalListeningSamplesAreThreeSeconds": true,
+      "selectedWAVNamesAbsentFromRuntime": true,
+      "decision": "Restored WAVs are lossless listening references and comparison presentations. They do not automatically replace generated runtime banks or change the already approved A2/B2 behavior."
+    }
+  },
+  "existing_code_history": {
+    "original_restored_head": "0e950b6f5074e39b94700034a56a942bfefe2cfd",
+    "original_tree": "da7b9dfbd8436ad40f8a6bec3845fcfe0c5a7fa1",
+    "base": "e5d2f081de320e42634526e27a68804baf754993",
+    "commits_after_base": 52,
+    "base_is_ancestor": true,
+    "local_recovered_branch_match": true,
+    "bundle": {
+      "name": "unpublished-52-commits.bundle",
+      "bytes": 1257210,
+      "sha256": "3f8c3a1d3863126201b118cbc48f8404b2b80992b09f933c829d52ea1c6ff0fe",
+      "actual_match": true
+    },
+    "prior_bundle_verify_exit_code": 0,
+    "prior_gcm_authentication": true,
+    "current_local_head": "f24645f904f7528f2438ef92fbfc4854b93a6749",
+    "current_own_remote_refs": [
+      {
+        "ref": "refs/heads/codex/hybrid-support",
+        "sha": "f24645f904f7528f2438ef92fbfc4854b93a6749"
+      },
+      {
+        "ref": "refs/heads/main",
+        "sha": "f24645f904f7528f2438ef92fbfc4854b93a6749"
+      },
+      {
+        "ref": "refs/heads/recovered/20261003",
+        "sha": "0e950b6f5074e39b94700034a56a942bfefe2cfd"
+      }
+    ],
+    "current_main_codex_match_local": true
+  },
+  "existing_research": {
+    "current_actual_scopes": {
+      "full_primary_evidence": {
+        "files": 943,
+        "bytes": 10693838162,
+        "exact_paths_sizes": true,
+        "destination": "/workspace/halfsword-full-research-20261003/halfsword-hybrid-evidence"
+      },
+      "priority_copy_of_full": {
+        "files": 21,
+        "bytes": 530726868,
+        "exact_paths_sizes": true,
+        "destination": "/workspace/halfsword-research-import-20261003/halfsword-hybrid-evidence"
+      },
+      "research_engine": {
+        "files": 6,
+        "bytes": 2419172,
+        "exact_paths_sizes": true,
+        "destination": "/workspace/halfsword-research-import-20261003/engine"
+      },
+      "additional_provenance": {
+        "files": 34,
+        "bytes": 24116033,
+        "exact_paths_sizes": true,
+        "destination": "/workspace/halfsword-research-import-20261003/provenance"
+      }
+    },
+    "counts_without_inflation": {
+      "primary_evidence_paths": 943,
+      "priority_paths": 21,
+      "priority_is_subset_of_full": true,
+      "priority_additional_unique_primary_paths": 0,
+      "engine_scope_files": 6,
+      "provenance_scope_files": 34,
+      "physical_materialized_research_file_copies": 1004,
+      "physical_materialized_research_bytes": 11251100235,
+      "scope": "Physical totals count duplicate copies and separate tool/provenance scopes; they are not unique raw evidence or independent experiment counts. Git bundle and restore-marker/manifest/archive files excluded."
+    },
+    "cross_scope_manifest_content_matches": {
+      "engine_to_full": [
+        {
+          "engine_path": "engine/native-motor-api-r1.json",
+          "matching_full_paths": [
+            "native-motor-api-r1.json"
+          ],
+          "sha256": "90a7ef5a2e34c18ea601d61a04fff36e4b6a766e8a360a10a85196d5fa8a4089"
+        }
+      ],
+      "provenance_to_full": [],
+      "provenance_to_engine": [
+        {
+          "provenance_path": "engine-original/evidence/build-receipt.json",
+          "matching_engine_path": "engine/build-receipt.json",
+          "sha256": "6309c272588ed2d787a1d2f21b7635199ebf8360b73b8b986eeafe2a3b51b4b7"
+        }
+      ],
+      "basis": "Previously verified archive manifests and actual restored path/size checks; current engine/calibration and four selected raw pairs rehashed. Separate scope counts must not be blindly added as unique raw records."
+    },
+    "current_hash_samples": [
+      {
+        "path": "arm-hit-terms-seed7.json",
+        "bytes": 14156959,
+        "sha256": "31e7350cade86acbc7f1629ab6d876fe43f3bf3f2fe96f5b7ba3650682e5d5ac",
+        "both_actual_copies_match": true
+      },
+      {
+        "path": "arm-hit-reinput-r1.json",
+        "bytes": 53949626,
+        "sha256": "e8f88d149a87a7845d93446334d56d724d583d844ea877f82e3b26a45134acd2",
+        "both_actual_copies_match": true
+      },
+      {
+        "path": "arm-recovery-mobile.json",
+        "bytes": 53875,
+        "sha256": "2d8729bc20a11d3d661becc9ae0fa684b3d30c70c6411c28f733c26b67936be1",
+        "both_actual_copies_match": true
+      },
+      {
+        "path": "native-motor-api-r1.json",
+        "bytes": 165675,
+        "sha256": "90a7ef5a2e34c18ea601d61a04fff36e4b6a766e8a360a10a85196d5fa8a4089",
+        "both_actual_copies_match": true
+      }
+    ],
+    "prior_all943_member_SHA_verified": true,
+    "all943_SHA_repeated_in_this_supplement_audit": false
+  },
+  "engine": {
+    "module_sha256": "a3be9d8361b386b0b664ee7ba771f14ae60e93eda9a4ab825f1de1260dbb5623",
+    "calibration_sha256": "90a7ef5a2e34c18ea601d61a04fff36e4b6a766e8a360a10a85196d5fa8a4089",
+    "current_actual_SHA_matches": true,
+    "previous_fresh_import_smoke": {
+      "pass": true,
+      "high_level": [
+        "init",
+        "World",
+        "RigidBodyDesc",
+        "ColliderDesc",
+        "JointData"
+      ],
+      "raw_methods": [
+        "jointSetMotorMaxForce",
+        "jointMotorMaxForce",
+        "jointSetMotorEnabled",
+        "jointMotorEnabled",
+        "jointMotorImpulse"
+      ],
+      "one_step": true,
+      "external_wasm_required": false
+    },
+    "previous_fresh_native_API": {
+      "pass": true,
+      "tests": 33,
+      "passed_tests": 33,
+      "source_stable": true,
+      "module_source_stable": true,
+      "probe_matches_original_calibration": true,
+      "module_matches_original_calibration": true,
+      "calibration_readout_exact": true,
+      "shared_test_names": 33,
+      "shared_test_details_exact": true,
+      "unrun_historical_tests": [
+        "unmodified simple native fixture: installed npm versus rebuilt engine motion comparison"
+      ],
+      "scope": "Per-axis native motor bound on a 2-dynamic-body isotropic COM revolute pair. No gravity/contact/body damping/sleep; 6 kg one-metre cube gives each I=1. Numeric engineering diagnostics, not human strength, vector torque norm, gravity feedforward or whole-body recovery evidence."
+    },
+    "rerun_during_supplement_reception": false,
+    "npm_engine_replaced": false
+  },
+  "preserved_product_decisions": [
+    "Past failed materials and old plans do not replace latest Git reports or user instructions.",
+    "Projected support and budgeted cutting remain withdrawn.",
+    "One-handed recovery public CTA/direct URL remain withheld following actual combat braking/foot-support regressions.",
+    "WAV listening presentations preserved; approved runtime sound and general game defaults unchanged.",
+    "No major general physics promotion."
+  ],
+  "reception_limits": [
+    "Priority21 is a copy/subset of full943, not21 new raw records.",
+    "Engine/provenance scopes partly duplicate calibration/build receipt contents; physical copies are not independent experiments.",
+    "Original START_HERE/initial manifest files were not directly transferred; earlier versions were reconstructed from conversation records.",
+    "User-only/private director/team operating records and whole old workspace are excluded.",
+    "Rust toolchain, rebuild and entire past-research rerun are outside this restoration."
+  ],
+  "external_evidence": [
+    {
+      "artifact": "transport-receipt.json",
+      "bytes": 288,
+      "sha256": "dfc727a9230c0a0bfd54f378255fc96c26c6968874706e066d1cc12e33c4e8d2",
+      "scope": "Actual encrypted/plain archive hash and AES-GCM authentication; no key."
+    },
+    {
+      "artifact": "supplement-restoration-receipt.json",
+      "bytes": 25229,
+      "sha256": "96cdb7ab049e5dae4c231aff89d0b3578aa3a5023e2f9d79d41c7f5e16558087",
+      "scope": "Primary complete118-member size/SHA and exact120-file restoration."
+    },
+    {
+      "artifact": "existing-reception-audit.json",
+      "bytes": 6770,
+      "sha256": "08a7270429f5e2cdb48cced6e39fba5d029a440e7f0e2221f770252c96cd2bdc",
+      "scope": "Existing actual bundle/Git/own remote refs and943/21/6/34 path-size audit, selected hashes and engine identity."
+    },
+    {
+      "artifact": "supplement-independent-audit.json",
+      "bytes": 40559,
+      "sha256": "e1b9e69f6c1550836537ca009506919e64295025589d8ec33c5dd4dd9a7d2ee3",
+      "scope": "Independent full118 member and120 actual-file verification, four elbow raw-report SHA matches, withdrawn/research-only decisions and WAV runtime separation. Did not repeat GCM decryption."
+    }
+  ],
+  "sanitization": "Aggregate reception metadata, hashes and scope only. No key, temporary download URL, private index, raw paper/log/WAV/note content or director/team operating records."
+}
