@@ -46,6 +46,8 @@ await RAPIER.init();
 // 테스트용 URL 파라미터: ?weapon=monohoshizao&foeWeapon=chicken (무기 id는 weapons.js의 WEAPONS 키,
 //  Fighter 생성자가 알아서 getWeapon()으로 찾는다. 없으면 기본 롱소드)
 const params = new URLSearchParams(location.search);
+// Internal comparison; ordinary games retain the existing arm until validated.
+const onehandArmModel = params.get('onehandArm') === 'bladeAware' ? 'bladeAware' : 'legacy';
 // A/B input trials use the same session-only menu values; saved preferences survive.
 const inputComparison = params.get('inputComparison') === 'vertical';
 const targetCorrectionTrial = configureTargetCorrectionTrial(params);
@@ -417,6 +419,7 @@ function newRound(weaponId) {
   });
   // 같은 선택형 팔 제어를 양쪽에 적용하고 재시작 때도 주소 설정을 유지한다.
   for (const f of [player, enemy]) f.armTorqueModel = armTrial.model;
+  for (const f of [player, enemy]) f.onehandArmModel = onehandArmModel;
   applyEdgeTorqueTrial(edgeTorqueTrial, player);
   applyArmRecoveryTrial(armRecoveryTrial, player);
   applyWristBrakingTrial(wristBrakingTrial, player);

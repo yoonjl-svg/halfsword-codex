@@ -2,6 +2,7 @@ import { updateIntentEdgePlane, smoothIntentElevation } from './edge_intent.js';
 import { applyPlaneAlignmentPotential } from './edge_torque.js';
 import { updateMainArmRecovery, mainArmMuscle } from './arm_recovery_activation.js';
 import { estimateWristStopBudget } from './wrist_braking.js';
+import { alignOnehandPole } from './onehand_arm.js';
 // ─────────────────────────────────────────────────────────────
 //  검투사 한 명 = "액티브 래그돌"
 //
@@ -1895,8 +1896,10 @@ export class Fighter {
     if (this.closeW > 0 && this.foe) handLocal.x += (this.foeDistance() - 0.11 - handLocal.x) * this.closeW;
     const c = chest.translation();
     const target = this.handTarget.copy(handLocal).applyQuaternion(this.yaw).add(_v1.set(c.x, c.y, c.z));
-    if (mus >= 0.12 && this.state !== 'dead') this.armIK(target);
-    else this.armFull = false;
+    const bladeAwareArm = this.onehandArmModel === 'bladeAware' && this.guardPose.oneHand && !this.weaponCfg.twoHand && this.armed;
+    if (mus >= 0.12 && this.state !== 'dead') {
+      if (!bladeAwareArm) this.armIK(target);
+    } else this.armFull = false;
     if (mus < 0.12 || !this.armed) return; // 쓰러지거나 칼을 놓치면 손목에 힘을 쓰지 않는다
     const str = this.strength * mus * (0.35 + 0.65 * this.armHealth);
     const forearm = this.bodies.farmS;
@@ -1920,6 +1923,7 @@ export class Fighter {
       aim.normalize();
     }
     aim.applyQuaternion(this.yaw);
+    if (bladeAwareArm && this.state !== 'dead') this.armIK(target, aim);
     // 목표 방향이 도는 속도: 손목 감쇠는 이 속도를 향한다 (멈추려는 게 아니라 목표를 따라가는 감쇠)
     const wAim = _v5.set(0, 0, 0);
     if (this.prevAim && this.lastDt > 0) {
@@ -2044,7 +2048,7 @@ export class Fighter {
    * 두 마디 팔 역운동학: 손(칼자루)이 target(월드)에 가도록 어깨·팔꿈치 목표 각도를 정한다.
    * 가슴 기준 좌표에서 계산하므로, 허리가 틀어져도 손은 목표를 향한다.
    */
-  armIK(target) {
+  armIK(target, bladeDirection = null) {
     const J = this.jointByName;
     const chest = this.bodies.chest;
     rot(chest, _q1);
@@ -2063,6 +2067,10 @@ export class Fighter {
     const pDir = pole.addScaledVector(Dn, -pole.dot(Dn));
     if (pDir.lengthSq() < 1e-6) pDir.set(0, -1, 0);
     pDir.normalize();
+    if (bladeDirection) {
+      const bladeLocal = _ikBlade.copy(bladeDirection).applyQuaternion(_q2).normalize();
+      alignOnehandPole(pDir, Dn, bladeLocal, d, a, b);
+    }
     const alpha = Math.acos(THREE.MathUtils.clamp((a * a + d * d - b * b) / (2 * a * d), -1, 1));
     const u = _ik4.copy(Dn).multiplyScalar(Math.cos(alpha)).addScaledVector(pDir, Math.sin(alpha)); // 위팔 방향
     const flex = Math.PI - Math.acos(THREE.MathUtils.clamp((a * a + b * b - d * d) / (2 * a * b), -1, 1));
@@ -2447,6 +2455,7 @@ const _ik5 = new THREE.Vector3();
 const _ik6 = new THREE.Vector3();
 const _ik7 = new THREE.Vector3();
 const _ikM = new THREE.Matrix4();
+const _ikBlade = new THREE.Vector3();
 const _qp = new THREE.Quaternion();
 const _qc = new THREE.Quaternion();
 const _qt2 = new THREE.Quaternion();
