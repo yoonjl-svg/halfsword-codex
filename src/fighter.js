@@ -1,5 +1,6 @@
 import { updateIntentEdgePlane, smoothIntentElevation } from './edge_intent.js';
 import { applyPlaneAlignmentPotential } from './edge_torque.js';
+import { updateMainArmRecovery, mainArmMuscle } from './arm_recovery_activation.js';
 // ─────────────────────────────────────────────────────────────
 //  검투사 한 명 = "액티브 래그돌"
 //
@@ -818,6 +819,7 @@ export class Fighter {
     else if (this.state === 'dead') targetMuscle = 0.02;
     else if (this.state === 'getup') targetMuscle = Math.min(1, 0.35 + this.stateTime / this.kneelTime);
     if (this.state !== 'dead') targetMuscle *= this.vigor;
+    updateMainArmRecovery(this, dt, targetMuscle);
     this.muscle += (targetMuscle - this.muscle) * Math.min(1, dt * (targetMuscle > this.muscle ? 4 : 12));
 
     for (const { rb } of this.meshes) rb.resetForces(true), rb.resetTorques(true);
@@ -1724,7 +1726,10 @@ export class Fighter {
       const isLeg = n.startsWith('thigh') || n.startsWith('shin') || n.startsWith('foot');
       let mus = isLeg ? legsMus * (0.6 + 0.4 * this.legHealth) : Math.max(0.1, this.muscle);
       if (n === 'uarmO' || n === 'farmO') mus *= 0.15 + 0.85 * this.limbs.armO; // 다친 팔은 힘이 없다
-      if (n === 'uarmS' || n === 'farmS') mus *= (0.3 + 0.7 * this.limbs.armS) * this.strength;
+      if (n === 'uarmS' || n === 'farmS') {
+        mus = Math.max(0.1, mainArmMuscle(this));
+        mus *= (0.3 + 0.7 * this.limbs.armS) * this.strength;
+      }
       if (n.endsWith('F') && isLeg) mus *= 0.4 + 0.6 * this.limbs.legF;
       if (n.endsWith('B') && isLeg) mus *= 0.4 + 0.6 * this.limbs.legB;
       // gain: 다리가 체중을 싣는 걸음에서 딛은 다리는 근육을 더 단단히 쓴다 (gait.js)
@@ -1792,12 +1797,12 @@ export class Fighter {
   /** 팔꿈치 중력 보상: 아래팔과 칼의 무게를 팔꿈치 근육이 미리 버틴다 (엔진 모터는 목표 각도만 쫓으므로 따로 건다) */
   elbowGravity() {
     if (this.detachedParts?.has('farmS')) return;
-    if (this.muscle < 0.12 || this.state === 'dead') return;
+    if (mainArmMuscle(this) < 0.12 || this.state === 'dead') return;
     const up = this.bodies.uarmS;
     this.gravityTorque([this.bodies.farmS, this.armed ? this.sword : null], up, 0.15, _mG);
     rot(up, _qg);
     const axis = _gA.set(0, 0, 1).applyQuaternion(_qg); // 팔꿈치 경첩 축
-    const mus = Math.min(1, Math.max(0.1, this.muscle) * (0.3 + 0.7 * this.limbs.armS) * this.strength);
+    const mus = Math.min(1, Math.max(0.1, mainArmMuscle(this)) * (0.3 + 0.7 * this.limbs.armS) * this.strength);
     const t = -_mG.dot(axis) * mus;
     this.bodies.farmS.addTorque({ x: axis.x * t, y: axis.y * t, z: axis.z * t }, true);
     up.addTorque({ x: -axis.x * t, y: -axis.y * t, z: -axis.z * t }, true);
@@ -1859,7 +1864,7 @@ export class Fighter {
   driveSword() {
     const sword = this.sword;
     const chest = this.bodies.chest;
-    const mus = this.muscle;
+    const mus = mainArmMuscle(this);
 
     // 손 목표 위치: 가슴 앞 평면의 (좌우, 위아래) + 자동 깊이 (몸이 바라보는 방향 기준)
     const off = this.skill.aim; // 손 목표 (입력 + 검술 층의 이어 베기, 부드럽게 걸러진 값)

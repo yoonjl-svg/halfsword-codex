@@ -38,6 +38,7 @@ import { configureArmTrial, mountArmTrial } from './arm_trial.js';
 import { configureStanceTrial, mountStanceTrial } from './stance_trial.js';
 import { configureTargetCorrectionTrial, applyTargetCorrectionTrial, mountTargetCorrectionTrial } from './target_correction_trial.js';
 import { configureEdgeTorqueTrial, applyEdgeTorqueTrial, mountEdgeTorqueTrial } from './edge_torque_trial.js';
+import { configureArmRecoveryTrial, applyArmRecoveryTrial, mountArmRecoveryTrial } from './arm_recovery_trial.js';
 
 await RAPIER.init();
 
@@ -47,6 +48,7 @@ const params = new URLSearchParams(location.search);
 // A/B input trials use the same session-only menu values; saved preferences survive.
 const inputComparison = params.get('inputComparison') === 'vertical';
 const targetCorrectionTrial = configureTargetCorrectionTrial(params);
+const armRecoveryTrial = configureArmRecoveryTrial(params);
 const comparisonSettings = inputComparison ? { skill: '0', difficulty: 'normal' } : targetCorrectionTrial.settings;
 const settingValue = (key) => comparisonSettings[key] ?? settings[key];
 CONFIG.COMBAT.limbSeverTrial = params.get('limbTrial') === '1';
@@ -414,6 +416,7 @@ function newRound(weaponId) {
   // 같은 선택형 팔 제어를 양쪽에 적용하고 재시작 때도 주소 설정을 유지한다.
   for (const f of [player, enemy]) f.armTorqueModel = armTrial.model;
   applyEdgeTorqueTrial(edgeTorqueTrial, player);
+  applyArmRecoveryTrial(armRecoveryTrial, player);
   // 진짜 엑스칼리버의 기운 (보여 주기만)
   for (const a of auras) a.dispose();
   auras = [player, enemy].map(attachAura).filter(Boolean);
@@ -649,6 +652,7 @@ mountArmTrial(armTrial);
 mountStanceTrial(stanceTrial);
 mountTargetCorrectionTrial(targetCorrectionTrial);
 mountEdgeTorqueTrial(edgeTorqueTrial);
+mountArmRecoveryTrial(armRecoveryTrial);
 if (inputComparison || input.mobileIntent.source === 'url') {
   const info = document.createElement('p');
   info.id = 'mobileIntentInfo';
@@ -1547,6 +1551,7 @@ window.game = {
   stanceTrial,
   inputComparison,
   targetCorrectionTrial,
+  armRecoveryTrial,
   edgeTorqueTrial,
   THREE,
   camera,

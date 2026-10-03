@@ -9,6 +9,15 @@ import {transformArmTargetTerms} from './arm_target_terms_candidate.mjs';
 const url=new URL('../../../src/fighter.js',import.meta.url),sha=s=>createHash('sha256').update(s).digest('hex');
 export async function loadArmRecoveryActivation(){
   let source=await fs.readFile(url,'utf8');const originalSHA256=sha(source);
+  if(source.includes("from './arm_recovery_activation.js'")) {
+    const strip=(a,b)=>{if(source.split(a).length!==2)throw Error('Runtime routing marker changed: '+a);source=source.replace(a,b);};
+    strip("import { updateMainArmRecovery, mainArmMuscle } from './arm_recovery_activation.js';\n",'');
+    strip('    updateMainArmRecovery(this, dt, targetMuscle);\n','');
+    strip("      if (n === 'uarmS' || n === 'farmS') {\n        mus = Math.max(0.1, mainArmMuscle(this));\n        mus *= (0.3 + 0.7 * this.limbs.armS) * this.strength;\n      }", "      if (n === 'uarmS' || n === 'farmS') mus *= (0.3 + 0.7 * this.limbs.armS) * this.strength;");
+    strip('    const mus = mainArmMuscle(this);','    const mus = this.muscle;');
+    strip("    if (mainArmMuscle(this) < 0.12 || this.state === 'dead') return;", "    if (this.muscle < 0.12 || this.state === 'dead') return;");
+    strip('Math.max(0.1, mainArmMuscle(this)) * (0.3 + 0.7 * this.limbs.armS)', 'Math.max(0.1, this.muscle) * (0.3 + 0.7 * this.limbs.armS)');
+  }
   source=transformArmTargetTerms(source);
   const replace=(a,b)=>{if(source.split(a).length!==2)throw Error('Expected unique activation marker: '+a);source=source.replace(a,b);};
   replace('    this.muscle += (targetMuscle - this.muscle) * Math.min(1, dt * (targetMuscle > this.muscle ? 4 : 12));',`    this.muscle += (targetMuscle - this.muscle) * Math.min(1, dt * (targetMuscle > this.muscle ? 4 : 12));
