@@ -1,14 +1,15 @@
-/** Session-only cutting comparison; no saved setting or default promotion. */
+/** The failed cutting candidate is withdrawn, including previously shared URLs. */
 export function configureCutTrial(params) {
   const requested = params.get('cutTrial');
   return {
-    active: requested === 'legacy' || requested === 'budgeted',
-    model: requested === 'budgeted' ? 'budgeted' : 'legacy',
+    active: requested === 'legacy',
+    withdrawn: requested === 'budgeted',
+    model: 'legacy',
   };
 }
 
 export function mountCutTrial(info) {
-  if (!info.active || typeof document === 'undefined') return;
+  if ((!info.active && !info.withdrawn) || typeof document === 'undefined') return;
   const menuSub = document.getElementById('menuSub');
   if (!menuSub) return;
   let panel = document.getElementById('cutTrialInfo');
@@ -19,12 +20,12 @@ export function mountCutTrial(info) {
     menuSub.after(panel);
   }
   const label = document.createElement('span');
-  label.textContent = info.model === 'budgeted'
-    ? '절삭 B · 자세 이상으로 재검증 중인 이전 시험 '
+  label.textContent = info.withdrawn
+    ? '절삭 B는 자세·동작 악화로 철회했습니다. 현재 절삭 방식으로 실행합니다. '
     : '절삭 비교 A · 현재 방식 ';
   const link = document.createElement('a');
   link.href = './feature-lab.html#cut-comparison';
-  link.textContent = '비교 화면으로';
+  link.textContent = info.withdrawn ? '철회 안내' : '시험판 안내';
   link.style.color = 'var(--accent, #d9a441)';
   panel.replaceChildren(label, link);
 }

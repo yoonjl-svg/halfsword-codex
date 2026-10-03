@@ -1536,6 +1536,9 @@ window.game = {
   get combat() {
     return combat;
   },
+  get input() {
+    return input;
+  },
   // 흩어지는 조각 수 (칼·방어구, debris.js): game.debris.count() 전부, game.debris.count('armor') 방어구만
   debris: { count: debrisCount },
   draw, // 무기 뽑기 상태 (stage, ids = [내 카드, 내 카드, 상대 무기], pick). 스크린샷용으로 game.draw.hold = true 면 순서가 멈춘다
@@ -1547,6 +1550,7 @@ window.game = {
   config: CONFIG,
   supportProbe,
   physicalTrial,
+  cutTrial,
   armTrial,
   stanceTrial,
   inputComparison,

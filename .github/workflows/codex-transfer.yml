@@ -44,10 +44,8 @@ jobs:
           esac
           test -f .codex-transfer/work.bundle
 
-          # Read the public original only; every write below targets this repository.
-          git -c http.https://github.com/.extraheader= fetch --no-tags \
-            https://github.com/yoonjl-svg/halfsword.git \
-            14bcf1fe6bd205c775db91aa4ca36b9841b6d2bd
+          # The full history of our repository already contains this baseline.
+          git cat-file -e 14bcf1fe6bd205c775db91aa4ca36b9841b6d2bd^{commit}
           git bundle verify .codex-transfer/work.bundle
           git fetch .codex-transfer/work.bundle \
             refs/heads/codex/hybrid-support:refs/remotes/codex-import/verified

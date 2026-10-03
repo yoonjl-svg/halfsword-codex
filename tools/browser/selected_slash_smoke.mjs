@@ -3,14 +3,19 @@ import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 import {mkdir,writeFile,access,readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
-const base=process.argv[2]||'http://127.0.0.1:4202';
+const base=(process.argv[2]||'http://127.0.0.1:4202').replace(/\/$/,'');
 const out=process.argv[3]||'/workspace/halfsword-sound-review/selected-short-browser';
 await mkdir(out,{recursive:true});
 try {await access(out+'/result.json');throw Error('Use a fresh output directory');} catch(e){if(e.code!=='ENOENT')throw e;}
 const files=['src/sound.js','src/slash_draw.js','src/soundlab.js','src/config.js'];
 const hashes=async()=>Object.fromEntries(await Promise.all(files.map(async p=>[p,createHash('sha256').update(await readFile(p)).digest('hex')])));
 const before=await hashes(),errors=[],rows=[];
-const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader']});
+const launch={executablePath:process.env.PW_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader']};
+if(new URL(base).protocol==='https:'){
+ const proxy=process.env.HTTPS_PROXY||process.env.HTTP_PROXY;
+ if(proxy){const p=new URL(proxy);launch.proxy={server:`${p.protocol}//${p.host}`};}
+}
+const browser=await chromium.launch(launch);
 try {
  for(const fallback of [false,true]){
   const ctx=await browser.newContext({viewport:{width:844,height:390},isMobile:true,hasTouch:true});
@@ -42,6 +47,6 @@ try {
  assert.equal(await p.getByText('35차 강베기 (적용)',{exact:true}).count(),0);
  const lab={newLabel:true,oldDefaultLabelAbsent:true};await p.screenshot({path:out+'/lab.png'});
  const after=await hashes();assert.deepEqual(before,after);assert.deepEqual(errors,[]);
- await writeFile(out+'/result.json',JSON.stringify({pass:true,base,method:'Local production preview, mobile emulation; direct Sound.cut invocations verify audio routing, not physical hit efficacy or human listening',sourceBefore:before,sourceAfter:after,rows,lab,errors},null,2)+'\n');
+ await writeFile(out+'/result.json',JSON.stringify({pass:true,base,tlsVerification:true,method:'Production game, mobile emulation; direct Sound.cut invocations verify audio routing, not physical hit efficacy or human listening',sourceBefore:before,sourceAfter:after,rows,lab,errors},null,2)+'\n');
  console.log(JSON.stringify({pass:true,rows:rows.length,errors,out}));
 }finally{await browser.close();}
