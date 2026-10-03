@@ -88,6 +88,7 @@ export async function loadEdgeTransition(){
     const dampingTwist = wTwist.clone().multiplyScalar(-0.12 * this.twistScale);
     if (active && diag.mode === 'noPosition') twist.set(0,0,0);
     if (active && diag.mode === 'planePotential') twist.multiplyScalar(flat.dot(flatTarget));
+    if (active && diag.mode === 'halfPosition') twist.multiplyScalar(.5);
     const appliedPositionTwist = twist.clone();
     if (!(active && diag.mode === 'noDamping')) twist.addScaledVector(wTwist, -0.12 * this.twistScale);`);
   replace('    sword.addTorque(vecArg(torque), true);',`    if (diag) {
