@@ -2,6 +2,7 @@ import * as THREE from 'three';
 
 const bladeAcross = new THREE.Vector3();
 const tangent = new THREE.Vector3();
+const transport = new THREE.Quaternion();
 
 /**
  * Swivel the elbow around the shoulder→hand axis only when the requested blade
@@ -9,23 +10,26 @@ const tangent = new THREE.Vector3();
  * The 90° boundary is a geometric guard, not a measured human wrist limit.
  * Inputs are unit vectors in the same chest-local coordinates; pole is mutated.
  */
-export function alignOnehandPole(pole, reachAxis, blade, reach, upper, fore) {
-  const cosBeta = THREE.MathUtils.clamp((fore * fore + reach * reach - upper * upper) / (2 * fore * reach), -1, 1);
-  const sinBeta = Math.sqrt(Math.max(0, 1 - cosBeta * cosBeta));
-  const axial = blade.dot(reachAxis);
-  const before = cosBeta * axial - sinBeta * pole.dot(blade);
-  if (before >= 0 || sinBeta < 1e-8) return false;
-  bladeAcross.copy(blade).addScaledVector(reachAxis, -axial);
-  const across = bladeAcross.length();
-  if (across < 1e-8) return false;
-  bladeAcross.divideScalar(across);
-  const boundary = cosBeta * axial / (sinBeta * across);
-  // No compatible swivel exists: do not invent a new hand or wrist goal.
-  if (boundary < -1) return false;
-  const k = THREE.MathUtils.clamp(boundary, -1, 1);
-  tangent.copy(pole).addScaledVector(bladeAcross, -pole.dot(bladeAcross));
-  if (tangent.lengthSq() < 1e-12) tangent.crossVectors(reachAxis, bladeAcross);
-  tangent.normalize();
-  pole.copy(bladeAcross).multiplyScalar(k).addScaledVector(tangent, Math.sqrt(Math.max(0, 1 - k * k)));
-  return true;
+export function alignOnehandPole(pole, reachAxis, blade, state, dt) {
+  if (!state.pole) { state.pole = pole.clone(); state.reachAxis = reachAxis.clone(); }
+  transport.setFromUnitVectors(state.reachAxis, reachAxis);
+  state.pole.applyQuaternion(transport).addScaledVector(reachAxis, -state.pole.dot(reachAxis)).normalize();
+  // Among the elbow-circle solutions for this hand, this plane maximizes
+  // forearm/blade alignment. It does not force the achieved wrist into place.
+  bladeAcross.copy(blade).addScaledVector(reachAxis, -blade.dot(reachAxis));
+  if (bladeAcross.lengthSq() > 1e-12) {
+    bladeAcross.normalize().negate();
+    const angle = Math.acos(THREE.MathUtils.clamp(state.pole.dot(bladeAcross), -1, 1));
+    // Match the existing arm motor goal-speed ceiling (15 rad/s). This bounds
+    // target-plane transitions, not actual motion, torque or anatomical range.
+    const step = Math.min(angle, 15 * Math.max(0, dt));
+    if (angle > 1e-8) {
+      tangent.copy(bladeAcross).addScaledVector(state.pole, -bladeAcross.dot(state.pole));
+      if (tangent.lengthSq() < 1e-12) tangent.crossVectors(reachAxis, state.pole);
+      tangent.normalize();
+      state.pole.multiplyScalar(Math.cos(step)).addScaledVector(tangent, Math.sin(step)).normalize();
+    }
+  }
+  pole.copy(state.pole);
+  state.reachAxis.copy(reachAxis);
 }

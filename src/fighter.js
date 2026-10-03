@@ -2069,7 +2069,7 @@ export class Fighter {
     pDir.normalize();
     if (bladeDirection) {
       const bladeLocal = _ikBlade.copy(bladeDirection).applyQuaternion(_q2).normalize();
-      alignOnehandPole(pDir, Dn, bladeLocal, d, a, b);
+      alignOnehandPole(pDir, Dn, bladeLocal, (this.onehandPoleState ||= {}), this.lastDt || 1 / 120);
     }
     const alpha = Math.acos(THREE.MathUtils.clamp((a * a + d * d - b * b) / (2 * a * d), -1, 1));
     const u = _ik4.copy(Dn).multiplyScalar(Math.cos(alpha)).addScaledVector(pDir, Math.sin(alpha)); // 위팔 방향
