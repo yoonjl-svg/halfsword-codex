@@ -18,6 +18,12 @@ export function setSwordDrag(f, mode) {
  */
 export function setInertiaCandidate(f, mode, trial='drag') {
   if(trial==='drag')return setSwordDrag(f,mode);
+  if(trial==='available'){
+    if(!['original','candidate'].includes(mode)||f.wristBrakingModel!==undefined||f.armTorqueModel==='sharedCap')
+      throw Error('Unexpected wrist forecasting scope');
+    if(mode==='candidate')f.wristBrakingModel='available';
+    return {trial,mode,model:f.wristBrakingModel??'legacy',margin:f.weaponCfg.releaseMargin};
+  }
   if(trial!=='brake'||!['original','candidate'].includes(mode))throw Error('Unknown inertia candidate');
   const before=f.weaponCfg.releaseMargin;
   if(before!==1.4)throw Error('Unexpected original braking margin');

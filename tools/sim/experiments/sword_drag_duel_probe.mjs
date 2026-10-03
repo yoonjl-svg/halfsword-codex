@@ -11,7 +11,7 @@ import {beforeWristResponse,afterWristResponse} from './derive_wrist_response.mj
 const root=fileURLToPath(new URL('../../../',import.meta.url));
 const opts=Object.fromEntries(process.argv.slice(2).map(a=>{const m=/^--(out|trial|weapons|seeds|response)=(.+)$/.exec(a);if(!m)throw Error('Unknown duel argument');return [m[1],m[2]];}));
 if(!opts.out||fs.existsSync(opts.out))throw Error('Preserve evidence; use --out=NEW_PATH');
-const trial=opts.trial??'drag';if(!['drag','brake'].includes(trial))throw Error('Unknown trial');
+const trial=opts.trial??'drag';if(!['drag','brake','available'].includes(trial))throw Error('Unknown trial');
 const modes=['original',trial==='drag'?'free':'candidate'];
 const weapons=(opts.weapons??'sabre,zweihander').split(','),seeds=(opts.seeds??'7,19').split(',').map(Number);
 if(weapons.some(w=>!['sabre','zweihander'].includes(w))||new Set(weapons).size!==weapons.length||seeds.some(s=>![7,19].includes(s))||new Set(seeds).size!==seeds.length)throw Error('Use unique supported conditions');
@@ -127,7 +127,7 @@ const sourceAfter=manifest(),sourceCommitAfter=head(),sourceStable=sourceCommit=
 const measurementValid=!error&&sourceStable&&rows.length===expectedRows&&checks.every(c=>Object.entries(c).every(([k,v])=>typeof v!=='boolean'||v));
 const report={schemaVersion:1,sourceCommit,sourceCommitAfter,sourceBefore,sourceAfter,sourceStable,measurementValid,error,executionCount:rows.length,
   createdUTC:new Date().toISOString(),wallSeconds:(performance.now()-started)/1000,rows,checks,
-  protocol:{trial,weapons,seeds,responseMode,treatment:trial==='drag'?'Only player sword angular drag0.3→0 immediately after Fighter construction before AI/firststep. Opponent and all other physical properties/controllers unchanged.':'Only player releaseMargin1.4→1.0 immediately after Fighter construction before AI/firststep. Opponent margin1.4; all damping, masses, inertia, target paths and strength limits unchanged.',
+  protocol:{trial,weapons,seeds,responseMode,treatment:trial==='drag'?'Only player sword angular drag0.3→0 immediately after Fighter construction before AI/firststep. Opponent and all other physical properties/controllers unchanged.':trial==='available'?'Only player wristBrakingModel=available immediately after Fighter construction before AI/firststep. Opponent nominal estimator; releaseMargin1.4, gains, masses, inertia, drag and actual force/cap/Hill paths unchanged.':'Only player releaseMargin1.4→1.0 immediately after Fighter construction before AI/firststep. Opponent margin1.4; all damping, masses, inertia, target paths and strength limits unchanged.',
     scene:'Original two reactive AIs/Combat/native contacts. No park, wound injection, pose/velocity edit, AI freeze or native restore. Horizon18s or first death.',
     meaning:'Same initial preparation/controller and first requested actuation. Drag trial changes native damping at t0; brake trial changes controller configuration only. Later AI/input/contacts react to treatment and are episode outcomes, not equal-input efficiency or same-wound direct contrasts.',
     observation:'Selected driveSword/driveJoints/elbowGravity actual torque closure and instantaneous pre-solver power only. Native motor/grip/offHand/contact/body drag work excluded. Controller digest is a stated subset.',
