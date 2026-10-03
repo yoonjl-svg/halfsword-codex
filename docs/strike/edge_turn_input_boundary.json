@@ -1,0 +1,295 @@
+{
+  "schemaVersion": 1,
+  "executionCount": 16,
+  "summedRunWallSeconds": 40.25673220200001,
+  "datasets": [
+    {
+      "rawFile": "edge-turn-input-boundary.json",
+      "rawSHA256": "f0e9e43ed1bc7a6c95737487706c7a03bc2e49ab8e6d459a933b62b4e444715c",
+      "rawBytes": 45392349,
+      "sourceArchive": "60edb7680012d2de0e8d07b67b087098fa9b49b6",
+      "sourceArchivesExact": true,
+      "sourceStable": true,
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/edge_turn_guard_probe.mjs",
+        "--scenarios=yawGuard",
+        "--out=/tmp/edge-turn-input-boundary.json"
+      ],
+      "executionCount": 10,
+      "wallSeconds": 23.823175567000003,
+      "priorFile": "edge-turn-guard-from-spawn.json",
+      "nativeAndSelectedFramePairs": [
+        {
+          "weapon": "sabre",
+          "scenario": "yawGuard",
+          "level": 0,
+          "mode": "legacy",
+          "nativeTraceExact": true,
+          "physicalAndGoalFramesExact": true,
+          "currentInputActiveMatchesDelta": true,
+          "oldInputActiveMismatches": 1,
+          "controllerTraceExact": false
+        },
+        {
+          "weapon": "sabre",
+          "scenario": "yawGuard",
+          "level": 0,
+          "mode": "planePotential",
+          "nativeTraceExact": true,
+          "physicalAndGoalFramesExact": true,
+          "currentInputActiveMatchesDelta": true,
+          "oldInputActiveMismatches": 1,
+          "controllerTraceExact": false
+        },
+        {
+          "weapon": "sabre",
+          "scenario": "yawGuard",
+          "level": 0.4,
+          "mode": "legacy",
+          "nativeTraceExact": true,
+          "physicalAndGoalFramesExact": true,
+          "currentInputActiveMatchesDelta": true,
+          "oldInputActiveMismatches": 1,
+          "controllerTraceExact": false
+        },
+        {
+          "weapon": "sabre",
+          "scenario": "yawGuard",
+          "level": 0.4,
+          "mode": "planePotential",
+          "nativeTraceExact": true,
+          "physicalAndGoalFramesExact": true,
+          "currentInputActiveMatchesDelta": true,
+          "oldInputActiveMismatches": 1,
+          "controllerTraceExact": false
+        },
+        {
+          "weapon": "zweihander",
+          "scenario": "yawGuard",
+          "level": 0,
+          "mode": "legacy",
+          "nativeTraceExact": true,
+          "physicalAndGoalFramesExact": true,
+          "currentInputActiveMatchesDelta": true,
+          "oldInputActiveMismatches": 1,
+          "controllerTraceExact": false
+        },
+        {
+          "weapon": "zweihander",
+          "scenario": "yawGuard",
+          "level": 0,
+          "mode": "planePotential",
+          "nativeTraceExact": true,
+          "physicalAndGoalFramesExact": true,
+          "currentInputActiveMatchesDelta": true,
+          "oldInputActiveMismatches": 1,
+          "controllerTraceExact": false
+        },
+        {
+          "weapon": "zweihander",
+          "scenario": "yawGuard",
+          "level": 0.4,
+          "mode": "legacy",
+          "nativeTraceExact": true,
+          "physicalAndGoalFramesExact": true,
+          "currentInputActiveMatchesDelta": true,
+          "oldInputActiveMismatches": 1,
+          "controllerTraceExact": false
+        },
+        {
+          "weapon": "zweihander",
+          "scenario": "yawGuard",
+          "level": 0.4,
+          "mode": "planePotential",
+          "nativeTraceExact": true,
+          "physicalAndGoalFramesExact": true,
+          "currentInputActiveMatchesDelta": true,
+          "oldInputActiveMismatches": 1,
+          "controllerTraceExact": false
+        }
+      ],
+      "pairedChecks": [
+        {
+          "weapon": "sabre",
+          "scenario": "yawGuard",
+          "level": 0,
+          "firstNativeExact": true,
+          "firstControllerExact": true,
+          "samePrefix": true,
+          "externalInputExact": true,
+          "finite": true,
+          "noContacts": true
+        },
+        {
+          "weapon": "sabre",
+          "scenario": "yawGuard",
+          "level": 0.4,
+          "firstNativeExact": true,
+          "firstControllerExact": true,
+          "samePrefix": true,
+          "externalInputExact": true,
+          "finite": true,
+          "noContacts": true
+        },
+        {
+          "weapon": "zweihander",
+          "scenario": "yawGuard",
+          "level": 0,
+          "firstNativeExact": true,
+          "firstControllerExact": true,
+          "samePrefix": true,
+          "externalInputExact": true,
+          "finite": true,
+          "noContacts": true
+        },
+        {
+          "weapon": "zweihander",
+          "scenario": "yawGuard",
+          "level": 0.4,
+          "firstNativeExact": true,
+          "firstControllerExact": true,
+          "samePrefix": true,
+          "externalInputExact": true,
+          "finite": true,
+          "noContacts": true
+        }
+      ],
+      "observers": [
+        {
+          "mode": "legacy",
+          "scope": "full instrumentation versus original runtime",
+          "initialNativeExact": true,
+          "preparedNativeExact": true,
+          "preparedControllerExact": true,
+          "nativeExact": true,
+          "controllerExact": true,
+          "inputExact": true
+        },
+        {
+          "mode": "planePotential",
+          "scope": "full instrumentation versus original runtime",
+          "initialNativeExact": true,
+          "preparedNativeExact": true,
+          "preparedControllerExact": true,
+          "nativeExact": true,
+          "controllerExact": true,
+          "inputExact": true
+        }
+      ]
+    },
+    {
+      "rawFile": "edge-arm-input-boundary.json",
+      "rawSHA256": "a9248e0fcce26b802e88c9ce6e84eb4595f55da449ad8ed03f3a196327ddbfb5",
+      "rawBytes": 22636244,
+      "sourceArchive": "60edb7680012d2de0e8d07b67b087098fa9b49b6",
+      "sourceArchivesExact": true,
+      "sourceStable": true,
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/edge_turn_guard_probe.mjs",
+        "--scenarios=yawGuard",
+        "--levels=0",
+        "--start=3",
+        "--wound=armCut",
+        "--out=/tmp/edge-arm-input-boundary.json"
+      ],
+      "executionCount": 6,
+      "wallSeconds": 16.433556635000002,
+      "priorFile": "edge-arm-cut.json",
+      "nativeAndSelectedFramePairs": [
+        {
+          "weapon": "sabre",
+          "scenario": "yawGuard",
+          "level": 0,
+          "mode": "legacy",
+          "nativeTraceExact": true,
+          "physicalAndGoalFramesExact": true,
+          "currentInputActiveMatchesDelta": true,
+          "oldInputActiveMismatches": 1,
+          "controllerTraceExact": false
+        },
+        {
+          "weapon": "sabre",
+          "scenario": "yawGuard",
+          "level": 0,
+          "mode": "planePotential",
+          "nativeTraceExact": true,
+          "physicalAndGoalFramesExact": true,
+          "currentInputActiveMatchesDelta": true,
+          "oldInputActiveMismatches": 1,
+          "controllerTraceExact": false
+        },
+        {
+          "weapon": "zweihander",
+          "scenario": "yawGuard",
+          "level": 0,
+          "mode": "legacy",
+          "nativeTraceExact": true,
+          "physicalAndGoalFramesExact": true,
+          "currentInputActiveMatchesDelta": true,
+          "oldInputActiveMismatches": 1,
+          "controllerTraceExact": false
+        },
+        {
+          "weapon": "zweihander",
+          "scenario": "yawGuard",
+          "level": 0,
+          "mode": "planePotential",
+          "nativeTraceExact": true,
+          "physicalAndGoalFramesExact": true,
+          "currentInputActiveMatchesDelta": true,
+          "oldInputActiveMismatches": 1,
+          "controllerTraceExact": false
+        }
+      ],
+      "pairedChecks": [
+        {
+          "weapon": "sabre",
+          "scenario": "yawGuard",
+          "level": 0,
+          "firstNativeExact": true,
+          "firstControllerExact": true,
+          "samePrefix": true,
+          "externalInputExact": true,
+          "finite": true,
+          "noContacts": true
+        },
+        {
+          "weapon": "zweihander",
+          "scenario": "yawGuard",
+          "level": 0,
+          "firstNativeExact": true,
+          "firstControllerExact": true,
+          "samePrefix": true,
+          "externalInputExact": true,
+          "finite": true,
+          "noContacts": true
+        }
+      ],
+      "observers": [
+        {
+          "mode": "legacy",
+          "scope": "full instrumentation versus original runtime",
+          "initialNativeExact": true,
+          "preparedNativeExact": true,
+          "preparedControllerExact": true,
+          "nativeExact": true,
+          "controllerExact": true,
+          "inputExact": true
+        },
+        {
+          "mode": "planePotential",
+          "scope": "full instrumentation versus original runtime",
+          "initialNativeExact": true,
+          "preparedNativeExact": true,
+          "preparedControllerExact": true,
+          "nativeExact": true,
+          "controllerExact": true,
+          "inputExact": true
+        }
+      ]
+    }
+  ],
+  "scope": "One zero-delta segment-boundary tick at5.1s was erroneously marked active in earlier probes. Main-compatible delta gating changes idle/controller history, so controller hashes are not expected equal to old runs. Twelve representative observed runs plus4observer repeats verify native and listed physical/goal frames exact. These are verification repeats, not new independent successes. Other original hypotheses remain rejected research; no game code changed."
+}
