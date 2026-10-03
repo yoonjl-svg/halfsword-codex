@@ -9,7 +9,7 @@ const root=fileURLToPath(new URL('../../../',import.meta.url)),originalURL=new U
 const opts=Object.fromEntries(process.argv.slice(2).map(v=>{const m=v.match(/^--([^=]+)=(.*)$/);if(!m)throw Error('Use --name=value');return [m[1],m[2]];}));
 const startS=Number(opts.start??3.6),duration=Number(opts.duration??6),weapons=(opts.weapons??'zweihander').split(','),modes=(opts.modes??'legacy,edge,observe,freezePlane,noPosition,noDamping').split(',');
 if(!Number.isFinite(startS)||startS<0||!Number.isFinite(duration)||duration<=startS)throw Error('Invalid time');
-if(modes.some(m=>!['legacy','edge','observe','freezePlane','noPosition','noDamping','c1Aim','motionMemory','runtimeC1','legacyObserve'].includes(m)))throw Error('Invalid mode');
+if(modes.some(m=>!['legacy','edge','observe','freezePlane','noPosition','noDamping','c1Aim','motionMemory','runtimeC1','legacyObserve','pointIntent'].includes(m)))throw Error('Invalid mode');
 const sha=x=>crypto.createHash('sha256').update(x).digest('hex');
 const original=fs.readFileSync(originalURL,'utf8'),split='const narrowDiagnosis=diagnose&&!roundWindow;';
 if(original.split(split).length!==2)throw Error('Main marker');let source=original.split(split)[0];
