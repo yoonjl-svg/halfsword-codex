@@ -14,11 +14,11 @@ replace("modes=(opts.modes??'legacy,plane,cap,planeCap')", "modes=(opts.modes??'
 replace("!['legacy','plane','cap','planeCap'].includes(m)","!['legacy','activation'].includes(m)");
 replace("'tools/sim/experiments/arm_hit_reinput_probe.mjs','package-lock.json'","'tools/sim/experiments/arm_hit_reinput_probe.mjs','tools/sim/experiments/arm_hit_terms_probe.mjs','tools/sim/experiments/arm_target_terms_candidate.mjs','tools/sim/experiments/arm_recovery_activation_candidate.mjs','package-lock.json'");
 replace('let modules;', 'let modules,armResearch;');
-replace('const output=opts.out,', "const scene=opts.scene??'contact';if(!['contact','healthy'].includes(scene))throw Error('Unsupported scene');\nconst output=opts.out,");
-replace("gap:1.85,skill:level,difficulty:'normal'});const f=G.player;", "gap:scene==='healthy'?6:1.85,skill:level,difficulty:'normal'});if(scene==='healthy')G.ai.update=()=>{};const f=G.player;");
-replace('if(hit&&!branch){', "if((hit||(scene==='healthy'&&G.t>=3-1e-10))&&!branch){");
+replace('const output=opts.out,', "const scene=opts.scene??'contact';if(!['contact','healthy','kneel','cutKneel'].includes(scene))throw Error('Unsupported scene');\nconst output=opts.out,");
+replace("gap:1.85,skill:level,difficulty:'normal'});const f=G.player;", "gap:scene==='contact'?1.85:6,skill:level,difficulty:'normal'});if(scene!=='contact')G.ai.update=()=>{};const f=G.player;");
+replace('if(hit&&!branch){', "if(scene!=='contact'&&scene!=='healthy'&&G.t>=3-1e-10&&!branch){if(scene==='cutKneel')f.applyWound({part:'farmS',zone:'arm',type:'cut',severity:.6,energy:76,bleedPerSev:CONFIG.ANATOMY.arm.bleed,local:new THREE.Vector3(0,0,0),helmet:false,plate:false,pass:true,passing:false});f.knockDown(false);}\n        if((hit||(scene!=='contact'&&G.t>=3-1e-10))&&!branch){");
 replace('eventId:hit.id,', 'eventId:hit?.id??null,');
-replace('protocol:{weapons,seeds,modes,level,inputMode,', "protocol:{scene,sceneContract:scene==='healthy'?'Gap6m, enemy AI disabled but bodies dynamic; branch at3s without wound. Same scripted input, no state/health/pose injection.':'Actual normal reactive AI and first arm wound.',weapons,seeds,modes,level,inputMode,");
+replace('protocol:{weapons,seeds,modes,level,inputMode,', "protocol:{scene,sceneContract:scene==='contact'?'Actual normal reactive AI and first arm wound.':scene==='healthy'?'Gap6m, AI off with native bodies dynamic. No wound/state injection; branch3s.':'Gap6m, AI off. At3s actual knockDown(false) API triggers recovery; cutKneel additionally calls bounded farmS applyWound(.6severity/76J). Synthetic controller/wound intervention, no actual collision or native body pose/velocity change.',weapons,seeds,modes,level,inputMode,");
 
 replace('modules=await loadArmCapacityCandidates();', 'modules=await loadArmCapacityCandidates();armResearch=await loadArmRecoveryActivation();');
 replace('let G,undoDiagnostic;', 'let G,undoDiagnostic;');
