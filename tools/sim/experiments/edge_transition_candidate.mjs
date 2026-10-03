@@ -24,6 +24,19 @@ export async function loadEdgeTransition(){
   replace("    if (this.edgeIntentModel === 'commandedPlane') updateIntentEdgePlane(this, aim, blade, flatTarget, flat);",`    const legacyFlat = flatTarget.clone();
     if (this.edgeIntentModel === 'commandedPlane') updateIntentEdgePlane(this, aim, blade, flatTarget, flat);
     const requestedPlane = this.intentEdgePlane?.clone();
+    if (active && diag.mode === 'motionMemory') {
+      this.intentEdgePlane.copy(beforePlane || legacyFlat.clone().applyQuaternion(this.yaw.clone().invert()));
+      if (moving > 0) {
+        const normal=new THREE.Vector3().crossVectors(blade,new THREE.Vector3(bv.x,bv.y,bv.z)).normalize().applyQuaternion(this.yaw.clone().invert());
+        if(normal.dot(this.intentEdgePlane)<0)normal.negate();
+        this.intentEdgePlane.lerp(normal,moving).normalize();
+      }
+      flatTarget.copy(this.intentEdgePlane).applyQuaternion(this.yaw);
+      flatTarget.addScaledVector(blade,-flatTarget.dot(blade));
+      if(flatTarget.lengthSq()<1e-8)flatTarget.copy(flat);
+      flatTarget.normalize();
+      if(flatTarget.dot(flat)<0)flatTarget.negate();
+    }
     if (active && diag.mode === 'freezePlane') {
       diag.frozenPlane ||= beforePlane?.clone() || this.intentEdgePlane.clone();
       this.intentEdgePlane.copy(diag.frozenPlane);
@@ -48,7 +61,7 @@ export async function loadEdgeTransition(){
       const localAim=aim.clone().applyQuaternion(this.yaw.clone().invert()).normalize();
       const command = beforeLocalAim ? new THREE.Vector3().crossVectors(beforeLocalAim,localAim).multiplyScalar(1/this.lastDt) : new THREE.Vector3();
       const speed = command.length()*(this.weaponCfg.hiltLength+.7*this.weaponCfg.bladeLength);
-      transitionRecords.set(this,{timeS:diag.now(),active,mode:diag.mode,filteredAimM:off.toArray(),yaw:this.yaw.toArray(),aim:aim.toArray(),blade:blade.toArray(),flat:flat.toArray(),flatTarget:flatTarget.toArray(),legacyFlatTarget:legacyFlat.toArray(),beforePlane:beforePlane?.toArray()??null,requestedPlane:requestedPlane?.toArray()??null,appliedPlane:this.intentEdgePlane?.toArray()??null,commandSpeedMps:speed,commandBlend:THREE.MathUtils.smoothstep(speed,.5,2.5),flatErrorRad:flatError,
+      transitionRecords.set(this,{timeS:diag.now(),active,mode:diag.mode,filteredAimM:off.toArray(),yaw:this.yaw.toArray(),aim:aim.toArray(),blade:blade.toArray(),flat:flat.toArray(),flatTarget:flatTarget.toArray(),legacyFlatTarget:legacyFlat.toArray(),beforePlane:beforePlane?.toArray()??null,requestedPlane:requestedPlane?.toArray()??null,appliedPlane:this.intentEdgePlane?.toArray()??null,actualCutPointVelocityMps:[bv.x,bv.y,bv.z],actualSpeedMps:ev,actualBlend:moving,commandSpeedMps:speed,commandBlend:THREE.MathUtils.smoothstep(speed,.5,2.5),flatErrorRad:flatError,
         k,d,effectiveBladeInertia:1/inverseI,kDtSquaredOverI:k*this.lastDt**2*inverseI,dDtOverI:d*this.lastDt*inverseI,
         preStepOmegaAxisRadps:omega,relativeForearmOmegaAxisRadps:omega-new THREE.Vector3(fw.x,fw.y,fw.z).dot(blade),positionTwistNm:positionTwist.dot(blade),dampingTwistNm:dampingTwist.dot(blade),appliedTwistNm:twist.dot(blade),finalTorqueNm:torque.toArray(),finalTorqueAxisNm:torque.dot(blade),
         twistWorkApproxJ:twist.dot(w)*this.lastDt,twistDeltaOmegaFreeBodyRadps:twist.dot(blade)*inverseI*this.lastDt,dt:this.lastDt,capNm:cap});
