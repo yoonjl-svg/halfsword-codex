@@ -10,7 +10,7 @@ const opts=Object.fromEntries(process.argv.slice(2).map(v=>{const m=v.match(/^--
 const baseMode=opts.base??'commandedPlane';if(!['commandedPlane','pointIntent','legacy'].includes(baseMode))throw Error('Invalid base');
 const startS=Number(opts.start??3.6),duration=Number(opts.duration??6),weapons=(opts.weapons??'zweihander').split(','),modes=(opts.modes??'legacy,edge,observe,freezePlane,noPosition,noDamping').split(',');
 if(!Number.isFinite(startS)||startS<0||!Number.isFinite(duration)||duration<=startS)throw Error('Invalid time');
-if(modes.some(m=>!['legacy','edge','observe','freezePlane','noPosition','noDamping','c1Aim','motionMemory','runtimeC1','legacyObserve','pointIntent','legacyC1','pointObserve','handOnly','axisOnly','flatSign','planePotential','halfPosition'].includes(m)))throw Error('Invalid mode');
+if(modes.some(m=>!['legacy','edge','observe','freezePlane','noPosition','noDamping','c1Aim','motionMemory','runtimeC1','legacyObserve','pointIntent','legacyC1','pointObserve','handOnly','axisOnly','flatSign','planePotential','halfPosition','runtimePlane'].includes(m)))throw Error('Invalid mode');
 const sha=x=>crypto.createHash('sha256').update(x).digest('hex');
 const original=fs.readFileSync(originalURL,'utf8'),split='const narrowDiagnosis=diagnose&&!roundWindow;';
 if(original.split(split).length!==2)throw Error('Main marker');let source=original.split(split)[0];
@@ -20,7 +20,7 @@ replace("new URL('./skill_from_start_probe.mjs',import.meta.url)",'new URL('+JSO
 replace("const roundWindow=process.argv.includes('--round-window'),diagnose=process.argv.includes('--diagnose')||roundWindow;",'const roundWindow=true,diagnose=true;');
 replace("const modes={weak:{level:.4,autoGuard:true},off:{level:0,autoGuard:false}}",'const modes='+JSON.stringify(Object.fromEntries(modes.map(m=>[m,{level:0,autoGuard:false}]))));
 replace("gap:1.85,skill:modes[mode].level,difficulty:'normal'});const f=G.player;","gap:6,skill:modes[mode].level,difficulty:'normal'});G.ai.update=()=>{};const f=G.player;");
-replace("f.skill.autoGuard=modes[mode].autoGuard;f.armTorqueModel='legacy'","f.skill.autoGuard=modes[mode].autoGuard;if('"+baseMode+"'!=='legacy'&&!['legacy','legacyObserve','legacyC1'].includes(mode))f.edgeIntentModel=mode==='runtimeC1'?'commandedPlaneC1':'commandedPlane';hooks?.install(G,f,mode);f.armTorqueModel='legacy'");
+replace("f.skill.autoGuard=modes[mode].autoGuard;f.armTorqueModel='legacy'","f.skill.autoGuard=modes[mode].autoGuard;if('"+baseMode+"'!=='legacy'&&!['legacy','legacyObserve','legacyC1'].includes(mode))f.edgeIntentModel=mode==='runtimeC1'?'commandedPlaneC1':'commandedPlane';if(mode==='runtimePlane')f.edgeTorqueModel='planePotential';hooks?.install(G,f,mode);f.armTorqueModel='legacy'");
 replace("f.move.set(0,time<2?.25:((time%4.4)<.6?.08:0));",'f.move.set(0,0);');
 replace('[2.2,6.6,11,15.4].findIndex','[].findIndex');
 replace('seconds:18,rawAimMeanErrorRad','seconds:'+duration+',rawAimMeanErrorRad');
@@ -41,7 +41,7 @@ try{
   for(const weapon of weapons){
     const group=[];
     for(const mode of modes){
-      const hooks={install(G,f,m){if(baseMode!=='pointIntent'&&['legacy','edge','runtimeC1'].includes(m))return;loaded.module.setTransition(f,{mode:m,base:baseMode,startS,now:()=>G.t});f.driveSword=loaded.module.Fighter.prototype.driveSword;},read:f=>loaded.module.readTransition(f)};
+      const hooks={install(G,f,m){if(baseMode!=='pointIntent'&&['legacy','edge','runtimeC1','runtimePlane'].includes(m))return;loaded.module.setTransition(f,{mode:m,base:baseMode,startS,now:()=>G.t});f.driveSword=loaded.module.Fighter.prototype.driveSword;},read:f=>loaded.module.readTransition(f)};
       const r=harness.combatRun(weapon,7,mode,true,hooks);group.push(r);rows.push(r);
       console.log(JSON.stringify({weapon,mode,prefix:r.prefixSHA256,summary:r.summary}));
     }
@@ -52,6 +52,7 @@ try{
     const legacyC1=group.find(r=>r.mode==='legacyC1');if(legacyC1){const legacy=group.find(r=>r.mode==='legacy');if(!legacy)throw Error('legacyC1 requires legacy');c.legacyC1PrefixExact=legacyC1.prefixSHA256===legacy.prefixSHA256;}
     const runtime=group.find(r=>r.mode==='runtimeC1'),candidate=group.find(r=>r.mode==='c1Aim');
     if(runtime){if(!candidate||startS!==0)throw Error('runtimeC1 requires c1Aim from start0');c.runtimeNativeExact=runtime.nativeTraceSha256===candidate.nativeTraceSha256;const withoutDiag=r=>r.frames.map(({transition,...rest})=>rest);c.runtimeFramesExact=JSON.stringify(withoutDiag(runtime))===JSON.stringify(withoutDiag(candidate));}
+    const runtimePlane=group.find(r=>r.mode==='runtimePlane'),potential=group.find(r=>r.mode==='planePotential');if(runtimePlane){if(!potential||startS!==0)throw Error('runtimePlane requires planePotential from start0');c.runtimePlaneNativeExact=runtimePlane.nativeTraceSha256===potential.nativeTraceSha256;const physical=r=>r.frames.map(({transition,...rest})=>rest);c.runtimePlaneFramesExact=JSON.stringify(physical(runtimePlane))===JSON.stringify(physical(potential));}
     checks.push(c);
   }
   const after=manifest(),sourceStable=JSON.stringify(before)===JSON.stringify(after),executionPass=sourceStable&&checks.every(c=>Object.values(c).every(v=>v!==false));

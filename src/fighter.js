@@ -1,4 +1,5 @@
 import { updateIntentEdgePlane, smoothIntentElevation } from './edge_intent.js';
+import { applyPlaneAlignmentPotential } from './edge_torque.js';
 // ─────────────────────────────────────────────────────────────
 //  검투사 한 명 = "액티브 래그돌"
 //
@@ -2001,6 +2002,7 @@ export class Fighter {
     // 이 축 관성이 롱소드보다 작은/큰 무기는 twistScale만큼 힘도 같이 줄이거나 늘려서
     // (관성이 작을수록 같은 힘에도 더 빨리 도니까) 안정성을 맞춘다.
     const twist = new THREE.Vector3().crossVectors(flat, flatTarget).projectOnVector(blade).multiplyScalar(4 * this.twistScale);
+    if (this.edgeTorqueModel === 'planePotential') applyPlaneAlignmentPotential(twist, flat, flatTarget);
     twist.addScaledVector(wTwist, -0.12 * this.twistScale);
     torque.add(twist);
     // 최종 벡터를 제한한 뒤 아래팔/가슴 반작용도 같은 벡터에서 구한다.
