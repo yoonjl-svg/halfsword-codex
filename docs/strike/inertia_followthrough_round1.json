@@ -1,0 +1,1387 @@
+{
+  "schemaVersion": 1,
+  "decision": {
+    "drag": "Not selected: tiny/mixed physical effects; no demonstrated gameplay benefit.",
+    "brake": "Public comparison withheld: no effect in the matched stroke fixture; real combat changes actuation but convincing recovery opening and twist plausibility remain unverified.",
+    "generalDefault": "Unchanged; no human realism acceptance."
+  },
+  "rawReceipts": [
+    {
+      "filename": "screen-01.json",
+      "sha256": "49e62b3a6aef13b7a97756efe8a47a11aa8eb502e986fb8e7ffc47127f538e58",
+      "bytes": 31804144,
+      "sourceCommit": "1aa5e53b4c1040249da5b3a6be88d3d7c4ef906a",
+      "executions": 14,
+      "wallSeconds": 34.133583387,
+      "sourceStable": true,
+      "measurementValid": true
+    },
+    {
+      "filename": "duel-01.json",
+      "sha256": "5b537c60ef38623e4c8aff206ace15145adeedda147a25efa18af20f96e9a8df",
+      "bytes": 18237504,
+      "sourceCommit": "7208f9fe07cc300c4b7d196979bfe2aee25885f7",
+      "executions": 10,
+      "wallSeconds": 19.855545973,
+      "sourceStable": true,
+      "measurementValid": true
+    },
+    {
+      "filename": "brake-screen-01.json",
+      "sha256": "69de645aca6927071ba34d4a8aaf76afa588959614c2e520b149eeb98c5a9112",
+      "bytes": 32113218,
+      "sourceCommit": "dc0198068385cf082d383a917bc86ef6d0d24e42",
+      "executions": 14,
+      "wallSeconds": 46.678007074,
+      "sourceStable": true,
+      "measurementValid": true
+    },
+    {
+      "filename": "brake-duel-01.json",
+      "sha256": "34f379c5fe7fbd5d0402ec09a84e3de381c53da112ba85540e0595757365a854",
+      "bytes": 18933600,
+      "sourceCommit": "dc0198068385cf082d383a917bc86ef6d0d24e42",
+      "executions": 10,
+      "wallSeconds": 43.629402357,
+      "sourceStable": true,
+      "measurementValid": true
+    },
+    {
+      "filename": "brake-activation-01.json",
+      "sha256": "1e6f07d60c2ecd5495ea2e9b856faca8ba1c6f6f4ea1b9026590674672782502",
+      "bytes": 8517155,
+      "sourceCommit": "e8bcec461b052f6d044ddb5348084aa3d2c2b2bb",
+      "executions": 4,
+      "wallSeconds": 9.028559884,
+      "sourceStable": true,
+      "measurementValid": true
+    },
+    {
+      "filename": "brake-combat-activation-01.json",
+      "sha256": "5ddd2ed348f254108a92288785a480ff1c39b923a5e8de85efb019866164b416",
+      "bytes": 37571526,
+      "sourceCommit": "99c2b42738db5772f34061fa8a772ee40c4b3fb4",
+      "executions": 4,
+      "wallSeconds": 9.94059,
+      "sourceStable": true,
+      "measurementValid": true
+    }
+  ],
+  "drag": {
+    "schemaVersion": 1,
+    "screenReceipt": {
+      "bytes": 31804144,
+      "sha256": "49e62b3a6aef13b7a97756efe8a47a11aa8eb502e986fb8e7ffc47127f538e58",
+      "sourceCommit": "1aa5e53b4c1040249da5b3a6be88d3d7c4ef906a",
+      "executions": 14,
+      "wallSeconds": 34.133583387,
+      "sourceManifestAndTraceDigestsVerified": true
+    },
+    "duelReceipt": {
+      "bytes": 18237504,
+      "sha256": "5b537c60ef38623e4c8aff206ace15145adeedda147a25efa18af20f96e9a8df",
+      "sourceCommit": "7208f9fe07cc300c4b7d196979bfe2aee25885f7",
+      "executions": 10,
+      "wallSeconds": 19.855545973,
+      "sourceManifestAndTraceDigestsVerified": true
+    },
+    "screen": [
+      {
+        "weapon": "sabre",
+        "ending": "hold",
+        "mode": "original",
+        "afterBladeDirectionTravelRad": 0.18593982428269532,
+        "finalDirectionErrorRad": 0.0022296880963377937,
+        "downPeakTipSpeedMps": 8.28950236566312,
+        "peakTipSpeedMps": 8.28950236566312,
+        "peakSwordKJ": 10.262273694426508,
+        "finalSwordKJ": 1.3615150434357118e-05,
+        "maxGapM": 0.0006268103057937989,
+        "maxAbsBladeTwistRadps": 1.2293571078575587,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 3.732247112405011
+      },
+      {
+        "weapon": "sabre",
+        "ending": "hold",
+        "mode": "free",
+        "afterBladeDirectionTravelRad": 0.1859309505419325,
+        "finalDirectionErrorRad": 0.0022295625403563816,
+        "downPeakTipSpeedMps": 8.300271900821132,
+        "peakTipSpeedMps": 8.300271900821132,
+        "peakSwordKJ": 10.278006273288922,
+        "finalSwordKJ": 1.372891147618816e-05,
+        "maxGapM": 0.0006252949359390226,
+        "maxAbsBladeTwistRadps": 1.2332935883560014,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 3.7350119856079527
+      },
+      {
+        "weapon": "sabre",
+        "ending": "release",
+        "mode": "original",
+        "afterBladeDirectionTravelRad": 0.18593982428269532,
+        "finalDirectionErrorRad": 0.0022296880963377937,
+        "downPeakTipSpeedMps": 8.28950236566312,
+        "peakTipSpeedMps": 8.28950236566312,
+        "peakSwordKJ": 10.262273694426508,
+        "finalSwordKJ": 1.3615150434357118e-05,
+        "maxGapM": 0.0006268103057937989,
+        "maxAbsBladeTwistRadps": 1.2293571078575587,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 3.732247112405011
+      },
+      {
+        "weapon": "sabre",
+        "ending": "release",
+        "mode": "free",
+        "afterBladeDirectionTravelRad": 0.1859309505419325,
+        "finalDirectionErrorRad": 0.0022295625403563816,
+        "downPeakTipSpeedMps": 8.300271900821132,
+        "peakTipSpeedMps": 8.300271900821132,
+        "peakSwordKJ": 10.278006273288922,
+        "finalSwordKJ": 1.372891147618816e-05,
+        "maxGapM": 0.0006252949359390226,
+        "maxAbsBladeTwistRadps": 1.2332935883560014,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 3.7350119856079527
+      },
+      {
+        "weapon": "sabre",
+        "ending": "reverse",
+        "mode": "original",
+        "afterBladeDirectionTravelRad": 2.0789249915838885,
+        "finalDirectionErrorRad": 0.005152482869245974,
+        "downPeakTipSpeedMps": 8.28950236566312,
+        "peakTipSpeedMps": 8.28950236566312,
+        "peakSwordKJ": 10.262273694426508,
+        "finalSwordKJ": 0.0015396669541907818,
+        "maxGapM": 0.0006920341458941811,
+        "maxAbsBladeTwistRadps": 1.3897922976815995,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 5.627348859253628
+      },
+      {
+        "weapon": "sabre",
+        "ending": "reverse",
+        "mode": "free",
+        "afterBladeDirectionTravelRad": 2.0794352904720994,
+        "finalDirectionErrorRad": 0.005152864966932489,
+        "downPeakTipSpeedMps": 8.300271900821132,
+        "peakTipSpeedMps": 8.300271900821132,
+        "peakSwordKJ": 10.278006273288922,
+        "finalSwordKJ": 0.0015330317925200138,
+        "maxGapM": 0.0006921183599338147,
+        "maxAbsBladeTwistRadps": 1.3916002213553988,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 5.610140050993581
+      },
+      {
+        "weapon": "zweihander",
+        "ending": "hold",
+        "mode": "original",
+        "afterBladeDirectionTravelRad": 0.414974018270543,
+        "finalDirectionErrorRad": 0.014451147340467565,
+        "downPeakTipSpeedMps": 10.732309617602548,
+        "peakTipSpeedMps": 10.732309617602548,
+        "peakSwordKJ": 37.91866602813595,
+        "finalSwordKJ": 0.0004564993487931761,
+        "maxGapM": 0.0010304970397043026,
+        "maxAbsBladeTwistRadps": 2.2965872270828798,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 10.353269576550481
+      },
+      {
+        "weapon": "zweihander",
+        "ending": "hold",
+        "mode": "free",
+        "afterBladeDirectionTravelRad": 0.39923538572763645,
+        "finalDirectionErrorRad": 0.014554734722642529,
+        "downPeakTipSpeedMps": 10.800953728612733,
+        "peakTipSpeedMps": 10.800953728612733,
+        "peakSwordKJ": 38.44613588964665,
+        "finalSwordKJ": 0.0005413914986195785,
+        "maxGapM": 0.0010544982430409125,
+        "maxAbsBladeTwistRadps": 2.7041434291474955,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 10.18107750026883
+      },
+      {
+        "weapon": "zweihander",
+        "ending": "release",
+        "mode": "original",
+        "afterBladeDirectionTravelRad": 0.414974018270543,
+        "finalDirectionErrorRad": 0.014451147340467565,
+        "downPeakTipSpeedMps": 10.732309617602548,
+        "peakTipSpeedMps": 10.732309617602548,
+        "peakSwordKJ": 37.91866602813595,
+        "finalSwordKJ": 0.0004564993487931761,
+        "maxGapM": 0.0010304970397043026,
+        "maxAbsBladeTwistRadps": 2.2965872270828798,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 10.353269576550481
+      },
+      {
+        "weapon": "zweihander",
+        "ending": "release",
+        "mode": "free",
+        "afterBladeDirectionTravelRad": 0.39923538572763645,
+        "finalDirectionErrorRad": 0.014554734722642529,
+        "downPeakTipSpeedMps": 10.800953728612733,
+        "peakTipSpeedMps": 10.800953728612733,
+        "peakSwordKJ": 38.44613588964665,
+        "finalSwordKJ": 0.0005413914986195785,
+        "maxGapM": 0.0010544982430409125,
+        "maxAbsBladeTwistRadps": 2.7041434291474955,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 10.18107750026883
+      },
+      {
+        "weapon": "zweihander",
+        "ending": "reverse",
+        "mode": "original",
+        "afterBladeDirectionTravelRad": 2.465112662921844,
+        "finalDirectionErrorRad": 0.04695512861654785,
+        "downPeakTipSpeedMps": 10.732309617602548,
+        "peakTipSpeedMps": 10.732309617602548,
+        "peakSwordKJ": 37.91866602813595,
+        "finalSwordKJ": 0.6275674254325557,
+        "maxGapM": 0.0010415703460513602,
+        "maxAbsBladeTwistRadps": 2.528583716755066,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 17.53775813749495
+      },
+      {
+        "weapon": "zweihander",
+        "ending": "reverse",
+        "mode": "free",
+        "afterBladeDirectionTravelRad": 2.4794091412367156,
+        "finalDirectionErrorRad": 0.046848558711861936,
+        "downPeakTipSpeedMps": 10.800953728612733,
+        "peakTipSpeedMps": 10.800953728612733,
+        "peakSwordKJ": 38.44613588964665,
+        "finalSwordKJ": 0.6514207699860763,
+        "maxGapM": 0.0010544982430409125,
+        "maxAbsBladeTwistRadps": 2.5730520251512714,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 17.621187655622908
+      }
+    ],
+    "episodes": [
+      {
+        "weapon": "sabre",
+        "seed": 7,
+        "mode": "original",
+        "durationS": 17.99999999999962,
+        "finalState": "stand",
+        "playerAlive": true,
+        "enemyAlive": true,
+        "firstClash": {
+          "timeS": 5.633333333333403,
+          "i": 675
+        },
+        "firstPositivePlayerInjury": null,
+        "positivePlayerInjuryCount": 0,
+        "postClashPlayerHandChangeStepBounds": [
+          69,
+          1151
+        ],
+        "stateOccupancyS": {
+          "stand": 15.991666666666667,
+          "getup": 2.0083333333333333
+        },
+        "maxGapM": 0.0023558521222710733,
+        "maxPelvisHeightM": 0.9697561860084534,
+        "maxPelvisUpwardSpeedMps": 0.7662880420684814,
+        "maxBodySpeedMps": 5.013490228999395,
+        "maxSwordKJ": 48.505537970735574,
+        "maxBladeTwistRadps": 51.877397177859585
+      },
+      {
+        "weapon": "sabre",
+        "seed": 7,
+        "mode": "free",
+        "durationS": 17.99999999999962,
+        "finalState": "getup",
+        "playerAlive": true,
+        "enemyAlive": true,
+        "firstClash": {
+          "timeS": 5.633333333333403,
+          "i": 675
+        },
+        "firstPositivePlayerInjury": null,
+        "positivePlayerInjuryCount": 0,
+        "postClashPlayerHandChangeStepBounds": [
+          70,
+          1185
+        ],
+        "stateOccupancyS": {
+          "stand": 16.95,
+          "getup": 1.05
+        },
+        "maxGapM": 0.0024855170612615293,
+        "maxPelvisHeightM": 0.9697561860084534,
+        "maxPelvisUpwardSpeedMps": 0.7384371161460876,
+        "maxBodySpeedMps": 5.722933998123192,
+        "maxSwordKJ": 49.36253420593573,
+        "maxBladeTwistRadps": 53.32528412877633
+      },
+      {
+        "weapon": "sabre",
+        "seed": 19,
+        "mode": "original",
+        "durationS": 17.99999999999962,
+        "finalState": "stand",
+        "playerAlive": true,
+        "enemyAlive": true,
+        "firstClash": {
+          "timeS": 6.9166666666668,
+          "i": 829
+        },
+        "firstPositivePlayerInjury": null,
+        "positivePlayerInjuryCount": 0,
+        "postClashPlayerHandChangeStepBounds": [
+          55,
+          1006
+        ],
+        "stateOccupancyS": {
+          "stand": 18.0
+        },
+        "maxGapM": 0.00249962173848882,
+        "maxPelvisHeightM": 0.9697561860084534,
+        "maxPelvisUpwardSpeedMps": 0.7744336128234863,
+        "maxBodySpeedMps": 4.807990882103032,
+        "maxSwordKJ": 52.99067568430097,
+        "maxBladeTwistRadps": 61.26399234657612
+      },
+      {
+        "weapon": "sabre",
+        "seed": 19,
+        "mode": "free",
+        "durationS": 17.99999999999962,
+        "finalState": "stand",
+        "playerAlive": true,
+        "enemyAlive": true,
+        "firstClash": {
+          "timeS": 6.9166666666668,
+          "i": 829
+        },
+        "firstPositivePlayerInjury": {
+          "t": 12.008333333333292,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "cut",
+          "energy": 64.58318578447756,
+          "severity": 0.2452236425387201
+        },
+        "positivePlayerInjuryCount": 2,
+        "postClashPlayerHandChangeStepBounds": [
+          45,
+          1015
+        ],
+        "stateOccupancyS": {
+          "stand": 15.325,
+          "getup": 2.675
+        },
+        "maxGapM": 0.0030053634636337382,
+        "maxPelvisHeightM": 0.9882169961929321,
+        "maxPelvisUpwardSpeedMps": 1.3175715208053589,
+        "maxBodySpeedMps": 5.999331798168938,
+        "maxSwordKJ": 50.860640287678876,
+        "maxBladeTwistRadps": 74.44629320376143
+      },
+      {
+        "weapon": "zweihander",
+        "seed": 7,
+        "mode": "original",
+        "durationS": 17.99999999999962,
+        "finalState": "stand",
+        "playerAlive": true,
+        "enemyAlive": true,
+        "firstClash": {
+          "timeS": 6.550000000000115,
+          "i": 785
+        },
+        "firstPositivePlayerInjury": null,
+        "positivePlayerInjuryCount": 0,
+        "postClashPlayerHandChangeStepBounds": [
+          62,
+          936
+        ],
+        "stateOccupancyS": {
+          "stand": 18.0
+        },
+        "maxGapM": 0.0033723775070008954,
+        "maxPelvisHeightM": 0.9698094725608826,
+        "maxPelvisUpwardSpeedMps": 0.8586397767066956,
+        "maxBodySpeedMps": 7.491930824771872,
+        "maxSwordKJ": 59.23865566688512,
+        "maxBladeTwistRadps": 33.39068062296065
+      },
+      {
+        "weapon": "zweihander",
+        "seed": 7,
+        "mode": "free",
+        "durationS": 17.99999999999962,
+        "finalState": "stand",
+        "playerAlive": true,
+        "enemyAlive": true,
+        "firstClash": {
+          "timeS": 6.550000000000115,
+          "i": 785
+        },
+        "firstPositivePlayerInjury": {
+          "t": 10.758333333333363,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 45.570091449363744,
+          "severity": 0.26174703439816804
+        },
+        "positivePlayerInjuryCount": 1,
+        "postClashPlayerHandChangeStepBounds": [
+          44,
+          986
+        ],
+        "stateOccupancyS": {
+          "stand": 18.0
+        },
+        "maxGapM": 0.0024448074118845736,
+        "maxPelvisHeightM": 0.9698094725608826,
+        "maxPelvisUpwardSpeedMps": 0.41193750500679016,
+        "maxBodySpeedMps": 10.163532708164512,
+        "maxSwordKJ": 61.35006301537348,
+        "maxBladeTwistRadps": 35.197837465721605
+      },
+      {
+        "weapon": "zweihander",
+        "seed": 19,
+        "mode": "original",
+        "durationS": 7.408333333333491,
+        "finalState": "dead",
+        "playerAlive": false,
+        "enemyAlive": true,
+        "firstClash": null,
+        "firstPositivePlayerInjury": {
+          "t": 7.400000000000158,
+          "att": 1,
+          "vic": 0,
+          "zone": "neck",
+          "type": "cut",
+          "energy": 126.72978660176683,
+          "severity": 0.6873874200510446
+        },
+        "positivePlayerInjuryCount": 1,
+        "postClashPlayerHandChangeStepBounds": null,
+        "stateOccupancyS": {
+          "stand": 7.4,
+          "dead": 0.008333333333333333
+        },
+        "maxGapM": 0.0023921116744712494,
+        "maxPelvisHeightM": 0.9698094725608826,
+        "maxPelvisUpwardSpeedMps": 0.4099349081516266,
+        "maxBodySpeedMps": 4.9960123287013865,
+        "maxSwordKJ": 49.918165220676165,
+        "maxBladeTwistRadps": 24.835617570734232
+      },
+      {
+        "weapon": "zweihander",
+        "seed": 19,
+        "mode": "free",
+        "durationS": 17.99999999999962,
+        "finalState": "stand",
+        "playerAlive": true,
+        "enemyAlive": true,
+        "firstClash": {
+          "timeS": 9.033333333333461,
+          "i": 1083
+        },
+        "firstPositivePlayerInjury": {
+          "t": 17.424999999999653,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 92.119996775805,
+          "severity": 0.7670892522084014
+        },
+        "positivePlayerInjuryCount": 1,
+        "postClashPlayerHandChangeStepBounds": [
+          54,
+          798
+        ],
+        "stateOccupancyS": {
+          "stand": 18.0
+        },
+        "maxGapM": 0.002618314637972854,
+        "maxPelvisHeightM": 0.9698094725608826,
+        "maxPelvisUpwardSpeedMps": 0.773357629776001,
+        "maxBodySpeedMps": 5.5137879168822375,
+        "maxSwordKJ": 73.63712045405403,
+        "maxBladeTwistRadps": 43.75701913082668
+      }
+    ],
+    "uniqueScreenNativeTrajectories": 8,
+    "corrections": {
+      "angle": "Scale-invariant atan2(cross length,dot) from recorded axes; frozen raw acos travel/error excluded.",
+      "input": "Raw afterClashInputSteps invalid: AI inputActive is undefined. Lower bound uses disjoint changed player-hand sample intervals; upper bound uses changed combined input hashes. No exact attack count.",
+      "injury": "Severity-zero callbacks are contacts; positive injuries recovered from complete cumulative lists.",
+      "observers": "Off rows validated by exact frames only; unobserved maxima zeros excluded."
+    },
+    "limitations": [
+      "Selected explicit torques/power exclude native motors, offhand/grip and contacts. No total muscle work claim.",
+      "Later reactive AI inputs diverge; episode outcomes and unequal durations are not equal-input braking efficiency.",
+      "Finite values and small gaps do not prove human motion or perceived realism."
+    ]
+  },
+  "brake": {
+    "schemaVersion": 1,
+    "screenReceipt": {
+      "bytes": 32113218,
+      "sha256": "69de645aca6927071ba34d4a8aaf76afa588959614c2e520b149eeb98c5a9112",
+      "sourceCommit": "dc0198068385cf082d383a917bc86ef6d0d24e42",
+      "executions": 14,
+      "wallSeconds": 46.678007074,
+      "sourceManifestAndTraceDigestsVerified": true
+    },
+    "duelReceipt": {
+      "bytes": 18933600,
+      "sha256": "34f379c5fe7fbd5d0402ec09a84e3de381c53da112ba85540e0595757365a854",
+      "sourceCommit": "dc0198068385cf082d383a917bc86ef6d0d24e42",
+      "executions": 10,
+      "wallSeconds": 43.629402357,
+      "sourceManifestAndTraceDigestsVerified": true
+    },
+    "screen": [
+      {
+        "weapon": "sabre",
+        "ending": "hold",
+        "mode": "original",
+        "afterBladeDirectionTravelRad": 0.18593982428269532,
+        "finalDirectionErrorRad": 0.0022296880963377937,
+        "downPeakTipSpeedMps": 8.28950236566312,
+        "peakTipSpeedMps": 8.28950236566312,
+        "peakSwordKJ": 10.262273694426508,
+        "finalSwordKJ": 1.3615150434357118e-05,
+        "maxGapM": 0.0006268103057937989,
+        "maxAbsBladeTwistRadps": 1.2293571078575587,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 3.732247112405011
+      },
+      {
+        "weapon": "sabre",
+        "ending": "hold",
+        "mode": "candidate",
+        "afterBladeDirectionTravelRad": 0.18593982428269532,
+        "finalDirectionErrorRad": 0.0022296880963377937,
+        "downPeakTipSpeedMps": 8.28950236566312,
+        "peakTipSpeedMps": 8.28950236566312,
+        "peakSwordKJ": 10.262273694426508,
+        "finalSwordKJ": 1.3615150434357118e-05,
+        "maxGapM": 0.0006268103057937989,
+        "maxAbsBladeTwistRadps": 1.2293571078575587,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 3.732247112405011
+      },
+      {
+        "weapon": "sabre",
+        "ending": "release",
+        "mode": "original",
+        "afterBladeDirectionTravelRad": 0.18593982428269532,
+        "finalDirectionErrorRad": 0.0022296880963377937,
+        "downPeakTipSpeedMps": 8.28950236566312,
+        "peakTipSpeedMps": 8.28950236566312,
+        "peakSwordKJ": 10.262273694426508,
+        "finalSwordKJ": 1.3615150434357118e-05,
+        "maxGapM": 0.0006268103057937989,
+        "maxAbsBladeTwistRadps": 1.2293571078575587,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 3.732247112405011
+      },
+      {
+        "weapon": "sabre",
+        "ending": "release",
+        "mode": "candidate",
+        "afterBladeDirectionTravelRad": 0.18593982428269532,
+        "finalDirectionErrorRad": 0.0022296880963377937,
+        "downPeakTipSpeedMps": 8.28950236566312,
+        "peakTipSpeedMps": 8.28950236566312,
+        "peakSwordKJ": 10.262273694426508,
+        "finalSwordKJ": 1.3615150434357118e-05,
+        "maxGapM": 0.0006268103057937989,
+        "maxAbsBladeTwistRadps": 1.2293571078575587,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 3.732247112405011
+      },
+      {
+        "weapon": "sabre",
+        "ending": "reverse",
+        "mode": "original",
+        "afterBladeDirectionTravelRad": 2.0789249915838885,
+        "finalDirectionErrorRad": 0.005152482869245974,
+        "downPeakTipSpeedMps": 8.28950236566312,
+        "peakTipSpeedMps": 8.28950236566312,
+        "peakSwordKJ": 10.262273694426508,
+        "finalSwordKJ": 0.0015396669541907818,
+        "maxGapM": 0.0006920341458941811,
+        "maxAbsBladeTwistRadps": 1.3897922976815995,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 5.627348859253628
+      },
+      {
+        "weapon": "sabre",
+        "ending": "reverse",
+        "mode": "candidate",
+        "afterBladeDirectionTravelRad": 2.0789249915838885,
+        "finalDirectionErrorRad": 0.005152482869245974,
+        "downPeakTipSpeedMps": 8.28950236566312,
+        "peakTipSpeedMps": 8.28950236566312,
+        "peakSwordKJ": 10.262273694426508,
+        "finalSwordKJ": 0.0015396669541907818,
+        "maxGapM": 0.0006920341458941811,
+        "maxAbsBladeTwistRadps": 1.3897922976815995,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 5.627348859253628
+      },
+      {
+        "weapon": "zweihander",
+        "ending": "hold",
+        "mode": "original",
+        "afterBladeDirectionTravelRad": 0.414974018270543,
+        "finalDirectionErrorRad": 0.014451147340467565,
+        "downPeakTipSpeedMps": 10.732309617602548,
+        "peakTipSpeedMps": 10.732309617602548,
+        "peakSwordKJ": 37.91866602813595,
+        "finalSwordKJ": 0.0004564993487931761,
+        "maxGapM": 0.0010304970397043026,
+        "maxAbsBladeTwistRadps": 2.2965872270828798,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 10.353269576550481
+      },
+      {
+        "weapon": "zweihander",
+        "ending": "hold",
+        "mode": "candidate",
+        "afterBladeDirectionTravelRad": 0.414974018270543,
+        "finalDirectionErrorRad": 0.014451147340467565,
+        "downPeakTipSpeedMps": 10.732309617602548,
+        "peakTipSpeedMps": 10.732309617602548,
+        "peakSwordKJ": 37.91866602813595,
+        "finalSwordKJ": 0.0004564993487931761,
+        "maxGapM": 0.0010304970397043026,
+        "maxAbsBladeTwistRadps": 2.2965872270828798,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 10.353269576550481
+      },
+      {
+        "weapon": "zweihander",
+        "ending": "release",
+        "mode": "original",
+        "afterBladeDirectionTravelRad": 0.414974018270543,
+        "finalDirectionErrorRad": 0.014451147340467565,
+        "downPeakTipSpeedMps": 10.732309617602548,
+        "peakTipSpeedMps": 10.732309617602548,
+        "peakSwordKJ": 37.91866602813595,
+        "finalSwordKJ": 0.0004564993487931761,
+        "maxGapM": 0.0010304970397043026,
+        "maxAbsBladeTwistRadps": 2.2965872270828798,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 10.353269576550481
+      },
+      {
+        "weapon": "zweihander",
+        "ending": "release",
+        "mode": "candidate",
+        "afterBladeDirectionTravelRad": 0.414974018270543,
+        "finalDirectionErrorRad": 0.014451147340467565,
+        "downPeakTipSpeedMps": 10.732309617602548,
+        "peakTipSpeedMps": 10.732309617602548,
+        "peakSwordKJ": 37.91866602813595,
+        "finalSwordKJ": 0.0004564993487931761,
+        "maxGapM": 0.0010304970397043026,
+        "maxAbsBladeTwistRadps": 2.2965872270828798,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 10.353269576550481
+      },
+      {
+        "weapon": "zweihander",
+        "ending": "reverse",
+        "mode": "original",
+        "afterBladeDirectionTravelRad": 2.465112662921844,
+        "finalDirectionErrorRad": 0.04695512861654785,
+        "downPeakTipSpeedMps": 10.732309617602548,
+        "peakTipSpeedMps": 10.732309617602548,
+        "peakSwordKJ": 37.91866602813595,
+        "finalSwordKJ": 0.6275674254325557,
+        "maxGapM": 0.0010415703460513602,
+        "maxAbsBladeTwistRadps": 2.528583716755066,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 17.53775813749495
+      },
+      {
+        "weapon": "zweihander",
+        "ending": "reverse",
+        "mode": "candidate",
+        "afterBladeDirectionTravelRad": 2.465112662921844,
+        "finalDirectionErrorRad": 0.04695512861654785,
+        "downPeakTipSpeedMps": 10.732309617602548,
+        "peakTipSpeedMps": 10.732309617602548,
+        "peakSwordKJ": 37.91866602813595,
+        "finalSwordKJ": 0.6275674254325557,
+        "maxGapM": 0.0010415703460513602,
+        "maxAbsBladeTwistRadps": 2.528583716755066,
+        "afterExplicitWristTorqueMagnitudeIntegralNms": 17.53775813749495
+      }
+    ],
+    "episodes": [
+      {
+        "weapon": "sabre",
+        "seed": 7,
+        "mode": "original",
+        "durationS": 17.99999999999962,
+        "finalState": "stand",
+        "playerAlive": true,
+        "enemyAlive": true,
+        "firstClash": {
+          "timeS": 5.633333333333403,
+          "i": 675
+        },
+        "firstPositivePlayerInjury": null,
+        "positivePlayerInjuryCount": 0,
+        "postClashPlayerHandChangeStepBounds": [
+          69,
+          1151
+        ],
+        "exactPostClashHandChangeSteps": 665,
+        "stateOccupancyS": {
+          "stand": 15.991666666666667,
+          "getup": 2.0083333333333333
+        },
+        "maxGapM": 0.0023558521222710733,
+        "maxPelvisHeightM": 0.9697561860084534,
+        "maxPelvisUpwardSpeedMps": 0.7662880420684814,
+        "maxBodySpeedMps": 5.013490228999395,
+        "maxSwordKJ": 48.505537970735574,
+        "maxBladeTwistRadps": 51.877397177859585
+      },
+      {
+        "weapon": "sabre",
+        "seed": 7,
+        "mode": "candidate",
+        "durationS": 17.99999999999962,
+        "finalState": "stand",
+        "playerAlive": true,
+        "enemyAlive": true,
+        "firstClash": {
+          "timeS": 5.633333333333403,
+          "i": 675
+        },
+        "firstPositivePlayerInjury": {
+          "t": 11.591666666666649,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 84.15382734500392,
+          "severity": 0.3044180129734395
+        },
+        "positivePlayerInjuryCount": 2,
+        "postClashPlayerHandChangeStepBounds": [
+          74,
+          1110
+        ],
+        "exactPostClashHandChangeSteps": 584,
+        "stateOccupancyS": {
+          "stand": 18.0
+        },
+        "maxGapM": 0.0025964582080356905,
+        "maxPelvisHeightM": 1.0317946672439575,
+        "maxPelvisUpwardSpeedMps": 1.5806177854537964,
+        "maxBodySpeedMps": 6.640502752851996,
+        "maxSwordKJ": 50.66083703861962,
+        "maxBladeTwistRadps": 81.30149891019205
+      },
+      {
+        "weapon": "sabre",
+        "seed": 19,
+        "mode": "original",
+        "durationS": 17.99999999999962,
+        "finalState": "stand",
+        "playerAlive": true,
+        "enemyAlive": true,
+        "firstClash": {
+          "timeS": 6.9166666666668,
+          "i": 829
+        },
+        "firstPositivePlayerInjury": null,
+        "positivePlayerInjuryCount": 0,
+        "postClashPlayerHandChangeStepBounds": [
+          55,
+          1006
+        ],
+        "exactPostClashHandChangeSteps": 464,
+        "stateOccupancyS": {
+          "stand": 18.0
+        },
+        "maxGapM": 0.00249962173848882,
+        "maxPelvisHeightM": 0.9697561860084534,
+        "maxPelvisUpwardSpeedMps": 0.7744336128234863,
+        "maxBodySpeedMps": 4.807990882103032,
+        "maxSwordKJ": 52.99067568430097,
+        "maxBladeTwistRadps": 61.26399234657612
+      },
+      {
+        "weapon": "sabre",
+        "seed": 19,
+        "mode": "candidate",
+        "durationS": 17.99999999999962,
+        "finalState": "stand",
+        "playerAlive": true,
+        "enemyAlive": true,
+        "firstClash": {
+          "timeS": 6.9166666666668,
+          "i": 829
+        },
+        "firstPositivePlayerInjury": {
+          "t": 7.283333333333485,
+          "att": 1,
+          "vic": 0,
+          "zone": "chest",
+          "type": "cut",
+          "energy": 58.620897854071345,
+          "severity": 0.12044597454766594
+        },
+        "positivePlayerInjuryCount": 1,
+        "postClashPlayerHandChangeStepBounds": [
+          54,
+          1046
+        ],
+        "exactPostClashHandChangeSteps": 494,
+        "stateOccupancyS": {
+          "stand": 18.0
+        },
+        "maxGapM": 0.005374546196959231,
+        "maxPelvisHeightM": 0.9697561860084534,
+        "maxPelvisUpwardSpeedMps": 0.6587387919425964,
+        "maxBodySpeedMps": 6.590828093407535,
+        "maxSwordKJ": 58.1380156947072,
+        "maxBladeTwistRadps": 110.59616313314575
+      },
+      {
+        "weapon": "zweihander",
+        "seed": 7,
+        "mode": "original",
+        "durationS": 17.99999999999962,
+        "finalState": "stand",
+        "playerAlive": true,
+        "enemyAlive": true,
+        "firstClash": {
+          "timeS": 6.550000000000115,
+          "i": 785
+        },
+        "firstPositivePlayerInjury": null,
+        "positivePlayerInjuryCount": 0,
+        "postClashPlayerHandChangeStepBounds": [
+          62,
+          936
+        ],
+        "exactPostClashHandChangeSteps": 495,
+        "stateOccupancyS": {
+          "stand": 18.0
+        },
+        "maxGapM": 0.0033723775070008954,
+        "maxPelvisHeightM": 0.9698094725608826,
+        "maxPelvisUpwardSpeedMps": 0.8586397767066956,
+        "maxBodySpeedMps": 7.491930824771872,
+        "maxSwordKJ": 59.23865566688512,
+        "maxBladeTwistRadps": 33.39068062296065
+      },
+      {
+        "weapon": "zweihander",
+        "seed": 7,
+        "mode": "candidate",
+        "durationS": 17.99999999999962,
+        "finalState": "stand",
+        "playerAlive": true,
+        "enemyAlive": true,
+        "firstClash": {
+          "timeS": 6.45000000000011,
+          "i": 773
+        },
+        "firstPositivePlayerInjury": {
+          "t": 13.841666666666521,
+          "att": 1,
+          "vic": 0,
+          "zone": "leg",
+          "type": "cut",
+          "energy": 34.5780765744342,
+          "severity": 0.06144183651935388
+        },
+        "positivePlayerInjuryCount": 1,
+        "postClashPlayerHandChangeStepBounds": [
+          61,
+          932
+        ],
+        "exactPostClashHandChangeSteps": 464,
+        "stateOccupancyS": {
+          "stand": 18.0
+        },
+        "maxGapM": 0.0027216603961839657,
+        "maxPelvisHeightM": 1.0429123640060425,
+        "maxPelvisUpwardSpeedMps": 1.6373670101165771,
+        "maxBodySpeedMps": 6.882684882695308,
+        "maxSwordKJ": 76.15750197159676,
+        "maxBladeTwistRadps": 33.418860029312754
+      },
+      {
+        "weapon": "zweihander",
+        "seed": 19,
+        "mode": "original",
+        "durationS": 7.408333333333491,
+        "finalState": "dead",
+        "playerAlive": false,
+        "enemyAlive": true,
+        "firstClash": null,
+        "firstPositivePlayerInjury": {
+          "t": 7.400000000000158,
+          "att": 1,
+          "vic": 0,
+          "zone": "neck",
+          "type": "cut",
+          "energy": 126.72978660176683,
+          "severity": 0.6873874200510446
+        },
+        "positivePlayerInjuryCount": 1,
+        "postClashPlayerHandChangeStepBounds": null,
+        "exactPostClashHandChangeSteps": 0,
+        "stateOccupancyS": {
+          "stand": 7.4,
+          "dead": 0.008333333333333333
+        },
+        "maxGapM": 0.0023921116744712494,
+        "maxPelvisHeightM": 0.9698094725608826,
+        "maxPelvisUpwardSpeedMps": 0.4099349081516266,
+        "maxBodySpeedMps": 4.9960123287013865,
+        "maxSwordKJ": 49.918165220676165,
+        "maxBladeTwistRadps": 24.835617570734232
+      },
+      {
+        "weapon": "zweihander",
+        "seed": 19,
+        "mode": "candidate",
+        "durationS": 17.99999999999962,
+        "finalState": "stand",
+        "playerAlive": true,
+        "enemyAlive": true,
+        "firstClash": {
+          "timeS": 10.316666666666721,
+          "i": 1237
+        },
+        "firstPositivePlayerInjury": {
+          "t": 8.450000000000161,
+          "att": 1,
+          "vic": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energy": 27.413112243249007,
+          "severity": 0.059850139321741755
+        },
+        "positivePlayerInjuryCount": 2,
+        "postClashPlayerHandChangeStepBounds": [
+          41,
+          667
+        ],
+        "exactPostClashHandChangeSteps": 346,
+        "stateOccupancyS": {
+          "stand": 18.0
+        },
+        "maxGapM": 0.0028792479580145884,
+        "maxPelvisHeightM": 1.0247714519500732,
+        "maxPelvisUpwardSpeedMps": 1.4287258386611938,
+        "maxBodySpeedMps": 5.871181460886333,
+        "maxSwordKJ": 90.21543615736331,
+        "maxBladeTwistRadps": 38.17776911643776
+      }
+    ],
+    "uniqueScreenNativeTrajectories": 4,
+    "corrections": {
+      "angle": "All direction metrics recomputed using scale-invariant atan2(cross length,dot). First drag raw batch acos travel/error is excluded; later source already uses atan2.",
+      "input": "First drag raw afterClashInputSteps is invalid: AI inputActive is undefined. New batches count actual hand changes. Bounds use disjoint player-hand sample intervals and changed combined input hashes. No exact attack count.",
+      "injury": "Severity-zero callbacks are contacts; positive injuries recovered from complete cumulative lists.",
+      "observers": "Off rows validated by exact frames only; unobserved maxima zeros excluded."
+    },
+    "limitations": [
+      "Selected explicit torques/power exclude native motors, offhand/grip and contacts. No total muscle work claim.",
+      "Later reactive AI inputs diverge; episode outcomes and unequal durations are not equal-input braking efficiency.",
+      "Finite values and small gaps do not prove human motion or perceived realism."
+    ],
+    "activation": {
+      "screen": {
+        "receipt": {
+          "bytes": 8517155,
+          "sha256": "1e6f07d60c2ecd5495ea2e9b856faca8ba1c6f6f4ea1b9026590674672782502",
+          "sourceCommit": "e8bcec461b052f6d044ddb5348084aa3d2c2b2bb",
+          "executions": 4,
+          "wallSeconds": 9.028559884,
+          "sourceManifestAndTraceDigestsVerified": true
+        },
+        "eligibleOriginalOutputChecks": 420,
+        "previousFullFramesExact": true,
+        "firstDifferentSelectedDamping": null
+      },
+      "duel": {
+        "receipt": {
+          "bytes": 37571526,
+          "sha256": "5ddd2ed348f254108a92288785a480ff1c39b923a5e8de85efb019866164b416",
+          "sourceCommit": "99c2b42738db5772f34061fa8a772ee40c4b3fb4",
+          "executions": 4,
+          "wallSeconds": 9.94059,
+          "sourceManifestAndTraceDigestsVerified": true
+        },
+        "eligibleOriginalOutputChecks": 4320,
+        "previousFullFramesExact": true,
+        "firstDifferentSelectedDamping": {
+          "i": 94,
+          "timeS": 0.7916666666666663,
+          "incomingObservationsExact": true,
+          "aimExact": true,
+          "angleRad": 0.5863847159446085,
+          "towardRadps": 11.782371710488567,
+          "targetTowardRadps": -0.2419296108207141,
+          "stopAngleRad": 0.4344342629006604,
+          "original": {
+            "releaseThresholdRad": 0.6082079680609245,
+            "selectedDamping": 11,
+            "baseCapBeforeHillNm": 22,
+            "capAfterHillNm": 13.201377931824155,
+            "releaseSelected": false,
+            "gate": {
+              "nonparallel": true,
+              "unlatched": true,
+              "towardAbove3": true,
+              "fasterThanTarget": true,
+              "angleAbove025": true
+            }
+          },
+          "candidate": {
+            "releaseThresholdRad": 0.4344342629006604,
+            "selectedDamping": 1.5,
+            "baseCapBeforeHillNm": 22,
+            "capAfterHillNm": 8.432314623555305,
+            "releaseSelected": true,
+            "gate": {
+              "nonparallel": true,
+              "unlatched": true,
+              "towardAbove3": true,
+              "fasterThanTarget": true,
+              "angleAbove025": true
+            }
+          },
+          "originalActualWristTorque": {
+            "path": "driveSword",
+            "part": "sword",
+            "T": [
+              -1.849633092342643,
+              -1.8907989901152236,
+              -12.933891236434588
+            ],
+            "omega": [
+              3.2846145629882812,
+              -1.7274311780929565,
+              11.962054252624512
+            ],
+            "instantaneousPowerW": -157.52501533203724
+          },
+          "candidateActualWristTorque": {
+            "path": "driveSword",
+            "part": "sword",
+            "T": [
+              4.386222987637594,
+              2.001579356494896,
+              6.918387500880691
+            ],
+            "omega": [
+              3.2846145629882812,
+              -1.7274311780929565,
+              11.962054252624512
+            ],
+            "instantaneousPowerW": 93.70758794208602
+          }
+        }
+      }
+    }
+  },
+  "browser": {
+    "cases": [
+      {
+        "batch": "visual-02",
+        "case": "sabre-free",
+        "bytes": 588843,
+        "sha256": "3b085036544740a82925e55704be384cf1dafc81f61413cbdfe2b19d2665273d",
+        "simTimeS": 5.5500000000000655,
+        "first": [
+          {
+            "timeS": 0,
+            "old": 0.30000001192092896,
+            "new": 0,
+            "propertiesRetained": true,
+            "skill": 0,
+            "enemyDrag": 0.30000001192092896
+          }
+        ],
+        "finite": true,
+        "pageErrors": [],
+        "trustedTouchEvents": 30,
+        "consumedInputFrames": 26,
+        "clashCallbacks": 0,
+        "positiveInjuryCallbacks": 0
+      },
+      {
+        "batch": "visual-02",
+        "case": "sabre-original",
+        "bytes": 578236,
+        "sha256": "9a99d7e397d9a5888f82be18db7853630e5559b89a00b977c917c5739ecb6334",
+        "simTimeS": 5.466666666666728,
+        "first": [
+          {
+            "timeS": 0,
+            "old": 0.30000001192092896,
+            "new": 0.30000001192092896,
+            "propertiesRetained": true,
+            "skill": 0,
+            "enemyDrag": 0.30000001192092896
+          }
+        ],
+        "finite": true,
+        "pageErrors": [],
+        "trustedTouchEvents": 30,
+        "consumedInputFrames": 26,
+        "clashCallbacks": 0,
+        "positiveInjuryCallbacks": 0
+      },
+      {
+        "batch": "visual-02",
+        "case": "zweihander-free",
+        "bytes": 576220,
+        "sha256": "8774ba2ffe8c6f43d945a44a317002548c0e992373bb277568dd0d9fb323bcca",
+        "simTimeS": 5.441666666666727,
+        "first": [
+          {
+            "timeS": 0,
+            "old": 0.30000001192092896,
+            "new": 0,
+            "propertiesRetained": true,
+            "skill": 0,
+            "enemyDrag": 0.30000001192092896
+          }
+        ],
+        "finite": true,
+        "pageErrors": [],
+        "trustedTouchEvents": 30,
+        "consumedInputFrames": 26,
+        "clashCallbacks": 0,
+        "positiveInjuryCallbacks": 0
+      },
+      {
+        "batch": "visual-02",
+        "case": "zweihander-original",
+        "bytes": 607826,
+        "sha256": "00ab8e5ac808a6132dc96955e55b34a2ef6852ede6d6da75520d1fc0615a5aa2",
+        "simTimeS": 5.7166666666667405,
+        "first": [
+          {
+            "timeS": 0,
+            "old": 0.30000001192092896,
+            "new": 0.30000001192092896,
+            "propertiesRetained": true,
+            "skill": 0,
+            "enemyDrag": 0.30000001192092896
+          }
+        ],
+        "finite": true,
+        "pageErrors": [],
+        "trustedTouchEvents": 30,
+        "consumedInputFrames": 26,
+        "clashCallbacks": 0,
+        "positiveInjuryCallbacks": 0
+      },
+      {
+        "batch": "visual-03",
+        "case": "sabre-free",
+        "bytes": 1026246,
+        "sha256": "a67b73b5f0d066cc570b04a5d6eb04337c6f4201ceea1da0c56ee3e6c4924515",
+        "simTimeS": 9.775000000000086,
+        "first": [
+          {
+            "timeS": 0,
+            "old": 0.30000001192092896,
+            "new": 0,
+            "propertiesRetained": true,
+            "skill": 0,
+            "enemyDrag": 0.30000001192092896
+          }
+        ],
+        "finite": true,
+        "pageErrors": [],
+        "trustedTouchEvents": 30,
+        "consumedInputFrames": 26,
+        "clashCallbacks": 0,
+        "positiveInjuryCallbacks": 1
+      },
+      {
+        "batch": "visual-03",
+        "case": "sabre-original",
+        "bytes": 1071546,
+        "sha256": "da8952c8d724fcaec733c551a41f79efab7546abeeb5cb670592839d7f2a3792",
+        "simTimeS": 10.100000000000067,
+        "first": [
+          {
+            "timeS": 0,
+            "old": 0.30000001192092896,
+            "new": 0.30000001192092896,
+            "propertiesRetained": true,
+            "skill": 0,
+            "enemyDrag": 0.30000001192092896
+          }
+        ],
+        "finite": true,
+        "pageErrors": [],
+        "trustedTouchEvents": 30,
+        "consumedInputFrames": 26,
+        "clashCallbacks": 15,
+        "positiveInjuryCallbacks": 2
+      },
+      {
+        "batch": "visual-03",
+        "case": "zweihander-free",
+        "bytes": 995161,
+        "sha256": "27507b1f62845b478de95479c38ecadc57de0dd03326c5dff114459ee49a3184",
+        "simTimeS": 9.375000000000108,
+        "first": [
+          {
+            "timeS": 0,
+            "old": 0.30000001192092896,
+            "new": 0,
+            "propertiesRetained": true,
+            "skill": 0,
+            "enemyDrag": 0.30000001192092896
+          }
+        ],
+        "finite": true,
+        "pageErrors": [],
+        "trustedTouchEvents": 30,
+        "consumedInputFrames": 26,
+        "clashCallbacks": 85,
+        "positiveInjuryCallbacks": 1
+      },
+      {
+        "batch": "visual-03",
+        "case": "zweihander-original",
+        "bytes": 1033505,
+        "sha256": "f491f9a4eec2b20800a7cb3d04d462f2b7342095c8198859956a64b8a3152928",
+        "simTimeS": 9.741666666666754,
+        "first": [
+          {
+            "timeS": 0,
+            "old": 0.30000001192092896,
+            "new": 0.30000001192092896,
+            "propertiesRetained": true,
+            "skill": 0,
+            "enemyDrag": 0.30000001192092896
+          }
+        ],
+        "finite": true,
+        "pageErrors": [],
+        "trustedTouchEvents": 30,
+        "consumedInputFrames": 26,
+        "clashCallbacks": 56,
+        "positiveInjuryCallbacks": 2
+      },
+      {
+        "batch": "visual-brake-01",
+        "case": "sabre-candidate",
+        "bytes": 1090636,
+        "sha256": "311b65de4371e7718a4d3a14bc58eed7e49f10cdebe70ab43311b7ed7c91f26c",
+        "simTimeS": 10.316666666666721,
+        "first": [
+          {
+            "timeS": 0,
+            "old": 0.30000001192092896,
+            "new": 0.30000001192092896,
+            "oldMargin": 1.4,
+            "newMargin": 1,
+            "enemyMargin": 1.4,
+            "propertiesRetained": true,
+            "skill": 0,
+            "enemyDrag": 0.30000001192092896
+          }
+        ],
+        "finite": true,
+        "pageErrors": [],
+        "trustedTouchEvents": 30,
+        "consumedInputFrames": 26,
+        "clashCallbacks": 3,
+        "positiveInjuryCallbacks": 0
+      },
+      {
+        "batch": "visual-brake-01",
+        "case": "sabre-original",
+        "bytes": 1049075,
+        "sha256": "9865c1051baca36c6427b91a2b8a87af68cc0625d98aaf860f7106735571aaa1",
+        "simTimeS": 9.983333333333407,
+        "first": [
+          {
+            "timeS": 0,
+            "old": 0.30000001192092896,
+            "new": 0.30000001192092896,
+            "oldMargin": 1.4,
+            "newMargin": 1.4,
+            "enemyMargin": 1.4,
+            "propertiesRetained": true,
+            "skill": 0,
+            "enemyDrag": 0.30000001192092896
+          }
+        ],
+        "finite": true,
+        "pageErrors": [],
+        "trustedTouchEvents": 30,
+        "consumedInputFrames": 26,
+        "clashCallbacks": 3,
+        "positiveInjuryCallbacks": 2
+      },
+      {
+        "batch": "visual-brake-01",
+        "case": "zweihander-candidate",
+        "bytes": 1040752,
+        "sha256": "394dab4c4542d1db0dc6c87e9823ba37b61e9bdc6607720fa4cb9ce4f25098ac",
+        "simTimeS": 9.858333333333414,
+        "first": [
+          {
+            "timeS": 0,
+            "old": 0.30000001192092896,
+            "new": 0.30000001192092896,
+            "oldMargin": 1.4,
+            "newMargin": 1,
+            "enemyMargin": 1.4,
+            "propertiesRetained": true,
+            "skill": 0,
+            "enemyDrag": 0.30000001192092896
+          }
+        ],
+        "finite": true,
+        "pageErrors": [],
+        "trustedTouchEvents": 30,
+        "consumedInputFrames": 26,
+        "clashCallbacks": 45,
+        "positiveInjuryCallbacks": 0
+      },
+      {
+        "batch": "visual-brake-01",
+        "case": "zweihander-original",
+        "bytes": 1015560,
+        "sha256": "ac1b918765a3e4a9ba22976cc1faf5fa2bfb0c1f91ba22cbceef966cff428136",
+        "simTimeS": 9.675000000000091,
+        "first": [
+          {
+            "timeS": 0,
+            "old": 0.30000001192092896,
+            "new": 0.30000001192092896,
+            "oldMargin": 1.4,
+            "newMargin": 1.4,
+            "enemyMargin": 1.4,
+            "propertiesRetained": true,
+            "skill": 0,
+            "enemyDrag": 0.30000001192092896
+          }
+        ],
+        "finite": true,
+        "pageErrors": [],
+        "trustedTouchEvents": 30,
+        "consumedInputFrames": 26,
+        "clashCallbacks": 3,
+        "positiveInjuryCallbacks": 0
+      }
+    ],
+    "compiledRuntime": "Same as delivered875997f; local research hooks only. Default camera4cases; live presentation-only side camera8cases.",
+    "limits": "Real trusted touch and reactive AI; not deterministic paired browser inputs or physical-device user feel. Images/videos outsideGit. First four07-contact filenames were labels without proving contact; later cases have actual contact callbacks."
+  }
+}
