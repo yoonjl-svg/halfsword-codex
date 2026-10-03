@@ -1,19 +1,28 @@
 // Local production and public delivery contracts using the compiled window.game.
-// Usage: node tools/browser/backlog_release_smoke.mjs <base-url> <fresh-output-dir>
+// Usage: node tools/browser/backlog_release_smoke.mjs <base-url> <fresh-output-dir> [--plan-only]
 // No source imports, synthetic wounds, AI replacement, or physical state injection.
 import assert from 'node:assert/strict';
 import { mkdir, writeFile, access } from 'node:fs/promises';
 import { join } from 'node:path';
+const positional = [];
+let planOnly = false;
+for (const arg of process.argv.slice(2)) {
+  if (arg === '--plan-only') { assert.equal(planOnly, false, 'Do not repeat --plan-only'); planOnly = true; }
+  else if (arg.startsWith('-')) throw Error(`Unknown argument: ${arg}`);
+  else positional.push(arg);
+}
+assert.ok(positional.length <= 2, 'Usage: <base-url> <fresh-output-dir> [--plan-only]');
+const mode = planOnly ? 'plan-only' : 'full';
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright');
 
-const base = new URL(process.argv[2] || process.env.HALFSWORD_TEST_URL || 'http://127.0.0.1:4191/');
+const base = new URL(positional[0] || process.env.HALFSWORD_TEST_URL || 'http://127.0.0.1:4191/');
 assert.equal(base.username + base.password, '', 'Do not put credentials in the base URL');
 base.search = ''; base.hash = '';
 if (!base.pathname.endsWith('/')) base.pathname += '/';
 const local = ['localhost', '127.0.0.1', '[::1]'].includes(base.hostname);
 assert.ok(['http:', 'https:'].includes(base.protocol), 'Use an HTTP or HTTPS deployment URL');
 assert.ok(local || (base.protocol === 'https:' && base.hostname === 'yoonjl-svg.github.io' && base.pathname === '/halfsword-codex/'), 'Use a local server or the independent repository Pages URL');
-const out = process.argv[3] || process.env.HALFSWORD_EVIDENCE_DIR || '/tmp/halfsword-backlog-release';
+const out = positional[1] || process.env.HALFSWORD_EVIDENCE_DIR || '/tmp/halfsword-backlog-release';
 await mkdir(out, { recursive: true });
 try { await access(join(out, 'result.json')); throw Error('Use a fresh output directory'); }
 catch (e) { if (e.code !== 'ENOENT') throw e; }
@@ -238,6 +247,20 @@ async function chooseCard(index) {
   assert.equal(after.weapon, before.ids[index], 'The fight did not use the actually tapped card');
   return { index, before, bounds, after };
 }
+async function checkDevelopmentPlan() {
+  current = 'development-plan'; await page.setViewportSize(portrait);
+  await page.goto(new URL('development-plan.html', base).href, { waitUntil: 'networkidle' });
+  const plan = { id: current, kind: 'development-plan', portrait: await layout(), characters: (await page.locator('main').innerText()).length,
+    headings: await page.locator('main h2').allTextContents(), ledgerLinks: await page.locator('a[href*="DELIVERY_BACKLOG"]').evaluateAll(nodes => nodes.map(a => ({ text: a.textContent, href: a.href }))) };
+  rows.push(plan);
+  fit(plan.portrait); assert.ok(plan.characters > 1000);
+  for (const title of ['중장기 방향', '48시간 작업표', '비용과 실험 규칙', '사용자 무응답·중단·승인 처리', '실제 실행 대장 · 복원 전 연구·전달 역사', '다음 승인 작업 · 재개 위치']) assert.ok(plan.headings.includes(title), `Development plan section missing: ${title}`);
+  assert.ok(plan.ledgerLinks.some(a => a.href === 'https://github.com/yoonjl-svg/halfsword-codex/blob/main/docs/codex_team/DELIVERY_BACKLOG_20261003.md'), 'Development plan has no independent-repository delivery ledger link');
+  await page.screenshot({ path: join(out, 'development-plan-portrait.png'), fullPage: true });
+  await page.setViewportSize(landscape); plan.landscape = await layout(); fit(plan.landscape);
+  await page.screenshot({ path: join(out, 'development-plan-landscape.png'), fullPage: true });
+  plan.pass = true;
+}
 try {
   browser = await chromium.launch(launch);
   context = await browser.newContext({ viewport: portrait, isMobile: true, hasTouch: true });
@@ -251,6 +274,7 @@ try {
   page.on('console', m => { if (m.type() === 'error') errors.push({ id: current, type: 'console', message: m.text() }); });
   page.on('response', r => { if (r.status() >= 400) httpFailures.push({ id: current, status: r.status(), url: r.url() }); });
   page.on('requestfailed', r => requestFailures.push({ id: current, url: r.url(), error: r.failure()?.errorText }));
+  if (!planOnly) {
   const lab = new URL('feature-lab.html', base);
   await page.goto(lab.href, { waitUntil: 'networkidle' }); fit(await layout());
   links = await page.evaluate(ids => Object.fromEntries(ids.map(id => [id, document.getElementById(id)?.href || null])), ids);
@@ -286,25 +310,20 @@ try {
   ordinaryRow.secondChoice = await chooseCard(1);
   ordinaryRow.newObjects = await page.evaluate(() => Object.fromEntries(['player', 'enemy', 'world', 'combat'].map(k => [k, game[k] !== backlogProbe.restartReference[k]])));
   assert.ok(Object.values(ordinaryRow.newObjects).every(Boolean)); ordinaryRow.pass = true;
-  current = 'development-plan'; await page.setViewportSize(portrait);
-  await page.goto(new URL('development-plan.html', base).href, { waitUntil: 'networkidle' });
-  const plan = { id: current, portrait: await layout(), characters: (await page.locator('main').innerText()).length,
-    headings: await page.locator('main h2').allTextContents(), ledgerLinks: await page.locator('a[href*="DELIVERY_BACKLOG"]').evaluateAll(nodes => nodes.map(a => ({ text: a.textContent, href: a.href }))) };
-  fit(plan.portrait); assert.ok(plan.characters > 1000);
-  for (const title of ['중장기 방향', '48시간 작업표', '비용과 실험 규칙', '사용자 무응답·중단·승인 처리', '실제 실행 대장', '다음 승인 작업 · 재개 위치']) assert.ok(plan.headings.includes(title), `Development plan section missing: ${title}`);
-  assert.ok(plan.ledgerLinks.some(a => /DELIVERY_BACKLOG_20261003\.md/.test(a.href)), 'Development plan has no delivery ledger link');
-  await page.screenshot({ path: join(out, 'development-plan-portrait.png'), fullPage: true });
-  await page.setViewportSize(landscape); plan.landscape = await layout(); fit(plan.landscape); plan.pass = true; rows.push(plan);
+  }
+  await checkDevelopmentPlan();
   assert.deepEqual(blockedRequests, []); assert.deepEqual(httpFailures, []); assert.deepEqual(requestFailures, []); assert.deepEqual(errors, []);
   pass = true;
 } catch (e) { fatal = { id: current, name: e.name, message: e.message, stack: e.stack }; process.exitCode = 1; }
 finally {
   if (!pass && page) { try { await page.screenshot({ path: join(out, 'failure.png'), fullPage: true }); } catch {} }
   const finishedAt = new Date();
-  await writeFile(join(out, 'result.json'), JSON.stringify({ pass, base: base.href, publicHTTPS: !local,
+  await writeFile(join(out, 'result.json'), JSON.stringify({ pass, mode, base: base.href, publicHTTPS: !local,
     startedAt: startedAt.toISOString(), finishedAt: finishedAt.toISOString(), wallSeconds: (finishedAt - startedAt) / 1000,
-    expectedCTAIds: ids, links, rows, errors, httpFailures, requestFailures, blockedRequests, fatal,
-    scope: 'Compiled-game mobile entry, native input mapping, first-step selection, restart/reload, ordinary preference return, and withdrawn/pending URL fallbacks. AI and normal combat remain active; no device-performance, long-combat efficacy, or human-feel claim. Public bytes and audio routing are separate checks.' }, null, 2) + '\n');
+    expectedCTAIds: planOnly ? [] : ids, links, rows, errors, httpFailures, requestFailures, blockedRequests, fatal,
+    scope: planOnly
+      ? 'Development plan only: actual body length, six current core section titles, independent-repository delivery ledger href, portrait/landscape overflow, and browser/network errors. No game, input, combat, audio, or public-byte checks are performed in this mode.'
+      : 'Compiled-game mobile entry, native input mapping, first-step selection, restart/reload, ordinary preference return, withdrawn/pending URL fallbacks, and development plan. AI and normal combat remain active; no device-performance, long-combat efficacy, or human-feel claim. Public bytes and audio routing are separate checks.' }, null, 2) + '\n');
   if (browser) await browser.close();
-  console.log(JSON.stringify({ pass, rows: rows.length, failure: fatal?.id || null, out }));
+  console.log(JSON.stringify({ pass, mode, rows: rows.length, failure: fatal?.id || null, out }));
 }
