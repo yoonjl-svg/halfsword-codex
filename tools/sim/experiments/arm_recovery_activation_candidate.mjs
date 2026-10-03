@@ -21,6 +21,9 @@ export async function loadArmRecoveryActivation(){
   replace("      if (n === 'uarmS' || n === 'farmS') mus *= (0.3 + 0.7 * this.limbs.armS) * this.strength;", "      if (n === 'uarmS' || n === 'farmS') { mus = Math.max(0.1,recoveryArmMuscle(this)); mus *= (0.3 + 0.7 * this.limbs.armS) * this.strength; }");
   replace("    if (this.muscle < 0.12 || this.state === 'dead') return;", "    if (recoveryArmMuscle(this) < 0.12 || this.state === 'dead') return;");
   replace('Math.max(0.1, this.muscle) * (0.3 + 0.7 * this.limbs.armS)', 'Math.max(0.1, recoveryArmMuscle(this)) * (0.3 + 0.7 * this.limbs.armS)');
+  replace("      if (n === 'uarmO' || n === 'farmO') mus *= 0.15 + 0.85 * this.limbs.armO;", "      if (n === 'uarmO' || n === 'farmO') { mus = Math.max(0.1,recoveryGripMuscle(this)); mus *= 0.15 + 0.85 * this.limbs.armO; }");
+  replace('      this.muscle > 0.3 &&', '      recoveryGripMuscle(this) > 0.3 &&');
+  replace('Math.min(1, this.muscle) * (0.5 + 0.5 * this.limbs.armO)', 'Math.min(1, recoveryGripMuscle(this)) * (0.5 + 0.5 * this.limbs.armO)');
   // Plain records copied before application; no measured values feed the controller.
   replace('    sword.addTorque(vecArg(torque), true);',`    const armRecord=armTermRecords.get(this)||{};
     const aq = forearm.rotation(), faObs = new THREE.Vector3(1,0,0).applyQuaternion(new THREE.Quaternion(aq.x,aq.y,aq.z,aq.w));
@@ -30,9 +33,10 @@ export async function loadArmRecoveryActivation(){
     recoveryWristRecords.set(this,armRecord.wrist);
     sword.addTorque(vecArg(torque), true);`);
   source=`const recoveryArmOptions=new WeakMap(),recoveryWristRecords=new WeakMap();
-export const enableRecoveryArm=f=>recoveryArmOptions.set(f,{value:f.muscle,target:f.muscle});
+export const enableRecoveryArm=(f,scope='primary')=>recoveryArmOptions.set(f,{value:f.muscle,target:f.muscle,scope});
 const recoveryArmMuscle=f=>recoveryArmOptions.get(f)?.value??f.muscle;
-export const readRecoveryArm=f=>({enabled:recoveryArmOptions.has(f),value:recoveryArmMuscle(f),target:recoveryArmOptions.get(f)?.target??null,body:f.muscle,wrist:recoveryWristRecords.get(f)??null});
+const recoveryGripMuscle=f=>recoveryArmOptions.get(f)?.scope==='weapon'&&f.armed&&f.weaponCfg.twoHand?recoveryArmMuscle(f):f.muscle;
+export const readRecoveryArm=f=>({enabled:recoveryArmOptions.has(f),value:recoveryArmMuscle(f),target:recoveryArmOptions.get(f)?.target??null,body:f.muscle,scope:recoveryArmOptions.get(f)?.scope??null,offArm:recoveryGripMuscle(f),wrist:recoveryWristRecords.get(f)??null});
 `+source;
   source=source.replace(/from (['"])([^'"]+)\1/g,(_,q,p)=>'from '+JSON.stringify(p.startsWith('.')?new URL(p,url).href:import.meta.resolve(p)));
   const directory=await fs.mkdtemp(path.join(os.tmpdir(),'arm-recovery-activation-'));
