@@ -5,7 +5,8 @@ export const DRAWN_SLASH = Object.freeze({
   strongDuration: .35,
   // Existing cut boundary (game-scaled audio energy), not a physical injury limit.
   strongEnergy: 112,
-  gain: 10 ** (-6.8 / 20),
+  // 2026-10-03 사용자 요청: 현재 A2/B2 타격음 전체를 15% 크게.
+  gain: 10 ** (-6.8 / 20) * 1.15,
 });
 
 class Filter {

@@ -1,0 +1,416 @@
+{
+  "date": "2026-10-03",
+  "baselineHead": "91bddea67d7af4f2c2c6c0794b9017884726af2e",
+  "userDecision": "Current low-health breathing −15%; selected A2/B2 weak/strong cut event +15%.",
+  "pass": true,
+  "gainDomain": "Linear event-input amplitude before existing shared compressor/soft-clipper. This is not a measured percentage of human perceived loudness.",
+  "sourceBefore": {
+    "src/sound.js": "5751ada2d02597067df219798ea31b42bbbc3409251ce3ff93ecd1e8d2a7bad3",
+    "src/slash_draw.js": "c7d3d5a52ab9880323e72f21270d9e85aa6564187aef5a7a95e57954a11fdd8a",
+    "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+    "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642"
+  },
+  "sourceAfter": {
+    "src/sound.js": "f02a5a9c9ad60ce282806c02b956715c2ca01aced92ba021b63a799faf4c8fb4",
+    "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+    "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+    "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642"
+  },
+  "routes": [
+    {
+      "workerFallback": false,
+      "audioContext": "running",
+      "sampleRate": 44100,
+      "bankDurationsUnchanged": true,
+      "checks": [
+        {
+          "kind": "checks",
+          "condition": {
+            "energy": 35,
+            "through": false,
+            "bank": "drawnCut"
+          },
+          "eventInputRatio": 1.15,
+          "nativeGainRatio": 1.149999984905601,
+          "expectedRatio": 1.15,
+          "pass": true
+        },
+        {
+          "kind": "checks",
+          "condition": {
+            "energy": 35,
+            "through": true,
+            "bank": "drawnCut"
+          },
+          "eventInputRatio": 1.15,
+          "nativeGainRatio": 1.149999984905601,
+          "expectedRatio": 1.15,
+          "pass": true
+        },
+        {
+          "kind": "checks",
+          "condition": {
+            "energy": 90,
+            "through": false,
+            "bank": "drawnCut"
+          },
+          "eventInputRatio": 1.1499999999999997,
+          "nativeGainRatio": 1.1500000299307462,
+          "expectedRatio": 1.15,
+          "pass": true
+        },
+        {
+          "kind": "checks",
+          "condition": {
+            "energy": 90,
+            "through": true,
+            "bank": "drawnCut"
+          },
+          "eventInputRatio": 1.1499999999999997,
+          "nativeGainRatio": 1.1500000299307462,
+          "expectedRatio": 1.15,
+          "pass": true
+        },
+        {
+          "kind": "checks",
+          "condition": {
+            "energy": 111.9,
+            "through": false,
+            "bank": "drawnCut"
+          },
+          "eventInputRatio": 1.15,
+          "nativeGainRatio": 1.1500000308341312,
+          "expectedRatio": 1.15,
+          "pass": true
+        },
+        {
+          "kind": "checks",
+          "condition": {
+            "energy": 111.9,
+            "through": true,
+            "bank": "drawnCut"
+          },
+          "eventInputRatio": 1.15,
+          "nativeGainRatio": 1.1500000308341312,
+          "expectedRatio": 1.15,
+          "pass": true
+        },
+        {
+          "kind": "checks",
+          "condition": {
+            "energy": 112,
+            "through": false,
+            "bank": "drawnHeavy"
+          },
+          "eventInputRatio": 1.1499999999999997,
+          "nativeGainRatio": 1.1500000410966897,
+          "expectedRatio": 1.15,
+          "pass": true
+        },
+        {
+          "kind": "checks",
+          "condition": {
+            "energy": 112,
+            "through": true,
+            "bank": "drawnHeavy"
+          },
+          "eventInputRatio": 1.1499999999999997,
+          "nativeGainRatio": 1.1500000410966897,
+          "expectedRatio": 1.15,
+          "pass": true
+        },
+        {
+          "kind": "checks",
+          "condition": {
+            "energy": 140,
+            "through": false,
+            "bank": "drawnHeavy"
+          },
+          "eventInputRatio": 1.1499999999999997,
+          "nativeGainRatio": 1.1500000527812588,
+          "expectedRatio": 1.15,
+          "pass": true
+        },
+        {
+          "kind": "checks",
+          "condition": {
+            "energy": 140,
+            "through": true,
+            "bank": "drawnHeavy"
+          },
+          "eventInputRatio": 1.1499999999999997,
+          "nativeGainRatio": 1.1500000527812588,
+          "expectedRatio": 1.15,
+          "pass": true
+        },
+        {
+          "kind": "breathing",
+          "condition": {
+            "danger": 0
+          },
+          "eventInputRatio": 0.85,
+          "nativeGainRatio": 0.8499999727521624,
+          "expectedRatio": 0.85,
+          "pass": true
+        },
+        {
+          "kind": "breathing",
+          "condition": {
+            "danger": 0.5
+          },
+          "eventInputRatio": 0.85,
+          "nativeGainRatio": 0.8500000227065324,
+          "expectedRatio": 0.85,
+          "pass": true
+        },
+        {
+          "kind": "breathing",
+          "condition": {
+            "danger": 1
+          },
+          "eventInputRatio": 0.8499999999999999,
+          "nativeGainRatio": 0.849999975671574,
+          "expectedRatio": 0.85,
+          "pass": true
+        },
+        {
+          "kind": "control",
+          "condition": {
+            "mode": "samsho",
+            "type": "cut"
+          },
+          "eventInputRatio": 1.0,
+          "nativeGainRatio": 1.0,
+          "expectedRatio": 1.0,
+          "pass": true
+        },
+        {
+          "kind": "control",
+          "condition": {
+            "mode": "legacy",
+            "type": "cut"
+          },
+          "eventInputRatio": 1.0,
+          "nativeGainRatio": 1.0,
+          "expectedRatio": 1.0,
+          "pass": true
+        },
+        {
+          "kind": "control",
+          "condition": {
+            "mode": "drawn",
+            "type": "stab"
+          },
+          "eventInputRatio": 1.0,
+          "nativeGainRatio": 1.0,
+          "expectedRatio": 1.0,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "workerFallback": true,
+      "audioContext": "running",
+      "sampleRate": 44100,
+      "bankDurationsUnchanged": true,
+      "checks": [
+        {
+          "kind": "checks",
+          "condition": {
+            "energy": 35,
+            "through": false,
+            "bank": "drawnCut"
+          },
+          "eventInputRatio": 1.15,
+          "nativeGainRatio": 1.149999984905601,
+          "expectedRatio": 1.15,
+          "pass": true
+        },
+        {
+          "kind": "checks",
+          "condition": {
+            "energy": 35,
+            "through": true,
+            "bank": "drawnCut"
+          },
+          "eventInputRatio": 1.15,
+          "nativeGainRatio": 1.149999984905601,
+          "expectedRatio": 1.15,
+          "pass": true
+        },
+        {
+          "kind": "checks",
+          "condition": {
+            "energy": 90,
+            "through": false,
+            "bank": "drawnCut"
+          },
+          "eventInputRatio": 1.1499999999999997,
+          "nativeGainRatio": 1.1500000299307462,
+          "expectedRatio": 1.15,
+          "pass": true
+        },
+        {
+          "kind": "checks",
+          "condition": {
+            "energy": 90,
+            "through": true,
+            "bank": "drawnCut"
+          },
+          "eventInputRatio": 1.1499999999999997,
+          "nativeGainRatio": 1.1500000299307462,
+          "expectedRatio": 1.15,
+          "pass": true
+        },
+        {
+          "kind": "checks",
+          "condition": {
+            "energy": 111.9,
+            "through": false,
+            "bank": "drawnCut"
+          },
+          "eventInputRatio": 1.15,
+          "nativeGainRatio": 1.1500000308341312,
+          "expectedRatio": 1.15,
+          "pass": true
+        },
+        {
+          "kind": "checks",
+          "condition": {
+            "energy": 111.9,
+            "through": true,
+            "bank": "drawnCut"
+          },
+          "eventInputRatio": 1.15,
+          "nativeGainRatio": 1.1500000308341312,
+          "expectedRatio": 1.15,
+          "pass": true
+        },
+        {
+          "kind": "checks",
+          "condition": {
+            "energy": 112,
+            "through": false,
+            "bank": "drawnHeavy"
+          },
+          "eventInputRatio": 1.1499999999999997,
+          "nativeGainRatio": 1.1500000410966897,
+          "expectedRatio": 1.15,
+          "pass": true
+        },
+        {
+          "kind": "checks",
+          "condition": {
+            "energy": 112,
+            "through": true,
+            "bank": "drawnHeavy"
+          },
+          "eventInputRatio": 1.1499999999999997,
+          "nativeGainRatio": 1.1500000410966897,
+          "expectedRatio": 1.15,
+          "pass": true
+        },
+        {
+          "kind": "checks",
+          "condition": {
+            "energy": 140,
+            "through": false,
+            "bank": "drawnHeavy"
+          },
+          "eventInputRatio": 1.1499999999999997,
+          "nativeGainRatio": 1.1500000527812588,
+          "expectedRatio": 1.15,
+          "pass": true
+        },
+        {
+          "kind": "checks",
+          "condition": {
+            "energy": 140,
+            "through": true,
+            "bank": "drawnHeavy"
+          },
+          "eventInputRatio": 1.1499999999999997,
+          "nativeGainRatio": 1.1500000527812588,
+          "expectedRatio": 1.15,
+          "pass": true
+        },
+        {
+          "kind": "breathing",
+          "condition": {
+            "danger": 0
+          },
+          "eventInputRatio": 0.85,
+          "nativeGainRatio": 0.8499999727521624,
+          "expectedRatio": 0.85,
+          "pass": true
+        },
+        {
+          "kind": "breathing",
+          "condition": {
+            "danger": 0.5
+          },
+          "eventInputRatio": 0.85,
+          "nativeGainRatio": 0.8500000227065324,
+          "expectedRatio": 0.85,
+          "pass": true
+        },
+        {
+          "kind": "breathing",
+          "condition": {
+            "danger": 1
+          },
+          "eventInputRatio": 0.8499999999999999,
+          "nativeGainRatio": 0.849999975671574,
+          "expectedRatio": 0.85,
+          "pass": true
+        },
+        {
+          "kind": "control",
+          "condition": {
+            "mode": "samsho",
+            "type": "cut"
+          },
+          "eventInputRatio": 1.0,
+          "nativeGainRatio": 1.0,
+          "expectedRatio": 1.0,
+          "pass": true
+        },
+        {
+          "kind": "control",
+          "condition": {
+            "mode": "legacy",
+            "type": "cut"
+          },
+          "eventInputRatio": 1.0,
+          "nativeGainRatio": 1.0,
+          "expectedRatio": 1.0,
+          "pass": true
+        },
+        {
+          "kind": "control",
+          "condition": {
+            "mode": "drawn",
+            "type": "stab"
+          },
+          "eventInputRatio": 1.0,
+          "nativeGainRatio": 1.0,
+          "expectedRatio": 1.0,
+          "pass": true
+        }
+      ]
+    }
+  ],
+  "limits": "Compiled game audio methods invoked directly to measure playback gain and routing; no actual hit efficacy or human listening claim.",
+  "evidence": [
+    {
+      "path": "baseline-audio/result.json",
+      "bytes": 10228,
+      "sha256": "658544ffea3b1c96cecc3dec44cd3613af05d6f04025f7c2f086b7ced6e3117a"
+    },
+    {
+      "path": "local-audio/result.json",
+      "bytes": 10237,
+      "sha256": "12d4977a694a75cb96578ebf8cd303f60a5fd7f24889b0113a9d682b5f14aaaf"
+    }
+  ]
+}

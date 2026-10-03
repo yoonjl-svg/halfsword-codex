@@ -2435,7 +2435,7 @@ export class Sound {
     const rec = this.pickSample('breath');
     if (!rec) return;
     const k = clamp01(d);
-    const ev = this.event({ bus: this.fleshBus, gain: (0.25 + 0.1 * k) * 0.875, prio: 0.2 }); // 사용자 요청: 저체력 숨소리만 기존보다 12.5% 작게
+    const ev = this.event({ bus: this.fleshBus, gain: (0.25 + 0.1 * k) * 0.875 * 0.85, prio: 0.2 }); // 2026-10-03 사용자 요청: 현재 저체력 숨소리에서 추가 15% 감소
     this.layer(ev, rec, { rate: (1 - 0.06 * k) * between(Math.random, 0.97, 1.03) });
   }
 
