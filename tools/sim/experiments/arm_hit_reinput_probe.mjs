@@ -101,7 +101,7 @@ try{
         if(observed){const axis=new THREE.Vector3(0,1,0).applyQuaternion(Q(f.sword.rotation())),omega=V(f.sword.angvel()),ds=diagnostics.slice(di),gaps=validGaps(f),actualHand=handPos(f),raw=rawDirection(...externalGoal).applyQuaternion(f.yaw),own=f.debug.aim.clone().normalize();
           const row={timeS:G.t,relativeS:branch?G.t-branch.timeS:null,phase:request.phase,request,health:health(f),enemyHealth:health(G.enemy),actualHandM:f.handOffset.toArray(),externalGoalM:[...externalGoal],handErrorM:actualHand.distanceTo(f.handTarget),ownAimErrorRad:angle(axis,own),rawAimErrorRad:angle(axis,raw),actualAxis:axis.toArray(),ownAim:own.toArray(),swordOmegaRadps:omega.length(),swordTwistRadps:Math.abs(omega.dot(axis)),swordKJ:kinetic(f.sword),bodyAndSwordKJ:kinetic(f.sword)+Object.values(f.bodies).reduce((a,b)=>a+kinetic(b),0),pelvisM:V(f.bodies.pelvis.translation()).toArray(),gaps,bodyMotion:Object.fromEntries(['pelvis','chest','uarmS','farmS'].map(k=>[k,{q:Q(f.bodies[k].rotation()).toArray(),w:V(f.bodies[k].angvel()).toArray()}])),elbowTarget:f.jointByName.farmS.target.toArray(),gripping:!!f.gripping,cutContacts:G.combat.cutting.size,actuators:ds};
           if(detail){
-            const chest=f.bodies.chest,shoulder=new THREE.Vector3(0,.1,f.side*.2).applyQuaternion(Q(chest.rotation())).add(V(chest.translation()));
+            const chest=f.bodies.chest,shoulder=new THREE.Vector3(CONFIG.ARM.shoulder[0],CONFIG.ARM.shoulder[1],f.side*CONFIG.ARM.shoulder[2]).applyQuaternion(Q(chest.rotation())).add(V(chest.translation()));
             const support=[];
             for(const k of ['F','B']){const body=f.bodies['foot'+k];for(let i=0;i<body.numColliders();i++){const col=body.collider(i);G.world.contactPairsWith(col,other=>{
               const rb=other.parent();if(!rb?.isFixed())return;
@@ -109,7 +109,7 @@ try{
                 const points=[];for(let j=0;j<m.numSolverContacts();j++){const p=m.solverContactPoint(j),v=body.velocityAtPoint(p);points.push({pointM:[p.x,p.y,p.z],distanceM:m.solverContactDist(j),horizontalMps:Math.hypot(v.x,v.z)});}
                 support.push({foot:k,normalImpulseNs:impulses.reduce((a,b)=>a+b,0),points});});
             });}}
-            row.detail={stateTimeS:f.stateTime,kneelAmount:f.kneelAmount,balance:f.balance,offBalanceTime:f.offBalanceTime,tiltDeg:f.tiltDeg(),gaitActive:f.gait.active,pelvisVelocity:V(f.bodies.pelvis.linvel()).toArray(),actualHandWorldM:actualHand.toArray(),handTargetWorldM:f.handTarget.toArray(),shoulderWorldM:shoulder.toArray(),requestedArmReachM:shoulder.distanceTo(f.handTarget),actualArmReachM:shoulder.distanceTo(actualHand),ikMaximumM:.595,
+            row.detail={stateTimeS:f.stateTime,kneelAmount:f.kneelAmount,balance:f.balance,offBalanceTime:f.offBalanceTime,tiltDeg:f.tiltDeg(),gaitActive:f.gait.active,pelvisVelocity:V(f.bodies.pelvis.linvel()).toArray(),actualHandWorldM:actualHand.toArray(),handTargetWorldM:f.handTarget.toArray(),shoulderWorldM:shoulder.toArray(),requestedArmReachM:shoulder.distanceTo(f.handTarget),actualArmReachM:shoulder.distanceTo(actualHand),ikMaximumM:CONFIG.ARM.upper+CONFIG.ARM.fore-CONFIG.ARM.slack,
               footMemory:Object.fromEntries(Object.entries(f.gait.legs).map(([k,l])=>[k,{N:l.N??null,Nf:l.Nf??null,pinF:l.pinF??null,pinLim:l.pinLim??null,stance:l.stance}])),support};
           }
           frames.push(row);}
