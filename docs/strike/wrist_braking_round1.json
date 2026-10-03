@@ -1,0 +1,566 @@
+{
+  "schemaVersion": 1,
+  "rawReceipts": {
+    "controlled-01.json": {
+      "sha256": "2a0396f2e86121a417329039ba23deacd15ea4f5b685669d0d8af967a6b35bc1",
+      "bytes": 173957650,
+      "sourceCommit": "63be055002eb617bb2d7283207b78ee855d768e9",
+      "executions": 10,
+      "valid": true,
+      "sourceManifestAndTraceHashesVerified": true
+    },
+    "duel-01.json": {
+      "sha256": "7caa67daafa686021463a85e3174ac927525c1e33f52cb485ad26f37c75b41c3",
+      "bytes": 122713693,
+      "sourceCommit": "63be055002eb617bb2d7283207b78ee855d768e9",
+      "executions": 10,
+      "valid": true,
+      "sourceManifestAndTraceHashesVerified": true
+    }
+  },
+  "controlled": [
+    {
+      "weapon": "sabre",
+      "ending": "hold",
+      "nativeExact": true,
+      "peakDownTipMps": [
+        12.95993321942793,
+        12.95993321942793
+      ],
+      "afterStrokeAxisTravelRad": [
+        0.7837253470455786,
+        0.7837253470455786
+      ],
+      "firstDampingIndex": null,
+      "beforeBranchHealthy": true,
+      "contactCallbacks": [
+        0,
+        0
+      ],
+      "clashes": [
+        0,
+        0
+      ]
+    },
+    {
+      "weapon": "sabre",
+      "ending": "reverse",
+      "nativeExact": false,
+      "peakDownTipMps": [
+        12.95993321942793,
+        12.95993321942793
+      ],
+      "afterStrokeAxisTravelRad": [
+        2.7227456968194597,
+        2.708498757283251
+      ],
+      "firstDampingIndex": 309,
+      "beforeBranchHealthy": true,
+      "contactCallbacks": [
+        0,
+        0
+      ],
+      "clashes": [
+        0,
+        0
+      ]
+    },
+    {
+      "weapon": "zweihander",
+      "ending": "hold",
+      "nativeExact": true,
+      "peakDownTipMps": [
+        11.055953822293521,
+        11.055953822293521
+      ],
+      "afterStrokeAxisTravelRad": [
+        1.3148827038332473,
+        1.3148827038332473
+      ],
+      "firstDampingIndex": null,
+      "beforeBranchHealthy": true,
+      "contactCallbacks": [
+        0,
+        0
+      ],
+      "clashes": [
+        0,
+        0
+      ]
+    },
+    {
+      "weapon": "zweihander",
+      "ending": "reverse",
+      "nativeExact": false,
+      "peakDownTipMps": [
+        11.055953822293521,
+        11.055953822293521
+      ],
+      "afterStrokeAxisTravelRad": [
+        3.0612636372764186,
+        3.0265801388195843
+      ],
+      "firstDampingIndex": 351,
+      "beforeBranchHealthy": true,
+      "contactCallbacks": [
+        0,
+        0
+      ],
+      "clashes": [
+        0,
+        0
+      ]
+    }
+  ],
+  "episodes": [
+    {
+      "weapon": "sabre",
+      "seed": 7,
+      "firstNativeIndex": 550,
+      "firstDampingIndex": 550,
+      "firstInputIndex": 551,
+      "original": {
+        "steps": 2160,
+        "durationS": 17.99999999999962,
+        "firstClash": {
+          "timeS": 5.633333333333403,
+          "i": 675
+        },
+        "firstPlayerCallback": {
+          "timeS": 8.191666666666842,
+          "zone": "chest",
+          "severity": 0
+        },
+        "firstPositivePlayerWound": null,
+        "afterClashHandChangeSteps": 665,
+        "clashes": 148,
+        "wounds": 11,
+        "playerAlive": true,
+        "enemyAlive": true,
+        "playerArmed": true,
+        "finite": true,
+        "maxGapM": 0.0023558521222710733,
+        "maxPelvisHeightM": 0.9697561860084534,
+        "maxPelvisUpwardSpeedMps": 0.7662880420684814,
+        "maxBodySpeedMps": 5.013490228999395,
+        "maxSwordKJ": 48.505537970735574,
+        "maxBladeTwistRadps": 51.877397177859585,
+        "maxSelectedReactionClosureNm": 2.5121479338940403e-15
+      },
+      "candidate": {
+        "steps": 2160,
+        "durationS": 17.99999999999962,
+        "firstClash": {
+          "timeS": 5.691666666666739,
+          "i": 682
+        },
+        "firstPlayerCallback": {
+          "timeS": 8.558333333333488,
+          "zone": "chest",
+          "severity": 0.4809108577575166
+        },
+        "firstPositivePlayerWound": {
+          "timeS": 8.558333333333488,
+          "zone": "chest",
+          "severity": 0.4809108577575166
+        },
+        "afterClashHandChangeSteps": 350,
+        "clashes": 108,
+        "wounds": 9,
+        "playerAlive": true,
+        "enemyAlive": true,
+        "playerArmed": true,
+        "finite": true,
+        "maxGapM": 0.0024724031295465724,
+        "maxPelvisHeightM": 0.9697561860084534,
+        "maxPelvisUpwardSpeedMps": 0.8047651648521423,
+        "maxBodySpeedMps": 5.66530947091889,
+        "maxSwordKJ": 34.200113747673356,
+        "maxBladeTwistRadps": 46.12054694056707,
+        "maxSelectedReactionClosureNm": 2.5121479338940403e-15
+      }
+    },
+    {
+      "weapon": "sabre",
+      "seed": 19,
+      "firstNativeIndex": 91,
+      "firstDampingIndex": 91,
+      "firstInputIndex": 99,
+      "original": {
+        "steps": 2160,
+        "durationS": 17.99999999999962,
+        "firstClash": {
+          "timeS": 6.9166666666668,
+          "i": 829
+        },
+        "firstPlayerCallback": {
+          "timeS": 7.233333333333483,
+          "zone": "chest",
+          "severity": 0
+        },
+        "firstPositivePlayerWound": null,
+        "afterClashHandChangeSteps": 464,
+        "clashes": 104,
+        "wounds": 8,
+        "playerAlive": true,
+        "enemyAlive": true,
+        "playerArmed": true,
+        "finite": true,
+        "maxGapM": 0.00249962173848882,
+        "maxPelvisHeightM": 0.9697561860084534,
+        "maxPelvisUpwardSpeedMps": 0.7744336128234863,
+        "maxBodySpeedMps": 4.807990882103032,
+        "maxSwordKJ": 52.99067568430097,
+        "maxBladeTwistRadps": 61.26399234657612,
+        "maxSelectedReactionClosureNm": 2.5146000066436358e-15
+      },
+      "candidate": {
+        "steps": 2160,
+        "durationS": 17.99999999999962,
+        "firstClash": {
+          "timeS": 6.691666666666789,
+          "i": 802
+        },
+        "firstPlayerCallback": {
+          "timeS": 8.850000000000138,
+          "zone": "pelvis",
+          "severity": 0.02165049066907719
+        },
+        "firstPositivePlayerWound": {
+          "timeS": 8.850000000000138,
+          "zone": "pelvis",
+          "severity": 0.02165049066907719
+        },
+        "afterClashHandChangeSteps": 694,
+        "clashes": 81,
+        "wounds": 20,
+        "playerAlive": true,
+        "enemyAlive": true,
+        "playerArmed": true,
+        "finite": true,
+        "maxGapM": 0.002414219976902943,
+        "maxPelvisHeightM": 0.9697561860084534,
+        "maxPelvisUpwardSpeedMps": 0.7547545433044434,
+        "maxBodySpeedMps": 4.939091282268786,
+        "maxSwordKJ": 39.22438222642178,
+        "maxBladeTwistRadps": 74.54644050570164,
+        "maxSelectedReactionClosureNm": 2.175583928816829e-15
+      }
+    },
+    {
+      "weapon": "zweihander",
+      "seed": 7,
+      "firstNativeIndex": 547,
+      "firstDampingIndex": 547,
+      "firstInputIndex": 548,
+      "original": {
+        "steps": 2160,
+        "durationS": 17.99999999999962,
+        "firstClash": {
+          "timeS": 6.550000000000115,
+          "i": 785
+        },
+        "firstPlayerCallback": {
+          "timeS": 7.350000000000155,
+          "zone": "arm",
+          "severity": 0
+        },
+        "firstPositivePlayerWound": null,
+        "afterClashHandChangeSteps": 495,
+        "clashes": 96,
+        "wounds": 33,
+        "playerAlive": true,
+        "enemyAlive": true,
+        "playerArmed": true,
+        "finite": true,
+        "maxGapM": 0.0033723775070008954,
+        "maxPelvisHeightM": 0.9698094725608826,
+        "maxPelvisUpwardSpeedMps": 0.8586397767066956,
+        "maxBodySpeedMps": 7.491930824771872,
+        "maxSwordKJ": 59.23865566688512,
+        "maxBladeTwistRadps": 33.39068062296065,
+        "maxSelectedReactionClosureNm": 3.102702181489484e-15
+      },
+      "candidate": {
+        "steps": 1444,
+        "durationS": 12.03333333333329,
+        "firstClash": {
+          "timeS": 6.883333333333465,
+          "i": 825
+        },
+        "firstPlayerCallback": {
+          "timeS": 8.308333333333502,
+          "zone": "head",
+          "severity": 0
+        },
+        "firstPositivePlayerWound": null,
+        "afterClashHandChangeSteps": 200,
+        "clashes": 89,
+        "wounds": 21,
+        "playerAlive": true,
+        "enemyAlive": false,
+        "playerArmed": true,
+        "finite": true,
+        "maxGapM": 0.0035171209470555177,
+        "maxPelvisHeightM": 0.9904542565345764,
+        "maxPelvisUpwardSpeedMps": 1.125644326210022,
+        "maxBodySpeedMps": 6.02124501959587,
+        "maxSwordKJ": 51.27864629959966,
+        "maxBladeTwistRadps": 32.389483248477795,
+        "maxSelectedReactionClosureNm": 3.552713678800501e-15
+      }
+    },
+    {
+      "weapon": "zweihander",
+      "seed": 19,
+      "firstNativeIndex": 90,
+      "firstDampingIndex": 90,
+      "firstInputIndex": 92,
+      "original": {
+        "steps": 889,
+        "durationS": 7.408333333333491,
+        "firstClash": null,
+        "firstPlayerCallback": {
+          "timeS": 7.400000000000158,
+          "zone": "neck",
+          "severity": 0.6873874200510446
+        },
+        "firstPositivePlayerWound": {
+          "timeS": 7.400000000000158,
+          "zone": "neck",
+          "severity": 0.6873874200510446
+        },
+        "afterClashHandChangeSteps": 0,
+        "clashes": 0,
+        "wounds": 2,
+        "playerAlive": false,
+        "enemyAlive": true,
+        "playerArmed": true,
+        "finite": true,
+        "maxGapM": 0.0023921116744712494,
+        "maxPelvisHeightM": 0.9698094725608826,
+        "maxPelvisUpwardSpeedMps": 0.4099349081516266,
+        "maxBodySpeedMps": 4.9960123287013865,
+        "maxSwordKJ": 49.918165220676165,
+        "maxBladeTwistRadps": 24.835617570734232,
+        "maxSelectedReactionClosureNm": 2.6645352591003757e-15
+      },
+      "candidate": {
+        "steps": 2160,
+        "durationS": 17.99999999999962,
+        "firstClash": {
+          "timeS": 8.425000000000162,
+          "i": 1010
+        },
+        "firstPlayerCallback": {
+          "timeS": 8.325000000000168,
+          "zone": "arm",
+          "severity": 0
+        },
+        "firstPositivePlayerWound": {
+          "timeS": 12.199999999999948,
+          "zone": "arm",
+          "severity": 1.27441664241697
+        },
+        "afterClashHandChangeSteps": 486,
+        "clashes": 27,
+        "wounds": 11,
+        "playerAlive": true,
+        "enemyAlive": true,
+        "playerArmed": false,
+        "finite": true,
+        "maxGapM": 0.002772564416320119,
+        "maxPelvisHeightM": 0.9698094725608826,
+        "maxPelvisUpwardSpeedMps": 0.8927167057991028,
+        "maxBodySpeedMps": 5.295393639566273,
+        "maxSwordKJ": 48.460998864538496,
+        "maxBladeTwistRadps": 30.481202875266327,
+        "maxSelectedReactionClosureNm": 2.5121479338940403e-15
+      }
+    }
+  ],
+  "decision": "Research candidate withheld: controlled hold/down/reversal command paths exact until after reversal; small subsequent change and direction-error regression, no compelling visible recovery opening. No user playtest request or general promotion.",
+  "limits": [
+    "Controlled3.45s scene had active AI but no contacts or wounds.",
+    "Late reactive duels have differing commands/contacts/injuries and are episode outcomes.",
+    "Net forecast is current full-damping request about a fixed hand; constant-deceleration approximation, not human maximum force or calibrated stopping distance.",
+    "Actual selected explicit wrist reaction and instantaneous pre-solver power exclude native motors, grip/offHand, contacts and damping work.",
+    "Read-only output agreement begins at recorded debug aim, not an independent input-to-target proof.",
+    "Finite states, AI outcomes and static screenshots do not prove human naturalness."
+  ],
+  "ordinaryBackcompat": {
+    "createdUTC": "2026-10-03T16:03:56.263Z",
+    "pass": true,
+    "scope": "Flag absent ordinary actual two-AI/native/input/controller/events compared step-for-step to archived unchanged-game original branch; no estimator actuation.",
+    "rows": [
+      {
+        "weapon": "sabre",
+        "seed": 7,
+        "stepsExact": 2160,
+        "expectedSteps": 2160,
+        "firstMismatch": null,
+        "pass": true
+      },
+      {
+        "weapon": "zweihander",
+        "seed": 7,
+        "stepsExact": 2160,
+        "expectedSteps": 2160,
+        "firstMismatch": null,
+        "pass": true
+      }
+    ]
+  },
+  "localCompiledVisual": [
+    {
+      "weapon": "sabre",
+      "mode": "legacy",
+      "simTime": 9.750000000000087,
+      "steps": 1170,
+      "first": [
+        {
+          "timeS": 0,
+          "model": "legacy",
+          "enemyModel": null,
+          "old": 0.30000001192092896,
+          "new": 0.30000001192092896,
+          "oldMargin": 1.4,
+          "newMargin": 1.4,
+          "enemyMargin": 1.4,
+          "propertiesRetained": true,
+          "skill": 0,
+          "enemyDrag": 0.30000001192092896
+        },
+        {
+          "timeS": 9.541666666666766,
+          "model": "legacy",
+          "enemyModel": null,
+          "old": 0.30000001192092896,
+          "new": 0.30000001192092896,
+          "oldMargin": 1.4,
+          "newMargin": 1.4,
+          "enemyMargin": 1.4,
+          "propertiesRetained": true,
+          "skill": 0,
+          "enemyDrag": 0.30000001192092896
+        }
+      ],
+      "touchCount": 30,
+      "consumedCount": 26,
+      "finite": true
+    },
+    {
+      "weapon": "sabre",
+      "mode": "available",
+      "simTime": 10.51666666666671,
+      "steps": 1262,
+      "first": [
+        {
+          "timeS": 0,
+          "model": "available",
+          "enemyModel": null,
+          "old": 0.30000001192092896,
+          "new": 0.30000001192092896,
+          "oldMargin": 1.4,
+          "newMargin": 1.4,
+          "enemyMargin": 1.4,
+          "propertiesRetained": true,
+          "skill": 0,
+          "enemyDrag": 0.30000001192092896
+        },
+        {
+          "timeS": 10.216666666666727,
+          "model": "available",
+          "enemyModel": null,
+          "old": 0.30000001192092896,
+          "new": 0.30000001192092896,
+          "oldMargin": 1.4,
+          "newMargin": 1.4,
+          "enemyMargin": 1.4,
+          "propertiesRetained": true,
+          "skill": 0,
+          "enemyDrag": 0.30000001192092896
+        }
+      ],
+      "touchCount": 30,
+      "consumedCount": 26,
+      "finite": true
+    },
+    {
+      "weapon": "zweihander",
+      "mode": "legacy",
+      "simTime": 10.433333333333382,
+      "steps": 1252,
+      "first": [
+        {
+          "timeS": 0,
+          "model": "legacy",
+          "enemyModel": null,
+          "old": 0.30000001192092896,
+          "new": 0.30000001192092896,
+          "oldMargin": 1.4,
+          "newMargin": 1.4,
+          "enemyMargin": 1.4,
+          "propertiesRetained": true,
+          "skill": 0,
+          "enemyDrag": 0.30000001192092896
+        },
+        {
+          "timeS": 10.158333333333397,
+          "model": "legacy",
+          "enemyModel": null,
+          "old": 0.30000001192092896,
+          "new": 0.30000001192092896,
+          "oldMargin": 1.4,
+          "newMargin": 1.4,
+          "enemyMargin": 1.4,
+          "propertiesRetained": true,
+          "skill": 0,
+          "enemyDrag": 0.30000001192092896
+        }
+      ],
+      "touchCount": 30,
+      "consumedCount": 26,
+      "finite": true
+    },
+    {
+      "weapon": "zweihander",
+      "mode": "available",
+      "simTime": 10.266666666666724,
+      "steps": 1232,
+      "first": [
+        {
+          "timeS": 0,
+          "model": "available",
+          "enemyModel": null,
+          "old": 0.30000001192092896,
+          "new": 0.30000001192092896,
+          "oldMargin": 1.4,
+          "newMargin": 1.4,
+          "enemyMargin": 1.4,
+          "propertiesRetained": true,
+          "skill": 0,
+          "enemyDrag": 0.30000001192092896
+        },
+        {
+          "timeS": 10.05000000000007,
+          "model": "available",
+          "enemyModel": null,
+          "old": 0.30000001192092896,
+          "new": 0.30000001192092896,
+          "oldMargin": 1.4,
+          "newMargin": 1.4,
+          "enemyMargin": 1.4,
+          "propertiesRetained": true,
+          "skill": 0,
+          "enemyDrag": 0.30000001192092896
+        }
+      ],
+      "touchCount": 30,
+      "consumedCount": 26,
+      "finite": true
+    }
+  ],
+  "localVisualSourceCommit": "cd0eabccfc0b80018757db3fbd8160ae523b72e4",
+  "publicEligibility": false
+}

@@ -11,7 +11,7 @@ import { configureMobileIntent, mapMobileHandDelta } from './mobile_intent.js';
 export class Input {
   constructor(canvas) {
     this.canvas = canvas;
-    this.mobileIntent = configureMobileIntent(new URLSearchParams(window.location.search), 1);
+    this.mobileIntent = configureMobileIntent(new URLSearchParams(window.location.search));
     this.handDX = 0; // 누적된 손 이동량(m). +x = 화면 오른쪽
     this.handDY = 0; // +y = 위
     this.keys = new Set();

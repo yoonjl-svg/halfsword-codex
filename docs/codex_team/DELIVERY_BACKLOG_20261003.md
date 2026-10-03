@@ -1,5 +1,7 @@
 # 전달 대장 · 2026-10-03
 
+**이번 갱신 · 10-03 UTC / 10-04 KST:** [검 거두기 예측20실행](../strike/wrist_braking_round1.md)은 강한 베기를 보존했으나 효과가 작고 방향 오차가 증가해 미공개 연구로 보존한다. 같은 스칼라 계획 gain 탐색은 중단한다. [사용자 B 선호](../strike/mobile_vertical_default_20261003.md)에 따른 휴대폰 세로 입력1.35배를 일반 입력에 연결하고 실제 웹·모바일 전달을 검증한다. 새 메이저 물리 기본값 승격·한손 후보 공개·실패 지지/절삭 재공개와 구분한다.
+
 갱신: **2026-10-03 17:54 KST**. 사용자가 요청한 **승인 A4와 선택형 B4의 전달 검증을 완료**했다. C의 철회와 한손 팔 공개 보류는 유지하고 추가자료의 실제 복원과 D 실제10실행 뒤 다음 원인 분리를 기록한다. 연구·사람 체감 수락·일반 물리 기본값 승격은 미완료다. [기계 판독 전달 영수증](delivery_release_20261003.json)은 항목별 승인·소스·원격·웹 범위와 외부 증거의 SHA·크기를 담는다.
 
 **후속 보충자료 수령:** 자료118개(89/12/9/8)의 전 크기·SHA와 관리파일 포함120개/303,605,794bytes를 검증했다. [통합 수령 기록](SUPPLEMENT_RESTORATION_20261003.md)·[영수증](supplement_restoration_20261003.json)에 기존52커밋/943원자료/엔진6/근거34 및 우선21 중복을 구분한다. 과거 실패·옛 계획·청취 WAV의 확보는 공개/기본값 승격 근거가 아니다. 이전 f24645f 문서는 Pages37110803373·공개8파일·계획 폰 PASS이며 이번 수령 기록의 후속 공개는 별도 확인한다.
@@ -36,7 +38,7 @@
 | 선택형 | 소스와 공개 주소 | 완료 범위·남은 수락 |
 |---|---|---|
 | 다시 설 때의 발 마찰 기록 | `232e772`, [기립 비교](https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#stance-comparison). | legacy의 오래된 Nf 기록만 수정하는 선택형. 원격/웹·실제 CTA·회복/재시작/일반 복귀 PASS. 부상 기립 전체 해결은 미완료. |
-| 휴대폰 수직 입력 | `f18fc7b`, [수직 비교](https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#mobile-comparison). | 세로1.35배, 일반1·가로/마우스/탭 보존. 원격/웹·실제 터치·옵션 우선순위·저장/복귀 PASS. 최적 배율·엄지 체감 수락은 미완료. |
+| 휴대폰 수직 입력 | `f18fc7b`, [수직 비교](https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#mobile-comparison). | 기존 선택형 세로1.35배의 원격/웹·실제 터치·옵션/저장 복귀 PASS. 최신 사용자 B 선호에 따라 일반 touch 기본1.35를 연결한다. 가로/마우스/탭 보존·새 배포는 별도 영수증으로 확인하며 인간 실측 최적값/전신 수락은 아니다. |
 | 검술 보정 끔·약 | `04831d8`, [보정 비교](https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#target-correction-comparison). | 플레이어 새 라운드부터 적용, 상대/저장 선호 보존. 원격/웹·첫 스텝·세로 비교 충돌·재시작/재로드/일반 복귀 PASS. 일반 보정 설정 승격 없음. |
 | 날 정렬 토크 | 구현 `f029343`, 비교 `65c30a7`, [날 정렬 비교](https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#edge-comparison). | 기존 목표의 연속 토크만 사용. 원격/웹·한손/양손 첫 스텝·재입력/재시작·저장 복귀 PASS. C1/기억 결합 없음; 날 추종/회전량의 후퇴와 사람 수락은 남는다. |
 

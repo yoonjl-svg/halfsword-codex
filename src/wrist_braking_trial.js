@@ -1,9 +1,9 @@
-/** Session-local stopping forecast. Ordinary play keeps the nominal estimate. */
+/** The stopping forecast remains research-only after the gameplay screen. */
 export function configureWristBrakingTrial(params, armTrial) {
   const requested = params.get('wristBraking');
   const valid = requested === 'legacy' || requested === 'available';
   const blocked = valid && armTrial.model !== 'legacy';
-  return {active: valid && !blocked, blocked, model: valid && !blocked ? requested : 'legacy'};
+  return {active: false, pending: valid && !blocked, blocked, model: 'legacy'};
 }
 
 export function applyWristBrakingTrial(info, player) {
@@ -11,13 +11,13 @@ export function applyWristBrakingTrial(info, player) {
 }
 
 export function mountWristBrakingTrial(info) {
-  if ((!info.active && !info.blocked) || typeof document === 'undefined') return;
+  if ((!info.pending && !info.blocked) || typeof document === 'undefined') return;
   const menu = document.getElementById('menuSub');
   if (!menu) return;
   const panel = document.createElement('p');
   panel.id = 'wristBrakingTrialInfo';
   panel.className = 'sub';
-  panel.textContent = info.blocked ? '검 거두기 비교와 팔 제어 비교는 따로 실행해 주세요.'
-    : `검 거두기 비교 ${info.model === 'available' ? 'B' : 'A'} · 강하게 베고 멈추거나 반대로 거두어 보세요.`;
+  panel.textContent = info.blocked ? '검 거두기 후보는 공개 보류 중입니다. 선택한 팔 제어로 실행합니다.'
+    : '검 거두기 후보는 체감 개선 근거가 부족해 공개를 보류했습니다. 현재 방식으로 실행합니다.';
   menu.after(panel);
 }
