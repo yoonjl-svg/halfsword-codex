@@ -18,7 +18,7 @@ export async function loadArmRecoveryActivation(){
       armActivation.value += (armActivation.target-armActivation.value)*Math.min(1,dt*(armActivation.target>armActivation.value?4:12));
     }`);
   replace('  driveSword() {\n    const sword = this.sword;\n    const chest = this.bodies.chest;\n    const mus = this.muscle;', '  driveSword() {\n    const sword = this.sword;\n    const chest = this.bodies.chest;\n    const mus = recoveryArmMuscle(this);');
-  replace("      if (n === 'uarmS' || n === 'farmS') mus *= (0.3 + 0.7 * this.limbs.armS) * this.strength;", "      if (n === 'uarmS' || n === 'farmS') mus = Math.max(0.1,recoveryArmMuscle(this)) * (0.3 + 0.7 * this.limbs.armS) * this.strength;");
+  replace("      if (n === 'uarmS' || n === 'farmS') mus *= (0.3 + 0.7 * this.limbs.armS) * this.strength;", "      if (n === 'uarmS' || n === 'farmS') { mus = Math.max(0.1,recoveryArmMuscle(this)); mus *= (0.3 + 0.7 * this.limbs.armS) * this.strength; }");
   replace("    if (this.muscle < 0.12 || this.state === 'dead') return;", "    if (recoveryArmMuscle(this) < 0.12 || this.state === 'dead') return;");
   replace('Math.max(0.1, this.muscle) * (0.3 + 0.7 * this.limbs.armS)', 'Math.max(0.1, recoveryArmMuscle(this)) * (0.3 + 0.7 * this.limbs.armS)');
   // Plain records copied before application; no measured values feed the controller.
