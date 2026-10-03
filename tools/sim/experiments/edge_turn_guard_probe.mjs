@@ -12,6 +12,8 @@ const opts=Object.fromEntries(process.argv.slice(2).map(v=>{const m=v.match(/^--
 const output=opts.out;if(!output||fs.existsSync(output))throw Error('Fresh --out=path required');
 const weapons=(opts.weapons??'sabre,zweihander').split(','),scenarios=(opts.scenarios??'guard,yawHold,yawGuard').split(','),levels=(opts.levels??'0,0.4').split(',').map(Number),modes=(opts.modes??'legacy,planePotential').split(',');
 const startS=Number(opts.start??0),duration=9,base=opts.base??'legacy';
+const woundCondition=opts.wound??'none';
+if(!['none','armCut'].includes(woundCondition))throw Error('Unsupported wound');
 const runtimeModes=['legacy','planePotential'];
 if(!runtimeModes.includes(base)||!Number.isFinite(startS)||startS<0||startS>=duration||levels.some(v=>![0,.4].includes(v))||scenarios.some(v=>!['guard','yawHold','yawGuard'].includes(v))||modes.some(v=>![...runtimeModes,'noPosition','reactionDamping','planeMixture'].includes(v)))throw Error('Unsupported conditions');
 const sha=v=>crypto.createHash('sha256').update(v).digest('hex');
@@ -51,7 +53,8 @@ try{
   function run(weapon,scenario,level,mode,observed){
     let G;const frames=[],trace=crypto.createHash('sha256'),nativeTrace=crypto.createHash('sha256'),inputTrace=crypto.createHash('sha256'),prefix=crypto.createHash('sha256');
     const summary={finite:true,peakTwistRadps:0,peakSwordOmegaRadps:0,twistTravelRad:0,maxJointGapM:0,maxPelvisHeightM:0,minPelvisHeightM:Infinity,recoverySteps:0,falls:0,clashes:0,wounds:0,contacts:0};
-    let first=null,atSwitch=null,prepared=null,oldState=null,firstHeading=null,previousHeading=null,yawTravel=0,rawErrorIntegral=0,ownErrorIntegral=0,externalGoal=[...high];
+    let first=null,atSwitch=null,prepared=null,woundEvent=null,oldState=null,firstHeading=null,previousHeading=null,yawTravel=0,rawErrorIntegral=0,ownErrorIntegral=0,externalGoal=[...high];
+    const health=f=>({armHealth:f.armHealth,muscle:f.muscle,vigor:f.vigor,pain:f.pain,blood:f.blood,armed:f.armed,alive:f.alive,woundCount:f.wounds.length,detachedForearm:!!f.detachedParts?.has('farmS')});
     try{
       CONFIG.GRIP.reactionModel='paired';G=newRound({seed:7,walls:false,gap:6,weapon,weapon2:'longsword',skill:level});G.ai.update=()=>{};
       const f=G.player;f.armTorqueModel=G.enemy.armTorqueModel='legacy';G.combat.cutReactionModel='legacy';f.skill.autoGuard=level>0;
@@ -62,6 +65,16 @@ try{
       first={native:sha(G.world.takeSnapshot()),controller:sha(JSON.stringify(control(G)))};
       for(let tick=0;tick<Math.round(duration/DT);tick++){
         const t=tick*DT,r=request(t,scenario);
+        if(tick===Math.round(3/DT)){
+          const beforeNative=sha(G.world.takeSnapshot()),beforeControl=sha(JSON.stringify(control(G))),beforeHealth=health(f);
+          let payload=null;
+          if(woundCondition==='armCut'){
+            payload={part:'farmS',zone:'arm',type:'cut',severity:.6,energy:76,bleedPerSev:CONFIG.ANATOMY.arm.bleed,local:new THREE.Vector3(0,0,0),helmet:false,plate:false,pass:true,passing:false};
+            f.applyWound(payload);
+          }
+          woundEvent={timeS:t,condition:woundCondition,payload:payload?{...payload,local:payload.local.toArray()}:null,beforeNative,beforeControl,beforeHealth,afterNative:sha(G.world.takeSnapshot()),afterControl:sha(JSON.stringify(control(G))),afterHealth:health(f)};
+          if(woundEvent.afterNative!==beforeNative||!f.armed||!f.alive||woundEvent.afterHealth.detachedForearm||f.wounds.length!==beforeHealth.woundCount+Number(woundCondition==='armCut'))throw Error('Bounded wound API contract failed');
+        }
         if(t+1e-12>=startS&&!atSwitch){atSwitch={timeS:t,native:sha(G.world.takeSnapshot()),controller:sha(JSON.stringify(control(G))),prefix:prefix.digest('hex')};if(runtimeModes.includes(mode))f.edgeTorqueModel=mode;}
         const previousRequest=tick?request((tick-1)*DT,scenario):{offset:high};
         // Main accumulates touch deltas. Do not jump to an old absolute endpoint after auto-return.
@@ -76,7 +89,7 @@ try{
         const u=new THREE.Vector3(0,1,0).applyQuaternion(Q(f.sword.rotation())),omega=V(f.sword.angvel()),raw=rawDirection(...externalGoal).applyQuaternion(f.yaw),angle=(a,b)=>Math.acos(THREE.MathUtils.clamp(a.dot(b),-1,1));
         const twist=Math.abs(omega.dot(u)),gap=Math.max(...gaps(f).map(j=>j.m),...gaps(G.enemy).map(j=>j.m)),pelvis=f.bodies.pelvis.translation();
         const row={timeS:(tick+1)*DT,phase:r.phase,request:r,inputDeltaM:delta,externalGoalM:[...externalGoal],heading:f.heading,actualChestRotation:Q(f.bodies.chest.rotation()).toArray(),actualPelvisRotation:Q(f.bodies.pelvis.rotation()).toArray(),pelvisM:[pelvis.x,pelvis.y,pelvis.z],bodyPose:{...f.bodyPose},guardNearest:f.guardPose.nearest,guardWeight:f.guardWeight(),recovering:f.skill.recovering,handOffsetM:f.handOffset.toArray(),followM:f.skill.follow.toArray(),swordTwistRadps:twist,swordOmegaRadps:omega.length(),rawAimErrorRad:angle(u,raw),ownAimErrorRad:angle(u,f.debug.aim.clone().normalize()),swordKJ:kinetic(f.sword),maxJointGapM:gap,state:f.state,transition:instrument.module.readTransition(f)};
-        frames.push(row);
+        row.health=health(f);frames.push(row);
         if(t<3)continue;
         if(firstHeading===null)firstHeading=f.heading;
         if(previousHeading!==null)yawTravel+=Math.abs(Math.atan2(Math.sin(f.heading-previousHeading),Math.cos(f.heading-previousHeading)));previousHeading=f.heading;
@@ -84,8 +97,8 @@ try{
         summary.maxPelvisHeightM=Math.max(summary.maxPelvisHeightM,pelvis.y);summary.minPelvisHeightM=Math.min(summary.minPelvisHeightM,pelvis.y);summary.recoverySteps+=Number(f.skill.recovering);summary.contacts=Math.max(summary.contacts,G.combat.cutting.size);
         if(oldState&&f.state==='down'&&oldState!=='down')summary.falls++;oldState=f.state;rawErrorIntegral+=row.rawAimErrorRad*DT;ownErrorIntegral+=row.ownAimErrorRad*DT;
       }
-      Object.assign(summary,{yawTravelRad:yawTravel,rawAimMeanErrorRad:rawErrorIntegral/6,ownAimMeanErrorRad:ownErrorIntegral/6,clashes:G.clashes,wounds:G.wounds.length});
-      return {weapon,scenario,level,mode,observed,first,atSwitch,prepared,summary:observed?summary:null,nativeTraceSha256:nativeTrace.digest('hex'),controllerTraceSha256:trace.digest('hex'),inputSha256:inputTrace.digest('hex'),frames};
+      Object.assign(summary,{yawTravelRad:yawTravel,rawAimMeanErrorRad:rawErrorIntegral/6,ownAimMeanErrorRad:ownErrorIntegral/6,clashes:G.clashes,wounds:G.wounds.length,finalHealth:health(f)});
+      return {weapon,scenario,level,mode,observed,first,atSwitch,prepared,woundEvent,summary:observed?summary:null,nativeTraceSha256:nativeTrace.digest('hex'),controllerTraceSha256:trace.digest('hex'),inputSha256:inputTrace.digest('hex'),frames};
     }finally{G?.eventQueue.free();G?.world.free();CONFIG.GRIP.reactionModel=originalGrip;Math.random=originalRandom;}
   }
   for(const weapon of weapons)for(const scenario of scenarios)for(const level of levels){
@@ -94,6 +107,6 @@ try{
   }
   for(const mode of modes){const a=rows.find(r=>r.weapon===weapons[0]&&r.scenario===scenarios.at(-1)&&r.level===levels.at(-1)&&r.mode===mode),b=run(a.weapon,a.scenario,a.level,mode,false);observers.push({mode,scope:runtimeModes.includes(mode)?'full instrumentation versus original runtime':'frame observer only; intervention instrumentation shared',initialNativeExact:a.first.native===b.first.native,preparedNativeExact:a.prepared.native===b.prepared.native,preparedControllerExact:a.prepared.controller===b.prepared.controller,nativeExact:a.nativeTraceSha256===b.nativeTraceSha256,controllerExact:a.controllerTraceSha256===b.controllerTraceSha256,inputExact:a.inputSha256===b.inputSha256});}
   const sourceAfter=manifest(),sourceStable=JSON.stringify(sourceBefore)===JSON.stringify(sourceAfter)&&head()===sourceCommit,executionPass=sourceStable&&[...checks,...observers].every(c=>Object.values(c).every(v=>v!==false));
-  const report={schemaVersion:1,sourceCommit,sourceBefore,sourceAfter,sourceStable,command:process.argv,helperSHA256:sha(helper),instrumentSHA256:instrument.generatedSHA256,createdUTC:new Date().toISOString(),wallSeconds:(performance.now()-begin)/1000,executionPass,checks,observers,rows,protocol:{base,startS,durationS:duration,prepareS:3,gapM:6,seed:7,modes,levels,scenarios,weapons,input:'Actual handOffset/handHeld/inputActive and lateral movement-stick requests; original heading/guard/recovery controllers. Enemy AI disabled but bodies dynamic, facing each other from pelvis positions. No body/velocity/yaw overrides or G.park.',guard:'Same pads high/right shoulder → low left cut → release → left ochs → hold → right side → release → center/hold. Off is raw mapping, weak is actual .64 guard-table blend. Release retains live handOffset for actual autoGuard; reinput accumulates the predetermined touch delta on the current handOffset, including auto-return displacement. Raw input benchmark retains the last external requested endpoint through release; it is not an absolute reset.',scope:'9s at120Hz. Main summary only3–9s; frames include3s preparation. From-start models may change prepared pose; start>0 instead preserves full native/controller prefix then changes torque law for causal diagnosis only. Not a live toggle UI or full browser timing contract.',metrics:'World blade-axis omega, current-yaw raw-input/own-goal error, body/yaw/guard/auto-return, actual native gaps/kinetic. Transition diagnostics are pre-solver while other frame fields are post-solver. Cached hitPointVel is delayed difference, not instantaneous contact velocity. No full solver work/passivity or human acceptance.'}};
+  const report={schemaVersion:1,sourceCommit,sourceBefore,sourceAfter,sourceStable,command:process.argv,helperSHA256:sha(helper),instrumentSHA256:instrument.generatedSHA256,createdUTC:new Date().toISOString(),wallSeconds:(performance.now()-begin)/1000,executionPass,checks,observers,rows,protocol:{woundCondition,woundContract:'At3s healthy no-op or synthetic bounded farmS cut through actual applyWound; .6 severity/76 game-J, no claimed collision or sever. Native body state unchanged immediately, wound/controller state intentionally changes. Actual Combat wound counter excludes this synthetic API call.',base,startS,durationS:duration,prepareS:3,gapM:6,seed:7,modes,levels,scenarios,weapons,input:'Actual handOffset/handHeld/inputActive and lateral movement-stick requests; original heading/guard/recovery controllers. Enemy AI disabled but bodies dynamic, facing each other from pelvis positions. No body/velocity/yaw overrides or G.park.',guard:'Same pads high/right shoulder → low left cut → release → left ochs → hold → right side → release → center/hold. Off is raw mapping, weak is actual .64 guard-table blend. Release retains live handOffset for actual autoGuard; reinput accumulates the predetermined touch delta on the current handOffset, including auto-return displacement. Raw input benchmark retains the last external requested endpoint through release; it is not an absolute reset.',scope:'9s at120Hz. Main summary only3–9s; frames include3s preparation. From-start models may change prepared pose; start>0 instead preserves full native/controller prefix then changes torque law for causal diagnosis only. Not a live toggle UI or full browser timing contract.',metrics:'World blade-axis omega, current-yaw raw-input/own-goal error, body/yaw/guard/auto-return, actual native gaps/kinetic. Transition diagnostics are pre-solver while other frame fields are post-solver. Cached hitPointVel is delayed difference, not instantaneous contact velocity. No full solver work/passivity or human acceptance.'}};
   fs.writeFileSync(output,JSON.stringify(report,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify({executionPass,executions:rows.length+observers.length,observers,wallSeconds:report.wallSeconds}));if(!executionPass)process.exitCode=1;
 }finally{await instrument?.cleanup();fs.rmSync(temp,{recursive:true,force:true});CONFIG.GRIP.reactionModel=originalGrip;Math.random=originalRandom;}
