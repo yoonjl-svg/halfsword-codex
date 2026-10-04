@@ -1,6 +1,6 @@
 {
-  "status": "Optional trial integrated and local validation passed; remote/public verification pending",
-  "recordedUTC": "2026-10-04T09:31:33.750378+00:00",
+  "status": "Code delivered and public mobile A/B verified; receipt-only closure follows",
+  "recordedUTC": "2026-10-04T09:35:12.281235+00:00",
   "target": "yoonjl-svg/halfsword-codex",
   "branch": "codex/delivery-20261003",
   "baseCommit": "9bac477fbc66c89cba761962c08d788578c02841",
@@ -205,16 +205,193 @@
   },
   "study": {
     "path": "metrics.json",
-    "bytes": 153563,
-    "sha256": "033d26dc8d052044eb0549f8f3210ea31a385ce2bcb9fed2218fd1510a9988c1"
+    "bytes": 33027,
+    "sha256": "dbdaa34304a796a3be5fa34bc42289e96213b2bdcbf60cc9353df3844e28c122"
   },
   "independentReview": {
     "path": "independent-publication-review.md",
     "bytes": 7012,
     "sha256": "f5120f69a7fa0549fb909f36f16fda01769c6131331ab13aa90ceec796cdd13f"
   },
-  "publicVerified": false,
+  "publicVerified": true,
   "humanPhoneAcceptance": false,
   "generalPromotion": "No general default change; user concrete comparison/confirmation required.",
-  "next": "30-45min unchanged precontact tap roll at831; narrow one input/controller/body causation with saved trace; no wrist motor/gain/seed retry."
+  "next": "30-45min unchanged precontact tap roll at831; narrow one input/controller/body causation with saved trace; no wrist motor/gain/seed retry.",
+  "implementationCommit": "ddc97e1c64a7af812801e3e86dd7c6d6a208e449",
+  "pages": {
+    "conclusion": "success",
+    "headSha": "ddc97e1c64a7af812801e3e86dd7c6d6a208e449",
+    "status": "completed",
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37192457171"
+  },
+  "publicBytes": {
+    "path": "public-bytes.json",
+    "bytes": 5335,
+    "sha256": "cab79ad1edba0c2c34edcf9bc05fc400e1aaf869d72bc6531f16193ef1882391",
+    "pass": true,
+    "files": 8,
+    "mainSHA256": "89716e200a921450eaaee96fe700772635ec879009303740913c80ac27c1d4c3"
+  },
+  "publicMobile": {
+    "path": "public-mobile/summary.json",
+    "bytes": 14661,
+    "sha256": "bd26bd04323414e02a6cd9f413cc682392c8162d6fbd9e57ad4246b8ff7352a4",
+    "rows": [
+      {
+        "shape": "box",
+        "initialGeometry": {
+          "trial": {
+            "active": true,
+            "model": "box",
+            "applied": false
+          },
+          "player": [
+            1,
+            0,
+            1,
+            1
+          ],
+          "enemy": [
+            1,
+            0,
+            1,
+            1
+          ]
+        },
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=qinggang&foeWeapon=longsword&foe=default&targetCorrection=none&onehandArm=manual&thrustEdge=legacy&bladeShape=box",
+        "portrait": {
+          "width": 390,
+          "scrollWidth": 390
+        },
+        "compiled": [
+          {
+            "url": "https://yoonjl-svg.github.io/halfsword-codex/assets/main-BAZCVouE.js",
+            "bytes": 3497528,
+            "sha256": "89716e200a921450eaaee96fe700772635ec879009303740913c80ac27c1d4c3"
+          }
+        ],
+        "restarted": {
+          "newPlayer": true,
+          "model": "manual",
+          "edge": "legacy",
+          "skill": 0,
+          "shapeTypes": [
+            1,
+            0,
+            1,
+            1
+          ],
+          "trial": {
+            "active": true,
+            "model": "box",
+            "applied": false
+          },
+          "saved": {
+            "skill": "0",
+            "difficulty": "normal"
+          }
+        },
+        "errors": []
+      },
+      {
+        "shape": "profile",
+        "initialGeometry": {
+          "trial": {
+            "active": true,
+            "model": "profile",
+            "applied": true
+          },
+          "player": [
+            1,
+            0,
+            1,
+            9
+          ],
+          "enemy": [
+            1,
+            0,
+            1,
+            1
+          ]
+        },
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=qinggang&foeWeapon=longsword&foe=default&targetCorrection=none&onehandArm=manual&thrustEdge=legacy&bladeShape=profile",
+        "portrait": {
+          "width": 390,
+          "scrollWidth": 390
+        },
+        "compiled": [
+          {
+            "url": "https://yoonjl-svg.github.io/halfsword-codex/assets/main-BAZCVouE.js",
+            "bytes": 3497528,
+            "sha256": "89716e200a921450eaaee96fe700772635ec879009303740913c80ac27c1d4c3"
+          }
+        ],
+        "restarted": {
+          "newPlayer": true,
+          "model": "manual",
+          "edge": "legacy",
+          "skill": 0,
+          "shapeTypes": [
+            1,
+            0,
+            1,
+            9
+          ],
+          "trial": {
+            "active": true,
+            "model": "profile",
+            "applied": true
+          },
+          "saved": {
+            "skill": "0",
+            "difficulty": "normal"
+          }
+        },
+        "errors": []
+      }
+    ],
+    "scope": "Real public compiled build/390 portrait/trusted landscape touch and tap/restart, original enemy/physics. Input timing differs between browser rows; peak speed here is not a matched-state efficacy comparison. CPU mobile emulation, not actual-phone human acceptance."
+  },
+  "publicStatic": {
+    "path": "public-mobile-pages-final.json",
+    "bytes": 957,
+    "sha256": "2950bf86f6ac786fc8940b6d48df610171d2f5e15c87a3643053bfd6431f1e22",
+    "rows": [
+      {
+        "file": "feature-lab.html",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html?verify=blade-shape-final",
+        "width": 390,
+        "scrollWidth": 390,
+        "bytes": 19812,
+        "sha256": "a93b38617fa6a7b0a536bbc90c4e42233afe266fd7571132c40e50909c2124df",
+        "errors": [],
+        "failedResources": []
+      },
+      {
+        "file": "development-plan.html",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/development-plan.html?verify=blade-shape-final",
+        "width": 390,
+        "scrollWidth": 390,
+        "bytes": 29748,
+        "sha256": "4bfe2729df1a8fc041bdcde9f5fa71d5fca38ec67b45812f693f307c1e63fded",
+        "errors": [],
+        "failedResources": []
+      }
+    ]
+  },
+  "taskTiming": {
+    "startedUTC": "2026-10-04T09:11:09+00:00",
+    "publicMobileCompleteUTC": "2026-10-04T09:34:08.095Z",
+    "closureRecordedUTC": "2026-10-04T09:35:12.281235+00:00",
+    "elapsedMinutesToClosure": 24.054687249999997,
+    "initialEstimateMinutes": [
+      30,
+      45
+    ],
+    "scope": "Active turn elapsed, not measured twofold productivity or background AI operation."
+  },
+  "sourceRegressionMatch": {
+    "srcFiles": 72,
+    "scope": "Every actual implemented src byte matches fresh six-group local regression fingerprint. Runtime source unchanged after checks."
+  }
 }
