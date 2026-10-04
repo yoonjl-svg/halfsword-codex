@@ -4,6 +4,7 @@
 
 | 최근 회차 | 판정 / 소스 | 재사용 입구 |
 |---|---|---|
+| [준비 자세·그립 교정](ready_grip_20261004.md) | B 시작 교정·새 손/소매 철회, 깊은 접기 떨림 기각 | native27·손3쌍·명목 유한자루5·첫 입력6·[재현/수치](ready_grip_20261004.json)·[전달](ready_grip_release.json) |
 | [첫 자세 근거 확인](first_guard_review_20261004.md) | 확장 가드 실재·공통 시작 미검증, 게임 변경 없음 | 원전 해당 문단 직접 열람·native 좁은관찰3회·기존trace3/3 exact·[수치/재현](first_guard_review_20261004.json) |
 | [쥔 손 엄지 정정](hand_opposition_20261004.md) | 이전 방향 검증 누락 정정, 일반 표시만 | 손3쌍·5무기 양손 양측+손바닥 화면·[원자료](hand_opposition_20261004.json)·[전달](hand_opposition_release.json) |
 | [첫 자세·엄지 손](initial_pose_and_hands_20261004.md) | manual 시작 수평·일반 외형, 양손2종 시작 진동 남음 | native27 전/후·손3쌍·화면16·[수치/원자료](initial_pose_and_hands_20261004.json)·[전달](initial_pose_and_hands_release.json) |

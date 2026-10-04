@@ -817,6 +817,51 @@ export class Fighter {
     if (this.handOffset.x !== 0.15 || this.handOffset.y !== 0 || this.handHeld || this.inputActive) return;
     this.handOffset.set(0.15, 0.1);
     for (const v of [this.skill.prev, this.skill.aim, this.skill.anchor, this.skill.aimRaw]) v.copy(this.handOffset);
+    // A level point need not put the hand above the shoulder. These are modest
+    // game ready positions, not reconstructions of one universal historical guard.
+    const ready = this.weapon.id === 'rapier' ? [0.51, 0.10, 0.03]
+      : this.weapon.id === 'sabre' ? [0.50, 0.08, 0.06] : [0.50, 0.10, 0.05];
+    const R = WEAPON.reach;
+    const raw = new THREE.Vector3(0.12 + 0.5 * Math.sqrt(1 - (0.15 ** 2 + 0.1 ** 2) / R ** 2), 0.2, 0.25);
+    this.calibrateOnehandReach(raw);
+    this.onehandReady = { delta: new THREE.Vector3(...ready).sub(raw), travel: 0, weight: 1 };
+    this.handBase = ready.slice(); // A tap may arrive before the first physics step.
+    const c = this.bodies.chest.translation();
+    const cq = new THREE.Quaternion().copy(this.bodies.chest.rotation());
+    this.handTarget.set(...ready).applyQuaternion(this.yaw).add(new THREE.Vector3(c.x, c.y, c.z));
+    this.armIK(this.handTarget);
+    // Configure the spawn once, after the joint reference frames exist. Keep
+    // every joint anchor coincident; live play continues through native muscles.
+    const shoulder = new THREE.Vector3(...ARM.shoulder).applyQuaternion(cq).add(new THREE.Vector3(c.x, c.y, c.z));
+    const uq = cq.clone().multiply(this.jointByName.uarmS.target);
+    const elbow = shoulder.clone().add(new THREE.Vector3(ARM.upper, 0, 0).applyQuaternion(uq));
+    const fq = uq.clone().multiply(this.jointByName.farmS.target);
+    const wrist = elbow.clone().add(new THREE.Vector3(0.265, 0, 0).applyQuaternion(fq));
+    this.bodies.uarmS.setTranslation(vecArg(shoulder.clone().add(new THREE.Vector3(0.15, 0, 0).applyQuaternion(uq))), true);
+    this.bodies.uarmS.setRotation(vecQ(uq), true);
+    this.bodies.farmS.setTranslation(vecArg(elbow.clone().add(new THREE.Vector3(0.135, 0, 0).applyQuaternion(fq))), true);
+    this.bodies.farmS.setRotation(vecQ(fq), true);
+    const aim = new THREE.Vector3(...guardDir(0.15, 0.1)).applyQuaternion(this.yaw);
+    this.sword.setTranslation(vecArg(wrist), true);
+    const flat = RIGHT_LOCAL.clone().applyQuaternion(this.yaw).addScaledVector(aim, -RIGHT_LOCAL.clone().applyQuaternion(this.yaw).dot(aim)).normalize();
+    const edge = new THREE.Vector3().crossVectors(aim, flat).normalize();
+    this.sword.setRotation(vecQ(new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(edge, aim, flat))), true);
+    this.aimDirW.copy(aim);
+    this.prevAim = aim.clone();
+    this.trackBlade(0);
+  }
+
+  calibrateOnehandReach(handLocal) {
+    if (this.onehandReachScale === undefined) {
+      const home = guardAt(...SKILL.homeGuard, { oneHand: true, table: this.guardPose.table });
+      const [hx, hy] = SKILL.homeGuard;
+      const hd = 0.12 + 0.5 * Math.sqrt(Math.max(0, 1 - (hx * hx + hy * hy) / (WEAPON.reach ** 2)));
+      const rawReach = Math.hypot(hd - ARM.shoulder[0], hy, 0.1 + hx - this.side * ARM.shoulder[2]);
+      const guardReach = Math.hypot(home.hand[0] - ARM.shoulder[0], home.hand[1] - ARM.shoulder[1], home.hand[2] - this.side * ARM.shoulder[2]);
+      this.onehandReachScale = guardReach / rawReach;
+    }
+    handLocal.sub(_v6.set(ARM.shoulder[0], ARM.shoulder[1], this.side * ARM.shoulder[2]))
+      .multiplyScalar(this.onehandReachScale).add(_v6);
   }
 
   step(dt) {
@@ -1892,16 +1937,14 @@ export class Fighter {
     if (manualOnehand) {
       // Keep manual pad movement authoritative. Calibrate radial reach from the
       // existing home guard, rather than replacing each drag by a fixed pose.
-      if (this.onehandReachScale === undefined) {
-        const home = guardAt(...SKILL.homeGuard, { oneHand: true, table: this.guardPose.table });
-        const hx = SKILL.homeGuard[0], hy = SKILL.homeGuard[1];
-        const hd = 0.12 + 0.5 * Math.sqrt(Math.max(0, 1 - (hx * hx + hy * hy) / (R * R)));
-        const rawReach = Math.hypot(hd - ARM.shoulder[0], hy, 0.1 + hx - this.side * ARM.shoulder[2]);
-        const guardReach = Math.hypot(home.hand[0] - ARM.shoulder[0], home.hand[1] - ARM.shoulder[1], home.hand[2] - this.side * ARM.shoulder[2]);
-        this.onehandReachScale = guardReach / rawReach;
+      this.calibrateOnehandReach(handLocal);
+      if (this.onehandReady) {
+        const r = this.onehandReady;
+        r.travel = Math.max(r.travel, Math.hypot(off.x - 0.15, off.y - 0.1));
+        const t = Math.min(1, r.travel / 0.30);
+        r.weight = 1 - t * t * (3 - 2 * t);
+        handLocal.addScaledVector(r.delta, r.weight);
       }
-      handLocal.sub(_v6.set(ARM.shoulder[0], ARM.shoulder[1], this.side * ARM.shoulder[2]))
-        .multiplyScalar(this.onehandReachScale).add(_v6);
       // Fallen-opponent finishing takes over gradually through its existing
       // activation, instead of discarding the finishing hand/direction target.
       if (this.finish.amt > 0 && gw > 0) handLocal.lerp(_v6.set(...G.hand), gw * this.finish.amt);

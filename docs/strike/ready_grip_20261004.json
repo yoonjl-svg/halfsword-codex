@@ -1,0 +1,2108 @@
+{
+  "baseCommit": "5bb8a25f8c830f357235e70f1036700dd7b85880",
+  "sourceHashes": {
+    "src/fighter.js": "11112ae5871cab41691ff2f49b84f54ddbe381792a86f59d740af9ab8a684e30",
+    "src/hand_visual.js": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893",
+    "src/main.js": "3664519c4aed4961065ee0f13b7b107dcb8749bf14f87c40b623db6f6f197af6",
+    "src/skill.js": "b69b73e00d8524e733842a630d54f2d7392807f883d7a75c9f9767b78d71f512",
+    "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+    "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+    "tools/sim/experiments/ready_grip_probe.mjs": "22642d348da2934b7810d6e56645cf44a0c391a351d736f96d34807ab7491490",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+    "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5"
+  },
+  "sourceDirty": true,
+  "artifactRoot": "/workspace/halfsword-handoff/ready-grip-20261004",
+  "startedUTC": "2026-10-04T03:02:21Z",
+  "handDecision": {
+    "status": "rejected-withdrawn",
+    "publicDeploymentsOfNewHandCandidate": 0,
+    "restoredHandSourceSHA256": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893",
+    "restoredByteExact": true,
+    "sleeveRestored": true,
+    "reason": "Actual silhouette/connected anatomical wrist-palm-finger relationship failed user review; geometry overlap/connection/native checks do not certify human hands.",
+    "failedSourceSHA256": "ada99ef62430165721d1d87333061b3c98734a865d0f871d0bbf0e6277bface0",
+    "noRevivalRecommendation": true
+  },
+  "readyDecision": {
+    "status": "approved optional B startup correction; general controller promotion pending",
+    "profilesM": {
+      "qinggang": [
+        0.5,
+        0.1,
+        0.05
+      ],
+      "sabre": [
+        0.5,
+        0.08,
+        0.06
+      ],
+      "rapier": [
+        0.51,
+        0.1,
+        0.03
+      ]
+    },
+    "scope": "Player index0 manual one-hand non-gun unmodified startup only. One-time FK after joint reference creation, seeded first tap handBase, ready delta releases over max filtered command travel0.30m.",
+    "limits": [
+      "Authored game values, not exact historical guard reconstruction",
+      "Maximum travel release is position-continuous, not C1 at all re-crossings; partial bias remains below0.30m; autoGuard commands can release it",
+      "No new grip geometry in final delivery; existing hand limitations remain",
+      "Native floating point anchor tolerances1µm; IK nominal fore0.270 vs physical0.265 retains existing5mm difference",
+      "Human feel/anatomy not certified by finite or stand state"
+    ]
+  },
+  "readyFrames": [
+    {
+      "weapon": "qinggang",
+      "scenario": "idle/touch/1mm/out-return-recross/full-drag",
+      "frames": [
+        {
+          "label": "spawn",
+          "timeS": 0,
+          "mainGripGapM": 3.2875798282310607e-08,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.5,
+            0.1,
+            0.05
+          ],
+          "target": [
+            -2.299999952316284,
+            1.4300000429153443,
+            0.05
+          ],
+          "wristAboveShoulderM": -0.0019599080366250465,
+          "elbowFlexDeg": 47.425902436532816,
+          "bladeElevationDeg": -1.0628400293507371e-06,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 6.705522537231445e-08,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0
+        },
+        {
+          "label": "idle-1s",
+          "timeS": 0.9999999999999989,
+          "mainGripGapM": 5.243545505277407e-08,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.5,
+            0.1,
+            0.05000000000000002
+          ],
+          "target": [
+            -2.3226644248301964,
+            1.3565574645996095,
+            0.03967018590316433
+          ],
+          "wristAboveShoulderM": -0.00511280726032548,
+          "elbowFlexDeg": 44.23843375741945,
+          "bladeElevationDeg": 0.0549873998497689,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.00011448455753067424,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0.17826161907045973,
+          "phaseMaxArmOmega": 0.21911749594853494
+        },
+        {
+          "label": "touch-only",
+          "timeS": 1.249999999999998,
+          "mainGripGapM": 2.393362452301651e-07,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.5,
+            0.1,
+            0.05000000000000002
+          ],
+          "target": [
+            -2.3311688216412074,
+            1.356588101387024,
+            0.039162182127813736
+          ],
+          "wristAboveShoulderM": -0.00506944304196888,
+          "elbowFlexDeg": 44.310246389096754,
+          "bladeElevationDeg": 0.05069602004505552,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.00011460913496475258,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0.1714785133619381,
+          "phaseMaxArmOmega": 0.06843952379461679
+        },
+        {
+          "label": "first-1mm",
+          "timeS": 1.2583333333333313,
+          "mainGripGapM": 1.1561307977657783e-07,
+          "pad": [
+            0.151,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.5,
+            0.1,
+            0.05000000000000002
+          ],
+          "target": [
+            -2.3314199696444176,
+            1.3565892934799195,
+            0.0391359036276796
+          ],
+          "wristAboveShoulderM": -0.005050587743874457,
+          "elbowFlexDeg": 44.30872802909906,
+          "bladeElevationDeg": 0.05098439681113397,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.00011481793867394843,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0.17159815621452226,
+          "phaseMaxArmOmega": null
+        },
+        {
+          "label": "hold-1mm",
+          "timeS": 1.5083333333333304,
+          "mainGripGapM": 9.019994421635145e-08,
+          "pad": [
+            0.151,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.5,
+            0.1,
+            0.05000000000000002
+          ],
+          "target": [
+            -2.3382360472421695,
+            1.3566241025924684,
+            0.037787023699914365
+          ],
+          "wristAboveShoulderM": -0.005045467003481852,
+          "elbowFlexDeg": 44.32520272961801,
+          "bladeElevationDeg": 0.053519134952523265,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.00011482559064802844,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0.16313283515793237,
+          "phaseMaxArmOmega": 0.056275351497439174
+        },
+        {
+          "label": "out-small",
+          "timeS": 1.7583333333333295,
+          "mainGripGapM": 2.3274713026694527e-07,
+          "pad": [
+            0.25,
+            0.1
+          ],
+          "filteredPad": [
+            0.22141661866532525,
+            0.1
+          ],
+          "handBase": [
+            0.48536322240110047,
+            0.11210511539957967,
+            0.13794944244982765
+          ],
+          "target": [
+            -2.358171544523113,
+            1.3687085947849555,
+            0.12201486775279755
+          ],
+          "wristAboveShoulderM": 0.014359038307590888,
+          "elbowFlexDeg": 57.296964609786095,
+          "bladeElevationDeg": -0.06202981070748342,
+          "readyWeight": 0.8569702612830208,
+          "readyTravel": 0.07141661866532525,
+          "jointGapMaxM": 0.00011441944293390787,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 1.3053241580317585,
+          "phaseMaxArmOmega": null
+        },
+        {
+          "label": "return-small",
+          "timeS": 2.008333333333329,
+          "mainGripGapM": 1.7180479606239136e-07,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.17586891534047655,
+            0.1
+          ],
+          "handBase": [
+            0.49604275407462606,
+            0.11210511539957967,
+            0.09940080145537555
+          ],
+          "target": [
+            -2.353618239647589,
+            1.3688336453296943,
+            0.08772239821598554
+          ],
+          "wristAboveShoulderM": 0.0011758059007398458,
+          "elbowFlexDeg": 50.90660521998317,
+          "bladeElevationDeg": 0.14412389631070124,
+          "readyWeight": 0.8569702612830208,
+          "readyTravel": 0.07141661866532525,
+          "jointGapMaxM": 0.00014780526618973877,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 1.114987030244628,
+          "phaseMaxArmOmega": null
+        },
+        {
+          "label": "cross-previous-radius",
+          "timeS": 2.258333333333328,
+          "mainGripGapM": 4.7824919571639505e-08,
+          "pad": [
+            0.251,
+            0.1
+          ],
+          "filteredPad": [
+            0.22484479988585324,
+            0.1
+          ],
+          "handBase": [
+            0.48452831384557293,
+            0.11317477035691687,
+            0.1432814609885955
+          ],
+          "target": [
+            -2.364358051100133,
+            1.3588855009095901,
+            0.12043431754245654
+          ],
+          "wristAboveShoulderM": 0.017397362055911136,
+          "elbowFlexDeg": 57.82373810317147,
+          "bladeElevationDeg": -0.08475745399852129,
+          "readyWeight": 0.8443315986998807,
+          "readyTravel": 0.07484479988585324,
+          "jointGapMaxM": 0.0001979770201235134,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 2.9351491179062643,
+          "phaseMaxArmOmega": null
+        },
+        {
+          "label": "full-drag",
+          "timeS": 2.508333333333327,
+          "mainGripGapM": 2.5189983843410485e-06,
+          "pad": [
+            0.5,
+            0.1
+          ],
+          "filteredPad": [
+            0.46312163970727716,
+            0.1
+          ],
+          "handBase": [
+            0.37450206593873825,
+            0.18463355598749095,
+            0.5073227562443536
+          ],
+          "target": [
+            -2.4581208233388536,
+            1.4365028768569368,
+            0.4865226559024859
+          ],
+          "wristAboveShoulderM": 0.12071203249462337,
+          "elbowFlexDeg": 50.26633180403739,
+          "bladeElevationDeg": 0.5158523767381711,
+          "readyWeight": 0,
+          "readyTravel": 0.31312163970727713,
+          "jointGapMaxM": 0.00032477232984736896,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 4.598289796153079,
+          "phaseMaxArmOmega": null
+        },
+        {
+          "label": "hold-after-drag",
+          "timeS": 3.0083333333333253,
+          "mainGripGapM": 2.1283218199133491e-07,
+          "pad": [
+            0.5,
+            0.1
+          ],
+          "filteredPad": [
+            0.4799113547704512,
+            0.1
+          ],
+          "handBase": [
+            0.36063820226373544,
+            0.18463355598749095,
+            0.5215324891424852
+          ],
+          "target": [
+            -2.5291778448313846,
+            1.413857164958133,
+            0.5082041000179256
+          ],
+          "wristAboveShoulderM": 0.08459221497053138,
+          "elbowFlexDeg": 51.27446550764029,
+          "bladeElevationDeg": -0.16873235451228,
+          "readyWeight": 0,
+          "readyTravel": 0.3299113547704512,
+          "jointGapMaxM": 0.00022151278852890208,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 1.2693999402256184,
+          "phaseMaxArmOmega": null
+        }
+      ]
+    },
+    {
+      "weapon": "qinggang",
+      "scenario": "tap-before-first-step",
+      "seededHandBase": [
+        0.5,
+        0.1,
+        0.05
+      ],
+      "frames": [
+        {
+          "label": "tap-before-first-step",
+          "timeS": 0,
+          "mainGripGapM": 3.2875798282310607e-08,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.5,
+            0.1,
+            0.05
+          ],
+          "target": [
+            -2.299999952316284,
+            1.4300000429153443,
+            0.05
+          ],
+          "wristAboveShoulderM": -0.0019599080366250465,
+          "elbowFlexDeg": 47.425902436532816,
+          "bladeElevationDeg": -1.0628400293507371e-06,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 6.705522537231445e-08,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0
+        },
+        {
+          "label": "tap-1",
+          "timeS": 0.008333333333333333,
+          "mainGripGapM": 1.0297543537648363e-07,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.5,
+            0.1,
+            0.05000000000000002
+          ],
+          "target": [
+            -2.299999952316284,
+            1.4300000429153443,
+            0.05000000000000002
+          ],
+          "wristAboveShoulderM": -0.0016361062120251457,
+          "elbowFlexDeg": 47.369907511038505,
+          "bladeElevationDeg": 0.00298299680034325,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.0003835592637378058,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 3.6824997212006974
+        },
+        {
+          "label": "tap-20",
+          "timeS": 0.16666666666666666,
+          "mainGripGapM": 2.6276796685696827e-07,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.5,
+            0.1,
+            0.05000000000000002
+          ],
+          "target": [
+            -2.304538964989455,
+            1.3661732435226441,
+            0.04883865416350232
+          ],
+          "wristAboveShoulderM": -0.004404568528915798,
+          "elbowFlexDeg": 43.572209759088636,
+          "bladeElevationDeg": 0.35912868793640323,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.00016097814356854764,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 4.929913603789743
+        },
+        {
+          "label": "tap-60",
+          "timeS": 0.5000000000000007,
+          "mainGripGapM": 8.048609787560091e-08,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.5,
+            0.1,
+            0.05000000000000002
+          ],
+          "target": [
+            -2.2991291860421508,
+            1.3565704584121705,
+            0.0461004031980373
+          ],
+          "wristAboveShoulderM": -0.003174981552082068,
+          "elbowFlexDeg": 44.45358013032162,
+          "bladeElevationDeg": 0.014663473852319824,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.0001153472525055897,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0.16668522842430195
+        },
+        {
+          "label": "tap-120",
+          "timeS": 0.9999999999999989,
+          "mainGripGapM": 5.243545505277407e-08,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.5,
+            0.1,
+            0.05000000000000002
+          ],
+          "target": [
+            -2.3226644248301964,
+            1.3565574645996095,
+            0.03967018590316433
+          ],
+          "wristAboveShoulderM": -0.00511280726032548,
+          "elbowFlexDeg": 44.23843375741945,
+          "bladeElevationDeg": 0.0549873998497689,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.00011448455753067424,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0.17826161907045973
+        }
+      ]
+    },
+    {
+      "weapon": "sabre",
+      "scenario": "idle/touch/1mm/out-return-recross/full-drag",
+      "frames": [
+        {
+          "label": "spawn",
+          "timeS": 0,
+          "mainGripGapM": 3.282575756723562e-08,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.5,
+            0.08,
+            0.06
+          ],
+          "target": [
+            -2.299999952316284,
+            1.4100000429153443,
+            0.06
+          ],
+          "wristAboveShoulderM": -0.021830165582083838,
+          "elbowFlexDeg": 48.61534257509275,
+          "bladeElevationDeg": -1.0628400293507371e-06,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 6.705522537231445e-08,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0
+        },
+        {
+          "label": "idle-1s",
+          "timeS": 0.9999999999999989,
+          "mainGripGapM": 2.0484604787626587e-07,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.5,
+            0.08,
+            0.06
+          ],
+          "target": [
+            -2.320853451880341,
+            1.3365215826034547,
+            0.04971417830301812
+          ],
+          "wristAboveShoulderM": -0.025543947440583192,
+          "elbowFlexDeg": 45.51201083842556,
+          "bladeElevationDeg": 0.04708105435052748,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.00011514324483120547,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0.17751052000252385,
+          "phaseMaxArmOmega": 0.22515710655189056
+        },
+        {
+          "label": "touch-only",
+          "timeS": 1.249999999999998,
+          "mainGripGapM": 1.6661440922492286e-07,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.5,
+            0.08,
+            0.06
+          ],
+          "target": [
+            -2.3292392097700017,
+            1.336548285484314,
+            0.04918753093832921
+          ],
+          "wristAboveShoulderM": -0.02567775089501456,
+          "elbowFlexDeg": 45.57105648974727,
+          "bladeElevationDeg": 0.04294837064975403,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.00011532599944976574,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0.17099385725906943,
+          "phaseMaxArmOmega": 0.06668802528095838
+        },
+        {
+          "label": "first-1mm",
+          "timeS": 1.2583333333333313,
+          "mainGripGapM": 2.1394586237048748e-07,
+          "pad": [
+            0.151,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.5,
+            0.08,
+            0.06
+          ],
+          "target": [
+            -2.3294859889992057,
+            1.3365494775772095,
+            0.049159583171084244
+          ],
+          "wristAboveShoulderM": -0.02565739480196627,
+          "elbowFlexDeg": 45.569789910047746,
+          "bladeElevationDeg": 0.04315437283273563,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.00011528612447352978,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0.17117627204064984,
+          "phaseMaxArmOmega": null
+        },
+        {
+          "label": "hold-1mm",
+          "timeS": 1.5083333333333304,
+          "mainGripGapM": 1.0626097843795472e-07,
+          "pad": [
+            0.151,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.5,
+            0.08,
+            0.06
+          ],
+          "target": [
+            -2.3361748485497413,
+            1.3365823793411256,
+            0.047770590306385696
+          ],
+          "wristAboveShoulderM": -0.025526611989822534,
+          "elbowFlexDeg": 45.57998658888798,
+          "bladeElevationDeg": 0.04902214604901308,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.00011536247632323862,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0.16340071133005293,
+          "phaseMaxArmOmega": 0.06210940516803465
+        },
+        {
+          "label": "out-small",
+          "timeS": 1.7583333333333295,
+          "mainGripGapM": 4.820326237052501e-07,
+          "pad": [
+            0.25,
+            0.1
+          ],
+          "filteredPad": [
+            0.22141661866532525,
+            0.1
+          ],
+          "handBase": [
+            0.48479955835908656,
+            0.09484574802216472,
+            0.14586017727793418
+          ],
+          "target": [
+            -2.3564635734921073,
+            1.3513787747174162,
+            0.12976951774050058
+          ],
+          "wristAboveShoulderM": -0.004594890755475367,
+          "elbowFlexDeg": 58.061114008267424,
+          "bladeElevationDeg": -0.19092148600812942,
+          "readyWeight": 0.8569702612830208,
+          "readyTravel": 0.07141661866532525,
+          "jointGapMaxM": 0.00011542414459819736,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 1.6130656576893232,
+          "phaseMaxArmOmega": null
+        },
+        {
+          "label": "return-small",
+          "timeS": 2.008333333333329,
+          "mainGripGapM": 5.610033399305206e-07,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.17586891534047655,
+            0.1
+          ],
+          "handBase": [
+            0.49537325546953714,
+            0.09484574802216472,
+            0.10769355477469514
+          ],
+          "target": [
+            -2.3522063409026472,
+            1.3515618801861662,
+            0.09631804741474909
+          ],
+          "wristAboveShoulderM": -0.013349647399431674,
+          "elbowFlexDeg": 51.70368510260113,
+          "bladeElevationDeg": 0.31871713933479223,
+          "readyWeight": 0.8569702612830208,
+          "readyTravel": 0.07141661866532525,
+          "jointGapMaxM": 0.00014740065879040805,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 1.795368879898114,
+          "phaseMaxArmOmega": null
+        },
+        {
+          "label": "cross-previous-radius",
+          "timeS": 2.258333333333328,
+          "mainGripGapM": 2.5183481902569253e-07,
+          "pad": [
+            0.251,
+            0.1
+          ],
+          "filteredPad": [
+            0.22484479988585324,
+            0.1
+          ],
+          "handBase": [
+            0.4839102989666748,
+            0.09615757591005407,
+            0.15103175612902997
+          ],
+          "target": [
+            -2.3623479024695144,
+            1.341670180623494,
+            0.12806913616964305
+          ],
+          "wristAboveShoulderM": -0.00278499562966239,
+          "elbowFlexDeg": 58.80622149447128,
+          "bladeElevationDeg": -0.28052840639441445,
+          "readyWeight": 0.8443315986998807,
+          "readyTravel": 0.07484479988585324,
+          "jointGapMaxM": 0.0001994047681185591,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 2.948770499034478,
+          "phaseMaxArmOmega": null
+        },
+        {
+          "label": "full-drag",
+          "timeS": 2.508333333333327,
+          "mainGripGapM": 4.405867304271249e-06,
+          "pad": [
+            0.5,
+            0.1
+          ],
+          "filteredPad": [
+            0.46312163970727716,
+            0.1
+          ],
+          "handBase": [
+            0.3707907362914318,
+            0.18379483424451204,
+            0.5042771760986671
+          ],
+          "target": [
+            -2.4566416338280486,
+            1.4355511447074636,
+            0.4843737688758304
+          ],
+          "wristAboveShoulderM": 0.11734870560344879,
+          "elbowFlexDeg": 52.969281024228245,
+          "bladeElevationDeg": -0.8132497247099472,
+          "readyWeight": 0,
+          "readyTravel": 0.31312163970727713,
+          "jointGapMaxM": 0.0002862143886962318,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 6.260364798134512,
+          "phaseMaxArmOmega": null
+        },
+        {
+          "label": "hold-after-drag",
+          "timeS": 3.0083333333333253,
+          "mainGripGapM": 3.006371194530099e-07,
+          "pad": [
+            0.5,
+            0.1
+          ],
+          "filteredPad": [
+            0.4799113547704512,
+            0.1
+          ],
+          "handBase": [
+            0.3570642640301566,
+            0.18379483424451204,
+            0.5183460900059796
+          ],
+          "target": [
+            -2.5280794325945424,
+            1.4140362521293386,
+            0.5052528743951838
+          ],
+          "wristAboveShoulderM": 0.07926901356571459,
+          "elbowFlexDeg": 54.10696545897159,
+          "bladeElevationDeg": -0.4615302653338386,
+          "readyWeight": 0,
+          "readyTravel": 0.3299113547704512,
+          "jointGapMaxM": 0.00021838042745676587,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 1.262508441738415,
+          "phaseMaxArmOmega": null
+        }
+      ]
+    },
+    {
+      "weapon": "sabre",
+      "scenario": "tap-before-first-step",
+      "seededHandBase": [
+        0.5,
+        0.08,
+        0.06
+      ],
+      "frames": [
+        {
+          "label": "tap-before-first-step",
+          "timeS": 0,
+          "mainGripGapM": 3.282575756723562e-08,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.5,
+            0.08,
+            0.06
+          ],
+          "target": [
+            -2.299999952316284,
+            1.4100000429153443,
+            0.06
+          ],
+          "wristAboveShoulderM": -0.021830165582083838,
+          "elbowFlexDeg": 48.61534257509275,
+          "bladeElevationDeg": -1.0628400293507371e-06,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 6.705522537231445e-08,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0
+        },
+        {
+          "label": "tap-1",
+          "timeS": 0.008333333333333333,
+          "mainGripGapM": 3.2666764280266496e-07,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.5,
+            0.08,
+            0.06
+          ],
+          "target": [
+            -2.299999952316284,
+            1.4100000429153443,
+            0.06
+          ],
+          "wristAboveShoulderM": -0.021524010162337737,
+          "elbowFlexDeg": 48.55762153829974,
+          "bladeElevationDeg": 0.004548754509846173,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.00038324444901313703,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 3.679806392558837
+        },
+        {
+          "label": "tap-20",
+          "timeS": 0.16666666666666666,
+          "mainGripGapM": 2.9498331080967885e-07,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.5,
+            0.08,
+            0.06
+          ],
+          "target": [
+            -2.3042875075250833,
+            1.346169548034668,
+            0.058896734446252035
+          ],
+          "wristAboveShoulderM": -0.023552500604467896,
+          "elbowFlexDeg": 44.86513378466355,
+          "bladeElevationDeg": 0.5396240499829775,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.0001613239795212525,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 4.924787023411653
+        },
+        {
+          "label": "tap-60",
+          "timeS": 0.5000000000000007,
+          "mainGripGapM": 1.4055211595687501e-08,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.5,
+            0.08,
+            0.06
+          ],
+          "target": [
+            -2.2975775426126726,
+            1.3365264701843262,
+            0.05625145916355622
+          ],
+          "wristAboveShoulderM": -0.023496913583492596,
+          "elbowFlexDeg": 45.81150031012766,
+          "bladeElevationDeg": -0.03053086299836252,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.00011615193937223032,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0.16375187038943087
+        },
+        {
+          "label": "tap-120",
+          "timeS": 0.9999999999999989,
+          "mainGripGapM": 2.0484604787626587e-07,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.5,
+            0.08,
+            0.06
+          ],
+          "target": [
+            -2.320853451880341,
+            1.3365215826034547,
+            0.04971417830301812
+          ],
+          "wristAboveShoulderM": -0.025543947440583192,
+          "elbowFlexDeg": 45.51201083842556,
+          "bladeElevationDeg": 0.04708105435052748,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.00011514324483120547,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0.17751052000252385
+        }
+      ]
+    },
+    {
+      "weapon": "rapier",
+      "scenario": "idle/touch/1mm/out-return-recross/full-drag",
+      "frames": [
+        {
+          "label": "spawn",
+          "timeS": 0,
+          "mainGripGapM": 1.8609294783168314e-07,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.51,
+            0.1,
+            0.03
+          ],
+          "target": [
+            -2.2899999523162844,
+            1.4300000429153443,
+            0.03
+          ],
+          "wristAboveShoulderM": -0.0016290336899213997,
+          "elbowFlexDeg": 38.88615377499352,
+          "bladeElevationDeg": -1.0628400293507371e-06,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 1.3382034544789027e-07,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0
+        },
+        {
+          "label": "idle-1s",
+          "timeS": 0.9999999999999989,
+          "mainGripGapM": 3.407017208972713e-07,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.51,
+            0.1,
+            0.03
+          ],
+          "target": [
+            -2.311183847712508,
+            1.3564816474914552,
+            0.019719479509875994
+          ],
+          "wristAboveShoulderM": -0.0047667582206507575,
+          "elbowFlexDeg": 35.15809107844982,
+          "bladeElevationDeg": 0.06600177555834578,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.00011561488948574585,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0.1787764610761229,
+          "phaseMaxArmOmega": 0.1903721768146317
+        },
+        {
+          "label": "touch-only",
+          "timeS": 1.249999999999998,
+          "mainGripGapM": 9.800960953913357e-08,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.51,
+            0.1,
+            0.03
+          ],
+          "target": [
+            -2.319518334214087,
+            1.3565099000930787,
+            0.019302166501965437
+          ],
+          "wristAboveShoulderM": -0.0046196813370520395,
+          "elbowFlexDeg": 35.232551146659816,
+          "bladeElevationDeg": 0.06590260968905602,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.00011558918791940796,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0.1718841293643223,
+          "phaseMaxArmOmega": 0.08237007004112505
+        },
+        {
+          "label": "first-1mm",
+          "timeS": 1.2583333333333313,
+          "mainGripGapM": 9.651696016308422e-08,
+          "pad": [
+            0.151,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.51,
+            0.1,
+            0.03
+          ],
+          "target": [
+            -2.3197646533534027,
+            1.3565112113952638,
+            0.019279853663468224
+          ],
+          "wristAboveShoulderM": -0.004610449731566657,
+          "elbowFlexDeg": 35.23085267085664,
+          "bladeElevationDeg": 0.06602149925503077,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.00011570784546365745,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0.17136039680516504,
+          "phaseMaxArmOmega": null
+        },
+        {
+          "label": "hold-1mm",
+          "timeS": 1.5083333333333304,
+          "mainGripGapM": 2.1388955091087922e-07,
+          "pad": [
+            0.151,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.51,
+            0.1,
+            0.03
+          ],
+          "target": [
+            -2.3264762647965656,
+            1.3565416097640992,
+            0.01799410063411324
+          ],
+          "wristAboveShoulderM": -0.004607600088758268,
+          "elbowFlexDeg": 35.260360514488454,
+          "bladeElevationDeg": 0.06629620751423218,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.00011572993536647997,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0.1632525395047514,
+          "phaseMaxArmOmega": 0.07131658632888506
+        },
+        {
+          "label": "out-small",
+          "timeS": 1.7583333333333295,
+          "mainGripGapM": 1.3718764256454256e-07,
+          "pad": [
+            0.25,
+            0.1
+          ],
+          "filteredPad": [
+            0.22141661866532525,
+            0.1
+          ],
+          "handBase": [
+            0.4939329250139307,
+            0.11210511539957967,
+            0.12081003722416722
+          ],
+          "target": [
+            -2.347882040196422,
+            1.368614777074079,
+            0.10500506649304682
+          ],
+          "wristAboveShoulderM": 0.013348472753845542,
+          "elbowFlexDeg": 52.51902997012314,
+          "bladeElevationDeg": -0.016404990665798192,
+          "readyWeight": 0.8569702612830208,
+          "readyTravel": 0.07141661866532525,
+          "jointGapMaxM": 0.00011555144325997139,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 1.154201233285333,
+          "phaseMaxArmOmega": null
+        },
+        {
+          "label": "return-small",
+          "timeS": 2.008333333333329,
+          "mainGripGapM": 8.902044616363782e-08,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.17586891534047655,
+            0.1
+          ],
+          "handBase": [
+            0.5046124566874562,
+            0.11210511539957967,
+            0.08226139622971512
+          ],
+          "target": [
+            -2.3430588288467264,
+            1.3687405428745552,
+            0.07109659973616213
+          ],
+          "wristAboveShoulderM": 0.0024416190973208796,
+          "elbowFlexDeg": 45.08590009753831,
+          "bladeElevationDeg": 0.08309240034966718,
+          "readyWeight": 0.8569702612830208,
+          "readyTravel": 0.07141661866532525,
+          "jointGapMaxM": 0.0001506680465890006,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0.7747340934229998,
+          "phaseMaxArmOmega": null
+        },
+        {
+          "label": "cross-previous-radius",
+          "timeS": 2.258333333333328,
+          "mainGripGapM": 1.6366341697582383e-07,
+          "pad": [
+            0.251,
+            0.1
+          ],
+          "filteredPad": [
+            0.22484479988585324,
+            0.1
+          ],
+          "handBase": [
+            0.49297162983257176,
+            0.11317477035691687,
+            0.1263948290145979
+          ],
+          "target": [
+            -2.3539530193499125,
+            1.358732674600386,
+            0.10403761045162782
+          ],
+          "wristAboveShoulderM": 0.015981398499408606,
+          "elbowFlexDeg": 53.10640410897885,
+          "bladeElevationDeg": -0.03610125763969302,
+          "readyWeight": 0.8443315986998807,
+          "readyTravel": 0.07484479988585324,
+          "jointGapMaxM": 0.00019939288801609168,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 2.9470401961727775,
+          "phaseMaxArmOmega": null
+        },
+        {
+          "label": "full-drag",
+          "timeS": 2.508333333333327,
+          "mainGripGapM": 4.918189223991233e-06,
+          "pad": [
+            0.5,
+            0.1
+          ],
+          "filteredPad": [
+            0.46312163970727716,
+            0.1
+          ],
+          "handBase": [
+            0.37450206593873825,
+            0.18463355598749095,
+            0.5073227562443536
+          ],
+          "target": [
+            -2.453691449590364,
+            1.4362118869811433,
+            0.48753232079048836
+          ],
+          "wristAboveShoulderM": 0.11592429743636301,
+          "elbowFlexDeg": 50.5662837456516,
+          "bladeElevationDeg": -0.3250978016896435,
+          "readyWeight": 0,
+          "readyTravel": 0.31312163970727713,
+          "jointGapMaxM": 0.00040587353144539746,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 6.911406476526237,
+          "phaseMaxArmOmega": null
+        },
+        {
+          "label": "hold-after-drag",
+          "timeS": 3.0083333333333253,
+          "mainGripGapM": 1.8209913268431948e-07,
+          "pad": [
+            0.5,
+            0.1
+          ],
+          "filteredPad": [
+            0.4799113547704512,
+            0.1
+          ],
+          "handBase": [
+            0.36063820226373544,
+            0.18463355598749095,
+            0.5215324891424852
+          ],
+          "target": [
+            -2.525384791932872,
+            1.4148107200652498,
+            0.5095375071287229
+          ],
+          "wristAboveShoulderM": 0.0852736403750749,
+          "elbowFlexDeg": 51.28408815213044,
+          "bladeElevationDeg": -0.1744810677888747,
+          "readyWeight": 0,
+          "readyTravel": 0.3299113547704512,
+          "jointGapMaxM": 0.00021773397779818968,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 1.2532045900624718,
+          "phaseMaxArmOmega": null
+        }
+      ]
+    },
+    {
+      "weapon": "rapier",
+      "scenario": "tap-before-first-step",
+      "seededHandBase": [
+        0.51,
+        0.1,
+        0.03
+      ],
+      "frames": [
+        {
+          "label": "tap-before-first-step",
+          "timeS": 0,
+          "mainGripGapM": 1.8609294783168314e-07,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.51,
+            0.1,
+            0.03
+          ],
+          "target": [
+            -2.2899999523162844,
+            1.4300000429153443,
+            0.03
+          ],
+          "wristAboveShoulderM": -0.0016290336899213997,
+          "elbowFlexDeg": 38.88615377499352,
+          "bladeElevationDeg": -1.0628400293507371e-06,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 1.3382034544789027e-07,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0
+        },
+        {
+          "label": "tap-1",
+          "timeS": 0.008333333333333333,
+          "mainGripGapM": 2.1774017115636665e-07,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.51,
+            0.1,
+            0.03
+          ],
+          "target": [
+            -2.2899999523162844,
+            1.4300000429153443,
+            0.03
+          ],
+          "wristAboveShoulderM": -0.0013074871977059033,
+          "elbowFlexDeg": 38.80901505074037,
+          "bladeElevationDeg": 0.0037423977472431477,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.00038350719081197603,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 3.679704817758977
+        },
+        {
+          "label": "tap-20",
+          "timeS": 0.16666666666666666,
+          "mainGripGapM": 1.724833980910848e-07,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.51,
+            0.1,
+            0.03
+          ],
+          "target": [
+            -2.2943505492070564,
+            1.3661430835723878,
+            0.028857395073779355
+          ],
+          "wristAboveShoulderM": -0.0035211293655403875,
+          "elbowFlexDeg": 34.17506237178066,
+          "bladeElevationDeg": 0.2842839444863552,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.00016226103119499624,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 4.9294961980594465
+        },
+        {
+          "label": "tap-60",
+          "timeS": 0.5000000000000007,
+          "mainGripGapM": 2.1529584352824793e-07,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.51,
+            0.1,
+            0.03
+          ],
+          "target": [
+            -2.2878872548971985,
+            1.356502389907837,
+            0.02598523577346661
+          ],
+          "wristAboveShoulderM": -0.003299268660391652,
+          "elbowFlexDeg": 35.42686773845247,
+          "bladeElevationDeg": 0.041148628297486785,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.0001166830937087989,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0.16459887647869836
+        },
+        {
+          "label": "tap-120",
+          "timeS": 0.9999999999999989,
+          "mainGripGapM": 3.407017208972713e-07,
+          "pad": [
+            0.15,
+            0.1
+          ],
+          "filteredPad": [
+            0.15,
+            0.1
+          ],
+          "handBase": [
+            0.51,
+            0.1,
+            0.03
+          ],
+          "target": [
+            -2.311183847712508,
+            1.3564816474914552,
+            0.019719479509875994
+          ],
+          "wristAboveShoulderM": -0.0047667582206507575,
+          "elbowFlexDeg": 35.15809107844982,
+          "bladeElevationDeg": 0.06600177555834578,
+          "readyWeight": 1,
+          "readyTravel": 0,
+          "jointGapMaxM": 0.00011561488948574585,
+          "finite": true,
+          "state": "stand",
+          "wounds": 0,
+          "maxBodyAngularSpeed": 0.1787764610761229
+        }
+      ]
+    }
+  ],
+  "initialComparison": {
+    "conditions": 27,
+    "nativeInitialAndTraceExact": 20,
+    "intendedBChanged": 7,
+    "baselineArtifact": "/workspace/halfsword-handoff/initial-poses-20261004/forward-ready.json",
+    "baselineSHA256": "61b5f97a217e6d93623b497412a8536b2b16c925cb74e1292e86fae16b4baefe",
+    "rows": [
+      {
+        "weapon": "longsword",
+        "model": "legacy",
+        "skill": 0.7,
+        "initialExact": true,
+        "traceExact": true,
+        "initialNativeSHA": "18af96d84ec597f274b79faa39a57b70292cce2594320b88122a65bc51d1e083",
+        "nativeTraceSHA": "3226169c431ed06ab17f0eca8ee9c3d7d253b0ec6ef6cc50ae1628e9152a3a20",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "zweihander",
+        "model": "legacy",
+        "skill": 0.7,
+        "initialExact": true,
+        "traceExact": true,
+        "initialNativeSHA": "9169732459c49a158fc432186404283b082b8c28722873e0aebb80b9d93aa13f",
+        "nativeTraceSHA": "4eb54a2448bd32c676c02110c67d0237b17e936830e9a7b127991649a5e08eae",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "estoc",
+        "model": "legacy",
+        "skill": 0.7,
+        "initialExact": true,
+        "traceExact": true,
+        "initialNativeSHA": "f4d870fb9a19fbe015bcf1f54972aaa086b2d42c2ee3edab9268bde77dfb5615",
+        "nativeTraceSHA": "61781844b119d87972ddd0500462eb1840528ada628a9da3768df8e881ba382c",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "sabre",
+        "model": "legacy",
+        "skill": 0.7,
+        "initialExact": true,
+        "traceExact": true,
+        "initialNativeSHA": "b3bf8fa0f28047c7c8378813b5546351c9fd938cc8ed3a69e399449dd632c7a6",
+        "nativeTraceSHA": "b4923b9e9eda5e35852e2d855c10e7bfec3595b06e8463c21b5d179646263a30",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "rapier",
+        "model": "legacy",
+        "skill": 0.7,
+        "initialExact": true,
+        "traceExact": true,
+        "initialNativeSHA": "c71b7922e0b99ad3c9f678d77d2e13aac0711d8c406095d4a19324400b15af9e",
+        "nativeTraceSHA": "fd688ddc4960a43175e4be45619a3405ce85cbfc94c69c5ecb9bc9ac6ea2e851",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "falchion",
+        "model": "legacy",
+        "skill": 0.7,
+        "initialExact": true,
+        "traceExact": true,
+        "initialNativeSHA": "db00490e1192e31bb6a90f39d36d8f1b389c2704f52ef740c26ee2e28b8a09e3",
+        "nativeTraceSHA": "b8f4ad9e255cefbdf83f8302f642c0182a64e42c4484259e14d60759fa996b1f",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "monohoshizao",
+        "model": "legacy",
+        "skill": 0.7,
+        "initialExact": true,
+        "traceExact": true,
+        "initialNativeSHA": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30",
+        "nativeTraceSHA": "a241b28151fca434fe6a501313da3b45dd306436b7cbb7bfa89998f5a7cc9024",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "qinggang",
+        "model": "legacy",
+        "skill": 0.7,
+        "initialExact": true,
+        "traceExact": true,
+        "initialNativeSHA": "15350b59c3d45bd1450f8ba0e7801622323dd6caf24da5cfdc6f7113fdd10bf2",
+        "nativeTraceSHA": "46ebe1ebfdaf295795b25dd95a77ef6b09b183c194d169f8f50b3b11395f3bfa",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "excalibur",
+        "model": "legacy",
+        "skill": 0.7,
+        "initialExact": true,
+        "traceExact": true,
+        "initialNativeSHA": "52231f5d55ea82eb60b31d2e4e97f5d3545a924fc27891619d8ea281e3edbbdb",
+        "nativeTraceSHA": "0f5883319025c73681dbaecc77822911815c93b1700dc8d415e85513f15b5cf8",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "excalibur_replica",
+        "model": "legacy",
+        "skill": 0.7,
+        "initialExact": true,
+        "traceExact": true,
+        "initialNativeSHA": "52231f5d55ea82eb60b31d2e4e97f5d3545a924fc27891619d8ea281e3edbbdb",
+        "nativeTraceSHA": "0f5883319025c73681dbaecc77822911815c93b1700dc8d415e85513f15b5cf8",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "lightsaber",
+        "model": "legacy",
+        "skill": 0.7,
+        "initialExact": true,
+        "traceExact": true,
+        "initialNativeSHA": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c",
+        "nativeTraceSHA": "d2e671933f06f52f9af02cb24af84e2a8574d372f3131c71717908095cb5d701",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "tree_branch",
+        "model": "legacy",
+        "skill": 0.7,
+        "initialExact": true,
+        "traceExact": true,
+        "initialNativeSHA": "9fefa8db233617240403d5fe564ab4e4cc26a823d4070c2f6d14d111e8ed2052",
+        "nativeTraceSHA": "d1236ee5d9a71e4d2acfb9d8b48db54c16ff9a578b3e690f422f92f5d33665b4",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "rubber_chicken",
+        "model": "legacy",
+        "skill": 0.7,
+        "initialExact": true,
+        "traceExact": true,
+        "initialNativeSHA": "1c05ff2241c318fcf49e8689477f2f8416b2952e83d94552cdd0b3e143c59912",
+        "nativeTraceSHA": "e3e9419ace68cce41117b1ce429bf4677c74895f89b74ee63af483cc1e54757a",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "frozen_tuna",
+        "model": "legacy",
+        "skill": 0.7,
+        "initialExact": true,
+        "traceExact": true,
+        "initialNativeSHA": "fe98bcebceb528478464eb3fd4b4d061d014a05f91694640fcfb1242eba0329e",
+        "nativeTraceSHA": "65eb10a292a17446548a99a3f7359d28ab674ee709c7e893a6306abe5b6d12a6",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "pistol",
+        "model": "legacy",
+        "skill": 0.7,
+        "initialExact": true,
+        "traceExact": true,
+        "initialNativeSHA": "7e0b5fbfa35c8224087bd17c5f611ffabf63d98a8c1e98deae80f7da62c6d249",
+        "nativeTraceSHA": "27ecd450a62af8541d48ea29f148ac43bbe166312633123d464c343d1bda85d7",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "morgenstern",
+        "model": "legacy",
+        "skill": 0.7,
+        "initialExact": true,
+        "traceExact": true,
+        "initialNativeSHA": "121c7bfc060322ffbceadef95cfe872b22160559f77244721f5cb7162f9e2c2b",
+        "nativeTraceSHA": "192537b0f476299b90973a429fd5de513b4f8e99cd6c93b14c932cb7d2578182",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "sabre",
+        "model": "manual",
+        "skill": 0,
+        "initialExact": false,
+        "traceExact": false,
+        "initialNativeSHA": "33d01776a700a220cbcb46c1fe7383e045882271433013f2429bc976a7456b08",
+        "nativeTraceSHA": "ae9a452869ab44895d20d7dc9fea8ee88cafd47ad9b3bae15be732d167e040c4",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "rapier",
+        "model": "manual",
+        "skill": 0,
+        "initialExact": false,
+        "traceExact": false,
+        "initialNativeSHA": "054d3b4ef9d5643287d0cbf0f663db117eaf30f1c1bfeec74b91106f69e22e91",
+        "nativeTraceSHA": "87bf926bc64dff64cf8a9882b09eab00ff8f00e3ac0a0e25d7f8712ba951507a",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "falchion",
+        "model": "manual",
+        "skill": 0,
+        "initialExact": false,
+        "traceExact": false,
+        "initialNativeSHA": "57b17c8fd7d5ff232aa97c23900fc1bbf39cb237bbf9f3c108e83af99751dc02",
+        "nativeTraceSHA": "3941180355ed8db71c79da974c1f65c40aad5b22f98a228470992899a76bbd1f",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "qinggang",
+        "model": "manual",
+        "skill": 0,
+        "initialExact": false,
+        "traceExact": false,
+        "initialNativeSHA": "4baba019a8f324676dd9ce02a5b01f2d3f58b011773d85589f370420c22d4e86",
+        "nativeTraceSHA": "e7c210de0385488b382c4002f681dc3932cc7530885ffb01c5e09cab62f785f4",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "tree_branch",
+        "model": "manual",
+        "skill": 0,
+        "initialExact": false,
+        "traceExact": false,
+        "initialNativeSHA": "dba636f274d5a84d66db3caf8c679487ab716bf1b0e260441db4ca48333b3128",
+        "nativeTraceSHA": "66338917b8de43044ceac48ab4bb9fd9e3c8dca2f95143bf1d2a0577bd455e2f",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "rubber_chicken",
+        "model": "manual",
+        "skill": 0,
+        "initialExact": false,
+        "traceExact": false,
+        "initialNativeSHA": "069e7583f3aa5373656a2fe56d8d21de2c8faa73d24f43e0b1b826280de29c2f",
+        "nativeTraceSHA": "a0339ced61446222385afd04455d0719bb75bcccb13830b4032d310c60bb8ef1",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "pistol",
+        "model": "manual",
+        "skill": 0,
+        "initialExact": true,
+        "traceExact": true,
+        "initialNativeSHA": "7e0b5fbfa35c8224087bd17c5f611ffabf63d98a8c1e98deae80f7da62c6d249",
+        "nativeTraceSHA": "a3261765829e47d6b72350f61a32ba00d1e5badb16fd3ad34d4992004a1e5d77",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "morgenstern",
+        "model": "manual",
+        "skill": 0,
+        "initialExact": false,
+        "traceExact": false,
+        "initialNativeSHA": "345535c51caa1337d6a276bba28ef951e6c2e21a7f803d468e73955b46320a2a",
+        "nativeTraceSHA": "4bde9c44af09bd91a5edc6c665d3097e3365d6df7b3345cf33e201a964b8fa1a",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "qinggang",
+        "model": "legacy",
+        "skill": 0,
+        "initialExact": true,
+        "traceExact": true,
+        "initialNativeSHA": "15350b59c3d45bd1450f8ba0e7801622323dd6caf24da5cfdc6f7113fdd10bf2",
+        "nativeTraceSHA": "f7cfa0c718f7000f9c93a50265f901994f56aa08881fb04d3684f95334cc8efa",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "sabre",
+        "model": "legacy",
+        "skill": 0,
+        "initialExact": true,
+        "traceExact": true,
+        "initialNativeSHA": "b3bf8fa0f28047c7c8378813b5546351c9fd938cc8ed3a69e399449dd632c7a6",
+        "nativeTraceSHA": "a7619641d1aee261880ab8088d1cd7f8ebd2e82f6c14d8d00e34dea573d03174",
+        "finite": true,
+        "wounds": 0
+      },
+      {
+        "weapon": "rapier",
+        "model": "legacy",
+        "skill": 0,
+        "initialExact": true,
+        "traceExact": true,
+        "initialNativeSHA": "c71b7922e0b99ad3c9f678d77d2e13aac0711d8c406095d4a19324400b15af9e",
+        "nativeTraceSHA": "de56a7d64ce9e1e657b7bba4ebdc526936f246b49b3ce93c70ed3227ecb50bfe",
+        "finite": true,
+        "wounds": 0
+      }
+    ]
+  },
+  "handsRestoredPairs": [
+    {
+      "weapon": "qinggang",
+      "exactNativeAndRandom": true,
+      "pair": [
+        {
+          "enabled": false,
+          "initialNativeSHA": "91a96275e9b61ff0458bcc6d5d7d4c3e9944004e8a80341373dfd6c6d68033c9",
+          "counts": {
+            "bodies": 33,
+            "colliders": 69,
+            "joints": 30
+          },
+          "nextRandom": 0.4958292602095753,
+          "nativeTraceSHA": "6868a0ae31a69f1f7efcb4ca79f119b51320e1ab83f51097a082393e2fc5ab7c"
+        },
+        {
+          "enabled": true,
+          "initialNativeSHA": "91a96275e9b61ff0458bcc6d5d7d4c3e9944004e8a80341373dfd6c6d68033c9",
+          "counts": {
+            "bodies": 33,
+            "colliders": 69,
+            "joints": 30
+          },
+          "nextRandom": 0.4958292602095753,
+          "nativeTraceSHA": "6868a0ae31a69f1f7efcb4ca79f119b51320e1ab83f51097a082393e2fc5ab7c",
+          "emptyHandTransformsFinite": true,
+          "disposed": true
+        }
+      ]
+    },
+    {
+      "weapon": "longsword",
+      "exactNativeAndRandom": true,
+      "pair": [
+        {
+          "enabled": false,
+          "initialNativeSHA": "301482f2bdc457ba88aea35af85d0bdb6108f1f3443d140b514f6e4752e41da2",
+          "counts": {
+            "bodies": 33,
+            "colliders": 69,
+            "joints": 30
+          },
+          "nextRandom": 0.4958292602095753,
+          "nativeTraceSHA": "79bd8746e2e8dd98f35c89b4bd590c5ff0881f13b4f53296d4e28bf7be6a512d"
+        },
+        {
+          "enabled": true,
+          "initialNativeSHA": "301482f2bdc457ba88aea35af85d0bdb6108f1f3443d140b514f6e4752e41da2",
+          "counts": {
+            "bodies": 33,
+            "colliders": 69,
+            "joints": 30
+          },
+          "nextRandom": 0.4958292602095753,
+          "nativeTraceSHA": "79bd8746e2e8dd98f35c89b4bd590c5ff0881f13b4f53296d4e28bf7be6a512d",
+          "emptyHandTransformsFinite": true,
+          "disposed": true
+        }
+      ]
+    },
+    {
+      "weapon": "pistol",
+      "exactNativeAndRandom": true,
+      "pair": [
+        {
+          "enabled": false,
+          "initialNativeSHA": "b2b1683ab258b59078faa0bf3ebf263c2f13c4f4ad056c5f8af66036de4181ec",
+          "counts": {
+            "bodies": 33,
+            "colliders": 68,
+            "joints": 30
+          },
+          "nextRandom": 0.1599076595157385,
+          "nativeTraceSHA": "63c222165b3bf3c611d4757d19665820ca5fbc2b083350d227797b993fa50058"
+        },
+        {
+          "enabled": true,
+          "initialNativeSHA": "b2b1683ab258b59078faa0bf3ebf263c2f13c4f4ad056c5f8af66036de4181ec",
+          "counts": {
+            "bodies": 33,
+            "colliders": 68,
+            "joints": 30
+          },
+          "nextRandom": 0.1599076595157385,
+          "nativeTraceSHA": "63c222165b3bf3c611d4757d19665820ca5fbc2b083350d227797b993fa50058",
+          "emptyHandTransformsFinite": true,
+          "disposed": true
+        }
+      ]
+    }
+  ],
+  "manualContracts": 7,
+  "rawFiles": {
+    "ready-position-diagnostics.json": {
+      "bytes": 2572,
+      "sha256": "c8813482990aed3445c51108df0da4490eb013a03d059269e4561ddefc5c6d67"
+    },
+    "ready-down-pole.json": {
+      "bytes": 1454,
+      "sha256": "64bc763bed13ce12591e897e9e61244b8c1fc6af811d77bda19d370edf314958"
+    },
+    "fighter.deep-down-pole.rejected.js": {
+      "bytes": 149396,
+      "sha256": "c4ef2a4b18b5e270ed06fe4f701e24deefb68b108bf797c0428f5ba6b7602716"
+    },
+    "fighter.modest-fold.js": {
+      "bytes": 149355,
+      "sha256": "e331c0353d832cd914b145208ceecfc3a0b71a4330a083ab899a1832ea82ae26"
+    },
+    "fighter.taper-rejected.js": {
+      "bytes": 150005,
+      "sha256": "a30fc1c1d680d70787745ec30f0263221f98b504c707c8743a17076467653df9"
+    },
+    "hand_visual.rejected.js": {
+      "bytes": 13070,
+      "sha256": "ada99ef62430165721d1d87333061b3c98734a865d0f871d0bbf0e6277bface0"
+    },
+    "hand_detail_screen.rejected.mjs": {
+      "bytes": 8512,
+      "sha256": "4a3a29bdeeecd8650755d5ea042ed0494c3adbe0c2d29bafebf434b596b22fa0"
+    },
+    "hand_grip_clearance.rejected.mjs": {
+      "bytes": 9297,
+      "sha256": "6c2f94dded91eb34453c2fb2ff141bfef5915b9d2cecaa0095e8ceaa7a1daee2"
+    },
+    "ready-restored-hands.json": {
+      "bytes": 44687,
+      "sha256": "c2ee5045fcf6463c8d634f1e418fc664d452fb0586e7958ba8a910965a85a370"
+    },
+    "hands-restored.json": {
+      "bytes": 4628,
+      "sha256": "e0d83f2e0a32ef23b039354ef9a7852346fad95619f910798f252010fbc01784"
+    },
+    "initial-restored.json": {
+      "bytes": 4464644,
+      "sha256": "ae610021d5509833b2c183f747878e86688ded8efe21aed8611b7ca3c6773297"
+    },
+    "manual-restored.json": {
+      "bytes": 3385,
+      "sha256": "61b929466ba2ce103d636a6478f464c43fbd86ec400808fb73caeaeb2b8bb77a"
+    },
+    "local-restored-touch/summary.json": {
+      "bytes": 3085,
+      "sha256": "dc6964b4c38833c77cd6e21a8333082813ce63b5b1cf54cbf5b59cab6e9fcb2a"
+    },
+    "local-taper/summary.json": {
+      "bytes": 3940,
+      "sha256": "041327d0858d11c47192eed15589f019648959fa28d0be8b0fd1c61abc70fc5b"
+    },
+    "local-taper/qinggang/02-main-opposite.png": {
+      "bytes": 178846,
+      "sha256": "74a522a27b3f72c5e27903ed84fc926965c968e30cc01da990bcc5a9b4eb9a42"
+    },
+    "local-taper/longsword/08-old-off-view.png": {
+      "bytes": 137461,
+      "sha256": "310bad9b717d7b4b6619f74d0e5e205220c6b1d5354e565f3ba0c8bda88de907"
+    },
+    "hand-pm/finite-grip-clearance.pre-thumb-fix.json": {
+      "bytes": 7196,
+      "sha256": "2a1c8226aba25aa1147a24a13e77df67ddd5f5645d1112ffbd539e1f3a6059cc"
+    },
+    "hand-pm/finite-grip-clearance.pre-palm-bridge.json": {
+      "bytes": 10722,
+      "sha256": "8aa6c7878d680dba6141701b490ea08ff64e99e1b41072d10808812d4ef0aba8"
+    },
+    "hand-pm/finite-grip-clearance.json": {
+      "bytes": 10921,
+      "sha256": "3abfff652a3dc1f5c3f8a2504ca64e2129401aec0af15c3acdf89bbae411dacf"
+    },
+    "hand-pm/palm-bridge-manifest.json": {
+      "bytes": 3797,
+      "sha256": "dd0894245c1a5a890dfbb9c375696406f2b1d7cd692e72e7435b4c97937800f4"
+    }
+  },
+  "commands": {
+    "ready": "node tools/sim/experiments/ready_grip_probe.mjs NEW.json",
+    "initial": "node tools/sim/experiments/initial_weapon_pose_probe.mjs NEW.json",
+    "manual": "node tools/sim/experiments/onehand_manual_contract.test.mjs NEW.json",
+    "touch": "PLAYWRIGHT_MODULE=/path/to/playwright/index.mjs node tools/browser/onehand_pose_screen.mjs --base=http://127.0.0.1:4281/ --out=NEW-dir --weapons=qinggang --poses=side --model=manual --correction=none"
+  },
+  "preservationScope": "Selected final/failed artifacts verified by actual bytes and hash. Rejected PM stages use their manifests; source completeness audit remains separate. No full archival claim from filenames."
+}

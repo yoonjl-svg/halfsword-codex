@@ -1,0 +1,30 @@
+# 준비 자세 교정 · 새 손 외형 기각 · 2026-10-04
+
+사용자의 첫 자세 교정·손 형태 검토 요청. 기준 `5bb8a25f8c830f357235e70f1036700dd7b85880`, 시작03:02:21 UTC, 예상45–60분. 후속 사용자 판정으로 새 손 외형은 실패 후보로 철회했다. **손과 소매는 직전 공개 소스로 복귀했고 새 손 후보의 공개 반영은0이다.** 일반 손이 해결됐다고 선언하지 않는다.
+
+## 남기는 준비 자세 교정
+
+B 한손 시작의 손 위치와 수평 칼끝 명령을 분리했다. 팔꿈치를 아래로 굽히고 손을 가슴 앞에 둔 상태로 생성한다. native 관절 기준을 만든 뒤 시작에 한 번만FK를 배치하며 앵커는 유지한다. 첫 탭의 기점도 시드한다. 검술 자세의 exact 재현 수치는 아니며 [이전 원전/실제 팔 확인](first_guard_review_20261004.md)을 재사용했다.
+
+준비 위치 보정은 필터된 명령의 시작점 거리0.30m까지 점진적으로 해제된다. 단순 접촉/타이머로 풀리지 않는다. 최대 이동 이력이므로 작은 왕복 뒤 재돌파에서 모든 지점C1은 아니다. 작은 이동에는 일부 보정이 남고autoGuard도 해제에 참여한다. 일반 제어 승격·힘/감쇠·collider 변경은 없다.
+
+깊은 접기는9–13rad/s 팔 떨림으로 기각했다. 낮고 옆으로 벌어진 후보는 폼멜/소매 겹침으로 제외했다. 최종 가슴 앞 후보의 대기1초 손목은 어깨보다 약0.5–2.6cm 낮고 팔꿈치는 약35–46도 굽힌다. 이전 공통native 첫 생성의 완전히 편 팔을 이 대기 자세로 바로 생성하도록 고쳤다.
+
+## 손 외형 실패와 교훈
+
+튜브를 분리된 손등/손가락/엄지 덩이로 바꾸고 자루 반경·캡슐 끝·손바닥 연결을 보완했다. 유한 자루 검사에서 명목 피부 겹침0, 연결 witness와native/RNGexact가 나왔지만, 실제 화면은 사람 손의 실루엣·손목→손바닥→손가락 관계를 만족시키지 못했다. 특히 패드가 따로 붙은 것처럼 보이는 반례를 충분히 먼저 판정하지 못했다. 사용자 지적을 외형 기각 근거로 기록한다.
+
+**기하학적 연결·관통·물리 비간섭 검사는 외형 수락의 대체물이 아니다.** 다음 손 작업은 해부학적 좌우가 확인된 하나의 쥔 손 형태를 실제 문제 카메라와 움직임에서 먼저 판정해야 한다. 그 관문을 통과한 뒤 관통/회귀 검사로 넓힌다. 기존 실패 후보를 되살리거나 이전 엄지PASS를 전체 손 수락으로 확대하지 않는다. 실패 source/patch·사진·수치·사용자 판정은 저장소 밖에 보존하고 [수치/해시](ready_grip_20261004.json)에서 찾는다.
+
+## 검증·전달
+
+실제 초기27조건 중 기존 일반/권총20조건의 초기snapshot·궤적은exact, 승인B 한손7조건만 바뀐다. 손 표시3쌍의native/RNG/counts는exact다. idle/접촉/1mm/왕복/반경 재돌파/큰 드래그와 첫 스텝 전 탭6조건, 기존 조작7검사를 사용했다. 최종 소스·원자료·판정은 [수치/해시](ready_grip_20261004.json), 실제 공개 전달은 [영수증](ready_grip_release.json)이 기준이다. 이 전달에는 새 손·소매 후보가 포함되지 않는다.
+
+```sh
+node tools/sim/experiments/ready_grip_probe.mjs /tmp/NEW-ready.json
+node tools/sim/experiments/onehand_manual_contract.test.mjs /tmp/NEW-contract.json
+node tools/sim/experiments/initial_weapon_pose_probe.mjs /tmp/NEW-initial.json
+PLAYWRIGHT_MODULE=/path/to/playwright/index.mjs node tools/browser/onehand_pose_screen.mjs --base=http://127.0.0.1:4281/ --out=/tmp/NEW-play --weapons=qinggang,sabre,rapier --poses=side --model=manual --correction=none
+```
+
+다음 손 작업은 연속된 사람의 쥔 손 형태를 먼저 확인한다. 준비 자세의 사용자 체감 수락과는 별도 판정이다.
