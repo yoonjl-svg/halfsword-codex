@@ -1,0 +1,1418 @@
+{
+  "sourceCommit": "e8d3e0aab60cee0c9f7b32a7405abf14cac24fa9",
+  "gameCodeChanged": false,
+  "defaultChanged": false,
+  "newPublicCandidates": false,
+  "startedUTC": "2026-10-04T04:55:15Z",
+  "etaMinutes": [
+    45,
+    60
+  ],
+  "rawRoot": "/workspace/halfsword-handoff/onehand-stop-20261004",
+  "nativeRawRoot": "/workspace/halfsword-handoff/native-onehand-stop-20261004",
+  "protocol": "Manual both before ready initialization; player skill0 autoGuardfalse, original normal enemy/default gap/walls, seed7. Neutral player move, additive nominal pad deltas, all heldtrue. 396step ready/raise/hold/cut/stop/reverse/hold; live extends finalhold to960steps, tap invokes original Skill.thrust once at2.058333s.",
+  "controlExecutions": 24,
+  "controlUniqueConditions": 12,
+  "nativeExecutions": 6,
+  "countScope": "Observation/replay/isolation repeats count as validity executions, not independent efficacy samples. Native followup is separate.",
+  "blocks": [
+    {
+      "file": "baseline-run01.json",
+      "bytes": 35586072,
+      "sha256": "5af78457e3631fc655aaf2902ebfae898b588a65904e8579a623778bbf05126c",
+      "sourceCommit": "e8d3e0aab60cee0c9f7b32a7405abf14cac24fa9",
+      "startedUTC": "2026-10-04T04:58:15.569Z",
+      "completedUTC": "2026-10-04T04:58:25.587Z",
+      "wallSeconds": 10.01764198,
+      "sceneExecutions": 4,
+      "scenario": "stroke",
+      "toolSHA256": "6021271fb48f6a5760c98aff31e7a40cadce9d1bc58f38d182f2ae7d07830d5b",
+      "argv": [
+        "--out=/workspace/halfsword-handoff/onehand-stop-20261004/baseline-run01.json"
+      ],
+      "observerParity": true,
+      "candidateGeneration": null,
+      "relevantSourceHashes": {
+        "src/fighter.js": "9583ae49b5907d9bce32f6225d0060f3ad535ef75d655c13ead027cb93a9703b",
+        "src/main.js": "bcd6f06b3f798d08c07991c0994cf6f40626bb0d6dec54eb89c0fc8834a636b1",
+        "src/skill.js": "b69b73e00d8524e733842a630d54f2d7392807f883d7a75c9f9767b78d71f512",
+        "package.json": "9f267f3512c0be2c4407763c8d10b2813521ed425e948808222de8236db83df2",
+        "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+        "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5"
+      },
+      "fullSourceManifestLocation": "Inside integrity-verified raw block"
+    },
+    {
+      "file": "continuous-run02.json",
+      "bytes": 71071591,
+      "sha256": "14ca3057aea24b9dab40746ea3e9271e36023ee4d8fb3523823d872f89ca7501",
+      "sourceCommit": "e8d3e0aab60cee0c9f7b32a7405abf14cac24fa9",
+      "startedUTC": "2026-10-04T04:59:57.342Z",
+      "completedUTC": "2026-10-04T05:00:15.222Z",
+      "wallSeconds": 17.880598502999998,
+      "sceneExecutions": 8,
+      "scenario": "stroke",
+      "toolSHA256": "0d6f9355623381cf653744ce6a5ea11f1ee48fb23635c47e271cf68c0b07b54b",
+      "argv": [
+        "--out=/workspace/halfsword-handoff/onehand-stop-20261004/continuous-run02.json"
+      ],
+      "observerParity": true,
+      "candidateGeneration": null,
+      "relevantSourceHashes": {
+        "src/fighter.js": "ea551000bede0fcd5d525af2717ef86fd1db5ae5939e1ba001f4406689288eb7",
+        "src/main.js": "1f067e000a6617568a5b1e1864c16fa0218caf3995b46fb11e498ea5235171f3",
+        "src/onehand_aim.js": "b22530afaf5a64f9d32854ba6216659aa40d5344d073853a2f65ab080d755c1f",
+        "src/skill.js": "b69b73e00d8524e733842a630d54f2d7392807f883d7a75c9f9767b78d71f512",
+        "package.json": "9f267f3512c0be2c4407763c8d10b2813521ed425e948808222de8236db83df2",
+        "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+        "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5"
+      },
+      "fullSourceManifestLocation": "Inside integrity-verified raw block"
+    },
+    {
+      "file": "tap-run03.json",
+      "bytes": 70519525,
+      "sha256": "e678ab0e30014028463ea110fdcae2c81711f97ccc849a1372edf96d9aeaa40e",
+      "sourceCommit": "e8d3e0aab60cee0c9f7b32a7405abf14cac24fa9",
+      "startedUTC": "2026-10-04T05:02:40.878Z",
+      "completedUTC": "2026-10-04T05:02:50.690Z",
+      "wallSeconds": 9.812315346,
+      "sceneExecutions": 4,
+      "scenario": "tap",
+      "toolSHA256": "ff6140651762dbcf0a4feb191521e2483df261c5242c6cadd238e19cef74c53d",
+      "argv": [
+        "--out=/workspace/halfsword-handoff/onehand-stop-20261004/tap-run03.json",
+        "--scenario=tap",
+        "--observerRepeats=false"
+      ],
+      "observerParity": false,
+      "candidateGeneration": null,
+      "relevantSourceHashes": {
+        "src/fighter.js": "ea551000bede0fcd5d525af2717ef86fd1db5ae5939e1ba001f4406689288eb7",
+        "src/main.js": "1f067e000a6617568a5b1e1864c16fa0218caf3995b46fb11e498ea5235171f3",
+        "src/onehand_aim.js": "b22530afaf5a64f9d32854ba6216659aa40d5344d073853a2f65ab080d755c1f",
+        "src/skill.js": "b69b73e00d8524e733842a630d54f2d7392807f883d7a75c9f9767b78d71f512",
+        "package.json": "9f267f3512c0be2c4407763c8d10b2813521ed425e948808222de8236db83df2",
+        "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+        "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5"
+      },
+      "fullSourceManifestLocation": "Inside integrity-verified raw block"
+    },
+    {
+      "file": "live-run04.json",
+      "bytes": 172996855,
+      "sha256": "4db8faee88ee6fde67bdb5c39b9bd0cfb1715e3451a88a7537e56b3f389ef79d",
+      "sourceCommit": "e8d3e0aab60cee0c9f7b32a7405abf14cac24fa9",
+      "startedUTC": "2026-10-04T05:02:51.671Z",
+      "completedUTC": "2026-10-04T05:03:15.455Z",
+      "wallSeconds": 23.784091815,
+      "sceneExecutions": 4,
+      "scenario": "live",
+      "toolSHA256": "ff6140651762dbcf0a4feb191521e2483df261c5242c6cadd238e19cef74c53d",
+      "argv": [
+        "--out=/workspace/halfsword-handoff/onehand-stop-20261004/live-run04.json",
+        "--scenario=live",
+        "--observerRepeats=false"
+      ],
+      "observerParity": false,
+      "candidateGeneration": null,
+      "relevantSourceHashes": {
+        "src/fighter.js": "ea551000bede0fcd5d525af2717ef86fd1db5ae5939e1ba001f4406689288eb7",
+        "src/main.js": "1f067e000a6617568a5b1e1864c16fa0218caf3995b46fb11e498ea5235171f3",
+        "src/onehand_aim.js": "b22530afaf5a64f9d32854ba6216659aa40d5344d073853a2f65ab080d755c1f",
+        "src/skill.js": "b69b73e00d8524e733842a630d54f2d7392807f883d7a75c9f9767b78d71f512",
+        "package.json": "9f267f3512c0be2c4407763c8d10b2813521ed425e948808222de8236db83df2",
+        "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+        "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5"
+      },
+      "fullSourceManifestLocation": "Inside integrity-verified raw block"
+    },
+    {
+      "file": "isolated-runtime-run05.json",
+      "bytes": 70492896,
+      "sha256": "f8e35e0fdb21ac83cc325bf12aece05ca708b02cdba347f05122a4d560bf8914",
+      "sourceCommit": "e8d3e0aab60cee0c9f7b32a7405abf14cac24fa9",
+      "startedUTC": "2026-10-04T05:05:19.858Z",
+      "completedUTC": "2026-10-04T05:05:30.148Z",
+      "wallSeconds": 10.288873419,
+      "sceneExecutions": 4,
+      "scenario": "stroke",
+      "toolSHA256": "4bcde43072a4950c4d136bba07bd0e4a209b534379a0c7f03a186574e83698b2",
+      "argv": [
+        "--out=/workspace/halfsword-handoff/onehand-stop-20261004/isolated-runtime-run05.json",
+        "--modes=original,continuous",
+        "--observerRepeats=false"
+      ],
+      "observerParity": false,
+      "candidateGeneration": {
+        "originalFighterSHA256": "9583ae49b5907d9bce32f6225d0060f3ad535ef75d655c13ead027cb93a9703b",
+        "patchedFighterSHA256": "65c7b76e4c05874b7a4c00eb7eb0d46cb25eb8cecca74ffd5ea0e87127b5bd23",
+        "helperSHA256": "b22530afaf5a64f9d32854ba6216659aa40d5344d073853a2f65ab080d755c1f",
+        "directory": "/workspace/halfsword-handoff/onehand-stop-20261004/candidate-runtime-C30IWI",
+        "rewrittenFighterSHA256": "576baf29e10015f74c16b7afb6c84f7c16b2979e6635a791f7f048d448397cb1",
+        "rewrittenHarnessSHA256": "dcfef325964a72badd968089cfc437e92cc700db80d14058a85232e7bb63ad1e",
+        "scope": "Source-identical Fighter except optional centre-preserving C2 guard elevation. Imports rewritten to current original modules; original harness control/native/Combat ordering retained."
+      },
+      "relevantSourceHashes": {
+        "src/fighter.js": "9583ae49b5907d9bce32f6225d0060f3ad535ef75d655c13ead027cb93a9703b",
+        "src/main.js": "bcd6f06b3f798d08c07991c0994cf6f40626bb0d6dec54eb89c0fc8834a636b1",
+        "src/skill.js": "b69b73e00d8524e733842a630d54f2d7392807f883d7a75c9f9767b78d71f512",
+        "package.json": "9f267f3512c0be2c4407763c8d10b2813521ed425e948808222de8236db83df2",
+        "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+        "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5"
+      },
+      "fullSourceManifestLocation": "Inside integrity-verified raw block"
+    }
+  ],
+  "pairedStroke": [
+    {
+      "weapon": "sabre",
+      "rows": [
+        {
+          "weapon": "sabre",
+          "mode": "original",
+          "summary": {
+            "maxHandErrorM": 0.16704546444798402,
+            "maxSwingOmega": 10.304994719553893,
+            "maxAxialOmega": 6.872778796598359,
+            "maxJointGapM": 0.0015048156353177152,
+            "wristChecks": 396
+          },
+          "crossings": [
+            {
+              "tick": 236,
+              "timeS": 1.9749999999999954,
+              "phase": "cut",
+              "readyWeight": 0,
+              "sampleDetails": "Exact filtered pad/velocity/target/cap samples in hashed raw and external control-summary.json"
+            },
+            {
+              "tick": 309,
+              "timeS": 2.583333333333327,
+              "phase": "reverse",
+              "readyWeight": 0,
+              "sampleDetails": "Exact filtered pad/velocity/target/cap samples in hashed raw and external control-summary.json"
+            }
+          ],
+          "contacts": 0,
+          "events": {
+            "clashes": 0,
+            "callbacks": 0,
+            "actualFighterWounds": [
+              0,
+              0
+            ]
+          },
+          "minBaseCapNm": 22,
+          "maxBaseCapNm": 22,
+          "allFiniteAndExplicitWristClosurePass": true,
+          "phases": {
+            "cut": {
+              "steps": 30,
+              "maxTargetRateStepRadps": 6.1914409692411665,
+              "maxRequestedDampingNm": 63.58652741604271,
+              "maxSwingRadps": 9.472312431050225,
+              "lastSwingRadps": 5.1142640615151,
+              "meanAimErrorRad": 0.15877800080513288,
+              "lastAimErrorRad": 0.18221368426189583,
+              "readyWeightLast": 0
+            },
+            "stop": {
+              "steps": 36,
+              "maxTargetRateStepRadps": 0.34548069344097937,
+              "maxRequestedDampingNm": 26.25922783880113,
+              "maxSwingRadps": 5.0282544607880295,
+              "lastSwingRadps": 0.4674811859297699,
+              "meanAimErrorRad": 0.07710149568577743,
+              "lastAimErrorRad": 0.05627794771461661,
+              "readyWeightLast": 0
+            },
+            "reverse": {
+              "steps": 30,
+              "maxTargetRateStepRadps": 6.356044357816031,
+              "maxRequestedDampingNm": 66.61810938466826,
+              "maxSwingRadps": 8.127537325549152,
+              "lastSwingRadps": 8.127537325549152,
+              "meanAimErrorRad": 0.06088207198815807,
+              "lastAimErrorRad": 0.13301018403111886,
+              "readyWeightLast": 0
+            },
+            "reverseHold": {
+              "steps": 84,
+              "maxTargetRateStepRadps": 1.0357403321810366,
+              "maxRequestedDampingNm": 33.71304739926795,
+              "maxSwingRadps": 10.304994719553894,
+              "lastSwingRadps": 0.03371325303323002,
+              "meanAimErrorRad": 0.03979214311082702,
+              "lastAimErrorRad": 0.004075445670173254,
+              "readyWeightLast": 0
+            }
+          }
+        },
+        {
+          "weapon": "sabre",
+          "mode": "continuous",
+          "summary": {
+            "maxHandErrorM": 0.16417132202270157,
+            "maxSwingOmega": 10.07064880857972,
+            "maxAxialOmega": 6.867953120479754,
+            "maxJointGapM": 0.0015047824040328153,
+            "wristChecks": 396
+          },
+          "crossings": [
+            {
+              "tick": 236,
+              "timeS": 1.9749999999999954,
+              "phase": "cut",
+              "readyWeight": 0,
+              "sampleDetails": "Exact filtered pad/velocity/target/cap samples in hashed raw and external control-summary.json"
+            },
+            {
+              "tick": 309,
+              "timeS": 2.583333333333327,
+              "phase": "reverse",
+              "readyWeight": 0,
+              "sampleDetails": "Exact filtered pad/velocity/target/cap samples in hashed raw and external control-summary.json"
+            }
+          ],
+          "contacts": 0,
+          "events": {
+            "clashes": 0,
+            "callbacks": 0,
+            "actualFighterWounds": [
+              0,
+              0
+            ]
+          },
+          "minBaseCapNm": 22,
+          "maxBaseCapNm": 22,
+          "allFiniteAndExplicitWristClosurePass": true,
+          "phases": {
+            "cut": {
+              "steps": 30,
+              "maxTargetRateStepRadps": 5.109254011670678,
+              "maxRequestedDampingNm": 58.303679961905715,
+              "maxSwingRadps": 9.445022392858732,
+              "lastSwingRadps": 5.120595884669466,
+              "meanAimErrorRad": 0.15999345537374934,
+              "lastAimErrorRad": 0.18367658948187032,
+              "readyWeightLast": 0
+            },
+            "stop": {
+              "steps": 36,
+              "maxTargetRateStepRadps": 0.34547918410849215,
+              "maxRequestedDampingNm": 26.257736375730808,
+              "maxSwingRadps": 5.0349328780732625,
+              "lastSwingRadps": 0.46465065667892697,
+              "meanAimErrorRad": 0.07693371090282856,
+              "lastAimErrorRad": 0.055856501128051864,
+              "readyWeightLast": 0
+            },
+            "reverse": {
+              "steps": 30,
+              "maxTargetRateStepRadps": 5.560335955610333,
+              "maxRequestedDampingNm": 70.19992718403975,
+              "maxSwingRadps": 7.635524953153274,
+              "lastSwingRadps": 7.635524953153274,
+              "meanAimErrorRad": 0.06179736469539559,
+              "lastAimErrorRad": 0.15342405671632894,
+              "readyWeightLast": 0
+            },
+            "reverseHold": {
+              "steps": 84,
+              "maxTargetRateStepRadps": 1.035737242690959,
+              "maxRequestedDampingNm": 39.852965938172794,
+              "maxSwingRadps": 10.07064880857972,
+              "lastSwingRadps": 0.03634681331942821,
+              "meanAimErrorRad": 0.04165152455316855,
+              "lastAimErrorRad": 0.0035760167317726607,
+              "readyWeightLast": 0
+            }
+          }
+        }
+      ],
+      "filteredInputExactAll396Steps": true,
+      "pairedMotionDifference": {
+        "cut": {
+          "maxPairedBladeSeparationRad": 0.001742306606086965,
+          "maxPairedHandSeparationM": 0.00035679820818743953
+        },
+        "stop": {
+          "maxPairedBladeSeparationRad": 0.0013264479145277531,
+          "maxPairedHandSeparationM": 8.159416271747742e-05
+        },
+        "reverse": {
+          "maxPairedBladeSeparationRad": 0.020980902536920074,
+          "maxPairedHandSeparationM": 0.004993976443242798
+        },
+        "reverseHold": {
+          "maxPairedBladeSeparationRad": 0.029966507768563758,
+          "maxPairedHandSeparationM": 0.006061765389958328
+        }
+      }
+    },
+    {
+      "weapon": "qinggang",
+      "rows": [
+        {
+          "weapon": "qinggang",
+          "mode": "original",
+          "summary": {
+            "maxHandErrorM": 0.13483868327583978,
+            "maxSwingOmega": 11.655824570176218,
+            "maxAxialOmega": 6.510752711707202,
+            "maxJointGapM": 0.0015301478003610543,
+            "wristChecks": 396
+          },
+          "crossings": [
+            {
+              "tick": 236,
+              "timeS": 1.9749999999999954,
+              "phase": "cut",
+              "readyWeight": 0,
+              "sampleDetails": "Exact filtered pad/velocity/target/cap samples in hashed raw and external control-summary.json"
+            },
+            {
+              "tick": 309,
+              "timeS": 2.583333333333327,
+              "phase": "reverse",
+              "readyWeight": 0,
+              "sampleDetails": "Exact filtered pad/velocity/target/cap samples in hashed raw and external control-summary.json"
+            }
+          ],
+          "contacts": 0,
+          "events": {
+            "clashes": 0,
+            "callbacks": 0,
+            "actualFighterWounds": [
+              0,
+              0
+            ]
+          },
+          "minBaseCapNm": 22,
+          "maxBaseCapNm": 22,
+          "allFiniteAndExplicitWristClosurePass": true,
+          "phases": {
+            "cut": {
+              "steps": 30,
+              "maxTargetRateStepRadps": 6.195366050315952,
+              "maxRequestedDampingNm": 67.04123149292381,
+              "maxSwingRadps": 11.06746974981564,
+              "lastSwingRadps": 4.197485323665093,
+              "meanAimErrorRad": 0.04495637519166548,
+              "lastAimErrorRad": 0.021436997673767624,
+              "readyWeightLast": 0
+            },
+            "stop": {
+              "steps": 36,
+              "maxTargetRateStepRadps": 0.3458876331823912,
+              "maxRequestedDampingNm": 11.217873693308311,
+              "maxSwingRadps": 4.095629238297038,
+              "lastSwingRadps": 0.3415849832916434,
+              "meanAimErrorRad": 0.052333306958647824,
+              "lastAimErrorRad": 0.03467775877062393,
+              "readyWeightLast": 0
+            },
+            "reverse": {
+              "steps": 30,
+              "maxTargetRateStepRadps": 6.355925460545461,
+              "maxRequestedDampingNm": 59.87787197670714,
+              "maxSwingRadps": 10.274119794900407,
+              "lastSwingRadps": 10.274119794900407,
+              "meanAimErrorRad": 0.041803716756950236,
+              "lastAimErrorRad": 0.08552259984631619,
+              "readyWeightLast": 0
+            },
+            "reverseHold": {
+              "steps": 84,
+              "maxTargetRateStepRadps": 1.0353785813126244,
+              "maxRequestedDampingNm": 14.132016554682817,
+              "maxSwingRadps": 11.655824570176218,
+              "lastSwingRadps": 0.028306172459259527,
+              "meanAimErrorRad": 0.025475181355202083,
+              "lastAimErrorRad": 0.002050091123202906,
+              "readyWeightLast": 0
+            }
+          }
+        },
+        {
+          "weapon": "qinggang",
+          "mode": "continuous",
+          "summary": {
+            "maxHandErrorM": 0.13187163501509816,
+            "maxSwingOmega": 11.35718266058403,
+            "maxAxialOmega": 6.496822960995233,
+            "maxJointGapM": 0.0015299489294838223,
+            "wristChecks": 396
+          },
+          "crossings": [
+            {
+              "tick": 236,
+              "timeS": 1.9749999999999954,
+              "phase": "cut",
+              "readyWeight": 0,
+              "sampleDetails": "Exact filtered pad/velocity/target/cap samples in hashed raw and external control-summary.json"
+            },
+            {
+              "tick": 309,
+              "timeS": 2.583333333333327,
+              "phase": "reverse",
+              "readyWeight": 0,
+              "sampleDetails": "Exact filtered pad/velocity/target/cap samples in hashed raw and external control-summary.json"
+            }
+          ],
+          "contacts": 0,
+          "events": {
+            "clashes": 0,
+            "callbacks": 0,
+            "actualFighterWounds": [
+              0,
+              0
+            ]
+          },
+          "minBaseCapNm": 22,
+          "maxBaseCapNm": 22,
+          "allFiniteAndExplicitWristClosurePass": true,
+          "phases": {
+            "cut": {
+              "steps": 30,
+              "maxTargetRateStepRadps": 5.112345630238288,
+              "maxRequestedDampingNm": 52.47475803205126,
+              "maxSwingRadps": 11.357182660584028,
+              "lastSwingRadps": 4.258683234507883,
+              "meanAimErrorRad": 0.04881555184140382,
+              "lastAimErrorRad": 0.029263434334996397,
+              "readyWeightLast": 0
+            },
+            "stop": {
+              "steps": 36,
+              "maxTargetRateStepRadps": 0.34588072859804536,
+              "maxRequestedDampingNm": 11.788173172940178,
+              "maxSwingRadps": 4.157111971251093,
+              "lastSwingRadps": 0.3298901182131137,
+              "meanAimErrorRad": 0.048456947894485077,
+              "lastAimErrorRad": 0.032572766100531524,
+              "readyWeightLast": 0
+            },
+            "reverse": {
+              "steps": 30,
+              "maxTargetRateStepRadps": 5.560206694770301,
+              "maxRequestedDampingNm": 61.999069304669,
+              "maxSwingRadps": 9.8529629638892,
+              "lastSwingRadps": 9.8529629638892,
+              "meanAimErrorRad": 0.04207264944289498,
+              "lastAimErrorRad": 0.10592665906416343,
+              "readyWeightLast": 0
+            },
+            "reverseHold": {
+              "steps": 84,
+              "maxTargetRateStepRadps": 1.0354016029724946,
+              "maxRequestedDampingNm": 16.443078302993584,
+              "maxSwingRadps": 11.299951113102285,
+              "lastSwingRadps": 0.024588413699749505,
+              "meanAimErrorRad": 0.025535761879716644,
+              "lastAimErrorRad": 0.00171262015218929,
+              "readyWeightLast": 0
+            }
+          }
+        }
+      ],
+      "filteredInputExactAll396Steps": true,
+      "pairedMotionDifference": {
+        "cut": {
+          "maxPairedBladeSeparationRad": 0.0151989330886042,
+          "maxPairedHandSeparationM": 0.0023550701746082705
+        },
+        "stop": {
+          "maxPairedBladeSeparationRad": 0.01147590929563666,
+          "maxPairedHandSeparationM": 0.0006167748660898006
+        },
+        "reverse": {
+          "maxPairedBladeSeparationRad": 0.020987914478836082,
+          "maxPairedHandSeparationM": 0.003757106513149974
+        },
+        "reverseHold": {
+          "maxPairedBladeSeparationRad": 0.024194661195930896,
+          "maxPairedHandSeparationM": 0.00409599673832349
+        }
+      }
+    }
+  ],
+  "tapAndLiveFollowup": [
+    {
+      "sourceBlock": "tap-run03.json",
+      "weapon": "sabre",
+      "mode": "original",
+      "summary": {
+        "maxHandErrorM": 0.7796093162532688,
+        "maxSwingOmega": 9.472312431050227,
+        "maxAxialOmega": 29.083016848950674,
+        "maxJointGapM": 0.0018005769780798499,
+        "wristChecks": 396
+      },
+      "taps": [
+        {
+          "timeS": 2.0583333333333287,
+          "accepted": true
+        }
+      ],
+      "playerSwordContactFrames": 0,
+      "actualFinalFighters": [
+        {
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "actualWoundCount": 0,
+          "armS": 1
+        },
+        {
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "actualWoundCount": 0,
+          "armS": 1
+        }
+      ],
+      "firstPositiveWoundTimeS": null,
+      "maxPlayerArmHealthLoss": 0,
+      "callbackCount": 0,
+      "positiveCallbackCount": 0
+    },
+    {
+      "sourceBlock": "tap-run03.json",
+      "weapon": "sabre",
+      "mode": "continuous",
+      "summary": {
+        "maxHandErrorM": 0.778953057806279,
+        "maxSwingOmega": 9.445022392858734,
+        "maxAxialOmega": 29.050055654864302,
+        "maxJointGapM": 0.001800999724386102,
+        "wristChecks": 396
+      },
+      "taps": [
+        {
+          "timeS": 2.0583333333333287,
+          "accepted": true
+        }
+      ],
+      "playerSwordContactFrames": 0,
+      "actualFinalFighters": [
+        {
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "actualWoundCount": 0,
+          "armS": 1
+        },
+        {
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "actualWoundCount": 0,
+          "armS": 1
+        }
+      ],
+      "firstPositiveWoundTimeS": null,
+      "maxPlayerArmHealthLoss": 0,
+      "callbackCount": 0,
+      "positiveCallbackCount": 0
+    },
+    {
+      "sourceBlock": "tap-run03.json",
+      "weapon": "qinggang",
+      "mode": "original",
+      "summary": {
+        "maxHandErrorM": 0.6521355070266364,
+        "maxSwingOmega": 11.06746974981564,
+        "maxAxialOmega": 29.8241317819264,
+        "maxJointGapM": 0.0017824194956535414,
+        "wristChecks": 396
+      },
+      "taps": [
+        {
+          "timeS": 2.0583333333333287,
+          "accepted": true
+        }
+      ],
+      "playerSwordContactFrames": 0,
+      "actualFinalFighters": [
+        {
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "actualWoundCount": 0,
+          "armS": 1
+        },
+        {
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "actualWoundCount": 0,
+          "armS": 1
+        }
+      ],
+      "firstPositiveWoundTimeS": null,
+      "maxPlayerArmHealthLoss": 0,
+      "callbackCount": 0,
+      "positiveCallbackCount": 0
+    },
+    {
+      "sourceBlock": "tap-run03.json",
+      "weapon": "qinggang",
+      "mode": "continuous",
+      "summary": {
+        "maxHandErrorM": 0.650538639841733,
+        "maxSwingOmega": 11.35718266058403,
+        "maxAxialOmega": 29.9167456713508,
+        "maxJointGapM": 0.0017814813903612244,
+        "wristChecks": 396
+      },
+      "taps": [
+        {
+          "timeS": 2.0583333333333287,
+          "accepted": true
+        }
+      ],
+      "playerSwordContactFrames": 0,
+      "actualFinalFighters": [
+        {
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "actualWoundCount": 0,
+          "armS": 1
+        },
+        {
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "actualWoundCount": 0,
+          "armS": 1
+        }
+      ],
+      "firstPositiveWoundTimeS": null,
+      "maxPlayerArmHealthLoss": 0,
+      "callbackCount": 0,
+      "positiveCallbackCount": 0
+    },
+    {
+      "sourceBlock": "live-run04.json",
+      "weapon": "sabre",
+      "mode": "original",
+      "summary": {
+        "maxHandErrorM": 0.16704546444798402,
+        "maxSwingOmega": 10.304994719553893,
+        "maxAxialOmega": 6.872778796598359,
+        "maxJointGapM": 0.0015048156353177152,
+        "wristChecks": 960
+      },
+      "taps": [],
+      "playerSwordContactFrames": 0,
+      "actualFinalFighters": [
+        {
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "actualWoundCount": 2,
+          "armS": 1
+        },
+        {
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "actualWoundCount": 0,
+          "armS": 1
+        }
+      ],
+      "firstPositiveWoundTimeS": 7.041666666666806,
+      "maxPlayerArmHealthLoss": 0,
+      "callbackCount": 3,
+      "positiveCallbackCount": 2
+    },
+    {
+      "sourceBlock": "live-run04.json",
+      "weapon": "sabre",
+      "mode": "continuous",
+      "summary": {
+        "maxHandErrorM": 0.16417132202270157,
+        "maxSwingOmega": 10.07064880857972,
+        "maxAxialOmega": 6.867953120479754,
+        "maxJointGapM": 0.001581935777620331,
+        "wristChecks": 960
+      },
+      "taps": [],
+      "playerSwordContactFrames": 0,
+      "actualFinalFighters": [
+        {
+          "state": "getup",
+          "alive": true,
+          "armed": true,
+          "actualWoundCount": 3,
+          "armS": 1
+        },
+        {
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "actualWoundCount": 0,
+          "armS": 1
+        }
+      ],
+      "firstPositiveWoundTimeS": 7.041666666666806,
+      "maxPlayerArmHealthLoss": 0,
+      "callbackCount": 5,
+      "positiveCallbackCount": 3
+    },
+    {
+      "sourceBlock": "live-run04.json",
+      "weapon": "qinggang",
+      "mode": "original",
+      "summary": {
+        "maxHandErrorM": 0.13483868327583978,
+        "maxSwingOmega": 11.655824570176218,
+        "maxAxialOmega": 6.510752711707202,
+        "maxJointGapM": 0.002509863718078062,
+        "wristChecks": 960
+      },
+      "taps": [],
+      "playerSwordContactFrames": 0,
+      "actualFinalFighters": [
+        {
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "actualWoundCount": 1,
+          "armS": 1
+        },
+        {
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "actualWoundCount": 0,
+          "armS": 1
+        }
+      ],
+      "firstPositiveWoundTimeS": 6.691666666666789,
+      "maxPlayerArmHealthLoss": 0,
+      "callbackCount": 2,
+      "positiveCallbackCount": 1
+    },
+    {
+      "sourceBlock": "live-run04.json",
+      "weapon": "qinggang",
+      "mode": "continuous",
+      "summary": {
+        "maxHandErrorM": 0.13187163501509816,
+        "maxSwingOmega": 11.35718266058403,
+        "maxAxialOmega": 6.496822960995233,
+        "maxJointGapM": 0.0015299489294838223,
+        "wristChecks": 960
+      },
+      "taps": [],
+      "playerSwordContactFrames": 0,
+      "actualFinalFighters": [
+        {
+          "state": "getup",
+          "alive": true,
+          "armed": true,
+          "actualWoundCount": 0,
+          "armS": 1
+        },
+        {
+          "state": "stand",
+          "alive": true,
+          "armed": true,
+          "actualWoundCount": 0,
+          "armS": 1
+        }
+      ],
+      "firstPositiveWoundTimeS": null,
+      "maxPlayerArmHealthLoss": 0,
+      "callbackCount": 7,
+      "positiveCallbackCount": 0
+    }
+  ],
+  "runtimeIsolationParity": {
+    "pass": true,
+    "checks": [
+      {
+        "weapon": "sabre",
+        "mode": "original",
+        "steps": 396,
+        "nativeControllerEventsExact": true,
+        "appliedFilteredInputExact": true,
+        "inputDigestSchemaChangedOnlyByTapAcceptedNull": true
+      },
+      {
+        "weapon": "sabre",
+        "mode": "continuous",
+        "steps": 396,
+        "nativeControllerEventsExact": true,
+        "appliedFilteredInputExact": true,
+        "inputDigestSchemaChangedOnlyByTapAcceptedNull": true
+      },
+      {
+        "weapon": "qinggang",
+        "mode": "original",
+        "steps": 396,
+        "nativeControllerEventsExact": true,
+        "appliedFilteredInputExact": true,
+        "inputDigestSchemaChangedOnlyByTapAcceptedNull": true
+      },
+      {
+        "weapon": "qinggang",
+        "mode": "continuous",
+        "steps": 396,
+        "nativeControllerEventsExact": true,
+        "appliedFilteredInputExact": true,
+        "inputDigestSchemaChangedOnlyByTapAcceptedNull": true
+      }
+    ],
+    "scope": "Source-transform runtime isolation equivalence to originally in-checkout candidate. No efficacy repeats counted."
+  },
+  "nativeEngine": {
+    "modulePath": "/workspace/halfsword-research-import-20261003/engine/rapier.mjs",
+    "sha256": "a3be9d8361b386b0b664ee7ba771f14ae60e93eda9a4ab825f1de1260dbb5623",
+    "sha256After": "a3be9d8361b386b0b664ee7ba771f14ae60e93eda9a4ab825f1de1260dbb5623",
+    "calibrationPath": "/workspace/halfsword-research-import-20261003/engine/native-motor-api-r1.json",
+    "calibrationSHA256": "90a7ef5a2e34c18ea601d61a04fff36e4b6a766e8a360a10a85196d5fa8a4089",
+    "calibrationSourceSHA256": "9eba24d3bd10f76a8d53569cf8064b006015133134de02375948a0b4d75c849c"
+  },
+  "nativeArtifacts": [
+    {
+      "path": "/workspace/halfsword-handoff/native-onehand-stop-20261004/native-stop-run01.json",
+      "bytes": 101526566,
+      "sha256": "4ac101ec71b6c314f4b3ad0d056b0b340661fbe5631e69fbb411245177f21ad1"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/native-onehand-stop-20261004/native-stop-run01.json.tool.mjs",
+      "bytes": 23359,
+      "sha256": "64c7a4809e4b6079653d5e1e94bd72f7f4d9d05d30588add0498048a173d6a9d"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/native-onehand-stop-20261004/absolute-native-harness-ima1DX/harness.mjs",
+      "bytes": 6584,
+      "sha256": "65587a77d1e7bb65119a1579fc0843c88daa399e15adfac06b7bdcec64fa8804"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/onehand-stop-20261004/baseline-run01.json",
+      "bytes": 35586072,
+      "sha256": "5af78457e3631fc655aaf2902ebfae898b588a65904e8579a623778bbf05126c"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/native-onehand-stop-20261004/native-stop-audit-summary.json",
+      "bytes": 52615,
+      "sha256": "029b12f6d3625c1e126d4dd71cd75753de00ea74925f3c6a6904f2abbb4b423a"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/native-onehand-stop-20261004/native-stop-run01.json.summary.json",
+      "bytes": 667373,
+      "sha256": "2a3bba22c4a902fa2645703808cb84f6a8fb877647f5868c18f2191f1aeab0e2"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/native-onehand-stop-20261004/native-stop-run01.log",
+      "bytes": 6376,
+      "sha256": "5c2e02c68e978b14205750c33a4d959bb84050b5873d57b5aa872052c1f0fd5d"
+    }
+  ],
+  "nativeMeasurementPass": true,
+  "nativeSourceStable": true,
+  "nativeRecordedNpmTrajectoryExact": true,
+  "nativeEngineComparisons": [
+    {
+      "weapon": "sabre",
+      "selectedPlayerBodyScope": [
+        "chest",
+        "uarmS",
+        "farmS",
+        "pelvis",
+        "footF",
+        "footB",
+        "sword"
+      ],
+      "phaseTimeExact": true,
+      "firstPostPhysicsPoseDifference": null,
+      "firstPostCombatPoseDifference": null,
+      "firstInputDifference": null,
+      "firstSwordContactDifference": null,
+      "firstEventDifference": null,
+      "firstControllerTraceDifference": -1,
+      "recordedTrajectoryExact": true,
+      "meaning": "Exact equality only for this recorded current manual-B protocol and the selected player body poses/input/sword-contact/events. Native binary/snapshot equality and broad engine equivalence are not inferred."
+    },
+    {
+      "weapon": "qinggang",
+      "selectedPlayerBodyScope": [
+        "chest",
+        "uarmS",
+        "farmS",
+        "pelvis",
+        "footF",
+        "footB",
+        "sword"
+      ],
+      "phaseTimeExact": true,
+      "firstPostPhysicsPoseDifference": null,
+      "firstPostCombatPoseDifference": null,
+      "firstInputDifference": null,
+      "firstSwordContactDifference": null,
+      "firstEventDifference": null,
+      "firstControllerTraceDifference": -1,
+      "recordedTrajectoryExact": true,
+      "meaning": "Exact equality only for this recorded current manual-B protocol and the selected player body poses/input/sword-contact/events. Native binary/snapshot equality and broad engine equivalence are not inferred."
+    }
+  ],
+  "nativeComparisons": [
+    {
+      "weapon": "sabre",
+      "observerFullTraceExact": true,
+      "observerCreationExact": true,
+      "allCreationNativeExact": true,
+      "sameDefaultSelectors": true,
+      "observerRawNativeReadbacksExact": true,
+      "firstCappedDivergence": {
+        "native": {
+          "tick": 0,
+          "timeS": 0.008333333333333333,
+          "phase": "ready"
+        },
+        "pose": {
+          "tick": 0,
+          "timeS": 0.008333333333333333,
+          "phase": "ready"
+        },
+        "controller": {
+          "tick": 1,
+          "timeS": 0.016666666666666666,
+          "phase": "ready"
+        },
+        "input": null,
+        "events": null,
+        "contacts": {
+          "tick": 11,
+          "timeS": 0.09999999999999999,
+          "phase": "ready"
+        }
+      }
+    },
+    {
+      "weapon": "qinggang",
+      "observerFullTraceExact": true,
+      "observerCreationExact": true,
+      "allCreationNativeExact": true,
+      "sameDefaultSelectors": true,
+      "observerRawNativeReadbacksExact": true,
+      "firstCappedDivergence": {
+        "native": {
+          "tick": 0,
+          "timeS": 0.008333333333333333,
+          "phase": "ready"
+        },
+        "pose": {
+          "tick": 0,
+          "timeS": 0.008333333333333333,
+          "phase": "ready"
+        },
+        "controller": {
+          "tick": 1,
+          "timeS": 0.016666666666666666,
+          "phase": "ready"
+        },
+        "input": null,
+        "events": null,
+        "contacts": {
+          "tick": 11,
+          "timeS": 0.09999999999999999,
+          "phase": "ready"
+        }
+      }
+    }
+  ],
+  "nativeRows": [
+    {
+      "weapon": "sabre",
+      "mode": "baseline",
+      "executionPass": true,
+      "counts": {
+        "driveSword": 396,
+        "driveJoints": 396,
+        "externalFFCalls": 396,
+        "nativeConfigure": 396,
+        "nativeReadback": 396
+      },
+      "jointPreserved": true,
+      "finite": true,
+      "missingJoints": [],
+      "maxLastSubstepCapRatio": 0.41728252172470087,
+      "maxLastSubstepImpulseNms": 0.04636472463607788,
+      "maxLastSubstepTorqueEquivalentNm": 33.382601737976074,
+      "actualNativeMaxForceRangeNm": [
+        3.4028234663852886e+38,
+        3.4028234663852886e+38
+      ],
+      "nominalCapRangeNm": [
+        80,
+        80
+      ],
+      "allMotorEnabled": true,
+      "lastSubstepSaturatedFrameCount": 0,
+      "finalEvents": {
+        "clashes": 0,
+        "callbackCount": 0,
+        "actualFighterWoundCount": [
+          0,
+          0
+        ]
+      },
+      "phases": {
+        "stop": {
+          "frames": 36,
+          "rmsHandErrorM": 0.10971877446136301,
+          "rmsAimErrorRad": 0.08443289578499091,
+          "maxSwingOmegaRadS": 5.0282544607880295,
+          "maxAxialOmegaRadS": 6.872778796598359,
+          "maxJointGapM": 0.000753630119549264,
+          "maxLastSubstepCapRatio": 0.31767838820815086,
+          "endSwordKJ": 0.7423031312060224,
+          "actualPlayerWoundCount": 0
+        },
+        "reverse": {
+          "frames": 30,
+          "rmsHandErrorM": 0.08087427985167119,
+          "rmsAimErrorRad": 0.06350110804138963,
+          "maxSwingOmegaRadS": 8.127537325549152,
+          "maxAxialOmegaRadS": 4.773198668527739,
+          "maxJointGapM": 0.0015048156353177152,
+          "maxLastSubstepCapRatio": 0.3037056550383568,
+          "endSwordKJ": 12.55026864856322,
+          "actualPlayerWoundCount": 0
+        }
+      }
+    },
+    {
+      "weapon": "sabre",
+      "mode": "capped",
+      "executionPass": true,
+      "counts": {
+        "driveSword": 396,
+        "driveJoints": 396,
+        "externalFFCalls": 0,
+        "nativeConfigure": 396,
+        "nativeReadback": 396
+      },
+      "jointPreserved": true,
+      "finite": true,
+      "missingJoints": [],
+      "maxLastSubstepCapRatio": 0.3978976607322693,
+      "maxLastSubstepImpulseNms": 0.044210851192474365,
+      "maxLastSubstepTorqueEquivalentNm": 31.831812858581543,
+      "actualNativeMaxForceRangeNm": [
+        80,
+        80
+      ],
+      "nominalCapRangeNm": [
+        80,
+        80
+      ],
+      "allMotorEnabled": true,
+      "lastSubstepSaturatedFrameCount": 0,
+      "finalEvents": {
+        "clashes": 0,
+        "callbackCount": 0,
+        "actualFighterWoundCount": [
+          0,
+          0
+        ]
+      },
+      "phases": {
+        "stop": {
+          "frames": 36,
+          "rmsHandErrorM": 0.10968679077050646,
+          "rmsAimErrorRad": 0.08443567061218712,
+          "maxSwingOmegaRadS": 5.0280536369204265,
+          "maxAxialOmegaRadS": 6.877545253486038,
+          "maxJointGapM": 0.0008105329774602765,
+          "maxLastSubstepCapRatio": 0.3978976607322693,
+          "endSwordKJ": 0.7422844168368437,
+          "actualPlayerWoundCount": 0
+        },
+        "reverse": {
+          "frames": 30,
+          "rmsHandErrorM": 0.08078621972986995,
+          "rmsAimErrorRad": 0.06350213524438231,
+          "maxSwingOmegaRadS": 8.128598786517198,
+          "maxAxialOmegaRadS": 4.771384398902981,
+          "maxJointGapM": 0.0015050026598438604,
+          "maxLastSubstepCapRatio": 0.3836325332522392,
+          "endSwordKJ": 12.554906549372133,
+          "actualPlayerWoundCount": 0
+        }
+      }
+    },
+    {
+      "weapon": "qinggang",
+      "mode": "baseline",
+      "executionPass": true,
+      "counts": {
+        "driveSword": 396,
+        "driveJoints": 396,
+        "externalFFCalls": 396,
+        "nativeConfigure": 396,
+        "nativeReadback": 396
+      },
+      "jointPreserved": true,
+      "finite": true,
+      "missingJoints": [],
+      "maxLastSubstepCapRatio": 0.39039817079901695,
+      "maxLastSubstepImpulseNms": 0.043377574533224106,
+      "maxLastSubstepTorqueEquivalentNm": 31.231853663921356,
+      "actualNativeMaxForceRangeNm": [
+        3.4028234663852886e+38,
+        3.4028234663852886e+38
+      ],
+      "nominalCapRangeNm": [
+        80,
+        80
+      ],
+      "allMotorEnabled": true,
+      "lastSubstepSaturatedFrameCount": 0,
+      "finalEvents": {
+        "clashes": 0,
+        "callbackCount": 0,
+        "actualFighterWoundCount": [
+          0,
+          0
+        ]
+      },
+      "phases": {
+        "stop": {
+          "frames": 36,
+          "rmsHandErrorM": 0.08345580906073947,
+          "rmsAimErrorRad": 0.056476328874603354,
+          "maxSwingOmegaRadS": 4.095629238297038,
+          "maxAxialOmegaRadS": 4.7061346550710015,
+          "maxJointGapM": 0.0007011405767024871,
+          "maxLastSubstepCapRatio": 0.2674022912979126,
+          "endSwordKJ": 0.18011550887953975,
+          "actualPlayerWoundCount": 0
+        },
+        "reverse": {
+          "frames": 30,
+          "rmsHandErrorM": 0.07735147562355213,
+          "rmsAimErrorRad": 0.04355408338956894,
+          "maxSwingOmegaRadS": 10.274119794900407,
+          "maxAxialOmegaRadS": 3.8685379773781223,
+          "maxJointGapM": 0.0015301478003610543,
+          "maxLastSubstepCapRatio": 0.2820902019739151,
+          "endSwordKJ": 12.64853930309032,
+          "actualPlayerWoundCount": 0
+        }
+      }
+    },
+    {
+      "weapon": "qinggang",
+      "mode": "capped",
+      "executionPass": true,
+      "counts": {
+        "driveSword": 396,
+        "driveJoints": 396,
+        "externalFFCalls": 0,
+        "nativeConfigure": 396,
+        "nativeReadback": 396
+      },
+      "jointPreserved": true,
+      "finite": true,
+      "missingJoints": [],
+      "maxLastSubstepCapRatio": 0.35905736312270164,
+      "maxLastSubstepImpulseNms": 0.03989526256918907,
+      "maxLastSubstepTorqueEquivalentNm": 28.72458904981613,
+      "actualNativeMaxForceRangeNm": [
+        80,
+        80
+      ],
+      "nominalCapRangeNm": [
+        80,
+        80
+      ],
+      "allMotorEnabled": true,
+      "lastSubstepSaturatedFrameCount": 0,
+      "finalEvents": {
+        "clashes": 0,
+        "callbackCount": 0,
+        "actualFighterWoundCount": [
+          0,
+          0
+        ]
+      },
+      "phases": {
+        "stop": {
+          "frames": 36,
+          "rmsHandErrorM": 0.08342408173013485,
+          "rmsAimErrorRad": 0.05649370658143911,
+          "maxSwingOmegaRadS": 4.0956986015961165,
+          "maxAxialOmegaRadS": 4.7100841202807775,
+          "maxJointGapM": 0.0007693878848732947,
+          "maxLastSubstepCapRatio": 0.3311043865978718,
+          "endSwordKJ": 0.1802512076669755,
+          "actualPlayerWoundCount": 0
+        },
+        "reverse": {
+          "frames": 30,
+          "rmsHandErrorM": 0.07726561349639052,
+          "rmsAimErrorRad": 0.04354991158320411,
+          "maxSwingOmegaRadS": 10.274897705695995,
+          "maxAxialOmegaRadS": 3.866460951804905,
+          "maxJointGapM": 0.0015301681021078451,
+          "maxLastSubstepCapRatio": 0.35102837160229683,
+          "endSwordKJ": 12.652051628733352,
+          "actualPlayerWoundCount": 0
+        }
+      }
+    }
+  ],
+  "nativeWallSeconds": 14.968163225,
+  "limits": [
+    "One seed, two manual B weapons, skill0/autoGuardfalse; no arm injury in measured segment.",
+    "Live contact/AI/wound branches differ and cannot establish efficacy; contacts sensor covers player sword only, enemy body hits captured in Combat callbacks.",
+    "Npm lacks calibrated native motor impulse/work; native motor configuration is a request, not solved torque.",
+    "Smaller error/rate/energy is not naturalness or desired inertia acceptance.",
+    "Old legacyC1 mapping-only failure was already recorded; new centre0/C2 endpoints/band/manual B scope is distinct.",
+    "Native impulse is last solver substep only; equivalent Nm is not whole-step average torque or work. Baseline native maxForce is Float32Max; ratios use old nominal80Nm denominator, not an enforced baseline cap.",
+    "Native vs npm equality covers the recorded selected player bodies/input/controller/sword-contact/events for396steps, not binary/full-world/general-engine equivalence.",
+    "No measured last-substep readback reached the cap. Binding in earlier solver substeps was not measured. FF relocation also changes the implicit solve, so small pose changes do not isolate force-limit efficacy.",
+    "Native audit historical field contactManifoldFrames sums manifold occurrences, not frames; unused in this compact report."
+  ],
+  "decision": "Research continuity candidate retained; no public URL/button/default. No convincing visible handling benefit established.",
+  "priorC1Report": "docs/strike/edge_transition_round2.md",
+  "tapNextCheckpoint": {
+    "peaks": [
+      {
+        "weapon": "sabre",
+        "tick": 268,
+        "timeS": 2.2416666666666614,
+        "phase": "stop",
+        "worldAxialRadps": 29.083016848950674,
+        "relativeSwordForearmAlongBladeRadps": 28.71232935376766,
+        "forearmOmegaRadps": 3.341353089573457,
+        "responseThrustWeight": 1,
+        "playerState": "stand",
+        "playerActualWounds": 0,
+        "swordContacts": [],
+        "scope": "World and relative instantaneous projections; no integrated hand twist angle, native impulse/energy attribution, or human-motion verdict."
+      },
+      {
+        "weapon": "qinggang",
+        "tick": 266,
+        "timeS": 2.2249999999999948,
+        "phase": "stop",
+        "worldAxialRadps": -29.8241317819264,
+        "relativeSwordForearmAlongBladeRadps": -24.03725854433526,
+        "forearmOmegaRadps": 6.92807097671148,
+        "responseThrustWeight": 1,
+        "playerState": "stand",
+        "playerActualWounds": 0,
+        "swordContacts": [],
+        "scope": "World and relative instantaneous projections; no integrated hand twist angle, native impulse/energy attribution, or human-motion verdict."
+      }
+    ],
+    "next": "Reuse raw and actual compiled B browser input before another intervention; verify relative turn/camera evidence then separate command, native grip, and longitudinal torque at the first peak."
+  },
+  "sourceRestoredProof": {
+    "head": "e8d3e0aab60cee0c9f7b32a7405abf14cac24fa9",
+    "srcPackageLockDiff": ""
+  },
+  "sourceAndReviewArtifacts": [
+    {
+      "path": "/workspace/halfsword-handoff/onehand-stop-20261004/probe-run01.mjs",
+      "bytes": 11263,
+      "sha256": "6021271fb48f6a5760c98aff31e7a40cadce9d1bc58f38d182f2ae7d07830d5b"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/onehand-stop-20261004/probe-run02.mjs",
+      "bytes": 11560,
+      "sha256": "0d6f9355623381cf653744ce6a5ea11f1ee48fb23635c47e271cf68c0b07b54b"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/onehand-stop-20261004/probe-run03.mjs",
+      "bytes": 11829,
+      "sha256": "ff6140651762dbcf0a4feb191521e2483df261c5242c6cadd238e19cef74c53d"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/onehand-stop-20261004/probe-run05.mjs",
+      "bytes": 14621,
+      "sha256": "4bcde43072a4950c4d136bba07bd0e4a209b534379a0c7f03a186574e83698b2"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/onehand-stop-20261004/independent-review.md",
+      "bytes": 867,
+      "sha256": "390f7bb0db5b30182d81b3d745069657a81c27a5da7f95a5b46475e79796d89f"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/onehand-stop-20261004/runtime-isolation-parity.json",
+      "bytes": 1085,
+      "sha256": "dffc07205531a4feadc0dd91fb61f1cc8478cee27dd2423f0b06398854fe7143"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/onehand-stop-20261004/tap-next-checkpoint.json",
+      "bytes": 1317,
+      "sha256": "6135db9bb6fd88c7bebf0830cface777b000563cbde5f1e9066d28b891130773"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/onehand-stop-20261004/candidate-source/src/fighter.js",
+      "bytes": 149879,
+      "sha256": "ea551000bede0fcd5d525af2717ef86fd1db5ae5939e1ba001f4406689288eb7"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/onehand-stop-20261004/candidate-source/src/main.js",
+      "bytes": 90850,
+      "sha256": "1f067e000a6617568a5b1e1864c16fa0218caf3995b46fb11e498ea5235171f3"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/onehand-stop-20261004/candidate-source/src/onehand_aim.js",
+      "bytes": 745,
+      "sha256": "b22530afaf5a64f9d32854ba6216659aa40d5344d073853a2f65ab080d755c1f"
+    }
+  ],
+  "currentTools": [
+    {
+      "path": "tools/sim/experiments/onehand_stop_reverse_probe.mjs",
+      "bytes": 14621,
+      "sha256": "4bcde43072a4950c4d136bba07bd0e4a209b534379a0c7f03a186574e83698b2"
+    },
+    {
+      "path": "tools/sim/experiments/onehand_aim_candidate.mjs",
+      "bytes": 745,
+      "sha256": "b22530afaf5a64f9d32854ba6216659aa40d5344d073853a2f65ab080d755c1f"
+    },
+    {
+      "path": "tools/sim/experiments/native_onehand_stop_probe.mjs",
+      "bytes": 23352,
+      "sha256": "14b0d52bf6cd2597c3e342bd0dd42cb967b7a9abae1897e877134ab22b5ccb2c"
+    }
+  ],
+  "nativeMetadataOnlyCorrection": "Current native tool uses the passed npm reference commit label and calls summed contact manifold occurrences contactManifoldOccurrences. Historical executed tool/raw is retained byte exact; its contactManifoldFrames was an occurrence sum, not a frame count. No simulation/control change or rerun.",
+  "reproductionCommands": [
+    "node tools/sim/experiments/onehand_stop_reverse_probe.mjs --out=/tmp/NEW-npm-baseline.json --modes=original",
+    "node tools/sim/experiments/onehand_stop_reverse_probe.mjs --out=/tmp/NEW-continuity.json --modes=original,continuous",
+    "node tools/sim/experiments/onehand_stop_reverse_probe.mjs --out=/tmp/NEW-tap.json --modes=original,continuous --scenario=tap --observerRepeats=false",
+    "node tools/sim/experiments/onehand_stop_reverse_probe.mjs --out=/tmp/NEW-live.json --modes=original,continuous --scenario=live --observerRepeats=false",
+    "node tools/sim/experiments/native_onehand_stop_probe.mjs --out=/tmp/NEW-native.json --npm-reference=/tmp/NEW-npm-baseline.json --module=/path/to/verified/rapier.mjs --calibration=/path/to/verified/native-motor-api-r1.json"
+  ],
+  "next": "30–45min: actual compiled manual B tap display/relative blade turn, then use saved first-spike checkpoint; no gain/band sweep or C2 public button.",
+  "controlSummaryArtifact": {
+    "path": "/workspace/halfsword-handoff/onehand-stop-20261004/control-summary.json",
+    "purpose": "Detailed derived phase/crossing tables; fixed raw/archives contain original native data.",
+    "bytes": 115289,
+    "sha256": "a8b1dfc00406668e4c4fe87bed4c809f27ccfc15ac66356208e6ade1e7c3ee4d"
+  }
+}
