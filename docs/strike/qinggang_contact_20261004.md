@@ -26,3 +26,5 @@ node tools/sim/experiments/qinggang_contact_metrics.mjs --root=/workspace/halfsw
 ```
 
 **판정: 원인 확인·native 후보 연구 보존, 공개 보류.** 새 사용자 테스트 요청은 없다. 기존 [세이버 비교판](https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#thrust-edge-comparison)을 유지한다. 다음30–45분은 저장된 상대 자세에서 motor scalar→실제 세계 힘/목표 속도 계약을 확인하고 무접촉 베기의 보존을 좁게 검사한다. 통과하기 전 생성부터 전투·다른 무기·모바일 공개 검증으로 확장하지 않는다. 실패 지지·절삭·새 손 후보를 되살리지 않는다. 전체2단계 P-03/P-04 진행 중이며 P-01~P-06 전체 완료는 없다.
+
+**후속 판정:** [그립 힘·속도 회차](native_grip_wrench_20261004.md)에서 실제 자세의 모터 좌표/이론적 힘 예산은 확인했다. 다만 생성부터 연속 적용은 날 비틀림과 실제 찌르기·접촉 분기가 남아 공개 기각했다. 위23.21°→9.49°는 같은 상태의 첫 스텝 진단으로 보존하며 연속 적용 권고가 아니다.

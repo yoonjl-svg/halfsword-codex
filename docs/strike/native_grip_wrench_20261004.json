@@ -1,0 +1,684 @@
+{
+  "schema": 1,
+  "date": "2026-10-04",
+  "baseCommit": "711d6773c5e388283268a7c4dc4e17c7cdad4c8e",
+  "sourceDirty": true,
+  "purpose": "Receive contact through the arm while preserving cuts, blade plane and accepted thrust. A capped valid motor is not a game improvement by itself.",
+  "gameChanged": false,
+  "sharedGameAndHarnessHashes": {
+    "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+    "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+    "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+    "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+    "src/arm_recovery_activation.js": "ae025cc8d9bbc9855ea8ab2793d3e7818a66a4662329014a776a2ac88966435e",
+    "src/arm_recovery_trial.js": "ebda992abc5c7cd25a12c751d0f9b30f8fddf998babc8f4a7f49c9f4a0817c09",
+    "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+    "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+    "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+    "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+    "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+    "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+    "src/cut_trial.js": "427d58d0500ceac482424e092a7d457a8cea48371c254f1b4edecb3a511be5a6",
+    "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+    "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+    "src/edge_intent.js": "b4e17a6ea08d659732c330448b3b3aaffeac2942fa5096e82db551a12d580c87",
+    "src/edge_torque.js": "436995e6d45e816517ea5a9a8f83c9fb147d143871aab1601f82baa7b36bc0fa",
+    "src/edge_torque_trial.js": "1280a3fe32c1874b6ce56b75932db44852162855d8962ae13f3aeb3e7d832cae",
+    "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+    "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+    "src/fighter.js": "01568d278e338d133e7ed75d1437421440757c22e1e77b2e2b9171fd6b30c4de",
+    "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+    "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+    "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+    "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+    "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+    "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+    "src/hand_visual.js": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893",
+    "src/input.js": "da17f592c9fe8fc2e0532660a31f2e7b96d24e700cc555115c05b913caae9bc7",
+    "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+    "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+    "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+    "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+    "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+    "src/main.js": "c9838e2b8049cf6955f8efdcf6c220b80087769377c543eeca0ae8d67c97b49d",
+    "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+    "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+    "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+    "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+    "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+    "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+    "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+    "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+    "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+    "src/skill.js": "b69b73e00d8524e733842a630d54f2d7392807f883d7a75c9f9767b78d71f512",
+    "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+    "src/sound.js": "f02a5a9c9ad60ce282806c02b956715c2ca01aced92ba021b63a799faf4c8fb4",
+    "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+    "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+    "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+    "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+    "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+    "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+    "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+    "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+    "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+    "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+    "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+    "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+    "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+    "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+    "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+    "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+    "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+    "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+    "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+    "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+    "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "src/wrist_braking.js": "6574ae9729fa6251540a68d27a0938e9d5bc2296097ff8b3bd69d1494eb88730",
+    "src/wrist_braking_trial.js": "25466b178e063a45e58a5fcd22532cdcbc176af4a2c05e461c562bb6a0ef658e",
+    "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e"
+  },
+  "finalToolHashes": {
+    "tools/sim/experiments/native_grip_wrench_probe.mjs": "68b6d7a7bbbb5d41745a3222c0baead1685b82df1ccefc66ee6eef8453f84ef2",
+    "tools/sim/experiments/native_grip_motion_metrics.mjs": "d308b1283bd51f12f51c961ff13f4ff31360a9e1f9abd7847bf74f6401925660",
+    "tools/sim/experiments/native_grip_candidate.mjs": "7df05638eddf6679f523f4590fc3e291aac417fbc30d4f1c015656a8d22eb214",
+    "tools/sim/experiments/qinggang_contact_probe.mjs": "47beeedf9201fdc59f380e77d6d3993a8fff16d69a0efc50f72a22d352d95b9b"
+  },
+  "rawRoot": "/workspace/halfsword-handoff/grip-wrench-20261004",
+  "runs": [
+    {
+      "path": "operator-run01.json",
+      "bytes": 44633,
+      "sha256": "cd87644d83e9947b3bb4073928fb20cae31dcf5f86a294ef41ce3ed588b97e1e",
+      "measurementPass": true,
+      "sourceStable": true,
+      "wallSeconds": 0.03267721699999999,
+      "argv": [
+        "--reference=/workspace/halfsword-handoff/qinggang-contact-20261004/native-grip-follow-run06.json",
+        "--module=/workspace/halfsword-research-import-20261003/engine/rapier.mjs",
+        "--out=/workspace/halfsword-handoff/grip-wrench-20261004/operator-run01.json"
+      ],
+      "sourceToolHashes": {
+        "tools/sim/experiments/native_grip_wrench_probe.mjs": "68b6d7a7bbbb5d41745a3222c0baead1685b82df1ccefc66ee6eef8453f84ef2"
+      },
+      "reference": {
+        "path": "/workspace/halfsword-handoff/qinggang-contact-20261004/native-grip-follow-run06.json",
+        "sha256": "aa517039621d466c8b7b85419d1af309bb4c441d7d256e87d8c983224bb02e60"
+      },
+      "moduleSHA256": "a3be9d8361b386b0b664ee7ba771f14ae60e93eda9a4ab825f1de1260dbb5623"
+    },
+    {
+      "path": "free-cut-run02.json",
+      "bytes": 20371170,
+      "sha256": "d13cac5ee3b1b2b4d8aaf93379711f8e871d3304c440497fec8ad463d626071a",
+      "measurementPass": true,
+      "sourceStable": true,
+      "wallSeconds": 6.580105072,
+      "argv": [
+        "--reference=/workspace/halfsword-handoff/onehand-thrust-20261004/no-tap-run03.json",
+        "--out=/workspace/halfsword-handoff/grip-wrench-20261004/free-cut-run02.json",
+        "--modes=observe,nativeContinuous",
+        "--tick=0",
+        "--after=515",
+        "--module=/workspace/halfsword-research-import-20261003/engine/rapier.mjs"
+      ],
+      "sourceToolHashes": {
+        "tools/sim/experiments/qinggang_contact_probe.mjs": "c7811ab87b7199a7b0c915b653e8b2d55fbe0a63f45eecba20d24868774fa4ca",
+        "tools/sim/experiments/impact_grip_candidate.mjs": "908acf6736ed212e790fd58a735292b47b5d03cd11fb722984ed0c0c409863d0",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "tools/sim/experiments/native_grip_candidate.mjs": "b7702bfc5a1363c9d3d5d3af44082f79b7d857671bb407986ae49a3178cde257",
+        "/workspace/halfsword-research-import-20261003/engine/rapier.mjs": "a3be9d8361b386b0b664ee7ba771f14ae60e93eda9a4ab825f1de1260dbb5623",
+        "/workspace/halfsword-handoff/grip-wrench-20261004/native-harness-rfXd2L/harness.mjs": "65587a77d1e7bb65119a1579fc0843c88daa399e15adfac06b7bdcec64fa8804"
+      },
+      "reference": {
+        "path": "/workspace/halfsword-handoff/onehand-thrust-20261004/no-tap-run03.json",
+        "sha256": "f41e5ef333da099b1fb5ef5286c8d4e4de34754e93ab9b1ff32508d73a90729f",
+        "sourceCommit": "bf1f9246c7b652f8da89fb72e16a7e520952ca38"
+      },
+      "moduleSHA256": null
+    },
+    {
+      "path": "live-from-spawn-run03.json",
+      "bytes": 44480993,
+      "sha256": "875da5d1b1b50469b8fc7772358f01d9c48061b5e4bd1ba62dcdaa9d308b441f",
+      "measurementPass": true,
+      "sourceStable": true,
+      "wallSeconds": 12.604315194000002,
+      "argv": [
+        "--reference=/workspace/halfsword-handoff/onehand-thrust-20261004/contact-tap-run06.json",
+        "--out=/workspace/halfsword-handoff/grip-wrench-20261004/live-from-spawn-run03.json",
+        "--modes=observe,nativeContinuous",
+        "--tick=0",
+        "--after=1079",
+        "--module=/workspace/halfsword-research-import-20261003/engine/rapier.mjs"
+      ],
+      "sourceToolHashes": {
+        "tools/sim/experiments/qinggang_contact_probe.mjs": "4c1867314c116331dade6512691b8a0c2430a659eabec701e640a84bd227d386",
+        "tools/sim/experiments/impact_grip_candidate.mjs": "908acf6736ed212e790fd58a735292b47b5d03cd11fb722984ed0c0c409863d0",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "tools/sim/experiments/native_grip_candidate.mjs": "b7702bfc5a1363c9d3d5d3af44082f79b7d857671bb407986ae49a3178cde257",
+        "/workspace/halfsword-research-import-20261003/engine/rapier.mjs": "a3be9d8361b386b0b664ee7ba771f14ae60e93eda9a4ab825f1de1260dbb5623",
+        "/workspace/halfsword-handoff/grip-wrench-20261004/native-harness-UPatQf/harness.mjs": "65587a77d1e7bb65119a1579fc0843c88daa399e15adfac06b7bdcec64fa8804"
+      },
+      "reference": {
+        "path": "/workspace/halfsword-handoff/onehand-thrust-20261004/contact-tap-run06.json",
+        "sha256": "390b8edd8129cd4d39d0ca619cb7165030dde4e21ba1f6ca37adbd8fa66790c4",
+        "sourceCommit": "bf1f9246c7b652f8da89fb72e16a7e520952ca38"
+      },
+      "moduleSHA256": null
+    }
+  ],
+  "archivedEvidence": [
+    {
+      "path": "build-report.py",
+      "bytes": 6574,
+      "sha256": "32363ab582629889c8316e19a16565f39588da137de4557db718f6e9a9f06837"
+    },
+    {
+      "path": "candidate-free-run02.mjs",
+      "bytes": 3809,
+      "sha256": "b7702bfc5a1363c9d3d5d3af44082f79b7d857671bb407986ae49a3178cde257"
+    },
+    {
+      "path": "candidate-live-run03.mjs",
+      "bytes": 3809,
+      "sha256": "b7702bfc5a1363c9d3d5d3af44082f79b7d857671bb407986ae49a3178cde257"
+    },
+    {
+      "path": "independent-review.md",
+      "bytes": 12550,
+      "sha256": "8c0d9498fd10dacc33b1fecaab7b80b1e10b5b3ba5515770b1b15ab62ac7dea5"
+    },
+    {
+      "path": "motion-metrics-run04.json",
+      "bytes": 92614,
+      "sha256": "020045e6d4e1f75809fe195f290417161b454650b7096d4e5d3da8a1990eadb6"
+    },
+    {
+      "path": "probe-free-run02.mjs",
+      "bytes": 13285,
+      "sha256": "c7811ab87b7199a7b0c915b653e8b2d55fbe0a63f45eecba20d24868774fa4ca"
+    },
+    {
+      "path": "probe-live-run03.mjs",
+      "bytes": 13366,
+      "sha256": "4c1867314c116331dade6512691b8a0c2430a659eabec701e640a84bd227d386"
+    }
+  ],
+  "engine": {
+    "path": "/workspace/halfsword-research-import-20261003/engine/rapier.mjs",
+    "sha256": "a3be9d8361b386b0b664ee7ba771f14ae60e93eda9a4ab825f1de1260dbb5623",
+    "rustVersion": "0.30.1",
+    "officialTagCommit": "36f91a6a07de2565137e32be30951d03aba03b94",
+    "bindingCommit": "0fd32c1cbbc7018af36f09b190c16ce72fbb9301",
+    "cargoLockSHA256": "233d13421c0d0ac34b2165d1791a6ad303dd46bd83ab2ca94328c289d9aebecc",
+    "registryRapierChecksum": "5bd27b8eb36d0833fa0f2aea40164fabfad0fc34b9932286ae9e84f3452f5364",
+    "jointConstraintBuilderSHA256": "6ce0e4c9e815470390100019015061aa9a753c4b87ddcc262a8c1bf3e631b2fa",
+    "sourceURL": "https://github.com/dimforge/rapier/blob/36f91a6a07de2565137e32be30951d03aba03b94/src/dynamics/solver/joint_constraint/joint_constraint_builder.rs#L614",
+    "linkageLimit": "Restored module/receipt and exact binding Cargo.lock verified. Official pinned Rust source read; full registry package/tag identity and clean rebuild/WASM disassembly not performed. Actual operator9 corroborates equations."
+  },
+  "operator": {
+    "rows": [
+      {
+        "axis": 3,
+        "kind": "saturated",
+        "dt": 0.008333333767950535,
+        "iterations": 6,
+        "directionDot": 0.9999999999999867,
+        "body2ImpulseOverCapDt": 0.999999946791837,
+        "angularMomentumClosure": [
+          -1.1175870895385742e-08,
+          -1.4901161193847656e-08,
+          7.450580596923828e-09
+        ],
+        "matchedMinusOff": null
+      },
+      {
+        "axis": 3,
+        "kind": "off",
+        "dt": 9.999999747378752e-06,
+        "iterations": 1,
+        "directionDot": null,
+        "body2ImpulseOverCapDt": 0,
+        "angularMomentumClosure": [
+          0,
+          0,
+          0
+        ],
+        "matchedMinusOff": null
+      },
+      {
+        "axis": 3,
+        "kind": "matched",
+        "dt": 9.999999747378752e-06,
+        "iterations": 1,
+        "directionDot": null,
+        "body2ImpulseOverCapDt": 0,
+        "angularMomentumClosure": [
+          0,
+          0,
+          0
+        ],
+        "matchedMinusOff": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "axis": 4,
+        "kind": "saturated",
+        "dt": 0.008333333767950535,
+        "iterations": 6,
+        "directionDot": 0.9999999999999861,
+        "body2ImpulseOverCapDt": 1.000000008798135,
+        "angularMomentumClosure": [
+          1.30385160446167e-08,
+          1.3969838619232178e-09,
+          1.1175870895385742e-08
+        ],
+        "matchedMinusOff": null
+      },
+      {
+        "axis": 4,
+        "kind": "off",
+        "dt": 9.999999747378752e-06,
+        "iterations": 1,
+        "directionDot": null,
+        "body2ImpulseOverCapDt": 0,
+        "angularMomentumClosure": [
+          0,
+          0,
+          0
+        ],
+        "matchedMinusOff": null
+      },
+      {
+        "axis": 4,
+        "kind": "matched",
+        "dt": 9.999999747378752e-06,
+        "iterations": 1,
+        "directionDot": null,
+        "body2ImpulseOverCapDt": 0,
+        "angularMomentumClosure": [
+          0,
+          0,
+          0
+        ],
+        "matchedMinusOff": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "axis": 5,
+        "kind": "saturated",
+        "dt": 0.008333333767950535,
+        "iterations": 6,
+        "directionDot": 0.9999999999999823,
+        "body2ImpulseOverCapDt": 0.9999998313332166,
+        "angularMomentumClosure": [
+          1.6763806343078613e-08,
+          -1.4901161193847656e-08,
+          -2.7939677238464355e-09
+        ],
+        "matchedMinusOff": null
+      },
+      {
+        "axis": 5,
+        "kind": "off",
+        "dt": 9.999999747378752e-06,
+        "iterations": 1,
+        "directionDot": null,
+        "body2ImpulseOverCapDt": 0,
+        "angularMomentumClosure": [
+          0,
+          0,
+          0
+        ],
+        "matchedMinusOff": null
+      },
+      {
+        "axis": 5,
+        "kind": "matched",
+        "dt": 9.999999747378752e-06,
+        "iterations": 1,
+        "directionDot": null,
+        "body2ImpulseOverCapDt": 0,
+        "angularMomentumClosure": [
+          0,
+          0,
+          0
+        ],
+        "matchedMinusOff": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      }
+    ],
+    "result": "Unit frameX1 basis and (omega2-omega1).axis target confirmed at saved relative pose; finite caps avoid motor-axis orthogonalization rescaling. Triangle allocation supports structural motor+explicit torque world vector budget.",
+    "scope": "Isotropic coincident COM fixture. Tiny dt1e-5/solver1 measures instantaneous target, not gameplay. Saturated rows dt1/120 solver6. Whole-game contact/momentum integration unmeasured; old strict paired failure remains FAIL."
+  },
+  "motion": [
+    {
+      "scenario": "free",
+      "path": "/workspace/halfsword-handoff/grip-wrench-20261004/free-cut-run02.json",
+      "bytes": 20371170,
+      "sha256": "d13cac5ee3b1b2b4d8aaf93379711f8e871d3304c440497fec8ad463d626071a",
+      "sourceStable": true,
+      "sourceCommitLabel": "711d6773c5e388283268a7c4dc4e17c7cdad4c8e",
+      "wallSeconds": 6.580105072,
+      "creationExact": true,
+      "directionalInputExact": true,
+      "fullInputExact": true,
+      "baseline": {
+        "frames": 516,
+        "peakTipVelocityMps": 12.347017916119894,
+        "peakWorldBladeAxisRadS": 6.510752711707202,
+        "meanAimErrorRad": 0.023384115562689725,
+        "maxHandErrorM": 0.13483868327583978,
+        "maxJointGapM": 0.0015301478003610543,
+        "missingJointFrames": 0,
+        "contactFrames": 0,
+        "firstWeaponContactTick": null,
+        "appliedMotorFrames": 0,
+        "noBudgetFrames": 0,
+        "maxLastSubstepScalarCapRatio": null,
+        "tapAttempts": []
+      },
+      "candidate": {
+        "frames": 516,
+        "peakTipVelocityMps": 12.378567637975372,
+        "peakWorldBladeAxisRadS": 8.15745767679075,
+        "meanAimErrorRad": 0.023554244124820593,
+        "maxHandErrorM": 0.13479191979636448,
+        "maxJointGapM": 0.0015297622023820443,
+        "missingJointFrames": 0,
+        "contactFrames": 0,
+        "firstWeaponContactTick": null,
+        "appliedMotorFrames": 488,
+        "noBudgetFrames": 28,
+        "maxLastSubstepScalarCapRatio": 1.000000047815702,
+        "tapAttempts": []
+      },
+      "phases": [
+        {
+          "phase": "cut",
+          "maxBladeDirectionDifferenceRad": 0.005280377767974912,
+          "maxFlatNormalDifferenceRad": 0.12941664235920988,
+          "baseline": {
+            "frames": 30,
+            "peakTipVelocityMps": 12.347017916119894,
+            "peakWorldBladeAxisRadS": 5.291698665907189,
+            "meanAimErrorRad": 0.044956375191663,
+            "maxHandErrorM": 0.11988806980670179,
+            "maxJointGapM": 0.000744502050193593
+          },
+          "candidate": {
+            "frames": 30,
+            "peakTipVelocityMps": 12.378567637975372,
+            "peakWorldBladeAxisRadS": 7.899460716487943,
+            "meanAimErrorRad": 0.04717666418455539,
+            "maxHandErrorM": 0.1199862402725361,
+            "maxJointGapM": 0.0007476936952743226
+          }
+        },
+        {
+          "phase": "stop",
+          "maxBladeDirectionDifferenceRad": 0.003768837173284637,
+          "maxFlatNormalDifferenceRad": 0.11684653301715991,
+          "baseline": {
+            "frames": 36,
+            "peakTipVelocityMps": 7.568051419687813,
+            "peakWorldBladeAxisRadS": 4.7061346550710015,
+            "meanAimErrorRad": 0.05233330695864632,
+            "maxHandErrorM": 0.12912059717650373,
+            "maxJointGapM": 0.0007011405767024871
+          },
+          "candidate": {
+            "frames": 36,
+            "peakTipVelocityMps": 7.561543984392891,
+            "peakWorldBladeAxisRadS": 5.376181716132932,
+            "meanAimErrorRad": 0.0521417450564789,
+            "maxHandErrorM": 0.12986023036260766,
+            "maxJointGapM": 0.0006995332419626053
+          }
+        },
+        {
+          "phase": "reverse",
+          "maxBladeDirectionDifferenceRad": 0.0018788037259135184,
+          "maxFlatNormalDifferenceRad": 0.1138211395805189,
+          "baseline": {
+            "frames": 30,
+            "peakTipVelocityMps": 10.869250729331203,
+            "peakWorldBladeAxisRadS": 3.8685379773781223,
+            "meanAimErrorRad": 0.041803716756948724,
+            "maxHandErrorM": 0.121073897219382,
+            "maxJointGapM": 0.0015301478003610543
+          },
+          "candidate": {
+            "frames": 30,
+            "peakTipVelocityMps": 10.852581888580943,
+            "peakWorldBladeAxisRadS": 3.2901548369616704,
+            "meanAimErrorRad": 0.04126416463695013,
+            "maxHandErrorM": 0.12098347306921128,
+            "maxJointGapM": 0.0015297622023820443
+          }
+        },
+        {
+          "phase": "followCut",
+          "maxBladeDirectionDifferenceRad": 0.005659298006105609,
+          "maxFlatNormalDifferenceRad": 0.13914108156676686,
+          "baseline": {
+            "frames": 30,
+            "peakTipVelocityMps": 12.201409185146904,
+            "peakWorldBladeAxisRadS": 5.71748546195933,
+            "meanAimErrorRad": 0.03483695698215801,
+            "maxHandErrorM": 0.12385850245195174,
+            "maxJointGapM": 0.0007192276929691063
+          },
+          "candidate": {
+            "frames": 30,
+            "peakTipVelocityMps": 12.233794376104397,
+            "peakWorldBladeAxisRadS": 8.15745767679075,
+            "meanAimErrorRad": 0.037324545762562354,
+            "maxHandErrorM": 0.12416312233591859,
+            "maxJointGapM": 0.0007219113691012356
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "live",
+      "path": "/workspace/halfsword-handoff/grip-wrench-20261004/live-from-spawn-run03.json",
+      "bytes": 44480993,
+      "sha256": "875da5d1b1b50469b8fc7772358f01d9c48061b5e4bd1ba62dcdaa9d308b441f",
+      "sourceStable": true,
+      "sourceCommitLabel": "711d6773c5e388283268a7c4dc4e17c7cdad4c8e",
+      "wallSeconds": 12.604315194000002,
+      "creationExact": true,
+      "directionalInputExact": true,
+      "fullInputExact": false,
+      "baseline": {
+        "frames": 1080,
+        "peakTipVelocityMps": 12.347017916119894,
+        "peakWorldBladeAxisRadS": 42.610541818007626,
+        "meanAimErrorRad": 0.05660884482534448,
+        "maxHandErrorM": 0.4985565088983724,
+        "maxJointGapM": 0.0027157167680838877,
+        "missingJointFrames": 0,
+        "contactFrames": 15,
+        "firstWeaponContactTick": 848,
+        "appliedMotorFrames": 0,
+        "noBudgetFrames": 0,
+        "maxLastSubstepScalarCapRatio": null,
+        "tapAttempts": [
+          {
+            "tick": 803,
+            "accepted": true
+          }
+        ]
+      },
+      "candidate": {
+        "frames": 1080,
+        "peakTipVelocityMps": 12.378567637975372,
+        "peakWorldBladeAxisRadS": 7.899460716487943,
+        "meanAimErrorRad": 0.01803193054051686,
+        "maxHandErrorM": 0.24705505113100676,
+        "maxJointGapM": 0.0015497427905818253,
+        "missingJointFrames": 0,
+        "contactFrames": 6,
+        "firstWeaponContactTick": 1014,
+        "appliedMotorFrames": 1035,
+        "noBudgetFrames": 45,
+        "maxLastSubstepScalarCapRatio": 1.0000000901315833,
+        "tapAttempts": [
+          {
+            "tick": 804,
+            "accepted": false
+          }
+        ]
+      },
+      "phases": [
+        {
+          "phase": "cut",
+          "maxBladeDirectionDifferenceRad": 0.005280377767974912,
+          "maxFlatNormalDifferenceRad": 0.12941664235920988,
+          "baseline": {
+            "frames": 30,
+            "peakTipVelocityMps": 12.347017916119894,
+            "peakWorldBladeAxisRadS": 5.291698665907189,
+            "meanAimErrorRad": 0.044956375191663,
+            "maxHandErrorM": 0.11988806980670179,
+            "maxJointGapM": 0.000744502050193593
+          },
+          "candidate": {
+            "frames": 30,
+            "peakTipVelocityMps": 12.378567637975372,
+            "peakWorldBladeAxisRadS": 7.899460716487943,
+            "meanAimErrorRad": 0.04717666418455539,
+            "maxHandErrorM": 0.1199862402725361,
+            "maxJointGapM": 0.0007476936952743226
+          }
+        },
+        {
+          "phase": "stop",
+          "maxBladeDirectionDifferenceRad": 0.003768837173284637,
+          "maxFlatNormalDifferenceRad": 0.11684653301715991,
+          "baseline": {
+            "frames": 36,
+            "peakTipVelocityMps": 7.568051419687813,
+            "peakWorldBladeAxisRadS": 4.7061346550710015,
+            "meanAimErrorRad": 0.05233330695864632,
+            "maxHandErrorM": 0.12912059717650373,
+            "maxJointGapM": 0.0007011405767024871
+          },
+          "candidate": {
+            "frames": 36,
+            "peakTipVelocityMps": 7.561543984392891,
+            "peakWorldBladeAxisRadS": 5.376181716132932,
+            "meanAimErrorRad": 0.0521417450564789,
+            "maxHandErrorM": 0.12986023036260766,
+            "maxJointGapM": 0.0006995332419626053
+          }
+        },
+        {
+          "phase": "reverse",
+          "maxBladeDirectionDifferenceRad": 0.0018788037259135184,
+          "maxFlatNormalDifferenceRad": 0.1138211395805189,
+          "baseline": {
+            "frames": 30,
+            "peakTipVelocityMps": 10.869250729331203,
+            "peakWorldBladeAxisRadS": 3.8685379773781223,
+            "meanAimErrorRad": 0.041803716756948724,
+            "maxHandErrorM": 0.121073897219382,
+            "maxJointGapM": 0.0015301478003610543
+          },
+          "candidate": {
+            "frames": 30,
+            "peakTipVelocityMps": 10.852581888580943,
+            "peakWorldBladeAxisRadS": 3.2901548369616704,
+            "meanAimErrorRad": 0.04126416463695013,
+            "maxHandErrorM": 0.12098347306921128,
+            "maxJointGapM": 0.0015297622023820443
+          }
+        },
+        {
+          "phase": "followCut",
+          "maxBladeDirectionDifferenceRad": 0.1553739535365296,
+          "maxFlatNormalDifferenceRad": 0.5162122378612608,
+          "baseline": {
+            "frames": 30,
+            "peakTipVelocityMps": 9.736675202244053,
+            "peakWorldBladeAxisRadS": 42.610541818007626,
+            "meanAimErrorRad": 0.1521979656438245,
+            "maxHandErrorM": 0.21396008448531784,
+            "maxJointGapM": 0.0003269240877828951
+          },
+          "candidate": {
+            "frames": 30,
+            "peakTipVelocityMps": 8.380877809099761,
+            "peakWorldBladeAxisRadS": 6.994236188869056,
+            "meanAimErrorRad": 0.09346024153079475,
+            "maxHandErrorM": 0.24705505113100676,
+            "maxJointGapM": 0.00022308630613448175
+          }
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "gameTrajectories": 4,
+    "gameConditions": 2,
+    "gameSteps": 3192,
+    "operatorRows": 9,
+    "motionDerivations": 1,
+    "gameWallSeconds": 19.184420266000004,
+    "scope": "Free516 and live1080 x baseline/candidate. Reference equality validates measurement/selected engine parity; no new independent seeds or observer repeat."
+  },
+  "metadataCorrections": [
+    {
+      "raw": "free-cut-run02.json/live-from-spawn-run03.json scope",
+      "correction": "nativeContinuous configures motors each active step; old target-step wording incomplete. Tool wording corrected without physics rerun."
+    },
+    {
+      "priorReport": "qinggang_contact_20261004",
+      "correction": "Game-pose Jacobian/velocity concern resolved by pinned source/operator9. Previous first-step result remains local, not acceptance of continuous application."
+    }
+  ],
+  "decision": {
+    "measurementValidity": "PASS; source stable and observers match full reference traces",
+    "operatorContract": "Supported at saved pose/pinned implementation; no whole-game momentum or naturalness acceptance",
+    "continuousModel": "Public application rejected: free roll/plane not preserved; live accepted tap/contact differ. No gain/seed search or invitation to retry this model. Research records retained.",
+    "publicGame": "Unchanged existing game/sabre comparison only",
+    "newUserTest": false,
+    "next": "30-45min minimal route from existing requested wrist direction/plane torque into bounded native grip, instead of current-speed holding. Judge one free cut and common first contact; fail early on input/plane regression.",
+    "wholeProgram": "Phase2 P03/P04 continuing; P01-P06 none fully closed."
+  },
+  "summarySelection": "Full phase/event fields remain in motion-metrics-run04.json; this report keeps purpose/first-counterexample phases and common source hashes once."
+}
