@@ -6,7 +6,7 @@
     30
   ],
   "baseline": "c23398e01b722ec9f28398cd576f68e49cf2fe04",
-  "status": "local verified; public delivery pending",
+  "status": "game publicly delivered and verified",
   "sourceBefore": {
     "src/fighter.js": "b7849ecabb3e9056bfa24004a66fc4b9346e6c4047e9bec536931d083e621eb0",
     "src/main.js": "3664519c4aed4961065ee0f13b7b107dcb8749bf14f87c40b623db6f6f197af6",
@@ -42,7 +42,7 @@
     }
   },
   "compiledGame": {
-    "url": "http://127.0.0.1:4281/assets/main-j6fxQ7bI.js",
+    "url": "https://yoonjl-svg.github.io/halfsword-codex/assets/main-j6fxQ7bI.js",
     "bytes": 3494035,
     "sha256": "937f0e95e07749a4f8e2ee29e9d43ef9cb0b4137005e1665c5902e721ac90995"
   },
@@ -59,9 +59,9 @@
     "directPalmReview": "Qinggang closed right thenar/thumb continuous; off-hand empty fist thumb correctly opposite. Added hand-relative camera avoids grip occlusion."
   },
   "remaining": [
-    "public exact bytes",
-    "public mobile start/touch/restart",
-    "CI actual checkout"
+    "physical-phone human appearance/feel acceptance",
+    "sever/drop/regrip continuous screen",
+    "pistol wrist/grip V-shaped gap appearance"
   ],
   "rawRoot": "/workspace/halfsword-handoff/hand-opposition-20261004",
   "localPalmBrowser": {
@@ -75,6 +75,95 @@
       "path": "/workspace/halfsword-handoff/hand-opposition-20261004/palm-local/summary.json",
       "bytes": 2735,
       "sha256": "b7d45e109310dc23b7c5bd5d287611d39f4d838d7c0c695877aba5021a3bd383"
+    }
+  },
+  "gameCommit": "5419184ed24f49b920329a9a8ee7f580d1eb5a4b",
+  "publicBrowser": {
+    "pass": true,
+    "sourceStable": true,
+    "weapons": [
+      "qinggang",
+      "sabre",
+      "rapier",
+      "longsword",
+      "pistol"
+    ],
+    "viewsPerWeapon": 6,
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/hand-opposition-20261004/public-detail/summary.json",
+      "bytes": 7951,
+      "sha256": "eda98433e2943cf9a4ccc362c54698b7ebafa3fcf78c540f0fb30c298f8d1f2f"
+    },
+    "imageManifest": {
+      "path": "/workspace/halfsword-handoff/hand-opposition-20261004/public-image-manifest.json",
+      "bytes": 6612,
+      "sha256": "fca2bcd77d1086e874739517914e1035179a06f06804c212d57f41cd89a08b6a"
+    }
+  },
+  "publicTouch": {
+    "pass": true,
+    "sourceStable": true,
+    "cases": 1,
+    "scope": "Compiled module hash, portrait entry, trusted drag/extend/release/tap(80ms explicit event-time contract, not device latency), new Fighter restart, saved preferences and selected first-step mode. Live enemy AI/native contacts; no force/pose/health writes. Camera presentation only. Browser scenes not matched injury/AI input comparisons.",
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/hand-opposition-20261004/public-touch/summary.json",
+      "bytes": 3127,
+      "sha256": "94522f6fa917162bd913e205901a3906bd789aa55d1ad1f0fccb471c6a4da45d"
+    }
+  },
+  "sourceArchives": [
+    {
+      "path": "/workspace/halfsword-handoff/hand-opposition-20261004/hand_detail_screen-fourviews.mjs",
+      "bytes": 6427,
+      "sha256": "a5ca81d125c43a2937fea76803addcb4f65d8b6ec62e9c2c7d5cec4ff471c2f9"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/hand-opposition-20261004/hand_detail_screen-sixviews.mjs",
+      "bytes": 7315,
+      "sha256": "09d111cc583626ff9c37fdcd3088640b2cac01761547a86578e2d8a827036a5f"
+    }
+  ],
+  "localImageManifest": {
+    "path": "/workspace/halfsword-handoff/hand-opposition-20261004/local-image-manifest.json",
+    "bytes": 5580,
+    "sha256": "924b9ca9b69c2f4236c060297e92745d0167c4c5f6b9e643e04c1b13d2a68c16"
+  },
+  "githubCI": {
+    "pass": true,
+    "actualCheckout": "5419184ed24f49b920329a9a8ee7f580d1eb5a4b",
+    "sourceStable": true,
+    "cacheUsed": false,
+    "wallSeconds": 129.517674737,
+    "tests": [
+      {
+        "id": "force_ledger",
+        "pass": true
+      },
+      {
+        "id": "grip_reaction",
+        "pass": true
+      },
+      {
+        "id": "cut_reaction",
+        "pass": true
+      },
+      {
+        "id": "arm_capacity",
+        "pass": true
+      },
+      {
+        "id": "arm_duel",
+        "pass": true
+      },
+      {
+        "id": "build",
+        "pass": true
+      }
+    ],
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/hand-opposition-20261004/ci/development-checks-37171773224-1/result.json",
+      "bytes": 233987,
+      "sha256": "1407a1a2edadcedbf32aa8560319cb475adb20bb3b10493653f58692dc417280"
     }
   }
 }

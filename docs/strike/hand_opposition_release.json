@@ -1,13 +1,116 @@
 {
-  "status": "local verified; public delivery pending",
-  "publicVerified": false,
-  "mobilePublicVerified": false,
-  "baseline": "c23398e01b722ec9f28398cd576f68e49cf2fe04",
+  "status": "game delivered and verified; final documentation/image publication receipt kept outside Git",
+  "verifiedGameCommit": "5419184ed24f49b920329a9a8ee7f580d1eb5a4b",
+  "publicVerified": true,
+  "mobilePublicVerified": true,
+  "publicURL": "https://yoonjl-svg.github.io/halfsword-codex/",
+  "qinggangURL": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=qinggang&foeWeapon=longsword&foe=default&onehandArm=manual&targetCorrection=none&v=5419184",
   "compiledGame": {
-    "url": "http://127.0.0.1:4281/assets/main-j6fxQ7bI.js",
+    "url": "https://yoonjl-svg.github.io/halfsword-codex/assets/main-j6fxQ7bI.js",
     "bytes": 3494035,
     "sha256": "937f0e95e07749a4f8e2ee29e9d43ef9cb0b4137005e1665c5902e721ac90995"
   },
-  "scope": "General display geometry only; ordinary onehand controller unchanged; mobile Chromium touch, not hardware feel/performance proof.",
-  "report": "hand_opposition_20261004.md"
+  "nativePairsExact": 3,
+  "localWeapons": 5,
+  "publicDetail": {
+    "pass": true,
+    "sourceStable": true,
+    "weapons": [
+      "qinggang",
+      "sabre",
+      "rapier",
+      "longsword",
+      "pistol"
+    ],
+    "viewsPerWeapon": 6,
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/hand-opposition-20261004/public-detail/summary.json",
+      "bytes": 7951,
+      "sha256": "eda98433e2943cf9a4ccc362c54698b7ebafa3fcf78c540f0fb30c298f8d1f2f"
+    },
+    "imageManifest": {
+      "path": "/workspace/halfsword-handoff/hand-opposition-20261004/public-image-manifest.json",
+      "bytes": 6612,
+      "sha256": "fca2bcd77d1086e874739517914e1035179a06f06804c212d57f41cd89a08b6a"
+    }
+  },
+  "publicTouch": {
+    "pass": true,
+    "sourceStable": true,
+    "cases": 1,
+    "scope": "Compiled module hash, portrait entry, trusted drag/extend/release/tap(80ms explicit event-time contract, not device latency), new Fighter restart, saved preferences and selected first-step mode. Live enemy AI/native contacts; no force/pose/health writes. Camera presentation only. Browser scenes not matched injury/AI input comparisons.",
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/hand-opposition-20261004/public-touch/summary.json",
+      "bytes": 3127,
+      "sha256": "94522f6fa917162bd913e205901a3906bd789aa55d1ad1f0fccb471c6a4da45d"
+    }
+  },
+  "publicFiles": {
+    "pass": true,
+    "count": 8,
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/hand-opposition-20261004/public-first.json",
+      "bytes": 5295,
+      "sha256": "b088c3fe1f749dca7b3f73186bde52b24fcee08f6b7306f7ebb9f9a2e3fc9d0e"
+    }
+  },
+  "githubCI": {
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37171773224",
+    "pass": true,
+    "actualCheckout": "5419184ed24f49b920329a9a8ee7f580d1eb5a4b",
+    "sourceStable": true,
+    "cacheUsed": false,
+    "wallSeconds": 129.517674737,
+    "tests": [
+      {
+        "id": "force_ledger",
+        "pass": true
+      },
+      {
+        "id": "grip_reaction",
+        "pass": true
+      },
+      {
+        "id": "cut_reaction",
+        "pass": true
+      },
+      {
+        "id": "arm_capacity",
+        "pass": true
+      },
+      {
+        "id": "arm_duel",
+        "pass": true
+      },
+      {
+        "id": "build",
+        "pass": true
+      }
+    ],
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/hand-opposition-20261004/ci/development-checks-37171773224-1/result.json",
+      "bytes": 233987,
+      "sha256": "1407a1a2edadcedbf32aa8560319cb475adb20bb3b10493653f58692dc417280"
+    }
+  },
+  "pagesDeploy": {
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37171769215",
+    "sha": "5419184ed24f49b920329a9a8ee7f580d1eb5a4b",
+    "conclusion": "success"
+  },
+  "phoneCloseup": {
+    "url": "https://yoonjl-svg.github.io/halfsword-codex/checks/hand-opposition-20261004.png",
+    "publication": "final docs/image commit; exact public-byte receipt outside Git",
+    "sourceImage": {
+      "path": "/workspace/halfsword-handoff/hand-opposition-20261004/public-detail/qinggang/05-main-palm.png",
+      "bytes": 146875,
+      "sha256": "0c2842eb27abd8fa667f9d427a10d54601fa13890d24f5d128cd104322ab158d"
+    }
+  },
+  "remaining": [
+    "physical-phone human appearance/feel acceptance",
+    "sever/drop/regrip continuous screen",
+    "pistol wrist/grip V-shaped gap appearance"
+  ],
+  "scope": "General thumb display only. Ordinary controller/physics untouched. Compiled mobile Chromium trusted touch and restart, not hardware feel/performance proof. Old outer silhouette is partly occluded; palmar view reveals connection. CI covers game commit; final docs/image commit has same compiled game."
 }

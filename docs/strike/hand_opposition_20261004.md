@@ -21,4 +21,4 @@ node tools/sim/experiments/hand_visual_probe.mjs /tmp/NEW-native-hands.json
 PLAYWRIGHT_MODULE=/path/to/playwright/index.mjs node tools/browser/hand_detail_screen.mjs --base=http://127.0.0.1:4281/ --out=/tmp/NEW-hands
 ```
 
-공개 전달·CI 실제checkout은 [이번 영수증](hand_opposition_release.json)에서 확인한다. 아직 공개 확인 전이며, 일반 한손 제어 승격은 하지 않는다.
+공개 게임 `5419184ed24f49b920329a9a8ee7f580d1eb5a4b`의8파일 byte exact,5종 양손 양측/손바닥30장·진입/재시작,청강검 trusted 이동/연장/놓기/찌르기·재시작1판을 확인했다. CI 실제checkout이 같은SHA이고6묶음 새 실행(sourceStable/cacheUsed=false,129.52초) 모두 PASS다. [이번 영수증](hand_opposition_release.json)이 코드·CI·공개 확인 기준이다. [휴대폰 손 근접 사진](https://yoonjl-svg.github.io/halfsword-codex/checks/hand-opposition-20261004.png)은 공개판 실제 일시정지 화면이며 카메라만 변경했다. 최종 문서/사진 발행 확인은 저장소 밖 영수증에 보존한다. 일반 한손 제어 승격은 하지 않는다.
