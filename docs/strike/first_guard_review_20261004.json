@@ -1,0 +1,142 @@
+{
+  "dateKST": "2026-10-04",
+  "taskStartUTC": "2026-10-04T02:47:28Z",
+  "estimatedMinutes": [
+    10,
+    15
+  ],
+  "sourceCommit": "164a204398e6b9bbf677a06a9a69e493b58b1cba",
+  "sourceStable": true,
+  "sourceHashes": {
+    "src/fighter.js": "b7849ecabb3e9056bfa24004a66fc4b9346e6c4047e9bec536931d083e621eb0",
+    "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+    "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+    "src/skill.js": "b69b73e00d8524e733842a630d54f2d7392807f883d7a75c9f9767b78d71f512",
+    "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0"
+  },
+  "runtime": {
+    "node": "v24.19.0",
+    "packageLock": {
+      "path": "package-lock.json",
+      "bytes": 25682,
+      "sha256": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e"
+    },
+    "rapierWasm": {
+      "path": "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm",
+      "bytes": 1569588,
+      "sha256": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5"
+    }
+  },
+  "settings": {
+    "seed": 7,
+    "seconds": 1.9,
+    "skill": 0,
+    "model": "manual",
+    "autoGuard": false,
+    "foe": "longsword",
+    "walls": false,
+    "dt": 0.008333333333333333
+  },
+  "metrics": [
+    {
+      "weapon": "qinggang",
+      "atTimeS": 1.8999999999999957,
+      "wristAboveShoulderM": 0.0828414379158442,
+      "elbowFlexDeg": 48.03370908754407,
+      "upperElevationDeg": -10.356074279811915,
+      "shoulderWristM": 0.5162764856559344,
+      "nominalArmLengthM": 0.57,
+      "armFull": false,
+      "nativeTraceEqualsPrior": true,
+      "nativeTraceSHA": "7d773e9dfce44bf093b10d0c9b2d02d5e3035a45b883ec48a382549b6281e33c"
+    },
+    {
+      "weapon": "sabre",
+      "atTimeS": 1.8999999999999957,
+      "wristAboveShoulderM": 0.0816533285752814,
+      "elbowFlexDeg": 50.59946798533994,
+      "upperElevationDeg": -11.367965698337404,
+      "shoulderWristM": 0.5110212933878105,
+      "nominalArmLengthM": 0.57,
+      "armFull": false,
+      "nativeTraceEqualsPrior": true,
+      "nativeTraceSHA": "e670c6d59fd9e767a7f46d5610e28a0d542f37b2baf0c0b1bdc7038b4c952a16"
+    },
+    {
+      "weapon": "rapier",
+      "atTimeS": 1.8999999999999957,
+      "wristAboveShoulderM": 0.08329364563041608,
+      "elbowFlexDeg": 47.98741383292653,
+      "upperElevationDeg": -10.343333678493522,
+      "shoulderWristM": 0.5163670765812239,
+      "nominalArmLengthM": 0.57,
+      "armFull": false,
+      "nativeTraceEqualsPrior": true,
+      "nativeTraceSHA": "1bff4e1358212c101579cfec2a2bdfd4b95d50eee0c13c33c584f6fe6bcc0194"
+    }
+  ],
+  "raw": {
+    "path": "/workspace/halfsword-handoff/first-guard-review-20261004/native-arm-observation.json",
+    "bytes": 14801,
+    "sha256": "8d72e243fe67363e1570a8463ba005ec7f3064d9b5724df5c5e59f34ec66d3ab"
+  },
+  "frozenProbe": {
+    "path": "/workspace/halfsword-handoff/first-guard-review-20261004/probe.mjs",
+    "bytes": 2964,
+    "sha256": "5d72be607890edb9d42ba82716da4ce36190c50601cc763bead333b1094c5e03"
+  },
+  "priorRaw": {
+    "path": "/workspace/halfsword-handoff/initial-poses-20261004/forward-ready.json",
+    "bytes": 4519193,
+    "sha256": "61b5f97a217e6d93623b497412a8536b2b16c925cb74e1292e86fae16b4baefe"
+  },
+  "primary": {
+    "source": {
+      "url": "https://www.gutenberg.org/cache/epub/59336/pg59336.txt",
+      "bytes": 103333,
+      "sha256": "6276b830af305138aaeeccf0e89e69c4cde5a2a02ace46022b81d856d80fcd8c",
+      "depth": "downloaded text; read guard passages only"
+    },
+    "localText": {
+      "path": "/workspace/halfsword-handoff/first-guard-review-20261004/burton-1876.txt",
+      "bytes": 103333,
+      "sha256": "6276b830af305138aaeeccf0e89e69c4cde5a2a02ace46022b81d856d80fcd8c"
+    },
+    "readPassages": [
+      {
+        "section": "II sword exercise / Stand on Guard",
+        "textLines": [
+          581,
+          588
+        ],
+        "finding": "Right arm extended with easy bend at elbow; pommel fronts right breast; point directed at opponent right eye."
+      },
+      {
+        "section": "II §4 Engaging Guards",
+        "textLines": [
+          848,
+          864
+        ],
+        "finding": "Tierce and Carte serve different lines; repeats easy elbow bend."
+      },
+      {
+        "section": "II §5 Guards/Parries",
+        "textLines": [
+          946,
+          965
+        ],
+        "finding": "HighTierce raises hand above shoulder towards right-eye height; lowTierce shortens arm and lowers hand."
+      }
+    ],
+    "depth": "Root actually read these narrow primary passages this turn; not the entire book, not all schools or Chinese jian evidence."
+  },
+  "codeCause": {
+    "spawnRestBasis": "src/fighter.js:57 forward main arm at1.43m, stated joint-rest orientation purpose, not fencing stance evidence.",
+    "manualInitialInput": "src/fighter.js:815 (.15,.10) initialized to level sword command.",
+    "mapping": "src/fighter.js:1885–1904 couples pad y into hand height then scales shoulder-relative reach; raising y to level guardDir raises hand too.",
+    "scope": "Measurements cover optional manual B with correction0, three weapons, first1.9s, original reactive foe, no player input or pose/force writes."
+  },
+  "verdict": "Extended guards exist; current universal shoulder-level starting pose is not source-validated. Sword horizontal acceptance does not establish natural arm readiness.",
+  "implementationChanged": false,
+  "next": "Prepare weapon-appropriate ready position with blade direction and hand height/reach evaluated separately. Concrete comparison before general major adoption."
+}

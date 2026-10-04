@@ -4,6 +4,7 @@
 
 | 최근 회차 | 판정 / 소스 | 재사용 입구 |
 |---|---|---|
+| [첫 자세 근거 확인](first_guard_review_20261004.md) | 확장 가드 실재·공통 시작 미검증, 게임 변경 없음 | 원전 해당 문단 직접 열람·native 좁은관찰3회·기존trace3/3 exact·[수치/재현](first_guard_review_20261004.json) |
 | [쥔 손 엄지 정정](hand_opposition_20261004.md) | 이전 방향 검증 누락 정정, 일반 표시만 | 손3쌍·5무기 양손 양측+손바닥 화면·[원자료](hand_opposition_20261004.json)·[전달](hand_opposition_release.json) |
 | [첫 자세·엄지 손](initial_pose_and_hands_20261004.md) | manual 시작 수평·일반 외형, 양손2종 시작 진동 남음 | native27 전/후·손3쌍·화면16·[수치/원자료](initial_pose_and_hands_20261004.json)·[전달](initial_pose_and_hands_release.json) |
 | [검 거두기 예측20실행](wrist_braking_round1.md) | 공개 보류, 방향오차 후퇴. `63be055002eb617bb2d7283207b78ee855d768e9` | 아래 명령, wrist_braking_probe / sword_drag_duel_probe, [수치/해시](wrist_braking_round1.json) |
