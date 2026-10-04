@@ -19,4 +19,10 @@
 
 기준·설정·복사 가능한CLI·실제 raw의 크기/SHA는 [수치 지도](startup_grip_20261004.json), 실제 commit/Actions/웹·모바일 전달은 [영수증](startup_grip_release.json)이 기준이다. 현재 작은 도구로 시작/전투를 재현할 수 있으나 옛 모든 과도기 도구의 byte 보존을 주장하지 않는다. 일반 되돌리기는 `gripPoint` 없는 주소이며, 이전 paired/legacy 경로는 유지한다.
 
+## 실제 전달
+
+코드 `4dbd4f9`의 Pages와 캐시를 쓰지 않은 개발 검사6종이 성공했다. 공개8파일의 원문 byte/SHA가 frozen build와 같고, 공개 A/B4판은 390px 모바일 에뮬레이션에서 진입·터치·찌르기·새 Fighter 재시작·저장 선호 유지·compiled SHA를 확인했다. 실물 휴대폰 판정이나 전투 자연스러움 수락은 아니다. [폰 A/B](https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#startup-grip-comparison)에서 시작 자세와 입력 후 전투를 비교한다.
+
+계획 페이지의 뒤늦은 console404는 사이트 루트 `favicon.ico` 자동 요청이었다. 최초 static 검사 JSON의 pass가 screenshot 뒤 추가된 errors 배열과 모순되어 유효한 무오류 증거에서 제외했다. 재검사로 오류를 확인하고 exporter에 빈 data 아이콘을 넣었다. 최종 문서 공개 SHA·자원 오류 재검사는 저장소 밖 `FINAL_DELIVERY_RECEIPT.json`에 보존한다. 변하지 않은 게임 회귀·4판 조작은 문서 수정 때문에 반복하지 않는다.
+
 다음30–45분은 후보의 첫 전투 축 회전1장면에서 접촉/제어/적분을 분리한다. gain 전수 탐색·실패 지지/절삭 재시험을 하지 않는다. 일반 채택은 잔여 반례와 모바일 체감 결과를 준비한 뒤 사용자 확인 대상이다.

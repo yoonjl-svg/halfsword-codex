@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>개발 실행 계획 · Half Sword</title>
+<link rel="icon" href="data:,">
 <meta name="description" content="작은 플레이 결과물 중심의 24시간 작업표, 실험 기록과 다음 개발 과제를 휴대폰에서 읽는 페이지.">
 <style>
 :root{color-scheme:dark;--bg:#121517;--panel:#1d2226;--text:#ecedef;--muted:#bfc7cd;--link:#f2c77a;--border:#41494f}
@@ -14,10 +15,10 @@ table{border-collapse:collapse;width:100%;margin:24px 0;table-layout:fixed;font-
 </style></head><body>
 <a class="skip" href="#plan">실행 계획 본문으로</a>
 <header><p class="meta">Half Sword · 개발 기록</p><nav aria-label="페이지 이동"><a href="./feature-lab.html">게임 비교 화면</a><a href="https://github.com/yoonjl-svg/halfsword-codex/blob/main/docs/codex_team/ACTIVE_PLAN.md">GitHub 원문</a></nav>
-<div class="status"><strong>실행 계획 생성본 · 전달 상태는 기록 참조</strong><span>생성일(KST): 2026-10-04 · 원문 SHA256: <code>71d945bd8401</code></span><p class="meta">완료·실행·검증·공개 상태는 아래 실제 실행 대장을 기준으로 읽어 주세요. 계획 시간의 경과가 완료를 뜻하지는 않습니다.</p></div>
+<div class="status"><strong>실행 계획 생성본 · 전달 상태는 기록 참조</strong><span>생성일(KST): 2026-10-04 · 원문 SHA256: <code>8fee3780fd89</code></span><p class="meta">완료·실행·검증·공개 상태는 아래 실제 실행 대장을 기준으로 읽어 주세요. 계획 시간의 경과가 완료를 뜻하지는 않습니다.</p></div>
 <nav aria-label="실행 계획 목차"><a href="#section-2">전체 과정의 현재 위치</a><a href="#section-3">중장기 방향</a><a href="#section-4">24시간 작업표</a><a href="#section-5">비용과 실험 규칙</a><a href="#section-6">사용자 무응답·중단·승인 처리</a><a href="#section-7">실제 실행 대장 · 복원 전 연구·전달 역사</a><a href="#section-8">다음 승인 작업 · 재개 위치</a></nav></header>
 <main id="plan"><h1 id="section-1">빠른 결과물 중심 개발 계획</h1>
-<p><strong>이번 재개:</strong> <a href="https://github.com/yoonjl-svg/halfsword-codex/blob/main/docs/strike/startup_grip_20261004.md">양손 시작 폭주 일지</a>. 자루 축의 공통 힘점 후보는 시작 떨림을 줄였고 선택형으로 검증했다. 전투 중 급회전이 남아 일반 승격은 보류한다. 실제 공개 상태는 <a href="https://github.com/yoonjl-svg/halfsword-codex/blob/main/docs/strike/startup_grip_release.json">전달 영수증</a>이 기준이다.</p>
+<p><strong>이번 재개:</strong> <a href="https://github.com/yoonjl-svg/halfsword-codex/blob/main/docs/strike/startup_grip_20261004.md">양손 시작 폭주 일지</a>. 자루 축의 공통 힘점 후보는 시작 떨림을 줄였고 선택형으로 공개 전달했다. 공개 A/B4판의 모바일 에뮬레이션에서 터치·찌르기·재시작을 확인했다. 전투 중 급회전이 남아 일반 승격은 보류한다. 실제 공개 상태는 <a href="https://github.com/yoonjl-svg/halfsword-codex/blob/main/docs/strike/startup_grip_release.json">전달 영수증</a>이 기준이다.</p>
 <h2 id="section-2">전체 과정의 현재 위치</h2>
 <p>인계·미전송 승인 변경·인증/배포 복구는 완료했다. 세로 터치/사운드는 일반 반영했고, 한손 팔/준비 자세와 이번 양손 파지는 선택형 개선을 누적하는 중이다. <strong>2단계 전신 물리 연구는 계속 진행 중이며 P-01~P-06 어느 항목도 전체 완료로 닫지 않았다.</strong></p>
 <table role="table"><thead><tr role="row"><th scope="col" role="columnheader">목표</th><th scope="col" role="columnheader">현재 위치 / 남은 핵심</th></tr></thead><tbody><tr role="row"><td role="cell" data-label="목표">P-01 중력·무게감</td><td role="cell" data-label="현재 위치 / 남은 핵심">법칙/힘 장부 확인, 실제 버티기 부담·모바일 체감 미완료</td></tr><tr role="row"><td role="cell" data-label="목표">P-02 체중 지지·회복</td><td role="cell" data-label="현재 위치 / 남은 핵심">실패 후보 철회, 실제 접촉 아래 회복/재넘어짐 미해결</td></tr><tr role="row"><td role="cell" data-label="목표">P-03 몸통→팔·검 협응</td><td role="cell" data-label="현재 위치 / 남은 핵심">원인 분리 연구, 강타·제동을 함께 개선하는 후보 미채택</td></tr><tr role="row"><td role="cell" data-label="목표">P-04 관성·제동·힘 한도</td><td role="cell" data-label="현재 위치 / 남은 핵심">비교 후보 있음, 이번 파지 시작 개선과 남은 전투 급회전을 분리 검증</td></tr><tr role="row"><td role="cell" data-label="목표">P-05 충돌·절삭 전달</td><td role="cell" data-label="현재 위치 / 남은 핵심">legacy 장부 확인 중, 실패 절삭 후보 유지 철회</td></tr><tr role="row"><td role="cell" data-label="목표">P-06 신체·폰 조작</td><td role="cell" data-label="현재 위치 / 남은 핵심">세로 입력 일반/팔 선택형 전달, 손 외형·부상 후 조작 수락 미완료</td></tr></tbody></table>

@@ -132,6 +132,7 @@ def main():
     document = '''<!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>개발 실행 계획 · Half Sword</title>
+<link rel="icon" href="data:,">
 <meta name="description" content="작은 플레이 결과물 중심의 24시간 작업표, 실험 기록과 다음 개발 과제를 휴대폰에서 읽는 페이지.">
 <style>
 :root{color-scheme:dark;--bg:#121517;--panel:#1d2226;--text:#ecedef;--muted:#bfc7cd;--link:#f2c77a;--border:#41494f}
