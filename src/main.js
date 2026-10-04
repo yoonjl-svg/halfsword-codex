@@ -22,6 +22,7 @@ import { Stages, nextStage, STAGE_IDS, STAGE_FOE } from './stages.js';
 import { installGunFx, clearGunFx, warmGunFx } from './gun_fx.js';
 import { GUN_STANCE } from './gun.js';
 import { attachMadEyes } from './mad_eyes.js';
+import { attachHandVisuals } from './hand_visual.js';
 import { createSwordTrails } from './sword_trail.js';
 import { createDecapFx } from './decap_fx.js';
 import { createLimbSeverFx } from './limb_sever_fx.js';
@@ -420,12 +421,14 @@ function newRound(weaponId) {
   // 같은 선택형 팔 제어를 양쪽에 적용하고 재시작 때도 주소 설정을 유지한다.
   for (const f of [player, enemy]) f.armTorqueModel = armTrial.model;
   for (const f of [player, enemy]) f.onehandArmModel = onehandArmModel;
+  player.initializeOnehandReadyPose();
   applyEdgeTorqueTrial(edgeTorqueTrial, player);
   applyArmRecoveryTrial(armRecoveryTrial, player);
   applyWristBrakingTrial(wristBrakingTrial, player);
   // 진짜 엑스칼리버의 기운 (보여 주기만)
   for (const a of auras) a.dispose();
   auras = [player, enemy].map(attachAura).filter(Boolean);
+  auras.push(attachHandVisuals(player, LOOKS.player), attachHandVisuals(enemy, enemyLook));
   for (const c of scene.children) if (!before.has(c)) fighterMeshes.push(c);
   const fxWarm = fxWarmers(); // 싸움 도중 처음 나오는 효과의 셰이더 예열용 (부활 빛 예열에 같이 넣고, 판 끝에 warmRoundFx)
   if (enemy.revive) {
@@ -469,6 +472,7 @@ function newRound(weaponId) {
   // 시간이 흐르기 전에도(무기 뽑기 동안) 선 자세 그대로 보이게 겉모습을 몸에 맞춰 둔다
   player.syncMeshes();
   enemy.syncMeshes();
+  for (const a of auras) a.update(0);
   warmRoundFx(fxWarm); // 판 도중 처음 나오는 효과(자국·잔상·입자·칼 조각)의 셰이더 (판의 난수를 다 쓴 뒤 — 그리기 전과 같은 순서)
 }
 

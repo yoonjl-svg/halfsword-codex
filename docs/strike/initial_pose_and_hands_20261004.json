@@ -1,0 +1,1351 @@
+{
+  "schema": 1,
+  "dateKST": "2026-10-04",
+  "startedUTC": "2026-10-04T01:54:46Z",
+  "baselineCommit": "f13c8d1cb69705e15bd0fbb6dbd670d68b488379",
+  "dirtyCandidateSourceHashes": {
+    "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+    "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+    "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+    "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+    "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+    "src/arm_recovery_activation.js": "ae025cc8d9bbc9855ea8ab2793d3e7818a66a4662329014a776a2ac88966435e",
+    "src/arm_recovery_trial.js": "ebda992abc5c7cd25a12c751d0f9b30f8fddf998babc8f4a7f49c9f4a0817c09",
+    "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+    "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+    "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+    "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+    "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+    "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+    "src/cut_trial.js": "427d58d0500ceac482424e092a7d457a8cea48371c254f1b4edecb3a511be5a6",
+    "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+    "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+    "src/edge_intent.js": "b4e17a6ea08d659732c330448b3b3aaffeac2942fa5096e82db551a12d580c87",
+    "src/edge_torque.js": "436995e6d45e816517ea5a9a8f83c9fb147d143871aab1601f82baa7b36bc0fa",
+    "src/edge_torque_trial.js": "1280a3fe32c1874b6ce56b75932db44852162855d8962ae13f3aeb3e7d832cae",
+    "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+    "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+    "src/fighter.js": "b7849ecabb3e9056bfa24004a66fc4b9346e6c4047e9bec536931d083e621eb0",
+    "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+    "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+    "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+    "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+    "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+    "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+    "src/input.js": "da17f592c9fe8fc2e0532660a31f2e7b96d24e700cc555115c05b913caae9bc7",
+    "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+    "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+    "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+    "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+    "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+    "src/main.js": "84829ae22012d26aa5ea70c6db5100ca29ed359b20a29fdcfa8520c30627839a",
+    "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+    "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+    "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+    "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+    "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+    "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+    "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+    "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+    "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+    "src/skill.js": "b69b73e00d8524e733842a630d54f2d7392807f883d7a75c9f9767b78d71f512",
+    "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+    "src/sound.js": "f02a5a9c9ad60ce282806c02b956715c2ca01aced92ba021b63a799faf4c8fb4",
+    "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+    "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+    "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+    "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+    "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+    "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+    "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+    "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+    "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+    "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+    "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+    "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+    "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+    "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+    "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+    "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+    "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+    "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+    "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+    "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+    "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "src/wrist_braking.js": "6574ae9729fa6251540a68d27a0938e9d5bc2296097ff8b3bd69d1494eb88730",
+    "src/wrist_braking_trial.js": "25466b178e063a45e58a5fcd22532cdcbc176af4a2c05e461c562bb6a0ef658e",
+    "tools/sim/experiments/initial_weapon_pose_probe.mjs": "414dd90e467c5ab85a9a3536f14015e80656a988794781496d36a3803f30c562",
+    "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0"
+  },
+  "nativeSettings": {
+    "dt": 0.008333333333333333,
+    "seed": 7,
+    "seconds": 1.9,
+    "startHold": 2,
+    "gap": 5.6,
+    "autoGuard": true,
+    "foeWeapon": "longsword"
+  },
+  "initialNativeExactCount": 27,
+  "nativeTraceExactCount": 20,
+  "initialControllerPairs": [
+    {
+      "weapon": "longsword",
+      "model": "legacy",
+      "skill": 0.7,
+      "initialNativeExact": true,
+      "traceExact": true,
+      "targetBeforeDeg": -1.9064339070891647,
+      "targetAfterDeg": -1.9064339070891647,
+      "actualBeforeAt1_9Deg": -0.7599021391779361,
+      "actualAfterAt1_9Deg": -0.7599021391779361,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "zweihander",
+      "model": "legacy",
+      "skill": 0.7,
+      "initialNativeExact": true,
+      "traceExact": true,
+      "targetBeforeDeg": -1.9064339070891647,
+      "targetAfterDeg": -1.9064339070891647,
+      "actualBeforeAt1_9Deg": -1.1076945595403394,
+      "actualAfterAt1_9Deg": -1.1076945595403394,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "estoc",
+      "model": "legacy",
+      "skill": 0.7,
+      "initialNativeExact": true,
+      "traceExact": true,
+      "targetBeforeDeg": -1.9064339070891647,
+      "targetAfterDeg": -1.9064339070891647,
+      "actualBeforeAt1_9Deg": -0.7158907598284224,
+      "actualAfterAt1_9Deg": -0.7158907598284224,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "sabre",
+      "model": "legacy",
+      "skill": 0.7,
+      "initialNativeExact": true,
+      "traceExact": true,
+      "targetBeforeDeg": -1.7883815524712998,
+      "targetAfterDeg": -1.7883815524712998,
+      "actualBeforeAt1_9Deg": -1.7275440993120599,
+      "actualAfterAt1_9Deg": -1.7275440993120599,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "rapier",
+      "model": "legacy",
+      "skill": 0.7,
+      "initialNativeExact": true,
+      "traceExact": true,
+      "targetBeforeDeg": -1.9074868439465225,
+      "targetAfterDeg": -1.9074868439465225,
+      "actualBeforeAt1_9Deg": -3.8765173185520414,
+      "actualAfterAt1_9Deg": -3.8765173185520414,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "falchion",
+      "model": "legacy",
+      "skill": 0.7,
+      "initialNativeExact": true,
+      "traceExact": true,
+      "targetBeforeDeg": -1.7883815524712998,
+      "targetAfterDeg": -1.7883815524712998,
+      "actualBeforeAt1_9Deg": -1.7099221149266381,
+      "actualAfterAt1_9Deg": -1.7099221149266381,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "monohoshizao",
+      "model": "legacy",
+      "skill": 0.7,
+      "initialNativeExact": true,
+      "traceExact": true,
+      "targetBeforeDeg": -1.9064339070891647,
+      "targetAfterDeg": -1.9064339070891647,
+      "actualBeforeAt1_9Deg": -1.064098919446726,
+      "actualAfterAt1_9Deg": -1.064098919446726,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "qinggang",
+      "model": "legacy",
+      "skill": 0.7,
+      "initialNativeExact": true,
+      "traceExact": true,
+      "targetBeforeDeg": -1.9074868439465225,
+      "targetAfterDeg": -1.9074868439465225,
+      "actualBeforeAt1_9Deg": -3.2921523755465985,
+      "actualAfterAt1_9Deg": -3.2921523755465985,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "excalibur",
+      "model": "legacy",
+      "skill": 0.7,
+      "initialNativeExact": true,
+      "traceExact": true,
+      "targetBeforeDeg": -1.9064339070891647,
+      "targetAfterDeg": -1.9064339070891647,
+      "actualBeforeAt1_9Deg": -0.7408646100189203,
+      "actualAfterAt1_9Deg": -0.7408646100189203,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "excalibur_replica",
+      "model": "legacy",
+      "skill": 0.7,
+      "initialNativeExact": true,
+      "traceExact": true,
+      "targetBeforeDeg": -1.9064339070891647,
+      "targetAfterDeg": -1.9064339070891647,
+      "actualBeforeAt1_9Deg": -0.7408646100189203,
+      "actualAfterAt1_9Deg": -0.7408646100189203,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "lightsaber",
+      "model": "legacy",
+      "skill": 0.7,
+      "initialNativeExact": true,
+      "traceExact": true,
+      "targetBeforeDeg": -1.9064339070891647,
+      "targetAfterDeg": -1.9064339070891647,
+      "actualBeforeAt1_9Deg": -41.080375540755895,
+      "actualAfterAt1_9Deg": -41.080375540755895,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "tree_branch",
+      "model": "legacy",
+      "skill": 0.7,
+      "initialNativeExact": true,
+      "traceExact": true,
+      "targetBeforeDeg": -1.7883815524712998,
+      "targetAfterDeg": -1.7883815524712998,
+      "actualBeforeAt1_9Deg": -2.761704749092403,
+      "actualAfterAt1_9Deg": -2.761704749092403,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "rubber_chicken",
+      "model": "legacy",
+      "skill": 0.7,
+      "initialNativeExact": true,
+      "traceExact": true,
+      "targetBeforeDeg": -1.7883815524712998,
+      "targetAfterDeg": -1.7883815524712998,
+      "actualBeforeAt1_9Deg": -0.6778059822374025,
+      "actualAfterAt1_9Deg": -0.6778059822374025,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "frozen_tuna",
+      "model": "legacy",
+      "skill": 0.7,
+      "initialNativeExact": true,
+      "traceExact": true,
+      "targetBeforeDeg": -1.9064339070891647,
+      "targetAfterDeg": -1.9064339070891647,
+      "actualBeforeAt1_9Deg": -1.028415147694207,
+      "actualAfterAt1_9Deg": -1.028415147694207,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "pistol",
+      "model": "legacy",
+      "skill": 0.7,
+      "initialNativeExact": true,
+      "traceExact": true,
+      "targetBeforeDeg": -5.637543107134903,
+      "targetAfterDeg": -5.637543107134903,
+      "actualBeforeAt1_9Deg": -1.488621276292911,
+      "actualAfterAt1_9Deg": -1.488621276292911,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "morgenstern",
+      "model": "legacy",
+      "skill": 0.7,
+      "initialNativeExact": true,
+      "traceExact": true,
+      "targetBeforeDeg": -1.7883815524712998,
+      "targetAfterDeg": -1.7883815524712998,
+      "actualBeforeAt1_9Deg": -1.674554908804791,
+      "actualAfterAt1_9Deg": -1.674554908804791,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "sabre",
+      "model": "manual",
+      "skill": 0,
+      "initialNativeExact": true,
+      "traceExact": false,
+      "targetBeforeDeg": -6.302535746439057,
+      "targetAfterDeg": 0,
+      "actualBeforeAt1_9Deg": -6.286401625659624,
+      "actualAfterAt1_9Deg": 0.0054411637988048996,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "rapier",
+      "model": "manual",
+      "skill": 0,
+      "initialNativeExact": true,
+      "traceExact": false,
+      "targetBeforeDeg": -6.302535746439057,
+      "targetAfterDeg": 0,
+      "actualBeforeAt1_9Deg": -6.280646974908499,
+      "actualAfterAt1_9Deg": 0.008980134691947432,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "falchion",
+      "model": "manual",
+      "skill": 0,
+      "initialNativeExact": true,
+      "traceExact": false,
+      "targetBeforeDeg": -6.302535746439057,
+      "targetAfterDeg": 0,
+      "actualBeforeAt1_9Deg": -6.2846728440675,
+      "actualAfterAt1_9Deg": 0.006208628394604914,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "qinggang",
+      "model": "manual",
+      "skill": 0,
+      "initialNativeExact": true,
+      "traceExact": false,
+      "targetBeforeDeg": -6.302535746439057,
+      "targetAfterDeg": 0,
+      "actualBeforeAt1_9Deg": -6.27773759835633,
+      "actualAfterAt1_9Deg": 0.009747861442537772,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "tree_branch",
+      "model": "manual",
+      "skill": 0,
+      "initialNativeExact": true,
+      "traceExact": false,
+      "targetBeforeDeg": -6.302535746439057,
+      "targetAfterDeg": 0,
+      "actualBeforeAt1_9Deg": -6.285198862764635,
+      "actualAfterAt1_9Deg": 0.004381202499723296,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "rubber_chicken",
+      "model": "manual",
+      "skill": 0,
+      "initialNativeExact": true,
+      "traceExact": false,
+      "targetBeforeDeg": -6.302535746439057,
+      "targetAfterDeg": 0,
+      "actualBeforeAt1_9Deg": 7.486894161793426,
+      "actualAfterAt1_9Deg": 11.234373067668894,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "pistol",
+      "model": "manual",
+      "skill": 0,
+      "initialNativeExact": true,
+      "traceExact": true,
+      "targetBeforeDeg": -5.637543107134903,
+      "targetAfterDeg": -5.637543107134903,
+      "actualBeforeAt1_9Deg": -1.4969537320806185,
+      "actualAfterAt1_9Deg": -1.4969537320806185,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "morgenstern",
+      "model": "manual",
+      "skill": 0,
+      "initialNativeExact": true,
+      "traceExact": false,
+      "targetBeforeDeg": -6.302535746439057,
+      "targetAfterDeg": 0,
+      "actualBeforeAt1_9Deg": -6.297802498802356,
+      "actualAfterAt1_9Deg": 0.00895619543976567,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "qinggang",
+      "model": "legacy",
+      "skill": 0,
+      "initialNativeExact": true,
+      "traceExact": true,
+      "targetBeforeDeg": -6.302535746439057,
+      "targetAfterDeg": -6.302535746439057,
+      "actualBeforeAt1_9Deg": -6.190660553680084,
+      "actualAfterAt1_9Deg": -6.190660553680084,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "sabre",
+      "model": "legacy",
+      "skill": 0,
+      "initialNativeExact": true,
+      "traceExact": true,
+      "targetBeforeDeg": -6.302535746439057,
+      "targetAfterDeg": -6.302535746439057,
+      "actualBeforeAt1_9Deg": -6.211400004893464,
+      "actualAfterAt1_9Deg": -6.211400004893464,
+      "finite": true,
+      "wounds": 0
+    },
+    {
+      "weapon": "rapier",
+      "model": "legacy",
+      "skill": 0,
+      "initialNativeExact": true,
+      "traceExact": true,
+      "targetBeforeDeg": -6.302535746439057,
+      "targetAfterDeg": -6.302535746439057,
+      "actualBeforeAt1_9Deg": -6.20420760620835,
+      "actualAfterAt1_9Deg": -6.20420760620835,
+      "finite": true,
+      "wounds": 0
+    }
+  ],
+  "handVisualNativePairs": [
+    {
+      "weapon": "qinggang",
+      "exactNativeAndRandom": true,
+      "pair": [
+        {
+          "enabled": false,
+          "initialNativeSHA": "b67085bfba87d66263b44b65aedd98af58b425044175e3b8b669422030473c1a",
+          "counts": {
+            "bodies": 33,
+            "colliders": 69,
+            "joints": 30
+          },
+          "nextRandom": 0.4958292602095753,
+          "nativeTraceSHA": "bb4774355175a7cbb5c73ac201aba3817631c63a4069b42b0cf19ec571b87f43"
+        },
+        {
+          "enabled": true,
+          "initialNativeSHA": "b67085bfba87d66263b44b65aedd98af58b425044175e3b8b669422030473c1a",
+          "counts": {
+            "bodies": 33,
+            "colliders": 69,
+            "joints": 30
+          },
+          "nextRandom": 0.4958292602095753,
+          "nativeTraceSHA": "bb4774355175a7cbb5c73ac201aba3817631c63a4069b42b0cf19ec571b87f43",
+          "emptyHandTransformsFinite": true,
+          "disposed": true
+        }
+      ]
+    },
+    {
+      "weapon": "longsword",
+      "exactNativeAndRandom": true,
+      "pair": [
+        {
+          "enabled": false,
+          "initialNativeSHA": "301482f2bdc457ba88aea35af85d0bdb6108f1f3443d140b514f6e4752e41da2",
+          "counts": {
+            "bodies": 33,
+            "colliders": 69,
+            "joints": 30
+          },
+          "nextRandom": 0.4958292602095753,
+          "nativeTraceSHA": "79bd8746e2e8dd98f35c89b4bd590c5ff0881f13b4f53296d4e28bf7be6a512d"
+        },
+        {
+          "enabled": true,
+          "initialNativeSHA": "301482f2bdc457ba88aea35af85d0bdb6108f1f3443d140b514f6e4752e41da2",
+          "counts": {
+            "bodies": 33,
+            "colliders": 69,
+            "joints": 30
+          },
+          "nextRandom": 0.4958292602095753,
+          "nativeTraceSHA": "79bd8746e2e8dd98f35c89b4bd590c5ff0881f13b4f53296d4e28bf7be6a512d",
+          "emptyHandTransformsFinite": true,
+          "disposed": true
+        }
+      ]
+    },
+    {
+      "weapon": "pistol",
+      "exactNativeAndRandom": true,
+      "pair": [
+        {
+          "enabled": false,
+          "initialNativeSHA": "b2b1683ab258b59078faa0bf3ebf263c2f13c4f4ad056c5f8af66036de4181ec",
+          "counts": {
+            "bodies": 33,
+            "colliders": 68,
+            "joints": 30
+          },
+          "nextRandom": 0.1599076595157385,
+          "nativeTraceSHA": "63c222165b3bf3c611d4757d19665820ca5fbc2b083350d227797b993fa50058"
+        },
+        {
+          "enabled": true,
+          "initialNativeSHA": "b2b1683ab258b59078faa0bf3ebf263c2f13c4f4ad056c5f8af66036de4181ec",
+          "counts": {
+            "bodies": 33,
+            "colliders": 68,
+            "joints": 30
+          },
+          "nextRandom": 0.1599076595157385,
+          "nativeTraceSHA": "63c222165b3bf3c611d4757d19665820ca5fbc2b083350d227797b993fa50058",
+          "emptyHandTransformsFinite": true,
+          "disposed": true
+        }
+      ]
+    }
+  ],
+  "browserFirstPoses": [
+    {
+      "weapon": "longsword",
+      "manual": false,
+      "portrait": {
+        "width": 390,
+        "scrollWidth": 390
+      },
+      "first": {
+        "timeS": 0,
+        "model": "legacy",
+        "skill": 0.7,
+        "pad": [
+          0.15,
+          0
+        ],
+        "targetDeg": -1.9064339070891638,
+        "actualDeg": 6.921115680172825,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "last": {
+        "timeS": 1.9999999999999953,
+        "model": "legacy",
+        "skill": 0.7,
+        "pad": [
+          0.15,
+          0
+        ],
+        "targetDeg": -1.9064339070891638,
+        "actualDeg": -0.7951339551695243,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "minActualDeg": -1.7862026794711876,
+      "maxActualDeg": 6.990962580989035,
+      "errors": [],
+      "compiled": {
+        "url": "http://127.0.0.1:4281/assets/main-D-HgwwlA.js",
+        "bytes": 3493795,
+        "sha256": "f8b97c4b59711a30ed6279a30065328fcd0869472812457a820f4ab4a2bf4a7d"
+      }
+    },
+    {
+      "weapon": "zweihander",
+      "manual": false,
+      "portrait": {
+        "width": 390,
+        "scrollWidth": 390
+      },
+      "first": {
+        "timeS": 0,
+        "model": "legacy",
+        "skill": 0.7,
+        "pad": [
+          0.15,
+          0
+        ],
+        "targetDeg": -1.9064339070891638,
+        "actualDeg": 6.921115680172825,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "last": {
+        "timeS": 1.9999999999999953,
+        "model": "legacy",
+        "skill": 0.7,
+        "pad": [
+          0.15,
+          0
+        ],
+        "targetDeg": -1.9064339070891638,
+        "actualDeg": -0.9575509222038706,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "minActualDeg": -3.024747904284002,
+      "maxActualDeg": 8.058592927020893,
+      "errors": [],
+      "compiled": {
+        "url": "http://127.0.0.1:4281/assets/main-D-HgwwlA.js",
+        "bytes": 3493795,
+        "sha256": "f8b97c4b59711a30ed6279a30065328fcd0869472812457a820f4ab4a2bf4a7d"
+      }
+    },
+    {
+      "weapon": "estoc",
+      "manual": false,
+      "portrait": {
+        "width": 390,
+        "scrollWidth": 390
+      },
+      "first": {
+        "timeS": 0,
+        "model": "legacy",
+        "skill": 0.7,
+        "pad": [
+          0.15,
+          0
+        ],
+        "targetDeg": -1.9064339070891638,
+        "actualDeg": 6.921115680172825,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "last": {
+        "timeS": 1.9999999999999953,
+        "model": "legacy",
+        "skill": 0.7,
+        "pad": [
+          0.15,
+          0
+        ],
+        "targetDeg": -1.9064339070891638,
+        "actualDeg": -0.757817868322509,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "minActualDeg": -1.644870362078272,
+      "maxActualDeg": 6.992772921506386,
+      "errors": [],
+      "compiled": {
+        "url": "http://127.0.0.1:4281/assets/main-D-HgwwlA.js",
+        "bytes": 3493795,
+        "sha256": "f8b97c4b59711a30ed6279a30065328fcd0869472812457a820f4ab4a2bf4a7d"
+      }
+    },
+    {
+      "weapon": "sabre",
+      "manual": true,
+      "portrait": {
+        "width": 390,
+        "scrollWidth": 390
+      },
+      "first": {
+        "timeS": 0,
+        "model": "manual",
+        "skill": 0,
+        "pad": [
+          0.15,
+          0.1
+        ],
+        "targetDeg": 0,
+        "actualDeg": 6.921115680172825,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "last": {
+        "timeS": 1.9999999999999953,
+        "model": "manual",
+        "skill": 0,
+        "pad": [
+          0.15,
+          0.1
+        ],
+        "targetDeg": 0,
+        "actualDeg": 0.005028131319504674,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "minActualDeg": 0.004815488894753021,
+      "maxActualDeg": 6.965483765754888,
+      "errors": [],
+      "compiled": {
+        "url": "http://127.0.0.1:4281/assets/main-D-HgwwlA.js",
+        "bytes": 3493795,
+        "sha256": "f8b97c4b59711a30ed6279a30065328fcd0869472812457a820f4ab4a2bf4a7d"
+      }
+    },
+    {
+      "weapon": "rapier",
+      "manual": true,
+      "portrait": {
+        "width": 390,
+        "scrollWidth": 390
+      },
+      "first": {
+        "timeS": 0,
+        "model": "manual",
+        "skill": 0,
+        "pad": [
+          0.15,
+          0.1
+        ],
+        "targetDeg": 0,
+        "actualDeg": 6.921115680172825,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "last": {
+        "timeS": 1.9999999999999953,
+        "model": "manual",
+        "skill": 0,
+        "pad": [
+          0.15,
+          0.1
+        ],
+        "targetDeg": 0,
+        "actualDeg": 0.008958350288234244,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "minActualDeg": 0.008229845739100097,
+      "maxActualDeg": 6.921115680172825,
+      "errors": [],
+      "compiled": {
+        "url": "http://127.0.0.1:4281/assets/main-D-HgwwlA.js",
+        "bytes": 3493795,
+        "sha256": "f8b97c4b59711a30ed6279a30065328fcd0869472812457a820f4ab4a2bf4a7d"
+      }
+    },
+    {
+      "weapon": "falchion",
+      "manual": true,
+      "portrait": {
+        "width": 390,
+        "scrollWidth": 390
+      },
+      "first": {
+        "timeS": 0,
+        "model": "manual",
+        "skill": 0,
+        "pad": [
+          0.15,
+          0.1
+        ],
+        "targetDeg": 0,
+        "actualDeg": 6.921115680172825,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "last": {
+        "timeS": 1.9999999999999953,
+        "model": "manual",
+        "skill": 0,
+        "pad": [
+          0.15,
+          0.1
+        ],
+        "targetDeg": 0,
+        "actualDeg": 0.005821201583559865,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "minActualDeg": 0.005773614652500504,
+      "maxActualDeg": 6.921115680172825,
+      "errors": [],
+      "compiled": {
+        "url": "http://127.0.0.1:4281/assets/main-D-HgwwlA.js",
+        "bytes": 3493795,
+        "sha256": "f8b97c4b59711a30ed6279a30065328fcd0869472812457a820f4ab4a2bf4a7d"
+      }
+    },
+    {
+      "weapon": "monohoshizao",
+      "manual": false,
+      "portrait": {
+        "width": 390,
+        "scrollWidth": 390
+      },
+      "first": {
+        "timeS": 0,
+        "model": "legacy",
+        "skill": 0.7,
+        "pad": [
+          0.15,
+          0
+        ],
+        "targetDeg": -1.9064339070891638,
+        "actualDeg": 6.921115680172825,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "last": {
+        "timeS": 1.9999999999999953,
+        "model": "legacy",
+        "skill": 0.7,
+        "pad": [
+          0.15,
+          0
+        ],
+        "targetDeg": -1.9064339070891638,
+        "actualDeg": -33.8179999599072,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "minActualDeg": -82.69593981057835,
+      "maxActualDeg": 85.00998066746902,
+      "errors": [],
+      "compiled": {
+        "url": "http://127.0.0.1:4281/assets/main-D-HgwwlA.js",
+        "bytes": 3493795,
+        "sha256": "f8b97c4b59711a30ed6279a30065328fcd0869472812457a820f4ab4a2bf4a7d"
+      }
+    },
+    {
+      "weapon": "qinggang",
+      "manual": true,
+      "portrait": {
+        "width": 390,
+        "scrollWidth": 390
+      },
+      "first": {
+        "timeS": 0,
+        "model": "manual",
+        "skill": 0,
+        "pad": [
+          0.15,
+          0.1
+        ],
+        "targetDeg": 0,
+        "actualDeg": 6.921115680172825,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "last": {
+        "timeS": 1.9999999999999953,
+        "model": "manual",
+        "skill": 0,
+        "pad": [
+          0.15,
+          0.1
+        ],
+        "targetDeg": 0,
+        "actualDeg": 0.00959056659057275,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "minActualDeg": 0.00959056659057275,
+      "maxActualDeg": 6.921115680172825,
+      "errors": [],
+      "compiled": {
+        "url": "http://127.0.0.1:4281/assets/main-D-HgwwlA.js",
+        "bytes": 3493795,
+        "sha256": "f8b97c4b59711a30ed6279a30065328fcd0869472812457a820f4ab4a2bf4a7d"
+      }
+    },
+    {
+      "weapon": "excalibur",
+      "manual": false,
+      "portrait": {
+        "width": 390,
+        "scrollWidth": 390
+      },
+      "first": {
+        "timeS": 0,
+        "model": "legacy",
+        "skill": 0.7,
+        "pad": [
+          0.15,
+          0
+        ],
+        "targetDeg": -1.9064339070891638,
+        "actualDeg": 6.921115680172825,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "last": {
+        "timeS": 1.9999999999999953,
+        "model": "legacy",
+        "skill": 0.7,
+        "pad": [
+          0.15,
+          0
+        ],
+        "targetDeg": -1.9064339070891638,
+        "actualDeg": -0.7929888120836026,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "minActualDeg": -1.425806039199866,
+      "maxActualDeg": 6.921115680172825,
+      "errors": [],
+      "compiled": {
+        "url": "http://127.0.0.1:4281/assets/main-D-HgwwlA.js",
+        "bytes": 3493795,
+        "sha256": "f8b97c4b59711a30ed6279a30065328fcd0869472812457a820f4ab4a2bf4a7d"
+      }
+    },
+    {
+      "weapon": "excalibur_replica",
+      "manual": false,
+      "portrait": {
+        "width": 390,
+        "scrollWidth": 390
+      },
+      "first": {
+        "timeS": 0,
+        "model": "legacy",
+        "skill": 0.7,
+        "pad": [
+          0.15,
+          0
+        ],
+        "targetDeg": -1.9064339070891638,
+        "actualDeg": 6.921115680172825,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "last": {
+        "timeS": 1.9999999999999953,
+        "model": "legacy",
+        "skill": 0.7,
+        "pad": [
+          0.15,
+          0
+        ],
+        "targetDeg": -1.9064339070891638,
+        "actualDeg": -0.7916467075971819,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "minActualDeg": -1.4260913373506636,
+      "maxActualDeg": 6.921115680172825,
+      "errors": [],
+      "compiled": {
+        "url": "http://127.0.0.1:4281/assets/main-D-HgwwlA.js",
+        "bytes": 3493795,
+        "sha256": "f8b97c4b59711a30ed6279a30065328fcd0869472812457a820f4ab4a2bf4a7d"
+      }
+    },
+    {
+      "weapon": "lightsaber",
+      "manual": false,
+      "portrait": {
+        "width": 390,
+        "scrollWidth": 390
+      },
+      "first": {
+        "timeS": 0,
+        "model": "legacy",
+        "skill": 0.7,
+        "pad": [
+          0.15,
+          0
+        ],
+        "targetDeg": -1.9064339070891638,
+        "actualDeg": 6.921115680172825,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "last": {
+        "timeS": 1.9999999999999953,
+        "model": "legacy",
+        "skill": 0.7,
+        "pad": [
+          0.15,
+          0
+        ],
+        "targetDeg": -1.9064339070891638,
+        "actualDeg": 10.353179140832118,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "minActualDeg": -86.18368418185267,
+      "maxActualDeg": 82.0985229674777,
+      "errors": [],
+      "compiled": {
+        "url": "http://127.0.0.1:4281/assets/main-D-HgwwlA.js",
+        "bytes": 3493795,
+        "sha256": "f8b97c4b59711a30ed6279a30065328fcd0869472812457a820f4ab4a2bf4a7d"
+      }
+    },
+    {
+      "weapon": "tree_branch",
+      "manual": true,
+      "portrait": {
+        "width": 390,
+        "scrollWidth": 390
+      },
+      "first": {
+        "timeS": 0,
+        "model": "manual",
+        "skill": 0,
+        "pad": [
+          0.15,
+          0.1
+        ],
+        "targetDeg": 0,
+        "actualDeg": 6.921115680172825,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "last": {
+        "timeS": 1.9999999999999953,
+        "model": "manual",
+        "skill": 0,
+        "pad": [
+          0.15,
+          0.1
+        ],
+        "targetDeg": 0,
+        "actualDeg": 0.0035534771362451716,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "minActualDeg": 0.0034383907956790534,
+      "maxActualDeg": 6.921115680172825,
+      "errors": [],
+      "compiled": {
+        "url": "http://127.0.0.1:4281/assets/main-D-HgwwlA.js",
+        "bytes": 3493795,
+        "sha256": "f8b97c4b59711a30ed6279a30065328fcd0869472812457a820f4ab4a2bf4a7d"
+      }
+    },
+    {
+      "weapon": "rubber_chicken",
+      "manual": true,
+      "portrait": {
+        "width": 390,
+        "scrollWidth": 390
+      },
+      "first": {
+        "timeS": 0,
+        "model": "manual",
+        "skill": 0,
+        "pad": [
+          0.15,
+          0.1
+        ],
+        "targetDeg": 0,
+        "actualDeg": 6.921115680172825,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "last": {
+        "timeS": 1.9999999999999953,
+        "model": "manual",
+        "skill": 0,
+        "pad": [
+          0.15,
+          0.1
+        ],
+        "targetDeg": 0,
+        "actualDeg": 16.669390712613016,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "minActualDeg": 6.103048493546592,
+      "maxActualDeg": 16.669390712613016,
+      "errors": [],
+      "compiled": {
+        "url": "http://127.0.0.1:4281/assets/main-D-HgwwlA.js",
+        "bytes": 3493795,
+        "sha256": "f8b97c4b59711a30ed6279a30065328fcd0869472812457a820f4ab4a2bf4a7d"
+      }
+    },
+    {
+      "weapon": "frozen_tuna",
+      "manual": false,
+      "portrait": {
+        "width": 390,
+        "scrollWidth": 390
+      },
+      "first": {
+        "timeS": 0,
+        "model": "legacy",
+        "skill": 0.7,
+        "pad": [
+          0.15,
+          0
+        ],
+        "targetDeg": -1.9064339070891638,
+        "actualDeg": 6.921115680172825,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "last": {
+        "timeS": 1.9999999999999953,
+        "model": "legacy",
+        "skill": 0.7,
+        "pad": [
+          0.15,
+          0
+        ],
+        "targetDeg": -1.9064339070891638,
+        "actualDeg": -0.9305229025589383,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "minActualDeg": -1.1363550611579125,
+      "maxActualDeg": 7.9411228973412475,
+      "errors": [],
+      "compiled": {
+        "url": "http://127.0.0.1:4281/assets/main-D-HgwwlA.js",
+        "bytes": 3493795,
+        "sha256": "f8b97c4b59711a30ed6279a30065328fcd0869472812457a820f4ab4a2bf4a7d"
+      }
+    },
+    {
+      "weapon": "pistol",
+      "manual": false,
+      "portrait": {
+        "width": 390,
+        "scrollWidth": 390
+      },
+      "first": {
+        "timeS": 0,
+        "model": "legacy",
+        "skill": 0.7,
+        "pad": [
+          0.15,
+          0
+        ],
+        "targetDeg": -5.637543107134903,
+        "actualDeg": 6.921115680172825,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "last": {
+        "timeS": 1.9999999999999953,
+        "model": "legacy",
+        "skill": 0.7,
+        "pad": [
+          0.15,
+          0
+        ],
+        "targetDeg": -2.840836975407972,
+        "actualDeg": -2.8583001138911364,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "minActualDeg": -8.291891023002067,
+      "maxActualDeg": 6.921115680172825,
+      "errors": [],
+      "compiled": {
+        "url": "http://127.0.0.1:4281/assets/main-D-HgwwlA.js",
+        "bytes": 3493795,
+        "sha256": "f8b97c4b59711a30ed6279a30065328fcd0869472812457a820f4ab4a2bf4a7d"
+      }
+    },
+    {
+      "weapon": "morgenstern",
+      "manual": true,
+      "portrait": {
+        "width": 390,
+        "scrollWidth": 390
+      },
+      "first": {
+        "timeS": 0,
+        "model": "manual",
+        "skill": 0,
+        "pad": [
+          0.15,
+          0.1
+        ],
+        "targetDeg": 0,
+        "actualDeg": 6.921115680172825,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "last": {
+        "timeS": 1.9999999999999953,
+        "model": "manual",
+        "skill": 0,
+        "pad": [
+          0.15,
+          0.1
+        ],
+        "targetDeg": 0,
+        "actualDeg": -0.048452366248367434,
+        "state": "stand",
+        "armed": true,
+        "wounds": 0,
+        "finite": true
+      },
+      "minActualDeg": -0.9662705975578371,
+      "maxActualDeg": 7.6842064257308325,
+      "errors": [],
+      "compiled": {
+        "url": "http://127.0.0.1:4281/assets/main-D-HgwwlA.js",
+        "bytes": 3493795,
+        "sha256": "f8b97c4b59711a30ed6279a30065328fcd0869472812457a820f4ab4a2bf4a7d"
+      }
+    }
+  ],
+  "raw": {
+    "baseline.json": {
+      "path": "/workspace/halfsword-handoff/initial-poses-20261004/baseline.json",
+      "bytes": 4512706,
+      "sha256": "fb78fa9f86498a2ff32d59d02d096ba8786cbf90289088e22f2968ac9ed47f86"
+    },
+    "forward-ready.json": {
+      "path": "/workspace/halfsword-handoff/initial-poses-20261004/forward-ready.json",
+      "bytes": 4519193,
+      "sha256": "61b5f97a217e6d93623b497412a8536b2b16c925cb74e1292e86fae16b4baefe"
+    },
+    "controller-contract.json": {
+      "path": "/workspace/halfsword-handoff/initial-poses-20261004/controller-contract.json",
+      "bytes": 3392,
+      "sha256": "b95412d504f909b7af575662ce582706a11c00bd5f7baaf739837adbc69fd06e"
+    },
+    "hand-native.json": {
+      "path": "/workspace/halfsword-handoff/initial-poses-20261004/hand-native.json",
+      "bytes": 4538,
+      "sha256": "fc7ea7d5e9e7cf6040f418e824339e57d626e3aa2a7550f0587e27b9fcb80941"
+    },
+    "browser-all/summary.json": {
+      "path": "/workspace/halfsword-handoff/initial-poses-20261004/browser-all/summary.json",
+      "bytes": 1535268,
+      "sha256": "d642b52d08da8548ce1fbdb962eb50e737e6463a00939be0ff9383474363319a"
+    },
+    "hand-fixture/manifest.json": {
+      "path": "/workspace/halfsword-handoff/initial-poses-20261004/hand-fixture/manifest.json",
+      "bytes": 1095,
+      "sha256": "a032541c1729f16013c6ed0ffc4fad23a1f55086f04074b34e4a5f5b0730ad1c"
+    },
+    "browser-detail/summary.json": {
+      "path": "/workspace/halfsword-handoff/initial-poses-20261004/browser-detail/summary.json",
+      "bytes": 6324,
+      "sha256": "1bf42700d93abe8e36ace7b4919898f10f8733dc092f7ad1771d5f688468125f"
+    },
+    "regression/result.json": {
+      "path": "/workspace/halfsword-handoff/initial-poses-20261004/regression/result.json",
+      "bytes": 233874,
+      "sha256": "3960dca61a826b55d0fc3279b4c43fe2c952f41ce5c40be681abb44d4f98eef5"
+    }
+  },
+  "peerTechnicalSource": {
+    "repository": "yoonjl-svg/halfsword",
+    "head": "bcf581d94a2d0d26c0f9be7262030be56fcd90b3",
+    "gripsCommit": "0b141acac19dcfe171d283c411ac164143d57962",
+    "moduleSHA256": "f4ff399a6349b9e784bca4cefa81d5e91265b7dc3541be1033377e72ea5ed4e9",
+    "status": "Git main source connection verified; peer public web not visited"
+  },
+  "remaining": [
+    "monohoshizao/lightsaber startup oscillation",
+    "auto-return home downward command unchanged",
+    "continuous real drop/sever/regrip screen",
+    "device feel and GPU stress"
+  ],
+  "scope": "Same-seed native before/after 27 jobs; native hand3pairs; browser16 is manual/off for nongun onehand and ordinary others, not matched A/B. Synthetic hand fixture archived retrospectively from executed tool transcript. No historical fencing certification or general onehand controller promotion.",
+  "browserHandDetail": {
+    "pass": true,
+    "cases": 4,
+    "weapons": [
+      "qinggang",
+      "rapier",
+      "longsword",
+      "pistol"
+    ],
+    "modeRestartPass": true,
+    "scope": "Actual compiled game mobile entry/Start/Pause/new Fighter restart. Paused close-up camera and menu visibility only; no input, native pose/force/health writes. One restart per weapon is not GPU stress or device-performance proof."
+  },
+  "handModuleSHA256": "53c4f556c4f7869dabc8b12e9452b49201c2a343461b371e66581d5940d22912",
+  "regression": {
+    "pass": true,
+    "sourceStable": true,
+    "cacheUsed": false,
+    "wallSeconds": 157.97266874599154
+  }
+}

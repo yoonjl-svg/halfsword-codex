@@ -55,6 +55,7 @@ export function newRound(opts = {}) {
   const enemy = new Fighter(RAPIER, world, scene, colliderInfo, { index: 1, name: 'E', x: gap / 2, heading: Math.PI, look: opts.look2 ?? (opts.sameLook ? LOOKS.player : LOOKS.enemy), weapon: opts.weapon2 ?? opts.weapon, breakSeed: opts.seed, revive: opts.revive });
   // 부활(캐릭터 시트 revive, src/revive.js): persona 와 같은 짝 — opts.revive = enemy(AI 쪽 캐릭터), opts.revive2 = player
   if (opts.onFighter) { opts.onFighter(player, world, RAPIER); opts.onFighter(enemy, world, RAPIER); }
+  player.initializeOnehandReadyPose(); // Same optional first command as main.newRound, before either AI/step.
   const AIC = opts.AIClass || AI;
   const ai = new AIC(enemy, player, opts.difficulty ?? 'normal', opts.persona ?? null);
   player.skill.level = opts.skill ?? 0.7;

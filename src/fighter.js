@@ -809,6 +809,16 @@ export class Fighter {
   }
 
   // ── 매 물리 스텝마다 호출: 근육을 움직인다 ──
+  // Seed the optional player's first command before physics starts. A forward,
+  // horizontal ready blade avoids importing the old raw pad's downward aim.
+  // Keep live input, AI, guns and ordinary/two-hand starts on their own paths.
+  initializeOnehandReadyPose() {
+    if (this.index !== 0 || this.onehandArmModel !== 'manual' || !this.guardPose.oneHand || this.weaponCfg.twoHand || this.weapon.gun || this.fightT !== 0) return;
+    if (this.handOffset.x !== 0.15 || this.handOffset.y !== 0 || this.handHeld || this.inputActive) return;
+    this.handOffset.set(0.15, 0.1);
+    for (const v of [this.skill.prev, this.skill.aim, this.skill.anchor, this.skill.aimRaw]) v.copy(this.handOffset);
+  }
+
   step(dt) {
     this.lastDt = dt;
     this.stateTime += dt;

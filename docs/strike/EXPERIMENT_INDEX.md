@@ -4,6 +4,7 @@
 
 | 최근 회차 | 판정 / 소스 | 재사용 입구 |
 |---|---|---|
+| [첫 자세·엄지 손](initial_pose_and_hands_20261004.md) | manual 시작 수평·일반 외형, 양손2종 시작 진동 남음 | native27 전/후·손3쌍·화면16·[수치/원자료](initial_pose_and_hands_20261004.json)·[전달](initial_pose_and_hands_release.json) |
 | [검 거두기 예측20실행](wrist_braking_round1.md) | 공개 보류, 방향오차 후퇴. `63be055002eb617bb2d7283207b78ee855d768e9` | 아래 명령, wrist_braking_probe / sword_drag_duel_probe, [수치/해시](wrist_braking_round1.json) |
 | [관성56실행](inertia_followthrough_round1.md) | 작은/혼합 효과·공개 보류. 6소스/원자료 구분 | 아래 소스별 명령, [수치/해시](inertia_followthrough_round1.json) |
 | [회복 경로8실행](arm_recovery_path_round1.md) | 원인 분리, 공개 미수락. `601dec3`/`62dd47d` | 원보고의 재현3명령·raw command·[수치](arm_recovery_path_round1.json) |
