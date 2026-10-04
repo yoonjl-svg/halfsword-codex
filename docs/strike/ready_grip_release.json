@@ -1,8 +1,92 @@
 {
-  "state": "awaiting actual public delivery",
+  "state": "delivered; rejected hand candidate withdrawn",
+  "verifiedUTC": "2026-10-04T03:42:50.172167+00:00",
+  "coreSourceCommit": "400af33e7d22c8f84362108aca1c1021239dab6d",
+  "previousPublicCommit": "5bb8a25f8c830f357235e70f1036700dd7b85880",
   "candidateHandWithdrawn": true,
+  "candidateHandPublicDeployments": 0,
   "oldHandSourceByteExact": true,
-  "coreSourceCommit": null,
-  "publicVerified": false,
-  "mobilePublicVerified": false
+  "oldHandSHA256": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893",
+  "sleeveRestored": true,
+  "anatomicalHandProblemSolved": false,
+  "deliveredChange": "Optional manual onehand startup correction only; original hand presentation retained. No general controller promotion.",
+  "CI": {
+    "run": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37174692118",
+    "checkoutSHA": "400af33e7d22c8f84362108aca1c1021239dab6d",
+    "sourceStable": true,
+    "cacheUsed": false,
+    "pass": true,
+    "tests": [
+      {
+        "id": "force_ledger",
+        "pass": true,
+        "scope": "Native force/momentum/energy calibration and instrumentation trace invariance."
+      },
+      {
+        "id": "grip_reaction",
+        "pass": true,
+        "scope": "Actual offHand free-body fixtures, paired wrench/power and timestep convergence."
+      },
+      {
+        "id": "cut_reaction",
+        "pass": true,
+        "scope": "Native cutting impulse/energy, real manifold and runtime/clone phase fixtures."
+      },
+      {
+        "id": "arm_capacity",
+        "pass": true,
+        "scope": "Source guards, actual accumulators, prepared original/clone trace and callback failure reporting."
+      },
+      {
+        "id": "arm_duel",
+        "pass": true,
+        "scope": "Actual two-AI 10s duels, seed7, sabre/zwei versus longsword; original/clone and finalCap/runtime parity."
+      },
+      {
+        "id": "build",
+        "pass": true,
+        "scope": "Existing Vite build with output outside repository; no browser or deployment check."
+      }
+    ],
+    "resultSHA256": "37321907f65e857550dbe4934c2c31c39f5ad432e9b55dc250a59f6860a48f69"
+  },
+  "Pages": {
+    "run": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37174681055",
+    "conclusion": "success",
+    "headSHA": "400af33e7d22c8f84362108aca1c1021239dab6d"
+  },
+  "public": {
+    "base": "https://yoonjl-svg.github.io/halfsword-codex/",
+    "publicVerified": true,
+    "files": 8,
+    "receiptSHA256": "3ce4b7f7de85d190f8f31975c21185f459237e7de8a1ae9ab0fc1035b2387ade",
+    "compiledModule": "assets/main-Du7TuPUC.js",
+    "compiledSHA256": "c11f34ef3b9aa8699a641bdfd741216b2d3a2bf29a48c0e5c1e3056d96c42244",
+    "verifiedUTC": "2026-10-04T03:40:36.200782+00:00"
+  },
+  "mobile": {
+    "pass": true,
+    "sourceStable": true,
+    "weapons": [
+      "qinggang",
+      "sabre",
+      "rapier"
+    ],
+    "checks": [
+      "390px portrait entry/no horizontal overflow",
+      "trusted touch drag/extend/release",
+      "tap thrust",
+      "new Fighter restart",
+      "saved preferences retained",
+      "compiled source SHA verified"
+    ],
+    "receiptSHA256": "0df7f4424b13d093fe3d6ac253e5cabb0dba501c547209a13f70cc659c895d85",
+    "scope": "Compiled module hash, portrait entry, trusted drag/extend/release/tap(80ms explicit event-time contract, not device latency), new Fighter restart, saved preferences and selected first-step mode. Live enemy AI/native contacts; no force/pose/health writes. Camera presentation only. Browser scenes not matched injury/AI input comparisons."
+  },
+  "limits": [
+    "Browser mobile emulation, not direct physical-phone execution",
+    "Native/geometry regression pass is not anatomical or human-feel acceptance",
+    "Previous hand presentation still has the reported visual limitations"
+  ],
+  "artifactRoot": "/workspace/halfsword-handoff/ready-grip-20261004"
 }

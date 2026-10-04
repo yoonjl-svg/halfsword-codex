@@ -18,7 +18,7 @@ B 한손 시작의 손 위치와 수평 칼끝 명령을 분리했다. 팔꿈치
 
 ## 검증·전달
 
-실제 초기27조건 중 기존 일반/권총20조건의 초기snapshot·궤적은exact, 승인B 한손7조건만 바뀐다. 손 표시3쌍의native/RNG/counts는exact다. idle/접촉/1mm/왕복/반경 재돌파/큰 드래그와 첫 스텝 전 탭6조건, 기존 조작7검사를 사용했다. 최종 소스·원자료·판정은 [수치/해시](ready_grip_20261004.json), 실제 공개 전달은 [영수증](ready_grip_release.json)이 기준이다. 이 전달에는 새 손·소매 후보가 포함되지 않는다.
+실제 초기27조건 중 기존 일반/권총20조건의 초기snapshot·궤적은exact, 승인B 한손7조건만 바뀐다. 손 표시3쌍의native/RNG/counts는exact다. idle/접촉/1mm/왕복/반경 재돌파/큰 드래그와 첫 스텝 전 탭6조건, 기존 조작7검사를 사용했다. 최종 소스·원자료·판정은 [수치/해시](ready_grip_20261004.json), 실제 공개 전달은 [영수증](ready_grip_release.json)이 기준이다. 이 전달에는 새 손·소매 후보가 포함되지 않는다. 코드 `400af33`의 신규 CI6검사(캐시 미사용), Pages 성공, 공개8파일 exact 및 청강검·세이버·레이피어 모바일 진입/드래그/찌르기/재시작을 확인했다. 브라우저 모바일 에뮬레이션이며 실제 휴대폰 실측이나 손 외형 해결 선언은 아니다.
 
 ```sh
 node tools/sim/experiments/ready_grip_probe.mjs /tmp/NEW-ready.json
