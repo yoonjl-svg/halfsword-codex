@@ -34,3 +34,5 @@ PLAYWRIGHT_MODULE=/workspace/cloud-onboarding/browser/node_modules/playwright/in
 ```
 
 외부 raw root는 JSON에 기록한 실제 수령 경로이며 현재 checkout만으로 영상/과거 raw까지 자동 제공되지는 않는다. 독립 감사는 같은 원자료의 정적 판정이며 물리 재실행이 아니다. 다음30–45분은 저장한 청강검 tick965의 접촉/기존 clash 각속도 설정을 분리한다. 같은 후보의 gain/seed 전수 탐색은 하지 않는다. 사용자 체감 대기 때문에 이 작업을 멈추지 않는다. 실행시간과 실제 전달은 영수증에 추가한다.
+
+실제 첫 전달: 게임 `a10bfc53bda1eb297b68b57959ac2361a5af368a`, Pages 성공·현재 코드의 CI6 새 실행(캐시 재사용 없음)·공개8파일 exact·390px 계획/비교판·세이버 공개 A/B2판 trusted touch/탭/새 world 재시작을 확인했다. CI 물리 측정은 인간 동작 수락이 아니다. 마지막 폰 버튼 문구만 짧게 하고 영수증을 기록하며 게임 바이트는 유지한다. 시작05:46:42UTC→공개게임 검증06:16대UTC, 약30분; 최종 전달 시간은 외부 영수증에 분리한다.
