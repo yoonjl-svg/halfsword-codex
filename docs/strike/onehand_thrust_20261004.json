@@ -1596,7 +1596,8 @@
       "completeFramesBeforeTapExact": true,
       "completeTraceBeforeTapExact": true,
       "tapInputExact": true,
-      "prefixFrames": 844
+      "prefixFrames": 845,
+      "lastPreTapTick": 844
     },
     {
       "weapon": "qinggang",
@@ -1605,7 +1606,8 @@
       "completeFramesBeforeTapExact": true,
       "completeTraceBeforeTapExact": true,
       "tapInputExact": true,
-      "prefixFrames": 802
+      "prefixFrames": 803,
+      "lastPreTapTick": 802
     }
   ],
   "sourceIntegrationParity": {
@@ -1663,5 +1665,10 @@
   "failureHandling": "Initial browser ffmpeg failure occurred before game; next sabre captured gesture but old-world observer had zero frames. Neither counted. Initial runner syntax failure ran zero physics scenes. Corrected tools/runs saved under fresh names. Metric boundary calculation corrected by read-only derivation, no physics repeated. Final local smoke initially used a Pages-style subpath on a root preview server; module requests failed before game. Fresh root preview URL used; excluded from physics/gameplay passes.",
   "scope": "Finite-step sword-to-forearm blade-axis swing-twist is not anatomical wrist pronation or motor work. Browser timings differ; visual touch evidence does not become controlled numeric effect. Reactive combat branches after gate; no win rate/human recovery inference. New general physical limit, torque gain, impulse clamp, hands and native engine were not added.",
   "next": "Reuse qinggang contact tick965 at8.05s: compare prePhysics/postPhysics/postCombat and existing clash gripTwist; no seed/gain sweep. 30–45min first verdict; sabre follow-up tracking remains open.",
-  "independentReview": "Source integration/default/restart gate and later contact failure independently checked. Latest recommendation: sabre optional only; Qinggang/defaults held. Both sword arms intact in common-prefix contact scenes."
+  "independentReview": "Source integration/default/restart gate and later contact failure independently checked. Latest recommendation: sabre optional only; Qinggang/defaults held. Both sword arms intact in common-prefix contact scenes.",
+  "contactPrefixCountCorrection": {
+    "date": "2026-10-04",
+    "reason": "Zero-based last pre-tap tick had been labeled as a frame count. Full slice(0,tapTick) contains 845/803 frames; existing exact comparisons unchanged. Saved raw preserved, no physics rerun.",
+    "audit": "qinggang_contact_20261004.json"
+  }
 }

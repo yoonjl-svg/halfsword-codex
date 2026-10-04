@@ -1,0 +1,652 @@
+{
+  "schema": 1,
+  "date": "2026-10-04",
+  "baseCommit": "4becf57dcf28ca7bde96d6745ba7dc2ff39b8596",
+  "gameCodeCommit": "a10bfc53bda1eb297b68b57959ac2361a5af368a",
+  "purpose": "Reduce first collision-induced blade roll without removing heavy-cut inertia or imposing a zero-speed pose. Optional research; no game/default/hand/engine deployment.",
+  "sourceDirty": true,
+  "gameSourceUnchanged": true,
+  "gameAndHarnessHashes": {
+    "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+    "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+    "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+    "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+    "src/arm_recovery_activation.js": "ae025cc8d9bbc9855ea8ab2793d3e7818a66a4662329014a776a2ac88966435e",
+    "src/arm_recovery_trial.js": "ebda992abc5c7cd25a12c751d0f9b30f8fddf998babc8f4a7f49c9f4a0817c09",
+    "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+    "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+    "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+    "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+    "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+    "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+    "src/cut_trial.js": "427d58d0500ceac482424e092a7d457a8cea48371c254f1b4edecb3a511be5a6",
+    "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+    "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+    "src/edge_intent.js": "b4e17a6ea08d659732c330448b3b3aaffeac2942fa5096e82db551a12d580c87",
+    "src/edge_torque.js": "436995e6d45e816517ea5a9a8f83c9fb147d143871aab1601f82baa7b36bc0fa",
+    "src/edge_torque_trial.js": "1280a3fe32c1874b6ce56b75932db44852162855d8962ae13f3aeb3e7d832cae",
+    "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+    "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+    "src/fighter.js": "01568d278e338d133e7ed75d1437421440757c22e1e77b2e2b9171fd6b30c4de",
+    "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+    "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+    "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+    "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+    "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+    "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+    "src/hand_visual.js": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893",
+    "src/input.js": "da17f592c9fe8fc2e0532660a31f2e7b96d24e700cc555115c05b913caae9bc7",
+    "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+    "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+    "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+    "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+    "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+    "src/main.js": "c9838e2b8049cf6955f8efdcf6c220b80087769377c543eeca0ae8d67c97b49d",
+    "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+    "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+    "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+    "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+    "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+    "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+    "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+    "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+    "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+    "src/skill.js": "b69b73e00d8524e733842a630d54f2d7392807f883d7a75c9f9767b78d71f512",
+    "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+    "src/sound.js": "f02a5a9c9ad60ce282806c02b956715c2ca01aced92ba021b63a799faf4c8fb4",
+    "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+    "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+    "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+    "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+    "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+    "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+    "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+    "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+    "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+    "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+    "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+    "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+    "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+    "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+    "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+    "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+    "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+    "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+    "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+    "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+    "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "src/wrist_braking.js": "6574ae9729fa6251540a68d27a0938e9d5bc2296097ff8b3bd69d1494eb88730",
+    "src/wrist_braking_trial.js": "25466b178e063a45e58a5fcd22532cdcbc176af4a2c05e461c562bb6a0ef658e",
+    "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e"
+  },
+  "finalToolHashes": {
+    "tools/sim/experiments/impact_grip_candidate.mjs": "908acf6736ed212e790fd58a735292b47b5d03cd11fb722984ed0c0c409863d0",
+    "tools/sim/experiments/native_grip_candidate.mjs": "4b1abe78fb999f7ab444f980de60fce9de8206f7be70064272981b3be2053867",
+    "tools/sim/experiments/qinggang_contact_probe.mjs": "84252177ef6c0f82ffa1e8287d8e4645a9a4ac5bc3689962eef768f27e967b59",
+    "tools/sim/experiments/qinggang_contact_metrics.mjs": "c01f0da7cbfb7e16e4dbb627520e12d18e5e6d3ac5d9c54b798f83b684ced902"
+  },
+  "environment": {
+    "node": "v24.19.0",
+    "gameEngine": "@dimforge/rapier3d-compat 0.19.3",
+    "researchEnginePath": "/workspace/halfsword-research-import-20261003/engine/rapier.mjs",
+    "researchEngineSHA256": "a3be9d8361b386b0b664ee7ba771f14ae60e93eda9a4ab825f1de1260dbb5623",
+    "researchEngineVersion": "0.19.2",
+    "dt": 0.008333333333333333,
+    "solverIterations": 6
+  },
+  "protocol": {
+    "weapon": "qinggang",
+    "opponent": "longsword",
+    "seed": 7,
+    "player": "manual saved live requested deltas; skill0, autoGuardfalse",
+    "enemy": "original normal reactive AI, no playerAI2, no park",
+    "onehandArm": "manual",
+    "thrustEdge": "steady",
+    "targetTick": 965,
+    "targetEndTimeSeconds": 8.05,
+    "schedule": "Exact reference.schedule; tap when first previous-step sword contact or wound is encountered. No snapshot restoration.",
+    "nativeActivation": "Only targetTick, then disabled before Combat. Not a from-spawn active candidate."
+  },
+  "rawRoot": "/workspace/halfsword-handoff/qinggang-contact-20261004",
+  "reference": {
+    "path": "/workspace/halfsword-handoff/onehand-thrust-20261004/contact-tap-run06.json",
+    "bytes": 197372335,
+    "sha256": "390b8edd8129cd4d39d0ca619cb7165030dde4e21ba1f6ca37adbd8fa66790c4"
+  },
+  "runs": [
+    {
+      "path": "replay-contact-run01.json",
+      "bytes": 206956,
+      "sha256": "a0750ae95d45ea2904305928db00157c210daf6d36b740f0df78213d60fef6f6",
+      "pass": true,
+      "sourceStable": true,
+      "sourceCommitLabel": "4becf57dcf28ca7bde96d6745ba7dc2ff39b8596",
+      "wallSeconds": 11.344995629000001,
+      "argv": [
+        "--reference=/workspace/halfsword-handoff/onehand-thrust-20261004/contact-tap-run06.json",
+        "--out=/workspace/halfsword-handoff/qinggang-contact-20261004/replay-contact-run01.json"
+      ],
+      "completedRows": 2,
+      "toolAndEngineHashes": {
+        "tools/sim/experiments/qinggang_contact_probe.mjs": "b80decd812e1145127107c1e3988f98c0f5609b34682c19b926cd97e6d293e0e",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5"
+      }
+    },
+    {
+      "path": "paired-reception-run02.json",
+      "bytes": 23716,
+      "sha256": "90cfc531a4bd7ba2b2b9e9150f4a4b49fa12edfe636ac73e5c34783c7509feec",
+      "pass": false,
+      "sourceStable": true,
+      "sourceCommitLabel": "4becf57dcf28ca7bde96d6745ba7dc2ff39b8596",
+      "wallSeconds": 5.643700492,
+      "argv": [
+        "--reference=/workspace/halfsword-handoff/onehand-thrust-20261004/contact-tap-run06.json",
+        "--modes=coupled",
+        "--out=/workspace/halfsword-handoff/qinggang-contact-20261004/paired-reception-run02.json"
+      ],
+      "completedRows": 0,
+      "toolAndEngineHashes": {
+        "tools/sim/experiments/qinggang_contact_probe.mjs": "d87c5d6e41eb72d99d08832f68a1fc05c3d3038ed2b6228e303a07bf19a96b50",
+        "tools/sim/experiments/impact_grip_candidate.mjs": "908acf6736ed212e790fd58a735292b47b5d03cd11fb722984ed0c0c409863d0",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5"
+      }
+    },
+    {
+      "path": "paired-reception-diagnostic-run03.json",
+      "bytes": 23727,
+      "sha256": "62fe90f1b2c6d747a37c6d0f15af844ea9f13bb8715dfca29a922f57d3b97025",
+      "pass": false,
+      "sourceStable": true,
+      "sourceCommitLabel": "4becf57dcf28ca7bde96d6745ba7dc2ff39b8596",
+      "wallSeconds": 5.547412489,
+      "argv": [
+        "--reference=/workspace/halfsword-handoff/onehand-thrust-20261004/contact-tap-run06.json",
+        "--modes=coupled",
+        "--out=/workspace/halfsword-handoff/qinggang-contact-20261004/paired-reception-diagnostic-run03.json"
+      ],
+      "completedRows": 0,
+      "toolAndEngineHashes": {
+        "tools/sim/experiments/qinggang_contact_probe.mjs": "bf414f56fa721df05f8b10b5d761a1f96f393cb177dd57b7b6c81f6f8c81475d",
+        "tools/sim/experiments/impact_grip_candidate.mjs": "908acf6736ed212e790fd58a735292b47b5d03cd11fb722984ed0c0c409863d0",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5"
+      }
+    },
+    {
+      "path": "native-observe-run04.json",
+      "bytes": 113483,
+      "sha256": "21ccc889d9d14a91e3142a922df3aac21e6f401b08b390b515293e76122dc190",
+      "pass": true,
+      "sourceStable": true,
+      "sourceCommitLabel": "4becf57dcf28ca7bde96d6745ba7dc2ff39b8596",
+      "wallSeconds": 12.329815828000001,
+      "argv": [
+        "--reference=/workspace/halfsword-handoff/onehand-thrust-20261004/contact-tap-run06.json",
+        "--out=/workspace/halfsword-handoff/qinggang-contact-20261004/native-observe-run04.json",
+        "--modes=observe",
+        "--module=/workspace/halfsword-research-import-20261003/engine/rapier.mjs"
+      ],
+      "completedRows": 1,
+      "toolAndEngineHashes": {
+        "tools/sim/experiments/qinggang_contact_probe.mjs": "54f688b72c2f7b2b892851c4676a53b29bc00137d063ea5483ae15f33cb611b1",
+        "tools/sim/experiments/impact_grip_candidate.mjs": "908acf6736ed212e790fd58a735292b47b5d03cd11fb722984ed0c0c409863d0",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+        "/workspace/halfsword-research-import-20261003/engine/rapier.mjs": "a3be9d8361b386b0b664ee7ba771f14ae60e93eda9a4ab825f1de1260dbb5623",
+        "/workspace/halfsword-handoff/qinggang-contact-20261004/native-harness-P00p9f/harness.mjs": "65587a77d1e7bb65119a1579fc0843c88daa399e15adfac06b7bdcec64fa8804"
+      }
+    },
+    {
+      "path": "native-grip-run05.json",
+      "bytes": 119579,
+      "sha256": "70096185391936d9da1cdd7a686d465ccbc943698191b5bc0a87e5b2b4fe38d4",
+      "pass": true,
+      "sourceStable": true,
+      "sourceCommitLabel": "4becf57dcf28ca7bde96d6745ba7dc2ff39b8596",
+      "wallSeconds": 5.519645047,
+      "argv": [
+        "--reference=/workspace/halfsword-handoff/onehand-thrust-20261004/contact-tap-run06.json",
+        "--out=/workspace/halfsword-handoff/qinggang-contact-20261004/native-grip-run05.json",
+        "--modes=nativeGrip",
+        "--module=/workspace/halfsword-research-import-20261003/engine/rapier.mjs"
+      ],
+      "completedRows": 1,
+      "toolAndEngineHashes": {
+        "tools/sim/experiments/qinggang_contact_probe.mjs": "64be155a0db0ece09db9aa35b6fb2fcbaee4dd74ab76f3fc9c70cef9159adc05",
+        "tools/sim/experiments/impact_grip_candidate.mjs": "908acf6736ed212e790fd58a735292b47b5d03cd11fb722984ed0c0c409863d0",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+        "tools/sim/experiments/native_grip_candidate.mjs": "4bcef580dcd1974049b43a1869edfe96752655df2e045fd0b5e6420bab088dc7",
+        "/workspace/halfsword-research-import-20261003/engine/rapier.mjs": "a3be9d8361b386b0b664ee7ba771f14ae60e93eda9a4ab825f1de1260dbb5623",
+        "/workspace/halfsword-handoff/qinggang-contact-20261004/native-harness-r6Jpq9/harness.mjs": "65587a77d1e7bb65119a1579fc0843c88daa399e15adfac06b7bdcec64fa8804"
+      }
+    },
+    {
+      "path": "native-grip-follow-run06.json",
+      "bytes": 676535,
+      "sha256": "aa517039621d466c8b7b85419d1af309bb4c441d7d256e87d8c983224bb02e60",
+      "pass": true,
+      "sourceStable": true,
+      "sourceCommitLabel": "4becf57dcf28ca7bde96d6745ba7dc2ff39b8596",
+      "wallSeconds": 12.86447712,
+      "argv": [
+        "--reference=/workspace/halfsword-handoff/onehand-thrust-20261004/contact-tap-run06.json",
+        "--out=/workspace/halfsword-handoff/qinggang-contact-20261004/native-grip-follow-run06.json",
+        "--modes=nativeGrip",
+        "--after=30",
+        "--module=/workspace/halfsword-research-import-20261003/engine/rapier.mjs"
+      ],
+      "completedRows": 1,
+      "toolAndEngineHashes": {
+        "tools/sim/experiments/qinggang_contact_probe.mjs": "aaf42933f5ff93b43257ec10fef32c8bf27a0ff62bde3483ae3c9dd7c79a5ba3",
+        "tools/sim/experiments/impact_grip_candidate.mjs": "908acf6736ed212e790fd58a735292b47b5d03cd11fb722984ed0c0c409863d0",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+        "tools/sim/experiments/native_grip_candidate.mjs": "4b1abe78fb999f7ab444f980de60fce9de8206f7be70064272981b3be2053867",
+        "/workspace/halfsword-research-import-20261003/engine/rapier.mjs": "a3be9d8361b386b0b664ee7ba771f14ae60e93eda9a4ab825f1de1260dbb5623",
+        "/workspace/halfsword-handoff/qinggang-contact-20261004/native-harness-qUOO6n/harness.mjs": "65587a77d1e7bb65119a1579fc0843c88daa399e15adfac06b7bdcec64fa8804"
+      }
+    }
+  ],
+  "archivedEvidence": [
+    {
+      "path": "candidate-run02.mjs",
+      "bytes": 2990,
+      "sha256": "908acf6736ed212e790fd58a735292b47b5d03cd11fb722984ed0c0c409863d0"
+    },
+    {
+      "path": "candidate-run03.mjs",
+      "bytes": 2990,
+      "sha256": "908acf6736ed212e790fd58a735292b47b5d03cd11fb722984ed0c0c409863d0"
+    },
+    {
+      "path": "independent-review.md",
+      "bytes": 17285,
+      "sha256": "3d0546703f0f745777ee579e8e928ef72be3593cc6051e3fd56822d0176c2d52"
+    },
+    {
+      "path": "metrics-run07.json",
+      "bytes": 8883,
+      "sha256": "a81a2740a32221786123cf3c7ee71fa020f5bd2cd897b32aa2d42eca526463f6"
+    },
+    {
+      "path": "native-candidate-run05.mjs",
+      "bytes": 3370,
+      "sha256": "4bcef580dcd1974049b43a1869edfe96752655df2e045fd0b5e6420bab088dc7"
+    },
+    {
+      "path": "native-candidate-run06.mjs",
+      "bytes": 3545,
+      "sha256": "4b1abe78fb999f7ab444f980de60fce9de8206f7be70064272981b3be2053867"
+    },
+    {
+      "path": "native-spherical-api.corrected.json",
+      "bytes": 105962,
+      "sha256": "717b42ffc22136a926c17a82a0ac586b8d3a158ac37971bdea4de0eccaa0b65f"
+    },
+    {
+      "path": "native-spherical-api.corrected.mjs",
+      "bytes": 7608,
+      "sha256": "d9543a69928d6cdd27e4d7b3bf6cdec9bb1e99bd725faf7f71937e4ce6c1b9d1"
+    },
+    {
+      "path": "native-spherical-api.json",
+      "bytes": 105964,
+      "sha256": "a428815086e1e39788a7ccc9e7dd05dc818455602452098412e28abcd94a20fd"
+    },
+    {
+      "path": "native-spherical-api.md",
+      "bytes": 5207,
+      "sha256": "83d71dcf09fe27581370ea96efde6fe8282f19a5e355c06df51056a8132cdc6d"
+    },
+    {
+      "path": "native-spherical-api.mjs",
+      "bytes": 7216,
+      "sha256": "450249f16a5958269fc1e32d5f485e7fc8e7b62cf1cf45eb0413b70462158fbe"
+    },
+    {
+      "path": "native-spherical-api.preinit.mjs",
+      "bytes": 7216,
+      "sha256": "450249f16a5958269fc1e32d5f485e7fc8e7b62cf1cf45eb0413b70462158fbe"
+    },
+    {
+      "path": "paired-reception-diagnostic-run03.json.reception.json",
+      "bytes": 12826,
+      "sha256": "00c9648bc55438cb05ca9b1be618ee116bc9ec56931b4e7764bb1fe23f1e9beb"
+    },
+    {
+      "path": "probe-run01.mjs",
+      "bytes": 9295,
+      "sha256": "b80decd812e1145127107c1e3988f98c0f5609b34682c19b926cd97e6d293e0e"
+    },
+    {
+      "path": "probe-run02.mjs",
+      "bytes": 10421,
+      "sha256": "d87c5d6e41eb72d99d08832f68a1fc05c3d3038ed2b6228e303a07bf19a96b50"
+    },
+    {
+      "path": "probe-run03.mjs",
+      "bytes": 10652,
+      "sha256": "bf414f56fa721df05f8b10b5d761a1f96f393cb177dd57b7b6c81f6f8c81475d"
+    },
+    {
+      "path": "probe-run04.mjs",
+      "bytes": 11763,
+      "sha256": "54f688b72c2f7b2b892851c4676a53b29bc00137d063ea5483ae15f33cb611b1"
+    },
+    {
+      "path": "probe-run05.mjs",
+      "bytes": 12135,
+      "sha256": "64be155a0db0ece09db9aa35b6fb2fcbaee4dd74ab76f3fc9c70cef9159adc05"
+    },
+    {
+      "path": "probe-run06.mjs",
+      "bytes": 12241,
+      "sha256": "aaf42933f5ff93b43257ec10fef32c8bf27a0ff62bde3483ae3c9dd7c79a5ba3"
+    }
+  ],
+  "firstCollision": [
+    {
+      "mode": "observe",
+      "preNativeSHA256": "1db85ad49b7586f5014e0685414797c89f1671307afd36dc813fa92405d8546a",
+      "prefixFrames": 965,
+      "prefixSHA256": "9dede5853156c3ecf8cf5893e13a4903cd31da8ef1bbe50c65f58f5879d597f6",
+      "axialBefore": 0.5511217674004127,
+      "axialAfterPhysics": -42.610541818007626,
+      "axialAfterCombat": -39.999999595143436,
+      "relativeAxialAfterPhysics": -53.51420090413389,
+      "worldTwistRad": -0.4050524666484972,
+      "relativeTwistRad": -0.48219458483262084,
+      "handErrorM": 0.01574305390610035,
+      "aimErrorRad": 0.004110082241479925,
+      "manifolds": 3,
+      "normalImpulseNs": 2.252659112215042,
+      "tangentScalarsAllZero": true
+    },
+    {
+      "mode": "noSwordPair",
+      "preNativeSHA256": "1db85ad49b7586f5014e0685414797c89f1671307afd36dc813fa92405d8546a",
+      "prefixFrames": 965,
+      "prefixSHA256": "9dede5853156c3ecf8cf5893e13a4903cd31da8ef1bbe50c65f58f5879d597f6",
+      "axialBefore": 0.5511217674004127,
+      "axialAfterPhysics": 1.4175323287799828,
+      "axialAfterCombat": 1.4175323287799828,
+      "relativeAxialAfterPhysics": -7.268017596035675,
+      "worldTwistRad": 0.0057644464909119624,
+      "relativeTwistRad": -0.058101033134272916,
+      "handErrorM": 0.011677055069512127,
+      "aimErrorRad": 0.003277966554729383,
+      "manifolds": 3,
+      "normalImpulseNs": 0,
+      "tangentScalarsAllZero": true
+    },
+    {
+      "mode": "nativeGrip",
+      "preNativeSHA256": "1db85ad49b7586f5014e0685414797c89f1671307afd36dc813fa92405d8546a",
+      "prefixFrames": 965,
+      "prefixSHA256": "9dede5853156c3ecf8cf5893e13a4903cd31da8ef1bbe50c65f58f5879d597f6",
+      "axialBefore": 0.5511217674004127,
+      "axialAfterPhysics": -3.8516108247800442,
+      "axialAfterCombat": -3.8516108247800442,
+      "relativeAxialAfterPhysics": -14.513188973624874,
+      "worldTwistRad": -0.16560417253368184,
+      "relativeTwistRad": -0.24100886854384304,
+      "handErrorM": 0.015741570051505276,
+      "aimErrorRad": 0.004148395425445462,
+      "manifolds": 3,
+      "normalImpulseNs": 2.288546919822693,
+      "tangentScalarsAllZero": true
+    }
+  ],
+  "followingWindow": {
+    "baseline": {
+      "frames": 31,
+      "firstTick": 965,
+      "lastTick": 995,
+      "relativeTwistPathRad": 1.4085750661479597,
+      "maxAbsWorldAxisRadS": 42.610541818007626,
+      "maxAbsRelativeAxisRadS": 53.51420090413389,
+      "meanAimErrorRad": 0.1786767743046815,
+      "maxHandErrorM": 0.21396008448531784,
+      "endHandErrorM": 0.07454221481893654
+    },
+    "nativeGrip": {
+      "frames": 31,
+      "firstTick": 965,
+      "lastTick": 995,
+      "relativeTwistPathRad": 1.4938841459237877,
+      "maxAbsWorldAxisRadS": 7.608067189025923,
+      "maxAbsRelativeAxisRadS": 16.652777854638394,
+      "meanAimErrorRad": 0.1688332071093263,
+      "maxHandErrorM": 0.21656006888345883,
+      "endHandErrorM": 0.07522440671344768
+    },
+    "scope": "Same saved requested deltas; candidate receives one native motor step at tick965 then disables it. The 31-step window extends an existing candidate and is not a new independent efficacy sample; later native/controller/contact states may diverge."
+  },
+  "nativeGripRequestAndReadback": {
+    "jointRecreated": false,
+    "before": {
+      "handle": 7e-323,
+      "type": 6,
+      "anchor1": {
+        "x": 0.12999999523162842,
+        "y": 0,
+        "z": 0
+      },
+      "anchor2": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "frame1": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "frame2": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bodies": [
+        {
+          "handle": 3e-323,
+          "p": {
+            "x": -2.234365463256836,
+            "y": 1.598459243774414,
+            "z": 0.2768760323524475
+          },
+          "q": {
+            "x": -0.6040310263633728,
+            "y": -0.0871683731675148,
+            "z": 0.4667005240917206,
+            "w": 0.640108585357666
+          },
+          "v": {
+            "x": 0.12234563380479813,
+            "y": -0.14168943464756012,
+            "z": 0.033161744475364685
+          },
+          "w": {
+            "x": 4.100550174713135,
+            "y": 4.629544258117676,
+            "z": 0.14340612292289734
+          },
+          "mass": 1.649999976158142,
+          "inertia": {
+            "x": 0.005262136925011873,
+            "y": 0.008917117491364479,
+            "z": 0.008917117491364479
+          },
+          "torque": {
+            "x": 1.3470964431762695,
+            "y": 3.1423020362854004,
+            "z": 6.519515037536621
+          }
+        },
+        {
+          "handle": 8e-323,
+          "p": {
+            "x": -2.162971258163452,
+            "y": 1.6898220777511597,
+            "z": 0.2180868536233902
+          },
+          "q": {
+            "x": 0.01464046910405159,
+            "y": 0.02487841248512268,
+            "z": -0.2540647089481354,
+            "w": 0.9667563438415527
+          },
+          "v": {
+            "x": 0.3191400170326233,
+            "y": -0.15951251983642578,
+            "z": 0.061695799231529236
+          },
+          "w": {
+            "x": 0.24461553990840912,
+            "y": 0.5314949154853821,
+            "z": -2.03452205657959
+          },
+          "mass": 0.8500000238418579,
+          "inertia": {
+            "x": 0.05072377994656563,
+            "y": 7.324763282667845e-05,
+            "z": 0.05072377994656563
+          },
+          "torque": {
+            "x": 1.0587458610534668,
+            "y": -0.45374298095703125,
+            "z": -8.425056457519531
+          }
+        }
+      ]
+    },
+    "torqueNm": [
+      1.0587458610534668,
+      -0.45374298095703125,
+      -8.425056457519531
+    ],
+    "torqueNorm": 8.503434706250008,
+    "originalCapNm": 11.63647031723749,
+    "reserveNm": 3.1330356109874824,
+    "requestedTorqueUpperBoundNm": 11.63647031723749,
+    "actualWorldVectorTorqueBudgetVerified": false,
+    "rows": [
+      {
+        "axis": 3,
+        "axisWorld": [
+          0.5491845449328518,
+          0.7027827693127678,
+          -0.45220870708553756
+        ],
+        "targetVelocity": -4.012780087323568,
+        "damping": 0.011274356610105136,
+        "inverse": 10643.622882430802,
+        "cap": 1.044345203662494,
+        "oldCap": 3.4028234663852886e+38,
+        "lastSubstepImpulseNms": -0.00011658837320283055,
+        "lastSubstepCapNms": 0.0014504794495312418,
+        "enabled": true
+      },
+      {
+        "axis": 4,
+        "axisWorld": [
+          -0.49217311383649853,
+          -0.16532568409684575,
+          -0.8546537569065003
+        ],
+        "targetVelocity": 4.436674667879492,
+        "damping": 0.05201794438696029,
+        "inverse": 2306.896233871196,
+        "cap": 1.044345203662494,
+        "oldCap": 3.4028234663852886e+38,
+        "lastSubstepImpulseNms": 0.00043981545604765415,
+        "lastSubstepCapNms": 0.0014504794495312418,
+        "enabled": true
+      },
+      {
+        "axis": 5,
+        "axisWorld": [
+          -0.6753975474733594,
+          0.6919277446759737,
+          0.2550963524133411
+        ],
+        "targetVelocity": -0.7868467780630368,
+        "damping": 0.10384629490852183,
+        "inverse": 1155.5539858760292,
+        "cap": 1.044345203662494,
+        "oldCap": 3.4028234663852886e+38,
+        "lastSubstepImpulseNms": 1.766160494298674e-05,
+        "lastSubstepCapNms": 0.0014504794495312418,
+        "enabled": true
+      }
+    ],
+    "scope": "One target step only. Scalar cap requests fit the existing remaining torque norm. A world vector bound also requires each actual native angular Jacobian norm <=1; that is unverified at this game relative pose. Target and effective inverse inertia use projected frameX1 axes, not a calibrated game-pose Jacobian. Damping=effective inertia/outer dt. No new speed/strength cap or zero-speed goal."
+  },
+  "pairedFailure": {
+    "criterion": "Actual sword+forearm principal-inertia angular momentum closure norm <1e-7 Nm s",
+    "actualClosureNorm": 2.572041515647074e-07,
+    "relativeAxisSpeedAfter": 1.7606855333071603e-06,
+    "combinedTorqueNormNm": 8.518765673184868,
+    "existingCapNm": 11.63647031723749,
+    "pairRotationalKChangeJ": -0.10355286091710392,
+    "status": "FAIL; target step aborted, no completed subsequent trajectory. Numerical tensor/Float32 explanation is a diagnosis, not a relaxed pass. Pose already integrated, unchanged."
+  },
+  "counts": {
+    "gameCLIInvocations": 6,
+    "fromSpawnTrajectoriesIncludingAborted": 7,
+    "independentEfficacySamples": 1,
+    "gameRunWallSeconds": 53.250046605,
+    "isolatedAPIFirstRows": 12,
+    "isolatedAPICorrectedRows": 12,
+    "isolatedAPIUniqueConfigurations": 12,
+    "derivationRuns": 1,
+    "scope": "Same saved encounter; failed repeat inspects the same reception; native baseline and short/extended candidate are not independent efficacy evidence."
+  },
+  "metadataCorrections": [
+    {
+      "raw": "native-grip-run05.json",
+      "field": "vectorTorqueUpperBoundNm",
+      "interpretation": "Conditional requested cap allocation only. Actual angular Jacobian norm/world wrench and projected velocity target at 121.42 degree relative pose are unverified; actual world vector bound is not a passed assertion."
+    },
+    {
+      "raws": "run01 through run06 top-level scope",
+      "interpretation": "Original no-injection diagnostic wording applies to observe/noSwordPair. coupled changes post-step velocity via paired impulse; nativeGrip enables/configures existing angular motors at target tick. No joint recreation or prescribed pose/health/timestep injection. Current tool wording corrected without rerunning physics."
+    },
+    {
+      "report": "onehand_thrust_20261004",
+      "field": "prefixFrames",
+      "before": [
+        844,
+        802
+      ],
+      "after": [
+        845,
+        803
+      ],
+      "interpretation": "Zero-based last pre-tap tick was mislabeled as count. Full existing slices exact; saved raw preserved and no rerun."
+    }
+  ],
+  "decision": {
+    "cause": "Selected native weapon-contact response necessary in this fixture; old fresh-clash velocity clamp has no paired reaction but is not the origin of first native pose jump.",
+    "coupledAfterStep": "held, strict measured closure fails; cannot rewind first pose",
+    "nativeWithinStep": "research only: first roll reduced, following relative path increases, actual game-pose motor wrench/target contract unverified",
+    "publicGameChange": false,
+    "newUserTestRequired": false,
+    "defaultPromotionApproval": "Not requested; no implementation ready for major default adoption.",
+    "next": "30–45min: saved game-relative-pose scalar motor to world wrench/velocity contract, then one no-contact cutting preservation check if contract passes. No seed/gain sweep or failed support/cutting/hand resurrection."
+  },
+  "delivery": {
+    "researchAndPlan": "Commit/push/Pages verification recorded externally after publication",
+    "existingGameCI": "37182183922 actual a10 checkout; game code unchanged. No fresh full physics regression claimed for documentation/research-tools-only change.",
+    "existingPublicGameBrowser": "Prior onehand-thrust public-sabre-game/summary.json: two public trusted touch/tap/restart trials. Retained evidence, not a new user acceptance.",
+    "wholeProgram": "Phase2 P03/P04 continuing; P01–P06 none fully closed."
+  }
+}

@@ -4,6 +4,7 @@
 
 | 최근 회차 | 판정 / 소스 | 재사용 입구 |
 |---|---|---|
+| [청강검 충돌 급회전](qinggang_contact_20261004.md) | 접촉 원인 확인·native 첫 회전 감소, 후속 비틀림/세계 힘 계약 미완료·공개 보류 | 동일965 prefix·7궤적(실패/관찰/확장 포함)·[수치/명령/해시](qinggang_contact_20261004.json) |
 | [찌르기 날 흔들림](onehand_thrust_20261004.md) | 세이버 선택형·청강검 접촉 급회전 보류, 일반 승격 없음 | 20실행/16조건·접촉 전 prefix exact·[수치/명령/해시](onehand_thrust_20261004.json)·[전달](onehand_thrust_release.json) |
 | [한손 B 멈춤·반전](onehand_stop_20261004.md) | 명령 연결 조작 이득 미확정·native 마지막 substep은 cap 아래, 공개 보류·game 변경0 | 입력24실행/12조건·native6·관찰/격리 exact·[수치/명령/해시](onehand_stop_20261004.json) |
 | [전투 급회전 분리](axial_combat_20261004.md) | 관절/횡토크 운반 민감도, 예측 힘점 악화·기각; game 변경0 | 실제 observer2 exact·같은 prefix·native fork/dt/실패 경계·[수치/명령](axial_combat_20261004.json) |
