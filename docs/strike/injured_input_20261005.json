@@ -1,0 +1,1799 @@
+{
+  "schemaVersion": 1,
+  "baselineCommit": "376d79159d1f3ab2e16eb44b0ea980009082bb84",
+  "userFeedback": {
+    "quote": "최근 테스트는 둘 다 b가 낫다. 하지만 짧은 플레이였기 때문에 내가 오류를 잡아내진 못했을 수 있어.",
+    "scope": "Recent two comparisons preferred B; exact test URLs were not restated. Context suggests contact shape and thrust plane, but this mapping is an inference. Brief play is not bug-free verification, recovery acceptance, or approval of general physics promotion.",
+    "firstObservedTurnUTC": "2026-10-04T16:09:41Z",
+    "utteranceTimestampKnown": false
+  },
+  "injuredInput": {
+    "raw": {
+      "path": "/workspace/halfsword-handoff/injured-input-20261005/actual-injury-run01.json",
+      "bytes": 70758703,
+      "sha256": "7d5b4b62ec8e2d1c959eb2a143d4e010c5bfae6deff2faee1ed03b5deb37606f"
+    },
+    "sourceStable": true,
+    "headStable": true,
+    "engineModuleSHA256": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+    "engineWasmSHA256": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+    "options": {
+      "weapon": "qinggang",
+      "model": "legacy",
+      "collider": "box",
+      "enemy": "longsword",
+      "seed": 7,
+      "skillOption": 0.7,
+      "difficulty": "normal",
+      "walls": false,
+      "gapM": 5.6,
+      "dt": 0.008333333333333333,
+      "boundaryPostCombatTick": 1535,
+      "endPostCombatTick": 1715
+    },
+    "scheduleSHA256": "057bf56d789fd588248dfeb6998dd74d91cf9ea46b4b060003bd2ff6b9a845fa",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/halfsword-codex/tools/sim/experiments/onehand_injured_input_probe.mjs",
+      "--out=/workspace/halfsword-handoff/injured-input-20261005/actual-injury-run01.json",
+      "--reference=/workspace/halfsword-handoff/recovery-selection-20261005/current-observed-run03.json"
+    ],
+    "wallSeconds": 30.421198414000003,
+    "prefixSteps": 1536,
+    "freshPrefixNativeControllerInputEventsExact": true,
+    "savedObservationScope": "Both fighters saved post-Combat observations; old per-step full native/controller hashes absent. Full native/controller/input/events prefix exact is between two fresh rows.",
+    "firstDifference": {
+      "native": 1536,
+      "controller": 1536,
+      "input": 1536,
+      "events": 1590
+    },
+    "windows": {
+      "originalAI": {
+        "AI": {
+          "ticksInclusive": [
+            1536,
+            1715
+          ],
+          "frames": 180,
+          "armHealthRange": [
+            0.2752178822919419,
+            0.3665712838676919
+          ],
+          "states": [
+            "stand"
+          ],
+          "aliveArmedStandAll": true,
+          "handTargetErrorPeakM": 0.19071336890744595,
+          "handTargetErrorEndM": 0.09175857508189099,
+          "worldAxialPeakRadS": 40.00000310182785,
+          "bladeTipPeakMps": 4.29950667570134,
+          "bodyJointGapPeakM": 0.001834441140402655,
+          "gripGapPeakM": 0.0004293225898012284,
+          "swordContactFrames": 88,
+          "missingJoints": []
+        }
+      },
+      "scriptedInput": {
+        "release": {
+          "ticksInclusive": [
+            1536,
+            1571
+          ],
+          "frames": 36,
+          "armHealthRange": [
+            0.3665712838676919,
+            0.3665712838676919
+          ],
+          "states": [
+            "stand"
+          ],
+          "aliveArmedStandAll": true,
+          "handTargetErrorPeakM": 0.09771102407776747,
+          "handTargetErrorEndM": 0.026870325300506825,
+          "worldAxialPeakRadS": 19.21681176027433,
+          "bladeTipPeakMps": 1.259009395722038,
+          "bodyJointGapPeakM": 0.0010023924772597317,
+          "gripGapPeakM": 5.72564324485624e-06,
+          "swordContactFrames": 1,
+          "missingJoints": []
+        },
+        "reverse": {
+          "ticksInclusive": [
+            1572,
+            1601
+          ],
+          "frames": 30,
+          "armHealthRange": [
+            0.3665712838676919,
+            0.3665712838676919
+          ],
+          "states": [
+            "stand"
+          ],
+          "aliveArmedStandAll": true,
+          "handTargetErrorPeakM": 0.4632666283292475,
+          "handTargetErrorEndM": 0.3730438798900933,
+          "worldAxialPeakRadS": 12.798923891536747,
+          "bladeTipPeakMps": 5.048128690404745,
+          "bodyJointGapPeakM": 0.0021209323830520123,
+          "gripGapPeakM": 4.336865030034117e-05,
+          "swordContactFrames": 3,
+          "missingJoints": []
+        },
+        "reverseHold": {
+          "ticksInclusive": [
+            1602,
+            1631
+          ],
+          "frames": 30,
+          "armHealthRange": [
+            0.3665712838676919,
+            0.3665712838676919
+          ],
+          "states": [
+            "stand"
+          ],
+          "aliveArmedStandAll": true,
+          "handTargetErrorPeakM": 0.3463605651104577,
+          "handTargetErrorEndM": 0.08370274834771319,
+          "worldAxialPeakRadS": 31.383240962951383,
+          "bladeTipPeakMps": 4.623363889092606,
+          "bodyJointGapPeakM": 0.0007694057695787266,
+          "gripGapPeakM": 0.00011164850280885045,
+          "swordContactFrames": 14,
+          "missingJoints": []
+        },
+        "reentryCut": {
+          "ticksInclusive": [
+            1632,
+            1661
+          ],
+          "frames": 30,
+          "armHealthRange": [
+            0.3665712838676919,
+            0.3665712838676919
+          ],
+          "states": [
+            "stand"
+          ],
+          "aliveArmedStandAll": true,
+          "handTargetErrorPeakM": 0.29586803074316625,
+          "handTargetErrorEndM": 0.2585124905830935,
+          "worldAxialPeakRadS": 27.614896137083292,
+          "bladeTipPeakMps": 6.202603257607108,
+          "bodyJointGapPeakM": 0.0010053332157005837,
+          "gripGapPeakM": 0.00039416575128347936,
+          "swordContactFrames": 30,
+          "missingJoints": []
+        },
+        "finalRelease": {
+          "ticksInclusive": [
+            1662,
+            1715
+          ],
+          "frames": 54,
+          "armHealthRange": [
+            0.3665712838676919,
+            0.3665712838676919
+          ],
+          "states": [
+            "stand"
+          ],
+          "aliveArmedStandAll": true,
+          "handTargetErrorPeakM": 0.23435187329961354,
+          "handTargetErrorEndM": 0.077780843785513,
+          "worldAxialPeakRadS": 72.78777298404447,
+          "bladeTipPeakMps": 14.03952963865795,
+          "bodyJointGapPeakM": 0.0007155587473640846,
+          "gripGapPeakM": 9.122316399589944e-05,
+          "swordContactFrames": 54,
+          "missingJoints": []
+        }
+      }
+    },
+    "scriptedSuppliedZeroJoystickOverwrittenByExistingSkillSteps": 58,
+    "autoGuardRetained": false,
+    "allScriptedFramesAlive": true,
+    "eventsAfterInjury": {
+      "originalAI": [
+        {
+          "timeS": 13.249999999999888,
+          "attacker": 1,
+          "victim": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energyJ": 26.912009228692927,
+          "severity": 0.1305048593939286
+        },
+        {
+          "timeS": 13.908333333333184,
+          "attacker": 1,
+          "victim": 0,
+          "zone": "arm",
+          "type": "blunt",
+          "energyJ": 10.739327043875909,
+          "severity": 0
+        }
+      ],
+      "scriptedInput": [
+        {
+          "timeS": 13.316666666666551,
+          "attacker": 1,
+          "victim": 0,
+          "zone": "chest",
+          "type": "blunt",
+          "energyJ": 38.43559346297169,
+          "severity": 0
+        },
+        {
+          "timeS": 13.374999999999881,
+          "attacker": 1,
+          "victim": 0,
+          "zone": "head",
+          "type": "blunt",
+          "energyJ": 8.932837134692221,
+          "severity": 0
+        },
+        {
+          "timeS": 13.683333333333197,
+          "attacker": 0,
+          "victim": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energyJ": 6.340638670658969,
+          "severity": 0
+        },
+        {
+          "timeS": 13.708333333333195,
+          "attacker": 0,
+          "victim": 1,
+          "zone": "chest",
+          "type": "blunt",
+          "energyJ": 17.073820764141345,
+          "severity": 0
+        },
+        {
+          "timeS": 13.974999999999847,
+          "attacker": 1,
+          "victim": 0,
+          "zone": "leg",
+          "type": "cut",
+          "energyJ": 65.74784598945166,
+          "severity": 0.41498479107367925
+        },
+        {
+          "timeS": 13.991666666666513,
+          "attacker": 1,
+          "victim": 0,
+          "zone": "leg",
+          "type": "blunt",
+          "energyJ": 19.24762668745665,
+          "severity": 0
+        },
+        {
+          "timeS": 13.991666666666513,
+          "attacker": 0,
+          "victim": 1,
+          "zone": "chest",
+          "type": "cut",
+          "energyJ": 39.26663079002665,
+          "severity": 0.0724432530809383
+        },
+        {
+          "timeS": 14.27499999999983,
+          "attacker": 0,
+          "victim": 1,
+          "zone": "arm",
+          "type": "blunt",
+          "energyJ": 9.540539527036108,
+          "severity": 0
+        }
+      ]
+    },
+    "sourceBefore": {
+      "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+      "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+      "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+      "package.json": "9f267f3512c0be2c4407763c8d10b2813521ed425e948808222de8236db83df2",
+      "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+      "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+      "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+      "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+      "src/arm_recovery_activation.js": "ae025cc8d9bbc9855ea8ab2793d3e7818a66a4662329014a776a2ac88966435e",
+      "src/arm_recovery_trial.js": "ebda992abc5c7cd25a12c751d0f9b30f8fddf998babc8f4a7f49c9f4a0817c09",
+      "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+      "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+      "src/blade_shape_trial.js": "c06f7331c78e602e17d89ffb26507bffbea67cbebce862f5386cb4ce519b3955",
+      "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+      "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+      "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+      "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+      "src/cut_trial.js": "427d58d0500ceac482424e092a7d457a8cea48371c254f1b4edecb3a511be5a6",
+      "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+      "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+      "src/edge_intent.js": "b4e17a6ea08d659732c330448b3b3aaffeac2942fa5096e82db551a12d580c87",
+      "src/edge_torque.js": "436995e6d45e816517ea5a9a8f83c9fb147d143871aab1601f82baa7b36bc0fa",
+      "src/edge_torque_trial.js": "1280a3fe32c1874b6ce56b75932db44852162855d8962ae13f3aeb3e7d832cae",
+      "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+      "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+      "src/fighter.js": "cc120179b9904a793763c34077fe69c1440a2c84dee827ca26445e5a47371315",
+      "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+      "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+      "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+      "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+      "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+      "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+      "src/hand_visual.js": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893",
+      "src/input.js": "da17f592c9fe8fc2e0532660a31f2e7b96d24e700cc555115c05b913caae9bc7",
+      "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+      "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+      "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+      "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+      "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+      "src/main.js": "7ed93290eb5bcaa36aa485d9d0ce198c530ddc0e58ddb465d1484522d0f7598f",
+      "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+      "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+      "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+      "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+      "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+      "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+      "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+      "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+      "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+      "src/skill.js": "b69b73e00d8524e733842a630d54f2d7392807f883d7a75c9f9767b78d71f512",
+      "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+      "src/sound.js": "f02a5a9c9ad60ce282806c02b956715c2ca01aced92ba021b63a799faf4c8fb4",
+      "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+      "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+      "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+      "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+      "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+      "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+      "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+      "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+      "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+      "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+      "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+      "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+      "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+      "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+      "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+      "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+      "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+      "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+      "src/thrust_plane.js": "2fcbf1a52dd7cbd4035eea8a14d22b830c1b64f07dafebddcfb74e320539b104",
+      "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+      "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+      "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+      "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+      "src/wrist_braking.js": "6574ae9729fa6251540a68d27a0938e9d5bc2296097ff8b3bd69d1494eb88730",
+      "src/wrist_braking_trial.js": "25466b178e063a45e58a5fcd22532cdcbc176af4a2c05e461c562bb6a0ef658e",
+      "tools/sim/experiments/onehand_injured_input_probe.mjs": "a58d9c5dfa6cee9f192351473ff6196d7256c9012fbb00435554cc2e811bb89d",
+      "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0"
+    }
+  },
+  "publicFollowup": {
+    "raw": {
+      "path": "/workspace/halfsword-handoff/injured-input-20261005/public-ab-followup-run02.json",
+      "bytes": 31595521,
+      "sha256": "3868e9f470d386a88b68a1b45a4fd99e65ca6acce680db08fb6651faaad59c76"
+    },
+    "sourceStable": true,
+    "headStable": true,
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/halfsword-codex/tools/sim/experiments/thrust_followup_probe.mjs",
+      "--out=/workspace/halfsword-handoff/injured-input-20261005/public-ab-followup-run02.json",
+      "--reference=/workspace/halfsword-handoff/precontact-thrust-20261004/production-live-run06.json"
+    ],
+    "wallSeconds": 6.240610616,
+    "sourceBefore": {
+      "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+      "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+      "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+      "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+      "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+      "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+      "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+      "src/arm_recovery_activation.js": "ae025cc8d9bbc9855ea8ab2793d3e7818a66a4662329014a776a2ac88966435e",
+      "src/arm_recovery_trial.js": "ebda992abc5c7cd25a12c751d0f9b30f8fddf998babc8f4a7f49c9f4a0817c09",
+      "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+      "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+      "src/blade_shape_trial.js": "c06f7331c78e602e17d89ffb26507bffbea67cbebce862f5386cb4ce519b3955",
+      "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+      "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+      "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+      "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+      "src/cut_trial.js": "427d58d0500ceac482424e092a7d457a8cea48371c254f1b4edecb3a511be5a6",
+      "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+      "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+      "src/edge_intent.js": "b4e17a6ea08d659732c330448b3b3aaffeac2942fa5096e82db551a12d580c87",
+      "src/edge_torque.js": "436995e6d45e816517ea5a9a8f83c9fb147d143871aab1601f82baa7b36bc0fa",
+      "src/edge_torque_trial.js": "1280a3fe32c1874b6ce56b75932db44852162855d8962ae13f3aeb3e7d832cae",
+      "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+      "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+      "src/fighter.js": "cc120179b9904a793763c34077fe69c1440a2c84dee827ca26445e5a47371315",
+      "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+      "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+      "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+      "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+      "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+      "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+      "src/hand_visual.js": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893",
+      "src/input.js": "da17f592c9fe8fc2e0532660a31f2e7b96d24e700cc555115c05b913caae9bc7",
+      "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+      "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+      "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+      "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+      "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+      "src/main.js": "7ed93290eb5bcaa36aa485d9d0ce198c530ddc0e58ddb465d1484522d0f7598f",
+      "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+      "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+      "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+      "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+      "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+      "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+      "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+      "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+      "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+      "src/skill.js": "b69b73e00d8524e733842a630d54f2d7392807f883d7a75c9f9767b78d71f512",
+      "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+      "src/sound.js": "f02a5a9c9ad60ce282806c02b956715c2ca01aced92ba021b63a799faf4c8fb4",
+      "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+      "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+      "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+      "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+      "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+      "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+      "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+      "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+      "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+      "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+      "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+      "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+      "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+      "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+      "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+      "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+      "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+      "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+      "src/thrust_plane.js": "2fcbf1a52dd7cbd4035eea8a14d22b830c1b64f07dafebddcfb74e320539b104",
+      "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+      "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+      "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+      "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+      "src/wrist_braking.js": "6574ae9729fa6251540a68d27a0938e9d5bc2296097ff8b3bd69d1494eb88730",
+      "src/wrist_braking_trial.js": "25466b178e063a45e58a5fcd22532cdcbc176af4a2c05e461c562bb6a0ef658e",
+      "tools/sim/experiments/thrust_followup_probe.mjs": "66223fa0791391054bcd961f31fb917015b7bb1cce5286af51c09d1c971c12e7",
+      "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0"
+    },
+    "scheduleSHA256": "a6c8275472681131f59343108e1de1ffd4b03a49f0b7b6c82e56746f4300a872",
+    "scope": "Current actual public npm game, manual Qinggang/profile player from spawn; only original/transported roll differs, normal original reactive enemy longsword, seed7/default walls and gap5.6, player skill0/autoGuardfalse. Existing9s native prefix must match production reference; new suffix has three tap/release/recut cycles then release to20s. Nominal deltas added to live pad, alive gate, held/active and zero joystick; Skill may generate lunge. No forced wound/health/pose/velocity/contact, park, gain, new motor or timestep. Reactive enemy paths after first difference are not matched-state efficacy; legacy injury handover scene is separate. Physics-time inputs are not human mobile/frame-time acceptance. Missing tap/down/getup/arm-loss states remain unvalidated. Existing prefix replay is validation, not new independent evidence.",
+    "rows": [
+      {
+        "model": "original",
+        "prefixNativeStepsValidated": 1080,
+        "taps": [
+          {
+            "tick": 803,
+            "timeBeforeStepS": 6.691666666666789,
+            "accepted": true,
+            "alive": true,
+            "armed": true,
+            "state": "stand"
+          },
+          {
+            "tick": 1146,
+            "timeBeforeStepS": 9.550000000000098,
+            "accepted": true,
+            "alive": true,
+            "armed": true,
+            "state": "stand"
+          },
+          {
+            "tick": 1350,
+            "timeBeforeStepS": 11.250000000000002,
+            "accepted": true,
+            "alive": true,
+            "armed": true,
+            "state": "stand"
+          },
+          {
+            "tick": 1554,
+            "timeBeforeStepS": 12.949999999999905,
+            "accepted": false,
+            "alive": true,
+            "armed": true,
+            "state": "getup"
+          }
+        ],
+        "transitions": [
+          {
+            "tick": 1539,
+            "timeS": 12.833333333333245,
+            "fighter": 0,
+            "from": "stand",
+            "to": "getup"
+          },
+          {
+            "tick": 1806,
+            "timeS": 15.058333333333119,
+            "fighter": 0,
+            "from": "getup",
+            "to": "stand"
+          },
+          {
+            "tick": 1919,
+            "timeS": 15.999999999999732,
+            "fighter": 0,
+            "from": "stand",
+            "to": "getup"
+          },
+          {
+            "tick": 2218,
+            "timeS": 18.49166666666626,
+            "fighter": 0,
+            "from": "getup",
+            "to": "dead"
+          }
+        ],
+        "firstActualMainArmLoss": {
+          "tick": 1177,
+          "postCombatTimeS": 9.81666666666675,
+          "armHealth": 0.33863446018409515
+        },
+        "tapDownFrames": 0,
+        "tapBoundFrames": 0,
+        "tapAbortFrames": 0,
+        "windows": {
+          "release1": {
+            "ticksInclusive": [
+              1080,
+              1115
+            ],
+            "frames": 36,
+            "armHealthRange": [
+              1,
+              1
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.026351850835475133,
+            "handTargetErrorEndM": 0.008392344583233667,
+            "worldAxialPeakRadS": 0.06981842726847966,
+            "bladeTipPeakMps": 0.2668265009653402,
+            "bodyJointGapPeakM": 0.00018687075309569014,
+            "gripGapPeakM": 3.9291155586964435e-07,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "reverse1": {
+            "ticksInclusive": [
+              1116,
+              1145
+            ],
+            "frames": 30,
+            "armHealthRange": [
+              1,
+              1
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.1557395082882067,
+            "handTargetErrorEndM": 0.1557395082882067,
+            "worldAxialPeakRadS": 4.413935357980655,
+            "bladeTipPeakMps": 7.70338513674089,
+            "bodyJointGapPeakM": 0.0005094463679442476,
+            "gripGapPeakM": 1.3101273213123272e-05,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "tapHold1": {
+            "ticksInclusive": [
+              1146,
+              1193
+            ],
+            "frames": 48,
+            "armHealthRange": [
+              0.33863446018409515,
+              1
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.6778616338101181,
+            "handTargetErrorEndM": 0.2656634040082383,
+            "worldAxialPeakRadS": 42.808858980496794,
+            "bladeTipPeakMps": 9.453451854186554,
+            "bodyJointGapPeakM": 0.0007544413762926675,
+            "gripGapPeakM": 0.0004506456530596282,
+            "swordContactFrames": 10,
+            "missingJoints": []
+          },
+          "recut1": {
+            "ticksInclusive": [
+              1194,
+              1223
+            ],
+            "frames": 30,
+            "armHealthRange": [
+              0.33863446018409515,
+              0.33863446018409515
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.29979493217348385,
+            "handTargetErrorEndM": 0.13317267233249633,
+            "worldAxialPeakRadS": 47.64443572180221,
+            "bladeTipPeakMps": 6.1948398693473345,
+            "bodyJointGapPeakM": 0.0011663199440670607,
+            "gripGapPeakM": 1.796367121907062e-05,
+            "swordContactFrames": 1,
+            "missingJoints": []
+          },
+          "afterRelease1": {
+            "ticksInclusive": [
+              1224,
+              1283
+            ],
+            "frames": 60,
+            "armHealthRange": [
+              0.33863446018409515,
+              0.33863446018409515
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.13073064314479999,
+            "handTargetErrorEndM": 0.04992485083921355,
+            "worldAxialPeakRadS": 25.652978056856853,
+            "bladeTipPeakMps": 8.485383662144976,
+            "bodyJointGapPeakM": 0.001918468797731811,
+            "gripGapPeakM": 7.590304344845482e-05,
+            "swordContactFrames": 24,
+            "missingJoints": []
+          },
+          "release2": {
+            "ticksInclusive": [
+              1284,
+              1319
+            ],
+            "frames": 36,
+            "armHealthRange": [
+              0.33863446018409515,
+              0.33863446018409515
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.04713617744634915,
+            "handTargetErrorEndM": 0.03294351607737626,
+            "worldAxialPeakRadS": 1.0438175752943977,
+            "bladeTipPeakMps": 1.3809793902213983,
+            "bodyJointGapPeakM": 0.00029898110277619253,
+            "gripGapPeakM": 3.8361154019093547e-07,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "reverse2": {
+            "ticksInclusive": [
+              1320,
+              1349
+            ],
+            "frames": 30,
+            "armHealthRange": [
+              0.33863446018409515,
+              0.33863446018409515
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.3863870536776559,
+            "handTargetErrorEndM": 0.3863870536776559,
+            "worldAxialPeakRadS": 1.8461068014774942,
+            "bladeTipPeakMps": 4.804941970513839,
+            "bodyJointGapPeakM": 0.0003047336364305431,
+            "gripGapPeakM": 5.787705508459624e-06,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "tapHold2": {
+            "ticksInclusive": [
+              1350,
+              1397
+            ],
+            "frames": 48,
+            "armHealthRange": [
+              0.33863446018409515,
+              0.33863446018409515
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.46616105755139214,
+            "handTargetErrorEndM": 0.2316318656806577,
+            "worldAxialPeakRadS": 28.971809752407893,
+            "bladeTipPeakMps": 5.0135821445796465,
+            "bodyJointGapPeakM": 0.0006832897335177266,
+            "gripGapPeakM": 2.8435594116680536e-05,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "recut2": {
+            "ticksInclusive": [
+              1398,
+              1427
+            ],
+            "frames": 30,
+            "armHealthRange": [
+              0.33863446018409515,
+              0.33863446018409515
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.2692187870057947,
+            "handTargetErrorEndM": 0.1133633761398263,
+            "worldAxialPeakRadS": 9.871721405856269,
+            "bladeTipPeakMps": 8.028006655672693,
+            "bodyJointGapPeakM": 0.0004686048975197154,
+            "gripGapPeakM": 1.7115617052925728e-05,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "afterRelease2": {
+            "ticksInclusive": [
+              1428,
+              1487
+            ],
+            "frames": 60,
+            "armHealthRange": [
+              0.33863446018409515,
+              0.33863446018409515
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.12849226708003386,
+            "handTargetErrorEndM": 0.02782824296809452,
+            "worldAxialPeakRadS": 2.3901308161936026,
+            "bladeTipPeakMps": 6.847061198038475,
+            "bodyJointGapPeakM": 0.0005348566268769063,
+            "gripGapPeakM": 1.3585295539755291e-05,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "release3": {
+            "ticksInclusive": [
+              1488,
+              1523
+            ],
+            "frames": 36,
+            "armHealthRange": [
+              0.33863446018409515,
+              0.33863446018409515
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.03204875695518493,
+            "handTargetErrorEndM": 0.030738837869840024,
+            "worldAxialPeakRadS": 0.09830330567391707,
+            "bladeTipPeakMps": 0.23665440750999703,
+            "bodyJointGapPeakM": 0.00039889460270049775,
+            "gripGapPeakM": 1.7103982264806318e-07,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "reverse3": {
+            "ticksInclusive": [
+              1524,
+              1553
+            ],
+            "frames": 30,
+            "armHealthRange": [
+              0.33863446018409515,
+              0.33863446018409515
+            ],
+            "states": [
+              "getup",
+              "stand"
+            ],
+            "aliveArmedStandAll": false,
+            "handTargetErrorPeakM": 0.27638341399634225,
+            "handTargetErrorEndM": 0.27638341399634225,
+            "worldAxialPeakRadS": 2.1466456708124846,
+            "bladeTipPeakMps": 4.486204991284049,
+            "bodyJointGapPeakM": 0.0014375287085463357,
+            "gripGapPeakM": 7.107066421329729e-06,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "tapHold3": {
+            "ticksInclusive": [
+              1554,
+              1601
+            ],
+            "frames": 48,
+            "armHealthRange": [
+              0.33863446018409515,
+              0.33863446018409515
+            ],
+            "states": [
+              "getup"
+            ],
+            "aliveArmedStandAll": false,
+            "handTargetErrorPeakM": 0.4720067531528869,
+            "handTargetErrorEndM": 0.4720067531528869,
+            "worldAxialPeakRadS": 3.1896487919043706,
+            "bladeTipPeakMps": 5.026417746334461,
+            "bodyJointGapPeakM": 0.0011389213197815979,
+            "gripGapPeakM": 1.2379832745548082e-05,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "recut3": {
+            "ticksInclusive": [
+              1602,
+              1631
+            ],
+            "frames": 30,
+            "armHealthRange": [
+              0.33863446018409515,
+              0.33863446018409515
+            ],
+            "states": [
+              "getup"
+            ],
+            "aliveArmedStandAll": false,
+            "handTargetErrorPeakM": 0.48406203421868527,
+            "handTargetErrorEndM": 0.10254016896481986,
+            "worldAxialPeakRadS": 6.65592082771487,
+            "bladeTipPeakMps": 6.592139199966516,
+            "bodyJointGapPeakM": 0.0004664887129987031,
+            "gripGapPeakM": 1.4934175257139104e-05,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "afterRelease3": {
+            "ticksInclusive": [
+              1632,
+              1691
+            ],
+            "frames": 60,
+            "armHealthRange": [
+              0.33863446018409515,
+              0.33863446018409515
+            ],
+            "states": [
+              "getup"
+            ],
+            "aliveArmedStandAll": false,
+            "handTargetErrorPeakM": 0.19226401569574494,
+            "handTargetErrorEndM": 0.028846784630610155,
+            "worldAxialPeakRadS": 8.690928722362788,
+            "bladeTipPeakMps": 6.355339177650338,
+            "bodyJointGapPeakM": 0.00047584978310696396,
+            "gripGapPeakM": 2.897487816853143e-05,
+            "swordContactFrames": 10,
+            "missingJoints": []
+          },
+          "endRelease": {
+            "ticksInclusive": [
+              1692,
+              2399
+            ],
+            "frames": 708,
+            "armHealthRange": [
+              0.33863446018409515,
+              0.33863446018409515
+            ],
+            "states": [
+              "dead",
+              "getup",
+              "stand"
+            ],
+            "aliveArmedStandAll": false,
+            "handTargetErrorPeakM": 0.3703586788934071,
+            "handTargetErrorEndM": 0.3593810007725076,
+            "worldAxialPeakRadS": 2.730766210038972,
+            "bladeTipPeakMps": 3.575822369048386,
+            "bodyJointGapPeakM": 0.00186338552012769,
+            "gripGapPeakM": 0.0002498778154287599,
+            "swordContactFrames": 220,
+            "missingJoints": []
+          }
+        },
+        "wounds": [
+          {
+            "timeS": 6.683333333333455,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "chest",
+            "type": "cut",
+            "energyJ": 132.45246393488503,
+            "severity": 0.9487186617086656
+          },
+          {
+            "timeS": 6.700000000000123,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "abdomen",
+            "type": "blunt",
+            "energyJ": 29.679531959063915,
+            "severity": 0
+          },
+          {
+            "timeS": 7.066666666666808,
+            "attacker": 0,
+            "victim": 1,
+            "zone": "head",
+            "type": "blunt",
+            "energyJ": 7.164181334251792,
+            "severity": 0
+          },
+          {
+            "timeS": 7.075000000000141,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "abdomen",
+            "type": "blunt",
+            "energyJ": 9.343803449860406,
+            "severity": 0
+          },
+          {
+            "timeS": 7.075000000000141,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "pelvis",
+            "type": "blunt",
+            "energyJ": 9.46495005187689,
+            "severity": 0
+          },
+          {
+            "timeS": 9.808333333333417,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "arm",
+            "type": "cut",
+            "energyJ": 110.81807388365054,
+            "severity": 0.9448079140227212
+          },
+          {
+            "timeS": 10.191666666666729,
+            "attacker": 0,
+            "victim": 1,
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 15.244133030517443,
+            "severity": 0
+          },
+          {
+            "timeS": 10.216666666666727,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "pelvis",
+            "type": "blunt",
+            "energyJ": 9.576155474786688,
+            "severity": 0
+          },
+          {
+            "timeS": 10.308333333333389,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 8.498511171145543,
+            "severity": 0
+          },
+          {
+            "timeS": 10.966666666666685,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "head",
+            "type": "blunt",
+            "energyJ": 15.815414986959706,
+            "severity": 0
+          },
+          {
+            "timeS": 11.599999999999982,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "neck",
+            "type": "blunt",
+            "energyJ": 19.09498532945304,
+            "severity": 0
+          },
+          {
+            "timeS": 12.824999999999912,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "head",
+            "type": "blunt",
+            "energyJ": 159.62566914797566,
+            "severity": 0
+          },
+          {
+            "timeS": 13.474999999999875,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "head",
+            "type": "blunt",
+            "energyJ": 12.91037899016242,
+            "severity": 0
+          },
+          {
+            "timeS": 13.483333333333208,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "neck",
+            "type": "blunt",
+            "energyJ": 8.989054715376335,
+            "severity": 0
+          },
+          {
+            "timeS": 13.999999999999845,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "head",
+            "type": "blunt",
+            "energyJ": 64.48695009120782,
+            "severity": 0
+          },
+          {
+            "timeS": 15.974999999999733,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "chest",
+            "type": "cut",
+            "energyJ": 120.89764189686288,
+            "severity": 0.9967319623404584
+          },
+          {
+            "timeS": 15.983333333333066,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "arm",
+            "type": "cut",
+            "energyJ": 50.69831086378465,
+            "severity": 0.3157982395927582
+          },
+          {
+            "timeS": 15.999999999999732,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "abdomen",
+            "type": "blunt",
+            "energyJ": 8.2556881543321,
+            "severity": 0
+          },
+          {
+            "timeS": 18.474999999999593,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "head",
+            "type": "blunt",
+            "energyJ": 116.00114403160535,
+            "severity": 0
+          },
+          {
+            "timeS": 18.574999999999587,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "chest",
+            "type": "blunt",
+            "energyJ": 19.503691367256067,
+            "severity": 0
+          },
+          {
+            "timeS": 18.58333333333292,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 11.016177255934979,
+            "severity": 0
+          }
+        ]
+      },
+      {
+        "model": "transported",
+        "prefixNativeStepsValidated": 1080,
+        "taps": [
+          {
+            "tick": 803,
+            "timeBeforeStepS": 6.691666666666789,
+            "accepted": true,
+            "alive": true,
+            "armed": true,
+            "state": "stand"
+          },
+          {
+            "tick": 1146,
+            "timeBeforeStepS": 9.550000000000098,
+            "accepted": true,
+            "alive": true,
+            "armed": true,
+            "state": "stand"
+          },
+          {
+            "tick": 1350,
+            "timeBeforeStepS": 11.250000000000002,
+            "accepted": true,
+            "alive": true,
+            "armed": true,
+            "state": "stand"
+          },
+          {
+            "tick": 1554,
+            "timeBeforeStepS": 12.949999999999905,
+            "accepted": true,
+            "alive": true,
+            "armed": true,
+            "state": "stand"
+          }
+        ],
+        "transitions": [
+          {
+            "tick": 1790,
+            "timeS": 14.924999999999793,
+            "fighter": 0,
+            "from": "stand",
+            "to": "getup"
+          },
+          {
+            "tick": 2057,
+            "timeS": 17.149999999999668,
+            "fighter": 0,
+            "from": "getup",
+            "to": "stand"
+          },
+          {
+            "tick": 2116,
+            "timeS": 17.641666666666307,
+            "fighter": 0,
+            "from": "stand",
+            "to": "getup"
+          },
+          {
+            "tick": 2357,
+            "timeS": 19.649999999999526,
+            "fighter": 0,
+            "from": "getup",
+            "to": "stand"
+          },
+          {
+            "tick": 2385,
+            "timeS": 19.883333333332846,
+            "fighter": 0,
+            "from": "stand",
+            "to": "getup"
+          },
+          {
+            "tick": 2386,
+            "timeS": 19.89166666666618,
+            "fighter": 0,
+            "from": "getup",
+            "to": "dead"
+          }
+        ],
+        "firstActualMainArmLoss": null,
+        "tapDownFrames": 0,
+        "tapBoundFrames": 0,
+        "tapAbortFrames": 0,
+        "windows": {
+          "release1": {
+            "ticksInclusive": [
+              1080,
+              1115
+            ],
+            "frames": 36,
+            "armHealthRange": [
+              1,
+              1
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.029827056013430237,
+            "handTargetErrorEndM": 0.008911208628361894,
+            "worldAxialPeakRadS": 0.08093224284945914,
+            "bladeTipPeakMps": 0.2943746062603922,
+            "bodyJointGapPeakM": 0.00017729731266251077,
+            "gripGapPeakM": 3.49265608644933e-07,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "reverse1": {
+            "ticksInclusive": [
+              1116,
+              1145
+            ],
+            "frames": 30,
+            "armHealthRange": [
+              1,
+              1
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.15634225912850655,
+            "handTargetErrorEndM": 0.15634225912850655,
+            "worldAxialPeakRadS": 4.170138030104152,
+            "bladeTipPeakMps": 7.698564613855325,
+            "bodyJointGapPeakM": 0.0005084400098956158,
+            "gripGapPeakM": 1.3169790886632471e-05,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "tapHold1": {
+            "ticksInclusive": [
+              1146,
+              1193
+            ],
+            "frames": 48,
+            "armHealthRange": [
+              1,
+              1
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.669404193531433,
+            "handTargetErrorEndM": 0.24161120191897936,
+            "worldAxialPeakRadS": 16.720299823033155,
+            "bladeTipPeakMps": 9.430980615369219,
+            "bodyJointGapPeakM": 0.0018655503698148126,
+            "gripGapPeakM": 4.754467201538665e-05,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "recut1": {
+            "ticksInclusive": [
+              1194,
+              1223
+            ],
+            "frames": 30,
+            "armHealthRange": [
+              1,
+              1
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.23070715134431058,
+            "handTargetErrorEndM": 0.1647305601539552,
+            "worldAxialPeakRadS": 26.360680644695087,
+            "bladeTipPeakMps": 9.122185073453227,
+            "bodyJointGapPeakM": 0.0006869953147194551,
+            "gripGapPeakM": 5.274008422655332e-05,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "afterRelease1": {
+            "ticksInclusive": [
+              1224,
+              1283
+            ],
+            "frames": 60,
+            "armHealthRange": [
+              1,
+              1
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.1526336713536062,
+            "handTargetErrorEndM": 0.0388231895495348,
+            "worldAxialPeakRadS": 9.525517783426345,
+            "bladeTipPeakMps": 8.182402027074824,
+            "bodyJointGapPeakM": 0.0006348178880544678,
+            "gripGapPeakM": 1.954503009455555e-05,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "release2": {
+            "ticksInclusive": [
+              1284,
+              1319
+            ],
+            "frames": 36,
+            "armHealthRange": [
+              1,
+              1
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.03574462534160629,
+            "handTargetErrorEndM": 0.008757875575315432,
+            "worldAxialPeakRadS": 0.0662946133814343,
+            "bladeTipPeakMps": 0.5192682852903286,
+            "bodyJointGapPeakM": 0.00039503655690617523,
+            "gripGapPeakM": 5.4371693671621e-07,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "reverse2": {
+            "ticksInclusive": [
+              1320,
+              1349
+            ],
+            "frames": 30,
+            "armHealthRange": [
+              1,
+              1
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.11202666881673806,
+            "handTargetErrorEndM": 0.11202666881673806,
+            "worldAxialPeakRadS": 3.933371837031409,
+            "bladeTipPeakMps": 8.198049604441078,
+            "bodyJointGapPeakM": 0.0005369585200449327,
+            "gripGapPeakM": 1.4661847448667785e-05,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "tapHold2": {
+            "ticksInclusive": [
+              1350,
+              1397
+            ],
+            "frames": 48,
+            "armHealthRange": [
+              1,
+              1
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.6759656722172886,
+            "handTargetErrorEndM": 0.24950860310969242,
+            "worldAxialPeakRadS": 18.3755306955363,
+            "bladeTipPeakMps": 9.49122345403882,
+            "bodyJointGapPeakM": 0.00171988068730079,
+            "gripGapPeakM": 5.024692355472766e-05,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "recut2": {
+            "ticksInclusive": [
+              1398,
+              1427
+            ],
+            "frames": 30,
+            "armHealthRange": [
+              1,
+              1
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.23716123247731508,
+            "handTargetErrorEndM": 0.13568262063162415,
+            "worldAxialPeakRadS": 20.510955797183023,
+            "bladeTipPeakMps": 9.4653899995955,
+            "bodyJointGapPeakM": 0.0007760152886365083,
+            "gripGapPeakM": 4.253354303191563e-05,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "afterRelease2": {
+            "ticksInclusive": [
+              1428,
+              1487
+            ],
+            "frames": 60,
+            "armHealthRange": [
+              1,
+              1
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.15232395101535345,
+            "handTargetErrorEndM": 0.03866186603372251,
+            "worldAxialPeakRadS": 9.730094388739909,
+            "bladeTipPeakMps": 7.999004956193774,
+            "bodyJointGapPeakM": 0.0021297011608167977,
+            "gripGapPeakM": 1.9505531826721764e-05,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "release3": {
+            "ticksInclusive": [
+              1488,
+              1523
+            ],
+            "frames": 36,
+            "armHealthRange": [
+              1,
+              1
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.046966749131481626,
+            "handTargetErrorEndM": 0.008667302602568715,
+            "worldAxialPeakRadS": 0.6521861087719499,
+            "bladeTipPeakMps": 1.028298342087209,
+            "bodyJointGapPeakM": 0.0021847289852769424,
+            "gripGapPeakM": 2.080295410318764e-06,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "reverse3": {
+            "ticksInclusive": [
+              1524,
+              1553
+            ],
+            "frames": 30,
+            "armHealthRange": [
+              1,
+              1
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.07973422209562583,
+            "handTargetErrorEndM": 0.07424293796489123,
+            "worldAxialPeakRadS": 4.4034970458323315,
+            "bladeTipPeakMps": 8.54902187517615,
+            "bodyJointGapPeakM": 0.0005637916275726962,
+            "gripGapPeakM": 1.5602134043166223e-05,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "tapHold3": {
+            "ticksInclusive": [
+              1554,
+              1601
+            ],
+            "frames": 48,
+            "armHealthRange": [
+              1,
+              1
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.6914160966876095,
+            "handTargetErrorEndM": 0.2438997571470673,
+            "worldAxialPeakRadS": 21.301529765928333,
+            "bladeTipPeakMps": 9.703312331499848,
+            "bodyJointGapPeakM": 0.003980917893353193,
+            "gripGapPeakM": 4.862261747405839e-05,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "recut3": {
+            "ticksInclusive": [
+              1602,
+              1631
+            ],
+            "frames": 30,
+            "armHealthRange": [
+              1,
+              1
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.23183937811964306,
+            "handTargetErrorEndM": 0.14355337568575632,
+            "worldAxialPeakRadS": 24.13328983401109,
+            "bladeTipPeakMps": 9.650115317386481,
+            "bodyJointGapPeakM": 0.0009254060536246419,
+            "gripGapPeakM": 2.9870207568377126e-05,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "afterRelease3": {
+            "ticksInclusive": [
+              1632,
+              1691
+            ],
+            "frames": 60,
+            "armHealthRange": [
+              1,
+              1
+            ],
+            "states": [
+              "stand"
+            ],
+            "aliveArmedStandAll": true,
+            "handTargetErrorPeakM": 0.13560144621686718,
+            "handTargetErrorEndM": 0.04180050389568979,
+            "worldAxialPeakRadS": 8.362045187597275,
+            "bladeTipPeakMps": 8.200710617787637,
+            "bodyJointGapPeakM": 0.00256928799959408,
+            "gripGapPeakM": 1.943929571345916e-05,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          },
+          "endRelease": {
+            "ticksInclusive": [
+              1692,
+              2399
+            ],
+            "frames": 708,
+            "armHealthRange": [
+              1,
+              1
+            ],
+            "states": [
+              "dead",
+              "getup",
+              "stand"
+            ],
+            "aliveArmedStandAll": false,
+            "handTargetErrorPeakM": 0.06652266779691636,
+            "handTargetErrorEndM": 0.02449648679948665,
+            "worldAxialPeakRadS": 2.2949847892126183,
+            "bladeTipPeakMps": 1.853593724277304,
+            "bodyJointGapPeakM": 0.0017655150464078791,
+            "gripGapPeakM": 0.0001642175099371811,
+            "swordContactFrames": 0,
+            "missingJoints": []
+          }
+        },
+        "wounds": [
+          {
+            "timeS": 6.683333333333455,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "chest",
+            "type": "cut",
+            "energyJ": 132.45246393488503,
+            "severity": 0.9487186617086656
+          },
+          {
+            "timeS": 6.700000000000123,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "abdomen",
+            "type": "blunt",
+            "energyJ": 29.679531959063915,
+            "severity": 0
+          },
+          {
+            "timeS": 7.075000000000141,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "abdomen",
+            "type": "blunt",
+            "energyJ": 9.348751691379096,
+            "severity": 0
+          },
+          {
+            "timeS": 7.075000000000141,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "pelvis",
+            "type": "blunt",
+            "energyJ": 9.447838771650542,
+            "severity": 0
+          },
+          {
+            "timeS": 7.075000000000141,
+            "attacker": 0,
+            "victim": 1,
+            "zone": "head",
+            "type": "blunt",
+            "energyJ": 7.543326886867556,
+            "severity": 0
+          },
+          {
+            "timeS": 10.216666666666727,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "chest",
+            "type": "blunt",
+            "energyJ": 27.22653943354226,
+            "severity": 0
+          },
+          {
+            "timeS": 10.608333333333372,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "chest",
+            "type": "blunt",
+            "energyJ": 12.016178858646036,
+            "severity": 0
+          },
+          {
+            "timeS": 13.324999999999884,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 17.953461480115227,
+            "severity": 0
+          },
+          {
+            "timeS": 14.91666666666646,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "head",
+            "type": "blunt",
+            "energyJ": 120.25690574487592,
+            "severity": 0
+          },
+          {
+            "timeS": 15.058333333333119,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "chest",
+            "type": "blunt",
+            "energyJ": 28.61724133266223,
+            "severity": 0
+          },
+          {
+            "timeS": 15.066666666666451,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 14.441690737443025,
+            "severity": 0
+          },
+          {
+            "timeS": 15.199999999999777,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "head",
+            "type": "blunt",
+            "energyJ": 8.915205054226172,
+            "severity": 0
+          },
+          {
+            "timeS": 15.349999999999769,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "neck",
+            "type": "blunt",
+            "energyJ": 6.915261460121951,
+            "severity": 0
+          },
+          {
+            "timeS": 15.724999999999747,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "chest",
+            "type": "cut",
+            "energyJ": 40.180231094133475,
+            "severity": 0.12835753977118583
+          },
+          {
+            "timeS": 16.274999999999718,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "neck",
+            "type": "blunt",
+            "energyJ": 18.76183568299761,
+            "severity": 0
+          },
+          {
+            "timeS": 17.633333333332974,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "head",
+            "type": "blunt",
+            "energyJ": 89.72075565591194,
+            "severity": 0
+          },
+          {
+            "timeS": 17.724999999999635,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 12.389619207843687,
+            "severity": 0
+          },
+          {
+            "timeS": 17.749999999999634,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "arm",
+            "type": "blunt",
+            "energyJ": 7.161160654488356,
+            "severity": 0
+          },
+          {
+            "timeS": 19.874999999999513,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "head",
+            "type": "blunt",
+            "energyJ": 97.79920122366516,
+            "severity": 0
+          },
+          {
+            "timeS": 19.966666666666175,
+            "attacker": 1,
+            "victim": 0,
+            "zone": "neck",
+            "type": "blunt",
+            "energyJ": 14.306438920848707,
+            "severity": 0
+          }
+        ]
+      }
+    ]
+  },
+  "decision": "Keep preferred public trials optional; no game/source/default/engine/hand change. Injury input accepted with intended force limits but residual contact roll remains; B followup has no actual main-arm loss or tap down/bound/abort. Do not declare naturalness, complete stage2, relative causal efficacy or win rate.",
+  "next": "Reuse current manual/profile/original fixed prefix: first main-arm cut event9.808333s, postCombat tick1177/9.816667s health.338634, then getup12.833333–15.058333. Check already-implemented armRecovery independent from spawn, first true difference and support/braking; no midinjury enable, forced state, seed/gain sweep or user release yet.",
+  "toolProvenance": {
+    "executedInjuryTool": {
+      "path": "/workspace/halfsword-handoff/injured-input-20261005/executed-injured-probe-run01.mjs",
+      "sha256": "a58d9c5dfa6cee9f192351473ff6196d7256c9012fbb00435554cc2e811bb89d"
+    },
+    "currentInjuryTool": {
+      "path": "tools/sim/experiments/onehand_injured_input_probe.mjs",
+      "sha256": "629ed57ed7c6f381bd2b98aa3ce904a6fe4f07aab5b9f31dd85716eede0838bc"
+    },
+    "postRunChanges": [
+      "Alive-only delta gate matches main; all run01 frames alive, so existing executed-path evidence reused. Death branch not physically rerun.",
+      "Failure flags now derive validated step counts; run01 was PASS so old true flags valid."
+    ],
+    "summaryTool": {
+      "path": "tools/sim/experiments/summarize_injured_input.py",
+      "sha256": "ea3e93eaccb68327737d949c32fe32d9add68e80dfadba5cb6909094b2375cdc"
+    }
+  },
+  "independentReview": {
+    "path": "/workspace/halfsword-handoff/injured-input-20261005/independent-review.md",
+    "bytes": 8871,
+    "sha256": "0a464285edfc6b9981adabce60134af1e86967c4c63e4a27bd71fdc603a0e05f",
+    "physicalRunsRepeated": false
+  },
+  "regressionReuse": {
+    "path": "/workspace/halfsword-handoff/precontact-thrust-20261004/regression/result.json",
+    "bytes": 240927,
+    "sha256": "25b6ca7ba5703e2935ab2240654d8ebe9d751099eaaccd1f93cf9ccdd52cf7b5",
+    "originalCheckout": "830b705eebb82e4c63789ff1fe5a9821ae53b33d",
+    "cacheUsed": false,
+    "pass": true,
+    "groups": 6,
+    "currentSrcFilesExact": 73,
+    "reason": "Only research probes/documents/public plan changed. Existing six game physics regressions reused, not rerun."
+  },
+  "delivery": {
+    "gameImplementationCommit": "c9bb2e8d05666c6ca38080d81167e72e4b829e07",
+    "existingPublicTrialReceipt": "thrust_plane_release.json",
+    "newTaskFinalReceiptOutside": "/workspace/halfsword-handoff/injured-input-20261005/FINAL_TASK_RECEIPT.json",
+    "newJournalAndPlanDelivery": "Checked after push; final exact public bytes and mobile page receipt kept outside."
+  }
+}
