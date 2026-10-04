@@ -1,0 +1,1059 @@
+{
+  "sourceCommit": "f2601a89b7e3bc205af1b5b8fd2fba543b3c6ebe",
+  "gameCodeChanged": false,
+  "defaultChanged": false,
+  "humanAcceptance": false,
+  "startUTC": "2026-10-04T04:26:00Z",
+  "etaMinutes": [
+    30,
+    45
+  ],
+  "rawRoot": "/workspace/halfsword-handoff/axial-combat-20261004",
+  "retainedArtifacts": [
+    {
+      "file": "diagnosis.json",
+      "bytes": 11143785,
+      "sha256": "a55dc9477f406325dc7a131eb963059682e19495ce0c9bb8c00623713fc9e346"
+    },
+    {
+      "file": "diagnostic-tool-initial.mjs",
+      "bytes": 7173,
+      "sha256": "f2f92edc663f8c7954a4a0e0fe225112cd38e4482e59840c1ad4ce37f3f43797"
+    },
+    {
+      "file": "fork-tool-initial.mjs",
+      "bytes": 8790,
+      "sha256": "b1948ad53e505686c47d18cc1b2b21cc64c07b6e7079a998bd1ad8ebb2e622f4"
+    },
+    {
+      "file": "independent-review.md",
+      "bytes": 1804,
+      "sha256": "c72d3151ca24a98058b8a61481660bee6bc3be3bdb05f67c7700b7e770c86a89"
+    },
+    {
+      "file": "observed-native-forks.json",
+      "bytes": 5883638,
+      "sha256": "d4e9db99db59659eae6f56a20f2fe6318db6ab7b0c6c93ce8ab9fcf21afa10d2"
+    },
+    {
+      "file": "predicted-point.json",
+      "bytes": 5985621,
+      "sha256": "87ee8b99f031250d31dd10a342deddadaedf42927fc1d425fdbacb5be3bef616"
+    },
+    {
+      "file": "predicted-tool.mjs",
+      "bytes": 11749,
+      "sha256": "74a8f15a1419c7178dab98d5727bf419147c8af9d6c8a3ac65183d90543f8893"
+    },
+    {
+      "file": "recompute-tool-corrected.mjs",
+      "bytes": 10579,
+      "sha256": "56c798e736b3022b89b2f261d2391266629716503fcd49aa43f59b0f594561b3"
+    },
+    {
+      "file": "recompute-tool-rejected.mjs",
+      "bytes": 10461,
+      "sha256": "75b04eb0794290ac2f355e2228291593ed4d5147fa0f75991f96e8baa03e222e"
+    },
+    {
+      "file": "recomputed-dt-corrected.json",
+      "bytes": 40383384,
+      "sha256": "bd521997dbaeb5d62cba484d1fbacf12bb9b3a93c602144dabf2ede86448ef3f"
+    },
+    {
+      "file": "recomputed-dt.json",
+      "bytes": 40236369,
+      "sha256": "0479a6e765146ee2305a727f41e67e17558e941564fdf892d8bf496b33cd8382"
+    },
+    {
+      "file": "transport-forks.json",
+      "bytes": 201423,
+      "sha256": "0fa6eb353dee18db8395b9407bfda8f1a19b0a41fbcb1a309dfb779dc2b437df"
+    },
+    {
+      "file": "transport-tool.mjs",
+      "bytes": 9706,
+      "sha256": "17d36fe519111cc52562d2b99bfd651daeb7ea77802b8fff39b6a22211006688"
+    }
+  ],
+  "acceptedRuns": 21,
+  "uniqueDiagnosticConditions": 16,
+  "rejectedLoopRuns": 6,
+  "countScope": "Observed repeats, recomputeOriginal controls and snapshot forks are validity checks, not independent efficacy samples. Accepted initial10 + observer2 + transport1 + corrected-dt6 + failed candidate2; rejected copied-loop6 excluded.",
+  "observerExactBothWeapons10s": true,
+  "originalCopiedLoopExactBothWeapons10s": true,
+  "samePrefixAllModes": true,
+  "initialDiagnosticSummaries": [
+    {
+      "weapon": "monohoshizao",
+      "mode": "observe",
+      "from": 4.45,
+      "firstActive": 4.450000000000011,
+      "initialNativeSHA": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30",
+      "prefixTraceSHA": "3074c73be9d9ea42975bfeba240dc7d20b3059f62118db4080562e41db18cee7",
+      "nativeTraceSHA": "e0efc2edf006cb7da772961416e5098ab9ea6b626838adb9bf0c7da9c36da9fa",
+      "maxWindowOmega": 112.40202644479191,
+      "maxWindowAxial": 112.3638182499748,
+      "maxWindowBaseAxialNm": 0.0003985489207652265,
+      "maxWindowGravityAxialNm": 0.0036249512409461393,
+      "maxGripAnchorGapM": 0.0003320666206152924
+    },
+    {
+      "weapon": "monohoshizao",
+      "mode": "noGravityAxial",
+      "from": 4.45,
+      "firstActive": 4.450000000000011,
+      "initialNativeSHA": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30",
+      "prefixTraceSHA": "3074c73be9d9ea42975bfeba240dc7d20b3059f62118db4080562e41db18cee7",
+      "nativeTraceSHA": "8539460b82856d9db481caae80db0de6057db81965d1439fa037d1f3baad0e8d",
+      "maxWindowOmega": 91.41192745782108,
+      "maxWindowAxial": 91.3592166297106,
+      "maxWindowBaseAxialNm": 3.440085455608255e-05,
+      "maxWindowGravityAxialNm": 0.017859462264223552,
+      "maxGripAnchorGapM": 0.0021397146040980416
+    },
+    {
+      "weapon": "monohoshizao",
+      "mode": "noTwist",
+      "from": 4.45,
+      "firstActive": 4.450000000000011,
+      "initialNativeSHA": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30",
+      "prefixTraceSHA": "3074c73be9d9ea42975bfeba240dc7d20b3059f62118db4080562e41db18cee7",
+      "nativeTraceSHA": "db6df321f41b9375df3e4de633124b614121d7b18ea37e22de73d8495c60c513",
+      "maxWindowOmega": 278.9712923819268,
+      "maxWindowAxial": 278.9713123818891,
+      "maxWindowBaseAxialNm": 0.0010296214939775616,
+      "maxWindowGravityAxialNm": 0.0036271759294581596,
+      "maxGripAnchorGapM": 0.0003827807134604943
+    },
+    {
+      "weapon": "monohoshizao",
+      "mode": "noSwordContacts",
+      "from": 4.45,
+      "firstActive": 4.450000000000011,
+      "initialNativeSHA": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30",
+      "prefixTraceSHA": "3074c73be9d9ea42975bfeba240dc7d20b3059f62118db4080562e41db18cee7",
+      "nativeTraceSHA": "90c8003099084da86a71e0fcb0ea1d61d418fe93654125cb0bbc9349ad6a8360",
+      "maxWindowOmega": 90.89555601168621,
+      "maxWindowAxial": 90.32494020857621,
+      "maxWindowBaseAxialNm": 0.0003985489207652265,
+      "maxWindowGravityAxialNm": 0.0036249512409461393,
+      "maxGripAnchorGapM": 0.0003320666206152924
+    },
+    {
+      "weapon": "monohoshizao",
+      "mode": "halfPhysics",
+      "from": 4.45,
+      "firstActive": 4.450000000000011,
+      "initialNativeSHA": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30",
+      "prefixTraceSHA": "3074c73be9d9ea42975bfeba240dc7d20b3059f62118db4080562e41db18cee7",
+      "nativeTraceSHA": "810ba408f4f5f7d7c87c12d308efd5e787a7db9ab5d7613496dd19d03827aae8",
+      "maxWindowOmega": 237.99254819655226,
+      "maxWindowAxial": 237.87181007302178,
+      "maxWindowBaseAxialNm": 0.00019458981989362023,
+      "maxWindowGravityAxialNm": 0.0007735226751272584,
+      "maxGripAnchorGapM": 0.00016315633801445523
+    },
+    {
+      "weapon": "lightsaber",
+      "mode": "observe",
+      "from": 6.09,
+      "firstActive": 6.091666666666759,
+      "initialNativeSHA": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c",
+      "prefixTraceSHA": "f006a8fbb4dd34ebfb526558f2ac73112332d7bbe56e44e9d784724d7ce91fec",
+      "nativeTraceSHA": "b7a690d6f3ec2e43ac14bc37bcc0ea70ea43c50b3b8e7fed195b917f57175870",
+      "maxWindowOmega": 81.96084612405589,
+      "maxWindowAxial": 81.89835895318888,
+      "maxWindowBaseAxialNm": 0.0002724759434948876,
+      "maxWindowGravityAxialNm": 0.0006458183823223234,
+      "maxGripAnchorGapM": 0.0010740127713957678
+    },
+    {
+      "weapon": "lightsaber",
+      "mode": "noGravityAxial",
+      "from": 6.09,
+      "firstActive": 6.091666666666759,
+      "initialNativeSHA": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c",
+      "prefixTraceSHA": "f006a8fbb4dd34ebfb526558f2ac73112332d7bbe56e44e9d784724d7ce91fec",
+      "nativeTraceSHA": "e6a10ba3c294c0b65f70814a8a01fddf825d4584a22127958e2b16ab67c31ec6",
+      "maxWindowOmega": 81.97899336487808,
+      "maxWindowAxial": 81.91651244403138,
+      "maxWindowBaseAxialNm": 0.0001053144641524062,
+      "maxWindowGravityAxialNm": 0.0006439402218097962,
+      "maxGripAnchorGapM": 0.001073542219914673
+    },
+    {
+      "weapon": "lightsaber",
+      "mode": "noTwist",
+      "from": 6.09,
+      "firstActive": 6.091666666666759,
+      "initialNativeSHA": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c",
+      "prefixTraceSHA": "f006a8fbb4dd34ebfb526558f2ac73112332d7bbe56e44e9d784724d7ce91fec",
+      "nativeTraceSHA": "f500be3e1b500a48abb0141b19c0cbe294a1242cee6ef59b3cc8cb924ce4f0c6",
+      "maxWindowOmega": 202.79644981872735,
+      "maxWindowAxial": 202.7818376178388,
+      "maxWindowBaseAxialNm": 0.0006068156771312783,
+      "maxWindowGravityAxialNm": 0.0011978065801229731,
+      "maxGripAnchorGapM": 0.0005242260643263418
+    },
+    {
+      "weapon": "lightsaber",
+      "mode": "noSwordContacts",
+      "from": 6.09,
+      "firstActive": 6.091666666666759,
+      "initialNativeSHA": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c",
+      "prefixTraceSHA": "f006a8fbb4dd34ebfb526558f2ac73112332d7bbe56e44e9d784724d7ce91fec",
+      "nativeTraceSHA": "a96fa468de7991dda06103a62906283bfb5d80906e444049fcc58cf4ae297407",
+      "maxWindowOmega": 39.258721649413786,
+      "maxWindowAxial": 37.53843508934314,
+      "maxWindowBaseAxialNm": 7.203475438677387e-05,
+      "maxWindowGravityAxialNm": 0.0002451155671621269,
+      "maxGripAnchorGapM": 0.00020677786206298692
+    },
+    {
+      "weapon": "lightsaber",
+      "mode": "halfPhysics",
+      "from": 6.09,
+      "firstActive": 6.091666666666759,
+      "initialNativeSHA": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c",
+      "prefixTraceSHA": "f006a8fbb4dd34ebfb526558f2ac73112332d7bbe56e44e9d784724d7ce91fec",
+      "nativeTraceSHA": "5ff501df659331b75b88dda5866d146ccee3a1809f050a170e59b2e10aee7bd0",
+      "maxWindowOmega": 120.40131350335449,
+      "maxWindowAxial": 119.79266795039372,
+      "maxWindowBaseAxialNm": 7.630867507302241e-05,
+      "maxWindowGravityAxialNm": 9.803781847286981e-05,
+      "maxGripAnchorGapM": 0.0001076820052615168
+    }
+  ],
+  "correctedDtSummaries": [
+    {
+      "weapon": "monohoshizao",
+      "mode": "recomputeOriginal",
+      "from": 4.45,
+      "firstActive": 4.450000000000011,
+      "initialNativeSHA": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30",
+      "prefixTraceSHA": "3074c73be9d9ea42975bfeba240dc7d20b3059f62118db4080562e41db18cee7",
+      "nativeTraceSHA": "63d1ebbc6f4d467acab881f19a3909f853da2b142edc0f4b2589f3b68f773db3",
+      "maxWindowOmega": 112.40202644479191,
+      "maxWindowAxial": 112.3638182499748,
+      "maxWindowBaseAxialNm": 0.0008027548707466581,
+      "maxWindowGravityAxialNm": 0.0042453744508879065,
+      "maxGripAnchorGapM": 0.0017064668159451945
+    },
+    {
+      "weapon": "monohoshizao",
+      "mode": "recomputeHalf",
+      "from": 4.45,
+      "firstActive": 4.450000000000011,
+      "initialNativeSHA": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30",
+      "prefixTraceSHA": "3074c73be9d9ea42975bfeba240dc7d20b3059f62118db4080562e41db18cee7",
+      "nativeTraceSHA": "e4df5e33c6ee7cf441f3c882d75ffadd7e2a909e8a4e040d99181066db98c55a",
+      "maxWindowOmega": 56.64134910767785,
+      "maxWindowAxial": 55.73764605116228,
+      "maxWindowBaseAxialNm": 8.100496737537899e-05,
+      "maxWindowGravityAxialNm": 0.00037871765303647276,
+      "maxGripAnchorGapM": 5.204397840536138e-05
+    },
+    {
+      "weapon": "monohoshizao",
+      "mode": "recomputeQuarter",
+      "from": 4.45,
+      "firstActive": 4.450000000000011,
+      "initialNativeSHA": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30",
+      "prefixTraceSHA": "3074c73be9d9ea42975bfeba240dc7d20b3059f62118db4080562e41db18cee7",
+      "nativeTraceSHA": "bd66b15cfe214295f7878fcd2bec0e6325b25f0274553ea72886849254b435e2",
+      "maxWindowOmega": 53.5904923057659,
+      "maxWindowAxial": 52.80972861316322,
+      "maxWindowBaseAxialNm": 0.0001515509739657972,
+      "maxWindowGravityAxialNm": 0.00010993404546488783,
+      "maxGripAnchorGapM": 1.497085167593761e-05
+    },
+    {
+      "weapon": "lightsaber",
+      "mode": "recomputeOriginal",
+      "from": 6.09,
+      "firstActive": 6.091666666666759,
+      "initialNativeSHA": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c",
+      "prefixTraceSHA": "f006a8fbb4dd34ebfb526558f2ac73112332d7bbe56e44e9d784724d7ce91fec",
+      "nativeTraceSHA": "6f5a4550f49a119d43576d4eba327356e801188f04c4dd6f8c0c50c4c755ef00",
+      "maxWindowOmega": 81.96084612405589,
+      "maxWindowAxial": 81.89835895318888,
+      "maxWindowBaseAxialNm": 0.000572862603940294,
+      "maxWindowGravityAxialNm": 0.0016449051961006655,
+      "maxGripAnchorGapM": 0.0010740127713957678
+    },
+    {
+      "weapon": "lightsaber",
+      "mode": "recomputeHalf",
+      "from": 6.09,
+      "firstActive": 6.091666666666759,
+      "initialNativeSHA": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c",
+      "prefixTraceSHA": "f006a8fbb4dd34ebfb526558f2ac73112332d7bbe56e44e9d784724d7ce91fec",
+      "nativeTraceSHA": "b99e1c6aa688b976a62f1ea89eb29cf14bc03a42f5c50c086c0f0c66625f7cd5",
+      "maxWindowOmega": 139.5094454320517,
+      "maxWindowAxial": 139.5079667486281,
+      "maxWindowBaseAxialNm": 0.0001751856636547089,
+      "maxWindowGravityAxialNm": 0.000279698303621451,
+      "maxGripAnchorGapM": 0.00022114557543670863
+    },
+    {
+      "weapon": "lightsaber",
+      "mode": "recomputeQuarter",
+      "from": 6.09,
+      "firstActive": 6.091666666666759,
+      "initialNativeSHA": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c",
+      "prefixTraceSHA": "f006a8fbb4dd34ebfb526558f2ac73112332d7bbe56e44e9d784724d7ce91fec",
+      "nativeTraceSHA": "2d7456c4f5cf7e41e13780b2ce77ab745b09e5a6bb19086699974c0a9a7d7a2b",
+      "maxWindowOmega": 62.68864775808363,
+      "maxWindowAxial": 60.920642091797184,
+      "maxWindowBaseAxialNm": 0.00029699569999175335,
+      "maxWindowGravityAxialNm": 0.0005136391677493055,
+      "maxGripAnchorGapM": 0.00010848682999416632
+    }
+  ],
+  "predictedPointSummaries": [
+    {
+      "weapon": "monohoshizao",
+      "mode": "predictedCommonPoint",
+      "from": 4.45,
+      "firstActive": 4.450000000000011,
+      "initialNativeSHA": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30",
+      "prefixTraceSHA": "3074c73be9d9ea42975bfeba240dc7d20b3059f62118db4080562e41db18cee7",
+      "nativeTraceSHA": "4fb057a3c26b54b6e3912574bf65091e0c8203564b24168ff799ffab1c69e521",
+      "maxWindowOmega": 152.25993103959098,
+      "maxWindowAxial": 151.87775039408447,
+      "maxWindowBaseAxialNm": 0.0014977887072470941,
+      "maxWindowGravityAxialNm": 0.004491060574491529,
+      "maxGripAnchorGapM": 0.00064139210496091
+    },
+    {
+      "weapon": "lightsaber",
+      "mode": "predictedCommonPoint",
+      "from": 6.09,
+      "firstActive": 6.091666666666759,
+      "initialNativeSHA": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c",
+      "prefixTraceSHA": "f006a8fbb4dd34ebfb526558f2ac73112332d7bbe56e44e9d784724d7ce91fec",
+      "nativeTraceSHA": "bd451c7517c7006ef3eb62b1862e1de9d25209ec20f50638bfc0f2e03e1b4605",
+      "maxWindowOmega": 570.5818678206041,
+      "maxWindowAxial": 565.5751738272362,
+      "maxWindowBaseAxialNm": 0.0005136373104688285,
+      "maxWindowGravityAxialNm": 0.010821702728998545,
+      "maxGripAnchorGapM": 0.0021257632468036016
+    }
+  ],
+  "monoFirstEpisode": {
+    "timeS": 4.541666666666682,
+    "directWristBaseAxialNm": 6.552053147196313e-05,
+    "twistAxialNm": -0.7425294717531022,
+    "offHandAxialNm": 3.6035173640591722e-06,
+    "swordContactManifolds": 0,
+    "prePhysicsAxialRadS": 34.49609176963502,
+    "postPhysicsAxialRadS": 50.929692187215586,
+    "postCombatAxialRadS": 50.929692187215586
+  },
+  "validMonoSnapshotFork": {
+    "timeS": 4.541666666666682,
+    "snapshotSHA": "a2a86a16e844c1a89d3ba74d4fa1e1e3396b435e117def057e25e5187d313097",
+    "rows": [
+      {
+        "label": "exact",
+        "n": 1,
+        "removeGrip": false,
+        "isolate": false,
+        "pre": {
+          "omega": [
+            33.932762145996094,
+            8.930954933166504,
+            7.352566719055176
+          ],
+          "axial": 34.49609176963502,
+          "swing": 9.760843000783886,
+          "blade": [
+            0.924066903903598,
+            0.38060162450500057,
+            -0.03525117871901884
+          ],
+          "force": [
+            -40.64124298095703,
+            -128.79270935058594,
+            124.25341033935547
+          ],
+          "torque": [
+            -27.48360824584961,
+            71.28819274902344,
+            70.30033111572266
+          ]
+        },
+        "post": {
+          "omega": [
+            47.93224334716797,
+            17.989070892333984,
+            8.234944343566895
+          ],
+          "axial": 50.929692187215586,
+          "swing": 9.751265019556802,
+          "blade": [
+            0.8946499181663814,
+            0.44676605035563943,
+            0.0012396497874345158
+          ],
+          "force": [
+            -40.64124298095703,
+            -128.79270935058594,
+            124.25341033935547
+          ],
+          "torque": [
+            -27.48360824584961,
+            71.28819274902344,
+            70.30033111572266
+          ]
+        },
+        "m0": {
+          "L": [
+            0.3270029001330482,
+            -0.657816057296373,
+            1.345813421006221
+          ],
+          "rotationalKJ": 7.558184519293297,
+          "principalInertia": {
+            "x": 0.1570814847946167,
+            "y": 0.00012654380407184362,
+            "z": 0.1570814847946167
+          },
+          "principalFrame": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          }
+        },
+        "m1": {
+          "L": [
+            0.377733795078254,
+            -0.7455491125682359,
+            1.2836474795734738
+          ],
+          "rotationalKJ": 7.632328948740468,
+          "principalInertia": {
+            "x": 0.1570814847946167,
+            "y": 0.00012654380407184362,
+            "z": 0.1570814847946167
+          },
+          "principalFrame": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          }
+        },
+        "deltaLWorld": [
+          0.05073089494520577,
+          -0.08773305527186281,
+          -0.06216594143274712
+        ]
+      },
+      {
+        "label": "half",
+        "n": 2,
+        "removeGrip": false,
+        "isolate": false,
+        "pre": {
+          "omega": [
+            33.932762145996094,
+            8.930954933166504,
+            7.352566719055176
+          ],
+          "axial": 34.49609176963502,
+          "swing": 9.760843000783886,
+          "blade": [
+            0.924066903903598,
+            0.38060162450500057,
+            -0.03525117871901884
+          ],
+          "force": [
+            -40.64124298095703,
+            -128.79270935058594,
+            124.25341033935547
+          ],
+          "torque": [
+            -27.48360824584961,
+            71.28819274902344,
+            70.30033111572266
+          ]
+        },
+        "post": {
+          "omega": [
+            119.50312805175781,
+            52.07088851928711,
+            7.728664398193359
+          ],
+          "axial": 130.21664679417466,
+          "swing": 9.784244475902256,
+          "blade": [
+            0.8953353424544961,
+            0.44537550084003996,
+            0.003904253122216872
+          ],
+          "force": [
+            -40.64124298095703,
+            -128.79270935058594,
+            124.25341033935547
+          ],
+          "torque": [
+            -27.48360824584961,
+            71.28819274902344,
+            70.30033111572266
+          ]
+        },
+        "m0": {
+          "L": [
+            0.3270029001330482,
+            -0.657816057296373,
+            1.345813421006221
+          ],
+          "rotationalKJ": 7.558184519293297,
+          "principalInertia": {
+            "x": 0.1570814847946167,
+            "y": 0.00012654380407184362,
+            "z": 0.1570814847946167
+          },
+          "principalFrame": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          }
+        },
+        "m1": {
+          "L": [
+            0.4727331801863248,
+            -0.9232771130524966,
+            1.1342336952369472
+          ],
+          "rotationalKJ": 8.59167285978218,
+          "principalInertia": {
+            "x": 0.1570814847946167,
+            "y": 0.00012654380407184362,
+            "z": 0.1570814847946167
+          },
+          "principalFrame": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          }
+        },
+        "deltaLWorld": [
+          0.1457302800532766,
+          -0.26546105575612355,
+          -0.21157972576927375
+        ]
+      },
+      {
+        "label": "quarter",
+        "n": 4,
+        "removeGrip": false,
+        "isolate": false,
+        "pre": {
+          "omega": [
+            33.932762145996094,
+            8.930954933166504,
+            7.352566719055176
+          ],
+          "axial": 34.49609176963502,
+          "swing": 9.760843000783886,
+          "blade": [
+            0.924066903903598,
+            0.38060162450500057,
+            -0.03525117871901884
+          ],
+          "force": [
+            -40.64124298095703,
+            -128.79270935058594,
+            124.25341033935547
+          ],
+          "torque": [
+            -27.48360824584961,
+            71.28819274902344,
+            70.30033111572266
+          ]
+        },
+        "post": {
+          "omega": [
+            171.864990234375,
+            77.5546646118164,
+            7.797868251800537
+          ],
+          "axial": 188.46514249172301,
+          "swing": 9.69544160178129,
+          "blade": [
+            0.8957555644714912,
+            0.4445144992933301,
+            0.005379450165717614
+          ],
+          "force": [
+            -40.64124298095703,
+            -128.79270935058594,
+            124.25341033935547
+          ],
+          "torque": [
+            -27.48360824584961,
+            71.28819274902344,
+            70.30033111572266
+          ]
+        },
+        "m0": {
+          "L": [
+            0.3270029001330482,
+            -0.657816057296373,
+            1.345813421006221
+          ],
+          "rotationalKJ": 7.558184519293297,
+          "principalInertia": {
+            "x": 0.1570814847946167,
+            "y": 0.00012654380407184362,
+            "z": 0.1570814847946167
+          },
+          "principalFrame": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          }
+        },
+        "m1": {
+          "L": [
+            0.4998826175911188,
+            -0.9665751614659008,
+            1.0657762950688794
+          ],
+          "rotationalKJ": 9.630345927935213,
+          "principalInertia": {
+            "x": 0.1570814847946167,
+            "y": 0.00012654380407184362,
+            "z": 0.1570814847946167
+          },
+          "principalFrame": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          }
+        },
+        "deltaLWorld": [
+          0.17287971745807057,
+          -0.3087591041695278,
+          -0.28003712593734154
+        ]
+      },
+      {
+        "label": "noGrip",
+        "n": 1,
+        "removeGrip": true,
+        "isolate": false,
+        "pre": {
+          "omega": [
+            33.932762145996094,
+            8.930954933166504,
+            7.352566719055176
+          ],
+          "axial": 34.49609176963502,
+          "swing": 9.760843000783886,
+          "blade": [
+            0.924066903903598,
+            0.38060162450500057,
+            -0.03525117871901884
+          ],
+          "force": [
+            -40.64124298095703,
+            -128.79270935058594,
+            124.25341033935547
+          ],
+          "torque": [
+            -27.48360824584961,
+            71.28819274902344,
+            70.30033111572266
+          ]
+        },
+        "post": {
+          "omega": [
+            -12.63837718963623,
+            -5.86637544631958,
+            12.77231502532959
+          ],
+          "axial": -14.131708973325257,
+          "swing": 12.552679298594276,
+          "blade": [
+            0.8867388521239334,
+            0.46196487350673543,
+            -0.01681053904872165
+          ],
+          "force": [
+            -40.64124298095703,
+            -128.79270935058594,
+            124.25341033935547
+          ],
+          "torque": [
+            -27.48360824584961,
+            71.28819274902344,
+            70.30033111572266
+          ]
+        },
+        "m0": {
+          "L": [
+            0.3270029001330482,
+            -0.657816057296373,
+            1.345813421006221
+          ],
+          "rotationalKJ": 7.558184519293297,
+          "principalInertia": {
+            "x": 0.1570814847946167,
+            "y": 0.00012654380407184362,
+            "z": 0.1570814847946167
+          },
+          "principalFrame": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          }
+        },
+        "m1": {
+          "L": [
+            -0.01843132457895963,
+            0.10315828951333963,
+            1.9690077547843157
+          ],
+          "rotationalKJ": 12.388282053435162,
+          "principalInertia": {
+            "x": 0.1570814847946167,
+            "y": 0.00012654380407184362,
+            "z": 0.1570814847946167
+          },
+          "principalFrame": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          }
+        },
+        "deltaLWorld": [
+          -0.34543422471200785,
+          0.7609743468097127,
+          0.6231943337780947
+        ]
+      },
+      {
+        "label": "isolatedSword",
+        "n": 1,
+        "removeGrip": true,
+        "isolate": true,
+        "pre": {
+          "omega": [
+            33.932762145996094,
+            8.930954933166504,
+            7.352566719055176
+          ],
+          "axial": 34.49609176963502,
+          "swing": 9.760843000783886,
+          "blade": [
+            0.924066903903598,
+            0.38060162450500057,
+            -0.03525117871901884
+          ],
+          "force": [
+            -40.64124298095703,
+            -128.79270935058594,
+            124.25341033935547
+          ],
+          "torque": [
+            -27.48360824584961,
+            71.28819274902344,
+            70.30033111572266
+          ]
+        },
+        "post": {
+          "omega": [
+            -12.63837718963623,
+            -5.86637544631958,
+            12.77231502532959
+          ],
+          "axial": -14.131708973325257,
+          "swing": 12.552679298594276,
+          "blade": [
+            0.8867388521239334,
+            0.46196487350673543,
+            -0.01681053904872165
+          ],
+          "force": [
+            -40.64124298095703,
+            -128.79270935058594,
+            124.25341033935547
+          ],
+          "torque": [
+            -27.48360824584961,
+            71.28819274902344,
+            70.30033111572266
+          ]
+        },
+        "m0": {
+          "L": [
+            0.3270029001330482,
+            -0.657816057296373,
+            1.345813421006221
+          ],
+          "rotationalKJ": 7.558184519293297,
+          "principalInertia": {
+            "x": 0.1570814847946167,
+            "y": 0.00012654380407184362,
+            "z": 0.1570814847946167
+          },
+          "principalFrame": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          }
+        },
+        "m1": {
+          "L": [
+            -0.01843132457895963,
+            0.10315828951333963,
+            1.9690077547843157
+          ],
+          "rotationalKJ": 12.388282053435162,
+          "principalInertia": {
+            "x": 0.1570814847946167,
+            "y": 0.00012654380407184362,
+            "z": 0.1570814847946167
+          },
+          "principalFrame": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          }
+        },
+        "deltaLWorld": [
+          -0.34543422471200785,
+          0.7609743468097127,
+          0.6231943337780947
+        ]
+      },
+      {
+        "label": "attachedPointQuarter",
+        "n": 4,
+        "removeGrip": false,
+        "isolate": false,
+        "pre": {
+          "omega": [
+            33.932762145996094,
+            8.930954933166504,
+            7.352566719055176
+          ],
+          "axial": 34.49609176963502,
+          "swing": 9.760843000783886,
+          "blade": [
+            0.924066903903598,
+            0.38060162450500057,
+            -0.03525117871901884
+          ],
+          "force": [
+            -40.64124298095703,
+            -128.79270935058594,
+            124.25341033935547
+          ],
+          "torque": [
+            -27.48360824584961,
+            71.28819274902344,
+            70.30033111572266
+          ]
+        },
+        "post": {
+          "omega": [
+            23.48082733154297,
+            7.101219654083252,
+            9.123127937316895
+          ],
+          "axial": 24.17385588624313,
+          "swing": 10.031584028603847,
+          "blade": [
+            0.8939578136662618,
+            0.4481510221673104,
+            6.225663542913651e-05
+          ],
+          "force": [
+            -40.64124298095703,
+            -128.79270935058594,
+            124.25341033935547
+          ],
+          "torque": [
+            -27.844951629638672,
+            59.01451110839844,
+            81.40657043457031
+          ]
+        },
+        "m0": {
+          "L": [
+            0.3270029001330482,
+            -0.657816057296373,
+            1.345813421006221
+          ],
+          "rotationalKJ": 7.558184519293297,
+          "principalInertia": {
+            "x": 0.1570814847946167,
+            "y": 0.00012654380407184362,
+            "z": 0.1570814847946167
+          },
+          "principalFrame": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          }
+        },
+        "m1": {
+          "L": [
+            0.29654259986213344,
+            -0.5849073141859961,
+            1.4328380339711657
+          ],
+          "rotationalKJ": 7.940737482933754,
+          "principalInertia": {
+            "x": 0.1570814847946167,
+            "y": 0.00012654380407184362,
+            "z": 0.1570814847946167
+          },
+          "principalFrame": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          }
+        },
+        "deltaLWorld": [
+          -0.030460300270914786,
+          0.07290874311037698,
+          0.08702461296494479
+        ]
+      },
+      {
+        "label": "bodyTorqueQuarter",
+        "n": 4,
+        "removeGrip": false,
+        "isolate": false,
+        "pre": {
+          "omega": [
+            33.932762145996094,
+            8.930954933166504,
+            7.352566719055176
+          ],
+          "axial": 34.49609176963502,
+          "swing": 9.760843000783886,
+          "blade": [
+            0.924066903903598,
+            0.38060162450500057,
+            -0.03525117871901884
+          ],
+          "force": [
+            -40.64124298095703,
+            -128.79270935058594,
+            124.25341033935547
+          ],
+          "torque": [
+            -27.48360824584961,
+            71.28819274902344,
+            70.30033111572266
+          ]
+        },
+        "post": {
+          "omega": [
+            13.926111221313477,
+            2.547518730163574,
+            9.21644115447998
+          ],
+          "axial": 13.587472043115614,
+          "swing": 10.037421523788193,
+          "blade": [
+            0.8938715231279915,
+            0.4483231938720209,
+            -0.0003031472819685632
+          ],
+          "force": [
+            -40.64124298095703,
+            -128.79270935058594,
+            124.25341033935547
+          ],
+          "torque": [
+            -27.998416900634766,
+            58.48616027832031,
+            81.08606719970703
+          ]
+        },
+        "m0": {
+          "L": [
+            0.3270029001330482,
+            -0.657816057296373,
+            1.345813421006221
+          ],
+          "rotationalKJ": 7.558184519293297,
+          "principalInertia": {
+            "x": 0.1570814847946167,
+            "y": 0.00012654380407184362,
+            "z": 0.1570814847946167
+          },
+          "principalFrame": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          }
+        },
+        "m1": {
+          "L": [
+            0.2812454021012455,
+            -0.5559353204503263,
+            1.4483788940493976
+          ],
+          "rotationalKJ": 7.924648977467672,
+          "principalInertia": {
+            "x": 0.1570814847946167,
+            "y": 0.00012654380407184362,
+            "z": 0.1570814847946167
+          },
+          "principalFrame": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          }
+        },
+        "deltaLWorld": [
+          -0.045757498031802735,
+          0.1018807368460467,
+          0.10256547304317665
+        ]
+      }
+    ],
+    "exactCloneParity": true
+  },
+  "excluded": [
+    "All light snapshot forks: exact clone/live physics mismatch; contact-state restore not established.",
+    "recomputed-dt.json six rows: duplicated loop omitted both faceTarget updates; parity failed. Corrected rerun exact at120Hz; earlier values not efficacy evidence."
+  ],
+  "candidateVerdict": "Ballistic predicted common point rejected. Contact-free uninjured mono early-window axial peak84.382 ->129.977rad/s. No runtime flag or public CTA added. Full-window contact/wound branches diverge, so not matched efficacy.",
+  "dtVerdict": "Recomputed240/480Hz reduces mono window max112->57/54 but light82->140/63 is nonmonotonic; coupled AI/contacts alter after-prefix states. Not continuous convergence, human improvement or approved default.",
+  "interpretation": "Contact-free mono onset is sensitive to spherical grip constraint and transverse-wrench transport within finite steps, while twist currently opposes it. Gravity leakage is secondary. Native angular momentum/integration closure not complete; no engine bug verdict. Thin-axis omega alone is not excessive energy or an inertia defect.",
+  "next": "Move to existing native elbow motor/gravity shared-cap candidate actual combat screening, keeping joint handle and calibrated research engine; no failed free-pair replacement.",
+  "currentTool": {
+    "file": "tools/sim/experiments/axial_combat_probe.mjs",
+    "bytes": 12099,
+    "sha256": "0b91afd2a492cc6c5678f98dee4b6135a170b45b46f2c999353eff657f5bb814",
+    "dependency": "Current committed game source/npm Rapier0.19.3; historical matching tool versions stored with each raw block."
+  },
+  "reproductionCommands": [
+    "node tools/sim/experiments/axial_combat_probe.mjs --out=/tmp/axial-observe.json --modes=observe --seconds=10",
+    "node tools/sim/experiments/axial_combat_probe.mjs --out=/tmp/axial-transport.json --weapons=monohoshizao --modes=observe --seconds=4.6 --forks=on",
+    "node tools/sim/experiments/axial_combat_probe.mjs --out=/tmp/axial-dt.json --modes=recomputeOriginal,recomputeHalf,recomputeQuarter --seconds=10"
+  ]
+}

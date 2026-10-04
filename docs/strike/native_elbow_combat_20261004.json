@@ -1,0 +1,431 @@
+{
+  "sourceCommit": "f2601a89b7e3bc205af1b5b8fd2fba543b3c6ebe",
+  "sourceState": "Tracked game/lock/dependencies unchanged; new probe untracked with executed file SHA.",
+  "gameCodeChanged": false,
+  "defaultChanged": false,
+  "engine": {
+    "modulePath": "/workspace/halfsword-research-import-20261003/engine/rapier.mjs",
+    "sha256": "a3be9d8361b386b0b664ee7ba771f14ae60e93eda9a4ab825f1de1260dbb5623",
+    "sha256After": "a3be9d8361b386b0b664ee7ba771f14ae60e93eda9a4ab825f1de1260dbb5623",
+    "calibrationPath": "/workspace/halfsword-research-import-20261003/engine/native-motor-api-r1.json",
+    "calibrationSHA256": "90a7ef5a2e34c18ea601d61a04fff36e4b6a766e8a360a10a85196d5fa8a4089",
+    "calibrationSourceSHA256": "9eba24d3bd10f76a8d53569cf8064b006015133134de02375948a0b4d75c849c"
+  },
+  "protocol": {
+    "seed": 7,
+    "seconds": 10,
+    "prefixSeconds": 3,
+    "timestepS": 0.008333333333333333,
+    "AI": "Both original actual normal AI, skill .7",
+    "intervention": "Player only, original farmS hinge retained; existing gravity FF moved inside ForceBased native motor target bias. All other choice flags and paired grip remain defaults.",
+    "observation": "Baseline has counting wrappers and raw native getter reads but no installNativeElbow. Observe installs the actual native observer from tick0. NativeCap has the observer for the 3s prefix, then capped actual dispatch. Full baseline/observe parity tests noninterference of the native configure observer.",
+    "wounds": "Only real Combat.afterStep collision wounds; no synthetic injury or limb injection.",
+    "readout": "The impulse getter is the LAST solver substep only. Cap uses outer dt / calibrated numSolverIterations. No fullstep impulse, native work or physiological budget inferred.",
+    "contacts": "Actual full-world native contact manifolds hashed every tick; raw impulses and solver points not paired or weighted.",
+    "controller": "Plain own-state serialization excludes functions/native engine and render ownership and bounds nested depth at8; native snapshots cover the full native world.",
+    "acceptance": "Finite/joint/parity/cap gates establish measurement validity, not physical gameplay acceptance or human naturalness."
+  },
+  "currentToolSHA256": "babfe29dbac1079f7296287bfce11f390108ae8c6bf103083283e2d820714bf7",
+  "executedTool": {
+    "file": "combat-corrected-run2.tool.mjs",
+    "bytes": 18404,
+    "sha256": "babfe29dbac1079f7296287bfce11f390108ae8c6bf103083283e2d820714bf7"
+  },
+  "rawRoot": "/workspace/halfsword-handoff/native-elbow-combat-20261004",
+  "artifacts": [
+    {
+      "file": "absolute-harness-3ulemJ/harness.mjs",
+      "bytes": 6584,
+      "sha256": "65587a77d1e7bb65119a1579fc0843c88daa399e15adfac06b7bdcec64fa8804"
+    },
+    {
+      "file": "absolute-harness-DvQ13m/harness.mjs",
+      "bytes": 6584,
+      "sha256": "65587a77d1e7bb65119a1579fc0843c88daa399e15adfac06b7bdcec64fa8804"
+    },
+    {
+      "file": "combat-audit-summary.json",
+      "bytes": 18754,
+      "sha256": "6edc43e32cf1c88fef4d9cd1061275b705a3cff50594b4be01969bb6255c0d46"
+    },
+    {
+      "file": "combat-corrected-run2.json",
+      "bytes": 22695288,
+      "sha256": "41d832173b880609cbf3ebceea2adae6574a7ddacd35987574480593aa9f7ca8"
+    },
+    {
+      "file": "combat-corrected-run2.json.summary.json",
+      "bytes": 78634,
+      "sha256": "b4757aefef0cbb9f71effab5e75f9da97c08c8261e4de804ed85584522adcc49"
+    },
+    {
+      "file": "combat-corrected-run2.log",
+      "bytes": 5788,
+      "sha256": "1850efb85f6438a00249b0fc531d0a8976e249e793f636f220862c00ebde931b"
+    },
+    {
+      "file": "combat-corrected-run2.tool.mjs",
+      "bytes": 18404,
+      "sha256": "babfe29dbac1079f7296287bfce11f390108ae8c6bf103083283e2d820714bf7"
+    },
+    {
+      "file": "combat-run1.json",
+      "bytes": 24704066,
+      "sha256": "d26ccf82699590a55fd753b15c0a7cebc33133e8754932b068ce77fef0c18aaa"
+    },
+    {
+      "file": "combat-run1.json.summary.json",
+      "bytes": 79689,
+      "sha256": "4c11f8900270935dd53ba50267cedfe7519eaebbb8aef1f7f6c2d122b1209fd0"
+    },
+    {
+      "file": "combat-run1.log",
+      "bytes": 7073,
+      "sha256": "93ab1a1daa05246fafe2ab6c9234d8361d7f83d0c90b9d6472c8c788246d46ac"
+    },
+    {
+      "file": "combat-run1.tool.mjs",
+      "bytes": 17670,
+      "sha256": "3f79c9d504db53f0724db3de5c8e355161e380480868f90a0e41473cee3731a2"
+    }
+  ],
+  "reproductionCommand": "node tools/sim/experiments/native_elbow_combat_probe.mjs --out=/tmp/native-elbow-combat.json",
+  "validCorrectedRows": 6,
+  "totalSceneExecutions": 12,
+  "wallSeconds": 49.840903694,
+  "startUTC": "2026-10-04T04:39:11.061Z",
+  "endUTC": "2026-10-04T04:40:00.901Z",
+  "measurementAccepted": true,
+  "rows": [
+    {
+      "weapon": "sabre",
+      "mode": "baseline",
+      "executionPass": true,
+      "frameCount": 1200,
+      "counts": {
+        "driveJoints": 1200,
+        "driveSword": 1200,
+        "externalFFCalls": 1200
+      },
+      "native": null,
+      "jointPreserved": true,
+      "finite": true,
+      "combatOnWoundEvents": 1,
+      "combatPositiveSeverityEvents": 0,
+      "clashes": 26,
+      "actualFinalWoundCounts": [
+        0,
+        0
+      ],
+      "maxHandErrorM": 0.5265390778556402,
+      "maxAimErrorRad": 2.9993301408381856,
+      "maxJointAnchorGapM": 0.0023558521222710733,
+      "peakTipSpeedMps": 20.511693615647566,
+      "everyMotorEnabled": true,
+      "postPrefixMaxForceRangeNm": [
+        3.4028234663852886e+38,
+        3.4028234663852886e+38
+      ],
+      "errors": []
+    },
+    {
+      "weapon": "sabre",
+      "mode": "observe",
+      "executionPass": true,
+      "frameCount": 1200,
+      "counts": {
+        "driveJoints": 1200,
+        "driveSword": 1200,
+        "externalFFCalls": 1200
+      },
+      "native": {
+        "mode": "observe",
+        "jointRecreated": false,
+        "originalCap": 3.4028234663852886e+38,
+        "nativeCalls": 1200,
+        "explicitGravityCalls": 0,
+        "measurements": 1200,
+        "errors": [],
+        "maxLastSubstepCapRatio": 0.5741022303700447,
+        "maxLastSubstepImpulseNms": 0.06378913670778275,
+        "limitedAtLastSubstep": 0,
+        "meaning": "Native farmS PD plus current elbow gravity FF share a scalar axis cap. Other muscles, passive joint limits, and force-velocity realism are separate.",
+        "readout": "Native getter is the LAST solver substep impulse. It is not total outer-step impulse or work. Substep cap uses outer dt / numSolverIterations for this calibrated engine; never sum by multiplying one readback."
+      },
+      "jointPreserved": true,
+      "finite": true,
+      "combatOnWoundEvents": 1,
+      "combatPositiveSeverityEvents": 0,
+      "clashes": 26,
+      "actualFinalWoundCounts": [
+        0,
+        0
+      ],
+      "maxHandErrorM": 0.5265390778556402,
+      "maxAimErrorRad": 2.9993301408381856,
+      "maxJointAnchorGapM": 0.0023558521222710733,
+      "peakTipSpeedMps": 20.511693615647566,
+      "everyMotorEnabled": true,
+      "postPrefixMaxForceRangeNm": [
+        3.4028234663852886e+38,
+        3.4028234663852886e+38
+      ],
+      "errors": []
+    },
+    {
+      "weapon": "sabre",
+      "mode": "nativeCap",
+      "executionPass": true,
+      "frameCount": 1200,
+      "counts": {
+        "driveJoints": 1200,
+        "driveSword": 1200,
+        "externalFFCalls": 360
+      },
+      "native": {
+        "mode": "capped",
+        "jointRecreated": false,
+        "originalCap": 3.4028234663852886e+38,
+        "nativeCalls": 840,
+        "explicitGravityCalls": 840,
+        "measurements": 840,
+        "errors": [],
+        "maxLastSubstepCapRatio": 1.0000000592120908,
+        "maxLastSubstepImpulseNms": 0.10740748792886734,
+        "limitedAtLastSubstep": 1,
+        "meaning": "Native farmS PD plus current elbow gravity FF share a scalar axis cap. Other muscles, passive joint limits, and force-velocity realism are separate.",
+        "readout": "Native getter is the LAST solver substep impulse. It is not total outer-step impulse or work. Substep cap uses outer dt / numSolverIterations for this calibrated engine; never sum by multiplying one readback."
+      },
+      "jointPreserved": true,
+      "finite": true,
+      "combatOnWoundEvents": 3,
+      "combatPositiveSeverityEvents": 0,
+      "clashes": 32,
+      "actualFinalWoundCounts": [
+        0,
+        0
+      ],
+      "maxHandErrorM": 0.6031069280430917,
+      "maxAimErrorRad": 2.9994404729288604,
+      "maxJointAnchorGapM": 0.0023561294840290727,
+      "peakTipSpeedMps": 20.93255667973005,
+      "everyMotorEnabled": true,
+      "postPrefixMaxForceRangeNm": [
+        75.34075927734375,
+        80
+      ],
+      "errors": []
+    },
+    {
+      "weapon": "zweihander",
+      "mode": "baseline",
+      "executionPass": true,
+      "frameCount": 1200,
+      "counts": {
+        "driveJoints": 1200,
+        "driveSword": 1200,
+        "externalFFCalls": 1200
+      },
+      "native": null,
+      "jointPreserved": true,
+      "finite": true,
+      "combatOnWoundEvents": 10,
+      "combatPositiveSeverityEvents": 1,
+      "clashes": 14,
+      "actualFinalWoundCounts": [
+        0,
+        1
+      ],
+      "maxHandErrorM": 0.8671102049218353,
+      "maxAimErrorRad": 2.6279177695375737,
+      "maxJointAnchorGapM": 0.002154950281793756,
+      "peakTipSpeedMps": 12.9149568040118,
+      "everyMotorEnabled": true,
+      "postPrefixMaxForceRangeNm": [
+        3.4028234663852886e+38,
+        3.4028234663852886e+38
+      ],
+      "errors": []
+    },
+    {
+      "weapon": "zweihander",
+      "mode": "observe",
+      "executionPass": true,
+      "frameCount": 1200,
+      "counts": {
+        "driveJoints": 1200,
+        "driveSword": 1200,
+        "externalFFCalls": 1200
+      },
+      "native": {
+        "mode": "observe",
+        "jointRecreated": false,
+        "originalCap": 3.4028234663852886e+38,
+        "nativeCalls": 1200,
+        "explicitGravityCalls": 0,
+        "measurements": 1200,
+        "errors": [],
+        "maxLastSubstepCapRatio": 1.693349629640579,
+        "maxLastSubstepImpulseNms": 0.18814995884895325,
+        "limitedAtLastSubstep": 6,
+        "meaning": "Native farmS PD plus current elbow gravity FF share a scalar axis cap. Other muscles, passive joint limits, and force-velocity realism are separate.",
+        "readout": "Native getter is the LAST solver substep impulse. It is not total outer-step impulse or work. Substep cap uses outer dt / numSolverIterations for this calibrated engine; never sum by multiplying one readback."
+      },
+      "jointPreserved": true,
+      "finite": true,
+      "combatOnWoundEvents": 10,
+      "combatPositiveSeverityEvents": 1,
+      "clashes": 14,
+      "actualFinalWoundCounts": [
+        0,
+        1
+      ],
+      "maxHandErrorM": 0.8671102049218353,
+      "maxAimErrorRad": 2.6279177695375737,
+      "maxJointAnchorGapM": 0.002154950281793756,
+      "peakTipSpeedMps": 12.9149568040118,
+      "everyMotorEnabled": true,
+      "postPrefixMaxForceRangeNm": [
+        3.4028234663852886e+38,
+        3.4028234663852886e+38
+      ],
+      "errors": []
+    },
+    {
+      "weapon": "zweihander",
+      "mode": "nativeCap",
+      "executionPass": true,
+      "frameCount": 1200,
+      "counts": {
+        "driveJoints": 1200,
+        "driveSword": 1200,
+        "externalFFCalls": 360
+      },
+      "native": {
+        "mode": "capped",
+        "jointRecreated": false,
+        "originalCap": 3.4028234663852886e+38,
+        "nativeCalls": 840,
+        "explicitGravityCalls": 840,
+        "measurements": 840,
+        "errors": [],
+        "maxLastSubstepCapRatio": 1.0000000074505806,
+        "maxLastSubstepImpulseNms": 0.1111111119389534,
+        "limitedAtLastSubstep": 8,
+        "meaning": "Native farmS PD plus current elbow gravity FF share a scalar axis cap. Other muscles, passive joint limits, and force-velocity realism are separate.",
+        "readout": "Native getter is the LAST solver substep impulse. It is not total outer-step impulse or work. Substep cap uses outer dt / numSolverIterations for this calibrated engine; never sum by multiplying one readback."
+      },
+      "jointPreserved": true,
+      "finite": true,
+      "combatOnWoundEvents": 7,
+      "combatPositiveSeverityEvents": 3,
+      "clashes": 5,
+      "actualFinalWoundCounts": [
+        0,
+        3
+      ],
+      "maxHandErrorM": 0.8742774710816158,
+      "maxAimErrorRad": 1.888750242788838,
+      "maxJointAnchorGapM": 0.002739395380828743,
+      "peakTipSpeedMps": 13.597004447377433,
+      "everyMotorEnabled": true,
+      "postPrefixMaxForceRangeNm": [
+        80,
+        80
+      ],
+      "errors": []
+    }
+  ],
+  "comparisons": [
+    {
+      "weapon": "sabre",
+      "baselineObserverFullTraceExact": true,
+      "baselineObserverInitialNativeExact": true,
+      "candidateThreeSecondPrefixExact": true,
+      "checkpointNativeExact": true,
+      "checkpointControlExact": true,
+      "sameDefaultChoices": true,
+      "firstDivergence": {
+        "inputSHA": {
+          "tick": 361,
+          "timeS": 3.0166666666666586
+        },
+        "nativeSHA": {
+          "tick": 360,
+          "timeS": 3.0083333333333253
+        },
+        "poseSHA": {
+          "tick": 360,
+          "timeS": 3.0083333333333253
+        },
+        "controlSHA": {
+          "tick": 361,
+          "timeS": 3.0166666666666586
+        },
+        "eventsSHA": {
+          "tick": 980,
+          "timeS": 8.175000000000177
+        },
+        "contactsSHA": {
+          "tick": 360,
+          "timeS": 3.0083333333333253
+        }
+      },
+      "interpretation": "Actual AI feedback, contacts and wounds can diverge after intervention. Differing wounds/clashes are not matched efficacy comparisons.",
+      "baselineObserveEveryRawNativeReadbackExact": true,
+      "firstClashCountDivergenceS": 8.30000000000017,
+      "firstCombatWoundEventDivergenceS": 8.175000000000177,
+      "priorCandidatePhysicalReproductionExact": true
+    },
+    {
+      "weapon": "zweihander",
+      "baselineObserverFullTraceExact": true,
+      "baselineObserverInitialNativeExact": true,
+      "candidateThreeSecondPrefixExact": true,
+      "checkpointNativeExact": true,
+      "checkpointControlExact": true,
+      "sameDefaultChoices": true,
+      "firstDivergence": {
+        "inputSHA": {
+          "tick": 361,
+          "timeS": 3.0166666666666586
+        },
+        "nativeSHA": {
+          "tick": 360,
+          "timeS": 3.0083333333333253
+        },
+        "poseSHA": {
+          "tick": 360,
+          "timeS": 3.0083333333333253
+        },
+        "controlSHA": {
+          "tick": 361,
+          "timeS": 3.0166666666666586
+        },
+        "eventsSHA": {
+          "tick": 718,
+          "timeS": 5.991666666666754
+        },
+        "contactsSHA": {
+          "tick": 360,
+          "timeS": 3.0083333333333253
+        }
+      },
+      "interpretation": "Actual AI feedback, contacts and wounds can diverge after intervention. Differing wounds/clashes are not matched efficacy comparisons.",
+      "baselineObserveEveryRawNativeReadbackExact": true,
+      "firstClashCountDivergenceS": 6.308333333333437,
+      "firstCombatWoundEventDivergenceS": 5.991666666666754,
+      "priorCandidatePhysicalReproductionExact": true
+    }
+  ],
+  "firstBatchCaveat": "Initial six rows installed native observer in both baseline and observe; parity was redundant repeatability, not observer noninterference. Corrected six rows omit installNativeElbow in baseline. Twelve scene executions total; six corrected protocol rows, not twelve independent efficacy samples.",
+  "decision": "Research preserved; public/general promotion withheld. Actual scalar motor cap validated; gameplay benefit mixed/unproven, hand-error scene maxima increase.",
+  "limitations": [
+    "No actual capped-player wound or arm injury; all player armS=1, woundCount=0. Combat onWound severity0 events are not Fighter wounds.",
+    "Native/contacts diverge on first modified step, AI input on next; whole-scene injuries/clashes not matched efficacy.",
+    "Getter is last solver substep only, not full native impulse/work or total muscle budget.",
+    "No physical-phone/human movement/stop-reverse manual-onehand B validation.",
+    "Current research kernel0.19.2 vs npm0.19.3 baseline full two-AI parity not established here; historical narrow API/stroke parity does not prove this."
+  ],
+  "next": "Current onehand manual B stop/reverse on sabre/qinggang: one matched scripted human-input segment, force-request vs actual motion and gap. Extend nativeCap only if clear purpose effect; no repeated AI seed search or free-pair/native joint replacement."
+}
