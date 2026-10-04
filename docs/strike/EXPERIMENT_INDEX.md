@@ -51,3 +51,5 @@ node tools/sim/experiments/sword_drag_duel_probe.mjs --trial=available --weapons
 | brake-combat-activation-01 / `99c2b42738db5772f34061fa8a772ee40c4b3fb4` | `node tools/sim/experiments/sword_drag_duel_probe.mjs --trial=brake --weapons=sabre --seeds=19 --response=on --out=/tmp/NEW-brake-combat-activation.json` |
 
 원자료 지도에서 관성root는 `research-sword-drag-20261003`, 경로root는 `research-arm-path-20261003`, 응답root는 `research-hold-response-20261003`, 공통reference는 `research-from-spawn/run-01.json`이다. 보존root는 현재 `/workspace/halfsword-handoff/`이며 13파일의 모든정확해시는 감사JSON과 기존 원보고JSON을 함께 확인한다. 파일명만 같은 다른 파일을 쓰지 않는다.
+
+- 2026-10-04 [양손 파지 시작 폭주](startup_grip_20261004.md): 축 위 공통힘점 선택형. 시작 안정화/기존 default27 exact·보존 fixture 확인, 전투 급회전은 남아 일반 승격 보류. [수치](startup_grip_20261004.json)/[전달](startup_grip_release.json).

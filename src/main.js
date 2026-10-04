@@ -60,6 +60,8 @@ const limbDemo = CONFIG.COMBAT.limbSeverTrial ? params.get('limbDemo') : null;
 let limbDemoAt = Infinity;
 const supportProbe = configureSupportProbe(params, CONFIG.GAIT);
 const physicalTrial = configurePhysicalTrial(params, CONFIG.GRIP, CONFIG.BODY);
+// Player-only comparison. Ordinary and legacy-grip games keep their force point.
+const gripPointModel = params.get('gripPoint') === 'axial' && CONFIG.GRIP.reactionModel === 'paired' ? 'axial' : 'midpoint';
 const cutTrial = configureCutTrial(params);
 const armTrial = configureArmTrial(params);
 const wristBrakingTrial = configureWristBrakingTrial(params, armTrial);
@@ -421,6 +423,7 @@ function newRound(weaponId) {
   // 같은 선택형 팔 제어를 양쪽에 적용하고 재시작 때도 주소 설정을 유지한다.
   for (const f of [player, enemy]) f.armTorqueModel = armTrial.model;
   for (const f of [player, enemy]) f.onehandArmModel = onehandArmModel;
+  player.gripPointModel = gripPointModel;
   player.initializeOnehandReadyPose();
   applyEdgeTorqueTrial(edgeTorqueTrial, player);
   applyArmRecoveryTrial(armRecoveryTrial, player);
@@ -664,6 +667,13 @@ mountTargetCorrectionTrial(targetCorrectionTrial);
 mountEdgeTorqueTrial(edgeTorqueTrial);
 mountArmRecoveryTrial(armRecoveryTrial);
 mountWristBrakingTrial(wristBrakingTrial);
+if (gripPointModel === 'axial') {
+  const info = document.createElement('p');
+  info.id = 'gripPointInfo';
+  info.className = 'sub';
+  info.textContent = '양손 흔들림 비교판 · 시작과 베기 뒤에 칼이 떨리는지 확인하세요. 일반판은 기존 방식이며 저장 설정은 유지됩니다.';
+  $('menuSub').after(info);
+}
 if (onehandArmModel === 'manual') {
   const info = document.createElement('p');
   info.id = 'onehandArmInfo';

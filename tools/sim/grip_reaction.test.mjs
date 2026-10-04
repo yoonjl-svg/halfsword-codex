@@ -24,7 +24,7 @@ const snapshot = bodies => {
   return { p, L, K };
 };
 
-function fixture(model, motion, angle = 0, offset = new THREE.Vector3(), dt = DT) {
+function fixture(model, motion, angle = 0, offset = new THREE.Vector3(), dt = DT, pointModel = 'midpoint') {
   const saved = { ...CONFIG.GRIP };
   const world = new RAPIER.World({ x: 0, y: 0, z: 0 });
   world.timestep = dt;
@@ -55,7 +55,7 @@ function fixture(model, motion, angle = 0, offset = new THREE.Vector3(), dt = DT
     } else {
       sword.setLinvel(new THREE.Vector3(0, motion === 'tangential' ? 1 : 0, 0).add(new THREE.Vector3(motion === 'radial' ? 1 : 0, 0, 0)).applyQuaternion(rotation), true);
     }
-    const f = { armed: true, weaponCfg: { twoHand: true, gripAlong: -0.14 }, state: 'stand', muscle: 1,
+    const f = { armed: true, gripPointModel: pointModel, weaponCfg: { twoHand: true, gripAlong: -0.14 }, state: 'stand', muscle: 1,
       limbs: { armO: 1 }, sword, bodies: { farmO: handBody }, aimDirW: new THREE.Vector3(0, 1, 0).applyQuaternion(rotation),
       offArmIK() {} };
     const before = snapshot(bodies);
@@ -75,9 +75,14 @@ function fixture(model, motion, angle = 0, offset = new THREE.Vector3(), dt = DT
       if (motion === 'rigid_rotation') assert.ok(Math.abs(power) < 1e-4, 'rigid co-rotation must not be damped');
       if (motion === 'tangential') assert.ok(power < -49.99 && power > -50.01, 'relative slip should still dissipate energy');
     }
+    const swordAxialTorqueNm = applications[1].point.clone().sub(V(sword.worldCom()))
+      .cross(applications[1].force).dot(new THREE.Vector3(0,1,0).applyQuaternion(rotation));
+    if (model === 'paired' && pointModel === 'axial') {
+      assert.ok(Math.abs(swordAxialTorqueNm) < 1e-9, 'point force on a coaxial grip must not spin the blade around its long axis');
+    }
     world.step();
     const after = snapshot(bodies);
-    const row = { model, motion, timestepS: dt, angleRad: angle, originOffsetM: offset.toArray(),
+    const row = { model, pointModel, motion, swordAxialTorqueNm, timestepS: dt, angleRad: angle, originOffsetM: offset.toArray(),
       netForceN: netF.toArray(), netTorqueNm: netT.toArray(), instantaneousPowerW: power,
       deltaMomentumNs: after.p.clone().sub(before.p).toArray(), deltaAngularMomentumNms: after.L.clone().sub(before.L).toArray(),
       torqueImpulseNmS: netT.clone().multiplyScalar(dt).toArray(), deltaKJ: after.K - before.K,
@@ -118,19 +123,26 @@ assert.ok(Math.hypot(...half.deltaAngularMomentumNms) < Math.hypot(...coarse.del
 assert.ok(Math.hypot(...quarter.deltaAngularMomentumNms) < Math.hypot(...half.deltaAngularMomentumNms) * 0.3);
 rows.push(half, quarter);
 
-// One-handed weapons and a lost off-hand cannot engage either trial model.
+// Actual optional force-point branch: dissipates slip, preserves rigid rotation
+// and paired wrench conservation, including rotated/translated fixtures.
+for (const motion of ['rigid_rotation', 'tangential', 'radial']) rows.push(fixture('paired', motion, 0, new THREE.Vector3(), DT, 'axial'));
+for (const angle of [.7,-1.1]) rows.push(fixture('paired', 'rigid_rotation', angle, new THREE.Vector3(2,1,-3), DT, 'axial'));
+
+// Controller gates, including the optional axial point. Supplied arm health is
+// a fixture, not a naturally injured combat/recovery scene.
 const saved = CONFIG.GRIP.reactionModel;
-for (const weapon of ['falchion', 'longsword']) {
+for (const weapon of ['falchion', 'longsword']) for (const pointModel of ['midpoint', 'axial']) {
   const G = newRound({ seed: 7, walls: false, weapon });
   try {
     CONFIG.GRIP.reactionModel = 'paired';
     const f = G.player;
+    f.gripPointModel = pointModel;
     if (weapon === 'longsword') f.limbs.armO = 0;
     f.offHand(); assert.equal(f.gripping, false);
   } finally { CONFIG.GRIP.reactionModel = saved; G.eventQueue.free(); G.world.free(); }
 }
 
-const result = { pass: true, fixtures: rows.length, dt: DT,
-  scope: 'Native two-body fixtures using actual Fighter.offHand with IK omitted. Zero gravity, no contacts, no other actuators. No human grip validation. Native delta K includes spring response and integration effects; instantaneous power is measured separately. Zero applied net torque does not mean zero finite-step angular-momentum residual: dt-halving convergence is checked.', rows };
+const result = { pass: true, fixtures: rows.length, controllerGates:4, dt: DT,
+  scope: 'Native two-body fixtures using actual Fighter.offHand with IK omitted. Optional axial force point included. Zero gravity, no contacts, no other actuators. No human grip validation. Native delta K includes spring response and integration effects; instantaneous power is measured separately. Zero applied net torque does not mean zero finite-step angular-momentum residual: midpoint dt-halving convergence is checked.', rows };
 await writeFile(process.argv[2] || '/tmp/grip-reaction-fixtures.json', JSON.stringify(result, null, 2) + '\n');
 console.log(JSON.stringify({ pass: true, fixtures: rows.length, legacyRigidRotationTorqueNm: rows[0].netTorqueNm, pairedRigidRotationTorqueNm: rows[1].netTorqueNm, legacyPowerW: rows[0].instantaneousPowerW, pairedPowerW: rows[1].instantaneousPowerW }));

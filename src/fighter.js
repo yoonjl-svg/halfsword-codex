@@ -2189,7 +2189,11 @@ export class Fighter {
     // 가상 공통점에서 속도와 ±힘을 함께 평가해 적용 힘쌍의 순토크를 0으로 한다.
     // 손/자루의 실제 위치와 IK는 그대로이며, 일반 경로의 연산은 바꾸지 않는다.
     const paired = GRIP.reactionModel === 'paired';
-    const handPoint = paired ? _gripMid.copy(hand).add(pommel).multiplyScalar(0.5) : hand;
+    // Optional comparison: place the common force/velocity point on the actual
+    // hilt axis. A midpoint off that axis lets transverse damping spin a thin
+    // sword around its long axis while the second hand is still approaching.
+    const handPoint = paired ? (this.gripPointModel === 'axial'
+      ? pommel : _gripMid.copy(hand).add(pommel).multiplyScalar(0.5)) : hand;
     const swordPoint = paired ? handPoint : pommel;
     const vp = sword.velocityAtPoint(swordPoint);
     const vh = fo.velocityAtPoint(handPoint);

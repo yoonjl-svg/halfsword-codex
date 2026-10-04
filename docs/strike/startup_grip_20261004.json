@@ -1,0 +1,527 @@
+{
+  "baseCommit": "806a16a2b22f048e9d2dd07b35922e90123767a6",
+  "startedUTC": "2026-10-04T03:45:35Z",
+  "dirtyImplementation": true,
+  "sourceHashes": {
+    "src/fighter.js": "9583ae49b5907d9bce32f6225d0060f3ad535ef75d655c13ead027cb93a9703b",
+    "src/main.js": "bcd6f06b3f798d08c07991c0994cf6f40626bb0d6dec54eb89c0fc8834a636b1",
+    "src/hand_visual.js": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+    "src/skill.js": "b69b73e00d8524e733842a630d54f2d7392807f883d7a75c9f9767b78d71f512",
+    "tools/sim/experiments/startup_wrist_probe.mjs": "c50c1048e8b12ee5ad74a7d032f239ea3ff16b368feaa643b52aabdffcb871a3",
+    "tools/browser/grip_point_screen.mjs": "bdc898019d9cfd833ada4c52504189c7acf13029ffb1dcbb47ab83dd2a0ce1e5",
+    "tools/sim/grip_reaction.test.mjs": "a4403fdfc40b2c340dfbf82ef72fe18b4aaaa5966768480206cd8ef0aecb0f85",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+    "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5"
+  },
+  "artifactRoot": "/workspace/halfsword-handoff/startup-wrist-20261004",
+  "question": "Remove self-generated no-input twohand startup spin without changing force/damping constants or hiding legitimate inertia.",
+  "decision": "Optional player-only axial force-point comparison. General promotion withheld; high axial combat rotations remain.",
+  "firstSelection": [
+    {
+      "weapon": "monohoshizao",
+      "mode": "baseline",
+      "maxOmega": 1378.1845291965442,
+      "maxSwingOmega": 25.66220248340461,
+      "maxAimErrorRad": 2.9896248185448613,
+      "minElevationDeg": -59.54345582528118,
+      "maxElevationDeg": 78.72064182704567,
+      "firstLargeErrorS": 0.2833333333333334,
+      "maxGripTorque": 158.5183762477774,
+      "maxGripAxialTorque": 25.778292043084846,
+      "maxWristTorque": 32.27657640531367,
+      "maxJointGapM": 0.004443221982468535,
+      "wounds": 0,
+      "nativeTraceSHA": "a241b28151fca434fe6a501313da3b45dd306436b7cbb7bfa89998f5a7cc9024",
+      "initialNativeSHA": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30"
+    },
+    {
+      "weapon": "monohoshizao",
+      "mode": "axial",
+      "maxOmega": 9.380202007337473,
+      "maxSwingOmega": 1.2689698576163007,
+      "maxAimErrorRad": 0.16357154046909617,
+      "minElevationDeg": -1.7079829064616918,
+      "maxElevationDeg": 7.076867542501372,
+      "firstLargeErrorS": null,
+      "maxGripTorque": 40.28207468861237,
+      "maxGripAxialTorque": 6.47343179221993e-06,
+      "maxWristTorque": 16.008824088570265,
+      "maxJointGapM": 0.0010797848100038653,
+      "wounds": 0,
+      "nativeTraceSHA": "78935fdd52107f739195b9e458029094091dab55a39e8b1a2c77d0acc8dab903",
+      "initialNativeSHA": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30"
+    },
+    {
+      "weapon": "lightsaber",
+      "mode": "baseline",
+      "maxOmega": 1808.045378377665,
+      "maxSwingOmega": 224.12202689708863,
+      "maxAimErrorRad": 2.980073755173422,
+      "minElevationDeg": -79.16881060023724,
+      "maxElevationDeg": 78.09074860493703,
+      "firstLargeErrorS": 0.3583333333333336,
+      "maxGripTorque": 57.4257707543335,
+      "maxGripAxialTorque": 22.635088185006108,
+      "maxWristTorque": 33.057485159698295,
+      "maxJointGapM": 0.004544672920964519,
+      "wounds": 0,
+      "nativeTraceSHA": "d2e671933f06f52f9af02cb24af84e2a8574d372f3131c71717908095cb5d701",
+      "initialNativeSHA": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c"
+    },
+    {
+      "weapon": "lightsaber",
+      "mode": "axial",
+      "maxOmega": 13.815750202803121,
+      "maxSwingOmega": 3.3257095754345056,
+      "maxAimErrorRad": 0.1501766387947604,
+      "minElevationDeg": -1.3087624326685743,
+      "maxElevationDeg": 6.5608688291445825,
+      "firstLargeErrorS": null,
+      "maxGripTorque": 15.063676124038201,
+      "maxGripAxialTorque": 8.228728182770907e-06,
+      "maxWristTorque": 26.790697326314888,
+      "maxJointGapM": 0.001029269208894065,
+      "wounds": 0,
+      "nativeTraceSHA": "e54152fdc25f37006d0a622af11522caeca9c4803a9516117d51949c1a9dd504",
+      "initialNativeSHA": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c"
+    },
+    {
+      "weapon": "longsword",
+      "mode": "baseline",
+      "maxOmega": 8.958593764833982,
+      "maxSwingOmega": 0.9085372625315248,
+      "maxAimErrorRad": 0.1613375939043034,
+      "minElevationDeg": -1.7869025814445132,
+      "maxElevationDeg": 6.990962569228344,
+      "firstLargeErrorS": null,
+      "maxGripTorque": 26.366355935160176,
+      "maxGripAxialTorque": 1.058222013443849,
+      "maxWristTorque": 11.424142662206005,
+      "maxJointGapM": 0.0011182465244223671,
+      "wounds": 0,
+      "nativeTraceSHA": "3226169c431ed06ab17f0eca8ee9c3d7d253b0ec6ef6cc50ae1628e9152a3a20",
+      "initialNativeSHA": "18af96d84ec597f274b79faa39a57b70292cce2594320b88122a65bc51d1e083"
+    },
+    {
+      "weapon": "longsword",
+      "mode": "axial",
+      "maxOmega": 8.958593764833982,
+      "maxSwingOmega": 0.9085372625315248,
+      "maxAimErrorRad": 0.1613375939043034,
+      "minElevationDeg": -1.79060760443222,
+      "maxElevationDeg": 6.990962569228344,
+      "firstLargeErrorS": null,
+      "maxGripTorque": 25.78204513745312,
+      "maxGripAxialTorque": 2.5683057501835194e-06,
+      "maxWristTorque": 11.424142662206005,
+      "maxJointGapM": 0.0011182465244223671,
+      "wounds": 0,
+      "nativeTraceSHA": "f98bedec0cbb7ceda28b2c95007465b4381648207b7c10aecb17746963938da5",
+      "initialNativeSHA": "18af96d84ec597f274b79faa39a57b70292cce2594320b88122a65bc51d1e083"
+    },
+    {
+      "weapon": "zweihander",
+      "mode": "baseline",
+      "maxOmega": 4.790722763861496,
+      "maxSwingOmega": 1.0835528588873113,
+      "maxAimErrorRad": 0.18533490328501726,
+      "minElevationDeg": -3.0248385445116157,
+      "maxElevationDeg": 8.058592927020891,
+      "firstLargeErrorS": null,
+      "maxGripTorque": 31.698836376630187,
+      "maxGripAxialTorque": 0.7044380418463152,
+      "maxWristTorque": 15.576942710012453,
+      "maxJointGapM": 0.0012493005341363509,
+      "wounds": 0,
+      "nativeTraceSHA": "4eb54a2448bd32c676c02110c67d0237b17e936830e9a7b127991649a5e08eae",
+      "initialNativeSHA": "9169732459c49a158fc432186404283b082b8c28722873e0aebb80b9d93aa13f"
+    },
+    {
+      "weapon": "zweihander",
+      "mode": "axial",
+      "maxOmega": 4.790722763861496,
+      "maxSwingOmega": 1.0835528588873113,
+      "maxAimErrorRad": 0.18533490328501726,
+      "minElevationDeg": -3.0020117731007447,
+      "maxElevationDeg": 8.058592927020891,
+      "firstLargeErrorS": null,
+      "maxGripTorque": 31.592360252519832,
+      "maxGripAxialTorque": 1.6714758428182375e-06,
+      "maxWristTorque": 15.576942710012453,
+      "maxJointGapM": 0.0012493005341363509,
+      "wounds": 0,
+      "nativeTraceSHA": "2287e64d76c6fcfe13f46202e579b1ff62bad6a9898f4ea569677c54ed43a6f0",
+      "initialNativeSHA": "9169732459c49a158fc432186404283b082b8c28722873e0aebb80b9d93aa13f"
+    }
+  ],
+  "components": [
+    {
+      "weapon": "monohoshizao",
+      "mode": "noOffhand",
+      "maxOmega": 9.349644712120613,
+      "maxSwingOmega": 1.028332759398953,
+      "maxAimErrorRad": 0.16360897062745045,
+      "minElevationDeg": -3.0045512021097696,
+      "maxElevationDeg": 7.074350511831508,
+      "firstLargeErrorS": null,
+      "maxGripTorque": 0,
+      "maxWristTorque": 14.182680912578075,
+      "maxJointGapM": 0.0010991575005302697,
+      "wounds": 0,
+      "nativeTraceSHA": "50de6cd93371ffc0002ecff3eb3bd9b229028c58084d8c5af9836a87a695c53a",
+      "initialNativeSHA": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30"
+    },
+    {
+      "weapon": "monohoshizao",
+      "mode": "noTwist",
+      "maxOmega": 866.5443126046383,
+      "maxSwingOmega": 12.510459768921898,
+      "maxAimErrorRad": 0.42617650840107363,
+      "minElevationDeg": -3.914634199145202,
+      "maxElevationDeg": 12.538508176355903,
+      "firstLargeErrorS": null,
+      "maxGripTorque": 159.97673495436925,
+      "maxWristTorque": 27.952870086833727,
+      "maxJointGapM": 0.0022859235326866487,
+      "wounds": 0,
+      "nativeTraceSHA": "1f2613affd6794e33cdd704af28f51f47f5c5fc6752b6055c464a1bb3c928c7d",
+      "initialNativeSHA": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30"
+    },
+    {
+      "weapon": "monohoshizao",
+      "mode": "noWristDamping",
+      "maxOmega": 1334.682233855008,
+      "maxSwingOmega": 22.554911857429015,
+      "maxAimErrorRad": 2.3425000616091847,
+      "minElevationDeg": -88.62998514718998,
+      "maxElevationDeg": 25.56055043731951,
+      "firstLargeErrorS": 0.29166666666666674,
+      "maxGripTorque": 152.46627403915224,
+      "maxWristTorque": 27.920805734189393,
+      "maxJointGapM": 0.0038750044111694197,
+      "wounds": 0,
+      "nativeTraceSHA": "3705010e7abe2a7f4ca490d1bf9186f503b4492077794aac60556a6a5bc65dc8",
+      "initialNativeSHA": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30"
+    },
+    {
+      "weapon": "lightsaber",
+      "mode": "noOffhand",
+      "maxOmega": 13.929882595022855,
+      "maxSwingOmega": 1.1694983395039635,
+      "maxAimErrorRad": 0.15019645354158342,
+      "minElevationDeg": -1.904261315898873,
+      "maxElevationDeg": 6.561976364742667,
+      "firstLargeErrorS": null,
+      "maxGripTorque": 0,
+      "maxWristTorque": 9.033598858489778,
+      "maxJointGapM": 0.0010477818562543459,
+      "wounds": 0,
+      "nativeTraceSHA": "100c5b16a4f73d4113037a011dd87f75bf4a4b2a1c5bd32c5c7b84c3206f57e4",
+      "initialNativeSHA": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c"
+    },
+    {
+      "weapon": "lightsaber",
+      "mode": "noTwist",
+      "maxOmega": 1609.9944285909562,
+      "maxSwingOmega": 206.45142503001006,
+      "maxAimErrorRad": 3.0350217926754914,
+      "minElevationDeg": -72.31418795960477,
+      "maxElevationDeg": 80.5707729771879,
+      "firstLargeErrorS": 0.3833333333333337,
+      "maxGripTorque": 64.4804214286817,
+      "maxWristTorque": 28.600001261786385,
+      "maxJointGapM": 0.004079502535672854,
+      "wounds": 0,
+      "nativeTraceSHA": "36228e7e544998e6f69d43dabd1988d0aa8c2271ebdcdf85c5cd3c6c7b6e4f9d",
+      "initialNativeSHA": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c"
+    },
+    {
+      "weapon": "lightsaber",
+      "mode": "noWristDamping",
+      "maxOmega": 1758.5409744254648,
+      "maxSwingOmega": 231.99713901751343,
+      "maxAimErrorRad": 2.9796894593885925,
+      "minElevationDeg": -84.6253029750824,
+      "maxElevationDeg": 76.64235124159799,
+      "firstLargeErrorS": 0.3416666666666669,
+      "maxGripTorque": 56.344464518235014,
+      "maxWristTorque": 25.783370401669583,
+      "maxJointGapM": 0.005709686036914396,
+      "wounds": 0,
+      "nativeTraceSHA": "4ab38e34c5f4de4677d284bb7781ab1243d39c8f65cd820156b1b6699738716f",
+      "initialNativeSHA": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c"
+    }
+  ],
+  "duels": [
+    {
+      "weapon": "monohoshizao",
+      "mode": "baseline",
+      "scene": "duel",
+      "maxOmega": 1475.210540474925,
+      "maxSwingOmega": 24.359758368367395,
+      "maxAimErrorRad": 3.0743961857713975,
+      "minElevationDeg": -88.78245338929315,
+      "maxElevationDeg": 86.42306807046455,
+      "firstLargeErrorS": 0.29166666666666674,
+      "maxGripTorque": 167.44010644988836,
+      "maxGripAxialTorque": 27.86499012089699,
+      "maxWristTorque": 31.58212313321206,
+      "maxJointGapM": 0.004254663367088096,
+      "wounds": 0,
+      "actualClashes": 1,
+      "final": {
+        "player": "stand",
+        "enemy": "stand",
+        "armed": true
+      },
+      "nativeTraceSHA": "65e7188f6c8a745f82be058ffdfcff704d5ba32f0ebccef291520409e9e6dde2",
+      "initialNativeSHA": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30"
+    },
+    {
+      "weapon": "monohoshizao",
+      "mode": "axial",
+      "scene": "duel",
+      "maxOmega": 112.40202644479191,
+      "maxSwingOmega": 11.238860106705593,
+      "maxAimErrorRad": 2.520448579483297,
+      "minElevationDeg": -65.60591635735611,
+      "maxElevationDeg": 78.08190219393391,
+      "firstLargeErrorS": 4.516666666666681,
+      "maxGripTorque": 151.30481205705573,
+      "maxGripAxialTorque": 2.6882222933011235e-05,
+      "maxWristTorque": 27.307253245014056,
+      "maxJointGapM": 0.0019902548926715607,
+      "wounds": 1,
+      "actualClashes": 68,
+      "final": {
+        "player": "stand",
+        "enemy": "stand",
+        "armed": true
+      },
+      "nativeTraceSHA": "63d1ebbc6f4d467acab881f19a3909f853da2b142edc0f4b2589f3b68f773db3",
+      "initialNativeSHA": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30"
+    },
+    {
+      "weapon": "lightsaber",
+      "mode": "baseline",
+      "scene": "duel",
+      "maxOmega": 1767.1593831169498,
+      "maxSwingOmega": 231.5209018120338,
+      "maxAimErrorRad": 3.108129101181142,
+      "minElevationDeg": -87.13163201519498,
+      "maxElevationDeg": 83.36194594796719,
+      "firstLargeErrorS": 0.35000000000000026,
+      "maxGripTorque": 67.80505917278138,
+      "maxGripAxialTorque": 24.786179390432704,
+      "maxWristTorque": 33.25886362379761,
+      "maxJointGapM": 0.005472347211058751,
+      "wounds": 0,
+      "actualClashes": 9,
+      "final": {
+        "player": "stand",
+        "enemy": "stand",
+        "armed": true
+      },
+      "nativeTraceSHA": "37a30446085e977723936230cefc0b210ea049cf5d49f5b71767c424bcd5a1f6",
+      "initialNativeSHA": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c"
+    },
+    {
+      "weapon": "lightsaber",
+      "mode": "axial",
+      "scene": "duel",
+      "maxOmega": 81.96084612405589,
+      "maxSwingOmega": 25.241909438676,
+      "maxAimErrorRad": 2.1162044635363024,
+      "minElevationDeg": -41.13795311187332,
+      "maxElevationDeg": 87.09282243740793,
+      "firstLargeErrorS": 5.950000000000085,
+      "maxGripTorque": 46.05369840883993,
+      "maxGripAxialTorque": 9.174575458015255e-06,
+      "maxWristTorque": 26.186944559414698,
+      "maxJointGapM": 0.0021539513843394807,
+      "wounds": 1,
+      "actualClashes": 0,
+      "final": {
+        "player": "stand",
+        "enemy": "getup",
+        "armed": true
+      },
+      "nativeTraceSHA": "6f5a4550f49a119d43576d4eba327356e801188f04c4dd6f8c0c50c4c755ef00",
+      "initialNativeSHA": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c"
+    }
+  ],
+  "defaultNativeExactConditions": 27,
+  "fixtureScope": {
+    "nativeFixtures": 17,
+    "axialFixtures": 5,
+    "controllerGates": 4,
+    "scope": "Native two-body fixtures using actual Fighter.offHand with IK omitted. Optional axial force point included. Zero gravity, no contacts, no other actuators. No human grip validation. Native delta K includes spring response and integration effects; instantaneous power is measured separately. Zero applied net torque does not mean zero finite-step angular-momentum residual: midpoint dt-halving convergence is checked.",
+    "gatesScope": "Supplied offarm health0 or onehand weapon; controller fixtures, not naturally injured scenes. Axial dt convergence not covered."
+  },
+  "localCompiledBrowser": [
+    {
+      "weapon": "monohoshizao",
+      "mode": "midpoint",
+      "metrics": {
+        "idleSamples": 241,
+        "idleMaxOmega": 1375.6549641802085,
+        "idleMaxAbsAxialOmega": 1375.652961961533,
+        "idleMaxAimErrorRad": 3.0388195419165798,
+        "thrustAccepted": true
+      },
+      "compiled": [
+        {
+          "url": "http://127.0.0.1:4281/assets/main-CXVFT2aZ.js",
+          "bytes": 3496076,
+          "sha256": "aa78b33765d8032e56fe3d782f89d50752699e7672e3e7424a07a77fd5dab1a7"
+        }
+      ],
+      "portrait": {
+        "width": 390,
+        "scrollWidth": 390
+      },
+      "errors": []
+    },
+    {
+      "weapon": "monohoshizao",
+      "mode": "axial",
+      "metrics": {
+        "idleSamples": 241,
+        "idleMaxOmega": 9.37939523060655,
+        "idleMaxAbsAxialOmega": 9.362353147509756,
+        "idleMaxAimErrorRad": 0.16357973363823833,
+        "thrustAccepted": true
+      },
+      "compiled": [
+        {
+          "url": "http://127.0.0.1:4281/assets/main-CXVFT2aZ.js",
+          "bytes": 3496076,
+          "sha256": "aa78b33765d8032e56fe3d782f89d50752699e7672e3e7424a07a77fd5dab1a7"
+        }
+      ],
+      "portrait": {
+        "width": 390,
+        "scrollWidth": 390
+      },
+      "errors": []
+    },
+    {
+      "weapon": "lightsaber",
+      "mode": "midpoint",
+      "metrics": {
+        "idleSamples": 241,
+        "idleMaxOmega": 1808.1759764545832,
+        "idleMaxAbsAxialOmega": 1808.1702017171403,
+        "idleMaxAimErrorRad": 2.8429203188081416,
+        "thrustAccepted": true
+      },
+      "compiled": [
+        {
+          "url": "http://127.0.0.1:4281/assets/main-CXVFT2aZ.js",
+          "bytes": 3496076,
+          "sha256": "aa78b33765d8032e56fe3d782f89d50752699e7672e3e7424a07a77fd5dab1a7"
+        }
+      ],
+      "portrait": {
+        "width": 390,
+        "scrollWidth": 390
+      },
+      "errors": []
+    },
+    {
+      "weapon": "lightsaber",
+      "mode": "axial",
+      "metrics": {
+        "idleSamples": 241,
+        "idleMaxOmega": 13.818115412719644,
+        "idleMaxAbsAxialOmega": 13.796120200092469,
+        "idleMaxAimErrorRad": 0.1563919028417835,
+        "thrustAccepted": true
+      },
+      "compiled": [
+        {
+          "url": "http://127.0.0.1:4281/assets/main-CXVFT2aZ.js",
+          "bytes": 3496076,
+          "sha256": "aa78b33765d8032e56fe3d782f89d50752699e7672e3e7424a07a77fd5dab1a7"
+        }
+      ],
+      "portrait": {
+        "width": 390,
+        "scrollWidth": 390
+      },
+      "errors": []
+    }
+  ],
+  "rawFiles": [
+    {
+      "path": "baseline.json",
+      "bytes": 1091532,
+      "sha256": "ca24bd64f87a850e7600ce6ec04b8c6b55c23205479111c38e90ef100cd33aac"
+    },
+    {
+      "path": "components.json",
+      "bytes": 1587316,
+      "sha256": "f0130ed1989f82540449d22a163c14c96b4caefb10947e55ebf775f78b409227"
+    },
+    {
+      "path": "axial-first.json",
+      "bytes": 2358930,
+      "sha256": "91e6722e9528aa0317f9f2323473280b043d14bf4fbde696a5038b186d49f726"
+    },
+    {
+      "path": "duels.json",
+      "bytes": 6077642,
+      "sha256": "7c1d7aa0f38636196818030413b0205e61c3ad1765aed522af0bec11c366d4a8"
+    },
+    {
+      "path": "default-initial.json",
+      "bytes": 4464487,
+      "sha256": "e65439665fc034b9612775dac7a003379e2f239f3d7c5fc30a7abcb2851bdc0a"
+    },
+    {
+      "path": "default-exact-comparison.json",
+      "bytes": 4306,
+      "sha256": "5528ab79bf118aadb9fcf4cfed0034e5a88f0a1a6d2e36e7103ee0464758d5b8"
+    },
+    {
+      "path": "grip-fixtures.json",
+      "bytes": 23164,
+      "sha256": "c0873cbe86d8032c1bb9ff93ce59d049fd8276eaa2ff027582172473d1376784"
+    },
+    {
+      "path": "grip-fixtures-gates.json",
+      "bytes": 23188,
+      "sha256": "c8f9549bcaad1e32d930db57c7463f82e4fa4fc6e3de2f1e91c1888bdb64a5ed"
+    },
+    {
+      "path": "local-play/summary.json",
+      "bytes": 56133,
+      "sha256": "ad4e1f897a8ad9e396901f3f2af921ed20f09c6b34763d4abb430207abe93ca8"
+    },
+    {
+      "path": "startup_wrist_probe.initial.mjs",
+      "bytes": 6297,
+      "sha256": "e433dbb9f3dcf18e24465cdce1a3079dbc67f3d07c77598904025472a9ddc894"
+    }
+  ],
+  "limits": [
+    "Default baseline4 snapshots/traces match existing raw; repeated baseline rows are not independent samples. Default27 conditions exact to preceding restored source.",
+    "Only player axial in comparison; enemy remains ordinary. Other trial flags/one-hand/legacyGrip are not automatically promoted.",
+    "Changing common point changes velocity sampling, actual damping force/work and offarm moment despite identical k/d/cap constants.",
+    "Same initial seed does not make post-contact/wound branches matched-state efficacy evidence or a win-rate estimate.",
+    "Axial startup stable observed; combat mono112.4 and lightsaber81.96rad/s remain. No human movement, full grip, injured recovery or anatomical-hand acceptance.",
+    "Native/compiled/browser snapshots do not measure physical phone performance.",
+    "Selected implementation snapshots and raw are preserved. Intermediate probe hashes are retained in raw; not every transient tool revision was separately saved. Current committed tool supports both startup and duel reproduction."
+  ],
+  "commands": [
+    "node tools/sim/experiments/startup_wrist_probe.mjs --out=/tmp/NEW-startup.json --weapons=monohoshizao,lightsaber,longsword,zweihander --modes=baseline,axial",
+    "node tools/sim/experiments/startup_wrist_probe.mjs --out=/tmp/NEW-components.json --weapons=monohoshizao,lightsaber --modes=noOffhand,noTwist,noWristDamping",
+    "node tools/sim/experiments/startup_wrist_probe.mjs --out=/tmp/NEW-duel.json --weapons=monohoshizao,lightsaber --modes=baseline,axial --scene=duel --seconds=10",
+    "node tools/sim/grip_reaction.test.mjs /tmp/NEW-grip.json",
+    "node tools/sim/experiments/initial_weapon_pose_probe.mjs /tmp/NEW-initial.json",
+    "PLAYWRIGHT_MODULE=/path/to/playwright/index.mjs node tools/browser/grip_point_screen.mjs --base=http://127.0.0.1:4281/ --out=/tmp/NEW-play --weapons=monohoshizao,lightsaber --modes=midpoint,axial"
+  ],
+  "deliveryReceipt": "startup_grip_release.json"
+}
