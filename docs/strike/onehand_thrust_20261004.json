@@ -1,0 +1,1635 @@
+{
+  "schema": "onehand-thrust-20261004-v1",
+  "decision": {
+    "sabre": "optional comparison only; follow-up tracking and real human phone acceptance remain",
+    "qinggang": "PUBLIC HOLD: first following cut actual contact peak grows; no comparison button or public flag activation",
+    "generalDefault": "unchanged; no promotion",
+    "failedCandidates": "C2/command-plane/gain search, support/cutting and new hands not revived"
+  },
+  "baseCommit": "bf1f9246c7b652f8da89fb72e16a7e520952ca38",
+  "measuredDirtySource": "Raw sourceCommit is the base label, not a claim that uncommitted integrated code existed in that commit. Each raw sourceBefore/sourceAfter and generated-runner provenance identify actual measured bytes. Final main restricts exposure to sabre; headless imports Fighter rather than main. Final Fighter comment clarifies force limits rather than unchanged force outputs; runtime unchanged. Final compiled local sabre2 verified identical production module; other-weapon exposure restricted in main.",
+  "releaseSourceHashes": {
+    "src/fighter.js": "01568d278e338d133e7ed75d1437421440757c22e1e77b2e2b9171fd6b30c4de",
+    "src/main.js": "c9838e2b8049cf6955f8efdcf6c220b80087769377c543eeca0ae8d67c97b49d",
+    "src/hand_visual.js": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893",
+    "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+    "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+    "package.json": "9f267f3512c0be2c4407763c8d10b2813521ed425e948808222de8236db83df2",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+    "tools/sim/experiments/onehand_stop_reverse_probe.mjs": "4bcde43072a4950c4d136bba07bd0e4a209b534379a0c7f03a186574e83698b2",
+    "tools/sim/experiments/onehand_thrust_probe.mjs": "6a2ac619cdbbae681c5319ba7fb71009691eef6997523b0ff3e7e731e5d3f492",
+    "tools/sim/experiments/onehand_thrust_metrics.py": "426e99d58c320d7b02e0bb80c879ff24e7e7d569ce0a1a83dcaa7557eeb8718c",
+    "tools/browser/onehand_thrust_screen.mjs": "633b5c7d3f4003b767a8c2bf69b71ce7e0a70d4108879d72d81962c32375d8a8"
+  },
+  "artifactRoot": "/workspace/halfsword-handoff/onehand-thrust-20261004",
+  "artifacts": [
+    {
+      "path": "tap-screen-run02.json",
+      "bytes": 91981841,
+      "sha256": "3a6704da6f02bda30a1cc3059b9db4e0fdcd2689bf17eb0c59853e70cd051295"
+    },
+    {
+      "path": "no-tap-run03.json",
+      "bytes": 91903738,
+      "sha256": "f41e5ef333da099b1fb5ef5286c8d4e4de34754e93ab9b1ff32508d73a90729f"
+    },
+    {
+      "path": "integrated-tap-run04.json",
+      "bytes": 91980996,
+      "sha256": "e40a90e17540821aedfb826cc65aaf5a6a8d89ee9cb209cdb4c2579032cb6a3d"
+    },
+    {
+      "path": "live-tap-run05.json",
+      "bytes": 194157421,
+      "sha256": "25a734e9c436fe85add2e3190d024962e6d265f92dcdd90a9e92688fef1da47f"
+    },
+    {
+      "path": "contact-tap-run06.json",
+      "bytes": 197372335,
+      "sha256": "390b8edd8129cd4d39d0ca619cb7165030dde4e21ba1f6ca37adbd8fa66790c4"
+    },
+    {
+      "path": "source-integration-parity.json",
+      "bytes": 794,
+      "sha256": "594abfb4afc892bec54c4f94b4e6f0fa1767959e025ad1586e6cd29648e25b5c"
+    },
+    {
+      "path": "protocol-summary.json",
+      "bytes": 88728,
+      "sha256": "5896bd480d458b5d2b51217d00a77662f53f4c75b73f887c4968552241560e85"
+    },
+    {
+      "path": "thrust-metrics-final.json",
+      "bytes": 18025,
+      "sha256": "fcd6fcfcfca9c19606fe5597ea99e772bc17416fb2487188e1438b0d3fc7a984"
+    },
+    {
+      "path": "browser-baseline-run03.mjs",
+      "bytes": 11939,
+      "sha256": "796934f0400c7e7ed7a4159680ee5517b2d2728e525fc4dcac0c0d9dd25c3c25"
+    },
+    {
+      "path": "headless-screen-run02-03.mjs",
+      "bytes": 4114,
+      "sha256": "c62e68f6bd295138cd197ff2ccc530aaa3ff1c2afb08143b3aef23b48c091d79"
+    },
+    {
+      "path": "independent-review.md",
+      "bytes": 12967,
+      "sha256": "acdfec22a1e0013b56c40c31f7b0248d24ba9a275b34e7267b52661cd72c78f0"
+    },
+    {
+      "path": "live-tap-run05.json.provenance.json",
+      "bytes": 1019,
+      "sha256": "4dc98c2672f3d7d687dd427a900e08d9ce44bee59c416f3d07690175907c3fa1"
+    },
+    {
+      "path": "tap-screen-run02.json.provenance.json",
+      "bytes": 920,
+      "sha256": "de70d7533c47edbb39ecf11409b53f3804d4a7e8eee843f9db64e62a24fb9c43"
+    },
+    {
+      "path": "no-tap-run03.json.provenance.json",
+      "bytes": 941,
+      "sha256": "a0acce2f5e6ed8004b86fdce37770190e3a0f08cae78bbcbf05b7f1c7fe96a01"
+    },
+    {
+      "path": "integrated-tap-run04.json.provenance.json",
+      "bytes": 924,
+      "sha256": "6f146d66e0d1de30835a60a7a2d3e768446c1e29b69553dbc0142c17a9bb25c8"
+    },
+    {
+      "path": "contact-tap-run06.json.provenance.json",
+      "bytes": 1075,
+      "sha256": "622962094748a2cc50c1643034ce5e21d0b69b49b21cd823a1bbfb961d91052e"
+    },
+    {
+      "path": "public-baseline-run03/summary.json",
+      "bytes": 11697,
+      "sha256": "ff403fbef3baf46cf0c85196388ce24458565fbbd5d11f398b5d1cac39979695"
+    },
+    {
+      "path": "local-integrated/summary.json",
+      "bytes": 21585,
+      "sha256": "1ecf5a61be6052c3afe87d37ac9bf5d5491f72db6b1b191656aa920da1404ff0"
+    },
+    {
+      "path": "contact-metrics-final.json",
+      "bytes": 22330,
+      "sha256": "25f258def12732fe9718d74a02c1af5853d819448725f8035c977b1fb696cc1f"
+    },
+    {
+      "path": "local-sabre-release-run02/summary.json",
+      "bytes": 11906,
+      "sha256": "1c59a500eca6f9638a5e9a5ceaf73afb26dc97eec31855f67f78d6d639667eaa"
+    }
+  ],
+  "shortTapKinematicMetrics": [
+    {
+      "weapon": "sabre",
+      "mode": "original",
+      "metrics": {
+        "stop_reverse_hold": {
+          "frames": 150,
+          "relativeQuatBladeAxisPathRad": 7.747092418175469,
+          "relativeQuatBladeAxisSignedRad": 3.746445947079073,
+          "relativeOmegaProjectedAbsArcRad": 7.64794604157141,
+          "maxAbsRelativeAxialOmegaRadS": 28.71232935376766,
+          "peakTimeS": 2.2416666666666614,
+          "peakThrustWeight": 1,
+          "meanAimErrorRad": 0.10340843934440533,
+          "maxHandTargetErrorM": 0.7796093162532688,
+          "swordContactFrames": 0
+        },
+        "follow_cut_hold": {
+          "frames": 120,
+          "relativeQuatBladeAxisPathRad": 3.1931932924672966,
+          "relativeQuatBladeAxisSignedRad": -0.2649144415786364,
+          "relativeOmegaProjectedAbsArcRad": 3.1263544026028445,
+          "maxAbsRelativeAxialOmegaRadS": 9.934971724605996,
+          "peakTimeS": 3.7333333333333227,
+          "peakThrustWeight": 0,
+          "meanAimErrorRad": 0.0639571539660577,
+          "maxHandTargetErrorM": 0.15733509943971738,
+          "swordContactFrames": 0
+        },
+        "tap_push": {
+          "frames": 24,
+          "relativeQuatBladeAxisPathRad": 3.2629391726960364,
+          "relativeQuatBladeAxisSignedRad": 2.66821770929521,
+          "relativeOmegaProjectedAbsArcRad": 3.2716579057231745,
+          "maxAbsRelativeAxialOmegaRadS": 28.71232935376766,
+          "peakTimeS": 2.2416666666666614,
+          "peakThrustWeight": 1,
+          "meanAimErrorRad": 0.24451706717032975,
+          "maxHandTargetErrorM": 0.7796093162532688,
+          "swordContactFrames": 0
+        },
+        "tap_recovery": {
+          "frames": 24,
+          "relativeQuatBladeAxisPathRad": 2.3801703325272583,
+          "relativeQuatBladeAxisSignedRad": 1.2080475350096085,
+          "relativeOmegaProjectedAbsArcRad": 2.4526676442649196,
+          "maxAbsRelativeAxialOmegaRadS": 17.80242800496627,
+          "peakTimeS": 2.424999999999994,
+          "peakThrustWeight": 0.5833333333333315,
+          "meanAimErrorRad": 0.07856275135477674,
+          "maxHandTargetErrorM": 0.5288748294676718,
+          "swordContactFrames": 0
+        }
+      }
+    },
+    {
+      "weapon": "sabre",
+      "mode": "steady",
+      "metrics": {
+        "stop_reverse_hold": {
+          "frames": 150,
+          "relativeQuatBladeAxisPathRad": 4.39513665499035,
+          "relativeQuatBladeAxisSignedRad": 0.5360325963259832,
+          "relativeOmegaProjectedAbsArcRad": 4.292882130480497,
+          "maxAbsRelativeAxialOmegaRadS": 15.020678097953569,
+          "peakTimeS": 2.474999999999994,
+          "peakThrustWeight": 0.3055555555555528,
+          "meanAimErrorRad": 0.11027134955619587,
+          "maxHandTargetErrorM": 0.799620885582196,
+          "swordContactFrames": 0
+        },
+        "follow_cut_hold": {
+          "frames": 120,
+          "relativeQuatBladeAxisPathRad": 3.1969801058005305,
+          "relativeQuatBladeAxisSignedRad": -0.26633112489196636,
+          "relativeOmegaProjectedAbsArcRad": 3.130137977799828,
+          "maxAbsRelativeAxialOmegaRadS": 9.902355858757778,
+          "peakTimeS": 3.7333333333333227,
+          "peakThrustWeight": 0,
+          "meanAimErrorRad": 0.06388812515797021,
+          "maxHandTargetErrorM": 0.1572794270850395,
+          "swordContactFrames": 0
+        },
+        "tap_push": {
+          "frames": 24,
+          "relativeQuatBladeAxisPathRad": 1.2204737247236437,
+          "relativeQuatBladeAxisSignedRad": 0.21349656431218195,
+          "relativeOmegaProjectedAbsArcRad": 1.2116243914039384,
+          "maxAbsRelativeAxialOmegaRadS": 9.352095002289618,
+          "peakTimeS": 2.1833333333333282,
+          "peakThrustWeight": 1,
+          "meanAimErrorRad": 0.26174549889710247,
+          "maxHandTargetErrorM": 0.799620885582196,
+          "swordContactFrames": 0
+        },
+        "tap_recovery": {
+          "frames": 24,
+          "relativeQuatBladeAxisPathRad": 1.1321176233988897,
+          "relativeQuatBladeAxisSignedRad": 0.721958646323226,
+          "relativeOmegaProjectedAbsArcRad": 1.2150318723385967,
+          "maxAbsRelativeAxialOmegaRadS": 15.020678097953569,
+          "peakTimeS": 2.474999999999994,
+          "peakThrustWeight": 0.3055555555555528,
+          "meanAimErrorRad": 0.10161351183203708,
+          "maxHandTargetErrorM": 0.5683344218622671,
+          "swordContactFrames": 0
+        }
+      }
+    },
+    {
+      "weapon": "qinggang",
+      "mode": "original",
+      "metrics": {
+        "stop_reverse_hold": {
+          "frames": 150,
+          "relativeQuatBladeAxisPathRad": 6.874554545038837,
+          "relativeQuatBladeAxisSignedRad": 3.6020664376901,
+          "relativeOmegaProjectedAbsArcRad": 7.01828683096787,
+          "maxAbsRelativeAxialOmegaRadS": 30.853586444871965,
+          "peakTimeS": 2.533333333333327,
+          "peakThrustWeight": 0,
+          "meanAimErrorRad": 0.0721533605156024,
+          "maxHandTargetErrorM": 0.6521355070266364,
+          "swordContactFrames": 0
+        },
+        "follow_cut_hold": {
+          "frames": 120,
+          "relativeQuatBladeAxisPathRad": 2.734437405646015,
+          "relativeQuatBladeAxisSignedRad": -0.2786040388473017,
+          "relativeOmegaProjectedAbsArcRad": 2.7035574851739455,
+          "maxAbsRelativeAxialOmegaRadS": 9.858011429730938,
+          "peakTimeS": 3.3916666666666573,
+          "peakThrustWeight": 0,
+          "meanAimErrorRad": 0.029242877235452085,
+          "maxHandTargetErrorM": 0.12521858450165477,
+          "swordContactFrames": 0
+        },
+        "tap_push": {
+          "frames": 24,
+          "relativeQuatBladeAxisPathRad": 2.1905546401332927,
+          "relativeQuatBladeAxisSignedRad": -0.3844021075837511,
+          "relativeOmegaProjectedAbsArcRad": 2.3024646106901936,
+          "maxAbsRelativeAxialOmegaRadS": 25.959192609086262,
+          "peakTimeS": 2.233333333333328,
+          "peakThrustWeight": 1,
+          "meanAimErrorRad": 0.15648010405563254,
+          "maxHandTargetErrorM": 0.6521355070266364,
+          "swordContactFrames": 0
+        },
+        "tap_recovery": {
+          "frames": 24,
+          "relativeQuatBladeAxisPathRad": 3.281421172864801,
+          "relativeQuatBladeAxisSignedRad": 3.281421172864801,
+          "relativeOmegaProjectedAbsArcRad": 3.357274600713324,
+          "maxAbsRelativeAxialOmegaRadS": 30.853586444871965,
+          "peakTimeS": 2.533333333333327,
+          "peakThrustWeight": 0,
+          "meanAimErrorRad": 0.053149529084204554,
+          "maxHandTargetErrorM": 0.42290845225428947,
+          "swordContactFrames": 0
+        }
+      }
+    },
+    {
+      "weapon": "qinggang",
+      "mode": "steady",
+      "metrics": {
+        "stop_reverse_hold": {
+          "frames": 150,
+          "relativeQuatBladeAxisPathRad": 3.7085224212440258,
+          "relativeQuatBladeAxisSignedRad": 0.5395274628670541,
+          "relativeOmegaProjectedAbsArcRad": 3.8323445176528392,
+          "maxAbsRelativeAxialOmegaRadS": 28.772333882342657,
+          "peakTimeS": 2.424999999999994,
+          "peakThrustWeight": 0.5833333333333315,
+          "meanAimErrorRad": 0.060275833100478356,
+          "maxHandTargetErrorM": 0.641036848215953,
+          "swordContactFrames": 0
+        },
+        "follow_cut_hold": {
+          "frames": 120,
+          "relativeQuatBladeAxisPathRad": 2.7331346557415563,
+          "relativeQuatBladeAxisSignedRad": -0.27839321422136193,
+          "relativeOmegaProjectedAbsArcRad": 2.7023104678712535,
+          "maxAbsRelativeAxialOmegaRadS": 9.849535886621968,
+          "peakTimeS": 3.3916666666666573,
+          "peakThrustWeight": 0,
+          "meanAimErrorRad": 0.029262082672710455,
+          "maxHandTargetErrorM": 0.12520361641270922,
+          "swordContactFrames": 0
+        },
+        "tap_push": {
+          "frames": 24,
+          "relativeQuatBladeAxisPathRad": 0.6010334949156312,
+          "relativeQuatBladeAxisSignedRad": 0.13899103273063,
+          "relativeOmegaProjectedAbsArcRad": 0.6048449812064122,
+          "maxAbsRelativeAxialOmegaRadS": 6.78027967714488,
+          "peakTimeS": 2.1666666666666616,
+          "peakThrustWeight": 1,
+          "meanAimErrorRad": 0.11177081077827322,
+          "maxHandTargetErrorM": 0.641036848215953,
+          "swordContactFrames": 0
+        },
+        "tap_recovery": {
+          "frames": 24,
+          "relativeQuatBladeAxisPathRad": 2.1374382685312647,
+          "relativeQuatBladeAxisSignedRad": 0.12830039043141167,
+          "relativeOmegaProjectedAbsArcRad": 2.250062127771049,
+          "maxAbsRelativeAxialOmegaRadS": 28.772333882342657,
+          "peakTimeS": 2.424999999999994,
+          "peakThrustWeight": 0.5833333333333315,
+          "meanAimErrorRad": 0.03760017642280637,
+          "maxHandTargetErrorM": 0.4117991675896677,
+          "swordContactFrames": 0
+        }
+      }
+    }
+  ],
+  "protocols": [
+    {
+      "raw": "tap-screen-run02.json",
+      "pass": true,
+      "sourceStable": true,
+      "scheduleSHA256": "5d6edd1fe18d1c3bfd4b72f1636c11f4d0e08fb9bc8316e13f0b8104172c88fd",
+      "wallSeconds": 13.999368021,
+      "sourceCommitLabel": "bf1f9246c7b652f8da89fb72e16a7e520952ca38",
+      "rows": [
+        {
+          "weapon": "sabre",
+          "mode": "original",
+          "frames": 516,
+          "summary": {
+            "maxHandErrorM": 0.7796093162532688,
+            "maxSwingOmega": 9.518503454873997,
+            "maxAxialOmega": 29.083016848950674,
+            "maxJointGapM": 0.0018005769780798499,
+            "wristChecks": 516
+          },
+          "firstTap": {
+            "tick": 246,
+            "timeS": 2.0583333333333287,
+            "accepted": true
+          },
+          "postPhysicsPeak": {
+            "tick": 268,
+            "timeS": 2.2416666666666614,
+            "omega": 29.083016848950674,
+            "relativeOmega": 28.71232935376766,
+            "thrustWeight": 1,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "postCombatPeak": {
+            "tick": 268,
+            "timeS": 2.2416666666666614,
+            "omega": 29.083016848950674,
+            "relativeOmega": 28.71232935376766,
+            "thrustWeight": 1,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "swordContactFrames": 0,
+          "firstTapFollowing075s": {
+            "frames": 91,
+            "projectedRelativeAbsArcRad": 7.146543458409769,
+            "maxRelativeOmega": 28.71232935376766
+          },
+          "finalLimbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "finalState": "stand"
+        },
+        {
+          "weapon": "sabre",
+          "mode": "steady",
+          "frames": 516,
+          "summary": {
+            "maxHandErrorM": 0.799620885582196,
+            "maxSwingOmega": 9.515624949162701,
+            "maxAxialOmega": 16.40412333898289,
+            "maxJointGapM": 0.00180906392145064,
+            "wristChecks": 516
+          },
+          "firstTap": {
+            "tick": 246,
+            "timeS": 2.0583333333333287,
+            "accepted": true
+          },
+          "postPhysicsPeak": {
+            "tick": 296,
+            "timeS": 2.474999999999994,
+            "omega": 16.40412333898289,
+            "relativeOmega": 15.020678097953569,
+            "thrustWeight": 0.3055555555555528,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "postCombatPeak": {
+            "tick": 296,
+            "timeS": 2.474999999999994,
+            "omega": 16.40412333898289,
+            "relativeOmega": 15.020678097953569,
+            "thrustWeight": 0.3055555555555528,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "swordContactFrames": 0,
+          "firstTapFollowing075s": {
+            "frames": 91,
+            "projectedRelativeAbsArcRad": 3.694613665395625,
+            "maxRelativeOmega": 15.020678097953569
+          },
+          "finalLimbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "finalState": "stand"
+        },
+        {
+          "weapon": "qinggang",
+          "mode": "original",
+          "frames": 516,
+          "summary": {
+            "maxHandErrorM": 0.6521355070266364,
+            "maxSwingOmega": 11.071325564785523,
+            "maxAxialOmega": 29.8241317819264,
+            "maxJointGapM": 0.0017824194956535414,
+            "wristChecks": 516
+          },
+          "firstTap": {
+            "tick": 246,
+            "timeS": 2.0583333333333287,
+            "accepted": true
+          },
+          "postPhysicsPeak": {
+            "tick": 266,
+            "timeS": 2.2249999999999948,
+            "omega": -29.824131781926397,
+            "relativeOmega": -24.03725854433526,
+            "thrustWeight": 1,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "postCombatPeak": {
+            "tick": 266,
+            "timeS": 2.2249999999999948,
+            "omega": -29.824131781926397,
+            "relativeOmega": -24.03725854433526,
+            "thrustWeight": 1,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "swordContactFrames": 0,
+          "firstTapFollowing075s": {
+            "frames": 91,
+            "projectedRelativeAbsArcRad": 6.594591554307507,
+            "maxRelativeOmega": 30.853586444871965
+          },
+          "finalLimbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "finalState": "stand"
+        },
+        {
+          "weapon": "qinggang",
+          "mode": "steady",
+          "frames": 516,
+          "summary": {
+            "maxHandErrorM": 0.641036848215953,
+            "maxSwingOmega": 11.072340513609383,
+            "maxAxialOmega": 25.701896588018823,
+            "maxJointGapM": 0.001781541180160577,
+            "wristChecks": 516
+          },
+          "firstTap": {
+            "tick": 246,
+            "timeS": 2.0583333333333287,
+            "accepted": true
+          },
+          "postPhysicsPeak": {
+            "tick": 290,
+            "timeS": 2.424999999999994,
+            "omega": -25.701896588018823,
+            "relativeOmega": -28.772333882342657,
+            "thrustWeight": 0.5833333333333315,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "postCombatPeak": {
+            "tick": 290,
+            "timeS": 2.424999999999994,
+            "omega": -25.701896588018823,
+            "relativeOmega": -28.772333882342657,
+            "thrustWeight": 0.5833333333333315,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "swordContactFrames": 0,
+          "firstTapFollowing075s": {
+            "frames": 91,
+            "projectedRelativeAbsArcRad": 3.41407834196129,
+            "maxRelativeOmega": 28.772333882342657
+          },
+          "finalLimbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "finalState": "stand"
+        }
+      ]
+    },
+    {
+      "raw": "no-tap-run03.json",
+      "pass": true,
+      "sourceStable": true,
+      "scheduleSHA256": "5d6edd1fe18d1c3bfd4b72f1636c11f4d0e08fb9bc8316e13f0b8104172c88fd",
+      "wallSeconds": 15.129220206,
+      "sourceCommitLabel": "bf1f9246c7b652f8da89fb72e16a7e520952ca38",
+      "rows": [
+        {
+          "weapon": "sabre",
+          "mode": "original",
+          "frames": 516,
+          "summary": {
+            "maxHandErrorM": 0.16704546444798402,
+            "maxSwingOmega": 10.304994719553893,
+            "maxAxialOmega": 6.872778796598359,
+            "maxJointGapM": 0.0015048156353177152,
+            "wristChecks": 516
+          },
+          "firstTap": null,
+          "postPhysicsPeak": {
+            "tick": 267,
+            "timeS": 2.233333333333328,
+            "omega": -6.872778796598358,
+            "relativeOmega": -9.90480578645593,
+            "thrustWeight": 0,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "postCombatPeak": {
+            "tick": 267,
+            "timeS": 2.233333333333328,
+            "omega": -6.872778796598358,
+            "relativeOmega": -9.90480578645593,
+            "thrustWeight": 0,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "swordContactFrames": 0,
+          "finalLimbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "finalState": "stand"
+        },
+        {
+          "weapon": "sabre",
+          "mode": "steady",
+          "frames": 516,
+          "summary": {
+            "maxHandErrorM": 0.16704546444798402,
+            "maxSwingOmega": 10.304994719553893,
+            "maxAxialOmega": 6.872778796598359,
+            "maxJointGapM": 0.0015048156353177152,
+            "wristChecks": 516
+          },
+          "firstTap": null,
+          "postPhysicsPeak": {
+            "tick": 267,
+            "timeS": 2.233333333333328,
+            "omega": -6.872778796598358,
+            "relativeOmega": -9.90480578645593,
+            "thrustWeight": 0,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "postCombatPeak": {
+            "tick": 267,
+            "timeS": 2.233333333333328,
+            "omega": -6.872778796598358,
+            "relativeOmega": -9.90480578645593,
+            "thrustWeight": 0,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "swordContactFrames": 0,
+          "finalLimbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "finalState": "stand"
+        },
+        {
+          "weapon": "qinggang",
+          "mode": "original",
+          "frames": 516,
+          "summary": {
+            "maxHandErrorM": 0.13483868327583978,
+            "maxSwingOmega": 11.655824570176218,
+            "maxAxialOmega": 6.510752711707202,
+            "maxJointGapM": 0.0015301478003610543,
+            "wristChecks": 516
+          },
+          "firstTap": null,
+          "postPhysicsPeak": {
+            "tick": 325,
+            "timeS": 2.7166666666666597,
+            "omega": 6.510752711707202,
+            "relativeOmega": 2.7423978533913083,
+            "thrustWeight": 0,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "postCombatPeak": {
+            "tick": 325,
+            "timeS": 2.7166666666666597,
+            "omega": 6.510752711707202,
+            "relativeOmega": 2.7423978533913083,
+            "thrustWeight": 0,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "swordContactFrames": 0,
+          "finalLimbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "finalState": "stand"
+        },
+        {
+          "weapon": "qinggang",
+          "mode": "steady",
+          "frames": 516,
+          "summary": {
+            "maxHandErrorM": 0.13483868327583978,
+            "maxSwingOmega": 11.655824570176218,
+            "maxAxialOmega": 6.510752711707202,
+            "maxJointGapM": 0.0015301478003610543,
+            "wristChecks": 516
+          },
+          "firstTap": null,
+          "postPhysicsPeak": {
+            "tick": 325,
+            "timeS": 2.7166666666666597,
+            "omega": 6.510752711707202,
+            "relativeOmega": 2.7423978533913083,
+            "thrustWeight": 0,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "postCombatPeak": {
+            "tick": 325,
+            "timeS": 2.7166666666666597,
+            "omega": 6.510752711707202,
+            "relativeOmega": 2.7423978533913083,
+            "thrustWeight": 0,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "swordContactFrames": 0,
+          "finalLimbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "finalState": "stand"
+        }
+      ]
+    },
+    {
+      "raw": "integrated-tap-run04.json",
+      "pass": true,
+      "sourceStable": true,
+      "scheduleSHA256": "5d6edd1fe18d1c3bfd4b72f1636c11f4d0e08fb9bc8316e13f0b8104172c88fd",
+      "wallSeconds": 12.473920262,
+      "sourceCommitLabel": "bf1f9246c7b652f8da89fb72e16a7e520952ca38",
+      "rows": [
+        {
+          "weapon": "sabre",
+          "mode": "original",
+          "frames": 516,
+          "summary": {
+            "maxHandErrorM": 0.7796093162532688,
+            "maxSwingOmega": 9.518503454873997,
+            "maxAxialOmega": 29.083016848950674,
+            "maxJointGapM": 0.0018005769780798499,
+            "wristChecks": 516
+          },
+          "firstTap": {
+            "tick": 246,
+            "timeS": 2.0583333333333287,
+            "accepted": true
+          },
+          "postPhysicsPeak": {
+            "tick": 268,
+            "timeS": 2.2416666666666614,
+            "omega": 29.083016848950674,
+            "relativeOmega": 28.71232935376766,
+            "thrustWeight": 1,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "postCombatPeak": {
+            "tick": 268,
+            "timeS": 2.2416666666666614,
+            "omega": 29.083016848950674,
+            "relativeOmega": 28.71232935376766,
+            "thrustWeight": 1,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "swordContactFrames": 0,
+          "firstTapFollowing075s": {
+            "frames": 91,
+            "projectedRelativeAbsArcRad": 7.146543458409769,
+            "maxRelativeOmega": 28.71232935376766
+          },
+          "finalLimbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "finalState": "stand"
+        },
+        {
+          "weapon": "sabre",
+          "mode": "steady",
+          "frames": 516,
+          "summary": {
+            "maxHandErrorM": 0.799620885582196,
+            "maxSwingOmega": 9.515624949162701,
+            "maxAxialOmega": 16.40412333898289,
+            "maxJointGapM": 0.00180906392145064,
+            "wristChecks": 516
+          },
+          "firstTap": {
+            "tick": 246,
+            "timeS": 2.0583333333333287,
+            "accepted": true
+          },
+          "postPhysicsPeak": {
+            "tick": 296,
+            "timeS": 2.474999999999994,
+            "omega": 16.40412333898289,
+            "relativeOmega": 15.020678097953569,
+            "thrustWeight": 0.3055555555555528,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "postCombatPeak": {
+            "tick": 296,
+            "timeS": 2.474999999999994,
+            "omega": 16.40412333898289,
+            "relativeOmega": 15.020678097953569,
+            "thrustWeight": 0.3055555555555528,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "swordContactFrames": 0,
+          "firstTapFollowing075s": {
+            "frames": 91,
+            "projectedRelativeAbsArcRad": 3.694613665395625,
+            "maxRelativeOmega": 15.020678097953569
+          },
+          "finalLimbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "finalState": "stand"
+        },
+        {
+          "weapon": "qinggang",
+          "mode": "original",
+          "frames": 516,
+          "summary": {
+            "maxHandErrorM": 0.6521355070266364,
+            "maxSwingOmega": 11.071325564785523,
+            "maxAxialOmega": 29.8241317819264,
+            "maxJointGapM": 0.0017824194956535414,
+            "wristChecks": 516
+          },
+          "firstTap": {
+            "tick": 246,
+            "timeS": 2.0583333333333287,
+            "accepted": true
+          },
+          "postPhysicsPeak": {
+            "tick": 266,
+            "timeS": 2.2249999999999948,
+            "omega": -29.824131781926397,
+            "relativeOmega": -24.03725854433526,
+            "thrustWeight": 1,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "postCombatPeak": {
+            "tick": 266,
+            "timeS": 2.2249999999999948,
+            "omega": -29.824131781926397,
+            "relativeOmega": -24.03725854433526,
+            "thrustWeight": 1,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "swordContactFrames": 0,
+          "firstTapFollowing075s": {
+            "frames": 91,
+            "projectedRelativeAbsArcRad": 6.594591554307507,
+            "maxRelativeOmega": 30.853586444871965
+          },
+          "finalLimbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "finalState": "stand"
+        },
+        {
+          "weapon": "qinggang",
+          "mode": "steady",
+          "frames": 516,
+          "summary": {
+            "maxHandErrorM": 0.641036848215953,
+            "maxSwingOmega": 11.072340513609383,
+            "maxAxialOmega": 25.701896588018823,
+            "maxJointGapM": 0.001781541180160577,
+            "wristChecks": 516
+          },
+          "firstTap": {
+            "tick": 246,
+            "timeS": 2.0583333333333287,
+            "accepted": true
+          },
+          "postPhysicsPeak": {
+            "tick": 290,
+            "timeS": 2.424999999999994,
+            "omega": -25.701896588018823,
+            "relativeOmega": -28.772333882342657,
+            "thrustWeight": 0.5833333333333315,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "postCombatPeak": {
+            "tick": 290,
+            "timeS": 2.424999999999994,
+            "omega": -25.701896588018823,
+            "relativeOmega": -28.772333882342657,
+            "thrustWeight": 0.5833333333333315,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "swordContactFrames": 0,
+          "firstTapFollowing075s": {
+            "frames": 91,
+            "projectedRelativeAbsArcRad": 3.41407834196129,
+            "maxRelativeOmega": 28.772333882342657
+          },
+          "finalLimbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "finalState": "stand"
+        }
+      ]
+    },
+    {
+      "raw": "live-tap-run05.json",
+      "pass": true,
+      "sourceStable": true,
+      "scheduleSHA256": "e81d4509c0c8a27416ee247e08324b058334ea8745e4b8aa7796d4958700c361",
+      "wallSeconds": 28.164634349,
+      "sourceCommitLabel": "bf1f9246c7b652f8da89fb72e16a7e520952ca38",
+      "rows": [
+        {
+          "weapon": "sabre",
+          "mode": "original",
+          "frames": 1080,
+          "summary": {
+            "maxHandErrorM": 0.7796093162532688,
+            "maxSwingOmega": 9.579518307565365,
+            "maxAxialOmega": 29.083016848950674,
+            "maxJointGapM": 0.0018005769780798499,
+            "wristChecks": 1080
+          },
+          "firstTap": {
+            "tick": 246,
+            "timeS": 2.0583333333333287,
+            "accepted": true
+          },
+          "postPhysicsPeak": {
+            "tick": 268,
+            "timeS": 2.2416666666666614,
+            "omega": 29.083016848950674,
+            "relativeOmega": 28.71232935376766,
+            "thrustWeight": 1,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "postCombatPeak": {
+            "tick": 268,
+            "timeS": 2.2416666666666614,
+            "omega": 29.083016848950674,
+            "relativeOmega": 28.71232935376766,
+            "thrustWeight": 1,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "swordContactFrames": 0,
+          "firstTapFollowing075s": {
+            "frames": 91,
+            "projectedRelativeAbsArcRad": 7.146543458409769,
+            "maxRelativeOmega": 28.71232935376766
+          },
+          "finalLimbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "finalState": "stand"
+        },
+        {
+          "weapon": "sabre",
+          "mode": "steady",
+          "frames": 1080,
+          "summary": {
+            "maxHandErrorM": 0.799620885582196,
+            "maxSwingOmega": 9.472312431050227,
+            "maxAxialOmega": 16.40412333898289,
+            "maxJointGapM": 0.00180906392145064,
+            "wristChecks": 1080
+          },
+          "firstTap": {
+            "tick": 246,
+            "timeS": 2.0583333333333287,
+            "accepted": true
+          },
+          "postPhysicsPeak": {
+            "tick": 296,
+            "timeS": 2.474999999999994,
+            "omega": 16.40412333898289,
+            "relativeOmega": 15.020678097953569,
+            "thrustWeight": 0.3055555555555528,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "postCombatPeak": {
+            "tick": 296,
+            "timeS": 2.474999999999994,
+            "omega": 16.40412333898289,
+            "relativeOmega": 15.020678097953569,
+            "thrustWeight": 0.3055555555555528,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "swordContactFrames": 0,
+          "firstTapFollowing075s": {
+            "frames": 91,
+            "projectedRelativeAbsArcRad": 3.694613665395625,
+            "maxRelativeOmega": 15.020678097953569
+          },
+          "finalLimbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 0.4273528879147631,
+            "legB": 1
+          },
+          "finalState": "stand"
+        },
+        {
+          "weapon": "qinggang",
+          "mode": "original",
+          "frames": 1080,
+          "summary": {
+            "maxHandErrorM": 0.6521355070266364,
+            "maxSwingOmega": 11.06746974981564,
+            "maxAxialOmega": 29.8241317819264,
+            "maxJointGapM": 0.0017824194956535414,
+            "wristChecks": 1080
+          },
+          "firstTap": {
+            "tick": 246,
+            "timeS": 2.0583333333333287,
+            "accepted": true
+          },
+          "postPhysicsPeak": {
+            "tick": 266,
+            "timeS": 2.2249999999999948,
+            "omega": -29.824131781926397,
+            "relativeOmega": -24.03725854433526,
+            "thrustWeight": 1,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "postCombatPeak": {
+            "tick": 266,
+            "timeS": 2.2249999999999948,
+            "omega": -29.824131781926397,
+            "relativeOmega": -24.03725854433526,
+            "thrustWeight": 1,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "swordContactFrames": 21,
+          "firstTapFollowing075s": {
+            "frames": 91,
+            "projectedRelativeAbsArcRad": 6.594591554307507,
+            "maxRelativeOmega": 30.853586444871965
+          },
+          "finalLimbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "finalState": "stand"
+        },
+        {
+          "weapon": "qinggang",
+          "mode": "steady",
+          "frames": 1080,
+          "summary": {
+            "maxHandErrorM": 0.641036848215953,
+            "maxSwingOmega": 11.06746974981564,
+            "maxAxialOmega": 39.999998487391665,
+            "maxJointGapM": 0.001781541180160577,
+            "wristChecks": 1080
+          },
+          "firstTap": {
+            "tick": 246,
+            "timeS": 2.0583333333333287,
+            "accepted": true
+          },
+          "postPhysicsPeak": {
+            "tick": 794,
+            "timeS": 6.625000000000119,
+            "omega": 55.0924730411487,
+            "relativeOmega": 54.932346855400546,
+            "thrustWeight": 0,
+            "swordContacts": 1,
+            "clashes": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "postCombatPeak": {
+            "tick": 794,
+            "timeS": 6.625000000000119,
+            "omega": 39.999998487391665,
+            "relativeOmega": 39.83987230164351,
+            "thrustWeight": 0,
+            "swordContacts": 1,
+            "clashes": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "swordContactFrames": 22,
+          "firstTapFollowing075s": {
+            "frames": 91,
+            "projectedRelativeAbsArcRad": 3.41407834196129,
+            "maxRelativeOmega": 28.772333882342657
+          },
+          "finalLimbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "finalState": "stand"
+        }
+      ]
+    },
+    {
+      "raw": "contact-tap-run06.json",
+      "pass": true,
+      "sourceStable": true,
+      "scheduleSHA256": "e81d4509c0c8a27416ee247e08324b058334ea8745e4b8aa7796d4958700c361",
+      "wallSeconds": 25.490024921,
+      "sourceCommitLabel": "bf1f9246c7b652f8da89fb72e16a7e520952ca38",
+      "rows": [
+        {
+          "weapon": "sabre",
+          "mode": "original",
+          "frames": 1080,
+          "summary": {
+            "maxHandErrorM": 0.5878769155283112,
+            "maxSwingOmega": 24.042017607118467,
+            "maxAxialOmega": 21.93024396818229,
+            "maxJointGapM": 0.0015334660096257243,
+            "wristChecks": 1080
+          },
+          "firstTap": {
+            "tick": 845,
+            "timeS": 7.05000000000014,
+            "accepted": true
+          },
+          "postPhysicsPeak": {
+            "tick": 880,
+            "timeS": 7.341666666666821,
+            "omega": 21.930256333708652,
+            "relativeOmega": 22.96839415400408,
+            "thrustWeight": 0.9999999999999993,
+            "swordContacts": 1,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 0,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "postCombatPeak": {
+            "tick": 880,
+            "timeS": 7.341666666666821,
+            "omega": 21.930243968182292,
+            "relativeOmega": 22.96838178847772,
+            "thrustWeight": 0.9999999999999993,
+            "swordContacts": 1,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 0,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "swordContactFrames": 40,
+          "firstTapFollowing075s": {
+            "frames": 90,
+            "projectedRelativeAbsArcRad": 5.113502090724087,
+            "maxRelativeOmega": 23.53145512482886
+          },
+          "finalLimbs": {
+            "armS": 1,
+            "armO": 0,
+            "legF": 1,
+            "legB": 1
+          },
+          "finalState": "getup"
+        },
+        {
+          "weapon": "sabre",
+          "mode": "steady",
+          "frames": 1080,
+          "summary": {
+            "maxHandErrorM": 0.5825953477873608,
+            "maxSwingOmega": 10.304994719553893,
+            "maxAxialOmega": 16.08692054231541,
+            "maxJointGapM": 0.0021704652413649904,
+            "wristChecks": 1080
+          },
+          "firstTap": {
+            "tick": 845,
+            "timeS": 7.05000000000014,
+            "accepted": true
+          },
+          "postPhysicsPeak": {
+            "tick": 974,
+            "timeS": 8.12500000000018,
+            "omega": -16.08692054231541,
+            "relativeOmega": -16.414055432839625,
+            "thrustWeight": 0,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 0,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "postCombatPeak": {
+            "tick": 974,
+            "timeS": 8.12500000000018,
+            "omega": -16.08692054231541,
+            "relativeOmega": -16.414055432839625,
+            "thrustWeight": 0,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 0,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "swordContactFrames": 67,
+          "firstTapFollowing075s": {
+            "frames": 90,
+            "projectedRelativeAbsArcRad": 2.1924247544769053,
+            "maxRelativeOmega": 12.77689895336041
+          },
+          "finalLimbs": {
+            "armS": 1,
+            "armO": 0,
+            "legF": 0.9761304413256833,
+            "legB": 1
+          },
+          "finalState": "stand"
+        },
+        {
+          "weapon": "qinggang",
+          "mode": "original",
+          "frames": 1080,
+          "summary": {
+            "maxHandErrorM": 0.5000912392725595,
+            "maxSwingOmega": 11.655824570176218,
+            "maxAxialOmega": 34.02674934189665,
+            "maxJointGapM": 0.002491380794317725,
+            "wristChecks": 1080
+          },
+          "firstTap": {
+            "tick": 803,
+            "timeS": 6.700000000000123,
+            "accepted": true
+          },
+          "postPhysicsPeak": {
+            "tick": 831,
+            "timeS": 6.933333333333468,
+            "omega": 34.026749341896654,
+            "relativeOmega": 30.881337874663966,
+            "thrustWeight": 1,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "postCombatPeak": {
+            "tick": 831,
+            "timeS": 6.933333333333468,
+            "omega": 34.026749341896654,
+            "relativeOmega": 30.881337874663966,
+            "thrustWeight": 1,
+            "swordContacts": 0,
+            "clashes": 0,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "swordContactFrames": 29,
+          "firstTapFollowing075s": {
+            "frames": 90,
+            "projectedRelativeAbsArcRad": 6.018617690029852,
+            "maxRelativeOmega": 34.80784802654231
+          },
+          "finalLimbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "finalState": "stand"
+        },
+        {
+          "weapon": "qinggang",
+          "mode": "steady",
+          "frames": 1080,
+          "summary": {
+            "maxHandErrorM": 0.4985565088983724,
+            "maxSwingOmega": 11.655824570176218,
+            "maxAxialOmega": 39.999999595143436,
+            "maxJointGapM": 0.0027157167680838877,
+            "wristChecks": 1080
+          },
+          "firstTap": {
+            "tick": 803,
+            "timeS": 6.700000000000123,
+            "accepted": true
+          },
+          "postPhysicsPeak": {
+            "tick": 965,
+            "timeS": 8.050000000000184,
+            "omega": -42.610541818007626,
+            "relativeOmega": -53.514200904133894,
+            "thrustWeight": 0,
+            "swordContacts": 3,
+            "clashes": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "postCombatPeak": {
+            "tick": 965,
+            "timeS": 8.050000000000184,
+            "omega": -39.999999595143436,
+            "relativeOmega": -50.903658681269704,
+            "thrustWeight": 0,
+            "swordContacts": 3,
+            "clashes": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "swordContactFrames": 15,
+          "firstTapFollowing075s": {
+            "frames": 90,
+            "projectedRelativeAbsArcRad": 5.19035264726024,
+            "maxRelativeOmega": 16.71494021571338
+          },
+          "finalLimbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "finalState": "stand"
+        }
+      ]
+    }
+  ],
+  "contactPrefixChecks": [
+    {
+      "weapon": "sabre",
+      "sameTapTick": true,
+      "sameCreation": true,
+      "completeFramesBeforeTapExact": true,
+      "completeTraceBeforeTapExact": true,
+      "tapInputExact": true,
+      "prefixFrames": 844
+    },
+    {
+      "weapon": "qinggang",
+      "sameTapTick": true,
+      "sameCreation": true,
+      "completeFramesBeforeTapExact": true,
+      "completeTraceBeforeTapExact": true,
+      "tapInputExact": true,
+      "prefixFrames": 802
+    }
+  ],
+  "sourceIntegrationParity": {
+    "pass": true,
+    "checks": [
+      {
+        "weapon": "sabre",
+        "mode": "original",
+        "steps": 516,
+        "researchIntegratedFullTraceExact": true
+      },
+      {
+        "weapon": "sabre",
+        "mode": "steady",
+        "steps": 516,
+        "researchIntegratedFullTraceExact": true
+      },
+      {
+        "weapon": "qinggang",
+        "mode": "original",
+        "steps": 516,
+        "researchIntegratedFullTraceExact": true
+      },
+      {
+        "weapon": "qinggang",
+        "mode": "steady",
+        "steps": 516,
+        "researchIntegratedFullTraceExact": true
+      },
+      {
+        "weapon": "sabre",
+        "noTapFullNativeControllerInputEventsExact": true,
+        "steps": 516
+      },
+      {
+        "weapon": "qinggang",
+        "noTapFullNativeControllerInputEventsExact": true,
+        "steps": 516
+      }
+    ]
+  },
+  "counts": {
+    "headlessExecutions": 20,
+    "uniqueProtocolWeaponModeConditions": 16,
+    "integrationReplays": 4,
+    "browserPreReleaseSuccessfulScenes": 6,
+    "browserInitializationFailure": 1,
+    "browserObserverOldWorldFailure": 1,
+    "generatedRunnerSyntaxFailureBeforePhysics": 1,
+    "localPreviewPathFailureBeforeGame": 1,
+    "browserFinalLocalScenes": 2
+  },
+  "failureHandling": "Initial browser ffmpeg failure occurred before game; next sabre captured gesture but old-world observer had zero frames. Neither counted. Initial runner syntax failure ran zero physics scenes. Corrected tools/runs saved under fresh names. Metric boundary calculation corrected by read-only derivation, no physics repeated. Final local smoke initially used a Pages-style subpath on a root preview server; module requests failed before game. Fresh root preview URL used; excluded from physics/gameplay passes.",
+  "scope": "Finite-step sword-to-forearm blade-axis swing-twist is not anatomical wrist pronation or motor work. Browser timings differ; visual touch evidence does not become controlled numeric effect. Reactive combat branches after gate; no win rate/human recovery inference. New general physical limit, torque gain, impulse clamp, hands and native engine were not added.",
+  "next": "Reuse qinggang contact tick965 at8.05s: compare prePhysics/postPhysics/postCombat and existing clash gripTwist; no seed/gain sweep. 30–45min first verdict; sabre follow-up tracking remains open.",
+  "independentReview": "Source integration/default/restart gate and later contact failure independently checked. Latest recommendation: sabre optional only; Qinggang/defaults held. Both sword arms intact in common-prefix contact scenes."
+}

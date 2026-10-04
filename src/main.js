@@ -49,6 +49,7 @@ await RAPIER.init();
 const params = new URLSearchParams(location.search);
 // Session-only comparison; ordinary games retain their current hand mapping.
 const onehandArmModel = params.get('onehandArm') === 'manual' ? 'manual' : 'legacy';
+const thrustEdgeModel = params.get('thrustEdge') === 'steady' ? 'steady' : 'legacy';
 // A/B input trials use the same session-only menu values; saved preferences survive.
 const inputComparison = params.get('inputComparison') === 'vertical';
 const targetCorrectionTrial = configureTargetCorrectionTrial(params);
@@ -424,6 +425,8 @@ function newRound(weaponId) {
   for (const f of [player, enemy]) f.armTorqueModel = armTrial.model;
   for (const f of [player, enemy]) f.onehandArmModel = onehandArmModel;
   player.gripPointModel = gripPointModel;
+  // Narrow player-only comparison for the selected sabre trial.
+  player.thrustEdgeModel = onehandArmModel === 'manual' && player.weapon.id === 'sabre' ? thrustEdgeModel : 'legacy';
   player.initializeOnehandReadyPose();
   applyEdgeTorqueTrial(edgeTorqueTrial, player);
   applyArmRecoveryTrial(armRecoveryTrial, player);

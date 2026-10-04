@@ -2020,7 +2020,10 @@ export class Fighter {
     flatTarget.normalize();
     if (flatTarget.dot(flat) < 0) flatTarget.negate();
     const ev = edgeDir.length();
-    const moving = THREE.MathUtils.smoothstep(ev, 0.5, 2.5);
+    let moving = THREE.MathUtils.smoothstep(ev, 0.5, 2.5);
+    // During this optional thrust comparison, taper motion-driven roll into
+    // the existing rest plane. Ordinary cutting and force limits stay intact.
+    if (manualOnehand && this.thrustEdgeModel === 'steady') moving *= 1 - th.w;
     if (moving > 0) {
       const mf = edgeDir.crossVectors(blade, edgeDir).normalize();
       if (mf.dot(flat) < 0) mf.negate();
