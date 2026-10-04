@@ -44,6 +44,7 @@ import { configureWristBrakingTrial, applyWristBrakingTrial, mountWristBrakingTr
 import { configureBladeShapeTrial, applyBladeShapeTrial, mountBladeShapeTrial } from './blade_shape_trial.js';
 import { configureThrustPlaneTrial } from './thrust_plane.js';
 import { configureIntegratedCombatTrial, mountIntegratedCombatTrial } from './integrated_combat_trial.js';
+import { applyMotionAssist } from './motion_assist.js';
 
 await RAPIER.init();
 
@@ -482,6 +483,7 @@ function newRound(weaponId) {
   player.skill.level = +settingValue('skill');
   player.skill.autoGuard = true; // 베고 나면 기본 자세로 돌아간다 (AI는 스스로 자세를 고른다)
   applyTargetCorrectionTrial(targetCorrectionTrial, player); // 선택형 보정은 첫 스텝 전에 새 플레이어에만 적용한다.
+  applyMotionAssist(integratedCombatTrial, player);
   player.canShove = true; // 근접 밀치기: 플레이어는 스틱으로 (CLOSE.on 이 통째로 끄고 켠다)
   combat = new Combat(colliderInfo, { onWound, onClash });
   combat.cutReactionModel = cutTrial.model;

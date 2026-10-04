@@ -1,4 +1,5 @@
 /** Narrow session-only entry for the compound Qinggang mobile comparison. */
+import { MOTION_ASSIST } from './motion_assist.js';
 const COMMON = {
   combatTrial: 'integrated',
   weapon: 'qinggang',
@@ -8,7 +9,7 @@ const COMMON = {
   onehandArm: 'manual',
   bladeShape: 'profile',
 };
-const KEYS = new Set([...Object.keys(COMMON), 'thrustPlane', 'finishRule']);
+const KEYS = new Set([...Object.keys(COMMON), 'thrustPlane', 'finishRule', 'motionAssist']);
 
 export function configureIntegratedCombatTrial(params) {
   const requested = params.has('combatTrial');
@@ -18,13 +19,20 @@ export function configureIntegratedCombatTrial(params) {
   const uniqueModes = ['thrustPlane', 'finishRule'].every(key => params.getAll(key).length === 1);
   const baseline = params.get('thrustPlane') === 'legacy' && params.get('finishRule') === 'legacy';
   const combined = params.get('thrustPlane') === 'transported' && params.get('finishRule') === 'armorCausal';
-  const active = common && known && uniqueModes && (baseline || combined);
+  const motionRequested = params.has('motionAssist');
+  const motion = params.get('motionAssist');
+  const motionValid = motionRequested && params.getAll('motionAssist').length === 1 && ['none', 'weak'].includes(motion) && combined;
+  const active = common && known && uniqueModes && (motionRequested ? motionValid : baseline || combined);
+  const comparison = active && motionRequested ? 'motion' : 'compound';
+  const variantB = comparison === 'motion' ? motion === 'weak' : combined;
   return {
     requested,
     active,
-    variant: active ? (combined ? 'B' : 'A') : null,
-    model: active ? (combined ? 'combined' : 'baseline') : 'legacy',
-    reason: active ? 'exact_compound_tuple' : requested ? 'unsupported_or_incomplete_tuple' : 'not_requested',
+    variant: active ? (variantB ? 'B' : 'A') : null,
+    model: active ? (comparison === 'motion' ? `motion-${motion}` : combined ? 'combined' : 'baseline') : 'legacy',
+    comparison,
+    motionAssist: active && motionRequested ? motion : 'none',
+    reason: active ? (motionRequested ? 'exact_motion_tuple' : 'exact_compound_tuple') : requested ? 'unsupported_or_incomplete_tuple' : 'not_requested',
     settings: active ? { skill: '0', difficulty: 'normal' } : {},
     playerOnly: true,
     finishRule: active && combined ? 'armorCausal' : 'legacy',
@@ -45,7 +53,9 @@ export function mountIntegratedCombatTrial(info) {
   panel.className = 'sub';
   const label = document.createElement('span');
   label.style.display = 'block';
-  label.textContent = info.variant === 'B'
+  label.textContent = info.comparison === 'motion'
+    ? `통합 동작 비교 ${info.variant} · 동작 보정 ${info.motionAssist === 'weak' ? `약 (${Math.round(MOTION_ASSIST.strength * 100)}%)` : '끔'}. `
+    : info.variant === 'B'
     ? '통합 비교 B · 찌르기 날 방향과 갑옷 마무리 판정 시험. '
     : '통합 비교 A · 기존 찌르기와 마무리 판정. ';
   const compare = document.createElement('a');
@@ -65,7 +75,12 @@ export function mountIntegratedCombatTrial(info) {
   }
   const note = document.createElement('span');
   note.style.display = 'block';
-  note.textContent = '보정 끔 / 상대 보통 · 저장 선호 유지. 두 변경을 함께 비교합니다.';
+  note.textContent = info.comparison === 'motion'
+    ? '같은 통합 조합 · 드래그 방향·높이 유지. 팔 깊이와 몸통 협조만 비교합니다. 저장 선호 유지.'
+    : '보정 끔 / 상대 보통 · 저장 선호 유지. 두 변경을 함께 비교합니다.';
   panel.append(label, compare, document.createTextNode(' · '), exit, note);
   menuSub.after(panel);
+  // The old skill switches mix several features and do not describe this trial.
+  const legacyRow = document.querySelector('[data-setting="skill"]')?.closest('.row');
+  if (legacyRow) legacyRow.style.display = 'none';
 }

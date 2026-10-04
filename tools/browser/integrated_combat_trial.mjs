@@ -6,6 +6,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
+// Public configuration only; every observed game state still comes from compiled window.game.
+import { MOTION_ASSIST } from '../../src/motion_assist.js';
 
 const options = {};
 for (const argument of process.argv.slice(2)) {
@@ -20,7 +22,7 @@ assert.ok(!base.username && !base.password && !base.search && !base.hash, 'Use a
 assert.ok(base.pathname.endsWith('/'), 'The base path must end with a slash');
 assert.ok((local && ['http:', 'https:'].includes(base.protocol)) ||
   (base.origin === 'https://yoonjl-svg.github.io' && base.pathname === '/halfsword-codex/'), 'Only loopback or own Pages base is allowed');
-const artifactRoot = '/workspace/halfsword-handoff/p456-batch-20261005';
+const artifactRoot = '/workspace/halfsword-handoff/motion-assist-20261005';
 assert.ok(options.out, 'Provide --out under the external batch artifact directory');
 const out = path.resolve(options.out), relativeOut = path.relative(artifactRoot, out);
 assert.ok(relativeOut && !relativeOut.startsWith('../') && !path.isAbsolute(relativeOut), 'Output must be under the external batch artifact directory');
@@ -50,7 +52,7 @@ async function tree(directory) {
 async function manifest() {
   const names = [...(await tree('src')).filter(name => name.endsWith('.js')),
     'index.html', 'public/feature-lab.html', 'package.json', 'package-lock.json',
-    'tools/browser/integrated_combat_trial.mjs', ...await tree('dist')];
+    'tools/browser/integrated_combat_trial.mjs', 'tools/browser/integrated_combat_trial.test.mjs', ...await tree('dist')];
   return Object.fromEntries(await Promise.all(names.sort().map(async name => {
     const bytes = await fs.readFile(path.join(repository, name));
     return [name, { bytes: bytes.length, sha256: hash(bytes) }];
@@ -69,8 +71,16 @@ let expectedSettings = seed, expectedSavedBytes = seedBytes;
 const common = { combatTrial: 'integrated', weapon: 'qinggang', foe: 'heinrich', foeWeapon: 'longsword',
   targetCorrection: 'none', onehandArm: 'manual', bladeShape: 'profile' };
 const variants = [
-  { id: 'playIntegratedLegacy', variant: 'A', thrustPlane: 'legacy', finishRule: 'legacy' },
-  { id: 'playIntegratedCombined', variant: 'B', thrustPlane: 'transported', finishRule: 'armorCausal' },
+  { id: 'playIntegratedLegacy', variant: 'A', comparison: 'motion', model: 'motion-none',
+    thrustPlane: 'transported', finishRule: 'armorCausal', motionAssist: 'none', assistModel: 'none', assistStrength: 0 },
+  { id: 'playIntegratedCombined', variant: 'B', comparison: 'motion', model: 'motion-weak',
+    thrustPlane: 'transported', finishRule: 'armorCausal', motionAssist: 'weak', assistModel: 'coordinated', assistStrength: MOTION_ASSIST.strength },
+];
+const historicalVariants = [
+  { id: 'historical-nine-key-A', variant: 'A', comparison: 'compound', model: 'baseline',
+    thrustPlane: 'legacy', finishRule: 'legacy', motionAssist: 'none', assistModel: 'none', assistStrength: 0 },
+  { id: 'historical-nine-key-B', variant: 'B', comparison: 'compound', model: 'combined',
+    thrustPlane: 'transported', finishRule: 'armorCausal', motionAssist: 'none', assistModel: 'none', assistStrength: 0 },
 ];
 const launch = { executablePath: '/usr/bin/chromium', args: ['--no-sandbox', '--disable-background-networking', '--use-gl=angle', '--use-angle=swiftshader'] };
 const secretStrings = [];
@@ -125,9 +135,13 @@ async function observe() {
       [body.translation(), body.rotation(), body.linvel(), body.angvel()].every(value => Object.values(value).every(Number.isFinite)));
     const fighter = f => ({ weapon: f.weapon.id, arm: f.onehandArmModel, thrustPlane: f.thrustEdgeModel ?? 'legacy',
       skill: f.skill.level, autoGuard: f.skill.autoGuard, alive: f.alive, armed: f.armed, state: f.state,
+      motionAssist: { modelPresent: 'motionAssistModel' in f, strengthPresent: 'motionAssistStrength' in f,
+        model: f.motionAssistModel ?? null, strength: f.motionAssistStrength ?? null,
+        bodyWeight: typeof f.bodyGuardWeight === 'function' ? f.bodyGuardWeight() : null,
+        guardWeight: f.guardWeight(), bodyPose: { ...f.bodyPose } },
       held: !!f.handHeld, inputActive: !!f.inputActive, hand: f.handOffset.toArray(), thrusts: f.skill.thrusts,
       tap: f.skill.tap ? { t: f.skill.tap.t, down: !!f.skill.tap.down, bound: !!f.skill.tap.bound } : null,
-      thrustWeight: f.skill.thrustPose.w, wounds: f.wounds.length,
+      thrustWeight: f.skill.thrustPose.w, finishAmt: f.finish.amt, wounds: f.wounds.length,
       shapeTypes: f.swordColliders.map(collider => collider.shape.type),
       bladeShapeTypes: f.bladeColliders.map(collider => collider.shape.type),
       plate: { ...f.plate }, plateBoxParts: Object.keys(f.plateBoxes), finite: finite(f) });
@@ -192,11 +206,17 @@ function contract(value, variant) {
   assert.equal(value.input.gain, 1.35, 'General mobile gain must remain 1.35');
   assert.equal(value.enemy.arm, 'legacy', 'Integrated features must remain player-only');
   assert.equal(value.enemy.thrustPlane, 'legacy');
+  assert.equal(value.enemy.motionAssist.modelPresent, false, 'Enemy must not acquire an optional movement model');
+  assert.equal(value.enemy.motionAssist.strengthPresent, false);
+  assert.equal(value.enemy.motionAssist.bodyWeight, value.enemy.motionAssist.guardWeight);
   if (!variant) {
     assert.equal(value.integrated.active, false); assert.equal(value.integrated.variant, null);
     assert.deepEqual(value.integrated.settings, {}); assert.equal(value.integrated.finishRule, 'legacy');
     assert.equal(value.integrated.thrustPlane, 'legacy'); assert.equal(value.finishRule, 'legacy');
     assert.equal(value.player.arm, 'legacy'); assert.equal(value.player.thrustPlane, 'legacy');
+    assert.equal(value.player.motionAssist.modelPresent, false, 'Ordinary play must retain its existing movement policy');
+    assert.equal(value.player.motionAssist.strengthPresent, false);
+    assert.equal(value.player.motionAssist.bodyWeight, value.player.motionAssist.guardWeight);
     assert.equal(value.player.skill, .7); assert.equal(value.player.autoGuard, true);
     assert.equal(value.bladeShape.active, false); assert.equal(value.bladeShape.model, 'box'); assert.equal(value.bladeShape.applied, false);
     assert.equal(value.thrustPlaneTrial, false); assert.equal(value.correction.active, false);
@@ -205,16 +225,28 @@ function contract(value, variant) {
     return;
   }
   assert.equal(value.integrated.active, true); assert.equal(value.integrated.variant, variant.variant);
+  assert.equal(value.integrated.comparison, variant.comparison); assert.equal(value.integrated.model, variant.model);
+  assert.equal(value.integrated.motionAssist, variant.motionAssist);
+  assert.equal(value.integrated.reason, variant.comparison === 'motion' ? 'exact_motion_tuple' : 'exact_compound_tuple');
   assert.deepEqual(value.integrated.settings, { skill: '0', difficulty: 'normal' });
   assert.equal(value.integrated.playerOnly, true); assert.equal(value.integrated.finishRule, variant.finishRule);
   assert.equal(value.integrated.thrustPlane, variant.thrustPlane); assert.equal(value.finishRule, variant.finishRule);
-  if (variant.variant === 'B' && value.finishRuleTarget.available) assert.equal(value.finishRuleTarget.identity, 'player');
+  if (variant.finishRule === 'armorCausal' && value.finishRuleTarget.available) assert.equal(value.finishRuleTarget.identity, 'player');
   assert.equal(value.player.weapon, 'qinggang'); assert.equal(value.enemy.weapon, 'longsword');
   assert.equal(value.player.arm, 'manual'); assert.equal(value.player.thrustPlane, variant.thrustPlane);
   assert.equal(value.player.skill, 0); assert.equal(value.player.autoGuard, false); assert.equal(value.difficulty, 'normal');
+  assert.equal(value.player.motionAssist.modelPresent, true); assert.equal(value.player.motionAssist.strengthPresent, true);
+  assert.equal(value.player.motionAssist.model, variant.assistModel); assert.equal(value.player.motionAssist.strength, variant.assistStrength);
+  assert.equal(value.player.motionAssist.guardWeight, 0, 'Motion coordination must remain separate from learned attack guidance');
+  const coordinated = value.player.alive && value.player.armed && ['stand', 'kneel'].includes(value.player.state);
+  assert.ok(Number.isFinite(value.player.finishAmt), 'Nonfinite finishing weight');
+  const finish = Math.max(0, Math.min(1, value.player.finishAmt));
+  assert.equal(value.player.motionAssist.bodyWeight, coordinated ? variant.assistStrength * (1 - finish) ** 2 : 0);
+  assert.ok(Object.keys(value.player.motionAssist.bodyPose).length >= 4, 'Missing actual body motor goals');
+  assert.ok(Object.values(value.player.motionAssist.bodyPose).every(Number.isFinite), 'Nonfinite body motor goal');
   assert.ok(value.bladeShape.active && value.bladeShape.applied); assert.equal(value.bladeShape.model, 'profile');
   assert.deepEqual(value.player.shapeTypes, [1, 0, 1, 9]); assert.deepEqual(value.enemy.shapeTypes, [1, 0, 1, 1]);
-  assert.equal(value.thrustPlaneTrial, variant.variant === 'B');
+  assert.equal(value.thrustPlaneTrial, variant.thrustPlane === 'transported');
   assert.equal(value.ui.skill.selected, '0'); assert.equal(value.ui.difficulty.selected, 'normal');
   assert.ok(value.ui.skill.locked && value.ui.difficulty.locked);
   assert.equal(value.navigation.integratedCombatCompare, lab.href);
@@ -269,13 +301,25 @@ async function firstSteps(variant, rounds) {
   assert.equal(observed.fighters.filter(row => row.role === 'enemy').length, rounds);
   assert.equal(observed.worlds.length, rounds); assert.equal(observed.combats.length, rounds);
   for (const value of [...observed.fighters.map(row => row.snapshot), ...observed.worlds, ...observed.combats]) contract(value, variant);
-  for (const row of observed.fighters.filter(row => row.role === 'player')) transientClean(row.snapshot);
+  for (const row of observed.fighters.filter(row => row.role === 'player')) {
+    transientClean(row.snapshot);
+    if (variant) {
+      assert.equal(row.snapshot.player.alive, true); assert.equal(row.snapshot.player.armed, true);
+      assert.equal(row.snapshot.player.state, 'stand'); assert.equal(row.snapshot.player.wounds, 0);
+      assert.equal(row.snapshot.player.finishAmt, 0);
+      assert.equal(row.snapshot.player.motionAssist.bodyWeight, variant.assistStrength, 'The selected motion policy must exist before the first healthy controller call');
+    }
+  }
   return observed;
 }
 async function gestures(row) {
   const cdp = await context.newCDPSession(page);
-  const send = (type, x, y, timestamp) => cdp.send('Input.dispatchTouchEvent', { type,
-    ...(timestamp === undefined ? {} : { timestamp }), touchPoints: type === 'touchEnd' ? [] : [{ x, y, id: 1 }] });
+  const requestedInput = [];
+  const send = (type, x, y, timestamp) => {
+    const touchPoints = type === 'touchEnd' ? [] : [{ x, y, id: 1 }];
+    requestedInput.push({ type, touchPoints });
+    return cdp.send('Input.dispatchTouchEvent', { type, ...(timestamp === undefined ? {} : { timestamp }), touchPoints });
+  };
   const phase = value => page.evaluate(value => { integratedProbe.phase = value; }, value);
   try {
     const before = await snap(); await phase('raise'); await send('touchStart', 620, 230);
@@ -301,7 +345,9 @@ async function gestures(row) {
     assert.ok(native.length >= 26 && native.every(event => event.trusted && event.kind === 'touch'));
     assert.ok(native.some(event => event.phase === 'tap' && event.type === 'pointerup'));
     assert.ok(Math.hypot(...raised.player.hand.map((value, index) => value - before.player.hand[index])) > 1e-5, 'Native drag did not update hand intent');
-    row.touch = { before, raised, released, tapped, recut, final, native }; await screenshot(row.id + '-recut', row);
+    row.touch = { before, raised, released, tapped, recut, final, requestedInput,
+      requestedDelaysMS: { raise: [50, 50, 50, 50, 50, 50], cut: [30, 30, 30, 30, 30, 30, 30, 30, 30], tap: 80, recut: [45, 45, 45, 45, 45] }, native };
+    await screenshot(row.id + '-recut', row);
   } finally { await cdp.detach(); }
 }
 async function restart(row, variant, ordinary = false) {
@@ -372,9 +418,13 @@ try {
   for (const variant of variants) {
     assert.ok(links[variant.id], 'Missing integrated comparison CTA'); const url = new URL(links[variant.id]);
     assert.ok(confined(url.href)); assert.equal(url.pathname, base.pathname); assert.equal(url.hash, '');
-    const expected = { ...common, thrustPlane: variant.thrustPlane, finishRule: variant.finishRule };
-    assert.equal([...url.searchParams].length, 9); assert.deepEqual(Object.fromEntries(url.searchParams), expected);
+    const expected = { ...common, thrustPlane: variant.thrustPlane, finishRule: variant.finishRule, motionAssist: variant.motionAssist };
+    assert.equal([...url.searchParams].length, 10); assert.deepEqual(Object.fromEntries(url.searchParams), expected);
   }
+  const aParams = new URL(links.playIntegratedLegacy).searchParams, bParams = new URL(links.playIntegratedCombined).searchParams;
+  assert.equal(aParams.get('motionAssist'), 'none'); assert.equal(bParams.get('motionAssist'), 'weak');
+  aParams.delete('motionAssist'); bParams.delete('motionAssist');
+  assert.deepEqual(Object.fromEntries(aParams), Object.fromEntries(bParams), 'The new A/B links must differ only in movement assistance');
   // Deliberately seed once, on the feature page; later navigation must preserve these exact bytes.
   await page.evaluate(value => localStorage.setItem('gladiator-settings', value), seedBytes);
   await page.screenshot({ path: path.join(out, 'feature-lab-portrait.png'), fullPage: true });
@@ -393,6 +443,9 @@ try {
     const target = variant.variant === 'A' ? lab.href : base.href;
     await tapNavigate(selector, target); row.navigationTarget = page.url(); row.pass = true;
   }
+  const [aTouch, bTouch] = rows.filter(row => row.touch).map(row => row.touch);
+  assert.deepEqual(aTouch.requestedInput, bTouch.requestedInput, 'Motion A/B must receive the same requested native touch coordinates');
+  assert.deepEqual(aTouch.requestedDelaysMS, bTouch.requestedDelaysMS, 'Motion A/B must use the same requested gesture delays');
   current = 'ordinary-return'; await page.setViewportSize(portrait); await ready(); await observe();
   const ordinary = { id: current, url: page.url(), artifacts: [] }; rows.push(ordinary);
   assert.equal(new URL(ordinary.url).search, ''); ordinary.portrait = await layout(); fit(ordinary.portrait);
@@ -401,10 +454,24 @@ try {
   ordinary.firstChoice = await start(true, 0); ordinary.started = await snap(); contract(ordinary.started, null);
   await firstSteps(null, 1); await screenshot(ordinary.id + '-fight', ordinary); await restart(ordinary, null, true);
   ordinary.pass = true;
+  // Old 9-key links remain valid, but these compatibility checks do not repeat combat or claim old efficacy.
+  for (const variant of historicalVariants) {
+    current = variant.id; const url = new URL(base.href);
+    url.search = new URLSearchParams({ ...common, thrustPlane: variant.thrustPlane, finishRule: variant.finishRule }).toString();
+    await page.setViewportSize(portrait); await page.goto(url.href, { waitUntil: 'load' }); await ready(); await observe();
+    const row = { id: current, variant: variant.variant, comparison: variant.comparison, url: page.url(),
+      menuOnly: true, artifacts: [], portrait: await layout(), menu: await snap() }; rows.push(row);
+    fit(row.portrait); assert.ok(row.portrait.menuVisible); contract(row.menu, variant); transientClean(row.menu);
+    row.firstSteps = await page.evaluate(() => ({ fighters: integratedProbe.firstFighters.length, worlds: integratedProbe.firstWorlds.length, combats: integratedProbe.firstCombats.length }));
+    assert.deepEqual(row.firstSteps, { fighters: 0, worlds: 0, combats: 0 });
+    await screenshot(current + '-portrait', row); row.pass = true;
+  }
   // Invalid marked entries retain their raw URL but must sanitize every game/input override.
   for (const [id, mutate] of [
     ['malformed-finish-and-gain', url => { url.searchParams.set('finishRule', 'unsupported'); url.searchParams.set('mobileVerticalGain', '1.8'); }],
     ['malformed-missing-profile-and-cut-plane', url => { url.searchParams.delete('bladeShape'); url.searchParams.set('cutPlane', 'coherent'); }],
+    ['malformed-motion-and-gain', url => { url.searchParams.set('motionAssist', 'strong'); url.searchParams.set('mobileVerticalGain', '1.8'); }],
+    ['malformed-duplicate-motion', url => { url.searchParams.append('motionAssist', 'none'); }],
   ]) {
     current = id; const url = new URL(links.playIntegratedCombined); mutate(url);
     await page.setViewportSize(portrait); await page.goto(url.href, { waitUntil: 'load' }); await ready(); await observe();
@@ -495,8 +562,9 @@ try {
   await fs.writeFile(path.join(out, 'summary.json'), JSON.stringify({ pass, sourceStable, sourceCommit, commitAfter,
     sourceBefore, sourceAfter, startedUTC, completedUTC: new Date().toISOString(), base: base.href,
     tlsVerification: true, environmentProxyRetained: !local, redirectsFollowed: false, networkScope: base.href, outputArtifactsAreRelative: true,
-    seedSettings: seed, savedSettingsExpectedBytes: seedBytes, links, compiled, rows, nativeUI, errors, httpFailures, requestFailures, blockedRequests, redirectRefusals, fatal,
+    seedSettings: seed, savedSettingsExpectedBytes: seedBytes, motionAssistStrength: MOTION_ASSIST.strength,
+    links, compiled, rows, nativeUI, errors, httpFailures, requestFailures, blockedRequests, redirectRefusals, fatal,
     artifacts: ['manifest-before.json', 'feature-lab-portrait.png', 'video/'],
-    scope: 'Actual frozen compiled mobile A/B CTA entry, selected models before the first fighter/world/combat calls, original active enemy and combat, trusted native drag/release/tap/recut, pause/restart, real comparison/ordinary links, ordinary card choice/restart, exact saved preference bytes, layout and errors. Observers call each original method once; no injury, AI, pose, controller or input state injection. Armor finish efficacy after injury, foot support, health recovery, human recovery, physical-phone performance and feel are outside this entry acceptance screen.' }, null, 2) + '\n', { flag: 'wx' });
+    scope: 'Actual frozen compiled mobile motion-none/weak CTA entry with identical manual/profile/transported/armorCausal settings, selected player-only motion model and body coordination weight before the first fighter/world/combat calls, original active enemy and combat, trusted native drag/release/tap/recut, pause/restart, real comparison/ordinary links, ordinary card choice/restart, exact saved preference bytes, layout and errors. Historical 9-key compound links and malformed tuples have menu-only acceptance; they do not repeat combat. Observers call each original method once; no injury, AI, pose, controller or input state injection. Naturalness, human movement quality, post-injury armor finish efficacy, foot support, health recovery, physical-phone performance and feel are outside this entry acceptance screen.' }, null, 2) + '\n', { flag: 'wx' });
   console.log(JSON.stringify({ pass, sourceStable, rows: rows.length, failure: fatal?.id ?? null, out }));
 }

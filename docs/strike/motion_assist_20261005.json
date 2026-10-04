@@ -1,0 +1,557 @@
+{
+  "schemaVersion": 1,
+  "updatedUTC": "2026-10-04T18:06:53.287439+00:00",
+  "baselineCommit": "4f565324fc80fedb826cf7143e7dbec4d5c4249f",
+  "runtimeSourceHashes": {
+    "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+    "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+    "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+    "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+    "src/arm_recovery_activation.js": "ae025cc8d9bbc9855ea8ab2793d3e7818a66a4662329014a776a2ac88966435e",
+    "src/arm_recovery_trial.js": "ebda992abc5c7cd25a12c751d0f9b30f8fddf998babc8f4a7f49c9f4a0817c09",
+    "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+    "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+    "src/blade_shape_trial.js": "c06f7331c78e602e17d89ffb26507bffbea67cbebce862f5386cb4ce519b3955",
+    "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+    "src/combat.js": "27dcf94ab2bf2e869e0d09bdc389d7f7feb7128fdedb1f3ff120ff44b19bab74",
+    "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+    "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+    "src/cut_trial.js": "427d58d0500ceac482424e092a7d457a8cea48371c254f1b4edecb3a511be5a6",
+    "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+    "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+    "src/edge_intent.js": "b4e17a6ea08d659732c330448b3b3aaffeac2942fa5096e82db551a12d580c87",
+    "src/edge_torque.js": "436995e6d45e816517ea5a9a8f83c9fb147d143871aab1601f82baa7b36bc0fa",
+    "src/edge_torque_trial.js": "1280a3fe32c1874b6ce56b75932db44852162855d8962ae13f3aeb3e7d832cae",
+    "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+    "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+    "src/fighter.js": "0115ec152308381cf6c7ba730eb94e36400169fd3b0fa945fc01c1922f2d375f",
+    "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+    "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+    "src/finish_rule.js": "803556ca4f6939d4a20acb7020dd4c616b52b5513969d0a6079af0cc929c616d",
+    "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+    "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+    "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+    "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+    "src/hand_visual.js": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893",
+    "src/input.js": "37529c473619a95ef83fbe3afa567f436dcd3c3b27b4951ebf52109cda434367",
+    "src/integrated_combat_trial.js": "cc4f97ec6761d0d6f78eefa3e7e818b9294abfc5eb929f994f8bfaa9c487aeac",
+    "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+    "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+    "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+    "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+    "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+    "src/main.js": "d99c9cea29350bb86086aaeb4c656cd9617de97321e8291aedce52a9b805b554",
+    "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+    "src/motion_assist.js": "12e49338e0ec0a1307c71bbdfcad4d849180369959a2a18c8ec7ca4c73a2f2d5",
+    "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+    "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+    "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+    "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+    "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+    "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+    "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+    "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+    "src/skill.js": "b69b73e00d8524e733842a630d54f2d7392807f883d7a75c9f9767b78d71f512",
+    "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+    "src/sound.js": "f02a5a9c9ad60ce282806c02b956715c2ca01aced92ba021b63a799faf4c8fb4",
+    "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+    "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+    "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+    "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+    "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+    "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+    "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+    "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+    "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+    "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+    "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+    "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+    "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+    "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+    "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+    "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+    "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+    "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+    "src/thrust_plane.js": "2fcbf1a52dd7cbd4035eea8a14d22b830c1b64f07dafebddcfb74e320539b104",
+    "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+    "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+    "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "src/wrist_braking.js": "6574ae9729fa6251540a68d27a0938e9d5bc2296097ff8b3bd69d1494eb88730",
+    "src/wrist_braking_trial.js": "25466b178e063a45e58a5fcd22532cdcbc176af4a2c05e461c562bb6a0ef658e"
+  },
+  "selected": {
+    "strength": 0.15,
+    "bodyReference": "same raw hand-side turn share .35rad/m; chest .15, pelvis .075",
+    "depthScaleM": 0.12,
+    "maxDepthM": 0.018,
+    "maxAddedChestReferenceDeg": 1.86498,
+    "maxAddedPelvisReferenceDeg": 0.93249,
+    "selection": "min(2cm/12cm,2deg/(reach.62*.35rad/m))=.16086; rounded down .15. Actual open-floor .15 recut mean error +16mm, .25 +34mm. Not measured human optimum."
+  },
+  "sceneContracts": {
+    "distant": "gap14 without walls, original reactive Heinrich/longsword; isolated healthy open floor",
+    "live": "default arena gap/walls, original reactive Heinrich/longsword; no injected wound/pose/velocity"
+  },
+  "finalNative": {
+    "pass": true,
+    "sourceStable": true,
+    "wallSeconds": 7.5021898590000005,
+    "dt": 0.008333333333333333,
+    "scheduleSHA256": "ed9cca83e3ce4a26b320ed6a24cac5cce72385aaf78b12b4a3badbbf26b86183",
+    "rows": [
+      {
+        "scene": "distant",
+        "strength": 0,
+        "steps": 870,
+        "creationNative": "1cbc8173faa135e611c2304a1b39686c4888049d40ac03924f3036c412bba2d7",
+        "inputSHA256": "f523f58befed8fc072452a1279873b6804705f9f62a01d0b35880c6ebf94dca3",
+        "taps": [
+          {
+            "tick": 312,
+            "accepted": true,
+            "state": "stand"
+          }
+        ],
+        "clashes": 0,
+        "wounds": []
+      },
+      {
+        "scene": "distant",
+        "strength": 0.15,
+        "steps": 870,
+        "creationNative": "1cbc8173faa135e611c2304a1b39686c4888049d40ac03924f3036c412bba2d7",
+        "inputSHA256": "f523f58befed8fc072452a1279873b6804705f9f62a01d0b35880c6ebf94dca3",
+        "taps": [
+          {
+            "tick": 312,
+            "accepted": true,
+            "state": "stand"
+          }
+        ],
+        "clashes": 0,
+        "wounds": []
+      },
+      {
+        "scene": "distant",
+        "strength": 0.25,
+        "steps": 870,
+        "creationNative": "1cbc8173faa135e611c2304a1b39686c4888049d40ac03924f3036c412bba2d7",
+        "inputSHA256": "f523f58befed8fc072452a1279873b6804705f9f62a01d0b35880c6ebf94dca3",
+        "taps": [
+          {
+            "tick": 312,
+            "accepted": true,
+            "state": "stand"
+          }
+        ],
+        "clashes": 0,
+        "wounds": []
+      },
+      {
+        "scene": "live",
+        "strength": 0,
+        "steps": 1626,
+        "creationNative": "f5a5645e0c49d8d0ddb5263b1f9d12d5e4b739c42d19b97c1fcb203797e4c6c1",
+        "inputSHA256": "3bb63e2bf96f27c7b172adc51e1b878248c50d459dd5974a71b0455fd8b0f000",
+        "taps": [
+          {
+            "tick": 312,
+            "accepted": true,
+            "state": "stand"
+          },
+          {
+            "tick": 960,
+            "accepted": false,
+            "state": "getup"
+          },
+          {
+            "tick": 1380,
+            "accepted": false,
+            "state": "dead"
+          }
+        ],
+        "clashes": 57,
+        "wounds": [
+          {
+            "timeS": 6.85000000000013,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "head",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 184.83037795418198
+          },
+          {
+            "timeS": 7.775000000000176,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "head",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 83.82035323563159
+          },
+          {
+            "timeS": 8.191666666666842,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "arm",
+            "type": "cut",
+            "severity": 0.4250027187394447,
+            "energyJ": 54.32853076509264
+          },
+          {
+            "timeS": 8.191666666666842,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "arm",
+            "type": "cut",
+            "severity": 0.46633358189199825,
+            "energyJ": 57.72384538590502
+          },
+          {
+            "timeS": 8.88333333333347,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "head",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 9.165617960561395
+          },
+          {
+            "timeS": 9.166666666666787,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "head",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 64.09172436026925
+          },
+          {
+            "timeS": 9.183333333333453,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "neck",
+            "type": "cut",
+            "severity": 0.005309649850842825,
+            "energyJ": 22.70422577774843
+          },
+          {
+            "timeS": 9.500000000000101,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "head",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 19.48318114906619
+          },
+          {
+            "timeS": 9.58333333333343,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "neck",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 13.87038076705707
+          }
+        ]
+      },
+      {
+        "scene": "live",
+        "strength": 0.15,
+        "steps": 1626,
+        "creationNative": "f5a5645e0c49d8d0ddb5263b1f9d12d5e4b739c42d19b97c1fcb203797e4c6c1",
+        "inputSHA256": "3bb63e2bf96f27c7b172adc51e1b878248c50d459dd5974a71b0455fd8b0f000",
+        "taps": [
+          {
+            "tick": 312,
+            "accepted": true,
+            "state": "stand"
+          },
+          {
+            "tick": 960,
+            "accepted": false,
+            "state": "getup"
+          },
+          {
+            "tick": 1380,
+            "accepted": true,
+            "state": "stand"
+          }
+        ],
+        "clashes": 28,
+        "wounds": [
+          {
+            "timeS": 6.925000000000134,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "head",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 183.88152845319618
+          },
+          {
+            "timeS": 7.441666666666826,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "arm",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 13.149209063130739
+          },
+          {
+            "timeS": 8.458333333333494,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "neck",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 9.296715729745282
+          },
+          {
+            "timeS": 9.166666666666787,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "neck",
+            "type": "cut",
+            "severity": 0.13455590403587753,
+            "energyJ": 37.952402265798725
+          },
+          {
+            "timeS": 9.200000000000118,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "chest",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 16.486483358251576
+          },
+          {
+            "timeS": 9.208333333333451,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "arm",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 9.476151561329008
+          },
+          {
+            "timeS": 9.58333333333343,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "abdomen",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 12.328222509770564
+          },
+          {
+            "timeS": 9.741666666666754,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "neck",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 25.38308255618341
+          },
+          {
+            "timeS": 10.116666666666733,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "abdomen",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 35.5254559961037
+          },
+          {
+            "timeS": 10.491666666666712,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "arm",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 8.459722813807081
+          },
+          {
+            "timeS": 11.558333333333318,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "arm",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 16.803050400220965
+          },
+          {
+            "timeS": 11.608333333333315,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "abdomen",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 14.641638376566819
+          },
+          {
+            "timeS": 12.283333333333276,
+            "victim": 1,
+            "attacker": 0,
+            "zone": "head",
+            "type": "cut",
+            "severity": 0.5275391121322154,
+            "energyJ": 64.24949428036659
+          },
+          {
+            "timeS": 12.308333333333275,
+            "victim": 1,
+            "attacker": 0,
+            "zone": "neck",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 15.092313202136953
+          },
+          {
+            "timeS": 12.358333333333272,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "arm",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 9.427703530898864
+          },
+          {
+            "timeS": 12.374999999999938,
+            "victim": 1,
+            "attacker": 0,
+            "zone": "arm",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 13.814483893875561
+          },
+          {
+            "timeS": 12.858333333333244,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "neck",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 7.619256165489444
+          },
+          {
+            "timeS": 13.0499999999999,
+            "victim": 0,
+            "attacker": 1,
+            "zone": "neck",
+            "type": "blunt",
+            "severity": 0,
+            "energyJ": 6.745334691744047
+          }
+        ]
+      }
+    ]
+  },
+  "rawDirectory": "/workspace/halfsword-handoff/motion-assist-20261005",
+  "rawFiles": {
+    "coherent-run01.json": {
+      "bytes": 33403553,
+      "sha256": "f59c40bbb081abd2ff119fd0fe5e7dffc7374ba0ebf808ca5abe0ae71c006f78",
+      "classification": "historical/excluded distant walls-on"
+    },
+    "final-run01.json": {
+      "bytes": 33411423,
+      "sha256": "f871f16c80eb450e7af1ec04a217d9d3039e333354ff8e541963d3f02ba31323",
+      "classification": "final"
+    },
+    "open-floor-run01.json": {
+      "bytes": 33426311,
+      "sha256": "d05a37524c9cbe2e2f1473860ce7a758a74bba40f86af9c58f2d78706e5ad5a1",
+      "classification": "valid open-floor exploratory"
+    },
+    "strength-run01.json": {
+      "bytes": 17871839,
+      "sha256": "4add3bc9faa9960a97c930b2e7c88e2ee82392cc323da4087c29eb831f43d8f7",
+      "classification": "historical/excluded distant walls-on"
+    },
+    "strength-run02.json": {
+      "bytes": 17871877,
+      "sha256": "d154cbc2f16dcfb6eae24e93e60f9d54614e048cc4035a685505377ba732a262",
+      "classification": "historical/excluded distant walls-on"
+    },
+    "strength-run03.json": {
+      "bytes": 33503483,
+      "sha256": "098f0ffae01db21bbaa441d990b2680b1779a5c66326b80037166e8bdcf55456",
+      "classification": "historical/excluded distant walls-on"
+    }
+  },
+  "failuresAndRevisions": [
+    "Initial pose-table body direction was replaced by same-input torso coordination; not an accepted final design.",
+    "Initial gap14 with walls placed fighters outside arena; all earlier distant measurements excluded from strength/natural motion proof.",
+    "Tap-depth abrupt eligibility was removed in favor of existing explicit thrust blend; finishing assistance fades.",
+    "Final observer adds actual body quaternion/omega and fixed-collider foot contacts; live fixed contacts may include arena walls."
+  ],
+  "limits": [
+    "Body and depth are motor goals; source budget is not a live angle/velocity or full body force clamp.",
+    "Live .15 has getup but no functional main-arm cut; no wounded-arm recovery acceptance.",
+    "Reactive combat branches after first difference; no victory/survival/injury-prevention claim.",
+    "Physics-time prepared gestures and Chromium emulation are not real phone/anatomy/naturalness acceptance.",
+    "P4 unsigned blade-plane seam, full force ledger, support/recovery and major default adoption remain open."
+  ],
+  "commands": {
+    "native": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/halfsword-codex/tools/sim/experiments/motion_assist_probe.mjs",
+      "/workspace/halfsword-handoff/motion-assist-20261005/final-run01.json"
+    ],
+    "entry": "node tools/browser/integrated_combat_trial.test.mjs",
+    "regression": "python tools/automation/run_checks.py --out /workspace/halfsword-handoff/motion-assist-20261005/regression --force",
+    "publicBrowser": "node tools/browser/integrated_combat_trial.mjs --base=https://yoonjl-svg.github.io/halfsword-codex/ --out=/workspace/halfsword-handoff/motion-assist-20261005/public-motion-run01"
+  },
+  "releaseReceipt": "motion_assist_release.json",
+  "entryContract": {
+    "pass": true,
+    "cases": 29,
+    "raw": "/workspace/halfsword-handoff/motion-assist-20261005/entry-contract-final.json",
+    "sha256": "c642316bf95dd4765a3ff929deca3556691e6379e6f9fe320b6c5652b23c8783",
+    "scope": "Query/UI fixture; no physics/native storage/browser proof"
+  },
+  "independentAudit": {
+    "path": "/workspace/halfsword-handoff/motion-assist-20261005/audit.md",
+    "sha256": "8e7d36d5b5c5df44134ecacb4bd8f7bfe99c4250f958b55bc82be2039bf02a9e",
+    "blockingSourceDefects": 0,
+    "public15LeafChecks": {
+      "path": "/workspace/halfsword-handoff/motion-assist-20261005/staticchecks-public15.json",
+      "pass": true,
+      "physicsSteps": 0
+    }
+  },
+  "sourceKind": "Final working-tree src hashes; baseline HEAD labels previous commit. Runtime commit is in release receipt.",
+  "derivedMetrics": {
+    "path": "/workspace/halfsword-handoff/motion-assist-20261005/metrics-final01.json",
+    "sha256": "a2c8dc64b545cfe33c3b339bfac8a93cdcacc9e6fcdcce70769e5d87993a89c4",
+    "bytes": 47334
+  },
+  "invalidFixtureReceipt": {
+    "path": "/workspace/halfsword-handoff/motion-assist-20261005/invalid-fixture-summary.json",
+    "sha256": "d4f7a8687e5b7e31137638a99acb06031a20fb4c1214f6cff7b18534387d709a"
+  },
+  "regression": {
+    "pass": true,
+    "sourceStable": true,
+    "cacheUsed": false,
+    "groups": 6,
+    "wallSeconds": 168.32521287200507,
+    "path": "/workspace/halfsword-handoff/motion-assist-20261005/regression/result.json",
+    "sha256": "8c24ef396a43b1f31bec1acb9e30e55173e1dfbd4cbd3ee877ad1db85e8691a9"
+  },
+  "preflightFailure": {
+    "phase": "local-motion-run01",
+    "productDefect": false,
+    "reason": "Release orchestration looked for wrong regression JSON key testResults rather than tests; build copy stopped and stale dist failed CTA before gameplay (0 rows). Corrected actual schema, copied frozen build and byte checked before local-motion-run02. No product source change or duplicate physics."
+  },
+  "localBrowser": {
+    "pass": true,
+    "sourceStable": true,
+    "flows": 10,
+    "path": "/workspace/halfsword-handoff/motion-assist-20261005/local-motion-run02/summary.json",
+    "sha256": "a1f4f6d4220a8fbca7e7e92a225870f0476c9aa3e5d9e2c7b40c41c6b3cbbae4",
+    "sameAandBTouchRequests": true,
+    "scope": "Chromium mobile viewport with native trusted CDP touch; original physics/input/AI; no forced pose/wound/velocity. Emulation is not physical phone/anatomy acceptance."
+  }
+}

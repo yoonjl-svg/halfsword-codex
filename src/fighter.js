@@ -18,6 +18,7 @@ import * as THREE from 'three';
 import { BODY, WEAPON, VITALS, BALANCE, SKILL_BODY, GRIP, STEEL, RECOIL, GAIT, ARMOR, ANATOMY, ARENA, COMBAT, CLOSE, ARM, SKILL } from './config.js';
 import { COMBAT_HOOKS } from './combat.js';
 import { Skill } from './skill.js';
+import { motionAssistWeight, assistHandDepth } from './motion_assist.js';
 import { Gait, hybridJointDefs } from './gait.js';
 import { guardAt, guardBaseOne } from './guards.js';
 import { classifyStyle } from './weapon_class.js';
@@ -626,13 +627,18 @@ export class Fighter {
     return Math.min(1, this.skill.level * 1.6);
   }
 
+  // Separate body coordination from the legacy hand/direction pose replacement.
+  bodyGuardWeight() {
+    return this.motionAssistModel === 'coordinated' ? motionAssistWeight(this) : this.guardWeight();
+  }
+
   /**
    * 몸의 자세 목표 (골반·가슴 틀기, 숙이기, 낮추기). 손가락 입력을 "거르기 전" 값으로 곧바로 따라가서
    * 손(걸러진 값)보다 먼저 움직인다 → 골반 → 가슴 → 팔 → 칼 순서로 힘이 이어진다 (실제 베기의 순서).
    */
   updateBodyPose(dt) {
     const sk = this.skill;
-    const gw = this.guardWeight();
+    const gw = this.bodyGuardWeight();
     const G = guardAt(sk.aimRaw.x, sk.aimRaw.y, this.bodyGuard, this.finish, sk.thrustPose);
     const bp = this.bodyPose;
     const bv = this.bodyPoseVel;
@@ -645,6 +651,20 @@ export class Fighter {
     const act = sk.activity;
     const amp = SKILL_BODY.holdAmount + (1 - SKILL_BODY.holdAmount) * act;
     const spd = SKILL_BODY.holdSpeed + (1 - SKILL_BODY.holdSpeed) * act;
+    if (this.motionAssistModel === 'coordinated') {
+      // One shared gesture reference: the pelvis takes a small portion of the
+      // existing hand-side turn, chest starts from the unfiltered request.
+      // The ordinary raw chest term in applyPose supplies the remaining share.
+      // A pose-table facing angle is not an independent second command here.
+      const turn = -sk.aimRaw.x * 0.35;
+      follow('pelvisYaw', turn * 0.5 * gw, SKILL_BODY.pelvis * spd);
+      follow('chestYaw', turn * gw, SKILL_BODY.chest * spd);
+      follow('pitch', 0, SKILL_BODY.chest * spd);
+      follow('drop', 0, SKILL_BODY.pelvis * spd);
+      this.pelvisYawOffset = bp.pelvisYaw;
+      this.pelvisDropOffset = bp.drop;
+      return;
+    }
     // 골반은 아직 발 위치를 바꾸지 못해서(발 딛기 방향 전환 전) 교본 값의 절반만 튼다
     follow('pelvisYaw', -G.pelvisYaw * 0.5 * gw * amp, SKILL_BODY.pelvis * spd);
     follow('chestYaw', -G.chestYaw * gw * amp, SKILL_BODY.chest * spd);
@@ -1759,7 +1779,7 @@ export class Fighter {
     const gut = this.wounds.reduce((a, wd) => a + (wd.part === 'chest' || wd.part === 'abdomen' || wd.part === 'pelvis' ? wd.severity : 0), 0);
     const sk = this.skill;
     const bp = this.bodyPose;
-    const gw = this.guardWeight();
+    const gw = this.bodyGuardWeight();
     const bend = (this.lean || 0) - Math.min(0.45, gut * 0.3) - 0.2 * kn - bp.pitch;
     this.hunch = Math.max(0, -bend); // 일부러 앞으로 숙인 각도(라디안): 넘어짐 판정에서 뺀다
     // 가슴을 트는 각도(정면 기준): 검술 자세 지도 + (보정이 약할수록) 손이 있는 쪽으로.
@@ -1950,6 +1970,7 @@ export class Fighter {
       // activation, instead of discarding the finishing hand/direction target.
       if (this.finish.amt > 0 && gw > 0) handLocal.lerp(_v6.set(...G.hand), gw * this.finish.amt);
     } else if (gw > 0) handLocal.lerp(_v6.set(G.hand[0], G.hand[1], G.hand[2]), gw);
+    assistHandDepth(this, handLocal, G.hand);
     // 탭 찌르기(skill.thrustPose)는 보정이 아니라 명령이라 검술 보정 세기(gw)와 무관하게 덧씌운다 — 보정 0 에서도 찌른다.
     //  찌르기는 지금 손 목표(handBase, 덧씌우기 전)에서 뻗어 나간다 (skill.thrust)
     const hb = (this.handBase ||= [0, 0, 0]);

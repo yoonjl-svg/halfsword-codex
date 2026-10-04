@@ -1,5 +1,8 @@
 # 실험 색인과 재현 입구
 
+- 2026-10-05 · [동작 보정·통합 시험](motion_assist_20261005.md) · [수치/소스](motion_assist_20261005.json) · [전달](motion_assist_release.json). 약15% 입력 깊이/몸 협조, 큰 베기 보존, 초기 wall fixture 제외와 미채택 초안을 구분.
+
+
 2026-10-04 KST. 결론은 각 원보고가 기준이며 이 색인은 경로·재현 명령만 연결한다. [짧은 일지 계약](EXPERIMENT_LOGGING.md), [전체 보고 폴더](https://github.com/yoonjl-svg/halfsword-codex/tree/main/docs/strike), [전체 실험 도구](https://github.com/yoonjl-svg/halfsword-codex/tree/main/tools/sim/experiments).
 
 | 최근 회차 | 판정 / 소스 | 재사용 입구 |
