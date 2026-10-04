@@ -1,7 +1,7 @@
 {
-  "state": "local_verified_public_pending",
+  "state": "public_verified_optional_trial",
   "baselineCommit": "830b705eebb82e4c63789ff1fe5a9821ae53b33d",
-  "implementationCommit": null,
+  "implementationCommit": "c9bb2e8d05666c6ca38080d81167e72e4b829e07",
   "publicURL": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#thrust-plane-comparison",
   "activation": "Qinggang/manual/profile player only, thrustPlane=transported",
   "generalPromotion": false,
@@ -159,8 +159,68 @@
       "sha256": "82bcec69fdb8a645290145b78144a489d17d8debfdbc1a3aaa69f23d2b9296ca"
     }
   },
-  "publicBytes": null,
-  "publicMobile": null,
-  "pages": null,
-  "statusCheckedUTC": "2026-10-04T15:04:14.096392+00:00"
+  "publicBytes": {
+    "pass": true,
+    "files": 8,
+    "raw": {
+      "path": "public-bytes.json",
+      "bytes": 5336,
+      "sha256": "cbca6c2084a6b001da435f12ce1c064b0342f67ae25ba737a1112c69679250ac"
+    },
+    "gameAsset": {
+      "path": "assets/main-KjkQnbZE.js",
+      "bytes": 3498620,
+      "sha256": "6f713cc08965494b74902f51fd0ef2bc7894da2208f2ab5c23195906a8e0138e"
+    }
+  },
+  "publicMobile": {
+    "pass": true,
+    "raw": {
+      "path": "public-screen/summary.json",
+      "bytes": 14991,
+      "sha256": "5d6003d750809c71e065fe941334801f999e6a017ae140b253214e8aad27ae1a"
+    },
+    "portraitWidthAndScroll": [
+      390,
+      390
+    ],
+    "trustedTouch": true,
+    "tapAcceptedBoth": true,
+    "newWorldRestartBoth": true,
+    "errors": 0,
+    "scope": "Actual own public compiled browser emulation; not physical-phone human acceptance"
+  },
+  "pages": {
+    "id": 37211640958,
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37211640958",
+    "conclusion": "success",
+    "headSha": "c9bb2e8d05666c6ca38080d81167e72e4b829e07",
+    "raw": {
+      "path": "pages-code-run.json",
+      "bytes": 1765,
+      "sha256": "d1958a9b5d8948aeb3588cee56eb02939853d070e9dcf5c7e62921f11c68d9dd"
+    }
+  },
+  "statusCheckedUTC": "2026-10-04T15:07:23.754954+00:00",
+  "publicStaticMobile": {
+    "pass": true,
+    "raw": {
+      "path": "public-mobile-pages-final.json",
+      "bytes": 959,
+      "sha256": "8d75487469f364b3f6244167f10fba6a6fbec970066febd930333df9330a6ee4"
+    },
+    "portraitWidthAndScroll": [
+      390,
+      390
+    ],
+    "comparisonLinksAndPlanVerified": true
+  },
+  "committedSourceProof": {
+    "implementationCommit": "c9bb2e8d05666c6ca38080d81167e72e4b829e07",
+    "srcFiles": 73,
+    "allMatchFreshRegression": true,
+    "regressionCheckoutLabel": "830b705eebb82e4c63789ff1fe5a9821ae53b33d",
+    "dirtyChangesWereHashed": true,
+    "scope": "All src files in implementation commit are the exact fresh regression input; base checkout label does not imply old code was tested"
+  }
 }
