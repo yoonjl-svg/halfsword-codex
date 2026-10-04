@@ -115,7 +115,9 @@ function watchArmor(G, V) {
     const blade = r.thr != null; // 칼날·칼끝으로 닿았다 (날이 들었든 못 들었든)
     if (r.energy >= solidHitJ(r.helmet ? 'head' : r.zone)) {
       P.solid++;
-      if (P.firstSolid.length < 2) P.firstSolid.push(blade ? r.type === 'blunt' : null); // 둔기(나뭇가지)는 막음을 따지지 않는다
+      // Finishing-rule death can retain stab with zero severity below thr.
+      // This records failure to wound, independently of rule death or pass.
+      if (P.firstSolid.length < 2) P.firstSolid.push(blade ? r.eff <= r.thr : null); // 둔기(나뭇가지)는 막음을 따지지 않는다
     }
     const broken = r.helmet ? !V.hasHelmet : !(V.plate[name] > 0);
     if (broken) P.brokeAt = G.t;
@@ -300,7 +302,8 @@ function probeSeries(target, key, attWeapon, E, type, n, broken = false) {
     const armorHit = r.helmet || r.plate;
     const integ = key === 'helmet' ? vic.helmetIntegrity : vic.plate[part] ?? 0;
     const broke = key === 'helmet' ? !vic.hasHelmet : !(vic.plate[part] > 0);
-    const mark = (armorHit ? (r.type === 'blunt' ? '막음' : `뚫림 sev${r.severity.toFixed(2)}`) : `맨몸 sev${r.severity.toFixed(2)}`) + ` thr${r.thr?.toFixed(0) ?? '-'} 내구${integ.toFixed(2)}` + (vic.armorShed > shed0 ? ' [파손]' : '') + (broke && !broke0 ? ' [완전파손]' : '') + ((vic._visShed ?? 0) > vis0 ? ` (눈에 띄는 조각 ${(vic._visShed ?? 0) - vis0})` : '');
+    const injured = r.type !== 'blunt' && r.severity > 0;
+    const mark = (armorHit ? (injured ? `상처 sev${r.severity.toFixed(2)}` : '막음(상처 없음)') : `맨몸 sev${r.severity.toFixed(2)}`) + (r.finish ? ' [마무리 규칙]' : '') + ` thr${r.thr?.toFixed(0) ?? '-'} 내구${integ.toFixed(2)}` + (vic.armorShed > shed0 ? ' [파손]' : '') + (broke && !broke0 ? ' [완전파손]' : '') + ((vic._visShed ?? 0) > vis0 ? ` (눈에 띄는 조각 ${(vic._visShed ?? 0) - vis0})` : '');
     out.push(mark);
   }
   return { plated0, out, vic, part, rs, att };

@@ -26,6 +26,7 @@ import { STRIKE, ANATOMY, STEEL, ARMOR } from './config.js';
 import { BREAK } from './weapons.js';
 import { updateGun } from './gun.js';
 import { applyBudgetedCutResistance } from './cut_reaction.js';
+import { resolveFinishRule } from './finish_rule.js';
 
 // 전투 사건 갈고리 (gun.js GUN_HOOKS 와 같은 식): 비어 있으면 아무 일도 없다. 판정·난수와 무관
 //  onDecapitate(f, headBody): 참수된 순간 한 번 (fighter.applyWound, die 뒤) — 사운드 PM 이 소리를 건다
@@ -65,6 +66,8 @@ export class Combat {
     this.cutting = new Map(); // "칼콜라이더:몸콜라이더" → { seen, applied, until }
     this.stepNo = 0;
     this.cutReactionModel = 'legacy'; // Optional research trial; ordinary combat preserves legacy resistance.
+    this.finishRuleModel = 'legacy';
+    this.finishRuleFighter = null; // Optional app trial can restrict the rule to its player.
     // 칼끼리 닿아 있는 상태 (소리용): 처음 부딪히는 순간 = "쨍", 맞댄 채 미끄러지는 동안 = 긁히는 소리
     //  last/start = 마지막으로·처음으로 닿은 스텝, slide = 미끄러지는 속도(m/s), press = 누르는 힘(N)
     this.bladeContact = { last: -1e9, start: 0, slide: 0, press: 0 };
@@ -203,7 +206,10 @@ export class Combat {
     //  찍기가 끝난 뒤·돌아오는 중 (thrustPush) · 자세 지도로 친 내려찍기·AI 내려베기 (tap 없음) · 베기·둔기·날 없는 무기 (stab) ·
     //  팔다리 (부위) · 내가 넘어졌을 때 (att.state) · 다른 상대 (att.foe). 판단만 한다 — 예측(predicting)·측정 도구가 불러도 부작용 없음
     const tp = att.skill?.tap;
-    const finish = type === 'stab' && !!tp?.down && !!tp.go && !!att.skill.thrustPush && (att.state === 'stand' || att.state === 'kneel') && vic === att.foe && vic.state === 'down' && FINISH_PARTS.has(pr.v.part);
+    let finish = type === 'stab' && !!tp?.down && !!tp.go && !!att.skill.thrustPush && (att.state === 'stand' || att.state === 'kneel') && vic === att.foe && vic.state === 'down' && FINISH_PARTS.has(pr.v.part);
+    const finishRuleModel = this.finishRuleFighter && att !== this.finishRuleFighter ? 'legacy' : this.finishRuleModel;
+    let finishRuleResult = null;
+    let bareThreshold = null;
     // 투구: 머리 윗부분(눈썹 위)만 덮는다. 종류별 값은 ARMOR.helmets (케틀햇 = 예전 ANATOMY.helmet 그대로)
     const helmet = zone === 'head' && vic.hasHelmet && vicLocal.y > -0.01;
     const hs = helmet ? vic.helmetSpec || ARMOR.helmets.kettle : null;
@@ -258,6 +264,15 @@ export class Combat {
       // 투구: 찌그러지고 틈을 파고들어도 맨머리보다 약해지지는 않는다 (케틀햇은 가장 약할 때도 맨머리보다 세서 그대로)
       if (helmet) thr = Math.max(thr, type === 'cut' ? ANATOMY.head.cut : ANATOMY.head.stab);
       eff = energy * quality * wMult * emoDealt * emoTaken;
+      if (finishRuleModel === 'armorCausal') {
+        // Matched bare tissue keeps clothing/gap modifiers, removing only the
+        // helmet/plate contribution. pass=false alone does not mean armor blocked.
+        bareThreshold = (type === 'cut' ? ANATOMY[zone].cut : ANATOMY[zone].stab) * (helmOn ? 1 : guard);
+        if (helmet) bareThreshold = Math.max(bareThreshold, type === 'cut' ? ANATOMY.head.cut : ANATOMY.head.stab);
+        finishRuleResult = resolveFinishRule({ model: finishRuleModel, eligible: finish, type, eff, threshold: thr,
+          bareThreshold, armorActive: helmOn || plateGuard > 0, ignoreArmor: att.weaponCfg.ignoreArmor });
+        finish = finishRuleResult.finish;
+      }
       if (eff > thr) {
         severity = (eff - thr) / (type === 'cut' ? 90 : 60);
         pass = eff > thr * (1.25 - emoPass); // 확실히 파고들 때만 튕기지 않고 가르고 들어간다 (집념·분노면 더 쉽게 가른다)
@@ -292,6 +307,7 @@ export class Combat {
       eff,
       bladeAxis: axis.clone(),
       finish, // 내려찍기 즉사 (사장님 결정 9/30, fighter.applyWound)
+      ...(finishRuleModel === 'armorCausal' ? { bareThreshold, armorBlocked: finishRuleResult?.armorBlocked ?? false, finishRuleReason: finishRuleResult?.reason ?? 'ineligible' } : {}),
     };
   }
 

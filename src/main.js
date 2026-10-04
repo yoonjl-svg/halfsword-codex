@@ -43,12 +43,17 @@ import { configureArmRecoveryTrial, applyArmRecoveryTrial, mountArmRecoveryTrial
 import { configureWristBrakingTrial, applyWristBrakingTrial, mountWristBrakingTrial } from './wrist_braking_trial.js';
 import { configureBladeShapeTrial, applyBladeShapeTrial, mountBladeShapeTrial } from './blade_shape_trial.js';
 import { configureThrustPlaneTrial } from './thrust_plane.js';
+import { configureIntegratedCombatTrial, mountIntegratedCombatTrial } from './integrated_combat_trial.js';
 
 await RAPIER.init();
 
 // 테스트용 URL 파라미터: ?weapon=monohoshizao&foeWeapon=chicken (무기 id는 weapons.js의 WEAPONS 키,
 //  Fighter 생성자가 알아서 getWeapon()으로 찾는다. 없으면 기본 롱소드)
-const params = new URLSearchParams(location.search);
+const requestedParams = new URLSearchParams(location.search);
+const integratedCombatTrial = configureIntegratedCombatTrial(requestedParams);
+// Reject an incomplete compound entry as a whole; standalone comparison URLs
+// without this marker continue to use their existing contracts.
+const params = integratedCombatTrial.requested && !integratedCombatTrial.active ? new URLSearchParams() : requestedParams;
 // Session-only comparison; ordinary games retain their current hand mapping.
 const onehandArmModel = params.get('onehandArm') === 'manual' ? 'manual' : 'legacy';
 const thrustEdgeModel = params.get('thrustEdge') === 'steady' ? 'steady' : 'legacy';
@@ -57,7 +62,7 @@ const thrustPlaneTrial = configureThrustPlaneTrial(params);
 const inputComparison = params.get('inputComparison') === 'vertical';
 const targetCorrectionTrial = configureTargetCorrectionTrial(params);
 const armRecoveryTrial = configureArmRecoveryTrial(params);
-const comparisonSettings = inputComparison ? { skill: '0', difficulty: 'normal' } : targetCorrectionTrial.settings;
+const comparisonSettings = integratedCombatTrial.active ? integratedCombatTrial.settings : inputComparison ? { skill: '0', difficulty: 'normal' } : targetCorrectionTrial.settings;
 const settingValue = (key) => comparisonSettings[key] ?? settings[key];
 CONFIG.COMBAT.limbSeverTrial = params.get('limbTrial') === '1';
 const limbDemo = CONFIG.COMBAT.limbSeverTrial ? params.get('limbDemo') : null;
@@ -104,6 +109,12 @@ const saveSettings = () => {
     /* 무시 */
   }
 };
+// An unavailable sensor changes this session's controls, preserving the user's
+// saved movement preference for the next visit (including comparison exits).
+let sensorMoveFallback = null;
+let tiltAttempt = 0;
+let tiltPending = false;
+const moveModeValue = () => sensorMoveFallback ?? settings.moveMode;
 
 // ── 겉모습 미리보기 (모델링 PM 라운드): 마음에 안 들어도 지우지 않고 archive에 쌓아 둔 옛 버전들을
 //  주소창에서 바로 볼 수 있게 한다. 플레이어 외형에는 적용하지 않는다(감독 지시: 주인공은 그대로).
@@ -249,7 +260,7 @@ installGunFx({
 });
 sound.setStage(stages.id); // 배경 소리·바닥 소리가 배경을 따른다
 sound.listener = camera; // 배경 소리(성 종 등)의 좌우 자리를 카메라 기준으로 정한다
-const input = new Input(canvas);
+const input = new Input(canvas, params);
 const trail = new InputTrail(canvas); // 방금 조작한 흔적 (반투명 선)
 input.trail = trail;
 
@@ -359,6 +370,7 @@ function warmRoundFx(on) {
  *  만들기만 하고 시간은 흐르지 않는다 (게임 루프가 state 'fight' 일 때만 물리를 돌린다).
  */
 function newRound(weaponId) {
+  input.resetTransient();
   // 다리로 체중 받치기: 게임은 늘 gait.js 걸음(다리가 체중 대부분을 받친다). 오너 결정으로 설정 토글을 없애고 기본 적용했다.
   //  CONFIG 기본값도 'hybrid'라 시뮬 도구가 게임과 같은 걸음을 잰다(9/29). 이 줄은 콘솔·도구가 바꿔 둔 값을 판마다 되돌린다
   CONFIG.BODY.weightMode = 'hybrid';
@@ -428,6 +440,7 @@ function newRound(weaponId) {
   // 같은 선택형 팔 제어를 양쪽에 적용하고 재시작 때도 주소 설정을 유지한다.
   for (const f of [player, enemy]) f.armTorqueModel = armTrial.model;
   for (const f of [player, enemy]) f.onehandArmModel = onehandArmModel;
+  if (integratedCombatTrial.active) enemy.onehandArmModel = 'legacy';
   player.gripPointModel = gripPointModel;
   // Narrow player-only comparison for the selected sabre trial.
   player.thrustEdgeModel = onehandArmModel === 'manual' && player.weapon.id === 'sabre' ? thrustEdgeModel : 'legacy';
@@ -472,6 +485,8 @@ function newRound(weaponId) {
   player.canShove = true; // 근접 밀치기: 플레이어는 스틱으로 (CLOSE.on 이 통째로 끄고 켠다)
   combat = new Combat(colliderInfo, { onWound, onClash });
   combat.cutReactionModel = cutTrial.model;
+  combat.finishRuleModel = integratedCombatTrial.finishRule;
+  combat.finishRuleFighter = player;
   // 몸 소리(발소리·쓰러짐·무기 부러짐·죽음 목소리): 캐릭터마다 목소리가 다르다
   const foeVoice = voiceOf(currentFoe);
   bodySounds = [new BodySounds(sound, player, 'player', true), new BodySounds(sound, enemy, foeVoice)];
@@ -672,12 +687,13 @@ mountPhysicalTrial(physicalTrial);
 mountCutTrial(cutTrial);
 mountArmTrial(armTrial);
 mountStanceTrial(stanceTrial);
-mountTargetCorrectionTrial(targetCorrectionTrial);
+if (!integratedCombatTrial.active) mountTargetCorrectionTrial(targetCorrectionTrial);
 mountEdgeTorqueTrial(edgeTorqueTrial);
 mountArmRecoveryTrial(armRecoveryTrial);
 mountWristBrakingTrial(wristBrakingTrial);
-mountBladeShapeTrial(bladeShapeTrial);
-if (thrustPlaneTrial) {
+if (!integratedCombatTrial.active) mountBladeShapeTrial(bladeShapeTrial);
+mountIntegratedCombatTrial(integratedCombatTrial);
+if (thrustPlaneTrial && !integratedCombatTrial.active) {
   const info = document.createElement('p');
   info.id = 'thrustPlaneTrialInfo';
   info.className = 'sub';
@@ -691,7 +707,7 @@ if (gripPointModel === 'axial') {
   info.textContent = '양손 흔들림 비교판 · 시작과 베기 뒤에 칼이 떨리는지 확인하세요. 일반판은 기존 방식이며 저장 설정은 유지됩니다.';
   $('menuSub').after(info);
 }
-if (onehandArmModel === 'manual') {
+if (onehandArmModel === 'manual' && !integratedCombatTrial.active) {
   const info = document.createElement('p');
   info.id = 'onehandArmInfo';
   info.className = 'sub';
@@ -725,7 +741,7 @@ function refreshSettingsUI() {
     const key = el.dataset.setting;
     if (el.classList.contains('seg')) {
       el.querySelectorAll('button').forEach((b) => {
-        b.classList.toggle('on', b.dataset.v === settingValue(key));
+        b.classList.toggle('on', b.dataset.v === (key === 'moveMode' ? moveModeValue() : settingValue(key)));
         b.disabled = Object.hasOwn(comparisonSettings, key);
       });
     } else {
@@ -735,9 +751,9 @@ function refreshSettingsUI() {
   particles.bloodOn = settings.blood;
   sound.on = settings.sound;
   input.invertTilt = settings.invertTilt;
-  input.useTilt = settings.moveMode === 'tilt';
+  input.useTilt = moveModeValue() === 'tilt';
   document.body.classList.toggle('touch', input.isTouchDevice);
-  document.body.classList.toggle('moveStick', settings.moveMode !== 'tilt');
+  document.body.classList.toggle('moveStick', moveModeValue() !== 'tilt');
   applyMoveMode();
 }
 document.querySelectorAll('[data-setting]').forEach((el) => {
@@ -747,6 +763,7 @@ document.querySelectorAll('[data-setting]').forEach((el) => {
       b.addEventListener('click', () => {
         if (Object.hasOwn(comparisonSettings, key)) return;
         settings[key] = b.dataset.v;
+        if (key === 'moveMode') { sensorMoveFallback = null; tiltAttempt++; tiltPending = false; input.resetTransient(); }
         if (key === 'difficulty' && ai && !currentFoe) ai.setLevel(settings.difficulty); // 캐릭터를 골랐으면 그 캐릭터의 난이도를 따로 지킨다
         if (key === 'skill' && player) player.skill.level = +settings.skill;
         saveSettings();
@@ -1049,11 +1066,31 @@ function showToast(text, ms = 1200) {
 // 이동 방식에 맞게 조이스틱 / 영점 버튼을 보이거나 숨긴다
 function applyMoveMode() {
   const touch = input.isTouchDevice;
-  const tilt = settings.moveMode === 'tilt';
+  const tilt = moveModeValue() === 'tilt';
   // 무기 뽑기 동안에는 걸을 수 없으니 조이스틱을 감춘다 (카드 자리도 넓어진다). 싸움이 시작되면 나타난다
   $('moveStick').classList.toggle('show', touch && !tilt && state !== 'menu' && state !== 'draw');
   $('btnCalib').style.display = touch && tilt ? '' : 'none';
-  if (touch && tilt && state !== 'menu' && !input.tiltActive) input.enableTilt();
+  if (touch && tilt && state !== 'menu' && !input.tiltActive) ensureTiltMovement();
+}
+
+async function ensureTiltMovement() {
+  if (tiltPending || moveModeValue() !== 'tilt') return;
+  tiltPending = true;
+  const attempt = ++tiltAttempt;
+  const ok = await input.enableTilt();
+  setTimeout(() => {
+    if (attempt !== tiltAttempt) return;
+    tiltPending = false;
+    if (moveModeValue() !== 'tilt') return;
+    if (!ok || !input.tiltActive) {
+      sensorMoveFallback = 'stick';
+      input.resetTransient();
+      refreshSettingsUI();
+      showHint('기울기 센서를 쓸 수 없어서 조이스틱으로 바꿨어요.');
+    } else {
+      input.calibrateTilt();
+    }
+  }, 800);
 }
 
 function showHint(text, ms = 3500) {
@@ -1074,18 +1111,8 @@ async function startFight() {
     } catch {
       /* 무시 */
     }
-    if (settings.moveMode === 'tilt') {
-      const ok = await input.enableTilt();
-      setTimeout(() => {
-        if (!ok || !input.tiltActive) {
-          settings.moveMode = 'stick';
-          saveSettings();
-          refreshSettingsUI();
-          showHint('기울기 센서를 쓸 수 없어서 조이스틱으로 바꿨어요.');
-        } else {
-          input.calibrateTilt();
-        }
-      }, 800);
+    if (moveModeValue() === 'tilt') {
+      await ensureTiltMovement();
     }
   }
   $('rotate').classList.add('enabled');
@@ -1115,6 +1142,7 @@ async function startFight() {
 
 /** 무기를 받았다: 싸움 시작 ("Battle", 조이스틱, 조작 안내) */
 function beginFight() {
+  input.resetTransient();
   state = 'fight';
   limbDemoAt = ['armS', 'legF'].includes(limbDemo) ? stats.simTime + 1 : Infinity;
   input.enabled = true;
@@ -1129,7 +1157,7 @@ function beginFight() {
   showHint(
     !input.isTouchDevice
       ? '클릭해서 마우스 잠금 · WASD 이동 · 클릭하면 찌르기'
-      : settings.moveMode === 'tilt'
+      : moveModeValue() === 'tilt'
         ? '끌어서 칼 휘두르기 · 톡 치면 찌르기 · 앞뒤/좌우로 기울여서 걷기'
         : '왼쪽 아래 조이스틱으로 걷기 · 나머지 화면을 끌어서 휘두르고 톡 쳐서 찌르기',
   );
@@ -1141,6 +1169,7 @@ function pause() {
   pausedFrom = state;
   state = 'paused';
   input.enabled = false;
+  input.resetTransient();
   document.exitPointerLock?.();
   $('menuTitle').textContent = '일시정지';
   $('menuSub').textContent = '설정을 바꾸거나 계속할 수 있어요.';
@@ -1156,6 +1185,7 @@ function showMenu() {
 }
 
 function resume() {
+  input.resetTransient();
   sound.unlock(); // 폰이 전화·잠금 등으로 소리를 멈췄으면 다시 켠다
   menu.classList.remove('show');
   state = pausedFrom;
@@ -1167,6 +1197,13 @@ function resume() {
 $('btnStart').addEventListener('click', startFight);
 $('btnResume').addEventListener('click', resume);
 $('btnPause').addEventListener('click', pause);
+// A secondary touch does not consistently synthesize click. Pause must also
+// work while the first finger continues holding the sword or movement stick.
+$('btnPause').addEventListener('pointerdown', (event) => {
+  if (event.pointerType !== 'touch') return;
+  event.preventDefault();
+  pause();
+});
 $('btnCalib').addEventListener('click', () => {
   input.calibrateTilt();
   showHint('지금 각도를 기준으로 맞췄어요.', 1500);
@@ -1188,8 +1225,10 @@ for (const ev of ['touchend', 'pointerup', 'keydown']) {
   window.addEventListener(ev, () => sound.ctx && sound.unlock(), { passive: true });
 }
 document.addEventListener('visibilitychange', () => {
+  if (document.hidden) pause();
   if (!document.hidden && sound.ctx) sound.unlock(); // (손을 대지 않아도 되는 브라우저는 여기서 바로 다시 켜진다)
 });
+window.addEventListener('blur', pause);
 // ── 감정이 켜지는 순간 한 줄 알림 ──
 //  상대: "오소리 브란이 공포에 잠식되었다" / 주인공: 주어 없이 "공포에 잠식되었다" (집념은 주어 없이: 상대 "집념을 보인다", 주인공 "집념이 생긴다")
 const EMO_TEXT = {
@@ -1327,6 +1366,7 @@ function checkRoundEnd(dt) {
   if (roundOverTime > 3.5 && state === 'fight') {
     state = 'paused';
     input.enabled = false;
+    input.resetTransient();
     document.exitPointerLock?.();
     toast.classList.remove('show');
     const win = !enemy.alive;
@@ -1606,6 +1646,7 @@ window.game = {
   edgeTorqueTrial,
   bladeShapeTrial,
   thrustPlaneTrial,
+  integratedCombatTrial,
   THREE,
   camera,
   freeCam: false,

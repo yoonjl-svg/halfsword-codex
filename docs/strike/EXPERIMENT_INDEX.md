@@ -4,6 +4,7 @@
 
 | 최근 회차 | 판정 / 소스 | 재사용 입구 |
 |---|---|---|
+| [P4/P5/P6 병렬 회차](p456_batch_20261005.md) | P4 목표 점프 확인·두 기하 수정 기각, P5 선택형/P6 입력 결함 수정·전체 목표 미완료 | native prefix1211 exact·P5 경계61·[소스/명령/원자료](p456_batch_20261005.json)·[전달](p456_batch_release.json) |
 | [실제 절상 뒤 입력·공개 B 후속](injured_input_20261005.md) | 두 B 잠정 선호·재입력 수락/회전 잔존, game 변경0·일반 승격 보류 | 실제 prefix1536 exact·현재 공개20초 후속·[수치/명령/해시](injured_input_20261005.json) |
 | [피격 뒤 한손 재현 선별](recovery_selection_20261005.md) | 과거 manual 팔 절상 현재 비재현·actual legacy 주팔 절상 경계 선정, game 변경0 | 고정2문맥·현재4행/관찰 동등성2행·[수치/명령/해시](recovery_selection_20261005.json) |
 | [청강검 찌르기 날 방향](thrust_plane_20261005.md) | 접촉 전 비틀림 감소·큰 베기 exact, 후속 접촉 추종 후퇴·청강검 선택형 | 3입력 경로/production 동등성·[수치/명령/해시](thrust_plane_20261005.json)·[전달](thrust_plane_release.json) |

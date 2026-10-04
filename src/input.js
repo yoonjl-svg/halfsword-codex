@@ -9,9 +9,9 @@ import { flushHaptic } from './effects.js';
 import { configureMobileIntent, mapMobileHandDelta } from './mobile_intent.js';
 
 export class Input {
-  constructor(canvas) {
+  constructor(canvas, params = new URLSearchParams(window.location.search)) {
     this.canvas = canvas;
-    this.mobileIntent = configureMobileIntent(new URLSearchParams(window.location.search));
+    this.mobileIntent = configureMobileIntent(params);
     this.handDX = 0; // 누적된 손 이동량(m). +x = 화면 오른쪽
     this.handDY = 0; // +y = 위
     this.keys = new Set();
@@ -33,14 +33,36 @@ export class Input {
     this.taps = 0;
     this.press = null;
     this.tapOnDown = false; // 권총(main.js 가 켠다): 손가락이 닿는(클릭하는) 순간 한 번 친 것으로 센다 — 떼는 때·누른 시간과 상관없이
+    this._resetHooks = new Set(); // 조이스틱처럼 자체 포인터 상태를 가진 입력 장치
 
     canvas.addEventListener('pointerdown', (e) => this.onDown(e));
     window.addEventListener('pointermove', (e) => this.onMove(e));
     window.addEventListener('pointerup', (e) => this.onUp(e));
-    window.addEventListener('pointercancel', (e) => this.onUp(e));
-    window.addEventListener('keydown', (e) => this.keys.add(e.code));
+    window.addEventListener('pointercancel', (e) => this.onCancel(e));
+    canvas.addEventListener('lostpointercapture', (e) => this.onCancel(e));
+    window.addEventListener('keydown', (e) => { if (this.enabled) this.keys.add(e.code); });
     window.addEventListener('keyup', (e) => this.keys.delete(e.code));
-    window.addEventListener('blur', () => this.keys.clear());
+    window.addEventListener('blur', () => this.resetTransient());
+  }
+
+  /** Drop a finished/aborted gesture without changing sensitivity or saved tilt preferences. */
+  resetTransient() {
+    this.handDX = 0;
+    this.handDY = 0;
+    this.taps = 0;
+    this.press = null;
+    this.activeTouch = null;
+    this.lastX = 0;
+    this.lastY = 0;
+    this.keys.clear();
+    this.stickMove = { x: 0, y: 0 };
+    if (this.trail?.clear) this.trail.clear();
+    else this.trail?.lift();
+    for (const reset of this._resetHooks) reset();
+  }
+
+  onCancel(e) {
+    if (e.pointerId === this.activeTouch || e.pointerId === this.press?.id) this.resetTransient();
   }
 
   onDown(e) {
@@ -124,6 +146,7 @@ export class Input {
 
   /** { x: 옆걸음 -1(왼)~1(오른), y: -1(뒤)~1(앞) } */
   get move() {
+    if (!this.enabled) return { x: 0, y: 0 };
     let x = 0;
     let y = 0;
     if (this.keys.has('KeyA') || this.keys.has('ArrowLeft')) x -= 1;
@@ -208,7 +231,20 @@ export function attachStick(input, pad, knob) {
   let id = null;
   const R = 40;
   const DEAD = 0.15; // 가운데 근처 살짝 건드린 건 무시
+  const reset = () => {
+    const captured = id;
+    id = null;
+    knob.style.transform = '';
+    input.stickMove = { x: 0, y: 0 };
+    if (captured !== null && pad.releasePointerCapture) {
+      try {
+        if (!pad.hasPointerCapture || pad.hasPointerCapture(captured)) pad.releasePointerCapture(captured);
+      } catch { /* 이미 취소/해제된 포인터는 다시 해제할 필요가 없다. */ }
+    }
+  };
+  input._resetHooks.add(reset);
   const update = (e) => {
+    if (!input.enabled) { reset(); return; }
     const r = pad.getBoundingClientRect();
     let dx = e.clientX - (r.left + r.width / 2);
     let dy = e.clientY - (r.top + r.height / 2);
@@ -226,17 +262,17 @@ export function attachStick(input, pad, knob) {
   };
   pad.addEventListener('pointerdown', (e) => {
     e.stopPropagation();
+    if (!input.enabled || id !== null) return;
     id = e.pointerId;
-    pad.setPointerCapture(id);
+    try { pad.setPointerCapture(id); } catch { /* 캡처 미지원 환경에서도 패드 안 조작은 유지한다. */ }
     update(e);
   });
   pad.addEventListener('pointermove', (e) => e.pointerId === id && update(e));
   const end = (e) => {
     if (e.pointerId !== id) return;
-    id = null;
-    knob.style.transform = '';
-    input.stickMove = { x: 0, y: 0 };
+    reset();
   };
   pad.addEventListener('pointerup', end);
   pad.addEventListener('pointercancel', end);
+  pad.addEventListener('lostpointercapture', end);
 }
