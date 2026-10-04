@@ -1,5 +1,5 @@
 {
-  "status": "local-verified; public delivery pending",
+  "status": "game delivered and verified; final documentation publication receipt kept outside Git",
   "dateKST": "2026-10-04",
   "nativeInitialBeforeAfter": {
     "cases": 27,
@@ -16,12 +16,102 @@
     "sourceStable": true,
     "wallSeconds": 157.97266874599154
   },
-  "publicVerified": false,
-  "mobilePublicVerified": false,
+  "publicVerified": true,
+  "mobilePublicVerified": true,
   "remaining": [
     "monohoshizao/lightsaber startup oscillation",
     "general onehand controller promotion unapproved",
     "human injury/finish acceptance",
     "real sever/drop/regrip continuous screen"
-  ]
+  ],
+  "verifiedGameCommit": "5e33f937cbc272b43a07f3359ce60e6bf7ba63bc",
+  "compiledGame": {
+    "path": "assets/main-D-HgwwlA.js",
+    "bytes": 3493795,
+    "sha256": "f8b97c4b59711a30ed6279a30065328fcd0869472812457a820f4ab4a2bf4a7d"
+  },
+  "publicURL": "https://yoonjl-svg.github.io/halfsword-codex/",
+  "qinggangURL": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=qinggang&foeWeapon=longsword&foe=default&onehandArm=manual&targetCorrection=none",
+  "publicFiles": {
+    "count": 8,
+    "pass": true,
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/initial-poses-20261004/public-first.json",
+      "bytes": 5295,
+      "sha256": "fe988e1f6aafd6f936eec34b3fe0b6111010c47b0efb90601fbc27011356af2a"
+    }
+  },
+  "publicTouchPlay": {
+    "cases": 3,
+    "weapons": [
+      "qinggang",
+      "sabre",
+      "rapier"
+    ],
+    "scope": "Compiled module hash, portrait entry, trusted drag/extend/release/tap(80ms explicit event-time contract, not device latency), new Fighter restart, saved preferences and selected first-step mode. Live enemy AI/native contacts; no force/pose/health writes. Camera presentation only. Browser scenes not matched injury/AI input comparisons.",
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/initial-poses-20261004/public-play/summary.json",
+      "bytes": 5823,
+      "sha256": "b9dc9ad63af2951909976d9ef39624a084121a761e4c48a19a8f6102ae326016"
+    }
+  },
+  "publicHandDetail": {
+    "cases": 4,
+    "weapons": [
+      "qinggang",
+      "rapier",
+      "longsword",
+      "pistol"
+    ],
+    "scope": "Actual compiled game mobile entry/Start/Pause/new Fighter restart. Paused close-up camera and menu visibility only; no input, native pose/force/health writes. One restart per weapon is not GPU stress or device-performance proof.",
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/initial-poses-20261004/public-detail/summary.json",
+      "bytes": 6532,
+      "sha256": "5ae91be3941e335a15d617009c6ee4fbbee57f956a9246bd32c002853364eec4"
+    }
+  },
+  "githubCI": {
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37170611589",
+    "actualCheckout": "5e33f937cbc272b43a07f3359ce60e6bf7ba63bc",
+    "pass": true,
+    "sourceStable": true,
+    "cacheUsed": false,
+    "tests": [
+      {
+        "id": "force_ledger",
+        "pass": true
+      },
+      {
+        "id": "grip_reaction",
+        "pass": true
+      },
+      {
+        "id": "cut_reaction",
+        "pass": true
+      },
+      {
+        "id": "arm_capacity",
+        "pass": true
+      },
+      {
+        "id": "arm_duel",
+        "pass": true
+      },
+      {
+        "id": "build",
+        "pass": true
+      }
+    ],
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/initial-poses-20261004/ci-core/development-checks-37170611589-1/result.json",
+      "bytes": 233989,
+      "sha256": "752d2acd01e0cbdec2c4c89fa5df122b9aaea63849b95f44d93e7290d8f24f1d"
+    }
+  },
+  "pagesDeploy": {
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37170611506",
+    "sha": "5e33f937cbc272b43a07f3359ce60e6bf7ba63bc",
+    "conclusion": "success"
+  },
+  "scope": "Thumb appearance is general. Horizontal opening command is optional manual only. Chromium mobile viewport/trusted touch, not a physical iPhone performance/feel certificate. CI covers game commit; final documentation-only change does not change this compiled game."
 }

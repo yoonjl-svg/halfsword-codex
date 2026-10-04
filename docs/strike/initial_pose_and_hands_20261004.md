@@ -35,6 +35,6 @@ PLAYWRIGHT_MODULE=/path/to/playwright/index.mjs node tools/browser/initial_weapo
 PLAYWRIGHT_MODULE=/path/to/playwright/index.mjs node tools/browser/hand_detail_screen.mjs --base=http://127.0.0.1:4281/ --out=/tmp/NEW-detail
 ```
 
-기준 숫자 재현은 원자료의 sourceBefore SHA/이전 소스를 고정한다. 현재 HEAD 실행이 옛 숫자와 같다고 주장하지 않는다. hand-fixture는 당시 stdin/tool 출력의 사후 보존본이며 재실행 없이 보존했다. 일반 회귀·원격/웹·폰 재시작의 최종 결과는[전달 영수증](initial_pose_and_hands_release.json)에 추가한다.
+기준 숫자 재현은 원자료의 sourceBefore SHA/이전 소스를 고정한다. 현재 HEAD 실행이 옛 숫자와 같다고 주장하지 않는다. hand-fixture는 당시 stdin/tool 출력의 사후 보존본이며 재실행 없이 보존했다. 공통 회귀6묶음은 로컬157.97초·CI98.80초 모두 PASS, CI 실제 checkout은 `5e33f937cbc272b43a07f3359ce60e6bf7ba63bc`다. 공개8파일 byte exact, 실제 공개 touch3판과 손 근접/재시작4판을 확인했다. [전달 영수증](initial_pose_and_hands_release.json)에 코드·검사·공개 적용을 구분한다. 실제 휴대폰 하드웨어의 체감 수락과 동일하게 취급하지 않는다.
 
 다음30–45분은 두 양손 무기의 시작 진동 원인을 보존 trace에서 좁힌다. 베기 뒤 home 복귀 하향은 이번 변경에 포함하지 않았다. 실제 절단·낙검·재파지 연속 화면, 레이피어 추종·마무리·부상 후 인간 조작 수락은 남아 있다. 한손 제어 일반 승격과 새 힘/감쇠 기본값 승격은 별도 사용자 확인 대상이다.
