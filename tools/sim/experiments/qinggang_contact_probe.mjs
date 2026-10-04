@@ -8,6 +8,7 @@ import {execFileSync} from 'node:child_process';
 import {pathToFileURL} from 'node:url';
 import {receiveGripAngularImpulse} from './impact_grip_candidate.mjs';
 import {armNativeGrip} from './native_grip_candidate.mjs';
+import {captureWristRequest,armIntentGrip} from './native_grip_intent_candidate.mjs';
 const opts=Object.fromEntries(process.argv.slice(2).map(s=>{const m=/^--(out|reference|modes|tick|module|after)=(.+)$/.exec(s);assert(m);return[m[1],m[2]];}));
 assert(opts.out&&path.isAbsolute(opts.out)&&!fs.existsSync(opts.out),'Fresh absolute output');
 assert(opts.reference&&path.isAbsolute(opts.reference));
@@ -22,13 +23,13 @@ if(opts.module){
  const directory=fs.mkdtempSync(path.join(path.dirname(opts.out),'native-harness-'));engineHarness=path.join(directory,'harness.mjs');fs.writeFileSync(engineHarness,rewritten,{flag:'wx'});harness=pathToFileURL(engineHarness);
 }
 const {newRound,DT,THREE,CONFIG,RAPIER}=await import(harness.href);
-const modes=(opts.modes??'observe,noSwordPair').split(',');assert(modes.every(m=>['observe','noSwordPair','coupled','nativeGrip','nativeContinuous'].includes(m)));assert(!modes.some(m=>m.startsWith('native'))||opts.module,'Capped native grip requires the restored engine');
+const modes=(opts.modes??'observe,noSwordPair').split(',');assert(modes.every(m=>['observe','noSwordPair','coupled','nativeGrip','nativeContinuous','intentGrip','intentContinuous','pairDiagnostic','pairPulse'].includes(m)));assert(!modes.some(m=>m.startsWith('native')||m.startsWith('intent'))||opts.module,'Capped native grip requires the restored engine');
 const target=Number(opts.tick??965);assert(Number.isInteger(target)&&target>=0);
 const after=Number(opts.after??1);assert(Number.isInteger(after)&&after>=1&&after<=1080);
 const V=o=>new THREE.Vector3(o.x,o.y,o.z),Q=o=>new THREE.Quaternion(o.x,o.y,o.z,o.w);
 const referenceBytes=fs.readFileSync(opts.reference),reference=JSON.parse(referenceBytes);
 const ref=reference.rows.find(r=>r.weapon==='qinggang'&&r.mode==='steady'&&r.observed);assert(ref&&reference.pass&&reference.sourceStable);
-const freeCut=reference.scenario==='stroke';if(modes.includes('nativeContinuous'))assert(['stroke','live'].includes(reference.scenario)&&target===0,'Continuous candidate restricted to saved stroke/live from first step');
+const freeCut=reference.scenario==='stroke';if(modes.some(m=>['nativeContinuous','intentContinuous','pairDiagnostic'].includes(m)))assert(['stroke','live'].includes(reference.scenario)&&target===0,'Continuous candidate restricted to saved stroke/live from first step');
 assert.equal(reference.dt,DT);assert(reference.schedule[target+after]);
 function own(object){
  const omit=new Set(['f','fighter','me','foe','world','scene','R','rb','body','parent','child','joint','rawSet','raw','__wbg_ptr','info','mesh','group','sword','grip','colliderSet','thrustEdgeModel']);const seen=new WeakSet();
@@ -45,7 +46,7 @@ function state(f){
  const b=f.sword,blade=new THREE.Vector3(0,1,0).applyQuaternion(Q(b.rotation())),w=V(b.angvel()),farm=f.bodies.farmS;
  const gaps=f.joints.filter(j=>j.joint?.isValid()).map(j=>V(j.joint.anchor1()).applyQuaternion(Q(j.parent.rotation())).add(V(j.parent.translation())).distanceTo(V(j.joint.anchor2()).applyQuaternion(Q(j.child.rotation())).add(V(j.child.translation()))));
  const tipVelocityMps=V(b.velocityAtPoint(f.bladePoint(1,new THREE.Vector3()))).length();
- return {p:V(b.translation()).toArray(),com:V(b.worldCom()).toArray(),q:Q(b.rotation()).toArray(),v:V(b.linvel()).toArray(),w:w.toArray(),blade:blade.toArray(),axial:w.dot(blade),relativeAxial:w.clone().sub(V(farm.angvel())).dot(blade),F:V(b.userForce()).toArray(),T:V(b.userTorque()).toArray(),swordMomentum:momentum(b),farmS:{w:V(farm.angvel()).toArray(),q:Q(farm.rotation()).toArray(),momentum:momentum(farm)},chestMomentum:momentum(f.bodies.chest),cap:f.debug.wristCap,preTwistWrist:f.debug.wristTorque.toArray(),health:{state:f.state,alive:f.alive,armed:f.armed,limbs:own(f.limbs),wounds:own(f.wounds)},aim:f.debug.aim.toArray(),tipVelocityMps,maxJointGapM:Math.max(...gaps),missingJoints:f.joints.filter(j=>!j.joint?.isValid()).map(j=>j.name),handErrorM:V(farm.translation()).add(new THREE.Vector3(.13,0,0).applyQuaternion(Q(farm.rotation()))).distanceTo(f.handTarget)};
+ return {p:V(b.translation()).toArray(),com:V(b.worldCom()).toArray(),q:Q(b.rotation()).toArray(),v:V(b.linvel()).toArray(),w:w.toArray(),blade:blade.toArray(),axial:w.dot(blade),relativeAxial:w.clone().sub(V(farm.angvel())).dot(blade),F:V(b.userForce()).toArray(),T:V(b.userTorque()).toArray(),swordMomentum:momentum(b),farmS:{axial:V(farm.angvel()).dot(new THREE.Vector3(1,0,0).applyQuaternion(Q(farm.rotation()))),w:V(farm.angvel()).toArray(),q:Q(farm.rotation()).toArray(),momentum:momentum(farm)},chestMomentum:momentum(f.bodies.chest),cap:f.debug.wristCap,preTwistWrist:f.debug.wristTorque.toArray(),health:{state:f.state,alive:f.alive,armed:f.armed,limbs:own(f.limbs),wounds:own(f.wounds)},aim:f.debug.aim.toArray(),tipVelocityMps,maxJointGapM:Math.max(...gaps),missingJoints:f.joints.filter(j=>!j.joint?.isValid()).map(j=>j.name),handErrorM:V(farm.translation()).add(new THREE.Vector3(.13,0,0).applyQuaternion(Q(farm.rotation()))).distanceTo(f.handTarget)};
 }
 const info=i=>i?{actor:i.fighter?.index,kind:i.kind,part:i.part,body:i.body?.handle}:null;
 function contacts(G,f){const rows=[];for(const c of f.swordColliders)G.world.contactPairsWith(c,o=>G.world.contactPair(c,o,(m,flipped)=>{
@@ -53,7 +54,7 @@ function contacts(G,f){const rows=[];for(const c of f.swordColliders)G.world.con
  }));return rows;}
 const scan=d=>fs.readdirSync(d,{withFileTypes:true}).flatMap(e=>e.isDirectory()?scan(d+'/'+e.name):e.name.endsWith('.js')?[d+'/'+e.name]:[]);
 const files=[...scan('src'),'tools/sim/harness_m.mjs','tools/sim/experiments/qinggang_contact_probe.mjs','tools/sim/experiments/impact_grip_candidate.mjs','package-lock.json','node_modules/@dimforge/rapier3d-compat/rapier.mjs','node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm'];
-files.push('tools/sim/experiments/native_grip_candidate.mjs');
+files.push('tools/sim/experiments/native_grip_candidate.mjs','tools/sim/experiments/native_grip_intent_candidate.mjs');
 if(opts.module)files.push(enginePath,engineHarness);
 const manifest=()=>Object.fromEntries(files.map(n=>[n,sha(fs.readFileSync(n))]));
 const sourceBefore=manifest(),startedUTC=new Date().toISOString(),start=performance.now(),random=Math.random,rows=[];let pass=false;
@@ -61,6 +62,7 @@ try{for(const mode of modes){let G;try{
  G=newRound({seed:7,weapon:'qinggang',weapon2:'longsword',skill:0,difficulty:'normal',onFighter:f=>{f.onehandArmModel='manual';f.thrustEdgeModel='steady';}});
  const f=G.player;f.skill.autoGuard=false;const creation={native:sha(G.world.takeSnapshot()),controller:sha(JSON.stringify(control(G)))};assert.deepEqual(creation,ref.creation,'Original creation must match');
  const frames=[],prefix=createHash('sha256');let tick=0,tapAttempted=false,stage=null;
+ const wristCapture=captureWristRequest(f,()=>mode==='intentContinuous'||mode==='pairDiagnostic'||(['intentGrip','pairPulse'].includes(mode)&&tick===target),{pairDiagnostic:['pairDiagnostic','pairPulse'].includes(mode)});
  const originalClash=G.combat.bladeClash,originalSet=f.sword.setAngvel;let inClash=false;
  G.combat.bladeClash=function(...args){inClash=true;try{return originalClash.apply(this,args);}finally{inClash=false;}};
  f.sword.setAngvel=function(request,wake){
@@ -79,6 +81,8 @@ try{for(const mode of modes){let G;try{
   let useHooks=hooks;
   if(tick===target&&mode==='noSwordPair')useHooks={...hooks,filterContactPair:(a,b)=>{const A=G.combat.info.get(a),B=G.combat.info.get(b);if(A?.kind==='weapon'&&B?.kind==='weapon'&&A.fighter!==B.fighter&&(A.fighter===f||B.fighter===f)){stage.suppressedPairs.push({a,b,A:info(A),B:info(B)});return 0;}return hooks.filterContactPair(a,b);}};
   let native;if(((tick===target&&mode==='nativeGrip')||mode==='nativeContinuous')&&f.alive&&f.armed&&f.gripJoint?.isValid())native=armNativeGrip(f,RAPIER);
+  if(['pairDiagnostic','pairPulse'].includes(mode)&&stage)stage.pairDiagnostic=wristCapture()?.pairDiagnostic??{applied:false};
+  if(mode==='intentContinuous'||(mode==='intentGrip'&&tick===target))native=armIntentGrip(f,RAPIER,wristCapture());
   const result=worldStep(queue,useHooks);if(stage){stage.postPhysics=state(f);stage.contactsAfterPhysics=contacts(G,f);if(native)stage.nativeGrip=native.afterStep();}return result;
  };
  for(const request of reference.schedule.slice(0,target+after+1)){
@@ -93,4 +97,4 @@ try{for(const mode of modes){let G;try{
  rows.push({mode,creation,prefixFrames:target,prefixSHA256:prefix.digest('hex'),frames});console.log(JSON.stringify({mode,frameCount:frames.length,frames:frames.length<50?frames.map(f=>({tick:f.tick,pre:f.before.axial,physics:f.postPhysics.axial,combat:f.afterCombat.axial,suppressed:f.suppressedPairs.length,contacts:f.contactsAfterPhysics.length})):undefined}));
  }finally{G?.eventQueue.free();G?.world.free();}}
  assert(rows.every(r=>r.prefixSHA256===rows[0].prefixSHA256));pass=true;
-}finally{Math.random=random;const sourceAfter=manifest();fs.mkdirSync(path.dirname(opts.out),{recursive:true});fs.writeFileSync(opts.out,JSON.stringify({pass,startedUTC,completedUTC:new Date().toISOString(),wallSeconds:(performance.now()-start)/1000,sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),sourceBefore,sourceAfter,sourceStable:JSON.stringify(sourceBefore)===JSON.stringify(sourceAfter),reference:{path:opts.reference,sha256:sha(referenceBytes),sourceCommit:reference.sourceCommit,sourceBefore:reference.sourceBefore},argv:process.argv.slice(2),targetTick:target,dt:DT,scope:'Actual original seeded manual combat from spawn using saved live nominal deltas and original reactive AI, tap on first contact/wound. Complete original creation/native/controller/input/events must match saved reference through the common prefix; observe must match beyond the target. One-step selected sword-pair solver suppression is diagnostic only. No snapshot restoration or prescribed pose/health/velocity/timestep changes. noSwordPair suppresses selected solver contacts for diagnosis; coupled replaces the existing post-step clamp with a paired impulse; nativeGrip configures existing grip motors at the target step; nativeContinuous configures them from the first step while alive/armed. These candidate interventions are not gameplay approval. Manifold normal/tangent scalars have no supplied tangent basis and are not advertised as a closed contact torque.',rows},null,2)+'\n',{flag:'wx'});}
+}finally{Math.random=random;const sourceAfter=manifest();fs.mkdirSync(path.dirname(opts.out),{recursive:true});fs.writeFileSync(opts.out,JSON.stringify({pass,startedUTC,completedUTC:new Date().toISOString(),wallSeconds:(performance.now()-start)/1000,sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),sourceBefore,sourceAfter,sourceStable:JSON.stringify(sourceBefore)===JSON.stringify(sourceAfter),reference:{path:opts.reference,sha256:sha(referenceBytes),sourceCommit:reference.sourceCommit,sourceBefore:reference.sourceBefore},argv:process.argv.slice(2),targetTick:target,dt:DT,scope:'Actual original seeded manual combat from spawn using saved live nominal deltas and original reactive AI, tap on first contact/wound. Complete original creation/native/controller/input/events must match saved reference through the common prefix; observe must match beyond the target. One-step selected sword-pair solver suppression is diagnostic only. No snapshot restoration or prescribed pose/health/velocity/timestep changes. noSwordPair suppresses selected solver contacts for diagnosis; coupled replaces the existing post-step clamp with a paired impulse; nativeGrip configures existing grip motors at the target step; nativeContinuous configures them from the first step while alive/armed. intentGrip/intentContinuous replace only the three actual final driveSword wrist/reaction torque calls with the existing native grip; the native sword/forearm reaction path differs from old partial chest routing. pairDiagnostic(from spawn)/pairPulse(target step only) forward captured bounded sword torque with its full opposite reaction to forearm and no chest share, without any motor, to separate routing; diagnosis only. These candidate interventions are not gameplay approval. Manifold normal/tangent scalars have no supplied tangent basis and are not advertised as a closed contact torque.',rows},null,2)+'\n',{flag:'wx'});}

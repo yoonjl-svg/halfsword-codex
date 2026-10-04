@@ -1,0 +1,798 @@
+{
+  "schema": 1,
+  "date": "2026-10-04",
+  "baseCommit": "5060a1abdd2b80842a6d1a68aa9b726ef62bb284",
+  "sourceDirty": true,
+  "purpose": "Preserve player cut/blade-plane intention while receiving weapon contact through bounded grip and arm. Native adoption is not a goal.",
+  "gameChanged": false,
+  "gameAndHarnessHashes": {
+    "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+    "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+    "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+    "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+    "src/arm_recovery_activation.js": "ae025cc8d9bbc9855ea8ab2793d3e7818a66a4662329014a776a2ac88966435e",
+    "src/arm_recovery_trial.js": "ebda992abc5c7cd25a12c751d0f9b30f8fddf998babc8f4a7f49c9f4a0817c09",
+    "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+    "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+    "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+    "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+    "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+    "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+    "src/cut_trial.js": "427d58d0500ceac482424e092a7d457a8cea48371c254f1b4edecb3a511be5a6",
+    "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+    "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+    "src/edge_intent.js": "b4e17a6ea08d659732c330448b3b3aaffeac2942fa5096e82db551a12d580c87",
+    "src/edge_torque.js": "436995e6d45e816517ea5a9a8f83c9fb147d143871aab1601f82baa7b36bc0fa",
+    "src/edge_torque_trial.js": "1280a3fe32c1874b6ce56b75932db44852162855d8962ae13f3aeb3e7d832cae",
+    "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+    "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+    "src/fighter.js": "01568d278e338d133e7ed75d1437421440757c22e1e77b2e2b9171fd6b30c4de",
+    "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+    "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+    "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+    "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+    "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+    "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+    "src/hand_visual.js": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893",
+    "src/input.js": "da17f592c9fe8fc2e0532660a31f2e7b96d24e700cc555115c05b913caae9bc7",
+    "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+    "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+    "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+    "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+    "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+    "src/main.js": "c9838e2b8049cf6955f8efdcf6c220b80087769377c543eeca0ae8d67c97b49d",
+    "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+    "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+    "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+    "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+    "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+    "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+    "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+    "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+    "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+    "src/skill.js": "b69b73e00d8524e733842a630d54f2d7392807f883d7a75c9f9767b78d71f512",
+    "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+    "src/sound.js": "f02a5a9c9ad60ce282806c02b956715c2ca01aced92ba021b63a799faf4c8fb4",
+    "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+    "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+    "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+    "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+    "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+    "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+    "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+    "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+    "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+    "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+    "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+    "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+    "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+    "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+    "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+    "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+    "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+    "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+    "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+    "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+    "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "src/wrist_braking.js": "6574ae9729fa6251540a68d27a0938e9d5bc2296097ff8b3bd69d1494eb88730",
+    "src/wrist_braking_trial.js": "25466b178e063a45e58a5fcd22532cdcbc176af4a2c05e461c562bb6a0ef658e",
+    "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e"
+  },
+  "rawRoot": "/workspace/halfsword-handoff/grip-intent-20261004",
+  "runs": [
+    {
+      "path": "free-intent-run01.json",
+      "bytes": 19634889,
+      "sha256": "3bf916d7e9fef620d08b159b80020469f168e430d7ecf80337c1af158dbc6693",
+      "measurementPass": true,
+      "sourceStable": true,
+      "commitLabel": "5060a1abdd2b80842a6d1a68aa9b726ef62bb284",
+      "argv": [
+        "--reference=/workspace/halfsword-handoff/onehand-thrust-20261004/no-tap-run03.json",
+        "--module=/workspace/halfsword-research-import-20261003/engine/rapier.mjs",
+        "--out=/workspace/halfsword-handoff/grip-intent-20261004/free-intent-run01.json",
+        "--modes=observe,intentContinuous",
+        "--tick=0",
+        "--after=515"
+      ],
+      "startedUTC": "2026-10-04T08:49:28.592Z",
+      "completedUTC": "2026-10-04T08:49:35.039Z",
+      "wallSeconds": 6.446462414000001,
+      "testedTools": {
+        "tools/sim/experiments/qinggang_contact_probe.mjs": "d763aa0fac1fc38e3effbdd88639aaa9b832327ba7efd1cb1c38a9877f38be8e",
+        "tools/sim/experiments/impact_grip_candidate.mjs": "908acf6736ed212e790fd58a735292b47b5d03cd11fb722984ed0c0c409863d0",
+        "tools/sim/experiments/native_grip_candidate.mjs": "7df05638eddf6679f523f4590fc3e291aac417fbc30d4f1c015656a8d22eb214",
+        "tools/sim/experiments/native_grip_intent_candidate.mjs": "4f55f0c3a76cb0cc03adc83f0d2f32515a1b4be2e309dc0e96688bd1b250ad17"
+      },
+      "reference": {
+        "path": "/workspace/halfsword-handoff/onehand-thrust-20261004/no-tap-run03.json",
+        "sha256": "f41e5ef333da099b1fb5ef5286c8d4e4de34754e93ab9b1ff32508d73a90729f",
+        "sourceCommit": "bf1f9246c7b652f8da89fb72e16a7e520952ca38"
+      },
+      "harness": {
+        "/workspace/halfsword-handoff/grip-intent-20261004/native-harness-iJbCkq/harness.mjs": "65587a77d1e7bb65119a1579fc0843c88daa399e15adfac06b7bdcec64fa8804"
+      },
+      "modes": [
+        {
+          "mode": "observe",
+          "prefixFrames": 0,
+          "prefixSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "creation": {
+            "native": "91a96275e9b61ff0458bcc6d5d7d4c3e9944004e8a80341373dfd6c6d68033c9",
+            "controller": "2ce795101eb4b0350e13d8b7c069fc6f30bf5fef98661568b1e5bea5c9578e8f"
+          },
+          "recordedFrames": 516
+        },
+        {
+          "mode": "intentContinuous",
+          "prefixFrames": 0,
+          "prefixSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "creation": {
+            "native": "91a96275e9b61ff0458bcc6d5d7d4c3e9944004e8a80341373dfd6c6d68033c9",
+            "controller": "2ce795101eb4b0350e13d8b7c069fc6f30bf5fef98661568b1e5bea5c9578e8f"
+          },
+          "recordedFrames": 516
+        }
+      ]
+    },
+    {
+      "path": "reaction-route-run04.json",
+      "bytes": 17753502,
+      "sha256": "2b5be631b2def236264e6b380470f420cc04244abef7b0443e3ef55ad307aab7",
+      "measurementPass": true,
+      "sourceStable": true,
+      "commitLabel": "5060a1abdd2b80842a6d1a68aa9b726ef62bb284",
+      "argv": [
+        "--reference=/workspace/halfsword-handoff/onehand-thrust-20261004/no-tap-run03.json",
+        "--module=/workspace/halfsword-research-import-20261003/engine/rapier.mjs",
+        "--out=/workspace/halfsword-handoff/grip-intent-20261004/reaction-route-run04.json",
+        "--modes=observe,pairDiagnostic",
+        "--tick=0",
+        "--after=515"
+      ],
+      "startedUTC": "2026-10-04T08:52:06.253Z",
+      "completedUTC": "2026-10-04T08:52:12.630Z",
+      "wallSeconds": 6.376688461,
+      "testedTools": {
+        "tools/sim/experiments/qinggang_contact_probe.mjs": "8d01e1898205b798e27e3fd0ad1f31233d24fa2e415d1e115bb665e6bc92e523",
+        "tools/sim/experiments/impact_grip_candidate.mjs": "908acf6736ed212e790fd58a735292b47b5d03cd11fb722984ed0c0c409863d0",
+        "tools/sim/experiments/native_grip_candidate.mjs": "7df05638eddf6679f523f4590fc3e291aac417fbc30d4f1c015656a8d22eb214",
+        "tools/sim/experiments/native_grip_intent_candidate.mjs": "713a463a3296487e14e97dbca4abe37a3a5f67cceaf537b45809410543ade6e6"
+      },
+      "reference": {
+        "path": "/workspace/halfsword-handoff/onehand-thrust-20261004/no-tap-run03.json",
+        "sha256": "f41e5ef333da099b1fb5ef5286c8d4e4de34754e93ab9b1ff32508d73a90729f",
+        "sourceCommit": "bf1f9246c7b652f8da89fb72e16a7e520952ca38"
+      },
+      "harness": {
+        "/workspace/halfsword-handoff/grip-intent-20261004/native-harness-7qQsak/harness.mjs": "65587a77d1e7bb65119a1579fc0843c88daa399e15adfac06b7bdcec64fa8804"
+      },
+      "modes": [
+        {
+          "mode": "observe",
+          "prefixFrames": 0,
+          "prefixSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "creation": {
+            "native": "91a96275e9b61ff0458bcc6d5d7d4c3e9944004e8a80341373dfd6c6d68033c9",
+            "controller": "2ce795101eb4b0350e13d8b7c069fc6f30bf5fef98661568b1e5bea5c9578e8f"
+          },
+          "recordedFrames": 516
+        },
+        {
+          "mode": "pairDiagnostic",
+          "prefixFrames": 0,
+          "prefixSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "creation": {
+            "native": "91a96275e9b61ff0458bcc6d5d7d4c3e9944004e8a80341373dfd6c6d68033c9",
+            "controller": "2ce795101eb4b0350e13d8b7c069fc6f30bf5fef98661568b1e5bea5c9578e8f"
+          },
+          "recordedFrames": 516
+        }
+      ]
+    },
+    {
+      "path": "contact-route-run06.json",
+      "bytes": 210173,
+      "sha256": "859881bf8dffad3d4fe86acf28d504ab9d13fb0bd3ae3fa79b281d8d6fcc0ca2",
+      "measurementPass": true,
+      "sourceStable": true,
+      "commitLabel": "5060a1abdd2b80842a6d1a68aa9b726ef62bb284",
+      "argv": [
+        "--reference=/workspace/halfsword-handoff/onehand-thrust-20261004/contact-tap-run06.json",
+        "--module=/workspace/halfsword-research-import-20261003/engine/rapier.mjs",
+        "--out=/workspace/halfsword-handoff/grip-intent-20261004/contact-route-run06.json",
+        "--modes=observe,pairPulse",
+        "--tick=965",
+        "--after=1"
+      ],
+      "startedUTC": "2026-10-04T08:53:52.106Z",
+      "completedUTC": "2026-10-04T08:54:03.068Z",
+      "wallSeconds": 10.960854706,
+      "testedTools": {
+        "tools/sim/experiments/qinggang_contact_probe.mjs": "48ca1e15e9d34300a7660b8b6e79670e9d4a706437bda79927866432885fa93b",
+        "tools/sim/experiments/impact_grip_candidate.mjs": "908acf6736ed212e790fd58a735292b47b5d03cd11fb722984ed0c0c409863d0",
+        "tools/sim/experiments/native_grip_candidate.mjs": "7df05638eddf6679f523f4590fc3e291aac417fbc30d4f1c015656a8d22eb214",
+        "tools/sim/experiments/native_grip_intent_candidate.mjs": "713a463a3296487e14e97dbca4abe37a3a5f67cceaf537b45809410543ade6e6"
+      },
+      "reference": {
+        "path": "/workspace/halfsword-handoff/onehand-thrust-20261004/contact-tap-run06.json",
+        "sha256": "390b8edd8129cd4d39d0ca619cb7165030dde4e21ba1f6ca37adbd8fa66790c4",
+        "sourceCommit": "bf1f9246c7b652f8da89fb72e16a7e520952ca38"
+      },
+      "harness": {
+        "/workspace/halfsword-handoff/grip-intent-20261004/native-harness-wjNJtN/harness.mjs": "65587a77d1e7bb65119a1579fc0843c88daa399e15adfac06b7bdcec64fa8804"
+      },
+      "modes": [
+        {
+          "mode": "observe",
+          "prefixFrames": 965,
+          "prefixSHA256": "9dede5853156c3ecf8cf5893e13a4903cd31da8ef1bbe50c65f58f5879d597f6",
+          "creation": {
+            "native": "91a96275e9b61ff0458bcc6d5d7d4c3e9944004e8a80341373dfd6c6d68033c9",
+            "controller": "2ce795101eb4b0350e13d8b7c069fc6f30bf5fef98661568b1e5bea5c9578e8f"
+          },
+          "recordedFrames": 4
+        },
+        {
+          "mode": "pairPulse",
+          "prefixFrames": 965,
+          "prefixSHA256": "9dede5853156c3ecf8cf5893e13a4903cd31da8ef1bbe50c65f58f5879d597f6",
+          "creation": {
+            "native": "91a96275e9b61ff0458bcc6d5d7d4c3e9944004e8a80341373dfd6c6d68033c9",
+            "controller": "2ce795101eb4b0350e13d8b7c069fc6f30bf5fef98661568b1e5bea5c9578e8f"
+          },
+          "recordedFrames": 4
+        }
+      ]
+    }
+  ],
+  "engine": {
+    "path": "/workspace/halfsword-research-import-20261003/engine/rapier.mjs",
+    "sha256": "a3be9d8361b386b0b664ee7ba771f14ae60e93eda9a4ab825f1de1260dbb5623",
+    "recipe": "tools/engine/recipe_provenance.json",
+    "priorOperator": "/workspace/halfsword-handoff/grip-wrench-20261004/operator-run01.json",
+    "priorOperatorSHA256": "cd87644d83e9947b3bb4073928fb20cae31dcf5f86a294ef41ce3ed588b97e1e",
+    "scope": "Restored research engine only; npm game engine unchanged. Prior pinned source/operator9 supports basis/cap/getter sign, not a new implicit force-transfer calibration."
+  },
+  "candidateContract": {
+    "boundary": "Only actual final3 driveSword addTorque calls captured; other controllers preserved. Includes post-debug twist. Inactive wrapper full reference equality validates no measurement intervention.",
+    "formula": "ForceBased k0; target_i=(omegaSword-omegaForearm).a_i+2*T_i/d_i; d_i=1/((a_i.(IinvSword+IinvForearm).a_i)*outerDt); cap_i=abs(T_bounded.a_i). Existing final wristCap only, global scale if legacy post-twist T exceeds it.",
+    "budget": "Orthonormal unit axes imply ||motor torque||<=sqrt(sum cap_i²)=||T_bounded||<=existing cap. Finite precision and complete contact/other-joint forces are separate. No total native impulse/momentum closure measured.",
+    "reactionChange": "Original longitudinal forearm reaction goes to chest. Native full pair and route diagnostic send it to forearm instead; these are not exact old body-wise reaction equivalence.",
+    "nominalLimit": "2T/d reproduces nominal force only for uncoupled fixed axes with no other forces. Real angular-inertia/constraint/other-actuator feedback can change or reverse force components. No all-force predictor present."
+  },
+  "freeIntent": {
+    "sourceStable": true,
+    "directionalInputExact": true,
+    "fullInputExact": true,
+    "baseline": {
+      "frames": 516,
+      "peakTipVelocityMps": 12.347017916119894,
+      "peakWorldBladeAxisRadS": 6.510752711707202,
+      "peakForearmLongAxisRadS": 6.125113025915799,
+      "meanAimErrorRad": 0.023384115562689725,
+      "maxHandErrorM": 0.13483868327583978,
+      "maxJointGapM": 0.0015301478003610543,
+      "missingJointFrames": 0,
+      "contactFrames": 0,
+      "appliedMotorFrames": 0,
+      "boundedRequestFrames": 0,
+      "minRequestScale": 1,
+      "maxLastSubstepScalarCapRatio": null
+    },
+    "candidate": {
+      "frames": 516,
+      "peakTipVelocityMps": 12.34220704548578,
+      "peakWorldBladeAxisRadS": 18.81502953589101,
+      "peakForearmLongAxisRadS": 5.1350213287215345,
+      "meanAimErrorRad": 0.021728012097702077,
+      "maxHandErrorM": 0.13005158217445636,
+      "maxJointGapM": 0.0015310686071242073,
+      "missingJointFrames": 0,
+      "contactFrames": 0,
+      "appliedMotorFrames": 516,
+      "boundedRequestFrames": 30,
+      "minRequestScale": 0.9999567290464986,
+      "maxLastSubstepScalarCapRatio": 1.0000001168911619
+    },
+    "phases": [
+      {
+        "phase": "cut",
+        "maxBladeDirectionDifferenceRad": 0.011987195253230009,
+        "maxFlatNormalDifferenceRad": 0.17973754876001316,
+        "baseline": {
+          "frames": 30,
+          "peakTipVelocityMps": 12.347017916119894,
+          "peakWorldBladeAxisRadS": 5.291698665907189,
+          "peakForearmLongAxisRadS": 5.528146461287748,
+          "meanAimErrorRad": 0.044956375191663,
+          "maxHandErrorM": 0.11988806980670179,
+          "maxJointGapM": 0.000744502050193593,
+          "missingJointFrames": 0,
+          "contactFrames": 0,
+          "appliedMotorFrames": 0,
+          "boundedRequestFrames": 0,
+          "minRequestScale": 1,
+          "maxLastSubstepScalarCapRatio": null
+        },
+        "candidate": {
+          "frames": 30,
+          "peakTipVelocityMps": 12.34220704548578,
+          "peakWorldBladeAxisRadS": 13.903360005517778,
+          "peakForearmLongAxisRadS": 4.587528734867214,
+          "meanAimErrorRad": 0.04057776383787421,
+          "maxHandErrorM": 0.11346554132646065,
+          "maxJointGapM": 0.0006500780518522591,
+          "missingJointFrames": 0,
+          "contactFrames": 0,
+          "appliedMotorFrames": 30,
+          "boundedRequestFrames": 12,
+          "minRequestScale": 0.9999821416840841,
+          "maxLastSubstepScalarCapRatio": 1.000000092392708
+        }
+      },
+      {
+        "phase": "stop",
+        "maxBladeDirectionDifferenceRad": 0.009596980622024152,
+        "maxFlatNormalDifferenceRad": 0.11508229415364844,
+        "baseline": {
+          "frames": 36,
+          "peakTipVelocityMps": 7.568051419687813,
+          "peakWorldBladeAxisRadS": 4.7061346550710015,
+          "peakForearmLongAxisRadS": 3.3382778814987235,
+          "meanAimErrorRad": 0.05233330695864632,
+          "maxHandErrorM": 0.12912059717650373,
+          "maxJointGapM": 0.0007011405767024871,
+          "missingJointFrames": 0,
+          "contactFrames": 0,
+          "appliedMotorFrames": 0,
+          "boundedRequestFrames": 0,
+          "minRequestScale": 1,
+          "maxLastSubstepScalarCapRatio": null
+        },
+        "candidate": {
+          "frames": 36,
+          "peakTipVelocityMps": 7.483907677887772,
+          "peakWorldBladeAxisRadS": 18.503277359847505,
+          "peakForearmLongAxisRadS": 2.7282042198316203,
+          "meanAimErrorRad": 0.047644954000558536,
+          "maxHandErrorM": 0.1041774427383481,
+          "maxJointGapM": 0.0007910842789548754,
+          "missingJointFrames": 0,
+          "contactFrames": 0,
+          "appliedMotorFrames": 36,
+          "boundedRequestFrames": 1,
+          "minRequestScale": 0.9999736587260296,
+          "maxLastSubstepScalarCapRatio": 1.000000099921168
+        }
+      },
+      {
+        "phase": "reverse",
+        "maxBladeDirectionDifferenceRad": 0.012258435828099282,
+        "maxFlatNormalDifferenceRad": 0.1815163358503645,
+        "baseline": {
+          "frames": 30,
+          "peakTipVelocityMps": 10.869250729331203,
+          "peakWorldBladeAxisRadS": 3.8685379773781223,
+          "peakForearmLongAxisRadS": 4.829827943752173,
+          "meanAimErrorRad": 0.041803716756948724,
+          "maxHandErrorM": 0.121073897219382,
+          "maxJointGapM": 0.0015301478003610543,
+          "missingJointFrames": 0,
+          "contactFrames": 0,
+          "appliedMotorFrames": 0,
+          "boundedRequestFrames": 0,
+          "minRequestScale": 1,
+          "maxLastSubstepScalarCapRatio": null
+        },
+        "candidate": {
+          "frames": 30,
+          "peakTipVelocityMps": 10.835629128694439,
+          "peakWorldBladeAxisRadS": 7.539760408555918,
+          "peakForearmLongAxisRadS": 2.2937079655578625,
+          "meanAimErrorRad": 0.03876097905283911,
+          "maxHandErrorM": 0.11507646626061636,
+          "maxJointGapM": 0.0015310686071242073,
+          "missingJointFrames": 0,
+          "contactFrames": 0,
+          "appliedMotorFrames": 30,
+          "boundedRequestFrames": 2,
+          "minRequestScale": 0.9999909484965069,
+          "maxLastSubstepScalarCapRatio": 1.000000116544212
+        }
+      },
+      {
+        "phase": "followCut",
+        "maxBladeDirectionDifferenceRad": 0.011376808795152791,
+        "maxFlatNormalDifferenceRad": 0.19930028132065578,
+        "baseline": {
+          "frames": 30,
+          "peakTipVelocityMps": 12.201409185146904,
+          "peakWorldBladeAxisRadS": 5.71748546195933,
+          "peakForearmLongAxisRadS": 6.125113025915799,
+          "meanAimErrorRad": 0.03483695698215801,
+          "maxHandErrorM": 0.12385850245195174,
+          "maxJointGapM": 0.0007192276929691063,
+          "missingJointFrames": 0,
+          "contactFrames": 0,
+          "appliedMotorFrames": 0,
+          "boundedRequestFrames": 0,
+          "minRequestScale": 1,
+          "maxLastSubstepScalarCapRatio": null
+        },
+        "candidate": {
+          "frames": 30,
+          "peakTipVelocityMps": 12.219006395754063,
+          "peakWorldBladeAxisRadS": 13.632658001610242,
+          "peakForearmLongAxisRadS": 5.1350213287215345,
+          "meanAimErrorRad": 0.030876203018666348,
+          "maxHandErrorM": 0.117463145428008,
+          "maxJointGapM": 0.0006287074583209929,
+          "missingJointFrames": 0,
+          "contactFrames": 0,
+          "appliedMotorFrames": 30,
+          "boundedRequestFrames": 12,
+          "minRequestScale": 0.9999752486644157,
+          "maxLastSubstepScalarCapRatio": 1.0000001168911619
+        }
+      }
+    ]
+  },
+  "routeOnly": {
+    "sourceStable": true,
+    "directionalInputExact": true,
+    "fullInputExact": true,
+    "baseline": {
+      "frames": 516,
+      "peakTipVelocityMps": 12.347017916119894,
+      "peakWorldBladeAxisRadS": 6.510752711707202,
+      "peakForearmLongAxisRadS": 6.125113025915799,
+      "meanAimErrorRad": 0.023384115562689725,
+      "maxHandErrorM": 0.13483868327583978,
+      "maxJointGapM": 0.0015301478003610543,
+      "missingJointFrames": 0,
+      "contactFrames": 0,
+      "appliedMotorFrames": 0,
+      "appliedPairDiagnosticFrames": 0,
+      "boundedRequestFrames": 0,
+      "minRequestScale": 1,
+      "maxLastSubstepScalarCapRatio": null
+    },
+    "candidate": {
+      "frames": 516,
+      "peakTipVelocityMps": 12.31473384820361,
+      "peakWorldBladeAxisRadS": 4.143648986075263,
+      "peakForearmLongAxisRadS": 5.229163654918759,
+      "meanAimErrorRad": 0.02263951970078598,
+      "maxHandErrorM": 0.13014373471860255,
+      "maxJointGapM": 0.001534095641954838,
+      "missingJointFrames": 0,
+      "contactFrames": 0,
+      "appliedMotorFrames": 0,
+      "appliedPairDiagnosticFrames": 516,
+      "boundedRequestFrames": 26,
+      "minRequestScale": 0.9999931312834114,
+      "maxLastSubstepScalarCapRatio": null
+    },
+    "phases": [
+      {
+        "phase": "cut",
+        "maxBladeDirectionDifferenceRad": 0.016736941619280094,
+        "maxFlatNormalDifferenceRad": 0.07522447274282165,
+        "baseline": {
+          "frames": 30,
+          "peakTipVelocityMps": 12.347017916119894,
+          "peakWorldBladeAxisRadS": 5.291698665907189,
+          "peakForearmLongAxisRadS": 5.528146461287748,
+          "meanAimErrorRad": 0.044956375191663,
+          "maxHandErrorM": 0.11988806980670179,
+          "maxJointGapM": 0.000744502050193593,
+          "missingJointFrames": 0,
+          "contactFrames": 0,
+          "appliedMotorFrames": 0,
+          "appliedPairDiagnosticFrames": 0,
+          "boundedRequestFrames": 0,
+          "minRequestScale": 1,
+          "maxLastSubstepScalarCapRatio": null
+        },
+        "candidate": {
+          "frames": 30,
+          "peakTipVelocityMps": 12.31473384820361,
+          "peakWorldBladeAxisRadS": 3.962503897712733,
+          "peakForearmLongAxisRadS": 4.711327675547572,
+          "meanAimErrorRad": 0.03786109986203934,
+          "maxHandErrorM": 0.11439896630774986,
+          "maxJointGapM": 0.0007571394142615906,
+          "missingJointFrames": 0,
+          "contactFrames": 0,
+          "appliedMotorFrames": 0,
+          "appliedPairDiagnosticFrames": 30,
+          "boundedRequestFrames": 12,
+          "minRequestScale": 0.9999931312834114,
+          "maxLastSubstepScalarCapRatio": null
+        }
+      },
+      {
+        "phase": "stop",
+        "maxBladeDirectionDifferenceRad": 0.012346204979009871,
+        "maxFlatNormalDifferenceRad": 0.09411654431256741,
+        "baseline": {
+          "frames": 36,
+          "peakTipVelocityMps": 7.568051419687813,
+          "peakWorldBladeAxisRadS": 4.7061346550710015,
+          "peakForearmLongAxisRadS": 3.3382778814987235,
+          "meanAimErrorRad": 0.05233330695864632,
+          "maxHandErrorM": 0.12912059717650373,
+          "maxJointGapM": 0.0007011405767024871,
+          "missingJointFrames": 0,
+          "contactFrames": 0,
+          "appliedMotorFrames": 0,
+          "appliedPairDiagnosticFrames": 0,
+          "boundedRequestFrames": 0,
+          "minRequestScale": 1,
+          "maxLastSubstepScalarCapRatio": null
+        },
+        "candidate": {
+          "frames": 36,
+          "peakTipVelocityMps": 7.469386015661145,
+          "peakWorldBladeAxisRadS": 3.2764040990851395,
+          "peakForearmLongAxisRadS": 2.0203180249459334,
+          "meanAimErrorRad": 0.05361559822956636,
+          "maxHandErrorM": 0.10372474050193757,
+          "maxJointGapM": 0.0007627124680822837,
+          "missingJointFrames": 0,
+          "contactFrames": 0,
+          "appliedMotorFrames": 0,
+          "appliedPairDiagnosticFrames": 36,
+          "boundedRequestFrames": 0,
+          "minRequestScale": 1,
+          "maxLastSubstepScalarCapRatio": null
+        }
+      },
+      {
+        "phase": "reverse",
+        "maxBladeDirectionDifferenceRad": 0.006451074650799189,
+        "maxFlatNormalDifferenceRad": 0.08870537380492187,
+        "baseline": {
+          "frames": 30,
+          "peakTipVelocityMps": 10.869250729331203,
+          "peakWorldBladeAxisRadS": 3.8685379773781223,
+          "peakForearmLongAxisRadS": 4.829827943752173,
+          "meanAimErrorRad": 0.041803716756948724,
+          "maxHandErrorM": 0.121073897219382,
+          "maxJointGapM": 0.0015301478003610543,
+          "missingJointFrames": 0,
+          "contactFrames": 0,
+          "appliedMotorFrames": 0,
+          "appliedPairDiagnosticFrames": 0,
+          "boundedRequestFrames": 0,
+          "minRequestScale": 1,
+          "maxLastSubstepScalarCapRatio": null
+        },
+        "candidate": {
+          "frames": 30,
+          "peakTipVelocityMps": 10.761160864986042,
+          "peakWorldBladeAxisRadS": 3.227890596869586,
+          "peakForearmLongAxisRadS": 2.2437541007967177,
+          "meanAimErrorRad": 0.043263738345027065,
+          "maxHandErrorM": 0.11421826617616801,
+          "maxJointGapM": 0.001534095641954838,
+          "missingJointFrames": 0,
+          "contactFrames": 0,
+          "appliedMotorFrames": 0,
+          "appliedPairDiagnosticFrames": 30,
+          "boundedRequestFrames": 2,
+          "minRequestScale": 0.9999983276642124,
+          "maxLastSubstepScalarCapRatio": null
+        }
+      },
+      {
+        "phase": "followCut",
+        "maxBladeDirectionDifferenceRad": 0.01454165091190117,
+        "maxFlatNormalDifferenceRad": 0.07636921626193142,
+        "baseline": {
+          "frames": 30,
+          "peakTipVelocityMps": 12.201409185146904,
+          "peakWorldBladeAxisRadS": 5.71748546195933,
+          "peakForearmLongAxisRadS": 6.125113025915799,
+          "meanAimErrorRad": 0.03483695698215801,
+          "maxHandErrorM": 0.12385850245195174,
+          "maxJointGapM": 0.0007192276929691063,
+          "missingJointFrames": 0,
+          "contactFrames": 0,
+          "appliedMotorFrames": 0,
+          "appliedPairDiagnosticFrames": 0,
+          "boundedRequestFrames": 0,
+          "minRequestScale": 1,
+          "maxLastSubstepScalarCapRatio": null
+        },
+        "candidate": {
+          "frames": 30,
+          "peakTipVelocityMps": 12.175079282651511,
+          "peakWorldBladeAxisRadS": 3.9477030623705485,
+          "peakForearmLongAxisRadS": 5.229163654918759,
+          "meanAimErrorRad": 0.02925578900758742,
+          "maxHandErrorM": 0.11883700158669319,
+          "maxJointGapM": 0.0007217998120472477,
+          "missingJointFrames": 0,
+          "contactFrames": 0,
+          "appliedMotorFrames": 0,
+          "appliedPairDiagnosticFrames": 30,
+          "boundedRequestFrames": 11,
+          "minRequestScale": 0.9999937679492058,
+          "maxLastSubstepScalarCapRatio": null
+        }
+      }
+    ]
+  },
+  "lastSubstep": {
+    "rows": 1548,
+    "nontrivialRows": 1548,
+    "opposingRequestedComponentRows": 7,
+    "below95PercentCapRows": 9,
+    "firstOpposing": {
+      "tick": 240,
+      "phase": "cut",
+      "axis": 5,
+      "axisWorld": [
+        -0.10617150599954939,
+        0.3225786968111886,
+        0.9405692933949007
+      ],
+      "requestedTorqueNm": -0.5433388558995152,
+      "targetVelocity": 4.515092324800835,
+      "sampledRelativeVelocity": 5.844616672089589,
+      "damping": 0.8173432205397738,
+      "inverse": 146.81714729431775,
+      "cap": 0.5433388558995152,
+      "oldCap": 3.4028234663852886e+38,
+      "lastSubstepImpulseNms": -0.0007546372944489121,
+      "lastSubstepCapNms": 0.0007546372998604379
+    },
+    "scope": "Minus raw getter is signed body2 coefficient, calibrated by prior operator9. Last substep only, not whole-step impulse or fixed-world torque direction."
+  },
+  "routeFinalCap": {
+    "appliedFrames": 516,
+    "boundedFrames": 26,
+    "minScale": 0.9999931312834114
+  },
+  "firstContact": {
+    "baseline": {
+      "prefixFrames": 965,
+      "prefixSHA256": "9dede5853156c3ecf8cf5893e13a4903cd31da8ef1bbe50c65f58f5879d597f6",
+      "tick": 965,
+      "physicsAxisRadS": -42.610541818007626,
+      "afterCombatAxisRadS": -39.999999595143436,
+      "bladePlaneRotationDeg": 23.20948745720358,
+      "relativeAxisRadS": -53.51420090413389,
+      "contacts": 3,
+      "pairDiagnostic": null
+    },
+    "routeOnly": {
+      "prefixFrames": 965,
+      "prefixSHA256": "9dede5853156c3ecf8cf5893e13a4903cd31da8ef1bbe50c65f58f5879d597f6",
+      "tick": 965,
+      "physicsAxisRadS": -42.81410137816571,
+      "afterCombatAxisRadS": -40.000000035775365,
+      "bladePlaneRotationDeg": 23.217413519125035,
+      "relativeAxisRadS": -52.09400476036269,
+      "contacts": 3,
+      "pairDiagnostic": {
+        "applied": true,
+        "requestScale": 1,
+        "requestNormNm": 8.503435159655854,
+        "boundedRequestNm": [
+          1.0587458274685853,
+          -0.4537429900076768,
+          -8.425056918876463
+        ],
+        "reason": "Original torque forwarded; full reaction redirected to forearm, original chest share removed; diagnostic only"
+      }
+    },
+    "scope": "Exact965-step prefix, one target-step reaction reroute only. Same incoming body poses/velocities and actual input, without motor. Aggregated torque/reaction requests differ by design. Not a from-spawn full combat candidate or evidence of whole-arm injury recovery."
+  },
+  "counts": {
+    "physicsCLI": 3,
+    "trajectories": 6,
+    "nativeGameSteps": 3998,
+    "distinctFreeConditions": 3,
+    "distinctContactConditions": 2,
+    "gameWallSeconds": 23.784005581,
+    "scope": "Free observe+intent516x2 and repeated observe+route516x2; saved contact observe+pulse967x2 includes965-step prefix. Free baseline repeat is not a second independent efficacy sample. No seeds/weapons/full-live/user-browser efficacy expansion."
+  },
+  "derivedEvidence": [
+    {
+      "path": "free-metrics-run02.json",
+      "bytes": 39569,
+      "sha256": "8193d2e8da7149757beb0b9fcdd09013e98625096b387156595a04060e76e279"
+    },
+    {
+      "path": "last-substep-direction-run03.json",
+      "bytes": 1154,
+      "sha256": "d82af7478007c5c102f695dcc347871ad5ec3bc7a8972401a45f7f06c96b5fb3"
+    },
+    {
+      "path": "reaction-route-metrics-run05.json",
+      "bytes": 40226,
+      "sha256": "191ef8d10c27216df6ad3847aa957babed9c3cd0f8d559e40995c8c5e312f744"
+    },
+    {
+      "path": "intent-summary-run07.json",
+      "bytes": 8329,
+      "sha256": "e1f8f7bd1c009256c94b84ed94c18c90a9ce778621be20acc96ae75130136fd2"
+    },
+    {
+      "path": "reaction-route-metrics-corrected-run08.json",
+      "bytes": 40314,
+      "sha256": "c7dfbc7c06fe23919aee71c3695ac0b0fe870ad50a5b34ff79ce87e4fe20fcc1"
+    }
+  ],
+  "archivedEvidence": [
+    {
+      "path": "candidate-run01.mjs",
+      "bytes": 4948,
+      "sha256": "4f55f0c3a76cb0cc03adc83f0d2f32515a1b4be2e309dc0e96688bd1b250ad17"
+    },
+    {
+      "path": "probe-run01.mjs",
+      "bytes": 14199,
+      "sha256": "d763aa0fac1fc38e3effbdd88639aaa9b832327ba7efd1cb1c38a9877f38be8e"
+    },
+    {
+      "path": "candidate-run04.mjs",
+      "bytes": 5563,
+      "sha256": "713a463a3296487e14e97dbca4abe37a3a5f67cceaf537b45809410543ade6e6"
+    },
+    {
+      "path": "probe-run04.mjs",
+      "bytes": 14578,
+      "sha256": "8d01e1898205b798e27e3fd0ad1f31233d24fa2e415d1e115bb665e6bc92e523"
+    },
+    {
+      "path": "metrics-run05.mjs",
+      "bytes": 4856,
+      "sha256": "3ca0cbd37c52e5e74c20bc4e4299dc309a957c259e29036ee418d61ef79bfd13"
+    },
+    {
+      "path": "candidate-run06.mjs",
+      "bytes": 5563,
+      "sha256": "713a463a3296487e14e97dbca4abe37a3a5f67cceaf537b45809410543ade6e6"
+    },
+    {
+      "path": "probe-run06.mjs",
+      "bytes": 14695,
+      "sha256": "48ca1e15e9d34300a7660b8b6e79670e9d4a706437bda79927866432885fa93b"
+    },
+    {
+      "path": "independent-review.md",
+      "bytes": 12211,
+      "sha256": "3568ef247a849caf0f7b6e6dc2f2761e771338fbc35d215c131b9c73a12a4132"
+    }
+  ],
+  "finalTools": {
+    "tools/sim/experiments/native_grip_intent_candidate.mjs": "d8aab42dcc791d7c6b3e34573eea9a273d453168920a349f9e64de417a455b8c",
+    "tools/sim/experiments/native_grip_intent_metrics.mjs": "4bdadf414663fe3c6042efc0c7491370934f3e4c7a6f185580e5cee68f99736a",
+    "tools/sim/experiments/native_grip_motion_metrics.mjs": "aeffd6f6ecdb90aa02e4bc4731723f4ac86c1fcb2286267ae121979d95b1871a",
+    "tools/sim/experiments/qinggang_contact_probe.mjs": "48ca1e15e9d34300a7660b8b6e79670e9d4a706437bda79927866432885fa93b"
+  },
+  "metadataCorrection": {
+    "original": "reaction-route-metrics-run05 boundedRequestFrames0/minScale1",
+    "reason": "Extractor inspected nativeGrip only, so omitted pairDiagnostic global-cap scaling. No physics change/replay.",
+    "corrected": "run07 actual26/516,min.9999931312834114; run08 phase/general extractor corrected. Original data/tool retained."
+  },
+  "assembly": {
+    "path": "build-report.py",
+    "bytes": 8116,
+    "sha256": "7eb4702b5a1052029cbe48b8e88579375e7867aedcda13a38807d7da3414f458"
+  },
+  "decision": {
+    "measurementValidity": "PASS; exact creation/common prefix, full reference observe, full actual input and sourceStable. Separate from behavior acceptance.",
+    "fullIntent": "Public application rejected at first cut; 3-axis velocity actuator changes ordinary blade roll. No full-live or mobile expansion and no gain/seed retry.",
+    "routeOnly": "Diagnosis only: free roll decreased but first matched contact unchanged/worse. No new public comparison/default. Lower axial speed/mean aim error/stand does not establish naturalness.",
+    "oldFailures": "Previous current-speed holding rejected; strict paired1e-7 failure preserved. No support/cutting/hand failures revived.",
+    "next": "30-45min use stored first-contact trace and current collider/grip/inertia code to locate the collision lever/motion causing blade roll, without full wrist motor migration or gain matrix. Prepare a small existing-contact correction only if actionable cause is found.",
+    "wholeProgram": "Stage2 P03/P04 in progress; no P01-P06 fully closed; general major physics still requires concrete comparison then user confirmation."
+  }
+}

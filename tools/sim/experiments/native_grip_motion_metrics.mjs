@@ -4,23 +4,23 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import * as T from 'three';
-const o=Object.fromEntries(process.argv.slice(2).map(s=>{const m=/^--(free|live|out)=(.+)$/.exec(s);assert(m);return[m[1],m[2]];}));
-for(const k of ['free','live','out'])assert(o[k]&&path.isAbsolute(o[k]));assert(!fs.existsSync(o.out));
+const o=Object.fromEntries(process.argv.slice(2).map(s=>{const m=/^--(free|live|out|candidate)=(.+)$/.exec(s);assert(m);return[m[1],m[2]];}));
+for(const k of ['free','out'])assert(o[k]&&path.isAbsolute(o[k]));assert(!fs.existsSync(o.out));const candidate=o.candidate??'nativeContinuous';assert(['nativeContinuous','intentContinuous','pairDiagnostic'].includes(candidate));
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const angle=(a,b)=>Math.acos(T.MathUtils.clamp(a.dot(b),-1,1));
 const axis=(s,v)=>new T.Vector3(...v).applyQuaternion(new T.Quaternion(...s.q)).normalize();
 const aim=s=>angle(axis(s,[0,1,0]),new T.Vector3(...s.aim).normalize());
 function summarize(frames){const states=frames.map(f=>f.postPhysics),motors=frames.filter(f=>f.nativeGrip?.applied).flatMap(f=>f.nativeGrip.rows);
  assert(states.every(s=>['p','q','w','v','aim'].every(k=>s[k].every(v=>typeof v==='number'&&Number.isFinite(v)))&&[s.tipVelocityMps,s.handErrorM,s.maxJointGapM].every(Number.isFinite)));
- return {frames:frames.length,peakTipVelocityMps:Math.max(...states.map(s=>s.tipVelocityMps)),peakWorldBladeAxisRadS:Math.max(...states.map(s=>Math.abs(s.axial))),meanAimErrorRad:states.reduce((n,s)=>n+aim(s),0)/states.length,maxHandErrorM:Math.max(...states.map(s=>s.handErrorM)),maxJointGapM:Math.max(...states.map(s=>s.maxJointGapM)),missingJointFrames:states.filter(s=>s.missingJoints.length).length,
+ return {frames:frames.length,peakTipVelocityMps:Math.max(...states.map(s=>s.tipVelocityMps)),peakForearmLongAxisRadS:Math.max(...states.map(s=>Math.abs(new T.Vector3(...s.farmS.w).dot(new T.Vector3(1,0,0).applyQuaternion(new T.Quaternion(...s.farmS.q)))))),peakWorldBladeAxisRadS:Math.max(...states.map(s=>Math.abs(s.axial))),meanAimErrorRad:states.reduce((n,s)=>n+aim(s),0)/states.length,maxHandErrorM:Math.max(...states.map(s=>s.handErrorM)),maxJointGapM:Math.max(...states.map(s=>s.maxJointGapM)),missingJointFrames:states.filter(s=>s.missingJoints.length).length,
   contactFrames:frames.filter(f=>f.contactsAfterPhysics.length).length,firstWeaponContactTick:frames.find(f=>f.contactsAfterPhysics.length)?.tick??null,
-  appliedMotorFrames:frames.filter(f=>f.nativeGrip?.applied).length,noBudgetFrames:frames.filter(f=>f.nativeGrip?.applied===false).length,
-  maxLastSubstepScalarCapRatio:motors.length?Math.max(...motors.map(m=>Math.abs(m.lastSubstepImpulseNms)/m.lastSubstepCapNms)):null,
+  appliedPairDiagnosticFrames:frames.filter(f=>f.pairDiagnostic?.applied).length,appliedMotorFrames:frames.filter(f=>f.nativeGrip?.applied).length,noBudgetFrames:frames.filter(f=>f.nativeGrip?.applied===false).length,boundedRequestFrames:frames.filter(f=>(f.nativeGrip?.applied&&f.nativeGrip.requestScale<1)||(f.pairDiagnostic?.applied&&f.pairDiagnostic.requestScale<1)).length,minRequestScale:Math.min(1,...frames.flatMap(f=>[f.nativeGrip,f.pairDiagnostic].filter(r=>r?.applied&&r.requestScale!==undefined).map(r=>r.requestScale))),
+  maxLastSubstepScalarCapRatio:motors.length?Math.max(...motors.map(m=>m.lastSubstepCapNms>0?Math.abs(m.lastSubstepImpulseNms)/m.lastSubstepCapNms:0)):null,
   tapAttempts:frames.filter(f=>f.input.tapAccepted!==null).map(f=>({tick:f.tick,accepted:f.input.tapAccepted})),finalHealth:frames.at(-1).afterCombat.health,finalEvents:frames.at(-1).events};
 }
-const out={schema:1,toolSHA256:sha(fs.readFileSync(new URL(import.meta.url))),rows:[]};
-for(const scenario of ['free','live']){
- const bytes=fs.readFileSync(o[scenario]),d=JSON.parse(bytes);assert(d.pass&&d.sourceStable);const [a,b]=d.rows;assert(a.mode==='observe'&&b.mode==='nativeContinuous'&&a.frames.length===b.frames.length);assert.deepEqual(a.creation,b.creation);
+const out={schema:1,candidateMode:candidate,toolSHA256:sha(fs.readFileSync(new URL(import.meta.url))),rows:[]};
+for(const scenario of (o.live?['free','live']:['free'])){
+ const bytes=fs.readFileSync(o[scenario]),d=JSON.parse(bytes);assert(d.pass&&d.sourceStable);const [a,b]=d.rows;assert(a.mode==='observe'&&b.mode===candidate&&a.frames.length===b.frames.length);assert.deepEqual(a.creation,b.creation);
  const requested=(f)=>{const {tapAccepted,...rest}=f.input;return rest;};
  const phases=[...new Set(a.frames.map(f=>f.input.request.phase))];
  out.rows.push({scenario,path:o[scenario],bytes:bytes.length,sha256:sha(bytes),sourceStable:d.sourceStable,sourceCommitLabel:d.sourceCommit,wallSeconds:d.wallSeconds,creationExact:true,
