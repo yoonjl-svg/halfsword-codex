@@ -1,0 +1,80 @@
+{
+  "dateKST": "2026-10-04",
+  "taskStartUTC": "2026-10-04T02:29:58Z",
+  "estimateMinutes": [
+    20,
+    30
+  ],
+  "baseline": "c23398e01b722ec9f28398cd576f68e49cf2fe04",
+  "status": "local verified; public delivery pending",
+  "sourceBefore": {
+    "src/fighter.js": "b7849ecabb3e9056bfa24004a66fc4b9346e6c4047e9bec536931d083e621eb0",
+    "src/main.js": "3664519c4aed4961065ee0f13b7b107dcb8749bf14f87c40b623db6f6f197af6",
+    "src/hand_visual.js": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893",
+    "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+    "tools/sim/experiments/hand_visual_probe.mjs": "1b07b6dd2d003e6ac5764d9fd899893af43886daa000faa2a12efa2c5c0fd521"
+  },
+  "native": {
+    "pass": true,
+    "sourceStable": true,
+    "pairs": 3,
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/hand-opposition-20261004/native.json",
+      "bytes": 4535,
+      "sha256": "b700202d042bafb231dddca70ca9d83053396bffce7f04d85a931e18ecb64af6"
+    }
+  },
+  "localBrowser": {
+    "pass": true,
+    "sourceStable": true,
+    "weapons": [
+      "qinggang",
+      "sabre",
+      "rapier",
+      "longsword",
+      "pistol"
+    ],
+    "viewsPerWeapon": 4,
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/hand-opposition-20261004/local/summary.json",
+      "bytes": 7690,
+      "sha256": "31504f68d817c60d85bba6c858b1b2018f8da66a971444c0281daff0ff676782"
+    }
+  },
+  "compiledGame": {
+    "url": "http://127.0.0.1:4281/assets/main-j6fxQ7bI.js",
+    "bytes": 3494035,
+    "sha256": "937f0e95e07749a4f8e2ee29e9d43ef9cb0b4137005e1665c5902e721ac90995"
+  },
+  "anatomicalReview": {
+    "oldFailure": "Mirror/finite/RNG checks did not validate anatomical thumb opposition. User rejected previous closed-grip chirality.",
+    "closedReference": "Palm at -X facing +X; radial/index +Y; right fingers from +Z curl to -Z tips; thumb root +Z opposes towards -Z, left mirrors Z.",
+    "change": "Named thenar/root, knuckle, tip with two linked segments. Open/fist hand basis and C gap preserved.",
+    "independentReview": "No concrete reverse-wrap or detached-thumb defect found in 12 actual new views. Qinggang outside silhouette change small due to occlusion; wrist/grip V-shaped gap in pistol remains a shape limitation.",
+    "limits": [
+      "Stylized mitten, not anatomy or historical fencing certification",
+      "Hardware mobile performance/feel unmeasured",
+      "Sever/drop/regrip continuous screen pending"
+    ],
+    "directPalmReview": "Qinggang closed right thenar/thumb continuous; off-hand empty fist thumb correctly opposite. Added hand-relative camera avoids grip occlusion."
+  },
+  "remaining": [
+    "public exact bytes",
+    "public mobile start/touch/restart",
+    "CI actual checkout"
+  ],
+  "rawRoot": "/workspace/halfsword-handoff/hand-opposition-20261004",
+  "localPalmBrowser": {
+    "pass": true,
+    "sourceStable": true,
+    "weapons": [
+      "qinggang"
+    ],
+    "viewsPerWeapon": 6,
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/hand-opposition-20261004/palm-local/summary.json",
+      "bytes": 2735,
+      "sha256": "b7d45e109310dc23b7c5bd5d287611d39f4d838d7c0c695877aba5021a3bd383"
+    }
+  }
+}

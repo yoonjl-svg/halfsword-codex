@@ -41,6 +41,14 @@ function mesh(group, geometry, material, position, scale) {
   return out;
 }
 
+function thumbSegment(group, material, from, to, radius) {
+  const direction = to.clone().sub(from);
+  const part = mesh(group, new THREE.CapsuleGeometry(radius, direction.length(), 3, 8), material);
+  part.position.copy(from).add(to).multiplyScalar(0.5);
+  part.quaternion.setFromUnitVectors(UP, direction.normalize());
+  return part;
+}
+
 // One broad padded finger section, with a real opening along the grip axis.
 // The thumb closes the side opening; no finger joints or colliders are added.
 function gripShell(side, beta = 0) {
@@ -121,19 +129,29 @@ function createHand(parent, anchor, distal, side, material, grip, isOff) {
   const closed = new THREE.Group();
   pose.add(closed);
   mesh(closed, gripShell(side, THREE.MathUtils.degToRad(isOff ? Math.min(grip.b, 10) : grip.b)), material);
-  // A separate thumb runs across the folded mitten edge, towards the blade.
+  // Closed grip reference: palm block at -X faces the handle (+X), +Y is
+  // the index/radial edge. Right fingers wrap from +Z to tips at the -Z gap;
+  // the opposing thumb must start at +Z and close towards -Z. Left mirrors Z.
+  // A symmetric capsule at -Z pointing +Z had reversed this opposition.
   const thumbExtension = isOff ? 0 : THREE.MathUtils.clamp(grip.t / 90, 0, 1);
-  const thumb = mesh(closed, new THREE.CapsuleGeometry(0.013, 0.032, 3, 8), material,
-    [0.015 * (1 - thumbExtension), 0.025 + 0.020 * thumbExtension, -side * (0.028 + 0.006 * thumbExtension)]);
-  const thumbDirection = new THREE.Vector3(-0.3 * (1 - thumbExtension), 0.45 + 0.55 * thumbExtension, side * (0.9 * (1 - thumbExtension) - 0.12 * thumbExtension)).normalize();
-  thumb.quaternion.setFromUnitVectors(UP, thumbDirection);
+  const thumbBase = new THREE.Vector3(-0.026, 0.022, side * 0.027);
+  const thumbKnuckle = new THREE.Vector3(0.003, 0.042, side * 0.028)
+    .lerp(new THREE.Vector3(-0.006, 0.050, side * 0.025), thumbExtension);
+  const thumbTip = new THREE.Vector3(0.013, 0.036, -side * 0.016)
+    .lerp(new THREE.Vector3(0.002, 0.080, side * 0.010), thumbExtension);
+  mesh(closed, new THREE.SphereGeometry(1, 10, 7), material,
+    thumbBase.toArray(), [0.021, 0.021, 0.020]);
+  thumbSegment(closed, material, thumbBase, thumbKnuckle, 0.013);
+  thumbSegment(closed, material, thumbKnuckle, thumbTip, 0.012);
   mesh(closed, new THREE.SphereGeometry(1, 10, 7), material, [-0.045, 0, 0], [0.013, 0.041, 0.032]);
   closed.rotation.y = THREE.MathUtils.degToRad(grip.a);
   mergePart(closed, material);
 
   const relaxed = new THREE.Group();
   pose.add(relaxed);
-  // An empty mitten has a single finger silhouette and a distinct thumb.
+  // Open hand uses a different reference: fingers +X, radial/thumb edge +Y.
+  // Right palmar normal is -Z (left +Z); do not mirror the whole hand to fix
+  // the closed thumb, as that would invert this already consistent pose.
   mesh(relaxed, new THREE.SphereGeometry(1, 12, 8), material, [0.013, 0, 0], [0.044, 0.032, 0.020]);
   mesh(relaxed, new THREE.SphereGeometry(1, 10, 7), material, [0.044, -0.003, 0], [0.023, 0.028, 0.020]);
   const emptyThumb = mesh(relaxed, new THREE.CapsuleGeometry(0.012, 0.025, 3, 8), material, [0.011, 0.032, -side * 0.010]);
