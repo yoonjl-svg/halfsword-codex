@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedUTC": "2026-10-04T16:53:47.946673+00:00",
+  "updatedUTC": "2026-10-04T17:14:56.931265+00:00",
   "baselineCommit": "f3ee59f9db764ec370237b5fd29f6b39a0ae2826",
   "sourceKind": "working tree source hashes; baseline HEAD is not the modified runtime commit",
   "dirty": true,
@@ -211,6 +211,26 @@
     "local-integrated-run03/manifest-before.json": {
       "bytes": 105445,
       "sha256": "d370f218bd0e64d7ad943f9f4c8ca6911a64aa90e16ea166fe18e30bb729f66c"
+    },
+    "COMMITTED_RUNTIME_PROOF.json": {
+      "bytes": 7284,
+      "sha256": "5f01268d7fe2f754ba073d78f576172786d75a4cf9121a3c92ca836d17a3268f"
+    },
+    "actions-implementation-02.json": {
+      "bytes": 533,
+      "sha256": "f9e97a09216fc5a62a110da8fb047617ab07f5bc523cad1ce276f0e1f096753d"
+    },
+    "public-bytes-implementation.json": {
+      "bytes": 5345,
+      "sha256": "8ac4e131a5ebd8699f52bf520210f202cd88371322c63544c6d32e27d752e285"
+    },
+    "public-integrated-run01/summary.json": {
+      "bytes": 7005402,
+      "sha256": "a6ed34fc1eb16196f32f9fead7db1e0bde325ac7b8affe0c20b4b5854ac93685"
+    },
+    "public-integrated-run01/manifest-before.json": {
+      "bytes": 105445,
+      "sha256": "66fb1924e0b2d797748c9580f265250bd905b0fbcecb33cb7b0c0e958bc9f8b7"
     }
   },
   "P04": {
@@ -248,7 +268,7 @@
     "domFixtureChecks": 12,
     "passFromExecutionStdout": true,
     "scope": "real Input/attachStick handlers in DOM fixture, not sensor permission or actual mobile device",
-    "browserStatus": "compiled actual mobile input flows passed; physical mobile device and real sensor untested"
+    "browserStatus": "local and public six mobile-emulation flow rows PASS; actual focus transition unverified; physical phone/sensor/initial saved tilt start untested"
   },
   "integratedTrial": {
     "A": "manual/profile, original thrust plane, legacy finish",
@@ -293,8 +313,58 @@
       "raw": "regression-secondary-touch/result.json",
       "reasonForSecondRun": "actual secondary touch Pause defect changed main UI handler; first pass retained"
     },
-    "publicBytes": "pending",
-    "publicMobile": "pending",
+    "publicBytes": {
+      "pass": true,
+      "files": 8,
+      "raw": "public-bytes-implementation.json"
+    },
+    "publicMobile": {
+      "pass": true,
+      "sourceStable": true,
+      "rows": 6,
+      "raw": "public-integrated-run01/summary.json",
+      "startUTC": "2026-10-04T17:10:21.547Z",
+      "endUTC": "2026-10-04T17:13:30.705Z",
+      "scope": "mobile emulation with trusted browser touch; six named flow rows; physical phone/sensor and natural finishing efficacy untested",
+      "flows": [
+        {
+          "id": "playIntegratedLegacy",
+          "pass": true,
+          "menuOnly": false
+        },
+        {
+          "id": "playIntegratedCombined",
+          "pass": true,
+          "menuOnly": false
+        },
+        {
+          "id": "ordinary-return",
+          "pass": true,
+          "menuOnly": false
+        },
+        {
+          "id": "malformed-finish-and-gain",
+          "pass": true,
+          "menuOnly": true
+        },
+        {
+          "id": "malformed-missing-profile-and-cut-plane",
+          "pass": true,
+          "menuOnly": true
+        },
+        {
+          "id": "sensor-menu-fallback",
+          "pass": true,
+          "menuOnly": false
+        }
+      ],
+      "focusVerification": {
+        "verified": false,
+        "mechanism": "Actual own-origin auxiliary tab bringToFront",
+        "limitation": "This browser did not expose a qualifying focus/visibility transition; focus cleanup remains unverified."
+      },
+      "savedPreferenceScope": "A/B/ordinary preserve seeded bytes; sensor case intentionally saves tilt, then fallback preserves those stored bytes"
+    },
     "localMobile": {
       "pass": true,
       "sourceStable": true,
@@ -308,6 +378,20 @@
         "initial saved tilt start / physical sensor / physical phone untested",
         "ordinary weapons random; no anatomy or natural combat finishing efficacy acceptance"
       ]
+    },
+    "implementationCommit": "9567947b9b91524112be6c484f7b2d177be7a8da",
+    "actions": {
+      "id": 37219403970,
+      "head_sha": "9567947b9b91524112be6c484f7b2d177be7a8da",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37219403970",
+      "created_at": "2026-10-04T17:08:59Z",
+      "updated_at": "2026-10-04T17:09:32Z"
+    },
+    "remoteHeadsAtVerification": {
+      "main": "9567947b9b91524112be6c484f7b2d177be7a8da",
+      "codex/delivery-20261003": "9567947b9b91524112be6c484f7b2d177be7a8da"
     }
   },
   "next": "unsigned plane seam and native contact delivery ledger independently; keep prior actual arm wound1177/getup recovery gate",
