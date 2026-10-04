@@ -1,0 +1,537 @@
+{
+  "sourceCommit": "208361b491fa86579af088f95b75a0bd2aa0f740",
+  "gameCodeChanged": false,
+  "newPublicCandidate": false,
+  "rawRoot": "/workspace/halfsword-handoff/recovery-selection-20261005",
+  "sourceManifest": {
+    "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+    "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+    "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+    "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+    "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+    "src/arm_recovery_activation.js": "ae025cc8d9bbc9855ea8ab2793d3e7818a66a4662329014a776a2ac88966435e",
+    "src/arm_recovery_trial.js": "ebda992abc5c7cd25a12c751d0f9b30f8fddf998babc8f4a7f49c9f4a0817c09",
+    "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+    "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+    "src/blade_shape_trial.js": "c06f7331c78e602e17d89ffb26507bffbea67cbebce862f5386cb4ce519b3955",
+    "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+    "src/combat.js": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+    "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+    "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+    "src/cut_trial.js": "427d58d0500ceac482424e092a7d457a8cea48371c254f1b4edecb3a511be5a6",
+    "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+    "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+    "src/edge_intent.js": "b4e17a6ea08d659732c330448b3b3aaffeac2942fa5096e82db551a12d580c87",
+    "src/edge_torque.js": "436995e6d45e816517ea5a9a8f83c9fb147d143871aab1601f82baa7b36bc0fa",
+    "src/edge_torque_trial.js": "1280a3fe32c1874b6ce56b75932db44852162855d8962ae13f3aeb3e7d832cae",
+    "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+    "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+    "src/fighter.js": "cc120179b9904a793763c34077fe69c1440a2c84dee827ca26445e5a47371315",
+    "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+    "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+    "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+    "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+    "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+    "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+    "src/hand_visual.js": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893",
+    "src/input.js": "da17f592c9fe8fc2e0532660a31f2e7b96d24e700cc555115c05b913caae9bc7",
+    "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+    "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+    "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+    "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+    "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+    "src/main.js": "7ed93290eb5bcaa36aa485d9d0ce198c530ddc0e58ddb465d1484522d0f7598f",
+    "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+    "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+    "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+    "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+    "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+    "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+    "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+    "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+    "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+    "src/skill.js": "b69b73e00d8524e733842a630d54f2d7392807f883d7a75c9f9767b78d71f512",
+    "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+    "src/sound.js": "f02a5a9c9ad60ce282806c02b956715c2ca01aced92ba021b63a799faf4c8fb4",
+    "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+    "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+    "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+    "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+    "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+    "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+    "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+    "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+    "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+    "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+    "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+    "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+    "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+    "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+    "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+    "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+    "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+    "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+    "src/thrust_plane.js": "2fcbf1a52dd7cbd4035eea8a14d22b830c1b64f07dafebddcfb74e320539b104",
+    "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+    "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+    "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "src/wrist_braking.js": "6574ae9729fa6251540a68d27a0938e9d5bc2296097ff8b3bd69d1494eb88730",
+    "src/wrist_braking_trial.js": "25466b178e063a45e58a5fcd22532cdcbc176af4a2c05e461c562bb6a0ef658e",
+    "tools/sim/experiments/onehand_live_recovery_probe.mjs": "81e11bf8b437bc9b63e54759448f82523fb5b250a5945a0125cff715785b2ada",
+    "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0"
+  },
+  "sourceStableAll": true,
+  "headStableAll": true,
+  "rows": [
+    {
+      "raw": "current-live-run01.json",
+      "weapon": "qinggang",
+      "model": "legacy",
+      "frames": 2400,
+      "finite": true,
+      "firstArmLossPostCombat": {
+        "tick": 1535,
+        "timeS": 12.799999999999914,
+        "state": "stand",
+        "alive": true,
+        "armed": true,
+        "armHealth": 0.3665712838676919
+      },
+      "playerPositiveHits": [
+        {
+          "timeS": 12.79166666666658,
+          "attacker": 1,
+          "victim": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energyJ": 105.81440098421473,
+          "severity": 0.9048981659032974
+        },
+        {
+          "timeS": 13.249999999999888,
+          "attacker": 1,
+          "victim": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energyJ": 26.912009228692927,
+          "severity": 0.1305048593939286
+        },
+        {
+          "timeS": 16.0166666666664,
+          "attacker": 1,
+          "victim": 0,
+          "zone": "chest",
+          "type": "cut",
+          "energyJ": 66.52589455307927,
+          "severity": 0.168634059323246
+        },
+        {
+          "timeS": 16.0166666666664,
+          "attacker": 1,
+          "victim": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energyJ": 69.13435095819655,
+          "severity": 0.4353909841670695
+        },
+        {
+          "timeS": 16.766666666666357,
+          "attacker": 1,
+          "victim": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energyJ": 16.446384195791328,
+          "severity": 0.04817938303366753
+        },
+        {
+          "timeS": 19.091666666666224,
+          "attacker": 1,
+          "victim": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energyJ": 105.46120375669925,
+          "severity": 0.924687749060381
+        },
+        {
+          "timeS": 19.091666666666224,
+          "attacker": 1,
+          "victim": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energyJ": 103.82932205711109,
+          "severity": 1.0149352120355315
+        },
+        {
+          "timeS": 19.5416666666662,
+          "attacker": 1,
+          "victim": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energyJ": 29.429926736071916,
+          "severity": 0.19105622916429674
+        }
+      ],
+      "playerTransitions": [
+        {
+          "timeS": 9.208333333333451,
+          "fighter": 0,
+          "from": "stand",
+          "to": "getup"
+        },
+        {
+          "timeS": 11.416666666666659,
+          "fighter": 0,
+          "from": "getup",
+          "to": "stand"
+        },
+        {
+          "timeS": 19.10833333333289,
+          "fighter": 0,
+          "from": "stand",
+          "to": "getup"
+        }
+      ]
+    },
+    {
+      "raw": "current-live-run01.json",
+      "weapon": "qinggang",
+      "model": "manual",
+      "frames": 2400,
+      "finite": true,
+      "firstArmLossPostCombat": null,
+      "playerPositiveHits": [
+        {
+          "timeS": 9.316666666666778,
+          "attacker": 1,
+          "victim": 0,
+          "zone": "neck",
+          "type": "cut",
+          "energyJ": 142.42304316032198,
+          "severity": 1.2925517208088884
+        },
+        {
+          "timeS": 9.325000000000111,
+          "attacker": 1,
+          "victim": 0,
+          "zone": "chest",
+          "type": "cut",
+          "energyJ": 55.46651731308342,
+          "severity": 0.10316817552418729
+        },
+        {
+          "timeS": 10.025000000000071,
+          "attacker": 1,
+          "victim": 0,
+          "zone": "leg",
+          "type": "cut",
+          "energyJ": 30.459258096441058,
+          "severity": 0.020907958201969893
+        }
+      ],
+      "playerTransitions": [
+        {
+          "timeS": 6.31666666666677,
+          "fighter": 0,
+          "from": "stand",
+          "to": "getup"
+        },
+        {
+          "timeS": 8.375000000000165,
+          "fighter": 0,
+          "from": "getup",
+          "to": "stand"
+        },
+        {
+          "timeS": 9.325000000000111,
+          "fighter": 0,
+          "from": "stand",
+          "to": "dead"
+        }
+      ]
+    },
+    {
+      "raw": "current-falchion-run02.json",
+      "weapon": "falchion",
+      "model": "legacy",
+      "frames": 2400,
+      "finite": true,
+      "firstArmLossPostCombat": null,
+      "playerPositiveHits": [
+        {
+          "timeS": 13.583333333333202,
+          "attacker": 1,
+          "victim": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energyJ": 69.67183064332676,
+          "severity": 0.51231984073422
+        }
+      ],
+      "playerTransitions": []
+    },
+    {
+      "raw": "current-falchion-run02.json",
+      "weapon": "falchion",
+      "model": "manual",
+      "frames": 2400,
+      "finite": true,
+      "firstArmLossPostCombat": {
+        "tick": 1274,
+        "timeS": 10.625000000000037,
+        "state": "stand",
+        "alive": true,
+        "armed": true,
+        "armHealth": 0.9971882205573525
+      },
+      "playerPositiveHits": [
+        {
+          "timeS": 10.616666666666704,
+          "attacker": 1,
+          "victim": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energyJ": 41.384855578513616,
+          "severity": 0.004016827775210806
+        },
+        {
+          "timeS": 16.916666666666348,
+          "attacker": 1,
+          "victim": 0,
+          "zone": "arm",
+          "type": "cut",
+          "energyJ": 23.72538571322521,
+          "severity": 0.0016601291271941914
+        },
+        {
+          "timeS": 19.04999999999956,
+          "attacker": 1,
+          "victim": 0,
+          "zone": "leg",
+          "type": "cut",
+          "energyJ": 50.32290639025333,
+          "severity": 0.2472352608609887
+        }
+      ],
+      "playerTransitions": []
+    }
+  ],
+  "observerNoninterference": [
+    {
+      "model": "legacy",
+      "frames": 2400,
+      "creationNativeExact": true,
+      "allRecordedFramesExact": true,
+      "hitsExact": true,
+      "scope": "Recorded post-Combat fields and creation native hash only, not complete per-step native world hash"
+    },
+    {
+      "model": "manual",
+      "frames": 2400,
+      "creationNativeExact": true,
+      "allRecordedFramesExact": true,
+      "hitsExact": true,
+      "scope": "Recorded post-Combat fields and creation native hash only, not complete per-step native world hash"
+    }
+  ],
+  "selectedScene": {
+    "weapon": "qinggang",
+    "model": "legacy",
+    "seed": 7,
+    "skill": 0.7,
+    "difficulty": "normal",
+    "shape": "box",
+    "thrust": "legacy",
+    "actualTwoAIFromSpawn": true,
+    "firstWoundEventTimeS": 12.79166666666658,
+    "firstArmLossRecordTick": 1535,
+    "firstArmLossRecordTimeS": 12.799999999999914,
+    "armHealth": 0.3665712838676919,
+    "state": "stand",
+    "windows": {
+      "beforeArm": {
+        "ticksInclusive": [
+          1415,
+          1534
+        ],
+        "timeS": [
+          11.79999999999997,
+          12.79166666666658
+        ],
+        "frames": 120,
+        "states": [
+          "stand"
+        ],
+        "allAliveArmed": true,
+        "armHealthRange": [
+          1,
+          1
+        ],
+        "handTargetErrorMaxM": 0.09863558776929125,
+        "wholeBodyMuscleRange": [
+          0.9424292617411114,
+          0.9989810937247029
+        ],
+        "lastDriveWristCapRangeNm": [
+          20.712484967129416,
+          28.552540187471
+        ],
+        "heldFrames": 0,
+        "inputActiveFrames": 0
+      },
+      "firstWoundFollowing": {
+        "ticksInclusive": [
+          1535,
+          1589
+        ],
+        "timeS": [
+          12.799999999999914,
+          13.249999999999888
+        ],
+        "frames": 55,
+        "states": [
+          "stand"
+        ],
+        "allAliveArmed": true,
+        "armHealthRange": [
+          0.3665712838676919,
+          0.3665712838676919
+        ],
+        "handTargetErrorMaxM": 0.10462576165739433,
+        "wholeBodyMuscleRange": [
+          0.6013492262880172,
+          0.9990150572672128
+        ],
+        "lastDriveWristCapRangeNm": [
+          4.043966589058542,
+          28.55859973193517
+        ],
+        "heldFrames": 0,
+        "inputActiveFrames": 0
+      },
+      "secondWoundFollowing": {
+        "ticksInclusive": [
+          1590,
+          1709
+        ],
+        "timeS": [
+          13.258333333333221,
+          14.249999999999831
+        ],
+        "frames": 120,
+        "states": [
+          "stand"
+        ],
+        "allAliveArmed": true,
+        "armHealthRange": [
+          0.2752178822919419,
+          0.2752178822919419
+        ],
+        "handTargetErrorMaxM": 0.19071336890744595,
+        "wholeBodyMuscleRange": [
+          0.6000000290282433,
+          0.6086373660391601
+        ],
+        "lastDriveWristCapRangeNm": [
+          3.765310368786888,
+          8.637353545703046
+        ],
+        "heldFrames": 0,
+        "inputActiveFrames": 0
+      }
+    },
+    "walls": false,
+    "foeWeapon": "longsword",
+    "startGapM": 5.6
+  },
+  "artifacts": [
+    {
+      "path": "current-live-run01.json",
+      "bytes": 11895895,
+      "sha256": "39dcfbfa073998ae7b871c6a798e6b1f20b93b70ad023cbfed1b3e6c4b28bfb0"
+    },
+    {
+      "path": "current-falchion-run02.json",
+      "bytes": 12157513,
+      "sha256": "75445952c03063c45c1b2e1b1b78b4f9b202a75e6bef8cd99e5c7f937d51699d"
+    },
+    {
+      "path": "current-observed-run03.json",
+      "bytes": 29115088,
+      "sha256": "f7e6d47e2cab05a62c2861e07e74c11e2cfa2d00aad3da5e998f4bd02fe896f7"
+    },
+    {
+      "path": "recovery_observer.mjs",
+      "bytes": 5814,
+      "sha256": "715c93183a3c6e2925a354c78343e1dc1c7a8cf84f5882132c19808853c7ae09"
+    },
+    {
+      "path": "static-selection-review.md",
+      "bytes": 5795,
+      "sha256": "3fcea434d4af3b61ebe120745348cad64335201979da421bb1ddc196641325e1"
+    },
+    {
+      "path": "current-selection-review.md",
+      "bytes": 3778,
+      "sha256": "d6d7e09658ab00175ac619d77c29d8ffed26700e01a8e41de2c1d60c09d4af82"
+    }
+  ],
+  "priorArtifacts": [
+    {
+      "path": "/workspace/halfsword-handoff/onehand-pose-20261004/live-recovery-01b.json",
+      "bytes": 22808870,
+      "sha256": "2588392ed94263746f192bd5e7263db4603195eef446f9c5929f671c259b0826"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/onehand-pose-20261004/live-recovery-02.json",
+      "bytes": 21011925,
+      "sha256": "2e5068cee2a977acd61ab9d0f4056e2174ebdb22ef3c98119cb74c34817707be"
+    }
+  ],
+  "counts": {
+    "currentBaseRows": 4,
+    "observerEquivalenceRows": 2,
+    "uniqueFixedWeaponSeedContexts": 2,
+    "noGainOrSeedSweep": true
+  },
+  "measurementPhase": "hand target/muscle/wristCap/preTwistWrist describe last drive before native step; actual hand/body state and health sampled after Combat. A fresh wound in the same recorded step does not imply that force already used its reduced health. userForce/userTorque are accumulators, not solved complete joint/ground wrenches. vigor and jolt are current post-Combat getters; muscle/armMuscle retain the prior drive value in these ineligible baseline models.",
+  "limits": [
+    "No human hold/release/reverse tested: held/inputActive false on AI2 traces.",
+    "Historical Qinggang manual arm cut no longer occurs in current seed7: neck death at9.325s, no main-arm damage. Earlier getup6.317–8.375s was uninjured.",
+    "Current falchion manual seed19 has only minor arm loss .002812 at10.625s and no player getup; not a severe injury/getup acceptance.",
+    "Legacy and manual are different injury/AI histories; no efficacy or win-rate comparison.",
+    "Getup-only independent arm activation is ineligible to demonstrate benefits in selected stand injury scene; no revival or promotion.",
+    "Recorded noninterference and finite state do not certify anatomy or control naturalness."
+  ],
+  "decision": "Select current legacy Qinggang severe main-arm injury while alive/armed/standing as next reproduction boundary; no muscle/gain patch without actual scripted control and native response comparison.",
+  "next": "30–45min: from unchanged actual seeded combat to first arm loss tick1535, stage a documented switch from AI-generated commands to fixed hand release/reverse/re-entry; hold same injured state before the first changed command, preserve injury/caps/contact history, assess actual hand/target/next cut. Prepared AI prefix is not human gameplay equivalence; compare current manual separately, no forced wound/state/velocity.",
+  "commands": [
+    [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/halfsword-codex/tools/sim/experiments/onehand_live_recovery_probe.mjs",
+      "/workspace/halfsword-handoff/recovery-selection-20261005/current-live-run01.json",
+      "--weapons=qinggang",
+      "--seed=7",
+      "--seconds=20"
+    ],
+    [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/halfsword-codex/tools/sim/experiments/onehand_live_recovery_probe.mjs",
+      "/workspace/halfsword-handoff/recovery-selection-20261005/current-falchion-run02.json",
+      "--weapons=falchion",
+      "--seed=19",
+      "--seconds=20"
+    ],
+    [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/halfsword-handoff/recovery-selection-20261005/recovery_observer.mjs",
+      "/workspace/halfsword-handoff/recovery-selection-20261005/current-observed-run03.json",
+      "--weapons=qinggang",
+      "--seed=7",
+      "--seconds=20"
+    ]
+  ],
+  "externalObserver": "Archived exact source outside Git uses original workspace absolute imports; relocate explicitly and record a new tool hash. Checkout alone does not contain this external file or raw.",
+  "independentReview": "current-selection-review.md; read-only original fields/size/hash/scope verified, no additional physics/peer lookup"
+}
