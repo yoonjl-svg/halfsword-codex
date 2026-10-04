@@ -1,0 +1,220 @@
+{
+  "status": "Optional trial integrated and local validation passed; remote/public verification pending",
+  "recordedUTC": "2026-10-04T09:31:33.750378+00:00",
+  "target": "yoonjl-svg/halfsword-codex",
+  "branch": "codex/delivery-20261003",
+  "baseCommit": "9bac477fbc66c89cba761962c08d788578c02841",
+  "publicURL": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#blade-shape-comparison",
+  "scope": "Player0/Qinggang/manual-only session contact-profile choice. Default box/enemy/mass/inertia/force/grip/hand/public npm engine preserved; Qinggang steady thrust candidate not revived.",
+  "build": {
+    "path": "production-build/assets/main-BAZCVouE.js",
+    "bytes": 3497528,
+    "sha256": "89716e200a921450eaaee96fe700772635ec879009303740913c80ac27c1d4c3",
+    "entry": "assets/main-BAZCVouE.js",
+    "handSHA256": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893"
+  },
+  "regression": {
+    "pass": true,
+    "sourceStable": true,
+    "cacheUsed": false,
+    "wallSeconds": 153.1538948850066,
+    "receipt": {
+      "path": "regression/result.json",
+      "bytes": 239744,
+      "sha256": "d6e4df7cf1bd0b48fc40989255482e2a95939d192de2ceb570f2d2fa045c34a4"
+    },
+    "tests": [
+      {
+        "id": "force_ledger",
+        "wallSeconds": 1.4734410359960748,
+        "pass": true,
+        "observedCounts": {
+          "tests": 11
+        }
+      },
+      {
+        "id": "grip_reaction",
+        "wallSeconds": 0.3652411810035119,
+        "pass": true,
+        "observedCounts": {
+          "fixtures": 17
+        }
+      },
+      {
+        "id": "cut_reaction",
+        "wallSeconds": 0.36580765699909534,
+        "pass": true,
+        "observedCounts": {
+          "tests": 33
+        }
+      },
+      {
+        "id": "arm_capacity",
+        "wallSeconds": 1.6752065189939458,
+        "pass": true,
+        "observedCounts": {
+          "tests": 4
+        }
+      },
+      {
+        "id": "arm_duel",
+        "wallSeconds": 147.39277891701204,
+        "pass": true,
+        "observedCounts": {
+          "runs": 10,
+          "newFailureReview": 0
+        }
+      },
+      {
+        "id": "build",
+        "wallSeconds": 1.4275424380030017,
+        "pass": true
+      }
+    ],
+    "scope": "Fresh local six groups on dirty baseline; later static plan/button text and browser restart assertion changes do not require new physics replay. Runtime src hashes unchanged."
+  },
+  "runtimeContract": {
+    "path": "shape-contract-run05.json",
+    "bytes": 15173,
+    "sha256": "f91334139d12c07b97ff0fedfb8f4b06836757d2d830848af4c3f5b8629de349"
+  },
+  "localMobile": {
+    "path": "local-mobile-run02/summary.json",
+    "bytes": 14554,
+    "sha256": "b6e7a4818b04b2dd3dfa9f1daecf66d96c1ed7d4dc467a6790b3af76a3b3d768",
+    "rows": [
+      {
+        "shape": "box",
+        "initialGeometry": {
+          "trial": {
+            "active": true,
+            "model": "box",
+            "applied": false
+          },
+          "player": [
+            1,
+            0,
+            1,
+            1
+          ],
+          "enemy": [
+            1,
+            0,
+            1,
+            1
+          ]
+        },
+        "url": "http://127.0.0.1:4191/?weapon=qinggang&foeWeapon=longsword&foe=default&targetCorrection=none&onehandArm=manual&thrustEdge=legacy&bladeShape=box",
+        "portrait": {
+          "width": 390,
+          "scrollWidth": 390
+        },
+        "compiled": [
+          {
+            "url": "http://127.0.0.1:4191/assets/main-BAZCVouE.js",
+            "bytes": 3497528,
+            "sha256": "89716e200a921450eaaee96fe700772635ec879009303740913c80ac27c1d4c3"
+          }
+        ],
+        "restarted": {
+          "newPlayer": true,
+          "model": "manual",
+          "edge": "legacy",
+          "skill": 0,
+          "shapeTypes": [
+            1,
+            0,
+            1,
+            1
+          ],
+          "trial": {
+            "active": true,
+            "model": "box",
+            "applied": false
+          },
+          "saved": {
+            "skill": "0",
+            "difficulty": "normal"
+          }
+        },
+        "errors": []
+      },
+      {
+        "shape": "profile",
+        "initialGeometry": {
+          "trial": {
+            "active": true,
+            "model": "profile",
+            "applied": true
+          },
+          "player": [
+            1,
+            0,
+            1,
+            9
+          ],
+          "enemy": [
+            1,
+            0,
+            1,
+            1
+          ]
+        },
+        "url": "http://127.0.0.1:4191/?weapon=qinggang&foeWeapon=longsword&foe=default&targetCorrection=none&onehandArm=manual&thrustEdge=legacy&bladeShape=profile",
+        "portrait": {
+          "width": 390,
+          "scrollWidth": 390
+        },
+        "compiled": [
+          {
+            "url": "http://127.0.0.1:4191/assets/main-BAZCVouE.js",
+            "bytes": 3497528,
+            "sha256": "89716e200a921450eaaee96fe700772635ec879009303740913c80ac27c1d4c3"
+          }
+        ],
+        "restarted": {
+          "newPlayer": true,
+          "model": "manual",
+          "edge": "legacy",
+          "skill": 0,
+          "shapeTypes": [
+            1,
+            0,
+            1,
+            9
+          ],
+          "trial": {
+            "active": true,
+            "model": "profile",
+            "applied": true
+          },
+          "saved": {
+            "skill": "0",
+            "difficulty": "normal"
+          }
+        },
+        "errors": []
+      }
+    ]
+  },
+  "toolFailure": {
+    "path": "local-mobile/summary.json",
+    "bytes": 2455,
+    "sha256": "08d0c26d02778c109fee7c2dc636200849f070dc43eab69ec68ec330032a1a15",
+    "scope": "Before page creation: recording ffmpeg home-cache binary missing. Retained failure; rerun uses existing system ffmpeg from workspace symlink. No game/physics assertion failed."
+  },
+  "study": {
+    "path": "metrics.json",
+    "bytes": 153563,
+    "sha256": "033d26dc8d052044eb0549f8f3210ea31a385ce2bcb9fed2218fd1510a9988c1"
+  },
+  "independentReview": {
+    "path": "independent-publication-review.md",
+    "bytes": 7012,
+    "sha256": "f5120f69a7fa0549fb909f36f16fda01769c6131331ab13aa90ceec796cdd13f"
+  },
+  "publicVerified": false,
+  "humanPhoneAcceptance": false,
+  "generalPromotion": "No general default change; user concrete comparison/confirmation required.",
+  "next": "30-45min unchanged precontact tap roll at831; narrow one input/controller/body causation with saved trace; no wrist motor/gain/seed retry."
+}

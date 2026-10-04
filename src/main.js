@@ -41,6 +41,7 @@ import { configureTargetCorrectionTrial, applyTargetCorrectionTrial, mountTarget
 import { configureEdgeTorqueTrial, applyEdgeTorqueTrial, mountEdgeTorqueTrial } from './edge_torque_trial.js';
 import { configureArmRecoveryTrial, applyArmRecoveryTrial, mountArmRecoveryTrial } from './arm_recovery_trial.js';
 import { configureWristBrakingTrial, applyWristBrakingTrial, mountWristBrakingTrial } from './wrist_braking_trial.js';
+import { configureBladeShapeTrial, applyBladeShapeTrial, mountBladeShapeTrial } from './blade_shape_trial.js';
 
 await RAPIER.init();
 
@@ -67,6 +68,7 @@ const cutTrial = configureCutTrial(params);
 const armTrial = configureArmTrial(params);
 const wristBrakingTrial = configureWristBrakingTrial(params, armTrial);
 const edgeTorqueTrial = configureEdgeTorqueTrial(params);
+const bladeShapeTrial = configureBladeShapeTrial(params);
 const stanceTrial = configureStanceTrial(params, CONFIG.GAIT);
 // 주인공은 판마다 무기 카드 세 장 중 하나를 골라 받는다 (아래 "무기 뽑기"). 주소에 ?weapon=을 적으면 뽑기 없이 그 무기로 고정.
 //  진짜 엑스칼리버는 주인공만 받을 수 있고, 복제품은 하인리히 몫이라 뽑기에서 뺀다
@@ -428,6 +430,7 @@ function newRound(weaponId) {
   // Narrow player-only comparison for the selected sabre trial.
   player.thrustEdgeModel = onehandArmModel === 'manual' && player.weapon.id === 'sabre' ? thrustEdgeModel : 'legacy';
   player.initializeOnehandReadyPose();
+  bladeShapeTrial.applied = applyBladeShapeTrial(bladeShapeTrial, player, RAPIER);
   applyEdgeTorqueTrial(edgeTorqueTrial, player);
   applyArmRecoveryTrial(armRecoveryTrial, player);
   applyWristBrakingTrial(wristBrakingTrial, player);
@@ -670,6 +673,7 @@ mountTargetCorrectionTrial(targetCorrectionTrial);
 mountEdgeTorqueTrial(edgeTorqueTrial);
 mountArmRecoveryTrial(armRecoveryTrial);
 mountWristBrakingTrial(wristBrakingTrial);
+mountBladeShapeTrial(bladeShapeTrial);
 if (gripPointModel === 'axial') {
   const info = document.createElement('p');
   info.id = 'gripPointInfo';
@@ -1590,6 +1594,7 @@ window.game = {
   targetCorrectionTrial,
   armRecoveryTrial,
   edgeTorqueTrial,
+  bladeShapeTrial,
   THREE,
   camera,
   freeCam: false,
