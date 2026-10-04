@@ -4,6 +4,7 @@
 
 | 최근 회차 | 판정 / 소스 | 재사용 입구 |
 |---|---|---|
+| [청강검 찌르기 날 방향](thrust_plane_20261005.md) | 접촉 전 비틀림 감소·큰 베기 exact, 후속 접촉 추종 후퇴·청강검 선택형 | 3입력 경로/production 동등성·[수치/명령/해시](thrust_plane_20261005.json)·[전달](thrust_plane_release.json) |
 | [청강검 접촉 형상](contact_geometry_20261004.md) | 무접촉 베기 exact·접촉 회전 감소, 손 추종 후퇴/앞선 탭 급회전 남음·청강검 플레이어 선택형 | 같은 첫 충돌/생성부터 일반 전투·[수치/명령/해시](contact_geometry_20261004.json)·[전달](contact_geometry_release.json) |
 | [손목 요청의 그립 이전](native_grip_intent_20261004.md) | 큰 베기 날 비틀림 후퇴·공개 기각; 반작용 경로는 진단만 | 실제 최종3호출·free/같은 첫 충돌·6궤적(반복/prefix 포함)·[수치/명령/해시](native_grip_intent_20261004.json) |
 | [그립 힘·속도 계약](native_grip_wrench_20261004.md) | 모터 좌표/힘 예산 확인·연속 속도 유지판 공개 기각 | source/operator9·생성부터 큰 베기/실제 전투4궤적·[수치/명령/해시](native_grip_wrench_20261004.json) |

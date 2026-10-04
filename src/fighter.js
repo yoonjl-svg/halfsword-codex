@@ -2,6 +2,7 @@ import { updateIntentEdgePlane, smoothIntentElevation } from './edge_intent.js';
 import { applyPlaneAlignmentPotential } from './edge_torque.js';
 import { updateMainArmRecovery, mainArmMuscle } from './arm_recovery_activation.js';
 import { estimateWristStopBudget } from './wrist_braking.js';
+import { applyTransportedThrustPlane } from './thrust_plane.js';
 // ─────────────────────────────────────────────────────────────
 //  검투사 한 명 = "액티브 래그돌"
 //
@@ -2033,6 +2034,7 @@ export class Fighter {
     }
     // Isolated research mode; ordinary games keep their existing edge alignment.
     if (this.edgeIntentModel === 'commandedPlane' || this.edgeIntentModel === 'commandedPlaneC1') updateIntentEdgePlane(this, aim, blade, flatTarget, flat);
+    if (manualOnehand && this.thrustEdgeModel === 'transported') applyTransportedThrustPlane(this, blade, flat, flatTarget);
     // 칼날 축(길쭉한 방향)으로 도는 회전은 관성이 아주 작아서, 큰 힘을 주면
     // 계산이 폭주해 칼이 팽이처럼 돈다. 그래서 비틀림은 아주 약하게 따로 다룬다.
     const w = angvel(sword, new THREE.Vector3());

@@ -42,6 +42,7 @@ import { configureEdgeTorqueTrial, applyEdgeTorqueTrial, mountEdgeTorqueTrial } 
 import { configureArmRecoveryTrial, applyArmRecoveryTrial, mountArmRecoveryTrial } from './arm_recovery_trial.js';
 import { configureWristBrakingTrial, applyWristBrakingTrial, mountWristBrakingTrial } from './wrist_braking_trial.js';
 import { configureBladeShapeTrial, applyBladeShapeTrial, mountBladeShapeTrial } from './blade_shape_trial.js';
+import { configureThrustPlaneTrial } from './thrust_plane.js';
 
 await RAPIER.init();
 
@@ -51,6 +52,7 @@ const params = new URLSearchParams(location.search);
 // Session-only comparison; ordinary games retain their current hand mapping.
 const onehandArmModel = params.get('onehandArm') === 'manual' ? 'manual' : 'legacy';
 const thrustEdgeModel = params.get('thrustEdge') === 'steady' ? 'steady' : 'legacy';
+const thrustPlaneTrial = configureThrustPlaneTrial(params);
 // A/B input trials use the same session-only menu values; saved preferences survive.
 const inputComparison = params.get('inputComparison') === 'vertical';
 const targetCorrectionTrial = configureTargetCorrectionTrial(params);
@@ -429,6 +431,7 @@ function newRound(weaponId) {
   player.gripPointModel = gripPointModel;
   // Narrow player-only comparison for the selected sabre trial.
   player.thrustEdgeModel = onehandArmModel === 'manual' && player.weapon.id === 'sabre' ? thrustEdgeModel : 'legacy';
+  if (thrustPlaneTrial && player.weapon.id === 'qinggang') player.thrustEdgeModel = 'transported';
   player.initializeOnehandReadyPose();
   bladeShapeTrial.applied = applyBladeShapeTrial(bladeShapeTrial, player, RAPIER);
   applyEdgeTorqueTrial(edgeTorqueTrial, player);
@@ -674,6 +677,13 @@ mountEdgeTorqueTrial(edgeTorqueTrial);
 mountArmRecoveryTrial(armRecoveryTrial);
 mountWristBrakingTrial(wristBrakingTrial);
 mountBladeShapeTrial(bladeShapeTrial);
+if (thrustPlaneTrial) {
+  const info = document.createElement('p');
+  info.id = 'thrustPlaneTrialInfo';
+  info.className = 'sub';
+  info.textContent = '청강검 찌르기 비교 B · 날 방향 유지 시험. 찌른 뒤 다음 베기의 느낌을 확인하세요.';
+  $('menuSub').after(info);
+}
 if (gripPointModel === 'axial') {
   const info = document.createElement('p');
   info.id = 'gripPointInfo';
@@ -1595,6 +1605,7 @@ window.game = {
   armRecoveryTrial,
   edgeTorqueTrial,
   bladeShapeTrial,
+  thrustPlaneTrial,
   THREE,
   camera,
   freeCam: false,
