@@ -1,0 +1,2387 @@
+{
+  "schemaVersion": 1,
+  "runtimeChanged": false,
+  "publicChanged": false,
+  "effectAccepted": false,
+  "judgment": "research_preserved_unpublished; longsword living-target first-cut exposure and one-second collapse screen accepted only. Mixed reverse/neck-hit outcome and unobserved later recut/release prevent a broader efficacy or P4 completion claim.",
+  "reports": [
+    {
+      "label": "initialMissingStartLock",
+      "raw": {
+        "path": "/workspace/halfsword-handoff/phase2-round4-20261006/p4/contact02/report.json",
+        "bytes": 2374460,
+        "sha256": "51226c831a89e103ea283d2f0bc9f9db900051a3c6e2f8f449da2ad81baee60c"
+      },
+      "head": "7f902cd6724f5391cd436d333fea0174f37d3df8",
+      "sourceStable": true,
+      "headStable": true,
+      "measurementValid": true,
+      "error": null,
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/phase2-round4-20261006/p4/contact02-runtime/tools/sim/experiments/p4_command_contact_runner.mjs",
+        "--out=/workspace/halfsword-handoff/phase2-round4-20261006/p4/contact02",
+        "--seconds=6"
+      ],
+      "protocol": {
+        "weapons": [
+          [
+            "longsword",
+            "zweihander"
+          ]
+        ],
+        "seed": 7,
+        "maximumSeconds": 6,
+        "postFirstEligibleCutSteps": 120,
+        "player": "Same explicit ready/raise/cut/reverse/tap/recut/release120Hz delta schedule as preserved recut probe; after444steps continue release. Original player AI2 is absent, original reactive opponent AI remains. Default newRound gap5.6. Full forward joystick(0,1) through tick347 (recut end), then zero, via main move*emotionScale and raw stick contract. No initial state/health/force changes; no distance/seed search; gravity9.81. Main.js alive/non-gun delta application, L1 active threshold, held schedule, recordSwordsmanshipInput, then tap command. No hitstop/rAF or human phone equivalence. FirstCut end161 requires eligibility/intervention.",
+        "opponent": "Original reactive AI; no park, state/health/force/solver injection.",
+        "scope": "Command-direction plane candidate selected from creation for player only; both use current ordinary legacy cut response. Original reactive AI inputs can diverge before contact, so this is a narrow contact-collapse screen, not an equal-impact strength or win-rate comparison. Qualified contact means actual player cut-response J>0 while active non-thrust command eligibility and physical moving weight>0; stop120steps later, maximum6s. Mere touching, held/tap contacts and unexposed candidates do not close the active-cut gate. Measurement validity is separate from contact qualification and gameplay acceptance."
+      },
+      "wallSeconds": 6.590168471,
+      "comparisons": [
+        {
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "sameCreation": true,
+          "exactPrefixNativeControlInput": true,
+          "sameBoundary": true,
+          "samePairNative": true,
+          "firstTickSame": true,
+          "firstPlayerCutTicks": [
+            null,
+            null
+          ],
+          "firstInputDivergence": 150,
+          "firstNativeDivergence": 134,
+          "steps": [
+            720,
+            720
+          ],
+          "events": [
+            0,
+            0
+          ],
+          "contactQualified": [
+            false,
+            false
+          ],
+          "firstEligiblePlayerCutTicks": [
+            null,
+            null
+          ],
+          "qualifiedCuts": [
+            0,
+            0
+          ],
+          "firstPlayerInputDivergence": -1,
+          "candidateCommandedFrames": 79,
+          "firstCommandedTick": 134,
+          "exactBeforeCandidate": true
+        }
+      ],
+      "sourceProof": {
+        "path": "/workspace/halfsword-handoff/phase2-round4-20261006/p4/contact02-preparation.json",
+        "bytes": 19337,
+        "sha256": "28a949eb8a77f8cc094e736cee1f999ebccf2755e2e4dae8eddc80b4d4aedd74"
+      },
+      "rows": [
+        {
+          "mode": "legacy",
+          "steps": 720,
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "failedBudgetedInactive": true,
+            "onlyPlayerSelected": true
+          },
+          "exposure": {
+            "active": 144,
+            "swinging": 96,
+            "tap": 57,
+            "thrust": 57,
+            "eligible": 87,
+            "owners": {
+              "player": 356,
+              "thrust": 57,
+              "recovery": 1,
+              "return": 306
+            }
+          },
+          "touchStartTick": null,
+          "touchStartBoundary": null,
+          "candidateCommandedFrames": 0,
+          "firstCommandedTick": null,
+          "firstPlayerCutTick": null,
+          "firstEligiblePlayerCutTick": null,
+          "contactQualified": false,
+          "contactEvents": [],
+          "wounds": [],
+          "phaseMetrics": {
+            "firstCut": {
+              "ticks": [
+                132,
+                161
+              ],
+              "steps": 30,
+              "eligibleFrames": 28,
+              "bodyGapM": {
+                "mean": 5.666654856340357,
+                "max": 5.684652980302061,
+                "min": 5.6557047838950485
+              },
+              "tipSpeedMps": {
+                "mean": 5.646183381501066,
+                "max": 10.546594236256848,
+                "min": 0.652712766609061
+              },
+              "swordKJ": {
+                "mean": 8.67762047985728,
+                "max": 21.20610455589563,
+                "min": 0.3260328702783827
+              },
+              "axialPeakRadps": 6.659657724220617,
+              "axialTravelRad": 0.8033651898160352,
+              "commandSignedProgressM": 1.0780705051960502,
+              "physicalEdgeErrorDeg": {
+                "mean": 13.580826982505734,
+                "max": 62.665369022360004,
+                "min": 2.868718559314215
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 18.014146958640804,
+                "max": 84.81594002799882,
+                "min": 5.130494584356186
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "followHold": {
+              "ticks": [
+                162,
+                197
+              ],
+              "steps": 36,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 5.699095192538213,
+                "max": 5.703216543101701,
+                "min": 5.686442603924472
+              },
+              "tipSpeedMps": {
+                "mean": 6.003202148188416,
+                "max": 9.759157969857492,
+                "min": 0.4466951292509932
+              },
+              "swordKJ": {
+                "mean": 11.086659736900437,
+                "max": 28.069560302256704,
+                "min": 0.09878479894729131
+              },
+              "axialPeakRadps": 11.326377456253812,
+              "axialTravelRad": 0.8021176963778325,
+              "commandSignedProgressM": 1.3850872248299009,
+              "physicalEdgeErrorDeg": {
+                "mean": 8.69828442393769,
+                "max": 74.70335558504335,
+                "min": 0.09184479105947624
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 11.902741057183786,
+                "max": 36.64400491821948,
+                "min": 1.9712782677397658
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "raise": {
+              "ticks": [
+                60,
+                107
+              ],
+              "steps": 48,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 5.629354984227263,
+                "max": 5.6510563257034505,
+                "min": 5.614530013781947
+              },
+              "tipSpeedMps": {
+                "mean": 1.6892417143008338,
+                "max": 2.932646634822735,
+                "min": 0.7775478609922608
+              },
+              "swordKJ": {
+                "mean": 0.907745006268672,
+                "max": 2.3943655556691463,
+                "min": 0.15933918282551796
+              },
+              "axialPeakRadps": 15.483945570412324,
+              "axialTravelRad": 1.0307368968774135,
+              "commandSignedProgressM": 0.526184944169657,
+              "physicalEdgeErrorDeg": {
+                "mean": 31.7809189143295,
+                "max": 88.05203736117406,
+                "min": 0.3081565397012992
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 28.84113071564199,
+                "max": 86.54831672245544,
+                "min": 0.6907865810771372
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "raisedHold": {
+              "ticks": [
+                108,
+                131
+              ],
+              "steps": 24,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 5.655949674462722,
+                "max": 5.657271275128988,
+                "min": 5.65206516383761
+              },
+              "tipSpeedMps": {
+                "mean": 3.5152244399203005,
+                "max": 4.8269803363382815,
+                "min": 1.5337899156834967
+              },
+              "swordKJ": {
+                "mean": 2.305311914455014,
+                "max": 3.5571663763156263,
+                "min": 0.5202288113569016
+              },
+              "axialPeakRadps": 3.8600045963482943,
+              "axialTravelRad": 0.2877095365091462,
+              "commandSignedProgressM": 0.563027273587622,
+              "physicalEdgeErrorDeg": {
+                "mean": 2.0081977735377,
+                "max": 6.288506258224624,
+                "min": 0.005796502689729217
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 3.4859972992859145,
+                "max": 5.472070896589908,
+                "min": 0.48945449116888573
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "ready": {
+              "ticks": [
+                0,
+                59
+              ],
+              "steps": 60,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 5.619427442652144,
+                "max": 5.628441460368683,
+                "min": 5.600518941911235
+              },
+              "tipSpeedMps": {
+                "mean": 1.0090604078645766,
+                "max": 2.3484084664920135,
+                "min": 0.18165214909315044
+              },
+              "swordKJ": {
+                "mean": 0.6762451565661735,
+                "max": 2.3200808653755596,
+                "min": 0.04112388534144958
+              },
+              "axialPeakRadps": 10.902360190206254,
+              "axialTravelRad": 1.385544411806449,
+              "commandSignedProgressM": 0.3187841657436069,
+              "physicalEdgeErrorDeg": {
+                "mean": 13.815783380315992,
+                "max": 89.23915831115565,
+                "min": 0.031806965275952725
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 42.834842432680325,
+                "max": 89.71440517017203,
+                "min": 1.2222597875265189
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "recut": {
+              "ticks": [
+                318,
+                347
+              ],
+              "steps": 30,
+              "eligibleFrames": 27,
+              "bodyGapM": {
+                "mean": 4.418004399778912,
+                "max": 4.627082613043704,
+                "min": 4.245754092891619
+              },
+              "tipSpeedMps": {
+                "mean": 5.91649683663672,
+                "max": 9.119783163633201,
+                "min": 1.095170006887314
+              },
+              "swordKJ": {
+                "mean": 10.24912957597265,
+                "max": 17.196402136244227,
+                "min": 0.9274654191477273
+              },
+              "axialPeakRadps": 18.425999078852495,
+              "axialTravelRad": 1.23352544327054,
+              "commandSignedProgressM": 1.0822156122360658,
+              "physicalEdgeErrorDeg": {
+                "mean": 18.683700588582415,
+                "max": 83.80384206355848,
+                "min": 0.25083345022152165
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 18.933465747426443,
+                "max": 51.847607448071386,
+                "min": 0.23620923007166447
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "recutHold": {
+              "ticks": [
+                348,
+                383
+              ],
+              "steps": 36,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 4.041584363040103,
+                "max": 4.234672035646958,
+                "min": 3.904634111714927
+              },
+              "tipSpeedMps": {
+                "mean": 4.2312985516627455,
+                "max": 7.572714993117828,
+                "min": 0.4882145416412656
+              },
+              "swordKJ": {
+                "mean": 4.170780591980964,
+                "max": 12.97446422711243,
+                "min": 0.340052548517929
+              },
+              "axialPeakRadps": 3.7392713976600063,
+              "axialTravelRad": 0.263873379443002,
+              "commandSignedProgressM": 0.9202007523756803,
+              "physicalEdgeErrorDeg": {
+                "mean": 6.016620451883705,
+                "max": 54.999574130088654,
+                "min": 0.22062726491271417
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 25.7443873333156,
+                "max": 85.54729963506996,
+                "min": 2.8623144542771883
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "release": {
+              "ticks": [
+                384,
+                719
+              ],
+              "steps": 336,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 2.7744210103584757,
+                "max": 3.901163959197884,
+                "min": 1.8120196784061107
+              },
+              "tipSpeedMps": {
+                "mean": 1.1888486951153419,
+                "max": 5.64949458713035,
+                "min": 0.005510243877183046
+              },
+              "swordKJ": {
+                "mean": 0.5512590751625249,
+                "max": 3.647595544143708,
+                "min": 4.1927171713985845e-05
+              },
+              "axialPeakRadps": 12.903387547486298,
+              "axialTravelRad": 2.1510411123777264,
+              "commandSignedProgressM": 2.1028116326107273,
+              "physicalEdgeErrorDeg": {
+                "mean": 39.53883821740095,
+                "max": 89.79648757261346,
+                "min": 0.09764382241054392
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 39.7887083112442,
+                "max": 89.90916169562955,
+                "min": 0.27453396149075565
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "reverse": {
+              "ticks": [
+                198,
+                233
+              ],
+              "steps": 36,
+              "eligibleFrames": 32,
+              "bodyGapM": {
+                "mean": 5.707692890531018,
+                "max": 5.715259493921299,
+                "min": 5.702397154222226
+              },
+              "tipSpeedMps": {
+                "mean": 5.004299715662146,
+                "max": 10.830745489722872,
+                "min": 0.5521266796769194
+              },
+              "swordKJ": {
+                "mean": 6.598941155089843,
+                "max": 15.484437546909195,
+                "min": 0.43169838262184695
+              },
+              "axialPeakRadps": 8.099404315462843,
+              "axialTravelRad": 0.6070021791250577,
+              "commandSignedProgressM": 1.0999065488416995,
+              "physicalEdgeErrorDeg": {
+                "mean": 22.57386006723241,
+                "max": 89.2605381650281,
+                "min": 0.21605866914092894
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 9.912187306135772,
+                "max": 29.615344084876455,
+                "min": 1.0726595191872925
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "reverseHold": {
+              "ticks": [
+                234,
+                257
+              ],
+              "steps": 24,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 5.68524070315513,
+                "max": 5.715183207700879,
+                "min": 5.610068870959829
+              },
+              "tipSpeedMps": {
+                "mean": 5.7917379044026625,
+                "max": 8.064281426909679,
+                "min": 2.2605584524298665
+              },
+              "swordKJ": {
+                "mean": 7.405612131563402,
+                "max": 11.046119424053476,
+                "min": 1.403390872237078
+              },
+              "axialPeakRadps": 7.2430903513347165,
+              "axialTravelRad": 0.6119501887085959,
+              "commandSignedProgressM": 0.9244698839675765,
+              "physicalEdgeErrorDeg": {
+                "mean": 6.851587446479837,
+                "max": 14.535257662806417,
+                "min": 0.7451500895401174
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 15.353181650808516,
+                "max": 27.9475023348666,
+                "min": 0.1465876918370086
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "tap": {
+              "ticks": [
+                258,
+                317
+              ],
+              "steps": 60,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 5.1174265669649355,
+                "max": 5.599011484518197,
+                "min": 4.6427779359765795
+              },
+              "tipSpeedMps": {
+                "mean": 3.467053633976002,
+                "max": 6.469975113273902,
+                "min": 0.7977580875870247
+              },
+              "swordKJ": {
+                "mean": 4.46983895965056,
+                "max": 12.26102025296051,
+                "min": 0.593877959826675
+              },
+              "axialPeakRadps": 9.440804851177415,
+              "axialTravelRad": 1.9893826152915277,
+              "commandSignedProgressM": 0.5877236541084043,
+              "physicalEdgeErrorDeg": {
+                "mean": 24.807360414047192,
+                "max": 87.0198256852772,
+                "min": 0.7023775062534299
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 22.634514842062256,
+                "max": 83.89171539992178,
+                "min": 0.08206996699115768
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            }
+          },
+          "postAnyCutPlayer": null
+        },
+        {
+          "mode": "commandDirection",
+          "steps": 720,
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "failedBudgetedInactive": true,
+            "onlyPlayerSelected": true
+          },
+          "exposure": {
+            "active": 144,
+            "swinging": 96,
+            "tap": 57,
+            "thrust": 57,
+            "eligible": 87,
+            "owners": {
+              "player": 356,
+              "thrust": 57,
+              "recovery": 1,
+              "return": 306
+            }
+          },
+          "touchStartTick": null,
+          "touchStartBoundary": null,
+          "candidateCommandedFrames": 79,
+          "firstCommandedTick": 134,
+          "firstPlayerCutTick": null,
+          "firstEligiblePlayerCutTick": null,
+          "contactQualified": false,
+          "contactEvents": [],
+          "wounds": [],
+          "phaseMetrics": {
+            "firstCut": {
+              "ticks": [
+                132,
+                161
+              ],
+              "steps": 30,
+              "eligibleFrames": 28,
+              "bodyGapM": {
+                "mean": 5.666672838474711,
+                "max": 5.684773130473995,
+                "min": 5.6557047838950485
+              },
+              "tipSpeedMps": {
+                "mean": 5.641642166539371,
+                "max": 10.63198882158016,
+                "min": 0.639755113193033
+              },
+              "swordKJ": {
+                "mean": 8.713588839539598,
+                "max": 21.16551094663,
+                "min": 0.31964629567376335
+              },
+              "axialPeakRadps": 10.72320614824466,
+              "axialTravelRad": 1.1238802570274233,
+              "commandSignedProgressM": 1.087013183410162,
+              "physicalEdgeErrorDeg": {
+                "mean": 11.472152196883053,
+                "max": 55.28341355114106,
+                "min": 0.8308916678656231
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 11.667227568717095,
+                "max": 84.81594002799882,
+                "min": 0.13819961337085934
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "followHold": {
+              "ticks": [
+                162,
+                197
+              ],
+              "steps": 36,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 5.699098670525107,
+                "max": 5.70342400769294,
+                "min": 5.686570660111115
+              },
+              "tipSpeedMps": {
+                "mean": 6.003474802592154,
+                "max": 9.915061012084427,
+                "min": 0.4965586733744968
+              },
+              "swordKJ": {
+                "mean": 11.081105456146675,
+                "max": 28.08332305005385,
+                "min": 0.09927105051353344
+              },
+              "axialPeakRadps": 10.50454402672722,
+              "axialTravelRad": 0.8747633994266899,
+              "commandSignedProgressM": 1.3784383791395511,
+              "physicalEdgeErrorDeg": {
+                "mean": 9.112544174801993,
+                "max": 65.87726443600258,
+                "min": 0.6287093708331786
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 13.30146627965474,
+                "max": 37.702478901229604,
+                "min": 0.6736730852285366
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "raise": {
+              "ticks": [
+                60,
+                107
+              ],
+              "steps": 48,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 5.629354984227263,
+                "max": 5.6510563257034505,
+                "min": 5.614530013781947
+              },
+              "tipSpeedMps": {
+                "mean": 1.6892417143008338,
+                "max": 2.932646634822735,
+                "min": 0.7775478609922608
+              },
+              "swordKJ": {
+                "mean": 0.907745006268672,
+                "max": 2.3943655556691463,
+                "min": 0.15933918282551796
+              },
+              "axialPeakRadps": 15.483945570412324,
+              "axialTravelRad": 1.0307368968774135,
+              "commandSignedProgressM": 0.526184944169657,
+              "physicalEdgeErrorDeg": {
+                "mean": 31.7809189143295,
+                "max": 88.05203736117406,
+                "min": 0.3081565397012992
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 28.84113071564199,
+                "max": 86.54831672245544,
+                "min": 0.6907865810771372
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "raisedHold": {
+              "ticks": [
+                108,
+                131
+              ],
+              "steps": 24,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 5.655949674462722,
+                "max": 5.657271275128988,
+                "min": 5.65206516383761
+              },
+              "tipSpeedMps": {
+                "mean": 3.5152244399203005,
+                "max": 4.8269803363382815,
+                "min": 1.5337899156834967
+              },
+              "swordKJ": {
+                "mean": 2.305311914455014,
+                "max": 3.5571663763156263,
+                "min": 0.5202288113569016
+              },
+              "axialPeakRadps": 3.8600045963482943,
+              "axialTravelRad": 0.2877095365091462,
+              "commandSignedProgressM": 0.563027273587622,
+              "physicalEdgeErrorDeg": {
+                "mean": 2.0081977735377,
+                "max": 6.288506258224624,
+                "min": 0.005796502689729217
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 3.4859972992859145,
+                "max": 5.472070896589908,
+                "min": 0.48945449116888573
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "ready": {
+              "ticks": [
+                0,
+                59
+              ],
+              "steps": 60,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 5.619427442652144,
+                "max": 5.628441460368683,
+                "min": 5.600518941911235
+              },
+              "tipSpeedMps": {
+                "mean": 1.0090604078645766,
+                "max": 2.3484084664920135,
+                "min": 0.18165214909315044
+              },
+              "swordKJ": {
+                "mean": 0.6762451565661735,
+                "max": 2.3200808653755596,
+                "min": 0.04112388534144958
+              },
+              "axialPeakRadps": 10.902360190206254,
+              "axialTravelRad": 1.385544411806449,
+              "commandSignedProgressM": 0.3187841657436069,
+              "physicalEdgeErrorDeg": {
+                "mean": 13.815783380315992,
+                "max": 89.23915831115565,
+                "min": 0.031806965275952725
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 42.834842432680325,
+                "max": 89.71440517017203,
+                "min": 1.2222597875265189
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "recut": {
+              "ticks": [
+                318,
+                347
+              ],
+              "steps": 30,
+              "eligibleFrames": 27,
+              "bodyGapM": {
+                "mean": 4.4182598402221185,
+                "max": 4.626857968068081,
+                "min": 4.246466530888437
+              },
+              "tipSpeedMps": {
+                "mean": 5.845370183617098,
+                "max": 9.162510014236032,
+                "min": 1.0901548514710946
+              },
+              "swordKJ": {
+                "mean": 10.038547467683872,
+                "max": 17.350543382315642,
+                "min": 0.9239170639561421
+              },
+              "axialPeakRadps": 16.7172191070126,
+              "axialTravelRad": 1.6980903264104532,
+              "commandSignedProgressM": 1.1039626618944165,
+              "physicalEdgeErrorDeg": {
+                "mean": 24.80541666325469,
+                "max": 83.6758271590189,
+                "min": 1.0250268222588246
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 13.511441651661784,
+                "max": 29.532895692920857,
+                "min": 1.4466434646333888
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "recutHold": {
+              "ticks": [
+                348,
+                383
+              ],
+              "steps": 36,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 4.042723045251897,
+                "max": 4.235391454663301,
+                "min": 3.9125631372224245
+              },
+              "tipSpeedMps": {
+                "mean": 4.159788939691902,
+                "max": 7.456257008229161,
+                "min": 0.42205354361888087
+              },
+              "swordKJ": {
+                "mean": 4.0659303649539265,
+                "max": 12.2574712824442,
+                "min": 0.31072887643089814
+              },
+              "axialPeakRadps": 8.186098553658788,
+              "axialTravelRad": 0.39462053878431463,
+              "commandSignedProgressM": 0.9006311979608548,
+              "physicalEdgeErrorDeg": {
+                "mean": 3.112878292281776,
+                "max": 17.879466355501986,
+                "min": 0.06100361145725048
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 28.89910118843006,
+                "max": 88.48769455901014,
+                "min": 0.6900930023955414
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "release": {
+              "ticks": [
+                384,
+                719
+              ],
+              "steps": 336,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 2.7670546324452934,
+                "max": 3.9094404888022143,
+                "min": 1.7710614602142933
+              },
+              "tipSpeedMps": {
+                "mean": 1.1827919347294464,
+                "max": 5.646096261561144,
+                "min": 0.008435572844478486
+              },
+              "swordKJ": {
+                "mean": 0.5488904096392607,
+                "max": 3.640364789377486,
+                "min": 2.621662726124178e-05
+              },
+              "axialPeakRadps": 12.89827077001454,
+              "axialTravelRad": 2.1022389974639246,
+              "commandSignedProgressM": 2.115673334387382,
+              "physicalEdgeErrorDeg": {
+                "mean": 41.07868873843415,
+                "max": 89.96821963142342,
+                "min": 0.0
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 43.595698114662326,
+                "max": 89.95708672911024,
+                "min": 0.17343213350702422
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "reverse": {
+              "ticks": [
+                198,
+                233
+              ],
+              "steps": 36,
+              "eligibleFrames": 32,
+              "bodyGapM": {
+                "mean": 5.707658581572506,
+                "max": 5.715083347010174,
+                "min": 5.7024788643810025
+              },
+              "tipSpeedMps": {
+                "mean": 4.9879290800341884,
+                "max": 10.82688058397516,
+                "min": 0.4709640386249847
+              },
+              "swordKJ": {
+                "mean": 6.609148061377329,
+                "max": 15.527307466081867,
+                "min": 0.44405210617175606
+              },
+              "axialPeakRadps": 13.872616808635248,
+              "axialTravelRad": 1.0446624228955774,
+              "commandSignedProgressM": 1.107869406634236,
+              "physicalEdgeErrorDeg": {
+                "mean": 21.422279423986055,
+                "max": 86.50864323126366,
+                "min": 0.2514572586821298
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 7.175585581063818,
+                "max": 28.545314538505863,
+                "min": 0.08647787825939826
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "reverseHold": {
+              "ticks": [
+                234,
+                257
+              ],
+              "steps": 24,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 5.685297699899131,
+                "max": 5.715043591271961,
+                "min": 5.610282125581684
+              },
+              "tipSpeedMps": {
+                "mean": 5.83838011070691,
+                "max": 8.205332586771851,
+                "min": 2.277058028118134
+              },
+              "swordKJ": {
+                "mean": 7.4482487791512995,
+                "max": 11.075130980259898,
+                "min": 1.4413140278441254
+              },
+              "axialPeakRadps": 6.157535600592459,
+              "axialTravelRad": 0.5709767737687355,
+              "commandSignedProgressM": 0.9309747659288612,
+              "physicalEdgeErrorDeg": {
+                "mean": 6.015714779026344,
+                "max": 12.126689447758812,
+                "min": 0.5367921678116312
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 14.266952796727892,
+                "max": 23.424283660123372,
+                "min": 0.36177987822982743
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "tap": {
+              "ticks": [
+                258,
+                317
+              ],
+              "steps": 60,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 5.116972456165021,
+                "max": 5.599221424841242,
+                "min": 4.642512390695582
+              },
+              "tipSpeedMps": {
+                "mean": 3.465854259725258,
+                "max": 6.4670772173243645,
+                "min": 0.7576367655851479
+              },
+              "swordKJ": {
+                "mean": 4.478614134147206,
+                "max": 12.266519867755528,
+                "min": 0.5900566656100145
+              },
+              "axialPeakRadps": 9.734136296935457,
+              "axialTravelRad": 2.0345487388138106,
+              "commandSignedProgressM": 0.5849291109756769,
+              "physicalEdgeErrorDeg": {
+                "mean": 24.963404561445095,
+                "max": 89.68718212668382,
+                "min": 0.7371875362828408
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 23.340007208678095,
+                "max": 86.27981107725684,
+                "min": 0.3159513591135331
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            }
+          },
+          "postAnyCutPlayer": null
+        }
+      ],
+      "contactBoundaryComparisonApplicable": false,
+      "comparisonCaution": "Raw sameBoundary/samePairNative and empty-slice contact-prefix booleans are vacuous because both first-contact ticks are null; only the explicit before-candidate prefix is evidence."
+    },
+    {
+      "label": "correctedApproach",
+      "raw": {
+        "path": "/workspace/halfsword-handoff/phase2-round4-20261006/p4/approach02/report.json",
+        "bytes": 3745367,
+        "sha256": "a76f588d2a21e6df44d1b52a414da7b16398bcee2ff8e4a5974e0b5ab8fb0b34"
+      },
+      "head": "7f902cd6724f5391cd436d333fea0174f37d3df8",
+      "sourceStable": true,
+      "headStable": true,
+      "measurementValid": true,
+      "error": null,
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/phase2-round4-20261006/p4/approach02-runtime/tools/sim/experiments/p4_command_contact_runner.mjs",
+        "--out=/workspace/halfsword-handoff/phase2-round4-20261006/p4/approach02",
+        "--seconds=13"
+      ],
+      "protocol": {
+        "weapons": [
+          [
+            "longsword",
+            "zweihander"
+          ]
+        ],
+        "seed": 7,
+        "maximumSeconds": 13,
+        "postFirstEligibleCutSteps": 120,
+        "player": "Same explicit ready/raise/cut/reverse/tap/recut/release120Hz delta schedule as preserved recut probe; after444steps continue release. Original player AI2 is absent, original reactive opponent AI remains. Default newRound gap5.6. Honor original2s foot lock; after tick240 full forward joystick until actual3D pelvis gap<=2.8m (at most6s approach). Both rows must have exactly the same approach/input/native/control boundary. Start the same preserved touch tape there; continue full forward until its local tick347 (recut end), then zero, via main move*emotionScale and raw stick contract. No initial state/health/force changes; no distance/seed search; gravity9.81. Main.js alive/non-gun delta application, L1 active threshold, held schedule, recordSwordsmanshipInput, then tap command. No hitstop/rAF or human phone equivalence. FirstCut local end161 requires eligibility/intervention; no-contact row stops after the full444-step touch tape.",
+        "opponent": "Original reactive AI; no park, state/health/force/solver injection.",
+        "scope": "Command-direction plane candidate selected from creation for player only; both use current ordinary legacy cut response. Original reactive AI inputs can diverge before contact, so this is a narrow contact-collapse screen, not an equal-impact strength or win-rate comparison. Qualified contact requires a living armed player and a living victim, plus actual player cut-response J>0 while active non-thrust command eligibility and physical moving weight>0; stop120steps later, maximum13s total, with2s start lock plus at most6s approach; no threshold or seed search. Mere touching, held/tap contacts and unexposed candidates do not close the active-cut gate. Measurement validity is separate from contact qualification and gameplay acceptance."
+      },
+      "wallSeconds": 12.476701520999999,
+      "comparisons": [
+        {
+          "weapons": [
+            "longsword",
+            "zweihander"
+          ],
+          "sameCreation": true,
+          "exactPrefixNativeControlInput": false,
+          "sameBoundary": false,
+          "samePairNative": false,
+          "firstTickSame": true,
+          "firstPlayerCutTicks": [
+            576,
+            576
+          ],
+          "firstInputDivergence": 640,
+          "firstNativeDivergence": 555,
+          "steps": [
+            697,
+            697
+          ],
+          "events": [
+            3,
+            2
+          ],
+          "touchStartTicks": [
+            420,
+            420
+          ],
+          "touchStartBoundaryExact": true,
+          "contactQualified": [
+            true,
+            true
+          ],
+          "firstEligiblePlayerCutTicks": [
+            576,
+            576
+          ],
+          "qualifiedCuts": [
+            3,
+            2
+          ],
+          "firstPlayerInputDivergence": -1,
+          "candidateCommandedFrames": 56,
+          "firstCommandedTick": 555,
+          "exactBeforeCandidate": true
+        }
+      ],
+      "sourceProof": {
+        "path": "/workspace/halfsword-handoff/phase2-round4-20261006/p4/approach02-preparation.json",
+        "bytes": 19539,
+        "sha256": "bd4eed7fa226e9b4f70f5cb127ca4631e4694bbc2ddfc04b42e9afa4c4d4401c"
+      },
+      "rows": [
+        {
+          "mode": "legacy",
+          "steps": 697,
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "failedBudgetedInactive": true,
+            "onlyPlayerSelected": true
+          },
+          "exposure": {
+            "active": 114,
+            "swinging": 66,
+            "tap": 19,
+            "thrust": 19,
+            "eligible": 60,
+            "owners": {
+              "player": 678,
+              "thrust": 19
+            }
+          },
+          "touchStartTick": 420,
+          "touchStartBoundary": {
+            "tick": 420,
+            "gapM": 2.7869260719218794,
+            "nativeSHA256": "e71634b15f63595a1fa30d4775c7c94d7c9797d1670e645c7476df17980b9cbf",
+            "controlSHA256": "986e57821bc56afe34b00e167164b9faab6c1296b554b696409957c3baca8e39"
+          },
+          "candidateCommandedFrames": 0,
+          "firstCommandedTick": null,
+          "firstPlayerCutTick": 576,
+          "firstEligiblePlayerCutTick": 576,
+          "contactQualified": true,
+          "contactEvents": [
+            {
+              "tick": 576,
+              "phase": "firstCut",
+              "JNs": 1.394488564837465,
+              "part": "head",
+              "eligibleActiveCut": true,
+              "victimState": {
+                "alive": true,
+                "state": "stand"
+              },
+              "candidateFramesBefore": 0,
+              "pairDeltaKJ": -9.450319848270205
+            },
+            {
+              "tick": 577,
+              "phase": "firstCut",
+              "JNs": 0.9665557578326931,
+              "part": "head",
+              "eligibleActiveCut": true,
+              "victimState": {
+                "alive": true,
+                "state": "stand"
+              },
+              "candidateFramesBefore": 0,
+              "pairDeltaKJ": -4.598036917836371
+            },
+            {
+              "tick": 578,
+              "phase": "firstCut",
+              "JNs": 0.7604879590354308,
+              "part": "head",
+              "eligibleActiveCut": true,
+              "victimState": {
+                "alive": true,
+                "state": "stand"
+              },
+              "candidateFramesBefore": 0,
+              "pairDeltaKJ": -2.873811352955517
+            }
+          ],
+          "wounds": [
+            {
+              "timeS": 3.691666666666656,
+              "attacker": 1,
+              "victim": 0,
+              "type": "blunt",
+              "zone": "arm",
+              "energyJ": 11.797409313166465,
+              "severity": 0
+            },
+            {
+              "timeS": 3.983333333333322,
+              "attacker": 1,
+              "victim": 0,
+              "type": "blunt",
+              "zone": "neck",
+              "energyJ": 9.720970921861685,
+              "severity": 0
+            },
+            {
+              "timeS": 4.6250000000000195,
+              "attacker": 1,
+              "victim": 0,
+              "type": "blunt",
+              "zone": "neck",
+              "energyJ": 6.328877448190064,
+              "severity": 0
+            },
+            {
+              "timeS": 4.6250000000000195,
+              "attacker": 1,
+              "victim": 0,
+              "type": "blunt",
+              "zone": "neck",
+              "energyJ": 6.218366299661983,
+              "severity": 0
+            },
+            {
+              "timeS": 4.800000000000028,
+              "attacker": 0,
+              "victim": 1,
+              "type": "cut",
+              "zone": "head",
+              "energyJ": 51.871155933324886,
+              "severity": 0.2130400328433122
+            },
+            {
+              "timeS": 4.850000000000031,
+              "attacker": 0,
+              "victim": 1,
+              "type": "blunt",
+              "zone": "neck",
+              "energyJ": 17.89574335325508,
+              "severity": 0
+            },
+            {
+              "timeS": 5.575000000000067,
+              "attacker": 1,
+              "victim": 0,
+              "type": "blunt",
+              "zone": "arm",
+              "energyJ": 6.8807853337173395,
+              "severity": 0
+            }
+          ],
+          "phaseMetrics": {
+            "approach": {
+              "ticks": [
+                240,
+                419
+              ],
+              "steps": 180,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 4.34748784304887,
+                "max": 5.710903369583733,
+                "min": 2.7869260719218794
+              },
+              "tipSpeedMps": {
+                "mean": 1.8223779000285554,
+                "max": 2.6871965341846273,
+                "min": 0.02722947962136943
+              },
+              "swordKJ": {
+                "mean": 3.0675535800848883,
+                "max": 5.705193239429048,
+                "min": 0.0007581708225951772
+              },
+              "axialPeakRadps": 0.22208770086570553,
+              "axialTravelRad": 0.060532893531208845,
+              "commandSignedProgressM": 0.1407290081504982,
+              "physicalEdgeErrorDeg": {
+                "mean": 51.09306372257067,
+                "max": 89.27494059555293,
+                "min": 0.6432652638894281
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 41.14710385076072,
+                "max": 89.9506812567022,
+                "min": 0.019775357198858288
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "firstCut": {
+              "ticks": [
+                552,
+                581
+              ],
+              "steps": 30,
+              "eligibleFrames": 28,
+              "bodyGapM": {
+                "mean": 1.328433224427079,
+                "max": 1.4616509965382671,
+                "min": 1.1623262832344787
+              },
+              "tipSpeedMps": {
+                "mean": 5.567191390285382,
+                "max": 10.602635304630368,
+                "min": 1.0072887771048245
+              },
+              "swordKJ": {
+                "mean": 12.857052375866376,
+                "max": 30.361434260319353,
+                "min": 1.7381825960251234
+              },
+              "axialPeakRadps": 7.307849831070367,
+              "axialTravelRad": 0.6197472914353871,
+              "commandSignedProgressM": 0.9865471608170984,
+              "physicalEdgeErrorDeg": {
+                "mean": 16.088105966878253,
+                "max": 76.19899003259722,
+                "min": 0.14912165278522702
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 22.362973118414065,
+                "max": 81.6126102419178,
+                "min": 4.707204027979274
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "followHold": {
+              "ticks": [
+                582,
+                617
+              ],
+              "steps": 36,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 0.9954416808220361,
+                "max": 1.152082231876505,
+                "min": 0.8257627986644773
+              },
+              "tipSpeedMps": {
+                "mean": 6.189199681334532,
+                "max": 11.501019741004614,
+                "min": 1.464354887293981
+              },
+              "swordKJ": {
+                "mean": 10.038213090340221,
+                "max": 20.80962343215004,
+                "min": 1.621218002067292
+              },
+              "axialPeakRadps": 27.22952236968897,
+              "axialTravelRad": 1.9015213812529215,
+              "commandSignedProgressM": 0.5679156854603472,
+              "physicalEdgeErrorDeg": {
+                "mean": 21.042971516587475,
+                "max": 88.62196138245557,
+                "min": 1.07316211754779
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 11.767706118360143,
+                "max": 45.19305275412069,
+                "min": 0.28789049705074055
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "raise": {
+              "ticks": [
+                480,
+                527
+              ],
+              "steps": 48,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 1.7571613300213655,
+                "max": 1.928312200062876,
+                "min": 1.6899980210823367
+              },
+              "tipSpeedMps": {
+                "mean": 2.0396062078401878,
+                "max": 3.3129032137470915,
+                "min": 1.0019202031302508
+              },
+              "swordKJ": {
+                "mean": 2.5996397855679567,
+                "max": 4.31283314098675,
+                "min": 1.2283403845750687
+              },
+              "axialPeakRadps": 16.798114847727728,
+              "axialTravelRad": 1.8266353530453412,
+              "commandSignedProgressM": 0.3907191593008519,
+              "physicalEdgeErrorDeg": {
+                "mean": 34.82388559449913,
+                "max": 68.08596129836428,
+                "min": 0.15630260410390395
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 39.465212680369135,
+                "max": 86.34256514025391,
+                "min": 1.9139541635825326
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "raisedHold": {
+              "ticks": [
+                528,
+                551
+              ],
+              "steps": 24,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 1.5627346598247287,
+                "max": 1.681808421650165,
+                "min": 1.4669444396465292
+              },
+              "tipSpeedMps": {
+                "mean": 3.378827016789389,
+                "max": 5.194891868918231,
+                "min": 1.7336121880596072
+              },
+              "swordKJ": {
+                "mean": 4.404261927928059,
+                "max": 7.511114957852541,
+                "min": 2.687086530435315
+              },
+              "axialPeakRadps": 11.627334721453554,
+              "axialTravelRad": 0.8022932989456709,
+              "commandSignedProgressM": 0.3813197232641482,
+              "physicalEdgeErrorDeg": {
+                "mean": 22.297602816724293,
+                "max": 77.84441995266332,
+                "min": 0.5257375097799812
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 28.87893308858908,
+                "max": 82.54996153174602,
+                "min": 12.240413049124083
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "ready": {
+              "ticks": [
+                420,
+                479
+              ],
+              "steps": 60,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 2.3442141106796024,
+                "max": 2.76763818458655,
+                "min": 1.938809000932418
+              },
+              "tipSpeedMps": {
+                "mean": 2.381292511615104,
+                "max": 2.641498525253378,
+                "min": 1.899400963453375
+              },
+              "swordKJ": {
+                "mean": 4.555375150575889,
+                "max": 5.54622603935307,
+                "min": 2.8730629308921634
+              },
+              "axialPeakRadps": 1.726904523412945,
+              "axialTravelRad": 0.07555379156209256,
+              "commandSignedProgressM": 0.03614153947623389,
+              "physicalEdgeErrorDeg": {
+                "mean": 29.75328502709578,
+                "max": 86.74858633637449,
+                "min": 0.5723673440636519
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 33.998311138073184,
+                "max": 87.90653041249143,
+                "min": 4.707097601169593
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "reverse": {
+              "ticks": [
+                618,
+                653
+              ],
+              "steps": 36,
+              "eligibleFrames": 32,
+              "bodyGapM": {
+                "mean": 0.7332592373260527,
+                "max": 0.8220107393899487,
+                "min": 0.6234909914457091
+              },
+              "tipSpeedMps": {
+                "mean": 5.831081329030018,
+                "max": 12.48848655274527,
+                "min": 0.12414409601502048
+              },
+              "swordKJ": {
+                "mean": 12.741297677423903,
+                "max": 26.096484317714783,
+                "min": 1.6954336227988178
+              },
+              "axialPeakRadps": 13.21310475220681,
+              "axialTravelRad": 0.7847381512891699,
+              "commandSignedProgressM": 1.402557014941016,
+              "physicalEdgeErrorDeg": {
+                "mean": 11.695525452681647,
+                "max": 88.43143384722303,
+                "min": 0.29344824244095735
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 8.69463348117569,
+                "max": 24.51577526710563,
+                "min": 0.37094820259777783
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "reverseHold": {
+              "ticks": [
+                654,
+                677
+              ],
+              "steps": 24,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 0.6409958485673023,
+                "max": 0.672548652406662,
+                "min": 0.6161148460276566
+              },
+              "tipSpeedMps": {
+                "mean": 5.628978619834239,
+                "max": 9.811647127143512,
+                "min": 1.933054255215459
+              },
+              "swordKJ": {
+                "mean": 7.646134078917729,
+                "max": 17.36330119329022,
+                "min": 1.9962305036926395
+              },
+              "axialPeakRadps": 7.668833842601698,
+              "axialTravelRad": 0.5384208927164423,
+              "commandSignedProgressM": 0.8239853276725911,
+              "physicalEdgeErrorDeg": {
+                "mean": 8.265674997403547,
+                "max": 32.60714554069546,
+                "min": 0.48648564135277195
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 21.824453936761063,
+                "max": 84.85075215466792,
+                "min": 0.6330024011277269
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "startLock": {
+              "ticks": [
+                0,
+                239
+              ],
+              "steps": 240,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 5.657229344007757,
+                "max": 5.710859199849656,
+                "min": 5.600518941911235
+              },
+              "tipSpeedMps": {
+                "mean": 0.2982438318607498,
+                "max": 2.3484084664920135,
+                "min": 0.022767518776850158
+              },
+              "swordKJ": {
+                "mean": 0.1724201396576653,
+                "max": 2.3200808653755596,
+                "min": 0.0004164721671046558
+              },
+              "axialPeakRadps": 10.902360190206254,
+              "axialTravelRad": 1.386976130976028,
+              "commandSignedProgressM": 0.3521630640133633,
+              "physicalEdgeErrorDeg": {
+                "mean": 50.07435808055805,
+                "max": 89.41189020646192,
+                "min": 0.0281656718071692
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 75.35680941620164,
+                "max": 89.99239068566075,
+                "min": 1.2222597875265189
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "tap": {
+              "ticks": [
+                678,
+                696
+              ],
+              "steps": 19,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 0.7288503801772727,
+                "max": 0.7507086502692735,
+                "min": 0.6761230790743701
+              },
+              "tipSpeedMps": {
+                "mean": 5.429745029930396,
+                "max": 9.855495709441954,
+                "min": 1.8386865265762646
+              },
+              "swordKJ": {
+                "mean": 6.353434178635743,
+                "max": 21.861071082915736,
+                "min": 2.1297179906566246
+              },
+              "axialPeakRadps": 24.58181903472127,
+              "axialTravelRad": 1.1802503900799222,
+              "commandSignedProgressM": 0.5672002170125483,
+              "physicalEdgeErrorDeg": {
+                "mean": 27.910610508274388,
+                "max": 59.81464702840236,
+                "min": 2.5406518191534038
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 21.042855252312513,
+                "max": 72.3925469411328,
+                "min": 2.3822963999628888
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            }
+          },
+          "postAnyCutPlayer": {
+            "maxJointGapM": 0.002118849424105943,
+            "maxChestTiltDeg": 11.765676954215783,
+            "allAliveArmedValidGrip": true
+          }
+        },
+        {
+          "mode": "commandDirection",
+          "steps": 697,
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "failedBudgetedInactive": true,
+            "onlyPlayerSelected": true
+          },
+          "exposure": {
+            "active": 114,
+            "swinging": 66,
+            "tap": 19,
+            "thrust": 19,
+            "eligible": 60,
+            "owners": {
+              "player": 678,
+              "thrust": 19
+            }
+          },
+          "touchStartTick": 420,
+          "touchStartBoundary": {
+            "tick": 420,
+            "gapM": 2.7869260719218794,
+            "nativeSHA256": "e71634b15f63595a1fa30d4775c7c94d7c9797d1670e645c7476df17980b9cbf",
+            "controlSHA256": "986e57821bc56afe34b00e167164b9faab6c1296b554b696409957c3baca8e39"
+          },
+          "candidateCommandedFrames": 56,
+          "firstCommandedTick": 555,
+          "firstPlayerCutTick": 576,
+          "firstEligiblePlayerCutTick": 576,
+          "contactQualified": true,
+          "contactEvents": [
+            {
+              "tick": 576,
+              "phase": "firstCut",
+              "JNs": 1.4985710005930466,
+              "part": "head",
+              "eligibleActiveCut": true,
+              "victimState": {
+                "alive": true,
+                "state": "stand"
+              },
+              "candidateFramesBefore": 19,
+              "pairDeltaKJ": -9.931215607777492
+            },
+            {
+              "tick": 577,
+              "phase": "firstCut",
+              "JNs": 1.0294667509473172,
+              "part": "head",
+              "eligibleActiveCut": true,
+              "victimState": {
+                "alive": true,
+                "state": "stand"
+              },
+              "candidateFramesBefore": 20,
+              "pairDeltaKJ": -4.6989046898088525
+            }
+          ],
+          "wounds": [
+            {
+              "timeS": 3.691666666666656,
+              "attacker": 1,
+              "victim": 0,
+              "type": "blunt",
+              "zone": "arm",
+              "energyJ": 11.797409313166465,
+              "severity": 0
+            },
+            {
+              "timeS": 3.983333333333322,
+              "attacker": 1,
+              "victim": 0,
+              "type": "blunt",
+              "zone": "neck",
+              "energyJ": 9.720970921861685,
+              "severity": 0
+            },
+            {
+              "timeS": 4.6250000000000195,
+              "attacker": 1,
+              "victim": 0,
+              "type": "blunt",
+              "zone": "neck",
+              "energyJ": 6.328877448190064,
+              "severity": 0
+            },
+            {
+              "timeS": 4.6250000000000195,
+              "attacker": 1,
+              "victim": 0,
+              "type": "blunt",
+              "zone": "neck",
+              "energyJ": 6.218366299661983,
+              "severity": 0
+            },
+            {
+              "timeS": 4.800000000000028,
+              "attacker": 0,
+              "victim": 1,
+              "type": "cut",
+              "zone": "head",
+              "energyJ": 54.728325702740136,
+              "severity": 0.27376003315675757
+            },
+            {
+              "timeS": 4.841666666666697,
+              "attacker": 0,
+              "victim": 1,
+              "type": "blunt",
+              "zone": "neck",
+              "energyJ": 21.78901417657151,
+              "severity": 0
+            },
+            {
+              "timeS": 5.025000000000039,
+              "attacker": 1,
+              "victim": 0,
+              "type": "cut",
+              "zone": "neck",
+              "energyJ": 31.255610350434846,
+              "severity": 0.09901041072517458
+            },
+            {
+              "timeS": 5.466666666666728,
+              "attacker": 1,
+              "victim": 0,
+              "type": "blunt",
+              "zone": "arm",
+              "energyJ": 6.2365971039610555,
+              "severity": 0
+            }
+          ],
+          "phaseMetrics": {
+            "approach": {
+              "ticks": [
+                240,
+                419
+              ],
+              "steps": 180,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 4.34748784304887,
+                "max": 5.710903369583733,
+                "min": 2.7869260719218794
+              },
+              "tipSpeedMps": {
+                "mean": 1.8223779000285554,
+                "max": 2.6871965341846273,
+                "min": 0.02722947962136943
+              },
+              "swordKJ": {
+                "mean": 3.0675535800848883,
+                "max": 5.705193239429048,
+                "min": 0.0007581708225951772
+              },
+              "axialPeakRadps": 0.22208770086570553,
+              "axialTravelRad": 0.060532893531208845,
+              "commandSignedProgressM": 0.1407290081504982,
+              "physicalEdgeErrorDeg": {
+                "mean": 51.09306372257067,
+                "max": 89.27494059555293,
+                "min": 0.6432652638894281
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 41.14710385076072,
+                "max": 89.9506812567022,
+                "min": 0.019775357198858288
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "firstCut": {
+              "ticks": [
+                552,
+                581
+              ],
+              "steps": 30,
+              "eligibleFrames": 28,
+              "bodyGapM": {
+                "mean": 1.32844176927469,
+                "max": 1.4616509965382671,
+                "min": 1.162365995937511
+              },
+              "tipSpeedMps": {
+                "mean": 5.737815623788811,
+                "max": 10.665008311465558,
+                "min": 1.0072887771048245
+              },
+              "swordKJ": {
+                "mean": 13.304597124974878,
+                "max": 30.780106108729807,
+                "min": 1.7381825960251234
+              },
+              "axialPeakRadps": 8.939639000218905,
+              "axialTravelRad": 0.8583732013794854,
+              "commandSignedProgressM": 1.025325621535832,
+              "physicalEdgeErrorDeg": {
+                "mean": 12.736883100718224,
+                "max": 76.86663593174194,
+                "min": 0.5511363124548929
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 12.29149278521677,
+                "max": 81.6126102419178,
+                "min": 0.3788788498536061
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "followHold": {
+              "ticks": [
+                582,
+                617
+              ],
+              "steps": 36,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 0.9896956389541365,
+                "max": 1.1517961670246915,
+                "min": 0.8021975925973858
+              },
+              "tipSpeedMps": {
+                "mean": 5.960687253934331,
+                "max": 9.999669015153453,
+                "min": 1.2345937495838295
+              },
+              "swordKJ": {
+                "mean": 11.063293752915241,
+                "max": 22.973540360857445,
+                "min": 2.1403245629573373
+              },
+              "axialPeakRadps": 9.867224307139981,
+              "axialTravelRad": 0.8477294918808754,
+              "commandSignedProgressM": 0.772610029125889,
+              "physicalEdgeErrorDeg": {
+                "mean": 9.731003295198693,
+                "max": 86.91001609440914,
+                "min": 0.0
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 11.047102490162972,
+                "max": 49.89073156074239,
+                "min": 0.10010414964837613
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "raise": {
+              "ticks": [
+                480,
+                527
+              ],
+              "steps": 48,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 1.7571613300213655,
+                "max": 1.928312200062876,
+                "min": 1.6899980210823367
+              },
+              "tipSpeedMps": {
+                "mean": 2.0396062078401878,
+                "max": 3.3129032137470915,
+                "min": 1.0019202031302508
+              },
+              "swordKJ": {
+                "mean": 2.5996397855679567,
+                "max": 4.31283314098675,
+                "min": 1.2283403845750687
+              },
+              "axialPeakRadps": 16.798114847727728,
+              "axialTravelRad": 1.8266353530453412,
+              "commandSignedProgressM": 0.3907191593008519,
+              "physicalEdgeErrorDeg": {
+                "mean": 34.82388559449913,
+                "max": 68.08596129836428,
+                "min": 0.15630260410390395
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 39.465212680369135,
+                "max": 86.34256514025391,
+                "min": 1.9139541635825326
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "raisedHold": {
+              "ticks": [
+                528,
+                551
+              ],
+              "steps": 24,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 1.5627346598247287,
+                "max": 1.681808421650165,
+                "min": 1.4669444396465292
+              },
+              "tipSpeedMps": {
+                "mean": 3.378827016789389,
+                "max": 5.194891868918231,
+                "min": 1.7336121880596072
+              },
+              "swordKJ": {
+                "mean": 4.404261927928059,
+                "max": 7.511114957852541,
+                "min": 2.687086530435315
+              },
+              "axialPeakRadps": 11.627334721453554,
+              "axialTravelRad": 0.8022932989456709,
+              "commandSignedProgressM": 0.3813197232641482,
+              "physicalEdgeErrorDeg": {
+                "mean": 22.297602816724293,
+                "max": 77.84441995266332,
+                "min": 0.5257375097799812
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 28.87893308858908,
+                "max": 82.54996153174602,
+                "min": 12.240413049124083
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "ready": {
+              "ticks": [
+                420,
+                479
+              ],
+              "steps": 60,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 2.3442141106796024,
+                "max": 2.76763818458655,
+                "min": 1.938809000932418
+              },
+              "tipSpeedMps": {
+                "mean": 2.381292511615104,
+                "max": 2.641498525253378,
+                "min": 1.899400963453375
+              },
+              "swordKJ": {
+                "mean": 4.555375150575889,
+                "max": 5.54622603935307,
+                "min": 2.8730629308921634
+              },
+              "axialPeakRadps": 1.726904523412945,
+              "axialTravelRad": 0.07555379156209256,
+              "commandSignedProgressM": 0.03614153947623389,
+              "physicalEdgeErrorDeg": {
+                "mean": 29.75328502709578,
+                "max": 86.74858633637449,
+                "min": 0.5723673440636519
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 33.998311138073184,
+                "max": 87.90653041249143,
+                "min": 4.707097601169593
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "reverse": {
+              "ticks": [
+                618,
+                653
+              ],
+              "steps": 36,
+              "eligibleFrames": 32,
+              "bodyGapM": {
+                "mean": 0.736162385129644,
+                "max": 0.7972191298874076,
+                "min": 0.6657064437430823
+              },
+              "tipSpeedMps": {
+                "mean": 5.831405146412768,
+                "max": 12.22063736155655,
+                "min": 0.5948852605642376
+              },
+              "swordKJ": {
+                "mean": 11.986448585022211,
+                "max": 25.019421367066805,
+                "min": 2.9015440186485497
+              },
+              "axialPeakRadps": 14.35528081781422,
+              "axialTravelRad": 1.35434625730681,
+              "commandSignedProgressM": 1.3312600801369538,
+              "physicalEdgeErrorDeg": {
+                "mean": 15.033357647505328,
+                "max": 36.79972271543065,
+                "min": 1.9104534266471587
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 9.504643879396745,
+                "max": 45.58802566087692,
+                "min": 0.0
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "reverseHold": {
+              "ticks": [
+                654,
+                677
+              ],
+              "steps": 24,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 0.7337516953381648,
+                "max": 0.7908591484378037,
+                "min": 0.664862651961694
+              },
+              "tipSpeedMps": {
+                "mean": 5.596772946442024,
+                "max": 10.240886069904334,
+                "min": 1.357846049830935
+              },
+              "swordKJ": {
+                "mean": 7.494090305491579,
+                "max": 16.0323459494793,
+                "min": 1.278802386978241
+              },
+              "axialPeakRadps": 6.9978756307448435,
+              "axialTravelRad": 0.5080057731254498,
+              "commandSignedProgressM": 0.8201395237306704,
+              "physicalEdgeErrorDeg": {
+                "mean": 6.712246829518932,
+                "max": 35.140993975815455,
+                "min": 0.9509093241141319
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 15.887612147451287,
+                "max": 80.91051606880019,
+                "min": 0.15486836898676987
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "startLock": {
+              "ticks": [
+                0,
+                239
+              ],
+              "steps": 240,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 5.657229344007757,
+                "max": 5.710859199849656,
+                "min": 5.600518941911235
+              },
+              "tipSpeedMps": {
+                "mean": 0.2982438318607498,
+                "max": 2.3484084664920135,
+                "min": 0.022767518776850158
+              },
+              "swordKJ": {
+                "mean": 0.1724201396576653,
+                "max": 2.3200808653755596,
+                "min": 0.0004164721671046558
+              },
+              "axialPeakRadps": 10.902360190206254,
+              "axialTravelRad": 1.386976130976028,
+              "commandSignedProgressM": 0.3521630640133633,
+              "physicalEdgeErrorDeg": {
+                "mean": 50.07435808055805,
+                "max": 89.41189020646192,
+                "min": 0.0281656718071692
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 75.35680941620164,
+                "max": 89.99239068566075,
+                "min": 1.2222597875265189
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            },
+            "tap": {
+              "ticks": [
+                678,
+                696
+              ],
+              "steps": 19,
+              "eligibleFrames": 0,
+              "bodyGapM": {
+                "mean": 0.8062012187886989,
+                "max": 0.816456730450125,
+                "min": 0.7816914595127487
+              },
+              "tipSpeedMps": {
+                "mean": 5.3196626306728465,
+                "max": 9.928007720538254,
+                "min": 1.410408556354275
+              },
+              "swordKJ": {
+                "mean": 5.550468699129223,
+                "max": 22.528391720777584,
+                "min": 1.5407515773865594
+              },
+              "axialPeakRadps": 15.273560152262345,
+              "axialTravelRad": 0.9391054392110105,
+              "commandSignedProgressM": 0.5278590203604798,
+              "physicalEdgeErrorDeg": {
+                "mean": 20.901939340921995,
+                "max": 32.248689282320576,
+                "min": 0.28346176371050386
+              },
+              "ownCommandEdgeErrorDeg": {
+                "mean": 17.281166650183557,
+                "max": 41.679071118703234,
+                "min": 0.24777090172911362
+              },
+              "allAliveArmed": true,
+              "playerStates": [
+                "stand"
+              ],
+              "minArmHealth": 1
+            }
+          },
+          "postAnyCutPlayer": {
+            "maxJointGapM": 0.00238365266244489,
+            "maxChestTiltDeg": 15.866457338655307,
+            "allAliveArmedValidGrip": true
+          }
+        }
+      ]
+    }
+  ],
+  "accounting": {
+    "newExecutions": 4,
+    "newSteps": 2834,
+    "nativeWallSeconds": 19.066869992,
+    "physicsFromPreparationOnly": 0,
+    "firstArtifactPreparationToFinalPhysicsCompletionSecondsIncludingSlotWait": 678.676,
+    "firstArtifactPreparedUTC": "2026-10-05T15:17:21.774Z",
+    "finalPhysicsCompletedUTC": "2026-10-05T15:28:40.450Z"
+  },
+  "derivation": {
+    "path": "/workspace/halfsword-codex/tools/sim/experiments/p4_round4_report.py",
+    "bytes": 5295,
+    "sha256": "7fd79533ba5733a508385b67938e3ec9be7a3c4d3c39ddf0171008ea7c37fb64"
+  },
+  "limits": [
+    "Corrected fixture preserves the same candidate and touch tape; only normal movement/start timing changes.",
+    "Reactive opponent can diverge after the player candidate changes physics; later damage, contact point and pair energy are not matched-impact efficacy comparisons.",
+    "Own command direction includes actual chest motion and changes after divergence. Lower peak or fewer axial turns alone do not certify intended technique.",
+    "Post-step alignment uses same-step command velocity projected on the post-step blade. It is not pre-drive target slew.",
+    "No from-phone timing, naturalness, general weapon acceptance or gravity comparison."
+  ],
+  "decision": {
+    "measurementAccepted": true,
+    "longswordFirstCutContactGateAccepted": true,
+    "oneSecondCollapseScreenAccepted": true,
+    "combatEfficacyAccepted": false,
+    "humanNaturalnessAccepted": false,
+    "laterRecutReleaseContactObserved": false,
+    "wholeP4Complete": false,
+    "wholeP4Rejected": false,
+    "runtimeIntegrated": false,
+    "publicChanged": false,
+    "furtherPhysicsThisRound": 0
+  },
+  "interpretationAddedAfterNumericDerivation": true,
+  "reproduceNumericDerivation": "python tools/sim/experiments/p4_round4_report.py --initial=/workspace/halfsword-handoff/phase2-round4-20261006/p4/contact02/report.json --corrected=/workspace/halfsword-handoff/phase2-round4-20261006/p4/approach02/report.json --out=/tmp/p4-round4-derived.json",
+  "provenance": {
+    "previousResearch": {
+      "path": "docs/strike/p4_command_plane_20261005.json",
+      "bytes": 50880,
+      "sha256": "c57dea5ac9b43024acf4ab9ade362ac7f789fa6427cc2fe926743515785aed63"
+    },
+    "initialRound4Proof": {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/p4/contact02-round4-proof.json",
+      "bytes": 2039,
+      "sha256": "0f6346d824104d4a150b82e966fe06843a2b9e440305b91f6e5a4f45aca7eea6"
+    },
+    "correctedApproachProof": {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/p4/approach02-approach-proof.json",
+      "bytes": 1603,
+      "sha256": "0aa89387dcd2958b3c39e87e53fc89f57e783b1e8e1853aad681c5929199d4b0"
+    },
+    "correctedRound4Proof": {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/p4/approach02-round4-proof.json",
+      "bytes": 2116,
+      "sha256": "b1123ac0941db350031fb571f9e659c29bf1776f22090de9332327d860287243"
+    },
+    "candidate": {
+      "path": "tools/sim/experiments/p4_command_candidate.mjs",
+      "bytes": 947,
+      "sha256": "79897989f97479ef2922ba858c48ea8d457faace70b1aec1317f767b62a8686b"
+    },
+    "retainedFailureRaw": {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/p4/contact02/report.json",
+      "bytes": 2374460,
+      "sha256": "51226c831a89e103ea283d2f0bc9f9db900051a3c6e2f8f449da2ad81baee60c"
+    }
+  },
+  "fixtureCorrection": {
+    "initialActualExecutions": 2,
+    "initialSteps": 1440,
+    "failure": "StartHold=2s was omitted from the input schedule; firstCut/reverse occurred5.65–5.71m away and recut ended4.25m away. No player cut response was exposed.",
+    "initialMeasurementValidButContactGateUnmet": true,
+    "correctedActualExecutions": 2,
+    "correctedSteps": 1394,
+    "correction": "Respect240step lock, then actual normal forward movement until3D pelvis gap<=2.8m; fixed threshold chosen once, no distance/seed search. Both rows reached the same boundary at420.",
+    "preparationOnlyArtifacts": [
+      "contact01",
+      "approach01"
+    ],
+    "preparationOnlyPhysics": 0
+  },
+  "causalScope": {
+    "candidateSelected": "from creation",
+    "approachBoundaryTick": 420,
+    "approachBoundaryExact": true,
+    "firstCandidateChangeTick": 555,
+    "firstContactTick": 576,
+    "nativeControlInputExactTicksInclusive": [
+      0,
+      554
+    ],
+    "samePlayerInputTicksInclusive": [
+      0,
+      696
+    ],
+    "firstOpponentInputDivergenceTick": 640,
+    "sameImpactNative": false,
+    "activeCandidateContactVictim": "Living standing head target, actual positive cut-response impulse.",
+    "postContactTicksInclusive": [
+      576,
+      696
+    ],
+    "scriptReached": "firstCut,followHold,reverse,reverseHold,first19tap steps; recut/release not reached after the approved one-second stop."
+  },
+  "tradeoffs": {
+    "candidateOnlyNeckCut": {
+      "tick": 603,
+      "energyJ": 31.255610350434846,
+      "severity": 0.09901041072517458,
+      "beforeOpponentInputDivergence": true
+    },
+    "reverseOwnCommandProgressM": [
+      1.402557014941016,
+      1.3312600801369538
+    ],
+    "reverseAxialTravelRad": [
+      0.7847381512891699,
+      1.35434625730681
+    ],
+    "notClaimed": "A higher first-hit energy and lower post-hit axial peak are not proof of general power, safety or naturalness."
+  },
+  "next": "Keep the existing candidate unpublished. If revisited, inspect intended reversal/recut and return after contact on this recorded normal-approach protocol; do not replay the start-lock failure, retune gains, reopen rejected plane models, sweep seeds or vary the2.8m trigger."
+}

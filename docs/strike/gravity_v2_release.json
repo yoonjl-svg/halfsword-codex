@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "repository": "yoonjl-svg/halfsword-codex",
   "baseCommit": "7f902cd6724f5391cd436d333fea0174f37d3df8",
-  "status": "validated-locally-awaiting-public-delivery",
-  "publicDeliveryVerified": false,
+  "status": "delivered",
+  "publicDeliveryVerified": true,
   "generalPromotionDecision": false,
   "createdUTC": "2026-10-05T15:25:34.283298+00:00",
   "scope": {
@@ -65,6 +65,21 @@
       "path": "/workspace/halfsword-handoff/phase2-round4-20261006/regression01/result.json",
       "bytes": 263610,
       "sha256": "250a2659755b50d0daae38f996a465682a2b738fc690b282993f3cf67bb216bf"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/browser/public01/summary.json",
+      "bytes": 63819228,
+      "sha256": "be982c9ed1475da3ebf077b86192976a2fc52547d76ebe66476328b18b4589f8"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/public-bytes01.json",
+      "bytes": 4617,
+      "sha256": "5b161440ff2b6bb10a098e3fd1ee8d19ce3b1c328b16eb2d91ba2b93ba360f5f"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/deploy-code-run-current.json",
+      "bytes": 302,
+      "sha256": "6308e8e87e22900c7f4541d44a530adb9383918ccba817fbc1cb43a37185e598"
     }
   ],
   "failures": [
@@ -77,10 +92,7 @@
   "reproduction": [
     "node tools/sim/experiments/gravity_v2_smoke.mjs --out=/absolute/fresh/external/path"
   ],
-  "remaining": [
-    "commit/push/Pages",
-    "public byte and mobile verification"
-  ],
+  "remaining": [],
   "localBrowser": {
     "pass": true,
     "sourceStable": true,
@@ -100,5 +112,22 @@
     "tests": 6,
     "wallSeconds": 177.93157130898908,
     "buildMatchesLocal": true
+  },
+  "verifiedUTC": "2026-10-05T15:40:18.383379+00:00",
+  "gameCommit": "a479ec2929ed5599322b6dda783c038592ab1200",
+  "pages": {
+    "runId": 37333816337,
+    "status": "success",
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37333816337"
+  },
+  "publicBrowser": {
+    "pass": true,
+    "sourceStable": true,
+    "rows": 3,
+    "scope": "Actual Pages mobile trusted entry/input/restart/reload/ordinary-return; first-step gravity and unchanged configuration."
+  },
+  "publicBytes": {
+    "pass": true,
+    "files": 8
   }
 }

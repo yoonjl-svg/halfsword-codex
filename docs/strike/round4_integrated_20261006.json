@@ -1,0 +1,2748 @@
+{
+  "schemaVersion": 1,
+  "head": "7f902cd6724f5391cd436d333fea0174f37d3df8",
+  "gravityMps2": 9.81,
+  "newPhysicsExecutions": 5,
+  "newSteps": 12411,
+  "wallSeconds": 82.978987861,
+  "artifacts": [
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/integrated/run01/report.json",
+      "bytes": 34695,
+      "sha256": "5a243d27569f6a59d098810acc231c9353c0e730cf89e5b1309e4950e202e9e4"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/integrated/run01/combat-legacy.json",
+      "bytes": 34436410,
+      "sha256": "268d5e75fc61260db9cdeba595a00670e9b733b547033764b0891a09f74bedba"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/integrated/run01/combat-centerline.json",
+      "bytes": 27301687,
+      "sha256": "d7e2be5d5ea7881ff80ffb323c942b5336908a89242f26b89f7b9e3ff54dfacc"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/integrated/run01/touch-legacy.json",
+      "bytes": 14331344,
+      "sha256": "4c6f38c5d32c2c1eb18f4423c649b5d5d002d1e2482cd5d64ca67c8034e25d05"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/integrated/run01/touch-centerline.json",
+      "bytes": 14030393,
+      "sha256": "e72db8a2f516e2776a3e4713bffcadc741643798039bc423b105e02a85d962b8"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/integrated/late-run01/report.json",
+      "bytes": 33230,
+      "sha256": "8666f24afeec2cc01b57835192c4f9117c2aa12a698321cbcdded58aeabd3b9a"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/integrated/late-run01/late-centerline-after-fresh.json",
+      "bytes": 14489442,
+      "sha256": "b3c414bcb9d165995aa33153c8f0b02be32ef5ba87f102cdafdd1719e7448ea1"
+    }
+  ],
+  "referenceChecks": {
+    "combat-legacy": {
+      "reference": {
+        "path": "/workspace/halfsword-handoff/phase2-round1-20261005/recovery/fresh-run01/report.json",
+        "bytes": 9966272,
+        "sha256": "c3a81bb0d4710d163053b3464048aec263451d18ae0ccdf117411df9e91e14a8"
+      },
+      "row": null,
+      "exactFrames": 1718,
+      "nativeControlInputExact": true
+    },
+    "touch-legacy": {
+      "reference": {
+        "path": "/workspace/halfsword-handoff/phase2-round1-20261005/recovery/runtime-bridge01/report.json",
+        "bytes": 15008749,
+        "sha256": "80b2b3aec89c1fec12159235830f1c3deddfa04f6a43ecea256cadfa03572c7c"
+      },
+      "row": null,
+      "exactFrames": 1747,
+      "nativeControlInputExact": true
+    },
+    "combat-centerline": {
+      "reference": {
+        "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p5/extended-run01/report.json",
+        "bytes": 73965658,
+        "sha256": "9701633911bb121e6d44c19189f9b7acdf858ea842ffcd550a6d2347a6be2073"
+      },
+      "row": 3,
+      "exactFrames": 3600,
+      "nativeControlInputExact": true
+    },
+    "touch-centerline": {
+      "reference": {
+        "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p5/extended-run01/report.json",
+        "bytes": 73965658,
+        "sha256": "9701633911bb121e6d44c19189f9b7acdf858ea842ffcd550a6d2347a6be2073"
+      },
+      "row": 3,
+      "exactFrames": 1477,
+      "nativeControlInputExact": true
+    }
+  },
+  "comparisons": {
+    "combat": {
+      "firstNativeDifferenceTick": 729,
+      "firstControlDifferenceTick": 731,
+      "firstInputDifferenceTick": 740,
+      "scriptedPlayerRequestsExact": true,
+      "scriptedRequestCountPerRow": 0
+    },
+    "touch": {
+      "firstNativeDifferenceTick": 729,
+      "firstControlDifferenceTick": 731,
+      "firstInputDifferenceTick": 740,
+      "scriptedPlayerRequestsExact": true,
+      "scriptedRequestCountPerRow": 270
+    }
+  },
+  "rows": {
+    "combat-legacy": {
+      "steps": 3600,
+      "checks": {
+        "finite": true,
+        "gravityFixed": true,
+        "globalLegacy": true,
+        "onlyPlayer": true,
+        "inputAccepted": true,
+        "referencePrefixExact": true,
+        "productionFreshClear": true
+      },
+      "firstReferenceDifferenceTick": 1477,
+      "firstFreshEntryTick": 1477,
+      "effectiveFreshEntries": 1,
+      "entryRecords": [
+        {
+          "tick": 0,
+          "timeBeforeStepS": 0,
+          "fighter": 0,
+          "state": "stand",
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "armed": true,
+          "reentry": false,
+          "effective": false,
+          "before": {
+            "active": false,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "legs": {
+              "F": {
+                "stance": true,
+                "soleY": 0,
+                "toeY": 0
+              },
+              "B": {
+                "stance": true,
+                "soleY": 0,
+                "toeY": 0
+              }
+            }
+          },
+          "after": {
+            "active": true,
+            "started": true,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "legs": {
+              "F": {
+                "stance": true,
+                "soleY": 0.01000000178813934,
+                "toeY": 0.01000000178813934
+              },
+              "B": {
+                "stance": true,
+                "soleY": 0.01000000178813934,
+                "toeY": 0.01000000178813934
+              }
+            }
+          }
+        },
+        {
+          "tick": 0,
+          "timeBeforeStepS": 0,
+          "fighter": 1,
+          "state": "stand",
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "armed": true,
+          "reentry": false,
+          "effective": false,
+          "before": {
+            "active": false,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "legs": {
+              "F": {
+                "stance": true,
+                "soleY": 0,
+                "toeY": 0
+              },
+              "B": {
+                "stance": true,
+                "soleY": 0,
+                "toeY": 0
+              }
+            }
+          },
+          "after": {
+            "active": true,
+            "started": true,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "legs": {
+              "F": {
+                "stance": true,
+                "soleY": 0.01000000178813934,
+                "toeY": 0.01000000178813934
+              },
+              "B": {
+                "stance": true,
+                "soleY": 0.01000000178813934,
+                "toeY": 0.01000000178813934
+              }
+            }
+          }
+        },
+        {
+          "tick": 1477,
+          "timeBeforeStepS": 12.308333333333275,
+          "fighter": 0,
+          "state": "stand",
+          "limbs": {
+            "armS": 1,
+            "armO": 0.6671093364147017,
+            "legF": 1,
+            "legB": 1
+          },
+          "armed": true,
+          "reentry": true,
+          "effective": true,
+          "before": {
+            "active": false,
+            "started": true,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "Nsum": 749.717631034355,
+            "legs": {
+              "F": {
+                "stance": false,
+                "N": 0,
+                "Nf": 0,
+                "pinF": 128.53998065658323,
+                "pinLim": 188.79894528227808,
+                "soleY": 0.06576641651439569,
+                "toeY": 0.08650301223993076
+              },
+              "B": {
+                "stance": true,
+                "N": 634.5595192909241,
+                "Nf": 634.5595192909241,
+                "pinF": 77.28333920346074,
+                "pinLim": 571.1035673618317,
+                "soleY": -0.0077123307691356335,
+                "toeY": -0.0036777323546765966
+              }
+            }
+          },
+          "after": {
+            "active": true,
+            "started": true,
+            "lev": 1,
+            "levH": 1,
+            "levC": 0,
+            "handU": 0,
+            "Nsum": 749.717631034355,
+            "legs": {
+              "F": {
+                "stance": true,
+                "N": 0,
+                "Nf": 0,
+                "pinF": 128.53998065658323,
+                "pinLim": 188.79894528227808,
+                "soleY": 0.037581738202667254,
+                "toeY": 0.09037570367112169
+              },
+              "B": {
+                "stance": true,
+                "N": 634.5595192909241,
+                "Nf": 0,
+                "pinF": 77.28333920346074,
+                "pinLim": 571.1035673618317,
+                "soleY": 0.017274062011633735,
+                "toeY": -0.005501974954368424
+              }
+            }
+          }
+        },
+        {
+          "tick": 3280,
+          "timeBeforeStepS": 27.333333333332423,
+          "fighter": 1,
+          "state": "stand",
+          "limbs": {
+            "armS": 0.02240417129682426,
+            "armO": 1,
+            "legF": 0.6296551593511671,
+            "legB": 0.47890436246289153
+          },
+          "armed": false,
+          "reentry": true,
+          "effective": false,
+          "before": {
+            "active": false,
+            "started": true,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "Nsum": 427.17465437625856,
+            "legs": {
+              "F": {
+                "stance": false,
+                "N": 0,
+                "Nf": 0,
+                "pinF": 152.40626362199518,
+                "pinLim": 118.05402301444461,
+                "soleY": 0.08790441905553353,
+                "toeY": 0.11043955633598256
+              },
+              "B": {
+                "stance": true,
+                "N": 318.97279196540524,
+                "Nf": 318.97279196540524,
+                "pinF": 65.82533991705826,
+                "pinLim": 287.0755127688647,
+                "soleY": -0.005045875553103242,
+                "toeY": -0.0032321747028560693
+              }
+            }
+          },
+          "after": {
+            "active": true,
+            "started": true,
+            "lev": 1,
+            "levH": 1,
+            "levC": 0,
+            "handU": 0,
+            "Nsum": 427.17465437625856,
+            "legs": {
+              "F": {
+                "stance": true,
+                "N": 0,
+                "Nf": 0,
+                "pinF": 152.40626362199518,
+                "pinLim": 118.05402301444461,
+                "soleY": 0.01766232346246168,
+                "toeY": -0.018202616295935392
+              },
+              "B": {
+                "stance": true,
+                "N": 318.97279196540524,
+                "Nf": 318.97279196540524,
+                "pinF": 65.82533991705826,
+                "pinLim": 287.0755127688647,
+                "soleY": 0.05023705199562775,
+                "toeY": 0.0427341566269322
+              }
+            }
+          }
+        }
+      ],
+      "firstPlayerInjuryTick": 1272,
+      "firstPlayerGripOrWeaponLossTick": null,
+      "firstEnemyDeathTick": null,
+      "playerStates": {
+        "stand": 3208,
+        "getup": 392
+      },
+      "playerAssistOwners": {
+        "player": 1048,
+        "return": 2161,
+        "recovery": 391
+      },
+      "allPlayerAliveArmedValidGrip": true,
+      "maxPlayerJointGapM": 0.0027498253505661993,
+      "maxPlayerSwordAxialRadps": 39.99999758526149,
+      "cutPairs": 738,
+      "playerCutPairs": 669,
+      "candidatePairs": 0,
+      "candidateAppliedToOpponentCount": 0,
+      "candidateLiveVictimPairs": 0,
+      "candidatePairsAfterEffectiveFreshEntry": 0,
+      "liveCandidatePairsAfterEffectiveFreshEntry": 0,
+      "candidateCapCount": 0,
+      "candidatePositiveInstantEnergyCount": 0,
+      "candidatePairLinearMomentumResidualPeakNs": null,
+      "candidatePairAngularMomentumResidualPeakNms": null,
+      "playerCutPairsAfterTick1477": 653,
+      "livePlayerCutPairsAfterTick1477": 653,
+      "scriptedRequestCount": 0,
+      "scriptedControllerPhases": {},
+      "finalPlayer": {
+        "state": "stand",
+        "alive": true,
+        "armed": true,
+        "blood": 0.9570796705439395,
+        "pain": 0,
+        "limbs": {
+          "armS": 1,
+          "armO": 0.6671093364147017,
+          "legF": 1,
+          "legB": 1
+        },
+        "assist": {
+          "version": "unified-20261005-r2",
+          "phase": "returning",
+          "owner": "return",
+          "eligible": true,
+          "availability": 1
+        }
+      },
+      "finalEnemy": {
+        "state": "stand",
+        "alive": true,
+        "armed": false,
+        "blood": 0.5277926147584051,
+        "pain": 0.28195463879982174,
+        "limbs": {
+          "armS": 0.02240417129682426,
+          "armO": 0.7034894652320636,
+          "legF": 0.6296551593511671,
+          "legB": 0.47890436246289153
+        },
+        "assist": null
+      }
+    },
+    "combat-centerline": {
+      "steps": 3600,
+      "checks": {
+        "finite": true,
+        "gravityFixed": true,
+        "globalLegacy": true,
+        "onlyPlayer": true,
+        "inputAccepted": true,
+        "referencePrefixExact": true,
+        "productionFreshClear": true
+      },
+      "firstReferenceDifferenceTick": null,
+      "firstFreshEntryTick": null,
+      "effectiveFreshEntries": 0,
+      "entryRecords": [
+        {
+          "tick": 0,
+          "timeBeforeStepS": 0,
+          "fighter": 0,
+          "state": "stand",
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "armed": true,
+          "reentry": false,
+          "effective": false,
+          "before": {
+            "active": false,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "legs": {
+              "F": {
+                "stance": true,
+                "soleY": 0,
+                "toeY": 0
+              },
+              "B": {
+                "stance": true,
+                "soleY": 0,
+                "toeY": 0
+              }
+            }
+          },
+          "after": {
+            "active": true,
+            "started": true,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "legs": {
+              "F": {
+                "stance": true,
+                "soleY": 0.01000000178813934,
+                "toeY": 0.01000000178813934
+              },
+              "B": {
+                "stance": true,
+                "soleY": 0.01000000178813934,
+                "toeY": 0.01000000178813934
+              }
+            }
+          }
+        },
+        {
+          "tick": 0,
+          "timeBeforeStepS": 0,
+          "fighter": 1,
+          "state": "stand",
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "armed": true,
+          "reentry": false,
+          "effective": false,
+          "before": {
+            "active": false,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "legs": {
+              "F": {
+                "stance": true,
+                "soleY": 0,
+                "toeY": 0
+              },
+              "B": {
+                "stance": true,
+                "soleY": 0,
+                "toeY": 0
+              }
+            }
+          },
+          "after": {
+            "active": true,
+            "started": true,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "legs": {
+              "F": {
+                "stance": true,
+                "soleY": 0.01000000178813934,
+                "toeY": 0.01000000178813934
+              },
+              "B": {
+                "stance": true,
+                "soleY": 0.01000000178813934,
+                "toeY": 0.01000000178813934
+              }
+            }
+          }
+        }
+      ],
+      "firstPlayerInjuryTick": null,
+      "firstPlayerGripOrWeaponLossTick": null,
+      "firstEnemyDeathTick": 1471,
+      "playerStates": {
+        "stand": 3600
+      },
+      "playerAssistOwners": {
+        "player": 391,
+        "return": 3209
+      },
+      "allPlayerAliveArmedValidGrip": true,
+      "maxPlayerJointGapM": 0.003178761103326903,
+      "maxPlayerSwordAxialRadps": 32.80117459556847,
+      "cutPairs": 34,
+      "playerCutPairs": 34,
+      "candidatePairs": 34,
+      "candidateAppliedToOpponentCount": 0,
+      "candidateLiveVictimPairs": 9,
+      "candidatePairsAfterEffectiveFreshEntry": 0,
+      "liveCandidatePairsAfterEffectiveFreshEntry": 0,
+      "candidateCapCount": 0,
+      "candidatePositiveInstantEnergyCount": 0,
+      "candidatePairLinearMomentumResidualPeakNs": 3.891971913724543e-07,
+      "candidatePairAngularMomentumResidualPeakNms": 2.8459121056274294e-06,
+      "playerCutPairsAfterTick1477": 17,
+      "livePlayerCutPairsAfterTick1477": 0,
+      "scriptedRequestCount": 0,
+      "scriptedControllerPhases": {},
+      "finalPlayer": {
+        "state": "stand",
+        "alive": true,
+        "armed": true,
+        "blood": 1,
+        "pain": 0,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "assist": {
+          "version": "unified-20261005-r2",
+          "phase": "returning",
+          "owner": "return",
+          "eligible": true,
+          "availability": 1
+        }
+      },
+      "finalEnemy": {
+        "state": "dead",
+        "alive": false,
+        "armed": true,
+        "blood": 0,
+        "pain": 0,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 0.6296551593511671,
+          "legB": 1
+        },
+        "assist": null
+      }
+    },
+    "touch-legacy": {
+      "steps": 1747,
+      "checks": {
+        "finite": true,
+        "gravityFixed": true,
+        "globalLegacy": true,
+        "onlyPlayer": true,
+        "inputAccepted": true,
+        "referencePrefixExact": true,
+        "productionFreshClear": true
+      },
+      "firstReferenceDifferenceTick": 1477,
+      "firstFreshEntryTick": 1477,
+      "effectiveFreshEntries": 1,
+      "entryRecords": [
+        {
+          "tick": 0,
+          "timeBeforeStepS": 0,
+          "fighter": 0,
+          "state": "stand",
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "armed": true,
+          "reentry": false,
+          "effective": false,
+          "before": {
+            "active": false,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "legs": {
+              "F": {
+                "stance": true,
+                "soleY": 0,
+                "toeY": 0
+              },
+              "B": {
+                "stance": true,
+                "soleY": 0,
+                "toeY": 0
+              }
+            }
+          },
+          "after": {
+            "active": true,
+            "started": true,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "legs": {
+              "F": {
+                "stance": true,
+                "soleY": 0.01000000178813934,
+                "toeY": 0.01000000178813934
+              },
+              "B": {
+                "stance": true,
+                "soleY": 0.01000000178813934,
+                "toeY": 0.01000000178813934
+              }
+            }
+          }
+        },
+        {
+          "tick": 0,
+          "timeBeforeStepS": 0,
+          "fighter": 1,
+          "state": "stand",
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "armed": true,
+          "reentry": false,
+          "effective": false,
+          "before": {
+            "active": false,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "legs": {
+              "F": {
+                "stance": true,
+                "soleY": 0,
+                "toeY": 0
+              },
+              "B": {
+                "stance": true,
+                "soleY": 0,
+                "toeY": 0
+              }
+            }
+          },
+          "after": {
+            "active": true,
+            "started": true,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "legs": {
+              "F": {
+                "stance": true,
+                "soleY": 0.01000000178813934,
+                "toeY": 0.01000000178813934
+              },
+              "B": {
+                "stance": true,
+                "soleY": 0.01000000178813934,
+                "toeY": 0.01000000178813934
+              }
+            }
+          }
+        },
+        {
+          "tick": 1477,
+          "timeBeforeStepS": 12.308333333333275,
+          "fighter": 0,
+          "state": "stand",
+          "limbs": {
+            "armS": 1,
+            "armO": 0.6671093364147017,
+            "legF": 1,
+            "legB": 1
+          },
+          "armed": true,
+          "reentry": true,
+          "effective": true,
+          "before": {
+            "active": false,
+            "started": true,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "Nsum": 749.717631034355,
+            "legs": {
+              "F": {
+                "stance": false,
+                "N": 0,
+                "Nf": 0,
+                "pinF": 128.53998065658323,
+                "pinLim": 188.79894528227808,
+                "soleY": 0.06576641651439569,
+                "toeY": 0.08650301223993076
+              },
+              "B": {
+                "stance": true,
+                "N": 634.5595192909241,
+                "Nf": 634.5595192909241,
+                "pinF": 77.28333920346074,
+                "pinLim": 571.1035673618317,
+                "soleY": -0.0077123307691356335,
+                "toeY": -0.0036777323546765966
+              }
+            }
+          },
+          "after": {
+            "active": true,
+            "started": true,
+            "lev": 1,
+            "levH": 1,
+            "levC": 0,
+            "handU": 0,
+            "Nsum": 749.717631034355,
+            "legs": {
+              "F": {
+                "stance": true,
+                "N": 0,
+                "Nf": 0,
+                "pinF": 128.53998065658323,
+                "pinLim": 188.79894528227808,
+                "soleY": 0.037581738202667254,
+                "toeY": 0.09037570367112169
+              },
+              "B": {
+                "stance": true,
+                "N": 634.5595192909241,
+                "Nf": 0,
+                "pinF": 77.28333920346074,
+                "pinLim": 571.1035673618317,
+                "soleY": 0.017274062011633735,
+                "toeY": -0.005501974954368424
+              }
+            }
+          }
+        }
+      ],
+      "firstPlayerInjuryTick": 1272,
+      "firstPlayerGripOrWeaponLossTick": null,
+      "firstEnemyDeathTick": null,
+      "playerStates": {
+        "stand": 1355,
+        "getup": 392
+      },
+      "playerAssistOwners": {
+        "player": 412,
+        "return": 944,
+        "recovery": 391
+      },
+      "allPlayerAliveArmedValidGrip": true,
+      "maxPlayerJointGapM": 0.0022610184322983703,
+      "maxPlayerSwordAxialRadps": 31.719730697823465,
+      "cutPairs": 85,
+      "playerCutPairs": 16,
+      "candidatePairs": 0,
+      "candidateAppliedToOpponentCount": 0,
+      "candidateLiveVictimPairs": 0,
+      "candidatePairsAfterEffectiveFreshEntry": 0,
+      "liveCandidatePairsAfterEffectiveFreshEntry": 0,
+      "candidateCapCount": 0,
+      "candidatePositiveInstantEnergyCount": 0,
+      "candidatePairLinearMomentumResidualPeakNs": null,
+      "candidatePairAngularMomentumResidualPeakNms": null,
+      "playerCutPairsAfterTick1477": 0,
+      "livePlayerCutPairsAfterTick1477": 0,
+      "scriptedRequestCount": 270,
+      "scriptedControllerPhases": {
+        "waiting": 154,
+        "returning": 50,
+        "moving": 30,
+        "holding": 36
+      },
+      "finalPlayer": {
+        "state": "stand",
+        "alive": true,
+        "armed": true,
+        "blood": 0.9820410070150501,
+        "pain": 0,
+        "limbs": {
+          "armS": 1,
+          "armO": 0.6671093364147017,
+          "legF": 1,
+          "legB": 1
+        },
+        "assist": {
+          "version": "unified-20261005-r2",
+          "phase": "returning",
+          "owner": "return",
+          "eligible": true,
+          "availability": 1
+        }
+      },
+      "finalEnemy": {
+        "state": "stand",
+        "alive": true,
+        "armed": true,
+        "blood": 0.9577746486132827,
+        "pain": 0,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 0.6296551593511671,
+          "legB": 1
+        },
+        "assist": null
+      }
+    },
+    "touch-centerline": {
+      "steps": 1747,
+      "checks": {
+        "finite": true,
+        "gravityFixed": true,
+        "globalLegacy": true,
+        "onlyPlayer": true,
+        "inputAccepted": true,
+        "referencePrefixExact": true,
+        "productionFreshClear": true
+      },
+      "firstReferenceDifferenceTick": 1477,
+      "firstFreshEntryTick": null,
+      "effectiveFreshEntries": 0,
+      "entryRecords": [
+        {
+          "tick": 0,
+          "timeBeforeStepS": 0,
+          "fighter": 0,
+          "state": "stand",
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "armed": true,
+          "reentry": false,
+          "effective": false,
+          "before": {
+            "active": false,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "legs": {
+              "F": {
+                "stance": true,
+                "soleY": 0,
+                "toeY": 0
+              },
+              "B": {
+                "stance": true,
+                "soleY": 0,
+                "toeY": 0
+              }
+            }
+          },
+          "after": {
+            "active": true,
+            "started": true,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "legs": {
+              "F": {
+                "stance": true,
+                "soleY": 0.01000000178813934,
+                "toeY": 0.01000000178813934
+              },
+              "B": {
+                "stance": true,
+                "soleY": 0.01000000178813934,
+                "toeY": 0.01000000178813934
+              }
+            }
+          }
+        },
+        {
+          "tick": 0,
+          "timeBeforeStepS": 0,
+          "fighter": 1,
+          "state": "stand",
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "armed": true,
+          "reentry": false,
+          "effective": false,
+          "before": {
+            "active": false,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "legs": {
+              "F": {
+                "stance": true,
+                "soleY": 0,
+                "toeY": 0
+              },
+              "B": {
+                "stance": true,
+                "soleY": 0,
+                "toeY": 0
+              }
+            }
+          },
+          "after": {
+            "active": true,
+            "started": true,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "legs": {
+              "F": {
+                "stance": true,
+                "soleY": 0.01000000178813934,
+                "toeY": 0.01000000178813934
+              },
+              "B": {
+                "stance": true,
+                "soleY": 0.01000000178813934,
+                "toeY": 0.01000000178813934
+              }
+            }
+          }
+        }
+      ],
+      "firstPlayerInjuryTick": null,
+      "firstPlayerGripOrWeaponLossTick": null,
+      "firstEnemyDeathTick": 1471,
+      "playerStates": {
+        "stand": 1747
+      },
+      "playerAssistOwners": {
+        "player": 374,
+        "return": 1373
+      },
+      "allPlayerAliveArmedValidGrip": true,
+      "maxPlayerJointGapM": 0.003178761103326903,
+      "maxPlayerSwordAxialRadps": 30.687235192161303,
+      "cutPairs": 87,
+      "playerCutPairs": 87,
+      "candidatePairs": 87,
+      "candidateAppliedToOpponentCount": 0,
+      "candidateLiveVictimPairs": 9,
+      "candidatePairsAfterEffectiveFreshEntry": 0,
+      "liveCandidatePairsAfterEffectiveFreshEntry": 0,
+      "candidateCapCount": 30,
+      "candidatePositiveInstantEnergyCount": 0,
+      "candidatePairLinearMomentumResidualPeakNs": 3.891971913724543e-07,
+      "candidatePairAngularMomentumResidualPeakNms": 2.8459121056274294e-06,
+      "playerCutPairsAfterTick1477": 70,
+      "livePlayerCutPairsAfterTick1477": 0,
+      "scriptedRequestCount": 270,
+      "scriptedControllerPhases": {
+        "returning": 128,
+        "ready": 46,
+        "moving": 30,
+        "holding": 36,
+        "waiting": 30
+      },
+      "finalPlayer": {
+        "state": "stand",
+        "alive": true,
+        "armed": true,
+        "blood": 1,
+        "pain": 0,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "assist": {
+          "version": "unified-20261005-r2",
+          "phase": "returning",
+          "owner": "return",
+          "eligible": true,
+          "availability": 1
+        }
+      },
+      "finalEnemy": {
+        "state": "dead",
+        "alive": false,
+        "armed": true,
+        "blood": 0,
+        "pain": 0.4155672993773557,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 0.6296551593511671,
+          "legB": 1
+        },
+        "assist": null
+      }
+    },
+    "late-centerline-after-fresh": {
+      "steps": 1717,
+      "checks": {
+        "finite": true,
+        "gravityFixed": true,
+        "globalLegacy": true,
+        "onlyPlayer": true,
+        "inputAccepted": true,
+        "referencePrefixExact": true,
+        "productionFreshClear": true
+      },
+      "firstReferenceDifferenceTick": 1596,
+      "firstFreshEntryTick": 1477,
+      "effectiveFreshEntries": 1,
+      "entryRecords": [
+        {
+          "tick": 0,
+          "timeBeforeStepS": 0,
+          "fighter": 0,
+          "state": "stand",
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "armed": true,
+          "reentry": false,
+          "effective": false,
+          "before": {
+            "active": false,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "legs": {
+              "F": {
+                "stance": true,
+                "soleY": 0,
+                "toeY": 0
+              },
+              "B": {
+                "stance": true,
+                "soleY": 0,
+                "toeY": 0
+              }
+            }
+          },
+          "after": {
+            "active": true,
+            "started": true,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "legs": {
+              "F": {
+                "stance": true,
+                "soleY": 0.01000000178813934,
+                "toeY": 0.01000000178813934
+              },
+              "B": {
+                "stance": true,
+                "soleY": 0.01000000178813934,
+                "toeY": 0.01000000178813934
+              }
+            }
+          }
+        },
+        {
+          "tick": 0,
+          "timeBeforeStepS": 0,
+          "fighter": 1,
+          "state": "stand",
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "armed": true,
+          "reentry": false,
+          "effective": false,
+          "before": {
+            "active": false,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "legs": {
+              "F": {
+                "stance": true,
+                "soleY": 0,
+                "toeY": 0
+              },
+              "B": {
+                "stance": true,
+                "soleY": 0,
+                "toeY": 0
+              }
+            }
+          },
+          "after": {
+            "active": true,
+            "started": true,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "legs": {
+              "F": {
+                "stance": true,
+                "soleY": 0.01000000178813934,
+                "toeY": 0.01000000178813934
+              },
+              "B": {
+                "stance": true,
+                "soleY": 0.01000000178813934,
+                "toeY": 0.01000000178813934
+              }
+            }
+          }
+        },
+        {
+          "tick": 1477,
+          "timeBeforeStepS": 12.308333333333275,
+          "fighter": 0,
+          "state": "stand",
+          "limbs": {
+            "armS": 1,
+            "armO": 0.6671093364147017,
+            "legF": 1,
+            "legB": 1
+          },
+          "armed": true,
+          "reentry": true,
+          "effective": true,
+          "before": {
+            "active": false,
+            "started": true,
+            "lev": 0,
+            "levH": 0,
+            "levC": 0,
+            "handU": 1,
+            "Nsum": 749.717631034355,
+            "legs": {
+              "F": {
+                "stance": false,
+                "N": 0,
+                "Nf": 0,
+                "pinF": 128.53998065658323,
+                "pinLim": 188.79894528227808,
+                "soleY": 0.06576641651439569,
+                "toeY": 0.08650301223993076
+              },
+              "B": {
+                "stance": true,
+                "N": 634.5595192909241,
+                "Nf": 634.5595192909241,
+                "pinF": 77.28333920346074,
+                "pinLim": 571.1035673618317,
+                "soleY": -0.0077123307691356335,
+                "toeY": -0.0036777323546765966
+              }
+            }
+          },
+          "after": {
+            "active": true,
+            "started": true,
+            "lev": 1,
+            "levH": 1,
+            "levC": 0,
+            "handU": 0,
+            "Nsum": 749.717631034355,
+            "legs": {
+              "F": {
+                "stance": true,
+                "N": 0,
+                "Nf": 0,
+                "pinF": 128.53998065658323,
+                "pinLim": 188.79894528227808,
+                "soleY": 0.037581738202667254,
+                "toeY": 0.09037570367112169
+              },
+              "B": {
+                "stance": true,
+                "N": 634.5595192909241,
+                "Nf": 0,
+                "pinF": 77.28333920346074,
+                "pinLim": 571.1035673618317,
+                "soleY": 0.017274062011633735,
+                "toeY": -0.005501974954368424
+              }
+            }
+          }
+        }
+      ],
+      "firstPlayerInjuryTick": 1272,
+      "firstPlayerGripOrWeaponLossTick": null,
+      "firstEnemyDeathTick": null,
+      "playerStates": {
+        "stand": 1325,
+        "getup": 392
+      },
+      "playerAssistOwners": {
+        "player": 385,
+        "return": 941,
+        "recovery": 391
+      },
+      "allPlayerAliveArmedValidGrip": true,
+      "maxPlayerJointGapM": 0.0022610184322983703,
+      "maxPlayerSwordAxialRadps": 31.719730697823465,
+      "cutPairs": 129,
+      "playerCutPairs": 60,
+      "candidatePairs": 44,
+      "candidateAppliedToOpponentCount": 0,
+      "candidateLiveVictimPairs": 44,
+      "candidatePairsAfterEffectiveFreshEntry": 44,
+      "liveCandidatePairsAfterEffectiveFreshEntry": 44,
+      "candidateCapCount": 12,
+      "candidatePositiveInstantEnergyCount": 0,
+      "candidatePairLinearMomentumResidualPeakNs": 2.7226200860468847e-07,
+      "candidatePairAngularMomentumResidualPeakNms": 1.0596075824543413e-05,
+      "playerCutPairsAfterTick1477": 44,
+      "livePlayerCutPairsAfterTick1477": 44,
+      "scriptedRequestCount": 0,
+      "scriptedControllerPhases": {},
+      "finalPlayer": {
+        "state": "stand",
+        "alive": true,
+        "armed": true,
+        "blood": 0.9829428220370895,
+        "pain": 0,
+        "limbs": {
+          "armS": 1,
+          "armO": 0.6671093364147017,
+          "legF": 1,
+          "legB": 1
+        },
+        "assist": {
+          "version": "unified-20261005-r2",
+          "phase": "returning",
+          "owner": "return",
+          "eligible": true,
+          "availability": 1
+        }
+      },
+      "finalEnemy": {
+        "state": "stand",
+        "alive": true,
+        "armed": true,
+        "blood": 0.9530218366473985,
+        "pain": 0.7934753063619541,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 0.6296551593511671,
+          "legB": 0.4807525403400485
+        },
+        "assist": null
+      }
+    }
+  },
+  "lateInteraction": {
+    "activation": {
+      "tick": 1477,
+      "native": "ffff413e632a9e47631b703f85ee180fb862c675dc66ba417aa02196777dd4c7",
+      "scope": "Late control flag only; fresh stance is configured from spawn. Actual original AI continues."
+    },
+    "firstPairCheck": {
+      "tick": 1596,
+      "bodiesExact": true,
+      "requestExact": true,
+      "budgetExact": true,
+      "timerExact": true,
+      "nativeBefore": "d7fa4f6459b732d2d17c7335fa2c4bd016146f8c8d7ad88a4c5a7076ed85e352"
+    },
+    "prefixFramesExact": 1596,
+    "firstInputDivergenceTick": 1631,
+    "firstBaselinePair": {
+      "point": {
+        "x": -0.5631365322383477,
+        "y": 0.13810011654395776,
+        "z": 0.22910475295252347
+      },
+      "pointA": {
+        "x": -0.5700387484744978,
+        "y": 0.12278448335438419,
+        "z": 0.20496369037106577
+      },
+      "legacyPointV": {
+        "x": -0.4961115363483193,
+        "y": 0.1290062575857282,
+        "z": 0.16110091484317868
+      },
+      "dir": {
+        "x": 0.3611902630829669,
+        "y": 0.21740803212247126,
+        "z": 0.9067939906189783
+      },
+      "s": 7.6154178100708805,
+      "J": 1.0784155819279169,
+      "key": "9e-323:1.6e-322",
+      "budgetBefore": 19.947507661412264,
+      "stuckBefore": 0,
+      "attacker": 0,
+      "victim": 1,
+      "part": "footB",
+      "tick": 1596,
+      "timeS": 13.299999999999885,
+      "before": {
+        "origin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "angularReference": "fixedWorldOrigin",
+        "gravity": {
+          "x": 0,
+          "y": -9.81,
+          "z": 0
+        },
+        "bodies": [
+          {
+            "handle": "8e-323",
+            "mass": 2.9000000953674316,
+            "com": {
+              "x": -1.385178565979004,
+              "y": 0.7337121963500977,
+              "z": 0.050426799803972244
+            },
+            "localCom": {
+              "x": 0,
+              "y": 0.3296758234500885,
+              "z": 0
+            },
+            "position": {
+              "x": -1.6460013389587402,
+              "y": 0.9291925430297852,
+              "z": 0.0009791739284992218
+            },
+            "rotation": {
+              "x": -0.6922882199287415,
+              "y": -0.3968612253665924,
+              "z": -0.5632145404815674,
+              "w": 0.2145402580499649
+            },
+            "velocity": {
+              "x": 1.0766444206237793,
+              "y": 0.3451002836227417,
+              "z": 2.055147171020508
+            },
+            "omega": {
+              "x": -3.450267791748047,
+              "y": -3.6381943225860596,
+              "z": 1.640820026397705
+            },
+            "inertia": {
+              "principal": {
+                "x": 0.45154914259910583,
+                "y": 0.002785254502668977,
+                "z": 0.45154914259910583
+              },
+              "localFrame": {
+                "x": 0,
+                "y": 0,
+                "z": 0,
+                "w": 1
+              },
+              "world": [
+                0.17066020933029213,
+                0.21051948664137335,
+                -0.05325180402443917,
+                0.21051948664137335,
+                0.2937698046694729,
+                0.03991098934167536,
+                -0.05325180402443917,
+                0.039910989341675376,
+                0.441453430094262
+              ]
+            },
+            "effectiveInvMass": {
+              "x": 0.3448275625705719,
+              "y": 0.3448275625705719,
+              "z": 0.3448275625705719
+            },
+            "gravityScale": 1,
+            "linearDamping": 0,
+            "angularDamping": 0.30000001192092896,
+            "sleeping": false,
+            "P": {
+              "x": 3.122268922485773,
+              "y": 1.0007908554172786,
+              "z": 5.95992699195358
+            },
+            "L": {
+              "x": 2.88029359207795,
+              "y": 6.683355664737585,
+              "z": -2.9142461523975465
+            },
+            "spinL": {
+              "x": -1.4421108511627685,
+              "y": -1.7296534892045892,
+              "z": 0.76287467826695
+            },
+            "Ktranslation": 7.9777368600675205,
+            "Krotation": 6.260112088047341,
+            "K": 14.237848948114863,
+            "V": 20.87337896039168,
+            "userForce": {
+              "x": -23.637216567993164,
+              "y": -54.47610092163086,
+              "z": 10.076042175292969
+            },
+            "userTorque": {
+              "x": -6.576235771179199,
+              "y": 0.3797116279602051,
+              "z": 42.51931381225586
+            }
+          },
+          {
+            "handle": "1.5e-322",
+            "mass": 1.100000023841858,
+            "com": {
+              "x": -0.4938923716545105,
+              "y": 0.14710645377635956,
+              "z": 0.16086767613887787
+            },
+            "localCom": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "position": {
+              "x": -0.4938923716545105,
+              "y": 0.14710645377635956,
+              "z": 0.16086767613887787
+            },
+            "rotation": {
+              "x": 0.06119292974472046,
+              "y": 0.9969772100448608,
+              "z": -0.003483395092189312,
+              "w": -0.04774593934416771
+            },
+            "velocity": {
+              "x": -1.3361929655075073,
+              "y": 0.6657017469406128,
+              "z": 0.20745225250720978
+            },
+            "omega": {
+              "x": 0.021210860460996628,
+              "y": -0.172714501619339,
+              "z": 0.13715729117393494
+            },
+            "inertia": {
+              "principal": {
+                "x": 0.0013658334501087666,
+                "y": 0.0061966669745743275,
+                "z": 0.00572916679084301
+              },
+              "localFrame": {
+                "x": 0,
+                "y": 0,
+                "z": 0,
+                "w": 1
+              },
+              "world": [
+                0.0014772651367534427,
+                0.0005838749991105834,
+                0.0004078330839204079,
+                0.0005838749991105834,
+                0.006124352845471088,
+                -5.6530432421015346e-05,
+                0.00040783308392040797,
+                -5.653043242101533e-05,
+                0.005690047551751583
+              ]
+            },
+            "effectiveInvMass": {
+              "x": 0.9090908765792847,
+              "y": 0.9090908765792847,
+              "z": 0.9090908765792847
+            },
+            "gravityScale": 1,
+            "linearDamping": 0.05000000074505806,
+            "angularDamping": 0.4000000059604645,
+            "sleeping": false,
+            "P": {
+              "x": -1.4698122939155809,
+              "y": 0.7322719375062405,
+              "z": 0.22819748270397788
+            },
+            "L": {
+              "x": -0.08424313478082635,
+              "y": -0.12479342576358952,
+              "z": -0.1446458040112378
+            },
+            "spinL": {
+              "x": -1.3572333758168792e-05,
+              "y": -0.001053133619293478,
+              "z": 0.0007988456249454626
+            },
+            "Ktranslation": 1.2493838187916793,
+            "Krotation": 0.000145585534650519,
+            "K": 1.2495294043263299,
+            "V": 1.5874257771072224,
+            "userForce": {
+              "x": -124.21005249023438,
+              "y": -120.21426391601562,
+              "z": 24.51314353942871
+            },
+            "userTorque": {
+              "x": 0.06742823123931885,
+              "y": -0.6739221811294556,
+              "z": -2.96329927444458
+            }
+          }
+        ],
+        "total": {
+          "mass": 4.0000001192092896,
+          "COM": {
+            "x": -1.140074864531948,
+            "y": 0.5723956184534856,
+            "z": 0.0807980405492167
+          },
+          "P": {
+            "x": 1.6524566285701923,
+            "y": 1.7330627929235192,
+            "z": 6.188124474657558
+          },
+          "L": {
+            "x": 2.796050457297124,
+            "y": 6.5585622389739955,
+            "z": -3.058891956408784
+          },
+          "LaboutCOM": {
+            "x": -0.6059768006246666,
+            "y": -0.6298781908590882,
+            "z": -0.13721169366314623
+          },
+          "K": 15.487378352441192,
+          "Ktranslation": 9.2271206788592,
+          "Krotation": 6.260257673581992,
+          "V": 22.4608047374989,
+          "E": 37.948183089940095,
+          "bodyCount": 2
+        }
+      },
+      "budgetAfter": 11.734922432140452,
+      "stuckAfter": 0,
+      "stuck": true,
+      "regime": "drag",
+      "victimAlive": true,
+      "attackerArmed": true,
+      "pointV": {
+        "x": -0.4961115363483193,
+        "y": 0.1290062575857282,
+        "z": 0.16110091484317868
+      },
+      "reaction": null,
+      "after": {
+        "origin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "angularReference": "fixedWorldOrigin",
+        "gravity": {
+          "x": 0,
+          "y": -9.81,
+          "z": 0
+        },
+        "bodies": [
+          {
+            "handle": "8e-323",
+            "mass": 2.9000000953674316,
+            "com": {
+              "x": -1.385178565979004,
+              "y": 0.7337121963500977,
+              "z": 0.050426799803972244
+            },
+            "localCom": {
+              "x": 0,
+              "y": 0.3296758234500885,
+              "z": 0
+            },
+            "position": {
+              "x": -1.6460013389587402,
+              "y": 0.9291925430297852,
+              "z": 0.0009791739284992218
+            },
+            "rotation": {
+              "x": -0.6922882199287415,
+              "y": -0.3968612253665924,
+              "z": -0.5632145404815674,
+              "w": 0.2145402580499649
+            },
+            "velocity": {
+              "x": 0.9423295259475708,
+              "y": 0.26425331830978394,
+              "z": 1.717940092086792
+            },
+            "omega": {
+              "x": -2.046947479248047,
+              "y": -2.0061733722686768,
+              "z": 0.6905808448791504
+            },
+            "inertia": {
+              "principal": {
+                "x": 0.45154914259910583,
+                "y": 0.002785254502668977,
+                "z": 0.45154914259910583
+              },
+              "localFrame": {
+                "x": 0,
+                "y": 0,
+                "z": 0,
+                "w": 1
+              },
+              "world": [
+                0.17066020933029213,
+                0.21051948664137335,
+                -0.05325180402443917,
+                0.21051948664137335,
+                0.2937698046694729,
+                0.03991098934167536,
+                -0.05325180402443917,
+                0.039910989341675376,
+                0.441453430094262
+              ]
+            },
+            "effectiveInvMass": {
+              "x": 0.3448275625705719,
+              "y": 0.3448275625705719,
+              "z": 0.3448275625705719
+            },
+            "gravityScale": 1,
+            "linearDamping": 0,
+            "angularDamping": 0.30000001192092896,
+            "sleeping": false,
+            "P": {
+              "x": 2.732755715115502,
+              "y": 0.7663346482995337,
+              "z": 4.982026430887231
+            },
+            "L": {
+              "x": 2.808284001433144,
+              "y": 6.046086625087078,
+              "z": -2.7327719623528863
+            },
+            "spinL": {
+              "x": -0.8084457495547164,
+              "y": -0.992713727478082,
+              "z": 0.3337945646643631
+            },
+            "Ktranslation": 5.66824290838073,
+            "Krotation": 1.93845698399696,
+            "K": 7.60669989237769,
+            "V": 20.87337896039168,
+            "userForce": {
+              "x": -23.637216567993164,
+              "y": -54.47610092163086,
+              "z": 10.076042175292969
+            },
+            "userTorque": {
+              "x": -6.576235771179199,
+              "y": 0.3797116279602051,
+              "z": 42.51931381225586
+            }
+          },
+          {
+            "handle": "1.5e-322",
+            "mass": 1.100000023841858,
+            "com": {
+              "x": -0.4938923716545105,
+              "y": 0.14710645377635956,
+              "z": 0.16086767613887787
+            },
+            "localCom": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "position": {
+              "x": -0.4938923716545105,
+              "y": 0.14710645377635956,
+              "z": 0.16086767613887787
+            },
+            "rotation": {
+              "x": 0.06119292974472046,
+              "y": 0.9969772100448608,
+              "z": -0.003483395092189312,
+              "w": -0.04774593934416771
+            },
+            "velocity": {
+              "x": -1.052910566329956,
+              "y": 0.8362153768539429,
+              "z": 0.9186527729034424
+            },
+            "omega": {
+              "x": -10.583191871643066,
+              "y": 1.1492270231246948,
+              "z": 1.8284488916397095
+            },
+            "inertia": {
+              "principal": {
+                "x": 0.0013658334501087666,
+                "y": 0.0061966669745743275,
+                "z": 0.00572916679084301
+              },
+              "localFrame": {
+                "x": 0,
+                "y": 0,
+                "z": 0,
+                "w": 1
+              },
+              "world": [
+                0.0014772651367534427,
+                0.0005838749991105834,
+                0.0004078330839204079,
+                0.0005838749991105834,
+                0.006124352845471088,
+                -5.6530432421015346e-05,
+                0.00040783308392040797,
+                -5.653043242101533e-05,
+                0.005690047551751583
+              ]
+            },
+            "effectiveInvMass": {
+              "x": 0.9090908765792847,
+              "y": 0.9090908765792847,
+              "z": 0.9090908765792847
+            },
+            "gravityScale": 1,
+            "linearDamping": 0.05000000074505806,
+            "angularDamping": 0.4000000059604645,
+            "sleeping": false,
+            "P": {
+              "x": -1.1582016480662958,
+              "y": 0.9198369344762654,
+              "z": 1.0105180720961755
+            },
+            "L": {
+              "x": -0.013535773523091732,
+              "y": 0.31352560724069944,
+              "z": -0.2778986888388526
+            },
+            "spinL": {
+              "x": -0.014217473510177653,
+              "y": 0.0007556476380191451,
+              "z": 0.006022819060076684
+            },
+            "Ktranslation": 1.458489885498605,
+            "Krotation": 0.08117353880436422,
+            "K": 1.5396634243029692,
+            "V": 1.5874257771072224,
+            "userForce": {
+              "x": -124.21005249023438,
+              "y": -120.21426391601562,
+              "z": 24.51314353942871
+            },
+            "userTorque": {
+              "x": 0.06742823123931885,
+              "y": -0.6739221811294556,
+              "z": -2.96329927444458
+            }
+          }
+        ],
+        "total": {
+          "mass": 4.0000001192092896,
+          "COM": {
+            "x": -1.140074864531948,
+            "y": 0.5723956184534856,
+            "z": 0.0807980405492167
+          },
+          "P": {
+            "x": 1.5745540670492062,
+            "y": 1.686171582775799,
+            "z": 5.992544502983407
+          },
+          "L": {
+            "x": 2.794748227910052,
+            "y": 6.359612232327778,
+            "z": -3.010670651191739
+          },
+          "LaboutCOM": {
+            "x": -0.49911862906711457,
+            "y": -0.5995580134690757,
+            "z": -0.18704096338391807
+          },
+          "K": 9.14636331668066,
+          "Ktranslation": 7.126732793879335,
+          "Krotation": 2.0196305228013243,
+          "V": 22.4608047374989,
+          "E": 31.60716805417956,
+          "bodyCount": 2
+        }
+      },
+      "analysis": {
+        "deltaP": {
+          "x": -0.07790256152098607,
+          "y": -0.04689121014772013,
+          "z": -0.1955799716741513
+        },
+        "predictedDeltaP": {
+          "x": -0.07790264154986298,
+          "y": -0.04689124189543162,
+          "z": -0.1955801538164207
+        },
+        "deltaPResidualNs": 2.014654923779462e-07,
+        "deltaL": {
+          "x": -0.0013022293870719182,
+          "y": -0.19895000664621776,
+          "z": 0.04822130521704526
+        },
+        "predictedDeltaL": {
+          "x": -0.0013086638411083096,
+          "y": -0.19895836540242945,
+          "z": 0.04822244499398831
+        },
+        "deltaLResidualNms": 1.0609905543067454e-05,
+        "deltaKJ": -6.341015035760533,
+        "predictedDeltaKJ": -6.3409854616823695,
+        "deltaKResidualJ": -2.9574078163285833e-05,
+        "requestedBudgetDebitJ": 8.212585229271811,
+        "pointSeparationM": 0.08618518575918148
+      }
+    },
+    "firstCandidatePair": {
+      "point": {
+        "x": -0.5631365322383477,
+        "y": 0.13810011654395776,
+        "z": 0.22910475295252347
+      },
+      "pointA": {
+        "x": -0.5700387484744978,
+        "y": 0.12278448335438419,
+        "z": 0.20496369037106577
+      },
+      "legacyPointV": {
+        "x": -0.4961115363483193,
+        "y": 0.1290062575857282,
+        "z": 0.16110091484317868
+      },
+      "dir": {
+        "x": 0.3611902630829669,
+        "y": 0.21740803212247126,
+        "z": 0.9067939906189783
+      },
+      "s": 7.6154178100708805,
+      "J": 1.0784155819279169,
+      "key": "9e-323:1.6e-322",
+      "budgetBefore": 19.947507661412264,
+      "stuckBefore": 0,
+      "attacker": 0,
+      "victim": 1,
+      "part": "footB",
+      "tick": 1596,
+      "timeS": 13.299999999999885,
+      "before": {
+        "origin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "angularReference": "fixedWorldOrigin",
+        "gravity": {
+          "x": 0,
+          "y": -9.81,
+          "z": 0
+        },
+        "bodies": [
+          {
+            "handle": "8e-323",
+            "mass": 2.9000000953674316,
+            "com": {
+              "x": -1.385178565979004,
+              "y": 0.7337121963500977,
+              "z": 0.050426799803972244
+            },
+            "localCom": {
+              "x": 0,
+              "y": 0.3296758234500885,
+              "z": 0
+            },
+            "position": {
+              "x": -1.6460013389587402,
+              "y": 0.9291925430297852,
+              "z": 0.0009791739284992218
+            },
+            "rotation": {
+              "x": -0.6922882199287415,
+              "y": -0.3968612253665924,
+              "z": -0.5632145404815674,
+              "w": 0.2145402580499649
+            },
+            "velocity": {
+              "x": 1.0766444206237793,
+              "y": 0.3451002836227417,
+              "z": 2.055147171020508
+            },
+            "omega": {
+              "x": -3.450267791748047,
+              "y": -3.6381943225860596,
+              "z": 1.640820026397705
+            },
+            "inertia": {
+              "principal": {
+                "x": 0.45154914259910583,
+                "y": 0.002785254502668977,
+                "z": 0.45154914259910583
+              },
+              "localFrame": {
+                "x": 0,
+                "y": 0,
+                "z": 0,
+                "w": 1
+              },
+              "world": [
+                0.17066020933029213,
+                0.21051948664137335,
+                -0.05325180402443917,
+                0.21051948664137335,
+                0.2937698046694729,
+                0.03991098934167536,
+                -0.05325180402443917,
+                0.039910989341675376,
+                0.441453430094262
+              ]
+            },
+            "effectiveInvMass": {
+              "x": 0.3448275625705719,
+              "y": 0.3448275625705719,
+              "z": 0.3448275625705719
+            },
+            "gravityScale": 1,
+            "linearDamping": 0,
+            "angularDamping": 0.30000001192092896,
+            "sleeping": false,
+            "P": {
+              "x": 3.122268922485773,
+              "y": 1.0007908554172786,
+              "z": 5.95992699195358
+            },
+            "L": {
+              "x": 2.88029359207795,
+              "y": 6.683355664737585,
+              "z": -2.9142461523975465
+            },
+            "spinL": {
+              "x": -1.4421108511627685,
+              "y": -1.7296534892045892,
+              "z": 0.76287467826695
+            },
+            "Ktranslation": 7.9777368600675205,
+            "Krotation": 6.260112088047341,
+            "K": 14.237848948114863,
+            "V": 20.87337896039168,
+            "userForce": {
+              "x": -23.637216567993164,
+              "y": -54.47610092163086,
+              "z": 10.076042175292969
+            },
+            "userTorque": {
+              "x": -6.576235771179199,
+              "y": 0.3797116279602051,
+              "z": 42.51931381225586
+            }
+          },
+          {
+            "handle": "1.5e-322",
+            "mass": 1.100000023841858,
+            "com": {
+              "x": -0.4938923716545105,
+              "y": 0.14710645377635956,
+              "z": 0.16086767613887787
+            },
+            "localCom": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "position": {
+              "x": -0.4938923716545105,
+              "y": 0.14710645377635956,
+              "z": 0.16086767613887787
+            },
+            "rotation": {
+              "x": 0.06119292974472046,
+              "y": 0.9969772100448608,
+              "z": -0.003483395092189312,
+              "w": -0.04774593934416771
+            },
+            "velocity": {
+              "x": -1.3361929655075073,
+              "y": 0.6657017469406128,
+              "z": 0.20745225250720978
+            },
+            "omega": {
+              "x": 0.021210860460996628,
+              "y": -0.172714501619339,
+              "z": 0.13715729117393494
+            },
+            "inertia": {
+              "principal": {
+                "x": 0.0013658334501087666,
+                "y": 0.0061966669745743275,
+                "z": 0.00572916679084301
+              },
+              "localFrame": {
+                "x": 0,
+                "y": 0,
+                "z": 0,
+                "w": 1
+              },
+              "world": [
+                0.0014772651367534427,
+                0.0005838749991105834,
+                0.0004078330839204079,
+                0.0005838749991105834,
+                0.006124352845471088,
+                -5.6530432421015346e-05,
+                0.00040783308392040797,
+                -5.653043242101533e-05,
+                0.005690047551751583
+              ]
+            },
+            "effectiveInvMass": {
+              "x": 0.9090908765792847,
+              "y": 0.9090908765792847,
+              "z": 0.9090908765792847
+            },
+            "gravityScale": 1,
+            "linearDamping": 0.05000000074505806,
+            "angularDamping": 0.4000000059604645,
+            "sleeping": false,
+            "P": {
+              "x": -1.4698122939155809,
+              "y": 0.7322719375062405,
+              "z": 0.22819748270397788
+            },
+            "L": {
+              "x": -0.08424313478082635,
+              "y": -0.12479342576358952,
+              "z": -0.1446458040112378
+            },
+            "spinL": {
+              "x": -1.3572333758168792e-05,
+              "y": -0.001053133619293478,
+              "z": 0.0007988456249454626
+            },
+            "Ktranslation": 1.2493838187916793,
+            "Krotation": 0.000145585534650519,
+            "K": 1.2495294043263299,
+            "V": 1.5874257771072224,
+            "userForce": {
+              "x": -124.21005249023438,
+              "y": -120.21426391601562,
+              "z": 24.51314353942871
+            },
+            "userTorque": {
+              "x": 0.06742823123931885,
+              "y": -0.6739221811294556,
+              "z": -2.96329927444458
+            }
+          }
+        ],
+        "total": {
+          "mass": 4.0000001192092896,
+          "COM": {
+            "x": -1.140074864531948,
+            "y": 0.5723956184534856,
+            "z": 0.0807980405492167
+          },
+          "P": {
+            "x": 1.6524566285701923,
+            "y": 1.7330627929235192,
+            "z": 6.188124474657558
+          },
+          "L": {
+            "x": 2.796050457297124,
+            "y": 6.5585622389739955,
+            "z": -3.058891956408784
+          },
+          "LaboutCOM": {
+            "x": -0.6059768006246666,
+            "y": -0.6298781908590882,
+            "z": -0.13721169366314623
+          },
+          "K": 15.487378352441192,
+          "Ktranslation": 9.2271206788592,
+          "Krotation": 6.260257673581992,
+          "V": 22.4608047374989,
+          "E": 37.948183089940095,
+          "bodyCount": 2
+        }
+      },
+      "budgetAfter": 11.734922432140452,
+      "stuckAfter": 0,
+      "stuck": true,
+      "regime": "drag",
+      "victimAlive": true,
+      "attackerArmed": true,
+      "pointV": {
+        "x": -0.5700387484744978,
+        "y": 0.12278448335438419,
+        "z": 0.20496369037106577
+      },
+      "reaction": {
+        "requestedJ": 1.0784155819279169,
+        "J": 1.0784155819279169,
+        "cap": 1.3445346597902654,
+        "s": 7.659999591806185,
+        "a": 5.697138066341163,
+        "weaponMobility": 2.4941634214660247,
+        "victimMobility": 3.2029746448751384,
+        "point": {
+          "x": -0.5700387484744978,
+          "y": 0.12278448335438419,
+          "z": 0.20496369037106577
+        },
+        "direction": {
+          "x": 0.3611902630829669,
+          "y": 0.21740803212247126,
+          "z": 0.9067939906189783
+        },
+        "deltaKPredicted": -4.9478336264749725,
+        "sAfterPredicted": 1.516117128669194,
+        "sAfterMeasured": 1.5161108309178728,
+        "mode": "centerline",
+        "key": "9e-323:1.6e-322",
+        "step": 1597
+      },
+      "after": {
+        "origin": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "angularReference": "fixedWorldOrigin",
+        "gravity": {
+          "x": 0,
+          "y": -9.81,
+          "z": 0
+        },
+        "bodies": [
+          {
+            "handle": "8e-323",
+            "mass": 2.9000000953674316,
+            "com": {
+              "x": -1.385178565979004,
+              "y": 0.7337121963500977,
+              "z": 0.050426799803972244
+            },
+            "localCom": {
+              "x": 0,
+              "y": 0.3296758234500885,
+              "z": 0
+            },
+            "position": {
+              "x": -1.6460013389587402,
+              "y": 0.9291925430297852,
+              "z": 0.0009791739284992218
+            },
+            "rotation": {
+              "x": -0.6922882199287415,
+              "y": -0.3968612253665924,
+              "z": -0.5632145404815674,
+              "w": 0.2145402580499649
+            },
+            "velocity": {
+              "x": 0.9423295259475708,
+              "y": 0.26425331830978394,
+              "z": 1.717940092086792
+            },
+            "omega": {
+              "x": -2.046947479248047,
+              "y": -2.0061733722686768,
+              "z": 0.6905808448791504
+            },
+            "inertia": {
+              "principal": {
+                "x": 0.45154914259910583,
+                "y": 0.002785254502668977,
+                "z": 0.45154914259910583
+              },
+              "localFrame": {
+                "x": 0,
+                "y": 0,
+                "z": 0,
+                "w": 1
+              },
+              "world": [
+                0.17066020933029213,
+                0.21051948664137335,
+                -0.05325180402443917,
+                0.21051948664137335,
+                0.2937698046694729,
+                0.03991098934167536,
+                -0.05325180402443917,
+                0.039910989341675376,
+                0.441453430094262
+              ]
+            },
+            "effectiveInvMass": {
+              "x": 0.3448275625705719,
+              "y": 0.3448275625705719,
+              "z": 0.3448275625705719
+            },
+            "gravityScale": 1,
+            "linearDamping": 0,
+            "angularDamping": 0.30000001192092896,
+            "sleeping": false,
+            "P": {
+              "x": 2.732755715115502,
+              "y": 0.7663346482995337,
+              "z": 4.982026430887231
+            },
+            "L": {
+              "x": 2.808284001433144,
+              "y": 6.046086625087078,
+              "z": -2.7327719623528863
+            },
+            "spinL": {
+              "x": -0.8084457495547164,
+              "y": -0.992713727478082,
+              "z": 0.3337945646643631
+            },
+            "Ktranslation": 5.66824290838073,
+            "Krotation": 1.93845698399696,
+            "K": 7.60669989237769,
+            "V": 20.87337896039168,
+            "userForce": {
+              "x": -23.637216567993164,
+              "y": -54.47610092163086,
+              "z": 10.076042175292969
+            },
+            "userTorque": {
+              "x": -6.576235771179199,
+              "y": 0.3797116279602051,
+              "z": 42.51931381225586
+            }
+          },
+          {
+            "handle": "1.5e-322",
+            "mass": 1.100000023841858,
+            "com": {
+              "x": -0.4938923716545105,
+              "y": 0.14710645377635956,
+              "z": 0.16086767613887787
+            },
+            "localCom": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "position": {
+              "x": -0.4938923716545105,
+              "y": 0.14710645377635956,
+              "z": 0.16086767613887787
+            },
+            "rotation": {
+              "x": 0.06119292974472046,
+              "y": 0.9969772100448608,
+              "z": -0.003483395092189312,
+              "w": -0.04774593934416771
+            },
+            "velocity": {
+              "x": -0.9820901155471802,
+              "y": 0.8788437843322754,
+              "z": 1.0964529514312744
+            },
+            "omega": {
+              "x": -30.384689331054688,
+              "y": 17.697383880615234,
+              "z": 1.021417260169983
+            },
+            "inertia": {
+              "principal": {
+                "x": 0.0013658334501087666,
+                "y": 0.0061966669745743275,
+                "z": 0.00572916679084301
+              },
+              "localFrame": {
+                "x": 0,
+                "y": 0,
+                "z": 0,
+                "w": 1
+              },
+              "world": [
+                0.0014772651367534427,
+                0.0005838749991105834,
+                0.0004078330839204079,
+                0.0005838749991105834,
+                0.006124352845471088,
+                -5.6530432421015346e-05,
+                0.00040783308392040797,
+                -5.653043242101533e-05,
+                0.005690047551751583
+              ]
+            },
+            "effectiveInvMass": {
+              "x": 0.9090908765792847,
+              "y": 0.9090908765792847,
+              "z": 0.9090908765792847
+            },
+            "gravityScale": 1,
+            "linearDamping": 0.05000000074505806,
+            "angularDamping": 0.4000000059604645,
+            "sleeping": false,
+            "P": {
+              "x": -1.0802991505167512,
+              "y": 0.9667281837187716,
+              "z": 1.2060982727158773
+            },
+            "L": {
+              "x": -0.012227091058884497,
+              "y": 0.512483944192715,
+              "z": -0.3261211078887809
+            },
+            "spinL": {
+              "x": -0.03413661449111285,
+              "y": 0.09058642171109546,
+              "z": -0.007580409536792415
+            },
+            "Ktranslation": 1.6164920918960375,
+            "Krotation": 1.3163151721894806,
+            "K": 2.9328072640855183,
+            "V": 1.5874257771072224,
+            "userForce": {
+              "x": -124.21005249023438,
+              "y": -120.21426391601562,
+              "z": 24.51314353942871
+            },
+            "userTorque": {
+              "x": 0.06742823123931885,
+              "y": -0.6739221811294556,
+              "z": -2.96329927444458
+            }
+          }
+        ],
+        "total": {
+          "mass": 4.0000001192092896,
+          "COM": {
+            "x": -1.140074864531948,
+            "y": 0.5723956184534856,
+            "z": 0.0807980405492167
+          },
+          "P": {
+            "x": 1.6524565645987508,
+            "y": 1.7330628320183052,
+            "z": 6.188124703603108
+          },
+          "L": {
+            "x": 2.796056910374259,
+            "y": 6.558570569279793,
+            "z": -3.058893070241667
+          },
+          "LaboutCOM": {
+            "x": -0.605970475436179,
+            "y": -0.6298701163995917,
+            "z": -0.13721279954201915
+          },
+          "K": 10.539507156463209,
+          "Ktranslation": 7.2847350002767675,
+          "Krotation": 3.2547721561864407,
+          "V": 22.4608047374989,
+          "E": 33.000311893962106,
+          "bodyCount": 2
+        }
+      },
+      "analysis": {
+        "deltaP": {
+          "x": -6.397144147740619e-08,
+          "y": 3.909478607511119e-08,
+          "z": 2.2894555051777843e-07
+        },
+        "predictedDeltaP": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "deltaPResidualNs": 2.4090830771238367e-07,
+        "deltaL": {
+          "x": 6.45307713531551e-06,
+          "y": 8.330305797166204e-06,
+          "z": -1.1138328828153021e-06
+        },
+        "predictedDeltaL": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "deltaLResidualNms": 1.0596075824543411e-05,
+        "deltaKJ": -4.947871195977983,
+        "predictedDeltaKJ": -4.947840936382255,
+        "deltaKResidualJ": -3.0259595728665545e-05,
+        "requestedBudgetDebitJ": 8.212585229271811,
+        "pointSeparationM": 0
+      }
+    },
+    "postContactWindowTicks": [
+      1596,
+      1716
+    ],
+    "scope": "Late contact selection after natural injury and production fresh recovery; not combined-from-spawn or human-input efficacy. Later reactive AI divergence limits causal trajectory comparisons."
+  },
+  "decision": {
+    "sourceAndMeasurementContractsPassed": true,
+    "combinedFromSpawnEffectiveInteractionExposed": false,
+    "humanTouchLiveCutAfterRecoveryExposed": false,
+    "lateInteractionExposed": true,
+    "physicsOrNaturalnessComplete": false,
+    "runtimeChangedByTheseTools": false,
+    "directorAcceptedScope": "Actual injury, production fresh reentry, then late centerline contact interaction44 live-victim pairs. Existing from-spawn flags and input contracts are separate evidence.",
+    "newIntegratedPublicTrial": "held; retain existing A/B comparisons",
+    "generalDefaultPromotion": false,
+    "round4MeasurementAndDecisionComplete": true,
+    "phase2PhysicsComplete": false
+  },
+  "limits": [
+    "From-spawn centerline has no actual fresh reentry. Conditional clear gate PASS with zero reentry does not verify effective combined action.",
+    "Centerline enemy dies at1471 before human tape begins1477; its subsequent cut pairs are corpse contacts. Legacy+fresh tape has actual injury/recovery but no subsequent player cutting pairs.",
+    "Both scripted tapes issue identical requests but their body, injury and reactive-AI histories already differ. Speed, survival or damage differences are not causal superiority evidence.",
+    "Pair instantaneous momentum/energy observation is separate from the unchanged requested Eleft debit and stuck timer. P5 energy-to-damage completeness is not established.",
+    "Headless 120Hz physics-time requests do not establish mobile wall-time/hitstop or human-naturalness equivalence. stand and valid grip are state observations, not natural movement acceptance.",
+    "Longsword remains outside the fresh-stance public scope. Existing LS P5 legacy/centerline30s results are reused through source-path inspection, not claimed as newly replayed full native traces."
+  ],
+  "commands": [
+    [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/halfsword-handoff/phase2-round4-20261006/integrated/frozen-source/tools/sim/experiments/round4_integrated_probe.mjs",
+      "--out=/workspace/halfsword-handoff/phase2-round4-20261006/integrated/run01",
+      "--plan=/workspace/halfsword-handoff/phase2-round4-20261006/integrated/plan01.json",
+      "--reference=/workspace/halfsword-handoff/phase2-round1-20261005/p5/extended-run01/report.json",
+      "--recovery=/workspace/halfsword-handoff/phase2-round1-20261005/recovery/runtime-bridge01/report.json",
+      "--fresh=/workspace/halfsword-handoff/phase2-round1-20261005/recovery/fresh-run01/report.json"
+    ],
+    [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/halfsword-handoff/phase2-round4-20261006/integrated/late-frozen-source/tools/sim/experiments/round4_integrated_late_probe.mjs",
+      "--out=/workspace/halfsword-handoff/phase2-round4-20261006/integrated/late-run01",
+      "--plan=/workspace/halfsword-handoff/phase2-round4-20261006/integrated/late-plan01.json",
+      "--reference=/workspace/halfsword-handoff/phase2-round1-20261005/p5/extended-run01/report.json",
+      "--recovery=/workspace/halfsword-handoff/phase2-round1-20261005/recovery/runtime-bridge01/report.json",
+      "--fresh=/workspace/halfsword-handoff/phase2-round1-20261005/recovery/fresh-run01/report.json",
+      "--integratedReference=/workspace/halfsword-handoff/phase2-round4-20261006/integrated/run01/combat-legacy.json"
+    ]
+  ],
+  "provenanceArtifacts": [
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/integrated/run01/receipt.json",
+      "bytes": 281,
+      "sha256": "3f9db7ef7ff7d71b4aab17d08791ab993f8dc5820181e479504dd177bfd1b25b"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/integrated/late-run01/receipt.json",
+      "bytes": 285,
+      "sha256": "7d66ecfbc28a5e114530596f92d0406ceae829eed033b71e1ed1cf0f279af936"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/integrated/reference-inventory01.json",
+      "bytes": 1112,
+      "sha256": "0a0383c3d650128f5de7e71527b4d8a76d5b2e08ccf28b10655f8921ab7f8a42"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/integrated/frozen-source/SOURCE.json",
+      "bytes": 9709,
+      "sha256": "e701a049ddaebe6215d32fca75529835acff1421ca42d50dddeb4aa64c6e69c1"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/integrated/late-frozen-source/SOURCE.json",
+      "bytes": 10012,
+      "sha256": "ecef0109b4a486a21772cb40579e2ad87f7c890a9bd65b0b9f7b4dc20ba95313"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/integrated/plan01.json",
+      "bytes": 578,
+      "sha256": "7985967bf81ec4ade57b21f902ab5e9e711b7390ae58e0c8cd46b36c8a2eccc6"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/integrated/late-plan01.json",
+      "bytes": 239,
+      "sha256": "f3a6ea5048af584a501bcc7a7f70f1629d046304830cef4a45b0f2ae4496b5c8"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/integrated/summary01.json",
+      "bytes": 31824,
+      "sha256": "5173a5591de02e343f5ffacda1e9f6c6669495bdf396915b849288a880d3b936"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/integrated/summary02.json",
+      "bytes": 74779,
+      "sha256": "9896324c3ac1376ad1fa230ce4d2d0a140c22f4f8e1b0902a52119938c79ee36"
+    },
+    {
+      "path": "/workspace/halfsword-codex/tools/sim/experiments/round4_integrated_probe.mjs",
+      "bytes": 12197,
+      "sha256": "e62c0d3cb8b4444c19c7fd101dcdaf73d9705a7af07bcaa4a35358f8184a6b25"
+    },
+    {
+      "path": "/workspace/halfsword-codex/tools/sim/experiments/round4_integrated_observer.mjs",
+      "bytes": 6435,
+      "sha256": "00c8b099fb1566ffbf21f02e6ecb878b941b489157650b2eb273e2d1cd3431f8"
+    },
+    {
+      "path": "/workspace/halfsword-codex/tools/sim/experiments/round4_integrated_late_probe.mjs",
+      "bytes": 13401,
+      "sha256": "6ec0e6dec71218b419e9c30559499078d3f3da1f6c9b0aa98f4ad12273bb35c2"
+    },
+    {
+      "path": "/workspace/halfsword-codex/tools/sim/experiments/round4_integrated_report.py",
+      "bytes": 9327,
+      "sha256": "9f41c29fb5bccc0c5feca245c701bfb4d77478e3632be4b0b1b2d0c30bf99cf1"
+    }
+  ],
+  "handoverToRound5": "Reuse unchanged validated raw and source fingerprints for final mobile/delivery and promotion scope. New physics only for changed behavior or an unresolved concrete boundary; no repetition to inflate coverage.",
+  "independentReadReview": {
+    "fourFromSpawnRows": "No blocking issue found in static/data review. Vacuous centerline fresh-clear PASS, corpse contact70 and legacy human-tape cut0 kept separate from effective interaction.",
+    "lateRow": "PASS: five row artifacts and frozen sources verified; fresh1477 Nf634.559519→0, prefix1596frames exact, first1596 bodies/J/s/Eleft/timer exact,44living candidate pairs/12caps/positive instant energy0 and input divergence1631 independently recalculated. Existing1718-frame fresh reference scope preserved.",
+    "newPhysicsRunsForAudit": 0,
+    "artifact": {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/audit/p4-and-integration.md",
+      "bytes": 5736,
+      "sha256": "a912e5a8bec5680a6d6c031a3d3a1594f4bf46a3ac737c5db62a5bf3924328c5"
+    }
+  },
+  "derivationCorrection": {
+    "issue": "Initial summary run assumed optional assist existed on enemy control; KeyError before output.",
+    "fix": "Treat missing enemy assist as absent. No game source, raw or experiment threshold change and no physics rerun.",
+    "physicalRunFailures": 0
+  },
+  "latePostContactObservations": {
+    "ticks": [
+      1596,
+      1716
+    ],
+    "playerStates": [
+      "stand"
+    ],
+    "lateJointGapPeakM": 0.0019253403736545413,
+    "baselineJointGapPeakM": 0.001918951266810785,
+    "lateGripGapPeakM": 0.00012498414006165866,
+    "baselineGripGapPeakM": 0.0002943039462059161,
+    "lateSwordAxialPeakRadps": 28.936241059231886,
+    "baselineSwordAxialPeakRadps": 29.971419787539244,
+    "minimumMeasuredRelativeSpeedAfterMps": -3.3169262560195367e-07,
+    "maximumInstantPairDeltaKJ": -0.0371485893302117,
+    "interpretation": "Observed post-contact maxima, not superiority/naturalness proof. Reactive inputs diverge at1631. Tiny negative relative speed is floating-point residual around the non-reversal cap."
+  },
+  "sourceBridgeForLSReuse": {
+    "newLSExecutions": 0,
+    "reference": "/workspace/halfsword-handoff/phase2-round1-20261005/p5/extended-run01/report.json rows0,1",
+    "basis": "fighter/skill/combat/weapons/config/guards/v2/harness/engine source SHA unchanged. New Gait branch requires player fresh flag; public LS does not receive it. Main/default routing changes do not enter the harness. This is source-path reuse, not a new30s LS native replay."
+  },
+  "freshScopeEvidence": {
+    "playerReentry1477": {
+      "rearFootNfBeforeN": 634.5595192909241,
+      "afterN": 0
+    },
+    "enemyReentry3280InCombatLegacy": {
+      "rearFootNfBeforeN": 318.97279196540524,
+      "afterN": 318.97279196540524
+    },
+    "interpretation": "Production player-only flag clears earlier stance memory; the observed enemy reentry retains its legacy memory. No globalfresh or failed support candidate enabled."
+  },
+  "reportCommand": [
+    "python",
+    "tools/sim/experiments/round4_integrated_report.py",
+    "--base=/workspace/halfsword-handoff/phase2-round4-20261006/integrated/run01/report.json",
+    "--late=/workspace/halfsword-handoff/phase2-round4-20261006/integrated/late-run01/report.json",
+    "--out=/tmp/NEW-round4-integration-summary.json"
+  ],
+  "reproductionNote": "The original commands use immutable frozen sources and require archived references. Replace their --out path with a fresh empty directory to reproduce; tools refuse overwriting. Prefer raw reuse for unchanged checks.",
+  "v2YieldAudit": {
+    "path": "/workspace/halfsword-handoff/phase2-round4-20261006/integrated/eligibility-audit02.json",
+    "bytes": 2381,
+    "sha256": "99cdba09fbfb413465a8f8e662b833e80f86d209f21a4f2f5bc1a41c5de6913a",
+    "pass": true,
+    "rows": [
+      {
+        "row": "combat-legacy",
+        "stableIneligibleFrames": 391,
+        "violations": [],
+        "storedHealthAvailabilityPositiveTicks": [
+          1261,
+          1262,
+          1263,
+          1264,
+          1265,
+          1266,
+          1267,
+          1268,
+          1269,
+          1270,
+          1271,
+          1272
+        ]
+      },
+      {
+        "row": "combat-centerline",
+        "stableIneligibleFrames": 0,
+        "violations": [],
+        "storedHealthAvailabilityPositiveTicks": []
+      },
+      {
+        "row": "touch-legacy",
+        "stableIneligibleFrames": 391,
+        "violations": [],
+        "storedHealthAvailabilityPositiveTicks": [
+          1261,
+          1262,
+          1263,
+          1264,
+          1265,
+          1266,
+          1267,
+          1268,
+          1269,
+          1270,
+          1271,
+          1272
+        ]
+      },
+      {
+        "row": "touch-centerline",
+        "stableIneligibleFrames": 0,
+        "violations": [],
+        "storedHealthAvailabilityPositiveTicks": []
+      },
+      {
+        "row": "late-centerline-after-fresh",
+        "stableIneligibleFrames": 391,
+        "violations": [],
+        "storedHealthAvailabilityPositiveTicks": [
+          1261,
+          1262,
+          1263,
+          1264,
+          1265,
+          1266,
+          1267,
+          1268,
+          1269,
+          1270,
+          1271,
+          1272
+        ]
+      }
+    ],
+    "discardedPredicate": {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/integrated/eligibility-audit01.json",
+      "sha256": "7678683f740badfce4fceb9102bc5e7543f1b2330886bbf9e2b6edeaa4436004",
+      "status": "Invalid audit assumption, not a gameplay failure: stored health availability need not be0 when eligibility is false."
+    },
+    "sourceContract": {
+      "src/swordsmanship.js": "advanceSwordsmanship computes health/pain availability independently, canReturn requires eligible; resolveSwordsmanshipGoals changes automatic offset only when eligible, assigns recovery/inactive owner otherwise. Stored old offset remains continuous.",
+      "observedContract": "Stable post-Combat ineligible state has eligible=false, phase=suspended, owner=recovery/inactive. State-transition steps excluded because Combat may change state after the controller ran.",
+      "limits": "Post-step marker observation plus source contract, not direct native force or human-motion proof."
+    },
+    "samplingLimit": "The391 stable-getup frames recur in three overlapping identical prefixes. They are not three independent injury cases; centerline-from-spawn rows expose no getup."
+  }
+}

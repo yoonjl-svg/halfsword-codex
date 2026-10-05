@@ -1,5 +1,11 @@
 # 일일 교환 실제 상태 · 2026-10-05 KST
 
+## 10/06 00:00 수신 회차
+
+00:12–00:13 KST 자체 Actions와 보관 가지에서 예약 수신 실행/10/05 inbox를 확인하지 못해, 허용 창 안에서 기존 guarded receive를1회 실행했다. 상대10/05 날짜 보고가 HTTP404여서 `peer_missing`으로 끝났으며 원문 수령·의미 검토는 미실행이다. 다른 날짜 보고·코드로 대체하지 않고 다음 정기 회차로 넘긴다. 수동 요청을 정시 자동 수신 성공으로 쓰지 않는다.
+
+실패 영수증은 `/workspace/halfsword-handoff/dev-exchange-20261006-0012/docs/dev_exchange/inbox/2026-10-05/20261005T151252.463528Z.json`(385bytes), SHA256 `edcb27e0a4971fa25b1fdf07537a74c8734b87bdcc3d792ae6e4e5371276fd2b`다. 시간 밖 재시도·상대 쓰기0이다.
+
 ## 10/05 23:30 보고 발행 확인
 
 23:30:24 KST 자체 Actions 조회에서 오늘 자동 실행을 확인하지 못해 `publish/date=2026-10-05`를 수동 보완했다. [발행 실행37325251825](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37325251825)은23:30:27 생성·23:30:48 성공했다. 정시 자동 실행 성공과 구분한다.
