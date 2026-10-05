@@ -47,16 +47,23 @@ import { configureIntegratedCombatTrial, mountIntegratedCombatTrial } from './in
 import { applyMotionAssist } from './motion_assist.js';
 import { applyMotionTiming, recordMotionTimingInput } from './motion_timing.js';
 import { applySwordAssistV2 } from './sword_assist_v2.js';
+import { configureSwordsmanshipTrial, mountSwordsmanshipTrial } from './swordsmanship_trial.js';
+import { applySwordsmanship, recordSwordsmanshipInput } from './swordsmanship.js';
 
 await RAPIER.init();
 
 // 테스트용 URL 파라미터: ?weapon=monohoshizao&foeWeapon=chicken (무기 id는 weapons.js의 WEAPONS 키,
 //  Fighter 생성자가 알아서 getWeapon()으로 찾는다. 없으면 기본 롱소드)
 const requestedParams = new URLSearchParams(location.search);
+const swordsmanshipTrial = configureSwordsmanshipTrial(requestedParams);
 const integratedCombatTrial = configureIntegratedCombatTrial(requestedParams);
 // Reject an incomplete compound entry as a whole; standalone comparison URLs
 // without this marker continue to use their existing contracts.
-const params = integratedCombatTrial.requested && !integratedCombatTrial.active ? new URLSearchParams() : requestedParams;
+const params = swordsmanshipTrial.requested ? (swordsmanshipTrial.active
+  ? new URLSearchParams({ weapon: swordsmanshipTrial.weapon, foe: 'heinrich', foeWeapon: 'longsword',
+      ...(!getWeapon(swordsmanshipTrial.weapon).gun ? { onehandArm: 'manual' } : {}),
+      ...(swordsmanshipTrial.weapon === 'qinggang' ? { bladeShape: 'profile', thrustPlane: 'transported' } : {}) })
+  : new URLSearchParams()) : integratedCombatTrial.requested && !integratedCombatTrial.active ? new URLSearchParams() : requestedParams;
 // Session-only comparison; ordinary games retain their current hand mapping.
 const onehandArmModel = params.get('onehandArm') === 'manual' ? 'manual' : 'legacy';
 const thrustEdgeModel = params.get('thrustEdge') === 'steady' ? 'steady' : 'legacy';
@@ -65,7 +72,7 @@ const thrustPlaneTrial = configureThrustPlaneTrial(params);
 const inputComparison = params.get('inputComparison') === 'vertical';
 const targetCorrectionTrial = configureTargetCorrectionTrial(params);
 const armRecoveryTrial = configureArmRecoveryTrial(params);
-const comparisonSettings = integratedCombatTrial.active ? integratedCombatTrial.settings : inputComparison ? { skill: '0', difficulty: 'normal' } : targetCorrectionTrial.settings;
+const comparisonSettings = swordsmanshipTrial.active ? swordsmanshipTrial.settings : integratedCombatTrial.active ? integratedCombatTrial.settings : inputComparison ? { skill: '0', difficulty: 'normal' } : targetCorrectionTrial.settings;
 const settingValue = (key) => comparisonSettings[key] ?? settings[key];
 CONFIG.COMBAT.limbSeverTrial = params.get('limbTrial') === '1';
 const limbDemo = CONFIG.COMBAT.limbSeverTrial ? params.get('limbDemo') : null;
@@ -443,7 +450,7 @@ function newRound(weaponId) {
   // 같은 선택형 팔 제어를 양쪽에 적용하고 재시작 때도 주소 설정을 유지한다.
   for (const f of [player, enemy]) f.armTorqueModel = armTrial.model;
   for (const f of [player, enemy]) f.onehandArmModel = onehandArmModel;
-  if (integratedCombatTrial.active) enemy.onehandArmModel = 'legacy';
+  if (integratedCombatTrial.active || swordsmanshipTrial.active) enemy.onehandArmModel = 'legacy';
   player.gripPointModel = gripPointModel;
   // Narrow player-only comparison for the selected sabre trial.
   player.thrustEdgeModel = onehandArmModel === 'manual' && player.weapon.id === 'sabre' ? thrustEdgeModel : 'legacy';
@@ -488,10 +495,12 @@ function newRound(weaponId) {
   applyMotionAssist(integratedCombatTrial, player);
   applyMotionTiming(integratedCombatTrial, player);
   applySwordAssistV2(integratedCombatTrial, player);
+  if (swordsmanshipTrial.active) applySwordsmanship(player);
   player.canShove = true; // 근접 밀치기: 플레이어는 스틱으로 (CLOSE.on 이 통째로 끄고 켠다)
   combat = new Combat(colliderInfo, { onWound, onClash });
   combat.cutReactionModel = cutTrial.model;
-  combat.finishRuleModel = integratedCombatTrial.finishRule;
+  combat.finishRuleModel = swordsmanshipTrial.active && player.weapon.id === 'qinggang'
+    ? 'armorCausal' : integratedCombatTrial.finishRule;
   combat.finishRuleFighter = player;
   // 몸 소리(발소리·쓰러짐·무기 부러짐·죽음 목소리): 캐릭터마다 목소리가 다르다
   const foeVoice = voiceOf(currentFoe);
@@ -693,13 +702,14 @@ mountPhysicalTrial(physicalTrial);
 mountCutTrial(cutTrial);
 mountArmTrial(armTrial);
 mountStanceTrial(stanceTrial);
-if (!integratedCombatTrial.active) mountTargetCorrectionTrial(targetCorrectionTrial);
+if (!integratedCombatTrial.active && !swordsmanshipTrial.active) mountTargetCorrectionTrial(targetCorrectionTrial);
 mountEdgeTorqueTrial(edgeTorqueTrial);
 mountArmRecoveryTrial(armRecoveryTrial);
 mountWristBrakingTrial(wristBrakingTrial);
-if (!integratedCombatTrial.active) mountBladeShapeTrial(bladeShapeTrial);
+if (!integratedCombatTrial.active && !swordsmanshipTrial.active) mountBladeShapeTrial(bladeShapeTrial);
 mountIntegratedCombatTrial(integratedCombatTrial);
-if (thrustPlaneTrial && !integratedCombatTrial.active) {
+mountSwordsmanshipTrial(swordsmanshipTrial);
+if (thrustPlaneTrial && !integratedCombatTrial.active && !swordsmanshipTrial.active) {
   const info = document.createElement('p');
   info.id = 'thrustPlaneTrialInfo';
   info.className = 'sub';
@@ -713,7 +723,7 @@ if (gripPointModel === 'axial') {
   info.textContent = '양손 흔들림 비교판 · 시작과 베기 뒤에 칼이 떨리는지 확인하세요. 일반판은 기존 방식이며 저장 설정은 유지됩니다.';
   $('menuSub').after(info);
 }
-if (onehandArmModel === 'manual' && !integratedCombatTrial.active) {
+if (onehandArmModel === 'manual' && !integratedCombatTrial.active && !swordsmanshipTrial.active) {
   const info = document.createElement('p');
   info.id = 'onehandArmInfo';
   info.className = 'sub';
@@ -1506,6 +1516,10 @@ function frame(now) {
       dx: player.alive && !player.weapon?.gun ? d.x * inScale : 0,
       dy: player.alive && !player.weapon?.gun ? d.y * inScale : 0,
       held: player.handHeld, active: player.inputActive });
+    recordSwordsmanshipInput(player, { id: motionTimingInputId, timeS: now / 1000,
+      dx: player.alive && !player.weapon?.gun ? d.x * inScale : 0,
+      dy: player.alive && !player.weapon?.gun ? d.y * inScale : 0,
+      held: player.handHeld, active: player.inputActive });
     // 칼 쪽 화면을 톡 치면(마우스는 끌지 않고 클릭) 찌른다 (skill.js thrust). 권총은 손가락이 닿는 순간 쏜다 (쏘는 타이밍이 실력이라 뗄 때까지 늦추지 않는다)
     input.tapOnDown = !!player.weapon?.gun;
     if (input.consumeTaps() > 0 && player.alive) player.skill.thrust();
@@ -1658,6 +1672,7 @@ window.game = {
   bladeShapeTrial,
   thrustPlaneTrial,
   integratedCombatTrial,
+  swordsmanshipTrial,
   THREE,
   camera,
   freeCam: false,

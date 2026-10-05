@@ -28,6 +28,7 @@ import { SKILL, WEAPON, THRUST } from './config.js';
 import { gunCanFire, gunPose, headOff } from './gun.js';
 import { FINISH, armRay } from './finish.js';
 import { updateSwordAssistReturn } from './sword_assist_v2.js';
+import { hasSwordsmanship, advanceSwordsmanship } from './swordsmanship.js';
 
 const D2R = Math.PI / 180;
 const _yawInv = new THREE.Quaternion();
@@ -111,7 +112,7 @@ export class Skill {
     // 지금 손 목표 (몸 기준 [앞, 위, 칼 든 쪽]). 검술 보정이 다 걸려 있으면 자세 지도의 손, 덜 걸려 있으면(보정 약·끔)
     //  날것 손 위치와 섞인 실제 손 목표(fighter.handBase)에서 뻗는다 — 자세 지도의 손에서 뻗으면 실제 손보다 뒤에서 시작해 덜 나갔다
     const manualOnehand = f.onehandArmModel === 'manual' && f.guardPose.oneHand && !f.weaponCfg.twoHand;
-    const g = (!manualOnehand && f.guardWeight() >= 1) || !f.handBase ? f.guardPose.hand : f.handBase;
+    const g = (!hasSwordsmanship(f) && !manualOnehand && f.guardWeight() >= 1) || !f.handBase ? f.guardPose.hand : f.handBase;
     const down = f.finish.on && f.finish.amt > 0.5; // 쓰러진 상대: 누운 몸을 내리찌른다 (finish.js 가 겨눈 곳)
     // 찌르기 무기(weapons.js THRUST_STYLE)는 더 멀리 찌르고 더 빨리 자세로 돌아온다.
     //  (겨누기·뻗기까지 빠르게 하면 팔이 손 목표를 따라가지 못해 오히려 덜 뻗는다 — 측정: 레이피어 탭 상처 60% → 20%)
@@ -122,6 +123,9 @@ export class Skill {
     // thrust. Freeze that command's base, never a physical body's pose/velocity.
     if (f.swordAssistModel === 'v2' && f.aimDirW && !down) {
       this.tap.v2BaseDir = f.aimDirW.clone().applyQuaternion(_yawInv.copy(f.yaw).invert()).toArray();
+    }
+    if (hasSwordsmanship(f) && !down) {
+      this.tap.swordsmanshipBaseDir = f.swordsmanshipState.aim.toArray();
     }
     // 칼 길 잡기(R6): 칼이 맞닿았으면 그 칼 선 (아니면 null). 바로 앞 찌르기가 끝나고 bindRest 초 안의 탭(연타)은 잡지 않는다
     this.tap.bound = down || this.sinceThrust < THRUST.bindRest ? null : this.boundAxis();
@@ -534,7 +538,8 @@ export class Skill {
     this.vel.x += (rx - this.vel.x) * k;
     this.vel.y += (ry - this.vel.y) * k;
     const sp = this.vel.length();
-    updateSwordAssistReturn(this, dt);
+    if (hasSwordsmanship(f)) advanceSwordsmanship(this, dt);
+    else updateSwordAssistReturn(this, dt);
     const swinging = sp > SKILL.swingSpeed && f.alive && f.armed;
     this.swinging = swinging;
     // 휘두르는 중인 정도 (0~1): 휘두르기 시작하면 빨리 1로, 멈추면 천천히 0으로 (몸을 크게 쓰는 건 벨 때뿐)

@@ -20,6 +20,9 @@
     .secondary { background: #30241a; color: #e9c47a; border: 1px solid #735b36; }
     .demos { display: grid; gap: 10px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .demo { display: block; padding: 14px 10px; border: 1px solid #735b36; border-radius: 6px; color: #e9c47a; text-align: center; text-decoration: none; line-height: 1.5; }
+    .unified-form { display: grid; gap: 12px; }
+    .unified-form select { width: 100%; min-height: 48px; padding: 10px; border: 1px solid #735b36; border-radius: 6px; background: #30241a; color: #ece1cb; font: inherit; font-size: 16px; }
+    .unified-form button { border: 0; cursor: pointer; touch-action: manipulation; }
     nav { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 28px; }
     nav a { color: #e9c47a; padding: 8px 0; }
   </style>
@@ -28,6 +31,35 @@
 <main>
   <h1>물리·무기 시험</h1>
   <p>아래 버튼을 눌러 직접 플레이해 보세요.</p>
+  <section id="swordsmanship-trial" aria-labelledby="swordsmanship-title">
+    <h2 id="swordsmanship-title">검술 보정 · 통합 시험판</h2>
+    <p>무기를 고르고 플레이하세요. 보정 강도를 고를 필요 없이, 검과 둔기에 맞춘 자세와 연속 동작을 시험합니다. 리볼버는 기존 사격 조작을 사용합니다.</p>
+    <form class="unified-form" action="./" method="get">
+      <input type="hidden" name="swordsmanshipTrial" value="unified">
+      <label for="swordsmanshipWeapon">내 무기</label>
+      <select id="swordsmanshipWeapon" name="weapon">
+        <option value="qinggang" selected>청강검</option>
+        <option value="longsword">롱소드</option>
+        <option value="zweihander">츠바이핸더 (대형 양손검)</option>
+        <option value="estoc">에스톡 (찌르기검)</option>
+        <option value="sabre">세이버 (기병도)</option>
+        <option value="rapier">레이피어</option>
+        <option value="falchion">팔쉬온 (반달칼)</option>
+        <option value="excalibur">엑스칼리버</option>
+        <option value="excalibur_replica">엑스칼리버</option>
+        <option value="tree_branch">나뭇가지</option>
+        <option value="rubber_chicken">고무 닭</option>
+        <option value="frozen_tuna">냉동 참치</option>
+        <option value="pistol">건슬링어의 리볼버</option>
+      </select>
+      <button id="playUnifiedSwordsmanship" class="play" type="submit">▶ 통합 시험판 플레이</button>
+    </form>
+    <p>휴대폰을 가로로 돌려 <strong>싸움 시작</strong>을 누르세요. 좌우·사선으로 베고 방향을 바꾸거나, 손을 놓았다가 다시 움직여 보세요.</p>
+    <p class="note">무기에 맞는 자세를 잡아주면서도 내 동작 의도가 통하는지 확인해 주세요. 상대는 판금 갑옷 하인리히입니다. 일반판 적용 전 시험이며 저장된 일반 설정은 보존됩니다.</p>
+    <p class="note">모노호시자오·라이트세이버는 회전 문제를 더 확인한 뒤 추가합니다.</p>
+  </section>
+  <h2 id="previous-comparisons">이전 비교 기록</h2>
+  <p class="note">아래는 이전 조건을 다시 확인할 때 쓰는 비교판입니다. 현재 통합 시험은 위의 버튼에서 시작하세요.</p>
   <section id="sword-assist-v2-comparison" aria-labelledby="sword-assist-v2-title">
     <h2 id="sword-assist-v2-title">청강검 · 검술 보정 v2</h2>
     <p>휴대폰을 가로로 돌리고 B부터 플레이해 보세요. 좌우·사선으로 베고 멈추거나 반대로 베세요. 손을 뗀 뒤 기본 자세로 돌아오는 동안 다시 끌어, 새 동작이 바로 받아들여지는지도 비교해 주세요.</p>

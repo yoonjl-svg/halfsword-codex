@@ -21,6 +21,7 @@ import { Skill } from './skill.js';
 import { motionAssistWeight, assistHandDepth } from './motion_assist.js';
 import { assistSwordHand, assistSwordAim } from './sword_assist_v2.js';
 import { updateMotionTiming } from './motion_timing.js';
+import { hasSwordsmanship, resolveSwordsmanshipGoals } from './swordsmanship.js';
 import { Gait, hybridJointDefs } from './gait.js';
 import { guardAt, guardBaseOne } from './guards.js';
 import { classifyStyle } from './weapon_class.js';
@@ -631,6 +632,7 @@ export class Fighter {
 
   // Separate body coordination from the legacy hand/direction pose replacement.
   bodyGuardWeight() {
+    if (hasSwordsmanship(this)) return 1; // resolved snapshot already includes the raw body share
     return this.motionAssistModel === 'coordinated' ? motionAssistWeight(this) : this.guardWeight();
   }
 
@@ -649,6 +651,17 @@ export class Fighter {
       bv[key] += (w * w * (target - bp[key]) - 2 * w * bv[key]) * dt;
       bp[key] += bv[key] * dt;
     };
+    if (hasSwordsmanship(this)) {
+      const goals = this.swordsmanshipState.body;
+      const speed = SKILL_BODY.holdSpeed + (1 - SKILL_BODY.holdSpeed) * sk.activity;
+      follow('pelvisYaw', goals.pelvisYaw, SKILL_BODY.pelvis * speed);
+      follow('chestYaw', goals.chestYaw, SKILL_BODY.chest * speed);
+      follow('pitch', goals.pitch, SKILL_BODY.chest * speed);
+      follow('drop', goals.drop, SKILL_BODY.pelvis * speed);
+      this.pelvisYawOffset = bp.pelvisYaw;
+      this.pelvisDropOffset = bp.drop;
+      return;
+    }
     // 벨 때는 온몸을 크게, 자세만 고칠 때는 팔 위주로 (몸통을 조금만, 느리게 튼다) → 자세를 옮길 때마다 몸이 춤추지 않게
     const act = sk.activity;
     const amp = SKILL_BODY.holdAmount + (1 - SKILL_BODY.holdAmount) * act;
@@ -888,6 +901,36 @@ export class Fighter {
       .multiplyScalar(this.onehandReachScale).add(_v6);
   }
 
+  // Prepare the one shared command before body/hand readers. Ordinary games
+  // retain the original mapping and calculation order below.
+  prepareSwordsmanship(dt) {
+    if (!hasSwordsmanship(this)) return;
+    const s = this.swordsmanshipState;
+    const off = this.skill.aim, R = WEAPON.reach;
+    const raw = s.workHand ||= new THREE.Vector3();
+    const home = s.workHome ||= new THREE.Vector3();
+    const aim = s.workAim ||= new THREE.Vector3();
+    const homeAim = s.workHomeAim ||= new THREE.Vector3();
+    const map = (x, y, out) => out.set(0.12 + 0.5 * Math.sqrt(Math.max(0, 1 - (x*x+y*y)/(R*R))), 0.1+y, 0.1+x);
+    map(off.x, off.y, raw);
+    map(...s.profile.homePad, home);
+    if (this.onehandArmModel === 'manual' && this.guardPose.oneHand && !this.weaponCfg.twoHand) {
+      this.calibrateOnehandReach(raw);
+      this.calibrateOnehandReach(home);
+      if (this.onehandReady) {
+        const r = this.onehandReady;
+        r.travel = Math.max(r.travel, Math.hypot(off.x - 0.15, off.y - 0.1));
+        const t = Math.min(1, r.travel / 0.30);
+        r.weight = 1 - t*t*(3-2*t);
+        raw.addScaledVector(r.delta, r.weight);
+        home.addScaledVector(r.delta, r.weight);
+      }
+    }
+    aim.set(...guardDir(off.x, off.y));
+    homeAim.set(...guardDir(...s.profile.homePad));
+    resolveSwordsmanshipGoals(this, dt, raw, aim, home, homeAim);
+  }
+
   step(dt) {
     this.lastDt = dt;
     this.stateTime += dt;
@@ -908,6 +951,7 @@ export class Fighter {
     this.updateHeading(dt);
     updateFinish(this, dt); // 상대가 쓰러져 있으면 아래쪽 자세를 내려찍기로 (finish.js)
     this.skill.update(dt);
+    this.prepareSwordsmanship(dt);
     this.updateBodyPose(dt);
     this.driveBalance(dt);
     if (this.gait?.active) this.gait.pinFeet();
@@ -1788,7 +1832,8 @@ export class Fighter {
     // 가슴을 트는 각도(정면 기준): 검술 자세 지도 + (보정이 약할수록) 손이 있는 쪽으로.
     // 허리(척추)는 그중 골반이 이미 튼 만큼을 뺀 나머지만 튼다
     const chestYaw = bp.chestYaw + (1 - gw) * -sk.aim.x * 0.35 +
-      (this.motionTimingModel === 'sequenced' ? this.motionTimingState?.extraChestYaw ?? 0 : 0);
+      (hasSwordsmanship(this) ? this.swordsmanshipState.body.directChestYaw :
+        this.motionTimingModel === 'sequenced' ? this.motionTimingState?.extraChestYaw ?? 0 : 0);
     const twist = THREE.MathUtils.clamp(chestYaw - (this.state === 'stand' ? bp.pelvisYaw : 0), -0.8, 0.8);
     const spine = (name, pitch, yaw) => J[name].target.setFromEuler(_eu.set(0, yaw, pitch, 'YXZ'));
     spine('abdomen', bend * 0.5, twist * 0.45);
@@ -1959,7 +2004,9 @@ export class Fighter {
     const gw = this.guardWeight();
     const G = guardAt(off.x, off.y, this.guardPose, this.finish);
     const manualOnehand = this.onehandArmModel === 'manual' && this.guardPose.oneHand && !this.weaponCfg.twoHand;
-    if (manualOnehand) {
+    const unified = hasSwordsmanship(this) ? this.swordsmanshipState : null;
+    if (unified) handLocal.copy(unified.hand);
+    else if (manualOnehand) {
       // Keep manual pad movement authoritative. Calibrate radial reach from the
       // existing home guard, rather than replacing each drag by a fixed pose.
       this.calibrateOnehandReach(handLocal);
@@ -1974,16 +2021,18 @@ export class Fighter {
       // activation, instead of discarding the finishing hand/direction target.
       if (this.finish.amt > 0 && gw > 0) handLocal.lerp(_v6.set(...G.hand), gw * this.finish.amt);
     } else if (gw > 0) handLocal.lerp(_v6.set(G.hand[0], G.hand[1], G.hand[2]), gw);
-    assistHandDepth(this, handLocal, G.hand);
-    assistSwordHand(this, handLocal, G.hand);
+    if (!unified) {
+      assistHandDepth(this, handLocal, G.hand);
+      assistSwordHand(this, handLocal, G.hand);
+    }
     // 탭 찌르기(skill.thrustPose)는 보정이 아니라 명령이라 검술 보정 세기(gw)와 무관하게 덧씌운다 — 보정 0 에서도 찌른다.
     //  찌르기는 지금 손 목표(handBase, 덧씌우기 전)에서 뻗어 나간다 (skill.thrust)
     const hb = (this.handBase ||= [0, 0, 0]);
-    hb[0] = handLocal.x;
-    hb[1] = handLocal.y;
-    hb[2] = handLocal.z;
+    hb[0] = unified ? unified.baseHand.x : handLocal.x;
+    hb[1] = unified ? unified.baseHand.y : handLocal.y;
+    hb[2] = unified ? unified.baseHand.z : handLocal.z;
     const th = this.skill.thrustPose;
-    if (th.w > 0) handLocal.lerp(_v6.set(th.hand[0], th.hand[1], th.hand[2]), th.w);
+    if (!unified && th.w > 0) handLocal.lerp(_v6.set(th.hand[0], th.hand[1], th.hand[2]), th.w);
     // 바짝 붙으면 손을 접는다 (closeReach). 근접 밀치기 중엔 접기를 lift 만큼 푼다: x' = 접은 x + (x − 접은 x)·lift.
     //  lift 0 이면 오늘 줄 그대로 (같은 float). 손이 자세 깊이에 남아 코등이·칼 팔뚝이 상대 몸통에 닿는다
     const foldX = Math.min(handLocal.x, this.closeReach());
@@ -2005,15 +2054,16 @@ export class Fighter {
     //  허리 아래로     → 칼끝이 내려감(아래 자세)
     // 자세에서 자세로 손을 옮기면 칼이 크게(최대 100° 넘게) 돌며 베기가 된다.
     const aim = _v3.set(...guardDir(off.x, off.y));
-    if (this.edgeIntentModel === 'commandedPlaneC1') smoothIntentElevation(aim, off.x, off.y);
+    if (unified) aim.copy(unified.aim);
+    else if (this.edgeIntentModel === 'commandedPlaneC1') smoothIntentElevation(aim, off.x, off.y);
     const aimGuideWeight = manualOnehand ? gw * this.finish.amt : gw;
-    if (aimGuideWeight > 0) {
+    if (!unified && aimGuideWeight > 0) {
       aim.lerp(_v6.set(G.dir[0], G.dir[1], G.dir[2]), aimGuideWeight);
       if (aim.lengthSq() < 0.04) aim.set(G.dir[0], G.dir[1], G.dir[2]);
       aim.normalize();
     }
-    assistSwordAim(this, aim, G.dir);
-    if (th.w > 0) {
+    if (!unified) assistSwordAim(this, aim, G.dir);
+    if (!unified && th.w > 0) {
       aim.lerp(_v6.set(th.dir[0], th.dir[1], th.dir[2]), th.w);
       if (aim.lengthSq() < 1e-6) aim.set(th.dir[0], th.dir[1], th.dir[2]);
       aim.normalize();
