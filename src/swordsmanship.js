@@ -1,4 +1,4 @@
-// One optional swordsmanship policy for the current physical game. It authors
+// One swordsmanship policy for the current physical game. It authors
 // goals, never body transforms, velocities, masses, gains or force budgets.
 import * as THREE from 'three';
 import { SKILL } from './config.js';
@@ -8,14 +8,14 @@ import { swordsmanshipProfile } from './swordsmanship_profiles.js';
 // First candidate design budgets, not measured human optima. Slow deliberate
 // positioning receives more help; a fast cut retains more of its raw path.
 export const SWORDSMANSHIP = Object.freeze({
-  version: 'unified-20261005-r1',
+  version: 'unified-20261005-r2',
   returnDelayS: 0.25, returnSpeedMps: 0.75, returnAccelerationMps2: 3,
   slowInputMps: 0.35, fastInputMps: 2,
   stanceDepth: 0.65, stancePlane: 0.40, strokeDepth: 0.40, strokePlane: 0.18,
   stanceAim: 0.65, strokeAim: 0.25,
   correctionSpeedMps: 0.75, correctionTurnRadps: 3.2,
   handBudgetM: 0.32, aimBudgetRad: Math.PI / 3,
-  retainedPlaneMotion: 0.65, bodyAmount: 0.55,
+  retainedPlaneMotion: 0.65, retainedAttackPlaneMotion: 1, bodyAmount: 0.55,
   inputFreshS: 0.05, homeRangeM: 0.15,
 });
 const clamp = THREE.MathUtils.clamp;
@@ -201,7 +201,12 @@ export function resolveSwordsmanshipGoals(f, dt, rawHand, rawAim, homeRawHand, h
     const plane2 = rawDelta.y ** 2 + rawDelta.z ** 2;
     if (s.moving && plane2 > 1e-12) {
       const projection = (change.y * rawDelta.y + change.z * rawDelta.z) / plane2;
-      const min = -(1 - C.retainedPlaneMotion);
+      // During a recognized cut, preparation guidance may redirect across the
+      // raw path but must not subtract from its forward planar displacement.
+      // Keep the existing slow preparation budget. This is a command-space
+      // weight, not a promise or clamp on physical blade speed or impact power.
+      const retained = f.skill.swinging ? C.retainedAttackPlaneMotion : C.retainedPlaneMotion;
+      const min = -(1 - retained);
       if (projection < min) {
         change.y += (min - projection) * rawDelta.y;
         change.z += (min - projection) * rawDelta.z;

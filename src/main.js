@@ -49,12 +49,14 @@ import { applyMotionTiming, recordMotionTimingInput } from './motion_timing.js';
 import { applySwordAssistV2 } from './sword_assist_v2.js';
 import { configureSwordsmanshipTrial, mountSwordsmanshipTrial } from './swordsmanship_trial.js';
 import { applySwordsmanship, recordSwordsmanshipInput } from './swordsmanship.js';
+import { configureSwordsmanshipDefault, swordsmanshipDefaultSupportsWeapon } from './swordsmanship_default.js';
 
 await RAPIER.init();
 
 // 테스트용 URL 파라미터: ?weapon=monohoshizao&foeWeapon=chicken (무기 id는 weapons.js의 WEAPONS 키,
 //  Fighter 생성자가 알아서 getWeapon()으로 찾는다. 없으면 기본 롱소드)
 const requestedParams = new URLSearchParams(location.search);
+const swordsmanshipDefault = configureSwordsmanshipDefault(requestedParams);
 const swordsmanshipTrial = configureSwordsmanshipTrial(requestedParams);
 const integratedCombatTrial = configureIntegratedCombatTrial(requestedParams);
 // Reject an incomplete compound entry as a whole; standalone comparison URLs
@@ -72,7 +74,7 @@ const thrustPlaneTrial = configureThrustPlaneTrial(params);
 const inputComparison = params.get('inputComparison') === 'vertical';
 const targetCorrectionTrial = configureTargetCorrectionTrial(params);
 const armRecoveryTrial = configureArmRecoveryTrial(params);
-const comparisonSettings = swordsmanshipTrial.active ? swordsmanshipTrial.settings : integratedCombatTrial.active ? integratedCombatTrial.settings : inputComparison ? { skill: '0', difficulty: 'normal' } : targetCorrectionTrial.settings;
+const comparisonSettings = swordsmanshipTrial.active ? swordsmanshipTrial.settings : integratedCombatTrial.active ? integratedCombatTrial.settings : inputComparison ? { skill: '0', difficulty: 'normal' } : swordsmanshipDefault.active ? swordsmanshipDefault.settings : targetCorrectionTrial.settings;
 const settingValue = (key) => comparisonSettings[key] ?? settings[key];
 CONFIG.COMBAT.limbSeverTrial = params.get('limbTrial') === '1';
 const limbDemo = CONFIG.COMBAT.limbSeverTrial ? params.get('limbDemo') : null;
@@ -451,6 +453,8 @@ function newRound(weaponId) {
   for (const f of [player, enemy]) f.armTorqueModel = armTrial.model;
   for (const f of [player, enemy]) f.onehandArmModel = onehandArmModel;
   if (integratedCombatTrial.active || swordsmanshipTrial.active) enemy.onehandArmModel = 'legacy';
+  const defaultSwordsmanshipForPlayer = swordsmanshipDefault.active && swordsmanshipDefaultSupportsWeapon(player.weapon);
+  if (defaultSwordsmanshipForPlayer) player.onehandArmModel = 'manual';
   player.gripPointModel = gripPointModel;
   // Narrow player-only comparison for the selected sabre trial.
   player.thrustEdgeModel = onehandArmModel === 'manual' && player.weapon.id === 'sabre' ? thrustEdgeModel : 'legacy';
@@ -495,7 +499,7 @@ function newRound(weaponId) {
   applyMotionAssist(integratedCombatTrial, player);
   applyMotionTiming(integratedCombatTrial, player);
   applySwordAssistV2(integratedCombatTrial, player);
-  if (swordsmanshipTrial.active) applySwordsmanship(player);
+  if (swordsmanshipTrial.active || defaultSwordsmanshipForPlayer) applySwordsmanship(player);
   player.canShove = true; // 근접 밀치기: 플레이어는 스틱으로 (CLOSE.on 이 통째로 끄고 켠다)
   combat = new Combat(colliderInfo, { onWound, onClash });
   combat.cutReactionModel = cutTrial.model;
@@ -709,6 +713,12 @@ mountWristBrakingTrial(wristBrakingTrial);
 if (!integratedCombatTrial.active && !swordsmanshipTrial.active) mountBladeShapeTrial(bladeShapeTrial);
 mountIntegratedCombatTrial(integratedCombatTrial);
 mountSwordsmanshipTrial(swordsmanshipTrial);
+if (swordsmanshipDefault.active) {
+  // A single ordinary policy replaces the old strength menu. Saved legacy
+  // preferences remain available to explicitly requested comparison entries.
+  const skillRow = document.querySelector('[data-setting="skill"]')?.closest('.row');
+  if (skillRow) skillRow.style.display = 'none';
+}
 if (thrustPlaneTrial && !integratedCombatTrial.active && !swordsmanshipTrial.active) {
   const info = document.createElement('p');
   info.id = 'thrustPlaneTrialInfo';
@@ -1673,6 +1683,10 @@ window.game = {
   thrustPlaneTrial,
   integratedCombatTrial,
   swordsmanshipTrial,
+  swordsmanshipDefault,
+  get defaultSwordsmanshipApplied() {
+    return swordsmanshipDefault.active && player?.swordsmanshipModel === 'unified';
+  },
   THREE,
   camera,
   freeCam: false,

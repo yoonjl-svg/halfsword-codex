@@ -134,6 +134,25 @@ test('sweeps and reversals retain declared planar projection and finite unit bla
     assert(projections>300);
   }
 });
+test('recognized cuts preserve raw forward displacement while slow preparation remains active',()=>{
+  const f=fixture('longsword');let lastHand=null,lastRaw=null,cutFrames=0,preparationFrames=0;
+  for(let i=0;i<360;i++) {
+    const slow=i<120,period=slow?240:72,angle=2*Math.PI*i/period;
+    const wanted=new THREE.Vector2(.32*Math.cos(angle),.32*Math.sin(angle));
+    const state=step(f,i,{dx:wanted.x-f.handOffset.x,dy:wanted.y-f.handOffset.y,held:true});
+    const raw=new THREE.Vector3(.5,.1+f.skill.aim.y,.05+f.skill.aim.x);
+    if(lastHand&&lastRaw) {
+      const dr=raw.clone().sub(lastRaw),dh=state.hand.clone().sub(lastHand),den=dr.y**2+dr.z**2;
+      if(den>1e-12) {
+        const projection=(dh.y*dr.y+dh.z*dr.z)/den;
+        if(f.skill.swinging){assert(projection>=1-1e-9,'Preparation must not subtract forward cut displacement');cutFrames++;}
+        else if(state.handChangeM>1e-6)preparationFrames++;
+      }
+    }
+    lastHand=state.hand.clone();lastRaw=raw;
+  }
+  assert(cutFrames>60);assert(preparationFrames>30);
+});
 test('synthetic unavailable states stop automatic return without native setters',()=>{
   for(const change of [f=>f.alive=false,f=>f.armed=false,f=>f.state='down',f=>f.state='getup',f=>f.pain=.7,f=>f.armHealth=.1,f=>f.limbs.legF=.1]) {
     const f=fixture();for(let i=0;i<50;i++)step(f,i);

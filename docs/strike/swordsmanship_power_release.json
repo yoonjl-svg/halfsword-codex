@@ -1,0 +1,211 @@
+{
+  "schemaVersion": 1,
+  "repository": "yoonjl-svg/halfsword-codex",
+  "status": "local_verified_public_pending",
+  "generalPromotionDecision": true,
+  "publicDeliveryVerified": false,
+  "scope": {
+    "meleeDefault": 12,
+    "withheld": [
+      "monohoshizao",
+      "lightsaber"
+    ],
+    "pistol": "legacy shooting, ordinary legacy skill0.7",
+    "separateQinggangPhysicsPromoted": false
+  },
+  "urls": {
+    "game": "https://yoonjl-svg.github.io/halfsword-codex/",
+    "phonePlan": "https://yoonjl-svg.github.io/halfsword-codex/development-plan.html"
+  },
+  "research": "swordsmanship_power_20261005.json",
+  "sourceBridge": {
+    "path": "/workspace/halfsword-handoff/swordsmanship-power-20261005/physical-to-release-bridge01.json",
+    "sha256": "e917caf538405de8f92f9aa9b1fc5b35dceede4ba0dd69fcfdf25c733b67d8b9"
+  },
+  "limitations": [
+    "No claim of invariant actual damage for identical contacts; live AI branches before impact.",
+    "Withheld two weapons retain existing instability; pistol and these weapons do not receive unified controller.",
+    "Old preference bytes are retained; ordinary legacy fallback strength is fixed0.7."
+  ],
+  "controllerContracts": {
+    "groups": 15,
+    "pass": true,
+    "scope": "Actual Skill filter and command fixtures; no extra physics run",
+    "toolSHA256": "71a3cf5722bd3a32244f5f5a8bc0a5f28de484be99403cc2068952c3152af1b2",
+    "command": "node tools/sim/experiments/swordsmanship.test.mjs"
+  },
+  "entryContracts": {
+    "groups": 6,
+    "researchMarkers": 28,
+    "markerVariants": 84,
+    "supportedMelee": 12,
+    "pass": true,
+    "toolSHA256": "02f9d62ebbc4581007e39e2f0751addb58e0e36bf48ed2b9ef2e9ad701757681",
+    "command": "node tools/sim/experiments/swordsmanship_default.test.mjs"
+  },
+  "staticReview": {
+    "blockingFindings": 0,
+    "playerOnlyRoster": true,
+    "ordinaryQinggangExperimentalPhysicsOff": true,
+    "researchEntryOptOut": true,
+    "savedStrengthBytesPreservedButOrdinaryFallbackFixed": true
+  },
+  "regression": {
+    "pass": true,
+    "groups": 6,
+    "originalSuitePass": false,
+    "originalTimeoutPreserved": true,
+    "timeoutSecondsOriginal": 180,
+    "retryTimeoutSeconds": 420,
+    "retryOnly": "arm_duel",
+    "retryWallSeconds": 190.90036427500308,
+    "sourceStable": true,
+    "headStable": true,
+    "sameSourceAcrossRuns": true,
+    "buildCopiedByteExact": true,
+    "checks": [
+      {
+        "id": "force_ledger",
+        "pass": true,
+        "evidenceRun": "regression01"
+      },
+      {
+        "id": "grip_reaction",
+        "pass": true,
+        "evidenceRun": "regression01"
+      },
+      {
+        "id": "cut_reaction",
+        "pass": true,
+        "evidenceRun": "regression01"
+      },
+      {
+        "id": "arm_capacity",
+        "pass": true,
+        "evidenceRun": "regression01"
+      },
+      {
+        "id": "arm_duel",
+        "pass": true,
+        "evidenceRun": "regression-duel-retry01"
+      },
+      {
+        "id": "build",
+        "pass": true,
+        "evidenceRun": "regression01"
+      }
+    ]
+  },
+  "regressionEvidence": [
+    {
+      "path": "/workspace/halfsword-handoff/swordsmanship-power-20261005/regression01/result.json",
+      "bytes": 250388,
+      "sha256": "f84db9c65196a32f281c5c0e2af79d6dc31ef3fea3ce111a5d05cd28a960be3d"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/swordsmanship-power-20261005/regression-duel-retry01/result.json",
+      "bytes": 244440,
+      "sha256": "f04d2a242c82e45467f9940130b9a0970523355907aa41744ee4ed6562718d30"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/swordsmanship-power-20261005/regression-aggregate01.json",
+      "bytes": 943,
+      "sha256": "baa6c19c37f80ea88b0ae9268b1f29e1fec5b9c7b2e39ae2c1e7e4ac4f046c74"
+    }
+  ],
+  "preservedTrialEntryContracts": {
+    "pass": true,
+    "cases": 42,
+    "path": "/workspace/halfsword-handoff/swordsmanship-power-20261005/entry-default-01/preserved-entry42.json",
+    "bytes": 3278,
+    "sha256": "980fc297edb246a8d55b40fd8d48e754e8eafc19da81577bef2ec517bd7772f3"
+  },
+  "visualReview": {
+    "scope": "Local compiled ordinary card play, Qinggang initial/held stop and Longsword returned ready views; no new anatomy or optimal posture claim.",
+    "images": [
+      "ordinary-card-game-first-card.png",
+      "qinggang-start.png",
+      "qinggang-held-stop.png",
+      "longsword-ready.png"
+    ]
+  },
+  "localBrowserOriginal": {
+    "pass": false,
+    "functionalRows": 13,
+    "functionalRowsPassed": 13,
+    "sourceStable": true,
+    "returnReviewRequired": false,
+    "returnObservations": [
+      {
+        "id": "qinggang",
+        "returnObserved": true,
+        "activeReturnInterrupted": true,
+        "completedBeforeRetouch": true,
+        "heldInputProtected": true,
+        "movementObserved": true
+      },
+      {
+        "id": "longsword",
+        "returnObserved": true,
+        "activeReturnInterrupted": true,
+        "completedBeforeRetouch": true,
+        "heldInputProtected": true,
+        "movementObserved": true
+      }
+    ],
+    "consoleErrors": 19,
+    "requestFailureRecords": 38,
+    "failure": "19 audio route.fetch socket hang up requests; original global failure retained",
+    "affectedFlowLabels": [
+      "rubber_chicken",
+      "compat-trial"
+    ],
+    "path": "/workspace/halfsword-handoff/swordsmanship-power-20261005/browser-default-local-01/summary.json",
+    "bytes": 213186818,
+    "sha256": "89d20d89636a5d2134e8a46475143f6d4de11a30d92c386c09b26c59e865de16",
+    "startedUTC": "2026-10-05T09:32:52.875Z",
+    "completedUTC": "2026-10-05T09:43:45.414Z"
+  },
+  "localBrowserRepair": {
+    "pass": true,
+    "sourceStable": true,
+    "rows": [
+      "rubber_chicken",
+      "compat-trial"
+    ],
+    "errors": 0,
+    "requestFailures": 0,
+    "routeFetchRetryPolicy": {
+      "maxRetries": 2,
+      "retriesOnlyECONNRESET": true,
+      "errorsFiltered": false,
+      "attemptCountExposed": false,
+      "limitation": "Successful bounded GET retries do not prove zero underlying TCP resets."
+    },
+    "path": "/workspace/halfsword-handoff/swordsmanship-power-20261005/browser-default-local-02/summary.json",
+    "bytes": 16901039,
+    "sha256": "10fdaf01497490aa2feb01ffb537e2109f79f8c2ba0e0d920ff6637f4005878f",
+    "startedUTC": "2026-10-05T09:47:48.980Z",
+    "completedUTC": "2026-10-05T09:49:03.925Z"
+  },
+  "localBrowserAggregate": {
+    "accepted": true,
+    "fullFlowCount": 13,
+    "originalWholeRunPass": false,
+    "repeatedAffectedFlowCount": 2,
+    "reason": "All thirteen functional contracts passed. Nineteen failed audio GETs were checked against dist, and the two affected flows passed a scoped rerun with bounded ECONNRESET retries and unchanged contracts; original failure retained."
+  },
+  "browserToolBridge": {
+    "path": "/workspace/halfsword-handoff/swordsmanship-power-20261005/browser-default-tool-bridge.json",
+    "sha256": "578e944e03b486f413c0532cf848a366289cb5d4568432f867003cd371bd64bd"
+  },
+  "regressionToReleaseBridge": {
+    "path": "/workspace/halfsword-handoff/swordsmanship-power-20261005/regression-to-release-source-bridge.json",
+    "bytes": 243049,
+    "sha256": "94ca069dcea732e889a6162ff5604ebefcf9b6d7943356526e055f91035f1c08",
+    "runtimeAndPublicExact": true,
+    "changedOnly": [
+      "tools/browser/swordsmanship_default.mjs"
+    ]
+  }
+}
