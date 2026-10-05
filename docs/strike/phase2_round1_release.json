@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 1,
+  "repository": "yoonjl-svg/halfsword-codex",
+  "status": "prepared-awaiting-delivery-verification",
+  "publicDeliveryVerified": false,
+  "baseCommit": "2cb4915c96a69da722dfd65ef2c2bae2ceaa341f",
+  "generalPromotionDecision": false,
+  "scope": {
+    "gameChange": "Player-only stale stance-load reset on second and later Gait.enter, optional zweihander comparison on unchanged v2-r2",
+    "ordinaryStanceMemory": "legacy",
+    "ordinarySwordsmanship": "unified-20261005-r2 on existing 12 melee weapons",
+    "ordinaryCutReaction": "legacy",
+    "existingContactB": "unchanged centerline selection",
+    "P4": "Research preserved, not publicly enabled",
+    "P5": "Extended and boundary evidence added; no contact runtime change",
+    "P1P3": "Six existing v2 rows derived without new physics",
+    "failedSupportOrCutCandidatesRestored": false
+  },
+  "urls": {
+    "comparison": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#stance-v2-comparison",
+    "A": "https://yoonjl-svg.github.io/halfsword-codex/?stanceV2=legacy&weapon=zweihander",
+    "B": "https://yoonjl-svg.github.io/halfsword-codex/?stanceV2=fresh&weapon=zweihander",
+    "phonePlan": "https://yoonjl-svg.github.io/halfsword-codex/development-plan.html"
+  },
+  "research": [
+    "p4_command_plane_20261005.json",
+    "p5_extended_contact_20261005.json",
+    "recovery_next_contract_20261005.json",
+    "v2_weight_work_20261005.json"
+  ],
+  "entryContracts": {
+    "pass": true,
+    "stanceCases": 18,
+    "contactCases": 17,
+    "ordinaryGroups": 6,
+    "reference": "entry-contracts.json"
+  },
+  "evidence": [
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/baseline.json",
+      "bytes": 8564,
+      "sha256": "6ca4ec147b89b4c3557de040d656878e9c6f8f88dbca6ecaad9459f75515708b"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/entry-contracts.json",
+      "bytes": 1073,
+      "sha256": "e96ca3e52071ba9b78340a822f78ed83ff6fe3c11b5aab79a6294d4449a455d6"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/regression-runner-bridge.json",
+      "bytes": 525,
+      "sha256": "8369af23e7fdd25a1407ab9f18de53455a6becd87994d7a8b500d91071089d5e"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/delivery-audit/final-audit.json",
+      "bytes": 2864,
+      "sha256": "eadf090705f26a48bcec08fad18f2e433e2cf37a2bf1a3fd923c968e34a65e45"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/delivery-audit/stance-v2-tool-registration-bridge.json",
+      "bytes": 1842,
+      "sha256": "9aac09bf9f47de39ca0b59adeae5ba26e737c053f90d4d9e4275c407a90d8b6a"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/regression01/result.json",
+      "bytes": 258049,
+      "sha256": "d43588fd0e79f9f5c63cd377f7ba8f62826a4bac5b23a3e143e2477f5a5d1f34"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/preflight.json",
+      "bytes": 101106,
+      "sha256": "8458ef9bc54e2fc38dd03496d260a21c2afd1b55020a76bff3519916529da991"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/recovery/runtime-bridge01/report.json",
+      "bytes": 15008749,
+      "sha256": "80b2b3aec89c1fec12159235830f1c3deddfa04f6a43ecea256cadfa03572c7c"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/mobile-local-receipt.json",
+      "bytes": 3262,
+      "sha256": "12b5385cc1a3d3821654b7bc2214aa35d3e6a07112d970c8c1e3e93555a498b2"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/local-to-release-build-bridge.json",
+      "bytes": 512,
+      "sha256": "a9266458866feb54f90ea25aa41cae42e0944954cc9515ed08c69db1d18fbe4a"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/delivery-audit/source-final.json",
+      "bytes": 4666,
+      "sha256": "77ca420bfb8230d9a75ca25be6e5fd89a5325522808e8f20ee0b67a5a84530f9"
+    }
+  ],
+  "limitations": [
+    "The new optional comparison corrects stale stance-load memory, not whole-body recovery.",
+    "The actual injury case has impaired off-arm; severe main-arm injury is not accepted by this test.",
+    "Later actual hits and opponent AI diverged; after those branches, speed/damage changes are not equal-impact efficacy evidence.",
+    "Mobile Chromium emulation is not physical-phone or human-naturalness acceptance.",
+    "P4 contact qualification and broader P5/body-force/weight work remain open; all Phase2 goals are not complete."
+  ],
+  "regression": {
+    "pass": true,
+    "groups": 6,
+    "sourceStable": true,
+    "wallSeconds": 179.47465731101693,
+    "checks": [
+      {
+        "id": "force_ledger",
+        "pass": true,
+        "observedCounts": {
+          "tests": 11
+        }
+      },
+      {
+        "id": "grip_reaction",
+        "pass": true,
+        "observedCounts": {
+          "fixtures": 17
+        }
+      },
+      {
+        "id": "cut_reaction",
+        "pass": true,
+        "observedCounts": {
+          "tests": 33
+        }
+      },
+      {
+        "id": "arm_capacity",
+        "pass": true,
+        "observedCounts": {
+          "tests": 4
+        }
+      },
+      {
+        "id": "arm_duel",
+        "pass": true,
+        "observedCounts": {
+          "runs": 10,
+          "newFailureReview": 0
+        }
+      },
+      {
+        "id": "build",
+        "pass": true,
+        "observedCounts": null
+      }
+    ],
+    "runnerBridge": "Actual unchanged suite; arm_duel timeout420s due to prior measured duration, external build output. No test/input/assertion changes."
+  },
+  "productionBridge": {
+    "pass": true,
+    "steps": 1747,
+    "recoveryRequests": 270,
+    "nativeControlInputAllExact": true,
+    "effectSample": false,
+    "ordinaryGlobalAndEnemyLegacy": true,
+    "scope": "Optional zweihander player fresh reentry; production Gait.enter vs frozen research row"
+  },
+  "preflight": {
+    "syntaxJSONFiles": 23,
+    "normalBuildMatchesRegressionBuild": true,
+    "buildFiles": 611
+  },
+  "localMobile": {
+    "pass": true,
+    "rows": 5,
+    "sourceStable": true,
+    "errorCounts": {
+      "console": 0,
+      "http": 0,
+      "request": 0,
+      "blocked": 0,
+      "redirect": 0
+    },
+    "scope": "A/B trusted touch, held stop, reverse, release, tap, recut, pause, restart and ordinary return/card; invalid/mixed menus",
+    "physicalInjuryEffect": false
+  },
+  "buildBridge": {
+    "pass": true,
+    "baseline": "preflight.json + mobile-local01/manifest-before.json",
+    "buildFiles": 611,
+    "changes": [
+      {
+        "path": "development-plan.html",
+        "before": "cb70d27d88f9c9f8d27c13f8ce1560a0392b7dbbaa7e400391a8068e42d4d66f",
+        "after": "a9f5a8860a8dc3a085543abe3dbf49905dde043b61e16c4d77371201c75f0f3a"
+      }
+    ],
+    "unchangedFiles": 610,
+    "scope": "Plan wording only after local full5. Every game asset and feature-lab unchanged; public phone-plan layout checked separately."
+  },
+  "independentSourceReview": {
+    "blockingFindings": 0,
+    "reference": "delivery-audit/source-final.json",
+    "scope": "Player-only reentry, query/ordinary/contact isolation, restart wiring, production trace bridge"
+  }
+}

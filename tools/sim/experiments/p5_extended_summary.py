@@ -1,0 +1,42 @@
+"""Read-only P5 exposure and bounded regression summary, no engine execution."""
+import argparse,pathlib,json,math,hashlib,collections
+p=argparse.ArgumentParser();p.add_argument('--raw',required=True);p.add_argument('--out',required=True);a=p.parse_args();src=pathlib.Path(a.raw);out=pathlib.Path(a.out);assert not out.exists();d=json.loads(src.read_bytes());dt=d['dt']
+norm=lambda v:math.sqrt(sum(v[k]**2 for k in ['x','y','z']))
+def context(t,f):return {'tick':t['tick'],'timeS':t['timeS'],'fighter':f['index'],'state':f['state'],'alive':f['alive'],'armed':f['armed'],'gripValid':f['gripValid'],'limbs':f['limbs'],'control':f['control']}
+def peak_metric(ff,key,value,absolute=False):
+ vals=[(t,f,f.get(key)) for t,f in ff if f.get(key) is not None]
+ if not vals:return None
+ t,f,v=max(vals,key=lambda x:abs(x[2][value]) if absolute else x[2][value]);return {**context(t,f),'metric':v}
+def fighter_stats(r,i,start=0,end=None):
+ ff=[(t,t['fighters'][i]) for t in r['metrics'] if t['tick']>=start and (end is None or t['tick']<end)];alive=[(t,f) for t,f in ff if f['alive'] and f['armed']]
+ stats={'frames':len(ff),'stateCounts':dict(collections.Counter(f['state'] for t,f in ff)),'aliveFrames':sum(f['alive'] for t,f in ff),'armedFrames':sum(f['armed'] for t,f in ff),'gripInvalidFrames':sum(not f['gripValid'] for t,f in ff),'aliveArmedGripInvalidFrames':sum(not f['gripValid'] for t,f in alive),'states':[]}
+ for field in ['maxJoint','gripGap','maxSpeed','maxHeight','maxOmega','maxLimbAxial','sword']:
+  metric={'maxJoint':'gapM','gripGap':'gapM','maxSpeed':'speedMps','maxHeight':'heightM','maxOmega':'omegaRadps','maxLimbAxial':'axialRadps','sword':'axialRadps'}[field];stats[field]=peak_metric(ff,field,metric,field in ['maxLimbAxial','sword']);stats[field+'AliveArmed']=peak_metric(alive,field,metric,field in ['maxLimbAxial','sword'])
+ stats['chestTiltRMSRad']=math.sqrt(sum(f['chestTiltRad']**2 for t,f in ff)/len(ff));stats['chestTiltMaxRad']=max(f['chestTiltRad'] for t,f in ff);stats['pelvisMinM']=min(f['pelvisHeightM'] for t,f in ff);stats['pelvisMaxM']=max(f['pelvisHeightM'] for t,f in ff)
+ last=None
+ for t,f in ff:
+  if f['state']!=last:stats['states'].append({**context(t,f)});last=f['state']
+ stats['minArmHealth']=min(f['control']['armHealth'] for t,f in ff);stats['minAvailability']=min((f['control']['assist'].get('availability',1) for t,f in ff),default=None)
+ stats['finalHealth']={k:ff[-1][1][k] for k in ['alive','armed','blood','consciousness','limbs']};return stats
+rows=[]
+for r in d['rows']:
+ firstDeathTick=next((t['tick'] for t in r['metrics'] if any(not f['alive'] for f in t['fighters'])),None)
+ ev=r['events'];player=[e for e in ev if e['attacker']==0];candidate=[e for e in ev if e.get('reaction')];caps=[e for e in candidate if e['reaction']['J']<e['J']-1e-12];episodes=[]
+ for key in sorted(set(e['episodeId'] for e in ev)):
+  ee=[e for e in ev if e['episodeId']==key];episodes.append({'episodeId':key,'attacker':ee[0]['attacker'],'part':ee[0]['part'],'startS':ee[0]['timeS'],'endS':ee[-1]['timeS'],'spanIncludingLastStepS':ee[-1]['timeS']-ee[0]['timeS']+dt,'pairs':len(ee),'regimes':dict(collections.Counter(e['regime'] for e in ee)),'sumRequestedJNs':sum(e['J'] for e in ee),'sumActualJNs':sum(e['reaction']['J'] if e.get('reaction') else e['J'] for e in ee)})
+ def event_small(e):
+  rr=e.get('reaction');return {'tick':e['tick'],'timeS':e['timeS'],'episodeId':e['episodeId'],'part':e['part'],'attacker':e['attacker'],'regime':e['regime'],'requestedJNs':e['J'],'actualJNs':rr['J'] if rr else e['J'],'pANs':norm(e['analysis']['deltaP']),'LWorldNms':norm(e['analysis']['deltaL']),'deltaKJ':e['analysis']['deltaKJ'],'budgetDebitJ':e['analysis']['requestedBudgetDebitJ'],'originalPointSpeedMps':e['s'],'reaction':rr}
+ support=[]
+ for t in r['supportWindows']:
+  for f in t['fighters']:
+   for leg,l in f['gait'].get('legs',{}).items():
+    if 'Nf' in l:support.append({'tick':t['tick'],'timeS':t['timeS'],'fighter':f['index'],'state':f['state'],'leg':leg,'stance':l.get('stance'),'N':l.get('N'),'Nf':l.get('Nf'),'pinF':l.get('pinF'),'pinLim':l.get('pinLim')})
+ candidatePhaseCounts={}
+ for e in candidate:
+  phase='bothAliveBeforeDeath' if firstDeathTick is None or e['tick']<firstDeathTick else 'deathStep' if e['tick']==firstDeathTick else 'afterDeath'
+  candidatePhaseCounts.setdefault(e['part'],{});candidatePhaseCounts[e['part']][phase]=candidatePhaseCounts[e['part']].get(phase,0)+1
+ thresholds={'momentumNs':8e-5,'angularNms':3e-4,'energyPredictionJ':2e-4,'passivityJ':2e-4,'closingMps':2e-4}
+ row={'weapons':r['weapons'],'mode':r['mode'],'steps':r['steps'],'priorPrefix':r['priorPrefix'],'newStepsBeyondPrior':r['steps']-r['priorPrefix']['steps'],'pairCallsBothAttackers':len(ev),'playerPairs':len(player),'candidatePairs':len(candidate),'targetPlayerPartCounts':dict(collections.Counter(e['part'] for e in player)),'playerRegimes':dict(collections.Counter(e['regime'] for e in player)),'candidatePhaseCounts':candidatePhaseCounts,'candidateCapEvents':len(caps),'firstCap':event_small(caps[0]) if caps else None,'maxCapReduction':event_small(min(caps,key=lambda e:e['reaction']['J']/e['J'])) if caps else None,'firstPlayerStuck':event_small(next(e for e in player if e['regime']=='stuck')) if any(e['regime']=='stuck' for e in player) else None,'playerEpisodes':[x for x in episodes if x['attacker']==0],'instantCandidateMaxResidual':{'P':max((norm(e['analysis']['deltaP']) for e in candidate),default=None),'LWorld':max((norm(e['analysis']['deltaL']) for e in candidate),default=None),'deltaKPrediction':max((abs(e['analysis']['deltaKResidualJ']) for e in candidate),default=None)},'instantTolerance':thresholds,'instantCandidateFailures':[event_small(e) for e in candidate if norm(e['analysis']['deltaP'])>thresholds['momentumNs'] or norm(e['analysis']['deltaL'])>thresholds['angularNms'] or abs(e['analysis']['deltaKResidualJ'])>thresholds['energyPredictionJ'] or e['analysis']['deltaKJ']>thresholds['passivityJ'] or (e['reaction']['J']>0 and e['reaction']['sAfterMeasured']<-thresholds['closingMps'])],'maxLegacyPositiveDeltaK':max((e['analysis']['deltaKJ'] for e in ev if not e.get('reaction')),default=None),'wounds':r['wounds'],'postFirstPlayerCutFighters':[fighter_stats(r,i,r['firstPlayerCutTick']) for i in [0,1]],'firstDeathTick':firstDeathTick,'bothAlivePostFirstCutFighters':[fighter_stats(r,i,r['firstPlayerCutTick'],firstDeathTick) for i in [0,1]],'supportWindowsFrames':len(r['supportWindows']),'supportStateCounts':dict(collections.Counter(x['state'] for x in support)),'supportMaxNf':max(support,key=lambda x:x['Nf']) if support else None,'supportN0PositiveMemoryMax':max((x for x in support if x.get('N')==0 and x['Nf']>0),key=lambda x:x['Nf'],default=None)}
+ rows.append(row)
+report={'schemaVersion':1,'measurementValid':d['measurementValid'],'source':{'raw':str(src),'sha256':hashlib.sha256(src.read_bytes()).hexdigest(),'bytes':src.stat().st_size,'head':d['head']},'executionCount':len(d['rows']),'steps':sum(r['steps'] for r in d['rows']),'newStepsBeyondPrior':sum(r['newStepsBeyondPrior'] for r in rows),'wallSeconds':d['wallSeconds'],'comparisons':d['comparisons'],'rows':rows,'limitations':['Continuation of the same two initial scenes, not four independent new scenes. All cut pair calls retained for both attackers.','After first responsive-AI input divergence, hits/health/pose are regression observations, not same-input causal effect comparisons.','Instant pair closure and passivity tolerances address Float32 native arithmetic; these are not gameplay naturalness thresholds.','Support windows are observations around natural state/limb changes, not a fresh-memory intervention or proof of stale memory being a bug.','Body speed/height/spin peaks include part, detached flag and life/grip context. Stand/survival does not prove human motion.','The fixed 30-second harness continues after death while browser main pauses after its round-over sequence. Both-alive combat and post-death stress results are separate; this run does not reproduce browser timing/emotion/input.']}
+out.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({'measurementValid':d['measurementValid'],'steps':report['steps'],'newStepsBeyondPrior':report['newStepsBeyondPrior'],'rows':[{k:r[k] for k in ['weapons','mode','playerPairs','candidatePairs','targetPlayerPartCounts','playerRegimes','candidateCapEvents','instantCandidateMaxResidual','supportWindowsFrames']} for r in rows]},indent=2))

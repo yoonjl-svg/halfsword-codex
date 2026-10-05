@@ -1,0 +1,1542 @@
+{
+  "schemaVersion": 1,
+  "status": "research_preserved_unpublished_contact_not_observed",
+  "effectAccepted": false,
+  "runtimeIntegrated": false,
+  "publicChanged": false,
+  "headAtReport": "2cb4915c96a69da722dfd65ef2c2bae2ceaa341f",
+  "frozenSourceCommit": "e0ed9e5af85037a7bdd2644e35090a8936da9f60",
+  "purpose": "Preserve commanded cutting progress and meaningful inertia while reducing unwanted recut roll; no score requires every scalar to improve.",
+  "hypothesis": "During an active cut, final hand+aim command-point direction may be a useful alternative to the residual physical-velocity direction.",
+  "candidate": "Only when inputActive && skill.swinging && !skill.tap && thrustPose.w===0 and transverse command is nonzero: use normal(blade×commandPointVelocity) in the existing moving-plane blend. Existing physical speed weight, rest plane, nearest-flat sign choice, torque/damping/caps and reaction laws remain. No normal memory at rest.",
+  "oldFailuresNotEnabled": [
+    "restHemisphere",
+    "continuedNormal",
+    "planePotential",
+    "planeMixture",
+    "tensorMean",
+    "freshPhysicalVelocity",
+    "commandedPlane/commandedPlaneC1",
+    "pointIntent plane memory"
+  ],
+  "observation": {
+    "steps": 333,
+    "nativeAndAppliedInputExact": true,
+    "sourceStable": true,
+    "boundaryTicks": [
+      324,
+      325
+    ],
+    "worldCommandNormalSlewDeg": 4.723225389180723,
+    "bodyRelativeCommandNormalSlewDeg": 5.045636921323528,
+    "physicalNormalSlewDeg": 27.86692145405569,
+    "limitation": "World command includes actual chest/yaw motion; bodyRelative decomposition is retained. Command trajectory is not guaranteed reachable."
+  },
+  "matchedLongsword": {
+    "comparison": {
+      "weapon": "longsword",
+      "creationExact": true,
+      "prefixNativeExact": true,
+      "prefixControlExact": true,
+      "inputExact": true,
+      "firstNativeDifference": 321,
+      "firstGoalDifference": 321
+    },
+    "measurementValid": true,
+    "firstEligibleActiveTick": 321,
+    "recut": [
+      {
+        "mode": "legacy",
+        "steps": 30,
+        "commandSignedProgressM": 0.8985377469204907,
+        "commandPositiveProgressM": 0.9380976486316798,
+        "ownCommandSignedProgressM": 0.8954007760380573,
+        "meanOwnCommandErrorDeg": 15.49294958926633,
+        "commandSpeedWeightedOwnErrorDeg": 13.604208713843171,
+        "meanBaselineCommandErrorDeg": 15.49294958926633,
+        "physicalSpeedWeightedEdgeErrorDeg": 10.057138323306958,
+        "tipPeakMps": 7.85874671057903,
+        "tipMeanMps": 4.996832118365802,
+        "kineticPeakJ": 15.814310475920612,
+        "kineticMeanJ": 7.233316312035088,
+        "axialTravelRad": 1.196096019499801,
+        "axialNetIntegralRad": -0.6560621333928595,
+        "axialLobes": [
+          {
+            "start": 318,
+            "end": 324,
+            "sign": 1,
+            "travelRad": 0.18851527228477677,
+            "peakRadps": 6.005593566587388
+          },
+          {
+            "start": 325,
+            "end": 332,
+            "sign": -1,
+            "travelRad": 0.8528104921811791,
+            "peakRadps": 21.465692785376124
+          },
+          {
+            "start": 333,
+            "end": 337,
+            "sign": 1,
+            "travelRad": 0.07353396608404,
+            "peakRadps": 2.6227354816760693
+          },
+          {
+            "start": 338,
+            "end": 339,
+            "sign": -1,
+            "travelRad": 0.007004345304937828,
+            "peakRadps": 0.6167787539614016
+          },
+          {
+            "start": 340,
+            "end": 340,
+            "sign": 1,
+            "travelRad": 0.0005603145305134852,
+            "peakRadps": 0.06723774366161822
+          },
+          {
+            "start": 341,
+            "end": 346,
+            "sign": -1,
+            "travelRad": 0.06626423896021318,
+            "peakRadps": 3.166497852440196
+          },
+          {
+            "start": 347,
+            "end": 347,
+            "sign": 1,
+            "travelRad": 0.007407390154140581,
+            "peakRadps": 0.8888868184968698
+          }
+        ],
+        "ownCommandErrorZeroCrossings": [
+          {
+            "tick": 319,
+            "beforeDeg": 4.141928878835723,
+            "afterDeg": -5.78457276314931,
+            "representationBoundary": false
+          },
+          {
+            "tick": 328,
+            "beforeDeg": -6.5443492141320245,
+            "afterDeg": 1.46771182931191,
+            "representationBoundary": false
+          },
+          {
+            "tick": 335,
+            "beforeDeg": 7.46944067440028,
+            "afterDeg": -5.377794814187625,
+            "representationBoundary": false
+          },
+          {
+            "tick": 346,
+            "beforeDeg": -2.0312436361564723,
+            "afterDeg": 2.0807271832671455,
+            "representationBoundary": false
+          }
+        ],
+        "baselineCommandErrorZeroCrossings": [
+          {
+            "tick": 319,
+            "beforeDeg": 4.141928878835723,
+            "afterDeg": -5.78457276314931,
+            "representationBoundary": false
+          },
+          {
+            "tick": 328,
+            "beforeDeg": -6.5443492141320245,
+            "afterDeg": 1.46771182931191,
+            "representationBoundary": false
+          },
+          {
+            "tick": 335,
+            "beforeDeg": 7.46944067440028,
+            "afterDeg": -5.377794814187625,
+            "representationBoundary": false
+          },
+          {
+            "tick": 346,
+            "beforeDeg": -2.0312436361564723,
+            "afterDeg": 2.0807271832671455,
+            "representationBoundary": false
+          }
+        ],
+        "maxTargetSlewDeg": 42.06227832392515,
+        "maxPositionTorqueStepNm": 2.811216302378991,
+        "maxFinalAxialTorqueStepNm": 3.089810018875697,
+        "maxGapM": 0.0009905018336845751,
+        "maxChestTiltRad": 0.28709669890467854
+      },
+      {
+        "mode": "commandDirection",
+        "steps": 30,
+        "commandSignedProgressM": 0.9104524702728399,
+        "commandPositiveProgressM": 0.9499606080892047,
+        "ownCommandSignedProgressM": 0.9070511449619744,
+        "meanOwnCommandErrorDeg": 10.924708292362713,
+        "commandSpeedWeightedOwnErrorDeg": 10.022211051706813,
+        "meanBaselineCommandErrorDeg": 10.92179705577172,
+        "physicalSpeedWeightedEdgeErrorDeg": 13.592851519998002,
+        "tipPeakMps": 8.057181278085558,
+        "tipMeanMps": 4.9828148728905015,
+        "kineticPeakJ": 15.719728978366488,
+        "kineticMeanJ": 7.188375863033056,
+        "axialTravelRad": 1.4217671608086377,
+        "axialNetIntegralRad": -0.7698840447543651,
+        "axialLobes": [
+          {
+            "start": 318,
+            "end": 320,
+            "sign": 1,
+            "travelRad": 0.13065505363500707,
+            "peakRadps": 6.005593566587388
+          },
+          {
+            "start": 321,
+            "end": 343,
+            "sign": -1,
+            "travelRad": 1.0958256027815012,
+            "peakRadps": 12.823716852518256
+          },
+          {
+            "start": 344,
+            "end": 347,
+            "sign": 1,
+            "travelRad": 0.19528650439212913,
+            "peakRadps": 7.46270769466116
+          }
+        ],
+        "ownCommandErrorZeroCrossings": [
+          {
+            "tick": 319,
+            "beforeDeg": 4.141928878835723,
+            "afterDeg": -5.78457276314931,
+            "representationBoundary": false
+          },
+          {
+            "tick": 343,
+            "beforeDeg": -1.551114453923977,
+            "afterDeg": 2.348901168285086,
+            "representationBoundary": false
+          }
+        ],
+        "baselineCommandErrorZeroCrossings": [
+          {
+            "tick": 319,
+            "beforeDeg": 4.141928878835723,
+            "afterDeg": -5.78457276314931,
+            "representationBoundary": false
+          },
+          {
+            "tick": 343,
+            "beforeDeg": -1.7002862262312886,
+            "afterDeg": 2.2181860546466723,
+            "representationBoundary": false
+          }
+        ],
+        "maxTargetSlewDeg": 28.249609715071156,
+        "maxPositionTorqueStepNm": 2.0734007350729153,
+        "maxFinalAxialTorqueStepNm": 2.5098440706144913,
+        "maxGapM": 0.0009905018336845751,
+        "maxChestTiltRad": 0.28709669890467854
+      }
+    ],
+    "limits": [
+      "Command targets need not be reachable; this does not certify intended human technique.",
+      "Own-command references differ after native divergence. Baseline-command references are included to expose this comparison limit.",
+      "Hold/release command motion includes autonomous return and physical body movement; its direction is not a new active cutting command.",
+      "A lower peak, lower angle or fewer reversals alone is not gameplay acceptance. No additional physics or human video judgment occurred."
+    ]
+  },
+  "fromCreation": {
+    "newCandidateExecutions": 2,
+    "reusedBaselineRows": 2,
+    "comparisons": [
+      {
+        "weapon": "longsword",
+        "creationExact": true,
+        "prefixNativeExact": true,
+        "prefixControlExact": true,
+        "inputExact": true,
+        "firstNativeDifference": 134,
+        "firstGoalDifference": 134
+      },
+      {
+        "weapon": "qinggang",
+        "creationExact": true,
+        "prefixNativeExact": true,
+        "prefixControlExact": true,
+        "inputExact": true,
+        "firstNativeDifference": 134,
+        "firstGoalDifference": 134
+      }
+    ],
+    "measurementValid": true,
+    "phaseComparisons": {
+      "longsword": {
+        "firstCut": {
+          "tipPeakMps": [
+            10.539056471177274,
+            10.622973466452645
+          ],
+          "tipMeanMps": [
+            5.6365403775855185,
+            5.632100139036277
+          ],
+          "kineticPeakJ": [
+            21.092268343800875,
+            21.043178071193903
+          ],
+          "kineticMeanJ": [
+            8.638974925062506,
+            8.674100392278543
+          ],
+          "axialPeakRadps": [
+            6.689983857561351,
+            10.68783945444123
+          ],
+          "axialTravelRad": [
+            0.800314969759537,
+            1.1234003029954056
+          ],
+          "actualEdgeErrorWeightedRad": [
+            0.15072686134057314,
+            0.10460685579493119
+          ],
+          "maximumTargetSlewRad": [
+            0.12586112772200045,
+            0.25161816073856846
+          ],
+          "maxGapM": [
+            0.0009892122353665211,
+            0.0009892122353665211
+          ]
+        },
+        "followHold": {
+          "tipPeakMps": [
+            9.722389169814683,
+            9.879615816386217
+          ],
+          "tipMeanMps": [
+            5.977674529985136,
+            5.978321148825536
+          ],
+          "kineticPeakJ": [
+            27.902167482199573,
+            27.91171794570091
+          ],
+          "kineticMeanJ": [
+            11.008831820403557,
+            11.00344203771995
+          ],
+          "axialPeakRadps": [
+            11.313163094548973,
+            10.506729470934516
+          ],
+          "axialTravelRad": [
+            0.7993317830918675,
+            0.8781659564463835
+          ],
+          "actualEdgeErrorWeightedRad": [
+            0.07614043797811455,
+            0.08742959124864744
+          ],
+          "maximumTargetSlewRad": [
+            0.1822876930108049,
+            0.17000023071196918
+          ],
+          "maxGapM": [
+            0.0011088965126216132,
+            0.0011243767539542463
+          ]
+        },
+        "reverse": {
+          "tipPeakMps": [
+            10.810537151145477,
+            10.806621530642248
+          ],
+          "tipMeanMps": [
+            4.988213918395109,
+            4.9719117418186585
+          ],
+          "kineticPeakJ": [
+            15.422387985962452,
+            15.464588391413145
+          ],
+          "kineticMeanJ": [
+            6.5656412052216275,
+            6.575511350964638
+          ],
+          "axialPeakRadps": [
+            8.161448197341933,
+            13.841940853601157
+          ],
+          "axialTravelRad": [
+            0.6008448808238013,
+            1.0390906714594914
+          ],
+          "actualEdgeErrorWeightedRad": [
+            0.11906500193937465,
+            0.11312621627651888
+          ],
+          "maximumTargetSlewRad": [
+            0.11763488436637043,
+            0.36973196377453466
+          ],
+          "maxGapM": [
+            0.0008366816349152219,
+            0.0008886563816072565
+          ]
+        },
+        "reverseHold": {
+          "tipPeakMps": [
+            8.029303185178602,
+            8.21931838416284
+          ],
+          "tipMeanMps": [
+            5.817711990019844,
+            5.863562608079813
+          ],
+          "kineticPeakJ": [
+            10.982578926331117,
+            11.028085009859723
+          ],
+          "kineticMeanJ": [
+            7.486819005154345,
+            7.527412460833513
+          ],
+          "axialPeakRadps": [
+            7.138014953096831,
+            6.225837537733595
+          ],
+          "axialTravelRad": [
+            0.6330563013927064,
+            0.5915905750610784
+          ],
+          "actualEdgeErrorWeightedRad": [
+            0.14302897334081757,
+            0.12221470286968922
+          ],
+          "maximumTargetSlewRad": [
+            0.05907848089267801,
+            0.2405223393018323
+          ],
+          "maxGapM": [
+            0.0004878034909230208,
+            0.0004832458194909253
+          ]
+        },
+        "tap": {
+          "tipPeakMps": [
+            6.649606755218501,
+            6.6385318709591274
+          ],
+          "tipMeanMps": [
+            3.205635481892307,
+            3.2046974500586702
+          ],
+          "kineticPeakJ": [
+            6.4093672566522155,
+            6.382046541457698
+          ],
+          "kineticMeanJ": [
+            2.6891585870805836,
+            2.6910589454624207
+          ],
+          "axialPeakRadps": [
+            9.813212113882773,
+            10.167275693097427
+          ],
+          "axialTravelRad": [
+            1.82333339554706,
+            1.88576721595835
+          ],
+          "actualEdgeErrorWeightedRad": [
+            0.2537657236745423,
+            0.2593161085801102
+          ],
+          "maximumTargetSlewRad": [
+            0.1671191582908258,
+            0.17044775222533892
+          ],
+          "maxGapM": [
+            0.0011937756458470599,
+            0.0011961857083048477
+          ]
+        },
+        "recut": {
+          "tipPeakMps": [
+            7.85874671057903,
+            8.053345264105912
+          ],
+          "tipMeanMps": [
+            4.996832118365802,
+            4.975428546509041
+          ],
+          "kineticPeakJ": [
+            15.814310475920612,
+            15.690991297484448
+          ],
+          "kineticMeanJ": [
+            7.233316312035088,
+            7.172937989031106
+          ],
+          "axialPeakRadps": [
+            21.465692785376124,
+            12.691501919161473
+          ],
+          "axialTravelRad": [
+            1.196096019499801,
+            1.414770629379497
+          ],
+          "actualEdgeErrorWeightedRad": [
+            0.17553017707020832,
+            0.23636750599904105
+          ],
+          "maximumTargetSlewRad": [
+            0.7341252476427358,
+            0.48663569129833156
+          ],
+          "maxGapM": [
+            0.0009905018336845751,
+            0.000988759944949357
+          ]
+        },
+        "recutHold": {
+          "tipPeakMps": [
+            8.429928345349056,
+            8.508711258694149
+          ],
+          "tipMeanMps": [
+            5.169975483677702,
+            5.192680262422957
+          ],
+          "kineticPeakJ": [
+            21.549762398011513,
+            21.5632372760268
+          ],
+          "kineticMeanJ": [
+            8.438609708364174,
+            8.484300523149429
+          ],
+          "axialPeakRadps": [
+            2.081902985610072,
+            5.313483446799863
+          ],
+          "axialTravelRad": [
+            0.25600378144743663,
+            0.37450776034777955
+          ],
+          "actualEdgeErrorWeightedRad": [
+            0.044712452900451456,
+            0.0614901358257083
+          ],
+          "maximumTargetSlewRad": [
+            0.03780416346509531,
+            0.031555460164121
+          ],
+          "maxGapM": [
+            0.001068063053423082,
+            0.0010779469174644512
+          ]
+        },
+        "release": {
+          "tipPeakMps": [
+            3.3698229695533595,
+            3.3751086130182975
+          ],
+          "tipMeanMps": [
+            1.7837655105572918,
+            1.7820299751902862
+          ],
+          "kineticPeakJ": [
+            1.1504617978783525,
+            1.1639921110690463
+          ],
+          "kineticMeanJ": [
+            0.541951996184079,
+            0.548418877653552
+          ],
+          "axialPeakRadps": [
+            9.898444910765145,
+            10.036565604340876
+          ],
+          "axialTravelRad": [
+            0.8832722851915685,
+            0.8836460169225594
+          ],
+          "actualEdgeErrorWeightedRad": [
+            0.1813889870791814,
+            0.18383826139685644
+          ],
+          "maximumTargetSlewRad": [
+            0.19180637240783066,
+            0.194018916402961
+          ],
+          "maxGapM": [
+            0.0008047728723225188,
+            0.0008091573995435455
+          ]
+        }
+      },
+      "qinggang": {
+        "firstCut": {
+          "tipPeakMps": [
+            12.63532496225918,
+            12.59493123367974
+          ],
+          "tipMeanMps": [
+            7.5416821109148575,
+            7.535981528739492
+          ],
+          "kineticPeakJ": [
+            19.194954314136808,
+            19.083436759501943
+          ],
+          "kineticMeanJ": [
+            9.81821165279954,
+            9.806401846761501
+          ],
+          "axialPeakRadps": [
+            16.72934543423227,
+            8.456746373578428
+          ],
+          "axialTravelRad": [
+            1.0310610059560796,
+            1.0151262903369938
+          ],
+          "actualEdgeErrorWeightedRad": [
+            0.43831315012806465,
+            0.2652403872995711
+          ],
+          "maximumTargetSlewRad": [
+            0.26049575042837964,
+            0.40394093618859034
+          ],
+          "maxGapM": [
+            0.0009458513685622644,
+            0.0009505156315518281
+          ]
+        },
+        "followHold": {
+          "tipPeakMps": [
+            8.826037282021625,
+            8.627565993024588
+          ],
+          "tipMeanMps": [
+            2.5190130647759488,
+            2.4986653054427665
+          ],
+          "kineticPeakJ": [
+            12.311081627991122,
+            11.95777799942621
+          ],
+          "kineticMeanJ": [
+            2.2544716279942,
+            2.2155038499247377
+          ],
+          "axialPeakRadps": [
+            19.11799643296216,
+            17.808487584815985
+          ],
+          "axialTravelRad": [
+            1.5223715604865706,
+            1.4253498667955324
+          ],
+          "actualEdgeErrorWeightedRad": [
+            0.6008133102030379,
+            0.48075169234240883
+          ],
+          "maximumTargetSlewRad": [
+            0.4559919056134773,
+            0.4348621926685209
+          ],
+          "maxGapM": [
+            0.0008358478794990769,
+            0.000839707256224841
+          ]
+        },
+        "reverse": {
+          "tipPeakMps": [
+            8.173860266073236,
+            8.436680707715306
+          ],
+          "tipMeanMps": [
+            4.722617039673838,
+            4.7290670417205725
+          ],
+          "kineticPeakJ": [
+            8.730344280641397,
+            8.849915090373589
+          ],
+          "kineticMeanJ": [
+            3.858448515203257,
+            3.851086789376493
+          ],
+          "axialPeakRadps": [
+            19.352088588047724,
+            26.44315130858211
+          ],
+          "axialTravelRad": [
+            1.701187386741648,
+            2.3297688987382537
+          ],
+          "actualEdgeErrorWeightedRad": [
+            0.25479320253016124,
+            0.20121655283659437
+          ],
+          "maximumTargetSlewRad": [
+            0.286085008483298,
+            1.4788101169365153
+          ],
+          "maxGapM": [
+            0.0010330308516619778,
+            0.0010312938961307776
+          ]
+        },
+        "reverseHold": {
+          "tipPeakMps": [
+            8.663795212160485,
+            8.629754777631554
+          ],
+          "tipMeanMps": [
+            4.081733454255501,
+            4.0763959265589955
+          ],
+          "kineticPeakJ": [
+            9.792051737894457,
+            9.760637043524305
+          ],
+          "kineticMeanJ": [
+            3.4631557412358647,
+            3.4762026091843734
+          ],
+          "axialPeakRadps": [
+            8.306108587952787,
+            8.460122717772228
+          ],
+          "axialTravelRad": [
+            0.7767673864877308,
+            0.72820395152849
+          ],
+          "actualEdgeErrorWeightedRad": [
+            0.3108093795914032,
+            0.2756024864643094
+          ],
+          "maximumTargetSlewRad": [
+            0.08330927250861513,
+            0.13802042811866447
+          ],
+          "maxGapM": [
+            0.000559740179968289,
+            0.0005628636250978878
+          ]
+        },
+        "tap": {
+          "tipPeakMps": [
+            6.8988743132457335,
+            6.897448029909554
+          ],
+          "tipMeanMps": [
+            3.9605787569162643,
+            3.9561225257074595
+          ],
+          "kineticPeakJ": [
+            6.721930499683303,
+            6.7317427475137475
+          ],
+          "kineticMeanJ": [
+            2.8452767911022203,
+            2.842382770388046
+          ],
+          "axialPeakRadps": [
+            24.70400040625823,
+            24.55446973660426
+          ],
+          "axialTravelRad": [
+            4.968433926707168,
+            4.998242954108663
+          ],
+          "actualEdgeErrorWeightedRad": [
+            0.5704245882850115,
+            0.5703189912191508
+          ],
+          "maximumTargetSlewRad": [
+            0.6466405654432651,
+            0.6685975893136181
+          ],
+          "maxGapM": [
+            0.0010844266520358635,
+            0.0010843405297622727
+          ]
+        },
+        "recut": {
+          "tipPeakMps": [
+            10.07186012781481,
+            10.075893992124195
+          ],
+          "tipMeanMps": [
+            6.394162590365223,
+            6.323992061100673
+          ],
+          "kineticPeakJ": [
+            14.44477364452932,
+            13.57558530237389
+          ],
+          "kineticMeanJ": [
+            7.8531882066767515,
+            7.4793273738974655
+          ],
+          "axialPeakRadps": [
+            34.150887860127675,
+            31.223552396842038
+          ],
+          "axialTravelRad": [
+            2.817564138234496,
+            2.2478098353493117
+          ],
+          "actualEdgeErrorWeightedRad": [
+            0.5853470308234633,
+            0.37642282922878534
+          ],
+          "maximumTargetSlewRad": [
+            0.7053155687574165,
+            1.6051607843550821
+          ],
+          "maxGapM": [
+            0.0015117683244868214,
+            0.0015065994628348637
+          ]
+        },
+        "recutHold": {
+          "tipPeakMps": [
+            7.518948514280795,
+            7.3423609441908
+          ],
+          "tipMeanMps": [
+            2.6804647606691927,
+            2.6448292978692973
+          ],
+          "kineticPeakJ": [
+            10.664210116383781,
+            10.047387098132555
+          ],
+          "kineticMeanJ": [
+            2.0233733997485706,
+            1.9708867706368818
+          ],
+          "axialPeakRadps": [
+            8.855112848235908,
+            18.70241844472351
+          ],
+          "axialTravelRad": [
+            1.1939139628846052,
+            1.0679476842902402
+          ],
+          "actualEdgeErrorWeightedRad": [
+            0.48579429337549923,
+            0.3883988694358126
+          ],
+          "maximumTargetSlewRad": [
+            0.2219924081239272,
+            0.1645197511670186
+          ],
+          "maxGapM": [
+            0.0008727318534993083,
+            0.000827935215017197
+          ]
+        },
+        "release": {
+          "tipPeakMps": [
+            4.090727101809655,
+            4.089748112005156
+          ],
+          "tipMeanMps": [
+            2.332934137856573,
+            2.3342347641073102
+          ],
+          "kineticPeakJ": [
+            1.4662147336083533,
+            1.4685842358810486
+          ],
+          "kineticMeanJ": [
+            0.5981493142871575,
+            0.5948607345796492
+          ],
+          "axialPeakRadps": [
+            13.319941374933062,
+            13.39541653779883
+          ],
+          "axialTravelRad": [
+            2.1927878304108233,
+            2.1211287405457524
+          ],
+          "actualEdgeErrorWeightedRad": [
+            0.5977453852323465,
+            0.6040560512504308
+          ],
+          "maximumTargetSlewRad": [
+            0.1770790268558661,
+            0.176682258682238
+          ],
+          "maxGapM": [
+            0.0008501244225539131,
+            0.0008449465910452653
+          ]
+        }
+      }
+    },
+    "correctedSameWindowAggregate": {
+      "schemaVersion": 1,
+      "source": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-spawn01.json",
+      "sourceSHA256": "248a34b4de6a99c5fd1649f3768bebf83286f9f240eb67c20e3e8d7af08bd1f4",
+      "correction": "Preserve raw. Old reused baseline summary.afterIntervention starts132 while candidate starts0. Only this aggregate is recomputed over identical0:444; phase rows remain valid. No physics rerun.",
+      "rows": [
+        {
+          "weapon": "qinggang",
+          "mode": "legacy",
+          "ticks": [
+            0,
+            443
+          ],
+          "steps": 444,
+          "reusedBaseline": true,
+          "axialPeakRadps": 34.150887860127675,
+          "axialTravelRad": 18.349118183368777,
+          "actualEdgeErrorWeightedRad": 0.44696869420231405,
+          "tipPeakMps": 12.63532496225918,
+          "tipMeanMps": 3.2824648861788805
+        },
+        {
+          "weapon": "longsword",
+          "mode": "legacy",
+          "ticks": [
+            0,
+            443
+          ],
+          "steps": 444,
+          "reusedBaseline": true,
+          "axialPeakRadps": 21.465692785376124,
+          "axialTravelRad": 9.705886460149724,
+          "actualEdgeErrorWeightedRad": 0.1491692960353455,
+          "tipPeakMps": 10.810537151145477,
+          "tipMeanMps": 3.5245686207690565
+        },
+        {
+          "weapon": "longsword",
+          "mode": "commandDirection",
+          "ticks": [
+            0,
+            443
+          ],
+          "steps": 444,
+          "reusedBaseline": false,
+          "axialPeakRadps": 15.611741742067515,
+          "axialTravelRad": 10.904572171966493,
+          "actualEdgeErrorWeightedRad": 0.15192822732595096,
+          "tipPeakMps": 10.806621530642248,
+          "tipMeanMps": 3.5255110947455246
+        },
+        {
+          "weapon": "qinggang",
+          "mode": "commandDirection",
+          "ticks": [
+            0,
+            443
+          ],
+          "steps": 444,
+          "reusedBaseline": false,
+          "axialPeakRadps": 31.223552396842038,
+          "axialTravelRad": 18.07860920715289,
+          "actualEdgeErrorWeightedRad": 0.3668296546095049,
+          "tipPeakMps": 12.59493123367974,
+          "tipMeanMps": 3.2726073045831465
+        }
+      ]
+    },
+    "retainedCounterexamples": [
+      {
+        "weapon": "qinggang",
+        "tick": 208,
+        "kind": "Existing nearest-actual-flat branch remains",
+        "targetStepDeg": 84.73,
+        "commandTransverseMps": [
+          0.45,
+          0.65
+        ]
+      },
+      {
+        "weapon": "qinggang",
+        "tick": 323,
+        "kind": "Command plane itself turns about88deg; stable-command prerequisite does not generalize",
+        "targetStepDeg": -91.97,
+        "axialOmegaRadps": [
+          21.71,
+          -31.22
+        ]
+      },
+      {
+        "weapon": "longsword",
+        "tick": 321,
+        "kind": "Discrete eligible entry selects a different normal",
+        "targetStepDeg": -28.25
+      },
+      {
+        "weapon": "longsword",
+        "ticks": [
+          344,
+          347
+        ],
+        "kind": "Return roll lobe remains after the longer main turn",
+        "travelRad": 0.19528650439212913
+      }
+    ]
+  },
+  "commandJumpDecomposition": {
+    "schemaVersion": 1,
+    "source": {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-spawn01.json",
+      "sha256": "248a34b4de6a99c5fd1649f3768bebf83286f9f240eb67c20e3e8d7af08bd1f4"
+    },
+    "newPhysicsExecutions": 0,
+    "ticks": [
+      322,
+      323
+    ],
+    "inputDeltaEqual": true,
+    "candidateEligible": [
+      true,
+      true
+    ],
+    "commandVelocityMps": [
+      [
+        -0.5317759839159919,
+        -0.02248787052332446,
+        1.4830429410843449
+      ],
+      [
+        1.8826649256548222,
+        -2.3827924633082453,
+        0.8825599462391054
+      ]
+    ],
+    "worldCommandVelocityTurnDeg": 85.84195494295433,
+    "projectedCommandVelocityTurnDeg": 88.0214059211681,
+    "actualBladeAxisTurnDeg": 1.5652859725544936,
+    "reconstructedBodyRightTurnDeg": 0.013066678395551928,
+    "bodyRightMethod": "Recover horizontal right from projected rest: normalize(rest - blade*(rest.y/blade.y)); stable branch and nonzero blade.y here. This gives orientation only, not chest translation.",
+    "missing": [
+      "Final handTarget per frame",
+      "Final aimDirW per frame",
+      "Chest world translation per frame",
+      "Unprojected yaw/body-local command components"
+    ],
+    "inference": "The abrupt command-velocity change exists before projection onto actual blade; blade-axis change alone does not explain it. Stored point=sum(hand+lever*aim) cannot uniquely separate hand/aim/chest contributions. The data do not establish or exclude amplification of physical chest motion.",
+    "nextObservationOnly": "At the same Q boundary, record final handTarget, aimDirW, chest position and yaw with their previous values. No new target model or gains should precede this source decomposition."
+  },
+  "contact": {
+    "status": "not_accepted_no_exposed_actual_player_cut",
+    "attempts": [
+      {
+        "name": "contact01",
+        "measurementValid": false,
+        "runs": 2,
+        "steps": 2528,
+        "sourceStable": true,
+        "reason": "Original AI2 input never sets human active/held flags. Candidate intervention0, both native traces exact. Actual cuts occurred but do not validate candidate contact."
+      },
+      {
+        "name": "contact02",
+        "runs": 0,
+        "steps": 0,
+        "reason": "Prepared-only L2 active-threshold variant. Never executed; corrected to actual main.js L1 threshold before next execution."
+      },
+      {
+        "name": "contact03",
+        "measurementValid": false,
+        "runs": 1,
+        "steps": 601,
+        "sourceStable": true,
+        "reason": "AI requested-delta fixture had no eligible cut by arbitrary5second deadline; baseline aborted, candidate never ran.",
+        "accounting": {
+          "schemaVersion": 1,
+          "raw": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-contact03/report.json",
+          "rawSHA256": "a7fcdd983ad26300da68398e77f9e85e72f839fabc9a6584d7b9123bcaeec179",
+          "runner": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-contact03-runtime/tools/sim/experiments/p4_command_contact_runner.mjs",
+          "runnerSHA256": "9a30d6a5aac3dde439763fd7f828437d3986fcab4404186e166733ef1326d453",
+          "newPhysicsExecutions": 1,
+          "physicsSteps": 601,
+          "candidateExecutions": 0,
+          "wallSeconds": 3.7848975260000004,
+          "countEvidence": "The baseline completed G.step and pushed frame600 before the explicit tick600 assertion. No earlier exception occurred. Old runner appended rows only after successful return, so its receipt incorrectly says0/0. This is source/error-derived executed-step accounting, not recovered full native frames.",
+          "failure": "Unscheduled AI input had no eligible active cut by5seconds. This does not test candidate contact.",
+          "lostObservation": "Partial baseline frame/exposure trace was not serialized by the reused old runner. Raw error, source manifest and frozen source remain; no invented measurements or rerun were used to replace it.",
+          "correction": "New generator now pushes rows before run starts and counts frames even on failure."
+        }
+      },
+      {
+        "name": "contact04",
+        "measurementValid": false,
+        "runs": 2,
+        "steps": 1440,
+        "sourceStable": true,
+        "reason": "Explicit previously validated touch schedule, default newRound startGap5.6m, original reactive opponent, stationary player without AI. Candidate exposed, but this6second pad-only fixture did not produce player cutting-reaction pairs or wounds. Ended without seed/gap search.",
+        "comparisons": [
+          {
+            "weapons": [
+              "longsword",
+              "zweihander"
+            ],
+            "sameCreation": true,
+            "exactPrefixNativeControlInput": true,
+            "sameBoundary": true,
+            "samePairNative": true,
+            "firstTickSame": true,
+            "firstPlayerCutTicks": [
+              null,
+              null
+            ],
+            "firstInputDivergence": 150,
+            "firstNativeDivergence": 134,
+            "steps": [
+              720,
+              720
+            ],
+            "events": [
+              0,
+              0
+            ],
+            "firstPlayerInputDivergence": -1,
+            "candidateCommandedFrames": 79,
+            "firstCommandedTick": 134,
+            "exactBeforeCandidate": true
+          }
+        ],
+        "rows": [
+          {
+            "mode": "legacy",
+            "steps": 720,
+            "exposure": {
+              "active": 144,
+              "swinging": 96,
+              "tap": 57,
+              "thrust": 57,
+              "eligible": 87,
+              "owners": {
+                "player": 356,
+                "thrust": 57,
+                "recovery": 1,
+                "return": 306
+              }
+            },
+            "commandedFrames": 0,
+            "firstCommandedTick": null,
+            "firstPlayerCutTick": null,
+            "cutEvents": 0,
+            "woundCount": 0,
+            "checks": {
+              "finite": true,
+              "inputAccepted": true,
+              "failedBudgetedInactive": true,
+              "onlyPlayerSelected": true,
+              "contactObserved": false
+            },
+            "finalFighters": [
+              {
+                "state": "stand",
+                "alive": true,
+                "armed": true,
+                "blood": 1,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              },
+              {
+                "state": "stand",
+                "alive": true,
+                "armed": true,
+                "blood": 1,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              }
+            ]
+          },
+          {
+            "mode": "commandDirection",
+            "steps": 720,
+            "exposure": {
+              "active": 144,
+              "swinging": 96,
+              "tap": 57,
+              "thrust": 57,
+              "eligible": 87,
+              "owners": {
+                "player": 356,
+                "thrust": 57,
+                "recovery": 1,
+                "return": 306
+              }
+            },
+            "commandedFrames": 79,
+            "firstCommandedTick": 134,
+            "firstPlayerCutTick": null,
+            "cutEvents": 0,
+            "woundCount": 0,
+            "checks": {
+              "finite": true,
+              "inputAccepted": true,
+              "failedBudgetedInactive": true,
+              "onlyPlayerSelected": true,
+              "contactObserved": false
+            },
+            "finalFighters": [
+              {
+                "state": "stand",
+                "alive": true,
+                "armed": true,
+                "blood": 1,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              },
+              {
+                "state": "stand",
+                "alive": true,
+                "armed": true,
+                "blood": 1,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "limits": [
+      "Contact04 has valid control exposure and identical player events, but no observed cutting contact; it is not contact safety acceptance.",
+      "Reactive opponent input diverges at150, after player native divergence134.",
+      "End-state stand/alive/armed is not a proof of human naturalness or full-body recovery.",
+      "No new seed/gap search, gain tuning or candidate modification followed."
+    ]
+  },
+  "execution": {
+    "newPhysicsExecutions": 10,
+    "physicsSteps": 6678,
+    "breakdown": [
+      {
+        "kind": "read-only original baseline replay",
+        "runs": 1,
+        "steps": 333
+      },
+      {
+        "kind": "same recut prefix baseline/candidate",
+        "runs": 2,
+        "steps": 888
+      },
+      {
+        "kind": "candidate from creation, baseline data reused",
+        "runs": 2,
+        "steps": 888
+      },
+      {
+        "kind": "contact fixture without candidate exposure",
+        "runs": 2,
+        "steps": 2528
+      },
+      {
+        "kind": "early aborted AI-delta fixture baseline; partial raw trace lost, source/error-derived count",
+        "runs": 1,
+        "steps": 601
+      },
+      {
+        "kind": "scripted contact fixture, candidate exposed but player cut absent",
+        "runs": 2,
+        "steps": 1440
+      }
+    ],
+    "physicsWallSeconds": 33.256014456,
+    "fixtureCorrectionElapsedSeconds": 519.669,
+    "fixtureTimeDefinition": "Elapsed from first no-exposure contact completion to final scripted-fixture completion; includes diagnosis, edits, coordination and execution, not just physics CPU.",
+    "noPhysicsFromAnalysis": true
+  },
+  "sourceBridge": {
+    "schemaVersion": 1,
+    "currentCommit": "2cb4915c96a69da722dfd65ef2c2bae2ceaa341f",
+    "frozenCommit": "e0ed9e5af85037a7bdd2644e35090a8936da9f60",
+    "files": [
+      {
+        "path": "src/fighter.js",
+        "referenceOriginal": "845b0d3751ebbd948d845ebacda8a644311b2826cb4e5fca8626c224d15478a4",
+        "current": "845b0d3751ebbd948d845ebacda8a644311b2826cb4e5fca8626c224d15478a4",
+        "exact": true
+      },
+      {
+        "path": "src/skill.js",
+        "referenceOriginal": "c1ce462057175f684f8b89c79f668835c69b9dd2ef3cdfbd1e155f73411668e5",
+        "current": "c1ce462057175f684f8b89c79f668835c69b9dd2ef3cdfbd1e155f73411668e5",
+        "exact": true
+      },
+      {
+        "path": "src/swordsmanship.js",
+        "referenceOriginal": "7794881e39564a523047605c7ddfae71ecb8fff40b007d03c78aeb33d16c66db",
+        "current": "7794881e39564a523047605c7ddfae71ecb8fff40b007d03c78aeb33d16c66db",
+        "exact": true
+      },
+      {
+        "path": "src/swordsmanship_profiles.js",
+        "referenceOriginal": "1660b20fe9970164c0cef8ce5fd43acf0616978c1bcdf7e5494099d2029456b1",
+        "current": "1660b20fe9970164c0cef8ce5fd43acf0616978c1bcdf7e5494099d2029456b1",
+        "exact": true
+      },
+      {
+        "path": "src/guards.js",
+        "referenceOriginal": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+        "current": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+        "exact": true
+      },
+      {
+        "path": "src/weapons.js",
+        "referenceOriginal": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+        "current": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+        "exact": true
+      },
+      {
+        "path": "src/config.js",
+        "referenceOriginal": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+        "current": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+        "exact": true
+      },
+      {
+        "path": "src/characters.js",
+        "referenceOriginal": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+        "current": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+        "exact": true
+      },
+      {
+        "path": "src/combat.js",
+        "referenceOriginal": "27dcf94ab2bf2e869e0d09bdc389d7f7feb7128fdedb1f3ff120ff44b19bab74",
+        "current": "98387beb03c90c9edc314da0e1ee826f5c0bd18da3d3991e480b036814d54916",
+        "exact": false
+      },
+      {
+        "path": "tools/sim/harness_m.mjs",
+        "referenceOriginal": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+        "current": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+        "exact": true
+      },
+      {
+        "path": "package.json",
+        "referenceOriginal": "9f267f3512c0be2c4407763c8d10b2813521ed425e948808222de8236db83df2",
+        "current": "9f267f3512c0be2c4407763c8d10b2813521ed425e948808222de8236db83df2",
+        "exact": true
+      },
+      {
+        "path": "package-lock.json",
+        "referenceOriginal": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+        "current": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+        "exact": true
+      },
+      {
+        "path": "node_modules/@dimforge/rapier3d-compat/rapier.mjs",
+        "referenceOriginal": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "current": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "exact": true
+      },
+      {
+        "path": "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm",
+        "referenceOriginal": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+        "current": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+        "exact": true
+      }
+    ],
+    "limits": "Read-only module/dependency bridge. Combat differs after P5 integration; this is not a claim of full current-game equivalence, especially in contact scenes."
+  },
+  "artifacts": [
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-observe01.json",
+      "bytes": 119072,
+      "sha256": "4715f2f8d0afdadd75facca678f4c2e026692b18bf03cbf43a4b825e3efaae61"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-ls01.json",
+      "bytes": 2212741,
+      "sha256": "f8edc396ff772f5ef8d80acd07aa76c1ace1c9726ce805b1fed4fb3c4a3ee155"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-ls01-proof.json",
+      "bytes": 1826,
+      "sha256": "b8ad8d12b3872c4476ed4bd55f2e68679ab17eac8778819dd8cba735ee04af04"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-ls01-runner.mjs",
+      "bytes": 17086,
+      "sha256": "7f85c28e12d50155c1b969eb20720c47116df2d04668c917fd2bfa06ff1e767c"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-analysis01.json",
+      "bytes": 294185,
+      "sha256": "b6e70ccb1b28df3236b4dace4bc1b1f54e6a38e917fb2d16fc0076d3d590168e"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-spawn01.json",
+      "bytes": 4159666,
+      "sha256": "248a34b4de6a99c5fd1649f3768bebf83286f9f240eb67c20e3e8d7af08bd1f4"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-spawn01-proof.json",
+      "bytes": 2089,
+      "sha256": "75574b21be3f79c08cd7ce6a07b2cafd8d385730726b488f94c6742a79fe117c"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-spawn01-runner.mjs",
+      "bytes": 17471,
+      "sha256": "2f42846836d18cca183bf0dff500944b942388a5b434f8d87918ec5d707e4908"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-spawn01-producer.mjs",
+      "bytes": 8541,
+      "sha256": "03e52569a94b0e71b0ccd05c61fa66620bb1d8998c0a2832e820d75e28f59956"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-spawn01-corrected-aggregate.json",
+      "bytes": 2000,
+      "sha256": "ee84c7273a40357c08f0725ac202c4ed6c7f45909a1f92e8cc3fe8e0ea5d470f"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/source-bridge01.json",
+      "bytes": 3880,
+      "sha256": "19c73b60c8eb5955d9982dc22968f04429b8cc69252fc3aced50974dfb00676f"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-q-boundary01.json",
+      "bytes": 1679,
+      "sha256": "ea8fc4ac53cb028e8f6a66cacf7b6f675ac6eb621ff7e5d5846e7aa5da18da55"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-contact01/report.json",
+      "bytes": 2134936,
+      "sha256": "de26e529c52f4a5a73704537edd54a44cabe0bb7f3ac505fb4a3bddda2a196d2"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-contact01/receipt.json",
+      "bytes": 720,
+      "sha256": "07c56e63a59674697455811d4ff5c2dde884ffcea500cc9e2aeede6b104d2c05"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-contact01-preparation.json",
+      "bytes": 19125,
+      "sha256": "4c2493ddcfb70923394cbd7ae09624274eb6c72de9b33e5178bf633898eb2bba"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-contact01-producer.mjs",
+      "bytes": 8156,
+      "sha256": "a8b0acda134e3ab7c0846b33ad705406ba2cef0ab0ef6ff8a2cd377a7bf51c00"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-contact02-preparation.json",
+      "bytes": 19145,
+      "sha256": "b9ba742c99c788bdd3603fc753d5f7c1d713b4ba42a35482ad9f761a2e828c37"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-contact02-producer.mjs",
+      "bytes": 9026,
+      "sha256": "359226e46156e4e5b8b47adec557a3277a96c9f1b47ca7d5d3211eb0c6983cbe"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-contact03/report.json",
+      "bytes": 19841,
+      "sha256": "a7fcdd983ad26300da68398e77f9e85e72f839fabc9a6584d7b9123bcaeec179"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-contact03/receipt.json",
+      "bytes": 715,
+      "sha256": "824c281348bf85ae4df6dac6ee825b3e95c4ef01f22b5667e97c13d8e2ae62b7"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-contact03-preparation.json",
+      "bytes": 19145,
+      "sha256": "93c411b868b15987a370265dd6afd6586121a201cc96f31aa5a92c0bb2d72569"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-contact03-producer.mjs",
+      "bytes": 10691,
+      "sha256": "992b025534e3fb0af9953cef557a561f87fb3d5100891fb65e878007c554874f"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-contact03-failure-accounting.json",
+      "bytes": 1313,
+      "sha256": "340af06b2fbebd0b962ee54b768825e45c57ee6fae395562479e9e22c8f134e6"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-contact04/report.json",
+      "bytes": 449765,
+      "sha256": "b5f8e395067d1fde6f056d5544e9b0bb11965c64ef07cc69669ec178b489bdc8"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-contact04/receipt.json",
+      "bytes": 718,
+      "sha256": "a4e444b9b7746acd03bbc0da83c2184f10ac546b02bc2cbf7cc1740370e3632a"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p4/command-contact04-preparation.json",
+      "bytes": 19165,
+      "sha256": "aeb4e9825d1e7308a18fb442c6109c9ee2b5c58bf7aeb524cda8a70954873b66"
+    }
+  ],
+  "tools": [
+    {
+      "path": "/workspace/halfsword-codex/tools/sim/experiments/p4_command_observe.mjs",
+      "bytes": 8186,
+      "sha256": "89aa44c14f048c9981fa2e647325af9cb632d420b785993f1cb5d195b4fb8489"
+    },
+    {
+      "path": "/workspace/halfsword-codex/tools/sim/experiments/p4_command_candidate.mjs",
+      "bytes": 947,
+      "sha256": "79897989f97479ef2922ba858c48ea8d457faace70b1aec1317f767b62a8686b"
+    },
+    {
+      "path": "/workspace/halfsword-codex/tools/sim/experiments/p4_command_probe.mjs",
+      "bytes": 8598,
+      "sha256": "9598f75987332211cbfbcd9be11512ce8f70cbf45095488373bdfd580a5d54fb"
+    },
+    {
+      "path": "/workspace/halfsword-codex/tools/sim/experiments/p4_command_analyze.mjs",
+      "bytes": 7625,
+      "sha256": "c41a579fe7f60e416bcb4a75b08d56932a39010e08e4cfcdad5cbb74bdb86e3d"
+    },
+    {
+      "path": "/workspace/halfsword-codex/tools/sim/experiments/p4_command_contact.mjs",
+      "bytes": 14047,
+      "sha256": "725aec32b8bb3859fffb2e72c986f8a144836fd2b86becde486e353f7d2a16f1"
+    },
+    {
+      "path": "/workspace/halfsword-codex/tools/sim/experiments/p4_command_report.mjs",
+      "bytes": 10301,
+      "sha256": "ad0f1fd146d26460447f627ffdba0f0961f9de62055029e45f5663c6a61996b6"
+    }
+  ],
+  "reportingCorrection": "Original spawn raw retains an afterIntervention summary whose reused baseline starts132 while candidate starts0. Do not compare that field. Same0:443 aggregate is recomputed in its separate artifact; no game rerun.",
+  "next": "Close this execution round; no more physics now. Preserve the unchanged candidate for possible future longsword review; no public integration. A future actual-contact fixture must explicitly combine normal joystick approach with the identical touch tape at ordinary startGap5.6m. Do not search seeds/gaps or count pad-only noncontact as contact acceptance. Q remains excluded; its hand/aim/chest decomposition needs observation before any new controller model. Full P4 closure and human naturalness are not established.",
+  "directorIndependentAnalysis": {
+    "path": "/workspace/halfsword-handoff/phase2-round1-20261005/director/recut-review.json",
+    "bytes": 1017,
+    "sha256": "b34e312ff8d49f205584b514c954e2948de02220c4b151272df2d486d2f8683b"
+  }
+}

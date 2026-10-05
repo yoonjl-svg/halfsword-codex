@@ -138,7 +138,8 @@ export class Gait {
   enter() {
     // Old contact peaks belong to the previous stance. The trial is confined
     // to legacy support; the withdrawn axial recovery trial is unchanged.
-    if (GAIT.stanceMemory === 'fresh' && BODY.supportModel === 'legacy') clearStanceFrictionMemory(this);
+    const freshReentry = this.started && this.f.index === 0 && this.f.stanceMemoryModel === 'fresh';
+    if ((GAIT.stanceMemory === 'fresh' || freshReentry) && BODY.supportModel === 'legacy') clearStanceFrictionMemory(this);
     this.active = true;
     this.sense();
     for (const k of ['F', 'B']) {
