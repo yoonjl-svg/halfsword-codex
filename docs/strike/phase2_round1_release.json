@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "repository": "yoonjl-svg/halfsword-codex",
-  "status": "prepared-awaiting-delivery-verification",
-  "publicDeliveryVerified": false,
+  "status": "delivered",
+  "publicDeliveryVerified": true,
   "baseCommit": "2cb4915c96a69da722dfd65ef2c2bae2ceaa341f",
   "generalPromotionDecision": false,
   "scope": {
@@ -90,6 +90,41 @@
       "path": "/workspace/halfsword-handoff/phase2-round1-20261005/delivery-audit/source-final.json",
       "bytes": 4666,
       "sha256": "77ca420bfb8230d9a75ca25be6e5fd89a5325522808e8f20ee0b67a5a84530f9"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/release-source-bridge.json",
+      "bytes": 566,
+      "sha256": "7e551a57440442be31f9f71a1c90275ab9725258b45b4e988d358c504c695973"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/regression-to-release-bridge.json",
+      "bytes": 313,
+      "sha256": "87623b28efd52411818deea4d79811b61ca105543caf0bfd285418693526d3d6"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/remote-before-push.json",
+      "bytes": 303,
+      "sha256": "645cc0c64ecd70d1ab2270fb7d6498d81b17fad7cd071447a69a92e23949a615"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/pages-status02.json",
+      "bytes": 533,
+      "sha256": "702f7840af7103df9d92638de8d07214fb445b8b1b440e55fcb9af118a739a8c"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/public-bytes01.json",
+      "bytes": 4617,
+      "sha256": "ff56f05c0767a0a6af8d6f79dcca0489986ecdc2890f884bf72b70a12e8dd2f2"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/mobile-public-receipt.json",
+      "bytes": 3591,
+      "sha256": "5307f6794ee7f48e321cb39f65829c25de6db8220b62a25cd4597ea47a84f726"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/phone-plan-public01/result.json",
+      "bytes": 1658,
+      "sha256": "e90a3cecc1968a24db5f92c0233f8ec5cc869735365e995115dade143ad71d07"
     }
   ],
   "limitations": [
@@ -195,5 +230,80 @@
     "blockingFindings": 0,
     "reference": "delivery-audit/source-final.json",
     "scope": "Player-only reentry, query/ordinary/contact isolation, restart wiring, production trace bridge"
+  },
+  "verifiedUTC": "2026-10-05T13:39:08.231782+00:00",
+  "releaseCommit": "35141bb5dac6d534538434ebfb396c118cd70eb4",
+  "releaseTree": "602481c26cb49bec53ad1e416770d8407bd05080",
+  "pages": {
+    "id": 37317589270,
+    "head_sha": "35141bb5dac6d534538434ebfb396c118cd70eb4",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37317589270",
+    "created_at": "2026-10-05T13:32:26Z",
+    "updated_at": "2026-10-05T13:33:00Z"
+  },
+  "publicBytes": {
+    "pass": true,
+    "files": 8,
+    "tlsVerification": true,
+    "scope": "Four public HTML entry pages and all four compiled assets, exact frozen production bytes"
+  },
+  "publicMobile": {
+    "pass": true,
+    "rows": [
+      {
+        "id": "zweihander-legacy",
+        "pass": true
+      },
+      {
+        "id": "zweihander-fresh",
+        "pass": true
+      },
+      {
+        "id": "ordinary-return-play",
+        "pass": true
+      }
+    ],
+    "sourceStable": true,
+    "errors": {
+      "errors": 0,
+      "httpFailures": 0,
+      "requestFailures": 0,
+      "blockedRequests": 0,
+      "redirectRefusals": 0
+    },
+    "compiled": {
+      "responses": 14,
+      "allExact": true
+    },
+    "scope": "Public A/B touch, hold, reverse, release, tap, recut, pause, restart, ordinary exit/card play",
+    "invalidMenus": "Reused local full5 invalid/mixed menus with 706-file release bridge; only plan HTML changed",
+    "physicalPhone": false,
+    "injuredReentryEffect": "Separate actual-game headless evidence; not forced by browser"
+  },
+  "phonePlan": {
+    "pass": true,
+    "rows": 1,
+    "scope": "Actual public plan, portrait/landscape layout, current sections and links; separate from game execution"
+  },
+  "sourceBridges": {
+    "localToRelease": "release-source-bridge.json",
+    "commonToRelease": "regression-to-release-bridge.json",
+    "onlyChangedDeliveryFile": "development-plan.html"
+  },
+  "phase2": {
+    "thisBatch": 1,
+    "targetTotalBatches": 5,
+    "targetRemainingBatches": 4,
+    "expectedTotalWithDefectAllowance": [
+      6,
+      7
+    ],
+    "allPhysicalGoalsComplete": false,
+    "next": "P1/P3: two weapons, raising and holding, actual body/arm/weapon force contribution; reuse descent rows",
+    "P4Held": "Command-direction boundaries remain and actual candidate cut contact was not observed",
+    "P5Remaining": "From-spawn sticking, one-hand, later axial motion, energy/damage connection",
+    "P2P6Advanced": "Narrow stale-load lifecycle and actual-injury recut; severe primary-arm/full support remain"
   }
 }

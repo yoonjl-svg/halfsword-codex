@@ -1,6 +1,6 @@
 # 혼합안 독립 개발 인계
 
-최근 회차: [P5 연장·실제 박힘 상한](../strike/p5_extended_contact_20261005.md), [P4 명령 면의 혼합 결과/접촉 미관측](../strike/p4_command_plane_20261005.md), [현재 v2 부상 회복·동일 재입력](../strike/recovery_next_contract_20261005.md)을 병행했다. 회복의 발 기록 초기화만 츠바이핸더 v2 선택형으로 연결하며 P4·일반 물리는 유지한다. [이전 v2 중력 일](../strike/v2_weight_work_20261005.md)은 새 실행 없이 재사용했다. 공개 코드·폰 입력·재시작의 실제 전달 상태는 [회차 영수증](../strike/phase2_round1_release.json), 남은4회 목표와 보류 항목은 [ACTIVE_PLAN](ACTIVE_PLAN.md)이 기준이다.
+최근 회차: [P5 연장·실제 박힘 상한](../strike/p5_extended_contact_20261005.md), [P4 명령 면의 혼합 결과/접촉 미관측](../strike/p4_command_plane_20261005.md), [현재 v2 부상 회복·동일 재입력](../strike/recovery_next_contract_20261005.md)을 병행했다. 회복의 발 기록 초기화만 츠바이핸더 v2 선택형으로 공개했고 P4·일반 물리는 유지한다. [이전 v2 중력 일](../strike/v2_weight_work_20261005.md)은 새 실행 없이 재사용했다. 공개 코드·폰 입력·재시작의 실제 전달 상태는 [회차 영수증](../strike/phase2_round1_release.json), 남은4회 목표와 보류 항목은 [ACTIVE_PLAN](ACTIVE_PLAN.md)이 기준이다.
 
 최근 병렬 후속: v2를 고정한 [P4 재베기](../strike/p4_recut_v2_20261005.md)의 새2안과 속도 표본 교체는 후퇴/경계 잔존으로 미채택했다. [P5 중심선 반작용](../strike/p5_centerline_contact_20261005.md)은 실제2장면의 첫 접촉/후속1초 선별을 통과해 롱소드·츠바이핸더 선택형 비교로 연결했다. 검사한 첫 접촉에서 검 반동·피해가 같았고, 요청 예산을 유지하며 양쪽 충격량의 불일치를 교정한다. 실제 웹/모바일 전달은 [이번 영수증](../strike/phase2_v2_release.json), 남은 연구는 ACTIVE_PLAN 기준이다. 일반 절삭 승격·P4/P5 전체 완료가 아니다.
 
