@@ -12,7 +12,7 @@ const SUPPORTED = new Set(SWORDSMANSHIP_DEFAULT_WEAPONS);
 // is malformed, withdrawn, or incomplete. Keep parameter names in sync with
 // main.js, configure*Trial(), support_probe.js, and mobile_intent.js.
 export const SWORDSMANSHIP_DEFAULT_RESEARCH_MARKERS = Object.freeze([
-  'swordsmanshipTrial', 'combatTrial', 'contactV2', 'stanceV2',
+  'swordsmanshipTrial', 'combatTrial', 'contactV2', 'stanceV2', 'gravityV2',
   'physicsTrial', 'supportProbe', 'assist', 'catch', 'catchScale',
   'cutTrial', 'armTrial', 'armRecoveryTrial', 'wristBraking', 'edgeTrial', 'stanceTrial',
   'targetCorrection', 'onehandArm', 'gripPoint', 'thrustEdge', 'bladeShape', 'thrustPlane',

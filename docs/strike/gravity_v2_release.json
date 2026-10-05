@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "repository": "yoonjl-svg/halfsword-codex",
+  "baseCommit": "7f902cd6724f5391cd436d333fea0174f37d3df8",
+  "status": "validated-locally-awaiting-public-delivery",
+  "publicDeliveryVerified": false,
+  "generalPromotionDecision": false,
+  "createdUTC": "2026-10-05T15:25:34.283298+00:00",
+  "scope": {
+    "change": "World gravity only, selected per fresh round",
+    "baseline": "Current v2, Zweihander player fresh recovery B, legacy cut/support, normal longsword opponent",
+    "levels": {
+      "base": 9.81,
+      "plus15": 11.2815,
+      "plus25": 12.2625
+    },
+    "sharedConfigGravity": -9.81,
+    "forceConstantsUnchanged": true,
+    "localStorageUnchanged": true
+  },
+  "urls": {
+    "comparison": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#gravity-v2-comparison",
+    "base": "https://yoonjl-svg.github.io/halfsword-codex/?gravityV2=base",
+    "plus15": "https://yoonjl-svg.github.io/halfsword-codex/?gravityV2=plus15",
+    "plus25": "https://yoonjl-svg.github.io/halfsword-codex/?gravityV2=plus25"
+  },
+  "headless": {
+    "pass": true,
+    "sourceStable": true,
+    "configStable": true,
+    "parserCases": 16,
+    "runs": 4,
+    "steps": 3840,
+    "wallSeconds": 3.936879202,
+    "oldBVersusBaseExactSteps": 960,
+    "limitations": "Finite native output and baseline equivalence; not gravity efficacy, human naturalness, or full recovery/contact acceptance."
+  },
+  "evidence": [
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/gravity/smoke02/report.json",
+      "bytes": 649763,
+      "sha256": "15655626f999f75c1ca77befa7457ba2ffc87519354adce38e36c2b577942128"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/gravity/smoke01/report.json",
+      "bytes": 19056,
+      "sha256": "0ee3fe03630c257c24043ab0c906ee18d747db5942d6703f26ac3420010cf736"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/browser/local01/summary.json",
+      "bytes": 63539606,
+      "sha256": "6d3041a392950ed7b4bedca694b269c67f83cdce194fe4ab3bb5d591c553d82d"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/browser/local-receipt.json",
+      "bytes": 5083,
+      "sha256": "54e8e1aba6a58ae0d626594bd068163b84d394fa7ad32271e9c9109840f8ff36"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/audit/gravity.md",
+      "bytes": 4271,
+      "sha256": "abf3963cfe7acfe7924f3dff2cc32890407fec93ce61daeaed0c0f1a95895175"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/regression01/result.json",
+      "bytes": 263610,
+      "sha256": "250a2659755b50d0daae38f996a465682a2b738fc690b282993f3cf67bb216bf"
+    }
+  ],
+  "failures": [
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round4-20261006/gravity/smoke01/report.json",
+      "steps": 0,
+      "cause": "Tool incorrectly read absent enemy stance override; corrected to the real legacy fallback. Original failure preserved."
+    }
+  ],
+  "reproduction": [
+    "node tools/sim/experiments/gravity_v2_smoke.mjs --out=/absolute/fresh/external/path"
+  ],
+  "remaining": [
+    "commit/push/Pages",
+    "public byte and mobile verification"
+  ],
+  "localBrowser": {
+    "pass": true,
+    "sourceStable": true,
+    "rows": 5,
+    "scope": "Three gravity levels, trusted mobile entry/input/restart/reload/ordinary return and two malformed queries.",
+    "compiledResponsesExact": 34,
+    "errors": 0
+  },
+  "builtMain": {
+    "path": "assets/main-D2v5bIHU.js",
+    "bytes": 3536892,
+    "sha256": "5ca304a2bb60a90863a8c3555fd8531a12b81bb2e97a4866901b148156526e67"
+  },
+  "commonRegression": {
+    "pass": true,
+    "sourceStable": true,
+    "tests": 6,
+    "wallSeconds": 177.93157130898908,
+    "buildMatchesLocal": true
+  }
+}

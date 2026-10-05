@@ -50,6 +50,7 @@ import { applySwordAssistV2 } from './sword_assist_v2.js';
 import { configureSwordsmanshipTrial, mountSwordsmanshipTrial } from './swordsmanship_trial.js';
 import { configureContactTrial, mountContactTrial } from './contact_trial.js';
 import { configureStanceV2Trial, mountStanceV2Trial } from './stance_v2_trial.js';
+import { configureGravityV2Trial, mountGravityV2Trial } from './gravity_v2_trial.js';
 import { applySwordsmanship, recordSwordsmanshipInput } from './swordsmanship.js';
 import { configureSwordsmanshipDefault, swordsmanshipDefaultSupportsWeapon } from './swordsmanship_default.js';
 
@@ -60,10 +61,11 @@ await RAPIER.init();
 const requestedParams = new URLSearchParams(location.search);
 const contactTrial = configureContactTrial(requestedParams);
 const stanceV2Trial = configureStanceV2Trial(requestedParams);
-const activeV2Trial = contactTrial.active ? contactTrial : stanceV2Trial.active ? stanceV2Trial : null;
+const gravityV2Trial = configureGravityV2Trial(requestedParams);
+const activeV2Trial = contactTrial.active ? contactTrial : stanceV2Trial.active ? stanceV2Trial : gravityV2Trial.active ? gravityV2Trial : null;
 // This strict compound entry owns its whole query. Invalid/mixed entries return
 // to current ordinary defaults; older trials keep their existing parsing.
-const priorTrialParams = contactTrial.requested || stanceV2Trial.requested ? new URLSearchParams() : requestedParams;
+const priorTrialParams = contactTrial.requested || stanceV2Trial.requested || gravityV2Trial.requested ? new URLSearchParams() : requestedParams;
 const swordsmanshipDefault = configureSwordsmanshipDefault(activeV2Trial ? requestedParams : priorTrialParams);
 const swordsmanshipTrial = configureSwordsmanshipTrial(priorTrialParams);
 const integratedCombatTrial = configureIntegratedCombatTrial(priorTrialParams);
@@ -411,7 +413,7 @@ function newRound(weaponId) {
   particles.clear();
   reviveFx.reset();
 
-  world = new RAPIER.World({ x: 0, y: PHYSICS.gravity, z: 0 });
+  world = new RAPIER.World({ x: 0, y: gravityV2Trial.active ? gravityV2Trial.gravity : PHYSICS.gravity, z: 0 });
   world.timestep = PHYSICS.timestep;
   world.integrationParameters.numSolverIterations = 6;
   eventQueue = new RAPIER.EventQueue(true);
@@ -464,6 +466,7 @@ function newRound(weaponId) {
   for (const f of [player, enemy]) f.onehandArmModel = onehandArmModel;
   if (integratedCombatTrial.active || swordsmanshipTrial.active || activeV2Trial) enemy.onehandArmModel = 'legacy';
   if (stanceV2Trial.active) player.stanceMemoryModel = stanceV2Trial.model;
+  if (gravityV2Trial.active) player.stanceMemoryModel = gravityV2Trial.stanceModel;
   const defaultSwordsmanshipForPlayer = swordsmanshipDefault.active && swordsmanshipDefaultSupportsWeapon(player.weapon);
   if (defaultSwordsmanshipForPlayer) player.onehandArmModel = 'manual';
   player.gripPointModel = gripPointModel;
@@ -727,6 +730,7 @@ mountIntegratedCombatTrial(integratedCombatTrial);
 mountSwordsmanshipTrial(swordsmanshipTrial);
 mountContactTrial(contactTrial);
 mountStanceV2Trial(stanceV2Trial);
+mountGravityV2Trial(gravityV2Trial);
 if (swordsmanshipDefault.active) {
   // A single ordinary policy replaces the old strength menu. Saved legacy
   // preferences remain available to explicitly requested comparison entries.
@@ -1700,6 +1704,7 @@ window.game = {
   swordsmanshipDefault,
   contactTrial,
   stanceV2Trial,
+  gravityV2Trial,
   get defaultSwordsmanshipApplied() {
     return swordsmanshipDefault.active && player?.swordsmanshipModel === 'unified';
   },
