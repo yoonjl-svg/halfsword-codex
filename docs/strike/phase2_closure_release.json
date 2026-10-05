@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "state": "code, physical checks and local mobile browser checks passed; public delivery pending",
-  "updatedUTC": "2026-10-05T17:59:35.900962+00:00",
+  "state": "published; exact public bytes and mobile-size Chromium input/restart/ordinary-return checks passed",
+  "updatedUTC": "2026-10-05T18:14:42.274584+00:00",
   "sourceBase": "97815289d58644ce53013bb9d1e2f927958b0e19",
-  "gameCommit": null,
+  "gameCommit": "6437ae6bae61e45eb1495cc6438c4235c2041296",
   "generalFixes": [
     "Discard stale aim derivative across disabled wrist-control intervals",
     "Use the existing axial paired-grip point by default for Monohoshizao and Lightsaber; explicit midpoint comparison preserved"
@@ -133,8 +133,48 @@
       "sha256": "1a4b548e63b815bc1b5690a0ddb7e075a4984f305021a41fe6c302304741baae"
     }
   },
-  "pages": null,
-  "publicBrowser": null,
+  "pages": {
+    "pass": true,
+    "actionsRun": 37352646215,
+    "actionsURL": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37352646215",
+    "actionsEvidence": {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/actions-code-status01.json",
+      "bytes": 14043,
+      "sha256": "9f4c9a13e103af65081b2194b5f4853c9826ed36e7b55a397200caa2e747eae8"
+    },
+    "exactFiles": {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/pages-code01.json",
+      "bytes": 4617,
+      "sha256": "e01412762b0061b80375d10db3c8f965392a2161e6b624e425284e709b531617"
+    },
+    "files": 8
+  },
+  "publicBrowser": {
+    "recovery": {
+      "pass": true,
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/recovery/browser/public-receipt01.json",
+      "bytes": 2173,
+      "sha256": "fb11c3b7aeb546fea02a501d4a95c152d276054403a757fac3112b38cf1dfbc7"
+    },
+    "recut": {
+      "pass": true,
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/browser/public-receipt01.json",
+      "bytes": 2594,
+      "sha256": "9e9b02cda540edda0a5d614b51cb0186e2d6d789718d47be550404da42fc0a88"
+    },
+    "gripDefaults": {
+      "pass": true,
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/spin/browser-public-receipt01.json",
+      "bytes": 4590,
+      "sha256": "3f0f3d72ced62f4e46eef8ced0be079406ef7db5b5da0f6347475cd46bd3d8fa"
+    },
+    "phonePlan": {
+      "pass": true,
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/phone-plan-public01/result.json",
+      "bytes": 1771,
+      "sha256": "706a49dd6d6911e6f55e8d94e4412a4b3f386cda3ddb6eebde58a7adc5916033"
+    }
+  },
   "limits": [
     "Recut B is a finite command-rate comparison, not a physical angular-velocity clamp or an anatomical speed claim.",
     "Post-intervention active cutting impulse was not exposed in the longsword contact fixture; Qinggang contact effects remain unmeasured.",
@@ -148,5 +188,22 @@
     "path": "/workspace/halfsword-handoff/phase2-close-20261006/audit/precommit-audit.json",
     "bytes": 6278,
     "sha256": "4f24bdda3d7d5b81a8bf081364813347e66bfd4df44870290054c5209a035054"
+  },
+  "localToPublishedSourceProof": {
+    "path": "/workspace/halfsword-handoff/phase2-close-20261006/local-to-published-source-proof.json",
+    "bytes": 1088,
+    "sha256": "37f87469f36b98fed1d659dff475120a510bc25a1395c22db7be5bbbdcff1c0f"
+  },
+  "recoveryFinalSourceBridge": {
+    "path": "/workspace/halfsword-handoff/phase2-close-20261006/audit/recovery-final-source-bridge.json",
+    "bytes": 8591,
+    "sha256": "03d005cd4021bb8a2eb261b8a76efcf48136fe4d2dafe3f8e2cab495667ab8d1",
+    "scope": "Conditional source-path equivalence from complete archived state/blood/armed trace and unchanged muscle formula; not a final-source native rerun or directly logged muscle trace."
+  },
+  "completion": {
+    "injuryFunctionalFollowup": "complete within recorded controlled-wound and disabled-control API scope",
+    "recoveryManualLivingContactAndDelivery": "complete for the from-creation Z/LS fixture and optional integrated trial",
+    "recutAndSpin": "two confirmed default bugs fixed; recut command limiter delivered as optional comparison; broad combat spin and post-intervention active-cut efficacy remain unproven",
+    "wholePhaseTwoComplete": false
   }
 }
