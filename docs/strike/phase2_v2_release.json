@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "repository": "yoonjl-svg/halfsword-codex",
-  "status": "local_verified_public_pending",
-  "publicDeliveryVerified": false,
+  "status": "delivered",
+  "publicDeliveryVerified": true,
   "generalPromotionDecision": false,
   "baseCommit": "e0ed9e5af85037a7bdd2644e35090a8936da9f60",
   "scope": {
@@ -126,6 +126,36 @@
       "path": "/workspace/halfsword-handoff/phase2-v2-20261005/final-audit.json",
       "bytes": 770,
       "sha256": "2448ff49bb3332625a4e99050c773d6593ba2733853ec1734ef1eddeb611fa51"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-v2-20261005/commit-source-bridge.json",
+      "bytes": 2840,
+      "sha256": "659b245fb306c4f7694e2115ddd920ad58e5408dcbaf58aa54109a8b98eaf398"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-v2-20261005/browser-local-receipt.json",
+      "bytes": 4779,
+      "sha256": "69d5d921d371295b55a3898e8caee1bc91fe4222404575fd13ea94d4cae02ee8"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-v2-20261005/pages-code02.json",
+      "bytes": 533,
+      "sha256": "fb9ea05ac20244e3001a3d684d15cc8e4b18e0c099094fd723fd3c21c3a10078"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-v2-20261005/public-bytes01.json",
+      "bytes": 4617,
+      "sha256": "4f707e28fc8442ccf2b38d46d3df97317bfdd7cd3ed5f61262c719829e1afa1f"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-v2-20261005/phone-plan-public01/result.json",
+      "bytes": 1658,
+      "sha256": "b4a3868e8b582e72b19e865cc6e675547d8503e4e481fe5a05af67efed2a9f02"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-v2-20261005/browser-public-receipt.json",
+      "bytes": 2401,
+      "sha256": "e1d66938123bc8b8cbc1769ee998015b0428c18e089c5e739df5cc4de6587ef0"
     }
   ],
   "preservedFailures": [
@@ -158,7 +188,8 @@
       "browser-local02/zweihander-a-recut.png",
       "browser-local02/zweihander-b-restart.png"
     ],
-    "scope": "Compiled mobile gameplay framing and visible game/UI presence. No close-up hand or human-naturalness acceptance."
+    "scope": "Compiled mobile gameplay framing and visible game/UI presence. No close-up hand or human-naturalness acceptance.",
+    "publicImage": "browser-public01/longsword-b-recut.png"
   },
   "localBrowser": {
     "pass": true,
@@ -183,5 +214,109 @@
       "bytes": 150248912,
       "sha256": "3b9455d28e411db49fbbc698e7c5687382f4d14067c7a8035ba3b83ea4248bb5"
     }
+  },
+  "releaseCommit": "4199c928746bc1eb12f77a7dbc1e992e801ff7cf",
+  "releaseTree": "e3a703336aa0f978e8e2b39f7cc18c7aa5a51f70",
+  "pages": {
+    "id": 37305727610,
+    "head_sha": "4199c928746bc1eb12f77a7dbc1e992e801ff7cf",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37305727610",
+    "created_at": "2026-10-05T11:52:23Z",
+    "updated_at": "2026-10-05T11:52:55Z"
+  },
+  "publicBytes": {
+    "pass": true,
+    "files": 8,
+    "receipt": "public-bytes01.json"
+  },
+  "phonePlan": {
+    "pass": true,
+    "mode": "plan-only",
+    "rows": 1,
+    "scope": "Portrait and landscape static plan layout; no repeat gameplay"
+  },
+  "publicBrowser": {
+    "pass": true,
+    "executionScope": "public: four A/B trial lifecycle flows plus one ordinary card-play return",
+    "sourceCommit": "4199c928746bc1eb12f77a7dbc1e992e801ff7cf",
+    "commitAfter": "4199c928746bc1eb12f77a7dbc1e992e801ff7cf",
+    "sourceStable": true,
+    "startedUTC": "2026-10-05T11:54:04.831Z",
+    "completedUTC": "2026-10-05T11:59:58.083Z",
+    "base": "https://yoonjl-svg.github.io/halfsword-codex/",
+    "summary": {
+      "path": "/workspace/halfsword-handoff/phase2-v2-20261005/browser-public01/summary.json",
+      "bytes": 147641112,
+      "sha256": "5b298d8a58141b510dc1dc3aedf3812ecf8b0199aef43d96084d7b8783c8c973"
+    },
+    "rows": [
+      {
+        "id": "longsword-a",
+        "pass": true
+      },
+      {
+        "id": "longsword-b",
+        "pass": true
+      },
+      {
+        "id": "zweihander-a",
+        "pass": true
+      },
+      {
+        "id": "zweihander-b",
+        "pass": true
+      },
+      {
+        "id": "ordinary-return-play",
+        "pass": true
+      }
+    ],
+    "compiledResponses": 26,
+    "allCompiledResponsesExact": true,
+    "finalErrors": {
+      "errors": 0,
+      "httpFailures": 0,
+      "requestFailures": 0,
+      "blockedRequests": 0,
+      "redirectRefusals": 0
+    },
+    "trustedUI": {
+      "playContactV2LongA": 1,
+      "btnStart": 9,
+      "btnPause": 9,
+      "contactTrialExit": 4,
+      "playContactV2LongB": 1,
+      "playContactV2ZweiA": 1,
+      "playContactV2ZweiB": 1,
+      "card-0": 1
+    },
+    "local02SourceManifestExact": true,
+    "sourceDifferenceFromLocal02": [],
+    "invalidMenus": "Not rerun publicly; reuse local02 invalid-value/mixed menu evidence only if local02SourceManifestExact is true.",
+    "tlsVerification": true,
+    "environmentProxyRetained": true,
+    "routeFetchRetryPolicy": {
+      "maxRetries": 2,
+      "retriesOnlyECONNRESET": true,
+      "errorsFiltered": false,
+      "attemptCountExposed": false,
+      "limitation": "Successful bounded GET retries do not prove zero underlying TCP resets."
+    },
+    "localReceipt": "/workspace/halfsword-handoff/phase2-v2-20261005/browser-local-receipt.json",
+    "limitations": [
+      "No public invalid-menu re-execution claimed.",
+      "Mobile Chromium trusted-touch and lifecycle evidence, not physical iPhone/Safari or human-naturalness validation.",
+      "No claim of physical contact activation or beneficial forces; native headless evidence is separate.",
+      "Zero final network errors after bounded ECONNRESET retries does not prove zero underlying TCP resets."
+    ]
+  },
+  "deliveryCompletedUTC": "2026-10-05T11:59:58.083Z",
+  "nextWork": {
+    "P4": "Observe resolved command cutting plane at known recut boundary; no repeat of rejected continuity/tensor/velocity substitution",
+    "P5": "Actual head/torso and natural stuck/cap-binding boundaries before broader exposure",
+    "phase2Complete": false,
+    "newGeneralPhysicsApprovalRequired": true
   }
 }
