@@ -1,0 +1,2007 @@
+{
+  "schemaVersion": 1,
+  "measurementAccepted": true,
+  "runtimeChange": false,
+  "effectAccepted": false,
+  "judgment": "Observation complete for two weapons and raising/holding. Gravity opposes the actual rise; explicit active support and paired reactions are present. No new runtime candidate is warranted by this observation alone. P1 human weight feel and P3 full native body-energy transfer remain unestablished.",
+  "baseCommit": "c37220e520bc145719967406e15364646e769798",
+  "artifactHead": "2e40b888d0607ed575f8d0256c0d269a4fe351af",
+  "raw": {
+    "path": "/workspace/halfsword-handoff/phase2-round23-20261005/raise-hold/raise-hold02.json",
+    "sha256": "5567e5a9bfce290c8dcb5014ae4ffbfac38e4852b69c8f21044b282aa564a35a"
+  },
+  "failedRaw": {
+    "path": "/workspace/halfsword-handoff/phase2-round23-20261005/raise-hold/raise-hold01.json",
+    "sha256": "a5ac415c5ee64e800b8980de83b89cf1b4f93180a59b4b10c7e673c94ac27a1e"
+  },
+  "derive": {
+    "path": "/workspace/halfsword-codex/tools/sim/experiments/raise_hold_report.py",
+    "sha256": "302b4d0ffafaf87505ba73f41299cb98a03287cf2ae1a62fa12aa4a3dd539a4d"
+  },
+  "reproduceDerivation": "python tools/sim/experiments/raise_hold_report.py --raw=/workspace/halfsword-handoff/phase2-round23-20261005/raise-hold/raise-hold02.json --failed=/workspace/halfsword-handoff/phase2-round23-20261005/raise-hold/raise-hold01.json --out=/tmp/raise-hold-derived.json",
+  "physicsCommand": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+    "/workspace/halfsword-handoff/phase2-round23-20261005/raise-hold/raise-hold02-runtime/tools/sim/experiments/raise_hold_probe.mjs",
+    "--out=/workspace/halfsword-handoff/phase2-round23-20261005/raise-hold/raise-hold02.json",
+    "--run=true"
+  ],
+  "sourceManifest": {
+    "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+    "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+    "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+    "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+    "src/arm_recovery_activation.js": "ae025cc8d9bbc9855ea8ab2793d3e7818a66a4662329014a776a2ac88966435e",
+    "src/arm_recovery_trial.js": "ebda992abc5c7cd25a12c751d0f9b30f8fddf998babc8f4a7f49c9f4a0817c09",
+    "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+    "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+    "src/blade_shape_trial.js": "c06f7331c78e602e17d89ffb26507bffbea67cbebce862f5386cb4ce519b3955",
+    "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+    "src/combat.js": "98387beb03c90c9edc314da0e1ee826f5c0bd18da3d3991e480b036814d54916",
+    "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+    "src/contact_trial.js": "bbbb141e43c2ad9ba45de62bf649def064a998213085f9ace6871c9616da4767",
+    "src/cut_centerline.js": "98e522cfcde4f03c4d6d34dd57f7a8fa301a5a28028ddcce366cc600f86bf453",
+    "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+    "src/cut_trial.js": "427d58d0500ceac482424e092a7d457a8cea48371c254f1b4edecb3a511be5a6",
+    "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+    "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+    "src/edge_intent.js": "b4e17a6ea08d659732c330448b3b3aaffeac2942fa5096e82db551a12d580c87",
+    "src/edge_torque.js": "436995e6d45e816517ea5a9a8f83c9fb147d143871aab1601f82baa7b36bc0fa",
+    "src/edge_torque_trial.js": "1280a3fe32c1874b6ce56b75932db44852162855d8962ae13f3aeb3e7d832cae",
+    "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+    "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+    "src/fighter.js": "845b0d3751ebbd948d845ebacda8a644311b2826cb4e5fca8626c224d15478a4",
+    "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+    "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+    "src/finish_rule.js": "803556ca4f6939d4a20acb7020dd4c616b52b5513969d0a6079af0cc929c616d",
+    "src/gait.js": "b74787f16687708bbc4ee3d89ec3acf247d561973131fda08cde761488e8d369",
+    "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+    "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+    "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+    "src/hand_visual.js": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893",
+    "src/input.js": "37529c473619a95ef83fbe3afa567f436dcd3c3b27b4951ebf52109cda434367",
+    "src/integrated_combat_trial.js": "d3b8d2f4b37c617d90832e93d0a31b585d10ef9bd44d5c41ef3d695ef76b898b",
+    "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+    "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+    "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+    "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+    "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+    "src/main.js": "2e2a50ab6491e671d5312a195986897fba6c9d77519c6ce6c867102eee32bdd8",
+    "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+    "src/motion_assist.js": "12e49338e0ec0a1307c71bbdfcad4d849180369959a2a18c8ec7ca4c73a2f2d5",
+    "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+    "src/motion_timing.js": "5a30a5384066585227c1469a7adf66ff2137fabc19ff37142cc5ebd2895887e2",
+    "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+    "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+    "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+    "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+    "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+    "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+    "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+    "src/skill.js": "c1ce462057175f684f8b89c79f668835c69b9dd2ef3cdfbd1e155f73411668e5",
+    "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+    "src/sound.js": "f02a5a9c9ad60ce282806c02b956715c2ca01aced92ba021b63a799faf4c8fb4",
+    "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+    "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+    "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+    "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+    "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+    "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+    "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+    "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+    "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+    "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+    "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+    "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+    "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+    "src/stance_v2_trial.js": "a5d6dcfc685b83371f1228a028db7573aa1267b63f7cbb2530b78b8601dc9c80",
+    "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+    "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+    "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+    "src/sword_assist_v2.js": "2d2e31a1049268935cee9311830cb45672350745ff9a0f4b6df4495a1260927c",
+    "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+    "src/swordsmanship.js": "7794881e39564a523047605c7ddfae71ecb8fff40b007d03c78aeb33d16c66db",
+    "src/swordsmanship_default.js": "0387ade2d359c600abd5685bcf105de4d6c268796b4899a143e5beacb6a61832",
+    "src/swordsmanship_profiles.js": "1660b20fe9970164c0cef8ce5fd43acf0616978c1bcdf7e5494099d2029456b1",
+    "src/swordsmanship_trial.js": "ee1c50cc7142eb46f8c266b566c9eba2155d6a54db6d84798212aee0eff82b79",
+    "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+    "src/thrust_plane.js": "2fcbf1a52dd7cbd4035eea8a14d22b830c1b64f07dafebddcfb74e320539b104",
+    "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+    "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+    "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "src/wrist_braking.js": "6574ae9729fa6251540a68d27a0938e9d5bc2296097ff8b3bd69d1494eb88730",
+    "src/wrist_braking_trial.js": "25466b178e063a45e58a5fcd22532cdcbc176af4a2c05e461c562bb6a0ef658e",
+    "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+    "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+    "tools/sim/experiments/raise_hold_probe.mjs": "45cea33e44242e7cbb4c7943b332ff6ac85646d88323f5a626d4791f36dbc2e8",
+    "package.json": "9f267f3512c0be2c4407763c8d10b2813521ed425e948808222de8236db83df2",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+    "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+    "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+    "node_modules/three/build/three.module.js": "9052042d676cb0fdc1ddfefe193053f34b7ac0513a616fdac4535d49987812ea",
+    "node_modules/three/build/three.core.js": "9edde002b066a9a05676a6127f67735b62baf399bdea529f2f7e31657da769e6"
+  },
+  "sourceStable": true,
+  "protocol": {
+    "seed": 7,
+    "weapons": [
+      "longsword",
+      "zweihander"
+    ],
+    "opponent": "Original reactive AI at initial14m, no park or pose/velocity injection.",
+    "controller": "Ordinary unified-r2 + manual, paired grip, legacy cut, no candidate flags.",
+    "input": "Ready60steps held, raise90steps total dy+.40m with real input events, then held180steps with zero delta. Two actual executions; raise and final120step hold windows give four analysis rows.",
+    "native": "Normal npm Rapier6solver iterations/120Hz; native motor/constraint work is unmeasured. No force/gain/gravity/target policy changes.",
+    "bodyBoundary": "Sword, chest and both upper/forearms only. Gait foot mass changes are outside this explicit-work boundary. Initialization property changes are saved; fixed properties are required throughout measured raise/hold, after ready60."
+  },
+  "definitions": {
+    "midpointWork": "Existing force ledger dt*(F·midpointCOMvelocity+torqueCOM·midpointOmega), per path/body. Approximate explicit work, not total motor/constraint work.",
+    "atCallWork": "Recorded addForce/addTorque instantPowerAtCallW*dt. Keep separate from midpoint quadrature and from actual energy changes.",
+    "gravityWork": "m*gravityScale*g·(COM_after-COM_before), exact uniform-gravity potential difference for fixed mass.",
+    "reactions": "Explicit vector sums across the recorded application bodies only. Zero resultant does not imply zero internal work or full native force closure.",
+    "gravityMoment": "gravityTorque return before caller scaling/clamp. Diagnostic requested gravity moment; not isolated actual applied compensation after caps."
+  },
+  "limitations": [
+    "Holding consumes mechanical support torque even if mechanical work is near zero; metabolic effort/fatigue is unmeasured.",
+    "Two weapons differ in geometry, initial state and control profiles, so differences are not caused by mass alone.",
+    "Shoulder manual torque and elbow gravity feedforward are explicit. Native elbow tracking, off-arm/spine motors, grips/constraints, damping and ground support work are not measured.",
+    "No residual of sword energy is interpreted as body contribution or engine error. No contact damage or human-feel acceptance.",
+    "Existing force-ledger observer has prior native-equivalence tests; this run checks unchanged installation but does not duplicate a full observer-off trajectory."
+  ],
+  "runAccounting": {
+    "actualExecutions": 3,
+    "actualSteps": 661,
+    "validExecutions": 2,
+    "validAnalysisRows": 4,
+    "failedExecutions": 1,
+    "failedSteps": 1,
+    "nativeWallSeconds": 2.4345782620000005,
+    "repeatDownwardPhysics": 0,
+    "newRuntimeCandidates": 0
+  },
+  "fixtureCorrection": {
+    "failure": "Observation fixture state/contact failure at 0",
+    "explanation": "Original fixed-property assertion included the initialization tick. Corrected runs expose principal-inertia initialization of the main upper/forearm at tick0. The 60-step ready window is excluded from analysis; all measured raise/hold steps have fixed properties. Analysis boundary is explicit upper body, excluding dynamic gait foot mass.",
+    "unchangedFirstStepNative": true,
+    "initializationChanges": {
+      "longsword": [
+        {
+          "tick": 0,
+          "changes": [
+            {
+              "handle": "2.5e-323",
+              "label": "0:uarmS",
+              "kind": "massPropertiesChanged",
+              "beforeMass": 2.0999999046325684,
+              "afterMass": 2.0999999046325684,
+              "beforeLocalCOM": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "afterLocalCOM": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "beforePrincipalI": {
+                "x": 0.014006122946739197,
+                "y": 0.0020317495800554752,
+                "z": 0.014006122946739197
+              },
+              "afterPrincipalI": {
+                "x": 0.006031749304383993,
+                "y": 0.014006121084094048,
+                "z": 0.014006121084094048
+              }
+            },
+            {
+              "handle": "3e-323",
+              "label": "0:farmS",
+              "kind": "massPropertiesChanged",
+              "beforeMass": 1.649999976158142,
+              "afterMass": 1.649999976158142,
+              "beforeLocalCOM": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "afterLocalCOM": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "beforePrincipalI": {
+                "x": 0.008917119354009628,
+                "y": 0.0012621368514373899,
+                "z": 0.008917119354009628
+              },
+              "afterPrincipalI": {
+                "x": 0.005262136925011873,
+                "y": 0.008917117491364479,
+                "z": 0.008917117491364479
+              }
+            }
+          ]
+        }
+      ],
+      "zweihander": [
+        {
+          "tick": 0,
+          "changes": [
+            {
+              "handle": "2.5e-323",
+              "label": "0:uarmS",
+              "kind": "massPropertiesChanged",
+              "beforeMass": 2.0999999046325684,
+              "afterMass": 2.0999999046325684,
+              "beforeLocalCOM": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "afterLocalCOM": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "beforePrincipalI": {
+                "x": 0.014006122946739197,
+                "y": 0.0020317495800554752,
+                "z": 0.014006122946739197
+              },
+              "afterPrincipalI": {
+                "x": 0.006031749304383993,
+                "y": 0.014006121084094048,
+                "z": 0.014006121084094048
+              }
+            },
+            {
+              "handle": "3e-323",
+              "label": "0:farmS",
+              "kind": "massPropertiesChanged",
+              "beforeMass": 1.649999976158142,
+              "afterMass": 1.649999976158142,
+              "beforeLocalCOM": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "afterLocalCOM": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "beforePrincipalI": {
+                "x": 0.008917119354009628,
+                "y": 0.0012621368514373899,
+                "z": 0.008917119354009628
+              },
+              "afterPrincipalI": {
+                "x": 0.005262136925011873,
+                "y": 0.008917117491364479,
+                "z": 0.008917117491364479
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "rows": [
+    {
+      "weapon": "longsword",
+      "phase": "raise",
+      "ticksInclusive": [
+        60,
+        149
+      ],
+      "durationS": 0.75,
+      "bodies": {
+        "chest": {
+          "massKg": 16.200000762939453,
+          "COMRiseM": -0.006071686744689941,
+          "gravityWorkJ": 0.964924646282766,
+          "deltaKJ": 0.035867123223347896,
+          "COMSpeedMps": {
+            "mean": 0.05813768004679118,
+            "rms": 0.062031069644890593,
+            "max": 0.11271500114219465
+          }
+        },
+        "uarmS": {
+          "massKg": 2.0999999046325684,
+          "COMRiseM": 0.06572234630584717,
+          "gravityWorkJ": -1.3539459947599204,
+          "deltaKJ": 0.08096825320784724,
+          "COMSpeedMps": {
+            "mean": 0.2126992441570522,
+            "rms": 0.2191932071051808,
+            "max": 0.27192269167333893
+          }
+        },
+        "farmS": {
+          "massKg": 1.649999976158142,
+          "COMRiseM": 0.23415660858154297,
+          "gravityWorkJ": -3.790175890038578,
+          "deltaKJ": 0.13404994437484727,
+          "COMSpeedMps": {
+            "mean": 0.49705981187210796,
+            "rms": 0.5030420050350056,
+            "max": 0.7384115030660173
+          }
+        },
+        "uarmO": {
+          "massKg": 2.0999999046325684,
+          "COMRiseM": 0.11450028419494629,
+          "gravityWorkJ": -2.358820247578832,
+          "deltaKJ": 0.004042977601042018,
+          "COMSpeedMps": {
+            "mean": 0.2547448107333763,
+            "rms": 0.28858081754514353,
+            "max": 0.6279015140159114
+          }
+        },
+        "farmO": {
+          "massKg": 1.649999976158142,
+          "COMRiseM": 0.2704054117202759,
+          "gravityWorkJ": -4.376917133565495,
+          "deltaKJ": -0.004837365030273377,
+          "COMSpeedMps": {
+            "mean": 0.5633786512567601,
+            "rms": 0.6086715600331911,
+            "max": 1.1340089341080735
+          }
+        },
+        "sword": {
+          "massKg": 1.600000023841858,
+          "COMRiseM": 0.35702264308929443,
+          "gravityWorkJ": -5.603827489433101,
+          "deltaKJ": 0.5743045028948832,
+          "COMSpeedMps": {
+            "mean": 0.7233711023786744,
+            "rms": 0.7324833358979512,
+            "max": 0.9717613288016211
+          }
+        }
+      },
+      "paths": {
+        "manualMuscle": {
+          "observedFrames": 90,
+          "midpointWorkApproxJ": 11.182738050531457,
+          "atCallWorkApproxJ": 10.062634646697624,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 0.0,
+          "bodies": {
+            "chest": {
+              "midpointWorkApproxJ": 1.694960217124633,
+              "atCallWorkApproxJ": 1.5717486196258346,
+              "torqueCOMNm": {
+                "mean": 21.486187488209858,
+                "rms": 22.419044837452443,
+                "max": 48.18631371091896
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "uarmS": {
+              "midpointWorkApproxJ": 9.487777833406824,
+              "atCallWorkApproxJ": 8.49088602707179,
+              "torqueCOMNm": {
+                "mean": 21.486187488209858,
+                "rms": 22.419044837452443,
+                "max": 48.18631371091896
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            }
+          }
+        },
+        "elbowGravity": {
+          "observedFrames": 90,
+          "midpointWorkApproxJ": 4.623292749274729,
+          "atCallWorkApproxJ": 4.650850203001629,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 0.0,
+          "bodies": {
+            "farmS": {
+              "midpointWorkApproxJ": 5.173731176933103,
+              "atCallWorkApproxJ": 5.175276995292377,
+              "torqueCOMNm": {
+                "mean": 6.9940344489489075,
+                "rms": 7.144709899028903,
+                "max": 9.10649860598384
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "uarmS": {
+              "midpointWorkApproxJ": -0.5504384276583738,
+              "atCallWorkApproxJ": -0.5244267922907481,
+              "torqueCOMNm": {
+                "mean": 6.9940344489489075,
+                "rms": 7.144709899028903,
+                "max": 9.10649860598384
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            }
+          }
+        },
+        "driveSword": {
+          "observedFrames": 90,
+          "midpointWorkApproxJ": -2.5435036833670432,
+          "atCallWorkApproxJ": -3.3437397993960554,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 1.7167846668193472e-15,
+          "bodies": {
+            "chest": {
+              "midpointWorkApproxJ": -0.243424412062286,
+              "atCallWorkApproxJ": -0.24607744069290657,
+              "torqueCOMNm": {
+                "mean": 1.122192673248084,
+                "rms": 1.2349363030761649,
+                "max": 2.559753510503161
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "farmS": {
+              "midpointWorkApproxJ": -3.3716937244868865,
+              "atCallWorkApproxJ": -3.6846906519199085,
+              "torqueCOMNm": {
+                "mean": 5.994816349305184,
+                "rms": 6.748293962011597,
+                "max": 22.828064440136895
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "sword": {
+              "midpointWorkApproxJ": 1.0716144531821294,
+              "atCallWorkApproxJ": 0.5870282932167598,
+              "torqueCOMNm": {
+                "mean": 6.143869368700902,
+                "rms": 6.860359976183557,
+                "max": 22.856842087825154
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            }
+          }
+        },
+        "offHand": {
+          "observedFrames": 90,
+          "midpointWorkApproxJ": -0.5905095974725084,
+          "atCallWorkApproxJ": -0.7174355624707464,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 2.6904301418099514e-14,
+          "bodies": {
+            "farmO": {
+              "midpointWorkApproxJ": 0.41010154549777356,
+              "atCallWorkApproxJ": 0.1830000455172308,
+              "torqueCOMNm": {
+                "mean": 1.4931498778942953,
+                "rms": 1.778285181947668,
+                "max": 3.2876972522985763
+              },
+              "forceN": {
+                "mean": 13.360679263253711,
+                "rms": 15.508132485457116,
+                "max": 32.379402590602226
+              }
+            },
+            "sword": {
+              "midpointWorkApproxJ": -1.000611142970282,
+              "atCallWorkApproxJ": -0.9004356079879772,
+              "torqueCOMNm": {
+                "mean": 3.9222645727621375,
+                "rms": 4.649681170560568,
+                "max": 11.844290115096403
+              },
+              "forceN": {
+                "mean": 13.360679263253711,
+                "rms": 15.508132485457116,
+                "max": 32.379402590602226
+              }
+            }
+          }
+        }
+      },
+      "rawGravityMomentNm": {
+        "shoulderRawMoment": {
+          "mean": 20.474677659997884,
+          "rms": 20.508761557212328,
+          "max": 21.894169979361997
+        },
+        "elbowRawMoment": {
+          "mean": 8.546782229598064,
+          "rms": 8.609553554435438,
+          "max": 9.865343724117205
+        },
+        "wristRawMoment": {
+          "mean": 3.7587441678554665,
+          "rms": 3.758752446302495,
+          "max": 3.768324246849687
+        }
+      },
+      "handErrorM": {
+        "mean": 0.019172336258054447,
+        "rms": 0.022690607383968713,
+        "max": 0.04285738113644713
+      },
+      "aimErrorDeg": {
+        "mean": 1.4638524946462383,
+        "rms": 1.552255505781678,
+        "max": 2.9275161299334354
+      },
+      "tipSpeedMps": {
+        "mean": 1.0975734550431577,
+        "rms": 1.1609933077664905,
+        "max": 2.03986824875918
+      },
+      "exposure": {
+        "heldFrames": 90,
+        "activeFrames": 90,
+        "grippingFrames": 90,
+        "swingingFrames": 0,
+        "owners": [
+          "player"
+        ],
+        "controllerPhases": [
+          "moving"
+        ]
+      }
+    },
+    {
+      "weapon": "longsword",
+      "phase": "hold_late",
+      "ticksInclusive": [
+        210,
+        329
+      ],
+      "durationS": 1.0,
+      "bodies": {
+        "chest": {
+          "massKg": 16.200000762939453,
+          "COMRiseM": -0.015265107154846191,
+          "gravityWorkJ": 2.4259614735131847,
+          "deltaKJ": 0.048589409846171355,
+          "COMSpeedMps": {
+            "mean": 0.05541310157577485,
+            "rms": 0.06640598408069469,
+            "max": 0.22762872128483008
+          }
+        },
+        "uarmS": {
+          "massKg": 2.0999999046325684,
+          "COMRiseM": -0.010875582695007324,
+          "gravityWorkJ": 0.22404786892514553,
+          "deltaKJ": 0.00689081129742027,
+          "COMSpeedMps": {
+            "mean": 0.05315019265841884,
+            "rms": 0.06481292018258514,
+            "max": 0.1483927960233217
+          }
+        },
+        "farmS": {
+          "massKg": 1.649999976158142,
+          "COMRiseM": -0.011905312538146973,
+          "gravityWorkJ": 0.1927053386141988,
+          "deltaKJ": 0.005042790041935776,
+          "COMSpeedMps": {
+            "mean": 0.051319317198039026,
+            "rms": 0.06254498857881645,
+            "max": 0.19052498212874702
+          }
+        },
+        "uarmO": {
+          "massKg": 2.0999999046325684,
+          "COMRiseM": -0.016706466674804688,
+          "gravityWorkJ": 0.3441699043378413,
+          "deltaKJ": 0.007480985514079462,
+          "COMSpeedMps": {
+            "mean": 0.05833173788601804,
+            "rms": 0.06724005224011073,
+            "max": 0.18553703277172795
+          }
+        },
+        "farmO": {
+          "massKg": 1.649999976158142,
+          "COMRiseM": -0.013311028480529785,
+          "gravityWorkJ": 0.2154589593867972,
+          "deltaKJ": 0.0041185946960525825,
+          "COMSpeedMps": {
+            "mean": 0.07248389910389225,
+            "rms": 0.08234421555492759,
+            "max": 0.16564074669019302
+          }
+        },
+        "sword": {
+          "massKg": 1.600000023841858,
+          "COMRiseM": -0.013365745544433594,
+          "gravityWorkJ": 0.20978874519152557,
+          "deltaKJ": 0.004792604734060013,
+          "COMSpeedMps": {
+            "mean": 0.05624486924513486,
+            "rms": 0.06820235162962653,
+            "max": 0.1831066492391748
+          }
+        }
+      },
+      "paths": {
+        "manualMuscle": {
+          "observedFrames": 120,
+          "midpointWorkApproxJ": 1.5386622738118834,
+          "atCallWorkApproxJ": 1.176444262154945,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 0.0,
+          "bodies": {
+            "chest": {
+              "midpointWorkApproxJ": 0.6563061446142178,
+              "atCallWorkApproxJ": 0.5080643377194035,
+              "torqueCOMNm": {
+                "mean": 9.791575809991725,
+                "rms": 10.125170592203244,
+                "max": 27.130709923378145
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "uarmS": {
+              "midpointWorkApproxJ": 0.8823561291976656,
+              "atCallWorkApproxJ": 0.6683799244355414,
+              "torqueCOMNm": {
+                "mean": 9.791575809991725,
+                "rms": 10.125170592203244,
+                "max": 27.130709923378145
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            }
+          }
+        },
+        "elbowGravity": {
+          "observedFrames": 120,
+          "midpointWorkApproxJ": -0.41986408572636474,
+          "atCallWorkApproxJ": -0.42024011479910595,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 0.0,
+          "bodies": {
+            "farmS": {
+              "midpointWorkApproxJ": -0.05020934012654911,
+              "atCallWorkApproxJ": -0.05006092458255344,
+              "torqueCOMNm": {
+                "mean": 3.666317869845671,
+                "rms": 3.6706474798067767,
+                "max": 3.889702477779223
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "uarmS": {
+              "midpointWorkApproxJ": -0.36965474559981565,
+              "atCallWorkApproxJ": -0.3701791902165525,
+              "torqueCOMNm": {
+                "mean": 3.666317869845671,
+                "rms": 3.6706474798067767,
+                "max": 3.889702477779223
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            }
+          }
+        },
+        "driveSword": {
+          "observedFrames": 120,
+          "midpointWorkApproxJ": 0.03652207747666443,
+          "atCallWorkApproxJ": 0.034168993800792025,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 8.831769619483555e-16,
+          "bodies": {
+            "chest": {
+              "midpointWorkApproxJ": -0.006144714082880648,
+              "atCallWorkApproxJ": -0.0059848906806547345,
+              "torqueCOMNm": {
+                "mean": 0.795478842169948,
+                "rms": 0.8233549140502638,
+                "max": 1.3082091561982268
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "farmS": {
+              "midpointWorkApproxJ": 0.09092927693972656,
+              "atCallWorkApproxJ": 0.09454330704617127,
+              "torqueCOMNm": {
+                "mean": 4.861995554715233,
+                "rms": 4.877659550776989,
+                "max": 6.334090040872541
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "sword": {
+              "midpointWorkApproxJ": -0.048262485380181484,
+              "atCallWorkApproxJ": -0.0543894225647245,
+              "torqueCOMNm": {
+                "mean": 4.930350950704084,
+                "rms": 4.946663110174223,
+                "max": 6.440980119016578
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            }
+          }
+        },
+        "offHand": {
+          "observedFrames": 120,
+          "midpointWorkApproxJ": -1.2461938262272543,
+          "atCallWorkApproxJ": -1.2883716711557849,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 1.3833306882805436e-14,
+          "bodies": {
+            "farmO": {
+              "midpointWorkApproxJ": -0.8232641204669194,
+              "atCallWorkApproxJ": -0.8501355000616398,
+              "torqueCOMNm": {
+                "mean": 3.4508791394251292,
+                "rms": 3.492369511833295,
+                "max": 4.726437968269496
+              },
+              "forceN": {
+                "mean": 25.712117824704627,
+                "rms": 26.036618415614964,
+                "max": 35.07142000310318
+              }
+            },
+            "sword": {
+              "midpointWorkApproxJ": -0.4229297057603348,
+              "atCallWorkApproxJ": -0.438236171094145,
+              "torqueCOMNm": {
+                "mean": 3.866702020620014,
+                "rms": 3.9685444300592954,
+                "max": 6.177439612473437
+              },
+              "forceN": {
+                "mean": 25.712117824704627,
+                "rms": 26.036618415614964,
+                "max": 35.07142000310318
+              }
+            }
+          }
+        }
+      },
+      "rawGravityMomentNm": {
+        "shoulderRawMoment": {
+          "mean": 16.943162355057858,
+          "rms": 16.943386129160675,
+          "max": 17.127888613651244
+        },
+        "elbowRawMoment": {
+          "mean": 6.266407084449154,
+          "rms": 6.267245703994177,
+          "max": 6.424627291002839
+        },
+        "wristRawMoment": {
+          "mean": 3.5150053464223103,
+          "rms": 3.5150060311538014,
+          "max": 3.5210213862496795
+        }
+      },
+      "handErrorM": {
+        "mean": 0.030330500659626107,
+        "rms": 0.03064503740593729,
+        "max": 0.036509960726285026
+      },
+      "aimErrorDeg": {
+        "mean": 1.2638286614672332,
+        "rms": 1.2683444475908312,
+        "max": 1.5342057195282357
+      },
+      "tipSpeedMps": {
+        "mean": 0.06810212367762329,
+        "rms": 0.08496664573260651,
+        "max": 0.18628710432886045
+      },
+      "exposure": {
+        "heldFrames": 120,
+        "activeFrames": 0,
+        "grippingFrames": 120,
+        "swingingFrames": 0,
+        "owners": [
+          "player"
+        ],
+        "controllerPhases": [
+          "holding"
+        ]
+      }
+    },
+    {
+      "weapon": "zweihander",
+      "phase": "raise",
+      "ticksInclusive": [
+        60,
+        149
+      ],
+      "durationS": 0.75,
+      "bodies": {
+        "chest": {
+          "massKg": 16.200000762939453,
+          "COMRiseM": -0.005373358726501465,
+          "gravityWorkJ": 0.8539449557496255,
+          "deltaKJ": 0.020520783095544847,
+          "COMSpeedMps": {
+            "mean": 0.07358289311706205,
+            "rms": 0.07627803979844233,
+            "max": 0.11655773584096174
+          }
+        },
+        "uarmS": {
+          "massKg": 2.0999999046325684,
+          "COMRiseM": 0.07199239730834961,
+          "gravityWorkJ": -1.4831153095964988,
+          "deltaKJ": 0.06902196043025252,
+          "COMSpeedMps": {
+            "mean": 0.22548857161690278,
+            "rms": 0.2327045918307754,
+            "max": 0.3218297676429223
+          }
+        },
+        "farmS": {
+          "massKg": 1.649999976158142,
+          "COMRiseM": 0.2521390914916992,
+          "gravityWorkJ": -4.081249345457924,
+          "deltaKJ": 0.0482789697157231,
+          "COMSpeedMps": {
+            "mean": 0.5298527345006747,
+            "rms": 0.5407206489180425,
+            "max": 0.7951833099337525
+          }
+        },
+        "uarmO": {
+          "massKg": 2.0999999046325684,
+          "COMRiseM": 0.11969542503356934,
+          "gravityWorkJ": -2.465845339134968,
+          "deltaKJ": -0.04228191349279921,
+          "COMSpeedMps": {
+            "mean": 0.3089904721762113,
+            "rms": 0.33956086019623505,
+            "max": 0.59673826370931
+          }
+        },
+        "farmO": {
+          "massKg": 1.649999976158142,
+          "COMRiseM": 0.2826336622238159,
+          "gravityWorkJ": -4.574849707480998,
+          "deltaKJ": -0.1289431210092849,
+          "COMSpeedMps": {
+            "mean": 0.6436218435203808,
+            "rms": 0.7037770755524798,
+            "max": 1.1852767534724034
+          }
+        },
+        "sword": {
+          "massKg": 2.9000000953674316,
+          "COMRiseM": 0.38511502742767334,
+          "gravityWorkJ": -10.956137775585978,
+          "deltaKJ": 1.1936719416935828,
+          "COMSpeedMps": {
+            "mean": 0.7896453721531446,
+            "rms": 0.8036804986530559,
+            "max": 1.0772611600663722
+          }
+        }
+      },
+      "paths": {
+        "manualMuscle": {
+          "observedFrames": 90,
+          "midpointWorkApproxJ": 18.18208313101877,
+          "atCallWorkApproxJ": 16.949054037330797,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 0.0,
+          "bodies": {
+            "chest": {
+              "midpointWorkApproxJ": 2.203031714122277,
+              "atCallWorkApproxJ": 2.0855163271625585,
+              "torqueCOMNm": {
+                "mean": 33.1325724103535,
+                "rms": 33.65361260087547,
+                "max": 62.2232782498988
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "uarmS": {
+              "midpointWorkApproxJ": 15.979051416896494,
+              "atCallWorkApproxJ": 14.863537710168236,
+              "torqueCOMNm": {
+                "mean": 33.1325724103535,
+                "rms": 33.65361260087547,
+                "max": 62.2232782498988
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            }
+          }
+        },
+        "elbowGravity": {
+          "observedFrames": 90,
+          "midpointWorkApproxJ": 8.579683507815064,
+          "atCallWorkApproxJ": 8.667549438967363,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 0.0,
+          "bodies": {
+            "farmS": {
+              "midpointWorkApproxJ": 9.854887324363286,
+              "atCallWorkApproxJ": 9.879776275595017,
+              "torqueCOMNm": {
+                "mean": 13.32198967152481,
+                "rms": 13.46657439532727,
+                "max": 15.94538140496615
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "uarmS": {
+              "midpointWorkApproxJ": -1.275203816548222,
+              "atCallWorkApproxJ": -1.2122268366276543,
+              "torqueCOMNm": {
+                "mean": 13.32198967152481,
+                "rms": 13.46657439532727,
+                "max": 15.94538140496615
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            }
+          }
+        },
+        "driveSword": {
+          "observedFrames": 90,
+          "midpointWorkApproxJ": -6.85577905001124,
+          "atCallWorkApproxJ": -7.505025035399455,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 3.3405660684751576e-15,
+          "bodies": {
+            "chest": {
+              "midpointWorkApproxJ": -0.1776578538522483,
+              "atCallWorkApproxJ": -0.18734699222069937,
+              "torqueCOMNm": {
+                "mean": 2.869539237671142,
+                "rms": 3.218905538506618,
+                "max": 5.377849388918161
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "farmS": {
+              "midpointWorkApproxJ": -8.999555899372057,
+              "atCallWorkApproxJ": -9.328706143673424,
+              "torqueCOMNm": {
+                "mean": 13.450364342864956,
+                "rms": 13.914524100070714,
+                "max": 29.236176538460658
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "sword": {
+              "midpointWorkApproxJ": 2.3214347032130656,
+              "atCallWorkApproxJ": 2.0110281004946695,
+              "torqueCOMNm": {
+                "mean": 13.903735149417944,
+                "rms": 14.281993317479817,
+                "max": 29.28149735853126
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            }
+          }
+        },
+        "offHand": {
+          "observedFrames": 90,
+          "midpointWorkApproxJ": -0.8884888272058603,
+          "atCallWorkApproxJ": -0.9682766958738209,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 5.32907024026808e-14,
+          "bodies": {
+            "farmO": {
+              "midpointWorkApproxJ": 0.5165519637583775,
+              "atCallWorkApproxJ": 0.2871117644731836,
+              "torqueCOMNm": {
+                "mean": 2.3088881075541843,
+                "rms": 2.525932028555031,
+                "max": 4.423765397825337
+              },
+              "forceN": {
+                "mean": 21.20142357508363,
+                "rms": 22.877431754697866,
+                "max": 39.067732037018004
+              }
+            },
+            "sword": {
+              "midpointWorkApproxJ": -1.405040790964238,
+              "atCallWorkApproxJ": -1.2553884603470045,
+              "torqueCOMNm": {
+                "mean": 8.175866465476071,
+                "rms": 9.23447650696053,
+                "max": 15.655225183247751
+              },
+              "forceN": {
+                "mean": 21.20142357508363,
+                "rms": 22.877431754697866,
+                "max": 39.067732037018004
+              }
+            }
+          }
+        }
+      },
+      "rawGravityMomentNm": {
+        "shoulderRawMoment": {
+          "mean": 32.07383158755978,
+          "rms": 32.11235915025643,
+          "max": 33.957061610398
+        },
+        "elbowRawMoment": {
+          "mean": 16.57799855323193,
+          "rms": 16.645862121634863,
+          "max": 18.56652998988537
+        },
+        "wristRawMoment": {
+          "mean": 9.344889997198553,
+          "rms": 9.34492290866637,
+          "max": 9.378968190363471
+        }
+      },
+      "handErrorM": {
+        "mean": 0.03689759395692678,
+        "rms": 0.044117318940136006,
+        "max": 0.08162133305064717
+      },
+      "aimErrorDeg": {
+        "mean": 3.2866528831004023,
+        "rms": 3.672420584214938,
+        "max": 5.428636621245337
+      },
+      "tipSpeedMps": {
+        "mean": 1.1575098485443924,
+        "rms": 1.2304912028468875,
+        "max": 2.345703838956592
+      },
+      "exposure": {
+        "heldFrames": 90,
+        "activeFrames": 90,
+        "grippingFrames": 90,
+        "swingingFrames": 0,
+        "owners": [
+          "player"
+        ],
+        "controllerPhases": [
+          "moving"
+        ]
+      }
+    },
+    {
+      "weapon": "zweihander",
+      "phase": "hold_late",
+      "ticksInclusive": [
+        210,
+        329
+      ],
+      "durationS": 1.0,
+      "bodies": {
+        "chest": {
+          "massKg": 16.200000762939453,
+          "COMRiseM": -0.012953042984008789,
+          "gravityWorkJ": 2.0585235940508664,
+          "deltaKJ": 0.018317493271341467,
+          "COMSpeedMps": {
+            "mean": 0.06496253301124467,
+            "rms": 0.07415861887430758,
+            "max": 0.24723573823823936
+          }
+        },
+        "uarmS": {
+          "massKg": 2.0999999046325684,
+          "COMRiseM": -0.009386062622070312,
+          "gravityWorkJ": 0.19336226729609737,
+          "deltaKJ": 0.0009465359202480645,
+          "COMSpeedMps": {
+            "mean": 0.06357824245182914,
+            "rms": 0.06957703267484326,
+            "max": 0.15815425056899712
+          }
+        },
+        "farmS": {
+          "massKg": 1.649999976158142,
+          "COMRiseM": -0.017315983772277832,
+          "gravityWorkJ": 0.2802851672799635,
+          "deltaKJ": -0.003504266794813155,
+          "COMSpeedMps": {
+            "mean": 0.06737073096920046,
+            "rms": 0.0742509009992986,
+            "max": 0.20014673116384596
+          }
+        },
+        "uarmO": {
+          "massKg": 2.0999999046325684,
+          "COMRiseM": -0.028187870979309082,
+          "gravityWorkJ": 0.5806983036734568,
+          "deltaKJ": -0.013539593213306956,
+          "COMSpeedMps": {
+            "mean": 0.07636339054244967,
+            "rms": 0.08320015464950573,
+            "max": 0.21166846585787485
+          }
+        },
+        "farmO": {
+          "massKg": 1.649999976158142,
+          "COMRiseM": -0.03314566612243652,
+          "gravityWorkJ": 0.5365123169384245,
+          "deltaKJ": -0.026690438921907242,
+          "COMSpeedMps": {
+            "mean": 0.09535098676230883,
+            "rms": 0.1083102538733521,
+            "max": 0.21042571296964363
+          }
+        },
+        "sword": {
+          "massKg": 2.9000000953674316,
+          "COMRiseM": -0.025066375732421875,
+          "gravityWorkJ": 0.7131133466626307,
+          "deltaKJ": -0.0654564376593102,
+          "COMSpeedMps": {
+            "mean": 0.09736522549464582,
+            "rms": 0.11309873745251343,
+            "max": 0.22674315627574992
+          }
+        }
+      },
+      "paths": {
+        "manualMuscle": {
+          "observedFrames": 120,
+          "midpointWorkApproxJ": 3.1621286011443295,
+          "atCallWorkApproxJ": 2.7945332169119146,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 0.0,
+          "bodies": {
+            "chest": {
+              "midpointWorkApproxJ": 1.980774303905436,
+              "atCallWorkApproxJ": 1.8438910355560103,
+              "torqueCOMNm": {
+                "mean": 18.09826185660317,
+                "rms": 18.37272079508044,
+                "max": 35.37703106113927
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "uarmS": {
+              "midpointWorkApproxJ": 1.1813542972388935,
+              "atCallWorkApproxJ": 0.9506421813559041,
+              "torqueCOMNm": {
+                "mean": 18.09826185660317,
+                "rms": 18.37272079508044,
+                "max": 35.37703106113927
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            }
+          }
+        },
+        "elbowGravity": {
+          "observedFrames": 120,
+          "midpointWorkApproxJ": -0.8162983646378973,
+          "atCallWorkApproxJ": -0.8236690432846793,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 0.0,
+          "bodies": {
+            "farmS": {
+              "midpointWorkApproxJ": 0.07471494314067205,
+              "atCallWorkApproxJ": 0.06603001659355705,
+              "torqueCOMNm": {
+                "mean": 7.498261048046539,
+                "rms": 7.516842408007421,
+                "max": 8.754431389018281
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "uarmS": {
+              "midpointWorkApproxJ": -0.8910133077785694,
+              "atCallWorkApproxJ": -0.8896990598782364,
+              "torqueCOMNm": {
+                "mean": 7.498261048046539,
+                "rms": 7.516842408007421,
+                "max": 8.754431389018281
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            }
+          }
+        },
+        "driveSword": {
+          "observedFrames": 120,
+          "midpointWorkApproxJ": 0.5997491191879349,
+          "atCallWorkApproxJ": 0.6143584216904947,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 1.717376151648893e-15,
+          "bodies": {
+            "chest": {
+              "midpointWorkApproxJ": 0.0344047190905412,
+              "atCallWorkApproxJ": 0.035004919192463575,
+              "torqueCOMNm": {
+                "mean": 1.8367983813054258,
+                "rms": 1.905774602034883,
+                "max": 2.6338778450746285
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "farmS": {
+              "midpointWorkApproxJ": 0.7461120229958172,
+              "atCallWorkApproxJ": 0.7717917442109921,
+              "torqueCOMNm": {
+                "mean": 10.268666213981904,
+                "rms": 10.294928594810242,
+                "max": 12.176892506666869
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "sword": {
+              "midpointWorkApproxJ": -0.18076762289842346,
+              "atCallWorkApproxJ": -0.19243824171296092,
+              "torqueCOMNm": {
+                "mean": 10.44555293167874,
+                "rms": 10.469839124435799,
+                "max": 12.200993320174234
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            }
+          }
+        },
+        "offHand": {
+          "observedFrames": 120,
+          "midpointWorkApproxJ": -1.9641575403689253,
+          "atCallWorkApproxJ": -2.005508645377524,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 2.6697342179951325e-14,
+          "bodies": {
+            "farmO": {
+              "midpointWorkApproxJ": -0.660774108124153,
+              "atCallWorkApproxJ": -0.6842713514303559,
+              "torqueCOMNm": {
+                "mean": 4.395573249326755,
+                "rms": 4.414679415369582,
+                "max": 5.409632983540493
+              },
+              "forceN": {
+                "mean": 33.84239710079683,
+                "rms": 34.00862102135511,
+                "max": 40.69958617961835
+              }
+            },
+            "sword": {
+              "midpointWorkApproxJ": -1.3033834322447722,
+              "atCallWorkApproxJ": -1.3212372939471682,
+              "torqueCOMNm": {
+                "mean": 4.383991798048244,
+                "rms": 4.709363628905391,
+                "max": 8.575666370921008
+              },
+              "forceN": {
+                "mean": 33.84239710079683,
+                "rms": 34.00862102135511,
+                "max": 40.69958617961835
+              }
+            }
+          }
+        }
+      },
+      "rawGravityMomentNm": {
+        "shoulderRawMoment": {
+          "mean": 26.434795929298968,
+          "rms": 26.435793489062213,
+          "max": 26.85357037581884
+        },
+        "elbowRawMoment": {
+          "mean": 12.864023192415903,
+          "rms": 12.86616419598003,
+          "max": 13.283367979832695
+        },
+        "wristRawMoment": {
+          "mean": 8.758968576508572,
+          "rms": 8.758978908457637,
+          "max": 8.785980866375228
+        }
+      },
+      "handErrorM": {
+        "mean": 0.0331829876762825,
+        "rms": 0.03393608908888003,
+        "max": 0.04773594505913744
+      },
+      "aimErrorDeg": {
+        "mean": 1.5614187471003846,
+        "rms": 1.582223567137167,
+        "max": 2.045766815845364
+      },
+      "tipSpeedMps": {
+        "mean": 0.14954808408769651,
+        "rms": 0.1779778975241801,
+        "max": 0.4201003408259789
+      },
+      "exposure": {
+        "heldFrames": 120,
+        "activeFrames": 0,
+        "grippingFrames": 120,
+        "swingingFrames": 0,
+        "owners": [
+          "player"
+        ],
+        "controllerPhases": [
+          "holding"
+        ]
+      }
+    }
+  ],
+  "settlingSupplement": [
+    {
+      "weapon": "longsword",
+      "phase": "hold_settle",
+      "ticksInclusive": [
+        150,
+        209
+      ],
+      "durationS": 0.5,
+      "bodies": {
+        "chest": {
+          "massKg": 16.200000762939453,
+          "COMRiseM": 0.0036240816116333008,
+          "gravityWorkJ": -0.5759463250081944,
+          "deltaKJ": -0.047217806931191715,
+          "COMSpeedMps": {
+            "mean": 0.06448528389686001,
+            "rms": 0.06876966170696495,
+            "max": 0.0982863676129574
+          }
+        },
+        "uarmS": {
+          "massKg": 2.0999999046325684,
+          "COMRiseM": 0.036791086196899414,
+          "gravityWorkJ": -0.7579331323222585,
+          "deltaKJ": -0.08467620947742495,
+          "COMSpeedMps": {
+            "mean": 0.14914520780300133,
+            "rms": 0.17308431644228275,
+            "max": 0.31683410033814774
+          }
+        },
+        "farmS": {
+          "massKg": 1.649999976158142,
+          "COMRiseM": 0.07387936115264893,
+          "gravityWorkJ": -1.1958482620178097,
+          "deltaKJ": -0.17053467178445864,
+          "COMSpeedMps": {
+            "mean": 0.2238786263509464,
+            "rms": 0.2925937250908894,
+            "max": 0.52577450226591
+          }
+        },
+        "uarmO": {
+          "massKg": 2.0999999046325684,
+          "COMRiseM": 0.022841572761535645,
+          "gravityWorkJ": -0.47055921909085957,
+          "deltaKJ": -0.024689961170257405,
+          "COMSpeedMps": {
+            "mean": 0.13419251491091605,
+            "rms": 0.1506695947093047,
+            "max": 0.25479052651970846
+          }
+        },
+        "farmO": {
+          "massKg": 1.649999976158142,
+          "COMRiseM": 0.044090986251831055,
+          "gravityWorkJ": -0.7136787386528832,
+          "deltaKJ": -0.074678225675361,
+          "COMSpeedMps": {
+            "mean": 0.22034652431526938,
+            "rms": 0.2580386105212461,
+            "max": 0.46479659041845717
+          }
+        },
+        "sword": {
+          "massKg": 1.600000023841858,
+          "COMRiseM": 0.13265180587768555,
+          "gravityWorkJ": -2.0821027760819013,
+          "deltaKJ": -0.6556742915802838,
+          "COMSpeedMps": {
+            "mean": 0.35265564945238637,
+            "rms": 0.4905557195710219,
+            "max": 0.9202999422735249
+          }
+        }
+      },
+      "paths": {
+        "manualMuscle": {
+          "observedFrames": 60,
+          "midpointWorkApproxJ": 2.3803324276577436,
+          "atCallWorkApproxJ": 2.16559134633887,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 0.0,
+          "bodies": {
+            "chest": {
+              "midpointWorkApproxJ": -0.07458805903427924,
+              "atCallWorkApproxJ": -0.11274957408206773,
+              "torqueCOMNm": {
+                "mean": 9.327549171680499,
+                "rms": 10.738758576585303,
+                "max": 27.467380636850258
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "uarmS": {
+              "midpointWorkApproxJ": 2.4549204866920227,
+              "atCallWorkApproxJ": 2.2783409204209377,
+              "torqueCOMNm": {
+                "mean": 9.327549171680499,
+                "rms": 10.738758576585303,
+                "max": 27.467380636850258
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            }
+          }
+        },
+        "elbowGravity": {
+          "observedFrames": 60,
+          "midpointWorkApproxJ": -0.7691686155322761,
+          "atCallWorkApproxJ": -0.7838906791882797,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 0.0,
+          "bodies": {
+            "farmS": {
+              "midpointWorkApproxJ": 0.09918205120080938,
+              "atCallWorkApproxJ": 0.10072186169340933,
+              "torqueCOMNm": {
+                "mean": 3.8759723648919917,
+                "rms": 3.881989597244302,
+                "max": 4.63009436525171
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "uarmS": {
+              "midpointWorkApproxJ": -0.8683506667330855,
+              "atCallWorkApproxJ": -0.884612540881689,
+              "torqueCOMNm": {
+                "mean": 3.8759723648919917,
+                "rms": 3.881989597244302,
+                "max": 4.63009436525171
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            }
+          }
+        },
+        "driveSword": {
+          "observedFrames": 60,
+          "midpointWorkApproxJ": 0.8070524374441431,
+          "atCallWorkApproxJ": 0.8027086051553493,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 1.6782944467120525e-15,
+          "bodies": {
+            "chest": {
+              "midpointWorkApproxJ": -0.026637156903275915,
+              "atCallWorkApproxJ": -0.028372297111974497,
+              "torqueCOMNm": {
+                "mean": 0.6748764857070887,
+                "rms": 0.7838091495546148,
+                "max": 1.5707382808567036
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "farmS": {
+              "midpointWorkApproxJ": -0.007484839778348583,
+              "atCallWorkApproxJ": -0.017097519374494913,
+              "torqueCOMNm": {
+                "mean": 4.218725513233819,
+                "rms": 4.469972606374413,
+                "max": 9.711596587723543
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "sword": {
+              "midpointWorkApproxJ": 0.8411744341257676,
+              "atCallWorkApproxJ": 0.8481784216418187,
+              "torqueCOMNm": {
+                "mean": 4.2935648913609805,
+                "rms": 4.538172741121046,
+                "max": 9.837800927535978
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            }
+          }
+        },
+        "offHand": {
+          "observedFrames": 60,
+          "midpointWorkApproxJ": -0.3779757416191257,
+          "atCallWorkApproxJ": -0.40473304721887715,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 2.997602010150795e-14,
+          "bodies": {
+            "farmO": {
+              "midpointWorkApproxJ": -1.203282495847377,
+              "atCallWorkApproxJ": -1.2560283232588771,
+              "torqueCOMNm": {
+                "mean": 2.126880767435467,
+                "rms": 2.1949488628644303,
+                "max": 2.6221599106636555
+              },
+              "forceN": {
+                "mean": 17.32247872548501,
+                "rms": 17.946928241895304,
+                "max": 23.005018995399116
+              }
+            },
+            "sword": {
+              "midpointWorkApproxJ": 0.8253067542282512,
+              "atCallWorkApproxJ": 0.85129527604,
+              "torqueCOMNm": {
+                "mean": 4.97909319997805,
+                "rms": 5.449244742534734,
+                "max": 8.365861517505834
+              },
+              "forceN": {
+                "mean": 17.32247872548501,
+                "rms": 17.946928241895304,
+                "max": 23.005018995399116
+              }
+            }
+          }
+        }
+      },
+      "rawGravityMomentNm": {
+        "shoulderRawMoment": {
+          "mean": 17.36800408915617,
+          "rms": 17.37463213605379,
+          "max": 18.56301785846815
+        },
+        "elbowRawMoment": {
+          "mean": 6.485763921932085,
+          "rms": 6.490796713504178,
+          "max": 7.022072752372744
+        },
+        "wristRawMoment": {
+          "mean": 3.5587362717705378,
+          "rms": 3.559402285400556,
+          "max": 3.732332252164768
+        }
+      },
+      "handErrorM": {
+        "mean": 0.024539058835824874,
+        "rms": 0.02597932668003088,
+        "max": 0.0350502602360815
+      },
+      "aimErrorDeg": {
+        "mean": 0.6888392214136381,
+        "rms": 0.76169704806308,
+        "max": 1.2355384140837138
+      },
+      "tipSpeedMps": {
+        "mean": 0.7939324060952934,
+        "rms": 1.1726938724911677,
+        "max": 2.411148185269845
+      },
+      "exposure": {
+        "heldFrames": 60,
+        "activeFrames": 0,
+        "grippingFrames": 60,
+        "swingingFrames": 0,
+        "owners": [
+          "player"
+        ],
+        "controllerPhases": [
+          "holding"
+        ]
+      }
+    },
+    {
+      "weapon": "zweihander",
+      "phase": "hold_settle",
+      "ticksInclusive": [
+        150,
+        209
+      ],
+      "durationS": 0.5,
+      "bodies": {
+        "chest": {
+          "massKg": 16.200000762939453,
+          "COMRiseM": 0.004425644874572754,
+          "gravityWorkJ": -0.7033323678803072,
+          "deltaKJ": -0.014389548296182879,
+          "COMSpeedMps": {
+            "mean": 0.09379963558637595,
+            "rms": 0.0995845805446942,
+            "max": 0.1448881868811937
+          }
+        },
+        "uarmS": {
+          "massKg": 2.0999999046325684,
+          "COMRiseM": 0.04118752479553223,
+          "gravityWorkJ": -0.8485041597795852,
+          "deltaKJ": -0.07371969385877716,
+          "COMSpeedMps": {
+            "mean": 0.20331561300186687,
+            "rms": 0.2099324137230215,
+            "max": 0.3153488494200588
+          }
+        },
+        "farmS": {
+          "massKg": 1.649999976158142,
+          "COMRiseM": 0.09448814392089844,
+          "gravityWorkJ": -1.5294323194759205,
+          "deltaKJ": -0.12391931052590249,
+          "COMSpeedMps": {
+            "mean": 0.31616446307250323,
+            "rms": 0.35554036570205494,
+            "max": 0.5365829504865024
+          }
+        },
+        "uarmO": {
+          "massKg": 2.0999999046325684,
+          "COMRiseM": 0.048166751861572266,
+          "gravityWorkJ": -0.9922832100376286,
+          "deltaKJ": -0.0002627069757007716,
+          "COMSpeedMps": {
+            "mean": 0.2259651182213465,
+            "rms": 0.24865859210714572,
+            "max": 0.4143267797321328
+          }
+        },
+        "farmO": {
+          "massKg": 1.649999976158142,
+          "COMRiseM": 0.08111941814422607,
+          "gravityWorkJ": -1.313039442818606,
+          "deltaKJ": -0.017624659894438635,
+          "COMSpeedMps": {
+            "mean": 0.3635148039052682,
+            "rms": 0.41166375256433035,
+            "max": 0.7397897640106964
+          }
+        },
+        "sword": {
+          "massKg": 2.9000000953674316,
+          "COMRiseM": 0.2021549940109253,
+          "gravityWorkJ": -5.751107613743829,
+          "deltaKJ": -1.454413332268327,
+          "COMSpeedMps": {
+            "mean": 0.6084759845490277,
+            "rms": 0.7141327455157578,
+            "max": 1.0890024210989662
+          }
+        }
+      },
+      "paths": {
+        "manualMuscle": {
+          "observedFrames": 60,
+          "midpointWorkApproxJ": 5.777566963434764,
+          "atCallWorkApproxJ": 5.399333646665988,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 0.0,
+          "bodies": {
+            "chest": {
+              "midpointWorkApproxJ": 0.05329797915901891,
+              "atCallWorkApproxJ": 0.012921109914944922,
+              "torqueCOMNm": {
+                "mean": 16.20246377377971,
+                "rms": 19.478785474240805,
+                "max": 42.099229431999284
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "uarmS": {
+              "midpointWorkApproxJ": 5.724268984275745,
+              "atCallWorkApproxJ": 5.386412536751043,
+              "torqueCOMNm": {
+                "mean": 16.20246377377971,
+                "rms": 19.478785474240805,
+                "max": 42.099229431999284
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            }
+          }
+        },
+        "elbowGravity": {
+          "observedFrames": 60,
+          "midpointWorkApproxJ": -1.7153497889704041,
+          "atCallWorkApproxJ": -1.7303405933404115,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 0.0,
+          "bodies": {
+            "farmS": {
+              "midpointWorkApproxJ": -0.1189822315598043,
+              "atCallWorkApproxJ": -0.10725906401165387,
+              "torqueCOMNm": {
+                "mean": 7.5767669700724145,
+                "rms": 7.631577852864563,
+                "max": 8.795203867405426
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "uarmS": {
+              "midpointWorkApproxJ": -1.5963675574105998,
+              "atCallWorkApproxJ": -1.6230815293287577,
+              "torqueCOMNm": {
+                "mean": 7.5767669700724145,
+                "rms": 7.631577852864563,
+                "max": 8.795203867405426
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            }
+          }
+        },
+        "driveSword": {
+          "observedFrames": 60,
+          "midpointWorkApproxJ": 1.6636072898847638,
+          "atCallWorkApproxJ": 1.6851662094726467,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 1.7785779723402606e-15,
+          "bodies": {
+            "chest": {
+              "midpointWorkApproxJ": -0.11175471400088839,
+              "atCallWorkApproxJ": -0.11357121453276126,
+              "torqueCOMNm": {
+                "mean": 1.6328685015881357,
+                "rms": 2.347389327381829,
+                "max": 5.787683282827129
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "farmS": {
+              "midpointWorkApproxJ": -0.24033910231896713,
+              "atCallWorkApproxJ": -0.2414040857993901,
+              "torqueCOMNm": {
+                "mean": 8.341302485607498,
+                "rms": 8.911584044684089,
+                "max": 16.4447750690956
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            },
+            "sword": {
+              "midpointWorkApproxJ": 2.0157011062046193,
+              "atCallWorkApproxJ": 2.040141509804798,
+              "torqueCOMNm": {
+                "mean": 8.680084452810345,
+                "rms": 9.215561105866014,
+                "max": 17.433527891492655
+              },
+              "forceN": {
+                "mean": 0.0,
+                "rms": 0.0,
+                "max": 0.0
+              }
+            }
+          }
+        },
+        "offHand": {
+          "observedFrames": 60,
+          "midpointWorkApproxJ": -1.0628182269355697,
+          "atCallWorkApproxJ": -1.1612910733235489,
+          "maxNetForceN": 0.0,
+          "maxNetTorqueAboutFixedOriginNm": 5.370542229478568e-14,
+          "bodies": {
+            "farmO": {
+              "midpointWorkApproxJ": -2.2073875404752092,
+              "atCallWorkApproxJ": -2.384284001080908,
+              "torqueCOMNm": {
+                "mean": 3.2289929221817086,
+                "rms": 3.3404129342633118,
+                "max": 4.383499630383248
+              },
+              "forceN": {
+                "mean": 28.199138098250405,
+                "rms": 29.177816172996994,
+                "max": 39.55587940883985
+              }
+            },
+            "sword": {
+              "midpointWorkApproxJ": 1.1445693135396398,
+              "atCallWorkApproxJ": 1.2229929277573592,
+              "torqueCOMNm": {
+                "mean": 11.178794831218289,
+                "rms": 12.312686258358863,
+                "max": 17.57177003973249
+              },
+              "forceN": {
+                "mean": 28.199138098250405,
+                "rms": 29.177816172996994,
+                "max": 39.55587940883985
+              }
+            }
+          }
+        }
+      },
+      "rawGravityMomentNm": {
+        "shoulderRawMoment": {
+          "mean": 26.92344481349338,
+          "rms": 26.956565944732176,
+          "max": 29.5449215536268
+        },
+        "elbowRawMoment": {
+          "mean": 13.179014403915424,
+          "rms": 13.231282747445576,
+          "max": 15.037046401913827
+        },
+        "wristRawMoment": {
+          "mean": 8.84121063035081,
+          "rms": 8.844216518467533,
+          "max": 9.341362256495568
+        }
+      },
+      "handErrorM": {
+        "mean": 0.046427714546964434,
+        "rms": 0.048643269888312385,
+        "max": 0.06547639317350044
+      },
+      "aimErrorDeg": {
+        "mean": 1.690626336062224,
+        "rms": 1.926776920700763,
+        "max": 3.9974506211504925
+      },
+      "tipSpeedMps": {
+        "mean": 1.3161653179410893,
+        "rms": 1.6259361095682572,
+        "max": 2.791238245035944
+      },
+      "exposure": {
+        "heldFrames": 60,
+        "activeFrames": 0,
+        "grippingFrames": 60,
+        "swingingFrames": 0,
+        "owners": [
+          "player"
+        ],
+        "controllerPhases": [
+          "holding"
+        ]
+      }
+    }
+  ],
+  "previousDownwardEvidence": "docs/strike/v2_weight_work_20261005.json; reused only, different schedule and quadrature. Not a matched up/down causal comparison.",
+  "nextMinimum": "Use these observed support paths when a concrete weight/effort defect is reproduced; no automatic gravity or force changes. A full native transfer claim needs actual native joint/motor impulse/work observation, not an energy residual. Human weight feel needs a playable comparison reviewed by the user."
+}

@@ -1,0 +1,16 @@
+"""Derive exact-replay support observations; no physical execution or mutation."""
+import argparse,hashlib,json
+from pathlib import Path
+p=argparse.ArgumentParser();p.add_argument('--raw',required=True);p.add_argument('--out',required=True);a=p.parse_args()
+src=Path(a.raw);b=src.read_bytes();r=json.loads(b);assert r['measurementValid'] and len(r['rows'])==2
+mean=lambda a:sum(a)/len(a) if a else None
+rows=[]
+for row in r['rows']:
+ windows={}
+ for label,s in [('getup',[s for s in row['samples'] if s['state']=='getup']),('reentry_first_06s',[s for s in row['samples'] if 1477<=s['tick']<1549]),('later',[s for s in row['samples'] if s['tick']>=1549])]:
+  raw=lambda x,n:x['groundSupport']['parts'][n]['rawVerticalN']
+  windows[label]={'ticks':[s[0]['tick'],s[-1]['tick']],'samples':len(s),'durationS':len(s)/120,'meanExplicitPelvisUpN':mean([x['balance']['appliedUpN'] for x in s]),'meanRawFeetN':mean([raw(x,'footF')+raw(x,'footB') for x in s]),'meanRawSwordN':mean([raw(x,'sword') for x in s]),'swordPositiveSamples':sum(raw(x,'sword')>0 for x in s),'swordAndFeetPositiveSamples':sum(raw(x,'sword')>0 and raw(x,'footF')+raw(x,'footB')>0 for x in s),'noPositiveGroundImpulseTicks':[x['tick'] for x in s if all(y['rawVerticalN']<=0 for y in x['groundSupport']['parts'].values())],'noConfirmedSelectedSupportTicks':[x['tick'] for x in s if not any(y['hasSupport'] for y in x['groundSupport']['confirmedSelectedGroups'].values())],'pelvisYMinMax':[min(x['pelvis']['y'] for x in s),max(x['pelvis']['y'] for x in s)],'pelvisUpSpeedMax':max(x['pelvisV']['y'] for x in s),'maxLevC':max(x['levC'] for x in s),'rawPartMeanN':{n:mean([raw(x,n) for x in s]) for n in s[0]['groundSupport']['parts']}}
+ rows.append({'mode':row['mode'],'all2053NativeSnapshotsMatchPrevious':row['complete'],'sameInjuryPrefixThrough1476':row['prefixExact'],'windows':windows,'reentryTick':1477,'handoverLevHLessEqual1e_6Tick':next(x['tick'] for x in row['samples'] if x['tick']>1477 and x['levH']<=1e-6),'limbsAtReentry':next(x['limbs'] for x in row['samples'] if x['tick']==1477)})
+assert r['rows'][0]['inputs']==r['rows'][1]['inputs']
+o={'baseCommit':r['head'],'raw':{'path':str(src),'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()},'sourceBefore':r['sourceBefore'],'sourceStable':r['sourceStable'],'command':r['command'],'speedReference':r['speedReference'],'priorCombatReference':r['reference'],'newPhysicalExecutions':2,'newPhysicalSteps':4106,'newEfficacyTrajectories':0,'wallSeconds':r['wallSeconds'],'samePostReentryInputs':True,'rows':rows,'interpretation':'Existing natural injury then isolated replay; extra observation, no new efficacy trajectory. Raw impulses/timestep and explicit pelvis lift are separate; not a closed vertical momentum ledger. Sword contact force does not show deliberate human weapon-bracing policy. No confirmed ground support at selected forearm proxy/shins in this recovery. Major support replacement remains unaccepted.','next':'Catch timing candidate separately; retain B reset and gravity9.81.'}
+out=Path(a.out);assert not out.exists();out.parent.mkdir(parents=True,exist_ok=True);out.write_text(json.dumps(o,ensure_ascii=False,indent=2)+'\n');print(json.dumps({'rawSHA256':o['raw']['sha256'],'wallSeconds':o['wallSeconds'],'rows':[{k:v for k,v in x.items() if k!='windows'} for x in rows]},ensure_ascii=False))

@@ -1,5 +1,15 @@
 # 일일 교환 실제 상태 · 2026-10-05 KST
 
+## 10/05 23:30 보고 발행 확인
+
+23:30:24 KST 자체 Actions 조회에서 오늘 자동 실행을 확인하지 못해 `publish/date=2026-10-05`를 수동 보완했다. [발행 실행37325251825](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37325251825)은23:30:27 생성·23:30:48 성공했다. 정시 자동 실행 성공과 구분한다.
+
+[실제 보고 원본](https://github.com/yoonjl-svg/halfsword-codex/blob/267aa5e645acfab96feb95c359c99d6c000ab035/docs/devmeet/2026-10-05.md)·[공개 manifest](https://github.com/yoonjl-svg/halfsword-codex/blob/267aa5e645acfab96feb95c359c99d6c000ab035/docs/devmeet/2026-10-05.json)의 입력은 마감 전 원격에 반영한 [작성 노트](https://github.com/yoonjl-svg/halfsword-codex/blob/2e40b888d0607ed575f8d0256c0d269a4fe351af/docs/dev_exchange/notes/2026-10-05.md)다. 소스 `2e40b888d0607ed575f8d0256c0d269a4fe351af`, 노트 SHA256 `b0f4c0bc36640bac97d8b8f452306076ef1a71429aef62df418d3e014e1222fd`, Git blob `0262595fc1155d72d56220caa17c9d27517a9ac7`를 대조했다. 보고 본문 SHA·6절·근거 링크14개·최신 결정5개도 일치한다. [로컬 검증 영수증](/workspace/halfsword-handoff/dev-exchange-20261005-2330/receipt.json)의 SHA256은 `30b5812e5170761af64c8746a0b6fc803517a0f10681fdd2e147209990905ad5`다.
+
+오늘 보고 발행 뒤 상대 수신·의미 검토는 미확인이다. 이 확인에서는 상대 저장소·게임·미검토 수신본 접근과 receive 실행이 모두0이었다. 23:30 이후의 새2·3회차 결과는 다음 날 작성 노트에 남기며 오늘 발행 원본을 고치지 않는다.
+
+## 이전 확인 기록 · 보존
+
 10/05 00:17 KST에 자체 Actions 목록에서10/04 정기 실행을 보지 못했고, 자체 `dev-exchange`의10/04 보고도404였다. 지연/누락을 정시 성공으로 표현하지 않는다.
 
 **10/04 자체 보고를 수동 늦은 발행했다.** [publish37212487177](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37212487177)은15:18:16 UTC에 생성돼 성공했다. `publish/date=2026-10-04`만 실행했고 상대 수신/조회·메시지 전송·의미 검토는 없다. [기계 영수증](exchange_status_20261005.json).

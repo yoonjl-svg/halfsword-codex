@@ -1,0 +1,805 @@
+{
+  "schemaVersion": 2,
+  "head": "2e40b888d0607ed575f8d0256c0d269a4fe351af",
+  "status": "Current partial injury input gate; severe partial injury remains unexposed",
+  "newExecutions": 1,
+  "newSteps": 1247,
+  "wallSeconds": 7.4927823490000005,
+  "raw": {
+    "path": "/workspace/halfsword-handoff/phase2-round23-20261005/injury/input-run01/report.json",
+    "bytes": 2510244,
+    "sha256": "1ad2ec54e826c67c1b4a993acd2114baf74dd9c86301c744609dec240ac25c12"
+  },
+  "selection": {
+    "path": "/workspace/halfsword-handoff/phase2-round23-20261005/injury/selection01.json",
+    "sha256": "dfa61aed6859aa06027e0790f5cf5fc3f3015f671ae9d688d990d4b8b838a8d4"
+  },
+  "measurementValid": true,
+  "checks": {
+    "creationExact": true,
+    "prefixExact": true,
+    "realInjuryBoundaryExact": true,
+    "inputAccepted": true,
+    "finite": true,
+    "ordinaryV2": true
+  },
+  "sourceChanges": [
+    {
+      "path": "src/gait.js",
+      "referenceSHA256": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+      "currentSHA256": "b74787f16687708bbc4ee3d89ec3acf247d561973131fda08cde761488e8d369"
+    },
+    {
+      "path": "src/main.js",
+      "referenceSHA256": "9879d2079330831094a131ee708a1bbff24354ce8d0d14cb059939431ea9803a",
+      "currentSHA256": "2e2a50ab6491e671d5312a195986897fba6c9d77519c6ce6c867102eee32bdd8"
+    },
+    {
+      "path": "src/stance_v2_trial.js",
+      "referenceSHA256": null,
+      "currentSHA256": "a5d6dcfc685b83371f1228a028db7573aa1267b63f7cbb2530b78b8601dc9c80"
+    },
+    {
+      "path": "src/swordsmanship_default.js",
+      "referenceSHA256": "5fbec6bf3da51e4d4580cd958940c2216a8a8320dd65e8086dcbd6844f7bd0cc",
+      "currentSHA256": "0387ade2d359c600abd5685bcf105de4d6c268796b4899a143e5beacb6a61832"
+    }
+  ],
+  "sourceStable": true,
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+    "/workspace/halfsword-handoff/phase2-round23-20261005/injury/frozen-source/tools/sim/experiments/injury_v2_gate_probe.mjs",
+    "--out=/workspace/halfsword-handoff/phase2-round23-20261005/injury/input-run01",
+    "--reference=/workspace/halfsword-handoff/phase2-round1-20261005/p5/extended-run01/report.json"
+  ],
+  "protocol": {
+    "injuryTick": 1066,
+    "firstInputTick": 1067,
+    "endTick": 1246,
+    "executionCount": 1,
+    "dt": 0.008333333333333333,
+    "reference": {
+      "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p5/extended-run01/report.json",
+      "sha256": "9701633911bb121e6d44c19189f9b7acdf858ea842ffcd550a6d2347a6be2073",
+      "row": 0
+    },
+    "scope": "Current ordinary v2r2, actual main-arm .80847 injury; large partial damage not exposed. Same P5 prefix, then player AI only stopped and one release/reverse/hold/recut/release tape. Original opponent remains. No force/health/pain/state/availability overwrite. Main L1 threshold1e-5 and held/release record contract; no browser120Hz cadence or hitstop equivalence claimed.",
+    "tape": [
+      {
+        "phase": "release",
+        "steps": 36,
+        "delta": [
+          0,
+          0
+        ],
+        "held": false
+      },
+      {
+        "phase": "reverse",
+        "steps": 30,
+        "delta": [
+          -0.4,
+          0.7
+        ],
+        "held": true
+      },
+      {
+        "phase": "hold",
+        "steps": 30,
+        "delta": [
+          0,
+          0
+        ],
+        "held": true
+      },
+      {
+        "phase": "recut",
+        "steps": 30,
+        "delta": [
+          0.4,
+          -0.7
+        ],
+        "held": true
+      },
+      {
+        "phase": "releaseAfter",
+        "steps": 54,
+        "delta": [
+          0,
+          0
+        ],
+        "held": false
+      }
+    ],
+    "driveObservation": "Actual sword/farmS addTorque arguments inside driveSword, with pre-drive context. postDebug is last computed request, not by itself proof of a new call; postCombat health may change after that drive."
+  },
+  "boundary": {
+    "tick": 1066,
+    "timeS": 8.891666666666802,
+    "context": {
+      "alive": true,
+      "armed": true,
+      "state": "stand",
+      "armHealth": 0.8084736720997706,
+      "limbs": {
+        "armS": 0.8084736720997706,
+        "armO": 0.7999345351690742,
+        "legF": 1,
+        "legB": 1
+      },
+      "pain": 0.6167343001841514,
+      "muscle": 0.969012028843907,
+      "assist": {
+        "phase": "waiting",
+        "owner": "player",
+        "eligible": true,
+        "availability": 1
+      },
+      "gripValid": true,
+      "offGripValid": false
+    },
+    "nativeSHA256": "15861983e7d45df903f58c35e638ac02a6a803be9e2c24e9840ff24b979c1ca3",
+    "controlSHA256": "031c5cfd706275e087b34dec7ffdd6ef86f1154f8f77b119ef8c01209e3ff962",
+    "inputSHA256": "1388f7bf7ea9cb7c999e6a81fd4e933f95ab5fab6986a935064d0d7be929774f"
+  },
+  "injuryStepOrder": {
+    "preDrive": {
+      "alive": true,
+      "armed": true,
+      "state": "stand",
+      "armHealth": 1,
+      "limbs": {
+        "armS": 1,
+        "armO": 0.7999345351690742,
+        "legF": 1,
+        "legB": 1
+      },
+      "pain": 0.03935889626116391,
+      "muscle": 0.969012028843907,
+      "assist": {
+        "phase": "waiting",
+        "owner": "player",
+        "eligible": true,
+        "availability": 1
+      },
+      "gripValid": true,
+      "offGripValid": false
+    },
+    "postCombat": {
+      "alive": true,
+      "armed": true,
+      "state": "stand",
+      "armHealth": 0.8084736720997706,
+      "limbs": {
+        "armS": 0.8084736720997706,
+        "armO": 0.7999345351690742,
+        "legF": 1,
+        "legB": 1
+      },
+      "pain": 0.6167343001841514,
+      "muscle": 0.969012028843907,
+      "assist": {
+        "phase": "waiting",
+        "owner": "player",
+        "eligible": true,
+        "availability": 1
+      },
+      "gripValid": true,
+      "offGripValid": false
+    },
+    "warning": "Injury is applied after the tick1066 drive; its pre-drive availability/cap was computed with healthy main arm. Next drive uses reduced arm health and updated pain."
+  },
+  "phases": {
+    "release": {
+      "ticks": [
+        1067,
+        1102
+      ],
+      "steps": 36,
+      "acceptedRequests": 36,
+      "v2Phases": {
+        "waiting": 36
+      },
+      "owners": {
+        "player": 36
+      },
+      "availabilityRange": [
+        0,
+        0.0862094020637385
+      ],
+      "preDriveMainArmRange": [
+        0.8084736720997706,
+        0.8084736720997706
+      ],
+      "preDrivePainRange": [
+        0.43673430018415127,
+        0.6117343001841514
+      ],
+      "preDriveMuscleRange": [
+        0.8019481562441105,
+        0.9476414539521503
+      ],
+      "actualTorqueCalls": 72,
+      "actualSwordTorquePeakNm": 18.197239656962854,
+      "lastDriveWristCapRangeNm": [
+        7.241280763295797,
+        17.628190489326123
+      ],
+      "maxCappedSwingTorqueToCapRatio": 1.0000000000000002,
+      "maxActualTotalTorqueToSwingCapRatio": 1.0739620802633663,
+      "framesWithNoDriveTorqueCall": 0,
+      "handErrorPeakM": 0.4229123368111088,
+      "handErrorEndM": 0.31134875503271897,
+      "handTargetFirst": [
+        -0.8227387230454835,
+        1.040826573791617,
+        -0.014795219846486279
+      ],
+      "handTargetLast": [
+        -0.7682558790441497,
+        1.1881120208441742,
+        0.06717092079428687
+      ],
+      "tipSpeedPeakMps": 7.425494355272631,
+      "maxJointGapM": 0.000949496289157812,
+      "maxGripGapM": 9.699214672287535e-05,
+      "maxLimbAxialRadps": 12.54628113663549,
+      "playerStates": {
+        "stand": 36
+      },
+      "allAliveArmedValidGrip": true,
+      "limbsAtEnd": {
+        "armS": 0.8084736720997706,
+        "armO": 0.7999345351690742,
+        "legF": 1,
+        "legB": 1
+      }
+    },
+    "reverse": {
+      "ticks": [
+        1103,
+        1132
+      ],
+      "steps": 30,
+      "acceptedRequests": 30,
+      "v2Phases": {
+        "moving": 30
+      },
+      "owners": {
+        "player": 30
+      },
+      "availabilityRange": [
+        0.09928750188644087,
+        0.6613821617368024
+      ],
+      "preDriveMainArmRange": [
+        0.8084736720997706,
+        0.8084736720997706
+      ],
+      "preDrivePainRange": [
+        0.28673430018415114,
+        0.43173430018415127
+      ],
+      "preDriveMuscleRange": [
+        0.8070465947764603,
+        0.8414261620510419
+      ],
+      "actualTorqueCalls": 60,
+      "actualSwordTorquePeakNm": 19.01964149619426,
+      "lastDriveWristCapRangeNm": [
+        8.88340640716264,
+        18.981331357917828
+      ],
+      "maxCappedSwingTorqueToCapRatio": 1.0000000000000002,
+      "maxActualTotalTorqueToSwingCapRatio": 1.0106865627703219,
+      "framesWithNoDriveTorqueCall": 0,
+      "handErrorPeakM": 0.662205563065845,
+      "handErrorEndM": 0.662205563065845,
+      "handTargetFirst": [
+        -0.769414325682943,
+        1.191074317300488,
+        0.06349516964365878
+      ],
+      "handTargetLast": [
+        -0.799399020268652,
+        1.7235173232220706,
+        -0.21901348888735295
+      ],
+      "tipSpeedPeakMps": 3.3472236068462955,
+      "maxJointGapM": 0.0015641081966097695,
+      "maxGripGapM": 0.00018415302803088737,
+      "maxLimbAxialRadps": 7.465500013043514,
+      "playerStates": {
+        "stand": 30
+      },
+      "allAliveArmedValidGrip": true,
+      "limbsAtEnd": {
+        "armS": 0.8084736720997706,
+        "armO": 0.7999345351690742,
+        "legF": 1,
+        "legB": 1
+      }
+    },
+    "hold": {
+      "ticks": [
+        1133,
+        1162
+      ],
+      "steps": 30,
+      "acceptedRequests": 30,
+      "v2Phases": {
+        "holding": 30
+      },
+      "owners": {
+        "player": 30
+      },
+      "availabilityRange": [
+        0.4766570577614684,
+        0.9081754535650096
+      ],
+      "preDriveMainArmRange": [
+        0.8084736720997706,
+        0.8084736720997706
+      ],
+      "preDrivePainRange": [
+        0.21544844696071286,
+        0.33044844696071296
+      ],
+      "preDriveMuscleRange": [
+        0.8429554993135518,
+        0.8748830353930271
+      ],
+      "actualTorqueCalls": 60,
+      "actualSwordTorquePeakNm": 14.561482511108332,
+      "lastDriveWristCapRangeNm": [
+        8.322500614130634,
+        14.545120798820395
+      ],
+      "maxCappedSwingTorqueToCapRatio": 1.0000000000000002,
+      "maxActualTotalTorqueToSwingCapRatio": 1.0065696630742167,
+      "framesWithNoDriveTorqueCall": 0,
+      "handErrorPeakM": 0.939161583728981,
+      "handErrorEndM": 0.939161583728981,
+      "handTargetFirst": [
+        -0.8133180769872447,
+        1.7410995008583012,
+        -0.2301930651044391
+      ],
+      "handTargetLast": [
+        -0.9736520136963801,
+        1.8419477770946624,
+        -0.32777911100399504
+      ],
+      "tipSpeedPeakMps": 3.4376859260997437,
+      "maxJointGapM": 0.0018757913199352891,
+      "maxGripGapM": 1.6386423128562575e-05,
+      "maxLimbAxialRadps": 6.436015126014638,
+      "playerStates": {
+        "stand": 30
+      },
+      "allAliveArmedValidGrip": true,
+      "limbsAtEnd": {
+        "armS": 0.8084736720997706,
+        "armO": 0.7999345351690742,
+        "legF": 1,
+        "legB": 1
+      }
+    },
+    "recut": {
+      "ticks": [
+        1163,
+        1192
+      ],
+      "steps": 30,
+      "acceptedRequests": 30,
+      "v2Phases": {
+        "moving": 30
+      },
+      "owners": {
+        "player": 30
+      },
+      "availabilityRange": [
+        0.9208173424010333,
+        1
+      ],
+      "preDriveMainArmRange": [
+        0.8084736720997706,
+        0.8084736720997706
+      ],
+      "preDrivePainRange": [
+        0.06544844696071273,
+        0.21044844696071285
+      ],
+      "preDriveMuscleRange": [
+        0.8762476215871168,
+        0.9227147627773137
+      ],
+      "actualTorqueCalls": 60,
+      "actualSwordTorquePeakNm": 21.56217884988875,
+      "lastDriveWristCapRangeNm": [
+        8.575991971021779,
+        21.561220894380117
+      ],
+      "maxCappedSwingTorqueToCapRatio": 1.0000000000000002,
+      "maxActualTotalTorqueToSwingCapRatio": 1.000617769979165,
+      "framesWithNoDriveTorqueCall": 0,
+      "handErrorPeakM": 0.9418405341288448,
+      "handErrorEndM": 0.26353824396293163,
+      "handTargetFirst": [
+        -0.973527335263339,
+        1.8409858816380495,
+        -0.3294522933401258
+      ],
+      "handTargetLast": [
+        -0.6170162833231361,
+        1.3200076047788023,
+        -0.03308883342909322
+      ],
+      "tipSpeedPeakMps": 2.5013654615429273,
+      "maxJointGapM": 0.0008487718835913811,
+      "maxGripGapM": 2.4403965906285856e-05,
+      "maxLimbAxialRadps": 12.66753516559483,
+      "playerStates": {
+        "stand": 30
+      },
+      "allAliveArmedValidGrip": true,
+      "limbsAtEnd": {
+        "armS": 0.8084736720997706,
+        "armO": 0.7999345351690742,
+        "legF": 1,
+        "legB": 1
+      }
+    },
+    "releaseAfter": {
+      "ticks": [
+        1193,
+        1246
+      ],
+      "steps": 54,
+      "acceptedRequests": 54,
+      "v2Phases": {
+        "waiting": 30,
+        "returning": 24
+      },
+      "owners": {
+        "player": 30,
+        "return": 24
+      },
+      "availabilityRange": [
+        1,
+        1
+      ],
+      "preDriveMainArmRange": [
+        0.8084736720997706,
+        0.8084736720997706
+      ],
+      "preDrivePainRange": [
+        0,
+        0.06044844696071273
+      ],
+      "preDriveMuscleRange": [
+        0.9244849580585938,
+        0.9866135841831294
+      ],
+      "actualTorqueCalls": 108,
+      "actualSwordTorquePeakNm": 19.48505170720999,
+      "lastDriveWristCapRangeNm": [
+        13.01887077090696,
+        19.482953820246234
+      ],
+      "maxCappedSwingTorqueToCapRatio": 1.0000000000000002,
+      "maxActualTotalTorqueToSwingCapRatio": 1.0023452236740218,
+      "framesWithNoDriveTorqueCall": 0,
+      "handErrorPeakM": 0.2377615122330864,
+      "handErrorEndM": 0.09843586769182884,
+      "handTargetFirst": [
+        -0.6156048937314588,
+        1.2985807875657918,
+        -0.02075319490938375
+      ],
+      "handTargetLast": [
+        -0.7206322306710924,
+        1.0796546595375176,
+        0.07616975254457303
+      ],
+      "tipSpeedPeakMps": 4.181808268633058,
+      "maxJointGapM": 0.0008392871266400458,
+      "maxGripGapM": 4.1034398237467634e-05,
+      "maxLimbAxialRadps": 3.5572620454269215,
+      "playerStates": {
+        "stand": 54
+      },
+      "allAliveArmedValidGrip": true,
+      "limbsAtEnd": {
+        "armS": 0.8084736720997706,
+        "armO": 0.7999345351690742,
+        "legF": 1,
+        "legB": 1
+      }
+    }
+  },
+  "woundsAfterInput": [
+    {
+      "timeS": 9.333333333333444,
+      "attacker": 1,
+      "victim": 0,
+      "type": "blunt",
+      "zone": "pelvis",
+      "energyJ": 7.101888761407172,
+      "severity": 0
+    },
+    {
+      "timeS": 9.483333333333436,
+      "attacker": 1,
+      "victim": 0,
+      "type": "blunt",
+      "zone": "arm",
+      "energyJ": 11.807122016484282,
+      "severity": 0
+    },
+    {
+      "timeS": 9.841666666666748,
+      "attacker": 1,
+      "victim": 0,
+      "type": "blunt",
+      "zone": "arm",
+      "energyJ": 9.260595014201584,
+      "severity": 0
+    },
+    {
+      "timeS": 10.266666666666724,
+      "attacker": 0,
+      "victim": 1,
+      "type": "blunt",
+      "zone": "pelvis",
+      "energyJ": 8.26231035389875,
+      "severity": 0
+    },
+    {
+      "timeS": 10.316666666666721,
+      "attacker": 0,
+      "victim": 1,
+      "type": "blunt",
+      "zone": "arm",
+      "energyJ": 8.68306381488057,
+      "severity": 0
+    }
+  ],
+  "completeLossYield": {
+    "singleMainArmLossTick": 1934,
+    "nextControllerTick": 1935,
+    "bothArmsLossTick": 3254,
+    "nextControllerTickBoth": 3255,
+    "postLossOwner": "inactive",
+    "postLossPhase": "suspended",
+    "postLossAvailability": 0,
+    "warning": "Existing post-Combat debug wristTorque/cap are stale after driveSword early return; no actual post-loss torque call inferred."
+  },
+  "limits": [
+    "No alive+armed major partial main-arm damage in available ordinary-v2 traces: nearest is0.80847, not a substitute for0.25–0.5 control. It is above the v2 arm-availability upper edge0.8, although the original physical strength still scales with arm health.",
+    "Availability0 can legitimately reflect pain while raw input/physical wrist still works within original limits; absence of optional guidance is not input rejection.",
+    "Actual torque call observation covers sword/farmS addTorque in driveSword, not native joint motor impulses or total force/energy. The debug wrist cap bounds swing torque BEFORE the unchanged separate axial alignment contribution; final applied vector can exceed that scalar cap.",
+    "Hand error is distance to the requested world handTarget before IK reach clamping, not joint-target error; it includes reach saturation and inertial lag. Input acceptance does not establish accurate target following or naturalness.",
+    "Post-Combat debug torque/cap alone can be stale after loss; complete-loss evidence is existing controller yield plus current armed guard, not new motor measurement.",
+    "Input sequence is scripted120Hz with main held/L1 contract. No browser/device/hitstop equivalence or human-naturalness acceptance.",
+    "Original opponent remains, so subsequent wounds/body dynamics may change after replacing player AI; no efficacy comparison with old AI after the branch."
+  ],
+  "nextLargePartialGate": "If an already-running ordinary-v2 actual combat exposes alive+armed main-arm health<.75 (prefer<=.5), reuse its exact prefix and the same tape; no old legacy Qinggang substitution or seed sweep.",
+  "decision": {
+    "acceptedScope": "Actual partial main-arm injury followed by commanded release/opposing drag/hold/recut/release accepted in current ordinary v2-r2.",
+    "majorPartialDamageGate": "unverified: no alive+armed main-arm health between0 and0.75 in the selected existing records",
+    "fullP6Complete": false,
+    "runtimeChanged": false,
+    "publicBuildChanged": false,
+    "naturalnessAccepted": false,
+    "tightTargetTrackingAccepted": false
+  },
+  "survey": {
+    "sources": [
+      {
+        "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p5/extended-run01/report.json",
+        "bytes": 73965658,
+        "sha256": "9701633911bb121e6d44c19189f9b7acdf858ea842ffcd550a6d2347a6be2073",
+        "measurementValid": true
+      },
+      {
+        "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p5/boundary-run01/report.json",
+        "bytes": 13124062,
+        "sha256": "b9f8ea42e7895c1949f4c24109bc536374fb48dc759f4bcd5171fea097cd503e",
+        "measurementValid": true
+      },
+      {
+        "path": "/workspace/halfsword-handoff/swordsmanship-power-20261005/retained-live02.json",
+        "bytes": 89872080,
+        "sha256": "3521e4667ed7ca6bc2c6be75db27fa193fcb2ccda605fa8f621b25706d6de222",
+        "measurementValid": true
+      }
+    ],
+    "rows": [
+      {
+        "source": "/workspace/halfsword-handoff/phase2-round1-20261005/p5/extended-run01/report.json",
+        "rowIndex": 0,
+        "weapons": [
+          "longsword",
+          "zweihander"
+        ],
+        "mode": "legacy",
+        "frames": 3600,
+        "minimumAliveArmedMainArm": 0.8084736720997706,
+        "aliveArmedBelow075Count": 0,
+        "aliveArmedAtMost05Count": 0,
+        "aliveMainArmLossUnarmedCount": 759,
+        "scope": "Current-v2 P5 ordinary or optional cutting context"
+      },
+      {
+        "source": "/workspace/halfsword-handoff/phase2-round1-20261005/p5/extended-run01/report.json",
+        "rowIndex": 1,
+        "weapons": [
+          "longsword",
+          "zweihander"
+        ],
+        "mode": "centerline",
+        "frames": 3600,
+        "minimumAliveArmedMainArm": 0.8084736720997706,
+        "aliveArmedBelow075Count": 0,
+        "aliveArmedAtMost05Count": 0,
+        "aliveMainArmLossUnarmedCount": 346,
+        "scope": "Current-v2 P5 ordinary or optional cutting context"
+      },
+      {
+        "source": "/workspace/halfsword-handoff/phase2-round1-20261005/p5/extended-run01/report.json",
+        "rowIndex": 2,
+        "weapons": [
+          "zweihander",
+          "longsword"
+        ],
+        "mode": "legacy",
+        "frames": 3600,
+        "minimumAliveArmedMainArm": 1,
+        "aliveArmedBelow075Count": 0,
+        "aliveArmedAtMost05Count": 0,
+        "aliveMainArmLossUnarmedCount": 0,
+        "scope": "Current-v2 P5 ordinary or optional cutting context"
+      },
+      {
+        "source": "/workspace/halfsword-handoff/phase2-round1-20261005/p5/extended-run01/report.json",
+        "rowIndex": 3,
+        "weapons": [
+          "zweihander",
+          "longsword"
+        ],
+        "mode": "centerline",
+        "frames": 3600,
+        "minimumAliveArmedMainArm": 1,
+        "aliveArmedBelow075Count": 0,
+        "aliveArmedAtMost05Count": 0,
+        "aliveMainArmLossUnarmedCount": 0,
+        "scope": "Current-v2 P5 ordinary or optional cutting context"
+      },
+      {
+        "source": "/workspace/halfsword-handoff/phase2-round1-20261005/p5/boundary-run01/report.json",
+        "rowIndex": 0,
+        "weapons": [
+          "longsword",
+          "zweihander"
+        ],
+        "mode": "lateCenterline",
+        "frames": 2047,
+        "minimumAliveArmedMainArm": 0.8084736720997706,
+        "aliveArmedBelow075Count": 0,
+        "aliveArmedAtMost05Count": 0,
+        "aliveMainArmLossUnarmedCount": 113,
+        "scope": "Current-v2 P5 ordinary or optional cutting context"
+      },
+      {
+        "source": "/workspace/halfsword-handoff/swordsmanship-power-20261005/retained-live02.json",
+        "rowIndex": 0,
+        "weapons": "qinggang",
+        "mode": "candidate",
+        "frames": 1860,
+        "minimumAliveArmedMainArm": 0.8877659050846751,
+        "aliveArmedBelow075Count": 0,
+        "aliveArmedAtMost05Count": 0,
+        "aliveMainArmLossUnarmedCount": 0,
+        "scope": "Supplementary historical r2 power fixture, not a current-default native equality claim"
+      },
+      {
+        "source": "/workspace/halfsword-handoff/swordsmanship-power-20261005/retained-live02.json",
+        "rowIndex": 1,
+        "weapons": "longsword",
+        "mode": "candidate",
+        "frames": 1860,
+        "minimumAliveArmedMainArm": 1,
+        "aliveArmedBelow075Count": 0,
+        "aliveArmedAtMost05Count": 0,
+        "aliveMainArmLossUnarmedCount": 122,
+        "scope": "Supplementary historical r2 power fixture, not a current-default native equality claim"
+      }
+    ],
+    "thresholdMeaning": "Survey bins only, not new gameplay thresholds; neither <.75 nor <=.5 alive+armed main-arm partial damage exists in these rows. .80847 nearest context leaves v2 arm availability smoothstep (.25,.8) at1; pain and actual strength caps still matter.",
+    "countsMeaning": "Seven rows include overlapping P5 prefixes and former r2 fixtures; not seven independent injury samples. Original shorter P5/contact prefixes already covered by extended trace.",
+    "notIndependentNewRuns": "Survey reads existing4 P5 long rows plus overlapping1 boundary and supplementary2 historical r2 power rows. No new survey physics. Old Qinggang legacy injury is not used as current-v2 evidence."
+  },
+  "forceContract": {
+    "originalStrengthScale": "strength * muscle * (0.35 +0.65 * armHealth)",
+    "availability": "smoothstep(armHealth,.25,.8) * (1-smoothstep(pain,.15,.5))",
+    "mainArmAvailabilityAtSelectedBoundary": 1,
+    "maximumMeasuredSwingTorqueToCapRatio": 1.0000000000000002,
+    "maximumMeasuredFinalAppliedTorqueToSwingCapRatio": 1.0739620802633663,
+    "explanation": "Source debug swing vector is capped, then the existing independent blade-axis alignment torque is added. Observed final vector up to1.073962x swing cap is not a newly added cap bypass. Both raw vectors remain available."
+  },
+  "measurementArtifacts": [
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round23-20261005/injury/input-run01/receipt.json",
+      "bytes": 942,
+      "sha256": "c248da25cf354aa81c3096776b02bb2237d1147cfdc35cc67fa0d06c7e008eec"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round23-20261005/injury/selection01.json",
+      "bytes": 10549,
+      "sha256": "dfa61aed6859aa06027e0790f5cf5fc3f3015f671ae9d688d990d4b8b838a8d4"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round23-20261005/injury/input-summary01.json",
+      "bytes": 40540,
+      "sha256": "f360118985e780ab07e3a10a18ed58875765c5a0200044dc4c2c828deb08b835"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round23-20261005/injury/input-summary02.json",
+      "bytes": 41675,
+      "sha256": "e48037101e037eecd45ad64ecda91fd833db4a27b7f07d32e2dc50e3412b0a11"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round23-20261005/injury/frozen-source/SOURCE.json",
+      "bytes": 9459,
+      "sha256": "76513b6f65faa94e014fa46e75f49efc4e1a473a8380dfe40c59766592dd55f4"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round23-20261005/injury/frozen-source/tools/sim/experiments/injury_v2_gate_probe.mjs",
+      "bytes": 13254,
+      "sha256": "3f0aa76e00b6e5e1058bd5c55b28c6f037afbe47aae9a44a01222c7f1c5db82f"
+    },
+    {
+      "path": "/workspace/halfsword-codex/tools/sim/experiments/injury_v2_gate_report.py",
+      "bytes": 5712,
+      "sha256": "c2228d462217e250261d22ae2a3b6f2dd7b10e37d69adf940ecb622e295555de"
+    }
+  ],
+  "sourceEvidence": [
+    {
+      "path": "src/fighter.js",
+      "functions": [
+        "driveSword",
+        "armIK"
+      ],
+      "facts": [
+        "Main arm scales physical strength.",
+        "debug wristTorque is captured before separate twist contribution.",
+        "handTarget is requested world point before IK reach clamp.",
+        "muscle<.12 or unarmed returns before wrist torque."
+      ]
+    },
+    {
+      "path": "src/swordsmanship.js",
+      "facts": [
+        "Main arm smoothstep uses .25/.8 edges.",
+        "Pain can zero guidance availability without suppressing all physical raw wrist control.",
+        "Unarmed next controller update suspends guidance."
+      ]
+    }
+  ],
+  "summaryReproductionCommand": [
+    "python",
+    "tools/sim/experiments/injury_v2_gate_report.py",
+    "--raw=/workspace/halfsword-handoff/phase2-round23-20261005/injury/input-run01/report.json",
+    "--selection=/workspace/halfsword-handoff/phase2-round23-20261005/injury/selection01.json",
+    "--out=/tmp/injury-v2-gate-summary-new.json"
+  ],
+  "reproductionNote": "Probe requires SOURCE.json and copied runtime/dependencies in the frozen-source directory. Recorded original --out must be replaced by a new empty path; it refuses to overwrite. Reuse archived report instead of repeating physics unless a changed gate requires execution.",
+  "interpretationRevision": "input-summary01 and raw remain preserved. input-summary02 adds cap and handTarget semantics by source/data derivation only, no repeat physics or thresholds lowered.",
+  "nextCommandContract": {
+    "when": "An independently needed current-v2 live combat exposes alive+armed main-arm health below.75 (preferably <=.5).",
+    "then": "Parameterize the saved boundary/source, verify full native/control/input prefix, and use the same release/opposing-drag/hold/recut/release request tape. Keep actual injury/pain/force limits intact; record actual drive calls.",
+    "notAuthorizedByThisRecord": "No seed search, forced limb damage, altered availability or old legacy Qinggang substitution. Current tool hardcodes tick1066/row0 and must not silently relabel another boundary."
+  }
+}

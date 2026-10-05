@@ -1,0 +1,492 @@
+{
+  "measurementAccepted": true,
+  "effectAccepted": false,
+  "runtimeChange": false,
+  "judgment": "HOLD: target-time mismatch is statically real only when hurry>0; no candidate exposure in either selected fixture. No efficacy or exposed-safety inference. Stop strength/seed search. User lateral near-fall scene remains unreproduced.",
+  "runs": [
+    {
+      "name": "controlled_lateral",
+      "head": "2e40b888d0607ed575f8d0256c0d269a4fe351af",
+      "raw": {
+        "path": "/workspace/halfsword-handoff/phase2-round23-20261005/catch/run01/report.json",
+        "bytes": 6085660,
+        "sha256": "b8d86dc0c99eb08788071ee0a168403c85f97cac06327a5c29bbcfed9624a0a8"
+      },
+      "sourceStable": true,
+      "sourceBefore": {
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+        "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+        "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+        "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+        "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+        "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+        "src/arm_recovery_activation.js": "ae025cc8d9bbc9855ea8ab2793d3e7818a66a4662329014a776a2ac88966435e",
+        "src/arm_recovery_trial.js": "ebda992abc5c7cd25a12c751d0f9b30f8fddf998babc8f4a7f49c9f4a0817c09",
+        "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+        "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+        "src/blade_shape_trial.js": "c06f7331c78e602e17d89ffb26507bffbea67cbebce862f5386cb4ce519b3955",
+        "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+        "src/combat.js": "98387beb03c90c9edc314da0e1ee826f5c0bd18da3d3991e480b036814d54916",
+        "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+        "src/contact_trial.js": "bbbb141e43c2ad9ba45de62bf649def064a998213085f9ace6871c9616da4767",
+        "src/cut_centerline.js": "98e522cfcde4f03c4d6d34dd57f7a8fa301a5a28028ddcce366cc600f86bf453",
+        "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+        "src/cut_trial.js": "427d58d0500ceac482424e092a7d457a8cea48371c254f1b4edecb3a511be5a6",
+        "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+        "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+        "src/edge_intent.js": "b4e17a6ea08d659732c330448b3b3aaffeac2942fa5096e82db551a12d580c87",
+        "src/edge_torque.js": "436995e6d45e816517ea5a9a8f83c9fb147d143871aab1601f82baa7b36bc0fa",
+        "src/edge_torque_trial.js": "1280a3fe32c1874b6ce56b75932db44852162855d8962ae13f3aeb3e7d832cae",
+        "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+        "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+        "src/fighter.js": "845b0d3751ebbd948d845ebacda8a644311b2826cb4e5fca8626c224d15478a4",
+        "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+        "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+        "src/finish_rule.js": "803556ca4f6939d4a20acb7020dd4c616b52b5513969d0a6079af0cc929c616d",
+        "src/gait.js": "b74787f16687708bbc4ee3d89ec3acf247d561973131fda08cde761488e8d369",
+        "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+        "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+        "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+        "src/hand_visual.js": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893",
+        "src/input.js": "37529c473619a95ef83fbe3afa567f436dcd3c3b27b4951ebf52109cda434367",
+        "src/integrated_combat_trial.js": "d3b8d2f4b37c617d90832e93d0a31b585d10ef9bd44d5c41ef3d695ef76b898b",
+        "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+        "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+        "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+        "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+        "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+        "src/main.js": "2e2a50ab6491e671d5312a195986897fba6c9d77519c6ce6c867102eee32bdd8",
+        "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+        "src/motion_assist.js": "12e49338e0ec0a1307c71bbdfcad4d849180369959a2a18c8ec7ca4c73a2f2d5",
+        "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+        "src/motion_timing.js": "5a30a5384066585227c1469a7adf66ff2137fabc19ff37142cc5ebd2895887e2",
+        "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+        "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+        "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+        "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+        "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+        "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+        "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+        "src/skill.js": "c1ce462057175f684f8b89c79f668835c69b9dd2ef3cdfbd1e155f73411668e5",
+        "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+        "src/sound.js": "f02a5a9c9ad60ce282806c02b956715c2ca01aced92ba021b63a799faf4c8fb4",
+        "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+        "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+        "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+        "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+        "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+        "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+        "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+        "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+        "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+        "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+        "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+        "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+        "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+        "src/stance_v2_trial.js": "a5d6dcfc685b83371f1228a028db7573aa1267b63f7cbb2530b78b8601dc9c80",
+        "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+        "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+        "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+        "src/sword_assist_v2.js": "2d2e31a1049268935cee9311830cb45672350745ff9a0f4b6df4495a1260927c",
+        "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+        "src/swordsmanship.js": "7794881e39564a523047605c7ddfae71ecb8fff40b007d03c78aeb33d16c66db",
+        "src/swordsmanship_default.js": "0387ade2d359c600abd5685bcf105de4d6c268796b4899a143e5beacb6a61832",
+        "src/swordsmanship_profiles.js": "1660b20fe9970164c0cef8ce5fd43acf0616978c1bcdf7e5494099d2029456b1",
+        "src/swordsmanship_trial.js": "ee1c50cc7142eb46f8c266b566c9eba2155d6a54db6d84798212aee0eff82b79",
+        "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+        "src/thrust_plane.js": "2fcbf1a52dd7cbd4035eea8a14d22b830c1b64f07dafebddcfb74e320539b104",
+        "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+        "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+        "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+        "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+        "src/wrist_braking.js": "6574ae9729fa6251540a68d27a0938e9d5bc2296097ff8b3bd69d1494eb88730",
+        "src/wrist_braking_trial.js": "25466b178e063a45e58a5fcd22532cdcbc176af4a2c05e461c562bb6a0ef658e",
+        "tools/sim/experiments/catch_clock_probe.mjs": "351d3e76e8293247f74b15a72c459780274d2cc245d806140e8db43c9d1405c0",
+        "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0"
+      },
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/catch_clock_probe.mjs",
+        "--out=/workspace/halfsword-handoff/phase2-round23-20261005/catch/run01"
+      ],
+      "protocol": {
+        "dt": 0.008333333333333333,
+        "pushTick": 360,
+        "pelvisImpulseMagnitudeNs": 60,
+        "axes": "body right at impulse boundary, sign -1/+1",
+        "scope": "Controlled non-contact perturbation, not natural fight or exact user-sidefall reproduction",
+        "candidate": "Only catch target horizon divided by current catch phase clock rate. Does not change T, t increment, gravity, muscle, external lift, walk/req.",
+        "flags": "same default v2-r2, fresh reentry player, ordinary opponent/support/cutting",
+        "limits": "Current-rate frozen prediction, not true future contact time. Raw contact impulse/timestep not calibrated. Geometric solver points distinct from controller touchdown."
+      },
+      "executions": 4,
+      "steps": 3600,
+      "wallSeconds": 4.189738416999999,
+      "rows": [
+        {
+          "mode": "legacy",
+          "sign": -1,
+          "steps": 900,
+          "catchTargetCalls": 0,
+          "eligibleClockCalls": 0,
+          "maxObservedCatchTargetRate": null,
+          "maxObservedCatchTargetOffBalance": null,
+          "catchSteps": []
+        },
+        {
+          "mode": "clock",
+          "sign": -1,
+          "steps": 900,
+          "catchTargetCalls": 0,
+          "eligibleClockCalls": 0,
+          "maxObservedCatchTargetRate": null,
+          "maxObservedCatchTargetOffBalance": null,
+          "catchSteps": []
+        },
+        {
+          "mode": "legacy",
+          "sign": 1,
+          "steps": 900,
+          "catchTargetCalls": 0,
+          "eligibleClockCalls": 0,
+          "maxObservedCatchTargetRate": null,
+          "maxObservedCatchTargetOffBalance": null,
+          "catchSteps": []
+        },
+        {
+          "mode": "clock",
+          "sign": 1,
+          "steps": 900,
+          "catchTargetCalls": 0,
+          "eligibleClockCalls": 0,
+          "maxObservedCatchTargetRate": null,
+          "maxObservedCatchTargetOffBalance": null,
+          "catchSteps": []
+        }
+      ],
+      "comparisons": [
+        {
+          "sign": -1,
+          "allNativeExact": true,
+          "allInputsExact": true
+        },
+        {
+          "sign": 1,
+          "allNativeExact": true,
+          "allInputsExact": true
+        }
+      ]
+    },
+    {
+      "name": "natural_combat",
+      "head": "2e40b888d0607ed575f8d0256c0d269a4fe351af",
+      "raw": {
+        "path": "/workspace/halfsword-handoff/phase2-round23-20261005/catch/combat01/report.json",
+        "bytes": 12383659,
+        "sha256": "78e2b49f0b4e472fd848ee1f613e7804f6c445e89ebe55d34f40a8ff6250a768"
+      },
+      "sourceStable": true,
+      "sourceBefore": {
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+        "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+        "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+        "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+        "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+        "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+        "src/arm_recovery_activation.js": "ae025cc8d9bbc9855ea8ab2793d3e7818a66a4662329014a776a2ac88966435e",
+        "src/arm_recovery_trial.js": "ebda992abc5c7cd25a12c751d0f9b30f8fddf998babc8f4a7f49c9f4a0817c09",
+        "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+        "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+        "src/blade_shape_trial.js": "c06f7331c78e602e17d89ffb26507bffbea67cbebce862f5386cb4ce519b3955",
+        "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+        "src/combat.js": "98387beb03c90c9edc314da0e1ee826f5c0bd18da3d3991e480b036814d54916",
+        "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+        "src/contact_trial.js": "bbbb141e43c2ad9ba45de62bf649def064a998213085f9ace6871c9616da4767",
+        "src/cut_centerline.js": "98e522cfcde4f03c4d6d34dd57f7a8fa301a5a28028ddcce366cc600f86bf453",
+        "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+        "src/cut_trial.js": "427d58d0500ceac482424e092a7d457a8cea48371c254f1b4edecb3a511be5a6",
+        "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+        "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+        "src/edge_intent.js": "b4e17a6ea08d659732c330448b3b3aaffeac2942fa5096e82db551a12d580c87",
+        "src/edge_torque.js": "436995e6d45e816517ea5a9a8f83c9fb147d143871aab1601f82baa7b36bc0fa",
+        "src/edge_torque_trial.js": "1280a3fe32c1874b6ce56b75932db44852162855d8962ae13f3aeb3e7d832cae",
+        "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+        "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+        "src/fighter.js": "845b0d3751ebbd948d845ebacda8a644311b2826cb4e5fca8626c224d15478a4",
+        "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+        "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+        "src/finish_rule.js": "803556ca4f6939d4a20acb7020dd4c616b52b5513969d0a6079af0cc929c616d",
+        "src/gait.js": "b74787f16687708bbc4ee3d89ec3acf247d561973131fda08cde761488e8d369",
+        "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+        "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+        "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+        "src/hand_visual.js": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893",
+        "src/input.js": "37529c473619a95ef83fbe3afa567f436dcd3c3b27b4951ebf52109cda434367",
+        "src/integrated_combat_trial.js": "d3b8d2f4b37c617d90832e93d0a31b585d10ef9bd44d5c41ef3d695ef76b898b",
+        "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+        "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+        "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+        "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+        "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+        "src/main.js": "2e2a50ab6491e671d5312a195986897fba6c9d77519c6ce6c867102eee32bdd8",
+        "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+        "src/motion_assist.js": "12e49338e0ec0a1307c71bbdfcad4d849180369959a2a18c8ec7ca4c73a2f2d5",
+        "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+        "src/motion_timing.js": "5a30a5384066585227c1469a7adf66ff2137fabc19ff37142cc5ebd2895887e2",
+        "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+        "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+        "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+        "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+        "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+        "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+        "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+        "src/skill.js": "c1ce462057175f684f8b89c79f668835c69b9dd2ef3cdfbd1e155f73411668e5",
+        "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+        "src/sound.js": "f02a5a9c9ad60ce282806c02b956715c2ca01aced92ba021b63a799faf4c8fb4",
+        "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+        "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+        "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+        "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+        "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+        "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+        "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+        "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+        "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+        "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+        "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+        "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+        "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+        "src/stance_v2_trial.js": "a5d6dcfc685b83371f1228a028db7573aa1267b63f7cbb2530b78b8601dc9c80",
+        "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+        "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+        "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+        "src/sword_assist_v2.js": "2d2e31a1049268935cee9311830cb45672350745ff9a0f4b6df4495a1260927c",
+        "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+        "src/swordsmanship.js": "7794881e39564a523047605c7ddfae71ecb8fff40b007d03c78aeb33d16c66db",
+        "src/swordsmanship_default.js": "0387ade2d359c600abd5685bcf105de4d6c268796b4899a143e5beacb6a61832",
+        "src/swordsmanship_profiles.js": "1660b20fe9970164c0cef8ce5fd43acf0616978c1bcdf7e5494099d2029456b1",
+        "src/swordsmanship_trial.js": "ee1c50cc7142eb46f8c266b566c9eba2155d6a54db6d84798212aee0eff82b79",
+        "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+        "src/thrust_plane.js": "2fcbf1a52dd7cbd4035eea8a14d22b830c1b64f07dafebddcfb74e320539b104",
+        "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+        "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+        "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+        "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+        "src/wrist_braking.js": "6574ae9729fa6251540a68d27a0938e9d5bc2296097ff8b3bd69d1494eb88730",
+        "src/wrist_braking_trial.js": "25466b178e063a45e58a5fcd22532cdcbc176af4a2c05e461c562bb6a0ef658e",
+        "tools/sim/experiments/catch_clock_combat_probe.mjs": "8ab76d1c4365e4f2fb9a10fd8cd48553156169e0fbc584d6b309302d70e3fde6",
+        "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0"
+      },
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/catch_clock_combat_probe.mjs",
+        "--out=/workspace/halfsword-handoff/phase2-round23-20261005/catch/combat01"
+      ],
+      "protocol": {
+        "dt": 0.008333333333333333,
+        "scope": "Natural two AI seed7 Z/LS, current v2 player plus fresh reentry both arms. No imposed state/wound/impulse. Not human input or exact user-sidefall reproduction.",
+        "candidate": "Only catch target horizon divided by current catch phase clock rate. Does not change T, t increment, gravity, muscle, external lift, walk/req.",
+        "flags": "same default v2-r2, fresh reentry player, ordinary opponent/support/cutting",
+        "limits": "Current-rate frozen prediction, not true future contact time. Raw contact impulse/timestep not calibrated. Geometric solver points distinct from controller touchdown."
+      },
+      "executions": 2,
+      "steps": 7200,
+      "wallSeconds": 11.203369774999999,
+      "rows": [
+        {
+          "mode": "legacy",
+          "sign": 0,
+          "steps": 3600,
+          "catchTargetCalls": 150,
+          "eligibleClockCalls": 0,
+          "maxObservedCatchTargetRate": 1,
+          "maxObservedCatchTargetOffBalance": 0.1711251682434124,
+          "catchSteps": [
+            {
+              "startTick": 1667,
+              "controllerEndTick": 1712,
+              "controllerSeconds": 0.375,
+              "worldTravelM": {
+                "x": -0.6881086025441072,
+                "z": 0.04356721641497875
+              },
+              "bodyForwardTravelM": -0.6894798186144478,
+              "bodySideTravelM": -0.003021748623209898,
+              "maxTiltDeg": 17.000763105962392,
+              "maxLevC": 0.6394441132400595,
+              "firstPostControllerPositiveGroundImpulseTick": 1712
+            },
+            {
+              "startTick": 1721,
+              "controllerEndTick": 1767,
+              "controllerSeconds": 0.3833333333333333,
+              "worldTravelM": {
+                "x": -0.5893365012181089,
+                "z": 0.059966957028881746
+              },
+              "bodyForwardTravelM": -0.5914617989121906,
+              "bodySideTravelM": 0.03296191788808822,
+              "maxTiltDeg": 16.937462284679768,
+              "maxLevC": 0.29222189101783763,
+              "firstPostControllerPositiveGroundImpulseTick": 1767
+            },
+            {
+              "startTick": 2246,
+              "controllerEndTick": 2291,
+              "controllerSeconds": 0.375,
+              "worldTravelM": {
+                "x": -0.6567856822279308,
+                "z": -0.010293047612906281
+              },
+              "bodyForwardTravelM": -0.6537146694319531,
+              "bodySideTravelM": -0.06426904525696864,
+              "maxTiltDeg": 6.834972147900368,
+              "maxLevC": 0.7479387469843723,
+              "firstPostControllerPositiveGroundImpulseTick": 2291
+            },
+            {
+              "startTick": 2703,
+              "controllerEndTick": 2748,
+              "controllerSeconds": 0.375,
+              "worldTravelM": {
+                "x": -0.5710739903719428,
+                "z": -0.3031466711942617
+              },
+              "bodyForwardTravelM": -0.5636392323834583,
+              "bodySideTravelM": -0.31675577730119076,
+              "maxTiltDeg": 13.739247571414118,
+              "maxLevC": 0,
+              "firstPostControllerPositiveGroundImpulseTick": 2748
+            },
+            {
+              "startTick": 3475,
+              "controllerEndTick": 3520,
+              "controllerSeconds": 0.375,
+              "worldTravelM": {
+                "x": -0.766852178703628,
+                "z": -0.26720851072850405
+              },
+              "bodyForwardTravelM": -0.8108150817527714,
+              "bodySideTravelM": -0.045183574343921146,
+              "maxTiltDeg": 16.707060886539406,
+              "maxLevC": 0,
+              "firstPostControllerPositiveGroundImpulseTick": 3520
+            }
+          ]
+        },
+        {
+          "mode": "clock",
+          "sign": 0,
+          "steps": 3600,
+          "catchTargetCalls": 150,
+          "eligibleClockCalls": 0,
+          "maxObservedCatchTargetRate": 1,
+          "maxObservedCatchTargetOffBalance": 0.1711251682434124,
+          "catchSteps": [
+            {
+              "startTick": 1667,
+              "controllerEndTick": 1712,
+              "controllerSeconds": 0.375,
+              "worldTravelM": {
+                "x": -0.6881086025441072,
+                "z": 0.04356721641497875
+              },
+              "bodyForwardTravelM": -0.6894798186144478,
+              "bodySideTravelM": -0.003021748623209898,
+              "maxTiltDeg": 17.000763105962392,
+              "maxLevC": 0.6394441132400595,
+              "firstPostControllerPositiveGroundImpulseTick": 1712
+            },
+            {
+              "startTick": 1721,
+              "controllerEndTick": 1767,
+              "controllerSeconds": 0.3833333333333333,
+              "worldTravelM": {
+                "x": -0.5893365012181089,
+                "z": 0.059966957028881746
+              },
+              "bodyForwardTravelM": -0.5914617989121906,
+              "bodySideTravelM": 0.03296191788808822,
+              "maxTiltDeg": 16.937462284679768,
+              "maxLevC": 0.29222189101783763,
+              "firstPostControllerPositiveGroundImpulseTick": 1767
+            },
+            {
+              "startTick": 2246,
+              "controllerEndTick": 2291,
+              "controllerSeconds": 0.375,
+              "worldTravelM": {
+                "x": -0.6567856822279308,
+                "z": -0.010293047612906281
+              },
+              "bodyForwardTravelM": -0.6537146694319531,
+              "bodySideTravelM": -0.06426904525696864,
+              "maxTiltDeg": 6.834972147900368,
+              "maxLevC": 0.7479387469843723,
+              "firstPostControllerPositiveGroundImpulseTick": 2291
+            },
+            {
+              "startTick": 2703,
+              "controllerEndTick": 2748,
+              "controllerSeconds": 0.375,
+              "worldTravelM": {
+                "x": -0.5710739903719428,
+                "z": -0.3031466711942617
+              },
+              "bodyForwardTravelM": -0.5636392323834583,
+              "bodySideTravelM": -0.31675577730119076,
+              "maxTiltDeg": 13.739247571414118,
+              "maxLevC": 0,
+              "firstPostControllerPositiveGroundImpulseTick": 2748
+            },
+            {
+              "startTick": 3475,
+              "controllerEndTick": 3520,
+              "controllerSeconds": 0.375,
+              "worldTravelM": {
+                "x": -0.766852178703628,
+                "z": -0.26720851072850405
+              },
+              "bodyForwardTravelM": -0.8108150817527714,
+              "bodySideTravelM": -0.045183574343921146,
+              "maxTiltDeg": 16.707060886539406,
+              "maxLevC": 0,
+              "firstPostControllerPositiveGroundImpulseTick": 3520
+            }
+          ]
+        }
+      ],
+      "comparisons": [
+        {
+          "sign": 0,
+          "allNativeExact": true,
+          "allInputsExact": true
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "executions": 6,
+    "steps": 10800,
+    "wallSeconds": 15.393108191999998,
+    "candidateChangedTargetCalls": 0
+  },
+  "next": "Use actual phone input/replay when capturing integrated fight. Preserve diagnosed clock issue; do not claim it causes the current slow-step perception or ask user to play an identical B.",
+  "rawMetadataErrata": [
+    "combat01 protocol mistakenly says fresh reentry both arms; implementation sets player-only stance/friction memory, no arm memory. Frozen raw remains unchanged."
+  ],
+  "independentAudit": {
+    "target-time.md": {
+      "path": "/workspace/halfsword-handoff/phase2-round23-20261005/audit/target-time.md",
+      "bytes": 6421,
+      "sha256": "1963c65d730d5c8775f7596e45723f61c5dde4a27da49a4751dd8249b238a01d"
+    },
+    "catch-final.md": {
+      "path": "/workspace/halfsword-handoff/phase2-round23-20261005/audit/catch-final.md",
+      "bytes": 4490,
+      "sha256": "6bd447bd298074a2aca9243c0669e0862bea33b02a771ef155332bb8d78b794e"
+    }
+  }
+}

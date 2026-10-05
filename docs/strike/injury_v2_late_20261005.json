@@ -1,0 +1,707 @@
+{
+  "schemaVersion": 1,
+  "head": "2e40b888d0607ed575f8d0256c0d269a4fe351af",
+  "scope": "Legacy natural injury prefix then LATE current v2/manual handover. Not current ordinary-from-spawn v2, no artificial wound/pain/availability/body state. Same active enemy. 240-step release wait before previous180-step injured input tape; actual pain may remain high because of new combat.",
+  "decision": {
+    "lateHandoverInputAndPartialArmAvailabilityObserved": true,
+    "fromSpawnCurrentV2MajorInjuryGateComplete": false,
+    "runtimeChanged": false,
+    "naturalnessAccepted": false,
+    "AorBEfficacyAccepted": false
+  },
+  "newPhysicsExecutions": 1,
+  "newSteps": 1956,
+  "wallSeconds": 22.394323002,
+  "raw": {
+    "path": "/workspace/halfsword-handoff/phase2-round23-20261005/injury/late-run01/report.json",
+    "bytes": 16322474,
+    "sha256": "fad1df53639b51d04ee097f287d19d52b34bfc09baaef3824aec1e22cdd3698d"
+  },
+  "reference": {
+    "path": "/workspace/halfsword-handoff/injured-input-20261005/actual-injury-run01.json",
+    "bytes": 70758703,
+    "sha256": "7d5b4b62ec8e2d1c959eb2a143d4e010c5bfae6deff2faee1ed03b5deb37606f",
+    "head": "376d79159d1f3ab2e16eb44b0ea980009082bb84",
+    "row": "originalAI"
+  },
+  "sourceStable": true,
+  "bridge": [
+    {
+      "path": "src/combat.js",
+      "before": "f7c87ea7c8d044d15bd31257264b83e770a1346d9ac86abec2ef326ba41c2263",
+      "after": "98387beb03c90c9edc314da0e1ee826f5c0bd18da3d3991e480b036814d54916"
+    },
+    {
+      "path": "src/fighter.js",
+      "before": "cc120179b9904a793763c34077fe69c1440a2c84dee827ca26445e5a47371315",
+      "after": "845b0d3751ebbd948d845ebacda8a644311b2826cb4e5fca8626c224d15478a4"
+    },
+    {
+      "path": "src/gait.js",
+      "before": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+      "after": "b74787f16687708bbc4ee3d89ec3acf247d561973131fda08cde761488e8d369"
+    },
+    {
+      "path": "src/input.js",
+      "before": "da17f592c9fe8fc2e0532660a31f2e7b96d24e700cc555115c05b913caae9bc7",
+      "after": "37529c473619a95ef83fbe3afa567f436dcd3c3b27b4951ebf52109cda434367"
+    },
+    {
+      "path": "src/main.js",
+      "before": "7ed93290eb5bcaa36aa485d9d0ce198c530ddc0e58ddb465d1484522d0f7598f",
+      "after": "2e2a50ab6491e671d5312a195986897fba6c9d77519c6ce6c867102eee32bdd8"
+    },
+    {
+      "path": "src/skill.js",
+      "before": "b69b73e00d8524e733842a630d54f2d7392807f883d7a75c9f9767b78d71f512",
+      "after": "c1ce462057175f684f8b89c79f668835c69b9dd2ef3cdfbd1e155f73411668e5"
+    }
+  ],
+  "controllerCompatibility": "Only three verified new inactive Combat fields are removed for historical controller hashing; native,input,events and old player/enemy recorded state remain exact until1535.",
+  "checks": {
+    "creationNativeExact": true,
+    "creationCompatibleControlExact": true,
+    "prefixExact": true,
+    "nativeHandoverUnchanged": true,
+    "injuryPreserved": true,
+    "finite": true,
+    "inputsAccepted": true
+  },
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+    "/workspace/halfsword-handoff/phase2-round23-20261005/injury/late-frozen-source/tools/sim/experiments/injury_v2_late_probe.mjs",
+    "--out=/workspace/halfsword-handoff/phase2-round23-20261005/injury/late-run01",
+    "--reference=/workspace/halfsword-handoff/injured-input-20261005/actual-injury-run01.json"
+  ],
+  "protocol": {
+    "boundary": 1535,
+    "end": 1955,
+    "dt": 0.008333333333333333,
+    "phases": [
+      {
+        "name": "painWait",
+        "ticks": 240,
+        "delta": [
+          0,
+          0
+        ],
+        "held": false
+      },
+      {
+        "name": "release",
+        "ticks": 36,
+        "delta": [
+          0,
+          0
+        ],
+        "held": false
+      },
+      {
+        "name": "reverse",
+        "ticks": 30,
+        "delta": [
+          -0.013333333333333334,
+          0.024666666666666667
+        ],
+        "held": true
+      },
+      {
+        "name": "reverseHold",
+        "ticks": 30,
+        "delta": [
+          0,
+          0
+        ],
+        "held": true
+      },
+      {
+        "name": "reentryCut",
+        "ticks": 30,
+        "delta": [
+          0.010666666666666666,
+          -0.021333333333333333
+        ],
+        "held": true
+      },
+      {
+        "name": "finalRelease",
+        "ticks": 54,
+        "delta": [
+          0,
+          0
+        ],
+        "held": false
+      }
+    ],
+    "scope": "Legacy natural injury prefix then LATE current v2/manual handover. Not current ordinary-from-spawn v2, no artificial wound/pain/availability/body state. Same active enemy. 240-step release wait before previous180-step injured input tape; actual pain may remain high because of new combat."
+  },
+  "handover": {
+    "tick": 1536,
+    "before": {
+      "state": "stand",
+      "alive": true,
+      "armed": true,
+      "limbs": {
+        "armS": 0.3665712838676919,
+        "armO": 1,
+        "legF": 1,
+        "legB": 1
+      },
+      "armHealth": 0.3665712838676919,
+      "pain": 1.4293478726174027,
+      "muscle": 0.9990150572672128,
+      "gripValid": true,
+      "v2": null
+    },
+    "after": {
+      "state": "stand",
+      "alive": true,
+      "armed": true,
+      "limbs": {
+        "armS": 0.3665712838676919,
+        "armO": 1,
+        "legF": 1,
+        "legB": 1
+      },
+      "armHealth": 0.3665712838676919,
+      "pain": 1.4293478726174027,
+      "muscle": 0.9990150572672128,
+      "gripValid": true,
+      "v2": {
+        "phase": "holding",
+        "owner": "player",
+        "eligible": true,
+        "availability": 1
+      }
+    },
+    "nativeBefore": "bfc8d64831f64f823d04334bdcf0b57a33532e72c6e736ba5217b64986d65354",
+    "nativeAfter": "bfc8d64831f64f823d04334bdcf0b57a33532e72c6e736ba5217b64986d65354",
+    "scope": "Late v2 plus manual at real legacy injury; no onehand spawn pose, collider/edge/finish change. Body goals and old skill change explicitly, so not A/B efficacy or ordinary from-spawn v2."
+  },
+  "firstActualDrive": {
+    "state": "stand",
+    "alive": true,
+    "armed": true,
+    "limbs": {
+      "armS": 0.3665712838676919,
+      "armO": 1,
+      "legF": 1,
+      "legB": 1
+    },
+    "armHealth": 0.3665712838676919,
+    "pain": 1.4243478726174028,
+    "muscle": 0.9591135515404916,
+    "gripValid": true,
+    "v2": {
+      "phase": "waiting",
+      "owner": "player",
+      "eligible": true,
+      "availability": 0
+    }
+  },
+  "largestObservedAxialRotation": {
+    "tick": 1709,
+    "phase": "painWait",
+    "axialRadps": 84.21786677048473,
+    "context": {
+      "state": "stand",
+      "alive": true,
+      "armed": true,
+      "limbs": {
+        "armS": 0.3665712838676919,
+        "armO": 1,
+        "legF": 1,
+        "legB": 1
+      },
+      "armHealth": 0.3665712838676919,
+      "pain": 0.5593478726174114,
+      "muscle": 0.7211867762554659,
+      "gripValid": true,
+      "v2": {
+        "phase": "waiting",
+        "owner": "player",
+        "eligible": true,
+        "availability": 0
+      }
+    },
+    "contacts": [
+      {
+        "a": 7.4e-323,
+        "b": 1.8e-322,
+        "otherFighter": 1,
+        "flipped": false,
+        "normal": {
+          "x": 0.05897778272628784,
+          "y": -0.9873602390289307,
+          "z": 0.14711105823516846
+        },
+        "points": [
+          {
+            "distance": -0.006433857139199972,
+            "impulse": 0.8520941734313965
+          },
+          {
+            "distance": 0.010549014434218407,
+            "impulse": 0
+          },
+          {
+            "distance": 0.025173669680953026,
+            "impulse": 0
+          },
+          {
+            "distance": -0.008212469518184662,
+            "impulse": 0.6205400228500366
+          },
+          {
+            "distance": 0.01245839986950159,
+            "impulse": 0
+          }
+        ]
+      },
+      {
+        "a": 8.4e-323,
+        "b": 1.8e-322,
+        "otherFighter": 1,
+        "flipped": false,
+        "normal": {
+          "x": -0.05990344285964966,
+          "y": -0.5059509873390198,
+          "z": -0.8604795932769775
+        },
+        "points": [
+          {
+            "distance": -0.013182943686842918,
+            "impulse": 0
+          },
+          {
+            "distance": -0.016255727037787437,
+            "impulse": 0
+          },
+          {
+            "distance": 0.034085847437381744,
+            "impulse": 0
+          },
+          {
+            "distance": 0.018342293798923492,
+            "impulse": 0
+          },
+          {
+            "distance": 0.03338015824556351,
+            "impulse": 0
+          }
+        ]
+      },
+      {
+        "a": 9e-323,
+        "b": 1.8e-322,
+        "otherFighter": 1,
+        "flipped": false,
+        "normal": {
+          "x": -0.05990344285964966,
+          "y": -0.5059509873390198,
+          "z": -0.8604795932769775
+        },
+        "points": [
+          {
+            "distance": 0.006722753867506981,
+            "impulse": 0
+          },
+          {
+            "distance": 0.02563026361167431,
+            "impulse": 0
+          },
+          {
+            "distance": 0.010442642495036125,
+            "impulse": 0.04153566434979439
+          },
+          {
+            "distance": 0.03288235887885094,
+            "impulse": 0
+          }
+        ]
+      }
+    ],
+    "preHandoverAxialRadps": 40.00002253633235,
+    "interpretation": "Large axial rotation remains with actual opposing contacts. Diverged controls/contact history preclude attributing it to v2, pain or inheritance alone. No stability/naturalness acceptance."
+  },
+  "firstPositiveAvailability": {
+    "tick": 1721,
+    "timeS": 14.349999999999826,
+    "context": {
+      "state": "stand",
+      "alive": true,
+      "armed": true,
+      "limbs": {
+        "armS": 0.3665712838676919,
+        "armO": 1,
+        "legF": 1,
+        "legB": 1
+      },
+      "armHealth": 0.3665712838676919,
+      "pain": 0.4993478726174113,
+      "muscle": 0.7442088294239378,
+      "gripValid": true,
+      "v2": {
+        "phase": "waiting",
+        "owner": "player",
+        "eligible": true,
+        "availability": 1.2037366656714364e-06
+      }
+    }
+  },
+  "physicalArmStrengthFactor": 0.5882713345139997,
+  "painFreeArmAvailabilityExpected": 0.1157234155959231,
+  "phases": {
+    "painWait": {
+      "ticks": [
+        1536,
+        1775
+      ],
+      "steps": 240,
+      "acceptedRequests": 240,
+      "controllerPhases": {
+        "waiting": 215,
+        "returning": 25
+      },
+      "controllerOwners": {
+        "player": 215,
+        "return": 25
+      },
+      "availabilityRange": [
+        0,
+        0.10057686761353152
+      ],
+      "preDrivePainRange": [
+        0.22934787261741107,
+        1.4243478726174028
+      ],
+      "mainArmHealthRange": [
+        0.3665712838676919,
+        0.3665712838676919
+      ],
+      "actualSwordTorqueCalls": 240,
+      "actualSwordTorquePeakNm": 15.951910298201978,
+      "swingCapRangeNm": [
+        4.671909268337354,
+        15.943882337103746
+      ],
+      "maxCappedSwingToCapRatio": 1.0000000000000004,
+      "actualTotalToSwingCapRatioMax": 1.0005587865551746,
+      "handRequestedTargetErrorPeakM": 0.10263280415736512,
+      "handRequestedTargetErrorEndM": 0.041616657053203374,
+      "tipSpeedPeakMps": 6.200427961039116,
+      "swordAxialPeakRadps": 84.21786677048473,
+      "jointGapPeakM": 0.001640787283465131,
+      "gripGapPeakM": 0.00012548698461627597,
+      "playerStates": {
+        "stand": 240
+      },
+      "allAliveArmedValidGrip": true,
+      "postWoundCountAtEnd": 1
+    },
+    "release": {
+      "ticks": [
+        1776,
+        1811
+      ],
+      "steps": 36,
+      "acceptedRequests": 36,
+      "controllerPhases": {
+        "returning": 36
+      },
+      "controllerOwners": {
+        "return": 36
+      },
+      "availabilityRange": [
+        0.10227640881192682,
+        0.1157234155959231
+      ],
+      "preDrivePainRange": [
+        0.049347872617410936,
+        0.22434787261741107
+      ],
+      "mainArmHealthRange": [
+        0.3665712838676919,
+        0.3665712838676919
+      ],
+      "actualSwordTorqueCalls": 36,
+      "actualSwordTorquePeakNm": 5.809174156967451,
+      "swingCapRangeNm": [
+        10.911783594239836,
+        12.599802644216949
+      ],
+      "maxCappedSwingToCapRatio": 0.4696229733201806,
+      "actualTotalToSwingCapRatioMax": 0.4696229747358215,
+      "handRequestedTargetErrorPeakM": 0.04056390892383183,
+      "handRequestedTargetErrorEndM": 0.02018367833505058,
+      "tipSpeedPeakMps": 0.9524414993124964,
+      "swordAxialPeakRadps": 1.7141864918130039,
+      "jointGapPeakM": 0.0012057979398452812,
+      "gripGapPeakM": 1.114579250476498e-06,
+      "playerStates": {
+        "stand": 36
+      },
+      "allAliveArmedValidGrip": true,
+      "postWoundCountAtEnd": 1
+    },
+    "reverse": {
+      "ticks": [
+        1812,
+        1841
+      ],
+      "steps": 30,
+      "acceptedRequests": 30,
+      "controllerPhases": {
+        "moving": 30
+      },
+      "controllerOwners": {
+        "player": 30
+      },
+      "availabilityRange": [
+        0.1157234155959231,
+        0.1157234155959231
+      ],
+      "preDrivePainRange": [
+        0,
+        0.04434787261741094
+      ],
+      "mainArmHealthRange": [
+        0.3665712838676919,
+        0.3665712838676919
+      ],
+      "actualSwordTorqueCalls": 30,
+      "actualSwordTorquePeakNm": 11.771906625059644,
+      "swingCapRangeNm": [
+        8.104003760840522,
+        12.523699252507908
+      ],
+      "maxCappedSwingToCapRatio": 1.0000000000000002,
+      "actualTotalToSwingCapRatioMax": 1.0000102294319628,
+      "handRequestedTargetErrorPeakM": 0.3264234141155213,
+      "handRequestedTargetErrorEndM": 0.3264234141155213,
+      "tipSpeedPeakMps": 6.471671832864375,
+      "swordAxialPeakRadps": 9.131362744924449,
+      "jointGapPeakM": 0.0003908926535741573,
+      "gripGapPeakM": 1.1706878171413257e-05,
+      "playerStates": {
+        "stand": 30
+      },
+      "allAliveArmedValidGrip": true,
+      "postWoundCountAtEnd": 1
+    },
+    "reverseHold": {
+      "ticks": [
+        1842,
+        1871
+      ],
+      "steps": 30,
+      "acceptedRequests": 30,
+      "controllerPhases": {
+        "holding": 30
+      },
+      "controllerOwners": {
+        "player": 30
+      },
+      "availabilityRange": [
+        0.1157234155959231,
+        0.1157234155959231
+      ],
+      "preDrivePainRange": [
+        0,
+        0
+      ],
+      "mainArmHealthRange": [
+        0.3665712838676919,
+        0.3665712838676919
+      ],
+      "actualSwordTorqueCalls": 30,
+      "actualSwordTorquePeakNm": 10.774450054594606,
+      "swingCapRangeNm": [
+        6.58695780224895,
+        12.788199355685668
+      ],
+      "maxCappedSwingToCapRatio": 1.0000000000000002,
+      "actualTotalToSwingCapRatioMax": 1.000015019138297,
+      "handRequestedTargetErrorPeakM": 0.3747815872508723,
+      "handRequestedTargetErrorEndM": 0.12819150280001393,
+      "tipSpeedPeakMps": 6.37865674431724,
+      "swordAxialPeakRadps": 5.043425925225973,
+      "jointGapPeakM": 0.0015253194377750137,
+      "gripGapPeakM": 1.2910074525257066e-05,
+      "playerStates": {
+        "stand": 30
+      },
+      "allAliveArmedValidGrip": true,
+      "postWoundCountAtEnd": 1
+    },
+    "reentryCut": {
+      "ticks": [
+        1872,
+        1901
+      ],
+      "steps": 30,
+      "acceptedRequests": 30,
+      "controllerPhases": {
+        "moving": 30
+      },
+      "controllerOwners": {
+        "player": 30
+      },
+      "availabilityRange": [
+        0.1157234155959231,
+        0.1157234155959231
+      ],
+      "preDrivePainRange": [
+        0,
+        0
+      ],
+      "mainArmHealthRange": [
+        0.3665712838676919,
+        0.3665712838676919
+      ],
+      "actualSwordTorqueCalls": 30,
+      "actualSwordTorquePeakNm": 13.754104750004736,
+      "swingCapRangeNm": [
+        6.765594576374728,
+        13.828541982883891
+      ],
+      "maxCappedSwingToCapRatio": 1.0000000000000002,
+      "actualTotalToSwingCapRatioMax": 1.0000255366997142,
+      "handRequestedTargetErrorPeakM": 0.11324868611944224,
+      "handRequestedTargetErrorEndM": 0.060777203104648535,
+      "tipSpeedPeakMps": 8.025985287424664,
+      "swordAxialPeakRadps": 8.402310982711025,
+      "jointGapPeakM": 0.0007519148833917217,
+      "gripGapPeakM": 2.0507191356648147e-05,
+      "playerStates": {
+        "stand": 30
+      },
+      "allAliveArmedValidGrip": true,
+      "postWoundCountAtEnd": 1
+    },
+    "finalRelease": {
+      "ticks": [
+        1902,
+        1955
+      ],
+      "steps": 54,
+      "acceptedRequests": 54,
+      "controllerPhases": {
+        "waiting": 30,
+        "returning": 24
+      },
+      "controllerOwners": {
+        "player": 30,
+        "return": 24
+      },
+      "availabilityRange": [
+        0.1157234155959231,
+        0.1157234155959231
+      ],
+      "preDrivePainRange": [
+        0,
+        0
+      ],
+      "mainArmHealthRange": [
+        0.3665712838676919,
+        0.3665712838676919
+      ],
+      "actualSwordTorqueCalls": 54,
+      "actualSwordTorquePeakNm": 13.708927049470208,
+      "swingCapRangeNm": [
+        9.713393545226987,
+        13.803964223490174
+      ],
+      "maxCappedSwingToCapRatio": 1.0000000000000002,
+      "actualTotalToSwingCapRatioMax": 1.000003803774864,
+      "handRequestedTargetErrorPeakM": 0.09406438849258399,
+      "handRequestedTargetErrorEndM": 0.0340826654966376,
+      "tipSpeedPeakMps": 6.367226910272414,
+      "swordAxialPeakRadps": 13.617299560017152,
+      "jointGapPeakM": 0.0012306746343531507,
+      "gripGapPeakM": 8.36050764329631e-06,
+      "playerStates": {
+        "stand": 54
+      },
+      "allAliveArmedValidGrip": true,
+      "postWoundCountAtEnd": 1
+    }
+  },
+  "final": {
+    "state": "stand",
+    "alive": true,
+    "armed": true,
+    "limbs": {
+      "armS": 0.3665712838676919,
+      "armO": 1,
+      "legF": 1,
+      "legB": 1
+    },
+    "armHealth": 0.3665712838676919,
+    "pain": 0,
+    "muscle": 0.9993860608473667,
+    "gripValid": true,
+    "v2": {
+      "phase": "returning",
+      "owner": "return",
+      "eligible": true,
+      "availability": 0.1157234155959231
+    }
+  },
+  "limits": [
+    "The actual injury occurred in legacy Qinggang/box gameplay, then current v2 plus manual was applied. This does not expose severe injury reached from ordinary v2 spawn.",
+    "Handover deliberately changes Skill level, assist goals and manual mapping. Native body state/health/pain remain unchanged at the instant, but subsequent pose behavior cannot establish an efficacy effect of v2 alone.",
+    "240 fixed release steps permit natural pain decay before the180-step input tape; the enemy remains active. No health, pain, availability, strength, velocity or wound overwrite.",
+    "Availability is optional guidance strength, not overall muscle health or the percentage of all player input accepted.",
+    "Immediately after applySwordsmanship the stored availability1 is an initialization value. The first actual drive updates it to0 under existing pain; it is not evidence of full guidance acting at handover.",
+    "Actual sword/farmS addTorque calls inside driveSword are observed, excluding other motor work and the chest share. Capped swing torque precedes unchanged separate axial alignment torque, so final magnitude can exceed that scalar swing cap.",
+    "Hand error uses requested world handTarget before IK reach clamp, not joint-target error. No naturalness or precise tracking acceptance.",
+    "Scripted physics-time gestures use the main held/L1 contract, not mobile wall-time/hitstop cadence."
+  ],
+  "next": "Keep the independent from-spawn-v2 large-partial-injury gate open. Reuse an exposed natural injury from an already-needed combat; do not repeat this late-handover row or search seeds merely to add samples.",
+  "artifacts": [
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round23-20261005/injury/late-run01/receipt.json",
+      "bytes": 527,
+      "sha256": "559bc1e4331401216bf67ff954d21a09183bf19e77741422619f9ef010d35d0d"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round23-20261005/injury/late-frozen-source/SOURCE.json",
+      "bytes": 9515,
+      "sha256": "6d8fe3c850be6d5ac610f866f47c747ac182e5affeb042338550d5ee7367df18"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round23-20261005/injury/late-frozen-source/tools/sim/experiments/injury_v2_late_probe.mjs",
+      "bytes": 14486,
+      "sha256": "61ad758cc4cc003bb446aa1a53fb730a915fc72f80e3603525ac9882e099cea5"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round23-20261005/injury/late-summary01.json",
+      "bytes": 15958,
+      "sha256": "a999f2467b1073ac034c824954e289ab44f4e8feb913d1c0e3b284514e3bccd6"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round23-20261005/injury/late-summary02.json",
+      "bytes": 19730,
+      "sha256": "5ce5d924c76ee1c2920cec29fa9d618dc0940315ee935423c7007a9de9ab0849"
+    },
+    {
+      "path": "/workspace/halfsword-codex/tools/sim/experiments/injury_v2_late_report.py",
+      "bytes": 6840,
+      "sha256": "38c48fd370d893c34bb86564cfc080a251762693a24fb9c599dbae98ecb000b4"
+    }
+  ],
+  "independentReadAudit": {
+    "blockingIssueFound": false,
+    "newPhysicsExecutions": 0,
+    "scope": "Static probe plus raw/derived checks; initial availability1 vs actual first drive0 and remaining84.22rad/s contact rotation retained as explicit limitations."
+  },
+  "summaryCommand": [
+    "python",
+    "tools/sim/experiments/injury_v2_late_report.py",
+    "--raw=/workspace/halfsword-handoff/phase2-round23-20261005/injury/late-run01/report.json",
+    "--out=/tmp/NEW-injury-v2-late-summary.json"
+  ],
+  "reproductionNote": "Probe requires the frozen SOURCE.json and its copied runtime. Recorded output path must be replaced with a fresh empty directory; execution refuses to overwrite. Reuse current raw unless a new question needs physics.",
+  "previousPartialGate": "injury_v2_gate_20261005.md/json remain unchanged; do not merge this legacy-injury handover with current from-spawn v2 samples."
+}
