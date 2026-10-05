@@ -46,6 +46,7 @@ import { configureThrustPlaneTrial } from './thrust_plane.js';
 import { configureIntegratedCombatTrial, mountIntegratedCombatTrial } from './integrated_combat_trial.js';
 import { applyMotionAssist } from './motion_assist.js';
 import { applyMotionTiming, recordMotionTimingInput } from './motion_timing.js';
+import { applySwordAssistV2 } from './sword_assist_v2.js';
 
 await RAPIER.init();
 
@@ -486,6 +487,7 @@ function newRound(weaponId) {
   applyTargetCorrectionTrial(targetCorrectionTrial, player); // 선택형 보정은 첫 스텝 전에 새 플레이어에만 적용한다.
   applyMotionAssist(integratedCombatTrial, player);
   applyMotionTiming(integratedCombatTrial, player);
+  applySwordAssistV2(integratedCombatTrial, player);
   player.canShove = true; // 근접 밀치기: 플레이어는 스틱으로 (CLOSE.on 이 통째로 끄고 켠다)
   combat = new Combat(colliderInfo, { onWound, onClash });
   combat.cutReactionModel = cutTrial.model;

@@ -3,7 +3,7 @@
 export const MOTION_TIMING = Object.freeze({ eventGapS: 0.05, referenceTimeS: 0.04, idleAfterS: 0.2, chestBudgetRad: 2 * Math.PI / 180 });
 
 export function applyMotionTiming(info, fighter) {
-  if (!info.active || info.comparison !== 'force' || fighter.index !== 0 ||
+  if (!info.active || !['force', 'sword'].includes(info.comparison) || fighter.index !== 0 ||
       fighter.weapon.id !== 'qinggang' || fighter.onehandArmModel !== 'manual' ||
       fighter.motionAssistModel !== 'coordinated' || fighter.weaponCfg.twoHand ||
       !['baseline', 'sequenced'].includes(info.motionTiming)) return false;

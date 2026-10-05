@@ -27,6 +27,7 @@ import * as THREE from 'three';
 import { SKILL, WEAPON, THRUST } from './config.js';
 import { gunCanFire, gunPose, headOff } from './gun.js';
 import { FINISH, armRay } from './finish.js';
+import { updateSwordAssistReturn } from './sword_assist_v2.js';
 
 const D2R = Math.PI / 180;
 const _yawInv = new THREE.Quaternion();
@@ -117,6 +118,11 @@ export class Skill {
     const ts = f.weaponCfg.thrustStyle;
     const K = { aim: THRUST.aim, extend: THRUST.extend, hold: THRUST.hold, recover: THRUST.recover * (ts?.recover ?? 1), reach: THRUST.reach + (ts?.reach ?? 0) };
     this.tap = { t: 0, h0: g ? [g[0], g[1], g[2]] : [0.3, -0.2, 0.12], down, head: !down && this.aimRaw.y > THRUST.headPad, K };
+    // The optional ready reference must hand over continuously to the explicit
+    // thrust. Freeze that command's base, never a physical body's pose/velocity.
+    if (f.swordAssistModel === 'v2' && f.aimDirW && !down) {
+      this.tap.v2BaseDir = f.aimDirW.clone().applyQuaternion(_yawInv.copy(f.yaw).invert()).toArray();
+    }
     // 칼 길 잡기(R6): 칼이 맞닿았으면 그 칼 선 (아니면 null). 바로 앞 찌르기가 끝나고 bindRest 초 안의 탭(연타)은 잡지 않는다
     this.tap.bound = down || this.sinceThrust < THRUST.bindRest ? null : this.boundAxis();
     this.thrusts++;
@@ -528,6 +534,7 @@ export class Skill {
     this.vel.x += (rx - this.vel.x) * k;
     this.vel.y += (ry - this.vel.y) * k;
     const sp = this.vel.length();
+    updateSwordAssistReturn(this, dt);
     const swinging = sp > SKILL.swingSpeed && f.alive && f.armed;
     this.swinging = swinging;
     // 휘두르는 중인 정도 (0~1): 휘두르기 시작하면 빨리 1로, 멈추면 천천히 0으로 (몸을 크게 쓰는 건 벨 때뿐)

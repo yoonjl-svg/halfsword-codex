@@ -1,0 +1,451 @@
+{
+  "schemaVersion": 1,
+  "dateUTC": "2026-10-05",
+  "purpose": "Keep current B body lead; assess bounded stance guidance and released-idle basic-pose return using actual game inputs.",
+  "designDocument": "sword_assist_v2_design_20261005.md",
+  "releaseReceipt": "sword_assist_v2_release.json",
+  "publicationVerifiedHere": false,
+  "reproduction": {
+    "checkoutSHA": "8d8f6874d67681c3f9eef3b7f8c04ff0a8d30f85",
+    "sourceIdentity": "Runtime included uncommitted helper changes; checkout SHA alone is insufficient. Per-stage helper SHA and complete raw sourceBefore manifests identify executed code.",
+    "finalSourceSHA256": {
+      "src/sword_assist_v2.js": "2d2e31a1049268935cee9311830cb45672350745ff9a0f4b6df4495a1260927c",
+      "src/skill.js": "2e92537d9a156be1e4e7800ec3dbdbf04b7fee824b07049ffa99c7e0c710fc5a",
+      "src/fighter.js": "ef5c8d38758b2e49d4e424916bb69ea964608832c0a85d0aec0a360118fd9b1a",
+      "src/motion_timing.js": "5a30a5384066585227c1469a7adf66ff2137fabc19ff37142cc5ebd2895887e2",
+      "src/motion_assist.js": "12e49338e0ec0a1307c71bbdfcad4d849180369959a2a18c8ec7ca4c73a2f2d5",
+      "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+      "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+      "tools/sim/experiments/sword_assist_v2_probe.mjs": "6b53f94ed89160879046b27f48516b3b41f6e794fca1dfb8fa255bab6f982a0e",
+      "tools/sim/experiments/sword_assist_v2_probe.derive.mjs": "b17ccb5ed5260514fc859efa193269aad6b09e991d9e259d437db2570858160c",
+      "tools/sim/experiments/sword_assist_v2.test.mjs": "9aea8daf7fe41cec4d9f0eac4cb789e2f94828e9674ff7029676b4c3239a0a8d"
+    },
+    "frozenSourceManifest": {
+      "path": "/workspace/halfsword-handoff/sword-assist-v2-20261005/frozen-final03/manifest.json",
+      "sha256": "c9f92e1ca25d34a80948eab8f653addbf5d4ea40443464b8f92786936db223ac"
+    },
+    "engine": {
+      "package": "@dimforge/rapier3d-compat",
+      "version": "0.19.3",
+      "moduleSHA256": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+      "wasmSHA256": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+      "changed": false
+    },
+    "runtime": {
+      "node": "v24.19.0",
+      "npm": "11.9.0",
+      "python": "3.12.14",
+      "system": "Linux",
+      "machine": "x86_64"
+    },
+    "dtSeconds": 0.008333333333333333,
+    "seed": 7,
+    "player": {
+      "input": "Scripted held hand deltas before original G.step",
+      "skill": 0,
+      "autoGuard": false,
+      "onehandArm": "manual"
+    },
+    "opponent": "Original reactive Heinrich AI/longsword; no player AI2",
+    "bothModels": {
+      "motionAssistStrength": 0.15,
+      "motionTiming": "sequenced",
+      "bladeShape": "profile",
+      "thrustEdge": "transported",
+      "finishRule": "armorCausal"
+    },
+    "screen": {
+      "scene": "distant",
+      "secondsEach": 12.95,
+      "stepsEach": 1554,
+      "gapM": 14,
+      "walls": false
+    },
+    "live": {
+      "secondsEach": 20,
+      "stepsEach": 2400,
+      "gapAndWalls": "Original arena default"
+    },
+    "modelMeaning": "original=current B sequenced timing without new sword helper attributes; none=observational helper state with no guidance; v2=guided goals and generated return.",
+    "internalSabre": "Research eligibility view; native weapon/geometry unchanged. Carries Q home rather than sabre initial pose; not public sabre support.",
+    "runs": [
+      {
+        "rawPath": "/workspace/halfsword-handoff/sword-assist-v2-20261005/screen-run01.json",
+        "rawBytes": 381220133,
+        "rawSHA256": "839c5f99edbdaecd4a6b5978443e193e6542d7a3b76b8628d7bcfb59589bfa22",
+        "exactArgv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+          "/workspace/halfsword-codex/tools/sim/experiments/sword_assist_v2_probe.mjs",
+          "--out=/workspace/halfsword-handoff/sword-assist-v2-20261005/screen-run01.json"
+        ],
+        "executions": 4,
+        "helperSHA256": "1b2de05b57e44dd842f00e46c6f97f39bc3ff5c6e9e03c5624e28fd92b78fd1a",
+        "helperUnitSHA256": "cd06b18995d3d10e19d6c23b3af72080cd167ae99a67fdd9c8e0d82f68255e66",
+        "fixturePass": true,
+        "sourceStable": true,
+        "headStable": true,
+        "wallSeconds": 28.2939528,
+        "decision": "Rejected: final tap goals jumped~225mm/~31deg despite numeric fixture pass"
+      },
+      {
+        "rawPath": "/workspace/halfsword-handoff/sword-assist-v2-20261005/screen-run02.json",
+        "rawBytes": 381225563,
+        "rawSHA256": "9b9b906509ea5287ec8246e24c6b51d0f8f9d918a6ada9ba9b32ec3fc84c6425",
+        "exactArgv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+          "/workspace/halfsword-codex/tools/sim/experiments/sword_assist_v2_probe.mjs",
+          "--out=/workspace/halfsword-handoff/sword-assist-v2-20261005/screen-run02.json"
+        ],
+        "executions": 4,
+        "helperSHA256": "aa6ac956f14f84d3636b43eea0e2ac2f045a59a2dc21b76529c3ae13eb1ed0a2",
+        "helperUnitSHA256": "8691ed388cf1c19c51995f0e65bfb8b4dcfef2176e69eabccad92c4cc951e200",
+        "fixturePass": true,
+        "sourceStable": true,
+        "headStable": true,
+        "wallSeconds": 27.22761524,
+        "decision": "Normal tap continuity repaired; purpose/human acceptance remains separate"
+      },
+      {
+        "rawPath": "/workspace/halfsword-handoff/sword-assist-v2-20261005/screen-run03.json",
+        "rawBytes": 275267189,
+        "rawSHA256": "bcfe8c82ba014b25fa9998e9f0fe5babda0ac6fccc2d97cfc11ad2e6d2b619c6",
+        "exactArgv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+          "/workspace/halfsword-codex/tools/sim/experiments/sword_assist_v2_probe.mjs",
+          "--weapons=qinggang",
+          "--models=original,none,v2",
+          "--out=/workspace/halfsword-handoff/sword-assist-v2-20261005/screen-run03.json"
+        ],
+        "executions": 3,
+        "helperSHA256": "2d2e31a1049268935cee9311830cb45672350745ff9a0f4b6df4495a1260927c",
+        "helperUnitSHA256": "9aea8daf7fe41cec4d9f0eac4cb789e2f94828e9674ff7029676b4c3239a0a8d",
+        "fixturePass": true,
+        "sourceStable": true,
+        "headStable": true,
+        "wallSeconds": 17.266901455,
+        "decision": "Original/none common trace exact; final candidate normal full native replay exact to corrected screen02"
+      },
+      {
+        "rawPath": "/workspace/halfsword-handoff/sword-assist-v2-20261005/live-run04.json",
+        "rawBytes": 313296358,
+        "rawSHA256": "5f33da4c9b3f3343d0dbeed5b909c10ee67ac5b14a204d14695db9473153a6ed",
+        "exactArgv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+          "/workspace/halfsword-codex/tools/sim/experiments/sword_assist_v2_probe.mjs",
+          "--weapons=qinggang",
+          "--models=none,v2",
+          "--scene=live",
+          "--out=/workspace/halfsword-handoff/sword-assist-v2-20261005/live-run04.json"
+        ],
+        "executions": 2,
+        "helperSHA256": "2d2e31a1049268935cee9311830cb45672350745ff9a0f4b6df4495a1260927c",
+        "helperUnitSHA256": "9aea8daf7fe41cec4d9f0eac4cb789e2f94828e9674ff7029676b4c3239a0a8d",
+        "fixturePass": true,
+        "sourceStable": true,
+        "headStable": true,
+        "wallSeconds": 19.412363889,
+        "decision": "Finite source-locked contact observations; v2 actual death, no v2 getup/abort/finish acceptance"
+      }
+    ],
+    "actualExecutionCount": 13,
+    "actualPhysicsStepCount": 21894,
+    "wallSecondsSum": 92.20083338399999,
+    "scope": "Initial4+necessary actual-defect repair4+final contract3+live2 are repeated seeded policies, not13 independent samples. No park, forced wounds/state/pose, gain/mass/solver change."
+  },
+  "contracts": {
+    "candidateNormalFullNativeTraceExactToScreen02": true,
+    "candidateSuppliedInputExact": true,
+    "candidateAppliedInputExact": true,
+    "originalVsNone": [
+      {
+        "weapon": "qinggang",
+        "nativeTraceExact": true,
+        "suppliedInputExact": true,
+        "appliedInputExact": true,
+        "eventsExact": true,
+        "commonControlLedgerTraceExact": true
+      }
+    ],
+    "fixturePass": true,
+    "sourceStable": true,
+    "headStable": true
+  },
+  "findings": {
+    "ordinaryHandGuideBudgetM": 0.02,
+    "combinedAimGuideBudgetRad": 0.13962634015954636,
+    "maximumHomeHandCarryApproxM": 0.21,
+    "budgetMeaning": "Input/actuator-goal policy; not physical hand/sword speed, force limit or solved native impulse.",
+    "QIdleLast0_2sHandToHomeM": {
+      "side": 0.02148470636511361,
+      "high": 0.01390943148522763
+    },
+    "QFirstSideLast0_2sHandTrackingErrorM": {
+      "A": 0.0095408310808446,
+      "B": 0.015911399737830838
+    },
+    "QReverseMeanHandTrackingErrorM": {
+      "A": 0.07065248137511844,
+      "B": 0.115440819146376
+    },
+    "laterPhaseScope": "After return, supplied gestures match but applied pad/goals differ. Whole-policy observations, not isolated same-goal force efficiency.",
+    "rejectedScreen01": {
+      "secondTapEndTick": 1131,
+      "QWorldHandTargetStepM": 0.2256116222201892,
+      "QRequestedAimStepRad": 0.5470871370929054,
+      "numericFixturePass": true,
+      "purposePass": false,
+      "rawPreserved": true
+    },
+    "correctedScreen02QSecondTapEnd": {
+      "handBaseStepM": 6.462262530129357e-05,
+      "worldHandTargetStepM": 0.01079417800585638,
+      "worldRequestedAimStepRad": 0.012419205076294609,
+      "actualHandStepM": 0.01701203010656918,
+      "actualSwordAxisStepRad": 0.01563311171837909
+    },
+    "baselineQSecondTapEnd": {
+      "handBaseStepM": 8.254082873504608e-05,
+      "worldHandTargetStepM": 0.011513356745191057,
+      "worldRequestedAimStepRad": 0.02518253513766948,
+      "actualHandStepM": 0.015794747538448548,
+      "actualSwordAxisStepRad": 0.03776547170449858
+    },
+    "armControllerSettingTraceExact": true,
+    "allJointGainTraceExact": false,
+    "gainMeaning": "Existing arm k/d/max/gain/manual exact; some existing dynamic gait gains diverge. Signed explicit work excludes native motor/contact/upright work and does not certify efficiency.",
+    "generatedReturn": "Healthy B rows each344generated steps; user input velocity error0, generated new swing/lunge0, pad accounting error at most6.0e-17m.",
+    "live": {
+      "firstReactiveEnemyInputDivergenceS": 2.2416666666666614,
+      "v2DeathFrameTimeS": 7.883333333333515,
+      "v2DeathContactCallbackTimeS": 7.875000000000181,
+      "v2DeathCutZone": "neck",
+      "v2DeathCutSeverity": 0.7021007845937376,
+      "v2DeathCutEnergyJ": 102.55200490151474,
+      "v2StandFrames": 945,
+      "v2DeadFrames": 1455,
+      "v2GetupFrames": 0,
+      "v2NormalAbortFrames": 0,
+      "allFoeStandFramesEach": 2400,
+      "finishWeightMaxBoth": 0,
+      "v2FirstPostdeathControlWithdrawalFrameTimeS": 7.891666666666849,
+      "v2PostwithdrawalHomeBlendHandAimGeneratedDeltaAllZero": true,
+      "noneGetupToStandTransitionsS": [
+        [
+          9.783333333333418,
+          11.891666666666632
+        ],
+        [
+          12.38333333333327,
+          15.14999999999978
+        ]
+      ]
+    },
+    "candidateLiveGetupAbortFinishObserved": false,
+    "causalEfficacyAccepted": false,
+    "humanNaturalnessAccepted": false,
+    "historicalJianAccepted": false,
+    "reverseGripProxyMeaning": "Sword/forearm dot is geometric, not confirmed grip style.",
+    "liveMeaning": "B actual death leaves fewer later wound callbacks and finite corpse motion; neither is benefit or injury recovery. A recovery is not B recovery. Opponent input divergence predates contact."
+  },
+  "checks": {
+    "unitAndEntry": [
+      {
+        "receiptPath": "/workspace/halfsword-handoff/sword-assist-v2-20261005/unit13-abort-fix.json",
+        "receiptSHA256": "66ec82913181d6b7ef8993d27f9e33767f48b21c672adbdad83f6eca6a10a098",
+        "groupsOrCases": 13,
+        "pass": true,
+        "scope": "Real Skill/helper ownership, continuity and gate contracts; no physics/human acceptance"
+      },
+      {
+        "receiptPath": "/workspace/halfsword-handoff/sword-assist-v2-20261005/entry33.json",
+        "receiptSHA256": "32b6a35a07cd5ffa56fb1db565907605f4aeb85686a2144721b9c174f73475d9",
+        "groupsOrCases": 33,
+        "pass": true,
+        "scope": "Local sword A/B entry/parser contracts; no browser/publication acceptance"
+      },
+      {
+        "receiptPath": "/workspace/halfsword-handoff/sword-assist-v2-20261005/legacy-entry29.json",
+        "receiptSHA256": "c642316bf95dd4765a3ff929deca3556691e6379e6f9fe320b6c5652b23c8783",
+        "groupsOrCases": 29,
+        "pass": true,
+        "scope": "Local previous movement entry/parser contracts"
+      }
+    ],
+    "requiredSix": {
+      "receiptPath": "/workspace/halfsword-handoff/sword-assist-v2-20261005/regression-final/result.json",
+      "receiptSHA256": "81798bbfc76680723207abb58445770de091339f343a7017a65eb8692bb005c5",
+      "pass": true,
+      "sourceStable": true,
+      "headStable": true,
+      "fingerprint": "f65793de7cc138785fa63fde255de4544ae4f161d5fbc3d797fa0f3035242618",
+      "fingerprintScope": "Pins sources at the six-suite run, including the older browser readiness-wait harness. The later harness-only wait and actual-restart fixture isolation changes are separate from the frozen runtime/production build; this is not a whole-final-tools identity claim.",
+      "browserHarnessSHA256AtSuite": "121885f2517ee4bb52b720f148441d442981d0ae47ca1dc6d9ed770f90c889ec",
+      "wallSeconds": 172.51389343300252,
+      "tests": [
+        {
+          "id": "force_ledger",
+          "pass": true,
+          "observedCounts": {
+            "tests": 11
+          },
+          "exactArgv": [
+            "node",
+            "tools/sim/force_ledger.test.mjs",
+            "/workspace/halfsword-handoff/sword-assist-v2-20261005/regression-final/force_ledger.json"
+          ],
+          "scope": "Native force/momentum/energy calibration and instrumentation trace invariance."
+        },
+        {
+          "id": "grip_reaction",
+          "pass": true,
+          "observedCounts": {
+            "fixtures": 17
+          },
+          "exactArgv": [
+            "node",
+            "tools/sim/grip_reaction.test.mjs",
+            "/workspace/halfsword-handoff/sword-assist-v2-20261005/regression-final/grip_reaction.json"
+          ],
+          "scope": "Actual offHand free-body fixtures, paired wrench/power and timestep convergence."
+        },
+        {
+          "id": "cut_reaction",
+          "pass": true,
+          "observedCounts": {
+            "tests": 33
+          },
+          "exactArgv": [
+            "node",
+            "tools/sim/experiments/cut_reaction_candidate.test.mjs",
+            "/workspace/halfsword-handoff/sword-assist-v2-20261005/regression-final/cut_reaction.json"
+          ],
+          "scope": "Native cutting impulse/energy, real manifold and runtime/clone phase fixtures."
+        },
+        {
+          "id": "arm_capacity",
+          "pass": true,
+          "observedCounts": {
+            "tests": 4
+          },
+          "exactArgv": [
+            "node",
+            "tools/sim/experiments/arm_capacity_candidate.test.mjs",
+            "/workspace/halfsword-handoff/sword-assist-v2-20261005/regression-final/arm_capacity.json"
+          ],
+          "scope": "Source guards, actual accumulators, prepared original/clone trace and callback failure reporting."
+        },
+        {
+          "id": "arm_duel",
+          "pass": true,
+          "observedCounts": {
+            "runs": 10,
+            "newFailureReview": 0
+          },
+          "exactArgv": [
+            "node",
+            "tools/sim/experiments/arm_capacity_duel_probe.mjs",
+            "--seconds=10",
+            "--prepare=3",
+            "--seeds=7",
+            "--modes=original,clone,finalCap,runtimeFinalCap,runtimeFresh",
+            "--out=/workspace/halfsword-handoff/sword-assist-v2-20261005/regression-final/arm_duel.json"
+          ],
+          "scope": "Actual two-AI 10s duels, seed7, sabre/zwei versus longsword; original/clone and finalCap/runtime parity."
+        },
+        {
+          "id": "build",
+          "pass": true,
+          "observedCounts": null,
+          "exactArgv": [
+            "npm",
+            "run",
+            "build",
+            "--",
+            "--outDir",
+            "/workspace/halfsword-handoff/sword-assist-v2-20261005/regression-final/build"
+          ],
+          "scope": "Existing Vite build with output outside repository; no browser or deployment check."
+        }
+      ]
+    },
+    "meaning": "Controller/entry compatibility and standard six regressions do not certify candidate actual injury recovery, abort/finish, human stance or phone input."
+  },
+  "literature": [
+    {
+      "receiptPath": "/workspace/halfsword-handoff/sword-assist-v2-20261005/literature/meyer-v2-source-receipt.json",
+      "receiptSHA256": "f71729ddd799ac3c85033d4b35bef2e32a6950971a0625710704070541c9c9d8",
+      "scope": "selected Longsword guards/cuts/withdrawal passages; some German phrases cross-checked, English passages read; not original print scan or all-book verification",
+      "sources": [
+        {
+          "url": "https://sprechfenster.org/meyer/1570/longsword-chapter-3-the-guards/",
+          "rawPath": "/workspace/halfsword-handoff/sword-assist-v2-20261005/literature/longsword-chapter-3-the-guards.html",
+          "bytes": 84512,
+          "sha256": "0fdb35acdb90a76017a327992dc7cae72eb4880dc00039403e092cd96c37a9a5"
+        },
+        {
+          "url": "https://sprechfenster.org/meyer/1570/longsword-chapter-4-the-cuts/",
+          "rawPath": "/workspace/halfsword-handoff/sword-assist-v2-20261005/literature/longsword-chapter-4-the-cuts.html",
+          "bytes": 94006,
+          "sha256": "ccbb454e662f027c0191732bdb838da7808f3472c164e34eb5adbaa3e5022420"
+        },
+        {
+          "url": "https://sprechfenster.org/meyer/1570/longsword-chapter-6-the-withdrawal/",
+          "rawPath": "/workspace/halfsword-handoff/sword-assist-v2-20261005/literature/longsword-chapter-6-the-withdrawal.html",
+          "bytes": 26757,
+          "sha256": "5812f547cd19c5b30c3ccccfba1b671119bd2ca467dd7b0ba288bc462044126f"
+        }
+      ],
+      "finding": "Situation-dependent readiness, transitions and withdrawal supported; no universal automatic Pflug return instruction in inspected passages; idle delay/speed/coordinates remain game design choices."
+    },
+    {
+      "receiptPath": "/workspace/halfsword-handoff/sword-assist-v2-20261005/literature/subaudit-meyer-dusack-receipt.json",
+      "receiptSHA256": "2d5154ed78fb7c38be9995842c396d0dc86446a47e50e720dd8480557fca7096",
+      "scope": "Index provenance and Dusack chapters 2/3 only. No whole-book absence claim; no independent facsimile collation or human measurement.",
+      "sources": [
+        {
+          "url": "https://sprechfenster.org/meyer/1570/dusack-chapter-2-the-guards/",
+          "rawPath": "/workspace/halfsword-handoff/sword-assist-v2-20261005/literature/subaudit-dusack-guards.html",
+          "bytes": 28339,
+          "sha256": "cab1ca7bee41d7de193245c52f545291bae62fb4aefe2aaeef513222b1d9f0f0"
+        },
+        {
+          "url": "https://sprechfenster.org/meyer/1570/dusack-chapter-3-the-four-cuts/",
+          "rawPath": "/workspace/halfsword-handoff/sword-assist-v2-20261005/literature/subaudit-dusack-cuts.html",
+          "bytes": 84267,
+          "sha256": "20f489218b7f0a66d41d00ef0c93b198102032604bf6c47f183da0ed383ae270"
+        }
+      ],
+      "finding": "These chapters do not support an unconditional universal Pflug return. The game choice remains reconstruction, and continuation drills do not determine release/stop input semantics."
+    }
+  ],
+  "literatureMeaning": "Existing receipt-based selected German transcription/English translation review, not whole-book/facsimile/human measurement. Fixed home/time/guidance values are game design, not historical jian prescription.",
+  "analysisFiles": {
+    "correctedScreenSummary": "/workspace/halfsword-handoff/sword-assist-v2-20261005/screen-summary03.json",
+    "correctedPhaseLedger": "/workspace/halfsword-handoff/sword-assist-v2-20261005/screen-derived02.json",
+    "correctedTransitionWindows": "/workspace/halfsword-handoff/sword-assist-v2-20261005/screen-observations02.json",
+    "finalContract": "/workspace/halfsword-handoff/sword-assist-v2-20261005/screen-contract03.json",
+    "livePhaseLedger": "/workspace/halfsword-handoff/sword-assist-v2-20261005/live-derived04.json",
+    "liveStateContactWindows": "/workspace/halfsword-handoff/sword-assist-v2-20261005/live-observations04.json",
+    "finalFrozenManifest": "/workspace/halfsword-handoff/sword-assist-v2-20261005/frozen-final03/manifest.json"
+  },
+  "handoffPath": "/workspace/halfsword-handoff/sword-assist-v2-20261005/FINAL_HANDOFF.json",
+  "observerContract": [
+    {
+      "model": "none",
+      "worldStepOriginalCalls": 2400,
+      "nativeOriginalCalls": 148800,
+      "restorationPass": true
+    },
+    {
+      "model": "v2",
+      "worldStepOriginalCalls": 2400,
+      "nativeOriginalCalls": 144438,
+      "restorationPass": true
+    }
+  ],
+  "pending": [
+    "Candidate actual early normal-thrust abort and getup/finishing exposure",
+    "Human stance/usefulness and phone input acceptance",
+    "Browser/public delivery recorded separately in release receipt"
+  ]
+}

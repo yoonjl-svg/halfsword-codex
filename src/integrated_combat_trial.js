@@ -9,7 +9,7 @@ const COMMON = {
   onehandArm: 'manual',
   bladeShape: 'profile',
 };
-const KEYS = new Set([...Object.keys(COMMON), 'thrustPlane', 'finishRule', 'motionAssist', 'motionTiming']);
+const KEYS = new Set([...Object.keys(COMMON), 'thrustPlane', 'finishRule', 'motionAssist', 'motionTiming', 'swordAssist']);
 
 export function configureIntegratedCombatTrial(params) {
   const requested = params.has('combatTrial');
@@ -26,24 +26,28 @@ export function configureIntegratedCombatTrial(params) {
   const timing = params.get('motionTiming');
   const timingValid = timingRequested && params.getAll('motionTiming').length === 1 &&
     ['baseline', 'sequenced'].includes(timing) && motionValid && motion === 'weak';
-  const active = common && known && uniqueModes && (timingRequested ? timingValid : motionRequested ? motionValid : baseline || combined);
-  const comparison = active && timingRequested ? 'force' : active && motionRequested ? 'motion' : 'compound';
-  const variantB = comparison === 'force' ? timing === 'sequenced' : comparison === 'motion' ? motion === 'weak' : combined;
+  const swordRequested = params.has('swordAssist'), sword = params.get('swordAssist');
+  const swordValid = swordRequested && params.getAll('swordAssist').length === 1 &&
+    ['none', 'v2'].includes(sword) && timingValid && timing === 'sequenced';
+  const active = common && known && uniqueModes && (swordRequested ? swordValid : timingRequested ? timingValid : motionRequested ? motionValid : baseline || combined);
+  const comparison = active && swordRequested ? 'sword' : active && timingRequested ? 'force' : active && motionRequested ? 'motion' : 'compound';
+  const variantB = comparison === 'sword' ? sword === 'v2' : comparison === 'force' ? timing === 'sequenced' : comparison === 'motion' ? motion === 'weak' : combined;
   return {
     requested,
     active,
     variant: active ? (variantB ? 'B' : 'A') : null,
-    model: active ? (comparison === 'force' ? `force-${timing}` : comparison === 'motion' ? `motion-${motion}` : combined ? 'combined' : 'baseline') : 'legacy',
+    model: active ? (comparison === 'sword' ? `sword-${sword}` : comparison === 'force' ? `force-${timing}` : comparison === 'motion' ? `motion-${motion}` : combined ? 'combined' : 'baseline') : 'legacy',
     comparison,
     motionAssist: active && motionRequested ? motion : 'none',
     motionTiming: active && timingRequested ? timing : null,
-    reason: active ? (timingRequested ? 'exact_force_tuple' : motionRequested ? 'exact_motion_tuple' : 'exact_compound_tuple') : requested ? 'unsupported_or_incomplete_tuple' : 'not_requested',
+    swordAssist: active && swordRequested ? sword : null,
+    reason: active ? (swordRequested ? 'exact_sword_tuple' : timingRequested ? 'exact_force_tuple' : motionRequested ? 'exact_motion_tuple' : 'exact_compound_tuple') : requested ? 'unsupported_or_incomplete_tuple' : 'not_requested',
     settings: active ? { skill: '0', difficulty: 'normal' } : {},
     playerOnly: true,
     finishRule: active && combined ? 'armorCausal' : 'legacy',
     thrustPlane: active && combined ? 'transported' : 'legacy',
     foe: active ? 'heinrich' : null,
-    compareHref: comparison === 'force' ? './feature-lab.html#motion-force-comparison' : './feature-lab.html#integrated-combat-comparison',
+    compareHref: comparison === 'sword' ? './feature-lab.html#sword-assist-v2-comparison' : comparison === 'force' ? './feature-lab.html#motion-force-comparison' : './feature-lab.html#integrated-combat-comparison',
     ordinaryHref: './',
   };
 }
@@ -58,7 +62,9 @@ export function mountIntegratedCombatTrial(info) {
   panel.className = 'sub';
   const label = document.createElement('span');
   label.style.display = 'block';
-  label.textContent = info.comparison === 'force'
+  label.textContent = info.comparison === 'sword'
+    ? `검술 보정 v2 비교 ${info.variant} · ${info.variant === 'B' ? '자세 안내·복귀' : '기존 몸 선행'}. `
+    : info.comparison === 'force'
     ? `연속 몸 협조 비교 ${info.variant} · ${info.variant === 'A' ? '기존 몸 협조' : '몸 선행 협조'}. `
     : info.comparison === 'motion'
     ? `통합 동작 비교 ${info.variant} · 동작 보정 ${info.motionAssist === 'weak' ? `약 (${Math.round(MOTION_ASSIST.strength * 100)}%)` : '끔'}. `
@@ -82,7 +88,9 @@ export function mountIntegratedCombatTrial(info) {
   }
   const note = document.createElement('span');
   note.style.display = 'block';
-  note.textContent = info.comparison === 'force'
+  note.textContent = info.comparison === 'sword'
+    ? '청강검 · B는 잡고 있으면 유지하고 놓으면 준비 자세로 복귀. 양쪽 몸 선행 협조·저장 선호 유지.'
+    : info.comparison === 'force'
     ? '같은 청강검 통합판 · 좌우·사선 베기의 몸 협조 순서만 비교합니다. 근력·관성·저장 선호 유지.'
     : info.comparison === 'motion'
     ? '같은 통합 조합 · 드래그 방향·높이 유지. 팔 깊이와 몸통 협조만 비교합니다. 저장 선호 유지.'

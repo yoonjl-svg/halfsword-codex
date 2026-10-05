@@ -19,6 +19,7 @@ import { BODY, WEAPON, VITALS, BALANCE, SKILL_BODY, GRIP, STEEL, RECOIL, GAIT, A
 import { COMBAT_HOOKS } from './combat.js';
 import { Skill } from './skill.js';
 import { motionAssistWeight, assistHandDepth } from './motion_assist.js';
+import { assistSwordHand, assistSwordAim } from './sword_assist_v2.js';
 import { updateMotionTiming } from './motion_timing.js';
 import { Gait, hybridJointDefs } from './gait.js';
 import { guardAt, guardBaseOne } from './guards.js';
@@ -1974,6 +1975,7 @@ export class Fighter {
       if (this.finish.amt > 0 && gw > 0) handLocal.lerp(_v6.set(...G.hand), gw * this.finish.amt);
     } else if (gw > 0) handLocal.lerp(_v6.set(G.hand[0], G.hand[1], G.hand[2]), gw);
     assistHandDepth(this, handLocal, G.hand);
+    assistSwordHand(this, handLocal, G.hand);
     // 탭 찌르기(skill.thrustPose)는 보정이 아니라 명령이라 검술 보정 세기(gw)와 무관하게 덧씌운다 — 보정 0 에서도 찌른다.
     //  찌르기는 지금 손 목표(handBase, 덧씌우기 전)에서 뻗어 나간다 (skill.thrust)
     const hb = (this.handBase ||= [0, 0, 0]);
@@ -2010,6 +2012,7 @@ export class Fighter {
       if (aim.lengthSq() < 0.04) aim.set(G.dir[0], G.dir[1], G.dir[2]);
       aim.normalize();
     }
+    assistSwordAim(this, aim, G.dir);
     if (th.w > 0) {
       aim.lerp(_v6.set(th.dir[0], th.dir[1], th.dir[2]), th.w);
       if (aim.lengthSq() < 1e-6) aim.set(th.dir[0], th.dir[1], th.dir[2]);
