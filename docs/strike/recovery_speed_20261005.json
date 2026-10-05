@@ -1,0 +1,1036 @@
+{
+  "schemaVersion": 1,
+  "head": "ae3735637fbce8feab799535dacef943f4b769b7",
+  "measurementValid": true,
+  "raw": {
+    "path": "/workspace/halfsword-handoff/recovery-speed-20261005/probe01/report.json",
+    "bytes": 7578877,
+    "sha256": "57a16f96b6d10b8b5ddba706cedaedb76a8b228d1d4fe76efd3c5115f0cdfe70"
+  },
+  "counts": {
+    "executions": 5,
+    "physicsSteps": 6986,
+    "physicsWallSeconds": 8.97371945
+  },
+  "healthyExact": {
+    "nativeSteps": 960,
+    "inputEvents": 960,
+    "reentries": 0
+  },
+  "injured": {
+    "naturalInjuryPrefixExactThrough": 1476,
+    "matchedPlayerInputEvents": 576,
+    "sameWoundHistory": true,
+    "opponentRemovedAt": 1477,
+    "comparisons": {
+      "side": {
+        "metric": "horizontalSpeedMeanMps",
+        "A": 0.5941270930075876,
+        "B": 0.593970623088905,
+        "percentDifference": -0.026336102245483328
+      },
+      "reverse": {
+        "metric": "horizontalSpeedMeanMps",
+        "A": 0.5424710120804435,
+        "B": 0.5427635125593367,
+        "percentDifference": 0.05392002012634123
+      },
+      "cut": {
+        "metric": "tipPeakMps",
+        "A": 8.150127415238554,
+        "B": 8.152749052412855,
+        "percentDifference": 0.032166824403234706
+      }
+    }
+  },
+  "rows": [
+    {
+      "mode": "legacy",
+      "injured": false,
+      "gravity": -9.81,
+      "steps": 960,
+      "entries": [
+        {
+          "tick": 0,
+          "restarted": false,
+          "old": {
+            "F": null,
+            "B": null
+          },
+          "new": {
+            "F": null,
+            "B": null
+          }
+        }
+      ],
+      "states": [
+        "stand"
+      ],
+      "phases": {
+        "forward": {
+          "n": 180,
+          "horizontalSpeedMeanMps": 1.8061595728578168,
+          "tipPeakMps": 2.690420769766678,
+          "tipPeakTick": 391,
+          "firstMovingTick": null,
+          "slowFactorMean": 0.9999991831242623,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        },
+        "side": {
+          "n": 120,
+          "horizontalSpeedMeanMps": 1.340163900441532,
+          "tipPeakMps": 2.511555749709774,
+          "tipPeakTick": 422,
+          "firstMovingTick": null,
+          "slowFactorMean": 0.8330259140567831,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        },
+        "reverse": {
+          "n": 120,
+          "horizontalSpeedMeanMps": 0.5421826956581165,
+          "tipPeakMps": 1.5466085533295968,
+          "tipPeakTick": 615,
+          "firstMovingTick": null,
+          "slowFactorMean": 0.9999905807335262,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        },
+        "cut": {
+          "n": 30,
+          "horizontalSpeedMeanMps": 0.16719060349471368,
+          "tipPeakMps": 7.928136242831141,
+          "tipPeakTick": 798,
+          "firstMovingTick": 780,
+          "slowFactorMean": 1,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        },
+        "hold": {
+          "n": 36,
+          "horizontalSpeedMeanMps": 0.14812100396013833,
+          "tipPeakMps": 7.4997311776242155,
+          "tipPeakTick": 810,
+          "firstMovingTick": null,
+          "slowFactorMean": 1,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        }
+      },
+      "catches": [
+        {
+          "startTick": 360,
+          "foot": "B",
+          "kind": "catch",
+          "requestedS": 0.22940241109316475,
+          "tilt": 13.015961211865903,
+          "offBalance": 0,
+          "lev": 0,
+          "position": {
+            "x": -1.7707945251154755,
+            "y": 0.15618810704860886,
+            "z": -0.11336911735012815
+          },
+          "endTick": 390,
+          "elapsedS": 0.25,
+          "endSoleY": 0.01681801380246549,
+          "endN": 0,
+          "endPosition": {
+            "x": -0.46409421402480955,
+            "y": 0.08333093847461864,
+            "z": -0.11865437517409758
+          },
+          "peakTiltDeg": 21.34166178684712,
+          "peakCatchAssistState": 0,
+          "firstRecordedLoadTickAfterControllerTD": 392,
+          "worldDisplacementXZ": [
+            1.3067003110906659,
+            -0.005285257823969422
+          ]
+        },
+        {
+          "startTick": 434,
+          "foot": "B",
+          "kind": "catch",
+          "requestedS": 0.3009273823773633,
+          "tilt": 15.261715077938305,
+          "offBalance": 0.12232545364795161,
+          "lev": 0.2863818624926936,
+          "position": {
+            "x": -0.3557928048423022,
+            "y": 0.1788835759067645,
+            "z": -0.11882257787444625
+          },
+          "endTick": 470,
+          "elapsedS": 0.3,
+          "endSoleY": 0.01775715194736039,
+          "endN": 0,
+          "endPosition": {
+            "x": 0.8223118248200636,
+            "y": 0.08563024274921864,
+            "z": -0.08183169159891214
+          },
+          "peakTiltDeg": 24.505864944558066,
+          "peakCatchAssistState": 0.6076883024163315,
+          "firstRecordedLoadTickAfterControllerTD": 472,
+          "worldDisplacementXZ": [
+            1.1781046296623658,
+            0.03699088627553411
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "fresh",
+      "injured": false,
+      "gravity": -9.81,
+      "steps": 960,
+      "entries": [
+        {
+          "tick": 0,
+          "restarted": false,
+          "old": {
+            "F": null,
+            "B": null
+          },
+          "new": {
+            "F": null,
+            "B": null
+          }
+        }
+      ],
+      "states": [
+        "stand"
+      ],
+      "phases": {
+        "forward": {
+          "n": 180,
+          "horizontalSpeedMeanMps": 1.8061595728578168,
+          "tipPeakMps": 2.690420769766678,
+          "tipPeakTick": 391,
+          "firstMovingTick": null,
+          "slowFactorMean": 0.9999991831242623,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        },
+        "side": {
+          "n": 120,
+          "horizontalSpeedMeanMps": 1.340163900441532,
+          "tipPeakMps": 2.511555749709774,
+          "tipPeakTick": 422,
+          "firstMovingTick": null,
+          "slowFactorMean": 0.8330259140567831,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        },
+        "reverse": {
+          "n": 120,
+          "horizontalSpeedMeanMps": 0.5421826956581165,
+          "tipPeakMps": 1.5466085533295968,
+          "tipPeakTick": 615,
+          "firstMovingTick": null,
+          "slowFactorMean": 0.9999905807335262,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        },
+        "cut": {
+          "n": 30,
+          "horizontalSpeedMeanMps": 0.16719060349471368,
+          "tipPeakMps": 7.928136242831141,
+          "tipPeakTick": 798,
+          "firstMovingTick": 780,
+          "slowFactorMean": 1,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        },
+        "hold": {
+          "n": 36,
+          "horizontalSpeedMeanMps": 0.14812100396013833,
+          "tipPeakMps": 7.4997311776242155,
+          "tipPeakTick": 810,
+          "firstMovingTick": null,
+          "slowFactorMean": 1,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        }
+      },
+      "catches": [
+        {
+          "startTick": 360,
+          "foot": "B",
+          "kind": "catch",
+          "requestedS": 0.22940241109316475,
+          "tilt": 13.015961211865903,
+          "offBalance": 0,
+          "lev": 0,
+          "position": {
+            "x": -1.7707945251154755,
+            "y": 0.15618810704860886,
+            "z": -0.11336911735012815
+          },
+          "endTick": 390,
+          "elapsedS": 0.25,
+          "endSoleY": 0.01681801380246549,
+          "endN": 0,
+          "endPosition": {
+            "x": -0.46409421402480955,
+            "y": 0.08333093847461864,
+            "z": -0.11865437517409758
+          },
+          "peakTiltDeg": 21.34166178684712,
+          "peakCatchAssistState": 0,
+          "firstRecordedLoadTickAfterControllerTD": 392,
+          "worldDisplacementXZ": [
+            1.3067003110906659,
+            -0.005285257823969422
+          ]
+        },
+        {
+          "startTick": 434,
+          "foot": "B",
+          "kind": "catch",
+          "requestedS": 0.3009273823773633,
+          "tilt": 15.261715077938305,
+          "offBalance": 0.12232545364795161,
+          "lev": 0.2863818624926936,
+          "position": {
+            "x": -0.3557928048423022,
+            "y": 0.1788835759067645,
+            "z": -0.11882257787444625
+          },
+          "endTick": 470,
+          "elapsedS": 0.3,
+          "endSoleY": 0.01775715194736039,
+          "endN": 0,
+          "endPosition": {
+            "x": 0.8223118248200636,
+            "y": 0.08563024274921864,
+            "z": -0.08183169159891214
+          },
+          "peakTiltDeg": 24.505864944558066,
+          "peakCatchAssistState": 0.6076883024163315,
+          "firstRecordedLoadTickAfterControllerTD": 472,
+          "worldDisplacementXZ": [
+            1.1781046296623658,
+            0.03699088627553411
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "legacy",
+      "injured": true,
+      "gravity": -9.81,
+      "steps": 2053,
+      "entries": [
+        {
+          "tick": 0,
+          "restarted": false,
+          "old": {
+            "F": null,
+            "B": null
+          },
+          "new": {
+            "F": null,
+            "B": null
+          }
+        },
+        {
+          "tick": 1477,
+          "restarted": true,
+          "old": {
+            "F": 0,
+            "B": 634.5595192909241
+          },
+          "new": {
+            "F": 0,
+            "B": 634.5595192909241
+          }
+        }
+      ],
+      "states": [
+        "getup",
+        "stand"
+      ],
+      "phases": {
+        "forward": null,
+        "side": {
+          "n": 144,
+          "horizontalSpeedMeanMps": 0.5941270930075876,
+          "tipPeakMps": 3.5110422785082087,
+          "tipPeakTick": 1621,
+          "firstMovingTick": null,
+          "slowFactorMean": 0.9115836033591135,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        },
+        "reverse": {
+          "n": 96,
+          "horizontalSpeedMeanMps": 0.5424710120804435,
+          "tipPeakMps": 1.1086514321559122,
+          "tipPeakTick": 1789,
+          "firstMovingTick": null,
+          "slowFactorMean": 1,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        },
+        "cut": {
+          "n": 30,
+          "horizontalSpeedMeanMps": 0.06940497997007618,
+          "tipPeakMps": 8.150127415238554,
+          "tipPeakTick": 1915,
+          "firstMovingTick": 1897,
+          "slowFactorMean": 1,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        },
+        "hold": {
+          "n": 36,
+          "horizontalSpeedMeanMps": 0.11817519428137366,
+          "tipPeakMps": 7.714654495661266,
+          "tipPeakTick": 1927,
+          "firstMovingTick": null,
+          "slowFactorMean": 1,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        }
+      },
+      "catches": []
+    },
+    {
+      "mode": "fresh",
+      "injured": true,
+      "gravity": -9.81,
+      "steps": 2053,
+      "entries": [
+        {
+          "tick": 0,
+          "restarted": false,
+          "old": {
+            "F": null,
+            "B": null
+          },
+          "new": {
+            "F": null,
+            "B": null
+          }
+        },
+        {
+          "tick": 1477,
+          "restarted": true,
+          "old": {
+            "F": 0,
+            "B": 634.5595192909241
+          },
+          "new": {
+            "F": 0,
+            "B": 0
+          }
+        }
+      ],
+      "states": [
+        "getup",
+        "stand"
+      ],
+      "phases": {
+        "forward": null,
+        "side": {
+          "n": 144,
+          "horizontalSpeedMeanMps": 0.593970623088905,
+          "tipPeakMps": 3.510976213491017,
+          "tipPeakTick": 1621,
+          "firstMovingTick": null,
+          "slowFactorMean": 0.9115836033591135,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        },
+        "reverse": {
+          "n": 96,
+          "horizontalSpeedMeanMps": 0.5427635125593367,
+          "tipPeakMps": 1.1094725603494662,
+          "tipPeakTick": 1789,
+          "firstMovingTick": null,
+          "slowFactorMean": 1,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        },
+        "cut": {
+          "n": 30,
+          "horizontalSpeedMeanMps": 0.06904308947644143,
+          "tipPeakMps": 8.152749052412855,
+          "tipPeakTick": 1915,
+          "firstMovingTick": 1897,
+          "slowFactorMean": 1,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        },
+        "hold": {
+          "n": 36,
+          "horizontalSpeedMeanMps": 0.11779996774413588,
+          "tipPeakMps": 7.714347402954061,
+          "tipPeakTick": 1927,
+          "firstMovingTick": null,
+          "slowFactorMean": 1,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        }
+      },
+      "catches": []
+    },
+    {
+      "mode": "fresh",
+      "injured": false,
+      "gravity": -11.772,
+      "steps": 960,
+      "entries": [
+        {
+          "tick": 0,
+          "restarted": false,
+          "old": {
+            "F": null,
+            "B": null
+          },
+          "new": {
+            "F": null,
+            "B": null
+          }
+        }
+      ],
+      "states": [
+        "stand"
+      ],
+      "phases": {
+        "forward": {
+          "n": 180,
+          "horizontalSpeedMeanMps": 1.8807215308219145,
+          "tipPeakMps": 2.79413127989086,
+          "tipPeakTick": 391,
+          "firstMovingTick": null,
+          "slowFactorMean": 1,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        },
+        "side": {
+          "n": 120,
+          "horizontalSpeedMeanMps": 1.3739731787278553,
+          "tipPeakMps": 2.6029908319151756,
+          "tipPeakTick": 421,
+          "firstMovingTick": null,
+          "slowFactorMean": 0.7852829266711009,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        },
+        "reverse": {
+          "n": 120,
+          "horizontalSpeedMeanMps": 0.5539157114223628,
+          "tipPeakMps": 1.425704701482572,
+          "tipPeakTick": 615,
+          "firstMovingTick": null,
+          "slowFactorMean": 0.9998221449765788,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        },
+        "cut": {
+          "n": 30,
+          "horizontalSpeedMeanMps": 0.2121751087641409,
+          "tipPeakMps": 7.96819438311378,
+          "tipPeakTick": 798,
+          "firstMovingTick": 780,
+          "slowFactorMean": 1,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        },
+        "hold": {
+          "n": 36,
+          "horizontalSpeedMeanMps": 0.17293475245781909,
+          "tipPeakMps": 7.622902982951126,
+          "tipPeakTick": 810,
+          "firstMovingTick": null,
+          "slowFactorMean": 1,
+          "scope": "Horizontal pelvis speed magnitude, including transitional motion; not isolated lateral projection or maximum walking speed."
+        }
+      },
+      "catches": [
+        {
+          "startTick": 360,
+          "foot": "B",
+          "kind": "catch",
+          "requestedS": 0.22939683399551408,
+          "tilt": 14.45556690824921,
+          "offBalance": 0,
+          "lev": 0,
+          "position": {
+            "x": -1.6773307698131694,
+            "y": 0.15253761317422132,
+            "z": -0.10865512558201781
+          },
+          "endTick": 390,
+          "elapsedS": 0.25,
+          "endSoleY": 0.01709737721963262,
+          "endN": 0,
+          "endPosition": {
+            "x": -0.3491177439006129,
+            "y": 0.08272269518615882,
+            "z": -0.11914876955783184
+          },
+          "peakTiltDeg": 23.20444626271345,
+          "peakCatchAssistState": 0,
+          "firstRecordedLoadTickAfterControllerTD": 392,
+          "worldDisplacementXZ": [
+            1.3282130259125564,
+            -0.010493643975814024
+          ]
+        },
+        {
+          "startTick": 432,
+          "foot": "B",
+          "kind": "catch",
+          "requestedS": 0.28101591288897615,
+          "tilt": 15.568847963154642,
+          "offBalance": 0,
+          "lev": 0.2866431271048465,
+          "position": {
+            "x": -0.25207908141101865,
+            "y": 0.16395313941125314,
+            "z": -0.11798324794330017
+          },
+          "endTick": 466,
+          "elapsedS": 0.2833333333333333,
+          "endSoleY": 0.017825637812059834,
+          "endN": 0,
+          "endPosition": {
+            "x": 0.9550929067703576,
+            "y": 0.08676727980650681,
+            "z": -0.08933571337251092
+          },
+          "peakTiltDeg": 27.297664027637797,
+          "peakCatchAssistState": 0.6828334026398301,
+          "firstRecordedLoadTickAfterControllerTD": 468,
+          "worldDisplacementXZ": [
+            1.2071719881813763,
+            0.02864753457078925
+          ]
+        }
+      ]
+    }
+  ],
+  "verdict": "No B-wide movement or attack slowdown found in these brief cases. Positive user recovery feedback retained. Gravity-only diagnostic does not establish a solution.",
+  "limits": [
+    "Only zweihander; 120Hz inputs, no physical-phone rendering/hitstop timing measurement.",
+    "Post-injury rows isolate locomotion by parking the opponent; not a further combat acceptance.",
+    "Observed catch steps were mainly forward travel during forward-to-side input, not the exact reported sideways near-fall scene.",
+    "Controller touchdown is not physical touchdown; cached N was zero before handler/native step and first recorded positive two ticks later.",
+    "One +20% gravity row from spawn leaves controller 9.81 constants unchanged; no gain search, correction, naturalness acceptance or public promotion."
+  ],
+  "status": "brief-investigation-complete-no-runtime-change",
+  "runtimeChanged": false,
+  "ordinaryGravity": -9.81,
+  "userFeedback": {
+    "positive": "Recovery B looks more natural, including rising with weapon against ground. User observation, not a quantified causal estimate.",
+    "unconfirmed": "Possible slightly slower movement/attacks and slow sideways catch. Investigate briefly.",
+    "gravityIdea": "Consider raising the gravity value; not general-promotion approval."
+  },
+  "sourceHashes": {
+    "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+    "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+    "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+    "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+    "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+    "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+    "src/arm_recovery_activation.js": "ae025cc8d9bbc9855ea8ab2793d3e7818a66a4662329014a776a2ac88966435e",
+    "src/arm_recovery_trial.js": "ebda992abc5c7cd25a12c751d0f9b30f8fddf998babc8f4a7f49c9f4a0817c09",
+    "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+    "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+    "src/blade_shape_trial.js": "c06f7331c78e602e17d89ffb26507bffbea67cbebce862f5386cb4ce519b3955",
+    "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+    "src/combat.js": "98387beb03c90c9edc314da0e1ee826f5c0bd18da3d3991e480b036814d54916",
+    "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+    "src/contact_trial.js": "bbbb141e43c2ad9ba45de62bf649def064a998213085f9ace6871c9616da4767",
+    "src/cut_centerline.js": "98e522cfcde4f03c4d6d34dd57f7a8fa301a5a28028ddcce366cc600f86bf453",
+    "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+    "src/cut_trial.js": "427d58d0500ceac482424e092a7d457a8cea48371c254f1b4edecb3a511be5a6",
+    "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+    "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+    "src/edge_intent.js": "b4e17a6ea08d659732c330448b3b3aaffeac2942fa5096e82db551a12d580c87",
+    "src/edge_torque.js": "436995e6d45e816517ea5a9a8f83c9fb147d143871aab1601f82baa7b36bc0fa",
+    "src/edge_torque_trial.js": "1280a3fe32c1874b6ce56b75932db44852162855d8962ae13f3aeb3e7d832cae",
+    "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+    "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+    "src/fighter.js": "845b0d3751ebbd948d845ebacda8a644311b2826cb4e5fca8626c224d15478a4",
+    "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+    "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+    "src/finish_rule.js": "803556ca4f6939d4a20acb7020dd4c616b52b5513969d0a6079af0cc929c616d",
+    "src/gait.js": "b74787f16687708bbc4ee3d89ec3acf247d561973131fda08cde761488e8d369",
+    "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+    "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+    "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+    "src/hand_visual.js": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893",
+    "src/input.js": "37529c473619a95ef83fbe3afa567f436dcd3c3b27b4951ebf52109cda434367",
+    "src/integrated_combat_trial.js": "d3b8d2f4b37c617d90832e93d0a31b585d10ef9bd44d5c41ef3d695ef76b898b",
+    "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+    "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+    "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+    "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+    "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+    "src/main.js": "2e2a50ab6491e671d5312a195986897fba6c9d77519c6ce6c867102eee32bdd8",
+    "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+    "src/motion_assist.js": "12e49338e0ec0a1307c71bbdfcad4d849180369959a2a18c8ec7ca4c73a2f2d5",
+    "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+    "src/motion_timing.js": "5a30a5384066585227c1469a7adf66ff2137fabc19ff37142cc5ebd2895887e2",
+    "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+    "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+    "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+    "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+    "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+    "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+    "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+    "src/skill.js": "c1ce462057175f684f8b89c79f668835c69b9dd2ef3cdfbd1e155f73411668e5",
+    "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+    "src/sound.js": "f02a5a9c9ad60ce282806c02b956715c2ca01aced92ba021b63a799faf4c8fb4",
+    "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+    "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+    "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+    "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+    "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+    "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+    "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+    "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+    "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+    "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+    "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+    "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+    "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+    "src/stance_v2_trial.js": "a5d6dcfc685b83371f1228a028db7573aa1267b63f7cbb2530b78b8601dc9c80",
+    "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+    "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+    "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+    "src/sword_assist_v2.js": "2d2e31a1049268935cee9311830cb45672350745ff9a0f4b6df4495a1260927c",
+    "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+    "src/swordsmanship.js": "7794881e39564a523047605c7ddfae71ecb8fff40b007d03c78aeb33d16c66db",
+    "src/swordsmanship_default.js": "0387ade2d359c600abd5685bcf105de4d6c268796b4899a143e5beacb6a61832",
+    "src/swordsmanship_profiles.js": "1660b20fe9970164c0cef8ce5fd43acf0616978c1bcdf7e5494099d2029456b1",
+    "src/swordsmanship_trial.js": "ee1c50cc7142eb46f8c266b566c9eba2155d6a54db6d84798212aee0eff82b79",
+    "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+    "src/thrust_plane.js": "2fcbf1a52dd7cbd4035eea8a14d22b830c1b64f07dafebddcfb74e320539b104",
+    "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+    "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+    "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "src/wrist_braking.js": "6574ae9729fa6251540a68d27a0938e9d5bc2296097ff8b3bd69d1494eb88730",
+    "src/wrist_braking_trial.js": "25466b178e063a45e58a5fcd22532cdcbc176af4a2c05e461c562bb6a0ef658e",
+    "tools/sim/experiments/recovery_speed_probe.mjs": "0326e1df5df9df6aa2fa3b145fd825eb6f2db7ca84f4dcf2d339c3a7c16c4997",
+    "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0"
+  },
+  "sourceStillExact": true,
+  "existingAttack": {
+    "schemaVersion": 1,
+    "recordedUTC": "2026-10-05T13:58:41.056110+00:00",
+    "head": "ae3735637fbce8feab799535dacef943f4b769b7",
+    "newPhysicsExecutions": 0,
+    "commonFilesEdited": 0,
+    "raw": [
+      {
+        "path": "/workspace/halfsword-handoff/phase2-round1-20261005/recovery/recut-legacy01/report.json",
+        "bytes": 14886519,
+        "sha256": "d842bf58985a4c77e30de3198a95860f2fd67690cac80b38b816e30041d63d39"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/phase2-round1-20261005/recovery/recut-fresh01/report.json",
+        "bytes": 14999136,
+        "sha256": "908044cd2853e11a97860e629e456683b068e09fc22dd8f5b525e53764ebfc85"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/phase2-round1-20261005/recovery/runtime-bridge01/report.json",
+        "bytes": 15008749,
+        "sha256": "80b2b3aec89c1fec12159235830f1c3deddfa04f6a43ecea256cadfa03572c7c"
+      }
+    ],
+    "sourceBridge": {
+      "allRuntimeSrcHashesMatchExecutedProductionBridge": true,
+      "gaitSHA256": "b74787f16687708bbc4ee3d89ec3acf247d561973131fda08cde761488e8d369",
+      "currentChange": "Only prior stance friction memory clears in Gait.enter when started/player index0/stanceMemoryModel fresh/legacy support. First spawn and attack/movement speed constants unchanged."
+    },
+    "noReentryEquality": {
+      "frames": 1477,
+      "ticks": [
+        0,
+        1476
+      ],
+      "throughPostStepTimeS": 12.308333333333334,
+      "nativeControlInputExact": true,
+      "productionCandidateEqualsResearchCandidateAll1747Frames": true,
+      "interpretation": "Direct evidence against a general B slowdown before first stance re-entry in this actual combat; not proof about every possible input/device or recovery aftermath."
+    },
+    "divergence": {
+      "nativeTick": 1477,
+      "controlTick": 1477,
+      "playerAndEnemyInputTick": 1479,
+      "playerRequestsEqualAll270": true,
+      "firstPostCombatPainDifferenceTick": 1623,
+      "limbHealthEqualThroughout": true,
+      "interpretation": "Player gesture held fixed; original opponent reacts differently from1479. First new post-combat pain difference1623; from1624 drive has different pain/availability."
+    },
+    "commandOnset": {
+      "A": {
+        "requestedTick": 1621,
+        "movingTick": 1621,
+        "addedControlFrames": 0,
+        "painAtMoving": 0.24732409325338855,
+        "availabilityAtMoving": 0.8110349965211029,
+        "note": "Control phase adopts the gesture in same120Hz step; this is not a claim of zero physical sword latency. Sword already moving at1620."
+      },
+      "B": {
+        "requestedTick": 1621,
+        "movingTick": 1621,
+        "addedControlFrames": 0,
+        "painAtMoving": 0.24732409325338855,
+        "availabilityAtMoving": 0.8110349965211029,
+        "note": "Control phase adopts the gesture in same120Hz step; this is not a claim of zero physical sword latency. Sword already moving at1620."
+      }
+    },
+    "initialAttackSamples": [
+      {
+        "tick": 1620,
+        "A": {
+          "tipSpeedMps": 3.5481416559525765,
+          "swordKineticJ": 3.516592796697706,
+          "pain": 0.25232409325338856,
+          "handErrorM": 0.11816495760549953
+        },
+        "B": {
+          "tipSpeedMps": 3.5474817937113667,
+          "swordKineticJ": 3.5156897593034966,
+          "pain": 0.25232409325338856,
+          "handErrorM": 0.1183918024190132
+        },
+        "tipChangePercent": -0.018597404083420255
+      },
+      {
+        "tick": 1621,
+        "A": {
+          "tipSpeedMps": 3.54450857168754,
+          "swordKineticJ": 3.1527197238050952,
+          "pain": 0.24732409325338855,
+          "handErrorM": 0.12693620205074746
+        },
+        "B": {
+          "tipSpeedMps": 3.5458879036935973,
+          "swordKineticJ": 3.16005346830769,
+          "pain": 0.24732409325338855,
+          "handErrorM": 0.1271629776045737
+        },
+        "tipChangePercent": 0.038914618998942
+      },
+      {
+        "tick": 1622,
+        "A": {
+          "tipSpeedMps": 3.434054246701261,
+          "swordKineticJ": 2.5334952751845483,
+          "pain": 0.24232409325338855,
+          "handErrorM": 0.13415682315623206
+        },
+        "B": {
+          "tipSpeedMps": 3.434332959678679,
+          "swordKineticJ": 2.534938093836574,
+          "pain": 0.24232409325338855,
+          "handErrorM": 0.1343793966273156
+        },
+        "tipChangePercent": 0.008116149524606264
+      }
+    ],
+    "windows": {
+      "dragging": {
+        "ticks": [
+          1621,
+          1650
+        ],
+        "A": {
+          "tipPeakMps": 5.796204824628679,
+          "tipPeakTick": 1650,
+          "tipPeakTimeAfterFirstPostInputSampleMs": 241.66666666666666,
+          "swordKPeakJ": 13.164246240383543,
+          "swordKPeakTick": 1650,
+          "samples": 30
+        },
+        "B": {
+          "tipPeakMps": 5.682264080657108,
+          "tipPeakTick": 1650,
+          "tipPeakTimeAfterFirstPostInputSampleMs": 241.66666666666666,
+          "swordKPeakJ": 11.821868375663463,
+          "swordKPeakTick": 1650,
+          "samples": 30
+        },
+        "tipPeakChangePercent": -1.9657818765724921,
+        "tipPeakDelayMs": 0.0,
+        "causalScope": "Two-step same player input/pain at1621–1622 only; body states already differ after recovery and opponent input has diverged. Later peak differences are descriptive."
+      },
+      "holding": {
+        "ticks": [
+          1651,
+          1686
+        ],
+        "A": {
+          "tipPeakMps": 6.181851194169942,
+          "tipPeakTick": 1668,
+          "tipPeakTimeAfterFirstPostInputSampleMs": 391.6666666666667,
+          "swordKPeakJ": 20.70911543558781,
+          "swordKPeakTick": 1657,
+          "samples": 36
+        },
+        "B": {
+          "tipPeakMps": 6.21535724464819,
+          "tipPeakTick": 1671,
+          "tipPeakTimeAfterFirstPostInputSampleMs": 416.6666666666667,
+          "swordKPeakJ": 20.95992779499277,
+          "swordKPeakTick": 1661,
+          "samples": 36
+        },
+        "tipPeakChangePercent": 0.5420067456467947,
+        "tipPeakDelayMs": 25.0,
+        "causalScope": "Two-step same player input/pain at1621–1622 only; body states already differ after recovery and opponent input has diverged. Later peak differences are descriptive."
+      },
+      "draggingAndHolding": {
+        "ticks": [
+          1621,
+          1686
+        ],
+        "A": {
+          "tipPeakMps": 6.181851194169942,
+          "tipPeakTick": 1668,
+          "tipPeakTimeAfterFirstPostInputSampleMs": 391.6666666666667,
+          "swordKPeakJ": 20.70911543558781,
+          "swordKPeakTick": 1657,
+          "samples": 66
+        },
+        "B": {
+          "tipPeakMps": 6.21535724464819,
+          "tipPeakTick": 1671,
+          "tipPeakTimeAfterFirstPostInputSampleMs": 416.6666666666667,
+          "swordKPeakJ": 20.95992779499277,
+          "swordKPeakTick": 1661,
+          "samples": 66
+        },
+        "tipPeakChangePercent": 0.5420067456467947,
+        "tipPeakDelayMs": 25.0,
+        "causalScope": "Two-step same player input/pain at1621–1622 only; body states already differ after recovery and opponent input has diverged. Later peak differences are descriptive."
+      },
+      "released": {
+        "ticks": [
+          1687,
+          1746
+        ],
+        "A": {
+          "tipPeakMps": 2.2010237386643516,
+          "tipPeakTick": 1725,
+          "tipPeakTimeAfterFirstPostInputSampleMs": 866.6666666666666,
+          "swordKPeakJ": 1.138107782381791,
+          "swordKPeakTick": 1725,
+          "samples": 60
+        },
+        "B": {
+          "tipPeakMps": 2.1778274127062978,
+          "tipPeakTick": 1725,
+          "tipPeakTimeAfterFirstPostInputSampleMs": 866.6666666666666,
+          "swordKPeakJ": 1.1296502275659097,
+          "swordKPeakTick": 1725,
+          "samples": 60
+        },
+        "tipPeakChangePercent": -1.0538880408500373,
+        "tipPeakDelayMs": 0.0,
+        "causalScope": "Two-step same player input/pain at1621–1622 only; body states already differ after recovery and opponent input has diverged. Later peak differences are descriptive."
+      },
+      "beforeNewHitBeginning": {
+        "ticks": [
+          1621,
+          1622
+        ],
+        "A": {
+          "tipPeakMps": 3.54450857168754,
+          "tipPeakTick": 1621,
+          "tipPeakTimeAfterFirstPostInputSampleMs": 0.0,
+          "swordKPeakJ": 3.1527197238050952,
+          "swordKPeakTick": 1621,
+          "samples": 2
+        },
+        "B": {
+          "tipPeakMps": 3.5458879036935973,
+          "tipPeakTick": 1621,
+          "tipPeakTimeAfterFirstPostInputSampleMs": 0.0,
+          "swordKPeakJ": 3.16005346830769,
+          "swordKPeakTick": 1621,
+          "samples": 2
+        },
+        "tipPeakChangePercent": 0.038914618998942,
+        "tipPeakDelayMs": 0.0,
+        "causalScope": "Two-step same player input/pain at1621–1622 only; body states already differ after recovery and opponent input has diverged. Later peak differences are descriptive."
+      }
+    },
+    "conclusion": "No general attack slowdown or additional input-acceptance delay established. Early same-pain two steps are effectively equal; later dragging peak is1.97% lower but full drag+hold peak0.54% higher and25ms later, after reactive contact/pain divergence.",
+    "limits": [
+      "Only one actual-injury gesture fixture; positive user recovery feedback is separate from measured speed.",
+      "Post-recovery foot friction change can alter body/weapon evolution; this review does not rule out situational differences in speed or timing.",
+      "The 1621–1622 physical output includes previous return momentum, so it is not a complete isolated attack acceleration test.",
+      "No smartphone render/hitstop/device timing measured in these120Hz headless rows.",
+      "No new causal effect claimed from branched damage, survival, or post-hit energy peaks."
+    ]
+  },
+  "evidence": [
+    {
+      "path": "/workspace/halfsword-handoff/recovery-speed-20261005/derived.json",
+      "bytes": 19593,
+      "sha256": "427ddc3a3258f4c5a6024fd3e34195d4ec10f32e34c2095d5430770723d3d9d1"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/recovery-speed-20261005/attack/summary.json",
+      "bytes": 9412,
+      "sha256": "d7ddad6855940ff90d8dae2584cb697cc1e14e33cd7b07730c757407cc54253c"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/recovery-speed-20261005/attack/result.md",
+      "bytes": 1239,
+      "sha256": "6e70619cc66a9969c7a0f60b1de8be19166425e2fe1be74e6085ceebd45bb799"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/recovery-speed-20261005/attack/derive_attack.py",
+      "bytes": 6051,
+      "sha256": "8782d5cd0ba43446fbb9efed553740ae1ead01ffae84185d9b72eb3ff150700a"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/recovery-speed-20261005/gravity-audit/gravity-audit.json",
+      "bytes": 5801,
+      "sha256": "1914ceb227c0eb17ab49f15bbcfdb26543c6f07b14de8f3124418e05a1fcb7b9"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/recovery-speed-20261005/gravity-audit/probe01-followup.json",
+      "bytes": 5564,
+      "sha256": "d864f9cf42f615dab251f9063e4e1342267d32b3f40c05b4753df144d02579d8"
+    }
+  ],
+  "tools": [
+    {
+      "path": "/workspace/halfsword-codex/tools/sim/experiments/recovery_speed_probe.mjs",
+      "bytes": 8875,
+      "sha256": "0326e1df5df9df6aa2fa3b145fd825eb6f2db7ca84f4dcf2d339c3a7c16c4997"
+    },
+    {
+      "path": "/workspace/halfsword-codex/tools/sim/experiments/recovery_speed_report.py",
+      "bytes": 4608,
+      "sha256": "dab4bd7ad7ca945518b03f576b5e56f18191657c15cdac3a21f557353f959920"
+    }
+  ],
+  "commands": {
+    "physics": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/halfsword-codex/tools/sim/experiments/recovery_speed_probe.mjs",
+      "--out=/workspace/halfsword-handoff/recovery-speed-20261005/probe01",
+      "--reference=/workspace/halfsword-handoff/phase2-round1-20261005/p5/extended-run01/report.json"
+    ],
+    "derive": [
+      "python3",
+      "tools/sim/experiments/recovery_speed_report.py",
+      "--raw",
+      "/workspace/halfsword-handoff/recovery-speed-20261005/probe01/report.json",
+      "--out",
+      "/tmp/recovery-speed-new-derived.json"
+    ]
+  },
+  "publication": "Research record only; existing phase2_round1_release.json remains the unchanged game delivery evidence.",
+  "reference": {
+    "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p5/extended-run01/report.json",
+    "bytes": 73965658,
+    "sha256": "9701633911bb121e6d44c19189f9b7acdf858ea842ffcd550a6d2347a6be2073"
+  },
+  "protocol": {
+    "dt": 0.008333333333333333,
+    "model": "ordinary v2-r2/manual player, legacy opponent/global support/cutting",
+    "injuryPrefixThrough": 1476,
+    "isolatedBoundary": 1477,
+    "gravityDiagnostic": "Only PHYSICS.gravity=-11.772 in memory for one healthy B row. Control 9.81 constants intentionally unchanged; not a tuned or proposed deployment.",
+    "limits": "120Hz step inputs, no browser frame/hitstop/emotion cadence equivalence. Parking excludes new opponent hits and is an isolation experiment, not actual post-injury combat."
+  },
+  "sourceState": {
+    "gameRuntimeMatchesBaseCommit": true,
+    "probeWasUntrackedAtExecution": true,
+    "proof": "All runtime/probe/engine hashes in sourceHashes, copied under probe01/frozen, stable before/after; no src diff."
+  }
+}
