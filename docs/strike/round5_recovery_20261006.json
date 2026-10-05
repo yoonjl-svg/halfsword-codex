@@ -1,0 +1,928 @@
+{
+  "schemaVersion": 2,
+  "head": "43f2ee5108decb5884841973557cf81a5d6eafef",
+  "verdict": "from_spawn_manual_recovery_contact_gate_unexposed",
+  "publicCombination": "withheld",
+  "measurementValid": true,
+  "executionCount": 4,
+  "steps": 9102,
+  "wallSeconds": 53.317266377,
+  "runs": [
+    {
+      "fixture": "passive",
+      "summaryArtifact": {
+        "path": "/workspace/halfsword-handoff/phase2-round5-20261006/recovery/summary01.json",
+        "bytes": 21133,
+        "sha256": "43f6b4a3ca13eceedfc3587d4d6cfad8d7fac49c41825b0ab85776da8f66d280"
+      },
+      "reportArtifact": {
+        "path": "/workspace/halfsword-handoff/phase2-round5-20261006/recovery/run01/report.json",
+        "bytes": 33604,
+        "sha256": "3b396586387516d2d8445a1669b1c878217b2320dea2db90402dd4d00d9ccf95"
+      },
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/phase2-round5-20261006/recovery/frozen-source/tools/sim/experiments/round5_recovery_probe.mjs",
+        "--out=/workspace/halfsword-handoff/phase2-round5-20261006/recovery/run01"
+      ],
+      "protocol": {
+        "gravity": -9.81,
+        "dt": 0.008333333333333333,
+        "seed": 7,
+        "gapM": 5.6,
+        "walls": false,
+        "waitLimitSteps": 3600,
+        "tape": [
+          {
+            "phase": "lower",
+            "steps": 24,
+            "dx": 0,
+            "dy": -0.18,
+            "held": true
+          },
+          {
+            "phase": "raise",
+            "steps": 36,
+            "dx": -0.28,
+            "dy": 0.38,
+            "held": true
+          },
+          {
+            "phase": "cut",
+            "steps": 30,
+            "dx": 0.56,
+            "dy": -0.76,
+            "held": true
+          },
+          {
+            "phase": "hold",
+            "steps": 24,
+            "dx": 0,
+            "dy": 0,
+            "held": true
+          },
+          {
+            "phase": "reverse",
+            "steps": 36,
+            "dx": -0.38,
+            "dy": 0.66,
+            "held": true
+          },
+          {
+            "phase": "hold2",
+            "steps": 24,
+            "dx": 0,
+            "dy": 0,
+            "held": true
+          },
+          {
+            "phase": "recut",
+            "steps": 30,
+            "dx": 0.4,
+            "dy": -0.7,
+            "held": true
+          },
+          {
+            "phase": "release",
+            "steps": 60,
+            "dx": 0,
+            "dy": 0,
+            "held": false
+          }
+        ],
+        "tapeLength": 264,
+        "scope": "Production helper, player v2/manual/fresh from spawn; normal enemy AI, no player AI. Fixed passive hold until actual hit/getup/effective fresh, then fixed relative human-delta tape and normal forward joystick. No health/state/body transform injection. Relative start times may differ. No browser render-frame, hitstop or emotion-update equivalence claim."
+      },
+      "comparisons": {
+        "creationNativeExact": true,
+        "creationControlExact": true,
+        "firstCandidateImpulseTick": null,
+        "firstCandidateBranchTick": null,
+        "firstFrameDifference": null,
+        "prefixBeforeFirstBranchExact": null,
+        "commonRecordedSteps": 951,
+        "allCommonFramesExact": true
+      },
+      "rows": [
+        {
+          "key": "baseline",
+          "steps": 951,
+          "terminal": {
+            "tick": 950,
+            "reason": "player_unarmed",
+            "afterTrigger": false
+          },
+          "firstHitTick": 950,
+          "firstGetupAfterHitTick": null,
+          "firstEffectiveFreshTick": null,
+          "trigger": null,
+          "tapeStart": null,
+          "tapeRequests": 0,
+          "allInputRequestsAccepted": true,
+          "effectiveFreshEntries": 0,
+          "initialEntries": 2,
+          "pinCallsAfterFresh": 0,
+          "playerCutPairs": 0,
+          "candidateCalls": 0,
+          "tapeCutPairs": 0,
+          "livingTargetActualTapePairs": 0,
+          "fatalSameStepPossiblePairs": 0,
+          "fastLivingActualTapePairs": 0,
+          "firstHitWounds": [
+            {
+              "tick": 950,
+              "part": "chest",
+              "energyJ": 157.9312985926671,
+              "severity": 1.2477489985238726,
+              "before": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              },
+              "after": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 1,
+                "pain": 2,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              }
+            },
+            {
+              "tick": 950,
+              "part": "uarmS",
+              "energyJ": 133.66332773725557,
+              "severity": 1.2389164962996555,
+              "before": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 1,
+                "pain": 2,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              },
+              "after": {
+                "alive": true,
+                "armed": false,
+                "gripValid": false,
+                "state": "stand",
+                "blood": 1,
+                "pain": 2,
+                "limbs": {
+                  "armS": 0.13275845259024122,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              }
+            },
+            {
+              "tick": 950,
+              "part": "farmS",
+              "energyJ": 126.65303892070133,
+              "severity": 1.1621759589764509,
+              "before": {
+                "alive": true,
+                "armed": false,
+                "gripValid": false,
+                "state": "stand",
+                "blood": 1,
+                "pain": 2,
+                "limbs": {
+                  "armS": 0.13275845259024122,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              },
+              "after": {
+                "alive": true,
+                "armed": false,
+                "gripValid": false,
+                "state": "stand",
+                "blood": 1,
+                "pain": 2,
+                "limbs": {
+                  "armS": 0,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              }
+            }
+          ],
+          "finalPlayer": {
+            "state": "stand",
+            "alive": true,
+            "armed": false,
+            "limbs": {
+              "armS": 0,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "blood": 1,
+            "pain": 2
+          },
+          "checks": {
+            "finite": true,
+            "gravityFixed": true,
+            "globalLegacy": true,
+            "onlyPlayer": true,
+            "inputAccepted": true,
+            "productionFreshClear": true
+          },
+          "error": null,
+          "exposurePassed": false,
+          "finalGripEvidence": [
+            {
+              "index": 0,
+              "alive": true,
+              "armed": false,
+              "gripValid": false,
+              "gripping": true
+            },
+            {
+              "index": 1,
+              "alive": true,
+              "armed": true,
+              "gripValid": true,
+              "gripping": true
+            }
+          ]
+        },
+        {
+          "key": "combined",
+          "steps": 951,
+          "terminal": {
+            "tick": 950,
+            "reason": "player_unarmed",
+            "afterTrigger": false
+          },
+          "firstHitTick": 950,
+          "firstGetupAfterHitTick": null,
+          "firstEffectiveFreshTick": null,
+          "trigger": null,
+          "tapeStart": null,
+          "tapeRequests": 0,
+          "allInputRequestsAccepted": true,
+          "effectiveFreshEntries": 0,
+          "initialEntries": 2,
+          "pinCallsAfterFresh": 0,
+          "playerCutPairs": 0,
+          "candidateCalls": 0,
+          "tapeCutPairs": 0,
+          "livingTargetActualTapePairs": 0,
+          "fatalSameStepPossiblePairs": 0,
+          "fastLivingActualTapePairs": 0,
+          "firstHitWounds": [
+            {
+              "tick": 950,
+              "part": "chest",
+              "energyJ": 157.9312985926671,
+              "severity": 1.2477489985238726,
+              "before": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              },
+              "after": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 1,
+                "pain": 2,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              }
+            },
+            {
+              "tick": 950,
+              "part": "uarmS",
+              "energyJ": 133.66332773725557,
+              "severity": 1.2389164962996555,
+              "before": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 1,
+                "pain": 2,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              },
+              "after": {
+                "alive": true,
+                "armed": false,
+                "gripValid": false,
+                "state": "stand",
+                "blood": 1,
+                "pain": 2,
+                "limbs": {
+                  "armS": 0.13275845259024122,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              }
+            },
+            {
+              "tick": 950,
+              "part": "farmS",
+              "energyJ": 126.65303892070133,
+              "severity": 1.1621759589764509,
+              "before": {
+                "alive": true,
+                "armed": false,
+                "gripValid": false,
+                "state": "stand",
+                "blood": 1,
+                "pain": 2,
+                "limbs": {
+                  "armS": 0.13275845259024122,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              },
+              "after": {
+                "alive": true,
+                "armed": false,
+                "gripValid": false,
+                "state": "stand",
+                "blood": 1,
+                "pain": 2,
+                "limbs": {
+                  "armS": 0,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              }
+            }
+          ],
+          "finalPlayer": {
+            "state": "stand",
+            "alive": true,
+            "armed": false,
+            "limbs": {
+              "armS": 0,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "blood": 1,
+            "pain": 2
+          },
+          "checks": {
+            "finite": true,
+            "gravityFixed": true,
+            "globalLegacy": true,
+            "onlyPlayer": true,
+            "inputAccepted": true,
+            "productionFreshClear": true
+          },
+          "error": null,
+          "exposurePassed": false,
+          "finalGripEvidence": [
+            {
+              "index": 0,
+              "alive": true,
+              "armed": false,
+              "gripValid": false,
+              "gripping": true
+            },
+            {
+              "index": 1,
+              "alive": true,
+              "armed": true,
+              "gripValid": true,
+              "gripping": true
+            }
+          ]
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "/workspace/halfsword-handoff/phase2-round5-20261006/recovery/run01/report.json",
+          "bytes": 33604,
+          "sha256": "3b396586387516d2d8445a1669b1c878217b2320dea2db90402dd4d00d9ccf95"
+        },
+        {
+          "path": "/workspace/halfsword-handoff/phase2-round5-20261006/recovery/run01/baseline.json",
+          "bytes": 7685478,
+          "sha256": "262ed2f01657935a1683441dfcfc70bd0954a84967853d33e08e53826a4e17be"
+        },
+        {
+          "path": "/workspace/halfsword-handoff/phase2-round5-20261006/recovery/run01/combined.json",
+          "bytes": 7685482,
+          "sha256": "8c363772c4e1012cf67790aa6fb71a9ff8963ddab554a849e474b9faa48664a6"
+        }
+      ]
+    },
+    {
+      "fixture": "helmet-duel",
+      "summaryArtifact": {
+        "path": "/workspace/halfsword-handoff/phase2-round5-20261006/recovery/helmet-summary01.json",
+        "bytes": 21404,
+        "sha256": "d0ffab31f213c992806b40750fdaed127fae0b3e8154fb67a0fa7a468f2b059c"
+      },
+      "reportArtifact": {
+        "path": "/workspace/halfsword-handoff/phase2-round5-20261006/recovery/helmet-run01/report.json",
+        "bytes": 34696,
+        "sha256": "d0e08969da0faa087740d283cce2d77c5954aa768b8d7eeec48788a4e4328041"
+      },
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/phase2-round5-20261006/recovery/helmet-frozen-source/tools/sim/experiments/round5_recovery_probe.mjs",
+        "--fixture=helmet-duel",
+        "--out=/workspace/halfsword-handoff/phase2-round5-20261006/recovery/helmet-run01"
+      ],
+      "protocol": {
+        "fixture": "helmet-duel",
+        "gravity": -9.81,
+        "dt": 0.008333333333333333,
+        "seed": 7,
+        "gapM": 5.6,
+        "walls": false,
+        "sameLook": true,
+        "preparationPlayerAI": true,
+        "waitLimitSteps": 3600,
+        "tape": [
+          {
+            "phase": "lower",
+            "steps": 24,
+            "dx": 0,
+            "dy": -0.18,
+            "held": true
+          },
+          {
+            "phase": "raise",
+            "steps": 36,
+            "dx": -0.28,
+            "dy": 0.38,
+            "held": true
+          },
+          {
+            "phase": "cut",
+            "steps": 30,
+            "dx": 0.56,
+            "dy": -0.76,
+            "held": true
+          },
+          {
+            "phase": "hold",
+            "steps": 24,
+            "dx": 0,
+            "dy": 0,
+            "held": true
+          },
+          {
+            "phase": "reverse",
+            "steps": 36,
+            "dx": -0.38,
+            "dy": 0.66,
+            "held": true
+          },
+          {
+            "phase": "hold2",
+            "steps": 24,
+            "dx": 0,
+            "dy": 0,
+            "held": true
+          },
+          {
+            "phase": "recut",
+            "steps": 30,
+            "dx": 0.4,
+            "dy": -0.7,
+            "held": true
+          },
+          {
+            "phase": "release",
+            "steps": 60,
+            "dx": 0,
+            "dy": 0,
+            "held": false
+          }
+        ],
+        "tapeLength": 264,
+        "scope": "Production helper, player v2/manual/fresh from spawn; normal enemy AI. Passive fixture holds still; helmet-duel observes normal player AI with an opponent using ordinary LOOKS.player equipment until actual hit/getup/effective fresh. Player AI is then removed before the next step, which begins fixed relative human-delta tape and normal forward joystick. No health/state/body transform injection. Relative start times may differ. Helmet opponent differs from public default enemy; no browser render-frame, hitstop or emotion-update equivalence claim."
+      },
+      "comparisons": {
+        "creationNativeExact": true,
+        "creationControlExact": true,
+        "firstCandidateImpulseTick": 790,
+        "firstCandidateBranchTick": 790,
+        "firstNativeDifference": 790,
+        "firstControlDifference": 792,
+        "firstInputDifference": 794,
+        "firstFrameDifference": 790,
+        "prefixBeforeFirstBranchExact": true,
+        "commonRecordedSteps": 3600,
+        "allCommonFramesExact": false
+      },
+      "rows": [
+        {
+          "key": "baseline",
+          "fixture": "helmet-duel",
+          "steps": 3600,
+          "terminal": {
+            "tick": 3600,
+            "reason": "no_qualifying_recovery_within_30s"
+          },
+          "handover": null,
+          "firstHitTick": 1190,
+          "firstGetupAfterHitTick": null,
+          "firstEffectiveFreshTick": null,
+          "trigger": null,
+          "tapeStart": null,
+          "tapeRequests": 0,
+          "allInputRequestsAccepted": true,
+          "effectiveFreshEntries": 0,
+          "initialEntries": 2,
+          "pinCallsAfterFresh": 0,
+          "playerCutPairs": 298,
+          "candidateCalls": 0,
+          "livingPlayerPairs": 298,
+          "livingCandidateActualPairs": 0,
+          "candidateCapPairs": 0,
+          "candidateZeroImpulsePairs": 0,
+          "candidateInstantPositiveKAbove1eMinus5J": 0,
+          "candidateInstantMaxKJ": null,
+          "candidateMaxMomentumResidualNs": null,
+          "candidateMaxAngularMomentumResidualNms": null,
+          "tapeCutPairs": 0,
+          "livingTargetActualTapePairs": 0,
+          "fatalSameStepPossiblePairs": 0,
+          "fastLivingActualTapePairs": 0,
+          "firstHitWounds": [
+            {
+              "tick": 1190,
+              "part": "shinB",
+              "energyJ": 52.689209942105386,
+              "severity": 0.26964675649848246,
+              "before": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              },
+              "after": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 1,
+                "pain": 0.5669788048128219,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 0.8112472704510623
+                }
+              }
+            }
+          ],
+          "finalPlayer": {
+            "state": "stand",
+            "alive": true,
+            "armed": true,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 0.7891022561740869
+            },
+            "blood": 0.9673894455824078,
+            "pain": 1.0670722523135465
+          },
+          "finalEnemy": {
+            "state": "stand",
+            "alive": true,
+            "armed": true,
+            "limbs": {
+              "armS": 0.809378993710355,
+              "armO": 0,
+              "legF": 0.6518496302389747,
+              "legB": 1
+            },
+            "blood": 0.7824948608490092,
+            "pain": 0
+          },
+          "playerObservedStates": [
+            "stand"
+          ],
+          "checks": {
+            "finite": true,
+            "gravityFixed": true,
+            "globalLegacy": true,
+            "onlyPlayer": true,
+            "inputAccepted": true,
+            "productionFreshClear": true
+          },
+          "error": null,
+          "exposurePassed": false,
+          "finalGripEvidence": [
+            {
+              "index": 0,
+              "alive": true,
+              "armed": true,
+              "gripValid": true,
+              "gripping": true
+            },
+            {
+              "index": 1,
+              "alive": true,
+              "armed": true,
+              "gripValid": true,
+              "gripping": false
+            }
+          ]
+        },
+        {
+          "key": "combined",
+          "fixture": "helmet-duel",
+          "steps": 3600,
+          "terminal": {
+            "tick": 3600,
+            "reason": "no_qualifying_recovery_within_30s"
+          },
+          "handover": null,
+          "firstHitTick": 1191,
+          "firstGetupAfterHitTick": null,
+          "firstEffectiveFreshTick": null,
+          "trigger": null,
+          "tapeStart": null,
+          "tapeRequests": 0,
+          "allInputRequestsAccepted": true,
+          "effectiveFreshEntries": 0,
+          "initialEntries": 2,
+          "pinCallsAfterFresh": 0,
+          "playerCutPairs": 169,
+          "candidateCalls": 169,
+          "livingPlayerPairs": 169,
+          "livingCandidateActualPairs": 169,
+          "candidateCapPairs": 72,
+          "candidateZeroImpulsePairs": 0,
+          "candidateInstantPositiveKAbove1eMinus5J": 0,
+          "candidateInstantMaxKJ": -0.0008875357483981716,
+          "candidateMaxMomentumResidualNs": 8.245254411642624e-07,
+          "candidateMaxAngularMomentumResidualNms": 3.1881405053051964e-06,
+          "tapeCutPairs": 0,
+          "livingTargetActualTapePairs": 0,
+          "fatalSameStepPossiblePairs": 0,
+          "fastLivingActualTapePairs": 0,
+          "firstHitWounds": [
+            {
+              "tick": 1191,
+              "part": "shinB",
+              "energyJ": 58.73842814359708,
+              "severity": 0.3409710677771586,
+              "before": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 1,
+                "pain": 0,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              },
+              "after": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 1,
+                "pain": 0.6643663751790407,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 0.761320252555989
+                }
+              }
+            },
+            {
+              "tick": 1191,
+              "part": "thighB",
+              "energyJ": 58.335086504643805,
+              "severity": 0.3363478300727482,
+              "before": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 1,
+                "pain": 0.6643663751790407,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 0.761320252555989
+                }
+              },
+              "after": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 1,
+                "pain": 1.3223452159348645,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 0.5258767715050653
+                }
+              }
+            }
+          ],
+          "finalPlayer": {
+            "state": "stand",
+            "alive": true,
+            "armed": true,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 0.4519094246678152
+            },
+            "blood": 0.9180983535760546,
+            "pain": 0
+          },
+          "finalEnemy": {
+            "state": "stand",
+            "alive": true,
+            "armed": true,
+            "limbs": {
+              "armS": 0.9635490271239529,
+              "armO": 0,
+              "legF": 0.8414966069101621,
+              "legB": 1
+            },
+            "blood": 0.8240614665210981,
+            "pain": 0
+          },
+          "playerObservedStates": [
+            "stand"
+          ],
+          "checks": {
+            "finite": true,
+            "gravityFixed": true,
+            "globalLegacy": true,
+            "onlyPlayer": true,
+            "inputAccepted": true,
+            "productionFreshClear": true
+          },
+          "error": null,
+          "exposurePassed": false,
+          "finalGripEvidence": [
+            {
+              "index": 0,
+              "alive": true,
+              "armed": true,
+              "gripValid": true,
+              "gripping": true
+            },
+            {
+              "index": 1,
+              "alive": true,
+              "armed": true,
+              "gripValid": true,
+              "gripping": false
+            }
+          ]
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "/workspace/halfsword-handoff/phase2-round5-20261006/recovery/helmet-run01/report.json",
+          "bytes": 34696,
+          "sha256": "d0e08969da0faa087740d283cce2d77c5954aa768b8d7eeec48788a4e4328041"
+        },
+        {
+          "path": "/workspace/halfsword-handoff/phase2-round5-20261006/recovery/helmet-run01/baseline.json",
+          "bytes": 32961461,
+          "sha256": "f2e1d538567d5caab82cfc13471217a77bc86372f0bc46c433ffd3ded0b528bc"
+        },
+        {
+          "path": "/workspace/halfsword-handoff/phase2-round5-20261006/recovery/helmet-run01/combined.json",
+          "bytes": 31972350,
+          "sha256": "996b59934a4945be8640f3d24b76607973f75c0793b9d684f26f24cbe5aa6b10"
+        }
+      ]
+    }
+  ],
+  "frozenSources": [
+    {
+      "directory": "/workspace/halfsword-handoff/phase2-round5-20261006/recovery/frozen-source",
+      "manifest": {
+        "path": "/workspace/halfsword-handoff/phase2-round5-20261006/recovery/frozen-source/SOURCE.json",
+        "bytes": 9750,
+        "sha256": "9d9db52d66a855d0bdb25c6f0bc684601ac7f72443c5f206341994640851993c"
+      },
+      "fileCount": 96,
+      "codeManifestSHA256": "16627067988d75b2bf410183d1f54aca826aab7600aab99da10b51ef12349b2b"
+    },
+    {
+      "directory": "/workspace/halfsword-handoff/phase2-round5-20261006/recovery/helmet-frozen-source",
+      "manifest": {
+        "path": "/workspace/halfsword-handoff/phase2-round5-20261006/recovery/helmet-frozen-source/SOURCE.json",
+        "bytes": 10329,
+        "sha256": "ed784ac6f22bf160658def03d983bab87f0c8962916a657e7646bd0ef9aa2bdf"
+      },
+      "fileCount": 96,
+      "codeManifestSHA256": "cd3b904e077d1a1b4b4ffd251bb637293e6428ca6b202c37a646b8d5290c23ef"
+    }
+  ],
+  "supplementPlan": {
+    "path": "/workspace/halfsword-handoff/phase2-round5-20261006/recovery/helmet-plan01.json",
+    "bytes": 1172,
+    "sha256": "17f34aa9349b751fa702461cf763921019f9f0856085571ad7c03df7f028e64b"
+  },
+  "derivationTools": [
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round5-20261006/recovery/passive-report-v1.py",
+      "bytes": 4978,
+      "sha256": "282922e56f80c2bcdd523dfb0995cc76f0d21f4b3c6d239deb11b09230cef20c"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-round5-20261006/recovery/helmet-report-v2.py",
+      "bytes": 6103,
+      "sha256": "b69c6f5cbddb0f34e96d8274caeca53fca2f9e7a711098508b7a96c94a890248"
+    }
+  ],
+  "limits": [
+    "Measurement validity does not imply the recovery/contact gate was reached.",
+    "Initial Gait.enter and vacuous productionFreshClear do not prove recovery reset.",
+    "Positive wound energy alone is not a limb injury; severity and before/after health are separate.",
+    "Conditional recovery start may differ: relative tape equality is not absolute input or causal efficacy equality.",
+    "No browser frame timing, hitstop, rendered emotion-update or arena-wall equivalence claim.",
+    "No P2/P5 completion, naturalness acceptance, or ordinary-default promotion.",
+    "Both rows had actual leg wounds but no player getup/fresh; all manual phases remain unexposed.",
+    "Helmet-duel uses normal existing player helmet equipment on the enemy and player AI before handover; it is not the public default enemy/input.",
+    "AI input diverges four steps after the first candidate impulse; later damage totals are not isolated causal efficacy comparisons.",
+    "Round4 late activation preserves an already-realized recovery boundary; it does not prove this from-spawn human gate."
+  ],
+  "decision": {
+    "candidateEfficacyFailure": false,
+    "exposureFailure": true,
+    "selectionClosed": true,
+    "furtherPhysics": 0,
+    "ordinaryPromotion": false,
+    "naturalnessAccepted": false
+  }
+}

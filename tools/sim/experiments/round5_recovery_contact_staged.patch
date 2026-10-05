@@ -1,0 +1,132 @@
+diff --git a/public/feature-lab.html b/public/feature-lab.html
+index 0d6ee50..9c3afc0 100644
+--- a/public/feature-lab.html
++++ b/public/feature-lab.html
+@@ -31,6 +31,15 @@
+ <main>
+   <h1>물리·무기 시험</h1>
+   <p>아래 버튼을 눌러 직접 플레이해 보세요.</p>
++  <section id="recovery-contact-v2-comparison" aria-labelledby="recovery-contact-v2-title">
++    <h2 id="recovery-contact-v2-title">회복 뒤 다시 베기 · 통합 비교</h2>
++    <p>두 판 모두 기존 회복 B와 검술 보정 v2를 사용합니다. 회복+타격 B는 베어 닿았을 때의 반작용도 함께 적용합니다. 넘어진 뒤 일어나 다시 베고, 맞힌 뒤 방향을 바꾸거나 손을 놓아 보세요.</p>
++    <div class="demos">
++      <a id="playRecoveryContactV2Baseline" class="play secondary" href="./?recoveryContactV2=baseline">▶ 기준<br>기존 회복 B</a>
++      <a id="playRecoveryContactV2Combined" class="play" href="./?recoveryContactV2=combined">▶ 통합<br>회복+타격 B</a>
++    </div>
++    <p class="note">츠바이핸더·중력9.81·보통 난도 롱소드 상대입니다. 시작부터 비교 설정을 적용하며 재시작해도 같습니다. 일반판 반영 전 시험이며 설정은 저장되지 않습니다. 폰을 가로로 돌려 싸움 시작을 누르세요.</p>
++  </section>
+   <section id="gravity-v2-comparison" aria-labelledby="gravity-v2-title">
+     <h2 id="gravity-v2-title">중력만 비교 · 기존 B 유지</h2>
+     <p>세 판 모두 츠바이핸더·검술 보정 v2·다시 발 딛기 B입니다. 중력만 바꾸었습니다. 같은 방식으로 걷고 베어 보고, 옆으로 기울 때 발을 딛는 속도와 넘어진 뒤 일어나는 느낌을 비교해 주세요.</p>
+diff --git a/src/main.js b/src/main.js
+index 879494c..1e57e17 100644
+--- a/src/main.js
++++ b/src/main.js
+@@ -51,6 +51,7 @@ import { configureSwordsmanshipTrial, mountSwordsmanshipTrial } from './swordsma
+ import { configureContactTrial, mountContactTrial } from './contact_trial.js';
+ import { configureStanceV2Trial, mountStanceV2Trial } from './stance_v2_trial.js';
+ import { configureGravityV2Trial, mountGravityV2Trial } from './gravity_v2_trial.js';
++import { configureRecoveryContactV2Trial, mountRecoveryContactV2Trial } from './recovery_contact_v2_trial.js';
+ import { applySwordsmanship, recordSwordsmanshipInput } from './swordsmanship.js';
+ import { configureSwordsmanshipDefault, swordsmanshipDefaultSupportsWeapon } from './swordsmanship_default.js';
+ 
+@@ -62,10 +63,11 @@ const requestedParams = new URLSearchParams(location.search);
+ const contactTrial = configureContactTrial(requestedParams);
+ const stanceV2Trial = configureStanceV2Trial(requestedParams);
+ const gravityV2Trial = configureGravityV2Trial(requestedParams);
+-const activeV2Trial = contactTrial.active ? contactTrial : stanceV2Trial.active ? stanceV2Trial : gravityV2Trial.active ? gravityV2Trial : null;
++const recoveryContactV2Trial = configureRecoveryContactV2Trial(requestedParams);
++const activeV2Trial = contactTrial.active ? contactTrial : stanceV2Trial.active ? stanceV2Trial : gravityV2Trial.active ? gravityV2Trial : recoveryContactV2Trial.active ? recoveryContactV2Trial : null;
+ // This strict compound entry owns its whole query. Invalid/mixed entries return
+ // to current ordinary defaults; older trials keep their existing parsing.
+-const priorTrialParams = contactTrial.requested || stanceV2Trial.requested || gravityV2Trial.requested ? new URLSearchParams() : requestedParams;
++const priorTrialParams = contactTrial.requested || stanceV2Trial.requested || gravityV2Trial.requested || recoveryContactV2Trial.requested ? new URLSearchParams() : requestedParams;
+ const swordsmanshipDefault = configureSwordsmanshipDefault(activeV2Trial ? requestedParams : priorTrialParams);
+ const swordsmanshipTrial = configureSwordsmanshipTrial(priorTrialParams);
+ const integratedCombatTrial = configureIntegratedCombatTrial(priorTrialParams);
+@@ -467,6 +469,7 @@ function newRound(weaponId) {
+   if (integratedCombatTrial.active || swordsmanshipTrial.active || activeV2Trial) enemy.onehandArmModel = 'legacy';
+   if (stanceV2Trial.active) player.stanceMemoryModel = stanceV2Trial.model;
+   if (gravityV2Trial.active) player.stanceMemoryModel = gravityV2Trial.stanceModel;
++  if (recoveryContactV2Trial.active) player.stanceMemoryModel = recoveryContactV2Trial.stanceModel;
+   const defaultSwordsmanshipForPlayer = swordsmanshipDefault.active && swordsmanshipDefaultSupportsWeapon(player.weapon);
+   if (defaultSwordsmanshipForPlayer) player.onehandArmModel = 'manual';
+   player.gripPointModel = gripPointModel;
+@@ -516,8 +519,9 @@ function newRound(weaponId) {
+   if (swordsmanshipTrial.active || defaultSwordsmanshipForPlayer || activeV2Trial) applySwordsmanship(player);
+   player.canShove = true; // 근접 밀치기: 플레이어는 스틱으로 (CLOSE.on 이 통째로 끄고 켠다)
+   combat = new Combat(colliderInfo, { onWound, onClash });
+-  combat.cutReactionModel = contactTrial.active ? contactTrial.model : cutTrial.model;
+-  combat.cutReactionFighter = contactTrial.active && contactTrial.model === 'centerline' ? player : null;
++  const selectedCutModel = recoveryContactV2Trial.active ? recoveryContactV2Trial.cutModel : contactTrial.active ? contactTrial.model : cutTrial.model;
++  combat.cutReactionModel = selectedCutModel;
++  combat.cutReactionFighter = (contactTrial.active || recoveryContactV2Trial.active) && selectedCutModel === 'centerline' ? player : null;
+   combat.finishRuleModel = swordsmanshipTrial.active && player.weapon.id === 'qinggang'
+     ? 'armorCausal' : integratedCombatTrial.finishRule;
+   combat.finishRuleFighter = player;
+@@ -731,6 +735,7 @@ mountSwordsmanshipTrial(swordsmanshipTrial);
+ mountContactTrial(contactTrial);
+ mountStanceV2Trial(stanceV2Trial);
+ mountGravityV2Trial(gravityV2Trial);
++mountRecoveryContactV2Trial(recoveryContactV2Trial);
+ if (swordsmanshipDefault.active) {
+   // A single ordinary policy replaces the old strength menu. Saved legacy
+   // preferences remain available to explicitly requested comparison entries.
+@@ -1705,6 +1710,7 @@ window.game = {
+   contactTrial,
+   stanceV2Trial,
+   gravityV2Trial,
++  recoveryContactV2Trial,
+   get defaultSwordsmanshipApplied() {
+     return swordsmanshipDefault.active && player?.swordsmanshipModel === 'unified';
+   },
+diff --git a/src/swordsmanship_default.js b/src/swordsmanship_default.js
+index b5427c0..6bc2012 100644
+--- a/src/swordsmanship_default.js
++++ b/src/swordsmanship_default.js
+@@ -12,7 +12,7 @@ const SUPPORTED = new Set(SWORDSMANSHIP_DEFAULT_WEAPONS);
+ // is malformed, withdrawn, or incomplete. Keep parameter names in sync with
+ // main.js, configure*Trial(), support_probe.js, and mobile_intent.js.
+ export const SWORDSMANSHIP_DEFAULT_RESEARCH_MARKERS = Object.freeze([
+-  'swordsmanshipTrial', 'combatTrial', 'contactV2', 'stanceV2', 'gravityV2',
++  'swordsmanshipTrial', 'combatTrial', 'contactV2', 'stanceV2', 'gravityV2', 'recoveryContactV2',
+   'physicsTrial', 'supportProbe', 'assist', 'catch', 'catchScale',
+   'cutTrial', 'armTrial', 'armRecoveryTrial', 'wristBraking', 'edgeTrial', 'stanceTrial',
+   'targetCorrection', 'onehandArm', 'gripPoint', 'thrustEdge', 'bladeShape', 'thrustPlane',
+diff --git a/src/recovery_contact_v2_trial.js b/src/recovery_contact_v2_trial.js
+new file mode 100644
+--- /dev/null
++++ b/src/recovery_contact_v2_trial.js
+@@ -0,0 +1,32 @@
++/** Player-only combination of the existing recovery and contact candidates. */
++const allowed = new Set(['recoveryContactV2', 'weapon']);
++export function configureRecoveryContactV2Trial(params) {
++  const requested = params.has('recoveryContactV2'), model = params.get('recoveryContactV2');
++  const active = requested && params.getAll('recoveryContactV2').length === 1 &&
++    ['baseline', 'combined'].includes(model) && params.getAll('weapon').length <= 1 &&
++    (!params.has('weapon') || params.get('weapon') === 'zweihander') &&
++    [...params.keys()].every(key => allowed.has(key));
++  return {requested, active, model: active ? model : null,
++    cutModel: active && model === 'combined' ? 'centerline' : 'legacy',
++    stanceModel: active ? 'fresh' : 'legacy',
++    weapon: active ? 'zweihander' : null, foeWeapon: active ? 'longsword' : null,
++    settings: active ? {skill: '0.7', difficulty: 'normal'} : {},
++    playerOnly: true, labHref: './feature-lab.html#recovery-contact-v2-comparison', ordinaryHref: './'};
++}
++
++export function mountRecoveryContactV2Trial(info) {
++  if (!info.active || typeof document === 'undefined') return;
++  const anchor = document.getElementById('menuSub');
++  if (!anchor || document.getElementById('recoveryContactV2TrialInfo')) return;
++  const panel = document.createElement('p'); panel.id = 'recoveryContactV2TrialInfo'; panel.className = 'sub';
++  const title = document.createElement('span'); title.style.display = 'block';
++  title.textContent = `${info.model === 'combined' ? '회복+타격 B' : '기준 · 기존 회복 B'} · 츠바이핸더`;
++  const note = document.createElement('span'); note.style.display = 'block';
++  note.textContent = '검술 보정 v2·중력 9.81은 같습니다. 일어난 뒤 다시 베는 동작을 비교하세요.';
++  const lab = document.createElement('a'); lab.id = 'recoveryContactV2TrialLab'; lab.href = info.labHref; lab.textContent = '통합 비교 화면';
++  const exit = document.createElement('a'); exit.id = 'recoveryContactV2TrialExit'; exit.href = info.ordinaryHref; exit.textContent = '일반 게임으로';
++  for (const link of [lab, exit]) {link.style.color = 'var(--accent, #d9a441)'; link.style.display = 'inline-flex'; link.style.alignItems = 'center'; link.style.minHeight = '44px'; link.style.padding = '4px 6px';}
++  panel.append(title, note, lab, document.createTextNode(' · '), exit); anchor.after(panel);
++  const row = document.querySelector('[data-setting="skill"]')?.closest('.row');
++  if (row) row.style.display = 'none';
++}

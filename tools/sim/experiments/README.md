@@ -59,3 +59,19 @@ node tools/sim/support_transfer_probe.mjs --models=legacy,axial,axial_external_d
 ```
 
 A/B 물리 trace exact와 세 조건 준비/입력 동일을 확인한 최초 외부 worker 측정은 `docs/strike/support_pair_cause_metrics.json`에 있다. 이식 패치는 경로만 정규화하고 적용 검사를 통과했다. C는 평균/p95 미끄럼을 줄이지만 최대값은 더 나빠져 채택하지 않는다. 내부 수평 성분·발 반작용·골반 모멘트·전체 외력이 함께 달라지므로 특정 항 하나의 원인으로 단정하지 않는다.
+
+## 2026-10-06 통합 준비판 — 미노출로 공개 보류
+
+`round5_recovery_contact_staged.patch`는 `43f2ee5108decb5884841973557cf81a5d6eafef`의 게임 소스 위에 준비한 회복+타격 비교 연결이다. 실제 회복 뒤 손 재베기 관문 미노출로 공개하지 않았다. 실패 후보의 재권유가 아니라 준비물 보존이다. [5회차](../../../docs/strike/phase2_round5_20261006.md)를 먼저 읽는다.
+
+`round5_recovery_probe.mjs`, `round5_entry_contracts.mjs`, `tools/browser/recovery_contact_v2_delivery.mjs`는 이 패치의 helper/연결을 전제로 한다. 현재 공개 소스에서 그대로 실행하지 않는다. 별도 checkout에 패치를 적용하고, 원보고의 frozen `SOURCE.json`·해당 probe 버전·engine/lockfile SHA를 확인한다. 첫 passive와 helmet 보완은 probe 버전이 다르며 원본은 보고의 외부 frozen 경로에 보존했다. 같은 경로명만으로 원자료가 존재한다고 가정하지 않는다.
+
+```sh
+git apply --check tools/sim/experiments/round5_recovery_contact_staged.patch
+git apply tools/sim/experiments/round5_recovery_contact_staged.patch
+node tools/sim/experiments/round5_entry_contracts.mjs
+# 물리 실행은 보고의 SOURCE.json을 검증한 별도 frozen checkout에서만:
+node tools/sim/experiments/round5_recovery_probe.mjs --fixture=helmet-duel --out=/tmp/halfsword-round5-replay
+```
+
+고정 소스의 정확한 재실행과 현재 준비판의 재검사는 구분한다. `round5_recovery_report.py`는 보존된 실행의 JSON을 읽기만 하며 물리를 실행하지 않는다.
