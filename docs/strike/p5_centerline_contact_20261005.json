@@ -1,0 +1,1199 @@
+{
+  "schemaVersion": 1,
+  "experiment": "p5_centerline_contact_20261005",
+  "status": "Narrow candidate passed instant pair and two-scene one-second screening; browser/delivery and broader acceptance are separate. Ordinary legacy remains unchanged.",
+  "baseCommit": "e0ed9e5af85037a7bdd2644e35090a8936da9f60",
+  "sourceFrozen": true,
+  "rawRoot": "/workspace/halfsword-handoff/p5-contact-v2-20261005",
+  "artifacts": [
+    {
+      "path": "centerline-candidate.patch",
+      "bytes": 4801,
+      "sha256": "167a2b22ced1022dcc43dba872d46f83787d60410e0f3c922469467e734d743c"
+    },
+    {
+      "path": "centerline-fixtures01.json",
+      "bytes": 4990,
+      "sha256": "1ef03847eb4e14377aa39e0d116fa498f81a5450e45325a149ad031957419fff"
+    },
+    {
+      "path": "centerline-fixtures02.json",
+      "bytes": 4982,
+      "sha256": "3d731d9b11aeea8bdfe43b445a39c5e661f0fd599fe4c0a850fcb735ac55ce3e"
+    },
+    {
+      "path": "centerline-offline01.json",
+      "bytes": 78558,
+      "sha256": "978085443e052cabc84a263f1f91d007ce2ba78aee09e1b30469962b697a8bdc"
+    },
+    {
+      "path": "centerline-run01/longsword-zweihander-centerline-first-pair.native.bin",
+      "bytes": 45335,
+      "sha256": "d422d97efe5cf47f473788b1558158b8163309962a78523e8e86785d0efa1ab9"
+    },
+    {
+      "path": "centerline-run01/longsword-zweihander-legacy-first-pair.native.bin",
+      "bytes": 45335,
+      "sha256": "d422d97efe5cf47f473788b1558158b8163309962a78523e8e86785d0efa1ab9"
+    },
+    {
+      "path": "centerline-run01/receipt.json",
+      "bytes": 631,
+      "sha256": "ad86d93115f0d9f159f930e6143ba926085a576ac0944ed333279cc4310fda6d"
+    },
+    {
+      "path": "centerline-run01/report.json",
+      "bytes": 3929976,
+      "sha256": "c7adfc807d81d943ed21afa026d4a43862fd4885d3253f55ebb33441e3d4ab3f"
+    },
+    {
+      "path": "centerline-run01/zweihander-longsword-centerline-first-pair.native.bin",
+      "bytes": 42746,
+      "sha256": "75e0d16251b625a2e931eb3ce8f0075b40ca844421f5f93dff629ed1b72a65a7"
+    },
+    {
+      "path": "centerline-run01/zweihander-longsword-legacy-first-pair.native.bin",
+      "bytes": 42746,
+      "sha256": "75e0d16251b625a2e931eb3ce8f0075b40ca844421f5f93dff629ed1b72a65a7"
+    },
+    {
+      "path": "centerline-run01.stderr.txt",
+      "bytes": 90,
+      "sha256": "06210b38572a0a9d5c904cc541365ad69d7afaac6d4ed10f5d33268b0ae185d2"
+    },
+    {
+      "path": "centerline-run01.stdout.jsonl",
+      "bytes": 492,
+      "sha256": "41050d9b78e9f1c71e3f14f5809c0d4627067b70f30168b55ec050f1b3699597"
+    },
+    {
+      "path": "centerline-summary01.json",
+      "bytes": 25447,
+      "sha256": "03e57b56b504b9f1ee205115e0af71a0665b2cea2de703e234e347c757ee89be"
+    },
+    {
+      "path": "centerline-summary01.stdout.json",
+      "bytes": 23351,
+      "sha256": "f272bfddb869bf6a830d8ee5f7b4bbe4405b8dadca29682264bfab3c5a9629ce"
+    },
+    {
+      "path": "ledger-run01/longsword-zweihander-first-pair.native.bin",
+      "bytes": 45335,
+      "sha256": "d422d97efe5cf47f473788b1558158b8163309962a78523e8e86785d0efa1ab9"
+    },
+    {
+      "path": "ledger-run01/receipt.json",
+      "bytes": 621,
+      "sha256": "ec055240cf4e6a362b9aad66d79b7c34cbe25c0754d5a3ee68b48947df6d0802"
+    },
+    {
+      "path": "ledger-run01/report.json",
+      "bytes": 1130781,
+      "sha256": "5aeeeaa89d7f8c3a44cb67c2a4c6830e087d872e2cb7e70a3c17c58a0984024a"
+    },
+    {
+      "path": "ledger-run01/zweihander-longsword-first-pair.native.bin",
+      "bytes": 42746,
+      "sha256": "75e0d16251b625a2e931eb3ce8f0075b40ca844421f5f93dff629ed1b72a65a7"
+    },
+    {
+      "path": "reproduction-tools/fixture01-preaudit-helper.js",
+      "bytes": 2235,
+      "sha256": "b1634e008ff0f3f92d0d0e49a682ce1baf11e4a99b94e397731da2eee827643e"
+    },
+    {
+      "path": "reproduction-tools/src/cut_centerline.js",
+      "bytes": 2239,
+      "sha256": "98e522cfcde4f03c4d6d34dd57f7a8fa301a5a28028ddcce366cc600f86bf453"
+    },
+    {
+      "path": "reproduction-tools/tools/sim/experiments/p5_centerline_derive.py",
+      "bytes": 5213,
+      "sha256": "af09524626b1ad8db02c4f478a7ff2cf4dd139ab52b24e17c9c9152d2f2a4e40"
+    },
+    {
+      "path": "reproduction-tools/tools/sim/experiments/p5_centerline_fixtures.mjs",
+      "bytes": 3398,
+      "sha256": "a3ff8c71c10dc2125b213f7951f2ebbdd25aaf9c790f9fc802cb506031dc857f"
+    },
+    {
+      "path": "reproduction-tools/tools/sim/experiments/p5_centerline_probe.mjs",
+      "bytes": 14427,
+      "sha256": "bef0b0fe245f073e255115cf665987dd039b3183665c1e843b495db92c8056fe"
+    },
+    {
+      "path": "reproduction-tools/tools/sim/experiments/p5_contact_derive.py",
+      "bytes": 6592,
+      "sha256": "ec313d90a83214038dcece950f1bd44f332a875ac5ff0980fee5a23178b6b554"
+    },
+    {
+      "path": "reproduction-tools/tools/sim/experiments/p5_contact_ledger.mjs",
+      "bytes": 12553,
+      "sha256": "14acc77458011a10058316d7492e6f016ebc48f4886173ab219bf99f2bcc9b16"
+    },
+    {
+      "path": "ledger-run01/frozen/manifest.json",
+      "bytes": 8451,
+      "sha256": "25b1bbb3e50848a0baf2a5580a8bb3c53b3cbb18440838cafdd96a7ef88faae7"
+    },
+    {
+      "path": "centerline-run01/frozen/manifest.json",
+      "bytes": 8550,
+      "sha256": "038918d4ec549780071b434344020e8c020f0b1bb9cffe7771ff59d873f0335a"
+    }
+  ],
+  "sourceManifests": {
+    "legacy": "ledger-run01/frozen/manifest.json",
+    "candidate": "centerline-run01/frozen/manifest.json"
+  },
+  "sourceAtExecution": {
+    "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+    "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+    "src/combat.js": "98387beb03c90c9edc314da0e1ee826f5c0bd18da3d3991e480b036814d54916",
+    "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+    "src/cut_centerline.js": "98e522cfcde4f03c4d6d34dd57f7a8fa301a5a28028ddcce366cc600f86bf453",
+    "src/fighter.js": "845b0d3751ebbd948d845ebacda8a644311b2826cb4e5fca8626c224d15478a4",
+    "src/swordsmanship.js": "7794881e39564a523047605c7ddfae71ecb8fff40b007d03c78aeb33d16c66db",
+    "tools/sim/experiments/p5_centerline_probe.mjs": "e26cb849c9075005cf42dc76cd973e8fb089c6c0de0a6285fd8933a3a12d267a",
+    "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+    "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0"
+  },
+  "history": {
+    "initial08victimRatioCommit": "9b8d4809e5aa6d32ad6e2943aa884690c648454d",
+    "victimBoneAxisCommit": "8e1adce2391f2abf5ca1e0b12820c70b35e65526",
+    "weaponCenterlineCommit": "c09208101a329822900b30ab54fef724339138c6",
+    "rationale": "Victim bone and sword axis projection explicitly suppress longitudinal spinning. No specific rationale for 0.8 was found; do not invent one.",
+    "supersededCandidates": [
+      "Surface common-point impulse-only candidate",
+      "Actual-loss budgeted cutting policy"
+    ],
+    "failureReferences": [
+      "docs/strike/cut_reaction_round1.md",
+      "docs/strike/cut_posture_round2.md",
+      "docs/codex_team/DELIVERY_BACKLOG_20261003.md"
+    ],
+    "distinction": "New common point is the existing sword centerline pA. Preserving requested-J budget/timer alone was already done by the old impulse-only candidate and is not the novelty."
+  },
+  "protocol": {
+    "weapons": [
+      [
+        "longsword",
+        "zweihander"
+      ],
+      [
+        "zweihander",
+        "longsword"
+      ]
+    ],
+    "seed": 7,
+    "maximumSeconds": 20,
+    "postFirstCutSteps": 120,
+    "player": "Unified default assistance/manual arm from spawn. Original AI2 generates player input, explicitly recorded after AI update; not human touch equivalence.",
+    "opponent": "Original reactive AI; no park, state/health/force/solver injection.",
+    "scope": "Centerline candidate selected from creation for player only. Legacy request/Eleft debit/stuck timer unchanged. Old budgeted path never enabled. Contact-after input may diverge through original reactive AI. Instant pair energy is separate from requested budget debit."
+  },
+  "runtimeScope": {
+    "mode": "centerline",
+    "selector": "combat.cutReactionFighter===attacker && attacker.index===0",
+    "default": "legacy",
+    "unchanged": [
+      "wound/finish rules",
+      "legacy requested J",
+      "Eleft debit J_requested*s_originalPoint",
+      "stuck timer/lifecycle",
+      "legacy direction vector",
+      "weapon original centerline pA"
+    ],
+    "changed": "Both actual impulses share original sword pA and equal opposite actual J. Same-pA native mobility cap can reduce actual J, including weapon reaction.",
+    "newRisk": "Victim bone-axis angular impulse is no longer zero; same-point torque changes are more than a 20% linear correction.",
+    "cap": "min(requestedJ, max(0,s_pA/(mobilitySword_pA+mobilityVictim_pA))), no guessed mass/inertia",
+    "budgetWarning": "Budget debit remains requested J*s at original contact point, not measured pair loss. Cap binding additionally separates actual J from budget request."
+  },
+  "counts": {
+    "actualGameExecutions": 8,
+    "actualGameSteps": 8072,
+    "ledgerExecutions": 4,
+    "ledgerSteps": 3844,
+    "candidateExecutions": 4,
+    "candidateSteps": 4228,
+    "uniqueMatchScenes": 2,
+    "savedLegacyPairsOffline": 18,
+    "candidateLivePairs": 18,
+    "fixtureGroupsPerVersion": 6,
+    "fixtureVersions": 2,
+    "fixtureNativeImpulseStatesPerVersion": 5,
+    "fixtureWorldSteps": 0,
+    "runtimeHeavyWallSeconds": 51.305969847,
+    "candidateWallSeconds": 26.782620491000003
+  },
+  "commands": {
+    "ledger": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/halfsword-codex/tools/sim/experiments/p5_contact_ledger.mjs",
+      "--out=/workspace/halfsword-handoff/p5-contact-v2-20261005/ledger-run01"
+    ],
+    "candidate": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/halfsword-codex/tools/sim/experiments/p5_centerline_probe.mjs",
+      "--out=/workspace/halfsword-handoff/p5-contact-v2-20261005/centerline-run01"
+    ],
+    "offline": [
+      "python",
+      "tools/sim/experiments/p5_contact_derive.py",
+      "--raw=/workspace/halfsword-handoff/p5-contact-v2-20261005/ledger-run01/report.json",
+      "--out=<new external output>.json"
+    ],
+    "fixtures": [
+      "node",
+      "tools/sim/experiments/p5_centerline_fixtures.mjs",
+      "--raw=/workspace/halfsword-handoff/p5-contact-v2-20261005/ledger-run01/report.json",
+      "--out=<new external output>.json"
+    ],
+    "summary": [
+      "python",
+      "tools/sim/experiments/p5_centerline_derive.py",
+      "--raw=/workspace/halfsword-handoff/p5-contact-v2-20261005/centerline-run01/report.json",
+      "--legacy=/workspace/halfsword-handoff/p5-contact-v2-20261005/ledger-run01/report.json",
+      "--out=<new external output>.json"
+    ],
+    "note": "Each tool requires a fresh output path. Exact physics rerun uses candidate frozen source/harness/engine; copying only the latest tool into a later modified runtime does not reproduce the source."
+  },
+  "validation": {
+    "measurementValid": true,
+    "headStable": true,
+    "sourceStable": true,
+    "fixturePass": true,
+    "comparisons": [
+      {
+        "weapons": [
+          "longsword",
+          "zweihander"
+        ],
+        "sameCreation": true,
+        "exactPrefixNativeControlInput": true,
+        "sameBoundary": true,
+        "samePairNative": true,
+        "firstTickSame": true,
+        "firstPlayerCutTick": 1143,
+        "firstInputDivergence": 1152,
+        "steps": [
+          1264,
+          1264
+        ],
+        "events": [
+          9,
+          9
+        ],
+        "originalObserverOffValidatedPrefixReused": true,
+        "firstSwordAfterExact": {
+          "velocity": true,
+          "omega": true
+        },
+        "firstWoundLedgerExact": true,
+        "firstPostContactInputDivergenceSeconds": 0.075
+      },
+      {
+        "weapons": [
+          "zweihander",
+          "longsword"
+        ],
+        "sameCreation": true,
+        "exactPrefixNativeControlInput": true,
+        "sameBoundary": true,
+        "samePairNative": true,
+        "firstTickSame": true,
+        "firstPlayerCutTick": 729,
+        "firstInputDivergence": 740,
+        "steps": [
+          850,
+          850
+        ],
+        "events": [
+          9,
+          9
+        ],
+        "originalObserverOffValidatedPrefixReused": true,
+        "firstSwordAfterExact": {
+          "velocity": true,
+          "omega": true
+        },
+        "firstWoundLedgerExact": true,
+        "firstPostContactInputDivergenceSeconds": 0.09166666666666666
+      }
+    ],
+    "candidateCapEvents": 0,
+    "candidatePositiveInstantDeltaK": 0,
+    "candidateMaxResidualPNs": 3.579258696748144e-07,
+    "candidateMaxResidualLNms": 2.8459121056274294e-06,
+    "candidateMaxDeltaKPredictionErrorJ": 3.6223822856840115e-06
+  },
+  "rows": [
+    {
+      "weapons": [
+        "longsword",
+        "zweihander"
+      ],
+      "mode": "legacy",
+      "steps": 1264,
+      "firstPlayerCutTick": 1143,
+      "pairEvents": 9,
+      "regimes": {
+        "drag": 9
+      },
+      "firstPair": {
+        "victimPart": "uarmS",
+        "requestedJNs": 0.5428284456775434,
+        "actualJNs": 0.5428284456775434,
+        "deltaPNs": 0.10856563725684153,
+        "deltaLNmsWorldOrigin": 0.004376727698449263,
+        "deltaKJ": -4.037426314921024,
+        "budgetDebitJ": 4.991266900037811
+      },
+      "capEvents": 0,
+      "capDetails": [],
+      "instantCandidatePairMaxResiduals": null,
+      "fighters": [
+        {
+          "fighter": 0,
+          "frames": 121,
+          "stateCounts": {
+            "stand": 121
+          },
+          "gripInvalidFrames": 0,
+          "chestTiltMaxRad": 0.19611168701834955,
+          "chestTiltRMSRad": 0.12233654609784415,
+          "pelvisMinM": 0.8754167556762695,
+          "pelvisMaxM": 0.9534310102462769,
+          "omegaMax": {
+            "timeS": 9.766666666666753,
+            "value": 17.38757035111992,
+            "part": "footF",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "limbAxialAbsMax": {
+            "timeS": 9.825000000000083,
+            "value": 5.875566384083672,
+            "part": "uarmS",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "swordAxialAbsMax": {
+            "timeS": 9.93333333333341,
+            "value": 14.3451904461078,
+            "part": "sword",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "jointGapMax": {
+            "timeS": 9.691666666666757,
+            "value": 0.0019448486768984825,
+            "part": "shinB",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "gripGapMax": {
+            "timeS": 9.558333333333431,
+            "value": 6.024127324653517e-05,
+            "part": "grip",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "finalHealth": {
+            "alive": true,
+            "armed": true,
+            "blood": 0.9823472108605347,
+            "consciousness": 1,
+            "limbs": {
+              "armS": 0.8084736720997706,
+              "armO": 0.7999345351690742,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        },
+        {
+          "fighter": 1,
+          "frames": 121,
+          "stateCounts": {
+            "stand": 121
+          },
+          "gripInvalidFrames": 0,
+          "chestTiltMaxRad": 0.32002503284753503,
+          "chestTiltRMSRad": 0.20854694697792475,
+          "pelvisMinM": 0.9027629494667053,
+          "pelvisMaxM": 0.9423796534538269,
+          "omegaMax": {
+            "timeS": 10.100000000000067,
+            "value": 32.956611183759875,
+            "part": "farmS",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "limbAxialAbsMax": {
+            "timeS": 10.100000000000067,
+            "value": -31.148454009584235,
+            "part": "uarmS",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "swordAxialAbsMax": {
+            "timeS": 10.40000000000005,
+            "value": 27.5327568626854,
+            "part": "sword",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "jointGapMax": {
+            "timeS": 10.016666666666739,
+            "value": 0.001970491103733301,
+            "part": "shinF",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "gripGapMax": {
+            "timeS": 9.558333333333431,
+            "value": 9.468775521006863e-05,
+            "part": "grip",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "finalHealth": {
+            "alive": true,
+            "armed": true,
+            "blood": 0.9991176835040076,
+            "consciousness": 1,
+            "limbs": {
+              "armS": 0.9454073903037823,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        }
+      ],
+      "wounds": [
+        {
+          "timeS": 5.600000000000068,
+          "attacker": 1,
+          "victim": 0,
+          "type": "cut",
+          "zone": "arm",
+          "energyJ": 43.38724368671025,
+          "severity": 0.28580780690132257
+        },
+        {
+          "timeS": 7.591666666666834,
+          "attacker": 1,
+          "victim": 0,
+          "type": "blunt",
+          "zone": "pelvis",
+          "energyJ": 25.690506521115555,
+          "severity": 0
+        },
+        {
+          "timeS": 8.691666666666814,
+          "attacker": 1,
+          "victim": 0,
+          "type": "blunt",
+          "zone": "leg",
+          "energyJ": 23.153834439174595,
+          "severity": 0
+        },
+        {
+          "timeS": 8.88333333333347,
+          "attacker": 1,
+          "victim": 0,
+          "type": "cut",
+          "zone": "arm",
+          "energyJ": 53.77322580555166,
+          "severity": 0.27360903985747054
+        },
+        {
+          "timeS": 9.00000000000013,
+          "attacker": 0,
+          "victim": 1,
+          "type": "blunt",
+          "zone": "leg",
+          "energyJ": 9.756617458304866,
+          "severity": 0
+        },
+        {
+          "timeS": 9.325000000000111,
+          "attacker": 1,
+          "victim": 0,
+          "type": "blunt",
+          "zone": "pelvis",
+          "energyJ": 7.754692186882174,
+          "severity": 0
+        },
+        {
+          "timeS": 9.5250000000001,
+          "attacker": 0,
+          "victim": 1,
+          "type": "cut",
+          "zone": "arm",
+          "energyJ": 36.785502486731176,
+          "severity": 0.07798944242316819
+        },
+        {
+          "timeS": 9.533333333333433,
+          "attacker": 0,
+          "victim": 1,
+          "type": "blunt",
+          "zone": "arm",
+          "energyJ": 19.59465100669527,
+          "severity": 0
+        }
+      ]
+    },
+    {
+      "weapons": [
+        "longsword",
+        "zweihander"
+      ],
+      "mode": "centerline",
+      "steps": 1264,
+      "firstPlayerCutTick": 1143,
+      "pairEvents": 9,
+      "regimes": {
+        "drag": 9
+      },
+      "firstPair": {
+        "victimPart": "uarmS",
+        "requestedJNs": 0.5428284456775434,
+        "actualJNs": 0.5428284456775434,
+        "deltaPNs": 7.747327558678954e-08,
+        "deltaLNmsWorldOrigin": 4.7420149785345683e-08,
+        "deltaKJ": -3.9593975185267354,
+        "budgetDebitJ": 4.991266900037811
+      },
+      "capEvents": 0,
+      "capDetails": [],
+      "instantCandidatePairMaxResiduals": {
+        "PNs": 8.635693742854792e-08,
+        "LNms": 1.2654833470561637e-07,
+        "deltaKPredictionErrorJ": 6.994329631027085e-07,
+        "positiveDeltaKCount": 0
+      },
+      "fighters": [
+        {
+          "fighter": 0,
+          "frames": 121,
+          "stateCounts": {
+            "stand": 121
+          },
+          "gripInvalidFrames": 0,
+          "chestTiltMaxRad": 0.19613461740206023,
+          "chestTiltRMSRad": 0.12233782599770587,
+          "pelvisMinM": 0.8754054307937622,
+          "pelvisMaxM": 0.9534426927566528,
+          "omegaMax": {
+            "timeS": 9.766666666666753,
+            "value": 17.386885596943962,
+            "part": "footF",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "limbAxialAbsMax": {
+            "timeS": 9.825000000000083,
+            "value": 5.870946618310879,
+            "part": "uarmS",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "swordAxialAbsMax": {
+            "timeS": 9.93333333333341,
+            "value": 14.316062163977902,
+            "part": "sword",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "jointGapMax": {
+            "timeS": 9.691666666666757,
+            "value": 0.0019451844631915127,
+            "part": "shinB",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "gripGapMax": {
+            "timeS": 9.558333333333431,
+            "value": 8.491128782643318e-05,
+            "part": "grip",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "finalHealth": {
+            "alive": true,
+            "armed": true,
+            "blood": 0.9823472108605347,
+            "consciousness": 1,
+            "limbs": {
+              "armS": 0.8084736720997706,
+              "armO": 0.7999345351690742,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        },
+        {
+          "fighter": 1,
+          "frames": 121,
+          "stateCounts": {
+            "stand": 121
+          },
+          "gripInvalidFrames": 0,
+          "chestTiltMaxRad": 0.32002503284753503,
+          "chestTiltRMSRad": 0.20872977380609745,
+          "pelvisMinM": 0.9028493762016296,
+          "pelvisMaxM": 0.9422420263290405,
+          "omegaMax": {
+            "timeS": 10.100000000000067,
+            "value": 33.1129898586996,
+            "part": "farmS",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "limbAxialAbsMax": {
+            "timeS": 10.100000000000067,
+            "value": -31.315880241394034,
+            "part": "uarmS",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "swordAxialAbsMax": {
+            "timeS": 10.40000000000005,
+            "value": 27.642589058825692,
+            "part": "sword",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "jointGapMax": {
+            "timeS": 10.016666666666739,
+            "value": 0.0019687549257109424,
+            "part": "shinF",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "gripGapMax": {
+            "timeS": 9.558333333333431,
+            "value": 0.000135397618761888,
+            "part": "grip",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "finalHealth": {
+            "alive": true,
+            "armed": true,
+            "blood": 0.9991176835040076,
+            "consciousness": 1,
+            "limbs": {
+              "armS": 0.9454073903037823,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        }
+      ],
+      "wounds": [
+        {
+          "timeS": 5.600000000000068,
+          "attacker": 1,
+          "victim": 0,
+          "type": "cut",
+          "zone": "arm",
+          "energyJ": 43.38724368671025,
+          "severity": 0.28580780690132257
+        },
+        {
+          "timeS": 7.591666666666834,
+          "attacker": 1,
+          "victim": 0,
+          "type": "blunt",
+          "zone": "pelvis",
+          "energyJ": 25.690506521115555,
+          "severity": 0
+        },
+        {
+          "timeS": 8.691666666666814,
+          "attacker": 1,
+          "victim": 0,
+          "type": "blunt",
+          "zone": "leg",
+          "energyJ": 23.153834439174595,
+          "severity": 0
+        },
+        {
+          "timeS": 8.88333333333347,
+          "attacker": 1,
+          "victim": 0,
+          "type": "cut",
+          "zone": "arm",
+          "energyJ": 53.77322580555166,
+          "severity": 0.27360903985747054
+        },
+        {
+          "timeS": 9.00000000000013,
+          "attacker": 0,
+          "victim": 1,
+          "type": "blunt",
+          "zone": "leg",
+          "energyJ": 9.756617458304866,
+          "severity": 0
+        },
+        {
+          "timeS": 9.325000000000111,
+          "attacker": 1,
+          "victim": 0,
+          "type": "blunt",
+          "zone": "pelvis",
+          "energyJ": 7.754692186882174,
+          "severity": 0
+        },
+        {
+          "timeS": 9.5250000000001,
+          "attacker": 0,
+          "victim": 1,
+          "type": "cut",
+          "zone": "arm",
+          "energyJ": 36.785502486731176,
+          "severity": 0.07798944242316819
+        },
+        {
+          "timeS": 9.533333333333433,
+          "attacker": 0,
+          "victim": 1,
+          "type": "blunt",
+          "zone": "arm",
+          "energyJ": 19.593987675279795,
+          "severity": 0
+        }
+      ]
+    },
+    {
+      "weapons": [
+        "zweihander",
+        "longsword"
+      ],
+      "mode": "legacy",
+      "steps": 850,
+      "firstPlayerCutTick": 729,
+      "pairEvents": 9,
+      "regimes": {
+        "drag": 9
+      },
+      "firstPair": {
+        "victimPart": "thighF",
+        "requestedJNs": 1.3344988855738171,
+        "actualJNs": 1.3344988855738171,
+        "deltaPNs": 0.26689970265994395,
+        "deltaLNmsWorldOrigin": 0.06748310957351636,
+        "deltaKJ": -9.679770165473684,
+        "budgetDebitJ": 12.25820787527428
+      },
+      "capEvents": 0,
+      "capDetails": [],
+      "instantCandidatePairMaxResiduals": null,
+      "fighters": [
+        {
+          "fighter": 0,
+          "frames": 121,
+          "stateCounts": {
+            "stand": 121
+          },
+          "gripInvalidFrames": 0,
+          "chestTiltMaxRad": 0.3341555633993383,
+          "chestTiltRMSRad": 0.2189120063498256,
+          "pelvisMinM": 0.9220365881919861,
+          "pelvisMaxM": 0.9511740207672119,
+          "omegaMax": {
+            "timeS": 6.98333333333347,
+            "value": 25.83036753885815,
+            "part": "sword",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "limbAxialAbsMax": {
+            "timeS": 6.6750000000001215,
+            "value": 9.238661354730388,
+            "part": "uarmS",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "swordAxialAbsMax": {
+            "timeS": 6.98333333333347,
+            "value": -25.82187979341409,
+            "part": "sword",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "jointGapMax": {
+            "timeS": 6.375000000000107,
+            "value": 0.0022610184322983703,
+            "part": "shinF",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "gripGapMax": {
+            "timeS": 6.091666666666759,
+            "value": 0.00032359659371912383,
+            "part": "grip",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "finalHealth": {
+            "alive": true,
+            "armed": true,
+            "blood": 1,
+            "consciousness": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        },
+        {
+          "fighter": 1,
+          "frames": 121,
+          "stateCounts": {
+            "stand": 121
+          },
+          "gripInvalidFrames": 0,
+          "chestTiltMaxRad": 0.25227851918294036,
+          "chestTiltRMSRad": 0.18672700380689639,
+          "pelvisMinM": 0.9067777991294861,
+          "pelvisMaxM": 0.9476602077484131,
+          "omegaMax": {
+            "timeS": 6.975000000000136,
+            "value": 41.341613700958376,
+            "part": "sword",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "limbAxialAbsMax": {
+            "timeS": 6.38333333333344,
+            "value": -27.45581726474004,
+            "part": "uarmO",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "swordAxialAbsMax": {
+            "timeS": 6.975000000000136,
+            "value": 40.03950741464862,
+            "part": "sword",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "jointGapMax": {
+            "timeS": 6.975000000000136,
+            "value": 0.0016247683528898159,
+            "part": "uarmS",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "gripGapMax": {
+            "timeS": 6.991666666666804,
+            "value": 0.00012760494921402937,
+            "part": "grip",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "finalHealth": {
+            "alive": true,
+            "armed": true,
+            "blood": 0.9925205095676003,
+            "consciousness": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 0.6296551593511671,
+              "legB": 1
+            }
+          }
+        }
+      ],
+      "wounds": [
+        {
+          "timeS": 6.075000000000092,
+          "attacker": 0,
+          "victim": 1,
+          "type": "cut",
+          "zone": "leg",
+          "energyJ": 63.85960722812302,
+          "severity": 0.5081333073900232
+        },
+        {
+          "timeS": 6.083333333333425,
+          "attacker": 0,
+          "victim": 1,
+          "type": "cut",
+          "zone": "leg",
+          "energyJ": 25.905375725316848,
+          "severity": 0.020930750679738114
+        },
+        {
+          "timeS": 6.408333333333442,
+          "attacker": 0,
+          "victim": 1,
+          "type": "blunt",
+          "zone": "pelvis",
+          "energyJ": 6.851642413595115,
+          "severity": 0
+        }
+      ]
+    },
+    {
+      "weapons": [
+        "zweihander",
+        "longsword"
+      ],
+      "mode": "centerline",
+      "steps": 850,
+      "firstPlayerCutTick": 729,
+      "pairEvents": 9,
+      "regimes": {
+        "drag": 9
+      },
+      "firstPair": {
+        "victimPart": "thighF",
+        "requestedJNs": 1.3344988855738171,
+        "actualJNs": 1.3344988855738171,
+        "deltaPNs": 9.824524969498946e-08,
+        "deltaLNmsWorldOrigin": 2.8459121056274294e-06,
+        "deltaKJ": -9.784273976267535,
+        "budgetDebitJ": 12.25820787527428
+      },
+      "capEvents": 0,
+      "capDetails": [],
+      "instantCandidatePairMaxResiduals": {
+        "PNs": 3.579258696748144e-07,
+        "LNms": 2.8459121056274294e-06,
+        "deltaKPredictionErrorJ": 3.6223822856840115e-06,
+        "positiveDeltaKCount": 0
+      },
+      "fighters": [
+        {
+          "fighter": 0,
+          "frames": 121,
+          "stateCounts": {
+            "stand": 121
+          },
+          "gripInvalidFrames": 0,
+          "chestTiltMaxRad": 0.3340726683044821,
+          "chestTiltRMSRad": 0.21898414195806176,
+          "pelvisMinM": 0.9220200777053833,
+          "pelvisMaxM": 0.9511658549308777,
+          "omegaMax": {
+            "timeS": 6.98333333333347,
+            "value": 25.927537790797352,
+            "part": "sword",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "limbAxialAbsMax": {
+            "timeS": 6.6750000000001215,
+            "value": 9.231607631653086,
+            "part": "uarmS",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "swordAxialAbsMax": {
+            "timeS": 6.98333333333347,
+            "value": -25.919048064093978,
+            "part": "sword",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "jointGapMax": {
+            "timeS": 6.375000000000107,
+            "value": 0.0022617828994168656,
+            "part": "shinF",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "gripGapMax": {
+            "timeS": 6.091666666666759,
+            "value": 0.0002780294460402555,
+            "part": "grip",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "finalHealth": {
+            "alive": true,
+            "armed": true,
+            "blood": 1,
+            "consciousness": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        },
+        {
+          "fighter": 1,
+          "frames": 121,
+          "stateCounts": {
+            "stand": 121
+          },
+          "gripInvalidFrames": 0,
+          "chestTiltMaxRad": 0.25229862698937083,
+          "chestTiltRMSRad": 0.18669633909649674,
+          "pelvisMinM": 0.9058650732040405,
+          "pelvisMaxM": 0.9476060271263123,
+          "omegaMax": {
+            "timeS": 6.975000000000136,
+            "value": 41.338276593618794,
+            "part": "sword",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "limbAxialAbsMax": {
+            "timeS": 6.38333333333344,
+            "value": -27.4467853776797,
+            "part": "uarmO",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "swordAxialAbsMax": {
+            "timeS": 6.975000000000136,
+            "value": 40.034255886500276,
+            "part": "sword",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "jointGapMax": {
+            "timeS": 6.975000000000136,
+            "value": 0.0016246747835510522,
+            "part": "uarmS",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "gripGapMax": {
+            "timeS": 6.991666666666804,
+            "value": 0.0001275514496176429,
+            "part": "grip",
+            "state": "stand",
+            "alive": true,
+            "armed": true
+          },
+          "finalHealth": {
+            "alive": true,
+            "armed": true,
+            "blood": 0.9925205095676003,
+            "consciousness": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 0.6296551593511671,
+              "legB": 1
+            }
+          }
+        }
+      ],
+      "wounds": [
+        {
+          "timeS": 6.075000000000092,
+          "attacker": 0,
+          "victim": 1,
+          "type": "cut",
+          "zone": "leg",
+          "energyJ": 63.85960722812302,
+          "severity": 0.5081333073900232
+        },
+        {
+          "timeS": 6.083333333333425,
+          "attacker": 0,
+          "victim": 1,
+          "type": "cut",
+          "zone": "leg",
+          "energyJ": 25.905375725316848,
+          "severity": 0.020930750679738114
+        },
+        {
+          "timeS": 6.408333333333442,
+          "attacker": 0,
+          "victim": 1,
+          "type": "blunt",
+          "zone": "pelvis",
+          "energyJ": 6.852419667265641,
+          "severity": 0
+        }
+      ]
+    }
+  ],
+  "corrections": [
+    {
+      "kind": "angular origin",
+      "detail": "Original nonzero deltaP makes deltaL origin-dependent. LS COM-completion world-origin norm .00438→.01940 cannot establish invariant worsening; about initial pairCOM .04888→.01940 decreases but remains nonzero. Offline JSON preserves both origins."
+    },
+    {
+      "kind": "direction exactness",
+      "detail": "Fixture01 used re-normalized legacy direction. Independent audit required preserving exact caller direction. Fixture02 rerun passed; all four live candidate rows use corrected exact direction."
+    },
+    {
+      "kind": "uncited diagnostic cleanup",
+      "detail": "Executed new probe inherited an unused +0.2J victimCOM counterfactual field from legacy ledger, including candidate rows where it would no longer represent a missing linear impulse. This field is not used for candidate analysis and was removed from final tool after the run, with no physics or measured-value change. Frozen executed tool/raw remain preserved."
+    }
+  ],
+  "limitations": [
+    "Only two seeded AI scenes and one second after first actual player cutting pair, not mobile input or naturalness acceptance.",
+    "Same prefix causal comparison ends when responsive AI inputs diverge; later trajectory/health are bounded regression observations.",
+    "Requested J*s/Eleft and stuck timers remain legacy bookkeeping, not true kinetic-loss budget. Cap binding creates an additional requested-vs-actual debit discrepancy.",
+    "Instant P/L/K closure does not certify whole-body later contacts, support or free-body decomposition.",
+    "Saved/live pairs here are drag contacts on upper arm and thigh. No live stuck/cap-binding/head/chest/onehand scene in this screening.",
+    "Two AI scenes show small bounded pose differences and unchanged final health; stand counts do not prove human naturalness or fall safety.",
+    "A lower instantaneous momentum residual does not establish better gameplay feel or damage balance.",
+    "First wound and weapon velocity are exact here. Later AI/contacts may differ, so future health equality is not promised."
+  ],
+  "decision": {
+    "physicsScreen": "proceed to narrowly scoped optional browser check",
+    "generalPromotion": false,
+    "publicDelivery": "Not established by this research record; use a separate release receipt.",
+    "next": "Root browser/input/restart and regression gates for this candidate, retaining ordinary legacy until user approval for a major default change."
+  }
+}

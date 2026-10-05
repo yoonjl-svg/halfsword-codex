@@ -26,6 +26,7 @@ import { STRIKE, ANATOMY, STEEL, ARMOR } from './config.js';
 import { BREAK } from './weapons.js';
 import { updateGun } from './gun.js';
 import { applyBudgetedCutResistance } from './cut_reaction.js';
+import { applyCenterlineCutImpulse, centerlineCutEnabled } from './cut_centerline.js';
 import { resolveFinishRule } from './finish_rule.js';
 
 // 전투 사건 갈고리 (gun.js GUN_HOOKS 와 같은 식): 비어 있으면 아무 일도 없다. 판정·난수와 무관
@@ -66,6 +67,7 @@ export class Combat {
     this.cutting = new Map(); // "칼콜라이더:몸콜라이더" → { seen, applied, until }
     this.stepNo = 0;
     this.cutReactionModel = 'legacy'; // Optional research trial; ordinary combat preserves legacy resistance.
+    this.cutReactionFighter = null; // Centerline trial requires the selected player object explicitly.
     this.finishRuleModel = 'legacy';
     this.finishRuleFighter = null; // Optional app trial can restrict the rule to its player.
     // 칼끼리 닿아 있는 상태 (소리용): 처음 부딪히는 순간 = "쨍", 맞댄 채 미끄러지는 동안 = 긁히는 소리
@@ -383,9 +385,15 @@ export class Combat {
         const ax = _a.set(0, 1, 0).applyQuaternion(rotQ(sw));
         const o = tv(sw.translation());
         const pA = o.clone().addScaledVector(ax, _b.copy(point).sub(o).dot(ax));
-        sw.applyImpulseAtPoint({ x: -dir.x * J, y: -dir.y * J, z: -dir.z * J }, vp(pA), true);
-        const pv = onBone(c.pr.v, point);
-        vb.applyImpulseAtPoint({ x: dir.x * J * 0.8, y: dir.y * J * 0.8, z: dir.z * J * 0.8 }, vp(pv), true);
+        if (centerlineCutEnabled(this, c.pr.w.fighter)) {
+          const reaction = applyCenterlineCutImpulse(sw, vb, vp(pA), dir, J);
+          // Eleft and stuckT above deliberately retain the legacy requested-J policy.
+          this.onCutReaction?.({ ...reaction, mode: 'centerline', key, step: this.stepNo });
+        } else {
+          sw.applyImpulseAtPoint({ x: -dir.x * J, y: -dir.y * J, z: -dir.z * J }, vp(pA), true);
+          const pv = onBone(c.pr.v, point);
+          vb.applyImpulseAtPoint({ x: dir.x * J * 0.8, y: dir.y * J * 0.8, z: dir.z * J * 0.8 }, vp(pv), true);
+        }
       }
     }
 

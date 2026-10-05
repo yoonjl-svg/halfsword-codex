@@ -76,6 +76,11 @@ function measurePair(options,requestedJ){
 
 await test('source transform is exact-once guarded and original fallback preserved',()=>{
   assert.throws(()=>transformCutReactionSource(source.replace('dir.x * J * 0.8','dir.x * J * 0.7')),/found 0/);
+  const changedScope=source.replace('centerlineCutEnabled(this, c.pr.w.fighter)',
+    'centerlineCutEnabled(this, c.pr.v.fighter)');
+  assert.notEqual(changedScope,source,'the reviewed opt-in wrapper is present');
+  assert.throws(()=>transformCutReactionSource(changedScope),/found 0/);
+  assert.throws(()=>transformBudgetedCutReactionSource(changedScope),/found 0/);
   assert.throws(()=>transformCutReactionSource(source+'\n'+source),/found 2/);
   assert.equal(legacy.metadata.sourceSHA256,sourceBefore);
   assert.equal(legacy.metadata.transformedSHA256,sourceBefore);

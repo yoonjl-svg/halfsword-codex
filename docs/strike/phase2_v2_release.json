@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "repository": "yoonjl-svg/halfsword-codex",
+  "status": "local_verified_public_pending",
+  "publicDeliveryVerified": false,
+  "generalPromotionDecision": false,
+  "baseCommit": "e0ed9e5af85037a7bdd2644e35090a8936da9f60",
+  "scope": {
+    "P4": "New goal candidates and fresh velocity diagnostic rejected; no controller change",
+    "P5": "Optional player-only centerline cutting impulse in longsword and zweihander comparisons",
+    "ordinaryController": "unified-20261005-r2 unchanged",
+    "ordinaryCutReaction": "legacy unchanged",
+    "failedCandidatesRestored": false
+  },
+  "urls": {
+    "comparison": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#contact-v2-comparison",
+    "game": "https://yoonjl-svg.github.io/halfsword-codex/",
+    "phonePlan": "https://yoonjl-svg.github.io/halfsword-codex/development-plan.html"
+  },
+  "research": [
+    "p4_recut_v2_20261005.json",
+    "p5_centerline_contact_20261005.json"
+  ],
+  "regression": {
+    "pass": true,
+    "groups": 6,
+    "originalSuitePass": false,
+    "originalFailurePreserved": true,
+    "originalFailure": "Exact source-transform anchor did not recognize added opt-in wrapper",
+    "retryOnly": "cut_reaction",
+    "retryContractChecks": 33,
+    "runnerTimeoutBridge": "arm_duel420s used due to previously measured >180s; other checks unchanged",
+    "actualSuiteWallSeconds": 187.40105388098164,
+    "checks": [
+      {
+        "id": "force_ledger",
+        "pass": true,
+        "evidenceRun": "regression01"
+      },
+      {
+        "id": "grip_reaction",
+        "pass": true,
+        "evidenceRun": "regression01"
+      },
+      {
+        "id": "cut_reaction",
+        "pass": true,
+        "evidenceRun": "cut-regression02"
+      },
+      {
+        "id": "arm_capacity",
+        "pass": true,
+        "evidenceRun": "regression01"
+      },
+      {
+        "id": "arm_duel",
+        "pass": true,
+        "evidenceRun": "regression01"
+      },
+      {
+        "id": "build",
+        "pass": true,
+        "evidenceRun": "regression01"
+      }
+    ]
+  },
+  "entryContracts": {
+    "contactCases": 17,
+    "ordinaryDefaultGroups": 6,
+    "researchMarkers": 29,
+    "supportedMelee": 12,
+    "pass": true,
+    "commands": [
+      "node tools/browser/contact_trial.test.mjs",
+      "node tools/sim/experiments/swordsmanship_default.test.mjs"
+    ],
+    "scope": "Pure entry contracts, not mobile execution"
+  },
+  "evidence": [
+    {
+      "path": "/workspace/halfsword-handoff/phase2-v2-20261005/baseline.json",
+      "bytes": 13100,
+      "sha256": "be22e081e2e9a74a7c774fb4372e484b3dc2ff544181ed93ea7a65061b4ae4ed"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-v2-20261005/regression01/result.json",
+      "bytes": 253535,
+      "sha256": "6be958b10a3a35cbbf94d94f9d6270b8e1e5a2b1458d52fe08a8ebba8cc9d4ba"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-v2-20261005/cut-regression02/receipt.json",
+      "bytes": 2109,
+      "sha256": "a336f2c7d9d6c4c4b4456162044fdd306f6f6752c28bdd72869a32bd5b4c3589"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-v2-20261005/regression-runner-bridge.json",
+      "bytes": 784,
+      "sha256": "a325e078a1b6a29b9acf03563cbc03e1530dcff16d66d19127881b4a440c9921"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-v2-20261005/regression-to-browser-bridge.json",
+      "bytes": 1016,
+      "sha256": "ec19eb509744f62c1768dd9d79268d24ade396e57f2fc76b99e02626f8456edd"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-v2-20261005/browser-tool-bridge.json",
+      "bytes": 441,
+      "sha256": "4f38716f0bec1912b94f0246c6ec82c277d5e7e853a52674fb63d5a065d1c6c2"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-v2-20261005/browser-local01/summary.json",
+      "bytes": 255862,
+      "sha256": "da8ff28dac03d5a107e3087c7e43f530dd3c11f908ea32fc7ad7591cd624640e"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-v2-20261005/browser-local01-failure-receipt.json",
+      "bytes": 2244,
+      "sha256": "25d8e2e708959f27b0b59d0ab27fc8b59bd43868a98bdae16350c4860efe9ded"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-v2-20261005/research-to-delivery-source-bridge.json",
+      "bytes": 8611,
+      "sha256": "5e00fb893163b764c09f4a10c607d31c10b1cdc98ac63a1afab6ae63d8b416a9"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-v2-20261005/final-audit.json",
+      "bytes": 770,
+      "sha256": "2448ff49bb3332625a4e99050c773d6593ba2733853ec1734ef1eddeb611fa51"
+    }
+  ],
+  "preservedFailures": [
+    {
+      "run": "regression01",
+      "reason": "cut_reaction source anchor; remaining five passed"
+    },
+    {
+      "run": "browser-local01",
+      "reason": "stale preview build still selected Heinrich; first menu failed, no gameplay claims; rebuilt with regression assets exact"
+    }
+  ],
+  "limitations": [
+    "P4 desired recut path unresolved; no new P4 game control deployed.",
+    "P5 evidence is two seed7 scenes, first contact plus one second; AI diverges after contact.",
+    "First sword velocity and damage exact in observed scenes, not universal speed/damage equivalence.",
+    "Observed candidate 18pairs did not bind passive cap. Head/torso, one-hand, natural stuck, cap-binding and long combat remain unverified.",
+    "Request energy debit remains legacy J*s and differs from actual kinetic loss.",
+    "Mobile browser checks are emulation with trusted touch, not physical-phone or human-naturalness acceptance."
+  ],
+  "independentReview": {
+    "blockingFindings": 0,
+    "clarifiedMeasuredFirstContactScope": true,
+    "runtimeSourceAndArtifactHashesVerified": true
+  },
+  "visualReview": {
+    "images": [
+      "browser-local02/longsword-a-recut.png",
+      "browser-local02/longsword-b-recut.png",
+      "browser-local02/zweihander-a-recut.png",
+      "browser-local02/zweihander-b-restart.png"
+    ],
+    "scope": "Compiled mobile gameplay framing and visible game/UI presence. No close-up hand or human-naturalness acceptance."
+  },
+  "localBrowser": {
+    "pass": true,
+    "rows": 7,
+    "sourceStable": true,
+    "trialFlows": 4,
+    "ordinaryCardFlow": 1,
+    "invalidMenus": 2,
+    "compiledResponses": 30,
+    "compiledResponsesAllExact": true,
+    "errors": {
+      "errors": 0,
+      "httpFailures": 0,
+      "requestFailures": 0,
+      "blockedRequests": 0,
+      "redirectRefusals": 0
+    },
+    "startedUTC": "2026-10-05T11:44:33.957Z",
+    "completedUTC": "2026-10-05T11:50:40.315Z",
+    "evidence": {
+      "path": "/workspace/halfsword-handoff/phase2-v2-20261005/browser-local02/summary.json",
+      "bytes": 150248912,
+      "sha256": "3b9455d28e411db49fbbc698e7c5687382f4d14067c7a8035ba3b83ea4248bb5"
+    }
+  }
+}

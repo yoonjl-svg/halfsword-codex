@@ -48,6 +48,7 @@ import { applyMotionAssist } from './motion_assist.js';
 import { applyMotionTiming, recordMotionTimingInput } from './motion_timing.js';
 import { applySwordAssistV2 } from './sword_assist_v2.js';
 import { configureSwordsmanshipTrial, mountSwordsmanshipTrial } from './swordsmanship_trial.js';
+import { configureContactTrial, mountContactTrial } from './contact_trial.js';
 import { applySwordsmanship, recordSwordsmanshipInput } from './swordsmanship.js';
 import { configureSwordsmanshipDefault, swordsmanshipDefaultSupportsWeapon } from './swordsmanship_default.js';
 
@@ -56,16 +57,22 @@ await RAPIER.init();
 // 테스트용 URL 파라미터: ?weapon=monohoshizao&foeWeapon=chicken (무기 id는 weapons.js의 WEAPONS 키,
 //  Fighter 생성자가 알아서 getWeapon()으로 찾는다. 없으면 기본 롱소드)
 const requestedParams = new URLSearchParams(location.search);
-const swordsmanshipDefault = configureSwordsmanshipDefault(requestedParams);
-const swordsmanshipTrial = configureSwordsmanshipTrial(requestedParams);
-const integratedCombatTrial = configureIntegratedCombatTrial(requestedParams);
+const contactTrial = configureContactTrial(requestedParams);
+// This strict compound entry owns its whole query. Invalid/mixed entries return
+// to current ordinary defaults; older trials keep their existing parsing.
+const priorTrialParams = contactTrial.requested ? new URLSearchParams() : requestedParams;
+const swordsmanshipDefault = configureSwordsmanshipDefault(contactTrial.active ? requestedParams : priorTrialParams);
+const swordsmanshipTrial = configureSwordsmanshipTrial(priorTrialParams);
+const integratedCombatTrial = configureIntegratedCombatTrial(priorTrialParams);
 // Reject an incomplete compound entry as a whole; standalone comparison URLs
 // without this marker continue to use their existing contracts.
-const params = swordsmanshipTrial.requested ? (swordsmanshipTrial.active
+const params = contactTrial.active
+  ? new URLSearchParams({weapon: contactTrial.weapon, foe: 'default', foeWeapon: contactTrial.foeWeapon, onehandArm: 'manual'})
+  : swordsmanshipTrial.requested ? (swordsmanshipTrial.active
   ? new URLSearchParams({ weapon: swordsmanshipTrial.weapon, foe: 'heinrich', foeWeapon: 'longsword',
       ...(!getWeapon(swordsmanshipTrial.weapon).gun ? { onehandArm: 'manual' } : {}),
       ...(swordsmanshipTrial.weapon === 'qinggang' ? { bladeShape: 'profile', thrustPlane: 'transported' } : {}) })
-  : new URLSearchParams()) : integratedCombatTrial.requested && !integratedCombatTrial.active ? new URLSearchParams() : requestedParams;
+  : new URLSearchParams()) : integratedCombatTrial.requested && !integratedCombatTrial.active ? new URLSearchParams() : priorTrialParams;
 // Session-only comparison; ordinary games retain their current hand mapping.
 const onehandArmModel = params.get('onehandArm') === 'manual' ? 'manual' : 'legacy';
 const thrustEdgeModel = params.get('thrustEdge') === 'steady' ? 'steady' : 'legacy';
@@ -74,7 +81,7 @@ const thrustPlaneTrial = configureThrustPlaneTrial(params);
 const inputComparison = params.get('inputComparison') === 'vertical';
 const targetCorrectionTrial = configureTargetCorrectionTrial(params);
 const armRecoveryTrial = configureArmRecoveryTrial(params);
-const comparisonSettings = swordsmanshipTrial.active ? swordsmanshipTrial.settings : integratedCombatTrial.active ? integratedCombatTrial.settings : inputComparison ? { skill: '0', difficulty: 'normal' } : swordsmanshipDefault.active ? swordsmanshipDefault.settings : targetCorrectionTrial.settings;
+const comparisonSettings = contactTrial.active ? contactTrial.settings : swordsmanshipTrial.active ? swordsmanshipTrial.settings : integratedCombatTrial.active ? integratedCombatTrial.settings : inputComparison ? { skill: '0', difficulty: 'normal' } : swordsmanshipDefault.active ? swordsmanshipDefault.settings : targetCorrectionTrial.settings;
 const settingValue = (key) => comparisonSettings[key] ?? settings[key];
 CONFIG.COMBAT.limbSeverTrial = params.get('limbTrial') === '1';
 const limbDemo = CONFIG.COMBAT.limbSeverTrial ? params.get('limbDemo') : null;
@@ -452,7 +459,7 @@ function newRound(weaponId) {
   // 같은 선택형 팔 제어를 양쪽에 적용하고 재시작 때도 주소 설정을 유지한다.
   for (const f of [player, enemy]) f.armTorqueModel = armTrial.model;
   for (const f of [player, enemy]) f.onehandArmModel = onehandArmModel;
-  if (integratedCombatTrial.active || swordsmanshipTrial.active) enemy.onehandArmModel = 'legacy';
+  if (integratedCombatTrial.active || swordsmanshipTrial.active || contactTrial.active) enemy.onehandArmModel = 'legacy';
   const defaultSwordsmanshipForPlayer = swordsmanshipDefault.active && swordsmanshipDefaultSupportsWeapon(player.weapon);
   if (defaultSwordsmanshipForPlayer) player.onehandArmModel = 'manual';
   player.gripPointModel = gripPointModel;
@@ -499,10 +506,11 @@ function newRound(weaponId) {
   applyMotionAssist(integratedCombatTrial, player);
   applyMotionTiming(integratedCombatTrial, player);
   applySwordAssistV2(integratedCombatTrial, player);
-  if (swordsmanshipTrial.active || defaultSwordsmanshipForPlayer) applySwordsmanship(player);
+  if (swordsmanshipTrial.active || defaultSwordsmanshipForPlayer || contactTrial.active) applySwordsmanship(player);
   player.canShove = true; // 근접 밀치기: 플레이어는 스틱으로 (CLOSE.on 이 통째로 끄고 켠다)
   combat = new Combat(colliderInfo, { onWound, onClash });
-  combat.cutReactionModel = cutTrial.model;
+  combat.cutReactionModel = contactTrial.active ? contactTrial.model : cutTrial.model;
+  combat.cutReactionFighter = contactTrial.active && contactTrial.model === 'centerline' ? player : null;
   combat.finishRuleModel = swordsmanshipTrial.active && player.weapon.id === 'qinggang'
     ? 'armorCausal' : integratedCombatTrial.finishRule;
   combat.finishRuleFighter = player;
@@ -713,6 +721,7 @@ mountWristBrakingTrial(wristBrakingTrial);
 if (!integratedCombatTrial.active && !swordsmanshipTrial.active) mountBladeShapeTrial(bladeShapeTrial);
 mountIntegratedCombatTrial(integratedCombatTrial);
 mountSwordsmanshipTrial(swordsmanshipTrial);
+mountContactTrial(contactTrial);
 if (swordsmanshipDefault.active) {
   // A single ordinary policy replaces the old strength menu. Saved legacy
   // preferences remain available to explicitly requested comparison entries.
@@ -733,7 +742,7 @@ if (gripPointModel === 'axial') {
   info.textContent = '양손 흔들림 비교판 · 시작과 베기 뒤에 칼이 떨리는지 확인하세요. 일반판은 기존 방식이며 저장 설정은 유지됩니다.';
   $('menuSub').after(info);
 }
-if (onehandArmModel === 'manual' && !integratedCombatTrial.active && !swordsmanshipTrial.active) {
+if (onehandArmModel === 'manual' && !integratedCombatTrial.active && !swordsmanshipTrial.active && !contactTrial.active) {
   const info = document.createElement('p');
   info.id = 'onehandArmInfo';
   info.className = 'sub';
@@ -1684,6 +1693,7 @@ window.game = {
   integratedCombatTrial,
   swordsmanshipTrial,
   swordsmanshipDefault,
+  contactTrial,
   get defaultSwordsmanshipApplied() {
     return swordsmanshipDefault.active && player?.swordsmanshipModel === 'unified';
   },

@@ -1,0 +1,1869 @@
+{
+  "schemaVersion": 1,
+  "updatedUTC": "2026-10-05T11:34:54.019Z",
+  "sourceCommit": "e0ed9e5af85037a7bdd2644e35090a8936da9f60",
+  "decision": "Both candidates rejected; research tools and evidence retained. Runtime/defaults/public delivery unchanged.",
+  "measurementValid": true,
+  "effectAccepted": false,
+  "newPhysicsExecutions": 5,
+  "newPhysicsSteps": 2109,
+  "physicsWallSeconds": 4.857711029,
+  "conditions": {
+    "weapons": [
+      "qinggang",
+      "longsword"
+    ],
+    "modes": [
+      "legacy",
+      "continuedNormal"
+    ],
+    "seed": 7,
+    "skill": "ordinary unified-20261005-r2; old skill0 internally",
+    "playerArm": "manual",
+    "qinggangPhysics": "ordinary legacy shape/thrust plane/finish",
+    "gapM": 14,
+    "dt": 0.008333333333333333,
+    "stepsPerRun": 444,
+    "interventionTick": 132,
+    "input": "accumulated supplied deltas: prepare, first cut, reverse, native tap, recut, held follow-through, release .5s; original AI",
+    "unchanged": "mass/COM/inertia, gains, force caps, swing/twist torque laws, damage, native poses/velocities/health"
+  },
+  "geometry": {
+    "source": {
+      "path": "/workspace/halfsword-handoff/p456-batch-20261005/recut-plane-observed-run01.json",
+      "bytes": 726018,
+      "sha256": "8dee3a4b4bcb1ccbe0cc911c950f01879f67d129558811de29e0c773ee78a5a1"
+    },
+    "physicsSteps": 0,
+    "rows": [
+      {
+        "model": "legacy",
+        "maxTargetSlewDeg": 94.7632730960047,
+        "maxSignedErrorDeg": 73.62444443157572,
+        "maxNormalizedPositionTorqueDelta": 1.5037878628611772
+      },
+      {
+        "model": "continuedNormal",
+        "maxTargetSlewDeg": 43.09336561588309,
+        "maxSignedErrorDeg": 127.66332888192079,
+        "maxNormalizedPositionTorqueDelta": 0.3505682996349797
+      }
+    ],
+    "conclusion": "Removing final actual-flat sign prevents the archived target reversal but leaves a directed127.66deg target risk."
+  },
+  "native": {
+    "sourceStable": true,
+    "originalSourceStable": true,
+    "allFrozenFilesReverified": true,
+    "runtimeArtifact": "/workspace/halfsword-handoff/p4-recut-v2/native01-runtime",
+    "runtimeArtifactIsGitWorktree": false,
+    "frozenFileCount": 91,
+    "checks": [
+      {
+        "weapon": "qinggang",
+        "mode": "legacy",
+        "checks": {
+          "healthy": true,
+          "finite": true,
+          "noSwordContact": true,
+          "tapAccepted": true,
+          "inputAccepted": true,
+          "complete": true
+        }
+      },
+      {
+        "weapon": "qinggang",
+        "mode": "continuedNormal",
+        "checks": {
+          "healthy": true,
+          "finite": true,
+          "noSwordContact": true,
+          "tapAccepted": true,
+          "inputAccepted": true,
+          "complete": true
+        }
+      },
+      {
+        "weapon": "longsword",
+        "mode": "legacy",
+        "checks": {
+          "healthy": true,
+          "finite": true,
+          "noSwordContact": true,
+          "tapAccepted": true,
+          "inputAccepted": true,
+          "complete": true
+        }
+      },
+      {
+        "weapon": "longsword",
+        "mode": "continuedNormal",
+        "checks": {
+          "healthy": true,
+          "finite": true,
+          "noSwordContact": true,
+          "tapAccepted": true,
+          "inputAccepted": true,
+          "complete": true
+        }
+      }
+    ],
+    "comparisons": [
+      {
+        "weapon": "qinggang",
+        "creationExact": true,
+        "prefixNativeExact": true,
+        "prefixControlExact": true,
+        "inputExact": true,
+        "firstNativeDifference": 185,
+        "firstGoalDifference": 185,
+        "appliedPadExact": true,
+        "legacy": {
+          "recut": {
+            "steps": 30,
+            "tipPeakMps": 10.07186012781481,
+            "tipMeanMps": 6.394162590365223,
+            "midPeakMps": 8.080000333368359,
+            "midMeanMps": 5.391987606454109,
+            "kineticPeakJ": 14.44477364452932,
+            "kineticMeanJ": 7.8531882066767515,
+            "axialPeakRadps": 34.150887860127675,
+            "axialTravelRad": 2.817564138234496,
+            "actualEdgeErrorWeightedRad": 0.5853470308234633,
+            "aimErrorMeanRad": 0.12282518638873594,
+            "maxGapM": 0.0015117683244868214,
+            "maxChestTiltRad": 0.2234298900125205,
+            "maximumTargetSlewRad": 0.7053155687574165,
+            "maximumSignedTargetErrorRad": 1.3878559039952774,
+            "maxPositionTorqueDeltaNm": 0.06481815215354331,
+            "explicitSwordWorkApproxJ": 1.5064542288044749,
+            "swordContactFrames": 0
+          },
+          "recutHold": {
+            "steps": 36,
+            "tipPeakMps": 7.518948514280795,
+            "tipMeanMps": 2.6804647606691927,
+            "midPeakMps": 6.4861666655218,
+            "midMeanMps": 2.16438845043185,
+            "kineticPeakJ": 10.664210116383781,
+            "kineticMeanJ": 2.0233733997485706,
+            "axialPeakRadps": 8.855112848235908,
+            "axialTravelRad": 1.1939139628846052,
+            "actualEdgeErrorWeightedRad": 0.48579429337549923,
+            "aimErrorMeanRad": 0.042165065054554876,
+            "maxGapM": 0.0008727318534993083,
+            "maxChestTiltRad": 0.17286585171692662,
+            "maximumTargetSlewRad": 0.2219924081239272,
+            "maximumSignedTargetErrorRad": 0.31994881423441673,
+            "maxPositionTorqueDeltaNm": 0.0711932238397562,
+            "explicitSwordWorkApproxJ": -18.31601481941709,
+            "swordContactFrames": 0
+          },
+          "release": {
+            "steps": 60,
+            "tipPeakMps": 4.090727101809655,
+            "tipMeanMps": 2.332934137856573,
+            "midPeakMps": 3.0213895205174337,
+            "midMeanMps": 1.5961641087518479,
+            "kineticPeakJ": 1.4662147336083533,
+            "kineticMeanJ": 0.5981493142871575,
+            "axialPeakRadps": 13.319941374933062,
+            "axialTravelRad": 2.1927878304108233,
+            "actualEdgeErrorWeightedRad": 0.5977453852323465,
+            "aimErrorMeanRad": 0.033320469877863385,
+            "maxGapM": 0.0008501244225539131,
+            "maxChestTiltRad": 0.1359319374471595,
+            "maximumTargetSlewRad": 0.1770790268558661,
+            "maximumSignedTargetErrorRad": 0.26908006716969846,
+            "maxPositionTorqueDeltaNm": 0.05321141262415176,
+            "explicitSwordWorkApproxJ": -36.334187701048364,
+            "swordContactFrames": 0
+          }
+        },
+        "continuedNormal": {
+          "recut": {
+            "steps": 30,
+            "tipPeakMps": 10.070771729102153,
+            "tipMeanMps": 6.394181700139255,
+            "midPeakMps": 8.07972020443323,
+            "midMeanMps": 5.391977299201617,
+            "kineticPeakJ": 14.443659791322174,
+            "kineticMeanJ": 7.8526823594337225,
+            "axialPeakRadps": 34.16026239776448,
+            "axialTravelRad": 2.816893256707873,
+            "actualEdgeErrorWeightedRad": 0.5852754748690843,
+            "aimErrorMeanRad": 0.12274443000935202,
+            "maxGapM": 0.0015116749670192609,
+            "maxChestTiltRad": 0.2234200379509097,
+            "maximumTargetSlewRad": 0.7046877750583591,
+            "maximumSignedTargetErrorRad": 1.3875903758157495,
+            "maxPositionTorqueDeltaNm": 0.06454296398820109,
+            "explicitSwordWorkApproxJ": 1.511284818756373,
+            "swordContactFrames": 0
+          },
+          "recutHold": {
+            "steps": 36,
+            "tipPeakMps": 7.518419890778163,
+            "tipMeanMps": 2.6800457952055305,
+            "midPeakMps": 6.485696055263085,
+            "midMeanMps": 2.163540220212407,
+            "kineticPeakJ": 10.662737221871062,
+            "kineticMeanJ": 2.022889252467424,
+            "axialPeakRadps": 8.436996079671875,
+            "axialTravelRad": 1.2024184909119455,
+            "actualEdgeErrorWeightedRad": 0.4822713166149676,
+            "aimErrorMeanRad": 0.04221929632389185,
+            "maxGapM": 0.0008728242053745315,
+            "maxChestTiltRad": 0.17287146343129084,
+            "maximumTargetSlewRad": 0.22369842313911223,
+            "maximumSignedTargetErrorRad": 0.31990774433748004,
+            "maxPositionTorqueDeltaNm": 0.07166273222669785,
+            "explicitSwordWorkApproxJ": -18.31896328497442,
+            "swordContactFrames": 0
+          },
+          "release": {
+            "steps": 60,
+            "tipPeakMps": 4.090969274442688,
+            "tipMeanMps": 2.333324764825106,
+            "midPeakMps": 3.0222061832234632,
+            "midMeanMps": 1.5965957574468561,
+            "kineticPeakJ": 1.4672570335667348,
+            "kineticMeanJ": 0.5985742502256729,
+            "axialPeakRadps": 13.294812999466432,
+            "axialTravelRad": 2.188657178101002,
+            "actualEdgeErrorWeightedRad": 0.5973576037100524,
+            "aimErrorMeanRad": 0.03329699540089711,
+            "maxGapM": 0.0008490363099125025,
+            "maxChestTiltRad": 0.13596068632783895,
+            "maximumTargetSlewRad": 0.17659232198732194,
+            "maximumSignedTargetErrorRad": 0.2689767096562425,
+            "maxPositionTorqueDeltaNm": 0.05315056380127818,
+            "explicitSwordWorkApproxJ": -36.3273272585743,
+            "swordContactFrames": 0
+          }
+        }
+      },
+      {
+        "weapon": "longsword",
+        "creationExact": true,
+        "prefixNativeExact": true,
+        "prefixControlExact": true,
+        "inputExact": true,
+        "firstNativeDifference": 325,
+        "firstGoalDifference": 325,
+        "appliedPadExact": true,
+        "legacy": {
+          "recut": {
+            "steps": 30,
+            "tipPeakMps": 7.85874671057903,
+            "tipMeanMps": 4.996832118365802,
+            "midPeakMps": 6.156008911314428,
+            "midMeanMps": 4.157240020100714,
+            "kineticPeakJ": 15.814310475920612,
+            "kineticMeanJ": 7.233316312035088,
+            "axialPeakRadps": 21.465692785376124,
+            "axialTravelRad": 1.196096019499801,
+            "actualEdgeErrorWeightedRad": 0.17553017707020832,
+            "aimErrorMeanRad": 0.10705592375389233,
+            "maxGapM": 0.0009905018336845751,
+            "maxChestTiltRad": 0.28709669890467854,
+            "maximumTargetSlewRad": 0.7341252476427358,
+            "maximumSignedTargetErrorRad": 0.7803548706982314,
+            "maxPositionTorqueDeltaNm": 2.811216302378991,
+            "explicitSwordWorkApproxJ": 1.1291605371864288,
+            "swordContactFrames": 0
+          },
+          "recutHold": {
+            "steps": 36,
+            "tipPeakMps": 8.429928345349056,
+            "tipMeanMps": 5.169975483677702,
+            "midPeakMps": 7.285867520545147,
+            "midMeanMps": 4.266129189971354,
+            "kineticPeakJ": 21.549762398011513,
+            "kineticMeanJ": 8.438609708364174,
+            "axialPeakRadps": 2.081902985610072,
+            "axialTravelRad": 0.25600378144743663,
+            "actualEdgeErrorWeightedRad": 0.044712452900451456,
+            "aimErrorMeanRad": 0.2566283346844316,
+            "maxGapM": 0.001068063053423082,
+            "maxChestTiltRad": 0.2123245534291416,
+            "maximumTargetSlewRad": 0.03780416346509531,
+            "maximumSignedTargetErrorRad": 0.06485757770994967,
+            "maxPositionTorqueDeltaNm": 0.1471625321845916,
+            "explicitSwordWorkApproxJ": -12.809934888284483,
+            "swordContactFrames": 0
+          },
+          "release": {
+            "steps": 60,
+            "tipPeakMps": 3.3698229695533595,
+            "tipMeanMps": 1.7837655105572918,
+            "midPeakMps": 2.4528343614198755,
+            "midMeanMps": 1.3633273633117642,
+            "kineticPeakJ": 1.1504617978783525,
+            "kineticMeanJ": 0.541951996184079,
+            "axialPeakRadps": 9.898444910765145,
+            "axialTravelRad": 0.8832722851915685,
+            "actualEdgeErrorWeightedRad": 0.1813889870791814,
+            "aimErrorMeanRad": 0.20099270983901246,
+            "maxGapM": 0.0008047728723225188,
+            "maxChestTiltRad": 0.205989444434123,
+            "maximumTargetSlewRad": 0.19180637240783066,
+            "maximumSignedTargetErrorRad": 0.296663349897152,
+            "maxPositionTorqueDeltaNm": 0.5431115975013898,
+            "explicitSwordWorkApproxJ": 0.4819684587886846,
+            "swordContactFrames": 0
+          }
+        },
+        "continuedNormal": {
+          "recut": {
+            "steps": 30,
+            "tipPeakMps": 6.919677858577285,
+            "tipMeanMps": 4.575253858823992,
+            "midPeakMps": 5.731658533163824,
+            "midMeanMps": 3.804116851934028,
+            "kineticPeakJ": 16.31439740907366,
+            "kineticMeanJ": 6.544276350949216,
+            "axialPeakRadps": 32.74661962925725,
+            "axialTravelRad": 3.3948360076708246,
+            "actualEdgeErrorWeightedRad": 0.5750713017542598,
+            "aimErrorMeanRad": 0.1668809611394061,
+            "maxGapM": 0.0009905018336845751,
+            "maxChestTiltRad": 0.28709669890467854,
+            "maximumTargetSlewRad": 0.9873487964384737,
+            "maximumSignedTargetErrorRad": 1.9397019631138483,
+            "maxPositionTorqueDeltaNm": 2.3255541842362053,
+            "explicitSwordWorkApproxJ": 1.6019598103802006,
+            "swordContactFrames": 0
+          },
+          "recutHold": {
+            "steps": 36,
+            "tipPeakMps": 9.836299315107974,
+            "tipMeanMps": 6.0360144304647125,
+            "midPeakMps": 8.070400128375972,
+            "midMeanMps": 4.905030487161516,
+            "kineticPeakJ": 25.33032206039865,
+            "kineticMeanJ": 9.869446557964523,
+            "axialPeakRadps": 11.597146498853958,
+            "axialTravelRad": 1.0700744549301648,
+            "actualEdgeErrorWeightedRad": 0.14143087985025546,
+            "aimErrorMeanRad": 0.3087524995179616,
+            "maxGapM": 0.0010508409985025148,
+            "maxChestTiltRad": 0.2012860017327841,
+            "maximumTargetSlewRad": 0.16376323970907578,
+            "maximumSignedTargetErrorRad": 0.33176061888317393,
+            "maxPositionTorqueDeltaNm": 0.6560616080236232,
+            "explicitSwordWorkApproxJ": -17.300800204148995,
+            "swordContactFrames": 0
+          },
+          "release": {
+            "steps": 60,
+            "tipPeakMps": 3.285797739144762,
+            "tipMeanMps": 1.9070614448687144,
+            "midPeakMps": 2.374192370887445,
+            "midMeanMps": 1.445711187714391,
+            "kineticPeakJ": 1.0483803475236007,
+            "kineticMeanJ": 0.543634973302411,
+            "axialPeakRadps": 7.40720750603594,
+            "axialTravelRad": 1.0607705552324758,
+            "actualEdgeErrorWeightedRad": 0.22639556058144883,
+            "aimErrorMeanRad": 0.22817305069623126,
+            "maxGapM": 0.0008048360697127927,
+            "maxChestTiltRad": 0.19450276308656772,
+            "maximumTargetSlewRad": 0.12248365180621441,
+            "maximumSignedTargetErrorRad": 0.2174786604526545,
+            "maxPositionTorqueDeltaNm": 0.4669903404779145,
+            "explicitSwordWorkApproxJ": 1.3483544981459725,
+            "swordContactFrames": 0
+          }
+        }
+      }
+    ],
+    "firstCounterexample": [
+      {
+        "mode": "legacy",
+        "frames": [
+          {
+            "tick": 323,
+            "moving": 0.2269150166133675,
+            "rawMotionDotFlat": 0.8201604282646223,
+            "restDotRawMotion": 0.7046923130733108,
+            "rawMotionSlewDeg": null,
+            "chosenMotionSlewDeg": null,
+            "targetSlewDeg": 0.3721256651058918,
+            "signedTargetErrorDeg": -0.505481399944468,
+            "positionTorqueNm": -0.03528880127966681,
+            "positionTorqueDeltaNm": -0.016616736475441797,
+            "finalRequestedAxialTorqueNm": -0.15150458262319577,
+            "finalRequestedTorqueNm": [
+              -0.32312544324370485,
+              -1.1965794124454805,
+              -15.098302828762161
+            ],
+            "postCombatAxialOmegaRadps": 0.9824430652208355,
+            "actualUnsignedEdgeErrorRad": 1.3512284100540843,
+            "tipSpeedMps": 1.8796026873690215
+          },
+          {
+            "tick": 324,
+            "moving": 0.22934937815578602,
+            "rawMotionDotFlat": 0.4141989227871769,
+            "restDotRawMotion": 0.23726610861702585,
+            "rawMotionSlewDeg": 31.099064680052724,
+            "chosenMotionSlewDeg": 31.099064680052724,
+            "targetSlewDeg": 5.340574721672587,
+            "signedTargetErrorDeg": 4.368009434485734,
+            "positionTorqueNm": 0.3046492858288728,
+            "positionTorqueDeltaNm": 0.3399380871085396,
+            "finalRequestedAxialTorqueNm": 0.18676295884420624,
+            "finalRequestedTorqueNm": [
+              0.001522639614235266,
+              -0.8628267590949229,
+              -14.376392307701378
+            ],
+            "postCombatAxialOmegaRadps": 3.30391033920937,
+            "actualUnsignedEdgeErrorRad": 1.104384273772601,
+            "tipSpeedMps": 2.490260778839654
+          },
+          {
+            "tick": 325,
+            "moving": 0.3757756888198245,
+            "rawMotionDotFlat": -0.039949073192035,
+            "restDotRawMotion": -0.2438126068472689,
+            "rawMotionSlewDeg": 27.86692145405569,
+            "chosenMotionSlewDeg": -152.1330785459443,
+            "targetSlewDeg": -42.06227832392515,
+            "signedTargetErrorDeg": -38.80278957393857,
+            "positionTorqueNm": -2.506567016550118,
+            "positionTorqueDeltaNm": -2.811216302378991,
+            "finalRequestedAxialTorqueNm": -2.903047082647191,
+            "finalRequestedTorqueNm": [
+              -2.555351295363539,
+              -2.440607514747817,
+              -13.578482308068839
+            ],
+            "postCombatAxialOmegaRadps": -19.76668870856872,
+            "actualUnsignedEdgeErrorRad": 0.9653310797017077,
+            "tipSpeedMps": 3.185175145290328
+          },
+          {
+            "tick": 326,
+            "moving": 0.6524379484602062,
+            "rawMotionDotFlat": -0.4419059771881017,
+            "restDotRawMotion": -0.5464162634910189,
+            "rawMotionSlewDeg": 19.04269896689197,
+            "chosenMotionSlewDeg": 19.04269896689197,
+            "targetSlewDeg": -10.801582825251339,
+            "signedTargetErrorDeg": -44.71104061348573,
+            "positionTorqueNm": -2.8141266537853764,
+            "positionTorqueDeltaNm": -0.30755963723525825,
+            "finalRequestedAxialTorqueNm": -0.4420227174381997,
+            "finalRequestedTorqueNm": [
+              -0.9502887743874189,
+              0.2137589446467839,
+              -13.971905866742828
+            ],
+            "postCombatAxialOmegaRadps": -21.465692785376124,
+            "actualUnsignedEdgeErrorRad": 0.7399586030010407,
+            "tipSpeedMps": 3.8492007495178804
+          },
+          {
+            "tick": 327,
+            "moving": 0.9348290840075584,
+            "rawMotionDotFlat": -0.7059749938145947,
+            "restDotRawMotion": -0.6672904170439117,
+            "rawMotionSlewDeg": 8.765272390177813,
+            "chosenMotionSlewDeg": 8.765272390177813,
+            "targetSlewDeg": -7.457736097306335,
+            "signedTargetErrorDeg": -42.25123544380642,
+            "positionTorqueNm": -2.6895310473586433,
+            "positionTorqueDeltaNm": 0.12459560642673306,
+            "finalRequestedAxialTorqueNm": -0.11351023364165713,
+            "finalRequestedTorqueNm": [
+              -0.6875630143355308,
+              0.8435914943107727,
+              -14.7930901453032
+            ],
+            "postCombatAxialOmegaRadps": -20.626003251123176,
+            "actualUnsignedEdgeErrorRad": 0.5279263397255415,
+            "tipSpeedMps": 4.453142126970383
+          },
+          {
+            "tick": 328,
+            "moving": 1,
+            "rawMotionDotFlat": -0.8401953179385334,
+            "restDotRawMotion": -0.6958716253541447,
+            "rawMotionSlewDeg": 2.256053448985714,
+            "chosenMotionSlewDeg": 2.256053448985714,
+            "targetSlewDeg": -0.5843444446709591,
+            "signedTargetErrorDeg": -32.83925143110889,
+            "positionTorqueNm": -2.169135755538054,
+            "positionTorqueDeltaNm": 0.5203952918205892,
+            "finalRequestedAxialTorqueNm": 0.30610137496516904,
+            "finalRequestedTorqueNm": [
+              -0.19524267623100516,
+              1.3437229080205624,
+              -15.53851487845148
+            ],
+            "postCombatAxialOmegaRadps": -16.66760818799495,
+            "actualUnsignedEdgeErrorRad": 0.3321556998093072,
+            "tipSpeedMps": 4.99954245300857
+          }
+        ]
+      },
+      {
+        "mode": "continuedNormal",
+        "frames": [
+          {
+            "tick": 323,
+            "moving": 0.2269150166133675,
+            "rawMotionDotFlat": 0.8201604282646223,
+            "restDotRawMotion": 0.7046923130733108,
+            "rawMotionSlewDeg": null,
+            "chosenMotionSlewDeg": null,
+            "targetSlewDeg": 0.3721256651058918,
+            "signedTargetErrorDeg": -0.505481399944468,
+            "positionTorqueNm": -0.03528880127966681,
+            "positionTorqueDeltaNm": -0.016616736475441797,
+            "finalRequestedAxialTorqueNm": -0.15150458262319577,
+            "finalRequestedTorqueNm": [
+              -0.32312544324370485,
+              -1.1965794124454805,
+              -15.098302828762161
+            ],
+            "postCombatAxialOmegaRadps": 0.9824430652208355,
+            "actualUnsignedEdgeErrorRad": 1.3512284100540843,
+            "tipSpeedMps": 1.8796026873690215
+          },
+          {
+            "tick": 324,
+            "moving": 0.22934937815578602,
+            "rawMotionDotFlat": 0.4141989227871769,
+            "restDotRawMotion": 0.23726610861702585,
+            "rawMotionSlewDeg": 31.099064680052724,
+            "chosenMotionSlewDeg": 31.099064680052724,
+            "targetSlewDeg": 5.340574721672587,
+            "signedTargetErrorDeg": 4.368009434485734,
+            "positionTorqueNm": 0.3046492858288728,
+            "positionTorqueDeltaNm": 0.3399380871085396,
+            "finalRequestedAxialTorqueNm": 0.18676295884420624,
+            "finalRequestedTorqueNm": [
+              0.001522639614235266,
+              -0.8628267590949229,
+              -14.376392307701378
+            ],
+            "postCombatAxialOmegaRadps": 3.30391033920937,
+            "actualUnsignedEdgeErrorRad": 1.104384273772601,
+            "tipSpeedMps": 2.490260778839654
+          },
+          {
+            "tick": 325,
+            "moving": 0.3757756888198245,
+            "rawMotionDotFlat": -0.039949073192035,
+            "restDotRawMotion": -0.2438126068472689,
+            "rawMotionSlewDeg": 27.86692145405569,
+            "chosenMotionSlewDeg": -152.1330785459443,
+            "targetSlewDeg": 19.30027341809842,
+            "signedTargetErrorDeg": 22.559762165907653,
+            "positionTorqueNm": 1.5345874932473709,
+            "positionTorqueDeltaNm": 1.2299382074184981,
+            "finalRequestedAxialTorqueNm": 1.1381074271502976,
+            "finalRequestedTorqueNm": [
+              1.1066021079385977,
+              -0.7365683057519785,
+              -13.709926043395155
+            ],
+            "postCombatAxialOmegaRadps": 13.178576739576757,
+            "actualUnsignedEdgeErrorRad": 0.9797043602265818,
+            "tipSpeedMps": 3.0446364962480725
+          },
+          {
+            "tick": 326,
+            "moving": 0.6522376121386253,
+            "rawMotionDotFlat": -0.2927102299677407,
+            "restDotRawMotion": -0.5466042393064307,
+            "rawMotionSlewDeg": 19.05733123847294,
+            "chosenMotionSlewDeg": 19.05733123847294,
+            "targetSlewDeg": 56.570918943246,
+            "signedTargetErrorDeg": 74.80411130497777,
+            "positionTorqueNm": 3.8601416774835764,
+            "positionTorqueDeltaNm": 2.3255541842362053,
+            "finalRequestedAxialTorqueNm": 2.278666933931916,
+            "finalRequestedTorqueNm": [
+              3.075399370272673,
+              -2.1634679391866922,
+              -13.569145729101068
+            ],
+            "postCombatAxialOmegaRadps": 31.80842945180399,
+            "actualUnsignedEdgeErrorRad": 0.9743824573928063,
+            "tipSpeedMps": 3.6151528119597347
+          },
+          {
+            "tick": 327,
+            "moving": 0.9128781611744489,
+            "rawMotionDotFlat": -0.30114871534792587,
+            "restDotRawMotion": -0.7084250136693333,
+            "rawMotionSlewDeg": 12.008894062809839,
+            "chosenMotionSlewDeg": 12.008894062809839,
+            "targetSlewDeg": 47.83519232249525,
+            "signedTargetErrorDeg": 111.136735999664,
+            "positionTorqueNm": 3.7308900313754085,
+            "positionTorqueDeltaNm": -0.12925164610816786,
+            "finalRequestedAxialTorqueNm": -0.08636082429411246,
+            "finalRequestedTorqueNm": [
+              2.4629170416059907,
+              -6.7591196148328745,
+              -12.92022581595291
+            ],
+            "postCombatAxialOmegaRadps": 30.30790286698121,
+            "actualUnsignedEdgeErrorRad": 1.114107058428281,
+            "tipSpeedMps": 4.1770366859977575
+          },
+          {
+            "tick": 328,
+            "moving": 1,
+            "rawMotionDotFlat": -0.23103111045018582,
+            "restDotRawMotion": -0.825881970409386,
+            "rawMotionSlewDeg": 10.606844125714236,
+            "chosenMotionSlewDeg": 10.606844125714236,
+            "targetSlewDeg": 6.99671901715198,
+            "signedTargetErrorDeg": 103.35778395174019,
+            "positionTorqueNm": 3.891785806874149,
+            "positionTorqueDeltaNm": 0.16089577549874035,
+            "finalRequestedAxialTorqueNm": 0.25462574590269477,
+            "finalRequestedTorqueNm": [
+              3.468441472519627,
+              -8.733856903185742,
+              -12.658611218623323
+            ],
+            "postCombatAxialOmegaRadps": 32.15673583745574,
+            "actualUnsignedEdgeErrorRad": 1.2638159850884578,
+            "tipSpeedMps": 4.732060466220145
+          }
+        ]
+      }
+    ],
+    "rejection": "Longsword recut: edge error0.17553->0.57507rad, axial travel1.19610->3.39484rad, tip peak7.85875->6.91968m/s. Release axial travel0.88327->1.06077rad. Qinggang does not meaningfully expose a beneficial branch."
+  },
+  "tensor": {
+    "physicsSteps": 0,
+    "rows": [
+      {
+        "fixture": "archivedQinggangB",
+        "maximumTargetSlewDeg": 125.67865489642226,
+        "maximumLegacySlewDeg": 94.7632730960047,
+        "maximumNormalizedTorqueDelta": 1.8598687233887978,
+        "maximumLegacyNormalizedTorqueDelta": 1.5037878628611772,
+        "firstLargeTorqueReversal": 1206
+      },
+      {
+        "fixture": "ordinaryR2-qinggang",
+        "maximumTargetSlewDeg": 44.20958368238889,
+        "maximumLegacySlewDeg": 40.411605314669195,
+        "maximumNormalizedTorqueDelta": 0.5968081651408316,
+        "maximumLegacyNormalizedTorqueDelta": 0.6750981657610489,
+        "firstLargeTorqueReversal": null
+      },
+      {
+        "fixture": "ordinaryR2-longsword",
+        "maximumTargetSlewDeg": 25.31634072086876,
+        "maximumLegacySlewDeg": 42.06227832392515,
+        "maximumNormalizedTorqueDelta": 0.36553558087263277,
+        "maximumLegacyNormalizedTorqueDelta": 0.7028040755947478,
+        "firstLargeTorqueReversal": null
+      }
+    ],
+    "unitFixtures": [
+      {
+        "moving": 0,
+        "kind": "ordinary",
+        "continuedLength": 1,
+        "continuedSignRepresentationDifference": 0,
+        "tensorLength": 1,
+        "tensorSignRepresentationDifference": 0,
+        "tensorConfidence": 1,
+        "note": null
+      },
+      {
+        "moving": 0,
+        "kind": "exactPerpendicular",
+        "continuedLength": 1,
+        "continuedSignRepresentationDifference": 2,
+        "tensorLength": 1,
+        "tensorSignRepresentationDifference": 0,
+        "tensorConfidence": 1,
+        "note": null
+      },
+      {
+        "moving": 0,
+        "kind": "zeroVelocity",
+        "continuedLength": 1,
+        "continuedSignRepresentationDifference": 0,
+        "tensorLength": 1,
+        "tensorSignRepresentationDifference": 0,
+        "tensorConfidence": 1,
+        "note": null
+      },
+      {
+        "moving": 0.5,
+        "kind": "ordinary",
+        "continuedLength": 1,
+        "continuedSignRepresentationDifference": 0,
+        "tensorLength": 1.0000000000000002,
+        "tensorSignRepresentationDifference": 0,
+        "tensorConfidence": 0.8,
+        "note": null
+      },
+      {
+        "moving": 0.5,
+        "kind": "exactPerpendicular",
+        "continuedLength": 0.9999999999999998,
+        "continuedSignRepresentationDifference": 1.414213562373095,
+        "tensorLength": 1,
+        "tensorSignRepresentationDifference": 0,
+        "tensorConfidence": 0.6,
+        "note": null
+      },
+      {
+        "moving": 0.5,
+        "kind": "zeroVelocity",
+        "continuedLength": 1,
+        "continuedSignRepresentationDifference": 0,
+        "tensorLength": 1,
+        "tensorSignRepresentationDifference": 0,
+        "tensorConfidence": 0.5,
+        "note": "Outside live contract: zero speed makes moving=0. Diagnostic only."
+      },
+      {
+        "moving": 1,
+        "kind": "ordinary",
+        "continuedLength": 1,
+        "continuedSignRepresentationDifference": 0,
+        "tensorLength": 1,
+        "tensorSignRepresentationDifference": 0,
+        "tensorConfidence": 1,
+        "note": null
+      },
+      {
+        "moving": 1,
+        "kind": "exactPerpendicular",
+        "continuedLength": 1,
+        "continuedSignRepresentationDifference": 1.1102230246251565e-16,
+        "tensorLength": 1,
+        "tensorSignRepresentationDifference": 0,
+        "tensorConfidence": 1,
+        "note": null
+      },
+      {
+        "moving": 1,
+        "kind": "zeroVelocity",
+        "continuedLength": 1,
+        "continuedSignRepresentationDifference": 0,
+        "tensorLength": 1,
+        "tensorSignRepresentationDifference": 0,
+        "tensorConfidence": 0,
+        "note": "Outside live contract: zero speed makes moving=0. Diagnostic only."
+      }
+    ],
+    "intrinsicSeams": [
+      {
+        "kind": "actual-flat90",
+        "angleDeg": 89.999,
+        "targetErrorDeg": 89.999,
+        "normalizedTorque": 0.9999999998476913,
+        "confidence": 1
+      },
+      {
+        "kind": "actual-flat90",
+        "angleDeg": 90,
+        "targetErrorDeg": 89.99999999999999,
+        "normalizedTorque": 1,
+        "confidence": 1
+      },
+      {
+        "kind": "actual-flat90",
+        "angleDeg": 90.001,
+        "targetErrorDeg": -89.999,
+        "normalizedTorque": -0.9999999998476913,
+        "confidence": 1
+      },
+      {
+        "kind": "equalOrthogonalPlanes",
+        "moving": 0.499999,
+        "targetErrorDeg": 0,
+        "normalizedTorque": 0,
+        "confidence": 0.000001999999999890978
+      },
+      {
+        "kind": "equalOrthogonalPlanes",
+        "moving": 0.5,
+        "targetErrorDeg": 0,
+        "normalizedTorque": 0,
+        "confidence": 0
+      },
+      {
+        "kind": "equalOrthogonalPlanes",
+        "moving": 0.500001,
+        "targetErrorDeg": 89.99999999999999,
+        "normalizedTorque": 1,
+        "confidence": 0.0000020000000000575113
+      }
+    ],
+    "rejection": "Sign-invariant tensor goal keeps original torque law, distinct from rejected plane-potential torque sum. Archived Qinggang target jump worsens94.76->125.68deg; normalized torque step1.504->1.860 at1206. No candidate physics warranted."
+  },
+  "evidence": [
+    {
+      "path": "/workspace/halfsword-handoff/p4-recut-v2/geometry01.json",
+      "bytes": 24877,
+      "sha256": "a9417101e8c67b41083203fc002dcf60a6b4a35a90a0990db4cde4f713c42bc0"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/p4-recut-v2/native01.json",
+      "bytes": 3916498,
+      "sha256": "b2dcc4f56f9d049f43c5c6de4e58de6ce625757de3409e5662e5851313c455bd"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/p4-recut-v2/tensor-geometry01.json",
+      "bytes": 533696,
+      "sha256": "fa503a1dc5f2d35eb7f502c7e8a6470eacaa394b720cbbea29e4a705a1799824"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/p4-recut-v2/velocity-origin01.json",
+      "bytes": 139382,
+      "sha256": "ae36a4d8df39377f5f89d7f1b4f682c1f07418cff6fbb7ffb653d1d27da88714"
+    }
+  ],
+  "tools": {
+    "tools/sim/experiments/p4_continued_plane_candidate.mjs": {
+      "bytes": 1738,
+      "sha256": "07698c82a7bfdc9461f94fcd9a31a26626c78ff1d8fb3258d444ede3827b09e1"
+    },
+    "tools/sim/experiments/p4_recut_geometry.mjs": {
+      "bytes": 4399,
+      "sha256": "f244342d1182363315f3187a213be4db54300bdb7143da743f5879624a03787d"
+    },
+    "tools/sim/experiments/p4_recut_probe.mjs": {
+      "bytes": 16969,
+      "sha256": "379b0e6999d976fb63ff0cbdf146bccf37ffccac12b7328898c00f9de633554a"
+    },
+    "tools/sim/experiments/p4_tensor_geometry.mjs": {
+      "bytes": 7082,
+      "sha256": "8e69f205eae1f39c2ecefbfc7aef341ff86816032e2bd6cdc16413d71453c6f7"
+    },
+    "tools/sim/experiments/p4_recut_summary.mjs": {
+      "bytes": 10837,
+      "sha256": "84d1199c152b9f1beaabb0668879bd630777873c7b201488fd8d876c8ff9a008"
+    },
+    "tools/sim/experiments/p4_velocity_origin.mjs": {
+      "bytes": 9188,
+      "sha256": "27e42658bf782f64b7bdc5848e08719229e3eeb4871bfe84ef271c558504f97d"
+    }
+  },
+  "historicalToolArchive": {
+    "path": "/workspace/halfsword-handoff/p4-recut-v2/native01-runtime/tools/sim/experiments/p4_continued_plane_candidate.mjs",
+    "note": "Frozen pre-rejection helper matches the candidate SHA in native/tensor artifacts. Current helper adds rejection comments only."
+  },
+  "commands": {
+    "geometry": [
+      "node",
+      "tools/sim/experiments/p4_recut_geometry.mjs",
+      "--observed=/workspace/halfsword-handoff/p456-batch-20261005/recut-plane-observed-run01.json",
+      "--out=<fresh-geometry.json>"
+    ],
+    "native": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/halfsword-codex/tools/sim/experiments/p4_recut_probe.mjs",
+      "--out=/workspace/halfsword-handoff/p4-recut-v2/native01.json"
+    ],
+    "tensor": [
+      "node",
+      "tools/sim/experiments/p4_tensor_geometry.mjs",
+      "--old=/workspace/halfsword-handoff/p456-batch-20261005/recut-plane-observed-run01.json",
+      "--native=/workspace/halfsword-handoff/p4-recut-v2/native01.json",
+      "--out=<fresh-tensor.json>"
+    ],
+    "summary": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/halfsword-codex/tools/sim/experiments/p4_recut_summary.mjs",
+      "--evidence=/workspace/halfsword-handoff/p4-recut-v2",
+      "--velocity=/workspace/halfsword-handoff/p4-recut-v2/velocity-origin01.json",
+      "--out=/workspace/halfsword-handoff/p4-recut-v2/summary-with-velocity02.json"
+    ],
+    "velocity": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/halfsword-codex/tools/sim/experiments/p4_velocity_origin.mjs",
+      "--reference=/workspace/halfsword-handoff/p4-recut-v2/native01.json",
+      "--out=/workspace/halfsword-handoff/p4-recut-v2/velocity-origin01.json"
+    ]
+  },
+  "limits": [
+    "pass=true is measurement validity, not gameplay improvement.",
+    "No candidate from-spawn, injury, contact, browser or human acceptance was run after rejection.",
+    "Frozen geometry does not integrate candidate feedback; no active transported-thrust replay is claimed.",
+    "All four physics runs contain the same read-only instrumentation. No extra observer-off physics duplicate was run; inserted reads were statically audited.",
+    "Explicit requested torque and left-endpoint torque*omega work do not close the coupled native motor/contact energy ledger.",
+    "P4 as a whole remains open. Whole development wall time was not separately metered; reported4.106s is native probe only."
+  ],
+  "next": {
+    "timeboxMinutes": 30,
+    "scope": "On the retained current-r2 boundary, separate whether preserving the existing pre-seam physical turn or selecting the new shorter unsigned plane best preserves the intended recut; specify that route contract before another controller candidate.",
+    "constraints": "Do not repeat velocity substitution, continued-normal, tensor, hemisphere, plane-potential/gain or delay-filter variants merely to reduce a trace peak. Runtime remains unchanged; contact and gameplay priorities can take the next slot."
+  },
+  "velocityOrigin": {
+    "measurementValid": true,
+    "effectAccepted": false,
+    "sourceStable": true,
+    "sourceCommit": "e0ed9e5af85037a7bdd2644e35090a8936da9f60",
+    "frozenRuntimeArtifact": "/workspace/halfsword-handoff/p4-recut-v2/native01-runtime",
+    "sourceBefore": {
+      "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+      "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+      "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+      "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+      "src/arm_recovery_activation.js": "ae025cc8d9bbc9855ea8ab2793d3e7818a66a4662329014a776a2ac88966435e",
+      "src/arm_recovery_trial.js": "ebda992abc5c7cd25a12c751d0f9b30f8fddf998babc8f4a7f49c9f4a0817c09",
+      "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+      "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+      "src/blade_shape_trial.js": "c06f7331c78e602e17d89ffb26507bffbea67cbebce862f5386cb4ce519b3955",
+      "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+      "src/combat.js": "27dcf94ab2bf2e869e0d09bdc389d7f7feb7128fdedb1f3ff120ff44b19bab74",
+      "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+      "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+      "src/cut_trial.js": "427d58d0500ceac482424e092a7d457a8cea48371c254f1b4edecb3a511be5a6",
+      "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+      "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+      "src/edge_intent.js": "b4e17a6ea08d659732c330448b3b3aaffeac2942fa5096e82db551a12d580c87",
+      "src/edge_torque_trial.js": "1280a3fe32c1874b6ce56b75932db44852162855d8962ae13f3aeb3e7d832cae",
+      "src/edge_torque.js": "436995e6d45e816517ea5a9a8f83c9fb147d143871aab1601f82baa7b36bc0fa",
+      "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+      "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+      "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+      "src/fighter.js": "ef8daeca0249e7327597f66afcb9c45929c214412d2f6dfb93aa899d8be86367",
+      "src/finish_rule.js": "803556ca4f6939d4a20acb7020dd4c616b52b5513969d0a6079af0cc929c616d",
+      "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+      "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+      "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+      "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+      "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+      "src/hand_visual.js": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893",
+      "src/input.js": "37529c473619a95ef83fbe3afa567f436dcd3c3b27b4951ebf52109cda434367",
+      "src/integrated_combat_trial.js": "d3b8d2f4b37c617d90832e93d0a31b585d10ef9bd44d5c41ef3d695ef76b898b",
+      "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+      "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+      "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+      "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+      "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+      "src/main.js": "86a43f9d099928576ff6b8b6f5bb80130d084fe276192f61759c27c635535b07",
+      "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+      "src/motion_assist.js": "12e49338e0ec0a1307c71bbdfcad4d849180369959a2a18c8ec7ca4c73a2f2d5",
+      "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+      "src/motion_timing.js": "5a30a5384066585227c1469a7adf66ff2137fabc19ff37142cc5ebd2895887e2",
+      "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+      "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+      "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+      "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+      "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+      "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+      "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+      "src/skill.js": "c1ce462057175f684f8b89c79f668835c69b9dd2ef3cdfbd1e155f73411668e5",
+      "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+      "src/sound.js": "f02a5a9c9ad60ce282806c02b956715c2ca01aced92ba021b63a799faf4c8fb4",
+      "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+      "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+      "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+      "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+      "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+      "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+      "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+      "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+      "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+      "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+      "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+      "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+      "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+      "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+      "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+      "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+      "src/sword_assist_v2.js": "2d2e31a1049268935cee9311830cb45672350745ff9a0f4b6df4495a1260927c",
+      "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+      "src/swordsmanship_default.js": "c68582065b0a394562cb2f9cffa403495513638f279d24ac8c2065daf715d480",
+      "src/swordsmanship_profiles.js": "1660b20fe9970164c0cef8ce5fd43acf0616978c1bcdf7e5494099d2029456b1",
+      "src/swordsmanship_trial.js": "ee1c50cc7142eb46f8c266b566c9eba2155d6a54db6d84798212aee0eff82b79",
+      "src/swordsmanship.js": "7794881e39564a523047605c7ddfae71ecb8fff40b007d03c78aeb33d16c66db",
+      "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+      "src/thrust_plane.js": "2fcbf1a52dd7cbd4035eea8a14d22b830c1b64f07dafebddcfb74e320539b104",
+      "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+      "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+      "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+      "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+      "src/wrist_braking_trial.js": "25466b178e063a45e58a5fcd22532cdcbc176af4a2c05e461c562bb6a0ef658e",
+      "src/wrist_braking.js": "6574ae9729fa6251540a68d27a0938e9d5bc2296097ff8b3bd69d1494eb88730",
+      "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+      "tools/sim/experiments/p4_continued_plane_candidate.mjs": "ab99a4f9ac0353a88e8a82c2d1b500c70ddcccf003b809cd4dc851baee62145d",
+      "tools/sim/experiments/p4_recut_probe.mjs": "379b0e6999d976fb63ff0cbdf146bccf37ffccac12b7328898c00f9de633554a",
+      "package.json": "9f267f3512c0be2c4407763c8d10b2813521ed425e948808222de8236db83df2",
+      "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+      "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+      "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+      "node_modules/three/build/three.module.js": "9052042d676cb0fdc1ddfefe193053f34b7ac0513a616fdac4535d49987812ea",
+      "node_modules/three/build/three.core.js": "9edde002b066a9a05676a6127f67735b62baf399bdea529f2f7e31657da769e6"
+    },
+    "sourceAfter": {
+      "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+      "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+      "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+      "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+      "src/arm_recovery_activation.js": "ae025cc8d9bbc9855ea8ab2793d3e7818a66a4662329014a776a2ac88966435e",
+      "src/arm_recovery_trial.js": "ebda992abc5c7cd25a12c751d0f9b30f8fddf998babc8f4a7f49c9f4a0817c09",
+      "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+      "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+      "src/blade_shape_trial.js": "c06f7331c78e602e17d89ffb26507bffbea67cbebce862f5386cb4ce519b3955",
+      "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+      "src/combat.js": "27dcf94ab2bf2e869e0d09bdc389d7f7feb7128fdedb1f3ff120ff44b19bab74",
+      "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+      "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+      "src/cut_trial.js": "427d58d0500ceac482424e092a7d457a8cea48371c254f1b4edecb3a511be5a6",
+      "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+      "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+      "src/edge_intent.js": "b4e17a6ea08d659732c330448b3b3aaffeac2942fa5096e82db551a12d580c87",
+      "src/edge_torque_trial.js": "1280a3fe32c1874b6ce56b75932db44852162855d8962ae13f3aeb3e7d832cae",
+      "src/edge_torque.js": "436995e6d45e816517ea5a9a8f83c9fb147d143871aab1601f82baa7b36bc0fa",
+      "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+      "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+      "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+      "src/fighter.js": "ef8daeca0249e7327597f66afcb9c45929c214412d2f6dfb93aa899d8be86367",
+      "src/finish_rule.js": "803556ca4f6939d4a20acb7020dd4c616b52b5513969d0a6079af0cc929c616d",
+      "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+      "src/gait.js": "366b35b130c30f5cd07e26230625839fafe38aa8011c646472adefaab0a2b8e6",
+      "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+      "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+      "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+      "src/hand_visual.js": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893",
+      "src/input.js": "37529c473619a95ef83fbe3afa567f436dcd3c3b27b4951ebf52109cda434367",
+      "src/integrated_combat_trial.js": "d3b8d2f4b37c617d90832e93d0a31b585d10ef9bd44d5c41ef3d695ef76b898b",
+      "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+      "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+      "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+      "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+      "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+      "src/main.js": "86a43f9d099928576ff6b8b6f5bb80130d084fe276192f61759c27c635535b07",
+      "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+      "src/motion_assist.js": "12e49338e0ec0a1307c71bbdfcad4d849180369959a2a18c8ec7ca4c73a2f2d5",
+      "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+      "src/motion_timing.js": "5a30a5384066585227c1469a7adf66ff2137fabc19ff37142cc5ebd2895887e2",
+      "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+      "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+      "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+      "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+      "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+      "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+      "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+      "src/skill.js": "c1ce462057175f684f8b89c79f668835c69b9dd2ef3cdfbd1e155f73411668e5",
+      "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+      "src/sound.js": "f02a5a9c9ad60ce282806c02b956715c2ca01aced92ba021b63a799faf4c8fb4",
+      "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+      "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+      "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+      "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+      "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+      "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+      "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+      "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+      "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+      "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+      "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+      "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+      "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+      "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+      "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+      "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+      "src/sword_assist_v2.js": "2d2e31a1049268935cee9311830cb45672350745ff9a0f4b6df4495a1260927c",
+      "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+      "src/swordsmanship_default.js": "c68582065b0a394562cb2f9cffa403495513638f279d24ac8c2065daf715d480",
+      "src/swordsmanship_profiles.js": "1660b20fe9970164c0cef8ce5fd43acf0616978c1bcdf7e5494099d2029456b1",
+      "src/swordsmanship_trial.js": "ee1c50cc7142eb46f8c266b566c9eba2155d6a54db6d84798212aee0eff82b79",
+      "src/swordsmanship.js": "7794881e39564a523047605c7ddfae71ecb8fff40b007d03c78aeb33d16c66db",
+      "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+      "src/thrust_plane.js": "2fcbf1a52dd7cbd4035eea8a14d22b830c1b64f07dafebddcfb74e320539b104",
+      "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+      "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+      "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+      "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+      "src/wrist_braking_trial.js": "25466b178e063a45e58a5fcd22532cdcbc176af4a2c05e461c562bb6a0ef658e",
+      "src/wrist_braking.js": "6574ae9729fa6251540a68d27a0938e9d5bc2296097ff8b3bd69d1494eb88730",
+      "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+      "tools/sim/experiments/p4_continued_plane_candidate.mjs": "ab99a4f9ac0353a88e8a82c2d1b500c70ddcccf003b809cd4dc851baee62145d",
+      "tools/sim/experiments/p4_recut_probe.mjs": "379b0e6999d976fb63ff0cbdf146bccf37ffccac12b7328898c00f9de633554a",
+      "package.json": "9f267f3512c0be2c4407763c8d10b2813521ed425e948808222de8236db83df2",
+      "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+      "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+      "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+      "node_modules/three/build/three.module.js": "9052042d676cb0fdc1ddfefe193053f34b7ac0513a616fdac4535d49987812ea",
+      "node_modules/three/build/three.core.js": "9edde002b066a9a05676a6127f67735b62baf399bdea529f2f7e31657da769e6"
+    },
+    "newPhysicsExecutions": 1,
+    "physicsSteps": 333,
+    "wallSeconds": 0.751713645,
+    "nativeAndAppliedInputExact": true,
+    "observedFrames": 19,
+    "observeTicks": [
+      314,
+      332
+    ],
+    "definitions": {
+      "cached": "At driveSword tick n, trackBlade has only stored the secant from n-2 to n-1.",
+      "currentSecant": "At the same pre-drive boundary, current point minus hitPointPrev divided bydt; trackBlade writes this after driveSword.",
+      "native": "sword.velocityAtPoint(bladePoint(.7)) at the same pre-drive boundary; independent vCOM + omega cross(point-worldCOM)."
+    },
+    "checks": {
+      "maximumNativeFormulaDifferenceMps": 0.0000016053604079446018,
+      "maximumCachedVsPriorCurrentSecantDifferenceMps": 0,
+      "maximumNativeVsPriorPostCombatDifferenceMps": 0
+    },
+    "frozenStateAlternatives": [
+      {
+        "mode": "cached",
+        "rows": [
+          {
+            "tick": 314,
+            "phase": "tap",
+            "moving": 1,
+            "rawDotFlat": 0.9945651066874872,
+            "signedErrorDeg": 5.976267264196028,
+            "normalizedPositionTorque": 0.10411650898356568,
+            "targetSlewDeg": null,
+            "rawMotionSlewDeg": null,
+            "chosenMotionSlewDeg": null,
+            "torqueDelta": null
+          },
+          {
+            "tick": 315,
+            "phase": "tap",
+            "moving": 1,
+            "rawDotFlat": 0.9946976473797117,
+            "signedErrorDeg": 5.902881521566707,
+            "normalizedPositionTorque": 0.10284256241053798,
+            "targetSlewDeg": 1.155990876049897,
+            "rawMotionSlewDeg": 1.1559908760498971,
+            "chosenMotionSlewDeg": 1.1559908760498971,
+            "torqueDelta": -0.0012739465730277066
+          },
+          {
+            "tick": 316,
+            "phase": "tap",
+            "moving": 1,
+            "rawDotFlat": 0.9967034696027521,
+            "signedErrorDeg": 4.653562501858966,
+            "normalizedPositionTorque": 0.08113071992368447,
+            "targetSlewDeg": 0.06834958726324307,
+            "rawMotionSlewDeg": 0.06834958726324299,
+            "chosenMotionSlewDeg": 0.06834958726324299,
+            "torqueDelta": -0.02171184248685351
+          },
+          {
+            "tick": 317,
+            "phase": "tap",
+            "moving": 1,
+            "rawDotFlat": 0.9905633526070029,
+            "signedErrorDeg": 7.877503743201151,
+            "normalizedPositionTorque": 0.1370556280560004,
+            "targetSlewDeg": 4.658334620297127,
+            "rawMotionSlewDeg": 4.658334620297127,
+            "chosenMotionSlewDeg": 4.658334620297127,
+            "torqueDelta": 0.055924908132315945
+          },
+          {
+            "tick": 318,
+            "phase": "recut",
+            "moving": 1,
+            "rawDotFlat": 0.9810714427278332,
+            "signedErrorDeg": 11.16564575997742,
+            "normalizedPositionTorque": 0.19364614129118313,
+            "targetSlewDeg": 5.096401284020965,
+            "rawMotionSlewDeg": 5.096401284020965,
+            "chosenMotionSlewDeg": 5.096401284020965,
+            "torqueDelta": 0.056590513235182716
+          },
+          {
+            "tick": 319,
+            "phase": "recut",
+            "moving": 1,
+            "rawDotFlat": 0.9865508827791931,
+            "signedErrorDeg": 9.407462154352297,
+            "normalizedPositionTorque": 0.16345445135008427,
+            "targetSlewDeg": 0.8034436919078874,
+            "rawMotionSlewDeg": 0.8034436919078891,
+            "chosenMotionSlewDeg": 0.8034436919078891,
+            "torqueDelta": -0.03019168994109886
+          },
+          {
+            "tick": 320,
+            "phase": "recut",
+            "moving": 0.9612837598372245,
+            "rawDotFlat": 0.9946982781331013,
+            "signedErrorDeg": 5.438892347593346,
+            "normalizedPositionTorque": 0.09478407850713545,
+            "targetSlewDeg": -1.1968026863193426,
+            "rawMotionSlewDeg": -0.7331659666154833,
+            "chosenMotionSlewDeg": -0.7331659666154833,
+            "torqueDelta": -0.06867037284294882
+          },
+          {
+            "tick": 321,
+            "phase": "recut",
+            "moving": 0.7140215094646276,
+            "rawDotFlat": 0.9963823089465117,
+            "signedErrorDeg": 1.0847395594119267,
+            "normalizedPositionTorque": 0.018931145883041837,
+            "targetSlewDeg": -2.1049340819181293,
+            "rawMotionSlewDeg": 1.221799710302269,
+            "chosenMotionSlewDeg": 1.221799710302269,
+            "torqueDelta": -0.07585293262409362
+          },
+          {
+            "tick": 322,
+            "phase": "recut",
+            "moving": 0.4150474340501992,
+            "rawDotFlat": 0.9740665143881163,
+            "signedErrorDeg": -0.2674585983435127,
+            "normalizedPositionTorque": -0.004668016201056254,
+            "targetSlewDeg": -0.07865575916342563,
+            "rawMotionSlewDeg": 9.47552311960306,
+            "chosenMotionSlewDeg": 9.47552311960306,
+            "torqueDelta": -0.02359916208409809
+          },
+          {
+            "tick": 323,
+            "phase": "recut",
+            "moving": 0.2269150166133675,
+            "rawDotFlat": 0.8201604282646223,
+            "signedErrorDeg": -0.505481399944468,
+            "normalizedPositionTorque": -0.008822200319916703,
+            "targetSlewDeg": 0.3721256651058918,
+            "rawMotionSlewDeg": 22.432203637463317,
+            "chosenMotionSlewDeg": 22.432203637463317,
+            "torqueDelta": -0.004154184118860449
+          },
+          {
+            "tick": 324,
+            "phase": "recut",
+            "moving": 0.22934937815578602,
+            "rawDotFlat": 0.4141989227871769,
+            "signedErrorDeg": 4.368009434485734,
+            "normalizedPositionTorque": 0.0761623214572182,
+            "targetSlewDeg": 5.340574721672587,
+            "rawMotionSlewDeg": 31.099064680052724,
+            "chosenMotionSlewDeg": 31.099064680052724,
+            "torqueDelta": 0.0849845217771349
+          },
+          {
+            "tick": 325,
+            "phase": "recut",
+            "moving": 0.3757756888198245,
+            "rawDotFlat": -0.039949073192035,
+            "signedErrorDeg": -38.80278957393857,
+            "normalizedPositionTorque": -0.6266417541375295,
+            "targetSlewDeg": -42.06227832392515,
+            "rawMotionSlewDeg": 27.86692145405569,
+            "chosenMotionSlewDeg": -152.1330785459443,
+            "torqueDelta": -0.7028040755947478
+          },
+          {
+            "tick": 326,
+            "phase": "recut",
+            "moving": 0.6524379484602062,
+            "rawDotFlat": -0.4419059771881017,
+            "signedErrorDeg": -44.71104061348573,
+            "normalizedPositionTorque": -0.7035316634463441,
+            "targetSlewDeg": -10.801582825251339,
+            "rawMotionSlewDeg": 19.04269896689197,
+            "chosenMotionSlewDeg": 19.04269896689197,
+            "torqueDelta": -0.07688990930881456
+          },
+          {
+            "tick": 327,
+            "phase": "recut",
+            "moving": 0.9348290840075584,
+            "rawDotFlat": -0.7059749938145947,
+            "signedErrorDeg": -42.25123544380642,
+            "normalizedPositionTorque": -0.6723827618396608,
+            "targetSlewDeg": -7.457736097306335,
+            "rawMotionSlewDeg": 8.765272390177813,
+            "chosenMotionSlewDeg": 8.765272390177813,
+            "torqueDelta": 0.031148901606683266
+          },
+          {
+            "tick": 328,
+            "phase": "recut",
+            "moving": 1,
+            "rawDotFlat": -0.8401953179385334,
+            "signedErrorDeg": -32.83925143110889,
+            "normalizedPositionTorque": -0.5422839388845135,
+            "targetSlewDeg": -0.5843444446709591,
+            "rawMotionSlewDeg": 2.256053448985714,
+            "chosenMotionSlewDeg": 2.256053448985714,
+            "torqueDelta": 0.1300988229551473
+          },
+          {
+            "tick": 329,
+            "phase": "recut",
+            "moving": 1,
+            "rawDotFlat": -0.9280871657658613,
+            "signedErrorDeg": -21.86142506083918,
+            "normalizedPositionTorque": -0.3723630251509646,
+            "targetSlewDeg": 2.2754348781323803,
+            "rawMotionSlewDeg": 2.2754348781323777,
+            "chosenMotionSlewDeg": 2.2754348781323777,
+            "torqueDelta": 0.16992091373354895
+          },
+          {
+            "tick": 330,
+            "phase": "recut",
+            "moving": 1,
+            "rawDotFlat": -0.9734388329759043,
+            "signedErrorDeg": -13.235096371936702,
+            "normalizedPositionTorque": -0.22894718759000146,
+            "targetSlewDeg": 2.1296224756035427,
+            "rawMotionSlewDeg": 2.12962247560354,
+            "chosenMotionSlewDeg": 2.12962247560354,
+            "torqueDelta": 0.14341583756096313
+          },
+          {
+            "tick": 331,
+            "phase": "recut",
+            "moving": 1,
+            "rawDotFlat": -0.9936619235337316,
+            "signedErrorDeg": -6.45424882803052,
+            "normalizedPositionTorque": -0.11240980107214281,
+            "targetSlewDeg": 2.508286121260846,
+            "rawMotionSlewDeg": 2.508286121260846,
+            "chosenMotionSlewDeg": 2.508286121260846,
+            "torqueDelta": 0.11653738651785865
+          },
+          {
+            "tick": 332,
+            "phase": "recut",
+            "moving": 1,
+            "rawDotFlat": -0.9997855189181151,
+            "signedErrorDeg": -1.1867154238258475,
+            "normalizedPositionTorque": -0.02071061071623138,
+            "targetSlewDeg": 2.8294959930659282,
+            "rawMotionSlewDeg": 2.8294959930659282,
+            "chosenMotionSlewDeg": 2.8294959930659282,
+            "torqueDelta": 0.09169919035591143
+          }
+        ],
+        "maximumTargetSlewDeg": 42.06227832392515,
+        "maximumNormalizedTorqueDelta": 0.7028040755947478,
+        "signChangeTicks": [
+          325
+        ]
+      },
+      {
+        "mode": "currentSecant",
+        "rows": [
+          {
+            "tick": 314,
+            "phase": "tap",
+            "moving": 1,
+            "rawDotFlat": 0.9921603166909714,
+            "signedErrorDeg": 7.179116597201781,
+            "normalizedPositionTorque": 0.1249716150877197,
+            "targetSlewDeg": null,
+            "rawMotionSlewDeg": null,
+            "chosenMotionSlewDeg": null,
+            "torqueDelta": null
+          },
+          {
+            "tick": 315,
+            "phase": "tap",
+            "moving": 1,
+            "rawDotFlat": 0.9945177990654817,
+            "signedErrorDeg": 6.002245564840907,
+            "normalizedPositionTorque": 0.10456744111220614,
+            "targetSlewDeg": 0.05250546210583152,
+            "rawMotionSlewDeg": 0.05250546210583147,
+            "chosenMotionSlewDeg": 0.05250546210583147,
+            "torqueDelta": -0.020404173975513556
+          },
+          {
+            "tick": 316,
+            "phase": "tap",
+            "moving": 1,
+            "rawDotFlat": 0.9868202026239482,
+            "signedErrorDeg": 9.31258280409734,
+            "normalizedPositionTorque": 0.16182054193935594,
+            "targetSlewDeg": 4.628005853456044,
+            "rawMotionSlewDeg": 4.628005853456044,
+            "chosenMotionSlewDeg": 4.628005853456044,
+            "torqueDelta": 0.057253100827149794
+          },
+          {
+            "tick": 317,
+            "phase": "tap",
+            "moving": 1,
+            "rawDotFlat": 0.9744763078918703,
+            "signedErrorDeg": 12.972912016122102,
+            "normalizedPositionTorque": 0.22449037209737568,
+            "targetSlewDeg": 5.094722523616553,
+            "rawMotionSlewDeg": 5.094722523616551,
+            "chosenMotionSlewDeg": 5.094722523616551,
+            "torqueDelta": 0.06266983015801975
+          },
+          {
+            "tick": 318,
+            "phase": "recut",
+            "moving": 1,
+            "rawDotFlat": 0.978362320626406,
+            "signedErrorDeg": 11.9406841521613,
+            "normalizedPositionTorque": 0.20689894602952094,
+            "targetSlewDeg": 0.7760312422074185,
+            "rawMotionSlewDeg": 0.776031242207418,
+            "chosenMotionSlewDeg": 0.776031242207418,
+            "torqueDelta": -0.017591426067854743
+          },
+          {
+            "tick": 319,
+            "phase": "recut",
+            "moving": 0.9613315773673469,
+            "rawDotFlat": 0.9885734140286982,
+            "signedErrorDeg": 8.207795962933433,
+            "normalizedPositionTorque": 0.14276360661906284,
+            "targetSlewDeg": -1.1712608837553478,
+            "rawMotionSlewDeg": -0.709232408112011,
+            "chosenMotionSlewDeg": -0.709232408112011,
+            "torqueDelta": -0.0641353394104581
+          },
+          {
+            "tick": 320,
+            "phase": "recut",
+            "moving": 0.7136456088377158,
+            "rawDotFlat": 0.9922001548845022,
+            "signedErrorDeg": 3.3592891741243105,
+            "normalizedPositionTorque": 0.05859707135354726,
+            "targetSlewDeg": -2.0767397427397194,
+            "rawMotionSlewDeg": 1.2627713603478234,
+            "chosenMotionSlewDeg": 1.2627713603478234,
+            "torqueDelta": -0.08416653526551558
+          },
+          {
+            "tick": 321,
+            "phase": "recut",
+            "moving": 0.41518810118479166,
+            "rawDotFlat": 0.9687813971865868,
+            "signedErrorDeg": 1.0131683391716728,
+            "normalizedPositionTorque": 0.01768220185537165,
+            "targetSlewDeg": -0.09690200720932145,
+            "rawMotionSlewDeg": 9.442647565138447,
+            "chosenMotionSlewDeg": 9.442647565138447,
+            "torqueDelta": -0.04091486949817561
+          },
+          {
+            "tick": 322,
+            "phase": "recut",
+            "moving": 0.22702281722520917,
+            "rawDotFlat": 0.8149503585393364,
+            "signedErrorDeg": 0.08596796916713718,
+            "normalizedPositionTorque": 0.0015004235503482807,
+            "targetSlewDeg": 0.3463420268552308,
+            "rawMotionSlewDeg": 22.336831375265913,
+            "chosenMotionSlewDeg": 22.336831375265913,
+            "torqueDelta": -0.01618177830502337
+          },
+          {
+            "tick": 323,
+            "phase": "recut",
+            "moving": 0.22861476197134611,
+            "rawDotFlat": 0.40966935468839494,
+            "signedErrorDeg": 4.738543297290899,
+            "normalizedPositionTorque": 0.08260893574616136,
+            "targetSlewDeg": 5.2627237571147,
+            "rawMotionSlewDeg": 31.008539030746846,
+            "chosenMotionSlewDeg": 31.008539030746846,
+            "torqueDelta": 0.08110851219581308
+          },
+          {
+            "tick": 324,
+            "phase": "recut",
+            "moving": 0.3730800801253963,
+            "rawDotFlat": -0.055897962098022835,
+            "signedErrorDeg": -37.541979214988004,
+            "normalizedPositionTorque": -0.6093425701629738,
+            "targetSlewDeg": -41.813438308880045,
+            "rawMotionSlewDeg": 27.855540393606866,
+            "chosenMotionSlewDeg": -152.14445960639313,
+            "torqueDelta": -0.6919515059091351
+          },
+          {
+            "tick": 325,
+            "phase": "recut",
+            "moving": 0.6480638806364994,
+            "rawDotFlat": -0.36174693946406206,
+            "signedErrorDeg": -49.435855348326704,
+            "normalizedPositionTorque": -0.7596784086289474,
+            "targetSlewDeg": -10.785359916653062,
+            "rawMotionSlewDeg": 19.11165293265514,
+            "chosenMotionSlewDeg": 19.11165293265514,
+            "torqueDelta": -0.15033583846597365
+          },
+          {
+            "tick": 326,
+            "phase": "recut",
+            "moving": 0.9334667709087335,
+            "rawDotFlat": -0.5730051408976122,
+            "signedErrorDeg": -52.13882685222594,
+            "normalizedPositionTorque": -0.7895001865751666,
+            "targetSlewDeg": -7.5963032520397205,
+            "rawMotionSlewDeg": 8.859197989250298,
+            "chosenMotionSlewDeg": 8.859197989250298,
+            "torqueDelta": -0.029821777946219208
+          },
+          {
+            "tick": 327,
+            "phase": "recut",
+            "moving": 1,
+            "rawDotFlat": -0.7335431725585317,
+            "signedErrorDeg": -42.81574037820701,
+            "normalizedPositionTorque": -0.6796428432857161,
+            "targetSlewDeg": -0.5944549214567227,
+            "rawMotionSlewDeg": 2.306668296332111,
+            "chosenMotionSlewDeg": 2.306668296332111,
+            "torqueDelta": 0.10985734328945052
+          },
+          {
+            "tick": 328,
+            "phase": "recut",
+            "moving": 1,
+            "rawDotFlat": -0.8613940297206412,
+            "signedErrorDeg": -30.5265352233034,
+            "normalizedPositionTorque": -0.5079373619283377,
+            "targetSlewDeg": 2.292876815177427,
+            "rawMotionSlewDeg": 2.292876815177428,
+            "chosenMotionSlewDeg": 2.292876815177428,
+            "torqueDelta": 0.1717054813573784
+          },
+          {
+            "tick": 329,
+            "phase": "recut",
+            "moving": 1,
+            "rawDotFlat": -0.9415238987177154,
+            "signedErrorDeg": -19.690930181590193,
+            "normalizedPositionTorque": -0.3369462225918565,
+            "targetSlewDeg": 2.1332135807739374,
+            "rawMotionSlewDeg": 2.1332135807739374,
+            "chosenMotionSlewDeg": 2.1332135807739374,
+            "torqueDelta": 0.1709911393364812
+          },
+          {
+            "tick": 330,
+            "phase": "recut",
+            "moving": 1,
+            "rawDotFlat": -0.9826632969972735,
+            "signedErrorDeg": -10.684401259385876,
+            "normalizedPositionTorque": -0.1853990907521127,
+            "targetSlewDeg": 2.50982284163748,
+            "rawMotionSlewDeg": 2.509822841637481,
+            "chosenMotionSlewDeg": 2.509822841637481,
+            "torqueDelta": 0.15154713183974383
+          },
+          {
+            "tick": 331,
+            "phase": "recut",
+            "moving": 1,
+            "rawDotFlat": -0.9980482153554447,
+            "signedErrorDeg": -3.5803316734783635,
+            "normalizedPositionTorque": -0.06244791560766824,
+            "targetSlewDeg": 2.831508140294936,
+            "rawMotionSlewDeg": 2.8315081402949387,
+            "chosenMotionSlewDeg": 2.8315081402949387,
+            "torqueDelta": 0.12295117514444445
+          },
+          {
+            "tick": 332,
+            "phase": "recut",
+            "moving": 1,
+            "rawDotFlat": -0.9995518885752435,
+            "signedErrorDeg": 1.7153394234261996,
+            "normalizedPositionTorque": 0.029933848825576568,
+            "targetSlewDeg": 2.8576334980332145,
+            "rawMotionSlewDeg": 2.8576334980332145,
+            "chosenMotionSlewDeg": 2.8576334980332145,
+            "torqueDelta": 0.0923817644332448
+          }
+        ],
+        "maximumTargetSlewDeg": 41.813438308880045,
+        "maximumNormalizedTorqueDelta": 0.6919515059091351,
+        "signChangeTicks": [
+          324
+        ]
+      },
+      {
+        "mode": "native",
+        "rows": [
+          {
+            "tick": 314,
+            "phase": "tap",
+            "moving": 1,
+            "rawDotFlat": 0.9924395905434622,
+            "signedErrorDeg": 7.049921307981693,
+            "normalizedPositionTorque": 0.12273409367181952,
+            "targetSlewDeg": null,
+            "rawMotionSlewDeg": null,
+            "chosenMotionSlewDeg": null,
+            "torqueDelta": null
+          },
+          {
+            "tick": 315,
+            "phase": "tap",
+            "moving": 1,
+            "rawDotFlat": 0.9938814029107217,
+            "signedErrorDeg": 6.341402098604954,
+            "normalizedPositionTorque": 0.11045252162875442,
+            "targetSlewDeg": 0.520857299011484,
+            "rawMotionSlewDeg": 0.520857299011484,
+            "chosenMotionSlewDeg": 0.520857299011484,
+            "torqueDelta": -0.012281572043065098
+          },
+          {
+            "tick": 316,
+            "phase": "tap",
+            "moving": 1,
+            "rawDotFlat": 0.9724035250842161,
+            "signedErrorDeg": 13.491749766249567,
+            "normalizedPositionTorque": 0.233305346274748,
+            "targetSlewDeg": 8.468016306151412,
+            "rawMotionSlewDeg": 8.468016306151412,
+            "chosenMotionSlewDeg": 8.468016306151412,
+            "torqueDelta": 0.12285282464599358
+          },
+          {
+            "tick": 317,
+            "phase": "tap",
+            "moving": 1,
+            "rawDotFlat": 0.969369862675615,
+            "signedErrorDeg": 14.217620880402988,
+            "normalizedPositionTorque": 0.24560552006775685,
+            "targetSlewDeg": 2.1602643626004006,
+            "rawMotionSlewDeg": 2.160264362600401,
+            "chosenMotionSlewDeg": 2.160264362600401,
+            "torqueDelta": 0.01230017379300885
+          },
+          {
+            "tick": 318,
+            "phase": "recut",
+            "moving": 1,
+            "rawDotFlat": 0.9795272943327077,
+            "signedErrorDeg": 11.613657163875553,
+            "normalizedPositionTorque": 0.20131140982293028,
+            "targetSlewDeg": -0.7957046530278316,
+            "rawMotionSlewDeg": -0.7957046530278321,
+            "chosenMotionSlewDeg": -0.7957046530278321,
+            "torqueDelta": -0.04429411024482657
+          },
+          {
+            "tick": 319,
+            "phase": "recut",
+            "moving": 0.8732495222740222,
+            "rawDotFlat": 0.9902926005373762,
+            "signedErrorDeg": 6.557816981830748,
+            "normalizedPositionTorque": 0.11420576610171683,
+            "targetSlewDeg": -2.494212882302686,
+            "rawMotionSlewDeg": -1.0621353230191546,
+            "chosenMotionSlewDeg": -1.0621353230191546,
+            "torqueDelta": -0.08710564372121345
+          },
+          {
+            "tick": 320,
+            "phase": "recut",
+            "moving": 0.5851826009083091,
+            "rawDotFlat": 0.987912732362523,
+            "signedErrorDeg": 2.6738189560735686,
+            "normalizedPositionTorque": 0.04665000763596551,
+            "targetSlewDeg": -1.1122310835662639,
+            "rawMotionSlewDeg": 3.699310617998479,
+            "chosenMotionSlewDeg": 3.699310617998479,
+            "torqueDelta": -0.06755575846575132
+          },
+          {
+            "tick": 321,
+            "phase": "recut",
+            "moving": 0.3114294015596671,
+            "rawDotFlat": 0.9298412459871823,
+            "signedErrorDeg": 0.8157071889262041,
+            "normalizedPositionTorque": 0.014236295259651274,
+            "targetSlewDeg": 0.3911071007924466,
+            "rawMotionSlewDeg": 14.921699361779668,
+            "chosenMotionSlewDeg": 14.921699361779668,
+            "torqueDelta": -0.032413712376314234
+          },
+          {
+            "tick": 322,
+            "phase": "recut",
+            "moving": 0.20548373642744855,
+            "rawDotFlat": 0.6725724003091367,
+            "signedErrorDeg": 1.13733850956621,
+            "normalizedPositionTorque": 0.019848998111550834,
+            "targetSlewDeg": 1.5951737127184094,
+            "rawMotionSlewDeg": 27.41770831035317,
+            "chosenMotionSlewDeg": 27.41770831035317,
+            "torqueDelta": 0.00561270285189956
+          },
+          {
+            "tick": 323,
+            "phase": "recut",
+            "moving": 0.2886354830569799,
+            "rawDotFlat": 0.21778939463214309,
+            "signedErrorDeg": 11.454752203426324,
+            "normalizedPositionTorque": 0.1985940046826625,
+            "targetSlewDeg": 10.927562018280922,
+            "rawMotionSlewDeg": 30.296840176532626,
+            "chosenMotionSlewDeg": 30.296840176532626,
+            "torqueDelta": 0.17874500657111167
+          },
+          {
+            "tick": 324,
+            "phase": "recut",
+            "moving": 0.47220908197174466,
+            "rawDotFlat": -0.21780793377215796,
+            "signedErrorDeg": -41.98767794987118,
+            "normalizedPositionTorque": -0.6689708143438167,
+            "targetSlewDeg": -52.975345020945475,
+            "rawMotionSlewDeg": 25.62662836473518,
+            "chosenMotionSlewDeg": -154.37337163526482,
+            "torqueDelta": -0.8675648190264792
+          },
+          {
+            "tick": 325,
+            "phase": "recut",
+            "moving": 0.7719901993086826,
+            "rawDotFlat": -0.44968447741568546,
+            "signedErrorDeg": -52.23719401580125,
+            "normalizedPositionTorque": -0.7905527188037663,
+            "targetSlewDeg": -9.140999962402553,
+            "rawMotionSlewDeg": 15.251647326026351,
+            "chosenMotionSlewDeg": 15.251647326026351,
+            "torqueDelta": -0.12158190445994965
+          },
+          {
+            "tick": 326,
+            "phase": "recut",
+            "moving": 0.9967692742928604,
+            "rawDotFlat": -0.5691446813995042,
+            "signedErrorDeg": -55.17079540451938,
+            "normalizedPositionTorque": -0.8208582101478118,
+            "targetSlewDeg": -7.82693315689122,
+            "rawMotionSlewDeg": 3.073829061854058,
+            "chosenMotionSlewDeg": 3.073829061854058,
+            "torqueDelta": -0.030305491344045477
+          },
+          {
+            "tick": 327,
+            "phase": "recut",
+            "moving": 1,
+            "rawDotFlat": -0.7384964715927949,
+            "signedErrorDeg": -42.39650436214548,
+            "normalizedPositionTorque": -0.6742573263885894,
+            "targetSlewDeg": 2.8567495906398834,
+            "rawMotionSlewDeg": 2.995351354387982,
+            "chosenMotionSlewDeg": 2.995351354387982,
+            "torqueDelta": 0.14660088375922242
+          },
+          {
+            "tick": 328,
+            "phase": "recut",
+            "moving": 1,
+            "rawDotFlat": -0.863853519107123,
+            "signedErrorDeg": -30.247953004437363,
+            "normalizedPositionTorque": -0.5037431240909704,
+            "targetSlewDeg": 2.1522229997198745,
+            "rawMotionSlewDeg": 2.1522229997198745,
+            "chosenMotionSlewDeg": 2.1522229997198745,
+            "torqueDelta": 0.17051420229761893
+          },
+          {
+            "tick": 329,
+            "phase": "recut",
+            "moving": 1,
+            "rawDotFlat": -0.9453416064266487,
+            "signedErrorDeg": -19.031120445702175,
+            "normalizedPositionTorque": -0.3260816702181157,
+            "targetSlewDeg": 2.51444110378678,
+            "rawMotionSlewDeg": 2.51444110378678,
+            "chosenMotionSlewDeg": 2.51444110378678,
+            "torqueDelta": 0.17766145387285476
+          },
+          {
+            "tick": 330,
+            "phase": "recut",
+            "moving": 1,
+            "rawDotFlat": -0.9856186457168803,
+            "signedErrorDeg": -9.728798767070515,
+            "normalizedPositionTorque": -0.16898480385575598,
+            "targetSlewDeg": 2.8056156392240346,
+            "rawMotionSlewDeg": 2.8056156392240346,
+            "chosenMotionSlewDeg": 2.8056156392240346,
+            "torqueDelta": 0.1570968663623597
+          },
+          {
+            "tick": 331,
+            "phase": "recut",
+            "moving": 1,
+            "rawDotFlat": -0.9990794205302203,
+            "signedErrorDeg": -2.458665984333466,
+            "normalizedPositionTorque": -0.042898647662292025,
+            "targetSlewDeg": 2.997571327792523,
+            "rawMotionSlewDeg": 2.997571327792523,
+            "chosenMotionSlewDeg": 2.997571327792523,
+            "torqueDelta": 0.12608615619346397
+          },
+          {
+            "tick": 332,
+            "phase": "recut",
+            "moving": 1,
+            "rawDotFlat": -0.9987630640230547,
+            "signedErrorDeg": 2.850080898448919,
+            "normalizedPositionTorque": 0.049722784398282954,
+            "targetSlewDeg": 2.8707092102843452,
+            "rawMotionSlewDeg": 2.8707092102843457,
+            "chosenMotionSlewDeg": 2.8707092102843457,
+            "torqueDelta": 0.09262143206057498
+          }
+        ],
+        "maximumTargetSlewDeg": 52.975345020945475,
+        "maximumNormalizedTorqueDelta": 0.8675648190264792,
+        "signChangeTicks": [
+          324
+        ]
+      }
+    ],
+    "decision": "The sample-order delay is real, but neither current secant nor instantaneous native velocity removes this target sign boundary. Native substitution increases frozen-state target and normalized torque jumps. No velocity-substitution candidate physics or runtime promotion.",
+    "limits": [
+      "Current/native target traces are frozen-state alternatives, not candidate physics or improved gameplay.",
+      "Instantaneous world point velocity and a finite-difference interval are different quantities; shorter delay alone does not select a good feedback policy.",
+      "No contact, health, force, target, native state or runtime flag is changed. This does not close solver motor work or prove a unique cause."
+    ],
+    "evidence": {
+      "path": "/workspace/halfsword-handoff/p4-recut-v2/velocity-origin01.json",
+      "bytes": 139382,
+      "sha256": "ae36a4d8df39377f5f89d7f1b4f682c1f07418cff6fbb7ffb653d1d27da88714"
+    },
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/halfsword-codex/tools/sim/experiments/p4_velocity_origin.mjs",
+      "--reference=/workspace/halfsword-handoff/p4-recut-v2/native01.json",
+      "--out=/workspace/halfsword-handoff/p4-recut-v2/velocity-origin01.json"
+    ],
+    "producerSHA256": "27e42658bf782f64b7bdc5848e08719229e3eeb4871bfe84ef271c558504f97d"
+  },
+  "executionBreakdown": [
+    {
+      "kind": "candidate screen",
+      "executions": 4,
+      "steps": 1776
+    },
+    {
+      "kind": "read-only baseline replay, not an independent efficacy sample",
+      "executions": 1,
+      "steps": 333
+    }
+  ]
+}

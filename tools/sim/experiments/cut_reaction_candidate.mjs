@@ -19,6 +19,27 @@ const LEGACY_BLOCK=`      if (J > 0) {
         const pv = onBone(c.pr.v, point);
         vb.applyImpulseAtPoint({ x: dir.x * J * 0.8, y: dir.y * J * 0.8, z: dir.z * J * 0.8 }, vp(pv), true);
       }`;
+const LEGACY_IMPULSES=`        sw.applyImpulseAtPoint({ x: -dir.x * J, y: -dir.y * J, z: -dir.z * J }, vp(pA), true);
+        const pv = onBone(c.pr.v, point);
+        vb.applyImpulseAtPoint({ x: dir.x * J * 0.8, y: dir.y * J * 0.8, z: dir.z * J * 0.8 }, vp(pv), true);`;
+// Recognize only the reviewed opt-in wrapper, including its untouched legacy arm.
+// Research clones replace the whole impulse policy; legacy mode still loads the
+// original module byte-for-byte. Any other wrapper/impulse edit remains an error.
+const CENTERLINE_BLOCK=LEGACY_BLOCK.replace(LEGACY_IMPULSES,
+`        if (centerlineCutEnabled(this, c.pr.w.fighter)) {
+          const reaction = applyCenterlineCutImpulse(sw, vb, vp(pA), dir, J);
+          // Eleft and stuckT above deliberately retain the legacy requested-J policy.
+          this.onCutReaction?.({ ...reaction, mode: 'centerline', key, step: this.stepNo });
+        } else {
+${LEGACY_IMPULSES.replace(/^/gm,'  ')}
+        }`);
+function cuttingImpulseBlock(source) {
+  const anchors=[LEGACY_BLOCK,CENTERLINE_BLOCK];
+  const counts=anchors.map(anchor=>source.split(anchor).length-1);
+  const count=counts.reduce((a,b)=>a+b,0);
+  if(count!==1)throw new Error(`Expected exactly one unchanged cutting impulse block; found ${count}`);
+  return anchors[counts.indexOf(1)];
+}
 const CANDIDATE_BLOCK=`      if (J > 0) {
         const cutReaction = applyPairedCutImpulse(sw, vb, point, dir, J);
         this.onCutReaction?.({ ...cutReaction, key, step: this.stepNo,
@@ -26,10 +47,9 @@ const CANDIDATE_BLOCK=`      if (J > 0) {
       }`;
 
 export function transformCutReactionSource(source) {
-  const count=source.split(LEGACY_BLOCK).length-1;
-  if(count!==1) throw new Error(`Expected exactly one unchanged cutting impulse block; found ${count}`);
+  const impulseBlock=cuttingImpulseBlock(source);
   return `import { applyPairedCutImpulse } from ${JSON.stringify(import.meta.url)};\n`
-    +source.replace(LEGACY_BLOCK,CANDIDATE_BLOCK);
+    +source.replace(impulseBlock,CANDIDATE_BLOCK);
 }
 
 /** Separate budgeted hypothesis: consume only instantaneous paired kinetic loss.
@@ -38,9 +58,10 @@ export function transformCutReactionSource(source) {
  * J*s-.5*a*J²<=J*s, so no new gameplay energy cap or guessed mass is necessary.
  */
 export function transformBudgetedCutReactionSource(source) {
+  const impulseBlock=cuttingImpulseBlock(source);
   const requestAnchor='      let J = 0;\n      if (c.Eleft > 0) {';
   const debitAnchor='        c.Eleft -= J * s;\n        if (c.Eleft <= 1e-3 && c.stuck) c.stuckT = STRIKE.stuckTime;';
-  for(const [name,anchor] of [['request',requestAnchor],['legacy debit',debitAnchor],['impulses',LEGACY_BLOCK]]){
+  for(const [name,anchor] of [['request',requestAnchor],['legacy debit',debitAnchor]]){
     const count=source.split(anchor).length-1;
     if(count!==1)throw new Error(`Budgeted ${name}: expected exactly one unchanged anchor; found ${count}`);
   }
@@ -64,7 +85,7 @@ export function transformBudgetedCutReactionSource(source) {
   const body=source.replace(requestAnchor,
     '      const cutDragActive = c.Eleft > 0 && !c.cutBudgetDone;\n      const cutEnergyBefore = c.Eleft;\n      const cutStuckBefore = c.stuckT;\n      let J = 0;\n      if (cutDragActive) {')
     .replace(debitAnchor,'        // Budgeted mode debits actual passive paired kinetic loss after application.')
-    .replace(LEGACY_BLOCK,budgetedBlock);
+    .replace(impulseBlock,budgetedBlock);
   return `import { applyPairedCutImpulse } from ${JSON.stringify(import.meta.url)};\n`+body;
 }
 
