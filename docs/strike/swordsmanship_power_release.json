@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "repository": "yoonjl-svg/halfsword-codex",
-  "status": "local_verified_public_pending",
+  "status": "delivered",
   "generalPromotionDecision": true,
-  "publicDeliveryVerified": false,
+  "publicDeliveryVerified": true,
   "scope": {
     "meleeDefault": 12,
     "withheld": [
@@ -11,7 +11,21 @@
       "lightsaber"
     ],
     "pistol": "legacy shooting, ordinary legacy skill0.7",
-    "separateQinggangPhysicsPromoted": false
+    "separateQinggangPhysicsPromoted": false,
+    "acceptedMeleeWeapons": [
+      "longsword",
+      "zweihander",
+      "estoc",
+      "sabre",
+      "rapier",
+      "falchion",
+      "qinggang",
+      "excalibur",
+      "excalibur_replica",
+      "tree_branch",
+      "rubber_chicken",
+      "frozen_tuna"
+    ]
   },
   "urls": {
     "game": "https://yoonjl-svg.github.io/halfsword-codex/",
@@ -25,7 +39,8 @@
   "limitations": [
     "No claim of invariant actual damage for identical contacts; live AI branches before impact.",
     "Withheld two weapons retain existing instability; pistol and these weapons do not receive unified controller.",
-    "Old preference bytes are retained; ordinary legacy fallback strength is fixed0.7."
+    "Old preference bytes are retained; ordinary legacy fallback strength is fixed0.7.",
+    "Public browser repeated only three ordinary game flows. Remaining compatibility and weapon smoke checks use local evidence plus identical public game bytes, not a claimed public thirteen-flow rerun."
   ],
   "controllerContracts": {
     "groups": 15,
@@ -127,7 +142,8 @@
       "qinggang-start.png",
       "qinggang-held-stop.png",
       "longsword-ready.png"
-    ]
+    ],
+    "publicImage": "browser-default-public-01/qinggang-ready.png"
   },
   "localBrowserOriginal": {
     "pass": false,
@@ -207,5 +223,208 @@
     "changedOnly": [
       "tools/browser/swordsmanship_default.mjs"
     ]
-  }
+  },
+  "codeCommit": "508e2f0aa932f8bd6f47a468601368cae84432a3",
+  "committedSourceMatchesValidatedSource": true,
+  "localBrowserAggregateEvidence": {
+    "path": "/workspace/halfsword-handoff/swordsmanship-power-20261005/browser-default-local-receipt.json",
+    "sha256": "51e24ff0a976271c520816b4e74106d05c7f5dd507918fe51ea3d384a3a8757c"
+  },
+  "deployment": {
+    "repo": "yoonjl-svg/halfsword-codex",
+    "expectedHead": "508e2f0aa932f8bd6f47a468601368cae84432a3",
+    "matches": [
+      {
+        "id": 37292622815,
+        "head_sha": "508e2f0aa932f8bd6f47a468601368cae84432a3",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37292622815",
+        "created_at": "2026-10-05T09:50:00Z",
+        "updated_at": "2026-10-05T09:51:06Z"
+      }
+    ],
+    "tlsVerification": true,
+    "defaultEnvironmentProxyRetained": true
+  },
+  "publicBytes": {
+    "base": "https://yoonjl-svg.github.io/halfsword-codex/",
+    "createdUTC": "20261005T095128Z",
+    "build": "/workspace/halfsword-codex/dist",
+    "tlsVerification": true,
+    "pass": true,
+    "files": [
+      {
+        "path": "index.html",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/index.html?delivery=20261005T095128Z",
+        "expectedBytes": 19274,
+        "expectedSHA256": "8ef3ce7ae6802ff978b5388d745a1b0228b5692b44191b59e168989f1bed8584",
+        "pass": true,
+        "status": 200,
+        "finalURL": "https://yoonjl-svg.github.io/halfsword-codex/index.html?delivery=20261005T095128Z",
+        "bytes": 19274,
+        "sha256": "8ef3ce7ae6802ff978b5388d745a1b0228b5692b44191b59e168989f1bed8584"
+      },
+      {
+        "path": "feature-lab.html",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html?delivery=20261005T095128Z",
+        "expectedBytes": 29650,
+        "expectedSHA256": "d4610f9c63fdd63c2a2148b2482ebc4cd3b86529cf6343393949acd8cae23544",
+        "pass": true,
+        "status": 200,
+        "finalURL": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html?delivery=20261005T095128Z",
+        "bytes": 29650,
+        "sha256": "d4610f9c63fdd63c2a2148b2482ebc4cd3b86529cf6343393949acd8cae23544"
+      },
+      {
+        "path": "development-plan.html",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/development-plan.html?delivery=20261005T095128Z",
+        "expectedBytes": 36718,
+        "expectedSHA256": "0a561451b4da515a6f001e6b790e8385be0424a6a788a110a07d3686a1f7216a",
+        "pass": true,
+        "status": 200,
+        "finalURL": "https://yoonjl-svg.github.io/halfsword-codex/development-plan.html?delivery=20261005T095128Z",
+        "bytes": 36718,
+        "sha256": "0a561451b4da515a6f001e6b790e8385be0424a6a788a110a07d3686a1f7216a"
+      },
+      {
+        "path": "sounds.html",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/sounds.html?delivery=20261005T095128Z",
+        "expectedBytes": 3202,
+        "expectedSHA256": "ee6af3df878f84b01b2e66930016698ab4bec7fb8266b665776c3d49d1eade40",
+        "pass": true,
+        "status": 200,
+        "finalURL": "https://yoonjl-svg.github.io/halfsword-codex/sounds.html?delivery=20261005T095128Z",
+        "bytes": 3202,
+        "sha256": "ee6af3df878f84b01b2e66930016698ab4bec7fb8266b665776c3d49d1eade40"
+      },
+      {
+        "path": "assets/main-Gs_B9vUj.js",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/assets/main-Gs_B9vUj.js?delivery=20261005T095128Z",
+        "expectedBytes": 3529506,
+        "expectedSHA256": "95f40ad455bba117251d879a7fd5c40b36d707c7c30c127c413d7fce979102e5",
+        "pass": true,
+        "status": 200,
+        "finalURL": "https://yoonjl-svg.github.io/halfsword-codex/assets/main-Gs_B9vUj.js?delivery=20261005T095128Z",
+        "bytes": 3529506,
+        "sha256": "95f40ad455bba117251d879a7fd5c40b36d707c7c30c127c413d7fce979102e5"
+      },
+      {
+        "path": "assets/sound-BHoekYBu.js",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/assets/sound-BHoekYBu.js?delivery=20261005T095128Z",
+        "expectedBytes": 83421,
+        "expectedSHA256": "bbefd90c10c59099be122e217279b043ce749d788d0657baaae6c88e985e15b4",
+        "pass": true,
+        "status": 200,
+        "finalURL": "https://yoonjl-svg.github.io/halfsword-codex/assets/sound-BHoekYBu.js?delivery=20261005T095128Z",
+        "bytes": 83421,
+        "sha256": "bbefd90c10c59099be122e217279b043ce749d788d0657baaae6c88e985e15b4"
+      },
+      {
+        "path": "assets/soundgen-BDle7v6J.js",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/assets/soundgen-BDle7v6J.js?delivery=20261005T095128Z",
+        "expectedBytes": 35448,
+        "expectedSHA256": "0dfd106288146aee573b3b46c7d346284a813d9371170431266054299125cdaf",
+        "pass": true,
+        "status": 200,
+        "finalURL": "https://yoonjl-svg.github.io/halfsword-codex/assets/soundgen-BDle7v6J.js?delivery=20261005T095128Z",
+        "bytes": 35448,
+        "sha256": "0dfd106288146aee573b3b46c7d346284a813d9371170431266054299125cdaf"
+      },
+      {
+        "path": "assets/sounds-B3gpbtj4.js",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/assets/sounds-B3gpbtj4.js?delivery=20261005T095128Z",
+        "expectedBytes": 19744,
+        "expectedSHA256": "b5a6c2da466d40f64f07b08f91bdc180002efd263e926805390e90e15cba6325",
+        "pass": true,
+        "status": 200,
+        "finalURL": "https://yoonjl-svg.github.io/halfsword-codex/assets/sounds-B3gpbtj4.js?delivery=20261005T095128Z",
+        "bytes": 19744,
+        "sha256": "b5a6c2da466d40f64f07b08f91bdc180002efd263e926805390e90e15cba6325"
+      }
+    ],
+    "scope": "Exact public HTML and all production assets; mobile execution is verified separately."
+  },
+  "phonePlanLocal": {
+    "pass": true,
+    "path": "/workspace/halfsword-handoff/swordsmanship-power-20261005/phone-plan-local01/result.json",
+    "sha256": "0cf90c1bb160b3b67b984e7a39c1df66bf6f655bd16e5c7f4382a0a1df1de5ff",
+    "viewportWidths": [
+      390,
+      844
+    ]
+  },
+  "publicBrowser": {
+    "pass": true,
+    "sourceStable": true,
+    "sourceCommit": "508e2f0aa932f8bd6f47a468601368cae84432a3",
+    "commitAfter": "508e2f0aa932f8bd6f47a468601368cae84432a3",
+    "startedUTC": "2026-10-05T09:54:00.636Z",
+    "completedUTC": "2026-10-05T09:58:33.070Z",
+    "base": "https://yoonjl-svg.github.io/halfsword-codex/",
+    "executionScope": "public",
+    "returnObservations": [
+      {
+        "id": "qinggang",
+        "returnObserved": true,
+        "activeReturnInterrupted": true,
+        "completedBeforeRetouch": true,
+        "heldInputProtected": true,
+        "movementObserved": true
+      },
+      {
+        "id": "longsword",
+        "returnObserved": true,
+        "activeReturnInterrupted": true,
+        "completedBeforeRetouch": true,
+        "heldInputProtected": true,
+        "movementObserved": true
+      }
+    ],
+    "returnReviewRequired": false,
+    "routeFetchRetryPolicy": {
+      "maxRetries": 2,
+      "retriesOnlyECONNRESET": true,
+      "errorsFiltered": false,
+      "attemptCountExposed": false,
+      "limitation": "Successful bounded GET retries do not prove zero underlying TCP resets."
+    },
+    "rows": [
+      {
+        "id": "ordinary-card-game",
+        "pass": true
+      },
+      {
+        "id": "qinggang",
+        "pass": true
+      },
+      {
+        "id": "longsword",
+        "pass": true
+      }
+    ],
+    "compiledResponseCount": 12,
+    "errors": 0,
+    "httpFailures": 0,
+    "requestFailures": 0,
+    "blockedRequests": 0,
+    "redirectRefusals": 0,
+    "path": "/workspace/halfsword-handoff/swordsmanship-power-20261005/browser-default-public-01/summary.json",
+    "bytes": 168999240,
+    "sha256": "cd4ed6c582cd6cd1a4df472cb302f6f3863b0a81f35de42766ba30161f775d27"
+  },
+  "phonePlanPublic": {
+    "pass": true,
+    "viewportWidths": [
+      390,
+      844
+    ],
+    "path": "/workspace/halfsword-handoff/swordsmanship-power-20261005/phone-plan-public01/result.json",
+    "bytes": 1657,
+    "sha256": "9df8bd837bf366fbbf61c861d107c26f970188ee957c0d4186cb2c8d239dafe3"
+  },
+  "generalPromotion": true,
+  "humanNaturalnessAccepted": false,
+  "identicalImpactDamageProven": false,
+  "completedUTC": "2026-10-05T09:59:41.201347+00:00"
 }
