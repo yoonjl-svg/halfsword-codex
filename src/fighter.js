@@ -1,6 +1,7 @@
 import { updateIntentEdgePlane, smoothIntentElevation } from './edge_intent.js';
 import { applyPlaneAlignmentPotential } from './edge_torque.js';
 import { updateMainArmRecovery, mainArmMuscle } from './arm_recovery_activation.js';
+import { advanceRollTarget, clearRollTarget } from './roll_target.js';
 import { estimateWristStopBudget } from './wrist_braking.js';
 import { applyTransportedThrustPlane } from './thrust_plane.js';
 // ─────────────────────────────────────────────────────────────
@@ -405,6 +406,10 @@ export class Fighter {
     //  기본값(o.weapon 없음)은 그대로 롱소드라서 기존 시뮬 결과가 바뀌지 않는다.
     const spec = getWeapon(o.weapon || DEFAULT_WEAPON);
     this.weapon = spec;
+    // These thin two-hand weapons spun at rest when the paired force point
+    // sat outside their hilt axis. Use the actual hilt point for both fighters;
+    // an explicit midpoint comparison may still override this after creation.
+    this.gripPointModel = spec.id === 'monohoshizao' || spec.id === 'lightsaber' ? 'axial' : 'midpoint';
     // 이 무기를 쥔 이 싸움꾼만의 손목·팔 힘 한계 (config.js WEAPON 기본값 + 무기별 보정).
     // 칼 길이도 여기 담아서, 서로 다른 무기를 쥔 두 싸움꾼이 동시에 존재할 수 있게 한다.
     this.weaponCfg = {
@@ -2043,7 +2048,14 @@ export class Fighter {
     const target = this.handTarget.copy(handLocal).applyQuaternion(this.yaw).add(_v1.set(c.x, c.y, c.z));
     if (mus >= 0.12 && this.state !== 'dead') this.armIK(target);
     else this.armFull = false;
-    if (mus < 0.12 || !this.armed) return; // 쓰러지거나 칼을 놓치면 손목에 힘을 쓰지 않는다
+    if (mus < 0.12 || !this.armed) {
+      // There is no one-step aim derivative across a disabled interval.
+      // Seed it again on resumption; otherwise several down-state input steps
+      // are interpreted as one frame of target motion (up to the 25 rad/s cap).
+      this.prevAim = null;
+      clearRollTarget(this);
+      return;
+    }
     const str = this.strength * mus * (0.35 + 0.65 * this.armHealth);
     const forearm = this.bodies.farmS;
 
@@ -2112,6 +2124,11 @@ export class Fighter {
     // Isolated research mode; ordinary games keep their existing edge alignment.
     if (this.edgeIntentModel === 'commandedPlane' || this.edgeIntentModel === 'commandedPlaneC1') updateIntentEdgePlane(this, aim, blade, flatTarget, flat);
     if (manualOnehand && this.thrustEdgeModel === 'transported') applyTransportedThrustPlane(this, blade, flat, flatTarget);
+    // Keep optional direction/thrust experiments independent of this command
+    // limiter. Discard history on every bypass, including disabled muscles.
+    if (this.rollTargetModel === 'bounded' && !this.edgeIntentModel &&
+      this.thrustEdgeModel !== 'transported') advanceRollTarget(this, flatTarget, blade);
+    else clearRollTarget(this);
     // 칼날 축(길쭉한 방향)으로 도는 회전은 관성이 아주 작아서, 큰 힘을 주면
     // 계산이 폭주해 칼이 팽이처럼 돈다. 그래서 비틀림은 아주 약하게 따로 다룬다.
     const w = angvel(sword, new THREE.Vector3());

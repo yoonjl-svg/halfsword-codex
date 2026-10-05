@@ -31,6 +31,31 @@
 <main>
   <h1>물리·무기 시험</h1>
   <p>아래 버튼을 눌러 직접 플레이해 보세요.</p>
+  <section id="recut-v2-comparison" aria-labelledby="recut-v2-title">
+    <h2 id="recut-v2-title">재베기 방향 전환 · A/B 비교</h2>
+    <p>공격 뒤 반대 방향으로 베거나, 손을 놓았다 다시 베어 보세요. 칼날이 갑자기 뒤집히는지, 베기의 힘과 이어지는 동작이 자연스러운지 비교해 주세요.</p>
+    <h3>롱소드</h3>
+    <div class="demos">
+      <a id="playRecutV2LongA" class="play secondary" href="./?recutV2=baseline&amp;weapon=longsword">▶ A · 기존</a>
+      <a id="playRecutV2LongB" class="play" href="./?recutV2=bounded&amp;weapon=longsword">▶ B · 방향 전환</a>
+    </div>
+    <h3>청강검</h3>
+    <div class="demos">
+      <a id="playRecutV2QingA" class="play secondary" href="./?recutV2=baseline&amp;weapon=qinggang">▶ A · 기존</a>
+      <a id="playRecutV2QingB" class="play" href="./?recutV2=bounded&amp;weapon=qinggang">▶ B · 방향 전환</a>
+    </div>
+    <p class="note">검술 보정 v2·중력9.81·보통 난도의 롱소드 상대는 같습니다. 시작부터 비교 설정을 적용하며 재시작해도 같습니다. 일반판 반영 전 시험이며 설정은 저장되지 않습니다.</p>
+  </section>
+  <section id="recovery-contact-v2-comparison" aria-labelledby="recovery-contact-v2-title">
+    <h2 id="recovery-contact-v2-title">회복 뒤 다시 베기 · 통합 비교</h2>
+    <p>두 판 모두 기존 회복 B와 검술 보정 v2를 사용합니다. 회복+타격 B는 베어 닿았을 때의 반작용도 함께 적용합니다. 넘어진 뒤 일어나 다시 베고, 맞힌 뒤 방향을 바꾸거나 손을 놓아 보세요.</p>
+    <p><strong>회복 뒤 베기:</strong> 시작 2초가 지나면 오른쪽 화면을 아래로 끌어 칼을 낮추고 손을 멈춘 채 상대 공격을 기다리세요. 피격 뒤 일어서면 조금 전진하면서 손을 위로 올렸다가 대각선으로 베어 보세요. 회복 차이는 실제로 주저앉거나 넘어진 뒤 일어날 때 나타납니다.</p>
+    <div class="demos">
+      <a id="playRecoveryContactV2Baseline" class="play secondary" href="./?recoveryContactV2=baseline">▶ 기준<br>기존 회복 B</a>
+      <a id="playRecoveryContactV2Combined" class="play" href="./?recoveryContactV2=combined">▶ 통합<br>회복+타격 B</a>
+    </div>
+    <p class="note">츠바이핸더·중력9.81·보통 난도 롱소드 상대입니다. 시작부터 비교 설정을 적용하며 재시작해도 같습니다. 일반판 반영 전 시험이며 설정은 저장되지 않습니다. 폰을 가로로 돌려 싸움 시작을 누르세요.</p>
+  </section>
   <section id="gravity-v2-comparison" aria-labelledby="gravity-v2-title">
     <h2 id="gravity-v2-title">중력만 비교 · 기존 B 유지</h2>
     <p>세 판 모두 츠바이핸더·검술 보정 v2·다시 발 딛기 B입니다. 중력만 바꾸었습니다. 같은 방식으로 걷고 베어 보고, 옆으로 기울 때 발을 딛는 속도와 넘어진 뒤 일어나는 느낌을 비교해 주세요.</p>
@@ -155,18 +180,18 @@
   </section>
   <section id="startup-grip-comparison" aria-labelledby="startup-grip-title">
     <h2 id="startup-grip-title">양손검 시작 흔들림 비교</h2>
-    <p>처음 손을 대지 않았을 때와, 베고 손을 멈췄을 때를 비교해 보세요. B는 보조손이 칼을 잡는 방식을 다듬은 선택형입니다.</p>
+    <p>처음 손을 대지 않았을 때와, 베고 손을 멈췄을 때를 비교해 보세요. B는 이번에 두 무기의 기본값으로 교정한 잡기 방식입니다.</p>
     <h3>모노호시자오</h3>
     <div class="demos">
-      <a id="playGripMonoMidpoint" class="play secondary" href="./?weapon=monohoshizao&amp;foeWeapon=longsword&amp;foe=default&amp;targetCorrection=normal">▶ A · 기존</a>
+      <a id="playGripMonoMidpoint" class="play secondary" href="./?weapon=monohoshizao&amp;foeWeapon=longsword&amp;foe=default&amp;targetCorrection=normal&amp;gripPoint=midpoint">▶ A · 이전 방식</a>
       <a id="playGripMonoAxial" class="play" href="./?weapon=monohoshizao&amp;foeWeapon=longsword&amp;foe=default&amp;targetCorrection=normal&amp;gripPoint=axial">▶ B · 흔들림 수정</a>
     </div>
     <h3>라이트세이버</h3>
     <div class="demos">
-      <a id="playGripLightMidpoint" class="play secondary" href="./?weapon=lightsaber&amp;foeWeapon=longsword&amp;foe=default&amp;targetCorrection=normal">▶ A · 기존</a>
+      <a id="playGripLightMidpoint" class="play secondary" href="./?weapon=lightsaber&amp;foeWeapon=longsword&amp;foe=default&amp;targetCorrection=normal&amp;gripPoint=midpoint">▶ A · 이전 방식</a>
       <a id="playGripLightAxial" class="play" href="./?weapon=lightsaber&amp;foeWeapon=longsword&amp;foe=default&amp;targetCorrection=normal&amp;gripPoint=axial">▶ B · 흔들림 수정</a>
     </div>
-    <p class="note">양쪽 모두 검술 보정 일반·상대 보통입니다. B는 플레이어의 양손 파지만 바꾸며 손 외형과 일반판 기본값은 그대로입니다. 시작 떨림은 줄었지만 전투 중 일부 급회전이 남아 일반 채택은 보류합니다. 가로 화면에서 싸움 시작을 누르세요.</p>
+    <p class="note">양쪽 모두 이 두 무기의 기존 검술 보정·상대 보통입니다. B의 시작 흔들림 수정은 일반판에 반영했으며, A에서는 이전 방식을 명시해 비교합니다. 전투 중 모든 회전이나 손 외형을 고친 것은 아닙니다. 가로 화면에서 싸움 시작을 누르세요.</p>
   </section>
   <section id="onehand-comparison" aria-labelledby="onehand-title">
     <h2 id="onehand-title">한손 팔 고정 수정 비교</h2>

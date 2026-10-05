@@ -8,6 +8,9 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[2]
 VERSION = 1
 MODES = 'original,clone,finalCap,runtimeFinalCap,runtimeFresh'
+# Ten native duels take about three minutes on the cloud CPU; 180 seconds
+# killed the final healthy row. This is only a watchdog, not simulated time.
+ARM_DUEL_TIMEOUT = 420
 SCOPES = {
  'force_ledger': 'Native force/momentum/energy calibration and instrumentation trace invariance.',
  'grip_reaction': 'Actual offHand free-body fixtures, paired wrench/power and timestep convergence.',
@@ -44,7 +47,7 @@ def fingerprint():
  runtime={'node':subprocess.check_output(['node','--version'],text=True).strip(),
           'npm':subprocess.check_output(['npm','--version'],text=True).strip(),
           'python':platform.python_version(),'system':platform.system(),'machine':platform.machine()}
- config={'schemaVersion':VERSION,'scopes':SCOPES,'duelSeconds':10,'duelSeeds':[7],'duelModes':MODES,'timeoutSecondsPerCommand':{'arm_duel':180,'others':90}}
+ config={'schemaVersion':VERSION,'scopes':SCOPES,'duelSeconds':10,'duelSeeds':[7],'duelModes':MODES,'timeoutSecondsPerCommand':{'arm_duel':ARM_DUEL_TIMEOUT,'others':90}}
  value={'sourceHashes':source,'runtime':runtime,'suite':config}
  value['key']=hashlib.sha256(json.dumps(value,sort_keys=True,separators=(',',':')).encode()).hexdigest()
  return value
@@ -136,7 +139,7 @@ def run_suite(out, cache, force=False):
                  'evidenceCheckoutSHA':cached.get('evidenceCheckoutSHA',cached['checkoutSHA']),
                  'cachedResultSHA256':sha(cache/key/'result.json'),'forced':force,'evidenceForced':cached.get('evidenceForced',cached.get('forced',False)),'wallSeconds':time.monotonic()-begin})
  else:
-  rows=[run_one(*row,out,timeout=180 if row[0]=='arm_duel' else 90) for row in expected]
+  rows=[run_one(*row,out,timeout=ARM_DUEL_TIMEOUT if row[0]=='arm_duel' else 90) for row in expected]
   after=hashes(); end_sha=git('rev-parse','HEAD'); stable=before['sourceHashes']==after and start_sha==end_sha
   report={'schemaVersion':VERSION,'createdUTC':utc(),'checkoutSHA':start_sha,'endingCheckoutSHA':end_sha,'headStable':start_sha==end_sha,'fingerprint':key,
           'cacheUsed':False,'originRun':run_context(),'currentRun':run_context(),'forced':force,'tests':rows,'sourceBefore':before['sourceHashes'],'sourceAfter':after,

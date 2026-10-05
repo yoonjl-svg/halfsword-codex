@@ -7,8 +7,8 @@ import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 
 const opts = Object.fromEntries(process.argv.slice(2).map(arg => {
-  const m = /^--(base|out|weapons|modes)=(.+)$/.exec(arg);
-  assert.ok(m, 'Use --base= --out= --weapons= --modes=');
+  const m = /^--(base|out|weapons|modes|entry)=(.+)$/.exec(arg);
+  assert.ok(m, 'Use --base= --out= --weapons= --modes= --entry=');
   return [m[1], m[2]];
 }));
 const base = new URL(opts.base || 'http://127.0.0.1:4281/');
@@ -16,7 +16,10 @@ assert.ok((['127.0.0.1', 'localhost'].includes(base.hostname) && ['http:', 'http
   (base.origin === 'https://yoonjl-svg.github.io' && base.pathname === '/halfsword-codex/'), 'Own Pages or localhost only');
 assert.ok(!base.username && !base.password, 'No URL credentials');
 const weapons = (opts.weapons || 'monohoshizao,lightsaber').split(',');
-const modes = (opts.modes || 'midpoint,axial').split(',');
+const entry = opts.entry || 'comparison';
+assert.ok(['comparison','default'].includes(entry));
+const modes = (opts.modes || (entry === 'default' ? 'axial' : 'midpoint,axial')).split(',');
+assert.ok(entry !== 'default' || modes.every(mode => mode === 'axial'));
 assert.ok(weapons.length && weapons.every(w => /^[a-z0-9_]+$/.test(w)) && new Set(weapons).size === weapons.length);
 assert.ok(modes.length && modes.every(m => ['midpoint', 'axial'].includes(m)) && new Set(modes).size === modes.length);
 assert.ok(opts.out, '--out=fresh-directory required');
@@ -52,7 +55,7 @@ try {
     page.on('response', r => { if (r.status() >= 400) errors.push(`${r.status()} ${r.url()}`); });
     const url = new URL(base);
     // Replace preexisting query parameters: both modes share all ordinary defaults.
-    url.search = new URLSearchParams({weapon, foeWeapon: 'longsword', foe: 'default', targetCorrection: 'normal', gripPoint: mode}).toString();
+    url.search = new URLSearchParams({weapon, foeWeapon: 'longsword', foe: 'default', ...(entry === 'comparison' ? {targetCorrection: 'normal', gripPoint: mode} : {})}).toString();
     url.hash = '';
     try {
       await page.goto(url.href);
@@ -211,9 +214,9 @@ try {
       const metrics = {idleSamples: probe.idle.length, idleMaxOmega: Math.max(...probe.idle.map(r => r.omega)),
         idleMaxAbsAxialOmega: Math.max(...probe.idle.map(r => Math.abs(r.omegaAxial))),
         idleMaxAimErrorRad: Math.max(...probe.idle.map(r => r.aimErrorRad)), thrustAccepted: tap.calls.some(c => c.accepted)};
-      const row = {weapon, mode, url: url.href, portrait, compiled, initial, idle, held, extended, released, tap, restarted, probe, metrics, errors};
+      const row = {weapon, mode, entry, url: url.href, portrait, compiled, initial, idle, held, extended, released, tap, restarted, probe, metrics, errors};
       await fs.writeFile(path.join(dir, 'result.json'), JSON.stringify(row, null, 2), {flag: 'wx'});
-      rows.push({weapon, mode, url: url.href, portrait, compiled, metrics, restarted, errors});
+      rows.push({weapon, mode, entry, url: url.href, portrait, compiled, metrics, restarted, errors});
       console.log(JSON.stringify({weapon, mode, metrics, errors}));
     } catch (failure) {
       await fs.writeFile(path.join(dir, 'failure.json'), JSON.stringify({error: String(failure), errors,
@@ -228,6 +231,6 @@ try {
   await fs.writeFile(path.join(opts.out, 'summary.json'), JSON.stringify({pass: pass && sourceStable, sourceStable, sourceBefore, sourceAfter,
     sourceCommit, scriptSHA256: sourceBefore['tools/browser/grip_point_screen.mjs'], startedAt, finishedAt: new Date().toISOString(),
     argv: process.argv.slice(2), rows,
-    scope: 'Compiled assets SHA/body bytes, portrait390 overflow, trusted Start, first2s no-input native angle/omega, trusted drag/extend/release and 80ms event-time tap contract, new Fighter restart and saved .7/normal. Default world/AI and paired GRIP; player-only URL mode. Read-only return-preserving wrappers; camera presentation only. Large finite omega is recorded, not a failure threshold. Native injury can reject a consumed tap. These browser scenes are not matched AI/contact comparisons, candidate physics acceptance, anatomical/hand penetration acceptance, or human gameplay acceptance.'}, null, 2), {flag: 'wx'});
+    scope: 'Compiled assets SHA/body bytes, portrait390 overflow, trusted Start, first2s no-input native angle/omega, trusted drag/extend/release and 80ms event-time tap contract, new Fighter restart and saved .7/normal. Default world/AI and paired GRIP; player-only URL mode or constructor default (entry field). Read-only return-preserving wrappers; camera presentation only. Large finite omega is recorded, not a failure threshold. Native injury can reject a consumed tap. These browser scenes are not matched AI/contact comparisons, candidate physics acceptance, anatomical/hand penetration acceptance, or human gameplay acceptance.'}, null, 2), {flag: 'wx'});
   assert.ok(sourceStable, 'Source files changed during probe');
 }

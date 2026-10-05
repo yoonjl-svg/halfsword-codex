@@ -1,0 +1,2041 @@
+{
+  "schemaVersion": 1,
+  "title": "P4 bounded completed-roll goal: scoped selection judgment",
+  "dateLabel": "2026-10-06",
+  "sourceCommit": "97815289d58644ce53013bb9d1e2f927958b0e19",
+  "judgment": {
+    "optionalSelectionAccepted": true,
+    "basis": "Director permits a narrow optional finite-goal-command comparison: bounded goal steps, near-preserved measured free-cut speed and sword K, exact first living LS attack, all later player requests accepted, no measured directed target error beyond90deg or grip collapse.",
+    "wholeP4Complete": false,
+    "ordinaryPromotion": false,
+    "unconditionalStrikePowerPreserved": false,
+    "postInterventionActiveCutContactGate": "unexposed, not passed",
+    "qinggangActualContactGate": "not tested",
+    "visualNaturalness": "not established by automatic metrics",
+    "publicDeliveryReceipt": "separate integration/common/browser/delivery record; this report is not a deployment receipt",
+    "rawJudgmentPreserved": "Original pass means measurement validity. Existing raw effectAccepted:false remains unchanged; this later scoped director decision does not relabel unexposed gates."
+  },
+  "mechanism": {
+    "target": "Completed directed legacy flatTarget only; prior target transported by old/new blade axis, then signed roll step bounded. No re-selection of rest/motion normal signs.",
+    "bound": "weaponCfg.wristVmax * sqrt(strength) * dt",
+    "referenceBudgetRadPerSecond": 30,
+    "referenceStepDegAt120Hz": 14.32394487827058,
+    "referenceIsBiomechanicalOptimum": false,
+    "preserved": "Input, torque gains/caps, mass, inertia, native physical pose and solver remain unchanged; altered target can still alter physical force/contact.",
+    "productionParity": "src/roll_target.js uses the same active-path arithmetic as bounded_roll_candidate.mjs; contact pairs call the production helper itself. Production additionally clears history on disabled/bypassed intervals. This is not a claim of byte-identical whole fighter source.",
+    "productionHelperAtContact": {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/contact01-runtime/src/roll_target.js",
+      "bytes": 1229,
+      "sha256": "495b84d67e21e94b095bee1a77ec2c2c3d68ea279a4a1bc5d5a3006453decf49"
+    },
+    "experimentalHelper": {
+      "path": "/workspace/halfsword-codex/tools/sim/experiments/bounded_roll_candidate.mjs",
+      "bytes": 1102,
+      "sha256": "be62ad3972cf27659072cb89db9c611a2a342ed1bde2a6e01db210031666b71f"
+    }
+  },
+  "protocol": {
+    "dt": 0.008333333333333333,
+    "gravityMps2": 9.81,
+    "swordsmanship": "ordinary v2 r2 manual in both sides",
+    "contactWeaponPair": [
+      "longsword player",
+      "zweihander enemy"
+    ],
+    "seed": 7,
+    "startGapM": 5.6,
+    "cutModel": "legacy",
+    "candidate": "player-only from spawn in contact runs",
+    "approach": "240-step start lock; ordinary forward stick1 until baseline pelvis gap <=2.8m. Both use exact tick420 start and same requested/applied touch input. No pose, health or equipment injection.",
+    "contactBaseTapeSteps": 444,
+    "extensionSteps": 138,
+    "extension": "Once only: raise48, hold24, cut30, followHold36 using original deltas; normal forward resumes. No seed/gap/gear search.",
+    "causalLimit": "First altered goal/native tick584; enemy input first differs646. Later motion/contact differences describe reactive full-game compatibility, not an isolated force/power or combat-efficacy estimate.",
+    "edgeMetricDefinitions": "Free-space recut error is post-step unsigned native .7-blade transverse-speed-weighted plane error. Contact report error is an unweighted mean restricted to transverse speed >0.5m/s. Do not mix these means. Axial travel is integral abs(omega dot current blade axis)dt; it is not a universal lower-is-better measure."
+  },
+  "accounting": {
+    "executions": 12,
+    "completedSteps": 7284,
+    "physicsWallSeconds": 25.338992032,
+    "failedNewExecutions": 0,
+    "newPhysicsForThisDocumentation": 0,
+    "breakdown": "4*444 + 4*444 + 2*864 + 2*1002 =7284",
+    "independence": "Executed rows counted as cost, not independent successes. Free-space legacy baselines repeat; extension repeats each own first864 steps exactly. Historical round4 bridge is reuse, not a new run. Earlier rejected candidates excluded and retained in their original reports."
+  },
+  "runs": [
+    {
+      "id": "bounded01",
+      "kind": "free_space",
+      "executions": 4,
+      "stepsPerRun": 444,
+      "completedSteps": 1776,
+      "wallSeconds": 5.687330722,
+      "sourceCommit": "97815289d58644ce53013bb9d1e2f927958b0e19",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/phase2-close-20261006/recut/bounded01-runner.mjs",
+        "--out=/workspace/halfsword-handoff/phase2-close-20261006/recut/bounded01.json",
+        "--activate=firstCut",
+        "--weapons=qinggang,longsword"
+      ],
+      "report": {
+        "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/bounded01.json",
+        "bytes": 3937110,
+        "sha256": "20b62f0efb804086d2d996671dfaa65979f991a507c7666ff78cce9d6ccea329"
+      },
+      "producer": {
+        "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/bounded01-producer.json",
+        "bytes": 444,
+        "sha256": "33d8dc764d01dbf25558fb42ba9f0853772f77d1aa535f71ca52d5d6f7baf542"
+      },
+      "runner": {
+        "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/bounded01-runner.mjs",
+        "bytes": 17004,
+        "sha256": "199ce1fb24822568f9d8b8fca4951b8a5fdb8639dda94c5f8acb3b548c116188"
+      },
+      "sourceStable": true,
+      "originalSourceStable": true,
+      "manifestCanonicalSHA256": "a3f3a547f1bc116e344a2518121cf51d799aad47410a681dbdc283acd226f2e8",
+      "criticalFrozenFiles": {
+        "src/fighter.js": "3aaf43b86c1d86fba19fca8335bb649f022bbd4dd26ddf5fb23560c0c996af23",
+        "src/swordsmanship.js": "7794881e39564a523047605c7ddfae71ecb8fff40b007d03c78aeb33d16c66db",
+        "src/skill.js": "c1ce462057175f684f8b89c79f668835c69b9dd2ef3cdfbd1e155f73411668e5",
+        "src/combat.js": "98387beb03c90c9edc314da0e1ee826f5c0bd18da3d3991e480b036814d54916",
+        "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+        "tools/sim/experiments/bounded_roll_candidate.mjs": "be62ad3972cf27659072cb89db9c611a2a342ed1bde2a6e01db210031666b71f",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+        "node_modules/three/build/three.core.js": "9edde002b066a9a05676a6127f67735b62baf399bdea529f2f7e31657da769e6"
+      },
+      "measurementPass": true,
+      "rawEffectAccepted": false,
+      "candidateActivationTick": 318,
+      "cliLabelNote": "The firstCut CLI token in bounded01 is historical; the frozen runner actually selects recut at tick318.",
+      "comparisons": [
+        {
+          "weapon": "qinggang",
+          "creationExact": true,
+          "prefixNativeExact": true,
+          "prefixControlExact": true,
+          "inputExact": true,
+          "firstNativeDifference": 324,
+          "firstGoalDifference": 324
+        },
+        {
+          "weapon": "longsword",
+          "creationExact": true,
+          "prefixNativeExact": true,
+          "prefixControlExact": true,
+          "inputExact": true,
+          "firstNativeDifference": 325,
+          "firstGoalDifference": 325
+        }
+      ],
+      "rows": [
+        {
+          "weapon": "qinggang",
+          "mode": "legacy",
+          "checks": {
+            "healthy": true,
+            "finite": true,
+            "noSwordContact": true,
+            "tapAccepted": true,
+            "inputAccepted": true,
+            "complete": true
+          },
+          "recut": {
+            "steps": 30,
+            "tipPeakMps": 10.07186012781481,
+            "tipMeanMps": 6.394162590365223,
+            "midPeakMps": 8.080000333368359,
+            "midMeanMps": 5.391987606454109,
+            "kineticPeakJ": 14.44477364452932,
+            "kineticMeanJ": 7.8531882066767515,
+            "axialPeakRadps": 34.150887860127675,
+            "axialTravelRad": 2.817564138234496,
+            "actualEdgeErrorWeightedRad": 0.5853470308234633,
+            "aimErrorMeanRad": 0.12282518638873594,
+            "maxGapM": 0.0015117683244868214,
+            "maxChestTiltRad": 0.2234298900125205,
+            "maximumTargetSlewRad": 0.7053155687574165,
+            "maximumSignedTargetErrorRad": 1.3878559039952774,
+            "maxPositionTorqueDeltaNm": 0.06481815215354331,
+            "explicitSwordWorkApproxJ": 1.5064542288044749,
+            "swordContactFrames": 0
+          },
+          "signedTargetErrorOver90Frames": 0
+        },
+        {
+          "weapon": "qinggang",
+          "mode": "boundedRoll",
+          "checks": {
+            "healthy": true,
+            "finite": true,
+            "noSwordContact": true,
+            "tapAccepted": true,
+            "inputAccepted": true,
+            "complete": true
+          },
+          "recut": {
+            "steps": 30,
+            "tipPeakMps": 10.020648262282977,
+            "tipMeanMps": 6.4137846138709484,
+            "midPeakMps": 8.097923852875503,
+            "midMeanMps": 5.409300377412415,
+            "kineticPeakJ": 14.545121708711067,
+            "kineticMeanJ": 7.919260552451301,
+            "axialPeakRadps": 27.522216579374227,
+            "axialTravelRad": 2.825336334884825,
+            "actualEdgeErrorWeightedRad": 0.6563297542250851,
+            "aimErrorMeanRad": 0.12145099830148838,
+            "maxGapM": 0.0015130640138597338,
+            "maxChestTiltRad": 0.2234298900125205,
+            "maximumTargetSlewRad": 0.25000002992359455,
+            "maximumSignedTargetErrorRad": 1.1428973598610945,
+            "maxPositionTorqueDeltaNm": 0.05891913245638558,
+            "explicitSwordWorkApproxJ": 1.7517768769514388,
+            "swordContactFrames": 0
+          },
+          "signedTargetErrorOver90Frames": 0
+        },
+        {
+          "weapon": "longsword",
+          "mode": "legacy",
+          "checks": {
+            "healthy": true,
+            "finite": true,
+            "noSwordContact": true,
+            "tapAccepted": true,
+            "inputAccepted": true,
+            "complete": true
+          },
+          "recut": {
+            "steps": 30,
+            "tipPeakMps": 7.85874671057903,
+            "tipMeanMps": 4.996832118365802,
+            "midPeakMps": 6.156008911314428,
+            "midMeanMps": 4.157240020100714,
+            "kineticPeakJ": 15.814310475920612,
+            "kineticMeanJ": 7.233316312035088,
+            "axialPeakRadps": 21.465692785376124,
+            "axialTravelRad": 1.196096019499801,
+            "actualEdgeErrorWeightedRad": 0.17553017707020832,
+            "aimErrorMeanRad": 0.10705592375389233,
+            "maxGapM": 0.0009905018336845751,
+            "maxChestTiltRad": 0.28709669890467854,
+            "maximumTargetSlewRad": 0.7341252476427358,
+            "maximumSignedTargetErrorRad": 0.7803548706982314,
+            "maxPositionTorqueDeltaNm": 2.811216302378991,
+            "explicitSwordWorkApproxJ": 1.1291605371864288,
+            "swordContactFrames": 0
+          },
+          "signedTargetErrorOver90Frames": 0
+        },
+        {
+          "weapon": "longsword",
+          "mode": "boundedRoll",
+          "checks": {
+            "healthy": true,
+            "finite": true,
+            "noSwordContact": true,
+            "tapAccepted": true,
+            "inputAccepted": true,
+            "complete": true
+          },
+          "recut": {
+            "steps": 30,
+            "tipPeakMps": 7.861963340313355,
+            "tipMeanMps": 5.008792871792031,
+            "midPeakMps": 6.245949420169725,
+            "midMeanMps": 4.163700178308435,
+            "kineticPeakJ": 15.754074675508367,
+            "kineticMeanJ": 7.232331449276205,
+            "axialPeakRadps": 20.32152991646148,
+            "axialTravelRad": 1.0994845023667346,
+            "actualEdgeErrorWeightedRad": 0.1881964907240182,
+            "aimErrorMeanRad": 0.1060713986072262,
+            "maxGapM": 0.0009905018336845751,
+            "maxChestTiltRad": 0.28709669890467854,
+            "maximumTargetSlewRad": 0.2500000648420747,
+            "maximumSignedTargetErrorRad": 0.72047914407698,
+            "maxPositionTorqueDeltaNm": 1.0723019924073804,
+            "explicitSwordWorkApproxJ": 1.39886637114094,
+            "swordContactFrames": 0
+          },
+          "signedTargetErrorOver90Frames": 0
+        }
+      ]
+    },
+    {
+      "id": "bounded-spawn01",
+      "kind": "free_space",
+      "executions": 4,
+      "stepsPerRun": 444,
+      "completedSteps": 1776,
+      "wallSeconds": 3.049988941,
+      "sourceCommit": "97815289d58644ce53013bb9d1e2f927958b0e19",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/phase2-close-20261006/recut/bounded-spawn01-runner.mjs",
+        "--out=/workspace/halfsword-handoff/phase2-close-20261006/recut/bounded-spawn01.json",
+        "--activate=spawn",
+        "--weapons=qinggang,longsword"
+      ],
+      "report": {
+        "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/bounded-spawn01.json",
+        "bytes": 3983508,
+        "sha256": "723ca159d395c0025f8de4fd8d1d974a8740fc7b0aee77ed7e726d425721d734"
+      },
+      "producer": {
+        "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/bounded-spawn01-producer.json",
+        "bytes": 453,
+        "sha256": "7bddf533a51d256ba66adb433ff8a833049e8b842d374b51e0a6523815291bb9"
+      },
+      "runner": {
+        "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/bounded-spawn01-runner.mjs",
+        "bytes": 17004,
+        "sha256": "199ce1fb24822568f9d8b8fca4951b8a5fdb8639dda94c5f8acb3b548c116188"
+      },
+      "sourceStable": true,
+      "originalSourceStable": true,
+      "manifestCanonicalSHA256": "a3f3a547f1bc116e344a2518121cf51d799aad47410a681dbdc283acd226f2e8",
+      "criticalFrozenFiles": {
+        "src/fighter.js": "3aaf43b86c1d86fba19fca8335bb649f022bbd4dd26ddf5fb23560c0c996af23",
+        "src/swordsmanship.js": "7794881e39564a523047605c7ddfae71ecb8fff40b007d03c78aeb33d16c66db",
+        "src/skill.js": "c1ce462057175f684f8b89c79f668835c69b9dd2ef3cdfbd1e155f73411668e5",
+        "src/combat.js": "98387beb03c90c9edc314da0e1ee826f5c0bd18da3d3991e480b036814d54916",
+        "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+        "tools/sim/experiments/bounded_roll_candidate.mjs": "be62ad3972cf27659072cb89db9c611a2a342ed1bde2a6e01db210031666b71f",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+        "node_modules/three/build/three.core.js": "9edde002b066a9a05676a6127f67735b62baf399bdea529f2f7e31657da769e6"
+      },
+      "measurementPass": true,
+      "rawEffectAccepted": false,
+      "candidateActivationTick": 0,
+      "cliLabelNote": null,
+      "comparisons": [
+        {
+          "weapon": "qinggang",
+          "creationExact": true,
+          "prefixNativeExact": true,
+          "prefixControlExact": true,
+          "inputExact": true,
+          "firstNativeDifference": 136,
+          "firstGoalDifference": 136
+        },
+        {
+          "weapon": "longsword",
+          "creationExact": true,
+          "prefixNativeExact": true,
+          "prefixControlExact": true,
+          "inputExact": true,
+          "firstNativeDifference": 64,
+          "firstGoalDifference": 64
+        }
+      ],
+      "rows": [
+        {
+          "weapon": "qinggang",
+          "mode": "legacy",
+          "checks": {
+            "healthy": true,
+            "finite": true,
+            "noSwordContact": true,
+            "tapAccepted": true,
+            "inputAccepted": true,
+            "complete": true
+          },
+          "recut": {
+            "steps": 30,
+            "tipPeakMps": 10.07186012781481,
+            "tipMeanMps": 6.394162590365223,
+            "midPeakMps": 8.080000333368359,
+            "midMeanMps": 5.391987606454109,
+            "kineticPeakJ": 14.44477364452932,
+            "kineticMeanJ": 7.8531882066767515,
+            "axialPeakRadps": 34.150887860127675,
+            "axialTravelRad": 2.817564138234496,
+            "actualEdgeErrorWeightedRad": 0.5853470308234633,
+            "aimErrorMeanRad": 0.12282518638873594,
+            "maxGapM": 0.0015117683244868214,
+            "maxChestTiltRad": 0.2234298900125205,
+            "maximumTargetSlewRad": 0.7053155687574165,
+            "maximumSignedTargetErrorRad": 1.3878559039952774,
+            "maxPositionTorqueDeltaNm": 0.06481815215354331,
+            "explicitSwordWorkApproxJ": 1.5064542288044749,
+            "swordContactFrames": 0
+          },
+          "signedTargetErrorOver90Frames": 0
+        },
+        {
+          "weapon": "qinggang",
+          "mode": "boundedRoll",
+          "checks": {
+            "healthy": true,
+            "finite": true,
+            "noSwordContact": true,
+            "tapAccepted": true,
+            "inputAccepted": true,
+            "complete": true
+          },
+          "recut": {
+            "steps": 30,
+            "tipPeakMps": 10.128483486196332,
+            "tipMeanMps": 6.400827097801476,
+            "midPeakMps": 8.079942997993172,
+            "midMeanMps": 5.401192850866357,
+            "kineticPeakJ": 14.46912334411318,
+            "kineticMeanJ": 7.911156602115114,
+            "axialPeakRadps": 27.213843955012987,
+            "axialTravelRad": 2.827277691887152,
+            "actualEdgeErrorWeightedRad": 0.6619316242782622,
+            "aimErrorMeanRad": 0.12355052785551113,
+            "maxGapM": 0.0015108263117963362,
+            "maxChestTiltRad": 0.22363994492926215,
+            "maximumTargetSlewRad": 0.2500000161699737,
+            "maximumSignedTargetErrorRad": 1.1092166620998436,
+            "maxPositionTorqueDeltaNm": 0.057190413748712185,
+            "explicitSwordWorkApproxJ": 1.3296716510537834,
+            "swordContactFrames": 0
+          },
+          "signedTargetErrorOver90Frames": 0
+        },
+        {
+          "weapon": "longsword",
+          "mode": "legacy",
+          "checks": {
+            "healthy": true,
+            "finite": true,
+            "noSwordContact": true,
+            "tapAccepted": true,
+            "inputAccepted": true,
+            "complete": true
+          },
+          "recut": {
+            "steps": 30,
+            "tipPeakMps": 7.85874671057903,
+            "tipMeanMps": 4.996832118365802,
+            "midPeakMps": 6.156008911314428,
+            "midMeanMps": 4.157240020100714,
+            "kineticPeakJ": 15.814310475920612,
+            "kineticMeanJ": 7.233316312035088,
+            "axialPeakRadps": 21.465692785376124,
+            "axialTravelRad": 1.196096019499801,
+            "actualEdgeErrorWeightedRad": 0.17553017707020832,
+            "aimErrorMeanRad": 0.10705592375389233,
+            "maxGapM": 0.0009905018336845751,
+            "maxChestTiltRad": 0.28709669890467854,
+            "maximumTargetSlewRad": 0.7341252476427358,
+            "maximumSignedTargetErrorRad": 0.7803548706982314,
+            "maxPositionTorqueDeltaNm": 2.811216302378991,
+            "explicitSwordWorkApproxJ": 1.1291605371864288,
+            "swordContactFrames": 0
+          },
+          "signedTargetErrorOver90Frames": 0
+        },
+        {
+          "weapon": "longsword",
+          "mode": "boundedRoll",
+          "checks": {
+            "healthy": true,
+            "finite": true,
+            "noSwordContact": true,
+            "tapAccepted": true,
+            "inputAccepted": true,
+            "complete": true
+          },
+          "recut": {
+            "steps": 30,
+            "tipPeakMps": 7.861950999128852,
+            "tipMeanMps": 5.008882352299265,
+            "midPeakMps": 6.246105970992309,
+            "midMeanMps": 4.163762424417004,
+            "kineticPeakJ": 15.754089776598523,
+            "kineticMeanJ": 7.232403544306677,
+            "axialPeakRadps": 20.322907058907592,
+            "axialTravelRad": 1.0995761197436624,
+            "actualEdgeErrorWeightedRad": 0.18821014803751535,
+            "aimErrorMeanRad": 0.1060746095383728,
+            "maxGapM": 0.0009905261168465373,
+            "maxChestTiltRad": 0.28709426081463146,
+            "maximumTargetSlewRad": 0.250000052328024,
+            "maximumSignedTargetErrorRad": 0.7205471631691751,
+            "maxPositionTorqueDeltaNm": 1.0723480388744326,
+            "explicitSwordWorkApproxJ": 1.3989507658484999,
+            "swordContactFrames": 0
+          },
+          "signedTargetErrorOver90Frames": 0
+        }
+      ]
+    },
+    {
+      "id": "contact01",
+      "kind": "living_contact_and_input_compatibility",
+      "executions": 2,
+      "completedSteps": 1728,
+      "wallSeconds": 7.435666716,
+      "sourceCommit": "97815289d58644ce53013bb9d1e2f927958b0e19",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/phase2-close-20261006/recut/contact01-runtime/tools/sim/experiments/bounded_roll_contact_20261006_probe.mjs",
+        "--out=/workspace/halfsword-handoff/phase2-close-20261006/recut/contact01"
+      ],
+      "report": {
+        "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/contact01/report.json",
+        "bytes": 46135,
+        "sha256": "e0794ca6c9da4320d3e2e638d52a16a435871f6bd19a4aa3b5ae0eec673ccda3"
+      },
+      "summary": {
+        "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/contact01-summary02.json",
+        "bytes": 97626,
+        "sha256": "573fac2a50d9657c14debff8bc3c7cdf06b8acca168c5591b86cde7dfde86f37"
+      },
+      "sourceMetadata": {
+        "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/contact01-runtime/SOURCE.json",
+        "bytes": 20591,
+        "sha256": "a60cf3fb41e8e1ec5ea02125ed1cc847f49152be1783d25680fe3815e90bf2eb"
+      },
+      "preparation": {
+        "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/contact01-preparation.json",
+        "bytes": 21013,
+        "sha256": "2baa77c31e43310ffac7b0e506b521ad86b4fde8d6755d6768c65f6bede6fd22"
+      },
+      "sourceStable": true,
+      "manifestCanonicalSHA256": "b5ab5d7ff9200753d18b28b32d176296ab8e4df76b9adcf50b22c81be1c45690",
+      "criticalFrozenFiles": {
+        "src/fighter.js": "4cbd534e8908bf169c2388bda2cd2279fec42b6f64f65b2ba28083e734d8fce6",
+        "src/roll_target.js": "495b84d67e21e94b095bee1a77ec2c2c3d68ea279a4a1bc5d5a3006453decf49",
+        "src/swordsmanship.js": "7794881e39564a523047605c7ddfae71ecb8fff40b007d03c78aeb33d16c66db",
+        "src/skill.js": "c1ce462057175f684f8b89c79f668835c69b9dd2ef3cdfbd1e155f73411668e5",
+        "src/combat.js": "98387beb03c90c9edc314da0e1ee826f5c0bd18da3d3991e480b036814d54916",
+        "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+        "tools/sim/experiments/bounded_roll_candidate.mjs": "be62ad3972cf27659072cb89db9c611a2a342ed1bde2a6e01db210031666b71f",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+        "node_modules/three/build/three.core.js": "9edde002b066a9a05676a6127f67735b62baf399bdea529f2f7e31657da769e6"
+      },
+      "measurementPass": true,
+      "rawEffectAccepted": false,
+      "candidateActivationTick": 0,
+      "comparisons": {
+        "sameCreation": true,
+        "commonSteps": 864,
+        "tapeStartTicks": [
+          420,
+          420
+        ],
+        "sameTouchStart": true,
+        "firstGoalChangeTick": 584,
+        "changedGoalFrames": 12,
+        "firstNativeDifference": 584,
+        "firstControlDifference": 585,
+        "firstRequestedInputDifference": -1,
+        "firstAppliedInputDifference": -1,
+        "firstEnemyInputDifference": 646,
+        "prefixBeforeFirstGoalExact": true,
+        "qualifiedContactTicks": [
+          576,
+          576
+        ]
+      },
+      "historicalBaselineBridge": {
+        "artifact": {
+          "path": "/workspace/halfsword-handoff/phase2-round4-20261006/p4/approach02/report.json",
+          "bytes": 3745367,
+          "sha256": "a76f588d2a21e6df44d1b52a414da7b16398bcee2ff8e4a5974e0b5ab8fb0b34"
+        },
+        "commonSteps": 697,
+        "allNativeExact": true,
+        "firstNativeDifference": null,
+        "allControlExact": true,
+        "firstControlDifference": null,
+        "limits": "Current baseline compared with preserved round4 baseline, not a new independent historical observation. Input hash layout differs; requested tape contract is preserved by source and new pair hashes."
+      },
+      "parentPrefixBridge": null,
+      "rows": [
+        {
+          "mode": "legacy",
+          "steps": 864,
+          "raw": {
+            "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/contact01/legacy.json",
+            "bytes": 8145894,
+            "sha256": "00ab4540a9b8980741f69bd288a63009c5bd7a6a2f91a1b32fd7667de5bdc75a"
+          },
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "ordinaryModels": true,
+            "gravityFixed": true
+          },
+          "exposure": {
+            "active": 144,
+            "swinging": 96,
+            "eligible": 87,
+            "tap": 57,
+            "thrust": 57,
+            "owners": {
+              "player": 776,
+              "thrust": 57,
+              "recovery": 1,
+              "return": 30
+            }
+          },
+          "fullTapeCompleted": true,
+          "tapAccepted": true,
+          "changedGoalFrames": 0,
+          "firstQualifiedContactTick": 576,
+          "positiveCutReactionPairsAfterIntervention": 34,
+          "qualifiedActiveCutReactionPairsAfterIntervention": 0,
+          "extensionPositiveCutReactionPairs": 0,
+          "signedTargetErrorOver90Frames": 0,
+          "finalStates": [
+            {
+              "alive": true,
+              "armed": true,
+              "gripValid": true,
+              "state": "stand",
+              "armHealth": 1,
+              "blood": 1,
+              "pain": 0.1533520665954854,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            },
+            {
+              "alive": true,
+              "armed": true,
+              "gripValid": true,
+              "state": "stand",
+              "armHealth": 1,
+              "blood": 0.9859329783721554,
+              "pain": 0,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            }
+          ],
+          "selectedPhases": {
+            "firstCut": {
+              "ticks": [
+                552,
+                581
+              ],
+              "steps": 30,
+              "tipSpeedMps": {
+                "min": 1.0072887771048245,
+                "mean": 5.567191390285382,
+                "max": 10.602635304630368,
+                "count": 30
+              },
+              "swordKJ": {
+                "min": 1.7381825960251234,
+                "mean": 12.857052375866376,
+                "max": 30.361434260319353,
+                "count": 30
+              },
+              "axialPeakRadps": 7.307849831070367,
+              "axialTravelRad": 0.6197472914353871,
+              "ownCommandSignedProgressM": 0.9865471608170984,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 0.14912165278522702,
+                "mean": 10.027272688005544,
+                "max": 25.781006871759395,
+                "count": 27
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 4.707204027979274,
+                "mean": 22.362973118414065,
+                "max": 81.6126102419178,
+                "count": 30
+              },
+              "changedGoalFrames": 0,
+              "maxRawSlewDeg": 4.927849465931901,
+              "maxTargetSlewDeg": 4.927849465931901,
+              "maxTargetErrorDeg": 11.769308589875259,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.0013854178589278265,
+              "allPlayerAliveArmedGrip": true
+            },
+            "followHold": {
+              "ticks": [
+                582,
+                617
+              ],
+              "steps": 36,
+              "tipSpeedMps": {
+                "min": 1.464354887293981,
+                "mean": 6.189199681334532,
+                "max": 11.501019741004614,
+                "count": 36
+              },
+              "swordKJ": {
+                "min": 1.621218002067292,
+                "mean": 10.038213090340221,
+                "max": 20.80962343215004,
+                "count": 36
+              },
+              "axialPeakRadps": 27.22952236968897,
+              "axialTravelRad": 1.9015213812529215,
+              "ownCommandSignedProgressM": 0.5679156854603472,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 1.07316211754779,
+                "mean": 21.04297151658747,
+                "max": 88.62196138245558,
+                "count": 36
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 0.28789049705074055,
+                "mean": 11.767706118360143,
+                "max": 45.19305275412069,
+                "count": 36
+              },
+              "changedGoalFrames": 0,
+              "maxRawSlewDeg": 31.544917107700762,
+              "maxTargetSlewDeg": 31.544917107700762,
+              "maxTargetErrorDeg": 48.04783656056322,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.002118849424105943,
+              "allPlayerAliveArmedGrip": true
+            },
+            "reverse": {
+              "ticks": [
+                618,
+                653
+              ],
+              "steps": 36,
+              "tipSpeedMps": {
+                "min": 0.12414409601502048,
+                "mean": 5.831081329030018,
+                "max": 12.48848655274527,
+                "count": 36
+              },
+              "swordKJ": {
+                "min": 1.6954336227988178,
+                "mean": 12.741297677423903,
+                "max": 26.096484317714783,
+                "count": 36
+              },
+              "axialPeakRadps": 13.21310475220681,
+              "axialTravelRad": 0.7847381512891699,
+              "ownCommandSignedProgressM": 1.402557014941016,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 0.29344824244095735,
+                "mean": 5.4521241730540915,
+                "max": 26.344591330357716,
+                "count": 29
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 0.37094820259777783,
+                "mean": 8.69463348117569,
+                "max": 24.51577526710563,
+                "count": 36
+              },
+              "changedGoalFrames": 0,
+              "maxRawSlewDeg": 7.02374053113376,
+              "maxTargetSlewDeg": 7.02374053113376,
+              "maxTargetErrorDeg": 23.603950391333246,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.0016458836430855864,
+              "allPlayerAliveArmedGrip": true
+            },
+            "tap": {
+              "ticks": [
+                678,
+                737
+              ],
+              "steps": 60,
+              "tipSpeedMps": {
+                "min": 1.0381060434907436,
+                "mean": 3.7534036765321583,
+                "max": 9.855495709441954,
+                "count": 60
+              },
+              "swordKJ": {
+                "min": 0.7677393064923443,
+                "mean": 4.358443852732136,
+                "max": 23.10459786879795,
+                "count": 60
+              },
+              "axialPeakRadps": 33.138762216417526,
+              "axialTravelRad": 4.988495156599492,
+              "ownCommandSignedProgressM": 0.9071670074958501,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 2.1045158563328488,
+                "mean": 38.50854640935076,
+                "max": 89.73972836955421,
+                "count": 59
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 2.3822963999628888,
+                "mean": 36.657404872513794,
+                "max": 88.35092626275336,
+                "count": 60
+              },
+              "changedGoalFrames": 0,
+              "maxRawSlewDeg": 58.96269758327776,
+              "maxTargetSlewDeg": 58.96269758327776,
+              "maxTargetErrorDeg": 79.06128747636042,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.0013093730263980564,
+              "allPlayerAliveArmedGrip": true
+            },
+            "recut": {
+              "ticks": [
+                738,
+                767
+              ],
+              "steps": 30,
+              "tipSpeedMps": {
+                "min": 0.8411511175830906,
+                "mean": 4.749413554056658,
+                "max": 8.141318920983748,
+                "count": 30
+              },
+              "swordKJ": {
+                "min": 1.2079317960507743,
+                "mean": 7.668743751460803,
+                "max": 17.29694196889027,
+                "count": 30
+              },
+              "axialPeakRadps": 19.127174495080048,
+              "axialTravelRad": 1.2738731663899319,
+              "ownCommandSignedProgressM": 0.7693370818536497,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 0.38961279231425267,
+                "mean": 20.421364375845812,
+                "max": 86.51723849685048,
+                "count": 29
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 0.856931828298371,
+                "mean": 15.071044876178059,
+                "max": 31.82445839952924,
+                "count": 30
+              },
+              "changedGoalFrames": 0,
+              "maxRawSlewDeg": 17.912795287925025,
+              "maxTargetSlewDeg": 17.912795287925025,
+              "maxTargetErrorDeg": 39.7791489293198,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.0012450380779057979,
+              "allPlayerAliveArmedGrip": true
+            },
+            "release": {
+              "ticks": [
+                804,
+                863
+              ],
+              "steps": 60,
+              "tipSpeedMps": {
+                "min": 0.09130494627063299,
+                "mean": 2.192218513388807,
+                "max": 4.405052993011807,
+                "count": 60
+              },
+              "swordKJ": {
+                "min": 0.080344065428067,
+                "mean": 1.0222441861329596,
+                "max": 2.559272241013807,
+                "count": 60
+              },
+              "axialPeakRadps": 28.283601479652408,
+              "axialTravelRad": 2.593593523664955,
+              "ownCommandSignedProgressM": 0.4739645570811749,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 1.3765833116605395,
+                "mean": 33.810144762569664,
+                "max": 87.40069675805299,
+                "count": 52
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 4.458713964159873,
+                "mean": 54.832530812207104,
+                "max": 87.29103776882525,
+                "count": 60
+              },
+              "changedGoalFrames": 0,
+              "maxRawSlewDeg": 57.9165680443544,
+              "maxTargetSlewDeg": 57.9165680443544,
+              "maxTargetErrorDeg": 59.7126088259359,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.0016477268770658576,
+              "allPlayerAliveArmedGrip": true
+            }
+          }
+        },
+        {
+          "mode": "boundedRoll",
+          "steps": 864,
+          "raw": {
+            "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/contact01/boundedRoll.json",
+            "bytes": 8138597,
+            "sha256": "5fa63a85588c528d263199c8bb0efaddd6feda2282b936d3068bb73d483ef1b6"
+          },
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "ordinaryModels": true,
+            "gravityFixed": true
+          },
+          "exposure": {
+            "active": 144,
+            "swinging": 96,
+            "eligible": 87,
+            "tap": 57,
+            "thrust": 57,
+            "owners": {
+              "player": 776,
+              "thrust": 57,
+              "recovery": 1,
+              "return": 30
+            }
+          },
+          "fullTapeCompleted": true,
+          "tapAccepted": true,
+          "changedGoalFrames": 12,
+          "firstQualifiedContactTick": 576,
+          "positiveCutReactionPairsAfterIntervention": 33,
+          "qualifiedActiveCutReactionPairsAfterIntervention": 0,
+          "extensionPositiveCutReactionPairs": 0,
+          "signedTargetErrorOver90Frames": 0,
+          "finalStates": [
+            {
+              "alive": true,
+              "armed": true,
+              "gripValid": true,
+              "state": "stand",
+              "armHealth": 1,
+              "blood": 1,
+              "pain": 0.06269150766018505,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            },
+            {
+              "alive": true,
+              "armed": true,
+              "gripValid": true,
+              "state": "stand",
+              "armHealth": 1,
+              "blood": 0.9859878251338529,
+              "pain": 0,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            }
+          ],
+          "selectedPhases": {
+            "firstCut": {
+              "ticks": [
+                552,
+                581
+              ],
+              "steps": 30,
+              "tipSpeedMps": {
+                "min": 1.0072887771048245,
+                "mean": 5.567191390285382,
+                "max": 10.602635304630368,
+                "count": 30
+              },
+              "swordKJ": {
+                "min": 1.7381825960251234,
+                "mean": 12.857052375866376,
+                "max": 30.361434260319353,
+                "count": 30
+              },
+              "axialPeakRadps": 7.307849831070367,
+              "axialTravelRad": 0.6197472914353871,
+              "ownCommandSignedProgressM": 0.9865471608170984,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 0.14912165278522702,
+                "mean": 10.027272688005544,
+                "max": 25.781006871759395,
+                "count": 27
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 4.707204027979274,
+                "mean": 22.362973118414065,
+                "max": 81.6126102419178,
+                "count": 30
+              },
+              "changedGoalFrames": 0,
+              "maxRawSlewDeg": 4.927849465931901,
+              "maxTargetSlewDeg": 4.927849465931901,
+              "maxTargetErrorDeg": 11.769308589875259,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.0013854178589278265,
+              "allPlayerAliveArmedGrip": true
+            },
+            "followHold": {
+              "ticks": [
+                582,
+                617
+              ],
+              "steps": 36,
+              "tipSpeedMps": {
+                "min": 1.4273755124741496,
+                "mean": 6.176470970848552,
+                "max": 11.459696949307208,
+                "count": 36
+              },
+              "swordKJ": {
+                "min": 1.6151450955999216,
+                "mean": 9.997931964588545,
+                "max": 20.69394186324559,
+                "count": 36
+              },
+              "axialPeakRadps": 17.4807420511964,
+              "axialTravelRad": 1.7945860344257116,
+              "ownCommandSignedProgressM": 0.5666992346407309,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 0.594267225856367,
+                "mean": 20.634269727979465,
+                "max": 88.62196138245558,
+                "count": 36
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 0.7267075523437212,
+                "mean": 10.65251745700976,
+                "max": 40.56492491969517,
+                "count": 36
+              },
+              "changedGoalFrames": 2,
+              "maxRawSlewDeg": 31.544917107700762,
+              "maxTargetSlewDeg": 14.323947402058348,
+              "maxTargetErrorDeg": 27.836720215482654,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.002116656900162277,
+              "allPlayerAliveArmedGrip": true
+            },
+            "reverse": {
+              "ticks": [
+                618,
+                653
+              ],
+              "steps": 36,
+              "tipSpeedMps": {
+                "min": 0.13512930679286164,
+                "mean": 5.823847624739391,
+                "max": 12.470064876885449,
+                "count": 36
+              },
+              "swordKJ": {
+                "min": 1.6969319801564149,
+                "mean": 12.728707730888535,
+                "max": 26.071298464039906,
+                "count": 36
+              },
+              "axialPeakRadps": 12.679608992234346,
+              "axialTravelRad": 0.7500480452105397,
+              "ownCommandSignedProgressM": 1.401040410627246,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 0.29975424344554064,
+                "mean": 5.373486075484616,
+                "max": 25.67924293890647,
+                "count": 29
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 0.0707520799957388,
+                "mean": 8.566373059209921,
+                "max": 22.321568309800337,
+                "count": 36
+              },
+              "changedGoalFrames": 0,
+              "maxRawSlewDeg": 6.2147408791662455,
+              "maxTargetSlewDeg": 6.2147408791662455,
+              "maxTargetErrorDeg": 22.57564367359458,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.0016462137893995886,
+              "allPlayerAliveArmedGrip": true
+            },
+            "tap": {
+              "ticks": [
+                678,
+                737
+              ],
+              "steps": 60,
+              "tipSpeedMps": {
+                "min": 1.1641320619411004,
+                "mean": 3.6220951624379714,
+                "max": 9.51970953143917,
+                "count": 60
+              },
+              "swordKJ": {
+                "min": 0.654852122324598,
+                "mean": 4.059147852114589,
+                "max": 22.988855334770356,
+                "count": 60
+              },
+              "axialPeakRadps": 43.937164336741645,
+              "axialTravelRad": 4.183028417980142,
+              "ownCommandSignedProgressM": 0.8642682828894207,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 0.7647300074742933,
+                "mean": 42.83809707794051,
+                "max": 87.18925012561918,
+                "count": 56
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 1.1138508542867243,
+                "mean": 31.589471528935753,
+                "max": 88.96034331049539,
+                "count": 60
+              },
+              "changedGoalFrames": 7,
+              "maxRawSlewDeg": 68.51378017279568,
+              "maxTargetSlewDeg": 14.323949777299328,
+              "maxTargetErrorDeg": 71.00080025306669,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.0014126552497453592,
+              "allPlayerAliveArmedGrip": true
+            },
+            "recut": {
+              "ticks": [
+                738,
+                767
+              ],
+              "steps": 30,
+              "tipSpeedMps": {
+                "min": 1.229660978788388,
+                "mean": 5.21549140802045,
+                "max": 7.923959643691909,
+                "count": 30
+              },
+              "swordKJ": {
+                "min": 1.6368522179136689,
+                "mean": 9.143605382117974,
+                "max": 16.93543620741832,
+                "count": 30
+              },
+              "axialPeakRadps": 16.427318810162177,
+              "axialTravelRad": 1.2744815232240627,
+              "ownCommandSignedProgressM": 0.9932265642400877,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 2.7435479610639244,
+                "mean": 16.998863508509718,
+                "max": 49.48958538451942,
+                "count": 28
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 0.5445634180488917,
+                "mean": 14.9245231611941,
+                "max": 38.623198526086064,
+                "count": 30
+              },
+              "changedGoalFrames": 0,
+              "maxRawSlewDeg": 13.510188435827361,
+              "maxTargetSlewDeg": 13.510188435827361,
+              "maxTargetErrorDeg": 36.10923643643091,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.0008023453919507673,
+              "allPlayerAliveArmedGrip": true
+            },
+            "release": {
+              "ticks": [
+                804,
+                863
+              ],
+              "steps": 60,
+              "tipSpeedMps": {
+                "min": 0.07327645156582549,
+                "mean": 2.2592857278497163,
+                "max": 4.364279853692233,
+                "count": 60
+              },
+              "swordKJ": {
+                "min": 0.03920395647797752,
+                "mean": 1.1041186128326563,
+                "max": 2.426409986049929,
+                "count": 60
+              },
+              "axialPeakRadps": 23.34693503462928,
+              "axialTravelRad": 3.4033275282619204,
+              "ownCommandSignedProgressM": 0.5949110285782379,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 1.34860800842629,
+                "mean": 36.42142876223226,
+                "max": 62.93650062674337,
+                "count": 51
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 0.9428611569089886,
+                "mean": 57.16233401051211,
+                "max": 89.12439610501559,
+                "count": 60
+              },
+              "changedGoalFrames": 3,
+              "maxRawSlewDeg": 28.03952718425092,
+              "maxTargetSlewDeg": 14.323950025967637,
+              "maxTargetErrorDeg": 47.914535348369334,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.001887308136727266,
+              "allPlayerAliveArmedGrip": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "contact-extend01",
+      "kind": "living_contact_and_input_compatibility",
+      "executions": 2,
+      "completedSteps": 2004,
+      "wallSeconds": 9.166005653000001,
+      "sourceCommit": "97815289d58644ce53013bb9d1e2f927958b0e19",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/phase2-close-20261006/recut/contact-extend01-runtime/tools/sim/experiments/bounded_roll_contact_20261006_probe.mjs",
+        "--out=/workspace/halfsword-handoff/phase2-close-20261006/recut/contact-extend01"
+      ],
+      "report": {
+        "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/contact-extend01/report.json",
+        "bytes": 47697,
+        "sha256": "84dd6d63411f717f316add9b095847c0868a83df99b9dcb4e0ae469911ddad1b"
+      },
+      "summary": {
+        "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/contact-extend01-summary.json",
+        "bytes": 117416,
+        "sha256": "eaec6ce0dd5bf47ee554b851a1cd5815a09e72c8841569ac1aec130bb2d99b39"
+      },
+      "sourceMetadata": {
+        "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/contact-extend01-runtime/SOURCE.json",
+        "bytes": 21246,
+        "sha256": "9aa9ce3ced6f28c1e1a01293f9cc61e7d4843a26f8f2aa8103dc7553953c1e3e"
+      },
+      "preparation": {
+        "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/contact-extend01-preparation.json",
+        "bytes": 22158,
+        "sha256": "c27b1bda9f7091ac07b72b7d9c8de54196c5f5ee082d79fe9dc315ddcf067c07"
+      },
+      "sourceStable": true,
+      "manifestCanonicalSHA256": "1621d396a7ca70c01a475994fbf3f1b43f2a9ff525c2261a12e6d838a889797e",
+      "criticalFrozenFiles": {
+        "src/fighter.js": "4cbd534e8908bf169c2388bda2cd2279fec42b6f64f65b2ba28083e734d8fce6",
+        "src/roll_target.js": "495b84d67e21e94b095bee1a77ec2c2c3d68ea279a4a1bc5d5a3006453decf49",
+        "src/swordsmanship.js": "7794881e39564a523047605c7ddfae71ecb8fff40b007d03c78aeb33d16c66db",
+        "src/skill.js": "c1ce462057175f684f8b89c79f668835c69b9dd2ef3cdfbd1e155f73411668e5",
+        "src/combat.js": "98387beb03c90c9edc314da0e1ee826f5c0bd18da3d3991e480b036814d54916",
+        "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+        "tools/sim/experiments/bounded_roll_candidate.mjs": "be62ad3972cf27659072cb89db9c611a2a342ed1bde2a6e01db210031666b71f",
+        "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+        "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+        "node_modules/three/build/three.core.js": "9edde002b066a9a05676a6127f67735b62baf399bdea529f2f7e31657da769e6"
+      },
+      "measurementPass": true,
+      "rawEffectAccepted": false,
+      "candidateActivationTick": 0,
+      "comparisons": {
+        "sameCreation": true,
+        "commonSteps": 1002,
+        "tapeStartTicks": [
+          420,
+          420
+        ],
+        "sameTouchStart": true,
+        "firstGoalChangeTick": 584,
+        "changedGoalFrames": 17,
+        "firstNativeDifference": 584,
+        "firstControlDifference": 585,
+        "firstRequestedInputDifference": -1,
+        "firstAppliedInputDifference": -1,
+        "firstEnemyInputDifference": 646,
+        "prefixBeforeFirstGoalExact": true,
+        "qualifiedContactTicks": [
+          576,
+          576
+        ]
+      },
+      "historicalBaselineBridge": {
+        "artifact": {
+          "path": "/workspace/halfsword-handoff/phase2-round4-20261006/p4/approach02/report.json",
+          "bytes": 3745367,
+          "sha256": "a76f588d2a21e6df44d1b52a414da7b16398bcee2ff8e4a5974e0b5ab8fb0b34"
+        },
+        "commonSteps": 697,
+        "allNativeExact": true,
+        "firstNativeDifference": null,
+        "allControlExact": true,
+        "firstControlDifference": null,
+        "limits": "Current baseline compared with preserved round4 baseline, not a new independent historical observation. Input hash layout differs; requested tape contract is preserved by source and new pair hashes."
+      },
+      "parentPrefixBridge": {
+        "report": {
+          "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/contact01/report.json",
+          "bytes": 46135,
+          "sha256": "e0794ca6c9da4320d3e2e638d52a16a435871f6bd19a4aa3b5ae0eec673ccda3"
+        },
+        "rows": [
+          {
+            "mode": "legacy",
+            "parent": {
+              "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/contact01/legacy.json",
+              "bytes": 8145894,
+              "sha256": "00ab4540a9b8980741f69bd288a63009c5bd7a6a2f91a1b32fd7667de5bdc75a"
+            },
+            "parentSteps": 864,
+            "allNativeControlRequestedAppliedEnemyFramesExact": true,
+            "allInputRecordsExact": true
+          },
+          {
+            "mode": "boundedRoll",
+            "parent": {
+              "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/contact01/boundedRoll.json",
+              "bytes": 8138597,
+              "sha256": "5fa63a85588c528d263199c8bb0efaddd6feda2282b936d3068bb73d483ef1b6"
+            },
+            "parentSteps": 864,
+            "allNativeControlRequestedAppliedEnemyFramesExact": true,
+            "allInputRecordsExact": true
+          }
+        ]
+      },
+      "rows": [
+        {
+          "mode": "legacy",
+          "steps": 1002,
+          "raw": {
+            "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/contact-extend01/legacy.json",
+            "bytes": 9400863,
+            "sha256": "b86efb609a604b35376d64b66e98822cd8cb9096d2288d614d12b0fb7ad52506"
+          },
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "ordinaryModels": true,
+            "gravityFixed": true
+          },
+          "exposure": {
+            "active": 222,
+            "swinging": 115,
+            "eligible": 106,
+            "tap": 57,
+            "thrust": 57,
+            "owners": {
+              "player": 914,
+              "thrust": 57,
+              "recovery": 1,
+              "return": 30
+            }
+          },
+          "fullTapeCompleted": true,
+          "tapAccepted": true,
+          "changedGoalFrames": 0,
+          "firstQualifiedContactTick": 576,
+          "positiveCutReactionPairsAfterIntervention": 34,
+          "qualifiedActiveCutReactionPairsAfterIntervention": 0,
+          "extensionPositiveCutReactionPairs": 0,
+          "signedTargetErrorOver90Frames": 0,
+          "finalStates": [
+            {
+              "alive": true,
+              "armed": true,
+              "gripValid": true,
+              "state": "stand",
+              "armHealth": 1,
+              "blood": 1,
+              "pain": 0,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            },
+            {
+              "alive": true,
+              "armed": true,
+              "gripValid": true,
+              "state": "stand",
+              "armHealth": 1,
+              "blood": 0.9802193872505591,
+              "pain": 0,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            }
+          ],
+          "selectedPhases": {
+            "firstCut": {
+              "ticks": [
+                552,
+                581
+              ],
+              "steps": 30,
+              "tipSpeedMps": {
+                "min": 1.0072887771048245,
+                "mean": 5.567191390285382,
+                "max": 10.602635304630368,
+                "count": 30
+              },
+              "swordKJ": {
+                "min": 1.7381825960251234,
+                "mean": 12.857052375866376,
+                "max": 30.361434260319353,
+                "count": 30
+              },
+              "axialPeakRadps": 7.307849831070367,
+              "axialTravelRad": 0.6197472914353871,
+              "ownCommandSignedProgressM": 0.9865471608170984,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 0.14912165278522702,
+                "mean": 10.027272688005544,
+                "max": 25.781006871759395,
+                "count": 27
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 4.707204027979274,
+                "mean": 22.362973118414065,
+                "max": 81.6126102419178,
+                "count": 30
+              },
+              "changedGoalFrames": 0,
+              "maxRawSlewDeg": 4.927849465931901,
+              "maxTargetSlewDeg": 4.927849465931901,
+              "maxTargetErrorDeg": 11.769308589875259,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.0013854178589278265,
+              "allPlayerAliveArmedGrip": true
+            },
+            "followHold": {
+              "ticks": [
+                582,
+                617
+              ],
+              "steps": 36,
+              "tipSpeedMps": {
+                "min": 1.464354887293981,
+                "mean": 6.189199681334532,
+                "max": 11.501019741004614,
+                "count": 36
+              },
+              "swordKJ": {
+                "min": 1.621218002067292,
+                "mean": 10.038213090340221,
+                "max": 20.80962343215004,
+                "count": 36
+              },
+              "axialPeakRadps": 27.22952236968897,
+              "axialTravelRad": 1.9015213812529215,
+              "ownCommandSignedProgressM": 0.5679156854603472,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 1.07316211754779,
+                "mean": 21.04297151658747,
+                "max": 88.62196138245558,
+                "count": 36
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 0.28789049705074055,
+                "mean": 11.767706118360143,
+                "max": 45.19305275412069,
+                "count": 36
+              },
+              "changedGoalFrames": 0,
+              "maxRawSlewDeg": 31.544917107700762,
+              "maxTargetSlewDeg": 31.544917107700762,
+              "maxTargetErrorDeg": 48.04783656056322,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.002118849424105943,
+              "allPlayerAliveArmedGrip": true
+            },
+            "reverse": {
+              "ticks": [
+                618,
+                653
+              ],
+              "steps": 36,
+              "tipSpeedMps": {
+                "min": 0.12414409601502048,
+                "mean": 5.831081329030018,
+                "max": 12.48848655274527,
+                "count": 36
+              },
+              "swordKJ": {
+                "min": 1.6954336227988178,
+                "mean": 12.741297677423903,
+                "max": 26.096484317714783,
+                "count": 36
+              },
+              "axialPeakRadps": 13.21310475220681,
+              "axialTravelRad": 0.7847381512891699,
+              "ownCommandSignedProgressM": 1.402557014941016,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 0.29344824244095735,
+                "mean": 5.4521241730540915,
+                "max": 26.344591330357716,
+                "count": 29
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 0.37094820259777783,
+                "mean": 8.69463348117569,
+                "max": 24.51577526710563,
+                "count": 36
+              },
+              "changedGoalFrames": 0,
+              "maxRawSlewDeg": 7.02374053113376,
+              "maxTargetSlewDeg": 7.02374053113376,
+              "maxTargetErrorDeg": 23.603950391333246,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.0016458836430855864,
+              "allPlayerAliveArmedGrip": true
+            },
+            "tap": {
+              "ticks": [
+                678,
+                737
+              ],
+              "steps": 60,
+              "tipSpeedMps": {
+                "min": 1.0381060434907436,
+                "mean": 3.7534036765321583,
+                "max": 9.855495709441954,
+                "count": 60
+              },
+              "swordKJ": {
+                "min": 0.7677393064923443,
+                "mean": 4.358443852732136,
+                "max": 23.10459786879795,
+                "count": 60
+              },
+              "axialPeakRadps": 33.138762216417526,
+              "axialTravelRad": 4.988495156599492,
+              "ownCommandSignedProgressM": 0.9071670074958501,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 2.1045158563328488,
+                "mean": 38.50854640935076,
+                "max": 89.73972836955421,
+                "count": 59
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 2.3822963999628888,
+                "mean": 36.657404872513794,
+                "max": 88.35092626275336,
+                "count": 60
+              },
+              "changedGoalFrames": 0,
+              "maxRawSlewDeg": 58.96269758327776,
+              "maxTargetSlewDeg": 58.96269758327776,
+              "maxTargetErrorDeg": 79.06128747636042,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.0013093730263980564,
+              "allPlayerAliveArmedGrip": true
+            },
+            "recut": {
+              "ticks": [
+                738,
+                767
+              ],
+              "steps": 30,
+              "tipSpeedMps": {
+                "min": 0.8411511175830906,
+                "mean": 4.749413554056658,
+                "max": 8.141318920983748,
+                "count": 30
+              },
+              "swordKJ": {
+                "min": 1.2079317960507743,
+                "mean": 7.668743751460803,
+                "max": 17.29694196889027,
+                "count": 30
+              },
+              "axialPeakRadps": 19.127174495080048,
+              "axialTravelRad": 1.2738731663899319,
+              "ownCommandSignedProgressM": 0.7693370818536497,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 0.38961279231425267,
+                "mean": 20.421364375845812,
+                "max": 86.51723849685048,
+                "count": 29
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 0.856931828298371,
+                "mean": 15.071044876178059,
+                "max": 31.82445839952924,
+                "count": 30
+              },
+              "changedGoalFrames": 0,
+              "maxRawSlewDeg": 17.912795287925025,
+              "maxTargetSlewDeg": 17.912795287925025,
+              "maxTargetErrorDeg": 39.7791489293198,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.0012450380779057979,
+              "allPlayerAliveArmedGrip": true
+            },
+            "release": {
+              "ticks": [
+                804,
+                863
+              ],
+              "steps": 60,
+              "tipSpeedMps": {
+                "min": 0.09130494627063299,
+                "mean": 2.192218513388807,
+                "max": 4.405052993011807,
+                "count": 60
+              },
+              "swordKJ": {
+                "min": 0.080344065428067,
+                "mean": 1.0222441861329596,
+                "max": 2.559272241013807,
+                "count": 60
+              },
+              "axialPeakRadps": 28.283601479652408,
+              "axialTravelRad": 2.593593523664955,
+              "ownCommandSignedProgressM": 0.4739645570811749,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 1.3765833116605395,
+                "mean": 33.810144762569664,
+                "max": 87.40069675805299,
+                "count": 52
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 4.458713964159873,
+                "mean": 54.832530812207104,
+                "max": 87.29103776882525,
+                "count": 60
+              },
+              "changedGoalFrames": 0,
+              "maxRawSlewDeg": 57.9165680443544,
+              "maxTargetSlewDeg": 57.9165680443544,
+              "maxTargetErrorDeg": 59.7126088259359,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.0016477268770658576,
+              "allPlayerAliveArmedGrip": true
+            },
+            "extensionCut": {
+              "ticks": [
+                936,
+                965
+              ],
+              "steps": 30,
+              "tipSpeedMps": {
+                "min": 1.5019750356634314,
+                "mean": 6.60242909672939,
+                "max": 11.546862991894459,
+                "count": 30
+              },
+              "swordKJ": {
+                "min": 1.558114335887228,
+                "mean": 9.67411285480664,
+                "max": 18.79610129259133,
+                "count": 30
+              },
+              "axialPeakRadps": 17.916599076821317,
+              "axialTravelRad": 1.4777680048582393,
+              "ownCommandSignedProgressM": 1.2793688327501025,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 0.10224782101958904,
+                "mean": 14.022086008020413,
+                "max": 40.57384060882866,
+                "count": 29
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 0.39150442786289336,
+                "mean": 14.032482382594063,
+                "max": 43.12238701158803,
+                "count": 30
+              },
+              "changedGoalFrames": 0,
+              "maxRawSlewDeg": 21.353917073210294,
+              "maxTargetSlewDeg": 21.353917073210294,
+              "maxTargetErrorDeg": 29.39748477074183,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.00129282583365702,
+              "allPlayerAliveArmedGrip": true
+            }
+          }
+        },
+        {
+          "mode": "boundedRoll",
+          "steps": 1002,
+          "raw": {
+            "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/contact-extend01/boundedRoll.json",
+            "bytes": 9395840,
+            "sha256": "357a0c96a21cfeaf9ff8fc72207f825d8da67070cbc92447c4b1b0f50ad561eb"
+          },
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "ordinaryModels": true,
+            "gravityFixed": true
+          },
+          "exposure": {
+            "active": 222,
+            "swinging": 116,
+            "eligible": 107,
+            "tap": 57,
+            "thrust": 57,
+            "owners": {
+              "player": 914,
+              "thrust": 57,
+              "recovery": 1,
+              "return": 30
+            }
+          },
+          "fullTapeCompleted": true,
+          "tapAccepted": true,
+          "changedGoalFrames": 17,
+          "firstQualifiedContactTick": 576,
+          "positiveCutReactionPairsAfterIntervention": 33,
+          "qualifiedActiveCutReactionPairsAfterIntervention": 0,
+          "extensionPositiveCutReactionPairs": 0,
+          "signedTargetErrorOver90Frames": 0,
+          "finalStates": [
+            {
+              "alive": true,
+              "armed": true,
+              "gripValid": true,
+              "state": "stand",
+              "armHealth": 1,
+              "blood": 1,
+              "pain": 0,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            },
+            {
+              "alive": true,
+              "armed": true,
+              "gripValid": true,
+              "state": "stand",
+              "armHealth": 1,
+              "blood": 0.9803139013246833,
+              "pain": 0,
+              "limbs": {
+                "armS": 1,
+                "armO": 1,
+                "legF": 1,
+                "legB": 1
+              }
+            }
+          ],
+          "selectedPhases": {
+            "firstCut": {
+              "ticks": [
+                552,
+                581
+              ],
+              "steps": 30,
+              "tipSpeedMps": {
+                "min": 1.0072887771048245,
+                "mean": 5.567191390285382,
+                "max": 10.602635304630368,
+                "count": 30
+              },
+              "swordKJ": {
+                "min": 1.7381825960251234,
+                "mean": 12.857052375866376,
+                "max": 30.361434260319353,
+                "count": 30
+              },
+              "axialPeakRadps": 7.307849831070367,
+              "axialTravelRad": 0.6197472914353871,
+              "ownCommandSignedProgressM": 0.9865471608170984,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 0.14912165278522702,
+                "mean": 10.027272688005544,
+                "max": 25.781006871759395,
+                "count": 27
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 4.707204027979274,
+                "mean": 22.362973118414065,
+                "max": 81.6126102419178,
+                "count": 30
+              },
+              "changedGoalFrames": 0,
+              "maxRawSlewDeg": 4.927849465931901,
+              "maxTargetSlewDeg": 4.927849465931901,
+              "maxTargetErrorDeg": 11.769308589875259,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.0013854178589278265,
+              "allPlayerAliveArmedGrip": true
+            },
+            "followHold": {
+              "ticks": [
+                582,
+                617
+              ],
+              "steps": 36,
+              "tipSpeedMps": {
+                "min": 1.4273755124741496,
+                "mean": 6.176470970848552,
+                "max": 11.459696949307208,
+                "count": 36
+              },
+              "swordKJ": {
+                "min": 1.6151450955999216,
+                "mean": 9.997931964588545,
+                "max": 20.69394186324559,
+                "count": 36
+              },
+              "axialPeakRadps": 17.4807420511964,
+              "axialTravelRad": 1.7945860344257116,
+              "ownCommandSignedProgressM": 0.5666992346407309,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 0.594267225856367,
+                "mean": 20.634269727979465,
+                "max": 88.62196138245558,
+                "count": 36
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 0.7267075523437212,
+                "mean": 10.65251745700976,
+                "max": 40.56492491969517,
+                "count": 36
+              },
+              "changedGoalFrames": 2,
+              "maxRawSlewDeg": 31.544917107700762,
+              "maxTargetSlewDeg": 14.323947402058348,
+              "maxTargetErrorDeg": 27.836720215482654,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.002116656900162277,
+              "allPlayerAliveArmedGrip": true
+            },
+            "reverse": {
+              "ticks": [
+                618,
+                653
+              ],
+              "steps": 36,
+              "tipSpeedMps": {
+                "min": 0.13512930679286164,
+                "mean": 5.823847624739391,
+                "max": 12.470064876885449,
+                "count": 36
+              },
+              "swordKJ": {
+                "min": 1.6969319801564149,
+                "mean": 12.728707730888535,
+                "max": 26.071298464039906,
+                "count": 36
+              },
+              "axialPeakRadps": 12.679608992234346,
+              "axialTravelRad": 0.7500480452105397,
+              "ownCommandSignedProgressM": 1.401040410627246,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 0.29975424344554064,
+                "mean": 5.373486075484616,
+                "max": 25.67924293890647,
+                "count": 29
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 0.0707520799957388,
+                "mean": 8.566373059209921,
+                "max": 22.321568309800337,
+                "count": 36
+              },
+              "changedGoalFrames": 0,
+              "maxRawSlewDeg": 6.2147408791662455,
+              "maxTargetSlewDeg": 6.2147408791662455,
+              "maxTargetErrorDeg": 22.57564367359458,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.0016462137893995886,
+              "allPlayerAliveArmedGrip": true
+            },
+            "tap": {
+              "ticks": [
+                678,
+                737
+              ],
+              "steps": 60,
+              "tipSpeedMps": {
+                "min": 1.1641320619411004,
+                "mean": 3.6220951624379714,
+                "max": 9.51970953143917,
+                "count": 60
+              },
+              "swordKJ": {
+                "min": 0.654852122324598,
+                "mean": 4.059147852114589,
+                "max": 22.988855334770356,
+                "count": 60
+              },
+              "axialPeakRadps": 43.937164336741645,
+              "axialTravelRad": 4.183028417980142,
+              "ownCommandSignedProgressM": 0.8642682828894207,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 0.7647300074742933,
+                "mean": 42.83809707794051,
+                "max": 87.18925012561918,
+                "count": 56
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 1.1138508542867243,
+                "mean": 31.589471528935753,
+                "max": 88.96034331049539,
+                "count": 60
+              },
+              "changedGoalFrames": 7,
+              "maxRawSlewDeg": 68.51378017279568,
+              "maxTargetSlewDeg": 14.323949777299328,
+              "maxTargetErrorDeg": 71.00080025306669,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.0014126552497453592,
+              "allPlayerAliveArmedGrip": true
+            },
+            "recut": {
+              "ticks": [
+                738,
+                767
+              ],
+              "steps": 30,
+              "tipSpeedMps": {
+                "min": 1.229660978788388,
+                "mean": 5.21549140802045,
+                "max": 7.923959643691909,
+                "count": 30
+              },
+              "swordKJ": {
+                "min": 1.6368522179136689,
+                "mean": 9.143605382117974,
+                "max": 16.93543620741832,
+                "count": 30
+              },
+              "axialPeakRadps": 16.427318810162177,
+              "axialTravelRad": 1.2744815232240627,
+              "ownCommandSignedProgressM": 0.9932265642400877,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 2.7435479610639244,
+                "mean": 16.998863508509718,
+                "max": 49.48958538451942,
+                "count": 28
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 0.5445634180488917,
+                "mean": 14.9245231611941,
+                "max": 38.623198526086064,
+                "count": 30
+              },
+              "changedGoalFrames": 0,
+              "maxRawSlewDeg": 13.510188435827361,
+              "maxTargetSlewDeg": 13.510188435827361,
+              "maxTargetErrorDeg": 36.10923643643091,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.0008023453919507673,
+              "allPlayerAliveArmedGrip": true
+            },
+            "release": {
+              "ticks": [
+                804,
+                863
+              ],
+              "steps": 60,
+              "tipSpeedMps": {
+                "min": 0.07327645156582549,
+                "mean": 2.2592857278497163,
+                "max": 4.364279853692233,
+                "count": 60
+              },
+              "swordKJ": {
+                "min": 0.03920395647797752,
+                "mean": 1.1041186128326563,
+                "max": 2.426409986049929,
+                "count": 60
+              },
+              "axialPeakRadps": 23.34693503462928,
+              "axialTravelRad": 3.4033275282619204,
+              "ownCommandSignedProgressM": 0.5949110285782379,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 1.34860800842629,
+                "mean": 36.42142876223226,
+                "max": 62.93650062674337,
+                "count": 51
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 0.9428611569089886,
+                "mean": 57.16233401051211,
+                "max": 89.12439610501559,
+                "count": 60
+              },
+              "changedGoalFrames": 3,
+              "maxRawSlewDeg": 28.03952718425092,
+              "maxTargetSlewDeg": 14.323950025967637,
+              "maxTargetErrorDeg": 47.914535348369334,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.001887308136727266,
+              "allPlayerAliveArmedGrip": true
+            },
+            "extensionCut": {
+              "ticks": [
+                936,
+                965
+              ],
+              "steps": 30,
+              "tipSpeedMps": {
+                "min": 1.9755375394292558,
+                "mean": 6.765843919670286,
+                "max": 11.597763786711896,
+                "count": 30
+              },
+              "swordKJ": {
+                "min": 1.7485303528294964,
+                "mean": 9.917343443998856,
+                "max": 19.94945352797194,
+                "count": 30
+              },
+              "axialPeakRadps": 17.846585808304305,
+              "axialTravelRad": 1.3120571831749352,
+              "ownCommandSignedProgressM": 1.3246437850296362,
+              "physicalEdgeErrorDegAboveHalfMps": {
+                "min": 0.050322507392413465,
+                "mean": 15.524141215085498,
+                "max": 74.55861466612689,
+                "count": 30
+              },
+              "ownCommandEdgeErrorDeg": {
+                "min": 0.25052029947926285,
+                "mean": 13.108764803069622,
+                "max": 39.19277518214281,
+                "count": 30
+              },
+              "changedGoalFrames": 3,
+              "maxRawSlewDeg": 35.29709999975954,
+              "maxTargetSlewDeg": 14.323948934674753,
+              "maxTargetErrorDeg": 30.17874984409709,
+              "targetErrorOver90Ticks": [],
+              "maxPlayerJointGapM": 0.0011840011354319073,
+              "allPlayerAliveArmedGrip": true
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Bounded goal slew does not bound physical roll speed, total travel, torque or contact impulse.",
+    "Free-space Q recut physical edge error worsens about4.39deg from spawn; LS about0.73deg. Speed and K remain close, not mathematically invariant.",
+    "Living first attack at576..578 precedes actual goal intervention584, so exact impact does not prove post-limiter active-cut power.",
+    "Postintervention positive cutting reaction exists in tap phase only; appended active cut produces no positive cutting reaction in either arm. Living blunt contacts still occur.",
+    "After enemy-input divergence646, tap axial peak rises33.14→43.94rad/s and release axial travel rises2.594→3.403rad. These are retained warnings, not an isolated causal rejection or proof of general improvement.",
+    "Broad Q actual contact and multi-weapon/global roll behavior remain untested here. No automatic claim of complete naturalness or unconditional full-power strike."
+  ],
+  "independentAudit": {
+    "path": "/workspace/halfsword-handoff/phase2-close-20261006/audit/recut-bounded-audit.json",
+    "bytes": 57064,
+    "sha256": "367cf01d27750640b5c663ff5f1451f7d5f9408ab0a4da85e03cc02a03a38480"
+  },
+  "derivation": {
+    "path": "/workspace/halfsword-codex/tools/sim/experiments/bounded_roll_contact_20261006_report.py",
+    "bytes": 6635,
+    "sha256": "b1e8ae500f63c05d9a4566a1b1ca46b4109b9746b26f9a8b1f58b226583036d9"
+  }
+}

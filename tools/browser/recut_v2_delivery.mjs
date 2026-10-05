@@ -1,5 +1,5 @@
-// Recovery/contact-v2 optional delivery verification. Native input/read-only observers; no game/AI/physics injection.
-// Usage: node tools/browser/recovery_contact_v2_delivery.mjs --base=<base/> --out=<fresh-dir> [--scope=full|public|invalid]
+// Recut-v2 optional delivery verification. Native input/read-only observers; no game/AI/physics injection.
+// Usage: node tools/browser/recut_v2_delivery.mjs --base=<base/> --out=<fresh-dir> [--scope=full|public|invalid]
 // Run only after root integrates and freezes the intended candidate/build.
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
@@ -32,10 +32,7 @@ assert.ok(!base.username && !base.password && !base.search && !base.hash, 'Use a
 assert.ok(base.pathname.endsWith('/'), 'The base path must end with a slash');
 assert.ok((local && ['http:', 'https:'].includes(base.protocol)) ||
   (base.origin === 'https://yoonjl-svg.github.io' && base.pathname === '/halfsword-codex/'), 'Only loopback or own Pages base is allowed');
-const artifactRoots = [
-  '/workspace/halfsword-handoff/phase2-round5-20261006/browser',
-  '/workspace/halfsword-handoff/phase2-close-20261006/recovery/browser',
-];
+const artifactRoots = ['/workspace/halfsword-handoff/phase2-close-20261006/recut/browser'];
 assert.ok(options.out, 'Provide --out under the external batch artifact directory');
 const out = path.resolve(options.out);
 const artifactRoot = artifactRoots.find(root => out.startsWith(root + path.sep));
@@ -89,17 +86,16 @@ const seed = { skill: '0', difficulty: 'hard', moveMode: 'stick', sound: false, 
 const seedBytes = JSON.stringify(seed);
 const supported = new Set(SWORDSMANSHIP_WEAPONS.filter(w => w.id !== 'pistol').map(w => w.id));
 const fixtures = [
-  { id: 'recovery-contact-baseline', weapon: 'zweihander', foeWeapon: 'longsword', model: 'baseline', cutModel: 'legacy', cta: 'playRecoveryContactV2Baseline' },
-  { id: 'recovery-contact-combined', weapon: 'zweihander', foeWeapon: 'longsword', model: 'combined', cutModel: 'centerline', cta: 'playRecoveryContactV2Combined' },
-];
-const gravityFixtures = [
-  { level: 'base', gravityY: -9.81 }, { level: 'plus15', gravityY: -11.2815 }, { level: 'plus25', gravityY: -12.2625 },
+  { id: 'recut-long-baseline', weapon: 'longsword', foeWeapon: 'longsword', model: 'baseline', cta: 'playRecutV2LongA' },
+  { id: 'recut-long-bounded', weapon: 'longsword', foeWeapon: 'longsword', model: 'bounded', cta: 'playRecutV2LongB' },
+  { id: 'recut-qing-baseline', weapon: 'qinggang', foeWeapon: 'longsword', model: 'baseline', cta: 'playRecutV2QingA' },
+  { id: 'recut-qing-bounded', weapon: 'qinggang', foeWeapon: 'longsword', model: 'bounded', cta: 'playRecutV2QingB' },
 ];
 const invalidFixtures = [
-  { id: 'invalid-value-duplicate', query: 'recoveryContactV2=unknown&recoveryContactV2=combined&weapon=zweihander' },
-  { id: 'invalid-mixed', query: 'recoveryContactV2=combined&gravityV2=plus25' },
+  { id: 'invalid-value-duplicate', query: 'recutV2=unknown&recutV2=bounded&weapon=qinggang' },
+  { id: 'invalid-mixed', query: 'recutV2=bounded&recoveryContactV2=combined' },
 ];
-const selection = { full: { trial: true, ordinary: true, invalid: true }, public: { trial: true, ordinary: false, invalid: false }, invalid: { trial: false, ordinary: false, invalid: true } }[scope];
+const selection = { full: { trial: true, invalid: true }, public: { trial: true, invalid: false }, invalid: { trial: false, invalid: true } }[scope];
 
 const launch = { executablePath: '/usr/bin/chromium', args: ['--no-sandbox', '--disable-background-networking', '--use-gl=angle', '--use-angle=swiftshader'] };
 const secretStrings = [];
@@ -132,14 +128,14 @@ const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright')
 const rows = [], errors = [], httpFailures = [], requestFailures = [], blockedRequests = [], redirectRefusals = [], compiled = [], nativeUI = [];
 const responseTasks = [], contexts = [];
 let browser, context, page, current = 'setup', fatal = null, pass = false, links, sourceAfter, commitAfter;
-const lab = new URL('feature-lab.html#recovery-contact-v2-comparison', base);
+const lab = new URL('feature-lab.html#recut-v2-comparison', base);
 
 const layout = () => page.evaluate(() => ({ width: innerWidth, height: innerHeight,
   scrollWidth: Math.max(document.documentElement.scrollWidth, document.body.scrollWidth),
   menuVisible: !!document.getElementById('menu')?.classList.contains('show') }));
 const fit = value => assert.ok(value.scrollWidth <= value.width + 1, 'Mobile page has horizontal overflow');
 async function ready() {
-  await page.waitForFunction(() => window.game?.player?.sword && window.game?.combat && window.game?.swordsmanshipDefault && window.game?.recoveryContactV2Trial, null, { timeout: 60000 });
+  await page.waitForFunction(() => window.game?.player?.sword && window.game?.combat && window.game?.swordsmanshipDefault && window.game?.recutV2Trial, null, { timeout: 60000 });
   const modules = await page.locator('script[type="module"][src]').evaluateAll(nodes => nodes.map(node => node.src));
   assert.equal(modules.length, 1);
   await Promise.all(responseTasks);
@@ -154,7 +150,7 @@ async function observe() {
       [body.translation(), body.rotation(), body.linvel(), body.angvel()].every(v => Object.values(v).every(Number.isFinite)));
     const fighter = f => ({ weapon: f.weapon.id, name: f.name, gun: !!f.weapon.gun, alive: f.alive, armed: f.armed, state: f.state,
       wounds: f.wounds.length, armHealth: f.armHealth, legF: f.limbs.legF, legB: f.limbs.legB, pain: f.pain,
-      stanceMemoryModel: f.stanceMemoryModel ?? null, gaitStarted: !!f.gait.started, gaitActive: !!f.gait.active,
+      rollTargetModel: f.rollTargetModel ?? null, stanceMemoryModel: f.stanceMemoryModel ?? null, gaitStarted: !!f.gait.started, gaitActive: !!f.gait.active,
       frictionMemory: Object.fromEntries(Object.entries(f.gait.legs).map(([key, leg]) => [key, leg.Nf ?? null])),
       skill: f.skill.level, autoGuard: f.skill.autoGuard, arm: f.onehandArmModel, thrustPlane: f.thrustEdgeModel ?? 'legacy',
       swordsmanship: { modelPresent: 'swordsmanshipModel' in f, model: f.swordsmanshipModel ?? null,
@@ -167,7 +163,7 @@ async function observe() {
       thrustWeight: f.skill.thrustPose.w, finishAmt: f.finish?.amt ?? 0,
       shapeTypes: f.swordColliders.map(c => c.shape.type), finite: finite(f) });
     p.read = () => ({ timeS: game.stats.simTime, state: game.state, phase: p.phase, url: location.href,
-      recoveryContactV2Trial: { ...game.recoveryContactV2Trial }, gravityV2Trial: { ...game.gravityV2Trial }, stanceV2Trial: { ...game.stanceV2Trial }, worldGravity: { ...game.world.gravity }, configGravity: game.config.PHYSICS.gravity, legacyStanceTrial: { ...game.stanceTrial },
+      recutV2Trial: { ...game.recutV2Trial }, recoveryContactV2Trial: { ...game.recoveryContactV2Trial }, gravityV2Trial: { ...game.gravityV2Trial }, stanceV2Trial: { ...game.stanceV2Trial }, worldGravity: { ...game.world.gravity }, configGravity: game.config.PHYSICS.gravity, legacyStanceTrial: { ...game.stanceTrial },
       globalStanceMemory: game.config.GAIT.stanceMemory, supportModel: game.config.BODY.supportModel,
       contactTrial: { ...game.contactTrial }, cutReactionModel: game.combat.cutReactionModel ?? 'legacy',
       cutReactionTarget: game.combat.cutReactionFighter === game.player ? 'player' : game.combat.cutReactionFighter === game.enemy ? 'enemy' : 'none',
@@ -183,13 +179,13 @@ async function observe() {
         pending: { x: game.input.handDX, y: game.input.handDY }, taps: game.input.taps,
         press: game.input.press ? { id: game.input.press.id } : null, keys: [...game.input.keys],
         stickMove: { ...game.input.stickMove } },
-      recoveryContactV2Panel: !!document.getElementById('recoveryContactV2TrialInfo'),
+      recutV2Panel: !!document.getElementById('recutV2TrialInfo'),
       gravityPanel: !!document.getElementById('gravityV2TrialInfo'), gravityNavigation: Object.fromEntries(['gravityV2TrialLab', 'gravityV2TrialExit'].map(id => [id, document.getElementById(id)?.href ?? null])),
       ui: Object.fromEntries(['skill', 'difficulty'].map(key => [key, {
         selected: document.querySelector(`[data-setting=${key}] .on`)?.dataset.v ?? null,
         locked: [...document.querySelectorAll(`[data-setting=${key}] button`)].every(button => button.disabled),
         rowHidden: document.querySelector(`[data-setting=${key}]`)?.closest('.row')?.style.display === 'none',
-      }])), navigation: Object.fromEntries(['recoveryContactV2TrialLab', 'recoveryContactV2TrialExit'].map(id => [id, document.getElementById(id)?.href ?? null])) });
+      }])), navigation: Object.fromEntries(['recutV2TrialLab', 'recutV2TrialExit'].map(id => [id, document.getElementById(id)?.href ?? null])) });
     const fighters = new WeakSet(), worlds = new WeakSet(), combats = new WeakSet();
     const fp = Object.getPrototypeOf(game.player), fs = fp.step;
     fp.step = function (...args) {
@@ -218,7 +214,7 @@ async function observe() {
         p.native.push(row);
       }
       if (type === 'pointerdown' && event.target.closest?.('#btnStart')) p.starts.push(row);
-      if (type === 'pointerdown' && event.target.closest?.('#recoveryContactV2TrialLab, #recoveryContactV2TrialExit')) p.navigation.push(row);
+      if (type === 'pointerdown' && event.target.closest?.('#recutV2TrialLab, #recutV2TrialExit')) p.navigation.push(row);
     }, true);
   });
 }
@@ -239,51 +235,38 @@ function policyState(state) {
     assert.ok(state[key] && Object.values(state[key]).every(Number.isFinite), 'Nonfinite goal: ' + key);
 }
 function contract(v, weapon, mode = 'default') {
-  const gravity = mode.startsWith('gravity:') ? gravityFixtures.find(row => row.level === mode.slice(8)) : null;
-  const expectedGravity = gravity ? gravity.gravityY : -9.81;
-  const expectedCut = mode === 'combined' ? 'centerline' : 'legacy';
-  assert.equal(v.savedBytes, seedBytes, 'Stored preference bytes changed'); assert.deepEqual(v.settings, seed);
+  assert.equal(v.savedBytes, seedBytes); assert.deepEqual(v.settings, seed);
   assert.ok(v.player.finite && v.enemy.finite); assert.equal(v.input.gain, 1.35);
   assert.equal(v.enemy.swordsmanship.modelPresent, false); assert.equal(v.enemy.swordsmanship.statePresent, false);
-  assert.equal(v.enemy.arm, 'legacy'); assert.ok([null, 'legacy'].includes(v.enemy.stanceMemoryModel));
-  assert.equal(v.trial.active, false); assert.equal(v.integrated.active, false); assert.equal(v.contactTrial.active, false);
-  assert.equal(v.legacyStanceTrial.active, false); assert.equal(v.stanceV2Trial.active, false);
+  assert.equal(v.enemy.arm, 'legacy'); assert.ok([null, 'legacy'].includes(v.enemy.rollTargetModel));
+  for (const fighter of [v.player, v.enemy]) assert.ok([null, 'legacy'].includes(fighter.stanceMemoryModel));
+  for (const info of [v.trial, v.integrated, v.contactTrial, v.legacyStanceTrial, v.stanceV2Trial, v.gravityV2Trial, v.recoveryContactV2Trial]) assert.equal(info.active, false);
   assert.equal(v.configGravity, -9.81); assert.equal(v.worldGravity.x, 0); assert.equal(v.worldGravity.z, 0);
-  assert.ok(Math.abs(v.worldGravity.y - expectedGravity) < 1e-9, 'Actual world gravity differs from selected entry');
+  assert.ok(Math.abs(v.worldGravity.y + 9.81) < 1e-9);
   assert.equal(v.globalStanceMemory, 'legacy'); assert.equal(v.supportModel, 'legacy');
-  assert.equal(v.cutReactionModel, expectedCut); assert.equal(v.cutReactionTarget, expectedCut === 'centerline' ? 'player' : 'none');
+  assert.equal(v.cutReactionModel, 'legacy'); assert.equal(v.cutReactionTarget, 'none');
   if (weapon) assert.equal(v.player.weapon, weapon);
   assert.equal(v.ui.skill.rowHidden, true); assert.equal(v.ui.skill.locked, true); assert.equal(v.ui.skill.selected, '0.7');
-  if (mode === 'default') {
-    assert.equal(v.default.active, true); assert.equal(v.default.model, 'unified'); assert.equal(v.default.playerOnly, true);
-    assert.deepEqual(v.default.settings, { skill: '0.7' });
-    assert.equal(v.recoveryContactV2Trial.active, false); assert.equal(v.gravityV2Trial.active, false);
-    assert.ok([null, 'legacy'].includes(v.player.stanceMemoryModel));
+  const trialEntry = ['baseline', 'bounded'].includes(mode);
+  if (!trialEntry) {
+    assert.equal(mode, 'default'); assert.equal(v.default.active, true); assert.equal(v.default.model, 'unified'); assert.equal(v.default.playerOnly, true);
+    assert.deepEqual(v.default.settings, { skill: '0.7' }); assert.equal(v.recutV2Trial.active, false);
+    assert.ok([null, 'legacy'].includes(v.player.rollTargetModel));
     assert.equal(v.ui.difficulty.selected, 'hard'); assert.equal(v.ui.difficulty.locked, false);
     assert.equal(v.defaultApplied, supported.has(v.player.weapon));
   } else {
-    assert.equal(weapon, 'zweihander'); assert.equal(v.default.active, false); assert.equal(v.defaultApplied, false);
-    assert.equal(v.player.stanceMemoryModel, 'fresh'); assert.equal(v.enemy.weapon, 'longsword');
-    assert.equal(v.enemy.name, '상대'); assert.equal(v.difficulty, 'normal');
+    assert.ok(['longsword', 'qinggang'].includes(weapon)); assert.equal(v.default.active, false); assert.equal(v.defaultApplied, false);
+    assert.equal(v.enemy.weapon, 'longsword'); assert.equal(v.enemy.name, '상대'); assert.equal(v.difficulty, 'normal');
     assert.equal(v.ui.difficulty.selected, 'normal'); assert.equal(v.ui.difficulty.locked, true);
-    if (gravity) {
-      assert.equal(v.recoveryContactV2Trial.active, false); assert.equal(v.gravityV2Trial.active, true);
-      assert.equal(v.gravityV2Trial.level, gravity.level); assert.equal(v.gravityV2Trial.gravity, expectedGravity);
-      assert.equal(v.gravityV2Trial.stanceModel, 'fresh'); assert.equal(v.gravityV2Trial.weapon, weapon); assert.equal(v.gravityV2Trial.foeWeapon, 'longsword');
-    } else {
-      assert.ok(['baseline', 'combined'].includes(mode)); assert.equal(v.gravityV2Trial.active, false);
-      assert.equal(v.recoveryContactV2Trial.active, true); assert.equal(v.recoveryContactV2Trial.model, mode);
-      assert.equal(v.recoveryContactV2Trial.cutModel, expectedCut); assert.equal(v.recoveryContactV2Trial.stanceModel, 'fresh');
-      assert.equal(v.recoveryContactV2Trial.weapon, weapon); assert.equal(v.recoveryContactV2Trial.foeWeapon, 'longsword');
-    }
+    assert.equal(v.recutV2Trial.active, true); assert.equal(v.recutV2Trial.model, mode);
+    assert.equal(v.recutV2Trial.weapon, weapon); assert.equal(v.recutV2Trial.foeWeapon, 'longsword');
+    assert.equal(v.recutV2Trial.rollModel, mode === 'bounded' ? 'bounded' : 'legacy');
+    assert.equal(v.player.rollTargetModel, v.recutV2Trial.rollModel);
   }
-  const recoveryEntry = ['baseline', 'combined'].includes(mode);
-  assert.equal(v.recoveryContactV2Panel, recoveryEntry);
-  assert.equal(v.navigation.recoveryContactV2TrialLab, recoveryEntry ? lab.href : null);
-  assert.equal(v.navigation.recoveryContactV2TrialExit, recoveryEntry ? base.href : null);
-  assert.equal(v.gravityPanel, !!gravity);
-  assert.equal(v.gravityNavigation.gravityV2TrialLab, gravity ? new URL('feature-lab.html#gravity-v2-comparison', base).href : null);
-  assert.equal(v.gravityNavigation.gravityV2TrialExit, gravity ? base.href : null);
+  assert.equal(v.recutV2Panel, trialEntry);
+  assert.equal(v.navigation.recutV2TrialLab, trialEntry ? lab.href : null);
+  assert.equal(v.navigation.recutV2TrialExit, trialEntry ? base.href : null);
+  assert.equal(v.gravityPanel, false);
   const active = supported.has(v.player.weapon);
   if (active) {
     assert.equal(v.player.swordsmanship.model, 'unified'); policyState(v.player.swordsmanship.state);
@@ -379,13 +362,7 @@ async function nativeGesture(row, full = false) {
     await phase('release'); await send('touchEnd');
     await page.waitForFunction(() => game.input.activeTouch === null && !game.player.handHeld);
     const released = await snap(); assert.equal(released.player.thrusts, before.player.thrusts, 'Drag became a tap');
-    let tapped = null;
-    if (full) {
-      await phase('tap'); const timestamp = Date.now() / 1000;
-      await send('touchStart', 620, 220, timestamp); await page.waitForTimeout(70); await send('touchEnd', 0, 0, timestamp + .07);
-      await page.waitForFunction(count => game.player.skill.thrusts === count + 1, released.player.thrusts, { timeout: 10000 });
-      tapped = await snap(); await screenshot(row.id + '-tap', row); await page.waitForFunction(() => !game.player.skill.tap, null, { timeout: 15000 });
-    }
+    const tapped = null; // Recut delivery exercises held reversal and released re-input; no extra thrust scenario.
     const final = await snap(), native = await page.evaluate(() => [...swordsmanshipProbe.native]);
     assert.ok(native.length >= 6 && native.every(event => event.trusted && event.kind === 'touch'));
     assert.ok(final.timeS > before.timeS); row.touch = { before, dragged, held, released, tapped, final, requests, native,
@@ -425,7 +402,7 @@ async function setupContext() {
   context.setDefaultTimeout(60000);
   await context.exposeBinding('recordSwordsmanshipNativeUI', (_source, event) => nativeUI.push({ id: current, ...event }));
   await context.addInitScript(() => document.addEventListener('pointerdown', event => {
-    const element = event.target.closest?.('#playRecoveryContactV2Baseline, #playRecoveryContactV2Combined, #recoveryContactV2TrialLab, #recoveryContactV2TrialExit, #btnStart, #btnPause, #btnResume, #draw button.wcard, [data-setting=moveMode] button[data-v=tilt]');
+    const element = event.target.closest?.('#playRecutV2LongA, #playRecutV2LongB, #playRecutV2QingA, #playRecutV2QingB, #recutV2TrialLab, #recutV2TrialExit, #btnStart, #btnPause, #btnResume, #draw button.wcard, [data-setting=moveMode] button[data-v=tilt]');
     if (element) window.recordSwordsmanshipNativeUI({ url: location.href, element: element.id || (element.matches('.wcard') ? 'card-' + element.dataset.i : 'moveMode-tilt'),
       trusted: event.isTrusted, kind: event.pointerType, x: event.clientX, y: event.clientY });
   }, true));
@@ -475,16 +452,16 @@ async function openFixture(url) {
   await page.waitForLoadState('networkidle'); await observe(); fit(await layout());
 }
 const trialUrl = fixture => {
-  const url = new URL(base); url.search = new URLSearchParams({ recoveryContactV2: fixture.model }).toString(); return url;
+  const url = new URL(base); url.search = new URLSearchParams({ recutV2: fixture.model, weapon: fixture.weapon }).toString(); return url;
 };
 try {
   browser = await chromium.launch(launch); await setupContext();
   current = 'feature-lab'; await page.goto(lab.href, { waitUntil: 'load' }); fit(await layout());
-  assert.equal(await page.locator('#recovery-contact-v2-comparison').count(), 1, 'Missing recovery-contact-v2 comparison section');
+  assert.equal(await page.locator('#recut-v2-comparison').count(), 1, 'Missing recut-v2 comparison section');
   for (const fixture of fixtures) {
-    const href = await page.locator('#recovery-contact-v2-comparison #' + fixture.cta).getAttribute('href');
+    const href = await page.locator('#recut-v2-comparison #' + fixture.cta).getAttribute('href');
     const actual = new URL(href, base), expected = trialUrl(fixture);
-    assert.equal(actual.href, expected.href, 'CTA must use exactly the specified one-key entry');
+    assert.equal(actual.href, expected.href, 'CTA must use exactly the specified marker/weapon entry');
   }
   await page.evaluate(value => localStorage.setItem('gladiator-settings', value), seedBytes);
   await page.screenshot({ path: path.join(out, 'feature-lab-portrait.png'), fullPage: true });
@@ -492,38 +469,24 @@ try {
     current = fixture.id;
     const row = { ...fixture, artifacts: [] }; rows.push(row);
     await page.setViewportSize(portrait); await page.goto(lab.href, { waitUntil: 'load' }); fit(await layout());
-    await navigate('#recovery-contact-v2-comparison #' + fixture.cta, trialUrl(fixture).href); await ready(); await page.waitForLoadState('networkidle'); await observe();
+    await navigate('#recut-v2-comparison #' + fixture.cta, trialUrl(fixture).href); await ready(); await page.waitForLoadState('networkidle'); await observe();
     row.url = page.url(); row.menu = await snap(); fit(await layout()); contract(row.menu, fixture.weapon, fixture.model);
     await screenshot(row.id + '-portrait', row); await page.setViewportSize(landscape); fit(await layout());
     await start(); row.started = await snap(); contract(row.started, fixture.weapon, fixture.model); row.firstSteps = await firstSteps(fixture.weapon, 1, fixture.model);
-    await screenshot(row.id + '-start', row); await nativeGesture(row, false); contract(row.touch.final, fixture.weapon, fixture.model);
+    await screenshot(row.id + '-start', row); await nativeGesture(row, true); contract(row.touch.final, fixture.weapon, fixture.model);
+    await recut(row); contract(row.recut.final, fixture.weapon, fixture.model);
     await heldPauseRestart(row, fixture.weapon, false, fixture.model);
     const restartedInput = { id: row.id + '-round2', artifacts: [] };
     await nativeGesture(restartedInput, false); contract(restartedInput.touch.final, fixture.weapon, fixture.model); row.restartedInput = restartedInput;
     await collect(row); await pause(); await page.waitForLoadState('networkidle');
     await page.reload({ waitUntil: 'load' }); await ready(); await page.waitForLoadState('networkidle'); await observe();
     row.reloadedTrial = await snap(); contract(row.reloadedTrial, fixture.weapon, fixture.model); transientClean(row.reloadedTrial);
-    await navigate('#recoveryContactV2TrialExit', base.href); await ready(); await page.waitForLoadState('networkidle'); await observe();
+    await navigate('#recutV2TrialExit', base.href); await ready(); await page.waitForLoadState('networkidle'); await observe();
     row.ordinaryReturn = await snap(); contract(row.ordinaryReturn, null); transientClean(row.ordinaryReturn); assert.equal(new URL(page.url()).search, '');
     await screenshot(row.id + '-ordinary-return', row);
     await page.reload({ waitUntil: 'load' }); await ready(); await page.waitForLoadState('networkidle'); await observe();
     row.reloadedOrdinary = await snap(); contract(row.reloadedOrdinary, null); transientClean(row.reloadedOrdinary);
     assert.equal(new URL(page.url()).search, ''); row.pass = true;
-  }
-  if (selection.ordinary) {
-    current = 'ordinary-and-gravity-compatibility';
-    const row = { id: current, artifacts: [], gravityMenus: [], gravityMenusOnly: true }; rows.push(row);
-    for (const fixture of gravityFixtures) {
-      const url = new URL(base); url.searchParams.set('gravityV2', fixture.level);
-      await openFixture(url); const menu = await snap(); contract(menu, 'zweihander', 'gravity:' + fixture.level); transientClean(menu);
-      assert.deepEqual(await page.evaluate(() => [swordsmanshipProbe.firstFighters.length, swordsmanshipProbe.firstWorlds.length, swordsmanshipProbe.firstCombats.length]), [0, 0, 0]);
-      row.gravityMenus.push({ ...fixture, url: url.href, menu, pass: true });
-      await screenshot('legacy-gravity-' + fixture.level + '-portrait', row);
-    }
-    await openFixture(base); row.menu = await snap(); contract(row.menu, null); transientClean(row.menu);
-    await page.setViewportSize(landscape); fit(await layout());
-    row.choice = await start(true, 0); contract(await snap(), null); row.firstSteps = await firstSteps(null, 1);
-    await screenshot(row.id + '-card', row); await collect(row); await pause(); row.pass = true;
   }
   if (selection.invalid) for (const fixture of invalidFixtures) {
     current = fixture.id; const url = new URL(base); url.search = fixture.query;
@@ -538,10 +501,10 @@ try {
   assert.deepEqual(blockedRequests, []); assert.deepEqual(redirectRefusals, []);
   assert.ok(nativeUI.every(event => event.trusted && event.kind === 'touch'));
   for (const fixture of fixtures) assert.equal(nativeUI.filter(event => event.element === fixture.cta).length, selection.trial ? 1 : 0);
-  assert.equal(nativeUI.filter(event => event.element === 'recoveryContactV2TrialExit').length, selection.trial ? 2 : 0);
-  assert.equal(nativeUI.filter(event => event.element === 'btnStart').length, (selection.trial ? 4 : 0) + (selection.ordinary ? 1 : 0));
-  assert.equal(nativeUI.filter(event => event.element.startsWith('card-')).length, selection.ordinary ? 1 : 0);
-  assert.equal(rows.length, (selection.trial ? 2 : 0) + (selection.ordinary ? 1 : 0) + (selection.invalid ? 2 : 0));
+  assert.equal(nativeUI.filter(event => event.element === 'recutV2TrialExit').length, selection.trial ? fixtures.length : 0);
+  assert.equal(nativeUI.filter(event => event.element === 'btnStart').length, selection.trial ? fixtures.length * 2 : 0);
+  assert.equal(nativeUI.filter(event => event.element.startsWith('card-')).length, 0);
+  assert.equal(rows.length, (selection.trial ? fixtures.length : 0) + (selection.invalid ? 2 : 0));
   pass = true;
 } catch (error) {
   fatal = { id: current, name: error.name, message: sanitize(error.message), stack: sanitize(error.stack) };
@@ -562,9 +525,9 @@ try {
     executionScope: scope, fixtures: selection.trial ? fixtures : [], invalidFixtures: selection.invalid ? invalidFixtures : [],
     routeFetchRetryPolicy: { maxRetries: 2, retriesOnlyECONNRESET: true, errorsFiltered: false,
       attemptCountExposed: false, limitation: 'Successful bounded GET retries do not prove zero underlying TCP resets.' },
-    physicalEffectAcceptance: 'delivery only; actual injured reentry, centerline cut intervention, combined efficacy and human feel require separate headless/user evidence',
+    physicalEffectAcceptance: 'delivery only; actual bounded roll target intervention, speed/energy preservation, contact and human feel require separate headless/user evidence',
     compiled, rows, nativeUI, errors, httpFailures, requestFailures, blockedRequests, redirectRefusals, fatal,
-    scope: !selection.trial ? 'Two fallback menus only: unknown plus duplicate recovery/contact values, and a mixed gravity marker; not exhaustive independent parser coverage.' : 'Two recovery/contact entries: native drag/hold/release, held pause, fresh Fighter/World/Combat/controller restart, new input, trial reload, ordinary exit/reload and exact preference preservation. Both use player fresh stance and r2/manual at gravity9.81; baseline cut legacy versus combined centerline targeted only to player are checked from first steps. Local full additionally checks three old gravity menus without playing them, then one ordinary card/play flow, and two invalid menus. Public two-flow scope requires separately linked same-source local compatibility/invalid evidence. Existing AI remains active and no physical injury, AI replacement or pose injection is used. Cut flags do not prove a cut or cap occurred. No recut/tap, physical-phone, long-combat safety or human-naturalness acceptance is claimed.' };
+    scope: !selection.trial ? 'Two invalid/mixed fallback menus only; exhaustive entry parser checks are separate.' : 'Longsword/Qinggang baseline/bounded: trusted drag, held reversal, release and new recut; held pause; fresh Fighter/World/Combat/controller restart and new input; trial reload; ordinary exit/reload; preferences exact. Player-only rollTargetModel and legacy shape-selection flag/cut/stance/finish, r2/manual and gravity9.81 checked from first steps. Actual collider shape types are recorded, not geometrically compared. Local full adds two invalid menus. Public four-flow scope reuses same-source local invalid evidence. Existing AI remains active; no state/injury/AI/pose injection. Flag checks are not physical efficacy or human-naturalness acceptance.' };
   await fs.writeFile(path.join(out, 'summary.json'), JSON.stringify(summary, null, 2) + '\n', { flag: 'wx' });
   console.log(JSON.stringify({ pass, sourceStable, executionScope: scope, rows: rows.length, failure: fatal?.id ?? null, out }));
 }

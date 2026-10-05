@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "state": "code, physical checks and local mobile browser checks passed; public delivery pending",
+  "updatedUTC": "2026-10-05T17:59:35.900962+00:00",
+  "sourceBase": "97815289d58644ce53013bb9d1e2f927958b0e19",
+  "gameCommit": null,
+  "generalFixes": [
+    "Discard stale aim derivative across disabled wrist-control intervals",
+    "Use the existing axial paired-grip point by default for Monohoshizao and Lightsaber; explicit midpoint comparison preserved"
+  ],
+  "optionalComparisons": [
+    "recutV2=baseline|bounded, longsword/qinggang, ordinary v2 and gravity9.81",
+    "recoveryContactV2=baseline|combined, zweihander, existing recoveryB and ordinary v2 from creation"
+  ],
+  "majorGeneralPhysicsPromotion": false,
+  "weaponV2ExclusionsRetained": [
+    "monohoshizao",
+    "lightsaber"
+  ],
+  "urls": {
+    "ordinary": "https://yoonjl-svg.github.io/halfsword-codex/",
+    "recoveryB": "https://yoonjl-svg.github.io/halfsword-codex/?recoveryContactV2=combined",
+    "recoveryComparison": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#recovery-contact-v2-comparison",
+    "recutComparison": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#recut-v2-comparison",
+    "plan": "https://yoonjl-svg.github.io/halfsword-codex/development-plan.html"
+  },
+  "experiments": [
+    {
+      "summary": "recut_closure_20261006.md",
+      "evidence": "recut_closure_20261006.json"
+    },
+    {
+      "summary": "injury_followup_20261006.md",
+      "evidence": "injury_followup_20261006.json"
+    },
+    {
+      "summary": "recovery_contact_closure_20261006.md",
+      "evidence": "recovery_contact_closure_20261006.json"
+    },
+    {
+      "summary": "spin_closure_20261006.md",
+      "evidence": "spin_closure_20261006.json"
+    }
+  ],
+  "commonPhysics": {
+    "pass": true,
+    "tests": [
+      {
+        "id": "force_ledger",
+        "pass": true,
+        "counts": {
+          "tests": 11
+        }
+      },
+      {
+        "id": "grip_reaction",
+        "pass": true,
+        "counts": {
+          "fixtures": 17
+        }
+      },
+      {
+        "id": "cut_reaction",
+        "pass": true,
+        "counts": {
+          "tests": 33
+        }
+      },
+      {
+        "id": "arm_capacity",
+        "pass": true,
+        "counts": {
+          "tests": 4
+        }
+      },
+      {
+        "id": "arm_duel",
+        "pass": true,
+        "counts": {
+          "runs": 10,
+          "newFailureReview": 0
+        }
+      }
+    ],
+    "initialAttempt": {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/regression01/result.json",
+      "bytes": 270279,
+      "sha256": "825c10665666913c48d407ce60d4e7ce5637ba86255b705e7f4bd139b137c8f8"
+    },
+    "completedDuelRetry": {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/regression-duel02/result.json",
+      "bytes": 1190,
+      "sha256": "4cd773c01423f4cb3df60b3f8d46e47c7d9a58944bb27bb5bd022f3071d90992"
+    },
+    "reuseProof": {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/regression-composite-proof.json",
+      "bytes": 433,
+      "sha256": "38efdf55708fecf310a4b795f9f86d6a901b697cbabb7aeff70717349837fbc0"
+    },
+    "notAWholeSuiteCacheHit": true,
+    "watchdogChange": "180 to420seconds only; simulated10seconds/10conditions unchanged. Initial timeout retained."
+  },
+  "entryContracts": {
+    "path": "/workspace/halfsword-handoff/phase2-close-20261006/entry-final.json",
+    "bytes": 10848,
+    "sha256": "604747b8170c6bbca5dfa956a08d0146ce4df9b81459185849b73ceb96fb7c1d"
+  },
+  "build": {
+    "pass": true,
+    "asset": {
+      "path": "dist/assets/main-czeViLJG.js",
+      "bytes": 3541482,
+      "sha256": "e8d3efb330e7f5ada36ffeb6c9387eb364ff2cd3ea07687a5027887b67f14a00"
+    }
+  },
+  "localBrowser": {
+    "recovery": {
+      "pass": true,
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/recovery/browser/local-receipt01.json",
+      "bytes": 2845,
+      "sha256": "e292542f015ace7bce27a3e256f234f2a56dca0eb91e77d7ec278967ae81aad2"
+    },
+    "recut": {
+      "pass": true,
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/recut/browser/local-receipt01.json",
+      "bytes": 2717,
+      "sha256": "e592277aff47394b194b4e5f8a192f3446b4beb115d392749a90af337ce61723"
+    },
+    "gripDefaults": {
+      "pass": true,
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/spin/browser-local01/summary.json",
+      "bytes": 29233,
+      "sha256": "1a4b548e63b815bc1b5690a0ddb7e075a4984f305021a41fe6c302304741baae"
+    }
+  },
+  "pages": null,
+  "publicBrowser": null,
+  "limits": [
+    "Recut B is a finite command-rate comparison, not a physical angular-velocity clamp or an anatomical speed claim.",
+    "Post-intervention active cutting impulse was not exposed in the longsword contact fixture; Qinggang contact effects remain unmeasured.",
+    "After opponent-input divergence, tap/release roll differs; overall combat-spin improvement is not established.",
+    "Controlled wound/knockDown API checks are not new natural combat injuries or acceptance of human movement.",
+    "Recovery four living contacts are four steps of one manual stroke, not four independent trials.",
+    "A first living hit after recovery and mobile UI delivery do not close all native support/contact energy research.",
+    "Public checks use mobile-size Chromium, not a physical iPhone."
+  ],
+  "precommitAudit": {
+    "path": "/workspace/halfsword-handoff/phase2-close-20261006/audit/precommit-audit.json",
+    "bytes": 6278,
+    "sha256": "4f24bdda3d7d5b81a8bf081364813347e66bfd4df44870290054c5209a035054"
+  }
+}

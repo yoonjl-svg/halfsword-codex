@@ -51,6 +51,8 @@ import { configureSwordsmanshipTrial, mountSwordsmanshipTrial } from './swordsma
 import { configureContactTrial, mountContactTrial } from './contact_trial.js';
 import { configureStanceV2Trial, mountStanceV2Trial } from './stance_v2_trial.js';
 import { configureGravityV2Trial, mountGravityV2Trial } from './gravity_v2_trial.js';
+import { configureRecoveryContactV2Trial, mountRecoveryContactV2Trial } from './recovery_contact_v2_trial.js';
+import { configureRecutV2Trial, mountRecutV2Trial } from './roll_target_trial.js';
 import { applySwordsmanship, recordSwordsmanshipInput } from './swordsmanship.js';
 import { configureSwordsmanshipDefault, swordsmanshipDefaultSupportsWeapon } from './swordsmanship_default.js';
 
@@ -62,10 +64,12 @@ const requestedParams = new URLSearchParams(location.search);
 const contactTrial = configureContactTrial(requestedParams);
 const stanceV2Trial = configureStanceV2Trial(requestedParams);
 const gravityV2Trial = configureGravityV2Trial(requestedParams);
-const activeV2Trial = contactTrial.active ? contactTrial : stanceV2Trial.active ? stanceV2Trial : gravityV2Trial.active ? gravityV2Trial : null;
+const recoveryContactV2Trial = configureRecoveryContactV2Trial(requestedParams);
+const recutV2Trial = configureRecutV2Trial(requestedParams);
+const activeV2Trial = contactTrial.active ? contactTrial : stanceV2Trial.active ? stanceV2Trial : gravityV2Trial.active ? gravityV2Trial : recoveryContactV2Trial.active ? recoveryContactV2Trial : recutV2Trial.active ? recutV2Trial : null;
 // This strict compound entry owns its whole query. Invalid/mixed entries return
 // to current ordinary defaults; older trials keep their existing parsing.
-const priorTrialParams = contactTrial.requested || stanceV2Trial.requested || gravityV2Trial.requested ? new URLSearchParams() : requestedParams;
+const priorTrialParams = contactTrial.requested || stanceV2Trial.requested || gravityV2Trial.requested || recoveryContactV2Trial.requested || recutV2Trial.requested ? new URLSearchParams() : requestedParams;
 const swordsmanshipDefault = configureSwordsmanshipDefault(activeV2Trial ? requestedParams : priorTrialParams);
 const swordsmanshipTrial = configureSwordsmanshipTrial(priorTrialParams);
 const integratedCombatTrial = configureIntegratedCombatTrial(priorTrialParams);
@@ -467,9 +471,11 @@ function newRound(weaponId) {
   if (integratedCombatTrial.active || swordsmanshipTrial.active || activeV2Trial) enemy.onehandArmModel = 'legacy';
   if (stanceV2Trial.active) player.stanceMemoryModel = stanceV2Trial.model;
   if (gravityV2Trial.active) player.stanceMemoryModel = gravityV2Trial.stanceModel;
+  if (recoveryContactV2Trial.active) player.stanceMemoryModel = recoveryContactV2Trial.stanceModel;
+  if (recutV2Trial.active) player.rollTargetModel = recutV2Trial.rollModel;
   const defaultSwordsmanshipForPlayer = swordsmanshipDefault.active && swordsmanshipDefaultSupportsWeapon(player.weapon);
   if (defaultSwordsmanshipForPlayer) player.onehandArmModel = 'manual';
-  player.gripPointModel = gripPointModel;
+  if (params.has('gripPoint')) player.gripPointModel = gripPointModel;
   // Narrow player-only comparison for the selected sabre trial.
   player.thrustEdgeModel = onehandArmModel === 'manual' && player.weapon.id === 'sabre' ? thrustEdgeModel : 'legacy';
   if (thrustPlaneTrial && player.weapon.id === 'qinggang') player.thrustEdgeModel = 'transported';
@@ -516,8 +522,9 @@ function newRound(weaponId) {
   if (swordsmanshipTrial.active || defaultSwordsmanshipForPlayer || activeV2Trial) applySwordsmanship(player);
   player.canShove = true; // 근접 밀치기: 플레이어는 스틱으로 (CLOSE.on 이 통째로 끄고 켠다)
   combat = new Combat(colliderInfo, { onWound, onClash });
-  combat.cutReactionModel = contactTrial.active ? contactTrial.model : cutTrial.model;
-  combat.cutReactionFighter = contactTrial.active && contactTrial.model === 'centerline' ? player : null;
+  const selectedCutModel = recoveryContactV2Trial.active ? recoveryContactV2Trial.cutModel : contactTrial.active ? contactTrial.model : cutTrial.model;
+  combat.cutReactionModel = selectedCutModel;
+  combat.cutReactionFighter = (contactTrial.active || recoveryContactV2Trial.active) && selectedCutModel === 'centerline' ? player : null;
   combat.finishRuleModel = swordsmanshipTrial.active && player.weapon.id === 'qinggang'
     ? 'armorCausal' : integratedCombatTrial.finishRule;
   combat.finishRuleFighter = player;
@@ -731,6 +738,8 @@ mountSwordsmanshipTrial(swordsmanshipTrial);
 mountContactTrial(contactTrial);
 mountStanceV2Trial(stanceV2Trial);
 mountGravityV2Trial(gravityV2Trial);
+mountRecoveryContactV2Trial(recoveryContactV2Trial);
+mountRecutV2Trial(recutV2Trial);
 if (swordsmanshipDefault.active) {
   // A single ordinary policy replaces the old strength menu. Saved legacy
   // preferences remain available to explicitly requested comparison entries.
@@ -1705,6 +1714,8 @@ window.game = {
   contactTrial,
   stanceV2Trial,
   gravityV2Trial,
+  recoveryContactV2Trial,
+  recutV2Trial,
   get defaultSwordsmanshipApplied() {
     return swordsmanshipDefault.active && player?.swordsmanshipModel === 'unified';
   },

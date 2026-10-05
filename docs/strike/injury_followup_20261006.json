@@ -1,0 +1,1975 @@
+{
+  "schemaVersion": 1,
+  "head": "97815289d58644ce53013bb9d1e2f927958b0e19",
+  "measurementValid": true,
+  "counts": {
+    "woundRows": 6,
+    "woundSteps": 5766,
+    "historyRows": 2,
+    "historySteps": 1440,
+    "newRows": 8,
+    "newSteps": 7206
+  },
+  "woundCommand": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+    "/workspace/halfsword-handoff/phase2-close-20261006/injury/frozen-source/tools/sim/experiments/injury_followup_20261006_probe.mjs",
+    "--plan=/workspace/halfsword-handoff/phase2-close-20261006/injury/plan01.json",
+    "--out=/workspace/halfsword-handoff/phase2-close-20261006/injury/run01"
+  ],
+  "woundPlan": {
+    "path": "/workspace/halfsword-handoff/phase2-close-20261006/injury/plan01.json",
+    "bytes": 3187,
+    "sha256": "87ac341ba9437dbfbfc8fb8256d80bca7d3735f7299688ba3bc39214beaca723",
+    "data": {
+      "schemaVersion": 1,
+      "savedUTC": "2026-10-05T17:15:08.521163+00:00",
+      "head": "97815289d58644ce53013bb9d1e2f927958b0e19",
+      "kind": "controlled_wound_replay_diagnostic",
+      "weapons": [
+        "qinggang",
+        "longsword"
+      ],
+      "levels": [
+        "healthy",
+        "moderate",
+        "large"
+      ],
+      "wounds": {
+        "moderate": {
+          "part": "farmS",
+          "type": "cut",
+          "zone": "arm",
+          "severity": 0.27360903985747054,
+          "energy": 53.77322580555166,
+          "count": 2,
+          "sourceTick": 1066,
+          "reference": {
+            "path": "/workspace/halfsword-handoff/phase2-round1-20261005/p5/extended-run01/report.json",
+            "bytes": 73965658,
+            "sha256": "9701633911bb121e6d44c19189f9b7acdf858ea842ffcd550a6d2347a6be2073"
+          },
+          "expectedArmHealth": 0.6169473441995412
+        },
+        "large": {
+          "part": "farmS",
+          "type": "cut",
+          "zone": "arm",
+          "severity": 0.9048981659032974,
+          "energy": 105.81440098421473,
+          "count": 1,
+          "sourceTick": 1535,
+          "reference": {
+            "path": "/workspace/halfsword-handoff/injured-input-20261005/actual-injury-run01.json",
+            "bytes": 70758703,
+            "sha256": "7d5b4b62ec8e2d1c959eb2a143d4e010c5bfae6deff2faee1ed03b5deb37606f"
+          },
+          "expectedArmHealth": 0.3665712838676919
+        }
+      },
+      "injuryAfterStep": 300,
+      "firstManualTick": 301,
+      "secondManualTick": 781,
+      "steps": 961,
+      "tape": [
+        {
+          "phase": "release",
+          "steps": 36,
+          "delta": [
+            0,
+            0
+          ],
+          "held": false
+        },
+        {
+          "phase": "reverse",
+          "steps": 30,
+          "delta": [
+            -0.4,
+            0.7
+          ],
+          "held": true
+        },
+        {
+          "phase": "hold",
+          "steps": 30,
+          "delta": [
+            0,
+            0
+          ],
+          "held": true
+        },
+        {
+          "phase": "recut",
+          "steps": 30,
+          "delta": [
+            0.4,
+            -0.7
+          ],
+          "held": true
+        },
+        {
+          "phase": "releaseAfter",
+          "steps": 54,
+          "delta": [
+            0,
+            0
+          ],
+          "held": false
+        }
+      ],
+      "setup": {
+        "seed": 7,
+        "gapM": 5.6,
+        "gravity": -9.81,
+        "enemy": "longsword",
+        "enemyAI": "idle fixture; no transforms or removal",
+        "playerV2": "from spawn, ordinary manual arm, existing fresh/cut optional flags disabled"
+      },
+      "interpretation": [
+        "Wound severity/energy are preserved real historical events; moderate deliberately replays the documented smaller cut twice at one diagnostic boundary.",
+        "applyWound handles pain, bleeding, balance and arm function; no direct health/pain/state/body writes. Forearm local point is a declared fixture center, not recovered collision geometry.",
+        "Native injury impulse is absent. This is not a newly observed natural collision injury.",
+        "Same two tapes expose immediate pain and later naturally recovered pain. No waiting conditional on desired outcome.",
+        "Existing natural .808 current-v2 and .366 legacy-late results are reused, not rerun; a new natural large wound is not an extra prerequisite for the functional input contract.",
+        "prevAim stale reactivation is observed if naturally entered; absence of low-muscle suspension does not rule it out."
+      ]
+    }
+  },
+  "woundSourceManifest": {
+    "head": "97815289d58644ce53013bb9d1e2f927958b0e19",
+    "status": " M public/feature-lab.html\n M src/main.js\n M src/swordsmanship_default.js\n?? docs/strike/recovery_contact_closure_20261006.json\n?? docs/strike/recovery_contact_closure_20261006.md\n?? src/recovery_contact_v2_trial.js\n?? tools/sim/experiments/bounded_roll_candidate.mjs\n?? tools/sim/experiments/bounded_roll_probe_20261006.mjs\n?? tools/sim/experiments/injury_followup_20261006_probe.mjs\n?? tools/sim/experiments/recovery_contact_closure_20261006.mjs\n?? tools/sim/experiments/recovery_contact_closure_20261006_report.py\n?? tools/sim/experiments/spin_closure_20261006.mjs\n",
+    "frozenUTC": "2026-10-05T17:18:08.098744+00:00",
+    "files": {
+      "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+      "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+      "node_modules/three/build/three.module.js": "9052042d676cb0fdc1ddfefe193053f34b7ac0513a616fdac4535d49987812ea",
+      "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+      "package.json": "9f267f3512c0be2c4407763c8d10b2813521ed425e948808222de8236db83df2",
+      "src/ai.js": "8d62ff2e21f778e395ec338bd5905bcadb2d13a877a17f92b16260d6e0e32def",
+      "src/ai_sense.js": "311542db5674a99a20196000918aafcd3be66ec271b65d80f659ff1bbcd8ece3",
+      "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+      "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+      "src/arm_recovery_activation.js": "ae025cc8d9bbc9855ea8ab2793d3e7818a66a4662329014a776a2ac88966435e",
+      "src/arm_recovery_trial.js": "ebda992abc5c7cd25a12c751d0f9b30f8fddf998babc8f4a7f49c9f4a0817c09",
+      "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+      "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+      "src/blade_shape_trial.js": "c06f7331c78e602e17d89ffb26507bffbea67cbebce862f5386cb4ce519b3955",
+      "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+      "src/combat.js": "98387beb03c90c9edc314da0e1ee826f5c0bd18da3d3991e480b036814d54916",
+      "src/config.js": "e1e192a30e368b43a49dcc178c5d41527e9861d19035f9f1cc2f626d26a4a642",
+      "src/contact_trial.js": "bbbb141e43c2ad9ba45de62bf649def064a998213085f9ace6871c9616da4767",
+      "src/cut_centerline.js": "98e522cfcde4f03c4d6d34dd57f7a8fa301a5a28028ddcce366cc600f86bf453",
+      "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+      "src/cut_trial.js": "427d58d0500ceac482424e092a7d457a8cea48371c254f1b4edecb3a511be5a6",
+      "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+      "src/decap_fx.js": "32ca19c8475d1520944573aed3fce906adcd6f433d6fbbc73875185cebd21dd4",
+      "src/edge_intent.js": "b4e17a6ea08d659732c330448b3b3aaffeac2942fa5096e82db551a12d580c87",
+      "src/edge_torque.js": "436995e6d45e816517ea5a9a8f83c9fb147d143871aab1601f82baa7b36bc0fa",
+      "src/edge_torque_trial.js": "1280a3fe32c1874b6ce56b75932db44852162855d8962ae13f3aeb3e7d832cae",
+      "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+      "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+      "src/fighter.js": "845b0d3751ebbd948d845ebacda8a644311b2826cb4e5fca8626c224d15478a4",
+      "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+      "src/finish.js": "6181dc98caaed8517a7d21325e6aa08eb6d4394a67ef2870203aec4150140dec",
+      "src/finish_rule.js": "803556ca4f6939d4a20acb7020dd4c616b52b5513969d0a6079af0cc929c616d",
+      "src/gait.js": "b74787f16687708bbc4ee3d89ec3acf247d561973131fda08cde761488e8d369",
+      "src/gravity_v2_trial.js": "5c064b7ab599343b171fe68422a42b4a46652c673def0c4ece6fd267636d3ba7",
+      "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+      "src/gun.js": "1d22ce53d03fbe2d40e9b211fc28427c3cd099783a3c77f470fdf0fd38dbc3d8",
+      "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+      "src/hand_visual.js": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893",
+      "src/input.js": "37529c473619a95ef83fbe3afa567f436dcd3c3b27b4951ebf52109cda434367",
+      "src/integrated_combat_trial.js": "d3b8d2f4b37c617d90832e93d0a31b585d10ef9bd44d5c41ef3d695ef76b898b",
+      "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+      "src/limb_sever.js": "2dd2fb8d54d65b826b677cb515c404190f18c37dbc844bb7db9a49e2bf45362b",
+      "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+      "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+      "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+      "src/main.js": "c32ecf799dc7550bec21fca97ec01375598a0131c7fb9f5e9f9809236a28cead",
+      "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+      "src/motion_assist.js": "12e49338e0ec0a1307c71bbdfcad4d849180369959a2a18c8ec7ca4c73a2f2d5",
+      "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+      "src/motion_timing.js": "5a30a5384066585227c1469a7adf66ff2137fabc19ff37142cc5ebd2895887e2",
+      "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+      "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+      "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+      "src/recovery_contact_v2_trial.js": "d0321ab6a071010e6763372328c8d87e221e2a880f3861a69d00ca44b65fca3e",
+      "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+      "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+      "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+      "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+      "src/skill.js": "c1ce462057175f684f8b89c79f668835c69b9dd2ef3cdfbd1e155f73411668e5",
+      "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+      "src/sound.js": "f02a5a9c9ad60ce282806c02b956715c2ca01aced92ba021b63a799faf4c8fb4",
+      "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+      "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+      "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+      "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+      "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+      "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+      "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+      "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+      "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+      "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+      "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+      "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+      "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+      "src/stance_v2_trial.js": "a5d6dcfc685b83371f1228a028db7573aa1267b63f7cbb2530b78b8601dc9c80",
+      "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+      "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+      "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+      "src/sword_assist_v2.js": "2d2e31a1049268935cee9311830cb45672350745ff9a0f4b6df4495a1260927c",
+      "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+      "src/swordsmanship.js": "7794881e39564a523047605c7ddfae71ecb8fff40b007d03c78aeb33d16c66db",
+      "src/swordsmanship_default.js": "0b4c2006a726ff95b9e7b06a94d27742991057476f5cb6c0477a5af375e34537",
+      "src/swordsmanship_profiles.js": "1660b20fe9970164c0cef8ce5fd43acf0616978c1bcdf7e5494099d2029456b1",
+      "src/swordsmanship_trial.js": "ee1c50cc7142eb46f8c266b566c9eba2155d6a54db6d84798212aee0eff82b79",
+      "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+      "src/thrust_plane.js": "2fcbf1a52dd7cbd4035eea8a14d22b830c1b64f07dafebddcfb74e320539b104",
+      "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+      "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+      "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+      "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+      "src/wrist_braking.js": "6574ae9729fa6251540a68d27a0938e9d5bc2296097ff8b3bd69d1494eb88730",
+      "src/wrist_braking_trial.js": "25466b178e063a45e58a5fcd22532cdcbc176af4a2c05e461c562bb6a0ef658e",
+      "tools/sim/experiments/injury_followup_20261006_probe.mjs": "1ba0211751e62e932cccf7471c8231a81ed933c372b55fcbbf74b9ee8d628ad7",
+      "tools/sim/experiments/round4_integrated_observer.mjs": "00c8b099fb1566ffbf21f02e6ecb878b941b489157650b2eb273e2d1cd3431f8",
+      "tools/sim/force_ledger.mjs": "ecee973509c22675a7f145f96d76cffb4a0ae85b71c68052feffeb98487648d7",
+      "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0"
+    },
+    "scope": "Actual game controlled-wound API diagnostic; untouched runtime frozen before fixture. No synthetic health/state/body setting."
+  },
+  "woundComparisons": [
+    {
+      "weapon": "qinggang",
+      "rows": [
+        {
+          "key": "qinggang-moderate",
+          "creationNativeExact": true,
+          "creationControlExact": true,
+          "prefixThrough299Exact": true,
+          "allRequestedInputsExact": true,
+          "firstNativeDifference": 301
+        },
+        {
+          "key": "qinggang-large",
+          "creationNativeExact": true,
+          "creationControlExact": true,
+          "prefixThrough299Exact": true,
+          "allRequestedInputsExact": true,
+          "firstNativeDifference": 301
+        }
+      ]
+    },
+    {
+      "weapon": "longsword",
+      "rows": [
+        {
+          "key": "longsword-moderate",
+          "creationNativeExact": true,
+          "creationControlExact": true,
+          "prefixThrough299Exact": true,
+          "allRequestedInputsExact": true,
+          "firstNativeDifference": 301
+        },
+        {
+          "key": "longsword-large",
+          "creationNativeExact": true,
+          "creationControlExact": true,
+          "prefixThrough299Exact": true,
+          "allRequestedInputsExact": true,
+          "firstNativeDifference": 301
+        }
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "key": "qinggang-healthy",
+      "weapon": "qinggang",
+      "level": "healthy",
+      "steps": 961,
+      "checks": {
+        "finite": true,
+        "inputAccepted": true,
+        "inputConsumed": true,
+        "ordinaryV2": true,
+        "noOpponentAttack": true,
+        "controlledInjuryExact": true
+      },
+      "injuries": [],
+      "final": {
+        "state": "stand",
+        "stateTime": 8.00833333333352,
+        "alive": true,
+        "armed": true,
+        "gripValid": true,
+        "offGripValid": false,
+        "armHealth": 1,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "pain": 0,
+        "blood": 1,
+        "bleed": 0,
+        "balance": 100,
+        "muscle": 1,
+        "armMuscle": 1,
+        "vigor": 1,
+        "strength": 1
+      },
+      "phases": [
+        {
+          "cycle": "immediate",
+          "steps": 180,
+          "activeInputSteps": 60,
+          "activeMovingSteps": 60,
+          "phases": [
+            "holding",
+            "moving",
+            "returning",
+            "waiting"
+          ],
+          "pain": {
+            "min": 0,
+            "max": 0
+          },
+          "availability": {
+            "min": 1,
+            "max": 1
+          },
+          "returnFrames": 30,
+          "actualSwordTorqueCallSteps": 180,
+          "preTwistOpposingSwingSteps": 135,
+          "wristBrakeSteps": 20,
+          "tipSpeedPeakMps": 14.392583429439583,
+          "releaseAfterRecut": {
+            "steps": 54,
+            "firstTick": 427,
+            "lastTick": 480,
+            "swingOmegaStartRadps": 5.542338611858379,
+            "swingOmegaEndRadps": 1.3661912773456315,
+            "opposingPreTwistSwingSteps": 35,
+            "brakeSteps": 7
+          }
+        },
+        {
+          "cycle": "pain_recovered_window",
+          "steps": 180,
+          "activeInputSteps": 60,
+          "activeMovingSteps": 60,
+          "phases": [
+            "holding",
+            "moving",
+            "ready",
+            "returning",
+            "waiting"
+          ],
+          "pain": {
+            "min": 0,
+            "max": 0
+          },
+          "availability": {
+            "min": 1,
+            "max": 1
+          },
+          "returnFrames": 60,
+          "actualSwordTorqueCallSteps": 180,
+          "preTwistOpposingSwingSteps": 130,
+          "wristBrakeSteps": 44,
+          "tipSpeedPeakMps": 18.118887597060873,
+          "releaseAfterRecut": {
+            "steps": 54,
+            "firstTick": 907,
+            "lastTick": 960,
+            "swingOmegaStartRadps": 15.069059535654134,
+            "swingOmegaEndRadps": 2.7865373618280684,
+            "opposingPreTwistSwingSteps": 47,
+            "brakeSteps": 25
+          }
+        }
+      ],
+      "availabilityFormulaMaxError": 0,
+      "wristCapFormulaMaxErrorNm": 0,
+      "allAliveArmedGripValid": true,
+      "observedStates": [
+        "stand"
+      ],
+      "maxJointGapM": 0.0016129381562385733,
+      "maxSwordAxialRadps": 26.03708489260782,
+      "lowMuscleEarlyReturnSteps": 0,
+      "swordContactSteps": 0,
+      "swordOpponentContactSteps": 0,
+      "limits": [
+        "Pre-twist swing cap and added axial torque are separate; the total applied vector can exceed the swing-only cap.",
+        "Opposing torque and falling swing speed show active deceleration, not zero latency or human naturalness.",
+        "The forearm wound location/direction is a declared diagnostic center; no collision impulse is replayed."
+      ]
+    },
+    {
+      "key": "qinggang-moderate",
+      "weapon": "qinggang",
+      "level": "moderate",
+      "steps": 961,
+      "checks": {
+        "finite": true,
+        "inputAccepted": true,
+        "inputConsumed": true,
+        "ordinaryV2": true,
+        "noOpponentAttack": true,
+        "controlledInjuryExact": true
+      },
+      "injuries": [
+        {
+          "tick": 300,
+          "replayIndex": 0,
+          "before": {
+            "state": "stand",
+            "stateTime": 2.508333333333327,
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "offGripValid": false,
+            "armHealth": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "pain": 0,
+            "blood": 1,
+            "bleed": 0,
+            "balance": 100,
+            "muscle": 1,
+            "armMuscle": 1,
+            "vigor": 1,
+            "strength": 1
+          },
+          "after": {
+            "state": "stand",
+            "stateTime": 2.508333333333327,
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "offGripValid": false,
+            "armHealth": 0.8084736720997706,
+            "limbs": {
+              "armS": 0.8084736720997706,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "pain": 0.5773754039229875,
+            "blood": 1,
+            "bleed": 0.0032833084782896466,
+            "balance": 73.11338709722418,
+            "muscle": 1,
+            "armMuscle": 1,
+            "vigor": 0.769049838430805,
+            "strength": 1
+          },
+          "request": {
+            "part": "farmS",
+            "type": "cut",
+            "zone": "arm",
+            "severity": 0.27360903985747054,
+            "energy": 53.77322580555166,
+            "bleedPerSev": 0.012,
+            "local": [
+              0,
+              0,
+              0
+            ],
+            "point": [
+              -2.561026096343994,
+              1.6252832412719727,
+              0.06027616560459137
+            ],
+            "dir": [
+              0,
+              -1,
+              0
+            ],
+            "pass": true,
+            "passing": true,
+            "stuck": false,
+            "helmet": false,
+            "plate": false,
+            "finish": false
+          },
+          "nativeBefore": "517f71ed665ac4eb442e350fa05ab51618570f5741c6bbaaa0f502769d399dc8",
+          "nativeAfter": "517f71ed665ac4eb442e350fa05ab51618570f5741c6bbaaa0f502769d399dc8",
+          "nativeUnchanged": true,
+          "scope": "Controlled API wound, no collision impulse. Local center and direction are fixture inputs, not recovered historical impact geometry."
+        },
+        {
+          "tick": 300,
+          "replayIndex": 1,
+          "before": {
+            "state": "stand",
+            "stateTime": 2.508333333333327,
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "offGripValid": false,
+            "armHealth": 0.8084736720997706,
+            "limbs": {
+              "armS": 0.8084736720997706,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "pain": 0.5773754039229875,
+            "blood": 1,
+            "bleed": 0.0032833084782896466,
+            "balance": 73.11338709722418,
+            "muscle": 1,
+            "armMuscle": 1,
+            "vigor": 0.769049838430805,
+            "strength": 1
+          },
+          "after": {
+            "state": "stand",
+            "stateTime": 2.508333333333327,
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "offGripValid": false,
+            "armHealth": 0.6169473441995412,
+            "limbs": {
+              "armS": 0.6169473441995412,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "pain": 1.154750807845975,
+            "blood": 1,
+            "bleed": 0.006566616956579293,
+            "balance": 46.226774194448346,
+            "muscle": 1,
+            "armMuscle": 1,
+            "vigor": 0.6,
+            "strength": 1
+          },
+          "request": {
+            "part": "farmS",
+            "type": "cut",
+            "zone": "arm",
+            "severity": 0.27360903985747054,
+            "energy": 53.77322580555166,
+            "bleedPerSev": 0.012,
+            "local": [
+              0,
+              0,
+              0
+            ],
+            "point": [
+              -2.561026096343994,
+              1.6252832412719727,
+              0.06027616560459137
+            ],
+            "dir": [
+              0,
+              -1,
+              0
+            ],
+            "pass": true,
+            "passing": true,
+            "stuck": false,
+            "helmet": false,
+            "plate": false,
+            "finish": false
+          },
+          "nativeBefore": "517f71ed665ac4eb442e350fa05ab51618570f5741c6bbaaa0f502769d399dc8",
+          "nativeAfter": "517f71ed665ac4eb442e350fa05ab51618570f5741c6bbaaa0f502769d399dc8",
+          "nativeUnchanged": true,
+          "scope": "Controlled API wound, no collision impulse. Local center and direction are fixture inputs, not recovered historical impact geometry."
+        }
+      ],
+      "final": {
+        "state": "stand",
+        "stateTime": 8.00833333333352,
+        "alive": true,
+        "armed": true,
+        "gripValid": true,
+        "offGripValid": false,
+        "armHealth": 0.6169473441995412,
+        "limbs": {
+          "armS": 0.6169473441995412,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "pain": 0,
+        "blood": 0.9735518934163012,
+        "bleed": 0.0033928441665355704,
+        "balance": 100,
+        "muscle": 0.9999999720856917,
+        "armMuscle": 0.9999999720856917,
+        "vigor": 1,
+        "strength": 1
+      },
+      "phases": [
+        {
+          "cycle": "immediate",
+          "steps": 180,
+          "activeInputSteps": 60,
+          "activeMovingSteps": 60,
+          "phases": [
+            "holding",
+            "moving",
+            "returning",
+            "waiting"
+          ],
+          "pain": {
+            "min": 0.2547508078459775,
+            "max": 1.149750807845975
+          },
+          "availability": {
+            "min": 0,
+            "max": 0.5819386648237129
+          },
+          "returnFrames": 20,
+          "actualSwordTorqueCallSteps": 180,
+          "preTwistOpposingSwingSteps": 122,
+          "wristBrakeSteps": 9,
+          "tipSpeedPeakMps": 15.39990120396592,
+          "releaseAfterRecut": {
+            "steps": 54,
+            "firstTick": 427,
+            "lastTick": 480,
+            "swingOmegaStartRadps": 11.583978225568451,
+            "swingOmegaEndRadps": 1.1624656595470952,
+            "opposingPreTwistSwingSteps": 28,
+            "brakeSteps": 9
+          }
+        },
+        {
+          "cycle": "pain_recovered_window",
+          "steps": 180,
+          "activeInputSteps": 60,
+          "activeMovingSteps": 60,
+          "phases": [
+            "holding",
+            "moving",
+            "ready",
+            "returning",
+            "waiting"
+          ],
+          "pain": {
+            "min": 0,
+            "max": 0
+          },
+          "availability": {
+            "min": 0.7414209104283139,
+            "max": 0.7414209104283139
+          },
+          "returnFrames": 60,
+          "actualSwordTorqueCallSteps": 180,
+          "preTwistOpposingSwingSteps": 107,
+          "wristBrakeSteps": 59,
+          "tipSpeedPeakMps": 15.42718534189335,
+          "releaseAfterRecut": {
+            "steps": 54,
+            "firstTick": 907,
+            "lastTick": 960,
+            "swingOmegaStartRadps": 11.262710826670311,
+            "swingOmegaEndRadps": 0.31133504779900417,
+            "opposingPreTwistSwingSteps": 31,
+            "brakeSteps": 44
+          }
+        }
+      ],
+      "availabilityFormulaMaxError": 0,
+      "wristCapFormulaMaxErrorNm": 7.105427357601002e-15,
+      "allAliveArmedGripValid": true,
+      "observedStates": [
+        "stand"
+      ],
+      "maxJointGapM": 0.0023518701818382266,
+      "maxSwordAxialRadps": 30.356433938625173,
+      "lowMuscleEarlyReturnSteps": 0,
+      "swordContactSteps": 0,
+      "swordOpponentContactSteps": 0,
+      "limits": [
+        "Pre-twist swing cap and added axial torque are separate; the total applied vector can exceed the swing-only cap.",
+        "Opposing torque and falling swing speed show active deceleration, not zero latency or human naturalness.",
+        "The forearm wound location/direction is a declared diagnostic center; no collision impulse is replayed."
+      ]
+    },
+    {
+      "key": "qinggang-large",
+      "weapon": "qinggang",
+      "level": "large",
+      "steps": 961,
+      "checks": {
+        "finite": true,
+        "inputAccepted": true,
+        "inputConsumed": true,
+        "ordinaryV2": true,
+        "noOpponentAttack": true,
+        "controlledInjuryExact": true
+      },
+      "injuries": [
+        {
+          "tick": 300,
+          "replayIndex": 0,
+          "before": {
+            "state": "stand",
+            "stateTime": 2.508333333333327,
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "offGripValid": false,
+            "armHealth": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "pain": 0,
+            "blood": 1,
+            "bleed": 0,
+            "balance": 100,
+            "muscle": 1,
+            "armMuscle": 1,
+            "vigor": 1,
+            "strength": 1
+          },
+          "after": {
+            "state": "stand",
+            "stateTime": 2.508333333333327,
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "offGripValid": false,
+            "armHealth": 0.3665712838676919,
+            "limbs": {
+              "armS": 0.3665712838676919,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "pain": 1.4293478726174027,
+            "blood": 1,
+            "bleed": 0.010858777990839568,
+            "balance": 47.092799507892636,
+            "muscle": 1,
+            "armMuscle": 1,
+            "vigor": 0.6,
+            "strength": 1
+          },
+          "request": {
+            "part": "farmS",
+            "type": "cut",
+            "zone": "arm",
+            "severity": 0.9048981659032974,
+            "energy": 105.81440098421473,
+            "bleedPerSev": 0.012,
+            "local": [
+              0,
+              0,
+              0
+            ],
+            "point": [
+              -2.561026096343994,
+              1.6252832412719727,
+              0.06027616560459137
+            ],
+            "dir": [
+              0,
+              -1,
+              0
+            ],
+            "pass": true,
+            "passing": true,
+            "stuck": false,
+            "helmet": false,
+            "plate": false,
+            "finish": false
+          },
+          "nativeBefore": "517f71ed665ac4eb442e350fa05ab51618570f5741c6bbaaa0f502769d399dc8",
+          "nativeAfter": "517f71ed665ac4eb442e350fa05ab51618570f5741c6bbaaa0f502769d399dc8",
+          "nativeUnchanged": true,
+          "scope": "Controlled API wound, no collision impulse. Local center and direction are fixture inputs, not recovered historical impact geometry."
+        }
+      ],
+      "final": {
+        "state": "stand",
+        "stateTime": 8.00833333333352,
+        "alive": true,
+        "armed": true,
+        "gripValid": true,
+        "offGripValid": false,
+        "armHealth": 0.3665712838676919,
+        "limbs": {
+          "armS": 0.3665712838676919,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "pain": 0,
+        "blood": 0.9562645240967372,
+        "bleed": 0.005610520882447953,
+        "balance": 100,
+        "muscle": 0.9999998203018141,
+        "armMuscle": 0.9999998203018141,
+        "vigor": 1,
+        "strength": 1
+      },
+      "phases": [
+        {
+          "cycle": "immediate",
+          "steps": 180,
+          "activeInputSteps": 60,
+          "activeMovingSteps": 60,
+          "phases": [
+            "holding",
+            "moving",
+            "waiting"
+          ],
+          "pain": {
+            "min": 0.5293478726174113,
+            "max": 1.4243478726174028
+          },
+          "availability": {
+            "min": 0,
+            "max": 0
+          },
+          "returnFrames": 0,
+          "actualSwordTorqueCallSteps": 180,
+          "preTwistOpposingSwingSteps": 115,
+          "wristBrakeSteps": 8,
+          "tipSpeedPeakMps": 14.804557592373266,
+          "releaseAfterRecut": {
+            "steps": 54,
+            "firstTick": 427,
+            "lastTick": 480,
+            "swingOmegaStartRadps": 5.370881330080046,
+            "swingOmegaEndRadps": 2.3803272252569343,
+            "opposingPreTwistSwingSteps": 26,
+            "brakeSteps": 8
+          }
+        },
+        {
+          "cycle": "pain_recovered_window",
+          "steps": 180,
+          "activeInputSteps": 60,
+          "activeMovingSteps": 60,
+          "phases": [
+            "holding",
+            "moving",
+            "returning",
+            "waiting"
+          ],
+          "pain": {
+            "min": 0,
+            "max": 0
+          },
+          "availability": {
+            "min": 0.1157234155959231,
+            "max": 0.1157234155959231
+          },
+          "returnFrames": 60,
+          "actualSwordTorqueCallSteps": 180,
+          "preTwistOpposingSwingSteps": 68,
+          "wristBrakeSteps": 34,
+          "tipSpeedPeakMps": 11.63832697222118,
+          "releaseAfterRecut": {
+            "steps": 54,
+            "firstTick": 907,
+            "lastTick": 960,
+            "swingOmegaStartRadps": 8.623370323165338,
+            "swingOmegaEndRadps": 0.6279733084041393,
+            "opposingPreTwistSwingSteps": 33,
+            "brakeSteps": 19
+          }
+        }
+      ],
+      "availabilityFormulaMaxError": 0,
+      "wristCapFormulaMaxErrorNm": 3.552713678800501e-15,
+      "allAliveArmedGripValid": true,
+      "observedStates": [
+        "stand"
+      ],
+      "maxJointGapM": 0.002563272460015572,
+      "maxSwordAxialRadps": 33.04391091142828,
+      "lowMuscleEarlyReturnSteps": 0,
+      "swordContactSteps": 0,
+      "swordOpponentContactSteps": 0,
+      "limits": [
+        "Pre-twist swing cap and added axial torque are separate; the total applied vector can exceed the swing-only cap.",
+        "Opposing torque and falling swing speed show active deceleration, not zero latency or human naturalness.",
+        "The forearm wound location/direction is a declared diagnostic center; no collision impulse is replayed."
+      ]
+    },
+    {
+      "key": "longsword-healthy",
+      "weapon": "longsword",
+      "level": "healthy",
+      "steps": 961,
+      "checks": {
+        "finite": true,
+        "inputAccepted": true,
+        "inputConsumed": true,
+        "ordinaryV2": true,
+        "noOpponentAttack": true,
+        "controlledInjuryExact": true
+      },
+      "injuries": [],
+      "final": {
+        "state": "stand",
+        "stateTime": 8.00833333333352,
+        "alive": true,
+        "armed": true,
+        "gripValid": true,
+        "offGripValid": false,
+        "armHealth": 1,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "pain": 0,
+        "blood": 1,
+        "bleed": 0,
+        "balance": 100,
+        "muscle": 1,
+        "armMuscle": 1,
+        "vigor": 1,
+        "strength": 1
+      },
+      "phases": [
+        {
+          "cycle": "immediate",
+          "steps": 180,
+          "activeInputSteps": 60,
+          "activeMovingSteps": 60,
+          "phases": [
+            "holding",
+            "moving",
+            "returning",
+            "waiting"
+          ],
+          "pain": {
+            "min": 0,
+            "max": 0
+          },
+          "availability": {
+            "min": 1,
+            "max": 1
+          },
+          "returnFrames": 30,
+          "actualSwordTorqueCallSteps": 180,
+          "preTwistOpposingSwingSteps": 107,
+          "wristBrakeSteps": 31,
+          "tipSpeedPeakMps": 14.499027673821391,
+          "releaseAfterRecut": {
+            "steps": 54,
+            "firstTick": 427,
+            "lastTick": 480,
+            "swingOmegaStartRadps": 10.602872516476815,
+            "swingOmegaEndRadps": 3.800119243069578,
+            "opposingPreTwistSwingSteps": 38,
+            "brakeSteps": 14
+          }
+        },
+        {
+          "cycle": "pain_recovered_window",
+          "steps": 180,
+          "activeInputSteps": 60,
+          "activeMovingSteps": 60,
+          "phases": [
+            "holding",
+            "moving",
+            "ready",
+            "returning",
+            "waiting"
+          ],
+          "pain": {
+            "min": 0,
+            "max": 0
+          },
+          "availability": {
+            "min": 1,
+            "max": 1
+          },
+          "returnFrames": 60,
+          "actualSwordTorqueCallSteps": 180,
+          "preTwistOpposingSwingSteps": 105,
+          "wristBrakeSteps": 23,
+          "tipSpeedPeakMps": 11.176854582623086,
+          "releaseAfterRecut": {
+            "steps": 54,
+            "firstTick": 907,
+            "lastTick": 960,
+            "swingOmegaStartRadps": 4.8851294717684475,
+            "swingOmegaEndRadps": 3.8490423912100016,
+            "opposingPreTwistSwingSteps": 31,
+            "brakeSteps": 18
+          }
+        }
+      ],
+      "availabilityFormulaMaxError": 0,
+      "wristCapFormulaMaxErrorNm": 0,
+      "allAliveArmedGripValid": true,
+      "observedStates": [
+        "stand"
+      ],
+      "maxJointGapM": 0.0017839575664839356,
+      "maxSwordAxialRadps": 16.51430230515547,
+      "lowMuscleEarlyReturnSteps": 0,
+      "swordContactSteps": 0,
+      "swordOpponentContactSteps": 0,
+      "limits": [
+        "Pre-twist swing cap and added axial torque are separate; the total applied vector can exceed the swing-only cap.",
+        "Opposing torque and falling swing speed show active deceleration, not zero latency or human naturalness.",
+        "The forearm wound location/direction is a declared diagnostic center; no collision impulse is replayed."
+      ]
+    },
+    {
+      "key": "longsword-moderate",
+      "weapon": "longsword",
+      "level": "moderate",
+      "steps": 961,
+      "checks": {
+        "finite": true,
+        "inputAccepted": true,
+        "inputConsumed": true,
+        "ordinaryV2": true,
+        "noOpponentAttack": true,
+        "controlledInjuryExact": true
+      },
+      "injuries": [
+        {
+          "tick": 300,
+          "replayIndex": 0,
+          "before": {
+            "state": "stand",
+            "stateTime": 2.508333333333327,
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "offGripValid": false,
+            "armHealth": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "pain": 0,
+            "blood": 1,
+            "bleed": 0,
+            "balance": 100,
+            "muscle": 1,
+            "armMuscle": 1,
+            "vigor": 1,
+            "strength": 1
+          },
+          "after": {
+            "state": "stand",
+            "stateTime": 2.508333333333327,
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "offGripValid": false,
+            "armHealth": 0.8084736720997706,
+            "limbs": {
+              "armS": 0.8084736720997706,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "pain": 0.5773754039229875,
+            "blood": 1,
+            "bleed": 0.0032833084782896466,
+            "balance": 73.11338709722418,
+            "muscle": 1,
+            "armMuscle": 1,
+            "vigor": 0.769049838430805,
+            "strength": 1
+          },
+          "request": {
+            "part": "farmS",
+            "type": "cut",
+            "zone": "arm",
+            "severity": 0.27360903985747054,
+            "energy": 53.77322580555166,
+            "bleedPerSev": 0.012,
+            "local": [
+              0,
+              0,
+              0
+            ],
+            "point": [
+              -2.4884285926818848,
+              1.6103177070617676,
+              -0.022967766970396042
+            ],
+            "dir": [
+              0,
+              -1,
+              0
+            ],
+            "pass": true,
+            "passing": true,
+            "stuck": false,
+            "helmet": false,
+            "plate": false,
+            "finish": false
+          },
+          "nativeBefore": "bd561f3db59a51d324f3eb5f65105f3b41dfa7fe09ba4da728e70eaeb6a0d931",
+          "nativeAfter": "bd561f3db59a51d324f3eb5f65105f3b41dfa7fe09ba4da728e70eaeb6a0d931",
+          "nativeUnchanged": true,
+          "scope": "Controlled API wound, no collision impulse. Local center and direction are fixture inputs, not recovered historical impact geometry."
+        },
+        {
+          "tick": 300,
+          "replayIndex": 1,
+          "before": {
+            "state": "stand",
+            "stateTime": 2.508333333333327,
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "offGripValid": false,
+            "armHealth": 0.8084736720997706,
+            "limbs": {
+              "armS": 0.8084736720997706,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "pain": 0.5773754039229875,
+            "blood": 1,
+            "bleed": 0.0032833084782896466,
+            "balance": 73.11338709722418,
+            "muscle": 1,
+            "armMuscle": 1,
+            "vigor": 0.769049838430805,
+            "strength": 1
+          },
+          "after": {
+            "state": "stand",
+            "stateTime": 2.508333333333327,
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "offGripValid": false,
+            "armHealth": 0.6169473441995412,
+            "limbs": {
+              "armS": 0.6169473441995412,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "pain": 1.154750807845975,
+            "blood": 1,
+            "bleed": 0.006566616956579293,
+            "balance": 46.226774194448346,
+            "muscle": 1,
+            "armMuscle": 1,
+            "vigor": 0.6,
+            "strength": 1
+          },
+          "request": {
+            "part": "farmS",
+            "type": "cut",
+            "zone": "arm",
+            "severity": 0.27360903985747054,
+            "energy": 53.77322580555166,
+            "bleedPerSev": 0.012,
+            "local": [
+              0,
+              0,
+              0
+            ],
+            "point": [
+              -2.4884285926818848,
+              1.6103177070617676,
+              -0.022967766970396042
+            ],
+            "dir": [
+              0,
+              -1,
+              0
+            ],
+            "pass": true,
+            "passing": true,
+            "stuck": false,
+            "helmet": false,
+            "plate": false,
+            "finish": false
+          },
+          "nativeBefore": "bd561f3db59a51d324f3eb5f65105f3b41dfa7fe09ba4da728e70eaeb6a0d931",
+          "nativeAfter": "bd561f3db59a51d324f3eb5f65105f3b41dfa7fe09ba4da728e70eaeb6a0d931",
+          "nativeUnchanged": true,
+          "scope": "Controlled API wound, no collision impulse. Local center and direction are fixture inputs, not recovered historical impact geometry."
+        }
+      ],
+      "final": {
+        "state": "stand",
+        "stateTime": 8.00833333333352,
+        "alive": true,
+        "armed": true,
+        "gripValid": true,
+        "offGripValid": false,
+        "armHealth": 0.6169473441995412,
+        "limbs": {
+          "armS": 0.6169473441995412,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "pain": 0,
+        "blood": 0.9735518934163012,
+        "bleed": 0.0033928441665355704,
+        "balance": 100,
+        "muscle": 0.9999999720856917,
+        "armMuscle": 0.9999999720856917,
+        "vigor": 1,
+        "strength": 1
+      },
+      "phases": [
+        {
+          "cycle": "immediate",
+          "steps": 180,
+          "activeInputSteps": 60,
+          "activeMovingSteps": 60,
+          "phases": [
+            "holding",
+            "moving",
+            "returning",
+            "waiting"
+          ],
+          "pain": {
+            "min": 0.2547508078459775,
+            "max": 1.149750807845975
+          },
+          "availability": {
+            "min": 0,
+            "max": 0.5819386648237129
+          },
+          "returnFrames": 20,
+          "actualSwordTorqueCallSteps": 180,
+          "preTwistOpposingSwingSteps": 88,
+          "wristBrakeSteps": 22,
+          "tipSpeedPeakMps": 12.512485509020346,
+          "releaseAfterRecut": {
+            "steps": 54,
+            "firstTick": 427,
+            "lastTick": 480,
+            "swingOmegaStartRadps": 5.914162658124575,
+            "swingOmegaEndRadps": 1.6861347827108049,
+            "opposingPreTwistSwingSteps": 31,
+            "brakeSteps": 22
+          }
+        },
+        {
+          "cycle": "pain_recovered_window",
+          "steps": 180,
+          "activeInputSteps": 60,
+          "activeMovingSteps": 60,
+          "phases": [
+            "holding",
+            "moving",
+            "ready",
+            "returning",
+            "waiting"
+          ],
+          "pain": {
+            "min": 0,
+            "max": 0
+          },
+          "availability": {
+            "min": 0.7414209104283139,
+            "max": 0.7414209104283139
+          },
+          "returnFrames": 60,
+          "actualSwordTorqueCallSteps": 180,
+          "preTwistOpposingSwingSteps": 101,
+          "wristBrakeSteps": 35,
+          "tipSpeedPeakMps": 9.31773989403641,
+          "releaseAfterRecut": {
+            "steps": 54,
+            "firstTick": 907,
+            "lastTick": 960,
+            "swingOmegaStartRadps": 5.348920043594673,
+            "swingOmegaEndRadps": 4.145543969024122,
+            "opposingPreTwistSwingSteps": 35,
+            "brakeSteps": 19
+          }
+        }
+      ],
+      "availabilityFormulaMaxError": 0,
+      "wristCapFormulaMaxErrorNm": 7.105427357601002e-15,
+      "allAliveArmedGripValid": true,
+      "observedStates": [
+        "stand"
+      ],
+      "maxJointGapM": 0.001118315742682363,
+      "maxSwordAxialRadps": 33.567308456955594,
+      "lowMuscleEarlyReturnSteps": 0,
+      "swordContactSteps": 0,
+      "swordOpponentContactSteps": 0,
+      "limits": [
+        "Pre-twist swing cap and added axial torque are separate; the total applied vector can exceed the swing-only cap.",
+        "Opposing torque and falling swing speed show active deceleration, not zero latency or human naturalness.",
+        "The forearm wound location/direction is a declared diagnostic center; no collision impulse is replayed."
+      ]
+    },
+    {
+      "key": "longsword-large",
+      "weapon": "longsword",
+      "level": "large",
+      "steps": 961,
+      "checks": {
+        "finite": true,
+        "inputAccepted": true,
+        "inputConsumed": true,
+        "ordinaryV2": true,
+        "noOpponentAttack": true,
+        "controlledInjuryExact": true
+      },
+      "injuries": [
+        {
+          "tick": 300,
+          "replayIndex": 0,
+          "before": {
+            "state": "stand",
+            "stateTime": 2.508333333333327,
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "offGripValid": false,
+            "armHealth": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "pain": 0,
+            "blood": 1,
+            "bleed": 0,
+            "balance": 100,
+            "muscle": 1,
+            "armMuscle": 1,
+            "vigor": 1,
+            "strength": 1
+          },
+          "after": {
+            "state": "stand",
+            "stateTime": 2.508333333333327,
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "offGripValid": false,
+            "armHealth": 0.3665712838676919,
+            "limbs": {
+              "armS": 0.3665712838676919,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "pain": 1.4293478726174027,
+            "blood": 1,
+            "bleed": 0.010858777990839568,
+            "balance": 47.092799507892636,
+            "muscle": 1,
+            "armMuscle": 1,
+            "vigor": 0.6,
+            "strength": 1
+          },
+          "request": {
+            "part": "farmS",
+            "type": "cut",
+            "zone": "arm",
+            "severity": 0.9048981659032974,
+            "energy": 105.81440098421473,
+            "bleedPerSev": 0.012,
+            "local": [
+              0,
+              0,
+              0
+            ],
+            "point": [
+              -2.4884285926818848,
+              1.6103177070617676,
+              -0.022967766970396042
+            ],
+            "dir": [
+              0,
+              -1,
+              0
+            ],
+            "pass": true,
+            "passing": true,
+            "stuck": false,
+            "helmet": false,
+            "plate": false,
+            "finish": false
+          },
+          "nativeBefore": "bd561f3db59a51d324f3eb5f65105f3b41dfa7fe09ba4da728e70eaeb6a0d931",
+          "nativeAfter": "bd561f3db59a51d324f3eb5f65105f3b41dfa7fe09ba4da728e70eaeb6a0d931",
+          "nativeUnchanged": true,
+          "scope": "Controlled API wound, no collision impulse. Local center and direction are fixture inputs, not recovered historical impact geometry."
+        }
+      ],
+      "final": {
+        "state": "stand",
+        "stateTime": 8.00833333333352,
+        "alive": true,
+        "armed": true,
+        "gripValid": true,
+        "offGripValid": false,
+        "armHealth": 0.3665712838676919,
+        "limbs": {
+          "armS": 0.3665712838676919,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "pain": 0,
+        "blood": 0.9562645240967372,
+        "bleed": 0.005610520882447953,
+        "balance": 100,
+        "muscle": 0.9999998203018141,
+        "armMuscle": 0.9999998203018141,
+        "vigor": 1,
+        "strength": 1
+      },
+      "phases": [
+        {
+          "cycle": "immediate",
+          "steps": 180,
+          "activeInputSteps": 60,
+          "activeMovingSteps": 60,
+          "phases": [
+            "holding",
+            "moving",
+            "waiting"
+          ],
+          "pain": {
+            "min": 0.5293478726174113,
+            "max": 1.4243478726174028
+          },
+          "availability": {
+            "min": 0,
+            "max": 0
+          },
+          "returnFrames": 0,
+          "actualSwordTorqueCallSteps": 180,
+          "preTwistOpposingSwingSteps": 75,
+          "wristBrakeSteps": 0,
+          "tipSpeedPeakMps": 9.580848359289108,
+          "releaseAfterRecut": {
+            "steps": 54,
+            "firstTick": 427,
+            "lastTick": 480,
+            "swingOmegaStartRadps": 4.16334262976838,
+            "swingOmegaEndRadps": 2.888782835953477,
+            "opposingPreTwistSwingSteps": 20,
+            "brakeSteps": 0
+          }
+        },
+        {
+          "cycle": "pain_recovered_window",
+          "steps": 180,
+          "activeInputSteps": 60,
+          "activeMovingSteps": 60,
+          "phases": [
+            "holding",
+            "moving",
+            "ready",
+            "returning",
+            "waiting"
+          ],
+          "pain": {
+            "min": 0,
+            "max": 0
+          },
+          "availability": {
+            "min": 0.1157234155959231,
+            "max": 0.1157234155959231
+          },
+          "returnFrames": 60,
+          "actualSwordTorqueCallSteps": 180,
+          "preTwistOpposingSwingSteps": 103,
+          "wristBrakeSteps": 44,
+          "tipSpeedPeakMps": 7.374136123434778,
+          "releaseAfterRecut": {
+            "steps": 54,
+            "firstTick": 907,
+            "lastTick": 960,
+            "swingOmegaStartRadps": 4.167262082540131,
+            "swingOmegaEndRadps": 2.8730612786848826,
+            "opposingPreTwistSwingSteps": 38,
+            "brakeSteps": 20
+          }
+        }
+      ],
+      "availabilityFormulaMaxError": 0,
+      "wristCapFormulaMaxErrorNm": 3.552713678800501e-15,
+      "allAliveArmedGripValid": true,
+      "observedStates": [
+        "stand"
+      ],
+      "maxJointGapM": 0.001123055570147602,
+      "maxSwordAxialRadps": 20.0681549290835,
+      "lowMuscleEarlyReturnSteps": 0,
+      "swordContactSteps": 0,
+      "swordOpponentContactSteps": 0,
+      "limits": [
+        "Pre-twist swing cap and added axial torque are separate; the total applied vector can exceed the swing-only cap.",
+        "Opposing torque and falling swing speed show active deceleration, not zero latency or human naturalness.",
+        "The forearm wound location/direction is a declared diagnostic center; no collision impulse is replayed."
+      ]
+    }
+  ],
+  "historyContract": {
+    "kind": "controlled_knockDown_API_actual_Fighter_contract",
+    "beforeArtifact": {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/injury/stale-before01/report.json",
+      "bytes": 1050236,
+      "sha256": "75f3387d287b2a9659d03b64a1c70df3ab60ff16f9a87d342d2bb180b1ad91ae"
+    },
+    "fixedArtifact": {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/injury/stale-fixed01/report.json",
+      "bytes": 1033152,
+      "sha256": "47f86c134b8cef2a188727a526bcecb7fc3f50ab6506c00706622ceb56faf1a0"
+    },
+    "beforeCommand": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/halfsword-handoff/phase2-close-20261006/injury/stale-before-source/tools/sim/experiments/injury_followup_20261006_stale.mjs",
+      "--label=before",
+      "--out=/workspace/halfsword-handoff/phase2-close-20261006/injury/stale-before01"
+    ],
+    "fixedCommand": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/halfsword-handoff/phase2-close-20261006/injury/stale-fixed-source/tools/sim/experiments/injury_followup_20261006_stale.mjs",
+      "--label=fixed",
+      "--out=/workspace/halfsword-handoff/phase2-close-20261006/injury/stale-fixed01"
+    ],
+    "steps": 1440,
+    "sourceDifferences": [
+      "src/fighter.js"
+    ],
+    "firstDisabled": 337,
+    "firstResumed": 567,
+    "beforeResume": {
+      "tick": 567,
+      "before": {
+        "state": "getup",
+        "stateTime": 0.016666666666666666,
+        "armed": true,
+        "alive": true,
+        "muscle": 0.12492508417576041,
+        "armMuscle": 0.12492508417576041,
+        "pain": 0,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "gripValid": true,
+        "prevAim": [
+          0.9765635616094767,
+          0,
+          0.2152292037261997
+        ],
+        "hand": [
+          -0.26741720023563414,
+          0.559363961136338
+        ],
+        "aim": [
+          -0.24821790356872153,
+          0.5649668248357846
+        ]
+      },
+      "lastAimTick": 336,
+      "historyAgeSteps": 231,
+      "calls": [
+        {
+          "torque": {
+            "x": 0.7102464746061705,
+            "y": 0.1532323969748051,
+            "z": 2.489297815859481
+          },
+          "magnitude": 2.593170614945326
+        }
+      ],
+      "after": {
+        "state": "getup",
+        "stateTime": 0.016666666666666666,
+        "armed": true,
+        "alive": true,
+        "muscle": 0.12492508417576041,
+        "armMuscle": 0.12492508417576041,
+        "pain": 0,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "gripValid": true,
+        "prevAim": [
+          0.032885598922846385,
+          0.9993373818771546,
+          -0.01559918479920395
+        ],
+        "hand": [
+          -0.26741720023563414,
+          0.559363961136338
+        ],
+        "aim": [
+          -0.24821790356872153,
+          0.5649668248357846
+        ],
+        "called": true,
+        "rawAimRateRadps": 119.95037018632296,
+        "actualAimRateVector": [
+          7.811490503955709,
+          0.7256023353074703,
+          18.969777409136114
+        ],
+        "actualAimRateRadps": 20.527989126910718,
+        "wristCap": 2.5768649925211835,
+        "torque": [
+          0.9786577494135926,
+          0.15664241977041612,
+          2.37863939081198
+        ],
+        "swordOmega": {
+          "x": 0.13974325358867645,
+          "y": 0,
+          "z": -0.07013531029224396
+        }
+      }
+    },
+    "fixedResume": {
+      "tick": 567,
+      "before": {
+        "state": "getup",
+        "stateTime": 0.016666666666666666,
+        "armed": true,
+        "alive": true,
+        "muscle": 0.12492508417576041,
+        "armMuscle": 0.12492508417576041,
+        "pain": 0,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "gripValid": true,
+        "prevAim": null,
+        "hand": [
+          -0.26741720023563414,
+          0.559363961136338
+        ],
+        "aim": [
+          -0.24821790356872153,
+          0.5649668248357846
+        ]
+      },
+      "lastAimTick": 336,
+      "historyAgeSteps": 231,
+      "calls": [
+        {
+          "torque": {
+            "x": -1.2025108336956154,
+            "y": -0.007525670967591826,
+            "z": -2.155208197833336
+          },
+          "magnitude": 2.4679974304862746
+        }
+      ],
+      "after": {
+        "state": "getup",
+        "stateTime": 0.016666666666666666,
+        "armed": true,
+        "alive": true,
+        "muscle": 0.12492508417576041,
+        "armMuscle": 0.12492508417576041,
+        "pain": 0,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "gripValid": true,
+        "prevAim": [
+          0.032885598922846385,
+          0.9993373818771546,
+          -0.01559918479920395
+        ],
+        "hand": [
+          -0.26741720023563414,
+          0.559363961136338
+        ],
+        "aim": [
+          -0.24821790356872153,
+          0.5649668248357846
+        ],
+        "called": true,
+        "rawAimRateRadps": 0,
+        "actualAimRateVector": [
+          0,
+          0,
+          0
+        ],
+        "actualAimRateRadps": 0,
+        "wristCap": 2.4508591304194542,
+        "torque": [
+          -0.9340995588881932,
+          -0.004115648171980802,
+          -2.265866622880837
+        ],
+        "swordOmega": {
+          "x": 0.13974325358867645,
+          "y": 0,
+          "z": -0.07013531029224396
+        }
+      }
+    },
+    "nativeControlInputPrefixBeforeResumeExact": true,
+    "firstNativeDifference": 567,
+    "firstControlDifference": 568,
+    "allInputsExact": true,
+    "beforeFinal": {
+      "state": "getup",
+      "stateTime": 1.2833333333333312,
+      "armed": true,
+      "alive": true,
+      "muscle": 0.9781173576168194,
+      "armMuscle": 0.9781173576168194,
+      "pain": 0,
+      "limbs": {
+        "armS": 1,
+        "armO": 1,
+        "legF": 1,
+        "legB": 1
+      },
+      "gripValid": true,
+      "prevAim": [
+        0.0321932625270285,
+        0.9993373865434885,
+        -0.016981805095339163
+      ],
+      "hand": [
+        -0.26741720023563414,
+        0.559363961136338
+      ],
+      "aim": [
+        -0.24821804705029554,
+        0.5649668636855084
+      ]
+    },
+    "fixedFinal": {
+      "state": "getup",
+      "stateTime": 1.2833333333333312,
+      "armed": true,
+      "alive": true,
+      "muscle": 0.9781173576168194,
+      "armMuscle": 0.9781173576168194,
+      "pain": 0,
+      "limbs": {
+        "armS": 1,
+        "armO": 1,
+        "legF": 1,
+        "legB": 1
+      },
+      "gripValid": true,
+      "prevAim": [
+        0.032193586073658007,
+        0.9993373865434885,
+        -0.01698119171755144
+      ],
+      "hand": [
+        -0.26741720023563414,
+        0.559363961136338
+      ],
+      "aim": [
+        -0.24821804705029554,
+        0.5649668636855084
+      ]
+    },
+    "fixedFirstResumeAimRateIsZero": true,
+    "limits": "API-induced down state, normal muscle decay/getup. No body transform/velocity/direct state assignment. Not an observed collision or natural fall/standing acceptance.",
+    "controlHashCoverage": {
+      "firstObservedPreviousAimDifference": 337,
+      "controlHashCoverage": "Standard controls() projection includes health/state/pad/Skill/Gait/assist/joint targets; it does not include top-level prevAim. prevAim is separately recorded in every actual drive context and intentionally differs from first disabled step337. Thus control-hash prefix equality is not equality of every JS control field. Native Rapier and request input equality through566 are exact.",
+      "allRequestedInputsExact": true
+    }
+  },
+  "artifacts": [
+    {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/injury/run01/report.json",
+      "bytes": 41555,
+      "sha256": "7b26c28ed58f40a00c5760c663c51921610e5c8ef52ced3d43f40d4d44035e20"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/injury/run01/qinggang-healthy.json",
+      "bytes": 11523370,
+      "sha256": "50a64d09228e7643593b3d9e012008ade3359573c14944b2fa58ff452542a56c"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/injury/run01/qinggang-moderate.json",
+      "bytes": 11951583,
+      "sha256": "bb305899e9c526861bdc86c8626cc37075b3a05731f39d0d1a7be0b15b01e285"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/injury/run01/qinggang-large.json",
+      "bytes": 11983803,
+      "sha256": "ed4fc1307659e724372f1204d6ca473baaa6a68cc26293e032201d34cef76782"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/injury/run01/longsword-healthy.json",
+      "bytes": 11573445,
+      "sha256": "baa5e3094f38e7137dbf4ba8d6df5d0bd02ae2a4a680fb529e4a0d9208651f3f"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/injury/run01/longsword-moderate.json",
+      "bytes": 11968439,
+      "sha256": "576985bbdd3b7f900d7226638ed95f8286fcaca0f304508bbedd4913c0081b94"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/injury/run01/longsword-large.json",
+      "bytes": 11989201,
+      "sha256": "e3aac1b9d41162f77735ec6b3b81848b30af5a01778b080bf4ba334ee7348205"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/injury/stale-before01/report.json",
+      "bytes": 1050236,
+      "sha256": "75f3387d287b2a9659d03b64a1c70df3ab60ff16f9a87d342d2bb180b1ad91ae"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/injury/stale-fixed01/report.json",
+      "bytes": 1033152,
+      "sha256": "47f86c134b8cef2a188727a526bcecb7fc3f50ab6506c00706622ceb56faf1a0"
+    }
+  ],
+  "functionalDecision": "Input/release/reverse/recut, injury-scaled force and optional-assistance return are supported by controlled-wound rows plus prior natural injury evidence. Target-history bug is reproduced and corrected in the actual Fighter contract.",
+  "limits": [
+    "Current-v2 natural .80847 and legacy-Q .36657 late handover remain reused evidence, not fresh executions.",
+    "Controlled replay is not a new naturally collided large-injury sample; obtaining another such sample is not imposed as an extra gate for this functional contract.",
+    "Axial peaks up to roughly34rad/s remain; finite state, stand and valid grip do not certify human naturalness.",
+    "All wound rows use ordinary v2, legacy cutting/stance and an idle opponent without body relocation.",
+    "Runtime changes after these frozen sources require an explicit source bridge; this report does not automatically validate future physics patches."
+  ],
+  "summaryArtifact": {
+    "path": "/workspace/halfsword-handoff/phase2-close-20261006/injury/summary01.json",
+    "bytes": 63332,
+    "sha256": "20eb78b676fc8a6f16c3b33c1c64b65c67bc3ca76fb798e1970e6f915ea28c8a"
+  },
+  "reproductionTool": {
+    "path": "/workspace/halfsword-codex/tools/sim/experiments/injury_followup_20261006_report.py",
+    "bytes": 6986,
+    "sha256": "db7379165bc962708610d070034f5b18791f3085c74ee7a471c9aded9d4cfa27"
+  },
+  "frozenSourceManifests": [
+    {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/injury/frozen-source/SOURCE.json",
+      "bytes": 10081,
+      "sha256": "1460ce10ee8017f77648d3358b7fd6563251b87fb883e5700ba36631216552d8"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/injury/stale-before-source/SOURCE.json",
+      "bytes": 10456,
+      "sha256": "44819a31c14a894657549f18691683b8db748d50df8880359d49ddb005ad9288"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/injury/stale-fixed-source/SOURCE.json",
+      "bytes": 10481,
+      "sha256": "f2547dbb0a968b5e3e105a05019a0e42be80758b0cc0a4d830ff02e0fecd3ff8"
+    }
+  ],
+  "reusedEvidence": [
+    {
+      "document": {
+        "path": "/workspace/halfsword-codex/docs/strike/injury_v2_gate_20261005.json",
+        "bytes": 27396,
+        "sha256": "225fe3e7f1404a47f48f6f33006a6e5ab5f88864c585aa8840ef84b7910848f6"
+      },
+      "raw": {
+        "path": "/workspace/halfsword-handoff/phase2-round23-20261005/injury/input-run01/report.json",
+        "bytes": 2510244,
+        "sha256": "1ad2ec54e826c67c1b4a993acd2114baf74dd9c86301c744609dec240ac25c12"
+      },
+      "scope": "Current-v2 actual .80847 followed by180manualsteps"
+    },
+    {
+      "document": {
+        "path": "/workspace/halfsword-codex/docs/strike/injury_v2_late_20261005.json",
+        "bytes": 21999,
+        "sha256": "0d35b6411d8582d0f6add2026335980f4f6f27a385bef8f593776ba747cd9160"
+      },
+      "raw": {
+        "path": "/workspace/halfsword-handoff/phase2-round23-20261005/injury/late-run01/report.json",
+        "bytes": 16322474,
+        "sha256": "fad1df53639b51d04ee097f287d19d52b34bfc09baaef3824aec1e22cdd3698d"
+      },
+      "scope": "Actual legacy .36657 injury followed by late v2; not from-spawn v2"
+    }
+  ],
+  "historyFixBridgeToWoundRows": {
+    "woundRowsPredateHistoryPatch": true,
+    "patchTouchesOnlyLowMuscleOrUnarmedEarlyReturn": true,
+    "allWoundRowsCalledSwordTorqueEachStep": true,
+    "meaning": "No low-muscle or unarmed early return was exposed in six controlled-wound rows; the history patch is exercised separately by the controlled knockDown pair. This does not validate unrelated later source edits.",
+    "observedRows": [
+      {
+        "key": "qinggang-healthy",
+        "minArmMuscle": 1,
+        "everyDriveCalledSwordTorque": true,
+        "everyDriveArmed": true
+      },
+      {
+        "key": "qinggang-moderate",
+        "minArmMuscle": 0.6116868843085742,
+        "everyDriveCalledSwordTorque": true,
+        "everyDriveArmed": true
+      },
+      {
+        "key": "qinggang-large",
+        "minArmMuscle": 0.6000516028031269,
+        "everyDriveCalledSwordTorque": true,
+        "everyDriveArmed": true
+      },
+      {
+        "key": "longsword-healthy",
+        "minArmMuscle": 1,
+        "everyDriveCalledSwordTorque": true,
+        "everyDriveArmed": true
+      },
+      {
+        "key": "longsword-moderate",
+        "minArmMuscle": 0.6116868843085742,
+        "everyDriveCalledSwordTorque": true,
+        "everyDriveArmed": true
+      },
+      {
+        "key": "longsword-large",
+        "minArmMuscle": 0.6000516028031269,
+        "everyDriveCalledSwordTorque": true,
+        "everyDriveArmed": true
+      }
+    ]
+  },
+  "independentReadAudit": {
+    "injurySix": "Completed; input/availability/cap/source checks accepted. All final states returning, not all home-ready.",
+    "historyPair": "Requested; final audit artifact supplied separately by independent reviewer."
+  }
+}

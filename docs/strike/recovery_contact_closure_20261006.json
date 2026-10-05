@@ -1,0 +1,247 @@
+{
+  "schemaVersion": 1,
+  "head": "97815289d58644ce53013bb9d1e2f927958b0e19",
+  "measurementValid": true,
+  "sourceStable": true,
+  "executionCount": 2,
+  "steps": 4076,
+  "wallSeconds": 16.988981852000002,
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+    "/workspace/halfsword-handoff/phase2-close-20261006/recovery/frozen-alber01/tools/sim/experiments/recovery_contact_closure_20261006.mjs",
+    "--fixture=alber",
+    "--out=/workspace/halfsword-handoff/phase2-close-20261006/recovery/alber01"
+  ],
+  "sourceManifest": "/workspace/halfsword-handoff/phase2-close-20261006/recovery/frozen-alber01/SOURCE.json",
+  "plan": "/workspace/halfsword-handoff/phase2-close-20261006/recovery/alber-plan01.json",
+  "artifacts": [
+    {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/recovery/alber01/report.json",
+      "bytes": 34159,
+      "sha256": "b87c904bf25dd2e30dc8cec5fe4c50fe224d0dcb825842ee9229d9086e333991"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/recovery/alber01/baseline.json",
+      "bytes": 17250711,
+      "sha256": "4586b9fb72b51402026c5ee1710445dab602594ef76efd7e91249c6e328f02d1"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase2-close-20261006/recovery/alber01/combined.json",
+      "bytes": 17252574,
+      "sha256": "4b067fcb2f7ca4e2aa94a927081c2666921e7bbc0b9692998ebb39ad3e1002da"
+    }
+  ],
+  "rows": {
+    "baseline": {
+      "steps": 2038,
+      "checks": {
+        "finite": true,
+        "gravityFixed": true,
+        "globalLegacy": true,
+        "onlyPlayer": true,
+        "inputAccepted": true,
+        "productionFreshClear": true
+      },
+      "firstHitTick": 907,
+      "firstHeadImpactTick": 1551,
+      "getupTick": 1551,
+      "freshTick": 1792,
+      "tapeStart": 1793,
+      "effectiveFreshEntries": 1,
+      "firstFreshNfBefore": {
+        "F": 377.13442682463625,
+        "B": 298.4892296731219
+      },
+      "firstFreshNfAfter": {
+        "F": 0,
+        "B": 0
+      },
+      "firstFreshActualFootForcesN": [
+        36.713459914458944,
+        0
+      ],
+      "authoredRequestsAfterRecovery": 245,
+      "livePositiveManualCutPairs": 4,
+      "liveCandidatePairs": 0,
+      "livePairTicks": [
+        1920,
+        1921,
+        1922,
+        1923
+      ],
+      "postmortemPositivePairsExcluded": 1,
+      "firstLiveManualPair": {
+        "tick": 1920,
+        "relativeTick": 127,
+        "phase": "hold-left",
+        "inputActive": false,
+        "swinging": false,
+        "J": 1.8812166652539168,
+        "actualJ": 1.8812166652539168,
+        "victimAlive": true,
+        "aliveAtCombatStart": true,
+        "analysis": {
+          "deltaP": {
+            "x": 0.055150013268040254,
+            "y": 0.2800203601277076,
+            "z": 0.2451655327777722
+          },
+          "predictedDeltaP": {
+            "x": 0.055150148073682265,
+            "y": 0.2800199718392251,
+            "z": 0.245165907507086
+          },
+          "deltaPResidualNs": 5.562037085140501e-07,
+          "deltaL": {
+            "x": 0.4089707733112782,
+            "y": 0.13855388765559873,
+            "z": -0.25025078927058075
+          },
+          "predictedDeltaL": {
+            "x": 0.4089712086642969,
+            "y": 0.13855486937751982,
+            "z": -0.2502507545231023
+          },
+          "deltaLResidualNms": 1.0744847921388534e-06,
+          "deltaKJ": -16.10783235584852,
+          "predictedDeltaKJ": -16.10783207350068,
+          "deltaKResidualJ": -2.8234783755465287e-07,
+          "requestedBudgetDebitJ": 20.24038007837073,
+          "pointSeparationM": 0.029410899537736835
+        }
+      },
+      "firstLiveOwner": "player",
+      "liveCandidateCaps": 0,
+      "liveCandidatePositiveDeltaK": 0,
+      "liveCandidateMaxDeltaPResidualNs": null,
+      "liveCandidateMaxDeltaLResidualNms": null,
+      "candidateOpponentApplications": 0,
+      "allPlayerAliveArmedGripValid": true,
+      "maxPlayerJointGapM": 0.0020407333358983424,
+      "terminal": {
+        "tick": 2037,
+        "reason": "enemy_dead",
+        "afterTrigger": true
+      },
+      "exposureGate": true
+    },
+    "combined": {
+      "steps": 2038,
+      "checks": {
+        "finite": true,
+        "gravityFixed": true,
+        "globalLegacy": true,
+        "onlyPlayer": true,
+        "inputAccepted": true,
+        "productionFreshClear": true
+      },
+      "firstHitTick": 907,
+      "firstHeadImpactTick": 1551,
+      "getupTick": 1551,
+      "freshTick": 1792,
+      "tapeStart": 1793,
+      "effectiveFreshEntries": 1,
+      "firstFreshNfBefore": {
+        "F": 377.13442682463625,
+        "B": 298.4892296731219
+      },
+      "firstFreshNfAfter": {
+        "F": 0,
+        "B": 0
+      },
+      "firstFreshActualFootForcesN": [
+        36.713459914458944,
+        0
+      ],
+      "authoredRequestsAfterRecovery": 245,
+      "livePositiveManualCutPairs": 4,
+      "liveCandidatePairs": 4,
+      "livePairTicks": [
+        1920,
+        1921,
+        1922,
+        1923
+      ],
+      "postmortemPositivePairsExcluded": 1,
+      "firstLiveManualPair": {
+        "tick": 1920,
+        "relativeTick": 127,
+        "phase": "hold-left",
+        "inputActive": false,
+        "swinging": false,
+        "J": 1.8812166652539168,
+        "actualJ": 1.8812166652539168,
+        "victimAlive": true,
+        "aliveAtCombatStart": true,
+        "analysis": {
+          "deltaP": {
+            "x": -1.5500388172995372e-07,
+            "y": -9.896109531837283e-08,
+            "z": -2.584771188196555e-07
+          },
+          "predictedDeltaP": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deltaPResidualNs": 3.1722219766478487e-07,
+          "deltaL": {
+            "x": -3.174818790085965e-07,
+            "y": -9.365059732147074e-07,
+            "z": 3.0849071919192284e-07
+          },
+          "predictedDeltaL": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "deltaLResidualNms": 1.035859404163135e-06,
+          "deltaKJ": -16.478230563902503,
+          "predictedDeltaKJ": -16.47822956072912,
+          "deltaKResidualJ": -1.003173384361844e-06,
+          "requestedBudgetDebitJ": 20.24038007837073,
+          "pointSeparationM": 0
+        }
+      },
+      "firstLiveOwner": "player",
+      "liveCandidateCaps": 0,
+      "liveCandidatePositiveDeltaK": 0,
+      "liveCandidateMaxDeltaPResidualNs": 3.1722219766478487e-07,
+      "liveCandidateMaxDeltaLResidualNms": 1.035859404163135e-06,
+      "candidateOpponentApplications": 0,
+      "allPlayerAliveArmedGripValid": true,
+      "maxPlayerJointGapM": 0.0020407333358983424,
+      "terminal": {
+        "tick": 2037,
+        "reason": "enemy_dead",
+        "afterTrigger": true
+      },
+      "exposureGate": true
+    }
+  },
+  "comparisons": {
+    "creationNativeExact": true,
+    "creationControlExact": true,
+    "firstCandidateImpulseTick": 1920,
+    "firstCandidateBranchTick": 1920,
+    "firstNativeDifference": 1920,
+    "firstControlDifference": 1922,
+    "firstInputDifference": 1955,
+    "firstFrameDifference": 1920,
+    "prefixBeforeFirstBranchExact": true,
+    "allPlayerAuthoredRequestsExact": true,
+    "firstLivePairBodiesExact": true,
+    "firstLivePairRequestedJExact": true,
+    "firstLivePairBudgetDebitExact": true
+  },
+  "exposureGate": true,
+  "scope": "One authored low-guard fixture; normal default enemy AI, Z/LS, seed7, g9.81, player fresh/manual/v2-r2 from spawn. First manual cut contacts during held follow-through, not while pad is moving; input ownership remains player and AI2 is always null.",
+  "limitations": [
+    "One contact episode yields four substep impulse pairs; this is not four independent trials.",
+    "Both rows stop at enemy death tick2037; 245/324 authored steps ran. Full tape/release completion was not observed.",
+    "Candidate cap is inactive in these four live impulses; prior actual cap validation remains separate.",
+    "Enemy input branches at1955; later trajectory or damage changes do not isolate candidate efficacy.",
+    "No render-frame, hitstop, physical-phone or human naturalness equivalence claim; no general promotion.",
+    "No new P4 intervention is included in this source fixture."
+  ]
+}
