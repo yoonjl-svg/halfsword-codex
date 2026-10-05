@@ -45,6 +45,7 @@ import { configureBladeShapeTrial, applyBladeShapeTrial, mountBladeShapeTrial } 
 import { configureThrustPlaneTrial } from './thrust_plane.js';
 import { configureIntegratedCombatTrial, mountIntegratedCombatTrial } from './integrated_combat_trial.js';
 import { applyMotionAssist } from './motion_assist.js';
+import { applyMotionTiming, recordMotionTimingInput } from './motion_timing.js';
 
 await RAPIER.init();
 
@@ -484,6 +485,7 @@ function newRound(weaponId) {
   player.skill.autoGuard = true; // 베고 나면 기본 자세로 돌아간다 (AI는 스스로 자세를 고른다)
   applyTargetCorrectionTrial(targetCorrectionTrial, player); // 선택형 보정은 첫 스텝 전에 새 플레이어에만 적용한다.
   applyMotionAssist(integratedCombatTrial, player);
+  applyMotionTiming(integratedCombatTrial, player);
   player.canShove = true; // 근접 밀치기: 플레이어는 스틱으로 (CLOSE.on 이 통째로 끄고 켠다)
   combat = new Combat(colliderInfo, { onWound, onClash });
   combat.cutReactionModel = cutTrial.model;
@@ -1472,6 +1474,7 @@ function updateGuardName(dt) {
 const perf = params.get('fps') ? new PerfMeter(renderer, () => `배경 ${stages.id}  짓기 ${stages.buildMs.toFixed(0)}ms${stages.warmMs ? ` + GPU 준비 ${stages.warmMs.toFixed(0)}ms` : ''}`) : null;
 let last = performance.now();
 let acc = 0;
+let motionTimingInputId = 0;
 // 화면 갱신 상한 (CONFIG.RENDER.fpsCap, 사장님 9/30): 90/120 Hz 화면에서 그리기만 60 fps 로 거른다.
 //  물리 스텝·입력·소리·카메라 따라가기는 rAF 마다 예전 그대로. 거르는 건 renderer.render 와 그 직전의 겉모습 갱신뿐
 const renderCap = createRenderCap();
@@ -1497,6 +1500,10 @@ function frame(now) {
     // 검술 층의 "자세로 돌아가기"가 알아야 할 것: 손가락이 화면에 닿아 있는지, 지금 움직였는지
     player.handHeld = input.activeTouch !== null;
     player.inputActive = Math.abs(d.x) + Math.abs(d.y) > 1e-5;
+    recordMotionTimingInput(player, { id: ++motionTimingInputId, timeS: now / 1000,
+      dx: player.alive && !player.weapon?.gun ? d.x * inScale : 0,
+      dy: player.alive && !player.weapon?.gun ? d.y * inScale : 0,
+      held: player.handHeld, active: player.inputActive });
     // 칼 쪽 화면을 톡 치면(마우스는 끌지 않고 클릭) 찌른다 (skill.js thrust). 권총은 손가락이 닿는 순간 쏜다 (쏘는 타이밍이 실력이라 뗄 때까지 늦추지 않는다)
     input.tapOnDown = !!player.weapon?.gun;
     if (input.consumeTaps() > 0 && player.alive) player.skill.thrust();

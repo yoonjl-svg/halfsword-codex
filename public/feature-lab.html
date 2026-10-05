@@ -28,6 +28,16 @@
 <main>
   <h1>물리·무기 시험</h1>
   <p>아래 버튼을 눌러 직접 플레이해 보세요.</p>
+  <section id="motion-force-comparison" aria-labelledby="motion-force-title">
+    <h2 id="motion-force-title">청강검 · 힘 전달·연속 동작 비교</h2>
+    <p>휴대폰을 가로로 돌리고 B부터 플레이해 보세요. 좌우나 사선으로 베고, 손을 댄 채 잠깐 멈춘 뒤 반대로 베세요. 손을 떼고 다시 베는 동작도 비교해 주세요.</p>
+    <div class="demos">
+      <a id="playMotionForceBaseline" class="play secondary" href="./?combatTrial=integrated&amp;weapon=qinggang&amp;foeWeapon=longsword&amp;foe=heinrich&amp;targetCorrection=none&amp;onehandArm=manual&amp;bladeShape=profile&amp;thrustPlane=transported&amp;finishRule=armorCausal&amp;motionAssist=weak&amp;motionTiming=baseline">▶ A · 기존 몸 협조</a>
+      <a id="playMotionForceSequenced" class="play" href="./?combatTrial=integrated&amp;weapon=qinggang&amp;foeWeapon=longsword&amp;foe=heinrich&amp;targetCorrection=none&amp;onehandArm=manual&amp;bladeShape=profile&amp;thrustPlane=transported&amp;finishRule=armorCausal&amp;motionAssist=weak&amp;motionTiming=sequenced">▶ B · 몸 선행 협조</a>
+    </div>
+    <p class="note">같은 청강검·약한 깊이 도움에서 몸 협조를 비교하는 선택형입니다. B는 현재 손 요청을 몸통이 조금 먼저 받도록 돕습니다. 근력과 손 방향·높이는 유지합니다. 최대 힘이나 타격 효과는 아직 검증 중입니다. 상대는 판금 갑옷 하인리히이며, 양쪽 모두 같은 한손 팔·접촉 형상·찌르기 날 방향·갑옷 마무리 설정을 사용합니다. 메뉴에서 비교 화면과 일반 게임으로 돌아갈 수 있고 저장 선호는 유지됩니다.</p>
+    <p><strong>힘이 잘 실리고 다음 동작이 이어지는지, 보정에 끌려가는 느낌이 있는지 알려 주세요.</strong></p>
+  </section>
   <section id="integrated-combat-comparison" aria-labelledby="integrated-combat-title">
     <h2 id="integrated-combat-title">청강검 통합판 · 동작 보정</h2>
     <p>B부터 플레이해 보세요. 손을 크게 그어 베고 멈추거나, 천천히 자세를 옮겨 보세요. 팔과 몸통이 함께 움직이는지, 크게 베는 자유와 칼의 무게감이 남는지 비교해 주세요.</p>

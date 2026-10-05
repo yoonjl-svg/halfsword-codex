@@ -19,6 +19,7 @@ import { BODY, WEAPON, VITALS, BALANCE, SKILL_BODY, GRIP, STEEL, RECOIL, GAIT, A
 import { COMBAT_HOOKS } from './combat.js';
 import { Skill } from './skill.js';
 import { motionAssistWeight, assistHandDepth } from './motion_assist.js';
+import { updateMotionTiming } from './motion_timing.js';
 import { Gait, hybridJointDefs } from './gait.js';
 import { guardAt, guardBaseOne } from './guards.js';
 import { classifyStyle } from './weapon_class.js';
@@ -657,8 +658,9 @@ export class Fighter {
       // The ordinary raw chest term in applyPose supplies the remaining share.
       // A pose-table facing angle is not an independent second command here.
       const turn = -sk.aimRaw.x * 0.35;
+      const timing = updateMotionTiming(this, dt, turn * 0.5 * gw, turn * gw, gw);
       follow('pelvisYaw', turn * 0.5 * gw, SKILL_BODY.pelvis * spd);
-      follow('chestYaw', turn * gw, SKILL_BODY.chest * spd);
+      follow('chestYaw', timing ? timing.chest : turn * gw, SKILL_BODY.chest * spd);
       follow('pitch', 0, SKILL_BODY.chest * spd);
       follow('drop', 0, SKILL_BODY.pelvis * spd);
       this.pelvisYawOffset = bp.pelvisYaw;
@@ -1784,7 +1786,8 @@ export class Fighter {
     this.hunch = Math.max(0, -bend); // 일부러 앞으로 숙인 각도(라디안): 넘어짐 판정에서 뺀다
     // 가슴을 트는 각도(정면 기준): 검술 자세 지도 + (보정이 약할수록) 손이 있는 쪽으로.
     // 허리(척추)는 그중 골반이 이미 튼 만큼을 뺀 나머지만 튼다
-    const chestYaw = bp.chestYaw + (1 - gw) * -sk.aim.x * 0.35;
+    const chestYaw = bp.chestYaw + (1 - gw) * -sk.aim.x * 0.35 +
+      (this.motionTimingModel === 'sequenced' ? this.motionTimingState?.extraChestYaw ?? 0 : 0);
     const twist = THREE.MathUtils.clamp(chestYaw - (this.state === 'stand' ? bp.pelvisYaw : 0), -0.8, 0.8);
     const spine = (name, pitch, yaw) => J[name].target.setFromEuler(_eu.set(0, yaw, pitch, 'YXZ'));
     spine('abdomen', bend * 0.5, twist * 0.45);
