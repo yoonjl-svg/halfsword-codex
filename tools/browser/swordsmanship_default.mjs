@@ -1,5 +1,5 @@
 // Compiled default swordsmanship acceptance. Native input and read-only observers only.
-// Usage: node tools/browser/swordsmanship_default.mjs --base=<base/> --out=<fresh-dir> [--scope=full|compat|public|repair]
+// Usage: node tools/browser/swordsmanship_default.mjs --base=<base/> --out=<fresh-dir> [--scope=full|compat|public|repair|adoption]
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -15,12 +15,12 @@ assert.equal(SWORDSMANSHIP.version, 'unified-20261005-r2');
 const options = {};
 for (const argument of process.argv.slice(2)) {
   const match = /^--(base|out|scope)=(.+)$/.exec(argument);
-  assert.ok(match, 'Only --base=<URL>, --out=<fresh-directory>, and --scope=full|compat|public|repair are supported');
+  assert.ok(match, 'Only --base=<URL>, --out=<fresh-directory>, and --scope=full|compat|public|repair|adoption are supported');
   assert.ok(!Object.hasOwn(options, match[1]), 'Duplicate CLI option');
   options[match[1]] = match[2];
 }
 const scope = options.scope || 'full';
-assert.ok(['full', 'compat', 'public', 'repair'].includes(scope), 'Unknown execution scope');
+assert.ok(['full', 'compat', 'public', 'repair', 'adoption'].includes(scope), 'Unknown execution scope');
 const base = new URL(options.base || 'https://yoonjl-svg.github.io/halfsword-codex/');
 const local = ['127.0.0.1', 'localhost', '[::1]'].includes(base.hostname);
 assert.ok(!base.username && !base.password && !base.search && !base.hash, 'Use a base URL without credentials, query, or fragment');
@@ -74,10 +74,11 @@ const portrait = { width: 390, height: 844 }, landscape = { width: 844, height: 
 const seed = { skill: '0', difficulty: 'hard', moveMode: 'stick', sound: false, trail: false,
   guardNames: true, pixel: false, fpsCap: false, blood: true, invertTilt: false };
 const seedBytes = JSON.stringify(seed);
-const fullWeapons = ['qinggang', 'longsword'];
+const fullWeapons = scope === 'adoption' ? ['qinggang', 'longsword', 'zweihander'] : ['qinggang', 'longsword'];
 const smokeWeapons = ['sabre', 'rapier', 'rubber_chicken', 'frozen_tuna', 'pistol'];
 const supported = new Set(SWORDSMANSHIP_WEAPONS.filter(w => w.id !== 'pistol').map(w => w.id));
 const selection = {
+  adoption: { cards: true, weapons: fullWeapons, withheld: [], modes: [], rows: 10, starts: 8 },
   full: { cards: true, weapons: [...fullWeapons, ...smokeWeapons], withheld: ['monohoshizao', 'lightsaber'],
     modes: ['trial', 'old-comparison', 'legacy'], rows: 13, starts: 14 },
   compat: { cards: false, weapons: [], withheld: ['monohoshizao', 'lightsaber'],
@@ -139,6 +140,7 @@ async function observe() {
       [body.translation(), body.rotation(), body.linvel(), body.angvel()].every(v => Object.values(v).every(Number.isFinite)));
     const fighter = f => ({ weapon: f.weapon.id, gun: !!f.weapon.gun, alive: f.alive, armed: f.armed, state: f.state,
       wounds: f.wounds.length, armHealth: f.armHealth, legF: f.limbs.legF, legB: f.limbs.legB, pain: f.pain,
+      stance: f.stanceMemoryModel ?? 'legacy', roll: f.rollTargetModel ?? 'legacy',
       skill: f.skill.level, autoGuard: f.skill.autoGuard, arm: f.onehandArmModel, thrustPlane: f.thrustEdgeModel ?? 'legacy',
       swordsmanship: { modelPresent: 'swordsmanshipModel' in f, model: f.swordsmanshipModel ?? null,
         statePresent: 'swordsmanshipState' in f, state: f.swordsmanshipState ? JSON.parse(JSON.stringify({ ...f.swordsmanshipState, profile: undefined })) : null,
@@ -154,6 +156,7 @@ async function observe() {
       defaultApplied: game.defaultSwordsmanshipApplied, integrated: { ...game.integratedCombatTrial },
       player: fighter(game.player), enemy: fighter(game.enemy), settings: { ...game.settings },
       savedBytes: localStorage.getItem('gladiator-settings'), difficulty: game.ai.levelName,
+      cut: game.combat.cutReactionModel, cutTarget: game.combat.cutReactionFighter === game.player ? 'player' : null,
       finishRule: game.combat.finishRuleModel,
       finishTarget: game.combat.finishRuleFighter === game.player ? 'player' : 'other',
       bladeShape: { ...game.bladeShapeTrial }, thrustPlaneTrial: game.thrustPlaneTrial,
@@ -221,6 +224,13 @@ function contract(v, weapon, mode = 'default') {
   assert.equal(v.enemy.swordsmanship.modelPresent, false); assert.equal(v.enemy.swordsmanship.statePresent, false);
   assert.equal(v.enemy.arm, 'legacy');
   if (weapon) assert.equal(v.player.weapon, weapon);
+  const adopted = mode === 'default';
+  assert.equal(v.player.stance, adopted && v.player.weapon === 'zweihander' ? 'fresh' : 'legacy');
+  assert.equal(v.player.roll, adopted && ['longsword','qinggang'].includes(v.player.weapon) ? 'bounded' : 'legacy');
+  const cutB = adopted && ['longsword','zweihander'].includes(v.player.weapon);
+  assert.equal(v.cut, cutB ? 'centerline' : 'legacy');
+  assert.equal(v.cutTarget, cutB ? 'player' : null);
+  assert.equal(v.enemy.stance, 'legacy'); assert.equal(v.enemy.roll, 'legacy');
   if (mode === 'default') {
     assert.equal(v.default.active, true); assert.equal(v.default.model, 'unified'); assert.equal(v.default.playerOnly, true);
     assert.deepEqual(v.default.settings, { skill: '0.7' }); assert.equal(v.trial.active, false);
@@ -528,6 +538,27 @@ try {
     assert.deepEqual(calls, [0, 0, 0]); await screenshot(row.id + '-portrait', row);
     await page.waitForLoadState('networkidle'); row.pass = true;
   }
+  if (scope === 'adoption') {
+    const comparisons = [
+      ['recutV2=baseline&weapon=longsword', 'legacy','legacy','legacy'],
+      ['recutV2=bounded&weapon=qinggang', 'legacy','bounded','legacy'],
+      ['recoveryContactV2=baseline', 'fresh','legacy','legacy'],
+      ['recoveryContactV2=combined', 'fresh','legacy','centerline'],
+      ['contactV2=legacy&weapon=longsword', 'legacy','legacy','legacy'],
+      ['stanceV2=legacy&weapon=zweihander', 'legacy','legacy','legacy'],
+    ];
+    for (const [query, stance, roll, cut] of comparisons) {
+      current = 'comparison-menu-' + query;
+      const url = new URL(base); url.search = query; await openFixture(url);
+      const menu = await snap();
+      assert.equal(menu.default.active, false);
+      assert.equal(menu.player.stance, stance); assert.equal(menu.player.roll, roll);
+      assert.equal(menu.cut, cut); assert.equal(menu.cutTarget, cut === 'centerline' ? 'player' : null);
+      assert.equal(menu.enemy.stance, 'legacy'); assert.equal(menu.enemy.roll, 'legacy');
+      assert.equal(menu.savedBytes, seedBytes); fit(await layout());
+      rows.push({id: current, url: url.href, menuOnly: true, menu, pass: true});
+    }
+  }
   for (const mode of selection.modes) {
     current = 'compat-' + mode;
     const row = { id: current, mode, weapon: 'qinggang', artifacts: [] }; rows.push(row);
@@ -586,11 +617,11 @@ try {
     routeFetchRetryPolicy: { maxRetries: 2, retriesOnlyECONNRESET: true, errorsFiltered: false,
       attemptCountExposed: false, limitation: 'Successful bounded GET retries do not prove zero underlying TCP resets.' },
     weaponSelectionMethod: 'Real ordinary card choice, fixed ordinary weapon URL fixture, and legacy trial native select configuration with trusted form submission.',
-    returnObservations, returnReviewRequired: ['full', 'public'].includes(scope) ? (returnObservations.length !== 2 || returnObservations.some(row =>
+    returnObservations, returnReviewRequired: ['full', 'public', 'adoption'].includes(scope) ? (returnObservations.length !== fullWeapons.length || returnObservations.some(row =>
       !row.returnObserved || !row.activeReturnInterrupted || !row.completedBeforeRetouch || !row.heldInputProtected || !row.movementObserved)) : null,
     compiled, rows, nativeUI, errors, httpFailures, requestFailures, blockedRequests, redirectRefusals, fatal,
-    scope: scope === 'repair' ? 'Only the prior audio-error-affected rubber-chicken ordinary input and old unified Qinggang trial input flows, with up to two ECONNRESET-only GET retries, no error filtering, unchanged game/observer/input contracts. This does not repeat the full thirteen-flow suite.' :
-      scope === 'public' ? 'Public default delivery acceptance only: query-free default CTA/card selection/restart, Qinggang and Longsword default play/reverse/tap/restart/return/retouch/90-frame hold, saved preference bytes, player-only r2, hidden old strength UI, legacy default collision/thrust/finish, compiled asset match, TLS/proxy and final network errors. Five weapon smokes, two withheld menus and three prior comparison paths were checked locally and are not repeated here. No full-thirteen public pass or human realism/force-efficiency assertion.' :
+    scope: scope === 'adoption' ? 'Approved ordinary defaults: real query-free card choice/restart and Q/LS/Z trusted input/reverse/tap/restart/return/retouch; player-only Z fresh, LS/Z centerline, LS/Q bounded checked before first native steps and after new-object restart. Six prior A/B menus check isolation, not new comparison play. Stored preferences/ordinary v2/legacy Q shape-thrust-finish retained. Compiled bytes, strict TLS and mobile viewport errors checked. No new power, residual-spin research or physical-iPhone claim.' : scope === 'repair' ? 'Only the prior audio-error-affected rubber-chicken ordinary input and old unified Qinggang trial input flows, with up to two ECONNRESET-only GET retries, no error filtering, unchanged game/observer/input contracts. This does not repeat the full thirteen-flow suite.' :
+      scope === 'public' ? 'Public default delivery acceptance only: query-free default CTA/card selection/restart, Qinggang and Longsword default play/reverse/tap/restart/return/retouch/90-frame hold, saved preference bytes, player-only r2, hidden old strength UI, legacy default collision/thrust/finish, compiled asset match, TLS/proxy and final network errors. This release locally checked query-free cards, Q/LS/Z full input flows and six previous comparison menus (ten rows); public repeats cards and Q/LS only (three rows). Earlier weapon smoke results are reused, not rerun. Current ordinary fresh/centerline/bounded policies are checked. No full-roster public pass or human realism/force-efficiency assertion.' :
       scope === 'compat' ? 'Only two withheld-weapon ordinary menus and three existing comparison/fallback entry play flows. No new default fighting/return acceptance in this scoped follow-up.' :
       'Compiled default acceptance: query-free public default CTA with real random card choices and restart; default Qinggang/Longsword drag/hold/reverse/tap, fresh-state restart and released return/retouch; sabre, rapier, rubber chicken, frozen tuna and pistol input smokes; two withheld weapons remain legacy in ordinary menu; existing unified trial, twelve-key v2 comparison and explicit legacy fallback still select their documented paths. Old stored skill=0 remains byte-identical while the default policy uses fixed preparation. Qinggang ordinary collision/thrust/finish stay legacy; optional trial preserves its previous profile/transported/armorCausal bundle. Player-only r2 policy before first controller/physics/combat, no old level UI in ordinary mode, pause clocks, portrait/landscape, asset bytes and errors. Observers call original functions without changing game/AI/physics state. Native select and fixed weapon URLs configure fixtures; input/start/card/form actions use trusted touch. No human anatomy, optimal strength, injury recovery, blade-power benefit, phone performance or physical iPhone assertion.' };
   await fs.writeFile(path.join(out, 'summary.json'), JSON.stringify(summary, null, 2) + '\n', { flag: 'wx' });

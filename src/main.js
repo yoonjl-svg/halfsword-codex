@@ -55,6 +55,7 @@ import { configureRecoveryContactV2Trial, mountRecoveryContactV2Trial } from './
 import { configureRecutV2Trial, mountRecutV2Trial } from './roll_target_trial.js';
 import { applySwordsmanship, recordSwordsmanshipInput } from './swordsmanship.js';
 import { configureSwordsmanshipDefault, swordsmanshipDefaultSupportsWeapon } from './swordsmanship_default.js';
+import { configureCombatDefaults } from './combat_defaults.js';
 
 await RAPIER.init();
 
@@ -475,6 +476,11 @@ function newRound(weaponId) {
   if (recutV2Trial.active) player.rollTargetModel = recutV2Trial.rollModel;
   const defaultSwordsmanshipForPlayer = swordsmanshipDefault.active && swordsmanshipDefaultSupportsWeapon(player.weapon);
   if (defaultSwordsmanshipForPlayer) player.onehandArmModel = 'manual';
+  const adoptedCombat = configureCombatDefaults(swordsmanshipDefault, player.weapon);
+  if (swordsmanshipDefault.active) {
+    player.stanceMemoryModel = adoptedCombat.stance;
+    player.rollTargetModel = adoptedCombat.roll;
+  }
   if (params.has('gripPoint')) player.gripPointModel = gripPointModel;
   // Narrow player-only comparison for the selected sabre trial.
   player.thrustEdgeModel = onehandArmModel === 'manual' && player.weapon.id === 'sabre' ? thrustEdgeModel : 'legacy';
@@ -522,9 +528,9 @@ function newRound(weaponId) {
   if (swordsmanshipTrial.active || defaultSwordsmanshipForPlayer || activeV2Trial) applySwordsmanship(player);
   player.canShove = true; // 근접 밀치기: 플레이어는 스틱으로 (CLOSE.on 이 통째로 끄고 켠다)
   combat = new Combat(colliderInfo, { onWound, onClash });
-  const selectedCutModel = recoveryContactV2Trial.active ? recoveryContactV2Trial.cutModel : contactTrial.active ? contactTrial.model : cutTrial.model;
+  const selectedCutModel = recoveryContactV2Trial.active ? recoveryContactV2Trial.cutModel : contactTrial.active ? contactTrial.model : swordsmanshipDefault.active ? adoptedCombat.cut : cutTrial.model;
   combat.cutReactionModel = selectedCutModel;
-  combat.cutReactionFighter = (contactTrial.active || recoveryContactV2Trial.active) && selectedCutModel === 'centerline' ? player : null;
+  combat.cutReactionFighter = (contactTrial.active || recoveryContactV2Trial.active || swordsmanshipDefault.active) && selectedCutModel === 'centerline' ? player : null;
   combat.finishRuleModel = swordsmanshipTrial.active && player.weapon.id === 'qinggang'
     ? 'armorCausal' : integratedCombatTrial.finishRule;
   combat.finishRuleFighter = player;
