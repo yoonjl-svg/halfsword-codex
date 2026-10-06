@@ -30,7 +30,7 @@
 <body>
 <main>
   <h1>물리·무기 시험</h1>
-  <p>승인된 회복·타격·재베기 개선을 일반 게임에 적용했습니다. 아래 A/B는 이전 비교 조건을 보존합니다.</p>
+  <p>일반 게임은 무기 이름 대신 기능에 맞춰 개선을 적용합니다. 회복은 모든 무기, 재베기는 근접 무기, 타격 반작용은 날이 있는 무기에 공통 적용됩니다. 아래 A/B는 이전 비교 조건을 보존합니다.</p>
   <p><a class="play" href="./">▶ 최신 일반 게임</a></p>
   <section id="recut-v2-comparison" aria-labelledby="recut-v2-title">
     <h2 id="recut-v2-title">재베기 방향 전환 · A/B 비교</h2>
@@ -45,7 +45,7 @@
       <a id="playRecutV2QingA" class="play secondary" href="./?recutV2=baseline&amp;weapon=qinggang">▶ A · 기존</a>
       <a id="playRecutV2QingB" class="play" href="./?recutV2=bounded&amp;weapon=qinggang">▶ B · 방향 전환</a>
     </div>
-    <p class="note">검술 보정 v2·중력9.81·보통 난도의 롱소드 상대는 같습니다. 시작부터 비교 설정을 적용하며 재시작해도 같습니다. 검증한 무기의 B는 일반판에 채택했습니다. 이 비교 설정은 저장되지 않습니다.</p>
+    <p class="note">검술 보정 v2·중력9.81·보통 난도의 롱소드 상대는 같습니다. 시작부터 비교 설정을 적용하며 재시작해도 같습니다. 일반판은 해당 기능을 쓰는 무기에 B를 공통 적용합니다. 이 비교 설정은 저장되지 않습니다.</p>
   </section>
   <section id="recovery-contact-v2-comparison" aria-labelledby="recovery-contact-v2-title">
     <h2 id="recovery-contact-v2-title">회복 뒤 다시 베기 · 통합 비교</h2>
@@ -55,7 +55,7 @@
       <a id="playRecoveryContactV2Baseline" class="play secondary" href="./?recoveryContactV2=baseline">▶ 기준<br>기존 회복 B</a>
       <a id="playRecoveryContactV2Combined" class="play" href="./?recoveryContactV2=combined">▶ 통합<br>회복+타격 B</a>
     </div>
-    <p class="note">츠바이핸더·중력9.81·보통 난도 롱소드 상대입니다. 시작부터 비교 설정을 적용하며 재시작해도 같습니다. 검증한 무기의 B는 일반판에 채택했습니다. 이 비교 설정은 저장되지 않습니다. 폰을 가로로 돌려 싸움 시작을 누르세요.</p>
+    <p class="note">츠바이핸더·중력9.81·보통 난도 롱소드 상대입니다. 시작부터 비교 설정을 적용하며 재시작해도 같습니다. 일반판은 해당 기능을 쓰는 무기에 B를 공통 적용합니다. 이 비교 설정은 저장되지 않습니다. 폰을 가로로 돌려 싸움 시작을 누르세요.</p>
   </section>
   <section id="gravity-v2-comparison" aria-labelledby="gravity-v2-title">
     <h2 id="gravity-v2-title">중력만 비교 · 기존 B 유지</h2>
@@ -74,7 +74,7 @@
       <a id="playStanceV2Legacy" class="play secondary" href="./?stanceV2=legacy&amp;weapon=zweihander">▶ A · 기존</a>
       <a id="playStanceV2Fresh" class="play" href="./?stanceV2=fresh&amp;weapon=zweihander">▶ B · 다시 발 딛기</a>
     </div>
-    <p class="note">두 판은 같은 검술 보정 v2와 보통 난도의 롱소드 상대를 사용합니다. B는 일어날 때 이전 자세에서 남은 발의 붙잡는 힘을 정리합니다. 부상을 회복시키거나 힘을 더하지 않습니다. 넘어지지 않았다면 이 차이가 나타나지 않을 수 있습니다. 검증한 무기의 B는 일반판에 채택했습니다. 이 비교 설정은 저장되지 않습니다. 폰을 가로로 돌려 싸움 시작을 누르세요.</p>
+    <p class="note">두 판은 같은 검술 보정 v2와 보통 난도의 롱소드 상대를 사용합니다. B는 일어날 때 이전 자세에서 남은 발의 붙잡는 힘을 정리합니다. 부상을 회복시키거나 힘을 더하지 않습니다. 넘어지지 않았다면 이 차이가 나타나지 않을 수 있습니다. 일반판은 해당 기능을 쓰는 무기에 B를 공통 적용합니다. 이 비교 설정은 저장되지 않습니다. 폰을 가로로 돌려 싸움 시작을 누르세요.</p>
   </section>
   <section id="contact-v2-comparison" aria-labelledby="contact-v2-title">
     <h2 id="contact-v2-title">검술 보정 v2 · 타격 반작용 비교</h2>
@@ -89,7 +89,7 @@
       <a id="playContactV2ZweiA" class="play secondary" href="./?contactV2=legacy&amp;weapon=zweihander">▶ A · 기존</a>
       <a id="playContactV2ZweiB" class="play" href="./?contactV2=centerline&amp;weapon=zweihander">▶ B · 반작용 시험</a>
     </div>
-    <p class="note">B는 플레이어가 베어 닿았을 때 상대가 받는 반작용을 다듬은 새 시험입니다. 첫 타격의 속도와 피해는 검사한 장면에서 같았습니다. 힘을 더해 주는 보정은 아니며, 큰 체감 차이는 아직 확인하지 않았습니다. 두 판 모두 같은 기본 상대·보통 난도를 사용합니다. 롱소드·츠바이핸더의 B는 일반판에 채택했습니다. 이 비교 설정은 저장되지 않습니다. 폰을 가로로 돌려 싸움 시작을 누르세요.</p>
+    <p class="note">B는 플레이어가 베어 닿았을 때 상대가 받는 반작용을 다듬은 새 시험입니다. 첫 타격의 속도와 피해는 검사한 장면에서 같았습니다. 힘을 더해 주는 보정은 아니며, 큰 체감 차이는 아직 확인하지 않았습니다. 두 판 모두 같은 기본 상대·보통 난도를 사용합니다. 일반판의 날이 있는 무기에는 B를 공통 적용합니다. 이 비교 설정은 저장되지 않습니다. 폰을 가로로 돌려 싸움 시작을 누르세요.</p>
   </section>
   <section id="swordsmanship-trial" aria-labelledby="swordsmanship-title">
     <h2 id="swordsmanship-title">검술 보정 · 기본 적용</h2>
@@ -255,7 +255,7 @@
     <h2 id="cut-title">절삭 반작용 시험 · 철회</h2>
     <p>자세와 동작이 무너지는 플레이 피드백과 후퇴 검사에 따라 B를 철회했습니다.</p>
     <p><a id="playCutLegacy" class="play secondary" href="./?supportProbe=1&amp;assist=0.3&amp;catch=on&amp;catchScale=1&amp;weapon=zweihander&amp;foeWeapon=longsword&amp;foe=default&amp;cutTrial=legacy">▶ A · 현재 방식 플레이</a></p>
-    <p class="note">일반 게임과 이전 B 주소 모두 기존 절삭을 사용합니다. 실패한 후보의 재시험을 안내하지 않습니다.</p>
+    <p class="note">이 절삭 반작용 후보는 철회됐습니다. 이전 B 주소는 기존 비교 조건으로 돌아갑니다. 현재 일반판에 채택한 타격 반작용은 별도로 검증한 개선입니다.</p>
   </section>
   <section id="target-correction-comparison" aria-labelledby="target-correction-title">
     <h2 id="target-correction-title">검술 보정 끔·약 비교</h2>
@@ -288,14 +288,14 @@
       <a id="playStanceLegacy" class="play secondary" href="./?supportProbe=1&amp;assist=0.1&amp;catch=on&amp;catchScale=1&amp;weapon=longsword&amp;foeWeapon=longsword&amp;foe=default&amp;stanceTrial=legacy">▶ A · 현재 방식</a>
       <a id="playStanceFresh" class="play" href="./?supportProbe=1&amp;assist=0.1&amp;catch=on&amp;catchScale=1&amp;weapon=longsword&amp;foeWeapon=longsword&amp;foe=default&amp;stanceTrial=fresh">▶ B · 새 발 디딤 시험</a>
     </div>
-    <p class="note">B는 다시 설 때 이전 발 마찰 하중 기록을 비우는 선택형 시험입니다. 양쪽 검객에 적용되며 일반 게임은 A를 사용합니다. 실제 피격 뒤 회복 검사에는 발 미끄럼과 관절 간격이 늘어난 사례도 있어 기립·부상 동작 전체의 해결로 판정하지 않았습니다. 가로로 돌린 뒤 <strong>싸움 시작</strong>을 누르세요.</p>
+    <p class="note">B는 다시 설 때 이전 발 마찰 하중 기록을 비우는 옛 비교입니다. 이 비교는 양쪽 검객에 적용되며, 현재 일반판은 플레이어에게 회복 개선을 공통 적용합니다. 실제 피격 뒤 회복 검사에는 발 미끄럼과 관절 간격이 늘어난 사례도 있어 기립·부상 동작 전체의 해결로 판정하지 않았습니다. 가로로 돌린 뒤 <strong>싸움 시작</strong>을 누르세요.</p>
   </section>
   <h2>무기와 절단 시험</h2>
   <a id="playMorgenstern" class="play" href="./?supportProbe=1&amp;assist=0.1&amp;catch=on&amp;catchScale=1&amp;weapon=morgenstern&amp;foeWeapon=longsword&amp;foe=default">▶ 모르겐슈테른 플레이</a>
   <p class="note">가시 달린 철퇴입니다. 사슬 없이 손잡이와 머리가 단단히 이어져 있습니다.</p>
   <p>휴대폰을 <strong>가로</strong>로 돌린 뒤, 게임 화면에서 <strong>싸움 시작</strong>을 누르세요.</p>
   <a id="playLimb" class="play secondary" href="./?supportProbe=1&amp;assist=0.1&amp;catch=on&amp;catchScale=1&amp;weapon=longsword&amp;foeWeapon=longsword&amp;foe=default&amp;limbTrial=1">▶ 사지 절단 전투 시험</a>
-  <p class="note">롱소드로 싸우며 팔꿈치·무릎 부위의 절단을 시험합니다. 일반 게임에서는 사지 절단이 꺼져 있습니다.</p>
+  <p class="note">롱소드로 싸우며 팔꿈치·무릎 부위의 절단을 시험하는 이전 시험판입니다. 일반 게임은 참수만 켜져 있고 팔다리 절단은 꺼져 있습니다. 최신 검술 보정과 절단 후 관절 제어의 통합 검증이 남아 있습니다.</p>
   <h2>절단 후 모습 보기</h2>
   <p class="note">상대에게 미리 부상을 주는 시연입니다. 싸움 시작 후 약 1초 뒤 적용되며, 실제 베기의 힘이나 절단 조건을 검증하는 시험은 아닙니다.</p>
   <div class="demos">

@@ -1,5 +1,7 @@
 # 실험 색인과 재현 입구
 
+최신: [무기명 제한 제거·기능별 공통 적용](common_defaults_20261007.md), [전달 영수증](common_defaults_release.json), [사지 절단 일반판 상태 조사](limb_general_status_20261007.md). 기존 물리식을 유지하고 확대 연결의 회귀만 검사한다.
+
 최신 일반 채택: [승인·무기 범위·후속 유보](general_adoption_20261007.md), [전달 영수증](general_adoption_release.json). 새 절삭 위력/잔여 회전 연구 실행은0회다.
 
 - 2026-10-06 · 세 우선 과제: [재베기 목표 속도 제한](recut_closure_20261006.md) 선택형 / [부상 후 제어·재활성 이력 오류](injury_followup_20261006.md) 기능 검사·수정 / [두 무기 시작 급회전](spin_closure_20261006.md) 힘점 기본 교정·새 그립 공식 미공개 / [실제 회복 후 수동 생존 타격](recovery_contact_closure_20261006.md) 통합 장면 확보. [공개·모바일 전달](phase2_closure_release.json). 각각의 JSON이 동결 소스·실행 명령·원자료 SHA·한계의 기준이다.

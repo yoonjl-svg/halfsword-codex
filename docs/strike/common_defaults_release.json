@@ -1,0 +1,66 @@
+{
+  "state": "capability and native functional checks complete; public/browser delivery pending",
+  "updatedUTC": "2026-10-06T17:15:02.705949+00:00",
+  "sourceBase": "c6f3ffc7526e3efc4178eaf2fbea933f244a2026",
+  "gameCommit": null,
+  "scope": {
+    "playerOnly": true,
+    "stance": "all ordinary non-trial weapons including gun (15)",
+    "roll": "nongun melee (14)",
+    "cut": "edged nongun melee (11)",
+    "swordsmanshipV2": 12,
+    "gravity": 9.81,
+    "researchEntriesRetained": true
+  },
+  "policyTests": {
+    "pass": true,
+    "checks": 231,
+    "identifierIndependence": true,
+    "path": "/workspace/halfsword-handoff/common-defaults-20261007/delivery/policy.json",
+    "bytes": 231,
+    "sha256": "234ec2dd59917057a840eacf90da49c10136dd705680e39681302b82a1db3b55"
+  },
+  "native": {
+    "path": "/workspace/halfsword-handoff/common-defaults-20261007/receipt.json",
+    "bytes": 3686,
+    "sha256": "4f39f632d54114d06d34495c283b95e1374b037fa845759c75a81cf347a886ae",
+    "functionalContractsPass": true,
+    "runs": 16,
+    "steps": 7950,
+    "computeSeconds": 16.544352419,
+    "actualCenterlineEvents": 0,
+    "limits": [
+      "Short functional gross-failure screen only; all-player stand is not natural recovery evidence.",
+      "Controlled direct Gait.enter sentinel changes Nf only after motion and includes normal enter side effects; no native-unchanged claim.",
+      "Maximum sword angular speed in extra sabre contact pair is40.7559 vs91.9204rad/s. Recorded only: no spin tuning or deferred residual-spin study was performed; cannot claim all weapon motion improved.",
+      "Initial14-row producer attached a boundedRollRead callback that production never calls; its all-zero roll fields are invalid as activation metrics. Source snapshot and raw artifact preserved. Final producer omits callback. Native state/input checks do not depend on it.",
+      "No browser input, active cut-power, broad attack-damage preservation, all-weapon centerline contact, or human-realism claim.",
+      "Ground minimum is foot body center, not collider surface, contact load or penetration proof."
+    ],
+    "sabreContactOmegaRadps": [
+      40.75588256188873,
+      91.92038434030155
+    ],
+    "spinFollowup": "Peak tick/phase and AI divergence were not recorded. Native phase endpoints match through tick554 and differ by584, before recorded wound callbacks. No causal spin diagnosis or naturalness acceptance."
+  },
+  "browser": null,
+  "pages": null,
+  "deferred": [
+    "Post-intervention active-cut power",
+    "Residual combat axial rotation"
+  ],
+  "limbSevering": "status investigation only; ordinary off, decapitation on",
+  "ordinaryURL": "https://yoonjl-svg.github.io/halfsword-codex/",
+  "entryTests": {
+    "path": "/workspace/halfsword-handoff/common-defaults-20261007/delivery/entry-tests.txt",
+    "bytes": 1293,
+    "sha256": "b20404df4461bd0cbda08aff1297351a304d848b962ef09cd452004bbe5ce659",
+    "pass": true,
+    "tests": 3
+  },
+  "buildAsset": {
+    "path": "dist/assets/main-Bpi050SU.js",
+    "bytes": 3541761,
+    "sha256": "d5bbe78899874c856849ee65f43228b8e5263c50f01724b1a709e9d2c94bc60c"
+  }
+}
