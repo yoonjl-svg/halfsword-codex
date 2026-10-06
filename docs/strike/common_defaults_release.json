@@ -1,8 +1,8 @@
 {
-  "state": "capability and native functional checks complete; public/browser delivery pending",
-  "updatedUTC": "2026-10-06T17:15:02.705949+00:00",
+  "state": "completed: capability defaults publicly verified; limb severing status documented, ordinary remains off",
+  "updatedUTC": "2026-10-06T17:26:17.061821+00:00",
   "sourceBase": "c6f3ffc7526e3efc4178eaf2fbea933f244a2026",
-  "gameCommit": null,
+  "gameCommit": "2aab7e523a6b760b1019d02fee67955e0ff1682b",
   "scope": {
     "playerOnly": true,
     "stance": "all ordinary non-trial weapons including gun (15)",
@@ -43,8 +43,57 @@
     ],
     "spinFollowup": "Peak tick/phase and AI divergence were not recorded. Native phase endpoints match through tick554 and differ by584, before recorded wound callbacks. No causal spin diagnosis or naturalness acceptance."
   },
-  "browser": null,
-  "pages": null,
+  "browser": {
+    "state": "accepted: initial unaffected 12 flows plus repaired ordinary-card flow; first overall FAIL retained",
+    "initial": {
+      "path": "/workspace/halfsword-handoff/swordsmanship-power-20261005/common-defaults-public-receipt01.json",
+      "bytes": 16776,
+      "sha256": "3dc25aa911e66f02545c9eeb66449a16ddf2b612d2b56fc0a5e7386e664d2df9",
+      "overallPass": false,
+      "rows": 13,
+      "rowFunctionalAssertionsPass": 13,
+      "starts": 7,
+      "returnReviewRequired": false,
+      "sourceStable": true,
+      "httpFailures": 1,
+      "consoleErrors": 1,
+      "cause": "ordinary-card-game sfx/step/stone2.mp3 HTTP503; all function assertions and compiled byte checks passed"
+    },
+    "repair": {
+      "path": "/workspace/halfsword-handoff/swordsmanship-power-20261005/common-defaults-cards-repair-receipt01.json",
+      "bytes": 5667,
+      "sha256": "1f9182decc81ac86fe08bcc38e294e05f5af19b4ecdf61a6b66794bf1ebbcf9b",
+      "pass": true,
+      "sourceStable": true,
+      "rows": 1,
+      "starts": 2,
+      "cards": 2,
+      "errors": 0,
+      "httpFailures": 0,
+      "manifestDifference": "harness only: cards scope added; game source/public/dist identical"
+    },
+    "scope": "Full sabre input/restart/return, three representative input smokes, query-free ordinary cards, two v2-withheld menus, six preserved research menus. HTTP failure is not hidden or filtered.",
+    "failedAssetRecheck": {
+      "path": "/workspace/halfsword-handoff/common-defaults-20261007/delivery/stone2-public01.json",
+      "bytes": 472,
+      "sha256": "a568acd7630c75f4af8978e8582727332c5a776fb55fcb06bf676e1af505a7a2",
+      "pass": true,
+      "status": 200,
+      "exactLocalBytes": true
+    },
+    "compositePass": true,
+    "freshFullThirteenRowPass": false
+  },
+  "pages": {
+    "path": "/workspace/halfsword-handoff/common-defaults-20261007/delivery/pages-code01.json",
+    "bytes": 4617,
+    "sha256": "f97295f363a21078cc0bbbae71ddf30502c7d768a0caed467bdfa0e3bbaea68e",
+    "pass": true,
+    "files": 8,
+    "tlsVerified": true,
+    "actionsURL": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37502131537",
+    "actionsConclusion": "success"
+  },
   "deferred": [
     "Post-intervention active-cut power",
     "Residual combat axial rotation"
@@ -62,5 +111,16 @@
     "path": "dist/assets/main-Bpi050SU.js",
     "bytes": 3541761,
     "sha256": "d5bbe78899874c856849ee65f43228b8e5263c50f01724b1a709e9d2c94bc60c"
+  },
+  "phonePlan": {
+    "path": "/workspace/halfsword-handoff/common-defaults-20261007/delivery/phone-plan-public01/result.json",
+    "bytes": 1882,
+    "sha256": "9a63a188da7e2f3bc6cd65a81f3c0d3e7d5e435f52649e24b41260efe5bf6d27",
+    "pass": true,
+    "viewports": [
+      "390x844",
+      "844x390"
+    ],
+    "horizontalOverflow": false
   }
 }
