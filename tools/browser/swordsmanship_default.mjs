@@ -78,7 +78,7 @@ const fullWeapons = scope === 'common' ? ['sabre'] : scope === 'adoption' ? ['qi
 const smokeWeapons = scope === 'common' ? ['rapier', 'rubber_chicken', 'pistol'] : ['sabre', 'rapier', 'rubber_chicken', 'frozen_tuna', 'pistol'];
 const supported = new Set(SWORDSMANSHIP_WEAPONS.filter(w => w.id !== 'pistol').map(w => w.id));
 const selection = {
-  limb: { cards: true, weapons: [], withheld: [], modes: [], rows: 7, starts: 4 },
+  limb: { cards: true, weapons: [], withheld: [], modes: [], rows: 7, starts: 5 },
   cards: { cards: true, weapons: [], withheld: [], modes: [], rows: 1, starts: 2 },
   common: { cards: true, weapons: [...fullWeapons, ...smokeWeapons], withheld: ['monohoshizao', 'lightsaber'],
     modes: [], rows: 13, starts: 7 },
@@ -586,7 +586,28 @@ try {
       for (const part of [root, parent]) assert.ok(sever.stumps.some(stump => stump.part === part && stump.visible && stump.meshCount >= 2));
       if (limb === 'armS') assert.equal(row.preview.enemy.armed, false);
       else assert.equal(row.preview.enemy.legF, 0);
-      await screenshot(row.id + '-stumps', row); await collect(row); await pause(); row.pass = true;
+      await screenshot(row.id + '-stumps', row); await collect(row); await pause();
+      if (limb === 'legF') {
+        const ordinary = row.ordinaryExit = { id: row.id + '-ordinary-exit', artifacts: [] };
+        current = ordinary.id; await page.setViewportSize(portrait);
+        await page.goto(lab.href, { waitUntil: 'load' }); fit(await layout());
+        const href = await page.locator('#playSwordsmanshipDefault').getAttribute('href');
+        assert.equal(new URL(href, base).href, base.href);
+        await navigate('#playSwordsmanshipDefault', base.href); await ready();
+        await page.waitForLoadState('networkidle'); await observe(); ordinary.menu = await snap();
+        contract(ordinary.menu, null); limbContract(ordinary.menu, true); fit(await layout());
+        await page.setViewportSize(landscape); fit(await layout());
+        ordinary.choice = await start(true, 0); ordinary.started = await snap();
+        contract(ordinary.started, null); ordinary.firstSteps = await firstSteps(null, 1);
+        for (const v of [ordinary.menu, ordinary.started, ...ordinary.firstSteps.fighters.map(v => v.snapshot),
+          ...ordinary.firstSteps.worlds, ...ordinary.firstSteps.combats]) {
+          limbContract(v, true); assert.equal(v.default.active, true);
+          for (const f of [v.player, v.enemy]) for (const key of ['detachedParts', 'events', 'removedRoots', 'stumps'])
+            assert.deepEqual(f.limbSever[key], [], 'Synthetic leg-preview state leaked into the ordinary world: ' + key);
+        }
+        await screenshot(ordinary.id, ordinary); await collect(ordinary); await pause(); ordinary.pass = true;
+      }
+      row.pass = true;
     }
   }
   for (const weapon of selection.weapons) {
@@ -659,9 +680,9 @@ try {
   assert.ok(nativeUI.length && nativeUI.every(event => event.trusted && event.kind === 'touch'));
   assert.equal(nativeUI.filter(event => event.element === 'playUnifiedSwordsmanship').length, selection.modes.includes('trial') ? 1 : 0);
   assert.equal(nativeUI.filter(event => event.element === 'playSwordAssistV2').length, selection.modes.includes('old-comparison') ? 1 : 0);
-  assert.equal(nativeUI.filter(event => event.element === 'playSwordsmanshipDefault').length, selection.cards ? 1 : 0);
+  assert.equal(nativeUI.filter(event => event.element === 'playSwordsmanshipDefault').length, scope === 'limb' ? 2 : selection.cards ? 1 : 0);
   assert.equal(nativeUI.filter(event => event.element === 'btnStart').length, selection.starts);
-  assert.equal(nativeUI.filter(event => event.element.startsWith('card-')).length, selection.cards ? 2 : 0);
+  assert.equal(nativeUI.filter(event => event.element.startsWith('card-')).length, scope === 'limb' ? 3 : selection.cards ? 2 : 0);
   assert.equal(rows.length, selection.rows);
   pass = true;
 } catch (error) {
@@ -691,7 +712,7 @@ try {
     returnObservations, returnReviewRequired: ['full', 'public', 'adoption', 'common'].includes(scope) ? (returnObservations.length !== fullWeapons.length || returnObservations.some(row =>
       !row.returnObserved || !row.activeReturnInterrupted || !row.completedBeforeRetouch || !row.heldInputProtected || !row.movementObserved)) : null,
     compiled, rows, nativeUI, errors, httpFailures, requestFailures, blockedRequests, redirectRefusals, fatal,
-    scope: scope === 'limb' ? 'Seven-row limb-default delivery: query-free ordinary mobile card choice, trusted drag/hold/release, held-input Pause and new-object restart with severing ON before first native steps; four entry menus confirm prior research OFF, explicit limbTrial=1 ON, explicit0 OFF and limbDemo alone OFF; two trusted public arm/leg demo CTAs exercise built-in synthetic-preview injuries, joint removal, detached pieces and both visible stump meshes. Four trusted Starts and two card choices, exact stored preference bytes, portrait/landscape, frozen compiled bytes, TLS/proxy and final errors checked. No browser-injected wound/body/health state. Synthetic demos are visual/runtime regression only, not actual cut strength or natural-severing evidence; no full common13 replay or physical-phone performance claim.' :
+    scope: scope === 'limb' ? 'Seven-row limb-default delivery: query-free ordinary mobile card choice, trusted drag/hold/release, held-input Pause and new-object restart with severing ON before first native steps; four entry menus confirm prior research OFF, explicit limbTrial=1 ON, explicit0 OFF and limbDemo alone OFF; two trusted public arm/leg demo CTAs exercise built-in synthetic-preview injuries, joint removal, detached pieces and both visible stump meshes. After the leg preview, a trusted query-free ordinary CTA/card Start checks severing ON and zero detached parts, synthetic events, removed joints or stump meshes in the fresh ordinary world. Five trusted Starts and three card choices across the same seven rows, exact stored preference bytes, portrait/landscape, frozen compiled bytes, TLS/proxy and final errors checked. No browser-injected wound/body/health state. Synthetic demos are visual/runtime regression only, not actual cut strength or natural-severing evidence; no full common13 replay or physical-phone performance claim.' :
       scope === 'cards' ? 'Scoped follow-up only: one query-free ordinary card-game row, two trusted Starts and two trusted card choices, held-pointer Pause and new-object restart, capability policies before first native steps, saved preference bytes, mobile portrait/landscape, compiled bytes, strict TLS/proxy and zero final errors. No separate weapon, return, withheld-menu or A/B flow executed; returnReviewRequired is null. Preserve and combine with the separately retained failed full attempt; do not present this as a fresh thirteen-row full pass. HTTP503 responses are not retried or filtered.' :
       scope === 'common' ? 'Feature-based ordinary delivery: thirteen rows and seven trusted Starts. Query-free default CTA/card choice and new-object restart; sabre full drag/held-stop/reverse/tap/restart/return/interruption/ready-retouch/90-frame hold; rapier, rubber chicken and pistol trusted input smokes; monohoshizao and lightsaber ordinary menus retain their withheld v2 status while using common combat policies; six prior A/B menus remain isolated. Before first native steps, after restart and during input where exercised: player stance fresh including gun users, nongun roll bounded, edged nongun cut centerline, enemy legacy, ordinary thrust/finish legacy, inactive shape conversion, stored preference bytes unchanged. Mobile portrait/landscape, compiled byte match, strict TLS/proxy and zero final errors checked. No Q/LS full replay, physical-phone performance, all-weapon efficacy, new active-cut power or residual-spin research assertion.' :
       scope === 'adoption' ? 'Ordinary defaults: real query-free card choice/restart and Q/LS/Z trusted input/reverse/tap/restart/return/retouch; capability-based player fresh/centerline/bounded policies checked before first native steps and after new-object restart. Six prior A/B menus check isolation, not new comparison play. Stored preferences, ordinary v2 and legacy Q shape/thrust/finish retained. Compiled bytes, strict TLS and mobile viewport errors checked. No new power, residual-spin research or physical-iPhone claim.' : scope === 'repair' ? 'Only the prior audio-error-affected rubber-chicken ordinary input and old unified Qinggang trial input flows, with up to two ECONNRESET-only GET retries, no error filtering, unchanged game/observer/input contracts. This does not repeat the full thirteen-flow suite.' :

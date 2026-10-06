@@ -1,11 +1,10 @@
 {
-  "status": "native_pass_public_pending",
+  "status": "delivered_verified",
   "approval": "팔다리 절단 바로 켜.",
   "baselineHead": "86ddf11e5c8ff4f17d6e17ac7a54f96b235e3465",
   "ordinaryURL": "https://yoonjl-svg.github.io/halfsword-codex/",
   "change": "Enable existing arm/leg joint severing for both fighters in ordinary games. Preserve explicit historical trials and synthetic-demo isolation.",
   "native": {
-    "createdUTC": "2026-10-06T17:36:11.420Z",
     "raw": {
       "path": "/workspace/halfsword-handoff/limb-default-20261007/limb-sever.json",
       "bytes": 171149,
@@ -22,617 +21,57 @@
     "physicsSteps": 4226,
     "wallSeconds": 6.258770681,
     "defaultFlag": true,
+    "command": "node tools/sim/limb_sever.test.mjs <fresh-output.json>",
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/limb-default-20261007/receipt.json",
+      "sha256": "d6f4069fdb07666a16db660f648c52819e18ee02d8720ce46fcdd4a62228fc4b"
+    },
     "followups": [
       {
         "root": "farmS",
-        "kind": "synthetic_wound_actual_Rapier",
-        "ordinarySetup": {
-          "applied": true,
-          "defaults": {
-            "stance": "fresh",
-            "cut": "centerline",
-            "roll": "bounded"
-          },
-          "onehandArmModel": "manual",
-          "version": "unified-20261005-r2",
-          "playerOnly": true,
-          "installNativeUnchanged": true
-        },
         "steps": 600,
-        "inputSHA256": "555fc68fb357b49a9fff27577539f91e56705553d55f28883296518175e727cc",
-        "tapAccepted": false,
         "states": [
           "stand"
         ],
-        "actuationCount": 0,
-        "finalInput": {
-          "tick": 599,
-          "phase": "release",
-          "state": {
-            "state": "stand",
-            "bleed": 0.010698614695967182,
-            "blood": 0.926655122466393,
-            "limbs": {
-              "armS": 0,
-              "armO": 1,
-              "legF": 1,
-              "legB": 1
-            },
-            "armed": false,
-            "gripping": false,
-            "missingSupportLeg": false,
-            "gaitActive": true,
-            "footLoad": {
-              "F": 0.9999999999999998,
-              "B": 0.9999999999999998
-            },
-            "balanceProbe": {
-              "appliedUpN": 223.90908700641697,
-              "baseSupportN": 216.16335007016656,
-              "heightSpringN": 14.259567770799952,
-              "verticalDampingN": -6.5088509395718575,
-              "horizontalXN": -18.65127371649679,
-              "horizontalZN": 5.43814335832308,
-              "nominalWeightN": 720.5445002338886,
-              "footReaction": 0,
-              "supportModel": "legacy",
-              "supportTransfer": null,
-              "actualFootSupport": false,
-              "actualAnySupport": null,
-              "uprightScale": 0.9999777597939844
-            },
-            "totalMass": 73.45000002384185,
-            "gaitMg": 720.5445002338886
-          },
-          "assistPhase": "suspended",
-          "assistOwner": "inactive",
-          "eligible": false,
-          "handOffset": [
-            -0.02509374215016296,
-            0.1516285333154258
-          ]
-        },
-        "motorSummary": null,
-        "postMotionState": {
-          "state": "stand",
-          "bleed": 0.010698614695967182,
-          "blood": 0.926655122466393,
-          "limbs": {
-            "armS": 0,
-            "armO": 1,
-            "legF": 1,
-            "legB": 1
-          },
-          "armed": false,
-          "gripping": false,
-          "missingSupportLeg": false,
-          "gaitActive": true,
-          "footLoad": {
-            "F": 0.9999999999999998,
-            "B": 0.9999999999999998
-          },
-          "balanceProbe": {
-            "appliedUpN": 223.90908700641697,
-            "baseSupportN": 216.16335007016656,
-            "heightSpringN": 14.259567770799952,
-            "verticalDampingN": -6.5088509395718575,
-            "horizontalXN": -18.65127371649679,
-            "horizontalZN": 5.43814335832308,
-            "nominalWeightN": 720.5445002338886,
-            "footReaction": 0,
-            "supportModel": "legacy",
-            "supportTransfer": null,
-            "actualFootSupport": false,
-            "actualAnySupport": null,
-            "uprightScale": 0.9999777597939844
-          },
-          "totalMass": 73.45000002384185,
-          "gaitMg": 720.5445002338886
-        },
-        "syntheticDeadFragmentCheckState": {
-          "state": "dead",
-          "bleed": 0.010698614695967182,
-          "blood": 0.926655122466393,
-          "limbs": {
-            "armS": 0,
-            "armO": 1,
-            "legF": 1,
-            "legB": 1
-          },
-          "armed": false,
-          "gripping": false,
-          "missingSupportLeg": false,
-          "gaitActive": true,
-          "footLoad": {
-            "F": 0.9999999999999998,
-            "B": 0.9999999999999998
-          },
-          "balanceProbe": {
-            "appliedUpN": 223.90908700641697,
-            "baseSupportN": 216.16335007016656,
-            "heightSpringN": 14.259567770799952,
-            "verticalDampingN": -6.5088509395718575,
-            "horizontalXN": -18.65127371649679,
-            "horizontalZN": 5.43814335832308,
-            "nominalWeightN": 720.5445002338886,
-            "footReaction": 0,
-            "supportModel": "legacy",
-            "supportTransfer": null,
-            "actualFootSupport": false,
-            "actualAnySupport": null,
-            "uprightScale": 0.9999777597939844
-          },
-          "totalMass": 73.45000002384185,
-          "gaitMg": 720.5445002338886
-        }
+        "fragmentActuationCount": 0,
+        "inputSHA256": "555fc68fb357b49a9fff27577539f91e56705553d55f28883296518175e727cc",
+        "tapAccepted": false,
+        "finalControllerState": "stand"
       },
       {
         "root": "farmO",
-        "kind": "synthetic_wound_actual_Rapier",
-        "ordinarySetup": {
-          "applied": true,
-          "defaults": {
-            "stance": "fresh",
-            "cut": "centerline",
-            "roll": "bounded"
-          },
-          "onehandArmModel": "manual",
-          "version": "unified-20261005-r2",
-          "playerOnly": true,
-          "installNativeUnchanged": true
-        },
         "steps": 600,
-        "inputSHA256": "555fc68fb357b49a9fff27577539f91e56705553d55f28883296518175e727cc",
-        "tapAccepted": false,
         "states": [
           "stand"
         ],
-        "actuationCount": 0,
-        "finalInput": {
-          "tick": 599,
-          "phase": "release",
-          "state": {
-            "state": "stand",
-            "bleed": 0.010698614695967182,
-            "blood": 0.926655122466393,
-            "limbs": {
-              "armS": 1,
-              "armO": 0,
-              "legF": 1,
-              "legB": 1
-            },
-            "armed": true,
-            "gripping": false,
-            "missingSupportLeg": false,
-            "gaitActive": true,
-            "footLoad": {
-              "F": 0.9999999999999998,
-              "B": 0.9999999899319703
-            },
-            "balanceProbe": {
-              "appliedUpN": 227.3808170509881,
-              "baseSupportN": 216.16335007016656,
-              "heightSpringN": -2.1272199919893042,
-              "verticalDampingN": 13.349744081497192,
-              "horizontalXN": -0.11004994898705446,
-              "horizontalZN": -88.7684790713956,
-              "nominalWeightN": 720.5445002338886,
-              "footReaction": 0,
-              "supportModel": "legacy",
-              "supportTransfer": null,
-              "actualFootSupport": false,
-              "actualAnySupport": null,
-              "uprightScale": 0.9999777597939844
-            },
-            "totalMass": 73.45000002384185,
-            "gaitMg": 720.5445002338886
-          },
-          "assistPhase": "ready",
-          "assistOwner": "return",
-          "eligible": true,
-          "handOffset": [
-            0.18,
-            -0.28
-          ]
-        },
-        "motorSummary": null,
-        "postMotionState": {
-          "state": "stand",
-          "bleed": 0.010698614695967182,
-          "blood": 0.926655122466393,
-          "limbs": {
-            "armS": 1,
-            "armO": 0,
-            "legF": 1,
-            "legB": 1
-          },
-          "armed": true,
-          "gripping": false,
-          "missingSupportLeg": false,
-          "gaitActive": true,
-          "footLoad": {
-            "F": 0.9999999999999998,
-            "B": 0.9999999899319703
-          },
-          "balanceProbe": {
-            "appliedUpN": 227.3808170509881,
-            "baseSupportN": 216.16335007016656,
-            "heightSpringN": -2.1272199919893042,
-            "verticalDampingN": 13.349744081497192,
-            "horizontalXN": -0.11004994898705446,
-            "horizontalZN": -88.7684790713956,
-            "nominalWeightN": 720.5445002338886,
-            "footReaction": 0,
-            "supportModel": "legacy",
-            "supportTransfer": null,
-            "actualFootSupport": false,
-            "actualAnySupport": null,
-            "uprightScale": 0.9999777597939844
-          },
-          "totalMass": 73.45000002384185,
-          "gaitMg": 720.5445002338886
-        },
-        "syntheticDeadFragmentCheckState": {
-          "state": "dead",
-          "bleed": 0.010698614695967182,
-          "blood": 0.926655122466393,
-          "limbs": {
-            "armS": 1,
-            "armO": 0,
-            "legF": 1,
-            "legB": 1
-          },
-          "armed": true,
-          "gripping": false,
-          "missingSupportLeg": false,
-          "gaitActive": true,
-          "footLoad": {
-            "F": 0.9999999999999998,
-            "B": 0.9999999899319703
-          },
-          "balanceProbe": {
-            "appliedUpN": 227.3808170509881,
-            "baseSupportN": 216.16335007016656,
-            "heightSpringN": -2.1272199919893042,
-            "verticalDampingN": 13.349744081497192,
-            "horizontalXN": -0.11004994898705446,
-            "horizontalZN": -88.7684790713956,
-            "nominalWeightN": 720.5445002338886,
-            "footReaction": 0,
-            "supportModel": "legacy",
-            "supportTransfer": null,
-            "actualFootSupport": false,
-            "actualAnySupport": null,
-            "uprightScale": 0.9999777597939844
-          },
-          "totalMass": 73.45000002384185,
-          "gaitMg": 720.5445002338886
-        }
+        "fragmentActuationCount": 0,
+        "inputSHA256": "555fc68fb357b49a9fff27577539f91e56705553d55f28883296518175e727cc",
+        "tapAccepted": false,
+        "finalControllerState": "stand"
       },
       {
         "root": "shinF",
-        "kind": "synthetic_wound_actual_Rapier",
-        "ordinarySetup": {
-          "applied": true,
-          "defaults": {
-            "stance": "fresh",
-            "cut": "centerline",
-            "roll": "bounded"
-          },
-          "onehandArmModel": "manual",
-          "version": "unified-20261005-r2",
-          "playerOnly": true,
-          "installNativeUnchanged": true
-        },
         "steps": 600,
-        "inputSHA256": "555fc68fb357b49a9fff27577539f91e56705553d55f28883296518175e727cc",
-        "tapAccepted": false,
         "states": [
           "down"
         ],
-        "actuationCount": 0,
-        "finalInput": {
-          "tick": 599,
-          "phase": "release",
-          "state": {
-            "state": "down",
-            "bleed": 0.010698614695967182,
-            "blood": 0.926655122466393,
-            "limbs": {
-              "armS": 1,
-              "armO": 1,
-              "legF": 0,
-              "legB": 1
-            },
-            "armed": true,
-            "gripping": false,
-            "missingSupportLeg": true,
-            "gaitActive": false,
-            "footLoad": {
-              "F": 0,
-              "B": 0
-            },
-            "balanceProbe": {
-              "appliedUpN": 0,
-              "baseSupportN": 0,
-              "heightSpringN": 0,
-              "verticalDampingN": 0,
-              "horizontalXN": 0,
-              "horizontalZN": 0,
-              "nominalWeightN": 691.6049997661114,
-              "footReaction": 0,
-              "supportModel": "legacy",
-              "supportTransfer": null,
-              "actualFootSupport": null,
-              "actualAnySupport": null,
-              "uprightScale": 0
-            },
-            "totalMass": 70.49999997615814,
-            "gaitMg": 691.6049997661114
-          },
-          "assistPhase": "suspended",
-          "assistOwner": "recovery",
-          "eligible": false,
-          "handOffset": [
-            -0.02509374215016296,
-            0.1516285333154258
-          ]
-        },
-        "motorSummary": {
-          "ankleCommands": 3,
-          "otherMotorCommands": 33001
-        },
-        "postMotionState": {
-          "state": "down",
-          "bleed": 0.010698614695967182,
-          "blood": 0.926655122466393,
-          "limbs": {
-            "armS": 1,
-            "armO": 1,
-            "legF": 0,
-            "legB": 1
-          },
-          "armed": true,
-          "gripping": false,
-          "missingSupportLeg": true,
-          "gaitActive": false,
-          "footLoad": {
-            "F": 0,
-            "B": 0
-          },
-          "balanceProbe": {
-            "appliedUpN": 0,
-            "baseSupportN": 0,
-            "heightSpringN": 0,
-            "verticalDampingN": 0,
-            "horizontalXN": 0,
-            "horizontalZN": 0,
-            "nominalWeightN": 691.6049997661114,
-            "footReaction": 0,
-            "supportModel": "legacy",
-            "supportTransfer": null,
-            "actualFootSupport": null,
-            "actualAnySupport": null,
-            "uprightScale": 0
-          },
-          "totalMass": 70.49999997615814,
-          "gaitMg": 691.6049997661114
-        },
-        "syntheticDeadFragmentCheckState": {
-          "state": "dead",
-          "bleed": 0.010698614695967182,
-          "blood": 0.926655122466393,
-          "limbs": {
-            "armS": 1,
-            "armO": 1,
-            "legF": 0,
-            "legB": 1
-          },
-          "armed": true,
-          "gripping": false,
-          "missingSupportLeg": true,
-          "gaitActive": false,
-          "footLoad": {
-            "F": 0,
-            "B": 0
-          },
-          "balanceProbe": {
-            "appliedUpN": 0,
-            "baseSupportN": 0,
-            "heightSpringN": 0,
-            "verticalDampingN": 0,
-            "horizontalXN": 0,
-            "horizontalZN": 0,
-            "nominalWeightN": 691.6049997661114,
-            "footReaction": 0,
-            "supportModel": "legacy",
-            "supportTransfer": null,
-            "actualFootSupport": null,
-            "actualAnySupport": null,
-            "uprightScale": 0
-          },
-          "totalMass": 70.49999997615814,
-          "gaitMg": 691.6049997661114
-        }
+        "fragmentActuationCount": 0,
+        "inputSHA256": "555fc68fb357b49a9fff27577539f91e56705553d55f28883296518175e727cc",
+        "tapAccepted": false,
+        "finalControllerState": "down"
       },
       {
         "root": "shinB",
-        "kind": "synthetic_wound_actual_Rapier",
-        "ordinarySetup": {
-          "applied": true,
-          "defaults": {
-            "stance": "fresh",
-            "cut": "centerline",
-            "roll": "bounded"
-          },
-          "onehandArmModel": "manual",
-          "version": "unified-20261005-r2",
-          "playerOnly": true,
-          "installNativeUnchanged": true
-        },
         "steps": 600,
-        "inputSHA256": "555fc68fb357b49a9fff27577539f91e56705553d55f28883296518175e727cc",
-        "tapAccepted": false,
         "states": [
           "down"
         ],
-        "actuationCount": 0,
-        "finalInput": {
-          "tick": 599,
-          "phase": "release",
-          "state": {
-            "state": "down",
-            "bleed": 0.010698614695967182,
-            "blood": 0.926655122466393,
-            "limbs": {
-              "armS": 1,
-              "armO": 1,
-              "legF": 1,
-              "legB": 0
-            },
-            "armed": true,
-            "gripping": false,
-            "missingSupportLeg": true,
-            "gaitActive": false,
-            "footLoad": {
-              "F": 0,
-              "B": 0
-            },
-            "balanceProbe": {
-              "appliedUpN": 0,
-              "baseSupportN": 0,
-              "heightSpringN": 0,
-              "verticalDampingN": 0,
-              "horizontalXN": 0,
-              "horizontalZN": 0,
-              "nominalWeightN": 691.6049997661114,
-              "footReaction": 0,
-              "supportModel": "legacy",
-              "supportTransfer": null,
-              "actualFootSupport": null,
-              "actualAnySupport": null,
-              "uprightScale": 0
-            },
-            "totalMass": 70.49999997615814,
-            "gaitMg": 691.6049997661114
-          },
-          "assistPhase": "suspended",
-          "assistOwner": "recovery",
-          "eligible": false,
-          "handOffset": [
-            -0.02509374215016296,
-            0.1516285333154258
-          ]
-        },
-        "motorSummary": {
-          "ankleCommands": 3,
-          "otherMotorCommands": 33001
-        },
-        "postMotionState": {
-          "state": "down",
-          "bleed": 0.010698614695967182,
-          "blood": 0.926655122466393,
-          "limbs": {
-            "armS": 1,
-            "armO": 1,
-            "legF": 1,
-            "legB": 0
-          },
-          "armed": true,
-          "gripping": false,
-          "missingSupportLeg": true,
-          "gaitActive": false,
-          "footLoad": {
-            "F": 0,
-            "B": 0
-          },
-          "balanceProbe": {
-            "appliedUpN": 0,
-            "baseSupportN": 0,
-            "heightSpringN": 0,
-            "verticalDampingN": 0,
-            "horizontalXN": 0,
-            "horizontalZN": 0,
-            "nominalWeightN": 691.6049997661114,
-            "footReaction": 0,
-            "supportModel": "legacy",
-            "supportTransfer": null,
-            "actualFootSupport": null,
-            "actualAnySupport": null,
-            "uprightScale": 0
-          },
-          "totalMass": 70.49999997615814,
-          "gaitMg": 691.6049997661114
-        },
-        "syntheticDeadFragmentCheckState": {
-          "state": "dead",
-          "bleed": 0.010698614695967182,
-          "blood": 0.926655122466393,
-          "limbs": {
-            "armS": 1,
-            "armO": 1,
-            "legF": 1,
-            "legB": 0
-          },
-          "armed": true,
-          "gripping": false,
-          "missingSupportLeg": true,
-          "gaitActive": false,
-          "footLoad": {
-            "F": 0,
-            "B": 0
-          },
-          "balanceProbe": {
-            "appliedUpN": 0,
-            "baseSupportN": 0,
-            "heightSpringN": 0,
-            "verticalDampingN": 0,
-            "horizontalXN": 0,
-            "horizontalZN": 0,
-            "nominalWeightN": 691.6049997661114,
-            "footReaction": 0,
-            "supportModel": "legacy",
-            "supportTransfer": null,
-            "actualFootSupport": null,
-            "actualAnySupport": null,
-            "uprightScale": 0
-          },
-          "totalMass": 70.49999997615814,
-          "gaitMg": 691.6049997661114
-        }
+        "fragmentActuationCount": 0,
+        "inputSHA256": "555fc68fb357b49a9fff27577539f91e56705553d55f28883296518175e727cc",
+        "tapAccepted": false,
+        "finalControllerState": "down"
       }
-    ],
-    "configuredContact": [
-      {
-        "root": "farmO",
-        "kind": "actual_Rapier_contact_unmodified_Combat",
-        "severed": [
-          "farmO"
-        ],
-        "strikes": 2,
-        "limitations": "Artificial initial positions/velocities; no player input or gameplay reach/balance claim."
-      },
-      {
-        "root": "shinF",
-        "kind": "actual_Rapier_contact_unmodified_Combat",
-        "severed": [
-          "shinF"
-        ],
-        "strikes": 6,
-        "limitations": "Artificial initial positions/velocities; no player input or gameplay reach/balance claim."
-      }
-    ],
-    "limitations": [
-      "Synthetic wound injection is not a physical contact strike or human realism validation.",
-      "Force/motor method observers delegate original arguments unchanged; gravity and constraint/contact forces are not user actuation.",
-      "Zero ankle motor parameters and no reactivation do not prove unrestricted native ankle rotation: retained joint limits/axes remain unmeasured.",
-      "Single deterministic seed, no gameplay balance benchmark.",
-      "All fixture and 5-second post-separation runs use game DT. Contact fixtures initialize the blade below the anchor so its first contact reaches the anchor during the normal step.",
-      "Four controlled-sever follow-ups use real ordinary swordsmanship input and native game stepping; they do not demonstrate natural injury acquisition, human movement, or recovery on a missing support leg.",
-      "Raw scenes[].final follows the existing deliberate state=dead fragment-immunity assertion; it is not observed death during the motion run. followup.boundaries at tick599 is the final actual motion state.",
-      "All four tap requests returned false with the parked opponent absent; this verifies rejected requests remain finite, not successful post-sever thrusts."
-    ],
-    "command": "node tools/sim/limb_sever.test.mjs /absolute/output.json"
+    ]
   },
   "entryPolicy": {
     "test": "node tools/sim/experiments/swordsmanship_default.test.mjs",
@@ -646,12 +85,170 @@
     "sha256": "77e440ae2be07a31790d64d5f6569fe073c2210e6deae2065054c3e877e20416"
   },
   "public": {
-    "status": "pending"
+    "status": "delivered_verified",
+    "actions": {
+      "id": 37504916842,
+      "head": "4b8c81c41c1d85ed3844d6590ed72f13ef9cc406",
+      "conclusion": "success",
+      "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37504916842"
+    },
+    "pages": {
+      "base": "https://yoonjl-svg.github.io/halfsword-codex/",
+      "createdUTC": "20261006T173854Z",
+      "build": "/workspace/halfsword-codex/dist",
+      "tlsVerification": true,
+      "pass": true,
+      "files": [
+        {
+          "path": "index.html",
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/index.html?delivery=20261006T173854Z",
+          "expectedBytes": 19274,
+          "expectedSHA256": "c913a9a445b0191daa5554631b3fdbcfa33d7811da61d49e406ca3725ef03e27",
+          "pass": true,
+          "status": 200,
+          "finalURL": "https://yoonjl-svg.github.io/halfsword-codex/index.html?delivery=20261006T173854Z",
+          "bytes": 19274,
+          "sha256": "c913a9a445b0191daa5554631b3fdbcfa33d7811da61d49e406ca3725ef03e27"
+        },
+        {
+          "path": "feature-lab.html",
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html?delivery=20261006T173854Z",
+          "expectedBytes": 36918,
+          "expectedSHA256": "3375d301935f9795ca61d93937a647ec3628d7afa5500d477600ccac55971be0",
+          "pass": true,
+          "status": 200,
+          "finalURL": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html?delivery=20261006T173854Z",
+          "bytes": 36918,
+          "sha256": "3375d301935f9795ca61d93937a647ec3628d7afa5500d477600ccac55971be0"
+        },
+        {
+          "path": "development-plan.html",
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/development-plan.html?delivery=20261006T173854Z",
+          "expectedBytes": 63999,
+          "expectedSHA256": "923a76104094ef53045a64db6095562e2a6761314ddb5c73154ef2c0b1fe7d94",
+          "pass": true,
+          "status": 200,
+          "finalURL": "https://yoonjl-svg.github.io/halfsword-codex/development-plan.html?delivery=20261006T173854Z",
+          "bytes": 63999,
+          "sha256": "923a76104094ef53045a64db6095562e2a6761314ddb5c73154ef2c0b1fe7d94"
+        },
+        {
+          "path": "sounds.html",
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/sounds.html?delivery=20261006T173854Z",
+          "expectedBytes": 3202,
+          "expectedSHA256": "d1103827f54209302e70a09bd040808f7b638d03710ff4fbbe30caeef483533d",
+          "pass": true,
+          "status": 200,
+          "finalURL": "https://yoonjl-svg.github.io/halfsword-codex/sounds.html?delivery=20261006T173854Z",
+          "bytes": 3202,
+          "sha256": "d1103827f54209302e70a09bd040808f7b638d03710ff4fbbe30caeef483533d"
+        },
+        {
+          "path": "assets/main-TevQzBPf.js",
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/assets/main-TevQzBPf.js?delivery=20261006T173854Z",
+          "expectedBytes": 3541781,
+          "expectedSHA256": "77e440ae2be07a31790d64d5f6569fe073c2210e6deae2065054c3e877e20416",
+          "pass": true,
+          "status": 200,
+          "finalURL": "https://yoonjl-svg.github.io/halfsword-codex/assets/main-TevQzBPf.js?delivery=20261006T173854Z",
+          "bytes": 3541781,
+          "sha256": "77e440ae2be07a31790d64d5f6569fe073c2210e6deae2065054c3e877e20416"
+        },
+        {
+          "path": "assets/sound-DxsKXzPO.js",
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/assets/sound-DxsKXzPO.js?delivery=20261006T173854Z",
+          "expectedBytes": 83421,
+          "expectedSHA256": "ca57f4e8834461b7033db6dfab8baf97232871584de4dd7f991d30c838a64055",
+          "pass": true,
+          "status": 200,
+          "finalURL": "https://yoonjl-svg.github.io/halfsword-codex/assets/sound-DxsKXzPO.js?delivery=20261006T173854Z",
+          "bytes": 83421,
+          "sha256": "ca57f4e8834461b7033db6dfab8baf97232871584de4dd7f991d30c838a64055"
+        },
+        {
+          "path": "assets/soundgen-BDle7v6J.js",
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/assets/soundgen-BDle7v6J.js?delivery=20261006T173854Z",
+          "expectedBytes": 35448,
+          "expectedSHA256": "0dfd106288146aee573b3b46c7d346284a813d9371170431266054299125cdaf",
+          "pass": true,
+          "status": 200,
+          "finalURL": "https://yoonjl-svg.github.io/halfsword-codex/assets/soundgen-BDle7v6J.js?delivery=20261006T173854Z",
+          "bytes": 35448,
+          "sha256": "0dfd106288146aee573b3b46c7d346284a813d9371170431266054299125cdaf"
+        },
+        {
+          "path": "assets/sounds-sY_jtToy.js",
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/assets/sounds-sY_jtToy.js?delivery=20261006T173854Z",
+          "expectedBytes": 19744,
+          "expectedSHA256": "92c74e2ef10b8f5033cd4f344dcbbe52659a2b5fc8531cbcc865f47d1f36d44d",
+          "pass": true,
+          "status": 200,
+          "finalURL": "https://yoonjl-svg.github.io/halfsword-codex/assets/sounds-sY_jtToy.js?delivery=20261006T173854Z",
+          "bytes": 19744,
+          "sha256": "92c74e2ef10b8f5033cd4f344dcbbe52659a2b5fc8531cbcc865f47d1f36d44d"
+        }
+      ],
+      "scope": "Exact public HTML and all production assets; mobile execution is verified separately."
+    },
+    "mobilePlan": {
+      "pass": true,
+      "resultPath": "/workspace/halfsword-handoff/limb-default-20261007/phone-plan-public01/result.json",
+      "sha256": "3684e02ba0a89f80dbae5fb45c2988de5836ee03e4250e6b46f92d2f4c3a167c",
+      "scope": "portrait/landscape development plan only; game verified separately"
+    },
+    "mobileGame": {
+      "pass": true,
+      "sourceStable": true,
+      "sourceCommit": "4b8c81c41c1d85ed3844d6590ed72f13ef9cc406",
+      "startedUTC": "2026-10-06T17:39:57.605Z",
+      "completedUTC": "2026-10-06T17:43:03.949Z",
+      "executionScope": "limb",
+      "tlsVerification": true,
+      "scope": "Seven-row limb-default delivery: query-free ordinary mobile card choice, trusted drag/hold/release, held-input Pause and new-object restart with severing ON before first native steps; four entry menus confirm prior research OFF, explicit limbTrial=1 ON, explicit0 OFF and limbDemo alone OFF; two trusted public arm/leg demo CTAs exercise built-in synthetic-preview injuries, joint removal, detached pieces and both visible stump meshes. After the leg preview, a trusted query-free ordinary CTA/card Start checks severing ON and zero detached parts, synthetic events, removed joints or stump meshes in the fresh ordinary world. Five trusted Starts and three card choices across the same seven rows, exact stored preference bytes, portrait/landscape, frozen compiled bytes, TLS/proxy and final errors checked. No browser-injected wound/body/health state. Synthetic demos are visual/runtime regression only, not actual cut strength or natural-severing evidence; no full common13 replay or physical-phone performance claim.",
+      "rawPath": "/workspace/halfsword-handoff/swordsmanship-power-20261005/limb-default-public01/summary.json",
+      "rawSHA256": "5c9f37e8578ec92110d9f72a8b456b18156645a8a5f2df243cdc0ff51e6f9ff4",
+      "toolSHA256": "c2cfbc9bef7cf966f1ba1941019b111b08fc7fc29e2df2343c6acd07bb9f6535",
+      "rows": [
+        {
+          "id": "ordinary-card-game",
+          "pass": true
+        },
+        {
+          "id": "limb-old-research-off",
+          "pass": true
+        },
+        {
+          "id": "limb-explicit-on",
+          "pass": true
+        },
+        {
+          "id": "limb-explicit-off",
+          "pass": true
+        },
+        {
+          "id": "limb-demo-alone-off",
+          "pass": true
+        },
+        {
+          "id": "synthetic-limb-armS",
+          "pass": true
+        },
+        {
+          "id": "synthetic-limb-legF",
+          "pass": true
+        }
+      ],
+      "trustedStarts": 5,
+      "cardChoices": 3,
+      "errors": 0,
+      "compiledExact": true
+    }
   },
   "limitations": [
     "Native wounds are controlled injections; two contact fixtures use artificial initial transforms/velocities with unmodified Rapier/Combat.",
     "No claim about natural frequency, all weapon balance or human realism.",
     "Existing zero-coefficient motor handling retained; unrestricted native ankle/upright rotation is not established.",
     "Mobile browser automation is not a physical-phone test."
-  ]
+  ],
+  "testedGameHead": "4b8c81c41c1d85ed3844d6590ed72f13ef9cc406"
 }
