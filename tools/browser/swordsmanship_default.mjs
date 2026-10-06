@@ -1,5 +1,5 @@
 // Compiled default swordsmanship acceptance. Native input and read-only observers only.
-// Usage: node tools/browser/swordsmanship_default.mjs --base=<base/> --out=<fresh-dir> [--scope=full|compat|public|repair|adoption|common|cards]
+// Usage: node tools/browser/swordsmanship_default.mjs --base=<base/> --out=<fresh-dir> [--scope=full|compat|public|repair|adoption|common|cards|limb]
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -15,12 +15,12 @@ assert.equal(SWORDSMANSHIP.version, 'unified-20261005-r2');
 const options = {};
 for (const argument of process.argv.slice(2)) {
   const match = /^--(base|out|scope)=(.+)$/.exec(argument);
-  assert.ok(match, 'Only --base=<URL>, --out=<fresh-directory>, and --scope=full|compat|public|repair|adoption|common|cards are supported');
+  assert.ok(match, 'Only --base=<URL>, --out=<fresh-directory>, and --scope=full|compat|public|repair|adoption|common|cards|limb are supported');
   assert.ok(!Object.hasOwn(options, match[1]), 'Duplicate CLI option');
   options[match[1]] = match[2];
 }
 const scope = options.scope || 'full';
-assert.ok(['full', 'compat', 'public', 'repair', 'adoption', 'common', 'cards'].includes(scope), 'Unknown execution scope');
+assert.ok(['full', 'compat', 'public', 'repair', 'adoption', 'common', 'cards', 'limb'].includes(scope), 'Unknown execution scope');
 const base = new URL(options.base || 'https://yoonjl-svg.github.io/halfsword-codex/');
 const local = ['127.0.0.1', 'localhost', '[::1]'].includes(base.hostname);
 assert.ok(!base.username && !base.password && !base.search && !base.hash, 'Use a base URL without credentials, query, or fragment');
@@ -78,6 +78,7 @@ const fullWeapons = scope === 'common' ? ['sabre'] : scope === 'adoption' ? ['qi
 const smokeWeapons = scope === 'common' ? ['rapier', 'rubber_chicken', 'pistol'] : ['sabre', 'rapier', 'rubber_chicken', 'frozen_tuna', 'pistol'];
 const supported = new Set(SWORDSMANSHIP_WEAPONS.filter(w => w.id !== 'pistol').map(w => w.id));
 const selection = {
+  limb: { cards: true, weapons: [], withheld: [], modes: [], rows: 7, starts: 4 },
   cards: { cards: true, weapons: [], withheld: [], modes: [], rows: 1, starts: 2 },
   common: { cards: true, weapons: [...fullWeapons, ...smokeWeapons], withheld: ['monohoshizao', 'lightsaber'],
     modes: [], rows: 13, starts: 7 },
@@ -143,6 +144,13 @@ async function observe() {
       [body.translation(), body.rotation(), body.linvel(), body.angvel()].every(v => Object.values(v).every(Number.isFinite)));
     const fighter = f => ({ weapon: f.weapon.id, gun: !!f.weapon.gun, edged: !!f.weapon.edged, trialOnly: !!f.weapon.trialOnly,
       alive: f.alive, armed: f.armed, state: f.state,
+      limbSever: { detachedParts: [...(f.detachedParts || [])],
+        events: (f.severedLimbs || []).map(event => ({ root: event.root, parent: event.parent,
+          parts: [...event.parts], limb: event.limb, source: event.source, energyJ: event.energyJ, severity: event.severity })),
+        removedRoots: ['farmS', 'farmO', 'shinF', 'shinB'].filter(name => f.jointByName[name]?.joint === null),
+        stumps: Object.entries(f.groups || {}).flatMap(([part, group]) => group.children
+          .filter(child => child.name === 'limbSeverStump').map(child => ({ part,
+            visible: child.visible, meshCount: child.children.filter(mesh => mesh.isMesh).length }))) },
       wounds: f.wounds.length, armHealth: f.armHealth, legF: f.limbs.legF, legB: f.limbs.legB, pain: f.pain,
       stance: f.stanceMemoryModel ?? 'legacy', roll: f.rollTargetModel ?? 'legacy',
       skill: f.skill.level, autoGuard: f.skill.autoGuard, arm: f.onehandArmModel, thrustPlane: f.thrustEdgeModel ?? 'legacy',
@@ -158,6 +166,7 @@ async function observe() {
     p.read = () => ({ timeS: game.stats.simTime, state: game.state, phase: p.phase, url: location.href,
       trial: { ...game.swordsmanshipTrial }, default: { ...game.swordsmanshipDefault },
       defaultApplied: game.defaultSwordsmanshipApplied, integrated: { ...game.integratedCombatTrial },
+      limbSeverEnabled: game.config.COMBAT.limbSeverTrial,
       player: fighter(game.player), enemy: fighter(game.enemy), settings: { ...game.settings },
       savedBytes: localStorage.getItem('gladiator-settings'), difficulty: game.ai.levelName,
       cut: game.combat.cutReactionModel, cutTarget: game.combat.cutReactionFighter === game.player ? 'player' : null,
@@ -223,6 +232,7 @@ function policyState(state) {
     assert.ok(state[key] && Object.values(state[key]).every(Number.isFinite), 'Nonfinite goal: ' + key);
 }
 function contract(v, weapon, mode = 'default') {
+  limbContract(v);
   assert.equal(v.savedBytes, seedBytes, 'Stored preference bytes changed'); assert.deepEqual(v.settings, seed);
   assert.ok(v.player.finite && v.enemy.finite); assert.equal(v.input.gain, 1.35);
   assert.equal(v.enemy.swordsmanship.modelPresent, false); assert.equal(v.enemy.swordsmanship.statePresent, false);
@@ -283,6 +293,16 @@ function contract(v, weapon, mode = 'default') {
     assert.equal(v.player.thrustPlane, 'legacy'); assert.equal(v.finishRule, 'legacy');
     assert.equal(v.bladeShape.applied, false);
     if (v.player.weapon === 'qinggang') assert.deepEqual(v.player.shapeTypes, [1, 0, 1, 1]);
+  }
+}
+function limbContract(v, expected) {
+  const params = new URL(v.url).searchParams;
+  const enabled = expected ?? (v.default.active || params.get('limbTrial') === '1');
+  assert.equal(v.limbSeverEnabled, enabled, 'Limb severing entry policy differs from the actual runtime');
+  assert.equal(v.savedBytes, seedBytes); assert.ok(v.player.finite && v.enemy.finite);
+  if (!(params.get('limbTrial') === '1' && ['armS', 'legF'].includes(params.get('limbDemo')))) {
+    for (const f of [v.player, v.enemy]) assert.ok(f.limbSever.events.every(event => event.source !== 'synthetic-preview'),
+      'Ordinary or non-demo entry must not schedule synthetic injuries');
   }
 }
 
@@ -520,8 +540,54 @@ try {
     ordinary.menu = await snap(); ordinary.portrait = await layout(); fit(ordinary.portrait); contract(ordinary.menu, null);
     await screenshot(ordinary.id + '-portrait', ordinary); await page.setViewportSize(landscape); fit(await layout());
     ordinary.firstChoice = await start(true, 0); contract(await snap(), null); await firstSteps(null, 1);
+    if (scope === 'limb') { await nativeGesture(ordinary, false); contract(ordinary.touch.final, null); }
     await screenshot(ordinary.id + '-first-card', ordinary); await heldPauseRestart(ordinary, null, true);
     await collect(ordinary); await pause(); ordinary.pass = true;
+  }
+  if (scope === 'limb') {
+    for (const [id, query, enabled] of [
+      ['limb-old-research-off', 'recutV2=baseline&weapon=longsword', false],
+      ['limb-explicit-on', 'weapon=longsword&limbTrial=1', true],
+      ['limb-explicit-off', 'weapon=longsword&limbTrial=0', false],
+      ['limb-demo-alone-off', 'weapon=longsword&limbDemo=armS', false],
+    ]) {
+      current = id; const url = new URL(base); url.search = query; await openFixture(url);
+      const menu = await snap(); limbContract(menu, enabled); assert.equal(menu.default.active, false);
+      assert.deepEqual(menu.player.limbSever.events, []); assert.deepEqual(menu.enemy.limbSever.events, []);
+      assert.equal(await page.evaluate(() => swordsmanshipProbe.firstCombats.length), 0);
+      rows.push({ id, url: url.href, menuOnly: true, menu, pass: true });
+    }
+    for (const [selector, limb, root, parent, parts] of [
+      ['#demoArm', 'armS', 'farmS', 'uarmS', ['farmS']],
+      ['#demoLeg', 'legF', 'shinF', 'thighF', ['shinF', 'footF']],
+    ]) {
+      current = 'synthetic-limb-' + limb;
+      const row = { id: current, syntheticPreview: true, actualCollisionEvidence: false, artifacts: [] }; rows.push(row);
+      await page.setViewportSize(portrait); await page.goto(lab.href, { waitUntil: 'load' }); fit(await layout());
+      const href = await page.locator(selector).getAttribute('href'), url = new URL(href, base);
+      assert.ok(confined(url.href)); assert.equal(url.searchParams.get('limbTrial'), '1');
+      assert.equal(url.searchParams.get('limbDemo'), limb); assert.equal(url.searchParams.get('weapon'), 'longsword');
+      await navigate(selector, url.href); await ready(); await page.waitForLoadState('networkidle'); await observe();
+      row.url = page.url(); row.menu = await snap(); limbContract(row.menu, true); fit(await layout());
+      assert.equal(row.menu.default.active, false); assert.deepEqual(row.menu.enemy.limbSever.events, []);
+      await screenshot(row.id + '-portrait', row); await page.setViewportSize(landscape); fit(await layout());
+      await start();
+      row.firstSteps = await page.evaluate(() => ({ fighters: swordsmanshipProbe.firstFighters,
+        worlds: swordsmanshipProbe.firstWorlds, combats: swordsmanshipProbe.firstCombats }));
+      assert.equal(row.firstSteps.fighters.length, 2); assert.equal(row.firstSteps.worlds.length, 1); assert.equal(row.firstSteps.combats.length, 1);
+      for (const v of [...row.firstSteps.fighters.map(v => v.snapshot), ...row.firstSteps.worlds, ...row.firstSteps.combats]) limbContract(v, true);
+      await page.waitForFunction(({ root, parent }) => game.enemy.severedLimbs?.some(event => event.root === root && event.source === 'synthetic-preview') &&
+        [root, parent].every(part => game.enemy.groups[part]?.children.some(child => child.name === 'limbSeverStump')),
+      { root, parent }, { timeout: 20000 });
+      row.preview = await snap(); limbContract(row.preview, true);
+      const sever = row.preview.enemy.limbSever, event = sever.events.find(event => event.root === root);
+      assert.equal(event.source, 'synthetic-preview'); assert.equal(event.limb, limb); assert.deepEqual(event.parts, parts);
+      assert.ok(sever.removedRoots.includes(root)); for (const part of parts) assert.ok(sever.detachedParts.includes(part));
+      for (const part of [root, parent]) assert.ok(sever.stumps.some(stump => stump.part === part && stump.visible && stump.meshCount >= 2));
+      if (limb === 'armS') assert.equal(row.preview.enemy.armed, false);
+      else assert.equal(row.preview.enemy.legF, 0);
+      await screenshot(row.id + '-stumps', row); await collect(row); await pause(); row.pass = true;
+    }
   }
   for (const weapon of selection.weapons) {
       current = weapon;
@@ -625,7 +691,8 @@ try {
     returnObservations, returnReviewRequired: ['full', 'public', 'adoption', 'common'].includes(scope) ? (returnObservations.length !== fullWeapons.length || returnObservations.some(row =>
       !row.returnObserved || !row.activeReturnInterrupted || !row.completedBeforeRetouch || !row.heldInputProtected || !row.movementObserved)) : null,
     compiled, rows, nativeUI, errors, httpFailures, requestFailures, blockedRequests, redirectRefusals, fatal,
-    scope: scope === 'cards' ? 'Scoped follow-up only: one query-free ordinary card-game row, two trusted Starts and two trusted card choices, held-pointer Pause and new-object restart, capability policies before first native steps, saved preference bytes, mobile portrait/landscape, compiled bytes, strict TLS/proxy and zero final errors. No separate weapon, return, withheld-menu or A/B flow executed; returnReviewRequired is null. Preserve and combine with the separately retained failed full attempt; do not present this as a fresh thirteen-row full pass. HTTP503 responses are not retried or filtered.' :
+    scope: scope === 'limb' ? 'Seven-row limb-default delivery: query-free ordinary mobile card choice, trusted drag/hold/release, held-input Pause and new-object restart with severing ON before first native steps; four entry menus confirm prior research OFF, explicit limbTrial=1 ON, explicit0 OFF and limbDemo alone OFF; two trusted public arm/leg demo CTAs exercise built-in synthetic-preview injuries, joint removal, detached pieces and both visible stump meshes. Four trusted Starts and two card choices, exact stored preference bytes, portrait/landscape, frozen compiled bytes, TLS/proxy and final errors checked. No browser-injected wound/body/health state. Synthetic demos are visual/runtime regression only, not actual cut strength or natural-severing evidence; no full common13 replay or physical-phone performance claim.' :
+      scope === 'cards' ? 'Scoped follow-up only: one query-free ordinary card-game row, two trusted Starts and two trusted card choices, held-pointer Pause and new-object restart, capability policies before first native steps, saved preference bytes, mobile portrait/landscape, compiled bytes, strict TLS/proxy and zero final errors. No separate weapon, return, withheld-menu or A/B flow executed; returnReviewRequired is null. Preserve and combine with the separately retained failed full attempt; do not present this as a fresh thirteen-row full pass. HTTP503 responses are not retried or filtered.' :
       scope === 'common' ? 'Feature-based ordinary delivery: thirteen rows and seven trusted Starts. Query-free default CTA/card choice and new-object restart; sabre full drag/held-stop/reverse/tap/restart/return/interruption/ready-retouch/90-frame hold; rapier, rubber chicken and pistol trusted input smokes; monohoshizao and lightsaber ordinary menus retain their withheld v2 status while using common combat policies; six prior A/B menus remain isolated. Before first native steps, after restart and during input where exercised: player stance fresh including gun users, nongun roll bounded, edged nongun cut centerline, enemy legacy, ordinary thrust/finish legacy, inactive shape conversion, stored preference bytes unchanged. Mobile portrait/landscape, compiled byte match, strict TLS/proxy and zero final errors checked. No Q/LS full replay, physical-phone performance, all-weapon efficacy, new active-cut power or residual-spin research assertion.' :
       scope === 'adoption' ? 'Ordinary defaults: real query-free card choice/restart and Q/LS/Z trusted input/reverse/tap/restart/return/retouch; capability-based player fresh/centerline/bounded policies checked before first native steps and after new-object restart. Six prior A/B menus check isolation, not new comparison play. Stored preferences, ordinary v2 and legacy Q shape/thrust/finish retained. Compiled bytes, strict TLS and mobile viewport errors checked. No new power, residual-spin research or physical-iPhone claim.' : scope === 'repair' ? 'Only the prior audio-error-affected rubber-chicken ordinary input and old unified Qinggang trial input flows, with up to two ECONNRESET-only GET retries, no error filtering, unchanged game/observer/input contracts. This does not repeat the full thirteen-flow suite.' :
       scope === 'public' ? 'Public default delivery acceptance only: three rows, six trusted Starts; query-free default CTA/card selection/restart and Qinggang/Longsword full play/reverse/tap/restart/return/retouch/90-frame hold. Capability-based player fresh/centerline/bounded policies, unchanged saved preference bytes, player-only r2, hidden old strength UI, legacy Q shape/thrust/finish, compiled asset match, TLS/proxy and zero final network errors. Other weapon and prior-comparison flows are not repeated by this scope; see separately linked receipts for any reused evidence. No full-roster public pass or human realism/force-efficiency assertion.' :

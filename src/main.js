@@ -93,8 +93,11 @@ const targetCorrectionTrial = configureTargetCorrectionTrial(params);
 const armRecoveryTrial = configureArmRecoveryTrial(params);
 const comparisonSettings = activeV2Trial ? activeV2Trial.settings : swordsmanshipTrial.active ? swordsmanshipTrial.settings : integratedCombatTrial.active ? integratedCombatTrial.settings : inputComparison ? { skill: '0', difficulty: 'normal' } : swordsmanshipDefault.active ? swordsmanshipDefault.settings : targetCorrectionTrial.settings;
 const settingValue = (key) => comparisonSettings[key] ?? settings[key];
-CONFIG.COMBAT.limbSeverTrial = params.get('limbTrial') === '1';
-const limbDemo = CONFIG.COMBAT.limbSeverTrial ? params.get('limbDemo') : null;
+// Ordinary fights use severing for both fighters. Historical research entries
+// keep their original setup unless they explicitly enable the limb trial.
+CONFIG.COMBAT.limbSeverTrial = swordsmanshipDefault.active || params.get('limbTrial') === '1';
+// Synthetic preview injuries must never be scheduled by the ordinary default.
+const limbDemo = params.get('limbTrial') === '1' ? params.get('limbDemo') : null;
 let limbDemoAt = Infinity;
 const supportProbe = configureSupportProbe(params, CONFIG.GAIT);
 const physicalTrial = configurePhysicalTrial(params, CONFIG.GRIP, CONFIG.BODY);

@@ -1,5 +1,7 @@
 # 실험 색인과 재현 입구
 
+최신 승인 활성화: [팔다리 절단 일반 적용](limb_general_status_20261007.md)·[검사/전달 영수증](limb_default_release.json). 기존 절단 조건을 유지하고 현재 일반 조합의 후속 제어와 공개 모바일 전달을 확인한다.
+
 최신: [무기명 제한 제거·기능별 공통 적용](common_defaults_20261007.md), [전달 영수증](common_defaults_release.json), [사지 절단 일반판 상태 조사](limb_general_status_20261007.md). 기존 물리식을 유지하고 확대 연결의 회귀만 검사한다.
 
 최신 일반 채택: [승인·무기 범위·후속 유보](general_adoption_20261007.md), [전달 영수증](general_adoption_release.json). 새 절삭 위력/잔여 회전 연구 실행은0회다.

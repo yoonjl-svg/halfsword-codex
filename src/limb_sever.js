@@ -1,4 +1,4 @@
-// Isolated gameplay trial: joint-level separation, not arbitrary mesh slicing.
+// Joint-level arm/leg separation; ordinary fights and the explicit legacy trial.
 import * as THREE from 'three';
 import { COMBAT } from './config.js';
 
