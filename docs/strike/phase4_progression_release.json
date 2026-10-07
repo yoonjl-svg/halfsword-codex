@@ -1,5 +1,5 @@
 {
-  "status": "local_native_and_mobile_verified_ready_for_public_delivery",
+  "status": "ordinary_round_progression_and_broken_contacts_delivered_verified",
   "baseHead": "5014a54b23037106512ece79d7e7baf56a60178f",
   "ordinaryURL": "https://yoonjl-svg.github.io/halfsword-codex/",
   "planURL": "https://yoonjl-svg.github.io/halfsword-codex/development-plan.html#section-2",
@@ -38,7 +38,7 @@
     "report": "phase4_progression_20261008.json",
     "physicalPhone": false,
     "naturalCombatVictory": false,
-    "status": "local_three_round_controlled_progression_passed",
+    "status": "local_and_public_controlled_three_round_flows_passed",
     "local": {
       "path": "/workspace/halfsword-handoff/phase4-progression-20261008/browser/candidate02/report.json",
       "bytes": 220921,
@@ -60,15 +60,78 @@
         "wallBudget": true
       }
     },
-    "priorCollectorFailure": "candidate01: all UI contracts passed; asynchronous response.body failed in metadata collection. Exact failed resource not recorded. Preserved failure, route APIResponse bytes collector corrected, candidate02 passed without game changes."
+    "priorCollectorFailure": "candidate01: all UI contracts passed; asynchronous response.body failed in metadata collection. Exact failed resource not recorded. Preserved failure, route APIResponse bytes collector corrected, candidate02 passed without game changes.",
+    "public": {
+      "path": "/workspace/halfsword-handoff/phase4-progression-20261008/browser/public01/report.json",
+      "bytes": 229660,
+      "sha256": "f5c375bbcf6b5ca07b7c1eed0cd56d18ffbffaaa25bacad51482ee72e4e6e791",
+      "pass": true,
+      "sourceStable": true,
+      "steps": 419,
+      "wallMs": 81251.232476,
+      "errors": [],
+      "checks": {
+        "native": true,
+        "threeRounds": true,
+        "threeExplicitFixtures": true,
+        "finiteSamples": true,
+        "defaultsAndRosters": true,
+        "retirementObserved": true,
+        "simulationBound": true,
+        "expectedEvidence": true,
+        "phonePlan": true,
+        "compiledExact": true,
+        "wallBudget": true
+      },
+      "entryURL": "https://yoonjl-svg.github.io/halfsword-codex/",
+      "weapons": [
+        "zweihander",
+        "frozen_tuna",
+        "zweihander"
+      ],
+      "phonePlan": {
+        "sha256": "56a6c4637574fb01758c97e7b5ecf646c2ce17e3e03b73049b4814185c514bde",
+        "match": true,
+        "views": [
+          {
+            "width": 390,
+            "scrollWidth": 390,
+            "firstHeading": "4단계 · 경기 결과와 다음 판 연결 · 10/08",
+            "firstSummary": "승패 안내의 두 불일치와 파손 무기의 남은 충돌을 수정했다."
+          },
+          {
+            "width": 844,
+            "scrollWidth": 844,
+            "firstHeading": "4단계 · 경기 결과와 다음 판 연결 · 10/08",
+            "firstSummary": "승패 안내의 두 불일치와 파손 무기의 남은 충돌을 수정했다."
+          }
+        ]
+      }
+    }
   },
   "independentReview": {
     "status": "no_additional_serious_regression_found",
     "scope": "Read-only src/main.js and src/fighter.js diff; no duplicate physical execution."
   },
   "public": {
-    "status": "ready_to_push",
-    "blocker": null
+    "status": "exact_public_files_and_mobile_flow_verified",
+    "recordsHead": "ad41679ee9931834ca110eb0dc85a80a98acbb31",
+    "actions": {
+      "id": 37648674769,
+      "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37648674769",
+      "conclusion": "success"
+    },
+    "remoteBranches": [
+      "main",
+      "codex/delivery-20261003"
+    ],
+    "ordinaryURL": "https://yoonjl-svg.github.io/halfsword-codex/",
+    "exactPublicFiles": 8,
+    "pagesReceipt": {
+      "path": "/workspace/halfsword-handoff/phase4-progression-20261008/delivery/pages01.json",
+      "bytes": 4617,
+      "sha256": "bfb3cff6e63bd949ed2df144ce243077d79dc7304f279ee7105ed924144a7cfa"
+    }
   },
   "limits": [
     "Three explicit die API calls exercise UI transitions, not natural injury/decisive-hit slow motion.",
@@ -80,5 +143,15 @@
     "observedOfflineUTC": "2026-10-07T15:55/15:59Z",
     "shellRecoveredUTC": "2026-10-07T16:00Z",
     "checksRepeated": false
+  },
+  "implementationHead": "ad41679ee9931834ca110eb0dc85a80a98acbb31",
+  "priorQueuedRun": {
+    "id": 37642392807,
+    "head": "5014a54b23037106512ece79d7e7baf56a60178f",
+    "observedStatus": "queued",
+    "jobs": 0,
+    "cancelAttempt": "CLI rejected; cancel and force-cancel REST both HTTP409: Cannot cancel a workflow run that has not been queued yet. No deletion or further retry.",
+    "currentDeployment": "New ad41679 run succeeded and public eight files verified exact.",
+    "reason": "GitHub incident left an older docs-only run reporting queued while cancellation API reports not queued. Preserve as external Actions inconsistency."
   }
 }

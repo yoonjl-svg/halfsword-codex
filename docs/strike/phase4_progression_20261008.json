@@ -1,7 +1,7 @@
 {
   "scope": "Three query-free ordinary card0 rounds with three explicitly controlled real Fighter.die terminal calls. UI/progression/lifecycle fixture, not natural combat or human victories.",
   "limits": ["No RNG/pose/velocity/direct-alive/stage assignment or seed search. Button/card/hand inputs are trusted touch and physics advances through the real RAF.", "Fixture deaths bypass natural injury/onWound slow motion. These results do not establish damage balance, natural dual-death frequency, all-opponent journeys or phone performance.", "World.free and registered fighter visual disposal were observed; resource counts are not GPU bytes.", "Baseline reproduction pass is distinct from game contracts pass. Fresh runs retain all prior failures."],
-  "accounting": {"attempts": 3, "completedRounds": 9, "protocolPasses": 2, "protocolFailures": 1, "baselineReproductions": 1, "fixedUIContractPasses": 2},
+  "accounting": {"attempts": 4, "completedRounds": 12, "protocolPasses": 3, "protocolFailures": 1, "baselineReproductions": 1, "fixedUIContractPasses": 3},
   "runs": {
     "baseline": {
       "pass": true,
@@ -81,6 +81,34 @@
       "mainAsset": {"name":"dist/assets/main-DoqnnJ9W.js","url":"http://127.0.0.1:4173/assets/main-DoqnnJ9W.js","bytes":3544660,"sha256":"6c5dc44d841cd20e4aeac3d4c61b52d7705ed56f615bed96ddbcdb714de9ef9b","match":true,"capture":"route.fetch APIResponse","delivery":"identical body passed to route.fulfill"},
       "compiledExact": true,
       "artifacts": {"report.json":{"path":"/workspace/halfsword-handoff/phase4-progression-20261008/browser/candidate02/report.json","bytes":220921,"sha256":"8e8ebae82855b8bf6d8c76276fcadbbd39f77ad8a66dcff40827017e936b1ef9"},"manifest-before.json":{"path":"/workspace/halfsword-handoff/phase4-progression-20261008/browser/candidate02/manifest-before.json","bytes":107884,"sha256":"c7c014c806a0cf8a324338117f38ca0c3de6c28197eb1ca61912f182ff639d0a"},"executed-tool.mjs":{"path":"/workspace/halfsword-handoff/phase4-progression-20261008/browser/candidate02/executed-tool.mjs","bytes":23845,"sha256":"1f0162b18d62eb970f1601e66ea8300e81fc9457544ae849f3db4f0580f7a0c7"}},
+      "lifecycle": {"pageCrashes":0,"unexpectedPageCloses":0,"workersOpened":3,"workersClosed":3}
+    },
+    "public01": {
+      "pass": true,
+      "passMeaning": "Correct terminal UI latch/pause and progression contracts under three explicit controlled Fighter.die fixtures.",
+      "contractsPass": true,
+      "expected": "fixed",
+      "sourceStable": true,
+      "head": "ad41679ee9931834ca110eb0dc85a80a98acbb31",
+      "headAfter": "ad41679ee9931834ca110eb0dc85a80a98acbb31",
+      "startedUTC": "2026-10-07T16:02:45.263Z",
+      "completedUTC": "2026-10-07T16:04:06.517Z",
+      "wallMs": 81251.232476,
+      "entryURL": "https://yoonjl-svg.github.io/halfsword-codex/",
+      "settings": {"difficulty":"normal","pixel":false,"blood":true,"sound":false,"invertTilt":false,"moveMode":"stick","skill":"0.7","guardNames":true,"trail":false,"fpsCap":false},
+      "checks": {"native":true,"threeRounds":true,"threeExplicitFixtures":true,"finiteSamples":true,"defaultsAndRosters":true,"retirementObserved":true,"simulationBound":true,"expectedEvidence":true,"phonePlan":true,"compiledExact":true,"wallBudget":true},
+      "findings": [{"id":"finished_pause_menu","contract":true,"observed":{"title":"승리","start":"다음 상대","resumeShown":false}},{"id":"latched_loss_menu","contract":true,"observed":{"title":"패배","start":"다시 싸우기","resumeShown":false},"firstToast":"패배"}],
+      "clockLimits": [],
+      "errors": [],
+      "fatal": null,
+      "tlsVerification": true,
+      "proxyRetained": true,
+      "rounds": [{"round":1,"stage":"poseidon","foe":"하인리히 도른","playerWeapon":"zweihander","foeWeapon":"excalibur_replica","input":{"beforeSteps":6,"afterSteps":48,"activeTouch":5},"retired":null},{"round":2,"stage":"clearing","foe":"오소리 브란","playerWeapon":"frozen_tuna","foeWeapon":"tree_branch","input":{"beforeSteps":84,"afterSteps":126,"activeTouch":10},"retired":{"worldFreed":true,"rootsStillAttached":[],"disposedGeometry":172,"disposedMaterial":142}},{"round":3,"stage":"clearing","foe":"오소리 브란","playerWeapon":"zweihander","foeWeapon":"tree_branch","input":{"beforeSteps":353,"afterSteps":395,"activeTouch":14},"retired":{"worldFreed":true,"rootsStillAttached":[],"disposedGeometry":176,"disposedMaterial":100}}],
+      "counts": {"simTime":3.491666666666657,"physicsSteps":419,"aiCalls":419,"trustedTouchEvents":31,"allNativeTrustedTouch":true,"controlledTerminalCalls":3,"nonfiniteSamples":0,"worldFreeCalls":6,"visualDisposeEvents":{"geometry":348,"material":242}},
+      "mainAsset": {"name":"dist/assets/main-DoqnnJ9W.js","url":"https://yoonjl-svg.github.io/halfsword-codex/assets/main-DoqnnJ9W.js","bytes":3544660,"sha256":"6c5dc44d841cd20e4aeac3d4c61b52d7705ed56f615bed96ddbcdb714de9ef9b","match":true,"capture":"route.fetch APIResponse","delivery":"identical body passed to route.fulfill"},
+      "compiledExact": true,
+      "artifacts": {"report.json":{"path":"/workspace/halfsword-handoff/phase4-progression-20261008/browser/public01/report.json","bytes":229660,"sha256":"f5c375bbcf6b5ca07b7c1eed0cd56d18ffbffaaa25bacad51482ee72e4e6e791"},"manifest-before.json":{"path":"/workspace/halfsword-handoff/phase4-progression-20261008/browser/public01/manifest-before.json","bytes":107884,"sha256":"232971c1aaff202f45b7c77077f771b04af867b1705b961a8fb5d2106c69ce12"},"executed-tool.mjs":{"path":"/workspace/halfsword-handoff/phase4-progression-20261008/browser/public01/executed-tool.mjs","bytes":25062,"sha256":"a1f300ae1e7c3417c558f948beb65d826565df3f121ba7f95730e75ea8177e41"}},
+      "phonePlan": {"sha256":"56a6c4637574fb01758c97e7b5ecf646c2ce17e3e03b73049b4814185c514bde","match":true,"views":[{"width":390,"scrollWidth":390,"firstHeading":"4단계 · 경기 결과와 다음 판 연결 · 10/08","firstSummary":"승패 안내의 두 불일치와 파손 무기의 남은 충돌을 수정했다."},{"width":844,"scrollWidth":844,"firstHeading":"4단계 · 경기 결과와 다음 판 연결 · 10/08","firstSummary":"승패 안내의 두 불일치와 파손 무기의 남은 충돌을 수정했다."}]},
       "lifecycle": {"pageCrashes":0,"unexpectedPageCloses":0,"workersOpened":3,"workersClosed":3}
     }
   }
