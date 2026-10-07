@@ -173,7 +173,6 @@ export class AI {
         this.anger = dom === 'anger' ? this.emo.anger : 0;
         this.obsession = dom === 'obsession' ? this.emo.obsession : 0;
         this.me.emoMods = emoMods(dom, this.emo[dom]);
-        if (dom === 'anger') this.patience = Math.min(this.patience, 0.2); // 발끈한 채 시작: 참을성이 바닥나 있다
       }
     }
     this.evParried = false; // 이번 스텝에 생긴 사건들 (afterStrike가 켜고 emote가 끈다)
@@ -189,6 +188,8 @@ export class AI {
     this.guard = null; // 간 볼 때의 자세
     this.guardTimer = rand(0.3, 1.0);
     this.patience = rand(0.55, 0.85); // 처음엔 조금 간을 보다가 들어간다
+    // 기존 난수 순서는 유지하되, 시작 분노의 성급함을 초기화 뒤에 적용한다.
+    if (this.emotion === 'anger') this.patience = Math.min(this.patience, 0.2);
     this.foeReach = this.foeM.reach + 0.05; // 상대 칼이 닿는 거리 추정 (생각보다 멀리서 맞으면 늘린다)
     this.decideTimer = 0;
     this.timer = 0;
@@ -1350,6 +1351,13 @@ export class AI {
       ty = this.path[0][1];
       // 상대가 옆으로 비껴 있으면 그만큼 손을 옮겨 겨눈다
       tx = clamp(tx + clamp(this.foeLat, -0.4, 0.4) * 0.5, -0.6, 0.6);
+      // 옆 보정 뒤에도 실제 손의 이동 범위 안에 목표를 둔다. 바깥 목표는
+      // 손이 경계에서 멈춰 path를 끝내지 못하고 strike에 머물 수 있다.
+      const targetLength = Math.hypot(tx, ty);
+      if (targetLength > 0.62) {
+        tx *= 0.62 / targetLength;
+        ty *= 0.62 / targetLength;
+      }
     }
     const dx = tx - off.x;
     const dy = ty - off.y;

@@ -1,0 +1,120 @@
+{
+  "baseHead": "0eaadf8c74702a7a9ca1bd960877afcf6eb7835a",
+  "status": "narrow_ai_fixes_native_and_controller_checks_passed_delivery_separate",
+  "productionFiles": {
+    "src/ai.js": {
+      "path": "src/ai.js",
+      "bytes": 87510,
+      "sha256": "2f23c64500eb6217ccba295607b17697c98e3f3f830c051a6d0f7c01af3116da"
+    }
+  },
+  "nativeComparison": "phase4_opening_20261007.json",
+  "physicalParametersChanged": false,
+  "playerControllerChanged": false,
+  "constructor": {
+    "command": "node --test tools/sim/ai_start_emotion.test.mjs",
+    "tool": {
+      "path": "tools/sim/ai_start_emotion.test.mjs",
+      "bytes": 1872,
+      "sha256": "d8b5923a332e60f11b38e575880041b281280344a828e7c974ac3497e8cc1798"
+    },
+    "baseline": {
+      "path": "/workspace/halfsword-handoff/phase4-pacing-20261007/constructor/baseline.tap",
+      "bytes": 1232,
+      "sha256": "ab053ac2a91f817ca0469fd5c731fe7f345ceadb0bf4e367a98c6642137ebdfe"
+    },
+    "candidate": {
+      "path": "/workspace/halfsword-handoff/phase4-pacing-20261007/constructor/candidate.tap",
+      "bytes": 474,
+      "sha256": "393bc18c3b6cdbad07662bb95c074542400c119a8be7fd64ed431c39a24f871e"
+    },
+    "baselinePass": 4,
+    "baselineFail": 1,
+    "candidatePass": 5,
+    "candidateFail": 0,
+    "scope": "Actual AI constructor on synthetic fighter records. Bran contract, random call count, dominant fear/obsession/subthreshold/absent emotion. No native steps."
+  },
+  "handController": {
+    "baseline": {
+      "path": "/workspace/halfsword-handoff/phase4-pacing-20261007/hand-regression/baseline01.json",
+      "bytes": 146115,
+      "sha256": "56cb847b2dd1c4f8286fbfdecb2eaa89ef78c57b2b615d5d23909ab272aafb49",
+      "protocolPass": true,
+      "gameContractSatisfied": false,
+      "controllerSteps": 5539,
+      "physicsSteps": 0,
+      "cases": {
+        "cases": 60,
+        "inBoundCases": 51,
+        "cornerCases": 9,
+        "completedCorners": 1,
+        "stalledCorners": 8,
+        "totalRandomCalls": 0
+      },
+      "assertions": 242,
+      "sourceStable": true,
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/ai_hand_path.test.mjs",
+        "--mode=baseline",
+        "--out=/workspace/halfsword-handoff/phase4-pacing-20261007/hand-regression/baseline01.json"
+      ]
+    },
+    "candidate": {
+      "path": "/workspace/halfsword-handoff/phase4-pacing-20261007/hand-regression/candidate01.json",
+      "bytes": 153427,
+      "sha256": "2675dfa97900624fcce42c1a85a3266a0daf55b88167abc69a12218ee9f52dc7",
+      "protocolPass": true,
+      "gameContractSatisfied": true,
+      "controllerSteps": 845,
+      "physicsSteps": 0,
+      "cases": {
+        "cases": 60,
+        "inBoundCases": 51,
+        "cornerCases": 9,
+        "completedCorners": 9,
+        "stalledCorners": 0,
+        "totalRandomCalls": 0
+      },
+      "assertions": 306,
+      "sourceStable": true,
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/ai_hand_path.test.mjs",
+        "--mode=candidate",
+        "--baseline=/workspace/halfsword-handoff/phase4-pacing-20261007/hand-regression/baseline01.json",
+        "--out=/workspace/halfsword-handoff/phase4-pacing-20261007/hand-regression/candidate01.json"
+      ]
+    },
+    "tool": {
+      "path": "tools/sim/ai_hand_path.test.mjs",
+      "bytes": 10307,
+      "sha256": "549c6811190e543c15e62bdda3c6371d20a2d07b1bd19b901cc5f9e527715f98"
+    },
+    "inBoundExactCases": 51
+  },
+  "review": {
+    "status": "accepted_independent_source_and_regression_review",
+    "scope": [
+      "initial anger only after unchanged random draw",
+      "striking targets only projected to existing hand limit",
+      "unchanged in-bound trajectories and speed/radius limits"
+    ]
+  },
+  "build": {
+    "command": "npm run build",
+    "status": "passed",
+    "log": {
+      "path": "/workspace/halfsword-handoff/phase4-pacing-20261007/build.log",
+      "bytes": 591,
+      "sha256": "7c1abebc00f3a7fce4c2f8dff8232b2d248a47a0fcc7a711276709a76ae80f57"
+    }
+  },
+  "limitations": [
+    "Natural persistent strike failure was absent in six baseline episodes; frequency unmeasured.",
+    "Controller corner fixtures are not physics or combat episodes.",
+    "First attack improvement is one seeded wait scenario, not average difficulty or hit-rate improvement.",
+    "Bran contact and health outcomes diverge; force/damage parameters unchanged does not imply identical injury outcomes.",
+    "Public mobile delivery and source exactness recorded separately in phase4_pacing_release.json."
+  ]
+}

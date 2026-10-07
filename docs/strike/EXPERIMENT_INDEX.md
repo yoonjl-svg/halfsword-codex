@@ -1,5 +1,7 @@
 # 실험 색인과 재현 입구
 
+4단계 첫 공방 ·10/07: [판정](phase4_pacing_20261007.md)·[해시/제어 회귀](phase4_pacing_20261007.json)·[대표3상대 실제 게임 비교](phase4_opening_20261007.md)·[전달](phase4_pacing_release.json). 브란 초기화 순서와 공격 목표 범위 불일치 수정. 정상51궤적 동일, 실제 전투 빈도·재미 주장은 없음.
+
 4단계 첫 품질 개선 ·10/07: [판정](phase4_quality_20261007.md)·[소유권/해시](phase4_quality_20261007.json)·[3판 반복 비교](phase4_repeat_20261007.md)·[가독성 미채택 이유](phase4_readability_20261007.md)·[일반 진입](phase4_entry_20261007.md)·[전달](phase4_quality_release.json). 재시작 재질 해제 누락 수정, 물리 수치 변경0. GPU bytes·실물 폰 FPS 개선량은 미측정.
 
 3단계3회차 ·10/07: [대표 통합 최종 판정](phase3_round3_20261007.md)·[수치/해시/재사용 감사](phase3_round3_20261007.json)·[실제 공개 부상 뒤 입력/재시작](phase3_closure_mobile_20261007.md)·[전달](phase3_round3_release.json). 현재 일반 회복→수동 타격과 부상 뒤 조작/초기화 관문 완료, 게임 변경0. 갑옷B선택형·보조팔/v2유보·전체물리 한계는 유지.

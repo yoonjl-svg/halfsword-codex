@@ -1,0 +1,70 @@
+{
+  "status": "local_validation_public_delivery_pending",
+  "baseHead": "0eaadf8c74702a7a9ca1bd960877afcf6eb7835a",
+  "ordinaryURL": "https://yoonjl-svg.github.io/halfsword-codex/",
+  "branURL": "https://yoonjl-svg.github.io/halfsword-codex/?foe=bran",
+  "planURL": "https://yoonjl-svg.github.io/halfsword-codex/development-plan.html#section-2",
+  "productionChanged": true,
+  "physicalParametersChanged": false,
+  "playerControllerChanged": false,
+  "mainAsset": {
+    "path": "assets/main-DwkLvJAd.js",
+    "bytes": 3544604,
+    "sha256": "dae7400bb5c373fbbd5d9691bf57e6360426e886fd85d09d31988feebb6e5e93"
+  },
+  "records": [
+    "phase4_pacing_20261007.json",
+    "phase4_opening_20261007.json"
+  ],
+  "public": {
+    "status": "pending"
+  },
+  "mobile": {
+    "status": "local_passed_public_pending",
+    "local": {
+      "path": "/workspace/halfsword-handoff/phase4-pacing-20261007/browser/local02/report.json",
+      "bytes": 182453,
+      "sha256": "57f174b89009576d94659d0b21c46b7b04183e2c62d313610b2a77da730c6f29",
+      "pass": true,
+      "sourceStable": true,
+      "checks": {
+        "pauseResumeNewInput": true,
+        "freshBranPatience": true,
+        "holdAndRelease": true,
+        "approach": true,
+        "firstAttack": true,
+        "strike": true,
+        "strikeToFollow": true,
+        "pathProgress": true,
+        "nativeTouch": true,
+        "restart": true,
+        "simulationBudget": true,
+        "wallBudget": true,
+        "deliveryIntegrity": true,
+        "phonePlan": true
+      },
+      "steps": 790,
+      "simTime": 6.58333333333345,
+      "wallMs": 109536.40603299999,
+      "entryURL": "http://127.0.0.1:4173/?foe=bran",
+      "weapons": [
+        "lightsaber",
+        "falchion"
+      ]
+    },
+    "failedAutomationEntry": {
+      "path": "/workspace/halfsword-handoff/phase4-pacing-20261007/browser/local01/report.json",
+      "bytes": 13535,
+      "sha256": "54c653fcaa6c282f6e1928d31845ae04f67719c4f49f47318235ada3bf3396d3",
+      "status": "preserved_failure_no_native_gameplay",
+      "cause": "Skip at reveal .5 seconds precedes .95 tap guard, followed by 10-second automation wait expiry during normal fly phase. Same card0 route corrected to actual tap guard and bounded 45-second entry/150-second total wait. No game code change, RNG injection, or offer reselection."
+    },
+    "tool": {
+      "path": "tools/browser/phase4_opening_20261007.mjs",
+      "bytes": 24902,
+      "sha256": "df9978c9ce0c7c41ad2f33e56e5332a2615ac06f9619922d1c1dfdaf356d6bbe"
+    },
+    "physicalPhone": false
+  },
+  "stageStatus": "Stage4 opening defects fixed; next victory/defeat and stage progression flow"
+}
