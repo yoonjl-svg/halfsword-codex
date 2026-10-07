@@ -571,7 +571,7 @@ export function gunshotSound(snd, pos) {
   ev.end = t + 0.62;
 }
 /** 짧은 쇳소리 몇 개 (장전 소리들이 같이 쓴다): [[시각 s, 중심 주파수 Hz, 세기, 길이 s], ...] */
-function clicks(snd, pos, list, gain) {
+function clicks(snd, pos, list, gain, q = 6) {
   const c = snd.ctx;
   const ev = snd.event({ bus: snd.metalBus, gain, prio: 1, pos });
   const t0 = c.currentTime;
@@ -584,7 +584,7 @@ function clicks(snd, pos, list, gain) {
     const bp = c.createBiquadFilter();
     bp.type = 'bandpass';
     bp.frequency.value = f;
-    bp.Q.value = 6;
+    bp.Q.value = q;
     const g = c.createGain();
     g.gain.setValueAtTime(0, t);
     g.gain.linearRampToValueAtTime(amp, t + 0.001);
@@ -603,9 +603,10 @@ export function gateOpenSound(snd, pos) {
   for (let i = 0; i < 6; i++) list.push([0.25 + i * 0.07, 5200 + 400 * (i % 3), 0.35, 0.04]);
   clicks(snd, pos, list, 0.45);
 }
-/** 한 발 넣기: 탄이 약실에 들어가는 작은 "딸깍" + 실린더를 한 칸 돌리는 "틱" */
+/** 한 발 넣기: 탄이 약실에 닿는 낮은 금속음 + 실린더의 "찰칵". 기존 스케줄이 여섯 번 호출한다. */
 export function loadRoundSound(snd, pos) {
-  clicks(snd, pos, [[0, 3600, 0.8, 0.035], [0.09, 5000, 0.45, 0.025]], 0.4);
+  // 두 소스·난수 호출 수는 유지하고 대역과 잔향을 넓혀 장전 한 발씩을 분명히 들려준다.
+  clicks(snd, pos, [[0, 1500, 1, 0.08], [0.10, 3600, 0.8, 0.045]], 0.75, 3);
 }
 /** 장전 소리(끝): 게이트를 닫고 공이치기를 젖히는 쇳소리 두 번 "철-컥" */
 export function reloadSound(snd, pos) {

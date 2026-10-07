@@ -1,5 +1,7 @@
 # 혼합안 독립 개발 인계
 
+**사용자 추가 요청 ·10/08:** [리볼버 총성+15%·6발 장전음 개선](../sound/revolver_audio_20261008.md). 장전 시간·총알/피해/조작은 유지하며 [실제 전달 상태](../sound/revolver_audio_release.json)를 따른다. 4단계 다음 개발 순서는 아래 및 ACTIVE_PLAN 기준이다.
+
 **최신4단계 ·10/08:** [승패→다음 상대/재시작 안내](../strike/phase4_progression_20261008.md)와 [완전 파손 부품의 잔류 충돌](../strike/broken_collider_20261008.md)을 수정했다. [실제 공개 상태](../strike/phase4_progression_release.json)·[다음 계획](ACTIVE_PLAN.md)을 따른다. 최초 결과 판정은 유지하며 물리 계수·피해 공식을 조정하지 않는다.
 
 **최신4단계 첫 공방 ·10/07:** [브란 시작 성향·상대 공격 종료 오류 수정](../strike/phase4_pacing_20261007.md). 같은 대표3상대 비교와 손 제어 경계 검사를 마쳤다. [실제 공개 상태](../strike/phase4_pacing_release.json)·[다음 계획](ACTIVE_PLAN.md)을 따른다. 전체4단계는 진행 중이며 다음은 승패 이후 진행 흐름이다.

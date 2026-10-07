@@ -1,0 +1,27 @@
+{
+  "scope": "Native mobile pistol shot followed by explicitly controlled reload entry and original RAF/AI scheduling, pause/mute/resume/restart. Not six naturally fired rounds or human listening evidence.",
+  "limits": ["Fixture writes only player.gun ammo=0,reloading=true,cool=9,pending=-1; no AI/RNG/pose/damage/clock changes.","Web Audio gain and successful source.start calls demonstrate scheduling through original functions, not perceived loudness or physical-speaker output.","One local and one public attempt are planned. Natural combat may stop the reload; any failure remains recorded with no seed search."],
+  "runs": {
+    "local01": {
+      "pass": true,
+      "sourceStable": true,
+      "head": "4ecb1bf52c34ee86bd3fd06f7fdacaef5ec1cb6a",
+      "headAfter": "4ecb1bf52c34ee86bd3fd06f7fdacaef5ec1cb6a",
+      "startedUTC": "2026-10-07T16:15:15.836Z",
+      "completedUTC": "2026-10-07T16:16:36.717Z",
+      "wallMs": 80879.18742399999,
+      "entryURL": "http://127.0.0.1:4173/?weapon=pistol&foe=heinrich&foeWeapon=longsword",
+      "settings": {"difficulty":"normal","pixel":false,"blood":true,"sound":true,"invertTilt":false,"moveMode":"stick","skill":"0.7","guardNames":true,"trail":false,"fpsCap":false},
+      "checks": {"shotGain":true,"sixLoads":true,"reloadNineSeconds":true,"pauseStopsScheduler":true,"muteAndResume":true,"restartFresh":true,"native":true,"finite":true,"oneExplicitFixture":true,"preferencesRestored":true,"compiledExact":true},
+      "errors": [],
+      "clockLimits": [],
+      "tlsVerification": true,
+      "fatal": null,
+      "observed": {"shotEvents":[{"gain":1.9549999999999998,"actualGain":1.9550000429153442,"context":"running","simTime":0.15,"startedSources":2}],"loadEvents":6,"loadGains":[0.75,0.75,0.75,0.75,0.75,0.75],"loadSources":[2,2,2,2,2,2],"loadSourceStarts":[2,2,2,2,2,2],"loadElapsedGunSeconds":[1.5083334119990468,2.725000142119825,3.941666872240603,5.158333602361381,6.375000332482159,7.591667062602937],"pauseCool":[6.34999986179173,6.34999986179173],"completedGun":{"cool":-4.6938657760620117e-07,"pending":-1,"shots":1,"hits":0,"ammo":6,"reloading":false,"t":9.233333814889193},"restartGun":{"cool":0,"pending":-1,"shots":0,"hits":0,"ammo":6,"reloading":false,"t":0.05000000260770321},"physicsSteps":1157,"aiCalls":1157,"trustedTouchEvents":18,"fixtures":1,"nonfinite":0},
+      "mainAsset": {"name":"dist/assets/main-dzQd1-3i.js","url":"http://127.0.0.1:4173/assets/main-dzQd1-3i.js","bytes":3544664,"sha256":"4d903184177f82bc4e481dc714020dbf1f1a3ab489c47297d29e2e6a3d255d78","match":true,"capture":"route.fetch APIResponse","delivery":"identical body passed to route.fulfill"},
+      "compiledAllExact": true,
+      "artifacts": {"report.json":{"path":"/workspace/halfsword-handoff/revolver-audio-20261008/browser/local01/report.json","bytes":69731,"sha256":"92753f948793d22d2b765c52a97b946095e752aa7527e8595159c36b10607bc2"},"manifest-before.json":{"path":"/workspace/halfsword-handoff/revolver-audio-20261008/browser/local01/manifest-before.json","bytes":107880,"sha256":"5b14fe1a5a65c031a51d8f964a56f4d38c31b530c433657ed293d007b7ed334c"},"executed-tool.mjs":{"path":"/workspace/halfsword-handoff/revolver-audio-20261008/browser/local01/executed-tool.mjs","bytes":16990,"sha256":"7d62ce58d53b5ee4a1c128c72c059c39a040fb56d68b56e2d3801c3f15323a8d"}}
+    }
+  },
+  "accounting": {"attempts":1,"passes":1,"failures":0}
+}

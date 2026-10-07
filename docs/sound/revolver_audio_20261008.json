@@ -1,0 +1,94 @@
+{
+  "baseHead": "4ecb1bf52c34ee86bd3fd06f7fdacaef5ec1cb6a",
+  "request": "리볼버 총성15% 증폭과6발 장전음",
+  "pass": true,
+  "schedulerSourceExact": true,
+  "pairs": [
+    {
+      "kind": "shot",
+      "sampleRate": 44100,
+      "beforePeak": 0.7821896076202393,
+      "afterPeak": 0.8308085203170776,
+      "beforeRMS": 0.09978582623187252,
+      "afterRMS": 0.1099364516247753,
+      "eventCount": 1,
+      "randomCallsBeforeAndAfter": 4,
+      "sourceCountsAndScheduledTimesEqual": true
+    },
+    {
+      "kind": "round",
+      "sampleRate": 44100,
+      "beforePeak": 0.05052065849304199,
+      "afterPeak": 0.30810546875,
+      "beforeRMS": 0.0008844438001785436,
+      "afterRMS": 0.005695282568084412,
+      "eventCount": 1,
+      "randomCallsBeforeAndAfter": 2,
+      "sourceCountsAndScheduledTimesEqual": true
+    },
+    {
+      "kind": "six",
+      "sampleRate": 44100,
+      "beforePeak": 0.15050816535949707,
+      "afterPeak": 0.3238624334335327,
+      "beforeRMS": 0.0033124970536274247,
+      "afterRMS": 0.008995278095604629,
+      "eventCount": 8,
+      "randomCallsBeforeAndAfter": 21,
+      "sourceCountsAndScheduledTimesEqual": true
+    },
+    {
+      "kind": "shot",
+      "sampleRate": 48000,
+      "beforePeak": 0.8752831220626831,
+      "afterPeak": 0.8888664841651917,
+      "beforeRMS": 0.11439567155944937,
+      "afterRMS": 0.12501849068310913,
+      "eventCount": 1,
+      "randomCallsBeforeAndAfter": 4,
+      "sourceCountsAndScheduledTimesEqual": true
+    },
+    {
+      "kind": "round",
+      "sampleRate": 48000,
+      "beforePeak": 0.049280524253845215,
+      "afterPeak": 0.30235910415649414,
+      "beforeRMS": 0.000858531204594976,
+      "afterRMS": 0.0055909903843311525,
+      "eventCount": 1,
+      "randomCallsBeforeAndAfter": 2,
+      "sourceCountsAndScheduledTimesEqual": true
+    },
+    {
+      "kind": "six",
+      "sampleRate": 48000,
+      "beforePeak": 0.14938652515411377,
+      "afterPeak": 0.31481480598449707,
+      "beforeRMS": 0.00323972722879864,
+      "afterRMS": 0.008875631006059842,
+      "eventCount": 8,
+      "randomCallsBeforeAndAfter": 21,
+      "sourceCountsAndScheduledTimesEqual": true
+    }
+  ],
+  "baseline": {
+    "path": "/workspace/halfsword-handoff/revolver-audio-20261008/render/baseline01/report.json",
+    "bytes": 4895,
+    "sha256": "d847b6cd1c6cc45b572654a8a2e8bda87645a15ef2a2cb0f2b5cd45e26aa9838"
+  },
+  "candidate": {
+    "path": "/workspace/halfsword-handoff/revolver-audio-20261008/render/candidate01/report.json",
+    "bytes": 4920,
+    "sha256": "5ca3dda63062cc061e8e5a599b1e0619f77e90290fa579245dd7098d7b7baef9"
+  },
+  "tool": {
+    "path": "tools/audio/revolver_audio_20261008.mjs",
+    "bytes": 4397,
+    "sha256": "c0efefe9bbcd4587b3885528c7bf0586adf5fd652260aabe06eaa75940307ff9"
+  },
+  "limits": [
+    "OfflineAudioContext actual Sound and gun functions; six sequence uses existing configured schedule directly. Actual runtime scheduler is checked separately in browser.",
+    "Event gain is +15%; output amplitude follows existing compressor/limiter and is not an acoustic SPL claim.",
+    "No physical-phone listening judgment or natural six-shot combat claim."
+  ]
+}

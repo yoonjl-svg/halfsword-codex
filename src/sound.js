@@ -3197,7 +3197,7 @@ export class Sound {
   gunshot({ pos } = {}) {
     if (!this._on || !this.ctx) return;
     const R = STAGE_SOUND[this.stage]?.room;
-    const ev = this.event({ bus: this.metalBus, gain: 1.7, prio: 3, pos });
+    const ev = this.event({ bus: this.metalBus, gain: 1.7 * 1.15, prio: 3, pos }); // 사용자 요청: 총성 +15%
     this.layer(ev, this.pick('gunshot'), { rate: between(Math.random, 0.96, 1.04) });
     this.layer(ev, this.pick('gunTail'), { gain: R ? 0.25 : 0.55, rate: (R && R.rt > 2 ? 0.85 : 1) * between(Math.random, 0.95, 1.05), delay: 0.004 });
   }
