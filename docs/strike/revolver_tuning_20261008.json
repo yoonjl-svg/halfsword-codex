@@ -1,0 +1,563 @@
+{
+  "status": "native_and_audio_verified",
+  "baseHead": "541c4cf1e2861b46735b818d66b270c1bf6105df",
+  "native": {
+    "baselineCommit": "541c4cf1e2861b46735b818d66b270c1bf6105df",
+    "currentCommit": "541c4cf1e2861b46735b818d66b270c1bf6105df",
+    "command": "node tools/sim/revolver_tuning_20261008.mjs /workspace/halfsword-handoff/revolver-tuning-20261008/verification/native-01.json",
+    "sourceBefore": {
+      "src/gun.js": "76f82e04010752237449b193c28bf3731ef4d34d41b6c85ec294aff359451ac9",
+      "src/revolver_reload_audio.js": "eb30f2aabf9816110b7bb63906dcd2a02e3f757aee357aa1c537d0da02da6d56",
+      "src/sound.js": "4a903e6595f1da0fdbd5d585491e5a9823c5832b5369588b5c389ebc0cace83f",
+      "src/fighter.js": "ee6b1c5a513fe65d7b3e79a476fb70fecf816f96ec4a7fb7bfb4b81cfdcec3ac",
+      "src/combat.js": "adf58b520e29b3618d021bceb341d679eadfe0ef103fbe821928ec222259a9a8",
+      "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+      "tools/sim/revolver_tuning_20261008.mjs": "70eed8f024536d7cc252aa8ea25b2d9bb19b4f851203d8497da53b1a1c527b92"
+    },
+    "baselineGunSHA256": "99eeef3049e636d3a89a1a1d6433469c104dca40a90bdd738911080d9506be1b",
+    "scope": "Actual gunCanFire/updateGun/fire on native Fighter/Rapier objects, direct timer ticks and fixed transforms; zero world.step calls. Geometry and equal-time random-state checks. Not dynamic combat, visual pose, natural accuracy, or human acceptance.",
+    "checks": 3089,
+    "physicsSteps": 0,
+    "cooldown": [
+      {
+        "shot": 2,
+        "rejectedAt": 0.7999999000000001,
+        "acceptedAt": 0.8000001000000001
+      },
+      {
+        "shot": 3,
+        "rejectedAt": 0.7999999000000001,
+        "acceptedAt": 0.8000000999999999
+      },
+      {
+        "shot": 4,
+        "rejectedAt": 0.7999999000000001,
+        "acceptedAt": 0.8000001000000003
+      },
+      {
+        "shot": 5,
+        "rejectedAt": 0.7999999000000001,
+        "acceptedAt": 0.8000001000000001
+      },
+      {
+        "shot": 6,
+        "rejectedAt": 0.7999999000000001,
+        "acceptedAt": 0.8000001000000001
+      }
+    ],
+    "reload": {
+      "expectedInsertSeconds": [
+        1.3866666666666667,
+        2.36,
+        3.333333333333333,
+        4.306666666666667,
+        5.28,
+        6.253333333333333
+      ],
+      "oldInsertIntervalSeconds": 1.2166666666666666,
+      "newInsertIntervalSeconds": 0.9733333333333333,
+      "intervalRatio": 0.8,
+      "hookEvents": [
+        {
+          "kind": "open",
+          "time": 0
+        },
+        {
+          "kind": "insert",
+          "round": 1,
+          "time": 1.386666766666666
+        },
+        {
+          "kind": "insert",
+          "round": 2,
+          "time": 2.360000099999999
+        },
+        {
+          "kind": "insert",
+          "round": 3,
+          "time": 3.3333334333333324
+        },
+        {
+          "kind": "insert",
+          "round": 4,
+          "time": 4.306666766666668
+        },
+        {
+          "kind": "insert",
+          "round": 5,
+          "time": 5.2800001000000005
+        },
+        {
+          "kind": "insert",
+          "round": 6,
+          "time": 6.253333433333333
+        },
+        {
+          "kind": "close",
+          "time": 8.000000100000001
+        }
+      ],
+      "shots": [
+        {
+          "time": 0,
+          "ammo": 5,
+          "seed": 2842278042
+        },
+        {
+          "time": 0.8000001000000001,
+          "ammo": 4,
+          "seed": 1411538652
+        },
+        {
+          "time": 1.6000002,
+          "ammo": 3,
+          "seed": 2956449902
+        },
+        {
+          "time": 2.4000003000000003,
+          "ammo": 2,
+          "seed": 3892679120
+        },
+        {
+          "time": 3.2000004000000004,
+          "ammo": 1,
+          "seed": 149171074
+        },
+        {
+          "time": 4.0000005000000005,
+          "ammo": 0,
+          "seed": 1476631044
+        }
+      ],
+      "updateCalls": 30,
+      "boundaryEpsilonSeconds": 1e-07
+    },
+    "fixedTickReload": {
+      "tickSeconds": 0.008333333333333333,
+      "hookEvents": [
+        {
+          "kind": "open",
+          "time": 0
+        },
+        {
+          "kind": "insert",
+          "round": 1,
+          "time": 1.3916666666666642
+        },
+        {
+          "kind": "insert",
+          "round": 2,
+          "time": 2.366666666666661
+        },
+        {
+          "kind": "insert",
+          "round": 3,
+          "time": 3.333333333333324
+        },
+        {
+          "kind": "insert",
+          "round": 4,
+          "time": 4.308333333333337
+        },
+        {
+          "kind": "insert",
+          "round": 5,
+          "time": 5.283333333333386
+        },
+        {
+          "kind": "insert",
+          "round": 6,
+          "time": 6.258333333333434
+        },
+        {
+          "kind": "close",
+          "time": 8.000000000000187
+        }
+      ],
+      "duration": 8.00833333333352,
+      "expectedQuantizationLimitSeconds": 0.008333333333333333
+    },
+    "tremor": {
+      "samples": 1200,
+      "elapsedSeconds": 10,
+      "stateSHA256": "d48c3a0851fea9c8867becf5bdf75c9e3dd609edd8ef6db977576d41ef069e09",
+      "sharedRandomCalls": 0,
+      "bitExactToBaseline": true
+    },
+    "geometry": [
+      {
+        "pose": "upright",
+        "samples": 175,
+        "maxError": 0,
+        "maxLateral": 0.33,
+        "oldEndpointSpan": 0.579999976158142,
+        "newEndpointSpan": 0.6379999737739561,
+        "center": [
+          2.799999952316284,
+          1.2600000166893004,
+          0
+        ]
+      },
+      {
+        "pose": "prone",
+        "samples": 175,
+        "maxError": 0,
+        "maxLateral": 0.3300000126433474,
+        "oldEndpointSpan": 0.5799999829449934,
+        "newEndpointSpan": 0.6379999812394929,
+        "center": [
+          -1.160536892553361,
+          2.529940012701923,
+          1.296208782087338
+        ]
+      },
+      {
+        "pose": "head-detached",
+        "samples": 175,
+        "maxError": 0,
+        "maxLateral": 0.33000001264334733,
+        "oldEndpointSpan": 0.28999994508312155,
+        "newEndpointSpan": 0.3189999395914337,
+        "center": [
+          -1.0269830352664195,
+          2.546626799472044,
+          1.2422650721570356
+        ]
+      }
+    ],
+    "damage": [
+      {
+        "name": "bare-chest",
+        "rows": [
+          {
+            "configuredEnergy": 75,
+            "deliveredEnergy": 75,
+            "armorStopped": false,
+            "severity": 0.8333333333333334,
+            "type": "stab",
+            "woundCount": 1,
+            "helmetIntegrity": 1,
+            "plateIntegrity": null
+          },
+          {
+            "configuredEnergy": 80,
+            "deliveredEnergy": 80,
+            "armorStopped": false,
+            "severity": 0.9166666666666666,
+            "type": "stab",
+            "woundCount": 1,
+            "helmetIntegrity": 1,
+            "plateIntegrity": null
+          }
+        ]
+      },
+      {
+        "name": "bare-head",
+        "rows": [
+          {
+            "configuredEnergy": 75,
+            "deliveredEnergy": 75,
+            "armorStopped": false,
+            "severity": 0.9166666666666666,
+            "type": "stab",
+            "woundCount": 1,
+            "helmetIntegrity": 1,
+            "plateIntegrity": null
+          },
+          {
+            "configuredEnergy": 80,
+            "deliveredEnergy": 80,
+            "armorStopped": false,
+            "severity": 1,
+            "type": "stab",
+            "woundCount": 1,
+            "helmetIntegrity": 1,
+            "plateIntegrity": null
+          }
+        ]
+      },
+      {
+        "name": "plate-chest",
+        "rows": [
+          {
+            "configuredEnergy": 75,
+            "deliveredEnergy": 18.75,
+            "armorStopped": true,
+            "severity": 0,
+            "type": "blunt",
+            "woundCount": 0,
+            "helmetIntegrity": 1,
+            "plateIntegrity": 0
+          },
+          {
+            "configuredEnergy": 80,
+            "deliveredEnergy": 20,
+            "armorStopped": true,
+            "severity": 0,
+            "type": "blunt",
+            "woundCount": 0,
+            "helmetIntegrity": 1,
+            "plateIntegrity": 0
+          }
+        ]
+      },
+      {
+        "name": "helmet-head",
+        "rows": [
+          {
+            "configuredEnergy": 75,
+            "deliveredEnergy": 18.75,
+            "armorStopped": true,
+            "severity": 0,
+            "type": "blunt",
+            "woundCount": 0,
+            "helmetIntegrity": 0,
+            "plateIntegrity": null
+          },
+          {
+            "configuredEnergy": 80,
+            "deliveredEnergy": 20,
+            "armorStopped": true,
+            "severity": 0,
+            "type": "blunt",
+            "woundCount": 0,
+            "helmetIntegrity": 0,
+            "plateIntegrity": null
+          }
+        ]
+      }
+    ],
+    "pass": true,
+    "sourceAfter": {
+      "src/gun.js": "76f82e04010752237449b193c28bf3731ef4d34d41b6c85ec294aff359451ac9",
+      "src/revolver_reload_audio.js": "eb30f2aabf9816110b7bb63906dcd2a02e3f757aee357aa1c537d0da02da6d56",
+      "src/sound.js": "4a903e6595f1da0fdbd5d585491e5a9823c5832b5369588b5c389ebc0cace83f",
+      "src/fighter.js": "ee6b1c5a513fe65d7b3e79a476fb70fecf816f96ec4a7fb7bfb4b81cfdcec3ac",
+      "src/combat.js": "adf58b520e29b3618d021bceb341d679eadfe0ef103fbe821928ec222259a9a8",
+      "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+      "tools/sim/revolver_tuning_20261008.mjs": "70eed8f024536d7cc252aa8ea25b2d9bb19b4f851203d8497da53b1a1c527b92"
+    },
+    "sourceStable": true
+  },
+  "rawReceipts": [
+    {
+      "path": "/workspace/halfsword-handoff/revolver-tuning-20261008/verification/native-01.json",
+      "bytes": 8867,
+      "sha256": "5a3a3287970497aedc61ddd8badeace716dd03e8bada6f7cb67c4c4fb61292d9"
+    }
+  ],
+  "audio": [
+    {
+      "pass": false,
+      "sourceStable": true,
+      "command": "node tools/audio/revolver_tuning_20261008.mjs /workspace/halfsword-handoff/revolver-tuning-20261008/verification/audio-01 /workspace/halfsword-handoff/revolver-tuning-20261008/verification/native-01.json",
+      "scope": "Chromium OfflineAudioContext 48 kHz; real Sound event/layer/master routing, current gun wrappers, native 120 Hz event timing, historical module comparison. Gain is amplitude gain, not perceived loudness; limiter means final PCM need not scale exactly 1.2. No human listening, physical phone, or overlapping combat mix claim.",
+      "checks": 31,
+      "pageErrors": [],
+      "error": "AssertionError [ERR_ASSERTION]: Historical/current emitted buffer and speed unchanged: end\n    at check (file:///workspace/halfsword-codex/tools/audio/revolver_tuning_20261008.mjs:26:56)\n    at file:///workspace/halfsword-codex/tools/audio/revolver_tuning_20261008.mjs:114:9",
+      "sourceBefore": {
+        "src/gun.js": "76f82e04010752237449b193c28bf3731ef4d34d41b6c85ec294aff359451ac9",
+        "src/revolver_reload_audio.js": "eb30f2aabf9816110b7bb63906dcd2a02e3f757aee357aa1c537d0da02da6d56",
+        "src/sound.js": "4a903e6595f1da0fdbd5d585491e5a9823c5832b5369588b5c389ebc0cace83f",
+        "tools/audio/revolver_tuning_20261008.mjs": "e83360ac845e3eb02c831833cfc834e36c00be70bca4827febcd74bbbefd39ce"
+      },
+      "sourceAfter": {
+        "src/gun.js": "76f82e04010752237449b193c28bf3731ef4d34d41b6c85ec294aff359451ac9",
+        "src/revolver_reload_audio.js": "eb30f2aabf9816110b7bb63906dcd2a02e3f757aee357aa1c537d0da02da6d56",
+        "src/sound.js": "4a903e6595f1da0fdbd5d585491e5a9823c5832b5369588b5c389ebc0cace83f",
+        "tools/audio/revolver_tuning_20261008.mjs": "e83360ac845e3eb02c831833cfc834e36c00be70bca4827febcd74bbbefd39ce"
+      },
+      "assets": [],
+      "receipt": {
+        "path": "/workspace/halfsword-handoff/revolver-tuning-20261008/verification/audio-01/report.json",
+        "bytes": 22450,
+        "sha256": "bb5a4fe34b2ca268ec697d5c9aa4927be6b00bc397730c0d3835b85c4450b754"
+      },
+      "rows": [
+        {
+          "recorded": true,
+          "version": "baseline",
+          "ready": true,
+          "peak": 0.5524272918701172,
+          "rms": 0.010794264401871008,
+          "hardClippedSamples": 0,
+          "randomCalls": 0,
+          "muteWorks": true,
+          "pcmSHA256": "533f73889953e34ae43f63a3b886855928aa27ba4523a2c077968c884011cd6b",
+          "wav": null,
+          "wavSHA256": null
+        },
+        {
+          "recorded": true,
+          "version": "current",
+          "ready": true,
+          "peak": 0.6364760398864746,
+          "rms": 0.011933924834853948,
+          "hardClippedSamples": 0,
+          "randomCalls": 21,
+          "muteWorks": true,
+          "pcmSHA256": "79ba5b8abd5e75deb79e85bbc916f56a943823fc33f32c23c4debf814e00e4a8",
+          "wav": "recorded-six.wav",
+          "wavSHA256": "ebd481158fe0f462b1eee377f08bd0719d447c1bd5712e17694b68b7cf0a5240"
+        },
+        {
+          "recorded": false,
+          "version": "baseline",
+          "ready": false,
+          "peak": 0.3558758497238159,
+          "rms": 0.011091880200437146,
+          "hardClippedSamples": 0,
+          "randomCalls": 0,
+          "muteWorks": true,
+          "pcmSHA256": "ff6a5f72c0faeb746725818b61f0c0d5c940422ee46ffb133b336f709e1660d4",
+          "wav": null,
+          "wavSHA256": null
+        },
+        {
+          "recorded": false,
+          "version": "current",
+          "ready": false,
+          "peak": 0.4270510673522949,
+          "rms": 0.013310256317093585,
+          "hardClippedSamples": 0,
+          "randomCalls": 21,
+          "muteWorks": true,
+          "pcmSHA256": "43864d2e44de6851db322bff73cee6a8ba3ee50a5f2a4800e69ccbc8e1c5f973",
+          "wav": "fallback-six.wav",
+          "wavSHA256": "b321fb9d1fcc54618a5429076bc1051c4618a62b37100266f6100de1ff7506aa"
+        }
+      ]
+    },
+    {
+      "pass": true,
+      "sourceStable": true,
+      "command": "node tools/audio/revolver_tuning_20261008.mjs /workspace/halfsword-handoff/revolver-tuning-20261008/verification/audio-02 /workspace/halfsword-handoff/revolver-tuning-20261008/verification/native-01.json",
+      "scope": "Chromium OfflineAudioContext 48 kHz; real Sound event/layer/master routing, current gun wrappers, native 120 Hz event timing, historical module comparison. Gain is amplitude gain, not perceived loudness; limiter means final PCM need not scale exactly 1.2. No human listening, physical phone, or overlapping combat mix claim.",
+      "checks": 196,
+      "pageErrors": [],
+      "error": null,
+      "sourceBefore": {
+        "src/gun.js": "76f82e04010752237449b193c28bf3731ef4d34d41b6c85ec294aff359451ac9",
+        "src/revolver_reload_audio.js": "eb30f2aabf9816110b7bb63906dcd2a02e3f757aee357aa1c537d0da02da6d56",
+        "src/sound.js": "4a903e6595f1da0fdbd5d585491e5a9823c5832b5369588b5c389ebc0cace83f",
+        "tools/audio/revolver_tuning_20261008.mjs": "6904bf83f082181af6be555ddfa56f990f91861498200c064e735c1831a806a6"
+      },
+      "sourceAfter": {
+        "src/gun.js": "76f82e04010752237449b193c28bf3731ef4d34d41b6c85ec294aff359451ac9",
+        "src/revolver_reload_audio.js": "eb30f2aabf9816110b7bb63906dcd2a02e3f757aee357aa1c537d0da02da6d56",
+        "src/sound.js": "4a903e6595f1da0fdbd5d585491e5a9823c5832b5369588b5c389ebc0cace83f",
+        "tools/audio/revolver_tuning_20261008.mjs": "6904bf83f082181af6be555ddfa56f990f91861498200c064e735c1831a806a6"
+      },
+      "assets": [
+        {
+          "file": "public/sfx/revolver/open.wav",
+          "bytes": 83564,
+          "sha256": "c6c55d9b9aa8f965fc67cd53ddefd0a2cee92a9f82b02a67bd0a133e16d745f9",
+          "baselineSHA256": "c6c55d9b9aa8f965fc67cd53ddefd0a2cee92a9f82b02a67bd0a133e16d745f9"
+        },
+        {
+          "file": "public/sfx/revolver/insert1.wav",
+          "bytes": 41324,
+          "sha256": "c0feaf03de62bb3262eb4e76e28f12df73c8fae0bbf978e879c3581ae750c37d",
+          "baselineSHA256": "c0feaf03de62bb3262eb4e76e28f12df73c8fae0bbf978e879c3581ae750c37d"
+        },
+        {
+          "file": "public/sfx/revolver/insert2.wav",
+          "bytes": 31724,
+          "sha256": "96f9a45fca730477f17f033e51d449c5520b2e634b23582200154e6652ec54a7",
+          "baselineSHA256": "96f9a45fca730477f17f033e51d449c5520b2e634b23582200154e6652ec54a7"
+        },
+        {
+          "file": "public/sfx/revolver/insert3.wav",
+          "bytes": 35564,
+          "sha256": "60ee0beed5d47970146afc88c4b2c7bc3b9e283c71f5ebef6930878b63b9da00",
+          "baselineSHA256": "60ee0beed5d47970146afc88c4b2c7bc3b9e283c71f5ebef6930878b63b9da00"
+        },
+        {
+          "file": "public/sfx/revolver/insert4.wav",
+          "bytes": 40364,
+          "sha256": "1dab3c937ed8636af8c1314386da9c4ec073c46892833f3ab0bb943d11e597d6",
+          "baselineSHA256": "1dab3c937ed8636af8c1314386da9c4ec073c46892833f3ab0bb943d11e597d6"
+        },
+        {
+          "file": "public/sfx/revolver/insert5.wav",
+          "bytes": 54764,
+          "sha256": "1bd66c69c77cd373caaf0341b6377a1b6021636f8f9f4808408bcb5b381be274",
+          "baselineSHA256": "1bd66c69c77cd373caaf0341b6377a1b6021636f8f9f4808408bcb5b381be274"
+        },
+        {
+          "file": "public/sfx/revolver/insert6.wav",
+          "bytes": 28844,
+          "sha256": "7d2a6df13f6fa358e22a2729c771ddc7e5287d17e568d6f044d979392054bb6b",
+          "baselineSHA256": "7d2a6df13f6fa358e22a2729c771ddc7e5287d17e568d6f044d979392054bb6b"
+        },
+        {
+          "file": "public/sfx/revolver/close.wav",
+          "bytes": 32684,
+          "sha256": "67e52c29b391740efbd78a223efce8db5d8d74d8671767a11891f6e6e526d888",
+          "baselineSHA256": "67e52c29b391740efbd78a223efce8db5d8d74d8671767a11891f6e6e526d888"
+        }
+      ],
+      "receipt": {
+        "path": "/workspace/halfsword-handoff/revolver-tuning-20261008/verification/audio-02/report.json",
+        "bytes": 23766,
+        "sha256": "379bfe56eb6be0ea7788bc8b954b5a729e67326890a48391421b3743616cb022"
+      },
+      "rows": [
+        {
+          "recorded": true,
+          "version": "baseline",
+          "ready": true,
+          "peak": 0.5524272918701172,
+          "rms": 0.010794264401871008,
+          "hardClippedSamples": 0,
+          "randomCalls": 0,
+          "muteWorks": true,
+          "pcmSHA256": "533f73889953e34ae43f63a3b886855928aa27ba4523a2c077968c884011cd6b",
+          "wav": null,
+          "wavSHA256": null
+        },
+        {
+          "recorded": true,
+          "version": "current",
+          "ready": true,
+          "peak": 0.661696195602417,
+          "rms": 0.012950270507885511,
+          "hardClippedSamples": 0,
+          "randomCalls": 21,
+          "muteWorks": true,
+          "pcmSHA256": "75547398e002e59e51d9ef09d168c1244baba178bc64fde6b240adc29ce4f811",
+          "wav": "recorded-six.wav",
+          "wavSHA256": "0c1e1fda0d71b494c06db562748a563eef66a5102f2ae8ffca850069612a5971"
+        },
+        {
+          "recorded": false,
+          "version": "baseline",
+          "ready": false,
+          "peak": 0.3558758497238159,
+          "rms": 0.011091880200437146,
+          "hardClippedSamples": 0,
+          "randomCalls": 0,
+          "muteWorks": true,
+          "pcmSHA256": "ff6a5f72c0faeb746725818b61f0c0d5c940422ee46ffb133b336f709e1660d4",
+          "wav": null,
+          "wavSHA256": null
+        },
+        {
+          "recorded": false,
+          "version": "current",
+          "ready": false,
+          "peak": 0.4270510673522949,
+          "rms": 0.013310256317093585,
+          "hardClippedSamples": 0,
+          "randomCalls": 21,
+          "muteWorks": true,
+          "pcmSHA256": "43864d2e44de6851db322bff73cee6a8ba3ee50a5f2a4800e69ccbc8e1c5f973",
+          "wav": "fallback-six.wav",
+          "wavSHA256": "b321fb9d1fcc54618a5429076bc1051c4618a62b37100266f6100de1ff7506aa"
+        }
+      ]
+    }
+  ],
+  "audioFailureExplanation": "audio-01 preloaded a different Vite HMR module instance than gun wrappers, testing procedural fallback instead of expected recordings. audio-02 imports exactly the served gun dependency. Only the test was corrected; production source unchanged."
+}

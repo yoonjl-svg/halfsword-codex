@@ -1,0 +1,465 @@
+{
+  "status": "local_verified_public_pending",
+  "baseHead": "541c4cf1e2861b46735b818d66b270c1bf6105df",
+  "ordinaryURL": "https://yoonjl-svg.github.io/halfsword-codex/",
+  "pistolURL": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=pistol&foeWeapon=longsword",
+  "productionFiles": [
+    "src/gun.js",
+    "src/revolver_reload_audio.js"
+  ],
+  "settings": {
+    "energyJ": 80,
+    "cooldownSeconds": 0.8,
+    "reloadSeconds": 8,
+    "reloadGainMultiplier": 1.2,
+    "insertIntervalSeconds": 0.9733333333333333,
+    "aimEnvelopeScale": 1.1
+  },
+  "verification": "revolver_tuning_20261008.json",
+  "local": [
+    {
+      "name": "local01",
+      "receipt": {
+        "path": "/workspace/halfsword-handoff/revolver-tuning-20261008/browser/local01/report.json",
+        "bytes": 80713,
+        "sha256": "e19b8362df6100f125c27f549785d90a0dd816bf52ff80e446aa0b7337403a27"
+      },
+      "pass": false,
+      "sourceStable": true,
+      "checks": {},
+      "errors": [],
+      "fatal": {
+        "name": "AssertionError",
+        "message": "Original combat ended before reload completion\n\n'paused' !== 'fight'\n",
+        "stack": "AssertionError [ERR_ASSERTION]: Original combat ended before reload completion\n\n'paused' !== 'fight'\n\n    at file:///workspace/halfsword-codex/tools/browser/revolver_tuning_20261008.mjs:72:117"
+      },
+      "wallMs": 80562.225774,
+      "steps": 987,
+      "protocol": null,
+      "limits": [
+        "Two real trusted pistol taps; between them explicit player.gun.ammo=1 fixture makes the second tap enter the original empty-cylinder path. Not six naturally fired rounds.",
+        "Original AI, damage, RNG, RAF/physics and audio function results retained. The probe does not accelerate the game clock. No seed search or forced survival.",
+        "Delivered WAV hashes are linked through actual decodeAudioData output buffers to Sound.event sources that called native start. This proves original Web Audio scheduling, not physical-speaker output or human preference.",
+        "Aim samples are original gunPose outputs and physical muzzle readings, not private gunAimTarget coordinates. Exact 1.1 target-envelope geometry is outside this browser check and belongs to the independent native tests; the .40m browser ray bound is only a coarse safety check. Human shooting comfort is not inferred from these samples."
+      ]
+    },
+    {
+      "name": "local02",
+      "receipt": {
+        "path": "/workspace/halfsword-handoff/revolver-tuning-20261008/browser/local02/report.json",
+        "bytes": 176751,
+        "sha256": "e807ee9284fd234e4441c6123fb0f7e63de2b0c3ed1437b86bf54d844c9fb2bd"
+      },
+      "pass": true,
+      "sourceStable": true,
+      "checks": {
+        "trustedRetreat": true,
+        "twoNativeShots": true,
+        "eightRecordedEvents": true,
+        "eightWavDecoded": true,
+        "eightWavDelivered": true,
+        "cooldownEightTenths": true,
+        "sixInsertsEightSecondScheduler": true,
+        "insertGapTwentyPercentShorter": true,
+        "pauseStopsScheduler": true,
+        "muteAndResume": true,
+        "restartFresh": true,
+        "tremorObserved": true,
+        "native": true,
+        "finite": true,
+        "oneExplicitAmmoFixture": true,
+        "preferencesRestored": true,
+        "compiledExact": true
+      },
+      "errors": [],
+      "fatal": null,
+      "wallMs": 115449.156165,
+      "steps": 1331,
+      "protocol": null,
+      "limits": [
+        "Two real trusted pistol taps; between them explicit player.gun.ammo=1 fixture makes the second tap enter the original empty-cylinder path. Not six naturally fired rounds.",
+        "Original AI, damage, RNG, RAF/physics and audio function results retained. The probe does not accelerate the game clock. No seed search or forced survival. Native backward/strafe joystick input is held during reload, released for Pause and reapplied after Resume; the stationary local01 failure is preserved separately.",
+        "Delivered WAV hashes are linked through actual decodeAudioData output buffers to Sound.event sources that called native start. This proves original Web Audio scheduling, not physical-speaker output or human preference.",
+        "Aim samples are original gunPose outputs and physical muzzle readings, not private gunAimTarget coordinates. Exact 1.1 target-envelope geometry is outside this browser check and belongs to the independent native tests; the .40m browser ray bound is only a coarse safety check. Human shooting comfort is not inferred from these samples."
+      ],
+      "observedInsertGaps": [
+        0.9750000508502126,
+        0.966666717082262,
+        0.9750000508502126,
+        0.9750000508502126,
+        0.9750000508502126
+      ],
+      "observedShotCooldowns": [
+        0.8,
+        8
+      ],
+      "tremor": {
+        "samples": 43,
+        "simSpan": 2.3499999999999943,
+        "rsHMin": 0.09243880817294121,
+        "rsHMax": 0.19552516608685258,
+        "distinctTargets": 15,
+        "commandRayTorsoMax": 0.29076985430955693,
+        "commandRaySafetyBound": 0.4,
+        "meaning": "Original skill.update gunPose output and physical muzzle observations. Private target point is unexposed. The .40m bound is a coarse browser safety check, not exact envelope geometry or human accuracy/comfort evidence."
+      },
+      "gunWoundObservation": {
+        "exposed": true,
+        "rows": [
+          {
+            "round": 1,
+            "simTime": 0.19999999999999998,
+            "victim": "하인리히 도른",
+            "part": "abdomen",
+            "zone": "abdomen",
+            "energy": 20,
+            "type": "blunt",
+            "pass": false,
+            "helmet": false
+          },
+          {
+            "round": 1,
+            "simTime": 2.499999999999994,
+            "victim": "하인리히 도른",
+            "part": "farmO",
+            "zone": "arm",
+            "energy": 80,
+            "type": "stab",
+            "pass": true,
+            "helmet": false
+          }
+        ],
+        "meaning": "Natural gun applyWound observations only; no forced injury. Exact 80J energy contract is separately covered by native verification."
+      },
+      "retreat": [
+        {
+          "label": "before-pause",
+          "start": {
+            "state": "fight",
+            "simTime": 2.758333333333326,
+            "steps": 331,
+            "aiCalls": 331,
+            "player": {
+              "name": "나",
+              "alive": true,
+              "state": "stand",
+              "armed": true,
+              "weapon": "pistol",
+              "wounds": 0,
+              "pelvis": {
+                "x": -2.8824734687805176,
+                "y": 0.8848938345909119,
+                "z": -0.008523824624717236
+              },
+              "move": {
+                "x": 0.6,
+                "y": -0.8
+              },
+              "gun": {
+                "cool": 7.749999986961484,
+                "pending": -1,
+                "shots": 2,
+                "hits": 2,
+                "ammo": 0,
+                "reloading": true,
+                "t": 2.758333477191627,
+                "since": 0.25000001303851604,
+                "h": 0.8174640897860325
+              }
+            },
+            "enemy": {
+              "name": "하인리히 도른",
+              "alive": true,
+              "weapon": "longsword"
+            },
+            "sound": {
+              "on": true,
+              "context": "running",
+              "master": 0.800000011920929
+            },
+            "settings": {
+              "difficulty": "normal",
+              "pixel": false,
+              "blood": true,
+              "sound": true,
+              "invertTilt": false,
+              "moveMode": "stick",
+              "skill": "0.7",
+              "guardNames": true,
+              "trail": false,
+              "fpsCap": false
+            },
+            "saved": "{\"difficulty\":\"normal\",\"pixel\":false,\"blood\":true,\"sound\":true,\"invertTilt\":false,\"moveMode\":\"stick\",\"skill\":\"0.7\",\"guardNames\":true,\"trail\":false,\"fpsCap\":false}",
+            "policies": {
+              "gravity": -9.81,
+              "finish": "legacy",
+              "limb": true
+            },
+            "input": {
+              "activeTouch": null,
+              "pending": [
+                0,
+                0
+              ],
+              "taps": 0,
+              "stick": {
+                "x": 0.6,
+                "y": -0.8
+              }
+            }
+          },
+          "end": {
+            "state": "fight",
+            "simTime": 5.125000000000044,
+            "steps": 615,
+            "aiCalls": 615,
+            "player": {
+              "name": "나",
+              "alive": true,
+              "state": "stand",
+              "armed": true,
+              "weapon": "pistol",
+              "wounds": 0,
+              "pelvis": {
+                "x": -4.946256637573242,
+                "y": 0.9392292499542236,
+                "z": 1.6161621809005737
+              },
+              "move": {
+                "x": 0.5544520537927147,
+                "y": -0.739269405056953
+              },
+              "gun": {
+                "cool": 5.383333196863532,
+                "pending": -1,
+                "shots": 2,
+                "hits": 2,
+                "ammo": 0,
+                "reloading": true,
+                "t": 5.125000267289579,
+                "since": 2.616666803136468,
+                "h": 0.1481741434177567
+              }
+            },
+            "enemy": {
+              "name": "하인리히 도른",
+              "alive": true,
+              "weapon": "longsword"
+            },
+            "sound": {
+              "on": true,
+              "context": "running",
+              "master": 0.800000011920929
+            },
+            "settings": {
+              "difficulty": "normal",
+              "pixel": false,
+              "blood": true,
+              "sound": true,
+              "invertTilt": false,
+              "moveMode": "stick",
+              "skill": "0.7",
+              "guardNames": true,
+              "trail": false,
+              "fpsCap": false
+            },
+            "saved": "{\"difficulty\":\"normal\",\"pixel\":false,\"blood\":true,\"sound\":true,\"invertTilt\":false,\"moveMode\":\"stick\",\"skill\":\"0.7\",\"guardNames\":true,\"trail\":false,\"fpsCap\":false}",
+            "policies": {
+              "gravity": -9.81,
+              "finish": "legacy",
+              "limb": true
+            },
+            "input": {
+              "activeTouch": null,
+              "pending": [
+                0,
+                0
+              ],
+              "taps": 0,
+              "stick": {
+                "x": 0,
+                "y": 0
+              }
+            }
+          },
+          "horizontalDisplacement": 2.6265577443379895
+        },
+        {
+          "label": "after-resume",
+          "start": {
+            "state": "fight",
+            "simTime": 5.575000000000067,
+            "steps": 669,
+            "aiCalls": 669,
+            "player": {
+              "name": "나",
+              "alive": true,
+              "state": "stand",
+              "armed": true,
+              "weapon": "pistol",
+              "wounds": 0,
+              "pelvis": {
+                "x": -5.074674606323242,
+                "y": 0.9498677849769592,
+                "z": 1.7592957019805908
+              },
+              "move": {
+                "x": 0.5516207311158995,
+                "y": -0.7354943081545326
+              },
+              "gun": {
+                "cool": 4.933333173394203,
+                "pending": -1,
+                "shots": 2,
+                "hits": 2,
+                "ammo": 0,
+                "reloading": true,
+                "t": 5.575000290758908,
+                "since": 3.066666826605797,
+                "h": 0.15645066823895032
+              }
+            },
+            "enemy": {
+              "name": "하인리히 도른",
+              "alive": true,
+              "weapon": "longsword"
+            },
+            "sound": {
+              "on": true,
+              "context": "running",
+              "master": 0.800000011920929
+            },
+            "settings": {
+              "difficulty": "normal",
+              "pixel": false,
+              "blood": true,
+              "sound": true,
+              "invertTilt": false,
+              "moveMode": "stick",
+              "skill": "0.7",
+              "guardNames": true,
+              "trail": false,
+              "fpsCap": false
+            },
+            "saved": "{\"difficulty\":\"normal\",\"pixel\":false,\"blood\":true,\"sound\":true,\"invertTilt\":false,\"moveMode\":\"stick\",\"skill\":\"0.7\",\"guardNames\":true,\"trail\":false,\"fpsCap\":false}",
+            "policies": {
+              "gravity": -9.81,
+              "finish": "legacy",
+              "limb": true
+            },
+            "input": {
+              "activeTouch": null,
+              "pending": [
+                0,
+                0
+              ],
+              "taps": 0,
+              "stick": {
+                "x": 0.6,
+                "y": -0.8
+              }
+            }
+          },
+          "end": {
+            "state": "fight",
+            "simTime": 10.641666666666703,
+            "steps": 1277,
+            "aiCalls": 1277,
+            "player": {
+              "name": "나",
+              "alive": true,
+              "state": "stand",
+              "armed": true,
+              "weapon": "pistol",
+              "wounds": 1,
+              "pelvis": {
+                "x": -5.236700534820557,
+                "y": 0.9325441718101501,
+                "z": 3.1727983951568604
+              },
+              "move": {
+                "x": 0.6554287632982951,
+                "y": -0.8739050177310603
+              },
+              "gun": {
+                "cool": -4.172325134277344e-07,
+                "pending": -1,
+                "shots": 2,
+                "hits": 2,
+                "ammo": 6,
+                "reloading": false,
+                "t": 10.641667221672833,
+                "since": 8.133333757519722,
+                "h": 0.8587484047648274
+              }
+            },
+            "enemy": {
+              "name": "하인리히 도른",
+              "alive": true,
+              "weapon": "longsword"
+            },
+            "sound": {
+              "on": true,
+              "context": "running",
+              "master": 0.800000011920929
+            },
+            "settings": {
+              "difficulty": "normal",
+              "pixel": false,
+              "blood": true,
+              "sound": true,
+              "invertTilt": false,
+              "moveMode": "stick",
+              "skill": "0.7",
+              "guardNames": true,
+              "trail": false,
+              "fpsCap": false
+            },
+            "saved": "{\"difficulty\":\"normal\",\"pixel\":false,\"blood\":true,\"sound\":true,\"invertTilt\":false,\"moveMode\":\"stick\",\"skill\":\"0.7\",\"guardNames\":true,\"trail\":false,\"fpsCap\":false}",
+            "policies": {
+              "gravity": -9.81,
+              "finish": "legacy",
+              "limb": true
+            },
+            "input": {
+              "activeTouch": null,
+              "pending": [
+                0,
+                0
+              ],
+              "taps": 0,
+              "stick": {
+                "x": 0,
+                "y": 0
+              }
+            }
+          },
+          "horizontalDisplacement": 1.4227586812674817
+        }
+      ]
+    }
+  ],
+  "public": null,
+  "assets": [
+    {
+      "path": "assets/main-Dh-WjgLu.js",
+      "bytes": 3545561,
+      "sha256": "fffb4c4c5675a65c532baea8f8273b7563f5e944ecf2241b2dbb17793cdbf6c0"
+    },
+    {
+      "path": "assets/sound-BV3DeVc-.js",
+      "bytes": 83426,
+      "sha256": "9203e66f0ee11745f57c338ed4b5d411acdf118bd5a957bb93bb514ed5ff8d8a"
+    },
+    {
+      "path": "assets/soundgen-BDle7v6J.js",
+      "bytes": 35448,
+      "sha256": "0dfd106288146aee573b3b46c7d346284a813d9371170431266054299125cdaf"
+    },
+    {
+      "path": "assets/sounds-CYXJYEg6.js",
+      "bytes": 19744,
+      "sha256": "bcbf7cd22168767fc80c2d494f6fc565d2af412c827f1ada59fd0d1771232560"
+    }
+  ]
+}

@@ -20,14 +20,14 @@ import { prepareRevolverReload, playRevolverReload } from './revolver_reload_aud
 export const GUN_STANCE = { name: '사격 자세', desc: '총이 저절로 상대를 겨누며 흔들린다 · 레이저가 몸에 걸린 순간 탭으로 쏜다' };
 
 export const GUN = {
-  energy: 75, // J: 사용자 요청으로 70 → 75. 방어구/부위에 따른 기존 피해 계산은 유지한다.
-  // 탄창 (사장님 9/29 "사실감이 중요하다" — 건슬링어의 리볼버는 싱글액션 6연발): 겨눈 사격 사이 0.7초, 여섯 발 다 쏘면 장전 9초(다 채워야 쏜다)
-  //  실제 싱글액션: 숙련자가 겨누고 쏘면 0.4~0.6초, 보통 0.8~1.5초 · 게이트 장전(빈 탄피 하나씩 빼고 한 발씩 넣기) 숙련자 8~15초 [일반 수치, 출처 미대조]
+  energy: 80, // J: 사용자 후속 요청으로 75 → 80. 방어구/부위에 따른 기존 피해 계산은 유지한다.
+  // 싱글액션 사격 설정의 6연발. 사용자 지정 게임 시간이며 사람의 실측 평균을 뜻하지 않는다.
   rounds: 6, // 실린더에 드는 탄
-  cooldown: 0.7, // 초: 한 발 쏜 뒤 다음 발까지 (공이치기를 젖히고 반동에서 돌아와 다시 겨눔). 예전(단발) 6.5 → … → 2.5
-  reload: 9, // 초: 여섯 발을 다 쏘면 장전 — 게이트를 열고(reloadOpen) 한 발씩 넣고 닫는다(reloadClose). 다 끝나야 다시 쏜다
-  reloadOpen: 0.9, // 초: 장전 첫머리 — 게이트를 열고 빈 탄피를 밀어낸다 (그 뒤부터 한 발씩 넣는 딸깍)
-  reloadClose: 0.8, // 초: 장전 끝 — 게이트를 닫고 공이치기를 젖힌다 ("철-컥")
+  cooldown: 0.8, // 초: 한 발 쏜 뒤 다음 발까지 (공이를 젖히고 다시 겨누는 시간).
+  reload: 8, // 초: 여섯 발을 다 쏘면 전체 재장전. 완료 시 탄수 6으로 복구한다.
+  reloadOpen: 0.9, // 초: 열기·탄피 처리 뒤 삽입음 구간 시작.
+  reloadClose: 0.8, // 초: 장전 말미에 남겨 두는 닫기 준비 구간.
+  reloadInsertInterval: (7.3 / 6) * 0.8, // 기존 삽입 간격(9-.9-.8)/6에서 정확히20% 단축. 전체 장전 시간과 별도다.
   range: 25, // m: 총알이 닿는 거리
   armorBlunt: 0.25, // 투구·판금이 막으면(그리고 바로 부서지면) 몸에는 세기의 이 비율만 둔하게 전해진다
   laser: false, // 조준 레이저는 외형 PM gun_fx.js 가 그린다 (사장님: 아주 희미하게 · 두 겹 방지). true 면 여기 updateLaser 가 그린다(효과 모듈 없는 점검용)
@@ -49,7 +49,8 @@ export const GUN = {
   swayDrift: 1.2, // 도: 8자의 가운데가 겨눔 가운데(aimSpan) 둘레를 이만큼 느리게 떠돈다 (0 이면 늘 그 한가운데를 지난다)
   aimLow: 0.07, // m: 총신/주먹 높이 보정. 몸 줄을 따라 내리되 골반 아래로는 내리지 않는다.
   aimSide: 0.30, // m: 상반신 중심선에서 좌우 최대 폭. 가슴 반폭 0.18m + 주변 여유 0.12m.
-  aimHeightSway: 0.20, // 골반→머리 몸 줄 길이 중 상하 흔들림 비율. 최종 위치도 이 몸 줄 안으로 제한한다.
+  aimHeightSway: 0.20, // 확대 전 골반→머리 몸 줄 길이 중 상하 흔들림 비율. 완성한 영역에 aimEnvelopeScale을 적용한다.
+  aimEnvelopeScale: 1.1, // 기존 상반신 겨눔 영역을 중심에서 각 방향10% 확대. 떨림의 시계/난수/형태는 유지한다.
   aimSpanLoops: 0.5, // 8자 반 바퀴(평균 1.3초)마다 새 높이. 기존 전용 난수/보간 박자를 유지한다.
   // 불규칙한 흔들림: 8자 위에 얹는 매끄러운 무작위 떠돌이. swayRandHold 초마다 새 목표(옆 ±swayRandYaw°, 위아래 ±swayRandPitch°)를 전용 난수로 뽑아
   //  부드럽게 옮겨 간다 — 언제 몸에 걸릴지 읽기 어렵게. 판정 난수(Math.random·탄 퍼짐)와 분리한 검객별 난수라 칼 판은 바이트 그대로
@@ -220,6 +221,7 @@ function updateAimSpan(g, dt) {
 }
 const _span = Array.from({ length: 4 }, () => new THREE.Vector3());
 const _aimSide = new THREE.Vector3();
+const _aimCenter = new THREE.Vector3();
 const _aimRotation = new THREE.Quaternion();
 /** 골반→배→가슴→붙어 있는 머리의 실제 몸 줄. 누워도 월드 높이로 자르지 않는다. */
 function aimSpan(foe, h, out) {
@@ -244,7 +246,7 @@ function aimSpan(foe, h, out) {
   }
   return out.copy(P[0]);
 }
-/** 흔들리는 조준 목표만 상반신 주변으로 제한한다. 반동/장전/실제 물리 총구와 탄 퍼짐은 별개다. */
+/** 기존 상반신 목표 영역을 중심에서 확대한다. 반동/장전/실제 물리 총구와 탄 퍼짐은 별개다. */
 export function gunAimTarget(foe, h, sway, out = new THREE.Vector3()) {
   const yawBound = GUN.swayYaw * (1 + GUN.swayBreath) + GUN.swayDrift + GUN.swayRandYaw;
   const pitchBound = GUN.swayPitch * (1 + GUN.swayBreath) + GUN.swayDrift * 0.7 + GUN.swayRandPitch;
@@ -252,7 +254,11 @@ export function gunAimTarget(foe, h, sway, out = new THREE.Vector3()) {
   aimSpan(foe, h + GUN.aimHeightSway * unit(sway.pitch, pitchBound), out);
   // 가슴 좌우 축을 따라 흔든다. 몸이 누우면 상반신 주변 범위도 함께 눕는다.
   _aimSide.set(0, 0, 1).applyQuaternion(_aimRotation.copy(foe.bodies.chest.rotation()));
-  return out.addScaledVector(_aimSide, GUN.aimSide * unit(sway.yaw, yawBound));
+  out.addScaledVector(_aimSide, GUN.aimSide * unit(sway.yaw, yawBound));
+  // 상하 신호만 키우면 몸 줄 끝에서 잘려 전체 높이는 그대로다. 완성한 영역 전체를
+  // 확대해야 좌우뿐 아니라 높이도10% 늘어난다. 누운 몸과 떨어진 머리도 기존 몸 줄을 따른다.
+  aimSpan(foe, 1, _aimCenter).add(_span[0]).multiplyScalar(0.5);
+  return out.sub(_aimCenter).multiplyScalar(GUN.aimEnvelopeScale).add(_aimCenter);
 }
 
 /** 불규칙한 떠돌이: swayRandHold 초마다 새 목표를 뽑아 매끄럽게(smoothstep) 옮겨 간다 → g.rs { yaw, pitch } (도) */
@@ -297,11 +303,11 @@ export function updateGun(f, world, combat, dt) {
     const before = GUN.reload - g.cool;
     g.cool -= dt;
     if (g.reloading) {
-      // 장전: 게이트를 연 뒤 한 발씩 고르게 넣는다(딸깍), 끝에 닫고 젖힌다
-      const span = GUN.reload - GUN.reloadOpen - GUN.reloadClose;
+      // 여섯 삽입음의 박자는 전체 장전 시간과 독립적으로 맞춘다.
+      const interval = Math.min(GUN.reloadInsertInterval, (GUN.reload - GUN.reloadOpen - GUN.reloadClose) / GUN.rounds);
       const after = GUN.reload - g.cool;
       for (let i = 0; i < GUN.rounds; i++) {
-        const ti = GUN.reloadOpen + (span * (i + 0.5)) / GUN.rounds;
+        const ti = GUN.reloadOpen + interval * (i + 0.5);
         if (before < ti && after >= ti) sound('onLoadRound', f, i + 1);
       }
       if (g.cool <= 0) {
