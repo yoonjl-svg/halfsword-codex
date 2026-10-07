@@ -1,5 +1,5 @@
 {
-  "status": "local_validation_public_delivery_pending",
+  "status": "stage4_opponent_opening_fixes_delivered_verified",
   "baseHead": "0eaadf8c74702a7a9ca1bd960877afcf6eb7835a",
   "ordinaryURL": "https://yoonjl-svg.github.io/halfsword-codex/",
   "branURL": "https://yoonjl-svg.github.io/halfsword-codex/?foe=bran",
@@ -17,10 +17,22 @@
     "phase4_opening_20261007.json"
   ],
   "public": {
-    "status": "pending"
+    "status": "verified_exact_files",
+    "recordsHead": "1272cdfb899a97a45a21e61292571623317fc93f",
+    "actions": {
+      "id": 37641334579,
+      "conclusion": "success",
+      "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37641334579"
+    },
+    "exactPublicFiles": 8,
+    "pagesReceipt": {
+      "path": "/workspace/halfsword-handoff/phase4-pacing-20261007/delivery/pages01.json",
+      "bytes": 4617,
+      "sha256": "2b6c6a7aa7f5ce491c43c330bb11989d06d8f5ef808df14e5253608ffe39b742"
+    }
   },
   "mobile": {
-    "status": "local_passed_public_pending",
+    "status": "verified_public_character_selected_ordinary_cards",
     "local": {
       "path": "/workspace/halfsword-handoff/phase4-pacing-20261007/browser/local02/report.json",
       "bytes": 182453,
@@ -64,7 +76,47 @@
       "bytes": 24902,
       "sha256": "df9978c9ce0c7c41ad2f33e56e5332a2615ac06f9619922d1c1dfdaf356d6bbe"
     },
-    "physicalPhone": false
+    "physicalPhone": false,
+    "public": {
+      "path": "/workspace/halfsword-handoff/phase4-pacing-20261007/browser/public01/report.json",
+      "bytes": 162310,
+      "sha256": "4148e912933430310ba9701fda6a37463af00b1799bf21d681c3e76d16054b65",
+      "pass": true,
+      "sourceStable": true,
+      "steps": 808,
+      "simTime": 6.733333333333458,
+      "wallMs": 97823.09428199999,
+      "checks": {
+        "pauseResumeNewInput": true,
+        "freshBranPatience": true,
+        "holdAndRelease": true,
+        "approach": true,
+        "firstAttack": true,
+        "strike": true,
+        "strikeToFollow": true,
+        "pathProgress": true,
+        "nativeTouch": true,
+        "restart": true,
+        "simulationBudget": true,
+        "wallBudget": true,
+        "deliveryIntegrity": true,
+        "phonePlan": true
+      },
+      "errors": [],
+      "weapons": [
+        "zweihander",
+        "rapier"
+      ],
+      "timelineS": {
+        "firstAttack": 3.708333333333323,
+        "firstStrike": 5.066666666666708,
+        "firstFollow": 5.258333333333384
+      },
+      "phonePlanViewports": [
+        "390x844",
+        "844x390"
+      ]
+    }
   },
   "stageStatus": "Stage4 opening defects fixed; next victory/defeat and stage progression flow"
 }
