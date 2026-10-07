@@ -1,5 +1,5 @@
 {
-  "status": "local_validation_passed_public_verification_pending",
+  "status": "optional_comparison_and_plan_delivered",
   "baseHead": "552accf3c2f63817d73980293339fe9b1f713e18",
   "candidate": "armorGuard",
   "ordinaryFinishRule": "legacy",
@@ -23,7 +23,99 @@
     "cause": "PLAYWRIGHT_BROWSERS_PATH omitted; existing ffmpeg cache reused after setting it"
   },
   "public": {
-    "status": "not_yet_verified"
+    "status": "verified",
+    "gameHead": "60dca4685890a00a03cc4f278bb3ba90de95eb36",
+    "actions": {
+      "id": 37614129927,
+      "conclusion": "success",
+      "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37614129927"
+    },
+    "exactPublicFiles": 8,
+    "pagesReceipt": {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/delivery/pages01.json",
+      "bytes": 4617,
+      "sha256": "c78bba617ad80b113032bd72eb893da1a085e992a02b33b97538e871b48ee732"
+    },
+    "phonePlan": {
+      "pass": true,
+      "viewports": [
+        {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "width": 390,
+          "scrollWidth": 390,
+          "overflow": false
+        },
+        {
+          "viewport": {
+            "width": 844,
+            "height": 390
+          },
+          "width": 844,
+          "scrollWidth": 844,
+          "overflow": false
+        }
+      ],
+      "receipt": {
+        "path": "/workspace/halfsword-handoff/phase3-round1-20261007/delivery/phone-plan02/result.json",
+        "bytes": 660,
+        "sha256": "8b5ead19cd7e4df7debca362410c99b03611c40f370adc8da69823ac48ca221d"
+      },
+      "tool": {
+        "path": "/workspace/halfsword-handoff/phase3-round1-20261007/delivery/phone-plan02.mjs",
+        "bytes": 2729,
+        "sha256": "3c1bd684fbd4365c2fc9e43a713c1b569b0ffc84d3bc15ebf62c8d1e1fa53d38"
+      },
+      "method": "Playwright route.fetch with TLS enabled using configured proxy CA; response bytes equal frozen HTML."
+    },
+    "preservedPhonePlanSetupFailure": {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/delivery/phone-plan/failure.json",
+      "bytes": 319,
+      "sha256": "8ba491cb79ffa709693050c415b7a879b3d4406612a64dc8e0e7f7541c704115"
+    },
+    "verifiedUTC": "2026-10-07T11:39:58.597Z",
+    "mobile": {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/browser/fresh/public/summary.json",
+      "bytes": 187409908,
+      "sha256": "a3009f8c34b0e06e6ec174717858fd82442b3659ca719b8164a4c3a715f55ad3",
+      "pass": true,
+      "sourceStable": true,
+      "rows": [
+        {
+          "id": "finish-long-baseline",
+          "pass": true
+        },
+        {
+          "id": "finish-long-armor",
+          "pass": true
+        },
+        {
+          "id": "finish-rapier-baseline",
+          "pass": true
+        },
+        {
+          "id": "finish-rapier-armor",
+          "pass": true
+        }
+      ],
+      "errors": 0,
+      "httpFailures": 0,
+      "requestFailures": 0,
+      "scope": "Longsword/Rapier baseline/armor: trusted CTA, Start, drag, held reversal, release, tap and new recut; held pause; fresh Fighter/World/Combat/AI/controller restart and new input; trial reload; ordinary exit/reload; stored preferences exact. Both sides of comparison retain current ordinary player-only r2/manual, fresh stance, bounded roll, centerline cut and limb severing with gravity 9.81. A uses legacy finish; B uses player-only armorGuard. Heinrich retains original persona/AI with longsword school and legacy controller. First native fighter/world/combat/AI calls check the same contract. Local full adds ordinary longsword play/restart and two invalid menus; public four-flow scope requires passing byte-identical local evidence. No game-state, injury, AI, or pose injection; observed flags are not physical efficacy or human-naturalness acceptance.",
+      "reusedLocalEvidence": {
+        "path": "/workspace/halfsword-handoff/phase3-round1-20261007/browser/fresh/local02/summary.json",
+        "bytes": 215994740,
+        "sha256": "98f0685ab3ab082c30f095100a6571c91c8f46e5639cb3846b0929620fc31b50",
+        "sourceCommit": "552accf3c2f63817d73980293339fe9b1f713e18",
+        "reusedRows": [
+          "invalid-value-duplicate",
+          "invalid-mixed",
+          "ordinary-longsword"
+        ]
+      }
+    }
   },
   "limits": [
     "Mobile Chromium emulation, not a physical phone or human acceptance.",
@@ -70,5 +162,6 @@
     "httpFailures": 0,
     "requestFailures": 0,
     "scope": "Four optional flows, ordinary play/restart, two invalid menus; trusted native touch, live original AI, current ordinary tuple, restart and saved preferences."
-  }
+  },
+  "recordFollowup": "This receipt-only follow-up changes no source, public HTML or built asset. Delivery evidence is tied to gameHead and frozen source/build hashes; local ordinary and invalid flows are reused, not claimed as public reruns."
 }
