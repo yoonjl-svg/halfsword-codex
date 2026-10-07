@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-07",
-  "status": "local_pre_hint_change_entry_boundary_complete",
+  "status": "local_pre_edit_and_public_post_edit_entry_boundary_complete",
   "baselineHead": "aa7ddb5c7409954fb5c2efbfc69ba08ee0b504bb",
   "sourceIdentity": "HEAD plus uncommitted material-resource candidate; exact files in manifest-before.json",
   "asset": {
@@ -204,10 +204,8 @@
     "restartWoundsAndDetachedCleared": true
   },
   "decision": {
-    "entryFlow": "passed observed boundary",
-    "guidance": "Existing immediate walking hint overlaps intentional foot hold; real user confusion not established.",
-    "smallCandidate": "Prefix walking hint with 대치 후; keep arm input, 2-second simulated hold and camera.",
-    "candidateVerification": "This record precedes the hint edit. Changed hint public verification is separate; mere hint/feetHeld overlap is not a failure when the text explains the hold.",
+    "entryFlow": "Local pre-edit and public post-edit query-free cards/pause/resume/restart passed within one flow each.",
+    "guidance": "The public hint now prefixes walking with 대치 후. Visible text confirmed in DOM and a single video frame; physical phone and human comprehension remain untested.",
     "stage4Overall": "in_progress"
   },
   "limitations": [
@@ -281,5 +279,316 @@
       "bytes": 7080633,
       "sha256": "2b60d9e70c4e0c27b5cd0287552bdfa83bac36aebb8b4110db978ad13fef9b63"
     }
-  ]
+  ],
+  "localPassMeaning": {
+    "entryFlow": "passed observed boundary",
+    "guidance": "Existing immediate walking hint overlaps intentional foot hold; real user confusion not established.",
+    "smallCandidate": "Prefix walking hint with 대치 후; keep arm input, 2-second simulated hold and camera.",
+    "candidateVerification": "This record precedes the hint edit. Changed hint public verification is separate; mere hint/feetHeld overlap is not a failure when the text explains the hold.",
+    "stage4Overall": "in_progress"
+  },
+  "publicVerification": {
+    "head": "fdda0b716e1cd1ef3ce4e57d11df1e37323e5272",
+    "startedUTC": "2026-10-07T14:21:50.321Z",
+    "completedUTC": "2026-10-07T14:23:46.845Z",
+    "base": "https://yoonjl-svg.github.io/halfsword-codex/",
+    "asset": {
+      "name": "dist/assets/main-aMNJlC-N.js",
+      "bytes": 3544543,
+      "sha256": "e284e800f3096b5858d1245a65680d74f15107be95eb2b94235d24e083f089e1",
+      "match": true
+    },
+    "pass": true,
+    "sourceStable": true,
+    "attempts": 1,
+    "toolUnchangedFromLocal": true,
+    "steps": 732,
+    "simulationSeconds": 6.100000000000093,
+    "samples": 62,
+    "nonfiniteSamples": 0,
+    "trustedTouchEvents": 22,
+    "errors": [],
+    "checks": {
+      "queryFreeCardsPauseResumeRestart": "exposed_pass",
+      "earlyMovementRequest": "exposed_both",
+      "postHoldMovementRequest": "exposed_both",
+      "guidanceGap": "observed_overlap_not_user_confusion_proof"
+    },
+    "rounds": [
+      {
+        "label": "first",
+        "cardIndex": 0,
+        "offers": [
+          "tree_branch",
+          "frozen_tuna",
+          "excalibur_replica"
+        ],
+        "selected": "tree_branch",
+        "enemyWeapon": "excalibur_replica",
+        "policies": {
+          "default": true,
+          "v2": "unified",
+          "stance": "fresh",
+          "roll": "bounded",
+          "cut": "legacy",
+          "limb": true,
+          "finish": "legacy",
+          "startHold": 2,
+          "gravity": -9.81,
+          "camera": {
+            "back": 2.9,
+            "height": 2.3,
+            "shoulder": 0.9,
+            "fov": 55,
+            "follow": 5,
+            "stepBob": 0.012,
+            "lookAhead": 2.2,
+            "openUp": 0.6,
+            "openBack": 1
+          }
+        },
+        "hint": {
+          "text": "대치 후 왼쪽 조이스틱으로 걷기 · 끌어 휘두르기 · 톡 찌르기",
+          "shown": true
+        },
+        "allWalkSamplesStand": true,
+        "held": {
+          "samples": 18,
+          "fightTimeRange": [
+            0.20833333333333331,
+            1.908333333333329
+          ],
+          "wantSpeedRangeMPS": [
+            0,
+            0
+          ],
+          "horizontalPelvisDisplacementM": 0.061938217860811724
+        },
+        "released": {
+          "samples": 9,
+          "fightTimeRange": [
+            2.008333333333329,
+            2.808333333333326
+          ],
+          "wantSpeedRangeMPS": [
+            2.029411764705882,
+            2.2718947693955833
+          ],
+          "horizontalPelvisDisplacementM": 0.9953461298853541
+        },
+        "battleGoneFightTime": 0.049999999999999996,
+        "hintGoneFightTime": 0.45000000000000057,
+        "walkingHintDuringHold": true
+      },
+      {
+        "label": "restart",
+        "cardIndex": 1,
+        "offers": [
+          "longsword",
+          "excalibur",
+          "excalibur_replica"
+        ],
+        "selected": "excalibur",
+        "enemyWeapon": "excalibur_replica",
+        "policies": {
+          "default": true,
+          "v2": "unified",
+          "stance": "fresh",
+          "roll": "bounded",
+          "cut": "centerline",
+          "limb": true,
+          "finish": "legacy",
+          "startHold": 2,
+          "gravity": -9.81,
+          "camera": {
+            "back": 2.9,
+            "height": 2.3,
+            "shoulder": 0.9,
+            "fov": 55,
+            "follow": 5,
+            "stepBob": 0.012,
+            "lookAhead": 2.2,
+            "openUp": 0.6,
+            "openBack": 1
+          }
+        },
+        "hint": {
+          "text": "대치 후 왼쪽 조이스틱으로 걷기 · 끌어 휘두르기 · 톡 찌르기",
+          "shown": true
+        },
+        "allWalkSamplesStand": true,
+        "held": {
+          "samples": 18,
+          "fightTimeRange": [
+            0.20833333333333331,
+            1.908333333333329
+          ],
+          "wantSpeedRangeMPS": [
+            0,
+            0
+          ],
+          "horizontalPelvisDisplacementM": 0.05183949864896609
+        },
+        "released": {
+          "samples": 9,
+          "fightTimeRange": [
+            2.008333333333329,
+            2.808333333333326
+          ],
+          "wantSpeedRangeMPS": [
+            2.029411764705882,
+            2.223935173947624
+          ],
+          "horizontalPelvisDisplacementM": 0.9911713429996561
+        },
+        "battleGoneFightTime": 0.049999999999999996,
+        "hintGoneFightTime": 0.15,
+        "walkingHintDuringHold": false
+      }
+    ],
+    "visualHint": {
+      "confirmed": true,
+      "frame": "hint-video-28s.png",
+      "videoTimestampSeconds": 28,
+      "method": "One frame extracted after browser closure, then visually inspected; no full-video frame extraction.",
+      "interpretation": "The new walking wording is visible; hint overlap with feetHeld remains intentional and is not itself a failure."
+    },
+    "heldPauseResumeRestart": {
+      "heldInputCleared": true,
+      "pausedStateStable": true,
+      "resumeSameObjects": true,
+      "resumeNewMovementRetested": false,
+      "restartObjectsReplaced": true,
+      "restartWoundsAndDetachedCleared": true
+    },
+    "plan": {
+      "url": "https://yoonjl-svg.github.io/halfsword-codex/development-plan.html",
+      "pass": true,
+      "sourceStable": true,
+      "sourceHead": "fdda0b716e1cd1ef3ce4e57d11df1e37323e5272",
+      "served": {
+        "bytes": 76227,
+        "sha256": "94f4c3c71a46418c1f855b81204bb97ed3093733f872d0db57eb32142a7b65eb",
+        "match": true
+      },
+      "rows": [
+        {
+          "width": 390,
+          "height": 844,
+          "scrollWidth": 390,
+          "entryText": "4-3 입구: 일반 카드 진입·재시작에서 대치 중 이동 잠금과 걷기 안내의 불일치를 확인해 “대치 후 걷기”로 명확히 한다. 대치 시간은 그대로다. 다음은 대표 상대의 접근→첫 공격→공방에서 실제 문제 한 가지를 선별한다.",
+          "entryBox": {
+            "x": 41.5,
+            "y": 479.203125,
+            "width": 332.5,
+            "height": 144.453125,
+            "bottom": 623.65625
+          },
+          "fontSize": "17px",
+          "links": [
+            {
+              "text": "수정·판정",
+              "href": "https://github.com/yoonjl-svg/halfsword-codex/blob/main/docs/strike/phase4_quality_20261007.md"
+            },
+            {
+              "text": "실제 공개 상태",
+              "href": "https://github.com/yoonjl-svg/halfsword-codex/blob/main/docs/strike/phase4_quality_release.json"
+            }
+          ],
+          "screenshot": "plan-390x844.png"
+        },
+        {
+          "width": 844,
+          "height": 390,
+          "scrollWidth": 844,
+          "entryText": "4-3 입구: 일반 카드 진입·재시작에서 대치 중 이동 잠금과 걷기 안내의 불일치를 확인해 “대치 후 걷기”로 명확히 한다. 대치 시간은 그대로다. 다음은 대표 상대의 접근→첫 공격→공방에서 실제 문제 한 가지를 선별한다.",
+          "entryBox": {
+            "x": 45.5,
+            "y": 312.40625,
+            "width": 778.5,
+            "height": 57.78125,
+            "bottom": 370.1875
+          },
+          "fontSize": "17px",
+          "links": [
+            {
+              "text": "수정·판정",
+              "href": "https://github.com/yoonjl-svg/halfsword-codex/blob/main/docs/strike/phase4_quality_20261007.md"
+            },
+            {
+              "text": "실제 공개 상태",
+              "href": "https://github.com/yoonjl-svg/halfsword-codex/blob/main/docs/strike/phase4_quality_release.json"
+            }
+          ],
+          "screenshot": "plan-844x390.png"
+        }
+      ],
+      "errors": [],
+      "visualReview": "Both saved screenshots read after the run; new 4-3 paragraph visible without horizontal overflow.",
+      "limits": "Two browser layouts and visible text only; no physical-phone or human-readability acceptance, game input, combat, or external link navigation."
+    },
+    "command": "PLAYWRIGHT_MODULE=/workspace/cloud-onboarding/browser/node_modules/playwright/index.mjs PLAYWRIGHT_BROWSERS_PATH=/workspace/cloud-onboarding/browser/cache node tools/browser/phase4_entry_20261007.mjs --base=https://yoonjl-svg.github.io/halfsword-codex/ --out=/workspace/halfsword-handoff/phase4-20261007/entry/public01",
+    "evidence": [
+      {
+        "path": "/workspace/halfsword-handoff/phase4-20261007/entry/public01/report.json",
+        "bytes": 415766,
+        "sha256": "f3fee682a7d8389d3c81402af5d007b79738b7c8d5d0c14b858cd0d62ddb32b1"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/phase4-20261007/entry/public01/manifest-before.json",
+        "bytes": 107733,
+        "sha256": "3f7a08ed9fc6cc818d38200216ca9b81cf3a59eb4fcf7b1e9e019b9bb59bc0fa"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/phase4-20261007/entry/public01/browser-tool-executed.mjs",
+        "bytes": 24258,
+        "sha256": "70ce5745803ca90d621ee3beffa7925f3a1c3d181c96238b12e028ca60d973a2"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/phase4-20261007/entry/public01/ordinary-cards.png",
+        "bytes": 193935,
+        "sha256": "2bd49c32fc4fa97105ff36e8ad3a0778fd993871a00b1e2e311305c13e1a3fa8"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/phase4-20261007/entry/public01/opening-paused.png",
+        "bytes": 168545,
+        "sha256": "98f508afc861db2cf629c23b8b9124046c22636fd6cf1f3fa44c2aa24f5a1c2a"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/phase4-20261007/entry/public01/restart-paused.png",
+        "bytes": 167718,
+        "sha256": "7eb4e8fe446c855ef5ff82824e28b209d8f909b39609cb9344cac457689f693e"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/phase4-20261007/entry/public01/hint-video-28s.png",
+        "bytes": 374797,
+        "sha256": "11863b9927ef4f5fff4ca0231fc131a011f0d1f2bc763883f4c13cbeac206f34"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/phase4-20261007/entry/public01/video/page@85044da98a70687deaaaf1197da1f3f7.webm",
+        "bytes": 7400643,
+        "sha256": "dc799431e4aebe9af09e42cf888592e4eb4ef52e37734a0bde321c8667c0d86a"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/phase4-20261007/entry/public01/plan/report.json",
+        "bytes": 3474,
+        "sha256": "297cd05679eb8742a559da5fc89dbb0eb2f46ea16b24f0cc5782f1372429f7d2"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/phase4-20261007/entry/public01/plan/executed.mjs",
+        "bytes": 5821,
+        "sha256": "4855d8cbacf8f700c27f7d201e199e1fc4c8a5de6186a1571e6120b2ed25d3b4"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/phase4-20261007/entry/public01/plan/plan-390x844.png",
+        "bytes": 101253,
+        "sha256": "5637849fd6273ca664f04ecd6c243a169b7fe0cd156205536ee553957175c97e"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/phase4-20261007/entry/public01/plan/plan-844x390.png",
+        "bytes": 78155,
+        "sha256": "a95906e64bdeda09324fec1f07caaa501f4630a06d59c65e73e855dc2f955b15"
+      }
+    ]
+  }
 }

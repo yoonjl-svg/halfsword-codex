@@ -1,5 +1,5 @@
 {
-  "status": "baseline_and_candidate_frozen_public_pending",
+  "status": "baseline_candidate_and_public_frozen",
   "scope": "Three ordinary LS/Heinrich rounds per context; original normal AI; trusted touch/pause/restart; current v2/fresh/bounded/centerline/limbON/legacyfinish/g9.81; Poseidon pinned. No state injection or seed search.",
   "settings": {"difficulty":"normal","pixel":false,"blood":true,"sound":false,"invertTilt":false,"moveMode":"stick","skill":"0.7","guardNames":true,"trail":false,"fpsCap":false},
   "resourceColumns": ["round","phase","geometry","texture","program","programRefs","sceneObjects","sceneMaterials","cdpNodes","cdpListeners","heapUsedBytes"],
@@ -48,5 +48,26 @@
     "proxyRetained": false,
     "artifacts": {"report":{"path":"/workspace/halfsword-handoff/phase4-20261007/repeat/candidate-local01/report.json","bytes":1334916,"sha256":"61554671bb8edb31acccba54b68bbbbd48de07ce597ea6bd1ba20edd238897c5"},"manifest":{"path":"/workspace/halfsword-handoff/phase4-20261007/repeat/candidate-local01/manifest-before.json","bytes":107879,"sha256":"43a0b363bb9737fb4d36afb20699e42203c9ad9435229d346e2d11c9c6f51cd1"},"executedTool":{"path":"/workspace/halfsword-handoff/phase4-20261007/repeat/candidate-local01/executed-tool.mjs","bytes":23416,"sha256":"d3dceba3e6ef213ad2595e097ce1947fac18131287ae32102fbbc92e5d82e169"}}
   },
-  "publicCandidate": null
+  "publicCandidate": {
+    "head": "fdda0b716e1cd1ef3ce4e57d11df1e37323e5272",
+    "headAfter": "fdda0b716e1cd1ef3ce4e57d11df1e37323e5272",
+    "base": "https://yoonjl-svg.github.io/halfsword-codex/",
+    "startedUTC": "2026-10-07T14:18:34.138Z",
+    "completedUTC": "2026-10-07T14:21:22.550Z",
+    "pass": true,
+    "sourceStable": true,
+    "passMeaning": "Scenario/provenance/instrumentation assertions passed; not a no-leak assertion.",
+    "mainAsset": {"name":"assets/main-aMNJlC-N.js","bytes":3544543,"sha256":"e284e800f3096b5858d1245a65680d74f15107be95eb2b94235d24e083f089e1","match":true},
+    "fileVerification": {"matched":8,"total":8,"compiledMatches":true},
+    "accounting": {"browserAttempts":1,"completedContexts":1,"completedRounds":3,"failedBrowserAttempts":0,"abandonedBrowserAttempts":0,"reruns":0,"seedSearch":false,"stateInjection":false},
+    "findings": {"rendererStartGeometryCounts":[150,151,151],"rendererStartTextureCounts":[15,19,19],"rendererStartProgramCounts":[31,31,31],"programUsedTimesAtStart":[185,185,185],"programUsedTimesRestartBoundaryDeltas":[-9,-2],"sceneStartObjectCounts":[260,260,260],"sceneStartMaterialCounts":[162,162,162],"resourceVerdict":"Shader references returned to the same start total for all three rounds; no repeated growth in this bounded run. This does not prove an unbounded long-session guarantee.","startProgramIdSetsEqual":true,"startProgramIdChanges":[{"added":[],"removed":[]},{"added":[],"removed":[]}]},
+    "keyResources": [[1,"start",150,15,31,185,260,162,266,85,20636308],[1,"end",162,19,31,194,269,171,281,81,18422576],[2,"start",151,19,31,185,260,162,286,81,26648088],[2,"end",155,19,31,187,262,164,281,81,17701620],[3,"start",151,19,31,185,260,162,286,81,25347956],[3,"end",160,20,31,192,267,169,281,81,17637168]],
+    "counts": {"steps":2321,"aiCalls":2321,"freeAliveAICalls":1601,"renderCalls":447,"instanceRenderWrapped":true,"nonfinite":0,"timeS":19.34166666666621,"damageEventCount":19,"damageTypes":{"cut":3,"blunt":16},"nativeEventCount":113,"allNativeTrustedTouch":true,"startTaps":3,"pauseTaps":3},
+    "startClickToFightMs": [3092.3,1325.4,2953.0],
+    "errors": [],
+    "fatal": null,
+    "tlsVerification": true,
+    "proxyRetained": true,
+    "artifacts": {"report":{"path":"/workspace/halfsword-handoff/phase4-20261007/repeat/public-final01/report.json","bytes":1326520,"sha256":"bb077eef23da281c59df3fc9e1d1def6d8055c0a18f4b902d245c67f1b8642a7"},"manifest":{"path":"/workspace/halfsword-handoff/phase4-20261007/repeat/public-final01/manifest-before.json","bytes":107879,"sha256":"af86b493af8edddc75e7721b0da5d81dca37f109a90af920cdff7eeb78e00eb4"},"executedTool":{"path":"/workspace/halfsword-handoff/phase4-20261007/repeat/public-final01/executed-tool.mjs","bytes":23416,"sha256":"d3dceba3e6ef213ad2595e097ce1947fac18131287ae32102fbbc92e5d82e169"}}
+  }
 }

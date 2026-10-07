@@ -1,5 +1,5 @@
 {
-  "status": "local_validated_delivery_pending",
+  "status": "stage4_first_quality_batch_delivered_verified",
   "baseHead": "aa7ddb5c7409954fb5c2efbfc69ba08ee0b504bb",
   "ordinaryURL": "https://yoonjl-svg.github.io/halfsword-codex/",
   "planURL": "https://yoonjl-svg.github.io/halfsword-codex/development-plan.html#section-2",
@@ -18,10 +18,56 @@
     "phase4_entry_20261007.json"
   ],
   "public": {
-    "status": "pending"
+    "status": "verified_exact_files",
+    "recordsHead": "fdda0b716e1cd1ef3ce4e57d11df1e37323e5272",
+    "actions": {
+      "id": 37635390093,
+      "conclusion": "success",
+      "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37635390093"
+    },
+    "exactPublicFiles": 8,
+    "pagesReceipt": {
+      "path": "/workspace/halfsword-handoff/phase4-20261007/delivery/pages01.json",
+      "bytes": 4617,
+      "sha256": "91c012ece8d9d8499f0c490d7badb0b80097514b02389e6cfa14c952fe52decb"
+    }
   },
   "mobile": {
-    "status": "pending"
+    "status": "verified_public_repeat_and_query_free_entry",
+    "repeat": "phase4_repeat_20261007.json",
+    "ordinaryEntry": "phase4_entry_20261007.json",
+    "repeatStatus": "verified_public_three_rounds",
+    "repeatReceipt": {
+      "path": "/workspace/halfsword-handoff/phase4-20261007/repeat/public-final01/report.json",
+      "bytes": 1326520,
+      "sha256": "bb077eef23da281c59df3fc9e1d1def6d8055c0a18f4b902d245c67f1b8642a7",
+      "steps": 2321,
+      "rounds": 3,
+      "shaderStartReferences": [
+        185,
+        185,
+        185
+      ],
+      "errors": []
+    },
+    "entryReceipt": {
+      "path": "/workspace/halfsword-handoff/phase4-20261007/entry/public01/report.json",
+      "bytes": 415766,
+      "sha256": "f3fee682a7d8389d3c81402af5d007b79738b7c8d5d0c14b858cd0d62ddb32b1",
+      "pass": true,
+      "sourceStable": true
+    },
+    "phonePlan": {
+      "path": "/workspace/halfsword-handoff/phase4-20261007/entry/public01/plan/report.json",
+      "bytes": 3474,
+      "sha256": "297cd05679eb8742a559da5fc89dbb0eb2f46ea16b24f0cc5782f1372429f7d2",
+      "pass": true,
+      "viewports": [
+        "390x844",
+        "844x390"
+      ],
+      "horizontalOverflow": false
+    }
   },
   "stageStatus": "Stage4 first repeated-play resource fix and entry clarification; content and opponent pacing continue"
 }
