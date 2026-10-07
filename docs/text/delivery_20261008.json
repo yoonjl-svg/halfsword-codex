@@ -1,5 +1,5 @@
 {
-  "status": "prepared_pending_public",
+  "status": "public_files_verified_google_sheet_blocked",
   "baseHead": "a3f96b29d147c618bf742ff2f5f53204532a5c4e",
   "rows": 1015,
   "scopes": {
@@ -29,5 +29,42 @@
   "workflow": "WORKFLOW.md",
   "sourceSnapshot": "snapshots/20261008/manifest.json.gz",
   "verification": "snapshots/20261008/receipt.json",
-  "public": null
+  "public": {
+    "head": "277bdc4a95d6eec5e5ce77e84f659197942e37f8",
+    "actions": {
+      "id": 37655043531,
+      "conclusion": "success",
+      "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37655043531"
+    },
+    "downloads": {
+      "pass": true,
+      "checkedUTC": "2026-10-07T16:51:21.545754+00:00",
+      "tlsVerification": true,
+      "files": [
+        {
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/text-review/game-text-20261008.xlsx",
+          "status": 200,
+          "contentType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "bytes": 172718,
+          "sha256": "ee1a01515d3f772f9f5e35bf741feb622cd2578206c2023a1f82c4d434392685",
+          "match": true
+        },
+        {
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/text-review/all-text-20261008.csv",
+          "status": 200,
+          "contentType": "text/csv; charset=utf-8",
+          "bytes": 370087,
+          "sha256": "da8df92f16bfcfb4535b19423518fd339ce00b75bc809d48b6f3d50d2918bfc8",
+          "match": true
+        }
+      ]
+    },
+    "gameFiles": {
+      "pass": true,
+      "count": 8,
+      "receipt": "/workspace/halfsword-handoff/game-text-20261008/pages01.json",
+      "sha256": "365fc48994bc79e577984740962c5c5601b919251e03916316cd58a3fa368ec8"
+    },
+    "gameCodeUnchangedSinceMobileCheck": "1464f50fd2a8d52b971e95f18246f4b8ad74c75e0b3dbd29fdee236624f69533"
+  }
 }

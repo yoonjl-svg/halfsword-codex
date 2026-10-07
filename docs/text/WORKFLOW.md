@@ -1,6 +1,6 @@
 # 게임 문구 편집과 반영
 
-[검토용 XLSX](https://yoonjl-svg.github.io/halfsword-codex/text-review/game-text-20261008.xlsx) · [전체 CSV](https://yoonjl-svg.github.io/halfsword-codex/text-review/all-text-20261008.csv). 이것은 다운로드 파일이며 Google 공유 시트 URL이 아니다. 현재 환경에 Google Sheets 연결·인증이 없어 Google 문서는 생성하지 않았다. 공개 파일의 실제 전달 상태는 `delivery_20261008.json`을 따른다.
+[검토용 XLSX](https://yoonjl-svg.github.io/halfsword-codex/text-review/game-text-20261008.xlsx) · [전체 CSV](https://yoonjl-svg.github.io/halfsword-codex/text-review/all-text-20261008.csv). 이것은 다운로드 파일이며 Google 공유 시트 URL이 아니다. 현재 환경에 Google Sheets 연결·인증이 없어 Google 문서는 생성하지 않았다. 공개 XLSX/CSV의 HTTP200·원본 SHA 일치와 게임8파일 일치를 확인했다. 실제 전달 상태는 `delivery_20261008.json`을 따른다.
 
 `tools/text/catalog.mjs`는 현재 게임 소스의 문구와 위치를 CSV/manifest로 만들고, `tools/text/workbook.py`는 Google 스프레드시트로 열 수 있는 XLSX를 만든다. Google 문서 생성·공유·계정 연결은 이 도구의 기능이 아니다. 게임 코드에 번역 프레임워크를 추가하지 않는다.
 
