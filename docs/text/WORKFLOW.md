@@ -1,16 +1,16 @@
 # 게임 문구 편집과 반영
 
-[검토용 XLSX](https://yoonjl-svg.github.io/halfsword-codex/text-review/game-text-20261008.xlsx) · [전체 CSV](https://yoonjl-svg.github.io/halfsword-codex/text-review/all-text-20261008.csv). 이것은 다운로드 파일이며 Google 공유 시트 URL이 아니다. 현재 환경에 Google Sheets 연결·인증이 없어 Google 문서는 생성하지 않았다. 공개 XLSX/CSV의 HTTP200·원본 SHA 일치와 게임8파일 일치를 확인했다. 실제 전달 상태는 `delivery_20261008.json`을 따른다.
+[검토용 XLSX](https://yoonjl-svg.github.io/halfsword-codex/text-review/game-text-20261008.xlsx) · [전체 CSV](https://yoonjl-svg.github.io/halfsword-codex/text-review/all-text-20261008.csv). 다운로드 사본이다. **사용자가 제공한 Google 문서에1015행·사용 방법을 실제 입력했고, 다시 내보낸14,294셀의 원문/ID/해시 일치 및 수정0건 왕복을 확인했다.** 기존 빈 탭은 보존했다. 해당 비목록 문서의 주소는 사용자 채팅과 저장소 밖 인계 기록에만 보관한다. 실제 전달 상태는 `delivery_20261008.json`을 따른다.
 
 `tools/text/catalog.mjs`는 현재 게임 소스의 문구와 위치를 CSV/manifest로 만들고, `tools/text/workbook.py`는 Google 스프레드시트로 열 수 있는 XLSX를 만든다. Google 문서 생성·공유·계정 연결은 이 도구의 기능이 아니다. 게임 코드에 번역 프레임워크를 추가하지 않는다.
 
 ## 사용자 편집
 
-1. `game-text.xlsx`를 Google Drive에 업로드하고 Google 스프레드시트로 연다.
+1. 채팅에서 받은 Google 시트의 **게임 문구** 탭을 연다. 별도 사본이 필요하면 위 `game-text.xlsx`를 Google Drive에 업로드해 열 수 있다.
 2. **게임 문구** 탭의 노란 **수정 문안** 열에 원하는 문구를 입력한다. 빈칸은 변경 없음이다. 실제로 지우려면 **작업**에 `clear`를 쓴다.
 3. 비교판·소리 실험실은 별도 탭이다. **미노출 설정과 대사**는 현재 UI에서 사용하지 않는 저장된 설명·대사·무기 영문명이다.
 4. `{{expr:1}}` 같은 자리표시자는 개수와 순서를 유지한다. 기존 HTML 태그/속성도 그대로 둔다. 따옴표, 쉼표, 줄바꿈은 사용할 수 있다.
-5. 현재 문구와 숨겨진 ID/해시는 유지한다. 수정한 XLSX를 내려받아 전달한다. CSV도 가능하다.
+5. 현재 문구와 숨겨진 ID/해시는 유지한다. 시트를 수정한 뒤 채팅으로 알리면 최신 문서를 읽어 변경분을 대조·반영한다. 상시 자동 감시가 설정된 것은 아니다. 접근 상태가 바뀌면 수정한 XLSX를 내려받아 전달할 수도 있다.
 
 시트의 한 행은 하나의 소스 문자열/템플릿/HTML 텍스트 노드다. 이어 붙인 문장과 HTML 강조 부분은 여러 행으로 나뉠 수 있다. 사용 위치와 참고 열을 함께 읽는다. 중복 문구도 사용처마다 별도 행이며, 같은 말의 모든 사용처를 바꾸려면 해당 행들을 각각 편집한다.
 

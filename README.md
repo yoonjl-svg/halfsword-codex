@@ -78,7 +78,7 @@ src/
 ```
 
 사용한 도구:
-- 효과음 일부: [Kenney](https://kenney.nl/) "Impact Sounds", "RPG Audio" (CC0 — 자유롭게 써도 되는 공개 소리). 나머지 소리는 코드로 합성
+- 효과음 일부: [Kenney](https://kenney.nl/) "Impact Sounds", "RPG Audio"와 [AugustSandberg의 실제 리볼버 장전 녹음](public/sfx/revolver/README.md) (CC0). 그 외 합성 효과음도 사용
 - [Three.js](https://threejs.org/): 3D 그래픽
 - [Rapier](https://rapier.rs/): 물리 엔진 (강체, 관절, 충돌)
 - [Vite](https://vite.dev/): 개발 서버, 빌드

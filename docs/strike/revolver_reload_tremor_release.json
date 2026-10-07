@@ -1,5 +1,5 @@
 {
-  "status": "local_verified_public_pending",
+  "status": "ordinary_delivered_verified",
   "baseHead": "54119dda23f1dd56c5066f75c3388e71a3a0cb02",
   "ordinaryURL": "https://yoonjl-svg.github.io/halfsword-codex/",
   "pistolURL": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=pistol&foeWeapon=longsword",
@@ -94,5 +94,133 @@
       }
     }
   ],
-  "public": null
+  "public": {
+    "head": "fe8b1708064742293459806a8ca2632ad151a4e0",
+    "actions": {
+      "id": 37659303975,
+      "conclusion": "success",
+      "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37659303975"
+    },
+    "exactFiles": 8,
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/revolver-reload-tremor-20261008/pages01.json",
+      "bytes": 4617,
+      "sha256": "c9b05cbd70700be9ff402a75509df134046de01f5cee9cff52a92cca14b967f9"
+    },
+    "mobile": {
+      "path": "/workspace/halfsword-handoff/revolver-reload-tremor-20261008/browser/public01/report.json",
+      "bytes": 156689,
+      "sha256": "8489457224149b9d13a2c5e494da1477ce0c3633da705585ee3ff85d23550adc",
+      "pass": true,
+      "sourceStable": true,
+      "checks": {
+        "twoNativeShots": true,
+        "eightRecordedEvents": true,
+        "eightWavDecoded": true,
+        "eightWavDelivered": true,
+        "sixInsertsNineSecondScheduler": true,
+        "pauseStopsScheduler": true,
+        "muteAndResume": true,
+        "restartFresh": true,
+        "tremorObserved": true,
+        "native": true,
+        "finite": true,
+        "oneExplicitAmmoFixture": true,
+        "preferencesRestored": true,
+        "compiledExact": true
+      },
+      "errors": [],
+      "wallMs": 109803.537331,
+      "steps": 1438,
+      "tremor": {
+        "samples": 43,
+        "simSpan": 2.3499999999999943,
+        "rsHMin": 0.09243880817294121,
+        "rsHMax": 0.19552516608685258,
+        "distinctTargets": 16,
+        "commandRayTorsoMax": 0.26387412672437005,
+        "meaning": "Original skill.update gunPose output and physical muzzle observations. Private target point is unexposed; no human accuracy/comfort judgment."
+      },
+      "limits": [
+        "Two real trusted pistol taps; between them explicit player.gun.ammo=1 fixture makes the second tap enter the original empty-cylinder path. Not six naturally fired rounds.",
+        "Original AI, damage, RNG, RAF/physics and audio function results retained. Reload is not accelerated. No seed search or forced survival.",
+        "Delivered WAV hashes are linked through actual decodeAudioData output buffers to Sound.event sources that called native start. This proves original Web Audio scheduling, not physical-speaker output or human preference.",
+        "Aim samples are original gunPose outputs and physical muzzle readings, not private gunAimTarget coordinates. Tremor responsiveness and human shooting comfort are not inferred from these samples."
+      ]
+    },
+    "recordings": [
+      {
+        "name": "dist/sfx/revolver/insert6.wav",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/sfx/revolver/insert6.wav",
+        "bytes": 28844,
+        "sha256": "7d2a6df13f6fa358e22a2729c771ddc7e5287d17e568d6f044d979392054bb6b",
+        "match": true,
+        "capture": "route.fetch APIResponse",
+        "delivery": "identical body passed to route.fulfill"
+      },
+      {
+        "name": "dist/sfx/revolver/insert4.wav",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/sfx/revolver/insert4.wav",
+        "bytes": 40364,
+        "sha256": "1dab3c937ed8636af8c1314386da9c4ec073c46892833f3ab0bb943d11e597d6",
+        "match": true,
+        "capture": "route.fetch APIResponse",
+        "delivery": "identical body passed to route.fulfill"
+      },
+      {
+        "name": "dist/sfx/revolver/open.wav",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/sfx/revolver/open.wav",
+        "bytes": 83564,
+        "sha256": "c6c55d9b9aa8f965fc67cd53ddefd0a2cee92a9f82b02a67bd0a133e16d745f9",
+        "match": true,
+        "capture": "route.fetch APIResponse",
+        "delivery": "identical body passed to route.fulfill"
+      },
+      {
+        "name": "dist/sfx/revolver/insert1.wav",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/sfx/revolver/insert1.wav",
+        "bytes": 41324,
+        "sha256": "c0feaf03de62bb3262eb4e76e28f12df73c8fae0bbf978e879c3581ae750c37d",
+        "match": true,
+        "capture": "route.fetch APIResponse",
+        "delivery": "identical body passed to route.fulfill"
+      },
+      {
+        "name": "dist/sfx/revolver/insert2.wav",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/sfx/revolver/insert2.wav",
+        "bytes": 31724,
+        "sha256": "96f9a45fca730477f17f033e51d449c5520b2e634b23582200154e6652ec54a7",
+        "match": true,
+        "capture": "route.fetch APIResponse",
+        "delivery": "identical body passed to route.fulfill"
+      },
+      {
+        "name": "dist/sfx/revolver/insert5.wav",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/sfx/revolver/insert5.wav",
+        "bytes": 54764,
+        "sha256": "1bd66c69c77cd373caaf0341b6377a1b6021636f8f9f4808408bcb5b381be274",
+        "match": true,
+        "capture": "route.fetch APIResponse",
+        "delivery": "identical body passed to route.fulfill"
+      },
+      {
+        "name": "dist/sfx/revolver/insert3.wav",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/sfx/revolver/insert3.wav",
+        "bytes": 35564,
+        "sha256": "60ee0beed5d47970146afc88c4b2c7bc3b9e283c71f5ebef6930878b63b9da00",
+        "match": true,
+        "capture": "route.fetch APIResponse",
+        "delivery": "identical body passed to route.fulfill"
+      },
+      {
+        "name": "dist/sfx/revolver/close.wav",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/sfx/revolver/close.wav",
+        "bytes": 32684,
+        "sha256": "67e52c29b391740efbd78a223efce8db5d8d74d8671767a11891f6e6e526d888",
+        "match": true,
+        "capture": "route.fetch APIResponse",
+        "delivery": "identical body passed to route.fulfill"
+      }
+    ]
+  }
 }
