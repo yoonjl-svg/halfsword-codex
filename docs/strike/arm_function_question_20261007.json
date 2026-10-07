@@ -1,0 +1,893 @@
+{
+  "head": "35b0a18119211e041f0085f3fb9b2e9b54229c10",
+  "startedUTC": "2026-10-07T10:37:10.905Z",
+  "finishedUTC": "2026-10-07T10:37:16.664Z",
+  "wallSeconds": 5.757939420999999,
+  "protocol": "Controlled limb-function sensitivity probe. At tick300 set only armO or armS function to0.2; no wound/pain/blood/body/velocity injection. Not natural injury or damage/contact balance measurement. Idle distant foe, no movement, ordinary v2/common defaults/limbON/gravity9.81; same authored hand tape.",
+  "schedule": [
+    [
+      "prefix",
+      300,
+      [
+        0,
+        0
+      ],
+      true
+    ],
+    [
+      "postConditionHold",
+      60,
+      [
+        0,
+        0
+      ],
+      true
+    ],
+    [
+      "raise",
+      48,
+      [
+        -0.28,
+        0.38
+      ],
+      true
+    ],
+    [
+      "raisedHold",
+      24,
+      [
+        0,
+        0
+      ],
+      true
+    ],
+    [
+      "firstCut",
+      30,
+      [
+        0.56,
+        -0.76
+      ],
+      true
+    ],
+    [
+      "followHold",
+      36,
+      [
+        0,
+        0
+      ],
+      true
+    ],
+    [
+      "reverse",
+      36,
+      [
+        -0.38,
+        0.66
+      ],
+      true
+    ],
+    [
+      "reverseHold",
+      24,
+      [
+        0,
+        0
+      ],
+      true
+    ],
+    [
+      "recut",
+      30,
+      [
+        0.4,
+        -0.7
+      ],
+      true
+    ],
+    [
+      "recutHold",
+      36,
+      [
+        0,
+        0
+      ],
+      true
+    ],
+    [
+      "release",
+      120,
+      [
+        0,
+        0
+      ],
+      false
+    ]
+  ],
+  "sourceStable": true,
+  "rows": [
+    {
+      "weapon": "longsword",
+      "condition": "healthy",
+      "steps": 744,
+      "prefixSHA256": "7f91962b2afe7b28d49b2372b9e17aef04356739f86511e17bebcc2dcd5108ed",
+      "inputSHA256": "edc42125a9fafd569d3ebc9f392e2024ed1a31845854128c36b3464b61e3e60a",
+      "finite": true,
+      "accepted": true,
+      "wounds": 0,
+      "allAliveArmed": true,
+      "states": [
+        "stand"
+      ],
+      "phases": {
+        "postConditionHold": {
+          "steps": 60,
+          "tipMax": 0.23661372775916853,
+          "tipMean": 0.13362978869064573,
+          "energyMean": 0.015578337349157525,
+          "gripSteps": 60,
+          "offForceMean": 8.061476666597347,
+          "baseWristCapMean": 22
+        },
+        "raise": {
+          "steps": 48,
+          "tipMax": 2.853362898194024,
+          "tipMean": 1.7570889535156133,
+          "energyMean": 1.011755758250447,
+          "gripSteps": 48,
+          "offForceMean": 18.864817268874663,
+          "baseWristCapMean": 22
+        },
+        "raisedHold": {
+          "steps": 24,
+          "tipMax": 4.749131886260376,
+          "tipMean": 3.439631562587761,
+          "energyMean": 2.134454775391851,
+          "gripSteps": 24,
+          "offForceMean": 27.39092281427145,
+          "baseWristCapMean": 22
+        },
+        "firstCut": {
+          "steps": 30,
+          "tipMax": 10.54214692964422,
+          "tipMean": 5.640498827826369,
+          "energyMean": 8.729057763625745,
+          "gripSteps": 30,
+          "offForceMean": 34.392443714874936,
+          "baseWristCapMean": 22
+        },
+        "followHold": {
+          "steps": 36,
+          "tipMax": 9.737263193409559,
+          "tipMean": 5.94935108082777,
+          "energyMean": 10.87530479857301,
+          "gripSteps": 36,
+          "offForceMean": 111.92292622477487,
+          "baseWristCapMean": 22
+        },
+        "reverse": {
+          "steps": 36,
+          "tipMax": 10.804820170570192,
+          "tipMean": 4.981734135339289,
+          "energyMean": 6.552364984724734,
+          "gripSteps": 36,
+          "offForceMean": 43.182402677433714,
+          "baseWristCapMean": 22
+        },
+        "reverseHold": {
+          "steps": 24,
+          "tipMax": 8.116017296022255,
+          "tipMean": 5.847423705765056,
+          "energyMean": 7.606446690270388,
+          "gripSteps": 24,
+          "offForceMean": 31.971235641134882,
+          "baseWristCapMean": 22
+        },
+        "recut": {
+          "steps": 30,
+          "tipMax": 7.3710146611792124,
+          "tipMean": 4.607040740076502,
+          "energyMean": 6.581601900902926,
+          "gripSteps": 30,
+          "offForceMean": 40.429731924992936,
+          "baseWristCapMean": 22
+        },
+        "recutHold": {
+          "steps": 36,
+          "tipMax": 9.674871217244478,
+          "tipMean": 5.9323828498148234,
+          "energyMean": 10.341159941086797,
+          "gripSteps": 36,
+          "offForceMean": 126.21376983481986,
+          "baseWristCapMean": 22
+        },
+        "release": {
+          "steps": 120,
+          "tipMax": 5.714904656557349,
+          "tipMean": 3.092152566811533,
+          "energyMean": 1.5466122984962218,
+          "gripSteps": 120,
+          "offForceMean": 52.143653148902345,
+          "baseWristCapMean": 22
+        }
+      },
+      "raw": {
+        "path": "/workspace/halfsword-handoff/arm-question-20261007/run01/longsword-healthy.jsonl",
+        "bytes": 201407,
+        "sha256": "ce62c6d8ec68f84a654e310a49db2f7861bc83a37bde55ed047d07373a305e1b"
+      }
+    },
+    {
+      "weapon": "longsword",
+      "condition": "off_arm_20pct",
+      "steps": 744,
+      "prefixSHA256": "7f91962b2afe7b28d49b2372b9e17aef04356739f86511e17bebcc2dcd5108ed",
+      "inputSHA256": "edc42125a9fafd569d3ebc9f392e2024ed1a31845854128c36b3464b61e3e60a",
+      "finite": true,
+      "accepted": true,
+      "wounds": 0,
+      "allAliveArmed": true,
+      "states": [
+        "stand"
+      ],
+      "phases": {
+        "postConditionHold": {
+          "steps": 60,
+          "tipMax": 0.26855689053712295,
+          "tipMean": 0.15649677666376824,
+          "energyMean": 0.02111000986577669,
+          "gripSteps": 0,
+          "offForceMean": 0,
+          "baseWristCapMean": 22
+        },
+        "raise": {
+          "steps": 48,
+          "tipMax": 2.7490648226756043,
+          "tipMean": 1.796165327361268,
+          "energyMean": 1.0330880718083388,
+          "gripSteps": 0,
+          "offForceMean": 0,
+          "baseWristCapMean": 22
+        },
+        "raisedHold": {
+          "steps": 24,
+          "tipMax": 4.4943274221549805,
+          "tipMean": 3.3221388444952282,
+          "energyMean": 2.1029025415804523,
+          "gripSteps": 0,
+          "offForceMean": 0,
+          "baseWristCapMean": 22
+        },
+        "firstCut": {
+          "steps": 30,
+          "tipMax": 11.446384529886535,
+          "tipMean": 5.689963887329844,
+          "energyMean": 10.687590206432704,
+          "gripSteps": 0,
+          "offForceMean": 0,
+          "baseWristCapMean": 22
+        },
+        "followHold": {
+          "steps": 36,
+          "tipMax": 10.588467630560816,
+          "tipMean": 5.425886391298325,
+          "energyMean": 9.989725227348082,
+          "gripSteps": 0,
+          "offForceMean": 0,
+          "baseWristCapMean": 22
+        },
+        "reverse": {
+          "steps": 36,
+          "tipMax": 10.60247095166116,
+          "tipMean": 4.701506492346804,
+          "energyMean": 6.4232969175774945,
+          "gripSteps": 0,
+          "offForceMean": 0,
+          "baseWristCapMean": 22
+        },
+        "reverseHold": {
+          "steps": 24,
+          "tipMax": 8.483840921798379,
+          "tipMean": 5.764586482198292,
+          "energyMean": 7.730220324159134,
+          "gripSteps": 0,
+          "offForceMean": 0,
+          "baseWristCapMean": 22
+        },
+        "recut": {
+          "steps": 30,
+          "tipMax": 9.25234386734892,
+          "tipMean": 5.018145984651366,
+          "energyMean": 9.645964121101882,
+          "gripSteps": 0,
+          "offForceMean": 0,
+          "baseWristCapMean": 22
+        },
+        "recutHold": {
+          "steps": 36,
+          "tipMax": 9.762028435386126,
+          "tipMean": 4.750048796260547,
+          "energyMean": 7.660903395998763,
+          "gripSteps": 0,
+          "offForceMean": 0,
+          "baseWristCapMean": 22
+        },
+        "release": {
+          "steps": 120,
+          "tipMax": 5.6936252737435575,
+          "tipMean": 2.900210743130423,
+          "energyMean": 1.477924111636201,
+          "gripSteps": 0,
+          "offForceMean": 0,
+          "baseWristCapMean": 22
+        }
+      },
+      "raw": {
+        "path": "/workspace/halfsword-handoff/arm-question-20261007/run01/longsword-off_arm_20pct.jsonl",
+        "bytes": 195486,
+        "sha256": "3b8a2cc7554ae2fbc08d6257b7f80131c336c70487934bac3ea47c3d21cd7ce9"
+      }
+    },
+    {
+      "weapon": "longsword",
+      "condition": "main_arm_20pct",
+      "steps": 744,
+      "prefixSHA256": "7f91962b2afe7b28d49b2372b9e17aef04356739f86511e17bebcc2dcd5108ed",
+      "inputSHA256": "edc42125a9fafd569d3ebc9f392e2024ed1a31845854128c36b3464b61e3e60a",
+      "finite": true,
+      "accepted": true,
+      "wounds": 0,
+      "allAliveArmed": true,
+      "states": [
+        "stand"
+      ],
+      "phases": {
+        "postConditionHold": {
+          "steps": 60,
+          "tipMax": 0.4578504094252747,
+          "tipMean": 0.31103658358219805,
+          "energyMean": 0.05752534000004696,
+          "gripSteps": 60,
+          "offForceMean": 10.010428618151623,
+          "baseWristCapMean": 10.559999999999992
+        },
+        "raise": {
+          "steps": 48,
+          "tipMax": 2.953023801537304,
+          "tipMean": 1.2641838029614132,
+          "energyMean": 0.43814954846309323,
+          "gripSteps": 48,
+          "offForceMean": 13.330122986941449,
+          "baseWristCapMean": 10.56
+        },
+        "raisedHold": {
+          "steps": 24,
+          "tipMax": 3.9427275858673907,
+          "tipMean": 2.7889953325000842,
+          "energyMean": 1.1578060664600038,
+          "gripSteps": 24,
+          "offForceMean": 18.09339486722529,
+          "baseWristCapMean": 10.56
+        },
+        "firstCut": {
+          "steps": 30,
+          "tipMax": 7.573795287108937,
+          "tipMean": 3.3751232292690907,
+          "energyMean": 2.2050987708296903,
+          "gripSteps": 30,
+          "offForceMean": 31.428831634465134,
+          "baseWristCapMean": 10.56
+        },
+        "followHold": {
+          "steps": 36,
+          "tipMax": 7.72733562903229,
+          "tipMean": 6.392901034231273,
+          "energyMean": 9.16345277964956,
+          "gripSteps": 36,
+          "offForceMean": 73.01183098984289,
+          "baseWristCapMean": 10.56
+        },
+        "reverse": {
+          "steps": 36,
+          "tipMax": 5.3493358884630435,
+          "tipMean": 3.239329905582178,
+          "energyMean": 1.7451176685993497,
+          "gripSteps": 36,
+          "offForceMean": 69.85547679467727,
+          "baseWristCapMean": 10.56
+        },
+        "reverseHold": {
+          "steps": 24,
+          "tipMax": 7.433189554008416,
+          "tipMean": 5.470641881087929,
+          "energyMean": 5.027605642540106,
+          "gripSteps": 24,
+          "offForceMean": 35.170669685105196,
+          "baseWristCapMean": 10.56
+        },
+        "recut": {
+          "steps": 30,
+          "tipMax": 5.629620827209668,
+          "tipMean": 3.4452372743046595,
+          "energyMean": 2.982536425574195,
+          "gripSteps": 30,
+          "offForceMean": 44.82371387399303,
+          "baseWristCapMean": 10.56
+        },
+        "recutHold": {
+          "steps": 36,
+          "tipMax": 7.558629422335415,
+          "tipMean": 5.647304265979559,
+          "energyMean": 7.1283806924934145,
+          "gripSteps": 36,
+          "offForceMean": 64.79442827054858,
+          "baseWristCapMean": 10.56
+        },
+        "release": {
+          "steps": 120,
+          "tipMax": 4.034773722083931,
+          "tipMean": 0.8723441140034114,
+          "energyMean": 0.30637698677067365,
+          "gripSteps": 120,
+          "offForceMean": 104.7311933690403,
+          "baseWristCapMean": 10.559999999999969
+        }
+      },
+      "raw": {
+        "path": "/workspace/halfsword-handoff/arm-question-20261007/run01/longsword-main_arm_20pct.jsonl",
+        "bytes": 209478,
+        "sha256": "4e82785d8425027ec89a8c720d4c5bde4a8a84e632d9009b7fffa9f3e42e22ab"
+      }
+    },
+    {
+      "weapon": "zweihander",
+      "condition": "healthy",
+      "steps": 744,
+      "prefixSHA256": "ac32e029d2ed004e900ff31fa231916d801724003834acb998f1b0d175051b05",
+      "inputSHA256": "edc42125a9fafd569d3ebc9f392e2024ed1a31845854128c36b3464b61e3e60a",
+      "finite": true,
+      "accepted": true,
+      "wounds": 0,
+      "allAliveArmed": true,
+      "states": [
+        "stand"
+      ],
+      "phases": {
+        "postConditionHold": {
+          "steps": 60,
+          "tipMax": 0.2181625159717798,
+          "tipMean": 0.11741920823003123,
+          "energyMean": 0.023468112220433483,
+          "gripSteps": 60,
+          "offForceMean": 6.433450815385013,
+          "baseWristCapMean": 28
+        },
+        "raise": {
+          "steps": 48,
+          "tipMax": 3.333937835625277,
+          "tipMean": 1.5887832975196803,
+          "energyMean": 1.7418816006356526,
+          "gripSteps": 48,
+          "offForceMean": 16.711424206477705,
+          "baseWristCapMean": 28
+        },
+        "raisedHold": {
+          "steps": 24,
+          "tipMax": 4.910707853785999,
+          "tipMean": 4.351244619641482,
+          "energyMean": 6.168535097440182,
+          "gripSteps": 24,
+          "offForceMean": 28.429886161109806,
+          "baseWristCapMean": 28
+        },
+        "firstCut": {
+          "steps": 30,
+          "tipMax": 8.18313041676683,
+          "tipMean": 3.7667600398080574,
+          "energyMean": 5.930295614447146,
+          "gripSteps": 30,
+          "offForceMean": 44.87916646273914,
+          "baseWristCapMean": 28
+        },
+        "followHold": {
+          "steps": 36,
+          "tipMax": 10.447384292863772,
+          "tipMean": 8.872748006490848,
+          "energyMean": 32.00382470142808,
+          "gripSteps": 36,
+          "offForceMean": 60.472509010218914,
+          "baseWristCapMean": 28
+        },
+        "reverse": {
+          "steps": 36,
+          "tipMax": 7.509485657249937,
+          "tipMean": 3.900621347777422,
+          "energyMean": 6.187304934750025,
+          "gripSteps": 36,
+          "offForceMean": 58.21206183134344,
+          "baseWristCapMean": 28
+        },
+        "reverseHold": {
+          "steps": 24,
+          "tipMax": 9.106428337313666,
+          "tipMean": 7.786704626929489,
+          "energyMean": 20.195999974898562,
+          "gripSteps": 24,
+          "offForceMean": 53.26402369364434,
+          "baseWristCapMean": 28
+        },
+        "recut": {
+          "steps": 30,
+          "tipMax": 5.70276890749409,
+          "tipMean": 2.8836354287307677,
+          "energyMean": 6.528134907353649,
+          "gripSteps": 30,
+          "offForceMean": 52.435734789239646,
+          "baseWristCapMean": 28
+        },
+        "recutHold": {
+          "steps": 36,
+          "tipMax": 9.789203386332831,
+          "tipMean": 7.9797165296142385,
+          "energyMean": 25.721778607096965,
+          "gripSteps": 36,
+          "offForceMean": 69.77897814471801,
+          "baseWristCapMean": 28
+        },
+        "release": {
+          "steps": 120,
+          "tipMax": 7.73234238233488,
+          "tipMean": 2.8584452110803227,
+          "energyMean": 3.1903458850996618,
+          "gripSteps": 120,
+          "offForceMean": 51.14027886914915,
+          "baseWristCapMean": 28
+        }
+      },
+      "raw": {
+        "path": "/workspace/halfsword-handoff/arm-question-20261007/run01/zweihander-healthy.jsonl",
+        "bytes": 201239,
+        "sha256": "c677bd206facf16696a966a134860918f038702795ac1242fefe09deb2bf2535"
+      }
+    },
+    {
+      "weapon": "zweihander",
+      "condition": "off_arm_20pct",
+      "steps": 744,
+      "prefixSHA256": "ac32e029d2ed004e900ff31fa231916d801724003834acb998f1b0d175051b05",
+      "inputSHA256": "edc42125a9fafd569d3ebc9f392e2024ed1a31845854128c36b3464b61e3e60a",
+      "finite": true,
+      "accepted": true,
+      "wounds": 0,
+      "allAliveArmed": true,
+      "states": [
+        "stand"
+      ],
+      "phases": {
+        "postConditionHold": {
+          "steps": 60,
+          "tipMax": 0.2568222714751954,
+          "tipMean": 0.13572901289650918,
+          "energyMean": 0.0316995371869524,
+          "gripSteps": 0,
+          "offForceMean": 0,
+          "baseWristCapMean": 28
+        },
+        "raise": {
+          "steps": 48,
+          "tipMax": 3.3214146439737258,
+          "tipMean": 1.6896995753552195,
+          "energyMean": 1.880391260511274,
+          "gripSteps": 0,
+          "offForceMean": 0,
+          "baseWristCapMean": 28
+        },
+        "raisedHold": {
+          "steps": 24,
+          "tipMax": 4.67357238243725,
+          "tipMean": 4.166080523262033,
+          "energyMean": 5.894854315785708,
+          "gripSteps": 0,
+          "offForceMean": 0,
+          "baseWristCapMean": 28
+        },
+        "firstCut": {
+          "steps": 30,
+          "tipMax": 8.694459972967534,
+          "tipMean": 3.5047438616966446,
+          "energyMean": 6.658119398696996,
+          "gripSteps": 0,
+          "offForceMean": 0,
+          "baseWristCapMean": 28
+        },
+        "followHold": {
+          "steps": 36,
+          "tipMax": 11.250352192557662,
+          "tipMean": 9.02237529624342,
+          "energyMean": 32.88834492249692,
+          "gripSteps": 0,
+          "offForceMean": 0,
+          "baseWristCapMean": 28
+        },
+        "reverse": {
+          "steps": 36,
+          "tipMax": 8.274229484662072,
+          "tipMean": 3.826617149591045,
+          "energyMean": 7.515159489340807,
+          "gripSteps": 0,
+          "offForceMean": 0,
+          "baseWristCapMean": 28
+        },
+        "reverseHold": {
+          "steps": 24,
+          "tipMax": 8.999798878293175,
+          "tipMean": 7.792870762020232,
+          "energyMean": 21.51714628997161,
+          "gripSteps": 0,
+          "offForceMean": 0,
+          "baseWristCapMean": 28
+        },
+        "recut": {
+          "steps": 30,
+          "tipMax": 4.990181144894084,
+          "tipMean": 3.029544616311753,
+          "energyMean": 6.971995488714407,
+          "gripSteps": 0,
+          "offForceMean": 0,
+          "baseWristCapMean": 28
+        },
+        "recutHold": {
+          "steps": 36,
+          "tipMax": 11.353960438211306,
+          "tipMean": 8.74735761857288,
+          "energyMean": 30.506298074637375,
+          "gripSteps": 0,
+          "offForceMean": 0,
+          "baseWristCapMean": 28
+        },
+        "release": {
+          "steps": 120,
+          "tipMax": 6.3239521328539015,
+          "tipMean": 2.722336238394782,
+          "energyMean": 3.020727578682127,
+          "gripSteps": 0,
+          "offForceMean": 0,
+          "baseWristCapMean": 28
+        }
+      },
+      "raw": {
+        "path": "/workspace/halfsword-handoff/arm-question-20261007/run01/zweihander-off_arm_20pct.jsonl",
+        "bytes": 195297,
+        "sha256": "31518a5649f98f6ef6e217ea4484b0e31b7ead8f10085fc411e652214dacc3c2"
+      }
+    },
+    {
+      "weapon": "zweihander",
+      "condition": "main_arm_20pct",
+      "steps": 744,
+      "prefixSHA256": "ac32e029d2ed004e900ff31fa231916d801724003834acb998f1b0d175051b05",
+      "inputSHA256": "edc42125a9fafd569d3ebc9f392e2024ed1a31845854128c36b3464b61e3e60a",
+      "finite": true,
+      "accepted": true,
+      "wounds": 0,
+      "allAliveArmed": true,
+      "states": [
+        "stand"
+      ],
+      "phases": {
+        "postConditionHold": {
+          "steps": 60,
+          "tipMax": 0.6944977311641412,
+          "tipMean": 0.5230964655945517,
+          "energyMean": 0.23805435881522624,
+          "gripSteps": 60,
+          "offForceMean": 9.761289204271414,
+          "baseWristCapMean": 13.440000000000019
+        },
+        "raise": {
+          "steps": 48,
+          "tipMax": 1.3129456667267148,
+          "tipMean": 0.578394244118971,
+          "energyMean": 0.3217440814840776,
+          "gripSteps": 48,
+          "offForceMean": 20.86803740558244,
+          "baseWristCapMean": 13.44000000000001
+        },
+        "raisedHold": {
+          "steps": 24,
+          "tipMax": 1.711398612738636,
+          "tipMean": 1.443160477936803,
+          "energyMean": 0.5301651479385602,
+          "gripSteps": 24,
+          "offForceMean": 16.753672532354695,
+          "baseWristCapMean": 13.44
+        },
+        "firstCut": {
+          "steps": 30,
+          "tipMax": 4.263121068874337,
+          "tipMean": 2.2866799001358964,
+          "energyMean": 1.7111515739327454,
+          "gripSteps": 30,
+          "offForceMean": 43.32707879836777,
+          "baseWristCapMean": 13.44
+        },
+        "followHold": {
+          "steps": 36,
+          "tipMax": 5.606792933672716,
+          "tipMean": 5.000165557907706,
+          "energyMean": 9.440108316851408,
+          "gripSteps": 36,
+          "offForceMean": 45.46565790743752,
+          "baseWristCapMean": 13.44
+        },
+        "reverse": {
+          "steps": 36,
+          "tipMax": 5.407844007874962,
+          "tipMean": 2.1128613091590442,
+          "energyMean": 1.9356478115241498,
+          "gripSteps": 36,
+          "offForceMean": 66.70345653335643,
+          "baseWristCapMean": 13.44
+        },
+        "reverseHold": {
+          "steps": 24,
+          "tipMax": 3.8511064339034453,
+          "tipMean": 2.30457308889522,
+          "energyMean": 3.2342299416583935,
+          "gripSteps": 24,
+          "offForceMean": 57.8207344764526,
+          "baseWristCapMean": 13.44
+        },
+        "recut": {
+          "steps": 30,
+          "tipMax": 4.481401905450537,
+          "tipMean": 3.294005009481713,
+          "energyMean": 3.735287301302889,
+          "gripSteps": 30,
+          "offForceMean": 53.52779394763226,
+          "baseWristCapMean": 13.44
+        },
+        "recutHold": {
+          "steps": 36,
+          "tipMax": 3.539634773613057,
+          "tipMean": 2.7797964144463205,
+          "energyMean": 3.190806276617577,
+          "gripSteps": 36,
+          "offForceMean": 51.27261597818865,
+          "baseWristCapMean": 13.44
+        },
+        "release": {
+          "steps": 120,
+          "tipMax": 3.6076856739957504,
+          "tipMean": 1.2345000245279445,
+          "energyMean": 0.8878203548170371,
+          "gripSteps": 120,
+          "offForceMean": 85.76798857481612,
+          "baseWristCapMean": 13.440000000000035
+        }
+      },
+      "raw": {
+        "path": "/workspace/halfsword-handoff/arm-question-20261007/run01/zweihander-main_arm_20pct.jsonl",
+        "bytes": 203638,
+        "sha256": "00753dd59770895ea86257e3ad118fd00b1d9b75dde170e93f5ba6ae21ee1cbd"
+      }
+    }
+  ],
+  "weaponSpecs": [
+    {
+      "id": "longsword",
+      "grip": "two-hand",
+      "maxAimTorque": 22,
+      "power": 1,
+      "mCut": 1,
+      "mThrust": 1,
+      "moveMul": 1,
+      "frame": "two",
+      "style": "versatile",
+      "phys": {
+        "mass": 1.6,
+        "com": 0.24008149999999998,
+        "I": 0.27241577255833327,
+        "length": 1.1800000000000002
+      }
+    },
+    {
+      "id": "zweihander",
+      "grip": "two-hand",
+      "maxAimTorque": 28,
+      "power": 1.05,
+      "mCut": 1.1,
+      "mThrust": 0.85,
+      "moveMul": 1,
+      "frame": "heavy",
+      "style": "cut",
+      "phys": {
+        "mass": 2.9,
+        "com": 0.3296758620689655,
+        "I": 0.7667390708366666,
+        "length": 1.3599999999999999
+      }
+    },
+    {
+      "id": "sabre",
+      "grip": "one-hand",
+      "maxAimTorque": 22,
+      "power": 1,
+      "mCut": 1.25,
+      "mThrust": 0.7,
+      "moveMul": 1,
+      "frame": "one",
+      "style": "cut",
+      "phys": {
+        "mass": 0.95,
+        "com": 0.3174042105263158,
+        "I": 0.1790006944,
+        "length": 0.94
+      }
+    },
+    {
+      "id": "rapier",
+      "grip": "one-hand",
+      "maxAimTorque": 22,
+      "power": 1.05,
+      "mCut": 0.5,
+      "mThrust": 1.3,
+      "moveMul": 1,
+      "frame": "one",
+      "style": "thrust",
+      "phys": {
+        "mass": 1.1,
+        "com": 0.15727272727272726,
+        "I": 0.07914797733333331,
+        "length": 1.05
+      }
+    },
+    {
+      "id": "falchion",
+      "grip": "one-hand",
+      "maxAimTorque": 22,
+      "power": 1,
+      "mCut": 1.15,
+      "mThrust": 0.6,
+      "moveMul": 1,
+      "frame": "one",
+      "style": "cut",
+      "phys": {
+        "mass": 0.9039999999999999,
+        "com": 0.2760840707964602,
+        "I": 0.13650071200000002,
+        "length": 0.9
+      }
+    },
+    {
+      "id": "qinggang",
+      "grip": "one-hand",
+      "maxAimTorque": 22,
+      "power": 1.1,
+      "mCut": 1.35,
+      "mThrust": 1.15,
+      "moveMul": 1,
+      "frame": "one",
+      "style": "versatile",
+      "phys": {
+        "mass": 0.85,
+        "com": 0.27188705882352937,
+        "I": 0.11355796226666665,
+        "length": 0.86
+      }
+    }
+  ],
+  "executions": 6,
+  "steps": 4464,
+  "sourceReport": {
+    "path": "/workspace/halfsword-handoff/arm-question-20261007/run01/report.json",
+    "bytes": 42429,
+    "sha256": "c5a6bdb2c59441f332f13715f511b78860ea3dee99777d923fe9240e84264931"
+  },
+  "runner": {
+    "path": "tools/sim/experiments/arm_function_question_20261007.mjs",
+    "sha256": "45aec15db98d22c335363edb17824fa6141803a459ad6e03fccf91a561883518"
+  },
+  "decision": "Diagnostic answer only; no gameplay or balance changes. Off-hand grip loss is real but does not guarantee lower tip speed or damage. No combat impact/damage measurement in this probe."
+}

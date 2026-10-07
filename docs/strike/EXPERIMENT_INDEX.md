@@ -1,5 +1,7 @@
 # 실험 색인과 재현 입구
 
+질문 진단 ·10/07: [한 팔 부상과 한손/양손 차이](arm_function_question_20261007.md)·[6행 수치/해시](arm_function_question_20261007.json). 보조손 파지 상실은 실제지만 일괄 속도/피해 저하는 보장되지 않는다. 통제 팔 기능 검사이며 게임 변경 없음.
+
 최신 유보 검증: [재베기 실제 절삭](recut_power_20261007.md)·[수치/해시](recut_power_20261007.json), [잔여 회전](spin_followup_20261007.md)·[수치/해시](spin_followup_20261007.json). 수동 베기 후 관성 타격과 접촉 순간 입력을 구분하고, 기존 복귀가 안정되는 것을 확인했다. 신체 접촉 후 속도 제한 후보는 미채택. [기록/폰 계획 전달](deferred_followup_release.json).
 
 최신 승인 활성화: [팔다리 절단 일반 적용](limb_general_status_20261007.md)·[검사/전달 영수증](limb_default_release.json). 기존 절단 조건을 유지하고 현재 일반 조합의 후속 제어와 공개 모바일 전달을 확인한다.
