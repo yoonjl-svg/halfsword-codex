@@ -1,0 +1,67 @@
+{
+  "status": "local_checks_passed_public_delivery_pending",
+  "baseHead": "aa7ddb5c7409954fb5c2efbfc69ba08ee0b504bb",
+  "authorization": "User: 4단계 하자 — practical repeated-play quality and focused bug fixes",
+  "changes": [
+    "Release retired fighter geometry/materials after replacement fighter shader warm-up",
+    "Release detached helmet materials and decals",
+    "Retain session-wide decap/limb resources, textures and Three Sprite singleton geometry",
+    "Clarify opening walking instructions after the existing standoff; duration and input unchanged"
+  ],
+  "physicalPolicyChanged": false,
+  "optionalFinishPromoted": false,
+  "readabilityDecision": "No new cue: armor causality is not proven by weak covered-hit result alone",
+  "lifetimeRegression": {
+    "path": "/workspace/halfsword-handoff/phase4-20261007/resources/lifetime01.json",
+    "bytes": 6313,
+    "sha256": "57df0aa2a693f0d06ea6059269e063eca84b34d4ce19b3cf6a52546ee602fdd0",
+    "pass": true,
+    "assertions": 21,
+    "fixture": {
+      "effectRounds": 2,
+      "retainedGeometry": 3,
+      "retainedMaterial": 5,
+      "disposedLimbGeometry": 8,
+      "rendererCreated": false,
+      "worldCreated": false
+    },
+    "sourceHashes": {
+      "src/visual_resources.js": "b3a1cb71743ef0e454b45d098657a4ce2807f31ca4513ff40f9a4ca70083941d",
+      "src/main.js": "7301771f05ebcca6ebefec8f20289c48e5fe5d765a81d362a59b5faca23f3453",
+      "src/fighter.js": "fa9d0c23343f16c623e277f3a050ee7967f2ccdc030e300848c41075b28acf12",
+      "src/decap_fx.js": "faf95c515fda2b7cb38ae234003d6ee5e1eed471bb731c4bf98f4af644eaa931",
+      "src/limb_sever_fx.js": "ddab8432c05774b485997a0eb057b6518c850689c6b9f0ae4b35deefb3d8eba0",
+      "src/weapon_looks.js": "d16e01bdb173242453e113d01abec7be93ebb781c31bc6a4835431479fb7dc6f",
+      "tools/sim/visual_resources.test.mjs": "81350570f116b5d80f69f3fb5a70fb971a0e1ee91dcb79aa0cea61c4dc0ef2a8",
+      "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+      "node_modules/three/src/core/EventDispatcher.js": "bf032f809ea34e50cf0b63512d9c7e0ba9fd90ca8b0c81c9e5efe121bce1bd97",
+      "node_modules/three/src/objects/Sprite.js": "aab41e744e977e7ce8027f259829e525f9181cd1676aabce1dcaa4a57b72faa5"
+    },
+    "limitations": [
+      "Synthetic fighter states invoke the real visual FX factories; they do not prove a combat injury or natural severing event.",
+      "Dispose event counts verify ownership and deduplication, not GPU deallocation or renderer program reference counts.",
+      "Fighter.clearLoose is the real method called on a synthetic detached visual root; no physics world is created.",
+      "Browser restart, shader warm-up, visual correctness and performance are verified separately."
+    ]
+  },
+  "records": {
+    "repeat": "phase4_repeat_20261007.json",
+    "readability": "phase4_readability_20261007.json",
+    "entry": "phase4_entry_20261007.json",
+    "release": "phase4_quality_release.json"
+  },
+  "limitations": [
+    "No physical-phone FPS or GPU byte saving measured",
+    "Randomized browser combats are lifecycle checks, not equal-input damage comparison",
+    "Normal restart disposal is covered; an exception during new-round construction can still abort before retired resource cleanup",
+    "Stage4 content and opponent pacing work remains"
+  ],
+  "sourceCompatibility": {
+    "lifetimeAndCandidateMain": "7301771f05ebcca6ebefec8f20289c48e5fe5d765a81d362a59b5faca23f3453",
+    "finalMain": "ca851c3384445cd1c53abb355083b6366c94e90e3545358cc92fb5a920715d6c",
+    "onlyMainDelta": "Three opening instruction strings now communicate the existing standoff before walking",
+    "exactAfterReplacingTheseStrings": true,
+    "allOtherLifetimeSourcesExact": true,
+    "preservedCandidateMain": "/workspace/halfsword-handoff/phase4-20261007/repeat/candidate-local01/candidate-main.js"
+  }
+}

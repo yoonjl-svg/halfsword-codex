@@ -9,6 +9,7 @@
 //   판이 바뀌면 검객(과 그 그룹에 붙인 원판)이 통째로 바뀌므로 따로 치울 것이 없다.
 // ─────────────────────────────────────────────────────────────
 import * as THREE from 'three';
+import { retainVisualResources } from './visual_resources.js';
 
 const SPRAY_T = 1.5; // 초: 몸통 단면의 강한 분출
 const HEAD_T = 0.8; // 초: 머리 쪽 핏방울
@@ -24,6 +25,7 @@ const geoBone = new THREE.CircleGeometry(NECK_R * 0.28, 10);
 const matFlesh = new THREE.MeshStandardMaterial({ color: FLESH, roughness: 0.55, side: THREE.DoubleSide });
 const matRing = new THREE.MeshStandardMaterial({ color: 0x6a1a18, roughness: 0.6, side: THREE.DoubleSide });
 const matBone = new THREE.MeshStandardMaterial({ color: BONE, roughness: 0.8, side: THREE.DoubleSide });
+retainVisualResources(geoFlesh, geoRing, geoBone, matFlesh, matRing, matBone);
 
 /** 단면 원판 하나 (그룹 기준 pos 에, 법선 n 쪽을 보게) */
 function stumpDisc(group, pos, n) {

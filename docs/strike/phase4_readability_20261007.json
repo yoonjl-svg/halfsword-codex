@@ -1,0 +1,165 @@
+{
+  "status": "representative_existing_screen_review_complete_cue_not_adopted",
+  "baselineHead": "aa7ddb5c7409954fb5c2efbfc69ba08ee0b504bb",
+  "productionChanges": 0,
+  "physicsOrControlChanges": 0,
+  "newBrowserRuns": 0,
+  "newPhysicsRuns": 0,
+  "videoExtractions": 0,
+  "rawCopies": 0,
+  "sourceEvidence": [
+    {
+      "path": "src/main.js",
+      "gitRef": "aa7ddb5c7409954fb5c2efbfc69ba08ee0b504bb",
+      "sha256": "979bd028c2016a5cac42459ce6f24456c2ec4254f32177826bbf4fd9666997d0"
+    },
+    {
+      "path": "src/effects.js",
+      "gitRef": "aa7ddb5c7409954fb5c2efbfc69ba08ee0b504bb",
+      "sha256": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d"
+    },
+    {
+      "path": "src/combat.js",
+      "gitRef": "aa7ddb5c7409954fb5c2efbfc69ba08ee0b504bb",
+      "sha256": "adf58b520e29b3618d021bceb341d679eadfe0ef103fbe821928ec222259a9a8"
+    },
+    {
+      "path": "src/finish_rule.js",
+      "gitRef": "aa7ddb5c7409954fb5c2efbfc69ba08ee0b504bb",
+      "sha256": "964425ce23e2e6230a3ddba02b76efd300332d30f655a26e829a4829fbea3cec"
+    },
+    {
+      "path": "src/fighter.js",
+      "gitRef": "aa7ddb5c7409954fb5c2efbfc69ba08ee0b504bb",
+      "sha256": "dd855f9c7557993891a95c35b55999f6f0c71b4eba029889b7212f5adaa362e4"
+    },
+    {
+      "path": "src/config.js",
+      "gitRef": "aa7ddb5c7409954fb5c2efbfc69ba08ee0b504bb",
+      "sha256": "6e2c678ef8af30eeb730f38c3c6a5eac370babdf0071c249e1c2d474c7aa331b"
+    },
+    {
+      "path": "index.html",
+      "gitRef": "aa7ddb5c7409954fb5c2efbfc69ba08ee0b504bb",
+      "sha256": "eeb55416a217e72a6b0123c22aaf810f06b7c067af5abd8d69331f48d2fdbebd"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round2-20261007/browser/public01/report.json",
+      "bytes": 216653,
+      "sha256": "a06e2083082a07bee3b9b015b1b9cc5b539219e59a6ff3fcf587c46fbbfe51bf"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round2-20261007/browser/public01/events-03.png",
+      "bytes": 289295,
+      "sha256": "783e6e3f34d4efa2642f1839a7bbda1bd88a865df08e752044d4c2e1c825182d"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round2-20261007/browser/public01/events-05.png",
+      "bytes": 303626,
+      "sha256": "10f53c7ca0d60bc1456275af2ba7d090322d6efc2512763fdc9b9a50493d52af"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round3-20261007/browser/public01/report.json",
+      "bytes": 400898,
+      "sha256": "2f63d4d5111c6aa1d12047928ad357f17c16caae32257176d0cfa2a774b0ed19"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round3-20261007/browser/public01/injured-paused.png",
+      "bytes": 170449,
+      "sha256": "7ec25ebc9aed520c6fdaf585ed5e2946c72df2329a74db443a1cc50afe336d12"
+    }
+  ],
+  "existingHud": {
+    "implementation": [
+      "src/main.js",
+      "index.html"
+    ],
+    "absentFile": "src/ui.js",
+    "playerCondition": "Blood loss, pain and bleed pulse share one red vignette; reduced consciousness blurs the vignette. No separate armor/wound text.",
+    "results": "Victory/defeat after slow motion; cause-specific result menu already distinguishes knockout, bleeding and other causes. No KO/death image exposure in this review."
+  },
+  "observations": [
+    {
+      "kind": "armored_nonopening_contact",
+      "timeS": 6.31666666666677,
+      "energyJ": 10.29743404275088,
+      "severity": 0,
+      "newStoredWounds": 0,
+      "eff": 10.297171253361427,
+      "threshold": 70,
+      "scratchSizeM": [
+        0.03,
+        0.04858119503562573
+      ],
+      "sparksThresholdJ": 30,
+      "soundOn": false,
+      "screenshot": "events-03.png",
+      "screenshotIntervalS": [
+        8.175000000000177,
+        8.375000000000165
+      ],
+      "finding": "Cannot confidently identify the small armor scratch in the existing phone-sized view. Missing sparks follows the existing energy condition; armor causal wound prevention is not established.",
+      "excludedEvidence": "events-02.png precedes this contact."
+    },
+    {
+      "kind": "actual_opened_cut",
+      "timeS": 12.958333333333238,
+      "part": "pelvis",
+      "severity": 0.43374528844817134,
+      "tearSizeM": [
+        0.043674905768963435,
+        0.12072434038274399
+      ],
+      "screenshot": "events-05.png",
+      "finding": "Ground blood is visible; individual wound line is not confidently identifiable. Small attached surface mark and body overlap both matter."
+    }
+  ],
+  "cueDecision": {
+    "candidate": "Brief nonnumeric armor-block text",
+    "adopted": false,
+    "reason": [
+      "pass=false is not the wound threshold; severity=0 alone does not identify armor causality.",
+      "plate/helmet identify covered contact, including ignoreArmor cases.",
+      "Ordinary legacy result lacks matched bareThreshold and rewrites failed cut/stab to blunt.",
+      "Optional armorBlocked requires eligible finishing stab; it is not a general ordinary hit label.",
+      "One muted scene does not establish enough value for new HUD state, repeated-contact suppression and restart/menu handling."
+    ],
+    "existingFieldPredicateForNarrowObservation": "att === player && vic === enemy && vic.alive && pr.w.part === 'blade' && att.weaponCfg.edged && !att.weaponCfg.ignoreArmor && (r.plate || r.helmet) && !r.finish && r.type === 'blunt' && r.severity === 0 && Number.isFinite(r.eff) && Number.isFinite(r.thr) && r.eff <= r.thr",
+    "predicateMeaning": "A blade contact on armor failed to open a wound. It does not establish armor caused that failure, or absence of blunt pain/balance/consciousness damage. Neutral text would be possible but is not adopted.",
+    "causalEvidenceRequired": "Contributing armor and matched bareThreshold < eff <= threshold, with threshold > bareThreshold and ignoreArmor=false. Do not duplicate combat anatomy/clothing/gap calculations in UI."
+  },
+  "nextPhase43": {
+    "question": "Does the opening movement hold look like failed phone input after joystick and walking guidance appear?",
+    "sourceRefs": [
+      "src/main.js:899",
+      "src/main.js:1062",
+      "src/main.js:1089",
+      "src/main.js:1173",
+      "src/main.js:1214",
+      "src/config.js:17",
+      "src/fighter.js:979",
+      "src/fighter.js:1540"
+    ],
+    "timing": {
+      "feetHeldSimulationSeconds": 2.0,
+      "battleToastWallSeconds": 0.9,
+      "cardReadyFrameDtSeconds": 0.45,
+      "cardLookFrameDtSeconds": 2.3,
+      "cardSkipEarliestFrameDtSeconds": 1.6,
+      "cardFlyFrameDtSeconds": 0.45,
+      "warning": "Different clocks. These are source-defined thresholds, not measured phone latency or additive wall duration."
+    },
+    "evidenceGap": "Round2/3 cited browser episodes use a fixed-weapon URL and bypass card selection. They do not establish first-play comprehension of the opening hold.",
+    "firstSmallAction": "One query-free ordinary entry: request walking when joystick appears and compare readiness wording against actual movement availability. Preserve user-selected initial hold and camera introduction unless evidence supports a separate presentation change.",
+    "status": "source_only_possible_confusion_not_confirmed_game_defect"
+  },
+  "limits": [
+    "Existing PNG/event/source review only; no new battle or cue efficacy test.",
+    "Muted landscape browser evidence is not physical-phone or sound-ON acceptance.",
+    "Rendered geometry does not prove unobscured human-readable pixels.",
+    "No natural sever, KO/death visual acceptance, blood-OFF comparison, full readability completion or user-comprehension study.",
+    "No gameplay, force, physics, hand appearance or control changes."
+  ]
+}

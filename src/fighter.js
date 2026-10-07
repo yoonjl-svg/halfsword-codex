@@ -4,6 +4,7 @@ import { updateMainArmRecovery, mainArmMuscle } from './arm_recovery_activation.
 import { advanceRollTarget, clearRollTarget } from './roll_target.js';
 import { estimateWristStopBudget } from './wrist_braking.js';
 import { applyTransportedThrustPlane } from './thrust_plane.js';
+import { disposeVisualTrees } from './visual_resources.js';
 // ─────────────────────────────────────────────────────────────
 //  검투사 한 명 = "액티브 래그돌"
 //
@@ -1336,10 +1337,10 @@ export class Fighter {
 
   /** 판이 바뀔 때(main.js newRound·배경 바꿈): 벗겨진 케틀햇(장면에 따로 있다)을 치운다. 흩어지던 조각은 debris.js clearDebris 가 치운다 */
   clearLoose() {
-    // 모양 데이터만 푼다 (main.js newRound 가 캐릭터 그룹을 치우는 법과 같게)
+    // 벗겨진 투구의 geometry/material은 이번 판 소유, 공유 texture는 유지한다.
     for (const m of this.meshes) if (m.kind === 'loose' && m.group.parent) {
       m.group.removeFromParent();
-      m.group.traverse((o) => o.geometry?.dispose());
+      disposeVisualTrees([m.group]);
     }
   }
 

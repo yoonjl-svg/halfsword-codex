@@ -2,6 +2,7 @@
 // 이후 출혈은 stump 상처와 main의 updateDrips가 담당한다.
 // 새 판에서 fighter 그룹의 기존 geometry 정리가 끝면도 함께 정리한다.
 import * as THREE from 'three';
+import { retainVisualResources } from './visual_resources.js';
 
 const FLESH = 0x4a0a0c;
 const GRAY = 0x3a3634;
@@ -28,6 +29,7 @@ export function createLimbSeverFx(particles) {
     flesh: new THREE.MeshStandardMaterial({ color: FLESH, roughness: 0.65, side: THREE.DoubleSide }),
     bone: new THREE.MeshStandardMaterial({ color: 0xcfc4b2, roughness: 0.8, side: THREE.DoubleSide }),
   }));
+  retainVisualResources(...Object.values(materials));
   const point = new THREE.Vector3();
   const direction = new THREE.Vector3();
   const rotation = new THREE.Quaternion();

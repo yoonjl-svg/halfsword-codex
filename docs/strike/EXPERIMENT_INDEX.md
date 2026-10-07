@@ -1,5 +1,7 @@
 # 실험 색인과 재현 입구
 
+4단계 첫 품질 개선 ·10/07: [판정](phase4_quality_20261007.md)·[소유권/해시](phase4_quality_20261007.json)·[3판 반복 비교](phase4_repeat_20261007.md)·[가독성 미채택 이유](phase4_readability_20261007.md)·[일반 진입](phase4_entry_20261007.md)·[전달](phase4_quality_release.json). 재시작 재질 해제 누락 수정, 물리 수치 변경0. GPU bytes·실물 폰 FPS 개선량은 미측정.
+
 3단계3회차 ·10/07: [대표 통합 최종 판정](phase3_round3_20261007.md)·[수치/해시/재사용 감사](phase3_round3_20261007.json)·[실제 공개 부상 뒤 입력/재시작](phase3_closure_mobile_20261007.md)·[전달](phase3_round3_release.json). 현재 일반 회복→수동 타격과 부상 뒤 조작/초기화 관문 완료, 게임 변경0. 갑옷B선택형·보조팔/v2유보·전체물리 한계는 유지.
 
 3단계2회차 ·10/07: [통합 판정](phase3_round2_20261007.md)·[절삭](phase3_cut_link_20261007.md)·[받아내기](phase3_parry_20261007.md)·[공개 상처 표시](phase3_damage_visual_20261007.md)·[전달](phase3_round2_release.json). 대표 연결 통과/게임 변경0. 실제 피해·콜백·새 상처 수를 분리하고 기존 절단 근거를 재사용한다. 자연 절단·전체 물리 완성 주장은 없다.

@@ -1,0 +1,285 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-07",
+  "status": "local_pre_hint_change_entry_boundary_complete",
+  "baselineHead": "aa7ddb5c7409954fb5c2efbfc69ba08ee0b504bb",
+  "sourceIdentity": "HEAD plus uncommitted material-resource candidate; exact files in manifest-before.json",
+  "asset": {
+    "name": "dist/assets/main-BI0MSntv.js",
+    "bytes": 3544578,
+    "sha256": "82bafb85f33a799367203eff5ced70dfa617e79173f368ff98b429b861e9539d",
+    "match": true
+  },
+  "base": "http://127.0.0.1:4173/",
+  "startedUTC": "2026-10-07T14:08:39.675Z",
+  "completedUTC": "2026-10-07T14:10:22.038Z",
+  "productionChangesByThisWork": 0,
+  "attempts": 1,
+  "toolFailureRetries": 0,
+  "pass": true,
+  "sourceStable": true,
+  "settings": {
+    "difficulty": "normal",
+    "pixel": false,
+    "blood": true,
+    "sound": false,
+    "invertTilt": false,
+    "moveMode": "stick",
+    "skill": "0.7",
+    "guardNames": true,
+    "trail": true,
+    "fpsCap": true
+  },
+  "viewport": {
+    "width": 844,
+    "height": 390
+  },
+  "method": "One query-free ordinary card entry and card-based restart; real trusted touch, natural game time, 10Hz post-step snapshots and UI events. No RNG/pose/force/AI injection or accelerated stepping.",
+  "checks": {
+    "queryFreeCardsPauseResumeRestart": "exposed_pass",
+    "earlyMovementRequest": "exposed_both",
+    "postHoldMovementRequest": "exposed_both",
+    "guidanceGap": "observed_overlap_not_user_confusion_proof"
+  },
+  "steps": 729,
+  "simulationSeconds": 6.075000000000092,
+  "samples": 62,
+  "nonfiniteSamples": 0,
+  "trustedTouchEvents": 22,
+  "browserErrors": [],
+  "rounds": [
+    {
+      "label": "first",
+      "cardIndex": 0,
+      "offered": [
+        "rubber_chicken",
+        "falchion",
+        "excalibur_replica"
+      ],
+      "selected": "rubber_chicken",
+      "enemyWeapon": "excalibur_replica",
+      "policies": {
+        "default": true,
+        "v2": "unified",
+        "stance": "fresh",
+        "roll": "bounded",
+        "cut": "legacy",
+        "limb": true,
+        "finish": "legacy",
+        "startHold": 2,
+        "gravity": -9.81,
+        "camera": {
+          "back": 2.9,
+          "height": 2.3,
+          "shoulder": 0.9,
+          "fov": 55,
+          "follow": 5,
+          "stepBob": 0.012,
+          "lookAhead": 2.2,
+          "openUp": 0.6,
+          "openBack": 1
+        }
+      },
+      "allWalkSamplesStand": true,
+      "held": {
+        "samples": 17,
+        "fightTimeRange": [
+          0.30833333333333346,
+          1.908333333333329
+        ],
+        "wantSpeedRangeMPS": [
+          0,
+          0
+        ],
+        "horizontalPelvisDisplacementM": 0.061301906793207205
+      },
+      "released": {
+        "samples": 9,
+        "fightTimeRange": [
+          2.008333333333329,
+          2.808333333333326
+        ],
+        "wantSpeedRangeMPS": [
+          2.029411764705882,
+          2.2708892916976584
+        ],
+        "horizontalPelvisDisplacementM": 0.9954158017511223
+      },
+      "guidance": {
+        "text": "왼쪽 아래 조이스틱으로 걷기 · 나머지 화면을 끌어서 휘두르고 톡 쳐서 찌르기",
+        "battleGoneFightTime": 0.09999999999999999,
+        "hintGoneFightTime": 0.45000000000000057,
+        "heldInputOverlap": true,
+        "heldInputOverlapSampleFightTime": [
+          0.30833333333333346,
+          0.40833333333333377
+        ]
+      }
+    },
+    {
+      "label": "restart",
+      "cardIndex": 1,
+      "offered": [
+        "estoc",
+        "longsword",
+        "excalibur_replica"
+      ],
+      "selected": "longsword",
+      "enemyWeapon": "excalibur_replica",
+      "policies": {
+        "default": true,
+        "v2": "unified",
+        "stance": "fresh",
+        "roll": "bounded",
+        "cut": "centerline",
+        "limb": true,
+        "finish": "legacy",
+        "startHold": 2,
+        "gravity": -9.81,
+        "camera": {
+          "back": 2.9,
+          "height": 2.3,
+          "shoulder": 0.9,
+          "fov": 55,
+          "follow": 5,
+          "stepBob": 0.012,
+          "lookAhead": 2.2,
+          "openUp": 0.6,
+          "openBack": 1
+        }
+      },
+      "allWalkSamplesStand": true,
+      "held": {
+        "samples": 17,
+        "fightTimeRange": [
+          0.30833333333333346,
+          1.908333333333329
+        ],
+        "wantSpeedRangeMPS": [
+          0,
+          0
+        ],
+        "horizontalPelvisDisplacementM": 0.04451351459005502
+      },
+      "released": {
+        "samples": 9,
+        "fightTimeRange": [
+          2.008333333333329,
+          2.808333333333326
+        ],
+        "wantSpeedRangeMPS": [
+          2.029411764705882,
+          2.2148331282101528
+        ],
+        "horizontalPelvisDisplacementM": 0.993139555439253
+      },
+      "guidance": {
+        "text": "왼쪽 아래 조이스틱으로 걷기 · 나머지 화면을 끌어서 휘두르고 톡 쳐서 찌르기",
+        "battleGoneFightTime": 0.09999999999999999,
+        "hintGoneFightTime": 0.5500000000000005,
+        "heldInputOverlap": true,
+        "heldInputOverlapSampleFightTime": [
+          0.30833333333333346,
+          0.508333333333334
+        ]
+      }
+    }
+  ],
+  "heldPauseResumeRestart": {
+    "pausedSimulationSeconds": [
+      2.949999999999992,
+      6.075000000000092
+    ],
+    "heldInputCleared": true,
+    "pausedStateStable": true,
+    "resumeSameObjects": true,
+    "resumeNewMovementRetested": false,
+    "restartObjectsReplaced": [
+      "player",
+      "enemy",
+      "world",
+      "combat",
+      "ai"
+    ],
+    "restartWoundsAndDetachedCleared": true
+  },
+  "decision": {
+    "entryFlow": "passed observed boundary",
+    "guidance": "Existing immediate walking hint overlaps intentional foot hold; real user confusion not established.",
+    "smallCandidate": "Prefix walking hint with 대치 후; keep arm input, 2-second simulated hold and camera.",
+    "candidateVerification": "This record precedes the hint edit. Changed hint public verification is separate; mere hint/feetHeld overlap is not a failure when the text explains the hold.",
+    "stage4Overall": "in_progress"
+  },
+  "limitations": [
+    "No physical-phone or human acceptance claim; no complete fight, all-card roster, difficulty or whole-readability claim.",
+    "pass is entry/card/native-input/pause/restart/source integrity; walking-target and displacement evidence are interpreted separately.",
+    "No new movement input was sent immediately after resume; only resumed state, cleared input and object continuity were checked.",
+    "want precedes original updateFooting stumble update; recorded stumble follows it. Do not reconstruct an exact same-moment contribution from both.",
+    "Post-step feetHeld and footing feetHeld may differ at the boundary by one 1/120-second step.",
+    "Observer forwards original arguments/returns unchanged, but runtime overhead and uninstrumented trajectory equality are not measured.",
+    "Battle/hint wall time, start-hold simulation time and card capped-frame time must remain separate.",
+    "Nonfinite count covers 62 samples, not every step."
+  ],
+  "sourceReferences": {
+    "beginFight": "src/main.js:1214",
+    "feetHeld": "src/fighter.js:977",
+    "movementGate": "src/fighter.js:1540",
+    "updateFooting": "src/fighter.js:1667"
+  },
+  "sourceHashes": {
+    "src/main.js": {
+      "bytes": 100715,
+      "sha256": "7301771f05ebcca6ebefec8f20289c48e5fe5d765a81d362a59b5faca23f3453"
+    },
+    "src/fighter.js": {
+      "bytes": 155141,
+      "sha256": "fa9d0c23343f16c623e277f3a050ee7967f2ccdc030e300848c41075b28acf12"
+    },
+    "src/input.js": {
+      "bytes": 12348,
+      "sha256": "37529c473619a95ef83fbe3afa567f436dcd3c3b27b4951ebf52109cda434367"
+    },
+    "index.html": {
+      "bytes": 27353,
+      "sha256": "eeb55416a217e72a6b0123c22aaf810f06b7c067af5abd8d69331f48d2fdbebd"
+    }
+  },
+  "command": "PLAYWRIGHT_MODULE=/workspace/cloud-onboarding/browser/node_modules/playwright/index.mjs PLAYWRIGHT_BROWSERS_PATH=/workspace/cloud-onboarding/browser/cache node tools/browser/phase4_entry_20261007.mjs --base=http://127.0.0.1:4173/ --out=/workspace/halfsword-handoff/phase4-20261007/entry/local01",
+  "evidence": [
+    {
+      "path": "/workspace/halfsword-handoff/phase4-20261007/entry/local01/report.json",
+      "bytes": 424465,
+      "sha256": "121e3c61701f26f465f62a94d2c3e30fc66abab92c2ff8b8bc269232cc0e650c"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase4-20261007/entry/local01/manifest-before.json",
+      "bytes": 107733,
+      "sha256": "490e66c91e91d5f194726cc82a9d2cefb2828bbeb6a7a7caf1f46c83f2de71d2"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase4-20261007/entry/local01/browser-tool-executed.mjs",
+      "bytes": 24258,
+      "sha256": "70ce5745803ca90d621ee3beffa7925f3a1c3d181c96238b12e028ca60d973a2"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase4-20261007/entry/local01/ordinary-cards.png",
+      "bytes": 193463,
+      "sha256": "6c871f1f794869c60c706786117c8a7c33df5148fcba93c33e005904295dfa0f"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase4-20261007/entry/local01/opening-paused.png",
+      "bytes": 167932,
+      "sha256": "f84d4925f0a730e73afae5eded9385e43548912608c572809a9b48bc98c6d508"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase4-20261007/entry/local01/restart-paused.png",
+      "bytes": 168043,
+      "sha256": "4dd003e593da4b13c026a48f021c7dc57f35497ee2ec449c493a81f473e2ccec"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase4-20261007/entry/local01/video/page@f6a10033b9bdd58af1b519de4064ab04.webm",
+      "bytes": 7080633,
+      "sha256": "2b60d9e70c4e0c27b5cd0287552bdfa83bac36aebb8b4110db978ad13fef9b63"
+    }
+  ]
+}
