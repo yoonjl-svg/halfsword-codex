@@ -1,5 +1,7 @@
 # 혼합안 독립 개발 인계
 
+**최신4단계 ·10/08:** [승패→다음 상대/재시작 안내](../strike/phase4_progression_20261008.md)와 [완전 파손 부품의 잔류 충돌](../strike/broken_collider_20261008.md)을 수정했다. [실제 공개 상태](../strike/phase4_progression_release.json)·[다음 계획](ACTIVE_PLAN.md)을 따른다. 최초 결과 판정은 유지하며 물리 계수·피해 공식을 조정하지 않는다.
+
 **최신4단계 첫 공방 ·10/07:** [브란 시작 성향·상대 공격 종료 오류 수정](../strike/phase4_pacing_20261007.md). 같은 대표3상대 비교와 손 제어 경계 검사를 마쳤다. [실제 공개 상태](../strike/phase4_pacing_release.json)·[다음 계획](ACTIVE_PLAN.md)을 따른다. 전체4단계는 진행 중이며 다음은 승패 이후 진행 흐름이다.
 
 **최신4단계 ·10/07:** [반복 경기 재질 정리 수정](../strike/phase4_quality_20261007.md). 수정 전3판에서 매 재시작 셰이더 참조69개가 남았고, 수정판은3판 모두 시작185개로 복귀했다. 공유효과 수명21검사 통과. 물리·힘·피해 변경은 없으며 갑옷 원인을 오인시킬 수 있는 새 HUD는 미채택했다. [실제 전달 상태](../strike/phase4_quality_release.json)와 [현재 계획](ACTIVE_PLAN.md)을 우선한다. 전체4단계는 진행 중이다.

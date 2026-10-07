@@ -1,0 +1,84 @@
+{
+  "status": "local_native_and_mobile_verified_ready_for_public_delivery",
+  "baseHead": "5014a54b23037106512ece79d7e7baf56a60178f",
+  "ordinaryURL": "https://yoonjl-svg.github.io/halfsword-codex/",
+  "planURL": "https://yoonjl-svg.github.io/halfsword-codex/development-plan.html#section-2",
+  "productionFiles": [
+    "src/main.js",
+    "src/fighter.js"
+  ],
+  "changes": [
+    "Keep result menu aligned with the first latched outcome and actual stage progression.",
+    "Show final result menu when pausing an already decided round.",
+    "Reset decisive-hit slow motion for a new round.",
+    "Set collision groups to zero for fully removed box weapon colliders."
+  ],
+  "mainAsset": {
+    "path": "assets/main-DoqnnJ9W.js",
+    "bytes": 3544660,
+    "sha256": "6c5dc44d841cd20e4aeac3d4c61b52d7705ed56f615bed96ddbcdb714de9ef9b"
+  },
+  "physicalParametersChanged": false,
+  "damageFormulaChanged": false,
+  "native": {
+    "report": "broken_collider_20261008.json",
+    "successfulRuns": 4,
+    "nativeSteps": 304,
+    "failedHarnessRuns": 1,
+    "failedHarnessNativeSteps": 0,
+    "derivedAcceptanceChecks": 15,
+    "accepted": true,
+    "comparison": {
+      "path": "/workspace/halfsword-handoff/phase4-progression-20261008/colliders/comparison01/comparison.json",
+      "bytes": 11649,
+      "sha256": "69efa5d8ddf173424764d3ba4e2e8eaed53f00f9a40117e4fb0613fa58f5f72b"
+    }
+  },
+  "mobile": {
+    "report": "phase4_progression_20261008.json",
+    "physicalPhone": false,
+    "naturalCombatVictory": false,
+    "status": "local_three_round_controlled_progression_passed",
+    "local": {
+      "path": "/workspace/halfsword-handoff/phase4-progression-20261008/browser/candidate02/report.json",
+      "bytes": 220921,
+      "sha256": "8e8ebae82855b8bf6d8c76276fcadbbd39f77ad8a66dcff40827017e936b1ef9",
+      "pass": true,
+      "steps": 406,
+      "wallMs": 70713.537386,
+      "errors": [],
+      "checks": {
+        "native": true,
+        "threeRounds": true,
+        "threeExplicitFixtures": true,
+        "finiteSamples": true,
+        "defaultsAndRosters": true,
+        "retirementObserved": true,
+        "simulationBound": true,
+        "expectedEvidence": true,
+        "compiledExact": true,
+        "wallBudget": true
+      }
+    },
+    "priorCollectorFailure": "candidate01: all UI contracts passed; asynchronous response.body failed in metadata collection. Exact failed resource not recorded. Preserved failure, route APIResponse bytes collector corrected, candidate02 passed without game changes."
+  },
+  "independentReview": {
+    "status": "no_additional_serious_regression_found",
+    "scope": "Read-only src/main.js and src/fighter.js diff; no duplicate physical execution."
+  },
+  "public": {
+    "status": "ready_to_push",
+    "blocker": null
+  },
+  "limits": [
+    "Three explicit die API calls exercise UI transitions, not natural injury/decisive-hit slow motion.",
+    "New-round slowMo reset has source/independent review, not a natural terminal-hit reproduction in this browser protocol.",
+    "Native trimSword and ghost transitions are controlled fixtures; full natural break probability, sword return/attach, break after ghost entry and occurrence frequency were not measured."
+  ],
+  "environmentInterruption": {
+    "status": "recovered_source_and_passed_raw_verified",
+    "observedOfflineUTC": "2026-10-07T15:55/15:59Z",
+    "shellRecoveredUTC": "2026-10-07T16:00Z",
+    "checksRepeated": false
+  }
+}

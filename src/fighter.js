@@ -1428,6 +1428,7 @@ export class Fighter {
       if (y + hy <= cutY) return; // 절단선 아래 부품 (자루·코등이·폼멜)
       if (lo >= cutY - 0.005) {
         col.setEnabled(false); // 통째로 떨어져 나간 부품 (지금 무기엔 없다)
+        col.setCollisionGroups(0); // 동적 몸체의 비활성 콜라이더도 접촉 응답에서 확실히 제외
         return;
       }
       const f = (cutY - lo) / (2 * hy); // 남는 비율 (길이)

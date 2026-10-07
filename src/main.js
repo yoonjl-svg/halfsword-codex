@@ -553,6 +553,7 @@ function newRound(weaponId) {
   roundOverTime = 0;
   camFollow.copy(player.pelvisPos);
   hitStop = 0;
+  slowMo = 0; // 이전 판의 결정타 직후 재시작해도 슬로모션을 넘기지 않는다
   // 시간이 흐르기 전에도(무기 뽑기 동안) 선 자세 그대로 보이게 겉모습을 몸에 맞춰 둔다
   player.syncMeshes();
   enemy.syncMeshes();
@@ -1238,6 +1239,10 @@ function beginFight() {
 let pausedFrom = 'fight'; // 싸움 중에 멈췄나, 무기 뽑기 중에 멈췄나 (계속하기가 돌아갈 곳)
 function pause() {
   if (state !== 'fight' && state !== 'draw') return;
+  if (roundOver) {
+    showRoundMenu();
+    return;
+  }
   pausedFrom = state;
   state = 'paused';
   input.enabled = false;
@@ -1435,27 +1440,30 @@ function checkRoundEnd(dt) {
   }
   showRoundResult();
   roundOverTime += dt;
-  if (roundOverTime > 3.5 && state === 'fight') {
-    state = 'paused';
-    input.enabled = false;
-    input.resetTransient();
-    document.exitPointerLock?.();
-    toast.classList.remove('show');
-    const win = !enemy.alive;
-    const loser = win ? enemy : player;
-    // 한 줄로 짧게: 이겼으면 내가 한 일(베었다), 졌으면 내가 당한 일(베였다)
-    const cause = win
-      ? { 목: '목을 베었다', 머리: '머리를 쳤다', 출혈: '출혈로 쓰러뜨렸다', 기절: '기절시켰다', 내려찍기: '내려찍었다' }[loser.causeOfDeath] || '쓰러뜨렸다'
-      : { 목: '목을 베였다', 머리: '머리를 맞았다', 출혈: '피를 너무 흘렸다', 기절: '기절했다', 내려찍기: '내려찍혔다' }[loser.causeOfDeath] || '쓰러졌다';
-    $('menuTitle').textContent = win ? '승리' : '패배';
-    // 졌으면 상대의 승리 대사를 한 줄 덧붙인다 (사장님 확정)
-    $('menuSub').textContent = !win && lastFoeLine ? `${cause} · ${currentFoe.name}: “${lastFoeLine}”` : cause;
-    // 여정(무대마다 그곳 검객): 이기면 다음 상대, 지면 같은 상대와 다시 (주소로 상대·배경을 고정했으면 그냥 다시 싸우기)
-    $('btnStart').textContent = win && foeParam === 'stage' && !STAGE_PIN ? '다음 상대' : '다시 싸우기';
-    $('btnResume').style.display = 'none';
-    reviveFx.reset(); // 결과 화면: 부활 연출이 남아 있으면 치운다 (상대가 일어서는 동안 내가 죽었을 때)
-    showMenu();
-  }
+  if (roundOverTime > 3.5 && state === 'fight') showRoundMenu();
+}
+
+/** 종료 직후 일시정지와 자동 결과 화면은 같은 확정 승패·다음 행동을 쓴다. */
+function showRoundMenu() {
+  state = 'paused';
+  input.enabled = false;
+  input.resetTransient();
+  document.exitPointerLock?.();
+  toast.classList.remove('show');
+  const win = lastRoundWon; // 최초 종료 판정·토스트·다음 무대와 같은 결과
+  const loser = win ? enemy : player;
+  // 한 줄로 짧게: 이겼으면 내가 한 일(베었다), 졌으면 내가 당한 일(베였다)
+  const cause = win
+    ? { 목: '목을 베었다', 머리: '머리를 쳤다', 출혈: '출혈로 쓰러뜨렸다', 기절: '기절시켰다', 내려찍기: '내려찍었다' }[loser.causeOfDeath] || '쓰러뜨렸다'
+    : { 목: '목을 베였다', 머리: '머리를 맞았다', 출혈: '피를 너무 흘렸다', 기절: '기절했다', 내려찍기: '내려찍혔다' }[loser.causeOfDeath] || '쓰러졌다';
+  $('menuTitle').textContent = win ? '승리' : '패배';
+  // 졌으면 상대의 승리 대사를 한 줄 덧붙인다 (사장님 확정)
+  $('menuSub').textContent = !win && lastFoeLine ? `${cause} · ${currentFoe.name}: “${lastFoeLine}”` : cause;
+  // 여정(무대마다 그곳 검객): 이기면 다음 상대, 지면 같은 상대와 다시 (주소로 상대·배경을 고정했으면 그냥 다시 싸우기)
+  $('btnStart').textContent = win && foeParam === 'stage' && !STAGE_PIN ? '다음 상대' : '다시 싸우기';
+  $('btnResume').style.display = 'none';
+  reviveFx.reset(); // 결과 화면: 부활 연출이 남아 있으면 치운다 (상대가 일어서는 동안 내가 죽었을 때)
+  showMenu();
 }
 
 // ── 카메라: 내 캐릭터 오른쪽 어깨 너머에서 상대를 바라본다 ──
