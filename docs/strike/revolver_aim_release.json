@@ -1,5 +1,5 @@
 {
-  "status": "local_verified_public_pending",
+  "status": "ordinary_delivered_verified",
   "baseHead": "a34eff6b5b84ef1611f73db639135da64ae6eb09",
   "ordinaryURL": "https://yoonjl-svg.github.io/halfsword-codex/",
   "pistolURL": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=pistol&foeWeapon=longsword",
@@ -33,5 +33,45 @@
       "sha256": "1464f50fd2a8d52b971e95f18246f4b8ad74c75e0b3dbd29fdee236624f69533"
     }
   ],
-  "public": null
+  "public": {
+    "head": "a3f96b29d147c618bf742ff2f5f53204532a5c4e",
+    "actions": {
+      "id": 37653957473,
+      "conclusion": "success",
+      "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37653957473"
+    },
+    "exactFiles": 8,
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/revolver-aim-20261008/delivery/pages02.json",
+      "bytes": 4617,
+      "sha256": "6602ad447b075f5660a8eb3e2a2c15158bfed1d4c13a53445b6deb3747770daa"
+    },
+    "mobile": {
+      "path": "/workspace/halfsword-handoff/revolver-aim-20261008/browser/public01/report.json",
+      "bytes": 121921,
+      "sha256": "d629a445745c3a0bc05d0094bf0b5f624326e88a5bf2cee1491732b402fc3a57",
+      "pass": true,
+      "checks": {
+        "twoNativeShots": true,
+        "moveAndRelease": true,
+        "pauseResume": true,
+        "freshRestart": true,
+        "originalAimOutputObserved": true,
+        "finite": true,
+        "native": true,
+        "preferences": true,
+        "compiledExact": true
+      },
+      "errors": [],
+      "wallMs": 40277.878168999996
+    }
+  },
+  "preDeploymentCheck": {
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/revolver-aim-20261008/delivery/pages01.json",
+      "bytes": 4419,
+      "sha256": "dfc6ee6efcad24c6463943e21c981579c706fa12120fe5d668425ac7802f3cf9"
+    },
+    "status": "old HTML and missing new main before deployment completed; retained, followed by all8exact"
+  }
 }

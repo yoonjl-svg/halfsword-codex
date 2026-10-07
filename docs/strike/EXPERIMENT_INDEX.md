@@ -1,5 +1,7 @@
 # 실험 색인과 재현 입구
 
+- [10/08 리볼버 상반신 조준·75J](revolver_aim_20261008.md): 사용자 요청 반영. 기준 `a34eff6b5b84ef1611f73db639135da64ae6eb09`, 실제 공개는 [전달 영수증](revolver_aim_release.json).
+
 4단계 경기 연결·파손 충돌 ·10/08: [폰 진행](phase4_progression_20261008.md)·[재현 해시](phase4_progression_20261008.json)·[파손 native 검사](broken_collider_20261008.md)·[전달](phase4_progression_release.json). 종료 fixture3회로 화면/실제 다음 상대를 검증한다. 실제 무기 파손·부활 접촉 대조와 자연 전투 빈도는 구분한다.
 
 4단계 첫 공방 ·10/07: [판정](phase4_pacing_20261007.md)·[해시/제어 회귀](phase4_pacing_20261007.json)·[대표3상대 실제 게임 비교](phase4_opening_20261007.md)·[전달](phase4_pacing_release.json). 브란 초기화 순서와 공격 목표 범위 불일치 수정. 정상51궤적 동일, 실제 전투 빈도·재미 주장은 없음.
