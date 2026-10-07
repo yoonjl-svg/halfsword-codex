@@ -1,0 +1,187 @@
+{
+  "commit": "c5fcf82d3dd77079852b79b57d5158d64f7ac8e2",
+  "command": "node tools/sim/revolver_opening_20261008.mjs /workspace/halfsword-codex/docs/strike/revolver_opening_20261008.json",
+  "sourceBefore": {
+    "src/gun.js": "a87128950078a735b032856d96f97e655d9f8c2ef752ae0101b061d70cdd6f9b",
+    "src/fighter.js": "ee6b1c5a513fe65d7b3e79a476fb70fecf816f96ec4a7fb7bfb4b81cfdcec3ac",
+    "src/skill.js": "c1ce462057175f684f8b89c79f668835c69b9dd2ef3cdfbd1e155f73411668e5",
+    "src/ai.js": "2f23c64500eb6217ccba295607b17697c98e3f3f830c051a6d0f7c01af3116da",
+    "src/combat.js": "adf58b520e29b3618d021bceb341d679eadfe0ef103fbe821928ec222259a9a8",
+    "src/config.js": "6e2c678ef8af30eeb730f38c3c6a5eac370babdf0071c249e1c2d474c7aa331b",
+    "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+    "tools/sim/revolver_opening_20261008.mjs": "b6eb16252e63e53e660ffaa0624b22b76caa810d1abb3fe45c210a2922179ff6"
+  },
+  "startHold": 2,
+  "fixedTick": 0.008333333333333333,
+  "scope": "Real Fighter/Skill/Gun exports and native Rapier objects. One passive 2.1-second fixed-step opening runtime; direct controlled boundary, AI, timer and restart fixtures. No full combat, browser input, natural accuracy, audio or human acceptance claim.",
+  "checks": 1168,
+  "physicsSteps": 253,
+  "cases": [
+    {
+      "name": "native-boundary-and-repeat-taps",
+      "index": 0,
+      "acceptedFightT": 1.999999,
+      "shots": 1
+    },
+    {
+      "name": "native-boundary-and-repeat-taps",
+      "index": 1,
+      "acceptedFightT": 1.999999,
+      "shots": 1
+    },
+    {
+      "name": "pending-abort-keeps-aim-and-cooldown",
+      "indices": [
+        0,
+        1
+      ]
+    },
+    {
+      "name": "unchanged-idle-aim-clock-and-rng",
+      "samplesPerIndex": 240
+    },
+    {
+      "name": "native-fixed-step-opening-no-queue",
+      "releaseT": 1.9999999999999953,
+      "duration": 2.1083333333333285,
+      "steps": 253,
+      "shots": 1
+    },
+    {
+      "name": "production-ai-controlled-aim",
+      "attempts": 4,
+      "accepted": 1,
+      "index": 1
+    },
+    {
+      "name": "post-opening-cooldown-and-full-reload",
+      "cooldown": 0.8,
+      "reload": 8,
+      "shots": 7
+    },
+    {
+      "name": "exact-six-insert-and-close-boundaries",
+      "expectedInsertSeconds": [
+        3.306666666666667,
+        4.085333333333334,
+        4.864000000000001,
+        5.642666666666667,
+        6.421333333333333,
+        7.2
+      ],
+      "events": [
+        {
+          "kind": "insert",
+          "index": 1,
+          "time": 3.306676666666667
+        },
+        {
+          "kind": "insert",
+          "index": 2,
+          "time": 4.085343333333334
+        },
+        {
+          "kind": "insert",
+          "index": 3,
+          "time": 4.864010000000001
+        },
+        {
+          "kind": "insert",
+          "index": 4,
+          "time": 5.6426766666666675
+        },
+        {
+          "kind": "insert",
+          "index": 5,
+          "time": 6.421343333333334
+        },
+        {
+          "kind": "insert",
+          "index": 6,
+          "time": 7.200010000000001
+        },
+        {
+          "kind": "close",
+          "time": 8.00001
+        }
+      ],
+      "boundaryEpsilonSeconds": 0.00001
+    },
+    {
+      "name": "fresh-round-restart",
+      "indices": [
+        0,
+        1
+      ]
+    }
+  ],
+  "pass": true,
+  "sourceAfter": {
+    "src/gun.js": "a87128950078a735b032856d96f97e655d9f8c2ef752ae0101b061d70cdd6f9b",
+    "src/fighter.js": "ee6b1c5a513fe65d7b3e79a476fb70fecf816f96ec4a7fb7bfb4b81cfdcec3ac",
+    "src/skill.js": "c1ce462057175f684f8b89c79f668835c69b9dd2ef3cdfbd1e155f73411668e5",
+    "src/ai.js": "2f23c64500eb6217ccba295607b17697c98e3f3f830c051a6d0f7c01af3116da",
+    "src/combat.js": "adf58b520e29b3618d021bceb341d679eadfe0ef103fbe821928ec222259a9a8",
+    "src/config.js": "6e2c678ef8af30eeb730f38c3c6a5eac370babdf0071c249e1c2d474c7aa331b",
+    "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+    "tools/sim/revolver_opening_20261008.mjs": "b6eb16252e63e53e660ffaa0624b22b76caa810d1abb3fe45c210a2922179ff6"
+  },
+  "sourceStable": true,
+  "shots": [
+    {
+      "index": 0,
+      "fightT": 1.999999,
+      "gunT": 0.008333333333333333
+    },
+    {
+      "index": 1,
+      "fightT": 1.999999,
+      "gunT": 0.008333333333333333
+    },
+    {
+      "index": 0,
+      "fightT": 2.1083333333333285,
+      "gunT": 2.1083334432914853
+    },
+    {
+      "index": 1,
+      "fightT": 2,
+      "gunT": 0.008333333333333333
+    },
+    {
+      "index": 0,
+      "fightT": 2,
+      "gunT": 0
+    },
+    {
+      "index": 0,
+      "fightT": 2,
+      "gunT": 0.8000100000000001
+    },
+    {
+      "index": 0,
+      "fightT": 2,
+      "gunT": 1.60002
+    },
+    {
+      "index": 0,
+      "fightT": 2,
+      "gunT": 2.40003
+    },
+    {
+      "index": 0,
+      "fightT": 2,
+      "gunT": 3.2000400000000004
+    },
+    {
+      "index": 0,
+      "fightT": 2,
+      "gunT": 4.000050000000001
+    },
+    {
+      "index": 0,
+      "fightT": 2,
+      "gunT": 12.000060000000001
+    }
+  ]
+}

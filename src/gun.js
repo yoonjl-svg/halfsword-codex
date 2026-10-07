@@ -27,7 +27,7 @@ export const GUN = {
   reload: 8, // 초: 여섯 발을 다 쏘면 전체 재장전. 완료 시 탄수 6으로 복구한다.
   reloadOpen: 0.9, // 초: 열기·탄피 처리 뒤 삽입음 구간 시작.
   reloadClose: 0.8, // 초: 장전 말미에 남겨 두는 닫기 준비 구간.
-  reloadInsertInterval: (7.3 / 6) * 0.8, // 기존 삽입 간격(9-.9-.8)/6에서 정확히20% 단축. 전체 장전 시간과 별도다.
+  reloadInsertInterval: (7.3 / 6) * 0.8 * 0.8, // 사용자 후속: 현재 삽입 간격에서 다시20% 단축. 마지막 삽입은 닫기 준비 직전에 맞춘다.
   range: 25, // m: 총알이 닿는 거리
   armorBlunt: 0.25, // 투구·판금이 막으면(그리고 바로 부서지면) 몸에는 세기의 이 비율만 둔하게 전해진다
   laser: false, // 조준 레이저는 외형 PM gun_fx.js 가 그린다 (사장님: 아주 희미하게 · 두 겹 방지). true 면 여기 updateLaser 가 그린다(효과 모듈 없는 점검용)
@@ -284,6 +284,9 @@ function updateRandSway(g, dt) {
 
 /** 지금 쏠 수 있나 (skill.js thrust 가 묻는다). 쏠 수 있으면 이번 찌르기에 한 발을 건다 */
 export function gunCanFire(f, { now = false } = {}) {
+  // 시작 대치 중 겨누기는 유지하되 발사는 받지 않는다. 이때 누른 입력을
+  // 예약하지 않아 발이 풀리는 순간 저절로 쏘지 않는다. 사람·AI 공통이다.
+  if (f.feetHeld) return false;
   const g = state(f);
   if (g.cool > 0 || g.pending >= 0) return false;
   g.pending = now ? GUN.maxWait : 0; // now: 찌르는 동작 없이 다음 스텝에 지금 총신(레이저) 방향으로 쏜다 (사격 자세가 이미 겨누고 있다)
@@ -303,11 +306,13 @@ export function updateGun(f, world, combat, dt) {
     const before = GUN.reload - g.cool;
     g.cool -= dt;
     if (g.reloading) {
-      // 여섯 삽입음의 박자는 전체 장전 시간과 독립적으로 맞춘다.
-      const interval = Math.min(GUN.reloadInsertInterval, (GUN.reload - GUN.reloadOpen - GUN.reloadClose) / GUN.rounds);
+      // 탄피 처리 뒤 여섯 발을 빠르게 넣고 닫는다. 삽입 묶음의 끝을
+      // 닫기 준비 구간에 맞춰, 박자를 줄여도 마지막에 긴 공백이 생기지 않는다.
+      const lastInsert = GUN.reload - GUN.reloadClose;
+      const interval = Math.min(GUN.reloadInsertInterval, (lastInsert - GUN.reloadOpen) / Math.max(1, GUN.rounds - 1));
       const after = GUN.reload - g.cool;
       for (let i = 0; i < GUN.rounds; i++) {
-        const ti = GUN.reloadOpen + interval * (i + 0.5);
+        const ti = lastInsert - interval * (GUN.rounds - 1 - i);
         if (before < ti && after >= ti) sound('onLoadRound', f, i + 1);
       }
       if (g.cool <= 0) {
@@ -317,6 +322,8 @@ export function updateGun(f, world, combat, dt) {
       }
     }
   }
+  // 이미 예약된 발사도 같은 시작 조건으로 막는다. 겨눔·장전 시계는 유지한다.
+  if (f.feetHeld) return void (g.pending = -1);
   if (g.pending < 0) return;
   g.pending += dt;
   if (!f.alive || !f.armed) return void (g.pending = -1);

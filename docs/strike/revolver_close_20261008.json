@@ -1,0 +1,641 @@
+{
+  "baselineCommit": "c5fcf82d3dd77079852b79b57d5158d64f7ac8e2",
+  "command": "node tools/audio/revolver_close_20261008.mjs /workspace/halfsword-handoff/revolver-close-20261008-audio-1",
+  "scope": "Native Chromium OfflineAudioContext at 48kHz, real Sound routing. Controlled one-open/six-insert/one-close audio fixture; no physics scheduling, human listening, phone, or mixed-combat loudness claim. Sample peaks are measured after existing limiter/soft-clip routing; no new clipping stage.",
+  "sourceBefore": {
+    "src/revolver_reload_audio.js": "251cf8864aa04ecda3efd80b9a9b142e330ddb8d8fd934d086f1e960c1147097",
+    "src/sound.js": "4a903e6595f1da0fdbd5d585491e5a9823c5832b5369588b5c389ebc0cace83f",
+    "src/config.js": "6e2c678ef8af30eeb730f38c3c6a5eac370babdf0071c249e1c2d474c7aa331b",
+    "tools/audio/revolver_close_20261008.mjs": "720c5a04cccd89d03828aa6882ce7cff1bdc60ce3bcfdbf4db46c279e612768f"
+  },
+  "rows": [
+    {
+      "recorded": true,
+      "version": "baseline",
+      "ready": true,
+      "sr": 48000,
+      "events": [
+        {
+          "kind": "open",
+          "at": 0,
+          "start": 0,
+          "end": 0.87,
+          "gain": 0.7799999713897705,
+          "sources": 1,
+          "rate": 1,
+          "length": 41760,
+          "duration": 0.87,
+          "bufferSHA256": "833c6753809aecb427095454be985a2e60cde79be93d289bcf2fa824add2a47d"
+        },
+        {
+          "kind": "insert",
+          "round": 1,
+          "at": 3.306666666666667,
+          "start": 3.3066666666666666,
+          "end": 3.736666666666667,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 20640,
+          "duration": 0.43,
+          "bufferSHA256": "d04457deec9642c99880b94311a7132aa9a544c23c98be6c1d29de3f164716a0"
+        },
+        {
+          "kind": "insert",
+          "round": 2,
+          "at": 4.085333333333334,
+          "start": 4.085333333333334,
+          "end": 4.415333333333334,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 15840,
+          "duration": 0.33,
+          "bufferSHA256": "2f5715def5bf202856e485722c220610d847685c90675dd7334b5881003e482b"
+        },
+        {
+          "kind": "insert",
+          "round": 3,
+          "at": 4.864000000000001,
+          "start": 4.864,
+          "end": 5.234,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 17760,
+          "duration": 0.37,
+          "bufferSHA256": "4329c75c1004d8b4a2779b43c1f14a8c10c81fcc6bd9858c528e22cd261d89ba"
+        },
+        {
+          "kind": "insert",
+          "round": 4,
+          "at": 5.642666666666667,
+          "start": 5.642666666666667,
+          "end": 6.062666666666667,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 20160,
+          "duration": 0.42,
+          "bufferSHA256": "b112f75883fbec715837e0532b1bc30209f88d5f09d15db1e53a2ad4c52f86d3"
+        },
+        {
+          "kind": "insert",
+          "round": 5,
+          "at": 6.421333333333333,
+          "start": 6.421333333333333,
+          "end": 6.991333333333333,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 27360,
+          "duration": 0.57,
+          "bufferSHA256": "73e73fae34b0da54a35b9804ddf8b52c078a096d0dd7a6562ef6a8a4db7dac8e"
+        },
+        {
+          "kind": "insert",
+          "round": 6,
+          "at": 7.2,
+          "start": 7.2,
+          "end": 7.5,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 14400,
+          "duration": 0.3,
+          "bufferSHA256": "cd14a9a61c9d6e9d98b881a90be9842df3a52e1c82fc8d09d3ef9364e42025c6"
+        },
+        {
+          "kind": "close",
+          "at": 8,
+          "start": 8,
+          "end": 8.34,
+          "gain": 0.8399999737739563,
+          "sources": 1,
+          "rate": 1,
+          "length": 16320,
+          "duration": 0.34,
+          "bufferSHA256": "65e70360432982ec1939e129db6594a48b9669bedba71ff26a5feb522218bf13"
+        }
+      ],
+      "count": 8,
+      "muted": true,
+      "randomCalls": 0,
+      "overall": {
+        "peak": 0.661696195602417,
+        "rms": 0.012950270507885511,
+        "hardClippedSamples": 0
+      },
+      "close": {
+        "peak": 0.5072808265686035,
+        "rms": 0.017766423856000118,
+        "hardClippedSamples": 0
+      },
+      "beforeCloseSHA256": "2e885caccf5f7c27abfb53ebd54304d73ad82572fb14b278ed6bbce46e874fcd",
+      "pcmSHA256": "1b5e059ab425994d44000867ef75274054596155d42ac6ec95af3ddfdf178698",
+      "wav": "recorded-baseline.wav",
+      "wavSHA256": "fd2a09d7d296b573220c0947618b5dd4aff545b1216f4c60cc675b769eda210e"
+    },
+    {
+      "recorded": true,
+      "version": "current",
+      "ready": true,
+      "sr": 48000,
+      "events": [
+        {
+          "kind": "open",
+          "at": 0,
+          "start": 0,
+          "end": 0.87,
+          "gain": 0.7799999713897705,
+          "sources": 1,
+          "rate": 1,
+          "length": 41760,
+          "duration": 0.87,
+          "bufferSHA256": "833c6753809aecb427095454be985a2e60cde79be93d289bcf2fa824add2a47d"
+        },
+        {
+          "kind": "insert",
+          "round": 1,
+          "at": 3.306666666666667,
+          "start": 3.3066666666666666,
+          "end": 3.736666666666667,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 20640,
+          "duration": 0.43,
+          "bufferSHA256": "d04457deec9642c99880b94311a7132aa9a544c23c98be6c1d29de3f164716a0"
+        },
+        {
+          "kind": "insert",
+          "round": 2,
+          "at": 4.085333333333334,
+          "start": 4.085333333333334,
+          "end": 4.415333333333334,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 15840,
+          "duration": 0.33,
+          "bufferSHA256": "2f5715def5bf202856e485722c220610d847685c90675dd7334b5881003e482b"
+        },
+        {
+          "kind": "insert",
+          "round": 3,
+          "at": 4.864000000000001,
+          "start": 4.864,
+          "end": 5.234,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 17760,
+          "duration": 0.37,
+          "bufferSHA256": "4329c75c1004d8b4a2779b43c1f14a8c10c81fcc6bd9858c528e22cd261d89ba"
+        },
+        {
+          "kind": "insert",
+          "round": 4,
+          "at": 5.642666666666667,
+          "start": 5.642666666666667,
+          "end": 6.062666666666667,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 20160,
+          "duration": 0.42,
+          "bufferSHA256": "b112f75883fbec715837e0532b1bc30209f88d5f09d15db1e53a2ad4c52f86d3"
+        },
+        {
+          "kind": "insert",
+          "round": 5,
+          "at": 6.421333333333333,
+          "start": 6.421333333333333,
+          "end": 6.991333333333333,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 27360,
+          "duration": 0.57,
+          "bufferSHA256": "73e73fae34b0da54a35b9804ddf8b52c078a096d0dd7a6562ef6a8a4db7dac8e"
+        },
+        {
+          "kind": "insert",
+          "round": 6,
+          "at": 7.2,
+          "start": 7.2,
+          "end": 7.5,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 14400,
+          "duration": 0.3,
+          "bufferSHA256": "cd14a9a61c9d6e9d98b881a90be9842df3a52e1c82fc8d09d3ef9364e42025c6"
+        },
+        {
+          "kind": "close",
+          "at": 8,
+          "start": 8,
+          "end": 8.34,
+          "gain": 1.440000057220459,
+          "sources": 1,
+          "rate": 1,
+          "length": 16320,
+          "duration": 0.34,
+          "bufferSHA256": "65e70360432982ec1939e129db6594a48b9669bedba71ff26a5feb522218bf13"
+        }
+      ],
+      "count": 8,
+      "muted": true,
+      "randomCalls": 0,
+      "overall": {
+        "peak": 0.8023876547813416,
+        "rms": 0.014131886900547007,
+        "hardClippedSamples": 0
+      },
+      "close": {
+        "peak": 0.8023876547813416,
+        "rms": 0.02913745302879264,
+        "hardClippedSamples": 0
+      },
+      "beforeCloseSHA256": "2e885caccf5f7c27abfb53ebd54304d73ad82572fb14b278ed6bbce46e874fcd",
+      "pcmSHA256": "3ddf1bde5de42aedca70aadda1c68ab207a419580faf1bc7e71266459e7d2579",
+      "wav": "recorded-current.wav",
+      "wavSHA256": "af950afbbf6ecb05b32d2819c54a0ed77bc3ed7dd81c6ba34e6d199c4e64adf2",
+      "closeRmsRatio": 1.640029150770951
+    },
+    {
+      "recorded": false,
+      "version": "baseline",
+      "ready": false,
+      "sr": 48000,
+      "events": [
+        {
+          "kind": "open",
+          "at": 0,
+          "start": 0,
+          "end": 0.4,
+          "gain": 0.7799999713897705,
+          "sources": 1,
+          "rate": 1,
+          "length": 19200,
+          "duration": 0.4,
+          "bufferSHA256": "c5446c20b03e8aebaea761ee14c62f7998620279ee6fb470873eef5e872e8c44"
+        },
+        {
+          "kind": "insert",
+          "round": 1,
+          "at": 3.306666666666667,
+          "start": 3.3066666666666666,
+          "end": 3.486666666666667,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 8640,
+          "duration": 0.18,
+          "bufferSHA256": "ddb438b1a0d6fc6dc657a4eb4fc7ca5a550f44f537a27fa59da3caaa242d9402"
+        },
+        {
+          "kind": "insert",
+          "round": 2,
+          "at": 4.085333333333334,
+          "start": 4.085333333333334,
+          "end": 4.265333333333333,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 8640,
+          "duration": 0.18,
+          "bufferSHA256": "b1d8ca3606d420de2482154d4d619ad0fcd7801a45ae472550c97d0ad38bd35e"
+        },
+        {
+          "kind": "insert",
+          "round": 3,
+          "at": 4.864000000000001,
+          "start": 4.864,
+          "end": 5.044,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 8640,
+          "duration": 0.18,
+          "bufferSHA256": "625366abe260f4dbc12c92ff6191dd2bd2f9656084edd2e05019b242ae62e418"
+        },
+        {
+          "kind": "insert",
+          "round": 4,
+          "at": 5.642666666666667,
+          "start": 5.642666666666667,
+          "end": 5.822666666666667,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 8640,
+          "duration": 0.18,
+          "bufferSHA256": "5947eb53ea0cec8174764d9e75139ceba6dd1d0f3aa307d912de30b1da79b84d"
+        },
+        {
+          "kind": "insert",
+          "round": 5,
+          "at": 6.421333333333333,
+          "start": 6.421333333333333,
+          "end": 6.601333333333333,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 8640,
+          "duration": 0.18,
+          "bufferSHA256": "34890ff65c84e6453084aebb27053e467053745ec84bda127446e7c7d8e3aeed"
+        },
+        {
+          "kind": "insert",
+          "round": 6,
+          "at": 7.2,
+          "start": 7.2,
+          "end": 7.38,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 8640,
+          "duration": 0.18,
+          "bufferSHA256": "52859d87b08b21082d3ebc5eb31e7e0920ef78efb4ee1f2ec808712e4fc4c479"
+        },
+        {
+          "kind": "close",
+          "at": 8,
+          "start": 8,
+          "end": 8.23,
+          "gain": 0.8399999737739563,
+          "sources": 1,
+          "rate": 1,
+          "length": 11040,
+          "duration": 0.23,
+          "bufferSHA256": "b69ce03c782e7fca5b7c56ec567753b5877ab960c4c43a15aad8a9990f37d393"
+        }
+      ],
+      "count": 8,
+      "muted": true,
+      "randomCalls": 0,
+      "overall": {
+        "peak": 0.4270510673522949,
+        "rms": 0.013310256317093585,
+        "hardClippedSamples": 0
+      },
+      "close": {
+        "peak": 0.321974515914917,
+        "rms": 0.019357622686612667,
+        "hardClippedSamples": 0
+      },
+      "beforeCloseSHA256": "18d8b2aa7a1054b46ed985ccc628cc5f141aba2b741e7c286a1712c248cd721c",
+      "pcmSHA256": "d81126faf47bc0b3c79914d55c4a874f6888f72307c53572d591ccb26c74ddf0",
+      "wav": "fallback-baseline.wav",
+      "wavSHA256": "d77c94c3badd0c05f9df1540a9e0598ee6dea4e3a6bd30f0ed0ad13f34c27cd8"
+    },
+    {
+      "recorded": false,
+      "version": "current",
+      "ready": false,
+      "sr": 48000,
+      "events": [
+        {
+          "kind": "open",
+          "at": 0,
+          "start": 0,
+          "end": 0.4,
+          "gain": 0.7799999713897705,
+          "sources": 1,
+          "rate": 1,
+          "length": 19200,
+          "duration": 0.4,
+          "bufferSHA256": "c5446c20b03e8aebaea761ee14c62f7998620279ee6fb470873eef5e872e8c44"
+        },
+        {
+          "kind": "insert",
+          "round": 1,
+          "at": 3.306666666666667,
+          "start": 3.3066666666666666,
+          "end": 3.486666666666667,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 8640,
+          "duration": 0.18,
+          "bufferSHA256": "ddb438b1a0d6fc6dc657a4eb4fc7ca5a550f44f537a27fa59da3caaa242d9402"
+        },
+        {
+          "kind": "insert",
+          "round": 2,
+          "at": 4.085333333333334,
+          "start": 4.085333333333334,
+          "end": 4.265333333333333,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 8640,
+          "duration": 0.18,
+          "bufferSHA256": "b1d8ca3606d420de2482154d4d619ad0fcd7801a45ae472550c97d0ad38bd35e"
+        },
+        {
+          "kind": "insert",
+          "round": 3,
+          "at": 4.864000000000001,
+          "start": 4.864,
+          "end": 5.044,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 8640,
+          "duration": 0.18,
+          "bufferSHA256": "625366abe260f4dbc12c92ff6191dd2bd2f9656084edd2e05019b242ae62e418"
+        },
+        {
+          "kind": "insert",
+          "round": 4,
+          "at": 5.642666666666667,
+          "start": 5.642666666666667,
+          "end": 5.822666666666667,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 8640,
+          "duration": 0.18,
+          "bufferSHA256": "5947eb53ea0cec8174764d9e75139ceba6dd1d0f3aa307d912de30b1da79b84d"
+        },
+        {
+          "kind": "insert",
+          "round": 5,
+          "at": 6.421333333333333,
+          "start": 6.421333333333333,
+          "end": 6.601333333333333,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 8640,
+          "duration": 0.18,
+          "bufferSHA256": "34890ff65c84e6453084aebb27053e467053745ec84bda127446e7c7d8e3aeed"
+        },
+        {
+          "kind": "insert",
+          "round": 6,
+          "at": 7.2,
+          "start": 7.2,
+          "end": 7.38,
+          "gain": 1.1399999856948853,
+          "sources": 1,
+          "rate": 1,
+          "length": 8640,
+          "duration": 0.18,
+          "bufferSHA256": "52859d87b08b21082d3ebc5eb31e7e0920ef78efb4ee1f2ec808712e4fc4c479"
+        },
+        {
+          "kind": "close",
+          "at": 8,
+          "start": 8,
+          "end": 8.23,
+          "gain": 1.440000057220459,
+          "sources": 1,
+          "rate": 1,
+          "length": 11040,
+          "duration": 0.23,
+          "bufferSHA256": "b69ce03c782e7fca5b7c56ec567753b5877ab960c4c43a15aad8a9990f37d393"
+        }
+      ],
+      "count": 8,
+      "muted": true,
+      "randomCalls": 0,
+      "overall": {
+        "peak": 0.5519564151763916,
+        "rms": 0.01485774302540096,
+        "hardClippedSamples": 0
+      },
+      "close": {
+        "peak": 0.5519564151763916,
+        "rms": 0.03318449887792916,
+        "hardClippedSamples": 0
+      },
+      "beforeCloseSHA256": "18d8b2aa7a1054b46ed985ccc628cc5f141aba2b741e7c286a1712c248cd721c",
+      "pcmSHA256": "f88d8458c19ee86ab0a3bb6c47638a9b2f6ef7a0643642c0ce07f0a57100b7dc",
+      "wav": "fallback-current.wav",
+      "wavSHA256": "e6f436bfce86db247176415352e964ac773ad2212fee1cd47c04c11b105ec11d",
+      "closeRmsRatio": 1.7142858611909444
+    }
+  ],
+  "assets": [
+    {
+      "file": "public/sfx/revolver/open.wav",
+      "sha256": "c6c55d9b9aa8f965fc67cd53ddefd0a2cee92a9f82b02a67bd0a133e16d745f9",
+      "bytes": 83564
+    },
+    {
+      "file": "public/sfx/revolver/insert1.wav",
+      "sha256": "c0feaf03de62bb3262eb4e76e28f12df73c8fae0bbf978e879c3581ae750c37d",
+      "bytes": 41324
+    },
+    {
+      "file": "public/sfx/revolver/insert2.wav",
+      "sha256": "96f9a45fca730477f17f033e51d449c5520b2e634b23582200154e6652ec54a7",
+      "bytes": 31724
+    },
+    {
+      "file": "public/sfx/revolver/insert3.wav",
+      "sha256": "60ee0beed5d47970146afc88c4b2c7bc3b9e283c71f5ebef6930878b63b9da00",
+      "bytes": 35564
+    },
+    {
+      "file": "public/sfx/revolver/insert4.wav",
+      "sha256": "1dab3c937ed8636af8c1314386da9c4ec073c46892833f3ab0bb943d11e597d6",
+      "bytes": 40364
+    },
+    {
+      "file": "public/sfx/revolver/insert5.wav",
+      "sha256": "1bd66c69c77cd373caaf0341b6377a1b6021636f8f9f4808408bcb5b381be274",
+      "bytes": 54764
+    },
+    {
+      "file": "public/sfx/revolver/insert6.wav",
+      "sha256": "7d2a6df13f6fa358e22a2729c771ddc7e5287d17e568d6f044d979392054bb6b",
+      "bytes": 28844
+    },
+    {
+      "file": "public/sfx/revolver/close.wav",
+      "sha256": "67e52c29b391740efbd78a223efce8db5d8d74d8671767a11891f6e6e526d888",
+      "bytes": 32684
+    }
+  ],
+  "requests": [
+    {
+      "url": "http://127.0.0.1:4160/sfx/revolver/open.wav",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:4160/sfx/revolver/insert1.wav",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:4160/sfx/revolver/insert2.wav",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:4160/sfx/revolver/insert3.wav",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:4160/sfx/revolver/insert4.wav",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:4160/sfx/revolver/insert5.wav",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:4160/sfx/revolver/insert6.wav",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:4160/sfx/revolver/close.wav",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:4160/sfx/revolver/open.wav",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:4160/sfx/revolver/insert1.wav",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:4160/sfx/revolver/insert2.wav",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:4160/sfx/revolver/insert3.wav",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:4160/sfx/revolver/insert4.wav",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:4160/sfx/revolver/insert5.wav",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:4160/sfx/revolver/insert6.wav",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:4160/sfx/revolver/close.wav",
+      "status": 200
+    }
+  ],
+  "pageErrors": [],
+  "checks": 210,
+  "pass": true,
+  "sourceAfter": {
+    "src/revolver_reload_audio.js": "251cf8864aa04ecda3efd80b9a9b142e330ddb8d8fd934d086f1e960c1147097",
+    "src/sound.js": "4a903e6595f1da0fdbd5d585491e5a9823c5832b5369588b5c389ebc0cace83f",
+    "src/config.js": "6e2c678ef8af30eeb730f38c3c6a5eac370babdf0071c249e1c2d474c7aa331b",
+    "tools/audio/revolver_close_20261008.mjs": "720c5a04cccd89d03828aa6882ce7cff1bdc60ce3bcfdbf4db46c279e612768f"
+  },
+  "sourceStable": true
+}

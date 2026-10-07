@@ -1,0 +1,63 @@
+{
+  "status": "local_verified_public_pending",
+  "baseHead": "c5fcf82d3dd77079852b79b57d5158d64f7ac8e2",
+  "ordinaryURL": "https://yoonjl-svg.github.io/halfsword-codex/",
+  "pistolURL": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=pistol&foeWeapon=longsword",
+  "verification": [
+    "revolver_opening_20261008.json",
+    "revolver_close_20261008.json"
+  ],
+  "settings": {
+    "startFireHoldSeconds": 2,
+    "reloadSeconds": 8,
+    "cooldownSeconds": 0.8,
+    "energyJ": 80,
+    "insertIntervalSeconds": 0.7786666666666666,
+    "closeGain": 1.44
+  },
+  "local": [
+    {
+      "report": "/workspace/halfsword-handoff/revolver-completion-20261008/browser/local01/report.json",
+      "reportSHA256": "05211e749b7f6e0832589660ba608c473720ec65698ec314d9477375b8c12fd3",
+      "pass": true,
+      "sourceStable": true,
+      "checks": {
+        "openingTapsRejected": true,
+        "openingPauseFrozen": true,
+        "noOpeningQueuedShot": true,
+        "restartOpeningGate": true,
+        "trustedRetreat": true,
+        "twoNativeShots": true,
+        "eightRecordedEvents": true,
+        "eightWavDecoded": true,
+        "eightWavDelivered": true,
+        "cooldownEightTenths": true,
+        "sixInsertsEightSecondScheduler": true,
+        "insertGapTwentyPercentShorter": true,
+        "pauseStopsScheduler": true,
+        "muteAndResume": true,
+        "restartFresh": true,
+        "tremorObserved": true,
+        "native": true,
+        "finite": true,
+        "oneExplicitAmmoFixture": true,
+        "preferencesRestored": true,
+        "compiledExact": true
+      },
+      "steps": 1429,
+      "errors": [],
+      "limitations": [
+        "Three rejected opening taps plus two real trusted pistol shots; between the accepted shots explicit player.gun.ammo=1 fixture makes the second tap enter the original empty-cylinder path. Not six naturally fired rounds.",
+        "Original AI, damage, RNG, RAF/physics and audio function results retained. The probe does not accelerate the game clock. No seed search or forced survival. Native backward/strafe joystick input is held during reload, released for Pause and reapplied after Resume; the earlier stationary failure is preserved in the prior tuning receipt.",
+        "Delivered WAV hashes are linked through actual decodeAudioData output buffers to Sound.event sources that called native start. This proves original Web Audio scheduling, not physical-speaker output or human preference.",
+        "Aim samples are original gunPose outputs and physical muzzle readings, not private gunAimTarget coordinates. Exact 1.1 target-envelope geometry is outside this browser check and belongs to the independent native tests; the .40m browser ray bound is only a coarse safety check. Human shooting comfort is not inferred from these samples."
+      ]
+    }
+  ],
+  "public": null,
+  "sourceSHA256": {
+    "src/gun.js": "a87128950078a735b032856d96f97e655d9f8c2ef752ae0101b061d70cdd6f9b",
+    "src/revolver_reload_audio.js": "251cf8864aa04ecda3efd80b9a9b142e330ddb8d8fd934d086f1e960c1147097",
+    "tools/browser/revolver_tuning_20261008.mjs": "1af0d64b0689c907296e30c08f954650cca06e91448d6986d022b6317933a746"
+  }
+}

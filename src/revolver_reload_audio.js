@@ -4,7 +4,9 @@
 const FILES = ['open', 'insert1', 'insert2', 'insert3', 'insert4', 'insert5', 'insert6', 'close'];
 const banks = new WeakMap();
 const rounds = new WeakMap();
-const GAIN = { open: 0.65 * 1.2, insert: 0.95 * 1.2, close: 0.7 * 1.2 };
+// Keep the recorded closing contact distinct from the six insertion cues.
+// One original-speed recording; no extra completion tone or layered contact.
+const GAIN = { open: 0.65 * 1.2, insert: 0.95 * 1.2, close: 1.2 * 1.2 };
 
 function bankFor(ctx) {
   let bank = banks.get(ctx);
