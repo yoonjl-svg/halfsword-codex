@@ -1,0 +1,256 @@
+{
+  "baseHead": "a34eff6b5b84ef1611f73db639135da64ae6eb09",
+  "productionSourceSHA256": {
+    "src/gun.js": "69ed170ff489c46031821b2979e44e1d4d62cef6de9546252402df51cac36325",
+    "src/fighter.js": "ee6b1c5a513fe65d7b3e79a476fb70fecf816f96ec4a7fb7bfb4b81cfdcec3ac",
+    "src/combat.js": "adf58b520e29b3618d021bceb341d679eadfe0ef103fbe821928ec222259a9a8",
+    "src/sound.js": "4a903e6595f1da0fdbd5d585491e5a9823c5832b5369588b5c389ebc0cace83f",
+    "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0"
+  },
+  "native": {
+    "report": {
+      "path": "/workspace/halfsword-handoff/revolver-aim-20261008/verification-1.json",
+      "bytes": 8333,
+      "sha256": "faedd3ed22b4e40902ad6a1751d80c26e007627d6ff03b530271a5723f3d0fc0"
+    },
+    "pass": true,
+    "sourceStable": true,
+    "geometry": [
+      {
+        "name": "upright",
+        "samples": 150,
+        "maxLateral": 0.3,
+        "maxProjectionError": 0
+      },
+      {
+        "name": "kneel-folded",
+        "samples": 150,
+        "maxLateral": 0.3,
+        "maxProjectionError": 1.1102230246251565e-16
+      },
+      {
+        "name": "prone",
+        "samples": 150,
+        "maxLateral": 0.3000000114939519,
+        "maxProjectionError": 1.1102230246251565e-16
+      },
+      {
+        "name": "headOff",
+        "samples": 150,
+        "maxLateral": 0.3,
+        "maxProjectionError": 0
+      },
+      {
+        "name": "collapsed-line",
+        "samples": 150,
+        "maxLateral": 0.3,
+        "maxProjectionError": 0
+      }
+    ],
+    "physicsSteps": 360,
+    "shots": 3,
+    "wounds": [
+      {
+        "zone": "arm",
+        "type": "stab",
+        "energy": 75,
+        "severity": 0.95
+      },
+      {
+        "zone": "neck",
+        "type": "stab",
+        "energy": 75,
+        "severity": 0.9833333333333333
+      }
+    ],
+    "damage": [
+      {
+        "name": "bare-chest",
+        "rows": [
+          {
+            "configuredEnergy": 70,
+            "energy": 70,
+            "severity": 0.75,
+            "type": "stab",
+            "zone": "chest",
+            "armorStopped": false,
+            "power": 1,
+            "state": "stand",
+            "wounds": 1,
+            "bleed": 0.030000000000000006,
+            "pain": 1.0666666666666669,
+            "consciousness": 1,
+            "helmetIntegrity": 1,
+            "plateIntegrity": null
+          },
+          {
+            "configuredEnergy": 75,
+            "energy": 75,
+            "severity": 0.8333333333333334,
+            "type": "stab",
+            "zone": "chest",
+            "armorStopped": false,
+            "power": 1,
+            "state": "stand",
+            "wounds": 1,
+            "bleed": 0.03333333333333334,
+            "pain": 1.1666666666666667,
+            "consciousness": 1,
+            "helmetIntegrity": 1,
+            "plateIntegrity": null
+          }
+        ]
+      },
+      {
+        "name": "bare-head",
+        "rows": [
+          {
+            "configuredEnergy": 70,
+            "energy": 70,
+            "severity": 0.8333333333333334,
+            "type": "stab",
+            "zone": "head",
+            "armorStopped": false,
+            "power": 1,
+            "state": "dead",
+            "wounds": 1,
+            "bleed": 0.04000000000000001,
+            "pain": 1.1333333333333333,
+            "consciousness": 1,
+            "helmetIntegrity": 1,
+            "plateIntegrity": null
+          },
+          {
+            "configuredEnergy": 75,
+            "energy": 75,
+            "severity": 0.9166666666666666,
+            "type": "stab",
+            "zone": "head",
+            "armorStopped": false,
+            "power": 1,
+            "state": "dead",
+            "wounds": 1,
+            "bleed": 0.044,
+            "pain": 1.2333333333333334,
+            "consciousness": 1,
+            "helmetIntegrity": 1,
+            "plateIntegrity": null
+          }
+        ]
+      },
+      {
+        "name": "plate-chest",
+        "rows": [
+          {
+            "configuredEnergy": 70,
+            "energy": 17.5,
+            "severity": 0,
+            "type": "blunt",
+            "zone": "chest",
+            "armorStopped": true,
+            "power": 1,
+            "state": "stand",
+            "wounds": 0,
+            "bleed": 0,
+            "pain": 0.11666666666666667,
+            "consciousness": 1,
+            "helmetIntegrity": 1,
+            "plateIntegrity": 0
+          },
+          {
+            "configuredEnergy": 75,
+            "energy": 18.75,
+            "severity": 0,
+            "type": "blunt",
+            "zone": "chest",
+            "armorStopped": true,
+            "power": 1,
+            "state": "stand",
+            "wounds": 0,
+            "bleed": 0,
+            "pain": 0.125,
+            "consciousness": 1,
+            "helmetIntegrity": 1,
+            "plateIntegrity": 0
+          }
+        ]
+      },
+      {
+        "name": "helmet-head",
+        "rows": [
+          {
+            "configuredEnergy": 70,
+            "energy": 17.5,
+            "severity": 0,
+            "type": "blunt",
+            "zone": "head",
+            "armorStopped": true,
+            "power": 1,
+            "state": "stand",
+            "wounds": 0,
+            "bleed": 0,
+            "pain": 0.11666666666666667,
+            "consciousness": 0.95,
+            "helmetIntegrity": 0,
+            "plateIntegrity": null
+          },
+          {
+            "configuredEnergy": 75,
+            "energy": 18.75,
+            "severity": 0,
+            "type": "blunt",
+            "zone": "head",
+            "armorStopped": true,
+            "power": 1,
+            "state": "stand",
+            "wounds": 0,
+            "bleed": 0,
+            "pain": 0.125,
+            "consciousness": 0.9464285714285714,
+            "helmetIntegrity": 0,
+            "plateIntegrity": null
+          }
+        ]
+      }
+    ]
+  },
+  "localMobile": {
+    "report": {
+      "path": "/workspace/halfsword-handoff/revolver-aim-20261008/browser/local01/report.json",
+      "bytes": 121656,
+      "sha256": "7482460ae6874f44d6fa8ea657eb284127f61c35fb3b4dc84fef8550a699ab85"
+    },
+    "pass": true,
+    "checks": {
+      "twoNativeShots": true,
+      "moveAndRelease": true,
+      "pauseResume": true,
+      "freshRestart": true,
+      "originalAimOutputObserved": true,
+      "finite": true,
+      "native": true,
+      "preferences": true,
+      "compiledExact": true
+    },
+    "wallMs": 47169.482542,
+    "errors": []
+  },
+  "limits": [
+    "750 deliberate target samples in five native-body contexts; not natural pose acceptance.",
+    "Three native shots with passive opponent; no natural accuracy/TTK claim.",
+    "Actual muzzle ray/spread remain; body-space target bounds do not guarantee an upper-body hit.",
+    "No physical phone listening/aiming acceptance claimed."
+  ],
+  "toolReference": {
+    "baselineCommit": "a34eff6b5b84ef1611f73db639135da64ae6eb09",
+    "executedCommit": "a34eff6b5b84ef1611f73db639135da64ae6eb09",
+    "executedBaselineMatchesPinned": true,
+    "executedToolPath": "/workspace/halfsword-handoff/revolver-aim-20261008/executed-verification-1.mjs",
+    "executedToolSha256": "d7ea2801353c9b853d6b4d52cb9e3d3e7187d865e35261f5bb313e206e6b9c86",
+    "finalToolPath": "tools/sim/revolver_aim_20261008.mjs",
+    "finalToolSha256": "2d25d9669cfe4730c2040f1177474941b355e028265a2902d7a5c71571982962",
+    "rawExecutedCommand": "node tools/sim/revolver_aim_20261008.mjs /workspace/halfsword-handoff/revolver-aim-20261008/verification-1.json",
+    "change": "Reference-only: baseline git show HEAD replaced with fixed commit, report baselineCommit added",
+    "validation": "node --check tools/sim/revolver_aim_20261008.mjs PASS; native suite not repeated"
+  }
+}

@@ -1,5 +1,7 @@
 # 혼합안 독립 개발 인계
 
+**사용자 후속 요청 ·10/08:** [리볼버 상반신 조준·75J](../strike/revolver_aim_20261008.md)를 검사했다. 일반판 공개 여부는 [전달 영수증](../strike/revolver_aim_release.json)을 따른다. 게임 문구 시트 정리는 병렬 진행하며4단계 다음 순서는 ACTIVE_PLAN 기준이다.
+
 **사용자 추가 요청 ·10/08:** [리볼버 총성+15%·6발 장전음 개선](../sound/revolver_audio_20261008.md). 장전 시간·총알/피해/조작은 유지하며 [실제 전달 상태](../sound/revolver_audio_release.json)를 따른다. 4단계 다음 개발 순서는 아래 및 ACTIVE_PLAN 기준이다.
 
 **최신4단계 ·10/08:** [승패→다음 상대/재시작 안내](../strike/phase4_progression_20261008.md)와 [완전 파손 부품의 잔류 충돌](../strike/broken_collider_20261008.md)을 수정했다. [실제 공개 상태](../strike/phase4_progression_release.json)·[다음 계획](ACTIVE_PLAN.md)을 따른다. 최초 결과 판정은 유지하며 물리 계수·피해 공식을 조정하지 않는다.
