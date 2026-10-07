@@ -1,0 +1,1569 @@
+{
+  "schemaVersion": 1,
+  "updatedUTC": "2026-10-07T11:11:19.540707+00:00",
+  "head": "552accf3c2f63817d73980293339fe9b1f713e18",
+  "scope": "Current ordinary player v2/manual/fresh/bounded/centerline, limb sever ON, g9.81, finish rule player only; opponent physics/controllers legacy. Natural exposure failed; controlled actual native contacts successful. No production edits owned by this experiment.",
+  "frozenRoots": {
+    "original": "/workspace/halfsword-handoff/phase3-round1-20261007/contact",
+    "armorGuard": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard",
+    "correctedArmorGuard": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected"
+  },
+  "source": {
+    "originalManifest": {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/SOURCE.json",
+      "bytes": 9641,
+      "sha256": "37ae2f121fb1709c00b1223a9be6600ea4712330271c8e119b2f954b321d408e"
+    },
+    "armorGuardManifest": {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/SOURCE.json",
+      "bytes": 9781,
+      "sha256": "be7e50b63b0c62e6b326cd003a03bd04b57d69830f9ad20682f20bde70036236"
+    },
+    "runtimePatch": {
+      "src/combat.js": {
+        "before": "98387beb03c90c9edc314da0e1ee826f5c0bd18da3d3991e480b036814d54916",
+        "after": "adf58b520e29b3618d021bceb341d679eadfe0ef103fbe821928ec222259a9a8",
+        "matchesCurrent": true
+      },
+      "src/finish_rule.js": {
+        "before": "803556ca4f6939d4a20acb7020dd4c616b52b5513969d0a6079af0cc929c616d",
+        "after": "964425ce23e2e6230a3ddba02b76efd300332d30f655a26e829a4829fbea3cec",
+        "matchesCurrent": true
+      }
+    },
+    "node": "v24.19.0",
+    "lockfileSHA256": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+    "rapierModuleSHA256": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+    "rapierWasmSHA256": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+    "finalProbeSHA256": "49f77e19cd52606042d0572fbe27351d4ba455469532188daeda304855b40779",
+    "runtimeFrozenNotCurrentMainUI": true,
+    "correctedManifest": {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected/SOURCE.json",
+      "bytes": 9787,
+      "sha256": "6aeb942c807091a68554787aff7617b14d816b17e520022c4f3b73c9113b3cda"
+    }
+  },
+  "execution": {
+    "newNativeExecutions": 34,
+    "nativeSteps": 41974,
+    "runnerWallSeconds": 63.374976663,
+    "grouping": "4 natural conditions × legacy/armorCausal; 4 controlled fixtures × legacy/armorCausal first boundary; same4 controlled fixtures × legacy/armorGuard+120follow; corrected autoGuardfalse replay of all8 guard fixtures and2 representative LSplate natural rows. 34 runs including10 correction/equivalence reruns, not34 independent conditions.",
+    "broadSuitesRerun": 0,
+    "seedSweep": false,
+    "seed": 7,
+    "naturalAttemptBudgetMinutes": 15,
+    "naturalAttemptStoppedAfterFixedSet": true
+  },
+  "protocol": {
+    "natural": "Start gap5.6m, normal longsword opponent AI, player waits240ticks then approaches with joystick and repeats authored hand deltas, triggers real thrust only after observed live enemy down+finish.on. Player requests recorded by baseline and replayed exactly by candidate. Opponent look LOOKS.enemy or Heinrich plate look; Heinrich persona/difficulty not substituted. Max3000ticks25s or first death/disarm.",
+    "controlled": "Start gap2.4m; at creation enemy knockDown(true), downTime1e9, enemy AI inputs idle. First30steps apply -x 40*DT*4 impulse to chest AND head each step (40Ns per body;80Ns combined), then native settle through300ticks, normal joystick approach toward torso distance .65m (timeout780), wait90ticks, single real skill.thrust(). No direct position/velocity/cache/wound assignment. Fresh+bounded+centerline/v2 throughout. New guard run continues120steps after baseline death with identical requested input.",
+    "playerEmotion": "Harness neutral; full main emotional feedback not simulated.",
+    "contactPath": "Fighter.step/cacheState → Rapier world.step(filterContactPair/predict) → Combat.afterStep → actual strike/applyWound (when gates allow) and rebound/cutting; observers do not replace these methods outputs.",
+    "ordinaryScope": "Player settings and game physics match current defaults. Natural opponent uses Heinrich armor appearance plus normal/default harness AI, not published Heinrich persona/difficulty; no claim of identical published-opponent behavior."
+  },
+  "runs": [
+    {
+      "name": "natural",
+      "artifact": {
+        "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/natural/report.json",
+        "bytes": 35232,
+        "sha256": "549a91218c504d7afb59fcb0e958270154f6c4ade8548825edc848c97e670eef"
+      },
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/phase3-round1-20261007/contact/tools/sim/experiments/phase3_finish_contact_20261007.mjs",
+        "--protocol=natural",
+        "--out=/workspace/halfsword-handoff/phase3-round1-20261007/contact/natural"
+      ],
+      "sourceStable": true,
+      "measurementValid": true,
+      "executions": 8,
+      "steps": 20242,
+      "wallSeconds": 26.539216942,
+      "comparisons": [
+        {
+          "weapon": "longsword",
+          "armor": "none",
+          "commonSteps": 2659,
+          "firstPolicyIntervention": null,
+          "firstNativeDifference": -1,
+          "firstControllerDifference": -1,
+          "firstRequestedDifference": -1,
+          "sameSpawn": true,
+          "prefixExact": true
+        },
+        {
+          "weapon": "longsword",
+          "armor": "plate",
+          "commonSteps": 3000,
+          "firstPolicyIntervention": null,
+          "firstNativeDifference": -1,
+          "firstControllerDifference": -1,
+          "firstRequestedDifference": -1,
+          "sameSpawn": true,
+          "prefixExact": true
+        },
+        {
+          "weapon": "rapier",
+          "armor": "none",
+          "commonSteps": 3000,
+          "firstPolicyIntervention": null,
+          "firstNativeDifference": -1,
+          "firstControllerDifference": -1,
+          "firstRequestedDifference": -1,
+          "sameSpawn": true,
+          "prefixExact": true
+        },
+        {
+          "weapon": "rapier",
+          "armor": "plate",
+          "commonSteps": 1462,
+          "firstPolicyIntervention": null,
+          "firstNativeDifference": -1,
+          "firstControllerDifference": -1,
+          "firstRequestedDifference": -1,
+          "sameSpawn": true,
+          "prefixExact": true
+        }
+      ],
+      "inputs": [
+        {
+          "weapon": "longsword",
+          "armor": "none",
+          "model": "legacy",
+          "sha256": "a85b7aefdf3f11c7127f85252c6557672355174b5faefde1572dd6317cda51dc"
+        },
+        {
+          "weapon": "longsword",
+          "armor": "none",
+          "model": "armorCausal",
+          "sha256": "a85b7aefdf3f11c7127f85252c6557672355174b5faefde1572dd6317cda51dc"
+        },
+        {
+          "weapon": "longsword",
+          "armor": "plate",
+          "model": "legacy",
+          "sha256": "e83d0d3e938f1ff3bbe0572e8a192c99c6fa285e764318833d5c48ae6b5cd1ed"
+        },
+        {
+          "weapon": "longsword",
+          "armor": "plate",
+          "model": "armorCausal",
+          "sha256": "e83d0d3e938f1ff3bbe0572e8a192c99c6fa285e764318833d5c48ae6b5cd1ed"
+        },
+        {
+          "weapon": "rapier",
+          "armor": "none",
+          "model": "legacy",
+          "sha256": "5742b414c3ac3e168d28c78d5c90dc1f7b688aaf996fbe4f8823417c0ca1e79b"
+        },
+        {
+          "weapon": "rapier",
+          "armor": "none",
+          "model": "armorCausal",
+          "sha256": "5742b414c3ac3e168d28c78d5c90dc1f7b688aaf996fbe4f8823417c0ca1e79b"
+        },
+        {
+          "weapon": "rapier",
+          "armor": "plate",
+          "model": "legacy",
+          "sha256": "ef9d88c396ef188916f286dd61737442b34848fd5d8ddf9eb89007c5c02fb577"
+        },
+        {
+          "weapon": "rapier",
+          "armor": "plate",
+          "model": "armorCausal",
+          "sha256": "ef9d88c396ef188916f286dd61737442b34848fd5d8ddf9eb89007c5c02fb577"
+        }
+      ]
+    },
+    {
+      "name": "down",
+      "artifact": {
+        "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/down/report.json",
+        "bytes": 48244,
+        "sha256": "b5a00a3daf30f6dcf4118c2c6b42c19cbd98a0bbc7ba4d11f93b80c31d0fee3e"
+      },
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/phase3-round1-20261007/contact/tools/sim/experiments/phase3_finish_contact_20261007.mjs",
+        "--protocol=down",
+        "--out=/workspace/halfsword-handoff/phase3-round1-20261007/contact/down"
+      ],
+      "sourceStable": true,
+      "measurementValid": true,
+      "executions": 8,
+      "steps": 4604,
+      "wallSeconds": 7.165803416,
+      "comparisons": [
+        {
+          "weapon": "longsword",
+          "armor": "none",
+          "commonSteps": 569,
+          "firstPolicyIntervention": null,
+          "firstNativeDifference": -1,
+          "firstControllerDifference": -1,
+          "firstRequestedDifference": -1,
+          "sameSpawn": true,
+          "prefixExact": true
+        },
+        {
+          "weapon": "longsword",
+          "armor": "plate",
+          "commonSteps": 568,
+          "firstPolicyIntervention": 567,
+          "firstNativeDifference": -1,
+          "firstControllerDifference": 567,
+          "firstRequestedDifference": -1,
+          "sameSpawn": true,
+          "prefixExact": true
+        },
+        {
+          "weapon": "rapier",
+          "armor": "none",
+          "commonSteps": 583,
+          "firstPolicyIntervention": null,
+          "firstNativeDifference": -1,
+          "firstControllerDifference": -1,
+          "firstRequestedDifference": -1,
+          "sameSpawn": true,
+          "prefixExact": true
+        },
+        {
+          "weapon": "rapier",
+          "armor": "plate",
+          "commonSteps": 582,
+          "firstPolicyIntervention": 581,
+          "firstNativeDifference": -1,
+          "firstControllerDifference": 581,
+          "firstRequestedDifference": -1,
+          "sameSpawn": true,
+          "prefixExact": true
+        }
+      ],
+      "inputs": [
+        {
+          "weapon": "longsword",
+          "armor": "none",
+          "model": "legacy",
+          "sha256": "5522f37e364a85ca6147e4ae5d16462352dc5caac8fd3d8c358074b842660701"
+        },
+        {
+          "weapon": "longsword",
+          "armor": "none",
+          "model": "armorCausal",
+          "sha256": "5522f37e364a85ca6147e4ae5d16462352dc5caac8fd3d8c358074b842660701"
+        },
+        {
+          "weapon": "longsword",
+          "armor": "plate",
+          "model": "legacy",
+          "sha256": "f6746196c0971796a31cef1e2ab0b16cd52664437635db3c1c35de589019f148"
+        },
+        {
+          "weapon": "longsword",
+          "armor": "plate",
+          "model": "armorCausal",
+          "sha256": "f6746196c0971796a31cef1e2ab0b16cd52664437635db3c1c35de589019f148"
+        },
+        {
+          "weapon": "rapier",
+          "armor": "none",
+          "model": "legacy",
+          "sha256": "744498214a7fc9b2771a6194c5ac135c0cdbc9529b06f0a6b374ce519f4d994f"
+        },
+        {
+          "weapon": "rapier",
+          "armor": "none",
+          "model": "armorCausal",
+          "sha256": "744498214a7fc9b2771a6194c5ac135c0cdbc9529b06f0a6b374ce519f4d994f"
+        },
+        {
+          "weapon": "rapier",
+          "armor": "plate",
+          "model": "legacy",
+          "sha256": "7ef1bfd9ba743e840fee8854d5422023ccee00457a647c791d6b0d34487a84e6"
+        },
+        {
+          "weapon": "rapier",
+          "armor": "plate",
+          "model": "armorCausal",
+          "sha256": "7ef1bfd9ba743e840fee8854d5422023ccee00457a647c791d6b0d34487a84e6"
+        }
+      ]
+    },
+    {
+      "name": "armorGuard-down-follow",
+      "artifact": {
+        "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/down-follow/report.json",
+        "bytes": 5396523,
+        "sha256": "ea2a8dfcbd40c786048e4037334b93a8daac94286425533fcd2a7aa15e05662a"
+      },
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/tools/sim/experiments/phase3_finish_contact_20261007.mjs",
+        "--protocol=down",
+        "--candidate=armorGuard",
+        "--out=/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/down-follow"
+      ],
+      "sourceStable": true,
+      "measurementValid": true,
+      "executions": 8,
+      "steps": 5564,
+      "wallSeconds": 7.342126311,
+      "comparisons": [
+        {
+          "weapon": "longsword",
+          "armor": "none",
+          "commonSteps": 689,
+          "firstPolicyIntervention": null,
+          "firstNativeDifference": -1,
+          "firstControllerDifference": -1,
+          "firstRequestedDifference": -1,
+          "sameSpawn": true,
+          "prefixExact": true
+        },
+        {
+          "weapon": "longsword",
+          "armor": "plate",
+          "commonSteps": 688,
+          "firstPolicyIntervention": 567,
+          "firstNativeDifference": 568,
+          "firstControllerDifference": 567,
+          "firstRequestedDifference": -1,
+          "sameSpawn": true,
+          "prefixExact": true
+        },
+        {
+          "weapon": "rapier",
+          "armor": "none",
+          "commonSteps": 703,
+          "firstPolicyIntervention": null,
+          "firstNativeDifference": -1,
+          "firstControllerDifference": -1,
+          "firstRequestedDifference": -1,
+          "sameSpawn": true,
+          "prefixExact": true
+        },
+        {
+          "weapon": "rapier",
+          "armor": "plate",
+          "commonSteps": 702,
+          "firstPolicyIntervention": 581,
+          "firstNativeDifference": 582,
+          "firstControllerDifference": 581,
+          "firstRequestedDifference": -1,
+          "sameSpawn": true,
+          "prefixExact": true
+        }
+      ],
+      "inputs": [
+        {
+          "weapon": "longsword",
+          "armor": "none",
+          "model": "legacy",
+          "sha256": "01f3afb76449d984a28e6e59477dafe67a193d06e50304a2a4d9a7064db2f57b"
+        },
+        {
+          "weapon": "longsword",
+          "armor": "none",
+          "model": "armorGuard",
+          "sha256": "01f3afb76449d984a28e6e59477dafe67a193d06e50304a2a4d9a7064db2f57b"
+        },
+        {
+          "weapon": "longsword",
+          "armor": "plate",
+          "model": "legacy",
+          "sha256": "fe276099afc5ac234635d9672987fd77e8301722b873cc6723870050b40af005"
+        },
+        {
+          "weapon": "longsword",
+          "armor": "plate",
+          "model": "armorGuard",
+          "sha256": "fe276099afc5ac234635d9672987fd77e8301722b873cc6723870050b40af005"
+        },
+        {
+          "weapon": "rapier",
+          "armor": "none",
+          "model": "legacy",
+          "sha256": "f5e1f143c9161b1bcb375e16f33cf99487bdbdc6ed3c04a93abb67e80197fa81"
+        },
+        {
+          "weapon": "rapier",
+          "armor": "none",
+          "model": "armorGuard",
+          "sha256": "f5e1f143c9161b1bcb375e16f33cf99487bdbdc6ed3c04a93abb67e80197fa81"
+        },
+        {
+          "weapon": "rapier",
+          "armor": "plate",
+          "model": "legacy",
+          "sha256": "617748e1a943af3398d6063143342421ae87a8c76e35f838d8d48204ec52f8a2"
+        },
+        {
+          "weapon": "rapier",
+          "armor": "plate",
+          "model": "armorGuard",
+          "sha256": "617748e1a943af3398d6063143342421ae87a8c76e35f838d8d48204ec52f8a2"
+        }
+      ]
+    },
+    {
+      "name": "corrected-down-follow",
+      "artifact": {
+        "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected/down-follow/report.json",
+        "bytes": 5397154,
+        "sha256": "69eb14a8c518e1104ee9dd9fa7e805bea74a35476a40e196d5afd4c17b5049b6"
+      },
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected/tools/sim/experiments/phase3_finish_contact_20261007.mjs",
+        "--protocol=down",
+        "--candidate=armorGuard",
+        "--out=/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected/down-follow"
+      ],
+      "sourceStable": true,
+      "measurementValid": true,
+      "executions": 8,
+      "steps": 5564,
+      "wallSeconds": 10.275119068,
+      "comparisons": [
+        {
+          "weapon": "longsword",
+          "armor": "none",
+          "commonSteps": 689,
+          "firstPolicyIntervention": null,
+          "firstNativeDifference": -1,
+          "firstControllerDifference": -1,
+          "firstRequestedDifference": -1,
+          "sameSpawn": true,
+          "prefixExact": true
+        },
+        {
+          "weapon": "longsword",
+          "armor": "plate",
+          "commonSteps": 688,
+          "firstPolicyIntervention": 567,
+          "firstNativeDifference": 568,
+          "firstControllerDifference": 567,
+          "firstRequestedDifference": -1,
+          "sameSpawn": true,
+          "prefixExact": true
+        },
+        {
+          "weapon": "rapier",
+          "armor": "none",
+          "commonSteps": 703,
+          "firstPolicyIntervention": null,
+          "firstNativeDifference": -1,
+          "firstControllerDifference": -1,
+          "firstRequestedDifference": -1,
+          "sameSpawn": true,
+          "prefixExact": true
+        },
+        {
+          "weapon": "rapier",
+          "armor": "plate",
+          "commonSteps": 702,
+          "firstPolicyIntervention": 581,
+          "firstNativeDifference": 582,
+          "firstControllerDifference": 581,
+          "firstRequestedDifference": -1,
+          "sameSpawn": true,
+          "prefixExact": true
+        }
+      ],
+      "inputs": [
+        {
+          "weapon": "longsword",
+          "armor": "none",
+          "model": "legacy",
+          "sha256": "01f3afb76449d984a28e6e59477dafe67a193d06e50304a2a4d9a7064db2f57b"
+        },
+        {
+          "weapon": "longsword",
+          "armor": "none",
+          "model": "armorGuard",
+          "sha256": "01f3afb76449d984a28e6e59477dafe67a193d06e50304a2a4d9a7064db2f57b"
+        },
+        {
+          "weapon": "longsword",
+          "armor": "plate",
+          "model": "legacy",
+          "sha256": "fe276099afc5ac234635d9672987fd77e8301722b873cc6723870050b40af005"
+        },
+        {
+          "weapon": "longsword",
+          "armor": "plate",
+          "model": "armorGuard",
+          "sha256": "fe276099afc5ac234635d9672987fd77e8301722b873cc6723870050b40af005"
+        },
+        {
+          "weapon": "rapier",
+          "armor": "none",
+          "model": "legacy",
+          "sha256": "f5e1f143c9161b1bcb375e16f33cf99487bdbdc6ed3c04a93abb67e80197fa81"
+        },
+        {
+          "weapon": "rapier",
+          "armor": "none",
+          "model": "armorGuard",
+          "sha256": "f5e1f143c9161b1bcb375e16f33cf99487bdbdc6ed3c04a93abb67e80197fa81"
+        },
+        {
+          "weapon": "rapier",
+          "armor": "plate",
+          "model": "legacy",
+          "sha256": "617748e1a943af3398d6063143342421ae87a8c76e35f838d8d48204ec52f8a2"
+        },
+        {
+          "weapon": "rapier",
+          "armor": "plate",
+          "model": "armorGuard",
+          "sha256": "617748e1a943af3398d6063143342421ae87a8c76e35f838d8d48204ec52f8a2"
+        }
+      ]
+    },
+    {
+      "name": "corrected-natural-control",
+      "artifact": {
+        "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected/natural-control/report.json",
+        "bytes": 1933318,
+        "sha256": "1f70af50629d72ec70b45f380726ed51a72db764ce3e8cb90d5d07a7a03bbc3d"
+      },
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected/tools/sim/experiments/phase3_finish_contact_20261007.mjs",
+        "--protocol=natural",
+        "--weapons=longsword",
+        "--armors=plate",
+        "--out=/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected/natural-control"
+      ],
+      "sourceStable": true,
+      "measurementValid": true,
+      "executions": 2,
+      "steps": 6000,
+      "wallSeconds": 12.052710926,
+      "comparisons": [
+        {
+          "weapon": "longsword",
+          "armor": "plate",
+          "commonSteps": 3000,
+          "firstPolicyIntervention": null,
+          "firstNativeDifference": -1,
+          "firstControllerDifference": -1,
+          "firstRequestedDifference": -1,
+          "sameSpawn": true,
+          "prefixExact": true
+        }
+      ],
+      "inputs": [
+        {
+          "weapon": "longsword",
+          "armor": "plate",
+          "model": "legacy",
+          "sha256": "e83d0d3e938f1ff3bbe0572e8a192c99c6fa285e764318833d5c48ae6b5cd1ed"
+        },
+        {
+          "weapon": "longsword",
+          "armor": "plate",
+          "model": "armorCausal",
+          "sha256": "e83d0d3e938f1ff3bbe0572e8a192c99c6fa285e764318833d5c48ae6b5cd1ed"
+        }
+      ]
+    }
+  ],
+  "naturalResult": {
+    "returnedPlayerContacts": 206,
+    "liveEnemyDownEntries": 0,
+    "requestedFinishingTaps": 0,
+    "policyInterventions": 0,
+    "judgment": "Not exposed; retained negative finding, no natural finishing-efficacy claim."
+  },
+  "controlledContactResults": [
+    {
+      "weapon": "longsword",
+      "tick": 567,
+      "firstPredictionTick": 563,
+      "part": "chest",
+      "contactPoint": [
+        -0.21917343139648438,
+        0.25778284668922424,
+        0.11770457029342651
+      ],
+      "passing": false,
+      "legacy": {
+        "type": "stab",
+        "zone": "chest",
+        "energy": 36.28320786143132,
+        "ephys": 18.14160393071566,
+        "mFree": 1.3694815765183468,
+        "mEff": 4.869481576518346,
+        "eff": 36.28320786143132,
+        "thr": 47,
+        "severity": 0,
+        "pass": false,
+        "finish": true,
+        "plate": true,
+        "helmet": false,
+        "speed": 2.729678347870069,
+        "t": 1,
+        "helmetBlunt": 1
+      },
+      "armorGuardPredictedAtActualPoint": {
+        "type": "stab",
+        "zone": "chest",
+        "energy": 36.28320786143132,
+        "ephys": 18.14160393071566,
+        "mFree": 1.3694815765183468,
+        "mEff": 4.869481576518346,
+        "eff": 36.28320786143132,
+        "thr": 47,
+        "bareThreshold": 25,
+        "severity": 0,
+        "pass": false,
+        "finish": false,
+        "armorBlocked": true,
+        "armorGuarded": true,
+        "finishRuleReason": "armor-guarded",
+        "plate": true,
+        "helmet": false,
+        "speed": 2.729678347870069,
+        "t": 1,
+        "helmetBlunt": 1
+      },
+      "armorGuardAnalyzedAtActualPoint": {
+        "type": "blunt",
+        "zone": "chest",
+        "energy": 12.439547436373182,
+        "ephys": 6.219773718186591,
+        "mFree": 1.3694815765183468,
+        "mEff": 1.6694815765183468,
+        "eff": 36.28320786143132,
+        "thr": 47,
+        "bareThreshold": 25,
+        "severity": 0,
+        "pass": false,
+        "finish": false,
+        "armorBlocked": true,
+        "armorGuarded": true,
+        "finishRuleReason": "armor-guarded",
+        "plate": true,
+        "helmet": false,
+        "speed": 2.729678347870069,
+        "t": 1,
+        "helmetBlunt": 1
+      },
+      "armorGuardReturned": {
+        "type": "blunt",
+        "zone": "chest",
+        "energy": 12.439547436373182,
+        "ephys": 6.219773718186591,
+        "mFree": 1.3694815765183468,
+        "mEff": 1.6694815765183468,
+        "eff": 36.28320786143132,
+        "thr": 47,
+        "bareThreshold": 25,
+        "severity": 0,
+        "pass": false,
+        "finish": false,
+        "armorBlocked": true,
+        "armorGuarded": true,
+        "finishRuleReason": "armor-guarded",
+        "plate": true,
+        "helmet": false,
+        "speed": 2.729678347870069,
+        "t": 1,
+        "helmetBlunt": 1
+      },
+      "legacyAfter": {
+        "alive": false,
+        "armed": true,
+        "state": "dead",
+        "blood": 1,
+        "consciousness": 1,
+        "daze": 0,
+        "pain": 0.24188805240954214,
+        "balance": -18.14160393071566,
+        "wounds": 0,
+        "bleed": 0,
+        "cloth": {},
+        "plate": {
+          "pelvis": 1,
+          "abdomen": 1,
+          "chest": 0.948166845912241,
+          "uarmS": 1,
+          "farmS": 1,
+          "uarmO": 1,
+          "farmO": 1,
+          "thighF": 1,
+          "shinF": 1,
+          "footF": 1,
+          "thighB": 1,
+          "shinB": 1,
+          "footB": 1
+        },
+        "helmetIntegrity": 1,
+        "hasHelmet": false,
+        "cause": "내려찍기"
+      },
+      "armorGuardAfter": {
+        "alive": true,
+        "armed": true,
+        "state": "down",
+        "blood": 1,
+        "consciousness": 1,
+        "daze": 0,
+        "pain": 0.08293031624248788,
+        "balance": -6.219773718186591,
+        "wounds": 0,
+        "bleed": 0,
+        "cloth": {},
+        "plate": {
+          "pelvis": 1,
+          "abdomen": 1,
+          "chest": 0.9822292179480383,
+          "uarmS": 1,
+          "farmS": 1,
+          "uarmO": 1,
+          "farmO": 1,
+          "thighF": 1,
+          "shinF": 1,
+          "footF": 1,
+          "thighB": 1,
+          "shinB": 1,
+          "footB": 1
+        },
+        "helmetIntegrity": 1,
+        "hasHelmet": false,
+        "cause": null
+      },
+      "legacyAfterOneSecond": {
+        "alive": false,
+        "armed": true,
+        "state": "dead",
+        "blood": 1,
+        "consciousness": 1,
+        "daze": 0,
+        "pain": 0,
+        "balance": -18.14160393071566,
+        "wounds": 0,
+        "bleed": 0,
+        "cloth": {},
+        "plate": {
+          "pelvis": 1,
+          "abdomen": 1,
+          "chest": 0.948166845912241,
+          "uarmS": 1,
+          "farmS": 1,
+          "uarmO": 1,
+          "farmO": 1,
+          "thighF": 1,
+          "shinF": 1,
+          "footF": 1,
+          "thighB": 1,
+          "shinB": 1,
+          "footB": 1
+        },
+        "helmetIntegrity": 1,
+        "hasHelmet": false,
+        "cause": "내려찍기"
+      },
+      "armorGuardAfterOneSecond": {
+        "alive": true,
+        "armed": true,
+        "state": "down",
+        "blood": 1,
+        "consciousness": 1,
+        "daze": 0,
+        "pain": 0,
+        "balance": -6.219773718186591,
+        "wounds": 0,
+        "bleed": 0,
+        "cloth": {},
+        "plate": {
+          "pelvis": 1,
+          "abdomen": 1,
+          "chest": 0.9822292179480383,
+          "uarmS": 1,
+          "farmS": 1,
+          "uarmO": 1,
+          "farmO": 1,
+          "thighF": 1,
+          "shinF": 1,
+          "footF": 1,
+          "thighB": 1,
+          "shinB": 1,
+          "footB": 1
+        },
+        "helmetIntegrity": 1,
+        "hasHelmet": false,
+        "cause": null
+      },
+      "applyWoundCalls": {
+        "legacy": 1,
+        "armorGuard": 1
+      },
+      "samePreCombatNativeThroughImpact": true,
+      "reboundExact": true,
+      "rebound": {
+        "zone": "chest",
+        "e": 0.2,
+        "vPre": 2.687227347243672,
+        "vPost": -0.2446558289195878,
+        "J": 0.7175645000137247,
+        "mB": 2.9519661807094155,
+        "mV": 14.435172629133213,
+        "step": 568
+      },
+      "reboundScope": "Matched first finish contact only; both retain chest plate after damage. Later dynamics diverge after death/survival; no general recoil equivalence claim."
+    },
+    {
+      "weapon": "rapier",
+      "tick": 581,
+      "firstPredictionTick": 581,
+      "part": "chest",
+      "contactPoint": [
+        -0.2502906024456024,
+        0.2682391405105591,
+        0.12831836938858032
+      ],
+      "passing": false,
+      "legacy": {
+        "type": "stab",
+        "zone": "chest",
+        "energy": 26.69861698237356,
+        "ephys": 13.34930849118678,
+        "mFree": 0.9317735002957074,
+        "mEff": 4.431773500295708,
+        "eff": 36.443612180939915,
+        "thr": 39.949999999999996,
+        "severity": 0,
+        "pass": false,
+        "finish": true,
+        "plate": true,
+        "helmet": false,
+        "speed": 2.454457996512686,
+        "t": 1,
+        "helmetBlunt": 1
+      },
+      "armorGuardPredictedAtActualPoint": {
+        "type": "stab",
+        "zone": "chest",
+        "energy": 26.69861698237356,
+        "ephys": 13.34930849118678,
+        "mFree": 0.9317735002957074,
+        "mEff": 4.431773500295708,
+        "eff": 36.443612180939915,
+        "thr": 39.949999999999996,
+        "bareThreshold": 21.625,
+        "severity": 0,
+        "pass": false,
+        "finish": false,
+        "armorBlocked": true,
+        "armorGuarded": true,
+        "finishRuleReason": "armor-guarded",
+        "plate": true,
+        "helmet": false,
+        "speed": 2.454457996512686,
+        "t": 1,
+        "helmetBlunt": 1
+      },
+      "armorGuardAnalyzedAtActualPoint": {
+        "type": "blunt",
+        "zone": "chest",
+        "energy": 5.454179220815367,
+        "ephys": 3.710326000554671,
+        "mFree": 0.9317735002957074,
+        "mEff": 1.2317735002957073,
+        "eff": 36.443612180939915,
+        "thr": 39.949999999999996,
+        "bareThreshold": 21.625,
+        "severity": 0,
+        "pass": false,
+        "finish": false,
+        "armorBlocked": true,
+        "armorGuarded": true,
+        "finishRuleReason": "armor-guarded",
+        "plate": true,
+        "helmet": false,
+        "speed": 2.454457996512686,
+        "t": 1,
+        "helmetBlunt": 1
+      },
+      "armorGuardReturned": null,
+      "legacyAfter": {
+        "alive": false,
+        "armed": true,
+        "state": "dead",
+        "blood": 1,
+        "consciousness": 1,
+        "daze": 0,
+        "pain": 0.1779907798824904,
+        "balance": -13.34930849118678,
+        "wounds": 0,
+        "bleed": 0,
+        "cloth": {},
+        "plate": {
+          "pelvis": 1,
+          "abdomen": 1,
+          "chest": 0.9618591185966092,
+          "uarmS": 1,
+          "farmS": 1,
+          "uarmO": 1,
+          "farmO": 1,
+          "thighF": 1,
+          "shinF": 1,
+          "footF": 1,
+          "thighB": 1,
+          "shinB": 1,
+          "footB": 1
+        },
+        "helmetIntegrity": 1,
+        "hasHelmet": false,
+        "cause": "내려찍기"
+      },
+      "armorGuardAfter": {
+        "alive": true,
+        "armed": true,
+        "state": "down",
+        "blood": 1,
+        "consciousness": 1,
+        "daze": 0,
+        "pain": 0,
+        "balance": 0,
+        "wounds": 0,
+        "bleed": 0,
+        "cloth": {},
+        "plate": {
+          "pelvis": 1,
+          "abdomen": 1,
+          "chest": 1,
+          "uarmS": 1,
+          "farmS": 1,
+          "uarmO": 1,
+          "farmO": 1,
+          "thighF": 1,
+          "shinF": 1,
+          "footF": 1,
+          "thighB": 1,
+          "shinB": 1,
+          "footB": 1
+        },
+        "helmetIntegrity": 1,
+        "hasHelmet": false,
+        "cause": null
+      },
+      "legacyAfterOneSecond": {
+        "alive": false,
+        "armed": true,
+        "state": "dead",
+        "blood": 1,
+        "consciousness": 1,
+        "daze": 0,
+        "pain": 0,
+        "balance": -13.34930849118678,
+        "wounds": 0,
+        "bleed": 0,
+        "cloth": {},
+        "plate": {
+          "pelvis": 1,
+          "abdomen": 1,
+          "chest": 0.9618591185966092,
+          "uarmS": 1,
+          "farmS": 1,
+          "uarmO": 1,
+          "farmO": 1,
+          "thighF": 1,
+          "shinF": 1,
+          "footF": 1,
+          "thighB": 1,
+          "shinB": 1,
+          "footB": 1
+        },
+        "helmetIntegrity": 1,
+        "hasHelmet": false,
+        "cause": "내려찍기"
+      },
+      "armorGuardAfterOneSecond": {
+        "alive": true,
+        "armed": true,
+        "state": "down",
+        "blood": 1,
+        "consciousness": 1,
+        "daze": 0,
+        "pain": 0,
+        "balance": 0,
+        "wounds": 0,
+        "bleed": 0,
+        "cloth": {},
+        "plate": {
+          "pelvis": 1,
+          "abdomen": 1,
+          "chest": 1,
+          "uarmS": 1,
+          "farmS": 1,
+          "uarmO": 1,
+          "farmO": 1,
+          "thighF": 1,
+          "shinF": 1,
+          "footF": 1,
+          "thighB": 1,
+          "shinB": 1,
+          "footB": 1
+        },
+        "helmetIntegrity": 1,
+        "hasHelmet": false,
+        "cause": null
+      },
+      "applyWoundCalls": {
+        "legacy": 1,
+        "armorGuard": 0
+      },
+      "samePreCombatNativeThroughImpact": true,
+      "reboundExact": true,
+      "rebound": {
+        "zone": "chest",
+        "e": 0.2,
+        "vPre": 2.451854079835079,
+        "vPost": 0.012926735283617097,
+        "J": 1.0501736397786983,
+        "mB": 2.3968998700534616,
+        "mV": 16.117031061948598,
+        "step": 582
+      },
+      "reboundScope": "Matched first finish contact only; both retain chest plate after damage. Later dynamics diverge after death/survival; no general recoil equivalence claim."
+    }
+  ],
+  "bareControls": {
+    "weapons": [
+      "longsword",
+      "rapier"
+    ],
+    "bothModelsFinish": true,
+    "bothPass": true,
+    "woundsEach": 1,
+    "guardPairNativeControllerAndRequestedExactThroughDeathAndOneSecond": true
+  },
+  "observerAndVersionReplay": [
+    {
+      "weapon": "longsword",
+      "armor": "plate",
+      "model": "armorGuard",
+      "priorModel": "armorCausal",
+      "steps": 568,
+      "nativeAndControllerPrefixExact": true,
+      "inputPrefixExact": true
+    },
+    {
+      "weapon": "rapier",
+      "armor": "none",
+      "model": "armorGuard",
+      "priorModel": "armorCausal",
+      "steps": 583,
+      "nativeAndControllerPrefixExact": true,
+      "inputPrefixExact": true
+    },
+    {
+      "weapon": "rapier",
+      "armor": "none",
+      "model": "legacy",
+      "priorModel": "legacy",
+      "steps": 583,
+      "nativeAndControllerPrefixExact": true,
+      "inputPrefixExact": true
+    },
+    {
+      "weapon": "longsword",
+      "armor": "plate",
+      "model": "legacy",
+      "priorModel": "legacy",
+      "steps": 568,
+      "nativeAndControllerPrefixExact": true,
+      "inputPrefixExact": true
+    },
+    {
+      "weapon": "longsword",
+      "armor": "none",
+      "model": "legacy",
+      "priorModel": "legacy",
+      "steps": 569,
+      "nativeAndControllerPrefixExact": true,
+      "inputPrefixExact": true
+    },
+    {
+      "weapon": "longsword",
+      "armor": "none",
+      "model": "armorGuard",
+      "priorModel": "armorCausal",
+      "steps": 569,
+      "nativeAndControllerPrefixExact": true,
+      "inputPrefixExact": true
+    },
+    {
+      "weapon": "rapier",
+      "armor": "plate",
+      "model": "armorGuard",
+      "priorModel": "armorCausal",
+      "steps": 582,
+      "nativeAndControllerPrefixExact": true,
+      "inputPrefixExact": true
+    },
+    {
+      "weapon": "rapier",
+      "armor": "plate",
+      "model": "legacy",
+      "priorModel": "legacy",
+      "steps": 582,
+      "nativeAndControllerPrefixExact": true,
+      "inputPrefixExact": true
+    }
+  ],
+  "reusedPriorComponents": {
+    "sourceReport": "docs/strike/p456_batch_20261005.json",
+    "artifact": {
+      "path": "/workspace/halfsword-handoff/p456-batch-20261005/finish-rule-final.json",
+      "bytes": 211922,
+      "sha256": "54f49e98796825114f640c46b3f5c072cc910d768c5c453a6347645d2cb2a00d"
+    },
+    "groupedChecks": 61,
+    "recordedPass": true,
+    "recordedPhysicsSteps": 0,
+    "rerunHere": false,
+    "scope": "Old61 components document equality/below-bare/noarmor/ignoreArmor/worn armor/player-only/normal head death/daze/blunt gates. New armorGuard low-energy-band coverage is separate root-owned test evidence; this report does not relabel old61 as new-policy validation.",
+    "currentRootRun": "Root reports old61 rerun after armorGuard edits and new63 checks passed; zero physics steps. Their current artifacts belong to root-owned aggregate, separate from this lane native count and historical61 raw."
+  },
+  "limitations": [
+    "No natural finishing opportunity in selected small fixed set; no seed or gain sweep.",
+    "Controlled victim is held down and AI-idled with explicit initial impulse; this is not natural play or full phone acceptance.",
+    "New guard is physically exposed only between bare and armored thresholds here; below-bare rule difference is not physically exposed and requires separate component evidence.",
+    "Helmet/head daze and normal concussion death are not freshly exposed by these chest fixtures; unchanged old61 components are reused.",
+    "First armor rebound matches because live plate coverage remains present in both; armor-break/wear-material divergence outside this range is untested.",
+    "Post-impact A/B divergence follows death/survival and armor damage; do not infer later single-contact momentum benefit.",
+    "External raw/frozen sources/dependencies are required; source manifests hash shared original node_modules, which were stable during each run.",
+    "No production adoption, browser verification or peer-material reading performed by this lane."
+  ],
+  "decision": "Research evidence supports a separate player-only armorGuard comparison at actual blocked chest contacts; ordinary legacy rule remains an intentional approved exception. Product/default adoption is outside this experiment.",
+  "next": "Use separate low-band component tests plus root-owned comparison entry and delivery checks; do not repeat broad native suites for documentation changes.",
+  "rawFiles": [
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/SOURCE.json",
+      "bytes": 9641,
+      "sha256": "37ae2f121fb1709c00b1223a9be6600ea4712330271c8e119b2f954b321d408e"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/tools/sim/experiments/phase3_finish_contact_20261007.mjs",
+      "bytes": 11822,
+      "sha256": "e3cfdca4f2c837678ec9278e8a82e7ee480dd09040e30b42b606916940520bb9"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/SOURCE.json",
+      "bytes": 9781,
+      "sha256": "be7e50b63b0c62e6b326cd003a03bd04b57d69830f9ad20682f20bde70036236"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/tools/sim/experiments/phase3_finish_contact_20261007.mjs",
+      "bytes": 13325,
+      "sha256": "fae56bfc21401924853dd034ab227d8d2e531513b38de13642bc5bfa0c754dc9"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/natural/longsword-none-armorCausal.json",
+      "bytes": 929967,
+      "sha256": "194ca26b2ec4bb71ba5e6739e1761f16a0f680333c7c2df10c01df12ea33fe8e"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/natural/longsword-none-legacy.json",
+      "bytes": 927193,
+      "sha256": "8b85442a8675fc3d08cd3de381dbc3cc659f3558ad3767766e4c2c84a7e846f6"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/natural/longsword-plate-armorCausal.json",
+      "bytes": 1019415,
+      "sha256": "82558c17dec1312ac52e5f8d71a9666b0bea7866b125effde5124e15d56e438f"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/natural/longsword-plate-legacy.json",
+      "bytes": 1017410,
+      "sha256": "6a033e065345e4d02dd94a6b49f4c2f0a745e5e5d7af21af498e86bea8860c39"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/natural/rapier-none-armorCausal.json",
+      "bytes": 1029014,
+      "sha256": "8384615a20ee1c1b8d2f40917cd050c346486cd46fa6b3bcbcfa32a98521b169"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/natural/rapier-none-legacy.json",
+      "bytes": 1026470,
+      "sha256": "8cabbe81f6af427b140c6b4d0780bdd42dff4dd7d4972f0cfbf708dd7eed47ca"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/natural/rapier-plate-armorCausal.json",
+      "bytes": 471256,
+      "sha256": "7d938682814bb00a63e85a4b97404c58921325b9f6ed841412513993558d090f"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/natural/rapier-plate-legacy.json",
+      "bytes": 470593,
+      "sha256": "f67f9a02f23dd8870333849f58ad34fef2b8a4b29679d2d0c5fa528074cf4a07"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/natural/report.json",
+      "bytes": 35232,
+      "sha256": "549a91218c504d7afb59fcb0e958270154f6c4ade8548825edc848c97e670eef"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/down/longsword-none-armorCausal.json",
+      "bytes": 165947,
+      "sha256": "9e4627973c2d4fa34d599d4ecce70a430388344a23eb8e232d16d6eccfc96d25"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/down/longsword-none-legacy.json",
+      "bytes": 165527,
+      "sha256": "ab2fa01f4f96ce9ca6988924d68b26e29c79798f2af99f38e62b13ce3be2d3d1"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/down/longsword-plate-armorCausal.json",
+      "bytes": 166751,
+      "sha256": "0b05ff430cc24084a07bf66a5dbabe26744f6cafe399441142ee2d5d2869ae73"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/down/longsword-plate-legacy.json",
+      "bytes": 166303,
+      "sha256": "43d3e39dbf5a7b835824ad42d5ed06362ae86dccfbec2d272b6665225ee15efe"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/down/rapier-none-armorCausal.json",
+      "bytes": 167550,
+      "sha256": "78d230497f8616202a653dae2e0f20d9598159981a7dbf51eb6d6a6db80b9672"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/down/rapier-none-legacy.json",
+      "bytes": 167365,
+      "sha256": "2841fbc3e7be7b23ca5aa3497267590e8cec84c442b32844b5152c52546f8bba"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/down/rapier-plate-armorCausal.json",
+      "bytes": 169939,
+      "sha256": "75c3e48cb8f1f105ddc856566df6fa03687ff48f68394a4018b89619b7987200"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/down/rapier-plate-legacy.json",
+      "bytes": 170010,
+      "sha256": "478c4bc19082721b7a69c32d8437b17ed2c7e805917058e00e10042f569f7715"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/down/report.json",
+      "bytes": 48244,
+      "sha256": "b5a00a3daf30f6dcf4118c2c6b42c19cbd98a0bbc7ba4d11f93b80c31d0fee3e"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/down-follow/longsword-none-armorGuard.json",
+      "bytes": 843094,
+      "sha256": "29f5afa890279782db2577137b8dc48ba9b5915481d6054c659d2eab45b5e063"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/down-follow/longsword-none-legacy.json",
+      "bytes": 842474,
+      "sha256": "eea3492d0d033016772e79f55781af8776711ce5e474d8d16d4426edcd867e20"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/down-follow/longsword-plate-armorGuard.json",
+      "bytes": 917514,
+      "sha256": "db98fbb981ed4723328c4d256d8fbf05b4e9eeea8b6a162a4884a5143d50a5e3"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/down-follow/longsword-plate-legacy.json",
+      "bytes": 921964,
+      "sha256": "0cab8c676da378c6371ea854aed5590acc284e157cb01a9e8f72364f44e834fb"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/down-follow/rapier-none-armorGuard.json",
+      "bytes": 254841,
+      "sha256": "4873861bc1d496f28f7e9be3c99e1c86c92f05ff15e4563a9f28db33521f4349"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/down-follow/rapier-none-legacy.json",
+      "bytes": 254515,
+      "sha256": "8ae33e710cfed934ed1a95102e02c13a565c052b6de78d1b9d5bde524152deac"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/down-follow/rapier-plate-armorGuard.json",
+      "bytes": 260951,
+      "sha256": "443cca41d6edc5e2fdd5e9e56fbe577d6129f42711d7e424ca62b17d106099b3"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/down-follow/rapier-plate-legacy.json",
+      "bytes": 262609,
+      "sha256": "5ac98082fa1d62b3d7d512f5e85d7f98cae35bf8122efdf00f644dbefce5b304"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/down-follow/report.json",
+      "bytes": 5396523,
+      "sha256": "ea2a8dfcbd40c786048e4037334b93a8daac94286425533fcd2a7aa15e05662a"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected/down-follow/longsword-none-armorGuard.json",
+      "bytes": 843147,
+      "sha256": "bbada846523a884b3d7ed65789707ceeaa64717bbe135188a6d59625f91faa8e"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected/down-follow/longsword-none-legacy.json",
+      "bytes": 842527,
+      "sha256": "0563351a5e929de5a46b4ff5d30db1a1bfe540734145c7aa7fc3e88b7e51c79c"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected/down-follow/longsword-plate-armorGuard.json",
+      "bytes": 917567,
+      "sha256": "aebd4e49d7da9c3d805e45feff46e1b47f7c1e8bbb73084a611e5f5d22c66a1a"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected/down-follow/longsword-plate-legacy.json",
+      "bytes": 922017,
+      "sha256": "21c234e383636c1789bf214663a7845656c6896c314207dcaea9c2fe70d5e218"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected/down-follow/rapier-none-armorGuard.json",
+      "bytes": 254894,
+      "sha256": "0e0fcf3768a3378989277d17f74fad7e5f8aacc74bcbc9f0052cf8734a914381"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected/down-follow/rapier-none-legacy.json",
+      "bytes": 254568,
+      "sha256": "ced4cdd4613eff83156046128a42e8e2c760e7acc1086edcd55edc30b53f8cbf"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected/down-follow/rapier-plate-armorGuard.json",
+      "bytes": 261004,
+      "sha256": "3fde2f4c0b74b848bd46360b14932d3b3787a01e8b2ebb46fb5d2693ea8fdb32"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected/down-follow/rapier-plate-legacy.json",
+      "bytes": 262662,
+      "sha256": "8040fb6eb85daab37eb4a74197ac4bb762f154f4a428f6d29569cee95784349f"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected/down-follow/report.json",
+      "bytes": 5397154,
+      "sha256": "69eb14a8c518e1104ee9dd9fa7e805bea74a35476a40e196d5afd4c17b5049b6"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected/natural-control/longsword-plate-armorCausal.json",
+      "bytes": 1725177,
+      "sha256": "46a9115496bb58336d66eec3671b44604ad92eef8d55e5fd3feb4d3b799f044d"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected/natural-control/longsword-plate-legacy.json",
+      "bytes": 1722054,
+      "sha256": "5f1b68dd11fa42f286abf53175f414206138fb82b973ad1c61a27d4ac6bae503"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected/natural-control/report.json",
+      "bytes": 1933318,
+      "sha256": "1f70af50629d72ec70b45f380726ed51a72db764ce3e8cb90d5d07a7a03bbc3d"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected/SOURCE.json",
+      "bytes": 9787,
+      "sha256": "6aeb942c807091a68554787aff7617b14d816b17e520022c4f3b73c9113b3cda"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/corrected/tools/sim/experiments/phase3_finish_contact_20261007.mjs",
+      "bytes": 13413,
+      "sha256": "49f77e19cd52606042d0572fbe27351d4ba455469532188daeda304855b40779"
+    }
+  ],
+  "setupCorrection": {
+    "issue": "Probe initially assigned autoGuard=true after applySwordsmanship sets false. Published player uses false. The flag was dormant because applySwordsmanship sets skill.level=0 and skill.js canRecover requires level>=.35. Corrected source asserts false and records both values.",
+    "preservedPrior": true,
+    "runs": 10,
+    "replayChecks": [
+      {
+        "protocol": "down-follow",
+        "weapon": "longsword",
+        "armor": "none",
+        "model": "armorGuard",
+        "steps": 689,
+        "comparedPrior": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/down-follow/longsword-none-armorGuard.json",
+        "actualAutoGuard": false,
+        "actualSkillLevel": 0,
+        "exact": {
+          "frames": true,
+          "inputs": true,
+          "contacts": true,
+          "predictions": true,
+          "native": true,
+          "rebounds": true,
+          "applications": true
+        }
+      },
+      {
+        "protocol": "down-follow",
+        "weapon": "longsword",
+        "armor": "none",
+        "model": "legacy",
+        "steps": 689,
+        "comparedPrior": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/down-follow/longsword-none-legacy.json",
+        "actualAutoGuard": false,
+        "actualSkillLevel": 0,
+        "exact": {
+          "frames": true,
+          "inputs": true,
+          "contacts": true,
+          "predictions": true,
+          "native": true,
+          "rebounds": true,
+          "applications": true
+        }
+      },
+      {
+        "protocol": "down-follow",
+        "weapon": "longsword",
+        "armor": "plate",
+        "model": "armorGuard",
+        "steps": 688,
+        "comparedPrior": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/down-follow/longsword-plate-armorGuard.json",
+        "actualAutoGuard": false,
+        "actualSkillLevel": 0,
+        "exact": {
+          "frames": true,
+          "inputs": true,
+          "contacts": true,
+          "predictions": true,
+          "native": true,
+          "rebounds": true,
+          "applications": true
+        }
+      },
+      {
+        "protocol": "down-follow",
+        "weapon": "longsword",
+        "armor": "plate",
+        "model": "legacy",
+        "steps": 688,
+        "comparedPrior": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/down-follow/longsword-plate-legacy.json",
+        "actualAutoGuard": false,
+        "actualSkillLevel": 0,
+        "exact": {
+          "frames": true,
+          "inputs": true,
+          "contacts": true,
+          "predictions": true,
+          "native": true,
+          "rebounds": true,
+          "applications": true
+        }
+      },
+      {
+        "protocol": "down-follow",
+        "weapon": "rapier",
+        "armor": "none",
+        "model": "armorGuard",
+        "steps": 703,
+        "comparedPrior": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/down-follow/rapier-none-armorGuard.json",
+        "actualAutoGuard": false,
+        "actualSkillLevel": 0,
+        "exact": {
+          "frames": true,
+          "inputs": true,
+          "contacts": true,
+          "predictions": true,
+          "native": true,
+          "rebounds": true,
+          "applications": true
+        }
+      },
+      {
+        "protocol": "down-follow",
+        "weapon": "rapier",
+        "armor": "none",
+        "model": "legacy",
+        "steps": 703,
+        "comparedPrior": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/down-follow/rapier-none-legacy.json",
+        "actualAutoGuard": false,
+        "actualSkillLevel": 0,
+        "exact": {
+          "frames": true,
+          "inputs": true,
+          "contacts": true,
+          "predictions": true,
+          "native": true,
+          "rebounds": true,
+          "applications": true
+        }
+      },
+      {
+        "protocol": "down-follow",
+        "weapon": "rapier",
+        "armor": "plate",
+        "model": "armorGuard",
+        "steps": 702,
+        "comparedPrior": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/down-follow/rapier-plate-armorGuard.json",
+        "actualAutoGuard": false,
+        "actualSkillLevel": 0,
+        "exact": {
+          "frames": true,
+          "inputs": true,
+          "contacts": true,
+          "predictions": true,
+          "native": true,
+          "rebounds": true,
+          "applications": true
+        }
+      },
+      {
+        "protocol": "down-follow",
+        "weapon": "rapier",
+        "armor": "plate",
+        "model": "legacy",
+        "steps": 702,
+        "comparedPrior": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/guard/down-follow/rapier-plate-legacy.json",
+        "actualAutoGuard": false,
+        "actualSkillLevel": 0,
+        "exact": {
+          "frames": true,
+          "inputs": true,
+          "contacts": true,
+          "predictions": true,
+          "native": true,
+          "rebounds": true,
+          "applications": true
+        }
+      },
+      {
+        "protocol": "natural-control",
+        "weapon": "longsword",
+        "armor": "plate",
+        "model": "armorCausal",
+        "steps": 3000,
+        "comparedPrior": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/natural/longsword-plate-armorCausal.json",
+        "actualAutoGuard": false,
+        "actualSkillLevel": 0,
+        "exact": {
+          "frames": true,
+          "inputs": true,
+          "contacts": true,
+          "predictions": true
+        }
+      },
+      {
+        "protocol": "natural-control",
+        "weapon": "longsword",
+        "armor": "plate",
+        "model": "legacy",
+        "steps": 3000,
+        "comparedPrior": "/workspace/halfsword-handoff/phase3-round1-20261007/contact/natural/longsword-plate-legacy.json",
+        "actualAutoGuard": false,
+        "actualSkillLevel": 0,
+        "exact": {
+          "frames": true,
+          "inputs": true,
+          "contacts": true,
+          "predictions": true
+        }
+      }
+    ],
+    "conclusion": "All eight controlled full traces and representative natural LSplate pair are exact after correction; no new efficacy samples. Remaining six original natural rows retain explicitly recorded dormant-flag setup mismatch, not relabeled as reruns.",
+    "metadataCorrection": "Earlier raw preparation string ambiguously said chest/head total40Ns. Executed loop supplies40Ns to EACH body=80Ns combined; code physics is unchanged. Latest probe/report wording corrects this."
+  },
+  "controlledContactResultsSource": "corrected/down-follow; each frames/inputs/contacts/predictions/native/rebounds/applications array equals prior guard/down-follow exactly."
+}

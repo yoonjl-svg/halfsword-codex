@@ -266,7 +266,7 @@ export class Combat {
       // 투구: 찌그러지고 틈을 파고들어도 맨머리보다 약해지지는 않는다 (케틀햇은 가장 약할 때도 맨머리보다 세서 그대로)
       if (helmet) thr = Math.max(thr, type === 'cut' ? ANATOMY.head.cut : ANATOMY.head.stab);
       eff = energy * quality * wMult * emoDealt * emoTaken;
-      if (finishRuleModel === 'armorCausal') {
+      if (finishRuleModel === 'armorCausal' || finishRuleModel === 'armorGuard') {
         // Matched bare tissue keeps clothing/gap modifiers, removing only the
         // helmet/plate contribution. pass=false alone does not mean armor blocked.
         bareThreshold = (type === 'cut' ? ANATOMY[zone].cut : ANATOMY[zone].stab) * (helmOn ? 1 : guard);
@@ -309,7 +309,8 @@ export class Combat {
       eff,
       bladeAxis: axis.clone(),
       finish, // 내려찍기 즉사 (사장님 결정 9/30, fighter.applyWound)
-      ...(finishRuleModel === 'armorCausal' ? { bareThreshold, armorBlocked: finishRuleResult?.armorBlocked ?? false, finishRuleReason: finishRuleResult?.reason ?? 'ineligible' } : {}),
+      ...(['armorCausal', 'armorGuard'].includes(finishRuleModel) ? { bareThreshold, armorBlocked: finishRuleResult?.armorBlocked ?? false, finishRuleReason: finishRuleResult?.reason ?? 'ineligible' } : {}),
+      ...(finishRuleModel === 'armorGuard' ? { armorGuarded: finishRuleResult?.armorGuarded ?? false } : {}),
     };
   }
 

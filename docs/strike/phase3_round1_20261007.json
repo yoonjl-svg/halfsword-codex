@@ -1,0 +1,65 @@
+{
+  "baseHead": "552accf3c2f63817d73980293339fe9b1f713e18",
+  "decision": "optional armorGuard candidate only; ordinary legacy and historical armorCausal preserved",
+  "componentReports": [
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/validation/guard-components.json",
+      "bytes": 226108,
+      "sha256": "2977690f557eec9ac4605ac4dee1e7c649b96fac7689166854ed9a75a133158d",
+      "tests": 63,
+      "pass": true,
+      "candidateModel": "armorGuard",
+      "sourceBefore": {
+        "src/combat.js": "adf58b520e29b3618d021bceb341d679eadfe0ef103fbe821928ec222259a9a8",
+        "src/fighter.js": "dd855f9c7557993891a95c35b55999f6f0c71b4eba029889b7212f5adaa362e4",
+        "src/config.js": "6e2c678ef8af30eeb730f38c3c6a5eac370babdf0071c249e1c2d474c7aa331b",
+        "src/finish_rule.js": "964425ce23e2e6230a3ddba02b76efd300332d30f655a26e829a4829fbea3cec",
+        "tools/sim/armor_eval.mjs": "588b134d999b97bf136ccea6399f49ac96bf25505881ac40cb5cfcdeb4524eb2",
+        "tools/sim/experiments/finish_rule.test.mjs": "ea1c810c037071460a7efeb3e3911af42a52d33d6146e20f5bbe4cfb23d1cd3e"
+      },
+      "sourceStable": true,
+      "command": "node tools/sim/experiments/finish_rule.test.mjs <fresh-output.json> --armor-guard"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round1-20261007/validation/old-components.json",
+      "bytes": 220855,
+      "sha256": "8fc1cd8d502b0965f415157ba2834fb953f7ba54178ce5e49fe5ededf4264ae9",
+      "tests": 61,
+      "pass": true,
+      "candidateModel": "armorCausal",
+      "sourceBefore": {
+        "src/combat.js": "adf58b520e29b3618d021bceb341d679eadfe0ef103fbe821928ec222259a9a8",
+        "src/fighter.js": "dd855f9c7557993891a95c35b55999f6f0c71b4eba029889b7212f5adaa362e4",
+        "src/config.js": "6e2c678ef8af30eeb730f38c3c6a5eac370babdf0071c249e1c2d474c7aa331b",
+        "src/finish_rule.js": "964425ce23e2e6230a3ddba02b76efd300332d30f655a26e829a4829fbea3cec",
+        "tools/sim/armor_eval.mjs": "588b134d999b97bf136ccea6399f49ac96bf25505881ac40cb5cfcdeb4524eb2",
+        "tools/sim/experiments/finish_rule.test.mjs": "ea1c810c037071460a7efeb3e3911af42a52d33d6146e20f5bbe4cfb23d1cd3e"
+      },
+      "sourceStable": true,
+      "command": "node tools/sim/experiments/finish_rule.test.mjs <fresh-output.json>"
+    }
+  ],
+  "entryChecks": {
+    "finish_v2_trial": 6,
+    "swordsmanship_default": 6,
+    "integrated_combat_trial": 29,
+    "pass": true,
+    "rawSource": "current turn tool execution output; not a saved separate raw log"
+  },
+  "nativeReport": "phase3_finish_contact_20261007.json",
+  "publicDelivery": "phase3_round1_release.json",
+  "limitations": [
+    "Component fixtures deliberately cache sword/part state and prepare down/tap; they do not step physics or establish natural combat efficacy.",
+    "Actual native scenes are separate; default harness AI differs from published Heinrich AI.",
+    "Broad weak-band rule is a design candidate, not a reinterpretation of an old approved rule as an accidental bug.",
+    "No ordinary promotion, damage/strength/gravity multiplier, deferred arm-grip research, or peer review in this work."
+  ],
+  "nativeReference": {
+    "path": "docs/strike/phase3_finish_contact_20261007.json",
+    "bytes": 55121,
+    "sha256": "3a0b5b2b529df2bce9a62116b19204976da00286063a1f8dd8a1a29be23926ed",
+    "verifiedRawFiles": 45,
+    "runtimePatchHashesMatch": true,
+    "probeHashMatches": true
+  }
+}

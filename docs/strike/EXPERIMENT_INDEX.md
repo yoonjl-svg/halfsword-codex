@@ -1,5 +1,7 @@
 # 실험 색인과 재현 입구
 
+3단계1회차 ·10/07: [갑옷 마무리의 현재 일반판 비교](phase3_round1_20261007.md)·[경계 수치/해시](phase3_round1_20261007.json)·[실제 접촉](phase3_finish_contact_20261007.md)·[공개/모바일](phase3_round1_release.json). 일반판 legacy, 과거 armorCausal 유지; 새 armorGuard만 선택형. 자연 전투 미노출과 통제 down 접촉을 구분한다.
+
 질문 진단 ·10/07: [한 팔 부상과 한손/양손 차이](arm_function_question_20261007.md)·[6행 수치/해시](arm_function_question_20261007.json). 보조손 파지 상실은 실제지만 일괄 속도/피해 저하는 보장되지 않는다. 통제 팔 기능 검사이며 게임 변경 없음.
 
 최신 유보 검증: [재베기 실제 절삭](recut_power_20261007.md)·[수치/해시](recut_power_20261007.json), [잔여 회전](spin_followup_20261007.md)·[수치/해시](spin_followup_20261007.json). 수동 베기 후 관성 타격과 접촉 순간 입력을 구분하고, 기존 복귀가 안정되는 것을 확인했다. 신체 접촉 후 속도 제한 후보는 미채택. [기록/폰 계획 전달](deferred_followup_release.json).

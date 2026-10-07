@@ -14,6 +14,8 @@ const sha = value => crypto.createHash('sha256').update(value).digest('hex');
 const files = ['src/combat.js', 'src/fighter.js', 'src/config.js', 'src/finish_rule.js', 'tools/sim/armor_eval.mjs', 'tools/sim/experiments/finish_rule.test.mjs'];
 const hashes = () => Object.fromEntries(files.map(file => [file, sha(fs.readFileSync(file))]));
 const before = hashes();
+const armorGuard = process.argv.includes('--armor-guard');
+const candidateModel = armorGuard ? 'armorGuard' : 'armorCausal';
 const helperOnly = process.argv.includes('--helper-only');
 const out = process.argv.slice(2).find(arg => !arg.startsWith('--')) || '/tmp/halfsword-finish-rule-tests.json';
 if (fs.existsSync(out)) throw Error('Use a fresh output path');
@@ -38,6 +40,32 @@ await test('helper: equality blocks, injured nonpassing band and above-threshold
   for (const eff of [47 + Number.EPSILON * 47, 50, 100]) assert.equal(resolveFinishRule({ ...base, eff, model: 'armorCausal' }).finish, true);
   assert.equal(resolveFinishRule({ ...base, eff: 25, model: 'armorCausal' }).finish, true);
 });
+
+if (armorGuard) {
+  await test('helper: fixed armor has no weak-kill / stronger-survival reversal', () => {
+    const rows = [0, 24, 25, 26, 40, 47, 47 + Number.EPSILON * 47, 60].map(eff => {
+      const r = resolveFinishRule({ ...base, eff, model: 'armorGuard' });
+      assert.equal(r.finish, eff > 47);
+      assert.equal(r.armorGuarded, eff <= 47);
+      assert.equal(r.armorBlocked, eff > 25 && eff <= 47);
+      assert.equal(r.reason, eff <= 47 ? 'armor-guarded' : 'exception-preserved');
+      return { eff, ...r };
+    });
+    for (const model of ['legacy', 'armorCausal']) {
+      assert.equal(resolveFinishRule({ ...base, eff: 24, model }).finish, true);
+    }
+    return rows;
+  });
+  await test('helper: uncovered, ignored, depleted/noncontributing armor and invalid measures keep the exception', () => {
+    for (const patch of [{ armorActive: false }, { ignoreArmor: true }, { eff: 24, threshold: 25 },
+      { threshold: 20 }, { type: 'cut' }, { eff: NaN }, { threshold: Infinity }, { bareThreshold: null }]) {
+      const r = resolveFinishRule({ ...base, ...patch, model: 'armorGuard' });
+      assert.equal(r.finish, true); assert.equal(r.armorGuarded, false);
+    }
+    assert.deepEqual(resolveFinishRule({ ...base, eligible: false, model: 'armorGuard' }),
+      { finish: false, armorBlocked: false, reason: 'ineligible' });
+  });
+}
 
 if (!helperOnly) {
   const { newRound, THREE } = await import('../harness_m.mjs');
@@ -72,7 +100,7 @@ if (!helperOnly) {
       consciousness: vic.consciousness, daze: vic.daze ?? 0, cloth: vic.cloth, helmetIntegrity: vic.helmetIntegrity, hasHelmet: vic.hasHelmet, plate: vic.plate };
   }
   function resultSummary(r) {
-    return { type: r.type, energy: r.energy, eff: r.eff, thr: r.thr, bareThreshold: r.bareThreshold, severity: r.severity, pass: r.pass, finish: r.finish, armorBlocked: r.armorBlocked,
+    return { type: r.type, energy: r.energy, eff: r.eff, thr: r.thr, bareThreshold: r.bareThreshold, severity: r.severity, pass: r.pass, finish: r.finish, armorBlocked: r.armorBlocked, armorGuarded: r.armorGuarded, finishRuleReason: r.finishRuleReason,
       helmet: r.helmet, plate: r.plate, mEff: r.mEff, ephys: r.ephys };
   }
   function fixture(context, band, model, { eligible = true, cold = false, ordinaryLethal = false, lowConsciousness = false, opponentAttack = false, playerScope = false } = {}) {
@@ -141,15 +169,17 @@ if (!helperOnly) {
       assert.ok(predicted.energy >= STRIKE.minEnergy);
       const snapshotBefore = JSON.stringify(outcome(vic));
       const prediction = measure();
-      if (!cold && effectiveModel === 'armorCausal') assert.equal(prediction.bareThreshold, bareThreshold, 'runtime bare threshold loses cloth/gap modifiers');
+      if (!cold && ['armorCausal', 'armorGuard'].includes(effectiveModel)) assert.equal(prediction.bareThreshold, bareThreshold, 'runtime bare threshold loses cloth/gap modifiers');
       assert.equal(JSON.stringify(outcome(vic)), snapshotBefore, 'prediction mutated fighter');
       const actualAnalysis = G.combat.analyze(pr, point, S, P, false);
       assert.equal(JSON.stringify(outcome(vic)), snapshotBefore, 'actual analysis mutated fighter');
       const causal = !!(eligible && !ordinaryLethal && context.armored && !context.ignore && threshold > bareThreshold && prediction.eff <= threshold && prediction.eff > bareThreshold);
-      const expectedFinish = eligible && !ordinaryLethal && !(effectiveModel === 'armorCausal' && causal);
+      const guarded = !!(eligible && !ordinaryLethal && context.armored && !context.ignore && threshold > bareThreshold && prediction.eff <= threshold);
+      const expectedFinish = eligible && !ordinaryLethal && !(effectiveModel === 'armorCausal' && causal) && !(effectiveModel === 'armorGuard' && guarded);
       assert.equal(prediction.finish, expectedFinish);
       assert.equal(actualAnalysis.finish, expectedFinish);
-      if (!cold && effectiveModel === 'armorCausal') assert.equal(prediction.armorBlocked, causal);
+      if (!cold && ['armorCausal', 'armorGuard'].includes(effectiveModel)) assert.equal(prediction.armorBlocked, causal);
+      if (effectiveModel === 'armorGuard') { assert.equal(prediction.armorGuarded, guarded); assert.equal(actualAnalysis.armorGuarded, guarded); }
       if (band === 'nonpassing') { assert.ok(prediction.severity > 0); assert.equal(prediction.pass, false); }
       if (band === 'above') assert.equal(prediction.pass, true);
       if (prediction.eff <= threshold) {
@@ -190,7 +220,7 @@ if (!helperOnly) {
   }
   for (const context of contexts) for (const band of ['below-bare', 'between', 'exact', 'nonpassing', 'above']) {
     await test(`Combat/Fighter ${context.name} ${band}: candidate and default cold exact`, () => {
-      const candidate = fixture(context, band, 'armorCausal');
+      const candidate = fixture(context, band, candidateModel);
       const ordinary = fixture(context, band, undefined), legacy = fixture(context, band, 'legacy'), cold = fixture(context, band, undefined, { cold: true });
       for (const current of [ordinary, legacy]) {
         assert.deepEqual(current.prediction, cold.prediction, 'cold prediction including return shape');
@@ -200,21 +230,21 @@ if (!helperOnly) {
       return { candidate: candidate.details, default: ordinary.details, coldCommit, coldExact: true };
     });
   }
-  for (const context of contexts) await test(`nonfinish control ${context.name}: injury/concussion/wear preserved`, () => fixture(context, 'between', 'armorCausal', { eligible: false }).details);
+  for (const context of contexts) await test(`nonfinish control ${context.name}: injury/concussion/wear preserved`, () => fixture(context, 'between', candidateModel, { eligible: false }).details);
   for (const context of contexts.filter(c => ['plate-chest', 'helmet-head'].includes(c.name))) await test(`player scope ${context.name}: excluded opponent remains cold legacy exact`, () => {
-    const current = fixture(context, 'between', 'armorCausal', { opponentAttack: true, playerScope: true });
+    const current = fixture(context, 'between', candidateModel, { opponentAttack: true, playerScope: true });
     const cold = fixture(context, 'between', undefined, { opponentAttack: true, cold: true });
     assert.deepEqual(current.prediction, cold.prediction); assert.deepEqual(current.actual, cold.actual); assert.deepEqual(current.final, cold.final);
-    const player = fixture(context, 'between', 'armorCausal', { playerScope: true });
+    const player = fixture(context, 'between', candidateModel, { playerScope: true });
     assert.equal(player.actual.finish, false); assert.equal(player.final.state, 'down');
     return { opponent: current.details, player: player.details, excludedOpponentColdExact: true };
   });
-  await test('ordinary bare-head lethal stab remains allowed', () => fixture(contexts.find(c => c.name === 'bare-head'), 'above', 'armorCausal', { eligible: false, ordinaryLethal: true }).details);
-  await test('nonfinish armored head concussion can cause ordinary death', () => fixture(contexts.find(c => c.name === 'helmet-head'), 'between', 'armorCausal', { eligible: false, lowConsciousness: true }).details);
+  await test('ordinary bare-head lethal stab remains allowed', () => fixture(contexts.find(c => c.name === 'bare-head'), 'above', candidateModel, { eligible: false, ordinaryLethal: true }).details);
+  await test('nonfinish armored head concussion can cause ordinary death', () => fixture(contexts.find(c => c.name === 'helmet-head'), 'between', candidateModel, { eligible: false, lowConsciousness: true }).details);
 }
 const after = hashes();
 const sourceStable = JSON.stringify(before) === JSON.stringify(after);
-const report = { pass: sourceStable && results.every(r => r.pass), helperOnly, sourceStable, sourceBefore: before, sourceAfter: after, tests: results,
+const report = { pass: sourceStable && results.every(r => r.pass), candidateModel, helperOnly, sourceStable, sourceBefore: before, sourceAfter: after, tests: results,
   method: 'Pure helper plus cached-state real Combat/Fighter component tests; deliberate preparation and no physics steps. Default compared to own frozen prior Combat. Not natural combat or acceptance.' };
 fs.writeFileSync(out, JSON.stringify(report, null, 2) + '\n');
 console.log(JSON.stringify({ pass: report.pass, helperOnly, tests: results.length, failed: results.filter(r => !r.pass).map(r => r.name), sourceStable, out }));
