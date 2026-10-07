@@ -1,0 +1,98 @@
+{
+  "status": "local_verified_public_pending",
+  "baseHead": "54119dda23f1dd56c5066f75c3388e71a3a0cb02",
+  "ordinaryURL": "https://yoonjl-svg.github.io/halfsword-codex/",
+  "pistolURL": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=pistol&foeWeapon=longsword",
+  "verification": "revolver_tremor_20261008.json",
+  "audioVerification": "../sound/revolver_reload_reference_20261008.json",
+  "productionFiles": [
+    "src/gun.js",
+    "src/revolver_reload_audio.js",
+    "public/sfx/revolver/"
+  ],
+  "assets": [
+    {
+      "path": "assets/main-CiUnnAhm.js",
+      "bytes": 3545370,
+      "sha256": "3d7b0eeb2718ca61afb67d007ed5a9622cfe1cb23e163455c3aa69542e7a06d7"
+    },
+    {
+      "path": "assets/sound-BV3DeVc-.js",
+      "bytes": 83426,
+      "sha256": "9203e66f0ee11745f57c338ed4b5d411acdf118bd5a957bb93bb514ed5ff8d8a"
+    },
+    {
+      "path": "assets/soundgen-BDle7v6J.js",
+      "bytes": 35448,
+      "sha256": "0dfd106288146aee573b3b46c7d346284a813d9371170431266054299125cdaf"
+    },
+    {
+      "path": "assets/sounds-CYXJYEg6.js",
+      "bytes": 19744,
+      "sha256": "bcbf7cd22168767fc80c2d494f6fc565d2af412c827f1ada59fd0d1771232560"
+    }
+  ],
+  "local": [
+    {
+      "receipt": "/workspace/halfsword-handoff/revolver-reload-tremor-20261008/browser/local01/report.json",
+      "bytes": 3883,
+      "sha256": "9d239c58c3aeb66ad74cdf6a29069b0165f5ae77382c9cb8399666407b43c828",
+      "pass": false,
+      "sourceStable": true,
+      "checks": {},
+      "fatal": {
+        "name": "TimeoutError",
+        "message": "page.waitForFunction: Timeout 15000ms exceeded.",
+        "stack": "page.waitForFunction: Timeout 15000ms exceeded.\n    at waitFor (/workspace/halfsword-codex/tools/browser/revolver_reload_tremor_20261008.mjs:36:131)\n    at /workspace/halfsword-codex/tools/browser/revolver_reload_tremor_20261008.mjs:45:72"
+      },
+      "errors": [
+        {
+          "kind": "console",
+          "message": "Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of \"text/html\". Strict MIME type checking is enforced for module scripts per HTML spec."
+        },
+        {
+          "kind": "console",
+          "message": "Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of \"text/html\". Strict MIME type checking is enforced for module scripts per HTML spec."
+        }
+      ],
+      "wallMs": 16597.589558
+    },
+    {
+      "receipt": "/workspace/halfsword-handoff/revolver-reload-tremor-20261008/browser/local02/report.json",
+      "bytes": 154359,
+      "sha256": "948e35d9c49e8c462070d43a752b6a8fdebedd758cd369ba71e2d362aee95879",
+      "pass": true,
+      "sourceStable": true,
+      "checks": {
+        "twoNativeShots": true,
+        "eightRecordedEvents": true,
+        "eightWavDecoded": true,
+        "eightWavDelivered": true,
+        "sixInsertsNineSecondScheduler": true,
+        "pauseStopsScheduler": true,
+        "muteAndResume": true,
+        "restartFresh": true,
+        "tremorObserved": true,
+        "native": true,
+        "finite": true,
+        "oneExplicitAmmoFixture": true,
+        "preferencesRestored": true,
+        "compiledExact": true
+      },
+      "fatal": null,
+      "errors": [],
+      "wallMs": 104109.522806,
+      "steps": 1436,
+      "tremor": {
+        "samples": 42,
+        "simSpan": 2.2999999999999945,
+        "rsHMin": 0.09243880817294121,
+        "rsHMax": 0.19552516608685258,
+        "distinctTargets": 16,
+        "commandRayTorsoMax": 0.26387412672437005,
+        "meaning": "Original skill.update gunPose output and physical muzzle observations. Private target point is unexposed; no human accuracy/comfort judgment."
+      }
+    }
+  ],
+  "public": null
+}

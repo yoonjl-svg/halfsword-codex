@@ -14,6 +14,7 @@
 // ─────────────────────────────────────────────────────────────
 import * as THREE from 'three';
 import { ANATOMY, ARENA, COMBAT } from './config.js';
+import { prepareRevolverReload, playRevolverReload } from './revolver_reload_audio.js';
 
 /** 권총을 든 동안 화면에 띄우는 자세 이름 (사장님: "사격 자세 라고 써") — main.js 자세 이름 표시가 GUARDS 대신 쓴다 */
 export const GUN_STANCE = { name: '사격 자세', desc: '총이 저절로 상대를 겨누며 흔들린다 · 레이저가 몸에 걸린 순간 탭으로 쏜다' };
@@ -52,9 +53,9 @@ export const GUN = {
   aimSpanLoops: 0.5, // 8자 반 바퀴(평균 1.3초)마다 새 높이. 기존 전용 난수/보간 박자를 유지한다.
   // 불규칙한 흔들림: 8자 위에 얹는 매끄러운 무작위 떠돌이. swayRandHold 초마다 새 목표(옆 ±swayRandYaw°, 위아래 ±swayRandPitch°)를 전용 난수로 뽑아
   //  부드럽게 옮겨 간다 — 언제 몸에 걸릴지 읽기 어렵게. 판정 난수(Math.random·탄 퍼짐)와 분리한 검객별 난수라 칼 판은 바이트 그대로
-  swayRandYaw: 5,
-  swayRandPitch: 5,
-  swayRandHold: 0.45,
+  swayRandYaw: 18,
+  swayRandPitch: 12,
+  swayRandHold: 0.14, // 빠르고 불규칙한 손떨림. 목표 범위/팔 힘은 그대로 두고 변화 속도와 무작위 비중만 높인다.
   sideOn: -35, // 몸을 결투 사수처럼 반쯤 옆으로: 가슴을 이만큼 틀어 총 든 어깨를 앞으로 (도, 찌르기 몸 −20 과 같은 쪽)
   // 쏘는 동작 (사장님: "반동이 아니라 동작으로 총 쏘는 느낌을", 무기 PM 제안): 쏜 직후 총구를 위로 꺾고 손을 뒤로 당긴 뒤 장전 자세로 잇는다
   kickDeg: 16, // 도: 쏜 직후 총구를 이만큼 위로 꺾는다 (자세 목표 — 손목이 조금 넘쳐 실제 총구는 0.06초에 약 24° 까지 든다, 물리 반동 약 3° 포함)
@@ -508,12 +509,13 @@ function sound(kind, f, ...more) {
   if (hook) return hook(f, p, ...more);
   const snd = globalThis.window?.game?.sound;
   if (!snd?.ctx || !snd._on) return;
-  ({ onShot: gunshotSound, onReload: reloadSound, onReloadStart: gateOpenSound, onLoadRound: loadRoundSound })[kind]?.(snd, p);
+  ({ onShot: gunshotSound, onReload: reloadSound, onReloadStart: gateOpenSound, onLoadRound: loadRoundSound })[kind]?.(snd, p, ...more);
 }
 
 // ── 소리 (sound.js 의 이벤트·묶음을 그대로 빌려 쓴다: 전체 음량·끄기·먹먹함을 따른다) ──
 /** 총소리: 짧고 센 잡음 터짐 + 낮은 "쿵" + 경기장에 울리는 꼬리 */
 export function gunshotSound(snd, pos) {
+  void prepareRevolverReload(snd); // 첫 사격부터 미리 읽어 장전 때 녹음이 준비되도록 한다.
   if (snd.gunshot) return snd.gunshot({ pos }); // 30차: 총성은 sound.js 의 gunshot 이 낸다 (.357/.44급 + 무대 울림). 아래는 옛 소리 — sound.js 가 오래된 판일 때만
   const c = snd.ctx;
   const ev = snd.event({ bus: snd.metalBus, gain: 2.2, prio: 3, pos }); // 사장님 '총성도 크게': 1.2 → 2.2 (약 +5 dB)
@@ -546,68 +548,25 @@ export function gunshotSound(snd, pos) {
   ev.srcs.push(src, o);
   ev.end = t + 0.62;
 }
-/** 짧은 쇳소리 몇 개 (장전 소리들이 같이 쓴다): [[시각 s, 중심 주파수 Hz, 세기, 길이 s], ...] */
-function clicks(snd, pos, list, gain, q = 6) {
-  const c = snd.ctx;
-  const ev = snd.event({ bus: snd.metalBus, gain, prio: 1, pos });
-  const t0 = c.currentTime;
-  const nb = snd._noiseBuf();
-  let end = t0;
-  for (const [dt, f, amp, len] of list) {
-    const t = t0 + dt;
-    const src = c.createBufferSource();
-    src.buffer = nb;
-    const bp = c.createBiquadFilter();
-    bp.type = 'bandpass';
-    bp.frequency.value = f;
-    bp.Q.value = q;
-    const g = c.createGain();
-    g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(amp, t + 0.001);
-    g.gain.exponentialRampToValueAtTime(0.001, t + len);
-    src.connect(bp).connect(g).connect(ev.input);
-    src.start(t, Math.random() * 3);
-    src.stop(t + len + 0.01);
-    ev.srcs.push(src);
-    end = Math.max(end, t + len + 0.01);
-  }
-  ev.end = end;
+// 기존 장전 합성음이 소비하던 전역 난수 수를 유지한다. 녹음 선택/대체음은 별도 난수를 쓴다.
+// 소리 교체만으로 전투 난수 순서가 바뀌지 않도록 7 + (6 × 2) + 2회를 보존한다.
+function retainReloadRandom(count) {
+  for (let i = 0; i < count; i++) Math.random();
 }
-/** 장전 시작: 게이트를 열고(딸깍) 빈 탄피 여섯을 밀어내 떨어뜨린다(짤랑) */
+/** 실린더 열기와 탄피 처리: 실제 리볼버 조작 녹음의 편집 구간. */
 export function gateOpenSound(snd, pos) {
-  const list = [[0, 2800, 0.9, 0.05]];
-  for (let i = 0; i < 6; i++) list.push([0.25 + i * 0.07, 5200 + 400 * (i % 3), 0.35, 0.04]);
-  clicks(snd, pos, list, 0.45);
+  retainReloadRandom(7);
+  return playRevolverReload(snd, pos, 'open');
 }
-/** 한 발 넣기: 탄이 약실에 닿는 낮은 금속음 + 실린더의 "찰칵". 기존 스케줄이 여섯 번 호출한다. */
-export function loadRoundSound(snd, pos) {
-  // 두 소스·난수 호출 수는 유지하고 대역과 잔향을 넓혀 장전 한 발씩을 분명히 들려준다.
-  clicks(snd, pos, [[0, 1500, 1, 0.08], [0.10, 3600, 0.8, 0.045]], 0.75, 3);
+/** 한 발 삽입: 기존 물리 스케줄이 전달한 1~6번에 대응하는 서로 다른 녹음. */
+export function loadRoundSound(snd, pos, roundNumber) {
+  retainReloadRandom(2);
+  return playRevolverReload(snd, pos, 'insert', roundNumber);
 }
-/** 장전 소리(끝): 게이트를 닫고 공이치기를 젖히는 쇳소리 두 번 "철-컥" */
+/** 장전 완료의 잠금: 실제 리볼버 조작 녹음. */
 export function reloadSound(snd, pos) {
-  const c = snd.ctx;
-  const ev = snd.event({ bus: snd.metalBus, gain: 0.5, prio: 1, pos });
-  const t0 = c.currentTime;
-  const nb = snd._noiseBuf();
-  for (const [dt, f, amp] of [[0, 3200, 0.9], [0.13, 2400, 1.1]]) {
-    const t = t0 + dt;
-    const src = c.createBufferSource();
-    src.buffer = nb;
-    const bp = c.createBiquadFilter();
-    bp.type = 'bandpass';
-    bp.frequency.value = f;
-    bp.Q.value = 6;
-    const g = c.createGain();
-    g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(amp, t + 0.001);
-    g.gain.exponentialRampToValueAtTime(0.001, t + 0.06);
-    src.connect(bp).connect(g).connect(ev.input);
-    src.start(t, Math.random() * 3);
-    src.stop(t + 0.07);
-    ev.srcs.push(src);
-  }
-  ev.end = t0 + 0.25;
+  retainReloadRandom(2);
+  return playRevolverReload(snd, pos, 'close');
 }
 
 /**
@@ -633,7 +592,7 @@ export function gunAI(ai, dt) {
   ai.hand.set(0, 0); // 사격 자세(gunPose)는 조준 패드를 읽지 않는다 — 손 목표만 가운데에 둔다
   ai.handSpeed = 1.2;
   ai.moveHand(dt);
-  // 흔들리는 총구가 상대의 무릎 위 몸 부위(허벅지·골반·배·가슴·머리) 중 하나에서 aiAimTol° 안으로 들어왔을 때만 쏜다 (팔을 뻗는 중이나 장전 뒤 내려오는 중엔 쏘지 않는다)
+  // 흔들리는 총구가 상대의 골반 이상 몸 부위(골반·배·가슴·머리) 중 하나에서 aiAimTol° 안으로 들어왔을 때만 쏜다 (팔을 뻗는 중이나 장전 뒤 내려오는 중엔 쏘지 않는다)
   const aimed = aimErr(me) < GUN.aiAimTol;
   if (ai.gunT >= GUN.aiFirst && aimed && d < 7 && (me.gun?.cool ?? 0) <= 0 && me.skill.thrust({ step: false })) state(me).aim = 0.5 + 0.5 * (ai.level?.skill ?? 0.7);
 }

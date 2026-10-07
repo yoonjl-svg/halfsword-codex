@@ -1,6 +1,6 @@
 # 혼합안 독립 개발 인계
 
-**사용자 후속 요청 ·10/08:** [리볼버 상반신 조준·75J](../strike/revolver_aim_20261008.md)를 검사했다. 일반판 공개 여부는 [전달 영수증](../strike/revolver_aim_release.json)을 따른다. [게임 문구 검토표·수정분 반영 도구](../text/WORKFLOW.md)를 준비했다. Google 연결이 없어 실제 Google 문서 생성은 미완료다.4단계 다음 순서는 ACTIVE_PLAN 기준이다.
+**사용자 최신 후속 ·10/08:** [빠른 불규칙 리볼버 손떨림·실제 GP100 장전 녹음](../strike/revolver_reload_tremor_20261008.md)을 구현·검사했다. 골반 이상 조준·75J·9초 장전을 유지하며 [실제 공개 상태](../strike/revolver_reload_tremor_release.json)를 따른다. [게임 문구 검토표](../text/WORKFLOW.md)는 사용자 제공 Google 문서로 이전 중이다. 실제 저장·재확인은 문구 전달 영수증 기준이다. 4단계 다음 순서는 ACTIVE_PLAN을 따른다.
 
 **사용자 추가 요청 ·10/08:** [리볼버 총성+15%·6발 장전음 개선](../sound/revolver_audio_20261008.md). 장전 시간·총알/피해/조작은 유지하며 [실제 전달 상태](../sound/revolver_audio_release.json)를 따른다. 4단계 다음 개발 순서는 아래 및 ACTIVE_PLAN 기준이다.
 

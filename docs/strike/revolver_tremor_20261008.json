@@ -1,0 +1,141 @@
+{
+  "raw": "/workspace/halfsword-handoff/revolver-tremor-20261008/comparison-1.json",
+  "pass": true,
+  "sourceStable": true,
+  "physicsSteps": 5040,
+  "distinctSettings": 3,
+  "repeatNote": "Seeds 19 and 29 yield exact motion repeats in this passive fixture because the gun RNG depends on fighter index. They are repeatability evidence, not independent combat situations.",
+  "rows": [
+    {
+      "preset": "base",
+      "actualMeanDegSec": 10.642495150688804,
+      "actualBand2to12CombinedRmsDeg": 0.06373100506631835,
+      "trackingMeanDeg": 0.06642498762830643,
+      "bodylineMaxMeters": 0.2487125494980613,
+      "maxActualStepDeg": 0.32280609079805045,
+      "shot": {
+        "t": 6.700000000000123,
+        "position": [
+          -1.262096511443676,
+          1.3719008376862274,
+          0.1403553626122543
+        ],
+        "direction": [
+          0.9962662132459864,
+          -0.06824849000089897,
+          -0.05287509770298416
+        ],
+        "spreadDeg": 0.4500457680052632,
+        "spreadBoundDeg": 1.057119199354807,
+        "dist": 3.0984957218170166,
+        "seed": 2842278042
+      }
+    },
+    {
+      "preset": "hold-only",
+      "actualMeanDegSec": 12.966794785409094,
+      "actualBand2to12CombinedRmsDeg": 0.4301493617994772,
+      "trackingMeanDeg": 0.11000046711222122,
+      "bodylineMaxMeters": 0.2907654969476561,
+      "maxActualStepDeg": 0.4007507561203718,
+      "shot": {
+        "t": 6.700000000000123,
+        "position": [
+          -1.2629054834273903,
+          1.3622455010311278,
+          0.1306251293976319
+        ],
+        "direction": [
+          0.9965333168650454,
+          -0.07152277589797235,
+          -0.042495186854506914
+        ],
+        "spreadDeg": 0.4479887365555838,
+        "spreadBoundDeg": 1.0522873284960776,
+        "dist": 3.1081745624542236,
+        "seed": 2842278042
+      }
+    },
+    {
+      "preset": "random-dominant",
+      "actualMeanDegSec": 18.288884059368936,
+      "actualBand2to12CombinedRmsDeg": 0.8612020823597525,
+      "trackingMeanDeg": 0.1835153079443141,
+      "bodylineMaxMeters": 0.29011502749317886,
+      "maxActualStepDeg": 0.693279790036044,
+      "shot": {
+        "t": 6.700000000000123,
+        "position": [
+          -1.2652670898855403,
+          1.3512516481777903,
+          0.11175570978165719
+        ],
+        "direction": [
+          0.9962167269835911,
+          -0.07497722610523926,
+          -0.04393914477621518
+        ],
+        "spreadDeg": 0.4462535723984396,
+        "spreadBoundDeg": 1.0482116488315063,
+        "dist": 3.112025022506714,
+        "seed": 2842278042
+      }
+    }
+  ],
+  "baseCommit": "54119dda23f1dd56c5066f75c3388e71a3a0cb02",
+  "executedCommit": "54119dda23f1dd56c5066f75c3388e71a3a0cb02",
+  "command": "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node /workspace/halfsword-codex/tools/sim/revolver_tremor_20261008.mjs /workspace/halfsword-handoff/revolver-tremor-20261008/comparison-1.json",
+  "sourceBefore": {
+    "src/gun.js": "69ed170ff489c46031821b2979e44e1d4d62cef6de9546252402df51cac36325",
+    "src/fighter.js": "ee6b1c5a513fe65d7b3e79a476fb70fecf816f96ec4a7fb7bfb4b81cfdcec3ac",
+    "src/skill.js": "c1ce462057175f684f8b89c79f668835c69b9dd2ef3cdfbd1e155f73411668e5",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "src/combat.js": "adf58b520e29b3618d021bceb341d679eadfe0ef103fbe821928ec222259a9a8",
+    "src/sound.js": "4a903e6595f1da0fdbd5d585491e5a9823c5832b5369588b5c389ebc0cace83f"
+  },
+  "sourceAfter": {
+    "src/gun.js": "69ed170ff489c46031821b2979e44e1d4d62cef6de9546252402df51cac36325",
+    "src/fighter.js": "ee6b1c5a513fe65d7b3e79a476fb70fecf816f96ec4a7fb7bfb4b81cfdcec3ac",
+    "src/skill.js": "c1ce462057175f684f8b89c79f668835c69b9dd2ef3cdfbd1e155f73411668e5",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "src/combat.js": "adf58b520e29b3618d021bceb341d679eadfe0ef103fbe821928ec222259a9a8",
+    "src/sound.js": "4a903e6595f1da0fdbd5d585491e5a9823c5832b5369588b5c389ebc0cace83f"
+  },
+  "toolSha256": "7790fb474d14c326296883626aca81c441d9cad692571189268cd1e4fe5f7469",
+  "presets": [
+    {
+      "name": "base",
+      "settings": {
+        "swayRandHold": 0.45,
+        "swayRandYaw": 5,
+        "swayRandPitch": 5
+      }
+    },
+    {
+      "name": "hold-only",
+      "settings": {
+        "swayRandHold": 0.14,
+        "swayRandYaw": 5,
+        "swayRandPitch": 5
+      }
+    },
+    {
+      "name": "random-dominant",
+      "settings": {
+        "swayRandHold": 0.14,
+        "swayRandYaw": 18,
+        "swayRandPitch": 12
+      }
+    }
+  ],
+  "rawEvidence": {
+    "path": "/workspace/halfsword-handoff/revolver-tremor-20261008/comparison-1.json",
+    "bytes": 4064532,
+    "sha256": "a47d78a7313995fc167d32c17799c3bfa1119a9547356e5ff402747a399493e5"
+  },
+  "limitations": [
+    "Three runtime presets on one production source; not three independently checked-out versions.",
+    "Two seeds repeat exactly because firearm random source depends on fighter index. Not independent combat situations.",
+    "Passive native opponent; active AI and touch verified separately. No human accuracy/naturalness conclusion."
+  ]
+}
