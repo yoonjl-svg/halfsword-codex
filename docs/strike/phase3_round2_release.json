@@ -1,0 +1,66 @@
+{
+  "status": "research_complete_delivery_pending",
+  "baseHead": "ea6b1d3bc944ebdb1f47598cefd1b9eccac82019",
+  "ordinaryURL": "https://yoonjl-svg.github.io/halfsword-codex/",
+  "planURL": "https://yoonjl-svg.github.io/halfsword-codex/development-plan.html#section-2",
+  "productionChanged": false,
+  "newComparison": false,
+  "mainAsset": {
+    "mainAsset": "assets/main-CxbuHD3X.js",
+    "sha256": "10512a9b502c1bdc50f61a5130049ac62370f83a25dd3d99084b9cbc9861371a"
+  },
+  "changedPublicFiles": [
+    "development-plan.html"
+  ],
+  "unchangedPublicFiles": [
+    "index.html",
+    "feature-lab.html",
+    "sounds.html",
+    "assets/main-CxbuHD3X.js",
+    "assets/sound-DxsKXzPO.js",
+    "assets/soundgen-BDle7v6J.js",
+    "assets/sounds-sY_jtToy.js"
+  ],
+  "research": [
+    "phase3_cut_link_20261007.json",
+    "phase3_parry_20261007.json",
+    "phase3_damage_visual_20261007.json"
+  ],
+  "gameVerification": {
+    "newPublicEpisode": "phase3_damage_visual_20261007.json",
+    "restartReusedFrom": "phase3_round1_release.json",
+    "reusedScope": "Existing current-asset mobile local7/public4 flows; ordinary play/restart local row and public comparison-to-ordinary exit/reload. No new restart run this round.",
+    "exactSameMainAsset": true
+  },
+  "limbEvidenceReuse": {
+    "raw": {
+      "path": "/workspace/halfsword-handoff/limb-default-20261007/limb-sever.json",
+      "bytes": 171149,
+      "sha256": "35ce53998c24d4710e011492bd2766717ff4a2528a381cdb3ad3d7dc4e1c3ba7"
+    },
+    "assertions": 101,
+    "pass": true,
+    "unchangedRelevantSource": {
+      "src/limb_sever.js": "08313ce99ff5d33abc95a5eac0f205eb6507e3cf47cd6854f7e080ac5d428499",
+      "src/fighter.js": "dd855f9c7557993891a95c35b55999f6f0c71b4eba029889b7212f5adaa362e4",
+      "src/config.js": "6e2c678ef8af30eeb730f38c3c6a5eac370babdf0071c249e1c2d474c7aa331b",
+      "src/gait.js": "b74787f16687708bbc4ee3d89ec3acf247d561973131fda08cde761488e8d369",
+      "src/cut_centerline.js": "98e522cfcde4f03c4d6d34dd57f7a8fa301a5a28028ddcce366cc600f86bf453"
+    },
+    "unchangedVisualSourceVsDeliveredGame": {
+      "src/limb_sever_fx.js": "bd1fce7c2c016f500f1a84fb97309913543ba64477dcb3a96668da3766ab8817",
+      "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d"
+    },
+    "priorDeliveredGame": "4b8c81c41c1d85ed3844d6590ed72f13ef9cc406",
+    "limits": "Prior controlled native-contact severing and synthetic visual preview. Current browser has a natural cut but no natural sever. Combat/main changed for optional armor finish since the previous limb receipt; ordinary legacy behavior and original onWound/sever handling preserved."
+  },
+  "public": {
+    "status": "pending"
+  },
+  "limits": [
+    "Representative connections verified, not a complete tissue-energy model or all weapons/natural motion.",
+    "Browser object render callbacks prove submission; individual tiny wound lines remain visually unconfirmed. Auxiliary renderer sampler inactive and not passed.",
+    "New natural sever occurrence/rate not tested.",
+    "Optional armorGuard remains pending user promotion; deferred offhand injury and withheld v2 weapons unchanged."
+  ]
+}

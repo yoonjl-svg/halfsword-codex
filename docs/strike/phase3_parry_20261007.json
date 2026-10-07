@@ -1,0 +1,797 @@
+{
+  "schemaVersion": 1,
+  "updatedUTC": "2026-10-07T11:50:41.732754+00:00",
+  "head": "ea6b1d3bc944ebdb1f47598cefd1b9eccac82019",
+  "status": "Narrow current parry→reaction→actual blunt damage linkage verified; no new production mismatch established; no gameplay changes.",
+  "scope": "One recorded seed7 authored sabre/longsword episode, current ordinary player v2/manual/fresh/bounded/centerline, limbON,g9.81; opponent default harness AI, not a published persona.",
+  "source": {
+    "frozenRoot": "/workspace/halfsword-handoff/phase3-round2-20261007/parry",
+    "manifest": {
+      "path": "/workspace/halfsword-handoff/phase3-round2-20261007/parry/SOURCE.json",
+      "bytes": 9734,
+      "sha256": "b6757ed0d0ca2c9fb2e002c67bab0876fcacebb77805fc5322712b1fc81fb4b8"
+    },
+    "runtimeUnmodified": true,
+    "sourceStable": true,
+    "priorHead": "f395a13b6c62c5f15faa017270eebad5c3f0618f",
+    "priorFullSourceChangedFiles": [
+      "src/combat.js",
+      "src/finish_rule.js",
+      "src/main.js",
+      "src/swordsmanship_default.js",
+      "tools/sim/experiments/spin_followup_20261007.mjs"
+    ],
+    "unchangedRelevantCombatRegions": {
+      "afterStep": {
+        "sha256": "9d15c77c76eb666ecfe310130a92e805d0e9843b704bfefacc8d893aa60a1ba9",
+        "oldSHA256": "9d15c77c76eb666ecfe310130a92e805d0e9843b704bfefacc8d893aa60a1ba9",
+        "exact": true
+      },
+      "bladeClash": {
+        "sha256": "9bd5a5a9f6b93d156f4e57f96f595db18164fede20ba81ef1cdf05a0b6d1f26c",
+        "oldSHA256": "9bd5a5a9f6b93d156f4e57f96f595db18164fede20ba81ef1cdf05a0b6d1f26c",
+        "exact": true
+      },
+      "strike": {
+        "sha256": "bbfb74d5c8712db5d766c33ec8d25b55dcc68c761e735f3449bd223e01a40a8b",
+        "oldSHA256": "bbfb74d5c8712db5d766c33ec8d25b55dcc68c761e735f3449bd223e01a40a8b",
+        "exact": true
+      },
+      "gripTwist": {
+        "sha256": "b721cf44328adc9828d3b377e78459ee7637a323b69e43e5f5febc016843a138",
+        "oldSHA256": "b721cf44328adc9828d3b377e78459ee7637a323b69e43e5f5febc016843a138",
+        "exact": true
+      },
+      "contactOf": {
+        "sha256": "6fd6d165d4ea56f5699958b841199fa3ef143c751e02802bf0915832d03b672f",
+        "oldSHA256": "6fd6d165d4ea56f5699958b841199fa3ef143c751e02802bf0915832d03b672f",
+        "exact": true
+      }
+    },
+    "lockfileSHA256": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+    "rapierModuleSHA256": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+    "rapierWasmSHA256": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+    "node": "v24.19.0"
+  },
+  "execution": {
+    "newNativeExecutions": 2,
+    "steps": 1734,
+    "runnerWallSecondsSum": 11.830264346,
+    "meaning": "One observed run plus observer-off equivalence, not two independent gameplay samples. No seed, weapon, gain or physics sweep.",
+    "commands": [
+      [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/phase3-round2-20261007/parry/tools/sim/experiments/phase3_parry_20261007.mjs",
+        "--input=/workspace/halfsword-handoff/deferred-20261007/spin/contact03/sabre-common.jsonl",
+        "--out=/workspace/halfsword-handoff/phase3-round2-20261007/parry/observed",
+        "--observe=1"
+      ],
+      [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/phase3-round2-20261007/parry/tools/sim/experiments/phase3_parry_20261007.mjs",
+        "--input=/workspace/halfsword-handoff/deferred-20261007/spin/contact03/sabre-common.jsonl",
+        "--out=/workspace/halfsword-handoff/phase3-round2-20261007/parry/observer-off",
+        "--observe=0"
+      ]
+    ],
+    "noBrowserNoProductionEdit": true
+  },
+  "input": {
+    "path": "/workspace/halfsword-handoff/deferred-20261007/spin/contact03/sabre-common.jsonl",
+    "sha256": "c32ecbf869dc90fab5271f724f4cfaabcf50a0e1f10bd99240d0d41ee81eb46e",
+    "requestSHA256": "7d772411dc5352513c2787689d7fbf267933a300552ef8b20940de3a0af64f71",
+    "rows": 867
+  },
+  "equivalence": {
+    "currentObserverOnOff": {
+      "tick": true,
+      "request": true,
+      "applied": true,
+      "nativeSHA256": true,
+      "health": true,
+      "postCombat": true,
+      "controller": true
+    },
+    "returnedCallbacksExact": true,
+    "currentToPriorContact03NativeStepsExact": 867,
+    "priorContact03ToObserverOff01": [
+      {
+        "mode": "previous",
+        "nativeTraceExact": true
+      },
+      {
+        "mode": "common",
+        "nativeTraceExact": true
+      }
+    ],
+    "setup": "applySwordsmanship leaves level0/autoGuardfalse. Player controls replay recorded request tape, including original approach. Normal enemy AI computes its own inputs each run. No body transforms, velocities, wound or knockdown preparation."
+  },
+  "majorParry": {
+    "tick": 582,
+    "priorObservationReused": true,
+    "preNative": [
+      {
+        "p": [
+          2.971709966659546,
+          1.4982830286026,
+          0.3718276619911194
+        ],
+        "q": [
+          0.05862940847873688,
+          0.02679966390132904,
+          -0.6545301675796509,
+          0.7532825469970703
+        ],
+        "v": [
+          3.7690441608428955,
+          -6.197915077209473,
+          2.5593819618225098
+        ],
+        "w": [
+          -2.334535598754883,
+          -3.1455020904541016,
+          -6.253423690795898
+        ],
+        "axis": [
+          0.9892348003255651,
+          0.1363057043791751,
+          0.053246643286758655
+        ],
+        "axial": -3.0711275555374993,
+        "omega": 7.378993679324596,
+        "tipSpeed": 11.641285370184658
+      },
+      {
+        "p": [
+          3.764420509338379,
+          1.5246005058288574,
+          0.43412846326828003
+        ],
+        "q": [
+          -0.717862069606781,
+          0.6823695302009583,
+          -0.04241412132978439,
+          0.1313278079032898
+        ],
+        "v": [
+          2.16381573677063,
+          1.599132776260376,
+          -0.09807194024324417
+        ],
+        "w": [
+          5.228847026824951,
+          1.8304643630981445,
+          -1.1441125869750977
+        ],
+        "axis": [
+          -0.968554099216564,
+          -0.03424981733661714,
+          -0.2464347120481376
+        ],
+        "axial": -4.84516523616309,
+        "omega": 5.656892665252124,
+        "tipSpeed": 4.438110140666399
+      }
+    ],
+    "postNative": [
+      {
+        "p": [
+          2.9981117248535156,
+          1.4596312046051025,
+          0.3867895007133484
+        ],
+        "q": [
+          0.250997930765152,
+          0.25620412826538086,
+          -0.5959724187850952,
+          0.7184541821479797
+        ],
+        "v": [
+          2.5971665382385254,
+          -2.6223971843719482,
+          2.241431951522827
+        ],
+        "w": [
+          48.9496955871582,
+          6.236869812011719,
+          9.768441200256348
+        ],
+        "axis": [
+          0.9849711655381981,
+          0.16363382959811013,
+          0.05527983808733339
+        ],
+        "axial": 49.774599455183335,
+        "omega": 50.303018663001765,
+        "tipSpeed": 4.209307701501026
+      },
+      {
+        "p": [
+          3.7860145568847656,
+          1.5259010791778564,
+          0.43119701743125916
+        ],
+        "q": [
+          -0.692269504070282,
+          0.6229199171066284,
+          0.1713101863861084,
+          0.32153794169425964
+        ],
+        "v": [
+          2.5381691455841064,
+          0.3176709711551666,
+          0.002477421658113599
+        ],
+        "w": [
+          73.06085968017578,
+          3.2658603191375732,
+          16.01476287841797
+        ],
+        "axis": [
+          -0.9726223736255122,
+          -0.017168492450714723,
+          -0.23175676866661732
+        ],
+        "axial": -74.82822635515149,
+        "omega": 74.86673287169948,
+        "tipSpeed": 3.1868541525058918
+      }
+    ],
+    "postBladeClash": [
+      {
+        "p": [
+          2.9981117248535156,
+          1.4596312046051025,
+          0.3867895007133484
+        ],
+        "q": [
+          0.250997930765152,
+          0.25620412826538086,
+          -0.5959724187850952,
+          0.7184541821479797
+        ],
+        "v": [
+          2.5971665382385254,
+          -2.6223971843719482,
+          2.241431951522827
+        ],
+        "w": [
+          39.321998596191406,
+          4.637414455413818,
+          9.228102684020996
+        ],
+        "axis": [
+          0.9849711655381981,
+          0.16363382959811013,
+          0.05527983808733339
+        ],
+        "axial": 40.000000697581,
+        "omega": 40.65566461856202,
+        "tipSpeed": 4.209308279852911
+      },
+      {
+        "p": [
+          3.7860145568847656,
+          1.5259010791778564,
+          0.43119701743125916
+        ],
+        "q": [
+          -0.692269504070282,
+          0.6229199171066284,
+          0.1713101863861084,
+          0.32153794169425964
+        ],
+        "v": [
+          2.5381691455841064,
+          0.3176709711551666,
+          0.002477421658113599
+        ],
+        "w": [
+          39.1861457824707,
+          2.667912244796753,
+          7.943085670471191
+        ],
+        "axis": [
+          -0.9726223736255122,
+          -0.017168492450714723,
+          -0.23175676866661732
+        ],
+        "axial": -39.99999002364648,
+        "omega": 40.0719900553919,
+        "tipSpeed": 3.1868546407784852
+      }
+    ],
+    "steelPairs": [
+      {
+        "a": {
+          "fighter": 0,
+          "part": "blade"
+        },
+        "b": {
+          "fighter": 1,
+          "part": "hilt"
+        },
+        "manifolds": [
+          {
+            "flipped": false,
+            "normal": [
+              -0.03673795238137245,
+              -0.12088619917631149,
+              0.9919863343238831
+            ],
+            "contacts": [
+              {
+                "distance": -0.016968991607427597,
+                "normalImpulse": 0.8017598390579224,
+                "tangentX": 0,
+                "tangentY": 0
+              },
+              {
+                "distance": -0.01705118641257286,
+                "normalImpulse": 0.3515644371509552,
+                "tangentX": 0,
+                "tangentY": 0
+              },
+              {
+                "distance": -0.023111101239919662,
+                "normalImpulse": 0.2293258011341095,
+                "tangentX": 0,
+                "tangentY": 0
+              },
+              {
+                "distance": -0.023193294182419777,
+                "normalImpulse": 0.1312987059354782,
+                "tangentX": 0,
+                "tangentY": 0
+              }
+            ],
+            "solver": [
+              {
+                "point": [
+                  3.6688718795776367,
+                  1.5787545442581177,
+                  0.40339523553848267
+                ],
+                "distance": -0.016968991607427597
+              },
+              {
+                "point": [
+                  3.6667795181274414,
+                  1.6105504035949707,
+                  0.4072338938713074
+                ],
+                "distance": -0.01705118641257286
+              },
+              {
+                "point": [
+                  3.63985013961792,
+                  1.5751113891601562,
+                  0.39878058433532715
+                ],
+                "distance": -0.023111101239919662
+              },
+              {
+                "point": [
+                  3.6377577781677246,
+                  1.6069071292877197,
+                  0.40261924266815186
+                ],
+                "distance": -0.023193294182419777
+              }
+            ]
+          }
+        ],
+        "live": {
+          "distance": -0.014859971590340137,
+          "point1": [
+            3.6533775329589844,
+            1.5775070190429688,
+            0.4377093017101288
+          ],
+          "point2": [
+            3.652444839477539,
+            1.5869777202606201,
+            0.42629632353782654
+          ],
+          "normal1": [
+            0.0627749040722847,
+            -0.6373263597488403,
+            0.7680327296257019
+          ]
+        }
+      },
+      {
+        "a": {
+          "fighter": 0,
+          "part": "blade"
+        },
+        "b": {
+          "fighter": 1,
+          "part": "blade"
+        },
+        "manifolds": [
+          {
+            "flipped": false,
+            "normal": [
+              0.1456260085105896,
+              -0.8811318874359131,
+              -0.44988852739334106
+            ],
+            "contacts": [
+              {
+                "distance": 0.03109484165906906,
+                "normalImpulse": 0.3465803265571594,
+                "tangentX": 0,
+                "tangentY": 0
+              },
+              {
+                "distance": 0.028010500594973564,
+                "normalImpulse": 0.5119963884353638,
+                "tangentX": 0,
+                "tangentY": 0
+              },
+              {
+                "distance": 0.0254534725099802,
+                "normalImpulse": 0.592574954032898,
+                "tangentX": 0,
+                "tangentY": 0
+              },
+              {
+                "distance": 0.022369129583239555,
+                "normalImpulse": 1.5568867921829224,
+                "tangentX": 0,
+                "tangentY": 0
+              }
+            ],
+            "solver": [
+              {
+                "point": [
+                  3.630340576171875,
+                  1.5584514141082764,
+                  0.40263813734054565
+                ],
+                "distance": 0.03109484165906906
+              },
+              {
+                "point": [
+                  3.5930233001708984,
+                  1.55576491355896,
+                  0.39239245653152466
+                ],
+                "distance": 0.028010500594973564
+              },
+              {
+                "point": [
+                  3.5620317459106445,
+                  1.5515811443328857,
+                  0.40025246143341064
+                ],
+                "distance": 0.0254534725099802
+              },
+              {
+                "point": [
+                  3.5247132778167725,
+                  1.5488946437835693,
+                  0.3900066018104553
+                ],
+                "distance": 0.022369129583239555
+              }
+            ]
+          }
+        ],
+        "live": {
+          "distance": 0.008931816555559635,
+          "point1": [
+            3.6554770469665527,
+            1.5537261962890625,
+            0.4161885678768158
+          ],
+          "point2": [
+            3.6569151878356934,
+            1.5469930171966553,
+            0.41049885749816895
+          ],
+          "normal1": [
+            0.1609891653060913,
+            -0.7538502812385559,
+            -0.6370182633399963
+          ]
+        }
+      }
+    ],
+    "hook": {
+      "fresh": true,
+      "vn": 10.166714297771,
+      "vt": 3.1949374896722307,
+      "force": 542.638441037617,
+      "impulse": 4.521987244486809,
+      "normal": [
+        0.13357449678466346,
+        -0.9896799085585575,
+        0.05187998076569539
+      ]
+    },
+    "damageSameStep": 0,
+    "damageNextStep": 0,
+    "healthUnchangedAcrossClash": true,
+    "playerAxisRadps": {
+      "beforeNative": -3.0711275555374993,
+      "afterNative": 49.774599455183335,
+      "afterClash": 40.000000697581
+    },
+    "opponentAxisRadps": {
+      "beforeNative": -4.84516523616309,
+      "afterNative": -74.82822635515149,
+      "afterClash": -39.99999002364648
+    },
+    "existingGripApproximation": {
+      "kineticEnergyDeltaJ": -2.071328587444526,
+      "totalLinearMomentumUnchanged": true,
+      "totalAngularMomentumDeltaWorldOriginNms": {
+        "x": -0.03531093126718332,
+        "y": -0.0007689402055177652,
+        "z": -0.008237270617172499
+      },
+      "normNms": 0.03626714440393591,
+      "classification": "Known existing fresh-weapon gripTwist setAngvel approximation; records angular momentum loss rather than hidden body transfer. Not a new defect or authority to revive rejected body-contact cap.",
+      "positionAndOrientationUnchangedAcrossClash": true
+    }
+  },
+  "laterContacts": [
+    {
+      "tick": 597,
+      "secondsAfterMajorParry": 0.125,
+      "attacker": 1,
+      "victim": 0,
+      "part": "chest",
+      "zone": "neck",
+      "type": "blunt",
+      "energyJ": 13.574008176223922,
+      "passing": false,
+      "solverDistancesM": [
+        -0.020836055278778076,
+        -0.012525022029876709,
+        0.0003279000520706177,
+        0.007807731628417969
+      ],
+      "liveDistanceM": -0.019571460783481598,
+      "applied": true,
+      "newWounds": 0,
+      "changes": [
+        {
+          "consciousness": [
+            1,
+            0.9030427987412577
+          ],
+          "daze": [
+            0,
+            0.13574008176223923
+          ],
+          "pain": [
+            0,
+            0.09049338784149281
+          ],
+          "balance": [
+            100,
+            93.21299591188804
+          ]
+        }
+      ]
+    },
+    {
+      "tick": 601,
+      "secondsAfterMajorParry": 0.15833333333333333,
+      "attacker": 1,
+      "victim": 0,
+      "part": "head",
+      "zone": "neck",
+      "type": "blunt",
+      "energyJ": 11.849595165543347,
+      "passing": false,
+      "solverDistancesM": [
+        0.004129059612751007
+      ],
+      "liveDistanceM": -0.0018194019794464111,
+      "applied": true,
+      "newWounds": 0,
+      "changes": [
+        {
+          "consciousness": [
+            0.9040427987412576,
+            0.8194028332730908
+          ],
+          "daze": [
+            0.13174008176223923,
+            0.2502360334176727
+          ],
+          "pain": [
+            0.0704933878414928,
+            0.1494906889451151
+          ],
+          "balance": [
+            93.94632924522139,
+            88.02153166244972
+          ]
+        }
+      ]
+    },
+    {
+      "tick": 641,
+      "secondsAfterMajorParry": 0.49166666666666664,
+      "attacker": 1,
+      "victim": 0,
+      "part": "chest",
+      "zone": "neck",
+      "type": "blunt",
+      "energyJ": 6.7776949807901,
+      "passing": false,
+      "solverDistancesM": [
+        -0.0038979139644652605,
+        -0.0006613968871533871
+      ],
+      "liveDistanceM": -0.003643597010523081,
+      "applied": false,
+      "newWounds": 0,
+      "changes": []
+    },
+    {
+      "tick": 700,
+      "secondsAfterMajorParry": 0.9833333333333333,
+      "attacker": 0,
+      "victim": 1,
+      "part": "head",
+      "zone": "head",
+      "type": "blunt",
+      "energyJ": 16.98697605574973,
+      "passing": false,
+      "solverDistancesM": [
+        0.023934997618198395
+      ],
+      "liveDistanceM": -0.003618873655796051,
+      "applied": true,
+      "newWounds": 0,
+      "changes": [
+        {
+          "consciousness": [
+            1,
+            0.8786644567446448
+          ],
+          "daze": [
+            0,
+            0.16986976055749728
+          ],
+          "pain": [
+            0,
+            0.11324650703833153
+          ],
+          "balance": [
+            100,
+            91.50651197212514
+          ]
+        }
+      ]
+    },
+    {
+      "tick": 720,
+      "secondsAfterMajorParry": 1.15,
+      "attacker": 1,
+      "victim": 0,
+      "part": "uarmS",
+      "zone": "arm",
+      "type": "blunt",
+      "energyJ": 8.803135881199188,
+      "passing": false,
+      "solverDistancesM": [
+        0.00013222917914390564,
+        0.0001322329044342041
+      ],
+      "liveDistanceM": -0.0004295595281291753,
+      "applied": false,
+      "newWounds": 0,
+      "changes": []
+    },
+    {
+      "tick": 831,
+      "secondsAfterMajorParry": 2.075,
+      "attacker": 1,
+      "victim": 0,
+      "part": "chest",
+      "zone": "chest",
+      "type": "blunt",
+      "energyJ": 7.287617252964991,
+      "passing": false,
+      "solverDistancesM": [
+        0.0017361121717840433
+      ],
+      "liveDistanceM": 0.00022829792578704655,
+      "applied": false,
+      "newWounds": 0,
+      "changes": []
+    }
+  ],
+  "damageCounts": {
+    "returnedCallbacks": 6,
+    "actualApplyWoundCalls": 3,
+    "cutOrStabWounds": 0,
+    "actualApplicationsTicks": [
+      597,
+      601,
+      700
+    ],
+    "firstAfterMajorParrySteps": 15,
+    "note": "Existing harness G.wounds logs onWound callbacks even when 6–10J blunt returns skip applyWound. Do not call all six entries actual injuries."
+  },
+  "testedHypothesis": {
+    "name": "Speculative manifold points cause premature body damage",
+    "reasonToCheck": "contactOf selects first solver contact without signed-distance filter; soft CCD prediction .2m; unlike passing path near-contact gate.",
+    "observed": "Applied hit tick601 solver+.004129m but live collider−.001819m; tick700 solver+.023935m but live collider−.003619m. All three actual applications had live penetration. Callback831 live+.000228m is7.288J, below ordinary blunt application10J, so no actual damage.",
+    "judgment": "Not supported in this episode. Positive solver distance alone would be a false bug diagnosis; no contact threshold changed."
+  },
+  "limits": [
+    "One authored current-default episode; no human parry/visual realism acceptance or all-weapon guarantee.",
+    "Current episode has parry and ordinary blunt daze but no cut/stab wound or sever; cutting/sever evidence is the separate lane.",
+    "Input and source/runtime/native equivalence are verified, not equivalence to full main emotion feedback or browser persona.",
+    "Later opponent injury is timeline linkage, not a counterfactual proof that the earlier parry caused its amount.",
+    "No same-step parry/body wound ordering failure was exposed; other geometries may differ.",
+    "Post-solver diagnostic classification uses deliberate live state and is not a replacement for cached pre-impact damage energy."
+  ],
+  "decision": "Keep production parry unchanged. Reuse narrow verified contact/application ledger; retain known angular loss limitation without widening the rejected setAngvel candidate.",
+  "next": "Combine with cutting/sever lane. Only if a real same-step injury/parry conflict appears, isolate that specific native contact before proposing damage-order changes.",
+  "rawFiles": [
+    {
+      "path": "/workspace/halfsword-handoff/deferred-20261007/spin/contact03/report.json",
+      "bytes": 245053,
+      "sha256": "c7c513bea88bc4c322a8ce170042665707b4594c75a022eb73a89e305d83ea94"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/deferred-20261007/spin/contact03/sabre-common.jsonl",
+      "bytes": 3813106,
+      "sha256": "c32ecbf869dc90fab5271f724f4cfaabcf50a0e1f10bd99240d0d41ee81eb46e"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/deferred-20261007/spin/observer-off01/report.json",
+      "bytes": 61640,
+      "sha256": "e98963ebf62cbd4307fc1c054bdb1244568459b3907aecf890ad64abe1ec82ad"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round2-20261007/parry/SOURCE.json",
+      "bytes": 9734,
+      "sha256": "b6757ed0d0ca2c9fb2e002c67bab0876fcacebb77805fc5322712b1fc81fb4b8"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round2-20261007/parry/tools/sim/experiments/phase3_parry_20261007.mjs",
+      "bytes": 11736,
+      "sha256": "016bbe2ce84b9d2860b98cead14780434bc6e546feffb7ca7ded7cbbc3753ef7"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round2-20261007/parry/observed/report.json",
+      "bytes": 132007,
+      "sha256": "66b930055b33eabc1da01c610b5591060aa03a47b377335ebe689150c0364b6f"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round2-20261007/parry/observed/frames.jsonl",
+      "bytes": 8906915,
+      "sha256": "97cb55a617e6d45fa09b6dff25fa6fe669595feefb2aee19d26d17a2d27f007b"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round2-20261007/parry/observed/events.json",
+      "bytes": 857425,
+      "sha256": "a3b774260d87fc7fcae92f652ca4aa2b914781be3a08be1f56fc3440d03dab8b"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round2-20261007/parry/observer-off/report.json",
+      "bytes": 15260,
+      "sha256": "309c45c5c8747cdb6a02af469dd00b23101a4f7800fa1fed3cb0e353112adaa1"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round2-20261007/parry/observer-off/frames.jsonl",
+      "bytes": 1501260,
+      "sha256": "b26e1b2fa974364b0811ae500ac5782c8fbdd1d8f1d06f43539012fb6e76c4d4"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round2-20261007/parry/observer-off/events.json",
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    }
+  ]
+}

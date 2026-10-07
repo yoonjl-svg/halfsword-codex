@@ -1,0 +1,389 @@
+{
+  "status": "representative_cut_links_pass_no_game_change",
+  "baselineHead": "ea6b1d3bc944ebdb1f47598cefd1b9eccac82019",
+  "policy": {
+    "v2": "unified player",
+    "stance": "fresh",
+    "recut": "bounded",
+    "cut": "centerline player",
+    "finish": "legacy",
+    "limbSever": true,
+    "gravity": 9.81
+  },
+  "runtime": {
+    "path": "/workspace/halfsword-handoff/phase3-round2-20261007/cut/runtime02/SOURCE.json",
+    "bytes": 10076,
+    "sha256": "48dff8fc70504cac4ad331e7b8978b76758237b70c3ed95ace7d48232821ae23"
+  },
+  "probe": {
+    "path": "/workspace/halfsword-codex/tools/sim/experiments/phase3_cut_link_20261007.mjs",
+    "bytes": 10672,
+    "sha256": "45c3f3cd14bc0e2d7aa676bd0570b9bb382d9f496b5100c34af6e778e3ce01b2"
+  },
+  "rows": [
+    {
+      "weapon": "longsword",
+      "raw": {
+        "path": "/workspace/halfsword-handoff/phase3-round2-20261007/cut/long-observe02/report.json",
+        "bytes": 2033057,
+        "sha256": "31ce877d6705a9c8068890dbbcfc7620fa97fd5738ca1b2e82c7feaec1bdae97"
+      },
+      "steps": 954,
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/phase3-round2-20261007/cut/runtime02/tools/sim/experiments/phase3_cut_link_20261007.mjs",
+        "--out=/workspace/halfsword-handoff/phase3-round2-20261007/cut/long-observe02",
+        "--reference=/workspace/halfsword-handoff/deferred-20261007/recut/native03/longsword-bounded.json"
+      ],
+      "sourceStable": true,
+      "oldNativeExact": true,
+      "strikesAttempted": 533,
+      "strikeFeedback": 21,
+      "actualApplyWound": 14,
+      "appendedCutWounds": 5,
+      "applyAndFeedbackLinkExact": true,
+      "woundLinks": [
+        {
+          "tick": 585,
+          "fighter": 1,
+          "part": "chest",
+          "type": "cut",
+          "energyJ": 70.47860789284849,
+          "severity": 0.27463423443375934,
+          "pass": true,
+          "stuck": true,
+          "woundsBefore": 0,
+          "woundsAfter": 1,
+          "limbsBefore": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "limbsAfter": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          }
+        },
+        {
+          "tick": 586,
+          "fighter": 1,
+          "part": "uarmO",
+          "type": "cut",
+          "energyJ": 37.58536349928499,
+          "severity": 0.16757026588443147,
+          "pass": true,
+          "stuck": true,
+          "woundsBefore": 1,
+          "woundsAfter": 2,
+          "limbsBefore": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "limbsAfter": {
+            "armS": 1,
+            "armO": 0.8827008138808979,
+            "legF": 1,
+            "legB": 1
+          }
+        },
+        {
+          "tick": 728,
+          "fighter": 1,
+          "part": "pelvis",
+          "type": "cut",
+          "energyJ": 71.50421729790904,
+          "severity": 0.32331271287175584,
+          "pass": true,
+          "stuck": true,
+          "woundsBefore": 2,
+          "woundsAfter": 3,
+          "limbsBefore": {
+            "armS": 1,
+            "armO": 0.8827008138808979,
+            "legF": 1,
+            "legB": 1
+          },
+          "limbsAfter": {
+            "armS": 1,
+            "armO": 0.8827008138808979,
+            "legF": 1,
+            "legB": 1
+          }
+        },
+        {
+          "tick": 729,
+          "fighter": 1,
+          "part": "thighF",
+          "type": "cut",
+          "energyJ": 30.10941377988293,
+          "severity": 0.012095716857086498,
+          "pass": false,
+          "stuck": true,
+          "woundsBefore": 3,
+          "woundsAfter": 4,
+          "limbsBefore": {
+            "armS": 1,
+            "armO": 0.8827008138808979,
+            "legF": 1,
+            "legB": 1
+          },
+          "limbsAfter": {
+            "armS": 1,
+            "armO": 0.8827008138808979,
+            "legF": 0.9915329982000395,
+            "legB": 1
+          }
+        },
+        {
+          "tick": 863,
+          "fighter": 1,
+          "part": "chest",
+          "type": "cut",
+          "energyJ": 60.70317643402699,
+          "severity": 0.21309708423008955,
+          "pass": true,
+          "stuck": true,
+          "woundsBefore": 4,
+          "woundsAfter": 5,
+          "limbsBefore": {
+            "armS": 1,
+            "armO": 0.8827008138808979,
+            "legF": 0.9915329982000395,
+            "legB": 1
+          },
+          "limbsAfter": {
+            "armS": 1,
+            "armO": 0.8827008138808979,
+            "legF": 0.9915329982000395,
+            "legB": 1
+          }
+        }
+      ],
+      "resistanceEvents": 151,
+      "playerCenterlineEvents": 115,
+      "cappedDrag": 0,
+      "cappedStuck": 29,
+      "budgetExhaustions": 2,
+      "largestPairKineticDeltaJ": -0.01612016769067992,
+      "maxResidual": {
+        "deltaPResidualNs": 5.525944950140825e-07,
+        "deltaLResidualNms": 1.8250946108255666e-06,
+        "deltaKResidualJ": 2.591445834809747e-06
+      }
+    },
+    {
+      "weapon": "qinggang",
+      "raw": {
+        "path": "/workspace/halfsword-handoff/phase3-round2-20261007/cut/qing-observe02/report.json",
+        "bytes": 1149161,
+        "sha256": "456274f6e3b220e10fefd8d47f32f06fb324e60ecfaea47afd9244ee822ea4f9"
+      },
+      "steps": 954,
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/phase3-round2-20261007/cut/runtime02/tools/sim/experiments/phase3_cut_link_20261007.mjs",
+        "--out=/workspace/halfsword-handoff/phase3-round2-20261007/cut/qing-observe02",
+        "--reference=/workspace/halfsword-handoff/deferred-20261007/recut/native03/qinggang-bounded.json"
+      ],
+      "sourceStable": true,
+      "oldNativeExact": true,
+      "strikesAttempted": 230,
+      "strikeFeedback": 15,
+      "actualApplyWound": 10,
+      "appendedCutWounds": 4,
+      "applyAndFeedbackLinkExact": true,
+      "woundLinks": [
+        {
+          "tick": 632,
+          "fighter": 0,
+          "part": "uarmS",
+          "type": "cut",
+          "energyJ": 83.54354147295044,
+          "severity": 0.7681566011378058,
+          "pass": true,
+          "stuck": false,
+          "woundsBefore": 0,
+          "woundsAfter": 1,
+          "limbsBefore": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "limbsAfter": {
+            "armS": 0.462290379203536,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          }
+        },
+        {
+          "tick": 636,
+          "fighter": 0,
+          "part": "chest",
+          "type": "cut",
+          "energyJ": 51.66966612880771,
+          "severity": 0.1458986075275678,
+          "pass": true,
+          "stuck": true,
+          "woundsBefore": 1,
+          "woundsAfter": 2,
+          "limbsBefore": {
+            "armS": 0.462290379203536,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "limbsAfter": {
+            "armS": 0.462290379203536,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          }
+        },
+        {
+          "tick": 728,
+          "fighter": 1,
+          "part": "uarmS",
+          "type": "cut",
+          "energyJ": 44.18806059450298,
+          "severity": 0.4186713001456844,
+          "pass": true,
+          "stuck": true,
+          "woundsBefore": 0,
+          "woundsAfter": 1,
+          "limbsBefore": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "limbsAfter": {
+            "armS": 0.706930089898021,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          }
+        },
+        {
+          "tick": 732,
+          "fighter": 1,
+          "part": "pelvis",
+          "type": "cut",
+          "energyJ": 34.40798589346909,
+          "severity": 0.0851900074224006,
+          "pass": false,
+          "stuck": true,
+          "woundsBefore": 1,
+          "woundsAfter": 2,
+          "limbsBefore": {
+            "armS": 0.706930089898021,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "limbsAfter": {
+            "armS": 0.706930089898021,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          }
+        }
+      ],
+      "resistanceEvents": 83,
+      "playerCenterlineEvents": 9,
+      "cappedDrag": 0,
+      "cappedStuck": 0,
+      "budgetExhaustions": 0,
+      "largestPairKineticDeltaJ": -0.25394544206830005,
+      "maxResidual": {
+        "deltaPResidualNs": 3.014647218513959e-07,
+        "deltaLResidualNms": 2.7931025080652687e-06,
+        "deltaKResidualJ": 5.075092076367582e-06
+      }
+    }
+  ],
+  "observerOff": {
+    "raw": {
+      "path": "/workspace/halfsword-handoff/phase3-round2-20261007/cut/long-plain02/report.json",
+      "bytes": 210383,
+      "sha256": "62f70cab2dce8d5fbb9c2dbb7188486d982b806703e173aad6b5bf7cc9fddc50"
+    },
+    "worldControlInputAll954FramesExact": true,
+    "finalHealthExact": true
+  },
+  "failedObserverRuns": [
+    {
+      "raw": {
+        "path": "/workspace/halfsword-handoff/phase3-round2-20261007/cut/long-observe01/report.json",
+        "bytes": 189733,
+        "sha256": "bf9228e294a7b97c4e1bfb46a3378bafd39b66ba949997b19e7282b4d306d980"
+      },
+      "completedSteps": 585,
+      "error": "f.detachedParts is not iterable",
+      "scope": "Incomplete observer run. Undefined detachedParts iteration failed at first wound. Preserved; not efficacy evidence.",
+      "nativeStepsIncludingInterrupted": 586
+    },
+    {
+      "raw": {
+        "path": "/workspace/halfsword-handoff/phase3-round2-20261007/cut/qing-observe01/report.json",
+        "bytes": 166546,
+        "sha256": "c9bfc838aa3a2b745283baf61d5e4901aa8bace3b4e4c11ceff5ed59e1181640"
+      },
+      "completedSteps": 473,
+      "error": "f.detachedParts is not iterable",
+      "scope": "Incomplete observer run. Undefined detachedParts iteration failed at first wound. Preserved; not efficacy evidence.",
+      "nativeStepsIncludingInterrupted": 474
+    }
+  ],
+  "executionCount": {
+    "successRuns": 3,
+    "successSteps": 2862,
+    "failedRuns": 2,
+    "failedCompletedSteps": 1058,
+    "allCompletedSteps": 3920,
+    "refundCandidateRuns": 0,
+    "nativeStepsIncludingInterrupted": 3922,
+    "interruptedAfterNativeStep": 2
+  },
+  "historicalCapDerivation": {
+    "raw": {
+      "path": "/workspace/halfsword-handoff/phase3-round2-20261007/cut/debit-derive01.json",
+      "bytes": 33351,
+      "sha256": "2aa87a2101303f0a4a4614ab9d82396f297d5196b2906da72a0b623d7a6dfb8d"
+    },
+    "tool": {
+      "path": "/workspace/halfsword-codex/tools/sim/experiments/phase3_cut_debit_derive_20261007.py",
+      "bytes": 11716,
+      "sha256": "e66ed396a7ea68989bb7330a23c05386f76511bba6c24b472bf32dd250b375cd"
+    },
+    "command": "python3 tools/sim/experiments/phase3_cut_debit_derive_20261007.py --out=<fresh-absolute-json>",
+    "additionalPhysicsSteps": 0,
+    "cappedDragCalls": 4,
+    "refundIfDebitingAppliedImpulseJ": 0.0365073,
+    "episodesBudgetBinding": false,
+    "decision": "No game adjustment. Current manual scenes have no capped drag. Historical inferred episodes retain positive budgets at their last recorded resistance; collider separation was not separately measured. No demonstrated play benefit."
+  },
+  "assessment": {
+    "actualInjuriesLinkedToStrikeAndFeedback": true,
+    "positiveCutsIncreaseBleedAndStoredWounds": true,
+    "centerlineImpulseEnergyIncreased": false,
+    "productionChanged": false,
+    "refundMode": "Unexecuted research-only facility. Not accepted, not a game or menu policy.",
+    "naturalSeverExposed": false
+  },
+  "limits": [
+    "Two recorded manual-input tapes; neutral player harness emotion, live default opponent AI, not real human or persona equivalence.",
+    "Centerline impulse is player-only. Opponent legacy resistance is preserved.",
+    "Predictive passing route, shallow injury pass=false and final severing are different checks.",
+    "Budget debit uses actual contact speed; applied common-point impulse and finite-impulse mechanical loss are different quantities. Not an exact tissue-energy model.",
+    "Headless feedback count is not wound count or visible rendering; browser report supplies actual display evidence.",
+    "Existing controlled sever/contact/mobile evidence reused separately; current scene has no natural sever.",
+    "Deferred offhand injury/force mismatch and v2 withheld weapons unchanged."
+  ]
+}

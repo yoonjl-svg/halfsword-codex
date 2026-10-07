@@ -1,0 +1,472 @@
+{
+  "status": "bounded_live_damage_and_render_link_verified_with_explicit_observer_limit",
+  "dateUTC": "2026-10-07",
+  "gameHead": "ea6b1d3bc944ebdb1f47598cefd1b9eccac82019",
+  "sourceStable": true,
+  "productionChanges": 0,
+  "browserExecutions": 1,
+  "browserPassMeaning": "source/asset/settings/input/finite-state checks passed; exposure/render acceptance is listed separately below",
+  "startedUTC": "2026-10-07T11:52:54.963Z",
+  "completedUTC": "2026-10-07T11:57:16.925Z",
+  "wallSeconds": 261.962,
+  "simulationSeconds": 14.308333333333161,
+  "maxSimulationSeconds": 30,
+  "inputCycles": 5,
+  "url": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=longsword&foe=heinrich&foeWeapon=longsword",
+  "command": "PLAYWRIGHT_MODULE=/workspace/cloud-onboarding/browser/node_modules/playwright/index.mjs PLAYWRIGHT_BROWSERS_PATH=/workspace/cloud-onboarding/browser/cache node tools/browser/phase3_damage_visual_20261007.mjs --out=/workspace/halfsword-handoff/phase3-round2-20261007/browser/public01",
+  "settings": {
+    "difficulty": "normal",
+    "pixel": false,
+    "blood": true,
+    "sound": false,
+    "invertTilt": false,
+    "moveMode": "stick",
+    "skill": "0.7",
+    "guardNames": true,
+    "trail": false,
+    "fpsCap": false
+  },
+  "policies": {
+    "default": true,
+    "v2": "unified",
+    "skill": 0,
+    "autoGuard": false,
+    "arm": "manual",
+    "stance": "fresh",
+    "roll": "bounded",
+    "cut": "centerline",
+    "cutPlayer": true,
+    "limb": true,
+    "finish": "legacy",
+    "gravity": -9.81,
+    "enemyController": "legacy",
+    "enemyArm": "legacy",
+    "aiLevel": "normal",
+    "persona": {
+      "school": "longsword",
+      "level": {
+        "reaction": 0.21,
+        "guardChance": 0.66,
+        "counter": 0.32,
+        "feint": 0.46,
+        "followUp": 0.72,
+        "read": 0.72,
+        "discipline": 0.75,
+        "strength": 1.15,
+        "aggression": 1.15,
+        "windup": 0.45,
+        "strikeSpeed": 13,
+        "skill": 0.82
+      },
+      "pers": {
+        "precision": 0.9,
+        "guardStick": 0.8,
+        "fearful": 0.08,
+        "angry": 0.6,
+        "dogged": 0.7,
+        "guardSpeed": 1.7,
+        "rhythm": 1.3,
+        "margin": 0.2,
+        "aggr": 1.3,
+        "vor": 0.72,
+        "patienceTime": 6,
+        "circleRate": 0.35,
+        "guardPref": {
+          "tag": 1.6,
+          "tagR": 1.6,
+          "sideR": 1.5,
+          "sideL": 1.4,
+          "ochsR": 1.2
+        },
+        "techPref": {
+          "zornhau": 1.5,
+          "zornhauL": 1.4,
+          "oberhau": 1.3,
+          "zwerch": 1.2,
+          "unterhau": 0.7,
+          "unterhauL": 0.7
+        }
+      },
+      "whole": {
+        "sPref": 0.75,
+        "sSpread": 0.2,
+        "windRate": 0.7,
+        "windLen": [
+          0.3,
+          0.6
+        ],
+        "punish": {
+          "windup": 0.45,
+          "overrun": 0.6,
+          "thrown": 0.55
+        },
+        "evade": 0.3
+      },
+      "idle": {
+        "guard": "tag",
+        "gesture": "pointFace"
+      },
+      "close": {
+        "rate": 0.6,
+        "kind": "barge",
+        "then": "cut"
+      }
+    }
+  },
+  "counts": {
+    "hooks": 31,
+    "applications": 19,
+    "openedCutEvents": 1,
+    "blockedOrBluntEventsWithNonemptyMarks": 14,
+    "trustedTouchEvents": 71,
+    "aiCalls": 1717,
+    "aiAliveCallsAfterInitialFeetHold": 1477,
+    "nonfiniteSteps": 0,
+    "errors": 0,
+    "matchingPublicFiles": 8
+  },
+  "acceptance": {
+    "originalApplyWoundToMainHook": {
+      "status": "exposed_pass",
+      "applicationSeq": 41,
+      "hookSeq": 42,
+      "woundId": 1,
+      "storedBeforeHook": true
+    },
+    "openedCutToAttachedRenderedMarks": {
+      "status": "exposed_pass",
+      "timeS": 12.958333333333238,
+      "attacker": "enemy",
+      "victim": "player",
+      "part": "pelvis",
+      "result": {
+        "type": "cut",
+        "zone": "pelvis",
+        "energy": 67.17358050131556,
+        "severity": 0.43374528844817134,
+        "bleedPerSev": 0.02,
+        "pass": true,
+        "finish": false,
+        "plate": false,
+        "helmet": false,
+        "speed": 6.830299392853852,
+        "eff": 78.77761963075643,
+        "thr": 39.74054367042101,
+        "stuck": true,
+        "armorBlocked": null,
+        "armorGuarded": null
+      },
+      "tear": {
+        "part": "pelvis",
+        "uuid": "ec07a201-ceaf-4378-8cbb-47713f12d2ef",
+        "kind": "tear",
+        "parent": "f2aa6b71-8916-4b06-ab97-130f00a35c9e",
+        "target": "f2aa6b71-8916-4b06-ab97-130f00a35c9e",
+        "parentMatchesTarget": true,
+        "vertices": 48,
+        "visible": true,
+        "materialVisible": true,
+        "opacity": 1,
+        "transparent": true,
+        "map": true,
+        "w": 0.043674905768963435,
+        "h": 0.12072434038274399,
+        "position": [
+          4.062443256378174,
+          0.9371987581253052,
+          -0.1520487368106842
+        ],
+        "projected": [
+          -0.08527635583266807,
+          -0.3474623553930091,
+          0.9413172510411357
+        ],
+        "draw": {
+          "calls": 35,
+          "firstFrame": 310,
+          "lastFrame": 344,
+          "timeS": 14.308333333333161
+        }
+      },
+      "soakAtHook": {
+        "part": "pelvis",
+        "uuid": "2cec8c1f-77fe-4242-b2cc-2908dd85eb79",
+        "kind": "soak",
+        "parent": "f2aa6b71-8916-4b06-ab97-130f00a35c9e",
+        "target": "f2aa6b71-8916-4b06-ab97-130f00a35c9e",
+        "parentMatchesTarget": true,
+        "vertices": 39,
+        "visible": true,
+        "materialVisible": true,
+        "opacity": 1,
+        "transparent": true,
+        "map": true,
+        "w": 0.04,
+        "h": 0.04,
+        "position": [
+          4.062443256378174,
+          0.9371987581253052,
+          -0.1520487368106842
+        ],
+        "projected": [
+          -0.08527635583266807,
+          -0.3474623553930091,
+          0.9413172510411357
+        ],
+        "draw": {
+          "calls": 35,
+          "firstFrame": 310,
+          "lastFrame": 344,
+          "timeS": 14.308333333333161
+        }
+      },
+      "soakAtEnd": {
+        "part": "pelvis",
+        "uuid": "2cec8c1f-77fe-4242-b2cc-2908dd85eb79",
+        "kind": "soak",
+        "parent": "f2aa6b71-8916-4b06-ab97-130f00a35c9e",
+        "target": "f2aa6b71-8916-4b06-ab97-130f00a35c9e",
+        "parentMatchesTarget": true,
+        "vertices": 39,
+        "visible": true,
+        "materialVisible": true,
+        "opacity": 1,
+        "transparent": true,
+        "map": true,
+        "w": 0.1529225306819127,
+        "h": 0.1987992898864865,
+        "position": [
+          4.769575595855713,
+          0.9397233724594116,
+          0.2104262113571167
+        ],
+        "projected": [
+          -0.11528521441691901,
+          -0.40208580367761654,
+          0.9371005644408389
+        ],
+        "draw": {
+          "calls": 35,
+          "firstFrame": 310,
+          "lastFrame": 344,
+          "timeS": 14.308333333333161
+        }
+      },
+      "firstSubsequentRenderFrame": 310,
+      "submittedDrawsPerMark": 35
+    },
+    "blockedArmorToScratchWithoutStoredWound": {
+      "status": "exposed_pass",
+      "applicationSeq": 17,
+      "hookSeq": 18,
+      "timeS": 6.31666666666677,
+      "part": "abdomen",
+      "attacker": "player",
+      "victim": "enemy",
+      "result": {
+        "type": "blunt",
+        "zone": "abdomen",
+        "energy": 10.29743404275088,
+        "severity": 0,
+        "bleedPerSev": 0.03,
+        "pass": false,
+        "finish": false,
+        "plate": true,
+        "helmet": false,
+        "speed": 3.728352388052014,
+        "eff": 10.297171253361427,
+        "thr": 70,
+        "stuck": null,
+        "armorBlocked": null,
+        "armorGuarded": null
+      },
+      "newWounds": 0,
+      "marks": [
+        {
+          "part": "abdomen",
+          "uuid": "44cce990-fbb5-4e52-9c8b-f0df9ab7b48f",
+          "kind": "scratch",
+          "parent": "0f7a5770-2e86-42b7-817d-6d0438a20b5e",
+          "target": "0f7a5770-2e86-42b7-817d-6d0438a20b5e",
+          "parentMatchesTarget": true,
+          "vertices": 27,
+          "visible": true,
+          "materialVisible": true,
+          "opacity": 1,
+          "transparent": true,
+          "map": true,
+          "w": 0.03,
+          "h": 0.04858119503562573,
+          "position": [
+            3.617539167404175,
+            1.069109559059143,
+            -0.2805550694465637
+          ],
+          "projected": [
+            -0.04241835789151072,
+            -0.13221219867415812,
+            0.9526573574242528
+          ],
+          "draw": {
+            "calls": 180,
+            "firstFrame": 165,
+            "lastFrame": 344,
+            "timeS": 14.308333333333161
+          }
+        }
+      ]
+    },
+    "bloodOnRenderedParticles": {
+      "status": "exposed_pass",
+      "settingsBlood": true,
+      "final": {
+        "uuid": "7c07f774-9f73-418d-8ce5-c6591f8fc53c",
+        "count": 47,
+        "colors": {
+          "8a0000": 27,
+          "7a0000": 20
+        },
+        "visible": true,
+        "draw": {
+          "frame": 344,
+          "timeS": 14.308333333333161,
+          "count": 47
+        }
+      },
+      "screenshot": "events-05.png",
+      "visualInspection": "Red droplets are visible on the ground by the player feet in the actual screenshot."
+    },
+    "individualWoundLineHumanReadability": {
+      "status": "unconfirmed",
+      "reason": "The ordinary camera/body overlap does not support a confident visual identification of the small pelvis tear or individual armor scratch. Submitted geometry is verified separately."
+    },
+    "postEventRendererWindowSampler": {
+      "status": "observer_inactive_not_passed",
+      "capturedWindows": 0,
+      "cause": "The executed tool wrapped THREE.WebGLRenderer.prototype.render, but this Three.js release assigns render on each instance. That optional sampler did not run. Actual object onAfterRender callbacks and event/application/final snapshots provide the independent rendering evidence."
+    },
+    "bloodOff": {
+      "status": "source_only_unrun",
+      "sourceBehavior": "main skips open-cut blood decals when disabled, Particles.blood uses gray dust and drip returns early; no matched OFF episode executed."
+    },
+    "naturalSevering": {
+      "status": "unrun",
+      "reason": "No synthetic injuries or natural-sever seed search; limb default ON was checked only."
+    }
+  },
+  "sourceChain": [
+    "src/combat.js:596–598",
+    "src/fighter.js:1079–1129",
+    "src/main.js:576–620",
+    "src/main.js:723–734",
+    "src/main.js:821",
+    "src/effects.js:9–54",
+    "src/effects.js:309–321"
+  ],
+  "publicFiles": [
+    {
+      "name": "index.html",
+      "bytes": 19274,
+      "sha256": "d9636733b1b30731cb38d1c28a3cf2f6eb1b21da7864b031334934436ae238bd",
+      "match": true
+    },
+    {
+      "name": "feature-lab.html",
+      "bytes": 38740,
+      "sha256": "cfc75fcdd0dea06ded36efd4fdafe70ab5f1e0e479a54dcdbec9077d62079791",
+      "match": true
+    },
+    {
+      "name": "development-plan.html",
+      "bytes": 75337,
+      "sha256": "2e673a2bd0443e3468371aa285a693d3322ff3b3d3b24589710ae02f98213bdd",
+      "match": true
+    },
+    {
+      "name": "sounds.html",
+      "bytes": 3202,
+      "sha256": "d1103827f54209302e70a09bd040808f7b638d03710ff4fbbe30caeef483533d",
+      "match": true
+    },
+    {
+      "name": "assets/main-CxbuHD3X.js",
+      "bytes": 3544413,
+      "sha256": "10512a9b502c1bdc50f61a5130049ac62370f83a25dd3d99084b9cbc9861371a",
+      "match": true
+    },
+    {
+      "name": "assets/sound-DxsKXzPO.js",
+      "bytes": 83421,
+      "sha256": "ca57f4e8834461b7033db6dfab8baf97232871584de4dd7f991d30c838a64055",
+      "match": true
+    },
+    {
+      "name": "assets/soundgen-BDle7v6J.js",
+      "bytes": 35448,
+      "sha256": "0dfd106288146aee573b3b46c7d346284a813d9371170431266054299125cdaf",
+      "match": true
+    },
+    {
+      "name": "assets/sounds-sY_jtToy.js",
+      "bytes": 19744,
+      "sha256": "92c74e2ef10b8f5033cd4f344dcbbe52659a2b5fc8531cbcc865f47d1f36d44d",
+      "match": true
+    }
+  ],
+  "artifacts": {
+    "report.json": {
+      "path": "/workspace/halfsword-handoff/phase3-round2-20261007/browser/public01/report.json",
+      "bytes": 216653,
+      "sha256": "a06e2083082a07bee3b9b015b1b9cc5b539219e59a6ff3fcf587c46fbbfe51bf"
+    },
+    "manifest-before.json": {
+      "path": "/workspace/halfsword-handoff/phase3-round2-20261007/browser/public01/manifest-before.json",
+      "bytes": 107743,
+      "sha256": "11c491b6ea706eb7f10a4509e501f69300690a725d55b8db5d2c1703240514be"
+    },
+    "browser-tool-executed.mjs": {
+      "path": "/workspace/halfsword-handoff/phase3-round2-20261007/browser/public01/browser-tool-executed.mjs",
+      "bytes": 20847,
+      "sha256": "c641dfa791221b9d1638145ebacc692f407703bab41f8c25fbbd49d5d25d5400"
+    },
+    "events-02.png": {
+      "path": "/workspace/halfsword-handoff/phase3-round2-20261007/browser/public01/events-02.png",
+      "bytes": 280913,
+      "sha256": "f4099e76d82614424c90dbc2c951b8547f8b8ae26b36e0664048309d88439410"
+    },
+    "events-04.png": {
+      "path": "/workspace/halfsword-handoff/phase3-round2-20261007/browser/public01/events-04.png",
+      "bytes": 290820,
+      "sha256": "b6a65bc0d8890dce9b9ef49a9c7758675216084fdfdd0239a1410b14d049a6a0"
+    },
+    "events-05.png": {
+      "path": "/workspace/halfsword-handoff/phase3-round2-20261007/browser/public01/events-05.png",
+      "bytes": 303626,
+      "sha256": "10f53c7ca0d60bc1456275af2ba7d090322d6efc2512763fdc9b9a50493d52af"
+    },
+    "end.png": {
+      "path": "/workspace/halfsword-handoff/phase3-round2-20261007/browser/public01/end.png",
+      "bytes": 166824,
+      "sha256": "fd3450e0ff0ae8b168ec7ab03a889baa76d1e689f41e5ada08bcf21f89308061"
+    },
+    "video": [
+      {
+        "path": "/workspace/halfsword-handoff/phase3-round2-20261007/browser/public01/video/page@f13a72381201afd41e23305187928563.webm",
+        "bytes": 16560550,
+        "sha256": "e4cf84c6fbed741007f645cd13d4234020a50827d3e144bb811c39da545507f1"
+      }
+    ]
+  },
+  "instrumentationNotes": [
+    "Original gameplay functions are forwarded; no synthetic wound, position, velocity, AI disabling or collision-policy assignment.",
+    "Draw fields on hook marks refer to cumulative per-object callbacks through the episode stop, not draw counts at hook time. firstFrame and lastFrame give the observed submission interval.",
+    "The inactive prototype sampler is preserved in the executed source and excluded from acceptance. No second episode was run.",
+    "One-second health samples and event records are compact; report.json is 216653 bytes."
+  ],
+  "limitations": [
+    "One scene is not full damage/armor/visual correctness or human-naturalness acceptance.",
+    "Native browser movement/drag uses frame scheduling and rendering/emotion state; it is not an exact reenactment of a headless tape.",
+    "Submitted draw callbacks do not prove unobscured visible pixels; screenshot inspection is limited to clearly visible ground blood.",
+    "No physical-phone performance, blood-OFF matched replay, all-part anatomy or severing acceptance."
+  ]
+}

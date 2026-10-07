@@ -1,5 +1,7 @@
 # 실험 색인과 재현 입구
 
+3단계2회차 ·10/07: [통합 판정](phase3_round2_20261007.md)·[절삭](phase3_cut_link_20261007.md)·[받아내기](phase3_parry_20261007.md)·[공개 상처 표시](phase3_damage_visual_20261007.md)·[전달](phase3_round2_release.json). 대표 연결 통과/게임 변경0. 실제 피해·콜백·새 상처 수를 분리하고 기존 절단 근거를 재사용한다. 자연 절단·전체 물리 완성 주장은 없다.
+
 3단계1회차 ·10/07: [갑옷 마무리의 현재 일반판 비교](phase3_round1_20261007.md)·[경계 수치/해시](phase3_round1_20261007.json)·[실제 접촉](phase3_finish_contact_20261007.md)·[공개/모바일](phase3_round1_release.json). 일반판 legacy, 과거 armorCausal 유지; 새 armorGuard만 선택형. 자연 전투 미노출과 통제 down 접촉을 구분한다.
 
 질문 진단 ·10/07: [한 팔 부상과 한손/양손 차이](arm_function_question_20261007.md)·[6행 수치/해시](arm_function_question_20261007.json). 보조손 파지 상실은 실제지만 일괄 속도/피해 저하는 보장되지 않는다. 통제 팔 기능 검사이며 게임 변경 없음.
