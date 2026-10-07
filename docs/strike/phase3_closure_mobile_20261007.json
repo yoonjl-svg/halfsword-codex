@@ -1,0 +1,871 @@
+{
+  "status": "natural_cut_pause_resume_input_and_fresh_restart_verified",
+  "gameHead": "ede1807c9b4bb45f8309f00a3b748e9b2aecdcb0",
+  "sourceStable": true,
+  "productionChanges": 0,
+  "accounting": {
+    "browserAttempts": 1,
+    "passedAttempts": 1,
+    "failedAttempts": 0,
+    "reruns": 0,
+    "initialCombatEpisodes": 1,
+    "minimalRestartWindows": 1,
+    "manualInputCyclesBeforeInjuryGate": 2,
+    "simulatedSteps": 893,
+    "cumulativeSimSeconds": 7.441666666666826,
+    "restartSimSeconds": 0.8916666666666659,
+    "maxCumulativeSimSeconds": 30,
+    "nativeTouchEvents": 56,
+    "appliedWoundCalls": 7,
+    "playerStoredCuts": 2,
+    "aiCalls": 893,
+    "aiAliveCallsAfterStartHold": 546,
+    "nonfiniteSteps": 0,
+    "browserNetworkErrors": 0,
+    "publicFileMatches": 8
+  },
+  "startedUTC": "2026-10-07T12:20:37.869Z",
+  "completedUTC": "2026-10-07T12:21:43.494Z",
+  "wallSeconds": 65.625,
+  "url": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=longsword&foe=heinrich&foeWeapon=longsword",
+  "command": "PLAYWRIGHT_MODULE=/workspace/cloud-onboarding/browser/node_modules/playwright/index.mjs PLAYWRIGHT_BROWSERS_PATH=/workspace/cloud-onboarding/browser/cache node tools/browser/phase3_closure_mobile_20261007.mjs --out=/workspace/halfsword-handoff/phase3-round3-20261007/browser/public01",
+  "settings": {
+    "difficulty": "normal",
+    "pixel": false,
+    "blood": true,
+    "sound": false,
+    "invertTilt": false,
+    "moveMode": "stick",
+    "skill": "0.7",
+    "guardNames": true,
+    "trail": false,
+    "fpsCap": false
+  },
+  "policies": {
+    "default": true,
+    "v2": "unified",
+    "skill": 0,
+    "autoGuard": false,
+    "arm": "manual",
+    "stance": "fresh",
+    "roll": "bounded",
+    "cut": "centerline",
+    "cutPlayer": true,
+    "limb": true,
+    "finish": "legacy",
+    "gravity": -9.81,
+    "enemyController": "legacy",
+    "enemyArm": "legacy",
+    "aiLevel": "normal",
+    "persona": {
+      "school": "longsword",
+      "level": {
+        "reaction": 0.21,
+        "guardChance": 0.66,
+        "counter": 0.32,
+        "feint": 0.46,
+        "followUp": 0.72,
+        "read": 0.72,
+        "discipline": 0.75,
+        "strength": 1.15,
+        "aggression": 1.15,
+        "windup": 0.45,
+        "strikeSpeed": 13,
+        "skill": 0.82
+      },
+      "pers": {
+        "precision": 0.9,
+        "guardStick": 0.8,
+        "fearful": 0.08,
+        "angry": 0.6,
+        "dogged": 0.7,
+        "guardSpeed": 1.7,
+        "rhythm": 1.3,
+        "margin": 0.2,
+        "aggr": 1.3,
+        "vor": 0.72,
+        "patienceTime": 6,
+        "circleRate": 0.35,
+        "guardPref": {
+          "tag": 1.6,
+          "tagR": 1.6,
+          "sideR": 1.5,
+          "sideL": 1.4,
+          "ochsR": 1.2
+        },
+        "techPref": {
+          "zornhau": 1.5,
+          "zornhauL": 1.4,
+          "oberhau": 1.3,
+          "zwerch": 1.2,
+          "unterhau": 0.7,
+          "unterhauL": 0.7
+        }
+      },
+      "whole": {
+        "sPref": 0.75,
+        "sSpread": 0.2,
+        "windRate": 0.7,
+        "windLen": [
+          0.3,
+          0.6
+        ],
+        "punish": {
+          "windup": 0.45,
+          "overrun": 0.6,
+          "thrown": 0.55
+        },
+        "evade": 0.3
+      },
+      "idle": {
+        "guard": "tag",
+        "gesture": "pointFace"
+      },
+      "close": {
+        "rate": 0.6,
+        "kind": "barge",
+        "then": "cut"
+      }
+    }
+  },
+  "reusedEvidence": {
+    "path": "/workspace/halfsword-handoff/phase3-round2-20261007/browser/public01/report.json",
+    "bytes": 216653,
+    "sha256": "a06e2083082a07bee3b9b015b1b9cc5b539219e59a6ff3fcf587c46fbbfe51bf",
+    "gameSourceAndCompiledExact": true,
+    "scope": "Stored cut, attached marks, object rendering and visible blood only; injury interruption/restart is new work."
+  },
+  "acceptance": {
+    "naturalPlayerInjury": {
+      "status": "exposed_pass",
+      "cuts": [
+        {
+          "timeS": 4.550000000000016,
+          "part": "abdomen",
+          "result": {
+            "type": "cut",
+            "zone": "abdomen",
+            "energy": 120.04983105242124,
+            "severity": 0.8422406964150662,
+            "pass": true,
+            "finish": false,
+            "plate": false,
+            "helmet": false
+          },
+          "beforeWounds": 0,
+          "afterWounds": 1
+        },
+        {
+          "timeS": 4.55833333333335,
+          "part": "pelvis",
+          "result": {
+            "type": "cut",
+            "zone": "pelvis",
+            "energy": 56.374578332308985,
+            "severity": 0.16335158575780673,
+            "pass": true,
+            "finish": false,
+            "plate": false,
+            "helmet": false
+          },
+          "beforeWounds": 1,
+          "afterWounds": 2
+        }
+      ]
+    },
+    "heldPauseClearsTransientInput": {
+      "status": "exposed_pass",
+      "heldBefore": {
+        "timeS": 5.558333333333399,
+        "state": "fight",
+        "objects": {
+          "player": 7,
+          "enemy": 8,
+          "world": 9,
+          "combat": 10,
+          "ai": 11,
+          "controller": 12
+        },
+        "player": {
+          "state": "getup",
+          "fightT": 5.558333333333399,
+          "blood": 0.9731228339660344,
+          "bleed": 0.02530899268353225,
+          "consciousness": 1,
+          "pain": 1.4300000000000122,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "wounds": [
+            {
+              "part": "abdomen",
+              "type": "cut",
+              "severity": 0.8422406964150662,
+              "bleed": 0.022408669131004724,
+              "local": [
+                0.07954768040446202,
+                -0.17223471261966194,
+                -0.06326932756650962
+              ],
+              "stump": false,
+              "soak": "68dc3918-6fe4-4124-ade3-f2506e670677"
+            },
+            {
+              "part": "pelvis",
+              "type": "cut",
+              "severity": 0.16335158575780673,
+              "bleed": 0.0029003235525275227,
+              "local": [
+                0.05881331905139031,
+                -0.09384903813513415,
+                -0.026379280820497435
+              ],
+              "stump": false,
+              "soak": "6a82826f-fd9b-4824-98da-27bf7b9d089e"
+            }
+          ],
+          "detachedParts": [],
+          "severedLimbs": 0,
+          "hand": [
+            0.2364043898822181,
+            -0.17497805292009622
+          ],
+          "controller": {
+            "version": "unified-20261005-r2",
+            "phase": "suspended",
+            "owner": "recovery",
+            "seeded": true,
+            "goalTick": 667,
+            "idleS": 0,
+            "generatedDX": 0,
+            "generatedDY": 0,
+            "returnVX": 0,
+            "returnVY": 0,
+            "lastBatchId": 121,
+            "lastMotionTimeS": 44.0494,
+            "input": {
+              "id": 121,
+              "timeS": 44.0494,
+              "dx": 0,
+              "dy": 0.0675,
+              "held": true,
+              "active": true
+            },
+            "hasIntent": true,
+            "released": false,
+            "reversing": false,
+            "eligible": false,
+            "availability": 0,
+            "hand": [
+              0.47063461070989443,
+              -0.16444498544228875,
+              0.32127100944167925
+            ],
+            "aim": [
+              0.9147307339783344,
+              -0.2937602225347173,
+              0.27743939152869246
+            ]
+          },
+          "history": {
+            "prevAim": [
+              0.9346545828400016,
+              -0.2937602225347173,
+              0.20031410941952146
+            ],
+            "wristBrake": false,
+            "hitCooldowns": [
+              [
+                "1:head",
+                0.2
+              ]
+            ],
+            "gaitStarted": true,
+            "friction": {
+              "F": 0,
+              "B": 932.4721095324214
+            }
+          }
+        },
+        "input": {
+          "enabled": true,
+          "activeTouch": 6,
+          "pending": {
+            "x": 0,
+            "y": 0
+          },
+          "taps": 0,
+          "press": {
+            "id": 6
+          },
+          "keys": [],
+          "stick": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      },
+      "paused": {
+        "timeS": 5.658333333333404,
+        "state": "paused",
+        "objects": {
+          "player": 7,
+          "enemy": 8,
+          "world": 9,
+          "combat": 10,
+          "ai": 11,
+          "controller": 12
+        },
+        "player": {
+          "state": "getup",
+          "fightT": 5.658333333333404,
+          "blood": 0.9706058083480699,
+          "bleed": 0.025006949609376515,
+          "consciousness": 1,
+          "pain": 1.3700000000000134,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "wounds": [
+            {
+              "part": "abdomen",
+              "type": "cut",
+              "severity": 0.8422406964150662,
+              "bleed": 0.022141239154762668,
+              "local": [
+                0.07954768040446202,
+                -0.17223471261966194,
+                -0.06326932756650962
+              ],
+              "stump": false,
+              "soak": "68dc3918-6fe4-4124-ade3-f2506e670677"
+            },
+            {
+              "part": "pelvis",
+              "type": "cut",
+              "severity": 0.16335158575780673,
+              "bleed": 0.002865710454613844,
+              "local": [
+                0.05881331905139031,
+                -0.09384903813513415,
+                -0.026379280820497435
+              ],
+              "stump": false,
+              "soak": "6a82826f-fd9b-4824-98da-27bf7b9d089e"
+            }
+          ],
+          "detachedParts": [],
+          "severedLimbs": 0,
+          "hand": [
+            0.2491366999706593,
+            -0.1733693294467547
+          ],
+          "controller": {
+            "version": "unified-20261005-r2",
+            "phase": "suspended",
+            "owner": "recovery",
+            "seeded": true,
+            "goalTick": 679,
+            "idleS": 0,
+            "generatedDX": 0,
+            "generatedDY": 0,
+            "returnVX": 0,
+            "returnVY": 0,
+            "lastBatchId": 123,
+            "lastMotionTimeS": 44.0494,
+            "input": {
+              "id": 123,
+              "timeS": 44.566,
+              "dx": 0,
+              "dy": 0,
+              "held": true,
+              "active": false
+            },
+            "hasIntent": true,
+            "released": false,
+            "reversing": false,
+            "eligible": false,
+            "availability": 0,
+            "hand": [
+              0.4745482692895038,
+              -0.14929807994293276,
+              0.3241830920820265
+            ],
+            "aim": [
+              0.9174217534647623,
+              -0.27819965305005157,
+              0.2845035664319025
+            ]
+          },
+          "history": {
+            "prevAim": [
+              0.9403892628288081,
+              -0.27819965305005157,
+              0.19563483176347204
+            ],
+            "wristBrake": false,
+            "hitCooldowns": [
+              [
+                "1:head",
+                0.10000000000000003
+              ]
+            ],
+            "gaitStarted": true,
+            "friction": {
+              "F": 0,
+              "B": 932.4721095324214
+            }
+          }
+        },
+        "input": {
+          "enabled": false,
+          "activeTouch": null,
+          "pending": {
+            "x": 0,
+            "y": 0
+          },
+          "taps": 0,
+          "press": null,
+          "keys": [],
+          "stick": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      },
+      "wallWaitMs": 180,
+      "pausedSnapshotExactAfterWait": true
+    },
+    "resumePreservesInjuryAndObjects": {
+      "status": "exposed_pass",
+      "sameSixIdentities": true,
+      "resumed": {
+        "timeS": 5.658333333333404,
+        "state": "fight",
+        "objects": {
+          "player": 7,
+          "enemy": 8,
+          "world": 9,
+          "combat": 10,
+          "ai": 11,
+          "controller": 12
+        },
+        "player": {
+          "state": "getup",
+          "fightT": 5.658333333333404,
+          "blood": 0.9706058083480699,
+          "bleed": 0.025006949609376515,
+          "consciousness": 1,
+          "pain": 1.3700000000000134,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "wounds": [
+            {
+              "part": "abdomen",
+              "type": "cut",
+              "severity": 0.8422406964150662,
+              "bleed": 0.022141239154762668,
+              "local": [
+                0.07954768040446202,
+                -0.17223471261966194,
+                -0.06326932756650962
+              ],
+              "stump": false,
+              "soak": "68dc3918-6fe4-4124-ade3-f2506e670677"
+            },
+            {
+              "part": "pelvis",
+              "type": "cut",
+              "severity": 0.16335158575780673,
+              "bleed": 0.002865710454613844,
+              "local": [
+                0.05881331905139031,
+                -0.09384903813513415,
+                -0.026379280820497435
+              ],
+              "stump": false,
+              "soak": "6a82826f-fd9b-4824-98da-27bf7b9d089e"
+            }
+          ],
+          "detachedParts": [],
+          "severedLimbs": 0,
+          "hand": [
+            0.2491366999706593,
+            -0.1733693294467547
+          ],
+          "controller": {
+            "version": "unified-20261005-r2",
+            "phase": "suspended",
+            "owner": "recovery",
+            "seeded": true,
+            "goalTick": 679,
+            "idleS": 0,
+            "generatedDX": 0,
+            "generatedDY": 0,
+            "returnVX": 0,
+            "returnVY": 0,
+            "lastBatchId": 123,
+            "lastMotionTimeS": 44.0494,
+            "input": {
+              "id": 123,
+              "timeS": 44.566,
+              "dx": 0,
+              "dy": 0,
+              "held": true,
+              "active": false
+            },
+            "hasIntent": true,
+            "released": false,
+            "reversing": false,
+            "eligible": false,
+            "availability": 0,
+            "hand": [
+              0.4745482692895038,
+              -0.14929807994293276,
+              0.3241830920820265
+            ],
+            "aim": [
+              0.9174217534647623,
+              -0.27819965305005157,
+              0.2845035664319025
+            ]
+          },
+          "history": {
+            "prevAim": [
+              0.9403892628288081,
+              -0.27819965305005157,
+              0.19563483176347204
+            ],
+            "wristBrake": false,
+            "hitCooldowns": [
+              [
+                "1:head",
+                0.10000000000000003
+              ]
+            ],
+            "gaitStarted": true,
+            "friction": {
+              "F": 0,
+              "B": 932.4721095324214
+            }
+          }
+        },
+        "input": {
+          "enabled": true,
+          "activeTouch": null,
+          "pending": {
+            "x": 0,
+            "y": 0
+          },
+          "taps": 0,
+          "press": null,
+          "keys": [],
+          "stick": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      }
+    },
+    "newInputDuringRecovery": {
+      "status": "exposed_pass",
+      "consumedBatches": 2,
+      "samples": [
+        {
+          "timeS": 5.858333333333414,
+          "state": "getup",
+          "owner": "recovery",
+          "eligible": false,
+          "input": {
+            "id": 128,
+            "timeS": 49.265800000000006,
+            "dx": 0.08,
+            "dy": 0.09000000000000001,
+            "held": true,
+            "active": true
+          },
+          "generatedDX": 0,
+          "generatedDY": 0
+        },
+        {
+          "timeS": 6.008333333333422,
+          "state": "getup",
+          "owner": "recovery",
+          "eligible": false,
+          "input": {
+            "id": 131,
+            "timeS": 50.0824,
+            "dx": 0.08,
+            "dy": 0.09000000000000001,
+            "held": true,
+            "active": true
+          },
+          "generatedDX": 0,
+          "generatedDY": 0
+        }
+      ],
+      "beforeHand": [
+        0.2491366999706593,
+        -0.1733693294467547
+      ],
+      "afterHand": [
+        0.482525499784365,
+        0.10689727980616007
+      ],
+      "scope": "Trusted delta consumption and hand target change during getup; recovery ownership stays active. This is not completed stand recovery, autonomous return or a post-recovery damaging strike."
+    },
+    "restartFreshState": {
+      "status": "exposed_pass",
+      "priorObjects": {
+        "player": 7,
+        "enemy": 8,
+        "world": 9,
+        "combat": 10,
+        "ai": 11,
+        "controller": 12
+      },
+      "newObjects": {
+        "player": 13,
+        "enemy": 14,
+        "world": 15,
+        "combat": 16,
+        "ai": 17,
+        "controller": 18
+      },
+      "beforeFirstPlayerPhysicsStep": {
+        "timeS": 6.550000000000115,
+        "state": "fight",
+        "objects": {
+          "player": 13,
+          "enemy": 14,
+          "world": 15,
+          "combat": 16,
+          "ai": 17,
+          "controller": 18
+        },
+        "player": {
+          "state": "stand",
+          "fightT": 0,
+          "blood": 1,
+          "bleed": 0,
+          "consciousness": 1,
+          "pain": 0,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          },
+          "wounds": [],
+          "detachedParts": [],
+          "severedLimbs": 0,
+          "hand": [
+            0.13552279304250348,
+            -0.0022570602749078716
+          ],
+          "controller": {
+            "version": "unified-20261005-r2",
+            "phase": "holding",
+            "owner": "player",
+            "seeded": true,
+            "goalTick": 0,
+            "idleS": 0,
+            "generatedDX": 0,
+            "generatedDY": 0,
+            "returnVX": 0,
+            "returnVY": 0,
+            "lastBatchId": 143,
+            "lastMotionTimeS": null,
+            "input": {
+              "id": 143,
+              "timeS": 55.282199999999996,
+              "dx": 0,
+              "dy": 0,
+              "held": false,
+              "active": false
+            },
+            "hasIntent": false,
+            "released": false,
+            "reversing": false,
+            "eligible": true,
+            "availability": 1,
+            "hand": [
+              0.5202515497547301,
+              0.06434131079124569,
+              0.057345805520133936
+            ],
+            "aim": [
+              0.9990848429348052,
+              -0.03326740930489988,
+              -0.026884123494661474
+            ]
+          },
+          "history": {
+            "prevAim": null,
+            "wristBrake": false,
+            "hitCooldowns": [],
+            "gaitStarted": false,
+            "friction": {
+              "F": null,
+              "B": null
+            }
+          }
+        },
+        "input": {
+          "enabled": true,
+          "activeTouch": null,
+          "pending": {
+            "x": 0,
+            "y": 0
+          },
+          "taps": 0,
+          "press": null,
+          "keys": [],
+          "stick": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      },
+      "checks": [
+        "new player/enemy/world/combat/AI/controller",
+        "wounds0 blood1 bleed0 pain0 consciousness1",
+        "limbs all1 detached/severed0; original limb loss was not exposed",
+        "cloth empty helmet1 plate values1 tapnull thrusts0 finish0",
+        "prevAim null hitCooldowns empty gait not started friction absent before first step",
+        "controller goalTick0 hasIntentfalse lastMotionTimeSnull return velocities0 generated deltas0",
+        "transient input empty"
+      ]
+    },
+    "restartNativeNewInput": {
+      "status": "exposed_pass",
+      "consumedBatches": 2,
+      "owners": [
+        "player"
+      ],
+      "newRoundSimSeconds": 0.8916666666666659
+    },
+    "storedPreferenceBytes": {
+      "status": "exposed_pass",
+      "unchanged": true
+    },
+    "woundRendering": {
+      "status": "reused_pass",
+      "reference": "../strike/phase3_damage_visual_20261007.json",
+      "gameSourceAndCompiledExact": true
+    },
+    "privateRollHistory": {
+      "status": "source_and_identity_only",
+      "reason": "WeakMap keyed by Fighter; fresh identity rules out the old entry, but private entries are not directly read."
+    },
+    "completedGetupAndFollowingDamage": {
+      "status": "unrun",
+      "reason": "Stopped after injury interruption and minimal restart input; getup owner remained recovery during injured re-input."
+    },
+    "naturalSeveringOrLimbLossReset": {
+      "status": "unrun",
+      "reason": "No severing search or synthetic limb injury. Fresh limb defaults only are observed."
+    }
+  },
+  "artifacts": {
+    "report.json": {
+      "path": "/workspace/halfsword-handoff/phase3-round3-20261007/browser/public01/report.json",
+      "bytes": 400898,
+      "sha256": "2f63d4d5111c6aa1d12047928ad357f17c16caae32257176d0cfa2a774b0ed19"
+    },
+    "manifest-before.json": {
+      "path": "/workspace/halfsword-handoff/phase3-round3-20261007/browser/public01/manifest-before.json",
+      "bytes": 107744,
+      "sha256": "610d3ce8b305121e58e81185678704be88ed8a985c24fc47df974db2c07ea86c"
+    },
+    "browser-tool-executed.mjs": {
+      "path": "/workspace/halfsword-handoff/phase3-round3-20261007/browser/public01/browser-tool-executed.mjs",
+      "bytes": 25042,
+      "sha256": "a2bbf013d8228c889b64296090223886b49d9bb610babaf56c9af18e29597bcb"
+    },
+    "injured-paused.png": {
+      "path": "/workspace/halfsword-handoff/phase3-round3-20261007/browser/public01/injured-paused.png",
+      "bytes": 170449,
+      "sha256": "7ec25ebc9aed520c6fdaf585ed5e2946c72df2329a74db443a1cc50afe336d12"
+    },
+    "restart-paused.png": {
+      "path": "/workspace/halfsword-handoff/phase3-round3-20261007/browser/public01/restart-paused.png",
+      "bytes": 170868,
+      "sha256": "0c6a21b79ec6bafffc96cf05292abddc500521c15753365e1c2d7b6a1eb14042"
+    }
+  },
+  "video": [
+    {
+      "path": "/workspace/halfsword-handoff/phase3-round3-20261007/browser/public01/video/page@64aa5f2767766117c7e0e5bf2b235f0f.webm",
+      "bytes": 6256748,
+      "sha256": "7b94b1d554d92c32df3477369ed7ebfef62bc52588008fc62c173afb44bf9f1c"
+    }
+  ],
+  "publicFiles": [
+    {
+      "name": "index.html",
+      "bytes": 19274,
+      "sha256": "d9636733b1b30731cb38d1c28a3cf2f6eb1b21da7864b031334934436ae238bd",
+      "match": true
+    },
+    {
+      "name": "feature-lab.html",
+      "bytes": 38740,
+      "sha256": "cfc75fcdd0dea06ded36efd4fdafe70ab5f1e0e479a54dcdbec9077d62079791",
+      "match": true
+    },
+    {
+      "name": "development-plan.html",
+      "bytes": 76149,
+      "sha256": "277d9798e5417cdd909b9349f02a79a4921a3cdc056f9474e9a72c2801371e60",
+      "match": true
+    },
+    {
+      "name": "sounds.html",
+      "bytes": 3202,
+      "sha256": "d1103827f54209302e70a09bd040808f7b638d03710ff4fbbe30caeef483533d",
+      "match": true
+    },
+    {
+      "name": "assets/main-CxbuHD3X.js",
+      "bytes": 3544413,
+      "sha256": "10512a9b502c1bdc50f61a5130049ac62370f83a25dd3d99084b9cbc9861371a",
+      "match": true
+    },
+    {
+      "name": "assets/sound-DxsKXzPO.js",
+      "bytes": 83421,
+      "sha256": "ca57f4e8834461b7033db6dfab8baf97232871584de4dd7f991d30c838a64055",
+      "match": true
+    },
+    {
+      "name": "assets/soundgen-BDle7v6J.js",
+      "bytes": 35448,
+      "sha256": "0dfd106288146aee573b3b46c7d346284a813d9371170431266054299125cdaf",
+      "match": true
+    },
+    {
+      "name": "assets/sounds-sY_jtToy.js",
+      "bytes": 19744,
+      "sha256": "92c74e2ef10b8f5033cd4f344dcbbe52659a2b5fc8531cbcc865f47d1f36d44d",
+      "match": true
+    }
+  ],
+  "limitations": [
+    "A natural cut is preferred; an actually applied blunt health change can expose injury interruption. Missing exposure is not a passed injury check.",
+    "Private bounded-roll history is a WeakMap keyed by Fighter; new Fighter identity and source contract establish isolation, not a direct map read.",
+    "Main cumulative stats.simTime/input batch IDs persist across restart; per-Fighter clock and controller intent are checked for reset.",
+    "Round2 wound rendering is reused by identical game source/compiled hashes. No renderer sampler, synthetic injury, position or AI injection.",
+    "No physical-phone performance, blood-OFF matched replay, severing search or exact headless-tape reenactment claim."
+  ]
+}

@@ -1,0 +1,406 @@
+{
+  "status": "representative_phase3_integration_complete_game_unchanged",
+  "baseHead": "ede1807c9b4bb45f8309f00a3b748e9b2aecdcb0",
+  "productionChanges": 0,
+  "question": "Does the existing real-impact recovery -> manual cut remain connected with current ordinary bounded recut and limb severing ON?",
+  "native": {
+    "runtime": {
+      "path": "/workspace/halfsword-handoff/phase3-round3-20261007/recovery/runtime01/SOURCE.json",
+      "bytes": 10105,
+      "sha256": "a33ee25f4d00bbdc5d7da073a7f4a6a6037e38d73e3eba4d799c8fcac1151f82"
+    },
+    "tool": {
+      "path": "/workspace/halfsword-codex/tools/sim/experiments/phase3_recovery_integration_20261007.mjs",
+      "bytes": 13555,
+      "sha256": "91c56b04e58af13f51ff618b9673ab29ee1781fa8b0a0b31a72fa5c2b3601891"
+    },
+    "raw": [
+      {
+        "path": "/workspace/halfsword-handoff/phase3-round3-20261007/recovery/observe01/report.json",
+        "bytes": 1002916,
+        "sha256": "17db79bafd920740e4e4c9aeb724bd562b61ebffdb96fe38ed71367772c13353"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/phase3-round3-20261007/recovery/plain01/report.json",
+        "bytes": 911881,
+        "sha256": "55876f47c6f062722b68387350f8e0008e76c02761813afab3764da57fbff34a"
+      }
+    ],
+    "commands": [
+      [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/phase3-round3-20261007/recovery/runtime01/tools/sim/experiments/phase3_recovery_integration_20261007.mjs",
+        "--out=/workspace/halfsword-handoff/phase3-round3-20261007/recovery/observe01"
+      ],
+      [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/phase3-round3-20261007/recovery/runtime01/tools/sim/experiments/phase3_recovery_integration_20261007.mjs",
+        "--out=/workspace/halfsword-handoff/phase3-round3-20261007/recovery/plain01",
+        "--mode=plain",
+        "--reference=/workspace/halfsword-handoff/phase3-round3-20261007/recovery/observe01/report.json"
+      ]
+    ],
+    "distinctSceneProtocols": 1,
+    "observerRuns": 1,
+    "observerOffRuns": 1,
+    "completedSteps": 4076,
+    "nativeSteps": 4076,
+    "failedRuns": 0,
+    "wallSeconds": 15.6645762,
+    "policies": {
+      "v2": "unified player",
+      "arm": "manual",
+      "stance": "fresh",
+      "roll": "bounded",
+      "cut": "centerline player",
+      "finish": "legacy",
+      "limbSever": true,
+      "gravity": 9.81
+    },
+    "inputProtocol": {
+      "seed": 7,
+      "weapon": "zweihander",
+      "foe": "longsword/default normal AI",
+      "gapM": 5.6,
+      "waitLimitSteps": 3600,
+      "tape": [
+        {
+          "phase": "raise-right",
+          "steps": 84,
+          "target": [
+            0.42,
+            0.42
+          ],
+          "held": true,
+          "moveY": 0.3
+        },
+        {
+          "phase": "cut-left",
+          "steps": 36,
+          "target": [
+            -0.4,
+            -0.42
+          ],
+          "held": true,
+          "moveY": 0.3
+        },
+        {
+          "phase": "hold-left",
+          "steps": 24,
+          "held": true,
+          "moveY": 0
+        },
+        {
+          "phase": "raise-left",
+          "steps": 60,
+          "target": [
+            -0.4,
+            0.42
+          ],
+          "held": true,
+          "moveY": 0.2
+        },
+        {
+          "phase": "recut-right",
+          "steps": 36,
+          "target": [
+            0.38,
+            -0.44
+          ],
+          "held": true,
+          "moveY": 0.2
+        },
+        {
+          "phase": "hold-right",
+          "steps": 24,
+          "held": true,
+          "moveY": 0
+        },
+        {
+          "phase": "release",
+          "steps": 60,
+          "held": false,
+          "moveY": 0
+        }
+      ],
+      "tapeLength": 324,
+      "scope": "Current ordinary from spawn. Same authored low-guard input protocol as phase2 recovery closure; actual hit/getup/fresh triggers fixed manual tape. Player emotion neutral. No injected injury/state/pose/AI/forces. Plain replays observed requests to isolate instrumentation. Measurement pass is distinct from exposure/efficacy."
+    },
+    "checks": {
+      "finite": true,
+      "currentOrdinary": true,
+      "inputAccepted": true,
+      "playerAliveArmedGrip": true
+    },
+    "exposure": {
+      "hit": true,
+      "getup": true,
+      "fresh": true,
+      "manualLiveContact": true,
+      "liveContactSteps": [
+        1920,
+        1921,
+        1922,
+        1923
+      ],
+      "fullTape": false
+    },
+    "headHit": {
+      "tick": 1551,
+      "fighter": 0,
+      "request": {
+        "type": "blunt",
+        "zone": "head",
+        "part": "head",
+        "energy": 144.26639657189548,
+        "severity": 0,
+        "pass": false,
+        "finish": false,
+        "speed": 16.815176190033913,
+        "eff": 144.21930580550645,
+        "thr": 200,
+        "t": 0.9035922497421637
+      },
+      "before": {
+        "alive": true,
+        "armed": true,
+        "gripValid": true,
+        "state": "stand",
+        "pain": 0,
+        "blood": 1,
+        "bleed": 0,
+        "consciousness": 1,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "wounds": 0,
+        "detached": []
+      },
+      "after": {
+        "alive": true,
+        "armed": true,
+        "gripValid": true,
+        "state": "getup",
+        "pain": 0.9617759771459699,
+        "blood": 1,
+        "bleed": 0,
+        "consciousness": 0.58781029550887,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "wounds": 0,
+        "detached": []
+      }
+    },
+    "freshEntry": {
+      "tick": 1792,
+      "fighter": 0,
+      "health": {
+        "alive": true,
+        "armed": true,
+        "gripValid": true,
+        "state": "stand",
+        "pain": 0,
+        "blood": 1,
+        "bleed": 0,
+        "consciousness": 0.47905502369710895,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "wounds": 0,
+        "detached": []
+      },
+      "before": {
+        "active": false,
+        "started": true,
+        "legs": {
+          "F": {
+            "N": 377.13442682463625,
+            "Nf": 377.13442682463625,
+            "stance": true
+          },
+          "B": {
+            "N": 298.4892296731219,
+            "Nf": 298.4892296731219,
+            "stance": true
+          }
+        }
+      },
+      "after": {
+        "active": true,
+        "started": true,
+        "legs": {
+          "F": {
+            "N": 377.13442682463625,
+            "Nf": 0,
+            "stance": true
+          },
+          "B": {
+            "N": 298.4892296731219,
+            "Nf": 0,
+            "stance": true
+          }
+        }
+      },
+      "reentry": true,
+      "effective": true
+    },
+    "firstManualCut": {
+      "tick": 1920,
+      "fighter": 1,
+      "request": {
+        "type": "cut",
+        "zone": "head",
+        "part": "head",
+        "energy": 84.1186834642847,
+        "severity": 0.7342892665116613,
+        "pass": true,
+        "stuck": true,
+        "finish": false,
+        "speed": 10.256984099792986,
+        "eff": 96.08603398604951,
+        "thr": 30,
+        "t": 0.8535653139651768
+      },
+      "before": {
+        "alive": true,
+        "armed": true,
+        "gripValid": true,
+        "state": "stand",
+        "pain": 0,
+        "blood": 1,
+        "bleed": 0,
+        "consciousness": 1,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "wounds": 0,
+        "detached": []
+      },
+      "after": {
+        "alive": true,
+        "armed": true,
+        "gripValid": true,
+        "state": "stand",
+        "pain": 1.1482226363045602,
+        "blood": 1,
+        "bleed": 0.022028677995349837,
+        "consciousness": 0.6328553667441694,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        },
+        "wounds": 1,
+        "detached": []
+      }
+    },
+    "firstLiveContactTick": 1920,
+    "liveContactCount": 4,
+    "liveOwners": [
+      "player"
+    ],
+    "positivePairEnergyEvents": 0,
+    "capEvents": 0,
+    "maxResidual": {
+      "deltaPResidualNs": 3.1722219766478487e-07,
+      "deltaLResidualNms": 1.035859404163135e-06,
+      "deltaKResidualJ": 1.003173384361844e-06
+    },
+    "maxPlayerJointGapM": 0.0020407333358983424,
+    "authoredStepsAfterRecovery": 245,
+    "tapeStepsPlanned": 324,
+    "terminal": {
+      "tick": 2037,
+      "reason": "enemy_dead",
+      "afterRecovery": true
+    },
+    "observerEquivalence": {
+      "spawn": true,
+      "frames": true,
+      "health": true,
+      "controls": true
+    },
+    "historicalNativeExact": {
+      "raw": {
+        "path": "/workspace/halfsword-handoff/phase2-close-20261006/recovery/alber01/combined.json",
+        "bytes": 17252574,
+        "sha256": "4b067fcb2f7ca4e2aa94a927081c2666921e7bbc0b9692998ebb39ad3e1002da"
+      },
+      "steps": 2038,
+      "exact": true,
+      "meaning": "Current combined policy preserves this one recorded physical trajectory. No general trajectory invariance or efficacy improvement claimed."
+    }
+  },
+  "reuse": {
+    "actualPartialArmInjuryThenRecut": "phase3_cut_link_20261007.json (Qinggang tick632 main-arm cut then728/732 outgoing cuts)",
+    "functionalInjuryAndReactivationHistory": "injury_followup_20261006.json",
+    "armorStabFinish": "phase3_round1_20261007.json + phase3_finish_contact_20261007.json",
+    "cutAndParry": "phase3_cut_link_20261007.json + phase3_parry_20261007.json",
+    "limbControlAndDisplay": "limb_default_release.json",
+    "actualPublicDamageDisplay": "phase3_damage_visual_20261007.json",
+    "previousEntryAndRestart": "phase3_round1_release.json + phase3_round2_release.json"
+  },
+  "mobile": {
+    "record": "phase3_closure_mobile_20261007.json",
+    "browserExecutions": 1,
+    "totalPhysicsSteps": 893,
+    "totalSimulationSeconds": 7.4416666667,
+    "actualCutWounds": 2,
+    "pauseResumeAndNewInput": true,
+    "recoveryOwnerPreserved": true,
+    "restartFreshObjects": 6,
+    "firstStepHealthAndHistoryReset": true,
+    "newRoundInput": true,
+    "errors": 0,
+    "fullGetupOrPostRecoveryAttackInBrowser": false
+  },
+  "limits": [
+    "One scene with actual helmet blunt knockdown and recovery; do not merge with a separate Qinggang arm-cut scene.",
+    "Four positive impulse substeps belong to one surviving-target cutting contact, not four independent experiments.",
+    "Hand movement finishes seven steps before the first cut. It is manual held follow-through with player ownership, not moving-pad contact.",
+    "Opponent death ends the script after245/324manual steps. Full final release was not exposed.",
+    "New bounded policy is installed from spawn but limiter efficacy is not measured here; old/current native trajectory is exact.",
+    "Severing ON is a policy assertion; no natural limb sever occurs in this scene.",
+    "Observer-off exposes no instrumented events by design; zero event flags are unobserved, not absent physical hits.",
+    "No rendering, physical-phone performance or human-naturalness acceptance from native probes.",
+    "armorGuard stays optional. Offhand injury/force gap and withheld v2 weapons are deferred, not passed."
+  ],
+  "independentAudit": {
+    "record": {
+      "path": "/workspace/halfsword-handoff/phase3-round3-20261007/audit/reuse01.json",
+      "bytes": 136255,
+      "sha256": "e35a372d7a35c6f56a8c7954351cdd3c19bbb2284cdded04aa532a5a4fdc6f52"
+    },
+    "script": {
+      "path": "/workspace/halfsword-handoff/phase3-round3-20261007/audit/reuse_audit.py",
+      "bytes": 11580,
+      "sha256": "085ccbd148c1089b3ad8ccf8280c379a46b287f50fa2c017227e44b9c2311a0b"
+    },
+    "existingEvidenceFilesVerified": 29,
+    "existingFrozenFileCounts": [
+      96,
+      97,
+      97,
+      94,
+      101
+    ],
+    "currentRecoveryFrozenFilesVerified": 101,
+    "newPhysicsRuns": 0,
+    "newBrowserRuns": 0,
+    "decision": "Representative current-ordinary integration passes. No blocker; effects and unexposed full tape remain out of scope."
+  }
+}
