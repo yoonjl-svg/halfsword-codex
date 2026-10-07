@@ -1,0 +1,56 @@
+{
+  "status": "research_complete_public_plan_pending",
+  "createdKST": "2026-10-07",
+  "baseHead": "f395a13b6c62c5f15faa017270eebad5c3f0618f",
+  "scope": "Complete deferred recut contact-power and residual-rotation investigations; retain ordinary game physics.",
+  "ordinaryURL": "https://yoonjl-svg.github.io/halfsword-codex/",
+  "planURL": "https://yoonjl-svg.github.io/halfsword-codex/development-plan.html",
+  "decision": {
+    "recut": "Manual recut follow-through after actual bounded intervention causes live-target cuts; no new damage/strength multiplier justified. Not an every-strike nondecrease guarantee.",
+    "spin": "Selected release endpoints settle; sabre peak is one native head-collision step. Post-step body-grip clamp candidate not adopted because it leaves the integrated pose jump and extends momentum removal.",
+    "productionGameChanged": false,
+    "gravityChanged": false,
+    "newUserPlayRequired": false
+  },
+  "researchRecords": [
+    {
+      "path": "docs/strike/recut_power_20261007.json",
+      "bytes": 96602,
+      "sha256": "dbe98e2e4952c4a73cfd6f3e352bc5acd147b93b0e161dcf7809dcd756d3d207"
+    },
+    {
+      "path": "docs/strike/spin_followup_20261007.json",
+      "bytes": 31573,
+      "sha256": "7189fb06ba0ab4b92a71594ff2b439cd697363aa914262169f0b16704f395ae3"
+    }
+  ],
+  "verification": {
+    "recutRawReferenceHashesChecked": 41,
+    "spinRawReportHashesChecked": 8,
+    "spinRunnerHashChecked": true,
+    "productionBuildPassed": true,
+    "buildMainAsset": "assets/main-TevQzBPf.js",
+    "buildMainSHA256": "77e440ae2be07a31790d64d5f6569fe073c2210e6deae2065054c3e877e20416",
+    "matchesPreviouslyDeliveredGameAsset": true,
+    "reusedGameAndMobileDelivery": "docs/strike/limb_default_release.json",
+    "gameSourceDiffFromBaseEmpty": true
+  },
+  "public": {
+    "status": "pending"
+  },
+  "gravityAnswer": {
+    "scope": "same-height free fall from rest; not a measured game-damage gain",
+    "base": 9.81,
+    "plus15": {
+      "gravity": 11.2815,
+      "speedRatio": 1.0723805294763609,
+      "fallEnergyRatio": 1.15
+    },
+    "plus25": {
+      "gravity": 12.2625,
+      "speedRatio": 1.118033988749895,
+      "fallEnergyRatio": 1.25
+    },
+    "mass": "same acceleration and proportional gain at equal conditions; heavier mass has a larger absolute added fall energy, while held-weapon attack and recovery depend on controller, alignment and contacts"
+  }
+}

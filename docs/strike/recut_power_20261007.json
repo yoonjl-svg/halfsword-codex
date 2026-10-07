@@ -1,0 +1,3352 @@
+{
+  "schemaVersion": 1,
+  "head": "f395a13b6c62c5f15faa017270eebad5c3f0618f",
+  "judgment": "Actual live manual recut contact verified for longsword and Qinggang after bounded intervention; no damage/strength multiplier change warranted by these observations. Every-strike power nondecrease and active-finger-at-contact claims are not made.",
+  "executionCount": 15,
+  "completedSteps": 14234,
+  "wallSeconds": 28.253162809000003,
+  "runs": [
+    {
+      "name": "native01",
+      "report": {
+        "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native01/report.json",
+        "bytes": 25423,
+        "sha256": "76646ba1479b71e8188a5468be08104e299462f758e0f2adab0ff492bfae2f91"
+      },
+      "source": {
+        "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native01-runtime/SOURCE.json",
+        "bytes": 19598,
+        "sha256": "bc8e37bff71e4c8a9d51ea9c916db407fc591a49f64490a05caa5382bd2a1751"
+      },
+      "head": "f395a13b6c62c5f15faa017270eebad5c3f0618f",
+      "sourceStable": true,
+      "measurementValid": true,
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/deferred-20261007/recut/native01-runtime/tools/sim/experiments/recut_power_20261007_probe.mjs",
+        "/workspace/halfsword-handoff/deferred-20261007/recut/native01",
+        "contact"
+      ],
+      "protocol": {
+        "name": "contact",
+        "seed": 7,
+        "gravity": 9.81,
+        "startGapM": 5.6,
+        "opponent": "zweihander normal AI",
+        "playerEmotion": "harness neutral, not main emotion feedback",
+        "input": "normal hand deltas and forward joystick; no transforms, forces, velocity, wound, armor or health injection",
+        "schedule": [
+          [
+            "ready",
+            60,
+            [
+              0,
+              0
+            ]
+          ],
+          [
+            "raise",
+            48,
+            [
+              -0.28,
+              0.38
+            ]
+          ],
+          [
+            "raisedHold",
+            24,
+            [
+              0,
+              0
+            ]
+          ],
+          [
+            "firstCut",
+            30,
+            [
+              0.56,
+              -0.76
+            ]
+          ],
+          [
+            "followHold",
+            36,
+            [
+              0,
+              0
+            ]
+          ],
+          [
+            "reverse",
+            36,
+            [
+              -0.38,
+              0.66
+            ]
+          ],
+          [
+            "reverseHold",
+            24,
+            [
+              0,
+              0
+            ]
+          ],
+          [
+            "recut",
+            30,
+            [
+              0.4,
+              -0.7
+            ]
+          ],
+          [
+            "recutHold",
+            36,
+            [
+              0,
+              0
+            ]
+          ],
+          [
+            "raise2",
+            48,
+            [
+              -0.28,
+              0.38
+            ]
+          ],
+          [
+            "raisedHold2",
+            24,
+            [
+              0,
+              0
+            ]
+          ],
+          [
+            "cut2",
+            30,
+            [
+              0.56,
+              -0.76
+            ]
+          ],
+          [
+            "followHold2",
+            36,
+            [
+              0,
+              0
+            ]
+          ],
+          [
+            "release",
+            60,
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "models": "v2/manual/fresh/centerline/limbON from creation; only bounded vs legacy varies"
+      },
+      "executionCount": 4,
+      "steps": 3768,
+      "wallSeconds": 9.530288203,
+      "comparisons": [
+        {
+          "weapon": "longsword",
+          "sameSpawn": true,
+          "sameStart": true,
+          "commonSteps": 942,
+          "firstNativeDifference": 584,
+          "firstRequestedDifference": -1,
+          "firstAppliedDifference": -1,
+          "firstEnemyDifference": 667,
+          "prefixExact": true
+        },
+        {
+          "weapon": "qinggang",
+          "sameSpawn": true,
+          "sameStart": true,
+          "commonSteps": 942,
+          "firstNativeDifference": 556,
+          "firstRequestedDifference": -1,
+          "firstAppliedDifference": -1,
+          "firstEnemyDifference": 571,
+          "prefixExact": true
+        }
+      ],
+      "observerEquivalence": null,
+      "rows": [
+        {
+          "weapon": "longsword",
+          "mode": "legacy",
+          "artifact": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native01/longsword-legacy.json",
+            "sha256": "e730de82c84aa8191f9ddef3858ffd198087f072d9d2823dc54db31a91a0e3bd",
+            "bytes": 937960
+          },
+          "steps": 942,
+          "startTick": 420,
+          "firstInterventionTick": null,
+          "interventions": 0,
+          "terminal": {
+            "tick": 942,
+            "reason": "full_tape"
+          },
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "models": true
+          },
+          "raw": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native01/longsword-legacy.json",
+            "bytes": 937960,
+            "sha256": "e730de82c84aa8191f9ddef3858ffd198087f072d9d2823dc54db31a91a0e3bd"
+          },
+          "phases": {
+            "firstCut": {
+              "tipSpeedMps": {
+                "max": 10.602635304630368,
+                "mean": 5.56927486782312,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 30.361434260319353,
+                "mean": 12.86159134016451,
+                "count": 30
+              }
+            },
+            "recut": {
+              "tipSpeedMps": {
+                "max": 9.892925865329,
+                "mean": 6.392679337434796,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 22.49784757036093,
+                "mean": 12.70894858303848,
+                "count": 30
+              }
+            },
+            "recutHold": {
+              "tipSpeedMps": {
+                "max": 10.05548861401918,
+                "mean": 5.670236442554259,
+                "count": 36
+              },
+              "swordKJ": {
+                "max": 24.33662840988561,
+                "mean": 8.01561627804592,
+                "count": 36
+              }
+            },
+            "cut2": {
+              "tipSpeedMps": {
+                "max": 11.102485134472078,
+                "mean": 6.737184062042542,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 18.356284859705653,
+                "mean": 8.774533222371153,
+                "count": 30
+              }
+            }
+          },
+          "postInterventionLiveDamagingCuts": [],
+          "strictMovingFingerCuts": 0,
+          "newCutWounds": 1,
+          "recutInterventions": [],
+          "allPlayerAliveArmedGrip": true
+        },
+        {
+          "weapon": "longsword",
+          "mode": "bounded",
+          "artifact": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native01/longsword-bounded.json",
+            "sha256": "c2124d361e75463920f452d7a06fe349e0429ac00d15f96e2c8ca280c8f57eda",
+            "bytes": 937843
+          },
+          "steps": 942,
+          "startTick": 420,
+          "firstInterventionTick": 584,
+          "interventions": 10,
+          "terminal": {
+            "tick": 942,
+            "reason": "full_tape"
+          },
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "models": true
+          },
+          "raw": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native01/longsword-bounded.json",
+            "bytes": 937843,
+            "sha256": "c2124d361e75463920f452d7a06fe349e0429ac00d15f96e2c8ca280c8f57eda"
+          },
+          "phases": {
+            "firstCut": {
+              "tipSpeedMps": {
+                "max": 10.602635304630368,
+                "mean": 5.56927486782312,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 30.361434260319353,
+                "mean": 12.86159134016451,
+                "count": 30
+              }
+            },
+            "recut": {
+              "tipSpeedMps": {
+                "max": 9.846214222632808,
+                "mean": 6.373529266820057,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 22.471889183315202,
+                "mean": 12.618056157082993,
+                "count": 30
+              }
+            },
+            "recutHold": {
+              "tipSpeedMps": {
+                "max": 10.082871411710098,
+                "mean": 5.687030789110557,
+                "count": 36
+              },
+              "swordKJ": {
+                "max": 24.385356565575638,
+                "mean": 8.057345326496474,
+                "count": 36
+              }
+            },
+            "cut2": {
+              "tipSpeedMps": {
+                "max": 10.981710835053097,
+                "mean": 6.792706552084703,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 18.60950495862343,
+                "mean": 8.773108092183204,
+                "count": 30
+              }
+            }
+          },
+          "postInterventionLiveDamagingCuts": [],
+          "strictMovingFingerCuts": 0,
+          "newCutWounds": 1,
+          "recutInterventions": [],
+          "allPlayerAliveArmedGrip": true
+        },
+        {
+          "weapon": "qinggang",
+          "mode": "legacy",
+          "artifact": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native01/qinggang-legacy.json",
+            "sha256": "a401a32ac659da58c929871fc566acb601c251ebab64f00a8c513d471de0b2de",
+            "bytes": 930441
+          },
+          "steps": 942,
+          "startTick": 420,
+          "firstInterventionTick": null,
+          "interventions": 0,
+          "terminal": {
+            "tick": 942,
+            "reason": "full_tape"
+          },
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "models": true
+          },
+          "raw": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native01/qinggang-legacy.json",
+            "bytes": 930441,
+            "sha256": "a401a32ac659da58c929871fc566acb601c251ebab64f00a8c513d471de0b2de"
+          },
+          "phases": {
+            "firstCut": {
+              "tipSpeedMps": {
+                "max": 13.082772117270506,
+                "mean": 7.788563579860439,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 21.802326084921926,
+                "mean": 12.093551493540087,
+                "count": 30
+              }
+            },
+            "recut": {
+              "tipSpeedMps": {
+                "max": 10.35621004875086,
+                "mean": 7.078432192857875,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 15.569366467307521,
+                "mean": 9.804358583961845,
+                "count": 30
+              }
+            },
+            "recutHold": {
+              "tipSpeedMps": {
+                "max": 7.082659745530462,
+                "mean": 3.0026343010709327,
+                "count": 36
+              },
+              "swordKJ": {
+                "max": 7.56129876409296,
+                "mean": 2.3052668449080342,
+                "count": 36
+              }
+            },
+            "cut2": {
+              "tipSpeedMps": {
+                "max": 8.98348779814322,
+                "mean": 5.082031119168511,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 9.966518198337296,
+                "mean": 4.5895160690616255,
+                "count": 30
+              }
+            }
+          },
+          "postInterventionLiveDamagingCuts": [],
+          "strictMovingFingerCuts": 0,
+          "newCutWounds": 0,
+          "recutInterventions": [],
+          "allPlayerAliveArmedGrip": true
+        },
+        {
+          "weapon": "qinggang",
+          "mode": "bounded",
+          "artifact": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native01/qinggang-bounded.json",
+            "sha256": "b9042b60eb06c9abd0128fc7b5083f4c43eab7ba5ddf8ac5397408fa62d9abb0",
+            "bytes": 936249
+          },
+          "steps": 942,
+          "startTick": 420,
+          "firstInterventionTick": 556,
+          "interventions": 56,
+          "terminal": {
+            "tick": 942,
+            "reason": "full_tape"
+          },
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "models": true
+          },
+          "raw": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native01/qinggang-bounded.json",
+            "bytes": 936249,
+            "sha256": "b9042b60eb06c9abd0128fc7b5083f4c43eab7ba5ddf8ac5397408fa62d9abb0"
+          },
+          "phases": {
+            "firstCut": {
+              "tipSpeedMps": {
+                "max": 13.067199844219108,
+                "mean": 7.78826780612874,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 21.75163607512412,
+                "mean": 12.087871083356111,
+                "count": 30
+              }
+            },
+            "recut": {
+              "tipSpeedMps": {
+                "max": 10.356794209438553,
+                "mean": 7.067108413871009,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 15.57161473790809,
+                "mean": 9.791310791043196,
+                "count": 30
+              }
+            },
+            "recutHold": {
+              "tipSpeedMps": {
+                "max": 7.1008960427120575,
+                "mean": 3.0043677677766616,
+                "count": 36
+              },
+              "swordKJ": {
+                "max": 7.604631795130196,
+                "mean": 2.305984416585139,
+                "count": 36
+              }
+            },
+            "cut2": {
+              "tipSpeedMps": {
+                "max": 9.401195804035567,
+                "mean": 5.162284932726659,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 10.816900537849452,
+                "mean": 4.791249113809193,
+                "count": 30
+              }
+            }
+          },
+          "postInterventionLiveDamagingCuts": [],
+          "strictMovingFingerCuts": 0,
+          "newCutWounds": 0,
+          "recutInterventions": [
+            {
+              "tick": 678,
+              "phase": "recut",
+              "active": true,
+              "moving": 0.4371736633585307,
+              "angleRad": 0.779601143527848
+            },
+            {
+              "tick": 679,
+              "phase": "recut",
+              "active": true,
+              "moving": 0.5475260752785485,
+              "angleRad": 0.5242897153763626
+            }
+          ],
+          "allPlayerAliveArmedGrip": true
+        }
+      ]
+    },
+    {
+      "name": "native02",
+      "report": {
+        "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native02/report.json",
+        "bytes": 25528,
+        "sha256": "a93088965a00619fce145fe15146a3479f31d2bda041a712b55a74916ca7e950"
+      },
+      "source": {
+        "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native02-runtime/SOURCE.json",
+        "bytes": 19598,
+        "sha256": "602b873819a0f0cf7b6d2afef8fb45a76cbf4d310e239cf27edf358a212b84c9"
+      },
+      "head": "f395a13b6c62c5f15faa017270eebad5c3f0618f",
+      "sourceStable": true,
+      "measurementValid": true,
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/deferred-20261007/recut/native02-runtime/tools/sim/experiments/recut_power_20261007_probe.mjs",
+        "/workspace/halfsword-handoff/deferred-20261007/recut/native02",
+        "distance"
+      ],
+      "protocol": {
+        "name": "distance",
+        "seed": 7,
+        "gravity": 9.81,
+        "startGapM": 5.6,
+        "opponent": "zweihander normal AI",
+        "playerEmotion": "harness neutral, not main emotion feedback",
+        "input": "normal hand deltas and joystick; distance protocol baseline holds1.15m via clamped analog stick and bounded replays exact recorded stick;  no transforms, forces, velocity, wound, armor or health injection",
+        "schedule": [
+          [
+            "ready",
+            60,
+            [
+              0,
+              0
+            ]
+          ],
+          [
+            "raise",
+            48,
+            [
+              -0.28,
+              0.38
+            ]
+          ],
+          [
+            "raisedHold",
+            24,
+            [
+              0,
+              0
+            ]
+          ],
+          [
+            "firstCut",
+            30,
+            [
+              0.56,
+              -0.76
+            ]
+          ],
+          [
+            "followHold",
+            36,
+            [
+              0,
+              0
+            ]
+          ],
+          [
+            "reverse",
+            36,
+            [
+              -0.38,
+              0.66
+            ]
+          ],
+          [
+            "reverseHold",
+            24,
+            [
+              0,
+              0
+            ]
+          ],
+          [
+            "recut",
+            30,
+            [
+              0.4,
+              -0.7
+            ]
+          ],
+          [
+            "recutHold",
+            36,
+            [
+              0,
+              0
+            ]
+          ],
+          [
+            "raise2",
+            48,
+            [
+              -0.28,
+              0.38
+            ]
+          ],
+          [
+            "raisedHold2",
+            24,
+            [
+              0,
+              0
+            ]
+          ],
+          [
+            "cut2",
+            30,
+            [
+              0.56,
+              -0.76
+            ]
+          ],
+          [
+            "followHold2",
+            36,
+            [
+              0,
+              0
+            ]
+          ],
+          [
+            "release",
+            60,
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "models": "v2/manual/fresh/centerline/limbON from creation; only bounded vs legacy varies"
+      },
+      "executionCount": 4,
+      "steps": 3768,
+      "wallSeconds": 6.529555106000001,
+      "comparisons": [
+        {
+          "weapon": "longsword",
+          "sameSpawn": true,
+          "sameStart": true,
+          "commonSteps": 942,
+          "firstNativeDifference": 582,
+          "firstRequestedDifference": -1,
+          "firstAppliedDifference": -1,
+          "firstEnemyDifference": 645,
+          "prefixExact": true
+        },
+        {
+          "weapon": "qinggang",
+          "sameSpawn": true,
+          "sameStart": true,
+          "commonSteps": 942,
+          "firstNativeDifference": 556,
+          "firstRequestedDifference": -1,
+          "firstAppliedDifference": -1,
+          "firstEnemyDifference": 571,
+          "prefixExact": true
+        }
+      ],
+      "observerEquivalence": null,
+      "rows": [
+        {
+          "weapon": "longsword",
+          "mode": "legacy",
+          "artifact": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native02/longsword-legacy.json",
+            "sha256": "7091d98b6a5ad325d3967d5aed6d7360b8fac836b6fd85a5ef1963d873738c61",
+            "bytes": 955977
+          },
+          "steps": 942,
+          "startTick": 420,
+          "firstInterventionTick": null,
+          "interventions": 0,
+          "terminal": {
+            "tick": 942,
+            "reason": "full_tape"
+          },
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "models": true
+          },
+          "raw": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native02/longsword-legacy.json",
+            "bytes": 955977,
+            "sha256": "7091d98b6a5ad325d3967d5aed6d7360b8fac836b6fd85a5ef1963d873738c61"
+          },
+          "phases": {
+            "firstCut": {
+              "tipSpeedMps": {
+                "max": 10.389289241643114,
+                "mean": 5.555036652732723,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 24.97621079378222,
+                "mean": 10.975341299648615,
+                "count": 30
+              }
+            },
+            "recut": {
+              "tipSpeedMps": {
+                "max": 10.816038865778655,
+                "mean": 5.329599590770756,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 22.23472030532397,
+                "mean": 8.779811788662734,
+                "count": 30
+              }
+            },
+            "recutHold": {
+              "tipSpeedMps": {
+                "max": 10.24836032179258,
+                "mean": 5.983159870339006,
+                "count": 36
+              },
+              "swordKJ": {
+                "max": 25.521831736585685,
+                "mean": 9.065160994150576,
+                "count": 36
+              }
+            },
+            "cut2": {
+              "tipSpeedMps": {
+                "max": 10.33432281493767,
+                "mean": 6.1531668925946255,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 18.07550522096584,
+                "mean": 8.545731292785497,
+                "count": 30
+              }
+            }
+          },
+          "postInterventionLiveDamagingCuts": [],
+          "strictMovingFingerCuts": 0,
+          "newCutWounds": 1,
+          "recutInterventions": [],
+          "allPlayerAliveArmedGrip": true
+        },
+        {
+          "weapon": "longsword",
+          "mode": "bounded",
+          "artifact": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native02/longsword-bounded.json",
+            "sha256": "46afede8e7700a44cefdce4d1bb6d81f0961c3dd41d5fca0bf0047e739b5617a",
+            "bytes": 956109
+          },
+          "steps": 942,
+          "startTick": 420,
+          "firstInterventionTick": 582,
+          "interventions": 2,
+          "terminal": {
+            "tick": 942,
+            "reason": "full_tape"
+          },
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "models": true
+          },
+          "raw": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native02/longsword-bounded.json",
+            "bytes": 956109,
+            "sha256": "46afede8e7700a44cefdce4d1bb6d81f0961c3dd41d5fca0bf0047e739b5617a"
+          },
+          "phases": {
+            "firstCut": {
+              "tipSpeedMps": {
+                "max": 10.389289241643114,
+                "mean": 5.555036652732723,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 24.97621079378222,
+                "mean": 10.975341299648615,
+                "count": 30
+              }
+            },
+            "recut": {
+              "tipSpeedMps": {
+                "max": 10.812351166739642,
+                "mean": 5.3281062611110475,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 22.233388816177083,
+                "mean": 8.775441602697724,
+                "count": 30
+              }
+            },
+            "recutHold": {
+              "tipSpeedMps": {
+                "max": 10.245663508806565,
+                "mean": 5.982137032273931,
+                "count": 36
+              },
+              "swordKJ": {
+                "max": 25.52794450039108,
+                "mean": 9.064629296091631,
+                "count": 36
+              }
+            },
+            "cut2": {
+              "tipSpeedMps": {
+                "max": 10.346233642746991,
+                "mean": 6.1566216345575375,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 18.13470082443194,
+                "mean": 8.566164913867931,
+                "count": 30
+              }
+            }
+          },
+          "postInterventionLiveDamagingCuts": [],
+          "strictMovingFingerCuts": 0,
+          "newCutWounds": 1,
+          "recutInterventions": [],
+          "allPlayerAliveArmedGrip": true
+        },
+        {
+          "weapon": "qinggang",
+          "mode": "legacy",
+          "artifact": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native02/qinggang-legacy.json",
+            "sha256": "b1c76f8baf57586056e8079562cef230769f4a66b64766b882daf9c1fec724cc",
+            "bytes": 947125
+          },
+          "steps": 942,
+          "startTick": 420,
+          "firstInterventionTick": null,
+          "interventions": 0,
+          "terminal": {
+            "tick": 942,
+            "reason": "full_tape"
+          },
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "models": true
+          },
+          "raw": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native02/qinggang-legacy.json",
+            "bytes": 947125,
+            "sha256": "b1c76f8baf57586056e8079562cef230769f4a66b64766b882daf9c1fec724cc"
+          },
+          "phases": {
+            "firstCut": {
+              "tipSpeedMps": {
+                "max": 13.03080991317288,
+                "mean": 7.760185927519828,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 21.654764425787267,
+                "mean": 11.971304292956471,
+                "count": 30
+              }
+            },
+            "recut": {
+              "tipSpeedMps": {
+                "max": 9.57157327728477,
+                "mean": 6.080182059798883,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 13.206922811539869,
+                "mean": 6.899360847262062,
+                "count": 30
+              }
+            },
+            "recutHold": {
+              "tipSpeedMps": {
+                "max": 6.87002039437296,
+                "mean": 2.6073288195622895,
+                "count": 36
+              },
+              "swordKJ": {
+                "max": 8.044350941855036,
+                "mean": 1.5186715997493738,
+                "count": 36
+              }
+            },
+            "cut2": {
+              "tipSpeedMps": {
+                "max": 9.508940489898585,
+                "mean": 5.138074793912015,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 12.93384782455377,
+                "mean": 5.318222716095066,
+                "count": 30
+              }
+            }
+          },
+          "postInterventionLiveDamagingCuts": [],
+          "strictMovingFingerCuts": 0,
+          "newCutWounds": 0,
+          "recutInterventions": [],
+          "allPlayerAliveArmedGrip": true
+        },
+        {
+          "weapon": "qinggang",
+          "mode": "bounded",
+          "artifact": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native02/qinggang-bounded.json",
+            "sha256": "20d2807100b7405a037f316b841610a14a7de8cbaa61da98badcbc20cd64a6d6",
+            "bytes": 949462
+          },
+          "steps": 942,
+          "startTick": 420,
+          "firstInterventionTick": 556,
+          "interventions": 27,
+          "terminal": {
+            "tick": 942,
+            "reason": "full_tape"
+          },
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "models": true
+          },
+          "raw": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native02/qinggang-bounded.json",
+            "bytes": 949462,
+            "sha256": "20d2807100b7405a037f316b841610a14a7de8cbaa61da98badcbc20cd64a6d6"
+          },
+          "phases": {
+            "firstCut": {
+              "tipSpeedMps": {
+                "max": 13.01437643511793,
+                "mean": 7.759771668602642,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 21.602235929705614,
+                "mean": 11.964904318936915,
+                "count": 30
+              }
+            },
+            "recut": {
+              "tipSpeedMps": {
+                "max": 9.573571747356098,
+                "mean": 6.0812025980999325,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 13.216775161924609,
+                "mean": 6.904699584613123,
+                "count": 30
+              }
+            },
+            "recutHold": {
+              "tipSpeedMps": {
+                "max": 6.869544412836948,
+                "mean": 2.606875929052641,
+                "count": 36
+              },
+              "swordKJ": {
+                "max": 8.047181596829848,
+                "mean": 1.5185439032867611,
+                "count": 36
+              }
+            },
+            "cut2": {
+              "tipSpeedMps": {
+                "max": 9.467038577412065,
+                "mean": 5.125530408945642,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 12.957907168802592,
+                "mean": 5.288995775526635,
+                "count": 30
+              }
+            }
+          },
+          "postInterventionLiveDamagingCuts": [],
+          "strictMovingFingerCuts": 0,
+          "newCutWounds": 0,
+          "recutInterventions": [],
+          "allPlayerAliveArmedGrip": true
+        }
+      ]
+    },
+    {
+      "name": "native03",
+      "report": {
+        "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native03/report.json",
+        "bytes": 25260,
+        "sha256": "99497f32b15a5383505cbab47aa7d29496df18d143959a6e32e85933d276cedf"
+      },
+      "source": {
+        "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native03-runtime/SOURCE.json",
+        "bytes": 19598,
+        "sha256": "5e7336eb442a56c3a401597646d14bdf142bc191d2ee423a85db377bf2ad6579"
+      },
+      "head": "f395a13b6c62c5f15faa017270eebad5c3f0618f",
+      "sourceStable": true,
+      "measurementValid": true,
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/deferred-20261007/recut/native03-runtime/tools/sim/experiments/recut_power_20261007_probe.mjs",
+        "/workspace/halfsword-handoff/deferred-20261007/recut/native03",
+        "guard"
+      ],
+      "protocol": {
+        "name": "guard",
+        "seed": 7,
+        "gravity": 9.81,
+        "startGapM": 5.6,
+        "opponent": "zweihander normal AI",
+        "playerEmotion": "harness neutral, not main emotion feedback",
+        "input": "normal hand deltas and joystick; distance protocol baseline holds1.15m via clamped analog stick and bounded replays exact recorded stick;  no transforms, forces, velocity, wound, armor or health injection",
+        "schedule": [
+          [
+            "ready",
+            60,
+            null
+          ],
+          [
+            "raise",
+            48,
+            [
+              0.42,
+              0.42
+            ]
+          ],
+          [
+            "raisedHold",
+            24,
+            null
+          ],
+          [
+            "firstCut",
+            30,
+            [
+              -0.4,
+              -0.42
+            ]
+          ],
+          [
+            "followHold",
+            36,
+            null
+          ],
+          [
+            "reverse",
+            48,
+            [
+              -0.4,
+              0.42
+            ]
+          ],
+          [
+            "reverseHold",
+            24,
+            null
+          ],
+          [
+            "recut",
+            30,
+            [
+              0.38,
+              -0.44
+            ]
+          ],
+          [
+            "recutHold",
+            36,
+            null
+          ],
+          [
+            "raise2",
+            48,
+            [
+              0.42,
+              0.42
+            ]
+          ],
+          [
+            "raisedHold2",
+            24,
+            null
+          ],
+          [
+            "cut2",
+            30,
+            [
+              -0.4,
+              -0.42
+            ]
+          ],
+          [
+            "followHold2",
+            36,
+            null
+          ],
+          [
+            "release",
+            60,
+            null
+          ]
+        ],
+        "models": "v2/manual/fresh/centerline/limbON from creation; only bounded vs legacy varies"
+      },
+      "executionCount": 4,
+      "steps": 3816,
+      "wallSeconds": 6.844225188,
+      "comparisons": [
+        {
+          "weapon": "longsword",
+          "sameSpawn": true,
+          "sameStart": true,
+          "commonSteps": 954,
+          "firstNativeDifference": 516,
+          "firstRequestedDifference": -1,
+          "firstAppliedDifference": -1,
+          "firstEnemyDifference": 544,
+          "prefixExact": true
+        },
+        {
+          "weapon": "qinggang",
+          "sameSpawn": true,
+          "sameStart": true,
+          "commonSteps": 954,
+          "firstNativeDifference": 585,
+          "firstRequestedDifference": -1,
+          "firstAppliedDifference": -1,
+          "firstEnemyDifference": 588,
+          "prefixExact": true
+        }
+      ],
+      "observerEquivalence": null,
+      "rows": [
+        {
+          "weapon": "longsword",
+          "mode": "legacy",
+          "artifact": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native03/longsword-legacy.json",
+            "sha256": "a46a69f2dca24678db0ab89eeca58e0bca15f4dff2720714225c7e81c9008ee9",
+            "bytes": 984888
+          },
+          "steps": 954,
+          "startTick": 420,
+          "firstInterventionTick": null,
+          "interventions": 0,
+          "terminal": {
+            "tick": 954,
+            "reason": "full_tape"
+          },
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "models": true
+          },
+          "raw": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native03/longsword-legacy.json",
+            "bytes": 984888,
+            "sha256": "a46a69f2dca24678db0ab89eeca58e0bca15f4dff2720714225c7e81c9008ee9"
+          },
+          "phases": {
+            "firstCut": {
+              "tipSpeedMps": {
+                "max": 14.589880069158992,
+                "mean": 7.379967063206562,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 35.60343795161063,
+                "mean": 14.565908083562748,
+                "count": 30
+              }
+            },
+            "recut": {
+              "tipSpeedMps": {
+                "max": 13.146877857524467,
+                "mean": 5.838103036231581,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 26.24566695247474,
+                "mean": 7.185681060261317,
+                "count": 30
+              }
+            },
+            "recutHold": {
+              "tipSpeedMps": {
+                "max": 16.00516961108099,
+                "mean": 5.873918866189552,
+                "count": 36
+              },
+              "swordKJ": {
+                "max": 38.26541603122131,
+                "mean": 13.044970411349329,
+                "count": 36
+              }
+            },
+            "cut2": {
+              "tipSpeedMps": {
+                "max": 15.54042981207312,
+                "mean": 7.405858629776073,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 31.902402224104776,
+                "mean": 11.14716427750506,
+                "count": 30
+              }
+            }
+          },
+          "postInterventionLiveDamagingCuts": [],
+          "strictMovingFingerCuts": 0,
+          "newCutWounds": 5,
+          "recutInterventions": [],
+          "allPlayerAliveArmedGrip": true
+        },
+        {
+          "weapon": "longsword",
+          "mode": "bounded",
+          "artifact": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native03/longsword-bounded.json",
+            "sha256": "e88d7bc6b5169914a25a04678ee9f3d2c57a24d22ac86ba8f35fcc3e696304cb",
+            "bytes": 982079
+          },
+          "steps": 954,
+          "startTick": 420,
+          "firstInterventionTick": 516,
+          "interventions": 28,
+          "terminal": {
+            "tick": 954,
+            "reason": "full_tape"
+          },
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "models": true
+          },
+          "raw": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native03/longsword-bounded.json",
+            "bytes": 982079,
+            "sha256": "e88d7bc6b5169914a25a04678ee9f3d2c57a24d22ac86ba8f35fcc3e696304cb"
+          },
+          "phases": {
+            "firstCut": {
+              "tipSpeedMps": {
+                "max": 14.587447595887618,
+                "mean": 7.377178152611906,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 35.5838471167706,
+                "mean": 14.550851311022491,
+                "count": 30
+              }
+            },
+            "recut": {
+              "tipSpeedMps": {
+                "max": 13.61286380869492,
+                "mean": 6.147562425216927,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 28.010211071678334,
+                "mean": 7.95041604091275,
+                "count": 30
+              }
+            },
+            "recutHold": {
+              "tipSpeedMps": {
+                "max": 16.15579536199052,
+                "mean": 5.269116170612458,
+                "count": 36
+              },
+              "swordKJ": {
+                "max": 40.043260052781726,
+                "mean": 12.474858977103823,
+                "count": 36
+              }
+            },
+            "cut2": {
+              "tipSpeedMps": {
+                "max": 15.39785549208793,
+                "mean": 7.52355755652866,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 31.718357542006494,
+                "mean": 11.458056961457958,
+                "count": 30
+              }
+            }
+          },
+          "postInterventionLiveDamagingCuts": [
+            {
+              "tick": 585,
+              "phase": "followHold",
+              "part": "chest",
+              "active": false,
+              "owner": "player",
+              "passing": true,
+              "before": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 1,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              },
+              "after": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 1,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              },
+              "afterIntervention": true,
+              "type": "cut",
+              "zone": "chest",
+              "energy": 70.47860789284849,
+              "ephys": 35.23930394642424,
+              "severity": 0.27463423443375934,
+              "pass": true,
+              "stuck": true,
+              "speed": 9.348970848749135,
+              "eff": 69.71708109903834,
+              "thr": 45,
+              "mEff": 0.8063613551042086,
+              "t": 0.5739095894532685,
+              "lastHandMotionTick": 581,
+              "lastHandMotionPhase": "firstCut",
+              "timeSinceLastHandMotionS": 0.03333333333333333,
+              "actualWoundHook": true
+            },
+            {
+              "tick": 586,
+              "phase": "followHold",
+              "part": "uarmO",
+              "active": false,
+              "owner": "player",
+              "passing": true,
+              "before": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 0.9999427845344929,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              },
+              "after": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 0.9999427845344929,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 0.8827008138808979,
+                  "legF": 1,
+                  "legB": 1
+                }
+              },
+              "afterIntervention": true,
+              "type": "cut",
+              "zone": "arm",
+              "energy": 37.58536349928499,
+              "ephys": 18.792681749642494,
+              "severity": 0.16757026588443147,
+              "pass": true,
+              "stuck": true,
+              "speed": 6.124561238147403,
+              "eff": 37.08132392959883,
+              "thr": 22,
+              "mEff": 1.0020024696915326,
+              "t": 0.48373499938635395,
+              "lastHandMotionTick": 581,
+              "lastHandMotionPhase": "firstCut",
+              "timeSinceLastHandMotionS": 0.041666666666666664,
+              "actualWoundHook": true
+            },
+            {
+              "tick": 728,
+              "phase": "recutHold",
+              "part": "pelvis",
+              "active": false,
+              "owner": "player",
+              "passing": true,
+              "before": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 0.9901534169487588,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 0.8827008138808979,
+                  "legF": 1,
+                  "legB": 1
+                }
+              },
+              "after": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 0.9901534169487588,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 0.8827008138808979,
+                  "legF": 1,
+                  "legB": 1
+                }
+              },
+              "afterIntervention": true,
+              "type": "cut",
+              "zone": "pelvis",
+              "energy": 71.50421729790904,
+              "ephys": 35.75210864895452,
+              "severity": 0.32331271287175584,
+              "pass": true,
+              "stuck": true,
+              "speed": 10.327165402352954,
+              "eff": 69.09814415845803,
+              "thr": 40,
+              "mEff": 0.6704546256454593,
+              "t": 0.6538797621070845,
+              "lastHandMotionTick": 719,
+              "lastHandMotionPhase": "recut",
+              "timeSinceLastHandMotionS": 0.075,
+              "actualWoundHook": true
+            },
+            {
+              "tick": 729,
+              "phase": "recutHold",
+              "part": "thighF",
+              "active": false,
+              "owner": "player",
+              "passing": true,
+              "before": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 0.9900354055875693,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 0.8827008138808979,
+                  "legF": 1,
+                  "legB": 1
+                }
+              },
+              "after": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 0.9900354055875693,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 0.8827008138808979,
+                  "legF": 0.9915329982000395,
+                  "legB": 1
+                }
+              },
+              "afterIntervention": true,
+              "type": "cut",
+              "zone": "leg",
+              "energy": 30.10941377988293,
+              "ephys": 15.054706889941466,
+              "severity": 0.012095716857086498,
+              "pass": false,
+              "stuck": true,
+              "speed": 7.055732828640299,
+              "eff": 29.088614517137785,
+              "thr": 28,
+              "mEff": 0.6048087212824806,
+              "t": 0.7638577468541422,
+              "lastHandMotionTick": 719,
+              "lastHandMotionPhase": "recut",
+              "timeSinceLastHandMotionS": 0.08333333333333333,
+              "actualWoundHook": true
+            },
+            {
+              "tick": 863,
+              "phase": "followHold2",
+              "part": "chest",
+              "active": false,
+              "owner": "player",
+              "passing": true,
+              "before": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 0.9750537915278159,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 0.8827008138808979,
+                  "legF": 0.9915329982000395,
+                  "legB": 1
+                }
+              },
+              "after": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 0.9750537915278159,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 0.8827008138808979,
+                  "legF": 0.9915329982000395,
+                  "legB": 1
+                }
+              },
+              "afterIntervention": true,
+              "type": "cut",
+              "zone": "chest",
+              "energy": 60.70317643402699,
+              "ephys": 30.351588217013497,
+              "severity": 0.21309708423008955,
+              "pass": true,
+              "stuck": true,
+              "speed": 9.03736257376409,
+              "eff": 56.33556595706625,
+              "thr": 37.15682837635819,
+              "mEff": 0.7432381687110823,
+              "t": 0.5846609327917996,
+              "lastHandMotionTick": 857,
+              "lastHandMotionPhase": "cut2",
+              "timeSinceLastHandMotionS": 0.05,
+              "actualWoundHook": true
+            }
+          ],
+          "strictMovingFingerCuts": 0,
+          "newCutWounds": 5,
+          "recutInterventions": [
+            {
+              "tick": 700,
+              "phase": "recut",
+              "active": true,
+              "moving": 0.8669965976852606,
+              "angleRad": 0.06380851197510536
+            },
+            {
+              "tick": 701,
+              "phase": "recut",
+              "active": true,
+              "moving": 0.8541215058703013,
+              "angleRad": 0.1008172293862339
+            },
+            {
+              "tick": 702,
+              "phase": "recut",
+              "active": true,
+              "moving": 0.9058366900570757,
+              "angleRad": 0.16164827355163136
+            },
+            {
+              "tick": 703,
+              "phase": "recut",
+              "active": true,
+              "moving": 0.9806453433259886,
+              "angleRad": 0.17313529819461804
+            },
+            {
+              "tick": 704,
+              "phase": "recut",
+              "active": true,
+              "moving": 1,
+              "angleRad": 0.11323778536170624
+            },
+            {
+              "tick": 705,
+              "phase": "recut",
+              "active": true,
+              "moving": 1,
+              "angleRad": 0.02355262167428152
+            }
+          ],
+          "allPlayerAliveArmedGrip": true
+        },
+        {
+          "weapon": "qinggang",
+          "mode": "legacy",
+          "artifact": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native03/qinggang-legacy.json",
+            "sha256": "481acc1a128c436259543ed729f524b20645c8469627608bf84ee5d1c25728c3",
+            "bytes": 982346
+          },
+          "steps": 954,
+          "startTick": 420,
+          "firstInterventionTick": null,
+          "interventions": 0,
+          "terminal": {
+            "tick": 954,
+            "reason": "full_tape"
+          },
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "models": true
+          },
+          "raw": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native03/qinggang-legacy.json",
+            "bytes": 982346,
+            "sha256": "481acc1a128c436259543ed729f524b20645c8469627608bf84ee5d1c25728c3"
+          },
+          "phases": {
+            "firstCut": {
+              "tipSpeedMps": {
+                "max": 12.284209656992262,
+                "mean": 7.349526249427699,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 27.74119329482971,
+                "mean": 13.211704075938133,
+                "count": 30
+              }
+            },
+            "recut": {
+              "tipSpeedMps": {
+                "max": 10.420457298074323,
+                "mean": 3.7599166291473693,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 12.197635761272672,
+                "mean": 3.2682752152127112,
+                "count": 30
+              }
+            },
+            "recutHold": {
+              "tipSpeedMps": {
+                "max": 14.562116165771808,
+                "mean": 6.220572803865415,
+                "count": 36
+              },
+              "swordKJ": {
+                "max": 19.825528020944432,
+                "mean": 6.9160710434723836,
+                "count": 36
+              }
+            },
+            "cut2": {
+              "tipSpeedMps": {
+                "max": 10.283665272137458,
+                "mean": 3.8089736470066824,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 11.724088951779697,
+                "mean": 3.4090017955432663,
+                "count": 30
+              }
+            }
+          },
+          "postInterventionLiveDamagingCuts": [],
+          "strictMovingFingerCuts": 0,
+          "newCutWounds": 3,
+          "recutInterventions": [],
+          "allPlayerAliveArmedGrip": true
+        },
+        {
+          "weapon": "qinggang",
+          "mode": "bounded",
+          "artifact": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native03/qinggang-bounded.json",
+            "sha256": "56d084afaa12552feb873974ecadbab9cecdefff5c48f2a9d49513e18a1c79c7",
+            "bytes": 981357
+          },
+          "steps": 954,
+          "startTick": 420,
+          "firstInterventionTick": 585,
+          "interventions": 27,
+          "terminal": {
+            "tick": 954,
+            "reason": "full_tape"
+          },
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "models": true
+          },
+          "raw": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/native03/qinggang-bounded.json",
+            "bytes": 981357,
+            "sha256": "56d084afaa12552feb873974ecadbab9cecdefff5c48f2a9d49513e18a1c79c7"
+          },
+          "phases": {
+            "firstCut": {
+              "tipSpeedMps": {
+                "max": 12.284209656992262,
+                "mean": 7.349526249427699,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 27.74119329482971,
+                "mean": 13.211704075938133,
+                "count": 30
+              }
+            },
+            "recut": {
+              "tipSpeedMps": {
+                "max": 10.390346943770844,
+                "mean": 3.7495006338777785,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 12.163800659043632,
+                "mean": 3.257220381430427,
+                "count": 30
+              }
+            },
+            "recutHold": {
+              "tipSpeedMps": {
+                "max": 14.551772670504517,
+                "mean": 5.949541354673083,
+                "count": 36
+              },
+              "swordKJ": {
+                "max": 19.84750131293963,
+                "mean": 6.097879156594973,
+                "count": 36
+              }
+            },
+            "cut2": {
+              "tipSpeedMps": {
+                "max": 10.281658586327039,
+                "mean": 3.767682608301015,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 11.71121480723003,
+                "mean": 3.2824748212803905,
+                "count": 30
+              }
+            }
+          },
+          "postInterventionLiveDamagingCuts": [
+            {
+              "tick": 728,
+              "phase": "recutHold",
+              "part": "uarmS",
+              "active": false,
+              "owner": "player",
+              "passing": true,
+              "before": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 1,
+                "limbs": {
+                  "armS": 1,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              },
+              "after": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 1,
+                "limbs": {
+                  "armS": 0.706930089898021,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              },
+              "afterIntervention": true,
+              "type": "cut",
+              "zone": "arm",
+              "energy": 44.18806059450298,
+              "ephys": 22.09403029725149,
+              "severity": 0.4186713001456844,
+              "pass": true,
+              "stuck": true,
+              "speed": 8.137853642146208,
+              "eff": 59.680417013111594,
+              "thr": 22,
+              "mEff": 0.6672447895704676,
+              "t": 0.43801866813703716,
+              "lastHandMotionTick": 719,
+              "lastHandMotionPhase": "recut",
+              "timeSinceLastHandMotionS": 0.075,
+              "actualWoundHook": true
+            },
+            {
+              "tick": 732,
+              "phase": "recutHold",
+              "part": "pelvis",
+              "active": false,
+              "owner": "player",
+              "passing": true,
+              "before": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 0.9998327825152953,
+                "limbs": {
+                  "armS": 0.706930089898021,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              },
+              "after": {
+                "alive": true,
+                "armed": true,
+                "gripValid": true,
+                "state": "stand",
+                "blood": 0.9998327825152953,
+                "limbs": {
+                  "armS": 0.706930089898021,
+                  "armO": 1,
+                  "legF": 1,
+                  "legB": 1
+                }
+              },
+              "afterIntervention": true,
+              "type": "cut",
+              "zone": "pelvis",
+              "energy": 34.40798589346909,
+              "ephys": 17.203992946734544,
+              "severity": 0.0851900074224006,
+              "pass": false,
+              "stuck": true,
+              "speed": 9.065630136831798,
+              "eff": 47.667100668016054,
+              "thr": 40,
+              "mEff": 0.41866172484468933,
+              "t": 1,
+              "lastHandMotionTick": 719,
+              "lastHandMotionPhase": "recut",
+              "timeSinceLastHandMotionS": 0.10833333333333334,
+              "actualWoundHook": true
+            }
+          ],
+          "strictMovingFingerCuts": 0,
+          "newCutWounds": 2,
+          "recutInterventions": [],
+          "allPlayerAliveArmedGrip": true
+        }
+      ]
+    },
+    {
+      "name": "observer-off",
+      "report": {
+        "path": "/workspace/halfsword-handoff/deferred-20261007/recut/observer-off/report.json",
+        "bytes": 23378,
+        "sha256": "36c8d0b812c763ac59fb466bde95c2db817959ef5611905b062159d13bbe7a69"
+      },
+      "source": {
+        "path": "/workspace/halfsword-handoff/deferred-20261007/recut/observer-off-runtime/SOURCE.json",
+        "bytes": 19630,
+        "sha256": "32ecc353a3eda54133d968ea5fe125b220f1bbeebe7538f6b50c0f013116b328"
+      },
+      "head": "f395a13b6c62c5f15faa017270eebad5c3f0618f",
+      "sourceStable": true,
+      "measurementValid": true,
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/deferred-20261007/recut/observer-off-runtime/tools/sim/experiments/recut_power_20261007_probe.mjs",
+        "/workspace/halfsword-handoff/deferred-20261007/recut/observer-off",
+        "guard",
+        "/workspace/halfsword-handoff/deferred-20261007/recut/native03/longsword-bounded.json"
+      ],
+      "protocol": {
+        "name": "guard",
+        "seed": 7,
+        "gravity": 9.81,
+        "startGapM": 5.6,
+        "opponent": "zweihander normal AI",
+        "playerEmotion": "harness neutral, not main emotion feedback",
+        "input": "normal hand deltas and joystick; distance protocol baseline holds1.15m via clamped analog stick and bounded replays exact recorded stick;  no transforms, forces, velocity, wound, armor or health injection",
+        "schedule": [
+          [
+            "ready",
+            60,
+            null
+          ],
+          [
+            "raise",
+            48,
+            [
+              0.42,
+              0.42
+            ]
+          ],
+          [
+            "raisedHold",
+            24,
+            null
+          ],
+          [
+            "firstCut",
+            30,
+            [
+              -0.4,
+              -0.42
+            ]
+          ],
+          [
+            "followHold",
+            36,
+            null
+          ],
+          [
+            "reverse",
+            48,
+            [
+              -0.4,
+              0.42
+            ]
+          ],
+          [
+            "reverseHold",
+            24,
+            null
+          ],
+          [
+            "recut",
+            30,
+            [
+              0.38,
+              -0.44
+            ]
+          ],
+          [
+            "recutHold",
+            36,
+            null
+          ],
+          [
+            "raise2",
+            48,
+            [
+              0.42,
+              0.42
+            ]
+          ],
+          [
+            "raisedHold2",
+            24,
+            null
+          ],
+          [
+            "cut2",
+            30,
+            [
+              -0.4,
+              -0.42
+            ]
+          ],
+          [
+            "followHold2",
+            36,
+            null
+          ],
+          [
+            "release",
+            60,
+            null
+          ]
+        ],
+        "models": "v2/manual/fresh/centerline/limbON from creation; only bounded vs legacy varies"
+      },
+      "executionCount": 1,
+      "steps": 954,
+      "wallSeconds": 1.763694642,
+      "comparisons": [],
+      "observerEquivalence": {
+        "referencePath": "/workspace/halfsword-handoff/deferred-20261007/recut/native03/longsword-bounded.json",
+        "referenceSHA256": "e88d7bc6b5169914a25a04678ee9f3d2c57a24d22ac86ba8f35fcc3e696304cb",
+        "steps": 954,
+        "allFramesExact": true,
+        "allInputsExact": true,
+        "allStrikesApartFromObserverFlagExact": true
+      },
+      "rows": [
+        {
+          "weapon": "longsword",
+          "mode": "bounded",
+          "artifact": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/observer-off/longsword-bounded.json",
+            "sha256": "6bb85f9c45d4bd795a5e0378def3a98caf4df2d5b0f04b639878e0df11302b0a",
+            "bytes": 979232
+          },
+          "steps": 954,
+          "startTick": 420,
+          "firstInterventionTick": null,
+          "interventions": 0,
+          "terminal": {
+            "tick": 954,
+            "reason": "full_tape"
+          },
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "models": true
+          },
+          "raw": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/observer-off/longsword-bounded.json",
+            "bytes": 979232,
+            "sha256": "6bb85f9c45d4bd795a5e0378def3a98caf4df2d5b0f04b639878e0df11302b0a"
+          },
+          "phases": {
+            "firstCut": {
+              "tipSpeedMps": {
+                "max": 14.587447595887618,
+                "mean": 7.377178152611906,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 35.5838471167706,
+                "mean": 14.550851311022491,
+                "count": 30
+              }
+            },
+            "recut": {
+              "tipSpeedMps": {
+                "max": 13.61286380869492,
+                "mean": 6.147562425216927,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 28.010211071678334,
+                "mean": 7.95041604091275,
+                "count": 30
+              }
+            },
+            "recutHold": {
+              "tipSpeedMps": {
+                "max": 16.15579536199052,
+                "mean": 5.269116170612458,
+                "count": 36
+              },
+              "swordKJ": {
+                "max": 40.043260052781726,
+                "mean": 12.474858977103823,
+                "count": 36
+              }
+            },
+            "cut2": {
+              "tipSpeedMps": {
+                "max": 15.39785549208793,
+                "mean": 7.52355755652866,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 31.718357542006494,
+                "mean": 11.458056961457958,
+                "count": 30
+              }
+            }
+          },
+          "postInterventionLiveDamagingCuts": [],
+          "strictMovingFingerCuts": 0,
+          "newCutWounds": 5,
+          "recutInterventions": [],
+          "allPlayerAliveArmedGrip": true
+        }
+      ]
+    },
+    {
+      "name": "idle04",
+      "report": {
+        "path": "/workspace/halfsword-handoff/deferred-20261007/recut/idle04/report.json",
+        "bytes": 23873,
+        "sha256": "f2e814c9b94fbfee4735b8ec5e32d691eca475680a77e3571cbed27b14ffb622"
+      },
+      "source": {
+        "path": "/workspace/halfsword-handoff/deferred-20261007/recut/idle04-runtime/SOURCE.json",
+        "bytes": 19625,
+        "sha256": "72680af569e34b48be79954f8d8bec0b13743f405dc6a4f28b80f2582714fdab"
+      },
+      "head": "f395a13b6c62c5f15faa017270eebad5c3f0618f",
+      "sourceStable": true,
+      "measurementValid": true,
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-handoff/deferred-20261007/recut/idle04-runtime/tools/sim/experiments/recut_power_20261007_probe.mjs",
+        "/workspace/halfsword-handoff/deferred-20261007/recut/idle04",
+        "idle"
+      ],
+      "protocol": {
+        "name": "idle",
+        "seed": 7,
+        "gravity": 9.81,
+        "startGapM": 5.6,
+        "opponent": "zweihander normal construction, AI inputs held idle; no physical injection",
+        "playerEmotion": "harness neutral, not main emotion feedback",
+        "input": "normal hand deltas and joystick; distance protocol baseline holds1.15m via clamped analog stick and bounded replays exact recorded stick;  no transforms, forces, velocity, wound, armor or health injection",
+        "schedule": [
+          [
+            "ready",
+            60,
+            null
+          ],
+          [
+            "raise",
+            48,
+            [
+              0.42,
+              0.42
+            ]
+          ],
+          [
+            "raisedHold",
+            24,
+            null
+          ],
+          [
+            "firstCut",
+            30,
+            [
+              -0.4,
+              -0.42
+            ]
+          ],
+          [
+            "followHold",
+            36,
+            null
+          ],
+          [
+            "reverse",
+            48,
+            [
+              -0.4,
+              0.42
+            ]
+          ],
+          [
+            "reverseHold",
+            24,
+            null
+          ],
+          [
+            "recut",
+            30,
+            [
+              0.38,
+              -0.44
+            ]
+          ],
+          [
+            "recutHold",
+            36,
+            null
+          ],
+          [
+            "raise2",
+            48,
+            [
+              0.42,
+              0.42
+            ]
+          ],
+          [
+            "raisedHold2",
+            24,
+            null
+          ],
+          [
+            "cut2",
+            30,
+            [
+              -0.4,
+              -0.42
+            ]
+          ],
+          [
+            "followHold2",
+            36,
+            null
+          ],
+          [
+            "release",
+            60,
+            null
+          ]
+        ],
+        "models": "v2/manual/fresh/centerline/limbON from creation; only bounded vs legacy varies"
+      },
+      "executionCount": 2,
+      "steps": 1928,
+      "wallSeconds": 3.58539967,
+      "comparisons": [
+        {
+          "weapon": "qinggang",
+          "sameSpawn": true,
+          "sameStart": true,
+          "commonSteps": 964,
+          "firstNativeDifference": 570,
+          "firstRequestedDifference": -1,
+          "firstAppliedDifference": -1,
+          "firstEnemyDifference": -1,
+          "prefixExact": true
+        }
+      ],
+      "observerEquivalence": null,
+      "rows": [
+        {
+          "weapon": "qinggang",
+          "mode": "legacy",
+          "artifact": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/idle04/qinggang-legacy.json",
+            "sha256": "23b8d861ce27b7b0cbc93701336d0c474cdf3fe4f67a771e66f403ba0a67af6b",
+            "bytes": 960715
+          },
+          "steps": 964,
+          "startTick": 430,
+          "firstInterventionTick": null,
+          "interventions": 0,
+          "terminal": {
+            "tick": 964,
+            "reason": "full_tape"
+          },
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "models": true
+          },
+          "raw": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/idle04/qinggang-legacy.json",
+            "bytes": 960715,
+            "sha256": "23b8d861ce27b7b0cbc93701336d0c474cdf3fe4f67a771e66f403ba0a67af6b"
+          },
+          "phases": {
+            "firstCut": {
+              "tipSpeedMps": {
+                "max": 11.119365934964511,
+                "mean": 6.55524365017789,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 22.230305365979827,
+                "mean": 9.07686051769175,
+                "count": 30
+              }
+            },
+            "recut": {
+              "tipSpeedMps": {
+                "max": 15.17911329844959,
+                "mean": 7.181401423180472,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 20.67354959283905,
+                "mean": 7.756014736071939,
+                "count": 30
+              }
+            },
+            "recutHold": {
+              "tipSpeedMps": {
+                "max": 7.244700710040216,
+                "mean": 1.87965725980999,
+                "count": 36
+              },
+              "swordKJ": {
+                "max": 8.392127995121681,
+                "mean": 1.859526333855885,
+                "count": 36
+              }
+            },
+            "cut2": {
+              "tipSpeedMps": {
+                "max": 14.960108395131538,
+                "mean": 8.557344879059428,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 32.03355944930823,
+                "mean": 13.3720427891016,
+                "count": 30
+              }
+            }
+          },
+          "postInterventionLiveDamagingCuts": [],
+          "strictMovingFingerCuts": 0,
+          "newCutWounds": 0,
+          "recutInterventions": [],
+          "allPlayerAliveArmedGrip": true
+        },
+        {
+          "weapon": "qinggang",
+          "mode": "bounded",
+          "artifact": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/idle04/qinggang-bounded.json",
+            "sha256": "29dcaa0373a57bd416a6ff9b67a0cba3317d7cf9d43ab52c193dfefb8d7259a8",
+            "bytes": 967822
+          },
+          "steps": 964,
+          "startTick": 430,
+          "firstInterventionTick": 570,
+          "interventions": 47,
+          "terminal": {
+            "tick": 964,
+            "reason": "full_tape"
+          },
+          "checks": {
+            "finite": true,
+            "inputAccepted": true,
+            "models": true
+          },
+          "raw": {
+            "path": "/workspace/halfsword-handoff/deferred-20261007/recut/idle04/qinggang-bounded.json",
+            "bytes": 967822,
+            "sha256": "29dcaa0373a57bd416a6ff9b67a0cba3317d7cf9d43ab52c193dfefb8d7259a8"
+          },
+          "phases": {
+            "firstCut": {
+              "tipSpeedMps": {
+                "max": 11.110122298813721,
+                "mean": 6.552682777271941,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 22.25076795404506,
+                "mean": 9.069998103773809,
+                "count": 30
+              }
+            },
+            "recut": {
+              "tipSpeedMps": {
+                "max": 15.228220071898194,
+                "mean": 7.11443884285001,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 20.754925779497928,
+                "mean": 7.73148051964454,
+                "count": 30
+              }
+            },
+            "recutHold": {
+              "tipSpeedMps": {
+                "max": 4.928346075176067,
+                "mean": 2.0411838575542722,
+                "count": 36
+              },
+              "swordKJ": {
+                "max": 5.797944251074496,
+                "mean": 1.6892051256215503,
+                "count": 36
+              }
+            },
+            "cut2": {
+              "tipSpeedMps": {
+                "max": 14.884762877212962,
+                "mean": 8.522848022651884,
+                "count": 30
+              },
+              "swordKJ": {
+                "max": 31.87119312996562,
+                "mean": 13.306556334516468,
+                "count": 30
+              }
+            }
+          },
+          "postInterventionLiveDamagingCuts": [],
+          "strictMovingFingerCuts": 0,
+          "newCutWounds": 0,
+          "recutInterventions": [],
+          "allPlayerAliveArmedGrip": true
+        }
+      ]
+    }
+  ],
+  "qinggangPelvisDecomposition": {
+    "legacy": {
+      "tick": 732,
+      "phase": "recutHold",
+      "part": "pelvis",
+      "active": false,
+      "owner": "player",
+      "passing": true,
+      "before": {
+        "alive": true,
+        "armed": true,
+        "gripValid": true,
+        "state": "stand",
+        "blood": 1,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 0.5758030786523516,
+          "legB": 1
+        }
+      },
+      "after": {
+        "alive": true,
+        "armed": true,
+        "gripValid": true,
+        "state": "stand",
+        "blood": 1,
+        "limbs": {
+          "armS": 1,
+          "armO": 1,
+          "legF": 0.5758030786523516,
+          "legB": 1
+        }
+      },
+      "afterIntervention": false,
+      "type": "cut",
+      "zone": "pelvis",
+      "energy": 52.6518734442177,
+      "ephys": 26.32593672210885,
+      "severity": 0.3691564930694385,
+      "pass": true,
+      "stuck": true,
+      "speed": 11.137657752892366,
+      "eff": 73.22408437624946,
+      "thr": 40,
+      "mEff": 0.42444956413119794,
+      "t": 0.9027855436400627
+    },
+    "bounded": {
+      "tick": 732,
+      "phase": "recutHold",
+      "part": "pelvis",
+      "active": false,
+      "owner": "player",
+      "passing": true,
+      "before": {
+        "alive": true,
+        "armed": true,
+        "gripValid": true,
+        "state": "stand",
+        "blood": 0.9998327825152953,
+        "limbs": {
+          "armS": 0.706930089898021,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        }
+      },
+      "after": {
+        "alive": true,
+        "armed": true,
+        "gripValid": true,
+        "state": "stand",
+        "blood": 0.9998327825152953,
+        "limbs": {
+          "armS": 0.706930089898021,
+          "armO": 1,
+          "legF": 1,
+          "legB": 1
+        }
+      },
+      "afterIntervention": true,
+      "type": "cut",
+      "zone": "pelvis",
+      "energy": 34.40798589346909,
+      "ephys": 17.203992946734544,
+      "severity": 0.0851900074224006,
+      "pass": false,
+      "stuck": true,
+      "speed": 9.065630136831798,
+      "eff": 47.667100668016054,
+      "thr": 40,
+      "mEff": 0.41866172484468933,
+      "t": 1
+    },
+    "energyRatio": 0.6534997454539354,
+    "speedRatio": 0.8139619961367122,
+    "massRatio": 0.9863638939096199,
+    "energyRatioReconstructed": 0.6534997454539355,
+    "effOverEnergy": [
+      1.390721347338706,
+      1.3853499247412693
+    ],
+    "preFirstRecordedCutTick": 727,
+    "preRecordedCut": [
+      {
+        "tick": 727,
+        "phase": "recutHold",
+        "tipSpeedMps": 14.562116165771808,
+        "swordKJ": 19.621846029480317,
+        "axialRadps": 2.1057290693144615,
+        "player": {
+          "alive": true,
+          "armed": true,
+          "gripValid": true,
+          "state": "stand",
+          "blood": 0.9904005952774732,
+          "limbs": {
+            "armS": 0.46270414940567184,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          }
+        },
+        "enemy": {
+          "alive": true,
+          "armed": true,
+          "gripValid": true,
+          "state": "stand",
+          "blood": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          }
+        }
+      },
+      {
+        "tick": 727,
+        "phase": "recutHold",
+        "tipSpeedMps": 14.551772670504517,
+        "swordKJ": 19.665649772820927,
+        "axialRadps": 2.166079620109421,
+        "player": {
+          "alive": true,
+          "armed": true,
+          "gripValid": true,
+          "state": "stand",
+          "blood": 0.9903899644896427,
+          "limbs": {
+            "armS": 0.462290379203536,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          }
+        },
+        "enemy": {
+          "alive": true,
+          "armed": true,
+          "gripValid": true,
+          "state": "stand",
+          "blood": 1,
+          "limbs": {
+            "armS": 1,
+            "armO": 1,
+            "legF": 1,
+            "legB": 1
+          }
+        }
+      }
+    ],
+    "window": [
+      {
+        "tick": 727,
+        "legacy": {
+          "tick": 727,
+          "phase": "recutHold",
+          "tipSpeedMps": 14.562116165771808,
+          "swordKJ": 19.621846029480317,
+          "axialRadps": 2.1057290693144615,
+          "player": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9904005952774732,
+            "limbs": {
+              "armS": 0.46270414940567184,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "enemy": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        },
+        "bounded": {
+          "tick": 727,
+          "phase": "recutHold",
+          "tipSpeedMps": 14.551772670504517,
+          "swordKJ": 19.665649772820927,
+          "axialRadps": 2.166079620109421,
+          "player": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9903899644896427,
+            "limbs": {
+              "armS": 0.462290379203536,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "enemy": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        }
+      },
+      {
+        "tick": 728,
+        "legacy": {
+          "tick": 728,
+          "phase": "recutHold",
+          "tipSpeedMps": 13.761489921910346,
+          "swordKJ": 18.671603369866993,
+          "axialRadps": 1.5425875047420445,
+          "player": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9903031031615115,
+            "limbs": {
+              "armS": 0.46270414940567184,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "enemy": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        },
+        "bounded": {
+          "tick": 728,
+          "phase": "recutHold",
+          "tipSpeedMps": 10.622786426002907,
+          "swordKJ": 11.525219472409415,
+          "axialRadps": 1.604540169350309,
+          "player": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9902923633218044,
+            "limbs": {
+              "armS": 0.462290379203536,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "enemy": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 1,
+            "limbs": {
+              "armS": 0.706930089898021,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        }
+      },
+      {
+        "tick": 729,
+        "legacy": {
+          "tick": 729,
+          "phase": "recutHold",
+          "tipSpeedMps": 13.293417386599566,
+          "swordKJ": 17.247572185532526,
+          "axialRadps": 0.04161498104483552,
+          "player": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9902057085376659,
+            "limbs": {
+              "armS": 0.46270414940567184,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "enemy": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        },
+        "bounded": {
+          "tick": 729,
+          "phase": "recutHold",
+          "tipSpeedMps": 10.10063932405982,
+          "swordKJ": 10.790088980153955,
+          "axialRadps": -1.180343828126008,
+          "player": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9901948597551339,
+            "limbs": {
+              "armS": 0.462290379203536,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "enemy": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9999581328699855,
+            "limbs": {
+              "armS": 0.706930089898021,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        }
+      },
+      {
+        "tick": 730,
+        "legacy": {
+          "tick": 730,
+          "phase": "recutHold",
+          "tipSpeedMps": 12.6904780502383,
+          "swordKJ": 15.828143675754902,
+          "axialRadps": -1.287877971215535,
+          "player": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9901084113084441,
+            "limbs": {
+              "armS": 0.46270414940567184,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "enemy": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        },
+        "bounded": {
+          "tick": 730,
+          "phase": "recutHold",
+          "tipSpeedMps": 9.626039494866365,
+          "swordKJ": 9.921610077667182,
+          "axialRadps": -2.117727460462709,
+          "player": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9900974536920301,
+            "limbs": {
+              "armS": 0.462290379203536,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "enemy": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9999163076071009,
+            "limbs": {
+              "armS": 0.706930089898021,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        }
+      },
+      {
+        "tick": 731,
+        "legacy": {
+          "tick": 731,
+          "phase": "recutHold",
+          "tipSpeedMps": 12.02421846999589,
+          "swordKJ": 14.386750676870893,
+          "axialRadps": -1.9251681024129237,
+          "player": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9900112113764515,
+            "limbs": {
+              "armS": 0.46270414940567184,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "enemy": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        },
+        "bounded": {
+          "tick": 731,
+          "phase": "recutHold",
+          "tipSpeedMps": 9.086248303179364,
+          "swordKJ": 9.043397148879171,
+          "axialRadps": -1.7023358031190663,
+          "player": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9900001450349893,
+            "limbs": {
+              "armS": 0.462290379203536,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "enemy": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9998745241694793,
+            "limbs": {
+              "armS": 0.706930089898021,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        }
+      },
+      {
+        "tick": 732,
+        "legacy": {
+          "tick": 732,
+          "phase": "recutHold",
+          "tipSpeedMps": 5.705358706485951,
+          "swordKJ": 6.658724207550804,
+          "axialRadps": -2.1144837724757655,
+          "player": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.989914108644391,
+            "limbs": {
+              "armS": 0.46270414940567184,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "enemy": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 0.5758030786523516,
+              "legB": 1
+            }
+          }
+        },
+        "bounded": {
+          "tick": 732,
+          "phase": "recutHold",
+          "tipSpeedMps": 5.79068628820386,
+          "swordKJ": 5.643509474862054,
+          "axialRadps": -1.886866178598186,
+          "player": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9899029336866056,
+            "limbs": {
+              "armS": 0.462290379203536,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "enemy": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9998327825152953,
+            "limbs": {
+              "armS": 0.706930089898021,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        }
+      },
+      {
+        "tick": 733,
+        "legacy": {
+          "tick": 733,
+          "phase": "recutHold",
+          "tipSpeedMps": 4.487226554415709,
+          "swordKJ": 3.924333564393412,
+          "axialRadps": -1.6555312668437168,
+          "player": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9898171030150624,
+            "limbs": {
+              "armS": 0.46270414940567184,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "enemy": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9998627244675811,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 0.5758030786523516,
+              "legB": 1
+            }
+          }
+        },
+        "bounded": {
+          "tick": 733,
+          "phase": "recutHold",
+          "tipSpeedMps": 3.177090047809893,
+          "swordKJ": 2.9966285458647306,
+          "axialRadps": -1.6851995795991297,
+          "player": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9898058195495704,
+            "limbs": {
+              "armS": 0.462290379203536,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "enemy": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.999776884268195,
+            "limbs": {
+              "armS": 0.706930089898021,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          }
+        }
+      }
+    ],
+    "sequence": {
+      "legacy": [
+        {
+          "tick": 732,
+          "phase": "recutHold",
+          "part": "thighF",
+          "active": false,
+          "owner": "player",
+          "passing": true,
+          "before": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "after": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 0.5758030786523516,
+              "legB": 1
+            }
+          },
+          "afterIntervention": false,
+          "type": "cut",
+          "zone": "leg",
+          "energy": 59.3259348830773,
+          "ephys": 29.66296744153865,
+          "severity": 0.6059956019252121,
+          "pass": true,
+          "stuck": true,
+          "speed": 12.015897050971011,
+          "eff": 82.53960417326908,
+          "thr": 28,
+          "mEff": 0.41089626465423884,
+          "t": 0.999060660495498
+        },
+        {
+          "tick": 732,
+          "phase": "recutHold",
+          "part": "pelvis",
+          "active": false,
+          "owner": "player",
+          "passing": true,
+          "before": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 0.5758030786523516,
+              "legB": 1
+            }
+          },
+          "after": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 0.5758030786523516,
+              "legB": 1
+            }
+          },
+          "afterIntervention": false,
+          "type": "cut",
+          "zone": "pelvis",
+          "energy": 52.6518734442177,
+          "ephys": 26.32593672210885,
+          "severity": 0.3691564930694385,
+          "pass": true,
+          "stuck": true,
+          "speed": 11.137657752892366,
+          "eff": 73.22408437624946,
+          "thr": 40,
+          "mEff": 0.42444956413119794,
+          "t": 0.9027855436400627
+        }
+      ],
+      "bounded": [
+        {
+          "tick": 728,
+          "phase": "recutHold",
+          "part": "uarmS",
+          "active": false,
+          "owner": "player",
+          "passing": true,
+          "before": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 1,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "after": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 1,
+            "limbs": {
+              "armS": 0.706930089898021,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "afterIntervention": true,
+          "type": "cut",
+          "zone": "arm",
+          "energy": 44.18806059450298,
+          "ephys": 22.09403029725149,
+          "severity": 0.4186713001456844,
+          "pass": true,
+          "stuck": true,
+          "speed": 8.137853642146208,
+          "eff": 59.680417013111594,
+          "thr": 22,
+          "mEff": 0.6672447895704676,
+          "t": 0.43801866813703716
+        },
+        {
+          "tick": 732,
+          "phase": "recutHold",
+          "part": "pelvis",
+          "active": false,
+          "owner": "player",
+          "passing": true,
+          "before": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9998327825152953,
+            "limbs": {
+              "armS": 0.706930089898021,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "after": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9998327825152953,
+            "limbs": {
+              "armS": 0.706930089898021,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "afterIntervention": true,
+          "type": "cut",
+          "zone": "pelvis",
+          "energy": 34.40798589346909,
+          "ephys": 17.203992946734544,
+          "severity": 0.0851900074224006,
+          "pass": false,
+          "stuck": true,
+          "speed": 9.065630136831798,
+          "eff": 47.667100668016054,
+          "thr": 40,
+          "mEff": 0.41866172484468933,
+          "t": 1
+        },
+        {
+          "tick": 733,
+          "phase": "recutHold",
+          "part": "thighF",
+          "active": false,
+          "owner": "player",
+          "passing": true,
+          "before": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.999776884268195,
+            "limbs": {
+              "armS": 0.706930089898021,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "after": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.999776884268195,
+            "limbs": {
+              "armS": 0.706930089898021,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            }
+          },
+          "afterIntervention": true,
+          "type": "blunt",
+          "zone": "leg",
+          "energy": 14.01321692977584,
+          "ephys": 6.704888483146336,
+          "severity": 0,
+          "pass": false,
+          "stuck": true,
+          "speed": 5.694244446329028,
+          "eff": 18.3786007174056,
+          "thr": 28,
+          "mEff": 0.4135702980343119,
+          "t": 1
+        }
+      ]
+    },
+    "limits": "Contact point/order and native state differ. Tick727 is a post-step sample before the first recorded cut, not proof of no prior physical contact. strikes[] omits null results and does not log every native contact. Metrics are post-step. No individual impulse/work ledger was captured, so earlier arm cut accompanies energy loss but does not isolate every cause."
+  },
+  "derivation": {
+    "path": "/workspace/halfsword-codex/tools/sim/experiments/recut_power_20261007_report.py",
+    "bytes": 5641,
+    "sha256": "3be78a61a5da948893968bd7c8cde31315feea1596d956a3bfe51ec802fb5262"
+  },
+  "limits": [
+    "One fixed seed, two weapons, one normal AI opponent; controlled idle Q pair is not a second live combat.",
+    "Raw legacy/bounded input tape matches; contact states need not match after target correction.",
+    "Damage-producing recut contacts occurred75–108ms after finger motion stopped, during manual stroke follow-through, not tap or injected wound.",
+    "Idle Q pair has zero damaging cuts in both conditions; it cannot establish cutting power parity.",
+    "Player emotion feedback from main.js is absent in the harness, enemy normal AI remains original except explicitly idle pair.",
+    "No all-weapon guarantee, physical-human naturalness acceptance, new default promotion, or gravity change."
+  ]
+}

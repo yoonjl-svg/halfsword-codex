@@ -1,5 +1,7 @@
 # 실험 색인과 재현 입구
 
+최신 유보 검증: [재베기 실제 절삭](recut_power_20261007.md)·[수치/해시](recut_power_20261007.json), [잔여 회전](spin_followup_20261007.md)·[수치/해시](spin_followup_20261007.json). 수동 베기 후 관성 타격과 접촉 순간 입력을 구분하고, 기존 복귀가 안정되는 것을 확인했다. 신체 접촉 후 속도 제한 후보는 미채택. [기록/폰 계획 전달](deferred_followup_release.json).
+
 최신 승인 활성화: [팔다리 절단 일반 적용](limb_general_status_20261007.md)·[검사/전달 영수증](limb_default_release.json). 기존 절단 조건을 유지하고 현재 일반 조합의 후속 제어와 공개 모바일 전달을 확인한다.
 
 최신: [무기명 제한 제거·기능별 공통 적용](common_defaults_20261007.md), [전달 영수증](common_defaults_release.json), [사지 절단 일반판 상태 조사](limb_general_status_20261007.md). 기존 물리식을 유지하고 확대 연결의 회귀만 검사한다.

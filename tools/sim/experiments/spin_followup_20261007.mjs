@@ -1,0 +1,180 @@
+// Focused spin follow-up on the existing input tape. Read-only unless the
+// explicitly named SPIN_CANDIDATE=body-grip experiment is requested. No realism claim.
+import fs from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+import {newRound,AI,THREE,DT,CONFIG} from '../harness_m.mjs';
+import {configureCombatDefaults} from '../../../src/combat_defaults.js';
+import {configureSwordsmanshipDefault,swordsmanshipDefaultSupportsWeapon} from '../../../src/swordsmanship_default.js';
+import {applySwordsmanship,recordSwordsmanshipInput} from '../../../src/swordsmanship.js';
+
+const root=fileURLToPath(new URL('../../../',import.meta.url));
+const out=process.argv[2]?.replace(/^--out=/,'');
+const contactRun=process.argv[3]==='--contact',settleRun=process.argv[3]==='--settle';
+const candidateRun=process.env.SPIN_CANDIDATE==='body-grip';
+assert(!candidateRun||contactRun,'The body-grip candidate is restricted to the bounded contact protocol');
+assert((process.argv.length===3||process.argv.length===4&&(contactRun||settleRun))&&process.argv[2].startsWith('--out=')&&path.isAbsolute(out)&&!fs.existsSync(out),'Supply a fresh absolute --out directory, optionally --contact or --settle');
+const sha=b=>createHash('sha256').update(b).digest('hex');
+const scan=(d,p='')=>fs.readdirSync(d,{withFileTypes:true}).flatMap(e=>e.isDirectory()?scan(path.join(d,e.name),p+e.name+'/'):[p+e.name]);
+const sourceNames=[...scan(path.join(root,'src')).filter(n=>n.endsWith('.js')).map(n=>'src/'+n),'tools/sim/harness_m.mjs','tools/sim/experiments/spin_followup_20261007.mjs','package.json','package-lock.json',
+  'node_modules/@dimforge/rapier3d-compat/rapier.mjs','node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm','node_modules/three/build/three.module.js','node_modules/three/build/three.core.js'];
+const manifest=()=>Object.fromEntries(sourceNames.map(n=>[n,sha(fs.readFileSync(path.join(root,n)))]));
+const sourceBefore=manifest(),head=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();
+const entry=configureSwordsmanshipDefault(new URLSearchParams());
+const previousPolicy=weapon=>({longsword:{stance:'legacy',cut:'centerline',roll:'bounded'},qinggang:{stance:'legacy',cut:'legacy',roll:'bounded'},zweihander:{stance:'fresh',cut:'centerline',roll:'legacy'}}[weapon.id]??{stance:'legacy',cut:'legacy',roll:'legacy'});
+const weapons=contactRun?['sabre']:settleRun?['sabre','monohoshizao']:['sabre','monohoshizao','lightsaber'];
+const schedule=[['ready',60,[0,0],true,0],['raise',48,[-.28,.38],true,1],['raisedHold',24,[0,0],true,1],['firstCut',30,[.56,-.76],true,1],['followHold',36,[0,0],true,1],['reverse',36,[-.38,.66],true,1],['reverseHold',24,[0,0],true,1],['tap',60,[0,0],true,0],['recut',30,[.40,-.70],true,0],['recutHold',36,[0,0],true,0],['release',60,[0,0],false,0]];
+if(settleRun)schedule.push(['settle',240,[0,0],false,0]);
+const tape=schedule.flatMap(([phase,n,delta,held,stickY])=>Array.from({length:n},(_,i)=>({phase,dx:delta[0]/n,dy:delta[1]/n,held,stickY,tap:phase==='tap'&&i===0})));
+assert.equal(tape.length,settleRun?684:444);assert.equal(CONFIG.PHYSICS.gravity,-9.81);assert.equal(CONFIG.GAIT.stanceMemory,'legacy');assert.equal(CONFIG.BODY.supportModel,'legacy');
+class IdleOpponent {update(){}}
+const V=v=>new THREE.Vector3(v.x,v.y,v.z),Q=q=>new THREE.Quaternion(q.x,q.y,q.z,q.w),norm=v=>Math.hypot(v.x,v.y,v.z);
+const health=f=>({state:f.state,alive:f.alive,armed:f.armed,gripValid:!!f.gripJoint?.isValid(),offGripValid:!!f.offGripJoint?.isValid(),armHealth:f.armHealth,blood:f.blood,pelvisY:f.bodies.pelvis.translation().y});
+const control=f=>({health:health(f),handOffset:f.handOffset.toArray(),handHeld:f.handHeld,inputActive:f.inputActive,handTarget:f.handTarget.toArray(),aim:f.aimDirW.toArray(),skillLevel:f.skill.level,autoGuard:f.skill.autoGuard,onehandArmModel:f.onehandArmModel??null,version:f.swordsmanshipState?.version??null});
+const jointGap=j=>j?.isValid()?V(j.anchor1()).applyQuaternion(Q(j.body1().rotation())).add(V(j.body1().translation())).distanceTo(V(j.anchor2()).applyQuaternion(Q(j.body2().rotation())).add(V(j.body2().translation()))):null;
+function state(f){
+ const axis=new THREE.Vector3(0,1,0).applyQuaternion(Q(f.sword.rotation())),chestUp=new THREE.Vector3(0,1,0).applyQuaternion(Q(f.bodies.chest.rotation()));
+ const gaps=f.joints.filter(j=>j.joint?.isValid()).map(j=>({name:j.name,gapM:jointGap(j.joint)}));
+ return {...health(f),handOffset:f.handOffset.toArray(),assistPhase:f.swordsmanshipState?.phase??null,assistOwner:f.swordsmanshipState?.owner??null,
+  gripGapM:jointGap(f.gripJoint),maxJointGap:gaps.reduce((a,b)=>b.gapM>a.gapM?b:a,{name:null,gapM:0}),
+  chestTiltRad:Math.acos(THREE.MathUtils.clamp(chestUp.y,-1,1)),aimErrorRad:Math.acos(THREE.MathUtils.clamp(axis.dot(f.aimDirW),-1,1)),
+  tipSpeedMps:norm(f.sword.velocityAtPoint(f.bladePoint(1,new THREE.Vector3()))),swordOmegaRadps:norm(f.sword.angvel()),
+  gunShots:f.gun?.shots??0};
+}
+
+const arr=v=>[v.x,v.y,v.z];
+const aiState=G=>({mode:G.ai.mode,phase:G.ai.phase,timer:G.ai.timer,attackT:G.ai.attackT,move:G.enemy.move.toArray(),hand:G.enemy.handOffset.toArray(),guard:G.ai.guard?.name,tech:G.ai.tech?.name,state:G.enemy.state});
+const swordState=f=>{const blade=new THREE.Vector3(0,1,0).applyQuaternion(Q(f.sword.rotation())),w=V(f.sword.angvel());return{p:arr(f.sword.translation()),q:Object.values(f.sword.rotation()),w:arr(w),omega:norm(w),axial:w.dot(blade),swing:w.clone().addScaledVector(blade,-w.dot(blade)).length(),blade:arr(blade),v:arr(f.sword.linvel()),aim:f.aimDirW.toArray(),tipSpeed:norm(f.sword.velocityAtPoint(f.bladePoint(1,new THREE.Vector3())))};};
+// Independent read-only reconstruction, validated against the torque actually
+// passed to the original addTorque. Never calls advanceRollTarget a second time.
+function rollObserver(f,old){
+ const blade=new THREE.Vector3(0,1,0).applyQuaternion(Q(f.sword.rotation()));
+ const flat=new THREE.Vector3(0,0,1).applyQuaternion(Q(f.sword.rotation()));
+ const edge=V(f.hitPointVel).addScaledVector(blade,-f.hitPointVel.dot(blade));
+ const target=new THREE.Vector3(0,0,1).applyQuaternion(f.yaw);target.addScaledVector(blade,-target.dot(blade));
+ if(target.lengthSq()<1e-4)target.copy(flat);target.normalize();if(target.dot(flat)<0)target.negate();
+ const moving=THREE.MathUtils.smoothstep(edge.length(),.5,2.5);
+ if(moving>0){const mf=edge.crossVectors(blade,edge).normalize();if(mf.dot(flat)<0)mf.negate();target.lerp(mf,moving);if(target.lengthSq()<1e-4)target.copy(mf);target.normalize();}
+ const raw=target.clone();let requested=0,limited=false,reference=null;
+ const bound=f.weaponCfg.wristVmax*Math.sqrt(f.strength)*f.lastDt;
+ if(f.rollTargetModel==='bounded'&&old&&f.lastDt>0){reference=old.target.clone().applyQuaternion(new THREE.Quaternion().setFromUnitVectors(old.blade,blade));requested=Math.atan2(new THREE.Vector3().crossVectors(reference,target).dot(blade),reference.dot(target));if(Math.abs(requested)>bound){target.copy(reference).applyAxisAngle(blade,Math.sign(requested)*bound).normalize();limited=true;}}
+ const w=V(f.sword.angvel()),axial=w.dot(blade),sin=new THREE.Vector3().crossVectors(flat,target).dot(blade),positionTwist=4*f.twistScale*sin,dampingTwist=-.12*f.twistScale*axial;
+ return{history:{target:target.clone(),blade:blade.clone()},sample:{flat:arr(flat),rawTarget:arr(raw),target:arr(target),reference:reference?arr(reference):null,moving,bound,requested,limited,flatDotTarget:flat.dot(target),flatDotRaw:flat.dot(raw),signedError:Math.atan2(sin,flat.dot(target)),positionTwist,dampingTwist,expectedTwist:positionTwist+dampingTwist,axial}};
+}
+function swordContacts(G,f){const out=[];for(const c of f.swordColliders)G.world.contactPairsWith(c,o=>G.world.contactPair(c,o,m=>{if(m.numSolverContacts()){let impulse=0;for(let j=0;j<m.numContacts();j++)impulse+=m.contactImpulse(j);const i=G.combat.info.get(o.handle);out.push({own:G.combat.info.get(c.handle)?.part,other:{fighter:i?.fighter?.index,part:i?.part,kind:i?.kind,handle:o.handle},normal:arr(m.normal()),contacts:m.numSolverContacts(),impulse});}}));return out;}
+const rows=[],startedUTC=new Date().toISOString(),started=performance.now(),random=Math.random;let error=null,baselineTouchStart=null;
+fs.mkdirSync(out,{recursive:true});
+// Preserve the exact controller sources alongside hashes, without dependencies or frame payloads.
+for(const n of sourceNames.filter(n=>!n.startsWith('node_modules/'))){const dest=path.join(out,'source',n);fs.mkdirSync(path.dirname(dest),{recursive:true});fs.copyFileSync(path.join(root,n),dest);}
+async function run(weapon,mode){
+ const row={weapon,mode,steps:0,error:null,checks:{finite:true,inputAccepted:true,inputConsumed:true,gravityFixed:true,modelsFixed:true},creation:null,
+  firstInput:null,boundaries:[],states:{},firstFailure:{},contact:{swordContactSteps:0,centerlineEvents:0,positiveImpulseEvents:0,wrongAttackerEvents:0,unresolvedAttackerEvents:0,firstCenterlineEvent:null,wounds:0},
+  extremes:{minPelvisY:Infinity,maxPelvisY:-Infinity,maxChestTiltRad:0,maxAimErrorRad:0,maxGripGapM:0,maxJointGapM:0,maxSwordOmegaRadps:0,maxTipSpeedMps:0,minFootColliderY:Infinity}};
+ rows.push(row);let G,tick=0,request=null,supplied=null,diag=null; const frames=[];
+ const nativeDigest=createHash('sha256'),requestedDigest=createHash('sha256'),appliedDigest=createHash('sha256');
+ try{
+  G=newRound({seed:7,weapon,weapon2:'longsword',gap:5.6,walls:false,AIClass:contactRun?AI:IdleOpponent,onFighter:f=>{
+   f.onehandArmModel='legacy';if(f.index===0&&swordsmanshipDefaultSupportsWeapon(f.weapon))f.onehandArmModel='manual';
+   if(f.index===0){const policy=mode==='previous'?previousPolicy(f.weapon):configureCombatDefaults(entry,f.weapon);f.stanceMemoryModel=policy.stance;f.rollTargetModel=policy.roll;}
+  }});
+  const f=G.player;row.policy=mode==='previous'?previousPolicy(f.weapon):configureCombatDefaults(entry,f.weapon);
+  f.skill.autoGuard=true;row.v2=swordsmanshipDefaultSupportsWeapon(f.weapon);if(row.v2)assert(applySwordsmanship(f));f.canShove=true;
+  G.combat.cutReactionModel=row.policy.cut;G.combat.cutReactionFighter=row.policy.cut==='centerline'?f:null;
+  const originalRebound=G.combat.rebound;
+  G.combat.rebound=function(pr,...args){const att=pr.w.fighter,key=`${pr.wc}:${pr.vc}`,last=this.touching.get(key),fresh=last===undefined||this.stepNo-last>CONFIG.STEEL.rearmSteps;
+    const priorRebound=this.lastRebound;const ev={key,wc:pr.wc,vc:pr.vc,attacker:att.index,victim:pr.v.fighter.index,part:pr.v.part,fresh,armed:att.armed,cache:!!att.cache?.sword,broken:!!att.weaponBroken,before:swordState(att),woundsBefore:G.wounds.length};
+    const ret=originalRebound.call(this,pr,...args);ev.afterOriginal=swordState(att);ev.reboundAssignedByThisCall=this.lastRebound!==priorRebound;ev.lastRebound=ev.reboundAssignedByThisCall&&this.lastRebound?.step===this.stepNo?{...this.lastRebound}:null;
+    if(candidateRun&&mode==='common'&&fresh&&att.armed&&att.cache?.sword){
+      const sw=att.sword,ax=new THREE.Vector3(0,1,0).applyQuaternion(Q(sw.rotation())),w=V(sw.angvel()),axial=w.dot(ax),limit=Math.max(Math.abs(att.cache.sword.w.dot(ax)),CONFIG.STEEL.gripTwistMax);
+      if(Math.abs(axial)>limit){const dw=axial-Math.sign(axial)*limit;ev.guard={axial,limit,removed:dw};sw.setAngvel({x:w.x-ax.x*dw,y:w.y-ax.y*dw,z:w.z-ax.z*dw},true);}
+    }
+    ev.after=swordState(att);ev.woundsAfter=G.wounds.length;(diag.rebounds??=[]).push(ev);return ret;};
+  let rollHistory=null,inDrive=false;
+  const originalDrive=f.driveSword,originalTorque=f.sword.addTorque,originalWorldStep=G.world.step,originalCombatStep=G.combat.afterStep;
+  f.driveSword=function(...args){inDrive=true;diag.driveBefore=swordState(f);diag.hitPointVel=f.hitPointVel.toArray();const ret=originalDrive.apply(this,args);inDrive=false;diag.driveAfter=swordState(f);diag.wristTorque=f.debug.wristTorque.toArray();diag.wristCap=f.debug.wristCap;diag.wristBrake=f.wristBrake;
+    if(diag.driveTorques?.length){const obs=rollObserver(f,rollHistory);rollHistory=f.rollTargetModel==='bounded'?obs.history:null;diag.roll=obs.sample;const total=V(diag.driveTorques[0]),wrist=f.debug.wristTorque;diag.actualTwist=total.sub(wrist).dot(new THREE.Vector3().fromArray(diag.driveBefore.blade));diag.twistReconstructionError=diag.actualTwist-diag.roll.expectedTwist;}else rollHistory=null;return ret;};
+  f.sword.addTorque=function(t,...args){if(inDrive)(diag.driveTorques??=[]).push({...t});return originalTorque.call(this,t,...args);};
+  G.world.step=function(...args){diag.beforeNative=swordState(f);const ret=originalWorldStep.apply(this,args);diag.afterNative=swordState(f);return ret;};
+  G.combat.afterStep=function(...args){const ret=originalCombatStep.apply(this,args);diag.afterCombat=swordState(f);return ret;};
+  const pI=f.sword.principalInertia(),pFrame=f.sword.principalInertiaLocalFrame(),axLocal=new THREE.Vector3(0,1,0).applyQuaternion(Q(pFrame).invert());row.inertia={principal:pI,frame:pFrame,twistScale:f.twistScale,axisEffectiveI:1/(axLocal.x**2/pI.x+axLocal.y**2/pI.y+axLocal.z**2/pI.z),axisTensorI:axLocal.x**2*pI.x+axLocal.y**2*pI.y+axLocal.z**2*pI.z};
+  row.creation={nativeSHA256:sha(G.world.takeSnapshot()),controllerSHA256:sha(JSON.stringify([control(f),control(G.enemy)])),state:state(f)};
+  G.combat.onCutReaction=r=>{
+   const attacker=G.combat.info.get(Number(r.key.split(':')[0]))?.fighter?.index;
+   row.contact.centerlineEvents++;row.contact.positiveImpulseEvents+=Number(r.J>0);
+   row.contact.wrongAttackerEvents+=Number(attacker!==undefined&&attacker!==0);row.contact.unresolvedAttackerEvents+=Number(attacker===undefined);
+   row.contact.firstCenterlineEvent??={tick,phase:request?.phase,mode:r.mode,key:r.key,step:r.step,attacker,appliedPositiveImpulse:r.J>0};
+  };
+  G.before=()=>{
+   diag={tick,ai:aiState(G)};
+   if(contactRun){
+    const gap=V(f.bodies.pelvis.translation()).distanceTo(V(G.enemy.bodies.pelvis.translation()));
+    if(row.touchStartTick===undefined&&(mode==='previous'?tick>=240&&gap<=2.8:baselineTouchStart!==null&&tick===baselineTouchStart)){
+     row.touchStartTick=tick;if(mode==='previous')baselineTouchStart=tick;
+     row.touchStartBoundary={tick,gapM:gap,nativeSHA256:sha(G.world.takeSnapshot())};
+    }
+    const local=row.touchStartTick===undefined?null:tick-row.touchStartTick;
+    request=local===null?{phase:tick<240?'startLock':'approach',dx:0,dy:0,held:true,stickY:tick>=240?1:0,tap:false}:{...tape[local],stickY:local<=347?1:0};
+   }else request=tape[tick];
+   const allowed=f.alive&&!f.weapon.gun,active=Math.abs(request.dx)+Math.abs(request.dy)>1e-5;
+   if(allowed){f.handOffset.x+=request.dx;f.handOffset.y+=request.dy;}f.handHeld=request.held;f.inputActive=active;
+   supplied={id:tick,timeS:G.t,dx:allowed?request.dx:0,dy:allowed?request.dy:0,held:request.held,active};
+   const accepted=recordSwordsmanshipInput(f,supplied);row.checks.inputAccepted&&=accepted===row.v2;
+   if(request.tap)row.tapAccepted=f.alive?f.skill.thrust():false;
+   const stick=f.alive?request.stickY:0;f.move.set(0,stick);f.stickX=0;f.stickY=stick;
+   requestedDigest.update(JSON.stringify(request)+'\n');appliedDigest.update(JSON.stringify({supplied,stick})+'\n');
+   if(row.firstInput===null&&active)row.firstInput={tick,supplied,accepted,before:control(f)};
+  };
+  for(tick=0;tick<(contactRun?1404:tape.length);tick++){
+   if(contactRun&&row.touchStartTick!==undefined&&tick>=row.touchStartTick+tape.length){row.terminal='full_touch_tape_complete';break;}
+   if(contactRun&&row.touchStartTick===undefined&&tick>=960){row.terminal='approach_not_exposed';break;}
+   if(tick%120===0)await new Promise(r=>setImmediate(r));G.step();row.steps++;
+   const s=state(f),e=row.extremes;row.states[s.state]=(row.states[s.state]??0)+1;
+   const finite=G.world.bodies.getAll().every(b=>[b.translation(),b.rotation(),b.linvel(),b.angvel()].every(v=>Object.values(v).every(Number.isFinite)));
+   row.checks.finite&&=finite;row.checks.inputConsumed&&=!row.v2||JSON.stringify(f.swordsmanshipState.input)===JSON.stringify(supplied);
+   row.checks.gravityFixed&&=G.world.gravity.y===-9.81;row.checks.modelsFixed&&=f.stanceMemoryModel===row.policy.stance&&f.rollTargetModel===row.policy.roll&&G.combat.cutReactionModel===row.policy.cut;
+   for(const [name,failed]of Object.entries({nonfinite:!finite,dead:!s.alive,unarmed:!s.armed,invalidGrip:!s.gripValid,pelvisBelowGround:s.pelvisY<0,notStanding:s.state!=='stand'}))if(failed&&row.firstFailure[name]===undefined)row.firstFailure[name]={tick,phase:request.phase};
+   e.minPelvisY=Math.min(e.minPelvisY,s.pelvisY);e.maxPelvisY=Math.max(e.maxPelvisY,s.pelvisY);e.maxChestTiltRad=Math.max(e.maxChestTiltRad,s.chestTiltRad);e.maxAimErrorRad=Math.max(e.maxAimErrorRad,s.aimErrorRad);
+   e.maxGripGapM=Math.max(e.maxGripGapM,s.gripGapM??0);e.maxJointGapM=Math.max(e.maxJointGapM,s.maxJointGap.gapM);e.maxSwordOmegaRadps=Math.max(e.maxSwordOmegaRadps,s.swordOmegaRadps);e.maxTipSpeedMps=Math.max(e.maxTipSpeedMps,s.tipSpeedMps);
+   for(const name of ['footF','footB']){const b=f.bodies[name];if(b)e.minFootColliderY=Math.min(e.minFootColliderY,b.translation().y);}
+   let contacts=0;for(const c of f.swordColliders)G.world.contactPairsWith(c,o=>G.world.contactPair(c,o,m=>{contacts+=m.numSolverContacts();}));if(contacts)row.contact.swordContactSteps++;
+   const snap=G.world.takeSnapshot();nativeDigest.update(snap);diag.nativeSHA256=sha(snap);diag.phase=request.phase;diag.request=request;diag.player=health(f);diag.assistPhase=f.swordsmanshipState?.phase;diag.skillAim=f.skill.aim.toArray();diag.handOffset=f.handOffset.toArray();diag.enemy=health(G.enemy);diag.contacts=swordContacts(G,f);diag.wounds=G.wounds.length;diag.centerlineEvents=row.contact.centerlineEvents;frames.push(diag);
+   if(tick===row.firstInput?.tick)row.firstInput.after=control(f);
+   const nextLocal=contactRun?tick-(row.touchStartTick??Infinity)+1:tick+1;
+   if(tick===0||nextLocal===tape.length||nextLocal>=0&&tape[nextLocal]?.phase!==request.phase)row.boundaries.push({tick,phase:request.phase,state:s,nativeSHA256:sha(G.world.takeSnapshot())});
+   if(!finite)throw Error('Nonfinite native state');
+  }
+  row.final=state(f);row.contact.wounds=G.wounds.length;
+  row.traceFile=weapon+'-'+mode+'.jsonl';fs.writeFileSync(path.join(out,row.traceFile),frames.map(x=>JSON.stringify(x)).join('\n')+'\n',{flag:'wx'});row.traceSHA256=sha(fs.readFileSync(path.join(out,row.traceFile)));row.maxTwistReconstructionError=Math.max(...frames.map(x=>Math.abs(x.twistReconstructionError??0)));row.peak=frames.reduce((a,b)=>(a?.afterCombat?.omega??0)>b.afterCombat.omega?a:b,null);row.maxAxial=frames.reduce((a,b)=>Math.abs(a?.afterCombat?.axial??0)>Math.abs(b.afterCombat.axial)?a:b,null);row.release=frames.filter(x=>x.phase==='release').map(x=>({tick:x.tick,omega:x.afterCombat.omega,axial:x.afterCombat.axial,swing:x.afterCombat.swing,contacts:x.contacts.length,roll:x.roll}));
+  row.wounds=G.wounds.map(w=>({timeS:w.t,attacker:w.att.index,victim:w.vic.index,zone:w.zone,type:w.type,energyJ:w.energy,severity:w.severity}));
+  // Controlled lifecycle sentinel after the motion run, not injury/recovery evidence.
+  const gait=f.gait;assert(gait.started);const sentinel={F:123.25,B:456.5};for(const k of ['F','B'])gait.legs[k].Nf=sentinel[k];
+  const nativeBefore=sha(G.world.takeSnapshot());gait.enter();const after=Object.fromEntries(['F','B'].map(k=>[k,gait.legs[k].Nf]));
+  row.reentryContract={kind:'direct Gait.enter with authored Nf sentinel after motion; no recovered-standing efficacy',sentinel,after,expected:row.policy.stance==='fresh'?{F:0,B:0}:sentinel,
+   nativeBefore,nativeAfter:sha(G.world.takeSnapshot())};row.reentryContract.pass=JSON.stringify(after)===JSON.stringify(row.reentryContract.expected);
+ }catch(e){row.error={name:e.name,message:e.message,stack:e.stack};}
+ finally{
+  row.nativeTraceSHA256=nativeDigest.digest('hex');row.requestedInputSHA256=requestedDigest.digest('hex');row.appliedInputSHA256=appliedDigest.digest('hex');
+  G?.eventQueue.free();G?.world.free();console.log(JSON.stringify({weapon,mode,steps:row.steps,error:row.error?.message??null,failures:row.firstFailure,contact:row.contact,extremes:row.extremes}));
+ }
+}
+try{for(const weapon of weapons)for(const mode of ['previous','common'])await run(weapon,mode);}catch(e){error={message:e.message,stack:e.stack};}
+finally{
+ Math.random=random;const sourceAfter=manifest(),sourceStable=JSON.stringify(sourceBefore)===JSON.stringify(sourceAfter);
+ const comparisons=weapons.map(weapon=>{const a=rows.find(r=>r.weapon===weapon&&r.mode==='previous'),b=rows.find(r=>r.weapon===weapon&&r.mode==='common');return{weapon,
+  creationNativeExact:a?.creation?.nativeSHA256===b?.creation?.nativeSHA256,creationControlExact:a?.creation?.controllerSHA256===b?.creation?.controllerSHA256,
+  requestedInputExact:a?.requestedInputSHA256===b?.requestedInputSHA256,appliedInputExact:a?.appliedInputSHA256===b?.appliedInputSHA256,nativeTraceExact:a?.nativeTraceSHA256===b?.nativeTraceSHA256,
+  newGrossFailureKinds:b?Object.keys(b.firstFailure).filter(k=>!a?.firstFailure[k]):null};});
+ const expectedRuns=contactRun?2:settleRun?4:6;
+ const executionPass=!error&&sourceStable&&rows.length===expectedRuns&&rows.every(r=>!r.error&&r.steps===(contactRun?(r.touchStartTick??516)+444:tape.length)&&Object.values(r.checks).every(Boolean)&&r.reentryContract?.pass)&&comparisons.every(c=>c.creationNativeExact&&c.creationControlExact&&c.requestedInputExact);
+ const report={schemaVersion:1,head,startedUTC,completedUTC:new Date().toISOString(),wallSeconds:(performance.now()-started)/1000,command:process.argv,sourceBefore,sourceAfter,sourceStable,
+  executionPass,newPhysicsExecutions:rows.length,physicsSteps:rows.reduce((n,r)=>n+r.steps,0),dt:DT,protocol:{seed:7,weapons,gapM:5.6,contactRun,settleRun,candidateRun,opponent:contactRun?'Normal original AI, 240-step lock then ordinary approach; baseline gap<=2.8m fixes both tape start ticks.':'Idle ordinary opponent; no AI input. Authored move and hand tape, native game Fighter and Combat.',schedule,steps:tape.length,
+   defaults:'previous 3-ID whitelist vs imported common capability policy; same production v2 weapon support and real applySwordsmanship/recordSwordsmanshipInput',
+   exclusions:candidateRun?'Runtime-only candidate after the original fresh nonpassing body rebound: copies the existing gripTwist rule (max prior axial speed or40), only in common rows. Does not change initial state, input, strength, gravity, or damage calculation. Gait sentinel is after motion.':'No body/velocity/health injection during motion; no physics coefficient changes. Read-only method wrappers forward original arguments and results; independent target reconstruction never calls the production WeakMap updater. Gait Nf sentinel runs only after completed motion.',
+   limitations:'Same 3.7s authored tape, contact approach additionally7.225s total or optional2s no-input settle extension. Not human realism, attack-power acceptance, all-contact coverage, browser delivery, or a proof that high angular velocity is itself wrong. Runtime body-grip candidate inherits the old nonconservative setAngvel approximation and cannot undo rotation already integrated in world.step. Torque reconstruction tolerance is floating-point comparison, not an angular-speed gameplay threshold.'},
+  comparisons,rows,error};
+ fs.writeFileSync(path.join(out,'report.json'),JSON.stringify(report,null,2)+'\n',{flag:'wx'});
+ console.log(JSON.stringify({executionPass,runs:report.newPhysicsExecutions,steps:report.physicsSteps,wallSeconds:report.wallSeconds,sourceStable,comparisons}));if(!executionPass)process.exitCode=1;
+}
