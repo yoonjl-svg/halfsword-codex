@@ -1,8 +1,8 @@
 {
-  "status": "audio_and_local_mobile_verified_ready_for_delivery",
+  "status": "ordinary_revolver_audio_delivered_verified",
   "baseHead": "4ecb1bf52c34ee86bd3fd06f7fdacaef5ec1cb6a",
   "ordinaryURL": "https://yoonjl-svg.github.io/halfsword-codex/",
-  "pistolURL": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=pistol",
+  "pistolURL": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=pistol&foeWeapon=longsword",
   "productionFiles": [
     "src/gun.js",
     "src/sound.js"
@@ -23,7 +23,42 @@
   ],
   "independentReview": "No serious regression found; unchanged reload scheduling/RNG count and existing event lifetime supported. Read-only review.",
   "public": {
-    "status": "not_yet_sent"
+    "status": "exact_public_files_and_mobile_audio_flow_verified",
+    "head": "11943f787548528f0336f8d873bcde489eb408c9",
+    "actions": {
+      "id": 37650911468,
+      "conclusion": "success",
+      "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37650911468"
+    },
+    "exactFiles": 8,
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/revolver-audio-20261008/delivery/pages01.json",
+      "bytes": 4617,
+      "sha256": "ae628b2218ae7b0907601b1128fdf5c43b77d9ec75569d12c591063bb19c6be4"
+    },
+    "mobile": {
+      "path": "/workspace/halfsword-handoff/revolver-audio-20261008/browser/public01/report.json",
+      "bytes": 67656,
+      "sha256": "56ce5e8af3bb9dff47f9a8da71faa550f969558fe63c4c9f868eaa707374b0cf",
+      "pass": true,
+      "checks": {
+        "shotGain": true,
+        "sixLoads": true,
+        "reloadNineSeconds": true,
+        "pauseStopsScheduler": true,
+        "muteAndResume": true,
+        "restartFresh": true,
+        "native": true,
+        "finite": true,
+        "oneExplicitFixture": true,
+        "preferencesRestored": true,
+        "compiledExact": true
+      },
+      "errors": [],
+      "entryURL": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=pistol&foe=heinrich&foeWeapon=longsword",
+      "wallMs": 83483.121312,
+      "steps": 1172
+    }
   },
   "physicalParametersChanged": false,
   "damageChanged": false,
@@ -31,5 +66,6 @@
     "pass": true,
     "path": "/workspace/halfsword-handoff/revolver-audio-20261008/browser/local01/report.json",
     "sha256": "92753f948793d22d2b765c52a97b946095e752aa7527e8595159c36b10607bc2"
-  }
+  },
+  "implementationHead": "11943f787548528f0336f8d873bcde489eb408c9"
 }
