@@ -1,0 +1,557 @@
+{
+  "date": "2026-10-08",
+  "baselineHead": "6afbfcb882f2f886ae60607d847024b3618dabc8",
+  "status": "diagnosis_and_design_complete_no_candidate_implemented",
+  "gameChanged": false,
+  "gameDeployed": false,
+  "rawRoot": "/workspace/halfsword-handoff/recovery-finish-audit-20261008",
+  "artifacts": [
+    {
+      "relativePath": "recovery/summary.json",
+      "bytes": 6543,
+      "sha256": "0fa33ae7409221b1529ca69d7ad4c171af367a8b8cba288d70c69bf686a0240c"
+    },
+    {
+      "relativePath": "recovery/receipt.json",
+      "bytes": 1634,
+      "sha256": "0b163cec8bcc13f3c92ecb78faaf8c2e64958d06abb5f986a44cb163cb548c24"
+    },
+    {
+      "relativePath": "recovery/REVIEW.md",
+      "bytes": 7645,
+      "sha256": "da21d011b80f046dea4f6928c5c6749ffd7e40b52469b8573230c04f25bf6267"
+    },
+    {
+      "relativePath": "recovery/natural-02/report.json",
+      "bytes": 10641588,
+      "sha256": "2cd329c06c987907fdd595c81e8981a07b83baafc04e960cb11fb02c6a69987a"
+    },
+    {
+      "relativePath": "recovery/prepared-01/report.json",
+      "bytes": 20003366,
+      "sha256": "d422080e7da4985853b607681ba06ad7c5f96382fd6ccf49098e7f68fdc70a2f"
+    },
+    {
+      "relativePath": "finish/run01/protocol.json",
+      "bytes": 10535,
+      "sha256": "626dd859e5e9935b2d7b16eb693d936f7a3cf3278126b01ded18118fb3e83f1b"
+    },
+    {
+      "relativePath": "finish/run01/report.json",
+      "bytes": 18072,
+      "sha256": "48bab3e3a59ed66d2b53cb5ec310f504fb9aae07ad56cfc7fa50eb926e5aef6c"
+    },
+    {
+      "relativePath": "finish/run01/early.json",
+      "bytes": 599644,
+      "sha256": "85c86de39dc5f791d2e46f414cceec99c1ea26d4ccd6d47193af2c1ecf3a94b6"
+    },
+    {
+      "relativePath": "finish/run01/low.json",
+      "bytes": 544743,
+      "sha256": "c324ab3fdc203b030590ad2e5fb98e66c24b0a95e7c4ff98e64ba84333802ccb"
+    },
+    {
+      "relativePath": "finish/run01/kneel.json",
+      "bytes": 547011,
+      "sha256": "ee23e32e6720a2f6ddc591c3f21d6379f19f73111991771fd24ba2c70e259e2c"
+    },
+    {
+      "relativePath": "finish-review/READ_ONLY_AUDIT.md",
+      "bytes": 22195,
+      "sha256": "979dfffea7a2b2d184a3b8b7d90ca0bce156b0e6560dff028b2975b3d8ae5ac1"
+    }
+  ],
+  "tools": [
+    {
+      "path": "tools/sim/experiments/recovery_leg_audit_20261008.mjs",
+      "sha256": "3e1124d9ae57b1085f56032fb5044fda84237a4737861916142b4fba47ccd342"
+    },
+    {
+      "path": "tools/sim/experiments/finish_entry_audit_20261008.mjs",
+      "sha256": "616c30db3a41ffe59af3fb05caa06d33cc653385848a7f507602bab2731d9ff7"
+    }
+  ],
+  "reproduce": [
+    "node tools/sim/experiments/recovery_leg_audit_20261008.mjs --out=<new-absolute-output>",
+    "node tools/sim/experiments/recovery_leg_audit_20261008.mjs --mode=prepared --out=<new-absolute-output>",
+    "node tools/sim/experiments/finish_entry_audit_20261008.mjs <new-absolute-output-outside-repository>"
+  ],
+  "recovery": {
+    "validExposureCount": 2,
+    "nativeStepsIncludingObserverReplays": 5798,
+    "policy": {
+      "gravity": -9.81,
+      "assist": 0.3,
+      "supportModel": "legacy",
+      "footReaction": 0,
+      "finish": "power",
+      "cut": "centerline",
+      "cutFighter": 0,
+      "fighters": [
+        {
+          "index": 0,
+          "swordsmanship": "unified",
+          "stance": "fresh",
+          "roll": "bounded",
+          "armSupport": "linked",
+          "arm": "manual"
+        },
+        {
+          "index": 1,
+          "swordsmanship": null,
+          "stance": null,
+          "roll": null,
+          "armSupport": "linked",
+          "arm": "legacy"
+        }
+      ]
+    },
+    "rows": [
+      {
+        "id": "natural-02",
+        "protocol": "natural",
+        "playerOnlyGetup": true,
+        "observationSteps": 1913,
+        "replaySteps": 1913,
+        "observerNativeExact": true,
+        "sourceStable": true,
+        "firstGetupTick": 1551,
+        "firstStandTick": 1792,
+        "riseSteps": 87,
+        "bothKneeExtensionTransitions": 86,
+        "availableRiseTransitions": 86,
+        "rearFootNoSolverRiseSteps": 28,
+        "rearFootZeroRawLoadRiseSteps": 36,
+        "rearFootHorizontalDisplacementM": 0.30063610839564886,
+        "bothFeetNoSolverGetupSteps": 0,
+        "wholeBodyNoGroundSolverGetupSteps": 0,
+        "upwardPelvisWithoutWholeGroundSolverSteps": 0,
+        "lastGetup": {
+          "tick": 1791,
+          "t": 14.933333333333126,
+          "kn": 5.329070518200751e-15,
+          "pelvisY": 0.9377978444099426,
+          "pelvisVy": 0.20440490543842316,
+          "appliedUpN": 693.2159875664728,
+          "footPoints": [
+            2,
+            0
+          ],
+          "footRawN": [
+            42.26905256509781,
+            0
+          ],
+          "wholeGroundPoints": 2,
+          "wholeGroundRawN": 42.26905256509781,
+          "kneesActualZ": [
+            -0.18232004555790804,
+            -0.1319532689289423
+          ],
+          "kneesTargetZ": [
+            -0.22000000000000658,
+            -0.1400000000000086
+          ]
+        },
+        "nominalWeightN": 736.731,
+        "downMinPelvisY": null,
+        "raw": "/workspace/halfsword-handoff/recovery-finish-audit-20261008/recovery/natural-02/report.json",
+        "rawSHA256": "2cd329c06c987907fdd595c81e8981a07b83baafc04e960cb11fb02c6a69987a",
+        "sourceManifestSHA256": "c81fc1a4bfa9166c30330f59fe05f578732da6437feb4ad4e2ae46d180514f46"
+      },
+      {
+        "id": "prepared-01",
+        "protocol": "prepared",
+        "playerOnlyGetup": true,
+        "observationSteps": 986,
+        "replaySteps": 986,
+        "observerNativeExact": true,
+        "sourceStable": true,
+        "firstGetupTick": 624,
+        "firstStandTick": 865,
+        "riseSteps": 108,
+        "bothKneeExtensionTransitions": 107,
+        "availableRiseTransitions": 107,
+        "rearFootNoSolverRiseSteps": 23,
+        "rearFootZeroRawLoadRiseSteps": 31,
+        "rearFootHorizontalDisplacementM": 0.268417699875053,
+        "bothFeetNoSolverGetupSteps": 0,
+        "wholeBodyNoGroundSolverGetupSteps": 0,
+        "upwardPelvisWithoutWholeGroundSolverSteps": 0,
+        "lastGetup": {
+          "tick": 864,
+          "t": 7.208333333333481,
+          "kn": 5.329070518200751e-15,
+          "pelvisY": 0.9396920800209045,
+          "pelvisVy": 0.31041544675827026,
+          "appliedUpN": 686.0830522058875,
+          "footPoints": [
+            2,
+            0
+          ],
+          "footRawN": [
+            10.173792243003845,
+            0
+          ],
+          "wholeGroundPoints": 2,
+          "wholeGroundRawN": 10.173792243003845,
+          "kneesActualZ": [
+            -0.21169384493504753,
+            -0.1283733973061751
+          ],
+          "kneesTargetZ": [
+            -0.22000000000135292,
+            -0.13999999999980736
+          ]
+        },
+        "nominalWeightN": 736.731,
+        "downMinPelvisY": 0.7587443590164185,
+        "raw": "/workspace/halfsword-handoff/recovery-finish-audit-20261008/recovery/prepared-01/report.json",
+        "rawSHA256": "d422080e7da4985853b607681ba06ad7c5f96382fd6ccf49098e7f68fdc70a2f",
+        "sourceManifestSHA256": "c81fc1a4bfa9166c30330f59fe05f578732da6437feb4ad4e2ae46d180514f46"
+      }
+    ],
+    "excludedRun": {
+      "id": "natural-01",
+      "reason": "Enemy onehandArmModel manual instead of current main legacy; saved but excluded. Corrected natural-02 native hash array exact to initial run, not another efficacy sample."
+    }
+  },
+  "finish": {
+    "executions": 3,
+    "nativeSteps": 3240,
+    "sourceStable": true,
+    "executionPassed": true,
+    "protocol": {
+      "head": "6afbfcb882f2f886ae60607d847024b3618dabc8",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/finish_entry_audit_20261008.mjs",
+        "/workspace/halfsword-handoff/recovery-finish-audit-20261008/finish/run01"
+      ],
+      "seed": 7,
+      "gapM": 1.5,
+      "stepsPerRun": 1080,
+      "preparation": "At tick240 call enemy.knockDown(true) for early/low tap. Kneel case sets both enemy leg functions=.2 and knockDown(false). No forced body position/velocity, no extra impulse, no down-time override. Enemy AI inputs idle. These are prepared cases, not natural injury frequency.",
+      "policy": "Player current unified/manual/fresh/bounded. Both linked support. Player centerline cut. Both power finish. Gravity9.81, limb severing on.",
+      "input": "One tap at first on+amt>.5 (early), same but torso centers<=.55m (low), or first kneel state. No joystick/drag. .55m is an observation trigger only, not a selected runtime gate."
+    },
+    "rows": [
+      {
+        "name": "early",
+        "summary": {
+          "tap": {
+            "before": {
+              "tick": 256,
+              "time": 2.1333333333333284,
+              "attackerState": "stand",
+              "foeState": "down",
+              "alive": [
+                true,
+                true
+              ],
+              "chestY": 1.310522437095642,
+              "pelvisY": 0.9558015465736389,
+              "headY": 1.592263102531433,
+              "targetY": 1.30909264087677,
+              "finishOn": true,
+              "finishAmount": 0.5333333333333333,
+              "skillLevel": 0,
+              "moveY": 0,
+              "inside": false,
+              "walk": true,
+              "short": 0.11105985138852482,
+              "tap": null
+            },
+            "accepted": true,
+            "down": true
+          },
+          "firstOn": {
+            "tick": 240,
+            "time": 2.008333333333329,
+            "attackerState": "stand",
+            "foeState": "down",
+            "alive": [
+              true,
+              true
+            ],
+            "chestY": 1.2462230920791626,
+            "pelvisY": 0.8910280466079712,
+            "headY": 1.5294554233551025,
+            "targetY": 1.242222547531128,
+            "finishOn": true,
+            "finishAmount": 0.03333333333333333,
+            "skillLevel": 0,
+            "moveY": 0,
+            "inside": false,
+            "walk": true,
+            "short": 0.1393021731408216,
+            "tap": null
+          },
+          "enabledAbove55": 265,
+          "walkingZeroCommand": 271,
+          "firstAbort": {
+            "tick": 505,
+            "time": 4.216666666666666,
+            "attackerState": "stand",
+            "foeState": "getup",
+            "alive": [
+              true,
+              true
+            ],
+            "chestY": 0.5715593099594116,
+            "pelvisY": 0.496175616979599,
+            "headY": 0.49638956785202026,
+            "targetY": 0.5627467463749893,
+            "finishOn": false,
+            "finishAmount": 0.9444444444444444,
+            "skillLevel": 0,
+            "moveY": 0,
+            "inside": true,
+            "walk": false,
+            "short": 0,
+            "tap": {
+              "t": 2.0833333333333286,
+              "down": true,
+              "walking": true,
+              "go": false,
+              "ended": false,
+              "abort": true,
+              "upDone": true,
+              "lineDone": true,
+              "walkEnd": null
+            }
+          },
+          "final": {
+            "tick": 1079,
+            "time": 9.00000000000013,
+            "attackerState": "stand",
+            "foeState": "stand",
+            "alive": [
+              true,
+              true
+            ],
+            "chestY": 1.2400323152542114,
+            "pelvisY": 0.8896583914756775,
+            "headY": 1.5152066946029663,
+            "targetY": 0.5740111897725113,
+            "finishOn": false,
+            "finishAmount": 0,
+            "skillLevel": 0,
+            "moveY": 0,
+            "inside": true,
+            "walk": false,
+            "short": 0,
+            "tap": null
+          },
+          "hits": 5
+        },
+        "activeWalkingZeroCommandFrames": 249,
+        "activeWalkingZeroCommandTicks": [
+          256,
+          504
+        ]
+      },
+      {
+        "name": "low",
+        "summary": {
+          "tap": {
+            "before": {
+              "tick": 498,
+              "time": 4.149999999999996,
+              "attackerState": "stand",
+              "foeState": "down",
+              "alive": [
+                true,
+                true
+              ],
+              "chestY": 0.5377103090286255,
+              "pelvisY": 0.4721362888813019,
+              "headY": 0.4532020390033722,
+              "targetY": 0.5168358798614655,
+              "finishOn": true,
+              "finishAmount": 1,
+              "skillLevel": 0,
+              "moveY": 0,
+              "inside": true,
+              "walk": false,
+              "short": 0,
+              "tap": null
+            },
+            "accepted": true,
+            "down": true
+          },
+          "firstOn": {
+            "tick": 240,
+            "time": 2.008333333333329,
+            "attackerState": "stand",
+            "foeState": "down",
+            "alive": [
+              true,
+              true
+            ],
+            "chestY": 1.2462230920791626,
+            "pelvisY": 0.8910280466079712,
+            "headY": 1.5294554233551025,
+            "targetY": 1.242222547531128,
+            "finishOn": true,
+            "finishAmount": 0.03333333333333333,
+            "skillLevel": 0,
+            "moveY": 0,
+            "inside": false,
+            "walk": true,
+            "short": 0.1393021731408216,
+            "tap": null
+          },
+          "firstLowDown": {
+            "tick": 497,
+            "time": 4.149999999999996,
+            "attackerState": "stand",
+            "foeState": "down",
+            "alive": [
+              true,
+              true
+            ],
+            "chestY": 0.5377103090286255,
+            "pelvisY": 0.4721362888813019,
+            "headY": 0.4532020390033722,
+            "targetY": 0.5168358798614655,
+            "finishOn": true,
+            "finishAmount": 1,
+            "skillLevel": 0,
+            "moveY": 0,
+            "inside": true,
+            "walk": false,
+            "short": 0,
+            "tap": null
+          },
+          "enabledAbove55": 257,
+          "walkingZeroCommand": 0,
+          "firstAbort": {
+            "tick": 505,
+            "time": 4.216666666666666,
+            "attackerState": "stand",
+            "foeState": "getup",
+            "alive": [
+              true,
+              true
+            ],
+            "chestY": 0.4196094572544098,
+            "pelvisY": 0.3843723237514496,
+            "headY": 0.312951922416687,
+            "targetY": 0.418927869810091,
+            "finishOn": false,
+            "finishAmount": 0.9444444444444444,
+            "skillLevel": 0,
+            "moveY": 0,
+            "inside": true,
+            "walk": false,
+            "short": 0,
+            "tap": {
+              "t": 0.06666666666666667,
+              "down": true,
+              "walking": false,
+              "go": false,
+              "ended": false,
+              "abort": true,
+              "upDone": false,
+              "lineDone": false,
+              "walkEnd": null
+            }
+          },
+          "final": {
+            "tick": 1079,
+            "time": 9.00000000000013,
+            "attackerState": "stand",
+            "foeState": "stand",
+            "alive": [
+              true,
+              true
+            ],
+            "chestY": 1.241265892982483,
+            "pelvisY": 0.8900471925735474,
+            "headY": 1.5177981853485107,
+            "targetY": 0.43963321210287665,
+            "finishOn": false,
+            "finishAmount": 0,
+            "skillLevel": 0,
+            "moveY": 0,
+            "inside": true,
+            "walk": false,
+            "short": 0,
+            "tap": null
+          },
+          "hits": 3
+        },
+        "activeWalkingZeroCommandFrames": 0,
+        "activeWalkingZeroCommandTicks": null
+      },
+      {
+        "name": "kneel",
+        "summary": {
+          "tap": {
+            "before": {
+              "tick": 681,
+              "time": 5.675000000000072,
+              "attackerState": "stand",
+              "foeState": "kneel",
+              "alive": [
+                true,
+                true
+              ],
+              "chestY": 0.9164435863494873,
+              "pelvisY": 0.5673409104347229,
+              "headY": 1.187273383140564,
+              "targetY": 1.2492393255233765,
+              "finishOn": false,
+              "finishAmount": 0,
+              "skillLevel": 0,
+              "moveY": 0,
+              "inside": false,
+              "walk": false,
+              "short": 0,
+              "tap": null
+            },
+            "accepted": true,
+            "down": false
+          },
+          "enabledAbove55": 0,
+          "walkingZeroCommand": 0,
+          "final": {
+            "tick": 1079,
+            "time": 9.00000000000013,
+            "attackerState": "stand",
+            "foeState": "kneel",
+            "alive": [
+              true,
+              true
+            ],
+            "chestY": 0.917496919631958,
+            "pelvisY": 0.567797064781189,
+            "headY": 1.1892997026443481,
+            "targetY": 1.251233458518982,
+            "finishOn": false,
+            "finishAmount": 0,
+            "skillLevel": 0,
+            "moveY": 0,
+            "inside": false,
+            "walk": false,
+            "short": 0,
+            "tap": null
+          },
+          "hits": 1
+        },
+        "activeWalkingZeroCommandFrames": 0,
+        "activeWalkingZeroCommandTicks": null
+      }
+    ]
+  },
+  "acceptedNativeStepsIncludingInstrumentationReplays": 9038,
+  "limitations": [
+    "Five valid scenarios, not a frequency/efficacy survey. Recovery replays are the same scenarios. Excluded recovery natural-01 preserved separately.",
+    "No candidate geometry/controller was installed; .55m is a measurement tap trigger only.",
+    "Recovery two exposures do not include fully lying down. Root finish has prepared state transitions and one prepared leg-function fixture, no natural-injury claim.",
+    "Browser/mobile naturalness and modified-controller success untested.",
+    "Prior near-target finish contact results did not test automatic approach.",
+    "No new peer source/document access."
+  ]
+}
