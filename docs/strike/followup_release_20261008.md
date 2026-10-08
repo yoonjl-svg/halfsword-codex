@@ -26,7 +26,7 @@
 
 v2의 실제 팔 절상24.41/40.70/17.65/34.58J를 확인했다. 기준은 머리·목·팔 타점이라 피해 감소율 비교는 불가하다. 접촉의 재베기 구간 최고 속도는 오히려9.22% 높았지만 에너지는15.79% 낮아 전역 감속률로 일반화하지 않는다. 생존·무장·주손 관절은 유지됐고 접촉 두 판의 초기 이후 보조손 파지는783/783프레임이었다. 비접촉 보조손 간격은5.62→8.20cm로 늘었다. 비접촉 놓기2초 끝은 ready, 접촉 놓기1초 끝은 returning이다.
 
-**판정은 A/B 재제공이며 일반 승격이 아니다.** [A·현재 보정](https://yoonjl-svg.github.io/halfsword-codex/?weapon=lightsaber) / [B·v2](https://yoonjl-svg.github.io/halfsword-codex/?weapon=lightsaber&swordsmanshipPreview=v2). 사용자 확인할 항목은 빠른 반전·두 번째 베기의 힘과 손을 놓은 뒤 준비 자세 복귀다. 이 실험은 부상/getup·AI 전투·승률 검사와 구별한다.
+**판정은 A/B 재제공이며 일반 승격이 아니다.** [A·현재 보정](https://yoonjl-svg.github.io/halfsword-codex/?weapon=lightsaber&foe=default&foeWeapon=longsword) / [B·v2](https://yoonjl-svg.github.io/halfsword-codex/?weapon=lightsaber&swordsmanshipPreview=v2&foe=default&foeWeapon=longsword). 사용자 확인할 항목은 빠른 반전·두 번째 베기의 힘과 손을 놓은 뒤 준비 자세 복귀다. 이 실험은 부상/getup·AI 전투·승률 검사와 구별한다.
 
 ## 급소 공략: 준비 보조와 실제 정밀 명중은 다르다
 
@@ -45,3 +45,7 @@ v2의 실제 팔 절상24.41/40.70/17.65/34.58J를 확인했다. 기준은 머�
 기립 다리 순서, 잔여 상완 겹침, 실제 폰 장시간 성능/체감은 별도로 남는다. 최종 회귀·로컬/공개 모바일·공개 코드 일치 여부는 전달 영수증에 기록한다.
 
 최종 로컬 전달 관문: 개발 회귀6묶음, 모르겐 가시35검사, 일반 진입7경우·기능기준244검사, 로컬 모바일 일반 카드3흐름＋라이트v2 고정 진입1흐름을 통과했다. 각 흐름은 실제 터치 공격·이동·중단/재개·재시작·재입력을 검사하고 실행 중 소스·빌드를 고정했다. 고정 무기인 라이트v2 진입을 무작위 카드 선택 검사로 세지 않는다.
+
+## 공개 전달 완료
+
+코드 `b9d28ca6520bbfdf9cfb3a523c965c742483d062`, Pages Actions `37778960094` 성공. 공개 HTML/JS8파일이 최종 `main-CxH455D5.js` 빌드와 일치했다. 공개 모바일 일반 카드3흐름＋라이트v2 고정 진입1흐름도 공격·이동·중단/재개·재시작을 통과했고 오류0·소스/빌드 불변이었다. [일반 게임](https://yoonjl-svg.github.io/halfsword-codex/)과 [모르겐 바로 선택](https://yoonjl-svg.github.io/halfsword-codex/?weapon=morgenstern&foe=default&foeWeapon=longsword)에서 플레이할 수 있다. 위 두 비교의 미달 판정과 실물 폰 장시간 한계는 유지한다.

@@ -1,11 +1,11 @@
 {
-  "status": "local_verified_public_pending",
+  "status": "delivered_public_verified",
   "baselineHEAD": "2af1c5f2d48e9a78a1fa95ba3688d3835dba43bd",
   "urls": {
     "ordinary": "https://yoonjl-svg.github.io/halfsword-codex/",
     "morgenstern": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=morgenstern&foe=default&foeWeapon=longsword",
-    "lightsaberA": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=lightsaber",
-    "lightsaberB": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=lightsaber&swordsmanshipPreview=v2"
+    "lightsaberA": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=lightsaber&foe=default&foeWeapon=longsword",
+    "lightsaberB": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=lightsaber&swordsmanshipPreview=v2&foe=default&foeWeapon=longsword"
   },
   "adopted": [
     "low finish entry for both fighters",
@@ -46,5 +46,34 @@
     "dist/feature-lab.html": "1d311eb9b78f4cfbc0c672ea97563a55abaedeaacb174bef8318d0c16a51aa2e",
     "dist/index.html": "a2d5739bc658bf98b1c5101cfe05d29417c378157639d4a7fc207e121e2f751d",
     "dist/sounds.html": "128432b4a13b4f39bc473aff4fa61cef9d7f872655a25f64d4dc0d5cb2bd1059"
-  }
+  },
+  "codeCommit": "b9d28ca6520bbfdf9cfb3a523c965c742483d062",
+  "deployment": {
+    "run": 37778960094,
+    "conclusion": "success",
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37778960094"
+  },
+  "publicBytes": {
+    "pass": true,
+    "files": 8,
+    "path": "/workspace/halfsword-handoff/followup-release-20261008/pages-code.json",
+    "bytes": 4619,
+    "sha256": "69dc0f26123f3841e99a6a14c60245d14da53370881e6ee42b7e1e66f2d0600c"
+  },
+  "publicMobile": {
+    "pass": true,
+    "flows": 4,
+    "ordinaryCardFlows": 3,
+    "lightsaberPreviewFlows": 1,
+    "sourceStable": true,
+    "buildStable": true,
+    "tlsVerification": true,
+    "evidence": {
+      "path": "/workspace/halfsword-handoff/arm-recovery-20261008/mobile/promotion-public-01/report.json",
+      "bytes": 815354,
+      "sha256": "dfcc246e5c4580e5917c859a5324bacd612be3679ba48b2366a587f59ffa015f"
+    },
+    "scope": "Public Chromium mobile emulation: real menu/card or fixed-weapon Start, touch attack, move, pause/resume, restart and reinput; not physical-phone endurance"
+  },
+  "verifiedUTC": "2026-10-08T12:51:07.555Z"
 }
