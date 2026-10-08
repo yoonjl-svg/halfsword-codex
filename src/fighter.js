@@ -1,3 +1,4 @@
+import { constrainRecoveryArmReach } from './arm_recovery_reach.js';
 import { updateIntentEdgePlane, smoothIntentElevation } from './edge_intent.js';
 import { applyPlaneAlignmentPotential } from './edge_torque.js';
 import { updateMainArmRecovery, mainArmMuscle } from './arm_recovery_activation.js';
@@ -2230,6 +2231,7 @@ export class Fighter {
     rot(chest, _q1);
     const c = chest.translation();
     const T = _ik1.set(target.x - c.x, target.y - c.y, target.z - c.z).applyQuaternion(_q2.copy(_q1).invert());
+    constrainRecoveryArmReach(this, T, 'S');
     const S = _ik2.set(ARM.shoulder[0], ARM.shoulder[1], this.side * ARM.shoulder[2]); // 어깨 (가슴 기준)
     const a = ARM.upper; // 위팔
     const b = ARM.fore; // 아래팔 + 손목까지

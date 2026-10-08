@@ -1,0 +1,1212 @@
+{
+  "draft": false,
+  "baseHead": "2671561ceb765a008c6622322507319bb8d5f02c",
+  "createdUTC": "2026-10-08T10:24:30.952260+00:00",
+  "rawRoot": "/workspace/halfsword-handoff/arm-recovery-20261008",
+  "scope": "One-hand melee main-arm recovery-goal correction only; two-hand and gun controllers excluded. All-arm geometry and self-collision remain unresolved.",
+  "adoption": {
+    "runtime": "adopted-source",
+    "cases": [
+      {
+        "case": "lying-sabre-high",
+        "baseline": "matrix/A/lying-sabre-high/report.json",
+        "adopted": "matrix-adopted/D/lying-sabre-high/report.json",
+        "policy": {
+          "gravity": -9.81,
+          "assist": 0.3,
+          "support": "legacy",
+          "v2": "unified",
+          "cut": "centerline",
+          "roll": "bounded",
+          "stance": "fresh",
+          "armSupport": "linked"
+        },
+        "getupRearUpperFrames": [
+          55,
+          0
+        ],
+        "getupFrames": [
+          241,
+          241
+        ],
+        "afterStandRearUpperFrames": 0,
+        "sourceStable": true
+      },
+      {
+        "case": "side-sabre-wide",
+        "baseline": "matrix/A/side-sabre-wide/report.json",
+        "adopted": "matrix-adopted/D/side-sabre-wide/report.json",
+        "policy": {
+          "gravity": -9.81,
+          "assist": 0.3,
+          "support": "legacy",
+          "v2": "unified",
+          "cut": "centerline",
+          "roll": "bounded",
+          "stance": "fresh",
+          "armSupport": "linked"
+        },
+        "getupRearUpperFrames": [
+          27,
+          0
+        ],
+        "getupFrames": [
+          241,
+          241
+        ],
+        "afterStandRearUpperFrames": 0,
+        "sourceStable": true
+      },
+      {
+        "case": "lying-rapier-high",
+        "baseline": "matrix/A/lying-rapier-high/report.json",
+        "adopted": "matrix-adopted/D/lying-rapier-high/report.json",
+        "policy": {
+          "gravity": -9.81,
+          "assist": 0.3,
+          "support": "legacy",
+          "v2": "unified",
+          "cut": "centerline",
+          "roll": "bounded",
+          "stance": "fresh",
+          "armSupport": "linked"
+        },
+        "getupRearUpperFrames": [
+          27,
+          0
+        ],
+        "getupFrames": [
+          241,
+          241
+        ],
+        "afterStandRearUpperFrames": 0,
+        "sourceStable": true
+      },
+      {
+        "case": "side-morgenstern-high",
+        "baseline": "mace-policy-baseline/report.json",
+        "adopted": "mace-policy-adopted/report.json",
+        "policy": {
+          "gravity": -9.81,
+          "assist": 0.3,
+          "support": "legacy",
+          "v2": "unified",
+          "cut": "legacy",
+          "roll": "bounded",
+          "stance": "fresh",
+          "armSupport": "linked"
+        },
+        "getupRearUpperFrames": [
+          6,
+          0
+        ],
+        "getupFrames": [
+          241,
+          241
+        ],
+        "afterStandRearUpperFrames": 0,
+        "sourceStable": true
+      }
+    ],
+    "twoHandNativePreservation": {
+      "path": "adoption-equivalence.json",
+      "bytes": 2231,
+      "sha256": "342f92811872969e6da3c240f935420759cee0479411ebbbedf613f78ab42ab1",
+      "rootResult": {
+        "observerNativeExact": true,
+        "adoptedComparisons": [
+          {
+            "case": "hurt-longsword-high",
+            "reference": "/workspace/halfsword-handoff/arm-recovery-20261008/matrix/A/hurt-longsword-high/report.json",
+            "nativeExact": true,
+            "steps": 1106
+          },
+          {
+            "case": "lying-longsword-high",
+            "reference": "/workspace/halfsword-handoff/arm-recovery-20261008/matrix/A/lying-longsword-high/report.json",
+            "nativeExact": true,
+            "steps": 1106
+          },
+          {
+            "case": "lying-rapier-high",
+            "reference": "/workspace/halfsword-handoff/arm-recovery-20261008/matrix-final/C/lying-rapier-high/report.json",
+            "nativeExact": true,
+            "steps": 1106
+          },
+          {
+            "case": "lying-sabre-high",
+            "reference": "/workspace/halfsword-handoff/arm-recovery-20261008/matrix-final/C/lying-sabre-high/report.json",
+            "nativeExact": true,
+            "steps": 1106
+          },
+          {
+            "case": "natural-zweihander-low",
+            "reference": "/workspace/halfsword-handoff/arm-recovery-20261008/matrix/A/natural-zweihander-low/report.json",
+            "nativeExact": true,
+            "steps": 2033
+          },
+          {
+            "case": "natural-zweihander-recoveryHigh",
+            "reference": "/workspace/halfsword-handoff/arm-recovery-20261008/matrix/A/natural-zweihander-recoveryHigh/report.json",
+            "nativeExact": true,
+            "steps": 2034
+          },
+          {
+            "case": "natural-zweihander-reinput",
+            "reference": "/workspace/halfsword-handoff/arm-recovery-20261008/matrix/A/natural-zweihander-reinput/report.json",
+            "nativeExact": true,
+            "steps": 2034
+          },
+          {
+            "case": "side-morgenstern-high",
+            "reference": "/workspace/halfsword-handoff/arm-recovery-20261008/matrix-final/C/side-morgenstern-high/report.json",
+            "nativeExact": true,
+            "steps": 1106
+          },
+          {
+            "case": "side-sabre-wide",
+            "reference": "/workspace/halfsword-handoff/arm-recovery-20261008/matrix-final/C/side-sabre-wide/report.json",
+            "nativeExact": true,
+            "steps": 1106
+          },
+          {
+            "case": "side-zweihander-high",
+            "reference": "/workspace/halfsword-handoff/arm-recovery-20261008/matrix/A/side-zweihander-high/report.json",
+            "nativeExact": true,
+            "steps": 1106
+          }
+        ]
+      }
+    },
+    "finalRegression": "pending root signoff of regression-adopted",
+    "publicMobileAndDeployment": "pending root receipt"
+  },
+  "frozenSources": [
+    {
+      "path": "baseline-final-source/SOURCE.json",
+      "bytes": 52209,
+      "sha256": "d8905c81199dbdd4a52df23348ec5bbf331a652a03341288d70a197cb8945b01",
+      "head": "2671561ceb765a008c6622322507319bb8d5f02c",
+      "fileCount": 473,
+      "verifiedAllFiles": true,
+      "mismatches": [],
+      "runtimeHashes": {
+        "src/fighter.js": "00fd17156b4c34522c2efaa7968d336f20e32cf1e4556f680ec16e77031f0aee",
+        "src/arm_recovery_reach.js": null,
+        "tools/sim/experiments/arm_recovery_geometry_20261008.mjs": "9dbc4f29cb3d75bff59a22ed45322a80429ba63f257242a616dc2a895048af83",
+        "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+        "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e"
+      }
+    },
+    {
+      "path": "r1-source/SOURCE.json",
+      "bytes": 52098,
+      "sha256": "9e50bc0d3bad1418e205823effa18c1bcbcec505416946cc3f419ab52b0c9eb0",
+      "head": "2671561ceb765a008c6622322507319bb8d5f02c",
+      "fileCount": 472,
+      "verifiedAllFiles": true,
+      "mismatches": [],
+      "runtimeHashes": {
+        "src/fighter.js": "7dd1f2d80a47fad3fa60333e1513394cd703e860ff472ebb4e71d4942fd3b254",
+        "src/arm_recovery_reach.js": null,
+        "tools/sim/experiments/arm_recovery_geometry_20261008.mjs": "011893b92403c4e2fd8e6c936df970ce3f8a031a1739c906e2a36e6af4f617d8",
+        "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+        "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e"
+      }
+    },
+    {
+      "path": "r2-source/SOURCE.json",
+      "bytes": 52306,
+      "sha256": "e7d9356f2c92e36381bee42475c1db991022d5a5d814938c084fd251f7468dc9",
+      "head": "2671561ceb765a008c6622322507319bb8d5f02c",
+      "fileCount": 474,
+      "verifiedAllFiles": true,
+      "mismatches": [],
+      "runtimeHashes": {
+        "src/fighter.js": "c34c8e14def8ad55ced7437bef8867c8afd5e874c7a75ee3090a6ba9005f675f",
+        "src/arm_recovery_reach.js": "78eaf5bd980bc3dd305ed1a13d6c7232696d1d85f53b92b20cfdf30cfb89543f",
+        "tools/sim/experiments/arm_recovery_geometry_20261008.mjs": "9dbc4f29cb3d75bff59a22ed45322a80429ba63f257242a616dc2a895048af83",
+        "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+        "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e"
+      }
+    },
+    {
+      "path": "r3-source/SOURCE.json",
+      "bytes": 52306,
+      "sha256": "b43edefdfc6dbab4fbb7b3fe13b20df1f773043bd9f52c229af8a61f7117d85f",
+      "head": "2671561ceb765a008c6622322507319bb8d5f02c",
+      "fileCount": 474,
+      "verifiedAllFiles": true,
+      "mismatches": [],
+      "runtimeHashes": {
+        "src/fighter.js": "c34c8e14def8ad55ced7437bef8867c8afd5e874c7a75ee3090a6ba9005f675f",
+        "src/arm_recovery_reach.js": "84f525d3c6d3b43e31136902df3bbd20f876f70a59f0f2fbbb303abe48e4413c",
+        "tools/sim/experiments/arm_recovery_geometry_20261008.mjs": "9dbc4f29cb3d75bff59a22ed45322a80429ba63f257242a616dc2a895048af83",
+        "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+        "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e"
+      }
+    },
+    {
+      "path": "r4-source/SOURCE.json",
+      "bytes": 52306,
+      "sha256": "f31fa867c016fd32c922cb3cb2ac911ee18480a1089851b7eb7f855c0cb4f51b",
+      "head": "2671561ceb765a008c6622322507319bb8d5f02c",
+      "fileCount": 474,
+      "verifiedAllFiles": true,
+      "mismatches": [],
+      "runtimeHashes": {
+        "src/fighter.js": "d4ce2007c0447c4d753cd4821f30b2b61993f27badca38419a3958ef19d73dc3",
+        "src/arm_recovery_reach.js": "84f525d3c6d3b43e31136902df3bbd20f876f70a59f0f2fbbb303abe48e4413c",
+        "tools/sim/experiments/arm_recovery_geometry_20261008.mjs": "9dbc4f29cb3d75bff59a22ed45322a80429ba63f257242a616dc2a895048af83",
+        "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+        "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e"
+      }
+    },
+    {
+      "path": "adopted-source/SOURCE.json",
+      "bytes": 52306,
+      "sha256": "6cc47599768b471685e4a7d1c31ddb23f71d2d9c63fd2f2468597ec559f648fd",
+      "head": "2671561ceb765a008c6622322507319bb8d5f02c",
+      "fileCount": 474,
+      "verifiedAllFiles": true,
+      "mismatches": [],
+      "runtimeHashes": {
+        "src/fighter.js": "d4ce2007c0447c4d753cd4821f30b2b61993f27badca38419a3958ef19d73dc3",
+        "src/arm_recovery_reach.js": "8ea8d19a870f104f1de9951b95bfe8e1677acf1d79cf08e00feb0e53edfa72f9",
+        "tools/sim/experiments/arm_recovery_geometry_20261008.mjs": "9dbc4f29cb3d75bff59a22ed45322a80429ba63f257242a616dc2a895048af83",
+        "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+        "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e"
+      }
+    },
+    {
+      "path": "baseline-mace-source/SOURCE.json",
+      "bytes": 52209,
+      "sha256": "c668e88b0a91f9945276e274b864c36e28bd6842d7cfd0dc776d465889d1ed59",
+      "head": "2671561ceb765a008c6622322507319bb8d5f02c",
+      "fileCount": 473,
+      "verifiedAllFiles": true,
+      "mismatches": [],
+      "runtimeHashes": {
+        "src/fighter.js": "00fd17156b4c34522c2efaa7968d336f20e32cf1e4556f680ec16e77031f0aee",
+        "src/arm_recovery_reach.js": null,
+        "tools/sim/experiments/arm_recovery_geometry_20261008.mjs": "dcf4841262d733100f89b02e836a07d5e79b4fc6fa31594c4dd2089122f6299a",
+        "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+        "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e"
+      }
+    },
+    {
+      "path": "adopted-mace-source/SOURCE.json",
+      "bytes": 52306,
+      "sha256": "272378899a2a5b2b0a875efdaf6d658d517e49064866e2890fff91fe48446468",
+      "head": "2671561ceb765a008c6622322507319bb8d5f02c",
+      "fileCount": 474,
+      "verifiedAllFiles": true,
+      "mismatches": [],
+      "runtimeHashes": {
+        "src/fighter.js": "d4ce2007c0447c4d753cd4821f30b2b61993f27badca38419a3958ef19d73dc3",
+        "src/arm_recovery_reach.js": "8ea8d19a870f104f1de9951b95bfe8e1677acf1d79cf08e00feb0e53edfa72f9",
+        "tools/sim/experiments/arm_recovery_geometry_20261008.mjs": "dcf4841262d733100f89b02e836a07d5e79b4fc6fa31594c4dd2089122f6299a",
+        "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+        "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e"
+      }
+    }
+  ],
+  "readOnlyComparisons": [
+    {
+      "label": "observation does not change this native trace",
+      "left": "observer-control/report.json",
+      "right": "matrix-final/C/lying-sabre-high/report.json",
+      "nativeHashesEqual": true,
+      "nativeHashCounts": [
+        1106,
+        1106
+      ],
+      "woundsEqual": true,
+      "transitionsEqual": true
+    },
+    {
+      "label": "removing offhand clamp did not change this failed trace",
+      "left": "r4-natural-reinput/report.json",
+      "right": "r3-natural-reinput/report.json",
+      "nativeHashesEqual": true,
+      "nativeHashCounts": [
+        2034,
+        2034
+      ],
+      "woundsEqual": true,
+      "transitionsEqual": true
+    }
+  ],
+  "rawReports": [
+    {
+      "path": "baseline-lying-high/report.json",
+      "bytes": 3965020,
+      "sha256": "6a501d6a61075ea4e3a0df54463cce4f601e0145da1a8fc459bdc7b3d2311d51",
+      "mode": "lying",
+      "weapon": "sabre",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=lying --weapon=sabre --pose=high --observe=true --out=/tmp/NEW-baseline-lying-high"
+    },
+    {
+      "path": "baseline-lying-sabre/report.json",
+      "bytes": 3990247,
+      "sha256": "739d362924b158723e4c6246241aba34f98a4f878d98f3d68f8606e8723a4857",
+      "mode": "lying",
+      "weapon": "sabre",
+      "pose": "low",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=lying --weapon=sabre --pose=low --observe=true --out=/tmp/NEW-baseline-lying-sabre"
+    },
+    {
+      "path": "baseline-lying-zwei/report.json",
+      "bytes": 4365300,
+      "sha256": "b0868872eed363d4ca485d040da16acde505a4b97329964476dd158b29e35603",
+      "mode": "lying",
+      "weapon": "zweihander",
+      "pose": "low",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=lying --weapon=zweihander --pose=low --observe=true --out=/tmp/NEW-baseline-lying-zwei"
+    },
+    {
+      "path": "baseline-natural/report.json",
+      "bytes": 8103734,
+      "sha256": "8faa2e6087c247ddfe4e142058f2acb0e443f3de94e1fdb06aa2d1c2df550c5c",
+      "mode": "natural",
+      "weapon": "zweihander",
+      "pose": "low",
+      "observe": true,
+      "nativeHashCount": 2033,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=natural --weapon=zweihander --pose=low --observe=true --out=/tmp/NEW-baseline-natural"
+    },
+    {
+      "path": "baseline-natural-high/report.json",
+      "bytes": 8380887,
+      "sha256": "315bbb515492c535a973bb00bb0203c4bf8512328b38f030bbaa93776844676d",
+      "mode": "natural",
+      "weapon": "zweihander",
+      "pose": "recoveryHigh",
+      "observe": true,
+      "nativeHashCount": 2034,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=natural --weapon=zweihander --pose=recoveryHigh --observe=true --out=/tmp/NEW-baseline-natural-high"
+    },
+    {
+      "path": "baseline-side-cross/report.json",
+      "bytes": 3996712,
+      "sha256": "189ea480805237e1585c05af6935a94a2b98c6a6edfc9398b6e0782917509650",
+      "mode": "side",
+      "weapon": "sabre",
+      "pose": "cross",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=side --weapon=sabre --pose=cross --observe=true --out=/tmp/NEW-baseline-side-cross"
+    },
+    {
+      "path": "baseline-side-high/report.json",
+      "bytes": 3949498,
+      "sha256": "8b1687bfd00fd65a9d22fd2da30454f1b99807adffc300a6d1601e07e2a8565e",
+      "mode": "side",
+      "weapon": "sabre",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=side --weapon=sabre --pose=high --observe=true --out=/tmp/NEW-baseline-side-high"
+    },
+    {
+      "path": "baseline-side-sabre/report.json",
+      "bytes": 3964885,
+      "sha256": "597e9ce38f173f5a7d1b384c1c6ac1f65f0f820a9452c16c3a56a2d800206012",
+      "mode": "side",
+      "weapon": "sabre",
+      "pose": "low",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=side --weapon=sabre --pose=low --observe=true --out=/tmp/NEW-baseline-side-sabre"
+    },
+    {
+      "path": "baseline-side-wide/report.json",
+      "bytes": 3907992,
+      "sha256": "2765b99b903f5a59bed37c78c2d4d4ff6d97e3dc9c93d6f623d8e3223733b553",
+      "mode": "side",
+      "weapon": "sabre",
+      "pose": "wide",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=side --weapon=sabre --pose=wide --observe=true --out=/tmp/NEW-baseline-side-wide"
+    },
+    {
+      "path": "baseline-side-zwei/report.json",
+      "bytes": 4360030,
+      "sha256": "20b8a16255f6565ba257734728f399c5ef2a127dcf6db76f8f25714f5c028c75",
+      "mode": "side",
+      "weapon": "zweihander",
+      "pose": "low",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=side --weapon=zweihander --pose=low --observe=true --out=/tmp/NEW-baseline-side-zwei"
+    },
+    {
+      "path": "mace-policy-adopted/report.json",
+      "bytes": 4157543,
+      "sha256": "17124f9df1d2d00225dc377be532521e7f0021e0886367036cb7e20dac92f70e",
+      "mode": "side",
+      "weapon": "morgenstern",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=side --weapon=morgenstern --pose=high --observe=true --out=/tmp/NEW-mace-policy-adopted"
+    },
+    {
+      "path": "mace-policy-baseline/report.json",
+      "bytes": 4156819,
+      "sha256": "e1e4943799c6d0cc4c68dd968f9c797e77b4945fb7ba0fc5f5ced994a55e96cd",
+      "mode": "side",
+      "weapon": "morgenstern",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=side --weapon=morgenstern --pose=high --observe=true --out=/tmp/NEW-mace-policy-baseline"
+    },
+    {
+      "path": "matrix/A/hurt-longsword-high/report.json",
+      "bytes": 4538609,
+      "sha256": "932d1bec12c96a6af508a121360db24d8a55e7c1daa8e2fd7ecb245787483e95",
+      "mode": "hurt",
+      "weapon": "longsword",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=hurt --weapon=longsword --pose=high --observe=true --out=/tmp/NEW-hurt-longsword-high"
+    },
+    {
+      "path": "matrix/A/lying-longsword-high/report.json",
+      "bytes": 4546511,
+      "sha256": "6f706eafee937cfcd414ea1579a6fe99fdc470aaa05b54810157076f692f6470",
+      "mode": "lying",
+      "weapon": "longsword",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=lying --weapon=longsword --pose=high --observe=true --out=/tmp/NEW-lying-longsword-high"
+    },
+    {
+      "path": "matrix/A/lying-rapier-high/report.json",
+      "bytes": 4152759,
+      "sha256": "a43020d128c7774dbbd5c9bcaec6ecd6db546bd9a0086840206b3c2c3d2437fa",
+      "mode": "lying",
+      "weapon": "rapier",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=lying --weapon=rapier --pose=high --observe=true --out=/tmp/NEW-lying-rapier-high"
+    },
+    {
+      "path": "matrix/A/lying-sabre-high/report.json",
+      "bytes": 4175270,
+      "sha256": "3ae391c485ba76dc3430a6f4d7b5fc499b0bc9cfbbc749afd4ca81dbad39c56f",
+      "mode": "lying",
+      "weapon": "sabre",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=lying --weapon=sabre --pose=high --observe=true --out=/tmp/NEW-lying-sabre-high"
+    },
+    {
+      "path": "matrix/A/natural-zweihander-low/report.json",
+      "bytes": 8674659,
+      "sha256": "dc16b861109162ac3b4bc183be2bf9d26b7646b514e4fb764279a1b713256a38",
+      "mode": "natural",
+      "weapon": "zweihander",
+      "pose": "low",
+      "observe": true,
+      "nativeHashCount": 2033,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=natural --weapon=zweihander --pose=low --observe=true --out=/tmp/NEW-natural-zweihander-low"
+    },
+    {
+      "path": "matrix/A/natural-zweihander-recoveryHigh/report.json",
+      "bytes": 8600323,
+      "sha256": "33d7711ab0be66db41f347e932c8621ce6d0412daa96034a3e2d2cd6bd4d5e27",
+      "mode": "natural",
+      "weapon": "zweihander",
+      "pose": "recoveryHigh",
+      "observe": true,
+      "nativeHashCount": 2034,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=natural --weapon=zweihander --pose=recoveryHigh --observe=true --out=/tmp/NEW-natural-zweihander-recoveryHigh"
+    },
+    {
+      "path": "matrix/A/natural-zweihander-reinput/report.json",
+      "bytes": 8603407,
+      "sha256": "752dc61c51b8a89a7c1897b06e7e8f09fd7f25165712cf082aaba166b93c9592",
+      "mode": "natural",
+      "weapon": "zweihander",
+      "pose": "reinput",
+      "observe": true,
+      "nativeHashCount": 2034,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=natural --weapon=zweihander --pose=reinput --observe=true --out=/tmp/NEW-natural-zweihander-reinput"
+    },
+    {
+      "path": "matrix/A/side-morgenstern-high/report.json",
+      "bytes": 4157108,
+      "sha256": "50a5074c3fed34068af430c5482858da2022ee0d04896b148e4468622e03e362",
+      "mode": "side",
+      "weapon": "morgenstern",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=side --weapon=morgenstern --pose=high --observe=true --out=/tmp/NEW-side-morgenstern-high"
+    },
+    {
+      "path": "matrix/A/side-sabre-wide/report.json",
+      "bytes": 4117827,
+      "sha256": "d0d6b0b7210785e700fab167d6dbff464198d93cbead378c049fc7110b7c0a35",
+      "mode": "side",
+      "weapon": "sabre",
+      "pose": "wide",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=side --weapon=sabre --pose=wide --observe=true --out=/tmp/NEW-side-sabre-wide"
+    },
+    {
+      "path": "matrix/A/side-zweihander-high/report.json",
+      "bytes": 4501031,
+      "sha256": "fafd9675c712e80f1d7559b5cd0b22fd209aa98f788db77fb83b027952e40618",
+      "mode": "side",
+      "weapon": "zweihander",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=side --weapon=zweihander --pose=high --observe=true --out=/tmp/NEW-side-zweihander-high"
+    },
+    {
+      "path": "matrix/B/hurt-longsword-high/report.json",
+      "bytes": 4534323,
+      "sha256": "a5696a2cefeaf176651a190eb159b548183784e0b9e2dc0fba52be61209b96a6",
+      "mode": "hurt",
+      "weapon": "longsword",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=hurt --weapon=longsword --pose=high --observe=true --out=/tmp/NEW-hurt-longsword-high"
+    },
+    {
+      "path": "matrix/B/lying-longsword-high/report.json",
+      "bytes": 4533441,
+      "sha256": "f30ca4214bd81d9f727ef8f1d907440bb68f8c7532de3a76760a230885a2870d",
+      "mode": "lying",
+      "weapon": "longsword",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=lying --weapon=longsword --pose=high --observe=true --out=/tmp/NEW-lying-longsword-high"
+    },
+    {
+      "path": "matrix/B/lying-rapier-high/report.json",
+      "bytes": 4149506,
+      "sha256": "cf7b1104b65ca0b73ccec0ea09b6da0333a10b2c4fd8f0e5fb6c94eb6ab25f77",
+      "mode": "lying",
+      "weapon": "rapier",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=lying --weapon=rapier --pose=high --observe=true --out=/tmp/NEW-lying-rapier-high"
+    },
+    {
+      "path": "matrix/B/lying-sabre-high/report.json",
+      "bytes": 4168521,
+      "sha256": "b1979ce3d77ef41cc486a9f2616e9bc99e49f492ae9c02e0d7b6c93d135b6e3b",
+      "mode": "lying",
+      "weapon": "sabre",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=lying --weapon=sabre --pose=high --observe=true --out=/tmp/NEW-lying-sabre-high"
+    },
+    {
+      "path": "matrix/B/natural-zweihander-low/report.json",
+      "bytes": 8674468,
+      "sha256": "ef0f9f7dbed68ad20a605d15453614bff4ff3162353e5958f6989d51296573fe",
+      "mode": "natural",
+      "weapon": "zweihander",
+      "pose": "low",
+      "observe": true,
+      "nativeHashCount": 2033,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=natural --weapon=zweihander --pose=low --observe=true --out=/tmp/NEW-natural-zweihander-low"
+    },
+    {
+      "path": "matrix/B/natural-zweihander-recoveryHigh/report.json",
+      "bytes": 8596826,
+      "sha256": "20321cad1200e1bd05c20b94138b86f4059eaa5102d158efd518ff692b6b1758",
+      "mode": "natural",
+      "weapon": "zweihander",
+      "pose": "recoveryHigh",
+      "observe": true,
+      "nativeHashCount": 2034,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=natural --weapon=zweihander --pose=recoveryHigh --observe=true --out=/tmp/NEW-natural-zweihander-recoveryHigh"
+    },
+    {
+      "path": "matrix/B/natural-zweihander-reinput/report.json",
+      "bytes": 8621229,
+      "sha256": "bfcb19017d3b596069060e1821ef7ab26784f4f5c4c2979542f6228ba01eb390",
+      "mode": "natural",
+      "weapon": "zweihander",
+      "pose": "reinput",
+      "observe": true,
+      "nativeHashCount": 2034,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=natural --weapon=zweihander --pose=reinput --observe=true --out=/tmp/NEW-natural-zweihander-reinput"
+    },
+    {
+      "path": "matrix/B/side-morgenstern-high/report.json",
+      "bytes": 4152889,
+      "sha256": "c7693c4054aa8bcc973dea75698cdf353d1425f08251b684e27eac4cd5f8e509",
+      "mode": "side",
+      "weapon": "morgenstern",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=side --weapon=morgenstern --pose=high --observe=true --out=/tmp/NEW-side-morgenstern-high"
+    },
+    {
+      "path": "matrix/B/side-sabre-wide/report.json",
+      "bytes": 4110323,
+      "sha256": "70abaf4c880646d8ce7356c7c4632f2ce1f1589caecd03db06101295fc98579f",
+      "mode": "side",
+      "weapon": "sabre",
+      "pose": "wide",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=side --weapon=sabre --pose=wide --observe=true --out=/tmp/NEW-side-sabre-wide"
+    },
+    {
+      "path": "matrix/B/side-zweihander-high/report.json",
+      "bytes": 4496346,
+      "sha256": "db0b1863dfebeedd454b33899629e9c28c4094ccda4101bf8d413609c533556e",
+      "mode": "side",
+      "weapon": "zweihander",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=side --weapon=zweihander --pose=high --observe=true --out=/tmp/NEW-side-zweihander-high"
+    },
+    {
+      "path": "matrix-adopted/D/hurt-longsword-high/report.json",
+      "bytes": 4538799,
+      "sha256": "e9930a1f7d0014938d42f4b54a52c8f90b35cb5c6b547f33cdbaa18ebd78bcbb",
+      "mode": "hurt",
+      "weapon": "longsword",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=hurt --weapon=longsword --pose=high --observe=true --out=/tmp/NEW-hurt-longsword-high"
+    },
+    {
+      "path": "matrix-adopted/D/lying-longsword-high/report.json",
+      "bytes": 4546708,
+      "sha256": "46d52d8fea1fd5c3d58e42e1ec5cd1b40cc90a5dfd3af9f18d95d0e657ae0790",
+      "mode": "lying",
+      "weapon": "longsword",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=lying --weapon=longsword --pose=high --observe=true --out=/tmp/NEW-lying-longsword-high"
+    },
+    {
+      "path": "matrix-adopted/D/lying-rapier-high/report.json",
+      "bytes": 4169450,
+      "sha256": "94b7be8d78ea55793aefc241727a7e0167789b1efe6458d7dcdb8d5d91ce1f4a",
+      "mode": "lying",
+      "weapon": "rapier",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=lying --weapon=rapier --pose=high --observe=true --out=/tmp/NEW-lying-rapier-high"
+    },
+    {
+      "path": "matrix-adopted/D/lying-sabre-high/report.json",
+      "bytes": 4183190,
+      "sha256": "1fba54f2b76efb6e27530ccfaabcd38ead01fa867661b2a5ce08861ce7bfa030",
+      "mode": "lying",
+      "weapon": "sabre",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=lying --weapon=sabre --pose=high --observe=true --out=/tmp/NEW-lying-sabre-high"
+    },
+    {
+      "path": "matrix-adopted/D/natural-zweihander-low/report.json",
+      "bytes": 8674841,
+      "sha256": "f2a30336a7e5528f910e8b0c4762e559a6c695aa50a80f9608e59aae4a1e9988",
+      "mode": "natural",
+      "weapon": "zweihander",
+      "pose": "low",
+      "observe": true,
+      "nativeHashCount": 2033,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=natural --weapon=zweihander --pose=low --observe=true --out=/tmp/NEW-natural-zweihander-low"
+    },
+    {
+      "path": "matrix-adopted/D/natural-zweihander-recoveryHigh/report.json",
+      "bytes": 8600512,
+      "sha256": "f4a3f953c308fcbf8256acb32be196327daab5773b5de103d36cfafc690d78ba",
+      "mode": "natural",
+      "weapon": "zweihander",
+      "pose": "recoveryHigh",
+      "observe": true,
+      "nativeHashCount": 2034,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=natural --weapon=zweihander --pose=recoveryHigh --observe=true --out=/tmp/NEW-natural-zweihander-recoveryHigh"
+    },
+    {
+      "path": "matrix-adopted/D/natural-zweihander-reinput/report.json",
+      "bytes": 8603597,
+      "sha256": "a51887dbea5ddf4dfa2cac1fec1028268ddd4f176fa9299f4ee97981983358a7",
+      "mode": "natural",
+      "weapon": "zweihander",
+      "pose": "reinput",
+      "observe": true,
+      "nativeHashCount": 2034,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=natural --weapon=zweihander --pose=reinput --observe=true --out=/tmp/NEW-natural-zweihander-reinput"
+    },
+    {
+      "path": "matrix-adopted/D/side-morgenstern-high/report.json",
+      "bytes": 4157822,
+      "sha256": "ee3ab8db7cfa12baf23e47e0b6c2064e0af5698c5fab48550dd50be607e61a2e",
+      "mode": "side",
+      "weapon": "morgenstern",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=side --weapon=morgenstern --pose=high --observe=true --out=/tmp/NEW-side-morgenstern-high"
+    },
+    {
+      "path": "matrix-adopted/D/side-sabre-wide/report.json",
+      "bytes": 4109484,
+      "sha256": "9aad74146b9fdc1e9541c174aba67ae30d3ec122e3c298ea0fb5161293eef61d",
+      "mode": "side",
+      "weapon": "sabre",
+      "pose": "wide",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=side --weapon=sabre --pose=wide --observe=true --out=/tmp/NEW-side-sabre-wide"
+    },
+    {
+      "path": "matrix-adopted/D/side-zweihander-high/report.json",
+      "bytes": 4501214,
+      "sha256": "57e6573208bee98248deddeb1faad3e556199b3decaa3b52f2c72465b634d310",
+      "mode": "side",
+      "weapon": "zweihander",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=side --weapon=zweihander --pose=high --observe=true --out=/tmp/NEW-side-zweihander-high"
+    },
+    {
+      "path": "matrix-final/C/hurt-longsword-high/report.json",
+      "bytes": 4529721,
+      "sha256": "a4403d8d9926a17f8ecc27aaa21821e0938adf92f4a4ed8efa8bae2c300f85a8",
+      "mode": "hurt",
+      "weapon": "longsword",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=hurt --weapon=longsword --pose=high --observe=true --out=/tmp/NEW-hurt-longsword-high"
+    },
+    {
+      "path": "matrix-final/C/lying-longsword-high/report.json",
+      "bytes": 4534760,
+      "sha256": "e6987bdef0a8bb008a45ce54d73a0772770fcf3dfc42e65555784a773d44f120",
+      "mode": "lying",
+      "weapon": "longsword",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=lying --weapon=longsword --pose=high --observe=true --out=/tmp/NEW-lying-longsword-high"
+    },
+    {
+      "path": "matrix-final/C/lying-rapier-high/report.json",
+      "bytes": 4169450,
+      "sha256": "23920989637b9876af5995f2c1ba411c151e08f666c50f588e28e51f0dad24e5",
+      "mode": "lying",
+      "weapon": "rapier",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=lying --weapon=rapier --pose=high --observe=true --out=/tmp/NEW-lying-rapier-high"
+    },
+    {
+      "path": "matrix-final/C/lying-sabre-high/report.json",
+      "bytes": 4183190,
+      "sha256": "96a1ee063814d5bdc565a248e0375210718cbd5a5e07d61358458e6c7752ccb1",
+      "mode": "lying",
+      "weapon": "sabre",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=lying --weapon=sabre --pose=high --observe=true --out=/tmp/NEW-lying-sabre-high"
+    },
+    {
+      "path": "matrix-final/C/natural-zweihander-low/report.json",
+      "bytes": 8673891,
+      "sha256": "b61be4589b2b72c8ccee4cf9b111edb2db245356979b38d4b206bb6167857d58",
+      "mode": "natural",
+      "weapon": "zweihander",
+      "pose": "low",
+      "observe": true,
+      "nativeHashCount": 2033,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=natural --weapon=zweihander --pose=low --observe=true --out=/tmp/NEW-natural-zweihander-low"
+    },
+    {
+      "path": "matrix-final/C/natural-zweihander-recoveryHigh/report.json",
+      "bytes": 8597655,
+      "sha256": "80f480ef3878bc362545caf21d8b16ace7ab0ac13f2d8bfc661d8e5103b798cb",
+      "mode": "natural",
+      "weapon": "zweihander",
+      "pose": "recoveryHigh",
+      "observe": true,
+      "nativeHashCount": 2034,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=natural --weapon=zweihander --pose=recoveryHigh --observe=true --out=/tmp/NEW-natural-zweihander-recoveryHigh"
+    },
+    {
+      "path": "matrix-final/C/natural-zweihander-reinput/report.json",
+      "bytes": 8623187,
+      "sha256": "8253d9f1e19dacc92de3db1aa61f1b34d42c3535ac45d7a489f086239831f1ad",
+      "mode": "natural",
+      "weapon": "zweihander",
+      "pose": "reinput",
+      "observe": true,
+      "nativeHashCount": 2034,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=natural --weapon=zweihander --pose=reinput --observe=true --out=/tmp/NEW-natural-zweihander-reinput"
+    },
+    {
+      "path": "matrix-final/C/side-morgenstern-high/report.json",
+      "bytes": 4157822,
+      "sha256": "15b28383263beb519998697eb0053384ebff55636597108d3532ba8ee9fd4254",
+      "mode": "side",
+      "weapon": "morgenstern",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=side --weapon=morgenstern --pose=high --observe=true --out=/tmp/NEW-side-morgenstern-high"
+    },
+    {
+      "path": "matrix-final/C/side-sabre-wide/report.json",
+      "bytes": 4109491,
+      "sha256": "5695ef3b1d0566c00a8773c89c13c3c0a30744f32b8fdbee6020db1cf49f8458",
+      "mode": "side",
+      "weapon": "sabre",
+      "pose": "wide",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=side --weapon=sabre --pose=wide --observe=true --out=/tmp/NEW-side-sabre-wide"
+    },
+    {
+      "path": "matrix-final/C/side-zweihander-high/report.json",
+      "bytes": 4508535,
+      "sha256": "08771f154912c1dc6b8a027501464149f1f85d684ad6e5027f24426453aa7554",
+      "mode": "side",
+      "weapon": "zweihander",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=side --weapon=zweihander --pose=high --observe=true --out=/tmp/NEW-side-zweihander-high"
+    },
+    {
+      "path": "observer-control/report.json",
+      "bytes": 95552,
+      "sha256": "bd8b8bb2d1c72d0b5ae3024f98719a73d307741697c50bbab7dff0587e86e61c",
+      "mode": "lying",
+      "weapon": "sabre",
+      "pose": "high",
+      "observe": false,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=lying --weapon=sabre --pose=high --observe=false --out=/tmp/NEW-observer-control"
+    },
+    {
+      "path": "r1-lying-high/report.json",
+      "bytes": 3958938,
+      "sha256": "f5069788b889c3ebe8045296b661fa06e9b6eef0bf8f412123c7abc58afd3f92",
+      "mode": "lying",
+      "weapon": "sabre",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=lying --weapon=sabre --pose=high --observe=true --out=/tmp/NEW-r1-lying-high"
+    },
+    {
+      "path": "r1-natural/report.json",
+      "bytes": 8103444,
+      "sha256": "b0ae00e52030c1e39dfc19b66358adca589056b78901325dda87674f83adc499",
+      "mode": "natural",
+      "weapon": "zweihander",
+      "pose": "low",
+      "observe": true,
+      "nativeHashCount": 2033,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=natural --weapon=zweihander --pose=low --observe=true --out=/tmp/NEW-r1-natural"
+    },
+    {
+      "path": "r1-natural-high/report.json",
+      "bytes": 8033802,
+      "sha256": "5c8dea28317decc47f8be4c9abfbce65ed6a85bb0d4598cf30f243a75e01e6b0",
+      "mode": "natural",
+      "weapon": "zweihander",
+      "pose": "recoveryHigh",
+      "observe": true,
+      "nativeHashCount": 2034,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=natural --weapon=zweihander --pose=recoveryHigh --observe=true --out=/tmp/NEW-r1-natural-high"
+    },
+    {
+      "path": "r1-side-high/report.json",
+      "bytes": 3948587,
+      "sha256": "115d290e7c55f44f3bf841b7b5f3fda001f5b03f90e651527114981312b02dd5",
+      "mode": "side",
+      "weapon": "sabre",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=side --weapon=sabre --pose=high --observe=true --out=/tmp/NEW-r1-side-high"
+    },
+    {
+      "path": "r1-side-wide/report.json",
+      "bytes": 3901164,
+      "sha256": "52a8b7c6eb9b1c3482014eeb56951b52ec4815d99bab49b5fae87f64b1b6367f",
+      "mode": "side",
+      "weapon": "sabre",
+      "pose": "wide",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=side --weapon=sabre --pose=wide --observe=true --out=/tmp/NEW-r1-side-wide"
+    },
+    {
+      "path": "r3-hurt-high/report.json",
+      "bytes": 4529714,
+      "sha256": "db65aa93d70a76546b3bbc9e9807a73160bd14b27f5033103fbe63f3300ab784",
+      "mode": "hurt",
+      "weapon": "longsword",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=hurt --weapon=longsword --pose=high --observe=true --out=/tmp/NEW-r3-hurt-high"
+    },
+    {
+      "path": "r3-longsword-high/report.json",
+      "bytes": 4534767,
+      "sha256": "11d64d0b38ff3e94a9f7e2fd71ba2ab1d3e9a30f3c2f745abb4e6ae168178265",
+      "mode": "lying",
+      "weapon": "longsword",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=lying --weapon=longsword --pose=high --observe=true --out=/tmp/NEW-r3-longsword-high"
+    },
+    {
+      "path": "r3-natural-reinput/report.json",
+      "bytes": 8623187,
+      "sha256": "e3e31887e20b99a421a9bd15e0a4293f37ea2fd8b15f2038c3ee2a2d2d6aa729",
+      "mode": "natural",
+      "weapon": "zweihander",
+      "pose": "reinput",
+      "observe": true,
+      "nativeHashCount": 2034,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=natural --weapon=zweihander --pose=reinput --observe=true --out=/tmp/NEW-r3-natural-reinput"
+    },
+    {
+      "path": "r4-longsword-high/report.json",
+      "bytes": 4534526,
+      "sha256": "480cfe9e8bcfd98e9c1af8f2fcd1e282a8f3d133c1a44b588f49d545db5f0d45",
+      "mode": "lying",
+      "weapon": "longsword",
+      "pose": "high",
+      "observe": true,
+      "nativeHashCount": 1106,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=lying --weapon=longsword --pose=high --observe=true --out=/tmp/NEW-r4-longsword-high"
+    },
+    {
+      "path": "r4-natural-reinput/report.json",
+      "bytes": 8623187,
+      "sha256": "de844372fc69f72723f5e19b3c3b7267aaf4f9d2af1d0cf0f1709f993d9bbb42",
+      "mode": "natural",
+      "weapon": "zweihander",
+      "pose": "reinput",
+      "observe": true,
+      "nativeHashCount": 2034,
+      "sourceStable": true,
+      "error": null,
+      "replayCommand": "node tools/sim/experiments/arm_recovery_geometry_20261008.mjs --mode=natural --weapon=zweihander --pose=reinput --observe=true --out=/tmp/NEW-r4-natural-reinput"
+    }
+  ],
+  "visualEvidence": [
+    {
+      "path": "visual/r3-reinput-peak/baseline-tick1886-front.png",
+      "bytes": 389715,
+      "sha256": "4c71af9f5b91656db76b1dbf9df0c697a36d5c33c9c51ea7b74b1cfaa537c255"
+    },
+    {
+      "path": "visual/r3-reinput-peak/baseline-tick1886-side.png",
+      "bytes": 381503,
+      "sha256": "c28f5d6eb2c275475bd90873581fda67945a96052961a50039c9d8061d7581fe"
+    },
+    {
+      "path": "visual/r3-reinput-peak/current-tick1886-front.png",
+      "bytes": 388795,
+      "sha256": "844685e95df4bf77f9682343b38cd518db04534a5f5df355b8caccee09881a44"
+    },
+    {
+      "path": "visual/r3-reinput-peak/current-tick1886-side.png",
+      "bytes": 376737,
+      "sha256": "144effeefd3a23fa49985c05600846a4df2ac24f365426eddf27b6ea412cd436"
+    },
+    {
+      "path": "visual/r3-reinput-peak/index.html",
+      "bytes": 1851,
+      "sha256": "b166318a16133564ae11a1578f2003416385281828b20d43fc3f0b1b45020e71"
+    },
+    {
+      "path": "visual/r3-reinput-peak/receipt.json",
+      "bytes": 2784,
+      "sha256": "a65798759a7d3454fa25bf33e15a11ca13cef0c7827c04d9af0aaabc6fc2a4cb"
+    },
+    {
+      "path": "visual/r3-reinput-peak/replay-data.json",
+      "bytes": 10338836,
+      "sha256": "9fe36bdaf9d8944a2bf2553431801f8287a1667940be557c2d9e28c07e507c6e"
+    }
+  ],
+  "reproductionNotes": [
+    "Run from the selected frozen source directory, verify SOURCE.json first, and use a fresh --out path.",
+    "matrix/A is baseline; matrix/B is r2 .08 latch; matrix-final/C is r3 .16 both-arm candidate; matrix-adopted/D is final one-hand melee scope.",
+    "Older morgenstern matrix runs omitted fresh/bounded public trial policy and are exploratory only. Final morgenstern evidence is mace-policy-baseline/adopted with baseline-mace-source/adopted-mace-source.",
+    "No native simulations were executed by the journal author. Existing results and hashes were read only.",
+    "Counting report files or repeated baseline traces does not count independent efficacy cases."
+  ],
+  "releaseReceipt": "arm_recovery_geometry_release.json",
+  "checks": {
+    "components": 16,
+    "regressionSuites": 6,
+    "regressionReportSHA256": "b17f9e95629edc36571c5bfef6f341b8ffcaa625ebff70e8218bc53e5851d60a",
+    "gameplaySourceMatchesRegression": true
+  }
+}
