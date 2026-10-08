@@ -16,7 +16,8 @@ export const OPPORTUNITY = Object.freeze({
   prepareWindow: 0.4, reverseCommitSpeed: 0.35, quietReset: 0.12,
   readyHeightChange: 0.06, // New vertical intent cancels a prepared plane.
 });
-export const enabled = f => f?.opportunityModel === OPPORTUNITY.version;
+export const precisionEnabled = f => f?.opportunityModel === 'v2';
+export const enabled = f => f?.opportunityModel === OPPORTUNITY.version || precisionEnabled(f);
 const xyz = v => ({ x: v.x, y: v.y, z: v.z });
 const xyzw = q => ({ x: q.x, y: q.y, z: q.z, w: q.w });
 const vec = v => new THREE.Vector3(v.x, v.y, v.z);

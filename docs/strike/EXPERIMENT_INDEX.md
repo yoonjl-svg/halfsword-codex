@@ -1,5 +1,7 @@
 # 실험 색인과 재현 입구
 
+- 2026-10-08 · [급소 실제 경로 보조 v2](opportunity_precision_20261008.md) · 기준451a541. 대표6장면×v1/v2와에스톡추가2실행; 실제목베기/목찌르기/AI머리둔타확인, AI레이피어·에스톡찌르기미달. [전달·해시](opportunity_precision_release.json).
+
 - 2026-10-08 · [라이트세이버 B 사용자 수용·일반 적용](lightsaber_adoption_20261008.md) · 기준738ef0f. 기존4실행 비교를 재사용하고 진입/배포를 검사한다. 급소 정밀 명중은 미완료. [실제 전달](lightsaber_adoption_release.json).
 
 - 2026-10-08 · [내려찍기·모르겐 일반 적용, 급소/라이트v2 재검증](followup_release_20261008.md) · [소스·명령·해시](followup_checks_20261008.json) · 기준2af1c5f. 급소정밀명중미달·라이트후속공격감소로 두 비교는 선택형 유지. [실제 전달](followup_release_20261008.json).

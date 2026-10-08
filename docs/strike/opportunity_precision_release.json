@@ -1,0 +1,113 @@
+{
+  "status": "local_validation_passed_public_pending",
+  "baselineHEAD": "451a541e5d806674ed1fc62b3d1d1f63cc8117fb",
+  "generalDefault": "off",
+  "comparison": {
+    "A": "preserved opportunity v1",
+    "B": "precision v2; controlled partial success"
+  },
+  "urls": {
+    "lab": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#opportunity",
+    "longsword": "https://yoonjl-svg.github.io/halfsword-codex/?opportunity=precision&weapon=longsword",
+    "branch": "https://yoonjl-svg.github.io/halfsword-codex/?opportunity=precision&weapon=branch",
+    "rapier": "https://yoonjl-svg.github.io/halfsword-codex/?opportunity=precision&weapon=rapier"
+  },
+  "rawRoot": "/workspace/halfsword-handoff/opportunity-precision-20261008",
+  "evidence": {
+    "contracts": {
+      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/contracts01.json",
+      "bytes": 36597,
+      "sha256": "46fac5cb3f19b933f512473433d0aa626dc5947791b6a43f58f831d05db45dbe"
+    },
+    "pathContracts": {
+      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/path-contracts01.json",
+      "bytes": 1554,
+      "sha256": "1f1f55f752d86c90e1ea94ebfb3fca095f403e931e2211095e54d347be5d77ed"
+    },
+    "thrustContracts": {
+      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/thrust-contracts01.json",
+      "bytes": 1346,
+      "sha256": "52cff8250b3d48c0e0f6ce16db78780ab9585598cb8599921f0904a8bab2fc33"
+    },
+    "localMobile": {
+      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/mobile/local01/report.json",
+      "bytes": 786356,
+      "sha256": "0ac5460210ca452149ece4a0950fa83f3f4e5c9ccca47a1d8d5fcf821c1e3c33"
+    },
+    "thrustMeasurement": {
+      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/measurement/thrust-run01/report.json",
+      "bytes": 81315,
+      "sha256": "38d5fc047cbe091cd042130c5fd197fc861b35637789cc4fadced0293c819068"
+    },
+    "cutBluntMeasurement": {
+      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/measurement/cut-blunt-run01/report.json",
+      "bytes": 114725,
+      "sha256": "d22775e45362f1cc2286a10e8184ed7a553b8ae752e92cd471aae16754d6434f"
+    },
+    "nativeDerived": {
+      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/measurement/derived-run01.json",
+      "bytes": 100784,
+      "sha256": "8a42470c0d822d461bc33394376b2350a23e9a5425cad63806c6ef867890ca8a"
+    },
+    "regression": {
+      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/regression/result.json",
+      "bytes": 294846,
+      "sha256": "b43de129a9e0469a0d579a6c29afc6bed4c60922ebff4b3bbfefd75b6555dff3"
+    },
+    "estocMeasurement": {
+      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/measurement/estoc-run01/report.json",
+      "bytes": 44846,
+      "sha256": "2130a48648b80ffa3bda359bbcc6245cd24a65dba8a1d95dae57dfbbc84e7b1b"
+    }
+  },
+  "limits": [
+    "AI rapier special thrust still has zero direct wound",
+    "Additional estoc has zero neck stab; no all-weapon precision claim",
+    "Player branch already hit head in v1; energy change alone not precision improvement",
+    "AI cut contacts arm before neck",
+    "One seed and controlled injury/posture/disarm preparation; not natural combat frequency",
+    "Browser mobile emulation, not physical-phone endurance"
+  ],
+  "publicVerified": false,
+  "localChecks": {
+    "contracts": 58,
+    "fixtures": 58,
+    "pathContracts": 12,
+    "thrustContracts": 9,
+    "nativeRuns": 14,
+    "nativeSteps": 22560,
+    "archivedV1NativeReplayExact": 6,
+    "localMobileFlows": 4,
+    "developmentSuites": 6
+  },
+  "buildSHA256": {
+    "dist/assets/main-BuQe8lEW.js": "fb27f685709e9f1f227689b69fe2810a0d1b53bd6be0506f4dacb1444b90e518",
+    "dist/assets/sound-BV3DeVc-.js": "9203e66f0ee11745f57c338ed4b5d411acdf118bd5a957bb93bb514ed5ff8d8a",
+    "dist/assets/soundgen-BDle7v6J.js": "0dfd106288146aee573b3b46c7d346284a813d9371170431266054299125cdaf",
+    "dist/assets/sounds-CYXJYEg6.js": "bcbf7cd22168767fc80c2d494f6fc565d2af412c827f1ada59fd0d1771232560",
+    "dist/corr/assets/main-CAKkIcEq.js": "ab075def618024900b8db213fa8e4b206df98a0444a7ffb700ead7c3cc77e088",
+    "dist/corr/assets/sound-DJmvVUp6.js": "8ec2a2757ab44cc962386ec435bcc6fd5bdb07191299c288755168a19b93ed71",
+    "dist/corr/assets/soundgen-G7bqREO5.js": "52c1f809e27b1352e41db9c8ba749906ffc113059c9ca1fdbfdfdff9172169f9",
+    "dist/corr/assets/sounds-C16uuPrK.js": "dff08dce190c12a555f36c89d9f17a5dc32b374bdb97af0eafad9dd1d89076d5",
+    "dist/corr/index.html": "603df9db48dedab93447f783331ff87644b4d71d7156a52c1eb2444bf324102d",
+    "dist/corr/sounds.html": "a01c10f419b79773539fd4cf3b263494d046b01824bd44c1f0e2de10125cd23f",
+    "dist/development-plan.html": "1e21d2703e8c4ae4a95de92d3b96eb364034874d169a95ef1a76c71b8dd63bc5",
+    "dist/feature-lab.html": "8e7b5ed41cf12e8fc7a3115d02623f09cac62fe28cc71bf4001244e3b81d00b8",
+    "dist/index.html": "c6a9123b2deb7a3f87cc6544d47d5bd814390cce54cbaaa4d1b5fe6348d9501c",
+    "dist/sounds.html": "128432b4a13b4f39bc473aff4fa61cef9d7f872655a25f64d4dc0d5cb2bd1059",
+    "dist/wb/assets/__vite-browser-external-2W3EstLn.js": "ef2c9f2a4d6ac427ec5ec3377c0141c1a4bfb1efcff8e3076d89b2c016062507",
+    "dist/wb/assets/atlas-Bnu_H3Z-.js": "77c6b3b7bef347ab654fbc36673e5a35d4c6205e9a3cd3a0445df06cc2829f5c",
+    "dist/wb/assets/atlas-BosZvVt0.js": "43b01d67dd70e37d116ff2eee3fd4f442483d621adc8a665afa2d4be227f77fb",
+    "dist/wb/assets/atlas_v0-CygglYvd.js": "8b3acc21c70a97434cfc851bbc6f29de782e4674d87049acbabff06e45113171",
+    "dist/wb/assets/config-D1X-QVIK.js": "4f182f49938a17c2542ea9e2a0f0d78bf664f38481ae7697d16fd1487981b90d",
+    "dist/wb/assets/main-DgGgOnC0.js": "e22ea6f44ec5db59da2e5e2865b319ebac80f3f86461e7ac8abbb775e78b6a8e",
+    "dist/wb/assets/puppet-CvDI816Z.js": "306bd9abfaf70ae6e627e355b49e0acfb7b0fc83556575dbf2c8764f6685887d",
+    "dist/wb/assets/rolldown-runtime-hePW80VL.js": "580ad8c58061a4dde99bde0a56905e382f0568516ee2f5b84dbfb52085709021",
+    "dist/wb/assets/sound-DhpbqFDa.js": "00f55903cfe200e8054391e9c78586e6332949206cdd93e758953b4db92a7bc2",
+    "dist/wb/assets/soundgen-D-Upro0y.js": "6d764725ba30a502f151b871a956151a1f6bf2c649d42d044db7076d3892fd9a",
+    "dist/wb/assets/sounds-if9Udr6c.js": "d4834f7fa9af9096c5c82800452e10e9642d6dd934efc5485d37a374deed237c",
+    "dist/wb/assets/three.core-DtjtRha-.js": "c4a3f7fe78ed1015ff61dbf82b0a47e2ff9364fa2e110bda383ef9b2e20a78dc",
+    "dist/wb/index.html": "41576e4b4c02f44857e3e6d6a24f1b109c245d1bb7ddb4e0b4771087a4092de0",
+    "dist/wb/sounds.html": "451fdc93372a204e6715a3f0309facb64a834cbec45ba719f3943d9b09867ed3"
+  }
+}

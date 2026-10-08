@@ -31,6 +31,7 @@ import { LOW_FINISH, lowFinishEnabled } from './finish_entry.js';
 import { updateSwordAssistReturn } from './sword_assist_v2.js';
 import { hasSwordsmanship, advanceSwordsmanship } from './swordsmanship.js';
 import { enabled as opportunityEnabled, captureOpportunityPose, findOpportunity } from './opportunity_target.js';
+import { captureOpportunityThrust, updateOpportunityThrust } from './opportunity_thrust.js';
 
 const D2R = Math.PI / 180;
 const _yawInv = new THREE.Quaternion();
@@ -150,6 +151,8 @@ export class Skill {
     }
     // 칼 길 잡기(R6): 칼이 맞닿았으면 그 칼 선 (아니면 null). 바로 앞 찌르기가 끝나고 bindRest 초 안의 탭(연타)은 잡지 않는다
     this.tap.bound = down || this.sinceThrust < THRUST.bindRest ? null : this.boundAxis();
+    const precision = captureOpportunityThrust(f, this.tap);
+    if (precision) this.tap.opportunityPrecision = precision;
     this.thrusts++;
     if (down) {
       // 쓰러진 상대: 누운 몸 점이 닿는 곳(finish.js plunge.inside) 밖이고 걸어서 닿으면(plunge.walk) 걸어 들어간다 (plungePose — 디딤마다 본다).
@@ -263,30 +266,32 @@ export class Skill {
     //  (칼이 맞닿았으면 당기지 않고 곧게 민다. 쓰러진 상대는 plungePose)
     const ext = Math.hypot(h0[0], h0[1] - 0.1, h0[2] - 0.2); // 어깨(가슴 기준 [0, 0.1, 0.2])에서 손까지
     const ch = bd ? 0 : T.chamber * THREE.MathUtils.clamp((ext - 0.36) / 0.12, 0, 1);
-    const a = THREE.MathUtils.clamp(t / K.aim, 0, 1);
-    const s = THREE.MathUtils.clamp((t - K.aim) / K.extend, 0, 1);
-    const e = -ch * a * a * (3 - 2 * a) + (ch + K.reach) * s * s * (3 - 2 * s);
-    for (let k = 0; k < 3; k++) pose.hand[k] = h0[k] + _q.getComponent(k) * e;
-    if (bd) {
-      // 칼끝은 민 선 그대로 (돌리지 않는다)
-      pose.dir[0] = _q.x;
-      pose.dir[1] = _q.y;
-      pose.dir[2] = _q.z;
-      tp.dir = pose.dir;
-    }
-    // 칼끝: 겨누는 동안은 지금 손(칼자루)에서 목표점 너머 past 의 점을 향해 돌리고, 뻗기 시작하면 그 방향을 붙잡는다.
-    //  뻗는 동안 손은 거의 칼 축 방향으로 가는데(측정 0.96), 방향을 계속 고쳐 잡으면 손목이 5~9° 늦게 따라 돌며
-    //  칼끝이 옆으로 쓸려 칼 축 방향 성분이 0.7까지 떨어졌다 → 붙잡아 두면 칼끝은 손과 함께 칼 축을 따라 나간다
-    //  (쓰러진 상대는 plungePose 가 칼끝을 매 스텝 고쳐 잡는다)
-    if (!bd && (t < K.aim || !tp.dir)) {
-      const sp = f.sword.translation();
-      P.addScaledVector(_q, T.past);
-      _q.set(sp.x, sp.y, sp.z).sub(_c).applyQuaternion(_yawInv);
-      P.sub(_q).normalize();
-      pose.dir[0] = P.x;
-      pose.dir[1] = P.y;
-      pose.dir[2] = P.z;
-      if (t >= K.aim) tp.dir = [P.x, P.y, P.z];
+    if (!updateOpportunityThrust(f, tp, pose, P, ch)) {
+      const a = THREE.MathUtils.clamp(t / K.aim, 0, 1);
+      const s = THREE.MathUtils.clamp((t - K.aim) / K.extend, 0, 1);
+      const e = -ch * a * a * (3 - 2 * a) + (ch + K.reach) * s * s * (3 - 2 * s);
+      for (let k = 0; k < 3; k++) pose.hand[k] = h0[k] + _q.getComponent(k) * e;
+      if (bd) {
+        // 칼끝은 민 선 그대로 (돌리지 않는다)
+        pose.dir[0] = _q.x;
+        pose.dir[1] = _q.y;
+        pose.dir[2] = _q.z;
+        tp.dir = pose.dir;
+      }
+      // 칼끝: 겨누는 동안은 지금 손(칼자루)에서 목표점 너머 past 의 점을 향해 돌리고, 뻗기 시작하면 그 방향을 붙잡는다.
+      //  뻗는 동안 손은 거의 칼 축 방향으로 가는데(측정 0.96), 방향을 계속 고쳐 잡으면 손목이 5~9° 늦게 따라 돌며
+      //  칼끝이 옆으로 쓸려 칼 축 방향 성분이 0.7까지 떨어졌다 → 붙잡아 두면 칼끝은 손과 함께 칼 축을 따라 나간다
+      //  (쓰러진 상대는 plungePose 가 칼끝을 매 스텝 고쳐 잡는다)
+      if (!bd && (t < K.aim || !tp.dir)) {
+        const sp = f.sword.translation();
+        P.addScaledVector(_q, T.past);
+        _q.set(sp.x, sp.y, sp.z).sub(_c).applyQuaternion(_yawInv);
+        P.sub(_q).normalize();
+        pose.dir[0] = P.x;
+        pose.dir[1] = P.y;
+        pose.dir[2] = P.z;
+        if (t >= K.aim) tp.dir = [P.x, P.y, P.z];
+      }
     }
     const b = T.body;
     pose.pelvisYaw = b.pelvisYaw * D2R;

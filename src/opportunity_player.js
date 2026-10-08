@@ -3,7 +3,8 @@
 import * as THREE from 'three';
 import { ARM, WEAPON } from './config.js';
 import { guardAt } from './guards.js';
-import { OPPORTUNITY, enabled, captureOpportunityPose, findOpportunity } from './opportunity_target.js';
+import { OPPORTUNITY, enabled, precisionEnabled, captureOpportunityPose, findOpportunity } from './opportunity_target.js';
+import { opportunityPathGoal } from './opportunity_path.js';
 
 const clamp = THREE.MathUtils.clamp;
 
@@ -126,6 +127,7 @@ export function updateOpportunityPlayer(f, dt, hand, aim, policy) {
       const local = found.target.clone().sub(new THREE.Vector3(chest.x, chest.y, chest.z)).applyQuaternion(f.yaw.clone().invert());
       state.targetLocal = local.toArray(); state.captureChestY = chest.y;
       if (!setCrossingGoal(f, state, policy)) return;
+      if (precisionEnabled(f) && !opportunityPathGoal(f, found.target, state.crossing)) return;
       state.phase = 'preparing'; state.target = found.target.toArray();
       state.zone = found.zone; state.kind = kind; state.foe = f.foe;
       state.weaponId = f.weapon.id;
@@ -142,11 +144,19 @@ export function updateOpportunityPlayer(f, dt, hand, aim, policy) {
     else if (Math.abs(skill.aim.y - state.crossing.padY) > 1e-6 && !setCrossingGoal(f, state, policy)) {
       state.phase = 'releasing';
     } else {
-      const changeY = clamp(state.desiredY - state.handY, -OPPORTUNITY.prepareSpeed * dt, OPPORTUNITY.prepareSpeed * dt);
-      // The optional height adjustment cannot oppose an intentional vertical
-      // swipe. Horizontal positioning can still prepare a lower attack plane.
-      if (changeY * skill.vel.y >= 0 || Math.abs(skill.vel.y) < 0.05) state.handY += changeY;
-      state.pitch += clamp(state.desiredPitch - state.pitch, -OPPORTUNITY.prepareTurn * dt, OPPORTUNITY.prepareTurn * dt);
+      if (precisionEnabled(f)) {
+        const goal = opportunityPathGoal(f, new THREE.Vector3(...state.target), state.crossing);
+        state.pathObservation = goal?.observation ?? null;
+        if (goal) { state.desiredY = goal.handY; state.desiredPitch = goal.pitch; }
+        else state.phase = 'releasing';
+      }
+      if (state.phase === 'preparing') {
+        const changeY = clamp(state.desiredY - state.handY, -OPPORTUNITY.prepareSpeed * dt, OPPORTUNITY.prepareSpeed * dt);
+        // The optional height adjustment cannot oppose an intentional vertical
+        // swipe. Horizontal positioning can still prepare a lower attack plane.
+        if (changeY * skill.vel.y >= 0 || Math.abs(skill.vel.y) < 0.05) state.handY += changeY;
+        state.pitch += clamp(state.desiredPitch - state.pitch, -OPPORTUNITY.prepareTurn * dt, OPPORTUNITY.prepareTurn * dt);
+      }
     }
   }
   if (state.phase === 'releasing' || !eligible && state.phase !== 'committed') {

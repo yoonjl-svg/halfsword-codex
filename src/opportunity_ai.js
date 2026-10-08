@@ -4,7 +4,8 @@ import * as THREE from 'three';
 import { WEAPON } from './config.js';
 import { guardAt } from './guards.js';
 import { applyOpportunityElevation } from './opportunity_player.js';
-import { enabled, findOpportunity, OPPORTUNITY } from './opportunity_target.js';
+import { enabled, precisionEnabled, findOpportunity, OPPORTUNITY } from './opportunity_target.js';
+import { opportunityPathGoal } from './opportunity_path.js';
 
 export const OPPORTUNITY_AI = Object.freeze({ attempts: 2, resetHold: 0.45, padHeightScale: 0.5 });
 const clamp = (x, lo, hi) => Math.min(hi, Math.max(lo, x));
@@ -148,15 +149,57 @@ export function opportunityAICrossing(ai, tech, target, shift = 0) {
   return Math.abs(crossing.sideError) <= 0.04 ? crossing : null;
 }
 
+/** An overhead blunt path can have constant pad x. Sample its authored path
+ * rather than treating it as a horizontal neck sweep. These are command
+ * references on the active weapon segment, not predicted contacts. */
+export function opportunityAIBluntReference(ai, tech, target) {
+  if (!tech?.from || !tech.path?.length) return null;
+  const me = ai.me, chest = vectorOf(me.bodies.chest.translation());
+  const local = target.clone().sub(chest).applyQuaternion(me.yaw.clone().invert());
+  const points = [tech.from, ...tech.path], weight = me.guardWeight();
+  const lateral = clamp(ai.foeLat, -0.4, 0.4) * 0.5;
+  let best = null, bestError = Infinity;
+  for (let i = 0; i <= 16; i++) {
+    const u = i / 16 * (points.length - 1), at = Math.min(points.length - 2, Math.floor(u));
+    const t = u - at, a = points[at], b = points[at + 1];
+    let [x, y] = offsetPad([a[0] + (b[0] - a[0]) * t + lateral, a[1] + (b[1] - a[1]) * t], 0);
+    const hand = new THREE.Vector3(0.12 + 0.5 * Math.sqrt(Math.max(0, 1 - (x*x+y*y)/(WEAPON.reach**2))), 0.1+y, 0.1+x);
+    const g = guardAt(x, y, { table: me.guardPose.table, oneHand: me.guardPose.oneHand });
+    hand.lerp(new THREE.Vector3(...g.hand), weight);
+    const el = y <= 0.1 ? Math.max(-0.6, (y - 0.1) * 1.1) : Math.min(1.75, ((y - 0.1) / 0.5) * 1.65);
+    const az = clamp((x - 0.05) * 1.7, -1.1, 1.3);
+    const aim = new THREE.Vector3(Math.cos(el)*Math.cos(az), Math.sin(el), Math.cos(el)*Math.sin(az));
+    aim.lerp(new THREE.Vector3(...g.dir), weight);
+    if (aim.lengthSq() < 0.04) aim.set(...g.dir);
+    aim.normalize();
+    if (aim.x <= 0.1) continue;
+    const distance = (local.x - hand.x) / aim.x;
+    if (!(distance >= me.weaponCfg.hiltLength && distance <= me.weaponCfg.hiltLength + me.weaponCfg.bladeLength)) continue;
+    const sideError = hand.z + aim.z * distance - local.z, height = hand.y + aim.y * distance;
+    if (Math.abs(sideError) > OPPORTUNITY.guardRadius) continue;
+    const error = Math.hypot(sideError, height - local.y);
+    if (error < bestError) {
+      bestError = error;
+      best = { hand: hand.toArray(), aim: aim.toArray(), padX: x, padY: y,
+        height, worldHeight: height + chest.y, targetHeight: local.y, targetWorldHeight: target.y,
+        error: height - local.y, sideError, bladeDistance: distance, insideBlade: true };
+    }
+  }
+  return best;
+}
+const vectorOf = v => new THREE.Vector3(v.x, v.y, v.z);
+
 function prepared(ai, found, tech) {
+  const precise = precisionEnabled(ai.me);
   const chestY = ai.me.bodies.chest.translation().y;
   // The old templates cross an upright opponent's neck/head. This only shifts
   // their hand-plane height toward the observed lower target within the same
   // authored preparation budget as the player. It does not guarantee contact.
   const uprightTarget = chestY + (found.zone === 'head' ? 0.28 : 0.17);
   const crossing = found.kind === 'cut' && neckCrossingTechnique(tech)
-    ? opportunityAICrossing(ai, tech, found.target) : null;
-  if (found.kind === 'cut' && !crossing) return null;
+    ? opportunityAICrossing(ai, tech, found.target)
+    : precise && found.kind === 'blunt' ? opportunityAIBluntReference(ai, tech, found.target) : null;
+  if ((found.kind === 'cut' || precise && found.kind === 'blunt') && !crossing) return null;
   let desiredY = 0, desiredPitch = 0;
   if (crossing) {
     const c = ai.me.bodies.chest.translation();
@@ -170,15 +213,19 @@ function prepared(ai, found, tech) {
     crossing.desiredWorldHeight = chestY + hand.y + desiredY + corrected.y * (local.x - hand.x) / corrected.x;
     crossing.desiredError = crossing.desiredWorldHeight - found.target.y;
   }
+  const pathGoal = precise && crossing ? opportunityPathGoal(ai.me, found.target, crossing) : null;
+  if (precise && crossing && !pathGoal) return null;
+  if (pathGoal) { desiredY = pathGoal.handY; desiredPitch = pathGoal.pitch; }
   return {
     ...found, target: found.target.clone(), episode: ai.opportunityState.episode,
     observedAt: ai.opportunitySeen.t, started: false,
     // Explicit Skill.thrust already aims at the fixed world target. Lowering
     // its hand-map preparation too would apply the same height change twice.
-    padY: found.kind === 'blunt' ? clamp((found.target.y - uprightTarget) * OPPORTUNITY_AI.padHeightScale,
+    padY: found.kind === 'blunt' && !precise ? clamp((found.target.y - uprightTarget) * OPPORTUNITY_AI.padHeightScale,
       -OPPORTUNITY.handHeightBudget, OPPORTUNITY.handHeightBudget) : 0,
     desiredY, desiredPitch,
     crossing,
+    ...(precise ? { pathObservation: pathGoal?.observation ?? null } : {}),
     lateral: ai.foeLat,
   };
 }
@@ -235,13 +282,19 @@ export function advanceOpportunityAICommand(ai, dt) {
   const state = ai.opportunityCommand ||= { handY: 0, pitch: 0 };
   const lock = ai.opportunityAttack;
   const usable = ai.mode === 'attack' && ai.me.alive && ai.me.armed && !ai.me.weaponBroken &&
-    ['stand', 'kneel'].includes(ai.me.state) && !ai.me.skill.tap && !(ai.me.finish?.amt > 0) && lock?.kind === 'cut';
+    ['stand', 'kneel'].includes(ai.me.state) && !ai.me.skill.tap && !(ai.me.finish?.amt > 0) &&
+    (lock?.kind === 'cut' || precisionEnabled(ai.me) && lock?.kind === 'blunt');
   if (usable && lock.started) {
     state.handY = lock.handY;
     state.pitch = lock.pitch;
     return;
   }
-  const targetY = usable ? lock.desiredY : 0, targetPitch = usable ? lock.desiredPitch : 0;
+  let targetY = usable ? lock.desiredY : 0, targetPitch = usable ? lock.desiredPitch : 0;
+  if (usable && precisionEnabled(ai.me)) {
+    const goal = opportunityPathGoal(ai.me, lock.target, lock.crossing);
+    lock.pathObservation = goal?.observation ?? null;
+    targetY = goal?.handY ?? 0; targetPitch = goal?.pitch ?? 0;
+  }
   state.handY += clamp(targetY - state.handY, -OPPORTUNITY.prepareSpeed * dt, OPPORTUNITY.prepareSpeed * dt);
   state.pitch += clamp(targetPitch - state.pitch, -OPPORTUNITY.prepareTurn * dt, OPPORTUNITY.prepareTurn * dt);
 }

@@ -59,8 +59,31 @@ const Q = q => new THREE.Quaternion(q.x, q.y, q.z, q.w);
 const bodyState = body => ({ p: V(body.translation()), q: Q(body.rotation()), com: V(body.worldCom()),
   v: new THREE.Vector3(), w: new THREE.Vector3() });
 
+await test('precision entry preserves previous v1 and requires explicit valid comparison URL', async () => {
+  const { configureOpportunityTrial } = await import('../../../src/opportunity_trial.js');
+  const { enabled, precisionEnabled } = await import('../../../src/opportunity_target.js');
+  let entries = 0;
+  for (const weapon of ['longsword', 'branch', 'rapier']) {
+    for (const [model, expected] of [['baseline', 'off'], ['assisted', 'v1'], ['precision', 'v2']]) {
+      const info = configureOpportunityTrial(new URLSearchParams({ opportunity: model, weapon }));
+      assert.equal(info.active, true); assert.equal(info.opportunity, expected);
+      assert.equal(info.finish, 'low'); assert.equal(info.recovery, 'legacy');
+      assert.deepEqual(info.settings, { skill: '0.7', difficulty: 'normal' });
+      assert.equal(enabled({ opportunityModel: expected }), expected !== 'off');
+      assert.equal(precisionEnabled({ opportunityModel: expected }), expected === 'v2'); entries++;
+    }
+  }
+  for (const query of ['', 'opportunity=precision&unexpected=1', 'opportunity=precision&opportunity=precision',
+    'opportunity=precision&weapon=rapier&weapon=rapier', 'opportunity=precision&weapon=unknown',
+    'opportunity=precision&swordsmanship=legacy', 'opportunity=unknown']) {
+    const info = configureOpportunityTrial(new URLSearchParams(query));
+    assert.equal(info.active, false, query); assert.equal(info.opportunity, 'off', query); entries++;
+  }
+  return { entries, ordinaryDefaultChanged: false };
+});
+
 await test('opportunity trial leaves damage, weapon, gravity, and low-finish policy source unchanged', () => {
-  const baseline = '8c732d410bc9c6d9e89e7ec1d365b1df47e10109';
+  const baseline = '451a541e5d806674ed1fc62b3d1d1f63cc8117fb'; // Current approved weapons/physics before precision work.
   const checked = ['src/combat.js', 'src/config.js', 'src/weapons.js', 'src/finish_rule.js', 'src/finish_entry.js'];
   for (const p of checked) {
     const original = execFileSync('git', ['show', `${baseline}:${p}`], { cwd: root });
