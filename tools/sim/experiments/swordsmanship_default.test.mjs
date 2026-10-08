@@ -73,9 +73,9 @@ test('explicit legacy fallback is exact and malformed overrides cannot opt in', 
   assert.deepEqual(combined.blockedBy, ['onehandArm']);
 });
 
-test('thirteen accepted melee weapons install; gun and withheld/internal specs stay out', () => {
+test('fourteen accepted melee weapons install; gun and withheld/internal specs stay out', () => {
   const expected = ['longsword', 'zweihander', 'estoc', 'sabre', 'rapier', 'falchion', 'qinggang',
-    'excalibur', 'excalibur_replica', 'tree_branch', 'rubber_chicken', 'frozen_tuna', 'monohoshizao'];
+    'excalibur', 'excalibur_replica', 'tree_branch', 'rubber_chicken', 'frozen_tuna', 'monohoshizao', 'morgenstern'];
   assert.deepEqual([...SWORDSMANSHIP_DEFAULT_WEAPONS].sort(), expected.slice().sort());
   for (const weapon of Object.values(WEAPONS)) {
     assert.equal(swordsmanshipDefaultSupportsWeapon(weapon), expected.includes(weapon.id), weapon.id);
@@ -86,7 +86,7 @@ test('thirteen accepted melee weapons install; gun and withheld/internal specs s
   }
   // Entry policy and per-weapon installation are deliberately separate so
   // random cards can be resolved after entry without promoting excluded arms.
-  for (const id of ['pistol', 'lightsaber', 'morgenstern']) {
+  for (const id of ['pistol', 'lightsaber']) {
     assert.equal(policy(`weapon=${id}`).active, true);
     assert.equal(swordsmanshipDefaultSupportsWeapon(WEAPONS[id]), false);
   }
@@ -101,7 +101,7 @@ test('lightsaber preview keeps ordinary physics entry and only opts its player w
   assert.equal(swordsmanshipDefaultSupportsWeapon(WEAPONS.lightsaber, a), false);
   assert.equal(swordsmanshipDefaultSupportsWeapon(WEAPONS.lightsaber, b), true);
   assert.equal(swordsmanshipDefaultSupportsWeapon(WEAPONS.pistol, b), false);
-  assert.equal(swordsmanshipDefaultSupportsWeapon(WEAPONS.morgenstern, b), false);
+  assert.equal(swordsmanshipDefaultSupportsWeapon(WEAPONS.morgenstern, b), true);
   for (const query of ['swordsmanshipPreview=v2', 'weapon=longsword&swordsmanshipPreview=v2',
     'weapon=lightsaber&swordsmanshipPreview=', 'weapon=lightsaber&swordsmanshipPreview=unknown',
     'weapon=lightsaber&weapon=lightsaber&swordsmanshipPreview=v2',

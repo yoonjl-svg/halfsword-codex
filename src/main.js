@@ -58,7 +58,6 @@ import { configureFinishV2Trial, mountFinishV2Trial } from './finish_v2_trial.js
 import { applySwordsmanship, recordSwordsmanshipInput } from './swordsmanship.js';
 import { configureSwordsmanshipDefault, swordsmanshipDefaultSupportsWeapon } from './swordsmanship_default.js';
 import { configureCombatDefaults } from './combat_defaults.js';
-import { morgensternTrialSupports, prepareMorgensternTrial } from './morgenstern_trial.js';
 import { configureRecoveryFinishTrial, mountRecoveryFinishTrial } from './recovery_finish_trial.js';
 import { configureOpportunityTrial, mountOpportunityTrial } from './opportunity_trial.js';
 
@@ -86,6 +85,9 @@ const swordsmanshipDefault = configureSwordsmanshipDefault(activeV2Trial ? reque
 // weapon whitelist. Read the original query so archived/malformed research
 // entries cannot acquire it when a compound trial clears its parameters.
 const linkedArmSupport = configureSwordsmanshipDefault(opportunityTrial.requested || recoveryFinishTrial.requested ? priorTrialParams : requestedParams).active;
+// Adopt low-target finishing in ordinary games. Read the original URL so
+// archived compound comparisons keep their original entry conditions.
+const defaultFinishEntry = configureSwordsmanshipDefault(requestedParams).active ? 'low' : 'legacy';
 const swordsmanshipTrial = configureSwordsmanshipTrial(priorTrialParams);
 const integratedCombatTrial = configureIntegratedCombatTrial(priorTrialParams);
 // Reject an incomplete compound entry as a whole; standalone comparison URLs
@@ -493,6 +495,7 @@ function newRound(weaponId) {
   // 같은 선택형 팔 제어를 양쪽에 적용하고 재시작 때도 주소 설정을 유지한다.
   for (const f of [player, enemy]) f.armTorqueModel = armTrial.model;
   for (const f of [player, enemy]) f.armSupportModel = linkedArmSupport ? 'linked' : 'legacy';
+  for (const f of [player, enemy]) f.finishEntryModel = defaultFinishEntry;
   if (opportunityTrial.active) for (const f of [player, enemy]) {
     f.opportunityModel = opportunityTrial.opportunity;
     f.finishEntryModel = opportunityTrial.finish;
@@ -515,8 +518,6 @@ function newRound(weaponId) {
     player.stanceMemoryModel = adoptedCombat.stance;
     player.rollTargetModel = adoptedCombat.roll;
   }
-  const morgensternTrial = morgensternTrialSupports(swordsmanshipDefault, player.weapon);
-  if (morgensternTrial) prepareMorgensternTrial(player);
   if (params.has('gripPoint')) player.gripPointModel = gripPointModel;
   // Narrow player-only comparison for the selected sabre trial.
   player.thrustEdgeModel = onehandArmModel === 'manual' && player.weapon.id === 'sabre' ? thrustEdgeModel : 'legacy';
@@ -560,7 +561,7 @@ function newRound(weaponId) {
   applyMotionAssist(integratedCombatTrial, player);
   applyMotionTiming(integratedCombatTrial, player);
   applySwordAssistV2(integratedCombatTrial, player);
-  if (swordsmanshipTrial.active || defaultSwordsmanshipForPlayer || activeV2Trial || morgensternTrial) applySwordsmanship(player);
+  if (swordsmanshipTrial.active || defaultSwordsmanshipForPlayer || activeV2Trial) applySwordsmanship(player);
   player.canShove = true; // 근접 밀치기: 플레이어는 스틱으로 (CLOSE.on 이 통째로 끄고 켠다)
   combat = new Combat(colliderInfo, { onWound, onClash });
   const selectedCutModel = recoveryContactV2Trial.active ? recoveryContactV2Trial.cutModel : contactTrial.active ? contactTrial.model : swordsmanshipDefault.active ? adoptedCombat.cut : cutTrial.model;

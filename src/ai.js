@@ -766,9 +766,11 @@ export class AI {
     const hand = [this.me.handOffset.x, this.me.handOffset.y];
     // 기술 목록(school.tech)은 롱소드(찌르기·베기 모두 배율 1)를 기준으로 짜여 있다. 찌르기 전용에
     // 가까운 무기(에스톡·레이피어 등)는 실제로 찌르기가 훨씬 잘 먹히는데 기술을 고를 때 이걸 몰라
-    // 베기만 골라 쓰다 지는 일이 있었다 — 무기의 mThrust/mCut 배율 그대로 찌르기 기술 선호도에 곱한다.
+    // 베기만 골라 쓰다 지는 일이 있었다. 날 없는 무기는 휘두름의 둔타 계수와 비교한다:
+    // 가시 철퇴의 mCut=0으로 나누면 모든 찌르기 점수가 Infinity가 된다.
     const cfg = this.me.weaponCfg;
-    const thrustBias = cfg ? cfg.mThrust / cfg.mCut : 1;
+    const swingScale = cfg?.edged ? cfg.mCut : cfg?.mBlunt;
+    const thrustBias = !cfg ? 1 : Number.isFinite(swingScale) && swingScale > 0 && Number.isFinite(cfg.mThrust) ? cfg.mThrust / swingScale : 0;
     const target = opportunityEnabled(this.me) ? opportunityCandidate(this) : null;
     const neckCut = target?.kind === 'cut' && this.school.tech.some(neckCrossingTechnique);
     const focusKind = target?.kind === 'thrust' ? 'thrust' : target ? 'cut' : null;

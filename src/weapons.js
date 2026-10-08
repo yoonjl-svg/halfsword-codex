@@ -1060,7 +1060,7 @@ const pistol = finalizeSpec('pistol', {
 // 무기마다 적은 desc 는 무기 뽑기 카드(main.js)의 앞면에 쓰는 한두 줄 설명이다 (\n 으로 줄을 나눈다).
 //  글자 데이터일 뿐 물리·밸런스와는 상관없다. 카드 앞면의 작은 그림은 public/ui/weapons/<id>.webp
 //  (tools/browser/weapon_thumbs.mjs 로 이 무기 모델을 그대로 찍어 만든다 — 겉모습을 바꾸면 다시 돌린다).
-// [I] 무거운 한손 시험안. RA VIII.70(64.8cm/2.1kg)·Met14.25.171(73.2cm/822g)
+// [I] 무거운 한손 철퇴. RA VIII.70(64.8cm/2.1kg)·Met14.25.171(73.2cm/822g)
 // 두 실물을 참고한 재구성이며 사용자 후속 지정으로 전체69cm/2.2kg, 손 쪽 무게중심으로 수정했다.
 // 8cm 강철 구의 소켓(r21.404mm, 깊이70mm)과 손잡이 보강추로 질량을 실제 재배치한다.
 // docs/strike/weapon_compact_20261008.md, tools/sim/morgenstern_design.mjs: 계산과 한계.
@@ -1068,7 +1068,6 @@ const pistol = finalizeSpec('pistol', {
 const morgenstern = finalizeSpec('morgenstern', {
   nameKo: '모르겐슈테른', nameEn: 'Morgenstern',
   desc: '2.2kg의 무거운 한손 가시 철퇴.\n앞쪽 가시로 찌르며, 갑옷을 무시하지 않는다.',
-  trialOnly: true,
   grip: 'one-hand', material: 'steel',
   hiltLength: 0.4535, bladeLength: 0.135,
   breakAt: 0.05, // y=.46025: 철구·고정대 아래 나무 자루에서 부러진다.

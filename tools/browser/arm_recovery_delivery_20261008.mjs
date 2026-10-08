@@ -2,6 +2,7 @@
 // Run only after the intended source/dist freeze. Outputs stay outside the checkout.
 // --out=/workspace/halfsword-handoff/arm-recovery-20261008/mobile/<fresh-name>
 // [--base=http://127.0.0.1:4173/] [--local-evidence=<passing-local-report.json>]
+// [--weapons=morgenstern,lightsaber,longsword] [--lightsaber-preview=true]
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -12,17 +13,22 @@ import { fileURLToPath } from 'node:url';
 const own = fileURLToPath(import.meta.url), root = path.resolve(path.dirname(own), '../..');
 const args = {};
 for (const value of process.argv.slice(2)) {
-  const match = /^--(out|base|local-evidence|weapons)=(.+)$/.exec(value);
+  const match = /^--(out|base|local-evidence|weapons|lightsaber-preview)=(.+)$/.exec(value);
   assert(match && !Object.hasOwn(args, match[1]), 'Unknown or duplicate argument');
   args[match[1]] = match[2];
 }
 const weapons = args.weapons?.split(',') || ['sabre', 'longsword', 'morgenstern'];
 assert(weapons.length && weapons.every(w => ['sabre', 'longsword', 'morgenstern', 'lightsaber'].includes(w)));
 assert.equal(new Set(weapons).size, weapons.length);
+assert(args['lightsaber-preview'] === undefined || ['true', 'false'].includes(args['lightsaber-preview']));
+const lightsaberPreview = args['lightsaber-preview'] === 'true';
+assert(!lightsaberPreview || weapons.includes('lightsaber'), 'Include ordinary lightsaber A when requesting preview B');
 const scenario = weapons.map(weapon => ({
-  id: 'ordinary-' + weapon, weapon, cards: weapon + ',' + (weapon === 'longsword' ? 'sabre' : 'longsword'),
-  note: weapon === 'morgenstern' ? 'Explicit offered-card fixture; trialOnly weapon stays outside ordinary random pool' : 'Explicit offered-card fixture with ordinary controllers',
+  id: 'ordinary-' + weapon, weapon, preview: false, cards: weapon + ',' + (weapon === 'longsword' ? 'sabre' : 'longsword'),
+  note: 'Explicit offered-card fixture with ordinary controllers; ordinary random-pool eligibility separately checked',
 }));
+if (lightsaberPreview) scenario.push({ id: 'preview-lightsaber-v2', weapon: 'lightsaber', preview: true, cards: null,
+  note: 'Existing preview requires weapon=lightsaber and uses fixed-weapon menu Start; it cannot exercise card choice' });
 const artifactRoot = '/workspace/halfsword-handoff/arm-recovery-20261008/mobile';
 assert(args.out && path.isAbsolute(args.out));
 const out = path.resolve(args.out);
@@ -98,13 +104,31 @@ const confined = value => {
 };
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || '/workspace/cloud-onboarding/browser/node_modules/playwright/index.mjs');
 let browser, context, page, cdp, fatal = null, pass = false;
-const budgetMs = 300000;
+let catalog = null;
+// Keep individual operation deadlines unchanged. The overall watchdog scales
+// with selected browser flows, each including a fresh round and repeat inputs.
+const budgetMs = 60000 + 120000 * scenario.length;
 const deadline = setTimeout(() => {
   errors.push({ kind: 'budget', message: `Mobile delivery exceeded its ${budgetMs / 1000} second budget` });
   browser?.close().catch(() => {});
 }, budgetMs);
 deadline.unref();
 try {
+  // Execute the real catalog module without a physics world or RNG calls. The
+  // local main source and served compiled bytes are independently fingerprinted.
+  const { WEAPON_LIST, WEAPONS } = await import(new URL('../../src/weapons.js', import.meta.url));
+  const main = await fs.readFile(path.join(root, 'src/main.js'), 'utf8');
+  assert(/const PLAYER_WEAPON_POOL = WEAPON_LIST\.map\(\(w\) => w\.id\)\.filter\(\(id\) => id !== 'excalibur_replica'\);/.test(main),
+    'Review changed ordinary player-pool construction before declaring delivery');
+  assert(/return drawWeaponCards\(PLAYER_WEAPON_POOL, 2, \{ exclude: lastPlayerWeapon \}\);/.test(main),
+    'Ordinary card draw must consume the reviewed player pool');
+  catalog = { module: 'src/weapons.js', sourceSHA256: before['src/weapons.js'].sha256,
+    mainSourceSHA256: before['src/main.js'].sha256, ordinaryIds: WEAPON_LIST.map(w => w.id),
+    playerPoolIds: WEAPON_LIST.map(w => w.id).filter(id => id !== 'excalibur_replica'),
+    morgensternTrialOnly: !!WEAPONS.morgenstern.trialOnly, ordinaryPoolSourcePathVerified: true,
+    scope: 'Actual Node catalog module plus frozen main pool/draw linkage; no RNG override, draw frequency, or browser-private-pool read claim' };
+  assert.equal(catalog.morgensternTrialOnly, false, 'Morgenstern must be promoted before this delivery run');
+  for (const weapon of weapons) assert(catalog.playerPoolIds.includes(weapon), `Weapon is absent from ordinary card pool: ${weapon}`);
   browser = await chromium.launch(launch);
   context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true,
     ignoreHTTPSErrors: false, serviceWorkers: 'block',
@@ -178,6 +202,7 @@ try {
           cutTarget: game.combat.cutReactionFighter === game.player ? 'player' : game.combat.cutReactionFighter === null ? 'both' : 'other',
           gravity: game.world.gravity.y, startHold: game.config.ARENA.startHold, limb: game.config.COMBAT.limbSeverTrial,
           defaultActive: game.swordsmanshipDefault.active, supportProbe: game.supportProbe.active },
+        ordinaryEntry: { ...game.swordsmanshipDefault },
         trial: { ...game.opportunityTrial }, trialPanel: document.getElementById('opportunityInfo')?.textContent ?? null,
         accepted: p.accepted.slice(),
         input: { enabled: game.input.enabled, activeTouch: game.input.activeTouch,
@@ -206,12 +231,12 @@ try {
     assert.equal(row.policies.gravity, -9.81); assert.equal(row.policies.startHold, 2);
     assert(row.layout.scrollWidth <= row.layout.width + 1, 'Mobile horizontal overflow');
   }
-  function current(row, weapon = null) {
+  function current(row, weapon = null, preview = false) {
     common(row); assert.equal(row.policies.finish, 'power'); assert.equal(row.policies.finishTarget, 'both');
     assert.equal(row.trial.active, false); assert.equal(row.trial.requested, false); assert.equal(row.trialPanel, null);
     for (const fighter of [row.player, row.enemy]) {
       assert.equal(fighter.support.model, 'linked'); assert(fighter.alive);
-      assert.equal(fighter.weaponState.finishEntry, 'legacy');
+      assert.equal(fighter.weaponState.finishEntry, 'low');
       assert.equal(fighter.weaponState.opportunity, 'off');
       assert.equal(fighter.weaponState.recoverySequence, 'legacy');
       assert(Number.isFinite(fighter.weaponState.mass) && fighter.weaponState.mass > 0);
@@ -227,8 +252,9 @@ try {
     assert.equal(row.policies.defaultActive, true); assert.equal(row.policies.limb, true); assert.equal(row.policies.supportProbe, false);
     if (weapon) {
       assert.equal(row.player.weapon, weapon); assert.equal(row.enemy.weapon, 'longsword'); assert(!row.drawVisible);
-      const unified = weapon !== 'lightsaber';
-      assert.equal(row.player.weaponState.gripPoint, unified ? 'midpoint' : 'axial');
+      const unified = weapon !== 'lightsaber' || preview;
+      assert.equal(row.ordinaryEntry.previewWeapon, preview ? 'lightsaber' : null);
+      assert.equal(row.player.weaponState.gripPoint, weapon === 'lightsaber' ? 'axial' : 'midpoint');
       assert.equal(row.enemy.weaponState.gripPoint, 'midpoint');
       assert.equal(row.policies.v2, unified ? 'unified' : 'legacy'); assert.equal(row.policies.enemyV2, 'legacy');
       assert.equal(row.player.hasV2State, unified);
@@ -275,7 +301,7 @@ try {
     assert(Math.hypot(flow.stickApplied.player.pelvis.x - flow.beforeMove.player.pelvis.x,
       flow.stickApplied.player.pelvis.z - flow.beforeMove.player.pelvis.z) > .001);
     await send('touchEnd', []);
-    flow.completed = await read(); current(flow.completed, row.weapon);
+    flow.completed = await read(); current(flow.completed, row.weapon, row.preview);
     assert.equal(flow.completed.input.activeTouch, null); assert.deepEqual(flow.completed.input.stick, [0, 0]);
   }
   async function pause() {
@@ -285,6 +311,15 @@ try {
   }
   async function startSelected(row, label) {
     await page.locator('#btnStart').tap();
+    if (row.preview) {
+      // The existing preview parser requires weapon=lightsaber, so main uses
+      // FIXED_WEAPON and never opens cards even if a cards query were present.
+      await wait(() => game.state === 'fight' && game.player.fightT > 0);
+      row[label] = await read(); current(row[label], row.weapon, true);
+      assert.equal(row[label].drawVisible, false);
+      assert.equal(row[label].player.wounds, 0); assert.equal(row[label].enemy.wounds, 0);
+      return;
+    }
     await wait(() => game.state === 'draw' && game.draw.stage === 'choose' && game.draw.t >= .5);
     row[label + 'Cards'] = await read(); common(row[label + 'Cards']);
     assert.deepEqual(row[label + 'Cards'].draw.ids.slice(0, 2), row.cards.split(','));
@@ -296,13 +331,15 @@ try {
     if (await page.evaluate(() => game.state === 'draw' && game.draw.stage === 'reveal'))
       await page.locator('#draw button[data-i="0"]').tap();
     await wait(() => game.state === 'fight' && game.player.fightT > 0);
-    row[label] = await read(); current(row[label], row.weapon);
+    row[label] = await read(); current(row[label], row.weapon, row.preview);
     assert.equal(row[label].player.wounds, 0); assert.equal(row[label].enemy.wounds, 0);
   }
   for (const fixture of scenario) {
     const { weapon } = fixture;
     await page.setViewportSize({ width: 390, height: 844 });
-    const url = new URL(base); url.search = new URLSearchParams({ cards: fixture.cards, foe: 'default', foeWeapon: 'longsword' }).toString();
+    const url = new URL(base); url.search = new URLSearchParams(fixture.preview
+      ? { weapon: 'lightsaber', swordsmanshipPreview: 'v2', foe: 'default', foeWeapon: 'longsword' }
+      : { cards: fixture.cards, foe: 'default', foeWeapon: 'longsword' }).toString();
     await page.goto(url.href, { waitUntil: 'load', timeout: 30000 }); await observe();
     const row = { ...fixture, url: url.href, entryPortrait: await read() }; entries.push(row); current(row.entryPortrait);
     assert.equal(row.entryPortrait.state, 'menu');
@@ -322,10 +359,10 @@ try {
     const still = await page.evaluate(() => ({ bodies: armRecoveryProbe.bodies(), steps: game.combat.stepNo }));
     assert.deepEqual(still.bodies, frozen.bodies); assert.equal(still.steps, frozen.steps); row.pauseFrozen = true;
     await page.locator('#btnResume').tap(); await wait(steps => game.state === 'fight' && game.combat.stepNo > steps, frozen.steps);
-    row.resumed = await read(); current(row.resumed, weapon); assert.deepEqual(row.resumed.objects, row.started.objects);
+    row.resumed = await read(); current(row.resumed, weapon, row.preview); assert.deepEqual(row.resumed.objects, row.started.objects);
     row.beforeRestart = await pause(); await startSelected(row, 'restarted');
     for (const key of Object.keys(row.restarted.objects)) assert.notEqual(row.restarted.objects[key], row.beforeRestart.objects[key]);
-    await nativeInput(row, 'restartInput'); row.final = await pause(); current(row.final, weapon);
+    await nativeInput(row, 'restartInput'); row.final = await pause(); current(row.final, weapon, row.preview);
     row.native = await page.evaluate(() => armRecoveryProbe.native.slice());
     assert(row.native.length && row.native.every(event => event.trusted && event.kind === 'touch'));
     for (const id of ['btnStart', 'btnPause', 'btnResume']) assert(row.native.some(event => event.target === id));
@@ -351,12 +388,12 @@ try {
   pass = pass && buildStable && sourceStable && errors.length === 0 && performance.now() - start < budgetMs;
   if (!pass) process.exitCode = 1;
   const report = { pass, local, head, startedUTC, completedUTC: new Date().toISOString(), wallMs: performance.now() - start,
-    base: base.href, buildStable, sourceStable, manifestBefore: before, scenario, settings, savedSettingsRaw: saved, entries,
+    base: base.href, buildStable, sourceStable, manifestBefore: before, scenario, catalog, settings, savedSettingsRaw: saved, entries,
     compiled, errors, fatal, inputRequests, tlsVerification: true, proxyRetained: !local,
     limits: ['Chromium mobile emulation, not physical-phone or human feel acceptance.',
-      'Each explicit card offering is selected through trusted Start/card touch; ordinary controllers start, drag, move, pause, resume and restart with fresh player/enemy/world/AI instances and re-input.',
+      'Ordinary explicit card offerings use trusted Start/card touch. Optional lightsaber v2 requires fixed weapon URL, uses trusted menu Start and does not show cards. Every flow drags, moves, pauses, resumes and restarts with fresh player/enemy/world/AI instances and re-input.',
       'Only saved-settings fixture and observer bookkeeping are written; no gameplay, AI, RNG, physics or prototype changes.',
-      'Ordinary entry keeps opportunity off and existing finish entry. Player v2/manual except ordinary lightsaber legacy/.7/autoGuard; fresh/bounded and edged centerline, both linked/power and gravity 9.81 are asserted. Thin lightsaber keeps axial grip. Two-hand native shoulder/forearm contact is asserted for both fighters. Morgenstern remains trialOnly outside random draws; cards query explicitly offers it.',
+      'Ordinary entry keeps opportunity off and promotes low finish entry for both fighters. Player v2/manual except ordinary lightsaber legacy/.7/autoGuard; optional lightsaber preview uses v2/manual. Fresh/bounded and edged centerline, both linked/power and gravity 9.81 are asserted. Lightsaber keeps axial grip. Two-hand native shoulder/forearm contact is asserted for both fighters. Actual catalog includes Morgenstern in ordinary pool; selected cards do not measure draw probabilities.',
       'No state/pose/AI/physics changes or forced fall, no anatomical or recovery outcome claim. This verifies browser input and served runtime policy delivery; native recovery is separately measured.',
       'Every requested served artifact matches the frozen local dist bytes; screenshots use the native camera.'] };
   await fs.writeFile(path.join(out, 'report.json'), JSON.stringify(report, null, 2) + '\n');

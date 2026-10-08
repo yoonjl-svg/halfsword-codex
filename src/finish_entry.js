@@ -1,6 +1,6 @@
 import { BODY, SKILL } from './config.js';
 
-/** Optional low-target entry. Combat floors are currently the plane y=0.
+/** Adopted low-target entry. Combat floors are currently the plane y=0.
  * Heights are gameplay entry geometry, not measured human motion limits.
  * The exit margin spans roughly one torso half-thickness to avoid chatter.
  */

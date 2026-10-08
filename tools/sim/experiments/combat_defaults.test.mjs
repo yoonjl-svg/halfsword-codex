@@ -34,7 +34,7 @@ for (const weapon of WEAPON_LIST) {
     assert.deepEqual(configureCombatDefaults(configureSwordsmanshipDefault(new URLSearchParams(query)),weapon),legacy);checks++;
   }
 }
-assert.deepEqual(counts,{fresh:15,centerline:11,bounded:14,v2:13});checks++;
+assert.deepEqual(counts,{fresh:16,centerline:11,bounded:15,v2:14});checks++;
 for(const id of ['monohoshizao','lightsaber']) {
  const weapon=WEAPON_LIST.find(w=>w.id===id);
  assert.equal(swordsmanshipDefaultSupportsWeapon(weapon),id==='monohoshizao');

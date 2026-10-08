@@ -1,5 +1,7 @@
 # 실험 색인과 재현 입구
 
+- 2026-10-08 · [내려찍기·모르겐 일반 적용, 급소/라이트v2 재검증](followup_release_20261008.md) · [소스·명령·해시](followup_checks_20261008.json) · 기준2af1c5f. 급소정밀명중미달·라이트후속공격감소로 두 비교는 선택형 유지. [실제 전달](followup_release_20261008.json).
+
 - 2026-10-08 · [가지·참치·69cm 철퇴](weapon_compact_20261008.md) · [해시/원자료](weapon_compact_20261008.json) · 기준31de577. 같은입력 큰 출렁임 부담 감소/미세 안정 혼합, 가지사거리 조정, native 접촉·파손 통과. [실제 공개](weapon_compact_release.json).
 
 - [10/08 리볼버 상반신 조준·75J](revolver_aim_20261008.md): 사용자 요청 반영. 기준 `a34eff6b5b84ef1611f73db639135da64ae6eb09`, 실제 공개는 [전달 영수증](revolver_aim_release.json).

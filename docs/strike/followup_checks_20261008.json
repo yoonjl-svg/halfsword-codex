@@ -1,0 +1,204 @@
+{
+  "baselineHEAD": "2af1c5f2d48e9a78a1fa95ba3688d3835dba43bd",
+  "scope": "User-approved ordinary low-finish entry and Morgenstern roster adoption, with separate lightsaber-v2 and opportunity verification",
+  "adoption": {
+    "finishEntry": "low for both ordinary fighters; archived explicit A/research kept",
+    "morgenstern": "ordinary random pool, common v2; dimensions/mass/damage unchanged",
+    "ai": "finite thrust selection bias for unedged weapons; existing edged ratio unchanged"
+  },
+  "native": {
+    "finish": {
+      "executions": 4,
+      "steps": 5280,
+      "pass": true,
+      "sourceStable": true,
+      "comparisons": [
+        {
+          "name": "ground",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": 70
+        },
+        {
+          "name": "low",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": 240
+        }
+      ]
+    },
+    "lightsaber": {
+      "executions": 4,
+      "steps": 3774,
+      "decision": "A/B only; active reverse/recut energy loss remains",
+      "activeMotionPercent": {
+        "first": {
+          "tipSpeed": 47.18,
+          "kineticEnergy": -16.93
+        },
+        "reverse": {
+          "tipSpeed": -40.52,
+          "kineticEnergy": -52.89
+        },
+        "recut": {
+          "tipSpeed": -36.3,
+          "kineticEnergy": -36.28
+        }
+      }
+    },
+    "opportunity": {
+      "executions": 12,
+      "steps": 20160,
+      "executionPassed": true,
+      "sourceStable": true,
+      "decision": "Do not promote opportunity targeting. Player cut reaches head and branch reaches head, but precise neck cutting/neck-face stabbing improvement and AI special target success are not established on this baseline. Max-two AI starts and ordinary continuation are observed."
+    }
+  },
+  "checks": {
+    "finishConnection": {
+      "pass": true,
+      "tests": 39,
+      "fixtures": 42,
+      "nativeSteps": 0
+    },
+    "spike": {
+      "pass": true,
+      "tests": 35
+    },
+    "entry": {
+      "pass": true,
+      "cases": 7,
+      "supportedMelee": 14
+    },
+    "capabilities": {
+      "pass": true,
+      "checks": 244
+    },
+    "aiSelection": {
+      "ordinaryWeapons": 14,
+      "matchedSelections": 168,
+      "maceSelections": 12,
+      "nativeSteps": 0,
+      "scope": "actual AI.pickTech on real Fighter fixtures with declared controlled RNG"
+    },
+    "developmentRegression": {
+      "pass": true,
+      "suites": 6,
+      "sourceStable": true,
+      "fingerprint": "39fcda71c8b4e90edf5fe2765dfc4db018104d7694729fa4501784956ea12b97",
+      "wallSeconds": 349.3762630130004
+    },
+    "localMobile": {
+      "pass": true,
+      "flows": 4,
+      "ordinaryCardFlows": 3,
+      "lightsaberPreviewFlows": 1,
+      "sourceStable": true,
+      "buildStable": true
+    }
+  },
+  "evidence": [
+    {
+      "path": "/workspace/halfsword-handoff/followup-release-20261008/finish-contracts.json",
+      "bytes": 36878,
+      "sha256": "aca9c392665dc31b2217edfdf974646ab9724234cab2eb87fcc0a6b9420c7668"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/followup-release-20261008/finish-native/report.json",
+      "bytes": 9297,
+      "sha256": "8ed9152570c7a701acf0276d752b296f56996954f7357d29fb41bc5ccb43dd47"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/followup-release-20261008/finish-native/protocol.json",
+      "bytes": 11371,
+      "sha256": "165f05f069fcc41c194243f03dd790c2f9743788e145a734e06b84238272a7b0"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/followup-release-20261008/entry-contracts.json",
+      "bytes": 1021,
+      "sha256": "3796590355ba28f7f2976639a7521630c381a8901ddea23ec061bf0add7a784b"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/followup-release-20261008/common-contracts.json",
+      "bytes": 231,
+      "sha256": "c7be7cc2779451552e2fd632999df019a9e0d6ddfebee2228e697d02d4c22063"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/followup-release-20261008/morgenstern-spike.json",
+      "bytes": 31627,
+      "sha256": "9e7e53438d6104d59820be5755d54d13225a1804c681071f4b15f780d0ab4182"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/followup-release-20261008/lightsaber/manifest.json",
+      "bytes": 11098,
+      "sha256": "5b04495e1cd4323fee2ca59e722c855120746fffbeaa1b7cc3b64c2534aa4ab7"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/followup-release-20261008/lightsaber/summary.json",
+      "bytes": 20960,
+      "sha256": "ba6a66d1bf15a0919adcb3f2a3e74e6d45793b37fd8ccf94980b25865c615ac5"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/followup-release-20261008/lightsaber/source-audit.json",
+      "bytes": 11482,
+      "sha256": "310413b9b53e0d45c654ef0fc8a657e6102381c92f5574d9d4c0891b547d2d19"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/followup-release-20261008/opportunity/manifest.json",
+      "bytes": 47340,
+      "sha256": "f100d16112074da7f532ad96811e13ad5ea15fc1b277ee70439b6b5873fe01a1"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/followup-release-20261008/opportunity/summary.json",
+      "bytes": 103575,
+      "sha256": "5c91d3b569b8a0e47e7d187da77c19c39c6ac23c9144cd3c8941093b8f0f43f6"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/followup-release-20261008/opportunity/audit.md",
+      "bytes": 5347,
+      "sha256": "66eba29b20540338e6c72b38ec38d23cf3ab251c53963922fd34e99cfe8035ac"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/finish-mace-adoption-20261008/ai-review/report.json",
+      "bytes": 56276,
+      "sha256": "037213f5b9098e5077527949c40f5addd87659a4fe19ac2119544249013bea97"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/finish-mace-adoption-20261008/ai-review/check-pick-tech.mjs",
+      "bytes": 5179,
+      "sha256": "76ccae18123eac6d0c4d2772d5dd65697bbf52dd30351c78bdb0931d4ccba4dd"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/finish-mace-adoption-20261008/ai-review/ai-before.js",
+      "bytes": 90070,
+      "sha256": "c20747f297424bd0b7952a79a3c5c8e170030220bdfac013b132c01ae1560916"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/finish-mace-adoption-20261008/ai-review/ai-after.js",
+      "bytes": 90292,
+      "sha256": "48f49699fc096257cc33e68c9ba037e03ad2ddd3e0c6b0b9cacfe4e38167b60c"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/finish-mace-adoption-20261008/ai-review/attempt1-failure.json",
+      "bytes": 538,
+      "sha256": "80c2a0c8a4072ea1e0cf684cd3a477b80304b95de91de517bd2bfaa159964e88"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/followup-release-20261008/regression/result.json",
+      "bytes": 293401,
+      "sha256": "c0b7c7510cbd8080bab66ef1ccc1a75cc0af9dd44a8f485d6fdf5c0db450c78d"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/arm-recovery-20261008/mobile/promotion-local-01/report.json",
+      "bytes": 813242,
+      "sha256": "7bc7c4358bd3b458f5c8f9238bbd85a77fc39457945b1fe8d0e31dbf8bf237f2"
+    }
+  ],
+  "remaining": [
+    "recovery leg sequence",
+    "residual upper arm overlap",
+    "precise opportunity neck/face hits",
+    "lightsaber v2 general adoption",
+    "physical-phone endurance/playfeel"
+  ]
+}
