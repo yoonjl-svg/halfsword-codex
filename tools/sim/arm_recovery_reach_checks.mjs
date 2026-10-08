@@ -1,6 +1,6 @@
 /** Pure recovery-goal handover checks. No native world or physical execution. */
 import assert from 'node:assert/strict';
-import { constrainRecoveryArmReach as constrain } from '../../src/arm_recovery_reach.js';
+import { constrainRecoveryArmReach as constrain, usesCoupledArmRecovery } from '../../src/arm_recovery_reach.js';
 
 const tests = [];
 function check(name, run) {
@@ -125,9 +125,24 @@ check('invalid side or non-finite goal does not release another valid pending go
   assert.equal(apply(f, -0.2).target.x, 0.16);
 });
 
-for (const weapon of [{ twoHand: true, gun: false }, { twoHand: false, gun: true }]) {
+check('two-handed recovery uses the same continuous forward handover', () => {
+  const f = { state: 'getup', weaponCfg: { twoHand: true } };
+  assert.equal(apply(f, -0.57).target.x, 0.16);
+  f.state = 'stand';
+  assert.equal(apply(f, -0.57).target.x, 0.16);
+  assert.equal(apply(f, 0.2).target.x, 0.2);
+  assert.equal(apply(f, -0.57).target.x, -0.57);
+});
+
+check('common two-hand path excludes only the measured controller exception', () => {
+  assert.equal(usesCoupledArmRecovery({ id: 'future-two-hand', twoHand: true }), true);
+  assert.equal(usesCoupledArmRecovery({ id: 'sabre', twoHand: false }), false);
+  assert.equal(usesCoupledArmRecovery({ id: 'lightsaber', twoHand: true }), false);
+});
+
+for (const weapon of [{ twoHand: false, gun: true }, { id: 'lightsaber', twoHand: true, gun: false }]) {
   check(`deferred controller stays unchanged: ${JSON.stringify(weapon)}`, () => {
-    const f = { state: 'getup', weaponCfg: { twoHand: weapon.twoHand }, weapon: { gun: weapon.gun } };
+    const f = { state: 'getup', weaponCfg: { twoHand: weapon.twoHand }, weapon };
     assert.equal(apply(f, -0.57).target.x, -0.57);
     f.state = 'stand';
     assert.equal(apply(f, -0.57).target.x, -0.57);

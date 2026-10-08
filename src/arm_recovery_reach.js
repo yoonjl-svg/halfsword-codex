@@ -6,6 +6,13 @@ const FRONT_MARGIN = 0.16;
 const recoveryStates = new Set(['down', 'getup', 'kneel']);
 const pending = new WeakMap();
 
+// Common two-hand path, with one measured exception: the current lightsaber
+// controller lost active re-cut speed/energy with both motor and contact fixes.
+// Preserve that weapon until its separate controller is revalidated.
+export function usesCoupledArmRecovery(weapon) {
+  return !!weapon?.twoHand && weapon.id !== 'lightsaber';
+}
+
 /**
  * Constrain a chest-local IK target in place. Each arm keeps its own recovery
  * handover until its original target reaches the front again: the timed state
@@ -13,9 +20,9 @@ const pending = new WeakMap();
  * Returns whether this call changed the target's forward coordinate.
  */
 export function constrainRecoveryArmReach(fighter, target, side) {
-  // Coupled two-hand recovery produced a new deep off-arm/torso overlap on
-  // re-input. Keep that controller, and the separate gun controller, unchanged.
-  if (fighter.weaponCfg?.twoHand || fighter.weapon?.gun) {
+  // The gun and the measured two-hand exception retain their existing goals.
+  if (fighter.weapon?.gun || (fighter.weaponCfg?.twoHand &&
+      !usesCoupledArmRecovery(fighter.weapon || fighter.weaponCfg))) {
     pending.delete(fighter);
     return false;
   }

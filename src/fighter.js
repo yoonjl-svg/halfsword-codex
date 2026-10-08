@@ -1,4 +1,5 @@
-import { constrainRecoveryArmReach } from './arm_recovery_reach.js';
+import { constrainRecoveryArmReach, usesCoupledArmRecovery } from './arm_recovery_reach.js';
+import { driveOffShoulderMotor } from './off_shoulder_motor.js';
 import { updateIntentEdgePlane, smoothIntentElevation } from './edge_intent.js';
 import { applyPlaneAlignmentPotential } from './edge_torque.js';
 import { updateMainArmRecovery, mainArmMuscle } from './arm_recovery_activation.js';
@@ -285,12 +286,15 @@ export class Fighter {
     const origin = new THREE.Vector3(o.x, 0, 0);
     const toWorld = (p) => new THREE.Vector3(...p).applyQuaternion(yaw).add(origin);
 
+    const spec = getWeapon(o.weapon || DEFAULT_WEAPON);
     const myBody = bodyBit(this.index);
     const otherBody = bodyBit(1 - this.index);
     const otherWeapon = weaponBit(1 - this.index);
     const bodyGroups = groups(myBody, BIT.ground | otherBody | otherWeapon);
     const footGroups = groups(footBit(this.index), BIT.ground | otherWeapon);
     const weaponGroups = groups(weaponBit(this.index), BIT.ground | otherBody | otherWeapon | footBit(1 - this.index));
+    const ownForearmBit = this.index === 0 ? 256 : 1024;
+    const ownTorsoBit = this.index === 0 ? 512 : 2048;
 
     const defs = partDefs(this.side);
     this.headR = defs.find((d) => d.name === 'head').shape[1]; // 머리 공 반지름 (skill.js 찍기 겨눔이 머리 꼭대기 높이를 잰다)
@@ -308,12 +312,21 @@ export class Fighter {
           // 칼 든 팔은 엔진 쪽 회전 감쇠를 조금 더 준다 (엔진이 안정적으로 처리하는 감쇠)
           .setAngularDamping(d.alongX ? 1.5 : 0.4),
       );
+      let partGroups = d.foot ? footGroups : bodyGroups;
+      // Two-handed recovery can drop the forearms through the torso while
+      // shoulder activation is low. Let native contact resolve only these
+      // non-adjacent pairs. Connected upper arms and our weapon stay excluded.
+      if (usesCoupledArmRecovery(spec)) {
+        const external = BIT.ground | otherBody | otherWeapon;
+        if (d.name === 'farmS' || d.name === 'farmO') partGroups = groups(myBody | ownForearmBit, external | ownTorsoBit);
+        if (['chest', 'abdomen', 'pelvis'].includes(d.name)) partGroups = groups(myBody | ownTorsoBit, external | ownForearmBit);
+      }
       const cd = shapeDesc(RAPIER, d.shape)
         .setRotation(vecQ(d.alongX ? ALONG_X : IDENTITY_Q))
         .setMass(d.mass)
         // 옷·살끼리는 잘 미끄러진다 (마찰이 크면 팔이 상대 몸에 걸려 같이 끌려간다)
         .setFriction(d.foot ? 0.9 : 0.25)
-        .setCollisionGroups(d.foot ? footGroups : bodyGroups);
+        .setCollisionGroups(partGroups);
       const col = world.createCollider(cd, rb);
       if (d.name === 'abdomen') {
         // 배는 가볍고(10kg) 무거운 골반과 상체(30kg) 사이에 끼어 있어서, 엔진의 반복 계산(6회)으로는
@@ -408,7 +421,6 @@ export class Fighter {
 
     // ── 무기: 데이터 중심 무기고(weapons.js)에서 무기 하나를 골라 만든다 ──
     //  기본값(o.weapon 없음)은 그대로 롱소드라서 기존 시뮬 결과가 바뀌지 않는다.
-    const spec = getWeapon(o.weapon || DEFAULT_WEAPON);
     this.weapon = spec;
     // These thin two-hand weapons spun at rest when the paired force point
     // sat outside their hilt axis. Use the actual hilt point for both fighters;
@@ -1878,6 +1890,10 @@ export class Fighter {
       const maxErr = (j.max * mus) / Math.max(1, k); // 이 이상 벌어진 목표는 근력으로 못 따라간다
       if (j.manual) {
         this.manualMuscle(j, k, d, j.max * mus);
+        continue;
+      }
+      if (n === 'uarmO' && usesCoupledArmRecovery(this.weapon)) {
+        driveOffShoulderMotor(j, k, d, maxErr, inv);
         continue;
       }
       // 목표와 현재 자세를 "관절 기준 자세"에서 잰 회전으로 바꾼다
