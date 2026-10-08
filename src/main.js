@@ -319,6 +319,7 @@ const trail = new InputTrail(canvas); // 방금 조작한 흔적 (반투명 선)
 input.trail = trail;
 
 let world, eventQueue, colliderInfo, player, enemy, ai, combat;
+input.onHandReset = () => player?.skill.clearThrustRange('input-reset');
 let bodySounds = [];
 /**
  * 흩어지던 조각(부러진 칼날 끝·투구·판금 — debris.js 한 곳)과 벗겨진 케틀햇(캐릭터 그룹 밖, 장면에 있다)을 치운다:
@@ -504,6 +505,7 @@ function newRound(weaponId) {
   if (recoveryFinishTrial.active) for (const f of [player, enemy]) {
     f.finishEntryModel = recoveryFinishTrial.finish;
     f.recoverySequenceModel = recoveryFinishTrial.recovery;
+    f.getupLeadDelay = recoveryFinishTrial.getupLeadDelay;
   }
   for (const f of [player, enemy]) f.onehandArmModel = onehandArmModel;
   if (integratedCombatTrial.active || swordsmanshipTrial.active || activeV2Trial) enemy.onehandArmModel = 'legacy';
@@ -1623,6 +1625,7 @@ function frame(now) {
       held: player.handHeld, active: player.inputActive });
     // 칼 쪽 화면을 톡 치면(마우스는 끌지 않고 클릭) 찌른다 (skill.js thrust). 권총은 손가락이 닿는 순간 쏜다 (쏘는 타이밍이 실력이라 뗄 때까지 늦추지 않는다)
     input.tapOnDown = !!player.weapon?.gun;
+    player.stickX = input.move.x; player.stickY = input.move.y;
     if (input.consumeTaps() > 0 && player.alive) player.skill.thrust();
     updatePlayerEmotion(dt);
     watchEmotions();

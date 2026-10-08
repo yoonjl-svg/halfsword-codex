@@ -1043,6 +1043,13 @@ export class Fighter {
     return THREE.MathUtils.clamp(1 - (this.stateTime - this.kneelTime) / this.riseTime, 0, 1);
   }
 
+  /** Delay only the trailing leg's rise pose; pelvis support and stand timing stay unchanged. */
+  get kneelAmountB() {
+    if (!this.getupLeadDelay || this.state !== 'getup' || this.stateTime < this.kneelTime) return this.kneelAmount;
+    const u = (this.stateTime - this.kneelTime) / this.riseTime;
+    return THREE.MathUtils.clamp(1 - (u - 0.3) / 0.7, 0, 1);
+  }
+
   setState(s) {
     this.state = s;
     this.stateTime = 0;
@@ -1833,13 +1840,14 @@ export class Fighter {
     // 무릎 꿇기 자세 (앞다리는 세워 발을 딛고, 뒷다리는 무릎을 땅에)
     const kn = this.kneelAmount;
     if (kn > 0) {
-      const K = (name, a) => J[name].target.slerp(_qk.setFromAxisAngle(Z_AXIS, a), kn);
+      const knB = this.kneelAmountB;
+      const K = (name, a, blend = kn) => J[name].target.slerp(_qk.setFromAxisAngle(Z_AXIS, a), blend);
       K('thighF', 1.25);
       K('shinF', -1.45);
       K('footF', 0.2);
-      K('thighB', -0.15);
-      K('shinB', -1.75);
-      K('footB', 0.8); // 뒷발은 발끝으로 땅을 짚는다
+      K('thighB', -0.15, knB);
+      K('shinB', -1.75, knB);
+      K('footB', 0.8, knB); // 뒷발은 발끝으로 땅을 짚는다
     }
     const setZ = (name, a) => J[name].target.setFromAxisAngle(Z_AXIS, a);
     // 빈 손은 앞으로 들어 균형을 잡는다 (다친 팔은 힘없이 늘어진다)

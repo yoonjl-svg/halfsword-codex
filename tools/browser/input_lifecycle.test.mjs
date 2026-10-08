@@ -96,6 +96,41 @@ check('canceling another finger does not erase the active hand gesture', () => {
   assert.equal(input.activeTouch, 6); assert.ok(input.consumeHandDelta().x > 0);
 });
 input.resetTransient();
+for (const type of ['pointercancel', 'lostpointercapture']) {
+  check(`${type} of the sword finger preserves a held stick and keyboard`, () => {
+    pad.emit('pointerdown', { pointerId: 20, clientX: 90 });
+    windowEvents.emit('keydown', { code: 'KeyW' });
+    const heldMove = { ...input.move };
+    const heldKnob = knob.style.transform;
+    start(21); up(21); // A queued tap must not escape the canceled hand gesture.
+    start(22, 1100); move(22);
+    (type === 'pointercancel' ? windowEvents : canvas).emit(type, { pointerId: 22 });
+    assert.deepEqual(input.consumeHandDelta(), { x: 0, y: 0 });
+    assert.equal(input.consumeTaps(), 0); assert.equal(input.press, null);
+    assert.equal(input.activeTouch, null); assert.deepEqual(trail.touch, []);
+    assert.deepEqual(input.move, heldMove); assert.equal(input.keys.has('KeyW'), true);
+    assert.equal(knob.style.transform, heldKnob); assert.equal(pad.hasPointerCapture(20), true);
+    // The original stick pointer must still update, without lifting and touching again.
+    pad.emit('pointermove', { pointerId: 20, clientX: 10 });
+    assert.ok(input.stickMove.x < 0);
+    up(22, 1140); assert.equal(input.consumeTaps(), 0);
+    start(23, 1200); move(23); assert.ok(input.consumeHandDelta().x > 0);
+    up(23, 1280); assert.equal(input.consumeTaps(), 0);
+    input.resetTransient(); clean();
+  });
+}
+check('canceling the stick keeps a sword drag and keyboard active', () => {
+  start(24); move(24); windowEvents.emit('keydown', { code: 'KeyW' });
+  const handBefore = { x: input.handDX, y: input.handDY };
+  pad.emit('pointerdown', { pointerId: 25, clientX: 90 });
+  pad.emit('pointercancel', { pointerId: 25 });
+  windowEvents.emit('pointercancel', { pointerId: 25 }); // The same cancellation bubbles.
+  assert.equal(input.activeTouch, 24); assert.equal(input.press.id, 24);
+  assert.deepEqual(input.consumeHandDelta(), handBefore);
+  assert.equal(input.keys.has('KeyW'), true); assert.deepEqual(input.move, { x: 0, y: 1 });
+  assert.equal(pad.captures.size, 0); assert.equal(knob.style.transform, '');
+  input.resetTransient(); clean();
+});
 check('joystick lost capture clears local id and knob before a fresh finger', () => {
   pad.emit('pointerdown', { pointerId: 9, clientX: 90 });
   pad.releasePointerCapture(9); clean();

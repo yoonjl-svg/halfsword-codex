@@ -24,7 +24,7 @@
 //  level: 0 = 보정 없음(날것 그대로의 물리 조작), 1 = 숙련된 검사
 // ─────────────────────────────────────────────────────────────
 import * as THREE from 'three';
-import { SKILL, WEAPON, THRUST } from './config.js';
+import { SKILL, WEAPON, THRUST, ARM } from './config.js';
 import { gunCanFire, gunPose, headOff } from './gun.js';
 import { FINISH, armRay, updateFinish } from './finish.js';
 import { LOW_FINISH, lowFinishEnabled } from './finish_entry.js';
@@ -32,6 +32,7 @@ import { updateSwordAssistReturn } from './sword_assist_v2.js';
 import { hasSwordsmanship, advanceSwordsmanship } from './swordsmanship.js';
 import { enabled as opportunityEnabled, captureOpportunityPose, findOpportunity } from './opportunity_target.js';
 import { captureOpportunityThrust, updateOpportunityThrust } from './opportunity_thrust.js';
+import { distanceEnabled, measureThrustDistance, THRUST_DISTANCE } from './combat_distance.js';
 
 const D2R = Math.PI / 180;
 const _yawInv = new THREE.Quaternion();
@@ -107,15 +108,16 @@ export class Skill {
    *  (검술 층이 따로 내딛기를 부탁하면 AI 가 "안 내딛는다"고 정한 때도 내딛고, 곧이어 AI 걸음이 그 부탁을 덮어써 두 번 내딛었다)
    * @returns 시작했으면 true
    */
-  thrust({ step = true, opportunityTarget = undefined } = {}) {
+  thrust({ step = true, opportunityTarget = undefined, rangeCommit = false } = {}) {
     const f = this.f;
-    if (this.tap || !f.alive || !f.armed || !f.foe || (f.state !== 'stand' && f.state !== 'kneel')) return false;
+    if (this.tap || (this.thrustRange && !rangeCommit) || !f.alive || !f.armed || !f.foe || (f.state !== 'stand' && f.state !== 'kneel')) return false;
     // 권총(??? 등급): 찌르기 = 발사. 장전 중이면 쏘지 않는다 (gun.js)
     if (f.weapon?.gun) return gunCanFire(f, { now: true }); // 권총: 찌르는 동작 없이 사격 자세(gunPose, 자동 조준 + 흔들림)의 지금 총신 방향으로 바로 쏜다 (AI 조준 보정은 gunAI)
     // 지금 손 목표 (몸 기준 [앞, 위, 칼 든 쪽]). 검술 보정이 다 걸려 있으면 자세 지도의 손, 덜 걸려 있으면(보정 약·끔)
     //  날것 손 위치와 섞인 실제 손 목표(fighter.handBase)에서 뻗는다 — 자세 지도의 손에서 뻗으면 실제 손보다 뒤에서 시작해 덜 나갔다
     const manualOnehand = f.onehandArmModel === 'manual' && f.guardPose.oneHand && !f.weaponCfg.twoHand;
-    const g = (!hasSwordsmanship(f) && !manualOnehand && f.guardWeight() >= 1) || !f.handBase ? f.guardPose.hand : f.handBase;
+    const preparedHand = distanceEnabled(f) && (rangeCommit || this.rangeAI?.active) && this.thrustPose.w > 0 ? this.thrustPose.hand.slice() : null;
+    const g = preparedHand ?? ((!hasSwordsmanship(f) && !manualOnehand && f.guardWeight() >= 1) || !f.handBase ? f.guardPose.hand : f.handBase);
     const lowEntry = lowFinishEnabled(f);
     // Input arrives before Fighter.step. Refresh current geometry without
     // advancing the pose fade; starting permission is independent of that fade.
@@ -125,6 +127,17 @@ export class Skill {
     //  (겨누기·뻗기까지 빠르게 하면 팔이 손 목표를 따라가지 못해 오히려 덜 뻗는다 — 측정: 레이피어 탭 상처 60% → 20%)
     const ts = f.weaponCfg.thrustStyle;
     const K = { aim: THRUST.aim, extend: THRUST.extend, hold: THRUST.hold, recover: THRUST.recover * (ts?.recover ?? 1), reach: THRUST.reach + (ts?.reach ?? 0) };
+    if (!down && distanceEnabled(f) && f.index === 0 && !rangeCommit && opportunityTarget === undefined &&
+        Math.hypot(f.stickX ?? 0, f.stickY ?? 0) <= THRUST_DISTANCE.manualDead) {
+      const opening = findOpportunity(f, captureOpportunityPose(f.foe), 'thrust');
+      if (opening) {
+        this.thrustRange = { phase: 'position', age: 0, target: opening.target.toArray(),
+          foe: f.foe, weapon: f.weapon.id, origin: f.bodies.chest.translation(),
+          hand: g ? [...g] : [0.3,-0.2,0.12], pad: f.handOffset.toArray(), measure: null };
+        this.lunge = 0;
+        return true; // Accepted intent, not yet an actual attack/force phase.
+      }
+    }
     this.tap = { t: 0, h0: g ? [g[0], g[1], g[2]] : [0.3, -0.2, 0.12], down, head: !down && this.aimRaw.y > THRUST.headPad, K };
     if (lowEntry && down) this.tap.foe = f.foe;
     if (!down && opportunityEnabled(f)) {
@@ -133,7 +146,7 @@ export class Skill {
       const opening = opportunityTarget === undefined && f.index === 0
         ? findOpportunity(f, captureOpportunityPose(f.foe), 'thrust') : opportunityTarget;
       if (opening?.kind === 'thrust' && opening.targetId === f.foe.index &&
-          (['neck', 'face'].includes(opening.zone) || (f.opportunityModel === 'v3' && opening.zone === 'head')) && opening.target &&
+          (['neck', 'face'].includes(opening.zone) || (['v3','v4'].includes(f.opportunityModel) && opening.zone === 'head')) && opening.target &&
           [opening.target.x, opening.target.y, opening.target.z].every(Number.isFinite)) {
         this.tap.opportunity = {
           target: [opening.target.x, opening.target.y, opening.target.z],
@@ -154,18 +167,101 @@ export class Skill {
     const precision = captureOpportunityThrust(f, this.tap);
     if (precision) this.tap.opportunityPrecision = precision;
     this.thrusts++;
+    if (rangeCommit || this.rangeAI?.active) {
+      this.tap.rangePrepared = true; this.tap.rangeStartWeight = this.thrustPose.w; this.thrustRange = null; this.rangeAI = null;
+      this.rangePose = null; this.lunge = 0;
+    }
     if (down) {
       // 쓰러진 상대: 누운 몸 점이 닿는 곳(finish.js plunge.inside) 밖이고 걸어서 닿으면(plunge.walk) 걸어 들어간다 (plungePose — 디딤마다 본다).
       //  AI(step:false — 제 걸음은 AI 가 정한다)·무릎 꿇은 채는 걷지 않고 그 자리에서 찍는다
       const tp = this.tap;
       tp.walkOk = step !== false && f.state === 'stand';
       if (tp.walkOk && (lowEntry ? f.finish.plunge.walk || f.finish.plunge.surfaceWalk : f.finish.plunge.walk)) tp.walking = true;
-    } else if (step && f.state === 'stand') {
+    } else if (step && !this.tap.rangePrepared && f.state === 'stand') {
       // 한 걸음 내딛으며 찌른다
       if (f.gait?.active) f.gait.requestStep({ kind: 'lunge', fwd: THRUST.step, duration: 0.3 });
       else this.lunge = SKILL.lungeTime;
     }
     return true;
+  }
+
+  /** End an uncommitted distance request. Existing attacks keep their clock. */
+  clearThrustRange(reason = 'cancelled') {
+    if (this.thrustRange || this.rangeAI || this.rangePose) {
+      this.lastThrustRange = { reason, phase: 'cancelled', age: this.thrustRange?.age ?? this.rangePose?.age ?? 0,
+        measure: this.thrustRange?.measure ?? this.rangePose?.measure ?? null };
+      this.rangeRelease = true;
+    }
+    this.thrustRange = null; this.rangeAI = null; this.rangePose = null;
+  }
+
+  prepareThrustRange(target, dt, hand) {
+    const f = this.f;
+    const p = this.rangePose ||= { age: 0, hand: [...(hand ?? f.handBase ?? f.guardPose.hand)] };
+    p.age += dt;
+    // Reserve real elbow travel before choosing the body distance. AI guard
+    // templates can request a hand beyond armIK's sphere; copying that pose
+    // would leave no forward stroke even at a nominally correct range.
+    const shoulder = new THREE.Vector3(ARM.shoulder[0],ARM.shoulder[1],ARM.shoulder[2]*(f.side ?? 1));
+    const cq = f.bodies.chest.rotation();
+    shoulder.applyQuaternion(new THREE.Quaternion(cq.x,cq.y,cq.z,cq.w)).applyQuaternion(f.yaw.clone().invert());
+    const offset = new THREE.Vector3(...p.hand).sub(shoulder);
+    const readyReach = (ARM.upper+ARM.fore-ARM.slack)*0.85;
+    if (offset.length() > readyReach) p.hand = offset.setLength(readyReach).add(shoulder).toArray();
+    if (f.weaponCfg.twoHand) {
+      // Both hands must bring the hilt onto the thrust corridor. Keeping an
+      // inherited side guard fixed can make the off-hand oppose wrist aiming.
+      const c = f.bodies.chest.translation();
+      const local = target.clone().sub(new THREE.Vector3(c.x,c.y,c.z)).applyQuaternion(f.yaw.clone().invert());
+      p.hand[2] += THREE.MathUtils.clamp(THREE.MathUtils.clamp(local.z,-0.12,0.12)-p.hand[2],-0.4*dt,0.4*dt);
+    }
+    const grip = f.sword.translation();
+    const dir = target.clone().sub(new THREE.Vector3(grip.x,grip.y,grip.z)).normalize()
+      .applyQuaternion(f.yaw.clone().invert());
+    const pose = this.thrustPose;
+    pose.w = Math.min(1, pose.w + dt / 0.15);
+    pose.hand.splice(0,3,...p.hand); pose.dir.splice(0,3,...dir.toArray());
+    this.thrustPush = false;
+    this.activity = Math.max(this.activity, pose.w); // Same body coordination as the following thrust; no impact mass yet.
+    p.measure = measureThrustDistance(f,target);
+    return p.measure;
+  }
+
+  updateThrustRange(dt) {
+    const f = this.f;
+    if (!distanceEnabled(f)) return;
+    const request = this.thrustRange;
+    if (request) {
+      request.age += dt;
+      const c = f.bodies.chest.translation();
+      const travel = Math.hypot(c.x-request.origin.x,c.z-request.origin.z);
+      const manual = Math.hypot(f.stickX ?? 0,f.stickY ?? 0) > THRUST_DISTANCE.manualDead ||
+        f.handOffset.distanceTo(new THREE.Vector2(...request.pad)) > 0.035;
+      const lost = !f.alive || !f.armed || f.weaponBroken || !['stand','kneel'].includes(f.state) ||
+        f.foe !== request.foe || f.weapon.id !== request.weapon;
+      if (manual || lost || request.age > THRUST_DISTANCE.timeout || travel > THRUST_DISTANCE.maxTravel) {
+        this.clearThrustRange(manual ? 'manual-input' : lost ? 'ownership' : 'preparation-limit');
+      } else {
+        const opening = findOpportunity(f,captureOpportunityPose(f.foe),'thrust');
+        if (!opening) this.clearThrustRange('opening-lost');
+        else {
+          request.target = opening.target.toArray();
+          const m = request.measure = this.prepareThrustRange(opening.target,dt,request.hand);
+          request.phase = m.ready ? 'align' : 'position';
+          if (!m.valid || (f.state === 'kneel' && !m.ready)) this.clearThrustRange('unreachable');
+          else if (m.ready && m.aligned) {
+            this.lastThrustRange = { reason: 'committed', age: request.age, measure: {...m} };
+            f.move.y = 0;
+            this.thrust({ step: false, opportunityTarget: opening, rangeCommit: true });
+          } else f.move.y = m.move;
+        }
+      }
+    } else if (this.rangeAI?.active && !this.tap) {
+      this.prepareThrustRange(this.rangeAI.target,dt);
+    } else if (this.rangeRelease && !this.tap) {
+      this.thrustPose.w = Math.max(0,this.thrustPose.w-dt/0.12);
+      if (this.thrustPose.w === 0) this.rangeRelease = false;
+    }
   }
 
   /**
@@ -250,7 +346,7 @@ export class Skill {
     this.thrustPush = t >= K.aim && t < end;
     if (tp.step && t < K.aim + K.extend && f.move.y > -0.2) f.move.y = Math.max(f.move.y, SKILL.lungeMove * this.level);
     // 덧씌우는 정도: 겨누며 빠르게 1로, 뻗은 뒤 자세로 돌아오며 0으로
-    pose.w = t < K.aim ? t / K.aim : t < end ? 1 : 1 - (t - end) / K.recover;
+    pose.w = t < K.aim ? Math.max(tp.rangeStartWeight ?? 0, t / K.aim) : t < end ? 1 : 1 - (t - end) / K.recover;
     const c = f.bodies.chest.translation();
     _c.set(c.x, c.y, c.z);
     _yawInv.copy(f.yaw).invert();
@@ -672,11 +768,14 @@ export class Skill {
         }
       }
     }
+    if (distanceEnabled(f) && (this.thrustRange || this.rangeAI?.active || this.tap?.rangePrepared)) this.lunge = 0;
     if (this.lunge > 0) {
       this.lunge -= dt;
       // 물러나려는 중이면 내딛지 않는다 (조작이 우선)
       if (f.move.y > -0.2 && f.foeDistance() > SKILL.lungeMin) f.move.y = Math.max(f.move.y, SKILL.lungeMove * L);
     }
+
+    this.updateThrustRange(dt);
 
     // 5) 탭 찌르기
     if (this.tap) {

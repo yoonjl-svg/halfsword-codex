@@ -1,5 +1,7 @@
 # 혼합안 독립 개발 인계
 
+**최신 입력·간격·기립 ·10/09:** 승인된 손 취소/스틱 분리는 일반판에 연결한다. [거리 준비 v4](../strike/opportunity_distance_20261009.md)는 실제 무기 길이·팔 여유로 접근/후퇴→정렬→찌르기를 잇는 선택형이며, [기립 시간차 .3](../strike/getup_lead_20261009.md)도 선택형이다. 거리별 명중은 혼합 결과이고 기립 발 미끄럼/하중 인계는 남아 있다. [공개 전달 영수증](../strike/opportunity_distance_release.json)의 상태가 실제 배포 완료 기준이다.
+
 **최신 교환 발행 ·10/09 KST:** 사용자 요청의 [8일 지연 보고](https://github.com/yoonjl-svg/halfsword-codex/blob/dev-exchange/docs/devmeet/2026-10-08.md)를 발행했다. 원격 문서/출처 해시와 자동 발행기의 기존 보고 보존을 확인했다. [상태·누락 원인](exchange_status_20261009.md); 상대 수신/검토는 미확인이다.
 
 **최신 찌르기 영역 ·10/08:** 사용자 승인으로 목 우선 선택을 목·머리 영역으로 교정한다. A는 이전v2, B는 새v3 선택형이며 [실험일지](../strike/opportunity_head_region_20261008.md)와 [전달 영수증](../strike/opportunity_head_region_release.json)을 우선한다. 기존 성공률1/20을 출발점으로 삼고 목표 선택·유효 피해·사망을 구분한다.

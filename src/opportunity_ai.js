@@ -6,12 +6,41 @@ import { guardAt } from './guards.js';
 import { applyOpportunityElevation } from './opportunity_player.js';
 import { enabled, precisionEnabled, findOpportunity, OPPORTUNITY } from './opportunity_target.js';
 import { opportunityPathGoal } from './opportunity_path.js';
+import { distanceEnabled, measureThrustDistance } from './combat_distance.js';
 
 export const OPPORTUNITY_AI = Object.freeze({ attempts: 2, resetHold: 0.45, padHeightScale: 0.5 });
 const clamp = (x, lo, hi) => Math.min(hi, Math.max(lo, x));
 
 export function createOpportunityAI() {
   return { active: false, attempts: 0, stable: 0, episode: 0, targetId: null };
+}
+
+/** Distance preparation reads the same delayed target as the attack. It owns
+ * only an ordinary Skill command, never the victim or a physical transform. */
+export function opportunityRangeAttack(ai) {
+  return distanceEnabled(ai.me) && ai.opportunityAttack?.kind === 'thrust';
+}
+
+export function clearOpportunityRange(ai) {
+  if (ai.me.skill?.rangeAI) ai.me.skill.clearThrustRange();
+}
+
+export function prepareOpportunityRange(ai) {
+  const lock = ai.opportunityAttack, me = ai.me;
+  const preparing = opportunityRangeAttack(ai) && !lock.started &&
+    ai.mode === 'attack' && ['windup', 'approach'].includes(ai.phase) &&
+    me.alive && me.armed && !me.weaponBroken && ['stand', 'kneel'].includes(me.state) &&
+    !me.skill.tap && !me.revival && !me.feetHeld;
+  if (!preparing) { clearOpportunityRange(ai); return null; }
+  const range = measureThrustDistance(me, lock.target);
+  lock.distance = range;
+  if (!range.valid) { clearOpportunityRange(ai); return range; }
+  const request = me.skill.rangeAI;
+  if (request && request.episode === lock.episode) {
+    request.active = true;
+    request.target.copy(lock.target);
+  } else me.skill.rangeAI = { active: true, target: lock.target.clone(), episode: lock.episode };
+  return range;
 }
 
 /** Distance, attack aborts, weapon changes and kneel/down/getup chatter cannot
@@ -253,6 +282,10 @@ export function commitOpportunityAttack(ai) {
   if (!ai.opportunityAttack) return true;
   if (ai.opportunityAttack.started) return true;
   if (!refreshOpportunityAttack(ai)) return false;
+  if (opportunityRangeAttack(ai)) {
+    const range = measureThrustDistance(ai.me, ai.opportunityAttack.target);
+    if (!range.valid || !range.ready || !range.aligned) return false;
+  }
   ai.opportunityAttack.started = true;
   ai.opportunityAttack.handY = ai.opportunityCommand?.handY ?? 0;
   ai.opportunityAttack.pitch = ai.opportunityCommand?.pitch ?? 0;

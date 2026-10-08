@@ -1,0 +1,1276 @@
+{
+  "schema": 1,
+  "dateKST": "2026-10-09",
+  "baselineHead": "9171874a880024010a87ad793fd6fd58a7817f3e",
+  "scope": "Input cancellation isolation as ordinary correction; distance v4 and getup-lead are optional comparisons. Public delivery not asserted by this experiment record.",
+  "releaseReceipt": "opportunity_distance_release.json",
+  "status": {
+    "input": "implemented; DOM fixture verified",
+    "range": "implemented; mixed native outcomes; optional comparison",
+    "getup": "separate getup_lead_20261009.md/.json",
+    "publicDelivery": "see future release receipt; unverified at authoring"
+  },
+  "measurementDefinition": {
+    "acceptedRequest": "thrust() accepted caller intent; it may queue without starting an attack",
+    "actualSpecialStart": "new actual tap object carrying opportunity metadata",
+    "headNeckStabApplication": "actual applyWound callback, stab type, head/neck zone; winding, contact, damage and death remain distinct",
+    "countLimitation": "Applications are events, not independent success percentages. Native geometry and injury/state fixtures do not establish human realism."
+  },
+  "nativeTotals": {
+    "executions": 29,
+    "steps": 40560,
+    "containsSupersededFailedIterations": true,
+    "allRunsMeasurementValid": true,
+    "scope": "Distance candidate probes only; separate development regression suite native work is not added here."
+  },
+  "engineSHA256": {
+    "node_modules/@dimforge/rapier3d-compat/package.json": "0e0b00bc0e8d0dd7afed4da18831a5bc416fce03637c64b48329898dfd9e3320",
+    "node_modules/@dimforge/rapier3d-compat/rapier.mjs": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+    "node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5"
+  },
+  "nativeRuns": [
+    {
+      "name": "run01",
+      "baselineHead": "9171874a880024010a87ad793fd6fd58a7817f3e",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/opportunity_distance_20261009.mjs",
+        "/tmp/halfsword-distance-run01"
+      ],
+      "gap": 1.65,
+      "models": [
+        "v3",
+        "v4"
+      ],
+      "executions": 4,
+      "nativeSteps": 6720,
+      "measurementValid": true,
+      "frozenSource": "/tmp/halfsword-distance-source-jkc40V",
+      "sourceManifestSHA256": "80ccc8a3aba803fb0cd81b249a8d423c73b696fdead4be94188dcf4f3ea5e314",
+      "sourceManifestLocation": "/tmp/halfsword-distance-run01/report.json#sourceBefore",
+      "report": {
+        "path": "/tmp/halfsword-distance-run01/report.json",
+        "sha256": "28c1c72717f59f53db88d257a0cf080546da1fb277726c61970ac77c9020634a"
+      },
+      "protocol": {
+        "path": "/tmp/halfsword-distance-run01/protocol.json",
+        "sha256": "1be36189399e4788e04f5c8fd722ee8a5d92e69563592f93a394327bd7d8af7f"
+      },
+      "frozenSourceStable": true,
+      "engineStable": true,
+      "liveConcurrentChanges": [
+        {
+          "path": "tools/sim/experiments/opportunity_distance_ai.test.mjs",
+          "before": "0bd71a592cd2a3dbccdf28f9adbc0a744ec84c5cfb9611fde1b3102cb8ba92a0",
+          "frozen": "0bd71a592cd2a3dbccdf28f9adbc0a744ec84c5cfb9611fde1b3102cb8ba92a0",
+          "after": "57609806b1eeaf0c91b3c3ab60565a170eef8c2057237e6c1cdfcaebed05f107"
+        }
+      ],
+      "rows": [
+        {
+          "case": "thrustGuard",
+          "seed": 7,
+          "model": "v3",
+          "requestedAccepted": 2,
+          "queuedRequests": 0,
+          "actualSpecialStartTicks": [
+            720
+          ],
+          "headNeckStabApplications": [
+            {
+              "tick": 741,
+              "zone": "neck",
+              "energyGameJ": 67.2776244907254,
+              "woundDelta": 1,
+              "victimAliveAfter": false
+            }
+          ],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-run01/thrustGuard-v3.json.gz",
+          "bytes": 425180,
+          "sha256": "66fa044b8c59590b2d890ccff2491108532360e1689dc7904a886a4502c2205b",
+          "error": null
+        },
+        {
+          "case": "thrustGuard",
+          "seed": 7,
+          "model": "v4",
+          "requestedAccepted": 2,
+          "queuedRequests": 2,
+          "actualSpecialStartTicks": [
+            734,
+            1038
+          ],
+          "headNeckStabApplications": [
+            {
+              "tick": 755,
+              "zone": "neck",
+              "energyGameJ": 24.1226321990224,
+              "woundDelta": 1,
+              "victimAliveAfter": true
+            },
+            {
+              "tick": 1056,
+              "zone": "head",
+              "energyGameJ": 37.65295922930767,
+              "woundDelta": 1,
+              "victimAliveAfter": false
+            }
+          ],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-run01/thrustGuard-v4.json.gz",
+          "bytes": 450018,
+          "sha256": "57b221801f605e4154e8b68f104659caa629bf55791c2e019ed2c2c431c0ddc8",
+          "error": null
+        },
+        {
+          "case": "aiThrustOpenLow",
+          "seed": 7,
+          "model": "v3",
+          "requestedAccepted": 7,
+          "queuedRequests": 0,
+          "actualSpecialStartTicks": [
+            729,
+            875
+          ],
+          "headNeckStabApplications": [],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-run01/aiThrustOpenLow-v3.json.gz",
+          "bytes": 847351,
+          "sha256": "5bc06264d29517b27b7b1222b350c55a095be2ae22224017be93264f906e13d6",
+          "error": null
+        },
+        {
+          "case": "aiThrustOpenLow",
+          "seed": 7,
+          "model": "v4",
+          "requestedAccepted": 6,
+          "queuedRequests": 0,
+          "actualSpecialStartTicks": [
+            886,
+            950
+          ],
+          "headNeckStabApplications": [],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-run01/aiThrustOpenLow-v4.json.gz",
+          "bytes": 888247,
+          "sha256": "9b2f73e4f3648f94c1f5ed662d7ac48fba7ec9334977750ec1d6187da1032f94",
+          "error": null
+        }
+      ]
+    },
+    {
+      "name": "run02",
+      "baselineHead": "9171874a880024010a87ad793fd6fd58a7817f3e",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/opportunity_distance_20261009.mjs",
+        "/tmp/halfsword-distance-run02",
+        "thrustGuard,aiThrustOpenLow,thrustGuardEstoc",
+        "--models=v3,v4"
+      ],
+      "gap": 1.65,
+      "models": [
+        "v3",
+        "v4"
+      ],
+      "executions": 6,
+      "nativeSteps": 9120,
+      "measurementValid": true,
+      "frozenSource": "/tmp/halfsword-distance-source-8leTRf",
+      "sourceManifestSHA256": "20a8060553785b37d5444a3da299cc757ea3b09855cfd739deaaf5cffdfd1e80",
+      "sourceManifestLocation": "/tmp/halfsword-distance-run02/report.json#sourceBefore",
+      "report": {
+        "path": "/tmp/halfsword-distance-run02/report.json",
+        "sha256": "71dbc2cc5c089691e35a163d3b2390f474462b660c87b4b805254045734e2128"
+      },
+      "protocol": {
+        "path": "/tmp/halfsword-distance-run02/protocol.json",
+        "sha256": "3867305e6a883ca12308e125708e8471f1ff79270fa42af7c8361f3f8084ba68"
+      },
+      "frozenSourceStable": true,
+      "engineStable": true,
+      "liveConcurrentChanges": [],
+      "rows": [
+        {
+          "case": "thrustGuard",
+          "seed": 7,
+          "model": "v3",
+          "requestedAccepted": 2,
+          "queuedRequests": 0,
+          "actualSpecialStartTicks": [
+            720
+          ],
+          "headNeckStabApplications": [
+            {
+              "tick": 741,
+              "zone": "neck",
+              "energyGameJ": 67.2776244907254,
+              "woundDelta": 1,
+              "victimAliveAfter": false
+            }
+          ],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-run02/thrustGuard-v3.json.gz",
+          "bytes": 425180,
+          "sha256": "24fc489ce090f041fea97963262d435431ccd8d14e6343f03596e81635f5bddc",
+          "error": null
+        },
+        {
+          "case": "thrustGuard",
+          "seed": 7,
+          "model": "v4",
+          "requestedAccepted": 2,
+          "queuedRequests": 2,
+          "actualSpecialStartTicks": [
+            737,
+            1008
+          ],
+          "headNeckStabApplications": [
+            {
+              "tick": 755,
+              "zone": "neck",
+              "energyGameJ": 22.739198483585188,
+              "woundDelta": 1,
+              "victimAliveAfter": true
+            },
+            {
+              "tick": 1027,
+              "zone": "head",
+              "energyGameJ": 38.39393888864877,
+              "woundDelta": 1,
+              "victimAliveAfter": false
+            }
+          ],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-run02/thrustGuard-v4.json.gz",
+          "bytes": 454392,
+          "sha256": "5b496f8c54dfa8c00b8bdeee8820eb186b87995d9f30edd24da21fdb23fbf7fb",
+          "error": null
+        },
+        {
+          "case": "aiThrustOpenLow",
+          "seed": 7,
+          "model": "v3",
+          "requestedAccepted": 7,
+          "queuedRequests": 0,
+          "actualSpecialStartTicks": [
+            729,
+            875
+          ],
+          "headNeckStabApplications": [],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-run02/aiThrustOpenLow-v3.json.gz",
+          "bytes": 847352,
+          "sha256": "687e73d2411761c2b1cb79ed003bed7c78b7f1dc2e11051c2de27f03c266c587",
+          "error": null
+        },
+        {
+          "case": "aiThrustOpenLow",
+          "seed": 7,
+          "model": "v4",
+          "requestedAccepted": 1,
+          "queuedRequests": 0,
+          "actualSpecialStartTicks": [
+            934
+          ],
+          "headNeckStabApplications": [
+            {
+              "tick": 953,
+              "zone": "neck",
+              "energyGameJ": 38.91789859713409,
+              "woundDelta": 1,
+              "victimAliveAfter": false
+            }
+          ],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-run02/aiThrustOpenLow-v4.json.gz",
+          "bytes": 855229,
+          "sha256": "415133f4563a0e81df9a6e6f58d32c4bf9c73aaee91975bca6d125351febc410",
+          "error": null
+        },
+        {
+          "case": "thrustGuardEstoc",
+          "seed": 7,
+          "model": "v3",
+          "requestedAccepted": 2,
+          "queuedRequests": 0,
+          "actualSpecialStartTicks": [
+            720,
+            900
+          ],
+          "headNeckStabApplications": [],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-run02/thrustGuardEstoc-v3.json.gz",
+          "bytes": 391447,
+          "sha256": "f73957af0911a17d6b2a55e79b450dbc5f33ed0526a11465c8f18d3322b2f4f9",
+          "error": null
+        },
+        {
+          "case": "thrustGuardEstoc",
+          "seed": 7,
+          "model": "v4",
+          "requestedAccepted": 1,
+          "queuedRequests": 1,
+          "actualSpecialStartTicks": [],
+          "headNeckStabApplications": [],
+          "cancellations": [
+            {
+              "tick": 960,
+              "reason": "preparation-limit"
+            }
+          ],
+          "rawFile": "/tmp/halfsword-distance-run02/thrustGuardEstoc-v4.json.gz",
+          "bytes": 420295,
+          "sha256": "c868772454f2e363c2da1d4970742d3212f5a357cfcf364478eee64fc3d7bfb7",
+          "error": null
+        }
+      ]
+    },
+    {
+      "name": "run03",
+      "baselineHead": "9171874a880024010a87ad793fd6fd58a7817f3e",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/opportunity_distance_20261009.mjs",
+        "/tmp/halfsword-distance-run03",
+        "thrustGuard,aiThrustOpenLow,thrustGuardEstoc",
+        "--models=v4"
+      ],
+      "gap": 1.65,
+      "models": [
+        "v4"
+      ],
+      "executions": 3,
+      "nativeSteps": 4560,
+      "measurementValid": true,
+      "frozenSource": "/tmp/halfsword-distance-source-W9w8WN",
+      "sourceManifestSHA256": "084c0db19824cb706712f5be03e129667c44af2aafb3261babd60105f7eed01a",
+      "sourceManifestLocation": "/tmp/halfsword-distance-run03/report.json#sourceBefore",
+      "report": {
+        "path": "/tmp/halfsword-distance-run03/report.json",
+        "sha256": "afeb5c2d290fb3f056659f5967a79e00fa797b84f26138b4cd462a266e8885a5"
+      },
+      "protocol": {
+        "path": "/tmp/halfsword-distance-run03/protocol.json",
+        "sha256": "7e1fd0d22b13bec72ec5262b1c686a793feef31a4f4ca5e3bf82cb20f2abbab0"
+      },
+      "frozenSourceStable": true,
+      "engineStable": true,
+      "liveConcurrentChanges": [],
+      "rows": [
+        {
+          "case": "thrustGuard",
+          "seed": 7,
+          "model": "v4",
+          "requestedAccepted": 2,
+          "queuedRequests": 2,
+          "actualSpecialStartTicks": [
+            737,
+            1014
+          ],
+          "headNeckStabApplications": [
+            {
+              "tick": 755,
+              "zone": "neck",
+              "energyGameJ": 21.684495039959348,
+              "woundDelta": 1,
+              "victimAliveAfter": true
+            },
+            {
+              "tick": 1033,
+              "zone": "head",
+              "energyGameJ": 33.66776938538089,
+              "woundDelta": 1,
+              "victimAliveAfter": true
+            }
+          ],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-run03/thrustGuard-v4.json.gz",
+          "bytes": 454352,
+          "sha256": "406d719e8180ebb94b909820b31da2f148e5a760424f86b87565f68bc6a83078",
+          "error": null
+        },
+        {
+          "case": "aiThrustOpenLow",
+          "seed": 7,
+          "model": "v4",
+          "requestedAccepted": 6,
+          "queuedRequests": 0,
+          "actualSpecialStartTicks": [
+            1027,
+            1234
+          ],
+          "headNeckStabApplications": [
+            {
+              "tick": 1047,
+              "zone": "head",
+              "energyGameJ": 35.42880953085946,
+              "woundDelta": 1,
+              "victimAliveAfter": true
+            }
+          ],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-run03/aiThrustOpenLow-v4.json.gz",
+          "bytes": 970455,
+          "sha256": "5c3934ad9df3ae82264d067ee4213608d742cba041af9ae86bf81f45b2aa59ec",
+          "error": null
+        },
+        {
+          "case": "thrustGuardEstoc",
+          "seed": 7,
+          "model": "v4",
+          "requestedAccepted": 1,
+          "queuedRequests": 1,
+          "actualSpecialStartTicks": [],
+          "headNeckStabApplications": [],
+          "cancellations": [
+            {
+              "tick": 960,
+              "reason": "preparation-limit"
+            }
+          ],
+          "rawFile": "/tmp/halfsword-distance-run03/thrustGuardEstoc-v4.json.gz",
+          "bytes": 457326,
+          "sha256": "d1aff957042cb2bd4f747b419f1a8fa5aad4fc24a53c5a649a8d4c9b8b8456ac",
+          "error": null
+        }
+      ]
+    },
+    {
+      "name": "estoc04",
+      "baselineHead": "9171874a880024010a87ad793fd6fd58a7817f3e",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/opportunity_distance_20261009.mjs",
+        "/tmp/halfsword-distance-estoc04",
+        "thrustGuardEstoc",
+        "--models=v4"
+      ],
+      "gap": 1.65,
+      "models": [
+        "v4"
+      ],
+      "executions": 1,
+      "nativeSteps": 1200,
+      "measurementValid": true,
+      "frozenSource": "/tmp/halfsword-distance-source-kVBS0f",
+      "sourceManifestSHA256": "0c6d72286099a639bb1eda92594b8d8f567bcb54d5ffe11356e56312ec14f17b",
+      "sourceManifestLocation": "/tmp/halfsword-distance-estoc04/report.json#sourceBefore",
+      "report": {
+        "path": "/tmp/halfsword-distance-estoc04/report.json",
+        "sha256": "677686dd0c13e34bb58c582ba9f1135dff317e2b1172804c5974ddf10a6ff432"
+      },
+      "protocol": {
+        "path": "/tmp/halfsword-distance-estoc04/protocol.json",
+        "sha256": "de34eaa1aa0323bafd2549a6b8e04d6930c293c308b367128bff8cb4c9a8b1de"
+      },
+      "frozenSourceStable": true,
+      "engineStable": true,
+      "liveConcurrentChanges": [],
+      "rows": [
+        {
+          "case": "thrustGuardEstoc",
+          "seed": 7,
+          "model": "v4",
+          "requestedAccepted": 1,
+          "queuedRequests": 1,
+          "actualSpecialStartTicks": [
+            864
+          ],
+          "headNeckStabApplications": [
+            {
+              "tick": 882,
+              "zone": "neck",
+              "energyGameJ": 20.34789273398561,
+              "woundDelta": 1,
+              "victimAliveAfter": true
+            }
+          ],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-estoc04/thrustGuardEstoc-v4.json.gz",
+          "bytes": 421832,
+          "sha256": "6f801a38615c441445b54bd21b29c67a3226357d7c61056b1f5174235382d2bb",
+          "error": null
+        }
+      ]
+    },
+    {
+      "name": "near05",
+      "baselineHead": "9171874a880024010a87ad793fd6fd58a7817f3e",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/opportunity_distance_20261009.mjs",
+        "/tmp/halfsword-distance-near05",
+        "thrustGuard,thrustGuardEstoc",
+        "--models=v3,v4",
+        "--gap=1.25"
+      ],
+      "gap": 1.25,
+      "models": [
+        "v3",
+        "v4"
+      ],
+      "executions": 4,
+      "nativeSteps": 4800,
+      "measurementValid": true,
+      "frozenSource": "/tmp/halfsword-distance-source-OfIN1C",
+      "sourceManifestSHA256": "0c6d72286099a639bb1eda92594b8d8f567bcb54d5ffe11356e56312ec14f17b",
+      "sourceManifestLocation": "/tmp/halfsword-distance-near05/report.json#sourceBefore",
+      "report": {
+        "path": "/tmp/halfsword-distance-near05/report.json",
+        "sha256": "1b1ced94d4c6c1da7678d90315255366d3ecaad3e7c0d3b0f7f314a53664d9d8"
+      },
+      "protocol": {
+        "path": "/tmp/halfsword-distance-near05/protocol.json",
+        "sha256": "1913c503927f354b41d7ef1536e0bce5cf1322f7cba447a339c24b74a9719526"
+      },
+      "frozenSourceStable": true,
+      "engineStable": true,
+      "liveConcurrentChanges": [],
+      "rows": [
+        {
+          "case": "thrustGuard",
+          "seed": 7,
+          "model": "v3",
+          "requestedAccepted": 2,
+          "queuedRequests": 0,
+          "actualSpecialStartTicks": [
+            720,
+            900
+          ],
+          "headNeckStabApplications": [],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-near05/thrustGuard-v3.json.gz",
+          "bytes": 446869,
+          "sha256": "ee867bf303c353b6942af1b5182051a0fb73536c2afd7b4054f758c858f5560c",
+          "error": null
+        },
+        {
+          "case": "thrustGuard",
+          "seed": 7,
+          "model": "v4",
+          "requestedAccepted": 1,
+          "queuedRequests": 1,
+          "actualSpecialStartTicks": [
+            868
+          ],
+          "headNeckStabApplications": [],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-near05/thrustGuard-v4.json.gz",
+          "bytes": 493519,
+          "sha256": "4f0941894e76b75ee74fd080a0e240c5b1a165bd41486d7fd4ba272dcbb4aa16",
+          "error": null
+        },
+        {
+          "case": "thrustGuardEstoc",
+          "seed": 7,
+          "model": "v3",
+          "requestedAccepted": 2,
+          "queuedRequests": 0,
+          "actualSpecialStartTicks": [
+            720,
+            900
+          ],
+          "headNeckStabApplications": [],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-near05/thrustGuardEstoc-v3.json.gz",
+          "bytes": 512774,
+          "sha256": "349ed69169a5fc73e495067aa841d8ce80b0482afbc709505bc13978228230e7",
+          "error": null
+        },
+        {
+          "case": "thrustGuardEstoc",
+          "seed": 7,
+          "model": "v4",
+          "requestedAccepted": 1,
+          "queuedRequests": 1,
+          "actualSpecialStartTicks": [
+            936
+          ],
+          "headNeckStabApplications": [
+            {
+              "tick": 955,
+              "zone": "neck",
+              "energyGameJ": 18.20822065826195,
+              "woundDelta": 1,
+              "victimAliveAfter": true
+            }
+          ],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-near05/thrustGuardEstoc-v4.json.gz",
+          "bytes": 496462,
+          "sha256": "c24cc4e2e291ad53e4c41abd755c4d63435dc7c031c396aee965e1c29436005a",
+          "error": null
+        }
+      ]
+    },
+    {
+      "name": "far05",
+      "baselineHead": "9171874a880024010a87ad793fd6fd58a7817f3e",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/opportunity_distance_20261009.mjs",
+        "/tmp/halfsword-distance-far05",
+        "thrustGuard,thrustGuardEstoc",
+        "--models=v3,v4",
+        "--gap=2.15"
+      ],
+      "gap": 2.15,
+      "models": [
+        "v3",
+        "v4"
+      ],
+      "executions": 4,
+      "nativeSteps": 4800,
+      "measurementValid": true,
+      "frozenSource": "/tmp/halfsword-distance-source-aUqsKP",
+      "sourceManifestSHA256": "0c6d72286099a639bb1eda92594b8d8f567bcb54d5ffe11356e56312ec14f17b",
+      "sourceManifestLocation": "/tmp/halfsword-distance-far05/report.json#sourceBefore",
+      "report": {
+        "path": "/tmp/halfsword-distance-far05/report.json",
+        "sha256": "90c213f5b5fe67ff05a8bb4e2add749b325b85554286754cdc2f86f6efdb5d64"
+      },
+      "protocol": {
+        "path": "/tmp/halfsword-distance-far05/protocol.json",
+        "sha256": "83ce0fea2b410ae034c709f2a13bfd8df928f2d941ab0c0f2ba887c7e0aa76eb"
+      },
+      "frozenSourceStable": true,
+      "engineStable": true,
+      "liveConcurrentChanges": [],
+      "rows": [
+        {
+          "case": "thrustGuard",
+          "seed": 7,
+          "model": "v3",
+          "requestedAccepted": 2,
+          "queuedRequests": 0,
+          "actualSpecialStartTicks": [
+            900
+          ],
+          "headNeckStabApplications": [
+            {
+              "tick": 918,
+              "zone": "head",
+              "energyGameJ": 44.66958343743823,
+              "woundDelta": 1,
+              "victimAliveAfter": false
+            }
+          ],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-far05/thrustGuard-v3.json.gz",
+          "bytes": 380847,
+          "sha256": "7205d26633a8bcb7fe27a20c10994300919156ace85d1fd0383ec29322b49b61",
+          "error": null
+        },
+        {
+          "case": "thrustGuard",
+          "seed": 7,
+          "model": "v4",
+          "requestedAccepted": 2,
+          "queuedRequests": 2,
+          "actualSpecialStartTicks": [
+            776,
+            913
+          ],
+          "headNeckStabApplications": [
+            {
+              "tick": 932,
+              "zone": "head",
+              "energyGameJ": 50.03143619668574,
+              "woundDelta": 1,
+              "victimAliveAfter": false
+            }
+          ],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-far05/thrustGuard-v4.json.gz",
+          "bytes": 395624,
+          "sha256": "38fb7ee4460e2ad3e9e930b1ca78cca24860a7fa169ffa20ef44fb2a28016edc",
+          "error": null
+        },
+        {
+          "case": "thrustGuardEstoc",
+          "seed": 7,
+          "model": "v3",
+          "requestedAccepted": 2,
+          "queuedRequests": 0,
+          "actualSpecialStartTicks": [
+            720,
+            900
+          ],
+          "headNeckStabApplications": [
+            {
+              "tick": 919,
+              "zone": "head",
+              "energyGameJ": 19.577392514409006,
+              "woundDelta": 1,
+              "victimAliveAfter": true
+            }
+          ],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-far05/thrustGuardEstoc-v3.json.gz",
+          "bytes": 384067,
+          "sha256": "e406aab767209361f0be8d02d14e0f85b3daf80e664ac3b9f8205a0a11f56065",
+          "error": null
+        },
+        {
+          "case": "thrustGuardEstoc",
+          "seed": 7,
+          "model": "v4",
+          "requestedAccepted": 2,
+          "queuedRequests": 2,
+          "actualSpecialStartTicks": [
+            822
+          ],
+          "headNeckStabApplications": [],
+          "cancellations": [
+            {
+              "tick": 946,
+              "reason": "opening-lost"
+            }
+          ],
+          "rawFile": "/tmp/halfsword-distance-far05/thrustGuardEstoc-v4.json.gz",
+          "bytes": 407807,
+          "sha256": "c68b5e3469d19538f896313e21f149af1e273cc1c3e5a35308a0ab2976b9c0e9",
+          "error": null
+        }
+      ]
+    },
+    {
+      "name": "final-mid06",
+      "baselineHead": "9171874a880024010a87ad793fd6fd58a7817f3e",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/opportunity_distance_20261009.mjs",
+        "/tmp/halfsword-distance-final-mid06",
+        "thrustGuard,aiThrustOpenLow,thrustGuardEstoc",
+        "--models=v4",
+        "--gap=1.65"
+      ],
+      "gap": 1.65,
+      "models": [
+        "v4"
+      ],
+      "executions": 3,
+      "nativeSteps": 4560,
+      "measurementValid": true,
+      "frozenSource": "/tmp/halfsword-distance-source-cTsLni",
+      "sourceManifestSHA256": "2a1cd7f1820137c3a9f23f08f1bc5fe71a203925eebd270a4d1248ff9fc48f14",
+      "sourceManifestLocation": "/tmp/halfsword-distance-final-mid06/report.json#sourceBefore",
+      "report": {
+        "path": "/tmp/halfsword-distance-final-mid06/report.json",
+        "sha256": "d37f6444247fed972eeb0044a5907d005de1a8b63a708b243d35d58db0c52078"
+      },
+      "protocol": {
+        "path": "/tmp/halfsword-distance-final-mid06/protocol.json",
+        "sha256": "0ae549abf6c736ac1a3e8189d862f3aeafc774c697d01dc71a123057a2489a61"
+      },
+      "frozenSourceStable": true,
+      "engineStable": true,
+      "liveConcurrentChanges": [],
+      "rows": [
+        {
+          "case": "thrustGuard",
+          "seed": 7,
+          "model": "v4",
+          "requestedAccepted": 2,
+          "queuedRequests": 2,
+          "actualSpecialStartTicks": [
+            737,
+            1014
+          ],
+          "headNeckStabApplications": [
+            {
+              "tick": 755,
+              "zone": "neck",
+              "energyGameJ": 21.684495039959348,
+              "woundDelta": 1,
+              "victimAliveAfter": true
+            },
+            {
+              "tick": 1033,
+              "zone": "head",
+              "energyGameJ": 33.66776938538089,
+              "woundDelta": 1,
+              "victimAliveAfter": true
+            }
+          ],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-final-mid06/thrustGuard-v4.json.gz",
+          "bytes": 454352,
+          "sha256": "39ecf77eb7397108dc9afa220cf06bfb1de40830da3591a7cdd476584ca45d47",
+          "error": null
+        },
+        {
+          "case": "aiThrustOpenLow",
+          "seed": 7,
+          "model": "v4",
+          "requestedAccepted": 6,
+          "queuedRequests": 0,
+          "actualSpecialStartTicks": [
+            1027,
+            1234
+          ],
+          "headNeckStabApplications": [
+            {
+              "tick": 1047,
+              "zone": "head",
+              "energyGameJ": 35.42880953085946,
+              "woundDelta": 1,
+              "victimAliveAfter": true
+            }
+          ],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-final-mid06/aiThrustOpenLow-v4.json.gz",
+          "bytes": 970453,
+          "sha256": "79aa2b26f2b2126705087a5bbc62db5fc7c3aecaf7a6fd6abbdfffdb1c0b42cc",
+          "error": null
+        },
+        {
+          "case": "thrustGuardEstoc",
+          "seed": 7,
+          "model": "v4",
+          "requestedAccepted": 1,
+          "queuedRequests": 1,
+          "actualSpecialStartTicks": [
+            864
+          ],
+          "headNeckStabApplications": [
+            {
+              "tick": 882,
+              "zone": "neck",
+              "energyGameJ": 20.34789273398561,
+              "woundDelta": 1,
+              "victimAliveAfter": true
+            }
+          ],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-final-mid06/thrustGuardEstoc-v4.json.gz",
+          "bytes": 421832,
+          "sha256": "2687e80d5dc5e77af862b29340749c4ce23ebde228881e5d840ac8069a9cb880",
+          "error": null
+        }
+      ]
+    },
+    {
+      "name": "final-near06",
+      "baselineHead": "9171874a880024010a87ad793fd6fd58a7817f3e",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/opportunity_distance_20261009.mjs",
+        "/tmp/halfsword-distance-final-near06",
+        "thrustGuard,thrustGuardEstoc",
+        "--models=v4",
+        "--gap=1.25"
+      ],
+      "gap": 1.25,
+      "models": [
+        "v4"
+      ],
+      "executions": 2,
+      "nativeSteps": 2400,
+      "measurementValid": true,
+      "frozenSource": "/tmp/halfsword-distance-source-O8RNLp",
+      "sourceManifestSHA256": "2a1cd7f1820137c3a9f23f08f1bc5fe71a203925eebd270a4d1248ff9fc48f14",
+      "sourceManifestLocation": "/tmp/halfsword-distance-final-near06/report.json#sourceBefore",
+      "report": {
+        "path": "/tmp/halfsword-distance-final-near06/report.json",
+        "sha256": "df16127c9154dd4503cfb1a42e546eff55b00fc1d3e28af6a5c105c6af85b747"
+      },
+      "protocol": {
+        "path": "/tmp/halfsword-distance-final-near06/protocol.json",
+        "sha256": "0d752f97bbab6ecef303975ee9b274284db1ac2dac26cafa29c91ff63048f18e"
+      },
+      "frozenSourceStable": true,
+      "engineStable": true,
+      "liveConcurrentChanges": [],
+      "rows": [
+        {
+          "case": "thrustGuard",
+          "seed": 7,
+          "model": "v4",
+          "requestedAccepted": 1,
+          "queuedRequests": 1,
+          "actualSpecialStartTicks": [
+            868
+          ],
+          "headNeckStabApplications": [],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-final-near06/thrustGuard-v4.json.gz",
+          "bytes": 493517,
+          "sha256": "4b204bf81d870ec704bcd05e80b4a876edb94a235f763d6e3d95ee33096d12cb",
+          "error": null
+        },
+        {
+          "case": "thrustGuardEstoc",
+          "seed": 7,
+          "model": "v4",
+          "requestedAccepted": 1,
+          "queuedRequests": 1,
+          "actualSpecialStartTicks": [
+            936
+          ],
+          "headNeckStabApplications": [
+            {
+              "tick": 955,
+              "zone": "neck",
+              "energyGameJ": 18.20822065826195,
+              "woundDelta": 1,
+              "victimAliveAfter": true
+            }
+          ],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-final-near06/thrustGuardEstoc-v4.json.gz",
+          "bytes": 496466,
+          "sha256": "f793efcdb09477c6f57d2a7a0e03d54904b2b36a045bbd282ca6c2659c865e05",
+          "error": null
+        }
+      ]
+    },
+    {
+      "name": "final-far06",
+      "baselineHead": "9171874a880024010a87ad793fd6fd58a7817f3e",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/opportunity_distance_20261009.mjs",
+        "/tmp/halfsword-distance-final-far06",
+        "thrustGuard,thrustGuardEstoc",
+        "--models=v4",
+        "--gap=2.15"
+      ],
+      "gap": 2.15,
+      "models": [
+        "v4"
+      ],
+      "executions": 2,
+      "nativeSteps": 2400,
+      "measurementValid": true,
+      "frozenSource": "/tmp/halfsword-distance-source-PmzUcI",
+      "sourceManifestSHA256": "2a1cd7f1820137c3a9f23f08f1bc5fe71a203925eebd270a4d1248ff9fc48f14",
+      "sourceManifestLocation": "/tmp/halfsword-distance-final-far06/report.json#sourceBefore",
+      "report": {
+        "path": "/tmp/halfsword-distance-final-far06/report.json",
+        "sha256": "3462f3fce7eedfb6513e82c0c067421730f1470e8845e5e704b49d0461629f03"
+      },
+      "protocol": {
+        "path": "/tmp/halfsword-distance-final-far06/protocol.json",
+        "sha256": "0c430297e0c368c575ec730e9d3afc11f2d0548ba0963cc9bb3ebbb27852ac34"
+      },
+      "frozenSourceStable": true,
+      "engineStable": true,
+      "liveConcurrentChanges": [],
+      "rows": [
+        {
+          "case": "thrustGuard",
+          "seed": 7,
+          "model": "v4",
+          "requestedAccepted": 2,
+          "queuedRequests": 2,
+          "actualSpecialStartTicks": [
+            776,
+            913
+          ],
+          "headNeckStabApplications": [
+            {
+              "tick": 932,
+              "zone": "head",
+              "energyGameJ": 50.03143619668574,
+              "woundDelta": 1,
+              "victimAliveAfter": false
+            }
+          ],
+          "cancellations": [],
+          "rawFile": "/tmp/halfsword-distance-final-far06/thrustGuard-v4.json.gz",
+          "bytes": 395623,
+          "sha256": "6e9fa9a110de9eac30878e77a18529a62f0b6fc91a333f31b7fe2b8ccd2871ea",
+          "error": null
+        },
+        {
+          "case": "thrustGuardEstoc",
+          "seed": 7,
+          "model": "v4",
+          "requestedAccepted": 2,
+          "queuedRequests": 2,
+          "actualSpecialStartTicks": [
+            822
+          ],
+          "headNeckStabApplications": [],
+          "cancellations": [
+            {
+              "tick": 946,
+              "reason": "opening-lost"
+            }
+          ],
+          "rawFile": "/tmp/halfsword-distance-final-far06/thrustGuardEstoc-v4.json.gz",
+          "bytes": 407806,
+          "sha256": "49c5e9d1445c527b33dbc5cf6f860c047e1332c498be7ff9def376041acf9a2b",
+          "error": null
+        }
+      ]
+    }
+  ],
+  "contracts": [
+    {
+      "name": "final-input",
+      "path": "/tmp/halfsword-distance-contracts-final-input.json",
+      "sha256": "4a4b40aa600b1fb1f5f703bce7c57e5767b0311809a037a8394a75354b836bda",
+      "pass": true,
+      "checks": 15,
+      "nativeSteps": 0,
+      "note": "Command/component/DOM fixture checks; not added to native combat execution count."
+    },
+    {
+      "name": "final-range",
+      "path": "/tmp/halfsword-distance-contracts-final-range.json",
+      "sha256": "4e7f742e717e028751feeeb6f414c0e6dd1f0feb3b740b08d04e8422171892ab",
+      "pass": true,
+      "checks": 11,
+      "nativeSteps": 0,
+      "note": "Command/component/DOM fixture checks; not added to native combat execution count."
+    },
+    {
+      "name": "final-ai",
+      "path": "/tmp/halfsword-distance-contracts-final-ai.json",
+      "sha256": "3d8474f0dcceb83dc224500bd687870d87fc31dd76ce72bba8ca2182b77ba341",
+      "pass": true,
+      "checks": 8,
+      "nativeSteps": 0,
+      "note": "Command/component/DOM fixture checks; not added to native combat execution count.",
+      "successEvidence": "Tool exited 0 and reported eight passed names; its JSON schema has no pass boolean."
+    },
+    {
+      "name": "region",
+      "path": "/tmp/halfsword-distance-contracts-region.json",
+      "sha256": "d87dd77bd37640d854d865d78b9885b05a0460af5610bd154a861637ae7cc990",
+      "pass": true,
+      "checks": 11,
+      "nativeSteps": 0,
+      "note": "Command/component/DOM fixture checks; not added to native combat execution count."
+    },
+    {
+      "name": "path",
+      "path": "/tmp/halfsword-distance-contracts-path.json",
+      "sha256": "1f1f55f752d86c90e1ea94ebfb3fca095f403e931e2211095e54d347be5d77ed",
+      "pass": true,
+      "checks": 12,
+      "nativeSteps": 0,
+      "note": "Command/component/DOM fixture checks; not added to native combat execution count."
+    },
+    {
+      "name": "thrust",
+      "path": "/tmp/halfsword-distance-contracts-thrust.json",
+      "sha256": "e5c3da3e58efbd2edf08613e12637ca657bdaf916fdc841259039c208b39ad49",
+      "pass": true,
+      "checks": 9,
+      "nativeSteps": 0,
+      "note": "Command/component/DOM fixture checks; not added to native combat execution count."
+    },
+    {
+      "name": "legacy-result",
+      "path": "/tmp/halfsword-distance-contracts-legacy-result.json",
+      "sha256": "ab53f4afe258ed5d68e4a39f577419802ddc22c7a977d84d73337316bf229f73",
+      "pass": true,
+      "checks": 58,
+      "nativeSteps": 0,
+      "note": "Command/component/DOM fixture checks; not added to native combat execution count."
+    }
+  ],
+  "baselineReuse": {
+    "path": "/tmp/halfsword-distance-run02/baseline-reuse.json",
+    "sha256": "c3455c6feeb39cc50fcbfa6997b8165e9241a8b000cad4e89769b65ac532b137",
+    "scope": "run01 vs run02 v3 player rapier 1200 and AI rapier 2160 native snapshots exact; no estoc or later-snapshot blanket equivalence claim"
+  },
+  "independentReview": {
+    "path": "/workspace/halfsword-handoff/input-getup-range-20261009/distance-final-audit.md",
+    "sha256": "510f124f0c9ba10acd956bb932ea6035f1834b428b42f94cce1b09d062e27b48",
+    "scope": "Root common helper/Skill reviewed separately; AI files reviewed by their implementer. No new native runs by reviewer."
+  },
+  "geometryCorrection": {
+    "negativeDiscriminant": "Current helper returns armTravel 0 for a ray missing the arm reach sphere; component check added",
+    "equivalenceToRecordedNativeRuns": "Seven final candidate replays: all 9360 native frame hashes and input/actualStarts/analyses/accepted/applied/clashes equal their retained per-case references. This retains both unsuccessful near-rapier and far-estoc scenes, not universal efficacy.",
+    "audit": {
+      "path": "/workspace/halfsword-handoff/input-getup-range-20261009/final-geometry-replay.json",
+      "sha256": "fb5b2b481f4993620ec4d0fa367a9860d54f5f226f537c6a779b28c69f979a8d",
+      "bytes": 20859,
+      "comparedRows": 7,
+      "comparedNativeFrames": 9360,
+      "allNativeFramesEquivalent": true,
+      "allSpecifiedFieldsEquivalent": true,
+      "allCommitTargetsFixed": true,
+      "maxAIAttempts": 2,
+      "additionalAuditExecutions": 0,
+      "interpretation": "Exact equivalence for these seven seed7 controlled fixtures only. Thrust wound events are not a population hit or fatality rate. Unique attack starts, fixed-target checks and received versus applied events remain distinct. Prior run03 failed estoc is deliberately not substituted for successful estoc04 reference."
+    }
+  },
+  "fixture": {
+    "source": "actual game harness_m.mjs",
+    "seed": 7,
+    "input": "archived off input tape; player targets passive; AI activated at tick720",
+    "preparation": "At tick240 victim leg controller health is set .2/.2 and knockDown(false); AI case drops victim sword. Explicit controller/state fixture, not an actual wound or spontaneous duel.",
+    "forbiddenInjectionAbsent": [
+      "body transform",
+      "body velocity",
+      "external force",
+      "forced applyWound",
+      "AI2",
+      "park"
+    ]
+  },
+  "limits": [
+    "29 runs include discarded revisions; not 22 independent validation seeds.",
+    "Near gap1.25 rapier B made one actual special start but no head/neck stab wound.",
+    "Far gap2.15 estoc A made a head stab wound while B had no vital wound and its second preparation canceled opening-lost.",
+    "No claim of 30% efficacy, universal improvement, unchanged actual damage energy, human optimal range or physical-phone acceptance.",
+    "No general promotion of distance or getup candidate is recorded here."
+  ],
+  "regression": [
+    {
+      "name": "final",
+      "resultPath": "/tmp/halfsword-distance-regression-final/result.json",
+      "sha256": "01e8e44599ae889cc117806f22bf2a6d0fbbe33628b77427b6815bb2cb226701",
+      "pass": false,
+      "sourceStable": false,
+      "headStable": true,
+      "changedSources": [
+        {
+          "path": "src/recovery_finish_trial.js",
+          "before": "b3ce41d77837bb445c4a897c5a056bdcf4f427a21355cb5579061e7b63965ec9",
+          "after": "80c55cb670819b92dfe52bc8fb8ff982e5809dae5acad9d9cf919058fffebf85"
+        }
+      ],
+      "tests": [
+        {
+          "id": "force_ledger",
+          "pass": true,
+          "individualPass": true,
+          "sourceStable": true,
+          "counts": {
+            "tests": 11
+          },
+          "artifact": "force_ledger.json"
+        },
+        {
+          "id": "grip_reaction",
+          "pass": true,
+          "individualPass": true,
+          "sourceStable": null,
+          "counts": {
+            "fixtures": 17
+          },
+          "artifact": "grip_reaction.json"
+        },
+        {
+          "id": "cut_reaction",
+          "pass": true,
+          "individualPass": true,
+          "sourceStable": true,
+          "counts": {
+            "tests": 33
+          },
+          "artifact": "cut_reaction.json"
+        },
+        {
+          "id": "arm_capacity",
+          "pass": true,
+          "individualPass": true,
+          "sourceStable": true,
+          "counts": {
+            "tests": 4
+          },
+          "artifact": "arm_capacity.json"
+        },
+        {
+          "id": "arm_duel",
+          "pass": false,
+          "individualPass": true,
+          "sourceStable": false,
+          "counts": {
+            "runs": 10,
+            "newFailureReview": 0
+          },
+          "artifact": "arm_duel.json"
+        },
+        {
+          "id": "build",
+          "pass": true,
+          "individualPass": null,
+          "sourceStable": null,
+          "counts": null,
+          "artifact": "build.json"
+        }
+      ],
+      "interpretation": "First run rejected because the recovery trial UI wording changed during execution; ten duel outcomes individually passed with zero new failures, but this does not make the unstable run valid."
+    },
+    {
+      "name": "final02",
+      "resultPath": "/tmp/halfsword-distance-regression-final02/result.json",
+      "sha256": "cbbaff3d15591fc034931eaa4df54eedb09fcd5b29c5dbdbf51b177f09b6b3c1",
+      "pass": true,
+      "sourceStable": true,
+      "headStable": true,
+      "changedSources": [],
+      "tests": [
+        {
+          "id": "force_ledger",
+          "pass": true,
+          "individualPass": true,
+          "sourceStable": true,
+          "counts": {
+            "tests": 11
+          },
+          "artifact": "force_ledger.json"
+        },
+        {
+          "id": "grip_reaction",
+          "pass": true,
+          "individualPass": true,
+          "sourceStable": null,
+          "counts": {
+            "fixtures": 17
+          },
+          "artifact": "grip_reaction.json"
+        },
+        {
+          "id": "cut_reaction",
+          "pass": true,
+          "individualPass": true,
+          "sourceStable": true,
+          "counts": {
+            "tests": 33
+          },
+          "artifact": "cut_reaction.json"
+        },
+        {
+          "id": "arm_capacity",
+          "pass": true,
+          "individualPass": true,
+          "sourceStable": true,
+          "counts": {
+            "tests": 4
+          },
+          "artifact": "arm_capacity.json"
+        },
+        {
+          "id": "arm_duel",
+          "pass": true,
+          "individualPass": true,
+          "sourceStable": true,
+          "counts": {
+            "runs": 10,
+            "newFailureReview": 0
+          },
+          "artifact": "arm_duel.json"
+        },
+        {
+          "id": "build",
+          "pass": true,
+          "individualPass": null,
+          "sourceStable": null,
+          "counts": null,
+          "artifact": "build.json"
+        }
+      ],
+      "interpretation": "Frozen final repeat: all six groups pass, source stable; ten duel outcomes and zero new failures."
+    }
+  ]
+}

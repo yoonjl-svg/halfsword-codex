@@ -1,5 +1,7 @@
 # 실험 색인과 재현 입구
 
+10/09 · [입력 분리·찌르기 거리 준비](opportunity_distance_20261009.md)·[수치/원자료 지도](opportunity_distance_20261009.json), [기립 뒷다리 시간차](getup_lead_20261009.md)·[수치/시각 근거](getup_lead_20261009.json). 입력 일반, 거리/기립 선택형. 거리별 실패와 기립 잔여 미끄럼 보존. [실제 전달](opportunity_distance_release.json).
+
 - 2026-10-08: [급소 찌르기 목·머리 영역](opportunity_head_region_20261008.md) — v2 목 우선과 v3 영역 선택의 실제 찌르기 비교; 일반 승격 별도.
 
 - 2026-10-08 · [급소 실제 경로 보조 v2](opportunity_precision_20261008.md) · 기준451a541. 대표6장면×v1/v2와에스톡추가2실행; 실제목베기/목찌르기/AI머리둔타확인, AI레이피어·에스톡찌르기미달. [전달·해시](opportunity_precision_release.json).

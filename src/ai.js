@@ -29,9 +29,11 @@ import { getWeapon } from './weapons.js';
 import { Emotions, emoMods } from './emotions.js';
 import { gunAI } from './gun.js';
 import { enabled as opportunityEnabled } from './opportunity_target.js';
+import { distanceEnabled, measureThrustDistance } from './combat_distance.js';
 import { createOpportunityAI, updateOpportunityEpisode, opportunityCandidate,
   prepareOpportunityAttack, refreshOpportunityAttack, commitOpportunityAttack,
-  opportunityPad, neckCrossingTechnique, advanceOpportunityAICommand } from './opportunity_ai.js';
+  opportunityPad, neckCrossingTechnique, advanceOpportunityAICommand,
+  opportunityRangeAttack, prepareOpportunityRange, clearOpportunityRange } from './opportunity_ai.js';
 
 // 공포 떨림의 최대 크기 (m, 공포 세기 1일 때 손 위치 잔떨림). 눈에 더 띄게 하려면 올린다 — moveHand() 참고
 const FEAR_TREMOR = 0.03;
@@ -262,6 +264,8 @@ export class AI {
   update(dt) {
     const me = this.me;
     const foe = this.foe;
+    // Early-return states must not leave a pending approach command alive.
+    if (!me.alive || !me.armed || !['stand', 'kneel'].includes(me.state) || me.revival || me.feetHeld) clearOpportunityRange(this);
     this.sense.record(dt);
     const L = this.level;
     if (opportunityEnabled(me)) {
@@ -402,6 +406,7 @@ export class AI {
     else if (this.mode === 'defend') this.defend(dt, s, d, th);
     else this.withdraw(dt, s, d, th);
 
+    prepareOpportunityRange(this);
     this.moveHand(dt);
     this.moveFeet(dt, d);
     if (kneeling) me.move.set(0, 0); // 무릎 꿇거나 일어나는 중엔 발을 옮길 수 없다 (칼만 움직인다)
@@ -564,7 +569,12 @@ export class AI {
     m += (1 - this.me.vigor) * 0.3; // 다쳐서 힘이 빠지면 더 조심스럽게 선다
     if (!this.me.armed) m += 0.6; // 칼을 놓쳤으면 상대 칼이 닿지 않게 멀찍이 선다
     // 빈손 상대는 칼이 닿지 않는다: 내 칼이 닿는 거리까지 다가선다
-    return (this.chasing ? this.M.contact : this.foeReach) + Math.max(0.08, m);
+    // The optional distance trial retains the opponent's safety distance, but
+    // also gives our own weapon's measured reach a modest vote. This is an AI
+    // preference, not a damage-optimal historical distance or a new reach cap.
+    const reach = distanceEnabled(this.me) && this.me.armed && !this.chasing
+      ? this.foeReach * 0.75 + this.M.reach * 0.25 : this.foeReach;
+    return (this.chasing ? this.M.contact : reach) + Math.max(0.08, m);
   }
 
   /**
@@ -866,6 +876,7 @@ export class AI {
       return;
     }
     const from = opportunityPad(this, t.from);
+    const range = prepareOpportunityRange(this);
     if (this.phase === 'windup') {
       // 준비 자세로 (다가가며)
       this.hand.set(from[0], from[1]);
@@ -883,7 +894,8 @@ export class AI {
       // 닿을 거리까지 다가간다. 베는 동안(0.3초) 서로 좁혀지는 거리까지 생각해서 미리 친다
       // 달려드는 상대를 맞받을 때는 조금 일찍 친다: 상대가 휘두르기 전에 내 칼이 먼저 앞에 있어야 한다 (Vor)
       this.need = this.M.contact + t.reach * this.reachScale + 0.05 + (this.why === 'stop' ? 0.2 : 0);
-      if (this.timer <= 0 && this.contactDist() <= this.need) {
+      const inRange = range ? range.valid && range.ready && range.aligned : this.contactDist() <= this.need;
+      if (this.timer <= 0 && inRange) {
         // 상대 칼끝이 나를 겨누고 있으면 베며 내딛지 않는다 (칼끝으로 뛰어드는 꼴). 먼저 그 칼을 쳐서 비킨다
         this.pointBlocked = (s.state === 'stand' || !!this.opportunityAttack) && this.foeClass(s).online;
         this.startStrike();
@@ -913,6 +925,7 @@ export class AI {
   }
 
   abortAttack() {
+    clearOpportunityRange(this);
     this.opportunityAttack = null;
     this.stats.aborted++;
     this.mode = 'watch';
@@ -921,6 +934,12 @@ export class AI {
   }
 
   startStrike() {
+    // All entry paths (including counters) must finish distance preparation
+    // before spending one of the two special attempts.
+    if (opportunityRangeAttack(this)) {
+      const range = measureThrustDistance(this.me, this.opportunityAttack.target);
+      if (!range.valid || !range.ready || !range.aligned) return false;
+    }
     if (!commitOpportunityAttack(this)) {
       this.abortAttack();
       return false;
@@ -940,7 +959,7 @@ export class AI {
     } else {
       for (const p of t.path) this.path.push(opportunityPad(this, p).slice());
       this.feintPts = 0;
-      this.stepT = this.stepTime();
+      this.stepT = opportunityRangeAttack(this) ? 0 : this.stepTime();
     }
     // 서툰 검객은 벨 때마다 손이 조금씩 빗나간다 (정확도 1이면 난수도 안 뽑아 예전과 같다)
     const prec = this.pers.precision;
@@ -1154,6 +1173,7 @@ export class AI {
 
   // ───────────────────────── 물러나기 ─────────────────────────
   startWithdraw(time) {
+    clearOpportunityRange(this);
     this.opportunityAttack = null;
     this.mode = 'withdraw';
     this.phase = 'ready';
@@ -1446,8 +1466,14 @@ export class AI {
     const speed = BODY.moveSpeed;
     // 원하는 "다가가는 빠르기"(m/s, + = 다가감) → 조이스틱 값 (뒤로는 75% 빠르기)
     const toStick = (v) => (v >= 0 ? v / speed : v / (speed * 0.75));
+    const rangeAttack = this.mode === 'attack' && opportunityRangeAttack(this);
     if (this.mode === 'attack') {
-      if (this.phase === 'windup') {
+      if (rangeAttack) {
+        // Settle too-close as well as too-far spacing before the thrust. Once
+        // committed, do not undo that spacing with ordinary retreat/lunge.
+        const range = this.opportunityAttack.started ? null : measureThrustDistance(me, this.opportunityAttack.target);
+        fwd = me.state === 'stand' && range?.valid ? range.move : 0;
+      } else if (this.phase === 'windup') {
         // 준비하는 동안 간격 끝까지 다가간다 (이미 가까우면 제자리).
         //  제자리일 때는 뒤로 살짝 당긴다: 칼을 빠르게 드는 것을 검술 층(skill.js)이 휘두르기로 보고
         //  저절로 앞으로 내딛지 않게 (AI는 발을 스스로 정한다)
@@ -1533,7 +1559,7 @@ export class AI {
     // 근접 밀치기: 닿는 거리 안에서 스틱만 (벽 처리 뒤라 side 를 ±k 로 바꾸지 못한다). 걸쇠가 꺼져 있으면 한 스텝 0 으로 장전,
     //  켜져 있으면 1 로 발사, 밀치는 동안 closeWant 면 1 유지(누르기). 휘두르는 중·베는 중(strike·follow, 팔이 묶임)은 미룬다
     const armsBusy = this.mode === 'attack' && (this.phase === 'strike' || this.phase === 'follow');
-    if (CLOSE.on && this.closeInside && !me.skill.swinging && (me.barge || (this.closeWant && !armsBusy))) {
+    if (!rangeAttack && CLOSE.on && this.closeInside && !me.skill.swinging && (me.barge || (this.closeWant && !armsBusy))) {
       fwd = me.barge ? (this.closeWant ? 1 : 0) : me.closeArmed ? 1 : 0; // 밀치는 중엔 closeWant 동안만 누른다 (풀리면 release)
       side = 0;
     }

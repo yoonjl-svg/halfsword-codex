@@ -45,8 +45,8 @@ export class Input {
     window.addEventListener('blur', () => this.resetTransient());
   }
 
-  /** Drop a finished/aborted gesture without changing sensitivity or saved tilt preferences. */
-  resetTransient() {
+  /** Abort only the sword gesture; another finger may still be holding the movement stick. */
+  resetHand() {
     this.handDX = 0;
     this.handDY = 0;
     this.taps = 0;
@@ -54,15 +54,21 @@ export class Input {
     this.activeTouch = null;
     this.lastX = 0;
     this.lastY = 0;
-    this.keys.clear();
-    this.stickMove = { x: 0, y: 0 };
     if (this.trail?.clear) this.trail.clear();
     else this.trail?.lift();
+    this.onHandReset?.();
+  }
+
+  /** Clear all transient input at a pause/round boundary without changing saved preferences. */
+  resetTransient() {
+    this.resetHand();
+    this.keys.clear();
+    this.stickMove = { x: 0, y: 0 };
     for (const reset of this._resetHooks) reset();
   }
 
   onCancel(e) {
-    if (e.pointerId === this.activeTouch || e.pointerId === this.press?.id) this.resetTransient();
+    if (e.pointerId === this.activeTouch || e.pointerId === this.press?.id) this.resetHand();
   }
 
   onDown(e) {

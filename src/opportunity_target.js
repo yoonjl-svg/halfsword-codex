@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { ARM } from './config.js';
 import { LOW_FINISH } from './finish_entry.js';
 import { thrustRegionCandidates } from './opportunity_head_region.js';
+import { distanceEnabled, THRUST_DISTANCE } from './combat_distance.js';
 
 export const OPPORTUNITY = Object.freeze({
   version: 'v1', neckLocalY: -0.075, faceLocalX: 0.075, faceLocalY: -0.025,
@@ -17,7 +18,7 @@ export const OPPORTUNITY = Object.freeze({
   prepareWindow: 0.4, reverseCommitSpeed: 0.35, quietReset: 0.12,
   readyHeightChange: 0.06, // New vertical intent cancels a prepared plane.
 });
-export const headRegionEnabled = f => f?.opportunityModel === 'v3';
+export const headRegionEnabled = f => f?.opportunityModel === 'v3' || distanceEnabled(f);
 export const precisionEnabled = f => f?.opportunityModel === 'v2' || headRegionEnabled(f);
 export const enabled = f => f?.opportunityModel === OPPORTUNITY.version || precisionEnabled(f);
 const xyz = v => ({ x: v.x, y: v.y, z: v.z });
@@ -118,7 +119,7 @@ export function findOpportunity(att, snapshot, kind = 'cut') {
     }
     const local = vec(point).sub(vec(chest)).applyQuaternion(inv);
     if (local.x < OPPORTUNITY.minForward || Math.abs(local.z) > local.x * OPPORTUNITY.maxSideRatio ||
-        shoulder.distanceTo(vec(point)) > reach || opportunityBlocked(origin, point, snapshot)) continue;
+        shoulder.distanceTo(vec(point)) > reach + (kind === 'thrust' && distanceEnabled(att) ? THRUST_DISTANCE.captureTravel : 0) || opportunityBlocked(origin, point, snapshot)) continue;
     return { target: vec(point), zone, kind, targetId: snapshot.targetId };
   }
   return null;

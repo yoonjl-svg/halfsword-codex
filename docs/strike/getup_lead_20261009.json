@@ -1,0 +1,600 @@
+{
+  "schema": "getup-lead-review-v1",
+  "baselineHead": "9171874a880024010a87ad793fd6fd58a7817f3e",
+  "decision": "lag03_selectable_trial; ordinary_default_legacy",
+  "runtime": {
+    "enabledField": "fighter.getupLeadDelay",
+    "lag": 0.3,
+    "modifiedScope": "B leg kneel target blend only; pelvis/support forces/getup schedule unchanged"
+  },
+  "peerAttribution": {
+    "sourceSHA": "fc1bbbb0716aadc2384f524e202c50c45321df87",
+    "report": "S-038",
+    "url": "https://github.com/yoonjl-svg/halfsword/blob/fc1bbbb0716aadc2384f524e202c50c45321df87/docs/strike/getup_lead_2026-10-08.md",
+    "scope": "Previously reviewed timing principle; no new peer access; our final delay .3."
+  },
+  "source": {
+    "frozen": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/candidate-lag03",
+    "manifestSHA256": "cd0a5efb9ec2f4ab055bf176c4084240bd8e11391b912f4285259928b8b4a7e6",
+    "fighterSHA256": "4c97f9e8c78f9e1ca78f9402d6c0826bacb9bc917d403957bfbcae1d4704b8ef",
+    "probeSHA256": "ab0020b1c1d8796610f84fda7a97f97b305256b332dce55713d7e0fbace14bcc",
+    "engineJS_SHA256": "bce2c762b440101ebf8cbff038a71fe1884488becd0a53b9a7c0a7e3daf13a2b",
+    "engineWASM_SHA256": "1ce1c8c4036b4dcd3bde86c6efdb0f270cf5e274979b1de6ab8052947ef166c5",
+    "everyRunSourceStable": true,
+    "baselineCandidateChangedSourceFiles": [
+      "src/fighter.js"
+    ],
+    "lag05to03ChangedGameplayFiles": [
+      "src/fighter.js"
+    ],
+    "offEquivalence": {
+      "baselineSteps": 1106,
+      "candidateOffSteps": 1106,
+      "nativeExact": true
+    }
+  },
+  "native": {
+    "runs": 15,
+    "steps": 19913,
+    "cases": [
+      {
+        "fixture": "lying",
+        "seed": 7,
+        "baseline": {
+          "steps": 1106,
+          "firstGetup": 624,
+          "firstStand": 865,
+          "terminal": "two_seconds_after_player_stand",
+          "rise": {
+            "steps": 108,
+            "noContactF": 0,
+            "noContactB": 87,
+            "noContactBoth": 0,
+            "peakSlipF": 1.0619966600918702,
+            "peakSlipB": 0.6021372973785742,
+            "peakGapM": 0.0004246462346510562,
+            "peakPelvisUpMps": 0.5238577127456665,
+            "peakFootHeightB": 0.2565772235393524,
+            "peakKneeOmegaB": 1.7712840987232252
+          },
+          "handoff": {
+            "steps": 241,
+            "noContactBoth": 2,
+            "peakSlipF": 2.2057683021664802,
+            "peakSlipB": 1.2652897070125193,
+            "peakGapM": 0.0014801253353503934
+          },
+          "wholeObservedMaxGapM": 0.0020566395023629744,
+          "targetHalfTicks": [
+            811,
+            811
+          ],
+          "actualKneeCrossingTicks": [
+            821,
+            818
+          ]
+        },
+        "lag03": {
+          "steps": 1106,
+          "firstGetup": 624,
+          "firstStand": 865,
+          "terminal": "two_seconds_after_player_stand",
+          "rise": {
+            "steps": 108,
+            "noContactF": 0,
+            "noContactB": 108,
+            "noContactBoth": 0,
+            "peakSlipF": 1.0365661098145962,
+            "peakSlipB": 0,
+            "peakGapM": 0.00042574921166210923,
+            "peakPelvisUpMps": 0.5619803071022034,
+            "peakFootHeightB": 0.34662681818008423,
+            "peakKneeOmegaB": 2.5085123087099235
+          },
+          "handoff": {
+            "steps": 241,
+            "noContactBoth": 1,
+            "peakSlipF": 2.1911946857783113,
+            "peakSlipB": 1.2538628408068009,
+            "peakGapM": 0.001487270495244614
+          },
+          "wholeObservedMaxGapM": 0.0020566395023629744,
+          "targetHalfTicks": [
+            811,
+            827
+          ],
+          "actualKneeCrossingTicks": [
+            821,
+            832
+          ]
+        }
+      },
+      {
+        "fixture": "side",
+        "seed": 7,
+        "baseline": {
+          "steps": 1106,
+          "firstGetup": 624,
+          "firstStand": 865,
+          "terminal": "two_seconds_after_player_stand",
+          "rise": {
+            "steps": 108,
+            "noContactF": 0,
+            "noContactB": 15,
+            "noContactBoth": 0,
+            "peakSlipF": 1.440750057324824,
+            "peakSlipB": 1.3840697399422135,
+            "peakGapM": 0.0003492763415483414,
+            "peakPelvisUpMps": 0.56184321641922,
+            "peakFootHeightB": 0.1776687353849411,
+            "peakKneeOmegaB": 1.960169784082591
+          },
+          "handoff": {
+            "steps": 241,
+            "noContactBoth": 3,
+            "peakSlipF": 1.1550529276839325,
+            "peakSlipB": 0.5304770660057769,
+            "peakGapM": 0.0009708076586312469
+          },
+          "wholeObservedMaxGapM": 0.0031329598596823603,
+          "targetHalfTicks": [
+            811,
+            811
+          ],
+          "actualKneeCrossingTicks": [
+            812,
+            821
+          ]
+        },
+        "lag03": {
+          "steps": 1106,
+          "firstGetup": 624,
+          "firstStand": 865,
+          "terminal": "two_seconds_after_player_stand",
+          "rise": {
+            "steps": 108,
+            "noContactF": 0,
+            "noContactB": 73,
+            "noContactBoth": 0,
+            "peakSlipF": 1.5685428879958587,
+            "peakSlipB": 1.438712794309994,
+            "peakGapM": 0.0003579837568728795,
+            "peakPelvisUpMps": 0.5771377682685852,
+            "peakFootHeightB": 0.276030033826828,
+            "peakKneeOmegaB": 2.7207707982316047
+          },
+          "handoff": {
+            "steps": 241,
+            "noContactBoth": 0,
+            "peakSlipF": 1.3062396670968541,
+            "peakSlipB": 0.5503109092209311,
+            "peakGapM": 0.0010363662635645592
+          },
+          "wholeObservedMaxGapM": 0.0031329598596823603,
+          "targetHalfTicks": [
+            811,
+            827
+          ],
+          "actualKneeCrossingTicks": [
+            812,
+            833
+          ]
+        }
+      },
+      {
+        "fixture": "hurt",
+        "seed": 7,
+        "baseline": {
+          "steps": 1269,
+          "firstGetup": 696,
+          "firstStand": 1028,
+          "terminal": "two_seconds_after_player_stand",
+          "rise": {
+            "steps": 149,
+            "noContactF": 0,
+            "noContactB": 21,
+            "noContactBoth": 0,
+            "peakSlipF": 0.6143420520127211,
+            "peakSlipB": 0.9140424506397843,
+            "peakGapM": 0.0002162233544774387,
+            "peakPelvisUpMps": 0.41228681802749634,
+            "peakFootHeightB": 0.19246113300323486,
+            "peakKneeOmegaB": 1.2609332756342269
+          },
+          "handoff": {
+            "steps": 241,
+            "noContactBoth": 0,
+            "peakSlipF": 1.5002725214697112,
+            "peakSlipB": 1.1211958614772326,
+            "peakGapM": 0.001673900209665474
+          },
+          "wholeObservedMaxGapM": 0.0019316659891738205,
+          "targetHalfTicks": [
+            953,
+            953
+          ],
+          "actualKneeCrossingTicks": [
+            965,
+            967
+          ]
+        },
+        "lag03": {
+          "steps": 1269,
+          "firstGetup": 696,
+          "firstStand": 1028,
+          "terminal": "two_seconds_after_player_stand",
+          "rise": {
+            "steps": 149,
+            "noContactF": 0,
+            "noContactB": 98,
+            "noContactBoth": 0,
+            "peakSlipF": 0.699243887226194,
+            "peakSlipB": 1.0756572348600317,
+            "peakGapM": 0.000218524139596174,
+            "peakPelvisUpMps": 0.4067889451980591,
+            "peakFootHeightB": 0.2747223675251007,
+            "peakKneeOmegaB": 1.84083018683113
+          },
+          "handoff": {
+            "steps": 241,
+            "noContactBoth": 0,
+            "peakSlipF": 1.5823345280856775,
+            "peakSlipB": 1.0160920785429524,
+            "peakGapM": 0.0016941149404855044
+          },
+          "wholeObservedMaxGapM": 0.0019316659891738205,
+          "targetHalfTicks": [
+            953,
+            975
+          ],
+          "actualKneeCrossingTicks": [
+            965,
+            984
+          ]
+        }
+      },
+      {
+        "fixture": "natural",
+        "seed": 1,
+        "baseline": {
+          "steps": 1326,
+          "firstGetup": 825,
+          "firstStand": 1085,
+          "terminal": "two_seconds_after_player_stand",
+          "rise": {
+            "steps": 85,
+            "noContactF": 0,
+            "noContactB": 21,
+            "noContactBoth": 0,
+            "peakSlipF": 0.5220189985997105,
+            "peakSlipB": 1.768810936555735,
+            "peakGapM": 0.00038814744661449586,
+            "peakPelvisUpMps": 0.6416405439376831,
+            "peakFootHeightB": 0.21950148046016693,
+            "peakKneeOmegaB": 2.765970988911429
+          },
+          "handoff": {
+            "steps": 241,
+            "noContactBoth": 17,
+            "peakSlipF": 1.073634313370033,
+            "peakSlipB": 1.9255801987867263,
+            "peakGapM": 0.0024773895086351114
+          },
+          "wholeObservedMaxGapM": 0.0024773895086351114,
+          "targetHalfTicks": [
+            1045,
+            1045
+          ],
+          "actualKneeCrossingTicks": [
+            1051,
+            1052
+          ]
+        },
+        "lag03": {
+          "steps": 1119,
+          "firstGetup": 825,
+          "firstStand": 1085,
+          "terminal": "death",
+          "rise": {
+            "steps": 85,
+            "noContactF": 0,
+            "noContactB": 64,
+            "noContactBoth": 0,
+            "peakSlipF": 0.6033957020759898,
+            "peakSlipB": 1.8707450072994531,
+            "peakGapM": 0.0005355302646338231,
+            "peakPelvisUpMps": 0.6762556433677673,
+            "peakFootHeightB": 0.28101015090942383,
+            "peakKneeOmegaB": 3.7570912612316607
+          },
+          "handoff": {
+            "steps": 34,
+            "noContactBoth": 0,
+            "peakSlipF": 0.9670237402833814,
+            "peakSlipB": 0.47942388053745016,
+            "peakGapM": 0.0005163721702565507
+          },
+          "wholeObservedMaxGapM": 0.0015529698294444664,
+          "targetHalfTicks": [
+            1045,
+            1057
+          ],
+          "actualKneeCrossingTicks": [
+            1052,
+            1061
+          ]
+        }
+      }
+    ],
+    "naturalSeed7": "No getup in2400step, off/on exact; not an efficacy sample.",
+    "observations": {
+      "samplesChecked": 9038,
+      "finiteObservedBodyAndJointStates": true,
+      "failures": [],
+      "scope": "Recorded body positions/linear and angular velocities, joint rotation/relative angular velocity/targets, kneel scalar, gap and tilt; not every solver variable."
+    },
+    "beforeNaturalFatalHit": [
+      {
+        "source": "results-natural-seed1",
+        "range": "1085..1117, before fatal candidate strike",
+        "steps": 33,
+        "states": [
+          "stand"
+        ],
+        "alive": true,
+        "pelvisYMin": 0.8996413946151733,
+        "pelvisYMax": 0.9267022609710693,
+        "maxPelvisUp": 0.19369913637638092,
+        "minPelvisUp": -0.19414152204990387,
+        "maxTilt": 6.6521754893516185,
+        "maxGap": 0.0005100621106264935,
+        "bothNoContact": 0,
+        "last": {
+          "tick": 1117,
+          "state": "stand",
+          "pelvis": [
+            -2.7209672927856445,
+            0.8996413946151733,
+            0.02560785599052906
+          ],
+          "tilt": 6.6521754893516185,
+          "health": {
+            "alive": true,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "blood": 0.9988169819948712,
+            "pain": 0.01860302274075581
+          }
+        }
+      },
+      {
+        "source": "results-lag03-natural",
+        "range": "1085..1117, before fatal candidate strike",
+        "steps": 33,
+        "states": [
+          "stand"
+        ],
+        "alive": true,
+        "pelvisYMin": 0.900326132774353,
+        "pelvisYMax": 0.9275743365287781,
+        "maxPelvisUp": 0.220289945602417,
+        "minPelvisUp": -0.19350877404212952,
+        "maxTilt": 6.849071570558325,
+        "maxGap": 0.0005163721702565507,
+        "bothNoContact": 0,
+        "last": {
+          "tick": 1117,
+          "state": "stand",
+          "pelvis": [
+            -2.7191195487976074,
+            0.900326132774353,
+            0.026366395875811577
+          ],
+          "tilt": 6.849071570558325,
+          "health": {
+            "alive": true,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "blood": 0.9988169819948712,
+            "pain": 0.01860302274075581
+          }
+        }
+      }
+    ]
+  },
+  "visual": {
+    "fixture": "Passive enemy; knockDown(true)+55Ns chest impulse; no body pose/velocity assignment; debug side camera; static real-game rendered states.",
+    "comparability": "Different viewport sizes and slightly different rise phases; not pixel-matched or native-trajectory equivalence.",
+    "attempts": [
+      {
+        "attempt": "first",
+        "viewport": {
+          "width": 1100,
+          "height": 760
+        },
+        "completedUTC": "2026-10-08T17:45:29.122Z",
+        "buildBefore": {
+          "main-BwLpQ3zH.js": "638e26213a5444c2f6685be1b85aaa6146af6fdf7f7186957945eaeda4e7b69a"
+        },
+        "buildAfter": {
+          "main-BwLpQ3zH.js": "638e26213a5444c2f6685be1b85aaa6146af6fdf7f7186957945eaeda4e7b69a"
+        },
+        "buildStable": true,
+        "jsErrors": [],
+        "result": "off3captured_then_on_wait_timeout_60000ms",
+        "reportPath": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/visual/first/report.json",
+        "reportSHA256": "72ffc5704aaaab043f0aa6f11869f2f420f146d2e37951973f3a7e5b4beb65b3",
+        "frames": [
+          {
+            "file": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/visual/first/off-middle.png",
+            "sha256": "0a91e54c28f60d1c84aee1d5dabb497d6c064e264dbbb94ad27a5008d93211b8",
+            "state": "getup",
+            "enabled": false,
+            "riseU": 0.5555555555555518,
+            "knF": 0.4444444444444482,
+            "knB": 0.4444444444444482,
+            "footCenterY": {
+              "F": 0.1268763542175293,
+              "B": 0.1086907833814621
+            }
+          },
+          {
+            "file": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/visual/first/off-late.png",
+            "sha256": "39ad36f9cec611ed3fc07f020e19feb36d2f27e76491eebaed8a371ea8975bae",
+            "state": "getup",
+            "enabled": false,
+            "riseU": 0.8333333333333286,
+            "knF": 0.1666666666666714,
+            "knB": 0.1666666666666714,
+            "footCenterY": {
+              "F": 0.11513073742389679,
+              "B": 0.06782212108373642
+            }
+          },
+          {
+            "file": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/visual/first/off-stand.png",
+            "sha256": "6cc585d0d8d8d41bc1aab22aef320770a2b48024a075613d514c35323fd4b935",
+            "state": "stand",
+            "enabled": false,
+            "riseU": -1.0648148148148149,
+            "knF": 0,
+            "knB": 0,
+            "footCenterY": {
+              "F": 0.10295891761779785,
+              "B": 0.05125388130545616
+            }
+          }
+        ]
+      },
+      {
+        "attempt": "retry",
+        "viewport": {
+          "width": 640,
+          "height": 480
+        },
+        "completedUTC": "2026-10-08T17:47:47.709Z",
+        "buildBefore": {
+          "main-BwLpQ3zH.js": "638e26213a5444c2f6685be1b85aaa6146af6fdf7f7186957945eaeda4e7b69a"
+        },
+        "buildAfter": {
+          "main-BwLpQ3zH.js": "638e26213a5444c2f6685be1b85aaa6146af6fdf7f7186957945eaeda4e7b69a"
+        },
+        "buildStable": true,
+        "jsErrors": [],
+        "result": "on3captured",
+        "reportPath": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/visual/retry/report.json",
+        "reportSHA256": "c806eb610f79041fdf7fb79b7fc6cc0807b1380e4526e03260676514796e27a8",
+        "frames": [
+          {
+            "file": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/visual/retry/on-middle.png",
+            "sha256": "3f83aad9f3b8e6ec5c94412f82483ef5acec9569e90998a2ce20a4ff7873649c",
+            "state": "getup",
+            "enabled": true,
+            "riseU": 0.5462962962962926,
+            "knF": 0.4537037037037074,
+            "knB": 0.6481481481481534,
+            "footCenterY": {
+              "F": 0.12712331116199493,
+              "B": 0.2313632220029831
+            }
+          },
+          {
+            "file": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/visual/retry/on-late.png",
+            "sha256": "f18564705632365f1b9070b3d6dca3b61bce7a85390182bdd02a89b46b0596f5",
+            "state": "getup",
+            "enabled": true,
+            "riseU": 0.8240740740740694,
+            "knF": 0.1759259259259306,
+            "knB": 0.25132275132275783,
+            "footCenterY": {
+              "F": 0.1157769188284874,
+              "B": 0.09510337561368942
+            }
+          },
+          {
+            "file": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/visual/retry/on-stand.png",
+            "sha256": "2e1f863ae912ee5751efbaf1067e8b684be02bccc7a37860006f6ce933b07ff4",
+            "state": "stand",
+            "enabled": true,
+            "riseU": -1.0740740740740742,
+            "knF": 0,
+            "knB": 0,
+            "footCenterY": {
+              "F": 0.09558208286762238,
+              "B": 0.047750696539878845
+            }
+          }
+        ]
+      }
+    ],
+    "reading": "Middle rise shows modest leg asymmetry; late and standing poses remain close. Existing floating/weight-transfer appearance remains.",
+    "naturalDeathInterpretation": "New actual head cut after stand, not spontaneous getup collapse; full two-second natural handoff not completed."
+  },
+  "evidence": {
+    "manifestPath": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/EVIDENCE_MANIFEST.json",
+    "manifestSHA256": "51c1e069c53eb313777fe8836cde33b46211b1a11c822810d0b4d347720def4a",
+    "summaryPath": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/SUMMARY.json",
+    "summarySHA256": "792f0f36e5d07d66c8aeec05f5156ae9191bd4249628131f0ae579a2815eb69c",
+    "raw": [
+      {
+        "path": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/results-baseline-lying/report.json.gz",
+        "sha256": "6adb28f1523459ece4087cb34026bb69825f40c911dc5006854d043545302ad0"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/results-hurt/report.json.gz",
+        "sha256": "504071e2cb441659661abca18cf9e40b2e2f56f153cd8aee562a8064867640d0"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/results-lag03-hurt/report.json.gz",
+        "sha256": "12fe7561e6f5bb35cac4a0ab6730ca0b1426937df59ca58261079c321ed1cfa3"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/results-lag03-lying/report.json.gz",
+        "sha256": "8f7a60d2fb93eb3b1deb0787c1e25a2e5d404d740c48b16242b13b8826bd9c78"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/results-lag03-natural/report.json.gz",
+        "sha256": "d25aa974a73e71e13f0fe790252a9305e6cea0276b8b97fb49e213fd9c6e81b8"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/results-lag03-side/report.json.gz",
+        "sha256": "5f826c93e0fcbafc4939c138f3af9d4579f0eef7b7ed9d4974baf835217342df"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/results-lying/report.json.gz",
+        "sha256": "e875d5becf855e60f057b298faa0e3a9476b9fb738c0363cde81c05c5dfe9fa0"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/results-natural/report.json.gz",
+        "sha256": "4c68503492afe2990ae51626a7d76dedf6474fc28ca74aff5cbf58b81568a458"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/results-natural-seed1/report.json.gz",
+        "sha256": "2c4102730f564dacfa6b6c50ab134d5bdf7ba22ff1d06a06969c272566d04bfe"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/results-side/report.json.gz",
+        "sha256": "bddebb4aaaa2f7966ba4dc8123e1f11cc30c8c93ac18cb4d92bd3cd486636de5"
+      }
+    ]
+  },
+  "plannedURLs": {
+    "A": "https://yoonjl-svg.github.io/halfsword-codex/?movementFix=getup-base&weapon=zweihander&foeWeapon=longsword&foe=default",
+    "B": "https://yoonjl-svg.github.io/halfsword-codex/?movementFix=getup-lead&weapon=zweihander&foeWeapon=longsword&foe=default"
+  },
+  "delivery": "Planned; public bytes/mobile entry not yet verified by this report. Parent owns delivery receipt.",
+  "limits": [
+    "One seed per exposed fixture; no missing/rear-leg/other-side/all-weapon coverage.",
+    "Raw contact impulse is not calibrated whole-body load. Same stand time is scheduled.",
+    "Modest slip increases remain; no complete weight-transfer solution.",
+    "Current distance-code changes are absent from the frozen native source; browser compiled build is separately hashed."
+  ]
+}
