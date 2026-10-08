@@ -1056,27 +1056,32 @@ const pistol = finalizeSpec('pistol', {
 // 무기마다 적은 desc 는 무기 뽑기 카드(main.js)의 앞면에 쓰는 한두 줄 설명이다 (\n 으로 줄을 나눈다).
 //  글자 데이터일 뿐 물리·밸런스와는 상관없다. 카드 앞면의 작은 그림은 public/ui/weapons/<id>.webp
 //  (tools/browser/weapon_thumbs.mjs 로 이 무기 모델을 그대로 찍어 만든다 — 겉모습을 바꾸면 다시 돌린다).
-// [I] 선택 가능한 시험안. 특정 유물 실측이 아닌 고정 철구+나무 자루의 대표 설계.
-// 철구는 기존 'blade', 자루는 'hilt' 접촉 이름을 쓰지만 edged=false라 둘 다 둔기다.
+// [I] 무거운 한손 시험안. RA VIII.70(64.8cm/2.1kg)·Met14.25.171(73.2cm/822g)
+// 두 실물을 참고한 71.65cm/2.2kg 재구성이지 특정 유물 복제나 역사상 최대치가 아니다.
+// 8cm 강철 구에는 나무 자루 소켓(r17mm, 깊이75mm)이 있고 위쪽5mm는 강철이다.
+// docs/strike/morgenstern_heavy_20261008.md: 밀도·소켓·가시를 포함한 계산과 한계.
+// 머리는 'blade' 접촉 이름을 쓰지만 날은 없다. 앞쪽 축방향 접촉만 가시 찌르기.
 const morgenstern = finalizeSpec('morgenstern', {
   nameKo: '모르겐슈테른', nameEn: 'Morgenstern',
-  desc: '나무 자루에 가시 철구가 고정된 한손 둔기.\n사슬 없이 앞쪽 무게로 때리는 시험 무기.',
+  desc: '2.2kg의 무거운 한손 가시 철퇴.\n앞쪽 가시로 찌르며, 갑옷을 무시하지 않는다.',
   trialOnly: true,
   grip: 'one-hand', material: 'steel',
-  hiltLength: 0.12, bladeLength: 0.53,
-  edged: false, mCut: 0, mThrust: 0, mBlunt: 1,
-  partMesh: morgensternKit({ headRadius: 0.08, spikeLength: 0.02 }),
+  hiltLength: 0.48, bladeLength: 0.135,
+  breakAt: 0.05, // y=.48675: 철구·고정대 아래 나무 자루에서 부러진다.
+  edged: false, spike: true, mCut: 0, mThrust: 0.35, mBlunt: 2.1,
+  partMesh: morgensternKit({ headRadius: 0.04, spikeLength: 0.025, spikeRadius: 0.007 }),
   buildParts() {
-    const shaft = boxInertia(0.4, 0.022, 0.31, 0.022);
-    const collar = boxInertia(0.1, 0.028, 0.035, 0.028);
-    const butt = sphereInertia(0.05, 0.025);
-    // 철구 1.10kg의 구 관성 + 대칭 가시 0.15kg의 r=0.09m 점질량 근사.
-    const headI = 0.4 * 1.1 * 0.08 ** 2 + (2 / 3) * 0.15 * 0.09 ** 2;
+    // 7800kg/m³ 강철 구에서 소켓 체적/관성을 빼고 13개의 원뿔을 더한 계산값.
+    const headMass = 1.7031936098226728;
+    const shaftMass = 2.2 - headMass - 0.1 - 0.025;
+    const collar = boxInertia(0.1, 0.02, 0.015, 0.02);
+    const butt = boxInertia(0.025, 0.0175, 0.0015, 0.0175);
     return [
-      partTuple(['box', 0.022, 0.31, 0.022], 0.21, 0.4, 0, shaft.Ie, shaft.It, 0x64432b),
-      partTuple(['ball', 0.025], -0.115, 0.05, 0, butt.Ie, butt.It, 0x676769),
-      partTuple(['box', 0.028, 0.035, 0.028], 0.48, 0.1, 0, collar.Ie, collar.It, 0x73757a),
-      partTuple(['ball', 0.09], 0.55, 1.25, 0, headI, headI, 0x727780, true),
+      // 소켓 안 나무까지 포함한 684mm 자루: 반경16→17mm, 밀도635.35kg/m³.
+      partTuple(['box', 0.017, 0.342, 0.017], 0.243, shaftMass, 0.0069069767434953855, 0.014507143405318385, 0.000050689589357921205, 0x64432b),
+      partTuple(['box', 0.0175, 0.0015, 0.0175], -0.1, 0.025, 0, butt.Ie, butt.It, 0x676769),
+      partTuple(['box', 0.02, 0.015, 0.02], 0.508, 0.1, 0, collar.Ie, collar.It, 0x73757a),
+      partTuple(['ball', 0.053], 0.55, headMass, 0.0007509135534327162, 0.0012493731312126577, 0.0014672536672301738, 0x727780, true),
     ];
   },
 });

@@ -420,6 +420,7 @@ export class Fighter {
       hiltLength: spec.hiltLength,
       gripAlong: spec.gripAlong,
       edged: spec.edged,
+      spike: !!spec.spike,
       mCut: spec.mCut,
       mThrust: spec.mThrust,
       mBlunt: spec.mBlunt,

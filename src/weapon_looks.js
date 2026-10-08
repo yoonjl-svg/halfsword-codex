@@ -16,8 +16,8 @@
 // ─────────────────────────────────────────────────────────────
 import * as THREE from 'three';
 
-/** 고정 철구 둔기의 겉모습. 물리 머리 외피(9cm)와 표면/가시 끝은 각각 1cm 이내다. */
-export function morgensternKit({ headRadius = 0.08, spikeLength = 0.02 } = {}) {
+/** 고정 철구와 가시. 충돌 외피는 가시 사이의 빈 공간을 단순화한 구다. */
+export function morgensternKit({ headRadius = 0.04, spikeLength = 0.025, spikeRadius = 0.007 } = {}) {
   return (idx, isHead, shape, color) => {
     if (!isHead) {
       if (shape[0] === 'ball') return new THREE.Mesh(new THREE.SphereGeometry(shape[1], 12, 8), metalMat(color));
@@ -25,17 +25,18 @@ export function morgensternKit({ headRadius = 0.08, spikeLength = 0.02 } = {}) {
       const mat = idx === 0
         ? new THREE.MeshStandardMaterial({ color, roughness: 0.88, metalness: 0 })
         : metalMat(color);
-      return new THREE.Mesh(new THREE.CylinderGeometry(hx, hx, 2 * hy, 14), mat);
+      return new THREE.Mesh(new THREE.CylinderGeometry(hx, idx === 0 ? 0.016 : hx, 2 * hy, 14), mat);
     }
     // Mesh를 반환해야 기존 bladeMesh의 재질/피 색 갱신 계약과 맞는다.
     const mat = metalMat(color, { rough: 0.44 });
     const head = new THREE.Mesh(new THREE.SphereGeometry(headRadius, 20, 14), mat);
-    const directions = [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]];
+    // 자루가 들어오는 아래쪽에는 가시를 붙이지 않는다.
+    const directions = [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, 0, 1], [0, 0, -1]];
     for (const x of [-1, 1]) for (const y of [-1, 1]) for (const z of [-1, 1]) directions.push([x, y, z]);
     const up = new THREE.Vector3(0, 1, 0);
     // 밑동을 철구 안으로 5mm 넣어 메쉬가 분리돼 보이지 않는다. 난수를 쓰지 않는다.
     const height = spikeLength + 0.005;
-    const geo = new THREE.ConeGeometry(0.009, height, 6);
+    const geo = new THREE.ConeGeometry(spikeRadius * height / spikeLength, height, 6);
     for (const a of directions) {
       const d = new THREE.Vector3(...a).normalize();
       const spike = new THREE.Mesh(geo, mat);

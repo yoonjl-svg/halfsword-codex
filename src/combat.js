@@ -55,6 +55,11 @@ function zoneOf(info, local) {
   return info.kind; // pelvis | arm | leg
 }
 
+function spikeHead(pr) {
+  const att = pr.w.fighter;
+  return pr.w.part === 'blade' && !att.weaponCfg.edged && att.weaponCfg.spike === true;
+}
+
 export class Combat {
   /**
    * @param {object} hooks  { onWound(attacker, victim, result, point), onClash(point, speed, info), onBlocked(...) }
@@ -102,12 +107,24 @@ export class Combat {
   filterContactPair(c1, c2) {
     const pr = this.pairOf(c1, c2);
     if (!pr || pr.w.part !== 'blade') return 1; // 1 = 평소처럼 부딪힘
+    const spike = spikeHead(pr);
     const key = `${pr.wc}:${pr.vc}`;
     let cut = this.cutting.get(key);
     if (cut) {
+      if (spike) {
+        const S = pr.w.fighter.cache?.sword, P = pr.v.fighter.cache?.parts[pr.v.part];
+        const point = S && cut.localPt?.clone().applyQuaternion(S.q).add(S.p);
+        if (!point || !P || !this.analyze(pr, point, S, P, true)?.pass) {
+          this.cutting.delete(key);
+          return 1;
+        }
+      }
       cut.seen = this.stepNo;
       return 0; // 0 = 부딪히는 힘 없음 → 칼이 살을 가르고 지나감
     }
+    // 구형 가시 머리는 중심선 예측이 앞끝을 골라도 실제 접촉은 옆면일 수 있다.
+    // 첫 접촉은 물리로 풀고, afterStep의 실제 접촉점이 관통할 때만 다음 스텝부터 연다.
+    if (spike) return 1;
     // 아직 안 닿았으면: 지금 속도로 닿는다면 가를 수 있는지 예측
     const res = this.predict(pr);
     if (res && res.pass) {
@@ -154,8 +171,10 @@ export class Combat {
     const HL = att.weaponCfg.hiltLength;
     const local = point.clone().sub(S.p).applyQuaternion(_q.copy(S.q).invert());
     const t = THREE.MathUtils.clamp((local.y - HL) / att.weaponCfg.bladeLength, 0, 1);
-    // 날이 없는 무기(나뭇가지·고무 닭 등)나 부러진 무기는 베기·찌르기 판정 없이 늘 둔기로 친다 (BREAK.stubEdge 면 부러진 토막도 날로 — 효율은 fighter.breakWeapon 이 깎는다)
+    // 날 없는 무기는 둔기다. 온전한 가시 머리만 아래의 좁은 축방향 찌르기를 허용한다.
+    // BREAK.stubEdge 면 부러진 칼 토막도 날로 — 효율은 fighter.breakWeapon 이 깎는다.
     const isBlade = pr.w.part === 'blade' && local.y > HL - 0.01 && att.weaponCfg.edged && (!att.weaponBroken || BREAK.stubEdge);
+    const spike = spikeHead(pr) && !att.weaponBroken;
 
     // 유효 질량: 맞은 점에서의 강체 칼의 실제 유효 질량 + 팔·몸의 도움
     const mFree = freeMass(pr.w.fighter.swordProps, S, point, dir);
@@ -169,9 +188,9 @@ export class Combat {
     let type = 'blunt';
     let quality = 1;
     const along = rel.dot(axis) / speed;
-    const ts = att.weaponCfg.thrustStyle; // 찌르기 무기의 찌르기 장점 (weapons.js THRUST_STYLE)
+    const ts = spike ? null : att.weaponCfg.thrustStyle; // 가시는 찌르기검의 넓은 판정·방어구 틈 보정을 받지 않는다.
     const win = ts ? ts.window : 0; // 칼끝 판정 폭
-    if (isBlade) {
+    if (isBlade || spike) {
       if (along > STRIKE.stabAlign - win && t > 0.8 - win) {
         type = 'stab';
         // 칼끝 찌르기 동작(skill.js thrust: 탭 찌르기, 찌르기 무기 AI 의 찌르기 기술)에서 칼끝을 뻗는 구간(thrustPush:
@@ -184,7 +203,7 @@ export class Combat {
           ephys = 0.5 * mEff * speed * speed;
           energy = ephys * STRIKE.energyScale;
         }
-      } else {
+      } else if (isBlade) {
         const perp = rel.clone().addScaledVector(axis, -rel.dot(axis));
         const pl = perp.length();
         const edgeAlign = pl > 1e-3 ? Math.abs(perp.dot(edge)) / pl : 0;
@@ -203,7 +222,7 @@ export class Combat {
     const vic = pr.v.fighter;
     // 사장님 결정 (9/30 "맞으면 즉사로"): 탭 마무리 찌르기가 내리찍는 동안(skill.tap.down·go, thrustPush = 끝나기 전)
     //  칼끝이 칼 축으로(찌르기) 쓰러진 상대의 몸통(가슴·배·골반)·머리에 닿으면 즉사 (fighter.applyWound).
-    //  옷·살·판금·투구 문턱은 이것을 막지 못한다 — 아래 문턱은 상처 깊이와 관통(pass: 물리로 튕기나 가르나)만 정한다.
+    //  기존 칼의 예외는 옷·살·판금·투구 문턱과 독립이다. 새 가시 찌르기는 아래 문턱을 넘어야 마무리도 허용한다.
     //  걸리지 않는 것: 서 있는·무릎 꿇은·일어나는 상대 (vic.state) · 보통 탭 찌르기 (tap.down) · 겨누는 중·걷는 중 (go) ·
     //  찍기가 끝난 뒤·돌아오는 중 (thrustPush) · 자세 지도로 친 내려찍기·AI 내려베기 (tap 없음) · 베기·둔기·날 없는 무기 (stab) ·
     //  팔다리 (부위) · 내가 넘어졌을 때 (att.state) · 다른 상대 (att.foe). 판단만 한다 — 예측(predicting)·측정 도구가 불러도 부작용 없음
@@ -275,6 +294,8 @@ export class Combat {
           bareThreshold, armorActive: helmOn || plateGuard > 0, ignoreArmor: att.weaponCfg.ignoreArmor });
         finish = finishRuleResult.finish;
       }
+      // 가시는 살·옷·판금·투구가 막으면 마무리 즉사도 없다. 예측과 실제 판정에 함께 적용한다.
+      if (spike && eff <= thr) finish = false;
       if (eff > thr) {
         severity = (eff - thr) / (type === 'cut' ? 90 : 60);
         pass = eff > thr * (1.25 - emoPass); // 확실히 파고들 때만 튕기지 않고 가르고 들어간다 (집념·분노면 더 쉽게 가른다)
@@ -340,6 +361,13 @@ export class Combat {
       });
       const sw = c.pr.w.body;
       const vb = c.pr.v.body;
+      if (point && spikeHead(c.pr)) {
+        const S = c.pr.w.fighter.cache?.sword, P = c.pr.v.fighter.cache?.parts[c.pr.v.part];
+        if (!S || !P || !this.analyze(c.pr, point, S, P, true)?.pass) {
+          this.cutting.delete(key);
+          continue;
+        }
+      }
       if (!c.applied) {
         if (!point) continue; // 아직 실제로 닿지 않음 (가까이만 옴)
         c.applied = true;
@@ -417,7 +445,21 @@ export class Combat {
       if (this.cutting.has(`${pr.wc}:${pr.vc}`)) return;
       const c = contactOf(world, pr.wc, pr.vc);
       if (!c) return;
-      this.strike(pr, c.p, false);
+      if (spikeHead(pr)) {
+        const S = pr.w.fighter.cache?.sword || liveState(pr.w.body);
+        const P = pr.v.fighter.cache?.parts[pr.v.part] || liveState(pr.v.body);
+        const passing = !!this.analyze(pr, c.p, S, P)?.pass;
+        const r = this.strike(pr, c.p, passing);
+        if (r?.pass) {
+          this.cutting.set(`${pr.wc}:${pr.vc}`, {
+            seen: this.stepNo, applied: true, pr, wc: pr.wc, vc: pr.vc,
+            Eleft: Math.min(r.energy, r.absorb) / STRIKE.energyScale,
+            stuck: r.stuck, mFree: r.mFree, stuckT: 0,
+            localPt: c.p.clone().sub(tv(pr.w.body.translation())).applyQuaternion(rotQ(pr.w.body).invert()),
+          });
+          return;
+        }
+      } else this.strike(pr, c.p, false);
       this.rebound(pr, c.p, c.n);
     });
     this.bladeClash(world, bladePairs);
