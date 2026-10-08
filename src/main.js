@@ -326,7 +326,8 @@ let foeWeaponId = 'longsword'; // 이번 판 상대 무기 (prepareRound 가 정
 function prepareRound() {
   currentFoe = pickFoe();
   // 상대 무기: 주소에 foeWeapon/weapon을 직접 적었으면 그것, 아니면 캐릭터가 쓰는 무기 (브란은 10% 확률로 주워 온 커먼 칼)
-  foeWeaponId = params.get('foeWeapon') || FIXED_WEAPON || (currentFoe ? pickCharacterWeapon(currentFoe) : 'longsword');
+  // 별칭도 여기서 한 번 해석해 카드·실제 장비·AI 유파가 같은 무기 ID를 사용한다.
+  foeWeaponId = getWeapon(params.get('foeWeapon') || FIXED_WEAPON || (currentFoe ? pickCharacterWeapon(currentFoe) : 'longsword')).id;
   // 이번 판에 나오는 목소리만 미리 만든다 (시작 단추를 누르기 전에는 소리 장치가 없어 그냥 넘어간다)
   sound.prepareVoices(['player', voiceOf(currentFoe)]);
 }

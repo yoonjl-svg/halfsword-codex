@@ -1,0 +1,196 @@
+{
+  "status": "local-verified-awaiting-public-delivery",
+  "baselineCommit": "5cb606fce3b369d309ab7b4e6a685d6228ecb7f1",
+  "publicVerified": false,
+  "sourceSHA256": {
+    "src/main.js": "008066084faab968fc5e5a30506d63c164e5feb36b21a33efe248a1dd9eafd86",
+    "src/ai.js": "2f23c64500eb6217ccba295607b17697c98e3f3f830c051a6d0f7c01af3116da",
+    "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+    "src/schools.js": "ddf8556c32bba8db2b570922c41686899fa57a45b6107ca1de80b9fac5b5aaeb",
+    "src/weapons.js": "53182c4a559581489cc6fcaa22f521b493ea9600000b6e645aee3b83dbac500c",
+    "tools/browser/phase4_weapon_identity_20261008.mjs": "7db34c15970f61b25511fa112f543edc3165ad451a18f64d8e069481b947f862"
+  },
+  "browser": [
+    {
+      "name": "baseline01",
+      "report": "/workspace/halfsword-handoff/phase4-weapon-identity-20261008/browser/baseline01/report.json",
+      "sha256": "303145e1858378c65af318ae19da31092afaf116095327f5c3ba29a81cc0a1d5",
+      "expect": "baseline",
+      "passProtocol": false,
+      "sourceHead": "5cb606fce3b369d309ab7b4e6a685d6228ecb7f1",
+      "buildStable": true,
+      "sourceStable": true,
+      "startedRounds": 0,
+      "physicsSteps": 0,
+      "wallMs": 2848.514832,
+      "completedUTC": "2026-10-08T00:32:31.667Z",
+      "errors": [
+        {
+          "kind": "route",
+          "url": "http://127.0.0.1:4173/?foe=bran&foeWeapon=chicken",
+          "message": "route.fetch: connect ECONNREFUSED 127.0.0.1:4173\nCall log:\n\u001b[2m  - → GET http://127.0.0.1:4173/?foe=bran&foeWeapon=chicken\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36\u001b[22m\n\u001b[2m    - accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - upgrade-insecure-requests: 1\u001b[22m\n\u001b[2m    - sec-ch-ua: \"Chromium\";v=\"151\", \"Not=A?Brand\";v=\"99\"\u001b[22m\n\u001b[2m    - sec-ch-ua-mobile: ?0\u001b[22m\n\u001b[2m    - sec-ch-ua-platform: \"Linux\"\u001b[22m\n"
+        },
+        {
+          "kind": "requestfailed",
+          "url": "http://127.0.0.1:4173/?foe=bran&foeWeapon=chicken",
+          "message": "net::ERR_FAILED"
+        }
+      ],
+      "fatal": {
+        "name": "Error",
+        "message": "page.goto: net::ERR_FAILED at http://127.0.0.1:4173/?foe=bran&foeWeapon=chicken\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:4173/?foe=bran&foeWeapon=chicken\", waiting until \"load\"\u001b[22m\n",
+        "stack": "page.goto: net::ERR_FAILED at http://127.0.0.1:4173/?foe=bran&foeWeapon=chicken\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:4173/?foe=bran&foeWeapon=chicken\", waiting until \"load\"\u001b[22m\n\n    at /workspace/halfsword-codex/tools/browser/phase4_weapon_identity_20261008.mjs:46:110"
+      },
+      "observations": [],
+      "manifestSHA256": "10d88f9dc4c6f9841a7911fda41816004e64470e4c69089ae9cc1f9e0e8616c1",
+      "toolSHA256": "626fc19db6ecbfa8061b3768377a20f0d21bca2e49490b08012311ee54828030"
+    },
+    {
+      "name": "baseline02",
+      "report": "/workspace/halfsword-handoff/phase4-weapon-identity-20261008/browser/baseline02/report.json",
+      "sha256": "fcac7e5d4104e28e9771f967982a97ea1c44d2ea5b6c4f71b489e74ac6ac124e",
+      "expect": "baseline",
+      "passProtocol": false,
+      "sourceHead": "5cb606fce3b369d309ab7b4e6a685d6228ecb7f1",
+      "buildStable": true,
+      "sourceStable": true,
+      "startedRounds": 0,
+      "physicsSteps": 0,
+      "wallMs": 12754.105392,
+      "completedUTC": "2026-10-08T00:32:57.141Z",
+      "errors": [],
+      "fatal": {
+        "name": "Error",
+        "message": "page.evaluate: TypeError: Cannot read properties of null (reading 'getAttribute')\n    at p.read (eval at evaluate (:311:30), <anonymous>:2:1043)\n    at eval (eval at evaluate (:311:30), <anonymous>:1:19)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+        "stack": "page.evaluate: TypeError: Cannot read properties of null (reading 'getAttribute')\n    at p.read (eval at evaluate (:311:30), <anonymous>:2:1043)\n    at eval (eval at evaluate (:311:30), <anonymous>:1:19)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at read (/workspace/halfsword-codex/tools/browser/phase4_weapon_identity_20261008.mjs:36:22)\n    at enter (/workspace/halfsword-codex/tools/browser/phase4_weapon_identity_20261008.mjs:42:163)\n    at async file:///workspace/halfsword-codex/tools/browser/phase4_weapon_identity_20261008.mjs:49:61"
+      },
+      "observations": [],
+      "manifestSHA256": "a5bea2c2790e1fa57469155249ec27de16e5a9f5b7e7b6fa9b9d01d18bd391a1",
+      "toolSHA256": "c858f2eab4ff734b536cf049513a83f2e8b456aa593536f022ed57fe8e1633e2"
+    },
+    {
+      "name": "baseline03",
+      "report": "/workspace/halfsword-handoff/phase4-weapon-identity-20261008/browser/baseline03/report.json",
+      "sha256": "3b2ac4d08e121e48e9d84de8f9583f96cd4d52ed14c9d997bcbab32bcd196443",
+      "expect": "baseline",
+      "passProtocol": true,
+      "sourceHead": "5cb606fce3b369d309ab7b4e6a685d6228ecb7f1",
+      "buildStable": true,
+      "sourceStable": true,
+      "startedRounds": 3,
+      "physicsSteps": 331,
+      "wallMs": 65089.038818,
+      "completedUTC": "2026-10-08T00:34:34.517Z",
+      "errors": [],
+      "fatal": null,
+      "observations": [
+        {
+          "query": "chicken",
+          "round": 1,
+          "equipment": "rubber_chicken",
+          "school": "longsword",
+          "measure": {
+            "contact": 0.88,
+            "reach": 1.305263157894737,
+            "clinch": 0.68,
+            "cutTime": 0.13170731707317074
+          },
+          "player": "estoc"
+        },
+        {
+          "query": "chicken",
+          "round": 2,
+          "equipment": "rubber_chicken",
+          "school": "longsword",
+          "measure": {
+            "contact": 0.88,
+            "reach": 1.305263157894737,
+            "clinch": 0.68,
+            "cutTime": 0.13170731707317074
+          },
+          "player": "zweihander"
+        },
+        {
+          "query": "rubber_chicken",
+          "round": 1,
+          "equipment": "rubber_chicken",
+          "school": "rubber_chicken",
+          "measure": {
+            "contact": 0.88,
+            "reach": 1.24,
+            "clinch": 0.68,
+            "cutTime": 0.13
+          },
+          "player": "zweihander"
+        }
+      ],
+      "manifestSHA256": "1958019e00d051f371a5c8c39bb6752d7695601b8aa6b1c815554ccf4fa592f2",
+      "toolSHA256": "7db34c15970f61b25511fa112f543edc3165ad451a18f64d8e069481b947f862"
+    },
+    {
+      "name": "candidate01",
+      "report": "/workspace/halfsword-handoff/phase4-weapon-identity-20261008/browser/candidate01/report.json",
+      "sha256": "6dc7bfb5ebeedcce37b15d253187ececac27e996e585654816be6fe0ad328530",
+      "expect": "fixed",
+      "passProtocol": true,
+      "sourceHead": "5cb606fce3b369d309ab7b4e6a685d6228ecb7f1",
+      "buildStable": true,
+      "sourceStable": true,
+      "startedRounds": 3,
+      "physicsSteps": 337,
+      "wallMs": 69032.351071,
+      "completedUTC": "2026-10-08T00:39:01.683Z",
+      "errors": [],
+      "fatal": null,
+      "observations": [
+        {
+          "query": "chicken",
+          "round": 1,
+          "equipment": "rubber_chicken",
+          "school": "rubber_chicken",
+          "measure": {
+            "contact": 0.88,
+            "reach": 1.24,
+            "clinch": 0.68,
+            "cutTime": 0.13
+          },
+          "player": "longsword"
+        },
+        {
+          "query": "chicken",
+          "round": 2,
+          "equipment": "rubber_chicken",
+          "school": "rubber_chicken",
+          "measure": {
+            "contact": 0.88,
+            "reach": 1.24,
+            "clinch": 0.68,
+            "cutTime": 0.13
+          },
+          "player": "qinggang"
+        },
+        {
+          "query": "rubber_chicken",
+          "round": 1,
+          "equipment": "rubber_chicken",
+          "school": "rubber_chicken",
+          "measure": {
+            "contact": 0.88,
+            "reach": 1.24,
+            "clinch": 0.68,
+            "cutTime": 0.13
+          },
+          "player": "tree_branch"
+        }
+      ],
+      "manifestSHA256": "439283aec271e4e160240a5a6fd40dcceb7dcce99a6338d2eff64f8da0f0df27",
+      "toolSHA256": "7db34c15970f61b25511fa112f543edc3165ad451a18f64d8e069481b947f862"
+    }
+  ],
+  "limits": [
+    "Identity rounds stay within initial hold; trusted stick acceptance does not prove sustained walking or attacks.",
+    "School thrust membership does not prove selection; blunt damage ratio suppresses those weights.",
+    "Six character/84 alias constructor comparisons are configuration checks, not new combat/win-rate evidence.",
+    "Physical-phone endurance and all-content/difficulty completion are outside this bounded Phase4 pass."
+  ]
+}
