@@ -17,11 +17,16 @@
 import * as THREE from 'three';
 
 /** 고정 철구와 가시. 충돌 외피는 가시 사이의 빈 공간을 단순화한 구다. */
-export function morgensternKit({ headRadius = 0.04, spikeLength = 0.025, spikeRadius = 0.007 } = {}) {
+export function morgensternKit({ headRadius = 0.04, spikeLength = 0.025, spikeRadius = 0.007, rings = {} } = {}) {
   return (idx, isHead, shape, color) => {
     if (!isHead) {
       if (shape[0] === 'ball') return new THREE.Mesh(new THREE.SphereGeometry(shape[1], 12, 8), metalMat(color));
       const [, hx, hy] = shape;
+      if (rings[idx]) {
+        const r = rings[idx];
+        const profile = [[hx, -hy], [hx, hy], [r.innerTopRadius, hy], [r.innerBottomRadius, -hy], [hx, -hy]];
+        return new THREE.Mesh(new THREE.LatheGeometry(profile.map(([x,y]) => new THREE.Vector2(x,y)), 14), metalMat(color));
+      }
       const mat = idx === 0
         ? new THREE.MeshStandardMaterial({ color, roughness: 0.88, metalness: 0 })
         : metalMat(color);

@@ -66,7 +66,7 @@ SCHOOLS.tree_branch = {
   ...L,
   id: 'tree_branch',
   weapon: 'tree_branch',
-  measure: { contact: 1.46, reach: 1.61, clinch: 1.13, cutTime: 0.21 }, // 10라운드 hybrid 재실측, 베는 시간은 롱소드 0.30 기준 비율 (전 1.44/1.64/1.11/0.33)
+  measure: { contact: 1.41, reach: 1.55, clinch: 1.09, cutTime: 0.20 }, // 10/08 길이 -10%의 실측 차이만 반영. 시간은 0.30 × (raw 0.27 / 롱소드 0.41).
   tech: branchTech,
   techByName: byName(branchTech),
   feints: noThrustFeints,

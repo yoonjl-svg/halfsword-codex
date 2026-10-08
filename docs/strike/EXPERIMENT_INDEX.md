@@ -1,5 +1,7 @@
 # 실험 색인과 재현 입구
 
+- 2026-10-08 · [가지·참치·69cm 철퇴](weapon_compact_20261008.md) · [해시/원자료](weapon_compact_20261008.json) · 기준31de577. 같은입력 큰 출렁임 부담 감소/미세 안정 혼합, 가지사거리 조정, native 접촉·파손 통과. [실제 공개](weapon_compact_release.json).
+
 - [10/08 리볼버 상반신 조준·75J](revolver_aim_20261008.md): 사용자 요청 반영. 기준 `a34eff6b5b84ef1611f73db639135da64ae6eb09`, 실제 공개는 [전달 영수증](revolver_aim_release.json).
 
 4단계 경기 연결·파손 충돌 ·10/08: [폰 진행](phase4_progression_20261008.md)·[재현 해시](phase4_progression_20261008.json)·[파손 native 검사](broken_collider_20261008.md)·[전달](phase4_progression_release.json). 종료 fixture3회로 화면/실제 다음 상대를 검증한다. 실제 무기 파손·부활 접촉 대조와 자연 전투 빈도는 구분한다.

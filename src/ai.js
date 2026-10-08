@@ -57,7 +57,7 @@ export const MEASURED = {
   excalibur: [1.55, 1.83, 1.2, 0.4],
   excalibur_replica: [1.55, 1.83, 1.2, 0.4],
   lightsaber: [1.46, 1.65, 1.13, 0.24], // 한손 자세표를 쓰지 않는다 (weapons.js oneHandStance)
-  tree_branch: [1.46, 1.61, 1.13, 0.29],
+  tree_branch: [1.41, 1.55, 1.09, 0.27], // 10/08 길이 -10%: 같은 입력의 도달 거리 차이·시간 비율만 반영.
   rubber_chicken: [0.88, 1.24, 0.68, 0.18],
   frozen_tuna: [1.36, 1.63, 1.05, 0.44],
 };

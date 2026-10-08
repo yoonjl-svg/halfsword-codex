@@ -1,5 +1,7 @@
 # 무거운 한손 모르겐슈테른 · 2026-10-08 KST
 
+후속 사용자 지정으로 [전체69cm·손 쪽COM 및 참치 둔타2.6](weapon_compact_20261008.md)이 최신값이다. 아래71.65cm와 참치2.8은 최초 전달·검증 역사로 보존한다.
+
 사용자가 한손으로 쓰는 무거운 철퇴, 우화 방식의 조건부 가시 찌르기, 갑옷 무시 없는 타격 차별화를 요청했다. 후속 지정은 **철구 지름8cm·전체71–72cm**다. 구현값은 **71.65cm·2.2kg**, 선택형만 전달한다. 일반 뽑기에는 넣지 않는다. 현재 공개 확인은 [전달 영수증](morgenstern_heavy_release.json)을 따른다.
 
 플레이: <https://yoonjl-svg.github.io/halfsword-codex/?weapon=morgenstern&foeWeapon=longsword&foe=default>

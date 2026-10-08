@@ -12,6 +12,7 @@
 //  실측이 없어 물리적으로 그럴듯하게 추정/창작한 값. 아래 각 무기 설명에 표기해 둔다.
 // ─────────────────────────────────────────────────────────────
 import { classifyWeapon } from './weapon_class.js';
+import { MORGENSTERN_DESIGN as MACE } from './morgenstern_design.js';
 import * as THREE from 'three';
 import { swordKit, metalMat, weaponEnv, hiddenParts, drawTreeBranch, drawRubberChicken, drawFrozenTuna, drawPistol, morgensternKit, PISTOL_GRIP, PISTOL_BORE_X } from './weapon_looks.js';
 
@@ -903,7 +904,7 @@ const treeBranch = finalizeSpec('tree_branch', {
   nameKo: '나뭇가지', nameEn: 'Tree Branch',
   desc: '길에서 주운 나뭇가지. 날이 없다.\n세게 부딪히면 부러진다. 행운을 빈다.',
   grip: 'one-hand', material: 'wood',
-  hiltLength: 0.15, bladeLength: 0.8,
+  hiltLength: 0.135, bladeLength: 0.72, // 10/08: 손 기준 세로 길이만 10% 단축, 질량·굵기 유지.
   tier: 'trash', // 감독 등급: 쓰레기 → power 0.7·durability 0.4·fragility 0.2 (60초 경합에 60% 부러진다)
   edged: false, // 날이 없어 항상 둔기 판정 (총 타격 배율은 power 0.7)
   // 겉모습은 부품(자루·밑동·몸통 상자)마다 따로 그리지 않고 decorate 가 한 줄기로 통째로 그린다 — 따로 그리면
@@ -911,17 +912,20 @@ const treeBranch = finalizeSpec('tree_branch', {
   partMesh: hiddenParts,
   buildParts(look) {
     const L = this.bladeLength;
-    const grip = boxInertia(0.05, 0.02, 0.08, 0.018);
+    const grip = boxInertia(0.05, 0.02, 0.072, 0.018);
     const pommel = sphereInertia(0.02, 0.015); // 뭉툭한 밑동
     const blade = bladeInertia(0.25, L, 0.55, 0.29, 0.036, 0.03); // 울퉁불퉁, 거의 균일한 막대
     return [
-      partTuple(['box', 0.02, 0.08, 0.018], 0, 0.05, 0, grip.Ie, grip.It, 0x5a4530),
-      partTuple(['ball', 0.015], -0.1, 0.02, 0, pommel.Ie, pommel.It, 0x5a4530),
-      partTuple(['box', 0.018, L / 2, 0.015], 0.15 + L / 2, 0.25, blade.comY, blade.Ie, blade.It, 0x6b4423, false),
+      partTuple(['box', 0.02, 0.072, 0.018], 0, 0.05, 0, grip.Ie, grip.It, 0x5a4530),
+      partTuple(['ball', 0.015], -0.09, 0.02, 0, pommel.Ie, pommel.It, 0x5a4530),
+      partTuple(['box', 0.018, L / 2, 0.015], this.hiltLength + L / 2, 0.25, blade.comY, blade.Ie, blade.It, 0x6b4423, false),
     ];
   },
   decorate(group) {
-    drawTreeBranch(group);
+    const branch = new THREE.Group();
+    drawTreeBranch(branch);
+    branch.scale.y = 0.9; // 잔가지·잎도 같은 축척, 손 위치와 가로 굵기는 그대로.
+    group.add(branch);
   },
 });
 
@@ -969,9 +973,9 @@ const frozenTuna = finalizeSpec('frozen_tuna', {
   grip: 'two-hand', material: 'frozen',
   hiltLength: 0.15, bladeLength: 0.75, gripAlong: -0.17,
   // 날이 없어 몸통 타격은 무해하다(§고무 닭 주석) → 머리에 맞았을 때만 확실히 세게 만든다
-  // mBlunt 2.2 → 2.8 (10라운드: hybrid 롱소드 상대 192판 12% → 17%, 모든 무기 목표 15~85%. 스펙 조정은 최소로)
+  // 과거 보상 2.8에서 사용자 지정 2.6으로 조정(10/08). 새 승률을 근거로 한 값은 아니다.
   tier: 'mystery', // 사장님 결정: ??? 등급 (계수는 커먼 그대로, 카드에 드물게 나온다 — 등급 전체 5%)
-  edged: false, mBlunt: 2.8, fragility: 0, // 감독 지시: 참치는 부러지지 않는다 (통째로 얼린 덩어리)
+  edged: false, mBlunt: 2.6, fragility: 0, // 감독 지시: 참치는 부러지지 않는다 (통째로 얼린 덩어리)
   techReachScale: 1, // 짧고 둔한 무기의 다가서기 계산 완화 (메서·팔쉬온과 같은 근본 원인)
   controlOverrides: { aimStiffness: 46, maxAimTorque: 16 }, // 미끄러운 꼬리를 쥐고 있어 손아귀 힘이 잘 안 실린다 (한손·양손과 무관한 참치 고유 성질 — 연구 세션 스펙 그대로)
   // 겉모습: 꼬리자루를 쥔 참치 — 주먹 아래 초승달 꼬리, 칼끝 쪽 머리. 역그늘 색·노란 토막지느러미·서리와 얼음막.
@@ -1057,32 +1061,28 @@ const pistol = finalizeSpec('pistol', {
 //  글자 데이터일 뿐 물리·밸런스와는 상관없다. 카드 앞면의 작은 그림은 public/ui/weapons/<id>.webp
 //  (tools/browser/weapon_thumbs.mjs 로 이 무기 모델을 그대로 찍어 만든다 — 겉모습을 바꾸면 다시 돌린다).
 // [I] 무거운 한손 시험안. RA VIII.70(64.8cm/2.1kg)·Met14.25.171(73.2cm/822g)
-// 두 실물을 참고한 71.65cm/2.2kg 재구성이지 특정 유물 복제나 역사상 최대치가 아니다.
-// 8cm 강철 구에는 나무 자루 소켓(r17mm, 깊이75mm)이 있고 위쪽5mm는 강철이다.
-// docs/strike/morgenstern_heavy_20261008.md: 밀도·소켓·가시를 포함한 계산과 한계.
+// 두 실물을 참고한 재구성이며 사용자 후속 지정으로 전체69cm/2.2kg, 손 쪽 무게중심으로 수정했다.
+// 8cm 강철 구의 소켓(r21.404mm, 깊이70mm)과 손잡이 보강추로 질량을 실제 재배치한다.
+// docs/strike/weapon_compact_20261008.md, tools/sim/morgenstern_design.mjs: 계산과 한계.
 // 머리는 'blade' 접촉 이름을 쓰지만 날은 없다. 앞쪽 축방향 접촉만 가시 찌르기.
 const morgenstern = finalizeSpec('morgenstern', {
   nameKo: '모르겐슈테른', nameEn: 'Morgenstern',
   desc: '2.2kg의 무거운 한손 가시 철퇴.\n앞쪽 가시로 찌르며, 갑옷을 무시하지 않는다.',
   trialOnly: true,
   grip: 'one-hand', material: 'steel',
-  hiltLength: 0.48, bladeLength: 0.135,
-  breakAt: 0.05, // y=.48675: 철구·고정대 아래 나무 자루에서 부러진다.
+  hiltLength: 0.4535, bladeLength: 0.135,
+  breakAt: 0.05, // y=.46025: 철구·고정대 아래 나무 자루에서 부러진다.
   edged: false, spike: true, mCut: 0, mThrust: 0.35, mBlunt: 2.1,
-  partMesh: morgensternKit({ headRadius: 0.04, spikeLength: 0.025, spikeRadius: 0.007 }),
+  partMesh: morgensternKit({ headRadius: 0.04, spikeLength: 0.025, spikeRadius: 0.007,
+    rings: { 2: MACE.parts.collar, 4: MACE.parts.sleeve } }),
   buildParts() {
-    // 7800kg/m³ 강철 구에서 소켓 체적/관성을 빼고 13개의 원뿔을 더한 계산값.
-    const headMass = 1.7031936098226728;
-    const shaftMass = 2.2 - headMass - 0.1 - 0.025;
-    const collar = boxInertia(0.1, 0.02, 0.015, 0.02);
-    const butt = boxInertia(0.025, 0.0175, 0.0015, 0.0175);
-    return [
-      // 소켓 안 나무까지 포함한 684mm 자루: 반경16→17mm, 밀도635.35kg/m³.
-      partTuple(['box', 0.017, 0.342, 0.017], 0.243, shaftMass, 0.0069069767434953855, 0.014507143405318385, 0.000050689589357921205, 0x64432b),
-      partTuple(['box', 0.0175, 0.0015, 0.0175], -0.1, 0.025, 0, butt.Ie, butt.It, 0x676769),
-      partTuple(['box', 0.02, 0.015, 0.02], 0.508, 0.1, 0, collar.Ie, collar.It, 0x73757a),
-      partTuple(['ball', 0.053], 0.55, headMass, 0.0007509135534327162, 0.0012493731312126577, 0.0014672536672301738, 0x727780, true),
-    ];
+    // 재료 체적으로 계산한 COM·관성. 머리는 index3, 나무 바깥의 강철 보강 고리는 index4.
+    const keys = ['shaft', 'butt', 'collar', 'head', 'sleeve'];
+    const colors = [0x64432b, 0x676769, 0x73757a, 0x727780, 0x676769];
+    return keys.map((key, i) => {
+      const p = MACE.parts[key];
+      return partTuple([...p.shape], p.y, p.mass, p.comY, p.Ie, p.It, colors[i], key === 'head');
+    });
   },
 });
 

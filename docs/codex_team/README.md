@@ -1,5 +1,7 @@
 # 혼합안 독립 개발 인계
 
+**최신 무기 조정 ·10/08:** [가지10% 단축·참치 둔타2.6·69cm 철퇴](../strike/weapon_compact_20261008.md). 철퇴2.2kg을 유지하며69cm 기준COM을 손 쪽으로10% 이동했다. 큰 추종 부담 감소와 미세 안정 시간 혼합 결과를 구별한다. [실제 전달](../strike/weapon_compact_release.json)·[현재 계획](ACTIVE_PLAN.md)을 우선한다.
+
 **최신4단계 ·10/08:** [대표 상대·무기 연결](../strike/phase4_weapon_identity_20261008.md)을 점검했다. 기존 첫 공방 근거를 재사용하고 별칭 무기의 카드/장비와 AI 유파 불일치를 수정한다. [실제 전달 상태](../strike/phase4_weapon_identity_release.json)·[현재 범위와 다음 순서](ACTIVE_PLAN.md)를 우선한다. 정한 기본 품질 묶음의 마무리이며 콘텐츠 전체·실물 폰 장시간 검증 완료는 아니다.
 
 **최신 리볼버 ·10/08:** [대치 사격 제한·장전 완료음](../strike/revolver_completion_20261008.md). 시작2초 사격 입력 폐기, 여섯 삽입음 추가20% 단축과 마지막 완료음 강화를 처리한다. 전체8초·0.8초 간격·80J·손떨림은 유지한다. [실제 전달 상태](../strike/revolver_completion_release.json)를 따른다.
