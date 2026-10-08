@@ -18,7 +18,7 @@
 - **라이트 회복2장면×기준/후보4실행:** 기존 준비 프로토콜의 누움/옆 넘어짐·높은 가드·seed7,3초 knockDown＋가슴55N·s 충격, 신체 자세/속도 대입 없음. 둘 다 getup624→첫 stand865(241프레임)를 유지했다. getup 주팔 후방 지표는 누움50→0·옆넘어짐3→0프레임, 보조팔은 모두0이었다. 주팔 최대 몸통 겹침은.0525→.0398m·.1126→.0901m로 줄었지만 남는다. 이 지표는 가슴좌표 상완 방향 X<−.5이며 의학적 가동범위가 아니다. 첫 준비 도구의 존재하지 않는 skill API 호출2건은0step 실패로 보존하고 효능 표본에서 제외했다.
 - 최종 소스의 회복 계약17검사·native 모터12검사·개발 회귀6묶음 통과. 이전 양손 나머지7종 검사·실패 원인 분리는 재수행하지 않고 직전 일지를 재사용했다. 라이트/롱소드 로컬 모바일2흐름 진입·카드 선택·터치 공격·이동·중단/재개·재시작 통과. 브라우저 검사는 실물 폰 체감이나 기립 해부학 검사와 구별한다.
 
-원자료와 실행 명령·불변 소스는 저장소 밖 `/workspace/halfsword-handoff/universal-arm-20261008/`에 보존했다. 접촉 명령은 `contact-audit/*/protocol.json`, 회복 명령은 `recovery_run.py`와각 report의 command를 따른다. `*-recovery-v2-source`의 v2는 도구 수정본 이름이며 게임 검술보정은 legacy다. SHA로 소스를 확인한 뒤 새 출력 디렉터리에서 재현한다.
+원자료와 실행 명령·불변 소스는 저장소 밖 `/workspace/halfsword-handoff/universal-arm-20261008/`에 보존했다. 접촉 명령은 `contact-audit/*/protocol.json`, 회복 명령은 `recovery_run.py`와 각 report의 command를 따른다. `*-recovery-v2-source`의 v2는 도구 수정본 이름이며 게임 검술보정은 legacy다. SHA로 소스를 확인한 뒤 새 출력 디렉터리에서 재현한다.
 
 ```sh
 node tools/sim/arm_recovery_reach_checks.mjs
@@ -27,3 +27,7 @@ node tools/browser/arm_recovery_delivery_20261008.mjs --weapons=lightsaber,longs
 ```
 
 **다음:** 사용자 플레이의 구체적인 팔 오류를 우선한다. 잔여 상완–몸통 겹침·기립 다리 순서·라이트 별도 v2·AI 피격/회복 성능은 미완료 항목이다. 무감소를 맞추려고 힘 가중치를 추가하거나 전수 실험을 반복하지 않는다.
+
+## 공개 전달 완료
+
+코드 `75f457ae1ba5618962cfa4cd3bc245cfb67880cd`, Pages Actions `37774449018` 성공. 공개8파일이 최종 빌드 `main-6HkH3rnM.js`와 일치했다. 라이트/롱소드 공개 모바일2흐름의 진입·카드 선택·터치 공격·이동·중단/재개·재시작·재입력을 통과했고 실행 중 소스/빌드가 같았다. 위 AI 피격·잔여 겹침 한계는 유지한다. [일반판 라이트 카드 선택](https://yoonjl-svg.github.io/halfsword-codex/?cards=lightsaber,longsword&foe=default&foeWeapon=longsword)에서 팔의 회복 후 경로와 연속 베기 체감을 확인할 수 있다.

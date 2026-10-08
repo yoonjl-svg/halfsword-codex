@@ -1,5 +1,5 @@
 {
-  "status": "local_verified_public_pending",
+  "status": "delivered_public_verified",
   "baselineHEAD": "c95f95872a225f5a37ab0cf0633efcd8fcb63ead",
   "url": "https://yoonjl-svg.github.io/halfsword-codex/",
   "playURL": "https://yoonjl-svg.github.io/halfsword-codex/?cards=lightsaber,longsword&foe=default&foeWeapon=longsword",
@@ -32,5 +32,27 @@
     "recovery leg sequencing",
     "separate lightsaber v2 adoption",
     "AI defence/recovery equivalence and physical-phone long play not established"
-  ]
+  ],
+  "codeCommit": "75f457ae1ba5618962cfa4cd3bc245cfb67880cd",
+  "deployment": {
+    "run": 37774449018,
+    "conclusion": "success",
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37774449018"
+  },
+  "publicBytes": {
+    "pass": true,
+    "files": 8,
+    "evidence": "/workspace/halfsword-handoff/universal-arm-20261008/pages-code.json",
+    "sha256": "453fa701e13b4d3771cd67ca16d51280f6156c3fc91002d12a7def6be1480b60"
+  },
+  "publicMobile": {
+    "pass": true,
+    "flows": 2,
+    "sourceStable": true,
+    "buildStable": true,
+    "evidence": "/workspace/halfsword-handoff/arm-recovery-20261008/mobile/universal-public/report.json",
+    "sha256": "d067c7c38314430379f4998e63a6e43604e8cf092c23767ce09eeb89bcd4dbef",
+    "scope": "Public HTTPS Chromium mobile emulation: entry, card selection, touch attack, move, pause/resume, restart and reinput; not physical-phone long play"
+  },
+  "verifiedUTC": "2026-10-08T12:09:59.091Z"
 }
