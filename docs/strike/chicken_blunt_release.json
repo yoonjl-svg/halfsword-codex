@@ -1,5 +1,5 @@
 {
-  "status": "local-verified-public-pending",
+  "status": "delivered-public-mobile-verified",
   "baselineCommit": "1628db8b33eb8632325608d425e9d817b091b161",
   "change": {
     "weapon": "rubber_chicken",
@@ -21,5 +21,55 @@
     "reportSHA256": "6310405cc0d31c24fc57c5209724d58861f205a006fcb6eef00c3d4dc06322b3",
     "report": "/workspace/halfsword-handoff/chicken-blunt-20261008/mobile/local01/report.json",
     "scope": "One chicken/chicken ordinary entry; trusted touch play/pause/resume/fresh-world restart/re-input, both runtime coefficients1.6."
-  }
+  },
+  "verifiedUTC": "2026-10-08T06:08:08.079033+00:00",
+  "gameCommit": "5aeb45bab8100bce967291655f7f7c104c9e7c76",
+  "deployment": {
+    "conclusion": "success",
+    "databaseId": 37735719802,
+    "headSha": "5aeb45bab8100bce967291655f7f7c104c9e7c76",
+    "status": "completed",
+    "updatedAt": "2026-10-08T06:05:53Z",
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37735719802"
+  },
+  "publicMobile": {
+    "pass": true,
+    "responses": 145,
+    "uniqueArtifacts": 144,
+    "errors": [],
+    "sourceStable": true,
+    "buildStable": true,
+    "reportSHA256": "6cc841b3136c899fb6dcdd16e7fc44dd81ffd0996f1634be0abf09e2c852ab9d",
+    "report": "/workspace/halfsword-handoff/chicken-blunt-20261008/mobile/public01/report.json",
+    "tool": "/workspace/halfsword-handoff/chicken-blunt-20261008/mobile/chicken-mobile.mjs",
+    "toolSHA256": "9fec381bd456b62d25c7212cf2a9b4d588f6e6f59851d70d4e4880848444faf0",
+    "scope": "Both chicken fighters cfg1.6 at spawn/restart; trusted mobile touch play/pause/resume/new world/re-input; existing v2/offhand/power rules retained."
+  },
+  "publicFiles": [
+    {
+      "path": "index.html",
+      "status": 200,
+      "bytes": 19274,
+      "sha256": "a47d9a57ab69101485d8595d7b409ce8cf40555a75d9f6bae0b53080311f9f5d",
+      "match": true
+    },
+    {
+      "path": "development-plan.html",
+      "status": 200,
+      "bytes": 92735,
+      "sha256": "0ccee425c66cf1cca988e4924fa1460a828d743e226bf35c9bea52b804249023",
+      "match": true
+    },
+    {
+      "path": "assets/main-BbFf_QBc.js",
+      "status": 200,
+      "bytes": 3552428,
+      "sha256": "1aa895ae0f0a08256035947366e04ceb6a769b645475c8941a15030dbd497a8e",
+      "match": true
+    }
+  ],
+  "limits": [
+    "Chromium mobile emulation, not physical Safari or long play.",
+    "Coefficient/config/delivery verification only; no new combat-balance or win-rate experiment."
+  ]
 }
