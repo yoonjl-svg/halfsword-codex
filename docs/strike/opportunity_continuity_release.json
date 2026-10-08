@@ -1,5 +1,5 @@
 {
-  "status": "local_pass_public_pending",
+  "status": "verified_public_delivery",
   "baselineHead": "356dd6b172fed7fecfd5c70ee5c0f2aab12298b7",
   "urls": {
     "ordinary": "https://yoonjl-svg.github.io/halfsword-codex/",
@@ -21,13 +21,25 @@
     "getupContracts": 22,
     "aiContracts": 8,
     "physicalPhoneTest": false,
-    "localMobileFlows": 4
+    "localMobileFlows": 4,
+    "ciRegressionSuites": 6,
+    "publicMobileFlows": 4,
+    "publicUniqueArtifacts": 151,
+    "publicJSAndNetworkErrors": 0,
+    "publicRetriedGET": 0,
+    "trustedTapQueueThenActualAttack": true,
+    "practiceRestartAndManualCancel": true,
+    "pauseFrozenAndNoGhost": true,
+    "supplementalPublicEstocNearPass": true,
+    "supplementalPublicEstocNearMeters": 0.7389,
+    "supplementalPublicEstocNearPrepSeconds": 1.525
   },
   "failures": [
     "Old handOffset cancellation rejected .06 game-generated hand displacement; new raw-ledger contract passes.",
     "First practice fixture yielded no actual start in two of four rows; preserve before changing to armed timed fixture.",
     "Initial mobile delivery failed because sequential CDP touch lasted540.3ms (>180ms tap threshold). Diagnosis was read-only; delivery now requests and checks80ms trusted event duration.",
-    "Second mobile run reached actual rapier prepared thrust and retreat0.655m, repeat, cancel and frozen pause. Observer asserted an earlier HUD snapshot after waiting another frame. Fixed tool to read settled live HUD; game source unchanged."
+    "Second mobile run reached actual rapier prepared thrust and retreat0.655m, repeat, cancel and frozen pause. Observer asserted an earlier HUD snapshot after waiting another frame. Fixed tool to read settled live HUD; game source unchanged.",
+    "Supplemental local estoc-near observed0.739m retreat/actual prepared head thrust but failed overall on two audio socket hangups. Both assets subsequently returned200 and exactSHA; retain initial failure."
   ],
   "evidence": {
     "initialMobile": {
@@ -54,7 +66,72 @@
       "path": "/tmp/halfsword-continuity-mobile-local03/report.json",
       "bytes": 2524001,
       "sha256": "d38ed2ac3bf327b2abbe9022dbc308e4991566b7d82f3aee1c05bf702d04251f"
+    },
+    "localActualMovement": {
+      "path": "/tmp/halfsword-continuity-mobile-local03/movement-receipt.json",
+      "bytes": 5059,
+      "sha256": "15563d681694b3f213549cf8c6cbb8f762d9e1093e54e94e6f958b93d8570988"
+    },
+    "estocNearMovement": {
+      "path": "/tmp/halfsword-continuity-mobile-estocnear01/movement-receipt.json",
+      "bytes": 2440,
+      "sha256": "83a6d9971897a36c339c4cd6729f8ec53b76cb340e92b98c1c3e15458510a116"
+    },
+    "estocNearRun": {
+      "path": "/tmp/halfsword-continuity-mobile-estocnear01/report.json",
+      "bytes": 402108,
+      "sha256": "28d20625fbc5056e38fc7abbc44ed805b46c0d8f7e4e8f3df2b27b24e99d5905"
+    },
+    "audioRecovery": {
+      "path": "/tmp/halfsword-continuity-audio-network-recheck.json",
+      "bytes": 363,
+      "sha256": "3899f23b3a9179a23d9ed73f368283de4a3104d996c991ae7f7626203de48ded"
+    },
+    "ciRegression": {
+      "path": "/tmp/halfsword-continuity-ci-37834460078/development-checks-37834460078-1/result.json",
+      "bytes": 298677,
+      "sha256": "147514b218cff4753b7f84b8c72ad7d3511222cbbcdf12ff7188cfa5df22876d"
+    },
+    "publicMobile": {
+      "path": "/tmp/halfsword-continuity-mobile-public01/report.json",
+      "bytes": 2535949,
+      "sha256": "99a0c0c2b0860f4dac7050bfe2cd34ca2bbac1e89d47d09f8bce7addf6de53c2"
+    },
+    "publicEstocNear": {
+      "path": "/tmp/halfsword-continuity-mobile-estocnear-public01/report.json",
+      "bytes": 339156,
+      "sha256": "e5c78b8e2f0e4d2a6f6ebe0fc02475d46dd1aca606870e07b00e5f455d5f68a0"
+    },
+    "publicEstocNearMovement": {
+      "path": "/tmp/halfsword-continuity-mobile-estocnear-public01/movement-receipt.json",
+      "bytes": 1610,
+      "sha256": "1c3ac06668282de997b4307d2666e1f44bbca7ee1be2af96191f48e4b1a18675"
     }
   },
-  "validationPlan": "Focused local contracts, native22 runs, build and four real-input mobile flows; run full six regression suites on GitHub for deployed source. Do not repeat identical full suite locally without a failure or new concern."
+  "validationPlan": "Focused local contracts, native22 runs, build and four real-input mobile flows; run full six regression suites on GitHub for deployed source. Do not repeat identical full suite locally without a failure or new concern.",
+  "sourceCommit": "74d38034e849d6d76968cf756a6f40f5d14f748d",
+  "actions": {
+    "pages": {
+      "databaseId": 37834461569,
+      "headSha": "74d38034e849d6d76968cf756a6f40f5d14f748d",
+      "conclusion": "success",
+      "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37834461569"
+    },
+    "regression": {
+      "databaseId": 37834460078,
+      "headSha": "74d38034e849d6d76968cf756a6f40f5d14f748d",
+      "conclusion": "success",
+      "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37834460078"
+    }
+  },
+  "postVerificationChangeScope": "Only documentation and regenerated mobile development-plan.html after these game checks; game source, canonical tools and all other build artifacts must remain byte-identical. Final static page check recorded separately.",
+  "preservation": {
+    "archive": "/workspace/halfsword-handoff/continuity-getup-20261009/experiment-evidence.tar.zst",
+    "bytes": 28439345,
+    "sha256": "db053528f1f8a486dfe8829615f5d4020aaea969a4fc7c9cd351972df99d4a5c",
+    "mapping": "Archive entries are former /tmp basenames. Frozen node_modules symlinks reference installed dependencies; engine versions/hashes are in protocol files. Exact archived input copies are in halfsword-continuity-inputs. Do not extract over live code. Final static-page delivery is preserved alongside this immutable archive.",
+    "buildDeltaAfterGameVerification": [
+      "dist/development-plan.html"
+    ]
+  }
 }

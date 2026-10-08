@@ -1,6 +1,6 @@
 {
   "baseline": "356dd6b172fed7fecfd5c70ee5c0f2aab12298b7",
-  "status": "local_pass_public_pending",
+  "status": "verified_public_delivery",
   "nativeExecutions": 22,
   "nativeSteps": 28320,
   "sourceRule": "Each run freezes actual source and preserves exact hashes in protocol.json. Current checkout need not equal older failed fixture. New helper v2 plus raw-input cancellation has same 4800 native snapshots as four prior quick rows.",
@@ -44,6 +44,41 @@
       "path": "/tmp/halfsword-continuity-mobile-local03/report.json",
       "bytes": 2524001,
       "sha256": "d38ed2ac3bf327b2abbe9022dbc308e4991566b7d82f3aee1c05bf702d04251f"
+    },
+    {
+      "path": "/tmp/halfsword-continuity-mobile-local03/movement-receipt.json",
+      "bytes": 5059,
+      "sha256": "15563d681694b3f213549cf8c6cbb8f762d9e1093e54e94e6f958b93d8570988"
+    },
+    {
+      "path": "/tmp/halfsword-continuity-mobile-estocnear01/movement-receipt.json",
+      "bytes": 2440,
+      "sha256": "83a6d9971897a36c339c4cd6729f8ec53b76cb340e92b98c1c3e15458510a116"
+    },
+    {
+      "path": "/tmp/halfsword-continuity-mobile-estocnear01/report.json",
+      "bytes": 402108,
+      "sha256": "28d20625fbc5056e38fc7abbc44ed805b46c0d8f7e4e8f3df2b27b24e99d5905"
+    },
+    {
+      "path": "/tmp/halfsword-continuity-audio-network-recheck.json",
+      "bytes": 363,
+      "sha256": "3899f23b3a9179a23d9ed73f368283de4a3104d996c991ae7f7626203de48ded"
+    },
+    {
+      "path": "/tmp/halfsword-continuity-mobile-public01/report.json",
+      "bytes": 2535949,
+      "sha256": "99a0c0c2b0860f4dac7050bfe2cd34ca2bbac1e89d47d09f8bce7addf6de53c2"
+    },
+    {
+      "path": "/tmp/halfsword-continuity-mobile-estocnear-public01/report.json",
+      "bytes": 339156,
+      "sha256": "e5c78b8e2f0e4d2a6f6ebe0fc02475d46dd1aca606870e07b00e5f455d5f68a0"
+    },
+    {
+      "path": "/tmp/halfsword-continuity-mobile-estocnear-public01/movement-receipt.json",
+      "bytes": 1610,
+      "sha256": "1c3ac06668282de997b4307d2666e1f44bbca7ee1be2af96191f48e4b1a18675"
     }
   ],
   "runs": [
@@ -772,5 +807,16 @@
     "reason": "page.waitForFunction: Timeout 40000ms exceeded.",
     "interpretation": "First flow ordinary passed. Rapier near tap did not yield an observed queue. No final gameplay snapshot in first tool version; do not infer gameplay cause from absence of queue alone.",
     "diagnosis": "Unmodified sequential CDP down/up reached real event timestamps 540.3ms apart; tap limit is180ms, so no tap/queue/attack was expected. New delivery tool requests80ms CDP timestamped trusted touch and asserts actual delivered duration. This is a test-input fix, not a game tap-threshold change."
+  },
+  "browserInterpretation": "Phone-size Chromium rapier near A/B each retreated~.65m. Estoc nominal-far moved only.0183m, near reach band after arm alignment. Extra estoc-near: actual .739m retreat then rangePrepared head thrust after1.525s, observed through trusted80ms tap. Extra run is overall FAIL due two local audio socket hangups; subsequent isolated GET200/exactSHA recorded. Do not count that run as a full delivery pass.",
+  "postVerificationChangeScope": "Only documentation and regenerated mobile development-plan.html after these game checks; game source, canonical tools and all other build artifacts must remain byte-identical. Final static page check recorded separately.",
+  "preservation": {
+    "archive": "/workspace/halfsword-handoff/continuity-getup-20261009/experiment-evidence.tar.zst",
+    "bytes": 28439345,
+    "sha256": "db053528f1f8a486dfe8829615f5d4020aaea969a4fc7c9cd351972df99d4a5c",
+    "mapping": "Archive entries are former /tmp basenames. Frozen node_modules symlinks reference installed dependencies; engine versions/hashes are in protocol files. Exact archived input copies are in halfsword-continuity-inputs. Do not extract over live code. Final static-page delivery is preserved alongside this immutable archive.",
+    "buildDeltaAfterGameVerification": [
+      "dist/development-plan.html"
+    ]
   }
 }
