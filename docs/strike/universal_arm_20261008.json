@@ -1,0 +1,885 @@
+{
+  "baselineHEAD": "c95f95872a225f5a37ab0cf0633efcd8fcb63ead",
+  "rawRoot": "/workspace/halfsword-handoff/universal-arm-20261008",
+  "policy": "ordinary lightsaber legacy .7 / autoGuard; universal arm recovery, no v2 promotion",
+  "reusedPerformance": {
+    "recutActivePeakSpeedPercent": -10.49,
+    "recutActivePeakKineticEnergyPercent": -13.03,
+    "recutActiveMeanSpeedPercent": -17.8,
+    "actualDamagePercent": "not determined"
+  },
+  "contact": {
+    "rows": [
+      {
+        "case": "baseline-seed7",
+        "valid": true,
+        "steps": 1023,
+        "config": {
+          "skill": 0.7,
+          "autoGuard": true,
+          "arm": "legacy",
+          "swordsmanship": "legacy",
+          "profile": null
+        },
+        "requestedSHA256": "fe3bbc0d045247bfa02af106fb8e982334c9fc30e17613a2ff763b28c05908be",
+        "physicsSHA256": "4d5427012f9447ccd24beb6fe7710017cfd37e40df0a52375320aba029c18363",
+        "playerAliveEveryFrame": true,
+        "playerArmedEveryFrame": true,
+        "playerGripJointEveryFrame": true,
+        "maxJointGapM": [
+          0.002539952118160226,
+          0.00216737087666578
+        ],
+        "offGripFrames": 988,
+        "postStartupOffGripFrames": 783,
+        "postStartupSteps": 783,
+        "playerStates": [
+          "stand"
+        ],
+        "positiveLiveCuts": [
+          {
+            "tick": 878,
+            "phase": "followHold2",
+            "active": false,
+            "part": "pelvis",
+            "zone": "pelvis",
+            "energy": 29.231765445654187,
+            "severity": 0.013891635795831468,
+            "pass": false
+          }
+        ],
+        "final": {
+          "player": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 1,
+            "consciousness": 1,
+            "pain": 0,
+            "balance": 100,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "wounds": 0,
+            "bleed": 0,
+            "cloth": {
+              "farmO": 0.9836281493271419,
+              "chest": 0.9869719129287617
+            },
+            "plate": {},
+            "helmetIntegrity": 1
+          },
+          "enemy": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9996893491391151,
+            "consciousness": 1,
+            "pain": 0,
+            "balance": 100,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "wounds": 1,
+            "bleed": 0.00024055461261046184,
+            "cloth": {
+              "pelvis": 0.7430541821020843,
+              "thighB": 0.9707058426352915
+            },
+            "plate": {},
+            "helmetIntegrity": 1
+          },
+          "clashes": 35
+        }
+      },
+      {
+        "case": "universal-seed7",
+        "valid": true,
+        "steps": 1023,
+        "config": {
+          "skill": 0.7,
+          "autoGuard": true,
+          "arm": "legacy",
+          "swordsmanship": "legacy",
+          "profile": null
+        },
+        "requestedSHA256": "fe3bbc0d045247bfa02af106fb8e982334c9fc30e17613a2ff763b28c05908be",
+        "physicsSHA256": "348f0b4d7bdc1dc94453c3e50f4ddddc21effdec262dcd65ed38eb601e290df9",
+        "playerAliveEveryFrame": true,
+        "playerArmedEveryFrame": true,
+        "playerGripJointEveryFrame": true,
+        "maxJointGapM": [
+          0.0020695965221441386,
+          0.0025744174928789003
+        ],
+        "offGripFrames": 988,
+        "postStartupOffGripFrames": 783,
+        "postStartupSteps": 783,
+        "playerStates": [
+          "stand"
+        ],
+        "positiveLiveCuts": [
+          {
+            "tick": 582,
+            "phase": "firstCut",
+            "active": true,
+            "part": "head",
+            "zone": "head",
+            "energy": 35.00104407147871,
+            "severity": 0.13691346754598194,
+            "pass": true
+          },
+          {
+            "tick": 857,
+            "phase": "cut2",
+            "active": true,
+            "part": "head",
+            "zone": "neck",
+            "energy": 59.093195729780355,
+            "severity": 0.5920100856566827,
+            "pass": true
+          }
+        ],
+        "final": {
+          "player": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 1,
+            "consciousness": 1,
+            "pain": 0,
+            "balance": 100,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "wounds": 0,
+            "bleed": 0,
+            "cloth": {
+              "farmO": 0.9835948314814463
+            },
+            "plate": {},
+            "helmetIntegrity": 1
+          },
+          "enemy": {
+            "alive": false,
+            "armed": true,
+            "gripValid": true,
+            "state": "dead",
+            "blood": 0.6875114321585893,
+            "consciousness": 0.7387320245892456,
+            "pain": 0.0425627067238811,
+            "balance": 70.45340213510983,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "wounds": 3,
+            "bleed": 0.2034128101480833,
+            "cloth": {},
+            "plate": {},
+            "helmetIntegrity": 1
+          },
+          "clashes": 88
+        }
+      },
+      {
+        "case": "baseline-seed19",
+        "valid": true,
+        "steps": 1023,
+        "config": {
+          "skill": 0.7,
+          "autoGuard": true,
+          "arm": "legacy",
+          "swordsmanship": "legacy",
+          "profile": null
+        },
+        "requestedSHA256": "fe3bbc0d045247bfa02af106fb8e982334c9fc30e17613a2ff763b28c05908be",
+        "physicsSHA256": "4d5427012f9447ccd24beb6fe7710017cfd37e40df0a52375320aba029c18363",
+        "playerAliveEveryFrame": true,
+        "playerArmedEveryFrame": true,
+        "playerGripJointEveryFrame": true,
+        "maxJointGapM": [
+          0.002539952118160226,
+          0.00216737087666578
+        ],
+        "offGripFrames": 988,
+        "postStartupOffGripFrames": 783,
+        "postStartupSteps": 783,
+        "playerStates": [
+          "stand"
+        ],
+        "positiveLiveCuts": [
+          {
+            "tick": 878,
+            "phase": "followHold2",
+            "active": false,
+            "part": "pelvis",
+            "zone": "pelvis",
+            "energy": 29.231765445654187,
+            "severity": 0.013891635795831468,
+            "pass": false
+          }
+        ],
+        "final": {
+          "player": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 1,
+            "consciousness": 1,
+            "pain": 0,
+            "balance": 100,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "wounds": 0,
+            "bleed": 0,
+            "cloth": {
+              "farmO": 0.9836281493271419,
+              "chest": 0.9869719129287617
+            },
+            "plate": {},
+            "helmetIntegrity": 1
+          },
+          "enemy": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9996893491391151,
+            "consciousness": 1,
+            "pain": 0,
+            "balance": 100,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "wounds": 1,
+            "bleed": 0.00024055461261046184,
+            "cloth": {
+              "pelvis": 0.7430541821020843,
+              "thighB": 0.9707058426352915
+            },
+            "plate": {},
+            "helmetIntegrity": 1
+          },
+          "clashes": 35
+        }
+      },
+      {
+        "case": "universal-seed19",
+        "valid": true,
+        "steps": 1023,
+        "config": {
+          "skill": 0.7,
+          "autoGuard": true,
+          "arm": "legacy",
+          "swordsmanship": "legacy",
+          "profile": null
+        },
+        "requestedSHA256": "fe3bbc0d045247bfa02af106fb8e982334c9fc30e17613a2ff763b28c05908be",
+        "physicsSHA256": "348f0b4d7bdc1dc94453c3e50f4ddddc21effdec262dcd65ed38eb601e290df9",
+        "playerAliveEveryFrame": true,
+        "playerArmedEveryFrame": true,
+        "playerGripJointEveryFrame": true,
+        "maxJointGapM": [
+          0.0020695965221441386,
+          0.0025744174928789003
+        ],
+        "offGripFrames": 988,
+        "postStartupOffGripFrames": 783,
+        "postStartupSteps": 783,
+        "playerStates": [
+          "stand"
+        ],
+        "positiveLiveCuts": [
+          {
+            "tick": 582,
+            "phase": "firstCut",
+            "active": true,
+            "part": "head",
+            "zone": "head",
+            "energy": 35.00104407147871,
+            "severity": 0.13691346754598194,
+            "pass": true
+          },
+          {
+            "tick": 857,
+            "phase": "cut2",
+            "active": true,
+            "part": "head",
+            "zone": "neck",
+            "energy": 59.093195729780355,
+            "severity": 0.5920100856566827,
+            "pass": true
+          }
+        ],
+        "final": {
+          "player": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 1,
+            "consciousness": 1,
+            "pain": 0,
+            "balance": 100,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "wounds": 0,
+            "bleed": 0,
+            "cloth": {
+              "farmO": 0.9835948314814463
+            },
+            "plate": {},
+            "helmetIntegrity": 1
+          },
+          "enemy": {
+            "alive": false,
+            "armed": true,
+            "gripValid": true,
+            "state": "dead",
+            "blood": 0.6875114321585893,
+            "consciousness": 0.7387320245892456,
+            "pain": 0.0425627067238811,
+            "balance": 70.45340213510983,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "wounds": 3,
+            "bleed": 0.2034128101480833,
+            "cloth": {},
+            "plate": {},
+            "helmetIntegrity": 1
+          },
+          "clashes": 88
+        }
+      },
+      {
+        "case": "baseline-ai-seed7",
+        "valid": true,
+        "steps": 1017,
+        "config": {
+          "skill": 0.7,
+          "autoGuard": true,
+          "arm": "legacy",
+          "swordsmanship": "legacy",
+          "profile": null
+        },
+        "requestedSHA256": "eab45e6e7f559613ab8795bcc34f2f2fd237af9ebd585ce3debf9e71abbb3d9c",
+        "physicsSHA256": "8366659b9f40f7aadb1e6011bfb2d6703f34164769d19aabc4e9f6193da1af01",
+        "playerAliveEveryFrame": true,
+        "playerArmedEveryFrame": true,
+        "playerGripJointEveryFrame": true,
+        "maxJointGapM": [
+          0.0020348133036852457,
+          0.003410645775318923
+        ],
+        "offGripFrames": 982,
+        "postStartupOffGripFrames": 777,
+        "postStartupSteps": 777,
+        "playerStates": [
+          "stand"
+        ],
+        "positiveLiveCuts": [
+          {
+            "tick": 870,
+            "phase": "followHold2",
+            "active": false,
+            "part": "chest",
+            "zone": "neck",
+            "energy": 30.743988406439847,
+            "severity": 0.22380604772123575,
+            "pass": true
+          }
+        ],
+        "final": {
+          "player": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 1,
+            "consciousness": 1,
+            "pain": 0,
+            "balance": 94.79181198005888,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "wounds": 0,
+            "bleed": 0,
+            "cloth": {
+              "farmO": 0.9500653416651529,
+              "chest": 0.9580419490457747,
+              "abdomen": 0.9505325739129347,
+              "pelvis": 0.980243444995415,
+              "thighB": 0.986525897135162
+            },
+            "plate": {},
+            "helmetIntegrity": 1
+          },
+          "enemy": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.9493059084357145,
+            "consciousness": 0.5911597240410925,
+            "pain": 0,
+            "balance": 67.88333333333334,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "wounds": 1,
+            "bleed": 0.03867791855653289,
+            "cloth": {
+              "farmS": 0.9741982722427436,
+              "chest": 0.9471049614075289,
+              "uarmO": 0.9414136284919592
+            },
+            "plate": {},
+            "helmetIntegrity": 1
+          },
+          "clashes": 94
+        }
+      },
+      {
+        "case": "universal-ai-seed7",
+        "valid": true,
+        "steps": 1017,
+        "config": {
+          "skill": 0.7,
+          "autoGuard": true,
+          "arm": "legacy",
+          "swordsmanship": "legacy",
+          "profile": null
+        },
+        "requestedSHA256": "eab45e6e7f559613ab8795bcc34f2f2fd237af9ebd585ce3debf9e71abbb3d9c",
+        "physicsSHA256": "fbaf107f5ea6076b8f4cf9bff83cf6e85daa629288ab4e24d68dcff54cadebe3",
+        "playerAliveEveryFrame": true,
+        "playerArmedEveryFrame": true,
+        "playerGripJointEveryFrame": true,
+        "maxJointGapM": [
+          0.0024857740796062405,
+          0.002892216596904385
+        ],
+        "offGripFrames": 968,
+        "postStartupOffGripFrames": 763,
+        "postStartupSteps": 777,
+        "playerStates": [
+          "getup",
+          "stand"
+        ],
+        "positiveLiveCuts": [
+          {
+            "tick": 721,
+            "phase": "recut",
+            "active": true,
+            "part": "head",
+            "zone": "neck",
+            "energy": 36.523670208141084,
+            "severity": 0.33578852143270693,
+            "pass": true
+          },
+          {
+            "tick": 756,
+            "phase": "recutHold",
+            "active": false,
+            "part": "pelvis",
+            "zone": "pelvis",
+            "energy": 31.513672399962413,
+            "severity": 0.025409090751073334,
+            "pass": false
+          }
+        ],
+        "final": {
+          "player": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "getup",
+            "blood": 0.8663468868249441,
+            "consciousness": 1,
+            "pain": 0.95520225918037,
+            "balance": -40.30899360955772,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "wounds": 3,
+            "bleed": 0.04423786799534693,
+            "cloth": {
+              "abdomen": 0.22373355025610542,
+              "pelvis": 0.6121749542876216,
+              "chest": 0.9422811907745585
+            },
+            "plate": {},
+            "helmetIntegrity": 1
+          },
+          "enemy": {
+            "alive": true,
+            "armed": true,
+            "gripValid": true,
+            "state": "stand",
+            "blood": 0.8559962498215111,
+            "consciousness": 1,
+            "pain": 0,
+            "balance": 100,
+            "limbs": {
+              "armS": 1,
+              "armO": 1,
+              "legF": 1,
+              "legB": 1
+            },
+            "wounds": 2,
+            "bleed": 0.05038543608014411,
+            "cloth": {
+              "chest": 0.9551456416710388,
+              "pelvis": 0.7372954546244633
+            },
+            "plate": {},
+            "helmetIntegrity": 1
+          },
+          "clashes": 133
+        }
+      }
+    ],
+    "comparisons": [
+      {
+        "scene": "Idle seed7",
+        "sameRequestedInput": true
+      },
+      {
+        "scene": "Idle seed19",
+        "sameRequestedInput": true
+      },
+      {
+        "scene": "AI seed7",
+        "sameRequestedInput": true
+      }
+    ],
+    "idleSeedsPhysicalDuplicate": {
+      "baseline": true,
+      "universal": true
+    },
+    "physicalScenePairs": 2,
+    "nativeExecutions": 6,
+    "limitations": [
+      "Idle seed7/19 replay exactly the same physical paths within each model; count as duplicate runs, not two independent efficacy scenes.",
+      "Second scene is an actual normal-AI longsword opponent, same authored player requests.",
+      "No pose/health/velocity/force/wound injections, no invulnerability. Contacts and wound state are actual game results.",
+      "Different contact times, positions and victim postures prohibit interpreting damages or survival as matched impact power, balance, win rate, or overall naturalness.",
+      "No v2 promotion: player legacy skill.7/autoGuard; new correction only removes the two-hand lightsaber exception.",
+      "AI candidate remained getup at observation end (335 of 1017 frames), with blood0.86635, wounds3 and bleed0.04424; baseline stayed stand with blood1/wounds0. Actual cuts, survival and joint integrity do not establish completed recovery or no defensive regression. No matched-injury counterfactual was run."
+    ],
+    "verdict": {
+      "actualCutConnection": "observed in idle and AI scenes",
+      "catastrophicNumericalOrJointFailure": "not observed in these bounded scenes",
+      "completedAIRecovery": "not demonstrated",
+      "noDamageOrDefenceRegression": "not demonstrated; actual AI candidate suffered injuries and remained getup",
+      "noV2Promotion": true
+    }
+  },
+  "preparedRecovery": [
+    {
+      "label": "baseline",
+      "mode": "lying",
+      "firstGetup": 624,
+      "firstStand": 865,
+      "getup": {
+        "frames": 241,
+        "maxGap": 0.00201793815485842,
+        "arms": {
+          "S": {
+            "requestedRearFrames": 90,
+            "targetUpperRearFrames": 92,
+            "actualUpperRearFrames": 50,
+            "wristRearFrames": 27,
+            "torsoOverlapOver5cm": 9,
+            "maxOverlap": 0.052495043724775314,
+            "minRequestedX": -0.5079116313663352,
+            "maxTargetStepRad": 1.7966024122839976
+          },
+          "O": {
+            "requestedRearFrames": 0,
+            "targetUpperRearFrames": 47,
+            "actualUpperRearFrames": 0,
+            "wristRearFrames": 0,
+            "torsoOverlapOver5cm": 176,
+            "maxOverlap": 0.1548832505941391,
+            "minRequestedX": -0.02968795130505468,
+            "maxTargetStepRad": 3.0476541675907014
+          }
+        }
+      },
+      "maxJointGapM": 0.002101600808085781
+    },
+    {
+      "label": "baseline",
+      "mode": "side",
+      "firstGetup": 624,
+      "firstStand": 865,
+      "getup": {
+        "frames": 241,
+        "maxGap": 0.0019252199484490087,
+        "arms": {
+          "S": {
+            "requestedRearFrames": 89,
+            "targetUpperRearFrames": 95,
+            "actualUpperRearFrames": 3,
+            "wristRearFrames": 0,
+            "torsoOverlapOver5cm": 78,
+            "maxOverlap": 0.1126175969839096,
+            "minRequestedX": -0.43522132825275706,
+            "maxTargetStepRad": 1.1476601301555969
+          },
+          "O": {
+            "requestedRearFrames": 0,
+            "targetUpperRearFrames": 2,
+            "actualUpperRearFrames": 0,
+            "wristRearFrames": 0,
+            "torsoOverlapOver5cm": 39,
+            "maxOverlap": 0.06464001536369324,
+            "minRequestedX": 0.06182962510688526,
+            "maxTargetStepRad": 2.5567148601052403
+          }
+        }
+      },
+      "maxJointGapM": 0.0025313935169661334
+    },
+    {
+      "label": "universal",
+      "mode": "lying",
+      "firstGetup": 624,
+      "firstStand": 865,
+      "getup": {
+        "frames": 241,
+        "maxGap": 0.0011588766586125316,
+        "arms": {
+          "S": {
+            "requestedRearFrames": 104,
+            "targetUpperRearFrames": 0,
+            "actualUpperRearFrames": 0,
+            "wristRearFrames": 0,
+            "torsoOverlapOver5cm": 0,
+            "maxOverlap": 0.03978566825389862,
+            "minRequestedX": -0.5032144149278396,
+            "maxTargetStepRad": 2.4540293753089344
+          },
+          "O": {
+            "requestedRearFrames": 0,
+            "targetUpperRearFrames": 0,
+            "actualUpperRearFrames": 0,
+            "wristRearFrames": 0,
+            "torsoOverlapOver5cm": 14,
+            "maxOverlap": 0.05973844230175018,
+            "minRequestedX": 0.20159325877931822,
+            "maxTargetStepRad": 0.44780017032676916
+          }
+        }
+      },
+      "maxJointGapM": 0.002245945268965018
+    },
+    {
+      "label": "universal",
+      "mode": "side",
+      "firstGetup": 624,
+      "firstStand": 865,
+      "getup": {
+        "frames": 241,
+        "maxGap": 0.0019215396660944295,
+        "arms": {
+          "S": {
+            "requestedRearFrames": 81,
+            "targetUpperRearFrames": 0,
+            "actualUpperRearFrames": 0,
+            "wristRearFrames": 0,
+            "torsoOverlapOver5cm": 72,
+            "maxOverlap": 0.09006325155496597,
+            "minRequestedX": -0.3882523831279333,
+            "maxTargetStepRad": 1.06145543126084
+          },
+          "O": {
+            "requestedRearFrames": 0,
+            "targetUpperRearFrames": 0,
+            "actualUpperRearFrames": 0,
+            "wristRearFrames": 0,
+            "torsoOverlapOver5cm": 50,
+            "maxOverlap": 0.06032170355319977,
+            "minRequestedX": 0.18024777257019664,
+            "maxTargetStepRad": 0.7226176147259483
+          }
+        }
+      },
+      "maxJointGapM": 0.002111106595383277
+    }
+  ],
+  "regression": {
+    "pass": true,
+    "sourceStable": true,
+    "fingerprint": "18ae37c993af6531765115076e3d3a47ca6fff4b710575a87d9d5c039705b5be",
+    "suites": [
+      {
+        "id": "force_ledger",
+        "pass": true
+      },
+      {
+        "id": "grip_reaction",
+        "pass": true
+      },
+      {
+        "id": "cut_reaction",
+        "pass": true
+      },
+      {
+        "id": "arm_capacity",
+        "pass": true
+      },
+      {
+        "id": "arm_duel",
+        "pass": true
+      },
+      {
+        "id": "build",
+        "pass": true
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "/workspace/halfsword-handoff/universal-arm-20261008/reach-checks.json",
+      "bytes": 1231,
+      "sha256": "86e814765bfa50f803384aa594c31bdb356f234688ecf089fa26b881b898bc76"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/universal-arm-20261008/motor-checks.json",
+      "bytes": 1683,
+      "sha256": "d87c138b68806c040f3c8a722d1cc52d78eb42794c0f81e739b1d860ace80461"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/universal-arm-20261008/regression/result.json",
+      "bytes": 293385,
+      "sha256": "2f7d70798b79d9901f87d92f143269d54a3f51c895a533c81cd2c11703a80fc7"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/universal-arm-20261008/recovery-summary.json",
+      "bytes": 7807,
+      "sha256": "d9b8ef0362c4f4ffb00b79b7f3dbfd419bb02dd8c53c6038c78f0b2627837610"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/universal-arm-20261008/recovery_run.py",
+      "bytes": 1415,
+      "sha256": "f78950f227b7e837f62d9609589bc76dbc74321238673c083aa13a0634a204e3"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/universal-arm-20261008/baseline-source/SOURCE.json",
+      "bytes": 52514,
+      "sha256": "afa130693a37eee8f5f9a2971178cce9a63ffdfab0bde07c9d7269e0f51ed873"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/universal-arm-20261008/universal-source/SOURCE.json",
+      "bytes": 52514,
+      "sha256": "365c607036ad01b643fa04c6900546b286ef018c57b550add278ced14edc2a6b"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/universal-arm-20261008/baseline-recovery-v2-source/SOURCE.json",
+      "bytes": 52639,
+      "sha256": "88186c988ffd0a0cc72d0a70e89e5e25017fac9cb17b0726c25c8a3ca17c1fc9"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/universal-arm-20261008/universal-recovery-v2-source/SOURCE.json",
+      "bytes": 52639,
+      "sha256": "579211bf8ddbfdba7c3b5ae4dcb561cd72bd9b5339d329abe6cf60bec4ffd42d"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/universal-arm-20261008/contact-audit/manifest.json",
+      "bytes": 4686,
+      "sha256": "db8c9ea96201160990772ac5165a76fb3107ab0f3a3e4c7faf3e2c9ab22520cb"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/universal-arm-20261008/contact-audit/source-audit.json",
+      "bytes": 1029,
+      "sha256": "532d18acae628258d80e0791d58a0eb61a1cb5572bc1e095cc98e51b2925afc6"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/universal-arm-20261008/contact-audit/summary.json",
+      "bytes": 16604,
+      "sha256": "0b8b18e98df0e05fc272dee09dfafa3fd12cfb2f2adf9b9906990c49ae94716f"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/universal-arm-20261008/universal-recovery-v2-side/report.json",
+      "bytes": 4502270,
+      "sha256": "a506e9b6131b2e8c8193c9fae5363dc8e1ec0fd44662c111d8aa09e9d5a5ad03"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/universal-arm-20261008/baseline-recovery-v2-side/report.json",
+      "bytes": 4503356,
+      "sha256": "403839c22d5fee170731a26e81a55c3a5acdd5da95e7f61e8f5bbd0883790cf0"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/universal-arm-20261008/universal-recovery-v2-lying/report.json",
+      "bytes": 4530311,
+      "sha256": "a578bec5df80224118f8c51502462f066c36ec3c7d85038215ca6a92b8d9b104"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/universal-arm-20261008/baseline-recovery-v2-lying/report.json",
+      "bytes": 4549312,
+      "sha256": "739655c23db01a73574d15a2d521aa8908eedebd57da6ce40be136a70f20f6b6"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/universal-arm-20261008/baseline-recovery-v2-source/tools/sim/experiments/arm_recovery_geometry_20261008.mjs",
+      "bytes": 10012,
+      "sha256": "7b1a2b18e9e3387957f1732366dc59da7415bb578c5c5e218ccccb160af476f8"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/universal-arm-20261008/universal-recovery-v2-source/tools/sim/experiments/arm_recovery_geometry_20261008.mjs",
+      "bytes": 10012,
+      "sha256": "7b1a2b18e9e3387957f1732366dc59da7415bb578c5c5e218ccccb160af476f8"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/twohand-recovery-20261008/offhand-regression/lightsaber-ablation.json",
+      "bytes": 12591,
+      "sha256": "13c906ef13d3aded15066d5ff995afd75e3505c65bf3197099afcef7afb411d9"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/arm-recovery-20261008/mobile/universal-local/report.json",
+      "bytes": 453713,
+      "sha256": "cf8f0bf67c12cef13c1ae1cd2c92e68e46e707bd081641460fb304639b5e5d8e"
+    }
+  ]
+}

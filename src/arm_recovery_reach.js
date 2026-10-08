@@ -6,11 +6,9 @@ const FRONT_MARGIN = 0.16;
 const recoveryStates = new Set(['down', 'getup', 'kneel']);
 const pending = new WeakMap();
 
-// Common two-hand path, with one measured exception: the current lightsaber
-// controller lost active re-cut speed/energy with both motor and contact fixes.
-// Preserve that weapon until its separate controller is revalidated.
+// Every two-handed weapon shares the native shoulder/contact correction.
 export function usesCoupledArmRecovery(weapon) {
-  return !!weapon?.twoHand && weapon.id !== 'lightsaber';
+  return !!weapon?.twoHand;
 }
 
 /**
@@ -20,9 +18,8 @@ export function usesCoupledArmRecovery(weapon) {
  * Returns whether this call changed the target's forward coordinate.
  */
 export function constrainRecoveryArmReach(fighter, target, side) {
-  // The gun and the measured two-hand exception retain their existing goals.
-  if (fighter.weapon?.gun || (fighter.weaponCfg?.twoHand &&
-      !usesCoupledArmRecovery(fighter.weapon || fighter.weaponCfg))) {
+  // The gun retains its separate aiming controller.
+  if (fighter.weapon?.gun) {
     pending.delete(fighter);
     return false;
   }

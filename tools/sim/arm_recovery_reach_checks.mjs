@@ -134,13 +134,13 @@ check('two-handed recovery uses the same continuous forward handover', () => {
   assert.equal(apply(f, -0.57).target.x, -0.57);
 });
 
-check('common two-hand path excludes only the measured controller exception', () => {
+check('all two-hand weapons share the same feature path, regardless of name', () => {
   assert.equal(usesCoupledArmRecovery({ id: 'future-two-hand', twoHand: true }), true);
   assert.equal(usesCoupledArmRecovery({ id: 'sabre', twoHand: false }), false);
-  assert.equal(usesCoupledArmRecovery({ id: 'lightsaber', twoHand: true }), false);
+  assert.equal(usesCoupledArmRecovery({ id: 'lightsaber', twoHand: true }), true);
 });
 
-for (const weapon of [{ twoHand: false, gun: true }, { id: 'lightsaber', twoHand: true, gun: false }]) {
+for (const weapon of [{ twoHand: false, gun: true }]) {
   check(`deferred controller stays unchanged: ${JSON.stringify(weapon)}`, () => {
     const f = { state: 'getup', weaponCfg: { twoHand: weapon.twoHand }, weapon };
     assert.equal(apply(f, -0.57).target.x, -0.57);

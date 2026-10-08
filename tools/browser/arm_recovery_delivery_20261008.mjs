@@ -12,11 +12,14 @@ import { fileURLToPath } from 'node:url';
 const own = fileURLToPath(import.meta.url), root = path.resolve(path.dirname(own), '../..');
 const args = {};
 for (const value of process.argv.slice(2)) {
-  const match = /^--(out|base|local-evidence)=(.+)$/.exec(value);
+  const match = /^--(out|base|local-evidence|weapons)=(.+)$/.exec(value);
   assert(match && !Object.hasOwn(args, match[1]), 'Unknown or duplicate argument');
   args[match[1]] = match[2];
 }
-const scenario = ['sabre', 'longsword', 'morgenstern'].map(weapon => ({
+const weapons = args.weapons?.split(',') || ['sabre', 'longsword', 'morgenstern'];
+assert(weapons.length && weapons.every(w => ['sabre', 'longsword', 'morgenstern', 'lightsaber'].includes(w)));
+assert.equal(new Set(weapons).size, weapons.length);
+const scenario = weapons.map(weapon => ({
   id: 'ordinary-' + weapon, weapon, cards: weapon + ',' + (weapon === 'longsword' ? 'sabre' : 'longsword'),
   note: weapon === 'morgenstern' ? 'Explicit offered-card fixture; trialOnly weapon stays outside ordinary random pool' : 'Explicit offered-card fixture with ordinary controllers',
 }));
@@ -144,6 +147,12 @@ try {
         mainHealth: f.armHealth, offhandHealth: f.limbs.armO, gripping: !!f.gripping,
         sample: f.cache?.armSupport ? { ...f.cache.armSupport } : null });
       const weapon = f => ({ gripPoint: f.gripPointModel, mass: f.sword.mass(),
+        nativeShoulderGoal: !!f.jointByName.uarmO.previousShoulderGoal,
+        selfContact: (() => {
+          const arm = f.bodies.farmS.collider(0).collisionGroups();
+          const torso = f.bodies.chest.collider(0).collisionGroups();
+          return !!((arm >>> 16 & torso & 0xffff) && (torso >>> 16 & arm & 0xffff));
+        })(),
         config: Object.fromEntries(['bladeLength', 'hiltLength', 'gripAlong', 'edged', 'mCut', 'mThrust', 'mBlunt', 'power', 'ignoreArmor', 'twoHand',
           'aimStiffness', 'aimDamping', 'maxAimTorque', 'wristVmax'].map(key => [key, f.weaponCfg[key]])),
         finishEntry: f.finishEntryModel ?? 'legacy', recoverySequence: f.recoverySequenceModel ?? 'legacy',
@@ -218,10 +227,17 @@ try {
     assert.equal(row.policies.defaultActive, true); assert.equal(row.policies.limb, true); assert.equal(row.policies.supportProbe, false);
     if (weapon) {
       assert.equal(row.player.weapon, weapon); assert.equal(row.enemy.weapon, 'longsword'); assert(!row.drawVisible);
-      for (const fighter of [row.player, row.enemy]) assert.equal(fighter.weaponState.gripPoint, 'midpoint');
-      assert.equal(row.policies.v2, 'unified'); assert.equal(row.policies.enemyV2, 'legacy'); assert(row.player.hasV2State);
-      assert.equal(row.player.skillLevel, 0); assert.equal(row.player.autoGuard, false);
-      assert.equal(row.policies.arm, 'manual'); assert.equal(row.policies.enemyArm, 'legacy');
+      const unified = weapon !== 'lightsaber';
+      assert.equal(row.player.weaponState.gripPoint, unified ? 'midpoint' : 'axial');
+      assert.equal(row.enemy.weaponState.gripPoint, 'midpoint');
+      assert.equal(row.policies.v2, unified ? 'unified' : 'legacy'); assert.equal(row.policies.enemyV2, 'legacy');
+      assert.equal(row.player.hasV2State, unified);
+      assert.equal(row.player.skillLevel, unified ? 0 : .7); assert.equal(row.player.autoGuard, !unified);
+      assert.equal(row.policies.arm, unified ? 'manual' : 'legacy'); assert.equal(row.policies.enemyArm, 'legacy');
+      for (const fighter of [row.player, row.enemy]) {
+        assert.equal(fighter.weaponState.selfContact, fighter.support.twoHand);
+        if (row.steps > 0) assert.equal(fighter.weaponState.nativeShoulderGoal, fighter.support.twoHand);
+      }
       assert.equal(row.policies.roll, 'bounded'); assert.equal(row.policies.stance, 'fresh');
       assert.equal(row.policies.cut, weapon === 'morgenstern' ? 'legacy' : 'centerline');
       assert.equal(row.policies.cutTarget, weapon === 'morgenstern' ? 'both' : 'player');
@@ -241,7 +257,9 @@ try {
     flow.handApplied = await read();
     assert.equal(flow.handApplied.accepted.at(-1).player, flow.handApplied.objects.player);
     assert.equal(flow.handApplied.accepted.at(-1).held, true);
-    assert.notEqual(flow.handApplied.player.lastMotionTimeS, flow.before.player.lastMotionTimeS);
+    if (flow.handApplied.player.hasV2State)
+      assert.notEqual(flow.handApplied.player.lastMotionTimeS, flow.before.player.lastMotionTimeS);
+    else assert.notDeepEqual(flow.handApplied.player.hand, flow.before.player.hand);
     await send('touchEnd', []);
     await page.screenshot({ path: path.join(out, `${row.id}-${label}-after-stroke.png`) });
     await wait(() => game.player.fightT > 2.05 && game.state === 'fight');
@@ -338,7 +356,7 @@ try {
     limits: ['Chromium mobile emulation, not physical-phone or human feel acceptance.',
       'Each explicit card offering is selected through trusted Start/card touch; ordinary controllers start, drag, move, pause, resume and restart with fresh player/enemy/world/AI instances and re-input.',
       'Only saved-settings fixture and observer bookkeeping are written; no gameplay, AI, RNG, physics or prototype changes.',
-      'Ordinary entry keeps opportunity off and existing finish entry. Player v2/manual/fresh/bounded and edged centerline, both linked/power, paired midpoint grip and gravity 9.81 are asserted. Morgenstern remains trialOnly outside random draws; cards query explicitly offers it.',
+      'Ordinary entry keeps opportunity off and existing finish entry. Player v2/manual except ordinary lightsaber legacy/.7/autoGuard; fresh/bounded and edged centerline, both linked/power and gravity 9.81 are asserted. Thin lightsaber keeps axial grip. Two-hand native shoulder/forearm contact is asserted for both fighters. Morgenstern remains trialOnly outside random draws; cards query explicitly offers it.',
       'No state/pose/AI/physics changes or forced fall, no anatomical or recovery outcome claim. This verifies browser input and served runtime policy delivery; native recovery is separately measured.',
       'Every requested served artifact matches the frozen local dist bytes; screenshots use the native camera.'] };
   await fs.writeFile(path.join(out, 'report.json'), JSON.stringify(report, null, 2) + '\n');
