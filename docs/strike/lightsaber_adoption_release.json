@@ -1,8 +1,8 @@
 {
-  "status": "local_validation_passed_public_pending",
+  "status": "delivered_public_verified",
   "baseCommit": "738ef0fbe9fe706c25a5d491506404600ec33e16",
   "change": "lightsaber v2 B ordinary adoption authorized by user playtest",
-  "publicVerified": false,
+  "publicVerified": true,
   "urls": {
     "ordinary": "https://yoonjl-svg.github.io/halfsword-codex/",
     "lightsaber": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=lightsaber&foe=default&foeWeapon=longsword"
@@ -71,5 +71,32 @@
     "capabilityChecks": 244,
     "mobileFlows": 2,
     "sourceStable": true
-  }
+  },
+  "codeCommit": "1817bf2347e41a2c41e0086daf67fa4a4dcfc398",
+  "deployment": {
+    "run": 37781923004,
+    "conclusion": "success",
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37781923004"
+  },
+  "publicBytes": {
+    "pass": true,
+    "files": 8,
+    "path": "/workspace/halfsword-handoff/lightsaber-adoption-20261008/pages-code.json",
+    "bytes": 4619,
+    "sha256": "bca6ae5a514d7605aee91aa1602422271492e4025853e22d9cd6759ec22772dc"
+  },
+  "publicMobile": {
+    "pass": true,
+    "flows": 2,
+    "sourceStable": true,
+    "buildStable": true,
+    "tlsVerification": true,
+    "evidence": {
+      "path": "/workspace/halfsword-handoff/arm-recovery-20261008/mobile/lightsaber-adoption-public/report.json",
+      "bytes": 474579,
+      "sha256": "f4ddbbfa47bf84b8789522b7bf62dfe6b23327cda6eb8ac37e5bc33984eb2485"
+    },
+    "scope": "Public Chromium mobile emulation; menu/card/touch movement/attack/pause/resume/restart/reinput; not physical-phone endurance"
+  },
+  "verifiedUTC": "2026-10-08T13:11:23.057Z"
 }
