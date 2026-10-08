@@ -239,7 +239,7 @@ try {
       assert.equal(row.recoveryTrial.requested, true); assert.equal(row.recoveryTrial.model, model);
       assert.equal(row.recoveryTrial.weapon, weapon); assert.equal(row.recoveryTrial.finish, 'low');
       assert.equal(row.recoveryTrial.recovery, 'legacy'); assert.equal(row.recoveryTrial.getupLeadDelay, model === 'getup-lead');
-      assert(/앞다리/.test(row.recoveryTrialPanel) && /기립 시간과 받치는 힘은 같습니다/.test(row.recoveryTrialPanel));
+      assert(/앞다리/.test(row.recoveryTrialPanel) && /기립 시간과 힘 설정은 같습니다/.test(row.recoveryTrialPanel));
     } else if (model !== null) {
       assert.equal(row.trial.requested, true); assert.equal(row.trial.model, model); assert.equal(row.trial.weapon, weapon);
       assert.equal(row.trial.finish, 'low');
