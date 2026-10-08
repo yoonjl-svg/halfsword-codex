@@ -1,0 +1,694 @@
+{
+  "status": "input_general_and_optional_distance_getup_delivered",
+  "verifiedUTC": "2026-10-08T18:48:24.282170+00:00",
+  "baselineHEAD": "9171874a880024010a87ad793fd6fd58a7817f3e",
+  "implementationHEAD": "8bbee803784d81ae608e96a58fc29bc7f4295e80",
+  "verifiedSourceHEAD": "666a8eebf9248bb07f943647d86b0f52ffc3a317",
+  "publicVerified": true,
+  "policy": {
+    "input": "general sword-only pointer cancellation preserves independent stick",
+    "distance": "optional v4; ordinary opportunity remains off",
+    "getup": "optional rear-leg delay .3; ordinary original getup unchanged",
+    "physics": "existing gravity9.81/swordsmanshipv2/force limits/damage parameters; real preparation motion and contact energy can differ"
+  },
+  "urls": {
+    "general": "https://yoonjl-svg.github.io/halfsword-codex/",
+    "distanceLab": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#distance",
+    "rapierB": "https://yoonjl-svg.github.io/halfsword-codex/?opportunity=distance&weapon=rapier",
+    "estocB": "https://yoonjl-svg.github.io/halfsword-codex/?opportunity=distance&weapon=estoc",
+    "getupLab": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#getup-lead",
+    "getupB": "https://yoonjl-svg.github.io/halfsword-codex/?movementFix=getup-lead&weapon=zweihander"
+  },
+  "actions": {
+    "pages": {
+      "conclusion": "success",
+      "databaseId": 37822280850,
+      "headSha": "666a8eebf9248bb07f943647d86b0f52ffc3a317",
+      "status": "completed",
+      "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37822280850"
+    },
+    "regression": {
+      "conclusion": "success",
+      "databaseId": 37822281986,
+      "headSha": "666a8eebf9248bb07f943647d86b0f52ffc3a317",
+      "status": "completed",
+      "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37822281986"
+    }
+  },
+  "checks": {
+    "localRegressionSuites": 6,
+    "inputContracts": 15,
+    "distanceContracts": 11,
+    "aiContracts": 8,
+    "retainedLegacyContracts": 90,
+    "localMobileFlows": 5,
+    "publicMobileFlows": 5,
+    "publicUniqueArtifacts": 145,
+    "actualTrustedCaptureLoss": true,
+    "pauseFrozen": true,
+    "publicJSAndNetworkErrors": 0,
+    "physicalPhoneTest": false
+  },
+  "evidence": {
+    "localMobile": {
+      "path": "/tmp/halfsword-distance-mobile-local03/report.json",
+      "bytes": 1092776,
+      "sha256": "58165e4fce2b0a8ae94f04faee20f492a397717c4419de2d3fd342e34605dc92"
+    },
+    "publicMobile": {
+      "path": "/tmp/halfsword-distance-mobile-public02/report.json",
+      "bytes": 1095805,
+      "sha256": "5edbefc882430c1abc66f0e84bf5e84c48ed54825ea09802b8c9213c23ff7a03"
+    },
+    "localRegression": {
+      "path": "/tmp/halfsword-distance-regression-final02/result.json",
+      "bytes": 297185,
+      "sha256": "cbbaff3d15591fc034931eaa4df54eedb09fcd5b29c5dbdbf51b177f09b6b3c1"
+    },
+    "geometryReplay": {
+      "path": "/workspace/halfsword-handoff/input-getup-range-20261009/final-geometry-replay.json",
+      "bytes": 20859,
+      "sha256": "fb5b2b481f4993620ec4d0fa367a9860d54f5f226f537c6a779b28c69f979a8d"
+    },
+    "networkRecovery": {
+      "path": "/tmp/halfsword-distance-network-recheck.json",
+      "bytes": 480,
+      "sha256": "9c35c6519b7757b528db9659d9e7cba9dbc217d973a81809825d34bd3a39538e"
+    }
+  },
+  "publicArtifacts": {
+    "dist/feature-lab.html": {
+      "sha256": "97f16d136f6b6ed85080b2437cf0dbdf1676547323f9423f06cebd87b3ca9819",
+      "bytes": 46175
+    },
+    "dist/index.html": {
+      "sha256": "df4501b4601cb42fdc661b67aa5836725025c0aa729621a9d7cbb0df4e3dfea2",
+      "bytes": 19274
+    },
+    "dist/assets/sound-BV3DeVc-.js": {
+      "sha256": "9203e66f0ee11745f57c338ed4b5d411acdf118bd5a957bb93bb514ed5ff8d8a",
+      "bytes": 83426
+    },
+    "dist/assets/main-EtpxWBgL.js": {
+      "sha256": "a9eee35d0578136b5fa3bdfd30fae1e7e8e93b324da1b4644545d475700adf28",
+      "bytes": 3590217
+    },
+    "dist/ui/cardbacks/px_poseidon_center_foe.png": {
+      "sha256": "349ad35d2e7b54cd13b1e7cf1bc5937e603ed9adf72c8fdad18bb4da3f3fa1fb",
+      "bytes": 150
+    },
+    "dist/ui/cardbacks/px_poseidon_frame.png": {
+      "sha256": "abb6371ee896fa01edb2ab8770e5e14374d94be57bd2e70718ab19a09fe77439",
+      "bytes": 195
+    },
+    "dist/ui/cardbacks/px_poseidon_tile_foe.png": {
+      "sha256": "9ad077b4a4172070205237bc668adc311b74d1c32ba4f9804c17cad79e6689b7",
+      "bytes": 220
+    },
+    "dist/ui/cardbacks/px_poseidon_tile.png": {
+      "sha256": "1b8ea6ecd7db719ffebf0ea968101fc4ccaacabbf215ae6fabe889b6e87280fa",
+      "bytes": 230
+    },
+    "dist/ui/cardbacks/px_poseidon_frame_foe.png": {
+      "sha256": "d67acdbe29d4aaf4d8f1b83e47da5d0c5882668a7127a21ff8d45da169a762aa",
+      "bytes": 193
+    },
+    "dist/ui/cardbacks/px_clearing_plaque_foe.png": {
+      "sha256": "c3c64e5a9bad6c8582e552b0b12ca1c407b7771024ab4c31df0f856702186af6",
+      "bytes": 109
+    },
+    "dist/ui/cardbacks/px_poseidon_plaque.png": {
+      "sha256": "e3409a8dceb9bef204f2e1b8b28b455c1a13c64beb74e27e3eeecd543f2b51c6",
+      "bytes": 109
+    },
+    "dist/ui/cardbacks/px_castle_tile.png": {
+      "sha256": "af26004848725e292aacda704b071d92e2d71b0ce4291d3512a2a9647bc87920",
+      "bytes": 249
+    },
+    "dist/ui/cardbacks/px_clearing_tile.png": {
+      "sha256": "9fc59ba81472a13db0b19d0e9f7bef674cdbce9dcec9614758ace05b5075667c",
+      "bytes": 218
+    },
+    "dist/ui/cardbacks/px_poseidon_center.png": {
+      "sha256": "66a39066d9fffed174a02a1cf365dd4ed1221989737f5c35f98be3a658734056",
+      "bytes": 150
+    },
+    "dist/ui/cardbacks/px_poseidon_plaque_foe.png": {
+      "sha256": "d25dd99205ebd5c9408986fceeb98c625c50a7ff7327b7e69c60288919199d61",
+      "bytes": 109
+    },
+    "dist/ui/cardbacks/px_clearing_center_foe.png": {
+      "sha256": "08cd16991c286d63f8b7c7b13727581e6ba0757406a561998b56a8a2bcd0fa2b",
+      "bytes": 143
+    },
+    "dist/ui/cardbacks/px_clearing_tile_foe.png": {
+      "sha256": "cbfec8a99c5d66607862a7235a1397d6af5c91208690e21ef36e7247c54ca21b",
+      "bytes": 211
+    },
+    "dist/ui/cardbacks/px_clearing_center.png": {
+      "sha256": "a9f44b8b61a615955b71e498f53281c429dec5c7f43b2e7256848ea9f67a701c",
+      "bytes": 144
+    },
+    "dist/ui/cardbacks/px_clearing_plaque.png": {
+      "sha256": "52b804aadad7cd477317756c4e965218724b14bc9a212ce6caab630e836c0858",
+      "bytes": 109
+    },
+    "dist/ui/cardbacks/px_clearing_frame.png": {
+      "sha256": "b1b1ab4169f23b069548d280259ea033ea0eab55c472f16ec408e9a54ea40e8d",
+      "bytes": 163
+    },
+    "dist/ui/cardbacks/px_castle_center.png": {
+      "sha256": "19f95135ab5bc2f3109f4789587b7bb56d92d008d15b1d8710f350b504fa7615",
+      "bytes": 143
+    },
+    "dist/ui/cardbacks/px_clearing_frame_foe.png": {
+      "sha256": "85ca9d3608362fecaed33fbefa527c589fff64bb1ee2ac0df00670aff73155ac",
+      "bytes": 163
+    },
+    "dist/ui/cardbacks/px_castle_plaque.png": {
+      "sha256": "963d64fe1d916f58f49c6a43c4543ed7243b61a8d6102509238919d5abca1cda",
+      "bytes": 109
+    },
+    "dist/ui/cardbacks/px_castle_tile_foe.png": {
+      "sha256": "151167187e196bdf2b8f7534572e259dc24748d2cba3dcc5bb18acf5960ace10",
+      "bytes": 236
+    },
+    "dist/ui/cardbacks/px_poseidon_night_frame.png": {
+      "sha256": "ca62de452b09cb9d7bc7f056d867f33cb9c8a5735c93d95d407658e7be3d07e2",
+      "bytes": 195
+    },
+    "dist/ui/cardbacks/px_poseidon_night_plaque_foe.png": {
+      "sha256": "7ab8dd1a4a5d7922197ecffa47f53fb2bdf324da8ff23842d2310883fff16e5e",
+      "bytes": 109
+    },
+    "dist/ui/cardbacks/px_castle_frame.png": {
+      "sha256": "f1c675ebac7f56a3695371a9e0df038e69748c264277fc289c6986d1427b320d",
+      "bytes": 181
+    },
+    "dist/ui/cardbacks/px_temple_center.png": {
+      "sha256": "9b513ffebdc9585bee68b9d09bd2b59935c3f381df62b46fe840007cab8d1b27",
+      "bytes": 145
+    },
+    "dist/ui/cardbacks/px_castle_plaque_foe.png": {
+      "sha256": "d62cbc2ffb5ba96010b85841fa013259d893b4ed4f0a7cc548b5830307e26267",
+      "bytes": 109
+    },
+    "dist/ui/cardbacks/px_castle_center_foe.png": {
+      "sha256": "3876354bb7638561c6868e6cc20007807c538c1cbf9ced593bda1e426e97bc94",
+      "bytes": 142
+    },
+    "dist/ui/cardbacks/px_castle_frame_foe.png": {
+      "sha256": "38b739fc3393cfa6ae29ab3c5f4428dc5346b741a72af032056293c08199a269",
+      "bytes": 180
+    },
+    "dist/ui/cardbacks/px_cathedral_frame.png": {
+      "sha256": "36f20e572fba96fa95263018ce2da95ee39ff78f2859a90b111da9acb46cadfa",
+      "bytes": 178
+    },
+    "dist/ui/cardbacks/px_temple_frame.png": {
+      "sha256": "ec4ff67af7a339f4a3f57e3054cfa283436f3e1a55854f0b4ee55f02f53ce7a8",
+      "bytes": 179
+    },
+    "dist/ui/cardbacks/px_temple_frame_foe.png": {
+      "sha256": "223a32af802d346f73e95654d00a1bd49c5391a39c38ba54190340553ae4d3f2",
+      "bytes": 178
+    },
+    "dist/ui/cardbacks/px_cathedral_tile_foe.png": {
+      "sha256": "e064f58f00ddd31e14f35326861e57c508fe4c880f134b43fbdc3b5cfba024fc",
+      "bytes": 223
+    },
+    "dist/ui/cardbacks/px_temple_tile_foe.png": {
+      "sha256": "c523cfd0fe2de944a0ea313233578eb5c926f224709d21a93cc155f3a16f8293",
+      "bytes": 206
+    },
+    "dist/ui/cardbacks/px_cathedral_center_foe.png": {
+      "sha256": "959b464bcc3fe64f2e2c023068f8df4d0ee004674821f595d8500170396dcac7",
+      "bytes": 149
+    },
+    "dist/ui/cardbacks/px_cathedral_plaque.png": {
+      "sha256": "e1be28abfad54dfede322d42a6b532e84ef26a66a676880688a3ca3cc1038591",
+      "bytes": 109
+    },
+    "dist/ui/cardbacks/px_cathedral_tile.png": {
+      "sha256": "db5f0e3a87da03c558e64e93c2816a0348602ee5c2b9406409f56897f2c8d057",
+      "bytes": 233
+    },
+    "dist/ui/cardbacks/px_temple_tile.png": {
+      "sha256": "f721852dd8134e1bf6100354d9e2f8c93ecb99f2a00b58ca3d2d1f263f9a8e9f",
+      "bytes": 213
+    },
+    "dist/ui/cardbacks/px_cathedral_center.png": {
+      "sha256": "254441ad073ab5e18d7e38f744eb1ef1a9df82d9c5932fa569ec25a4a9ab2b9f",
+      "bytes": 149
+    },
+    "dist/ui/cardbacks/px_poseidon_night_center.png": {
+      "sha256": "0acb5bc711196a1766221cb7d0cf0ed6f9e8ba6b45efa80a558fded5fb30df47",
+      "bytes": 164
+    },
+    "dist/ui/cardbacks/px_temple_plaque_foe.png": {
+      "sha256": "9bdab2a83923442d9b312bf10a695c9eebb484858a19eddaed36827ce8d3c1e3",
+      "bytes": 109
+    },
+    "dist/ui/cardbacks/px_poseidon_night_tile_foe.png": {
+      "sha256": "44f546c2d2ddc8e96fcd85223bc3a3577cf9e84f4c451d44fa892d8bd246cfd7",
+      "bytes": 240
+    },
+    "dist/ui/cardbacks/px_temple_plaque.png": {
+      "sha256": "337b4fa10ab6c5e45abf5730d277ee2470bd22379dd6f4ec6a645140112c5600",
+      "bytes": 109
+    },
+    "dist/ui/cardbacks/px_poseidon_night_plaque.png": {
+      "sha256": "56b7bc6ef176d319a28024abaab04fc981c797f8c59df23a2f79a1a8d6211cb5",
+      "bytes": 109
+    },
+    "dist/ui/cardbacks/px_poseidon_night_frame_foe.png": {
+      "sha256": "0363d1fd10201a46e98183707c607c8e2be1356a739f95b51e323403066894ae",
+      "bytes": 192
+    },
+    "dist/ui/cardbacks/px_poseidon_night_center_foe.png": {
+      "sha256": "9794c892e2facf6cf9af610d7fd0ef3f7cbb337584e9e43feb9dfbe9f7887747",
+      "bytes": 161
+    },
+    "dist/ui/cardbacks/px_cathedral_frame_foe.png": {
+      "sha256": "51345dd78aa4a1baf714b47fcbd3cd709f8bede11a0d50f2d154835ac7c05b44",
+      "bytes": 177
+    },
+    "dist/ui/cardbacks/px_cathedral_plaque_foe.png": {
+      "sha256": "0df244ab69f85c2866e0ddbdd851600698932d9f2143c938403bf91be1ccb2a2",
+      "bytes": 109
+    },
+    "dist/ui/cardbacks/px_poseidon_night_tile.png": {
+      "sha256": "dcb71eb39bf6778d43bc8e6498b2ca6c1f10ca30cc8801e76d013e3e6d2ce140",
+      "bytes": 253
+    },
+    "dist/ui/cardbacks/px_temple_center_foe.png": {
+      "sha256": "7c2b4e951dd6be0bc20c7534ca58bdb9a2a14ee6256ef7512f5693f41177c61c",
+      "bytes": 144
+    },
+    "dist/sfx/punch1.mp3": {
+      "sha256": "1adc6826e2658d8c6789a7576d5f3a9e0ffe65885c2efcf162f3a9ab0364c3f6",
+      "bytes": 5007
+    },
+    "dist/sfx/punch2.mp3": {
+      "sha256": "510d6b7a748170d423bc8660b5bd8db6e5d30ca2f7fc725e8a28515a5717668f",
+      "bytes": 5007
+    },
+    "dist/sfx/punch3.mp3": {
+      "sha256": "7f3ea65580fbe79f44d2775a3d83a1eb6ea34762bd6aceef903e655bd069bf89",
+      "bytes": 5007
+    },
+    "dist/sfx/punch5.mp3": {
+      "sha256": "e9304c3bbab68225b947eabba40b2a6c17fe27e603fe9a61ae1aeb487dfe4fff",
+      "bytes": 5007
+    },
+    "dist/sfx/hit/punch_med3.mp3": {
+      "sha256": "29a001bebfc1cde6b45962ff16f361907b25f27c0a69782944655fdae20fe6df",
+      "bytes": 3455
+    },
+    "dist/sfx/hit/punch_med1.mp3": {
+      "sha256": "9e0dfd4ba6e337dcd27331a6db41da3645a00b20cc4a3903711c7017d6d776b1",
+      "bytes": 2803
+    },
+    "dist/sfx/hit/punch_med4.mp3": {
+      "sha256": "5ed98792525a6f43d508dfaca192910b927d550c51d3ddfde8bb4b8ab6793df6",
+      "bytes": 3116
+    },
+    "dist/sfx/hit/punch_med5.mp3": {
+      "sha256": "73b99eeee96b90a87d5af0a11c7e2821904cf559b7980a13e8b1ea33b2d0ec5a",
+      "bytes": 3167
+    },
+    "dist/sfx/hit/soft3.mp3": {
+      "sha256": "175b3d93e9567e9c2b9eaee8a7b304fa276b13969ce3e655fd3a78dcdf190911",
+      "bytes": 2802
+    },
+    "dist/sfx/punch4.mp3": {
+      "sha256": "eda489b161076ba2934cc5cb4ea353479f8c5cd6120a5769448687d64f542396",
+      "bytes": 5007
+    },
+    "dist/sfx/hit/punch_med2.mp3": {
+      "sha256": "c79c0ce7a94137b030c42489c6484416f24c2f32fe45b5ea1e386177970a43ed",
+      "bytes": 2908
+    },
+    "dist/sfx/hit/soft1.mp3": {
+      "sha256": "3e9dfc5b915a3f83bccdecd5f0fde74cd87e6f234d0eacd42e3e3609cc735e81",
+      "bytes": 2828
+    },
+    "dist/sfx/hit/soft5.mp3": {
+      "sha256": "fcf6031ac14b5a7d728986a4ce078b9426b448f644fbd26d65247a17c2c52b9b",
+      "bytes": 2802
+    },
+    "dist/sfx/hit/wood1.mp3": {
+      "sha256": "d58df9b87535aeaaf4893d97e32299e4094ea784c7a2b41c7bc32906fd3ab526",
+      "bytes": 2152
+    },
+    "dist/sfx/hit/wood3.mp3": {
+      "sha256": "b714a2a985ef1d7fbe1e80d1650f6d1808e2e3b4126186557317b2ceb9eaa677",
+      "bytes": 2204
+    },
+    "dist/sfx/hit/wood_heavy2.mp3": {
+      "sha256": "c9641d1e4c5eafc558663d4649ea3b9cc4c816699b5839f8dab41b5c1102e5bd",
+      "bytes": 2152
+    },
+    "dist/sfx/step/gravel5.mp3": {
+      "sha256": "887049b84205ddf0bd7730ec0582f9a2de962915c445ee0dcdef5c2fa3533c08",
+      "bytes": 3386
+    },
+    "dist/sfx/hit/soft2.mp3": {
+      "sha256": "2e1b029a67d5271649d3273c3641218ccafd701d58f93b211dc41e99113b1396",
+      "bytes": 2802
+    },
+    "dist/sfx/hit/wood5.mp3": {
+      "sha256": "a21eece5e232384a47d298fe2239c4a1f94f79eafea4e16d375bf3554040d1b4",
+      "bytes": 2152
+    },
+    "dist/sfx/hit/soft4.mp3": {
+      "sha256": "b2e16883a9adcce7a4e1c5ca2ff6b2f8e34a50100e5a904107df2816371dac31",
+      "bytes": 2802
+    },
+    "dist/sfx/step/sand4.mp3": {
+      "sha256": "0e1f1b665408da6cbaa9e737efc0f3f471f420020ec9115f855717a4ad02b4e0",
+      "bytes": 2231
+    },
+    "dist/sfx/step/sand2.mp3": {
+      "sha256": "5d235376a6e259c0a8049f95273e5725fbf9f9df95bce1c8592dd73a60ed1a15",
+      "bytes": 2101
+    },
+    "dist/sfx/step/gravel2.mp3": {
+      "sha256": "dbc0545362ab485f36672b9288188ec16d84d2dea5b26136c84bf14233dd4b3e",
+      "bytes": 3386
+    },
+    "dist/sfx/step/gravel3.mp3": {
+      "sha256": "88554b162fb80b604c21879986e1f46eaa3dd339e8676299c63f7230e913a16c",
+      "bytes": 3386
+    },
+    "dist/sfx/step/gravel1.mp3": {
+      "sha256": "6877c084b0d7c0916cbfd1dc880bef8bf31995715c7d5e596fa04dc4f51db1d7",
+      "bytes": 3386
+    },
+    "dist/sfx/hit/wood4.mp3": {
+      "sha256": "4c3425770135f6c57a3757ec238640bbd83ee41464d89d2f5b1ad000a0ee039d",
+      "bytes": 2178
+    },
+    "dist/sfx/hit/wood_heavy3.mp3": {
+      "sha256": "04935ee70e65b691eac0b99dc53238a7261608331e47e50515672434c0548f8b",
+      "bytes": 2178
+    },
+    "dist/sfx/hit/wood2.mp3": {
+      "sha256": "985630228365e2875bbc12be9a9036594aef34d35ea8aa0bead29a9ada0e8201",
+      "bytes": 2152
+    },
+    "dist/sfx/hit/wood_heavy1.mp3": {
+      "sha256": "aa7e6477c957ff954d3f96c6f3934974d4107420407984aeeaa67f5df0e5ebc2",
+      "bytes": 2152
+    },
+    "dist/sfx/step/sand7.mp3": {
+      "sha256": "f701aee4c5f3e42993e4fef7b2f0a1536f9cff0b015c1e92f57cfd412e2ff0ad",
+      "bytes": 2179
+    },
+    "dist/sfx/step/sand6.mp3": {
+      "sha256": "372d887d5e40f6b2b3563d47542587196e67fca4ff59171054d974e5a097bb27",
+      "bytes": 2284
+    },
+    "dist/sfx/step/mud1.mp3": {
+      "sha256": "d456fb535058d82d4485038758a9f7c6dbb68e9d81801e4153382b370f0800f0",
+      "bytes": 2179
+    },
+    "dist/sfx/step/stone8.mp3": {
+      "sha256": "5303a41b9715c7c0eb0e4a04e45d172809b603c8be5a42e3a24c33b68c4d2f94",
+      "bytes": 3386
+    },
+    "dist/sfx/step/sand1.mp3": {
+      "sha256": "83b3073fe5e62cb51d52131313cc43c445e459ce9fb0545bf6a8e5a197fc5564",
+      "bytes": 2283
+    },
+    "dist/sfx/step/snow4.mp3": {
+      "sha256": "e6fd2879d663aed8e758fa9ea3b823a9d1c665cd2207176cc666cf97dbfec4f2",
+      "bytes": 3386
+    },
+    "dist/sfx/step/sand5.mp3": {
+      "sha256": "cbacfb496fc163b3dd36c941bea6f6e336e0550a239fc55615ad22c05e99e89f",
+      "bytes": 2127
+    },
+    "dist/sfx/step/gravel8.mp3": {
+      "sha256": "6d1a7b52584e0150ac4914349caed1860c14eb259b6f04bedb170aa86f638b02",
+      "bytes": 3386
+    },
+    "dist/sfx/step/mud5.mp3": {
+      "sha256": "5559e7824157267ddb0cd4c435dc89db2a96fa8b98793f9046d6b827c5651429",
+      "bytes": 2126
+    },
+    "dist/sfx/step/snow2.mp3": {
+      "sha256": "2a0c3fa1f89a6192427bbbebca1acd49a293303d15eae6ed46108a70872eb5c9",
+      "bytes": 3386
+    },
+    "dist/sfx/step/sand8.mp3": {
+      "sha256": "3c08509a681fb2ab991e0880b2419198393583b3b96a445fe7a1c4c48f753e79",
+      "bytes": 2101
+    },
+    "dist/sfx/step/mud4.mp3": {
+      "sha256": "a778e9ce28fc559e0bd06cec7f5cb115d4fe6058b8282a4c8cdc0c6da11181b8",
+      "bytes": 2438
+    },
+    "dist/sfx/step/stone6.mp3": {
+      "sha256": "d6c6557273b3c5f6cebfc8cadd95710c8945d9c4db521bc5e4f3fa0257f2f4a5",
+      "bytes": 3386
+    },
+    "dist/sfx/step/mud7.mp3": {
+      "sha256": "9826ad0004cc9a805da496897edec10792f50bb3704c84b49f32d3089c0f1e9b",
+      "bytes": 2415
+    },
+    "dist/sfx/stage/leaves1.mp3": {
+      "sha256": "d6e086386bbcdc4556b55166d86a98dfafb2a82036d305d3f8d1dc3502b7c1d5",
+      "bytes": 3595
+    },
+    "dist/sfx/step/mud2.mp3": {
+      "sha256": "23d1c138ba8962d3c0f8755754574eabd89df821bf00d94ba24309a4cf502228",
+      "bytes": 2283
+    },
+    "dist/sfx/stage/crow2.mp3": {
+      "sha256": "df6841f26cba00e65b7ec69b352f04cc7eb6563afd5ca15b445fb9ccb908afae",
+      "bytes": 5794
+    },
+    "dist/sfx/step/snow7.mp3": {
+      "sha256": "7dacc191220caca65c6df83358291a71fbfc519c06f4a0249b3519350b45c82b",
+      "bytes": 3386
+    },
+    "dist/sfx/step/mud3.mp3": {
+      "sha256": "bf4ee9781ca0fdfa52443eb98e9f86dc0f54ae8029bebcf520e3d79a78abb3de",
+      "bytes": 2413
+    },
+    "dist/sfx/step/snow1.mp3": {
+      "sha256": "b446f1cfc0bb4f05b19320a33e8865cb757fe233ed8e351cfb9c8bb1b622710b",
+      "bytes": 3386
+    },
+    "dist/sfx/step/gravel4.mp3": {
+      "sha256": "e9e9fc444b55a951c31476e86794d3bbe77e519aefe977904bb758fd37385f7d",
+      "bytes": 3386
+    },
+    "dist/sfx/step/gravel7.mp3": {
+      "sha256": "d0e31b3acb36b8cf04fd74d60e09b61bdc596f5c39ba9e248d259205d4fa1a9c",
+      "bytes": 3386
+    },
+    "dist/sfx/flesh/edge3.mp3": {
+      "sha256": "79851ce62208cadfefed158dfd867f6991c98da8d390f6fd1165bd53c5d26095",
+      "bytes": 2337
+    },
+    "dist/sfx/flesh/edge1.mp3": {
+      "sha256": "0da6abc3036e1b363d4e7678d980b62d03026efdf8f120549f5212ed1d6879a8",
+      "bytes": 2728
+    },
+    "dist/sfx/stage/crow1.mp3": {
+      "sha256": "9358938ad58da7b990139061841232b1de82ced43969334f5a5db668538202fc",
+      "bytes": 8757
+    },
+    "dist/sfx/stage/leaves2.mp3": {
+      "sha256": "a589938302b663e64db015639cafa4bb5cbb0b7a9c77811bc917fc90b09aa358",
+      "bytes": 4431
+    },
+    "dist/sfx/crack1.mp3": {
+      "sha256": "b30bcff11009e0c86fa3fb3cd080218762bc7df438f827ddf2673c37b4228c47",
+      "bytes": 2918
+    },
+    "dist/sfx/step/mud6.mp3": {
+      "sha256": "c4de4580c2002b2eadb99dcd9bb221d1b011116288065f3218b4bdd7fb475c45",
+      "bytes": 2257
+    },
+    "dist/sfx/step/stone2.mp3": {
+      "sha256": "67febff6df021c5400b95e523b840b6cd09452c88a9cfc5a0deab0be893a7418",
+      "bytes": 3386
+    },
+    "dist/sfx/flesh/edge2.mp3": {
+      "sha256": "c66d218715cbef5736927fe46d613559ff251754a4d932736ac54413dcf4369b",
+      "bytes": 2545
+    },
+    "dist/sfx/step/snow3.mp3": {
+      "sha256": "508dc83c2d9ac290f32dd1851d1f60bba5d421268fb1ab6ad2f0085681a16694",
+      "bytes": 3386
+    },
+    "dist/sfx/step/gravel6.mp3": {
+      "sha256": "25cbe31b07fb08861a657843bf3c2b59e9450db8c52312544e7833f9eaee3a84",
+      "bytes": 3386
+    },
+    "dist/sfx/step/stone7.mp3": {
+      "sha256": "a9939a62084a1e7f1f96fe7e26a49f1424acd238de307f7625696cfb04465ed2",
+      "bytes": 3386
+    },
+    "dist/sfx/step/sand3.mp3": {
+      "sha256": "f701aee4c5f3e42993e4fef7b2f0a1536f9cff0b015c1e92f57cfd412e2ff0ad",
+      "bytes": 2179
+    },
+    "dist/sfx/step/snow8.mp3": {
+      "sha256": "f63a3c2ef573c6a5cebca8327d6793a6f73b542a604b1c2149dd545e3751c9f6",
+      "bytes": 3386
+    },
+    "dist/sfx/step/stone1.mp3": {
+      "sha256": "f6d291f5d4be558f4376875d3287dc488cfb699e420315a6bbd2a81f44312d08",
+      "bytes": 3386
+    },
+    "dist/assets/soundgen-BDle7v6J.js": {
+      "sha256": "0dfd106288146aee573b3b46c7d346284a813d9371170431266054299125cdaf",
+      "bytes": 35448
+    },
+    "dist/sfx/step/snow6.mp3": {
+      "sha256": "8834624c0b5430c37c94d9a906f5958a628d14b6641c8b759b9fff1678d13ba7",
+      "bytes": 3386
+    },
+    "dist/sfx/step/snow5.mp3": {
+      "sha256": "97a54a576be3e60581515449cc56a4782b5aa69bde16691bdde4cb0c53c7e9dd",
+      "bytes": 3386
+    },
+    "dist/sfx/step/stone3.mp3": {
+      "sha256": "703905de98e72689408ae38cc847b512ae30385febeb6d394ade9b0385195c03",
+      "bytes": 3386
+    },
+    "dist/sfx/step/stone5.mp3": {
+      "sha256": "5807e89cecf6c99b2f64145d2915ace696c22fe4a6a6103adccd7dd269a9b9a0",
+      "bytes": 3386
+    },
+    "dist/sfx/step/stone4.mp3": {
+      "sha256": "4e869dab916726a83a3b101847fb3f4e50392aab723ca07ed71b2c3ae42afb00",
+      "bytes": 3386
+    },
+    "dist/sfx/slide1.mp3": {
+      "sha256": "6fa87a8a8d305484d362f48d305bf806aaecbbb58d24245ff8d2b87de312df44",
+      "bytes": 5007
+    },
+    "dist/sfx/stage/crow3.mp3": {
+      "sha256": "075d62474543075fd384e52d8598da1c2d8836d941e23460957d60b68ef3c797",
+      "bytes": 4029
+    },
+    "dist/sfx/slide2.mp3": {
+      "sha256": "a5cb8f6d99434454609d5171d29815ed36acc3946de59432d0eb9722208c5e0f",
+      "bytes": 5007
+    },
+    "dist/sfx/stage/chant1.mp3": {
+      "sha256": "48d821d5998417908c84e576e941eb7ee6f0fe393087653864b220e5be013d76",
+      "bytes": 33078
+    },
+    "dist/sfx/step/mud8.mp3": {
+      "sha256": "d18b091e5b1e2fb7aedd29f9b001c36067ea5e6f9a529e9096e5d89e258670fa",
+      "bytes": 2283
+    },
+    "dist/sfx/flesh/wet2.mp3": {
+      "sha256": "4f25a6c8713d3336448ad8b109803eefe9075ca39f58b936379f7e4ea4d3a1b7",
+      "bytes": 3534
+    },
+    "dist/sfx/breath/breath1.mp3": {
+      "sha256": "a4cb1bbfa818c6f64790a7b1eac4ea18e2e7bbe76922a5be0375fe4d8a6aefd0",
+      "bytes": 17709
+    },
+    "dist/sfx/flesh/edge4.mp3": {
+      "sha256": "99823a04b11ac0a5c5512b8a1ec7a36d9ae043cd75a7636bcfbdc276a157d45c",
+      "bytes": 2363
+    },
+    "dist/sfx/voice/player_ko1.mp3": {
+      "sha256": "6bea0bfac03bbc3344bc3163b8f9b4bc80fa87fe88de5e8623c3f41ddf7c3ee6",
+      "bytes": 4807
+    },
+    "dist/sfx/flesh/edge5.mp3": {
+      "sha256": "35d8c0b4f5fbfeb7152dab1e43029d5b52147e260fb0414fa216f02e57550a27",
+      "bytes": 2389
+    },
+    "dist/sfx/flesh/wet1.mp3": {
+      "sha256": "39757337af4feccf35bf7914bc6f8e59aff2734761b848510c854e9ae3ace08e",
+      "bytes": 4859
+    },
+    "dist/sfx/voice/player_ko2.mp3": {
+      "sha256": "f9fe64f44808e71f243a9a7d82a54af6669c10945e12ba05d525daf0d33076a4",
+      "bytes": 3793
+    },
+    "dist/sfx/voice/player_bleed1.mp3": {
+      "sha256": "8952b2c80b7969a8a25c161c3e512a6ae5b0ce178231b48ce8ed187b510d99f7",
+      "bytes": 10921
+    },
+    "dist/sfx/voice/player_bleed2.mp3": {
+      "sha256": "a94d7ac3bd2b6d3b51ac9cb2760d1dae4efb1ce257f39037a8cfd440b9016ed2",
+      "bytes": 15681
+    },
+    "dist/sfx/voice/player_hurt1.mp3": {
+      "sha256": "b5477f87eda294ffe0ff2b83516026ed23de7d56f82187035a661e0579ae6f36",
+      "bytes": 4393
+    },
+    "dist/sfx/voice/player_hurt2.mp3": {
+      "sha256": "5666014dce032de026632f490f3fbc7cfdb364d3bf91e5a7606a99cb52c83daa",
+      "bytes": 3458
+    },
+    "dist/sfx/voice/generic_ko1.mp3": {
+      "sha256": "8bef9effeb14fe4a46a7d144b1992a6de7057f11f95fba3216093ff55a2999fb",
+      "bytes": 6340
+    },
+    "dist/sfx/voice/generic_ko2.mp3": {
+      "sha256": "9526714d6d51c61779b3a0503cead558b1e665a4d798faab56b419760f5d9b15",
+      "bytes": 5820
+    },
+    "dist/sfx/voice/generic_bleed1.mp3": {
+      "sha256": "0035a0d3dcf781b5e4f2b128918161402c44b10951b172006b30e9283671fded",
+      "bytes": 10866
+    },
+    "dist/sfx/voice/generic_bleed2.mp3": {
+      "sha256": "192c9fdc4f653c920f53aba16396735cf66d02c159c5fcadceac85acf9652d45",
+      "bytes": 8946
+    },
+    "dist/sfx/voice/generic_hurt1.mp3": {
+      "sha256": "a0feed565a4c6bcdebe4a288453d863c4b939bfee8d2f2025516036f5e98661d",
+      "bytes": 6219
+    },
+    "dist/sfx/voice/generic_hurt2.mp3": {
+      "sha256": "0785d3079b755363eb1e521f0adfc0fe3c47dbe6a6633de70a9aeede0dddf90f",
+      "bytes": 7419
+    }
+  },
+  "rejectedEvidence": [
+    {
+      "path": "/tmp/halfsword-distance-mobile-local01/report.json",
+      "bytes": 225153,
+      "sha256": "fd99f8a8d0764b6cda97d053d4f2743b7586d8c2a95d3c2a8353264188750ade",
+      "reason": "Fixture moved only the stick after DOM capture release; no next sword event to flush pending lostcapture. Fixed fixture to move sword 1px too."
+    },
+    {
+      "path": "/tmp/halfsword-distance-mobile-local02/report.json",
+      "bytes": 718774,
+      "sha256": "5b5b7b1fbb6ba2cf3a81b3772bc39d53ee5b169d1b4bd5989e9d4b89a3388d06",
+      "reason": "Exact getup explanation assertion was stale after force-setting wording correction. Game unchanged; corrected browser assertion."
+    },
+    {
+      "path": "/tmp/halfsword-distance-mobile-public01/report.json",
+      "bytes": 1098567,
+      "sha256": "baba943b2bd58120e76a5ded53b27e8c69a710d044a8016ae213d8c4a4c0d4bf",
+      "reason": "Five gameplay flows completed but two static requests returned HTTP503, so whole public check failed. Failed evidence retained; unchanged-build full retry required."
+    },
+    {
+      "path": "/tmp/halfsword-distance-regression-final/result.json",
+      "bytes": 297180,
+      "sha256": "01e8e44599ae889cc117806f22bf2a6d0fbbe33628b77427b6815bb2cb226701",
+      "reason": "One getup UI explanation was edited during execution; source-stability guard rejected the run. All native duel rows had no new failure. Frozen rerun passed."
+    }
+  ],
+  "limits": [
+    "Native range29 executions40560steps include superseded candidates and final7 equivalent replays, not independent success-rate samples.",
+    "Near rapier B missed; far estoc A inflicted vital stab but B did not. No general efficacy threshold or force-preservation claim.",
+    "Getup15 executions19913steps show lag but some slip/contact outcomes differ. Whole weight transfer not solved.",
+    "Mobile Chromium emulation verifies actual served code, input and restart; physical handset and human feel acceptance remain user testing.",
+    "Developer exchange draft updated; no new peer read or immediate peer message/publication in this work."
+  ]
+}
