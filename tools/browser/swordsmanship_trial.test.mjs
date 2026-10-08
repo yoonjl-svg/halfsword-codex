@@ -36,13 +36,13 @@ Object.defineProperty(globalThis, 'localStorage', { configurable: true, value: O
 const restore = (key, descriptor) => descriptor ? Object.defineProperty(globalThis, key, descriptor) : delete globalThis[key];
 try {
   test('one marker selects the default Qinggang trial', () => active(query(), 'qinggang'));
-  test('published weapon list excludes the two unresolved high-spin weapons', () => {
+  test('archived trial retains its original two-weapon exclusions', () => {
     assert.equal(SWORDSMANSHIP_WEAPONS.length, 13);
     assert.deepEqual(SWORDSMANSHIP_WEAPONS.map(w => w.id), published.map(w => w.id));
     assert.ok(Object.isFrozen(SWORDSMANSHIP_WEAPONS) && SWORDSMANSHIP_WEAPONS.every(Object.isFrozen));
   });
   for (const weapon of published) test(`published weapon entry: ${weapon.id}`, () => active(query(weapon.id), weapon.id));
-  for (const weapon of withheld) test(`withheld high-spin weapon is rejected: ${weapon}`, () => inactive(query(weapon)));
+  for (const weapon of withheld) test(`archived trial exclusion is retained: ${weapon}`, () => inactive(query(weapon)));
   for (const weapon of TRIAL_WEAPON_LIST) test(`internal-only weapon is rejected: ${weapon.id}`, () => inactive(query(weapon.id)));
   test('ordinary entry is inactive', () => inactive(new URLSearchParams(), false));
   test('old weapon-only URL does not activate the new trial', () => inactive(new URLSearchParams({ weapon: 'qinggang' }), false));
@@ -86,7 +86,7 @@ try {
     assert.deepEqual([...section.matchAll(/\bname="([^"]+)"/g)].map(row => row[1]).sort(), ['swordsmanshipTrial', 'weapon']);
     assert.ok(html.indexOf('id="swordsmanship-trial"') < html.indexOf('id="previous-comparisons"'));
     assert.ok(html.indexOf('id="previous-comparisons"') < html.indexOf('id="sword-assist-v2-comparison"'));
-    assert.match(section, /모노호시자오·라이트세이버는 회전 문제를 더 확인한 뒤 추가합니다/);
+    assert.match(section, /이전 통합 시험의 무기 목록은 당시 조건으로 보존합니다/);
     assert.match(section, /리볼버는 기존 사격 조작을 사용합니다/);
   });
   const documentBefore = Object.getOwnPropertyDescriptor(globalThis, 'document');
@@ -118,5 +118,5 @@ try {
   } finally { restore('document', documentBefore); }
   test('entry parsing and UI do not read or write saved preference bytes', () => assert.equal(storageCalls, 0));
   console.log(JSON.stringify({ pass: true, cases: rows.length, rows,
-    scope: 'Strict two-key session-only entry, thirteen published weapons, exclusion of two unresolved high-spin weapons and internal-only weapon, unchanged legacy parser, actual product GET form and menu fixture. Does not assert main.js sanitization, physical correctness, browser input, persistence, efficacy or historical authenticity.' }));
+    scope: 'Strict two-key session-only entry, thirteen published weapons, original two-weapon exclusions and internal-only weapon, unchanged legacy parser, actual product GET form and menu fixture. Does not assert main.js sanitization, physical correctness, browser input, persistence, efficacy or historical authenticity.' }));
 } finally { restore('localStorage', storageBefore); }

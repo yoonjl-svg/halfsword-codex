@@ -1,0 +1,1162 @@
+{
+  "schema": "thin-v2-evidence-1",
+  "dateKST": "2026-10-08",
+  "baselineCommit": "531cfa131271bc386c85582fffd8d5393c79ede6",
+  "status": "native-verified-delivery-pending",
+  "decision": {
+    "monohoshizao": "Adopt existing v2/manual policy in ordinary entry; no controller or damage formula tuning.",
+    "lightsaber": "Keep ordinary legacy. Expose isolated v2 comparison at ?weapon=lightsaber&swordsmanshipPreview=v2 with all current common physics preserved.",
+    "basis": "Both return to ready in the bounded native tape and acquire actual cut contacts. Lightsaber has a substantial matched free-recut speed/energy tradeoff, so no automatic general promotion."
+  },
+  "executionAccounting": {
+    "executed": {
+      "runs": 16,
+      "steps": 15108
+    },
+    "accepted": {
+      "runs": 12,
+      "steps": 11010
+    },
+    "motion": {
+      "runs": 8,
+      "steps": 6912
+    },
+    "contactAccepted": {
+      "runs": 4,
+      "steps": 4098
+    },
+    "excluded": {
+      "runs": 4,
+      "steps": 4098,
+      "reason": "First contact protocol incorrectly gave idle enemy fresh stance/bounded roll. Ordinary entry only assigns those to player. Corrected setup once; preserved excluded run01; no parameter search.",
+      "report": {
+        "path": "/workspace/halfsword-handoff/thin-v2-20261008/contact/run01/report.json",
+        "sha256": "3cd9e108d962917bb28d33061c11cac8ff89057725dc557b6db076b84be6afd2",
+        "bytes": 46126
+      },
+      "protocol": {
+        "path": "/workspace/halfsword-handoff/thin-v2-20261008/contact/run01/protocol.json",
+        "sha256": "3d98e765e635b2141555d8db8eec01faa8f966ac65f4e5ebda15230786b6e957",
+        "bytes": 12342
+      }
+    }
+  },
+  "source": {
+    "freezeBeforeRuntimeImport": true,
+    "nodeModules": "Existing installed dependencies symlinked; package-lock hash below. No engine approximation.",
+    "runtimeManifestFingerprintMethod": "SHA256 of src/*.js path-to-SHA256 map serialized as sorted-key compact JSON with ASCII escaping.",
+    "frozenRuntimeManifestSHA256": "8ccf8f0a4cada2f1bca1c033ea452c28d6872539a5ab67506e6ce6c70780d610",
+    "frozenCoreSHA256": {
+      "src/fighter.js": "b73b60b778f364f1032e7a8b262d258a4da43ba0ef7343d542a900fee8eda928",
+      "src/combat.js": "6e3437c780093f4622ccd76b9161286272a51bb03684f9c56362834b774cb20f",
+      "src/config.js": "6e2c678ef8af30eeb730f38c3c6a5eac370babdf0071c249e1c2d474c7aa331b",
+      "src/arm_support.js": "0cadc692af51f769b7b718b233c4948889547fe3ef3175f3fc52592742e7a66c",
+      "src/swordsmanship.js": "7794881e39564a523047605c7ddfae71ecb8fff40b007d03c78aeb33d16c66db",
+      "src/swordsmanship_profiles.js": "1660b20fe9970164c0cef8ce5fd43acf0616978c1bcdf7e5494099d2029456b1",
+      "src/skill.js": "c1ce462057175f684f8b89c79f668835c69b9dd2ef3cdfbd1e155f73411668e5",
+      "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+      "src/roll_target.js": "495b84d67e21e94b095bee1a77ec2c2c3d68ea279a4a1bc5d5a3006453decf49",
+      "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+      "src/cut_centerline.js": "98e522cfcde4f03c4d6d34dd57f7a8fa301a5a28028ddcce366cc600f86bf453",
+      "src/weapons.js": "8eef9458a8a7ce0e170c763d0b1fc8b2061f38f089c6518a23cf10368e935270",
+      "src/finish_rule.js": "2baed3d0c5d0e290166446884e3e037488fa6d88fff5c8cc5dd30eb390e3b9c5"
+    },
+    "coreMatchesCurrentAtEvidenceWrite": true,
+    "entryChangesAfterNativeFreeze": [
+      {
+        "path": "src/main.js",
+        "frozenSHA256": "97b95c6bc8becf865c7a84f8557cf8a82e3be24df0d12f1bf93a80030c5228a8",
+        "currentSHA256": "d6ced6fdefd020dbef22ae03c058867d9c4cc46bffeaa45463a3dc24eb9b15de"
+      },
+      {
+        "path": "src/swordsmanship_default.js",
+        "frozenSHA256": "e11aaaa563717b7e14e90604d13699aadbdd31a24e8e919028690cd5ef7e35be",
+        "currentSHA256": "91c58accca9c5cbd8136dcbfc571b94ce8ab7fdafbd3026ccd5ed774e9cf7aad"
+      },
+      {
+        "path": "src/swordsmanship_trial.js",
+        "frozenSHA256": "ee1c50cc7142eb46f8c266b566c9eba2155d6a54db6d84798212aee0eff82b79",
+        "currentSHA256": "2bf98e61b4bd0b89fa1a800ada116931b568457651f555676850962324ff0c2c"
+      }
+    ],
+    "entryChangesScope": "Adoption/preview policy and notices. Browser delivery verifies entry wiring separately; this evidence file does not assert it is already deployed.",
+    "dependencies": {
+      "package.json": "9f267f3512c0be2c4407763c8d10b2813521ed425e948808222de8236db83df2",
+      "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+      "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0"
+    },
+    "completeFrozenFileManifests": "Anchored by motion and contact report/protocol SHA256; each source/ directory contains the exact frozen files.",
+    "currentReproductionTools": [
+      {
+        "path": "/workspace/halfsword-codex/tools/sim/experiments/thin_v2_motion_20261008.mjs",
+        "sha256": "393c3bb65cf8feda7687e728d4babb9de9bedc9199365318f1d6774c89860518",
+        "bytes": 24132,
+        "atNativeRunSHA256": "aa78671079b25c00477d5b30ed1ca4b06ceafeaa1eee4615b1235d90d65cbce6",
+        "postRunChange": "Removed one trailing space only; executed frozen copy and evidence hashes are preserved."
+      },
+      {
+        "path": "/workspace/halfsword-codex/tools/sim/experiments/thin_v2_contact_20261008.mjs",
+        "sha256": "935da840c5c0b30fb8827ef8397b201fb6a5c0c41fd8f6d23a301cd9171129b2",
+        "bytes": 12030
+      }
+    ],
+    "readOnlyDeriver": {
+      "path": "/workspace/halfsword-handoff/thin-v2-20261008/motion/derive.mjs",
+      "sha256": "38444636ef54eaea6fa1fa3182ac1fa97eaa3675777ba22ad76a0d7d99d86f8d",
+      "bytes": 4600
+    }
+  },
+  "reproduction": {
+    "motionCommand": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/halfsword-codex/tools/sim/experiments/thin_v2_motion_20261008.mjs",
+      "/workspace/halfsword-codex",
+      "/workspace/halfsword-handoff/thin-v2-20261008/motion/run01"
+    ],
+    "contactCommand": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/halfsword-codex/tools/sim/experiments/thin_v2_contact_20261008.mjs",
+      "/workspace/halfsword-codex",
+      "/workspace/halfsword-handoff/thin-v2-20261008/contact/run02"
+    ],
+    "outputRule": "Output path must not already exist; choose a fresh path. Replaying current HEAD with the same explicit models uses unchanged physical code; original frozen sources preserve exact baseline.",
+    "motionProtocol": {
+      "path": "/workspace/halfsword-handoff/thin-v2-20261008/motion/run01/protocol.json",
+      "sha256": "215ddcab94a5bd88077c824cddfbc905456c748563e7a176ec61c2d9cc070398",
+      "bytes": 12035
+    },
+    "contactProtocol": {
+      "path": "/workspace/halfsword-handoff/thin-v2-20261008/contact/run02/protocol.json",
+      "sha256": "a608424cf3c97b3ff573f67a4f35993c538c6c41a14a2529db25db60c2485d38",
+      "bytes": 12342
+    }
+  },
+  "motion": {
+    "report": {
+      "path": "/workspace/halfsword-handoff/thin-v2-20261008/motion/run01/report.json",
+      "sha256": "840f80c2550b8215aeeb77588ac7cb7b79fee3049f3b6e834dddb6cbd3e9f42f",
+      "bytes": 590842
+    },
+    "derivedReport": {
+      "path": "/workspace/halfsword-handoff/thin-v2-20261008/motion/derived.json",
+      "sha256": "767d777a938559c6483fd1e01d38a98ab9e1e2a9ba5ca3c82ddb0d61fdf535a4",
+      "bytes": 58463
+    },
+    "checks": {
+      "allAliveArmed": true,
+      "allStanding": true,
+      "noDamageContact": true,
+      "finite": true,
+      "accepted": true,
+      "identicalSpawn": true,
+      "identicalHealthyPrefix": true,
+      "identicalRequestedInput": true,
+      "frozenSourceStable": true
+    },
+    "setup": {
+      "seed": 7,
+      "gapM": 5.6,
+      "modes": [
+        "legacy",
+        "v2"
+      ],
+      "weapons": [
+        "monohoshizao",
+        "lightsaber"
+      ],
+      "conditions": [
+        "healthy",
+        "severe"
+      ],
+      "runs": 8,
+      "preparation": {
+        "tick300": "severe: armO=.2; healthy: no injury mutation"
+      },
+      "configuration": "current ordinary common stance/roll/cut + linked offhand BOTH + finish power BOTH + limb ON + gravity -9.81; legacy .7 versus v2/manual at creation",
+      "setting": "Distant idle foe, no locomotion; actual Fighter/Rapier/Combat loop, no rendering.",
+      "scope": "Two thin two-hand weapons, readiness/manual cut/reverse/recut/release. Severe .2 support-arm function from tick300. No natural injury/contact damage/human-motion claim.",
+      "schedule": [
+        [
+          "prefix",
+          300,
+          [
+            0,
+            0
+          ],
+          true
+        ],
+        [
+          "postConditionHold",
+          60,
+          [
+            0,
+            0
+          ],
+          true
+        ],
+        [
+          "raise",
+          48,
+          [
+            -0.28,
+            0.38
+          ],
+          true
+        ],
+        [
+          "raisedHold",
+          24,
+          [
+            0,
+            0
+          ],
+          true
+        ],
+        [
+          "firstCut",
+          30,
+          [
+            0.56,
+            -0.76
+          ],
+          true
+        ],
+        [
+          "followHold",
+          36,
+          [
+            0,
+            0
+          ],
+          true
+        ],
+        [
+          "reverse",
+          36,
+          [
+            -0.38,
+            0.66
+          ],
+          true
+        ],
+        [
+          "reverseHold",
+          24,
+          [
+            0,
+            0
+          ],
+          true
+        ],
+        [
+          "recut",
+          30,
+          [
+            0.4,
+            -0.7
+          ],
+          true
+        ],
+        [
+          "recutHold",
+          36,
+          [
+            0,
+            0
+          ],
+          true
+        ],
+        [
+          "release",
+          240,
+          [
+            0,
+            0
+          ],
+          false
+        ]
+      ]
+    },
+    "injuryFixture": "At tick300 severe fixture directly assigns armO=.2. No natural injury, pain, bleed, detachment or other limb mutation is implied; healthy fixture changes nothing. Healthy/severe prefixes within each policy match.",
+    "metric": "Largest six-frame mean (50ms at120Hz) within authored phase. Free sword kinetic energy is not contact damage. Centerline tip speed, blade-edge speed and axial rotation are separate measurements.",
+    "healthyPhaseComparisons": {
+      "monohoshizao": {
+        "firstCut": {
+          "tipSpeedMps": {
+            "legacyPeak": 6.679292816929233,
+            "v2Peak": 9.938314742342424,
+            "legacyPeak50ms": 5.8498975775205615,
+            "v2Peak50ms": 9.226253990034023,
+            "peak50msChangePercent": 57.71650473826768
+          },
+          "edgeSpeedMps": {
+            "legacyPeak": 5.704958121314637,
+            "v2Peak": 8.033316407698479,
+            "legacyPeak50ms": 5.071638925050379,
+            "v2Peak50ms": 7.686703868092319,
+            "peak50msChangePercent": 51.562522129194456
+          },
+          "swordEnergyJ": {
+            "legacyPeak": 12.369706767942269,
+            "v2Peak": 19.70865841864243,
+            "legacyPeak50ms": 10.734441811441608,
+            "v2Peak50ms": 18.76492077403743,
+            "peak50msChangePercent": 74.81040098457947
+          }
+        },
+        "recut": {
+          "tipSpeedMps": {
+            "legacyPeak": 8.015616475764483,
+            "v2Peak": 7.902935063371643,
+            "legacyPeak50ms": 7.584266570086842,
+            "v2Peak50ms": 7.465719727712411,
+            "peak50msChangePercent": -1.5630627072364844
+          },
+          "edgeSpeedMps": {
+            "legacyPeak": 6.610460708910782,
+            "v2Peak": 6.4334146614875385,
+            "legacyPeak50ms": 6.056927948523121,
+            "v2Peak50ms": 6.124587878459604,
+            "peak50msChangePercent": 1.1170667789267785
+          },
+          "swordEnergyJ": {
+            "legacyPeak": 13.511927154164022,
+            "v2Peak": 16.555654897844605,
+            "legacyPeak50ms": 12.203681562230521,
+            "v2Peak50ms": 13.476759422951512,
+            "peak50msChangePercent": 10.431916419886523
+          }
+        },
+        "recutHold": {
+          "tipSpeedMps": {
+            "legacyPeak": 13.700505775014262,
+            "v2Peak": 9.07096576435837,
+            "legacyPeak50ms": 13.565985944146853,
+            "v2Peak50ms": 8.729645259583927,
+            "peak50msChangePercent": -35.650491637503144
+          },
+          "edgeSpeedMps": {
+            "legacyPeak": 11.398184367285388,
+            "v2Peak": 7.658399876758151,
+            "legacyPeak50ms": 11.28046381012953,
+            "v2Peak50ms": 7.5389138938929365,
+            "peak50msChangePercent": -33.16840494516538
+          },
+          "swordEnergyJ": {
+            "legacyPeak": 31.34730505416114,
+            "v2Peak": 22.215164132049892,
+            "legacyPeak50ms": 30.902121352931385,
+            "v2Peak50ms": 21.448566840209185,
+            "peak50msChangePercent": -30.591927346196357
+          }
+        }
+      },
+      "lightsaber": {
+        "firstCut": {
+          "tipSpeedMps": {
+            "legacyPeak": 9.390476800018824,
+            "v2Peak": 11.262183277433431,
+            "legacyPeak50ms": 6.997256653079529,
+            "v2Peak50ms": 10.420433071377987,
+            "peak50msChangePercent": 48.92169300081197
+          },
+          "edgeSpeedMps": {
+            "legacyPeak": 6.982365960591573,
+            "v2Peak": 9.311586954485215,
+            "legacyPeak50ms": 5.721153910082298,
+            "v2Peak50ms": 8.547566448106817,
+            "peak50msChangePercent": 49.40284044873498
+          },
+          "swordEnergyJ": {
+            "legacyPeak": 12.255398874381608,
+            "v2Peak": 8.05118369731989,
+            "legacyPeak50ms": 9.553999194703078,
+            "v2Peak50ms": 7.478886572330765,
+            "peak50msChangePercent": -21.719832502422598
+          }
+        },
+        "recut": {
+          "tipSpeedMps": {
+            "legacyPeak": 19.201549784308128,
+            "v2Peak": 11.450410765580083,
+            "legacyPeak50ms": 14.044239948635637,
+            "v2Peak50ms": 8.173133520871728,
+            "peak50msChangePercent": -41.80437281929431
+          },
+          "edgeSpeedMps": {
+            "legacyPeak": 14.881106076782578,
+            "v2Peak": 9.557194401039334,
+            "legacyPeak50ms": 10.729673753453701,
+            "v2Peak50ms": 6.711703428794327,
+            "peak50msChangePercent": -37.4472739524448
+          },
+          "swordEnergyJ": {
+            "legacyPeak": 14.080200083591134,
+            "v2Peak": 8.739536241647563,
+            "legacyPeak50ms": 11.367408124394402,
+            "v2Peak50ms": 6.534632929589271,
+            "peak50msChangePercent": -42.514310579154966
+          }
+        },
+        "recutHold": {
+          "tipSpeedMps": {
+            "legacyPeak": 25.614812444773086,
+            "v2Peak": 8.229799943259863,
+            "legacyPeak50ms": 24.15419176750885,
+            "v2Peak50ms": 7.098300630932182,
+            "peak50msChangePercent": -70.6125516462923
+          },
+          "edgeSpeedMps": {
+            "legacyPeak": 19.810640183636814,
+            "v2Peak": 7.200110280183805,
+            "legacyPeak50ms": 18.678260271913913,
+            "v2Peak50ms": 6.2071041704790515,
+            "peak50msChangePercent": -66.76829597554898
+          },
+          "swordEnergyJ": {
+            "legacyPeak": 19.31372407779745,
+            "v2Peak": 7.7611583695954645,
+            "legacyPeak50ms": 17.664309843353262,
+            "v2Peak50ms": 5.911614292306493,
+            "peak50msChangePercent": -66.53356771518068
+          }
+        }
+      }
+    },
+    "rawTraces": [
+      {
+        "weapon": "monohoshizao",
+        "condition": "healthy",
+        "mode": "legacy",
+        "steps": 864,
+        "raw": {
+          "path": "/workspace/halfsword-handoff/thin-v2-20261008/motion/run01/monohoshizao-healthy-legacy/trace.jsonl",
+          "bytes": 1766089,
+          "sha256": "a16873d4a6f216ff0ab6827ccdb752e2224307512195402af2cef71a61340f76"
+        },
+        "spawnSHA256": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30",
+        "requestedInputSHA256": "af48663bfbfd5a114628efed598e6c65c493a21a4c4b48f52d97c02caf12d5fc"
+      },
+      {
+        "weapon": "monohoshizao",
+        "condition": "healthy",
+        "mode": "v2",
+        "steps": 864,
+        "raw": {
+          "path": "/workspace/halfsword-handoff/thin-v2-20261008/motion/run01/monohoshizao-healthy-v2/trace.jsonl",
+          "bytes": 1772215,
+          "sha256": "b646e7604d050b8040f4b62fabe2ac4df610c0bc6e199dc79c43ed6d8199ea7a"
+        },
+        "spawnSHA256": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30",
+        "requestedInputSHA256": "af48663bfbfd5a114628efed598e6c65c493a21a4c4b48f52d97c02caf12d5fc"
+      },
+      {
+        "weapon": "monohoshizao",
+        "condition": "severe",
+        "mode": "legacy",
+        "steps": 864,
+        "raw": {
+          "path": "/workspace/halfsword-handoff/thin-v2-20261008/motion/run01/monohoshizao-severe-legacy/trace.jsonl",
+          "bytes": 1668632,
+          "sha256": "4bc4dbb5cb1553af7b5b7cf161a66c464bfdddb1276c705ce16c7b967da4418c"
+        },
+        "spawnSHA256": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30",
+        "requestedInputSHA256": "af48663bfbfd5a114628efed598e6c65c493a21a4c4b48f52d97c02caf12d5fc"
+      },
+      {
+        "weapon": "monohoshizao",
+        "condition": "severe",
+        "mode": "v2",
+        "steps": 864,
+        "raw": {
+          "path": "/workspace/halfsword-handoff/thin-v2-20261008/motion/run01/monohoshizao-severe-v2/trace.jsonl",
+          "bytes": 1673060,
+          "sha256": "2234ba8c6af26ea7612af8c0f9dbec4783d3d81ce5118c62b1f0f3009e3142bf"
+        },
+        "spawnSHA256": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30",
+        "requestedInputSHA256": "af48663bfbfd5a114628efed598e6c65c493a21a4c4b48f52d97c02caf12d5fc"
+      },
+      {
+        "weapon": "lightsaber",
+        "condition": "healthy",
+        "mode": "legacy",
+        "steps": 864,
+        "raw": {
+          "path": "/workspace/halfsword-handoff/thin-v2-20261008/motion/run01/lightsaber-healthy-legacy/trace.jsonl",
+          "bytes": 1768529,
+          "sha256": "128e924b444201a1f55b55cc6c173ba2debc9b68a3c90723ec27206e8bd9b185"
+        },
+        "spawnSHA256": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c",
+        "requestedInputSHA256": "af48663bfbfd5a114628efed598e6c65c493a21a4c4b48f52d97c02caf12d5fc"
+      },
+      {
+        "weapon": "lightsaber",
+        "condition": "healthy",
+        "mode": "v2",
+        "steps": 864,
+        "raw": {
+          "path": "/workspace/halfsword-handoff/thin-v2-20261008/motion/run01/lightsaber-healthy-v2/trace.jsonl",
+          "bytes": 1776557,
+          "sha256": "364555982ccd8d6cb4cc42be11ba5c99ba8342859b89b662a9300cfdda90c2d9"
+        },
+        "spawnSHA256": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c",
+        "requestedInputSHA256": "af48663bfbfd5a114628efed598e6c65c493a21a4c4b48f52d97c02caf12d5fc"
+      },
+      {
+        "weapon": "lightsaber",
+        "condition": "severe",
+        "mode": "legacy",
+        "steps": 864,
+        "raw": {
+          "path": "/workspace/halfsword-handoff/thin-v2-20261008/motion/run01/lightsaber-severe-legacy/trace.jsonl",
+          "bytes": 1670322,
+          "sha256": "f42f83fc944b0fc82c4aab09138dec84c49336e1af2abf84c52cb04639ee4312"
+        },
+        "spawnSHA256": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c",
+        "requestedInputSHA256": "af48663bfbfd5a114628efed598e6c65c493a21a4c4b48f52d97c02caf12d5fc"
+      },
+      {
+        "weapon": "lightsaber",
+        "condition": "severe",
+        "mode": "v2",
+        "steps": 864,
+        "raw": {
+          "path": "/workspace/halfsword-handoff/thin-v2-20261008/motion/run01/lightsaber-severe-v2/trace.jsonl",
+          "bytes": 1678075,
+          "sha256": "ecdcdd975d9e6b1a04ee7b514f6c09cb8ae35d73d28be4d1b27f23c3007e2a5e"
+        },
+        "spawnSHA256": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c",
+        "requestedInputSHA256": "af48663bfbfd5a114628efed598e6c65c493a21a4c4b48f52d97c02caf12d5fc"
+      }
+    ],
+    "endStates": [
+      {
+        "weapon": "monohoshizao",
+        "condition": "healthy",
+        "mode": "legacy",
+        "final": {
+          "phase": "legacy",
+          "omegaRadps": 0.0026538621110533114,
+          "tipSpeedMps": 0.010325456595760674,
+          "kineticJ": 4.548033435082532e-05
+        },
+        "late250ms": {
+          "swordOmegaRadps": 0.004055605920715419,
+          "absAxialOmegaRadps": 0.0007820034588900149,
+          "tipSpeedMps": 0.010941148321904648,
+          "handCommandSpeedMps": 0.0018767931186624153,
+          "aimCommandTurnRadps": 0.0008040282043885482,
+          "aimErrorRad": 0.06165774407836477,
+          "swordEnergyJ": 5.811295893992212e-05
+        }
+      },
+      {
+        "weapon": "monohoshizao",
+        "condition": "healthy",
+        "mode": "v2",
+        "final": {
+          "phase": "ready",
+          "omegaRadps": 0.01614777235905643,
+          "tipSpeedMps": 0.023392643428065758,
+          "kineticJ": 0.00013791947125262706
+        },
+        "late250ms": {
+          "swordOmegaRadps": 0.025096611935784767,
+          "absAxialOmegaRadps": 0.006413313470590756,
+          "tipSpeedMps": 0.06653033716354347,
+          "handCommandSpeedMps": 0.004718923848628013,
+          "aimCommandTurnRadps": 0.0005451821806206919,
+          "aimErrorRad": 0.07826372881695152,
+          "swordEnergyJ": 0.0018547787068168753
+        }
+      },
+      {
+        "weapon": "monohoshizao",
+        "condition": "severe",
+        "mode": "legacy",
+        "final": {
+          "phase": "legacy",
+          "omegaRadps": 0.010012024500690834,
+          "tipSpeedMps": 0.004866749906817388,
+          "kineticJ": 2.2280059527629405e-05
+        },
+        "late250ms": {
+          "swordOmegaRadps": 0.009808857691914554,
+          "absAxialOmegaRadps": 0.00021404241321495057,
+          "tipSpeedMps": 0.00478797849651352,
+          "handCommandSpeedMps": 0.0004968143116445385,
+          "aimCommandTurnRadps": 0.0008696496047110074,
+          "aimErrorRad": 0.0016888125490256047,
+          "swordEnergyJ": 2.2347224076308535e-05
+        }
+      },
+      {
+        "weapon": "monohoshizao",
+        "condition": "severe",
+        "mode": "v2",
+        "final": {
+          "phase": "ready",
+          "omegaRadps": 0.011750351506516285,
+          "tipSpeedMps": 0.0036665207037864436,
+          "kineticJ": 2.899410062123834e-05
+        },
+        "late250ms": {
+          "swordOmegaRadps": 0.015021600455610348,
+          "absAxialOmegaRadps": 0.002772256303447578,
+          "tipSpeedMps": 0.017471206669908545,
+          "handCommandSpeedMps": 0.0033516585154851767,
+          "aimCommandTurnRadps": 0.00035079038707291974,
+          "aimErrorRad": 0.002116206380001988,
+          "swordEnergyJ": 0.00013045451783497052
+        }
+      },
+      {
+        "weapon": "lightsaber",
+        "condition": "healthy",
+        "mode": "legacy",
+        "final": {
+          "phase": "legacy",
+          "omegaRadps": 0.0015738772246090202,
+          "tipSpeedMps": 0.0023250226213689337,
+          "kineticJ": 5.116743086828955e-06
+        },
+        "late250ms": {
+          "swordOmegaRadps": 0.0013291998682927282,
+          "absAxialOmegaRadps": 0.00020922622029432967,
+          "tipSpeedMps": 0.002656422621245204,
+          "handCommandSpeedMps": 0.0014206455208786517,
+          "aimCommandTurnRadps": 0.0008136213391635314,
+          "aimErrorRad": 0.018924988637856497,
+          "swordEnergyJ": 5.3589313087783675e-06
+        }
+      },
+      {
+        "weapon": "lightsaber",
+        "condition": "healthy",
+        "mode": "v2",
+        "final": {
+          "phase": "ready",
+          "omegaRadps": 0.0005879038753670984,
+          "tipSpeedMps": 0.004874756192900901,
+          "kineticJ": 9.374165140492419e-06
+        },
+        "late250ms": {
+          "swordOmegaRadps": 0.0008794830055093988,
+          "absAxialOmegaRadps": 0.0002519876685011566,
+          "tipSpeedMps": 0.005871356009049044,
+          "handCommandSpeedMps": 0.003271042376298838,
+          "aimCommandTurnRadps": 0.0005498407789741248,
+          "aimErrorRad": 0.0352151411668017,
+          "swordEnergyJ": 1.3181186280289106e-05
+        }
+      },
+      {
+        "weapon": "lightsaber",
+        "condition": "severe",
+        "mode": "legacy",
+        "final": {
+          "phase": "legacy",
+          "omegaRadps": 0.003071700297562361,
+          "tipSpeedMps": 0.00372767451721456,
+          "kineticJ": 1.531562177973286e-05
+        },
+        "late250ms": {
+          "swordOmegaRadps": 0.002799934526803463,
+          "absAxialOmegaRadps": 0.00017717269650640064,
+          "tipSpeedMps": 0.004053091455006694,
+          "handCommandSpeedMps": 0.000745306173241968,
+          "aimCommandTurnRadps": 0.000849769123756185,
+          "aimErrorRad": 0.0005487912309694175,
+          "swordEnergyJ": 1.5588386511752417e-05
+        }
+      },
+      {
+        "weapon": "lightsaber",
+        "condition": "severe",
+        "mode": "v2",
+        "final": {
+          "phase": "ready",
+          "omegaRadps": 0.00390806610145328,
+          "tipSpeedMps": 0.002830931854319699,
+          "kineticJ": 1.5516800219057726e-05
+        },
+        "late250ms": {
+          "swordOmegaRadps": 0.004282925672581322,
+          "absAxialOmegaRadps": 0.00027695236904099374,
+          "tipSpeedMps": 0.0031522234667784596,
+          "handCommandSpeedMps": 0.002101300362037583,
+          "aimCommandTurnRadps": 0.0003668742269581198,
+          "aimErrorRad": 0.0006518327606317537,
+          "swordEnergyJ": 1.626881566170534e-05
+        }
+      }
+    ]
+  },
+  "contact": {
+    "report": {
+      "path": "/workspace/halfsword-handoff/thin-v2-20261008/contact/run02/report.json",
+      "sha256": "4d7434df223c135f896b5af61427911c846c98f1cdac9979e7598e8315992b37",
+      "bytes": 44700
+    },
+    "readOnlyReview": {
+      "path": "/workspace/halfsword-handoff/thin-v2-20261008/contact/review.json",
+      "sha256": "7ccd15537adfb0eade5cf7889f5c07f77be3db2d323c324e712fb1cd7279c9f5",
+      "bytes": 20637
+    },
+    "protocol": {
+      "seed": 7,
+      "gapM": 5.6,
+      "maxSteps": 1600,
+      "weapons": [
+        "monohoshizao",
+        "lightsaber"
+      ],
+      "modes": [
+        "legacy",
+        "v2"
+      ],
+      "schedule": [
+        [
+          "ready",
+          60,
+          null
+        ],
+        [
+          "raise",
+          48,
+          [
+            0.42,
+            0.42
+          ]
+        ],
+        [
+          "raisedHold",
+          24,
+          null
+        ],
+        [
+          "firstCut",
+          30,
+          [
+            -0.4,
+            -0.42
+          ]
+        ],
+        [
+          "followHold",
+          36,
+          null
+        ],
+        [
+          "reverse",
+          48,
+          [
+            -0.4,
+            0.42
+          ]
+        ],
+        [
+          "reverseHold",
+          24,
+          null
+        ],
+        [
+          "recut",
+          30,
+          [
+            0.38,
+            -0.44
+          ]
+        ],
+        [
+          "recutHold",
+          36,
+          null
+        ],
+        [
+          "raise2",
+          48,
+          [
+            0.42,
+            0.42
+          ]
+        ],
+        [
+          "raisedHold2",
+          24,
+          null
+        ],
+        [
+          "cut2",
+          30,
+          [
+            -0.4,
+            -0.42
+          ]
+        ],
+        [
+          "followHold2",
+          36,
+          null
+        ],
+        [
+          "release",
+          120,
+          null
+        ]
+      ],
+      "initial": "Normal Fighter construction, standing idle longsword opponent. No pose, velocity, force, health or wound injection.",
+      "input": "Existing recut guard tape. Legacy approaches after240steps and starts tape at <=2.8m pelvis distance; joystick tracks1.15m. v2 replays every requested dx/dy/held/active/stick literally, including approach timing. Release extended120steps to inspect residual contact spin.",
+      "config": "Player fresh stance/bounded roll/centerline cut; both fighters linked arm support; uncapped2.5 finishing power both; limbON/gravity9.81. Legacy player skill.7+autoGuard; v2 applied beforefirststep sets skill0 and manual arm model.",
+      "contact": "Only native Combat.strike/onWound events. Different trajectories and hit locations are not a matched-damage causality experiment.",
+      "spin": "Absolute axial angular velocity each step, peak and RMS; longest continuous duration over50rad/s, diagnostic threshold only (not human-normality or game clamp). Post-contact windows cover120steps, overlapdeduplicated."
+    },
+    "measurementValid": true,
+    "sourceStable": true,
+    "comparisons": [
+      {
+        "weapon": "monohoshizao",
+        "sameSpawn": true,
+        "sameStart": true,
+        "sameRequestedInput": true,
+        "sameAppliedInput": true
+      },
+      {
+        "weapon": "lightsaber",
+        "sameSpawn": true,
+        "sameStart": true,
+        "sameRequestedInput": true,
+        "sameAppliedInput": true
+      }
+    ],
+    "rows": [
+      {
+        "weapon": "monohoshizao",
+        "mode": "legacy",
+        "steps": 1025,
+        "sourceRaw": {
+          "path": "/workspace/halfsword-handoff/thin-v2-20261008/contact/run02/monohoshizao-legacy.json",
+          "sha256": "0b1da6d1a98c7520262f32ba1bb8f199eca64321c898eff29946f0b621f99d4e"
+        },
+        "spawnSHA256": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30",
+        "requestedSHA256": "15ffc1300a3c6234b448639def5627966192855c8f4faaecfdbd9b724844610b",
+        "allNativeStrikeEvents": 6,
+        "woundCallbackEvents": 5,
+        "liveCutContacts": [
+          {
+            "tick": 753,
+            "phase": "recutHold",
+            "active": false,
+            "part": "footF",
+            "energy": 26.12861427092287,
+            "ephys": 13.064307135461435,
+            "speed": 7.171598665896403,
+            "eff": 31.954388663517484,
+            "thr": 28,
+            "severity": 0.043937651816860934,
+            "pass": false
+          }
+        ],
+        "wholeTraceSpin": {
+          "steps": 1025,
+          "peakAbsAxialRadps": 117.4628994589502,
+          "rmsAxialRadps": 20.543820667704825,
+          "longestOver50S": 0.11666666666666667,
+          "peakTipSpeedMps": 17.86272541739002
+        },
+        "postContactSpin": {
+          "steps": 316,
+          "peakAbsAxialRadps": 117.4628994589502,
+          "rmsAxialRadps": 32.173438402080116,
+          "longestOver50S": 0.11666666666666667,
+          "peakTipSpeedMps": 12.702393052645668
+        },
+        "releaseSpin": {
+          "steps": 120,
+          "peakAbsAxialRadps": 50.97134389686482,
+          "rmsAxialRadps": 9.762692633345372,
+          "longestOver50S": 0.008333333333333333,
+          "peakTipSpeedMps": 9.867571688978227
+        },
+        "final": {
+          "playerAlive": true,
+          "playerArmed": true,
+          "playerGripValid": true,
+          "playerState": "stand",
+          "enemyAlive": true,
+          "enemyBlood": 0.9973913458185062
+        }
+      },
+      {
+        "weapon": "monohoshizao",
+        "mode": "v2",
+        "steps": 1025,
+        "sourceRaw": {
+          "path": "/workspace/halfsword-handoff/thin-v2-20261008/contact/run02/monohoshizao-v2.json",
+          "sha256": "bf3b84c35944cf6fa24253828778b0286cfcbdb7b3b2a2edb69fbbaf83e548f5"
+        },
+        "spawnSHA256": "bf55af7250b24ade065f3b2c9db36bee8528dde98ffa9346dace0295073d3c30",
+        "requestedSHA256": "15ffc1300a3c6234b448639def5627966192855c8f4faaecfdbd9b724844610b",
+        "allNativeStrikeEvents": 10,
+        "woundCallbackEvents": 9,
+        "liveCutContacts": [
+          {
+            "tick": 604,
+            "phase": "followHold",
+            "active": false,
+            "part": "pelvis",
+            "energy": 50.11818619567957,
+            "ephys": 25.059093097839785,
+            "speed": 10.599902767586272,
+            "eff": 81.623218225698,
+            "thr": 40,
+            "severity": 0.4624802025077555,
+            "pass": true
+          },
+          {
+            "tick": 605,
+            "phase": "followHold",
+            "active": false,
+            "part": "thighB",
+            "energy": 48.683958208472724,
+            "ephys": 24.341979104236362,
+            "speed": 9.78511334062946,
+            "eff": 86.58485975936827,
+            "thr": 28,
+            "severity": 0.650942886215203,
+            "pass": true
+          },
+          {
+            "tick": 733,
+            "phase": "recutHold",
+            "active": false,
+            "part": "head",
+            "energy": 55.33206321424176,
+            "ephys": 27.66603160712088,
+            "speed": 8.918927494937346,
+            "eff": 91.32881038048741,
+            "thr": 30,
+            "severity": 0.6814312264498601,
+            "pass": true
+          }
+        ],
+        "wholeTraceSpin": {
+          "steps": 1025,
+          "peakAbsAxialRadps": 57.089384825308244,
+          "rmsAxialRadps": 8.965154676573741,
+          "longestOver50S": 0.008333333333333333,
+          "peakTipSpeedMps": 16.118458490511514
+        },
+        "postContactSpin": {
+          "steps": 503,
+          "peakAbsAxialRadps": 57.089384825308244,
+          "rmsAxialRadps": 11.413394611110688,
+          "longestOver50S": 0.008333333333333333,
+          "peakTipSpeedMps": 12.055030285555267
+        },
+        "releaseSpin": {
+          "steps": 120,
+          "peakAbsAxialRadps": 35.24894183937936,
+          "rmsAxialRadps": 7.545360525978086,
+          "longestOver50S": 0,
+          "peakTipSpeedMps": 9.593522741411055
+        },
+        "final": {
+          "playerAlive": true,
+          "playerArmed": true,
+          "playerGripValid": true,
+          "playerState": "stand",
+          "enemyAlive": true,
+          "enemyBlood": 0.8053204110329502
+        }
+      },
+      {
+        "weapon": "lightsaber",
+        "mode": "legacy",
+        "steps": 1024,
+        "sourceRaw": {
+          "path": "/workspace/halfsword-handoff/thin-v2-20261008/contact/run02/lightsaber-legacy.json",
+          "sha256": "a85aa3e70655410d3f86b7fc0ef450e16a3ebb8a50b065fbd85a92e50e8fac35"
+        },
+        "spawnSHA256": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c",
+        "requestedSHA256": "348bca41c2e7846fabf09abfe12f7ea91cc6e149b25ba60841b2d55f3d053f78",
+        "allNativeStrikeEvents": 10,
+        "woundCallbackEvents": 10,
+        "liveCutContacts": [
+          {
+            "tick": 738,
+            "phase": "recutHold",
+            "active": false,
+            "part": "chest",
+            "energy": 105.83836786351105,
+            "ephys": 52.919183931755526,
+            "speed": 15.694167385761276,
+            "eff": 139.36498931669408,
+            "thr": 45,
+            "severity": 1.0484998812966009,
+            "pass": true
+          },
+          {
+            "tick": 952,
+            "phase": "release",
+            "active": false,
+            "part": "chest",
+            "energy": 40.24089968340708,
+            "ephys": 20.12044984170354,
+            "speed": 10.758379677606351,
+            "eff": 47.82774442307152,
+            "thr": 45,
+            "severity": 0.03141938247857246,
+            "pass": false
+          }
+        ],
+        "wholeTraceSpin": {
+          "steps": 1024,
+          "peakAbsAxialRadps": 59.201280783932276,
+          "rmsAxialRadps": 7.715825696251284,
+          "longestOver50S": 0.008333333333333333,
+          "peakTipSpeedMps": 27.731948593854543
+        },
+        "postContactSpin": {
+          "steps": 541,
+          "peakAbsAxialRadps": 59.201280783932276,
+          "rmsAxialRadps": 10.372470169328025,
+          "longestOver50S": 0.008333333333333333,
+          "peakTipSpeedMps": 27.731948593854543
+        },
+        "releaseSpin": {
+          "steps": 120,
+          "peakAbsAxialRadps": 20.46192614263579,
+          "rmsAxialRadps": 5.434866611381036,
+          "longestOver50S": 0,
+          "peakTipSpeedMps": 10.823067294568716
+        },
+        "final": {
+          "playerAlive": true,
+          "playerArmed": true,
+          "playerGripValid": true,
+          "playerState": "stand",
+          "enemyAlive": true,
+          "enemyBlood": 0.9453583508594271
+        }
+      },
+      {
+        "weapon": "lightsaber",
+        "mode": "v2",
+        "steps": 1024,
+        "sourceRaw": {
+          "path": "/workspace/halfsword-handoff/thin-v2-20261008/contact/run02/lightsaber-v2.json",
+          "sha256": "a881727a9160a6f74a5cef2f652fcdd8be5abd08dcf2859837d4fb53bf5bff42"
+        },
+        "spawnSHA256": "c43dd95a295d5f5b6ffdb56220a12668a8c0ba6d4904a664ae2e7f71ab0d7c8c",
+        "requestedSHA256": "348bca41c2e7846fabf09abfe12f7ea91cc6e149b25ba60841b2d55f3d053f78",
+        "allNativeStrikeEvents": 8,
+        "woundCallbackEvents": 8,
+        "liveCutContacts": [
+          {
+            "tick": 587,
+            "phase": "firstCut",
+            "active": true,
+            "part": "uarmO",
+            "energy": 24.96985146460457,
+            "ephys": 12.484925732302285,
+            "speed": 8.03985632866583,
+            "eff": 33.658908254687724,
+            "thr": 22,
+            "severity": 0.12954342505208583,
+            "pass": true
+          },
+          {
+            "tick": 722,
+            "phase": "recut",
+            "active": true,
+            "part": "chest",
+            "energy": 42.98127382945367,
+            "ephys": 21.490636914726835,
+            "speed": 10.651870713351967,
+            "eff": 63.24026395834522,
+            "thr": 45,
+            "severity": 0.20266959953716907,
+            "pass": true
+          },
+          {
+            "tick": 862,
+            "phase": "cut2",
+            "active": true,
+            "part": "uarmO",
+            "energy": 25.59680244600291,
+            "ephys": 12.798401223001456,
+            "speed": 7.619926545573397,
+            "eff": 27.276047990081565,
+            "thr": 22,
+            "severity": 0.05862275544535073,
+            "pass": false
+          }
+        ],
+        "wholeTraceSpin": {
+          "steps": 1024,
+          "peakAbsAxialRadps": 33.4801846241832,
+          "rmsAxialRadps": 6.053518266012989,
+          "longestOver50S": 0,
+          "peakTipSpeedMps": 19.211631851825526
+        },
+        "postContactSpin": {
+          "steps": 368,
+          "peakAbsAxialRadps": 33.4801846241832,
+          "rmsAxialRadps": 8.451737231520168,
+          "longestOver50S": 0,
+          "peakTipSpeedMps": 16.392377836520332
+        },
+        "releaseSpin": {
+          "steps": 120,
+          "peakAbsAxialRadps": 18.25863567253696,
+          "rmsAxialRadps": 5.234380224393507,
+          "longestOver50S": 0,
+          "peakTipSpeedMps": 11.610648308620846
+        },
+        "final": {
+          "playerAlive": true,
+          "playerArmed": true,
+          "playerGripValid": true,
+          "playerState": "stand",
+          "enemyAlive": true,
+          "enemyBlood": 0.9835688105559756
+        }
+      }
+    ],
+    "interpretation": "Native contact-point speed/energy/eff/severity are distinct from whole-phase tip/axial peaks. Same spawn/requested input does not make different trajectories and contacts an equal-impact comparison. FollowHold and recutHold preserve real momentum after manual input; live cuts in those phases are legitimate follow-through, not dismissed as spurious simply because activeInput is false.",
+    "counterexample": "Lightsaber legacy recutHold chest cut105.84J versus v2 active recut chest42.98J occur at different ticks/poses/speeds. This is not proof of a fixed damage multiplier, nor proof that all attack power is preserved."
+  },
+  "limitations": [
+    "Native finite/stand and ready states do not establish human movement realism.",
+    "One deterministic authored input per protocol; no win rate, natural injury prevalence, long mobile session or full armor validation.",
+    "Both v2 endings ready; healthy lightsaber free-recut50ms tip speed falls41.804% and kinetic energy42.514%, with genuine transverse-swing reduction. Do not label the whole loss removed axial-spin noise.",
+    "Monohoshizao active recut tip50ms changes-1.563% while energy rises10.432%; follow-through speed and energy can fall. Do not claim universal non-reduction.",
+    "No new mass, torque, power, gravity or injury formula tuning. Public byte/mobile/restart verification belongs to the later release receipt."
+  ],
+  "entryValidation": {
+    "finalReports": [
+      {
+        "report": "/workspace/halfsword-handoff/thin-v2-20261008/entry/default-pass.json",
+        "sha256": "77c023205425c896c63dbe2ad8f3e3b6991a5a7ce42d1ea6dfeba6ab1b1b2c4c",
+        "casesOrChecks": 7,
+        "pass": true
+      },
+      {
+        "report": "/workspace/halfsword-handoff/thin-v2-20261008/entry/common-pass.json",
+        "sha256": "f6115c51ac825b564b9d76ddcb1a1cd1895d30dab599c486db52b66ecab42716",
+        "casesOrChecks": 231,
+        "pass": true
+      },
+      {
+        "report": "/workspace/halfsword-handoff/thin-v2-20261008/entry/archived-pass.json",
+        "sha256": "2dac3189b610e78b1072f831fd2148a0ef0ddd25d16cac12c3cc95ccc338e5f4",
+        "casesOrChecks": 42,
+        "pass": true
+      }
+    ],
+    "earlierFailuresPreserved": true,
+    "nativeRerunRequired": false,
+    "scope": "Pure policy/roster/archived trial compatibility. Browser checks actual delivery separately."
+  }
+}

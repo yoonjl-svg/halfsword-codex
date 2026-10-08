@@ -1,8 +1,8 @@
 /** One session-only swordsmanship trial; no strength or feature switches in its URL. */
 import { WEAPON_LIST } from './weapons.js';
 
-// These two existing weapons retain their ordinary/older entry behavior, but
-// their unresolved high-spin screen excludes them from this unified trial.
+// Preserve the published roster of this older trial. Current ordinary/preview
+// adoption is decided separately in swordsmanship_default.js.
 const WITHHELD = new Set(['monohoshizao', 'lightsaber']);
 export const SWORDSMANSHIP_WEAPONS = Object.freeze(WEAPON_LIST.filter(weapon => !WITHHELD.has(weapon.id)).map(weapon =>
   Object.freeze({ id: weapon.id, name: weapon.nameKo })));

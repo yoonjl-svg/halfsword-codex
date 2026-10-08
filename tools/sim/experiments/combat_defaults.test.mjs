@@ -34,10 +34,10 @@ for (const weapon of WEAPON_LIST) {
     assert.deepEqual(configureCombatDefaults(configureSwordsmanshipDefault(new URLSearchParams(query)),weapon),legacy);checks++;
   }
 }
-assert.deepEqual(counts,{fresh:15,centerline:11,bounded:14,v2:12});checks++;
+assert.deepEqual(counts,{fresh:15,centerline:11,bounded:14,v2:13});checks++;
 for(const id of ['monohoshizao','lightsaber']) {
  const weapon=WEAPON_LIST.find(w=>w.id===id);
- assert.equal(swordsmanshipDefaultSupportsWeapon(weapon),false);
+ assert.equal(swordsmanshipDefaultSupportsWeapon(weapon),id==='monohoshizao');
  assert.deepEqual(configureCombatDefaults(ordinary,weapon),sharp);checks+=2;
 }
-console.log(JSON.stringify({pass:true,checks,counts,physicsExecuted:false,scope:'capability contracts, identifier independence, roster coverage and research isolation; v2 exclusions unchanged'}));
+console.log(JSON.stringify({pass:true,checks,counts,physicsExecuted:false,scope:'capability contracts, identifier independence, roster coverage and research isolation; monohoshizao v2 adopted'}));

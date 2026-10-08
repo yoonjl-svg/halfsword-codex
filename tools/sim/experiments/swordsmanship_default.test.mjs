@@ -73,9 +73,9 @@ test('explicit legacy fallback is exact and malformed overrides cannot opt in', 
   assert.deepEqual(combined.blockedBy, ['onehandArm']);
 });
 
-test('only the twelve accepted melee weapons install; gun and withheld/internal specs stay out', () => {
+test('thirteen accepted melee weapons install; gun and withheld/internal specs stay out', () => {
   const expected = ['longsword', 'zweihander', 'estoc', 'sabre', 'rapier', 'falchion', 'qinggang',
-    'excalibur', 'excalibur_replica', 'tree_branch', 'rubber_chicken', 'frozen_tuna'];
+    'excalibur', 'excalibur_replica', 'tree_branch', 'rubber_chicken', 'frozen_tuna', 'monohoshizao'];
   assert.deepEqual([...SWORDSMANSHIP_DEFAULT_WEAPONS].sort(), expected.slice().sort());
   for (const weapon of Object.values(WEAPONS)) {
     assert.equal(swordsmanshipDefaultSupportsWeapon(weapon), expected.includes(weapon.id), weapon.id);
@@ -86,9 +86,33 @@ test('only the twelve accepted melee weapons install; gun and withheld/internal 
   }
   // Entry policy and per-weapon installation are deliberately separate so
   // random cards can be resolved after entry without promoting excluded arms.
-  for (const id of ['pistol', 'monohoshizao', 'lightsaber', 'morgenstern']) {
+  for (const id of ['pistol', 'lightsaber', 'morgenstern']) {
     assert.equal(policy(`weapon=${id}`).active, true);
     assert.equal(swordsmanshipDefaultSupportsWeapon(WEAPONS[id]), false);
+  }
+});
+
+test('lightsaber preview keeps ordinary physics entry and only opts its player weapon in', () => {
+  const a = policy('weapon=lightsaber');
+  const b = policy('weapon=lightsaber&swordsmanshipPreview=v2');
+  assert.equal(a.previewWeapon, null); assert.equal(b.previewWeapon, 'lightsaber');
+  assert.equal(a.active, true); assert.equal(b.active, true);
+  assert.deepEqual(a.settings, b.settings); assert.deepEqual(a.blockedBy, b.blockedBy);
+  assert.equal(swordsmanshipDefaultSupportsWeapon(WEAPONS.lightsaber, a), false);
+  assert.equal(swordsmanshipDefaultSupportsWeapon(WEAPONS.lightsaber, b), true);
+  assert.equal(swordsmanshipDefaultSupportsWeapon(WEAPONS.pistol, b), false);
+  assert.equal(swordsmanshipDefaultSupportsWeapon(WEAPONS.morgenstern, b), false);
+  for (const query of ['swordsmanshipPreview=v2', 'weapon=longsword&swordsmanshipPreview=v2',
+    'weapon=lightsaber&swordsmanshipPreview=', 'weapon=lightsaber&swordsmanshipPreview=unknown',
+    'weapon=lightsaber&weapon=lightsaber&swordsmanshipPreview=v2',
+    'weapon=lightsaber&swordsmanshipPreview=v2&swordsmanshipPreview=v2',
+    'weapon=lightsaber&swordsmanshipPreview=v2&swordsmanship=legacy']) {
+    const info = policy(query);
+    assert.equal(info.active, false, query); assert.equal(info.previewWeapon, null, query);
+  }
+  for (const marker of SWORDSMANSHIP_DEFAULT_RESEARCH_MARKERS) {
+    const info = policy(`weapon=lightsaber&swordsmanshipPreview=v2&${marker}=anything`);
+    assert.equal(info.active, false, marker); assert.equal(info.previewWeapon, null, marker);
   }
 });
 

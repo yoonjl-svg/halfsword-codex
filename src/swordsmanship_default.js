@@ -2,7 +2,9 @@
 // does not write settings, configure physics, or activate research candidates.
 import { WEAPON_LIST } from './weapons.js';
 
-const WITHHELD = new Set(['monohoshizao', 'lightsaber']);
+// Monohoshizao passed the current axial-grip/linked-arm comparison. Lightsaber
+// remains a preview because some real follow-up swings lose speed/energy.
+const WITHHELD = new Set(['lightsaber']);
 export const SWORDSMANSHIP_DEFAULT_WEAPONS = Object.freeze(WEAPON_LIST
   .filter(weapon => !weapon.trialOnly && !weapon.gun && !WITHHELD.has(weapon.id))
   .map(weapon => weapon.id));
@@ -21,8 +23,9 @@ export const SWORDSMANSHIP_DEFAULT_RESEARCH_MARKERS = Object.freeze([
 ]);
 
 /** A real resolved weapon specification, not an unvalidated URL identifier. */
-export function swordsmanshipDefaultSupportsWeapon(weapon) {
-  return !!weapon && !weapon.gun && !weapon.trialOnly && SUPPORTED.has(weapon.id);
+export function swordsmanshipDefaultSupportsWeapon(weapon, entry) {
+  return !!weapon && !weapon.gun && !weapon.trialOnly &&
+    (SUPPORTED.has(weapon.id) || !!(entry?.active && entry.previewWeapon === weapon.id));
 }
 
 /**
@@ -34,16 +37,27 @@ export function swordsmanshipDefaultSupportsWeapon(weapon) {
  */
 export function configureSwordsmanshipDefault(params) {
   const overrides = params.getAll('swordsmanship');
+  // The preview changes player goal authorship only. Keeping this inside the
+  // ordinary entry preserves current grip, recovery, cut and finishing rules.
+  // It is intentionally not the broad swordsmanship=legacy fallback.
+  const preview = params.getAll('swordsmanshipPreview');
+  const previewRequested = preview.length > 0;
+  const previewValid = preview.length === 1 && preview[0] === 'v2' &&
+    params.getAll('weapon').length === 1 && params.get('weapon') === 'lightsaber' &&
+    overrides.length === 0;
+  const malformedPreview = previewRequested && !previewValid;
   const blockedBy = SWORDSMANSHIP_DEFAULT_RESEARCH_MARKERS.filter(key => params.has(key));
   const malformed = overrides.length > 0 &&
     (overrides.length !== 1 || overrides[0] !== 'legacy');
   const explicitLegacy = overrides.length === 1 && overrides[0] === 'legacy';
-  const active = !malformed && !explicitLegacy && blockedBy.length === 0;
+  const active = !malformed && !malformedPreview && !explicitLegacy && blockedBy.length === 0;
   return {
     active,
     model: active ? 'unified' : 'legacy',
-    reason: malformed ? 'malformed_default_override' : explicitLegacy ? 'explicit_legacy'
+    reason: malformedPreview ? 'malformed_swordsmanship_preview'
+      : malformed ? 'malformed_default_override' : explicitLegacy ? 'explicit_legacy'
       : blockedBy.length ? 'research_entry' : 'ordinary_entry',
+    previewWeapon: active && previewValid ? 'lightsaber' : null,
     blockedBy,
     settings: active ? { skill: '0.7' } : {},
     playerOnly: true,

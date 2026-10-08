@@ -491,7 +491,7 @@ function newRound(weaponId) {
   if (gravityV2Trial.active) player.stanceMemoryModel = gravityV2Trial.stanceModel;
   if (recoveryContactV2Trial.active) player.stanceMemoryModel = recoveryContactV2Trial.stanceModel;
   if (recutV2Trial.active) player.rollTargetModel = recutV2Trial.rollModel;
-  const defaultSwordsmanshipForPlayer = swordsmanshipDefault.active && swordsmanshipDefaultSupportsWeapon(player.weapon);
+  const defaultSwordsmanshipForPlayer = swordsmanshipDefault.active && swordsmanshipDefaultSupportsWeapon(player.weapon, swordsmanshipDefault);
   if (defaultSwordsmanshipForPlayer) player.onehandArmModel = 'manual';
   const adoptedCombat = configureCombatDefaults(swordsmanshipDefault, player.weapon);
   if (swordsmanshipDefault.active) {
@@ -775,6 +775,13 @@ if (swordsmanshipDefault.active) {
   // preferences remain available to explicitly requested comparison entries.
   const skillRow = document.querySelector('[data-setting="skill"]')?.closest('.row');
   if (skillRow) skillRow.style.display = 'none';
+}
+if (swordsmanshipDefault.previewWeapon === 'lightsaber') {
+  const info = document.createElement('p');
+  info.id = 'thinV2TrialInfo';
+  info.className = 'sub';
+  info.textContent = '라이트세이버 B · 자세·복귀 보정 v2. 연속 베기의 힘과 조작감을 비교하세요.';
+  $('menuSub').after(info);
 }
 if (thrustPlaneTrial && !integratedCombatTrial.active && !swordsmanshipTrial.active) {
   const info = document.createElement('p');
