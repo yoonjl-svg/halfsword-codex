@@ -1,8 +1,8 @@
 {
-  "status": "validated_optional_candidate_public_delivery_pending",
+  "status": "optional_comparison_delivered_partial_efficacy",
   "baselineHEAD": "a7cdd9a318da4b45f38a35641915b4020b39e2d4",
   "generalDefault": "off",
-  "publicVerified": false,
+  "publicVerified": true,
   "comparison": {
     "A": "precision / v2 neck first",
     "B": "head-region / v3 neck and head region"
@@ -72,6 +72,41 @@
       "path": "/workspace/halfsword-handoff/opportunity-head-region-20261008/measurement/gap-diagnostic-run01/report.json",
       "bytes": 150778,
       "sha256": "1b1bd8db824cd341b1ab82c1062d0021f1e0482b75a03c2e24fbcf8503c59b55"
+    },
+    "nativeFinal": {
+      "path": "/workspace/halfsword-handoff/opportunity-head-region-20261008/measurement/FINAL_RESULT01.json",
+      "bytes": 153985,
+      "sha256": "cc7174b3bf30d2730252a60db895d0b8b262f4388c2111a3fc0d3003b68f0cac"
+    },
+    "nativeArtifactManifest": {
+      "path": "/workspace/halfsword-handoff/opportunity-head-region-20261008/measurement/ARTIFACT_MANIFEST_FINAL01.json",
+      "bytes": 107902,
+      "sha256": "8985c0c2033fca78b3eb35b4fec6fc443ff0c4707a50c350ddccc3446136b82e"
+    },
+    "nativeAggregationCode": {
+      "path": "/workspace/halfsword-handoff/opportunity-head-region-20261008/measurement/derive_final01.py",
+      "bytes": 10026,
+      "sha256": "fbcfa75f6d7f616e23f72ee53d5ffd6ca6c1973b2b12625200fc17a288d8432a"
+    },
+    "publicCode": {
+      "path": "/workspace/halfsword-handoff/opportunity-head-region-20261008/pages-code.json",
+      "bytes": 4619,
+      "sha256": "c760f66ecab3e0d7bd06986e7205046e0447aaefa05e2f03900ef1798c412198"
+    },
+    "independentAggregationAudit": {
+      "path": "/workspace/halfsword-handoff/opportunity-head-region-20261008/measurement/INDEPENDENT_AGGREGATION_AUDIT01.json",
+      "bytes": 2256,
+      "sha256": "b5e94847c24b1fffa8ac125f7226c805eafcf55308057e79edc1a831699d038b"
+    },
+    "publicMobile": {
+      "path": "/workspace/halfsword-handoff/opportunity-head-region-20261008/mobile/public01/report.json",
+      "bytes": 622289,
+      "sha256": "ad081b086f811a02bb1035bda72dff6a8766996cf033c363cf17ef0b30ab748e"
+    },
+    "publicVisualReview": {
+      "path": "/workspace/halfsword-handoff/opportunity-head-region-20261008/mobile/public01/visual-review.json",
+      "bytes": 1109,
+      "sha256": "731a84fed87ae11646f27f577fe538de57cff6f9811f6aeca8d78b6bc35ac66b"
     }
   },
   "nativeNewThisTurn": {
@@ -89,7 +124,15 @@
     "provisional30PercentMet": false,
     "successDefinition": "Actual special applyWound neck/head stab severity>0 on a living victim; target selection, blunt contacts and ordinary follow-ups excluded",
     "generalCombatProbabilityProven": false,
-    "guaranteedDeath": false
+    "guaranteedDeath": false,
+    "directSpecialDeathEpisodes": {
+      "v2": 0,
+      "v3": 0
+    },
+    "allEpisodeDeaths18s": {
+      "v2": 3,
+      "v3": 0
+    }
   },
   "checks": {
     "legacy": 58,
@@ -111,5 +154,117 @@
     "Estoc player fixture still hits chest as blunt",
     "Visible helmet estimate does not prove later physical contact is exposed",
     "No general promotion; force, timing, reach, armor and two-attempt budget retained"
-  ]
+  ],
+  "nativeAIResults": {
+    "v2Historical": {
+      "scene": "aiThrustOpenLow",
+      "model": "v2",
+      "seeds": 10,
+      "actualStartedAttempts": 20,
+      "meaningfulVitalSuccessfulAttempts": 1,
+      "observedAttemptRate": 0.05,
+      "observedPointEstimateMeetsProvisional30Percent": false,
+      "nominalWilson95AttemptInterval": [
+        0.008881448800795402,
+        0.23613119344674205
+      ],
+      "episodesWithStartedAttempt": 10,
+      "episodesWithAtLeastOneMeaningfulVitalSuccess": 1,
+      "observedEpisodeSuccessRate": 0.1,
+      "nominalWilson95EpisodeInterval": [
+        0.017876213095072896,
+        0.4041500267952385
+      ],
+      "directSpecialDeathEpisodes": 0,
+      "episodeVictimDeathObserved": 3,
+      "ordinaryOrDelayedDeathEpisodes": 3,
+      "victimsSurviving18s": 7,
+      "ordinaryAfterBudgetAccepted": 160
+    },
+    "v3": {
+      "rows": 10,
+      "successfulAttempts": 2,
+      "actualStartedAttempts": 20,
+      "observedAttemptRate": 0.1,
+      "nominalWilson95": [
+        0.027866481213768224,
+        0.3010336452284873
+      ],
+      "provisional30PercentPointTargetMet": false,
+      "successfulEpisodes": 2,
+      "episodes": 10,
+      "directSpecialDeathEpisodes": 0,
+      "episodeDeathObserved": 0,
+      "survived18s": 10,
+      "ordinaryAfterBudgetAccepted": 158
+    }
+  },
+  "gapDiagnosticResults": {
+    "v2": {
+      "rows": 3,
+      "successfulAttempts": 0,
+      "actualStartedAttempts": 6,
+      "observedAttemptRate": 0.0,
+      "nominalWilson95": [
+        2.7755575615628914e-17,
+        0.3903342879021653
+      ],
+      "provisional30PercentPointTargetMet": false,
+      "successfulEpisodes": 0,
+      "episodes": 3,
+      "directSpecialDeathEpisodes": 0,
+      "episodeDeathObserved": 1,
+      "survived18s": 2,
+      "ordinaryAfterBudgetAccepted": 47
+    },
+    "v3": {
+      "rows": 3,
+      "successfulAttempts": 0,
+      "actualStartedAttempts": 6,
+      "observedAttemptRate": 0.0,
+      "nominalWilson95": [
+        2.7755575615628914e-17,
+        0.3903342879021653
+      ],
+      "provisional30PercentPointTargetMet": false,
+      "successfulEpisodes": 0,
+      "episodes": 3,
+      "directSpecialDeathEpisodes": 0,
+      "episodeDeathObserved": 1,
+      "survived18s": 2,
+      "ordinaryAfterBudgetAccepted": 50
+    }
+  },
+  "codeCommit": "07206655fbae4be2fa96b84b8a209d80865387c8",
+  "codePagesRun": {
+    "id": 37810298060,
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37810298060",
+    "conclusion": "success",
+    "publicFilesMatched": 8
+  },
+  "independentAudit": {
+    "rawSHA256Matched": 41,
+    "newExecutions": 31,
+    "newNativeSteps": 59280,
+    "AIStartsSuccessAndDeathsRecalculated": true,
+    "note": "Player actualStartedAttempts fields are AI-counter based; player efficacy is read from direct wound events, never reported as 0/0."
+  },
+  "publicMobile": {
+    "flows": 3,
+    "errors": 0,
+    "receivedArtifactsMatched": 540,
+    "uniqueArtifactsMatched": 145,
+    "sourceStable": true,
+    "buildStable": true,
+    "completedUTC": "2026-10-08T16:42:04.024Z",
+    "physicalPhone": false,
+    "teardown": {
+      "networkIdle": true,
+      "routesAtStart": 0,
+      "checkedArtifactsDuringDrain": 0,
+      "routesBeforeClose": 0,
+      "lateRequests": 0,
+      "contextClosed": true
+    }
+  }
 }
