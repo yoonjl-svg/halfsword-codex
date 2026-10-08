@@ -26,7 +26,8 @@
 import * as THREE from 'three';
 import { SKILL, WEAPON, THRUST } from './config.js';
 import { gunCanFire, gunPose, headOff } from './gun.js';
-import { FINISH, armRay } from './finish.js';
+import { FINISH, armRay, updateFinish } from './finish.js';
+import { LOW_FINISH, lowFinishEnabled } from './finish_entry.js';
 import { updateSwordAssistReturn } from './sword_assist_v2.js';
 import { hasSwordsmanship, advanceSwordsmanship } from './swordsmanship.js';
 
@@ -113,12 +114,17 @@ export class Skill {
     //  날것 손 위치와 섞인 실제 손 목표(fighter.handBase)에서 뻗는다 — 자세 지도의 손에서 뻗으면 실제 손보다 뒤에서 시작해 덜 나갔다
     const manualOnehand = f.onehandArmModel === 'manual' && f.guardPose.oneHand && !f.weaponCfg.twoHand;
     const g = (!hasSwordsmanship(f) && !manualOnehand && f.guardWeight() >= 1) || !f.handBase ? f.guardPose.hand : f.handBase;
-    const down = f.finish.on && f.finish.amt > 0.5; // 쓰러진 상대: 누운 몸을 내리찌른다 (finish.js 가 겨눈 곳)
+    const lowEntry = lowFinishEnabled(f);
+    // Input arrives before Fighter.step. Refresh current geometry without
+    // advancing the pose fade; starting permission is independent of that fade.
+    if (lowEntry) updateFinish(f, 0);
+    const down = lowEntry ? f.finish.canStart && (f.finish.plunge.surfaceInside || (step !== false && f.state === 'stand' && f.finish.plunge.surfaceWalk)) : f.finish.on && f.finish.amt > 0.5;
     // 찌르기 무기(weapons.js THRUST_STYLE)는 더 멀리 찌르고 더 빨리 자세로 돌아온다.
     //  (겨누기·뻗기까지 빠르게 하면 팔이 손 목표를 따라가지 못해 오히려 덜 뻗는다 — 측정: 레이피어 탭 상처 60% → 20%)
     const ts = f.weaponCfg.thrustStyle;
     const K = { aim: THRUST.aim, extend: THRUST.extend, hold: THRUST.hold, recover: THRUST.recover * (ts?.recover ?? 1), reach: THRUST.reach + (ts?.reach ?? 0) };
     this.tap = { t: 0, h0: g ? [g[0], g[1], g[2]] : [0.3, -0.2, 0.12], down, head: !down && this.aimRaw.y > THRUST.headPad, K };
+    if (lowEntry && down) this.tap.foe = f.foe;
     // The optional ready reference must hand over continuously to the explicit
     // thrust. Freeze that command's base, never a physical body's pose/velocity.
     if (f.swordAssistModel === 'v2' && f.aimDirW && !down) {
@@ -135,7 +141,7 @@ export class Skill {
       //  AI(step:false — 제 걸음은 AI 가 정한다)·무릎 꿇은 채는 걷지 않고 그 자리에서 찍는다
       const tp = this.tap;
       tp.walkOk = step !== false && f.state === 'stand';
-      if (tp.walkOk && f.finish.plunge.walk) tp.walking = true;
+      if (tp.walkOk && (lowEntry ? f.finish.plunge.walk || f.finish.plunge.surfaceWalk : f.finish.plunge.walk)) tp.walking = true;
     } else if (step && f.state === 'stand') {
       // 한 걸음 내딛으며 찌른다
       if (f.gait?.active) f.gait.requestStep({ kind: 'lunge', fwd: THRUST.step, duration: 0.3 });
@@ -204,7 +210,7 @@ export class Skill {
     }
     // 넘어졌거나(서 있지도 무릎 꿇지도 않음) 내리찌르던 상대가 일어나면 더 뻗지 않고 곧바로 돌아온다:
     //  지금 덧씌운 정도(w)에서 돌아오는 시간 동안 0으로 (한 스텝에 끊으면 칼이 튄다). 팔 유효 질량도 더는 싣지 않는다
-    if (!tp.abort && ((f.state !== 'stand' && f.state !== 'kneel') || (tp.down && !f.finish.on))) {
+    if (!tp.abort && ((f.state !== 'stand' && f.state !== 'kneel') || (tp.down && (!f.finish.on || (lowFinishEnabled(f) && tp.foe !== f.foe))))) {
       tp.abort = { t: tp.t, w: pose.w };
     }
     if (tp.abort) {
@@ -294,6 +300,15 @@ export class Skill {
     const pose = this.thrustPose;
     const fin = f.finish;
     const pl = fin.plunge;
+    const lowEntry = lowFinishEnabled(f);
+    // If a step can provide the intended penetration distance, finish that
+    // approach instead of stopping at a barely reachable surface. Short blades
+    // and stationary attacks may still contact without reaching the full sink.
+    const canWalk = tp.walkOk && f.state === 'stand';
+    const seekDepth = lowEntry && canWalk && pl.walk;
+    const inside = lowEntry ? (seekDepth ? pl.inside : pl.surfaceInside) : pl.inside;
+    const walk = lowEntry ? pl.walk || pl.surfaceWalk : pl.walk;
+    const short = lowEntry && !seekDepth ? pl.surfaceShort : pl.short;
     const side = f.side ?? 1;
     const L = f.weaponCfg.hiltLength + f.weaponCfg.bladeLength;
     const c = f.bodies.chest.translation();
@@ -305,7 +320,7 @@ export class Skill {
     const bAx = _u.set(0, 1, 0).applyQuaternion(_sq.set(q.x, q.y, q.z, q.w)).applyQuaternion(_yawInv); // 칼 축 (몸 기준)
     // ── 1) 걸어 들어가기 (시간으로 끝내지 않는다)
     //  찍기 전에 몸 점이 다시 닿는 곳 밖으로 나가면(겨누며 몸이 흔들려) 다시 걷는다
-    if (tp.walkOk && !tp.go && !tp.walking && !tp.walkDone && pl.walk && f.state === 'stand') {
+    if (tp.walkOk && !tp.go && !tp.walking && !tp.walkDone && walk && f.state === 'stand') {
       tp.walking = true;
       tp.crossed = false;
       tp.plantShort = null;
@@ -318,27 +333,36 @@ export class Skill {
         tp.walking = false; // 플레이어가 물러선다: 여기서 찍는다
         tp.walkDone = true;
         tp.walkEnd = 'back';
+      } else if (lowEntry && inside) {
+        // The target may move into reach while we stand still. Do not wait for
+        // a touchdown that a neutral gait never needs to produce.
+        tp.walking = false;
+        tp.walkEnd = 'inside';
       } else if (tp.crossed) {
         if (plant) {
           tp.walking = false; // 닿는 곳에 들어온 뒤 첫 디딤
           tp.walkEnd = 'inside';
         }
-      } else if (pl.inside) tp.crossed = true; // 닿는 곳 안: 더 밀지 않고 디딜 때까지 기다린다
-      else if (!pl.walk) {
+      } else if (inside) tp.crossed = true; // 닿는 곳 안: 더 밀지 않고 디딜 때까지 기다린다
+      else if (!walk) {
         tp.walking = false; // 걸어서는 닿지 않게 됐다 (몸 점이 손 아래를 지났다): 여기서 찍는다
         tp.walkDone = true;
         tp.walkEnd = 'unreachable';
       } else if (plant) {
         tp.plants = (tp.plants || 0) + 1;
         // 한 걸음(디딤 → 디딤)이 몸 점을 가깝게 하지 못했으면 멈추고 여기서 찍는다. 첫 디딤은 기준만 잡는다 (탭은 걸음 중간이라 견줄 수 없다)
-        if (tp.plantShort != null && pl.short >= tp.plantShort) {
+        if (tp.plantShort != null && short >= tp.plantShort) {
           tp.walking = false;
           tp.walkDone = true;
           tp.walkEnd = 'noprogress';
         }
-        tp.plantShort = pl.short;
+        tp.plantShort = short;
       }
-      if (tp.walking && !tp.crossed) f.move.y = Math.max(f.move.y, SKILL.lungeMove * this.level);
+      if (tp.walking && !tp.crossed) f.move.y = Math.max(f.move.y, lowEntry ? LOW_FINISH.approach : SKILL.lungeMove * this.level);
+    }
+    if (lowEntry && !inside && (tp.walkDone || !canWalk)) {
+      tp.abort = { t: tp.t, w: pose.w };
+      return; // Back/no progress outside reach: recover instead of stabbing air.
     }
     // ── 2) 겨눔 도착 (찍기 전): 손이 올라옴 · 칼이 선에 섬 을 붙잡는다
     if (!tp.go) {
@@ -378,7 +402,8 @@ export class Skill {
           }
         }
         tp.la = la;
-        const settled = !tp.walked || (tp.pvPrev != null && tp.pv >= tp.pvPrev) || tp.pv <= 0; // 걸었으면 골반이 멈추거나 더 느려지지 않을 때
+        const planted = !lowEntry || !f.gait?.active || (f.gait.legs.F.stance && f.gait.legs.B.stance);
+        const settled = !tp.walked || (planted && ((tp.pvPrev != null && tp.pv >= tp.pvPrev) || tp.pv <= 0)); // 걸었으면 실제 디딤과 골반 감속을 함께 확인
         if (tp.t >= K.aim && tp.upDone && tp.lineDone && !tp.walking && settled) {
           tp.go = true;
           tp.tGo = tp.t;

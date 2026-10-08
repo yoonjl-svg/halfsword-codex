@@ -1,0 +1,2096 @@
+{
+  "decision": "not_accepted_for_public_or_general_enable",
+  "head": "4b010726c6e234de072786dbea7073eb1ccd36cc",
+  "candidatePresentButOptInOff": false,
+  "scenarioCount": 4,
+  "candidateIterations": 5,
+  "physicalRuns": 40,
+  "nativeSteps": 56290,
+  "allSourcesStable": true,
+  "recordedBodyAndJointSamplesFinite": true,
+  "baselineExactAcrossIterations": {
+    "r1/natural": true,
+    "r1/lying": true,
+    "r1/side": true,
+    "r1/hurt": true,
+    "r2/natural": true,
+    "r2/lying": true,
+    "r2/side": true,
+    "r2/hurt": true,
+    "r3/natural": true,
+    "r3/lying": true,
+    "r3/side": true,
+    "r3/hurt": true,
+    "r4/natural": true,
+    "r4/lying": true,
+    "r4/side": true,
+    "r4/hurt": true,
+    "r5/natural": true,
+    "r5/lying": true,
+    "r5/side": true,
+    "r5/hurt": true
+  },
+  "baselineExactToPriorCurrentPolicy": {
+    "steps": 1913,
+    "exact": true
+  },
+  "policy": "Player unified/fresh/bounded/manual, both linked, centerline player, power both, limbSever true, gravity9.81, legacy support, GAIT.assist.3. Enemy ordinary legacy arm.",
+  "fixtures": {
+    "natural": "Seed7 authored low guard vs actual normal AI. No injury/state/force injection.",
+    "lying": "Passive opponent; tick360 knockDown(true)+one chest worldX impulse55Ns; actual native floor lying.",
+    "side": "As lying but chest worldZ impulse55Ns.",
+    "hurt": "As lying plus front-leg controller health .45 at tick360; synthetic function loss, not real wound."
+  },
+  "iterationChanges": {
+    "r1": "Pose-only lead latch/load wait/trailing flat goal; worsening unsupported trailing foot.",
+    "r2": "Preserve lead foot orientation; trailing flat goal rather than high ankle latch; begin last kneel load window. Worsening/slip/fallback remains.",
+    "r3": "Synchronize kn/pelvis rise and reachable height with actual foot phases; bounded fallback. Desired-position gate stalls rise.",
+    "r4": "Accept actual continuously contacting loaded footprint and preserve actual trailing orientation; height fallback continuity; unreachable horizontal geometry handled. Actual phase exposure improves but natural/lying/hurt fallbacks and slip regressions remain.",
+    "r5": "Separate late-getup reuse of existing Gait sense/plantAt/begin/target/pinFeet/poseLegs; active=false, original kn and stand timing, no mass/enter/update/touchdown calls. Includes existing friction and reciprocal swingPull force. Rear-foot support improves in3conditions while lead support worsens inall4; not accepted."
+  },
+  "notClaimed": [
+    "Gameplay improvement or human-naturalness acceptance.",
+    "Natural death comparison across unequal observation endpoints.",
+    "All model/control/native-world values finite: only recorded body/joint values checked.",
+    "R1 joint-gap audit: gap instrumentation begins r2.",
+    "Same two-second end window across different physical trajectories: windows start at each first stand; candidate may die earlier.",
+    "Repeated baselines are not independent efficacy samples; stand transitions are not successful recoveries."
+  ],
+  "rawMetadataCorrections": [
+    "Raw observed means legacy baseline; replay means plant candidate, not read-only instrumentation replay.",
+    "Raw preparation limitation text predates chest impulse and hurt fixture: actual executed source is authoritative; described above.",
+    "r1 terminal one_second_after_player_stand is stale text; actual loop uses240step=2s.",
+    "The repository probe is now only an external --source launcher. Each frozen runtime retains its exact executed full probe, and no new native runs followed cleanup."
+  ],
+  "rows": [
+    {
+      "iteration": "r1",
+      "case": "natural",
+      "sourceStable": true,
+      "error": null,
+      "raw": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r1/natural/report.json",
+      "sha256": "fd51cb51e9aca16fac4f8093cd9056177cb4d2e46c947fb91aba92c2b3fa4406",
+      "firstNativeDifference": 1705,
+      "models": {
+        "legacy": {
+          "steps": 2033,
+          "firstGetup": 1551,
+          "firstStand": 1792,
+          "terminal": "one_second_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 87,
+          "bothKneeExtensionTransitions": 86,
+          "availableRiseTransitions": 86,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 28
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 1.7631533266316834,
+            "B": 4.00179971177992
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.7631533266316834,
+            "B": 4.00179971177992
+          },
+          "maxGapM": null,
+          "minPelvisYBeforeStand": 0.5297248959541321,
+          "maxTiltBeforeStand": 31.83485580890491,
+          "maxPelvisVyBeforeStand": 0.6387714147567749,
+          "maxPelvisVyTick": 1738,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 241
+          },
+          "lastFootRawN": [
+            42.26905256509781,
+            0
+          ],
+          "lastPelvisY": 0.9377978444099426,
+          "lastAlive": true,
+          "postStandTransitions": [
+            {
+              "tick": 1869,
+              "timeS": 15.583333333333089,
+              "states": [
+                "getup",
+                "stand"
+              ],
+              "playerPelvis": [
+                -2.6031806468963623,
+                0.8932937383651733,
+                0.02012847550213337
+              ]
+            }
+          ]
+        },
+        "plant": {
+          "steps": 2033,
+          "firstGetup": 1551,
+          "firstStand": 1792,
+          "terminal": "one_second_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 87,
+          "bothKneeExtensionTransitions": 58,
+          "availableRiseTransitions": 86,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 79
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 2.3967172954058347,
+            "B": 6.6529582766289765
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.7631533266316834,
+            "B": 6.6529582766289765
+          },
+          "maxGapM": null,
+          "minPelvisYBeforeStand": 0.5297248959541321,
+          "maxTiltBeforeStand": 31.83485580890491,
+          "maxPelvisVyBeforeStand": 1.0464104413986206,
+          "maxPelvisVyTick": 1780,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 1,
+            "prepare": 153,
+            "accept": 49,
+            "place": 6,
+            "handover": 32
+          },
+          "lastFootRawN": [
+            61.99235737323761,
+            0
+          ],
+          "lastPelvisY": 0.9084566831588745,
+          "lastAlive": true,
+          "postStandTransitions": [
+            {
+              "tick": 1852,
+              "timeS": 15.44166666666643,
+              "states": [
+                "getup",
+                "stand"
+              ],
+              "playerPelvis": [
+                -2.6097207069396973,
+                0.8911536931991577,
+                0.020212925970554352
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "iteration": "r1",
+      "case": "lying",
+      "sourceStable": true,
+      "error": null,
+      "raw": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r1/lying/report.json",
+      "sha256": "085b5c3e90b895a8f746c49cd0824dfd2f0b3540a54ec1335846238169a6dd82",
+      "firstNativeDifference": 757,
+      "models": {
+        "legacy": {
+          "steps": 1106,
+          "firstGetup": 624,
+          "firstStand": 865,
+          "terminal": "one_second_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 108,
+          "bothKneeExtensionTransitions": 107,
+          "availableRiseTransitions": 107,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 69
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 2.0545813801692776,
+            "B": 3.43172573785721
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.5944710160707551,
+            "B": 3.43172573785721
+          },
+          "maxGapM": null,
+          "minPelvisYBeforeStand": 0.19123153388500214,
+          "maxTiltBeforeStand": 107.44959711066693,
+          "maxPelvisVyBeforeStand": 0.7088038325309753,
+          "maxPelvisVyTick": 672,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 241
+          },
+          "lastFootRawN": [
+            104.99952793121338,
+            0
+          ],
+          "lastPelvisY": 0.9416930079460144,
+          "lastAlive": true,
+          "postStandTransitions": []
+        },
+        "plant": {
+          "steps": 1106,
+          "firstGetup": 624,
+          "firstStand": 865,
+          "terminal": "one_second_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 108,
+          "bothKneeExtensionTransitions": 75,
+          "availableRiseTransitions": 107,
+          "noFootSolverRiseSteps": {
+            "F": 4,
+            "B": 100
+          },
+          "bothFeetNoSolverRiseSteps": 4,
+          "slipMaxWhole": {
+            "F": 2.6081701264648927,
+            "B": 3.477285848235524
+          },
+          "slipMaxFirstGetup": {
+            "F": 2.6081701264648927,
+            "B": 3.477285848235524
+          },
+          "maxGapM": null,
+          "minPelvisYBeforeStand": 0.19123153388500214,
+          "maxTiltBeforeStand": 107.44959711066693,
+          "maxPelvisVyBeforeStand": 1.1793818473815918,
+          "maxPelvisVyTick": 826,
+          "firstFallback": {
+            "tick": 826,
+            "reason": "lost_or_unreachable_plant"
+          },
+          "phaseSteps": {
+            "prepare": 133,
+            "accept": 49,
+            "place": 8,
+            "handover": 51
+          },
+          "lastFootRawN": [
+            0,
+            0
+          ],
+          "lastPelvisY": 0.994985818862915,
+          "lastAlive": true,
+          "postStandTransitions": []
+        }
+      }
+    },
+    {
+      "iteration": "r1",
+      "case": "side",
+      "sourceStable": true,
+      "error": null,
+      "raw": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r1/side/report.json",
+      "sha256": "3c12bbbab378628b7049afa9726c54a5e406696e67126fc551775156f9b50cab",
+      "firstNativeDifference": 757,
+      "models": {
+        "legacy": {
+          "steps": 1106,
+          "firstGetup": 624,
+          "firstStand": 865,
+          "terminal": "one_second_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 108,
+          "bothKneeExtensionTransitions": 107,
+          "availableRiseTransitions": 107,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 13
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 1.4310992943915024,
+            "B": 2.77378301897239
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.4310992943915024,
+            "B": 2.77378301897239
+          },
+          "maxGapM": null,
+          "minPelvisYBeforeStand": 0.1758553683757782,
+          "maxTiltBeforeStand": 96.5515735010461,
+          "maxPelvisVyBeforeStand": 0.9282366633415222,
+          "maxPelvisVyTick": 670,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 241
+          },
+          "lastFootRawN": [
+            26.494510173797607,
+            5.983440577983856
+          ],
+          "lastPelvisY": 0.9359605312347412,
+          "lastAlive": true,
+          "postStandTransitions": []
+        },
+        "plant": {
+          "steps": 1106,
+          "firstGetup": 624,
+          "firstStand": 865,
+          "terminal": "one_second_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 108,
+          "bothKneeExtensionTransitions": 87,
+          "availableRiseTransitions": 107,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 92
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 4.072506391978349,
+            "B": 5.634098744570559
+          },
+          "slipMaxFirstGetup": {
+            "F": 4.072506391978349,
+            "B": 5.634098744570559
+          },
+          "maxGapM": null,
+          "minPelvisYBeforeStand": 0.1758553683757782,
+          "maxTiltBeforeStand": 96.5515735010461,
+          "maxPelvisVyBeforeStand": 0.9485642910003662,
+          "maxPelvisVyTick": 848,
+          "firstFallback": {
+            "tick": 848,
+            "reason": "lost_or_unreachable_plant"
+          },
+          "phaseSteps": {
+            "prepare": 133,
+            "accept": 24,
+            "place": 4,
+            "handover": 80
+          },
+          "lastFootRawN": [
+            1.6048571839928627,
+            18.753681778907776
+          ],
+          "lastPelvisY": 0.9427648186683655,
+          "lastAlive": true,
+          "postStandTransitions": []
+        }
+      }
+    },
+    {
+      "iteration": "r1",
+      "case": "hurt",
+      "sourceStable": true,
+      "error": null,
+      "raw": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r1/hurt/report.json",
+      "sha256": "a16e386db5ff0cbfb5bf42a3736e9aba136735eace40d43deb7075f225ff8a08",
+      "firstNativeDifference": 879,
+      "models": {
+        "legacy": {
+          "steps": 1269,
+          "firstGetup": 696,
+          "firstStand": 1028,
+          "terminal": "one_second_after_player_stand",
+          "getupSteps": 332,
+          "riseSteps": 149,
+          "bothKneeExtensionTransitions": 148,
+          "availableRiseTransitions": 148,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 28
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 3.5294407346210463,
+            "B": 3.211492418931687
+          },
+          "slipMaxFirstGetup": {
+            "F": 2.27884558396112,
+            "B": 3.211492418931687
+          },
+          "maxGapM": null,
+          "minPelvisYBeforeStand": 0.1947994828224182,
+          "maxTiltBeforeStand": 110.169702128595,
+          "maxPelvisVyBeforeStand": 0.6228540539741516,
+          "maxPelvisVyTick": 742,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 332
+          },
+          "lastFootRawN": [
+            125.14034271240234,
+            0
+          ],
+          "lastPelvisY": 0.923055112361908,
+          "lastAlive": true,
+          "postStandTransitions": []
+        },
+        "plant": {
+          "steps": 1269,
+          "firstGetup": 696,
+          "firstStand": 1028,
+          "terminal": "one_second_after_player_stand",
+          "getupSteps": 332,
+          "riseSteps": 149,
+          "bothKneeExtensionTransitions": 147,
+          "availableRiseTransitions": 148,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 27
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 3.55026349439038,
+            "B": 3.211492418931687
+          },
+          "slipMaxFirstGetup": {
+            "F": 2.27884558396112,
+            "B": 3.211492418931687
+          },
+          "maxGapM": null,
+          "minPelvisYBeforeStand": 0.1947994828224182,
+          "maxTiltBeforeStand": 110.169702128595,
+          "maxPelvisVyBeforeStand": 0.6228540539741516,
+          "maxPelvisVyTick": 742,
+          "firstFallback": {
+            "tick": 883,
+            "reason": "lost_or_unreachable_plant"
+          },
+          "phaseSteps": {
+            "prepare": 183,
+            "accept": 149
+          },
+          "lastFootRawN": [
+            121.2289810180664,
+            0
+          ],
+          "lastPelvisY": 0.9232956171035767,
+          "lastAlive": true,
+          "postStandTransitions": []
+        }
+      }
+    },
+    {
+      "iteration": "r2",
+      "case": "natural",
+      "sourceStable": true,
+      "error": null,
+      "raw": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r2/natural/report.json",
+      "sha256": "88982d57cf2b45f130c82cd75ec7f8249b42d312272d0ab96d44659d1d0f479b",
+      "firstNativeDifference": 1688,
+      "models": {
+        "legacy": {
+          "steps": 2033,
+          "firstGetup": 1551,
+          "firstStand": 1792,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 87,
+          "bothKneeExtensionTransitions": 86,
+          "availableRiseTransitions": 86,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 28
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 1.7631533266316834,
+            "B": 4.00179971177992
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.7631533266316834,
+            "B": 4.00179971177992
+          },
+          "maxGapM": 0.0019190797896029071,
+          "minPelvisYBeforeStand": 0.5297248959541321,
+          "maxTiltBeforeStand": 31.83485580890491,
+          "maxPelvisVyBeforeStand": 0.6387714147567749,
+          "maxPelvisVyTick": 1738,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 241
+          },
+          "lastFootRawN": [
+            42.26905256509781,
+            0
+          ],
+          "lastPelvisY": 0.9377978444099426,
+          "lastAlive": true,
+          "postStandTransitions": [
+            {
+              "tick": 1869,
+              "timeS": 15.583333333333089,
+              "states": [
+                "getup",
+                "stand"
+              ],
+              "playerPelvis": [
+                -2.6031806468963623,
+                0.8932937383651733,
+                0.02012847550213337
+              ]
+            }
+          ]
+        },
+        "plant": {
+          "steps": 2033,
+          "firstGetup": 1551,
+          "firstStand": 1792,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 87,
+          "bothKneeExtensionTransitions": 60,
+          "availableRiseTransitions": 86,
+          "noFootSolverRiseSteps": {
+            "F": 1,
+            "B": 32
+          },
+          "bothFeetNoSolverRiseSteps": 1,
+          "slipMaxWhole": {
+            "F": 4.118103058934649,
+            "B": 6.561206829291265
+          },
+          "slipMaxFirstGetup": {
+            "F": 4.118103058934649,
+            "B": 4.00179971177992
+          },
+          "maxGapM": 0.0018331632556302779,
+          "minPelvisYBeforeStand": 0.5297248959541321,
+          "maxTiltBeforeStand": 31.83485580890491,
+          "maxPelvisVyBeforeStand": 0.9491873979568481,
+          "maxPelvisVyTick": 1770,
+          "firstFallback": {
+            "tick": 1782,
+            "reason": "lost_or_unreachable_plant"
+          },
+          "phaseSteps": {
+            "legacy": 1,
+            "prepare": 136,
+            "place": 16,
+            "handover": 88
+          },
+          "lastFootRawN": [
+            0,
+            0
+          ],
+          "lastPelvisY": 0.9859045743942261,
+          "lastAlive": true,
+          "postStandTransitions": [
+            {
+              "tick": 1851,
+              "timeS": 15.433333333333097,
+              "states": [
+                "getup",
+                "stand"
+              ],
+              "playerPelvis": [
+                -2.5912060737609863,
+                0.9180619716644287,
+                0.014607319608330727
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "iteration": "r2",
+      "case": "lying",
+      "sourceStable": true,
+      "error": null,
+      "raw": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r2/lying/report.json",
+      "sha256": "b6abc0cdafcc7db18ac7b6d207964bb9633eb91afb327e01d387352db88b70af",
+      "firstNativeDifference": 733,
+      "models": {
+        "legacy": {
+          "steps": 1106,
+          "firstGetup": 624,
+          "firstStand": 865,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 108,
+          "bothKneeExtensionTransitions": 107,
+          "availableRiseTransitions": 107,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 69
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 2.0545813801692776,
+            "B": 3.43172573785721
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.5944710160707551,
+            "B": 3.43172573785721
+          },
+          "maxGapM": 0.002155618483332736,
+          "minPelvisYBeforeStand": 0.19123153388500214,
+          "maxTiltBeforeStand": 107.44959711066693,
+          "maxPelvisVyBeforeStand": 0.7088038325309753,
+          "maxPelvisVyTick": 672,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 241
+          },
+          "lastFootRawN": [
+            104.99952793121338,
+            0
+          ],
+          "lastPelvisY": 0.9416930079460144,
+          "lastAlive": true,
+          "postStandTransitions": []
+        },
+        "plant": {
+          "steps": 1106,
+          "firstGetup": 624,
+          "firstStand": 865,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 108,
+          "bothKneeExtensionTransitions": 107,
+          "availableRiseTransitions": 107,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 70
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 2.053224629832801,
+            "B": 3.43172573785721
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.589038582799358,
+            "B": 3.43172573785721
+          },
+          "maxGapM": 0.002155618483332736,
+          "minPelvisYBeforeStand": 0.19123153388500214,
+          "maxTiltBeforeStand": 107.44959711066693,
+          "maxPelvisVyBeforeStand": 0.7088038325309753,
+          "maxPelvisVyTick": 672,
+          "firstFallback": {
+            "tick": 734,
+            "reason": "lost_or_unreachable_plant"
+          },
+          "phaseSteps": {
+            "prepare": 109,
+            "accept": 132
+          },
+          "lastFootRawN": [
+            105.87238311767578,
+            0
+          ],
+          "lastPelvisY": 0.9415277242660522,
+          "lastAlive": true,
+          "postStandTransitions": []
+        }
+      }
+    },
+    {
+      "iteration": "r2",
+      "case": "side",
+      "sourceStable": true,
+      "error": null,
+      "raw": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r2/side/report.json",
+      "sha256": "8d0eba3e37fa9113991378b5b5c31403905953e2aa395b9f360950a50ca34ac9",
+      "firstNativeDifference": 733,
+      "models": {
+        "legacy": {
+          "steps": 1106,
+          "firstGetup": 624,
+          "firstStand": 865,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 108,
+          "bothKneeExtensionTransitions": 107,
+          "availableRiseTransitions": 107,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 13
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 1.4310992943915024,
+            "B": 2.77378301897239
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.4310992943915024,
+            "B": 2.77378301897239
+          },
+          "maxGapM": 0.0031020151431924306,
+          "minPelvisYBeforeStand": 0.1758553683757782,
+          "maxTiltBeforeStand": 96.5515735010461,
+          "maxPelvisVyBeforeStand": 0.9282366633415222,
+          "maxPelvisVyTick": 670,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 241
+          },
+          "lastFootRawN": [
+            26.494510173797607,
+            5.983440577983856
+          ],
+          "lastPelvisY": 0.9359605312347412,
+          "lastAlive": true,
+          "postStandTransitions": []
+        },
+        "plant": {
+          "steps": 1106,
+          "firstGetup": 624,
+          "firstStand": 865,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 108,
+          "bothKneeExtensionTransitions": 76,
+          "availableRiseTransitions": 107,
+          "noFootSolverRiseSteps": {
+            "F": 6,
+            "B": 54
+          },
+          "bothFeetNoSolverRiseSteps": 6,
+          "slipMaxWhole": {
+            "F": 3.8767753588618663,
+            "B": 3.9190008490657573
+          },
+          "slipMaxFirstGetup": {
+            "F": 3.8767753588618663,
+            "B": 3.9190008490657573
+          },
+          "maxGapM": 0.0031020151431924306,
+          "minPelvisYBeforeStand": 0.1758553683757782,
+          "maxTiltBeforeStand": 96.5515735010461,
+          "maxPelvisVyBeforeStand": 0.9282366633415222,
+          "maxPelvisVyTick": 670,
+          "firstFallback": {
+            "tick": 824,
+            "reason": "lost_or_unreachable_plant"
+          },
+          "phaseSteps": {
+            "prepare": 109,
+            "place": 11,
+            "handover": 121
+          },
+          "lastFootRawN": [
+            56.322954297065735,
+            14.778173267841339
+          ],
+          "lastPelvisY": 0.9328199625015259,
+          "lastAlive": true,
+          "postStandTransitions": []
+        }
+      }
+    },
+    {
+      "iteration": "r2",
+      "case": "hurt",
+      "sourceStable": true,
+      "error": null,
+      "raw": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r2/hurt/report.json",
+      "sha256": "ae90a56f610bfc72231b2024d265e241ab6fad1b9dde0b388999fe3580ca756d",
+      "firstNativeDifference": 855,
+      "models": {
+        "legacy": {
+          "steps": 1269,
+          "firstGetup": 696,
+          "firstStand": 1028,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 332,
+          "riseSteps": 149,
+          "bothKneeExtensionTransitions": 148,
+          "availableRiseTransitions": 148,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 28
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 3.5294407346210463,
+            "B": 3.211492418931687
+          },
+          "slipMaxFirstGetup": {
+            "F": 2.27884558396112,
+            "B": 3.211492418931687
+          },
+          "maxGapM": 0.002396172315378878,
+          "minPelvisYBeforeStand": 0.1947994828224182,
+          "maxTiltBeforeStand": 110.169702128595,
+          "maxPelvisVyBeforeStand": 0.6228540539741516,
+          "maxPelvisVyTick": 742,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 332
+          },
+          "lastFootRawN": [
+            125.14034271240234,
+            0
+          ],
+          "lastPelvisY": 0.923055112361908,
+          "lastAlive": true,
+          "postStandTransitions": []
+        },
+        "plant": {
+          "steps": 1269,
+          "firstGetup": 696,
+          "firstStand": 1028,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 332,
+          "riseSteps": 149,
+          "bothKneeExtensionTransitions": 148,
+          "availableRiseTransitions": 148,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 30
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 3.5293789367462733,
+            "B": 3.211492418931687
+          },
+          "slipMaxFirstGetup": {
+            "F": 2.27884558396112,
+            "B": 3.211492418931687
+          },
+          "maxGapM": 0.002396172315378878,
+          "minPelvisYBeforeStand": 0.1947994828224182,
+          "maxTiltBeforeStand": 110.169702128595,
+          "maxPelvisVyBeforeStand": 0.6228540539741516,
+          "maxPelvisVyTick": 742,
+          "firstFallback": {
+            "tick": 859,
+            "reason": "lost_or_unreachable_plant"
+          },
+          "phaseSteps": {
+            "prepare": 159,
+            "place": 173
+          },
+          "lastFootRawN": [
+            117.41651773452759,
+            0
+          ],
+          "lastPelvisY": 0.9233617186546326,
+          "lastAlive": true,
+          "postStandTransitions": []
+        }
+      }
+    },
+    {
+      "iteration": "r3",
+      "case": "natural",
+      "sourceStable": true,
+      "error": null,
+      "raw": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r3/natural/report.json",
+      "sha256": "1dae6636d943a694bfdd6ab9388830d4cc0cafd06961d47f874b3daf0cacc5f2",
+      "firstNativeDifference": 1688,
+      "models": {
+        "legacy": {
+          "steps": 2033,
+          "firstGetup": 1551,
+          "firstStand": 1792,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 87,
+          "bothKneeExtensionTransitions": 86,
+          "availableRiseTransitions": 86,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 28
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 1.7631533266316834,
+            "B": 4.00179971177992
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.7631533266316834,
+            "B": 4.00179971177992
+          },
+          "maxGapM": 0.0019190797896029071,
+          "minPelvisYBeforeStand": 0.5297248959541321,
+          "maxTiltBeforeStand": 31.83485580890491,
+          "maxPelvisVyBeforeStand": 0.6387714147567749,
+          "maxPelvisVyTick": 1738,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 241
+          },
+          "lastFootRawN": [
+            42.26905256509781,
+            0
+          ],
+          "lastPelvisY": 0.9377978444099426,
+          "lastAlive": true,
+          "postStandTransitions": [
+            {
+              "tick": 1869,
+              "timeS": 15.583333333333089,
+              "states": [
+                "getup",
+                "stand"
+              ],
+              "playerPelvis": [
+                -2.6031806468963623,
+                0.8932937383651733,
+                0.02012847550213337
+              ]
+            }
+          ]
+        },
+        "plant": {
+          "steps": 1872,
+          "firstGetup": 1551,
+          "firstStand": null,
+          "terminal": "death",
+          "getupSteps": 320,
+          "riseSteps": 0,
+          "bothKneeExtensionTransitions": 0,
+          "availableRiseTransitions": 0,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 0
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 1.7631533266316834,
+            "B": 4.00179971177992
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.7631533266316834,
+            "B": 4.00179971177992
+          },
+          "maxGapM": 0.002222986063363717,
+          "minPelvisYBeforeStand": 0.5297248959541321,
+          "maxTiltBeforeStand": 31.83485580890491,
+          "maxPelvisVyBeforeStand": 0.8452568650245667,
+          "maxPelvisVyTick": 1871,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 1,
+            "prepare": 136,
+            "place": 183
+          },
+          "lastFootRawN": [
+            219.605233669281,
+            369.85074520111084
+          ],
+          "lastPelvisY": 0.6865238547325134,
+          "lastAlive": false,
+          "postStandTransitions": []
+        }
+      }
+    },
+    {
+      "iteration": "r3",
+      "case": "lying",
+      "sourceStable": true,
+      "error": null,
+      "raw": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r3/lying/report.json",
+      "sha256": "02572a3eddccded2af4d3124e8a9271a7c5e013a7470cac368a6f463e6aba251",
+      "firstNativeDifference": 733,
+      "models": {
+        "legacy": {
+          "steps": 1106,
+          "firstGetup": 624,
+          "firstStand": 865,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 108,
+          "bothKneeExtensionTransitions": 107,
+          "availableRiseTransitions": 107,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 69
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 2.0545813801692776,
+            "B": 3.43172573785721
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.5944710160707551,
+            "B": 3.43172573785721
+          },
+          "maxGapM": 0.002155618483332736,
+          "minPelvisYBeforeStand": 0.19123153388500214,
+          "maxTiltBeforeStand": 107.44959711066693,
+          "maxPelvisVyBeforeStand": 0.7088038325309753,
+          "maxPelvisVyTick": 672,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 241
+          },
+          "lastFootRawN": [
+            104.99952793121338,
+            0
+          ],
+          "lastPelvisY": 0.9416930079460144,
+          "lastAlive": true,
+          "postStandTransitions": []
+        },
+        "plant": {
+          "steps": 1512,
+          "firstGetup": 624,
+          "firstStand": 1271,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 647,
+          "riseSteps": 107,
+          "bothKneeExtensionTransitions": 106,
+          "availableRiseTransitions": 106,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 98
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 3.122582632436122,
+            "B": 3.43172573785721
+          },
+          "slipMaxFirstGetup": {
+            "F": 2.7601218009640407,
+            "B": 3.43172573785721
+          },
+          "maxGapM": 0.002155618483332736,
+          "minPelvisYBeforeStand": 0.19123153388500214,
+          "maxTiltBeforeStand": 107.44959711066693,
+          "maxPelvisVyBeforeStand": 0.7088038325309753,
+          "maxPelvisVyTick": 672,
+          "firstFallback": {
+            "tick": 1164,
+            "reason": "placement_timeout"
+          },
+          "phaseSteps": {
+            "legacy": 1,
+            "prepare": 108,
+            "accept": 153,
+            "place": 278,
+            "fallback": 107
+          },
+          "lastFootRawN": [
+            115.20206451416016,
+            0
+          ],
+          "lastPelvisY": 0.9501441121101379,
+          "lastAlive": true,
+          "postStandTransitions": []
+        }
+      }
+    },
+    {
+      "iteration": "r3",
+      "case": "side",
+      "sourceStable": true,
+      "error": null,
+      "raw": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r3/side/report.json",
+      "sha256": "a23f6583774dd7a6105e614f3244fe00d471f5d5664eb512f735516909b1b8ec",
+      "firstNativeDifference": 733,
+      "models": {
+        "legacy": {
+          "steps": 1106,
+          "firstGetup": 624,
+          "firstStand": 865,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 108,
+          "bothKneeExtensionTransitions": 107,
+          "availableRiseTransitions": 107,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 13
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 1.4310992943915024,
+            "B": 2.77378301897239
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.4310992943915024,
+            "B": 2.77378301897239
+          },
+          "maxGapM": 0.0031020151431924306,
+          "minPelvisYBeforeStand": 0.1758553683757782,
+          "maxTiltBeforeStand": 96.5515735010461,
+          "maxPelvisVyBeforeStand": 0.9282366633415222,
+          "maxPelvisVyTick": 670,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 241
+          },
+          "lastFootRawN": [
+            26.494510173797607,
+            5.983440577983856
+          ],
+          "lastPelvisY": 0.9359605312347412,
+          "lastAlive": true,
+          "postStandTransitions": []
+        },
+        "plant": {
+          "steps": 1512,
+          "firstGetup": 624,
+          "firstStand": 1271,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 647,
+          "riseSteps": 107,
+          "bothKneeExtensionTransitions": 89,
+          "availableRiseTransitions": 106,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 19
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 1.4639540534661664,
+            "B": 2.77378301897239
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.4639540534661664,
+            "B": 2.77378301897239
+          },
+          "maxGapM": 0.0031020151431924306,
+          "minPelvisYBeforeStand": 0.1758553683757782,
+          "maxTiltBeforeStand": 96.5515735010461,
+          "maxPelvisVyBeforeStand": 0.9282366633415222,
+          "maxPelvisVyTick": 670,
+          "firstFallback": {
+            "tick": 1164,
+            "reason": "placement_timeout"
+          },
+          "phaseSteps": {
+            "legacy": 1,
+            "prepare": 108,
+            "place": 431,
+            "fallback": 107
+          },
+          "lastFootRawN": [
+            34.01609122753143,
+            5.079829394817352
+          ],
+          "lastPelvisY": 0.9333317279815674,
+          "lastAlive": true,
+          "postStandTransitions": []
+        }
+      }
+    },
+    {
+      "iteration": "r3",
+      "case": "hurt",
+      "sourceStable": true,
+      "error": null,
+      "raw": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r3/hurt/report.json",
+      "sha256": "51d55a79200b4d41e7ecb8738888f9547ae659ccabb9e68608e4f641afc297fd",
+      "firstNativeDifference": 855,
+      "models": {
+        "legacy": {
+          "steps": 1269,
+          "firstGetup": 696,
+          "firstStand": 1028,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 332,
+          "riseSteps": 149,
+          "bothKneeExtensionTransitions": 148,
+          "availableRiseTransitions": 148,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 28
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 3.5294407346210463,
+            "B": 3.211492418931687
+          },
+          "slipMaxFirstGetup": {
+            "F": 2.27884558396112,
+            "B": 3.211492418931687
+          },
+          "maxGapM": 0.002396172315378878,
+          "minPelvisYBeforeStand": 0.1947994828224182,
+          "maxTiltBeforeStand": 110.169702128595,
+          "maxPelvisVyBeforeStand": 0.6228540539741516,
+          "maxPelvisVyTick": 742,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 332
+          },
+          "lastFootRawN": [
+            125.14034271240234,
+            0
+          ],
+          "lastPelvisY": 0.923055112361908,
+          "lastAlive": true,
+          "postStandTransitions": []
+        },
+        "plant": {
+          "steps": 1276,
+          "firstGetup": 696,
+          "firstStand": 1035,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 339,
+          "riseSteps": 148,
+          "bothKneeExtensionTransitions": 144,
+          "availableRiseTransitions": 147,
+          "noFootSolverRiseSteps": {
+            "F": 11,
+            "B": 39
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 3.226763753183255,
+            "B": 3.2752297045524297
+          },
+          "slipMaxFirstGetup": {
+            "F": 3.226763753183255,
+            "B": 3.2752297045524297
+          },
+          "maxGapM": 0.002396172315378878,
+          "minPelvisYBeforeStand": 0.1947994828224182,
+          "maxTiltBeforeStand": 110.169702128595,
+          "maxPelvisVyBeforeStand": 0.6228540539741516,
+          "maxPelvisVyTick": 742,
+          "firstFallback": {
+            "tick": 887,
+            "reason": "lost_plant"
+          },
+          "phaseSteps": {
+            "legacy": 1,
+            "prepare": 158,
+            "place": 32,
+            "fallback": 148
+          },
+          "lastFootRawN": [
+            68.24681460857391,
+            7.429848611354828
+          ],
+          "lastPelvisY": 0.9026512503623962,
+          "lastAlive": true,
+          "postStandTransitions": []
+        }
+      }
+    },
+    {
+      "iteration": "r4",
+      "case": "natural",
+      "sourceStable": true,
+      "error": null,
+      "raw": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r4/natural/report.json",
+      "sha256": "fe90d2716a5fc7190911875b1a52a9328b6fe0a99c8c5f846bb7f2c81451fb13",
+      "firstNativeDifference": 1688,
+      "models": {
+        "legacy": {
+          "steps": 2033,
+          "firstGetup": 1551,
+          "firstStand": 1792,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 87,
+          "bothKneeExtensionTransitions": 86,
+          "availableRiseTransitions": 86,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 28
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 1.7631533266316834,
+            "B": 4.00179971177992
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.7631533266316834,
+            "B": 4.00179971177992
+          },
+          "maxGapM": 0.0019190797896029071,
+          "minPelvisYBeforeStand": 0.5297248959541321,
+          "maxTiltBeforeStand": 31.83485580890491,
+          "maxPelvisVyBeforeStand": 0.6387714147567749,
+          "maxPelvisVyTick": 1738,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 241
+          },
+          "lastFootRawN": [
+            42.26905256509781,
+            0
+          ],
+          "lastPelvisY": 0.9377978444099426,
+          "lastAlive": true,
+          "postStandTransitions": [
+            {
+              "tick": 1869,
+              "timeS": 15.583333333333089,
+              "states": [
+                "getup",
+                "stand"
+              ],
+              "playerPelvis": [
+                -2.6031806468963623,
+                0.8932937383651733,
+                0.02012847550213337
+              ]
+            }
+          ]
+        },
+        "plant": {
+          "steps": 2108,
+          "firstGetup": 1551,
+          "firstStand": 1903,
+          "terminal": "death",
+          "getupSteps": 352,
+          "riseSteps": 158,
+          "bothKneeExtensionTransitions": 82,
+          "availableRiseTransitions": 157,
+          "noFootSolverRiseSteps": {
+            "F": 27,
+            "B": 12
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 1.7631533266316834,
+            "B": 4.987077937332466
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.7631533266316834,
+            "B": 4.987077937332466
+          },
+          "maxGapM": 0.0015897763318980076,
+          "minPelvisYBeforeStand": 0.5297248959541321,
+          "maxTiltBeforeStand": 31.83485580890491,
+          "maxPelvisVyBeforeStand": 0.6852338910102844,
+          "maxPelvisVyTick": 1811,
+          "firstFallback": {
+            "tick": 1879,
+            "reason": "lost_plant"
+          },
+          "phaseSteps": {
+            "legacy": 1,
+            "prepare": 136,
+            "place": 38,
+            "rise": 153,
+            "fallback": 24
+          },
+          "lastFootRawN": [
+            452.60716438293457,
+            0
+          ],
+          "lastPelvisY": 0.9224621057510376,
+          "lastAlive": false,
+          "postStandTransitions": [
+            {
+              "tick": 2107,
+              "timeS": 17.56666666666631,
+              "states": [
+                "dead",
+                "stand"
+              ],
+              "playerPelvis": [
+                -2.524425983428955,
+                0.8818538784980774,
+                0.03788730502128601
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "iteration": "r4",
+      "case": "lying",
+      "sourceStable": true,
+      "error": null,
+      "raw": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r4/lying/report.json",
+      "sha256": "e41337e2edd1a03a13610b90ef086dfcfbbc87344cbf47530c474404b1b46878",
+      "firstNativeDifference": 733,
+      "models": {
+        "legacy": {
+          "steps": 1106,
+          "firstGetup": 624,
+          "firstStand": 865,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 108,
+          "bothKneeExtensionTransitions": 107,
+          "availableRiseTransitions": 107,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 69
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 2.0545813801692776,
+            "B": 3.43172573785721
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.5944710160707551,
+            "B": 3.43172573785721
+          },
+          "maxGapM": 0.002155618483332736,
+          "minPelvisYBeforeStand": 0.19123153388500214,
+          "maxTiltBeforeStand": 107.44959711066693,
+          "maxPelvisVyBeforeStand": 0.7088038325309753,
+          "maxPelvisVyTick": 672,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 241
+          },
+          "lastFootRawN": [
+            104.99952793121338,
+            0
+          ],
+          "lastPelvisY": 0.9416930079460144,
+          "lastAlive": true,
+          "postStandTransitions": []
+        },
+        "plant": {
+          "steps": 1462,
+          "firstGetup": 624,
+          "firstStand": 1221,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 597,
+          "riseSteps": 302,
+          "bothKneeExtensionTransitions": 156,
+          "availableRiseTransitions": 301,
+          "noFootSolverRiseSteps": {
+            "F": 11,
+            "B": 223
+          },
+          "bothFeetNoSolverRiseSteps": 11,
+          "slipMaxWhole": {
+            "F": 2.7601218009640407,
+            "B": 4.576284315571133
+          },
+          "slipMaxFirstGetup": {
+            "F": 2.7601218009640407,
+            "B": 4.576284315571133
+          },
+          "maxGapM": 0.002155618483332736,
+          "minPelvisYBeforeStand": 0.19123153388500214,
+          "maxTiltBeforeStand": 107.44959711066693,
+          "maxPelvisVyBeforeStand": 0.8248515129089355,
+          "maxPelvisVyTick": 1179,
+          "firstFallback": {
+            "tick": 1164,
+            "reason": "placement_timeout"
+          },
+          "phaseSteps": {
+            "legacy": 1,
+            "prepare": 108,
+            "accept": 153,
+            "place": 33,
+            "rise": 245,
+            "fallback": 57
+          },
+          "lastFootRawN": [
+            0,
+            0
+          ],
+          "lastPelvisY": 0.9630032181739807,
+          "lastAlive": true,
+          "postStandTransitions": []
+        }
+      }
+    },
+    {
+      "iteration": "r4",
+      "case": "side",
+      "sourceStable": true,
+      "error": null,
+      "raw": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r4/side/report.json",
+      "sha256": "4783bb16d51005d42c17f961a718ba7b90cbc768612a0c715435801d4cdaa9b6",
+      "firstNativeDifference": 733,
+      "models": {
+        "legacy": {
+          "steps": 1106,
+          "firstGetup": 624,
+          "firstStand": 865,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 108,
+          "bothKneeExtensionTransitions": 107,
+          "availableRiseTransitions": 107,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 13
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 1.4310992943915024,
+            "B": 2.77378301897239
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.4310992943915024,
+            "B": 2.77378301897239
+          },
+          "maxGapM": 0.0031020151431924306,
+          "minPelvisYBeforeStand": 0.1758553683757782,
+          "maxTiltBeforeStand": 96.5515735010461,
+          "maxPelvisVyBeforeStand": 0.9282366633415222,
+          "maxPelvisVyTick": 670,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 241
+          },
+          "lastFootRawN": [
+            26.494510173797607,
+            5.983440577983856
+          ],
+          "lastPelvisY": 0.9359605312347412,
+          "lastAlive": true,
+          "postStandTransitions": []
+        },
+        "plant": {
+          "steps": 1160,
+          "firstGetup": 624,
+          "firstStand": 919,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 295,
+          "riseSteps": 152,
+          "bothKneeExtensionTransitions": 91,
+          "availableRiseTransitions": 151,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 18
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 3.093194626819684,
+            "B": 4.787413526088674
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.0778435151373567,
+            "B": 4.787413526088674
+          },
+          "maxGapM": 0.0031020151431924306,
+          "minPelvisYBeforeStand": 0.1758553683757782,
+          "maxTiltBeforeStand": 96.5515735010461,
+          "maxPelvisVyBeforeStand": 0.9282366633415222,
+          "maxPelvisVyTick": 670,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 1,
+            "prepare": 108,
+            "place": 34,
+            "rise": 152
+          },
+          "lastFootRawN": [
+            135.89929819107056,
+            49.15138363838196
+          ],
+          "lastPelvisY": 0.8803223371505737,
+          "lastAlive": true,
+          "postStandTransitions": []
+        }
+      }
+    },
+    {
+      "iteration": "r4",
+      "case": "hurt",
+      "sourceStable": true,
+      "error": null,
+      "raw": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r4/hurt/report.json",
+      "sha256": "1e2420ef0353cb5c68b929382c7bafeb4807a35caba0f7f40b02817ef8a2e6a7",
+      "firstNativeDifference": 855,
+      "models": {
+        "legacy": {
+          "steps": 1269,
+          "firstGetup": 696,
+          "firstStand": 1028,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 332,
+          "riseSteps": 149,
+          "bothKneeExtensionTransitions": 148,
+          "availableRiseTransitions": 148,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 28
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 3.5294407346210463,
+            "B": 3.211492418931687
+          },
+          "slipMaxFirstGetup": {
+            "F": 2.27884558396112,
+            "B": 3.211492418931687
+          },
+          "maxGapM": 0.002396172315378878,
+          "minPelvisYBeforeStand": 0.1947994828224182,
+          "maxTiltBeforeStand": 110.169702128595,
+          "maxPelvisVyBeforeStand": 0.6228540539741516,
+          "maxPelvisVyTick": 742,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 332
+          },
+          "lastFootRawN": [
+            125.14034271240234,
+            0
+          ],
+          "lastPelvisY": 0.923055112361908,
+          "lastAlive": true,
+          "postStandTransitions": []
+        },
+        "plant": {
+          "steps": 1276,
+          "firstGetup": 696,
+          "firstStand": 1035,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 339,
+          "riseSteps": 148,
+          "bothKneeExtensionTransitions": 144,
+          "availableRiseTransitions": 147,
+          "noFootSolverRiseSteps": {
+            "F": 11,
+            "B": 38
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 3.226763753183255,
+            "B": 3.2752297045524297
+          },
+          "slipMaxFirstGetup": {
+            "F": 3.226763753183255,
+            "B": 3.2752297045524297
+          },
+          "maxGapM": 0.002396172315378878,
+          "minPelvisYBeforeStand": 0.1947994828224182,
+          "maxTiltBeforeStand": 110.169702128595,
+          "maxPelvisVyBeforeStand": 0.6228540539741516,
+          "maxPelvisVyTick": 742,
+          "firstFallback": {
+            "tick": 887,
+            "reason": "lost_plant"
+          },
+          "phaseSteps": {
+            "legacy": 1,
+            "prepare": 158,
+            "place": 32,
+            "fallback": 148
+          },
+          "lastFootRawN": [
+            68.25301766395569,
+            6.515273898839951
+          ],
+          "lastPelvisY": 0.9028279185295105,
+          "lastAlive": true,
+          "postStandTransitions": []
+        }
+      }
+    },
+    {
+      "iteration": "r5",
+      "case": "natural",
+      "sourceStable": true,
+      "error": null,
+      "raw": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r5/natural/report.json",
+      "sha256": "1afcb47fe29630deff304aea40dfcac0deeb151fa6c4e623a04dd19babc668ac",
+      "firstNativeDifference": 1688,
+      "models": {
+        "legacy": {
+          "steps": 2033,
+          "firstGetup": 1551,
+          "firstStand": 1792,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 87,
+          "bothKneeExtensionTransitions": 86,
+          "availableRiseTransitions": 86,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 28
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 1.7631533266316834,
+            "B": 4.00179971177992
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.7631533266316834,
+            "B": 4.00179971177992
+          },
+          "maxGapM": 0.0019190797896029071,
+          "minPelvisYBeforeStand": 0.5297248959541321,
+          "maxTiltBeforeStand": 31.83485580890491,
+          "maxPelvisVyBeforeStand": 0.6387714147567749,
+          "maxPelvisVyTick": 1738,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 241
+          },
+          "lastFootRawN": [
+            42.26905256509781,
+            0
+          ],
+          "lastPelvisY": 0.9377978444099426,
+          "lastAlive": true,
+          "postStandTransitions": [
+            {
+              "tick": 1869,
+              "timeS": 15.583333333333089,
+              "states": [
+                "getup",
+                "stand"
+              ],
+              "playerPelvis": [
+                -2.6031806468963623,
+                0.8932937383651733,
+                0.02012847550213337
+              ]
+            }
+          ]
+        },
+        "plant": {
+          "steps": 2033,
+          "firstGetup": 1551,
+          "firstStand": 1792,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 87,
+          "bothKneeExtensionTransitions": 77,
+          "availableRiseTransitions": 86,
+          "noFootSolverRiseSteps": {
+            "F": 16,
+            "B": 17
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 1.7631533266316834,
+            "B": 4.00179971177992
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.7631533266316834,
+            "B": 4.00179971177992
+          },
+          "maxGapM": 0.0023218662222856718,
+          "minPelvisYBeforeStand": 0.5297248959541321,
+          "maxTiltBeforeStand": 31.83485580890491,
+          "maxPelvisVyBeforeStand": 0.6770706176757812,
+          "maxPelvisVyTick": 1775,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 137,
+            "place": 15,
+            "landed": 89
+          },
+          "lastFootRawN": [
+            98.17206859588623,
+            0
+          ],
+          "lastPelvisY": 0.9548725485801697,
+          "lastAlive": true,
+          "postStandTransitions": [
+            {
+              "tick": 1877,
+              "timeS": 15.649999999999752,
+              "states": [
+                "getup",
+                "stand"
+              ],
+              "playerPelvis": [
+                -2.5081539154052734,
+                0.8819388747215271,
+                0.02927839197218418
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "iteration": "r5",
+      "case": "lying",
+      "sourceStable": true,
+      "error": null,
+      "raw": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r5/lying/report.json",
+      "sha256": "bcff89fa2fc476173748ede2b1fbb2b982fcd1c1487ea8affc27d56922923838",
+      "firstNativeDifference": 733,
+      "models": {
+        "legacy": {
+          "steps": 1106,
+          "firstGetup": 624,
+          "firstStand": 865,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 108,
+          "bothKneeExtensionTransitions": 107,
+          "availableRiseTransitions": 107,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 69
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 2.0545813801692776,
+            "B": 3.43172573785721
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.5944710160707551,
+            "B": 3.43172573785721
+          },
+          "maxGapM": 0.002155618483332736,
+          "minPelvisYBeforeStand": 0.19123153388500214,
+          "maxTiltBeforeStand": 107.44959711066693,
+          "maxPelvisVyBeforeStand": 0.7088038325309753,
+          "maxPelvisVyTick": 672,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 241
+          },
+          "lastFootRawN": [
+            104.99952793121338,
+            0
+          ],
+          "lastPelvisY": 0.9416930079460144,
+          "lastAlive": true,
+          "postStandTransitions": []
+        },
+        "plant": {
+          "steps": 1106,
+          "firstGetup": 624,
+          "firstStand": 865,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 108,
+          "bothKneeExtensionTransitions": 63,
+          "availableRiseTransitions": 107,
+          "noFootSolverRiseSteps": {
+            "F": 41,
+            "B": 3
+          },
+          "bothFeetNoSolverRiseSteps": 3,
+          "slipMaxWhole": {
+            "F": 3.121849918767692,
+            "B": 3.43172573785721
+          },
+          "slipMaxFirstGetup": {
+            "F": 3.121849918767692,
+            "B": 3.43172573785721
+          },
+          "maxGapM": 0.002155618483332736,
+          "minPelvisYBeforeStand": 0.19123153388500214,
+          "maxTiltBeforeStand": 107.44959711066693,
+          "maxPelvisVyBeforeStand": 0.7157655358314514,
+          "maxPelvisVyTick": 763,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 109,
+            "place": 14,
+            "landed": 118
+          },
+          "lastFootRawN": [
+            0,
+            0
+          ],
+          "lastPelvisY": 0.9192070364952087,
+          "lastAlive": true,
+          "postStandTransitions": []
+        }
+      }
+    },
+    {
+      "iteration": "r5",
+      "case": "side",
+      "sourceStable": true,
+      "error": null,
+      "raw": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r5/side/report.json",
+      "sha256": "4b7beb7cd36b93ff012cfd7d6630344fe1a15cefe89ca85c5bc420211d989741",
+      "firstNativeDifference": 733,
+      "models": {
+        "legacy": {
+          "steps": 1106,
+          "firstGetup": 624,
+          "firstStand": 865,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 108,
+          "bothKneeExtensionTransitions": 107,
+          "availableRiseTransitions": 107,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 13
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 1.4310992943915024,
+            "B": 2.77378301897239
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.4310992943915024,
+            "B": 2.77378301897239
+          },
+          "maxGapM": 0.0031020151431924306,
+          "minPelvisYBeforeStand": 0.1758553683757782,
+          "maxTiltBeforeStand": 96.5515735010461,
+          "maxPelvisVyBeforeStand": 0.9282366633415222,
+          "maxPelvisVyTick": 670,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 241
+          },
+          "lastFootRawN": [
+            26.494510173797607,
+            5.983440577983856
+          ],
+          "lastPelvisY": 0.9359605312347412,
+          "lastAlive": true,
+          "postStandTransitions": []
+        },
+        "plant": {
+          "steps": 1106,
+          "firstGetup": 624,
+          "firstStand": 865,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 241,
+          "riseSteps": 108,
+          "bothKneeExtensionTransitions": 88,
+          "availableRiseTransitions": 107,
+          "noFootSolverRiseSteps": {
+            "F": 45,
+            "B": 0
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 1.8625530535357038,
+            "B": 2.77378301897239
+          },
+          "slipMaxFirstGetup": {
+            "F": 1.8625530535357038,
+            "B": 2.77378301897239
+          },
+          "maxGapM": 0.0031020151431924306,
+          "minPelvisYBeforeStand": 0.1758553683757782,
+          "maxTiltBeforeStand": 96.5515735010461,
+          "maxPelvisVyBeforeStand": 0.9282366633415222,
+          "maxPelvisVyTick": 670,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 109,
+            "place": 12,
+            "landed": 120
+          },
+          "lastFootRawN": [
+            319.30978775024414,
+            0
+          ],
+          "lastPelvisY": 0.9393227696418762,
+          "lastAlive": true,
+          "postStandTransitions": []
+        }
+      }
+    },
+    {
+      "iteration": "r5",
+      "case": "hurt",
+      "sourceStable": true,
+      "error": null,
+      "raw": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r5/hurt/report.json",
+      "sha256": "9683c5d41c7f4efc93c2f0f15167267b770dfa97f36cdd4639986faeaa2cfc53",
+      "firstNativeDifference": 855,
+      "models": {
+        "legacy": {
+          "steps": 1269,
+          "firstGetup": 696,
+          "firstStand": 1028,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 332,
+          "riseSteps": 149,
+          "bothKneeExtensionTransitions": 148,
+          "availableRiseTransitions": 148,
+          "noFootSolverRiseSteps": {
+            "F": 0,
+            "B": 28
+          },
+          "bothFeetNoSolverRiseSteps": 0,
+          "slipMaxWhole": {
+            "F": 3.5294407346210463,
+            "B": 3.211492418931687
+          },
+          "slipMaxFirstGetup": {
+            "F": 2.27884558396112,
+            "B": 3.211492418931687
+          },
+          "maxGapM": 0.002396172315378878,
+          "minPelvisYBeforeStand": 0.1947994828224182,
+          "maxTiltBeforeStand": 110.169702128595,
+          "maxPelvisVyBeforeStand": 0.6228540539741516,
+          "maxPelvisVyTick": 742,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 332
+          },
+          "lastFootRawN": [
+            125.14034271240234,
+            0
+          ],
+          "lastPelvisY": 0.923055112361908,
+          "lastAlive": true,
+          "postStandTransitions": []
+        },
+        "plant": {
+          "steps": 1269,
+          "firstGetup": 696,
+          "firstStand": 1028,
+          "terminal": "two_seconds_after_player_stand",
+          "getupSteps": 332,
+          "riseSteps": 149,
+          "bothKneeExtensionTransitions": 84,
+          "availableRiseTransitions": 148,
+          "noFootSolverRiseSteps": {
+            "F": 82,
+            "B": 40
+          },
+          "bothFeetNoSolverRiseSteps": 39,
+          "slipMaxWhole": {
+            "F": 4.065569134431537,
+            "B": 3.6613270649359966
+          },
+          "slipMaxFirstGetup": {
+            "F": 4.065569134431537,
+            "B": 3.211492418931687
+          },
+          "maxGapM": 0.002396172315378878,
+          "minPelvisYBeforeStand": 0.1947994828224182,
+          "maxTiltBeforeStand": 110.169702128595,
+          "maxPelvisVyBeforeStand": 0.7203591465950012,
+          "maxPelvisVyTick": 879,
+          "firstFallback": null,
+          "phaseSteps": {
+            "legacy": 159,
+            "place": 10,
+            "landed": 163
+          },
+          "lastFootRawN": [
+            0,
+            13.722585439682007
+          ],
+          "lastPelvisY": 0.873534083366394,
+          "lastAlive": true,
+          "postStandTransitions": []
+        }
+      }
+    }
+  ],
+  "runtimeCandidateRemoved": true,
+  "sourceCleanup": {
+    "fighterAndGaitByteIdenticalToHead": true,
+    "head": "4b010726c6e234de072786dbea7073eb1ccd36cc",
+    "files": {
+      "src/fighter.js": "b73b60b778f364f1032e7a8b262d258a4da43ba0ef7343d542a900fee8eda928",
+      "src/gait.js": "b74787f16687708bbc4ee3d89ec3acf247d561973131fda08cde761488e8d369"
+    },
+    "srcRecoverySequenceExists": false,
+    "allFiveExactCandidatesPreserved": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/candidate-preservation.json",
+    "launcher": "tools/sim/experiments/recovery_sequence_20261008_probe.mjs",
+    "launcherSHA256": "7c35bab7344485bf4ee6cf8c20be88016ddecf70382ddb5e9a2dedf5eb3668cc",
+    "launcherRequiresExternalSource": true,
+    "validatedFrozenFiles": 462,
+    "validationNativeRuns": 0
+  },
+  "nextBoundary": "A coherent torso load-transfer and two-foot support controller is needed; further coefficient tuning of these five rejected candidates or restoration of rejected COM carry is not proposed.",
+  "reproduction": {
+    "repositoryLauncher": "tools/sim/experiments/recovery_sequence_20261008_probe.mjs",
+    "frozenSourceTemplate": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r{iteration}/runtime",
+    "modes": [
+      "natural",
+      "lying",
+      "side",
+      "hurt"
+    ],
+    "validationExample": "node tools/sim/experiments/recovery_sequence_20261008_probe.mjs --source=/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r5/runtime --validate-only",
+    "nativeComparisonExample": "node tools/sim/experiments/recovery_sequence_20261008_probe.mjs --source=/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/r5/runtime --mode=natural --out=/tmp/recovery-r5-fresh",
+    "outputMustBeFreshAbsoluteDirectory": true,
+    "executedDuringCleanup": "validationExample only; nativeRuns=0"
+  }
+}

@@ -29,6 +29,7 @@ import { applyBudgetedCutResistance } from './cut_reaction.js';
 import { applyCenterlineCutImpulse, centerlineCutEnabled } from './cut_centerline.js';
 import { resolveFinishRule, effectiveFinishEnergy, FINISH_POWER } from './finish_rule.js';
 import { strikeArmAssist } from './arm_support.js';
+import { lowFinishEnabled, lowFinishPosture } from './finish_entry.js';
 
 // 전투 사건 갈고리 (gun.js GUN_HOOKS 와 같은 식): 비어 있으면 아무 일도 없다. 판정·난수와 무관
 //  onDecapitate(f, headBody): 참수된 순간 한 번 (fighter.applyWound, die 뒤) — 사운드 PM 이 소리를 건다
@@ -228,7 +229,9 @@ export class Combat {
     //  찍기가 끝난 뒤·돌아오는 중 (thrustPush) · 자세 지도로 친 내려찍기·AI 내려베기 (tap 없음) · 베기·둔기·날 없는 무기 (stab) ·
     //  팔다리 (부위) · 내가 넘어졌을 때 (att.state) · 다른 상대 (att.foe). 판단만 한다 — 예측(predicting)·측정 도구가 불러도 부작용 없음
     const tp = att.skill?.tap;
-    let finish = type === 'stab' && !!tp?.down && !!tp.go && !!att.skill.thrustPush && (att.state === 'stand' || att.state === 'kneel') && vic === att.foe && vic.state === 'down' && FINISH_PARTS.has(pr.v.part);
+    const lowFinish = lowFinishEnabled(att);
+    const finishTarget = lowFinish ? tp?.foe === vic && !tp.abort && !tp.ended && lowFinishPosture(att, vic, true, predicting) : vic.state === 'down';
+    let finish = type === 'stab' && !!tp?.down && !!tp.go && !!att.skill.thrustPush && (att.state === 'stand' || att.state === 'kneel') && vic === att.foe && finishTarget && FINISH_PARTS.has(pr.v.part);
     const finishRuleModel = this.finishRuleFighter && att !== this.finishRuleFighter ? 'legacy' : this.finishRuleModel;
     // Committed contact and automatic death are separate. Ordinary power mode
     // keeps only the former; armor and normal wounds still decide lethality.

@@ -32,6 +32,21 @@
   <h1>물리·무기 시험</h1>
   <p>일반 게임은 무기 이름 대신 기능에 맞춰 개선을 적용합니다. 회복은 모든 무기, 재베기는 근접 무기, 타격 반작용은 날이 있는 무기에 공통 적용됩니다. 최신 마무리는 갑옷 판정을 거치는 2.5배 내려찍기이며 자동 즉사하지 않습니다. 아래 A/B는 이전 비교 규칙을 보존합니다.</p>
   <p><a class="play" href="./">▶ 최신 일반 게임</a></p>
+  <section id="movement-fix" aria-labelledby="movement-fix-title">
+    <h2 id="movement-fix-title">내려찍기 진입·접근 교정</h2>
+    <p>B는 상대 상체가 충분히 낮을 때 내려찍기를 준비하고, 필요한 거리까지 걸어 들어갑니다. 상대가 실제로 일어서면 공격을 거둡니다. 높은 무릎 꿇기에는 보통 찌르기를 사용합니다.</p>
+    <p class="note">두 판의 검술 보정 v2·중력·무기 위력·갑옷 규칙은 같습니다. 기립 다리 순서 교정은 아직 포함하지 않았습니다. 상대를 쓰러뜨린 뒤 톡 눌러 접근·찍기·복귀를 비교하세요.</p>
+    <h3>롱소드</h3>
+    <div class="demos">
+      <a class="play secondary" href="./?movementFix=baseline&amp;weapon=longsword">▶ A · 현재 방식</a>
+      <a class="play" href="./?movementFix=finish&amp;weapon=longsword">▶ B · 교정</a>
+    </div>
+    <h3>청강검</h3>
+    <div class="demos">
+      <a class="play secondary" href="./?movementFix=baseline&amp;weapon=qinggang">▶ A · 현재 방식</a>
+      <a class="play" href="./?movementFix=finish&amp;weapon=qinggang">▶ B · 교정</a>
+    </div>
+  </section>
   <section id="finish-v2-comparison" aria-labelledby="finish-v2-title">
     <h2 id="finish-v2-title">갑옷에 막힌 마무리 · 이전 A/B</h2>
     <p><a id="playFinishPower" class="play" href="./?weapon=longsword&amp;foe=heinrich">▶ 최신 일반판 · 2.5배 내려찍기</a></p>

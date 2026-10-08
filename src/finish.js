@@ -21,6 +21,7 @@
 import * as THREE from 'three';
 import { MEASURED } from './ai.js';
 import { ARM } from './config.js';
+import { lowFinishEnabled, lowFinishPosture } from './finish_entry.js';
 
 export const FINISH = {
   range: 1.7, // 누운 몸통이 내 가슴에서 이 수평 거리(m) 안이면 마무리 자세
@@ -107,7 +108,10 @@ export function updateFinish(f, dt) {
   fin.k ??= downReachK(f.weapon?.id); // 무기 배율 (한 판 동안 같다)
   fin.gap ??= { contact: FINISH.ai.contact * fin.k, reach: FINISH.ai.reach * fin.k, clinch: FINISH.ai.clinch * fin.k }; // AI 가 읽는 간격
   let on = false;
-  if (foe && foe.state === 'down' && f.alive && f.armed && (f.state === 'stand' || f.state === 'kneel')) {
+  const low = lowFinishEnabled(f), tap = f.skill?.tap;
+  const continuing = !!(tap?.down && !tap.abort && !tap.ended && tap.foe === foe);
+  if (low) fin.canStart = false;
+  if (foe && (low ? lowFinishPosture(f, foe, continuing) : foe.state === 'down') && f.alive && f.armed && (f.state === 'stand' || f.state === 'kneel')) {
     const c = f.bodies.chest.translation();
     _c.set(c.x, c.y, c.z);
     _yawInv.copy(f.yaw).invert();
@@ -134,6 +138,13 @@ export function updateFinish(f, dt) {
       const sp = el2 > 1e-6 ? THREE.MathUtils.clamp(((FINISH.plungeAt * fin.k - _a.x) * ex + (0 - _a.z) * ez) / el2, 0, 1) : 0;
       _tp.copy(_a).lerp(_b, sp);
       aimPoses(f, fin, _t, _tp);
+      if (low) {
+        // Reaching the body's near surface suffices; the old sink target may
+        // be beyond a short/broken weapon even when it can make contact.
+        const pl = fin.plunge;
+        on = pl.surfaceInside || pl.surfaceWalk;
+        fin.canStart = on && lowFinishPosture(f, foe, false);
+      }
     }
   }
   fin.on = on;
@@ -231,6 +242,11 @@ function aimPoses(f, fin, T, Tp) {
   //   그때 걸으면 몸 점이 발밑 뒤로 지나가 마무리가 꺼질 뿐이었다 (측정: 부러진 롱소드 0.66m 가 누운 몸을 넘어 걸어가 찍지 못함,
   //   팔쉬온 18판 중 4판) → 걷지 않고 선 자리에서 찍는다
   pl.walk = !pl.inside && Tp.x > _Hs[0] && _Hs[1] - Tp.y + FINISH.sink - L <= armRay(_Hs, DOWN, side);
+  if (lowFinishEnabled(f)) {
+    pl.surfaceInside = pn - FINISH.top - L <= pl.Dmax;
+    pl.surfaceWalk = !pl.surfaceInside && Tp.x > _Hs[0] && _Hs[1] - Tp.y - FINISH.top - L <= armRay(_Hs, DOWN, side);
+    pl.surfaceShort = pl.surfaceInside ? 0 : Math.max(0, (pn - FINISH.top - L - pl.Dmax) / Math.max(1e-6, Math.hypot(u[0], u[2])));
+  }
   const tip = pl.tip;
   tip[0] = Tp.x + u[0] * FINISH.sink;
   tip[1] = Tp.y + u[1] * FINISH.sink;

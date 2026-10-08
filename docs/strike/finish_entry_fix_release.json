@@ -1,0 +1,798 @@
+{
+  "schema": 1,
+  "date": "2026-10-08",
+  "baseCommit": "4b010726c6e234de072786dbea7073eb1ccd36cc",
+  "decision": {
+    "finish": "optional A/B only; ordinary finish entry remains legacy",
+    "recovery": "five candidates rejected; fighter.js and gait.js restored byte-identical to base; incomplete",
+    "generalPromotion": false
+  },
+  "delivery": {
+    "status": "local verified; public verification pending",
+    "commit": null,
+    "pagesRun": null,
+    "selector": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#movement-fix",
+    "bLongsword": "https://yoonjl-svg.github.io/halfsword-codex/?movementFix=finish&weapon=longsword",
+    "bQinggang": "https://yoonjl-svg.github.io/halfsword-codex/?movementFix=finish&weapon=qinggang",
+    "main": {
+      "name": "dist/assets/main-BIpUS0O6.js",
+      "sha256": "3fb783c6ff0568993bf0612f2b85fdaf4b6e86b157c88b551761f8508e82467a",
+      "bytes": 3556612,
+      "match": true
+    }
+  },
+  "connection": {
+    "passed": 39,
+    "fixtures": 42,
+    "nativeSteps": 0,
+    "sourceStable": true,
+    "path": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/finish-tests/run08.json",
+    "sha256": "4d5449c0131b3eb30b1711104a9f772ae4543213543393bb5505e412c22a26b9"
+  },
+  "powerRegression": {
+    "passed": 58,
+    "power": 2.5,
+    "nativeSteps": 0,
+    "path": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/finish-tests/power-regression.json",
+    "sha256": "2321bc882fdde58502223eec179436cff3dc2a443052f3ab3705da9ea92f6e07"
+  },
+  "native": {
+    "executionPassed": true,
+    "executions": 14,
+    "steps": 18480,
+    "sourceStable": true,
+    "comparisons": [
+      {
+        "name": "high",
+        "sameSpawn": true,
+        "sameRequestedInput": true,
+        "firstNativeDifference": 240
+      },
+      {
+        "name": "low",
+        "sameSpawn": true,
+        "sameRequestedInput": true,
+        "firstNativeDifference": 240
+      },
+      {
+        "name": "kneel",
+        "sameSpawn": true,
+        "sameRequestedInput": true,
+        "firstNativeDifference": -1
+      },
+      {
+        "name": "ground",
+        "sameSpawn": true,
+        "sameRequestedInput": true,
+        "firstNativeDifference": 70
+      },
+      {
+        "name": "qinggang",
+        "sameSpawn": true,
+        "sameRequestedInput": true,
+        "firstNativeDifference": -1
+      },
+      {
+        "name": "rapierPlate",
+        "sameSpawn": true,
+        "sameRequestedInput": true,
+        "firstNativeDifference": 86
+      },
+      {
+        "name": "broken",
+        "sameSpawn": true,
+        "sameRequestedInput": true,
+        "firstNativeDifference": 70
+      }
+    ],
+    "rows": [
+      {
+        "case": "high",
+        "model": "legacy",
+        "steps": 1320,
+        "sha256": "60b2b892ceaa27f51af5c571cb4f03624fa44cac3cf8ad0ac1c934a2a77479c8",
+        "taps": [
+          {
+            "tick": 256,
+            "accepted": true,
+            "down": true,
+            "foeState": "down",
+            "chestY": 1.310522437095642,
+            "pelvisY": 0.9558015465736389,
+            "distance": 1.5526576620942212,
+            "on": true,
+            "amt": 0.5333333333333333
+          }
+        ],
+        "zeroMoveWalkSteps": 249,
+        "contacts": [],
+        "final": {
+          "states": [
+            "stand",
+            "stand"
+          ],
+          "alive": [
+            true,
+            true
+          ],
+          "wounds": [
+            0,
+            0
+          ],
+          "tapPending": false
+        },
+        "error": null
+      },
+      {
+        "case": "high",
+        "model": "low",
+        "steps": 1320,
+        "sha256": "0cc3616d314b47169f8662ad409a3ad4094e2b54375e627c14ce76c693ed9a30",
+        "taps": [
+          {
+            "tick": 256,
+            "accepted": true,
+            "down": false,
+            "foeState": "down",
+            "chestY": 1.310517430305481,
+            "pelvisY": 0.955801784992218,
+            "distance": 1.5564007536902074,
+            "on": false,
+            "amt": 0,
+            "canStart": false
+          }
+        ],
+        "zeroMoveWalkSteps": 0,
+        "contacts": [],
+        "final": {
+          "states": [
+            "stand",
+            "stand"
+          ],
+          "alive": [
+            true,
+            true
+          ],
+          "wounds": [
+            0,
+            3
+          ],
+          "tapPending": false
+        },
+        "error": null
+      },
+      {
+        "case": "low",
+        "model": "legacy",
+        "steps": 1320,
+        "sha256": "c8ec260a37fd6988fe9feebd6f6c1ff49e5b9ab23f2bc85c7551569fcfb2254f",
+        "taps": [
+          {
+            "tick": 498,
+            "accepted": true,
+            "down": true,
+            "foeState": "down",
+            "chestY": 0.5377103090286255,
+            "pelvisY": 0.4721362888813019,
+            "distance": 0.445265879113974,
+            "on": true,
+            "amt": 1
+          }
+        ],
+        "zeroMoveWalkSteps": 0,
+        "contacts": [],
+        "final": {
+          "states": [
+            "stand",
+            "stand"
+          ],
+          "alive": [
+            true,
+            true
+          ],
+          "wounds": [
+            0,
+            0
+          ],
+          "tapPending": false
+        },
+        "error": null
+      },
+      {
+        "case": "low",
+        "model": "low",
+        "steps": 1320,
+        "sha256": "494ddc8b4885c344aa383b7f803bc150c0cdf0bdbe8ae5b90ae8d794ca9026f2",
+        "taps": [
+          {
+            "tick": 498,
+            "accepted": true,
+            "down": true,
+            "foeState": "down",
+            "chestY": 0.2062072902917862,
+            "pelvisY": 0.20420163869857788,
+            "distance": 0.6980153670462279,
+            "on": true,
+            "amt": 1,
+            "canStart": true
+          }
+        ],
+        "zeroMoveWalkSteps": 0,
+        "contacts": [],
+        "final": {
+          "states": [
+            "stand",
+            "stand"
+          ],
+          "alive": [
+            true,
+            true
+          ],
+          "wounds": [
+            0,
+            0
+          ],
+          "tapPending": false
+        },
+        "error": null
+      },
+      {
+        "case": "kneel",
+        "model": "legacy",
+        "steps": 1320,
+        "sha256": "873dae4f6e0128537f9ab747dddd1de97f7e1fb9506ee73e26a3f00abe853b0a",
+        "taps": [
+          {
+            "tick": 681,
+            "accepted": true,
+            "down": false,
+            "foeState": "kneel",
+            "chestY": 0.9164435863494873,
+            "pelvisY": 0.5673409104347229,
+            "distance": 1.4061784743595738,
+            "on": false,
+            "amt": 0
+          }
+        ],
+        "zeroMoveWalkSteps": 0,
+        "contacts": [],
+        "final": {
+          "states": [
+            "stand",
+            "kneel"
+          ],
+          "alive": [
+            true,
+            true
+          ],
+          "wounds": [
+            0,
+            0
+          ],
+          "tapPending": false
+        },
+        "error": null
+      },
+      {
+        "case": "kneel",
+        "model": "low",
+        "steps": 1320,
+        "sha256": "b45820bd7a0777a4aaa5c14d88e72842f8ff1476fe29b38382b7767e391c708d",
+        "taps": [
+          {
+            "tick": 681,
+            "accepted": true,
+            "down": false,
+            "foeState": "kneel",
+            "chestY": 0.9164435863494873,
+            "pelvisY": 0.5673409104347229,
+            "distance": 1.4061784743595738,
+            "on": false,
+            "amt": 0,
+            "canStart": false
+          }
+        ],
+        "zeroMoveWalkSteps": 0,
+        "contacts": [],
+        "final": {
+          "states": [
+            "stand",
+            "kneel"
+          ],
+          "alive": [
+            true,
+            true
+          ],
+          "wounds": [
+            0,
+            0
+          ],
+          "tapPending": false
+        },
+        "error": null
+      },
+      {
+        "case": "ground",
+        "model": "legacy",
+        "steps": 1320,
+        "sha256": "bfd1ab42b330d8c6c69ab6b3e65e8d005d03eae05283d0efc22f05d14afeb259",
+        "taps": [
+          {
+            "tick": 511,
+            "accepted": true,
+            "down": true,
+            "foeState": "down",
+            "chestY": 0.1554325371980667,
+            "pelvisY": 0.12722726166248322,
+            "distance": 1.1454109500604814,
+            "on": true,
+            "amt": 1
+          }
+        ],
+        "zeroMoveWalkSteps": 809,
+        "contacts": [],
+        "final": {
+          "states": [
+            "stand",
+            "down"
+          ],
+          "alive": [
+            true,
+            true
+          ],
+          "wounds": [
+            0,
+            0
+          ],
+          "tapPending": true
+        },
+        "error": null
+      },
+      {
+        "case": "ground",
+        "model": "low",
+        "steps": 1320,
+        "sha256": "5584adc80a593919277c677b0fd560faaf314ea03f9fba94801cbc5107bd398e",
+        "taps": [
+          {
+            "tick": 511,
+            "accepted": true,
+            "down": true,
+            "foeState": "down",
+            "chestY": 0.15533402562141418,
+            "pelvisY": 0.1272263526916504,
+            "distance": 1.1417703660203014,
+            "on": true,
+            "amt": 1,
+            "canStart": true
+          }
+        ],
+        "zeroMoveWalkSteps": 0,
+        "contacts": [
+          {
+            "tick": 659,
+            "type": "stab",
+            "zone": "chest",
+            "energy": 30.217415424890085,
+            "eff": 75.54353856222521,
+            "thr": 25,
+            "severity": 0.8423923093704201,
+            "pass": true,
+            "finishingStrike": true,
+            "finishPower": 2.5,
+            "armorBlocked": false,
+            "part": "chest",
+            "foeState": "down",
+            "tapDown": true,
+            "tapGo": true,
+            "push": true,
+            "point": [
+              -0.12997639775602182,
+              0.26075016562490083,
+              0.08876054661203275
+            ]
+          },
+          {
+            "tick": 660,
+            "type": "stab",
+            "zone": "abdomen",
+            "energy": 18.407379607968174,
+            "eff": 46.01844901992044,
+            "thr": 18,
+            "severity": 0.46697415033200734,
+            "pass": true,
+            "finishingStrike": true,
+            "finishPower": 2.5,
+            "armorBlocked": false,
+            "part": "abdomen",
+            "foeState": "down",
+            "tapDown": true,
+            "tapGo": true,
+            "push": true,
+            "point": [
+              -0.0769933351985202,
+              0.25259993718388607,
+              0.09106079500149891
+            ]
+          }
+        ],
+        "final": {
+          "states": [
+            "stand",
+            "down"
+          ],
+          "alive": [
+            true,
+            true
+          ],
+          "wounds": [
+            0,
+            2
+          ],
+          "tapPending": false
+        },
+        "error": null
+      },
+      {
+        "case": "qinggang",
+        "model": "legacy",
+        "steps": 1320,
+        "sha256": "9a14b66c487c65419d2100e99e6058313835913aef39f4c49182c6669b77e2a9",
+        "taps": [
+          {
+            "tick": 473,
+            "accepted": true,
+            "down": true,
+            "foeState": "down",
+            "chestY": 0.15477444231510162,
+            "pelvisY": 0.12737131118774414,
+            "distance": 0.6051938160412971,
+            "on": true,
+            "amt": 1
+          }
+        ],
+        "zeroMoveWalkSteps": 0,
+        "contacts": [
+          {
+            "tick": 632,
+            "type": "stab",
+            "zone": "chest",
+            "energy": 8.390783142093408,
+            "eff": 26.5358516868704,
+            "thr": 25,
+            "severity": 0.025597528114506694,
+            "pass": false,
+            "finishingStrike": true,
+            "finishPower": 2.5,
+            "armorBlocked": false,
+            "part": "chest",
+            "foeState": "down",
+            "tapDown": true,
+            "tapGo": true,
+            "push": true,
+            "point": [
+              -0.2430791154702509,
+              0.24869757316079089,
+              0.15442297110534797
+            ]
+          }
+        ],
+        "final": {
+          "states": [
+            "stand",
+            "down"
+          ],
+          "alive": [
+            true,
+            true
+          ],
+          "wounds": [
+            0,
+            1
+          ],
+          "tapPending": false
+        },
+        "error": null
+      },
+      {
+        "case": "qinggang",
+        "model": "low",
+        "steps": 1320,
+        "sha256": "19d5292aaff5c972176bb70ec4c133244faff2646ae389e127af87c1ea796c01",
+        "taps": [
+          {
+            "tick": 473,
+            "accepted": true,
+            "down": true,
+            "foeState": "down",
+            "chestY": 0.15477444231510162,
+            "pelvisY": 0.12737131118774414,
+            "distance": 0.6051938160412971,
+            "on": true,
+            "amt": 1,
+            "canStart": true
+          }
+        ],
+        "zeroMoveWalkSteps": 0,
+        "contacts": [
+          {
+            "tick": 632,
+            "type": "stab",
+            "zone": "chest",
+            "energy": 8.390783142093408,
+            "eff": 26.5358516868704,
+            "thr": 25,
+            "severity": 0.025597528114506694,
+            "pass": false,
+            "finishingStrike": true,
+            "finishPower": 2.5,
+            "armorBlocked": false,
+            "part": "chest",
+            "foeState": "down",
+            "tapDown": true,
+            "tapGo": true,
+            "push": true,
+            "point": [
+              -0.2430791154702509,
+              0.24869757316079089,
+              0.15442297110534797
+            ]
+          }
+        ],
+        "final": {
+          "states": [
+            "stand",
+            "down"
+          ],
+          "alive": [
+            true,
+            true
+          ],
+          "wounds": [
+            0,
+            1
+          ],
+          "tapPending": false
+        },
+        "error": null
+      },
+      {
+        "case": "rapierPlate",
+        "model": "legacy",
+        "steps": 1320,
+        "sha256": "2cbbf0ccfc9bbde65f049ad997b7a0edb8c13824f0b54fd4b5cd5688f0a5d4d6",
+        "taps": [
+          {
+            "tick": 493,
+            "accepted": true,
+            "down": true,
+            "foeState": "down",
+            "chestY": 0.15522697567939758,
+            "pelvisY": 0.12721429765224457,
+            "distance": 1.132119063897019,
+            "on": true,
+            "amt": 1
+          }
+        ],
+        "zeroMoveWalkSteps": 827,
+        "contacts": [],
+        "final": {
+          "states": [
+            "stand",
+            "down"
+          ],
+          "alive": [
+            true,
+            true
+          ],
+          "wounds": [
+            0,
+            0
+          ],
+          "tapPending": true
+        },
+        "error": null
+      },
+      {
+        "case": "rapierPlate",
+        "model": "low",
+        "steps": 1320,
+        "sha256": "c81a7f27f2716f21451ae6748f811125ec4f2506502c1d6b01e8c88d30e80e02",
+        "taps": [
+          {
+            "tick": 493,
+            "accepted": true,
+            "down": true,
+            "foeState": "down",
+            "chestY": 0.15526911616325378,
+            "pelvisY": 0.12720733880996704,
+            "distance": 1.1316423225185317,
+            "on": true,
+            "amt": 1,
+            "canStart": true
+          }
+        ],
+        "zeroMoveWalkSteps": 0,
+        "contacts": [
+          {
+            "tick": 685,
+            "type": "stab",
+            "zone": "pelvis",
+            "energy": 27.686379665698112,
+            "eff": 94.47977060919483,
+            "thr": 19.03,
+            "severity": 1.2574961768199138,
+            "pass": true,
+            "finishingStrike": true,
+            "finishPower": 2.5,
+            "armorBlocked": false,
+            "part": "pelvis",
+            "foeState": "down",
+            "tapDown": true,
+            "tapGo": true,
+            "push": true,
+            "point": [
+              0.1490754779386957,
+              0.22902873214952119,
+              0.07691545836527891
+            ]
+          }
+        ],
+        "final": {
+          "states": [
+            "stand",
+            "down"
+          ],
+          "alive": [
+            true,
+            true
+          ],
+          "wounds": [
+            0,
+            1
+          ],
+          "tapPending": false
+        },
+        "error": null
+      },
+      {
+        "case": "broken",
+        "model": "legacy",
+        "steps": 1320,
+        "sha256": "9eec6663391b031168bb9d4b1585e795e757bc5730c1b0f531990b2116156319",
+        "taps": [
+          {
+            "tick": 512,
+            "accepted": true,
+            "down": true,
+            "foeState": "down",
+            "chestY": 0.1554269790649414,
+            "pelvisY": 0.12723013758659363,
+            "distance": 1.1506829916609205,
+            "on": true,
+            "amt": 1
+          }
+        ],
+        "zeroMoveWalkSteps": 0,
+        "contacts": [],
+        "final": {
+          "states": [
+            "stand",
+            "down"
+          ],
+          "alive": [
+            true,
+            true
+          ],
+          "wounds": [
+            0,
+            0
+          ],
+          "tapPending": true
+        },
+        "error": null
+      },
+      {
+        "case": "broken",
+        "model": "low",
+        "steps": 1320,
+        "sha256": "7927a8a7b852347f7064646adb2491945072bcda3c1ac8b55afe27fcc7becf92",
+        "taps": [
+          {
+            "tick": 512,
+            "accepted": true,
+            "down": false,
+            "foeState": "down",
+            "chestY": 0.1553362011909485,
+            "pelvisY": 0.12722378969192505,
+            "distance": 1.174629049450495,
+            "on": false,
+            "amt": 0,
+            "canStart": false
+          }
+        ],
+        "zeroMoveWalkSteps": 0,
+        "contacts": [],
+        "final": {
+          "states": [
+            "stand",
+            "down"
+          ],
+          "alive": [
+            true,
+            true
+          ],
+          "wounds": [
+            0,
+            0
+          ],
+          "tapPending": false
+        },
+        "error": null
+      }
+    ],
+    "path": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/finish/final/report.json",
+    "sha256": "f8c6a3cd5cb41dafa42186550fd0f95b8ec8f85d464fa7a5f72323ba45aaca7b",
+    "protocol": {
+      "path": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/finish/final/protocol.json",
+      "sha256": "315312043c74cec8fc959860207c454a7ca213ace8faec94d8172527f2c8a316"
+    },
+    "sourceDifferencesToDelivery": {
+      "src/skill.js": {
+        "native": "567f0920a856df7247ee15173dafe1bd898851de89aecd661f6bcb985f042f93",
+        "delivery": "c5bf33bdf887ccd8ce933be8eb3e53ac2ac2978b0a859829ad94d3aeb0f4def8"
+      }
+    },
+    "reuseScope": "Final native run predates stationary reach-loss guard in Skill. All accepted special taps in these traces have standing attacker and walkOk=true; the added branch is not exposed. Final stationary AI/kneel/reach-loss behavior uses three added connection cases (39 total), not a claim of exact final-source native replay.",
+    "metadataCorrection": "protocol preparation says breakSword; actual frozen code calls game breakWeapon. Do not rewrite frozen metadata."
+  },
+  "regression": {
+    "pass": true,
+    "sourceStable": true,
+    "cacheUsed": false,
+    "suites": 6,
+    "fingerprint": "668fae2ae5cb39e809121c52bb92d04629d40b6a1c98eaec870bcf63e2221f15",
+    "path": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/regression-final2/result.json",
+    "sha256": "e2db2c389231d8e6d90b5df95d1860190a5df9fdf7264d3e96155b40531fd8a0"
+  },
+  "mobileLocal": {
+    "pass": true,
+    "sourceStable": true,
+    "buildStable": true,
+    "flows": 4,
+    "ordinaryAndInvalidMenu": true,
+    "realPhone": false,
+    "path": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/mobile/local01/report.json",
+    "sha256": "ca4b8d006bb9e730b566fc1beb971f7772a10e1468c4526d786a2888b4d471c5",
+    "checks": {
+      "path": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/mobile/local01/checks.json",
+      "sha256": "0d20ac4408aa36e4e0eb975b53d8d4139d62181ae8cf4e0fbf301246cd7c7ef9"
+    }
+  },
+  "mobilePublic": null,
+  "recovery": {
+    "candidates": 5,
+    "executions": 40,
+    "nativeSteps": 56290,
+    "accepted": 0,
+    "repeatedBaselinesAreNotIndependentSamples": true,
+    "details": "recovery_sequence_20261008.json",
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/recovery/receipt.json",
+      "sha256": "dc35ef1dd26f9527e226e12c44bdff7050c0f19adbef5f8c23c2de01bb0a95cb"
+    }
+  },
+  "failedWork": {
+    "nativeR1": "native position read in prediction hook caused engine re-entry error; incomplete raw preserved, excluded from pass count",
+    "nativeR2": "surface-only stop reached chest with 15.32J below 25J wound threshold; corrected approach depth, no force gain",
+    "nativeR3Qinggang": "far preparation outside finish range; retained as range rejection and added near preparation",
+    "regressionFinal": "stopped intentionally before completion to add stationary reach-loss correction; superseded by regression-final2, not counted as passed"
+  },
+  "limits": [
+    "Prepared deterministic contacts, not natural-combat frequency or human-motion proof.",
+    "Rapier plate-equipped contact hit pelvis, not breastplate.",
+    "Short low getup opening can still end before contact; no forced hit or recovery delay.",
+    "Browser mobile viewport and trusted touch do not replace physical-phone judgment.",
+    "Recovery remains unresolved; no failed candidate exposed."
+  ]
+}

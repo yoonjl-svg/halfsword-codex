@@ -20,6 +20,7 @@
 //  먼저 읽고 물러나거나 먼저 쳐야 한다. 그래서 간격 지키기가 가장 중요한 방어다.
 // ─────────────────────────────────────────────────────────────
 import * as THREE from 'three';
+import { lowFinishEnabled, lowFinishPosture } from './finish_entry.js';
 import { AI_LEVELS, ARENA, BODY, SKILL, CLOSE } from './config.js';
 import { Senses } from './ai_sense.js';
 import { padDist } from './ai_techniques.js';
@@ -307,7 +308,7 @@ export class AI {
     }
 
     // 쓰러진 상대: 서 있는 상대의 간격 대신 누운 몸을 내려칠 간격(finish.js FINISH.ai × 무기 배율, 파이터의 finish.gap)을 쓴다
-    const downGap = foe.state === 'down' && me.finish?.gap;
+    const downGap = (lowFinishEnabled(me) ? lowFinishPosture(me, foe, !!(me.skill?.tap?.down && me.skill.tap.foe === foe && !me.skill.tap.abort && !me.skill.tap.ended)) : foe.state === 'down') && me.finish?.gap;
     if (downGap && !this.Mup) {
       this.Mup = this.M; // 서 있는 상대의 간격 (상대가 일어나면 되돌린다)
       this.M = { ...this.M, ...downGap };
