@@ -1,6 +1,6 @@
 {
-  "status": "awaiting-public-deployment",
-  "publicVerified": false,
+  "status": "delivered-and-public-mobile-verified",
+  "publicVerified": true,
   "sourceSHA256": {
     "src/combat.js": "25cba2e1def8ae2856c89b198af0ad238453e29a1eb0be93192b3e19138c7df8",
     "src/finish_rule.js": "2baed3d0c5d0e290166446884e3e037488fa6d88fff5c8cc5dd30eb390e3b9c5",
@@ -21,5 +21,120 @@
   "urls": {
     "ordinary": "https://yoonjl-svg.github.io/halfsword-codex/",
     "armorOpponent": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=longsword&foe=heinrich"
-  }
+  },
+  "sourceCommit": "7fd7f5927681d7ede9eb21b3870970cd5462d4db",
+  "deployment": {
+    "conclusion": "success",
+    "createdAt": "2026-10-08T05:20:13Z",
+    "headSha": "7fd7f5927681d7ede9eb21b3870970cd5462d4db",
+    "status": "completed",
+    "updatedAt": "2026-10-08T05:20:49Z",
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37731857137"
+  },
+  "publicMobile": {
+    "pass": true,
+    "head": "7fd7f5927681d7ede9eb21b3870970cd5462d4db",
+    "wallMs": 121931.20984099999,
+    "requested": 546,
+    "uniqueArtifacts": 145,
+    "sourceStable": true,
+    "buildStable": true,
+    "errors": [],
+    "ordinary": [
+      {
+        "weapon": "longsword",
+        "steps": 326,
+        "pauseFrozen": true,
+        "nativeEvents": 24,
+        "policies": {
+          "finish": "power",
+          "finishTarget": "both",
+          "v2": "unified",
+          "arm": "manual",
+          "roll": "bounded",
+          "gravity": -9.81,
+          "startHold": 2,
+          "limb": true,
+          "defaultActive": true,
+          "supportProbe": false
+        },
+        "firstMovementDelta": {
+          "x": -0.027210235595703125,
+          "z": -0.008460236713290215
+        },
+        "restartMovementDelta": {
+          "x": -0.0253908634185791,
+          "z": -0.007840007543563843
+        }
+      },
+      {
+        "weapon": "rapier",
+        "steps": 323,
+        "pauseFrozen": true,
+        "nativeEvents": 24,
+        "policies": {
+          "finish": "power",
+          "finishTarget": "both",
+          "v2": "unified",
+          "arm": "manual",
+          "roll": "bounded",
+          "gravity": -9.81,
+          "startHold": 2,
+          "limb": true,
+          "defaultActive": true,
+          "supportProbe": false
+        },
+        "firstMovementDelta": {
+          "x": -0.014578580856323242,
+          "z": -0.028422925621271133
+        },
+        "restartMovementDelta": {
+          "x": -0.024612903594970703,
+          "z": -0.007590841501951218
+        }
+      }
+    ],
+    "archived": [
+      {
+        "weapon": "longsword",
+        "mode": "baseline",
+        "model": "legacy",
+        "target": "player"
+      },
+      {
+        "weapon": "longsword",
+        "mode": "armor",
+        "model": "armorGuard",
+        "target": "player"
+      },
+      {
+        "weapon": "rapier",
+        "mode": "baseline",
+        "model": "legacy",
+        "target": "player"
+      },
+      {
+        "weapon": "rapier",
+        "mode": "armor",
+        "model": "armorGuard",
+        "target": "player"
+      }
+    ],
+    "reportSHA256": "3b1b02ef49a0b0a84e0429000e2929970b3ecb6d3bafebe2088496fc948914ec"
+  },
+  "publicPlan": {
+    "pass": true,
+    "bytes": 90395,
+    "sha256": "4f088319eb9c0fcc5cb980330b11c28e35ec159293726429b9c96cb5c2b61a01",
+    "reportSHA256": "500a7eaafeb3df6c9a8b93d4eda22cc66a2583d011e55b1b61ca56021e6d7d77"
+  },
+  "localDocumentRefresh": {
+    "originalReportSHA256": "522d0065265155c57d913a407f45fa420f5041a0614bcf3b3bf0863673123995",
+    "refreshedEvidenceSHA256": "9e34613e348d807d1a495caa5b593c3b2bced10216178136595d2287536cfb02",
+    "scope": "Only dist/development-plan.html changed; existing mobile gameplay evidence reused, current plan fetched/read at390px without overflow."
+  },
+  "limits": [
+    "Mobile Chromium emulation, not physical Safari or prolonged play.",
+    "Controlled actual contacts and component damage bounds, not universal natural-fight balance."
+  ]
 }
