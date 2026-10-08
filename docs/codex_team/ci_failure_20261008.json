@@ -1,0 +1,158 @@
+{
+  "status": "local-verified-remote-pending",
+  "baselineCommit": "e6feea744e0ccfcec664ae10a5a8a75e0db1bbcd",
+  "failedRun": {
+    "id": 37735533331,
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37735533331",
+    "checkoutSHA": "1628db8b33eb8632325608d425e9d817b091b161",
+    "annotations": {
+      "failure": 1,
+      "warning": 1,
+      "notice": 1
+    },
+    "failedSuite": "cut_reaction",
+    "cause": "Partial edged-blade fixture omitted weaponCfg, newly read by real afterStep spike-head dispatch. No runtime Fighter lacks this field."
+  },
+  "changedRuntime": false,
+  "changedAssertionsOrTolerances": false,
+  "fixtureFile": {
+    "path": "tools/sim/experiments/cut_reaction_candidate.test.mjs",
+    "sha256": "71d70cb25c4c0930235a38ab62b31c78102e121e794583e7da44dfa2d684069e",
+    "bytes": 24672
+  },
+  "reproduction": {
+    "before": {
+      "path": "/workspace/halfsword-handoff/ci-audit-20261008/regression/before.json",
+      "sha256": "6c078d8ce6b7726a830942c65027766065fa8ad17aa3d46a285437112644cd39",
+      "bytes": 1103597
+    },
+    "after": {
+      "path": "/workspace/halfsword-handoff/ci-audit-20261008/regression/after.json",
+      "sha256": "5ac64c4f631305b36a4bde1504ff5f33a7f83d3b5431807e5f2d7def34fb2f3b",
+      "bytes": 810713
+    },
+    "beforeFailed": 14,
+    "afterFailed": 0,
+    "cases": 33
+  },
+  "localFull": {
+    "report": {
+      "path": "/workspace/halfsword-handoff/ci-audit-20261008/regression/full-local/result.json",
+      "sha256": "ebcfb45195f4098773c2845e2af09295bed7fc2e748203030353438e7e6d7423",
+      "bytes": 288565
+    },
+    "pass": true,
+    "sourceStable": true,
+    "cacheUsed": false,
+    "wallSeconds": 191.22047481700065,
+    "fingerprint": "f73e53d0085a1bfd357841cdbc1f64e898a573b33da796bb3f5a652c58a91de6",
+    "testResults": [
+      {
+        "id": "force_ledger",
+        "pass": true,
+        "exitCode": 0,
+        "observedCounts": {
+          "tests": 11
+        },
+        "wallSeconds": 3.596274398998503
+      },
+      {
+        "id": "grip_reaction",
+        "pass": true,
+        "exitCode": 0,
+        "observedCounts": {
+          "fixtures": 17
+        },
+        "wallSeconds": 0.7810829679983726
+      },
+      {
+        "id": "cut_reaction",
+        "pass": true,
+        "exitCode": 0,
+        "observedCounts": {
+          "tests": 33
+        },
+        "wallSeconds": 0.42041947600228013
+      },
+      {
+        "id": "arm_capacity",
+        "pass": true,
+        "exitCode": 0,
+        "observedCounts": {
+          "tests": 4
+        },
+        "wallSeconds": 2.826883732999704
+      },
+      {
+        "id": "arm_duel",
+        "pass": true,
+        "exitCode": 0,
+        "observedCounts": {
+          "runs": 10,
+          "newFailureReview": 0
+        },
+        "wallSeconds": 180.82486638099726
+      },
+      {
+        "id": "build",
+        "pass": true,
+        "exitCode": 0,
+        "observedCounts": null,
+        "wallSeconds": 1.9354839039988292
+      }
+    ]
+  },
+  "buildComparison": {
+    "matchesPreviousDeliveredDist": true,
+    "files": 624,
+    "mainSHA256": "be4dfe1fc3f48ae0aae7e428900b64a0996167e777ba4e94c5424142aecffa15",
+    "mobileRerun": false,
+    "reason": "No src/public/config changes; all fresh build files match previously verified public build."
+  },
+  "exchange": {
+    "evidence": {
+      "path": "/workspace/halfsword-handoff/ci-audit-20261008/exchange/summary.json",
+      "sha256": "428eeffed7e2d05a1d27f73c3fabd4ab254047fb94e05c08d691ba32b6857bcf",
+      "bytes": 6424
+    },
+    "latestFailure": {
+      "run_id": 37681792476,
+      "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37681792476",
+      "created_at_kst": "2026-10-08T05:24:46+09:00",
+      "attempted_at_kst": "2026-10-08T05:24:57.518695+09:00",
+      "reporting_day": "2026-10-07",
+      "status": "deferred_outside_exchange_window",
+      "cause": "GitHub scheduled run started after 00:20 KST; actual-time guard prevented peer contact; final failure step intentionally exits 1.",
+      "protocol_tests_passed": 32,
+      "archive_step": "success",
+      "reception_complete": false
+    },
+    "latestPublication": {
+      "run_id": 37637248807,
+      "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37637248807",
+      "published_at_kst": "2026-10-07T23:30:33.504344+09:00",
+      "reporting_day": "2026-10-07",
+      "status": "published"
+    },
+    "latestSuccessfulReceive": {
+      "run_id": 36881022419,
+      "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/36881022419",
+      "received_at_kst": "2026-10-02T00:01:51.043243+09:00",
+      "reporting_day": "2026-10-01",
+      "status": "peer_received",
+      "semantic_review_performed": false,
+      "review_status": "review_pending"
+    },
+    "missingSuccessfulWorkflowReceives": [
+      "2026-10-02",
+      "2026-10-03",
+      "2026-10-04",
+      "2026-10-05",
+      "2026-10-06",
+      "2026-10-07"
+    ],
+    "limit": "Workflow history only; does not assess separate manual/local receivers, current peer permissions or semantic review beyond logged flags. Scheduled October 1 deferral repeated an already received date.",
+    "resolution": "Publication and protocol checks pass; time-delayed reception remains blocked by the existing window. No peer access or out-of-window retry."
+  },
+  "remoteValidation": null
+}

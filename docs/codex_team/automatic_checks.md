@@ -1,5 +1,7 @@
 # 자동 회귀 검사와 근거 수집
 
+10/08 최신: [절삭 fixture 누락 수정과 회귀/개발 교환 실패 구분](ci_failure_20261008.md), [실제 재검증 결과](ci_failure_20261008.json). Pages 성공과 회귀 성공을 별도로 확인한다.
+
 `Development regression checks`는 사람이 없는 동안 기존 실제 게임 검사와 빌드를 실행한다. 현재 대화를 깨우거나 새 코드를 작성하는 AI scheduler/API가 아니며, 자동 수정·merge·배포·메시지 발송·상대 자료 접촉을 하지 않는다. 새 가설·설계·개선 구현과 결과 해석은 별도 개발 작업이다. 검사의 PASS는 아래 범위에 한정하며 인간 자연스러움·전신 힘 전달·기립 완료를 뜻하지 않는다.
 
 ## 실행 계약
@@ -16,7 +18,7 @@ python tools/automation/run_checks.py --out /tmp/halfsword-check-run-1 --cache-d
 python tools/automation/run_checks.py --force --out /tmp/halfsword-check-run-2 --cache-dir /tmp/halfsword-check-cache
 ```
 
-출력 폴더는 매 실행 새 이름을 사용한다. 기존 결과를 덮어쓰지 않는다. `--fingerprint`는 읽기만 하며 캐시 키를 출력한다. `result.json`은 command/exit/walltime/검사 범위, 실제 checkout SHA, 실행 전후 소스 해시, 원자료·로그 SHA, 전체 PASS와 캐시 사용 여부를 기록한다. 실패해도 남은 독립 검사를 계속하고 실패 결과는 exit1이다. 개별 명령 timeout은 duel180초·나머지90초이며 subprocess processgroup을 TERM/KILL로 정리한다.
+출력 폴더는 매 실행 새 이름을 사용한다. 기존 결과를 덮어쓰지 않는다. `--fingerprint`는 읽기만 하며 캐시 키를 출력한다. `result.json`은 command/exit/walltime/검사 범위, 실제 checkout SHA, 실행 전후 소스 해시, 원자료·로그 SHA, 전체 PASS와 캐시 사용 여부를 기록한다. 실패해도 남은 독립 검사를 계속하고 실패 결과는 exit1이다. 개별 명령 timeout은 duel420초·나머지90초이며 subprocess processgroup을 TERM/KILL로 정리한다.
 
 ## 실제 검사 범위
 

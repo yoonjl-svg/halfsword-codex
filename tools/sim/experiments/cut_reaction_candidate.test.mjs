@@ -138,7 +138,11 @@ function cuttingFixture(CombatClass,regime,{q=identity,shift=zero,masses=[1,8],i
     shape:RAPIER.ColliderDesc.cuboid(.04,.65,.025).setTranslation(.02,.7,0)});
   const B=addBody(world,{mass:masses[1],position:mapPoint(vec(.08,.8,.03),q,shift),q,inertia:inertias[1],
     shape:RAPIER.ColliderDesc.cuboid(.18,.18,.18)});
-  const att={index:0,armed:true,sword:W.b,weapon:{},swordColliders:[W.col]},vic={index:1,armed:true,weapon:{}};
+  // This fixture isolates edged-blade resistance with the legacy arm-assist
+  // budget. Real Fighters always carry weaponCfg; keep that contract when the
+  // shared afterStep path checks whether a contact belongs to a spiked head.
+  const att={index:0,armed:true,sword:W.b,weapon:{},swordColliders:[W.col],
+    weaponCfg:{edged:true,spike:false},armSupportModel:'legacy'},vic={index:1,armed:true,weapon:{}};
   const wi={body:W.b,fighter:att,kind:'weapon',part:'blade'},vi={body:B.b,fighter:vic,kind:'arm',part:'farmS'};
   const info=new Map([[W.col.handle,wi],[B.col.handle,vi]]),combat=new CombatClass(info,{});
   // Real engine contact geometry, no native solver impulse. This isolates the explicit cut path.
