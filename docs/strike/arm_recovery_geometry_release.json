@@ -1,14 +1,54 @@
 {
   "baseHead": "2671561ceb765a008c6622322507319bb8d5f02c",
-  "status": "local_validation_complete_public_pending",
+  "status": "public_delivered",
   "adopted": "one-hand melee main-arm recovery goal",
   "deferred": "two-hand recovery candidate: deeper off-arm/torso overlap after re-input",
   "gameplaySourceMatchesRegression": true,
   "componentsPassed": 16,
   "regressionSuitesPassed": 6,
   "publicURL": "https://yoonjl-svg.github.io/halfsword-codex/",
-  "codeCommit": null,
-  "pages": null,
-  "publicBytes": null,
-  "publicMobile": null
+  "codeCommit": "c1e8c745d320da140e01942c3844d25ede31d5c2",
+  "pages": {
+    "runId": 37763829597,
+    "conclusion": "success",
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37763829597"
+  },
+  "publicBytes": {
+    "pass": true,
+    "files": 8,
+    "reportSHA256": "6a7c0bdc3e37a2e71672d2fe897a66d41447cbb1df6bfa3ff5fd25ce27c7f66b"
+  },
+  "publicMobile": {
+    "pass": true,
+    "flows": 3,
+    "reportSHA256": "bf3cbcc3ee49e67ccecce1ce858d18f76ed0d8312c8ce21bc48c3566995a5606",
+    "elapsedSeconds": 226.007151064,
+    "matchedResponses": 465,
+    "distinctFiles": 147,
+    "tlsVerification": true,
+    "verifiedAtUTC": "2026-10-08T10:34:26.335Z",
+    "actions": [
+      "portrait entry",
+      "card selection",
+      "touch stroke",
+      "movement",
+      "pause/resume",
+      "restart with fresh instances",
+      "re-input"
+    ]
+  },
+  "localMobile": {
+    "pass": true,
+    "flows": 3,
+    "reportSHA256": "2c9fbadf24ae746d2fda780ef218ab7a1a889ae883a4876d09716bd2d8fd3be7",
+    "elapsedSeconds": 232.892979566
+  },
+  "build": {
+    "assets/main-DvSo4oiV.js": "9bc642f133f34a62bc9c5e5e8c7baec9154f5f8625146179ff352a61aea463f4"
+  },
+  "limitations": [
+    "One-hand melee recovery correction; two-hand and gun behavior excluded.",
+    "Two-hand geometry remains open after deeper transient torso overlap in the rejected candidate.",
+    "Mobile browser emulation, not a physical-phone long-play or naturalness certification."
+  ]
 }
