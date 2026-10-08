@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { SKILL } from './config.js';
 import { guardAt } from './guards.js';
 import { swordsmanshipProfile } from './swordsmanship_profiles.js';
+import { updateOpportunityPlayer } from './opportunity_player.js';
 
 // First candidate design budgets, not measured human optima. Slow deliberate
 // positioning receives more help; a fast cut retains more of its raw path.
@@ -242,6 +243,7 @@ export function resolveSwordsmanshipGoals(f, dt, rawHand, rawAim, homeRawHand, h
   s.previousRawHand.copy(rawHand);
   s.baseHand.copy(rawHand).add(s.handCorrection);
   s.baseAim.copy(rawAim).applyQuaternion(s.aimCorrection).normalize();
+  if (f.opportunityModel === 'v1') updateOpportunityPlayer(f, dt, s.baseHand, s.baseAim, C);
   const tp = f.skill.tap, capture = captureWeight(tp);
   if (capture > 0) {
     s.baseHand.lerp(temp.set(...tp.h0), capture);

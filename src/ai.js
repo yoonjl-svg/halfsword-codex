@@ -28,6 +28,10 @@ import { schoolOf } from './schools.js';
 import { getWeapon } from './weapons.js';
 import { Emotions, emoMods } from './emotions.js';
 import { gunAI } from './gun.js';
+import { enabled as opportunityEnabled } from './opportunity_target.js';
+import { createOpportunityAI, updateOpportunityEpisode, opportunityCandidate,
+  prepareOpportunityAttack, refreshOpportunityAttack, commitOpportunityAttack,
+  opportunityPad, neckCrossingTechnique, advanceOpportunityAICommand } from './opportunity_ai.js';
 
 // 공포 떨림의 최대 크기 (m, 공포 세기 1일 때 손 위치 잔떨림). 눈에 더 띄게 하려면 올린다 — moveHand() 참고
 const FEAR_TREMOR = 0.03;
@@ -226,6 +230,11 @@ export class AI {
     this.cautious = false;
     this.desperate = false;
     this.stats = { attacks: 0, feints: 0, parries: 0, voids: 0, counters: 0, preempts: 0, followUps: 0, landed: 0, aborted: 0 };
+    this.opportunityState = createOpportunityAI();
+    this.opportunitySeen = null;
+    this.opportunityAttack = null;
+    this.opportunityCommand = { handY: 0, pitch: 0 };
+    if (opportunityEnabled(me)) me.opportunityAI = this;
     this.guard = this.pickGuard(null);
   }
 
@@ -255,6 +264,11 @@ export class AI {
     const foe = this.foe;
     this.sense.record(dt);
     const L = this.level;
+    if (opportunityEnabled(me)) {
+      me.opportunityAI = this;
+      updateOpportunityEpisode(this, this.sense.seen(L.reaction + 0.04 * this.anger), dt);
+      advanceOpportunityAICommand(this, dt);
+    }
 
     // 부활하는 동안(revive.js): 싸우지 않고 기다린다. 끝나면 집념으로 다시 싸운다
     if (me.revival) {
@@ -271,6 +285,7 @@ export class AI {
 
     // 완전히 쓰러졌다: 칼을 머리 위로 들어 가리기만 한다 (팔에도 힘이 거의 없다)
     if (me.state === 'down') {
+      this.opportunityAttack = null;
       this.closeWant = this.closeBind = false;
       me.move.set(0, 0);
       this.mode = 'withdraw';
@@ -444,6 +459,7 @@ export class AI {
 
   holdForRevive(dt) {
     const me = this.me;
+    this.opportunityAttack = null;
     if (!this.reviving) {
       this.reviving = true;
       this.emo.fear = this.emo.anger = this.emo.obsession = 0;
@@ -753,9 +769,15 @@ export class AI {
     // 베기만 골라 쓰다 지는 일이 있었다 — 무기의 mThrust/mCut 배율 그대로 찌르기 기술 선호도에 곱한다.
     const cfg = this.me.weaponCfg;
     const thrustBias = cfg ? cfg.mThrust / cfg.mCut : 1;
+    const target = opportunityEnabled(this.me) ? opportunityCandidate(this) : null;
+    const neckCut = target?.kind === 'cut' && this.school.tech.some(neckCrossingTechnique);
+    const focusKind = target?.kind === 'thrust' ? 'thrust' : target ? 'cut' : null;
+    const focusedKind = this.school.tech.some(t => t.kind === focusKind) ? focusKind : null;
     let best = null;
     let bestW = -1;
     for (const t of this.school.tech) {
+      if (focusedKind && t.kind !== focusedKind) continue;
+      if (neckCut && !neckCrossingTechnique(t)) continue;
       let w = this.pers.techPref[t.name] * t.base;
       if (t.kind === 'thrust') w *= thrustBias;
       // 빈틈: 상대 칼이 높으면 아래·찌르기, 낮으면 위, 한쪽으로 치우치면 반대쪽
@@ -769,7 +791,7 @@ export class AI {
       if (cls.left) fit *= o === 'UR' || o === 'LR' ? 1.5 : 0.8;
       // 칼끝이 나를 겨누면: 위에서 그 칼을 눌러 비키며 베는 기술이 낫다. 찌르기는 서로 찔린다
       if (cls.online) fit *= t.presses ? 1.5 : t.kind === 'thrust' ? 0.5 : 0.9;
-      if (why === 'finish') fit *= up ? 1.5 : 0.6; // 쓰러진 상대: 위에서 내려친다
+      if (why === 'finish' && !neckCut) fit *= up ? 1.5 : 0.6; // 낮은 몸/둔기 머리: 위에서 내려친다. 목베기는 가로 경로를 쓴다.
       if (why === 'windup' || why === 'stepin') fit *= t.fast ? 1.6 : 1; // 짧은 순간: 빠른 기술
       if (why === 'stop') fit *= t.presses ? 2 : t.kind === 'thrust' ? 0.3 : 1; // 달려드는 몸을 맞받는다: 무거운 베기
       if (t.presses) fit *= 1 + 0.6 * this.anger; // 화나면 무거운 베기(분노의 베기·내려베기)만 찾는다
@@ -804,10 +826,12 @@ export class AI {
     this.stepT = 0;
     this.path.length = 0;
     this.pointBlocked = false;
+    this.opportunityAttack = null;
+    if (opportunityEnabled(this.me)) prepareOpportunityAttack(this, tech);
     if (!opt.chain) this.stats.attacks++;
     // 속임수: 먼저 다른 곳을 치는 척하다가 바꾼다 (상대가 잘 막을수록 자주)
     this.feint = null;
-    if (!opt.noFeint && (why === 'patience' || why === 'open' || why === 'weak')) {
+    if (!this.opportunityAttack && !opt.noFeint && (why === 'patience' || why === 'open' || why === 'weak')) {
       const want = L.feint * (1 + Math.min(2, this.foeParried * 0.4));
       if (Math.random() < want * (1 - this.anger)) { // 화나면 속임수를 안 쓴다 (곧장 친다)
         const byName = this.school.techByName;
@@ -820,7 +844,7 @@ export class AI {
       }
     }
     // 준비 자세가 가까우면 곧바로 친다 (숙련자는 크게 들어 올리지 않는다)
-    const cd = padDist(hand, this.tech.from);
+    const cd = padDist(hand, opportunityPad(this, this.tech.from));
     this.phase = cd > 0.06 && !opt.skipChamber ? 'windup' : 'approach';
     this.quick = why !== 'patience' && why !== 'open' && why !== 'weak' && why !== 'offbalance';
     // 빈틈을 잡아 순간적으로 치는 공격(recover/stepin/press/counter/stop 등)은 준비 자세로 옮기는 손도
@@ -835,26 +859,31 @@ export class AI {
     const me = this.me;
     const t = this.tech;
     this.attackT += dt;
+    if ((this.phase === 'windup' || this.phase === 'approach') && !refreshOpportunityAttack(this)) {
+      this.abortAttack();
+      return;
+    }
+    const from = opportunityPad(this, t.from);
     if (this.phase === 'windup') {
       // 준비 자세로 (다가가며)
-      this.hand.set(t.from[0], t.from[1]);
+      this.hand.set(from[0], from[1]);
       this.handSpeed = this.fastChamber ? L.parrySpeed : L.chamberSpeed;
       // 준비하는 동안 상대 칼이 들어오면: 숙련자는 공격을 거두고 막는다
       if (th && this.noticedThreat(th) && this.respond(th, d)) return;
-      if (padDist([me.handOffset.x, me.handOffset.y], t.from) < 0.03) {
+      if (padDist([me.handOffset.x, me.handOffset.y], from) < 0.03) {
         this.phase = 'approach';
         this.timer = this.quick ? 0 : L.windup * 0.25; // 잠깐 자세를 잡는다 (쉬운 상대일수록 길다 = 읽기 쉽다)
       }
       if (this.attackT > 1.2) this.abortAttack();
     } else if (this.phase === 'approach') {
-      this.hand.set(t.from[0], t.from[1]);
+      this.hand.set(from[0], from[1]);
       this.timer -= dt;
       // 닿을 거리까지 다가간다. 베는 동안(0.3초) 서로 좁혀지는 거리까지 생각해서 미리 친다
       // 달려드는 상대를 맞받을 때는 조금 일찍 친다: 상대가 휘두르기 전에 내 칼이 먼저 앞에 있어야 한다 (Vor)
       this.need = this.M.contact + t.reach * this.reachScale + 0.05 + (this.why === 'stop' ? 0.2 : 0);
       if (this.timer <= 0 && this.contactDist() <= this.need) {
         // 상대 칼끝이 나를 겨누고 있으면 베며 내딛지 않는다 (칼끝으로 뛰어드는 꼴). 먼저 그 칼을 쳐서 비킨다
-        this.pointBlocked = s.state === 'stand' && this.foeClass(s).online;
+        this.pointBlocked = (s.state === 'stand' || !!this.opportunityAttack) && this.foeClass(s).online;
         this.startStrike();
         return;
       }
@@ -882,6 +911,7 @@ export class AI {
   }
 
   abortAttack() {
+    this.opportunityAttack = null;
     this.stats.aborted++;
     this.mode = 'watch';
     this.phase = 'ready';
@@ -889,6 +919,10 @@ export class AI {
   }
 
   startStrike() {
+    if (!commitOpportunityAttack(this)) {
+      this.abortAttack();
+      return false;
+    }
     const t = this.tech;
     this.phase = 'strike';
     this.path.length = 0;
@@ -902,7 +936,7 @@ export class AI {
       this.feintPts = 1;
       this.stepT = 0;
     } else {
-      for (const p of t.path) this.path.push(p.slice());
+      for (const p of t.path) this.path.push(opportunityPad(this, p).slice());
       this.feintPts = 0;
       this.stepT = this.stepTime();
     }
@@ -925,7 +959,10 @@ export class AI {
     // 찌르기 무기(weapons.js THRUST_STYLE: 에스톡·레이피어)는 찌르기 기술을 플레이어의 탭 찌르기와 같은 칼끝 찌르기로 한다
     //  (칼끝을 상대 가슴·머리로 맞추고 칼 선을 따라 뻗는다 — skill.js thrust). 다른 무기는 예전처럼 자세 지도의 길을 따라간다
     //  내딛기는 AI 가 정한다(stepTime·gaitStep) — 검술 층이 따로 내딛지 않게 step: false
-    if (t.kind === 'thrust' && !this.feint && this.me.weaponCfg.thrustStyle) this.me.skill.thrust({ step: false });
+    if (t.kind === 'thrust' && !this.feint && (this.me.weaponCfg.thrustStyle || this.opportunityAttack?.kind === 'thrust')) {
+      this.me.skill.thrust({ step: false, opportunityTarget: this.opportunityAttack ?? null });
+    }
+    return true;
   }
 
   /** 베며 내딛는 시간: 이미 닿는 거리면 내딛지 않는다 (다가오던 걸음의 관성으로 충분하다) */
@@ -1082,9 +1119,10 @@ export class AI {
     const hand = [this.me.handOffset.x, this.me.handOffset.y];
     if (!this.startAttack(t, why, { chain, noFeint: true, skipChamber: true })) return false;
     this.stats.flows = (this.stats.flows ?? 0) + 1;
-    this.startStrike();
+    if (!this.startStrike()) return false;
     const mx = (hand[0] + t.from[0]) / 2;
-    this.path.unshift([clamp(mx + Math.sign(mx || hand[0] || 1) * 0.12, -0.6, 0.6), (hand[1] + t.from[1]) / 2], t.from.slice());
+    const from = opportunityPad(this, t.from);
+    this.path.unshift([clamp(mx + Math.sign(mx || hand[0] || 1) * 0.12, -0.6, 0.6), (hand[1] + from[1]) / 2], from.slice());
     return true;
   }
 
@@ -1114,6 +1152,7 @@ export class AI {
 
   // ───────────────────────── 물러나기 ─────────────────────────
   startWithdraw(time) {
+    this.opportunityAttack = null;
     this.mode = 'withdraw';
     this.phase = 'ready';
     this.timer = time;
@@ -1193,6 +1232,7 @@ export class AI {
       }
     }
     this.mode = 'defend';
+    this.opportunityAttack = null;
     this.phase = 'guard';
     this.path.length = 0;
     this.stepT = 0;
@@ -1351,7 +1391,8 @@ export class AI {
       tx = this.path[0][0];
       ty = this.path[0][1];
       // 상대가 옆으로 비껴 있으면 그만큼 손을 옮겨 겨눈다
-      tx = clamp(tx + clamp(this.foeLat, -0.4, 0.4) * 0.5, -0.6, 0.6);
+      const lateral = this.opportunityAttack?.started ? this.opportunityAttack.lateral : this.foeLat;
+      tx = clamp(tx + clamp(lateral, -0.4, 0.4) * 0.5, -0.6, 0.6);
       // 옆 보정 뒤에도 실제 손의 이동 범위 안에 목표를 둔다. 바깥 목표는
       // 손이 경계에서 멈춰 path를 끝내지 못하고 strike에 머물 수 있다.
       const targetLength = Math.hypot(tx, ty);

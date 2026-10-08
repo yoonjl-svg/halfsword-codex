@@ -60,12 +60,14 @@ import { configureSwordsmanshipDefault, swordsmanshipDefaultSupportsWeapon } fro
 import { configureCombatDefaults } from './combat_defaults.js';
 import { morgensternTrialSupports, prepareMorgensternTrial } from './morgenstern_trial.js';
 import { configureRecoveryFinishTrial, mountRecoveryFinishTrial } from './recovery_finish_trial.js';
+import { configureOpportunityTrial, mountOpportunityTrial } from './opportunity_trial.js';
 
 await RAPIER.init();
 
 // 테스트용 URL 파라미터: ?weapon=monohoshizao&foeWeapon=chicken (무기 id는 weapons.js의 WEAPONS 키,
 //  Fighter 생성자가 알아서 getWeapon()으로 찾는다. 없으면 기본 롱소드)
 const requestedParams = new URLSearchParams(location.search);
+const opportunityTrial = configureOpportunityTrial(requestedParams);
 const recoveryFinishTrial = configureRecoveryFinishTrial(requestedParams);
 const contactTrial = configureContactTrial(requestedParams);
 const stanceV2Trial = configureStanceV2Trial(requestedParams);
@@ -76,19 +78,21 @@ const finishV2Trial = configureFinishV2Trial(requestedParams);
 const activeV2Trial = contactTrial.active ? contactTrial : stanceV2Trial.active ? stanceV2Trial : gravityV2Trial.active ? gravityV2Trial : recoveryContactV2Trial.active ? recoveryContactV2Trial : recutV2Trial.active ? recutV2Trial : null;
 // This strict compound entry owns its whole query. Invalid/mixed entries return
 // to current ordinary defaults; older trials keep their existing parsing.
-const priorTrialParams = recoveryFinishTrial.requested || contactTrial.requested || stanceV2Trial.requested || gravityV2Trial.requested || recoveryContactV2Trial.requested || recutV2Trial.requested || finishV2Trial.requested ? new URLSearchParams() : requestedParams;
+const priorTrialParams = opportunityTrial.requested || recoveryFinishTrial.requested || contactTrial.requested || stanceV2Trial.requested || gravityV2Trial.requested || recoveryContactV2Trial.requested || recutV2Trial.requested || finishV2Trial.requested ? new URLSearchParams() : requestedParams;
 // The finish comparison uses today's ordinary controller/physics as its base.
 // Its strict owned query is removed before defaults; only finishRule is overridden.
 const swordsmanshipDefault = configureSwordsmanshipDefault(activeV2Trial ? requestedParams : priorTrialParams);
 // This injury correction is common to both fighters, independent of the v2
 // weapon whitelist. Read the original query so archived/malformed research
 // entries cannot acquire it when a compound trial clears its parameters.
-const linkedArmSupport = configureSwordsmanshipDefault(recoveryFinishTrial.requested ? priorTrialParams : requestedParams).active;
+const linkedArmSupport = configureSwordsmanshipDefault(opportunityTrial.requested || recoveryFinishTrial.requested ? priorTrialParams : requestedParams).active;
 const swordsmanshipTrial = configureSwordsmanshipTrial(priorTrialParams);
 const integratedCombatTrial = configureIntegratedCombatTrial(priorTrialParams);
 // Reject an incomplete compound entry as a whole; standalone comparison URLs
 // without this marker continue to use their existing contracts.
-const params = recoveryFinishTrial.requested
+const params = opportunityTrial.requested
+  ? new URLSearchParams(opportunityTrial.active ? {weapon: opportunityTrial.weapon, foe: 'default', foeWeapon: 'longsword'} : {})
+  : recoveryFinishTrial.requested
   ? new URLSearchParams(recoveryFinishTrial.active ? {weapon: recoveryFinishTrial.weapon, foe: 'default', foeWeapon: 'longsword'} : {})
   : finishV2Trial.active
   ? new URLSearchParams({weapon: finishV2Trial.weapon, foe: finishV2Trial.foe, foeWeapon: finishV2Trial.foeWeapon})
@@ -107,7 +111,7 @@ const thrustPlaneTrial = configureThrustPlaneTrial(params);
 const inputComparison = params.get('inputComparison') === 'vertical';
 const targetCorrectionTrial = configureTargetCorrectionTrial(params);
 const armRecoveryTrial = configureArmRecoveryTrial(params);
-const comparisonSettings = recoveryFinishTrial.active ? recoveryFinishTrial.settings : finishV2Trial.active ? finishV2Trial.settings : activeV2Trial ? activeV2Trial.settings : swordsmanshipTrial.active ? swordsmanshipTrial.settings : integratedCombatTrial.active ? integratedCombatTrial.settings : inputComparison ? { skill: '0', difficulty: 'normal' } : swordsmanshipDefault.active ? swordsmanshipDefault.settings : targetCorrectionTrial.settings;
+const comparisonSettings = opportunityTrial.active ? opportunityTrial.settings : recoveryFinishTrial.active ? recoveryFinishTrial.settings : finishV2Trial.active ? finishV2Trial.settings : activeV2Trial ? activeV2Trial.settings : swordsmanshipTrial.active ? swordsmanshipTrial.settings : integratedCombatTrial.active ? integratedCombatTrial.settings : inputComparison ? { skill: '0', difficulty: 'normal' } : swordsmanshipDefault.active ? swordsmanshipDefault.settings : targetCorrectionTrial.settings;
 const settingValue = (key) => comparisonSettings[key] ?? settings[key];
 // Ordinary fights use severing for both fighters. Historical research entries
 // keep their original setup unless they explicitly enable the limb trial.
@@ -489,6 +493,11 @@ function newRound(weaponId) {
   // 같은 선택형 팔 제어를 양쪽에 적용하고 재시작 때도 주소 설정을 유지한다.
   for (const f of [player, enemy]) f.armTorqueModel = armTrial.model;
   for (const f of [player, enemy]) f.armSupportModel = linkedArmSupport ? 'linked' : 'legacy';
+  if (opportunityTrial.active) for (const f of [player, enemy]) {
+    f.opportunityModel = opportunityTrial.opportunity;
+    f.finishEntryModel = opportunityTrial.finish;
+    f.recoverySequenceModel = opportunityTrial.recovery;
+  }
   if (recoveryFinishTrial.active) for (const f of [player, enemy]) {
     f.finishEntryModel = recoveryFinishTrial.finish;
     f.recoverySequenceModel = recoveryFinishTrial.recovery;
@@ -779,6 +788,7 @@ mountRecoveryContactV2Trial(recoveryContactV2Trial);
 mountRecutV2Trial(recutV2Trial);
 mountFinishV2Trial(finishV2Trial);
 mountRecoveryFinishTrial(recoveryFinishTrial);
+mountOpportunityTrial(opportunityTrial);
 if (swordsmanshipDefault.active) {
   // A single ordinary policy replaces the old strength menu. Saved legacy
   // preferences remain available to explicitly requested comparison entries.
@@ -1771,6 +1781,7 @@ window.game = {
   recutV2Trial,
   finishV2Trial,
   recoveryFinishTrial,
+  opportunityTrial,
   get defaultSwordsmanshipApplied() {
     return swordsmanshipDefault.active && player?.swordsmanshipModel === 'unified';
   },

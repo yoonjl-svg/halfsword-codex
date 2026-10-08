@@ -4,6 +4,7 @@ import { updateMainArmRecovery, mainArmMuscle } from './arm_recovery_activation.
 import { advanceRollTarget, clearRollTarget } from './roll_target.js';
 import { estimateWristStopBudget } from './wrist_braking.js';
 import { applyTransportedThrustPlane } from './thrust_plane.js';
+import { applyOpportunityAIHand, applyOpportunityAIAim } from './opportunity_ai.js';
 import { disposeVisualTrees } from './visual_resources.js';
 // ─────────────────────────────────────────────────────────────
 //  검투사 한 명 = "액티브 래그돌"
@@ -2037,6 +2038,7 @@ export class Fighter {
       assistHandDepth(this, handLocal, G.hand);
       assistSwordHand(this, handLocal, G.hand);
     }
+    if (!unified) applyOpportunityAIHand(this, handLocal);
     // 탭 찌르기(skill.thrustPose)는 보정이 아니라 명령이라 검술 보정 세기(gw)와 무관하게 덧씌운다 — 보정 0 에서도 찌른다.
     //  찌르기는 지금 손 목표(handBase, 덧씌우기 전)에서 뻗어 나간다 (skill.thrust)
     const hb = (this.handBase ||= [0, 0, 0]);
@@ -2082,6 +2084,7 @@ export class Fighter {
       aim.normalize();
     }
     if (!unified) assistSwordAim(this, aim, G.dir);
+    if (!unified) applyOpportunityAIAim(this, aim);
     if (!unified && th.w > 0) {
       aim.lerp(_v6.set(th.dir[0], th.dir[1], th.dir[2]), th.w);
       if (aim.lengthSq() < 1e-6) aim.set(th.dir[0], th.dir[1], th.dir[2]);

@@ -1,0 +1,255 @@
+{
+  "schema": 1,
+  "date": "2026-10-08",
+  "baseCommit": "8c732d410bc9c6d9e89e7ec1d365b1df47e10109",
+  "decision": {
+    "scope": "optional opportunity A/B, both use low-finish entry; ordinary defaults unchanged",
+    "generalPromotion": false,
+    "recoverySequence": "unchanged; five earlier candidates remain rejected"
+  },
+  "delivery": {
+    "status": "local verification completed; public delivery pending",
+    "selector": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#opportunity"
+  },
+  "evidence": {
+    "components": {
+      "path": "/workspace/halfsword-handoff/opportunity-20261008/components/run05.json",
+      "sha256": "53def744358488ca5804ab4dacbac721ee321de619603e9aab0e7a280389d8f8",
+      "pass": true,
+      "sourceStable": true,
+      "fixtures": 58,
+      "nativeSteps": 0,
+      "checks": 57
+    },
+    "finishEntry": {
+      "path": "/workspace/halfsword-handoff/opportunity-20261008/components/finish-entry-final.json",
+      "sha256": "be880f83333eae00c91b00726d8928fef16d501eb86fa3df29f3cab6685eb43f",
+      "pass": true,
+      "sourceStable": true,
+      "fixtures": 42,
+      "nativeSteps": 0,
+      "checks": 39
+    },
+    "power": {
+      "path": "/workspace/halfsword-handoff/opportunity-20261008/components/power-final.json",
+      "sha256": "7c5db87aea9daa936badb9408a64f054bf277a391cbdc0d3048d7bdcb01f2f21",
+      "pass": true,
+      "sourceStable": true,
+      "checks": 58
+    },
+    "review": {
+      "path": "/workspace/halfsword-handoff/opportunity-20261008/review/source_review_final_20261008.json",
+      "sha256": "fb9c53baa9cc998fe2ab294e8ca579e5958af122dfada2bc2104f40bff475d79",
+      "checks": null
+    },
+    "nativePlayer": {
+      "path": "/workspace/halfsword-handoff/opportunity-20261008/native/r5player/report.json",
+      "sha256": "fe62abc4a049119b6cd4cfba840d118ef44ec2ef8c869afa9a729d3c184e5dc3",
+      "sourceStable": true,
+      "executionPassed": true,
+      "executions": 18,
+      "steps": 21600,
+      "comparisons": [
+        {
+          "name": "cut",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": 660
+        },
+        {
+          "name": "cutRaised",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": 480
+        },
+        {
+          "name": "blunt",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": 660
+        },
+        {
+          "name": "thrust",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": 720
+        },
+        {
+          "name": "healthy",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": -1
+        },
+        {
+          "name": "guard",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": 660
+        },
+        {
+          "name": "thrustGuard",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": 660
+        },
+        {
+          "name": "bluntHelmet",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": 660
+        },
+        {
+          "name": "far",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": -1
+        }
+      ],
+      "checks": null
+    },
+    "nativeAI": {
+      "path": "/workspace/halfsword-handoff/opportunity-20261008/native/r6ai/report.json",
+      "sha256": "c5c7131c1153b3569191f2714bdd8dd7e3e0b5b504394ab34a4e05b6acaf1ef1",
+      "sourceStable": true,
+      "executionPassed": true,
+      "executions": 10,
+      "steps": 19680,
+      "comparisons": [
+        {
+          "name": "aiCutOpen",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": 721
+        },
+        {
+          "name": "aiBluntOpen",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": 721
+        },
+        {
+          "name": "aiThrustOpen",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": 721
+        },
+        {
+          "name": "aiCut",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": -1
+        },
+        {
+          "name": "bluntHelmet",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": 660
+        }
+      ],
+      "checks": null
+    },
+    "nativeFinal": {
+      "path": "/workspace/halfsword-handoff/opportunity-20261008/native/final/report.json",
+      "sha256": "4e4e9782c94a2e02524f9d73459108493764375bfc688a8839c4cbdb0d2d7262",
+      "sourceStable": true,
+      "executionPassed": true,
+      "executions": 12,
+      "steps": 18240,
+      "comparisons": [
+        {
+          "name": "cutRaised",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": 480
+        },
+        {
+          "name": "blunt",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": 660
+        },
+        {
+          "name": "thrustGuard",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": 660
+        },
+        {
+          "name": "healthy",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": -1
+        },
+        {
+          "name": "aiCutOpenLow",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": 721
+        },
+        {
+          "name": "aiThrustOpenLow",
+          "sameSpawn": true,
+          "sameRequestedInput": true,
+          "firstNativeDifference": 721
+        }
+      ],
+      "checks": null
+    },
+    "regression": {
+      "path": "/workspace/halfsword-handoff/opportunity-20261008/regression/result.json",
+      "sha256": "da0280937d3b1769b17c29a160f735d3b7a79938025f1ff94018dbfdd9c847bb",
+      "pass": true,
+      "sourceStable": true,
+      "wallSeconds": 271.77353378900443,
+      "suites": [
+        {
+          "id": "force_ledger",
+          "pass": true
+        },
+        {
+          "id": "grip_reaction",
+          "pass": true
+        },
+        {
+          "id": "cut_reaction",
+          "pass": true
+        },
+        {
+          "id": "arm_capacity",
+          "pass": true
+        },
+        {
+          "id": "arm_duel",
+          "pass": true
+        },
+        {
+          "id": "build",
+          "pass": true
+        }
+      ]
+    },
+    "localMobile": {
+      "path": "/workspace/halfsword-handoff/opportunity-20261008/mobile/local01/report.json",
+      "sha256": "b58b6fef5ebd8755783b4dde52d1f98fa42f2c9925d667ccb3fc82ed9981c66f",
+      "pass": true,
+      "sourceStable": true,
+      "buildStable": true,
+      "wallMs": 236022.036788
+    },
+    "localMobileChecks": {
+      "path": "/workspace/halfsword-handoff/opportunity-20261008/mobile/local01/checks.json",
+      "sha256": "3edf45c4d307e09b1cfe3323034a828142e3651c5d55600f85aa1a3783f846f9",
+      "pass": true,
+      "sourceStable": true,
+      "buildStable": true,
+      "wallSeconds": 236.022
+    }
+  },
+  "limitations": [
+    "Targets guide preparation, not automatic hit/death. Actual collisions decide hit zones.",
+    "Native fixtures use prepared injury and input, not prevalence or win-rate evidence.",
+    "AI targets and two-attempt limit verified, but special AI neck-cut or neck/face-thrust success was not demonstrated in these physical scenes; arms/head intercepted or attacks missed.",
+    "AI ordinary attacks after the special window are not counted as special-target success.",
+    "Mobile browser verification is not physical-phone playfeel or long-session performance."
+  ]
+}

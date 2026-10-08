@@ -30,6 +30,7 @@ import { FINISH, armRay, updateFinish } from './finish.js';
 import { LOW_FINISH, lowFinishEnabled } from './finish_entry.js';
 import { updateSwordAssistReturn } from './sword_assist_v2.js';
 import { hasSwordsmanship, advanceSwordsmanship } from './swordsmanship.js';
+import { enabled as opportunityEnabled, captureOpportunityPose, findOpportunity } from './opportunity_target.js';
 
 const D2R = Math.PI / 180;
 const _yawInv = new THREE.Quaternion();
@@ -105,7 +106,7 @@ export class Skill {
    *  (검술 층이 따로 내딛기를 부탁하면 AI 가 "안 내딛는다"고 정한 때도 내딛고, 곧이어 AI 걸음이 그 부탁을 덮어써 두 번 내딛었다)
    * @returns 시작했으면 true
    */
-  thrust({ step = true } = {}) {
+  thrust({ step = true, opportunityTarget = undefined } = {}) {
     const f = this.f;
     if (this.tap || !f.alive || !f.armed || !f.foe || (f.state !== 'stand' && f.state !== 'kneel')) return false;
     // 권총(??? 등급): 찌르기 = 발사. 장전 중이면 쏘지 않는다 (gun.js)
@@ -125,6 +126,20 @@ export class Skill {
     const K = { aim: THRUST.aim, extend: THRUST.extend, hold: THRUST.hold, recover: THRUST.recover * (ts?.recover ?? 1), reach: THRUST.reach + (ts?.reach ?? 0) };
     this.tap = { t: 0, h0: g ? [g[0], g[1], g[2]] : [0.3, -0.2, 0.12], down, head: !down && this.aimRaw.y > THRUST.headPad, K };
     if (lowEntry && down) this.tap.foe = f.foe;
+    if (!down && opportunityEnabled(f)) {
+      // AI explicitly supplies its delayed observation, including null when
+      // no opening was perceived. Never replace that with live victim data.
+      const opening = opportunityTarget === undefined && f.index === 0
+        ? findOpportunity(f, captureOpportunityPose(f.foe), 'thrust') : opportunityTarget;
+      if (opening?.kind === 'thrust' && opening.targetId === f.foe.index &&
+          ['neck', 'face'].includes(opening.zone) && opening.target &&
+          [opening.target.x, opening.target.y, opening.target.z].every(Number.isFinite)) {
+        this.tap.opportunity = {
+          target: [opening.target.x, opening.target.y, opening.target.z],
+          zone: opening.zone, kind: opening.kind, targetId: opening.targetId, foe: f.foe,
+        };
+      }
+    }
     // The optional ready reference must hand over continuously to the explicit
     // thrust. Freeze that command's base, never a physical body's pose/velocity.
     if (f.swordAssistModel === 'v2' && f.aimDirW && !down) {
@@ -162,6 +177,7 @@ export class Skill {
       return out.set(T[0], T[1], T[2]);
     }
     const foe = f.foe;
+    if (tp.opportunity) return out.fromArray(tp.opportunity.target).sub(_c).applyQuaternion(_yawInv);
     // 떨어진 머리(참수)·죽은 상대의 머리는 겨누지 않는다: 가슴으로 (gun.js headOff)
     out.copy(foe.bodies[tp.head && !headOff(foe) ? 'head' : 'chest'].translation());
     return out.sub(_c).applyQuaternion(_yawInv);
@@ -210,7 +226,8 @@ export class Skill {
     }
     // 넘어졌거나(서 있지도 무릎 꿇지도 않음) 내리찌르던 상대가 일어나면 더 뻗지 않고 곧바로 돌아온다:
     //  지금 덧씌운 정도(w)에서 돌아오는 시간 동안 0으로 (한 스텝에 끊으면 칼이 튄다). 팔 유효 질량도 더는 싣지 않는다
-    if (!tp.abort && ((f.state !== 'stand' && f.state !== 'kneel') || (tp.down && (!f.finish.on || (lowFinishEnabled(f) && tp.foe !== f.foe))))) {
+    if (!tp.abort && ((f.state !== 'stand' && f.state !== 'kneel') || (tp.down && (!f.finish.on || (lowFinishEnabled(f) && tp.foe !== f.foe))) ||
+        (tp.opportunity && (tp.opportunity.foe !== f.foe || !f.foe.alive || f.foe.decapitated)))) {
       tp.abort = { t: tp.t, w: pose.w };
     }
     if (tp.abort) {

@@ -7,6 +7,8 @@
 //  칼끝 위치와 속도, 자세, 비틀거림. (상대 조종 입력을 몰래 읽지 않는다)
 // ─────────────────────────────────────────────────────────────
 
+import { enabled, captureOpportunityPose } from './opportunity_target.js';
+
 const N = 96; // 기록 개수 (1/120초마다 → 0.8초)
 
 function snap() {
@@ -26,6 +28,7 @@ function snap() {
     balance: 100,
     armed: true,
     vigor: 1,
+    opportunity: null,
   };
 }
 
@@ -80,6 +83,7 @@ export class Senses {
     s.balance = f.balance;
     s.armed = f.armed;
     s.vigor = f.vigor;
+    s.opportunity = enabled(this.me) ? captureOpportunityPose(f) : null;
   }
 
   /** delay초 전의 모습 (기록이 모자라면 가장 오래된 것) */
