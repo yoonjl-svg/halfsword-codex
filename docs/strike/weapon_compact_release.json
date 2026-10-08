@@ -1,6 +1,6 @@
 {
-  "status": "local-verified-public-pending",
-  "publicVerified": false,
+  "status": "delivered-and-public-mobile-verified",
+  "publicVerified": true,
   "baselineCommit": "31de5771bcdfcb1a8aba1f3523b01cfc45d37b1a",
   "sourceSHA256": {
     "src/weapons.js": "bcfff186c173061f649d39863e11751427ddeefa1d028ac46227789a82840c22",
@@ -24,5 +24,93 @@
     "ordinary": "https://yoonjl-svg.github.io/halfsword-codex/",
     "morgenstern": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=morgenstern&foeWeapon=longsword&foe=default"
   },
-  "morgensternGeneralPromotion": false
+  "morgensternGeneralPromotion": false,
+  "sourceCommit": "fb82b2d735ebf6edb0b3b992958449c06a52a2fd",
+  "deployment": {
+    "conclusion": "success",
+    "headSha": "fb82b2d735ebf6edb0b3b992958449c06a52a2fd",
+    "status": "completed",
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37725545892"
+  },
+  "publicBytes": {
+    "pass": true,
+    "files": 14,
+    "reportSHA256": "4ee048ee6bef03ea0a3750908757ab0d7c668b23a449592c978d8dbfb25a2752"
+  },
+  "publicMobile": {
+    "pass": true,
+    "head": "fb82b2d735ebf6edb0b3b992958449c06a52a2fd",
+    "wallMs": 88287.62679800001,
+    "buildStable": true,
+    "sourceStable": true,
+    "errors": [],
+    "reportSHA256": "6c3535b90689d7dd56ed80ab67cf151c6d40c5de4a415611b6e33c1c655a7f37",
+    "exactResponses": 436,
+    "tlsVerification": true,
+    "proxyRetained": true,
+    "weapons": [
+      {
+        "kind": "morgenstern",
+        "pauseFrozen": true,
+        "nativeEvents": 24,
+        "finalSteps": 304,
+        "changedObjects": [
+          "player",
+          "enemy",
+          "world",
+          "ai"
+        ],
+        "mBlunt": 2.1,
+        "com": {
+          "x": 0,
+          "y": 0.4199080467224121,
+          "z": 0
+        }
+      },
+      {
+        "kind": "tree_branch",
+        "pauseFrozen": true,
+        "nativeEvents": 24,
+        "finalSteps": 292,
+        "changedObjects": [
+          "player",
+          "enemy",
+          "world",
+          "ai"
+        ],
+        "mBlunt": 1,
+        "com": {
+          "x": 0,
+          "y": 0.40921875834465027,
+          "z": 0
+        }
+      },
+      {
+        "kind": "frozen_tuna",
+        "pauseFrozen": true,
+        "nativeEvents": 24,
+        "finalSteps": 295,
+        "changedObjects": [
+          "player",
+          "enemy",
+          "world",
+          "ai"
+        ],
+        "mBlunt": 2.6,
+        "com": {
+          "x": 0,
+          "y": 0.39625000953674316,
+          "z": 0
+        }
+      }
+    ]
+  },
+  "limits": [
+    "Chromium mobile emulation; not a physical-phone or human feel acceptance.",
+    "Three weapons with native start/play/pause/resume/restart/re-input; no long-combat, natural damage or balance claim.",
+    "Only saved-settings fixture, observer state, and forwarding afterStep wrapper are written; no RNG, pose, camera, physics, AI or damage assignments.",
+    "Screenshots show the native game camera. Card exclusion is a source roster check, not a probability claim from sampled draws.",
+    "All requested served artifacts match the frozen dist bytes. Concurrent source edits are reported separately."
+  ],
+  "verifiedKST": "2026-10-08T13:05:41.109698+09:00"
 }
