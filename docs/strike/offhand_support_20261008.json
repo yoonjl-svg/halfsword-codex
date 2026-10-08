@@ -1,0 +1,577 @@
+{
+  "schemaVersion": 1,
+  "status": "locally-verified-public-pending",
+  "recordedUTC": "2026-10-08T05:49:21.897423+00:00",
+  "baselineCommit": "702d9834fc0a013542ead5937fd42c2efc62724d",
+  "repository": "yoonjl-svg/halfsword-codex",
+  "evidenceRoot": "/workspace/halfsword-handoff/offhand-support-20261008",
+  "scope": "Off-hand injury links the existing grip-force cap and virtual contact assistance. Evidence is component fixtures plus controlled native input/contact runs, not full-battle balance validation.",
+  "model": {
+    "candidate": "linked",
+    "comparison": "legacy",
+    "virtualAssistAllocation": "0.5 main + 0.5 support; support uses cached reach and current/sampled minimum muscle and health with immediate eligibility/detachment gates.",
+    "swingAssistKg": {
+      "fullySupported": 0.3,
+      "supportDisabled": 0.15
+    },
+    "thrustAssistKg": {
+      "fullySupported": 3.5,
+      "supportDisabled": 1.75
+    },
+    "partialArm06GripCapN": 200,
+    "healthyGripCapN": 250,
+    "unchanged": "Main wrist cap, speed limits, rigid sword mass/inertia, and one-hand virtual assistance."
+  },
+  "source": {
+    "current": {
+      "src/arm_support.js": {
+        "path": "/workspace/halfsword-codex/src/arm_support.js",
+        "bytes": 2338,
+        "sha256": "0cadc692af51f769b7b718b233c4948889547fe3ef3175f3fc52592742e7a66c"
+      },
+      "src/fighter.js": {
+        "path": "/workspace/halfsword-codex/src/fighter.js",
+        "bytes": 156074,
+        "sha256": "b73b60b778f364f1032e7a8b262d258a4da43ba0ef7343d542a900fee8eda928"
+      },
+      "src/combat.js": {
+        "path": "/workspace/halfsword-codex/src/combat.js",
+        "bytes": 44633,
+        "sha256": "6e3437c780093f4622ccd76b9161286272a51bb03684f9c56362834b774cb20f"
+      },
+      "src/main.js": {
+        "path": "/workspace/halfsword-codex/src/main.js",
+        "bytes": 101889,
+        "sha256": "97b95c6bc8becf865c7a84f8557cf8a82e3be24df0d12f1bf93a80030c5228a8"
+      },
+      "src/cut_reaction.js": {
+        "path": "/workspace/halfsword-codex/src/cut_reaction.js",
+        "bytes": 4585,
+        "sha256": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779"
+      },
+      "tools/sim/experiments/offhand_support.test.mjs": {
+        "path": "/workspace/halfsword-codex/tools/sim/experiments/offhand_support.test.mjs",
+        "bytes": 18790,
+        "sha256": "43f230ca4c3dece36345ab5024796c17849d1226e8d211aa781c4bda51d66d88"
+      },
+      "tools/sim/experiments/offhand_support_20261008.mjs": {
+        "path": "/workspace/halfsword-codex/tools/sim/experiments/offhand_support_20261008.mjs",
+        "bytes": 21571,
+        "sha256": "4160e66a6797b8250a53edac811ec9eae6d43930ceb9778b4de3a86d8e95ae51"
+      },
+      "tools/sim/experiments/offhand_contact_20261008.mjs": {
+        "path": "/workspace/halfsword-codex/tools/sim/experiments/offhand_contact_20261008.mjs",
+        "bytes": 15045,
+        "sha256": "882716a20d1fcf5af1b804ab8e676ee7c39623fd41a2b10f4f989bea56957125"
+      },
+      "tools/sim/experiments/finish_power.test.mjs": {
+        "path": "/workspace/halfsword-codex/tools/sim/experiments/finish_power.test.mjs",
+        "bytes": 20983,
+        "sha256": "822b7e137218e3221db1dcaa6eac6028ce7b17332311a70e956a76224329a3bc"
+      },
+      "tools/sim/harness_m.mjs": {
+        "path": "/workspace/halfsword-codex/tools/sim/harness_m.mjs",
+        "bytes": 6401,
+        "sha256": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0"
+      },
+      "package-lock.json": {
+        "path": "/workspace/halfsword-codex/package-lock.json",
+        "bytes": 25682,
+        "sha256": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e"
+      }
+    },
+    "nativeFrozenRoots": [
+      "/workspace/halfsword-handoff/offhand-support-20261008/run02/source",
+      "/workspace/halfsword-handoff/offhand-support-20261008/contact01/source"
+    ],
+    "threeRuntimeHashesMatchComponentsAndBothNativeRuns": true,
+    "mainEntryAddedAfterNativeRuns": {
+      "nativeFrozenSHA256": "d5b72d4e9590e5d33074ea4833581380bc21a1aef09bb06d35aea18b38e1d265",
+      "currentSHA256": "97b95c6bc8becf865c7a84f8557cf8a82e3be24df0d12f1bf93a80030c5228a8",
+      "note": "Native probes set armSupportModel directly. Main entry wiring was added afterward; those native runs do not validate browser entry routing. arm_support.js, fighter.js and combat.js are unchanged from both frozen native runs."
+    },
+    "dependencyNote": "Frozen native source uses the existing installed node_modules through a symlink; package-lock.json hash is recorded."
+  },
+  "checks": {
+    "components": {
+      "pass": true,
+      "cases": 13,
+      "nativeRoundFixtures": 24,
+      "physicsSteppedBattles": 0,
+      "sourceStable": true,
+      "findings": [
+        "Actual unsaturated offHand force remains 30 N healthy and 24 N at armO=.6 in both models; health is not deducted twice.",
+        "Actual saturated offHand force is 250 N healthy in both models; armO=.6 is 250 N legacy and 200 N linked.",
+        "Healthy supported cached cut/stab predictions and actual wounds match legacy exactly; severe support gives .15 kg swing and 1.75 kg thrust.",
+        "Cached helper purity, immediate injury/weakness/sever gates, actual joint removal, partial revival/new round, one-hand compatibility, and legacy/centerline/budgeted stuck resistance pass."
+      ]
+    },
+    "freeMotion": {
+      "runs": 12,
+      "physicsSteps": 8928,
+      "pairedComparisons": 6,
+      "allSixPhysicalPairsExact": true,
+      "checks": {
+        "finite": true,
+        "accepted": true,
+        "identicalSpawn": true,
+        "identicalHealthyPrefix": true,
+        "identicalRequestedInput": true,
+        "frozenSourceStable": true
+      },
+      "protocol": "Seed7; longsword/zweihander; healthy, armO=.6, or armO=.2 then actual detachLimb; same authored raise/cut/reverse/recut/release tape; distant idle foe.",
+      "partialForceCapReachedSteps": 0,
+      "interpretation": "All same-condition legacy/linked physical trajectories are exact. Partial injury never reaches the changed cap; this run does not expose a grip-cap intervention. Contact proxy values differ read-only.",
+      "partialForcePeaksN": {
+        "longsword": 127.12749476892975,
+        "zweihander": 128.85905444703135
+      }
+    },
+    "nativeContact": {
+      "runs": 8,
+      "physicsSteps": 10560,
+      "valid": true,
+      "allFinite": true,
+      "sourceStable": true,
+      "protocol": {
+        "seed": 7,
+        "gapM": 2.4,
+        "runs": 8,
+        "maxSteps": 1320,
+        "modes": [
+          "legacy",
+          "linked"
+        ],
+        "weapons": [
+          "longsword",
+          "zweihander"
+        ],
+        "conditions": [
+          "healthy",
+          "severe"
+        ],
+        "preparation": "At creation idle enemy knockDown(true), downTime=1e9; chest and head each receive 40 Ns toward player over first .25s. No body-position, velocity or wound assignment. Severe player armO set directly to .2 at tick300.",
+        "input": "Settle300; approach at <=.4 stick to torso distance .65±.06m (timeout780), wait90 then one native skill.thrust. Each linked run replays its same-condition legacy tape.",
+        "configuration": "Ordinary player unified v2/manual/fresh stance/bounded roll/centerline cut; finish power both fighters; limb ON/gravity9.81; idle foe.",
+        "shadows": "Pure cached geometry sample and Object.create(attacker) facades. Analyze legacy/linked using exactly the same point and cached S/P; no actual attacker/model/cache mutation."
+      },
+      "pairs": [
+        {
+          "weapon": "longsword",
+          "condition": "healthy",
+          "sameSpawn": true,
+          "sameInput": true,
+          "prefixValid": true,
+          "firstEffectTick": 568,
+          "firstEffectReason": "tiny actual energy difference from muscle convergence below1; not meaningful weakening",
+          "firstNativeDifference": 569,
+          "firstControllerDifference": 568
+        },
+        {
+          "weapon": "longsword",
+          "condition": "severe",
+          "sameSpawn": true,
+          "sameInput": true,
+          "prefixValid": true,
+          "firstEffectTick": 585,
+          "firstEffectReason": "actual strike assistance/energy changes",
+          "firstNativeDifference": 586,
+          "firstControllerDifference": 585
+        },
+        {
+          "weapon": "zweihander",
+          "condition": "healthy",
+          "sameSpawn": true,
+          "sameInput": true,
+          "prefixValid": true,
+          "firstEffectTick": null,
+          "firstEffectReason": "no measured contact-policy effect",
+          "firstNativeDifference": -1,
+          "firstControllerDifference": -1
+        },
+        {
+          "weapon": "zweihander",
+          "condition": "severe",
+          "sameSpawn": true,
+          "sameInput": true,
+          "prefixValid": true,
+          "firstEffectTick": 679,
+          "firstEffectReason": "predicted penetration pass changes",
+          "firstNativeDifference": 679,
+          "firstControllerDifference": 681
+        }
+      ],
+      "selectedModeShadowMismatchCount": 0,
+      "severeLongswordMatchedContact": {
+        "tick": 585,
+        "zone": "chest",
+        "mFreeKg": 1.177456817451664,
+        "legacyEff": 106.15717562080249,
+        "linkedEff": 66.44006767375,
+        "legacySeverity": 1.3526195936800416,
+        "linkedSeverity": 0.6906677945624999,
+        "bothVictimsAliveImmediatelyAfter": true
+      },
+      "severeZweihanderMatchedPrediction": {
+        "tick": 679,
+        "zone": "neck",
+        "mFree": 1.9232446755497286,
+        "legacyEff": 28.409135792926975,
+        "linkedEff": 19.24193228065271,
+        "threshold": 16,
+        "passThreshold": 20.0,
+        "legacyPass": true,
+        "linkedPass": false
+      },
+      "severeZweihanderOutcomes": [
+        {
+          "mode": "legacy",
+          "alive": false,
+          "firstDeathTick": 681,
+          "deathCause": "목"
+        },
+        {
+          "mode": "linked",
+          "alive": false,
+          "firstDeathTick": 998,
+          "deathCause": "출혈"
+        }
+      ],
+      "healthyQualification": "Zweihander is whole-run exact. Longsword actual contact568 differs by about 2.17e-8 kg assistance and 4.015e-7 effective energy because muscle converges just below1; this is not meaningful weakening. Prediction151 has a larger .000429960 kg assist difference but unchanged pass and no wound."
+    },
+    "finishPowerRegression": {
+      "pass": true,
+      "cases": 58,
+      "sourceStable": true,
+      "expectedMultiplier": 2.5,
+      "method": "Prepared cached-state real Combat.analyze/strike and Fighter wounds/vitals; no physics steps. Legacy analyzer supplies matched unamplified controls. Not natural combat or acceptance."
+    }
+  },
+  "preservedFailure": {
+    "run": "run01",
+    "completedPhysicsSteps": 0,
+    "error": "TypeError: f.detachedParts is not iterable",
+    "location": "offhand_support_20261008.mjs controller spawn-state serialization",
+    "resolution": "Only observer serialization was corrected to tolerate absent detachedParts; run02 completed. This was an instrumentation failure before step0, not a simulated game failure.",
+    "artifacts": [
+      "run01.log",
+      "run01/protocol.json"
+    ]
+  },
+  "commands": {
+    "workingDirectory": "/workspace/halfsword-codex",
+    "components": [
+      "node",
+      "tools/sim/experiments/offhand_support.test.mjs",
+      "/workspace/halfsword-handoff/offhand-support-20261008/components.json"
+    ],
+    "freeMotionRecorded": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/halfsword-codex/tools/sim/experiments/offhand_support_20261008.mjs",
+      "/workspace/halfsword-codex",
+      "/workspace/halfsword-handoff/offhand-support-20261008/run02"
+    ],
+    "nativeContactRecorded": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/halfsword-codex/tools/sim/experiments/offhand_contact_20261008.mjs",
+      "/workspace/halfsword-codex",
+      "/workspace/halfsword-handoff/offhand-support-20261008/contact01"
+    ],
+    "finishPowerRegression": [
+      "node",
+      "tools/sim/experiments/finish_power.test.mjs",
+      "/workspace/halfsword-handoff/offhand-support-20261008/finish-power-regression.json"
+    ],
+    "repeatNote": "These identify the recorded runs. Use new external output files/directories for reproduction; do not overwrite preserved evidence. No experiment was rerun to assemble this manifest."
+  },
+  "limitations": [
+    "The half-main/half-support allocation is a game-model assumption, not measured anatomical mass.",
+    "Component tests construct support/contact/wound states; their 24 rounds are fixtures, not 24 full battles or natural revival/getup demonstrations.",
+    "Free-motion partial cases never hit the force cap. The 200 N cap effect is demonstrated only by the saturated component fixture.",
+    "Contact runs use controlled knockdown, initial impulses, an idle enemy and direct arm-function preparation. They establish implemented coupling, not natural injury frequency, balance, or human realism.",
+    "Inputs match within each legacy/linked pair. Healthy versus severe conditions author separate approach tapes; they are not identical-input comparisons.",
+    "Actual trajectories diverge after the first legitimate policy effect. Event-local cached shadows provide the same-state comparisons.",
+    "Severe zweihander linked survives the first neck impact but dies from bleeding at tick998; this is not a survival win.",
+    "Method observers delegate unchanged arguments; no separate observer-off equivalence run was performed.",
+    "Browser routing, public bytes and real-phone acceptance are outside this manifest. Delivery remains public-pending until separately recorded."
+  ],
+  "artifacts": {
+    "components.json": {
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/components.json",
+      "bytes": 34161,
+      "sha256": "8c9f967997cd8b2a0612a3b7bd0583375626227bd628ce384253064fca9635e0"
+    },
+    "run02/report.json": {
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/run02/report.json",
+      "bytes": 611832,
+      "sha256": "23c90d6e9673daa83768ed1894e51fb58abc7965e80e6ec6ddd77d9cbf10d867"
+    },
+    "run02/protocol.json": {
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/run02/protocol.json",
+      "bytes": 12226,
+      "sha256": "c0314a560acd97d8d33a7cd0cf099decbd1204930d2cdab58c5ad518588e023b"
+    },
+    "run02/paired-analysis.json": {
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/run02/paired-analysis.json",
+      "bytes": 5436,
+      "sha256": "c424ce0d4642a3a7f61e843fc17647dd9a04a001f03a46a3922fc2a42e68d11d"
+    },
+    "run02/input-tape.json": {
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/run02/input-tape.json",
+      "bytes": 62775,
+      "sha256": "28f592b365536bfff3cf29ad98292905896308efd09b5650a604faaeebd173fc"
+    },
+    "contact01/report.json": {
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/contact01/report.json",
+      "bytes": 116677,
+      "sha256": "f7fd10f6bcecbb9370c5fc0de35e36759f05035a00dbde88870db21b2be2b2cd"
+    },
+    "contact01/protocol.json": {
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/contact01/protocol.json",
+      "bytes": 10967,
+      "sha256": "d08971599c2cc2899352e132ea20dd13f1028965fecd2ef849b86830c8d52089"
+    },
+    "contact01/paired-analysis.json": {
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/contact01/paired-analysis.json",
+      "bytes": 34642,
+      "sha256": "99a5e847d5e3eea0fb4c496a9630612cfcc32acddb34eae9123eb730b652b6c3"
+    },
+    "contact01/summary.json": {
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/contact01/summary.json",
+      "bytes": 19621,
+      "sha256": "d8133c5d75ab0a8999a0099aeb6efcadbd768a9e5975f1db99d04a0a71954e76"
+    },
+    "finish-power-regression.json": {
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/finish-power-regression.json",
+      "bytes": 239272,
+      "sha256": "4acb090e63acb6df7803ba77b1831709a9a9f8859263ae6f5ddf6d351aef2144"
+    },
+    "run01.log": {
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/run01.log",
+      "bytes": 695,
+      "sha256": "fa68e169a6b52c51a06df0498a9c30b19a92e0d53f76b60fb5c18f2556ae7bf1"
+    },
+    "run01/protocol.json": {
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/run01/protocol.json",
+      "bytes": 12226,
+      "sha256": "780ac58796f3e0b7f4d77331642d991ad6d7a56bab2a0a17fbed8b3c49803118"
+    }
+  },
+  "rawRuns": [
+    {
+      "kind": "freeMotion",
+      "weapon": "longsword",
+      "condition": "healthy",
+      "mode": "legacy",
+      "steps": 744,
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/run02/longsword-healthy-legacy/trace.jsonl",
+      "bytes": 1168828,
+      "sha256": "4a9db1dc069e71c0fe0c039c43925ad0ff1d06d43b747c28aa9194fb3f6832a6"
+    },
+    {
+      "kind": "freeMotion",
+      "weapon": "longsword",
+      "condition": "healthy",
+      "mode": "linked",
+      "steps": 744,
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/run02/longsword-healthy-linked/trace.jsonl",
+      "bytes": 1246673,
+      "sha256": "49170c4a9d17a87e9980977fea819f730f09fea4911085425325ea9474383d2c"
+    },
+    {
+      "kind": "freeMotion",
+      "weapon": "longsword",
+      "condition": "partial",
+      "mode": "legacy",
+      "steps": 744,
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/run02/longsword-partial-legacy/trace.jsonl",
+      "bytes": 1169578,
+      "sha256": "1523bbeda6d2fd978a6a7533c08cc2e10efb430739a9e9fc7cecc1dcc8a8590a"
+    },
+    {
+      "kind": "freeMotion",
+      "weapon": "longsword",
+      "condition": "partial",
+      "mode": "linked",
+      "steps": 744,
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/run02/longsword-partial-linked/trace.jsonl",
+      "bytes": 1250949,
+      "sha256": "75767d73981ae4fcf127309b3eb83203f473d0cebbd1340b0e5afc7515cc4fb3"
+    },
+    {
+      "kind": "freeMotion",
+      "weapon": "longsword",
+      "condition": "severe_detached",
+      "mode": "legacy",
+      "steps": 744,
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/run02/longsword-severe_detached-legacy/trace.jsonl",
+      "bytes": 1094068,
+      "sha256": "fa75e9170b0293e6fea3e5f824abb207d7dfe205d976abd04a4c3d79bed95c2f"
+    },
+    {
+      "kind": "freeMotion",
+      "weapon": "longsword",
+      "condition": "severe_detached",
+      "mode": "linked",
+      "steps": 744,
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/run02/longsword-severe_detached-linked/trace.jsonl",
+      "bytes": 1168100,
+      "sha256": "f726e6b08a2b07533c266930069addfd8a4e4e493847fd662dc0be34a34b4e48"
+    },
+    {
+      "kind": "freeMotion",
+      "weapon": "zweihander",
+      "condition": "healthy",
+      "mode": "legacy",
+      "steps": 744,
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/run02/zweihander-healthy-legacy/trace.jsonl",
+      "bytes": 1168584,
+      "sha256": "cbdddb160eacf51ecfa8d3cb07a76cea883507b7f97e6c9c5acc1f59cf2e4d70"
+    },
+    {
+      "kind": "freeMotion",
+      "weapon": "zweihander",
+      "condition": "healthy",
+      "mode": "linked",
+      "steps": 744,
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/run02/zweihander-healthy-linked/trace.jsonl",
+      "bytes": 1246445,
+      "sha256": "69b2c0734984a391a0acfeeb0465cb1b7db2db5438d31791f4a2c0b992adae6d"
+    },
+    {
+      "kind": "freeMotion",
+      "weapon": "zweihander",
+      "condition": "partial",
+      "mode": "legacy",
+      "steps": 744,
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/run02/zweihander-partial-legacy/trace.jsonl",
+      "bytes": 1169454,
+      "sha256": "aa7940b0e2db79c58805ad8988a8fb6ff35d5cc4060ab2cdf3025416bce5c896"
+    },
+    {
+      "kind": "freeMotion",
+      "weapon": "zweihander",
+      "condition": "partial",
+      "mode": "linked",
+      "steps": 744,
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/run02/zweihander-partial-linked/trace.jsonl",
+      "bytes": 1250840,
+      "sha256": "cffeb28efce646945c5fbc587b6ef4d03907e4bfa6f979da13ae2cf9231ba79f"
+    },
+    {
+      "kind": "freeMotion",
+      "weapon": "zweihander",
+      "condition": "severe_detached",
+      "mode": "legacy",
+      "steps": 744,
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/run02/zweihander-severe_detached-legacy/trace.jsonl",
+      "bytes": 1093886,
+      "sha256": "730915a3f742e5ba69b44c73a4716e19e951beca1a0728d4d4cdfaa54b1b6371"
+    },
+    {
+      "kind": "freeMotion",
+      "weapon": "zweihander",
+      "condition": "severe_detached",
+      "mode": "linked",
+      "steps": 744,
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/run02/zweihander-severe_detached-linked/trace.jsonl",
+      "bytes": 1167909,
+      "sha256": "e5c03b15a0a0d03f7064898007776c0a6b1f85f60dad6c2af9afbe9779a6b9c0"
+    },
+    {
+      "kind": "nativeContact",
+      "weapon": "longsword",
+      "condition": "healthy",
+      "mode": "legacy",
+      "steps": 1320,
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/contact01/longsword-healthy-legacy.json",
+      "bytes": 1413054,
+      "sha256": "2834603a0525db3a5c4abecef8e50fbd8a9e9cf78ebe5472b32b4b37c648c186"
+    },
+    {
+      "kind": "nativeContact",
+      "weapon": "longsword",
+      "condition": "healthy",
+      "mode": "linked",
+      "steps": 1320,
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/contact01/longsword-healthy-linked.json",
+      "bytes": 1469095,
+      "sha256": "60ec2a826bc9988e5cde5ab8ece298dff241615a8c3d676dff4265f33fb5d9d4"
+    },
+    {
+      "kind": "nativeContact",
+      "weapon": "longsword",
+      "condition": "severe",
+      "mode": "legacy",
+      "steps": 1320,
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/contact01/longsword-severe-legacy.json",
+      "bytes": 1552422,
+      "sha256": "1e3ead392aa7f6104d417e3714991a102331a98831d8a0c429d036c904a0a016"
+    },
+    {
+      "kind": "nativeContact",
+      "weapon": "longsword",
+      "condition": "severe",
+      "mode": "linked",
+      "steps": 1320,
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/contact01/longsword-severe-linked.json",
+      "bytes": 1753966,
+      "sha256": "236f9188234c2077ba70178d58c5abea65dc8eb007961835ebb3bc47f85a7629"
+    },
+    {
+      "kind": "nativeContact",
+      "weapon": "zweihander",
+      "condition": "healthy",
+      "mode": "legacy",
+      "steps": 1320,
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/contact01/zweihander-healthy-legacy.json",
+      "bytes": 2714731,
+      "sha256": "850c3fc074ee9a32d56cbb8fa03409ea8644951bb2fb2e246ef7ebd7e456d4bf"
+    },
+    {
+      "kind": "nativeContact",
+      "weapon": "zweihander",
+      "condition": "healthy",
+      "mode": "linked",
+      "steps": 1320,
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/contact01/zweihander-healthy-linked.json",
+      "bytes": 2719710,
+      "sha256": "1de26c7c0645aae9143be8eb3f9345e71ea7bf2cd5430401010b66f0125ed28c"
+    },
+    {
+      "kind": "nativeContact",
+      "weapon": "zweihander",
+      "condition": "severe",
+      "mode": "legacy",
+      "steps": 1320,
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/contact01/zweihander-severe-legacy.json",
+      "bytes": 2419969,
+      "sha256": "85e82b15f5e8694d18bf2dab11428a5711105a89e9a6ce1bb904bdc898245beb"
+    },
+    {
+      "kind": "nativeContact",
+      "weapon": "zweihander",
+      "condition": "severe",
+      "mode": "linked",
+      "steps": 1320,
+      "path": "/workspace/halfsword-handoff/offhand-support-20261008/contact01/zweihander-severe-linked.json",
+      "bytes": 2430713,
+      "sha256": "a409beef25b193a236fba7f779cb43059d47f2cadeb0f88b472c022af222d9ab"
+    }
+  ],
+  "localMobile": {
+    "pass": true,
+    "responses": 648,
+    "uniqueArtifacts": 145,
+    "ordinaryFlows": 2,
+    "historicalOrMalformedMenus": 5,
+    "onehandMenu": "qinggang",
+    "errors": 0,
+    "sourceStable": true,
+    "buildStable": true,
+    "report": "/workspace/halfsword-handoff/offhand-support-20261008/browser/local01/report.json",
+    "reportSHA256": "fdd1de10264d3a353c6325b8014241c1a1ee039223d4df44392a6886031d8487",
+    "toolSHA256": "fff8d8a9917490f25fe83d83e078d66ec39fa5137a88199a3135aa8b41771d18",
+    "scope": "Chromium mobile emulation; trusted touch start/play/pause/resume/restart; no gameplay mutation, not physical Safari."
+  }
+}

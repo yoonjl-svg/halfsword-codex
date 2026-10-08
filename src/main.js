@@ -78,6 +78,10 @@ const priorTrialParams = contactTrial.requested || stanceV2Trial.requested || gr
 // The finish comparison uses today's ordinary controller/physics as its base.
 // Its strict owned query is removed before defaults; only finishRule is overridden.
 const swordsmanshipDefault = configureSwordsmanshipDefault(activeV2Trial ? requestedParams : priorTrialParams);
+// This injury correction is common to both fighters, independent of the v2
+// weapon whitelist. Read the original query so archived/malformed research
+// entries cannot acquire it when a compound trial clears its parameters.
+const linkedArmSupport = configureSwordsmanshipDefault(requestedParams).active;
 const swordsmanshipTrial = configureSwordsmanshipTrial(priorTrialParams);
 const integratedCombatTrial = configureIntegratedCombatTrial(priorTrialParams);
 // Reject an incomplete compound entry as a whole; standalone comparison URLs
@@ -480,6 +484,7 @@ function newRound(weaponId) {
   });
   // 같은 선택형 팔 제어를 양쪽에 적용하고 재시작 때도 주소 설정을 유지한다.
   for (const f of [player, enemy]) f.armTorqueModel = armTrial.model;
+  for (const f of [player, enemy]) f.armSupportModel = linkedArmSupport ? 'linked' : 'legacy';
   for (const f of [player, enemy]) f.onehandArmModel = onehandArmModel;
   if (integratedCombatTrial.active || swordsmanshipTrial.active || activeV2Trial) enemy.onehandArmModel = 'legacy';
   if (stanceV2Trial.active) player.stanceMemoryModel = stanceV2Trial.model;

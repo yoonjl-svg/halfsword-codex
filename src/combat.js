@@ -28,6 +28,7 @@ import { updateGun } from './gun.js';
 import { applyBudgetedCutResistance } from './cut_reaction.js';
 import { applyCenterlineCutImpulse, centerlineCutEnabled } from './cut_centerline.js';
 import { resolveFinishRule, effectiveFinishEnergy, FINISH_POWER } from './finish_rule.js';
+import { strikeArmAssist } from './arm_support.js';
 
 // 전투 사건 갈고리 (gun.js GUN_HOOKS 와 같은 식): 비어 있으면 아무 일도 없다. 판정·난수와 무관
 //  onDecapitate(f, headBody): 참수된 순간 한 번 (fighter.applyWound, die 뒤) — 사운드 PM 이 소리를 건다
@@ -178,7 +179,7 @@ export class Combat {
 
     // 유효 질량: 맞은 점에서의 강체 칼의 실제 유효 질량 + 팔·몸의 도움
     const mFree = freeMass(pr.w.fighter.swordProps, S, point, dir);
-    let mEff = mFree + STRIKE.armAssist;
+    let mEff = mFree + strikeArmAssist(att);
     let ephys = 0.5 * mEff * speed * speed; // 실제 운동 에너지 (J)
     // 게임 속 판정용 에너지: 실제 에너지 × 보정값. 이 모델의 베는 속도가 실제(칼날 치는 부분 약 20m/s)보다
     // 조금 낮아서, 상처 문턱값(ANATOMY)과 기절·비틀거림 같은 효과가 예전과 같은 세기로 나오게 맞춘 값이다
@@ -199,7 +200,7 @@ export class Combat {
         //  닿은 것)은 예전 그대로. 칼끝이 들어가지 못해 멍으로 바뀌면 이 몫을 빼고 원래 에너지로 돌린다(아래)
         if (att.skill?.thrustPush && (att.state === 'stand' || att.state === 'kneel')) {
           assisted = { mEff, ephys, energy };
-          mEff = mFree + STRIKE.thrustAssist;
+          mEff = mFree + strikeArmAssist(att, 'thrust');
           ephys = 0.5 * mEff * speed * speed;
           energy = ephys * STRIKE.energyScale;
         }
@@ -397,7 +398,9 @@ export class Combat {
       if (s < 1e-3) continue;
       const dir = rel.divideScalar(s);
       if (this.cutReactionModel === 'budgeted') {
-        const cutReaction = applyBudgetedCutResistance({ sw, vb, point, dir, s, dt, cut: c, strike: STRIKE, step: this.stepNo, key });
+        const strike = c.pr.w.fighter.armSupportModel === 'linked'
+          ? { ...STRIKE, armAssist: strikeArmAssist(c.pr.w.fighter) } : STRIKE;
+        const cutReaction = applyBudgetedCutResistance({ sw, vb, point, dir, s, dt, cut: c, strike, step: this.stepNo, key });
         if (cutReaction) this.onCutReaction?.(cutReaction);
         continue;
       }
@@ -410,7 +413,7 @@ export class Combat {
         if (c.Eleft <= 1e-3 && c.stuck) c.stuckT = STRIKE.stuckTime;
       } else if (c.stuckT > 0) {
         // 박힘: 칼과 몸이 함께 움직이도록 붙잡는다 (빼내려면 힘이 든다)
-        J = Math.min(Math.min(STRIKE.stuckDamp * s, STRIKE.stuckForce) * dt, 0.8 * (c.mFree + STRIKE.armAssist) * s);
+        J = Math.min(Math.min(STRIKE.stuckDamp * s, STRIKE.stuckForce) * dt, 0.8 * (c.mFree + strikeArmAssist(c.pr.w.fighter)) * s);
         c.stuckT -= dt;
         c.seen = this.stepNo;
       }

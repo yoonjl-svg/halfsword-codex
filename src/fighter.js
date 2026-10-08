@@ -36,6 +36,7 @@ import { decorateOutfit, setHelmetWear, setPlateWear } from './outfits.js';
 import { reviveOf, tryRevive, reviveTick } from './revive.js';
 import { limbSeverCandidate, detachLimb, disableMissingLegSupport } from './limb_sever.js';
 import { collectSupportContacts } from './support_contacts.js';
+import { offhandCanGrip, offhandHealthScale, sampleArmSupport } from './arm_support.js';
 import { applyAxialLegSupport } from './support_transfer.js';
 
 // 충돌 그룹 비트. 자기 몸과 자기 칼끼리는 부딪히지 않게 한다.
@@ -2262,7 +2263,7 @@ export class Fighter {
    *  - 빈팔을 크게 다치거나, 쓰러지거나, 칼을 놓치면 손을 놓는다.
    */
   offHand() {
-    const want =
+    const want = this.armSupportModel === 'linked' ? offhandCanGrip(this) :
       this.armed &&
       this.weaponCfg.twoHand && // 한손무기는 빈손이 칼자루를 잡지 않는다 (applyPose의 기본 손 자세를 그대로 쓴다)
       (this.state === 'stand' || this.state === 'kneel' || this.state === 'getup') &&
@@ -2307,7 +2308,11 @@ export class Fighter {
     F.y += (vp.y - vh.y) * GRIP.d;
     F.z += (vp.z - vh.z) * GRIP.d;
     F.multiplyScalar(grab);
-    if (F.length() > GRIP.maxForce) F.setLength(GRIP.maxForce);
+    // The health factor already appears in grab. Scale the cap too, so a
+    // saturated spring cannot hide partial injury. This applies health once:
+    // health * clamp(raw * reach * muscle, maxForce).
+    const maxForce = GRIP.maxForce * (this.armSupportModel === 'linked' ? offhandHealthScale(this) : 1);
+    if (F.length() > maxForce) F.setLength(maxForce);
     fo.addForceAtPoint(vecArg(F), vecArg(handPoint), true);
     sword.addForceAtPoint({ x: -F.x, y: -F.y, z: -F.z }, vecArg(swordPoint), true);
   }
@@ -2374,6 +2379,7 @@ export class Fighter {
     };
     c.sword = put(this.sword, c.sword);
     for (const name in this.bodies) c.parts[name] = put(this.bodies[name], c.parts[name]);
+    if (this.armSupportModel === 'linked') c.armSupport = sampleArmSupport(this, c);
   }
 
   syncMeshes() {
