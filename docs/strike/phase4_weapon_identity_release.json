@@ -1,7 +1,7 @@
 {
-  "status": "local-verified-awaiting-public-delivery",
+  "status": "delivered-and-public-mobile-verified",
   "baselineCommit": "5cb606fce3b369d309ab7b4e6a685d6228ecb7f1",
-  "publicVerified": false,
+  "publicVerified": true,
   "sourceSHA256": {
     "src/main.js": "008066084faab968fc5e5a30506d63c164e5feb36b21a33efe248a1dd9eafd86",
     "src/ai.js": "2f23c64500eb6217ccba295607b17697c98e3f3f830c051a6d0f7c01af3116da",
@@ -24,22 +24,14 @@
       "physicsSteps": 0,
       "wallMs": 2848.514832,
       "completedUTC": "2026-10-08T00:32:31.667Z",
-      "errors": [
-        {
-          "kind": "route",
-          "url": "http://127.0.0.1:4173/?foe=bran&foeWeapon=chicken",
-          "message": "route.fetch: connect ECONNREFUSED 127.0.0.1:4173\nCall log:\n\u001b[2m  - → GET http://127.0.0.1:4173/?foe=bran&foeWeapon=chicken\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36\u001b[22m\n\u001b[2m    - accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\u001b[2m    - upgrade-insecure-requests: 1\u001b[22m\n\u001b[2m    - sec-ch-ua: \"Chromium\";v=\"151\", \"Not=A?Brand\";v=\"99\"\u001b[22m\n\u001b[2m    - sec-ch-ua-mobile: ?0\u001b[22m\n\u001b[2m    - sec-ch-ua-platform: \"Linux\"\u001b[22m\n"
-        },
-        {
-          "kind": "requestfailed",
-          "url": "http://127.0.0.1:4173/?foe=bran&foeWeapon=chicken",
-          "message": "net::ERR_FAILED"
-        }
-      ],
+      "errorCounts": {
+        "route": 1,
+        "requestfailed": 1
+      },
+      "httpErrors": [],
       "fatal": {
         "name": "Error",
-        "message": "page.goto: net::ERR_FAILED at http://127.0.0.1:4173/?foe=bran&foeWeapon=chicken\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:4173/?foe=bran&foeWeapon=chicken\", waiting until \"load\"\u001b[22m\n",
-        "stack": "page.goto: net::ERR_FAILED at http://127.0.0.1:4173/?foe=bran&foeWeapon=chicken\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:4173/?foe=bran&foeWeapon=chicken\", waiting until \"load\"\u001b[22m\n\n    at /workspace/halfsword-codex/tools/browser/phase4_weapon_identity_20261008.mjs:46:110"
+        "message": "page.goto: net::ERR_FAILED at http://127.0.0.1:4173/?foe=bran&foeWeapon=chicken\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:4173/?foe=bran&foeWeapon=chicken\", waiting until \"load\"\u001b[22m\n"
       },
       "observations": [],
       "manifestSHA256": "10d88f9dc4c6f9841a7911fda41816004e64470e4c69089ae9cc1f9e0e8616c1",
@@ -58,11 +50,11 @@
       "physicsSteps": 0,
       "wallMs": 12754.105392,
       "completedUTC": "2026-10-08T00:32:57.141Z",
-      "errors": [],
+      "errorCounts": {},
+      "httpErrors": [],
       "fatal": {
         "name": "Error",
-        "message": "page.evaluate: TypeError: Cannot read properties of null (reading 'getAttribute')\n    at p.read (eval at evaluate (:311:30), <anonymous>:2:1043)\n    at eval (eval at evaluate (:311:30), <anonymous>:1:19)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
-        "stack": "page.evaluate: TypeError: Cannot read properties of null (reading 'getAttribute')\n    at p.read (eval at evaluate (:311:30), <anonymous>:2:1043)\n    at eval (eval at evaluate (:311:30), <anonymous>:1:19)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at read (/workspace/halfsword-codex/tools/browser/phase4_weapon_identity_20261008.mjs:36:22)\n    at enter (/workspace/halfsword-codex/tools/browser/phase4_weapon_identity_20261008.mjs:42:163)\n    at async file:///workspace/halfsword-codex/tools/browser/phase4_weapon_identity_20261008.mjs:49:61"
+        "message": "page.evaluate: TypeError: Cannot read properties of null (reading 'getAttribute')\n    at p.read (eval at evaluate (:311:30), <anonymous>:2:1043)\n    at eval (eval at evaluate (:311:30), <anonymous>:1:19)\n    at UtilityScript.evaluate (<anonymous>:313"
       },
       "observations": [],
       "manifestSHA256": "a5bea2c2790e1fa57469155249ec27de16e5a9f5b7e7b6fa9b9d01d18bd391a1",
@@ -81,7 +73,8 @@
       "physicsSteps": 331,
       "wallMs": 65089.038818,
       "completedUTC": "2026-10-08T00:34:34.517Z",
-      "errors": [],
+      "errorCounts": {},
+      "httpErrors": [],
       "fatal": null,
       "observations": [
         {
@@ -140,7 +133,8 @@
       "physicsSteps": 337,
       "wallMs": 69032.351071,
       "completedUTC": "2026-10-08T00:39:01.683Z",
-      "errors": [],
+      "errorCounts": {},
+      "httpErrors": [],
       "fatal": null,
       "observations": [
         {
@@ -185,6 +179,168 @@
       ],
       "manifestSHA256": "439283aec271e4e160240a5a6fd40dcceb7dcce99a6338d2eff64f8da0f0df27",
       "toolSHA256": "7db34c15970f61b25511fa112f543edc3165ad451a18f64d8e069481b947f862"
+    },
+    {
+      "name": "public01",
+      "report": "/workspace/halfsword-handoff/phase4-weapon-identity-20261008/browser/public01/report.json",
+      "sha256": "c87aa4b7bbdf92efdc3f233686e45e1cd2d79f31ace359a17efdc5bc64d0b20f",
+      "expect": "fixed",
+      "passProtocol": false,
+      "sourceHead": "d597ccb48a54b4bd4bb2e69a257c07f6a95988aa",
+      "buildStable": true,
+      "sourceStable": true,
+      "startedRounds": 3,
+      "physicsSteps": 343,
+      "wallMs": 70928.92076699999,
+      "completedUTC": "2026-10-08T00:41:49.376Z",
+      "errorCounts": {
+        "http": 7,
+        "console": 7
+      },
+      "httpErrors": [
+        {
+          "kind": "http",
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/ui/cardbacks/px_cathedral_center.png",
+          "status": 503
+        },
+        {
+          "kind": "http",
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/ui/cardbacks/px_temple_center.png",
+          "status": 503
+        },
+        {
+          "kind": "http",
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/ui/cardbacks/px_temple_frame_foe.png",
+          "status": 503
+        },
+        {
+          "kind": "http",
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/ui/cardbacks/px_castle_tile.png",
+          "status": 503
+        },
+        {
+          "kind": "http",
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/ui/cardbacks/px_poseidon_plaque.png",
+          "status": 503
+        },
+        {
+          "kind": "http",
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/ui/cardbacks/px_cathedral_plaque_foe.png",
+          "status": 503
+        },
+        {
+          "kind": "http",
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/ui/cardbacks/px_temple_frame.png",
+          "status": 503
+        }
+      ],
+      "fatal": {
+        "name": "AssertionError",
+        "message": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   {\n+     kind: 'http',\n+     status: 503,\n+     url: 'https://yoonjl-svg.github.io/halfsword-codex/ui/cardbacks/px_cathedral_center.png'\n+   },\n+   {\n+     kind: 'console',\n+     "
+      },
+      "observations": [
+        {
+          "query": "chicken",
+          "round": 1,
+          "equipment": "rubber_chicken",
+          "school": "rubber_chicken",
+          "measure": {
+            "contact": 0.88,
+            "reach": 1.24,
+            "clinch": 0.68,
+            "cutTime": 0.13
+          },
+          "player": "rubber_chicken"
+        },
+        {
+          "query": "chicken",
+          "round": 2,
+          "equipment": "rubber_chicken",
+          "school": "rubber_chicken",
+          "measure": {
+            "contact": 0.88,
+            "reach": 1.24,
+            "clinch": 0.68,
+            "cutTime": 0.13
+          },
+          "player": "zweihander"
+        },
+        {
+          "query": "rubber_chicken",
+          "round": 1,
+          "equipment": "rubber_chicken",
+          "school": "rubber_chicken",
+          "measure": {
+            "contact": 0.88,
+            "reach": 1.24,
+            "clinch": 0.68,
+            "cutTime": 0.13
+          },
+          "player": "lightsaber"
+        }
+      ],
+      "manifestSHA256": "a2fa13ec976998a5831524a96ee704af3f6f8ad7dbc9c47f16cf04d30031e84e",
+      "toolSHA256": "7db34c15970f61b25511fa112f543edc3165ad451a18f64d8e069481b947f862"
+    },
+    {
+      "name": "public02",
+      "report": "/workspace/halfsword-handoff/phase4-weapon-identity-20261008/browser/public02/report.json",
+      "sha256": "495107f2fe9c3ccaaf91c6770c56f7bfa1a27d7a6f9b9bc2bb37fde4802d7cb6",
+      "expect": "fixed",
+      "passProtocol": true,
+      "sourceHead": "d597ccb48a54b4bd4bb2e69a257c07f6a95988aa",
+      "buildStable": true,
+      "sourceStable": true,
+      "startedRounds": 3,
+      "physicsSteps": 327,
+      "wallMs": 72034.038581,
+      "completedUTC": "2026-10-08T00:43:37.266Z",
+      "errorCounts": {},
+      "httpErrors": [],
+      "fatal": null,
+      "observations": [
+        {
+          "query": "chicken",
+          "round": 1,
+          "equipment": "rubber_chicken",
+          "school": "rubber_chicken",
+          "measure": {
+            "contact": 0.88,
+            "reach": 1.24,
+            "clinch": 0.68,
+            "cutTime": 0.13
+          },
+          "player": "zweihander"
+        },
+        {
+          "query": "chicken",
+          "round": 2,
+          "equipment": "rubber_chicken",
+          "school": "rubber_chicken",
+          "measure": {
+            "contact": 0.88,
+            "reach": 1.24,
+            "clinch": 0.68,
+            "cutTime": 0.13
+          },
+          "player": "estoc"
+        },
+        {
+          "query": "rubber_chicken",
+          "round": 1,
+          "equipment": "rubber_chicken",
+          "school": "rubber_chicken",
+          "measure": {
+            "contact": 0.88,
+            "reach": 1.24,
+            "clinch": 0.68,
+            "cutTime": 0.13
+          },
+          "player": "qinggang"
+        }
+      ],
+      "manifestSHA256": "a2fa13ec976998a5831524a96ee704af3f6f8ad7dbc9c47f16cf04d30031e84e",
+      "toolSHA256": "7db34c15970f61b25511fa112f543edc3165ad451a18f64d8e069481b947f862"
     }
   ],
   "limits": [
@@ -192,5 +348,371 @@
     "School thrust membership does not prove selection; blunt damage ratio suppresses those weights.",
     "Six character/84 alias constructor comparisons are configuration checks, not new combat/win-rate evidence.",
     "Physical-phone endurance and all-content/difficulty completion are outside this bounded Phase4 pass."
-  ]
+  ],
+  "public-bytes": {
+    "pass": true,
+    "tlsVerification": true,
+    "files": [
+      {
+        "path": "index.html",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/",
+        "bytes": 19274,
+        "sha256": "8979be4a561d707262c30835fc0f1c3626d6b4eb13fa23d92f7f4c4202ef2636",
+        "match": true
+      },
+      {
+        "path": "feature-lab.html",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html",
+        "bytes": 38740,
+        "sha256": "cfc75fcdd0dea06ded36efd4fdafe70ab5f1e0e479a54dcdbec9077d62079791",
+        "match": true
+      },
+      {
+        "path": "development-plan.html",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/development-plan.html",
+        "bytes": 85118,
+        "sha256": "2e9554e3fea3675c01392c3c59c87691371ec65fc9b5dae1d0d35634c92ca9a9",
+        "match": true
+      },
+      {
+        "path": "sounds.html",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/sounds.html",
+        "bytes": 3202,
+        "sha256": "128432b4a13b4f39bc473aff4fa61cef9d7f872655a25f64d4dc0d5cb2bd1059",
+        "match": true
+      },
+      {
+        "path": "assets/main-CyNIt_sY.js",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/assets/main-CyNIt_sY.js",
+        "bytes": 3545650,
+        "sha256": "4fdee1858099fc33da3d22bdd8cd69cdc8d4c466c3ca56a6e295f49a3b7ff501",
+        "match": true
+      },
+      {
+        "path": "assets/sound-BV3DeVc-.js",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/assets/sound-BV3DeVc-.js",
+        "bytes": 83426,
+        "sha256": "9203e66f0ee11745f57c338ed4b5d411acdf118bd5a957bb93bb514ed5ff8d8a",
+        "match": true
+      },
+      {
+        "path": "assets/soundgen-BDle7v6J.js",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/assets/soundgen-BDle7v6J.js",
+        "bytes": 35448,
+        "sha256": "0dfd106288146aee573b3b46c7d346284a813d9371170431266054299125cdaf",
+        "match": true
+      },
+      {
+        "path": "assets/sounds-CYXJYEg6.js",
+        "url": "https://yoonjl-svg.github.io/halfsword-codex/assets/sounds-CYXJYEg6.js",
+        "bytes": 19744,
+        "sha256": "bcbf7cd22168767fc80c2d494f6fc565d2af412c827f1ada59fd0d1771232560",
+        "match": true
+      }
+    ]
+  },
+  "actions": {
+    "id": 37708930719,
+    "head_sha": "d597ccb48a54b4bd4bb2e69a257c07f6a95988aa",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37708930719"
+  },
+  "play-plan": {
+    "pass": true,
+    "finalAttempt": "public-smoke02",
+    "publicSourceCommit": "d597ccb48a54b4bd4bb2e69a257c07f6a95988aa",
+    "helperSHA256": "03710d3395fc8b85aa60ff3605f5e7b0dd8893726005e161734f4e0db5856174",
+    "helper": {
+      "path": "/workspace/halfsword-handoff/phase4-weapon-identity-20261008/ordinary_public_smoke.mjs",
+      "bytes": 10038,
+      "sha256": "03710d3395fc8b85aa60ff3605f5e7b0dd8893726005e161734f4e0db5856174"
+    },
+    "identityPublic": {
+      "path": "/workspace/halfsword-handoff/phase4-weapon-identity-20261008/browser/public02/report.json",
+      "bytes": 53096,
+      "sha256": "495107f2fe9c3ccaaf91c6770c56f7bfa1a27d7a6f9b9bc2bb37fde4802d7cb6"
+    },
+    "attempts": [
+      {
+        "name": "public-smoke01",
+        "path": "/workspace/halfsword-handoff/phase4-weapon-identity-20261008/browser/public-smoke01/report.json",
+        "bytes": 11115,
+        "sha256": "21120a7d973cc93fcdd137fa060893ac7fb85746fb06c16f795852e9a9c66fa4",
+        "pass": false,
+        "helperSHA256": "03710d3395fc8b85aa60ff3605f5e7b0dd8893726005e161734f4e0db5856174",
+        "helper": {
+          "path": "/workspace/halfsword-handoff/phase4-weapon-identity-20261008/browser/public-smoke01/executed-helper.mjs",
+          "bytes": 10038,
+          "sha256": "03710d3395fc8b85aa60ff3605f5e7b0dd8893726005e161734f4e0db5856174"
+        },
+        "wallMs": 45167.065036,
+        "gameplayContractsPassed": true,
+        "planContractsPassed": true,
+        "playerWeapon": "rapier",
+        "enemyName": "하인리히 도른",
+        "enemyWeapon": "excalibur_replica",
+        "releaseFightT": 2.2166666666666615,
+        "walkFromFightT": 2.4666666666666606,
+        "walkToFightT": 3.516666666666657,
+        "horizontalDisplacementM": 0.9826897237376828,
+        "pausedSimTime": 3.8166666666666558,
+        "nativeEvents": 11,
+        "allNativeTrusted": true,
+        "plan": [
+          {
+            "width": 390,
+            "scrollWidth": 390,
+            "heading": "4단계 · 대표 상대·무기 연결 점검 · 10/08"
+          },
+          {
+            "width": 844,
+            "scrollWidth": 844,
+            "heading": "4단계 · 대표 상대·무기 연결 점검 · 10/08"
+          }
+        ],
+        "compiled": [
+          {
+            "name": "dist/index.html",
+            "sha256": "8979be4a561d707262c30835fc0f1c3626d6b4eb13fa23d92f7f4c4202ef2636",
+            "bytes": 19274,
+            "match": true
+          },
+          {
+            "name": "dist/assets/sound-BV3DeVc-.js",
+            "sha256": "9203e66f0ee11745f57c338ed4b5d411acdf118bd5a957bb93bb514ed5ff8d8a",
+            "bytes": 83426,
+            "match": true
+          },
+          {
+            "name": "dist/assets/main-CyNIt_sY.js",
+            "sha256": "4fdee1858099fc33da3d22bdd8cd69cdc8d4c466c3ca56a6e295f49a3b7ff501",
+            "bytes": 3545650,
+            "match": true
+          },
+          {
+            "name": "dist/assets/soundgen-BDle7v6J.js",
+            "sha256": "0dfd106288146aee573b3b46c7d346284a813d9371170431266054299125cdaf",
+            "bytes": 35448,
+            "match": true
+          },
+          {
+            "name": "dist/assets/soundgen-BDle7v6J.js",
+            "sha256": "0dfd106288146aee573b3b46c7d346284a813d9371170431266054299125cdaf",
+            "bytes": 35448,
+            "match": true
+          },
+          {
+            "name": "dist/development-plan.html",
+            "sha256": "2e9554e3fea3675c01392c3c59c87691371ec65fc9b5dae1d0d35634c92ca9a9",
+            "bytes": 85118,
+            "match": true
+          }
+        ],
+        "errors": [
+          {
+            "kind": "http",
+            "url": "https://yoonjl-svg.github.io/halfsword-codex/ui/cardbacks/px_castle_plaque.png",
+            "status": 503
+          },
+          {
+            "kind": "console",
+            "message": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+          }
+        ],
+        "fatal": {
+          "name": "AssertionError",
+          "message": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   {\n+     kind: 'http',\n+     status: 503,\n+     url: 'https://yoonjl-svg.github.io/halfsword-codex/ui/cardbacks/px_castle_plaque.png'\n+   },\n+   {\n+     kind: 'console',\n+     message: 'Failed to load resource: the server responded with a status of 503 (Service Unavailable)'\n+   }\n+ ]\n- []\n",
+          "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   {\n+     kind: 'http',\n+     status: 503,\n+     url: 'https://yoonjl-svg.github.io/halfsword-codex/ui/cardbacks/px_castle_plaque.png'\n+   },\n+   {\n+     kind: 'console',\n+     message: 'Failed to load resource: the server responded with a status of 503 (Service Unavailable)'\n+   }\n+ ]\n- []\n\n    at file:///workspace/halfsword-handoff/phase4-weapon-identity-20261008/ordinary_public_smoke.mjs:36:166"
+        }
+      },
+      {
+        "name": "public-smoke02",
+        "path": "/workspace/halfsword-handoff/phase4-weapon-identity-20261008/browser/public-smoke02/report.json",
+        "bytes": 9879,
+        "sha256": "873ecb6cbbab49ac3341e13405e2a8a151647f58c41f889983129afcfd6279ec",
+        "pass": true,
+        "helperSHA256": "03710d3395fc8b85aa60ff3605f5e7b0dd8893726005e161734f4e0db5856174",
+        "helper": {
+          "path": "/workspace/halfsword-handoff/phase4-weapon-identity-20261008/browser/public-smoke02/executed-helper.mjs",
+          "bytes": 10038,
+          "sha256": "03710d3395fc8b85aa60ff3605f5e7b0dd8893726005e161734f4e0db5856174"
+        },
+        "wallMs": 43789.644531000005,
+        "gameplayContractsPassed": true,
+        "planContractsPassed": true,
+        "playerWeapon": "zweihander",
+        "enemyName": "하인리히 도른",
+        "enemyWeapon": "excalibur_replica",
+        "releaseFightT": 2.2166666666666615,
+        "walkFromFightT": 2.4416666666666607,
+        "walkToFightT": 3.4583333333333237,
+        "horizontalDisplacementM": 0.9190527649874639,
+        "pausedSimTime": 3.7583333333333226,
+        "nativeEvents": 11,
+        "allNativeTrusted": true,
+        "plan": [
+          {
+            "width": 390,
+            "scrollWidth": 390,
+            "heading": "4단계 · 대표 상대·무기 연결 점검 · 10/08"
+          },
+          {
+            "width": 844,
+            "scrollWidth": 844,
+            "heading": "4단계 · 대표 상대·무기 연결 점검 · 10/08"
+          }
+        ],
+        "compiled": [
+          {
+            "name": "dist/index.html",
+            "sha256": "8979be4a561d707262c30835fc0f1c3626d6b4eb13fa23d92f7f4c4202ef2636",
+            "bytes": 19274,
+            "match": true
+          },
+          {
+            "name": "dist/assets/sound-BV3DeVc-.js",
+            "sha256": "9203e66f0ee11745f57c338ed4b5d411acdf118bd5a957bb93bb514ed5ff8d8a",
+            "bytes": 83426,
+            "match": true
+          },
+          {
+            "name": "dist/assets/main-CyNIt_sY.js",
+            "sha256": "4fdee1858099fc33da3d22bdd8cd69cdc8d4c466c3ca56a6e295f49a3b7ff501",
+            "bytes": 3545650,
+            "match": true
+          },
+          {
+            "name": "dist/assets/soundgen-BDle7v6J.js",
+            "sha256": "0dfd106288146aee573b3b46c7d346284a813d9371170431266054299125cdaf",
+            "bytes": 35448,
+            "match": true
+          },
+          {
+            "name": "dist/assets/soundgen-BDle7v6J.js",
+            "sha256": "0dfd106288146aee573b3b46c7d346284a813d9371170431266054299125cdaf",
+            "bytes": 35448,
+            "match": true
+          },
+          {
+            "name": "dist/development-plan.html",
+            "sha256": "2e9554e3fea3675c01392c3c59c87691371ec65fc9b5dae1d0d35634c92ca9a9",
+            "bytes": 85118,
+            "match": true
+          }
+        ],
+        "errors": [],
+        "fatal": null
+      }
+    ],
+    "firstFailureAssetReprobe": {
+      "path": "/workspace/halfsword-handoff/phase4-weapon-identity-20261008/browser/public-smoke01/asset-reprobe.json",
+      "bytes": 292,
+      "sha256": "520618058ff1e28ec0002977a827abb9aea68276a12c079bd959076e9476f845"
+    },
+    "transportFinding": "public-smoke01 completed motion and plan contracts but whole protocol failed because one preloaded cardback PNG returned HTTP503, accompanied by its browserconsole error. The exact URL subsequently returned200 with bytes matching dist; same-helper smoke02 passed with no errors. The origin of the intermittent503 is unknown.",
+    "limitations": [
+      "Identity rounds stop within opening hold and demonstrate input acceptance and canonical equipment/school consistency, not sustained combat.",
+      "Separate ordinary entry demonstrates opening release and approximately one second of native walking, plus pause and two phone-plan layouts. No attack, damage, win rate or sustained-gameplay claim."
+    ],
+    "createdUTC": "2026-10-08T00:45:56.002Z"
+  },
+  "audit": {
+    "pass": true,
+    "aliases": 14,
+    "namedOpponents": 6,
+    "aliasComparisons": 84,
+    "ordinaryPersonasUnchanged": 6,
+    "unknownFallbacks": 6,
+    "files": [
+      {
+        "path": "/workspace/halfsword-handoff/phase4-weapon-identity-20261008/audit/matrix.mjs",
+        "sha256": "464817eaa41ddabc5bffcb0e26a5288154f007dfdd98ae19b626c5307eb5f55e"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/phase4-weapon-identity-20261008/audit/matrix.stdout.json",
+        "sha256": "9597628cbc9efecf74f8fdc338b5772414602e7c25d2a5eb7b427038fc526b9d"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/phase4-weapon-identity-20261008/audit/manifest.json",
+        "sha256": "93ed33c8ddc7a36780a1061ae219cb92d84d9afe87e23946d5e25bd22692e004"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/phase4-weapon-identity-20261008/audit/README.md",
+        "sha256": "0d3711937eb8119a5a0195c426916a65de71786d9adf481ea3214c67e5b7d25b"
+      },
+      {
+        "path": "/workspace/halfsword-handoff/phase4-weapon-identity-20261008/audit/hand-existing.json",
+        "sha256": "643a0ed79ca1666e59c4902ddcd43982d3f18354aee485311112f62fddd75d9e"
+      }
+    ],
+    "method": "Exact extracted prepareRound with actual AI constructors; no physics/browser rerun."
+  },
+  "assetReprobe": {
+    "path": "/workspace/halfsword-handoff/phase4-weapon-identity-20261008/browser/public01/asset-reprobe.json",
+    "sha256": "70c0987d2fc35693156064226c1cbe30407768e029ec8d8536e957972ace1f1a",
+    "result": {
+      "atUTC": "2026-10-08T00:42:14.213637+00:00",
+      "rows": [
+        {
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/ui/cardbacks/px_cathedral_center.png",
+          "status": "200",
+          "exit": 0,
+          "bytes": 149,
+          "sha256": "254441ad073ab5e18d7e38f744eb1ef1a9df82d9c5932fa569ec25a4a9ab2b9f",
+          "matchesDist": true
+        },
+        {
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/ui/cardbacks/px_temple_center.png",
+          "status": "200",
+          "exit": 0,
+          "bytes": 145,
+          "sha256": "9b513ffebdc9585bee68b9d09bd2b59935c3f381df62b46fe840007cab8d1b27",
+          "matchesDist": true
+        },
+        {
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/ui/cardbacks/px_temple_frame_foe.png",
+          "status": "200",
+          "exit": 0,
+          "bytes": 178,
+          "sha256": "223a32af802d346f73e95654d00a1bd49c5391a39c38ba54190340553ae4d3f2",
+          "matchesDist": true
+        },
+        {
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/ui/cardbacks/px_castle_tile.png",
+          "status": "200",
+          "exit": 0,
+          "bytes": 249,
+          "sha256": "af26004848725e292aacda704b071d92e2d71b0ce4291d3512a2a9647bc87920",
+          "matchesDist": true
+        },
+        {
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/ui/cardbacks/px_poseidon_plaque.png",
+          "status": "200",
+          "exit": 0,
+          "bytes": 109,
+          "sha256": "e3409a8dceb9bef204f2e1b8b28b455c1a13c64beb74e27e3eeecd543f2b51c6",
+          "matchesDist": true
+        },
+        {
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/ui/cardbacks/px_cathedral_plaque_foe.png",
+          "status": "200",
+          "exit": 0,
+          "bytes": 109,
+          "sha256": "0df244ab69f85c2866e0ddbdd851600698932d9f2143c938403bf91be1ccb2a2",
+          "matchesDist": true
+        },
+        {
+          "url": "https://yoonjl-svg.github.io/halfsword-codex/ui/cardbacks/px_temple_frame.png",
+          "status": "200",
+          "exit": 0,
+          "bytes": 179,
+          "sha256": "ec4ff67af7a339f4a3f57e3054cfa283436f3e1a55854f0b4ee55f02f53ce7a8",
+          "matchesDist": true
+        }
+      ]
+    }
+  },
+  "gameCommit": "d597ccb48a54b4bd4bb2e69a257c07f6a95988aa",
+  "acceptedPublicRun": "public02"
 }
