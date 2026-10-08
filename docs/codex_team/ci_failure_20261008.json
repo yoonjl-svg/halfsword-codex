@@ -1,5 +1,5 @@
 {
-  "status": "local-verified-remote-pending",
+  "status": "regression-fixed-remote-verified-exchange-receive-pending",
   "baselineCommit": "e6feea744e0ccfcec664ae10a5a8a75e0db1bbcd",
   "failedRun": {
     "id": 37735533331,
@@ -154,5 +154,115 @@
     "limit": "Workflow history only; does not assess separate manual/local receivers, current peer permissions or semantic review beyond logged flags. Scheduled October 1 deferral repeated an already received date.",
     "resolution": "Publication and protocol checks pass; time-delayed reception remains blocked by the existing window. No peer access or out-of-window retry."
   },
-  "remoteValidation": null
+  "remoteValidation": {
+    "runId": 37740622785,
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37740622785",
+    "conclusion": "success",
+    "result": {
+      "result": "/home/runner/work/_temp/development-checks-37740622785-1/result.json",
+      "checkoutSHA": "6137193b2bc61eb6c9c2ccfacdffd4387b62892f",
+      "evidenceCheckoutSHA": "6137193b2bc61eb6c9c2ccfacdffd4387b62892f",
+      "sourceStable": true,
+      "pass": true,
+      "cacheUsed": false,
+      "wallSeconds": 103.03100489899998,
+      "tests": 6,
+      "testResults": [
+        {
+          "id": "force_ledger",
+          "pass": true,
+          "exitCode": 0,
+          "error": null,
+          "resultError": null
+        },
+        {
+          "id": "grip_reaction",
+          "pass": true,
+          "exitCode": 0,
+          "error": null,
+          "resultError": null
+        },
+        {
+          "id": "cut_reaction",
+          "pass": true,
+          "exitCode": 0,
+          "error": null,
+          "resultError": null
+        },
+        {
+          "id": "arm_capacity",
+          "pass": true,
+          "exitCode": 0,
+          "error": null,
+          "resultError": null
+        },
+        {
+          "id": "arm_duel",
+          "pass": true,
+          "exitCode": 0,
+          "error": null,
+          "resultError": null
+        },
+        {
+          "id": "build",
+          "pass": true,
+          "exitCode": 0,
+          "error": null,
+          "resultError": null
+        }
+      ]
+    },
+    "remainingAnnotations": [
+      {
+        "level": "warning",
+        "message": "Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache/restore@v4, actions/cache/save@v4, actions/checkout@v4, actions/setup-node@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+      },
+      {
+        "level": "notice",
+        "message": "\"The ubuntu-latest label will migrate to Ubuntu 26 beginning October 19, 2026. For more information, see https://github.com/actions/runner-images/issues/14748\""
+      }
+    ],
+    "log": {
+      "path": "/workspace/halfsword-handoff/ci-audit-20261008/regression/actions-fixed.log",
+      "sha256": "f6c4f52cad691c92d8fbbc706baaa190f805b392f4a53384bcbdb5e3bad12f9d"
+    }
+  },
+  "fixCommit": "6137193b2bc61eb6c9c2ccfacdffd4387b62892f",
+  "publicVerification": {
+    "report": "/workspace/halfsword-handoff/ci-audit-20261008/regression/public-bytes.json",
+    "sha256": "5329105f3d48ef73ef3c811ca365f6b5af0a60278fbbc6911e36e0ed4f86575b",
+    "result": {
+      "checkedUTC": "2026-10-08T06:59:38.051310+00:00",
+      "sourceCommit": "6137193b2bc61eb6c9c2ccfacdffd4387b62892f",
+      "pagesRun": 37740605116,
+      "pass": true,
+      "rows": [
+        {
+          "file": "index.html",
+          "http": 200,
+          "sha256": "32df4cff2b83ff73d8b24974e911fb262a7b934debee52a766f7acaf08349120",
+          "matchesPriorVerifiedBuild": true
+        },
+        {
+          "file": "assets/main-Bq95mxdQ.js",
+          "http": 200,
+          "sha256": "be4dfe1fc3f48ae0aae7e428900b64a0996167e777ba4e94c5424142aecffa15",
+          "matchesPriorVerifiedBuild": true
+        },
+        {
+          "file": "feature-lab.html",
+          "http": 200,
+          "sha256": "348dd85b0ff71c3c8125c72ef9cb3bac378df44541aa3b1728a6119e5dccd8df",
+          "matchesPriorVerifiedBuild": true
+        },
+        {
+          "file": "development-plan.html",
+          "http": 200,
+          "sha256": "a6539993ff4842c34e868009d11c4bb3fa4c2b251f2f17351cf4a14b1abfafa6",
+          "matchesPriorVerifiedBuild": true
+        }
+      ],
+      "tlsVerified": true
+    }
+  }
 }

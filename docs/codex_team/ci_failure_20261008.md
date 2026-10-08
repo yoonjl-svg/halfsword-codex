@@ -24,3 +24,5 @@
 ## 배포 확인 절차
 
 Pages 성공은 별도 회귀 검사 성공을 대신하지 않는다. 공통 전투 경로를 바꿀 때 변경 관련 검사와 이6묶음을 확인하고, `Development regression checks`의 실제 checkout SHA·판정·최초 실패 원인을 확인한다. 현재 workflow는 직접 push를 실행 조건으로 삼지 않으므로, 즉시 원격 결과가 필요하면 새 main을 대상으로 수동 실행한다. 같은 실패의 무의미한 재시도나 문서만 바뀐 동일 물리의 반복은 피한다.
+
+최종 회귀 결과: 수정 커밋 `6137193b2bc61eb6c9c2ccfacdffd4387b62892f`의 [GitHub37740622785](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37740622785)가6묶음 전체 PASS다. 실제 checkout·sourceStable·cacheUsed=false를 원격 로그로 확인했다. 로컬6묶음도191.22초 PASS(장부11·그립17·절삭33·팔4·전투10행·build), 새 빌드624파일은 이전 공개 검증본과 모두 일치했다. Pages37740605116 성공 후 공개 index/main JS/시험실/계획의 동일 바이트를 확인했다. 개발 교환의 시간 밖 수신은 별도 미완료로 남는다.
