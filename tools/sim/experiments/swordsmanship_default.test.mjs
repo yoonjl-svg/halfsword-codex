@@ -73,9 +73,9 @@ test('explicit legacy fallback is exact and malformed overrides cannot opt in', 
   assert.deepEqual(combined.blockedBy, ['onehandArm']);
 });
 
-test('fourteen accepted melee weapons install; gun and withheld/internal specs stay out', () => {
+test('fifteen ordinary melee weapons install; gun and internal specs stay out', () => {
   const expected = ['longsword', 'zweihander', 'estoc', 'sabre', 'rapier', 'falchion', 'qinggang',
-    'excalibur', 'excalibur_replica', 'tree_branch', 'rubber_chicken', 'frozen_tuna', 'monohoshizao', 'morgenstern'];
+    'excalibur', 'excalibur_replica', 'tree_branch', 'rubber_chicken', 'frozen_tuna', 'monohoshizao', 'morgenstern', 'lightsaber'];
   assert.deepEqual([...SWORDSMANSHIP_DEFAULT_WEAPONS].sort(), expected.slice().sort());
   for (const weapon of Object.values(WEAPONS)) {
     assert.equal(swordsmanshipDefaultSupportsWeapon(weapon), expected.includes(weapon.id), weapon.id);
@@ -86,19 +86,19 @@ test('fourteen accepted melee weapons install; gun and withheld/internal specs s
   }
   // Entry policy and per-weapon installation are deliberately separate so
   // random cards can be resolved after entry without promoting excluded arms.
-  for (const id of ['pistol', 'lightsaber']) {
+  for (const id of ['pistol']) {
     assert.equal(policy(`weapon=${id}`).active, true);
     assert.equal(swordsmanshipDefaultSupportsWeapon(WEAPONS[id]), false);
   }
 });
 
-test('lightsaber preview keeps ordinary physics entry and only opts its player weapon in', () => {
+test('lightsaber B bookmark and ordinary entry both install v2 with identical settings', () => {
   const a = policy('weapon=lightsaber');
   const b = policy('weapon=lightsaber&swordsmanshipPreview=v2');
   assert.equal(a.previewWeapon, null); assert.equal(b.previewWeapon, 'lightsaber');
   assert.equal(a.active, true); assert.equal(b.active, true);
   assert.deepEqual(a.settings, b.settings); assert.deepEqual(a.blockedBy, b.blockedBy);
-  assert.equal(swordsmanshipDefaultSupportsWeapon(WEAPONS.lightsaber, a), false);
+  assert.equal(swordsmanshipDefaultSupportsWeapon(WEAPONS.lightsaber, a), true);
   assert.equal(swordsmanshipDefaultSupportsWeapon(WEAPONS.lightsaber, b), true);
   assert.equal(swordsmanshipDefaultSupportsWeapon(WEAPONS.pistol, b), false);
   assert.equal(swordsmanshipDefaultSupportsWeapon(WEAPONS.morgenstern, b), true);

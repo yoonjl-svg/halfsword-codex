@@ -1,5 +1,7 @@
 # 실험 색인과 재현 입구
 
+- 2026-10-08 · [라이트세이버 B 사용자 수용·일반 적용](lightsaber_adoption_20261008.md) · 기준738ef0f. 기존4실행 비교를 재사용하고 진입/배포를 검사한다. 급소 정밀 명중은 미완료. [실제 전달](lightsaber_adoption_release.json).
+
 - 2026-10-08 · [내려찍기·모르겐 일반 적용, 급소/라이트v2 재검증](followup_release_20261008.md) · [소스·명령·해시](followup_checks_20261008.json) · 기준2af1c5f. 급소정밀명중미달·라이트후속공격감소로 두 비교는 선택형 유지. [실제 전달](followup_release_20261008.json).
 
 - 2026-10-08 · [가지·참치·69cm 철퇴](weapon_compact_20261008.md) · [해시/원자료](weapon_compact_20261008.json) · 기준31de577. 같은입력 큰 출렁임 부담 감소/미세 안정 혼합, 가지사거리 조정, native 접촉·파손 통과. [실제 공개](weapon_compact_release.json).

@@ -22,7 +22,7 @@ assert(weapons.length && weapons.every(w => ['sabre', 'longsword', 'morgenstern'
 assert.equal(new Set(weapons).size, weapons.length);
 assert(args['lightsaber-preview'] === undefined || ['true', 'false'].includes(args['lightsaber-preview']));
 const lightsaberPreview = args['lightsaber-preview'] === 'true';
-assert(!lightsaberPreview || weapons.includes('lightsaber'), 'Include ordinary lightsaber A when requesting preview B');
+assert(!lightsaberPreview || weapons.includes('lightsaber'), 'Include ordinary lightsaber when verifying the previous B bookmark');
 const scenario = weapons.map(weapon => ({
   id: 'ordinary-' + weapon, weapon, preview: false, cards: weapon + ',' + (weapon === 'longsword' ? 'sabre' : 'longsword'),
   note: 'Explicit offered-card fixture with ordinary controllers; ordinary random-pool eligibility separately checked',
@@ -252,7 +252,7 @@ try {
     assert.equal(row.policies.defaultActive, true); assert.equal(row.policies.limb, true); assert.equal(row.policies.supportProbe, false);
     if (weapon) {
       assert.equal(row.player.weapon, weapon); assert.equal(row.enemy.weapon, 'longsword'); assert(!row.drawVisible);
-      const unified = weapon !== 'lightsaber' || preview;
+      const unified = true;
       assert.equal(row.ordinaryEntry.previewWeapon, preview ? 'lightsaber' : null);
       assert.equal(row.player.weaponState.gripPoint, weapon === 'lightsaber' ? 'axial' : 'midpoint');
       assert.equal(row.enemy.weaponState.gripPoint, 'midpoint');
@@ -393,7 +393,7 @@ try {
     limits: ['Chromium mobile emulation, not physical-phone or human feel acceptance.',
       'Ordinary explicit card offerings use trusted Start/card touch. Optional lightsaber v2 requires fixed weapon URL, uses trusted menu Start and does not show cards. Every flow drags, moves, pauses, resumes and restarts with fresh player/enemy/world/AI instances and re-input.',
       'Only saved-settings fixture and observer bookkeeping are written; no gameplay, AI, RNG, physics or prototype changes.',
-      'Ordinary entry keeps opportunity off and promotes low finish entry for both fighters. Player v2/manual except ordinary lightsaber legacy/.7/autoGuard; optional lightsaber preview uses v2/manual. Fresh/bounded and edged centerline, both linked/power and gravity 9.81 are asserted. Lightsaber keeps axial grip. Two-hand native shoulder/forearm contact is asserted for both fighters. Actual catalog includes Morgenstern in ordinary pool; selected cards do not measure draw probabilities.',
+      'Ordinary entry keeps opportunity off and promotes low finish entry for both fighters. Player v2/manual includes ordinary lightsaber and its previous B bookmark. Fresh/bounded and edged centerline, both linked/power and gravity 9.81 are asserted. Lightsaber keeps axial grip. Two-hand native shoulder/forearm contact is asserted for both fighters. Actual catalog includes Morgenstern in ordinary pool; selected cards do not measure draw probabilities.',
       'No state/pose/AI/physics changes or forced fall, no anatomical or recovery outcome claim. This verifies browser input and served runtime policy delivery; native recovery is separately measured.',
       'Every requested served artifact matches the frozen local dist bytes; screenshots use the native camera.'] };
   await fs.writeFile(path.join(out, 'report.json'), JSON.stringify(report, null, 2) + '\n');

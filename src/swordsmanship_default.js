@@ -2,11 +2,10 @@
 // does not write settings, configure physics, or activate research candidates.
 import { WEAPON_LIST } from './weapons.js';
 
-// Monohoshizao passed the current axial-grip/linked-arm comparison. Lightsaber
-// remains a preview because some real follow-up swings lose speed/energy.
-const WITHHELD = new Set(['lightsaber']);
+// All ordinary melee weapons use v2. Lightsaber B was accepted after the
+// current arm-path comparison and user playtest; measured tradeoffs stay logged.
 export const SWORDSMANSHIP_DEFAULT_WEAPONS = Object.freeze(WEAPON_LIST
-  .filter(weapon => !weapon.trialOnly && !weapon.gun && !WITHHELD.has(weapon.id))
+  .filter(weapon => !weapon.trialOnly && !weapon.gun)
   .map(weapon => weapon.id));
 const SUPPORTED = new Set(SWORDSMANSHIP_DEFAULT_WEAPONS);
 
@@ -37,8 +36,8 @@ export function swordsmanshipDefaultSupportsWeapon(weapon, entry) {
  */
 export function configureSwordsmanshipDefault(params) {
   const overrides = params.getAll('swordsmanship');
-  // The preview changes player goal authorship only. Keeping this inside the
-  // ordinary entry preserves current grip, recovery, cut and finishing rules.
+  // Keep the previously delivered lightsaber B bookmark as an ordinary-entry
+  // alias after adoption. It preserves grip, recovery, cut and finishing rules.
   // It is intentionally not the broad swordsmanship=legacy fallback.
   const preview = params.getAll('swordsmanshipPreview');
   const previewRequested = preview.length > 0;
