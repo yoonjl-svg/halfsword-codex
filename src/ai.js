@@ -29,7 +29,7 @@ import { getWeapon } from './weapons.js';
 import { Emotions, emoMods } from './emotions.js';
 import { gunAI } from './gun.js';
 import { enabled as opportunityEnabled } from './opportunity_target.js';
-import { distanceEnabled, measureThrustDistance } from './combat_distance.js';
+import { distanceEnabled, rangeTempo, measureThrustDistance } from './combat_distance.js';
 import { createOpportunityAI, updateOpportunityEpisode, opportunityCandidate,
   prepareOpportunityAttack, refreshOpportunityAttack, commitOpportunityAttack,
   opportunityPad, neckCrossingTechnique, advanceOpportunityAICommand,
@@ -862,7 +862,7 @@ export class AI {
     // 빈틈을 잡아 순간적으로 치는 공격(recover/stepin/press/counter/stop 등)은 준비 자세로 옮기는 손도
     //  빠르게 움직여야 한다. 느린 chamberSpeed로 챔버하면 정작 순간을 놓친다
     this.fastChamber = !!opt.fastChamber || this.quick;
-    this.timer = this.phase === 'approach' && !this.quick ? L.windup * 0.15 : 0;
+    this.timer = this.phase === 'approach' && !this.quick && !(opportunityRangeAttack(this) && rangeTempo(this.me) > 1) ? L.windup * 0.15 : 0;
     return true;
   }
 
@@ -885,7 +885,7 @@ export class AI {
       if (th && this.noticedThreat(th) && this.respond(th, d)) return;
       if (padDist([me.handOffset.x, me.handOffset.y], from) < 0.03) {
         this.phase = 'approach';
-        this.timer = this.quick ? 0 : L.windup * 0.25; // 잠깐 자세를 잡는다 (쉬운 상대일수록 길다 = 읽기 쉽다)
+        this.timer = this.quick || range && rangeTempo(me) > 1 ? 0 : L.windup * 0.25; // 실제 정렬은 계속 요구한다; 빠른 준비만 재량 대기 생략
       }
       if (this.attackT > 1.2) this.abortAttack();
     } else if (this.phase === 'approach') {

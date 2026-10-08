@@ -60,6 +60,7 @@ import { configureSwordsmanshipDefault, swordsmanshipDefaultSupportsWeapon } fro
 import { configureCombatDefaults } from './combat_defaults.js';
 import { configureRecoveryFinishTrial, mountRecoveryFinishTrial } from './recovery_finish_trial.js';
 import { configureOpportunityTrial, mountOpportunityTrial } from './opportunity_trial.js';
+import { initializeOpportunityDrill, advanceOpportunityDrill, mountOpportunityDrill, updateOpportunityDrill } from './opportunity_drill.js';
 
 await RAPIER.init();
 
@@ -471,10 +472,11 @@ function newRound(weaponId) {
 
   const before = new Set(scene.children);
   const foeWeapon = foeWeaponId;
+  const startGap = opportunityTrial.drillGap ?? ARENA.startGap;
   player = new Fighter(RAPIER, world, scene, colliderInfo, {
     index: 0,
     name: '나',
-    x: -ARENA.startGap / 2,
+    x: -startGap / 2,
     heading: 0,
     look: LOOKS.player,
     weapon: weaponId,
@@ -487,7 +489,7 @@ function newRound(weaponId) {
   enemy = new Fighter(RAPIER, world, scene, colliderInfo, {
     index: 1,
     name: currentFoe ? currentFoe.name : '상대',
-    x: ARENA.startGap / 2,
+    x: startGap / 2,
     heading: Math.PI,
     look: enemyLook,
     weapon: foeWeapon, // prepareRound 가 정한 상대 무기
@@ -499,6 +501,7 @@ function newRound(weaponId) {
   for (const f of [player, enemy]) f.finishEntryModel = defaultFinishEntry;
   if (opportunityTrial.active) for (const f of [player, enemy]) {
     f.opportunityModel = opportunityTrial.opportunity;
+    f.thrustRangeTempo = opportunityTrial.tempo;
     f.finishEntryModel = opportunityTrial.finish;
     f.recoverySequenceModel = opportunityTrial.recovery;
   }
@@ -574,6 +577,7 @@ function newRound(weaponId) {
     : swordsmanshipTrial.active && player.weapon.id === 'qinggang'
     ? 'armorCausal' : integratedCombatTrial.finishRule;
   combat.finishRuleFighter = combat.finishRuleModel === 'power' ? null : player;
+  initializeOpportunityDrill(opportunityTrial, enemy);
   // 몸 소리(발소리·쓰러짐·무기 부러짐·죽음 목소리): 캐릭터마다 목소리가 다르다
   const foeVoice = voiceOf(currentFoe);
   bodySounds = [new BodySounds(sound, player, 'player', true), new BodySounds(sound, enemy, foeVoice)];
@@ -792,6 +796,7 @@ mountRecutV2Trial(recutV2Trial);
 mountFinishV2Trial(finishV2Trial);
 mountRecoveryFinishTrial(recoveryFinishTrial);
 mountOpportunityTrial(opportunityTrial);
+mountOpportunityDrill(opportunityTrial, startFight);
 if (swordsmanshipDefault.active) {
   // A single ordinary policy replaces the old strength menu. Saved legacy
   // preferences remain available to explicitly requested comparison entries.
@@ -1233,7 +1238,7 @@ async function startFight() {
   topButtons.classList.add('show');
   closeDraw(); // 뽑기 도중에 "처음부터 다시"를 눌렀으면 그 카드는 치운다
   toast.classList.remove('show');
-  nextRoundStage(); // 배경: 첫 판은 메뉴 뒤 그대로, 그 다음 판부터는 정해진 순서로 다음 배경 (짓는 멈칫은 메뉴가 아직 떠 있는 동안)
+  if (!opportunityTrial.drill) nextRoundStage(); // 연습 재시작은 같은 배경에서 간격·동작만 비교한다.
   prepareRound(); // 이번 상대 · 상대 무기
   showFoeIntro(currentFoe);
   if (FIXED_WEAPON) {
@@ -1658,7 +1663,8 @@ function frame(now) {
       enemy.foe = player;
       player.faceTarget = enemy.bodies.pelvis.translation();
       enemy.faceTarget = player.bodies.pelvis.translation();
-      ai.update(PHYSICS.timestep);
+      if (opportunityTrial.drill) advanceOpportunityDrill(opportunityTrial, enemy, PHYSICS.timestep);
+      else ai.update(PHYSICS.timestep);
       player.step(PHYSICS.timestep);
       enemy.step(PHYSICS.timestep);
       tickDebris(PHYSICS.timestep); // 흩어지는 칼·방어구 조각 (겉모습만, 게임 시간 — 멈칫·슬로모션을 따른다)
@@ -1715,6 +1721,7 @@ function frame(now) {
     // 판이 끝나 메뉴가 뜬 뒤에도 흩어지던 칼·투구·판금 조각은 마저 날아 사라진다 (판 끝 슬로모션 0.5배 그대로. 싸움 중 일시정지면 멈춘 채)
     if (roundOver) tickDebris(dt * 0.5);
   }
+  updateOpportunityDrill(opportunityTrial, player, enemy, state);
   updateCamera(dt); // 거르는 프레임에도: 흔들림 스프링·발걸음(player.footstep 소비)·소리 자리(sound.listener)가 여기 달려 있다
   let renderMs = 0;
   if (paint) {

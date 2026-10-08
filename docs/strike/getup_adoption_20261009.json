@@ -1,0 +1,71 @@
+{
+  "schema": "getup-general-adoption-v1",
+  "baselineHead": "356dd6b172fed7fecfd5c70ee5c0f2aab12298b7",
+  "approval": {
+    "source": "user message in current task",
+    "quote": "기립은 바뀐 게 훨신 나아. 일반판 적용해."
+  },
+  "change": {
+    "default": true,
+    "scope": "both fighters, all weapons through Fighter constructor",
+    "lag": 0.3,
+    "explicitHistoricalComparison": "movementFix=getup-base",
+    "otherRecoveryFinishModelsUseCurrentDefault": true,
+    "poseFormulaChanged": false,
+    "forcesChanged": false,
+    "riseScheduleChanged": false
+  },
+  "reuse": {
+    "report": "getup_lead_20261009.json",
+    "nativeRuns": 15,
+    "nativeSteps": 19913,
+    "formulaAndRearLegTargetsComparedWithFrozenCandidate": true,
+    "frozenCandidate": "/workspace/halfsword-handoff/input-getup-range-20261009/getup/candidate-lag03"
+  },
+  "newValidation": {
+    "nativeSteps": 0,
+    "command": "node tools/sim/experiments/getup_adoption_20261009.test.mjs",
+    "pass": true,
+    "checks": [
+      "Inactive or invalid URL preserves ordinary default: ",
+      "Inactive or invalid URL preserves ordinary default: weapon=rapier",
+      "Inactive or invalid URL preserves ordinary default: movementFix=unknown",
+      "Inactive or invalid URL preserves ordinary default: movementFix=getup-base&movementFix=getup-lead",
+      "Inactive or invalid URL preserves ordinary default: movementFix=getup-base&weapon=unknown",
+      "Inactive or invalid URL preserves ordinary default: movementFix=getup-base&extra=1",
+      "URL model and actual kneel getters: longsword/baseline",
+      "URL model and actual kneel getters: longsword/finish",
+      "URL model and actual kneel getters: longsword/getup-base",
+      "URL model and actual kneel getters: longsword/getup-lead",
+      "URL model and actual kneel getters: qinggang/baseline",
+      "URL model and actual kneel getters: qinggang/finish",
+      "URL model and actual kneel getters: qinggang/getup-base",
+      "URL model and actual kneel getters: qinggang/getup-lead",
+      "URL model and actual kneel getters: zweihander/baseline",
+      "URL model and actual kneel getters: zweihander/finish",
+      "URL model and actual kneel getters: zweihander/getup-base",
+      "URL model and actual kneel getters: zweihander/getup-lead",
+      "URL model and actual kneel getters: rapier/baseline",
+      "URL model and actual kneel getters: rapier/finish",
+      "URL model and actual kneel getters: rapier/getup-base",
+      "URL model and actual kneel getters: rapier/getup-lead"
+    ],
+    "constructorAndRestartVerification": "integrated browser verification pending"
+  },
+  "sha256": {
+    "src/fighter.js": "b6bf5877950e48c61b482164db191d7cc4e4b74a93a31c7a69f84cc0e0af7f28",
+    "src/recovery_finish_trial.js": "8e93650cb07ade0c2a44e5de4121b5c92bcc7da120a65da182f6fe807b171b17",
+    "tools/sim/experiments/getup_adoption_20261009.test.mjs": "b283111e224a78105e128c05be4f00b47d97eaf038b6ceaf5dec2c00a6b826fe",
+    "docs/strike/getup_lead_20261009.md": "8c9a8fd8f68039289a0e66c973a2f19d57477980e01a58b92bfc8261ba0386a4",
+    "docs/strike/getup_lead_20261009.json": "28a89626ae18778c2cc53f2a2864d12658f98d45a72e8efbf961df00d1bdc811"
+  },
+  "limits": [
+    "Residual foot slip and floating impression remain; physical weight transfer not solved.",
+    "Existing native fixtures chiefly use zweihander; common default is not evidence of new all-weapon getup physics measurements.",
+    "Prior natural post-stand death was caused by a new actual head strike, not proof of spontaneous getup collapse."
+  ],
+  "delivery": {
+    "state": "local integration and mobile checks passed; public pending",
+    "receipt": "opportunity_continuity_release.json"
+  }
+}

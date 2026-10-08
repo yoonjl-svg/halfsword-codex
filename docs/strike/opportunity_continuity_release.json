@@ -1,0 +1,60 @@
+{
+  "status": "local_pass_public_pending",
+  "baselineHead": "356dd6b172fed7fecfd5c70ee5c0f2aab12298b7",
+  "urls": {
+    "ordinary": "https://yoonjl-svg.github.io/halfsword-codex/",
+    "comparison": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#continuity",
+    "estocNear": "https://yoonjl-svg.github.io/halfsword-codex/?opportunity=flow&weapon=estoc&drill=near",
+    "estocFar": "https://yoonjl-svg.github.io/halfsword-codex/?opportunity=flow&weapon=estoc&drill=far"
+  },
+  "adoption": {
+    "getup": "user approved general default both fighters",
+    "distance": "optional; ordinary opportunity remains off",
+    "tempo": "optional preparation1.2; unchanged actual thrust clocks/force settings",
+    "input": "automatic hand motion cannot cancel prepared thrust; real new raw motion/stick cancels"
+  },
+  "checks": {
+    "nativeExecutions": 22,
+    "nativeSteps": 28320,
+    "distanceContracts": 14,
+    "drillContracts": 15,
+    "getupContracts": 22,
+    "aiContracts": 8,
+    "physicalPhoneTest": false,
+    "localMobileFlows": 4
+  },
+  "failures": [
+    "Old handOffset cancellation rejected .06 game-generated hand displacement; new raw-ledger contract passes.",
+    "First practice fixture yielded no actual start in two of four rows; preserve before changing to armed timed fixture.",
+    "Initial mobile delivery failed because sequential CDP touch lasted540.3ms (>180ms tap threshold). Diagnosis was read-only; delivery now requests and checks80ms trusted event duration.",
+    "Second mobile run reached actual rapier prepared thrust and retreat0.655m, repeat, cancel and frozen pause. Observer asserted an earlier HUD snapshot after waiting another frame. Fixed tool to read settled live HUD; game source unchanged."
+  ],
+  "evidence": {
+    "initialMobile": {
+      "path": "/tmp/halfsword-continuity-mobile-local01/report.json",
+      "bytes": 414695,
+      "sha256": "87494dd2773b6a5ea33926729b39ae1cd3ce59e31d88ee5fde40f93fadea29d8"
+    },
+    "tapDiagnosis": {
+      "path": "/tmp/halfsword-continuity-mobile-tapdiagnostic01/report.json",
+      "bytes": 226906,
+      "sha256": "743652ba4f52c42c0117ba11add84f6e032dd7a115ea79b373339c5ed4e643ac"
+    },
+    "inputBefore": {
+      "path": "/tmp/halfsword-continuity-input-ownership-before.log",
+      "bytes": 816,
+      "sha256": "3a371d391e08e4fa9ba8c9432ca86421f48af8c41c476ff1061ac4158b5cbc4a"
+    },
+    "secondMobile": {
+      "path": "/tmp/halfsword-continuity-mobile-local02/report.json",
+      "bytes": 989492,
+      "sha256": "22f9fc23779a5208bf3145423581e0f3eff2d9041e53ebeccdf41091291117c5"
+    },
+    "localMobile": {
+      "path": "/tmp/halfsword-continuity-mobile-local03/report.json",
+      "bytes": 2524001,
+      "sha256": "d38ed2ac3bf327b2abbe9022dbc308e4991566b7d82f3aee1c05bf702d04251f"
+    }
+  },
+  "validationPlan": "Focused local contracts, native22 runs, build and four real-input mobile flows; run full six regression suites on GitHub for deployed source. Do not repeat identical full suite locally without a failure or new concern."
+}

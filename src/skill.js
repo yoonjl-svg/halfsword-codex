@@ -32,7 +32,7 @@ import { updateSwordAssistReturn } from './sword_assist_v2.js';
 import { hasSwordsmanship, advanceSwordsmanship } from './swordsmanship.js';
 import { enabled as opportunityEnabled, captureOpportunityPose, findOpportunity } from './opportunity_target.js';
 import { captureOpportunityThrust, updateOpportunityThrust } from './opportunity_thrust.js';
-import { distanceEnabled, measureThrustDistance, THRUST_DISTANCE } from './combat_distance.js';
+import { distanceEnabled, rangeTempo, measureThrustDistance, THRUST_DISTANCE } from './combat_distance.js';
 
 const D2R = Math.PI / 180;
 const _yawInv = new THREE.Quaternion();
@@ -133,7 +133,8 @@ export class Skill {
       if (opening) {
         this.thrustRange = { phase: 'position', age: 0, target: opening.target.toArray(),
           foe: f.foe, weapon: f.weapon.id, origin: f.bodies.chest.translation(),
-          hand: g ? [...g] : [0.3,-0.2,0.12], pad: f.handOffset.toArray(), measure: null };
+          hand: g ? [...g] : [0.3,-0.2,0.12], pad: f.handOffset.toArray(),
+          inputMotionTime: f.swordsmanshipState?.lastMotionTimeS, measure: null };
         this.lunge = 0;
         return true; // Accepted intent, not yet an actual attack/force phase.
       }
@@ -197,6 +198,7 @@ export class Skill {
 
   prepareThrustRange(target, dt, hand) {
     const f = this.f;
+    const tempo = rangeTempo(f);
     const p = this.rangePose ||= { age: 0, hand: [...(hand ?? f.handBase ?? f.guardPose.hand)] };
     p.age += dt;
     // Reserve real elbow travel before choosing the body distance. AI guard
@@ -213,13 +215,13 @@ export class Skill {
       // inherited side guard fixed can make the off-hand oppose wrist aiming.
       const c = f.bodies.chest.translation();
       const local = target.clone().sub(new THREE.Vector3(c.x,c.y,c.z)).applyQuaternion(f.yaw.clone().invert());
-      p.hand[2] += THREE.MathUtils.clamp(THREE.MathUtils.clamp(local.z,-0.12,0.12)-p.hand[2],-0.4*dt,0.4*dt);
+      p.hand[2] += THREE.MathUtils.clamp(THREE.MathUtils.clamp(local.z,-0.12,0.12)-p.hand[2],-0.4*dt*tempo,0.4*dt*tempo);
     }
     const grip = f.sword.translation();
     const dir = target.clone().sub(new THREE.Vector3(grip.x,grip.y,grip.z)).normalize()
       .applyQuaternion(f.yaw.clone().invert());
     const pose = this.thrustPose;
-    pose.w = Math.min(1, pose.w + dt / 0.15);
+    pose.w = Math.min(1, pose.w + dt * tempo / 0.15);
     pose.hand.splice(0,3,...p.hand); pose.dir.splice(0,3,...dir.toArray());
     this.thrustPush = false;
     this.activity = Math.max(this.activity, pose.w); // Same body coordination as the following thrust; no impact mass yet.
@@ -235,8 +237,12 @@ export class Skill {
       request.age += dt;
       const c = f.bodies.chest.translation();
       const travel = Math.hypot(c.x-request.origin.x,c.z-request.origin.z);
-      const manual = Math.hypot(f.stickX ?? 0,f.stickY ?? 0) > THRUST_DISTANCE.manualDead ||
-        f.handOffset.distanceTo(new THREE.Vector2(...request.pad)) > 0.035;
+      // handOffset also contains game-generated tremor and guard return. Only
+      // a new raw gesture owns cancellation when the real input ledger exists.
+      const handMoved = request.inputMotionTime !== undefined
+        ? f.swordsmanshipState?.lastMotionTimeS !== request.inputMotionTime
+        : f.handOffset.distanceTo(new THREE.Vector2(...request.pad)) > 0.035;
+      const manual = Math.hypot(f.stickX ?? 0,f.stickY ?? 0) > THRUST_DISTANCE.manualDead || handMoved;
       const lost = !f.alive || !f.armed || f.weaponBroken || !['stand','kneel'].includes(f.state) ||
         f.foe !== request.foe || f.weapon.id !== request.weapon;
       if (manual || lost || request.age > THRUST_DISTANCE.timeout || travel > THRUST_DISTANCE.maxTravel) {

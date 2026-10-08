@@ -1,0 +1,776 @@
+{
+  "baseline": "356dd6b172fed7fecfd5c70ee5c0f2aab12298b7",
+  "status": "local_pass_public_pending",
+  "nativeExecutions": 22,
+  "nativeSteps": 28320,
+  "sourceRule": "Each run freezes actual source and preserves exact hashes in protocol.json. Current checkout need not equal older failed fixture. New helper v2 plus raw-input cancellation has same 4800 native snapshots as four prior quick rows.",
+  "evidence": [
+    {
+      "path": "/tmp/halfsword-continuity-native-summary.json",
+      "bytes": 101481,
+      "sha256": "7ca84d5c43ab1a2dc37bbb07259bc44f68c9e10c2741779256b82b3f6a1f5026"
+    },
+    {
+      "path": "/tmp/halfsword-continuity-practice-v2-receipt.json",
+      "bytes": 53232,
+      "sha256": "0a6c16ecd23ecd709961cd80b9d63ad55ab46a0935947cf42828d32e42ef6464"
+    },
+    {
+      "path": "/tmp/halfsword-continuity-timing-audit.json",
+      "bytes": 7210,
+      "sha256": "a43017133291180911ff44e1948579baa315d3539be69a35677c4f36ad7a25dc"
+    },
+    {
+      "path": "/tmp/halfsword-continuity-input-ownership-before.log",
+      "bytes": 816,
+      "sha256": "3a371d391e08e4fa9ba8c9432ca86421f48af8c41c476ff1061ac4158b5cbc4a"
+    },
+    {
+      "path": "/tmp/halfsword-continuity-contracts-distance-after.json",
+      "bytes": 1225,
+      "sha256": "a3de79e189d7075f7b3e74a894911f7c0f82bccd4a001f815b878c1fb47d0a91"
+    },
+    {
+      "path": "/tmp/halfsword-continuity-mobile-tapdiagnostic01/report.json",
+      "bytes": 226906,
+      "sha256": "743652ba4f52c42c0117ba11add84f6e032dd7a115ea79b373339c5ed4e643ac"
+    },
+    {
+      "path": "/tmp/halfsword-continuity-final-review.md",
+      "bytes": 3202,
+      "sha256": "40760436cb0b31e79c5a2788221473d3894df976bd764532f19edf3887b061a5"
+    },
+    {
+      "path": "/tmp/halfsword-continuity-mobile-local03/report.json",
+      "bytes": 2524001,
+      "sha256": "d38ed2ac3bf327b2abbe9022dbc308e4991566b7d82f3aee1c05bf702d04251f"
+    }
+  ],
+  "runs": [
+    {
+      "name": "mid01",
+      "path": "/tmp/halfsword-continuity-mid01",
+      "measurementValid": true,
+      "steps": 9120,
+      "executions": 6,
+      "frozen": "/tmp/halfsword-continuity-source-p1uwjr",
+      "sourceManifestSHA": "f70db18c4ee979b0d6f44c4cc129541266ebd53025c0cbe39ee041c7d40fef2c",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/opportunity_continuity_20261009.mjs",
+        "/tmp/halfsword-continuity-mid01",
+        "thrustGuard,aiThrustOpenLow,thrustGuardEstoc",
+        "--gap=1.65",
+        "--models=v4,quick"
+      ],
+      "protocolSHA": "cd8cf7518ceff5a940505b78476569082264a27a55651fe23ce5c0b40914370b",
+      "reportSHA": "0d468944751404730e799f35dd1c9e19723b5ad982ceea49a5251ad0b04794e6",
+      "rows": [
+        {
+          "name": "thrustGuard",
+          "model": "v4",
+          "source": "/tmp/halfsword-continuity-mid01/thrustGuard-v4.json.gz",
+          "rawSHA": "2e48081c40b4457d1d783e992519757fc3f8c89416b6452704751804cf9529fe",
+          "bytes": 608763,
+          "actualSpecialStarts": 2,
+          "vitalSuccessStarts": 2,
+          "queueToCommitSeconds": [
+            0.14166666666666666,
+            0.95
+          ],
+          "body": {
+            "att": {
+              "finite": true,
+              "maxJointGapM": 0.0020855922558743545,
+              "maxLinearSpeed": 3.250622612458326,
+              "maxAngularSpeed": 26.852061999116003,
+              "maxChestSpeed": 0.6815907354057568,
+              "maxPelvisSpeed": 0.680949448157833,
+              "maxTiltDegrees": 14.247621009605194
+            },
+            "vic": {
+              "finite": true,
+              "maxJointGapM": 0.0017219871917156229,
+              "maxLinearSpeed": 4.268049732157119,
+              "maxAngularSpeed": 27.78572119038727,
+              "maxChestSpeed": 1.327686779232297,
+              "maxPelvisSpeed": 1.28329759743798,
+              "maxTiltDegrees": 30.427724148640525
+            }
+          }
+        },
+        {
+          "name": "thrustGuard",
+          "model": "quick",
+          "source": "/tmp/halfsword-continuity-mid01/thrustGuard-quick.json.gz",
+          "rawSHA": "ee27e7d45924bf2eb38ea08c5235c6c2e3cbb6705eb9ec046dca5efb24db9e74",
+          "bytes": 597998,
+          "actualSpecialStarts": 2,
+          "vitalSuccessStarts": 1,
+          "queueToCommitSeconds": [
+            0.11666666666666667,
+            0.9249999999999999
+          ],
+          "body": {
+            "att": {
+              "finite": true,
+              "maxJointGapM": 0.0020855922558743545,
+              "maxLinearSpeed": 3.2076733885096718,
+              "maxAngularSpeed": 26.777413048545537,
+              "maxChestSpeed": 0.6815907354057568,
+              "maxPelvisSpeed": 0.680949448157833,
+              "maxTiltDegrees": 14.135236614900839
+            },
+            "vic": {
+              "finite": true,
+              "maxJointGapM": 0.0017219871917156229,
+              "maxLinearSpeed": 4.268049732157119,
+              "maxAngularSpeed": 27.78572119038727,
+              "maxChestSpeed": 1.327686779232297,
+              "maxPelvisSpeed": 1.28329759743798,
+              "maxTiltDegrees": 30.427724148640525
+            }
+          }
+        },
+        {
+          "name": "aiThrustOpenLow",
+          "model": "v4",
+          "source": "/tmp/halfsword-continuity-mid01/aiThrustOpenLow-v4.json.gz",
+          "rawSHA": "e37f5987e327493b53b5673421d36e34d80321c401d62a111c66d4645905761c",
+          "bytes": 1250826,
+          "actualSpecialStarts": 2,
+          "vitalSuccessStarts": 1,
+          "queueToCommitSeconds": [
+            2.558333333333333,
+            0.4083333333333333
+          ],
+          "body": {
+            "att": {
+              "finite": true,
+              "maxJointGapM": 0.002931287352682239,
+              "maxLinearSpeed": 5.721241738962198,
+              "maxAngularSpeed": 62.94040365195529,
+              "maxChestSpeed": 1.2035834846111628,
+              "maxPelvisSpeed": 1.375731603887638,
+              "maxTiltDegrees": 21.27780669248149
+            },
+            "vic": {
+              "finite": true,
+              "maxJointGapM": 0.001672447191343639,
+              "maxLinearSpeed": 4.0862393507935835,
+              "maxAngularSpeed": 161.29545731465123,
+              "maxChestSpeed": 1.3189585656443703,
+              "maxPelvisSpeed": 1.2806760056262694,
+              "maxTiltDegrees": 27.24978457060513
+            }
+          }
+        },
+        {
+          "name": "aiThrustOpenLow",
+          "model": "quick",
+          "source": "/tmp/halfsword-continuity-mid01/aiThrustOpenLow-quick.json.gz",
+          "rawSHA": "03a28fbfb071b12c3c360d374a670b423344a059983cc2175247d6f72d4cf38a",
+          "bytes": 1204231,
+          "actualSpecialStarts": 2,
+          "vitalSuccessStarts": 2,
+          "queueToCommitSeconds": [
+            2.275,
+            0.5
+          ],
+          "body": {
+            "att": {
+              "finite": true,
+              "maxJointGapM": 0.0021744832788966684,
+              "maxLinearSpeed": 4.903411220470448,
+              "maxAngularSpeed": 62.56669195359861,
+              "maxChestSpeed": 1.2311923417749093,
+              "maxPelvisSpeed": 1.3482833963427405,
+              "maxTiltDegrees": 19.966685463144362
+            },
+            "vic": {
+              "finite": true,
+              "maxJointGapM": 0.0017882392933775216,
+              "maxLinearSpeed": 4.0862393507935835,
+              "maxAngularSpeed": 134.85398460019803,
+              "maxChestSpeed": 2.274010315994096,
+              "maxPelvisSpeed": 1.3901914311617016,
+              "maxTiltDegrees": 96.33463194974098
+            }
+          }
+        },
+        {
+          "name": "thrustGuardEstoc",
+          "model": "v4",
+          "source": "/tmp/halfsword-continuity-mid01/thrustGuardEstoc-v4.json.gz",
+          "rawSHA": "d5a0f1137f3a0b56262145dc2c4e15ff6cf5cbef4e7c155f0f6fa16ea1e0c5ca",
+          "bytes": 575689,
+          "actualSpecialStarts": 1,
+          "vitalSuccessStarts": 1,
+          "queueToCommitSeconds": [
+            1.2
+          ],
+          "body": {
+            "att": {
+              "finite": true,
+              "maxJointGapM": 0.002077513583902541,
+              "maxLinearSpeed": 3.9222241622212644,
+              "maxAngularSpeed": 114.32987365034525,
+              "maxChestSpeed": 0.6871819403983157,
+              "maxPelvisSpeed": 0.6829382970930815,
+              "maxTiltDegrees": 14.259758045242544
+            },
+            "vic": {
+              "finite": true,
+              "maxJointGapM": 0.0017233712642385087,
+              "maxLinearSpeed": 4.020032966969711,
+              "maxAngularSpeed": 27.573978501596365,
+              "maxChestSpeed": 1.3280770988080388,
+              "maxPelvisSpeed": 1.2834949823685722,
+              "maxTiltDegrees": 30.438294805736636
+            }
+          }
+        },
+        {
+          "name": "thrustGuardEstoc",
+          "model": "quick",
+          "source": "/tmp/halfsword-continuity-mid01/thrustGuardEstoc-quick.json.gz",
+          "rawSHA": "0c4a6be9405d57b5c4ef365ff4936507dcd96866019fbe67a0c90b9c25cea9a2",
+          "bytes": 574247,
+          "actualSpecialStarts": 1,
+          "vitalSuccessStarts": 1,
+          "queueToCommitSeconds": [
+            1.1333333333333333
+          ],
+          "body": {
+            "att": {
+              "finite": true,
+              "maxJointGapM": 0.002167308260971821,
+              "maxLinearSpeed": 3.977736503636743,
+              "maxAngularSpeed": 114.32987365034525,
+              "maxChestSpeed": 0.6871819403983157,
+              "maxPelvisSpeed": 0.6888154598732906,
+              "maxTiltDegrees": 14.33917394163584
+            },
+            "vic": {
+              "finite": true,
+              "maxJointGapM": 0.0017233712642385087,
+              "maxLinearSpeed": 4.020032966969711,
+              "maxAngularSpeed": 27.573978501596365,
+              "maxChestSpeed": 1.3280770988080388,
+              "maxPelvisSpeed": 1.2834949823685722,
+              "maxTiltDegrees": 30.438294805736636
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "near01",
+      "path": "/tmp/halfsword-continuity-near01",
+      "measurementValid": true,
+      "steps": 4800,
+      "executions": 4,
+      "frozen": "/tmp/halfsword-continuity-source-5XQgjb",
+      "sourceManifestSHA": "f70db18c4ee979b0d6f44c4cc129541266ebd53025c0cbe39ee041c7d40fef2c",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/opportunity_continuity_20261009.mjs",
+        "/tmp/halfsword-continuity-near01",
+        "thrustGuard,thrustGuardEstoc",
+        "--gap=1.25",
+        "--models=v4,quick"
+      ],
+      "protocolSHA": "78bf23a647a7f6cd2abc27324e913e0c68b0e64b67358ca527ae0d25fbfaae28",
+      "reportSHA": "04bfacc394674b5e09fd46189114be25d5878917eba1aef1f47e6ed8356331b9",
+      "rows": [
+        {
+          "name": "thrustGuard",
+          "model": "v4",
+          "source": "/tmp/halfsword-continuity-near01/thrustGuard-v4.json.gz",
+          "rawSHA": "abefce3dc9f0872c32a4bf9921ea7b52f6bf3db88e95b3da3f12186acc5f3904",
+          "bytes": 647037,
+          "actualSpecialStarts": 1,
+          "vitalSuccessStarts": 0,
+          "queueToCommitSeconds": [
+            1.2333333333333334
+          ],
+          "body": {
+            "att": {
+              "finite": true,
+              "maxJointGapM": 0.002183850954493126,
+              "maxLinearSpeed": 3.10323392693735,
+              "maxAngularSpeed": 26.719190482295712,
+              "maxChestSpeed": 0.7546668958527316,
+              "maxPelvisSpeed": 0.7891906949734053,
+              "maxTiltDegrees": 13.813632348686282
+            },
+            "vic": {
+              "finite": true,
+              "maxJointGapM": 0.001721287071615457,
+              "maxLinearSpeed": 3.6457262120239693,
+              "maxAngularSpeed": 30.393132588284423,
+              "maxChestSpeed": 1.3277049094941522,
+              "maxPelvisSpeed": 1.2827712085219263,
+              "maxTiltDegrees": 30.338266558351993
+            }
+          }
+        },
+        {
+          "name": "thrustGuard",
+          "model": "quick",
+          "source": "/tmp/halfsword-continuity-near01/thrustGuard-quick.json.gz",
+          "rawSHA": "7419d9d7d5ca219de51b6a4f27ff465a005ac545fafa60de8c9ec3e7ba83d160",
+          "bytes": 645243,
+          "actualSpecialStarts": 2,
+          "vitalSuccessStarts": 0,
+          "queueToCommitSeconds": [
+            1.0166666666666666,
+            0.1
+          ],
+          "body": {
+            "att": {
+              "finite": true,
+              "maxJointGapM": 0.002326987163197317,
+              "maxLinearSpeed": 3.795228720849744,
+              "maxAngularSpeed": 26.122168576655024,
+              "maxChestSpeed": 0.9132773261286724,
+              "maxPelvisSpeed": 0.9455761890868621,
+              "maxTiltDegrees": 14.198325459077521
+            },
+            "vic": {
+              "finite": true,
+              "maxJointGapM": 0.001721287071615457,
+              "maxLinearSpeed": 3.6457262120239693,
+              "maxAngularSpeed": 30.393132588284423,
+              "maxChestSpeed": 1.3277049094941522,
+              "maxPelvisSpeed": 1.2827712085219263,
+              "maxTiltDegrees": 30.338266558351993
+            }
+          }
+        },
+        {
+          "name": "thrustGuardEstoc",
+          "model": "v4",
+          "source": "/tmp/halfsword-continuity-near01/thrustGuardEstoc-v4.json.gz",
+          "rawSHA": "2768bf4a17b8eecebd2635e4a71d1f62b2c6376137bb301759ca5bcf6bc8c440",
+          "bytes": 651511,
+          "actualSpecialStarts": 1,
+          "vitalSuccessStarts": 1,
+          "queueToCommitSeconds": [
+            1.8
+          ],
+          "body": {
+            "att": {
+              "finite": true,
+              "maxJointGapM": 0.002088307713939966,
+              "maxLinearSpeed": 3.7972472926839838,
+              "maxAngularSpeed": 97.45729968033476,
+              "maxChestSpeed": 0.7041504638815949,
+              "maxPelvisSpeed": 0.7717028444850736,
+              "maxTiltDegrees": 14.207710677668382
+            },
+            "vic": {
+              "finite": true,
+              "maxJointGapM": 0.0017141602443181997,
+              "maxLinearSpeed": 3.353511188929454,
+              "maxAngularSpeed": 26.18327929576836,
+              "maxChestSpeed": 1.3245280956211498,
+              "maxPelvisSpeed": 1.2812142572980032,
+              "maxTiltDegrees": 30.30905209270858
+            }
+          }
+        },
+        {
+          "name": "thrustGuardEstoc",
+          "model": "quick",
+          "source": "/tmp/halfsword-continuity-near01/thrustGuardEstoc-quick.json.gz",
+          "rawSHA": "9c175431e2cf08c8952bd9d5813b9d0ac534b72d5c5878fe5801c5bd08b58bf6",
+          "bytes": 642935,
+          "actualSpecialStarts": 1,
+          "vitalSuccessStarts": 1,
+          "queueToCommitSeconds": [
+            1.4916666666666667
+          ],
+          "body": {
+            "att": {
+              "finite": true,
+              "maxJointGapM": 0.0021737104777882297,
+              "maxLinearSpeed": 4.30999587167459,
+              "maxAngularSpeed": 97.45729968033476,
+              "maxChestSpeed": 0.8509868180746851,
+              "maxPelvisSpeed": 0.908352557387967,
+              "maxTiltDegrees": 14.496035145950799
+            },
+            "vic": {
+              "finite": true,
+              "maxJointGapM": 0.0017141602443181997,
+              "maxLinearSpeed": 3.353511188929454,
+              "maxAngularSpeed": 26.18327929576836,
+              "maxChestSpeed": 1.3245280956211498,
+              "maxPelvisSpeed": 1.2812142572980032,
+              "maxTiltDegrees": 30.30905209270858
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "far01",
+      "path": "/tmp/halfsword-continuity-far01",
+      "measurementValid": true,
+      "steps": 4800,
+      "executions": 4,
+      "frozen": "/tmp/halfsword-continuity-source-FuTja8",
+      "sourceManifestSHA": "f70db18c4ee979b0d6f44c4cc129541266ebd53025c0cbe39ee041c7d40fef2c",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/opportunity_continuity_20261009.mjs",
+        "/tmp/halfsword-continuity-far01",
+        "thrustGuard,thrustGuardEstoc",
+        "--gap=2.15",
+        "--models=v4,quick"
+      ],
+      "protocolSHA": "5631059f157ede9fc7eb938b4a01e4c88c62d5ba05cae93efb7ff24d5c8d6a51",
+      "reportSHA": "e6a9e587d1d9aa42a8e04d73c6aa043e6b691c751dea0959a3d562aacd7d80f6",
+      "rows": [
+        {
+          "name": "thrustGuard",
+          "model": "v4",
+          "source": "/tmp/halfsword-continuity-far01/thrustGuard-v4.json.gz",
+          "rawSHA": "a7e02b979bbec7ef27c14847447bb8d001bce7bf273a3304db1a80df04a8a9c4",
+          "bytes": 549444,
+          "actualSpecialStarts": 2,
+          "vitalSuccessStarts": 1,
+          "queueToCommitSeconds": [
+            0.4666666666666667,
+            0.10833333333333334
+          ],
+          "body": {
+            "att": {
+              "finite": true,
+              "maxJointGapM": 0.002070916146393643,
+              "maxLinearSpeed": 3.4165463306582198,
+              "maxAngularSpeed": 26.46453331645539,
+              "maxChestSpeed": 0.8323567480442248,
+              "maxPelvisSpeed": 0.7478609559536997,
+              "maxTiltDegrees": 18.211758392881844
+            },
+            "vic": {
+              "finite": true,
+              "maxJointGapM": 0.002544444051291408,
+              "maxLinearSpeed": 3.984698708577175,
+              "maxAngularSpeed": 28.62967173173472,
+              "maxChestSpeed": 2.471728364142069,
+              "maxPelvisSpeed": 1.751995802820862,
+              "maxTiltDegrees": 91.11204683192105
+            }
+          }
+        },
+        {
+          "name": "thrustGuard",
+          "model": "quick",
+          "source": "/tmp/halfsword-continuity-far01/thrustGuard-quick.json.gz",
+          "rawSHA": "01a6bdeb20c6428ad3bfdda769449256296bb3a93ce697cff496c453e692f2d5",
+          "bytes": 546460,
+          "actualSpecialStarts": 2,
+          "vitalSuccessStarts": 0,
+          "queueToCommitSeconds": [
+            0.5166666666666666,
+            0.1
+          ],
+          "body": {
+            "att": {
+              "finite": true,
+              "maxJointGapM": 0.002070916146393643,
+              "maxLinearSpeed": 3.477830123653886,
+              "maxAngularSpeed": 24.539706701453753,
+              "maxChestSpeed": 0.9371277964224236,
+              "maxPelvisSpeed": 0.8391198940746799,
+              "maxTiltDegrees": 17.96010227410366
+            },
+            "vic": {
+              "finite": true,
+              "maxJointGapM": 0.0018843143565544771,
+              "maxLinearSpeed": 3.984698708577175,
+              "maxAngularSpeed": 28.62967173173472,
+              "maxChestSpeed": 1.3277865198425765,
+              "maxPelvisSpeed": 1.2832154762269428,
+              "maxTiltDegrees": 30.381558930991332
+            }
+          }
+        },
+        {
+          "name": "thrustGuardEstoc",
+          "model": "v4",
+          "source": "/tmp/halfsword-continuity-far01/thrustGuardEstoc-v4.json.gz",
+          "rawSHA": "ef6f9cc471e5e69accfbe51ea69f0f520cf6e845aa87b4d03a42cdec6b6e6497",
+          "bytes": 562491,
+          "actualSpecialStarts": 1,
+          "vitalSuccessStarts": 0,
+          "queueToCommitSeconds": [
+            0.85
+          ],
+          "body": {
+            "att": {
+              "finite": true,
+              "maxJointGapM": 0.0020672368469528066,
+              "maxLinearSpeed": 5.498683242359196,
+              "maxAngularSpeed": 195.5121588871069,
+              "maxChestSpeed": 0.8293189805012229,
+              "maxPelvisSpeed": 0.6857270842206099,
+              "maxTiltDegrees": 15.903729063861645
+            },
+            "vic": {
+              "finite": true,
+              "maxJointGapM": 0.0022668992157573674,
+              "maxLinearSpeed": 4.607285823546911,
+              "maxAngularSpeed": 85.35753788271042,
+              "maxChestSpeed": 2.054741510940804,
+              "maxPelvisSpeed": 2.015675013757772,
+              "maxTiltDegrees": 103.42248441134466
+            }
+          }
+        },
+        {
+          "name": "thrustGuardEstoc",
+          "model": "quick",
+          "source": "/tmp/halfsword-continuity-far01/thrustGuardEstoc-quick.json.gz",
+          "rawSHA": "1cfe6618d7068728b8f5eea045b8a7a4a717569d75fe3c56ffaf0025eb98f814",
+          "bytes": 584728,
+          "actualSpecialStarts": 2,
+          "vitalSuccessStarts": 1,
+          "queueToCommitSeconds": [
+            0.9416666666666667,
+            1.0166666666666666
+          ],
+          "body": {
+            "att": {
+              "finite": true,
+              "maxJointGapM": 0.0020672368469528066,
+              "maxLinearSpeed": 5.997969655446326,
+              "maxAngularSpeed": 125.5730576518776,
+              "maxChestSpeed": 0.823936693856515,
+              "maxPelvisSpeed": 0.7391884303675718,
+              "maxTiltDegrees": 16.30952029629561
+            },
+            "vic": {
+              "finite": true,
+              "maxJointGapM": 0.0017228471382695406,
+              "maxLinearSpeed": 3.822456308010384,
+              "maxAngularSpeed": 85.35753788271042,
+              "maxChestSpeed": 1.3277078692582363,
+              "maxPelvisSpeed": 1.2832556617232973,
+              "maxTiltDegrees": 30.444531254211473
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "practice-near01",
+      "path": "/tmp/halfsword-continuity-practice-near01",
+      "measurementValid": true,
+      "steps": 2400,
+      "executions": 2,
+      "frozen": "/tmp/halfsword-continuity-source-MvKp5T",
+      "sourceManifestSHA": "f70db18c4ee979b0d6f44c4cc129541266ebd53025c0cbe39ee041c7d40fef2c",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/opportunity_continuity_20261009.mjs",
+        "/tmp/halfsword-continuity-practice-near01",
+        "thrustGuard,thrustGuardEstoc",
+        "--gap=1.25",
+        "--models=quick",
+        "--practice"
+      ],
+      "protocolSHA": "260390c700a4d78545a079769536f0e4632c335a1e47fc270864e88f9c8d2a08",
+      "reportSHA": "7e6a75baaab25bddac446c6ba12eee4a92e16d1e4e13cd651d242c8aa6a310ff",
+      "rows": [
+        {
+          "name": "thrustGuard",
+          "model": "quick",
+          "source": "/tmp/halfsword-continuity-practice-near01/thrustGuard-quick.json.gz",
+          "rawSHA": "1e978dc0a44e0fbb79fce2ac2c5cf18edc41dade994facd38d5d906d72b23f08",
+          "bytes": 615690,
+          "actualSpecialStarts": 0,
+          "vitalSuccessStarts": 0,
+          "queueToCommitSeconds": [],
+          "body": {
+            "att": {
+              "finite": true,
+              "maxJointGapM": 0.0022999064627631086,
+              "maxLinearSpeed": 4.2498726773855635,
+              "maxAngularSpeed": 26.086891590288822,
+              "maxChestSpeed": 1.0214546571416763,
+              "maxPelvisSpeed": 1.0916566416230091,
+              "maxTiltDegrees": 11.956261991047073
+            },
+            "vic": {
+              "finite": true,
+              "maxJointGapM": 0.0007770002869885084,
+              "maxLinearSpeed": 3.7677586889314396,
+              "maxAngularSpeed": 35.30818884319717,
+              "maxChestSpeed": 0.9488548459806316,
+              "maxPelvisSpeed": 0.8969666268954677,
+              "maxTiltDegrees": 32.10067669920514
+            }
+          }
+        },
+        {
+          "name": "thrustGuardEstoc",
+          "model": "quick",
+          "source": "/tmp/halfsword-continuity-practice-near01/thrustGuardEstoc-quick.json.gz",
+          "rawSHA": "4b25a68a2b7c30624aeaa84f493bf211459afd2fd992212fa756049e357e9a20",
+          "bytes": 713306,
+          "actualSpecialStarts": 1,
+          "vitalSuccessStarts": 0,
+          "queueToCommitSeconds": [
+            1.475
+          ],
+          "body": {
+            "att": {
+              "finite": true,
+              "maxJointGapM": 0.0020607791617123995,
+              "maxLinearSpeed": 5.693781519122815,
+              "maxAngularSpeed": 215.76568658326994,
+              "maxChestSpeed": 1.0398943465910908,
+              "maxPelvisSpeed": 1.1173853031038494,
+              "maxTiltDegrees": 14.050565469564203
+            },
+            "vic": {
+              "finite": true,
+              "maxJointGapM": 0.0009344224883442167,
+              "maxLinearSpeed": 4.236836022465031,
+              "maxAngularSpeed": 31.05288854939305,
+              "maxChestSpeed": 0.95031125585991,
+              "maxPelvisSpeed": 0.898786596325356,
+              "maxTiltDegrees": 32.16861428669891
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "practice-far01",
+      "path": "/tmp/halfsword-continuity-practice-far01",
+      "measurementValid": true,
+      "steps": 2400,
+      "executions": 2,
+      "frozen": "/tmp/halfsword-continuity-source-LkmMpG",
+      "sourceManifestSHA": "f70db18c4ee979b0d6f44c4cc129541266ebd53025c0cbe39ee041c7d40fef2c",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "/workspace/halfsword-codex/tools/sim/experiments/opportunity_continuity_20261009.mjs",
+        "/tmp/halfsword-continuity-practice-far01",
+        "thrustGuard,thrustGuardEstoc",
+        "--gap=2.15",
+        "--models=quick",
+        "--practice"
+      ],
+      "protocolSHA": "357c12d712dfd0817d46c5d4555514f4abf32f2191a2029784b09a3d311e6297",
+      "reportSHA": "aef109887fc4c099a9422c16c47cf91ee2a6adc0277becbdc7e7a5036b311e20",
+      "rows": [
+        {
+          "name": "thrustGuard",
+          "model": "quick",
+          "source": "/tmp/halfsword-continuity-practice-far01/thrustGuard-quick.json.gz",
+          "rawSHA": "d143b2209b9f8492208013da880917ae0016b632b336a933c27725616fd20108",
+          "bytes": 644297,
+          "actualSpecialStarts": 1,
+          "vitalSuccessStarts": 0,
+          "queueToCommitSeconds": [
+            0.11666666666666667
+          ],
+          "body": {
+            "att": {
+              "finite": true,
+              "maxJointGapM": 0.0023728582847870466,
+              "maxLinearSpeed": 3.139575713086511,
+              "maxAngularSpeed": 26.392365976105026,
+              "maxChestSpeed": 0.6758050013252161,
+              "maxPelvisSpeed": 0.6751450348297832,
+              "maxTiltDegrees": 13.656641186444736
+            },
+            "vic": {
+              "finite": true,
+              "maxJointGapM": 0.001097631332852686,
+              "maxLinearSpeed": 5.068500518798828,
+              "maxAngularSpeed": 10.67313934088215,
+              "maxChestSpeed": 0.9483888609922144,
+              "maxPelvisSpeed": 0.896747186668657,
+              "maxTiltDegrees": 32.16806233883524
+            }
+          }
+        },
+        {
+          "name": "thrustGuardEstoc",
+          "model": "quick",
+          "source": "/tmp/halfsword-continuity-practice-far01/thrustGuardEstoc-quick.json.gz",
+          "rawSHA": "827614cd89ae7b0f9cd5fbe45b7c2ce4e52e87495c6e7a92f242751a456aaef0",
+          "bytes": 565100,
+          "actualSpecialStarts": 0,
+          "vitalSuccessStarts": 0,
+          "queueToCommitSeconds": [],
+          "body": {
+            "att": {
+              "finite": true,
+              "maxJointGapM": 0.002157697683562736,
+              "maxLinearSpeed": 3.7865580734271997,
+              "maxAngularSpeed": 104.83702271852002,
+              "maxChestSpeed": 0.6975579108115683,
+              "maxPelvisSpeed": 0.739258576912567,
+              "maxTiltDegrees": 14.364477757992981
+            },
+            "vic": {
+              "finite": true,
+              "maxJointGapM": 0.0007582204785344327,
+              "maxLinearSpeed": 5.068500518798828,
+              "maxAngularSpeed": 10.672334277472691,
+              "maxChestSpeed": 0.9478537965828403,
+              "maxPelvisSpeed": 0.8971248930810787,
+              "maxTiltDegrees": 32.139167690405145
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "decisions": {
+    "getup": "user-approved general; reuse prior15native results",
+    "inputCancellation": "raw finger motion cancels; automatic tremor/return do not",
+    "tempo": "optional1.2 preparation commands; damage/attack-clock constants unchanged; actual damage may change",
+    "failedPracticeV1": "preserved; unarmed at spawn did not yield reliable actual starts",
+    "practiceV2": "armed passive guard, weaken legs/knockDown at2seconds, intended tap after6; four initial taps reached actual special attack in native; not natural combat or full browser equivalence"
+  },
+  "contracts": {
+    "getup-final": {
+      "pass": true,
+      "count": 22,
+      "path": "/tmp/halfsword-continuity-contracts-getup-final.json",
+      "bytes": 1423,
+      "sha256": "9ee3d3753f695ec6340a0dc27c98cd5e0ce7e94c8cb282ce19becc1f9f275991"
+    },
+    "drill-final": {
+      "pass": true,
+      "count": 15,
+      "path": "/tmp/halfsword-continuity-contracts-drill-final.json",
+      "bytes": 1037,
+      "sha256": "24322597f02784d5bc0d8d92087c4e3f52983c0642385c729b2810bdb473a3b2"
+    },
+    "distance-final": {
+      "pass": true,
+      "count": 14,
+      "path": "/tmp/halfsword-continuity-contracts-distance-final.json",
+      "bytes": 1225,
+      "sha256": "a3de79e189d7075f7b3e74a894911f7c0f82bccd4a001f815b878c1fb47d0a91"
+    }
+  },
+  "initialMobileFailure": {
+    "path": "/tmp/halfsword-continuity-mobile-local01/report.json",
+    "bytes": 414695,
+    "sha256": "87494dd2773b6a5ea33926729b39ae1cd3ce59e31d88ee5fde40f93fadea29d8",
+    "reason": "page.waitForFunction: Timeout 40000ms exceeded.",
+    "interpretation": "First flow ordinary passed. Rapier near tap did not yield an observed queue. No final gameplay snapshot in first tool version; do not infer gameplay cause from absence of queue alone.",
+    "diagnosis": "Unmodified sequential CDP down/up reached real event timestamps 540.3ms apart; tap limit is180ms, so no tap/queue/attack was expected. New delivery tool requests80ms CDP timestamped trusted touch and asserts actual delivered duration. This is a test-input fix, not a game tap-threshold change."
+  }
+}

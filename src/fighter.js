@@ -192,6 +192,7 @@ export class Fighter {
     this.downTime = BODY.fallDuration;
     this.kneelTime = 1.1;
     this.riseTime = 0.9;
+    this.getupLeadDelay = true; // 승인된 앞다리 우선 기립. 명시적 getup-base 비교만 이전 순서를 쓴다.
     // 투구: ARMOR.on 이면 look.helmet 에 무엇이든 적혀 있으면 막아 주는 투구다(종류별 값은 ARMOR.helmets).
     //  끄면 예전처럼 플레이어 케틀햇만 막는다
     const helmType = ARMOR.on ? o.look.helmet || null : o.look.helmet === 'kettle' ? 'kettle' : null;

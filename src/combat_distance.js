@@ -4,6 +4,9 @@ import * as THREE from 'three';
 import { ARM, THRUST } from './config.js';
 
 export const distanceEnabled = f => f?.opportunityModel === 'v4';
+// Optional continuous preparation: command speed, not a physics time scale or
+// extra muscle/impact force. Actual movement still depends on body support.
+export const rangeTempo = f => distanceEnabled(f) && f.thrustRangeTempo === 1.2 ? 1.2 : 1;
 export const THRUST_DISTANCE = Object.freeze({ captureTravel: 1, timeout: 2,
   maxTravel: 1, alignmentCos: Math.cos(20 * Math.PI / 180), manualDead: 0.15 });
 const clamp = THREE.MathUtils.clamp;
@@ -39,7 +42,7 @@ export function measureThrustDistance(f, target) {
   // Project the desired range correction onto the existing facing direction.
   const forward = f.forward(new THREE.Vector3()), projection = ray.dot(forward);
   const valid = Number.isFinite(length + reach) && length > 0 && projection > 0.25;
-  const move = !valid || ready ? 0 : Math.sign(error) * clamp(Math.abs(error) * 2 / Math.max(0.5, projection), 0.18, 0.65);
+  const move = !valid || ready ? 0 : Math.sign(error) * clamp(Math.abs(error) * 2 / Math.max(0.5, projection), 0.18, 0.65) * rangeTempo(f);
   return { valid, distance, min, max, preferred, error, ready: valid && ready, move,
     alignment, lineMiss, aligned: alignment >= THRUST_DISTANCE.alignmentCos && lineMiss <= 0.07, armTravel, reach };
 }

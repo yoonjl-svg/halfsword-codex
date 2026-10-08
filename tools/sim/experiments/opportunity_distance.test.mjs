@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import * as THREE from 'three';
 import { Skill } from '../../../src/skill.js';
 import { THRUST } from '../../../src/config.js';
-import { measureThrustDistance } from '../../../src/combat_distance.js';
+import { measureThrustDistance, rangeTempo } from '../../../src/combat_distance.js';
 const checks = [], check = (name, fn) => { fn(); checks.push(name); };
 const body = p => ({ translation: () => ({...p}), rotation: () => ({x:0,y:0,z:0,w:1}) });
 function fixture(gap=1.3, model='v4') {
@@ -34,6 +34,25 @@ check('an angularly close axis must also pass through the small target corridor'
  const {f}=fixture();
  const m=measureThrustDistance(f,new THREE.Vector3(1.55,1.4,0));
  assert(m.alignment>Math.cos(20*Math.PI/180));assert(m.lineMiss>.07);assert(!m.aligned);
+});
+check('fast preparation scales both approach and retreat commands without changing range gates',()=>{
+ const {f}=fixture();
+ for(const x of [.8,2]) {
+  f.thrustRangeTempo=1;const a=measureThrustDistance(f,new THREE.Vector3(x,1.25,0));
+  f.thrustRangeTempo=1.2;const b=measureThrustDistance(f,new THREE.Vector3(x,1.25,0));
+  assert.equal(b.move,a.move*1.2);assert(Math.abs(b.move)<=.78);
+  for(const key of ['min','max','preferred','ready','aligned'])assert.equal(b[key],a[key]);
+ }
+ for(const tempo of [0,2,NaN,'1.2']){f.thrustRangeTempo=tempo;assert.equal(rangeTempo(f),1);}
+ f.thrustRangeTempo=1.2;f.opportunityModel='v3';assert.equal(rangeTempo(f),1);
+});
+check('fast preparation advances hand blending and hilt centering, preserving attack clocks and mass',()=>{
+ const {f:a}=fixture(1.56),{f:b}=fixture(1.56);b.thrustRangeTempo=1.2;
+ for(const f of [a,b]){f.weaponCfg.twoHand=true;f.handBase=[.4,0,.32];f.skill.prepareThrustRange(new THREE.Vector3(1.56,1.25,0),.05);}
+ assert(Math.abs(b.skill.thrustPose.w-a.skill.thrustPose.w*1.2)<1e-12);
+ assert(Math.abs((.32-b.skill.thrustPose.hand[2])/(.32-a.skill.thrustPose.hand[2])-1.2)<1e-12);
+ for(const f of [a,b]){assert(!f.skill.thrustPush);f.skill.thrust({rangeCommit:true,step:false});}
+ assert.deepEqual(a.skill.tap.K,b.skill.tap.K);assert.equal(b.skill.tap.K.aim,THRUST.aim);
 });
 check('a ray missing the arm reach sphere cannot supply fictitious arm travel',()=>{
  const {f}=fixture(); f.sword=body({x:1,y:1.8,z:1});
@@ -69,6 +88,16 @@ check('new manual stick or hand input cancels preparation and does not fire late
   assert.equal(f.skill.thrustRange,null); assert.equal(f.skill.tap,null);
   assert.equal(f.skill.lastThrustRange.reason,'manual-input');
  }
+});
+check('game-generated hand displacement must not cancel a request; new raw motion must cancel it',()=>{
+ const {f}=fixture();
+ // The actual input ledger is distinct from the hand offset also written by
+ // emotion tremor and swordsmanship home return in the game loop.
+ f.swordsmanshipState={lastMotionTimeS:5};f.skill.thrust();
+ f.handOffset.x+=.06;f.skill.updateThrustRange(1/120);
+ assert(f.skill.thrustRange,'automatic hand motion was incorrectly treated as a new gesture');
+ f.swordsmanshipState.lastMotionTimeS=6;f.skill.updateThrustRange(1/120);
+ assert.equal(f.skill.thrustRange,null);assert.equal(f.skill.lastThrustRange.reason,'manual-input');
 });
 check('time limit and lost opening do not produce an off-range thrust',()=>{
  for(const why of ['time','stand','dead']){
