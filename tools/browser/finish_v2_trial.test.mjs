@@ -89,14 +89,14 @@ function withDocument(document, run) {
 
 test('Both weapons get readable A/B instructions, navigation and one idempotent panel', () => {
   for (const [weapon, label] of [['longsword', '롱소드'], ['rapier', '레이피어']]) {
-    for (const [model, title] of [['baseline', '마무리 A · 기존 규칙'], ['armor', '마무리 B · 갑옷 보호']]) {
+    for (const [model, title] of [['baseline', '이전 마무리 비교 A · 기존 규칙'], ['armor', '이전 마무리 비교 B · 갑옷 보호']]) {
       const dom = fixture(), info = configureFinishV2Trial(params({finishV2: model, weapon}));
       withDocument(dom.document, () => {
         mountFinishV2Trial(info);
         const panel = dom.nodes.get('finishV2TrialInfo'); assert.ok(panel);
         assert.equal(panel.className, 'sub'); assert.equal(panel.children[0].textContent, `${title} · ${label}`);
-        assert.match(panel.children[1].textContent, /넘어진 상대의 갑옷 부위를 톡 눌러 마무리/);
-        assert.match(panel.children[1].textContent, /검술 보정 v2와 중력 9\.81은 두 판이 같습니다/);
+        assert.match(panel.children[1].textContent, /이전 규칙을 보존한 비교판/);
+        assert.match(panel.children[1].textContent, /2\.5배 마무리를 사용하며 자동 즉사하지 않습니다/);
         assert.match(panel.children[2].textContent, /A는 기존 마무리/);
         assert.match(panel.children[2].textContent, /갑옷이 보호하는 부위에서 상처 문턱을 넘지 못한 마무리의 특례 즉사를 막습니다/);
         assert.match(panel.children[2].textContent, /일반 상처·기절·죽음은 생길 수 있습니다/);

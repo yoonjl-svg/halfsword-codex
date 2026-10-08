@@ -27,7 +27,7 @@ import { BREAK } from './weapons.js';
 import { updateGun } from './gun.js';
 import { applyBudgetedCutResistance } from './cut_reaction.js';
 import { applyCenterlineCutImpulse, centerlineCutEnabled } from './cut_centerline.js';
-import { resolveFinishRule } from './finish_rule.js';
+import { resolveFinishRule, effectiveFinishEnergy, FINISH_POWER } from './finish_rule.js';
 
 // 전투 사건 갈고리 (gun.js GUN_HOOKS 와 같은 식): 비어 있으면 아무 일도 없다. 판정·난수와 무관
 //  onDecapitate(f, headBody): 참수된 순간 한 번 (fighter.applyWound, die 뒤) — 사운드 PM 이 소리를 건다
@@ -229,6 +229,9 @@ export class Combat {
     const tp = att.skill?.tap;
     let finish = type === 'stab' && !!tp?.down && !!tp.go && !!att.skill.thrustPush && (att.state === 'stand' || att.state === 'kneel') && vic === att.foe && vic.state === 'down' && FINISH_PARTS.has(pr.v.part);
     const finishRuleModel = this.finishRuleFighter && att !== this.finishRuleFighter ? 'legacy' : this.finishRuleModel;
+    // Committed contact and automatic death are separate. Ordinary power mode
+    // keeps only the former; armor and normal wounds still decide lethality.
+    const finishingStrike = finishRuleModel === 'power' && finish;
     let finishRuleResult = null;
     let bareThreshold = null;
     // 투구: 머리 윗부분(눈썹 위)만 덮는다. 종류별 값은 ARMOR.helmets (케틀햇 = 예전 ANATOMY.helmet 그대로)
@@ -285,7 +288,8 @@ export class Combat {
       // 투구: 찌그러지고 틈을 파고들어도 맨머리보다 약해지지는 않는다 (케틀햇은 가장 약할 때도 맨머리보다 세서 그대로)
       if (helmet) thr = Math.max(thr, type === 'cut' ? ANATOMY.head.cut : ANATOMY.head.stab);
       eff = energy * quality * wMult * emoDealt * emoTaken;
-      if (finishRuleModel === 'armorCausal' || finishRuleModel === 'armorGuard') {
+      eff = effectiveFinishEnergy({ model: finishRuleModel, eligible: finishingStrike, energy: eff });
+      if (finishRuleModel === 'armorCausal' || finishRuleModel === 'armorGuard' || finishRuleModel === 'power') {
         // Matched bare tissue keeps clothing/gap modifiers, removing only the
         // helmet/plate contribution. pass=false alone does not mean armor blocked.
         bareThreshold = (type === 'cut' ? ANATOMY[zone].cut : ANATOMY[zone].stab) * (helmOn ? 1 : guard);
@@ -330,8 +334,9 @@ export class Combat {
       eff,
       bladeAxis: axis.clone(),
       finish, // 내려찍기 즉사 (사장님 결정 9/30, fighter.applyWound)
-      ...(['armorCausal', 'armorGuard'].includes(finishRuleModel) ? { bareThreshold, armorBlocked: finishRuleResult?.armorBlocked ?? false, finishRuleReason: finishRuleResult?.reason ?? 'ineligible' } : {}),
-      ...(finishRuleModel === 'armorGuard' ? { armorGuarded: finishRuleResult?.armorGuarded ?? false } : {}),
+      ...(['armorCausal', 'armorGuard', 'power'].includes(finishRuleModel) ? { bareThreshold, armorBlocked: finishRuleResult?.armorBlocked ?? false, finishRuleReason: finishRuleResult?.reason ?? 'ineligible' } : {}),
+      ...(['armorGuard', 'power'].includes(finishRuleModel) ? { armorGuarded: finishRuleResult?.armorGuarded ?? false } : {}),
+      ...(finishRuleModel === 'power' ? { finishingStrike, finishPower: finishingStrike ? FINISH_POWER : 1 } : {}),
     };
   }
 

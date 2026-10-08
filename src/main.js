@@ -545,9 +545,10 @@ function newRound(weaponId) {
   combat.cutReactionModel = selectedCutModel;
   combat.cutReactionFighter = (contactTrial.active || recoveryContactV2Trial.active || swordsmanshipDefault.active) && selectedCutModel === 'centerline' ? player : null;
   combat.finishRuleModel = finishV2Trial.active ? finishV2Trial.finishModel
+    : swordsmanshipDefault.active ? 'power'
     : swordsmanshipTrial.active && player.weapon.id === 'qinggang'
     ? 'armorCausal' : integratedCombatTrial.finishRule;
-  combat.finishRuleFighter = player;
+  combat.finishRuleFighter = combat.finishRuleModel === 'power' ? null : player;
   // 몸 소리(발소리·쓰러짐·무기 부러짐·죽음 목소리): 캐릭터마다 목소리가 다르다
   const foeVoice = voiceOf(currentFoe);
   bodySounds = [new BodySounds(sound, player, 'player', true), new BodySounds(sound, enemy, foeVoice)];

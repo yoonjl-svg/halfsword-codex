@@ -22,9 +22,9 @@ export function mountFinishV2Trial(info) {
   if (!anchor || document.getElementById('finishV2TrialInfo')) return;
   const panel = document.createElement('p'); panel.id = 'finishV2TrialInfo'; panel.className = 'sub';
   const title = document.createElement('span'); title.style.display = 'block';
-  title.textContent = `마무리 ${info.model === 'armor' ? 'B · 갑옷 보호' : 'A · 기존 규칙'} · ${weapons[info.weapon]}`;
+  title.textContent = `이전 마무리 비교 ${info.model === 'armor' ? 'B · 갑옷 보호' : 'A · 기존 규칙'} · ${weapons[info.weapon]}`;
   const note = document.createElement('span'); note.style.display = 'block';
-  note.textContent = '넘어진 상대의 갑옷 부위를 톡 눌러 마무리를 비교해 보세요. 검술 보정 v2와 중력 9.81은 두 판이 같습니다.';
+  note.textContent = '이전 규칙을 보존한 비교판입니다. 최신 일반판은 갑옷 판정을 거치는 2.5배 마무리를 사용하며 자동 즉사하지 않습니다.';
   const rule = document.createElement('span'); rule.style.display = 'block';
   rule.textContent = 'A는 기존 마무리입니다. B는 갑옷이 보호하는 부위에서 상처 문턱을 넘지 못한 마무리의 특례 즉사를 막습니다. 일반 상처·기절·죽음은 생길 수 있습니다.';
   const lab = document.createElement('a'); lab.id = 'finishV2TrialLab'; lab.href = info.labHref; lab.textContent = '마무리 비교 화면';

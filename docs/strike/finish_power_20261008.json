@@ -1,0 +1,222 @@
+{
+  "baseline": "9a6d43e83373c39f78a4ac063eda0b9526316db7",
+  "status": "implementation-and-local-validation-complete",
+  "sourceSHA256": {
+    "src/combat.js": "25cba2e1def8ae2856c89b198af0ad238453e29a1eb0be93192b3e19138c7df8",
+    "src/finish_rule.js": "2baed3d0c5d0e290166446884e3e037488fa6d88fff5c8cc5dd30eb390e3b9c5",
+    "src/fighter.js": "00052d3174641e9f7a952d18b62c2d3754869e19f16eb6898504062187147e21",
+    "src/main.js": "d5b72d4e9590e5d33074ea4833581380bc21a1aef09bb06d35aea18b38e1d265",
+    "src/finish_v2_trial.js": "36262c8a175be39dcf7b883629bc0e7c67e0eaa9284525f476889dbf5d96acc2",
+    "public/feature-lab.html": "78022164e2ac6fcf0bd1712565b763e63eb109f611353fa008a75c61a8d774af",
+    "tools/sim/experiments/finish_power.test.mjs": "822b7e137218e3221db1dcaa6eac6028ce7b17332311a70e956a76224329a3bc",
+    "tools/sim/experiments/phase3_finish_contact_20261007.mjs": "dab07197c9be59f57314135de286e964812b1e33f3caab736e652306a10c7967",
+    "tools/sim/experiments/finish_power_contact_review.mjs": "95b4c4ca5c8b7bbff09454aa669df40114efbe9371c40345cff380029b96826f",
+    "tools/browser/finish_power_delivery.mjs": "07ed3fee8658b728dd0a00146ea467f85a13d73f8347b84ce8800d9e1e83ccfb",
+    "tools/browser/finish_v2_trial.test.mjs": "2bfeb0342299964bc35563a455604291011e03c83e5612f923be8d73eff2c21c",
+    "package-lock.json": "70411283af67b88390c92baf0a78f5fcf89fb487f67608e1221952c95942a35e",
+    "public/development-plan.html": "4f088319eb9c0fcc5cb980330b11c28e35ec159293726429b9c96cb5c2b61a01"
+  },
+  "raw": [
+    {
+      "path": "/workspace/halfsword-handoff/finish-power-20261008/halfsword-finish-power-tests-20261008-03.json",
+      "bytes": 239272,
+      "sha256": "8b5959493ced4a811e3c6d59b13bf82171ef0a991d67aca8632746ce74868440"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/finish-power-20261008/legacy-guard-tests.json",
+      "bytes": 226108,
+      "sha256": "3fd21347860f9da811587fbf7d6308fcb493f3958b9ef5c8934e57c0bf268ecf"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/finish-power-20261008/native-down/report.json",
+      "bytes": 5726699,
+      "sha256": "370d64fd118605cf73bfd9874fd616aa27d7abb96a9eca6541c7a64a52cda7fd"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/finish-power-20261008/native-reviewed.json",
+      "bytes": 40071,
+      "sha256": "6d8f6c5e8a9fe9a439e8791108250d8c797346cbfd379bac74376cb112b3ee5c"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/finish-power-20261008/native-source/SOURCE.json",
+      "bytes": 10103,
+      "sha256": "99079babfedebb59a9baf51662eb9b9030ba0bfae996711a2b3300fe69eb01aa"
+    },
+    {
+      "path": "/workspace/halfsword-handoff/finish-power-20261008/browser/local01/report.json",
+      "bytes": 349593,
+      "sha256": "522d0065265155c57d913a407f45fa420f5041a0614bcf3b3bf0863673123995"
+    }
+  ],
+  "component": {
+    "power": 58,
+    "legacyGuard": 63,
+    "sourceStable": true,
+    "method": "Real cached Combat/Fighter fixtures, no native steps; first impossible float equality preparation retained in earlier reports."
+  },
+  "entryTests": {
+    "finishTrial": 6,
+    "integrated": 29
+  },
+  "native": {
+    "executions": 8,
+    "steps": 5564,
+    "reviewPass": true,
+    "originalMeasurementValid": false,
+    "correction": "Original injury-boundary prefix check rejects legitimate earlier predicted-pass changes. This read-only review checks identical spawn/input/native/controller prefix up to earliest contact-filter pass or actual injury policy change. Original failed report preserved; no physics rerun.",
+    "rows": [
+      {
+        "weapon": "longsword",
+        "armor": "none",
+        "policyTick": 563,
+        "nativeDifference": 563,
+        "firstHitTick": 568,
+        "firstHit": {
+          "type": "stab",
+          "zone": "chest",
+          "energy": 35.768562845538916,
+          "ephys": 17.884281422769458,
+          "mFree": 1.3350633076504625,
+          "mEff": 4.835063307650462,
+          "eff": 89.4214071138473,
+          "thr": 25,
+          "bareThreshold": 25,
+          "severity": 1.0736901185641217,
+          "pass": true,
+          "finish": false,
+          "armorBlocked": false,
+          "armorGuarded": false,
+          "finishRuleReason": "powered-wound",
+          "finishingStrike": true,
+          "finishPower": 2.5,
+          "plate": false,
+          "helmet": false,
+          "speed": 2.719879495464563,
+          "t": 1,
+          "helmetBlunt": 1
+        },
+        "finalAlive": true
+      },
+      {
+        "weapon": "longsword",
+        "armor": "plate",
+        "policyTick": 563,
+        "nativeDifference": 563,
+        "firstHitTick": 568,
+        "firstHit": {
+          "type": "stab",
+          "zone": "chest",
+          "energy": 35.768562845538916,
+          "ephys": 17.884281422769458,
+          "mFree": 1.3350633076504625,
+          "mEff": 4.835063307650462,
+          "eff": 89.4214071138473,
+          "thr": 47,
+          "bareThreshold": 25,
+          "severity": 0.7070234518974549,
+          "pass": true,
+          "finish": false,
+          "armorBlocked": false,
+          "armorGuarded": false,
+          "finishRuleReason": "powered-wound",
+          "finishingStrike": true,
+          "finishPower": 2.5,
+          "plate": true,
+          "helmet": false,
+          "speed": 2.719879495464563,
+          "t": 1,
+          "helmetBlunt": 1
+        },
+        "finalAlive": true
+      },
+      {
+        "weapon": "rapier",
+        "armor": "none",
+        "policyTick": 582,
+        "nativeDifference": 583,
+        "firstHitTick": 582,
+        "firstHit": {
+          "type": "stab",
+          "zone": "chest",
+          "energy": 23.980016102829556,
+          "ephys": 11.990008051414778,
+          "mFree": 0.944946546323759,
+          "mEff": 4.444946546323759,
+          "eff": 81.83180495090588,
+          "thr": 21.625,
+          "bareThreshold": 21.625,
+          "severity": 1.0034467491817647,
+          "pass": true,
+          "finish": false,
+          "armorBlocked": false,
+          "armorGuarded": false,
+          "finishRuleReason": "powered-wound",
+          "finishingStrike": true,
+          "finishPower": 2.5,
+          "plate": false,
+          "helmet": false,
+          "speed": 2.32269114308737,
+          "t": 1,
+          "helmetBlunt": 1
+        },
+        "finalAlive": true
+      },
+      {
+        "weapon": "rapier",
+        "armor": "plate",
+        "policyTick": 578,
+        "nativeDifference": 578,
+        "firstHitTick": 582,
+        "firstHit": {
+          "type": "stab",
+          "zone": "chest",
+          "energy": 23.980016102829556,
+          "ephys": 11.990008051414778,
+          "mFree": 0.944946546323759,
+          "mEff": 4.444946546323759,
+          "eff": 81.83180495090588,
+          "thr": 39.949999999999996,
+          "bareThreshold": 21.625,
+          "severity": 0.698030082515098,
+          "pass": true,
+          "finish": false,
+          "armorBlocked": false,
+          "armorGuarded": false,
+          "finishRuleReason": "powered-wound",
+          "finishingStrike": true,
+          "finishPower": 2.5,
+          "plate": true,
+          "helmet": false,
+          "speed": 2.32269114308737,
+          "t": 1,
+          "helmetBlunt": 1
+        },
+        "finalAlive": true
+      }
+    ]
+  },
+  "localMobile": {
+    "pass": true,
+    "requested": 546,
+    "uniqueArtifacts": 145,
+    "wallMs": 103078.940765,
+    "sourceStable": true,
+    "buildStable": true
+  },
+  "commands": [
+    "node tools/sim/experiments/finish_power.test.mjs /fresh/absolute/path.json",
+    "node tools/sim/experiments/finish_rule.test.mjs --armor-guard /fresh/absolute/guard.json",
+    "node tools/sim/experiments/phase3_finish_contact_20261007.mjs --freeze=/fresh/absolute/source",
+    "node /fresh/absolute/source/tools/sim/experiments/phase3_finish_contact_20261007.mjs --candidate=power --protocol=down --out=/fresh/absolute/native",
+    "node tools/sim/experiments/finish_power_contact_review.mjs /absolute/native /fresh/absolute/review.json",
+    "npm run build",
+    "node --test tools/browser/finish_v2_trial.test.mjs tools/browser/integrated_combat_trial.test.mjs",
+    "node tools/browser/finish_power_delivery.mjs --base=http://127.0.0.1:4173/ --out=/workspace/halfsword-handoff/finish-power-20261008/browser/local-fresh"
+  ],
+  "limits": [
+    "Native setup uses explicit knockdown/hold/AI idle/initial impulses, not natural combat frequency.",
+    "Strong head and float threshold cases are cached component fixtures, not native contact.",
+    "Mobile Chromium emulation, not real phone Safari prolonged play.",
+    "Final generic probe only changes post-run comparison reporting after recorded run; original frozen script and failed report preserved."
+  ]
+}
