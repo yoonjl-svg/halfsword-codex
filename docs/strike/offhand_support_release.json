@@ -1,5 +1,158 @@
 {
-  "status": "local-tests-passed-delivery-pending",
+  "status": "delivered",
+  "recordedUTC": "2026-10-08T05:56:10.906770+00:00",
   "publicURL": "https://yoonjl-svg.github.io/halfsword-codex/",
-  "report": "offhand_support_20261008.json"
+  "twohandURL": "https://yoonjl-svg.github.io/halfsword-codex/?weapon=zweihander&foeWeapon=longsword&foe=default",
+  "gameCommit": "91ffe3d3da6b76276321a4da93cedd936e5abc0c",
+  "deployment": {
+    "conclusion": "success",
+    "databaseId": 37734550298,
+    "headSha": "91ffe3d3da6b76276321a4da93cedd936e5abc0c",
+    "status": "completed",
+    "updatedAt": "2026-10-08T05:52:38Z",
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37734550298"
+  },
+  "scope": "Ordinary entry, both fighters, two-handed weapons. Existing research URLs retain legacy support; one-handed assistance unchanged.",
+  "publicMobile": {
+    "pass": true,
+    "responses": 648,
+    "uniqueArtifacts": 145,
+    "errors": [],
+    "sourceStable": true,
+    "buildStable": true,
+    "wallMs": 136197.805795,
+    "entries": [
+      {
+        "weapon": "longsword",
+        "steps": 330,
+        "pauseFrozen": true,
+        "policies": {
+          "finish": "power",
+          "finishTarget": "both",
+          "v2": "unified",
+          "arm": "manual",
+          "roll": "bounded",
+          "gravity": -9.81,
+          "startHold": 2,
+          "limb": true,
+          "defaultActive": true,
+          "supportProbe": false
+        },
+        "supportModels": [
+          "linked",
+          "linked"
+        ],
+        "nativeTouchEvents": 24
+      },
+      {
+        "weapon": "zweihander",
+        "steps": 318,
+        "pauseFrozen": true,
+        "policies": {
+          "finish": "power",
+          "finishTarget": "both",
+          "v2": "unified",
+          "arm": "manual",
+          "roll": "bounded",
+          "gravity": -9.81,
+          "startHold": 2,
+          "limb": true,
+          "defaultActive": true,
+          "supportProbe": false
+        },
+        "supportModels": [
+          "linked",
+          "linked"
+        ],
+        "nativeTouchEvents": 24
+      }
+    ],
+    "onehandMenu": "qinggang",
+    "historicalMenus": [
+      {
+        "trial": "finishV2",
+        "mode": "baseline",
+        "supportModels": [
+          "legacy",
+          "legacy"
+        ]
+      },
+      {
+        "trial": "finishV2",
+        "mode": "armor",
+        "supportModels": [
+          "legacy",
+          "legacy"
+        ]
+      },
+      {
+        "trial": "recoveryContactV2",
+        "mode": "baseline",
+        "supportModels": [
+          "legacy",
+          "legacy"
+        ]
+      },
+      {
+        "trial": "recoveryContactV2",
+        "mode": "combined",
+        "supportModels": [
+          "legacy",
+          "legacy"
+        ]
+      },
+      {
+        "trial": "finishV2",
+        "mode": "invalid",
+        "supportModels": [
+          "legacy",
+          "legacy"
+        ]
+      }
+    ],
+    "reportSHA256": "445b4f9874b48194030c147fa3d75c024de27a1a3c2864f444b6b712abc0ed3f"
+  },
+  "localReportSHA256": "fdd1de10264d3a353c6325b8014241c1a1ee039223d4df44392a6886031d8487",
+  "publicFiles": [
+    {
+      "path": "index.html",
+      "status": 200,
+      "bytes": 19274,
+      "sha256": "a396e96494bfcf54579277dbb3bc1236c74ead9d9ec6de6f5f7fea2e5d52bccf",
+      "match": true
+    },
+    {
+      "path": "feature-lab.html",
+      "status": 200,
+      "bytes": 39191,
+      "sha256": "78022164e2ac6fcf0bd1712565b763e63eb109f611353fa008a75c61a8d774af",
+      "match": true
+    },
+    {
+      "path": "development-plan.html",
+      "status": 200,
+      "bytes": 92031,
+      "sha256": "293e33b73e955d4b43c84bc341307d4d98746f2352e7411bf9311c738c181707",
+      "match": true
+    },
+    {
+      "path": "assets/main-hRBqXl67.js",
+      "status": 200,
+      "bytes": 3552428,
+      "sha256": "4e8febcf4231d8bf34bb0e75b40f38512cd99e22ffbbaa0c587237d004aa29bf",
+      "match": true
+    },
+    {
+      "path": "assets/sound-BV3DeVc-.js",
+      "status": 200,
+      "bytes": 83426,
+      "sha256": "9203e66f0ee11745f57c338ed4b5d411acdf118bd5a957bb93bb514ed5ff8d8a",
+      "match": true
+    }
+  ],
+  "publicFilesReportSHA256": "affdbaae9deed4c3834ba64ac1f9ef5e05030890732eb01dfb0bda8080135519",
+  "limits": [
+    "Chromium mobile emulation, not physical Safari or long play.",
+    "Controlled native contacts and component bounds, not natural injury frequency or all-weapon balance."
+  ]
 }
