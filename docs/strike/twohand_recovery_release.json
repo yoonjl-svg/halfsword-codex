@@ -1,5 +1,5 @@
 {
-  "status": "local_verified_public_pending",
+  "status": "delivered_public_verified",
   "baselineHEAD": "4201801de1d0ada0604ea7a5bdb00098bc5042be",
   "url": "https://yoonjl-svg.github.io/halfsword-codex/",
   "scope": "Two-hand recovery except measured lightsaber regression; previous one-hand fix retained",
@@ -643,5 +643,27 @@
     "lightsaber recovery correction",
     "recovery leg sequencing",
     "real-device long play and universal damage equivalence not established"
-  ]
+  ],
+  "codeCommit": "1a40e0075abdb796c637509f2546fac6ea4793e1",
+  "deployment": {
+    "run": 37771566958,
+    "conclusion": "success",
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37771566958"
+  },
+  "publicBytes": {
+    "pass": true,
+    "files": 8,
+    "evidence": "/workspace/halfsword-handoff/twohand-recovery-20261008/pages-code.json"
+  },
+  "verifiedUTC": "2026-10-08T11:46:30.028396+00:00",
+  "publicMobile": {
+    "pass": true,
+    "flows": 3,
+    "evidence": "/workspace/halfsword-handoff/arm-recovery-20261008/mobile/twohand-public/report.json",
+    "sha256": "f7a3b2f56a4b39e5bac220a9217e89b977164ae87217720ed908523a393d1d81",
+    "sourceStable": true,
+    "buildStable": true,
+    "ordinaryInput": "entry/card selection/touch attack/move/pause/resume/restart/reinput",
+    "scope": "Chromium mobile emulation on public HTTPS; not physical phone or long-play acceptance"
+  }
 }
