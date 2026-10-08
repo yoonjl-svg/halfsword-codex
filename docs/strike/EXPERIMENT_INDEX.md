@@ -1,5 +1,7 @@
 # 실험 색인과 재현 입구
 
+- 2026-10-08: [급소 찌르기 목·머리 영역](opportunity_head_region_20261008.md) — v2 목 우선과 v3 영역 선택의 실제 찌르기 비교; 일반 승격 별도.
+
 - 2026-10-08 · [급소 실제 경로 보조 v2](opportunity_precision_20261008.md) · 기준451a541. 대표6장면×v1/v2와에스톡추가2실행; 실제목베기/목찌르기/AI머리둔타확인, AI레이피어·에스톡찌르기미달. [전달·해시](opportunity_precision_release.json).
 
 - 2026-10-08 · [라이트세이버 B 사용자 수용·일반 적용](lightsaber_adoption_20261008.md) · 기준738ef0f. 기존4실행 비교를 재사용하고 진입/배포를 검사한다. 급소 정밀 명중은 미완료. [실제 전달](lightsaber_adoption_release.json).

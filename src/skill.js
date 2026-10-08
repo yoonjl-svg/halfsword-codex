@@ -133,7 +133,7 @@ export class Skill {
       const opening = opportunityTarget === undefined && f.index === 0
         ? findOpportunity(f, captureOpportunityPose(f.foe), 'thrust') : opportunityTarget;
       if (opening?.kind === 'thrust' && opening.targetId === f.foe.index &&
-          ['neck', 'face'].includes(opening.zone) && opening.target &&
+          (['neck', 'face'].includes(opening.zone) || (f.opportunityModel === 'v3' && opening.zone === 'head')) && opening.target &&
           [opening.target.x, opening.target.y, opening.target.z].every(Number.isFinite)) {
         this.tap.opportunity = {
           target: [opening.target.x, opening.target.y, opening.target.z],

@@ -3,6 +3,7 @@
 import * as THREE from 'three';
 import { ARM } from './config.js';
 import { LOW_FINISH } from './finish_entry.js';
+import { thrustRegionCandidates } from './opportunity_head_region.js';
 
 export const OPPORTUNITY = Object.freeze({
   version: 'v1', neckLocalY: -0.075, faceLocalX: 0.075, faceLocalY: -0.025,
@@ -16,7 +17,8 @@ export const OPPORTUNITY = Object.freeze({
   prepareWindow: 0.4, reverseCommitSpeed: 0.35, quietReset: 0.12,
   readyHeightChange: 0.06, // New vertical intent cancels a prepared plane.
 });
-export const precisionEnabled = f => f?.opportunityModel === 'v2';
+export const headRegionEnabled = f => f?.opportunityModel === 'v3';
+export const precisionEnabled = f => f?.opportunityModel === 'v2' || headRegionEnabled(f);
 export const enabled = f => f?.opportunityModel === OPPORTUNITY.version || precisionEnabled(f);
 const xyz = v => ({ x: v.x, y: v.y, z: v.z });
 const xyzw = q => ({ x: q.x, y: q.y, z: q.z, w: q.w });
@@ -36,7 +38,8 @@ export function captureOpportunityPose(f) {
   const chestQ = xyzw(f.bodies.chest.rotation());
   return {
     targetId: f.index, state: f.state, alive: !!f.alive, armed: !!f.armed,
-    headOff: !!f.decapitated, head, chest, pelvis, headQ, chestQ,
+    headOff: !!f.decapitated, head, chest, pelvis, headQ, chestQ, headRadius: f.headR,
+    hasHelmet: !!f.hasHelmet,
     neck: localPoint(head, headQ, 0, OPPORTUNITY.neckLocalY, 0),
     face: localPoint(head, headQ, OPPORTUNITY.faceLocalX, OPPORTUNITY.faceLocalY, 0),
     bladeBase: f.armed ? xyz(f.bladePoint(0)) : null,
@@ -99,7 +102,11 @@ export function findOpportunity(att, snapshot, kind = 'cut') {
   const reach = ARM.upper + ARM.fore - ARM.slack + cfg.hiltLength + cfg.bladeLength + OPPORTUNITY.reachSlack;
   const origin = xyz(att.sword.translation());
   const inv = att.yaw.clone().invert();
-  const candidates = kind === 'blunt' ? [['head', snapshot.head]] : kind === 'cut'
+  const region = kind === 'thrust' && headRegionEnabled(att);
+  const q = region ? att.sword.rotation() : null;
+  const axis = q ? new THREE.Vector3(0, 1, 0).applyQuaternion(new THREE.Quaternion(q.x, q.y, q.z, q.w)) : null;
+  const candidates = region ? thrustRegionCandidates(snapshot, origin, axis).map(p => [p.zone, p.point])
+    : kind === 'blunt' ? [['head', snapshot.head]] : kind === 'cut'
     ? [['neck', snapshot.neck]] : [['neck', snapshot.neck], ['face', snapshot.face]];
   for (const [zone, point] of candidates) {
     if (!finite(point)) continue;

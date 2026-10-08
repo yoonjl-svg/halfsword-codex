@@ -1,0 +1,115 @@
+{
+  "status": "validated_optional_candidate_public_delivery_pending",
+  "baselineHEAD": "a7cdd9a318da4b45f38a35641915b4020b39e2d4",
+  "generalDefault": "off",
+  "publicVerified": false,
+  "comparison": {
+    "A": "precision / v2 neck first",
+    "B": "head-region / v3 neck and head region"
+  },
+  "urls": {
+    "lab": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#head-region",
+    "rapier": "https://yoonjl-svg.github.io/halfsword-codex/?opportunity=head-region&weapon=rapier",
+    "estoc": "https://yoonjl-svg.github.io/halfsword-codex/?opportunity=head-region&weapon=estoc"
+  },
+  "evidence": {
+    "legacyContracts": {
+      "path": "/workspace/halfsword-handoff/opportunity-head-region-20261008/contracts-legacy03.json",
+      "bytes": 36827,
+      "sha256": "5ba9fcd4aca86c81229ec4459db7bb96adfaeba8bc4aa803069f10da9962147a"
+    },
+    "thrustContracts": {
+      "path": "/workspace/halfsword-handoff/opportunity-head-region-20261008/contracts-thrust03.json",
+      "bytes": 1346,
+      "sha256": "2e96f999cfc65a2c638d9baad9fb3a49302fb342f369fb4123c9c67afa4a4c7d"
+    },
+    "pathContracts": {
+      "path": "/workspace/halfsword-handoff/opportunity-head-region-20261008/contracts-path01.json",
+      "bytes": 1554,
+      "sha256": "1f1f55f752d86c90e1ea94ebfb3fca095f403e931e2211095e54d347be5d77ed"
+    },
+    "regionContracts": {
+      "path": "/workspace/halfsword-handoff/opportunity-head-region-20261008/contracts-region03.json",
+      "bytes": 1908,
+      "sha256": "4f0242387cb8dc50c3c44ba8fd82af3d6b9fe95bb7ef470db16f0cbd37ca3a27"
+    },
+    "regression": {
+      "path": "/workspace/halfsword-handoff/opportunity-head-region-20261008/regression/result.json",
+      "bytes": 295866,
+      "sha256": "091733a0a777048f78c0877aad5eba0cafbf2af6e47e0a71e3bec5e64acf49f5"
+    },
+    "localMobile": {
+      "path": "/workspace/halfsword-handoff/opportunity-head-region-20261008/mobile/local01/report.json",
+      "bytes": 620830,
+      "sha256": "95296072580e899ea28737a07a75e798bd11165e5dc7427a31107d0dd2da7798"
+    },
+    "v2Replay": {
+      "path": "/workspace/halfsword-handoff/opportunity-head-region-20261008/measurement/V2_REPLAY_RECEIPT01.json",
+      "bytes": 382,
+      "sha256": "2060d5fd8cc47091f2fc71b70db1305a2429fb3d2c6920ee3d995a856df76c72"
+    },
+    "firstRejected": {
+      "path": "/workspace/halfsword-handoff/opportunity-head-region-20261008/measurement/FIRST_SCREEN_RESULT01.json",
+      "bytes": 62861,
+      "sha256": "3c5ae5b48202cb2a1c4ee8577f844e5747fa733a8aade51578914b2352ea242d"
+    },
+    "finalSelectedAI": {
+      "path": "/workspace/halfsword-handoff/opportunity-head-region-20261008/measurement/ai-screen-run03/report.json",
+      "bytes": 79733,
+      "sha256": "fc413cfaf08bc46c24cfaebbd79b08dd69e24541fb49b4776600f99018641722"
+    },
+    "remainingAI": {
+      "path": "/workspace/halfsword-handoff/opportunity-head-region-20261008/measurement/ai-final-run01/report.json",
+      "bytes": 173745,
+      "sha256": "b95cf16ee8ce8f27192c618eeef33e2bb26718c1261629e92c3eb8a4dc029381"
+    },
+    "finalPlayer": {
+      "path": "/workspace/halfsword-handoff/opportunity-head-region-20261008/measurement/player-screen-run03/report.json",
+      "bytes": 46449,
+      "sha256": "c7ac056b611a0f6b68df14752f68f1f84e616559b3c5fcf330bb31dbafafe138"
+    },
+    "gapDiagnostic": {
+      "path": "/workspace/halfsword-handoff/opportunity-head-region-20261008/measurement/gap-diagnostic-run01/report.json",
+      "bytes": 150778,
+      "sha256": "1b1bd8db824cd341b1ab82c1062d0021f1e0482b75a03c2e24fbcf8503c59b55"
+    }
+  },
+  "nativeNewThisTurn": {
+    "executions": 31,
+    "steps": 59280,
+    "includesRejectedCandidates": true,
+    "previousV2TenSeedsReusedAfterExactReplay": true
+  },
+  "efficacy": {
+    "sameTenAISeeds": true,
+    "v2SuccessfulActualVitalStabAttempts": 1,
+    "v3SuccessfulActualVitalStabAttempts": 2,
+    "v2ActualStartedAttempts": 20,
+    "v3ActualStartedAttempts": 20,
+    "provisional30PercentMet": false,
+    "successDefinition": "Actual special applyWound neck/head stab severity>0 on a living victim; target selection, blunt contacts and ordinary follow-ups excluded",
+    "generalCombatProbabilityProven": false,
+    "guaranteedDeath": false
+  },
+  "checks": {
+    "legacy": 58,
+    "thrust": 9,
+    "path": 12,
+    "region": 11,
+    "regressionSuitesPassed": 6,
+    "sourceStable": true,
+    "headStable": true,
+    "localMobileFlows": 3,
+    "localMobileErrors": 0,
+    "localMatchedResponses": 540,
+    "localMatchedUniqueArtifacts": 145,
+    "physicalPhone": false
+  },
+  "limits": [
+    "AI controlled exposure fixture, not human evasion or ordinary combat win rate",
+    "V3 AI 2/20 remains below provisional 30 percent",
+    "Estoc player fixture still hits chest as blunt",
+    "Visible helmet estimate does not prove later physical contact is exposed",
+    "No general promotion; force, timing, reach, armor and two-attempt budget retained"
+  ]
+}
