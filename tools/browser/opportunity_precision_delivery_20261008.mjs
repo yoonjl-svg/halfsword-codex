@@ -67,6 +67,10 @@ await fs.copyFile(own, path.join(out, 'executed-tool.mjs'));
 const settings = { difficulty: 'normal', pixel: false, blood: true, sound: false, invertTilt: false,
   moveMode: 'stick', skill: '0.3', guardNames: true, trail: false, fpsCap: false };
 const saved = JSON.stringify(settings), errors = [], compiled = [], entries = [], compatibility = [], inputRequests = [], secrets = [];
+const inFlightRoutes = new Set();
+let closingRequests = false;
+const teardown = { networkIdle: false, routesAtStart: null, checkedArtifactsDuringDrain: 0,
+  routesBeforeClose: null, lateRequests: 0, contextClosed: false };
 const launch = { executablePath: '/usr/bin/chromium', args: ['--no-sandbox', '--disable-background-networking', '--use-gl=angle', '--use-angle=swiftshader'] };
 if (!local) {
   const raw = process.env.HTTPS_PROXY || process.env.https_proxy || process.env.HTTP_PROXY || process.env.http_proxy;
@@ -108,7 +112,16 @@ try {
     storageState: { cookies: [], origins: [{ origin: base.origin, localStorage: [{ name: 'gladiator-settings', value: saved }] }] } });
   context.setDefaultTimeout(20000);
   await context.route('**/*', async route => {
+    const task = (async () => {
     const url = route.request().url();
+    // Keep the confinement route installed until context.close. A request
+    // arriving after the drain is a reported failure, never an unverified
+    // network request slipping through an unroute/close gap.
+    if (closingRequests) {
+      teardown.lateRequests++;
+      errors.push({ kind: 'late-request', url: clean(url) });
+      return route.abort('blockedbyclient');
+    }
     if (!confined(url)) { errors.push({ kind: 'blocked', url: clean(url) }); return route.abort('blockedbyclient'); }
     try {
       const response = await route.fetch({ maxRedirects: 0, maxRetries: 2, timeout: 30000 });
@@ -123,6 +136,11 @@ try {
       errors.push({ kind: 'route', url: clean(url), message: clean(error.message) });
       await route.abort('failed');
     }
+    })();
+    inFlightRoutes.add(task);
+    try { await task; }
+    catch (error) { errors.push({ kind: 'route-completion', message: clean(error.message) }); }
+    finally { inFlightRoutes.delete(task); }
   });
   if (context.routeWebSocket) await context.routeWebSocket('**/*', socket => {
     errors.push({ kind: 'websocket', url: clean(socket.url()) }); socket.close();
@@ -357,9 +375,32 @@ try {
 } catch (error) {
   fatal = { name: error.name, message: clean(error.message), stack: clean(error.stack) }; process.exitCode = 1;
 } finally {
-  clearTimeout(deadline);
   if (cdp) await cdp.detach().catch(() => {});
-  if (context) await context.close(); if (browser) await browser.close();
+  teardown.routesAtStart = inFlightRoutes.size;
+  const checkedBeforeDrain = compiled.length;
+  try {
+    if (page && !page.isClosed()) {
+      await page.waitForLoadState('networkidle', {
+        timeout: Math.max(100, Math.min(30000, budgetMs - (performance.now() - start))),
+      });
+      teardown.networkIdle = true;
+    }
+    // route.fetch uses the context request client. Finish status/body/hash
+    // verification and fulfill/abort before disposing that client.
+    while (inFlightRoutes.size) await Promise.allSettled([...inFlightRoutes]);
+    closingRequests = true;
+    teardown.routesBeforeClose = inFlightRoutes.size;
+    assert.equal(teardown.routesBeforeClose, 0);
+  } catch (error) {
+    errors.push({ kind: 'teardown-drain', message: clean(error.message) });
+    pass = false;
+  }
+  teardown.checkedArtifactsDuringDrain = compiled.length - checkedBeforeDrain;
+  try { if (context) { await context.close(); teardown.contextClosed = true; } }
+  catch (error) { errors.push({ kind: 'context-close', message: clean(error.message) }); pass = false; }
+  try { if (browser) await browser.close(); }
+  catch (error) { errors.push({ kind: 'browser-close', message: clean(error.message) }); pass = false; }
+  clearTimeout(deadline);
   const after = await manifest(), same = name => JSON.stringify(before[name]) === JSON.stringify(after[name]);
   const stable = isBuild => {
     const names = Object.keys(before).filter(name => name.startsWith('dist/') === isBuild);
@@ -371,7 +412,7 @@ try {
   if (!pass) process.exitCode = 1;
   const report = { pass, local, head, startedUTC, completedUTC: new Date().toISOString(), wallMs: performance.now() - start,
     base: base.href, buildStable, sourceStable, manifestBefore: before, scenario, settings, savedSettingsRaw: saved, lab, ordinaryMenu, entries, compatibility,
-    compiled, errors, fatal, inputRequests, tlsVerification: true, proxyRetained: !local,
+    compiled, errors, fatal, inputRequests, teardown, tlsVerification: true, proxyRetained: !local,
     limits: ['Chromium mobile emulation, not physical-phone or human feel acceptance.',
       'Each selected model/weapon starts, drags, moves, pauses, resumes and restarts with fresh player/enemy/world/AI instances and re-input.',
       'Only saved-settings fixture and observer bookkeeping are written; no gameplay, AI, RNG, physics or prototype changes.',

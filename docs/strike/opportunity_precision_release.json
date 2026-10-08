@@ -1,5 +1,5 @@
 {
-  "status": "local_validation_passed_public_pending",
+  "status": "optional_comparison_delivered_partial_efficacy",
   "baselineHEAD": "451a541e5d806674ed1fc62b3d1d1f63cc8117fb",
   "generalDefault": "off",
   "comparison": {
@@ -30,9 +30,9 @@
       "sha256": "52cff8250b3d48c0e0f6ce16db78780ab9585598cb8599921f0904a8bab2fc33"
     },
     "localMobile": {
-      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/mobile/local01/report.json",
-      "bytes": 786356,
-      "sha256": "0ac5460210ca452149ece4a0950fa83f3f4e5c9ccca47a1d8d5fcf821c1e3c33"
+      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/mobile/local02/report.json",
+      "bytes": 786085,
+      "sha256": "12c5ae0cdd4e8118c15bf2edd3197adee9d55864e6bf117cd6e83c9f1e8ba72c"
     },
     "thrustMeasurement": {
       "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/measurement/thrust-run01/report.json",
@@ -58,27 +58,87 @@
       "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/measurement/estoc-run01/report.json",
       "bytes": 44846,
       "sha256": "2130a48648b80ffa3bda359bbcc6245cd24a65dba8a1d95dae57dfbbc84e7b1b"
+    },
+    "nativeActiveFinal": {
+      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/measurement/derived-active-final02.json",
+      "bytes": 157973,
+      "sha256": "03ed737e2b9a00ec44b550ce76bbb843745a289a7956c88722e1dbbda7dd5d12"
+    },
+    "nativeManifest": {
+      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/measurement/FINAL_MANIFEST.json",
+      "bytes": 13934,
+      "sha256": "3c7ef99749ccfb22c92367dfc4423ba0fe9ae50d0517c3fecb7973912c9051df"
+    },
+    "nativeSummary": {
+      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/measurement/SUMMARY.md",
+      "bytes": 5516,
+      "sha256": "42506fa756491219c8382603d78e85e3aafd6387761ac201899ec04c64e94db7"
+    },
+    "firstPublicMobileFailed": {
+      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/mobile/public01/report.json",
+      "bytes": 788685,
+      "sha256": "8c2f20c6eb5466f4cc5a54b548c4b5b39d3718212cf0d3f7abedf72a9174fec8"
+    },
+    "seedStatistics": {
+      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/measurement/SEED_STATISTICS_FINAL01.json",
+      "bytes": 153326,
+      "sha256": "72b865457e962839040f3f8c8b6dc578d32a977d9f1505783f2d43dfb14b7d29"
+    },
+    "seedStatisticsSummary": {
+      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/measurement/SEED_STATISTICS_SUMMARY.md",
+      "bytes": 2339,
+      "sha256": "a105ebfb55ca106528aa243d5a70042b9112fe7f3fe1d4f8ad8a8fae6b2d511e"
+    },
+    "seedNativeMeasurement": {
+      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/measurement/seed-run01/report.json",
+      "bytes": 703275,
+      "sha256": "3821e25362494c88f4f201ed062666cf0b49acea163daef28d3fa5ea90ad8fb7"
+    },
+    "seedAggregationCode": {
+      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/measurement/derive_seed_run01.py",
+      "bytes": 12507,
+      "sha256": "c6b99b3181dedda1c35d9cc8eb0fa5645bf3e3be22bd6482de899dffa6033754"
+    },
+    "seedArtifactManifest": {
+      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/measurement/SEED_ARTIFACT_MANIFEST01.json",
+      "bytes": 29246,
+      "sha256": "06a15673be79c6fafea8b4974946b4493f3a0208d2873aa05f10562331591fa2"
+    },
+    "localMobileFirstTool": {
+      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/mobile/local01/report.json",
+      "bytes": 786356,
+      "sha256": "0ac5460210ca452149ece4a0950fa83f3f4e5c9ccca47a1d8d5fcf821c1e3c33"
+    },
+    "publicMobile": {
+      "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/mobile/public02/report.json",
+      "bytes": 788466,
+      "sha256": "48b33542028fc33d72c3166e6b2315aa0dcece1b6742b30b931731939b94be69"
     }
   },
   "limits": [
-    "AI rapier special thrust still has zero direct wound",
-    "Additional estoc has zero neck stab; no all-weapon precision claim",
-    "Player branch already hit head in v1; energy change alone not precision improvement",
-    "AI cut contacts arm before neck",
-    "One seed and controlled injury/posture/disarm preparation; not natural combat frequency",
+    "AI rapier: 1/20 special meaningful vital attempts; below provisional 30% target",
+    "Additional player estoc: zero neck stab in one prepared pair; no all-weapon precision claim",
+    "Player branch already hit head in v1; energy change alone is not precision improvement",
+    "AI cut can contact arm before neck",
+    "AI blunt: 16/17 successful attempts against disarmed injured victim; escape/defense balance is not established",
+    "Ten chosen seeds per controlled AI scene; not a population sample or natural combat frequency",
+    "Immediate special-call death count zero does not imply no contribution to delayed death",
     "Browser mobile emulation, not physical-phone endurance"
   ],
-  "publicVerified": false,
+  "publicVerified": true,
   "localChecks": {
     "contracts": 58,
     "fixtures": 58,
     "pathContracts": 12,
     "thrustContracts": 9,
-    "nativeRuns": 14,
-    "nativeSteps": 22560,
+    "nativeRuns": 68,
+    "nativeSteps": 139200,
     "archivedV1NativeReplayExact": 6,
     "localMobileFlows": 4,
-    "developmentSuites": 6
+    "developmentSuites": 6,
+    "statisticalRows": 60,
+    "newStatisticalRuns": 54,
+    "reusedStatisticalRuns": 6
   },
   "buildSHA256": {
     "dist/assets/main-BuQe8lEW.js": "fb27f685709e9f1f227689b69fe2810a0d1b53bd6be0506f4dacb1444b90e518",
@@ -109,5 +169,236 @@
     "dist/wb/assets/three.core-DtjtRha-.js": "c4a3f7fe78ed1015ff61dbf82b0a47e2ff9364fa2e110bda383ef9b2e20a78dc",
     "dist/wb/index.html": "41576e4b4c02f44857e3e6d6a24f1b109c245d1bb7ddb4e0b4771087a4092de0",
     "dist/wb/sounds.html": "451fdc93372a204e6715a3f0309facb64a834cbec45ba719f3943d9b09867ed3"
+  },
+  "codeCommit": "fdc6a4ed233f780487806875acef8372beaed8c9",
+  "deployment": {
+    "run": 37786460123,
+    "conclusion": "success",
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37786460123"
+  },
+  "publicBytes": {
+    "pass": true,
+    "files": 8,
+    "path": "/workspace/halfsword-handoff/opportunity-precision-20261008/pages-code.json",
+    "bytes": 4619,
+    "sha256": "e4060cc8b243f2cfe487c3ecf08768244a06718377f2f5f388a31a2b40a83ffa"
+  },
+  "provisionalRateCriterion": {
+    "perAttempt": 0.3,
+    "definition": "actual target-class direct harm, not target selection or analyze-only contact",
+    "perCategory": true,
+    "notGuaranteedLowerBound": true,
+    "chanceAtLeastOneIfIndependent30PercentTwice": 0.51,
+    "actualDeathMeasuredSeparately": true,
+    "rateStudy": "completed; cut meets observed target, thrust below target, blunt defense/escape balance unresolved"
+  },
+  "rateResults": [
+    {
+      "scene": "aiCutOpenLow",
+      "model": "v1",
+      "seeds": 10,
+      "actualStartedAttempts": 16,
+      "meaningfulVitalSuccessfulAttempts": 0,
+      "observedAttemptRate": 0.0,
+      "observedPointEstimateMeetsProvisional30Percent": false,
+      "nominalWilson95AttemptInterval": [
+        0,
+        0.1936076805344365
+      ],
+      "episodesWithStartedAttempt": 10,
+      "episodesWithAtLeastOneMeaningfulVitalSuccess": 0,
+      "observedEpisodeSuccessRate": 0.0,
+      "nominalWilson95EpisodeInterval": [
+        0,
+        0.2775327998628892
+      ],
+      "directSpecialDeathEpisodes": 0,
+      "episodeVictimDeathObserved": 0,
+      "ordinaryOrDelayedDeathEpisodes": 0,
+      "victimsSurviving18s": 10,
+      "ordinaryAfterBudgetAccepted": 35
+    },
+    {
+      "scene": "aiCutOpenLow",
+      "model": "v2",
+      "seeds": 10,
+      "actualStartedAttempts": 15,
+      "meaningfulVitalSuccessfulAttempts": 7,
+      "observedAttemptRate": 0.4666666666666667,
+      "observedPointEstimateMeetsProvisional30Percent": true,
+      "nominalWilson95AttemptInterval": [
+        0.24809535365737387,
+        0.698830199745016
+      ],
+      "episodesWithStartedAttempt": 10,
+      "episodesWithAtLeastOneMeaningfulVitalSuccess": 7,
+      "observedEpisodeSuccessRate": 0.7,
+      "nominalWilson95EpisodeInterval": [
+        0.39677814746114537,
+        0.8922087325936989
+      ],
+      "directSpecialDeathEpisodes": 0,
+      "episodeVictimDeathObserved": 2,
+      "ordinaryOrDelayedDeathEpisodes": 2,
+      "victimsSurviving18s": 8,
+      "ordinaryAfterBudgetAccepted": 26
+    },
+    {
+      "scene": "aiThrustOpenLow",
+      "model": "v1",
+      "seeds": 10,
+      "actualStartedAttempts": 20,
+      "meaningfulVitalSuccessfulAttempts": 0,
+      "observedAttemptRate": 0.0,
+      "observedPointEstimateMeetsProvisional30Percent": false,
+      "nominalWilson95AttemptInterval": [
+        0,
+        0.16112515805281938
+      ],
+      "episodesWithStartedAttempt": 10,
+      "episodesWithAtLeastOneMeaningfulVitalSuccess": 0,
+      "observedEpisodeSuccessRate": 0.0,
+      "nominalWilson95EpisodeInterval": [
+        0,
+        0.2775327998628892
+      ],
+      "directSpecialDeathEpisodes": 0,
+      "episodeVictimDeathObserved": 3,
+      "ordinaryOrDelayedDeathEpisodes": 3,
+      "victimsSurviving18s": 7,
+      "ordinaryAfterBudgetAccepted": 155
+    },
+    {
+      "scene": "aiThrustOpenLow",
+      "model": "v2",
+      "seeds": 10,
+      "actualStartedAttempts": 20,
+      "meaningfulVitalSuccessfulAttempts": 1,
+      "observedAttemptRate": 0.05,
+      "observedPointEstimateMeetsProvisional30Percent": false,
+      "nominalWilson95AttemptInterval": [
+        0.008881448800795402,
+        0.23613119344674205
+      ],
+      "episodesWithStartedAttempt": 10,
+      "episodesWithAtLeastOneMeaningfulVitalSuccess": 1,
+      "observedEpisodeSuccessRate": 0.1,
+      "nominalWilson95EpisodeInterval": [
+        0.017876213095072896,
+        0.4041500267952385
+      ],
+      "directSpecialDeathEpisodes": 0,
+      "episodeVictimDeathObserved": 3,
+      "ordinaryOrDelayedDeathEpisodes": 3,
+      "victimsSurviving18s": 7,
+      "ordinaryAfterBudgetAccepted": 160
+    },
+    {
+      "scene": "aiBluntOpen",
+      "model": "v1",
+      "seeds": 10,
+      "actualStartedAttempts": 20,
+      "meaningfulVitalSuccessfulAttempts": 7,
+      "observedAttemptRate": 0.35,
+      "observedPointEstimateMeetsProvisional30Percent": true,
+      "nominalWilson95AttemptInterval": [
+        0.18119182410108206,
+        0.5671457233147638
+      ],
+      "episodesWithStartedAttempt": 10,
+      "episodesWithAtLeastOneMeaningfulVitalSuccess": 7,
+      "observedEpisodeSuccessRate": 0.7,
+      "nominalWilson95EpisodeInterval": [
+        0.39677814746114537,
+        0.8922087325936989
+      ],
+      "directSpecialDeathEpisodes": 0,
+      "episodeVictimDeathObserved": 10,
+      "ordinaryOrDelayedDeathEpisodes": 10,
+      "victimsSurviving18s": 0,
+      "ordinaryAfterBudgetAccepted": 80
+    },
+    {
+      "scene": "aiBluntOpen",
+      "model": "v2",
+      "seeds": 10,
+      "actualStartedAttempts": 17,
+      "meaningfulVitalSuccessfulAttempts": 16,
+      "observedAttemptRate": 0.9411764705882353,
+      "observedPointEstimateMeetsProvisional30Percent": true,
+      "nominalWilson95AttemptInterval": [
+        0.7301796936242461,
+        0.9895395990150025
+      ],
+      "episodesWithStartedAttempt": 10,
+      "episodesWithAtLeastOneMeaningfulVitalSuccess": 10,
+      "observedEpisodeSuccessRate": 1.0,
+      "nominalWilson95EpisodeInterval": [
+        0.7224672001371107,
+        0.9999999999999999
+      ],
+      "directSpecialDeathEpisodes": 0,
+      "episodeVictimDeathObserved": 9,
+      "ordinaryOrDelayedDeathEpisodes": 9,
+      "victimsSurviving18s": 1,
+      "ordinaryAfterBudgetAccepted": 34
+    }
+  ],
+  "regressionReuse": "Six suites passed on the same final game source; later edits only add probe seed/compact options and browser request-drain lifecycle.",
+  "independentSeedAudit": {
+    "rawSHAReceiptsMatched": 60,
+    "aggregateRowsRecalculated": 6,
+    "selectedRawEventsCrossChecked": 4,
+    "verdict": "no denominator/success/death classification discrepancy; no guaranteed 30 percent lower bound"
+  },
+  "nextCandidate": {
+    "userProposal": "Aim thrusts within the whole neck/head region instead of neck-first targeting",
+    "currentTrialImplementsProposal": false,
+    "evidence": "Both v1 and v2 selected neck for all 20 measured AI thrust attempts; neck/head actual stab already counted as success",
+    "constraints": [
+      "Choose reachable uncovered point during preparation",
+      "Retain fixed target after commit and delayed AI observation",
+      "No collider enlargement or force, damage, armor, timing or reach increase",
+      "Keep maximum two special attempts per crisis"
+    ]
+  },
+  "browserToolCorrection": {
+    "cause": "Context closed while final image route.fetch was still active",
+    "firstPublicRunPassed": false,
+    "failedEvidencePreserved": true,
+    "fix": "Keep route confinement; wait for network idle and verified route completion before context close",
+    "localRetry": {
+      "pass": true,
+      "flows": 4,
+      "teardown": {
+        "networkIdle": true,
+        "routesAtStart": 0,
+        "checkedArtifactsDuringDrain": 0,
+        "routesBeforeClose": 0,
+        "lateRequests": 0,
+        "contextClosed": true
+      }
+    },
+    "publicRetry": {
+      "pass": true,
+      "flows": 4,
+      "teardown": {
+        "networkIdle": true,
+        "routesAtStart": 0,
+        "checkedArtifactsDuringDrain": 0,
+        "routesBeforeClose": 0,
+        "lateRequests": 0,
+        "contextClosed": true
+      }
+    }
+  },
+  "publicMobile": {
+    "flows": 4,
+    "errors": 0,
+    "receivedArtifactsMatched": 686,
+    "uniqueArtifactsMatched": 145,
+    "toolSHA256": "30fe912ec1ad2f6427d498ebc192683ae3c4917b493c9265709d17da55c2b6f7",
+    "completedUTC": "2026-10-08T14:04:57.021Z",
+    "physicalPhone": false
   }
 }
