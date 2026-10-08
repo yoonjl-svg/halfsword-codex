@@ -1,5 +1,5 @@
 {
-  "status": "local-verified-delivery-pending",
+  "status": "delivered",
   "baselineCommit": "531cfa131271bc386c85582fffd8d5393c79ede6",
   "adopted": [
     "monohoshizao"
@@ -35,5 +35,74 @@
     },
     "setupFailures": 0,
     "visualInspection": "Ready/action images inspected for all three flows; B portrait label inspected. Native camera, visible bodies/weapons, no obvious rendering fault in these frames; no physical-phone feel claim."
-  }
+  },
+  "gameCommit": "2f8defbfab9f8201a04904dff6dd6f8a9ee6a559",
+  "gameActions": {
+    "id": 37739082792,
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37739082792",
+    "conclusion": "success"
+  },
+  "publicBytes": {
+    "path": "/workspace/halfsword-handoff/thin-v2-20261008/public-byte-check.json",
+    "sha256": "80669ef886eff4e73126d7addd83945f9bf1bc757ed06023c44b5abf6c97ec22",
+    "pass": true,
+    "artifacts": [
+      {
+        "path": "index.html",
+        "httpStatus": 200,
+        "bytes": 19274,
+        "sha256": "32df4cff2b83ff73d8b24974e911fb262a7b934debee52a766f7acaf08349120",
+        "matchesLocalBuild": true
+      },
+      {
+        "path": "feature-lab.html",
+        "httpStatus": 200,
+        "bytes": 40050,
+        "sha256": "348dd85b0ff71c3c8125c72ef9cb3bac378df44541aa3b1728a6119e5dccd8df",
+        "matchesLocalBuild": true
+      },
+      {
+        "path": "development-plan.html",
+        "httpStatus": 200,
+        "bytes": 93970,
+        "sha256": "a6539993ff4842c34e868009d11c4bb3fa4c2b251f2f17351cf4a14b1abfafa6",
+        "matchesLocalBuild": true
+      },
+      {
+        "path": "assets/main-Bq95mxdQ.js",
+        "httpStatus": 200,
+        "bytes": 3552951,
+        "sha256": "be4dfe1fc3f48ae0aae7e428900b64a0996167e777ba4e94c5424142aecffa15",
+        "matchesLocalBuild": true
+      }
+    ],
+    "checkedUTC": "2026-10-08T06:43:39.408642+00:00"
+  },
+  "publicMobile": {
+    "path": "/workspace/halfsword-handoff/thin-v2-20261008/mobile/public01/report.json",
+    "sha256": "e508e744b5a06e6bf90ae4110494551dbdf6320f2ad8c8e01ac3deb376364ed0",
+    "pass": true,
+    "completedUTC": "2026-10-08T06:46:19.277Z",
+    "head": "2f8defbfab9f8201a04904dff6dd6f8a9ee6a559",
+    "flows": [
+      "mono-v2",
+      "light-a",
+      "light-b"
+    ],
+    "matchedResponses": 642,
+    "uniqueMatchedFiles": 145,
+    "dispatchedCDPTouchRequests": 36,
+    "trustedDOMEvents": 72,
+    "errors": [],
+    "tlsVerification": true,
+    "proxyRetained": true,
+    "scope": "Public Chromium phone emulation: entry, start, trusted input, pause/resume, restart and re-input; not physical-phone feel.",
+    "checks": {
+      "path": "/workspace/halfsword-handoff/thin-v2-20261008/mobile/public01/checks.json",
+      "sha256": "a58a478ba7b7283c1d367bf920057e3ec92c9e1cfade3fcb4bdeec1c3de49842"
+    },
+    "setupFailures": 0,
+    "visualInspection": "All three local ready/action image pairs and local B portrait label inspected; public B ready/action and portrait label also inspected. Native camera, visible bodies/weapons, no obvious rendering fault in inspected frames; no physical-phone feel claim."
+  },
+  "remaining": "Lightsaber remains preview-only: user evaluation of posture/return versus follow-up attack speed/energy tradeoff; no general promotion."
 }
