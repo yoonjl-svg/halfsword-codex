@@ -8,9 +8,9 @@
     "generalPromotion": false
   },
   "delivery": {
-    "status": "local verified; public verification pending",
-    "commit": null,
-    "pagesRun": null,
+    "status": "verified public optional comparison",
+    "commit": "080ea4516a61af06dd7c3e477e9be141c87fb3ad",
+    "pagesRun": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37748004941",
     "selector": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#movement-fix",
     "bLongsword": "https://yoonjl-svg.github.io/halfsword-codex/?movementFix=finish&weapon=longsword",
     "bQinggang": "https://yoonjl-svg.github.io/halfsword-codex/?movementFix=finish&weapon=qinggang",
@@ -19,7 +19,12 @@
       "sha256": "3fb783c6ff0568993bf0612f2b85fdaf4b6e86b157c88b551761f8508e82467a",
       "bytes": 3556612,
       "match": true
-    }
+    },
+    "pagesEvidence": {
+      "path": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/pages-code.json",
+      "sha256": "c5c3bd031564f79e07dfc14e5d49bece79b7c124bb029c13386448483bde5fc8"
+    },
+    "verifiedUTC": "2026-10-08T08:14:19.954Z"
   },
   "connection": {
     "passed": 39,
@@ -769,7 +774,25 @@
       "sha256": "0d20ac4408aa36e4e0eb975b53d8d4139d62181ae8cf4e0fbf301246cd7c7ef9"
     }
   },
-  "mobilePublic": null,
+  "mobilePublic": {
+    "pass": true,
+    "sourceStable": true,
+    "buildStable": true,
+    "flows": 4,
+    "ordinaryAndInvalidMenu": true,
+    "exactServedResponses": 686,
+    "uniqueServedArtifacts": 145,
+    "trustedTouchEvents": 96,
+    "tlsVerified": true,
+    "proxyRetained": true,
+    "realPhone": false,
+    "path": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/mobile/public01/report.json",
+    "sha256": "e6c9e9b01ba781585fa13afe065cdca97c744d39e9c5e865096eab5df0414d75",
+    "checks": {
+      "path": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/mobile/public01/checks.json",
+      "sha256": "b23234673e64afe10a4e8e34be7c1385e65b5b92259740e177bd5c5e6bfb994f"
+    }
+  },
   "recovery": {
     "candidates": 5,
     "executions": 40,
@@ -794,5 +817,22 @@
     "Short low getup opening can still end before contact; no forced hit or recovery delay.",
     "Browser mobile viewport and trusted touch do not replace physical-phone judgment.",
     "Recovery remains unresolved; no failed candidate exposed."
-  ]
+  ],
+  "publicPlan": {
+    "url": "https://yoonjl-svg.github.io/halfsword-codex/development-plan.html",
+    "utc": "2026-10-08T08:10:52.699654+00:00",
+    "bytes": 97755,
+    "sha256": "3148a65f4ff249dccf9b220053544cef8499b7ba655b12c67c7c4a4f9646b5ee",
+    "exactDist": true,
+    "latestRecoveryNotAcceptedText": true,
+    "tlsVerified": true,
+    "evidence": {
+      "path": "/workspace/halfsword-handoff/recovery-finish-fix-20261008/public-plan.json",
+      "sha256": "61e9ee4818b70c99208ed015849a33f78bd10536603aab68e2c2695471a91e54"
+    }
+  },
+  "independentReview": {
+    "commit": "080ea4516a61af06dd7c3e477e9be141c87fb3ad",
+    "finding": "Final stationary reach-loss guard resolves remaining finding; no new P1/P2 in last diff. Read-only review, no added physics executions."
+  }
 }

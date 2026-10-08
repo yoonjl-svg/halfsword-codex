@@ -40,3 +40,5 @@
 - 완전 기립 순서 개선은 별도 후보다. 내려찍기 성공을 기립 개선 성공으로 보고하지 않는다. 휴대폰 크기의 브라우저 검증과 사용자 실물 폰의 자연스러움 판단도 구별한다.
 
 재현: `node tools/sim/experiments/finish_entry_20261008.mjs <새 외부 절대경로> [high,low,kneel,ground,qinggang,rapierPlate,broken]`. `node tools/sim/experiments/finish_entry_20261008.test.mjs <새 외부 JSON 경로>`는 연결 검사다. 원자료는 저장소 밖 `/workspace/halfsword-handoff/recovery-finish-fix-20261008/`에 보존한다.
+
+전달 완료: 코드 `080ea4516a61af06dd7c3e477e9be141c87fb3ad`, Pages 성공 후 공개145종/686응답이 frozen dist와 일치했다. 모바일 브라우저 A/B×롱소드/청강검4흐름의 진입·터치·정지/재개·재시작, 일반/잘못된 진입 메뉴, 저장 설정 보존을 확인했다. [실제 비교판](https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#movement-fix)이며 실물 폰 자연스러움 확인과 기립 교정은 완료로 세지 않는다.
