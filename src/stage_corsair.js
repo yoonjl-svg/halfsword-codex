@@ -33,6 +33,23 @@ function pavingTexture() {
       g.beginPath(); g.moveTo(x, y);
       g.quadraticCurveTo(x + 10 + r() * 18, y - 4 + r() * 8, x + 16 + r() * 30, y - 3 + r() * 6); g.stroke();
     }
+    // Seaward drainage and years of cart traffic are broad, quiet marks. The
+    // atlas is world-scaled: their width is measured in metres, not tile pores.
+    const damp = g.createLinearGradient(365, 0, 512, 0);
+    damp.addColorStop(0, 'rgba(60,88,78,0)');
+    damp.addColorStop(0.64, 'rgba(66,91,80,0.17)');
+    damp.addColorStop(1, 'rgba(56,85,74,0.25)');
+    g.fillStyle = damp; g.fillRect(365, 0, 147, h);
+    for (const y of [73, 173, 280, 407]) {
+      g.strokeStyle = 'rgba(86,97,80,0.16)'; g.lineWidth = 7;
+      g.beginPath(); g.moveTo(414, y); g.bezierCurveTo(447, y + 13, 479, y - 8, 512, y + 3); g.stroke();
+      g.strokeStyle = 'rgba(252,249,226,0.25)'; g.lineWidth = 2;
+      g.beginPath(); g.moveTo(420, y - 4); g.quadraticCurveTo(469, y + 5, 512, y - 2); g.stroke();
+    }
+    for (const offset of [-9, 9]) {
+      g.strokeStyle = 'rgba(95,86,68,0.045)'; g.lineWidth = 3;
+      g.beginPath(); g.moveTo(32, 255 + offset); g.bezierCurveTo(180, 287 + offset, 365, 208 + offset, 465, 80 + offset); g.stroke();
+    }
     // Pitting is secondary to the larger scuffed patches.
     for (let i = 0; i < 1800; i++) {
       g.fillStyle = `rgba(110,103,84,${0.035 + r() * 0.06})`;
@@ -421,6 +438,112 @@ function harborWash(scene) {
   return mat;
 }
 
+// Two readable gulls replace the frozen flock. Both are ordinary native meshes;
+// no sprite sheets, particle allocation, extra lights or off-screen render pass.
+function harborGulls(scene) {
+  const material = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.9, side: THREE.DoubleSide });
+  const clock = { value: 0 };
+  material.onBeforeCompile = (shader) => {
+    shader.uniforms.gullTime = clock;
+    shader.vertexShader = `uniform float gullTime;
+      attribute float gullWing;
+      ${shader.vertexShader}`.replace('#include <begin_vertex>', `
+      #include <begin_vertex>
+      float flap = sin(gullTime * 5.4) * 0.28 * (0.4 + 0.6 * pow(0.5 + 0.5 * sin(gullTime * 0.31), 4.0));
+      transformed.y += gullWing * flap;
+    `);
+  };
+  material.customProgramCacheKey = () => 'corsair-gull-glide-1';
+  const make = (flying) => {
+    const G = new Kit(flying ? 51230 : 51231);
+    const sphere = (pos, scale, color) => G.put('gull', new THREE.SphereGeometry(1, 8, 5), color, pos, [0, 0, 0], scale, { vary: 0, noise: 0.025 });
+    sphere([0, 0, 0], [0.13, 0.14, 0.31], 0xe5e7dc);
+    sphere([0, 0.16, 0.19], [0.09, 0.10, 0.105], 0xf0efe1);
+    G.put('gull', new THREE.ConeGeometry(0.034, 0.14, 5), 0xc8a764, [0, 0.145, 0.32], [Math.PI / 2, 0, 0]);
+    for (const side of [-1, 1]) {
+      sphere([side * 0.073, 0.18, 0.245], [0.014, 0.015, 0.012], 0x303735);
+      if (flying) {
+        const a = [side * 0.07, 0.07, 0.08], b = [side * 0.55, 0.16, 0.0], c = [side * 0.89, 0.06, -0.22], d = [side * 0.36, 0.02, -0.21];
+        G.put('gull', triangle(a, b, d), 0xbcc8c5);
+        G.put('gull', triangle(b, c, d), 0x566762);
+      } else {
+        sphere([side * 0.09, 0.018, -0.06], [0.075, 0.095, 0.23], 0xaebcba);
+        limb(G, 'gull', [side * 0.06, -0.06, 0.0], [side * 0.06, -0.27, 0.04], 0.015, 0.012, 0xba9861, {}, 4);
+      }
+    }
+    G.put('gull', triangle([-0.075, 0.035, -0.20], [0.075, 0.035, -0.20], [0, 0.065, -0.43]), 0xe3e5dc);
+    const mesh = G.mesh('gull', material, { cast: false, receive: false });
+    for (const g of G.bins.gull) g.dispose();
+    const positions = mesh.geometry.attributes.position;
+    const wings = new Float32Array(positions.count);
+    if (flying) for (let i = 0; i < wings.length; i++) wings[i] = Math.max(0, Math.abs(positions.getX(i)) - 0.15);
+    mesh.geometry.setAttribute('gullWing', new THREE.BufferAttribute(wings, 1));
+    mesh.name = flying ? 'corsair-gull-flight' : 'corsair-gull-perched';
+    scene.add(mesh);
+    return mesh;
+  };
+  const flying = make(true), perched = make(false);
+  perched.position.set(18.1, 1.12, 3); perched.rotation.y = -0.6;
+  const update = (time) => {
+    clock.value = time;
+    const a = time * 0.21 + 2.1;
+    flying.position.set(29 + Math.cos(a) * 7, 5.8 + Math.sin(a * 2.0) * 0.8, -1 + Math.sin(a) * 16);
+    flying.rotation.set(0, Math.atan2(-7 * Math.sin(a), 16 * Math.cos(a)), -0.14 * Math.sin(a));
+    perched.rotation.y = -0.6 + Math.sin(time * 0.19) * 0.12;
+  };
+  update(0);
+  return { update, flying };
+}
+
+// Salt-worn joints, fishing gear and shallow coral shelves connect the broad
+// paved landing to its sea. Every raised detail remains beyond 10.5m radius.
+function livingQuay(K, stoneOpt) {
+  const r = rng(51742);
+  for (const z of [-12.6, -4.5, 5.9, 14.8]) {
+    // Recessed drains are flush with the visual floor, never new collisions.
+    for (let i = 0; i < 5; i++) K.put('inlay', box(0.045, 0.007, 0.38), 0x686e5c,
+      [14.7 + i * 0.12, -0.009, z]);
+    K.put('stone', box(0.98, 0.026, 0.62), 0xacad91, [14.95, -0.04, z], [0, 0, 0], 1, stoneOpt);
+  }
+  for (let i = 0; i < 38; i++) {
+    const z = -16.8 + r() * 34, x = 16.0 + r() * 2.5;
+    K.put('stone', new THREE.DodecahedronGeometry(0.12 + r() * 0.16), i % 3 ? 0xd2c6a5 : 0x9ca78d,
+      [x, 0.02, z], [r(), r() * TAU, r()], [1.8, 0.14, 0.7 + r()], { vary: 0.07, noise: 0.05 });
+  }
+  // A mended fishing net dries on the near corner: a broad transparent woven
+  // shape, not opaque clutter in front of the ship or combatants.
+  for (const z of [-12.2, -8.3]) limb(K, 'wood', [15.7, 0, z], [15.7, 1.6, z], 0.045, 0.035, 0x78745a, {}, 5);
+  const netPoint = (u, v) => [15.7 - Math.sin(v * Math.PI) * 0.34,
+    1.54 - 1.44 * v - Math.sin(u * Math.PI) * 0.22 * (1 - v), -12.2 + u * 3.9];
+  for (let i = 0; i <= 19; i++) {
+    let p = netPoint(i / 19, 0);
+    for (let j = 1; j <= 7; j++) { const q = netPoint(i / 19, j / 7); limb(K, 'rope', p, q, 0.012, 0.012, 0x97917a, {}, 3); p = q; }
+  }
+  for (let j = 0; j <= 7; j++) {
+    let p = netPoint(0, j / 7);
+    for (let i = 1; i <= 19; i++) { const q = netPoint(i / 19, j / 7); limb(K, 'rope', p, q, j ? 0.012 : 0.025, j ? 0.012 : 0.025, 0xaca387, {}, 3); p = q; }
+  }
+  // Coral shelves break the sea/quay seam at the stair corner. Deep-green wet
+  // lower strata and pale eroded tops remain distinct at the gameplay distance.
+  for (let i = 0; i < 14; i++) {
+    const x = 21 + r() * 7, z = 15.5 + r() * 8, radius = 0.65 + r() * 1.0;
+    K.put('stone', new THREE.DodecahedronGeometry(radius, 0), 0x729285,
+      [x, -2.08, z], [0, r() * TAU, 0], [1.6, 0.38, 0.9], { ...stoneOpt, rough: 0.09 });
+    if (i < 8) K.put('stone', new THREE.DodecahedronGeometry(radius, 0), 0xc4bd99,
+      [x, -1.81, z], [0, r() * TAU, 0], [1.35, 0.24, 0.8], { ...stoneOpt, rough: 0.065 });
+  }
+  // Just three wind-pruned salt plants, rooted in broken edge joints.
+  for (const [x, z, scale] of [[17.5, 15.7, 1], [16.9, -14.0, 0.85], [-15.0, 16.8, 1.1]]) {
+    for (let i = 0; i < 11; i++) {
+      const a = r() * TAU, reach = (0.17 + r() * 0.38) * scale;
+      const end = [x + Math.cos(a) * reach, (0.14 + r() * 0.23) * scale, z + Math.sin(a) * reach];
+      limb(K, 'leaf', [x, 0.01, z], end, 0.025, 0.008, 0x77866a, {}, 4);
+      K.put('leaf', new THREE.IcosahedronGeometry(0.14, 0), i % 3 ? 0x7e967b : 0xa0ad84,
+        end, [r(), r(), r()], [1.4, 0.45, 0.7]);
+    }
+  }
+}
+
 /** Native stage contract; Stages owns and disposes every added scene resource. */
 export function buildCorsair(scene, lights = {}) {
   const r = rng(511709);
@@ -444,6 +567,7 @@ export function buildCorsair(scene, lights = {}) {
   scene.add(sky);
   const sea = ocean(scene, sunOffset);
   const wash = harborWash(scene);
+  const gulls = harborGulls(scene);
   const stoneTex = coralTexture();
   const floorTex = pavingTexture();
   const stoneOpt = { uv: 'box', uvScale: 0.42, vary: 0.11, noise: 0.035 };
@@ -513,6 +637,8 @@ export function buildCorsair(scene, lights = {}) {
     K.put('cloth', box(1.03, 0.54, 0.05), C.sail, [0.08, 1.5, 0.57]);
     K.pop();
   }
+
+  livingQuay(K, stoneOpt);
 
   // Coral gate, deeply carved timber doors, and an asymmetric arcaded storehouse.
   K.push([-19, 0, -2], Math.PI / 2);
@@ -603,11 +729,6 @@ export function buildCorsair(scene, lights = {}) {
     const z = 28 + i * 3.1, h = 3 + r() * 5;
     K.put('stone', box(3.0 + r() * 2, h, 4 + r() * 2), 0xa0a894, [-42 - r() * 8, h / 2 - 1, z], [0, r() * 0.12, 0], 1, stoneOpt);
   }
-  // A handful of distant seabirds remain part of the static merged silhouette.
-  for (let i = 0; i < 14; i++) {
-    const x = 39 + r() * 40, y = 15 + r() * 16, z = (r() - 0.5) * 80;
-    for (const side of [-1, 1]) K.put('hull', triangle([x, y, z], [x + 0.18, y + 0.17, z + side * 0.52], [x - 0.06, y + 0.08, z + side * 0.44]), 0x526564);
-  }
 
   const mats = {
     stone: new THREE.MeshStandardMaterial({ vertexColors: true, map: stoneTex, roughness: 0.96 }),
@@ -645,22 +766,37 @@ export function buildCorsair(scene, lights = {}) {
     for (const g of K.bins[name] ?? []) g.dispose();
   }
 
-  let t = 0;
+  let t = 0, nextGullCall = 6.9, gullCalls = 0, lastDetail = -10;
+  const tideClock = (time) => time + Math.sin(time * 0.31) * 0.24 + Math.sin(time * 0.13) * 0.14;
   const stage = {
     sunOffset,
     fighterLight: { color: 0xffe7c0, rimColor: 0xb6dfdf, level: 0.16 },
     excite() {},
     update(dt) {
-      const previous = t % 6.4;
-      t = (t + (Number.isFinite(dt) ? Math.min(Math.max(dt, 0), 0.1) : 0)) % 6400;
+      const previous = tideClock(t) % 6.4;
+      t = (t + (Number.isFinite(dt) ? Math.min(Math.max(dt, 0), 0.1) : 0));
       sea.uniforms.time.value = t;
-      wash.uniforms.time.value = t;
-      windTime.value = t;
-      const phase = t % 6.4;
-      // Both details have a 6.4s visual cycle, offset by 3.2s. Events come from
-      // their visible crest/taut-sail phases; there is no independent sound timer.
-      if (previous < 1.6 && phase >= 1.6) stage.onEvent?.('stageDetail', { kind: 'riggingCreak', amp: 0.38, pos: { x: 40.5, y: 8, z: -3.5 }, seed: 5101, time: t });
-      if (previous < 4.8 && phase >= 4.8) stage.onEvent?.('stageDetail', { kind: 'waterLap', amp: 0.32, pos: { x: 19.35, y: -0.6, z: -6.5 }, seed: 5102, time: t });
+      wash.uniforms.time.value = tideClock(t);
+      windTime.value = tideClock(t);
+      gulls.update(t);
+      if (t >= nextGullCall && t - lastDetail >= 2.2) {
+        const p = gulls.flying.position;
+        stage.onEvent?.('stageDetail', { kind: 'gullCall', amp: 0.26, pos: { x: p.x, y: p.y, z: p.z }, seed: 5113 + gullCalls, time: t });
+        lastDetail = t;
+        gullCalls++;
+        nextGullCall += 29.92 + Math.sin(gullCalls * 2.399) * 2.2;
+      }
+      const phase = tideClock(t) % 6.4;
+      // Wind and wash share a slowly varying clock; visual crests still trigger
+      // their sounds. Gulls take a quiet slot instead of competing every few seconds.
+      if (previous < 1.6 && phase >= 1.6 && t - lastDetail >= 2.2) {
+        stage.onEvent?.('stageDetail', { kind: 'riggingCreak', amp: 0.34 + Math.sin(t * 0.23) * 0.04, pos: { x: 40.5, y: 8, z: -3.5 }, seed: 5101, time: t });
+        lastDetail = t;
+      }
+      if (previous < 4.8 && phase >= 4.8 && t - lastDetail >= 2.2) {
+        stage.onEvent?.('stageDetail', { kind: 'waterLap', amp: 0.28 + Math.sin(t * 0.39) * 0.04, pos: { x: 19.35, y: -0.6, z: -6.5 }, seed: 5102, time: t });
+        lastDetail = t;
+      }
     },
   };
   return stage;

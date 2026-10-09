@@ -443,6 +443,14 @@ export const LOOK_ARCHIVE = {
       grip: 0x514638, hilt: 0xa39474, accent: 0x627b5c,
       outfit: 'yeongman_shrine',
     },
+    v2: {
+      tunic: 0xe9e5d5, quilt: 0xe9e5d5, sleeve: 0xe9e5d5,
+      straps: null, belt: 0x9a4234, hoseUpper: 0x3b5344, hoseLower: 0x536c56,
+      shoes: 0x554837, skin: 0xe2bd9d, hands: 0xe2bd9d,
+      helmet: null, metal: 0xb3a07a, hair: 0x242723, headband: null,
+      grip: 0x514638, hilt: 0xa39474, accent: 0x627b5c,
+      outfit: 'yeongman_grove',
+    },
   },
 
   // ── 5. 마르그레테 슈바르츠: v0(회색 수수한 노장) → v1(먹색 판금 + 갈색 머리, 용기사 실루엣) ──
@@ -537,13 +545,13 @@ export const LOOK_ARCHIVE = {
 // 지금 게임에서 실제로 쓰는 버전 (감독/오너가 확정하면 여기만 바꾸면 됨)
 export const CHARACTER_LOOK_VERSION = {
   bran: 'v1',
-  isolde: 'v3',
+  isolde: 'v2', // User prefers the original; v3 stays in the visual archive only.
   liao: 'v6',
   heinrich: 'v2',
   margarethe: 'v3',
   tome: 'v1',
   omari: 'v1',
-  yeongman: 'v1',
+  yeongman: 'v2',
 };
 
 /** id의 특정 버전을 꺼낸다. 버전이 없으면 현재 버전 → v0 순으로 물러난다. (main.js의 ?look=, ?lookv= 미리보기용) */

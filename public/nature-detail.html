@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eae7dd">
+  <link rel="icon" href="data:,">
+  <title>적막 · 숲과 항구의 디테일</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,sans-serif;color:#292f2a;background:#eae7dd;color-scheme:light}
+    *{box-sizing:border-box}body{margin:0}main{max-width:1100px;margin:auto;padding:38px 18px 48px}
+    header{max-width:740px;margin-bottom:35px}.eyebrow{font-size:12px;letter-spacing:.15em;color:#65705e}
+    h1{font-size:clamp(30px,6vw,48px);font-weight:650;letter-spacing:-.055em;margin:15px 0}
+    h2{font-size:clamp(25px,4vw,32px);font-weight:650;letter-spacing:-.04em;margin:10px 0}
+    p{font-size:15px;line-height:1.8;color:#545f52}a{color:inherit;touch-action:manipulation}
+    nav{display:flex;gap:22px;flex-wrap:wrap;font-size:14px}nav a{padding:10px 0;text-underline-offset:4px}
+    .chapter{padding:28px 0 34px;border-top:1px solid #c0c8b8;scroll-margin-top:20px}.chapter>p{max-width:740px}
+    .number{font-size:12px;letter-spacing:.12em;color:#697961}.harbor .number{color:#527178}
+    .pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    figure{margin:0;border:1px solid #c8cbbf;border-radius:8px;overflow:hidden;background:#f7f4ec}
+    figure a{display:block}img{display:block;width:100%;height:auto}figcaption{padding:11px 13px;font-size:13px;font-weight:650}
+    .after figcaption{background:#d8e0d0}.harbor .after figcaption{background:#d1dfe0}
+    .note{font-size:13px;color:#6b7364;line-height:1.75}details{margin-top:18px}summary{cursor:pointer;padding:12px 0;font-size:14px;font-weight:600;color:#455f3b}
+    details .pair{margin-top:6px}.play{display:block;padding:15px 12px;text-align:center;text-decoration:none;border:1px solid #8a9981;border-radius:7px;font-size:15px;font-weight:650;background:#f7f4ec;min-height:50px}
+    .play.new{background:#354b36;color:#faf8ef;border-color:#354b36}.harbor .play.new{background:#32535b;border-color:#32535b}.actions{margin-top:22px}
+    a:focus-visible,summary:focus-visible{outline:3px solid #54764a;outline-offset:4px}.restore{border-top:1px solid #c0c8b8;padding-top:24px}.restore .play{max-width:370px}
+    footer{margin-top:32px;font-size:13px;color:#65705e;line-height:1.8}footer a{display:inline-block;padding:10px 0}
+    @media(max-width:600px){main{padding:26px 12px 36px}.pair{gap:8px}figcaption{padding:10px;font-size:12px}.play{font-size:14px}.chapter{padding-top:24px}.actions{gap:8px}}
+  </style>
+</head>
+<body><main>
+  <header>
+    <div class="eyebrow">적막 · 자연과 사람</div>
+    <h1>숲과 항구의 디테일</h1>
+    <p>영만의 머리와 옷, 신목 아래의 풍경, 바닷바람이 머무는 항구를 다듬었습니다. 같은 카메라로 촬영한 실제 게임 화면을 전후로 비교합니다.</p>
+    <p class="note">사진을 누르면 크게 볼 수 있습니다. 인물의 정적 외형 비교 자세는 실제 전투 자세와 다릅니다.</p>
+    <nav aria-label="비교 항목"><a href="#yeongman">영만</a><a href="#grove">신목의 숲</a><a href="#harbor">산호 항구</a></nav>
+  </header>
+  <section class="chapter" id="yeongman" aria-labelledby="yeongman-title">
+    <div class="number">01 / 영만</div><h2 id="yeongman-title">숲을 지키는 열아홉</h2>
+    <p>길어진 반묶음 머리와 작은 주홍 매듭, 얼굴 옆으로 흐르는 머리카락을 다듬었습니다. 옷깃과 소맷단, 허리의 겹끈과 작은 잎 자수, 이끼색 하카마의 주름을 더했습니다.</p>
+    <div class="pair">
+      <figure><a href="./encounters/nature-yeongman-before-threeq.webp" aria-label="기존 영만 전체 크게 보기"><img src="./encounters/nature-yeongman-before-threeq.webp" alt="기존 영만의 사선 전신 모습" width="1000" height="900"></a><figcaption>기존</figcaption></figure>
+      <figure class="after"><a href="./encounters/nature-yeongman-after-threeq.webp" aria-label="개선 영만 전체 크게 보기"><img src="./encounters/nature-yeongman-after-threeq.webp" alt="머리와 복식을 다듬은 영만의 사선 전신 모습" width="1000" height="900"></a><figcaption>개선</figcaption></figure>
+    </div>
+    <details><summary>뒤에서 본 머리와 옷 비교</summary><div class="pair">
+      <figure><a href="./encounters/nature-yeongman-before-back.webp" aria-label="기존 영만 뒷모습 크게 보기"><img src="./encounters/nature-yeongman-before-back.webp" alt="기존 영만의 머리와 옷 뒷모습" width="1000" height="900" loading="lazy"></a><figcaption>기존</figcaption></figure>
+      <figure class="after"><a href="./encounters/nature-yeongman-after-back.webp" aria-label="개선 영만 뒷모습 크게 보기"><img src="./encounters/nature-yeongman-after-back.webp" alt="긴 반묶음 머리와 하카마를 다듬은 영만의 뒷모습" width="1000" height="900" loading="lazy"></a><figcaption>개선</figcaption></figure>
+    </div></details>
+    <div class="pair actions"><a class="play" id="play-yeongman-v1" href="./?look=yeongman:v1&amp;stage=sacred_grove">기존 영만과 겨루기</a><a class="play new" id="play-yeongman-v2" href="./?look=yeongman:v2&amp;stage=sacred_grove">개선 영만과 겨루기</a></div>
+    <p class="note">두 링크의 숲은 모두 개선된 무대입니다. 인물 외형을 비교하는 링크입니다.</p>
+  </section>
+  <section class="chapter" id="grove" aria-labelledby="grove-title">
+    <div class="number">02 / 신목의 숲</div><h2 id="grove-title">나무 아래 머무는 풍경</h2>
+    <p>뿌리 주변의 이끼와 고사리, 닳은 디딤돌을 더했습니다. 나무 무리가 겹치고 틈이 열리며, 따뜻한 빛이 흙바닥으로 들어오는 풍경을 비교해 보세요.</p>
+    <div class="pair">
+      <figure><a href="./encounters/nature-grove-before-wide.webp" aria-label="기존 신목의 숲 전경 크게 보기"><img src="./encounters/nature-grove-before-wide.webp" alt="기존 신목의 숲 전경" width="1200" height="750" loading="lazy"></a><figcaption>기존</figcaption></figure>
+      <figure class="after"><a href="./encounters/nature-grove-after-wide.webp" aria-label="개선 신목의 숲 전경 크게 보기"><img src="./encounters/nature-grove-after-wide.webp" alt="나무와 지면의 구성을 보강한 신목의 숲 전경" width="1200" height="750" loading="lazy"></a><figcaption>개선</figcaption></figure>
+    </div>
+    <details><summary>신목 주변 자세히 비교</summary><div class="pair">
+      <figure><a href="./encounters/nature-grove-before-detail.webp" aria-label="기존 신목 상세 크게 보기"><img src="./encounters/nature-grove-before-detail.webp" alt="기존 신목 주변 상세" width="1200" height="750" loading="lazy"></a><figcaption>기존</figcaption></figure>
+      <figure class="after"><a href="./encounters/nature-grove-after-detail.webp" aria-label="개선 신목 상세 크게 보기"><img src="./encounters/nature-grove-after-detail.webp" alt="신목과 지면이 만나는 부분의 보강된 디테일" width="1200" height="750" loading="lazy"></a><figcaption>개선</figcaption></figure>
+    </div></details>
+  </section>
+  <section class="chapter harbor" id="harbor" aria-labelledby="harbor-title">
+    <div class="number">03 / 산호 항구</div><h2 id="harbor-title">바닷바람이 머무는 곳</h2>
+    <p>소금기 밴 포장과 배수 홈, 말리는 그물, 계단 아래 젖은 산호암반과 해안 식물을 더했습니다. 갈매기 두 마리와 드문 울음, 불규칙하게 이어지는 파도와 돛 소리가 항구를 채웁니다.</p>
+    <p class="note">오마리의 캐릭터 외형은 그대로입니다. 플레이할 때 소리를 켜면 갈매기와 항구의 환경음을 함께 확인할 수 있습니다.</p>
+    <div class="pair">
+      <figure><a href="./encounters/nature-harbor-before-wide.webp" aria-label="기존 산호 항구 전경 크게 보기"><img src="./encounters/nature-harbor-before-wide.webp" alt="기존 산호 항구 전경" width="1200" height="750" loading="lazy"></a><figcaption>기존</figcaption></figure>
+      <figure class="after"><a href="./encounters/nature-harbor-after-wide.webp" aria-label="개선 산호 항구 전경 크게 보기"><img src="./encounters/nature-harbor-after-wide.webp" alt="바다와 부두 주변을 보강한 산호 항구 전경" width="1200" height="750" loading="lazy"></a><figcaption>개선</figcaption></figure>
+    </div>
+    <details><summary>항구의 자연과 오브제 자세히 비교</summary><div class="pair">
+      <figure><a href="./encounters/nature-harbor-before-detail.webp" aria-label="기존 산호 항구 상세 크게 보기"><img src="./encounters/nature-harbor-before-detail.webp" alt="기존 산호 항구의 부두와 해안 상세" width="1200" height="750" loading="lazy"></a><figcaption>기존</figcaption></figure>
+      <figure class="after"><a href="./encounters/nature-harbor-after-detail.webp" aria-label="개선 산호 항구 상세 크게 보기"><img src="./encounters/nature-harbor-after-detail.webp" alt="자연의 흔적을 보강한 산호 항구의 부두와 해안 상세" width="1200" height="750" loading="lazy"></a><figcaption>개선</figcaption></figure>
+    </div></details>
+    <div class="actions"><a class="play new" id="play-omari" href="./?foe=omari&amp;stage=corsair">산호 항구에서 오마리와 겨루기</a></div>
+  </section>
+  <section class="restore" aria-labelledby="restore-title"><h2 id="restore-title">이졸데는 이전 외형으로</h2>
+    <p>이졸데의 일반 외형은 개선 전의 긴 흑발과 밝은 옷으로 되돌렸습니다.</p>
+    <a class="play" id="play-isolde-default" href="./?foe=isolde&amp;stage=cathedral">돌아온 이졸데와 겨루기</a>
+  </section>
+  <footer><p>키와 팔다리 길이, 무게와 전투 물리는 같습니다. 무기 카드 하나를 선택하면 결투가 시작됩니다. 휴대폰은 가로 화면을 권합니다.</p><a href="./">일반 게임으로 →</a></footer>
+</main></body>
+</html>

@@ -1325,6 +1325,147 @@ function shrineSandal(g) {
   addMerged(g, [box(0.252, 0.012, 0.113, [0, -0.033, 0]), box(0.023, 0.009, 0.101, [0.022, 0.041, 0]), box(0.076, 0.009, 0.013, [0.065, 0.041, 0])], 0x6a5940, CLOTH);
 }
 
+// Yeongman v2 keeps the shrine outfit's native body/wound surfaces. The longer
+// half-up hair is split at the nape: only short locks follow the head, while the
+// loose lower hair follows the upper torso. Nothing changes mass or collision.
+function shrineHairLock(points, widths, depth = 0.011) {
+  const curve = new THREE.CatmullRomCurve3(points.map((p) => new THREE.Vector3(...p)));
+  const vertices = [], indices = [], rings = 10, sides = 8;
+  for (let i = 0; i <= rings; i++) {
+    const t = i / rings, at = curve.getPoint(t), u = t * (widths.length - 1);
+    const j = Math.min(widths.length - 2, Math.floor(u));
+    const width = THREE.MathUtils.lerp(widths[j], widths[j + 1], u - j);
+    for (let k = 0; k < sides; k++) {
+      const a = k / sides * Math.PI * 2;
+      vertices.push(at.x + Math.cos(a) * depth * Math.min(1, width / 0.015), at.y, at.z + Math.sin(a) * width / 2);
+      if (i < rings) {
+        const n = i * sides + k, next = i * sides + (k + 1) % sides;
+        indices.push(n, next, n + sides, next, next + sides, n + sides);
+      }
+    }
+  }
+  for (let k = 1; k < sides - 1; k++) {
+    indices.push(0, k + 1, k);
+    const end = rings * sides;
+    indices.push(end, end + k, end + k + 1);
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+  geo.setAttribute('uv', new THREE.Float32BufferAttribute(new Float32Array(vertices.length / 3 * 2), 2));
+  geo.setIndex(indices);
+  geo.computeVertexNormals();
+  return geo;
+}
+
+function shrineLeafSprig(g, x, y, z, scale, color) {
+  const p = (dy, dz) => [x, y + dy * scale, z + dz * scale];
+  const shapes = [taperedTube([p(-0.048, 0), p(0, 0.01), p(0.05, 0.004)], [0.002 * scale, 0.002 * scale, 0.001 * scale], 7, 4)];
+  for (let i = 0; i < 4; i++) {
+    const yy = -0.031 + i * 0.022, s = i % 2 ? -1 : 1;
+    shapes.push(clothPanel(x + 0.001, [[y + yy * scale, z + 0.007 * scale], [y + (yy + 0.01) * scale, z + s * 0.032 * scale], [y + (yy + 0.025) * scale, z + s * 0.017 * scale]], 0.002));
+  }
+  addMerged(g, shapes, color, CLOTH);
+}
+
+function groveHakama(g, top, bottom, height) {
+  // Deep, broad folds read as cloth at phone distance; the two trouser legs
+  // still follow their own ragdoll parts and do not bridge the knees.
+  const geo = new THREE.CylinderGeometry(top, bottom, height, 24, 4, false);
+  const p = geo.attributes.position;
+  for (let i = 0; i < p.count; i++) {
+    const a = Math.atan2(p.getZ(i), p.getX(i));
+    const fold = 1 + 0.063 * Math.cos(a * 6);
+    p.setXYZ(i, p.getX(i) * fold * 0.96, p.getY(i), p.getZ(i) * fold);
+  }
+  geo.computeVertexNormals();
+  g.children[0].geometry.copy(geo);
+  geo.dispose();
+}
+
+const YEONGMAN_GROVE = {
+  ...YEONGMAN_SHRINE,
+  head(g, look) {
+    quietFace(g, look, 'yeongman');
+    const hair = [];
+    // An open centre fringe and tapered cheek locks keep the youthful face
+    // visible. The swept upper locks gather at one small red half-up knot.
+    for (const s of [-1, 1]) {
+      hair.push(shrineHairLock([[0.024, 0.104, s * 0.02], [0.073, 0.076, s * 0.047], [0.075, 0.02, s * 0.079], [0.043, -0.046, s * 0.094]], [0.035, 0.039, 0.026, 0.003]));
+      hair.push(shrineHairLock([[0.011, 0.052, s * 0.092], [0.001, -0.017, s * 0.113], [0.012, -0.109, s * 0.113], [0.037, -0.154, s * 0.09]], [0.029, 0.035, 0.026, 0.003], 0.012));
+      hair.push(taperedTube([[-0.017, 0.075, s * 0.073], [-0.075, 0.06, s * 0.063], [-0.117, 0.018, s * 0.025]], [0.009, 0.01, 0.009], 10, 6));
+    }
+    for (let i = 0; i < 5; i++) {
+      const z = (i - 2) * 0.035;
+      hair.push(shrineHairLock([[-0.075, 0.071, z * 0.8], [-0.111, -0.005, z], [-0.142, -0.119, z * 1.06], [-0.154, -0.192 + Math.abs(i - 2) * 0.008, z * 1.07]], [0.04, 0.046, 0.045, 0.035], 0.008));
+    }
+    addMerged(g, hair, look.hair, { ...CLOTH, roughness: 1, metalness: 0 });
+    addMerged(g, [
+      clothPanel(-0.13, [[0.025, -0.005], [0.042, -0.043], [0.011, -0.04], [0.016, 0]]),
+      clothPanel(-0.13, [[0.025, 0.005], [0.038, 0.039], [0.008, 0.043], [0.016, 0]]),
+      clothPanel(-0.137, [[0.021, -0.008], [-0.049, -0.033], [-0.059, -0.019], [0.016, 0.008]]),
+      box(0.02, 0.016, 0.021, [-0.134, 0.021, 0]),
+    ], SHRINE_RED, CLOTH);
+    // A small pale-green leaf pin, rather than a crown or projecting antlers.
+    addMerged(g, [taperedTube([[0, 0.073, -0.108], [-0.018, 0.114, -0.112], [-0.041, 0.137, -0.099]], [0.0025, 0.0025, 0.001], 7, 4)], 0x8c7751, CLOTH);
+    addMerged(g, [
+      bake(new THREE.SphereGeometry(0.017, 6, 4), [-0.011, 0.108, -0.119], [0.4, 0.2, 0.4], [0.25, 1.1, 0.58]),
+      bake(new THREE.SphereGeometry(0.016, 6, 4), [-0.031, 0.129, -0.108], [-0.35, 0.3, -0.3], [0.25, 1.1, 0.58]),
+    ], 0x7e9469, CLOTH);
+  },
+  chest(g, look) {
+    YEONGMAN_SHRINE.chest(g, look);
+    // A sewn inner lapel and underarm seams give the light robe a clear fold.
+    addMerged(g, [
+      box(0.005, 0.253, 0.012, [0.135, 0.013, 0.037], [0.52, 0, 0]),
+      ...[-1, 1].map((s) => box(0.004, 0.204, 0.006, [0.122, -0.025, s * 0.142], [s * 0.04, 0, 0])),
+    ], 0xafa991, CLOTH);
+    const hair = [];
+    for (let i = 0; i < 5; i++) {
+      const z = (i - 2) * 0.036;
+      hair.push(shrineHairLock([[-0.147, 0.182, z], [-0.151, 0.094, z * 1.05], [-0.142, -0.032, z * 1.13], [-0.144, -0.135 + Math.abs(i - 2) * 0.018, z * 0.94]], [0.047, 0.05, 0.046, 0.009], 0.008));
+    }
+    addMerged(g, hair, look.hair, { ...CLOTH, roughness: 1, metalness: 0 });
+    shrineLeafSprig(g, 0.127, -0.052, -0.084, 0.58, 0xa3ac8b);
+  },
+  abdomen(g) {
+    YEONGMAN_SHRINE.abdomen(g);
+    // Fine doubled rope follows the belt rather than hovering across the body.
+    addMerged(g, [-1, 1].map((s) => taperedTube([[0.126, -0.017 + s * 0.003, -0.155], [0.133, -0.032 + s * 0.003, -0.07], [0.134, -0.023 + s * 0.003, 0.075], [0.126, -0.017 + s * 0.003, 0.154]], [0.0024, 0.0024, 0.0024, 0.0024], 12, 4)), 0xd6c49d, CLOTH);
+  },
+  pelvis(g) {
+    YEONGMAN_SHRINE.pelvis(g);
+    addMerged(g, [-1, 1].map((s) => clothPanel(0.122, [[0.073, s * 0.076], [0.073, s * 0.083], [-0.16, s * 0.109], [-0.164, s * 0.103]], 0.003)), 0x718363, CLOTH);
+  },
+  uarmS: groveShrineSleeve, uarmO: groveShrineSleeve,
+  farmS: groveShrineForearm, farmO: groveShrineForearm,
+  thighF: groveShrineThigh, thighB: groveShrineThigh,
+  shinF: groveShrineShin, shinB: groveShrineShin,
+};
+function groveShrineSleeve(g) {
+  sleeveVolume(g, 1.12, 1.55);
+  addMerged(g, [cyl(0.078, 0.079, 0.014, 12, true, [0, -0.089, 0])], LINEN_SHADE, CLOTH);
+}
+function groveShrineForearm(g) {
+  sleeveVolume(g, 1.52, 1.07);
+  addMerged(g, [cyl(0.06, 0.05, 0.046, 12, true, [0, -0.091, 0])], 0x9baa8c, CLOTH);
+  addMerged(g, [cyl(0.061, 0.06, 0.006, 12, true, [0, -0.071, 0]), cyl(0.0518, 0.0508, 0.006, 12, true, [0, -0.111, 0])], LINEN, CLOTH);
+}
+function groveShrineThigh(g) {
+  groveHakama(g, 0.092, 0.115, 0.42);
+}
+function groveShrineShin(g) {
+  groveHakama(g, 0.114, 0.088, 0.41);
+  // The hem repeats the trouser's six-fold section, avoiding a floating ring.
+  const hem = new THREE.CylinderGeometry(0.091, 0.09, 0.018, 24, 1, true);
+  const p = hem.attributes.position;
+  for (let i = 0; i < p.count; i++) {
+    const a = Math.atan2(p.getZ(i), p.getX(i)), fold = 1 + 0.063 * Math.cos(a * 6);
+    p.setXYZ(i, p.getX(i) * fold * 0.96, p.getY(i) - 0.183, p.getZ(i) * fold);
+  }
+  hem.computeVertexNormals();
+  addMerged(g, [hem], 0x9baa8c, CLOTH);
+}
+
 // Isolde v3: costume-only refinement. Each lock/garment remains attached to its
 // own native part; v2 stays intact for comparisons. No cloth physics or scaling.
 const ISOLDE_INK = 0x30313e;
@@ -1505,6 +1646,7 @@ export const OUTFITS = {
   tome_rapier: TOME_RAPIER,
   omari_seafarer: OMARI_SEAFARER,
   yeongman_shrine: YEONGMAN_SHRINE,
+  yeongman_grove: YEONGMAN_GROVE,
 };
 
 /** dressPart가 부위 하나를 다 그린 뒤 불린다. look.outfit이 가리키는 세트에 그 부위용 함수가 있으면 얹는다. */

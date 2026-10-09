@@ -1,0 +1,68 @@
+{
+  "status": "awaiting_public_verification",
+  "baseline": "983a19675fc4717db682809b6cdf59fc48cca270",
+  "url": "https://yoonjl-svg.github.io/halfsword-codex/nature-detail.html",
+  "evidenceRoot": "/tmp/halfsword-nature-polish-20261009",
+  "scope": [
+    "Isolde default restored to v2; v3 rejected",
+    "Yeongman v2",
+    "Sacred Grove visuals",
+    "Coral Harbor visuals and gull sound; Omari unchanged"
+  ],
+  "limits": [
+    "No physical phone frame-rate measurement or human audio audition",
+    "Cosmetic polish; no character size or combat changes"
+  ],
+  "nativeAudit": {
+    "status": "passed",
+    "checks": 11,
+    "stepsPerVersion": 120,
+    "decalCases": 20,
+    "resourceChecks": 21,
+    "omariUnchanged": true,
+    "isoldeRestoredToV2": true,
+    "report": "/tmp/halfsword-nature-polish-20261009/audit/summary-final.json"
+  },
+  "sourceHashes": {
+    "src/looks.js": "8a5d5e16fe3bc52adc43d9941312c01ac041af6c661d9aa8ed12f8c917dfad3e",
+    "src/outfits.js": "0e346c6522ae541458348df818844dde1882518336fd9706e84ecc58db20652d",
+    "src/stage_sacred_grove.js": "98c4df16c7cd313d44b2b5e217b130074929b6a228b40e22f06a6f80e099c732",
+    "src/stage_corsair.js": "d00bdf94e36c2cbd45f9e7179b1181e87b1bf0cc9bacdf12101490039dfb10e5",
+    "src/stage_detail_sound.js": "93743d029541ce225b1ff89f9d1a5539e0aee4aa41b20c662d476e7d33f44c52"
+  },
+  "images": {
+    "originalPNGs": 16,
+    "publishedIndividualWebPs": 12,
+    "comparisonPairs": 3,
+    "sameCameraAndLighting": true,
+    "individualBytes": 460094,
+    "conversionReport": "/tmp/halfsword-nature-polish-20261009/image-conversion.json"
+  },
+  "audio": {
+    "offlineRenders": 2,
+    "browserApiChecks": "passed",
+    "actualGameGullPauseResume": "passed",
+    "actualGameReport": "/tmp/halfsword-nature-polish-20261009/audio/game-final/report.json",
+    "initialGameRun": "source changed during unrelated visual editing; preserved and rerun after freeze",
+    "humanAudition": false
+  },
+  "build": {
+    "main": "assets/main-vjZfyYNF.js",
+    "sound": "assets/sound-DDzy6JAz.js",
+    "sha256": {
+      "index.html": "573eee5c01c3f8e6440401df8b8503269d3caefeb91f4a19ad690178deb674bf",
+      "assets/main-vjZfyYNF.js": "f5f0cd526f131f68152e19413c86378b0946d0439c7b76a03d235d09af4ea5ea",
+      "assets/sound-DDzy6JAz.js": "64a7f4c9c22337d22448a7009b209d0fe4556b82d70c8636cceca3564768b51e",
+      "nature-detail.html": "788b959df318eef5323f6e5ce56816ec756674a4347fffcfceedf195831384ca"
+    }
+  },
+  "localMobile": {
+    "pass": true,
+    "flows": 3,
+    "requests": 582,
+    "uniqueVerifiedFiles": 201,
+    "seconds": 456.3,
+    "errors": 0,
+    "report": "/tmp/halfsword-nature-polish-20261009/mobile-local-v1/report.json"
+  }
+}

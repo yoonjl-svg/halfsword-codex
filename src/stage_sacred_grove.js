@@ -183,16 +183,25 @@ function ground(scene, texture) {
     const rad = j <= 26 ? j * 0.5 : 13 + Math.pow((j - 26) / 22, 1.5) * 83;
     for (let i = 0; i <= segments; i++) {
       const a = i / segments * TAU, x = Math.cos(a) * rad, z = Math.sin(a) * rad;
-      const forest = THREE.MathUtils.smoothstep(rad, 7.0 + Math.sin(a * 5) * 0.38, 13.8 + Math.sin(a * 3) * 0.9);
+      // Broad, interlocking moss tongues replace the regular green ring. The
+      // duel surface stays flat; this is pigment, not collision relief.
+      const edge = Math.sin(a * 3 + 0.7) * 1.7 + Math.sin(a * 7 - 1.4) * 0.62;
+      const forest = THREE.MathUtils.smoothstep(rad, 7.3 + edge * 0.35, 12.9 + edge);
       const shade = (Math.sin(x * 0.86 + Math.sin(z * 0.63)) * Math.sin(z * 0.74 - x * 0.22) + 1) * 0.5;
       tmp.copy(base).lerp(moss, forest).lerp(dark, forest * (0.1 + shade * 0.4));
+      const approach = Math.exp(-Math.pow((z + 0.19 * x - 0.7) / 1.05, 2)) * THREE.MathUtils.smoothstep(x, 7, 13) * (1 - THREE.MathUtils.smoothstep(x, 17.3, 19));
+      tmp.lerp(base, approach * 0.56);
       const litter = THREE.MathUtils.smoothstep(rad, 6.9, 8.0) * (1 - THREE.MathUtils.smoothstep(rad, 11, 17)) * Math.max(0, Math.sin(x * 0.68 + Math.sin(z * 0.5)) * Math.cos(z * 0.8));
       tmp.lerp(litterColor, litter * 0.36);
       const nearRoot = 1 - THREE.MathUtils.smoothstep(Math.hypot(x - HERO.x, z - HERO.z), 3.6, 7.4);
-      const rootLight = Math.exp(-Math.pow((x - 16.4) / 2.3, 2) - Math.pow((z + 5.5) / 1.6, 2));
-      tmp.multiplyScalar((0.84 + shade * 0.24 + h3(x, 0, z, 79) * 0.055) * (1 - nearRoot * 0.26) + rootLight * 0.24);
+      const rootLight = Math.exp(-Math.pow((x - 15.3) / 4.0, 2) - Math.pow((z + 2.5) / 3.1, 2));
+      const canopyShadow = forest * (0.2 + 0.17 * (0.5 + 0.5 * Math.sin(x * 0.38 + z * 0.64)));
+      tmp.multiplyScalar((0.87 + shade * 0.2 + h3(x, 0, z, 79) * 0.055) * (1 - nearRoot * 0.18 - canopyShadow) + rootLight * 0.38);
       // Flat at and well beyond the duel boundary. Terrain only rises deep in forest.
       let y = rad <= 12 ? -0.055 : -0.055 + THREE.MathUtils.smoothstep(rad, 12, 25) * (0.23 + Math.sin(x * 0.17) * Math.cos(z * 0.22) * 0.4);
+      // A low distant ridge closes the forest horizon; the foreground and stream
+      // banks remain at their existing elevations. No extra mesh or physics.
+      y += THREE.MathUtils.smoothstep(rad, 32, 56) * (1.7 + Math.sin(x * 0.073 + z * 0.055) * 1.25) * (1 - Math.exp(-Math.pow((x - 28) / 6, 2)));
       const bank = Math.abs(x - (27.5 + Math.sin(z * 0.12) * 2.4));
       if (Math.abs(z) < 37 && bank < 2.3) y = THREE.MathUtils.lerp(0.005, y, THREE.MathUtils.smoothstep(bank, 1.1, 2.3));
       pos.push(x, y, z); uv.push(x * 0.35, z * 0.35); colors.push(tmp.r, tmp.g, tmp.b);
@@ -285,22 +294,45 @@ function plants(scene, r) {
   for (let f = 0; f < 7; f++) {
     const a = f / 7 * TAU;
     for (let j = 0; j < 6; j++) {
-      const t = j / 6, t1 = (j + 1) / 6, width = Math.sin((t + 0.08) * Math.PI) * 0.11;
+      const t = j / 6, t1 = (j + 1) / 6, width = Math.sin((t + 0.025) * Math.PI) * 0.13, nextWidth = Math.max(0,Math.sin(t1 * Math.PI)) * 0.13;
       const p = [Math.cos(a) * t * 0.85, Math.sin(t * Math.PI * 0.78) * 0.55, Math.sin(a) * t * 0.85];
       const q = [Math.cos(a) * t1 * 0.85, Math.sin(t1 * Math.PI * 0.78) * 0.55, Math.sin(a) * t1 * 0.85];
-      const dx = Math.sin(a) * width, dz = -Math.cos(a) * width;
-      positions.push(p[0] + dx, p[1], p[2] + dz, p[0] - dx, p[1], p[2] - dz, q[0], q[1], q[2]);
-      for (let n = 0; n < 3; n++) normals.push(0, 1, 0);
+      const dx = Math.sin(a) * width, dz = -Math.cos(a) * width, qx = Math.sin(a) * nextWidth, qz = -Math.cos(a) * nextWidth;
+      positions.push(p[0] + dx,p[1],p[2] + dz, p[0] - dx,p[1],p[2] - dz, q[0] - qx,q[1],q[2] - qz, p[0] + dx,p[1],p[2] + dz, q[0] - qx,q[1],q[2] - qz, q[0] + qx,q[1],q[2] + qz);
+      for (let n = 0; n < 6; n++) normals.push(0, 1, 0);
     }
   }
   const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3)); g.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
   const mesh = new THREE.InstancedMesh(g, new THREE.MeshStandardMaterial({ color: 0x80956a, roughness: 1, side: THREE.DoubleSide }), 180);
   const dummy = new THREE.Object3D(), c = new THREE.Color();
+  const clumps = [[13.8,-6.8],[16.7,3.1],[22.5,4.6],[18.5,-10.1],[-15,-5],[-12,12],[3,18],[-9,-18],[28,13],[5,-27],[28,-18],[-28,6]];
   for (let i = 0; i < 180; i++) {
-    const a = r() * TAU, rad = 11.9 + r() * 19;
-    dummy.position.set(Math.cos(a) * rad, 0.01, Math.sin(a) * rad); dummy.rotation.y = r() * TAU; dummy.scale.setScalar(0.45 + r() * 0.9); dummy.updateMatrix(); mesh.setMatrixAt(i, dummy.matrix); mesh.setColorAt(i, c.set(C.leaf).lerp(new THREE.Color(C.leafLit), r()));
+    const center = clumps[i % clumps.length], a = r() * TAU, rad = Math.sqrt(r()) * (i < 60 ? 1.8 : 3.6);
+    let x = center[0] + Math.cos(a) * rad, z = center[1] + Math.sin(a) * rad;
+    const d = Math.hypot(x, z); if (d < 12.15) { x *= 12.15 / d; z *= 12.15 / d; }
+    dummy.position.set(x, 0.035, z); dummy.rotation.y = r() * TAU; dummy.scale.setScalar(0.62 + r() * 0.96); dummy.updateMatrix(); mesh.setMatrixAt(i, dummy.matrix); mesh.setColorAt(i, c.set(C.leafDeep).lerp(new THREE.Color(C.leafLit), 0.2 + r() * 0.7));
   }
   mesh.name = 'grove-ferns-outside-camera'; scene.add(mesh);
+}
+
+function rootGarden(K) {
+  const r = rng(104913);
+  // Low stone shelves and moss pads lead into the cedar's buttresses. They are
+  // asymmetrical, half buried, and all remain beyond the full camera orbit.
+  const shelves = [[13.9,-6.5,2.2,0.39,1.45],[15.5,2.6,2.3,0.35,1.45],[18.3,-8.7,1.5,0.3,1.1],[23.7,3.5,2.0,0.48,1.4],[17.5,4.9,1.5,0.23,1.1],[25,-5.8,1.75,0.32,1.1]];
+  for (const [x,z,sx,sy,sz] of shelves) {
+    put(K, 'stone', new THREE.DodecahedronGeometry(1, 0), 0x78887c, [x,sy * 0.1,z], [0,r() * TAU,0], [sx,sy,sz], { rough:0.085, noise:0.09, snow:0.88, snowColor:0x718659 });
+    for (let i = 0; i < 5; i++) {
+      const a = r() * TAU, d = 0.4 + r() * 0.7;
+      put(K, 'moss', new THREE.IcosahedronGeometry(1, 0), i % 2 ? 0x7c905c : 0x5c7650, [x + Math.cos(a) * sx * d,0.035,z + Math.sin(a) * sz * d], [0,r() * TAU,0], [0.45+r()*0.55,0.1+r()*0.075,0.35+r()*0.55], { noise:0.05, vary:0.08 });
+    }
+  }
+  // An old approach disappears beneath moss before reaching the sacred rope.
+  // Its irregular slabs give scale and a human trace without a second monument.
+  for (let i = 0; i < 7; i++) {
+    const x = 11.9 + i * 0.91, z = -1.5 - i * 0.14 + Math.sin(i * 1.4) * 0.16;
+    put(K, 'stone', new THREE.CylinderGeometry(0.72,0.83,0.15,6), 0xa9ae95, [x,0.035,z], [0,r() * TAU,0], [1,1,0.7 + r() * 0.14], { rough:0.06, noise:0.07, snow:i>3?0.46:0.12, snowColor:0x718659 });
+  }
 }
 
 function stream(scene, K, r) {
@@ -357,21 +389,32 @@ export function buildSacredGrove(scene, { hemi, sun } = {}) {
     put(K, 'stone', new THREE.DodecahedronGeometry(1, 0), C.stone, [x, size * 0.26, z], [r() * 0.3, r() * TAU, r() * 0.3], [size, size * 0.65, size * 0.8], { rough: 0.12, noise: 0.12, snow: 0.86, snowColor: C.moss });
   }
   const trunkSeed = cedar(K, foliage, r, HERO.x, HERO.z, 29, 3.08, true);
-  sacredRope(K, trunkSeed); torii(K);
+  sacredRope(K, trunkSeed); torii(K); rootGarden(K);
 
+  // Trees grow in uneven families, with a diagonal opening behind the cedar.
+  // Depth comes from overlapping groups and gaps, not a uniformly spaced wall.
+  const stands = [[-19,-8],[-17,18],[1,26],[17,25],[35,15],[39,-18],[7,-31],[-27,-28],[-43,12],[18,55],[55,37],[-42,48],[-20,-58],[53,-3],[64,10],[61,-21]];
   for (let i = 0; i < 95; i++) {
-    const a = i * 2.39996 + r() * 0.45, d = i < 22 ? 17.8 + r() * 11 : 30 + r() * 54;
-    const x = Math.cos(a) * d, z = Math.sin(a) * d;
+    const stand = stands[i % stands.length], a = r() * TAU, d = Math.sqrt(r()) * (i < 39 ? 6.1 : 12.8);
+    const x = stand[0] + Math.cos(a) * d, z = stand[1] + Math.sin(a) * d;
+    if (Math.hypot(x,z) < 17.5) continue;
     if (Math.hypot(x - HERO.x, z - HERO.z) < 10 || Math.hypot(x - 13.8, z - 13.7) < 5) continue;
-    const h = 16 + r() * 18;
+    const h = 18 + (i % 4) * 3.1 + r() * 6.5;
     cedar(K, foliage, r, x, z, h, 0.28 + r() * 0.47);
   }
+  for (let i = 0; i < 8; i++) {
+    const x = 35 + (i % 4) * 8.4 + r() * 3, z = -29 - Math.floor(i / 4) * 12 - r() * 8;
+    cedar(K, foliage, r, x, z, 22 + r() * 13, 0.38 + r() * 0.26);
+  }
 
-  // Layered low shrubs close the distant forest floor without enclosing the duel.
+  // Low growth follows patches of trees and leaves irregular open seams, rather
+  // than a continuous row of identical green boulders around the clearing.
   for (let i = 0; i < 115; i++) {
-    const a = r() * TAU, d = 20 + r() * 58, x = Math.cos(a) * d, z = Math.sin(a) * d;
+    const stand = stands[i % stands.length], a = r() * TAU, d = Math.sqrt(r()) * 8.5;
+    const x = stand[0] + Math.cos(a) * d, z = stand[1] + Math.sin(a) * d;
+    if (Math.hypot(x,z) < 18.5) continue;
     if (Math.hypot(x - HERO.x, z - HERO.z) < 7 || Math.hypot(x - 13.8, z - 13.7) < 5) continue;
-    for (let j = 0; j < 6; j++) { const cluster = { x: x + (r() - 0.5) * 3, y: 0.4 + r() * 1.6, z: z + (r() - 0.5) * 3, width: 1.0 + r() * 1.15, a: r() * TAU, tilt: (r() - 0.5) * 1.2, color: r() < 0.25 ? C.leafLit : C.leafDeep }; if (j % 3 === 0) { cluster.width *= 1.12; foliage.push(cluster); } }
+    for (let j = 0; j < 2; j++) foliage.push({ x:x+(r()-0.5)*2.4, y:0.3+r()*1.0, z:z+(r()-0.5)*2.4, width:0.68+r()*0.88, a:r()*TAU, tilt:(r()-0.5)*1.2, color:r()<0.3?C.leaf:C.leafDeep });
   }
 
   const canopyMat = quietWind(new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, flatShading: true }), windClock);
@@ -389,6 +432,7 @@ export function buildSacredGrove(scene, { hemi, sun } = {}) {
     heroBark: new THREE.MeshStandardMaterial({ map: heroBark, vertexColors: true, roughness: 1 }),
     bark: new THREE.MeshStandardMaterial({ map: bark, vertexColors: true, roughness: 0.97 }),
     stone: new THREE.MeshStandardMaterial({ map: soil, vertexColors: true, roughness: 1, flatShading: true }),
+    moss: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, flatShading: true }),
     ritual: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1 }),
     paper: quietWind(new THREE.MeshStandardMaterial({ vertexColors: true, side: THREE.DoubleSide, roughness: 1, flatShading: true }), windClock, true),
     paint: new THREE.MeshStandardMaterial({ map: bark, vertexColors: true, roughness: 0.95 }),

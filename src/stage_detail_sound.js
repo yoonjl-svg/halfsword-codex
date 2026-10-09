@@ -7,13 +7,14 @@ export const STAGE_DETAIL_PROFILES = Object.freeze({
   waterLap: { stage: 'corsair', duration: 1.5, gain: 0.021, gap: 4 },
   groveRustle: { stage: 'sacred_grove', duration: 1.65, gain: 0.020, gap: 5 },
   paperRustle: { stage: 'sacred_grove', duration: 0.9, gain: 0.016, gap: 7 },
+  gullCall: { stage: 'corsair', duration: 2.15, gain: 0.085, gap: 24 },
 });
 
 export const hasStageDetails = (stage) => stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove';
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 const TAU = Math.PI * 2;
 
-/** Deterministic, softly band-limited material friction, not an impact cue.
+/** Deterministic material friction and distant bird call, not impact cues.
  * rng is the existing sound.js makeRng. Returned mono PCM is also used by the
  * offline review renderer; no recordings, network assets or sample imports.
  */
@@ -21,6 +22,26 @@ export function synthStageDetail(kind, sr, rng) {
   const profile = STAGE_DETAIL_PROFILES[kind];
   if (!profile || !Number.isFinite(sr) || sr < 8000) return new Float32Array(0);
   const out = new Float32Array(Math.ceil(profile.duration * sr));
+  if (kind === 'gullCall') {
+    // Two short, rough calls followed by a falling cry. This is a procedural
+    // coastal-bird interpretation, not a recording of a particular species.
+    const pitch = 0.94 + rng() * 0.12;
+    for (const [start, duration, strength] of [[0.03, 0.24, 0.55], [0.39, 0.29, 0.68], [0.86, 1.12, 1]]) {
+      let phase = 0, breath = 0;
+      const count = Math.floor(duration * sr), offset = Math.floor(start * sr);
+      for (let j = 0; j < count && offset + j < out.length; j++) {
+        const u = j / count, t = j / sr;
+        const rise = 280 * Math.sin(Math.PI * Math.min(1, u * 4));
+        const frequency = (850 + rise - 360 * u + 20 * Math.sin(t * 52)) * pitch;
+        phase += TAU * frequency / sr;
+        breath += 0.35 * (rng() * 2 - 1 - breath);
+        const envelope = Math.min(1, u / 0.07) * (1 - u) ** 0.7 * Math.min(1, (1 - u) / 0.04);
+        const roughness = 0.86 + 0.14 * Math.sin(t * 91);
+        out[offset + j] += strength * envelope * (roughness * (0.25 * Math.sin(phase) + 0.09 * Math.sin(phase * 2) + 0.035 * Math.sin(phase * 3)) + 0.045 * breath);
+      }
+    }
+    return out;
+  }
   const cutoff = { clothRustle: 1600, riggingCreak: 800, waterLap: 950, groveRustle: 2100, paperRustle: 2600 }[kind];
   const a = 1 - Math.exp(-TAU * cutoff / sr);
   const lowA = 1 - Math.exp(-TAU * 170 / sr);
@@ -57,7 +78,7 @@ export class StageDetailSound {
     this.stage = sound.stage;
     this.paused = !!sound._stagePaused;
     this.voices = new Set();
-    this.buffers = new Map(); // At most three variants for each of five kinds.
+    this.buffers = new Map(); // At most three variants for each detail kind.
     this.last = new Map();
     this.lastAny = -Infinity;
     this.ambient = null;
