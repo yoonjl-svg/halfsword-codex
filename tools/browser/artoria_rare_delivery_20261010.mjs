@@ -3,6 +3,7 @@
 // Public verification also requires --local-evidence=<passing local report.json>.
 // Optional --hero saves a separate paused Artoria view with UI hidden; physics is unchanged.
 // --scope=appearance repeats one mobile flow and reuses unchanged, previously verified crown progression.
+// --scope=mobile checks one mobile flow only; it makes no campaign-progression claim.
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -29,8 +30,8 @@ const encounterId = args.encounter || 'artoria';
 assert(['artoria', 'crown_boss'].includes(encounterId));
 const encounter = CHARACTERS_BY_ID[encounterId], crown = encounterId === 'crown_boss';
 const scope = args.scope || 'full';
-assert(['full', 'appearance'].includes(scope));
-assert(scope !== 'appearance' || crown);
+assert(['full', 'appearance', 'mobile'].includes(scope));
+assert(scope === 'full' || crown);
 let reusedProgression = null;
 if (scope === 'appearance') {
   const receiptPath = path.join(root, 'docs/content/crown_boss_release.json');
@@ -45,14 +46,14 @@ if (scope === 'appearance') {
   reusedProgression = { receipt: 'docs/content/crown_boss_release.json', gameCommit: receipt.gameCommit,
     sources, scope: 'Previous final-stage transition fixture; unchanged dependency hashes. Not rerun here.' };
 }
-const activeScenarios = scope === 'appearance' ? scenarios.slice(0, 1) : scenarios;
+const activeScenarios = scope === 'full' ? scenarios : scenarios.slice(0, 1);
 const stageId = crown ? 'crown_sanctum' : 'loggia';
 const landingFile = crown ? 'crown-boss.html' : 'artoria.html';
 const heroFile = crown ? 'crown-boss.webp' : 'artoria.webp';
 const query = `?cards=sain,ice&foe=${encounterId}&stage=${stageId}`;
 assert(args.build && path.isAbsolute(args.build) && args.out && path.isAbsolute(args.out));
 const build = await fs.realpath(args.build), out = path.resolve(args.out);
-assert((out.startsWith('/tmp/halfsword-artoria-rare-20261010/') || out.startsWith('/tmp/halfsword-ice-hbo-20261010/') || out.startsWith('/tmp/halfsword-crown-boss-20261010/')));
+assert((out.startsWith('/tmp/halfsword-artoria-rare-20261010/') || out.startsWith('/tmp/halfsword-ice-hbo-20261010/') || out.startsWith('/tmp/halfsword-crown-boss-20261010/') || out.startsWith('/tmp/halfsword-crown-uniform-20261010/')));
 await fs.mkdir(path.dirname(out), { recursive: true });
 assert.equal(await fs.realpath(path.dirname(out)), path.dirname(out)); await fs.mkdir(out);
 const base = new URL(args.base || 'https://yoonjl-svg.github.io/halfsword-codex/');
@@ -357,7 +358,7 @@ try {
     await progressStart('cathedral', CHARACTERS_BY_ID.margarethe.name);
     await progressEnd('enemy', '승리', '다음 상대');
     const boss = await progressStart('crown_sanctum', encounter.name);
-    assert.equal(boss.helmet, 'crown'); assert.equal(boss.soundStage, 'cathedral'); assert.equal(boss.cards, 'px');
+    assert.equal(boss.helmet, encounter.look.helmet || null); assert.equal(boss.soundStage, 'cathedral'); assert.equal(boss.cards, 'px');
     await progressEnd('player', '패배', '다시 싸우기');
     await progressStart('crown_sanctum', encounter.name);
     await progressEnd('enemy', '여정 완료', '새 여정');
@@ -387,6 +388,7 @@ try {
       'The selected encounter native outfit and expected weapon appearance persist through observed gameplay and restart. Injury status is reported only when naturally observed; lack of wounds does not establish post-injury appearance behavior.',
       'This bounded flow does not establish combat balance, draw probabilities or ordinary campaign order. Optional hero photo reframes only the actual camera and hides UI with CSS while paused, with unchanged physics snapshots.',
       'Full crown scope includes a separate controlled final-stage progression fixture; appearance scope reuses that previous evidence after checking unchanged dependency hashes. Neither is natural combat victory evidence.',
+      'Mobile scope checks one touch/restart flow only and neither reruns nor attests to campaign progression.',
       'All served bytes match the frozen build, including the main bundle and requested weapon assets. One logged retry is allowed for GET 502/503.'] };
   await fs.writeFile(path.join(out, 'report.json'), JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify({ pass, buildStable, flows: flows.length, requests: requests.length, wallMs: report.wallMs, fatal, out }));

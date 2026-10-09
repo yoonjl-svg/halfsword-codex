@@ -4,9 +4,9 @@ import { getLook, CHARACTER_LOOK_VERSION } from './looks.js';
 
 export const EXPANSION_CHARACTERS = [
   {
-    id: 'crown_boss', name: '왕관의 기사', epithet: '마지막 문지기', age: 28,
-    origin: '이름을 잃은 왕국의 성소', weapon: 'longsword', voice: 'isolde',
-    backstory: '텅 빈 성소에 홀로 남은 기사. 왕좌를 지키는 대신, 그 앞에 선 사람을 마주한다.',
+    id: 'crown_boss', name: '푸른 제복의 검사', epithet: '마지막 문지기', age: 28,
+    origin: '인도 · 서해안의 항구 도시', weapon: 'longsword', voice: 'isolde',
+    backstory: '바다를 건너온 검사가 텅 빈 성소의 마지막 문을 지킨다. 낡은 계급장보다 끝까지 지킨 약속을 믿는다.',
     want: '긴 여정의 끝에서 상대의 검을 확인하는 것.',
     school: '기존 양손검 유파를 사용하는 창작 최종 보스.',
     signatureMoves: '짧게 받아낸 뒤 빈틈으로 이어지는 양손 베기.',

@@ -2238,7 +2238,152 @@ const CROWN_SOVEREIGN_LIGHT = {
   footF: crownLightFoot, footB: crownLightFoot,
 };
 
+// Blue uniform: tailoring, a pleated skirt and equipment give the clothing a
+// silhouette of its own. No invisible crown/plate protection beneath this suit.
+const UNIFORM_BLUE = 0x285f8e, UNIFORM_NAVY = 0x192d49, UNIFORM_LIGHT = 0xe4e6df;
+function uniformTorso(g, taper = 1) {
+  artoriaSoftBase(g, 0.05, taper);
+  g.children[0].material.roughness = 0.9;
+  g.children[0].material.metalness = 0;
+}
+function uniformLine(g, points, color, width = 0.0018) {
+  return addMerged(g, [taperedTube(points, points.map(() => width), points.length * 5, 4)], color, CLOTH);
+}
+function uniformHair(g, look) {
+  const layer = artoriaCloth(g, 'uniform-hair'), locks = [];
+  // Parted fringe ends above the game's original small black eyes.
+  for (let i = -3; i <= 3; i++) {
+    const z = i * 0.023;
+    locks.push(isoldeLock([[0.034, 0.103, z * 0.65], [0.087, 0.079, z], [0.104, 0.041, z * 1.03], [0.102, 0.023 + ((i + 3) % 3) * 0.004, z * 1.05 + 0.013]], [0.034, 0.035, 0.027, 0.003], 0.009));
+  }
+  for (const s of [-1, 1]) {
+    for (let i = 0; i < 3; i++) locks.push(isoldeLock([
+      [0.003 - i * 0.035, 0.071, s * 0.094], [0.005 - i * 0.047, -0.01, s * 0.114],
+      [0.016 - i * 0.039, -0.105, s * 0.119], [0.045 - i * 0.036, -0.157 + i * 0.018, s * 0.096],
+    ], [0.032, 0.048, 0.038, 0.005], 0.01));
+  }
+  // A continuous nape, not separate long locks meeting across a moving neck.
+  for (let i = -2; i <= 2; i++) locks.push(isoldeLock([
+    [-0.07, 0.071, i * 0.036], [-0.111, -0.024, i * 0.043], [-0.103, -0.117, i * 0.043],
+  ], [0.041, 0.05, 0.011], 0.012));
+  addMerged(layer, locks, look.hair, { ...CLOTH, roughness: 0.87 });
+  const braids = [];
+  for (let strand = 0; strand < 3; strand++) {
+    const pts = Array.from({ length: 25 }, (_, i) => {
+      const t = i / 24, a = t * Math.PI * 7 + strand * Math.PI * 2 / 3;
+      return [-0.025 + 0.012 * Math.cos(a), 0.029 - t * 0.294, -0.124 - t * 0.015 + 0.014 * Math.sin(a)];
+    });
+    braids.push(taperedTube(pts, pts.map((_, i) => 0.012 - i / 24 * 0.003), 48, 6));
+  }
+  addMerged(layer, braids, look.hair, CLOTH);
+  addMerged(layer, [cyl(0.018, 0.017, 0.012, 10, false, [-0.025, -0.238, -0.137]),
+    box(0.023, 0.012, 0.036, [-0.012, 0.034, -0.13], [0.2, 0, -0.15])], UNIFORM_NAVY, CLOTH);
+  addMerged(layer, [ball(0.006, 8, 6, [0.004, 0.035, -0.13])], 0xbbad89, CLOTH);
+}
+function uniformSkirt(g) {
+  // Each half follows its own thigh, so a lunge does not leave a rigid skirt
+  // standing in front of the legs. Overlap at the centre hides the rest seam.
+  const geo = new THREE.CylinderGeometry(0.087, 0.139, 0.266, 40, 5, true);
+  const p = geo.attributes.position;
+  for (let i = 0; i < p.count; i++) {
+    const a = Math.atan2(p.getZ(i), p.getX(i)), t = (0.133 - p.getY(i)) / 0.266;
+    const fold = 1 + (0.027 + t * 0.055) * Math.cos(a * 10);
+    p.setXYZ(i, p.getX(i) * fold * 1.04, p.getY(i) + 0.045, p.getZ(i) * fold);
+  }
+  geo.computeVertexNormals();
+  addMerged(g, [geo], UNIFORM_NAVY, { ...CLOTH, side: THREE.DoubleSide }).name = 'uniform-pleats';
+  const hem = new THREE.CylinderGeometry(0.1385, 0.1395, 0.01, 40, 1, true), h = hem.attributes.position;
+  for (let i = 0; i < h.count; i++) {
+    const a = Math.atan2(h.getZ(i), h.getX(i)), fold = 1 + 0.082 * Math.cos(a * 10);
+    h.setXYZ(i, h.getX(i) * fold * 1.04, h.getY(i) - 0.08, h.getZ(i) * fold);
+  }
+  hem.computeVertexNormals(); addMerged(g, [hem], 0x4b6989, { ...CLOTH, side: THREE.DoubleSide });
+}
+function uniformCuff(g) {
+  sleeveVolume(g, 1.04, 1);
+  addMerged(g, [cyl(0.048, 0.046, 0.052, 16, true, [0, -0.083, 0])], UNIFORM_NAVY, { ...CLOTH, side: THREE.DoubleSide });
+  addMerged(g, [cyl(0.049, 0.049, 0.004, 16, true, [0, -0.058, 0]), cyl(0.047, 0.047, 0.004, 16, true, [0, -0.109, 0])], UNIFORM_LIGHT, CLOTH);
+  addMerged(g, [-0.071, -0.091].map(y => ball(0.004, 8, 6, [0.05, y, 0])), 0xb9a67b, CLOTH);
+}
+function uniformBoot(g) {
+  g.children[0].material.color.setHex(UNIFORM_LIGHT);
+  addMerged(g, [cyl(0.054, 0.056, 0.071, 16, true, [0, 0.118, 0])], UNIFORM_NAVY, { ...CLOTH, side: THREE.DoubleSide });
+  addMerged(g, [cyl(0.057, 0.057, 0.007, 16, true, [0, 0.084, 0])], 0x536375, CLOTH);
+  addMerged(g, [cyl(0.053, 0.053, 0.015, 16, true, [0, 0.05, 0]), cyl(0.052, 0.052, 0.015, 16, true, [0, 0.008, 0])], 0xbec4c4, CLOTH);
+  addMerged(g, [box(0.008, 0.02, 0.022, [0.055, 0.05, 0]), box(0.008, 0.02, 0.022, [0.054, 0.008, 0])], 0xc1b38b, { metalness: 0.25, roughness: 0.6 });
+  uniformLine(g, [[0.048, 0.071, -0.026], [0.054, -0.04, -0.021], [0.037, -0.142, -0.012]], 0xa6b1b7, 0.0012);
+}
+function uniformShoe(g) {
+  artoriaSoftBase(g, 0.03);
+  const body = g.children[0]; body.material.color.setHex(UNIFORM_LIGHT);
+  const sole = artoriaRoundedBox(0.245, 0.017, 0.107, 0.008);
+  addMerged(g, [bake(sole, [0, -0.028, 0])], UNIFORM_NAVY, CLOTH);
+  uniformLine(g, [[0.113, 0.003, -0.04], [0.12, 0.017, 0], [0.113, 0.003, 0.04]], 0xb9c1c6, 0.0014);
+}
+const CROWN_BLUE_UNIFORM = {
+  head(g, look) { quietFace(g, look, 'uniform'); uniformHair(g, look); },
+  chest(g, look) {
+    uniformTorso(g, 0.87);
+    const base = g.children[0].geometry, p = base.attributes.position;
+    for (let i = 0; i < p.count; i++) if (p.getX(i) > 0.01) {
+      const fullness = Math.exp(-Math.pow((p.getY(i) - 0.018) / 0.075, 2) - Math.pow((Math.abs(p.getZ(i)) - 0.074) / 0.064, 2));
+      p.setX(i, p.getX(i) + fullness * 0.012);
+    }
+    base.computeVertexNormals(); clothNeck(g, look);
+    addMerged(g, [cyl(0.072, 0.08, 0.046, 18, true, [0, 0.157, 0])], UNIFORM_NAVY, { ...CLOTH, side: THREE.DoubleSide });
+    addMerged(g, [cyl(0.073, 0.073, 0.003, 18, true, [0, 0.18, 0])], UNIFORM_LIGHT, CLOTH);
+    const shoulder = [];
+    for (const s of [-1, 1]) shoulder.push(bake(artoriaRoundedBox(0.142, 0.018, 0.061, 0.008), [-0.002, 0.135, s * 0.142]));
+    addMerged(g, shoulder, UNIFORM_NAVY, CLOTH);
+    for (const s of [-1, 1]) uniformLine(g, [[0.071, 0.143, s * 0.121], [0.071, 0.141, s * 0.17], [-0.06, 0.141, s * 0.171]], UNIFORM_LIGHT, 0.0021);
+    // Flat cross belt: a ribbon resting on the tunic, not a cylindrical rope.
+    addMerged(g, [clothPanel(0.14, [[0.13, -0.143], [0.13, -0.119], [-0.134, 0.11], [-0.134, 0.086]], 0.003)], UNIFORM_LIGHT, CLOTH);
+    uniformLine(g, [[0.124, 0.128, 0.011], [0.142, 0.029, 0.011], [0.113, -0.133, 0.011]], 0x183b61, 0.002);
+    addMerged(g, [0.103, 0.047, -0.011, -0.075, -0.122].map(y => ball(0.0045, 8, 6, [y < -0.05 ? 0.125 : 0.143, y, 0.012])), 0xc0ab78, CLOTH);
+    addMerged(g, [box(0.008, 0.009, 0.025, [0.081, 0.158, 0]), ball(0.005, 8, 6, [0.085, 0.169, 0])], 0xc0ab78, CLOTH);
+    for (const s of [-1, 1]) uniformLine(g, [[0.105, 0.097, s * 0.135], [0.129, 0.004, s * 0.101], [0.103, -0.125, s * 0.095]], 0x416c99, 0.0014);
+  },
+  abdomen(g) {
+    uniformTorso(g, 0.94);
+    // Overlapping tailored waist joins the independently moving chest/hips.
+    // The visual overlap does not add a collider or constrain the spine.
+    const waist = new THREE.CylinderGeometry(1, 1, 0.245, 32, 8, false), wp = waist.attributes.position;
+    for (let i = 0; i < wp.count; i++) {
+      const t = Math.abs(wp.getY(i) / 0.1225);
+      wp.setXYZ(i, wp.getX(i) * (0.107 + 0.015 * t), wp.getY(i), wp.getZ(i) * (0.151 + 0.012 * t));
+    }
+    waist.computeVertexNormals(); g.children[0].geometry.copy(waist); waist.dispose();
+    addMerged(g, [clothPanel(0.119, [[0.082, 0.088], [0.082, 0.112], [-0.069, 0.15], [-0.069, 0.125]], 0.003)], UNIFORM_LIGHT, CLOTH);
+    const belt = new THREE.CylinderGeometry(1, 1, 0.036, 32, 1, true); belt.scale(0.121, 1, 0.166); belt.translate(0, -0.039, 0);
+    addMerged(g, [belt], 0x40372f, { ...CLOTH, side: THREE.DoubleSide });
+    addMerged(g, [box(0.012, 0.03, 0.043, [0.124, -0.039, -0.012])], 0xb6b8af, { metalness: 0.35, roughness: 0.5 });
+    addMerged(g, [box(0.014, 0.018, 0.026, [0.129, -0.039, -0.012])], 0x514838, CLOTH);
+    const pouches = [-0.092, -0.139].map(z => bake(artoriaRoundedBox(0.036, 0.057, 0.035, 0.009), [0.12, -0.047, z]));
+    addMerged(g, pouches, 0x635545, CLOTH);
+    addMerged(g, [-0.092, -0.139].map(z => box(0.038, 0.012, 0.038, [0.12, -0.023, z])), 0x817057, CLOTH);
+  },
+  pelvis(g) {
+    uniformTorso(g, 1);
+    // Jacket skirt ends above the distinct dark pleats, flared slightly at hips.
+    const skirt = new THREE.CylinderGeometry(1, 1.12, 0.135, 32, 4, true), p = skirt.attributes.position;
+    for (let i = 0; i < p.count; i++) {
+      const a = Math.atan2(p.getZ(i), p.getX(i));
+      p.setXYZ(i, p.getX(i) * 0.117, p.getY(i) - 0.054 + 0.014 * Math.cos(a * 2), p.getZ(i) * 0.17);
+    }
+    skirt.computeVertexNormals(); addMerged(g, [skirt], UNIFORM_BLUE, { ...CLOTH, side: THREE.DoubleSide });
+    uniformLine(g, [[0.119, 0.055, 0.012], [0.126, -0.036, 0.012], [0.129, -0.105, 0.012]], 0x193c60);
+    addMerged(g, [ball(0.0045, 8, 6, [0.133, -0.055, 0.012])], 0xc0ab78, CLOTH);
+    addMerged(g, [bake(artoriaRoundedBox(0.04, 0.118, 0.079, 0.012), [0.03, -0.02, 0.189])], 0x494437, CLOTH);
+    addMerged(g, [box(0.048, 0.023, 0.082, [0.03, 0.032, 0.189])], 0x786b50, CLOTH);
+  },
+  uarmS(g) { sleeveVolume(g, 1.055, 1.01); }, uarmO(g) { sleeveVolume(g, 1.055, 1.01); },
+  farmS: uniformCuff, farmO: uniformCuff,
+  thighF: uniformSkirt, thighB: uniformSkirt,
+  shinF: uniformBoot, shinB: uniformBoot, footF: uniformShoe, footB: uniformShoe,
+};
+
 export const OUTFITS = {
+  crown_blue_uniform: CROWN_BLUE_UNIFORM,
   crown_sovereign_light: CROWN_SOVEREIGN_LIGHT,
   crown_sovereign: CROWN_SOVEREIGN,
   artoria_silver: ARTORIA_OUTFIT,

@@ -1,0 +1,120 @@
+{
+  "status": "Final dark local mobile passed; public deployment pending",
+  "basis": "c1e4f9b0cdb3f95705f62ea9d8b30876c5a619f1",
+  "character": "crown_boss",
+  "look": "v3",
+  "hair": "#2d211d",
+  "userDecision": "Copper skin / blue uniform, then explicit dark espresso-brown hair choice. Previous v1/v2 rejected; v3 aesthetic acceptance pending.",
+  "gameCommit": null,
+  "sourceHashes": {
+    "src/outfits.js": "2f6891a7991bc10636b3d6c5fb30afadf83fd735c8c7437b23bee08c116d294d",
+    "src/looks.js": "3619dae3cae09fbcc703647f4b0fe6b051437149daa2990d7c46665b05601429",
+    "src/characters_expansion.js": "5a9a26069519db6e370870405f7da1dac43a664274fbcfecd8f4f3927ba6afd8",
+    "src/main.js": "d92e23d61a144696eb738e71f93775747227fa0c7dc5356c41c81fcfed1ce34d",
+    "src/stages.js": "9669101630feae334e98efafe05f6b991edfe9bfc025449987c8334c17955560",
+    "src/sound.js": "6ee40ea507bcb6818679d056f9747720832c6fd83e365b56d7ccc7ba3f8c8676",
+    "src/config.js": "08b9818b6d9f45aecd1d7f88f664fc43491db73a395f0b242bf211e0ece3200c",
+    "tools/sim/experiments/crown_boss_gate.mjs": "450543b6801abec8dcc4ef1ef5aa4b7702eccea9c182246e1bfae0837d77a975",
+    "tools/browser/artoria_rare_delivery_20261010.mjs": "a83390d47de95b4a250b14a012b89d8307a7794ada965fd88bf06046085630f1"
+  },
+  "native": {
+    "pass": true,
+    "checks": 15,
+    "sourceStable": true,
+    "reportSHA256": "ac0fab003513c067c496e4e5c06c2f00c26881d5e5627da017f8436362d42d77",
+    "scope": "1440 bounded actual-game combat steps; 240 explicit wound fixture steps; prior pink hair, same final geometry."
+  },
+  "construction": {
+    "pass": true,
+    "checks": {
+      "worldSnapshotSHA": true,
+      "bodyMasses": true,
+      "weapon": true,
+      "ai": true
+    },
+    "intentionalOutfitChanges": {
+      "helmet": [
+        true,
+        false
+      ],
+      "plateParts": [
+        11,
+        0
+      ],
+      "plateGait": [
+        7,
+        0
+      ]
+    },
+    "limit": "Construction identity only. Removing worn armour changes protection and its existing movement drag during play."
+  },
+  "colorOnlyReuse": {
+    "pass": true,
+    "nativeSHA256": "ac0fab003513c067c496e4e5c06c2f00c26881d5e5627da017f8436362d42d77",
+    "changedSourceFiles": [
+      "looks.js"
+    ],
+    "onlyReplacement": [
+      "hair: 0xb78282",
+      "hair: 0x2d211d"
+    ],
+    "beforeLooksSHA256": "47e25d206d32b407fa3ca0df94c11f869fe02528fcdc6bcac435c97ffec474bb",
+    "afterLooksSHA256": "3619dae3cae09fbcc703647f4b0fe6b051437149daa2990d7c46665b05601429"
+  },
+  "preliminaryPinkLocal": {
+    "pass": true,
+    "flows": 2,
+    "progressionPass": true,
+    "progressionRows": 7,
+    "reportSHA256": "58b40bbc45c32711ae0d32e2783d0377422bfcfa79c5247a742a5946c1206eb8",
+    "toolSHA256": "0a82fcf33acd1b8ea369b063117360fa50b16250c07ca0cef5e6c7b9c01be69c",
+    "scope": "Full local frozen pink-hair build; explicit final-stage transitions, not natural wins; no final dark public claim."
+  },
+  "finalPhotos": [
+    {
+      "view": "threeq",
+      "path": "encounters/crown-boss.webp",
+      "bytes": 20636,
+      "sha256": "b7cdee815fd390de654b73c943ddecd753cd1566aaba05c29f43351c9c86c87d"
+    },
+    {
+      "view": "front",
+      "path": "encounters/crown-boss-front.webp",
+      "bytes": 19592,
+      "sha256": "824667e5fd73d9787e3f2fd3c3ad1ef009a363bb1d71cd1b649ddbb26f7fa434"
+    },
+    {
+      "view": "side",
+      "path": "encounters/crown-boss-side.webp",
+      "bytes": 16474,
+      "sha256": "e621ea7ced9433a2769198ea6c42a4346fe65625228372e78ec974263c929061"
+    },
+    {
+      "view": "back",
+      "path": "encounters/crown-boss-back.webp",
+      "bytes": 14884,
+      "sha256": "ad8a3d3e8a535aa9058fbf9919c90827b1aa6afbe8e7be1f66740838e6e45839"
+    }
+  ],
+  "local": {
+    "pass": true,
+    "flows": 1,
+    "requests": 190,
+    "uniqueFiles": 179,
+    "errors": 0,
+    "scope": "mobile",
+    "buildStable": true,
+    "toolSHA256": "a83390d47de95b4a250b14a012b89d8307a7794ada965fd88bf06046085630f1",
+    "reportSHA256": "5edcca286f064596e3236a09bb4a69633c305ded0bb85a347f3147bce87301ee"
+  },
+  "public": null,
+  "pages": null,
+  "playURL": "https://yoonjl-svg.github.io/halfsword-codex/crown-boss.html",
+  "limits": [
+    "Final mobile test does not repeat campaign progression; preliminary full local evidence retained separately.",
+    "Chromium mobile/touch emulation, not physical-phone FPS or human acceptance.",
+    "Portraits use existing alber guard and neutral lighting; ordinary gameplay capture separately uses AI/stage lighting.",
+    "No helmet or plate in uniform: old protection and existing plate movement drag removed. Physics formulas, body masses, colliders, weapon and AI unchanged.",
+    "Pleats follow two thigh parts; not cloth simulation. Overlap seams and segmented knees remain."
+  ]
+}
