@@ -12,6 +12,7 @@
 //  실측이 없어 물리적으로 그럴듯하게 추정/창작한 값. 아래 각 무기 설명에 표기해 둔다.
 // ─────────────────────────────────────────────────────────────
 import { classifyWeapon } from './weapon_class.js';
+import { drawGroupedWeaponCards } from './weapon_draw.js';
 import { MORGENSTERN_DESIGN as MACE } from './morgenstern_design.js';
 import * as THREE from 'three';
 import { swordKit, metalMat, weaponEnv, hiddenParts, drawTreeBranch, drawRubberChicken, drawFrozenTuna, drawPistol, morgensternKit, PISTOL_GRIP, PISTOL_BORE_X } from './weapon_looks.js';
@@ -57,24 +58,8 @@ export const TIER_DRAW = { common: 40, rare: 27, epic: 16, legend: 5, trash: 7, 
  * 서로 다른 무기 n장을 뽑는다. pool: 뽑을 수 있는 무기 id 목록, exclude: 되도록 빼는 id(지난 판 무기).
  *  빈 등급(뽑을 무기가 없는 등급)은 건너뛰고 남은 등급끼리 비율을 다시 맞춘다. rnd: 0~1 난수 (기본 Math.random)
  */
-export function drawWeaponCards(pool, n = 2, { exclude = null, rnd = Math.random } = {}) {
-  let left = pool.filter((id) => id !== exclude);
-  if (left.length < n) left = [...pool];
-  const out = [];
-  while (out.length < n && left.length) {
-    const byTier = {};
-    for (const id of left) (byTier[getWeapon(id).tier] ||= []).push(id);
-    const tiers = Object.keys(byTier).filter((t) => (TIER_DRAW[t] ?? 0) > 0);
-    const total = tiers.reduce((a, t) => a + TIER_DRAW[t], 0);
-    let r = rnd() * total;
-    let t = tiers[tiers.length - 1];
-    for (const k of tiers) if ((r -= TIER_DRAW[k]) < 0) { t = k; break; }
-    const ids = byTier[t] ?? left;
-    const id = ids[Math.floor(rnd() * ids.length)];
-    out.push(id);
-    left = left.filter((x) => x !== id);
-  }
-  return out;
+export function drawWeaponCards(pool, n = 2, options = {}) {
+  return drawGroupedWeaponCards(pool, n, { ...options, getWeapon, tierWeights: TIER_DRAW });
 }
 
 // ── 파손 판정 규칙: 확률식 (감독 지시 — "예산을 넘으면 부러진다"는 너무 필연적이라 버렸다) ──
@@ -763,6 +748,121 @@ const qinggang = finalizeSpec('qinggang', {
   },
 });
 
+// 간장·막야 [I] 창작 제원. 전체 물리 길이는 폼멜끝(-.11)부터 칼끝까지 1.00/.96m.
+// 청강검의 네 부품·손 원점을 재사용한다. 후광은 aura.js, 같은 묶음 추첨은 drawGroup 담당.
+const LEGENDARY_JIAN = {
+  ganjiang: { blade: 0.77, bladeMass: 0.64, gripMass: 0.11, pommelMass: 0.14, guardMass: 0.06,
+    halfWidth: 0.015, thick: 0.0034, steel: 0x62625d, grip: 0xc9c9be, metal: 0xb9c5c7, pattern: 0xa48d64 },
+  moye: { blade: 0.73, bladeMass: 0.745, gripMass: 0.12, pommelMass: 0.18, guardMass: 0.075,
+    halfWidth: 0.016, thick: 0.0038, steel: 0xe3eaed, grip: 0x201e1b, metal: 0x9a8255, pattern: 0x849fa8 },
+};
+
+function legendaryJianParts() {
+  const d = LEGENDARY_JIAN[this.id], L = this.bladeLength;
+  const grip = boxInertia(d.gripMass, 0.015, 0.09, 0.015);
+  const pommel = sphereInertia(d.pommelMass, 0.02);
+  const guard = boxInertia(d.guardMass, 0.035, 0.008, 0.012);
+  const blade = bladeInertia(d.bladeMass, L, 0.36, 0.25, 2 * d.halfWidth, 0.009);
+  return [
+    partTuple(['box', 0.015, 0.09, 0.015], 0, d.gripMass, 0, grip.Ie, grip.It, d.grip),
+    partTuple(['ball', 0.02], -0.09, d.pommelMass, 0, pommel.Ie, pommel.It, d.metal),
+    partTuple(['box', 0.035, 0.008, 0.012], 0.11, d.guardMass, 0, guard.Ie, guard.It, d.metal),
+    partTuple(['box', d.halfWidth, L / 2, 0.0045], 0.12 + L / 2, d.bladeMass,
+      blade.comY, blade.Ie, blade.It, d.steel, true),
+  ];
+}
+
+// 紋은 칼면 위 얇은 삼각형 선 한 벌로 그린다. 텍스처·발광·충돌·새 강체는 없다.
+function legendaryJianDecorate(group) {
+  const d = LEGENDARY_JIAN[this.id], L = this.bladeLength;
+  const metal = metalMat(d.metal, { rough: 0.23 });
+  const dark = this.id === 'ganjiang';
+  const guard = addMesh(group, new THREE.OctahedronGeometry(0.034, 0), metal, [0, 0.11, 0]);
+  guard.scale.set(1.06, 0.35, 0.52);
+  guard.castShadow = true;
+  const collar = addMesh(group, new THREE.CylinderGeometry(0.012, 0.014, 0.036, 8), metal, [0, 0.144, 0]);
+  collar.scale.set(1.2, 1, 0.55);
+  collar.castShadow = true;
+  // 자루 목띠와 이중 원반 상감.
+  for (const y of [-0.065, 0.073]) {
+    const ring = addMesh(group, new THREE.TorusGeometry(0.016, 0.0014, 5, 16), metal, [0, y, 0]);
+    ring.rotation.x = Math.PI / 2;
+  }
+  for (const side of [-1, 1]) {
+    addMesh(group, new THREE.TorusGeometry(0.014, 0.0008, 5, 20), metal, [0, -0.09, side * 0.008]);
+    const seal = addMesh(group, new THREE.OctahedronGeometry(0.006, 0), metal, [0, -0.09, side * 0.008]);
+    seal.scale.set(1, 1, 0.3);
+    const heart = addMesh(group, new THREE.TorusGeometry(0.007, 0.0007, 5, 16), metal, [0, 0.11, side * 0.017]);
+    heart.scale.y = 0.62;
+  }
+  const vertices = [];
+  const surface = (x, y, side) => {
+    const t = (y - 0.12) / L;
+    return [x, y, side * (d.thick * (1 - 0.35 * t) + 0.00012)];
+  };
+  const stroke = (a, b) => {
+    const dx = b[0] - a[0], dy = b[1] - a[1], len = Math.hypot(dx, dy);
+    if (len < 1e-6) return;
+    const nx = -dy / len * 0.00014, ny = dx / len * 0.00014;
+    for (const side of [-1, 1]) {
+      const p = surface(a[0] + nx, a[1] + ny, side);
+      const q = surface(a[0] - nx, a[1] - ny, side);
+      const r = surface(b[0] - nx, b[1] - ny, side);
+      const s = surface(b[0] + nx, b[1] + ny, side);
+      vertices.push(...p, ...q, ...r, ...p, ...r, ...s);
+    }
+  };
+  if (dark) {
+    // 귀갑문: 두 줄의 육각 세공이 칼끝 방향으로 가늘어진다.
+    for (let y = 0.195; y < 0.12 + L - 0.105; y += 0.023) {
+      const taper = 1 - 0.25 * (y - 0.12) / L;
+      for (const x of [-0.0046, 0.0046]) {
+        const points = Array.from({ length: 7 }, (_, k) => {
+          const a = k * Math.PI / 3;
+          return [(x + Math.cos(a) * 0.0045) * taper, y + Math.sin(a) * 0.0115];
+        });
+        for (let k = 0; k < 6; k++) stroke(points[k], points[k + 1]);
+      }
+    }
+  } else {
+    // 흐르는 담금질 결: 날선을 가리지 않는 다섯 줄의 은은한 물결.
+    for (let line = -2; line <= 2; line++) {
+      let prev;
+      for (let k = 0; k <= 80; k++) {
+        const t = k / 80, y = 0.185 + t * (L - 0.165);
+        const x = (line * 0.0032 + Math.sin(t * 5 * Math.PI + line * 0.65) * 0.0012) * (1 - 0.3 * t);
+        const point = [x, y];
+        if (prev) stroke(prev, point);
+        prev = point;
+      }
+    }
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+  geo.computeVertexNormals();
+  addMesh(group, geo, metalMat(d.pattern, { rough: 0.42, metal: 0.6, side: THREE.DoubleSide }));
+}
+
+function legendaryJianSpec(id, nameKo, nameEn, desc) {
+  const d = LEGENDARY_JIAN[id];
+  return finalizeSpec(id, {
+    nameKo, nameEn, desc, grip: 'one-hand', material: 'steel', tier: 'legend',
+    drawGroup: 'ganjiang_moye', hiltLength: 0.12, bladeLength: d.blade,
+    mCut: 1.15, mThrust: 1.15, mBlunt: 0.95,
+    partMesh: swordKit({
+      blade: { edge: 'double', width: (t) => 1 - 0.25 * t, thick: d.thick,
+        tip: 'spear', tipLen: 0.075, overshoot: 0 },
+      grip: { style: 'cord' }, pommel: { style: 'disc' }, guard: { style: 'none' }, metal: d.metal,
+    }),
+    buildParts: legendaryJianParts, decorate: legendaryJianDecorate,
+  });
+}
+
+const ganjiang = legendaryJianSpec('ganjiang', '간장', 'Ganjiang',
+  '어두운 회금빛 칼몸에 귀갑문을 새긴 명검.\n길이 100cm, 질량 0.95kg의 한손 양날검.');
+const moye = legendaryJianSpec('moye', '막야', 'Moye',
+  '밝은 은강철에 물결 같은 결이 흐르는 명검.\n길이 96cm, 질량 1.12kg의 한손 양날검.');
+
 // (옛 11 '환두대도' 는 감독 결정으로 삭제 — 세이버·팔쉬온과 겹쳤다. 'hwandudaedo' 는 별칭으로 롱소드를 가리킨다.)
 
 // ═════════════════════════════════════════════════════════════
@@ -1087,7 +1187,7 @@ const morgenstern = finalizeSpec('morgenstern', {
 
 export const WEAPONS = {
   longsword, zweihander, estoc, sabre, rapier, falchion,
-  monohoshizao, qinggang, excalibur, excalibur_replica: excaliburReplica, lightsaber, tree_branch: treeBranch,
+  monohoshizao, qinggang, ganjiang, moye, excalibur, excalibur_replica: excaliburReplica, lightsaber, tree_branch: treeBranch,
   rubber_chicken: rubberChicken, frozen_tuna: frozenTuna, pistol, morgenstern,
 };
 

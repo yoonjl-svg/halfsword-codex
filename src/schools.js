@@ -21,6 +21,7 @@
 //   withdraw 물러날 때 겨누는 자세 이름: pressed(몰아치는 상대에게), calm(그 밖에, 둘 중 하나를 무작위로)
 //   pose     그 밖의 고정 손 위치: cover(쓰러졌을 때 머리 위로 가리기), point(칼끝으로 겨누기)
 // ─────────────────────────────────────────────────────────────
+import { getWeapon } from './weapons.js';
 import { G, WATCH_GUARDS, TECH, TECH_BY_NAME, FEINTS } from './ai_techniques.js';
 import { HIGH_GUARDS } from './ai_techniques.js'; // 10라운드 6-7 덧붙이기 (아래 끝)
 
@@ -87,6 +88,18 @@ SCHOOLS.jian = {
 
 // 청강검(에픽): 물리는 지안이지만 양손 가정(토크 22) 뒤 무기 담당이 다시 잰 measure (전 1.32/1.55/1.02/0.38)
 SCHOOLS.qinggang = { ...SCHOOLS.jian, id: 'qinggang', weapon: 'qinggang', measure: { contact: 1.35, reach: 1.52, clinch: 1.04, cutTime: 0.24 } }; // 10라운드 hybrid 재실측 (전 1.37/1.61/1.06/0.36)
+
+// New legendary jian reuse Chinese one-hand technique choices. Distances below
+// are geometric estimates from Qinggang, not new measured combat statistics.
+for (const id of ['ganjiang', 'moye']) {
+  const weapon = getWeapon(id), base = getWeapon('qinggang');
+  const scale = (weapon.hiltLength + weapon.bladeLength) / (base.hiltLength + base.bladeLength);
+  const m = SCHOOLS.qinggang.measure;
+  SCHOOLS[id] = { ...SCHOOLS.jian, id, weapon: id, measure: {
+    ...m, contact: m.contact * scale, reach: m.reach * scale, clinch: m.clinch * scale,
+  } };
+}
+
 
 // 엑스칼리버 복제품: 황동 장식에 칼날이 두껍고 무거워(1.50kg·1.00m) 롱소드보다 간격이 아주 조금 좁다. 자세·기술은 롱소드 그대로
 const replicaTech = withReach(TECH, { zornhau: 0, unterhau: -0.04, zornhauL: -0.03, unterhauL: -0.07, stichPflug: 0.08, stichPflugL: 0.08, stichOchs: 0.08, stichOchsL: 0.08, stichAlber: 0.03 });
