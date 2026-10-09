@@ -1,0 +1,129 @@
+{
+  "status": "verified",
+  "dateKST": "2026-10-10",
+  "codeCommit": "3f1af8c1d68d3da7694ef1a28f0ab5d784990115",
+  "url": "https://yoonjl-svg.github.io/halfsword-codex/legendary-jian.html",
+  "pagesRun": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37962742022",
+  "pagesConclusion": "success",
+  "weapons": {
+    "ganjiang": {
+      "lengthCm": 100,
+      "bladeCm": 77,
+      "massKg": 0.95,
+      "appearance": "dark blade and grip; white aura"
+    },
+    "moye": {
+      "lengthCm": 96,
+      "bladeCm": 73,
+      "massKg": 1.12,
+      "appearance": "light blade and grip; ink aura"
+    }
+  },
+  "common": "One-handed versatile v2, legendary unbreakable, power1.2, no special ability; paired card entry resolves 50:50 before reveal.",
+  "sourceHashes": {
+    "src/weapons.js": "b19517f58d0f3077ca2d96fcb4b27718d739a69a935ac25ddbf61ff10f2956b2",
+    "src/weapon_draw.js": "e3397c6a8b448be198b376a34b6ea20e322875e0bf3f505270afe0d597dddd12",
+    "src/aura.js": "7e394eae44d3b1781fbb2fe45a578fde751abc16a1dc0206ea922583faff4cb4",
+    "src/schools.js": "ecebcc4697642b37c19c07734195737d3c7e38a64707d6fb12de8062a49fbbb5",
+    "src/fighter.js": "b6bf5877950e48c61b482164db191d7cc4e4b74a93a31c7a69f84cc0e0af7f28",
+    "src/swordsmanship.js": "c48379760f2d98184464ac35bf552c6f4a7898be0a7230b8de63371d7efed356",
+    "src/swordsmanship_default.js": "203eb81fa6028154d2f31a2ade12e1243e93639cdce0f4c970b8702e360e2295",
+    "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+    "tools/sim/experiments/legendary_jian_gate.mjs": "156c4a5f27ff945ba47add18e9210bfd9ded57f48419845a67452952da8f6b08"
+  },
+  "native": {
+    "report": "/tmp/halfsword-jian-20261010/native-final-palette.json",
+    "sha256": "11ffecf62b6b4c921f4249c1278bc54dd4bce8941ec7047d8040e383ce127be2",
+    "pass": true,
+    "flows": 4,
+    "secondsPerFlow": 5,
+    "drawSamples": 20000
+  },
+  "regression": {
+    "report": "/tmp/halfsword-jian-20261010/regression/result.json",
+    "sha256": "386fdf0cd5cd985c42f307fc97f8fe9db10e517823af217a99c962438fa88cb7",
+    "pass": true,
+    "suites": 6,
+    "seconds": 237.6,
+    "reuse": {
+      "regressionPass": true,
+      "matchingSourceFiles": 120,
+      "changedSourceFiles": [
+        "src/aura.js"
+      ],
+      "justification": "Final palette restores the tested weapon source exactly. Only src/aura.js visual profile changed; native-final-palette checks snapshot invariance and disposal again."
+    }
+  },
+  "fullInputBaseline": {
+    "report": "/tmp/halfsword-jian-20261010/mobile-public-v1/report.json",
+    "sha256": "d0edddf1912dfda3131bdec267896e0ac0b5ca7aff8903b4831dfc309b8c1656",
+    "pass": true,
+    "commit": "b4464efc8465428306eb812dcda90e10d08a8398",
+    "flows": 2,
+    "recoveredGET503": 1
+  },
+  "localMobile": {
+    "report": "/tmp/halfsword-jian-20261010/mobile-local-contrast/report.json",
+    "sha256": "50965365a2205371d8bab53dfed112a521712ef8a059a6d65e4662d25ae4e15e",
+    "pass": true,
+    "flows": 2,
+    "requests": 372,
+    "uniqueFiles": 175,
+    "seconds": 202.0,
+    "errors": 0,
+    "retryAttempts": 0,
+    "visualOnly": true,
+    "scope": "Real card taps, game/aura frames, pause/resume/restart, weapon persistence and exact served assets. Prior full movement/attack input evidence reused."
+  },
+  "publicMobile": {
+    "report": "/tmp/halfsword-jian-20261010/mobile-public-contrast/report.json",
+    "sha256": "ed9b2d16d8950d7f6240e256b2ba74230f8238f1d45214ff0516391e39aa9260",
+    "pass": true,
+    "flows": 2,
+    "requests": 372,
+    "uniqueFiles": 175,
+    "seconds": 195.1,
+    "errors": 0,
+    "retryAttempts": 0,
+    "visualOnly": true,
+    "scope": "Real card taps, game/aura frames, pause/resume/restart, weapon persistence and exact served assets. Prior full movement/attack input evidence reused."
+  },
+  "build": {
+    "assets/main-ySGYAqfM.js": {
+      "bytes": 2958319,
+      "sha256": "8bcc19e5d8e6b9d46f70d51517592be924adbeee1b74c59ce5e62141d15a2f01"
+    },
+    "index.html": {
+      "bytes": 19631,
+      "sha256": "f05cf9cbb6f83faf2697a2a62a038bedaad268981a38cc623f2e34a98fe94a57"
+    },
+    "legendary-jian.html": {
+      "bytes": 2667,
+      "sha256": "5ada997a8c49c787570ed950a42953f1edcc351fd7a84d92ea5e4f8823874ea0"
+    }
+  },
+  "closeupVisual": {
+    "report": "/tmp/halfsword-jian-20261010/contrast-closeups/manifest.json",
+    "sha256": "bcdbab60820ec84c8801373ef2c36d5c7b1cbd9a400257c0b374848cb5a089a9",
+    "pass": true,
+    "scope": "Local actual game, same sword-relative camera, paused UI hidden; physics unchanged. Root inspected both images."
+  },
+  "limits": [
+    "No physical-phone FPS or human naturalness/balance validation.",
+    "White aura has low contrast against a bright sky.",
+    "Latest palette reuses full input and unchanged physics checks; only final visual/restart/assets and aura-native checks repeated."
+  ],
+  "completedUTC": "2026-10-09T17:02:33.095Z",
+  "archives": {
+    "compactReports": {
+      "path": "/workspace/halfsword-handoff/legendary-jian-evidence-20261010.tar.gz",
+      "bytes": 639597,
+      "sha256": "932fdc4ec2c0749d413735d8a89dea8dfebafb4d6924549659a53ada5d415dbe"
+    },
+    "reportsAndImages": {
+      "path": "/tmp/legendary-jian-evidence-20261010.tar.gz",
+      "bytes": 3050948,
+      "sha256": "72ffdb788faae44b11156f47fac258fce0fd74eef78113684be7e12a5d90df18"
+    }
+  }
+}

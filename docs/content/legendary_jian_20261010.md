@@ -20,13 +20,17 @@
 
 ## 검증과 재현
 
-- `node tools/sim/experiments/legendary_jian_gate.mjs /tmp/fresh-jian-report.json`: native4흐름(각10초), 보정v2·실제질량/관성·몸 유한값·청강검 파손 공격에도 불괴·후광 갱신의 물리 snapshot불변·후광 해제/geometry정리 PASS. 첫 검사 스크립트의 존재하지 않는 Fighter.dispose 호출은 clearLoose로 바로잡았다. 게임의 결함으로 분류하지 않는다.
+- `node tools/sim/experiments/legendary_jian_gate.mjs /tmp/fresh-jian-report.json`: native4흐름(각5초), 보정v2·실제질량/관성·몸 유한값·청강검 파손 공격에도 불괴·후광 갱신의 물리 snapshot불변·후광 해제/geometry정리 PASS. 첫 검사 스크립트의 존재하지 않는 Fighter.dispose 호출은 clearLoose로 바로잡았다. 게임의 결함으로 분류하지 않는다.
 - 실제 접촉 흐름: 간장15회 칼 충돌/총8상처, 막야9회/총16상처, 각각찌르기3회 수락. 이는 양쪽의 사건 합계이며 승률·무기 우열 증거가 아니다. 최대 각속도는99.06/42.95rad/s로 기록하며 유한값만으로 인간의 자연스러움을 판정하지 않는다.
 - 20,000회 첫 카드 추첨: 레전드1,033회, 엑스칼리버532/간장255/막야246. 두 검 묶음은 레전드 중48.50%, 묶음 안 간장50.90%. 1,000회 두 카드 추첨에 동시 중복 없음·지난 판 묶음 제외 PASS.
-- 기존 회귀6묶음(힘/그립/절삭/팔능력/10전투/빌드) PASS,237.60초. 그 뒤 사용자 색상 요청은 그립·금속장식의 색상 상수4개만 교환했으며 해당 diff와 변경 전 원본을 before-grip-swap에 보존했다. 그 교차안 b4464ef는 로컬/공개 모바일 실제 입력·재시작을 통과했다. 후속 최종색은 무기 소스가 최초 물리 검증 시점과 정확히 같고 후광 프로필만 반대로 바뀐다. native-final-palette.json에서 새 후광의 물리 불변/해제도 다시 확인한다. 전체 물리 회귀와 실제 조작은 기존 근거를 재사용하고 최종 빌드는 모바일 시각/후광 갱신/재시작/웹 바이트를 확인한다. 기존 무기만의 카드추첨은 이전af2e03d와600조건에서 정확히 같았다.
+- 기존 회귀6묶음(힘/그립/절삭/팔능력/10전투/빌드) PASS,237.60초. 그 뒤 사용자 색상 요청은 그립·금속장식의 색상 상수4개만 교환했으며 해당 diff와 변경 전 원본을 before-grip-swap에 보존했다. 그 교차안 b4464ef는 로컬/공개 모바일 실제 입력·재시작을 통과했다. 후속 최종색은 무기 소스가 최초 물리 검증 시점과 정확히 같고 후광 프로필만 반대로 바뀐다. native-final-palette.json에서 새 후광의 물리 불변/해제도 다시 확인했다. 전체 물리 회귀와 실제 조작은 기존 근거를 재사용하고 최종 빌드는 모바일 시각/후광 갱신/재시작/웹 바이트를 확인한다. 기존 무기만의 카드추첨은 이전af2e03d와600조건에서 정확히 같았다.
 
 ## 전달 상태
 
-교차안 b4464ef는 Pages37960928105 성공 및 로컬/공개 모바일2흐름 완료. 최종 통일색·반대 후광안은 갱신 중이며 마지막 공개 상태는 release JSON으로 구분한다. 예정 링크: https://yoonjl-svg.github.io/halfsword-codex/legendary-jian.html
+최종 통일색·반대 후광안 `3f1af8c`를 일반판에 반영했다. Pages37962742022 성공 후 로컬·공개 모바일 각각 두 검의 진입·후광 갱신·정지/재개·재시작을 확인했고, 공개 자산은 동일 빌드와 일치했다. 이번 색상 변경에서는 이미 통과한 공격·이동 입력 근거를 재사용했다. [실제 전달 영수증](legendary_jian_release.json)에 보고서 해시·범위·공개 빌드를 보존했다.
 
-원시 근거: `/tmp/halfsword-jian-20261010/`의 spec-check.json, thumb-report.json, native-v1.json 및 최종 회귀/모바일 영수증. 공개 전달 뒤 핵심 결과를 이 문서와 별도 release JSON에 보존한다.
+플레이: https://yoonjl-svg.github.io/halfsword-codex/legendary-jian.html
+
+메뉴만 숨긴 실제 게임 근접 사진 두 장도 확인했다. 밝은 하늘에서 흰 후광의 대비는 낮다. 실제 휴대폰 FPS와 인간 동작의 자연스러움·승률은 이번 검사의 결론이 아니다.
+
+원시 근거는 `/tmp/halfsword-jian-20261010/`, 압축 결과는 release JSON의 archives에 기록했다. 핵심 보고서는 저장소 밖 `/workspace/halfsword-handoff/legendary-jian-evidence-20261010.tar.gz`에 보존했다. 이전 교차색 b4464ef의 공개 통과 근거는 재사용 이력으로만 남긴다.
