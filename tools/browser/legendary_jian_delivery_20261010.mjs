@@ -12,8 +12,8 @@ import { WEAPONS } from '../../src/weapons.js';
 import { CHARACTERS_BY_ID } from '../../src/characters.js';
 
 const scenarios = [
-  { id: 'ganjiang', mass: 0.95, length: 1.00, aura: 'white' },
-  { id: 'moye', mass: 1.12, length: 0.96, aura: 'ink' },
+  { id: 'ganjiang', mass: 0.95, length: 0.95, aura: 'white' },
+  { id: 'moye', mass: 1.12, length: 0.91, aura: 'ink' },
 ];
 assert(CHARACTERS_BY_ID.liao?.weapon === 'qinggang');
 const query = '?cards=ganjiang,moye&foe=liao&stage=poseidon';
