@@ -1977,15 +1977,15 @@ function crownHelmet(g) {
   const crack = addMerged(bowl, [taperedTube([[0.116, 0.05, 0.074], [0.117, 0.028, 0.084], [0.113, 0.003, 0.077]], [0.002, 0.002, 0.002], 6, 4)], 0xb7b5b3, CLOTH);
   crack.visible = false; helm.userData.cracks = [crack];
 }
-function crownHair(g, look, part) {
+function crownHair(g, look, part, light = false) {
   const hair = [], layer = crownLayer(g, 'crown-hair');
   if (part === 'head') {
     for (const s of [-1, 1]) hair.push(isoldeLock([[0.01, 0.081, s * 0.079], [0.028, 0.004, s * 0.111], [0.027, -0.144, s * 0.127], [0.045, -0.267, s * 0.148]], [0.042, 0.049, 0.045, 0.014], 0.016));
-    for (let i = -2; i <= 2; i++) hair.push(isoldeLock([[-0.044, 0.096, i * 0.04], [-0.116, 0.009, i * 0.045], [-0.153, -0.177, i * 0.051], [-0.157, -0.273, i * 0.054]], [0.048, 0.056, 0.057, 0.052], 0.015));
+    for (let i = -2; i <= 2; i++) hair.push(isoldeLock([[-0.044, 0.096, i * 0.04], [-0.116, 0.009, i * 0.045], [-0.153, -0.177, i * 0.051], [-0.157, -0.273, i * 0.054]], [0.048, 0.056, 0.057, light ? 0.012 : 0.052], 0.015));
   } else {
     for (let i = -3; i <= 3; i++) {
       const z = i * 0.046;
-      hair.push(isoldeLock([[-0.155, 0.05, z * 0.7], [-0.178, -0.11, z * 1.15], [-0.236, -0.43, z * 1.45], [-0.219 + Math.abs(i) * 0.007, -0.77 + Math.abs(i) * 0.055, z * 1.56]], [0.002, 0.067, 0.055, 0.003], 0.018));
+      hair.push(isoldeLock([[-0.155, light ? 0.145 : 0.05, z * 0.7], [-0.178, -0.11, z * 1.15], [-0.236, -0.43, z * 1.45], [-0.219 + Math.abs(i) * 0.007, -0.77 + Math.abs(i) * 0.055, z * 1.56]], [light ? 0.043 : 0.002, 0.067, 0.055, 0.003], 0.018));
     }
     for (const s of [-1, 1]) hair.push(isoldeLock([[0.047, 0.03, s * 0.142], [0.13, -0.075, s * 0.196], [0.07, -0.29, s * 0.209], [0.041, -0.54, s * 0.194]], [0.027, 0.056, 0.048, 0.002], 0.015));
   }
@@ -2103,7 +2103,143 @@ const CROWN_SOVEREIGN = {
   shinF: crownShin, shinB: crownShin, footF: crownFoot, footB: crownFoot,
 };
 
+// 가벼운 예복안: 기존 보호 규칙은 유지하고, 덧붙인 금속 부피를 걷어 낸다.
+const CROWN_LEATHER = { roughness: 0.88, metalness: 0.025 };
+const CROWN_THREAD = 0xb39b59;
+function crownLightHelmet(g) {
+  const helm = new THREE.Group(); helm.name = 'helmet'; helm.userData.pieces = {}; g.add(helm); g.userData.helmet = helm;
+  const rim = [bake(new THREE.CylinderGeometry(0.109, 0.112, 0.023, 18, 1, true, 2.34, Math.PI * 2 - 1.54), [0, 0.051, 0])];
+  for (const s of [-1, 1]) rim.push(clothPanel(0.105, [[0.054, s * 0.009], [0.066, s * 0.057], [0.031, s * 0.103], [0.008, s * 0.088], [0.04, s * 0.068], [0.044, s * 0.019]], 0.005));
+  rim.push(clothPanel(0.109, [[0.058, -0.008], [0.066, 0], [0.058, 0.008], [0.006, 0.004], [-0.003, 0], [0.006, -0.004]], 0.005));
+  const bowl = crownPiece(helm, 'bowl', rim, 0x41454c);
+  crownPiece(helm, 'spire', [clothPanel(0.087, [[0.051, -0.019], [0.153, 0], [0.051, 0.019]], 0.007)], 0x4d5158, [0.087, 0.054, 0]);
+  const peaks = [];
+  for (const s of [-1, 1]) {
+    peaks.push(clothPanel(0.061, [[0.047, s * 0.041], [0.129, s * 0.066], [0.047, s * 0.086]], 0.007));
+    peaks.push(clothPanel(0.019, [[0.039, s * 0.085], [0.108, s * 0.115], [0.027, s * 0.121]], 0.006));
+  }
+  crownPiece(helm, 'crest', peaks, 0x41454c, [0.03, 0.05, 0]);
+  crownPiece(helm, 'nape', [bake(new THREE.CylinderGeometry(0.112, 0.116, 0.031, 16, 1, true, 2.6, 4.22), [0, 0.015, 0])], 0x343840, [-0.106, 0.02, 0]);
+  for (const part of Object.values(helm.userData.pieces)) {
+    const m = part.children[0]; m.material.roughness = 0.68; m.material.metalness = 0.18; m.material.envMapIntensity = 0.45;
+    m.userData.base.roughness = m.material.roughness;
+  }
+  addMerged(bowl, [-1, 1].map((s) => taperedTube([[0.114, 0.053, s * 0.015], [0.114, 0.06, s * 0.055], [0.111, 0.032, s * 0.096]], Array(3).fill(0.0015), 8, 4)), CROWN_THREAD, CLOTH);
+  helm.userData.cracks = [];
+}
+function crownLightBody(g, radius = 0.04, taper = 1) {
+  artoriaSoftBase(g, radius, taper);
+  const body = g.children[0]; body.material.roughness = 0.96; body.material.metalness = 0;
+  const shell = body.geometry.clone(); shell.scale(1.018, 1.015, 1.018);
+  return shell;
+}
+function crownLightLimb(g, kind) {
+  const main = g.children[0], shell = main.geometry.clone(), p = shell.attributes.position;
+  shell.computeBoundingBox(); const min = shell.boundingBox.min.y, max = shell.boundingBox.max.y;
+  for (let i = 0; i < p.count; i++) {
+    const t = (p.getY(i) - min) / (max - min), s = 1.008 + t * 0.03;
+    p.setXYZ(i, p.getX(i) * s, p.getY(i) * 1.005, p.getZ(i) * s);
+  }
+  shell.computeVertexNormals();
+  addMerged(g, [shell], kind === 'shin' ? 0x30343b : 0x2b2e35, CROWN_LEATHER);
+  // 가죽 위 재봉선. 소매 끝에 별도 두꺼운 고리를 씌우지 않는다.
+  if (kind !== 'upper') {
+    const r = kind === 'shin' ? 0.051 : 0.045, y = kind === 'shin' ? -0.11 : -0.065;
+    addMerged(g, [taperedTube([[r, y + 0.075, -0.015], [r + 0.003, y + 0.02, 0], [r, y - 0.035, 0.015]], Array(3).fill(0.0011), 10, 3)], 0x82795f, CLOTH);
+  }
+}
+function crownLightEmbroidery(at, t, u, scale = 1) {
+  const lines = [
+    [[0, 0.043], [-0.016, 0.014], [0, -0.012], [0.016, 0.014], [0, 0.043]],
+    [[0, -0.01], [-0.028, 0.019], [-0.051, 0.014], [-0.043, -0.01], [-0.025, -0.011], [-0.012, -0.029]],
+    [[0, -0.01], [0.028, 0.019], [0.051, 0.014], [0.043, -0.01], [0.025, -0.011], [0.012, -0.029]],
+    [[-0.03, -0.021], [0, -0.021], [0.03, -0.021]], [[0, -0.014], [0, -0.044]],
+  ];
+  return lines.map((line) => taperedTube(line.map(([du, dt]) => {
+    const pu = u + du * scale, a = 1.15 + (pu + 1) * (Math.PI - 1.15), p = at(t - dt * scale, pu);
+    p[0] += Math.cos(a) * 0.002; p[2] += Math.sin(a) * 0.002; return p;
+  }), Array(line.length).fill(0.00115), 15, 3));
+}
+function crownLightCape(g) {
+  const layer = crownLayer(g), at = (t, u) => {
+    const a = 1.15 + (u + 1) * (Math.PI - 1.15), shoulder = 1 - Math.exp(-t * 15);
+    const rx = 0.09 + shoulder * 0.047 + t * 0.105, rz = 0.09 + shoulder * 0.2 + t * 0.041;
+    const fold = 0.013 * Math.sin(a * 5 + t * 0.9) * Math.sin(t * Math.PI / 2);
+    return [Math.cos(a) * (rx + fold) - 0.09 - 0.008 * t,
+      0.175 - t * 1.21 + 0.027 * Math.cos(a * 2) * t * t - 0.04 * Math.exp(-t * 25) * Math.pow(Math.max(0, -Math.cos(a)), 4),
+      Math.sin(a) * (rz + fold) + 0.014 * Math.sin(t * 3) * t];
+  };
+  addMerged(layer, [crownDrapeGeometry(at, 18, 32)], 0xfaf9f5, { ...CLOTH, side: THREE.DoubleSide }).name = 'crown-cape';
+  const embroidery = [];
+  for (const u of [-0.988, 0.988]) embroidery.push(taperedTube([0, 0.2, 0.4, 0.6, 0.8, 1].map((t) => at(t, u)), Array(6).fill(0.0015), 25, 3));
+  embroidery.push(taperedTube(Array.from({ length: 19 }, (_, i) => at(0.976, i / 9 - 1)), Array(19).fill(0.0014), 48, 3));
+  for (const u of [-0.86, 0.86]) embroidery.push(...crownLightEmbroidery(at, 0.82, u, 0.75));
+  // 큰 금 배지 대신 옷 가장자리를 따라 흐르는 가는 덩굴 자수.
+  for (const s of [-1, 1]) {
+    const line = Array.from({ length: 9 }, (_, i) => at(0.3 + i * 0.07, s * (0.9 + 0.025 * Math.sin(i * 1.2))));
+    embroidery.push(taperedTube(line, Array(9).fill(0.0011), 32, 3));
+  }
+  addMerged(layer, embroidery, CROWN_THREAD, CLOTH).name = 'crown-embroidery';
+}
+function crownLightFoot(g) {
+  const main = g.children[0], geo = artoriaRoundedBox(0.25, 0.12, 0.11, 0.044);
+  geo.scale(1, 0.625, 1); geo.parameters.height = 0.075;
+  main.geometry.dispose(); main.geometry = geo;
+  const shell = geo.clone(); shell.scale(1.025, 1.025, 1.025);
+  addMerged(g, [shell], 0x30343a, CROWN_LEATHER);
+}
+const CROWN_SOVEREIGN_LIGHT = {
+  armorParts: new Set(CROWN_SOVEREIGN.armorParts),
+  head(g, look) {
+    quietFace(g, look, 'crown_boss'); crownHair(g, look, 'head', true); crownLightHelmet(g);
+    const hair = crownLayer(g, 'crown-hair').children[0].geometry, p = hair.attributes.position;
+    for (let i = 0; i < p.count; i++) if (p.getX(i) < -0.05) p.setX(i, p.getX(i) - 0.075 * THREE.MathUtils.smoothstep(-p.getY(i), 0.055, 0.27));
+    hair.computeVertexNormals();
+  },
+  chest(g, look) {
+    const shell = crownLightBody(g, 0.052, 0.82), p = shell.attributes.position;
+    // 가슴의 작은 볼륨은 이어진 곡면 안에 둔다. 구체나 뾰족 흉갑을 얹지 않는다.
+    for (let i = 0; i < p.count; i++) if (p.getX(i) > 0.02) {
+      const shape = Math.exp(-Math.pow((p.getY(i) - 0.038) / 0.064, 2) - Math.pow((Math.abs(p.getZ(i)) - 0.072) / 0.058, 2));
+      p.setX(i, p.getX(i) + 0.012 * shape);
+    }
+    shell.computeVertexNormals(); addMerged(g, [shell], 0x30333b, CROWN_LEATHER);
+    clothNeck(crownLayer(g), look); crownLightCape(g); crownHair(g, look, 'chest', true);
+    const hair = crownLayer(g, 'crown-hair').children[0].geometry, hp = hair.attributes.position;
+    for (let i = 0; i < hp.count; i++) if (hp.getX(i) < 0) hp.setX(i, hp.getX(i) - 0.09 + 0.02 * THREE.MathUtils.smoothstep(hp.getY(i), 0.07, 0.15) - Math.max(0, -hp.getY(i)) * 0.16);
+    hair.computeVertexNormals();
+    const seams = [-1, 1].map((s) => taperedTube([[0.126, 0.109, s * 0.137], [0.137, 0.027, s * 0.105], [0.122, -0.106, s * 0.091]], Array(3).fill(0.0013), 16, 3));
+    addMerged(g, seams, 0x8d805e, CLOTH);
+  },
+  abdomen(g) {
+    const shell = crownLightBody(g, 0.048, 0.84);
+    for (const geo of [g.children[0].geometry, shell]) geo.scale(0.96, 1.06, 0.94);
+    addMerged(g, [shell], 0x282b32, CROWN_LEATHER);
+    addMerged(g, [-1, 1].map((s) => taperedTube([[0.117, 0.065, s * 0.091], [0.116, -0.009, s * 0.081], [0.113, -0.061, s * 0.085]], Array(3).fill(0.0011), 12, 3)), 0x786f58, CLOTH);
+  },
+  pelvis(g) {
+    const shell = crownLightBody(g, 0.045);
+    for (const geo of [g.children[0].geometry, shell]) {
+      const p = geo.attributes.position;
+      for (let i = 0; i < p.count; i++) {
+        const y = p.getY(i), z = p.getZ(i), t = THREE.MathUtils.clamp((y + 0.09) / 0.18, 0, 1), edge = Math.min(1, Math.abs(z) / 0.165);
+        const waist = 0.98 - 0.19 * THREE.MathUtils.smoothstep(t, 0.12, 1);
+        const hem = y < 0 ? (0.024 * edge * edge - 0.013 * (1 - edge)) * Math.pow(-y / 0.09, 2) : 0;
+        p.setXYZ(i, p.getX(i) * (0.96 - t * 0.08), y * 1.1 + hem, z * waist);
+      }
+      geo.computeVertexNormals();
+    }
+    addMerged(g, [shell], 0x292c33, CROWN_LEATHER);
+    addMerged(g, [taperedTube([[0.104, 0.045, -0.145], [0.118, 0.026, -0.074], [0.122, 0.015, 0], [0.118, 0.026, 0.074], [0.104, 0.045, 0.145]], Array(5).fill(0.002), 18, 4)], CROWN_THREAD, CLOTH);
+  },
+  uarmS(g) { crownLightLimb(g, 'upper'); }, uarmO(g) { crownLightLimb(g, 'upper'); },
+  farmS(g) { crownLightLimb(g, 'fore'); }, farmO(g) { crownLightLimb(g, 'fore'); },
+  shinF(g) { crownLightLimb(g, 'shin'); }, shinB(g) { crownLightLimb(g, 'shin'); },
+  footF: crownLightFoot, footB: crownLightFoot,
+};
+
 export const OUTFITS = {
+  crown_sovereign_light: CROWN_SOVEREIGN_LIGHT,
   crown_sovereign: CROWN_SOVEREIGN,
   artoria_silver: ARTORIA_OUTFIT,
   artoria_silver_v2: ARTORIA_OUTFIT_V2,

@@ -1,0 +1,114 @@
+{
+  "status": "local-verified-public-pending",
+  "basis": "49edd77e56e82f3fb8ccf31d5ff1cff339286e8a",
+  "rejectedAppearance": "crown_boss:v1",
+  "activeAppearance": "crown_boss:v2",
+  "play": "https://yoonjl-svg.github.io/halfsword-codex/crown-boss.html",
+  "native": {
+    "pass": true,
+    "checks": 17,
+    "sourceStable": true,
+    "sha256": "bc8b756151e84c81c256261f530ff80bbd08cbc67d02d045e60836f84e1b08ad"
+  },
+  "identity": {
+    "pass": true,
+    "rows": [
+      {
+        "weapon": "ice",
+        "states": 240,
+        "equal": true,
+        "weaponPhysicsEqual": true
+      },
+      {
+        "weapon": "sain",
+        "states": 240,
+        "equal": true,
+        "weaponPhysicsEqual": true
+      }
+    ],
+    "limits": [
+      "Bounded identical inputs; not proof of identical injury coverage for every contact."
+    ]
+  },
+  "sourceHashes": {
+    "src/outfits.js": "07f7ee0842088e19f3062cf31bcf11f722eb6d3d337706cb6f34a26581d83e64",
+    "src/looks.js": "9d37ae2a290ac0e4d244eed9ba68447edcb30cd68e460bdcc8150d03d1a41bb3",
+    "src/characters_expansion.js": "4d2677f666bfac02238df822b49256ea573b9c42d45e69f7c0d798fbd4e127c3",
+    "src/config.js": "08b9818b6d9f45aecd1d7f88f664fc43491db73a395f0b242bf211e0ece3200c",
+    "src/main.js": "d92e23d61a144696eb738e71f93775747227fa0c7dc5356c41c81fcfed1ce34d",
+    "src/stages.js": "9669101630feae334e98efafe05f6b991edfe9bfc025449987c8334c17955560",
+    "src/sound.js": "6ee40ea507bcb6818679d056f9747720832c6fd83e365b56d7ccc7ba3f8c8676",
+    "tools/sim/experiments/crown_boss_gate.mjs": "b83a7f9d9c6590c9e41e3923772a1aca56adb502cc41e633c8ec9008a399798a",
+    "tools/browser/artoria_rare_delivery_20261010.mjs": "bd2dcf366e2719bc2279deee9aacaadf2264a7469e9bc6e16a84cfc287e97c36"
+  },
+  "publicAssets": [
+    {
+      "path": "public/encounters/crown-boss.webp",
+      "angle": "threeq",
+      "bytes": 25122,
+      "sha256": "3b07e4380d105c482b81549e8d289785a26c43604929932d2aa7c7feec401952",
+      "width": 1000,
+      "height": 900
+    },
+    {
+      "path": "public/encounters/crown-boss-front.webp",
+      "angle": "front",
+      "bytes": 21752,
+      "sha256": "010741bf7eb55b69a220455120a6f4f6e8f6c44132e0aa85da52b79813212fbd",
+      "width": 1000,
+      "height": 900
+    },
+    {
+      "path": "public/encounters/crown-boss-side.webp",
+      "angle": "side",
+      "bytes": 25782,
+      "sha256": "9109b2f112a75fa3a49fa9d2fd19eba558ac136caf4e2dd12ce127ef21c074d6",
+      "width": 1000,
+      "height": 900
+    },
+    {
+      "path": "public/encounters/crown-boss-back.webp",
+      "angle": "back",
+      "bytes": 18678,
+      "sha256": "ab22abf05d155fac6b1589e8a22ba44038e91853460f3693f095131d99c91474",
+      "width": 1000,
+      "height": 900
+    }
+  ],
+  "limits": [
+    "Material and silhouette redesign; AI, body mass/colliders and protective coefficients are unchanged. Armor surface coverage may vary with the new geometry.",
+    "Hair and cape are attached to body parts, not simulated fabric.",
+    "Portraits use a declared inspection pose; ordinary gameplay uses unchanged AI.",
+    "Mobile viewport with touch emulation, not a physical-phone FPS or aesthetic-acceptance test.",
+    "Prior campaign transitions reused only after checking unchanged dependency hashes."
+  ],
+  "appearance": {
+    "drawCalls": 195,
+    "triangles": 89068,
+    "textures": 10,
+    "transparentMeshes": 3,
+    "newTextures": 0,
+    "captureErrors": 0,
+    "portraitPose": "inspection-only existing alber guard, 1.2s native steps, neutral scene lighting",
+    "phonePose": "unchanged ordinary game camera/AI, 844x390"
+  },
+  "local": {
+    "pass": true,
+    "flows": 1,
+    "files": 179,
+    "errors": 0,
+    "sha256": "4a675d89436701a0a842e17b22173e74127927f030cd87bed1d54af3e1488f61"
+  },
+  "reusedProgression": {
+    "receipt": "docs/content/crown_boss_release.json",
+    "gameCommit": "4ac5909ef4a57d708448d7d7fedc92e7b8cf42b8",
+    "sources": {
+      "src/main.js": "d92e23d61a144696eb738e71f93775747227fa0c7dc5356c41c81fcfed1ce34d",
+      "src/stages.js": "9669101630feae334e98efafe05f6b991edfe9bfc025449987c8334c17955560",
+      "src/sound.js": "6ee40ea507bcb6818679d056f9747720832c6fd83e365b56d7ccc7ba3f8c8676",
+      "src/characters_expansion.js": "4d2677f666bfac02238df822b49256ea573b9c42d45e69f7c0d798fbd4e127c3",
+      "src/config.js": "08b9818b6d9f45aecd1d7f88f664fc43491db73a395f0b242bf211e0ece3200c"
+    },
+    "scope": "Previous final-stage transition fixture; unchanged dependency hashes. Not rerun here."
+  }
+}

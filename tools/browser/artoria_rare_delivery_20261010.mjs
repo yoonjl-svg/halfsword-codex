@@ -2,6 +2,7 @@
 // --base=http://127.0.0.1:4198/ --build=/tmp/.../build --out=/tmp/halfsword-artoria-rare-20261010/local
 // Public verification also requires --local-evidence=<passing local report.json>.
 // Optional --hero saves a separate paused Artoria view with UI hidden; physics is unchanged.
+// --scope=appearance repeats one mobile flow and reuses unchanged, previously verified crown progression.
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -21,12 +22,30 @@ assert(CHARACTERS_BY_ID.artoria?.weapon === 'excalibur');
 const own = fileURLToPath(import.meta.url), root = path.resolve(path.dirname(own), '../..'), args = {};
 for (const arg of process.argv.slice(2)) {
   if (arg === '--hero') { assert(!args.hero, 'Duplicate --hero'); args.hero = true; continue; }
-  const match = /^--(base|build|out|local-evidence|encounter)=(.+)$/.exec(arg);
+  const match = /^--(base|build|out|local-evidence|encounter|scope)=(.+)$/.exec(arg);
   assert(match && !Object.hasOwn(args, match[1]), 'Unknown or duplicate argument'); args[match[1]] = match[2];
 }
 const encounterId = args.encounter || 'artoria';
 assert(['artoria', 'crown_boss'].includes(encounterId));
 const encounter = CHARACTERS_BY_ID[encounterId], crown = encounterId === 'crown_boss';
+const scope = args.scope || 'full';
+assert(['full', 'appearance'].includes(scope));
+assert(scope !== 'appearance' || crown);
+let reusedProgression = null;
+if (scope === 'appearance') {
+  const receiptPath = path.join(root, 'docs/content/crown_boss_release.json');
+  const receipt = JSON.parse(await fs.readFile(receiptPath, 'utf8'));
+  assert(receipt.public?.pass && receipt.public.progression?.pass);
+  const sources = {};
+  for (const file of ['src/main.js', 'src/stages.js', 'src/sound.js', 'src/characters_expansion.js', 'src/config.js']) {
+    const digest = createHash('sha256').update(await fs.readFile(path.join(root, file))).digest('hex');
+    assert.equal(digest, receipt.sourceHashes[file], `Changed progression dependency: ${file}`);
+    sources[file] = digest;
+  }
+  reusedProgression = { receipt: 'docs/content/crown_boss_release.json', gameCommit: receipt.gameCommit,
+    sources, scope: 'Previous final-stage transition fixture; unchanged dependency hashes. Not rerun here.' };
+}
+const activeScenarios = scope === 'appearance' ? scenarios.slice(0, 1) : scenarios;
 const stageId = crown ? 'crown_sanctum' : 'loggia';
 const landingFile = crown ? 'crown-boss.html' : 'artoria.html';
 const heroFile = crown ? 'crown-boss.webp' : 'artoria.webp';
@@ -56,6 +75,7 @@ if (!local) {
   assert(args['local-evidence'], 'Public run requires passing local evidence');
   const previous = JSON.parse(await fs.readFile(args['local-evidence'], 'utf8'));
   assert(previous.pass && previous.local); assert.equal(previous.encounterId, encounterId); assert.equal(previous.toolHash, toolHash);
+  assert.equal(previous.scope, scope);
   assert.equal(previous.heroRequested, args.hero === true);
   assert.deepEqual(previous.buildManifest, before, 'Public and local checks must use the same build');
 }
@@ -224,7 +244,7 @@ try {
   assert(landing.images.every(image => image.width > 0 && image.height > 0));
   assert.equal(landing.play.length, 1); assert.equal(landing.play[0].href, destination);
   await page.screenshot({ path: path.join(out, 'landing-portrait.png') });
-  for (const fixture of scenarios) {
+  for (const fixture of activeScenarios) {
     const row = { ...fixture }, eventStart = native.length; flows.push(row);
     await page.setViewportSize({ width: 390, height: 844 });
     if (page.url() !== landingURL) await page.goto(landingURL, { waitUntil: 'load' });
@@ -307,7 +327,7 @@ try {
     await page.waitForLoadState('networkidle'); await cdp.detach(); cdp = null;
     console.log(JSON.stringify({ event: 'flow-complete', id: fixture.id, steps: row.final.steps }));
   }
-  if (crown) {
+  if (crown && scope === 'full') {
     // Separate, declared UI fixtures. These do not claim natural campaign wins.
     await page.setViewportSize({ width: 844, height: 390 });
     await page.goto(base.href, { waitUntil: 'load' });
@@ -360,13 +380,13 @@ try {
   clearTimeout(deadline); const buildStable = JSON.stringify(before) === JSON.stringify(await manifest(build));
   pass = pass && buildStable && errors.length === 0 && toolHash === sha(await fs.readFile(own)); if (!pass) process.exitCode = 1;
   const report = { pass, local, head, startedUTC, completedUTC: new Date().toISOString(), wallMs: performance.now() - start,
-    base: base.href, toolHash, buildStable, buildManifest: before, heroRequested: args.hero === true, encounterId, progression, scenarios, settings, landing, detail, flows, requests, attempts, errors, fatal,
+    base: base.href, toolHash, buildStable, buildManifest: before, heroRequested: args.hero === true, encounterId, scope, reusedProgression, progression, scenarios: activeScenarios, settings, landing, detail, flows, requests, attempts, errors, fatal,
     tlsVerification: true, proxyRetained: !local,
     limits: ['Chromium touch/mobile emulation; physical-phone frame performance and human visual acceptance are not assessed.',
       'Actual trusted card taps, sword strokes and movement inputs are repeated for each weapon before and after restart. No AI, damage, health or physics state is overridden.',
       'The selected encounter native outfit and expected weapon appearance persist through observed gameplay and restart. Injury status is reported only when naturally observed; lack of wounds does not establish post-injury appearance behavior.',
       'This bounded flow does not establish combat balance, draw probabilities or ordinary campaign order. Optional hero photo reframes only the actual camera and hides UI with CSS while paused, with unchanged physics snapshots.',
-      'When encounter=crown_boss, a separate controlled final-stage progression fixture verifies advance, loss retry and completion/wrap; it is not natural combat victory evidence.',
+      'Full crown scope includes a separate controlled final-stage progression fixture; appearance scope reuses that previous evidence after checking unchanged dependency hashes. Neither is natural combat victory evidence.',
       'All served bytes match the frozen build, including the main bundle and requested weapon assets. One logged retry is allowed for GET 502/503.'] };
   await fs.writeFile(path.join(out, 'report.json'), JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify({ pass, buildStable, flows: flows.length, requests: requests.length, wallMs: report.wallMs, fatal, out }));
