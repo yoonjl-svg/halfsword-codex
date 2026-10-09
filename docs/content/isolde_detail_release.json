@@ -1,0 +1,47 @@
+{
+  "baseCommit": "aeeea35db2d1002468c830cd1f6a8bb41942ce5d",
+  "scope": "Isolde native look v3; v2 preserved; same body and physical parameters",
+  "publicUrl": "https://yoonjl-svg.github.io/halfsword-codex/isolde-detail.html",
+  "status": "local_verified_awaiting_publication",
+  "native": {
+    "pass": true,
+    "gates": 11,
+    "sameWorldSnapshotsAtCreationAnd120Steps": true,
+    "decalCases": 20,
+    "resourceTests": 21,
+    "report": "/tmp/halfsword-isolde-polish-20261009/audit/summary-final.json"
+  },
+  "visual": {
+    "pass": true,
+    "views": 6,
+    "sourceStable": true,
+    "firstCandidateIssues": "Nape gap and hem overlap; corrected in r2; r1 retained",
+    "report": "/tmp/halfsword-isolde-polish-20261009/views-r2/report.json"
+  },
+  "build": {
+    "pass": true,
+    "entry": "main-oIQGGR_E.js",
+    "sha256": "9dc59d8f6c73420a402fb17879cd8170c12002f885829d4aabb62c954b79835b"
+  },
+  "mobileLocal": {
+    "status": "passed",
+    "flows": 2,
+    "requests": 382,
+    "uniqueFiles": 183,
+    "allBytesMatch": true,
+    "errors": 0,
+    "report": "/tmp/halfsword-isolde-polish-20261009/mobile-local-v1/report.json"
+  },
+  "deployment": {
+    "status": "pending"
+  },
+  "mobilePublic": {
+    "status": "pending"
+  },
+  "limits": [
+    "Static comparison pose is not the fight stance",
+    "No real-device FPS measurement",
+    "Part-attached hair and clothes can still intersect in extreme bending",
+    "Synthetic wound checks are not every natural injury/resurrection/severing sequence"
+  ]
+}

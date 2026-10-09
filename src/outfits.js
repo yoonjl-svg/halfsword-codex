@@ -1325,10 +1325,170 @@ function shrineSandal(g) {
   addMerged(g, [box(0.252, 0.012, 0.113, [0, -0.033, 0]), box(0.023, 0.009, 0.101, [0.022, 0.041, 0]), box(0.076, 0.009, 0.013, [0.065, 0.041, 0])], 0x6a5940, CLOTH);
 }
 
+// Isolde v3: costume-only refinement. Each lock/garment remains attached to its
+// own native part; v2 stays intact for comparisons. No cloth physics or scaling.
+const ISOLDE_INK = 0x30313e;
+const ISOLDE_SEAM = 0x595964;
+const ISOLDE_LINEN = 0xf0e7d6;
+
+// Broad flattened locks, rather than a single back plate or cylindrical braids.
+// Cross sections stay thin in X and broad in Z; staggered tips soften joins.
+function isoldeLock(points, widths, depth = 0.007) {
+  const curve = new THREE.CatmullRomCurve3(points.map((p) => new THREE.Vector3(...p)));
+  const rings = 14, sides = 8, vertices = [], indices = [];
+  for (let i = 0; i <= rings; i++) {
+    const t = i / rings, at = curve.getPoint(t), u = t * (widths.length - 1);
+    const j = Math.min(widths.length - 2, Math.floor(u));
+    const width = THREE.MathUtils.lerp(widths[j], widths[j + 1], u - j);
+    const thickness = depth * Math.min(1, width / 0.012);
+    for (let k = 0; k < sides; k++) {
+      const a = k / sides * Math.PI * 2;
+      vertices.push(at.x + Math.cos(a) * thickness, at.y, at.z + Math.sin(a) * width / 2);
+      if (i < rings) {
+        const n = i * sides + k, next = i * sides + (k + 1) % sides;
+        indices.push(n, next, n + sides, next, next + sides, n + sides);
+      }
+    }
+  }
+  for (let k = 1; k < sides - 1; k++) {
+    indices.push(0, k + 1, k);
+    const end = rings * sides;
+    indices.push(end, end + k, end + k + 1);
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+  geo.setAttribute('uv', new THREE.Float32BufferAttribute(new Float32Array(vertices.length / 3 * 2), 2));
+  geo.setIndex(indices);
+  geo.computeVertexNormals();
+  return geo;
+}
+
+// Keep the original representative mesh and BoxGeometry contract for wounds.
+// Small edge rounding shapes the garment only, within its existing bounds.
+function isoldeSoftBox(g, radius = 0.012, waist = 1) {
+  const main = g.children[0], { width, height, depth } = main.geometry.parameters;
+  const geo = new THREE.BoxGeometry(width, height, depth, 6, 8, 8);
+  const p = geo.attributes.position;
+  const core = new THREE.Vector3(width / 2 - radius, height / 2 - radius, depth / 2 - radius);
+  const v = new THREE.Vector3(), near = new THREE.Vector3();
+  for (let i = 0; i < p.count; i++) {
+    v.fromBufferAttribute(p, i);
+    near.set(THREE.MathUtils.clamp(v.x, -core.x, core.x), THREE.MathUtils.clamp(v.y, -core.y, core.y), THREE.MathUtils.clamp(v.z, -core.z, core.z));
+    v.sub(near).normalize().multiplyScalar(radius).add(near);
+    const taper = THREE.MathUtils.lerp(waist, 1, (v.y + height / 2) / height);
+    p.setXYZ(i, v.x * taper, v.y, v.z * taper);
+  }
+  geo.computeVertexNormals();
+  main.geometry.dispose();
+  main.geometry = geo;
+}
+
+function isoldeBackHair(g, look, part) {
+  const locks = [];
+  const chest = part === 'chest';
+  for (let i = 0; i < 5; i++) {
+    const z = (i - 2) * 0.041;
+    const pts = chest
+      ? [[-0.137, 0.184, z * 0.8], [-0.15, 0.078, z], [-0.147, -0.095, z * 1.07], [-0.141, -0.179 + Math.abs(i - 2) * 0.009, z * 0.91]]
+      : [[-0.138, 0.08, z * 1.05], [-0.14, 0.002, z], [-0.141, -0.065, z * 0.89], [-0.155, -0.116 + Math.abs(i - 2) * 0.025, z * 0.76 + (i % 2 ? 0.006 : -0.004)]];
+    locks.push(isoldeLock(pts, chest ? [0.053, 0.054, 0.052, 0.034] : [0.054, 0.051, 0.033, 0.002], 0.008));
+  }
+  addMerged(g, locks, look.hair, { roughness: 0.76 });
+}
+
+function isoldeCuff(g) {
+  sleeveVolume(g, 1.08, 0.97);
+  addMerged(g, [cyl(0.05, 0.05, 0.05, 12, true, [0, -0.088, 0])], ISOLDE_LINEN, CLOTH);
+  addMerged(g, [cyl(0.0508, 0.0508, 0.005, 12, true, [0, -0.071, 0]), cyl(0.0508, 0.0508, 0.005, 12, true, [0, -0.105, 0])], ISOLDE_SEAM, CLOTH);
+}
+
+function isoldeSkirt(g) {
+  // The skirt halves follow each thigh and remain the native wound surface.
+  const geo = new THREE.CylinderGeometry(0.091, 0.135, 0.39, 24, 8, false);
+  const p = geo.attributes.position;
+  for (let i = 0; i < p.count; i++) {
+    const a = Math.atan2(p.getZ(i), p.getX(i));
+    const fold = 1 + 0.06 * Math.cos(a * 8);
+    p.setXYZ(i, p.getX(i) * fold * 0.88, p.getY(i), p.getZ(i) * fold);
+  }
+  geo.computeVertexNormals();
+  g.children[0].geometry.copy(geo);
+  g.children[0].material.color.setHex(ISOLDE_INK);
+  geo.dispose();
+  // Match the pleats, so the hem does not alternately sink under their peaks.
+  const hem = new THREE.CylinderGeometry(0.135, 0.137, 0.017, 24, 1, true);
+  const hp = hem.attributes.position;
+  for (let i = 0; i < hp.count; i++) {
+    const a = Math.atan2(hp.getZ(i), hp.getX(i)), fold = 1 + 0.06 * Math.cos(a * 8);
+    hp.setXYZ(i, hp.getX(i) * fold * 0.88, hp.getY(i) - 0.185, hp.getZ(i) * fold);
+  }
+  hem.computeVertexNormals();
+  addMerged(g, [hem], ISOLDE_SEAM, CLOTH);
+}
+
+const ISOLDE_TAILORED = {
+  head(g, look) {
+    quietFace(g, look, 'isolde');
+    const hair = [];
+    // A side-swept fringe and two curved cheek locks leave the eyes readable.
+    hair.push(taperedTube([[0.033, 0.094, -0.067], [0.092, 0.072, -0.01], [0.102, 0.038, 0.062], [0.063, -0.015, 0.09]], [0.019, 0.022, 0.015, 0.002], 12, 7));
+    for (const s of [-1, 1]) {
+      hair.push(isoldeLock([[0.012, 0.077, s * 0.095], [0.012, -0.002, s * 0.111], [0.023, -0.105, s * 0.112], [0.037, -0.17, s * 0.095]], [0.026, 0.035, 0.026, 0.002], 0.012));
+    }
+    // A continuous nape curtain overlaps the torso's upper locks. Keep the
+    // head-following segment short; the waist-length section follows the torso.
+    for (let i = 0; i < 5; i++) {
+      const z = (i - 2) * 0.037;
+      hair.push(isoldeLock([[-0.069, 0.069, z * 0.72], [-0.123, -0.012, z], [-0.151, -0.118, z * 1.1], [-0.155, -0.22 + Math.abs(i - 2) * 0.014, z * 1.1]], [0.04, 0.05, 0.048, 0.013], 0.01));
+    }
+    addMerged(g, hair, look.hair, { roughness: 0.76 });
+  },
+  chest(g, look) {
+    clothBase(g, look.tunic);
+    isoldeSoftBox(g, 0.02, 0.94);
+    clothNeck(g, look);
+    const collar = [
+      [[0.155, -0.018], [0.136, -0.122], [0.026, -0.067], [0.096, -0.026]],
+      [[0.155, 0.018], [0.136, 0.122], [0.026, 0.067], [0.096, 0.026]],
+    ];
+    addMerged(g, collar.map((pts) => clothPanel(0.127, pts)), 0xc4bbaa, CLOTH);
+    addMerged(g, collar.map((pts) => clothPanel(0.131, pts.map(([y, z]) => [y + 0.005, z * 0.91]))), ISOLDE_LINEN, CLOTH);
+    addMerged(g, [box(0.005, 0.15, 0.021, [0.12, -0.049, 0]), ...[-1, 1].map((s) => box(0.004, 0.19, 0.007, [0.121, -0.035, s * 0.11], [s * 0.035, 0, 0]))], 0xd3c8b6, CLOTH);
+    addMerged(g, [-0.006, -0.052, -0.098].map((y) => ball(0.006, 6, 4, [0.125, y, 0])), 0x938477, CLOTH);
+    // Small dark bow under the folded collar, with asymmetric sewn tails.
+    addMerged(g, [clothPanel(0.14, [[0.086, -0.006], [0.1, -0.035], [0.063, -0.03]]), clothPanel(0.14, [[0.086, 0.006], [0.098, 0.035], [0.063, 0.03]]), clothPanel(0.138, [[0.078, -0.006], [0.017, -0.018], [0.025, -0.002], [0.078, 0.008]])], ISOLDE_INK, CLOTH);
+    isoldeBackHair(g, look, 'chest');
+  },
+  abdomen(g, look) {
+    clothBase(g, look.tunic);
+    isoldeSoftBox(g, 0.014, 0.96);
+    clothBand(0.115, 0.165, -0.031, 0.074, ISOLDE_INK, g);
+    addMerged(g, [box(0.006, 0.006, 0.325, [0.119, 0.0, 0]), box(0.007, 0.04, 0.048, [0.123, -0.029, 0])], ISOLDE_SEAM, CLOTH);
+    isoldeBackHair(g, look, 'abdomen');
+  },
+  pelvis(g) {
+    clothBase(g, ISOLDE_INK);
+    isoldeSoftBox(g, 0.014);
+    // Shallow layered hips overlap the divided skirt without crossing knees.
+    addMerged(g, [-1, 1].map((s) => clothPanel(0.111, [[0.075, s * 0.019], [0.075, s * 0.159], [-0.099, s * 0.192], [-0.118, s * 0.04]])), ISOLDE_INK, CLOTH);
+    addMerged(g, [-1, 1].map((s) => clothPanel(0.117, [[0.068, s * 0.085], [0.068, s * 0.091], [-0.107, s * 0.114], [-0.109, s * 0.108]])), ISOLDE_SEAM, CLOTH);
+  },
+  uarmS(g) { sleeveVolume(g, 1.16, 1.07); },
+  uarmO(g) { sleeveVolume(g, 1.16, 1.07); },
+  farmS: isoldeCuff, farmO: isoldeCuff,
+  thighF: isoldeSkirt, thighB: isoldeSkirt,
+  footF: isoldeShoe, footB: isoldeShoe,
+};
+function isoldeShoe(g) {
+  isoldeSoftBox(g, 0.009);
+  addMerged(g, [box(0.038, 0.006, 0.108, [0.018, 0.039, 0]), box(0.02, 0.009, 0.023, [0.018, 0.042, -0.044])], 0x756458, CLOTH);
+}
+
 export const OUTFITS = {
   bran_farmer: BRAN_FARMER,
   isolde_saber: ISOLDE_SABER,
   isolde_longhair: ISOLDE_LONGHAIR,
+  isolde_tailored: ISOLDE_TAILORED,
   liao_ronin: LIAO_RONIN,
   liao_gi: LIAO_GI,
   liao_gi_wild: LIAO_GI_WILD,
