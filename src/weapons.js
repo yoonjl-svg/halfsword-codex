@@ -1213,7 +1213,7 @@ const sain = finalizeSpec('sain', {
 
 const ice = finalizeSpec('ice', {
   nameKo: '아이스', nameEn: 'Ice',
-  desc: '넓은 회흑색 칼날에 물결결이 흐르는 스타크의 대검.\n전체 168cm, 질량 3.5kg의 양손검.',
+  desc: '세 줄의 홈과 황동 장식을 지닌 스타크의 대검.\n전체 168cm, 질량 3.5kg의 양손검.',
   grip: 'two-hand', material: 'steel', tier: 'rare',
   hiltLength: 0.20, bladeLength: 1.25, gripAlong: -0.20,
   mCut: 1.10, mThrust: 0.85, mBlunt: 1.15,

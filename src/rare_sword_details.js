@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { swordKit, metalMat } from './weapon_looks.js';
 
 export const SAIN_COLORS = { grip: 0x28272b, metal: 0xa48a4d, blade: 0x9ea5a8 };
-export const ICE_COLORS = { grip: 0x573827, metal: 0x998355, blade: 0x74777c };
+export const ICE_COLORS = { grip: 0x784d32, metal: 0xb69a59, blade: 0xb5bbc0 };
 
 function mesh(group, geometry, material, position = [0, 0, 0]) {
   const m = new THREE.Mesh(geometry, material);
@@ -155,38 +155,185 @@ export function sainDecorate(group) {
   collar.castShadow = true;
 }
 
-const iceKit = swordKit({
-  blade: { edge: 'double', width: t => 1 - 0.14 * t, thick: 0.004, tip: 'spear',
-    tipLen: 0.15, overshoot: 0, bevel: 0.006, fuller: { to: 0.66, width: 0.12, depth: 0.4 } },
-  grip: { style: 'plain' }, guard: { style: 'bar' }, metal: ICE_COLORS.metal,
-});
+// HBO-inspired section: wide grinding bevels, a recessed central fuller and
+// two short side grooves. These are surfaces, not floating painted lines.
+function iceBladeGeometry(shape) {
+  const [, hx, hy, hz] = shape, L = 2 * hy;
+  const vertices = [], colors = [];
+  const smooth = (a, b, x) => {
+    const t = Math.max(0, Math.min(1, (x - a) / (b - a)));
+    return t * t * (3 - 2 * t);
+  };
+  const ring = y => {
+    const t = (y + hy) / L, tip = smooth(1 - 0.15 / L, 1, t);
+    const width = hx * (1 - 0.11 * t) * (1 - tip);
+    const thick = Math.min(hz, 0.0045) * (1 - 0.27 * t) * (1 - tip);
+    const longDepth = thick * 0.56 * (1 - smooth(0.77, 0.94, t));
+    const shortDepth = thick * 0.32 * (1 - smooth(0.14, 0.23, t));
+    const front = [
+      [-1, 0, 1.10], [-0.72, thick, 1.03], [-0.55, thick, 1],
+      [-0.515, thick - shortDepth, 0.80], [-0.485, thick - shortDepth, 0.80], [-0.45, thick, 1.06],
+      [-0.16, thick, 1.04], [-0.105, thick - longDepth, 0.72], [0.105, thick - longDepth, 0.72],
+      [0.16, thick, 1.04], [0.45, thick, 1.06], [0.485, thick - shortDepth, 0.80],
+      [0.515, thick - shortDepth, 0.80], [0.55, thick, 1], [0.72, thick, 1.03], [1, 0, 1.10],
+    ];
+    return [...front.map(([x, z, c]) => ({ p: [x * width, y, z], c })),
+      ...front.slice(1, -1).reverse().map(([x, z, c]) => ({ p: [x * width, y, -z], c }))];
+  };
+  const triangle = (a, b, c) => {
+    for (const v of [a, b, c]) { vertices.push(...v.p); colors.push(v.c, v.c, v.c); }
+  };
+  // More rings around the tip and fuller endings, few elsewhere.
+  const heights = [...Array.from({ length: 35 }, (_, i) => -hy + L * 0.86 * i / 34),
+    ...Array.from({ length: 13 }, (_, i) => -hy + L * (0.86 + 0.14 * (i + 1) / 13))];
+  let previous = ring(heights[0]);
+  for (const y of heights.slice(1)) {
+    const current = ring(y);
+    for (let k = 0; k < current.length; k++) {
+      const j = (k + 1) % current.length;
+      triangle(previous[k], previous[j], current[j]);
+      triangle(previous[k], current[j], current[k]);
+    }
+    previous = current;
+  }
+  const base = ring(-hy), center = { p: [0, -hy, 0], c: 0.85 };
+  for (let k = 0; k < base.length; k++) triangle(center, base[(k + 1) % base.length], base[k]);
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+  geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+  geometry.computeVertexNormals();
+  return geometry;
+}
 
-export function icePartMesh(index, isBlade, shape, color, opts, look, tier) {
-  if (index !== 1) return iceKit(index, isBlade, shape, color, opts, look, tier);
-  // Open brass ring, using the HBO hilt as a visual reference. No protruding peen.
-  const group = new THREE.Group(), metal = metalMat(ICE_COLORS.metal, { rough: 0.33 });
-  const ring = mesh(group, new THREE.TorusGeometry(0.022, 0.008, 8, 24), metal);
-  ring.scale.z = 0.8;
-  mesh(group, new THREE.BoxGeometry(0.022, 0.015, 0.016), metal, [0, 0.020, 0]);
+function icePlate(shape, depth, material, bevel = 0.0012) {
+  const geometry = new THREE.ExtrudeGeometry(shape, { depth: depth - bevel * 2,
+    bevelEnabled: true, bevelThickness: bevel, bevelSize: bevel, bevelSegments: 1,
+    steps: 1, curveSegments: 16 });
+  geometry.translate(0, 0, -depth / 2 + bevel);
+  return new THREE.Mesh(geometry, material);
+}
+
+function iceWoodGeometry(shape) {
+  const [, , hy] = shape, vertices = [], colors = [], rings = 24, sides = 16;
+  const point = (i, k) => {
+    const t = i / rings, a = k * Math.PI * 2 / sides;
+    const radius = 0.0125 + 0.005 * t + 0.0015 * Math.sin(t * Math.PI);
+    const grain = Math.sin(a * 7 + t * 2.1) * Math.sin(a * 3 - t * 3.7);
+    const r = radius - 0.00025 * Math.max(0, grain);
+    const worn = Math.abs(Math.cos(a)) ** 12 * Math.sin(t * Math.PI);
+    return { p: [Math.cos(a) * r, -hy + 2 * hy * t, Math.sin(a) * r * 0.92],
+      c: 0.83 + 0.13 * grain + 0.20 * worn };
+  };
+  for (let i = 0; i < rings; i++) for (let k = 0; k < sides; k++) {
+    const a = point(i, k), b = point(i, k + 1), c = point(i + 1, k + 1), d = point(i + 1, k);
+    for (const v of [a, d, c, a, c, b]) { vertices.push(...v.p); colors.push(v.c, v.c * 0.94, v.c * 0.88); }
+  }
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+  geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+  geometry.computeVertexNormals();
+  return geometry;
+}
+
+export function icePartMesh(index, isBlade, shape) {
+  if (isBlade) {
+    // fighter.js colors this mesh directly when blood accumulates.
+    const blade = new THREE.Mesh(iceBladeGeometry(shape), metalMat(ICE_COLORS.blade,
+      { rough: 0.25, metal: 0.76, env: 1.25, vertexColors: true, side: THREE.DoubleSide }));
+    blade.castShadow = true;
+    return blade;
+  }
+  const group = new THREE.Group();
+  const brass = metalMat(ICE_COLORS.metal, { rough: 0.30, metal: 0.82 });
+  const steel = metalMat(0x7d858b, { rough: 0.27, metal: 0.78, env: 1.2 });
+  if (index === 0) {
+    mesh(group, iceWoodGeometry(shape), new THREE.MeshStandardMaterial({
+      color: ICE_COLORS.grip, roughness: 0.63, metalness: 0, vertexColors: true }));
+  } else if (index === 1) {
+    // The detailed HBO reference shows an oval recess, not a through-hole.
+    const outline = new THREE.Shape();
+    outline.moveTo(0, -0.0250);
+    outline.bezierCurveTo(-0.024, -0.0250, -0.027, -0.012, -0.018, 0.003);
+    outline.bezierCurveTo(-0.010, 0.018, -0.010, 0.018, -0.009, 0.0288);
+    outline.lineTo(0.009, 0.0288);
+    outline.bezierCurveTo(0.010, 0.018, 0.010, 0.018, 0.018, 0.003);
+    outline.bezierCurveTo(0.027, -0.012, 0.024, -0.0250, 0, -0.0250);
+    const hole = new THREE.Path();
+    hole.absellipse(0, -0.009, 0.012, 0.013, 0, 2 * Math.PI, true);
+    outline.holes.push(hole);
+    group.add(icePlate(outline, 0.017, brass));
+    const recess = [];
+    for (const side of [-1, 1]) for (let band = 0; band < 4; band++) for (let k = 0; k < 32; k++) {
+      const point = (r, angle) => [Math.cos(angle) * 0.012 * r,
+        -0.009 + Math.sin(angle) * 0.013 * r, side * (0.005 + 0.0035 * r * r)];
+      const a = k * Math.PI / 16, b = (k + 1) * Math.PI / 16, r0 = band / 4, r1 = (band + 1) / 4;
+      const p = point(r0, a), q = point(r0, b), r = point(r1, b), s = point(r1, a);
+      recess.push(...p, ...q, ...r, ...p, ...r, ...s);
+    }
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(recess, 3));
+    geometry.computeVertexNormals();
+    mesh(group, geometry, metalMat(ICE_COLORS.metal,
+      { rough: 0.33, metal: 0.78, side: THREE.DoubleSide }));
+    mesh(group, new THREE.CylinderGeometry(0.003, 0.0035, 0.006, 8), steel, [0, -0.027, 0]);
+  } else if (index === 2) {
+    // Steel quillons and a broad shield plate; the brass is confined to the ends.
+    const bar = new THREE.Shape();
+    bar.moveTo(-0.130, -0.006);
+    for (const [x, y] of [[-0.042, -0.009], [0.042, -0.009], [0.130, -0.006],
+      [0.130, 0.006], [0.042, 0.009], [-0.042, 0.009], [-0.130, 0.006]]) bar.lineTo(x, y);
+    bar.closePath();
+    group.add(icePlate(bar, 0.018, steel));
+    const shield = new THREE.Shape();
+    shield.moveTo(-0.044, 0);
+    for (const [x, y] of [[-0.026, -0.012], [0.026, -0.012], [0.044, 0],
+      [0.037, 0.015], [0, 0.029], [-0.037, 0.015]]) shield.lineTo(x, y);
+    shield.closePath();
+    group.add(icePlate(shield, 0.025, steel, 0.0014));
+    for (const sign of [-1, 1]) {
+      const knob = mesh(group, new THREE.CylinderGeometry(0.0125, 0.0125, 0.012, 24), brass,
+        [sign * 0.130, 0, 0]);
+      knob.rotation.z = Math.PI / 2;
+      const grooves = [], shades = [];
+      const p = (radius, k) => {
+        const a = k * Math.PI / 24;
+        return [sign * (0.137 + (k % 2) * 0.00065), Math.cos(a) * radius, Math.sin(a) * radius];
+      };
+      for (let k = 0; k < 48; k++) {
+        const a = p(0.005, k), b = p(0.0107, k), c = p(0.0107, k + 1), d = p(0.005, k + 1);
+        grooves.push(...a, ...b, ...c, ...a, ...c, ...d);
+        for (const j of [k, k, k + 1, k, k + 1, k + 1]) {
+          const shade = j % 2 ? 1 : 0.72; shades.push(shade, shade, shade);
+        }
+      }
+      const grooveGeo = new THREE.BufferGeometry();
+      grooveGeo.setAttribute('position', new THREE.Float32BufferAttribute(grooves, 3));
+      grooveGeo.setAttribute('color', new THREE.Float32BufferAttribute(shades, 3));
+      grooveGeo.computeVertexNormals();
+      mesh(group, grooveGeo, metalMat(ICE_COLORS.metal,
+        { rough: 0.36, metal: 0.82, vertexColors: true, side: THREE.DoubleSide }));
+      const boss = mesh(group, new THREE.CylinderGeometry(0.0055, 0.0055, 0.003, 16), brass,
+        [sign * 0.1385, 0, 0]);
+      boss.rotation.z = Math.PI / 2;
+      const pin = mesh(group, new THREE.CylinderGeometry(0.003, 0.0035, 0.004, 6), brass,
+        [sign * 0.141, 0, 0]);
+      pin.rotation.z = Math.PI / 2;
+      const collar = mesh(group, new THREE.CylinderGeometry(0.009, 0.009, 0.008, 12), brass, [sign * 0.124, 0, 0]);
+      collar.rotation.z = Math.PI / 2;
+      for (const side of [-1, 1]) {
+        const rivet = mesh(group, new THREE.SphereGeometry(0.003, 8, 6), steel, [sign * 0.027, 0.018, side * 0.012]);
+        rivet.scale.z = 0.5;
+      }
+    }
+  }
+  group.traverse(o => { if (o.isMesh) o.castShadow = true; });
   return group;
 }
 
 export function iceDecorate(group) {
-  const h = this.hiltLength, L = this.bladeLength;
-  const wave = inlay((x, y, side) => [x, y, side * (0.004 * (1 - 0.35 * (y - h) / L) + 0.00013)]);
-  // Broad, subdued folded-steel waves; the fuller and sharpened edges remain clear.
-  for (const side of [-1, 1]) for (const lane of [-3, -2, -1, 1, 2, 3]) {
-    let prev;
-    for (let k = 0; k <= 96; k++) {
-      const t = k / 96, y = h + 0.055 + t * (L - 0.22);
-      const x = (lane * 0.009 + Math.sin(t * 8 * Math.PI + Math.abs(lane) * 0.9) * 0.0018) * (1 - 0.14 * t);
-      const point = [x, y];
-      if (prev) wave.stroke(prev, point, side, 0.00032);
-      prev = point;
-    }
+  const steel = metalMat(0x7d858b, { rough: 0.27, metal: 0.78 });
+  const brass = metalMat(ICE_COLORS.metal, { rough: 0.30, metal: 0.82 });
+  for (const [y, radius, material] of [[-0.174, 0.0135, brass], [0.173, 0.018, steel]]) {
+    mesh(group, new THREE.CylinderGeometry(radius, radius, 0.018, 16), material, [0, y, 0]);
   }
-  wave.finish(group, 0x92989d);
-  const metal = metalMat(ICE_COLORS.metal, { rough: 0.35 });
-  for (const y of [-0.174, 0.171]) mesh(group,
-    new THREE.CylinderGeometry(0.020, 0.020, 0.011, 12), metal, [0, y, 0]);
 }
