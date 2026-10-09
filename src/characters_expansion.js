@@ -1,8 +1,31 @@
-// Three independent encounters. Existing campaign order and random roster stay explicit in characters.js.
+// Independent encounters. Existing campaign order and random roster stay explicit in characters.js.
 // Biographies are fiction; personas reuse the game's weapon schools, not historical motion captures.
 import { getLook, CHARACTER_LOOK_VERSION } from './looks.js';
 
 export const EXPANSION_CHARACTERS = [
+  {
+    id: 'artoria', name: '아르토리아', epithet: '돌아온 맹세', age: 24,
+    origin: '브리튼 · 바다 너머의 잃어버린 왕국', weapon: 'excalibur', voice: 'isolde',
+    backstory: '금빛 검을 지녔다는 소문을 따라 바다를 건넌 기사. 왕관도 군대도 없이 돌아왔지만, 엑스칼리버는 여전히 그녀의 손에서 빛난다. 이름을 빌린 이들을 벌하기보다, 그 이름이 지켜야 했던 사람들을 찾는다.',
+    want: '검에 걸었던 맹세를 끝까지 지키고, 흩어진 사람들을 고향으로 돌려보내는 것.',
+    school: '엑스칼리버의 실제 소유자라는 게임 속 창작 설정. 기존 양손검 자세와 엑스칼리버 유파를 사용한다.',
+    signatureMoves: '몸 가까이 검을 되찾고, 짧은 준비에서 크게 비스듬히 벤다.',
+    favoriteGuards: '오른쪽 어깨와 쟁기. 칼끝으로 길을 닫고 다음 베기를 준비한다.',
+    temperament: '말은 적지만 상대를 얕보지 않는다. 잃어버린 것보다 지켜야 할 것을 먼저 본다.',
+    movementNotes: '절제된 양손검 동작과 안정된 준비 자세. 외형을 이유로 별도 힘 보너스를 주지 않는다.',
+    weaknesses: '큰 베기가 빗나간 뒤 몸 가까이 파고드는 연속 압박에는 빈틈이 생긴다.',
+    ai: { level: 'normal', persona: {
+      school: 'excalibur',
+      level: { reaction: 0.26, guardChance: 0.7, counter: 0.35, feint: 0.2, followUp: 0.42, read: 0.75, discipline: 0.88, strength: 1, aggression: 0.8, windup: 0.7, skill: 0.82 },
+      pers: { precision: 0.85, guardStick: 2.5, fearful: 0.2, angry: 0.2, dogged: 0.45, guardSpeed: 0.85, rhythm: 2.6, margin: 0.22, aggr: 0.85, vor: 0.45, patienceTime: 4.5, circleRate: 0.22,
+        guardPref: { tagR: 1.6, pflugR: 1.5, ochsR: 1.1, langort: 1.2 },
+        techPref: { zornhau: 1.5, oberhau: 1.25, zornhauL: 1.2, stichPflug: 1.1 } },
+      idle: { guard: 'pflugR', gesture: 'still' }, close: { rate: 0.25, kind: 'barge', then: 'cut' },
+    } },
+    look: getLook('artoria'), lookVersion: CHARACTER_LOOK_VERSION.artoria,
+    taunt: '이 검에 걸었던 맹세는, 아직 끝나지 않았습니다.',
+    lines: { intro: ['이 검에 걸었던 맹세는, 아직 끝나지 않았습니다.', '왕관은 잃었어도, 지킬 것은 남았습니다.', '당신의 검으로 답해 주십시오.'], win: ['검을 거두세요. 여기서 끝냅시다.', '이름보다 무거운 것은, 그 이름의 약속입니다.', '나는 아직 돌아갈 곳이 있습니다.'] },
+  },
   {
     id: 'tome', name: '토메 비달', epithet: '마지막 교습', age: 64,
     origin: '이탈리아 · 항구 도시의 검술 회랑', weapon: 'rapier', voice: 'liao',

@@ -1682,7 +1682,127 @@ function isoldeShoe(g) {
   addMerged(g, [box(0.038, 0.006, 0.108, [0.018, 0.039, 0]), box(0.02, 0.009, 0.023, [0.018, 0.042, -0.044])], 0x756458, CLOTH);
 }
 
+// Artoria uses the native adult body and hands. Cloth is attached beneath the
+// representative part mesh so the existing armor-wear list contains metal only.
+const ARTORIA_SILVER = 0xc5d2da;
+const ARTORIA_EDGE = 0x829aa8;
+const ARTORIA_TEAL = 0x28797b;
+const ARTORIA_INK = 0x19242c;
+const ARTORIA_GOLD = 0xbba475;
+const ARTORIA_METAL = { metalness: 0.68, roughness: 0.32, steel: 0.9 };
+function artoriaCloth(g, name = 'artoria-cloth') {
+  const holder = g.children[0];
+  let layer = holder.children.find((o) => o.name === name);
+  if (!layer) { layer = new THREE.Group(); layer.name = name; holder.add(layer); }
+  return layer;
+}
+function artoriaPanel(x, yz, ridge = 0) {
+  const geo = clothPanel(x, yz, 0.012);
+  const p = geo.attributes.position;
+  const w = Math.max(...yz.map((v) => Math.abs(v[1])));
+  for (let i = 0; i < p.count; i++) p.setX(i, p.getX(i) + ridge * Math.max(0, 1 - Math.abs(p.getZ(i)) / w));
+  geo.computeVertexNormals();
+  return geo;
+}
+function artoriaRobe(g, lower = false) {
+  const layer = artoriaCloth(g), h = lower ? 0.38 : 0.46;
+  const top = lower ? 0.134 : 0.106, bottom = lower ? 0.15 : 0.14;
+  const start = 2.12, sweep = Math.PI * 2 - 1.08;
+  // Open toward +X. Two independently attached skirt halves expose the greaves
+  // and preserve knee articulation instead of hiding both legs in one rigid cone.
+  const skirt = new THREE.CylinderGeometry(top, bottom, h, 20, 4, true, start, sweep);
+  skirt.scale(0.91, 1, 1);
+  addMerged(layer, [skirt], ARTORIA_INK, { ...CLOTH, side: THREE.DoubleSide });
+  const lining = new THREE.CylinderGeometry(top * 0.976, bottom * 0.976, h * 0.99, 20, 2, true, start, sweep);
+  lining.scale(0.91, 1, 1);
+  addMerged(layer, [lining], ARTORIA_TEAL, { ...CLOTH, side: THREE.DoubleSide });
+  const seams = [], bands = [];
+  for (const a of [start, start + sweep]) {
+    const p = [[Math.sin(a) * top * 0.91, h / 2, Math.cos(a) * top],
+      [Math.sin(a) * (top + bottom) * 0.455, 0, Math.cos(a) * (top + bottom) / 2],
+      [Math.sin(a) * bottom * 0.91, -h / 2, Math.cos(a) * bottom]];
+    seams.push(taperedTube(p, [0.0027, 0.0027, 0.0027], 7, 4));
+    const inward = a === start ? 0.08 : -0.08;
+    bands.push(bake(new THREE.CylinderGeometry(top * 1.01, bottom * 1.01, h, 8, 1, true, a + inward, inward > 0 ? 0.16 : -0.16), null, null, [0.91, 1, 1]));
+  }
+  addMerged(layer, seams, ARTORIA_GOLD, CLOTH);
+  addMerged(layer, bands, 0x3b8684, { ...CLOTH, side: THREE.DoubleSide });
+}
+function artoriaShoulder(g, large) {
+  const r = large ? 0.106 : 0.085, plates = [];
+  for (let i = 0; i < 3; i++) plates.push(bake(new THREE.SphereGeometry(r - i * 0.009, 10, 6, 0, Math.PI * 2, 0, Math.PI * 0.65), [0, 0.074 - i * 0.048, 0], null, [1.13, 0.71, large ? 1.22 : 1.05]));
+  addMerged(g, plates, ARTORIA_SILVER, ARTORIA_METAL);
+  addMerged(g, [cyl(r * 0.98, r * 1.03, 0.012, 10, true, [0, 0.015, 0])], ARTORIA_EDGE, ARTORIA_METAL);
+  addMerged(g, [cyl(r * 1.02, r * 1.025, 0.005, 10, true, [0, 0.023, 0])], ARTORIA_GOLD, ARTORIA_METAL);
+  addMerged(g, [cyl(0.053, 0.05, 0.155, 10, false, [0, -0.035, 0])], ARTORIA_SILVER, ARTORIA_METAL);
+}
+function artoriaForearm(g) {
+  addMerged(g, [cyl(0.056, 0.047, 0.205, 10, false, [0, 0.005, 0]),
+    cyl(0.061, 0.049, 0.049, 10, true, [0, -0.089, 0])], ARTORIA_SILVER, ARTORIA_METAL);
+  addMerged(g, [artoriaPanel(0.05, [[0.091, -0.027], [0.117, 0], [0.091, 0.027], [-0.08, 0.032], [-0.1, 0], [-0.08, -0.032]], 0.016)], 0xdce3e5, ARTORIA_METAL);
+  addMerged(g, [cyl(0.0615, 0.0605, 0.008, 10, true, [0, -0.07, 0])], ARTORIA_EDGE, ARTORIA_METAL);
+}
+function artoriaShin(g) {
+  artoriaRobe(g, true);
+  addMerged(g, [cyl(0.06, 0.052, 0.29, 10, false, [0, 0, 0])], ARTORIA_SILVER, ARTORIA_METAL);
+  addMerged(g, [artoriaPanel(0.056, [[0.205, 0], [0.16, 0.052], [0.09, 0.051], [-0.165, 0.031], [-0.196, 0], [-0.165, -0.031], [0.09, -0.051], [0.16, -0.052]], 0.025)], 0xd8e1e4, ARTORIA_METAL);
+  addMerged(g, [cyl(0.062, 0.061, 0.012, 10, true, [0, 0.115, 0])], ARTORIA_EDGE, ARTORIA_METAL);
+}
+function artoriaFoot(g) {
+  addMerged(g, [box(0.265, 0.067, 0.12, [0.009, 0.009, 0])], ARTORIA_SILVER, ARTORIA_METAL);
+  addMerged(g, [-0.062, -0.011, 0.042, 0.092].map((x) => box(0.012, 0.006, 0.123, [x, 0.046, 0])), ARTORIA_EDGE, ARTORIA_METAL);
+}
+const ARTORIA_OUTFIT = {
+  armorParts: new Set(['chest', 'abdomen', 'pelvis', 'uarmS', 'uarmO', 'farmS', 'farmO', 'shinF', 'shinB', 'footF', 'footB']),
+  head(g, look) {
+    quietFace(g, look, 'artoria');
+    const hair = [];
+    for (const s of [-1, 1]) {
+      hair.push(isoldeLock([[0.015, 0.085, s * 0.055], [0.087, 0.071, s * 0.06], [0.106, 0.025, s * 0.082], [0.081, -0.023, s * 0.09]], [0.052, 0.052, 0.035, 0.002], 0.015));
+      hair.push(isoldeLock([[0.006, 0.067, s * 0.09], [0.028, -0.01, s * 0.112], [0.07, -0.14, s * 0.131], [0.12, -0.224, s * 0.145]], [0.036, 0.043, 0.04, 0.022], 0.014));
+    }
+    hair.push(isoldeLock([[0.002, 0.099, -0.01], [0.084, 0.074, -0.012], [0.104, 0.037, 0.009]], [0.045, 0.034, 0.003], 0.012));
+    hair.push(bake(new THREE.SphereGeometry(0.055, 10, 7), [-0.11, -0.002, 0], null, [0.7, 1.1, 1]));
+    for (let i = -1; i <= 1; i++) hair.push(isoldeLock([[-0.121, -0.016, i * 0.024], [-0.14, -0.095, i * 0.031], [-0.131, -0.216, i * 0.037]], [0.038, 0.043, 0.004], 0.012));
+    const hairMesh = addMerged(g, hair, look.hair, { ...CLOTH, roughness: 0.84 }); hairMesh.name = 'artoria-hair';
+    addMerged(g, [box(0.02, 0.016, 0.09, [-0.126, -0.026, 0])], ARTORIA_TEAL, CLOTH);
+    addMerged(g, [-1, 1].map((s) => box(0.007, 0.016, 0.025, [0.101, 0.012, s * 0.035])), 0x418f87, CLOTH);
+    addMerged(g, [-1, 1].map((s) => box(0.006, 0.013, 0.008, [0.107, 0.012, s * 0.035])), 0x162d30, CLOTH);
+    addMerged(g, [-1, 1].map((s) => box(0.003, 0.004, 0.004, [0.111, 0.016, s * 0.033])), 0xeaf3e9, CLOTH);
+  },
+  chest(g, look) {
+    const fabric = artoriaCloth(g); clothNeck(fabric, look);
+    const cape = addMerged(fabric, [clothPanel(-0.153, [[0.151, -0.1], [0.167, -0.234], [0.075, -0.31], [-0.192, -0.285], [-0.184, -0.063]])], ARTORIA_TEAL, { ...CLOTH, side: THREE.DoubleSide }); cape.name = 'artoria-cape';
+    addMerged(fabric, [clothPanel(-0.158, [[0.135, -0.225], [0.125, -0.237], [-0.19, -0.271], [-0.185, -0.259]])], ARTORIA_GOLD, CLOTH);
+    const hairLayer = artoriaCloth(g, 'artoria-hair');
+    addMerged(hairLayer, [-1, 1].map((s) => isoldeLock([[0.13, 0.15, s * 0.145], [0.175, 0.06, s * 0.15], [0.164, -0.067, s * 0.17]], [0.03, 0.032, 0.002], 0.012)), look.hair, CLOTH);
+    addMerged(g, [box(0.025, 0.235, 0.374, [-0.121, 0.006, 0]), ...[-1, 1].map((s) => box(0.255, 0.224, 0.024, [0, 0, s * 0.187]))], ARTORIA_EDGE, ARTORIA_METAL);
+    addMerged(g, [artoriaPanel(0.137, [[0.146, -0.17], [0.17, -0.072], [0.126, 0], [0.17, 0.072], [0.146, 0.17], [-0.079, 0.151], [-0.153, 0], [-0.079, -0.151]], 0.038)], ARTORIA_SILVER, ARTORIA_METAL);
+    addMerged(g, [artoriaPanel(0.159, [[0.091, -0.139], [0.112, 0], [0.091, 0.139], [0.014, 0.128], [-0.071, 0], [0.014, -0.128]], 0.03)], 0xe0e7e9, ARTORIA_METAL);
+    addMerged(g, [artoriaPanel(0.192, [[0.079, 0], [0.04, 0.017], [0.015, 0], [0.04, -0.017]], 0.005)], ARTORIA_TEAL, ARTORIA_METAL);
+    addMerged(g, [cyl(0.065, 0.08, 0.034, 10, true, [0, 0.164, 0])], ARTORIA_SILVER, ARTORIA_METAL);
+  },
+  abdomen(g) {
+    const fabric = artoriaCloth(g);
+    addMerged(fabric, [clothPanel(-0.136, [[0.094, -0.064], [0.095, -0.281], [-0.124, -0.257], [-0.1, -0.05]])], ARTORIA_TEAL, CLOTH);
+    for (let i = 0; i < 3; i++) addMerged(g, [artoriaPanel(0.123 + i * 0.005, [[0.096 - i * 0.051, -0.16], [0.096 - i * 0.051, 0.16], [0.036 - i * 0.051, 0.163], [0.021 - i * 0.051, 0], [0.036 - i * 0.051, -0.163]], 0.02)], i % 2 ? ARTORIA_EDGE : ARTORIA_SILVER, ARTORIA_METAL);
+  },
+  pelvis(g) {
+    const fabric = artoriaCloth(g);
+    addMerged(fabric, [clothPanel(-0.131, [[0.088, -0.051], [0.092, -0.255], [-0.19, -0.228], [-0.169, -0.075]])], ARTORIA_TEAL, CLOTH);
+    addMerged(g, [-1, 1].map((s) => artoriaPanel(0.12, [[0.072, s * 0.036], [0.088, s * 0.159], [-0.051, s * 0.203], [-0.134, s * 0.153], [-0.096, s * 0.063]], 0.015)), ARTORIA_SILVER, ARTORIA_METAL);
+    addMerged(g, [box(0.25, 0.022, 0.34, [0, 0.06, 0])], ARTORIA_GOLD, ARTORIA_METAL);
+  },
+  uarmS(g) { artoriaShoulder(g, false); },
+  uarmO(g) { artoriaShoulder(g, true); },
+  farmS: artoriaForearm, farmO: artoriaForearm,
+  thighF(g) { artoriaRobe(g); }, thighB(g) { artoriaRobe(g); },
+  shinF: artoriaShin, shinB: artoriaShin,
+  footF: artoriaFoot, footB: artoriaFoot,
+};
+
 export const OUTFITS = {
+  artoria_silver: ARTORIA_OUTFIT,
   bran_farmer: BRAN_FARMER,
   isolde_saber: ISOLDE_SABER,
   isolde_longhair: ISOLDE_LONGHAIR,

@@ -14,6 +14,7 @@
 import { classifyWeapon } from './weapon_class.js';
 import { drawGroupedWeaponCards } from './weapon_draw.js';
 import { MORGENSTERN_DESIGN as MACE } from './morgenstern_design.js';
+import { SAIN_COLORS, ICE_COLORS, sainPartMesh, sainDecorate, icePartMesh, iceDecorate } from './rare_sword_details.js';
 import * as THREE from 'three';
 import { swordKit, metalMat, weaponEnv, hiddenParts, drawTreeBranch, drawRubberChicken, drawFrozenTuna, drawPistol, morgensternKit, PISTOL_GRIP, PISTOL_BORE_X } from './weapon_looks.js';
 
@@ -916,7 +917,7 @@ const excalibur = finalizeSpec('excalibur', {
   nameKo: '엑스칼리버', nameEn: 'Excalibur',
   desc: '금빛 기운이 감도는 진짜 왕의 검.',
   grip: 'two-hand', material: 'steel',
-  tier: 'legend', // 감독 등급: 레전드 → power 1.2·durability 1.0. 진품은 플레이어 전용(docs/characters.md)
+  tier: 'legend', // 레전드 → power 1.2·durability 1.0. 플레이어와 아르토리아가 진품을 사용한다.
   hiltLength: 0.13, bladeLength: 1.0, gripAlong: -0.15,
   mCut: 1.2, mThrust: 1.2, mBlunt: 1.1,
   partMesh: excaliburPartMesh,
@@ -1186,10 +1187,58 @@ const morgenstern = finalizeSpec('morgenstern', {
   },
 });
 
+// 사용자 승인 레어 두 검. 전체 길이·질량은 유물/소설과 구분한 게임 각색 제원이다.
+const sain = finalizeSpec('sain', {
+  nameKo: '사인검', nameEn: 'Sain Sword',
+  desc: '별자리와 금은 명문을 새긴 의례검.\n전체 100cm, 질량 1kg의 한손 양날검.',
+  grip: 'one-hand', material: 'steel', tier: 'rare',
+  hiltLength: 0.125, bladeLength: 0.75, gripAlong: -0.12,
+  mCut: 1.10, mThrust: 1.0, mBlunt: 0.95,
+  partMesh: sainPartMesh, decorate: sainDecorate,
+  buildParts() {
+    const L = this.bladeLength;
+    const grip = boxInertia(0.10, 0.016, 0.1, 0.014);
+    const pommel = sphereInertia(0.16, 0.025);
+    const guard = boxInertia(0.09, 0.04, 0.01, 0.013);
+    const blade = bladeInertia(0.65, L, 0.36, 0.25, 0.035, 0.009);
+    return [
+      partTuple(['box', 0.016, 0.1, 0.014], 0, 0.10, 0, grip.Ie, grip.It, SAIN_COLORS.grip),
+      partTuple(['ball', 0.025], -0.1, 0.16, 0, pommel.Ie, pommel.It, SAIN_COLORS.metal),
+      partTuple(['box', 0.04, 0.01, 0.013], 0.11, 0.09, 0, guard.Ie, guard.It, SAIN_COLORS.metal),
+      partTuple(['box', 0.0175, L / 2, 0.0045], this.hiltLength + L / 2, 0.65,
+        blade.comY, blade.Ie, blade.It, SAIN_COLORS.blade, true),
+    ];
+  },
+});
+
+const ice = finalizeSpec('ice', {
+  nameKo: '아이스', nameEn: 'Ice',
+  desc: '넓은 회흑색 칼날에 물결결이 흐르는 스타크의 대검.\n전체 168cm, 질량 3.5kg의 양손검.',
+  grip: 'two-hand', material: 'steel', tier: 'rare',
+  hiltLength: 0.20, bladeLength: 1.25, gripAlong: -0.20,
+  mCut: 1.10, mThrust: 0.85, mBlunt: 1.15,
+  controlOverrides: { maxAimTorque: 28 },
+  partMesh: icePartMesh, decorate: iceDecorate,
+  buildParts() {
+    const L = this.bladeLength;
+    const grip = boxInertia(0.30, 0.022, 0.185, 0.020);
+    const pommel = sphereInertia(0.70, 0.030);
+    const guard = boxInertia(0.35, 0.14, 0.015, 0.022);
+    const blade = bladeInertia(2.15, L, 0.33, 0.25, 0.09, 0.009);
+    return [
+      partTuple(['box', 0.022, 0.185, 0.020], 0, 0.30, 0, grip.Ie, grip.It, ICE_COLORS.grip),
+      partTuple(['ball', 0.030], -0.20, 0.70, 0, pommel.Ie, pommel.It, ICE_COLORS.metal),
+      partTuple(['box', 0.14, 0.015, 0.022], 0.185, 0.35, 0, guard.Ie, guard.It, ICE_COLORS.metal),
+      partTuple(['box', 0.045, L / 2, 0.0045], this.hiltLength + L / 2, 2.15,
+        blade.comY, blade.Ie, blade.It, ICE_COLORS.blade, true),
+    ];
+  },
+});
+
 export const WEAPONS = {
   longsword, zweihander, estoc, sabre, rapier, falchion,
   monohoshizao, qinggang, ganjiang, moye, excalibur, excalibur_replica: excaliburReplica, lightsaber, tree_branch: treeBranch,
-  rubber_chicken: rubberChicken, frozen_tuna: frozenTuna, pistol, morgenstern,
+  rubber_chicken: rubberChicken, frozen_tuna: frozenTuna, pistol, morgenstern, sain, ice,
 };
 
 // 다른 담당이 쓰는 짧은 이름 → 정식 id (characters.js의 'branch', URL 파라미터의 'chicken' 등)

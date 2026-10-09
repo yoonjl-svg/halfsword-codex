@@ -91,7 +91,7 @@ SCHOOLS.qinggang = { ...SCHOOLS.jian, id: 'qinggang', weapon: 'qinggang', measur
 
 // New legendary jian reuse Chinese one-hand technique choices. Distances below
 // are geometric estimates from Qinggang, not new measured combat statistics.
-for (const id of ['ganjiang', 'moye']) {
+for (const id of ['ganjiang', 'moye', 'sain']) {
   const weapon = getWeapon(id), base = getWeapon('qinggang');
   const scale = (weapon.hiltLength + weapon.bladeLength) / (base.hiltLength + base.bladeLength);
   const m = SCHOOLS.qinggang.measure;
@@ -132,6 +132,15 @@ const MEASURES = {
 const weakThrust = (tech, k) => tech.map((t) => (t.kind === 'thrust' ? { ...t, base: t.base * k } : t));
 for (const [id, [contact, reach, clinch, cutTime]] of Object.entries(MEASURES)) {
   SCHOOLS[id] = { ...L, id, weapon: id, measure: { contact, reach, clinch, cutTime } };
+}
+// Ice uses the existing two-hand school; geometric reach estimate, not measured efficacy.
+{
+  const w = getWeapon('ice'), base = getWeapon('zweihander');
+  const scale = (w.hiltLength + w.bladeLength) / (base.hiltLength + base.bladeLength);
+  const m = SCHOOLS.zweihander.measure;
+  SCHOOLS.ice = { ...SCHOOLS.zweihander, id: 'ice', weapon: 'ice', measure: {
+    ...m, contact: m.contact * scale, reach: m.reach * scale, clinch: m.clinch * scale,
+  } };
 }
 // 날이 없는 것(고무 닭·참치)은 찌르기 없음. 곡도·반달칼은 찌르기를 덜 믿는다
 for (const id of ['rubber_chicken', 'frozen_tuna']) SCHOOLS[id] = { ...SCHOOLS[id], tech: noThrust, techByName: byName(noThrust), feints: noThrustFeints };
