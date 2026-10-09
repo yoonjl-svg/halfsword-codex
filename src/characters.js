@@ -15,6 +15,7 @@
 import { WEAPONS, WEAPON_LIST } from './weapons.js';
 import { getLook, CHARACTER_LOOK_VERSION } from './looks.js';
 import { AI_LEVELS } from './config.js'; // 변형의 실력 숫자를 원본 실효값에서 계산할 때만 읽는다 (config.js는 아무것도 import하지 않아 순환이 없다)
+import { EXPANSION_CHARACTERS } from './characters_expansion.js';
 
 export const CHARACTERS = [
   // ───────────────────────────────────────────── 1. 쉬움 : 촌뜨기 난동꾼 ─────────────────────────────────────────────
@@ -435,7 +436,7 @@ export const CHARACTER_VARIANTS = [
 ];
 
 /** id → 시트. 다섯 명과 변형까지 (변형은 여정의 정해진 자리·?foe=id 로만 나온다) */
-export const CHARACTERS_BY_ID = Object.fromEntries([...CHARACTERS, ...CHARACTER_VARIANTS].map((c) => [c.id, c]));
+export const CHARACTERS_BY_ID = Object.fromEntries([...CHARACTERS, ...CHARACTER_VARIANTS, ...EXPANSION_CHARACTERS].map((c) => [c.id, c]));
 
 /**
  * 이번 판에 캐릭터가 실제로 드는 무기 id. weaponAlt 가 있으면 그 확률로 대체 무기를 고른다.

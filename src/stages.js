@@ -19,9 +19,15 @@ import { buildClearing } from './stage_clearing.js';
 import { buildClearingB } from './stage_clearing_b.js';
 import { buildPoseidonNight } from './stage_poseidon_night.js';
 import { weaponEnv } from './weapon_looks.js';
+import { buildLoggia } from './stage_loggia.js';
+import { buildCorsair } from './stage_corsair.js';
+import { buildSacredGrove } from './stage_sacred_grove.js';
 
 // 배경 id → 짓는 함수. 짓는 함수는 { update(dt), excite(amount), sunOffset? } 를 돌려준다
 const BUILDERS = {
+  loggia: buildLoggia,
+  corsair: buildCorsair,
+  sacred_grove: buildSacredGrove,
   poseidon: (scene) => buildArena(scene), // 바닷가 절벽 위 무너진 포세이돈 신전 (arena.js). 빛·안개는 main.js 처음 값을 그대로 쓴다
   temple: buildTemple, // 한국의 산 속 절 (stage_temple.js)
   castle: buildCastle, // 눈 내리는 중세 성의 안뜰, 해 질 녘 (stage_castle.js)
@@ -39,7 +45,7 @@ const DEFAULT_SUN_OFFSET = { x: 4, y: 9, z: 3 }; // sunOffset 을 안 주는 배
 //  이졸데는 한 번 쓰러져도 젊은 수련생의 투지로 다시 일어선다(오너 결정: 약한 게 아니다). 대성당 다음 판은 다시 포세이돈부터
 export const STAGE_ORDER = ['poseidon', 'clearing', 'temple', 'castle', 'poseidon_night', 'cathedral'];
 // 무대 → 그 무대에서 나오는 상대 (캐릭터 id). 여기 없는 무대(어두운 홀)는 무작위 상대
-export const STAGE_FOE = { poseidon: 'heinrich', clearing: 'bran', clearing_a: 'bran', clearing_a_dry: 'bran', temple: 'liao', castle: 'isolde', poseidon_night: 'heinrich_mad', cathedral: 'margarethe' };
+export const STAGE_FOE = { poseidon: 'heinrich', clearing: 'bran', clearing_a: 'bran', clearing_a_dry: 'bran', temple: 'liao', castle: 'isolde', poseidon_night: 'heinrich_mad', cathedral: 'margarethe', loggia: 'tome', corsair: 'omari', sacred_grove: 'yeongman' };
 
 /** prev 다음 판의 배경. prev 가 순서에 없으면(처음, 또는 순서 밖 배경) 맨 앞(포세이돈)부터 */
 export function nextStage(prev = null) {

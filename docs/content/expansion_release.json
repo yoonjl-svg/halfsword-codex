@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "status": "local_passed_public_pending",
+  "dateKST": "2026-10-09",
+  "baseCommit": "b63665b03a1dc5621e74f0254923882d7332a206",
+  "scope": "Three native character/stage encounters, separately selectable; appearance is the priority. No campaign order change or balance target.",
+  "selector": "https://yoonjl-svg.github.io/halfsword-codex/new-encounters.html",
+  "pairs": [
+    {
+      "character": "tome",
+      "stage": "loggia",
+      "weapon": "rapier",
+      "url": "https://yoonjl-svg.github.io/halfsword-codex/?stage=loggia&foe=tome"
+    },
+    {
+      "character": "omari",
+      "stage": "corsair",
+      "weapon": "falchion",
+      "url": "https://yoonjl-svg.github.io/halfsword-codex/?stage=corsair&foe=omari"
+    },
+    {
+      "character": "yeongman",
+      "stage": "sacred_grove",
+      "weapon": "monohoshizao",
+      "url": "https://yoonjl-svg.github.io/halfsword-codex/?stage=sacred_grove&foe=yeongman"
+    }
+  ],
+  "sourceSHA256": {
+    "src/characters_expansion.js": "0d84ede4f619295006cf1e219b0350dc6e2718cbd853058acdb01283ad0be629",
+    "src/characters.js": "6badeb31dabc5924c2d9f29e78349982b1873f036feffbd1a72773b022c1ce55",
+    "src/looks.js": "64b6c6097cdb0173daad5bfed3c68c31222c6cb2ab708c69aaec653cffa6a1dc",
+    "src/outfits.js": "bfcfef0279b019ce3679cc3fee8e844c21d868769224347f8eea5a2c3b863bb5",
+    "src/stages.js": "f593229c05cde9db88023dfb78f51e8c46e4de374ef0db538bd37fbd06f93ead",
+    "src/stage_loggia.js": "c2c9921a45c6285591b0a031a5de6b04e731380734397a53b6cbb1209551abe0",
+    "src/stage_corsair.js": "916ee923b8567838045be3d73213e85a92577ee376bc8eb3ec0bcd0714c67881",
+    "src/stage_sacred_grove.js": "65b42bbf01f450af586772f0262ac3ace5d1fb204aaf5690cf7b8756df8b8d3b",
+    "src/sound.js": "6dde159e7c86a35a1ecc40164743c545ea07507f9f35fdaaf9667109447f3b7a",
+    "src/main.js": "89e8038c57132c496335b970a532a3574cad984e2a901dca43f233f9696605ed",
+    "public/new-encounters.html": "701ff419ede7ba3f28c0ad96fdceab1c12e5dc086f9d77eb9d56211bdc1af558"
+  },
+  "native": {
+    "pass": true,
+    "constructors": 3,
+    "duels": 6,
+    "steps": 15142,
+    "sourceStable": true,
+    "summarySHA256": "c74afa53d7eeacd490496b8e8cc54568a3ebc743a9a3177a2260f9ab642347b5",
+    "postHatConstructorPass": true,
+    "postHatConstructorSHA256": "8fd3dc5e2335e3974718b7238243f6a51ffd0219a31481d02b201f85163e9ef8",
+    "limitation": "Tome actual stab contact not observed in two seeds; no win-rate target. New-character severing/getup/breakage scenes not observed in these short fights."
+  },
+  "lighting": {
+    "pairsPassed": 3,
+    "errors": 0,
+    "summarySHA256": "05a628230691ac1e2eee9fcc190c7daa878eec221fceb28e3071c8a788c227e7",
+    "scope": "Fixed longsword, same-foe Poseidon comparison; paused scene readability."
+  },
+  "regression": {
+    "pass": true,
+    "groups": 6,
+    "sourceStable": true,
+    "resultSHA256": "078d1a5a4b04b88e1f8b89e31c78041ca6a0385dfeea9e321adf7ffec985c4a9",
+    "wallSeconds": 282.9774792209937
+  },
+  "localMobile": {
+    "pass": true,
+    "flows": 3,
+    "requests": 471,
+    "uniqueAssets": 171,
+    "errors": 0,
+    "reportSHA256": "5479ba149cc1cc93523e601e9d779422ebab61329905a272f77d24b601db4a3a",
+    "scope": "Trusted card choice, move/swing, pause/resume and restart; mobile viewport, no actual enemy wounds observed."
+  },
+  "deployment": null,
+  "publicMobile": null,
+  "limitations": [
+    "Rigid part-bound clothing can intersect during extreme bending; no cloth simulation.",
+    "Browser mobile viewport is not a physical handset performance test."
+  ],
+  "preservedFailures": [
+    "Lighting helper transient undefined-AI during dev serving; fresh probe healthy; frozen preview passed.",
+    "Initial local mobile run timed out under parallel software rendering; retained evidence, increased only tool wall budget; final unchanged game passed."
+  ]
+}

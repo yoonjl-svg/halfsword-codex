@@ -214,7 +214,7 @@ let currentFoe = null; // 이번 판에 고른 캐릭터 (없으면 기본 상�
 let auras = []; // 진짜 엑스칼리버의 일렁임·빛 (aura.js)
 /** 캐릭터의 목소리 id: 변형(광기의 하인리히 등, characters.js CHARACTER_VARIANTS)은 원래 캐릭터의 목소리를 쓴다 */
 function voiceOf(ch) {
-  return ch?.variantOf || ch?.id || 'generic';
+  return ch?.voice || ch?.variantOf || ch?.id || 'generic';
 }
 function pickFoe() {
   if (foeParam === 'stage') return CHARACTERS_BY_ID[STAGE_FOE[stages.id]] || randomCharacter(currentFoe?.id); // 이번 판 무대의 검객

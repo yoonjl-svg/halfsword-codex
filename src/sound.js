@@ -1612,6 +1612,9 @@ const SAMPLES = {
 // 배경(스테이지)마다 다른 것: 발소리 녹음(step), 쓰러질 때 바닥 알갱이(grit), 전투 소리가 벽에 되울리는 방(room).
 // room: reverbIR 모양 + 쇳소리(metal)·몸 소리(flesh)를 울림으로 보내는 양. 바깥(포세이돈·산사)은 울림 없음
 const STAGE_SOUND = {
+  loggia: { step: 'stepStone', grit: 'stepStone', room: { dur: 0.65, rt: 0.45, e0: 0.04, e1: 0.09, lp: 4500, metal: 0.16, flesh: 0.06 } },
+  corsair: { step: 'stepStone', grit: 'stepStone' },
+  sacred_grove: { step: 'stepGravel', grit: 'stepGravel' },
   poseidon: { step: 'step' },
   poseidon_night: { step: 'step', night: true }, // 밤의 포세이돈 (하인리히 재등장): 같은 바다·바람에 네 귀퉁이 화로·횃대의 불을 더하고 바람을 어둡게
   temple: { step: 'stepGravel', grit: 'stepGravel' },
@@ -2569,7 +2572,7 @@ export class Sound {
    */
   ambience() {
     if (this._amb || !this.ctx || !this.master) return;
-    const amb = { temple: this._ambTemple, castle: this._ambCastle, cathedral: this._ambCathedral, darkhall: this._ambHall, poseidon_night: this._ambPoseidon, clearing: this._ambClearing, clearing_a: this._ambClearing, clearing_a_dry: this._ambClearing }[this.stage];
+    const amb = { loggia: this._ambTemple, corsair: this._ambPoseidon, sacred_grove: this._ambTemple, temple: this._ambTemple, castle: this._ambCastle, cathedral: this._ambCathedral, darkhall: this._ambHall, poseidon_night: this._ambPoseidon, clearing: this._ambClearing, clearing_a: this._ambClearing, clearing_a_dry: this._ambClearing }[this.stage];
     if (amb) return amb.call(this);
     return this._ambPoseidon();
   }
@@ -2947,7 +2950,7 @@ export class Sound {
     for (const n of [pine, low, w1, w2, w3]) n.start(t);
     this._amb = { out, nodes: [pine, low, w1, w2, w3], wind: pg, windBase: 0.007 };
     // 풍경은 9~26초마다, 산새는 14~40초마다
-    this._every(9000, 26000, () => this.windChime());
+    if (this.stage !== 'loggia') this._every(9000, 26000, () => this.windChime());
     this._every(14000, 40000, () => this.bird());
   }
 
@@ -3233,6 +3236,10 @@ export class Sound {
       w.gain.setTargetAtTime(b, now + 0.7, 1.2);
     }
     if (this.stage.startsWith('clearing')) return; // 화전 터: 바람만 잠깐 (크게 튀는 소리는 넣지 않는다 — 사장님 컨셉)
+    if (this.stage === 'loggia' || this.stage === 'corsair') {
+      if (amount > 0.5 && Math.random() < 0.35) this._hitCall('flap', amount * 0.5);
+      return; // Cloth and sails, without the shrine's leaves/chime fallback.
+    }
     if (this.stage === 'poseidon_night') {
       // 밤의 포세이돈: 화로 불길이 잠깐 "화르륵", 바람에 검은 천이 펄럭
       this._hitCall('flare', amount * 0.6);
