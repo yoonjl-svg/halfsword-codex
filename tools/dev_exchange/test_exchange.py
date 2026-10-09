@@ -504,5 +504,46 @@ class ExchangeTests(unittest.TestCase):
         self.assertEqual(self.publish()['notes_heading_normalization']['count'], 0)
 
 
+    def test_latest_closed_day_at_deadline_and_after_midnight(self):
+        for now, expected in [('2026-10-09T23:29:59+09:00', '2026-10-08'),
+                              ('2026-10-09T23:30:00+09:00', '2026-10-09'),
+                              ('2026-10-10T00:01:00+09:00', '2026-10-09'),
+                              ('2026-10-10T14:00:00+09:00', '2026-10-09')]:
+            self.assertEqual(exchange.latest_closed_day(self.cfg, now), expected)
+        with self.assertRaises(ValueError):
+            exchange.latest_closed_day(self.cfg, '2026-10-09T23:30:00')
+
+    def test_remote_publication_verifies_pinned_own_bytes_and_rejects_damage(self):
+        self.publish()
+        corrupt = False
+        missing = False
+        calls = []
+
+        def gh(endpoint):
+            calls.append(endpoint)
+            self.assertTrue(endpoint.startswith('repos/' + self.cfg['repo'] + '/'))
+            if '/git/ref/' in endpoint:
+                return {'object': {'sha': 'a' * 40}}
+            self.assertTrue(endpoint.endswith('?ref=' + 'a' * 40))
+            if missing:
+                raise exchange.APIError(404)
+            suffix = '.json' if '.json?' in endpoint else '.md'
+            data = (self.output / ('docs/devmeet/2026-10-01' + suffix)).read_bytes()
+            if corrupt and suffix == '.md':
+                data += b'damaged'
+            return {'encoding': 'base64', 'size': len(data), 'content': base64.b64encode(data).decode()}
+
+        result = exchange.check_publication(self.root, gh=gh, now='2026-10-02T00:01:00+09:00')
+        self.assertEqual(result['status'], 'remote_verified')
+        self.assertEqual(result['date'], '2026-10-01')
+        self.assertEqual(len(calls), 3)
+        corrupt = True
+        with self.assertRaisesRegex(ValueError, 'hash mismatch'):
+            exchange.check_publication(self.root, '2026-10-01', gh=gh)
+        missing = True
+        with self.assertRaisesRegex(ValueError, 'Overdue publication missing'):
+            exchange.check_publication(self.root, '2026-10-01', gh=gh)
+
+
 if __name__ == '__main__':
     unittest.main()

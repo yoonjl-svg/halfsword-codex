@@ -554,11 +554,52 @@ def append_receipt(directory, clock, receipt):
     return receipt
 
 
+def latest_closed_day(cfg, now=None):
+    clock = now or datetime.now(timezone.utc)
+    clock = iso(clock) if isinstance(clock, str) else clock
+    if clock.tzinfo is None:
+        raise ValueError('Timestamp must include a timezone')
+    local = clock.astimezone(ZoneInfo(cfg['timezone']))
+    day = local.date()
+    if local.time() < time.fromisoformat(cfg['report_hour']):
+        day -= timedelta(days=1)
+    return day.isoformat()
+
+
+def check_publication(root, day=None, gh=api, now=None):
+    """Verify our latest due report remotely; never access peer data."""
+    cfg = config(root)
+    day = day or latest_closed_day(cfg, now)
+    _, end = window(day, cfg)
+    repo = cfg['repo']
+    ref = gh(f"repos/{repo}/git/ref/heads/{cfg['report_ref']}")['object']['sha']
+    if not re.fullmatch('[0-9a-f]{40}', str(ref)):
+        raise ValueError('Invalid archive SHA')
+    base = f"{cfg['daily_path']}/{day}"
+    try:
+        raw = content(gh, repo, base + '.json', ref, MAX_JSON)
+        markdown = content(gh, repo, base + '.md', ref, MAX_MD)
+    except APIError as error:
+        if error.status == 404:
+            raise ValueError(f'Overdue publication missing: {day}') from error
+        raise
+    manifest = json.loads(raw)
+    validate(manifest, markdown, repo, day, report_id(repo, end))
+    prepare_note_sections(markdown.decode('utf-8'))
+    return {'status': 'remote_verified', 'date': day, 'archive_sha': ref,
+            'markdown_sha256': digest(markdown), 'manifest_sha256': digest(raw),
+            'source_sha': manifest['source_sha'],
+            'url': f'https://github.com/{repo}/blob/{ref}/{base}.md'}
+
+
 def main():
     parser = argparse.ArgumentParser()
     sub = parser.add_subparsers(dest='command', required=True)
     check = sub.add_parser('validate-notes')
     check.add_argument('--repo-root', required=True)
+    publication = sub.add_parser('check-publication')
+    publication.add_argument('--repo-root', required=True)
+    publication.add_argument('--date')
     for command in ('publish', 'receive'):
         p = sub.add_parser(command)
         p.add_argument('--date', required=True)
@@ -569,10 +610,13 @@ def main():
         if args.command == 'validate-notes':
             print(json.dumps(validate_notes(args.repo_root), ensure_ascii=False))
             return 0
+        if args.command == 'check-publication':
+            print(json.dumps(check_publication(args.repo_root, args.date), ensure_ascii=False))
+            return 0
         result = globals()[args.command](args.date, args.repo_root, args.output_root)
         print(json.dumps(result, ensure_ascii=False))
         return 0 if args.command == 'publish' or result['status'] in ('peer_received', 'already_received', 'document_received_unverified') else 1
-    except (ValueError, OSError, subprocess.SubprocessError) as error:
+    except (ValueError, OSError, subprocess.SubprocessError, APIError) as error:
         parser.exit(1, str(error) + '\n')
 
 
