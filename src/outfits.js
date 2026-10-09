@@ -1382,9 +1382,62 @@ function groveHakama(g, top, bottom, height) {
   geo.dispose();
 }
 
+// User-selected v3: two low, long bunches tied with red ribbon. The upper
+// gather follows the head; overlapping lower lengths follow the chest instead
+// of swinging a rigid waist-long sheet through the body when the head turns.
+// This is a visual layer, with no hair simulation, collider or body scaling.
+function shrineTwinTailHead(g, look) {
+  quietFace(g, look, 'yeongman');
+  const hair = [], ribbons = [];
+  for (const side of [-1, 1]) {
+    // Preserve the open fringe and short face-framing locks from v2.
+    hair.push(shrineHairLock([[0.024, 0.104, side * 0.02], [0.073, 0.076, side * 0.047], [0.075, 0.02, side * 0.079], [0.043, -0.046, side * 0.094]], [0.035, 0.039, 0.026, 0.003]));
+    hair.push(shrineHairLock([[0.011, 0.052, side * 0.092], [0.001, -0.017, side * 0.113], [0.012, -0.109, side * 0.113], [0.037, -0.154, side * 0.09]], [0.029, 0.035, 0.026, 0.003], 0.012));
+    // Sweep each half of the nape into its own knot, behind the ear.
+    for (let i = 0; i < 3; i++) {
+      hair.push(shrineHairLock([[-0.07 - i * 0.013, 0.072 - i * 0.015, side * 0.022], [-0.097, 0.013, side * 0.075], [-0.089, -0.05, side * 0.123]], [0.038, 0.048, 0.044], 0.012));
+    }
+    hair.push(shrineHairLock([[-0.087, -0.043, side * 0.127], [-0.116, -0.116, side * 0.16], [-0.152, -0.202, side * 0.172]], [0.045, 0.072, 0.07], 0.023));
+    // A broad small bow with two tapered ribbon ends at each side, not one
+    // central half-up bow. Both front and rear cameras can read the red ties.
+    const x = -0.101, y = -0.04, z = side * 0.138;
+    const panel = (points) => clothPanel(x, points.map(([dy, dz]) => [y + dy, z + side * dz]), 0.009);
+    ribbons.push(
+      panel([[0.004, 0], [0.035, 0.054], [0.002, 0.063], [-0.008, 0.008]]),
+      panel([[0.004, 0], [0.026, -0.027], [-0.003, -0.036], [-0.008, -0.005]]),
+      panel([[-0.005, -0.003], [-0.078, 0.007], [-0.069, 0.024], [-0.079, 0.035], [0.002, 0.011]]),
+      panel([[-0.003, 0.003], [-0.052, 0.054], [-0.037, 0.058], [-0.038, 0.073], [0.004, 0.016]]),
+      box(0.036, 0.024, 0.026, [x, y, z]),
+    );
+  }
+  addMerged(g, hair, look.hair, { ...CLOTH, roughness: 1, metalness: 0 });
+  addMerged(g, ribbons, SHRINE_RED, CLOTH);
+}
+
+function shrineTwinTailLengths(g, look) {
+  const hair = [], sheen = [];
+  for (const side of [-1, 1]) {
+    // Leave the middle of the back open: the pair remains identifiable below
+    // the red ties and hangs toward the waist, with individual tapered ends.
+    for (let i = 0; i < 3; i++) {
+      const offset = (i - 1) * 0.019;
+      hair.push(shrineHairLock([
+        [-0.151 + i * 0.004, 0.201, side * (0.169 + offset)],
+        [-0.168 + i * 0.004, 0.062, side * (0.191 + offset)],
+        [-0.18 + i * 0.004, -0.123, side * (0.21 + offset)],
+        [-0.165 + i * 0.004, -0.316 + Math.abs(i - 1) * 0.033, side * (0.194 + offset * 0.7)],
+      ], [0.035, 0.045, 0.042, 0.003], 0.016));
+    }
+    sheen.push(shrineHairLock([[-0.196, 0.103, side * 0.188], [-0.198, -0.071, side * 0.214], [-0.185, -0.228, side * 0.2]], [0.004, 0.006, 0.002], 0.001));
+  }
+  addMerged(g, hair, look.hair, { ...CLOTH, roughness: 1, metalness: 0 });
+  addMerged(g, sheen, 0x383d32, { ...CLOTH, roughness: 1, metalness: 0 });
+}
+
 const YEONGMAN_GROVE = {
   ...YEONGMAN_SHRINE,
   head(g, look) {
+    if (look.hairStyle === 'long-twintails') return shrineTwinTailHead(g, look);
     quietFace(g, look, 'yeongman');
     const hair = [];
     // An open centre fringe and tapered cheek locks keep the youthful face
@@ -1419,12 +1472,16 @@ const YEONGMAN_GROVE = {
       box(0.005, 0.253, 0.012, [0.135, 0.013, 0.037], [0.52, 0, 0]),
       ...[-1, 1].map((s) => box(0.004, 0.204, 0.006, [0.122, -0.025, s * 0.142], [s * 0.04, 0, 0])),
     ], 0xafa991, CLOTH);
-    const hair = [];
-    for (let i = 0; i < 5; i++) {
-      const z = (i - 2) * 0.036;
-      hair.push(shrineHairLock([[-0.147, 0.182, z], [-0.151, 0.094, z * 1.05], [-0.142, -0.032, z * 1.13], [-0.144, -0.135 + Math.abs(i - 2) * 0.018, z * 0.94]], [0.047, 0.05, 0.046, 0.009], 0.008));
+    if (look.hairStyle === 'long-twintails') {
+      shrineTwinTailLengths(g, look);
+    } else {
+      const hair = [];
+      for (let i = 0; i < 5; i++) {
+        const z = (i - 2) * 0.036;
+        hair.push(shrineHairLock([[-0.147, 0.182, z], [-0.151, 0.094, z * 1.05], [-0.142, -0.032, z * 1.13], [-0.144, -0.135 + Math.abs(i - 2) * 0.018, z * 0.94]], [0.047, 0.05, 0.046, 0.009], 0.008));
+      }
+      addMerged(g, hair, look.hair, { ...CLOTH, roughness: 1, metalness: 0 });
     }
-    addMerged(g, hair, look.hair, { ...CLOTH, roughness: 1, metalness: 0 });
     shrineLeafSprig(g, 0.127, -0.052, -0.084, 0.58, 0xa3ac8b);
   },
   abdomen(g) {

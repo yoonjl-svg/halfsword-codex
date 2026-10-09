@@ -1,4 +1,4 @@
-// Yeongman's sacred cedar grove. The level is visual only: the existing flat arena
+// Yeongman's sacred pine grove. The level is visual only: the existing flat arena
 // and camera remain authoritative. All trunks, roots, gates and large rocks stay
 // outside the 10.5m camera orbit; the 6.5m fighting floor has only flush stones.
 import * as THREE from 'three';
@@ -6,10 +6,11 @@ import { rng, h3, Kit, canvasTex, UP } from './stage_kit.js';
 
 const TAU = Math.PI * 2;
 const HERO = { x: 21, z: -3 };
+const PINE_HEIGHT = 21, PINE_RADIUS = 2.55;
 const C = {
   earth: 0xd3cbb1, moss: 0x6a8a7a, deepMoss: 0x3f6e60,
-  stone: 0x96a399, bark: 0x958b77, barkDark: 0x606a60,
-  leaf: 0x588e76, leafLit: 0x95b68e, leafDeep: 0x3c7060,
+  stone: 0x96a399, bark: 0x927a60, barkDark: 0x645f52,
+  leaf: 0x416b61, leafLit: 0x8d9e77, leafDeep: 0x294f49,
   rope: 0xd1bf8e, paper: 0xf3f0dc, vermilion: 0xa54f38,
 };
 
@@ -41,11 +42,11 @@ function barkTexture() {
 function heroBarkTexture(bark) {
   return canvasTex(256, 512, (ctx, w, h) => {
     ctx.drawImage(bark.image, 0, 0, w, h);
-    const ropeY = (1 - 2.87 / 29) * h;
+    const ropeY = (1 - 2.87 / PINE_HEIGHT) * h;
     ctx.fillStyle = 'rgba(38,32,21,0.38)'; ctx.fillRect(0, ropeY, w, 2.8);
     ctx.fillStyle = 'rgba(38,32,21,0.12)'; ctx.fillRect(0, ropeY + 2.8, w, 2);
     for (let n = 0; n < 5; n++) {
-      const a = Math.PI * 0.57 + n * Math.PI * 0.22, px = a / TAU * w + 1.5, py = (1 - 2.51 / 29) * h;
+      const a = Math.PI * 0.57 + n * Math.PI * 0.22, px = a / TAU * w + 1.5, py = (1 - 2.51 / PINE_HEIGHT) * h;
       ctx.strokeStyle = 'rgba(37,33,22,0.4)'; ctx.lineWidth = 2.2;
       ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(px + 2.2, py + 3.5); ctx.lineTo(px + 0.6, py + 6); ctx.lineTo(px + 2.8, py + 9); ctx.lineTo(px + 0.8, py + 14); ctx.stroke();
     }
@@ -69,40 +70,36 @@ function soilTexture() {
   });
 }
 
-// Broad, irregular cedar boughs use the same large faceted language as the older
-// stages. No alpha needles: their small silhouettes broke apart on phone screens.
-function canopyGeometry() {
-  const g = new THREE.IcosahedronGeometry(1, 0), p = g.attributes.position, colors = [];
-  for (let i = 0; i < p.count; i++) {
-    const x = p.getX(i), y = p.getY(i), z = p.getZ(i);
-    const irregular = 0.91 + h3(x, y, z, 317) * 0.18;
-    p.setXYZ(i, x * irregular, y * (0.87 + h3(x, y, z, 79) * 0.15), z * irregular);
-  }
+// Scalloped umbrella pads keep broad needle masses legible on a phone. The
+// undersides are dark and open space remains below every horizontal branch tier.
+function canopyGeometry(detailed) {
+  const g=new THREE.IcosahedronGeometry(1,detailed?1:0),p=g.attributes.position,colors=[];
+  for(let i=0;i<p.count;i++) { const x=p.getX(i),y=p.getY(i),z=p.getZ(i),f=0.92+h3(x,y,z,817)*0.13;p.setXYZ(i,x*f,y*(y>0?0.36:0.22),z*f); }
   g.computeVertexNormals();
-  for (let i = 0; i < p.count; i++) {
-    const ny = g.attributes.normal.getY(i), light = 0.7 + Math.max(0, ny) * 0.27;
-    colors.push(light, light, light);
-  }
-  g.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3)); return g;
+  for(let i=0;i<p.count;i++) { const ny=g.attributes.normal.getY(i),light=0.79+Math.max(0,ny)*0.21;colors.push(light,light,light); }
+  g.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));return g;
 }
 
-// Match the actual trunk rings and angular facets, not an ideal cylinder. Rope
-// must remain continuous even where the old cedar's broad flutes protrude.
+function pineCenter(t,height,seed,hero) {
+  if(hero) return new THREE.Vector3(height*(-0.21*t+0.14*Math.sin(t*6.2)*t),height*t,height*(0.21*Math.sin(t*3.7)*t-0.06*t));
+  const bend=Math.pow(t,1.38), phase=seed*0.41;
+  return new THREE.Vector3((Math.sin(t*5.2+phase)-Math.sin(phase))*bend*height*(hero?0.18:0.11),height*t,(Math.cos(t*3.4+phase)-Math.cos(phase))*bend*height*(hero?0.1:0.075));
+}
+function pineSurface(t,a,height,radius,seed,hero) {
+  const taper=0.10+0.90*Math.pow(1-t,0.7),flare=1+0.38*Math.exp(-t*24);
+  const flute=1+(hero?0.10:0.07)*Math.sin(a*7+t*5)+0.05*Math.sin(a*11-t*6+seed);
+  const rad=radius*taper*flare*flute+(hero?Math.pow(Math.max(0,Math.cos(a*7-0.55)),4)*Math.exp(-height*t*0.58)*0.45:0);
+  return pineCenter(t,height,seed,hero).add(new THREE.Vector3(Math.cos(a)*rad,0,Math.sin(a)*rad));
+}
+// Rope uses exactly the same bent trunk facets as its geometry, including the
+// low root flare. It is not suspended around an unrelated ideal cylinder.
 function heroSurface(y, angle, seed, pad = 0) {
-  const sides = 42, levels = 18, h = 29;
-  const ring = j => Math.pow(j / levels, 1.55);
-  let j = 0; while (j < levels - 1 && ring(j + 1) * h < y) j++;
-  const t0 = ring(j), t1 = ring(j + 1), ty = THREE.MathUtils.clamp((y / h - t0) / (t1 - t0), 0, 1);
-  const u = ((angle / TAU % 1) + 1) % 1 * sides, i = Math.floor(u), ta = u - i;
-  const point = (t, index) => {
-    const a = index / sides * TAU, yy = h * t;
-    const taper = 0.14 + 0.86 * Math.pow(1 - t, 0.7), flare = 1 + 0.44 * Math.exp(-t * 24);
-    const flute = 1 + 0.11 * Math.sin(a * 7 + t * 2) + 0.045 * Math.sin(a * 11 - t * 4 + seed);
-    const radius = 3.08 * taper * flare * flute + Math.pow(Math.max(0, Math.cos(a * 7 - 0.55)), 4) * Math.exp(-yy * 0.58) * 0.6;
-    return new THREE.Vector3(Math.cos(a) * radius + Math.sin(t * 2.1 + seed) * t * h * 0.025, yy, Math.sin(a) * radius + t * t * h * 0.024);
-  };
-  const p0 = point(t0, i).lerp(point(t0, i + 1), ta), p1 = point(t1, i).lerp(point(t1, i + 1), ta);
-  return p0.lerp(p1, ty).add(new THREE.Vector3(HERO.x + Math.cos(angle) * pad, 0, HERO.z + Math.sin(angle) * pad));
+  const sides=42,levels=18,h=PINE_HEIGHT,ring=j=>Math.pow(j/levels,1.55);
+  let j=0;while(j<levels-1&&ring(j+1)*h<y)j++;
+  const t0=ring(j),t1=ring(j+1),ty=THREE.MathUtils.clamp((y/h-t0)/(t1-t0),0,1);
+  const u=((angle/TAU%1)+1)%1*sides,i=Math.floor(u),ta=u-i;
+  const point=(t,index)=>pineSurface(t,index/sides*TAU,h,PINE_RADIUS,seed,true);
+  return point(t0,i).lerp(point(t0,i+1),ta).lerp(point(t1,i).lerp(point(t1,i+1),ta),ty).add(new THREE.Vector3(HERO.x+Math.cos(angle)*pad,0,HERO.z+Math.sin(angle)*pad));
 }
 
 function quietWind(material, clock, paper = false) {
@@ -144,14 +141,10 @@ function trunkGeometry(height, radius, seed, hero = false) {
   const sides = hero ? 42 : 10, levels = hero ? 18 : 5;
   const pos = [], uv = [], indices = [];
   for (let j = 0; j <= levels; j++) {
-    const t = hero ? Math.pow(j / levels, 1.55) : j / levels, y = height * t;
-    const taper = (0.14 + 0.86 * Math.pow(1 - t, 0.7));
-    const flare = 1 + 0.44 * Math.exp(-t * 24);
+    const t = hero ? Math.pow(j / levels, 1.55) : j / levels;
     for (let i = 0; i <= sides; i++) {
-      const a = i / sides * TAU;
-      const flute = 1 + (hero ? 0.11 : 0.07) * Math.sin(a * 7 + t * 2) + 0.045 * Math.sin(a * 11 - t * 4 + seed);
-      const rad = radius * taper * flare * flute + (hero ? Math.pow(Math.max(0, Math.cos(a * 7 - 0.55)), 4) * Math.exp(-y * 0.58) * 0.6 : 0);
-      pos.push(Math.cos(a) * rad + Math.sin(t * 2.1 + seed) * t * height * 0.025, y, Math.sin(a) * rad + t * t * height * 0.024);
+      const point=pineSurface(t,i/sides*TAU,height,radius,seed,hero);
+      pos.push(point.x,point.y,point.z);
       uv.push(i / sides, t * (hero ? 1 : 1.5));
       if (j < levels && i < sides) {
         const n = j * (sides + 1) + i;
@@ -213,8 +206,8 @@ function ground(scene, texture) {
   const mesh = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ map: texture, vertexColors: true, roughness: 1 })); mesh.receiveShadow = true; mesh.name = 'grove-flat-duel-earth'; scene.add(mesh);
 }
 
-function cedar(K, foliage, r, x, z, height, radius, hero = false) {
-  const trunkSeed = Math.floor(r() * 200);
+function pine(K, foliage, r, x, z, height, radius, hero = false) {
+  const trunkSeed = Math.floor(r() * 200), knotKit = hero ? new Kit(4783) : null;
   put(K, hero ? 'heroBark' : 'bark', trunkGeometry(height, radius, trunkSeed, hero), hero ? C.bark : C.barkDark, [x, 0, z], [0, 0, 0], 1, { noise: 0.035, vary: 0.12 });
   if (hero) {
     for (let i = 0; i < 11; i++) {
@@ -230,20 +223,33 @@ function cedar(K, foliage, r, x, z, height, radius, hero = false) {
       }
     }
   }
-  const count = hero ? 22 : 10;
-  for (let j = 0; j < count; j++) {
-    const t = 0.37 + j / count * 0.55, y = height * t;
-    const a = j * 2.39996 + r() * 0.35, len = (hero ? 8.0 : height * 0.24) * (1.22 - t) * (0.78 + r() * 0.44);
-    const p0 = [x, y, z], p1 = [x + Math.cos(a) * len * 0.52, y + 0.15, z + Math.sin(a) * len * 0.52];
-    const p2 = [x + Math.cos(a) * len, y - len * 0.17, z + Math.sin(a) * len];
-    const br = radius * (1 - t) * (hero ? 0.33 : 0.2);
-    branch(K, p0, p1, br, br * 0.56); branch(K, p1, p2, br * 0.56, 0.035);
-    for (let k = 0; k < (hero ? 13 : 6); k++) {
-      const s = 0.28 + r() * 0.8, width = (hero ? 2.1 : 1.25) * (0.78 + r() * 0.72);
-      const cluster = { x: x + Math.cos(a) * len * s + (r() - 0.5) * len * 0.6, y: y - len * s * 0.12 + (r() - 0.5) * 0.65, z: z + Math.sin(a) * len * s + (r() - 0.5) * len * 0.6, width, a: a + (r() - 0.5) * 1.8, tilt: (r() - 0.5) * 0.7, color: r() < 0.25 ? C.leafLit : r() < 0.25 ? C.leafDeep : C.leaf };
-      if (k % 3 === 0) { cluster.width *= hero ? 1.12 : 1.18; foliage.push(cluster); }
+  const count=hero?9:5;
+  for(let j=0;j<count;j++) {
+    const t=hero?0.30+Math.floor(j/3)*0.24+(j%3)*0.015:0.42+j/count*0.43,base=pineCenter(t,height,trunkSeed,hero);
+    const a=(hero?j*2.1:j*2.39996+trunkSeed)+r()*0.25,len=(hero?11.5:height*0.32)*(1.26-t)*(0.82+r()*0.28);
+    const p0=[x+base.x,base.y,z+base.z];
+    const p1=[p0[0]+Math.cos(a)*len*0.36,p0[1]-len*0.11,p0[2]+Math.sin(a)*len*0.36];
+    const p2=[p0[0]+Math.cos(a+0.13)*len*0.76,p0[1]+len*0.045,p0[2]+Math.sin(a+0.13)*len*0.76];
+    const br=radius*(1-t)*(hero?0.53:0.4);
+    branch(K,p0,p1,br,br*0.72);branch(K,p1,p2,br*0.72,br*0.32);
+    if(hero) {
+      // Angled open cylinder rims leave wedge gaps when merely touching. Small
+      // bark knots overlap both rims; keep this fix local to the sacred pine.
+      put(knotKit,'bark',new THREE.IcosahedronGeometry(1,1),C.bark,p1,[0,0,0],br*0.84,{noise:0.035,vary:0.04});
+      put(knotKit,'bark',new THREE.IcosahedronGeometry(1,1),C.bark,p2,[0,0,0],br*0.43,{noise:0.035,vary:0.04});
+    }
+    for(const side of [-1,1]) {
+      const end=[p2[0]+Math.cos(a+side*0.52)*len*0.38,p2[1]+len*(0.035+side*0.012),p2[2]+Math.sin(a+side*0.52)*len*0.38];
+      branch(K,p2,end,br*0.34,0.035);
+      for(let k=0;k<(hero?3:1);k++) {
+        const f=k/(hero?3:1),width=(hero?2.5:1.65)*(0.88+r()*0.25);
+        foliage.push({x:THREE.MathUtils.lerp(p2[0],end[0],f)+(r()-0.5)*0.8,y:THREE.MathUtils.lerp(p2[1],end[1],f)+0.28,z:THREE.MathUtils.lerp(p2[2],end[2],f)+(r()-0.5)*0.8,width,detail:hero,a:a+side*0.3,tilt:(r()-0.5)*0.25,color:r()<0.3?C.leafLit:r()<0.4?C.leafDeep:C.leaf});
+      }
     }
   }
+  const tip=pineCenter(1,height,trunkSeed,hero);
+  foliage.push({x:x+tip.x,y:tip.y,z:z+tip.z,width:hero?3.2:2.05,detail:hero,a:r()*TAU,tilt:0,color:C.leaf});
+  if(knotKit) K.bins.bark.push(...knotKit.bins.bark);
   return trunkSeed;
 }
 
@@ -258,7 +264,7 @@ function sacredRope(K, trunkSeed) {
     }
     put(K, 'ritual', new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points, true), 180, 0.092, 5, true), C.rope, [0, 0, 0], [0, 0, 0], 1, { noise: 0.04 });
   }
-  // Folded shide paper, sparse and deliberately readable against the cedar bark.
+  // Folded shide paper, sparse and deliberately readable against the pine bark.
   for (let n = 0; n < 5; n++) {
     const a = Math.PI * 0.57 + n * Math.PI * 0.22, attachment = heroSurface(3.0, a, trunkSeed, 0.29), x = attachment.x, z = attachment.z;
     branch(K, [x, 2.96, z], [x, 2.57, z], 0.022, 0.015, C.rope, 'ritual', 4);
@@ -272,7 +278,7 @@ function sacredRope(K, trunkSeed) {
 }
 
 function torii(K) {
-  // Small, off-axis and weathered: architecture remains secondary to the cedar.
+  // Small, off-axis and weathered: architecture remains secondary to the pine.
   K.push([13.8, 0, 13.7], 0.62);
   for (const s of [-1, 1]) {
     branch(K, [s * 1.55, 0, 0], [s * 1.36, 4.5, 0], 0.18, 0.155, C.vermilion, 'paint', 10);
@@ -317,7 +323,7 @@ function plants(scene, r) {
 
 function rootGarden(K) {
   const r = rng(104913);
-  // Low stone shelves and moss pads lead into the cedar's buttresses. They are
+  // Low stone shelves and moss pads lead into the pine's buttresses. They are
   // asymmetrical, half buried, and all remain beyond the full camera orbit.
   const shelves = [[13.9,-6.5,2.2,0.39,1.45],[15.5,2.6,2.3,0.35,1.45],[18.3,-8.7,1.5,0.3,1.1],[23.7,3.5,2.0,0.48,1.4],[17.5,4.9,1.5,0.23,1.1],[25,-5.8,1.75,0.32,1.1]];
   for (const [x,z,sx,sy,sz] of shelves) {
@@ -365,13 +371,59 @@ function distantMist(scene) {
   }
 }
 
+// A single quiet sika deer, beyond both the arena and camera orbit. Feet never
+// translate: breathing and head/ear attention are idle motion, not a sliding walk.
+function groveDeer(scene) {
+  const root=new THREE.Group();root.name='grove-sika-deer';root.position.set(14.7,0.018,6.8);root.rotation.y=-0.9;scene.add(root);
+  const floor=scene.getObjectByName('grove-flat-duel-earth');floor.updateMatrixWorld(true);
+  const hit=new THREE.Raycaster(new THREE.Vector3(root.position.x,4,root.position.z),new THREE.Vector3(0,-1,0)).intersectObject(floor,false)[0];
+  if(hit) root.position.y=hit.point.y+0.015;
+  const K=new Kit(79421),fur=0x9b7150,dark=0x473b31,cream=0xd9c7a7;
+  const ellipsoid=(bin,color,pos,scale,rot=[0,0,0])=>put(K,bin,new THREE.IcosahedronGeometry(1,1),color,pos,rot,scale,{noise:0.025,vary:0.035});
+  ellipsoid('body',fur,[0,1.02,0],[0.27,0.31,0.63]);
+  ellipsoid('body',0x846047,[0,1.06,0.38],[0.245,0.33,0.24]);
+  ellipsoid('body',cream,[0,0.835,0.08],[0.22,0.105,0.43]);
+  ellipsoid('body',cream,[0,1.06,-0.586],[0.192,0.22,0.055]);
+  branch(K,[0,1.14,0.39],[0,1.55,0.66],0.17,0.105,fur,'body',8);
+  branch(K,[0,1.2,-0.56],[0,1.08,-0.78],0.07,0.035,cream,'body',7);
+  for(const s of [-1,1]) {
+    for(let i=0;i<7;i++) ellipsoid('body',cream,[s*(0.255-Math.abs(i%3-1)*0.016),1.12+(i%2)*0.09,-0.35+i*0.105],[0.009,0.025,0.043]);
+    for(const front of [false,true]) {
+      const hip=[s*0.19,0.97,front?0.38:-0.40],knee=[s*0.21,0.52,front?0.34:-0.57],ankle=[s*0.20,0.14,front?0.39:-0.40];
+      branch(K,hip,knee,front?0.064:0.086,0.042,fur,'legs',7);branch(K,knee,ankle,0.04,0.022,0x76563e,'legs',6);
+      ellipsoid('legs',dark,[s*0.20,0.055,front?0.405:-0.37],[0.038,0.07,0.072]);
+    }
+  }
+  const head=new THREE.Group();head.name='grove-deer-head';head.position.set(0,1.54,0.65);root.add(head);
+  ellipsoid('head',fur,[0,0.065,0.105],[0.125,0.165,0.23]);
+  ellipsoid('head',0x997958,[0,-0.008,0.29],[0.083,0.083,0.16]);
+  ellipsoid('head',dark,[0,0.012,0.413],[0.071,0.06,0.042]);
+  for(const s of [-1,1]) {
+    ellipsoid('head',0x211f1a,[s*0.112,0.107,0.163],[0.017,0.021,0.026]);
+    ellipsoid('head',0xe4d7bb,[s*0.116,0.122,0.159],[0.007,0.008,0.011]);
+    ellipsoid('ears',fur,[s*0.17,0.245,-0.027],[0.07,0.20,0.045],[0,0,-s*0.52]);
+    ellipsoid('ears',cream,[s*0.17,0.247,0.004],[0.043,0.143,0.014],[0,0,-s*0.52]);
+    const a=[s*0.075,0.19,-0.055],b=[s*0.12,0.38,-0.16],c=[s*0.18,0.65,-0.2];
+    branch(K,a,b,0.023,0.019,0xb7a182,'head',6);branch(K,b,c,0.019,0.007,0xb7a182,'head',6);
+    branch(K,[s*0.105,0.32,-0.12],[s*0.13,0.47,0.05],0.014,0.005,0xb7a182,'head',5);
+    branch(K,[s*0.15,0.51,-0.18],[s*0.23,0.61,-0.08],0.012,0.005,0xb7a182,'head',5);
+  }
+  const material=new THREE.MeshStandardMaterial({vertexColors:true,roughness:1,flatShading:true});
+  const meshes={};for(const bin of ['body','legs','head','ears']) { const mesh=K.mesh(bin,material,{cast:true,receive:true});mesh.name=`grove-deer-${bin}`;(bin==='head'||bin==='ears'?head:root).add(mesh);meshes[bin]=mesh;for(const g of K.bins[bin])g.dispose(); }
+  // The forest lies outside the fighter shadow map. A restrained flat contact
+  // shade anchors the four fixed feet without adding a light or shadow camera.
+  const shade=new THREE.Mesh(new THREE.CircleGeometry(1,16),new THREE.MeshBasicMaterial({color:0x172920,transparent:true,opacity:0.16,depthWrite:false}));
+  shade.name='grove-deer-contact-shade';shade.rotation.x=-Math.PI/2;shade.scale.set(0.42,0.81,1);shade.position.y=-0.011;root.add(shade);
+  return {root,update(time) { meshes.body.scale.y=1+Math.sin(time*1.3)*0.0025;head.rotation.y=Math.sin(time*0.19)*0.13;head.rotation.x=Math.sin(time*0.31)*0.035;meshes.ears.rotation.x=Math.sin(time*1.7)*0.035*Math.pow(Math.max(0,Math.sin(time*0.47)),6); }};
+}
+
 /** Build a bounded, disposable visual stage, using only isolated seeded RNG. */
 export function buildSacredGrove(scene, { hemi, sun } = {}) {
   const r = rng(197719), K = new Kit(88291), foliage = [], windClock = { value: 0 };
   const sunOffset = { x: -5.5, y: 10, z: -4.5 };
-  scene.background = new THREE.Color(0xc7d7cc); scene.fog = new THREE.Fog(0xb2c9bd, 26, 112);
-  if (hemi) { hemi.color.set(0xdbe8dd); hemi.groundColor.set(0x859786); hemi.intensity = 1.42; }
-  if (sun) { sun.color.set(0xfff6e5); sun.intensity = 1.4; sun.position.set(sunOffset.x, sunOffset.y, sunOffset.z); }
+  scene.background = new THREE.Color(0xbbceca); scene.fog = new THREE.Fog(0x9fbab5, 23, 102);
+  if (hemi) { hemi.color.set(0xc7dddf); hemi.groundColor.set(0x66796b); hemi.intensity = 1.2; }
+  if (sun) { sun.color.set(0xffe8ba); sun.intensity = 1.65; sun.position.set(sunOffset.x, sunOffset.y, sunOffset.z); }
   const soil = soilTexture(), bark = barkTexture(), heroBark = heroBarkTexture(bark);
   ground(scene, soil);
 
@@ -388,10 +440,10 @@ export function buildSacredGrove(scene, { hemi, sun } = {}) {
     const size = 0.5 + r() * 1.45;
     put(K, 'stone', new THREE.DodecahedronGeometry(1, 0), C.stone, [x, size * 0.26, z], [r() * 0.3, r() * TAU, r() * 0.3], [size, size * 0.65, size * 0.8], { rough: 0.12, noise: 0.12, snow: 0.86, snowColor: C.moss });
   }
-  const trunkSeed = cedar(K, foliage, r, HERO.x, HERO.z, 29, 3.08, true);
+  const trunkSeed = pine(K, foliage, r, HERO.x, HERO.z, PINE_HEIGHT, PINE_RADIUS, true);
   sacredRope(K, trunkSeed); torii(K); rootGarden(K);
 
-  // Trees grow in uneven families, with a diagonal opening behind the cedar.
+  // Trees grow in uneven families, with a diagonal opening behind the pine.
   // Depth comes from overlapping groups and gaps, not a uniformly spaced wall.
   const stands = [[-19,-8],[-17,18],[1,26],[17,25],[35,15],[39,-18],[7,-31],[-27,-28],[-43,12],[18,55],[55,37],[-42,48],[-20,-58],[53,-3],[64,10],[61,-21]];
   for (let i = 0; i < 95; i++) {
@@ -399,12 +451,12 @@ export function buildSacredGrove(scene, { hemi, sun } = {}) {
     const x = stand[0] + Math.cos(a) * d, z = stand[1] + Math.sin(a) * d;
     if (Math.hypot(x,z) < 17.5) continue;
     if (Math.hypot(x - HERO.x, z - HERO.z) < 10 || Math.hypot(x - 13.8, z - 13.7) < 5) continue;
-    const h = 18 + (i % 4) * 3.1 + r() * 6.5;
-    cedar(K, foliage, r, x, z, h, 0.28 + r() * 0.47);
+    const h = 12 + (i % 4) * 2.1 + r() * 4.5;
+    pine(K, foliage, r, x, z, h, 0.28 + r() * 0.47);
   }
   for (let i = 0; i < 8; i++) {
     const x = 35 + (i % 4) * 8.4 + r() * 3, z = -29 - Math.floor(i / 4) * 12 - r() * 8;
-    cedar(K, foliage, r, x, z, 22 + r() * 13, 0.38 + r() * 0.26);
+    pine(K, foliage, r, x, z, 16 + r() * 9, 0.4 + r() * 0.3);
   }
 
   // Low growth follows patches of trees and leaves irregular open seams, rather
@@ -418,15 +470,21 @@ export function buildSacredGrove(scene, { hemi, sun } = {}) {
   }
 
   const canopyMat = quietWind(new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, flatShading: true }), windClock);
-  const leaves = new THREE.InstancedMesh(canopyGeometry(), canopyMat, foliage.length);
+  // Only the sacred tree needs the 80-triangle needle cushions. Ordinary forest
+  // crowns and undergrowth keep a 20-triangle silhouette in one separate batch.
   const dummy = new THREE.Object3D(), color = new THREE.Color();
-  foliage.forEach((f, i) => {
-    dummy.position.set(f.x, f.y, f.z); dummy.rotation.set(f.tilt * 0.22, f.a, -0.04);
-    dummy.scale.set(f.width * 1.55, f.width * 0.79, f.width * 0.98); dummy.updateMatrix(); leaves.setMatrixAt(i, dummy.matrix); leaves.setColorAt(i, color.set(f.color));
-  });
-  leaves.name = 'grove-cedar-boughs'; leaves.castShadow = false; leaves.computeBoundingSphere(); leaves.boundingSphere.radius += 0.2; scene.add(leaves);
+  for (const detailed of [false,true]) {
+    const selected=foliage.filter(f=>Boolean(f.detail)===detailed);
+    const leaves=new THREE.InstancedMesh(canopyGeometry(detailed),canopyMat,selected.length);
+    selected.forEach((f,i)=>{
+      dummy.position.set(f.x,f.y,f.z);dummy.rotation.set(f.tilt*0.22,f.a,-0.04);
+      dummy.scale.set(f.width*1.65,f.width*0.95,f.width*1.1);dummy.updateMatrix();leaves.setMatrixAt(i,dummy.matrix);leaves.setColorAt(i,color.set(f.color));
+    });
+    leaves.name=detailed?'grove-pine-hero-cushions':'grove-pine-forest-cushions';leaves.castShadow=false;leaves.computeBoundingSphere();leaves.boundingSphere.radius+=0.2;scene.add(leaves);
+  }
   plants(scene, r);
   const water = stream(scene, K, r); distantMist(scene);
+  const deer = groveDeer(scene);
 
   const materials = {
     heroBark: new THREE.MeshStandardMaterial({ map: heroBark, vertexColors: true, roughness: 1 }),
@@ -460,7 +518,7 @@ export function buildSacredGrove(scene, { hemi, sun } = {}) {
     fighterLight: { color: 0xf1edda, rimColor: 0xdbeadf, level: 0.84, rim: 1.08 },
     update(dt) {
       const step = Math.min(Math.max(Number.isFinite(dt) ? dt : 0, 0), 0.1); time += step; gust *= Math.exp(-step * 1.6);
-      water.offset.y = time * 0.012; windClock.value = time;
+      water.offset.y = time * 0.012; windClock.value = time; deer.update(time);
       // Sound follows a real visible wind phase; no timers survive stage clearing.
       const boughWind = Math.sin(time * 0.38 + HERO.x * 0.12 + HERO.z * 0.17);
       const paperWind = Math.sin(time * 0.67 + HERO.z * 0.73);

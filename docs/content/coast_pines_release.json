@@ -1,0 +1,71 @@
+{
+  "status": "local-verified-awaiting-public",
+  "dateKST": "2026-10-10",
+  "baseline": "91906d711d77d191ff9329a4b6fb23e5447ced53",
+  "url": "https://yoonjl-svg.github.io/halfsword-codex/coast-pines.html",
+  "evidenceRoot": "/tmp/halfsword-harbor-pine-20261010",
+  "scope": [
+    "Harbor island/beacon, different sailing ships, sandy earth and matching footstep",
+    "Sacred pine grove and stationary deer",
+    "Yeongman v3 long twin tails with two red ribbons; v2 retained"
+  ],
+  "weapons": "Research/proposals only; not implemented",
+  "sourceHashes": {
+    "src/looks.js": "f91ea3bcd1fe6b1fb49de9d2b0ed2acb03b671212ff628bf52fccf5997e28c68",
+    "src/outfits.js": "649d72c7a4aa582933773c507c3a0563ad918049d736800a13894e545f627572",
+    "src/stage_corsair.js": "7a3fd97de05a9f7d52bdbd5634236de0af7a4136b7aad12c7756c60c17417843",
+    "src/stage_sacred_grove.js": "980a2831368b7a8dd2e39212b71f8503c56d39aabcfdd08b26ba08048d31817d",
+    "src/sound.js": "cf1340b74e0d5fb17774cbbba00a4d72b5409e0a1fcac1f63fd2c0fe8f0959c1"
+  },
+  "native": {
+    "status": "passed",
+    "sameWorldStepsPerVersion": 120,
+    "unchangedGameplaySources": 115,
+    "isoldeAndOmariExactMatch": true,
+    "headAndChestWoundRetention": true
+  },
+  "audio": {
+    "status": "passed",
+    "report": "/tmp/halfsword-harbor-pine-20261010/audio/report.json",
+    "humanAudition": false
+  },
+  "supersededLocal": {
+    "report": "/tmp/halfsword-harbor-pine-20261010/mobile-local-v1/report.json",
+    "reason": "Intentional stop after visual QA found gaps at sacred-pine branch joints; no mobile completion claimed"
+  },
+  "limits": [
+    "No physical phone FPS or human speaker audition",
+    "Synthetic wound retention does not verify every combat injury or extreme split-hair pose",
+    "Weapon specifications and abilities remain proposals"
+  ],
+  "localMobile": {
+    "pass": true,
+    "flows": 2,
+    "requests": 402,
+    "uniqueFiles": 203,
+    "seconds": 247.0,
+    "errors": 0,
+    "report": "/tmp/halfsword-harbor-pine-20261010/mobile-local-v2/report.json"
+  },
+  "build": {
+    "main": "assets/main-D1orz9eU.js",
+    "sound": "assets/sound-BAfV_EAw.js",
+    "sha256": {
+      "index.html": "dea17de509e8d993764e0e89fa9f8b02b6b873b4780ce96498ca4f3385afd044",
+      "coast-pines.html": "54ac2a5543dcbb7b7c0ba7cc1982669aff8d8dda23fd577b16175e5e79d5114b",
+      "assets/main-D1orz9eU.js": "60c5b95ad3584167a49cc8e83b59c04f581cc6afd4a3b4b85298973ba8632d8b",
+      "assets/sound-BAfV_EAw.js": "6beb25737782cd50e7a34e81296ef8214584da89938b5d6eb6d7d7edb6dcbfb8"
+    }
+  },
+  "images": {
+    "individual": 16,
+    "comparisonPairs": 3,
+    "individualBytes": 604422,
+    "sameCamera": true,
+    "lighting": "Same neutral character/harbor lighting; grove uses each version actual game lighting."
+  },
+  "stageAudit": {
+    "report": "/tmp/halfsword-harbor-pine-20261010/audit/summary-final.json",
+    "passed": true
+  }
+}

@@ -1614,7 +1614,7 @@ const SAMPLES = {
 // room: reverbIR 모양 + 쇳소리(metal)·몸 소리(flesh)를 울림으로 보내는 양. 바깥(포세이돈·산사)은 울림 없음
 const STAGE_SOUND = {
   loggia: { step: 'stepStone', grit: 'stepStone', room: { dur: 0.65, rt: 0.45, e0: 0.04, e1: 0.09, lp: 4500, metal: 0.16, flesh: 0.06 } },
-  corsair: { step: 'stepStone', grit: 'stepStone' },
+  corsair: { step: 'step', grit: 'step' }, // 다져진 모래흙 선착장: 돌 판석 대신 모래가 눌리는 발소리
   sacred_grove: { step: 'stepGravel', grit: 'stepGravel' },
   poseidon: { step: 'step' },
   poseidon_night: { step: 'step', night: true }, // 밤의 포세이돈 (하인리히 재등장): 같은 바다·바람에 네 귀퉁이 화로·횃대의 불을 더하고 바람을 어둡게
