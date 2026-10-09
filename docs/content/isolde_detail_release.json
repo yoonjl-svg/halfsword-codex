@@ -2,7 +2,7 @@
   "baseCommit": "aeeea35db2d1002468c830cd1f6a8bb41942ce5d",
   "scope": "Isolde native look v3; v2 preserved; same body and physical parameters",
   "publicUrl": "https://yoonjl-svg.github.io/halfsword-codex/isolde-detail.html",
-  "status": "local_verified_awaiting_publication",
+  "status": "delivered_and_public_mobile_verified",
   "native": {
     "pass": true,
     "gates": 11,
@@ -33,15 +33,66 @@
     "report": "/tmp/halfsword-isolde-polish-20261009/mobile-local-v1/report.json"
   },
   "deployment": {
-    "status": "pending"
+    "id": 37944561919,
+    "head_sha": "64269e2f1d6413355410a51dc9e4eee4f10688bf",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37944561919",
+    "updated_at": "2026-10-09T14:30:06Z"
   },
   "mobilePublic": {
-    "status": "pending"
+    "status": "passed",
+    "flows": 2,
+    "requests": 389,
+    "uniqueFiles": 185,
+    "allBytesMatch": true,
+    "errors": 0,
+    "report": "/tmp/halfsword-isolde-polish-20261009/mobile-public-v1/report.json"
   },
   "limits": [
     "Static comparison pose is not the fight stance",
     "No real-device FPS measurement",
     "Part-attached hair and clothes can still intersect in extreme bending",
     "Synthetic wound checks are not every natural injury/resurrection/severing sequence"
-  ]
+  ],
+  "codeCommit": "64269e2f1d6413355410a51dc9e4eee4f10688bf",
+  "publicComparisonAssets": [
+    {
+      "path": "isolde-detail.html",
+      "status": 200,
+      "bytes": 5564,
+      "sha256": "2c9f6afbcdefc1017bf00790992a96cfafa2be9e37c08dad29943ff19a354f21",
+      "matchesBuild": true
+    },
+    {
+      "path": "encounters/isolde-compare-front.webp",
+      "status": 200,
+      "bytes": 17620,
+      "sha256": "d658bb72151ee76f9df71b4856749f25996ce1997bb0009d51d98cf2cc5f6998",
+      "matchesBuild": true
+    },
+    {
+      "path": "encounters/isolde-compare-back.webp",
+      "status": 200,
+      "bytes": 17016,
+      "sha256": "a02d5caf49d9ddd7fa792cce2a1b750bbe79a295cc48c80065952d053162a907",
+      "matchesBuild": true
+    },
+    {
+      "path": "assets/main-oIQGGR_E.js",
+      "status": 200,
+      "bytes": 2936456,
+      "sha256": "9dc59d8f6c73420a402fb17879cd8170c12002f885829d4aabb62c954b79835b",
+      "matchesBuild": true
+    }
+  ],
+  "evidenceArchive": {
+    "path": "/workspace/halfsword-handoff/isolde-detail-evidence-20261009.tar.gz",
+    "bytes": 4733065,
+    "sha256": "1dbfcc5ad6eafd9a36e5bfc02f8e60823dfa463033733f090f316d4dcc9cf31a",
+    "excludes": [
+      "reproducible build"
+    ],
+    "includes": "frozen audit source, runners, failed and final captures, local/public mobile reports and deployment evidence"
+  }
 }
