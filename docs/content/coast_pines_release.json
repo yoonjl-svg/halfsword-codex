@@ -1,5 +1,5 @@
 {
-  "status": "local-verified-awaiting-public",
+  "status": "verified",
   "dateKST": "2026-10-10",
   "baseline": "91906d711d77d191ff9329a4b6fb23e5447ced53",
   "url": "https://yoonjl-svg.github.io/halfsword-codex/coast-pines.html",
@@ -67,5 +67,37 @@
   "stageAudit": {
     "report": "/tmp/halfsword-harbor-pine-20261010/audit/summary-final.json",
     "passed": true
+  },
+  "codeCommit": "628d9602a96c824c53796c27843ca1596a4c027a",
+  "pagesRun": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37953773910",
+  "pagesConclusion": "success",
+  "publicAssets": {
+    "pass": true,
+    "count": 24,
+    "report": "/tmp/halfsword-harbor-pine-20261010/public-assets.json"
+  },
+  "publicMobile": {
+    "pass": true,
+    "flows": 2,
+    "requests": 401,
+    "uniqueFiles": 200,
+    "seconds": 256.1,
+    "errors": 0,
+    "recoveredGET503": 1,
+    "report": "/tmp/halfsword-harbor-pine-20261010/mobile-public-v2/report.json"
+  },
+  "completedUTC": "2026-10-09T15:48:17.546Z",
+  "evidenceArchives": {
+    "compact": {
+      "path": "/workspace/halfsword-handoff/coast-pines-evidence-20261010.tar.gz",
+      "bytes": 1829263,
+      "sha256": "25f5299ee9d36618716aa61b776ccf7c855853fb39e284536aaff2c4a285dec7"
+    },
+    "full": {
+      "path": "/tmp/coast-pines-evidence-20261010.tar.gz",
+      "bytes": 26048611,
+      "sha256": "b4d3f99a5b1cfed334d30222348e046a323a5a3077bdf1d1d644ef8282f2f1a2"
+    },
+    "compactScope": "Reports, scripts, source hashes, research HTML/text and metadata. Raw PNGs and museum image/PDF files remain only in full /tmp archive; public compressed comparisons are versioned in Git. Reproducible builds/dependency caches/source snapshots are excluded from both."
   }
 }
