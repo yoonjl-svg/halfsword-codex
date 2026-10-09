@@ -166,9 +166,9 @@ try {
     const beforeNames = [], outfitNodes = [];
     for (const group of Object.values(enemy.groups)) group.traverse(n => {
       if (/artoria/i.test(n.name)) beforeNames.push({ name: n.name, uuid: n.uuid });
-      if (n.userData.outfit === 'artoria_silver') outfitNodes.push({ node: n, parent: n.parent, part: n.userData.outfitPart });
+      if (n.userData.outfit === look.outfit) outfitNodes.push({ node: n, parent: n.parent, part: n.userData.outfitPart });
     });
-    check('artoria/native-outfit-parts', look.outfit === 'artoria_silver' && outfitNodes.some(n => n.part === 'head') && outfitNodes.some(n => n.part === 'chest')
+    check('artoria/native-outfit-parts', look.outfit === character.look.outfit && outfitNodes.some(n => n.part === 'head') && outfitNodes.some(n => n.part === 'chest')
       && Object.keys(enemy.groups).every(part => outfitNodes.some(n => n.part === part)), { parts: outfitNodes.map(n => n.part) });
     check('artoria/real-excalibur-aura', enemy.weapon.id === 'excalibur' && !!aura && enemy.swordGroup.getObjectByName('legendaryAura')?.userData.legendaryAura.tone === 'gold');
     enemy.applyWound({ part: 'chest', zone: 'chest', type: 'cut', severity: .2, energy: 5, bleedPerSev: .005,
@@ -176,7 +176,7 @@ try {
     for (let i = 0; i < 300; i++) { ag.step(); enemy.syncMeshes(); aura.update(ag.t); observeArtoria(); }
     ar.namedAppearanceNodes = beforeNames; ar.outfitParts = outfitNodes.map(n => n.part); ar.syntheticWounds = enemy.wounds.length;
     check('artoria/appearance-retained-after-synthetic-wound', enemy.wounds.length > 0 && originalChildren.length > 0 && originalChildren.every(n => n.parent === head)
-      && outfitNodes.length > 0 && outfitNodes.every(({ node, parent }) => node.parent === parent && node.userData.outfit === 'artoria_silver')
+      && outfitNodes.length > 0 && outfitNodes.every(({ node, parent }) => node.parent === parent && node.userData.outfit === look.outfit)
       && beforeNames.every(({ uuid }) => Object.values(enemy.groups).some(group => !!group.getObjectByProperty('uuid', uuid))));
     // Synthetic destruction through the production armor-wear path. Cloth and
     // hair must survive the metal list being removed, not merely a flesh wound.

@@ -1801,8 +1801,149 @@ const ARTORIA_OUTFIT = {
   footF: artoriaFoot, footB: artoriaFoot,
 };
 
+// 아르토리아 전용 보완. 물리 부위와 손은 유지하고, 옷의 외곽만 다듬는다.
+function artoriaRoundedBox(w, h, d, radius, taper = 1) {
+  const geo = new THREE.BoxGeometry(w, h, d, 4, 4, 4), p = geo.attributes.position;
+  const core = new THREE.Vector3(w / 2 - radius, h / 2 - radius, d / 2 - radius);
+  const v = new THREE.Vector3(), near = new THREE.Vector3();
+  for (let i = 0; i < p.count; i++) {
+    v.fromBufferAttribute(p, i);
+    near.set(THREE.MathUtils.clamp(v.x, -core.x, core.x), THREE.MathUtils.clamp(v.y, -core.y, core.y), THREE.MathUtils.clamp(v.z, -core.z, core.z));
+    v.sub(near).normalize().multiplyScalar(radius).add(near);
+    const scale = THREE.MathUtils.lerp(taper, 1, (v.y + h / 2) / h);
+    p.setXYZ(i, v.x * scale, v.y, v.z * scale);
+  }
+  geo.computeVertexNormals();
+  return geo;
+}
+function artoriaSoftBase(g, radius = 0.018, taper = 1) {
+  const main = g.children[0], { width, height, depth } = main.geometry.parameters;
+  if (width && height && depth) {
+    const geo = artoriaRoundedBox(width, height, depth, radius, taper);
+    main.geometry.dispose(); main.geometry = geo;
+  }
+  // 기존 갑옷 수집 인덱스를 지키기 위해 기본 장식은 삭제하지 않고 숨긴다.
+  for (const extra of g.children.slice(1)) extra.visible = false;
+}
+function artoriaCapeV2(g) {
+  const layer = artoriaCloth(g);
+  const rows = 8, columns = 18, vertices = [], uv = [], indices = [];
+  const at = (t, u) => [-0.15 - 0.075 * t - 0.035 * (1 - u * u)
+    + Math.sin((u + 0.1) * Math.PI * 3) * (0.008 + t * 0.02),
+    0.151 - t * 0.795 - 0.025 * (1 - u * u) * t,
+    -0.117 + u * (0.147 + t * 0.066)];
+  for (let r = 0; r <= rows; r++) for (let c = 0; c <= columns; c++) {
+    vertices.push(...at(r / rows, c / columns * 2 - 1)); uv.push(c / columns, r / rows);
+    if (r < rows && c < columns) {
+      const i = r * (columns + 1) + c;
+      indices.push(i, i + columns + 1, i + 1, i + 1, i + columns + 1, i + columns + 2);
+    }
+  }
+  const cape = new THREE.BufferGeometry();
+  cape.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+  cape.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+  cape.setIndex(indices); cape.computeVertexNormals();
+  addMerged(layer, [cape], ARTORIA_TEAL, { ...CLOTH, side: THREE.DoubleSide }).name = 'artoria-cape';
+  const borders = [-1, 1].map((u) => taperedTube([0, 0.33, 0.67, 1].map((t) => at(t, u)), [0.0022, 0.0022, 0.0022, 0.0022], 12, 4));
+  borders.push(taperedTube([-1, -0.66, -0.33, 0, 0.33, 0.66, 1].map((u) => at(1, u)), Array(7).fill(0.0022), 24, 4));
+  addMerged(layer, borders, ARTORIA_GOLD, CLOTH);
+}
+function artoriaSkirtV2(g, side) {
+  const layer = artoriaCloth(g), rings = 8, arcs = 16, vertices = [], uv = [], indices = [];
+  // 허벅지에 붙은 좌우 자락은 무릎에서 끊기지 않고 아래로 넓어진다.
+  // 정면 중앙을 비워 은빛 정강이와 발의 위치가 경기 거리에서도 읽히게 한다.
+  const at = (t, a) => {
+    const fold = 1 + 0.035 * Math.cos(a * 6), spread = Math.pow(t, 0.8);
+    return [Math.cos(a) * (0.103 + spread * 0.103) * fold - t * 0.02,
+      0.205 - t * 0.755 + Math.sin(a) * t * 0.015,
+      side * Math.sin(a) * (0.092 + spread * 0.115) * fold];
+  };
+  for (let y = 0; y <= rings; y++) for (let a = 0; a <= arcs; a++) {
+    vertices.push(...at(y / rings, a / arcs * Math.PI)); uv.push(a / arcs, y / rings);
+    if (y < rings && a < arcs) {
+      const i = y * (arcs + 1) + a;
+      indices.push(i, i + 1, i + arcs + 1, i + 1, i + arcs + 2, i + arcs + 1);
+    }
+  }
+  const shell = new THREE.BufferGeometry();
+  shell.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+  shell.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+  shell.setIndex(side > 0 ? indices : indices.toReversed()); shell.computeVertexNormals();
+  addMerged(layer, [shell], ARTORIA_INK, { ...CLOTH, side: THREE.DoubleSide });
+  const strips = [], hems = [];
+  for (const a of [0.025, Math.PI - 0.025]) {
+    const points = [0, 0.35, 0.7, 1].map((t) => at(t, a));
+    strips.push(isoldeLock(points, [0.022, 0.03, 0.04, 0.04], 0.004));
+    hems.push(taperedTube(points.map((p) => [p[0] + 0.004, p[1], p[2] + side * 0.017]), [0.0022, 0.0022, 0.0022, 0.0022], 10, 4));
+  }
+  addMerged(layer, strips, ARTORIA_TEAL, CLOTH);
+  addMerged(layer, hems, ARTORIA_GOLD, CLOTH);
+}
+function artoriaShoulderV2(g, large) {
+  const r = large ? 0.107 : 0.087;
+  const plates = [0, 1, 2].map((i) => bake(new THREE.SphereGeometry(r - i * 0.014, 12, 7, 0, Math.PI * 2, 0, Math.PI * 0.66), [0, 0.075 - i * 0.04, 0], null, [1.08, 0.77, large ? 1.2 : 1.04]));
+  plates.push(cyl(0.055, 0.045, 0.153, 12, false, [0, -0.034, 0]));
+  addMerged(g, plates, ARTORIA_SILVER, ARTORIA_METAL);
+  addMerged(g, [cyl(r * 0.91, r * 0.96, 0.006, 12, true, [0, 0.023, 0])], ARTORIA_GOLD, ARTORIA_METAL);
+}
+function artoriaForearmV2(g) {
+  addMerged(g, [cyl(0.055, 0.045, 0.207, 12, false, [0, 0.005, 0]),
+    bake(new THREE.SphereGeometry(0.052, 12, 8), [0.005, 0.009, 0], null, [1.04, 1.95, 0.93]),
+    cyl(0.049, 0.045, 0.026, 12, true, [0, -0.09, 0])], 0xd8e1e4, ARTORIA_METAL);
+  addMerged(g, [cyl(0.0495, 0.0485, 0.006, 12, true, [0, -0.08, 0])], ARTORIA_EDGE, ARTORIA_METAL);
+}
+function artoriaShinV2(g) {
+  addMerged(g, [cyl(0.063, 0.0555, 0.356, 12, false, [0, 0, 0]),
+    bake(new THREE.SphereGeometry(0.0555, 12, 8), [0, -0.158, 0], null, [1, 0.92, 1]),
+    bake(new THREE.SphereGeometry(0.057, 12, 8), [0.024, 0.132, 0], null, [0.9, 1.17, 1.08]),
+    artoriaPanel(0.059, [[0.174, 0], [0.119, 0.042], [-0.16, 0.027], [-0.186, 0], [-0.16, -0.027], [0.119, -0.042]], 0.012)], 0xd8e1e4, ARTORIA_METAL);
+  addMerged(g, [cyl(0.059, 0.0585, 0.008, 12, true, [0, -0.1, 0])], ARTORIA_EDGE, ARTORIA_METAL);
+}
+function artoriaFootV2(g) {
+  artoriaSoftBase(g, 0.018);
+  const shell = artoriaRoundedBox(0.269, 0.067, 0.119, 0.025);
+  const p = shell.attributes.position;
+  for (let i = 0; i < p.count; i++) {
+    const toe = THREE.MathUtils.clamp((p.getX(i) + 0.02) / 0.15, 0, 1);
+    p.setXYZ(i, p.getX(i), p.getY(i) * (1 - toe * 0.17), p.getZ(i) * (1 - toe * 0.22));
+  }
+  shell.computeVertexNormals();
+  addMerged(g, [bake(shell, [0.01, 0.009, 0])], ARTORIA_SILVER, ARTORIA_METAL);
+  addMerged(g, [0.0, 0.052, 0.098].map((x) => taperedTube([[x, 0.026, -0.043], [x, 0.042, 0], [x, 0.026, 0.043]], [0.0025, 0.0025, 0.0025], 6, 4)), ARTORIA_EDGE, ARTORIA_METAL);
+}
+const ARTORIA_OUTFIT_V2 = {
+  armorParts: new Set(ARTORIA_OUTFIT.armorParts),
+  head: ARTORIA_OUTFIT.head,
+  chest(g, look) {
+    artoriaSoftBase(g, 0.028, 0.96);
+    const fabric = artoriaCloth(g); clothNeck(fabric, look); artoriaCapeV2(g);
+    const hairLayer = artoriaCloth(g, 'artoria-hair');
+    addMerged(hairLayer, [-1, 1].map((s) => isoldeLock([[0.13, 0.15, s * 0.145], [0.175, 0.06, s * 0.15], [0.164, -0.067, s * 0.17]], [0.03, 0.032, 0.002], 0.012)), look.hair, CLOTH);
+    addMerged(g, [bake(artoriaRoundedBox(0.256, 0.249, 0.39, 0.043, 0.91), [-0.005, 0.008, 0]),
+      artoriaPanel(0.13, [[0.129, -0.151], [0.157, -0.069], [0.128, 0], [0.157, 0.069], [0.129, 0.151], [-0.065, 0.137], [-0.144, 0], [-0.065, -0.137]], 0.039),
+      cyl(0.065, 0.078, 0.028, 12, true, [0, 0.155, 0])], ARTORIA_SILVER, ARTORIA_METAL);
+    addMerged(g, [artoriaPanel(0.165, [[0.08, -0.118], [0.099, 0], [0.08, 0.118], [0.014, 0.105], [-0.065, 0], [0.014, -0.105]], 0.027)], 0xe0e7e9, ARTORIA_METAL);
+    addMerged(g, [artoriaPanel(0.192, [[0.074, 0], [0.038, 0.015], [0.016, 0], [0.038, -0.015]], 0.005)], ARTORIA_TEAL, ARTORIA_METAL);
+  },
+  abdomen(g) {
+    artoriaSoftBase(g, 0.027, 0.93);
+    addMerged(g, [0, 1, 2].map((i) => bake(artoriaRoundedBox(0.24, 0.063, 0.328 - i * 0.009, 0.02), [0, 0.068 - i * 0.058, 0])), ARTORIA_SILVER, ARTORIA_METAL);
+  },
+  pelvis(g) {
+    artoriaSoftBase(g, 0.024);
+    addMerged(g, [-1, 1].map((s) => artoriaPanel(0.123, [[0.071, s * 0.039], [0.079, s * 0.147], [-0.04, s * 0.185], [-0.129, s * 0.148], [-0.098, s * 0.067]], 0.012)), ARTORIA_SILVER, ARTORIA_METAL);
+    addMerged(g, [bake(artoriaRoundedBox(0.254, 0.022, 0.338, 0.01), [0, 0.059, 0])], ARTORIA_GOLD, ARTORIA_METAL);
+  },
+  uarmS(g) { artoriaShoulderV2(g, false); }, uarmO(g) { artoriaShoulderV2(g, true); },
+  farmS: artoriaForearmV2, farmO: artoriaForearmV2,
+  thighF(g) { artoriaSkirtV2(g, 1); }, thighB(g) { artoriaSkirtV2(g, -1); },
+  shinF: artoriaShinV2, shinB: artoriaShinV2,
+  footF: artoriaFootV2, footB: artoriaFootV2,
+};
+
 export const OUTFITS = {
   artoria_silver: ARTORIA_OUTFIT,
+  artoria_silver_v2: ARTORIA_OUTFIT_V2,
   bran_farmer: BRAN_FARMER,
   isolde_saber: ISOLDE_SABER,
   isolde_longhair: ISOLDE_LONGHAIR,

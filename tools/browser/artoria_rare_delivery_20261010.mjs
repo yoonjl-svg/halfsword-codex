@@ -26,7 +26,7 @@ for (const arg of process.argv.slice(2)) {
 }
 assert(args.build && path.isAbsolute(args.build) && args.out && path.isAbsolute(args.out));
 const build = await fs.realpath(args.build), out = path.resolve(args.out);
-assert(out.startsWith('/tmp/halfsword-artoria-rare-20261010/'));
+assert((out.startsWith('/tmp/halfsword-artoria-rare-20261010/') || out.startsWith('/tmp/halfsword-ice-hbo-20261010/')));
 await fs.mkdir(path.dirname(out), { recursive: true });
 assert.equal(await fs.realpath(path.dirname(out)), path.dirname(out)); await fs.mkdir(out);
 const base = new URL(args.base || 'https://yoonjl-svg.github.io/halfsword-codex/');
@@ -71,7 +71,7 @@ const clean = value => {
   return text.replace(/https?:\/\/[^\s/@:]+:[^\s/@]+@/gi, 'https://[redacted]@').slice(0, 3000);
 };
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || '/workspace/cloud-onboarding/browser/node_modules/playwright/index.mjs');
-let browser, context, page, cdp, landing = null, fatal = null, pass = false, closing = false;
+let browser, context, page, cdp, landing = null, detail = null, fatal = null, pass = false, closing = false;
 const deadline = setTimeout(() => { errors.push({ kind: 'budget', message: '600-second budget exceeded' }); browser?.close().catch(() => {}); }, 600000);
 deadline.unref();
 try {
@@ -167,7 +167,7 @@ try {
     assert.equal(value.stage, 'loggia'); assert.equal(value.enemyName, CHARACTERS_BY_ID.artoria.name); assert.equal(value.enemyWeapon, 'excalibur');
     assert(value.finite && value.scrollWidth <= value.width + 1); assert.equal(value.saved, saved);
     assert.equal(value.model.requested, false); assert.equal(value.model.loads, 0);
-    assert(value.enemyOutfits.length >= 5 && value.enemyOutfits.every(item => item.outfit === 'artoria_silver'));
+    assert(value.enemyOutfits.length >= 5 && value.enemyOutfits.every(item => item.outfit === CHARACTERS_BY_ID.artoria.look.outfit));
     assert(value.enemyOutfits.some(item => item.part === 'head' && item.visible));
     assert(value.enemyOutfits.some(item => item.part === 'chest' && item.visible));
     assert.deepEqual(value.enemyAuraMarkers, [{ weapon: 'excalibur', tone: 'gold', strength: .5 }]);
@@ -188,6 +188,19 @@ try {
   const geometry = value => value.weaponMeshes.map(({ name, visible, vertices, color, shader }) => ({ name, visible, vertices, color, shader }));
   const landingURL = new URL('artoria.html', base).href;
   const destination = new URL(query, base).href;
+  if (before['ice-artoria-detail.html']) {
+    await page.goto(new URL('ice-artoria-detail.html', base).href, { waitUntil: 'load' });
+    await page.evaluate(async () => {
+      document.querySelectorAll('details').forEach(node => { node.open = true; });
+      await Promise.all([...document.images].map(image => { image.loading = 'eager'; return image.decode(); }));
+    });
+    detail = await page.evaluate(() => ({ width: innerWidth, scrollWidth: document.documentElement.scrollWidth,
+      play: document.querySelector('a.play').href,
+      images: [...document.images].map(image => ({ path: new URL(image.src).pathname, width: image.naturalWidth, height: image.naturalHeight })) }));
+    assert(detail.scrollWidth <= detail.width + 1); assert.equal(detail.play, destination);
+    assert.equal(detail.images.length, 12); assert(detail.images.every(image => image.width > 0 && image.height > 0));
+    await page.screenshot({ path: path.join(out, 'detail-portrait.png'), fullPage: true });
+  }
   await page.goto(landingURL, { waitUntil: 'load' });
   await page.locator('img').evaluateAll(images => Promise.all(images.map(image => image.decode())));
   landing = await page.evaluate(() => ({ title: document.title, width: innerWidth,
@@ -297,7 +310,7 @@ try {
   clearTimeout(deadline); const buildStable = JSON.stringify(before) === JSON.stringify(await manifest(build));
   pass = pass && buildStable && errors.length === 0 && toolHash === sha(await fs.readFile(own)); if (!pass) process.exitCode = 1;
   const report = { pass, local, head, startedUTC, completedUTC: new Date().toISOString(), wallMs: performance.now() - start,
-    base: base.href, toolHash, buildStable, buildManifest: before, heroRequested: args.hero === true, scenarios, settings, landing, flows, requests, attempts, errors, fatal,
+    base: base.href, toolHash, buildStable, buildManifest: before, heroRequested: args.hero === true, scenarios, settings, landing, detail, flows, requests, attempts, errors, fatal,
     tlsVerification: true, proxyRetained: !local,
     limits: ['Chromium touch/mobile emulation; physical-phone frame performance and human visual acceptance are not assessed.',
       'Actual trusted card taps, sword strokes and movement inputs are repeated for each weapon before and after restart. No AI, damage, health or physics state is overridden.',

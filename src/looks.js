@@ -461,7 +461,7 @@ export const LOOK_ARCHIVE = {
     },
   },
 
-  // ── 5. 마르그레테 슈바르츠: v0(회색 수수한 노장) → v1(먹색 판금 + 갈색 머리, 용기사 실루엣) ──
+  // 아르토리아: 원본 판금과 경기 카메라용으로 다듬은 외형을 함께 보존한다.
   artoria: {
     v1: {
       tunic: 0x222a32, quilt: 0x222a32, sleeve: 0x242c34,
@@ -471,7 +471,16 @@ export const LOOK_ARCHIVE = {
       grip: 0x20343c, hilt: 0xc8b378, accent: 0x2c7778,
       outfit: 'artoria_silver', armor: 'plate',
     },
+    v2: {
+      tunic: 0x222a32, quilt: 0x222a32, sleeve: 0x242c34,
+      straps: null, belt: 0x263338, hoseUpper: 0x1a222b, hoseLower: 0x202a33,
+      shoes: 0x53626c, skin: 0xe4c7ad, hands: 0xd3dce0,
+      helmet: null, metal: 0xc1d0da, hair: 0xe7e9e5, headband: null,
+      grip: 0x20343c, hilt: 0xc8b378, accent: 0x2c7778,
+      outfit: 'artoria_silver_v2', armor: 'plate',
+    },
   },
+  // ── 5. 마르그레테 슈바르츠: v0(회색 수수한 노장) → v1(먹색 판금 + 갈색 머리, 용기사 실루엣) ──
   margarethe: {
     v0: {
       tunic: 0x3a3a3f,
@@ -570,7 +579,7 @@ export const CHARACTER_LOOK_VERSION = {
   tome: 'v1',
   omari: 'v1',
   yeongman: 'v3',
-  artoria: 'v1',
+  artoria: 'v2',
 };
 
 /** id의 특정 버전을 꺼낸다. 버전이 없으면 현재 버전 → v0 순으로 물러난다. (main.js의 ?look=, ?lookv= 미리보기용) */
