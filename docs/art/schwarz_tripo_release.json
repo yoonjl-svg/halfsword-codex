@@ -1,0 +1,153 @@
+{
+  "status": "verified_local_ready_to_deploy",
+  "baseCommit": "4ffbff4c094603270ff1f91aeedcd6ef595c3978",
+  "urls": {
+    "viewer": "https://yoonjl-svg.github.io/halfsword-codex/character-viewer.html",
+    "play": "https://yoonjl-svg.github.io/halfsword-codex/?characterModel=tripo&foe=margarethe&weapon=longsword&stage=cathedral",
+    "comparison": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#schwarz-model"
+  },
+  "scope": "Optional intact Schwarz appearance; native physics, controls, hands, armor and damage remain authoritative. One-way native visual fallback on damage. No ordinary appearance adoption.",
+  "physicalPhoneTest": false,
+  "nativeAdapter": {
+    "path": "/workspace/halfsword-art/tripo-character-schwarz-anime-20261009/native-adapter-test-03.json",
+    "bytes": 38612,
+    "sha256": "b794c1b1d55a155b87084a616d703365958d2b528ac763ff2e54a924bc2d4de2",
+    "pass": true,
+    "assertions": 268,
+    "sourceStable": true,
+    "pairedTraces": [
+      {
+        "enabled": false,
+        "initialNativeSHA": "1ae56f0ba439e03319ddc63adb0f830c7d15b915a51ea1956d055b15bfa7ebdf",
+        "nativeCounts": {
+          "bodies": 33,
+          "colliders": 69,
+          "joints": 30
+        },
+        "nextRandom": 0.9929806657601148,
+        "nativeTraceSHA": "bb851312ad4a56663def8752d6ebfd6616b04971ccff898719a108cf907b7d65",
+        "steps": 120,
+        "seconds": 1
+      },
+      {
+        "enabled": true,
+        "initialNativeSHA": "1ae56f0ba439e03319ddc63adb0f830c7d15b915a51ea1956d055b15bfa7ebdf",
+        "nativeCounts": {
+          "bodies": 33,
+          "colliders": 69,
+          "joints": 30
+        },
+        "nextRandom": 0.9929806657601148,
+        "nativeTraceSHA": "bb851312ad4a56663def8752d6ebfd6616b04971ccff898719a108cf907b7d65",
+        "steps": 120,
+        "seconds": 1
+      }
+    ],
+    "limitations": [
+      "Texture decoding is replaced by empty textures; this does not verify appearance or GPU rendering.",
+      "The paired native trace is a short deterministic observation, not broad combat coverage.",
+      "Armor visibility and fallback are deliberate lifecycle fixtures, not natural impact evidence."
+    ]
+  },
+  "localViewer": {
+    "path": "/workspace/halfsword-art/tripo-character-schwarz-anime-20261009/viewer-local/viewer-smoke.json",
+    "bytes": 3473,
+    "sha256": "38ffce7a9ab232a78f68d07fc247a2d6195fe7e6ab032ae961234672517df5ea",
+    "pass": true
+  },
+  "pending": [
+    "Own remote push and Pages",
+    "Same-build public mobile and viewer"
+  ],
+  "preservedLocalFailures": [
+    {
+      "path": "/workspace/halfsword-handoff/tripo-character-20261009/mobile/local01/report.json",
+      "sha256": "ce1907413acd3d4f84a7532c8925344033a093bc217ae9e25a0ab3b50c874223",
+      "bytes": 759119,
+      "pass": false,
+      "sourceStable": true,
+      "buildStable": true,
+      "errors": 0,
+      "reason": "Actual enemy hit not observed in bounded melee input; damage fallback requirement not exercised. No fallback implementation failure established."
+    },
+    {
+      "path": "/workspace/halfsword-handoff/tripo-character-20261009/mobile/local02/report.json",
+      "sha256": "cafb2832d17a56306fe7d0a45894387036dc0e8fe576b59da3505d1cd1070243",
+      "bytes": 757963,
+      "pass": false,
+      "sourceStable": true,
+      "buildStable": true,
+      "errors": 0,
+      "reason": "Actual enemy hit not observed in bounded melee input; damage fallback requirement not exercised. No fallback implementation failure established."
+    },
+    {
+      "path": "/workspace/halfsword-handoff/tripo-character-20261009/mobile/local03/report.json",
+      "sha256": "66fd8498c46e8956d57b8a7a1957ed0ba223c898710852a7049c66b8be53d9f9",
+      "bytes": 1527030,
+      "pass": false,
+      "sourceStable": true,
+      "buildStable": true,
+      "errors": 62,
+      "reason": "All three gameplay flows completed, including first actual bullet hit and native fallback/restart. Page navigation before previous audio fetch chain drained caused route failures; overall run remains failed."
+    },
+    {
+      "path": "/workspace/halfsword-handoff/tripo-character-20261009/mobile/local04/report.json",
+      "sha256": "e2561e1e0d5ac981798ca4c45fb1cfc5db95a14ebb31d4833ba8ad01adf1ee1c",
+      "bytes": 1526944,
+      "pass": false,
+      "sourceStable": true,
+      "buildStable": true,
+      "errors": 57,
+      "reason": "All three gameplay flows completed. Audio route.fetch socket resets persisted even with completed per-flow drains. Initial navigation-only hypothesis not established; transport investigation separate from product changes."
+    }
+  ],
+  "regression": {
+    "path": "/workspace/halfsword-handoff/tripo-character-20261009/regression01/result.json",
+    "bytes": 302125,
+    "sha256": "585266092553dbdcd6093578d91a2e034122e5991ca4b6aea57d592b9f2d9771",
+    "pass": true,
+    "sourceStable": true,
+    "cacheUsed": false,
+    "wallSeconds": 211.71636603100342,
+    "suites": [
+      {
+        "id": "force_ledger",
+        "pass": true
+      },
+      {
+        "id": "grip_reaction",
+        "pass": true
+      },
+      {
+        "id": "cut_reaction",
+        "pass": true
+      },
+      {
+        "id": "arm_capacity",
+        "pass": true
+      },
+      {
+        "id": "arm_duel",
+        "pass": true
+      },
+      {
+        "id": "build",
+        "pass": true
+      }
+    ],
+    "fingerprint": "1e579ba91ea8b0a37120076a7980adece3bad16bbabd851ba938f366f88023e2"
+  },
+  "localMobile": {
+    "path": "/workspace/halfsword-handoff/tripo-character-20261009/mobile/local05/report.json",
+    "bytes": 1468470,
+    "sha256": "70c175dc6c3ba8a874e9d64990ff6d7c8f91e348b97e24874f0bdfb4c4c3f22f",
+    "pass": true,
+    "flows": 3,
+    "sourceStable": true,
+    "buildStable": true,
+    "errors": 0,
+    "requests": 444,
+    "wallMs": 130922.53126300001,
+    "base": "http://127.0.0.1:4180/"
+  }
+}

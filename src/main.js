@@ -116,6 +116,23 @@ const targetCorrectionTrial = configureTargetCorrectionTrial(params);
 const armRecoveryTrial = configureArmRecoveryTrial(params);
 const comparisonSettings = opportunityTrial.active ? opportunityTrial.settings : recoveryFinishTrial.active ? recoveryFinishTrial.settings : finishV2Trial.active ? finishV2Trial.settings : activeV2Trial ? activeV2Trial.settings : swordsmanshipTrial.active ? swordsmanshipTrial.settings : integratedCombatTrial.active ? integratedCombatTrial.settings : inputComparison ? { skill: '0', difficulty: 'normal' } : swordsmanshipDefault.active ? swordsmanshipDefault.settings : targetCorrectionTrial.settings;
 const settingValue = (key) => comparisonSettings[key] ?? settings[key];
+// This appearance entry does not opt out of ordinary v2 combat defaults.
+const characterModelRequested = params.getAll('characterModel').length === 1 && params.get('characterModel') === 'tripo'
+  && params.getAll('foe').length === 1 && params.get('foe') === 'margarethe';
+let characterAppearance = null, characterAppearanceError = null;
+if (characterModelRequested) {
+  try {
+    const { loadSchwarzAppearance } = await import('./tripo_character.js');
+    characterAppearance = await loadSchwarzAppearance();
+  } catch (error) {
+    characterAppearanceError = String(error.message);
+    // A failed optional appearance must leave the playable native game intact.
+  }
+}
+const characterModelSnapshot = () => characterAppearance?.snapshot() ?? {
+  requested: characterModelRequested, model: 'procedural', status: characterAppearanceError ? 'error' : 'off',
+  error: characterAppearanceError, loads: 0, disposals: 0, controllers: [],
+};
 // Ordinary fights use severing for both fighters. Historical research entries
 // keep their original setup unless they explicitly enable the limb trial.
 CONFIG.COMBAT.limbSeverTrial = swordsmanshipDefault.active || params.get('limbTrial') === '1';
@@ -537,6 +554,7 @@ function newRound(weaponId) {
   // 진짜 엑스칼리버의 기운 (보여 주기만)
   auras = [player, enemy].map(attachAura).filter(Boolean);
   auras.push(attachHandVisuals(player, LOOKS.player), attachHandVisuals(enemy, enemyLook));
+  if (characterAppearance && currentFoe?.id === 'margarethe') auras.push(characterAppearance.attach(enemy));
   for (const c of scene.children) if (!before.has(c)) fighterMeshes.push(c);
   const fxWarm = fxWarmers(); // 싸움 도중 처음 나오는 효과의 셰이더 예열용 (부활 빛 예열에 같이 넣고, 판 끝에 warmRoundFx)
   if (enemy.revive) {
@@ -613,6 +631,7 @@ const stats = { hits: [], clashes: 0, simTime: 0, passes: 0 };
 
 /** combat.js가 상처를 만들 때마다 부른다: 피, 자국, 소리, 진동, 멈칫 */
 function onWound(att, vic, r, point, pr) {
+  characterAppearance?.onWound(vic);
   if (vic === player) playerEv.hurt = true; // 감정 사건: 베였다
   if (att === player) playerEv.landed = true; // 감정 사건: 맞혔다
   const tag = `${att.name}->${r.zone}:${r.type}${r.pass ? '(관통)' : ''} ${r.energy.toFixed(0)}J 심각도${r.severity.toFixed(2)}`;
@@ -778,6 +797,15 @@ function updateDrips(f, dt) {
 // ── UI ──
 const $ = (id) => document.getElementById(id);
 const menu = $('menu');
+if (characterModelRequested) {
+  const info = document.createElement('p'); info.id = 'characterModelInfo'; info.className = 'sub';
+  info.textContent = characterAppearanceError
+    ? '슈바르츠 외형을 불러오지 못해 기존 모습으로 실행합니다. 다시 열어 주세요.'
+    : '슈바르츠 외형 시험 · 첫 피격 후 상처·갑옷 파손을 표시하는 기존 외형으로 돌아갑니다.';
+  $('menuSub').after(info);
+  const viewer = document.createElement('a'); viewer.href = './character-viewer.html';
+  viewer.textContent = '슈바르츠 외형 돌려 보기'; viewer.className = 'sub'; info.after(viewer);
+}
 mountSupportProbe(supportProbe);
 mountPhysicalTrial(physicalTrial);
 mountCutTrial(cutTrial);
@@ -1795,6 +1823,7 @@ window.game = {
   finishV2Trial,
   recoveryFinishTrial,
   opportunityTrial,
+  get characterModel() { return characterModelSnapshot(); },
   get defaultSwordsmanshipApplied() {
     return swordsmanshipDefault.active && player?.swordsmanshipModel === 'unified';
   },
