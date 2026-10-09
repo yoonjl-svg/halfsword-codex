@@ -33,3 +33,7 @@
 원자료: `/tmp/halfsword-ice-hbo-20261010/`, `/tmp/halfsword-artoria-polish-20261010/`. 원본 비교 소스는 기준 커밋의 `git archive`로 분리했고, 전후 스크립트·보고서·사진을 저장소 밖 압축본에 보존한다. 새 공개 자산별 용도/출처는 [자산 목록](ice_artoria_detail_assets.json)에 기록한다.
 
 플레이/비교: https://yoonjl-svg.github.io/halfsword-codex/ice-artoria-detail.html
+
+## 실제 전달
+
+`5277832` 공개 전달 완료. 전후 물리480상태 일치·native31항목 PASS, 로컬/공개 모바일 각2흐름·비교12사진과 공개189파일 일치·오류0을 확인했다. 아이스/아르토리아는 각각4a425f9/5277832에 분리했다. 전후 원자료 압축본의 위치·크기·SHA, Pages 성공 및 9일 일지 원격 확인은 영수증에 기록했다. 10일 일지는 마감 전 초안이며 아직 발행으로 세지 않는다.
