@@ -1,0 +1,140 @@
+{
+  "status": "verified",
+  "baseline": "f3657f0e43dd88a2f26d116fabfbc3440827523d",
+  "codeCommit": "5b021f57778fbf312480508ac1681e77a9912457",
+  "url": "https://yoonjl-svg.github.io/halfsword-codex/legendary-jian.html",
+  "pagesRun": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37967659683",
+  "pagesConclusion": "success",
+  "specs": [
+    {
+      "id": "ganjiang",
+      "fullCm": 95,
+      "bladeCm": 72,
+      "mass": 0.95,
+      "comCm": 24.914526315789473,
+      "inertia": 0.1149767196,
+      "previous": {
+        "id": "ganjiang",
+        "name": "간장",
+        "tier": "legend",
+        "grip": "one-hand",
+        "fullCm": 100,
+        "bladeCm": 77,
+        "handToTipCm": 89,
+        "massKg": 0.95,
+        "COMcm": 26.13,
+        "inertia": 0.1269,
+        "cut": 1.15,
+        "thrust": 1.15,
+        "blunt": 0.95,
+        "power": 1.2,
+        "fragility": 0,
+        "breakable": false,
+        "edged": true,
+        "spike": false,
+        "torque": 22,
+        "trial": false,
+        "hidden": false,
+        "available": true,
+        "ability": null
+      }
+    },
+    {
+      "id": "moye",
+      "fullCm": 91,
+      "bladeCm": 68,
+      "mass": 1.12,
+      "comCm": 23.555892857142855,
+      "inertia": 0.12343390980000002,
+      "previous": {
+        "id": "moye",
+        "name": "막야",
+        "tier": "legend",
+        "grip": "one-hand",
+        "fullCm": 96,
+        "bladeCm": 73,
+        "handToTipCm": 85,
+        "massKg": 1.12,
+        "COMcm": 24.75,
+        "inertia": 0.13674,
+        "cut": 1.15,
+        "thrust": 1.15,
+        "blunt": 0.95,
+        "power": 1.2,
+        "fragility": 0,
+        "breakable": false,
+        "edged": true,
+        "spike": false,
+        "torque": 22,
+        "trial": false,
+        "hidden": false,
+        "available": true,
+        "ability": null
+      }
+    }
+  ],
+  "native": {
+    "report": "/tmp/halfsword-jian-short-20261010/native-final.json",
+    "sha256": "f08f4986b29c6c18ead4448d88f476b06759d82752ba1a336a5a44a437391e8b",
+    "pass": true,
+    "flows": 4,
+    "secondsPerFlow": 5
+  },
+  "scope": {
+    "baseline": "f3657f0",
+    "previousRegressionPass": true,
+    "changedFromPreviousRegression": [
+      "src/aura.js",
+      "src/weapons.js"
+    ],
+    "scope": "Only two blade-length constants changed from last delivered code; aura profile unchanged from its verified delivery. Rerun focused native contact and full mobile input for both shortened swords."
+  },
+  "localMobile": {
+    "report": "/tmp/halfsword-jian-20261010/mobile-local-short/report.json",
+    "sha256": "f445b3ffb4e928e29a4fdcf20e06b14e86e091cf0279416977cac1dc48fed250",
+    "pass": true,
+    "flows": 2,
+    "fullInput": true,
+    "seconds": 220.6,
+    "requests": 372,
+    "uniqueFiles": 175,
+    "retryAttempts": 0,
+    "errors": 0
+  },
+  "publicMobile": {
+    "report": "/tmp/halfsword-jian-20261010/mobile-public-short/report.json",
+    "sha256": "51fa9aa15a2227c63e9134c13c8a752e663b50a372f19c782bb3ae079431c08a",
+    "pass": true,
+    "flows": 2,
+    "fullInput": true,
+    "seconds": 220.1,
+    "requests": 372,
+    "uniqueFiles": 175,
+    "retryAttempts": 0,
+    "errors": 0
+  },
+  "build": {
+    "assets/main-DVBSvFgf.js": {
+      "bytes": 2958319,
+      "sha256": "2d252fea61c0f3ac73ef941f490705413cbd0a46dc97671468083836fa8b0773"
+    },
+    "index.html": {
+      "bytes": 19631,
+      "sha256": "6ba449d056d6e141368a89b65754da868c2e9cf488d78dd3ecad2bd0b02c2803"
+    },
+    "legendary-jian.html": {
+      "bytes": 2666,
+      "sha256": "98cc3fb8028e8f3c2ac5e5e2dfd10a2a74b8c832d1e71d0506d23d19c47a6961"
+    }
+  },
+  "archive": {
+    "path": "/workspace/halfsword-handoff/legendary-jian-short-evidence-20261010.tar.gz",
+    "bytes": 276291,
+    "sha256": "ef49b8ceaffda54575c02afd92e9b40fed80eebb6a36b9298e9272bd050158e5"
+  },
+  "completedUTC": "2026-10-09T17:42:58.490Z",
+  "limits": [
+    "No human naturalness, win-rate or physical-phone FPS claim.",
+    "Unchanged global regression reused; both shortened weapons native contact and full mobile input/restart checked again."
+  ]
+}

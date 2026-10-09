@@ -14,4 +14,10 @@ src/weapons.js의 두 날 길이로 부품COM/관성·메시/무늬·후광 길�
 
 재현: `node tools/sim/experiments/legendary_jian_gate.mjs /tmp/fresh-short-jian.json`. native4흐름(각5초), 실제 접촉/질량/길이/v2/유한 상태/불괴/후광 불변과 추첨2만회 검사. 기존 공통 회귀는 소스가 같아 재사용하며, 이번 길이 변경의 실제 모바일 공격·이동·재시작은 다시 검사한다. 카드 이미지는 새 메시에서 다시 생성한다.
 
-진행 상태: native 초기 검사PASS. 최종 빌드·로컬/공개 모바일 결과와 전달 영수증은 완료 후 이 기록에 추가한다. 근거 루트 `/tmp/halfsword-jian-short-20261010/`.
+완료: `5b021f5` Pages 37967659683 성공. 최종 native4흐름 PASS, 로컬/공개 모바일 각각 두 검의 실제 터치 공격·이동·정지/재개·재시작 PASS. 공개 175개 고유 파일이 검사한 빌드와 일치했다. [전달 영수증](legendary_jian_shortening_release.json)에 해시·범위·재현 자료를 보존했다.
+
+플레이: https://yoonjl-svg.github.io/halfsword-codex/legendary-jian.html
+
+간장 회전관성9.40%, 막야9.73% 감소. 짧아진 형상의 계산 결과이며 실제 공격력 상승/하락이나 인간 동작의 자연스러움 검증으로 일반화하지 않는다. 첫 썸네일 생성은 종료된 로컬 서버 때문에 실패했고, 서버를 다시 시작한 뒤 새 메시 이미지 두 장과 오류0을 확인했다. 게임 결함으로 분류하지 않는다.
+
+근거: `/tmp/halfsword-jian-short-20261010/` 및 기존루트의 mobile-local-short/public-short. 압축 보고서는 release JSON의 archive에 기록했다. 기존 공통6회귀/후광/추첨의 이전 공개 영수증은 최초 제작 기록에 남긴다.
