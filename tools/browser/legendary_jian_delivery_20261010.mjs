@@ -1,6 +1,7 @@
 // Frozen-build delivery: real card selection, mobile combat and restart for Ganjiang/Moye.
 // --base=http://127.0.0.1:4198/ --build=/tmp/.../build --out=/tmp/halfsword-jian-20261010/local
 // Public verification also requires --local-evidence=<passing local report.json>.
+// --visual-only reuses the preserved public-v1 attack/movement evidence below.
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -11,14 +12,15 @@ import { WEAPONS } from '../../src/weapons.js';
 import { CHARACTERS_BY_ID } from '../../src/characters.js';
 
 const scenarios = [
-  { id: 'ganjiang', mass: 0.95, length: 1.00, aura: 'ink' },
-  { id: 'moye', mass: 1.12, length: 0.96, aura: 'white' },
+  { id: 'ganjiang', mass: 0.95, length: 1.00, aura: 'white' },
+  { id: 'moye', mass: 1.12, length: 0.96, aura: 'ink' },
 ];
 assert(CHARACTERS_BY_ID.liao?.weapon === 'qinggang');
 const query = '?cards=ganjiang,moye&foe=liao&stage=poseidon';
 
 const own = fileURLToPath(import.meta.url), root = path.resolve(path.dirname(own), '../..'), args = {};
 for (const arg of process.argv.slice(2)) {
+  if (arg === '--visual-only') { assert(!args.visualOnly, 'Duplicate --visual-only'); args.visualOnly = true; continue; }
   const match = /^--(base|build|out|local-evidence)=(.+)$/.exec(arg);
   assert(match && !Object.hasOwn(args, match[1]), 'Unknown or duplicate argument'); args[match[1]] = match[2];
 }
@@ -32,6 +34,26 @@ const local = ['localhost', '127.0.0.1', '[::1]'].includes(base.hostname);
 assert(local && base.protocol === 'http:' || base.href === 'https://yoonjl-svg.github.io/halfsword-codex/');
 assert(!base.search && !base.hash && !base.username && !base.password && base.pathname.endsWith('/'));
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
+const visualOnly = args.visualOnly === true;
+let interactionEvidence = null;
+if (visualOnly) {
+  const evidencePath = '/tmp/halfsword-jian-20261010/mobile-public-v1/report.json';
+  const body = await fs.readFile(evidencePath), evidence = JSON.parse(body);
+  assert(evidence.pass && !evidence.local && evidence.buildStable && !evidence.visualOnly);
+  assert.equal(evidence.base, 'https://yoonjl-svg.github.io/halfsword-codex/');
+  assert.deepEqual(evidence.errors, []); assert.equal(evidence.fatal, null);
+  assert.deepEqual(evidence.flows.map(flow => flow.id), scenarios.map(fixture => fixture.id));
+  for (const flow of evidence.flows) {
+    assert(flow.native.length && flow.native.every(event => event.trusted && event.kind === 'touch'));
+    for (const phase of ['first', 'restart']) {
+      assert(flow[phase].rotationRadians > .005 && flow[phase].movementM > .001);
+      assert(flow[phase].state.finite && flow[phase].stroke.active !== null);
+    }
+  }
+  interactionEvidence = { path: evidencePath, sha256: sha(body), head: evidence.head, toolHash: evidence.toolHash,
+    reused: ['Trusted sword stroke and resulting physical rotation', 'Trusted movement input and actual translation'],
+    scope: 'Prior public-v1 mechanics only; prior palette/aura appearance is superseded.' };
+}
 async function manifest(dir, prefix = '') {
   const result = {};
   for (const entry of (await fs.readdir(dir, { withFileTypes: true })).sort((a, b) => a.name.localeCompare(b.name))) {
@@ -47,6 +69,7 @@ if (!local) {
   assert(args['local-evidence'], 'Public run requires passing local evidence');
   const previous = JSON.parse(await fs.readFile(args['local-evidence'], 'utf8'));
   assert(previous.pass && previous.local); assert.equal(previous.toolHash, toolHash);
+  assert.equal(previous.visualOnly, visualOnly); assert.deepEqual(previous.interactionEvidence, interactionEvidence);
   assert.deepEqual(previous.buildManifest, before, 'Public and local checks must use the same build');
 }
 const settings = { difficulty: 'normal', pixel: false, blood: true, sound: false, invertTilt: false,
@@ -196,6 +219,13 @@ try {
       if (label === 'first') await page.screenshot({ path: path.join(out, `${fixture.id}-cards.png`) });
       await page.locator(`.wcard[data-i="${index}"]`).tap(); await wait(() => game.state === 'fight' && game.player.fightT > 2.05);
       const state = await read(); assert.equal(state.playerWeapon, cards[index]); policy(state, fixture); row[label] = { cards, selected: index, state };
+      if (visualOnly) {
+        await wait(step => game.state === 'fight' && game.combat.stepNo > step + 8, state.steps);
+        row[label].animation = await read(); policy(row[label].animation, fixture);
+        assert(row[label].animation.aura[0].uniforms.uTime > state.aura[0].uniforms.uTime, 'Aura must animate during actual gameplay');
+        row[label].interactionEvidenceReused = true;
+        return;
+      }
       const count = state.accepted;
       await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: 690, y: 270, id: 1 }] });
       await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: 635, y: 175, id: 1 }] });
@@ -266,10 +296,13 @@ try {
   clearTimeout(deadline); const buildStable = JSON.stringify(before) === JSON.stringify(await manifest(build));
   pass = pass && buildStable && errors.length === 0 && toolHash === sha(await fs.readFile(own)); if (!pass) process.exitCode = 1;
   const report = { pass, local, head, startedUTC, completedUTC: new Date().toISOString(), wallMs: performance.now() - start,
-    base: base.href, toolHash, buildStable, buildManifest: before, scenarios, settings, landing, flows, requests, attempts, errors, fatal,
+    base: base.href, toolHash, buildStable, buildManifest: before, visualOnly, interactionEvidence, scenarios, settings, landing, flows, requests, attempts, errors, fatal,
     tlsVerification: true, proxyRetained: !local,
     limits: ['Chromium touch/mobile emulation; physical-phone frame performance and human visual acceptance are not assessed.',
-      'Read-only mobile scene observations with trusted card taps and touch strokes; no AI, damage or physics state is overridden. Separate paused close-ups reframe only the existing game camera.',
+      visualOnly
+        ? 'Visual-only revision check: trusted card selection, gameplay time and aura updates, pause/resume, restart and byte verification rerun. Sword stroke/movement mechanics reuse the preserved passing public-v1 report identified in interactionEvidence; no claim of newly repeated attack/movement testing.'
+        : 'Read-only mobile scene observations with trusted card taps and touch strokes; no AI, damage or physics state is overridden.',
+      'No AI, damage or physics state is overridden. Separate paused close-ups reframe only the existing game camera; pause-menu overlays can obscure those images.',
       'Ganjiang and Moye retain native geometry and black/white aura through actual card selection and restart. This bounded flow does not establish combat balance, naturally occurring injury or random draw rates.',
       'All served bytes match the frozen build, including the main bundle and requested weapon assets. One logged retry is allowed for GET 502/503.'] };
   await fs.writeFile(path.join(out, 'report.json'), JSON.stringify(report, null, 2) + '\n');

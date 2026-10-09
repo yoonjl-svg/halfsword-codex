@@ -15,8 +15,8 @@ import * as THREE from 'three';
 // existing Excalibur envelope; replicas and ordinary weapons have no aura.
 export const AURA_PROFILES = Object.freeze({
   excalibur: { tone: 'gold', color: [1.0, 0.82, 0.45], light: 0xffd98a, emissive: 0xffe2a0 },
-  ganjiang: { tone: 'ink', color: [0.035, 0.029, 0.045], light: null, emissive: null },
-  moye: { tone: 'white', color: [0.92, 0.96, 1.0], light: 0xf3f7ff, emissive: 0xeaf2ff },
+  ganjiang: { tone: 'white', color: [0.92, 0.96, 1.0], light: 0xf3f7ff, emissive: null },
+  moye: { tone: 'ink', color: [0.035, 0.029, 0.045], light: null, emissive: null },
 });
 // 기운 세기 (사장님 9/29 "너무 세, 지금의 절반으로": 1 → 0.5) — 아지랑이 투명도·점 조명·칼날 발광에 모두 곱한다
 const AURA_STRENGTH = 0.5;

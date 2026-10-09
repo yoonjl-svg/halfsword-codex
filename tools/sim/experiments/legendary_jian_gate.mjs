@@ -39,7 +39,7 @@ for (let k=0;k<1000;k++) {
     assert(drawWeaponCards(pool,2,{rnd,exclude}).every(id=>!['ganjiang','moye'].includes(id)), 'Pair exclusion failed');
 }
 const ordinary = configureSwordsmanshipDefault(new URLSearchParams());
-for(const [id,length,mass,tone] of [['ganjiang',1,.95,'ink'],['moye',.96,1.12,'white']]) {
+for(const [id,length,mass,tone] of [['ganjiang',1,.95,'white'],['moye',.96,1.12,'ink']]) {
   const spec=getWeapon(id), phys=weaponPhysics(spec);
   assert(swordsmanshipDefaultSupportsWeapon(spec,ordinary));
   assert.equal(schoolOf(id).weapon,id);
@@ -61,7 +61,7 @@ for(const [id,length,mass,tone] of [['ganjiang',1,.95,'ink'],['moye',.96,1.12,'w
       const aura=attachAura(f), group=f.swordGroup.getObjectByName('legendaryAura');
       assert(aura&&group);assert.equal(group.userData.legendaryAura.tone,tone);
       near(group.userData.legendaryAura.strength,.5);
-      assert.equal(group.children.filter(x=>x.isPointLight).length,id==='ganjiang'?0:1);
+      assert.equal(group.children.filter(x=>x.isPointLight).length,tone==='ink'?0:1);
       const snapshot=hash(g.world.takeSnapshot());
       aura.update(1);aura.update(2);
       assert.equal(hash(g.world.takeSnapshot()),snapshot,'Aura changed native physics');

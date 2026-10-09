@@ -752,9 +752,9 @@ const qinggang = finalizeSpec('qinggang', {
 // 청강검의 네 부품·손 원점을 재사용한다. 후광은 aura.js, 같은 묶음 추첨은 drawGroup 담당.
 const LEGENDARY_JIAN = {
   ganjiang: { blade: 0.77, bladeMass: 0.64, gripMass: 0.11, pommelMass: 0.14, guardMass: 0.06,
-    halfWidth: 0.015, thick: 0.0034, steel: 0x62625d, grip: 0xc9c9be, metal: 0xb9c5c7, pattern: 0xa48d64 },
+    halfWidth: 0.015, thick: 0.0034, steel: 0x62625d, grip: 0x201e1b, metal: 0x9a8255, pattern: 0xa48d64 },
   moye: { blade: 0.73, bladeMass: 0.745, gripMass: 0.12, pommelMass: 0.18, guardMass: 0.075,
-    halfWidth: 0.016, thick: 0.0038, steel: 0xe3eaed, grip: 0x201e1b, metal: 0x9a8255, pattern: 0x849fa8 },
+    halfWidth: 0.016, thick: 0.0038, steel: 0xe3eaed, grip: 0xc9c9be, metal: 0xb9c5c7, pattern: 0x849fa8 },
 };
 
 function legendaryJianParts() {
