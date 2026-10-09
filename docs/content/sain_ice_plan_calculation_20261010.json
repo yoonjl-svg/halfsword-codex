@@ -1,0 +1,256 @@
+{
+  "status": "proposal-calculation-only",
+  "basis": "9546321b4079e4054871800302e5b1d4247dde13",
+  "sources": {
+    "src/weapons.js": "b55b5448fd8c2346133da07f862ac8fb850488c37c19a573277b2c0a4e3bacff",
+    "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b"
+  },
+  "rare": {
+    "power": 1.05,
+    "durability": 0.85,
+    "fragility": 0.032
+  },
+  "values": [
+    {
+      "id": "sain",
+      "fullCm": 100,
+      "bladeCm": 75,
+      "massKg": 1,
+      "comFromHandCm": 25.065000000000005,
+      "comFromBladeBaseCm": 12.565000000000005,
+      "inertiaKgM2": 0.12738967916666669,
+      "frame": "one",
+      "style": "versatile",
+      "torqueNm": 22,
+      "coefficients": [
+        1.1,
+        1,
+        0.95
+      ]
+    },
+    {
+      "id": "ice",
+      "fullCm": 168,
+      "bladeCm": 125,
+      "massKg": 3.5,
+      "comFromHandCm": 35.475,
+      "comFromBladeBaseCm": 15.475,
+      "inertiaKgM2": 1.0625614416666667,
+      "frame": "heavy",
+      "style": "cut",
+      "torqueNm": 28,
+      "coefficients": [
+        1.1,
+        0.85,
+        1.15
+      ]
+    }
+  ],
+  "recipes": [
+    {
+      "id": "sain",
+      "grip": "one-hand",
+      "hiltLength": 0.125,
+      "bladeLength": 0.75,
+      "gripAlong": -0.12,
+      "mCut": 1.1,
+      "mThrust": 1,
+      "mBlunt": 0.95,
+      "torque": 22,
+      "parts": [
+        [
+          [
+            "box",
+            0.016,
+            0.1,
+            0.014
+          ],
+          0,
+          [
+            0.1,
+            0,
+            0.0003418666666666667,
+            0.00001506666666666667
+          ],
+          8947848,
+          false
+        ],
+        [
+          [
+            "ball",
+            0.025
+          ],
+          -0.1,
+          [
+            0.16,
+            0,
+            0.00004,
+            0.00004
+          ],
+          8947848,
+          false
+        ],
+        [
+          [
+            "box",
+            0.04,
+            0.01,
+            0.013
+          ],
+          0.11,
+          [
+            0.09,
+            0,
+            0.000051,
+            0.000053070000000000005
+          ],
+          8947848,
+          false
+        ],
+        [
+          [
+            "box",
+            0.0175,
+            0.375,
+            0.0045
+          ],
+          0.5,
+          [
+            0.65,
+            -0.10500000000000001,
+            0.022851562500000002,
+            0.00002556769596199525
+          ],
+          8947848,
+          true
+        ]
+      ]
+    },
+    {
+      "id": "ice",
+      "grip": "two-hand",
+      "hiltLength": 0.2,
+      "bladeLength": 1.25,
+      "gripAlong": -0.2,
+      "mCut": 1.1,
+      "mThrust": 0.85,
+      "mBlunt": 1.15,
+      "torque": 28,
+      "parts": [
+        [
+          [
+            "box",
+            0.022,
+            0.185,
+            0.02
+          ],
+          0,
+          [
+            0.3,
+            0,
+            0.0034708999999999994,
+            0.0000884
+          ],
+          8947848,
+          false
+        ],
+        [
+          [
+            "ball",
+            0.03
+          ],
+          -0.2,
+          [
+            0.7,
+            0,
+            0.000252,
+            0.000252
+          ],
+          8947848,
+          false
+        ],
+        [
+          [
+            "box",
+            0.14,
+            0.015,
+            0.022
+          ],
+          0.185,
+          [
+            0.35,
+            0,
+            0.0023129166666666667,
+            0.0023431333333333334
+          ],
+          8947848,
+          false
+        ],
+        [
+          [
+            "box",
+            0.045,
+            0.625,
+            0.0045
+          ],
+          0.825,
+          [
+            2.15,
+            -0.21249999999999997,
+            0.2099609375,
+            0.00019821110451306411
+          ],
+          8947848,
+          true
+        ]
+      ]
+    }
+  ],
+  "baseline": [
+    {
+      "id": "qinggang",
+      "mass": 0.85,
+      "com": 0.27188705882352937,
+      "I": 0.11355796226666665,
+      "length": 0.86,
+      "torqueNm": 22
+    },
+    {
+      "id": "ganjiang",
+      "mass": 0.95,
+      "com": 0.24914526315789473,
+      "I": 0.1149767196,
+      "length": 0.84,
+      "torqueNm": 22
+    },
+    {
+      "id": "moye",
+      "mass": 1.12,
+      "com": 0.23555892857142854,
+      "I": 0.12343390980000002,
+      "length": 0.8,
+      "torqueNm": 22
+    },
+    {
+      "id": "longsword",
+      "mass": 1.6,
+      "com": 0.24008149999999998,
+      "I": 0.27241577255833327,
+      "length": 1.1800000000000002,
+      "torqueNm": 22
+    },
+    {
+      "id": "zweihander",
+      "mass": 2.9,
+      "com": 0.3296758620689655,
+      "I": 0.7667390708366666,
+      "length": 1.3599999999999999,
+      "torqueNm": 28
+    }
+  ],
+  "limits": [
+    "Candidate part masses and mass distribution are assigned design inputs, not museum measurements.",
+    "Production weaponPhysics sums candidate parts; no native combat, animation or mobile validation performed.",
+    "Exact mesh/taper and collider layout require implementation review; decorative hilt outline is not represented by these simple candidate parts."
+  ]
+}
