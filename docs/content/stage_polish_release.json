@@ -1,8 +1,66 @@
 {
-  "status": "verification_in_progress",
+  "status": "verified",
   "baseline": "d5afa203ba00fab04e788496d437ea5b69f40c6c",
   "date": "2026-10-09",
   "url": "https://yoonjl-svg.github.io/halfsword-codex/new-encounters.html",
   "evidenceRoot": "/workspace/halfsword-handoff/stage-polish-20261009",
-  "limits": ["No physical phone or human audio audition claimed.", "Stage appearance and audio work; no combat balance changes."]
+  "limits": [
+    "No physical phone or human audio audition claimed.",
+    "Stage appearance and audio work; no combat balance changes."
+  ],
+  "codeCommit": "1f4559510ebd9f33f9dd8737ee60a7971988c883",
+  "pagesRun": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37907517840",
+  "localMobile": {
+    "pass": true,
+    "flows": 3,
+    "uniqueVerifiedFiles": 198,
+    "report": "/tmp/halfsword-content-mobile-stage-polish-local-v1/report.json"
+  },
+  "regression": {
+    "pass": true,
+    "groups": 6,
+    "sourceStable": true,
+    "report": "/tmp/halfsword-stage-polish-regression-20261009/result.json"
+  },
+  "audio": {
+    "offlineRenders": 8,
+    "wavFiles": 16,
+    "apiStages": 3,
+    "gameNaturalEvent": "loggia clothRustle",
+    "gameReport": "/tmp/stage-polish-audio-20261009/game-v1/report.json",
+    "gameInputAssessment": "/tmp/stage-polish-audio-20261009/game-v1/input-assessment.json",
+    "humanAudition": false
+  },
+  "build": {
+    "main": "assets/main-DBHIGiAM.js",
+    "sound": "assets/sound-Bnxgi62B.js",
+    "sha256": {
+      "assets/main-DBHIGiAM.js": "cdcb8c2ae2324b7559465bb5f22110cc72a4d717325383609dea2c2bfb92e417",
+      "assets/sound-Bnxgi62B.js": "6e02c74d252f8f7b3e43d106908bb15ed5ee9b9f9b09f1721e4f9cd5cd48b256",
+      "new-encounters.html": "604cd5ec0114efe2c5c8a3f9535fd305a77c12ce16da0acfd87695bddb6566a0"
+    }
+  },
+  "pagesConclusion": "success",
+  "publicAssets": {
+    "pass": true,
+    "files": 40,
+    "report": "/tmp/halfsword-stage-polish-public-assets.json"
+  },
+  "verifiedUTC": "2026-10-09T08:57:35.579Z",
+  "publicMobile": {
+    "pass": true,
+    "flows": 3,
+    "uniqueVerifiedFiles": 197,
+    "requests": 576,
+    "sourceStable": true,
+    "buildStable": true,
+    "report": "/tmp/halfsword-content-mobile-stage-polish-public-v1/report.json",
+    "sha256": "3352d23600ee9f70881faf46dc9d75a63d499d944abb281936cca3806477467b"
+  },
+  "evidenceHashes": {
+    "/tmp/halfsword-stage-polish-regression-20261009/result.json": "876e18e2e9a1f478fcd01d10596c6ad72ba86d0d946b8268df7061ab541cf63b",
+    "/tmp/halfsword-content-mobile-stage-polish-local-v1/report.json": "f52ac444c799c0fca070ed39f8c640c8480982ca94e5b7e28d29b47d7be332bf",
+    "/tmp/halfsword-stage-polish-public-assets.json": "f7e535f72d5f79a8c5cf13fa405f0c56a81cd0509b6f6e961294f3ca94f1d321",
+    "/tmp/stage-polish-audio-20261009/game-v1/input-assessment.json": "7afbff833f568b6ce26aedd4c5590fe6cbea3854ee8514186485cfd20b2f0ba4"
+  }
 }
