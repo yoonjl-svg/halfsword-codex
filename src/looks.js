@@ -461,6 +461,16 @@ export const LOOK_ARCHIVE = {
     },
   },
 
+  crown_boss: {
+    v1: {
+      tunic: 0x26262b, quilt: 0x26262b, sleeve: 0x25252c,
+      straps: null, belt: 0x34333b, hoseUpper: 0x202129, hoseLower: 0x242630,
+      shoes: 0x666a73, skin: 0xe2c5b0, hands: 0x959aa3,
+      helmet: 'crown', metal: 0x62646c, hair: 0xd6b96f, headband: null,
+      grip: 0x292631, hilt: 0xb89c54, accent: 0xe5dfca,
+      outfit: 'crown_sovereign', armor: 'plate',
+    },
+  },
   // 아르토리아: 원본 판금과 경기 카메라용으로 다듬은 외형을 함께 보존한다.
   artoria: {
     v1: {
@@ -580,6 +590,7 @@ export const CHARACTER_LOOK_VERSION = {
   omari: 'v1',
   yeongman: 'v3',
   artoria: 'v2',
+  crown_boss: 'v1',
 };
 
 /** id의 특정 버전을 꺼낸다. 버전이 없으면 현재 버전 → v0 순으로 물러난다. (main.js의 ?look=, ?lookv= 미리보기용) */

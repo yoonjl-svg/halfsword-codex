@@ -1002,6 +1002,7 @@ const CARD_BACK_SVG =
 const CARD_BACK_SVG_FOE = CARD_BACK_SVG.replaceAll('#d9a441', '#86817a').replaceAll('#e8d3a0', '#a9a49c').replaceAll('#8a5a2b', '#55514c');
 /** 판을 열 때: 그 판 배경의 뒷면으로 바꾼다 (카드마다 조각 그림을 --b-* 변수로 넣는다) */
 function setCardBack(stageId) {
+  if (stageId === 'crown_sanctum') stageId = 'cathedral';
   cardBack = BACK_PIN || (stageId in PX_BACKS ? stageId : 'classic');
   drawEl.dataset.back = cardBack === 'classic' ? 'classic' : 'px';
   cardEls.forEach((el, i) => {
@@ -1530,11 +1531,12 @@ function showRoundMenu() {
   const cause = win
     ? { 목: '목을 베었다', 머리: '머리를 쳤다', 출혈: '출혈로 쓰러뜨렸다', 기절: '기절시켰다', 내려찍기: '내려찍었다' }[loser.causeOfDeath] || '쓰러뜨렸다'
     : { 목: '목을 베였다', 머리: '머리를 맞았다', 출혈: '피를 너무 흘렸다', 기절: '기절했다', 내려찍기: '내려찍혔다' }[loser.causeOfDeath] || '쓰러졌다';
-  $('menuTitle').textContent = win ? '승리' : '패배';
+  const journeyComplete = win && currentFoe?.id === 'crown_boss' && foeParam === 'stage' && !STAGE_PIN;
+  $('menuTitle').textContent = journeyComplete ? '여정 완료' : win ? '승리' : '패배';
   // 졌으면 상대의 승리 대사를 한 줄 덧붙인다 (사장님 확정)
   $('menuSub').textContent = !win && lastFoeLine ? `${cause} · ${currentFoe.name}: “${lastFoeLine}”` : cause;
   // 여정(무대마다 그곳 검객): 이기면 다음 상대, 지면 같은 상대와 다시 (주소로 상대·배경을 고정했으면 그냥 다시 싸우기)
-  $('btnStart').textContent = win && foeParam === 'stage' && !STAGE_PIN ? '다음 상대' : '다시 싸우기';
+  $('btnStart').textContent = journeyComplete ? '새 여정' : win && foeParam === 'stage' && !STAGE_PIN ? '다음 상대' : '다시 싸우기';
   $('btnResume').style.display = 'none';
   reviveFx.reset(); // 결과 화면: 부활 연출이 남아 있으면 치운다 (상대가 일어서는 동안 내가 죽었을 때)
   showMenu();

@@ -1941,7 +1941,170 @@ const ARTORIA_OUTFIT_V2 = {
   footF: artoriaFootV2, footB: artoriaFootV2,
 };
 
+// 왕관의 군주: 밝은 망토와 긴 금발 사이로 짙은 회색 갑주가 읽히게 한다.
+const CROWN_STEEL = 0x62646c, CROWN_LIGHT = 0x80838b, CROWN_DARK = 0x41434b;
+const CROWN_GOLD = 0xbca35e, CROWN_IVORY = 0xe5dfcb;
+const CROWN_METAL = { metalness: 0.66, roughness: 0.4, steel: 0.85 };
+function crownLayer(g, name = 'crown-cloth') {
+  return artoriaCloth(g, name);
+}
+function crownPiece(helm, name, pieces, color, pivot = [0, 0, 0]) {
+  const group = new THREE.Group(); group.name = name; group.position.set(...pivot); helm.add(group);
+  const mesh = addMerged(group, pieces.map((geo) => geo.translate(-pivot[0], -pivot[1], -pivot[2])), color, CROWN_METAL);
+  mesh.userData.base = { color: mesh.material.color.getHex(), roughness: mesh.material.roughness };
+  helm.userData.pieces[name] = group;
+  return group;
+}
+function crownHelmet(g) {
+  const helm = new THREE.Group(); helm.name = 'helmet'; helm.userData.pieces = {}; g.add(helm); g.userData.helmet = helm;
+  const mask = [bake(new THREE.CylinderGeometry(0.115, 0.122, 0.058, 18, 1, true, 2.30, Math.PI * 2 - 1.46), [0, 0.051, 0])];
+  for (const s of [-1, 1]) {
+    mask.push(artoriaPanel(0.106, [[0.058, s * 0.002], [0.071, s * 0.052], [0.034, s * 0.103], [0.008, s * 0.087], [0.027, s * 0.061], [0.034, s * 0.014]], 0.005));
+    mask.push(artoriaPanel(0.107, [[0.008, s * 0.012], [-0.001, s * 0.051], [0.009, s * 0.074], [0.029, s * 0.092], [-0.024, s * 0.09], [-0.018, s * 0.05], [-0.021, s * 0.014]], 0.004));
+  }
+  mask.push(artoriaPanel(0.115, [[0.054, -0.014], [0.064, 0], [0.054, 0.014], [-0.026, 0.009], [-0.044, 0], [-0.026, -0.009]], 0.004));
+  const bowl = crownPiece(helm, 'bowl', mask, CROWN_STEEL);
+  crownPiece(helm, 'spire', [artoriaPanel(0.085, [[0.056, -0.028], [0.178, 0], [0.056, 0.028], [0.044, 0]], 0.007)], CROWN_LIGHT, [0.085, 0.057, 0]);
+  const peaks = [];
+  for (const s of [-1, 1]) {
+    peaks.push(artoriaPanel(0.066, [[0.049, s * 0.038], [0.151, s * 0.067], [0.051, s * 0.092]], 0.007));
+    peaks.push(artoriaPanel(0.023, [[0.036, s * 0.079], [0.125, s * 0.118], [0.014, s * 0.126]], 0.006));
+  }
+  crownPiece(helm, 'crest', peaks, CROWN_STEEL, [0.02, 0.05, 0]);
+  crownPiece(helm, 'nape', [bake(new THREE.CylinderGeometry(0.119, 0.13, 0.07, 16, 1, true, 2.53, 4.37), [0, -0.015, 0])], CROWN_DARK, [-0.105, 0.01, 0]);
+  const gold = addMerged(bowl, [-1, 1].map((s) => taperedTube([[0.116, 0.056, s * 0.017], [0.116, 0.061, s * 0.051], [0.104, 0.033, s * 0.099]], [0.0022, 0.0022, 0.0022], 8, 4)), CROWN_GOLD, CROWN_METAL);
+  gold.name = 'crown-helmet-edge';
+  const crack = addMerged(bowl, [taperedTube([[0.116, 0.05, 0.074], [0.117, 0.028, 0.084], [0.113, 0.003, 0.077]], [0.002, 0.002, 0.002], 6, 4)], 0xb7b5b3, CLOTH);
+  crack.visible = false; helm.userData.cracks = [crack];
+}
+function crownHair(g, look, part) {
+  const hair = [], layer = crownLayer(g, 'crown-hair');
+  if (part === 'head') {
+    for (const s of [-1, 1]) hair.push(isoldeLock([[0.01, 0.081, s * 0.079], [0.028, 0.004, s * 0.111], [0.027, -0.144, s * 0.127], [0.045, -0.267, s * 0.148]], [0.042, 0.049, 0.045, 0.014], 0.016));
+    for (let i = -2; i <= 2; i++) hair.push(isoldeLock([[-0.044, 0.096, i * 0.04], [-0.116, 0.009, i * 0.045], [-0.153, -0.177, i * 0.051], [-0.157, -0.273, i * 0.054]], [0.048, 0.056, 0.057, 0.052], 0.015));
+  } else {
+    for (let i = -3; i <= 3; i++) {
+      const z = i * 0.046;
+      hair.push(isoldeLock([[-0.155, 0.05, z * 0.7], [-0.178, -0.11, z * 1.15], [-0.236, -0.43, z * 1.45], [-0.219 + Math.abs(i) * 0.007, -0.77 + Math.abs(i) * 0.055, z * 1.56]], [0.002, 0.067, 0.055, 0.003], 0.018));
+    }
+    for (const s of [-1, 1]) hair.push(isoldeLock([[0.047, 0.03, s * 0.142], [0.13, -0.075, s * 0.196], [0.07, -0.29, s * 0.209], [0.041, -0.54, s * 0.194]], [0.027, 0.056, 0.048, 0.002], 0.015));
+  }
+  addMerged(layer, hair, look.hair, { ...CLOTH, roughness: 0.8 }).name = 'crown-hair-locks';
+}
+function crownDrapeGeometry(at, rows = 10, cols = 12) {
+  const vertices = [], uv = [], indices = [];
+  for (let r = 0; r <= rows; r++) for (let c = 0; c <= cols; c++) {
+    vertices.push(...at(r / rows, c / cols * 2 - 1)); uv.push(c / cols, r / rows);
+    if (r < rows && c < cols) { const i = r * (cols + 1) + c; indices.push(i, i + 1, i + cols + 1, i + 1, i + cols + 2, i + cols + 1); }
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3)); geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+  geo.setIndex(indices); geo.computeVertexNormals(); return geo;
+}
+function crownCape(g) {
+  const layer = crownLayer(g), shells = [], borders = [];
+  for (const s of [-1, 1]) {
+    const at = (t, u) => [-0.132 - t * 0.115 - 0.025 * (1 - u * u) + 0.016 * Math.sin(u * Math.PI * 2) * t,
+      0.135 - t * 1.12 + 0.04 * u * u * t,
+      s * (0.198 + t * 0.117 + u * (0.12 + t * 0.07))];
+    shells.push(crownDrapeGeometry(at));
+    for (const u of [-1, 1]) borders.push(taperedTube([0, 0.33, 0.67, 1].map((t) => at(t, u)), Array(4).fill(0.0025), 12, 4));
+    borders.push(taperedTube([-1, -0.5, 0, 0.5, 1].map((u) => at(1, u)), Array(5).fill(0.0025), 16, 4));
+  }
+  addMerged(layer, shells, CROWN_IVORY, { ...CLOTH, side: THREE.DoubleSide }).name = 'crown-cape';
+  addMerged(layer, borders, CROWN_GOLD, CLOTH);
+}
+function crownLily(x, y, z, scale = 1) {
+  const petals = [
+    [[0.057, 0], [0.025, -0.014], [-0.009, 0], [0.025, 0.014]],
+    [[-0.002, -0.009], [0.022, -0.03], [0.027, -0.051], [0.008, -0.061], [-0.013, -0.047], [0.001, -0.041], [0.001, -0.028], [-0.024, -0.009]],
+    [[-0.002, 0.009], [0.022, 0.03], [0.027, 0.051], [0.008, 0.061], [-0.013, 0.047], [0.001, 0.041], [0.001, 0.028], [-0.024, 0.009]],
+    [[-0.012, -0.035], [-0.023, -0.035], [-0.023, -0.008], [-0.048, -0.013], [-0.043, 0], [-0.048, 0.013], [-0.023, 0.008], [-0.023, 0.035], [-0.012, 0.035]],
+  ];
+  return petals.map((points) => clothPanel(x, points.map(([py, pz]) => [y + py * scale, z + pz * scale]), 0.003));
+}
+function crownTabard(g) {
+  const layer = crownLayer(g), at = (t, u) => [0.143 + t * 0.25 + 0.015 * Math.cos(u * Math.PI * 2), 0.07 - t * 0.84 + 0.012 * u * u, u * (0.089 + t * 0.023)];
+  addMerged(layer, [crownDrapeGeometry(at, 12, 10)], CROWN_IVORY, { ...CLOTH, side: THREE.DoubleSide }).name = 'crown-tabard';
+  const gold = [];
+  for (const t of [0.23, 0.52, 0.81]) {
+    const p = at(t, 0), petals = crownLily(p[0] + 0.004, p[1], 0, 1.14);
+    for (const petal of petals) {
+      const vertices = petal.attributes.position;
+      for (let i = 0; i < vertices.count; i++) {
+        const pt = (0.07 - vertices.getY(i)) / 0.84, u = vertices.getZ(i) / (0.089 + pt * 0.023);
+        vertices.setX(i, at(pt, u)[0] + 0.004 + vertices.getX(i) - (p[0] + 0.004));
+      }
+      petal.computeVertexNormals();
+    }
+    gold.push(...petals);
+  }
+  for (const u of [-0.96, 0.96]) gold.push(taperedTube([0, 0.33, 0.67, 1].map((t) => at(t, u)), Array(4).fill(0.003), 12, 4));
+  addMerged(layer, gold, CROWN_GOLD, CLOTH);
+}
+function crownShoulder(g) {
+  const silver = [], edges = [];
+  for (let i = 0; i < 3; i++) {
+    const r = 0.113 - i * 0.017, y = 0.077 - i * 0.046;
+    silver.push(bake(new THREE.SphereGeometry(r, 12, 7, 0, Math.PI * 2, 0, Math.PI * 0.63), [0, y, 0], null, [1.07, 0.65, 1.18]));
+    silver.push(artoriaPanel(0.12 - i * 0.009, [[y + 0.064, -0.049], [y + 0.122, 0], [y + 0.064, 0.049], [y - 0.024, 0.039], [y - 0.064, 0], [y - 0.024, -0.039]], 0.018));
+    edges.push(taperedTube([[0.133 - i * 0.009, y + 0.06, -0.048], [0.134 - i * 0.009, y + 0.118, 0], [0.133 - i * 0.009, y + 0.06, 0.048]], Array(3).fill(0.0023), 8, 4));
+  }
+  silver.push(cyl(0.056, 0.046, 0.158, 12, false, [0, -0.035, 0]));
+  addMerged(g, silver, CROWN_STEEL, CROWN_METAL); addMerged(g, edges, CROWN_GOLD, CROWN_METAL);
+}
+function crownForearm(g) {
+  addMerged(g, [cyl(0.056, 0.045, 0.209, 12, false, [0, 0.005, 0]), bake(new THREE.SphereGeometry(0.052, 12, 8), [0.009, 0.011, 0], null, [1.02, 1.98, 0.96]),
+    artoriaPanel(0.056, [[0.091, -0.025], [0.132, 0], [0.091, 0.025], [-0.095, 0.027], [-0.113, 0], [-0.095, -0.027]], 0.013)], CROWN_STEEL, CROWN_METAL);
+  addMerged(g, [cyl(0.049, 0.047, 0.008, 12, true, [0, -0.084, 0])], CROWN_GOLD, CROWN_METAL);
+}
+function crownShin(g) {
+  addMerged(g, [cyl(0.063, 0.0555, 0.356, 12, false, [0, 0, 0]), bake(new THREE.SphereGeometry(0.0555, 12, 8), [0, -0.158, 0], null, [1, 0.92, 1]),
+    bake(new THREE.SphereGeometry(0.057, 12, 8), [0.024, 0.132, 0], null, [0.9, 1.17, 1.08]),
+    artoriaPanel(0.06, [[0.2, 0], [0.129, 0.044], [-0.16, 0.027], [-0.188, 0], [-0.16, -0.027], [0.129, -0.044]], 0.016)], CROWN_STEEL, CROWN_METAL);
+  addMerged(g, [cyl(0.059, 0.0585, 0.008, 12, true, [0, -0.1, 0])], CROWN_DARK, CROWN_METAL);
+}
+function crownFoot(g) {
+  artoriaSoftBase(g, 0.019);
+  const shell = artoriaRoundedBox(0.27, 0.071, 0.123, 0.026), p = shell.attributes.position;
+  for (let i = 0; i < p.count; i++) { const t = THREE.MathUtils.clamp((p.getX(i) + 0.01) / 0.15, 0, 1); p.setXYZ(i, p.getX(i), p.getY(i) * (1 - t * 0.14), p.getZ(i) * (1 - t * 0.16)); }
+  shell.computeVertexNormals();
+  addMerged(g, [bake(shell, [0.01, 0.006, 0])], CROWN_STEEL, CROWN_METAL);
+  addMerged(g, [0.0, 0.054, 0.103].map((x) => taperedTube([[x, 0.028, -0.044], [x, 0.043, 0], [x, 0.028, 0.044]], Array(3).fill(0.0025), 6, 4)), CROWN_DARK, CROWN_METAL);
+}
+const CROWN_SOVEREIGN = {
+  armorParts: new Set(['chest', 'abdomen', 'pelvis', 'uarmS', 'uarmO', 'farmS', 'farmO', 'shinF', 'shinB', 'footF', 'footB']),
+  head(g, look) {
+    quietFace(g, look, 'crown_boss'); crownHair(g, look, 'head'); crownHelmet(g);
+    addMerged(g, [-1, 1].map((s) => box(0.006, 0.014, 0.024, [0.1, 0.014, s * 0.035])), 0xb8a8d6, CLOTH);
+    addMerged(g, [-1, 1].map((s) => box(0.006, 0.012, 0.007, [0.105, 0.014, s * 0.035])), 0x34263e, CLOTH);
+    addMerged(g, [-1, 1].map((s) => box(0.003, 0.004, 0.004, [0.109, 0.018, s * 0.033])), 0xf0ecec, CLOTH);
+  },
+  chest(g, look) {
+    artoriaSoftBase(g, 0.028, 0.94); clothNeck(crownLayer(g), look); crownCape(g); crownHair(g, look, 'chest');
+    addMerged(g, [bake(artoriaRoundedBox(0.257, 0.255, 0.39, 0.042, 0.9), [-0.007, 0.008, 0]),
+      artoriaPanel(0.137, [[0.139, -0.156], [0.159, -0.079], [0.131, 0], [0.159, 0.079], [0.139, 0.156], [-0.057, 0.132], [-0.148, 0], [-0.057, -0.132]], 0.038),
+      cyl(0.065, 0.084, 0.042, 12, true, [0, 0.165, 0])], CROWN_STEEL, CROWN_METAL);
+    addMerged(g, [artoriaPanel(0.17, [[0.064, -0.13], [0.098, -0.058], [0.052, 0], [0.098, 0.058], [0.064, 0.13], [-0.058, 0.088], [-0.122, 0], [-0.058, -0.088]], 0.028)], CROWN_LIGHT, CROWN_METAL);
+    addMerged(g, [taperedTube([[0.176, 0.122, -0.143], [0.187, 0.13, -0.075], [0.193, 0.106, 0], [0.187, 0.13, 0.075], [0.176, 0.122, 0.143]], Array(5).fill(0.0025), 16, 4),
+      cyl(0.069, 0.07, 0.007, 12, true, [0, 0.186, 0])], CROWN_GOLD, CROWN_METAL);
+  },
+  abdomen(g) {
+    artoriaSoftBase(g, 0.028, 0.89);
+    addMerged(g, [0, 1, 2].map((i) => bake(artoriaRoundedBox(0.243, 0.066, 0.329 - i * 0.012, 0.023), [0, 0.067 - i * 0.057, 0])), CROWN_STEEL, CROWN_METAL);
+    addMerged(g, [artoriaPanel(0.138, [[0.106, -0.083], [0.09, 0], [0.106, 0.083], [-0.087, 0.061], [-0.121, 0], [-0.087, -0.061]], 0.02)], CROWN_LIGHT, CROWN_METAL);
+  },
+  pelvis(g) {
+    artoriaSoftBase(g, 0.024); crownTabard(g);
+    addMerged(g, [-1, 1].map((s) => artoriaPanel(0.13, [[0.069, s * 0.083], [0.079, s * 0.16], [-0.073, s * 0.201], [-0.16, s * 0.142], [-0.087, s * 0.105]], 0.016)), CROWN_STEEL, CROWN_METAL);
+    addMerged(g, [bake(artoriaRoundedBox(0.26, 0.026, 0.343, 0.012), [0, 0.056, 0])], CROWN_GOLD, CROWN_METAL);
+  },
+  uarmS: crownShoulder, uarmO: crownShoulder, farmS: crownForearm, farmO: crownForearm,
+  shinF: crownShin, shinB: crownShin, footF: crownFoot, footB: crownFoot,
+};
+
 export const OUTFITS = {
+  crown_sovereign: CROWN_SOVEREIGN,
   artoria_silver: ARTORIA_OUTFIT,
   artoria_silver_v2: ARTORIA_OUTFIT_V2,
   bran_farmer: BRAN_FARMER,

@@ -1,0 +1,190 @@
+{
+  "status": "local-mobile-and-final-progression-verified; public pending",
+  "basis": "124f9594ca77030a1b07bd32cf096010b6c38de8",
+  "nameStatus": "temporary until user answer",
+  "weapon": "longsword",
+  "play": "https://yoonjl-svg.github.io/halfsword-codex/crown-boss.html",
+  "native": {
+    "pass": true,
+    "checks": 17,
+    "sourceStable": true,
+    "combatSteps": 1440,
+    "syntheticSteps": 240,
+    "sha256": "64f4740b6a102231aa3691fcdff500b731753c7ac0542a60b3df3d3106454711"
+  },
+  "appearance": {
+    "sources": {
+      "src/outfits.js": {
+        "bytes": 124436,
+        "sha256": "63efa5702f306c22d53dcf40f4a186c535b6959ca2c9ff652567214cf70ef8cc"
+      },
+      "src/looks.js": {
+        "bytes": 19899,
+        "sha256": "c26b879482332b6f111076cf184da3a4cd85a4dd39ac93f8c6fc7ccc7cd67d78"
+      }
+    },
+    "publicAssets": [
+      {
+        "path": "public/encounters/crown-boss-back.webp",
+        "bytes": 26898,
+        "sha256": "147991ff7fb4be494e66207ae6a8312240c67eee416fa32fe04cade905d91235",
+        "source": "procedural game model, neutral lighting capture",
+        "purpose": "character detail/landing"
+      },
+      {
+        "path": "public/encounters/crown-boss-front.webp",
+        "bytes": 28690,
+        "sha256": "4578b09582c8257f0581ef8d3bbd9d3d1db22b7bb6e877d53ddda7d777c634b3",
+        "source": "procedural game model, neutral lighting capture",
+        "purpose": "character detail/landing"
+      },
+      {
+        "path": "public/encounters/crown-boss-side.webp",
+        "bytes": 28408,
+        "sha256": "5509e55dd18a5087dc15d934930e8b4433e87f9360d97f45dfac1cc330f51803",
+        "source": "procedural game model, neutral lighting capture",
+        "purpose": "character detail/landing"
+      },
+      {
+        "path": "public/encounters/crown-boss.webp",
+        "bytes": 32996,
+        "sha256": "347fc922b33188e3c422853239eba3a1f48e376d6385fc39ccf553c0c8447f86",
+        "source": "procedural game model, neutral lighting capture",
+        "purpose": "character detail/landing"
+      }
+    ],
+    "reviewSHA256": "dc401778f82334a903430562e94167966ece7892d49fdea677601402ad99aecc",
+    "drawCalls": 207,
+    "triangles": 89140,
+    "transparentMeshes": 3,
+    "textures": 10,
+    "errors": 0
+  },
+  "limits": [
+    "Two bounded actual-game native combat samples; no win-rate, balance or human motion claim.",
+    "Wound, helmet and plate destruction are explicit synthetic damage fixtures.",
+    "Stage order checks do not replace browser transition/completion tests.",
+    "Existing cathedral scenery/audio reused; no new stage art.",
+    "Name, age and dialogue are temporary implementation choices.",
+    "Phone viewport with Chromium touch emulation, not physical-device FPS or user aesthetic acceptance."
+  ],
+  "local": {
+    "pass": true,
+    "flows": 2,
+    "progression": {
+      "fixture": "Existing game.setStage(cathedral) before first fight; Fighter.die terminal fixtures. No natural-win claim.",
+      "rows": [
+        {
+          "kind": "start",
+          "stage": "cathedral",
+          "pinned": null,
+          "name": "마르그레테 슈바르츠",
+          "weapon": "longsword",
+          "helmet": "horned",
+          "soundStage": "cathedral",
+          "cards": "px",
+          "title": "Stillness",
+          "button": "싸움 시작",
+          "state": "fight",
+          "playerAlive": true,
+          "enemyAlive": true
+        },
+        {
+          "kind": "synthetic-enemy-death",
+          "stage": "cathedral",
+          "pinned": null,
+          "name": "마르그레테 슈바르츠",
+          "weapon": "longsword",
+          "helmet": "horned",
+          "soundStage": "cathedral",
+          "cards": "px",
+          "title": "승리",
+          "button": "다음 상대",
+          "state": "paused",
+          "playerAlive": true,
+          "enemyAlive": false
+        },
+        {
+          "kind": "start",
+          "stage": "crown_sanctum",
+          "pinned": null,
+          "name": "왕관의 기사",
+          "weapon": "longsword",
+          "helmet": "crown",
+          "soundStage": "cathedral",
+          "cards": "px",
+          "title": "승리",
+          "button": "다음 상대",
+          "state": "fight",
+          "playerAlive": true,
+          "enemyAlive": true
+        },
+        {
+          "kind": "synthetic-player-death",
+          "stage": "crown_sanctum",
+          "pinned": null,
+          "name": "왕관의 기사",
+          "weapon": "longsword",
+          "helmet": "crown",
+          "soundStage": "cathedral",
+          "cards": "px",
+          "title": "패배",
+          "button": "다시 싸우기",
+          "state": "paused",
+          "playerAlive": false,
+          "enemyAlive": true
+        },
+        {
+          "kind": "start",
+          "stage": "crown_sanctum",
+          "pinned": null,
+          "name": "왕관의 기사",
+          "weapon": "longsword",
+          "helmet": "crown",
+          "soundStage": "cathedral",
+          "cards": "px",
+          "title": "패배",
+          "button": "다시 싸우기",
+          "state": "fight",
+          "playerAlive": true,
+          "enemyAlive": true
+        },
+        {
+          "kind": "synthetic-enemy-death",
+          "stage": "crown_sanctum",
+          "pinned": null,
+          "name": "왕관의 기사",
+          "weapon": "longsword",
+          "helmet": "crown",
+          "soundStage": "cathedral",
+          "cards": "px",
+          "title": "여정 완료",
+          "button": "새 여정",
+          "state": "paused",
+          "playerAlive": true,
+          "enemyAlive": false
+        },
+        {
+          "kind": "start",
+          "stage": "poseidon",
+          "pinned": null,
+          "name": "하인리히 도른",
+          "weapon": "excalibur_replica",
+          "helmet": null,
+          "soundStage": "poseidon",
+          "cards": "px",
+          "title": "여정 완료",
+          "button": "새 여정",
+          "state": "fight",
+          "playerAlive": true,
+          "enemyAlive": true
+        }
+      ],
+      "pass": true
+    },
+    "files": 195,
+    "errors": 0,
+    "wallMs": 239338.66561899998,
+    "sha256": "4c0d82c603e21cac92403579136dc50f4f6e13a6d6242313bbe2e686894680b0"
+  }
+}

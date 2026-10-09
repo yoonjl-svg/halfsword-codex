@@ -2690,6 +2690,7 @@ export class Sound {
    * 발소리·쓰러짐의 바닥 소리, 전투 소리의 울림(방), 큰 타격의 반응도 배경을 따른다
    */
   setStage(id) {
+    if (id === 'crown_sanctum') id = 'cathedral';
     const next = id in STAGE_SOUND ? id : 'poseidon';
     if (next === this.stage) return;
     this.stage = next;

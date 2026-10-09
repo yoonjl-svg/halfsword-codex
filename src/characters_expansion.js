@@ -4,6 +4,29 @@ import { getLook, CHARACTER_LOOK_VERSION } from './looks.js';
 
 export const EXPANSION_CHARACTERS = [
   {
+    id: 'crown_boss', name: '왕관의 기사', epithet: '마지막 문지기', age: 28,
+    origin: '이름을 잃은 왕국의 성소', weapon: 'longsword', voice: 'isolde',
+    backstory: '텅 빈 성소에 홀로 남은 기사. 왕좌를 지키는 대신, 그 앞에 선 사람을 마주한다.',
+    want: '긴 여정의 끝에서 상대의 검을 확인하는 것.',
+    school: '기존 양손검 유파를 사용하는 창작 최종 보스.',
+    signatureMoves: '짧게 받아낸 뒤 빈틈으로 이어지는 양손 베기.',
+    favoriteGuards: '황소와 쟁기. 준비 자세에서 칼끝의 위협을 유지한다.',
+    temperament: '말과 움직임이 적고, 다가오는 상대를 차분히 기다린다.',
+    movementNotes: '기존 검술 제어와 몸 규격을 그대로 사용한다.',
+    weaknesses: '긴 베기를 빗나가게 만든 뒤의 근거리 압박.',
+    ai: { level: 'hard', persona: {
+      school: 'longsword',
+      level: { reaction: 0.16, guardChance: 0.88, counter: 0.55, feint: 0.15, followUp: 0.65, read: 0.9, discipline: 0.95, strength: 1.1, aggression: 0.9, windup: 0.36, strikeSpeed: 13, skill: 0.95 },
+      pers: { precision: 0.95, guardStick: 4, fearful: 0.08, angry: 0.12, dogged: 0.4, guardSpeed: 0.7, rhythm: 4, margin: 0.3, aggr: 0.95, vor: 0.45, patienceTime: 6, circleRate: 0.18,
+        guardPref: { ochsR: 1.7, pflugL: 1.5, tagR: 1.15, langort: 1.2 },
+        techPref: { zornhau: 1.5, oberhau: 1.3, zornhauL: 1.3, stichPflug: 1.1 } },
+      idle: { guard: 'ochsR', gesture: 'still' }, close: { rate: 0.2, kind: 'barge', then: 'cut' },
+    } },
+    look: getLook('crown_boss'), lookVersion: CHARACTER_LOOK_VERSION.crown_boss,
+    taunt: '여기까지 온 검을 보여 주세요.',
+    lines: { intro: ['여기까지 온 검을 보여 주세요.', '이 문 너머에는, 더는 적이 없습니다.'], win: ['검을 거두세요. 다시 올 수 있습니다.'] },
+  },
+  {
     id: 'artoria', name: '아르토리아', epithet: '돌아온 맹세', age: 24,
     origin: '브리튼 · 바다 너머의 잃어버린 왕국', weapon: 'excalibur', voice: 'isolde',
     backstory: '금빛 검을 지녔다는 소문을 따라 바다를 건넌 기사. 왕관도 군대도 없이 돌아왔지만, 엑스칼리버는 여전히 그녀의 손에서 빛난다. 이름을 빌린 이들을 벌하기보다, 그 이름이 지켜야 했던 사람들을 찾는다.',

@@ -370,6 +370,8 @@ export const ARMOR = {
     //   ('horn' = 맞은 쪽 뿔, 이미 없으면 남은 뿔). 남은 조각(사발·목가리개·첨탑·깃털 술)은 완전 파손 때. [] 이면 완전 파손 때 한꺼번에
     //   (제대로 된 타격 한 번이나 가벼운 타격 몇 번이면 0.9 아래, 제대로 된 타격 두 번이면 0.45 아래로 내려간다)
     horned: { cut: 80, stab: 50, blunt: 0.5, guardMin: 0.25, fullUntil: 0.5, wear: 700, perHit: 0.26, knockBlunt: 200, shed: [[0.9, ['horn']], [0.45, ['horn', 'crest']]] },
+    // 왕관형 투구: 기존 기사 투구와 같은 방어값, 장식 파손 이름만 구분한다.
+    crown: { cut: 80, stab: 50, blunt: 0.5, guardMin: 0.25, fullUntil: 0.5, wear: 700, perHit: 0.26, knockBlunt: 200, shed: [[0.9, ['spire']], [0.45, ['spire', 'crest']]] },
   },
   // 판금 (하인리히 v2 13부위, 마르그레테 몸통 3부위와 양쪽 견갑). 문턱은 강철판 하나의 값이다(팔다리 판만 limb 배).
   //  단, 판 밑에 누비옷이 있어서 판이 닳아도 누비옷 판정(ANATOMY × 옷 guard)보다 약해지지는 않는다.
