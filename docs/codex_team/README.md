@@ -2,7 +2,7 @@
 
 **최신 사용자 외형 결정 ·10/09:**
 
-이졸데 v3는 미채택이며 기존 v2로 복원한다. [영만＋신목의 숲·산호 항구 보강](../content/nature_detail_20261009.md)을 진행하며 오마리는 유지한다. 전후 실제 이미지·검증·공개 상태는 [전달 기록](../content/nature_detail_release.json)을 따른다. 아래 이졸데 v3 전달은 이전 이력이다.
+이졸데 v3는 미채택이며 기존 v2로 복원한다. [영만＋신목의 숲·산호 항구 보강](../content/nature_detail_20261009.md)을 진행하며 오마리는 유지한다. 전후 실제 이미지·검증·공개 상태는 [전달 기록](../content/nature_detail_release.json)을 따른다. 아래 이졸데 v3 전달은 이전 이력이다. `1cc3c36` 공개 반영과 같은 빌드 로컬/공개 모바일 각3흐름·전후 사진 전달까지 완료했다.
 
 **최신 이졸데 외형 ·10/09:** 사용자 요청으로 [장발·복식 v3](../content/isolde_detail_20261009.md)를 공개했다. 신체 규격과 물리는 유지하고 v2 비교를 보존한다. 물리 상태 동일성·상처/리소스 검사, 전후6뷰, 같은 빌드 로컬/공개 모바일 각2흐름·공개185파일 일치를 확인했다. [전달 근거](../content/isolde_detail_release.json), [휴대폰 비교](https://yoonjl-svg.github.io/halfsword-codex/isolde-detail.html)를 따른다. 실물폰 FPS와 극단 굴곡의 옷/머리 연결은 별도다.
 
