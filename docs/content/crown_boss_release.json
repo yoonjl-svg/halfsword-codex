@@ -1,5 +1,5 @@
 {
-  "status": "local-mobile-and-final-progression-verified; public pending",
+  "status": "delivered-and-public-mobile-verified",
   "basis": "124f9594ca77030a1b07bd32cf096010b6c38de8",
   "nameStatus": "temporary until user answer",
   "weapon": "longsword",
@@ -66,125 +66,169 @@
     "Stage order checks do not replace browser transition/completion tests.",
     "Existing cathedral scenery/audio reused; no new stage art.",
     "Name, age and dialogue are temporary implementation choices.",
-    "Phone viewport with Chromium touch emulation, not physical-device FPS or user aesthetic acceptance."
+    "Phone viewport with Chromium touch emulation, not physical-device FPS or user aesthetic acceptance.",
+    "No natural enemy wounds or plate wear in the public touch flows; native synthetic fixtures cover appearance after damage."
   ],
   "local": {
     "pass": true,
     "flows": 2,
     "progression": {
-      "fixture": "Existing game.setStage(cathedral) before first fight; Fighter.die terminal fixtures. No natural-win claim.",
-      "rows": [
-        {
-          "kind": "start",
-          "stage": "cathedral",
-          "pinned": null,
-          "name": "마르그레테 슈바르츠",
-          "weapon": "longsword",
-          "helmet": "horned",
-          "soundStage": "cathedral",
-          "cards": "px",
-          "title": "Stillness",
-          "button": "싸움 시작",
-          "state": "fight",
-          "playerAlive": true,
-          "enemyAlive": true
-        },
-        {
-          "kind": "synthetic-enemy-death",
-          "stage": "cathedral",
-          "pinned": null,
-          "name": "마르그레테 슈바르츠",
-          "weapon": "longsword",
-          "helmet": "horned",
-          "soundStage": "cathedral",
-          "cards": "px",
-          "title": "승리",
-          "button": "다음 상대",
-          "state": "paused",
-          "playerAlive": true,
-          "enemyAlive": false
-        },
-        {
-          "kind": "start",
-          "stage": "crown_sanctum",
-          "pinned": null,
-          "name": "왕관의 기사",
-          "weapon": "longsword",
-          "helmet": "crown",
-          "soundStage": "cathedral",
-          "cards": "px",
-          "title": "승리",
-          "button": "다음 상대",
-          "state": "fight",
-          "playerAlive": true,
-          "enemyAlive": true
-        },
-        {
-          "kind": "synthetic-player-death",
-          "stage": "crown_sanctum",
-          "pinned": null,
-          "name": "왕관의 기사",
-          "weapon": "longsword",
-          "helmet": "crown",
-          "soundStage": "cathedral",
-          "cards": "px",
-          "title": "패배",
-          "button": "다시 싸우기",
-          "state": "paused",
-          "playerAlive": false,
-          "enemyAlive": true
-        },
-        {
-          "kind": "start",
-          "stage": "crown_sanctum",
-          "pinned": null,
-          "name": "왕관의 기사",
-          "weapon": "longsword",
-          "helmet": "crown",
-          "soundStage": "cathedral",
-          "cards": "px",
-          "title": "패배",
-          "button": "다시 싸우기",
-          "state": "fight",
-          "playerAlive": true,
-          "enemyAlive": true
-        },
-        {
-          "kind": "synthetic-enemy-death",
-          "stage": "crown_sanctum",
-          "pinned": null,
-          "name": "왕관의 기사",
-          "weapon": "longsword",
-          "helmet": "crown",
-          "soundStage": "cathedral",
-          "cards": "px",
-          "title": "여정 완료",
-          "button": "새 여정",
-          "state": "paused",
-          "playerAlive": true,
-          "enemyAlive": false
-        },
-        {
-          "kind": "start",
-          "stage": "poseidon",
-          "pinned": null,
-          "name": "하인리히 도른",
-          "weapon": "excalibur_replica",
-          "helmet": null,
-          "soundStage": "poseidon",
-          "cards": "px",
-          "title": "여정 완료",
-          "button": "새 여정",
-          "state": "fight",
-          "playerAlive": true,
-          "enemyAlive": true
-        }
-      ],
-      "pass": true
+      "pass": true,
+      "rows": 7
     },
     "files": 195,
     "errors": 0,
     "wallMs": 239338.66561899998,
     "sha256": "4c0d82c603e21cac92403579136dc50f4f6e13a6d6242313bbe2e686894680b0"
+  },
+  "gameCommit": "4ac5909ef4a57d708448d7d7fedc92e7b8cf42b8",
+  "completedUTC": "2026-10-09T20:20:41.601Z",
+  "sourceHashes": {
+    "src/outfits.js": "63efa5702f306c22d53dcf40f4a186c535b6959ca2c9ff652567214cf70ef8cc",
+    "src/looks.js": "c26b879482332b6f111076cf184da3a4cd85a4dd39ac93f8c6fc7ccc7cd67d78",
+    "src/characters_expansion.js": "4d2677f666bfac02238df822b49256ea573b9c42d45e69f7c0d798fbd4e127c3",
+    "src/config.js": "08b9818b6d9f45aecd1d7f88f664fc43491db73a395f0b242bf211e0ece3200c",
+    "src/main.js": "d92e23d61a144696eb738e71f93775747227fa0c7dc5356c41c81fcfed1ce34d",
+    "src/stages.js": "9669101630feae334e98efafe05f6b991edfe9bfc025449987c8334c17955560",
+    "src/sound.js": "6ee40ea507bcb6818679d056f9747720832c6fd83e365b56d7ccc7ba3f8c8676",
+    "tools/sim/experiments/crown_boss_gate.mjs": "b83a7f9d9c6590c9e41e3923772a1aca56adb502cc41e633c8ec9008a399798a",
+    "tools/browser/artoria_rare_delivery_20261010.mjs": "e75e4726b5c4b132ae30b271ab2154acb24126431ee76a1beea3e6f81e54cd1a"
+  },
+  "pages": {
+    "conclusion": "success",
+    "databaseId": 37985745332,
+    "headSha": "4ac5909ef4a57d708448d7d7fedc92e7b8cf42b8",
+    "status": "completed",
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37985745332"
+  },
+  "publication": {
+    "status": "remote_verified",
+    "date": "2026-10-09",
+    "archive_sha": "fead10d4b52654f046a56160e3267879a82fdbc5",
+    "markdown_sha256": "c5fcbf67c89e2907e7a91ea160cd1f9a7e2b0adf3503f7f5f2e9b8d034adc9f0",
+    "manifest_sha256": "73b3d3f201454dc2062194c2d1dd37eff84a47cf8db1f51458e348943e0cc82a",
+    "source_sha": "64269e2f1d6413355410a51dc9e4eee4f10688bf",
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/blob/fead10d4b52654f046a56160e3267879a82fdbc5/docs/devmeet/2026-10-09.md"
+  },
+  "public": {
+    "pass": true,
+    "flows": 2,
+    "uniqueFiles": 195,
+    "allServedBytesMatch": true,
+    "errors": 0,
+    "retryCount": 0,
+    "wallMs": 234579.942829,
+    "sha256": "5f795c8a4683dc6695a6718a835679d408e6fb44a2127f8af03cde22282d3694",
+    "progression": {
+      "pass": true,
+      "rows": [
+        {
+          "kind": "start",
+          "stage": "cathedral",
+          "name": "마르그레테 슈바르츠",
+          "title": "Stillness",
+          "button": "싸움 시작"
+        },
+        {
+          "kind": "synthetic-enemy-death",
+          "stage": "cathedral",
+          "name": "마르그레테 슈바르츠",
+          "title": "승리",
+          "button": "다음 상대"
+        },
+        {
+          "kind": "start",
+          "stage": "crown_sanctum",
+          "name": "왕관의 기사",
+          "title": "승리",
+          "button": "다음 상대"
+        },
+        {
+          "kind": "synthetic-player-death",
+          "stage": "crown_sanctum",
+          "name": "왕관의 기사",
+          "title": "패배",
+          "button": "다시 싸우기"
+        },
+        {
+          "kind": "start",
+          "stage": "crown_sanctum",
+          "name": "왕관의 기사",
+          "title": "패배",
+          "button": "다시 싸우기"
+        },
+        {
+          "kind": "synthetic-enemy-death",
+          "stage": "crown_sanctum",
+          "name": "왕관의 기사",
+          "title": "여정 완료",
+          "button": "새 여정"
+        },
+        {
+          "kind": "start",
+          "stage": "poseidon",
+          "name": "하인리히 도른",
+          "title": "여정 완료",
+          "button": "새 여정"
+        }
+      ]
+    },
+    "injuryObservations": {
+      "sain": {
+        "woundObserved": false,
+        "armorWearObserved": false,
+        "outfitPersisted": true
+      },
+      "ice": {
+        "woundObserved": false,
+        "armorWearObserved": false,
+        "outfitPersisted": true
+      }
+    }
+  },
+  "archive": {
+    "path": "/workspace/halfsword-handoff/crown-boss-evidence-20261010.tar.gz",
+    "bytes": 5537197,
+    "sha256": "1582498c47b5cfdf8de1869548db11462b9665da74c55c4d933d1073cd737238",
+    "omittedIntermediateAngles": [
+      {
+        "path": "views-r1/crown_boss-back.png",
+        "sha256": "c9c8633faf72fe62cf557d596c2c68dff458929287d105c8b45d32746688f59e"
+      },
+      {
+        "path": "views-r1/crown_boss-front.png",
+        "sha256": "3c556cbb67d9865630cd4fbef934a9f0619109bc56460091fecebe9d3ca9bf21"
+      },
+      {
+        "path": "views-r1/crown_boss-side.png",
+        "sha256": "a310832f4b5634fa44ca3a94f9fb25275af2fe08d7707be979b4f0069a24e6cc"
+      },
+      {
+        "path": "views-r2/crown_boss-back.png",
+        "sha256": "54748832fbb885999a93f1381599028c002702d212be0afb0c58c27fe916dc15"
+      },
+      {
+        "path": "views-r2/crown_boss-detail.png",
+        "sha256": "7757ab3ab000c62b218d67d59ef4b350817c49a1cca34c6c220eb0618669656b"
+      },
+      {
+        "path": "views-r2/crown_boss-front.png",
+        "sha256": "6113c02cea2b768ffc81cae37c2e83efbf3a8d887861d0e3355a342cbc553c67"
+      },
+      {
+        "path": "views-r2/crown_boss-side.png",
+        "sha256": "dd2f5a6506d6c87dc7208f99500194da259099a673880da0895306322a42e7da"
+      },
+      {
+        "path": "views-r2/crown_boss-threeq.png",
+        "sha256": "9ac0b370a68487a9ce6e77f2248958da1de6d4be48357d54085a45ea11d4ed6e"
+      }
+    ],
+    "fullRuntimeArchive": {
+      "path": "/tmp/crown-boss-evidence-20261010.tar.gz",
+      "bytes": 6783815,
+      "sha256": "25e03ba37ee2be621983b982acbb2e27ab295a899a565765b00ff6c829f091e5"
+    },
+    "scope": "Core archive keeps final captures, first-draft 3q/detail, all scripts and reports; redundant intermediate angles remain in the full runtime archive. Build/dependency trees excluded as reproducible."
   }
 }
