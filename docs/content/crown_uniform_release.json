@@ -1,11 +1,11 @@
 {
-  "status": "Final dark local mobile passed; public deployment pending",
+  "status": "Delivered: final dark-hair build, Pages and public mobile verification passed",
   "basis": "c1e4f9b0cdb3f95705f62ea9d8b30876c5a619f1",
   "character": "crown_boss",
   "look": "v3",
   "hair": "#2d211d",
   "userDecision": "Copper skin / blue uniform, then explicit dark espresso-brown hair choice. Previous v1/v2 rejected; v3 aesthetic acceptance pending.",
-  "gameCommit": null,
+  "gameCommit": "59680c99aba6f1a09dbcb365dd5e8db11ceaf05a",
   "sourceHashes": {
     "src/outfits.js": "2f6891a7991bc10636b3d6c5fb30afadf83fd735c8c7437b23bee08c116d294d",
     "src/looks.js": "3619dae3cae09fbcc703647f4b0fe6b051437149daa2990d7c46665b05601429",
@@ -107,8 +107,26 @@
     "toolSHA256": "a83390d47de95b4a250b14a012b89d8307a7794ada965fd88bf06046085630f1",
     "reportSHA256": "5edcca286f064596e3236a09bb4a69633c305ded0bb85a347f3147bce87301ee"
   },
-  "public": null,
-  "pages": null,
+  "public": {
+    "pass": true,
+    "flows": 1,
+    "requests": 190,
+    "uniqueFiles": 179,
+    "errors": 0,
+    "scope": "mobile",
+    "buildStable": true,
+    "reportSHA256": "921f929a1580e1b95f9ade4a2f12124d0521a7dddfff63a342566e9e44a414f6",
+    "toolSHA256": "a83390d47de95b4a250b14a012b89d8307a7794ada965fd88bf06046085630f1",
+    "tlsVerification": true,
+    "proxyRetained": true
+  },
+  "pages": {
+    "conclusion": "success",
+    "databaseId": 37991928134,
+    "headSha": "59680c99aba6f1a09dbcb365dd5e8db11ceaf05a",
+    "status": "completed",
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37991928134"
+  },
   "playURL": "https://yoonjl-svg.github.io/halfsword-codex/crown-boss.html",
   "limits": [
     "Final mobile test does not repeat campaign progression; preliminary full local evidence retained separately.",
@@ -116,5 +134,19 @@
     "Portraits use existing alber guard and neutral lighting; ordinary gameplay capture separately uses AI/stage lighting.",
     "No helmet or plate in uniform: old protection and existing plate movement drag removed. Physics formulas, body masses, colliders, weapon and AI unchanged.",
     "Pleats follow two thigh parts; not cloth simulation. Overlap seams and segmented knees remain."
-  ]
+  ],
+  "completedUTC": "2026-10-09T21:13:34.958Z",
+  "evidence": {
+    "full": {
+      "path": "/tmp/crown-uniform-evidence-20261010.tar.gz",
+      "bytes": 5486326,
+      "sha256": "fe789eca535ba8bc80a4b1cf41490e47d3d70dc617afb17811805aacb4fc01a3"
+    },
+    "core": {
+      "path": "/workspace/halfsword-handoff/crown-uniform-evidence-20261010.tar.gz",
+      "bytes": 431600,
+      "sha256": "10f88a6622355eea8f72b752ee44787e617fda3dceb88863e0e440a2eac874fb"
+    },
+    "note": "Archives outside Git; raw reports distinguish pink preliminary and final dark evidence."
+  }
 }

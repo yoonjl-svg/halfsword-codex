@@ -22,6 +22,8 @@
 
 최종 진행 fixture는 명시적 `Fighter.die`를 사용한다. 자연 승리·승률 또는 인간 동작의 자연스러움 검사가 아니다. 모바일은 Chromium 터치 에뮬레이션이며 실제 폰 FPS와 미적 수락은 별도다.
 
+관측된 일반 경기 화면(844×390)은215 draw /87,868 triangles /텍스처10개다. 캐릭터 전용 투명 메시0개, 새 텍스처0개이며 최종4장 WebP 합계71,586바이트다. 렌더 계측은 해당 장면 관측값이고 기기 FPS 또는 성능 향상률은 아니다.
+
 실제 배포 상태는 [전달 영수증](crown_uniform_release.json)을 따른다. 분홍 머리 시안과 최종 흑갈색의 사진/빌드/검사를 구분한다.
 
 플레이: https://yoonjl-svg.github.io/halfsword-codex/crown-boss.html
