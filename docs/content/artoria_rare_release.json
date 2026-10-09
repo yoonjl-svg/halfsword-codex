@@ -1,5 +1,5 @@
 {
-  "status": "local-verified-public-pending",
+  "status": "delivered-and-public-mobile-verified",
   "basis": "e1447309ddc1f5331073d9d8ab9b542d767f7f37",
   "play": "https://yoonjl-svg.github.io/halfsword-codex/artoria.html",
   "native": {
@@ -14,7 +14,8 @@
   "limits": [
     "Native contact fixture uses injected position/velocity; not natural combat power or win-rate evidence.",
     "Wounded recovery and Artoria appearance use explicitly synthetic injuries.",
-    "Public/mobile delivery remains pending until recorded below."
+    "Public Chromium mobile viewport/touch emulation, not physical-phone FPS measurement.",
+    "No natural injury or plate wear occurred during the browser flows; synthetic native tests cover these paths."
   ],
   "hero": {
     "path": "public/encounters/artoria.webp",
@@ -37,5 +38,40 @@
     ],
     "errors": [],
     "uniqueFiles": 176
+  },
+  "deployedGameCommit": "6e71ba2e906c1225fc12e68496d3b3ed85fda434",
+  "actions": {
+    "pages": {
+      "id": 37979440129,
+      "conclusion": "success"
+    },
+    "developerExchange": {
+      "id": 37979440188,
+      "conclusion": "success"
+    }
+  },
+  "exchangeVerification": {
+    "latestDueDateKST": "2026-10-09",
+    "status": "remote_verified",
+    "archiveCommit": "ab637588f923acbf94e85eb7501161a76ac11cae",
+    "nextNote": "2026-10-10 draft, not due yet"
+  },
+  "mobilePublic": {
+    "path": "/tmp/halfsword-artoria-rare-20261010/mobile-public/report.json",
+    "sha256": "1e7eb6b89985bbb417ac995ec35c4fa6c845385b3fff09a095bf63b4d41c53d2",
+    "pass": true,
+    "buildStable": true,
+    "flows": [
+      "sain",
+      "ice"
+    ],
+    "errors": [],
+    "uniqueFiles": 176,
+    "responses": 366
+  },
+  "archive": {
+    "path": "/workspace/halfsword-handoff/artoria-rare-evidence-20261010.tar.gz",
+    "sha256": "d07f66e04ad56d136d9c72b3b74576b09b50ec53f61d1c5be9ec54949576f44b",
+    "bytes": 4519418
   }
 }
