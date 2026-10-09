@@ -2,6 +2,7 @@
 // Read-only observations; natural wounds are reported only when actually observed.
 // Run after source/dist freeze. Every served byte must match that frozen build.
 // --out=/workspace/halfsword-handoff/content-expansion-20261009/mobile/<fresh-name>
+// or --out=/workspace/halfsword-handoff/stage-polish-20261009/mobile/<fresh-name>
 // (or /tmp/halfsword-content-mobile-<fresh-name>) [--base=http://127.0.0.1:4173/]
 // Public runs require --local-evidence=<passing-local-report.json> from this exact tool/build.
 import assert from 'node:assert/strict';
@@ -31,8 +32,11 @@ for (const row of scenario) {
     `Missing native content contract: ${row.foe}`);
   row.name = character.name;
 }
-const artifactRoot = '/workspace/halfsword-handoff/content-expansion-20261009/mobile';
-const allowedOut = p => path.dirname(p) === artifactRoot || /^\/tmp\/halfsword-content-mobile-[^/]+$/.test(p);
+const artifactRoots = new Set([
+  '/workspace/halfsword-handoff/content-expansion-20261009/mobile',
+  '/workspace/halfsword-handoff/stage-polish-20261009/mobile',
+]);
+const allowedOut = p => artifactRoots.has(path.dirname(p)) || /^\/tmp\/halfsword-content-mobile-[^/]+$/.test(p);
 assert(args.out && path.isAbsolute(args.out));
 const out = path.resolve(args.out); assert(allowedOut(out));
 await fs.mkdir(path.dirname(out), { recursive: true });
@@ -110,7 +114,7 @@ const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || '/workspace/c
 let browser, context, page, cdp, fatal = null, failureSnapshot = null, pass = false;
 // Software-rendered CI frames can run well below real time; this wall budget is
 // a bounded correctness check, not evidence of physical-phone frame performance.
-const budgetMs = 420000;
+const budgetMs = 600000;
 const deadline = setTimeout(() => {
   errors.push({ kind: 'budget', message: `Delivery exceeded ${budgetMs / 1000} seconds` });
   browser?.close().catch(() => {});
@@ -294,7 +298,31 @@ try {
   async function chooseWeapon(row, label) {
     await wait(() => game.state === 'draw' && game.draw.stage === 'choose' && game.draw.t >= .45);
     const cards = await page.evaluate(() => ({ stage: game.draw.stage, ids: [...game.draw.ids],
-      labels: [...document.querySelectorAll('.wcard')].map(card => card.getAttribute('aria-label')) }));
+      back: document.getElementById('draw').dataset.back,
+      labels: [...document.querySelectorAll('.wcard')].map(card => card.getAttribute('aria-label')),
+      backs: [...document.querySelectorAll('.wcard')].map((card, index) => {
+        const style = getComputedStyle(card.querySelector('.wback'));
+        return { index, foe: card.classList.contains('foe'), backgroundImage: style.backgroundImage,
+          borderImageSource: style.borderImageSource,
+          parts: Object.fromEntries(['tile', 'frame', 'center', 'plaque'].map(part => {
+            const value = style.getPropertyValue(`--b-${part}`).trim();
+            const match = /^url\(\s*(['"]?)(.*?)\1\s*\)$/.exec(value);
+            return [part, { value, url: match ? new URL(match[2], location.href).href : null }];
+          })) };
+      }) }));
+    // Save the read-only CSS observation even if a card-back assertion fails.
+    row[label] = { cards };
+    assert.equal(cards.back, 'px', 'New stage must use its pixel card-back theme');
+    assert.equal(cards.backs.length, 3);
+    for (const back of cards.backs) {
+      assert.equal(back.foe, back.index === 2);
+      for (const part of ['tile', 'frame', 'center', 'plaque']) {
+        const expected = new URL(`ui/cardbacks/px_${row.stage}_${part}${back.foe ? '_foe' : ''}.png`, base).href;
+        assert.equal(back.parts[part].url, expected, `Wrong stage or opponent card-back image: ${row.id}/${back.index}/${part}`);
+        const painted = part === 'frame' ? back.borderImageSource : back.backgroundImage;
+        assert(painted.includes(expected), `Computed card styling must actually use its ${part} image`);
+      }
+    }
     assert.equal(cards.ids[2], row.weapon, 'Opponent card must retain the native encounter weapon');
     const index = cards.ids.slice(0, 2).findIndex(id => WEAPONS[id] && !WEAPONS[id].gun);
     assert(index >= 0, 'Ordinary deck must offer at least one melee card for the touch stroke check');
@@ -441,8 +469,9 @@ try {
   const report = { pass, local, head, startedUTC, completedUTC: new Date().toISOString(), wallMs: performance.now() - start,
     base: base.href, buildStable, sourceStable, manifestBefore: before, scenario, settings, entries, compiled,
     networkAttempts, errors, fatal, failureSnapshot, inputRequests, teardown, tlsVerification: true, proxyRetained: !local,
-    limits: ['Chromium mobile emulation on SwiftShader with a 420-second wall budget; physical-phone performance and human appearance acceptance are not assessed.',
+    limits: ['Chromium mobile emulation on SwiftShader with a 600-second wall budget; physical-phone performance and human appearance acceptance are not assessed.',
       'Three exact stage/opponent entries are chosen by trusted selector-link taps. Ordinary weapon cards are selected by touch at first start and restart; opponents retain their own rapier/falchion/monohoshizao.',
+      'Both draws require the stage pixel card-back theme and all four computed image URLs for each player/opponent card; the CSS observations are retained in each card-choice record.',
       'Observers do not replace gameplay methods or alter bodies, wounds, AI, RNG, simulation time, camera or control settings.',
       'Only naturally observed enemy wounds count as browser damage evidence. Absence is reported explicitly; native damage tests remain separate.',
       'Screenshots use the ordinary gameplay camera. Native part meshes, tagged outfit groups and restart geometry are checked; no whole-body model asset is requested.',

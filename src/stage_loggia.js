@@ -37,42 +37,134 @@ function plasterTexture() {
 
 function pavingTexture() {
   const random = rng(6121);
+  // One atlas covers the whole 30 m terrace. The motif is sized in metres so
+  // broad inlays survive the low fighting camera; the 1024 atlas keeps joints.
   return canvasTex(1024, 1024, (ctx, w, h) => {
-    ctx.fillStyle = '#a99e89';
-    ctx.fillRect(0, 0, w, h);
-    const size = w / 20;
-    for (let row = 0; row < 20; row++) {
-      for (let col = 0; col < 20; col++) {
-        const value = 214 + Math.floor(random() * 16);
-        const x = col * size;
-        const y = row * size;
-        ctx.fillStyle = `rgb(${value},${value - 8},${value - 24})`;
-        ctx.fillRect(x + 0.6, y + 0.6, size - 1.2, size - 1.2);
-        ctx.strokeStyle = 'rgba(255,249,228,0.3)';
-        ctx.lineWidth = 0.7;
-        ctx.strokeRect(x + 1.4, y + 1.4, size - 2.8, size - 2.8);
-        // The small green diamond joints reference Renaissance intarsia.
-        ctx.fillStyle = '#969e91';
-        ctx.beginPath();
-        ctx.moveTo(x, y - 2.8);
-        ctx.lineTo(x + 2.8, y);
-        ctx.lineTo(x, y + 2.8);
-        ctx.lineTo(x - 2.8, y);
-        ctx.fill();
-        for (let i = 0; i < 18; i++) {
-          ctx.fillStyle = `rgba(107,91,65,${random() * 0.035})`;
-          ctx.fillRect(x + random() * size, y + random() * size, 1 + random() * 10, 0.5);
+    const unit = w / 30;
+    ctx.translate(w / 2, h / 2);
+    ctx.scale(unit, unit);
+    const stone = ['#ddd6c2', '#c7c5b2', '#e9e0c9', '#7c8b7d', '#adb5a1', '#b3a183'];
+    const polygon = (points, color, detail = true) => {
+      ctx.save();
+      ctx.beginPath();
+      points.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y));
+      ctx.closePath();
+      ctx.fillStyle = color;
+      ctx.fill();
+      ctx.clip();
+      if (detail) {
+        const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
+        const x = Math.min(...xs), y = Math.min(...ys);
+        const bw = Math.max(...xs) - x, bh = Math.max(...ys) - y;
+        // Each cut stone has its own mineral direction and muted cloudy grain.
+        for (let j = 0; j < 3; j++) {
+          ctx.strokeStyle = j ? 'rgba(85,82,61,0.075)' : 'rgba(255,250,227,0.22)';
+          ctx.lineWidth = 0.025 + random() * 0.035;
+          ctx.beginPath();
+          const py = y + random() * bh;
+          ctx.moveTo(x - 0.1, py);
+          ctx.bezierCurveTo(x + bw * 0.3, py + bh * 0.12, x + bw * 0.55, py - bh * 0.18, x + bw + 0.1, py + bh * 0.2);
+          ctx.stroke();
         }
       }
+      ctx.restore();
+      ctx.beginPath();
+      points.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y));
+      ctx.closePath();
+      ctx.strokeStyle = '#858571';
+      ctx.lineWidth = 0.024;
+      ctx.stroke();
+      ctx.strokeStyle = 'rgba(255,249,223,0.28)';
+      ctx.lineWidth = 0.01;
+      ctx.stroke();
+    };
+    const radial = (r, a) => [Math.cos(a) * r, Math.sin(a) * r];
+    const sector = (inner, outer, start, end, color) => {
+      const points = [];
+      for (let j = 0; j <= 5; j++) points.push(radial(outer, start + (end - start) * j / 5));
+      for (let j = 5; j >= 0; j--) points.push(radial(inner, start + (end - start) * j / 5));
+      polygon(points, color);
+    };
+    const annulus = (inner, outer, color, count = 64) => {
+      for (let j = 0; j < count; j++) sector(inner, outer, j * Math.PI * 2 / count, (j + 1) * Math.PI * 2 / count, color);
+    };
+    ctx.fillStyle = '#aaa793';
+    ctx.fillRect(-15, -15, 30, 30);
+    for (let row = 0; row < 28; row++) for (let col = 0; col < 28; col++) {
+      const size = 30 / 28;
+      const x = col * size - 15, y = row * size - 15;
+      polygon([[x, y], [x + size, y], [x + size, y + size], [x, y + size]], stone[(row + col) % 3]);
+      // A clipped corner makes the green cabochons part of the stone setting.
+      polygon([[x, y - 0.1], [x + 0.1, y], [x, y + 0.1], [x - 0.1, y]], stone[3], false);
     }
-    // A broad perimeter mosaic remains well outside the fighting circle.
-    const inset = size * 2;
-    ctx.strokeStyle = '#888d7c';
-    ctx.lineWidth = 6;
-    ctx.strokeRect(inset, inset, w - inset * 2, h - inset * 2);
-    ctx.strokeStyle = '#e6d5ae';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(inset, inset, w - inset * 2, h - inset * 2);
+    // A broad square intarsia frame connects the round duel floor to the arcade.
+    for (const [inset, width, color] of [[11.35, 0.14, stone[3]], [11.05, 0.32, stone[4]], [10.75, 0.08, stone[5]]]) {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = width;
+      ctx.strokeRect(-inset, -inset, inset * 2, inset * 2);
+    }
+    for (let side = 0; side < 4; side++) {
+      ctx.save();
+      ctx.rotate(side * Math.PI / 2);
+      for (let j = -10; j <= 10; j++) {
+        polygon([[j - 0.38, -11.05], [j, -11.31], [j + 0.38, -11.05], [j, -10.79]], j % 2 ? stone[0] : stone[3]);
+      }
+      ctx.restore();
+    }
+    // Opus sectile: cut marble petals, a sixteen-point compass, and a linked
+    // diamond band. No raised geometry or decorative physics inside the arena.
+    annulus(5.8, 6.35, stone[2]);
+    annulus(5.72, 5.8, stone[3]);
+    annulus(5.37, 5.72, stone[4]);
+    annulus(5.25, 5.37, stone[2]);
+    for (let j = 0; j < 48; j++) {
+      const a = j * Math.PI / 24;
+      polygon([radial(5.39, a), radial(5.54, a + 0.054), radial(5.7, a), radial(5.54, a - 0.054)], j % 2 ? stone[2] : stone[3]);
+    }
+    annulus(4.63, 5.25, stone[0]);
+    annulus(4.47, 4.63, stone[3]);
+    annulus(4.32, 4.47, stone[2]);
+    for (let j = 0; j < 16; j++) {
+      const a = j * Math.PI / 8;
+      sector(0, 4.32, a, a + Math.PI / 8, stone[0]);
+      const mid = a + Math.PI / 16;
+      polygon([radial(1.66, mid), radial(2.65, a + 0.035), radial(4.2, mid), radial(2.65, a + Math.PI / 8 - 0.035)], j % 2 ? stone[4] : stone[1]);
+      polygon([radial(1.66, mid), radial(2.65, a + 0.035), radial(4.2, mid), radial(2.65, mid)], j % 2 ? stone[3] : stone[5]);
+      polygon([radial(4.73, mid), radial(4.95, mid + 0.046), radial(5.14, mid), radial(4.95, mid - 0.046)], stone[3]);
+    }
+    annulus(1.48, 1.68, stone[2], 32);
+    annulus(1.4, 1.48, stone[3], 32);
+    for (let j = 0; j < 16; j++) {
+      const a = j * Math.PI / 8;
+      polygon([[0, 0], radial(j % 2 ? 1.07 : 1.34, a), radial(0.54, a + Math.PI / 16)], j % 2 ? stone[3] : stone[2]);
+      polygon([[0, 0], radial(0.54, a + Math.PI / 16), radial(j % 2 ? 1.34 : 1.07, a + Math.PI / 8)], stone[4]);
+    }
+    // Small satellite medallions make the border legible in oblique/reverse views.
+    for (let j = 0; j < 8; j++) {
+      const a = (j + 0.5) * Math.PI / 4;
+      ctx.save();
+      ctx.translate(...radial(8.1, a));
+      ctx.rotate(a);
+      polygon([[-0.95, 0], [0, -0.95], [0.95, 0], [0, 0.95]], stone[3]);
+      polygon([[-0.79, 0], [0, -0.79], [0.79, 0], [0, 0.79]], stone[2]);
+      for (let k = 0; k < 8; k++) polygon([[0, 0], radial(k % 2 ? 0.34 : 0.67, k * Math.PI / 4), radial(k % 2 ? 0.67 : 0.34, (k + 1) * Math.PI / 4)], k % 2 ? stone[4] : stone[5]);
+      ctx.restore();
+    }
+    // Cloudy mineral wear crosses joins gently, avoiding a pristine printed mat.
+    for (let i = 0; i < 40; i++) {
+      const x = (random() - 0.5) * 29, y = (random() - 0.5) * 29;
+      const r = 0.3 + random() * 1.8;
+      const wear = ctx.createRadialGradient(x, y, 0, x, y, r);
+      wear.addColorStop(0, i % 3 ? 'rgba(111,103,71,0.10)' : 'rgba(248,236,204,0.21)');
+      wear.addColorStop(1, 'rgba(111,103,71,0)');
+      ctx.fillStyle = wear;
+      ctx.fillRect(x - r, y - r, r * 2, r * 2);
+    }
+    for (let i = 0; i < 700; i++) {
+      const x = (random() - 0.5) * 30, y = (random() - 0.5) * 30;
+      ctx.fillStyle = i % 3 ? 'rgba(96,88,65,0.12)' : 'rgba(255,246,220,0.23)';
+      ctx.fillRect(x, y, 0.02 + random() * 0.12, 0.02 + random() * 0.035);
+    }
   });
 }
 
@@ -178,7 +270,7 @@ export function buildLoggia(scene, { hemi, sun } = {}) {
     geometry.dispose();
     return result;
   };
-  const stone = { vary: 0.045, noise: 0.025, uv: 'box', uvScale: 0.28 };
+  const stone = { vary: 0.085, noise: 0.04, rough: 0.013, uv: 'box', uvScale: 0.28 };
   const block = (bin, w, h, d, color, position, options = stone) => put(bin, box(w, h, d), color, position, undefined, undefined, options);
   const ring = (inner, outer, color, y) => put('inlay', new THREE.RingGeometry(inner, outer, 128), color, [0, y, 0], [-Math.PI / 2, 0, 0], 1, { vary: 0, noise: 0 });
 
@@ -200,17 +292,8 @@ export function buildLoggia(scene, { hemi, sun } = {}) {
   ring(ARENA.radius - 0.055, ARENA.radius + 0.035, 0x69756a, -0.008);
   ring(ARENA.radius + 0.035, ARENA.radius + 0.085, 0xe8d8ad, -0.008);
   ring(ARENA.radius + 0.085, ARENA.radius + 0.12, 0x69756a, -0.008);
-  ring(2.37, 2.4, 0xa6a18a, -0.011);
   for (let i = 0; i < 8; i++) {
     const a = i * Math.PI / 4;
-    const radius = i % 2 ? 1.45 : 2.2;
-    const shape = new THREE.Shape();
-    shape.moveTo(0, 0.26);
-    shape.lineTo(0.19, 0.56);
-    shape.lineTo(0, radius);
-    shape.lineTo(-0.19, 0.56);
-    shape.closePath();
-    put('inlay', new THREE.ShapeGeometry(shape), i % 2 ? 0xb6aa8f : 0x939c8c, [0, -0.01, 0], [-Math.PI / 2, 0, a], 1, { vary: 0, noise: 0 });
     // Small compass marks make the arena's edge legible from any orbit angle.
     const r = ARENA.radius;
     put('inlay', new THREE.PlaneGeometry(0.15, 0.38), PALETTE.gold, [Math.sin(a) * r, -0.006, Math.cos(a) * r], [-Math.PI / 2, 0, -a], 1, { vary: 0, noise: 0 });
@@ -231,7 +314,20 @@ export function buildLoggia(scene, { hemi, sun } = {}) {
     const right = Math.max(...centers) + 2.5;
     const width = right - left;
     const mid = (right + left) / 2;
-    block('recess', width, 6.8, 0.35, PALETTE.indigo, [mid, 3.4, -2.75]);
+    block('recess', width, 0.08, 4.1, 0x777a73, [mid, -0.04, -1.65]);
+    block('recess', width, 0.42, 3.9, 0x555e66, [mid, 6.57, -1.55]);
+    // Real rear archways and shadowed piers reveal the light garden beyond.
+    // Nothing seals the openings with a flat dark plane.
+    for (const x of centers) {
+      put('stone', archPanel(1.96, 4.1, 2.5, 6.75, 0.45), 0x8e958e, [x, 0, -3.75], undefined, 1, stone);
+      put('stone', archBand(1.96, 2.16, 0.14), 0xb7b9a3, [x, 4.1, -3.48], undefined, 1, stone);
+      for (const side of [-1, 1]) {
+        put('stone', cyl(0.24, 0.29, 4.12, 10), 0x8d958c, [x + side * 2.46, 2.06, -3.75], undefined, 1, stone);
+        block('stone', 0.8, 0.2, 0.74, 0xaab09c, [x + side * 2.46, 4.15, -3.75]);
+      }
+      block('ground', 4.4, 0.06, 6, 0xa5a98a, [x, -0.05, -7]);
+      block('leaves', 3.6, 0.58, 0.8, 0x65794e, [x, 0.29, -8.65], { vary: 0.09, noise: 0.08, rough: 0.15 });
+    }
     block('recess', width, 0.18, 3, PALETTE.recess, [mid, 6.77, -1.3]);
     block('stone', width + 0.4, 0.23, 3.3, PALETTE.light, [mid, 7.03, -1.2]);
     block('stone', width + 0.5, 0.14, 3.55, PALETTE.light, [mid, 7.25, -1.2]);
@@ -241,9 +337,7 @@ export function buildLoggia(scene, { hemi, sun } = {}) {
       put('stone', archPanel(2.16, 4.35, 2.5, 6.81, 0.62), PALETTE.ivory, [x, 0, 0], undefined, 1, stone);
       put('stone', archBand(2.16, 2.4, 0.13), PALETTE.light, [x, 4.35, 0.38], undefined, 1, stone);
       block('stone', 0.27, 0.4, 0.2, PALETTE.light, [x, 6.64, 0.51]);
-      // Quiet roundels on the arcade's blue rear wall catch warm reflected light.
-      put('trim', new THREE.TorusGeometry(0.42, 0.045, 6, 24), PALETTE.gold, [x, 4.55, -2.53]);
-      put('recess', new THREE.CircleGeometry(0.36, 24), 0x48516a, [x, 4.55, -2.52]);
+      // Stone benches sit in shade between the front and rear colonnades.
       block('stone', 2.2, 0.19, 0.65, PALETTE.sand, [x, 0.75, -1.78]);
       for (const side of [-1, 1]) block('stone', 0.25, 0.66, 0.58, PALETTE.trim, [x + side * 0.77, 0.33, -1.78]);
     }
@@ -454,7 +548,8 @@ export function buildLoggia(scene, { hemi, sun } = {}) {
   const clothHome = clothPositions.array.slice();
   let time = 0;
   let gust = 0;
-  return {
+  let nextClothRustle = 1.6;
+  const stage = {
     sunOffset,
     fighterLight: { color: 0xffe3c7, rimColor: 0xc7d8ef, rim: 1.05, level: 0.5 },
     excite(amount) {
@@ -463,10 +558,18 @@ export function buildLoggia(scene, { hemi, sun } = {}) {
     update(dt) {
       time += dt;
       gust = Math.max(0, gust - dt * 0.35);
+      const breeze = 0.5 + Math.sin(time * 0.62) * 0.5;
+      // This same slow wind crest lifts the silk and cues its quiet rustle.
+      // The stage owns only the cue; the shared audio layer owns rate/distance.
+      if (time >= nextClothRustle && breeze > 0.9) {
+        stage.onEvent?.('stageDetail', { kind: 'clothRustle', amp: 0.32 + breeze * 0.12,
+          pos: { x: 13.27, y: 3.35, z: -4.37 }, seed: 64091, time });
+        nextClothRustle = time + 8;
+      }
       for (let i = 0; i < clothPositions.count; i++) {
         const j = i * 3;
         const hang = 1 - clothUV.getY(i);
-        const flutter = hang * (0.05 + gust * 0.07) * Math.sin(time * 1.7 + clothUV.getX(i) * 5 + clothHome[j] * 0.8 + clothHome[j + 2] * 0.3 - hang * 2.4);
+        const flutter = hang * (0.035 + breeze * 0.045 + gust * 0.07) * Math.sin(time * 1.7 + clothUV.getX(i) * 5 + clothHome[j] * 0.8 + clothHome[j + 2] * 0.3 - hang * 2.4);
         clothPositions.setXYZ(i, clothHome[j] + clothNormals.getX(i) * flutter, clothHome[j + 1], clothHome[j + 2] + clothNormals.getZ(i) * flutter);
       }
       clothPositions.needsUpdate = true;
@@ -480,4 +583,5 @@ export function buildLoggia(scene, { hemi, sun } = {}) {
       moteGeometry.attributes.position.needsUpdate = true;
     },
   };
+  return stage;
 }

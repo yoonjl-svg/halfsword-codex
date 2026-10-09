@@ -12,6 +12,61 @@ const C = {
 };
 const TAU = Math.PI * 2;
 
+// One world-scaled image: metre-wide salt and traffic marks remain legible on a
+// phone, instead of repeating a tiny pore pattern on every paving slab.
+function pavingTexture() {
+  const r = rng(51123);
+  return canvasTex(512, 512, (g, w, h) => {
+    g.fillStyle = '#f4efdf'; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 65; i++) {
+      const x = r() * w, y = r() * h, rad = 16 + r() * 72;
+      const gr = g.createRadialGradient(x, y, rad * 0.08, x, y, rad);
+      gr.addColorStop(0, i % 3 ? 'rgba(106,104,86,0.14)' : 'rgba(155,124,77,0.12)');
+      gr.addColorStop(0.65, 'rgba(138,127,100,0.055)');
+      gr.addColorStop(1, 'rgba(138,127,100,0)');
+      g.fillStyle = gr; g.fillRect(x - rad, y - rad, rad * 2, rad * 2);
+    }
+    for (let i = 0; i < 105; i++) {
+      const x = r() * w, y = r() * h;
+      g.strokeStyle = i % 4 ? 'rgba(101,99,81,0.09)' : 'rgba(255,251,230,0.26)';
+      g.lineWidth = 0.7 + r() * 1.4;
+      g.beginPath(); g.moveTo(x, y);
+      g.quadraticCurveTo(x + 10 + r() * 18, y - 4 + r() * 8, x + 16 + r() * 30, y - 3 + r() * 6); g.stroke();
+    }
+    // Pitting is secondary to the larger scuffed patches.
+    for (let i = 0; i < 1800; i++) {
+      g.fillStyle = `rgba(110,103,84,${0.035 + r() * 0.06})`;
+      g.fillRect(r() * w, r() * h, 0.7 + r() * 1.8, 0.7 + r() * 1.8);
+    }
+  });
+}
+
+function sailTexture() {
+  const r = rng(51517);
+  return canvasTex(512, 512, (g, w, h) => {
+    g.fillStyle = '#f6edda'; g.fillRect(0, 0, w, h);
+    // Broad, separately cut canvas bolts with flat-felled lap seams. The seam
+    // widths are intentionally readable; the stitching is not a field of dots.
+    for (let x = 0, i = 0; x < w; x += 64, i++) {
+      g.fillStyle = i % 3 ? 'rgba(116,83,50,0.035)' : 'rgba(255,251,223,0.24)';
+      g.fillRect(x, 0, 64, h);
+      g.fillStyle = 'rgba(94,63,39,0.19)'; g.fillRect(x + 2, 0, 4, h);
+      g.fillStyle = 'rgba(255,249,224,0.5)'; g.fillRect(x + 6, 0, 2, h);
+    }
+    for (let i = 0; i < 28; i++) {
+      const x = r() * w, y = r() * h, rad = 20 + r() * 90;
+      const gr = g.createRadialGradient(x, y, 0, x, y, rad);
+      gr.addColorStop(0, 'rgba(117,79,39,0.065)'); gr.addColorStop(1, 'rgba(117,79,39,0)');
+      g.fillStyle = gr; g.fillRect(x - rad, y - rad, rad * 2, rad * 2);
+    }
+    // Two old repairs are large pieces of cloth, not noisy procedural speckles.
+    for (const [x, y, ww, hh] of [[145, 65, 55, 81], [330, 180, 69, 52]]) {
+      g.fillStyle = 'rgba(255,247,211,0.20)'; g.fillRect(x, y, ww, hh);
+      g.strokeStyle = 'rgba(109,73,40,0.23)'; g.lineWidth = 3; g.strokeRect(x + 2, y + 2, ww - 4, hh - 4);
+    }
+  });
+}
+
 function coralTexture() {
   const r = rng(5109);
   return canvasTex(512, 512, (g, w, h) => {
@@ -127,9 +182,10 @@ function archBand(half, spring, rise, width, depth) {
   return new THREE.ExtrudeGeometry(s, { depth, bevelEnabled: false, curveSegments: 12 });
 }
 
-function triangle(a, b, c) {
+function triangle(a, b, c, uv = null) {
   const g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.Float32BufferAttribute([...a, ...b, ...c], 3));
+  if (uv) g.setAttribute('uv', new THREE.Float32BufferAttribute(uv.flat(), 2));
   g.computeVertexNormals();
   return g;
 }
@@ -146,8 +202,26 @@ function dhow(K, pos, rotation, scale, hero = false) {
     const [za, wa, ya] = sections[j], [zb, wb, yb] = sections[j + 1];
     for (const side of [-1, 1]) {
       const a = [wa * side, ya, za], b = [wb * side, yb, zb];
-      const c = [wb * 0.63 * side, 0.0, zb], d = [wa * 0.63 * side, 0.0, za];
-      positions.push(...a, ...b, ...c, ...a, ...c, ...d);
+      if (hero) {
+        // Five real strakes follow the rising sheer, separated by recessed dark
+        // caulking. Their broad facets still read as one near-black wooden hull.
+        const colors = [0x202c2c, 0x283332, 0x303b36, 0x3c4035, 0x484537];
+        const hullPoint = (w, y, z, t) => [w * (0.63 + t * 0.37) * side, y * t, z];
+        for (let band = 0; band < 5; band++) {
+          const lo = band / 5 + 0.006, hi = (band + 1) / 5 - 0.006;
+          const p0 = hullPoint(wa, ya, za, hi), p1 = hullPoint(wb, yb, zb, hi);
+          const p2 = hullPoint(wb, yb, zb, lo), p3 = hullPoint(wa, ya, za, lo);
+          for (const tri of [[p0, p1, p2], [p0, p2, p3]]) K.put('hull', triangle(...tri), colors[band], [0, 0, 0], [0, 0, 0], 1, { vary: 0.06, noise: 0.025 });
+          if (band === 4) limb(K, 'wood', p0, p1, 0.055, 0.055, 0x827054, {}, 5);
+        }
+        // Pitch-dark backing prevents the tiny caulking gaps becoming holes.
+        const c = [wb * 0.62 * side, 0.0, zb], d = [wa * 0.62 * side, 0.0, za];
+        positions.push(...[a[0] * 0.995, a[1], a[2]], ...[b[0] * 0.995, b[1], b[2]], ...c,
+          ...[a[0] * 0.995, a[1], a[2]], ...c, ...d);
+      } else {
+        const c = [wb * 0.63 * side, 0.0, zb], d = [wa * 0.63 * side, 0.0, za];
+        positions.push(...a, ...b, ...c, ...a, ...c, ...d);
+      }
       // A continuous sheer stripe and worn timber bulwark, readable at a distance.
       limb(K, 'wood', a, b, 0.115, 0.115, C.woodLight, {}, 5);
       limb(K, 'brass', [a[0], ya - 0.38, za], [b[0], yb - 0.38, zb], 0.045, 0.045, C.brass, {}, 4);
@@ -175,7 +249,8 @@ function dhow(K, pos, rotation, scale, hero = false) {
     limb(K, 'wood', [x, 2.5, mz], [x + 0.25, mastH, mz - 0.8], ri ? 0.17 : 0.23, 0.07, C.woodLight);
     const A = [x, lowY, lowZ], B = [x, highY, highZ], D = [x, lowY - 1.0, highZ - 0.7];
     limb(K, 'wood', A, B, 0.09, 0.06, C.woodLight, {}, 7);
-    // Panelled triangular cloth: a shallow belly and seams, baked in one mesh.
+    // Barycentric UVs describe both full-sized canvas panels and the wind mask.
+    // The three anchored edges have zero displacement; only the belly breathes.
     const rows = hero ? 12 : 4;
     const point = (u, v) => [
       x + Math.sin(Math.PI * u) * Math.sin(Math.PI * v) * (hero ? 1.15 : 0.6),
@@ -186,10 +261,21 @@ function dhow(K, pos, rotation, scale, hero = false) {
       for (let j = 0; j < rows - i; j++) {
         const a = point(i / rows, j / rows), b = point((i + 1) / rows, j / rows), c = point(i / rows, (j + 1) / rows);
         const color = ri ? C.sailLight : i > rows - 3 ? 0xd4b48b : C.sail;
-        K.put('cloth', triangle(a, b, c), color, [0, 0, 0], [0, 0, 0], 1, { vary: 0.11, noise: 0.025 });
-        if (j < rows - i - 1) K.put('cloth', triangle(b, point((i + 1) / rows, (j + 1) / rows), c), color, [0, 0, 0], [0, 0, 0], 1, { vary: 0.11, noise: 0.025 });
+        const uv = hero ? [[i / rows, j / rows], [(i + 1) / rows, j / rows], [i / rows, (j + 1) / rows]] : null;
+        K.put('cloth', triangle(a, b, c, uv), color, [0, 0, 0], [0, 0, 0], 1, { vary: 0.025, noise: 0.015 });
+        if (j < rows - i - 1) K.put('cloth', triangle(b, point((i + 1) / rows, (j + 1) / rows), c,
+          hero ? [[(i + 1) / rows, j / rows], [(i + 1) / rows, (j + 1) / rows], [i / rows, (j + 1) / rows]] : null),
+          color, [0, 0, 0], [0, 0, 0], 1, { vary: 0.025, noise: 0.015 });
       }
-      if (hero && i > 0) limb(K, 'rope', point(i / rows, 0), point(i / rows, 1 - i / rows), 0.012, 0.012, C.rope, {}, 4);
+    }
+    if (hero) {
+      // Doubled canvas at the three clews; a repaired corner is a distinct cut
+      // piece, not random triangle brightness. It moves with the same sail UVs.
+      for (const patch of [[[0, 0], [0.11, 0], [0, 0.11]], [[1, 0], [0.89, 0], [0.89, 0.11]], [[0, 1], [0, 0.89], [0.11, 0.89]]]) {
+        const p = patch.map(([u, v]) => { const p = point(u, v); p[0] -= 0.014; return p; });
+        K.put('cloth', triangle(...p, patch), ri ? 0xc2a078 : 0xd2a36f, [0, 0, 0], [0, 0, 0], 1, { vary: 0, noise: 0.015 });
+      }
+      for (const [a, b] of [[A, B], [B, D], [D, A]]) limb(K, 'rope', a, b, 0.075, 0.075, 0xc0a476, {}, 6);
     }
     for (const [a, b] of [[A, B], [B, D], [D, A]]) limb(K, 'rope', a, b, 0.037, 0.037, C.rope, {}, 5);
     for (const z of [-11, 9]) for (const side of [-1, 1]) {
@@ -202,8 +288,12 @@ function dhow(K, pos, rotation, scale, hero = false) {
       K.put('hull', box(0.025, 0.64, 0.34), 0x111a1b, [-1.87, 4.0, z]);
       K.put('brass', box(0.035, 0.72, 0.045), C.brass, [-1.9, 4.0, z - 0.2]);
     }
-    limb(K, 'rope', [-2.7, 2.9, -4], [-13, 1.8, -11], 0.055, 0.055, C.rope, {}, 6);
     limb(K, 'wood', [0, 3.4, 11], [0, 5.5, 17], 0.14, 0.06, C.woodLight);
+    // Broad repaired planks below the stern windows, a worn rudder and lashings.
+    for (let i = 0; i < 3; i++) K.put('wood', box(0.08, 0.20, 1.5 + i * 0.25), i % 2 ? 0x645941 : 0x827054,
+      [-2.02, 2.3 - i * 0.29, -9.5 + i * 0.36], [0, -0.13, -0.14]);
+    K.put('wood', box(0.23, 3.0, 0.85), C.woodLight, [0, 1.3, -14.1], [0.14, 0, 0]);
+    for (const y of [0.4, 1.4, 2.4]) K.put('hull', box(0.27, 0.15, 0.88), C.tar, [0, y, -14.1]);
   }
   K.pop();
 }
@@ -270,6 +360,67 @@ function ocean(scene, sunOffset) {
   return mat;
 }
 
+// A small number of long, translucent ribbons meet the masonry and hull. This
+// is one draw, no particle emitter, reflection pass, timer or transient object.
+function harborWash(scene) {
+  const r = rng(51771), positions = [], uv = [], kind = [], phase = [];
+  const quad = (a, b, c, d, mist, ph) => {
+    for (const [p, u, v] of [[a, 0, 0], [b, 1, 0], [c, 1, 1], [a, 0, 0], [c, 1, 1], [d, 0, 1]]) {
+      positions.push(...p); uv.push(u, v); kind.push(mist); phase.push(ph);
+    }
+  };
+  for (let i = 0; i < 26; i++) {
+    const x = i < 10 ? 20 + r() * 7 : 37 + r() * 14, z = (r() - 0.5) * 33;
+    const len = 2.8 + r() * 5, width = 0.25 + r() * 0.55, y = -2.18 + r() * 0.035;
+    quad([x, y, z - len / 2], [x + width, y, z - len / 2], [x + width, y, z + len / 2], [x, y, z + len / 2], 0, r() * TAU);
+  }
+  for (const z of [-13.4, -6.5, 4.5, 12.2]) {
+    quad([19.35, -1.3, z - 1.7], [19.35, -1.3, z + 1.7], [19.45, 0.45, z + 1.45], [19.45, 0.45, z - 1.45], 1, r() * 0.65);
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+  geo.setAttribute('washKind', new THREE.Float32BufferAttribute(kind, 1));
+  geo.setAttribute('washPhase', new THREE.Float32BufferAttribute(phase, 1));
+  const mat = new THREE.ShaderMaterial({
+    uniforms: { time: { value: 0 }, color: { value: new THREE.Color(0xe0e8d5) } },
+    transparent: true, depthWrite: false, side: THREE.DoubleSide, forceSinglePass: true,
+    vertexShader: `
+      uniform float time;
+      attribute float washKind;
+      attribute float washPhase;
+      varying vec2 vWashUV;
+      varying float vKind;
+      varying float vPhase;
+      void main() {
+        vWashUV = uv; vKind = washKind; vPhase = washPhase;
+        vec3 p = position;
+        float tide = sin(time * 0.9817477 - 3.14159265);
+        p.y += washKind * (0.13 + tide * 0.13) * sin(uv.y * 3.14159265);
+        p.y += (1.0 - washKind) * sin(time * 0.9817477 + washPhase) * 0.06;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
+      }`,
+    fragmentShader: `
+      uniform float time;
+      uniform vec3 color;
+      varying vec2 vWashUV;
+      varying float vKind;
+      varying float vPhase;
+      void main() {
+        float edge = sin(vWashUV.x * 3.14159265) * sin(vWashUV.y * 3.14159265);
+        float pulse = 0.5 + 0.5 * sin(time * 0.9817477 - 3.14159265);
+        float fray = 0.7 + 0.3 * sin(vWashUV.y * 19.0 + vPhase + sin(vWashUV.x * 8.0));
+        float alpha = edge * fray * mix(0.15 + pulse * 0.26, pulse * 0.14, vKind);
+        gl_FragColor = vec4(color, alpha);
+        #include <tonemapping_fragment>
+        #include <colorspace_fragment>
+      }`,
+  });
+  const mesh = new THREE.Mesh(geo, mat); mesh.name = 'corsair-quay-wash';
+  scene.add(mesh);
+  return mat;
+}
+
 /** Native stage contract; Stages owns and disposes every added scene resource. */
 export function buildCorsair(scene, lights = {}) {
   const r = rng(511709);
@@ -292,8 +443,11 @@ export function buildCorsair(scene, lights = {}) {
   }));
   scene.add(sky);
   const sea = ocean(scene, sunOffset);
+  const wash = harborWash(scene);
   const stoneTex = coralTexture();
+  const floorTex = pavingTexture();
   const stoneOpt = { uv: 'box', uvScale: 0.42, vary: 0.11, noise: 0.035 };
+  const floorOpt = { uv: 'box', uvScale: 1 / 38, vary: 0.075, noise: 0.02 };
 
   // Wide masonry landing: edges are 18m+ from the duel, and no combat surface moves.
   K.put('stone', box(38, 2.7, 37), C.worn, [0, -1.42, 0], [0, 0, 0], 1, stoneOpt);
@@ -303,16 +457,16 @@ export function buildCorsair(scene, lights = {}) {
       const width = Math.min(2.76, 18.4 - x);
       if (width <= 0) continue;
       K.put('floor', box(width, 0.05, 1.72), r() < 0.12 ? 0xcbbfa6 : 0xe0d7c2,
-        [x + width * 0.5, -0.045, z], [0, 0, 0], 1, { ...stoneOpt, vary: 0.095, noise: 0.025 });
+        [x + width * 0.5, -0.045, z], [0, 0, 0], 1, floorOpt);
     }
   }
   // The ring is a pale, flush stone inset with a thin incised bronze boundary.
-  K.put('floor', new THREE.CircleGeometry(ARENA.radius, 96), 0xede2c9, [0, -0.009, 0], [-Math.PI / 2, 0, 0], 1, stoneOpt);
+  K.put('floor', new THREE.CircleGeometry(ARENA.radius, 96), 0xede2c9, [0, -0.009, 0], [-Math.PI / 2, 0, 0], 1, floorOpt);
   K.put('inlay', new THREE.RingGeometry(ARENA.radius - 0.07, ARENA.radius + 0.04, 96), 0x978560, [0, -0.003, 0], [-Math.PI / 2, 0, 0]);
   for (let i = 0; i < 48; i++) {
     const a = i / 48 * TAU, rad = ARENA.radius + 0.25;
     K.put('floor', box(0.35, 0.022, 0.78), i % 6 ? C.chalk : C.worn,
-      [Math.cos(a) * rad, -0.004, Math.sin(a) * rad], [0, -a, 0], 1, { ...stoneOpt, rough: 0.012 });
+      [Math.cos(a) * rad, -0.004, Math.sin(a) * rad], [0, -a, 0], 1, { ...floorOpt, rough: 0.012 });
   }
   // A worn navigation rose is quiet enough to leave the fighters dominant.
   for (let i = 0; i < 8; i++) {
@@ -332,6 +486,32 @@ export function buildCorsair(scene, lights = {}) {
     K.put('brass', cyl(0.32, 0.31, 0.1, 10), C.brass, [18.1, 0.77, z]);
     for (let i = 0; i < 3; i++) K.put('rope', new THREE.TorusGeometry(0.47 + i * 0.065, 0.038, 5, 24), C.rope,
       [17.1, 0.04 + i * 0.015, z + 0.3], [Math.PI / 2, 0, 0]);
+  }
+  // The landing ends in individual worn coping blocks, a damp tide line and
+  // stone steps. All relief is seaward of 18m, well beyond the camera orbit.
+  for (let z = -17.6; z < 18; z += 1.45) {
+    K.put('stone', box(0.86, 0.25, 1.40), z % 3 < 1.5 ? C.coral : C.chalk,
+      [18.92, -0.08, z], [0, 0, 0], 1, { ...stoneOpt, rough: 0.065 });
+    K.put('stone', box(0.05, 0.65 + r() * 0.4, 1.4), 0x627e70,
+      [19.03, -1.77, z], [0, 0, 0], 1, stoneOpt);
+  }
+  for (let i = 0; i < 5; i++) K.put('stone', box(0.8, 0.32, 3.7), C.worn,
+    [19.3 + i * 0.73, -0.22 - i * 0.29, 13.8], [0, 0, 0], 1, { ...stoneOpt, rough: 0.05 });
+  // Two working bundles: stacked timber crates, folded canvas, heavy rope.
+  for (const [x, z, rot] of [[13.4, -11.8, -0.16], [-13.8, 8.5, 0.21]]) {
+    K.push([x, 0, z], rot);
+    for (const [xx, zz, yy, sc] of [[0, 0, 0, 1], [1.55, 0.25, 0, 0.85], [0.08, 0.1, 1.05, 0.68]]) {
+      K.put('wood', box(1.25, 1, 1.1), 0x75654c, [xx, yy + 0.5 * sc, zz], [0, 0, 0], sc);
+      for (const side of [-1, 1]) {
+        K.put('wood', box(1.35, 0.14, 0.12), 0x4b4738, [xx, yy + (side < 0 ? 0.12 : 0.87) * sc, zz + 0.55 * sc], [0, 0, 0], sc);
+        K.put('wood', box(0.14, 1, 0.12), 0x4b4738, [xx + side * 0.49 * sc, yy + 0.5 * sc, zz + 0.55 * sc], [0, 0, 0], sc);
+      }
+    }
+    for (let i = 0; i < 4; i++) K.put('rope', new THREE.TorusGeometry(0.48 + i * 0.085, 0.058, 5, 20), C.rope,
+      [1.0, 0.07 + i * 0.025, 1.8], [Math.PI / 2, 0, 0]);
+    K.put('cloth', box(1.03, 0.09, 0.9), C.sail, [0.08, 1.77, 0.1]);
+    K.put('cloth', box(1.03, 0.54, 0.05), C.sail, [0.08, 1.5, 0.57]);
+    K.pop();
   }
 
   // Coral gate, deeply carved timber doors, and an asymmetric arcaded storehouse.
@@ -406,7 +586,17 @@ export function buildCorsair(scene, lights = {}) {
   }
 
   // Main dhow has its broadside to the opening camera; two distant hulls give scale.
-  dhow(K, [43, -2.15, -3.5], 0.12, 0.82, true);
+  dhow(K, [40.5, -2.15, -3.5], 0.12, 0.9, true);
+  // The visible hawsers terminate on real bollards. Long, heavy catenaries tie
+  // the ship to the quay and replace the earlier line ending in empty water.
+  for (const [a, b] of [[[37.7, 0.75, -12.1], [18.1, 0.7, -6]], [[38.9, 0.65, 4.7], [18.1, 0.7, 12]]]) {
+    let prev = a;
+    for (let i = 1; i <= 14; i++) {
+      const f = i / 14;
+      const next = [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f - Math.sin(Math.PI * f) * 1.05, a[2] + (b[2] - a[2]) * f];
+      limb(K, 'rope', prev, next, 0.078, 0.078, C.rope, { noise: 0.025 }, 6); prev = next;
+    }
+  }
   dhow(K, [65, -2.3, 47], -0.25, 0.6);
   dhow(K, [95, -2.3, -61], 0.7, 0.46);
   for (let i = 0; i < 13; i++) {
@@ -421,30 +611,57 @@ export function buildCorsair(scene, lights = {}) {
 
   const mats = {
     stone: new THREE.MeshStandardMaterial({ vertexColors: true, map: stoneTex, roughness: 0.96 }),
-    floor: new THREE.MeshStandardMaterial({ vertexColors: true, map: stoneTex, roughness: 0.88 }),
+    floor: new THREE.MeshStandardMaterial({ vertexColors: true, map: floorTex, roughness: 0.9 }),
     inlay: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.84, side: THREE.DoubleSide }),
     wood: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.9 }),
     hull: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.85, side: THREE.DoubleSide }),
     rope: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1 }),
     brass: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.55, metalness: 0.38 }),
-    cloth: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, side: THREE.DoubleSide }),
+    cloth: new THREE.MeshStandardMaterial({ vertexColors: true, map: sailTexture(), roughness: 1, flatShading: true, side: THREE.DoubleSide }),
     leaf: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, side: THREE.DoubleSide }),
   };
+  const windTime = { value: 0 };
+  mats.cloth.onBeforeCompile = (shader) => {
+    shader.uniforms.corsairWindTime = windTime;
+    shader.vertexShader = `uniform float corsairWindTime;\n${shader.vertexShader}`.replace('#include <begin_vertex>', `
+      #include <begin_vertex>
+      float belly = clamp(27.0 * uv.x * uv.y * (1.0 - uv.x - uv.y), 0.0, 1.0);
+      float pull = sin(corsairWindTime * 0.9817477) * 0.22;
+      float flutter = sin(corsairWindTime * 1.9634954 + position.z * 0.4) * 0.055;
+      transformed += vec3(0.9928086, 0.0, -0.1197122) * belly * (pull + flutter);
+    `);
+  };
+  mats.cloth.customProgramCacheKey = () => 'corsair-anchored-lateen-2';
   for (const [name, material] of Object.entries(mats)) {
     const mesh = K.mesh(name, material, { cast: name === 'stone' || name === 'wood', receive: name !== 'leaf' });
+    if (name === 'floor' && mesh) {
+      // Put the 38m landing inside one atlas tile. Repeating at world x/z=0
+      // would cut the broad stains across the centre of the duel circle.
+      const uv = mesh.geometry.attributes.uv;
+      for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) + 0.5, uv.getY(i) + 0.5);
+    }
     if (mesh) { mesh.name = `corsair-${name}`; scene.add(mesh); }
     // Kit copies its pieces into the final mesh; they have never reached the GPU.
     for (const g of K.bins[name] ?? []) g.dispose();
   }
 
   let t = 0;
-  return {
+  const stage = {
     sunOffset,
     fighterLight: { color: 0xffe7c0, rimColor: 0xb6dfdf, level: 0.16 },
     excite() {},
     update(dt) {
-      t += Math.min(Math.max(dt, 0), 0.1);
+      const previous = t % 6.4;
+      t = (t + (Number.isFinite(dt) ? Math.min(Math.max(dt, 0), 0.1) : 0)) % 6400;
       sea.uniforms.time.value = t;
+      wash.uniforms.time.value = t;
+      windTime.value = t;
+      const phase = t % 6.4;
+      // Both details have a 6.4s visual cycle, offset by 3.2s. Events come from
+      // their visible crest/taut-sail phases; there is no independent sound timer.
+      if (previous < 1.6 && phase >= 1.6) stage.onEvent?.('stageDetail', { kind: 'riggingCreak', amp: 0.38, pos: { x: 40.5, y: 8, z: -3.5 }, seed: 5101, time: t });
+      if (previous < 4.8 && phase >= 4.8) stage.onEvent?.('stageDetail', { kind: 'waterLap', amp: 0.32, pos: { x: 19.35, y: -0.6, z: -6.5 }, seed: 5102, time: t });
     },
   };
+  return stage;
 }

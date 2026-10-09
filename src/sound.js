@@ -18,6 +18,7 @@
 // ─────────────────────────────────────────────────────────────
 import { SOUND, VITALS } from './config.js';
 import { drawnSlash, DRAWN_SLASH } from './slash_draw.js';
+import { StageDetailSound, hasStageDetails } from './stage_detail_sound.js';
 
 // 무기 재질 쌍 API(Sound.impact)가 알아듣는 재질 이름들. 다른 무기를 추가하는 쪽에서 이 목록을 참고한다
 export const MATERIALS = ['steel', 'armor', 'flesh', 'wood', 'plasma', 'rubber', 'frozen'];
@@ -1650,7 +1651,18 @@ export class Sound {
   /** 소리 켜기/끄기: 끄면 새 소리를 안 내고, 울리고 있던 꼬리(울림·고리 소리)도 바로 줄인다 */
   set on(v) {
     this._on = !!v;
+    if (!this._on) this._stageDetails?.stopVoices();
     if (this.master) this.master.gain.setTargetAtTime(this._on ? SOUND.volume : 0, this.ctx.currentTime, 0.02);
+  }
+
+  /** Only the new stage ambience/details pause here; existing combat buses are unchanged. */
+  setPaused(paused) {
+    this._stagePaused = !!paused;
+    this._stageDetails?.setPaused(this._stagePaused);
+  }
+
+  _details() {
+    return this._stageDetails ??= new StageDetailSound(this, makeRng);
   }
 
   /**
@@ -2572,7 +2584,8 @@ export class Sound {
    */
   ambience() {
     if (this._amb || !this.ctx || !this.master) return;
-    const amb = { loggia: this._ambTemple, corsair: this._ambPoseidon, sacred_grove: this._ambTemple, temple: this._ambTemple, castle: this._ambCastle, cathedral: this._ambCathedral, darkhall: this._ambHall, poseidon_night: this._ambPoseidon, clearing: this._ambClearing, clearing_a: this._ambClearing, clearing_a_dry: this._ambClearing }[this.stage];
+    if (hasStageDetails(this.stage)) return this._amb = this._details().ambience();
+    const amb = { temple: this._ambTemple, castle: this._ambCastle, cathedral: this._ambCathedral, darkhall: this._ambHall, poseidon_night: this._ambPoseidon, clearing: this._ambClearing, clearing_a: this._ambClearing, clearing_a_dry: this._ambClearing }[this.stage];
     if (amb) return amb.call(this);
     return this._ambPoseidon();
   }
@@ -2680,6 +2693,7 @@ export class Sound {
     const next = id in STAGE_SOUND ? id : 'poseidon';
     if (next === this.stage) return;
     this.stage = next;
+    this._stageDetails?.setStage(next);
     for (const t of this._timers) clearTimeout(t);
     this._timers.clear();
     this._applyRoom();
@@ -2688,6 +2702,11 @@ export class Sound {
     const old = this._amb;
     if (!old) return;
     this._amb = null;
+    if (old.detail) {
+      this._ambTau = 0.9;
+      this.ambience();
+      return; // StageDetailSound owns and disconnects its retired nodes.
+    }
     const t = this.ctx.currentTime;
     // 옛것이 줄어드는 만큼 새것이 차오르게 (줄 때 1초, 찰 때 0.5초 뒤부터 0.9초) → 가운데가 푹 꺼지지 않는다
     old.out.gain.setTargetAtTime(0, t + 0.3, 1);
@@ -3112,6 +3131,8 @@ export class Sound {
    */
   stageEvent(name, data = {}) {
     if (!this._on || !this.ctx) return;
+    // {kind, amp:0..1, pos:{x,y,z}, seed, time}: fired by a visible wind/cloth/water peak.
+    if (name === 'stageDetail' && hasStageDetails(this.stage)) return this._details().event(data);
     if (name === 'crows') return this._crowsUp(data); // 화전 터: 참나무의 까마귀들이 날아오른다 (외형 PM이 onEvent('crows') 로 알린다)
     if (name !== 'bell' || this.stage !== 'castle') return;
     if (!this._spaced('bell')) return; // 30차: 한 번 흔들리면 양 끝마다 치던 종을 10초에 한 번만 (사장님 "간격을 좀 두자")
@@ -3224,6 +3245,7 @@ export class Sound {
 
   gust(amount) {
     if (!this._on || !this.ctx || this.stage === 'poseidon' || amount < 0.15) return;
+    if (hasStageDetails(this.stage)) return; // New stages sound at their visual peaks through stageDetail.
     const now = this.ctx.currentTime;
     if (this._gustT && now - this._gustT < 0.6) return; // 연타에 소리가 겹겹이 쌓이지 않게
     this._gustT = now;
@@ -3236,10 +3258,6 @@ export class Sound {
       w.gain.setTargetAtTime(b, now + 0.7, 1.2);
     }
     if (this.stage.startsWith('clearing')) return; // 화전 터: 바람만 잠깐 (크게 튀는 소리는 넣지 않는다 — 사장님 컨셉)
-    if (this.stage === 'loggia' || this.stage === 'corsair') {
-      if (amount > 0.5 && Math.random() < 0.35) this._hitCall('flap', amount * 0.5);
-      return; // Cloth and sails, without the shrine's leaves/chime fallback.
-    }
     if (this.stage === 'poseidon_night') {
       // 밤의 포세이돈: 화로 불길이 잠깐 "화르륵", 바람에 검은 천이 펄럭
       this._hitCall('flare', amount * 0.6);

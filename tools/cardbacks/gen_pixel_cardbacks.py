@@ -395,9 +395,61 @@ def poseidon_night():
     return pal, t, band, center, 'T'
 
 
+def loggia():
+    # 석재 상감: 녹색 대리석·상아색 돌의 팔엽 로제트와 기하 테두리.
+    pal = dict(SHARED, B='#302326', I='#ddd0ae', V='#53746a', R='#96504c')
+    t = canvas(TW, TH, 'B')
+    flower = ['...II...', '..IVVI..', '.IVIIVI.', 'IVIBBIVI', 'IVIBBIVI', '.IVIIVI.', '..IVVI..', '...II...']
+    stamp(t, flower, 8, 8)
+    stamp(t, ['.R.', 'RIR', '.R.'], 16, 0)
+    stamp(t, ['.R.', 'RIR', '.R.'], 16, 16)
+    sym_tile(t)
+    band = band_rows(['IVVVVI', 'VI..IV', 'VI..IV', 'IVVVVI'], 'B')
+    center = disc(14, 6, 'B', 'I', 'O')
+    for y in range(14):
+        for x in range(14):
+            dx, dy = x + .5 - 7, y + .5 - 7
+            d = math.hypot(dx, dy)
+            if 1 < d < 5.3:
+                center[y][x] = 'I' if abs(math.cos(4 * math.atan2(dy, dx))) > .55 else 'V'
+            elif d <= 1:
+                center[y][x] = 'R'
+    return pal, t, band, center, 'I'
+
+
+def corsair():
+    # 맞바람을 받는 삼각 돛, 바닷물과 굵은 꼬임 로프.
+    pal = dict(SHARED, B='#19383e', S='#c68e62', W='#76aaa7', H='#6e4931')
+    t = canvas(TW, TH, 'B')
+    sail = ['...G....', '..SG....', '.SSG....', 'SSSGS...', 'SSSGSS..', 'HHHHHHHH', '.HHHHHH.', '..WWWW..']
+    stamp(t, sail, 8, 8)
+    stamp(t, ['W...W.', '.WWW.W'], 16, 0)
+    stamp(t, ['W...W.', '.WWW.W'], 16, 16)
+    sym_tile(t)
+    band = band_rows(['gGGggG', 'GggGGg', 'GggGGg', 'gGGggG'], 'B')
+    center = disc(14, 6, 'B', 'W', 'O')
+    stamp(center, ['....G.....', '...SG.....', '..SSG.....', '.SSSG.....', 'SSSSGSS...', 'HHHHHHHHHH'], 7, 4, False)
+    return pal, t, band, center, 'S'
+
+
+def sacred_grove():
+    # 신목의 갈라진 수피, 금줄과 흰 시데. 작은 화면에서도 큰 형태를 유지.
+    pal = dict(SHARED, B='#1c3025', L='#72936a', W='#dddccb', T='#886d49')
+    t = canvas(TW, TH, 'B')
+    tree = ['...LL...', '..LLLL..', '.LLLLLL.', 'LLLLLLLL', '..TTTT..', '..TgTT..', '.TT..TT.', 'TT....TT']
+    stamp(t, tree, 8, 8)
+    stamp(t, ['.W..', 'WWW.', '..WW', '..W.'], 16, 0)
+    stamp(t, ['.W..', 'WWW.', '..WW', '..W.'], 16, 16)
+    sym_tile(t)
+    band = band_rows(['TTggTT', 'gTTTTg', 'gW..Wg', 'WW..WW'], 'B')
+    center = disc(14, 6, 'B', 'L', 'O')
+    stamp(center, ['....TT....', '...TTTT...', '..TTgTTT..', 'TTTTTTTTTT', 'gGgGgGgGgG', '..W....W..', '.WWW..WWW.'], 7, 3.5, False)
+    return pal, t, band, center, 'L'
+
+
 if __name__ == '__main__':
     os.makedirs(OUT, exist_ok=True)
-    for name, fn in [('poseidon', poseidon), ('poseidon_night', poseidon_night), ('clearing', clearing), ('clearing_a', clearing_a), ('castle', castle), ('temple', temple), ('cathedral', cathedral)]:
+    for name, fn in [('poseidon', poseidon), ('poseidon_night', poseidon_night), ('clearing', clearing), ('clearing_a', clearing_a), ('castle', castle), ('temple', temple), ('cathedral', cathedral), ('loggia', loggia), ('corsair', corsair), ('sacred_grove', sacred_grove)]:
         pal, tile, band, center, accent = fn()
         assert check_sym(tile), name + ' tile not symmetric'
         fr = frame(band, 'B', accent)
