@@ -1,0 +1,150 @@
+{
+  "status": "local_verified_public_delivery_pending",
+  "urls": {
+    "comparison": "https://yoonjl-svg.github.io/halfsword-codex/feature-lab.html#close-thrust",
+    "rapier": "https://yoonjl-svg.github.io/halfsword-codex/?opportunity=close&weapon=rapier&drill=near",
+    "estoc": "https://yoonjl-svg.github.io/halfsword-codex/?opportunity=close&weapon=estoc&drill=near"
+  },
+  "scope": "optional player tap; no ordinary/AI adoption; force and weapon coefficients unchanged",
+  "physicalPhoneTest": false,
+  "native": "opportunity_close_20261009.json",
+  "buildLog": "/tmp/halfsword-close-build01.log",
+  "evidence": [
+    {
+      "path": "/tmp/halfsword-close-native-inventory.json",
+      "bytes": 5137,
+      "sha256": "ccb5451fd68dda37faac16da971cc608bf5da22268e47f604b6e9d3f45730c9b"
+    },
+    {
+      "path": "/tmp/halfsword-close-native06/report.json",
+      "bytes": 158315,
+      "sha256": "825fff078a81b33c4439fed8c8c35e4334719135f7f9242f2d36c335bbb9b434"
+    },
+    {
+      "path": "/tmp/halfsword-close-native07/report.json",
+      "bytes": 135797,
+      "sha256": "20a1122be52a3784424b5c9ea7aafce298731cfde61450a5cd0ca228e271f19d"
+    },
+    {
+      "path": "/tmp/halfsword-close-rapier-mid01/report.json",
+      "bytes": 117146,
+      "sha256": "94179c8bc01bb4dc7ff28192814de64ee988149ecde831897f567e7eddc86cc3"
+    },
+    {
+      "path": "/tmp/halfsword-close-rapier-seed-equivalence.json",
+      "bytes": 369,
+      "sha256": "683be1adf3f6f8637e80e230ce6c9b41e4df2bb73a57ea40bdc047c0674de637"
+    },
+    {
+      "path": "/tmp/halfsword-close-geometry-analysis.json",
+      "bytes": 133397,
+      "sha256": "29728acd11beefb97790cb879db6235ae1dfc0e21b929cd4a64954617d9b4cfc"
+    },
+    {
+      "path": "/tmp/halfsword-close-contracts02.json",
+      "bytes": 1600,
+      "sha256": "45bbcdbcb538a38d8ac40d0e4bbe6ef150bbd8c8b075bbbd4a94c96777e0572c"
+    }
+  ],
+  "pending": [
+    "push/Pages",
+    "public mobile samebuild"
+  ],
+  "regression": {
+    "path": "/tmp/halfsword-close-regression01/result.json",
+    "bytes": 299561,
+    "sha256": "2a8ae5ea7c3000eca73e79c0c798e43d8770f7ef601e7d8c6a930c3aa496dd46",
+    "pass": true,
+    "cacheUsed": false,
+    "sourceStable": true,
+    "fingerprint": "3e5810f014c760ba1b2b64403d8703478ab4aea6730858673a55619ffe2b569c",
+    "suites": [
+      {
+        "id": "force_ledger",
+        "pass": true
+      },
+      {
+        "id": "grip_reaction",
+        "pass": true
+      },
+      {
+        "id": "cut_reaction",
+        "pass": true
+      },
+      {
+        "id": "arm_capacity",
+        "pass": true
+      },
+      {
+        "id": "arm_duel",
+        "pass": true
+      },
+      {
+        "id": "build",
+        "pass": true
+      }
+    ]
+  },
+  "localMobile": {
+    "path": "/tmp/halfsword-close-mobile-local01/report.json",
+    "bytes": 2644637,
+    "sha256": "83737cfeccf46b3df31c36057bc9a64c99ba59343062b4f4016ea6f615e8481d",
+    "pass": true,
+    "flows": 3,
+    "sourceStable": true,
+    "buildStable": true,
+    "wallMs": 392503.12396,
+    "errors": 0,
+    "scope": "Ordinary play, close rapier thrust and close estoc cut; trusted touch, pause/resume and fresh-world repeat; emulation, not a physical phone."
+  },
+  "nativeArchive": {
+    "directory": "/workspace/halfsword-handoff/close-opportunity-20261009",
+    "archive": "native-evidence.tar.zst",
+    "archiveBytes": 30292862,
+    "archiveSHA256": "1570e9b53423bf809c751e75f38d1ac9ca86513f06481e27a02d5b04f1354bb5",
+    "ledgerSHA256": "4332558831c36e326565ada18e7777db7c848e193d145e113b2d3e00c17cc329",
+    "sourceInputMapSHA256": "08c85d14581ece64bcacc8fd6e2cf78ba9c1cdb917472ea4953b7cb0bbb07489",
+    "inventorySHA256": "ccb5451fd68dda37faac16da971cc608bf5da22268e47f604b6e9d3f45730c9b",
+    "archiveRegularFiles": 1308,
+    "archiveSymlinks": 10,
+    "payloadRegularFilesExcludingLedger": 1307,
+    "uncompressedPayloadBytesExcludingLedger": 48826083,
+    "runDirectories": 10,
+    "frozenSourceDirectories": 10,
+    "originalInputFiles": 1,
+    "inputMapping": [
+      {
+        "original": "/workspace/halfsword-handoff/followup-release-20261008/opportunity/run01/thrustGuard-off.json",
+        "archived": "inputs/thrustGuard-off.json",
+        "bytes": 2375306,
+        "rawSHA256": "279aac9c587775b8580820d10674add79980cb3077bc4c1ae8698b6b80aef2c2",
+        "fullRequestedInputSHA256": "47e74fea70be72278dea9eb83ce1b6c2778aaf2b500cbc38111ac8f75191e51a",
+        "steps": 1200
+      }
+    ],
+    "executionsIncludingFailuresAndRepeats": 26,
+    "nativeSteps": 30721,
+    "verifiedBy": "Stream-decompressed tar: every regular payload byte count/SHA256 and every symlink target checked against ledger; ledger itself checked separately. No node_modules target was followed.",
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/close-opportunity-20261009/archive-receipt.json",
+      "bytes": 1377,
+      "sha256": "ef81d98c14bd5a24c8f2be2f26096693e5cbd11facef62d9b2a4e997ab1e8132"
+    }
+  },
+  "visualReview": {
+    "rapierFrames": [
+      3,
+      8,
+      14,
+      20
+    ],
+    "estocFrames": [
+      4,
+      9,
+      14,
+      19
+    ],
+    "finding": "Rapier chambers beside/above helmet then returns forward; estoc sweeps across upper opponent. No obvious detached joint or rear-arm flip in inspected rear view.",
+    "limitations": "Helmet/body occlude inner arm and precise contact; does not prove full naturalness, absence of all penetrations or actual cut injury."
+  }
+}

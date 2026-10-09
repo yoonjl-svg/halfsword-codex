@@ -1,5 +1,7 @@
 # 실험 색인과 재현 입구
 
+- 10/09 [에스톡 목 베기·레이피어 제자리 찌르기](opportunity_close_20261009.md): 선택형 비교, 실패한 에스톡 찌르기/그립 해제 미채택. 기준 `b1392e3`; 정확한 변경·검증은 지도/영수증.
+
 10/09 · [기립 B 일반 승격](getup_adoption_20261009.md)·[거리 발동/연속 준비](opportunity_continuity_20261009.md)·[원자료/명령](opportunity_continuity_20261009.json). 기준356dd6b. 자동 손변위 취소 재현, 가까운 거리 단축/먼 거리 지연, 실패 연습 fixture 보존. 기립 일반·빠른 거리 선택형, [공개 검증 완료](opportunity_continuity_release.json).
 
 10/09 · [입력 분리·찌르기 거리 준비](opportunity_distance_20261009.md)·[수치/원자료 지도](opportunity_distance_20261009.json), [기립 뒷다리 시간차](getup_lead_20261009.md)·[수치/시각 근거](getup_lead_20261009.json). 입력 일반, 거리/기립 선택형. 거리별 실패와 기립 잔여 미끄럼 보존. [실제 전달](opportunity_distance_release.json).

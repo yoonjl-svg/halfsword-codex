@@ -502,6 +502,8 @@ function newRound(weaponId) {
   if (opportunityTrial.active) for (const f of [player, enemy]) {
     f.opportunityModel = opportunityTrial.opportunity;
     f.thrustRangeTempo = opportunityTrial.tempo;
+    f.opportunityCloseThrust = opportunityTrial.close === true && f.index === 0;
+    f.opportunityTapKind = opportunityTrial.close && opportunityTrial.weapon === 'estoc' ? 'cut' : 'thrust';
     f.finishEntryModel = opportunityTrial.finish;
     f.recoverySequenceModel = opportunityTrial.recovery;
   }

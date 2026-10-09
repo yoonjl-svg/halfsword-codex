@@ -1,0 +1,2271 @@
+{
+  "baselineHead": "b1392e360d10ef87dcb656dcb49a3221d763cdb0",
+  "status": "optional_candidate_native_verified_delivery_pending",
+  "scope": "player tap only; estoc cut, rapier thrust; ordinary and AI remain previous behavior",
+  "sourceSHA256": {
+    "src/ai.js": "9651b8439b67b926d6c2fc2de642711af7f2f74d4d06646edfe2afd79af064e9",
+    "src/ai_sense.js": "4de394330661d99136eb98063788c13fa48e6a68fd30d12e7b4093e1138dd01b",
+    "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+    "src/arena.js": "e868d494941f50024d192768cc1132f32199357123544f68776737b7bd84bf3a",
+    "src/arm_recovery_activation.js": "ae025cc8d9bbc9855ea8ab2793d3e7818a66a4662329014a776a2ac88966435e",
+    "src/arm_recovery_reach.js": "19016c65763c9ac10c3889ee67a7d456a426be78b0371f568f2a3a4a5e70531d",
+    "src/arm_recovery_trial.js": "ebda992abc5c7cd25a12c751d0f9b30f8fddf998babc8f4a7f49c9f4a0817c09",
+    "src/arm_support.js": "0cadc692af51f769b7b718b233c4948889547fe3ef3175f3fc52592742e7a66c",
+    "src/arm_trial.js": "3ce994320712d14a54b9a0f466519d016bc20374643ad18ff541f9a945946028",
+    "src/aura.js": "66e33fad5b11a3bd6f1901458e0869961dbb8f90f8af39793ba1ef049d27cd65",
+    "src/blade_shape_trial.js": "c06f7331c78e602e17d89ffb26507bffbea67cbebce862f5386cb4ce519b3955",
+    "src/characters.js": "47e4ba83704678686fa8162ead84e36a916922c36c19df4996ee710f00a1053f",
+    "src/combat.js": "70936d96309e59e1f4884b7224d86fff894948d7daec0bf6a1d7d75d3369a056",
+    "src/combat_defaults.js": "94c53a2749f9f5e1767463885a1fa070ee29699c4d21398d36617a08a289b2f6",
+    "src/combat_distance.js": "bb489c0b0126ee7483e6e49521de6f153a2c47c161d24bff76d846e7a4034913",
+    "src/config.js": "6e2c678ef8af30eeb730f38c3c6a5eac370babdf0071c249e1c2d474c7aa331b",
+    "src/contact_trial.js": "bbbb141e43c2ad9ba45de62bf649def064a998213085f9ace6871c9616da4767",
+    "src/cut_centerline.js": "98e522cfcde4f03c4d6d34dd57f7a8fa301a5a28028ddcce366cc600f86bf453",
+    "src/cut_reaction.js": "04344fee0fb7adcd0d84cb1ecaf29eda96ef56dd9e7a4440dff5e136d15e9779",
+    "src/cut_trial.js": "427d58d0500ceac482424e092a7d457a8cea48371c254f1b4edecb3a511be5a6",
+    "src/debris.js": "f41458c5a60197c2e986847845564a39bd5287d34a26ec2c4fd106299fc5cb67",
+    "src/decap_fx.js": "faf95c515fda2b7cb38ae234003d6ee5e1eed471bb731c4bf98f4af644eaa931",
+    "src/edge_intent.js": "b4e17a6ea08d659732c330448b3b3aaffeac2942fa5096e82db551a12d580c87",
+    "src/edge_torque.js": "436995e6d45e816517ea5a9a8f83c9fb147d143871aab1601f82baa7b36bc0fa",
+    "src/edge_torque_trial.js": "1280a3fe32c1874b6ce56b75932db44852162855d8962ae13f3aeb3e7d832cae",
+    "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+    "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+    "src/fighter.js": "b6bf5877950e48c61b482164db191d7cc4e4b74a93a31c7a69f84cc0e0af7f28",
+    "src/fighter_light.js": "65aef3a688519405356a37d819d2888b63b8c8ffa61d7f4fab700203255df333",
+    "src/finish.js": "02a42eca7fdc90173f86cac4b63e9b66d66147d2ebb7d05acc54185c439d7083",
+    "src/finish_entry.js": "eed2eb8908b16e6e5d1c8d54d2d4a0a72cb7b637e8d9a838b11e1fa88ab4fa1c",
+    "src/finish_rule.js": "2baed3d0c5d0e290166446884e3e037488fa6d88fff5c8cc5dd30eb390e3b9c5",
+    "src/finish_v2_trial.js": "36262c8a175be39dcf7b883629bc0e7c67e0eaa9284525f476889dbf5d96acc2",
+    "src/gait.js": "b74787f16687708bbc4ee3d89ec3acf247d561973131fda08cde761488e8d369",
+    "src/gravity_v2_trial.js": "5c064b7ab599343b171fe68422a42b4a46652c673def0c4ece6fd267636d3ba7",
+    "src/guards.js": "0574da4595093bbeb96eb778a3c05ee12e04a952c5467868e0fdc15599e08e9d",
+    "src/gun.js": "a87128950078a735b032856d96f97e655d9f8c2ef752ae0101b061d70cdd6f9b",
+    "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+    "src/hand_visual.js": "56110127fd6b42681748fb45a880401ae98a355cdf10e539d9088fc5808e5893",
+    "src/input.js": "023966ba0c253688234527bf650e85e08b64e9914fc301ddc04e308f2243c085",
+    "src/integrated_combat_trial.js": "d3b8d2f4b37c617d90832e93d0a31b585d10ef9bd44d5c41ef3d695ef76b898b",
+    "src/limb_demo.js": "fe47d7b51904d2c0b137bb965266eb713673c60b02f22d4ef4a919b8b9cec78a",
+    "src/limb_sever.js": "08313ce99ff5d33abc95a5eac0f205eb6507e3cf47cd6854f7e080ac5d428499",
+    "src/limb_sever_fx.js": "ddab8432c05774b485997a0eb057b6518c850689c6b9f0ae4b35deefb3d8eba0",
+    "src/looks.js": "7575805a70f487b1b747b0ca4e5688f00fc70f672edfcc2fd0cb77a31ed62f34",
+    "src/mad_eyes.js": "42344c5cb0f8287de4cbb29b83d4d4b5ee9171de931ab03802dac2d892d5ed41",
+    "src/main.js": "52ede09f310dc0f6e0ee7746195371cda7a5c9f78246e819e6fe41481a141075",
+    "src/mobile_intent.js": "b0f1ccc7fd66fb1d083c69f19562cfe09d9198141f48b61f25a82bfcf7a23606",
+    "src/morgenstern_design.js": "80571e8a17177a44f8b59d2afc8d3304414d431310b5228968c5db53a0b89c32",
+    "src/morgenstern_trial.js": "106657d24434ffa1ef1ca0ffcc018d2f218c1bc768fd265cdb4212e6bc41070d",
+    "src/motion_assist.js": "12e49338e0ec0a1307c71bbdfcad4d849180369959a2a18c8ec7ca4c73a2f2d5",
+    "src/motion_library.js": "911869797e318dacfd9f00ed1206b70cce7be5ae7689e38478fc95e149416a7c",
+    "src/motion_timing.js": "5a30a5384066585227c1469a7adf66ff2137fabc19ff37142cc5ebd2895887e2",
+    "src/off_shoulder_motor.js": "03f47e83cd9c6580d0e58175b801aa115db9158e4347b9122544b423a0f5b822",
+    "src/opportunity_ai.js": "984d51746f962a7c1c45fde1219bf0733d237a1ffd8afec917314a906739b86a",
+    "src/opportunity_close.js": "2b1f21bc130d812940368b0652684d01347fc83f22d13551034aef25282c4317",
+    "src/opportunity_close_cut.js": "2586f11ed2f7ec3518d9a45148e28be4d7b220240cc29f57803cb23912af8fb5",
+    "src/opportunity_drill.js": "47ce40b9a4fee6b01fdfcff1688b5fe59b8b6ffd6a61e5105c83f54a07118bc8",
+    "src/opportunity_head_region.js": "722ba48e03334f7e05693d01678257298b822c3a7a4a81a5a088ef79a9a1428d",
+    "src/opportunity_path.js": "9ecc60ae50457afef16867d36e25ab855856ae1a4cfea2545e558cd63967bd87",
+    "src/opportunity_player.js": "f7eb110ad7197452ae1a36e692b53ab2de15d0fa2de6b795ddd4657344e6f075",
+    "src/opportunity_target.js": "88281a3000ae82d764fce491bfbdcc11a39bc7a8d92cb69f25dd7b8d4c289ec5",
+    "src/opportunity_thrust.js": "3fac1c8f32426b6f9331818daa7020f36a85de4739c1df82bbc1185fdb5da512",
+    "src/opportunity_trial.js": "4f98dbcef49b1bcebc33971cf58f0904e5d180ba6c0e1ad23d0474b5e45e55d8",
+    "src/outfits.js": "8fc9cbba361d7fccfe3a05348176dc7205d9517711cb1345aedb9fc400645420",
+    "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+    "src/physical_trial.js": "68a42c7f38185498ce962b6706fce8ec9e29684f673c620db21f7c4bf1455583",
+    "src/recovery_contact_v2_trial.js": "d0321ab6a071010e6763372328c8d87e221e2a880f3861a69d00ca44b65fca3e",
+    "src/recovery_finish_trial.js": "8e93650cb07ade0c2a44e5de4121b5c92bcc7da120a65da182f6fe807b171b17",
+    "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+    "src/revive.js": "dd6e5ac3b6bc99b95b2a71c18b3d083a8765ae2fb4da9695d98eae1c1f5e8100",
+    "src/revive_fx.js": "c182245203439ff9dcd37d1e1505f0e4607df02056270d755886e8e94d29fa1e",
+    "src/revolver_reload_audio.js": "251cf8864aa04ecda3efd80b9a9b142e330ddb8d8fd934d086f1e960c1147097",
+    "src/roll_target.js": "495b84d67e21e94b095bee1a77ec2c2c3d68ea279a4a1bc5d5a3006453decf49",
+    "src/roll_target_trial.js": "442332cb06ad14c4f38741376960d632fa84c37d96e33809b04192b69f71adf9",
+    "src/schools.js": "f90cc046cc1b46a30450e09904940061438f9684c2506a57e8b93f3e966a5ac6",
+    "src/skill.js": "31ae2e9855206704936a82a029684aaac217970b68dc571ee7a6e0571514526d",
+    "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+    "src/sound.js": "4a903e6595f1da0fdbd5d585491e5a9823c5832b5369588b5c389ebc0cace83f",
+    "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+    "src/soundlab.js": "00984c22078d92f46971b09a344807d3f3e697ca72aa056578502db9295f0953",
+    "src/stage_castle.js": "6f13063b6c70f57d783932060fb543112c16a2f89cc7351c92c00e14641d2510",
+    "src/stage_cathedral.js": "7dfd23d0cc47458a88dd8422bbe3b95dadf779d769282784fcbb8155c4da4536",
+    "src/stage_clearing.js": "264a12001feac20cc89d8e6a6201726fc1e12c45dbd1d778447a2f2cb609b230",
+    "src/stage_clearing_b.js": "f4a34dbdbc0da4e20a4085db34a610ae026dc84ec74d2b9543d8827ac4a4aacf",
+    "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+    "src/stage_kit.js": "6122642aa4e3a4074f6152315f3247f2056867fcfddbfeebfb98f0281587bd41",
+    "src/stage_poseidon_night.js": "54deb41b5fda2f205eecad1a36e4155a5539828b8bb568e4292f9a63cc577a16",
+    "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+    "src/stages.js": "8051735a54af5b4b111bf7e64e83c9684739e02a95a79dcf5b2dee4c184e461d",
+    "src/stance_memory.js": "8f8615ee1db18b701fd6cc7e937ba9817af48b016ff44d4a7de8f3e117086f1f",
+    "src/stance_trial.js": "7d5f189a5f69c49c40eb58416ec0e61136e265a102edc23f6d547a6eb73e3f19",
+    "src/stance_v2_trial.js": "a5d6dcfc685b83371f1228a028db7573aa1267b63f7cbb2530b78b8601dc9c80",
+    "src/support_contacts.js": "8890d5589ab68ddbe7c6edb6a2d030aa1e45faabd2253c04b61ec0f75bf1bef5",
+    "src/support_probe.js": "d2fd32aa94806e177d35ae4bd08361de3d551d59ecbca29181ee3b5e07c4d1b2",
+    "src/support_transfer.js": "3d1bdae051055ef75ce69c1f63af1ee765b55b954cbbd96f7d9ec4009f4c75d5",
+    "src/sword_assist_v2.js": "2d2e31a1049268935cee9311830cb45672350745ff9a0f4b6df4495a1260927c",
+    "src/sword_trail.js": "cd9c4dabd06d4ad1fac6521290b8c4faf3851a3bf6fb49808d5bb9096e2a6536",
+    "src/swordsmanship.js": "c48379760f2d98184464ac35bf552c6f4a7898be0a7230b8de63371d7efed356",
+    "src/swordsmanship_default.js": "203eb81fa6028154d2f31a2ade12e1243e93639cdce0f4c970b8702e360e2295",
+    "src/swordsmanship_profiles.js": "1660b20fe9970164c0cef8ce5fd43acf0616978c1bcdf7e5494099d2029456b1",
+    "src/swordsmanship_trial.js": "2bf98e61b4bd0b89fa1a800ada116931b568457651f555676850962324ff0c2c",
+    "src/target_correction_trial.js": "d377160805d326f86ffcc2e3fd013c615f7b15ee23a4269960b8ba240e00c37b",
+    "src/thrust_plane.js": "2fcbf1a52dd7cbd4035eea8a14d22b830c1b64f07dafebddcfb74e320539b104",
+    "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+    "src/visual_resources.js": "b3a1cb71743ef0e454b45d098657a4ce2807f31ca4513ff40f9a4ca70083941d",
+    "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+    "src/weapon_looks.js": "a12bcb0e9aa40396ee930702ae25f92a2be7c308223fd0de26820da0c1eb49be",
+    "src/weapons.js": "557d2d7cf7f03b9412eb6b84055ce7439a0dcf612d8eaa41e26ca8f5a79e05e0",
+    "src/wrist_braking.js": "6574ae9729fa6251540a68d27a0938e9d5bc2296097ff8b3bd69d1494eb88730",
+    "src/wrist_braking_trial.js": "25466b178e063a45e58a5fcd22532cdcbc176af4a2c05e461c562bb6a0ef658e"
+  },
+  "evidence": [
+    {
+      "path": "/tmp/halfsword-close-native-inventory.json",
+      "bytes": 5137,
+      "sha256": "ccb5451fd68dda37faac16da971cc608bf5da22268e47f604b6e9d3f45730c9b"
+    },
+    {
+      "path": "/tmp/halfsword-close-native06/report.json",
+      "bytes": 158315,
+      "sha256": "825fff078a81b33c4439fed8c8c35e4334719135f7f9242f2d36c335bbb9b434"
+    },
+    {
+      "path": "/tmp/halfsword-close-native07/report.json",
+      "bytes": 135797,
+      "sha256": "20a1122be52a3784424b5c9ea7aafce298731cfde61450a5cd0ca228e271f19d"
+    },
+    {
+      "path": "/tmp/halfsword-close-rapier-mid01/report.json",
+      "bytes": 117146,
+      "sha256": "94179c8bc01bb4dc7ff28192814de64ee988149ecde831897f567e7eddc86cc3"
+    },
+    {
+      "path": "/tmp/halfsword-close-rapier-seed-equivalence.json",
+      "bytes": 369,
+      "sha256": "683be1adf3f6f8637e80e230ce6c9b41e4df2bb73a57ea40bdc047c0674de637"
+    },
+    {
+      "path": "/tmp/halfsword-close-geometry-analysis.json",
+      "bytes": 133397,
+      "sha256": "29728acd11beefb97790cb879db6235ae1dfc0e21b929cd4a64954617d9b4cfc"
+    },
+    {
+      "path": "/tmp/halfsword-close-contracts02.json",
+      "bytes": 1600,
+      "sha256": "45bbcdbcb538a38d8ac40d0e4bbe6ef150bbd8c8b075bbbd4a94c96777e0572c"
+    }
+  ],
+  "rows": [
+    {
+      "report": "/tmp/halfsword-close-native06/report.json",
+      "name": "thrustGuard",
+      "model": "quick",
+      "rawFile": "thrustGuard-quick.json.gz",
+      "rawSHA256": "64c5383a48e0666c0f9d0b7fba4ba16afcd5ff11c69ca698886649deda344669",
+      "actualSpecialAttacks": 2,
+      "branch": {
+        "enabled": false,
+        "actualCloseStarts": 0,
+        "actualCutStarts": 0,
+        "thrustPushDuringCutFrames": 0,
+        "unboundSpecialWithoutPlan": 2,
+        "note": "Without-plan count establishes planner-null fallback only when close is enabled and start is special, not down, and not bound."
+      },
+      "vitalStabSuccesses": 0,
+      "neckCutWoundSuccesses": 0,
+      "neckContactAttackIds": [],
+      "attempts": [
+        {
+          "tapId": 0,
+          "beginTick": 720,
+          "startTick": 842,
+          "requestTick": 720,
+          "requestToAttackSeconds": 1.0166666666666666,
+          "queueToCommitSeconds": 1.0166666666666666,
+          "preparationFrames": {
+            "position": 122,
+            "alignment": 0,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "preparationSeconds": {
+            "position": 1.0166666666666666,
+            "alignment": 0,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "maxAbsMove": 0.78,
+          "firstStageTicks": {
+            "aim": 842,
+            "extend": 855,
+            "hold": 872,
+            "recover": 877
+          },
+          "K": {
+            "aim": 0.11,
+            "extend": 0.14,
+            "hold": 0.05,
+            "recover": 0.108,
+            "reach": 0.5
+          },
+          "opportunityClose": null,
+          "opportunityCut": null,
+          "attackKind": "thrust",
+          "grippingAtAttack": false,
+          "grippingAtFirstExtension": false,
+          "movementAtAttack": {
+            "netHorizontalM": 0.46441089849758144,
+            "forwardM": -0.46371045866149124,
+            "pathHorizontalM": 0.47174193942675197,
+            "from": [
+              -0.6164361834526062,
+              1.25608229637146,
+              -0.008470823988318443
+            ],
+            "to": [
+              -1.0783871412277222,
+              1.2965325117111206,
+              0.03926590457558632
+            ]
+          },
+          "movementAtFirstExtension": {
+            "netHorizontalM": 0.4784113083815562,
+            "forwardM": -0.47728896281230704,
+            "pathHorizontalM": 0.48746404983511615,
+            "from": [
+              -0.6164361834526062,
+              1.25608229637146,
+              -0.008470823988318443
+            ],
+            "to": [
+              -1.0916016101837158,
+              1.2997609376907349,
+              0.047163672745227814
+            ]
+          },
+          "requestToFirstExtensionSeconds": 1.125,
+          "movementAtFirstVitalHit": null,
+          "requestToFirstLiveTargetVitalStabSeconds": null,
+          "aliveTargetVitalStabApplied": [],
+          "vitalStabSuccess": false,
+          "requestToFirstLiveTargetNeckCutSeconds": null,
+          "movementAtFirstNeckCut": null,
+          "aliveTargetNeckCutApplied": [],
+          "neckCutSuccess": false
+        },
+        {
+          "tapId": 1,
+          "beginTick": 900,
+          "startTick": 912,
+          "requestTick": 900,
+          "requestToAttackSeconds": 0.1,
+          "queueToCommitSeconds": 0.1,
+          "preparationFrames": {
+            "position": 5,
+            "alignment": 7,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "preparationSeconds": {
+            "position": 0.041666666666666664,
+            "alignment": 0.058333333333333334,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "maxAbsMove": 0.3442909296375288,
+          "firstStageTicks": {
+            "aim": 912,
+            "extend": 925,
+            "hold": 942,
+            "recover": 947
+          },
+          "K": {
+            "aim": 0.11,
+            "extend": 0.14,
+            "hold": 0.05,
+            "recover": 0.108,
+            "reach": 0.5
+          },
+          "opportunityClose": null,
+          "opportunityCut": null,
+          "attackKind": "thrust",
+          "grippingAtAttack": false,
+          "grippingAtFirstExtension": false,
+          "movementAtAttack": {
+            "netHorizontalM": 0.010156781058428233,
+            "forwardM": -0.00941537192699464,
+            "pathHorizontalM": 0.010576802818310426,
+            "from": [
+              -1.0834821462631226,
+              1.2897025346755981,
+              0.04581499472260475
+            ],
+            "to": [
+              -1.0931493043899536,
+              1.2691936492919922,
+              0.042699508368968964
+            ]
+          },
+          "movementAtFirstExtension": {
+            "netHorizontalM": 0.011289301341244227,
+            "forwardM": -0.010899684996293705,
+            "pathHorizontalM": 0.013842157554682256,
+            "from": [
+              -1.0834821462631226,
+              1.2897025346755981,
+              0.04581499472260475
+            ],
+            "to": [
+              -1.0945665836334229,
+              1.2493911981582642,
+              0.04367406666278839
+            ]
+          },
+          "requestToFirstExtensionSeconds": 0.20833333333333334,
+          "movementAtFirstVitalHit": null,
+          "requestToFirstLiveTargetVitalStabSeconds": null,
+          "aliveTargetVitalStabApplied": [],
+          "vitalStabSuccess": false,
+          "requestToFirstLiveTargetNeckCutSeconds": null,
+          "movementAtFirstNeckCut": null,
+          "aliveTargetNeckCutApplied": [],
+          "neckCutSuccess": false
+        }
+      ],
+      "selfGeometry": {
+        "observedFrames": 96,
+        "penetrations": [],
+        "maxPenetrationM": 0
+      },
+      "arms": {
+        "S": {
+          "finite": true,
+          "minElbowChestX": -0.04907076784900116,
+          "minWristChestX": 0.019714507745857104,
+          "upperRearFrames": 0,
+          "wristRearFrames": 0
+        },
+        "O": {
+          "finite": true,
+          "minElbowChestX": -0.00019735408655856097,
+          "minWristChestX": 0.007238223656303,
+          "upperRearFrames": 0,
+          "wristRearFrames": 0
+        }
+      },
+      "body": {
+        "att": {
+          "finite": true,
+          "maxJointGapM": 0.002326987163197317,
+          "maxLinearSpeed": 3.795228720849744,
+          "maxAngularSpeed": 26.122168576655024,
+          "maxChestSpeed": 0.9132773261286724,
+          "maxPelvisSpeed": 0.9455761890868621,
+          "maxTiltDegrees": 14.198325459077521
+        },
+        "vic": {
+          "finite": true,
+          "maxJointGapM": 0.001721287071615457,
+          "maxLinearSpeed": 3.6457262120239693,
+          "maxAngularSpeed": 30.393132588284423,
+          "maxChestSpeed": 1.3277049094941522,
+          "maxPelvisSpeed": 1.2827712085219263,
+          "maxTiltDegrees": 30.338266558351993
+        }
+      }
+    },
+    {
+      "report": "/tmp/halfsword-close-native06/report.json",
+      "name": "thrustGuard",
+      "model": "close",
+      "rawFile": "thrustGuard-close.json.gz",
+      "rawSHA256": "e2dcaef0584a7370c677d86065ca40b9b90607a1a45e5e6ef75d2b6d909a3b4a",
+      "actualSpecialAttacks": 2,
+      "branch": {
+        "enabled": true,
+        "actualCloseStarts": 2,
+        "actualCutStarts": 0,
+        "thrustPushDuringCutFrames": 0,
+        "unboundSpecialWithoutPlan": 0,
+        "note": "Without-plan count establishes planner-null fallback only when close is enabled and start is special, not down, and not bound."
+      },
+      "vitalStabSuccesses": 1,
+      "neckCutWoundSuccesses": 0,
+      "neckContactAttackIds": [],
+      "attempts": [
+        {
+          "tapId": 0,
+          "beginTick": 720,
+          "startTick": 720,
+          "requestTick": 720,
+          "requestToAttackSeconds": 0,
+          "queueToCommitSeconds": 0,
+          "preparationFrames": {
+            "position": 0,
+            "alignment": 0,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "preparationSeconds": {
+            "position": 0,
+            "alignment": 0,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "maxAbsMove": 0,
+          "firstStageTicks": {
+            "aim": 720,
+            "extend": 744,
+            "hold": 760,
+            "recover": 766
+          },
+          "K": {
+            "aim": 0.20055139941907937,
+            "extend": 0.14,
+            "hold": 0.05,
+            "recover": 0.108,
+            "reach": 0.5
+          },
+          "opportunityClose": {
+            "score": 0.5013784985476984,
+            "hand": [
+              0.050000000000000044,
+              0.09269248604193109,
+              0.55
+            ],
+            "dir": [
+              0.800132148982424,
+              -0.21549695202482436,
+              -0.5597763909212129
+            ],
+            "extension": 0.28,
+            "start": [
+              0.40959477262024013,
+              -0.03641368431142264,
+              0.32839717319432604
+            ],
+            "startDir": [
+              0.9410940766806835,
+              -0.3030140081187369,
+              0.1500828856150297
+            ],
+            "target": [
+              0.8421308274925998,
+              -0.120649496462645,
+              -0.004178627012000671
+            ],
+            "phase": "aim",
+            "aim": 0.20055139941907937
+          },
+          "opportunityCut": null,
+          "attackKind": "thrust",
+          "grippingAtAttack": false,
+          "grippingAtFirstExtension": false,
+          "movementAtAttack": {
+            "netHorizontalM": 0.000373926039902286,
+            "forwardM": -0.0003718209770680638,
+            "pathHorizontalM": 0.000373926039902286,
+            "from": [
+              -0.6164361834526062,
+              1.25608229637146,
+              -0.008470823988318443
+            ],
+            "to": [
+              -0.6168056726455688,
+              1.2559999227523804,
+              -0.00841339211910963
+            ]
+          },
+          "movementAtFirstExtension": {
+            "netHorizontalM": 0.00740640148569111,
+            "forwardM": 0.0064825650311741674,
+            "pathHorizontalM": 0.012738558335081867,
+            "from": [
+              -0.6164361834526062,
+              1.25608229637146,
+              -0.008470823988318443
+            ],
+            "to": [
+              -0.6097890734672546,
+              1.255476474761963,
+              -0.005204218439757824
+            ]
+          },
+          "requestToFirstExtensionSeconds": 0.2,
+          "movementAtFirstVitalHit": {
+            "netHorizontalM": 0.023477925458468857,
+            "forwardM": 0.02287534619420562,
+            "pathHorizontalM": 0.03083343030625649,
+            "from": [
+              -0.6164361834526062,
+              1.25608229637146,
+              -0.008470823988318443
+            ],
+            "to": [
+              -0.5933334231376648,
+              1.249319314956665,
+              -0.004290459211915731
+            ]
+          },
+          "requestToFirstLiveTargetVitalStabSeconds": 0.35,
+          "aliveTargetVitalStabApplied": [
+            {
+              "tick": 762,
+              "zone": "neck",
+              "type": "stab",
+              "energy": 32.54749057425846,
+              "ephys": 16.27374528712923,
+              "eff": 44.4273246338628,
+              "threshold": 16,
+              "severity": 0.47378874389771336,
+              "pass": true,
+              "woundDelta": 1,
+              "bloodDelta": 0,
+              "aliveAfter": true
+            }
+          ],
+          "vitalStabSuccess": true,
+          "requestToFirstLiveTargetNeckCutSeconds": null,
+          "movementAtFirstNeckCut": null,
+          "aliveTargetNeckCutApplied": [],
+          "neckCutSuccess": false
+        },
+        {
+          "tapId": 1,
+          "beginTick": 900,
+          "startTick": 900,
+          "requestTick": 900,
+          "requestToAttackSeconds": 0,
+          "queueToCommitSeconds": 0,
+          "preparationFrames": {
+            "position": 0,
+            "alignment": 0,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "preparationSeconds": {
+            "position": 0,
+            "alignment": 0,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "maxAbsMove": 0,
+          "firstStageTicks": {
+            "aim": 900,
+            "extend": 929,
+            "hold": 946,
+            "recover": 952
+          },
+          "K": {
+            "aim": 0.24665506598828127,
+            "extend": 0.14,
+            "hold": 0.05,
+            "recover": 0.108,
+            "reach": 0.5
+          },
+          "opportunityClose": {
+            "score": 0.6166376649707032,
+            "hand": [
+              0.050000000000000044,
+              0.41015118622249136,
+              0.15000000000000002
+            ],
+            "dir": [
+              0.8121822849976632,
+              -0.5466937480491109,
+              -0.20368083311885257
+            ],
+            "extension": 0.28,
+            "start": [
+              0.5073718864799047,
+              0.10253559314063004,
+              0.049299871086588815
+            ],
+            "startDir": [
+              0.9819594404050652,
+              -0.0059120062103308335,
+              0.18899918751324066
+            ],
+            "target": [
+              0.8540604621476866,
+              -0.1310756243461284,
+              -0.051644024787664
+            ],
+            "phase": "aim",
+            "aim": 0.24665506598828127
+          },
+          "opportunityCut": null,
+          "attackKind": "thrust",
+          "grippingAtAttack": false,
+          "grippingAtFirstExtension": false,
+          "movementAtAttack": {
+            "netHorizontalM": 0.0005427666642596399,
+            "forwardM": 0.000401667862734629,
+            "pathHorizontalM": 0.0005427666642596399,
+            "from": [
+              -0.6179977059364319,
+              1.2561955451965332,
+              -0.004893697798252106
+            ],
+            "to": [
+              -0.6176180243492126,
+              1.2560770511627197,
+              -0.005281560588628054
+            ]
+          },
+          "movementAtFirstExtension": {
+            "netHorizontalM": 0.03232276648164817,
+            "forwardM": 0.03042579180440244,
+            "pathHorizontalM": 0.03317716347635837,
+            "from": [
+              -0.6179977059364319,
+              1.2561955451965332,
+              -0.004893697798252106
+            ],
+            "to": [
+              -0.5882604122161865,
+              1.2516876459121704,
+              -0.017560765147209167
+            ]
+          },
+          "requestToFirstExtensionSeconds": 0.24166666666666667,
+          "movementAtFirstVitalHit": null,
+          "requestToFirstLiveTargetVitalStabSeconds": null,
+          "aliveTargetVitalStabApplied": [],
+          "vitalStabSuccess": false,
+          "requestToFirstLiveTargetNeckCutSeconds": null,
+          "movementAtFirstNeckCut": null,
+          "aliveTargetNeckCutApplied": [],
+          "neckCutSuccess": false
+        }
+      ],
+      "selfGeometry": {
+        "observedFrames": 124,
+        "penetrations": [],
+        "maxPenetrationM": 0
+      },
+      "arms": {
+        "S": {
+          "finite": true,
+          "minElbowChestX": -0.06448224214409937,
+          "minWristChestX": -0.15982553073007016,
+          "upperRearFrames": 0,
+          "wristRearFrames": 12
+        },
+        "O": {
+          "finite": true,
+          "minElbowChestX": -0.00019735408655856097,
+          "minWristChestX": 0.007238223656303,
+          "upperRearFrames": 0,
+          "wristRearFrames": 0
+        }
+      },
+      "body": {
+        "att": {
+          "finite": true,
+          "maxJointGapM": 0.0015854986917944519,
+          "maxLinearSpeed": 3.8098195876619485,
+          "maxAngularSpeed": 28.321436220105735,
+          "maxChestSpeed": 0.6869014048749118,
+          "maxPelvisSpeed": 0.68569980187214,
+          "maxTiltDegrees": 11.955408536529525
+        },
+        "vic": {
+          "finite": true,
+          "maxJointGapM": 0.001721287071615457,
+          "maxLinearSpeed": 3.6457262120239693,
+          "maxAngularSpeed": 30.393132588284423,
+          "maxChestSpeed": 1.3277049094941522,
+          "maxPelvisSpeed": 1.2827712085219263,
+          "maxTiltDegrees": 30.338266558351993
+        }
+      }
+    },
+    {
+      "report": "/tmp/halfsword-close-native06/report.json",
+      "name": "thrustGuardEstoc",
+      "model": "quick",
+      "rawFile": "thrustGuardEstoc-quick.json.gz",
+      "rawSHA256": "16fc29e2c6f943d863cfc2b71397e7a191328c4e98ab934d8f4b3d85fcfd95a8",
+      "actualSpecialAttacks": 1,
+      "branch": {
+        "enabled": false,
+        "actualCloseStarts": 0,
+        "actualCutStarts": 0,
+        "thrustPushDuringCutFrames": 0,
+        "unboundSpecialWithoutPlan": 1,
+        "note": "Without-plan count establishes planner-null fallback only when close is enabled and start is special, not down, and not bound."
+      },
+      "vitalStabSuccesses": 1,
+      "neckCutWoundSuccesses": 0,
+      "neckContactAttackIds": [],
+      "attempts": [
+        {
+          "tapId": 0,
+          "beginTick": 720,
+          "startTick": 899,
+          "requestTick": 720,
+          "requestToAttackSeconds": 1.4916666666666667,
+          "queueToCommitSeconds": 1.4916666666666667,
+          "preparationFrames": {
+            "position": 178,
+            "alignment": 1,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "preparationSeconds": {
+            "position": 1.4833333333333334,
+            "alignment": 0.008333333333333333,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "maxAbsMove": 0.78,
+          "firstStageTicks": {
+            "aim": 899,
+            "extend": 912,
+            "hold": 929,
+            "recover": 934
+          },
+          "K": {
+            "aim": 0.11,
+            "extend": 0.14,
+            "hold": 0.05,
+            "recover": 0.126,
+            "reach": 0.52
+          },
+          "opportunityClose": null,
+          "opportunityCut": null,
+          "attackKind": "thrust",
+          "grippingAtAttack": true,
+          "grippingAtFirstExtension": true,
+          "movementAtAttack": {
+            "netHorizontalM": 0.7326969306030056,
+            "forwardM": -0.7326099221245954,
+            "pathHorizontalM": 0.7477314724361716,
+            "from": [
+              -0.6343086957931519,
+              1.251144289970398,
+              -0.0026732024271041155
+            ],
+            "to": [
+              -1.3649516105651855,
+              1.2956348657608032,
+              0.05215127393603325
+            ]
+          },
+          "movementAtFirstExtension": {
+            "netHorizontalM": 0.7363454320935515,
+            "forwardM": -0.7363453580901762,
+            "pathHorizontalM": 0.7602903029593291,
+            "from": [
+              -0.6343086957931519,
+              1.251144289970398,
+              -0.0026732024271041155
+            ],
+            "to": [
+              -1.3693320751190186,
+              1.2980927228927612,
+              0.041431527584791183
+            ]
+          },
+          "requestToFirstExtensionSeconds": 1.6,
+          "movementAtFirstVitalHit": {
+            "netHorizontalM": 0.7409801855845499,
+            "forwardM": -0.7409799106623863,
+            "pathHorizontalM": 0.765211313568772,
+            "from": [
+              -0.6343086957931519,
+              1.251144289970398,
+              -0.0026732024271041155
+            ],
+            "to": [
+              -1.373940110206604,
+              1.2993433475494385,
+              0.042014673352241516
+            ]
+          },
+          "requestToFirstLiveTargetVitalStabSeconds": 1.6583333333333332,
+          "aliveTargetVitalStabApplied": [
+            {
+              "tick": 919,
+              "zone": "neck",
+              "type": "stab",
+              "energy": 24.987105588767605,
+              "ephys": 12.493552794383803,
+              "eff": 33.73259254483627,
+              "threshold": 16,
+              "severity": 0.29554320908060455,
+              "pass": true,
+              "woundDelta": 1,
+              "bloodDelta": 0,
+              "aliveAfter": true
+            }
+          ],
+          "vitalStabSuccess": true,
+          "requestToFirstLiveTargetNeckCutSeconds": null,
+          "movementAtFirstNeckCut": null,
+          "aliveTargetNeckCutApplied": [],
+          "neckCutSuccess": false
+        }
+      ],
+      "selfGeometry": {
+        "observedFrames": 51,
+        "penetrations": [],
+        "maxPenetrationM": 0
+      },
+      "arms": {
+        "S": {
+          "finite": true,
+          "minElbowChestX": -0.026722434237452873,
+          "minWristChestX": 0.24070057224217833,
+          "upperRearFrames": 0,
+          "wristRearFrames": 0
+        },
+        "O": {
+          "finite": true,
+          "minElbowChestX": -0.007165031353849122,
+          "minWristChestX": 0.004000960494281558,
+          "upperRearFrames": 0,
+          "wristRearFrames": 0
+        }
+      },
+      "body": {
+        "att": {
+          "finite": true,
+          "maxJointGapM": 0.0021737104777882297,
+          "maxLinearSpeed": 4.30999587167459,
+          "maxAngularSpeed": 97.45729968033476,
+          "maxChestSpeed": 0.8509868180746851,
+          "maxPelvisSpeed": 0.908352557387967,
+          "maxTiltDegrees": 14.496035145950799
+        },
+        "vic": {
+          "finite": true,
+          "maxJointGapM": 0.0017141602443181997,
+          "maxLinearSpeed": 3.353511188929454,
+          "maxAngularSpeed": 26.18327929576836,
+          "maxChestSpeed": 1.3245280956211498,
+          "maxPelvisSpeed": 1.2812142572980032,
+          "maxTiltDegrees": 30.30905209270858
+        }
+      }
+    },
+    {
+      "report": "/tmp/halfsword-close-native06/report.json",
+      "name": "thrustGuardEstoc",
+      "model": "close",
+      "rawFile": "thrustGuardEstoc-close.json.gz",
+      "rawSHA256": "a1d0283767f9270695b464f9e794d1ce883dd2c15e9365cb92d9fc8ad3eda971",
+      "actualSpecialAttacks": 2,
+      "branch": {
+        "enabled": true,
+        "actualCloseStarts": 0,
+        "actualCutStarts": 2,
+        "thrustPushDuringCutFrames": 0,
+        "unboundSpecialWithoutPlan": 2,
+        "note": "Without-plan count establishes planner-null fallback only when close is enabled and start is special, not down, and not bound."
+      },
+      "vitalStabSuccesses": 0,
+      "neckCutWoundSuccesses": 0,
+      "neckContactAttackIds": [],
+      "attempts": [
+        {
+          "tapId": 0,
+          "beginTick": 720,
+          "startTick": 720,
+          "requestTick": 720,
+          "requestToAttackSeconds": 0,
+          "queueToCommitSeconds": 0,
+          "preparationFrames": {
+            "position": 0,
+            "alignment": 0,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "preparationSeconds": {
+            "position": 0,
+            "alignment": 0,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "maxAbsMove": 0,
+          "firstStageTicks": {
+            "aim": 720,
+            "extend": 748,
+            "hold": 778,
+            "recover": 784
+          },
+          "K": {
+            "aim": 0.24,
+            "extend": 0.25,
+            "hold": 0.05,
+            "recover": 0.126,
+            "reach": 0.52
+          },
+          "opportunityClose": null,
+          "opportunityCut": {
+            "score": 0.2824908341514598,
+            "hand": [
+              0.3,
+              -0.05846488581952389,
+              0.18
+            ],
+            "yaw": -0.3936277947458067,
+            "pitch": -0.16115054385339916,
+            "arc": 0.6,
+            "sign": -1,
+            "chamberDir": [
+              0.9660989855058266,
+              -0.16045394919762634,
+              0.2022554829701737
+            ],
+            "along": 0.6232317777160659,
+            "start": [
+              0.28049646348161217,
+              -0.1722220485743644,
+              0.37955609042580063
+            ],
+            "startDir": [
+              0.7792052943759992,
+              -0.3227811406000364,
+              0.5372629193321943
+            ],
+            "target": [
+              0.23214910492456386,
+              1.092679404150874,
+              -0.08012102891578796
+            ],
+            "targetLocal": [
+              0.8681118732112446,
+              -0.1584648858195239,
+              -0.05593801785964538
+            ],
+            "phase": "aim",
+            "aim": 0.24,
+            "extend": 0.25
+          },
+          "attackKind": "cut",
+          "grippingAtAttack": true,
+          "grippingAtFirstExtension": true,
+          "movementAtAttack": {
+            "netHorizontalM": 7.068833810185066e-05,
+            "forwardM": -5.570061163925171e-06,
+            "pathHorizontalM": 7.068833810185066e-05,
+            "from": [
+              -0.6343086957931519,
+              1.251144289970398,
+              -0.0026732024271041155
+            ],
+            "to": [
+              -0.6343100666999817,
+              1.2510936260223389,
+              -0.0026025273837149143
+            ]
+          },
+          "movementAtFirstExtension": {
+            "netHorizontalM": 0.020088940945582782,
+            "forwardM": 0.01585865738768645,
+            "pathHorizontalM": 0.021846048811595825,
+            "from": [
+              -0.6343086957931519,
+              1.251144289970398,
+              -0.0026732024271041155
+            ],
+            "to": [
+              -0.6177449822425842,
+              1.2484006881713867,
+              0.008693808689713478
+            ]
+          },
+          "requestToFirstExtensionSeconds": 0.23333333333333334,
+          "movementAtFirstVitalHit": null,
+          "requestToFirstLiveTargetVitalStabSeconds": null,
+          "aliveTargetVitalStabApplied": [],
+          "vitalStabSuccess": false,
+          "requestToFirstLiveTargetNeckCutSeconds": null,
+          "movementAtFirstNeckCut": null,
+          "aliveTargetNeckCutApplied": [],
+          "neckCutSuccess": false
+        },
+        {
+          "tapId": 1,
+          "beginTick": 900,
+          "startTick": 900,
+          "requestTick": 900,
+          "requestToAttackSeconds": 0,
+          "queueToCommitSeconds": 0,
+          "preparationFrames": {
+            "position": 0,
+            "alignment": 0,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "preparationSeconds": {
+            "position": 0,
+            "alignment": 0,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "maxAbsMove": 0,
+          "firstStageTicks": {
+            "aim": 900,
+            "extend": 928,
+            "hold": 958,
+            "recover": 964
+          },
+          "K": {
+            "aim": 0.24,
+            "extend": 0.25,
+            "hold": 0.05,
+            "recover": 0.126,
+            "reach": 0.52
+          },
+          "opportunityClose": null,
+          "opportunityCut": {
+            "score": 0.24955086383743388,
+            "hand": [
+              0.3,
+              -0.25690718338374563,
+              0.06
+            ],
+            "yaw": -0.2101826951697285,
+            "pitch": 0.1735420086347519,
+            "arc": 0.6,
+            "sign": -1,
+            "chamberDir": [
+              0.9110847157225095,
+              0.172672230257223,
+              0.37431128980412914
+            ],
+            "along": 0.579131918612703,
+            "start": [
+              0.3062523343946233,
+              -0.27244761774648435,
+              0.24816890285085885
+            ],
+            "startDir": [
+              0.8912129185675837,
+              -0.32460585391294927,
+              0.3168131521633761
+            ],
+            "target": [
+              0.234261182508908,
+              1.0930220062982612,
+              -0.08874483595496595
+            ],
+            "targetLocal": [
+              0.8578793504579989,
+              -0.15690718338374565,
+              -0.059014324720143084
+            ],
+            "phase": "aim",
+            "aim": 0.24,
+            "extend": 0.25
+          },
+          "attackKind": "cut",
+          "grippingAtAttack": true,
+          "grippingAtFirstExtension": true,
+          "movementAtAttack": {
+            "netHorizontalM": 0.0004185438330576833,
+            "forwardM": -0.00029481467032777426,
+            "pathHorizontalM": 0.0004185438330576833,
+            "from": [
+              -0.6202578544616699,
+              1.2499291896820068,
+              0.007363883312791586
+            ],
+            "to": [
+              -0.6205276250839233,
+              1.2499216794967651,
+              0.007683887612074614
+            ]
+          },
+          "movementAtFirstExtension": {
+            "netHorizontalM": 0.012009329566264153,
+            "forwardM": 0.005950805030698327,
+            "pathHorizontalM": 0.02360235261190166,
+            "from": [
+              -0.6202578544616699,
+              1.2499291896820068,
+              0.007363883312791586
+            ],
+            "to": [
+              -0.6151719093322754,
+              1.2510929107666016,
+              -0.0035153243225067854
+            ]
+          },
+          "requestToFirstExtensionSeconds": 0.23333333333333334,
+          "movementAtFirstVitalHit": null,
+          "requestToFirstLiveTargetVitalStabSeconds": null,
+          "aliveTargetVitalStabApplied": [],
+          "vitalStabSuccess": false,
+          "requestToFirstLiveTargetNeckCutSeconds": null,
+          "movementAtFirstNeckCut": null,
+          "aliveTargetNeckCutApplied": [],
+          "neckCutSuccess": false
+        }
+      ],
+      "selfGeometry": {
+        "observedFrames": 158,
+        "penetrations": [],
+        "maxPenetrationM": 0
+      },
+      "arms": {
+        "S": {
+          "finite": true,
+          "minElbowChestX": 0.052714787903948165,
+          "minWristChestX": 0.29679221614646895,
+          "upperRearFrames": 0,
+          "wristRearFrames": 0
+        },
+        "O": {
+          "finite": true,
+          "minElbowChestX": -0.007165031353849122,
+          "minWristChestX": 0.004000960494281558,
+          "upperRearFrames": 0,
+          "wristRearFrames": 0
+        }
+      },
+      "body": {
+        "att": {
+          "finite": true,
+          "maxJointGapM": 0.0020642794916583954,
+          "maxLinearSpeed": 3.643683942162533,
+          "maxAngularSpeed": 97.45729968033476,
+          "maxChestSpeed": 0.7027472426619257,
+          "maxPelvisSpeed": 0.6992462857548349,
+          "maxTiltDegrees": 12.955200937091451
+        },
+        "vic": {
+          "finite": true,
+          "maxJointGapM": 0.0017141602443181997,
+          "maxLinearSpeed": 3.353511188929454,
+          "maxAngularSpeed": 26.18327929576836,
+          "maxChestSpeed": 1.3245280956211498,
+          "maxPelvisSpeed": 1.2812142572980032,
+          "maxTiltDegrees": 30.30905209270858
+        }
+      }
+    },
+    {
+      "report": "/tmp/halfsword-close-native07/report.json",
+      "name": "thrustGuardEstoc",
+      "model": "quick",
+      "rawFile": "thrustGuardEstoc-quick.json.gz",
+      "rawSHA256": "9d8ef7cab6b725e5c81a195adfcb136de37ec2a82f287e3e10384997721f520a",
+      "actualSpecialAttacks": 1,
+      "branch": {
+        "enabled": false,
+        "actualCloseStarts": 0,
+        "actualCutStarts": 0,
+        "thrustPushDuringCutFrames": 0,
+        "unboundSpecialWithoutPlan": 1,
+        "note": "Without-plan count establishes planner-null fallback only when close is enabled and start is a special thrust, not cut/down/bound."
+      },
+      "vitalStabSuccesses": 1,
+      "neckCutWoundSuccesses": 0,
+      "neckContactAttackIds": [
+        0
+      ],
+      "attempts": [
+        {
+          "tapId": 0,
+          "beginTick": 720,
+          "startTick": 899,
+          "requestTick": 720,
+          "requestToAttackSeconds": 1.4916666666666667,
+          "queueToCommitSeconds": 1.4916666666666667,
+          "preparationFrames": {
+            "position": 178,
+            "alignment": 1,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "preparationSeconds": {
+            "position": 1.4833333333333334,
+            "alignment": 0.008333333333333333,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "maxAbsMove": 0.78,
+          "firstStageTicks": {
+            "aim": 899,
+            "extend": 912,
+            "hold": 929,
+            "recover": 934
+          },
+          "K": {
+            "aim": 0.11,
+            "extend": 0.14,
+            "hold": 0.05,
+            "recover": 0.126,
+            "reach": 0.52
+          },
+          "opportunityClose": null,
+          "opportunityCut": null,
+          "attackKind": "thrust",
+          "grippingAtAttack": true,
+          "grippingAtFirstExtension": true,
+          "movementAtAttack": {
+            "netHorizontalM": 0.7326969306030056,
+            "forwardM": -0.7326099221245954,
+            "pathHorizontalM": 0.7477314724361716,
+            "from": [
+              -0.6343086957931519,
+              1.251144289970398,
+              -0.0026732024271041155
+            ],
+            "to": [
+              -1.3649516105651855,
+              1.2956348657608032,
+              0.05215127393603325
+            ]
+          },
+          "movementAtFirstExtension": {
+            "netHorizontalM": 0.7363454320935515,
+            "forwardM": -0.7363453580901762,
+            "pathHorizontalM": 0.7602903029593291,
+            "from": [
+              -0.6343086957931519,
+              1.251144289970398,
+              -0.0026732024271041155
+            ],
+            "to": [
+              -1.3693320751190186,
+              1.2980927228927612,
+              0.041431527584791183
+            ]
+          },
+          "requestToFirstExtensionSeconds": 1.6,
+          "movementAtFirstVitalHit": {
+            "netHorizontalM": 0.7409801855845499,
+            "forwardM": -0.7409799106623863,
+            "pathHorizontalM": 0.765211313568772,
+            "from": [
+              -0.6343086957931519,
+              1.251144289970398,
+              -0.0026732024271041155
+            ],
+            "to": [
+              -1.373940110206604,
+              1.2993433475494385,
+              0.042014673352241516
+            ]
+          },
+          "requestToFirstLiveTargetVitalStabSeconds": 1.6583333333333332,
+          "aliveTargetVitalStabApplied": [
+            {
+              "tick": 919,
+              "zone": "neck",
+              "type": "stab",
+              "energy": 24.987105588767605,
+              "ephys": 12.493552794383803,
+              "eff": 33.73259254483627,
+              "threshold": 16,
+              "severity": 0.29554320908060455,
+              "pass": true,
+              "woundDelta": 1,
+              "bloodDelta": 0,
+              "aliveAfter": true
+            }
+          ],
+          "vitalStabSuccess": true,
+          "requestToFirstLiveTargetNeckCutSeconds": null,
+          "movementAtFirstNeckCut": null,
+          "aliveTargetNeckCutApplied": [],
+          "neckCutSuccess": false
+        }
+      ],
+      "selfGeometry": {
+        "observedFrames": 51,
+        "penetrations": [],
+        "maxPenetrationM": 0
+      },
+      "arms": {
+        "S": {
+          "finite": true,
+          "minElbowChestX": -0.026722434237452873,
+          "minWristChestX": 0.24070057224217833,
+          "upperRearFrames": 0,
+          "wristRearFrames": 0
+        },
+        "O": {
+          "finite": true,
+          "minElbowChestX": -0.007165031353849122,
+          "minWristChestX": 0.004000960494281558,
+          "upperRearFrames": 0,
+          "wristRearFrames": 0
+        }
+      },
+      "body": {
+        "att": {
+          "finite": true,
+          "maxJointGapM": 0.0021737104777882297,
+          "maxLinearSpeed": 4.30999587167459,
+          "maxAngularSpeed": 97.45729968033476,
+          "maxChestSpeed": 0.8509868180746851,
+          "maxPelvisSpeed": 0.908352557387967,
+          "maxTiltDegrees": 14.496035145950799
+        },
+        "vic": {
+          "finite": true,
+          "maxJointGapM": 0.0017141602443181997,
+          "maxLinearSpeed": 3.353511188929454,
+          "maxAngularSpeed": 26.18327929576836,
+          "maxChestSpeed": 1.3245280956211498,
+          "maxPelvisSpeed": 1.2812142572980032,
+          "maxTiltDegrees": 30.30905209270858
+        }
+      }
+    },
+    {
+      "report": "/tmp/halfsword-close-native07/report.json",
+      "name": "thrustGuardEstoc",
+      "model": "close",
+      "rawFile": "thrustGuardEstoc-close.json.gz",
+      "rawSHA256": "a1e15184badabab0fb8fd101cb38be7f6976389b39da82880c1440f4e1d7f7de",
+      "actualSpecialAttacks": 2,
+      "branch": {
+        "enabled": true,
+        "actualCloseStarts": 0,
+        "actualCutStarts": 2,
+        "thrustPushDuringCutFrames": 0,
+        "unboundSpecialWithoutPlan": 0,
+        "note": "Without-plan count establishes planner-null fallback only when close is enabled and start is a special thrust, not cut/down/bound."
+      },
+      "vitalStabSuccesses": 0,
+      "neckCutWoundSuccesses": 0,
+      "neckContactAttackIds": [
+        0,
+        1
+      ],
+      "attempts": [
+        {
+          "tapId": 0,
+          "beginTick": 720,
+          "startTick": 720,
+          "requestTick": 720,
+          "requestToAttackSeconds": 0,
+          "queueToCommitSeconds": 0,
+          "preparationFrames": {
+            "position": 0,
+            "alignment": 0,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "preparationSeconds": {
+            "position": 0,
+            "alignment": 0,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "maxAbsMove": 0,
+          "firstStageTicks": {
+            "aim": 720,
+            "extend": 748,
+            "hold": 778,
+            "recover": 784
+          },
+          "K": {
+            "aim": 0.24,
+            "extend": 0.25,
+            "hold": 0.05,
+            "recover": 0.126,
+            "reach": 0.52
+          },
+          "opportunityClose": null,
+          "opportunityCut": {
+            "score": 0.2824908341514598,
+            "hand": [
+              0.3,
+              -0.05846488581952389,
+              0.18
+            ],
+            "yaw": -0.3936277947458067,
+            "pitch": -0.16115054385339916,
+            "arc": 0.6,
+            "sign": -1,
+            "chamberDir": [
+              0.9660989855058266,
+              -0.16045394919762634,
+              0.2022554829701737
+            ],
+            "along": 0.6232317777160659,
+            "start": [
+              0.28049646348161217,
+              -0.1722220485743644,
+              0.37955609042580063
+            ],
+            "startDir": [
+              0.7792052943759992,
+              -0.3227811406000364,
+              0.5372629193321943
+            ],
+            "target": [
+              0.23214910492456386,
+              1.092679404150874,
+              -0.08012102891578796
+            ],
+            "targetLocal": [
+              0.8681118732112446,
+              -0.1584648858195239,
+              -0.05593801785964538
+            ],
+            "captureChest": [
+              -0.6343086957931519,
+              1.251144289970398,
+              -0.0026732024271041155
+            ],
+            "captureYaw": [
+              0,
+              0.012399706562914878,
+              0,
+              0.9999231206833621
+            ],
+            "handTrim": 0,
+            "pitchTrim": 0,
+            "trackingLocked": false,
+            "phase": "aim",
+            "aim": 0.24,
+            "extend": 0.25
+          },
+          "attackKind": "cut",
+          "grippingAtAttack": true,
+          "grippingAtFirstExtension": true,
+          "movementAtAttack": {
+            "netHorizontalM": 7.070882334612086e-05,
+            "forwardM": -5.571279225555033e-06,
+            "pathHorizontalM": 7.070882334612087e-05,
+            "from": [
+              -0.6343086957931519,
+              1.251144289970398,
+              -0.0026732024271041155
+            ],
+            "to": [
+              -0.6343100666999817,
+              1.2510936260223389,
+              -0.0026025068946182728
+            ]
+          },
+          "movementAtFirstExtension": {
+            "netHorizontalM": 0.020954334675360484,
+            "forwardM": 0.016408851917905736,
+            "pathHorizontalM": 0.022694886611776446,
+            "from": [
+              -0.6343086957931519,
+              1.251144289970398,
+              -0.0026732024271041155
+            ],
+            "to": [
+              -0.6171541213989258,
+              1.2482681274414062,
+              0.009360280819237232
+            ]
+          },
+          "requestToFirstExtensionSeconds": 0.23333333333333334,
+          "movementAtFirstVitalHit": null,
+          "requestToFirstLiveTargetVitalStabSeconds": null,
+          "aliveTargetVitalStabApplied": [],
+          "vitalStabSuccess": false,
+          "requestToFirstLiveTargetNeckCutSeconds": null,
+          "movementAtFirstNeckCut": null,
+          "aliveTargetNeckCutApplied": [],
+          "neckCutSuccess": false
+        },
+        {
+          "tapId": 1,
+          "beginTick": 900,
+          "startTick": 900,
+          "requestTick": 900,
+          "requestToAttackSeconds": 0,
+          "queueToCommitSeconds": 0,
+          "preparationFrames": {
+            "position": 0,
+            "alignment": 0,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "preparationSeconds": {
+            "position": 0,
+            "alignment": 0,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "maxAbsMove": 0,
+          "firstStageTicks": {
+            "aim": 900,
+            "extend": 928,
+            "hold": 958,
+            "recover": 964
+          },
+          "K": {
+            "aim": 0.24,
+            "extend": 0.25,
+            "hold": 0.05,
+            "recover": 0.126,
+            "reach": 0.52
+          },
+          "opportunityClose": null,
+          "opportunityCut": {
+            "score": 0.2495358754758988,
+            "hand": [
+              0.3,
+              -0.2577985620246105,
+              0.06
+            ],
+            "yaw": -0.21194160718047353,
+            "pitch": 0.17479119202630347,
+            "arc": 0.6,
+            "sign": -1,
+            "chamberDir": [
+              0.911541314278696,
+              0.1739025150462318,
+              0.37262628412883414
+            ],
+            "along": 0.5750348117358457,
+            "start": [
+              0.3062523343946233,
+              -0.27244761774648435,
+              0.24816890285085885
+            ],
+            "startDir": [
+              0.8758471086339389,
+              -0.32607145371556234,
+              0.35576572258916267
+            ],
+            "target": [
+              0.23004287038973897,
+              1.0920296573891468,
+              -0.08775680548735962
+            ],
+            "targetLocal": [
+              0.853602193506143,
+              -0.1577985620246105,
+              -0.05912030076047656
+            ],
+            "captureChest": [
+              -0.6204017996788025,
+              1.2498282194137573,
+              0.006454541347920895
+            ],
+            "captureYaw": [
+              0,
+              0.020588405634384757,
+              0,
+              0.9997880363124146
+            ],
+            "handTrim": 0,
+            "pitchTrim": 0,
+            "trackingLocked": false,
+            "phase": "aim",
+            "aim": 0.24,
+            "extend": 0.25
+          },
+          "attackKind": "cut",
+          "grippingAtAttack": true,
+          "grippingAtFirstExtension": true,
+          "movementAtAttack": {
+            "netHorizontalM": 0.00039489149055853875,
+            "forwardM": -0.00023222316833326097,
+            "pathHorizontalM": 0.00039489149055853875,
+            "from": [
+              -0.6204017996788025,
+              1.2498282194137573,
+              0.006454541347920895
+            ],
+            "to": [
+              -0.6206079721450806,
+              1.2498992681503296,
+              0.006791338324546814
+            ]
+          },
+          "movementAtFirstExtension": {
+            "netHorizontalM": 0.012928908112315105,
+            "forwardM": 0.007081778878224879,
+            "pathHorizontalM": 0.024485955230459763,
+            "from": [
+              -0.6204017996788025,
+              1.2498282194137573,
+              0.006454541347920895
+            ],
+            "to": [
+              -0.6141998171806335,
+              1.2510219812393188,
+              -0.0048897117376327515
+            ]
+          },
+          "requestToFirstExtensionSeconds": 0.23333333333333334,
+          "movementAtFirstVitalHit": null,
+          "requestToFirstLiveTargetVitalStabSeconds": null,
+          "aliveTargetVitalStabApplied": [],
+          "vitalStabSuccess": false,
+          "requestToFirstLiveTargetNeckCutSeconds": null,
+          "movementAtFirstNeckCut": null,
+          "aliveTargetNeckCutApplied": [],
+          "neckCutSuccess": false
+        }
+      ],
+      "selfGeometry": {
+        "observedFrames": 158,
+        "penetrations": [],
+        "maxPenetrationM": 0
+      },
+      "arms": {
+        "S": {
+          "finite": true,
+          "minElbowChestX": 0.022204016307586883,
+          "minWristChestX": 0.2665454208288267,
+          "upperRearFrames": 0,
+          "wristRearFrames": 0
+        },
+        "O": {
+          "finite": true,
+          "minElbowChestX": -0.007165031353849122,
+          "minWristChestX": 0.004000960494281558,
+          "upperRearFrames": 0,
+          "wristRearFrames": 0
+        }
+      },
+      "body": {
+        "att": {
+          "finite": true,
+          "maxJointGapM": 0.0020642794916583954,
+          "maxLinearSpeed": 3.655785697001096,
+          "maxAngularSpeed": 97.45729968033476,
+          "maxChestSpeed": 0.7027472426619257,
+          "maxPelvisSpeed": 0.6992462857548349,
+          "maxTiltDegrees": 13.405469975030293
+        },
+        "vic": {
+          "finite": true,
+          "maxJointGapM": 0.0017141602443181997,
+          "maxLinearSpeed": 3.353511188929454,
+          "maxAngularSpeed": 26.18327929576836,
+          "maxChestSpeed": 1.3245280956211498,
+          "maxPelvisSpeed": 1.2812142572980032,
+          "maxTiltDegrees": 30.30905209270858
+        }
+      }
+    },
+    {
+      "report": "/tmp/halfsword-close-rapier-mid01/report.json",
+      "name": "thrustGuard",
+      "model": "quick",
+      "rawFile": "thrustGuard-quick.json.gz",
+      "rawSHA256": "5b59f62940724c6f4ed77e10891070db0fcd6dc38ff8a4bef3ff8ca07898eca8",
+      "actualSpecialAttacks": 2,
+      "branch": {
+        "enabled": false,
+        "actualCloseStarts": 0,
+        "actualCutStarts": 0,
+        "thrustPushDuringCutFrames": 0,
+        "unboundSpecialWithoutPlan": 2,
+        "note": "Without-plan count establishes planner-null fallback only when close is enabled and start is a special thrust, not cut/down/bound."
+      },
+      "vitalStabSuccesses": 1,
+      "neckCutWoundSuccesses": 0,
+      "neckContactAttackIds": [],
+      "attempts": [
+        {
+          "tapId": 0,
+          "beginTick": 720,
+          "startTick": 734,
+          "requestTick": 720,
+          "requestToAttackSeconds": 0.11666666666666667,
+          "queueToCommitSeconds": 0.11666666666666667,
+          "preparationFrames": {
+            "position": 13,
+            "alignment": 1,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "preparationSeconds": {
+            "position": 0.10833333333333334,
+            "alignment": 0.008333333333333333,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "maxAbsMove": 0.4056980367178153,
+          "firstStageTicks": {
+            "aim": 734,
+            "extend": 747,
+            "hold": 764,
+            "recover": 769
+          },
+          "K": {
+            "aim": 0.11,
+            "extend": 0.14,
+            "hold": 0.05,
+            "recover": 0.108,
+            "reach": 0.5
+          },
+          "opportunityClose": null,
+          "opportunityCut": null,
+          "attackKind": "thrust",
+          "grippingAtAttack": false,
+          "grippingAtFirstExtension": false,
+          "movementAtAttack": {
+            "netHorizontalM": 0.009101236172139785,
+            "forwardM": -0.008459641943620807,
+            "pathHorizontalM": 0.01015288347293847,
+            "from": [
+              -0.8149183988571167,
+              1.2548669576644897,
+              -0.008898131549358368
+            ],
+            "to": [
+              -0.8232578039169312,
+              1.2538096904754639,
+              -0.0052530220709741116
+            ]
+          },
+          "movementAtFirstExtension": {
+            "netHorizontalM": 0.01088638588651483,
+            "forwardM": 0.010438705101579269,
+            "pathHorizontalM": 0.029192694075684814,
+            "from": [
+              -0.8149183988571167,
+              1.2548669576644897,
+              -0.008898131549358368
+            ],
+            "to": [
+              -0.8043797612190247,
+              1.2495814561843872,
+              -0.006168568506836891
+            ]
+          },
+          "requestToFirstExtensionSeconds": 0.225,
+          "movementAtFirstVitalHit": null,
+          "requestToFirstLiveTargetVitalStabSeconds": null,
+          "aliveTargetVitalStabApplied": [],
+          "vitalStabSuccess": false,
+          "requestToFirstLiveTargetNeckCutSeconds": null,
+          "movementAtFirstNeckCut": null,
+          "aliveTargetNeckCutApplied": [],
+          "neckCutSuccess": false
+        },
+        {
+          "tapId": 1,
+          "beginTick": 900,
+          "startTick": 1011,
+          "requestTick": 900,
+          "requestToAttackSeconds": 0.9249999999999999,
+          "queueToCommitSeconds": 0.9249999999999999,
+          "preparationFrames": {
+            "position": 111,
+            "alignment": 0,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "preparationSeconds": {
+            "position": 0.9249999999999999,
+            "alignment": 0,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "maxAbsMove": 0.78,
+          "firstStageTicks": {
+            "aim": 1011,
+            "extend": 1024,
+            "hold": 1041,
+            "recover": 1046
+          },
+          "K": {
+            "aim": 0.11,
+            "extend": 0.14,
+            "hold": 0.05,
+            "recover": 0.108,
+            "reach": 0.5
+          },
+          "opportunityClose": null,
+          "opportunityCut": null,
+          "attackKind": "thrust",
+          "grippingAtAttack": false,
+          "grippingAtFirstExtension": false,
+          "movementAtAttack": {
+            "netHorizontalM": 0.24516616621872112,
+            "forwardM": -0.2448166486311516,
+            "pathHorizontalM": 0.29163519007438954,
+            "from": [
+              -0.7663294076919556,
+              1.2557861804962158,
+              0.02303001657128334
+            ],
+            "to": [
+              -1.0114866495132446,
+              1.3038012981414795,
+              0.025121867656707764
+            ]
+          },
+          "movementAtFirstExtension": {
+            "netHorizontalM": 0.24679092768501212,
+            "forwardM": -0.24675848019797897,
+            "pathHorizontalM": 0.30453995509996795,
+            "from": [
+              -0.7663294076919556,
+              1.2557861804962158,
+              0.02303001657128334
+            ],
+            "to": [
+              -1.0128624439239502,
+              1.299135446548462,
+              0.03430937975645065
+            ]
+          },
+          "requestToFirstExtensionSeconds": 1.0333333333333332,
+          "movementAtFirstVitalHit": {
+            "netHorizontalM": 0.25299744422705434,
+            "forwardM": -0.2529964271479791,
+            "pathHorizontalM": 0.31173039382932877,
+            "from": [
+              -0.7663294076919556,
+              1.2557861804962158,
+              0.02303001657128334
+            ],
+            "to": [
+              -1.0188851356506348,
+              1.300187349319458,
+              0.037973612546920776
+            ]
+          },
+          "requestToFirstLiveTargetVitalStabSeconds": 1.0833333333333333,
+          "aliveTargetVitalStabApplied": [
+            {
+              "tick": 1030,
+              "zone": "head",
+              "type": "stab",
+              "energy": 33.91917349011151,
+              "ephys": 16.959586745055756,
+              "eff": 46.29967181400222,
+              "threshold": 20,
+              "severity": 0.4383278635667036,
+              "pass": true,
+              "woundDelta": 1,
+              "bloodDelta": 0,
+              "aliveAfter": true
+            }
+          ],
+          "vitalStabSuccess": true,
+          "requestToFirstLiveTargetNeckCutSeconds": null,
+          "movementAtFirstNeckCut": null,
+          "aliveTargetNeckCutApplied": [],
+          "neckCutSuccess": false
+        }
+      ],
+      "selfGeometry": {
+        "observedFrames": 96,
+        "penetrations": [],
+        "maxPenetrationM": 0
+      },
+      "arms": {
+        "S": {
+          "finite": true,
+          "minElbowChestX": -0.05127596314939013,
+          "minWristChestX": 0.14647173317865023,
+          "upperRearFrames": 0,
+          "wristRearFrames": 0
+        },
+        "O": {
+          "finite": true,
+          "minElbowChestX": -0.00019711646310886568,
+          "minWristChestX": 0.007238531990103323,
+          "upperRearFrames": 0,
+          "wristRearFrames": 0
+        }
+      },
+      "body": {
+        "att": {
+          "finite": true,
+          "maxJointGapM": 0.0020855922558743545,
+          "maxLinearSpeed": 3.2076733885096718,
+          "maxAngularSpeed": 26.777413048545537,
+          "maxChestSpeed": 0.6815907354057568,
+          "maxPelvisSpeed": 0.680949448157833,
+          "maxTiltDegrees": 14.135236614900839
+        },
+        "vic": {
+          "finite": true,
+          "maxJointGapM": 0.0017219871917156229,
+          "maxLinearSpeed": 4.268049732157119,
+          "maxAngularSpeed": 27.78572119038727,
+          "maxChestSpeed": 1.327686779232297,
+          "maxPelvisSpeed": 1.28329759743798,
+          "maxTiltDegrees": 30.427724148640525
+        }
+      }
+    },
+    {
+      "report": "/tmp/halfsword-close-rapier-mid01/report.json",
+      "name": "thrustGuard",
+      "model": "close",
+      "rawFile": "thrustGuard-close.json.gz",
+      "rawSHA256": "c15bae434afccf48924aeaac6ba7aee735a8f7f2029209c6b5d2a6c0a25114fa",
+      "actualSpecialAttacks": 2,
+      "branch": {
+        "enabled": true,
+        "actualCloseStarts": 2,
+        "actualCutStarts": 0,
+        "thrustPushDuringCutFrames": 0,
+        "unboundSpecialWithoutPlan": 0,
+        "note": "Without-plan count establishes planner-null fallback only when close is enabled and start is a special thrust, not cut/down/bound."
+      },
+      "vitalStabSuccesses": 1,
+      "neckCutWoundSuccesses": 0,
+      "neckContactAttackIds": [],
+      "attempts": [
+        {
+          "tapId": 0,
+          "beginTick": 720,
+          "startTick": 720,
+          "requestTick": 720,
+          "requestToAttackSeconds": 0,
+          "queueToCommitSeconds": 0,
+          "preparationFrames": {
+            "position": 0,
+            "alignment": 0,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "preparationSeconds": {
+            "position": 0,
+            "alignment": 0,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "maxAbsMove": 0,
+          "firstStageTicks": {
+            "aim": 720,
+            "extend": 733,
+            "hold": 750,
+            "recover": 755
+          },
+          "K": {
+            "aim": 0.11,
+            "extend": 0.14,
+            "hold": 0.05,
+            "recover": 0.108,
+            "reach": 0.5
+          },
+          "opportunityClose": {
+            "score": 0.17719762353547625,
+            "hand": [
+              0.30000000000000004,
+              0.021706972375922118,
+              0.25000000000000006
+            ],
+            "dir": [
+              0.9561858699862684,
+              -0.14082635284427947,
+              -0.25666421718498567
+            ],
+            "extension": 0.28,
+            "start": [
+              0.40959477262024013,
+              -0.02675314260636244,
+              0.32839717319432604
+            ],
+            "startDir": [
+              0.9582071063197855,
+              -0.2418017003924292,
+              0.152877114124198
+            ],
+            "target": [
+              1.2466240112864058,
+              -0.11771111693991454,
+              -0.004097575013135754
+            ],
+            "phase": "aim",
+            "aim": 0.11
+          },
+          "opportunityCut": null,
+          "attackKind": "thrust",
+          "grippingAtAttack": false,
+          "grippingAtFirstExtension": false,
+          "movementAtAttack": {
+            "netHorizontalM": 0.0004528828120346425,
+            "forwardM": -0.00045287526323382844,
+            "pathHorizontalM": 0.00045288281203464254,
+            "from": [
+              -0.8149183988571167,
+              1.2548669576644897,
+              -0.008898131549358368
+            ],
+            "to": [
+              -0.8153709173202515,
+              1.254773736000061,
+              -0.008879968896508217
+            ]
+          },
+          "movementAtFirstExtension": {
+            "netHorizontalM": 0.0069565803872440836,
+            "forwardM": 0.0007509330259081108,
+            "pathHorizontalM": 0.008798098481974496,
+            "from": [
+              -0.8149183988571167,
+              1.2548669576644897,
+              -0.008898131549358368
+            ],
+            "to": [
+              -0.8139304518699646,
+              1.2553783655166626,
+              -0.002012060722336173
+            ]
+          },
+          "requestToFirstExtensionSeconds": 0.10833333333333334,
+          "movementAtFirstVitalHit": null,
+          "requestToFirstLiveTargetVitalStabSeconds": null,
+          "aliveTargetVitalStabApplied": [],
+          "vitalStabSuccess": false,
+          "requestToFirstLiveTargetNeckCutSeconds": null,
+          "movementAtFirstNeckCut": null,
+          "aliveTargetNeckCutApplied": [],
+          "neckCutSuccess": false
+        },
+        {
+          "tapId": 1,
+          "beginTick": 900,
+          "startTick": 900,
+          "requestTick": 900,
+          "requestToAttackSeconds": 0,
+          "queueToCommitSeconds": 0,
+          "preparationFrames": {
+            "position": 0,
+            "alignment": 0,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "preparationSeconds": {
+            "position": 0,
+            "alignment": 0,
+            "bothReady": 0,
+            "unknown": 0
+          },
+          "maxAbsMove": 0,
+          "firstStageTicks": {
+            "aim": 900,
+            "extend": 913,
+            "abort": 923
+          },
+          "K": {
+            "aim": 0.11,
+            "extend": 0.14,
+            "hold": 0.05,
+            "recover": 0.108,
+            "reach": 0.5
+          },
+          "opportunityClose": {
+            "score": 0.24029571338405045,
+            "hand": [
+              0.30000000000000004,
+              0.1415191958340274,
+              0.050000000000000044
+            ],
+            "dir": [
+              0.9640757821333411,
+              -0.26066027059465297,
+              -0.05112836431481983
+            ],
+            "extension": 0.28,
+            "start": [
+              0.5089599311044775,
+              0.10039893688249332,
+              0.036369295525961604
+            ],
+            "startDir": [
+              0.9860133589881241,
+              -0.007484356096512101,
+              0.16649923888583604
+            ],
+            "target": [
+              1.2544350243120077,
+              -0.11653447205467904,
+              -0.0006170806716715847
+            ],
+            "phase": "aim",
+            "aim": 0.11
+          },
+          "opportunityCut": null,
+          "attackKind": "thrust",
+          "grippingAtAttack": false,
+          "grippingAtFirstExtension": false,
+          "movementAtAttack": {
+            "netHorizontalM": 0.0006682526662122141,
+            "forwardM": 0.0002896367121107252,
+            "pathHorizontalM": 0.0006682526662122141,
+            "from": [
+              -0.8158292174339294,
+              1.2547975778579712,
+              -0.009032528847455978
+            ],
+            "to": [
+              -0.8155616521835327,
+              1.254658579826355,
+              -0.009644877165555954
+            ]
+          },
+          "movementAtFirstExtension": {
+            "netHorizontalM": 0.013099736650938823,
+            "forwardM": 0.010740599354033193,
+            "pathHorizontalM": 0.014062882717922194,
+            "from": [
+              -0.8158292174339294,
+              1.2547975778579712,
+              -0.009032528847455978
+            ],
+            "to": [
+              -0.805368185043335,
+              1.2535814046859741,
+              -0.016917318105697632
+            ]
+          },
+          "requestToFirstExtensionSeconds": 0.10833333333333334,
+          "movementAtFirstVitalHit": {
+            "netHorizontalM": 0.011790266257264145,
+            "forwardM": 0.01047669048319426,
+            "pathHorizontalM": 0.01754829195155742,
+            "from": [
+              -0.8158292174339294,
+              1.2547975778579712,
+              -0.009032528847455978
+            ],
+            "to": [
+              -0.8055559396743774,
+              1.2518599033355713,
+              -0.014817867428064346
+            ]
+          },
+          "requestToFirstLiveTargetVitalStabSeconds": 0.18333333333333332,
+          "aliveTargetVitalStabApplied": [
+            {
+              "tick": 922,
+              "zone": "head",
+              "type": "stab",
+              "energy": 40.34355879133144,
+              "ephys": 20.17177939566572,
+              "eff": 55.06895775016742,
+              "threshold": 20,
+              "severity": 0.584482629169457,
+              "pass": true,
+              "woundDelta": 1,
+              "bloodDelta": 0,
+              "aliveAfter": false
+            }
+          ],
+          "vitalStabSuccess": true,
+          "requestToFirstLiveTargetNeckCutSeconds": null,
+          "movementAtFirstNeckCut": null,
+          "aliveTargetNeckCutApplied": [],
+          "neckCutSuccess": false
+        }
+      ],
+      "selfGeometry": {
+        "observedFrames": 84,
+        "penetrations": [],
+        "maxPenetrationM": 0
+      },
+      "arms": {
+        "S": {
+          "finite": true,
+          "minElbowChestX": 0.05214839728810803,
+          "minWristChestX": 0.2158370021529144,
+          "upperRearFrames": 0,
+          "wristRearFrames": 0
+        },
+        "O": {
+          "finite": true,
+          "minElbowChestX": -0.00019711646310886568,
+          "minWristChestX": 0.007238531990103323,
+          "upperRearFrames": 0,
+          "wristRearFrames": 0
+        }
+      },
+      "body": {
+        "att": {
+          "finite": true,
+          "maxJointGapM": 0.002090342602839106,
+          "maxLinearSpeed": 3.61970321922411,
+          "maxAngularSpeed": 25.566136224790437,
+          "maxChestSpeed": 0.6815907354057568,
+          "maxPelvisSpeed": 0.680949448157833,
+          "maxTiltDegrees": 12.469790859599357
+        },
+        "vic": {
+          "finite": true,
+          "maxJointGapM": 0.003047892860523938,
+          "maxLinearSpeed": 4.268049732157119,
+          "maxAngularSpeed": 27.78572119038727,
+          "maxChestSpeed": 2.500999913942567,
+          "maxPelvisSpeed": 1.7576602276362625,
+          "maxTiltDegrees": 90.80997315681381
+        }
+      }
+    }
+  ],
+  "nativeTotal": {
+    "executions": 26,
+    "steps": 30721,
+    "includes": "failed prototypes, seed-identical reproducibility repeats, 721-step geometry prefix"
+  },
+  "rapierDistinctConditions": {
+    "gapsM": [
+      1.25,
+      1.65
+    ],
+    "candidateVitalWoundAttacks": 2,
+    "candidateAttacks": 4,
+    "priorVitalWoundAttacks": 1,
+    "priorAttacks": 4,
+    "caution": "Prepared passive opponents, two requests per scene. Not population accuracy or success guarantee. Seed11/23 native traces identical to7 and excluded."
+  },
+  "estocFinal": {
+    "neckContactAttacks": 2,
+    "attacks": 2,
+    "cutWoundAttacks": 0,
+    "mCut": 0.55,
+    "thrustPushFrames": 0,
+    "firstContactDelayS": 0.35833333333333334,
+    "secondContactDelayS": 0.5416666666666666,
+    "caution": "neck is combat result.zone; one first contact is upper chest collider neck zone. Both fail normal damage threshold and produce no cut wound."
+  },
+  "failures": [
+    "v1/v2 estoc chamber infeasible; v3 predicted retreat exceeded achieved retreat and missed; v4 redundant blend removal caused own-body penetration/rear arms without efficacy; v5 temporary offhand release also failed and was removed",
+    "v6 estoc cut first contacts torso, second weak neck contact; v7 fixed captured world plane and own tracking trim reaches game neck zone but still no cut wounds"
+  ],
+  "reproduction": [
+    "node tools/sim/experiments/opportunity_close_20261009.mjs /tmp/halfsword-close-replay-near thrustGuard,thrustGuardEstoc --models=quick,close --practice --gap=1.25 --seeds=7",
+    "node tools/sim/experiments/opportunity_close_20261009.mjs /tmp/halfsword-close-replay-mid thrustGuard --models=quick,close --practice --gap=1.65 --seeds=7"
+  ],
+  "externalInput": "archived input tape location and SHA in each frozen protocol/archive receipt; raw failure revisions require their own frozen src, not current checkout",
+  "nativeArchive": {
+    "directory": "/workspace/halfsword-handoff/close-opportunity-20261009",
+    "archive": "native-evidence.tar.zst",
+    "archiveBytes": 30292862,
+    "archiveSHA256": "1570e9b53423bf809c751e75f38d1ac9ca86513f06481e27a02d5b04f1354bb5",
+    "ledgerSHA256": "4332558831c36e326565ada18e7777db7c848e193d145e113b2d3e00c17cc329",
+    "sourceInputMapSHA256": "08c85d14581ece64bcacc8fd6e2cf78ba9c1cdb917472ea4953b7cb0bbb07489",
+    "inventorySHA256": "ccb5451fd68dda37faac16da971cc608bf5da22268e47f604b6e9d3f45730c9b",
+    "archiveRegularFiles": 1308,
+    "archiveSymlinks": 10,
+    "payloadRegularFilesExcludingLedger": 1307,
+    "uncompressedPayloadBytesExcludingLedger": 48826083,
+    "runDirectories": 10,
+    "frozenSourceDirectories": 10,
+    "originalInputFiles": 1,
+    "inputMapping": [
+      {
+        "original": "/workspace/halfsword-handoff/followup-release-20261008/opportunity/run01/thrustGuard-off.json",
+        "archived": "inputs/thrustGuard-off.json",
+        "bytes": 2375306,
+        "rawSHA256": "279aac9c587775b8580820d10674add79980cb3077bc4c1ae8698b6b80aef2c2",
+        "fullRequestedInputSHA256": "47e74fea70be72278dea9eb83ce1b6c2778aaf2b500cbc38111ac8f75191e51a",
+        "steps": 1200
+      }
+    ],
+    "executionsIncludingFailuresAndRepeats": 26,
+    "nativeSteps": 30721,
+    "verifiedBy": "Stream-decompressed tar: every regular payload byte count/SHA256 and every symlink target checked against ledger; ledger itself checked separately. No node_modules target was followed.",
+    "receipt": {
+      "path": "/workspace/halfsword-handoff/close-opportunity-20261009/archive-receipt.json",
+      "bytes": 1377,
+      "sha256": "ef81d98c14bd5a24c8f2be2f26096693e5cbd11facef62d9b2a4e997ab1e8132"
+    }
+  }
+}

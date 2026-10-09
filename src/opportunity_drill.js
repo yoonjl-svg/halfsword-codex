@@ -2,7 +2,7 @@
 // The HUD observes game state and never moves bodies or starts an attack.
 import { ARENA } from './config.js';
 
-const active = info => info?.active && ['distance', 'flow'].includes(info.model) &&
+const active = info => info?.active && ['distance', 'flow', 'close'].includes(info.model) &&
   ['rapier', 'estoc'].includes(info.weapon) && ['near', 'far'].includes(info.drill);
 
 export function initializeOpportunityDrill(info, enemy) {
@@ -39,7 +39,7 @@ export function mountOpportunityDrill(info, onRestart) {
   const title = document.createElement('strong');
   title.textContent = '반격 없는 무릎 연습 상대'; title.style.display = 'block';
   const variant = document.createElement('span');
-  variant.textContent = `${info.model === 'flow' ? 'B · 빠른 준비' : 'A · 기존 준비'} / ${info.drill === 'near' ? '가까운 거리' : '먼 거리'}`;
+  variant.textContent = `${info.model === 'close' ? (info.weapon === 'estoc' ? '가까운 상대 목 베기' : '제자리 찌르기') : info.model === 'flow' ? 'B · 빠른 준비' : 'A · 기존 준비'} / ${info.drill === 'near' ? '가까운 거리' : '먼 거리'}`;
   variant.style.display = 'block';
   const status = document.createElement('span');
   status.id = 'opportunityDrillStatus'; status.style.cssText = 'display:block;margin:4px 0';
@@ -63,6 +63,7 @@ function statusText(player, enemy) {
   if (!player.alive) return '쓰러졌습니다 · 같은 거리 다시';
   if (!enemy.alive) return '상대가 쓰러졌습니다 · 같은 거리 다시';
   const skill = player.skill;
+  if (skill?.tap?.opportunityCut) return '목 베기 시도 중 · 실제 접촉으로 판정';
   if (skill?.tap) return skill.tap.down ? '내려찍는 중 · 실제 접촉으로 판정' : '찌르는 중 · 실제 접촉으로 판정';
   const request = skill?.thrustRange;
   if (request) {
@@ -78,7 +79,7 @@ function statusText(player, enemy) {
   if (last?.reason === 'manual-input') return '수동 입력으로 준비 취소 · 스틱을 놓고 다시 톡';
   if (last && last.reason !== 'committed') return '준비 중단 · 스틱을 놓고 다시 톡 / 같은 거리 다시';
   if (last?.reason === 'committed') return '공격 끝 · 다시 톡 / 같은 거리 다시';
-  return '스틱을 놓고 톡 · 간격 준비 후 찌르기';
+  return player.opportunityCloseThrust ? (player.opportunityTapKind === 'cut' ? '오른쪽 화면을 톡 · 목 베기 시도' : '오른쪽 화면을 톡 · 제자리 찌르기') : '스틱을 놓고 톡 · 간격 준비 후 찌르기';
 }
 
 export function updateOpportunityDrill(info, player, enemy, state) {

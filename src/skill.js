@@ -32,6 +32,8 @@ import { updateSwordAssistReturn } from './sword_assist_v2.js';
 import { hasSwordsmanship, advanceSwordsmanship } from './swordsmanship.js';
 import { enabled as opportunityEnabled, captureOpportunityPose, findOpportunity } from './opportunity_target.js';
 import { captureOpportunityThrust, updateOpportunityThrust } from './opportunity_thrust.js';
+import { closeThrustEnabled, captureCloseThrust, updateCloseThrust } from './opportunity_close.js';
+import { captureCloseCut, updateCloseCut } from './opportunity_close_cut.js';
 import { distanceEnabled, rangeTempo, measureThrustDistance, THRUST_DISTANCE } from './combat_distance.js';
 
 const D2R = Math.PI / 180;
@@ -127,7 +129,17 @@ export class Skill {
     //  (겨누기·뻗기까지 빠르게 하면 팔이 손 목표를 따라가지 못해 오히려 덜 뻗는다 — 측정: 레이피어 탭 상처 60% → 20%)
     const ts = f.weaponCfg.thrustStyle;
     const K = { aim: THRUST.aim, extend: THRUST.extend, hold: THRUST.hold, recover: THRUST.recover * (ts?.recover ?? 1), reach: THRUST.reach + (ts?.reach ?? 0) };
-    if (!down && distanceEnabled(f) && f.index === 0 && !rangeCommit && opportunityTarget === undefined &&
+    const opportunityKind = closeThrustEnabled(f) && f.opportunityTapKind === 'cut' ? 'cut' : 'thrust';
+    let closePlan = null;
+    if (!down && closeThrustEnabled(f) && f.opportunityTapKind !== 'cut' && f.index === 0 && opportunityTarget === undefined) {
+      const snapshot = captureOpportunityPose(f.foe);
+      const fitted = findOpportunity(f, snapshot, 'thrust', opening => {
+        closePlan = captureCloseThrust(f, opening.target, g, K.reach);
+        return !!closePlan;
+      });
+      if (fitted) opportunityTarget = fitted;
+    }
+    if (!down && distanceEnabled(f) && !closeThrustEnabled(f) && f.index === 0 && !rangeCommit && opportunityTarget === undefined &&
         Math.hypot(f.stickX ?? 0, f.stickY ?? 0) <= THRUST_DISTANCE.manualDead) {
       const opening = findOpportunity(f, captureOpportunityPose(f.foe), 'thrust');
       if (opening) {
@@ -145,8 +157,8 @@ export class Skill {
       // AI explicitly supplies its delayed observation, including null when
       // no opening was perceived. Never replace that with live victim data.
       const opening = opportunityTarget === undefined && f.index === 0
-        ? findOpportunity(f, captureOpportunityPose(f.foe), 'thrust') : opportunityTarget;
-      if (opening?.kind === 'thrust' && opening.targetId === f.foe.index &&
+        ? findOpportunity(f, captureOpportunityPose(f.foe), opportunityKind) : opportunityTarget;
+      if (opening?.kind === opportunityKind && opening.targetId === f.foe.index &&
           (['neck', 'face'].includes(opening.zone) || (['v3','v4'].includes(f.opportunityModel) && opening.zone === 'head')) && opening.target &&
           [opening.target.x, opening.target.y, opening.target.z].every(Number.isFinite)) {
         this.tap.opportunity = {
@@ -165,8 +177,16 @@ export class Skill {
     }
     // 칼 길 잡기(R6): 칼이 맞닿았으면 그 칼 선 (아니면 null). 바로 앞 찌르기가 끝나고 bindRest 초 안의 탭(연타)은 잡지 않는다
     this.tap.bound = down || this.sinceThrust < THRUST.bindRest ? null : this.boundAxis();
-    const precision = captureOpportunityThrust(f, this.tap);
+    const precision = this.tap.opportunity?.kind === 'cut' ? null : captureOpportunityThrust(f, this.tap);
     if (precision) this.tap.opportunityPrecision = precision;
+    if (this.tap.opportunity?.kind === 'cut' && closeThrustEnabled(f)) {
+      const cut = captureCloseCut(f,new THREE.Vector3(...this.tap.opportunity.target),this.tap.h0);
+      if (!cut) { this.tap=null;return false; }
+      this.tap.opportunityCut=cut; K.aim=cut.aim; K.extend=cut.extend;
+    } else if (this.tap.opportunity && !down && !this.tap.bound && closeThrustEnabled(f)) {
+      const close = closePlan ?? captureCloseThrust(f, new THREE.Vector3(...this.tap.opportunity.target), this.tap.h0, K.reach);
+      if (close) { this.tap.opportunityClose = close; K.aim = close.aim; }
+    }
     this.thrusts++;
     if (rangeCommit || this.rangeAI?.active) {
       this.tap.rangePrepared = true; this.tap.rangeStartWeight = this.thrustPose.w; this.thrustRange = null; this.rangeAI = null;
@@ -178,7 +198,7 @@ export class Skill {
       const tp = this.tap;
       tp.walkOk = step !== false && f.state === 'stand';
       if (tp.walkOk && (lowEntry ? f.finish.plunge.walk || f.finish.plunge.surfaceWalk : f.finish.plunge.walk)) tp.walking = true;
-    } else if (step && !this.tap.rangePrepared && f.state === 'stand') {
+    } else if (step && !(closeThrustEnabled(f) && this.tap.opportunity) && !this.tap.rangePrepared && f.state === 'stand') {
       // 한 걸음 내딛으며 찌른다
       if (f.gait?.active) f.gait.requestStep({ kind: 'lunge', fwd: THRUST.step, duration: 0.3 });
       else this.lunge = SKILL.lungeTime;
@@ -349,7 +369,7 @@ export class Skill {
     }
     const t = tp.t;
     const end = K.aim + K.extend + K.hold;
-    this.thrustPush = t >= K.aim && t < end;
+    this.thrustPush = !tp.opportunityCut && t >= K.aim && t < end;
     if (tp.step && t < K.aim + K.extend && f.move.y > -0.2) f.move.y = Math.max(f.move.y, SKILL.lungeMove * this.level);
     // 덧씌우는 정도: 겨누며 빠르게 1로, 뻗은 뒤 자세로 돌아오며 0으로
     pose.w = t < K.aim ? Math.max(tp.rangeStartWeight ?? 0, t / K.aim) : t < end ? 1 : 1 - (t - end) / K.recover;
@@ -368,7 +388,7 @@ export class Skill {
     //  (칼이 맞닿았으면 당기지 않고 곧게 민다. 쓰러진 상대는 plungePose)
     const ext = Math.hypot(h0[0], h0[1] - 0.1, h0[2] - 0.2); // 어깨(가슴 기준 [0, 0.1, 0.2])에서 손까지
     const ch = bd ? 0 : T.chamber * THREE.MathUtils.clamp((ext - 0.36) / 0.12, 0, 1);
-    if (!updateOpportunityThrust(f, tp, pose, P, ch)) {
+    if (!updateCloseCut(f, tp, pose) && !updateCloseThrust(f, tp, pose) && !updateOpportunityThrust(f, tp, pose, P, ch)) {
       const a = THREE.MathUtils.clamp(t / K.aim, 0, 1);
       const s = THREE.MathUtils.clamp((t - K.aim) / K.extend, 0, 1);
       const e = -ch * a * a * (3 - 2 * a) + (ch + K.reach) * s * s * (3 - 2 * s);

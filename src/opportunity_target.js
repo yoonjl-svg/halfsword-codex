@@ -1,6 +1,7 @@
 // Optional vulnerable-posture targeting. These are authored game geometry
 // budgets, not measured human limits. No damage, force or native mutation.
 import * as THREE from 'three';
+import { closeThrustEnabled } from './opportunity_close.js';
 import { ARM } from './config.js';
 import { LOW_FINISH } from './finish_entry.js';
 import { thrustRegionCandidates } from './opportunity_head_region.js';
@@ -73,7 +74,7 @@ export function opportunityBlocked(origin, target, snapshot) {
 
 /** Victim information is read exclusively from snapshot. AI callers must use
  * their delayed snapshot; only the attacker's own present geometry is read. */
-export function findOpportunity(att, snapshot, kind = 'cut') {
+export function findOpportunity(att, snapshot, kind = 'cut', acceptTarget = null) {
   if (!enabled(att) || !att.alive || !att.armed || att.weapon?.gun || att.weaponBroken ||
       !['stand', 'kneel'].includes(att.state) || !snapshot?.alive || snapshot.headOff ||
       !['kneel', 'down', 'getup'].includes(snapshot.state) ||
@@ -119,8 +120,10 @@ export function findOpportunity(att, snapshot, kind = 'cut') {
     }
     const local = vec(point).sub(vec(chest)).applyQuaternion(inv);
     if (local.x < OPPORTUNITY.minForward || Math.abs(local.z) > local.x * OPPORTUNITY.maxSideRatio ||
-        shoulder.distanceTo(vec(point)) > reach + (kind === 'thrust' && distanceEnabled(att) ? THRUST_DISTANCE.captureTravel : 0) || opportunityBlocked(origin, point, snapshot)) continue;
-    return { target: vec(point), zone, kind, targetId: snapshot.targetId };
+        shoulder.distanceTo(vec(point)) > reach + (kind === 'thrust' && distanceEnabled(att) && !closeThrustEnabled(att) ? THRUST_DISTANCE.captureTravel : 0) || opportunityBlocked(origin, point, snapshot)) continue;
+    const opening = { target: vec(point), zone, kind, targetId: snapshot.targetId };
+    if (acceptTarget && !acceptTarget(opening)) continue;
+    return opening;
   }
   return null;
 }
