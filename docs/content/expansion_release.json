@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "status": "local_passed_public_pending",
+  "status": "delivered_verified",
   "dateKST": "2026-10-09",
   "baseCommit": "b63665b03a1dc5621e74f0254923882d7332a206",
   "scope": "Three native character/stage encounters, separately selectable; appearance is the priority. No campaign order change or balance target.",
@@ -71,8 +71,29 @@
     "reportSHA256": "5479ba149cc1cc93523e601e9d779422ebab61329905a272f77d24b601db4a3a",
     "scope": "Trusted card choice, move/swing, pause/resume and restart; mobile viewport, no actual enemy wounds observed."
   },
-  "deployment": null,
-  "publicMobile": null,
+  "deployment": {
+    "commit": "af98fff603902c69a0895c45394ae35bfdf009f4",
+    "workflowRun": 37900661426,
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/37900661426",
+    "conclusion": "success",
+    "completedUTC": "2026-10-09T07:44:03Z",
+    "firstPublicFiles": 6,
+    "firstPublicByteMatch": true,
+    "firstPublicEvidenceSHA256": "23175782b7af1270bea8b8b11a6642738a03386b59e779ffbf591cfdd70a2df6"
+  },
+  "publicMobile": {
+    "pass": true,
+    "flows": 3,
+    "requests": 470,
+    "uniqueAssets": 169,
+    "errors": 0,
+    "sourceStable": true,
+    "buildStable": true,
+    "tlsVerification": true,
+    "reportSHA256": "30803a8a53bcd114b4d3cdc1f9b48ce6c4f5022026da9ab0e273b56c38314acd",
+    "wallMs": 397188.65252299997,
+    "scope": "Public mobile viewport; trusted card choice, move/swing, pause/resume and restart. No enemy wounds observed in the short browser flows."
+  },
   "limitations": [
     "Rigid part-bound clothing can intersect during extreme bending; no cloth simulation.",
     "Browser mobile viewport is not a physical handset performance test."
@@ -80,5 +101,7 @@
   "preservedFailures": [
     "Lighting helper transient undefined-AI during dev serving; fresh probe healthy; frozen preview passed.",
     "Initial local mobile run timed out under parallel software rendering; retained evidence, increased only tool wall budget; final unchanged game passed."
-  ]
+  ],
+  "verifiedUTC": "2026-10-09T07:51:40.194Z",
+  "approvalStatus": "User-authorized three characters and stages; nineteen-year-old Yeongman confirmed. Appearance first; no balance target. Separate encounter links, campaign order unchanged."
 }
