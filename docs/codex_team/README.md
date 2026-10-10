@@ -1,5 +1,7 @@
 # 혼합안 독립 개발 인계
 
+플랑베르주 외형 ·10/11 KST: [Cleveland1919.71 기반 디자인](../content/flamberge_design_20261011.md), [모바일 3D/사진 비교](https://yoonjl-svg.github.io/halfsword-codex/flamberge-viewer.html). `e05f5a4` 외형 시안 공개 완료: 로컬/공개 각3묶음, 오류0, 공개13파일 SHA-256 일치. 전투 추가 완료가 아니다.
+
 음성 중복 1차 정리 ·10/11 KST: 영만/에이라와 토메를 분리하고 세르파는 유지했다. [배정 근거](../sound/voice_casting_20261011.md), [공개 청취 비교](https://yoonjl-svg.github.io/halfsword-codex/voices.html). `77db8c5` 공개 완료: 54렌더·공개 청취 18버튼·게임 2흐름·117파일 해시 확인. [영수증](../sound/voice_casting_release.json). 인간 청취 적합성은 별도 판단이다.
 
 김씨 짚신 후속: [착용 짚신과 휴대폰용 얼음만 제안서](../content/kim_sandals_20261010.md). `dcad882` 공개 완료. 로컬/공개 모바일 각1흐름, 제안서320px 가로 넘침 없음·왕복 링크, 사진8개/플레이3입구, 공개184파일 해시 일치·오류0 확인. [전달 영수증](../content/kim_sandals_release.json).
