@@ -15,3 +15,9 @@
 재현: Vite4280을 띄워 `node tools/audio/voice_casting_20261011.mjs http://127.0.0.1:4280 /tmp/voice-audio player omari`; `node tools/audio/player_death_20261011.mjs http://127.0.0.1:4280 /tmp/player-voice 7ea9d72`. 완성 빌드/공개에서 `node tools/browser/voice_casting_20261011.mjs BASE_URL /tmp/voice-mobile --selection`. 플레이어 사망 연결 검사는 실제 `Fighter.die`를 호출한 강제 상태 검사이며 자연 사망 빈도 검증이 아니다.
 
 되돌리기: 오마리voice를bran으로 복원하고 player프로필/death분기/resetRound의 날숨정지만 기준본으로 되돌린다. 영만 원복과 이명 보존은 유지한다. 다른 전투 코드는 변경하지 않는다.
+
+## 후속: 오마리 출혈20% 단축
+
+기준 `4b9a535`, 사용자 요청으로 출혈 한 파일만2.30→1.84초로 잘랐다. 원녹음3.90–5.74초, 기존 필터/음량 유지, 마지막150ms 페이드. 속도/음높이는 바꾸지 않았고 캐시가 이전 소리를 재생하지 않도록 새 경로 `omari_bleed1_short`를 배정한다. 피격/기절·다른 캐릭터·플레이어 이명은 유지한다. 실제44.1/48kHz×오마리3이벤트6렌더 통과. 로컬 모바일3묶음(청취3버튼·실제 게임의 단축 파일 디코딩·진입/터치/재시작) 통과·오류0. 공개 확인 중. 공유 현황은 실제 `voice || variantOf || id` 경로와 청취 목록14명을 대조했다.
+
+재현: 기존 음성 검사 마지막 인자 `omari`, 모바일 검사 마지막 인자 `--omari-only`. 기존 출처/원음/이전 전달 영수증은 보존한다.

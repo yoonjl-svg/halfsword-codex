@@ -312,7 +312,7 @@ export const VOICES = {
   } },
   // CC0 self-recorded injury/death takes by thebardofblasphemy; no pitch shift.
   omari: { f0: 115, tract: 1, breath: 0.45, rough: 0.35, style: 'exhale',
-    rec: { ko: 1, bleed: 1, hurt: 2, gain: 0.75, rate: 1 } },
+    rec: { ko: 1, bleed: ['voice/omari_bleed1_short'], hurt: 2, gain: 0.75, rate: 1 } },
   player: { f0: 118, tract: 1.0, breath: 0.35, rough: 0.3, style: 'grunt', rec: {
     ko: ['voice/player_exhale'], bleed: ['voice/player_exhale'], hurt: 2,
   } }, // Quiet final exhale; existing HaelDB hurt recordings remain unchanged.
