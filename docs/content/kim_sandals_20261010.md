@@ -11,3 +11,5 @@
 동결 빌드 `/tmp/halfsword-kim-sandals-20261010/build`. `node tools/browser/new_pair_delivery_20261010.mjs --encounter=renji --base=http://127.0.0.1:4245/ --build=<동결 빌드> --out=/tmp/halfsword-new-pair-20261010/kim-sandals-local`. 공개는 Pages base, out은kim-sandals-public, `--local-evidence=<local/report.json>` 사용. 제안서320px 가로 넘침/내용/왕복 링크, 사진8개/플레이3입구, 실제 모바일 카드·터치·일시정지·재시작·배포 파일 해시를 확인한다. 실물 휴대폰FPS나 미적 수락은 별도다.
 
 [최종 전달 상태](kim_sandals_release.json). 변경 없는 사미라/에이라 전투 검사를 반복하지 않는다.
+
+`dcad882` 공개 완료. 로컬/공개 모바일 각1흐름, 제안서320px 가로 넘침 없음·왕복 링크, 사진8개/플레이3입구, 공개184파일 해시 일치·오류0 확인.
