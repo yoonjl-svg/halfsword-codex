@@ -3,6 +3,14 @@ import { getLook, CHARACTER_LOOK_VERSION } from './looks.js';
 
 export const WANDERER_CHARACTERS = [
   {
+    id: 'silver_wanderer', name: '은발의 검사', epithet: '보랏빛 망토의 여행자',
+    weapon: 'longsword', voice: 'tome',
+    backstory: '사용자가 제공한 그림을 바탕으로 만든 외형 시안. 이름과 배경은 아직 정하지 않았다.',
+    ai: { level: 'normal', persona: { school: 'longsword', idle: { guard: 'pflugR', gesture: 'still' } } },
+    look: getLook('silver_wanderer'), lookVersion: CHARACTER_LOOK_VERSION.silver_wanderer,
+    taunt: '준비됐나.', lines: { intro: ['준비됐나.'], win: ['여기까지 하자.'] },
+  },
+  {
     id: 'sherpa', name: '세르파', epithet: '길 밖을 조사하는 안내인', age: null,
     gender: '불명', origin: '고산지대 · 출신 불명', weapon: 'sabre', voice: 'liao',
     backstory: '길을 묻는 여행자에게는 능숙하게 답하지만 자신의 이름과 목적은 밝히지 않는다. 사람이 쉬어 가는 곳보다 오래된 돌의 홈과 물이 끊긴 자리에 오래 머문다. 허리의 기록장에는 지도 대신 같은 기호가 여러 번 그려져 있다.',

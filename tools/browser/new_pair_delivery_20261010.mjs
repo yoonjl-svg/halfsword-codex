@@ -1,5 +1,5 @@
 // Frozen-build mobile delivery for independent encounters and their introduction pages.
-// --encounter=renji|eira|sherpa --base=http://127.0.0.1:PORT/ --build=/absolute/build --out=/tmp/halfsword-new-pair-20261010/local-renji
+// --encounter=renji|eira|sherpa|silver_wanderer --base=http://127.0.0.1:PORT/ --build=/absolute/build --out=/tmp/halfsword-new-pair-20261010/local-renji
 // Public runs also require --local-evidence=/absolute/passing-local/report.json.
 // One real card/input/pause/resume/restart flow; no campaign or combat-balance fixtures.
 import assert from 'node:assert/strict';
@@ -18,8 +18,10 @@ for (const arg of process.argv.slice(2)) {
   assert(match && !Object.hasOwn(args, match[1]), 'Unknown or duplicate argument'); args[match[1]] = match[2];
 }
 const encounterId = args.encounter;
-assert(['renji', 'eira', 'sherpa'].includes(encounterId), 'Specify --encounter=renji, eira or sherpa');
-const encounters = encounterId === 'sherpa' ? [
+assert(['renji', 'eira', 'sherpa', 'silver_wanderer'].includes(encounterId), 'Specify --encounter=renji, eira, sherpa or silver_wanderer');
+const encounters = encounterId === 'silver_wanderer' ? [
+  { id: 'silver_wanderer', weapon: 'longsword', stage: 'crown_sanctum', image: 'silver-wanderer' },
+] : encounterId === 'sherpa' ? [
   { id: 'sherpa', weapon: 'sabre', stage: 'qinglan', image: 'sherpa' },
 ] : [
   { id: 'renji', weapon: 'morgenstern', stage: 'qinglan', image: 'kim-straw' },
@@ -208,7 +210,7 @@ try {
   }
   const outfitIds = value => value.outfit.map(item => item.uuid);
   const outfitSignature = value => value.outfit.map(({ outfit, part }) => ({ outfit, part }));
-  const landingURL = new URL(encounterId === 'sherpa' ? 'sherpa.html' : 'new-pair.html', base).href, destination = new URL(queryFor(routeSpec), base).href;
+  const landingURL = new URL(encounterId === 'silver_wanderer' ? 'silver-wanderer.html' : encounterId === 'sherpa' ? 'sherpa.html' : 'new-pair.html', base).href, destination = new URL(queryFor(routeSpec), base).href;
   await page.goto(landingURL, { waitUntil: 'load' });
   await page.locator('img').evaluateAll(images => Promise.all(images.map(image => { image.loading = 'eager'; return image.decode(); })));
   landing = await page.evaluate(() => ({ title: document.title, width: innerWidth, scrollWidth: document.documentElement.scrollWidth,
@@ -219,11 +221,11 @@ try {
   assert.deepEqual(landing.play.map(link => link.href), encounters.map(item => new URL(queryFor(item), base).href));
   const expectedNames = registryContract.landing.map(item => item.name);
   assert.deepEqual(landing.headings.map(text => expectedNames.find(name => text.includes(name))).filter(Boolean), expectedNames);
-  const expectedImages = encounters.flatMap(item => (item.id === 'renji' ? ['front', 'threeq', 'back', 'feet'] : item.id === 'sherpa' ? ['front', 'threeq', 'back'] : ['front', 'threeq']).map(view => new URL(`encounters/${item.image}-${view}.webp`, base).pathname));
+  const expectedImages = encounters.flatMap(item => (item.id === 'renji' ? ['front', 'threeq', 'back', 'feet'] : ['sherpa', 'silver_wanderer'].includes(item.id) ? ['front', 'threeq', 'back'] : ['front', 'threeq']).map(view => new URL(`encounters/${item.image}-${view}.webp`, base).pathname));
   assert.deepEqual(landing.images.map(image => image.path).sort(), expectedImages.sort());
   assert(landing.images.every(image => image.width > 0 && image.height > 0));
   await page.screenshot({ path: path.join(out, 'landing-portrait.png') });
-  if (encounterId !== 'sherpa') {
+  if (!['sherpa', 'silver_wanderer'].includes(encounterId)) {
     const proposalFile = encounterId === 'renji' ? 'kim-qinglan-proposal.html' : 'eira-frozen-bay.html';
     const backAnchor = encounterId === 'renji' ? 'renji' : 'eira';
     const proposalURL = new URL(proposalFile, base).href;
@@ -258,8 +260,8 @@ try {
     await page.locator('details summary').first().tap();
     const mobile = await page.evaluate(() => ({width: innerWidth, scrollWidth: document.documentElement.scrollWidth, text: document.body.innerText}));
     assert(mobile.scrollWidth <= mobile.width + 1);
-    for (const term of ['성별 불명', '조사', '세이버']) assert(mobile.text.includes(term));
-    await page.screenshot({path: path.join(out, 'sherpa-320.png'), fullPage:true});
+    for (const term of (encounterId === 'silver_wanderer' ? ['은발의 검사', '시안', '롱소드'] : ['성별 불명', '조사', '세이버'])) assert(mobile.text.includes(term));
+    await page.screenshot({path: path.join(out, `${encounterId}-320.png`), fullPage:true});
   }
   await page.setViewportSize({ width: 390, height: 844 });
   await Promise.all([page.waitForURL(destination, { waitUntil: 'load' }), page.locator('a.play').nth(encounters.indexOf(routeSpec)).tap()]);

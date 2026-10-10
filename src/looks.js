@@ -643,6 +643,14 @@ LOOK_ARCHIVE.sherpa = { v1: {
   outfit: 'sherpa_surveyor', armor: null, stockEyes: true,
 } };
 
+LOOK_ARCHIVE.silver_wanderer = { v1: {
+  tunic: 0xe9e9e5, quilt: 0xe9e9e5, sleeve: 0xe9e9e5, straps: null,
+  belt: 0x413039, hoseUpper: 0xe9e9e5, hoseLower: 0xe9e9e5, shoes: 0x9b9fa8,
+  skin: 0xe0bf9f, hands: 0xe0bf9f, helmet: null, metal: 0xb6bbc3, hair: 0x77737f,
+  headband: null, grip: 0x403038, hilt: 0xa88b45, accent: 0x433653,
+  outfit: 'silver_wanderer', armor: null, stockEyes: true,
+} };
+
 // 지금 게임에서 실제로 쓰는 버전 (감독/오너가 확정하면 여기만 바꾸면 됨)
 export const CHARACTER_LOOK_VERSION = {
   bran: 'v1',
@@ -658,6 +666,7 @@ export const CHARACTER_LOOK_VERSION = {
   renji: 'v2',
   eira: 'v1',
   sherpa: 'v1',
+  silver_wanderer: 'v1',
 };
 
 /** id의 특정 버전을 꺼낸다. 버전이 없으면 현재 버전 → v0 순으로 물러난다. (main.js의 ?look=, ?lookv= 미리보기용) */

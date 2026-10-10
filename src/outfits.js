@@ -18,6 +18,7 @@ import { weaponEnv } from './weapon_looks.js';
 import { createRenjiOutfit } from './outfit_renji.js';
 import { createEiraOutfit } from './outfit_eira.js';
 import { createSherpaOutfit } from './outfit_sherpa.js';
+import { createSilverWandererOutfit } from './outfit_silver_wanderer.js';
 
 const _m4 = new THREE.Matrix4();
 const _euler = new THREE.Euler();
@@ -2496,6 +2497,7 @@ const CROWN_ROSE_UNIFORM = Object.fromEntries(Object.entries(CROWN_BLUE_UNIFORM)
 
 export const newOutfitHelpers = { THREE, bake, box, cyl, ball, cone, addMerged, CLOTH, quietFace, isoldeLock, artoriaCloth, sleeveVolume, clothNeck, artoriaRoundedBox };
 export const OUTFITS = {
+  silver_wanderer: createSilverWandererOutfit(newOutfitHelpers),
   sherpa_surveyor: createSherpaOutfit(newOutfitHelpers),
   renji_wanderer: createRenjiOutfit(newOutfitHelpers),
   eira_winter_priest: createEiraOutfit(newOutfitHelpers),

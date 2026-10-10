@@ -1,0 +1,20 @@
+# 은발의 검사 · 외형 시안
+
+기준 `51c6fd4`. 사용자 그림과 “이 그림 한 번 캐릭터화 해볼래?”에 따라 기존 게임 방식으로 제작한다. 이름/배경/전용 무기 확정 요청은 없으므로 임시 호칭을 사용한다.
+
+## 구현
+
+은회색 긴 머리, 앞을 연 높은 깃, 짙은 보라색 짧은 어깨 망토, 흰 소매, 겹친 은빛 손목 장식, 넓은 가죽 허리띠, 앞이 갈라진 긴 자락, 흰 바지와 은빛 각반. 원본 이미지 파일은 공개하지 않는다. 기존 공통 얼굴/눈/손/신체 치수와 물리를 유지한다. 롱소드·보통 AI·토메 녹음을 임시 사용하며 신규 음원/무기/천 물리는 만들지 않는다.
+
+`silver-wanderer.html`에 실제 모델 정면/사선/후면과 별도 대련 입구를 제공한다. `?cards=sain,ice&foe=silver_wanderer&stage=crown_sanctum`. 기존 성소에서 관찰하며 일반 여정의 순서/무작위 명단에는 추가하지 않는다.
+
+첫 렌더에서 머리의 세로 연결부가 층처럼 보이고 어깨 옷이 겹쳤다. 긴 머리는 기존 긴 망토와 같은 몸통 부착 연속 곡면으로 바꾸고, 어깨 천의 깊이와 소매 덮개를 조정했다. 모든 자세에서 머리/옷 관통이 없다는 뜻은 아니다. 사진은 실제 물리 자세의 메시를 별도 관찰 조명으로 촬영한 것이며 실전 조명/수작업 일러스트로 표현하지 않는다.
+
+## 검증과 재현
+
+- `node tools/sim/experiments/silver_wanderer_gate.mjs /tmp/halfsword-silver-20261011/native-v2.json`: 8항목 통과. 장식 유무 물리 snapshot 동일, 공통 얼굴/눈 동일, 숨은 판금 없음, 기존 유파, 480step 실제 입력·관절/유한 상태, 별도 합성 상처 후 장식 보존. 최종 생성 시 82메시·17,190삼각형(검사 집계 범위).
+- `CAPTURE_IDS=silver_wanderer CAPTURE_VIEWS=front,threeq,back CAPTURE_BASE=http://127.0.0.1:4280 CAPTURE_OUT=/tmp/portraits node tools/browser/native_character_portrait.mjs`: 실제 게임의 1.2초 이후 자세를 복제해 촬영. 얼굴/자세를 재조립하지 않는다. 최초 실행본과 두 시안 사진은 근거 묶음에 보존.
+- `npm run build -- --outDir /tmp/halfsword-silver-20261011/build` 통과. 기존 대용량 JS 경고는 남는다.
+- 모바일 전달 검사는 기존 `tools/browser/new_pair_delivery_20261010.mjs --encounter=silver_wanderer` 재사용. 로컬/공개가 같은 동결 빌드·제원·도구를 사용하며 페이지/이미지·카드·터치공격·이동·일시정지/재개·재시작 및 가져온 파일 해시를 검사한다.
+
+실물 휴대폰 성능, 모든 자세의 옷 관통, 사용자 미적 수락은 이 검사로 확정하지 않는다. 공개 전달 결과는 [영수증](silver_wanderer_release.json)에 기록한다.
