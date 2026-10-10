@@ -1,0 +1,156 @@
+{
+  "pass": true,
+  "checks": [
+    {
+      "name": "first install caches complete build without taking over running page",
+      "data": {
+        "manifest": {
+          "url": "http://127.0.0.1:4255/halfsword/manifest.webmanifest",
+          "json": {
+            "id": "./",
+            "name": "적막 · Stillness",
+            "short_name": "적막",
+            "description": "고요한 풍경 속 물리 검투 게임",
+            "lang": "ko",
+            "start_url": "./",
+            "scope": "./",
+            "display": "standalone",
+            "orientation": "landscape",
+            "background_color": "#1b1410",
+            "theme_color": "#1b1410",
+            "icons": [
+              {
+                "src": "./pwa/icon-192.png",
+                "sizes": "192x192",
+                "type": "image/png",
+                "purpose": "any"
+              },
+              {
+                "src": "./pwa/icon-512.png",
+                "sizes": "512x512",
+                "type": "image/png",
+                "purpose": "any maskable"
+              }
+            ]
+          }
+        },
+        "initial": {
+          "controller": false,
+          "keys": [
+            "stillness-pwa:http://127.0.0.1:4255/halfsword/:a1fa0b16d9b9eca8b3b6a752"
+          ],
+          "reg": "http://127.0.0.1:4255/halfsword/"
+        },
+        "files": 238,
+        "bytes": 4791875
+      }
+    },
+    {
+      "name": "Chromium installability and landscape menu",
+      "data": {
+        "width": 844,
+        "scrollWidth": 844
+      }
+    },
+    {
+      "name": "real touch accepted; PWA hidden during fight",
+      "data": {
+        "timeOrigin": 1791635400849.6,
+        "body": 5e-324,
+        "step": 294,
+        "accepted": 1,
+        "settings": "{\"pixel\":false,\"sound\":false,\"trail\":false,\"blood\":true,\"difficulty\":\"normal\",\"skill\":\"0.3\",\"fpsCap\":false,\"moveMode\":\"stick\"}"
+      }
+    },
+    {
+      "name": "update waits without reload or mixed HTML during combat",
+      "data": {
+        "timeOrigin": 1791635400849.6,
+        "step": 318,
+        "state": "update-ready"
+      }
+    },
+    {
+      "name": "second open tab keeps previous version active",
+      "data": true
+    },
+    {
+      "name": "activation removes only own old cache; sibling game cache preserved",
+      "data": true
+    },
+    {
+      "name": "new offline launch, audio, touch combat and restart",
+      "data": {
+        "second": {
+          "timeOrigin": 1791635440252.7,
+          "body": 5e-324,
+          "step": 288,
+          "accepted": 1,
+          "settings": "{\"pixel\":false,\"sound\":false,\"trail\":false,\"blood\":true,\"difficulty\":\"normal\",\"skill\":\"0.3\",\"fpsCap\":false,\"moveMode\":\"stick\"}"
+        },
+        "restart": {
+          "timeOrigin": 1791635440252.7,
+          "body": 5e-324,
+          "step": 290,
+          "accepted": 2,
+          "settings": "{\"pixel\":false,\"sound\":false,\"trail\":false,\"blood\":true,\"difficulty\":\"normal\",\"skill\":\"0.3\",\"fpsCap\":false,\"moveMode\":\"stick\"}"
+        },
+        "audio": {
+          "ok": true,
+          "bytes": 17709
+        }
+      }
+    },
+    {
+      "name": "corrupted new file rejects entire update; old version retained",
+      "data": {
+        "keys": [
+          "other-app-keep",
+          "stillness-pwa:http://127.0.0.1:4255/halfsword-codex/:keep",
+          "stillness-pwa:http://127.0.0.1:4255/halfsword/:16f59318edefd92c7964ac19"
+        ]
+      }
+    },
+    {
+      "name": "cache read denial still serves verified online bytes",
+      "data": true
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Chromium mobile emulation; real iPhone Add to Home Screen and Android OS installation are not automated here.",
+    "v2/v3 fixtures change only an HTML release marker; original game source is unchanged."
+  ],
+  "completedUTC": "2026-10-10T12:31:46.862Z",
+  "baseline": "f3792633f5fbb9f66ff643f89879e911c3f75415",
+  "version": "a1fa0b16d9b9eca8b3b6a752",
+  "installer": {
+    "pass": true,
+    "checks": [
+      "dry-run no writes",
+      "exact baseline integration",
+      "idempotent",
+      "conflicting file refusal without writes",
+      "custom build refusal without writes",
+      "symlink refusal",
+      "original file backups",
+      "inline body insertion fix",
+      "git apply --check",
+      "game source and lockfile unchanged"
+    ]
+  },
+  "earlierAttempts": [
+    {
+      "issue": "Chromium nonpersistent incognito context is not installable",
+      "resolution": "Use isolated persistent context; installability errors empty."
+    },
+    {
+      "issue": "UI status assertion preceded service-worker statechange event",
+      "resolution": "Wait for visible update-ready state; all lifecycle checks pass."
+    },
+    {
+      "issue": "Installer inline body closing tag skipped module insertion",
+      "resolution": "Use closing-tag replacement and verify insertion before writing; exact and inline cases pass."
+    }
+  ]
+}

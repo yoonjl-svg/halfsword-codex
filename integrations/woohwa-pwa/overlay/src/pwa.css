@@ -1,0 +1,84 @@
+/* Scoped to the existing menu: nothing can appear over an active fight. */
+#menu .pwa-menu {
+  min-width: 0;
+  margin: 4px 0 0;
+  border-top: 1px solid var(--line, rgba(243, 233, 216, .18));
+  color: var(--dim, #b8a88e);
+  font-size: var(--fs-caption, 12px);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+#menu .pwa-menu > summary {
+  min-height: 40px;
+  padding: 10px 0;
+  color: var(--ink, #f3e9d8);
+  cursor: pointer;
+  font-size: var(--fs-caption, 12px);
+  font-weight: 600;
+  touch-action: manipulation;
+}
+
+#menu .pwa-menu__body {
+  padding: 0 0 8px;
+}
+
+#menu .pwa-menu__status,
+#menu .pwa-menu__note {
+  margin: 0 0 8px;
+}
+
+#menu .pwa-menu__status {
+  color: var(--ink, #f3e9d8);
+}
+
+#menu .pwa-menu__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+#menu .pwa-menu__button {
+  min-height: 40px;
+  max-width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--line, rgba(243, 233, 216, .18));
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink, #f3e9d8);
+  font: inherit;
+  line-height: 1.5;
+  white-space: normal;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+#menu .pwa-menu__button[hidden] {
+  display: none;
+}
+
+#menu .pwa-menu__button:disabled {
+  opacity: .55;
+  cursor: default;
+}
+
+#menu .pwa-menu > summary:focus-visible,
+#menu .pwa-menu__button:focus-visible {
+  outline: 2px solid var(--accent, #d9a441);
+  outline-offset: 2px;
+}
+
+@media (max-height: 500px) {
+  #menu .pwa-menu {
+    margin-top: 2px;
+  }
+
+  #menu .pwa-menu > summary {
+    min-height: 36px;
+    padding: 8px 0;
+  }
+
+  #menu .pwa-menu__body {
+    padding-bottom: 4px;
+  }
+}
