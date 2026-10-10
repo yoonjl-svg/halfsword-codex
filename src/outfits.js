@@ -2388,35 +2388,40 @@ const CROWN_BLUE_UNIFORM = {
 // Rose/red revision keeps the blue uniform available in the look archive.
 function roseUniformHead(g, look) {
   quietFace(g, look, 'uniform');
-  // Shape only the visible face. The head body/collider and wound mesh identity remain.
-  const face = g.children[0].geometry, p = face.attributes.position;
-  for (let i = 0; i < p.count; i++) {
-    const y = p.getY(i), jaw = Math.max(0, Math.min(1, -y / 0.1));
-    p.setXYZ(i, p.getX(i) * (0.97 - jaw * 0.07), y * 1.08, p.getZ(i) * (0.88 - jaw * 0.16));
+  // Keep the old tapered face only in archived appearances.
+  if (!look.stockFace) {
+    // Shape only the visible face. The head body/collider and wound mesh identity remain.
+    const face = g.children[0].geometry, p = face.attributes.position;
+    for (let i = 0; i < p.count; i++) {
+      const y = p.getY(i), jaw = Math.max(0, Math.min(1, -y / 0.1));
+      p.setXYZ(i, p.getX(i) * (0.97 - jaw * 0.07), y * 1.08, p.getZ(i) * (0.88 - jaw * 0.16));
+    }
+    face.computeVertexNormals();
+    for (const eye of g.children.slice(1, 3)) {
+      eye.position.set(0.091, 0.020, Math.sign(eye.position.z) * 0.030);
+      eye.scale.z = 0.90;
+    }
+    g.children[3].scale.set(0.72, 0.72, 0.70);
+    g.children[3].position.set(0.095, -0.010, 0);
   }
-  face.computeVertexNormals();
-  for (const eye of g.children.slice(1, 3)) {
-    eye.position.set(0.091, 0.020, Math.sign(eye.position.z) * 0.030);
-    eye.scale.z = 0.90;
-  }
-  g.children[3].scale.set(0.72, 0.72, 0.70);
-  g.children[3].position.set(0.095, -0.010, 0);
   const cap = g.children[4], shell = new THREE.SphereGeometry(1, 24, 14, 0, Math.PI * 2, 0, Math.PI * 0.64);
   const hp = shell.attributes.position;
   for (let i = 0; i < hp.count; i++) {
     const a = Math.atan2(hp.getZ(i), hp.getX(i));
     const t = Math.floor(i / 25) / 14, theta = t * Math.PI * (0.64 - 0.31 * Math.max(0, Math.cos(a)));
-    hp.setXYZ(i, 0.104 * Math.sin(theta) * Math.cos(a), 0.115 * Math.cos(theta), 0.094 * Math.sin(theta) * Math.sin(a));
+    hp.setXYZ(i, (look.stockFace ? 0.107 : 0.104) * Math.sin(theta) * Math.cos(a), 0.115 * Math.cos(theta), (look.stockFace ? 0.107 : 0.094) * Math.sin(theta) * Math.sin(a));
   }
   shell.computeVertexNormals(); cap.geometry.dispose(); cap.geometry = shell;
   cap.position.set(0, 0, 0); cap.scale.set(1, 1, 1);
-  g.children[5].scale.set(0.96, 1.08, 0.86);
+  if (!look.stockFace) g.children[5].scale.set(0.96, 1.08, 0.86);
   g.children[5].material.color.setHex(0x79515a);
-  // The old ears intersected the cap at its rim; give each ear a clean lower edge.
-  g.children[6].visible = false;
-  addMerged(g, [-1, 1].map(s => bake(new THREE.SphereGeometry(0.013, 10, 7),
-    [-0.006, -0.026, s * 0.088], null, [0.65, 1.1, 0.45])), look.skin, CLOTH);
-  g.children[7].scale.set(0.91, 1.08, 0.80);
+  if (!look.stockFace) {
+    // The old ears intersected the cap at its rim; give each ear a clean lower edge.
+    g.children[6].visible = false;
+    addMerged(g, [-1, 1].map(s => bake(new THREE.SphereGeometry(0.013, 10, 7),
+      [-0.006, -0.026, s * 0.088], null, [0.65, 1.1, 0.45])), look.skin, CLOTH);
+    g.children[7].scale.set(0.91, 1.08, 0.80);
+  }
   const layer = artoriaCloth(g, 'uniform-hair'), locks = [];
   // A broken, higher fringe leaves the existing small eyes unobscured.
   for (let i = -2; i <= 2; i++) {

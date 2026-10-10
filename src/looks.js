@@ -609,6 +609,7 @@ for (const [id, source, version] of [
   ['isolde', 'v2', 'v4'], ['yeongman', 'v3', 'v4'],
   ['artoria', 'v2', 'v3'], ['margarethe', 'v3', 'v4'], ['crown_boss', 'v4', 'v5'],
 ]) LOOK_ARCHIVE[id][version] = { ...LOOK_ARCHIVE[id][source], tailoring: 'soft-shoulders', stockEyes: true };
+LOOK_ARCHIVE.crown_boss.v6 = { ...LOOK_ARCHIVE.crown_boss.v5, stockFace: true };
 LOOK_ARCHIVE.artoria.v4 = { ...LOOK_ARCHIVE.artoria.v3, eyeColor: 0x418f87 };
 
 // 지금 게임에서 실제로 쓰는 버전 (감독/오너가 확정하면 여기만 바꾸면 됨)
@@ -622,7 +623,7 @@ export const CHARACTER_LOOK_VERSION = {
   omari: 'v1',
   yeongman: 'v4',
   artoria: 'v4',
-  crown_boss: 'v5',
+  crown_boss: 'v6',
 };
 
 /** id의 특정 버전을 꺼낸다. 버전이 없으면 현재 버전 → v0 순으로 물러난다. (main.js의 ?look=, ?lookv= 미리보기용) */

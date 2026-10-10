@@ -22,3 +22,10 @@
 기준4ff98ab. 변경은 looks/outfits의 눈 분기이며, 앞선1,687물리 상태 검사를 재수행하지 않았다. 이번은 아르토리아 모바일1흐름(진입·입력·재시작)과 공개 파일 일치만 재검사한다. 도구: `node tools/browser/artoria_rare_delivery_20261010.mjs --tailoring --scope=mobile --encounter=artoria --base=<URL> --build=<동일 빌드> --out=/tmp/halfsword-artoria-eyes-20261010/<local 또는 public>`; 공개 검사에는 `--local-evidence=<local/report.json>` 필요. 실제 폰 성능/미적 수락은 별도다. [최신 눈 교정 전달 기록](artoria_eyes_release.json)을 따른다. 이전 영수증/사진 해시는 앞선 상체 작업 당시의 근거다.
 
 공개c21bd19 반영 완료. 로컬/공개 모바일 각1흐름(진입·조작·일시정지·재시작), 공개196파일 해시 일치·오류0을 확인했다.
+
+
+## 총사 얼굴형 후속 교정 ·10/10
+
+사용자가 총사만 다른 얼굴형을 공통형으로 맞추도록 지시했다. v6는 v5의 길어진 얼굴/좁은 턱, 별도 눈·코 배치와 귀·입 축소를 제외한다. 분홍 높은 땋은 머리·피부색·제복을 유지하며, 머리 덮개의 좌우/앞뒤 반경만 기본 얼굴에 맞춘다. 이전v5는 과거 이력이며 재채택 후보가 아니다.
+
+기준9147589. 실제 생성한 v6 얼굴 정점 해시 및 눈·코 형상/위치는 공통형인 아르토리아v4와 동일하고, v5/v6 생성 당시 물리 스냅샷도 일치한다. 전후 각3뷰에서 머리/귀의 새 관통·틈은 관측되지 않았다. 앞선 전체 물리 검사를 반복하지 않았으며 장시간 전투/모든 애니메이션 관통을 검증한 것은 아니다. 재현은 기존 전달 도구의 `--tailoring --scope=mobile --encounter=crown_boss`, 출력 경로 `/tmp/halfsword-gunner-face-20261010/`를 사용한다. [전달 상태](gunner_face_release.json).
