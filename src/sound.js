@@ -1617,6 +1617,7 @@ const STAGE_SOUND = {
   corsair: { step: 'step', grit: 'step' }, // 다져진 모래흙 선착장: 돌 판석 대신 모래가 눌리는 발소리
   sacred_grove: { step: 'stepGravel', grit: 'stepGravel' },
   frozen_bay: { step: 'stepSnow', grit: 'stepSnow' }, // 얇게 쌓인 마른 눈, 탁 트인 호수라 성벽 울림 없음
+  qinglan: { step: 'stepStone', grit: 'stepStone' }, // 한낮의 열린 암반 쉼터, 실내 울림 없음
   poseidon: { step: 'step' },
   poseidon_night: { step: 'step', night: true }, // 밤의 포세이돈 (하인리히 재등장): 같은 바다·바람에 네 귀퉁이 화로·횃대의 불을 더하고 바람을 어둡게
   temple: { step: 'stepGravel', grit: 'stepGravel' },

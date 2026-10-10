@@ -4,13 +4,15 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {chromium} from '/workspace/cloud-onboarding/browser/node_modules/playwright/index.mjs';
-const out='/tmp/halfsword-frozen-bay-20261010';
+const stageId=process.argv[2]??'frozen_bay';
+assert(['frozen_bay','qinglan'].includes(stageId));
+const out=stageId==='qinglan'?'/tmp/halfsword-qinglan-20261010':'/tmp/halfsword-frozen-bay-20261010';
 const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
 try {
  const page=await browser.newPage();const errors=[];page.on('pageerror',e=>errors.push(String(e)));
  await page.route('**/frozen-bay-audit',r=>r.fulfill({contentType:'text/html',body:'<!doctype html><title>Stage resource audit</title>'}));
  await page.goto('http://127.0.0.1:4240/frozen-bay-audit');
- const result=await page.evaluate(async()=>{
+ const result=await page.evaluate(async(stageId)=>{
   const THREE=await import('/node_modules/three/build/three.module.js');
   const {Stages,STAGE_FOE}=await import('/src/stages.js');
   const scene=new THREE.Scene(),hemi=new THREE.HemisphereLight(),sun=new THREE.DirectionalLight();scene.add(hemi,sun);
@@ -18,7 +20,7 @@ try {
   const camera=new THREE.PerspectiveCamera(50,4/3,.1,400);camera.position.set(-9,4,5);camera.lookAt(0,1,0);
   const stages=new Stages(scene,{hemi,sun}),runs=[];let cues=[];
   for(let n=0;n<3;n++) {
-   const arena=stages.build('frozen_bay');arena.onEvent=(name,data)=>cues.push({name,...data});
+   const arena=stages.build(stageId);arena.onEvent=(name,data)=>cues.push({name,...data});
    const hash=[],meshes=[];let finite=true,triangles=0;
    for(const o of stages.objects)o.traverse(c=>{if(c.isMesh){
     for(const attr of Object.values(c.geometry.attributes))for(const value of attr.array)if(!Number.isFinite(value))finite=false;
@@ -35,13 +37,13 @@ try {
    stages.clear();renderer.render(scene,camera);
    runs.push({finite,triangles,meshes,calls,buildMs:stages.buildMs,active,cleared:{...renderer.info.memory},disposed,owned:{geometries:geos.size,materials:mats.size,textures:textures.size},hash});
   }
-  renderer.dispose();return{runs,cues,foe:STAGE_FOE.frozen_bay};
- });
+  renderer.dispose();return{runs,cues,foe:STAGE_FOE[stageId]};
+ },stageId);
  await fs.writeFile(out+'/scene-observed.json',JSON.stringify({result,errors},null,2));
- assert.equal(result.foe,'eira');assert.equal(errors.length,0);
- for(const r of result.runs){assert(r.finite);assert(r.triangles<65000);assert(r.calls<20);assert.deepEqual(r.disposed,r.owned);assert.equal(r.cleared.geometries,0);assert.equal(r.active.textures-r.cleared.textures,r.owned.textures);assert.deepEqual(r.cleared,result.runs[0].cleared);assert.deepEqual(r.hash,result.runs[0].hash);}
- for(const kind of ['lakeIceBoom','frozenPierCreak']){const cues=result.cues.filter(c=>c.kind===kind);assert(cues.length>=3);for(let i=1;i<cues.length;i++)assert(cues[i].time-cues[i-1].time>=24);assert(cues.every(c=>c.name==='stageDetail'&&Number.isFinite(c.amp)&&c.amp>0));}
- const sources={};for(const file of ['src/stage_frozen_bay.js','src/stage_frozen_bay_shore.js','src/stages.js'])sources[file]=createHash('sha256').update(await fs.readFile(file)).digest('hex');
- await fs.writeFile(out+'/scene-report.json',JSON.stringify({pass:true,sources,method:'Three.js standalone actual renderer, three build/clear cycles; synthetic stage clock110s. No claim of human sound evaluation or physical phone FPS.',...result,errors},null,2));
+ assert.equal(result.foe,stageId==='qinglan'?'renji':'eira');assert.equal(errors.length,0);
+ for(const r of result.runs){assert(r.finite);assert(r.triangles<(stageId==='qinglan'?100000:65000));assert(r.calls<(stageId==='qinglan'?35:20));assert.deepEqual(r.disposed,r.owned);assert.equal(r.cleared.geometries,0);assert.equal(r.active.textures-r.cleared.textures,r.owned.textures);assert.deepEqual(r.cleared,result.runs[0].cleared);assert.deepEqual(r.hash,result.runs[0].hash);}
+ for(const kind of (stageId==='qinglan'?['springDrip','cliffBird']:['lakeIceBoom','frozenPierCreak'])){const cues=result.cues.filter(c=>c.kind===kind);assert(cues.length>=3);for(let i=1;i<cues.length;i++)assert(cues[i].time-cues[i-1].time>=(kind==='springDrip'?2.1:24));assert(cues.every(c=>c.name==='stageDetail'&&Number.isFinite(c.amp)&&c.amp>0));}
+ const sources={};for(const file of (stageId==='qinglan'?['src/stage_qinglan.js','src/stage_qinglan_vista.js','src/stages.js']:['src/stage_frozen_bay.js','src/stage_frozen_bay_shore.js','src/stages.js']))sources[file]=createHash('sha256').update(await fs.readFile(file)).digest('hex');
+ await fs.writeFile(out+'/scene-report.json',JSON.stringify({pass:true,stageId,sources,method:'Three.js standalone actual renderer, three build/clear cycles; synthetic stage clock110s. No claim of human sound evaluation or physical phone FPS.',...result,errors},null,2));
  console.log(JSON.stringify({pass:true,triangles:result.runs[0].triangles,calls:result.runs[0].calls,resources:result.runs[0].owned,cues:result.cues.length}));
 }finally{await browser.close();}

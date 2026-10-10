@@ -10,9 +10,11 @@ export const STAGE_DETAIL_PROFILES = Object.freeze({
   gullCall: { stage: 'corsair', duration: 2.15, gain: 0.085, gap: 24 },
   lakeIceBoom: { stage: 'frozen_bay', duration: 3.5, gain: 0.055, gap: 26 },
   frozenPierCreak: { stage: 'frozen_bay', duration: 1.9, gain: 0.030, gap: 24 },
+  springDrip: { stage: 'qinglan', duration: 0.65, gain: 0.028, gap: 2 },
+  cliffBird: { stage: 'qinglan', duration: 1.25, gain: 0.055, gap: 26 },
 });
 
-export const hasStageDetails = (stage) => stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove' || stage === 'frozen_bay';
+export const hasStageDetails = (stage) => stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove' || stage === 'frozen_bay' || stage === 'qinglan';
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 const TAU = Math.PI * 2;
 
@@ -24,6 +26,36 @@ export function synthStageDetail(kind, sr, rng) {
   const profile = STAGE_DETAIL_PROFILES[kind];
   if (!profile || !Number.isFinite(sr) || sr < 8000) return new Float32Array(0);
   const out = new Float32Array(Math.ceil(profile.duration * sr));
+  if (kind === 'springDrip' || kind === 'cliffBird') {
+    const pitch = 0.94 + rng() * 0.12;
+    if (kind === 'springDrip') {
+      // One visible drop entering the small rock basin: a quickly damped
+      // rising bubble and tiny splash, without a sustained bell or rain bed.
+      let phase = 0, splash = 0;
+      const a = 1 - Math.exp(-TAU * 2300 / sr);
+      for (let i = 0; i < out.length; i++) {
+        const t = i / sr, tail = Math.min(1, (out.length - 1 - i) / (sr * 0.05));
+        phase += TAU * (840 + 520 * (1 - Math.exp(-t / 0.045))) * pitch / sr;
+        splash += a * (rng() * 2 - 1 - splash);
+        const envelope = (1 - Math.exp(-t / 0.0025)) * Math.exp(-t / 0.038);
+        out[i] = tail * (0.31 * Math.sin(phase) * envelope
+          + 0.075 * splash * (1 - Math.exp(-t / 0.001)) * Math.exp(-t / 0.017));
+      }
+    } else {
+      // Two light, distant small-bird syllables at the visible bird's position.
+      // Short breaths and rounded contours avoid the long coastal gull cry.
+      for (const [start, duration, base] of [[0.025, 0.13, 2350], [0.27, 0.17, 2630]]) {
+        let phase = 0;
+        const count = Math.floor(duration * sr), offset = Math.floor(start * sr);
+        for (let i = 0; i < count; i++) {
+          const u = i / count, t = i / sr, envelope = Math.sin(Math.PI * u) ** 2;
+          phase += TAU * (base + 480 * Math.sin(Math.PI * u) + 45 * Math.sin(t * 75)) * pitch / sr;
+          out[offset + i] = envelope * (0.25 * Math.sin(phase) + 0.014 * (rng() * 2 - 1));
+        }
+      }
+    }
+    return out;
+  }
   if (kind === 'lakeIceBoom' || kind === 'frozenPierCreak') {
     const variation = rng(), pitch = 0.91 + variation * 0.18;
     let low = 0, body = 0, air = 0, phase = 0, chirp = 0, peak = 0;
@@ -204,6 +236,11 @@ export class StageDetailSound {
       // Open inland ice: sparse dry air, without surf, storm or room echo.
       addNoise({ rate: 0.87, frequency: 520, gain: 0.0026, lfo: 0.037, depth: 0.0009, ceiling: 1500, pan: -0.15 });
       addNoise({ rate: 0.71, type: 'lowpass', frequency: 135, gain: 0.0035, lfo: 0.061, depth: 0.0011, ceiling: 750, pan: 0.12 });
+    } else if (this.stage === 'qinglan') {
+      // Clear noon: sparse leaves/awning air above a very distant river.
+      // The near seep is represented only by its visible, scheduled drops.
+      addNoise({ rate: 0.89, frequency: 1450, gain: 0.0014, lfo: 0.049, depth: 0.0005, ceiling: 2400, pan: -0.12 });
+      addNoise({ rate: 0.73, frequency: 620, gain: 0.0018, lfo: 0.071, depth: 0.0003, ceiling: 1250, pan: 0.22 });
     }
     let remaining = nodes.length;
     for (const source of nodes) {
