@@ -52,7 +52,7 @@ export const WANDERER_CHARACTERS = [
   },
   {
     id: 'eira', name: '에이라 린드', epithet: '눈길의 사제', age: 26,
-    origin: '동시베리아 내륙 · 얼어붙은 호수 교구', weapon: 'rapier', voice: 'isolde',
+    origin: '동시베리아 내륙 · 얼어붙은 호수 교구', weapon: 'rapier', voice: 'soft_female',
     backstory: '긴 겨울이면 마을 사이를 걸어 약과 편지를 나르는 순회 사제. 돌아오지 못한 사람들의 이름을 작은 종 안쪽에 새긴다. 얼어붙은 길에서 자신과 짐을 지키려 레이피어를 배웠다. 봄을 믿지만, 봄이 모든 사람에게 제때 오지 않는다는 것도 안다.',
     want: '올겨울에도 가장 먼 마을의 등불이 꺼지지 않게 하는 것.',
     school: '기존 레이피어 유파를 사용하는 창작 사제. 특정 종교의 실제 전투 전통을 재현한 것은 아니다.',

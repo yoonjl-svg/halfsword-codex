@@ -51,7 +51,7 @@ export const EXPANSION_CHARACTERS = [
   },
   {
     id: 'tome', name: '토메 비달', epithet: '마지막 교습', age: 64,
-    origin: '이탈리아 · 항구 도시의 검술 회랑', weapon: 'rapier', voice: 'liao',
+    origin: '이탈리아 · 항구 도시의 검술 회랑', weapon: 'rapier', voice: 'tome',
     backstory: '귀족 자제에게 예절과 결투를 가르치던 검술사범. 제자를 잃은 뒤 회랑의 문을 닫았다. 이제 지워진 제자의 이름을 결투 명부에 되돌리려 마지막으로 칼을 든다.',
     want: '제자의 죽음을 무용담으로 팔아넘긴 후원자에게 진실을 인정받는 것.',
     school: '이탈리아 레이피어의 칼끝 위협과 간격 싸움에서 영감을 받은 창작 검객. 게임의 레이피어 유파를 사용한다.',
@@ -97,7 +97,7 @@ export const EXPANSION_CHARACTERS = [
   },
   {
     id: 'yeongman', name: '영만', epithet: '숲이 부른 이름', age: 19,
-    origin: '일본 · 오래된 신목이 선 산골', weapon: 'monohoshizao', voice: 'isolde',
+    origin: '일본 · 오래된 신목이 선 산골', weapon: 'monohoshizao', voice: 'soft_female',
     backstory: '신목 아래 작은 사당을 돌보는 열아홉 살 무녀. 장마 뒤 숲을 베어 길을 내겠다는 사람들이 찾아오자, 사당에 남은 긴 칼을 들고 처음으로 산을 내려왔다. 나무와 물의 길에는 밝지만 사람의 싸움에는 아직 서툴다.',
     want: '마을의 물길과 신목을 지키고, 돌아와 다시 평범한 아침을 맞는 것.',
     school: '긴 일본도의 거리와 큰 베기에서 영감을 받은 창작 검객. 무녀의 역사적 실전 검술을 재현했다는 뜻은 아니다.',

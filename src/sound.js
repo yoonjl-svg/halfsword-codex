@@ -290,13 +290,26 @@ const VOWELS = {
  *  f0: 평소 목소리 높이(Hz), tract: 입안 공명대 배율(성도가 짧을수록 큼 — 여성 약 1.15),
  *  breath: 숨 섞인 정도, rough: 목 긁힘(보컬 프라이), style: 죽을 때의 버릇 (voiceScript)
  *  rec: 녹음된 목소리 (public/sfx/voice/<id>_<ko|bleed|hurt><번호>.mp3, 출처는 public/sfx/LICENSE.txt).
- *       ko·bleed = 파일 개수(0이면 그 죽음은 합성 목소리), hurt = 깊은 상처에 짧게 내는 신음 개수(0이면 신음 없음),
+ *       ko·bleed = 파일 개수 또는 sfx 상대 파일명 목록(0이면 그 죽음은 합성 목소리), hurt = 깊은 상처에 짧게 내는 신음 개수(0이면 신음 없음),
  *       revive = 부활 때 곁들이는 짧은 숨 들이켬 개수(이졸데만),
  *       rate = 재생 속도(목소리 높이), gain = 음량
  *       녹음은 들어 보지 않고 음높이·길이 분석으로 골랐다 — 귀로 듣고 바꾸려면 파일만 갈아 끼우면 된다
  *  mute: 목소리 없이 몸이 "쿵" 쓰러지는 소리만 (BodySounds 가 쓰러짐을 꼭 한 번, 무겁게 낸다). 지금은 쓰는 캐릭터가 없다
  */
 export const VOICES = {
+  // 2026-10-11: one shared young/quiet group, using the user's saved Reitanna clips.
+  // Explicit file lists reuse a recording without duplicating encoded assets.
+  soft_female: { f0: 225, tract: 1.17, breath: 0.6, rough: 0.1, style: 'gasp', rec: {
+    ko: ['voice/reitanna_gasp'], bleed: ['voice/reitanna_long_sigh'],
+    hurt: ['voice/reitanna_gasp'], gain: 1, rate: 1,
+  } },
+  // Separate casting from Liao; these are the existing generic/default-opponent takes,
+  // not a new actor or an age-validated elderly performance. Audition on voices.html.
+  tome: { f0: 124, tract: 1, breath: 0.45, rough: 0.3, style: 'exhale', rec: {
+    ko: ['voice/generic_ko1', 'voice/generic_ko2'],
+    bleed: ['voice/generic_bleed1', 'voice/generic_bleed2'],
+    hurt: ['voice/generic_hurt1', 'voice/generic_hurt2'], gain: 0.7, rate: 1,
+  } },
   player: { f0: 118, tract: 1.0, breath: 0.35, rough: 0.3, style: 'grunt', rec: { ko: 2, bleed: 2, hurt: 2 } }, // HaelDB 3번 목소리
   generic: { f0: 124, tract: 1.0, breath: 0.35, rough: 0.3, style: 'grunt', rec: { ko: 2, bleed: 2, hurt: 2 } }, // HaelDB 첫 목소리 (전부 CC0)
   bran: { f0: 98, tract: 0.93, breath: 0.3, rough: 0.55, style: 'sob', rec: { ko: 2, bleed: 2, hurt: 2, rate: 0.92 } }, // Baradari(거칠고 낮음) + 지친 신음 kanyonwyvern(CC0). 굵고 거친 목
@@ -1910,9 +1923,11 @@ export class Sound {
       if (!rec) continue;
       for (const kind of ['ko', 'bleed', 'hurt', 'revive']) {
         const name = `voice:${id}:${kind}`;
-        if (this.samples[name]) continue;
+        if (this.samples[name]?.length) continue; // Retry a recording whose earlier download failed.
         this.samples[name] = [];
-        for (let n = 1; n <= (rec[kind] || 0); n++) await this.loadSample(name, `voice/${id}_${kind}${n}`);
+        const files = Array.isArray(rec[kind]) ? rec[kind]
+          : Array.from({ length: rec[kind] || 0 }, (_, i) => `voice/${id}_${kind}${i + 1}`);
+        for (const file of files) await this.loadSample(name, file);
       }
     }
   }

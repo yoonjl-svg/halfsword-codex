@@ -7,7 +7,7 @@ export default defineConfig({
   server: { host: true },
   build: {
     rolldownOptions: {
-      input: { main: 'index.html', sounds: 'sounds.html', characterViewer: 'character-viewer.html' },
+      input: { main: 'index.html', sounds: 'sounds.html', voices: 'voices.html', characterViewer: 'character-viewer.html' },
     },
   },
 });

@@ -1,0 +1,54 @@
+{
+  "basis": "8a7c37ddbee39c980d831084a084f69d3e49d1ec",
+  "scope": "Voice casting for Eira, Yeongman and Tome; mobile before/after audition; Sherpa unchanged",
+  "sourceHashes": {
+    "src/sound.js": "a895da73842be9eeedcb6bc6721ae2b25d5ceeca0679617d6136fe893caa0504",
+    "src/characters_expansion.js": "937c7c8d122a08bec9521befa76fb3917b6b45485540d9b4605950afabd8c78d",
+    "src/characters_wanderers.js": "137b3025bddab8f6542eec873540a2d4e0b79909f04da7a476aaa9254353041d",
+    "src/voicelab.js": "256ae7a08ebe7f01900c7f191e7e06036f4cbe8bff5077fb082b48ba0637ef8a",
+    "voices.html": "9ca4afc7dc6b5a84516682e169843976a092e0d814e5d74e0b0eae3438e7ca72",
+    "public/voice-casting.json": "a56119a3a04beb7a21a3ddd015acee9eedba988c650eb29bbcceca57e5ed1f17",
+    "public/sfx/voice/reitanna_gasp.mp3": "3e246ca892b2fd73df4f8b4c249afc65665b5aa4054fd37de115e514ab650ba6",
+    "public/sfx/voice/reitanna_long_sigh.mp3": "5f2ef90d0a5146561265d79420c67b64ef8c0e837dad780d7739701dd88f8b8d",
+    "tools/audio/voice_casting_20261011.mjs": "d8794c5ca91103263b28ab0a5e1316f4aa2299b2d87553384dfa060a40264438",
+    "tools/browser/voice_casting_20261011.mjs": "751add287baf92a42dd983f12dde9477c3baa7c38a3b2c6386f8bceff713a56c"
+  },
+  "addedAudioBytes": 15932,
+  "casting": {
+    "beforeNpcBanks": 5,
+    "afterNpcBanks": 7,
+    "maximumSharedCharactersBefore": 5,
+    "maximumSharedCharactersAfter": 3,
+    "sherpa": "liao unchanged; excluded from new production and audition"
+  },
+  "audio": {
+    "status": "passed",
+    "profiles": 9,
+    "sampleRates": [
+      44100,
+      48000
+    ],
+    "eventsRendered": 54,
+    "reportSha256": "833a29f622f1edaa9c9d56605d96981081ed1f6803a8f2eff7e4a4a165c8de18"
+  },
+  "local": {
+    "status": "passed",
+    "groups": 4,
+    "errors": 0,
+    "reportSha256": "e6626d27aa8feac62023115e15f8d77dc8aa0c690fa536615e82e50096ca4aca"
+  },
+  "evidenceReuse": "Final source changes after tests only corrected default-opponent recording descriptions; all compiled JS/CSS names and bytes identical after rebuild. Public JSON wording is included in final public verification.",
+  "public": {
+    "status": "pending"
+  },
+  "limitations": [
+    "Browser audio rendering and mobile touch emulation do not establish human voice attractiveness, age suitability or physical phone speaker quality.",
+    "Tome uses existing default-opponent takes, not a new performer or verified elderly acting.",
+    "Female reserve has two recordings; hurt and KO share gasp."
+  ],
+  "latestDuePublication": {
+    "date": "2026-10-10",
+    "status": "remote_verified_earlier_same_session",
+    "archiveSha": "77b0db678b5e481405f2b95f5aa502211b1b58a2"
+  }
+}
