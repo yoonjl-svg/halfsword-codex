@@ -13,3 +13,5 @@
 실제 전달 결과는 [영수증](crown_revolver_release.json)을 따른다. [플레이](https://yoonjl-svg.github.io/halfsword-codex/crown-boss.html).
 
 검사 도구의 첫 로컬 시도는 시뮬레이션 전 타이틀 화면에도 아직 생성되지 않은 탄수 상태를 요구해 실패했다. 게임을 바꾸지 않고 전투 시작 뒤에 검사하도록 범위를 교정했다. 실패 원자료와 재검사 결과를 함께 보존한다.
+
+촬영 도구에서는 `weapon=longsword` URL이 상대 무기까지 덮어쓰는 기존 동작을 발견했다. 최초 잘못된 무기 시도는 공개하지 않고 보존했으며, 실제 등록 무기를 읽어 `foeWeapon=pistol`을 명시한 최종4사진으로 교체했다. 게임의 URL 규칙은 변경하지 않았다.

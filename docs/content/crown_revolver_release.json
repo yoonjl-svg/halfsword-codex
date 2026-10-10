@@ -1,7 +1,7 @@
 {
-  "status": "local native, portraits and mobile passed; public pending",
+  "status": "Delivered: native character, local mobile, Pages and public mobile passed",
   "basis": "bf727c835e3d130793b7cea75acfaa67a7abd744",
-  "gameCommit": null,
+  "gameCommit": "37b9f540828b441a5af3341fc13dba760762d93a",
   "character": "crown_boss",
   "weapon": "pistol",
   "settings": {
@@ -61,8 +61,25 @@
     "reportSHA256": "4d8780d56d2a8d7af7e85f11cb1d4b6b7b7c508b159b96cd50d3e2b58367e76b",
     "scope": "mobile"
   },
-  "public": null,
-  "pages": null,
+  "public": {
+    "pass": true,
+    "flows": 1,
+    "requests": 190,
+    "uniqueFiles": 179,
+    "errors": 0,
+    "buildStable": true,
+    "scope": "mobile",
+    "reportSHA256": "d6543d533a872c155276c9244662845dd83ed2209ed6e7835794879f10845dac",
+    "tlsVerification": true,
+    "proxyRetained": true
+  },
+  "pages": {
+    "conclusion": "success",
+    "databaseId": 38017477259,
+    "headSha": "37b9f540828b441a5af3341fc13dba760762d93a",
+    "status": "completed",
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38017477259"
+  },
   "playURL": "https://yoonjl-svg.github.io/halfsword-codex/crown-boss.html",
   "limits": [
     "Chromium mobile emulation, not physical-phone FPS or human acceptance.",
@@ -79,5 +96,12 @@
       "crown-boss-front.webp": "cce2daba4debed75bf132db5c1587ef19a36c7427c8a4186780e0af5fe4ff756"
     }
   },
-  "testCorrection": "First local attempt required lazily initialized gun state on the pre-simulation title screen. Restricted ammo assertion to selected gameplay; same fresh six-round restart assertion retained. Failed report preserved as local/report.json; no game or frozen build change."
+  "testCorrection": "First local attempt required lazily initialized gun state on the pre-simulation title screen. Restricted ammo assertion to selected gameplay; same fresh six-round restart assertion retained. Failed report preserved as local/report.json; no game or frozen build change.",
+  "completedUTC": "2026-10-10T02:36:49.113Z",
+  "evidence": {
+    "path": "/workspace/halfsword-handoff/uniform-revolver-evidence-20261010.tar.gz",
+    "bytes": 2616373,
+    "sha256": "45c2d1a2e2fb15cac16c0a52d7288aaeb9a51e26dabea9eddee5db7e67dcd4f7",
+    "includes": "Native, gun, failed first local, corrected local, public, photos before/after and capture script."
+  }
 }
