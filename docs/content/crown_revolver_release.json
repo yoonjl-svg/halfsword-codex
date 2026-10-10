@@ -1,0 +1,83 @@
+{
+  "status": "local native, portraits and mobile passed; public pending",
+  "basis": "bf727c835e3d130793b7cea75acfaa67a7abd744",
+  "gameCommit": null,
+  "character": "crown_boss",
+  "weapon": "pistol",
+  "settings": {
+    "shots": 7,
+    "ammo": 5,
+    "cooldown": 0.8,
+    "reload": 8,
+    "energy": 80,
+    "rounds": 6
+  },
+  "sourceHashes": {
+    "src/characters_expansion.js": "b5a2697dc768ba2c63ca170076b11d3384172fba3c58cd986fb5a0179f3a0cd6",
+    "src/looks.js": "3619dae3cae09fbcc703647f4b0fe6b051437149daa2990d7c46665b05601429",
+    "src/outfits.js": "2f6891a7991bc10636b3d6c5fb30afadf83fd735c8c7437b23bee08c116d294d",
+    "src/gun.js": "a87128950078a735b032856d96f97e655d9f8c2ef752ae0101b061d70cdd6f9b",
+    "src/ai.js": "9651b8439b67b926d6c2fc2de642711af7f2f74d4d06646edfe2afd79af064e9",
+    "src/stages.js": "9669101630feae334e98efafe05f6b991edfe9bfc025449987c8334c17955560",
+    "src/config.js": "08b9818b6d9f45aecd1d7f88f664fc43491db73a395f0b242bf211e0ece3200c",
+    "tools/sim/experiments/crown_revolver_gate.mjs": "92370522bade726fafcfdc2f1bdec24d468683690f82d89653d30803f4ea169c",
+    "tools/browser/artoria_rare_delivery_20261010.mjs": "5bdebc1f4f88b6562739cadbcfd5be7352e9ecfec6e9fc1ff4e60781dd5e2da0"
+  },
+  "native": {
+    "pass": true,
+    "checks": 15,
+    "reportSHA256": "b5739c10a226d32010b795245ee11d73b80d2cccebab927fed267ed3edb43598"
+  },
+  "gun": {
+    "pass": true,
+    "observed": {
+      "steps": 960,
+      "seconds": 8.000000000000187,
+      "shots": 6,
+      "hits": 5,
+      "ammo": 0,
+      "gunAISeconds": 6.000000000000088,
+      "finite": true
+    },
+    "controlled": {
+      "shots": 7,
+      "ammo": 5,
+      "cooldown": 0.8,
+      "reload": 8,
+      "energy": 80,
+      "rounds": 6
+    },
+    "reportSHA256": "c6100c9152b8afe7112fb015697e1fc8402898ac7476c012febed27bf917a6c6",
+    "limits": [
+      "Natural sample is one bounded actual-game AI run against a passive opponent; not a win-rate benchmark.",
+      "Reload fixture deliberately advances fight time and gun timers; not natural combat or animation evidence."
+    ]
+  },
+  "local": {
+    "pass": true,
+    "flows": 1,
+    "uniqueFiles": 179,
+    "errors": 0,
+    "reportSHA256": "4d8780d56d2a8d7af7e85f11cb1d4b6b7b7c508b159b96cd50d3e2b58367e76b",
+    "scope": "mobile"
+  },
+  "public": null,
+  "pages": null,
+  "playURL": "https://yoonjl-svg.github.io/halfsword-codex/crown-boss.html",
+  "limits": [
+    "Chromium mobile emulation, not physical-phone FPS or human acceptance.",
+    "Public mobile scope verifies encounter binding, touch play and restart; no new full-campaign or natural reload-animation claim.",
+    "Existing gun rules/AI used; no additional damage bonus, accuracy balance or new sound processing."
+  ],
+  "portraits": {
+    "method": "Native AI/gun pose after 1.233s, no forced sword guard; mesh clone in neutral lighting.",
+    "reportSHA256": "249dc818aa20fe0dd67a3d8ba332f6aea48bcb6142f0df143c75684170783bc2",
+    "files": {
+      "crown-boss.webp": "69be95a5b402d172fce0e741cfee848d1db30b2d00258a6bb9db5fe56bca6f99",
+      "crown-boss-back.webp": "99f5c599aa68595326a69eea5a51ded64fa3328cbba56784ed014fc8012df924",
+      "crown-boss-side.webp": "b0ae166ea4ab629e26bfb86e66690a090cc01da918932c95d172047ecae0b255",
+      "crown-boss-front.webp": "cce2daba4debed75bf132db5c1587ef19a36c7427c8a4186780e0af5fe4ff756"
+    }
+  },
+  "testCorrection": "First local attempt required lazily initialized gun state on the pre-simulation title screen. Restricted ammo assertion to selected gameplay; same fresh six-round restart assertion retained. Failed report preserved as local/report.json; no game or frozen build change."
+}

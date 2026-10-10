@@ -53,7 +53,7 @@ const heroFile = crown ? 'crown-boss.webp' : 'artoria.webp';
 const query = `?cards=sain,ice&foe=${encounterId}&stage=${stageId}`;
 assert(args.build && path.isAbsolute(args.build) && args.out && path.isAbsolute(args.out));
 const build = await fs.realpath(args.build), out = path.resolve(args.out);
-assert((out.startsWith('/tmp/halfsword-artoria-rare-20261010/') || out.startsWith('/tmp/halfsword-ice-hbo-20261010/') || out.startsWith('/tmp/halfsword-crown-boss-20261010/') || out.startsWith('/tmp/halfsword-crown-uniform-20261010/')));
+assert((out.startsWith('/tmp/halfsword-uniform-revolver-20261010/') || out.startsWith('/tmp/halfsword-artoria-rare-20261010/') || out.startsWith('/tmp/halfsword-ice-hbo-20261010/') || out.startsWith('/tmp/halfsword-crown-boss-20261010/') || out.startsWith('/tmp/halfsword-crown-uniform-20261010/')));
 await fs.mkdir(path.dirname(out), { recursive: true });
 assert.equal(await fs.realpath(path.dirname(out)), path.dirname(out)); await fs.mkdir(out);
 const base = new URL(args.base || 'https://yoonjl-svg.github.io/halfsword-codex/');
@@ -181,6 +181,7 @@ try {
       .flatMap(body => [body.translation(), body.rotation(), body.linvel(), body.angvel()].flatMap(value => Object.values(value)));
     return { state: game.state, steps: game.combat.stepNo, frame: game.renderInfo().frame, stage: game.stage.id,
       enemyName: game.enemy.name, enemyWeapon: game.enemy.weapon.id, playerWeapon: p.weapon.id,
+      enemyGun: game.enemy.gun ? { ammo: game.enemy.gun.ammo, shots: game.enemy.gun.shots, reloading: game.enemy.gun.reloading } : null,
       mass: p.sword.mass(), length: Math.max(...ranges.map(range => range[1])) - Math.min(...ranges.map(range => range[0])),
       tier: p.weapon.tier, fragile: p.weapon.fragile, fragility: p.weapon.fragility, broken: p.weaponBroken,
       weaponId: p.swordGroup.uuid, weaponMeshes, aura, auraMarkers, lights,
@@ -193,6 +194,8 @@ try {
   });
   function policy(value, fixture, selected = true) {
     assert.equal(value.stage, stageId); assert.equal(value.enemyName, encounter.name); assert.equal(value.enemyWeapon, encounter.weapon);
+    // Gun state is allocated on simulation start, after the initial title screen.
+    if (selected && encounter.weapon === 'pistol') assert(value.enemyGun && Number.isInteger(value.enemyGun.ammo) && value.enemyGun.ammo >= 0 && value.enemyGun.ammo <= 6);
     assert(value.finite && value.scrollWidth <= value.width + 1); assert.equal(value.saved, saved);
     assert.equal(value.model.requested, false); assert.equal(value.model.loads, 0);
     assert(value.enemyOutfits.length >= 5 && value.enemyOutfits.every(item => item.outfit === encounter.look.outfit));
@@ -265,6 +268,7 @@ try {
       if (label === 'first') await page.screenshot({ path: path.join(out, `${fixture.id}-cards.png`) });
       await page.locator(`.wcard[data-i="${index}"]`).tap(); await wait(() => game.state === 'fight' && game.player.fightT > 2.05);
       const state = await read(); assert.equal(state.playerWeapon, cards[index]); policy(state, fixture); row[label] = { cards, selected: index, state };
+      if (encounter.weapon === 'pistol') assert.deepEqual(state.enemyGun, { ammo: 6, shots: 0, reloading: false }, 'Fresh encounter/restart initializes six rounds');
       const count = state.accepted;
       await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: 690, y: 270, id: 1 }] });
       await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: 635, y: 175, id: 1 }] });
