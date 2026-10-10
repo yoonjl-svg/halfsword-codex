@@ -28,4 +28,6 @@
 
 사용자가 총사만 다른 얼굴형을 공통형으로 맞추도록 지시했다. v6는 v5의 길어진 얼굴/좁은 턱, 별도 눈·코 배치와 귀·입 축소를 제외한다. 분홍 높은 땋은 머리·피부색·제복을 유지하며, 머리 덮개의 좌우/앞뒤 반경만 기본 얼굴에 맞춘다. 이전v5는 과거 이력이며 재채택 후보가 아니다.
 
-기준9147589. 실제 생성한 v6 얼굴 정점 해시 및 눈·코 형상/위치는 공통형인 아르토리아v4와 동일하고, v5/v6 생성 당시 물리 스냅샷도 일치한다. 전후 각3뷰에서 머리/귀의 새 관통·틈은 관측되지 않았다. 앞선 전체 물리 검사를 반복하지 않았으며 장시간 전투/모든 애니메이션 관통을 검증한 것은 아니다. 재현은 기존 전달 도구의 `--tailoring --scope=mobile --encounter=crown_boss`, 출력 경로 `/tmp/halfsword-gunner-face-20261010/`를 사용한다. [전달 상태](gunner_face_release.json).
+기준9147589. native 재현: `tools/sim/harness_m.mjs`의 `newRound({seed:73, weapon:"sain", weapon2:"pistol", look2:LOOK_ARCHIVE[id][v], walls:false})`에서 총사v5/v6 및 아르토리아v4를 각각 생성한다. `groups.head.children[0]` 정점 배열과 앞4개 메시의 geometry/scale/position, `world.takeSnapshot()` 해시를 비교한다. 실제 생성한 v6 얼굴 정점 해시 및 눈·코 형상/위치는 공통형인 아르토리아v4와 동일하고, v5/v6 생성 당시 물리 스냅샷도 일치한다. 전후 각3뷰에서 머리/귀의 새 관통·틈은 관측되지 않았다. 앞선 전체 물리 검사를 반복하지 않았으며 장시간 전투/모든 애니메이션 관통을 검증한 것은 아니다. 재현은 기존 전달 도구의 `--tailoring --scope=mobile --encounter=crown_boss`, 출력 경로 `/tmp/halfsword-gunner-face-20261010/`를 사용한다. [전달 상태](gunner_face_release.json).
+
+공개df0a9d6 반영 완료. 로컬/공개 모바일 각1흐름(진입·조작·일시정지·재시작), 공개197파일 해시 일치·오류0을 확인했다.
