@@ -221,7 +221,7 @@ try {
   assert.deepEqual(landing.play.map(link => link.href), encounters.map(item => new URL(queryFor(item), base).href));
   const expectedNames = registryContract.landing.map(item => item.name);
   assert.deepEqual(landing.headings.map(text => expectedNames.find(name => text.includes(name))).filter(Boolean), expectedNames);
-  const expectedImages = encounters.flatMap(item => (item.id === 'silver_wanderer' ? ['front', 'threeq', 'back', 'detail', 'fittings', 'before-threeq', 'before-detail'] : item.id === 'renji' ? ['front', 'threeq', 'back', 'feet'] : ['sherpa', 'silver_wanderer'].includes(item.id) ? ['front', 'threeq', 'back'] : ['front', 'threeq']).map(view => new URL(`encounters/${item.image}-${view}.webp`, base).pathname));
+  const expectedImages = encounters.flatMap(item => (item.id === 'silver_wanderer' ? ['front', 'threeq', 'back', 'detail', 'fittings', 'before-threeq', 'before-detail', 'before-hair-detail', 'before-hair-back'] : item.id === 'renji' ? ['front', 'threeq', 'back', 'feet'] : ['sherpa', 'silver_wanderer'].includes(item.id) ? ['front', 'threeq', 'back'] : ['front', 'threeq']).map(view => new URL(`encounters/${item.image}-${view}.webp`, base).pathname));
   assert.deepEqual(landing.images.map(image => image.path).sort(), expectedImages.sort());
   assert(landing.images.every(image => image.width > 0 && image.height > 0));
   await page.screenshot({ path: path.join(out, 'landing-portrait.png') });

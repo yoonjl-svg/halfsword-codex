@@ -1,9 +1,11 @@
 // v2 keeps v1 selectable. Surface-following embroidery and fittings only.
 import { createSilverWandererOutfit } from './outfit_silver_wanderer.js';
+import { createSilverWandererHair } from './outfit_silver_wanderer_hair.js';
 
 export function createSilverWandererDetail(h) {
   const { THREE, bake, box, cyl, ball, addMerged, CLOTH, artoriaCloth } = h;
   const base = createSilverWandererOutfit(h), SILVER = 0xc5c5cc, GOLD = 0xad914e;
+  const newHair = createSilverWandererHair(h);
   const thread = { ...CLOTH, metalness: .12, roughness: .73 };
   const metal = { ...CLOTH, metalness: .6, roughness: .36, steel: .7 };
   const leather = { ...CLOTH, metalness: 0, roughness: .83 };
@@ -52,7 +54,7 @@ export function createSilverWandererDetail(h) {
     for (let i = 0; i < p.count; i++) { v.copy(sums.get(keys[i])).normalize(); normals.setXYZ(i,v.x,v.y,v.z); }
     mesh.geometry.copy(geo); geo.dispose();
   }
-  function chest(g) {
+  function chest(g, look) {
     soften(g); const l = layer(g), silver = [], edging = [];
     // Hide v1's buried trim only. Keep the mantle itself and the white shirt.
     const old = g.children[0].children.find(n => n.name === 'silver-wanderer-cloth');
@@ -78,6 +80,7 @@ export function createSilverWandererDetail(h) {
     const shirtX = y => .12 * (.96 + .04 * (y + .14) / .28) + .0015;
     addMerged(l,[.069,.016,-.037].map(y=>bake(ball(.0038,8,6),[shirtX(y),y,.002],null,[.5,1,1])),SILVER,metal);
     addMerged(l,[-1,1].map(s=>line([[shirtX(.083),.083,s*.045],[shirtX(.014),.014,s*.054],[shirtX(-.091),-.091,s*.061]],.001)),0xd8d8d7,leather);
+    if (look?.hairStyle === 'swept_long_front') return;
     const strands=[];
     for(let i=-3;i<=3;i++) for(const dz of [-.013,.012]) {
       const z=i*.04;
@@ -161,6 +164,7 @@ export function createSilverWandererDetail(h) {
     thighF:(g)=>skirt(g,1,false),thighB:(g)=>skirt(g,-1,false),
     shinF:(g)=>skirt(g,1,true),shinB:(g)=>skirt(g,-1,true)};
   return Object.fromEntries(Object.entries(base).map(([part,decorate])=>[part,(g,look,d)=>{
+    if (part === 'head' && look?.hairStyle === 'swept_long_front') { newHair(g,look); return; }
     decorate(g,look,d);details[part]?.(g,look,d);
   }]));
 }
