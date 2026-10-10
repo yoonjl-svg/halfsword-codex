@@ -6,6 +6,7 @@ const base=process.argv[2],out=process.argv[3];assert(base&&out);await fs.mkdir(
 const pins=[];for(const n of await fs.readdir('/usr/local/share/ca-certificates'))if(n.endsWith('.crt'))try{const c=new X509Certificate(await fs.readFile('/usr/local/share/ca-certificates/'+n));pins.push(createHash('sha256').update(c.publicKey.export({type:'spki',format:'der'})).digest('base64'));}catch{}
 const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--ignore-certificate-errors-spki-list='+pins.join(',')]});
 const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+await context.addInitScript(()=>{window.tapEvents=[];for(const type of ['pointerdown','pointerup','click'])document.addEventListener(type,e=>tapEvents.push({type,id:e.target.id,tag:e.target.tagName,pointerId:e.pointerId,count:e.touches?.length,time:e.timeStamp}),true);});
 const report={pass:false,base,checks:[],errors:[],files:[]};let page=await context.newPage();
 page.on('pageerror',e=>report.errors.push(e.message));const responses=[];
 page.on('response',r=>{if(r.url().startsWith(base))responses.push(r);});
@@ -32,5 +33,5 @@ try{
  // Hash the actual fetched public/browser resources, including entry, chunks and photos.
  const unique=new Map(responses.map(r=>[r.url(),r]));for(const[url,r]of unique){const b=await r.body();report.files.push({url,status:r.status(),bytes:b.length,sha256:createHash('sha256').update(b).digest('hex')});}
  assert(report.files.every(f=>f.status===200));assert.deepEqual(report.errors,[]);report.pass=true;
-}catch(e){report.failure={message:e.message,stack:e.stack};process.exitCode=1;await page.screenshot({path:out+'/failure.png'}).catch(()=>{});}
+}catch(e){report.diagnostics=await page.evaluate(()=>({events:window.tapEvents,distance:window.flambergeView?.camera.position.distanceTo(flambergeView.controls.target)})).catch(()=>null);report.failure={message:e.message,stack:e.stack};process.exitCode=1;await page.screenshot({path:out+'/failure.png'}).catch(()=>{});}
 finally{report.completedUTC=new Date().toISOString();await fs.writeFile(out+'/report.json',JSON.stringify(report,null,2)+'\n');await browser.close();console.log(JSON.stringify({pass:report.pass,checks:report.checks.length,files:report.files.length,errors:report.errors,failure:report.failure?.message}));}
