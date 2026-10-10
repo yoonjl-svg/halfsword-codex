@@ -61,3 +61,5 @@
 - 현 외형 버전: [looks.js](../../src/looks.js). 외형은 성별·민족 판정 근거로 쓰지 않았다.
 - 실제 제어: [schools.js](../../src/schools.js), [ai.js](../../src/ai.js), [weapons.js](../../src/weapons.js).
 - 무대와 공개 입구: [stages.js](../../src/stages.js), [새 인물 소개](../../public/new-encounters.html), [김씨·에이라·사미라 소개](../../public/new-pair.html), [아르토리아 소개](../../public/artoria.html). 로컬 공개용 HTML의 실제 링크를 확인했으며 이번 조사는 원격 배포 재검증이나 새 플레이 검사가 아니다.
+
+후속 외형 방향: 사용자 피드백으로 청람잔도의 둥근 석회암 봉우리/바위문은 철회하고, 양자강의 연속 협곡/대하와 태산의 암릉/돌길을 참고한 가상 중국 산수풍으로 교체한다. [산세 재설계](qinglan_revision_20261010.md). 고유 공간/인물 수는 늘지 않는다.

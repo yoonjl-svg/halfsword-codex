@@ -1,31 +1,73 @@
-// Qinglan: a sunlit southern Chinese limestone gorge. This module owns only
-// distant scenery; the fighting terrace, lighting and atmosphere live upstream.
+// A fictional great-river gorge, inspired by the broad walls of the Three
+// Gorges and the grey ridges and pines of Mount Tai. No named site is reproduced.
+// Only scenery is owned here: no gameplay bodies, lights, sky or sound.
 import * as THREE from 'three';
-import { Kit, rng } from './stage_kit.js';
+import { Kit, rng, limb, boxUV, box } from './stage_kit.js';
 
+const WATER_Y = -11.4;
 const TAU = Math.PI * 2;
-const WATER_Y = -25.6;
-const ROCK = 0xbac0b8;
-const LEAF = 0x40653a;
+const RIVER_NODES = [[26, 0], [65, -5], [101, -18], [146, -29], [182, -3], [221, 31], [267, 20], [318, -19], [370, -9], [430, 12]];
+const CRESTS = {
+  '-1': [[-85, 13], [-30, 16], [28, 18], [67, 25], [103, 31], [146, 46], [178, 39], [221, 61], [264, 77], [305, 58], [350, 76], [435, 53]],
+  '1': [[-85, 12], [-27, 15], [29, 17], [78, 23], [116, 29], [158, 43], [198, 63], [237, 45], [281, 62], [327, 83], [366, 62], [435, 51]],
+};
 
-// Kit retains a copy for merging. Both the input and the retained copies are
-// released here, leaving only the scene-owned merged geometries/materials.
+// Kit copies each source. Dispose those sources immediately and its retained
+// copies after merging; only the scene owns the resulting render resources.
 class VistaKit extends Kit {
-  putM(bin, geo, color, matrix, options = {}) {
-    try { return super.putM(bin, geo, color, matrix, options); }
-    finally { geo.dispose(); }
+  putM(bin, geometry, color, matrix, options = {}) {
+    try { return super.putM(bin, geometry, color, matrix, options); }
+    finally { geometry.dispose(); }
   }
 }
 
-function gridGeometry(columns, rows, point, reverse = false) {
-  const positions = [], indices = [];
-  for (let j = 0; j <= rows; j++) for (let i = 0; i <= columns; i++) {
-    positions.push(...point(i / columns, j / rows));
+function interpolate(nodes, x, smooth = false) {
+  if (x <= nodes[0][0]) return nodes[0][1];
+  for (let i = 1; i < nodes.length; i++) {
+    if (x > nodes[i][0]) continue;
+    let t = (x - nodes[i - 1][0]) / (nodes[i][0] - nodes[i - 1][0]);
+    if (smooth) t = t * t * (3 - 2 * t);
+    return THREE.MathUtils.lerp(nodes[i - 1][1], nodes[i][1], t);
   }
+  return nodes[nodes.length - 1][1];
+}
+
+const riverZ = x => interpolate(RIVER_NODES, x, true);
+const riverHalfWidth = x => 14.4 + 2.1 * Math.sin(x * 0.014 + 0.4) + 0.9 * Math.sin(x * 0.047);
+const valleyAxis = x => riverZ(x) * 0.25;
+const valleyHalfWidth = x => 31 + THREE.MathUtils.smoothstep(x, 60, 250) * 34 + Math.max(0, -x) * 0.18;
+const rockHeight = (x, side) => (interpolate(CRESTS[side], x) + 2.3 * Math.sin(x * 0.19 + side) + Math.sin(x * 0.43 - side) * 0.85) * 0.74;
+
+function stoneTexture() {
+  // A single neutral, seamless field: fine grain and irregular vertical seams.
+  // DataTexture also keeps geometry validation independent of the DOM.
+  const size=512, data=new Uint8Array(size*size*4);
+  const hash=(x,y)=>{let n=(Math.imul(x,374761393)+Math.imul(y,668265263))|0;n=Math.imul(n^(n>>>13),1274126177);return((n^(n>>>16))>>>0)/4294967295;};
+  for(let y=0;y<size;y++) for(let x=0;x<size;x++) {
+    const u=x/size,v=y/size;
+    const grain=(hash(x,y)-0.5)*7;
+    const worn=Math.sin(u*TAU*23+Math.sin(v*TAU*2)*1.2)*2.2;
+    const seam=Math.pow(Math.max(0,Math.sin(u*TAU*11+Math.sin(v*TAU*3)*0.65+Math.sin(v*TAU*9)*0.13)),38);
+    const value=Math.round(THREE.MathUtils.clamp(249+grain+worn-seam*20,217,255));
+    const i=(y*size+x)*4;data[i]=data[i+1]=data[i+2]=value;data[i+3]=255;
+  }
+  const texture=new THREE.DataTexture(data,size,size,THREE.RGBAFormat);
+  texture.wrapS=texture.wrapT=THREE.RepeatWrapping;
+  texture.generateMipmaps=true;texture.minFilter=THREE.LinearMipmapLinearFilter;
+  texture.magFilter=THREE.LinearFilter;texture.anisotropy=4;texture.needsUpdate=true;
+  texture.name='qinglan-neutral-stone-grain';
+  return texture;
+}
+
+function geometryGrid(columns, rows, point, reverse = false) {
+  const positions = [], indices = [];
+  for (let j = 0; j <= rows; j++) for (let i = 0; i <= columns; i++) positions.push(...point(i / columns, j / rows));
   for (let j = 0; j < rows; j++) for (let i = 0; i < columns; i++) {
     const a = j * (columns + 1) + i, b = a + 1, c = a + columns + 1, d = c + 1;
-    if (reverse) indices.push(a, c, b, b, c, d);
-    else indices.push(a, b, c, b, d, c);
+    const faces = (i + j) % 2 ? [a, b, d, a, d, c] : [a, b, c, b, d, c];
+    for (let n = 0; n < faces.length; n += 3) {
+      indices.push(faces[n], faces[n + (reverse ? 2 : 1)], faces[n + (reverse ? 1 : 2)]);
+    }
   }
   const geometry = new THREE.BufferGeometry();
   geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
@@ -34,275 +76,254 @@ function gridGeometry(columns, rows, point, reverse = false) {
   return geometry;
 }
 
-function rockColors(geometry, { base = -30, height = 60, distant = 0, arch = false, hill = false } = {}) {
-  const p = geometry.attributes.position, n = geometry.attributes.normal, c = geometry.attributes.color;
-  const limestone = new THREE.Color(ROCK), vegetation = new THREE.Color(LEAF);
-  const atmospheric = new THREE.Color(0x93b4b0), color = new THREE.Color();
+// The river takes stronger turns than the broad gorge envelope. Low alluvial
+// banks inside that envelope preserve views of both far bends from eye y=3.
+function terrainPoint(x, distance, side) {
+  const axis = valleyAxis(x), toe = valleyHalfWidth(x);
+  const height = rockHeight(x, side);
+  const broad = interpolate([[0, 0], [3, 0.06], [7, 0.25], [12, 0.31], [20, 0.36],
+    [28, 0.73], [35, 0.83], [44, 0.66], [60, 1], [78, 0.80], [104, 0.36], [135, 0.07]], distance);
+  const escarpment = THREE.MathUtils.smoothstep(distance, 1, 6) * (1 - THREE.MathUtils.smoothstep(distance, 8, 13))
+    + THREE.MathUtils.smoothstep(distance, 19, 23) * (1 - THREE.MathUtils.smoothstep(distance, 29, 36));
+  const fracture = Math.sin(x * 0.27 + side) * 1.5 + Math.sin(x * 0.63 - side * 1.6) * 0.65;
+  const z = axis + side * (toe + distance + fracture * escarpment);
+  const inclinedLayer = broad * height + Math.sin(x * 0.045 + side * 2) * 1.1;
+  const ledge = Math.sin(inclinedLayer * 0.75 + x * 0.013 + side) * escarpment * 0.78;
+  const saddle = Math.sin(x * 0.085 + distance * 0.069 + side * 3) * Math.sin(distance * 0.13) * 2.2;
+  return [x, WATER_Y + 0.65 + broad * height + ledge + saddle, z];
+}
+
+function paintTerrain(g, side, far = false) {
+  const p = g.attributes.position, n = g.attributes.normal, colors = g.attributes.color;
+  const stone = new THREE.Color(0xa2a79f), darkRock = new THREE.Color(0x65726c);
+  const forest = new THREE.Color(0x426d36), meadow = new THREE.Color(0x638447);
+  const haze = new THREE.Color(0x9eb5b5), color = new THREE.Color();
   for (let i = 0; i < p.count; i++) {
     const x = p.getX(i), y = p.getY(i), z = p.getZ(i), up = n.getY(i);
-    const broad = Math.sin(x * 0.19 + z * 0.17) * Math.sin(y * 0.27 + z * 0.11);
-    // Horizontal solution bands and long water-worn ribs have different scales.
-    const bands = Math.sin(y * 0.71 + z * 0.055 + Math.sin(x * 0.15)) * (hill ? 0.014 : 0.10);
-    const vein = Math.sin(z * 0.88 + Math.sin(y * 0.075) * 0.8 + x * 0.29);
-    const grooves = Math.pow(Math.max(0, vein), 5) * (hill ? 0.15 : 0.33);
-    const exposed = 0.5 + 0.5 * Math.sin(x * 0.18 + z * 0.27 + Math.sin(y * 0.12));
-    const top = THREE.MathUtils.smoothstep((y - base) / height, 0.87, 0.98);
-    const sideGrowth = hill ? Math.pow(Math.max(0, Math.sin(x * 0.12 + z * 0.17 + Math.sin(y * 0.075))
-      * Math.sin(z * 0.13 - x * 0.055 + y * 0.042)), 2) * 0.60 : 0;
-    const growth = arch
-      ? THREE.MathUtils.smoothstep(up, 0.58, 0.9) * 0.68
-      : THREE.MathUtils.clamp(top * 0.78 + THREE.MathUtils.smoothstep(up, 0.65, 0.95) * 0.23 + Math.max(0, broad - 0.15) * 0.22 + sideGrowth, 0, 0.95);
-    color.copy(limestone).lerp(vegetation, growth);
-    color.multiplyScalar(0.93 + bands - grooves + exposed * 0.15);
-    color.lerp(atmospheric, distant);
-    c.setXYZ(i, color.r, color.g, color.b);
-  }
-}
-
-function archTop(z) {
-  return -29 + 52 * Math.pow(Math.max(0.025, 1 - (z / 28.5) ** 2), 0.36)
-    + 1.6 * Math.sin(z * 0.17 + 0.5) + 0.65 * Math.sin(z * 0.71);
-}
-
-function archBottom(z) {
-  const opening = Math.pow(Math.max(0, 1 - ((z + 1.6) / 21.4) ** 2), 0.57);
-  return -30 + 44.3 * opening + 0.55 * Math.sin(z * 0.54 + 1.7);
-}
-
-function naturalBridge(K) {
-  // A continuous, irregular solid, swept across the gorge. Its cross section
-  // flares into the banks; the aperture is genuinely empty all the way through.
-  const bridge = gridGeometry(88, 32, (u, v) => {
-    const z = -27.8 + u * 55.6, a = v * TAU;
-    const lower = archBottom(z), upper = archTop(z);
-    const mid = (upper + lower) * 0.5, half = (upper - lower) * 0.5;
-    const depth = 8.4 + 5.4 * (Math.abs(z) / 28) ** 1.5 + Math.sin(z * 0.15 + 0.8) * 1.2;
-    const fold = Math.sin(z * 0.78 + Math.sin(a * 2.0)) * 1.18
-      + Math.sin(z * 1.71 - a * 3) * 0.42;
-    return [90 + 2.4 * Math.sin(z * 0.09) + Math.cos(a) * (depth + fold),
-      mid + Math.sin(a) * half + Math.cos(a) ** 2 * Math.sin(z * 0.66) * 0.5,
-      z + Math.sin(a * 3 + z * 0.24) * 0.25];
-  }, true);
-  const g = K.put('bridge', bridge, ROCK, undefined, undefined, 1, { vary: 0, noise: 0 });
-  rockColors(g, { arch: true });
-  bridgeLedges(K);
-  // The two open sweep ends lie completely inside these continuous abutments.
-  karstHill(K, { x: 93, z: -33, rx: 19, rz: 18, h: 31, seed: 2, bin: 'bridge', base: -33 });
-  karstHill(K, { x: 96, z: 34, rx: 22, rz: 19, h: 36, seed: 5, bin: 'bridge', base: -34 });
-}
-
-function bridgeLedges(K) {
-  const positions = [];
-  const point = (z, elevation, row) => {
-    const y = elevation + Math.sin(z * 0.23) * 0.52 + Math.sin(z * 0.71) * 0.15;
-    const lower = archBottom(z), upper = archTop(z), mid = (lower + upper) / 2;
-    if (y < lower + 1.4 || y > upper - 1.4) return null;
-    const half = (upper - lower) / 2;
-    const depth = 8.4 + 5.4 * (Math.abs(z) / 28) ** 1.5 + Math.sin(z * 0.15 + 0.8) * 1.2;
-    const a = Math.PI - Math.asin((y - mid) / half);
-    const fold = Math.sin(z * 0.78 + Math.sin(a * 2)) * 1.18 + Math.sin(z * 1.71 - a * 3) * 0.42;
-    const x = 90 + 2.4 * Math.sin(z * 0.09) + Math.cos(a) * (depth + fold);
-    return [x + [0.45, -0.9, 0.3][row], y + [-0.48, 0.06, 0.34][row], z];
-  };
-  for (const elevation of [-23, -17, -10, -3, 5, 12, 18, 22]) {
-    for (let i = 0; i < 92; i++) for (let row = 0; row < 2; row++) {
-      const z = -27.6 + i * 0.6;
-      const a = point(z, elevation, row), b = point(z + 0.6, elevation, row);
-      const c = point(z, elevation, row + 1), d = point(z + 0.6, elevation, row + 1);
-      if (a && b && c && d) positions.push(...a, ...b, ...c, ...b, ...d, ...c);
-    }
-  }
-  const geometry = new THREE.BufferGeometry();
-  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-  geometry.computeVertexNormals();
-  const g = K.put('bridge', geometry, ROCK, undefined, undefined, 1, { vary: 0, noise: 0 });
-  rockColors(g, { arch: true });
-}
-
-function karstHill(K, { x, z, rx, rz, h, seed, bin = 'hills', base = -31, distant = 0 }) {
-  const detailed = bin !== 'farHills';
-  const crag = Math.sin(seed * 2.91) > 0.58;
-  const crownStart = 0.48 + (0.5 + Math.sin(seed * 1.13) * 0.5) * 0.28;
-  const point = (u, v) => {
-    const t = 1 - (1 - v) ** 1.35;
-    const a = u * TAU;
-    // Broad weathered foot, steep flanks, smoothly rounded crown. The width
-    // remains substantial high on the hill: these are towers, never needles.
-    const dome = t < crownStart ? 1 - t * 0.13 : (1 - crownStart * 0.13)
-      * Math.sqrt(Math.max(0.0001, 1 - ((t - crownStart) / (1 - crownStart)) ** 2));
-    const shoulder = crag ? Math.pow(Math.max(0.0001, 1 - t), 0.46) * (1 + Math.sin(t * 5.2) * 0.10) : dome;
-    const foot = 1 + 0.37 * Math.exp(-t * 15);
-    const lobe = 1 + Math.sin(a * 2 + seed) * 0.13
-      + Math.sin(a * 3 + seed * 0.7 + t * 0.35) * 0.11;
-    const channel = Math.pow(Math.max(0, Math.sin(a * 8 + seed + Math.sin(t * 2.3 + seed) * 0.22)), 3);
-    const flute = 1 - channel * 0.18 + Math.sin(a * 13 + seed) * 0.028;
-    const rr = shoulder * foot * lobe * flute;
-    return [x + Math.cos(a) * rx * rr + Math.sin(seed) * rx * Math.pow(t, 1.45) * 0.32,
-      base + h * t + Math.sin(a + seed * 2) * h * 0.13 * Math.sin(t * Math.PI) * t,
-      z + Math.sin(a) * rz * rr + Math.cos(seed * 1.7) * rz * Math.pow(t, 1.55) * 0.27];
-  };
-  const g = gridGeometry(detailed ? 38 : 30, detailed ? 22 : 16, point, true);
-  const placed = K.put(bin, g, ROCK, undefined, undefined, 1, { noise: 0, vary: 0 });
-  rockColors(placed, { base, height: h, distant, hill: true });
-  if (detailed) {
-    const r = rng(Math.floor(seed * 13817) + 9137);
-    const facing = Math.atan2(-z, -x);
-    for (let cluster = 0; cluster < 3; cluster++) {
-      const angle = facing + (r() - 0.5) * 1.7;
-      const t = 0.26 + r() * 0.47;
-      for (let crown = 0; crown < 3; crown++) {
-        const a = angle + (crown - 1) * 0.065;
-        const p = point(a / TAU, 1 - (1 - Math.min(0.95, t + crown * 0.012)) ** (1 / 1.35));
-        const size = (1.4 + r() * 1.5) * (crag ? 0.75 : 1);
-        K.put('leaves', new THREE.IcosahedronGeometry(1, crown === 0 ? 0 : 1), crown === 1 ? 0x537342 : LEAF,
-          [p[0], p[1] + size * (0.15 + r() * 0.3), p[2]], [0, r() * TAU, 0.15],
-          [size * 1.18, size * 0.8, size], { vary: 0.17, noise: 0.03 });
-        K.hillsideCrowns = (K.hillsideCrowns ?? 0) + 1;
-      }
-    }
-  }
-}
-
-function mountainLayers(K) {
-  // The central low saddle lets the distant river remain visible through the
-  // bridge. Successive groups have different widths, heights and spacing.
-  const layers = [
-    { bin: 'hills', haze: 0.10, hills: [
-      [103, -66, 17, 19, 61], [117, -40, 14, 18, 54], [104, 66, 20, 19, 69],
-      [126, 43, 16, 17, 49], [97, -101, 23, 22, 65], [116, 103, 25, 23, 54],
-      [53, -105, 24, 25, 59], [39, 114, 26, 22, 64], [-46, -109, 25, 29, 56],
-      [-106, -59, 27, 25, 62], [-98, 46, 25, 28, 57], [-43, 115, 27, 23, 55],
-    ] },
-    { bin: 'farHills', haze: 0.40, hills: [
-      [148, -99, 24, 26, 79], [151, -58, 21, 21, 65],
-      [166, 67, 23, 21, 67], [145, 116, 27, 24, 79], [84, -153, 29, 28, 68],
-      [-10, -158, 28, 28, 78], [-139, -103, 33, 25, 73], [-151, 9, 28, 27, 63],
-      [-109, 127, 31, 29, 70], [10, 164, 27, 30, 75], [92, 168, 30, 26, 67],
-    ] },
-    { bin: 'farHills', haze: 0.66, hills: [
-      [202, -109, 30, 29, 80], [222, -66, 25, 23, 72], [244, 62, 25, 25, 58],
-      [211, 104, 30, 29, 78], [186, 165, 32, 32, 82], [143, -178, 30, 31, 80],
-      [-68, -211, 38, 31, 78], [-191, -116, 35, 32, 73], [-211, 60, 32, 35, 76],
-      [-104, 194, 32, 32, 77], [45, 213, 35, 30, 81],
-    ] },
-  ];
-  let count = 0;
-  for (const layer of layers) for (const [x, z, rx, rz, h] of layer.hills) {
-    karstHill(K, { x, z, rx, rz, h, distant: layer.haze, bin: layer.bin, seed: ++count * 1.73 });
-  }
-  return count;
-}
-
-function riverCurve() {
-  return new THREE.CatmullRomCurve3([
-    new THREE.Vector3(-126, WATER_Y, 59), new THREE.Vector3(-62, WATER_Y, 44),
-    new THREE.Vector3(-6, WATER_Y, 36), new THREE.Vector3(30, WATER_Y, 28),
-    new THREE.Vector3(55, WATER_Y, 8), new THREE.Vector3(88, WATER_Y, 2),
-    new THREE.Vector3(123, WATER_Y, 13), new THREE.Vector3(165, WATER_Y, -10),
-    new THREE.Vector3(208, WATER_Y, -8), new THREE.Vector3(270, WATER_Y, 10),
-  ], false, 'catmullrom', 0.35);
-}
-
-function riverAndBanks(K) {
-  const curve = riverCurve();
-  const sample = (t, offset, y) => {
-    const p = curve.getPoint(t), tangent = curve.getTangent(t);
-    const length = Math.hypot(tangent.x, tangent.z);
-    return [p.x - tangent.z / length * offset, y, p.z + tangent.x / length * offset];
-  };
-  const width = t => 7.3 + Math.sin(t * 13 + 0.7) * 1.5 + Math.sin(t * 31) * 0.5;
-  const river = K.put('river', gridGeometry(148, 8, (t, across) =>
-    sample(t, (across * 2 - 1) * width(t), WATER_Y), true), 0x428f80,
-  undefined, undefined, 1, { vary: 0, noise: 0 });
-  const colors = river.attributes.color;
-  const p = river.attributes.position, deep = new THREE.Color(0x357c70), jade = new THREE.Color(0x71b6a0), color = new THREE.Color();
-  for (let i = 0; i < p.count; i++) {
-    const ripple = 0.5 + Math.sin(p.getX(i) * 0.1 + p.getZ(i) * 0.24) * 0.25;
-    color.copy(deep).lerp(jade, ripple);
+    const height = rockHeight(x, side), elevation = (y - WATER_Y) / height;
+    const slopeForest = THREE.MathUtils.smoothstep(up, 0.20, 0.75);
+    const patch = 0.5 + 0.5 * Math.sin(x * 0.065 + Math.sin(z * 0.071) * 1.4 + y * 0.043);
+    const crestRock = THREE.MathUtils.smoothstep(elevation, 0.79, 0.95);
+    const greenery = THREE.MathUtils.clamp(Math.max(slopeForest * (0.82 + patch * 0.14), 0.19 + patch * 0.24) - crestRock * 0.25, 0, 0.96);
+    const crack = Math.pow(Math.max(0, Math.sin(x * 0.38 + z * 0.09 + Math.sin(y * 0.05))), 5);
+    const strata = Math.sin(y * 0.51 + x * 0.024 + side) * 0.032;
+    color.copy(stone).lerp(darkRock, crack * 0.31 + (1 - up) * 0.09);
+    color.multiplyScalar(0.94 + strata + Math.sin(x * 0.09 + z * 0.11) * 0.035);
+    const green = forest.clone().lerp(meadow, patch * 0.35);
+    color.lerp(green, greenery);
+    color.lerp(haze, THREE.MathUtils.smoothstep(x, 125, 445) * (far ? 0.7 : 0.57));
     colors.setXYZ(i, color.r, color.g, color.b);
   }
-  for (const side of [-1, 1]) {
-    const bank = K.put('banks', gridGeometry(148, 12, (t, across) => {
-      const outward = across * 48;
-      const y = WATER_Y - 0.12 + Math.pow(across, 0.64) * 14
-        + Math.sin(t * 32 + side) * across * 2.2 + Math.sin(across * 9 + t * 48) * across * 0.7;
-      const point = sample(t, side * (width(t) * 0.99 + outward), y);
-      const radius = Math.hypot(point[0], point[2]);
-      if (radius < 25) { point[0] *= 25 / radius; point[2] *= 25 / radius; }
-      return point;
-    }, side > 0), ROCK, undefined, undefined, 1, { vary: 0, noise: 0 });
-    rockColors(bank, { base: WATER_Y, height: 20 });
-  }
-  // Broken, long sun glints follow the current; geometry, not animated particles.
-  const r = rng(746321);
-  for (let i = 0; i < 35; i++) {
-    const t = 0.14 + r() * 0.67, offset = (r() - 0.5) * width(t) * 1.35;
-    const length = 0.002 + r() * 0.005, halfWidth = 0.025 + r() * 0.045;
-    K.put('glints', gridGeometry(1, 1, (u, v) => sample(t + u * length, offset + (v - 0.5) * halfWidth, WATER_Y + 0.023)),
-      0xb9d9be, undefined, undefined, 1, { vary: 0.12, noise: 0 });
-  }
-  return { x: 45, y: WATER_Y, z: 15 };
 }
 
-function bridgeVegetation(K) {
-  const r = rng(88217);
-  let count = 0;
-  // Separated groves have interlocking angular crowns, exposed gaps and a few
-  // taller shrubs; no repeated row of individually rounded skyline beads.
-  for (const [center, spread, size] of [[-21, 3.0, 1.4], [-12, 2.1, 1.7], [-2, 3.4, 2.0], [9, 2.2, 1.5], [22, 3.2, 1.7]]) {
-    for (let j = 0; j < 6; j++) {
-      const z = center + (r() - 0.5) * spread;
-      const x = 90 + 2.4 * Math.sin(z * 0.09) + (r() - 0.5) * 5.4;
-      const s = size * (0.55 + r() * 0.65), y = archTop(z) - s * 0.3;
-      K.put('leaves', new THREE.IcosahedronGeometry(1, j % 3 === 0 ? 0 : 1), j % 4 ? LEAF : 0x587743,
-        [x, y + s * 0.35, z], [r() * 0.3, r() * TAU, r() * 0.2], [s * 1.24, s * (0.7 + r() * 0.5), s],
-        { noise: 0.045, vary: 0.19 });
-      count++;
+function bankPoint(x, v, side) {
+  const edge = x < 26 ? side * 25 : riverZ(x) + side * riverHalfWidth(x) * 0.993;
+  const toe = valleyAxis(x) + side * valleyHalfWidth(x);
+  const z = THREE.MathUtils.lerp(edge, toe, v);
+  const hummock = Math.pow(Math.max(0, Math.sin(x * 0.10 + v * 8 + side)
+    * Math.sin(x * 0.047 - v * 5)), 2) * 1.75;
+  const y = WATER_Y - 0.045 + Math.pow(v, 0.8) * 0.72
+    + Math.sin(v * Math.PI) * (hummock + Math.sin(x * 0.071 + v * 7) * 0.16);
+  return [x, y, z];
+}
+
+function canyonSides(K) {
+  // Continuous mountain ribbons replace independent domes or tower stacks.
+  // Their tall, fractured inner faces rise into broad, uneven forested ridges.
+  for (const side of [-1, 1]) {
+    const g = geometryGrid(184, 48, (u, v) => {
+      const x = -82 + u * 515 + Math.sin(u * 67 + v * 3) * Math.sin(v * Math.PI) * 0.8;
+      const d = v * 135;
+      return terrainPoint(x, d, side);
+    }, side > 0);
+    const placed = K.put('mountains', g, 0xa2a79f, undefined, undefined, 1, { noise: 0, vary: 0 });
+    paintTerrain(placed, side);
+
+    const banks = geometryGrid(180, 12, (u, v) => {
+      const x = -82 + u * 515;
+      return bankPoint(x,v,side);
+    }, side > 0);
+    const ground = K.put('banks', banks, 0x737d66, undefined, undefined, 1, { noise: 0.013, vary: 0 });
+    const col = ground.attributes.color, pos = ground.attributes.position, c = new THREE.Color();
+    for (let i = 0; i < pos.count; i++) {
+      const patch = Math.sin(pos.getX(i) * 0.09 + Math.sin(pos.getZ(i) * 0.13) * 1.6);
+      c.set(0x969888).lerp(new THREE.Color(0x4f713b), 0.44 + patch * 0.38);
+      c.lerp(new THREE.Color(0x9eb5b5), THREE.MathUtils.smoothstep(pos.getX(i), 150, 445) * 0.5);
+      col.setXYZ(i, c.r, c.g, c.b);
     }
   }
-  // Broad scrub masses at the foot visually join the bridge to the valley bank.
-  for (const side of [-1, 1]) for (let i = 0; i < 27; i++) {
-    const x = 70 + r() * 42, z = side * (26 + r() * 23), size = 1.3 + r() * 2.7;
-    K.put('leaves', new THREE.IcosahedronGeometry(1, 1), LEAF,
-      [x, -21.3 + r() * 1.0, z], [0, r() * TAU, 0], [size * 1.4, size * 0.68, size],
-      { noise: 0.025, vary: 0.18 });
-    count++;
+}
+
+function lowRiverbanks(K) {
+  const r=rng(263971);let shrubs=0,stones=0;
+  for(const side of [-1,1]) for(let i=0;i<38;i++) {
+    const x=37+i*7.5+r()*5;
+    // Most scrub follows the escarpment foot, leaving the inner sight corridor
+    // low. Small pale rocks interrupt the shoreline instead of outlining it.
+    const v=0.76+r()*0.20, base=bankPoint(x,v,side), size=1.1+r()*2.2;
+    for(let j=0;j<2;j++) {
+      K.put('needles',pineCrown(size*(j?0.65:1),0.55+r()*0.3,i+j),j?0x4c703c:0x426638,
+        [base[0]+j*size*0.64,base[1]+0.15,base[2]+j*side*size*0.28],[0,r()*TAU,0],1,{noise:0.025,vary:0.18});shrubs++;
+    }
+    if(i%2===0) {
+      const p=bankPoint(x+2,0.04+r()*0.2,side);
+      K.put('outcrops',new THREE.DodecahedronGeometry(1,0),0xa6a99c,
+        [p[0],p[1]-0.15,p[2]],[0.1,r()*TAU,0.14],[0.7+r()*1.8,0.25+r()*0.32,0.6+r()*1.1],{noise:0.045,vary:0.13});stones++;
+    }
   }
+  return {bankShrubs:shrubs,bankStones:stones};
+}
+
+function greatRiver(K) {
+  const placed = K.put('river', geometryGrid(208, 10, (u, v) => {
+    const x = 26 + u * 409;
+    return [x, WATER_Y, riverZ(x) + (v * 2 - 1) * riverHalfWidth(x)];
+  }, true), 0x377f79, undefined, undefined, 1, { noise: 0, vary: 0 });
+  const p = placed.attributes.position, c = placed.attributes.color;
+  const deep = new THREE.Color(0x367d77), jade = new THREE.Color(0x77ae9c), haze = new THREE.Color(0x9db9b5), color = new THREE.Color();
+  for (let i = 0; i < p.count; i++) {
+    const x = p.getX(i), z = p.getZ(i);
+    const edge = Math.abs(z - riverZ(x)) / riverHalfWidth(x);
+    color.copy(deep).lerp(jade, 0.14 + edge * edge * 0.29 + Math.sin(x * 0.09 + z * 0.11) * 0.05);
+    color.lerp(haze, THREE.MathUtils.smoothstep(x, 170, 440) * 0.35);
+    c.setXYZ(i, color.r, color.g, color.b);
+  }
+  const r = rng(641083);
+  for (let i = 0; i < 64; i++) {
+    const x = 42 + r() * 345, z = riverZ(x) + (r() - 0.5) * riverHalfWidth(x) * 1.56;
+    const width = 0.45 + r() * 2.8, length = 0.04 + r() * 0.075;
+    K.put('glints', geometryGrid(1, 1, (u, v) => [x + (u - 0.5) * length, WATER_Y + 0.016, z + (v - 0.5) * width], true),
+      0xb3c9b1, undefined, undefined, 1, { vary: 0.18, noise: 0 });
+  }
+  return { x: 48, y: WATER_Y, z: riverZ(48) };
+}
+
+function ridgeRock(K, x, d, side, scale, seed) {
+  const base = terrainPoint(x, d, side);
+  // A bedded angular slab, partially buried in its ridge. Its long front and
+  // split, leaning top read as an exposed outcrop rather than a round boulder.
+  const ring = [[-1,-0.75],[-0.15,-1],[0.9,-0.65],[1,0.25],[0.25,0.82],[-0.9,0.7]];
+  const positions = [], top = [], lower = [];
+  for (let i = 0; i < ring.length; i++) {
+    const [a,b] = ring[i];
+    lower.push([a * scale * 1.2, -scale * 0.36, b * scale * 0.64]);
+    top.push([a * scale * 0.8 + scale * 0.13, scale * (0.52 + Math.sin(i * 1.7 + seed) * 0.19), b * scale * 0.53]);
+  }
+  for (let i = 0; i < ring.length; i++) {
+    const j = (i + 1) % ring.length;
+    positions.push(...lower[i], ...top[i], ...lower[j], ...lower[j], ...top[i], ...top[j]);
+    positions.push(...top[i], 0, scale * 0.63, 0, ...top[j]);
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));g.computeVertexNormals();
+  K.put('outcrops', g, 0xa7aca3, [base[0], base[1], base[2]], [0.05, seed * 0.2, side * 0.06], 1, { noise: 0.045, vary: 0.12 });
+}
+
+function pineCrown(radius, depth, seed) {
+  const segments = 11, positions = [];
+  const rim = [];
+  for (let i = 0; i < segments; i++) {
+    const a = i / segments * TAU;
+    const r = radius * (0.81 + 0.14 * Math.sin(i * 2.3 + seed) + 0.1 * Math.cos(i * 4.1));
+    rim.push([Math.cos(a) * r, -depth * (0.35 + 0.19 * Math.sin(i * 3.1 + seed)), Math.sin(a) * r]);
+  }
+  for (let i = 0; i < segments; i++) {
+    const j = (i + 1) % segments;
+    positions.push(0, depth * 0.5, 0, ...rim[j], ...rim[i]);
+    positions.push(0, -depth * 0.73, 0, ...rim[i], ...rim[j]);
+  }
+  const g = new THREE.BufferGeometry();g.setAttribute('position', new THREE.Float32BufferAttribute(positions,3));g.computeVertexNormals();
+  return g;
+}
+
+function ridgePine(K, r, base, height) {
+  const lean = (r() - 0.5) * height * 0.32, twist = r() * TAU;
+  K.push(base, twist);
+  limb(K, 'wood', [0,-0.15,0], [lean * 0.55,height * 0.64,0.1], height * 0.035, height * 0.022, 0x5a6252, {noise:0.03}, 6);
+  limb(K, 'wood', [lean * 0.55,height * 0.64,0.1], [lean,height,0], height * 0.023, height * 0.009, 0x5a6252, {noise:0.03}, 5);
+  for (let j = 0; j < 3; j++) {
+    const a = j * 2.5 + r(), spread = height * (j === 2 ? 0.11 : 0.26);
+    const y = height * (0.58 + j * 0.19);
+    const tip = [Math.cos(a) * spread + lean * y / height, y + height * 0.07, Math.sin(a) * spread];
+    limb(K, 'wood', [lean * y / height,y - height * 0.05,0], tip, height * 0.018, height * 0.007, 0x5a6252, {}, 5);
+    K.put('needles', pineCrown(height * (0.29 - j * 0.038), height * 0.13, r() * 10), j === 1 ? 0x3e5c3b : 0x345139,
+      tip, [0, r() * TAU, 0], [1.15,1,0.83], { noise:0.035, vary:0.13 });
+  }
+  K.pop();
+}
+
+function rockyPineRidges(K) {
+  const r = rng(990371);let pines = 0, rocks = 0;
+  for (const side of [-1,1]) {
+    for (let i = 0; i < 20; i++) {
+      const x = -12 + i * 9.6 + r() * 5, d = 28 + (r() - 0.5) * 6;
+      const base = terrainPoint(x,d,side);
+      ridgePine(K,r,base,3.1 + r() * 3.4);pines++;
+      if(i % 3 === 0) { ridgeRock(K,x + 4,d + 1.2,side,3.2 + r() * 3.9,i + side);rocks++; }
+    }
+    for(let i=0;i<7;i++) {
+      const x=44+i*19+r()*5,d=50+r()*11;
+      ridgePine(K,r,terrainPoint(x,d,side),3.8+r()*3.2);pines++;
+    }
+  }
+  return {pines,rocks};
+}
+
+function hillsidePath(K) {
+  const positions=[],rails=[];
+  const count=28;
+  const route=t=>({x:96+t*35,d:14.5+9.5*t*t});
+  const quad=(a,b,c,d)=>positions.push(...a,...b,...c,...a,...c,...d);
+  for(let i=0;i<count;i++) {
+    const a=route(i/count),b=route((i+1)/count);
+    const corners=[terrainPoint(a.x,a.d-0.76,1),terrainPoint(b.x,b.d-0.76,1),
+      terrainPoint(b.x,b.d+0.76,1),terrainPoint(a.x,a.d+0.76,1)];
+    const y=Math.max(...corners.map(p=>p[1]))+0.14;
+    const top=corners.map(p=>[p[0],y,p[2]]);
+    const base=corners.map(p=>[p[0],p[1]-0.22,p[2]]);
+    quad(top[0],top[3],top[2],top[1]);
+    for(let j=0;j<4;j++){const k=(j+1)%4;quad(base[j],top[j],top[k],base[k]);}
+    if(i%4===0||i===count-1) {
+      const p=terrainPoint((a.x+b.x)*0.5,(a.d+b.d)*0.5+0.74,1);
+      const height=y-p[1]+0.64;
+      K.put('outcrops',box(0.18,height+0.18,0.18),0xb9beb0,[p[0],p[1]+height/2-0.09,p[2]],undefined,1,{noise:0.02,vary:0.07});
+      rails.push([p[0],y+0.50,p[2]]);
+    }
+  }
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));g.computeVertexNormals();
+  K.put('outcrops',g,0xc2c4b5,undefined,undefined,1,{noise:0.025,vary:0});
+  for(let i=1;i<rails.length;i++)limb(K,'outcrops',rails[i-1],rails[i],0.065,0.065,0xb7bcae,{noise:0.018,vary:0.04},4);
   return count;
 }
 
 export function buildQinglanVista(scene) {
-  const K = new VistaKit(568231);
-  const riverPos = riverAndBanks(K);
-  const hills = mountainLayers(K);
-  naturalBridge(K);
-  const vegetation = bridgeVegetation(K) + (K.hillsideCrowns ?? 0);
+  const K = new VistaKit(375183);
+  canyonSides(K);
+  const riverPos = greatRiver(K);
+  const details = {...rockyPineRidges(K),...lowRiverbanks(K)};
+  details.hillsideSteps=hillsidePath(K);
+  const stoneMap=stoneTexture();
   const materials = {
-    bridge: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.98, flatShading: true }),
-    hills: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1 }),
-    farHills: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1 }),
-    banks: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, side: THREE.DoubleSide }),
-    leaves: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, flatShading: true }),
-    river: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.34, metalness: 0.06, side: THREE.DoubleSide }),
-    glints: new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.DoubleSide }),
+    mountains:new THREE.MeshStandardMaterial({vertexColors:true,roughness:1,map:stoneMap}),
+    banks:new THREE.MeshStandardMaterial({vertexColors:true,roughness:1}),
+    outcrops:new THREE.MeshStandardMaterial({vertexColors:true,roughness:1,flatShading:true,map:stoneMap}),
+    wood:new THREE.MeshStandardMaterial({vertexColors:true,roughness:1}),
+    needles:new THREE.MeshStandardMaterial({vertexColors:true,roughness:1,flatShading:true}),
+    river:new THREE.MeshStandardMaterial({vertexColors:true,roughness:0.39,metalness:0.04}),
+    glints:new THREE.MeshBasicMaterial({vertexColors:true}),
   };
-  const stats = { meshes: 0, triangles: 0, hills, vegetation, minSceneryRadius: Infinity,
-    riverY: WATER_Y, archCenter: { x: 90, y: 0, z: 0 }, archCrestY: archTop(0) };
-  for (const [bin, material] of Object.entries(materials)) {
-    const mesh = K.mesh(bin, material, { cast: false, receive: bin === 'bridge' || bin === 'banks' });
-    if (!mesh) { material.dispose(); continue; }
-    mesh.name = `qinglan-vista-${bin}`;
-    mesh.geometry.computeBoundingSphere();
-    mesh.geometry.computeBoundingBox();
-    const p = mesh.geometry.attributes.position;
-    stats.meshes++;
-    stats.triangles += (mesh.geometry.index?.count ?? p.count) / 3;
-    for (let i = 0; i < p.count; i++) {
-      stats.minSceneryRadius = Math.min(stats.minSceneryRadius, Math.hypot(p.getX(i), p.getZ(i)));
-    }
+  const stats = {meshes:0,triangles:0,minSceneryRadius:Infinity,riverY:WATER_Y,...details,
+    continuousRidges:2,riverLength:409,riverWidth:[23,35],style:'great-river-gorge'};
+  for(const [bin,material] of Object.entries(materials)) {
+    const mesh=K.mesh(bin,material,{cast:false,receive:bin==='outcrops'||bin==='wood'});
+    if(!mesh){material.dispose();continue;}
+    mesh.name=`qinglan-vista-${bin}`;
+    if(bin==='mountains'||bin==='outcrops')boxUV(mesh.geometry,0.08);
+    mesh.geometry.computeBoundingBox();mesh.geometry.computeBoundingSphere();
+    const p=mesh.geometry.attributes.position;stats.meshes++;stats.triangles+=(mesh.geometry.index?.count??p.count)/3;
+    for(let i=0;i<p.count;i++)stats.minSceneryRadius=Math.min(stats.minSceneryRadius,Math.hypot(p.getX(i),p.getZ(i)));
     scene.add(mesh);
-    for (const source of K.bins[bin]) source.dispose();
-    delete K.bins[bin];
+    for(const source of K.bins[bin])source.dispose();delete K.bins[bin];
   }
-  return { stats, riverPos };
+  return {stats,riverPos};
 }

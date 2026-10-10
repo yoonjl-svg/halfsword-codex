@@ -1,4 +1,4 @@
-// Clear early-summer noon on a broad rest terrace above a fictional karst gorge.
+// Clear summer noon above a fictional great-river gorge and granite mountain trail.
 // All scenery is visual only. The shared duel plane/physics remain untouched.
 import * as THREE from 'three';
 import { Kit, rng, canvasTex, box, cyl, limb } from './stage_kit.js';
@@ -19,7 +19,7 @@ function geo(points) {
 function terraceMap() {
   const r = rng(801301);
   return canvasTex(1024,1024,(g,w,h)=>{
-    g.fillStyle='#bcbeb2';g.fillRect(0,0,w,h);
+    g.fillStyle='#b2b9ab';g.fillRect(0,0,w,h);
     for(let i=0;i<250;i++){
       const x=r()*w,y=r()*h,rad=12+r()*100;
       const grad=g.createRadialGradient(x,y,0,x,y,rad);
@@ -55,51 +55,92 @@ function terrace(K) {
   }
   K.put('rock',geo(sides),0x899582,undefined,undefined,1,{noise:.08});
 }
+function pine(K,x,y,z,scale,seed){
+  const r=rng(seed);K.push([x,y,z],r()*6.28,scale);
+  const bends=[[0,0,0],[.18,1.7,.08],[-.25,3.1,.2],[.3,4.2,0]];
+  for(let i=0;i<3;i++)limb(K,'wood',bends[i],bends[i+1],.17-i*.04,.12-i*.035,0x645d48,{},7);
+  for(let i=0;i<5;i++){
+    const a=i*2.4+r()*.3,base=[-.18,1.8+i*.44,.1],end=[Math.cos(a)*(1.2+r()*.4),2.5+i*.42,Math.sin(a)*(1+r()*.6)];
+    limb(K,'wood',base,end,.075,.025,0x5b5743,{},6);
+    const points=[],rad=1.3+r()*.3;
+    for(let j=0;j<12;j++){
+      const a=j/12*Math.PI*2,b=(j+1)/12*Math.PI*2;
+      points.push(end[0],end[1]+.48,end[2],end[0]+Math.cos(a)*rad,end[1]+.06+Math.sin(a*5)*.1,end[2]+Math.sin(a)*rad*.7,end[0]+Math.cos(b)*rad,end[1]+.06+Math.sin(b*5)*.1,end[2]+Math.sin(b)*rad*.7);
+    }
+    K.put('leaf',geo(points),i%2?0x34583b:0x466b42,undefined,undefined,1,{vary:.08});
+  }K.pop();
+}
+function graniteBack(K){
+  // A continuous broken granite shoulder: broad slabs and ridges, not boulder domes.
+  const p=[],n=52,rows=7;
+  const at=(i,j)=>{
+    const z=-78+i*3,t=j/rows;
+    const crest=11+5*Math.sin(i*.32)+4*Math.sin(i*.79+.6)+2*Math.sin(i*1.67);
+    const fold=1.8*Math.sin(i*.6)+.6*Math.sin(i*2.6+j*.9);
+    return [-22.5-16*t-fold-2*Math.sin(t*8+i*.2),-9+(crest+9)*t,z];
+  };
+  for(let i=0;i<n;i++)for(let j=0;j<rows;j++){
+    const a=at(i,j),b=at(i+1,j),c=at(i,j+1),d=at(i+1,j+1);p.push(...a,...c,...b,...b,...c,...d);
+  }
+  const wall=K.put('rock',geo(p),0x88978b,undefined,undefined,1,{vary:.04});
+  const wp=wall.attributes.position,wn=wall.attributes.normal,wc=wall.attributes.color;
+  const rockColor=new THREE.Color(0x89968b),pineFloor=new THREE.Color(0x537044),tone=new THREE.Color();
+  for(let i=0;i<wp.count;i++){
+    const growth=Math.max(0,Math.sin(wp.getZ(i)*.25+wp.getY(i)*.14))*.5+Math.max(0,wn.getY(i)-.45)*.6;
+    tone.copy(rockColor).lerp(pineFloor,Math.min(.8,growth));wc.setXYZ(i,tone.r,tone.g,tone.b);
+  }
+  for(const i of [8,14,20,28,36,44]){const v=at(i,rows);pine(K,v[0],v[1]-.2,v[2],.9+(i%3)*.12,9111+i);}
+  for(let i=0;i<15;i++){
+    const z=-64+i*9,x=-28-3*Math.sin(i*.9),y=1.2+Math.max(0,Math.sin(i*.7))*3;
+    K.put('rock',box(4.8,3.6,6.1),i%2?0x8e998c:0xa2aaa0,[x,y-.8,z],[.16*Math.sin(i),.12*Math.sin(i*2),.1],1,{rough:.35,noise:.04});
+
+  }
+}
 function restAndTrail(K) {
-  // Rear flank keeps the terrace attached to the mainland, rather than a floating island.
-  for(let i=0;i<11;i++){
-    const z=-45+i*9,x=-29-3*Math.cos(i*.7),height=27+(i%3)*3;
-    K.put('rock',new THREE.IcosahedronGeometry(1,1),0x909b85,[x,height/2-23,z],undefined,[10,height/2,8],{noise:.08});
-  }
-  for(const sign of [-1,1])for(let i=0;i<8;i++){
-    const z=sign*(19+i*3.2),x=-15-i*1.35-Math.sin(i*.7)*1.5,y=i*.35;
-    // Each path segment is supported by a cliff buttress continuing to the ravine bed.
-    K.put('rock',box(4.9,2+i*.9,3.8),0x9c9e84,[x,y-1-i*.45,z],[0,sign*-.35,0],1,{rough:.08,vary:.03});
-    K.put('stone',box(4.6,.16,3.7),0xbbbea1,[x,y+.01,z],[0,sign*-.35,0],1,{rough:.035});
-    if(i%2===0){const px=x+2.4;limb(K,'wood',[px,y,z],[px,y+1,z],.06,.04,0x71664b,{},6);
-      if(i<6)limb(K,'wood',[px,y+.82,z],[px-2.7,y+1.5,z+sign*6.4],.045,.035,0x75664a,{},5);}
-  }
-  // A few weathered stones and dry grass mark the terrace edge without enclosing the vista.
-  for(const sign of [-1,1])for(let i=0;i<5;i++){
-    const x=6+i*1.5,z=sign*(14-i*.85);
-    K.put('stone',new THREE.IcosahedronGeometry(1,0),i%2?0x999e8c:0xa7ad98,[x,.08,z],undefined,[.36+i*.05,.11,.26],{noise:.05});
-    for(let j=0;j<4;j++){
-      const px=x+.23+j*.13,pz=z+.2,height=.22+j*.045;
-      K.put('leaf',geo([px,.01,pz,px+.12,height,pz+.06,px+.045,.01,pz+.09]),j%2?0x7b905d:0x8d9669);
+  graniteBack(K);
+  // Stone stairs hug the rear mountain, with a masonry foundation continuing downward.
+  for(const sign of [-1,1])for(let i=0;i<22;i++){
+    const z=sign*(17+i*1.35),x=-14-i*.52-Math.sin(i*.25)*1.1,y=i*.33;
+    K.put('rock',box(3.7,8+y,1.65),0x949f95,[x,y/2-4,z],[0,sign*-.3,0],1,{rough:.12,vary:.06});
+    K.put('stone',box(3.6,.18,1.53),i%3?0xb5bcad:0xa8b4a9,[x,y+.03,z],[0,sign*-.3,0],1,{rough:.04});
+    if(i%3===0){
+      const px=x+1.75;K.put('stone',box(.23,1,.23),0xa8b1a4,[px,y+.5,z],undefined,1,{rough:.025});
+      K.put('stone',cyl(.19,.16,.14,6),0xbbc1b3,[px,y+1.02,z]);
+      if(i<20)limb(K,'stone',[px,y+.78,z],[px-1.6,y+1.77,z+sign*4.05],.075,.075,0xa3aea1,{},5);
     }
   }
-  // Woven reed shade and a simple stone bench, just outside the camera orbit.
+  // Small roadside shelter: curved dark roof and a plain stone bench.
   K.push([-17,0,12],-.18);
-  for(const x of [-1.7,1.7])for(const z of [-1.2,1.2])limb(K,'wood',[x,0,z],[x,2.7,z],.095,.075,0x706547,{},7);
-  for(const z of [-1.3,1.3])limb(K,'wood',[-1.95,2.55,z],[1.95,2.55,z],.09,.08,0x6a6147,{},6);
-  for(let i=0;i<20;i++)K.put('wood',box(.17,.075,3.05),i%3?0x9e9467:0xb1a67b,[-1.9+i*.2,2.64+Math.sin(i*.22)*.04,0],[.035,0,0],1);
-  K.put('stone',box(2.7,.18,.75),0x969c85,[0,.63,.52],undefined,1,{rough:.025});
-  for(const x of [-.85,.85])K.put('stone',box(.36,.54,.57),0x889480,[x,.27,.52]);
-  K.put('shade',box(3.7,.012,2.6),0x87947b,[0,.012,0]);K.pop();
-  // Seeping spring in a low shaded rock niche. No rain or large waterfall.
-  K.put('rock',new THREE.IcosahedronGeometry(1,1),0x718771,[-18.2,1.1,-8.6],undefined,[1.4,1.5,1.2]);
-  K.put('rock',new THREE.IcosahedronGeometry(1,0),0x63765f,[-17,1.85,-8],undefined,[1.2,.4,.6]);
+  for(const x of [-1.8,1.8])for(const z of [-1.3,1.3]){
+    K.put('stone',cyl(.18,.24,.26,8),0x9bada2,[x,.13,z]);limb(K,'wood',[x,.2,z],[x,3,z],.1,.085,0x716451,{},7);
+  }
+  for(const z of [-1.35,1.35])limb(K,'wood',[-2,2.75,z],[2,2.75,z],.1,.1,0x766c58,{},6);
+  for(const sign of [-1,1])for(let i=0;i<22;i++){
+    const x=-2.18+i*.21,strip=[];
+    const roof=(xx,t)=>[xx,3.42-.75*Math.sin(t*Math.PI/2)+.23*t**6,sign*t*1.9];
+    for(let j=0;j<8;j++){
+      const a=roof(x,j/8),b=roof(x+.215,j/8),c=roof(x,(j+1)/8),d=roof(x+.215,(j+1)/8);
+      if(sign===1)strip.push(...a,...c,...b,...b,...c,...d);else strip.push(...a,...b,...c,...b,...d,...c);
+    }
+    K.put('roof',geo(strip),i%3?0x465854:0x55665f);
+  }
+  limb(K,'roof',[-2.25,3.43,0],[2.25,3.43,0],.10,.10,0x677b72,{},6);
+  K.put('stone',box(2.7,.18,.75),0x969f92,[0,.63,.52],undefined,1,{rough:.025});
+  for(const x of [-.85,.85])K.put('stone',box(.36,.54,.57),0x88978a,[x,.27,.52]);
+  K.put('shade',box(3.8,.012,2.8),0x87947b,[0,.012,0]);K.pop();
+  // Keep the accepted visible spring/audio source in exactly the same place.
+  K.put('rock',box(2.1,2.1,1.7),0x718776,[-18.1,.8,-8.5],[.08,-.2,-.13],1,{rough:.22});
+  K.put('rock',box(2.5,.42,1.2),0x697d6b,[-17.2,1.85,-8],[.05,.14,-.08],1,{rough:.13});
   K.put('stone',cyl(.64,.80,.22,12),0x899681,[-17,.13,-8]);
   K.put('water',cyl(.55,.55,.01,16),0x6c9f9b,[-17,.247,-8]);
-  const r=rng(801327);
-  for(let i=0;i<34;i++){
-    const a=r()*Math.PI*2,d=17.5+r()*5;
-    if(Math.cos(a)>.15)continue;
-    const x=Math.cos(a)*d,z=Math.sin(a)*d*.94;
+  pine(K,-15,0,-15,1.2,81265);pine(K,-15,0,17,1.3,81267);
+  // Sparse edge greenery and stone shards frame the water, leaving the duel clear.
+  for(const sign of [-1,1])for(let i=0;i<7;i++){
+    const x=3+i*1.7,z=sign*(15.2-i*.85);
+    K.put('stone',box(.8,.16,.45),i%2?0x9eaa98:0xadb7a7,[x,.05,z],[.06,i*.6,0],1,{rough:.1});
     for(let j=0;j<5;j++){
-      const b=j/5*Math.PI*2+r()*.3,len=.4+r()*.4;
-      const points=[x,.04,z,x+Math.cos(b)*len*.55,.18+r()*.2,z+Math.sin(b)*len*.55,x+Math.cos(b)*len,.1,z+Math.sin(b)*len];
-      K.put('leaf',geo(points),j%2?0x628a48:0x487743);
+      const px=x+.23+j*.13,pz=z+.2;
+      K.put('leaf',geo([px,.01,pz,px+.19,.23+j*.055,pz+.08,px+.045,.01,pz+.10]),j%2?0x6a8550:0x8c9867);
     }
   }
 }
@@ -117,16 +158,16 @@ function smallBird(scene) {
   group.add(left,right);group.visible=false;scene.add(group);return{group,left,right};
 }
 export function buildQinglan(scene,{hemi,sun}) {
-  scene.background=new THREE.Color(0xb9d4d5);scene.fog=new THREE.Fog(0xb7d2d2,110,300);
+  scene.background=new THREE.Color(0xb9d4d5);scene.fog=new THREE.Fog(0x9bbbc7,130,420);
   hemi.color.setHex(0xd5e9ff);hemi.groundColor.setHex(0x576458);hemi.intensity=1.65;
   sun.color.setHex(0xfff7ed);sun.intensity=2.5;
   sky(scene);const vista=buildQinglanVista(scene),K=new OwnedKit(801311);terrace(K);restAndTrail(K);
   const floorMap=terraceMap();floorMap.repeat.set(2,2);
   const mats={floor:new THREE.MeshStandardMaterial({vertexColors:true,map:floorMap,roughness:.91}),
     rock:new THREE.MeshStandardMaterial({vertexColors:true,roughness:.94}),stone:new THREE.MeshStandardMaterial({vertexColors:true,roughness:.9}),
-    wood:new THREE.MeshStandardMaterial({vertexColors:true,roughness:.92}),leaf:new THREE.MeshStandardMaterial({vertexColors:true,side:THREE.DoubleSide,roughness:1}),
+    wood:new THREE.MeshStandardMaterial({vertexColors:true,roughness:.92}),roof:new THREE.MeshStandardMaterial({vertexColors:true,side:THREE.DoubleSide,roughness:.91}),leaf:new THREE.MeshStandardMaterial({vertexColors:true,side:THREE.DoubleSide,roughness:1}),
     shade:new THREE.MeshStandardMaterial({vertexColors:true,roughness:1}),water:new THREE.MeshStandardMaterial({vertexColors:true,roughness:.37,metalness:.02})};
-  for(const [name,mat]of Object.entries(mats)){const mesh=K.mesh(name,mat,{cast:name==='wood'||name==='stone',receive:true});
+  for(const [name,mat]of Object.entries(mats)){const mesh=K.mesh(name,mat,{cast:name==='wood'||name==='stone'||name==='roof',receive:true});
     if(!mesh){mat.dispose();continue;}mesh.name='qinglan-'+name;scene.add(mesh);for(const g of K.bins[name])g.dispose();}
   const drop=new THREE.Mesh(new THREE.SphereGeometry(.04,6,4),new THREE.MeshBasicMaterial({color:0xc1e0dd}));drop.name='qinglan-spring-drop';drop.visible=false;scene.add(drop);
   const bird=smallBird(scene),r=rng(801319);let time=0,nextDrip=3.2,nextBird=11,birdStart=-100,birdCalled=false;

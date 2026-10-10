@@ -6,7 +6,8 @@ import {createHash} from 'node:crypto';
 import {chromium} from '/workspace/cloud-onboarding/browser/node_modules/playwright/index.mjs';
 const stageId=process.argv[2]??'frozen_bay';
 assert(['frozen_bay','qinglan'].includes(stageId));
-const out=stageId==='qinglan'?'/tmp/halfsword-qinglan-20261010':'/tmp/halfsword-frozen-bay-20261010';
+const out=process.argv[3]??(stageId==='qinglan'?'/tmp/halfsword-qinglan-20261010':'/tmp/halfsword-frozen-bay-20261010');
+assert(/^\/tmp\/halfsword-[a-z0-9-]+$/.test(out));
 const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
 try {
  const page=await browser.newPage();const errors=[];page.on('pageerror',e=>errors.push(String(e)));
