@@ -22,9 +22,11 @@ import { weaponEnv } from './weapon_looks.js';
 import { buildLoggia } from './stage_loggia.js';
 import { buildCorsair } from './stage_corsair.js';
 import { buildSacredGrove } from './stage_sacred_grove.js';
+import { buildFrozenBay } from './stage_frozen_bay.js';
 
 // 배경 id → 짓는 함수. 짓는 함수는 { update(dt), excite(amount), sunOffset? } 를 돌려준다
 const BUILDERS = {
+  frozen_bay: buildFrozenBay,
   loggia: buildLoggia,
   corsair: buildCorsair,
   sacred_grove: buildSacredGrove,
@@ -46,7 +48,7 @@ const DEFAULT_SUN_OFFSET = { x: 4, y: 9, z: 3 }; // sunOffset 을 안 주는 배
 //  이졸데는 한 번 쓰러져도 젊은 수련생의 투지로 다시 일어선다(오너 결정: 약한 게 아니다). 대성당 뒤 왕관의 기사전, 그 다음 판은 다시 포세이돈부터
 export const STAGE_ORDER = ['poseidon', 'clearing', 'temple', 'castle', 'poseidon_night', 'cathedral', 'crown_sanctum'];
 // 무대 → 그 무대에서 나오는 상대 (캐릭터 id). 여기 없는 무대(어두운 홀)는 무작위 상대
-export const STAGE_FOE = { crown_sanctum: 'crown_boss', poseidon: 'heinrich', clearing: 'bran', clearing_a: 'bran', clearing_a_dry: 'bran', temple: 'liao', castle: 'isolde', poseidon_night: 'heinrich_mad', cathedral: 'margarethe', loggia: 'tome', corsair: 'omari', sacred_grove: 'yeongman' };
+export const STAGE_FOE = { frozen_bay: 'eira', crown_sanctum: 'crown_boss', poseidon: 'heinrich', clearing: 'bran', clearing_a: 'bran', clearing_a_dry: 'bran', temple: 'liao', castle: 'isolde', poseidon_night: 'heinrich_mad', cathedral: 'margarethe', loggia: 'tome', corsair: 'omari', sacred_grove: 'yeongman' };
 
 /** prev 다음 판의 배경. prev 가 순서에 없으면(처음, 또는 순서 밖 배경) 맨 앞(포세이돈)부터 */
 export function nextStage(prev = null) {

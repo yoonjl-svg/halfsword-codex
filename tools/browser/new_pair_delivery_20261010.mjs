@@ -21,7 +21,7 @@ const encounterId = args.encounter;
 assert(['renji', 'eira'].includes(encounterId), 'Specify --encounter=renji or eira');
 const encounters = [
   { id: 'renji', weapon: 'morgenstern', stage: 'sacred_grove', image: 'kim-straw' },
-  { id: 'eira', weapon: 'rapier', stage: 'castle', image: 'eira' },
+  { id: 'eira', weapon: 'rapier', stage: 'frozen_bay', image: 'eira' },
   { id: 'crown_boss', weapon: 'pistol', stage: 'crown_sanctum', image: 'samira-v8' },
 ];
 for (const item of encounters) assert.equal(CHARACTERS_BY_ID[item.id]?.weapon, item.weapon, `Registered weapon: ${item.id}`);
@@ -224,10 +224,14 @@ try {
   const proposalURL = new URL('eira-frozen-bay.html', base).href;
   await Promise.all([page.waitForURL(proposalURL), page.locator('a[href="eira-frozen-bay.html"]').tap()]);
   await page.setViewportSize({ width: 320, height: 740 });
+  assert.equal(await page.locator('a.return').first().getAttribute('href'), './?cards=sain,ice&foe=eira&stage=frozen_bay');
+  await page.locator('img').evaluateAll(images => Promise.all(images.map(image => image.decode())));
+  assert(await page.locator('img').evaluateAll(images => images.length === 2 && images.every(i => i.naturalWidth > 0)));
+  await page.locator('details summary').tap();
   proposal = await page.evaluate(() => ({ width: innerWidth, scrollWidth: document.documentElement.scrollWidth,
     heading: document.querySelector('h1')?.textContent, text: document.body.innerText }));
   assert(proposal.scrollWidth <= proposal.width + 1, 'Proposal must fit a narrow phone');
-  for (const word of ['새벽의 얼음만', '제안', '성 안뜰', '구도 개념도', '호수', '이졸데']) assert(proposal.text.includes(word));
+  for (const word of ['새벽의 얼음만', '플레이', '성 안뜰', '구도 개념도', '호수', '이졸데']) assert(proposal.text.includes(word));
   await page.screenshot({ path: path.join(out, 'proposal-320.png'), fullPage: true });
   await Promise.all([page.waitForURL(new URL('new-pair.html#eira', base).href), page.locator('a[href="./new-pair.html#eira"]').first().tap()]);
   await page.setViewportSize({ width: 390, height: 844 });

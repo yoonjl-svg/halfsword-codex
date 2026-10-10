@@ -1,4 +1,4 @@
-// The three expansion stages share the game's master bus, noise buffer and
+// These outdoor/detail stages share the game's master bus, noise buffer and
 // camera-relative positioning. Detail sounds are driven by visible motion,
 // never by wall-clock timers or a second combat-event scheduler.
 export const STAGE_DETAIL_PROFILES = Object.freeze({
@@ -8,9 +8,11 @@ export const STAGE_DETAIL_PROFILES = Object.freeze({
   groveRustle: { stage: 'sacred_grove', duration: 1.65, gain: 0.020, gap: 5 },
   paperRustle: { stage: 'sacred_grove', duration: 0.9, gain: 0.016, gap: 7 },
   gullCall: { stage: 'corsair', duration: 2.15, gain: 0.085, gap: 24 },
+  lakeIceBoom: { stage: 'frozen_bay', duration: 3.5, gain: 0.055, gap: 26 },
+  frozenPierCreak: { stage: 'frozen_bay', duration: 1.9, gain: 0.030, gap: 24 },
 });
 
-export const hasStageDetails = (stage) => stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove';
+export const hasStageDetails = (stage) => stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove' || stage === 'frozen_bay';
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 const TAU = Math.PI * 2;
 
@@ -22,6 +24,43 @@ export function synthStageDetail(kind, sr, rng) {
   const profile = STAGE_DETAIL_PROFILES[kind];
   if (!profile || !Number.isFinite(sr) || sr < 8000) return new Float32Array(0);
   const out = new Float32Array(Math.ceil(profile.duration * sr));
+  if (kind === 'lakeIceBoom' || kind === 'frozenPierCreak') {
+    const variation = rng(), pitch = 0.91 + variation * 0.18;
+    let low = 0, body = 0, air = 0, phase = 0, chirp = 0, peak = 0;
+    const lowA = 1 - Math.exp(-TAU * 105 / sr), bodyA = 1 - Math.exp(-TAU * 680 / sr);
+    const airA = 1 - Math.exp(-TAU * 1900 / sr);
+    for (let i = 0; i < out.length; i++) {
+      const t = i / sr, u = i / (out.length - 1), white = rng() * 2 - 1;
+      low += lowA * (white - low); body += bodyA * (white - body); air += airA * (white - air);
+      let sample;
+      if (kind === 'lakeIceBoom') {
+        // Distant sheet flex: broad, low modes arrive under a small, brief
+        // dispersive overtone. No sharp weapon-like attack or long pitch dive.
+        const bloom = (1 - Math.exp(-t / 0.07)) * Math.exp(-t / 0.78);
+        const modes = 0.18 * Math.sin(TAU * 49 * pitch * t)
+          + 0.09 * Math.sin(TAU * 78.3 * pitch * t + 0.16 * Math.sin(t * 8))
+          + 0.05 * Math.sin(TAU * 123.7 * pitch * t);
+        const ct = Math.max(0, t - 0.035), window = ct < 0.31 ? Math.sin(Math.PI * ct / 0.31) ** 2 : 0;
+        phase += TAU * (360 + 420 * Math.exp(-ct / 0.065)) * pitch / sr;
+        chirp += TAU * (590 + 490 * Math.exp(-ct / 0.045)) * pitch / sr;
+        sample = bloom * (modes + 0.8 * low + 0.09 * body)
+          + window * (0.030 * Math.sin(phase) + 0.012 * Math.sin(chirp) + 0.040 * (air - body));
+      } else {
+        // Short stick/slip of dry timber and taut rope, with an uneven rasp
+        // and only weak pitch: no dock water or bell-like sustained note.
+        const fold = Math.sin(Math.PI * u) ** 2;
+        const strain = 0.32 + 0.68 * Math.sin(t * (8 + variation * 2) + 0.7 * Math.sin(t * 19)) ** 2;
+        phase += TAU * (116 + 24 * Math.sin(u * Math.PI) + 5 * Math.sin(t * 21)) * pitch / sr;
+        sample = fold * strain * (0.32 * (body - low) + 0.045 * Math.sin(phase)
+          + 0.022 * Math.sin(phase * 2.13) + 0.015 * Math.sin(phase * 3.71));
+      }
+      // Smooth the finite tail, including when rendered at a different rate.
+      out[i] = sample * Math.min(1, (1 - u) / 0.12);
+      peak = Math.max(peak, Math.abs(out[i]));
+    }
+    if (peak > 0.45) for (let i = 0; i < out.length; i++) out[i] *= 0.45 / peak;
+    return out;
+  }
   if (kind === 'gullCall') {
     // Two short, rough calls followed by a falling cry. This is a procedural
     // coastal-bird interpretation, not a recording of a particular species.
@@ -89,6 +128,7 @@ export class StageDetailSound {
     this.stopVoices();
     this.stopAmbient();
     this.stage = stage;
+    this.buffers.clear();
     this.last.clear();
     this.lastAny = -Infinity;
   }
@@ -160,6 +200,10 @@ export class StageDetailSound {
       addNoise({ frequency: 650, gain: 0.005, lfo: 0.055, depth: 0.002, ceiling: 1650 });
       // A distant stream, without the temple's invisible bell or scheduled bird.
       addNoise({ rate: 0.79, frequency: 1100, gain: 0.004, lfo: 0.11, depth: 0.001, ceiling: 2000, pan: 0.35 });
+    } else if (this.stage === 'frozen_bay') {
+      // Open inland ice: sparse dry air, without surf, storm or room echo.
+      addNoise({ rate: 0.87, frequency: 520, gain: 0.0026, lfo: 0.037, depth: 0.0009, ceiling: 1500, pan: -0.15 });
+      addNoise({ rate: 0.71, type: 'lowpass', frequency: 135, gain: 0.0035, lfo: 0.061, depth: 0.0011, ceiling: 750, pan: 0.12 });
     }
     let remaining = nodes.length;
     for (const source of nodes) {

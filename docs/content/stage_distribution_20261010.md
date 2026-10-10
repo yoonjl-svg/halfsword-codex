@@ -26,3 +26,7 @@
 보관용: clearing_a/clearing_a_dry는 화전터 구안/무강수 변형. 일반 진행에서 제외된 darkhall은 유럽 성의 실내로 추정되는 별도9번째 공간(밤·달빛·촛불·벽난로)이며 위 활성 분포에는 넣지 않았다.
 
 근거: src/stages.js의 BUILDERS/STAGE_ORDER/STAGE_FOE, src/arena.js 첫 설명, src/stage_clearing_b.js 첫 설명, src/stage_temple.js의가을/아침/안개 구현, src/stage_castle.js 첫 설명, src/stage_cathedral.js 채광, src/stage_loggia.js 첫 설명, src/stage_corsair.js 스콜 뒤 조명, src/stage_sacred_grove.js의 개울·바람·도리이/시데. 서사 국가와 건축 추정을 분리했다.
+
+## 후속 갱신 · 얼음만 제작
+
+사용자 승인으로 에이라 전용 `frozen_bay`를 추가했다. [제작/검증](eira_frozen_bay_20261010.md). 고유 공간9개, 활성 ID11개가 되며 동시베리아 내륙 호수·겨울·맑고 건조한 새벽이 추가된다. 이졸데와는 겨울이 겹치지만 적설 성벽/불/해질녘 대신 얼음/개방 수평선/새벽으로 나눈다. 김씨는 아직 신목의 숲을 사용한다. 후속 후보는 초여름 비 갠 오전 중국 남부 절벽 또는 초가을 오후 티베트 고원이며 이전 나루 제안보다 최신 사용자 희망을 우선한다.
