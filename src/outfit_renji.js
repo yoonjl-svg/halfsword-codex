@@ -5,7 +5,6 @@ export function createRenjiOutfit(h) {
   const { THREE, bake, box, cyl, ball, addMerged, CLOTH, artoriaCloth } = h;
   const INK = 0x17191e, NAVY = 0x202637, FOLD = 0x303548;
   const WINE = 0x49202d, VIOLET = 0x665080, LIGHT = 0x816b9a;
-  const STRAW_DARK = 0x80704d;
   const cloth = { ...CLOTH, metalness: 0, roughness: 0.96 };
   const doubleCloth = { ...cloth, side: THREE.DoubleSide };
   const layer = (g) => artoriaCloth(g, 'renji-cloth');
@@ -37,6 +36,34 @@ export function createRenjiOutfit(h) {
     geo.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), axis.normalize()));
     geo.translate(...from.add(to).multiplyScalar(0.5).toArray());
     return geo;
+  }
+  // Shared straw sole, braided rim and cords for the spare and worn sandals.
+  // Canonical axes: +Y toward toes, -X toward the top of the sandal.
+  function strawSandal(worn = false) {
+    const soles = [bake(ball(1,14,10),null,null,[.009,.084,.029])], edges = [], weave = [];
+    for(let i=0;i<28;i++) {
+      const a=i*Math.PI/14,b=(i+1)*Math.PI/14;
+      edges.push(line([-.012,.082*Math.cos(a),.027*Math.sin(a)],[-.012,.082*Math.cos(b),.027*Math.sin(b)],.003,4));
+    }
+    for(let i=-4;i<=4;i++) {
+      const y=i*.015,w=.026*Math.sqrt(Math.max(0,1-(y/.084)**2));
+      weave.push(line([-.014,y-.005,-w],[-.014,y+.005,w],.0016,4));
+    }
+    if (worn) {
+      // The cords lift over the instep; the spare's straps lie flat for travel.
+      for(const side of [-1,1]) {
+        weave.push(line([-.03,.038,0],[-.058,.008,side*.011],.004,5));
+        weave.push(line([-.058,.008,side*.011],[-.015,-.026,side*.027],.004,5));
+        edges.push(line([-.013,-.057,side*.023],[-.052,-.047,side*.018],.0035,5));
+        edges.push(line([-.052,-.047,side*.018],[-.053,-.054,0],.0035,5));
+      }
+      for(const y of [.026,.034,.042]) for(const side of [-1,1])
+        weave.push(line([-.048,y,0],[-.016,y-.011,side*.025],.0032,5));
+    } else {
+      weave.push(line([-.018,.03,0],[-.018,-.013,-.024],.004,5));
+      weave.push(line([-.018,.03,0],[-.018,-.013,.024],.004,5));
+    }
+    return [[soles,0x9e8250],[edges,0xb49a61],[weave,0x786440]];
   }
   function pleats(top, bottom, height, y, xScale = 1, zScale = 1, slope = 0) {
     const geo = new THREE.CylinderGeometry(top, bottom, height, 32, 4, true);
@@ -103,23 +130,11 @@ export function createRenjiOutfit(h) {
       knots.push(line([-.318,-.218,0],[-.325,-.427,side*.026],.0032));
     }
     addMerged(l,knots,0xb0a48a,cloth);addMerged(l,folds,0xbeb49c,cloth);
-    const soles=[],weave=[],edges=[];
     for(const side of [-1,1]) {
       const cy=-.522+(side===1?.018:0),cz=side*.04;
-      soles.push(bake(ball(1,14,10),[-.326,cy,cz],null,[.009,.084,.029]));
-      // Visible plaited rim and toe bands distinguish dangling straw sandals.
-      for(let i=0;i<28;i++){
-        const a=i*Math.PI/14,b=(i+1)*Math.PI/14;
-        edges.push(line([-.338,cy+.082*Math.cos(a),cz+.027*Math.sin(a)],[-.338,cy+.082*Math.cos(b),cz+.027*Math.sin(b)],.003,4));
-      }
-      for(let i=-4;i<=4;i++){
-        const dy=i*.015,w=.026*Math.sqrt(Math.max(0,1-(dy/.084)**2));
-        weave.push(line([-.34,cy+dy-.005,cz-w],[-.34,cy+dy+.005,cz+w],.0016,4));
-      }
-      weave.push(line([-.344,cy+.03,cz],[-.344,cy-.013,cz-.024],.004,5));
-      weave.push(line([-.344,cy+.03,cz],[-.344,cy-.013,cz+.024],.004,5));
+      for(const [geometries,color] of strawSandal())
+        addMerged(l,geometries.map(geo=>geo.translate(-.326,cy,cz)),color,cloth);
     }
-    addMerged(l,soles,0x9e8250,cloth);addMerged(l,edges,0xb49a61,cloth);addMerged(l,weave,0x786440,cloth);
     const scarf = bake(new THREE.TorusGeometry(.086,.034,8,24), [0,.172,0], [Math.PI/2,.12,-.09], [1,1.25,1]);
     const lower = bake(new THREE.TorusGeometry(.088,.027,8,24), [.004,.134,0], [Math.PI/2,-.10,.08], [1,1.3,1]);
     const tail = panel(-.082, [[.169,.052],[.157,.18],[.105,.30],[.035,.40],[-.079,.451],[-.193,.414],
@@ -217,11 +232,14 @@ export function createRenjiOutfit(h) {
     addMerged(l,[pleats(.1445,.146,.014,-.144,1.03,.94,.27)],VIOLET,doubleCloth);
     addMerged(l,[cyl(.053,.05,.057,12,true,[0,-.179,0])],0x30232a,doubleCloth);
   }
-  function foot(g) {
-    tint(g, 0x232128); const l = layer(g);
-    addMerged(l, [box(0.246, 0.015, 0.114, [0, -0.033, 0])], STRAW_DARK, cloth);
-    addMerged(l, [line([0.052, 0.041, 0], [-0.027, 0.043, -0.048], 0.007),
-      line([0.052, 0.041, 0], [-0.027, 0.043, 0.048], 0.007)], WINE, cloth);
+  function foot(g, look) {
+    // Replace only the rendered black shoe with a bare foot inside straw.
+    // The native foot body, collider, friction and wound-bearing mesh survive.
+    tint(g, look.skin); const skin = bake(ball(1,16,10),[0,-.002,0],null,[.108,.027,.043]);
+    g.children[0].geometry.dispose(); g.children[0].geometry=skin;
+    const l=layer(g); l.name='renji-worn-straw-sandal';
+    for(const [geometries,color] of strawSandal(true))
+      addMerged(l,geometries.map(geo=>geo.scale(1,1.45,1.8).rotateZ(-Math.PI/2).translate(0,-.03,0)),color,cloth);
   }
   return { head, chest, abdomen, pelvis, uarmS: upperArm, uarmO: upperArm,
     farmS: forearm, farmO: forearm, thighF: thigh, thighB: thigh,

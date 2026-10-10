@@ -20,7 +20,7 @@ for (const arg of process.argv.slice(2)) {
 const encounterId = args.encounter;
 assert(['renji', 'eira'].includes(encounterId), 'Specify --encounter=renji or eira');
 const encounters = [
-  { id: 'renji', weapon: 'morgenstern', stage: 'sacred_grove', image: 'renji-v2' },
+  { id: 'renji', weapon: 'morgenstern', stage: 'sacred_grove', image: 'kim-straw' },
   { id: 'eira', weapon: 'rapier', stage: 'castle', image: 'eira' },
   { id: 'crown_boss', weapon: 'pistol', stage: 'crown_sanctum', image: 'samira-v8' },
 ];
@@ -98,7 +98,7 @@ const clean = value => {
   return text.replace(/https?:\/\/[^\s/@:]+:[^\s/@]+@/gi, 'https://[redacted]@').slice(0, 3000);
 };
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || '/workspace/cloud-onboarding/browser/node_modules/playwright/index.mjs');
-let browser, context, page, cdp, landing = null, fatal = null, pass = false, closing = false;
+let browser, context, page, cdp, landing = null, proposal = null, fatal = null, pass = false, closing = false;
 const flow = {}, deadline = setTimeout(() => {
   errors.push({ kind: 'budget', message: '600-second budget exceeded' }); browser?.close().catch(() => {});
 }, 600000);
@@ -217,10 +217,20 @@ try {
   assert.deepEqual(landing.play.map(link => link.href), encounters.map(item => new URL(queryFor(item), base).href));
   const expectedNames = registryContract.landing.map(item => item.name);
   assert.deepEqual(landing.headings.map(text => expectedNames.find(name => text.includes(name))).filter(Boolean), expectedNames);
-  const expectedImages = encounters.flatMap(item => (item.id === 'renji' ? ['front', 'threeq', 'back'] : ['front', 'threeq']).map(view => new URL(`encounters/${item.image}-${view}.webp`, base).pathname));
+  const expectedImages = encounters.flatMap(item => (item.id === 'renji' ? ['front', 'threeq', 'back', 'feet'] : ['front', 'threeq']).map(view => new URL(`encounters/${item.image}-${view}.webp`, base).pathname));
   assert.deepEqual(landing.images.map(image => image.path).sort(), expectedImages.sort());
   assert(landing.images.every(image => image.width > 0 && image.height > 0));
   await page.screenshot({ path: path.join(out, 'landing-portrait.png') });
+  const proposalURL = new URL('eira-frozen-bay.html', base).href;
+  await Promise.all([page.waitForURL(proposalURL), page.locator('a[href="eira-frozen-bay.html"]').tap()]);
+  await page.setViewportSize({ width: 320, height: 740 });
+  proposal = await page.evaluate(() => ({ width: innerWidth, scrollWidth: document.documentElement.scrollWidth,
+    heading: document.querySelector('h1')?.textContent, text: document.body.innerText }));
+  assert(proposal.scrollWidth <= proposal.width + 1, 'Proposal must fit a narrow phone');
+  for (const word of ['새벽의 얼음만', '제안', '성 안뜰', '구도 개념도', '호수', '이졸데']) assert(proposal.text.includes(word));
+  await page.screenshot({ path: path.join(out, 'proposal-320.png'), fullPage: true });
+  await Promise.all([page.waitForURL(new URL('new-pair.html#eira', base).href), page.locator('a[href="./new-pair.html#eira"]').first().tap()]);
+  await page.setViewportSize({ width: 390, height: 844 });
   await Promise.all([page.waitForURL(destination, { waitUntil: 'load' }), page.locator('a.play').nth(encounters.indexOf(routeSpec)).tap()]);
   await wait(() => window.game?.enemy && game.combat && game.characterModel);
   flow.entry = await read(); policy(flow.entry, false);
@@ -299,7 +309,7 @@ try {
   clearTimeout(deadline); const buildStable = JSON.stringify(before) === JSON.stringify(await manifest(build));
   pass = pass && buildStable && errors.length === 0 && toolHash === sha(await fs.readFile(own)); if (!pass) process.exitCode = 1;
   const report = { pass, local, head, startedUTC, completedUTC: new Date().toISOString(), wallMs: performance.now() - start,
-    base: base.href, toolHash, buildStable, buildManifest: before, encounterId, registryContract, settings,
+    base: base.href, toolHash, buildStable, buildManifest: before, encounterId, registryContract, settings, proposal,
     landing, flows: [flow], requests, attempts, errors, fatal, tlsVerification: true, proxyRetained: !local,
     limits: ['Chromium touch/mobile emulation; no physical-phone performance or human appearance acceptance claim.',
       'One selected Sain card, real hand/stick input, pause/resume and restart. Both registered enemy weapons are checked in separate encounter runs.',
