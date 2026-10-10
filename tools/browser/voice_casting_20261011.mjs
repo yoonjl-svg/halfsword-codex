@@ -2,8 +2,10 @@
 import fs from 'node:fs/promises';import assert from 'node:assert/strict';import{createHash,X509Certificate}from'node:crypto';
 import{chromium}from'/workspace/cloud-onboarding/browser/node_modules/playwright/index.mjs';
 const base=process.argv[2]||'http://127.0.0.1:4261/',out=process.argv[3];assert(out);await fs.mkdir(out,{recursive:true});
+const chosenIds=(process.argv.find(x=>x.startsWith('--characters='))?.split('=')[1]||'').split(',').filter(Boolean);
+const gameIds=(process.argv.find(x=>x.startsWith('--game='))?.split('=')[1]||'').split(',').filter(Boolean);
 const omariOnly=process.argv.includes('--omari-only');
-const selectionOnly=omariOnly||process.argv.includes('--selection');
+const selectionOnly=chosenIds.length>0||omariOnly||process.argv.includes('--selection');
 const pins=[];for(const n of await fs.readdir('/usr/local/share/ca-certificates'))if(n.endsWith('.crt'))try{const c=new X509Certificate(await fs.readFile('/usr/local/share/ca-certificates/'+n));pins.push(createHash('sha256').update(c.publicKey.export({type:'spki',format:'der'})).digest('base64'));}catch{}
 const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--ignore-certificate-errors-spki-list='+pins.join(',')]});
 const report={pass:false,base,checks:[],errors:[],responses:[]};let page;
@@ -18,12 +20,13 @@ try{
  await page.setViewportSize({width:390,height:844});
  const cast=await page.evaluate(async()=>fetch('./voice-casting.json').then(r=>r.json()));
  const selected=cast.find(r=>r.id==='yeongman');assert.equal(selected.voice,'isolde');assert.equal(selected.changed,false);
- const cases=omariOnly?[['omari','새 배정']]:selectionOnly?[['yeongman','현재 목소리'],['player','현재 목소리'],['omari','이전'],['omari','새 배정']]:cast.filter(r=>r.changed).flatMap(r=>['이전','새 배정'].map(label=>[r.id,label]));
+ const cases=chosenIds.length?chosenIds.flatMap(id=>(cast.find(r=>r.id===id).changed?['이전','새 배정']:['현재 목소리']).map(label=>[id,label])):omariOnly?[['omari','새 배정']]:selectionOnly?[['yeongman','현재 목소리'],['player','현재 목소리'],['omari','이전'],['omari','새 배정']]:cast.filter(r=>r.changed).flatMap(r=>['이전','새 배정'].map(label=>[r.id,label]));
  for(const [id,label] of cases)for(const kind of ['짧은 신음','기절','출혈']){
   const row=page.locator(`[data-character="${id}"]`),group=row.locator('fieldset').filter({has:page.locator('legend',{hasText:label})}),btn=group.getByRole('button',{name:new RegExp(kind+' 듣기$')});
   const before=await page.evaluate(()=>audioAudit.starts.length);await btn.tap();await page.waitForFunction(n=>audioAudit.starts.length>n,before,{timeout:30000});assert(await page.locator('#status').textContent());
   await page.locator('#stop').tap();assert.equal(await page.locator('.is-playing').count(),0);
  }
+ if(chosenIds.includes('liao'))assert(!report.responses.some(r=>r.url.includes('/liao_bleed2.mp3')));
  assert.equal(await page.evaluate(()=>localStorage.getItem('gladiator-settings')),saved);assert.equal(await page.locator('[data-character] .game-link').count(),cast.filter(r=>r.changed).length);
  report.checks.push({name:`audition ${cases.length*3} real audio starts, stop, no premature voice download, unchanged settings, Sherpa excluded`,data:await page.evaluate(()=>audioAudit)});
  await page.screenshot({path:out+'/audition.png'});
@@ -34,7 +37,7 @@ try{
   fail=false;await btn.tap();await retry.waitForFunction(()=>audioAudit.starts.length>0);report.checks.push({name:'failed recording download retries successfully'});await retry.close();
  }
  await page.close();
- for(const [id,voice]of(omariOnly?[['omari','omari']]:selectionOnly?[['yeongman','isolde'],['omari','omari']]:[['eira','soft_female'],['tome','tome']])){
+ for(const [id,voice]of(gameIds.length?gameIds.map(id=>[id,cast.find(r=>r.id===id).voice]):chosenIds.length?chosenIds.map(id=>[id,cast.find(r=>r.id===id).voice]):omariOnly?[['omari','omari']]:selectionOnly?[['yeongman','isolde'],['omari','omari']]:[['eira','soft_female'],['tome','tome']])){
   page=await context.newPage();track(page);await page.setViewportSize({width:844,height:390});await page.goto(base+'?foe='+id+'&stage=poseidon&cards=longsword,sabre');await page.waitForFunction(()=>window.game?.enemy);
   const wait=fn=>page.waitForFunction(fn,null,{timeout:90000});
   async function enter(){await page.locator('#btnStart').tap();await wait(()=>game.state==='fight'||(game.state==='draw'&&game.draw.stage==='choose'&&game.draw.t>.45));if(await page.evaluate(()=>game.state==='draw'))await page.locator('.wcard[data-i="0"]').tap();await wait(()=>game.state==='fight'&&game.player.fightT>2.05);}

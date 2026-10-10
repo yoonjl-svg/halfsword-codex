@@ -28,7 +28,7 @@ export const EXPANSION_CHARACTERS = [
   },
   {
     id: 'artoria', name: '아르토리아', epithet: '돌아온 맹세', age: 24,
-    origin: '브리튼 · 바다 너머의 잃어버린 왕국', weapon: 'excalibur', voice: 'isolde',
+    origin: '브리튼 · 바다 너머의 잃어버린 왕국', weapon: 'excalibur', voice: 'soft_female',
     backstory: '금빛 검을 지녔다는 소문을 따라 바다를 건넌 기사. 왕관도 군대도 없이 돌아왔지만, 엑스칼리버는 여전히 그녀의 손에서 빛난다. 이름을 빌린 이들을 벌하기보다, 그 이름이 지켜야 했던 사람들을 찾는다.',
     want: '검에 걸었던 맹세를 끝까지 지키고, 흩어진 사람들을 고향으로 돌려보내는 것.',
     school: '엑스칼리버의 실제 소유자라는 게임 속 창작 설정. 기존 양손검 자세와 엑스칼리버 유파를 사용한다.',
