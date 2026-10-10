@@ -1,5 +1,5 @@
-// Frozen-build mobile delivery for the two independent encounters on new-pair.html.
-// --encounter=renji|eira --base=http://127.0.0.1:PORT/ --build=/absolute/build --out=/tmp/halfsword-new-pair-20261010/local-renji
+// Frozen-build mobile delivery for independent encounters and their introduction pages.
+// --encounter=renji|eira|sherpa --base=http://127.0.0.1:PORT/ --build=/absolute/build --out=/tmp/halfsword-new-pair-20261010/local-renji
 // Public runs also require --local-evidence=/absolute/passing-local/report.json.
 // One real card/input/pause/resume/restart flow; no campaign or combat-balance fixtures.
 import assert from 'node:assert/strict';
@@ -18,8 +18,10 @@ for (const arg of process.argv.slice(2)) {
   assert(match && !Object.hasOwn(args, match[1]), 'Unknown or duplicate argument'); args[match[1]] = match[2];
 }
 const encounterId = args.encounter;
-assert(['renji', 'eira'].includes(encounterId), 'Specify --encounter=renji or eira');
-const encounters = [
+assert(['renji', 'eira', 'sherpa'].includes(encounterId), 'Specify --encounter=renji, eira or sherpa');
+const encounters = encounterId === 'sherpa' ? [
+  { id: 'sherpa', weapon: 'sabre', stage: 'qinglan', image: 'sherpa' },
+] : [
   { id: 'renji', weapon: 'morgenstern', stage: 'qinglan', image: 'kim-straw' },
   { id: 'eira', weapon: 'rapier', stage: 'frozen_bay', image: 'eira' },
   { id: 'crown_boss', weapon: 'pistol', stage: 'crown_sanctum', image: 'samira-v8' },
@@ -206,7 +208,7 @@ try {
   }
   const outfitIds = value => value.outfit.map(item => item.uuid);
   const outfitSignature = value => value.outfit.map(({ outfit, part }) => ({ outfit, part }));
-  const landingURL = new URL('new-pair.html', base).href, destination = new URL(queryFor(routeSpec), base).href;
+  const landingURL = new URL(encounterId === 'sherpa' ? 'sherpa.html' : 'new-pair.html', base).href, destination = new URL(queryFor(routeSpec), base).href;
   await page.goto(landingURL, { waitUntil: 'load' });
   await page.locator('img').evaluateAll(images => Promise.all(images.map(image => { image.loading = 'eager'; return image.decode(); })));
   landing = await page.evaluate(() => ({ title: document.title, width: innerWidth, scrollWidth: document.documentElement.scrollWidth,
@@ -217,39 +219,48 @@ try {
   assert.deepEqual(landing.play.map(link => link.href), encounters.map(item => new URL(queryFor(item), base).href));
   const expectedNames = registryContract.landing.map(item => item.name);
   assert.deepEqual(landing.headings.map(text => expectedNames.find(name => text.includes(name))).filter(Boolean), expectedNames);
-  const expectedImages = encounters.flatMap(item => (item.id === 'renji' ? ['front', 'threeq', 'back', 'feet'] : ['front', 'threeq']).map(view => new URL(`encounters/${item.image}-${view}.webp`, base).pathname));
+  const expectedImages = encounters.flatMap(item => (item.id === 'renji' ? ['front', 'threeq', 'back', 'feet'] : item.id === 'sherpa' ? ['front', 'threeq', 'back'] : ['front', 'threeq']).map(view => new URL(`encounters/${item.image}-${view}.webp`, base).pathname));
   assert.deepEqual(landing.images.map(image => image.path).sort(), expectedImages.sort());
   assert(landing.images.every(image => image.width > 0 && image.height > 0));
   await page.screenshot({ path: path.join(out, 'landing-portrait.png') });
-  const proposalFile = encounterId === 'renji' ? 'kim-qinglan-proposal.html' : 'eira-frozen-bay.html';
-  const backAnchor = encounterId === 'renji' ? 'renji' : 'eira';
-  const proposalURL = new URL(proposalFile, base).href;
-  await Promise.all([page.waitForURL(proposalURL), page.locator(`a[href="${proposalFile}"]`).tap()]);
-  await page.setViewportSize({ width: 320, height: 740 });
-  assert.equal(await page.locator('a.return').first().getAttribute('href'), `./${queryFor(routeSpec)}`);
-  await page.locator('img').evaluateAll(images => Promise.all(images.map(image => image.decode())));
-  assert(await page.locator('img').evaluateAll(images => images.length >= 2 && images.every(i => i.naturalWidth > 0)));
-  await page.locator('details summary').first().tap();
-  proposal = await page.evaluate(() => ({ width: innerWidth, scrollWidth: document.documentElement.scrollWidth,
-    heading: document.querySelector('h1')?.textContent, text: document.body.innerText }));
-  assert(proposal.scrollWidth <= proposal.width + 1, 'Proposal must fit a narrow phone');
-  for (const word of (encounterId === 'renji' ? ['한낮의 청람잔도', '플레이', '맑고 화창한', '초여름', '구도 개념도'] : ['새벽의 얼음만', '플레이', '성 안뜰', '구도 개념도', '호수', '이졸데'])) assert(proposal.text.includes(word));
-  await page.screenshot({ path: path.join(out, 'proposal-320.png'), fullPage: true });
-  if (encounterId === 'renji') {
-    await Promise.all([page.waitForURL(new URL('roster-gaps.html',base).href),page.locator('a[href="roster-gaps.html"]').tap()]);
-    await page.locator('details').evaluateAll(nodes=>nodes.forEach(node=>node.open=true));
-    const widths=[];
-    for(const width of [320,390,844]){
-      await page.setViewportSize({width,height:740});
-      widths.push(await page.evaluate(()=>({width:innerWidth,scrollWidth:document.documentElement.scrollWidth})));
+  if (encounterId !== 'sherpa') {
+    const proposalFile = encounterId === 'renji' ? 'kim-qinglan-proposal.html' : 'eira-frozen-bay.html';
+    const backAnchor = encounterId === 'renji' ? 'renji' : 'eira';
+    const proposalURL = new URL(proposalFile, base).href;
+    await Promise.all([page.waitForURL(proposalURL), page.locator(`a[href="${proposalFile}"]`).tap()]);
+    await page.setViewportSize({ width: 320, height: 740 });
+    assert.equal(await page.locator('a.return').first().getAttribute('href'), `./${queryFor(routeSpec)}`);
+    await page.locator('img').evaluateAll(images => Promise.all(images.map(image => image.decode())));
+    assert(await page.locator('img').evaluateAll(images => images.length >= 2 && images.every(i => i.naturalWidth > 0)));
+    await page.locator('details summary').first().tap();
+    proposal = await page.evaluate(() => ({ width: innerWidth, scrollWidth: document.documentElement.scrollWidth,
+      heading: document.querySelector('h1')?.textContent, text: document.body.innerText }));
+    assert(proposal.scrollWidth <= proposal.width + 1, 'Proposal must fit a narrow phone');
+    for (const word of (encounterId === 'renji' ? ['한낮의 청람잔도', '플레이', '맑고 화창한', '초여름', '구도 개념도'] : ['새벽의 얼음만', '플레이', '성 안뜰', '구도 개념도', '호수', '이졸데'])) assert(proposal.text.includes(word));
+    await page.screenshot({ path: path.join(out, 'proposal-320.png'), fullPage: true });
+    if (encounterId === 'renji') {
+      await Promise.all([page.waitForURL(new URL('roster-gaps.html',base).href),page.locator('a[href="roster-gaps.html"]').tap()]);
+      await page.locator('details').evaluateAll(nodes=>nodes.forEach(node=>node.open=true));
+      const widths=[];
+      for(const width of [320,390,844]){
+        await page.setViewportSize({width,height:740});
+        widths.push(await page.evaluate(()=>({width:innerWidth,scrollWidth:document.documentElement.scrollWidth})));
+      }
+      assert(widths.every(v=>v.scrollWidth<=v.width+1),'Roster must fit phones');
+      assert.equal(await page.locator('details').count(),12);
+      proposal.roster={widths,people:12};
+      await page.setViewportSize({width:320,height:740});
+      await Promise.all([page.waitForURL(proposalURL),page.locator('a[href="./kim-qinglan-proposal.html"]').first().tap()]);
     }
-    assert(widths.every(v=>v.scrollWidth<=v.width+1),'Roster must fit phones');
-    assert.equal(await page.locator('details').count(),12);
-    proposal.roster={widths,people:12};
-    await page.setViewportSize({width:320,height:740});
-    await Promise.all([page.waitForURL(proposalURL),page.locator('a[href="./kim-qinglan-proposal.html"]').first().tap()]);
+    await Promise.all([page.waitForURL(new URL(`new-pair.html#${backAnchor}`, base).href), page.locator(`a[href="./new-pair.html#${backAnchor}"]`).first().tap()]);
+  } else {
+    await page.setViewportSize({ width: 320, height: 740 });
+    await page.locator('details summary').first().tap();
+    const mobile = await page.evaluate(() => ({width: innerWidth, scrollWidth: document.documentElement.scrollWidth, text: document.body.innerText}));
+    assert(mobile.scrollWidth <= mobile.width + 1);
+    for (const term of ['성별 불명', '조사', '세이버']) assert(mobile.text.includes(term));
+    await page.screenshot({path: path.join(out, 'sherpa-320.png'), fullPage:true});
   }
-  await Promise.all([page.waitForURL(new URL(`new-pair.html#${backAnchor}`, base).href), page.locator(`a[href="./new-pair.html#${backAnchor}"]`).first().tap()]);
   await page.setViewportSize({ width: 390, height: 844 });
   await Promise.all([page.waitForURL(destination, { waitUntil: 'load' }), page.locator('a.play').nth(encounters.indexOf(routeSpec)).tap()]);
   await wait(() => window.game?.enemy && game.combat && game.characterModel);

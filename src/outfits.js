@@ -17,6 +17,7 @@ import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js
 import { weaponEnv } from './weapon_looks.js';
 import { createRenjiOutfit } from './outfit_renji.js';
 import { createEiraOutfit } from './outfit_eira.js';
+import { createSherpaOutfit } from './outfit_sherpa.js';
 
 const _m4 = new THREE.Matrix4();
 const _euler = new THREE.Euler();
@@ -2493,8 +2494,9 @@ const CROWN_ROSE_UNIFORM = Object.fromEntries(Object.entries(CROWN_BLUE_UNIFORM)
   },
 ]));
 
-export const newOutfitHelpers = { THREE, bake, box, cyl, ball, cone, addMerged, CLOTH, quietFace, isoldeLock, artoriaCloth, sleeveVolume, clothNeck };
+export const newOutfitHelpers = { THREE, bake, box, cyl, ball, cone, addMerged, CLOTH, quietFace, isoldeLock, artoriaCloth, sleeveVolume, clothNeck, artoriaRoundedBox };
 export const OUTFITS = {
+  sherpa_surveyor: createSherpaOutfit(newOutfitHelpers),
   renji_wanderer: createRenjiOutfit(newOutfitHelpers),
   eira_winter_priest: createEiraOutfit(newOutfitHelpers),
   crown_rose_uniform: CROWN_ROSE_UNIFORM,

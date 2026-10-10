@@ -3,6 +3,30 @@ import { getLook, CHARACTER_LOOK_VERSION } from './looks.js';
 
 export const WANDERER_CHARACTERS = [
   {
+    id: 'sherpa', name: '세르파', epithet: '길 밖을 조사하는 안내인', age: null,
+    gender: '불명', origin: '고산지대 · 출신 불명', weapon: 'sabre', voice: 'liao',
+    backstory: '길을 묻는 여행자에게는 능숙하게 답하지만 자신의 이름과 목적은 밝히지 않는다. 사람이 쉬어 가는 곳보다 오래된 돌의 홈과 물이 끊긴 자리에 오래 머문다. 허리의 기록장에는 지도 대신 같은 기호가 여러 번 그려져 있다.',
+    want: '무엇을 찾는지 아직 밝히지 않았다.',
+    school: '기존 세이버 동작을 사용하는 창작 산악 안내인.',
+    signatureMoves: '짧게 베어 길을 열고 칼을 몸 가까이 거둔다.',
+    favoriteGuards: '옆 지킴과 긴 자세.',
+    temperament: '말수가 적고 관찰이 빠르다. 조사를 방해받으면 먼저 기록장을 닫는다.',
+    movementNotes: '기존 세이버의 동작과 간격 계산을 사용한다.',
+    weaknesses: '짧은 곡도의 칼끝 바깥 거리.',
+    ai: { level: 'normal', persona: {
+      school: 'sabre',
+      level: { skill: 0.78, discipline: 0.82, strength: 1, aggression: 0.78 },
+      pers: { precision: 0.8, guardStick: 2.8, fearful: 0.2, angry: 0.1,
+        dogged: 0.35, rhythm: 2.8, aggr: 0.8, vor: 0.4,
+        guardPref: { wechselR: 1.4, langort: 1.2 }, techPref: { zornhau: 1.4, oberhau: 1.1 } },
+      idle: { guard: 'wechselR', gesture: 'still' },
+    } },
+    look: getLook('sherpa'), lookVersion: CHARACTER_LOOK_VERSION.sherpa,
+    taunt: '그 돌은 건드리지 마.',
+    lines: { intro: ['그 돌은 건드리지 마.', '길을 찾는 거라면, 돌아가.'],
+      win: ['아직 조사가 끝나지 않았어.', '본 것은 잊는 편이 좋아.'] },
+  },
+  {
     id: 'renji', name: '김씨', epithet: '칼을 뽑지 않는 낭인', age: 32,
     origin: '북쪽 항구와 산길', weapon: 'morgenstern', voice: 'liao',
     backstory: '형이 남긴 검을 허리에 차고 떠도는 낭인. 그 검으로 사람을 베지 않겠다는 약속 때문에, 항구에서 얻은 낯선 철퇴로 호위 일을 한다. 삿갓 아래 마른 찻잎을 넣고 다니며 길에서 만난 이에게 먼저 차를 권한다.',
