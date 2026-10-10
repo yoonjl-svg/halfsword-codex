@@ -42,7 +42,7 @@ try{
   const wait=fn=>page.waitForFunction(fn,null,{timeout:90000});
   async function enter(){await page.locator('#btnStart').tap();await wait(()=>game.state==='fight'||(game.state==='draw'&&game.draw.stage==='choose'&&game.draw.t>.45));if(await page.evaluate(()=>game.state==='draw'))await page.locator('.wcard[data-i="0"]').tap();await wait(()=>game.state==='fight'&&game.player.fightT>2.05);}
   await enter();await page.waitForFunction(v=>game.sound.samples[`voice:${v}:hurt`]?.length>0,voice);
-  if(omariOnly){const d=await page.evaluate(()=>game.sound.samples['voice:omari:bleed']?.[0]?.duration);assert(d>1.78&&d<1.89);report.checks.push({name:'shortened Omari bleed decoded in game',duration:d});}
+  if(omariOnly){const d=await page.evaluate(()=>Object.fromEntries(['ko','bleed'].map(k=>[k,game.sound.samples['voice:omari:'+k]?.[0]?.duration])));assert(d.ko>1.30&&d.ko<1.44);assert(d.bleed>1.57&&d.bleed<1.67);report.checks.push({name:'Omari KO and bleed both shortened another 10%, decoded in game',durations:d});}
   await page.evaluate(()=>{window.accepted=0;const observe=()=>{if(game.state==='fight'&&game.player.handHeld&&game.player.inputActive)accepted++;requestAnimationFrame(observe);};requestAnimationFrame(observe);});
   const cdp=await context.newCDPSession(page);await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:685,y:270,id:1}]});await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:610,y:170,id:1}]});await wait(()=>accepted>0);await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await cdp.detach();
   if(selectionOnly&&!omariOnly&&id==='omari'){
