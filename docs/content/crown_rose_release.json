@@ -1,11 +1,11 @@
 {
-  "status": "Local native/physics/visual/mobile passed; public pending",
+  "status": "Delivered: final v4 portraits, native appearance, identical physics, local/public mobile and Pages passed",
   "basis": "14b6e5cd999a26b7fd02d341f95f279b240a0f6f",
   "character": "crown_boss",
   "lookVersion": "v4",
   "outfit": "crown_rose_uniform",
   "weapon": "pistol",
-  "gameCommit": null,
+  "gameCommit": "b8b1344ff86c17228a6d6ef5e7e663029cdb1b15",
   "sourceHashes": {
     "src/outfits.js": "36aacd67279a6c8aef0e913b1d8f7663be709151d86235b105cb3f0c6569af66",
     "src/looks.js": "44e569f1d50eacff74c77622f0d9c6daefcde883f20c91ec1b643077352dc351",
@@ -60,8 +60,25 @@
     "scope": "mobile",
     "reportSHA256": "dc08ec9a06e5da157dc8a2ddd007ec58bb0578a7d38c7de5d37eede26f91406f"
   },
-  "public": null,
-  "pages": null,
+  "public": {
+    "pass": true,
+    "flows": 1,
+    "requests": 191,
+    "uniqueFiles": 180,
+    "errors": 0,
+    "buildStable": true,
+    "scope": "mobile",
+    "reportSHA256": "b517d7426a714e9e55e3de17cad0c1c59a6db8b4a6186b07f09adc2d5a1372ec",
+    "tlsVerification": true,
+    "proxyRetained": true
+  },
+  "pages": {
+    "conclusion": "success",
+    "databaseId": 38019626520,
+    "headSha": "b8b1344ff86c17228a6d6ef5e7e663029cdb1b15",
+    "status": "completed",
+    "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38019626520"
+  },
   "playURL": "https://yoonjl-svg.github.io/halfsword-codex/crown-boss.html",
   "limits": [
     "User rejected v3; final v4 aesthetic acceptance pending.",
@@ -69,5 +86,18 @@
     "Hair is attached to head; no hair dynamics or cloth solver. Extreme neck movement clipping is not exhaustively assessed.",
     "Neutral portrait rendering uses actual native AI/weapon pose; no physics/pose override.",
     "Browser mobile emulation is not physical-phone FPS or a full campaign test."
-  ]
+  ],
+  "completedUTC": "2026-10-10T03:12:14.484Z",
+  "evidence": {
+    "full": {
+      "path": "/tmp/rose-uniform-evidence-20261010.tar.gz",
+      "bytes": 3248286,
+      "sha256": "a282c54f307e0af5074f74f2692185a195afd4fab1a588f92eaf8f6c89e6bf69"
+    },
+    "core": {
+      "path": "/workspace/halfsword-handoff/rose-uniform-evidence-20261010.tar.gz",
+      "bytes": 340689,
+      "sha256": "7bc493bc5c2c93835172443dd351ada56af4a0155b45eaee558482bb70cdb5e8"
+    }
+  }
 }
