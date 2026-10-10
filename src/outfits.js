@@ -2382,7 +2382,92 @@ const CROWN_BLUE_UNIFORM = {
   shinF: uniformBoot, shinB: uniformBoot, footF: uniformShoe, footB: uniformShoe,
 };
 
+// Rose/red revision keeps the blue uniform available in the look archive.
+function roseUniformHead(g, look) {
+  quietFace(g, look, 'uniform');
+  // Shape only the visible face. The head body/collider and wound mesh identity remain.
+  const face = g.children[0].geometry, p = face.attributes.position;
+  for (let i = 0; i < p.count; i++) {
+    const y = p.getY(i), jaw = Math.max(0, Math.min(1, -y / 0.1));
+    p.setXYZ(i, p.getX(i) * (0.97 - jaw * 0.07), y * 1.08, p.getZ(i) * (0.88 - jaw * 0.16));
+  }
+  face.computeVertexNormals();
+  for (const eye of g.children.slice(1, 3)) {
+    eye.position.set(0.091, 0.020, Math.sign(eye.position.z) * 0.030);
+    eye.scale.z = 0.90;
+  }
+  g.children[3].scale.set(0.72, 0.72, 0.70);
+  g.children[3].position.set(0.095, -0.010, 0);
+  const cap = g.children[4], shell = new THREE.SphereGeometry(1, 24, 14, 0, Math.PI * 2, 0, Math.PI * 0.64);
+  const hp = shell.attributes.position;
+  for (let i = 0; i < hp.count; i++) {
+    const a = Math.atan2(hp.getZ(i), hp.getX(i));
+    const t = Math.floor(i / 25) / 14, theta = t * Math.PI * (0.64 - 0.31 * Math.max(0, Math.cos(a)));
+    hp.setXYZ(i, 0.104 * Math.sin(theta) * Math.cos(a), 0.115 * Math.cos(theta), 0.094 * Math.sin(theta) * Math.sin(a));
+  }
+  shell.computeVertexNormals(); cap.geometry.dispose(); cap.geometry = shell;
+  cap.position.set(0, 0, 0); cap.scale.set(1, 1, 1);
+  g.children[5].scale.set(0.96, 1.08, 0.86);
+  g.children[5].material.color.setHex(0x79515a);
+  // The old ears intersected the cap at its rim; give each ear a clean lower edge.
+  g.children[6].visible = false;
+  addMerged(g, [-1, 1].map(s => bake(new THREE.SphereGeometry(0.013, 10, 7),
+    [-0.006, -0.026, s * 0.088], null, [0.65, 1.1, 0.45])), look.skin, CLOTH);
+  g.children[7].scale.set(0.91, 1.08, 0.80);
+  const layer = artoriaCloth(g, 'uniform-hair'), locks = [];
+  // A broken, higher fringe leaves the existing small eyes unobscured.
+  for (let i = -2; i <= 2; i++) {
+    const z = i * 0.026;
+    locks.push(isoldeLock([[0.015, 0.108, z * 0.65], [0.074, 0.086, z],
+      [0.095, 0.060, z + 0.008], [0.097, 0.039 + Math.abs(i) * 0.006, z + 0.013]],
+    [0.022, 0.027, 0.020, 0.002], 0.006));
+  }
+  for (const s of [-1, 1]) {
+    locks.push(isoldeLock([[0.018, 0.025, s * 0.085], [-0.025, 0.074, s * 0.081],
+      [-0.049, 0.100, s * 0.043], [-0.060, 0.103, -0.025]], [0.025, 0.029, 0.024, 0.012], 0.008));
+    locks.push(isoldeLock([[0.042, 0.065, s * 0.076], [0.050, 0.012, s * 0.081],
+      [0.049, -0.052, s * 0.077], [0.041, -0.078, s * 0.064]], [0.016, 0.018, 0.012, 0.0015], 0.005));
+  }
+  locks.push(bake(new THREE.SphereGeometry(0.026, 12, 8), [-0.058, 0.097, -0.025], null, [1, 0.65, 1]));
+  addMerged(layer, locks, look.hair, CLOTH);
+  const curve = new THREE.CatmullRomCurve3([
+    [-0.060, 0.100, -0.025], [-0.108, 0.117, -0.034], [-0.151, 0.045, -0.043],
+    [-0.179, -0.105, -0.055], [-0.186, -0.280, -0.072], [-0.187, -0.422, -0.090],
+  ].map(v => new THREE.Vector3(...v)));
+  const braids = [];
+  for (let strand = 0; strand < 3; strand++) {
+    const pts = Array.from({ length: 49 }, (_, i) => {
+      const t = i / 48, a = t * Math.PI * 13 + strand * Math.PI * 2 / 3;
+      const c = curve.getPoint(t), radius = 0.015 * (1 - 0.64 * t);
+      return [c.x + radius * Math.cos(a), c.y, c.z + radius * Math.sin(a)];
+    });
+    braids.push(taperedTube(pts, pts.map((_, i) => 0.012 - i / 48 * 0.007), 72, 6));
+  }
+  addMerged(layer, braids, look.hair, CLOTH);
+  // Visible high tie, two ribbon loops and narrow hanging tails.
+  addMerged(layer, [ball(0.017, 10, 6, [-0.078, 0.108, -0.027]),
+    bake(new THREE.SphereGeometry(0.031, 10, 6), [-0.086, 0.113, 0.002], [0.25, 0, 0], [0.25, 0.45, 1]),
+    bake(new THREE.SphereGeometry(0.031, 10, 6), [-0.086, 0.113, -0.057], [-0.25, 0, 0], [0.25, 0.45, 1]),
+    clothPanel(-0.119, [[0.104, -0.013], [0.106, 0.001], [-0.002, 0.037], [0.011, 0.014]], 0.002),
+    clothPanel(-0.119, [[0.102, -0.042], [0.106, -0.056], [-0.001, -0.086], [0.010, -0.063]], 0.002),
+    cyl(0.012, 0.011, 0.018, 10, false, [-0.187, -0.391, -0.085])], 0x592736, CLOTH);
+}
+const roseUniformColors = new Map([
+  [UNIFORM_BLUE, 0x922e40], [UNIFORM_NAVY, 0x24232a], [0x4b6989, 0x91374a],
+  [0x183b61, 0x541c28], [0x193c60, 0x541c28], [0x416c99, 0xb04c5a], [0x536375, 0x5c5258],
+]);
+const CROWN_ROSE_UNIFORM = Object.fromEntries(Object.entries(CROWN_BLUE_UNIFORM).map(([part, decorate]) => [part,
+  part === 'head' ? roseUniformHead : (g, look) => {
+    decorate(g, look);
+    g.traverse(node => { if (node.isMesh) for (const material of [node.material].flat()) {
+      const color = roseUniformColors.get(material.color?.getHex());
+      if (color !== undefined) material.color.setHex(color);
+    } });
+  },
+]));
+
 export const OUTFITS = {
+  crown_rose_uniform: CROWN_ROSE_UNIFORM,
   crown_blue_uniform: CROWN_BLUE_UNIFORM,
   crown_sovereign_light: CROWN_SOVEREIGN_LIGHT,
   crown_sovereign: CROWN_SOVEREIGN,

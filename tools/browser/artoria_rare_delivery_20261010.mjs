@@ -53,7 +53,7 @@ const heroFile = crown ? 'crown-boss.webp' : 'artoria.webp';
 const query = `?cards=sain,ice&foe=${encounterId}&stage=${stageId}`;
 assert(args.build && path.isAbsolute(args.build) && args.out && path.isAbsolute(args.out));
 const build = await fs.realpath(args.build), out = path.resolve(args.out);
-assert((out.startsWith('/tmp/halfsword-uniform-revolver-20261010/') || out.startsWith('/tmp/halfsword-artoria-rare-20261010/') || out.startsWith('/tmp/halfsword-ice-hbo-20261010/') || out.startsWith('/tmp/halfsword-crown-boss-20261010/') || out.startsWith('/tmp/halfsword-crown-uniform-20261010/')));
+assert((out.startsWith('/tmp/halfsword-rose-uniform-20261010/') || out.startsWith('/tmp/halfsword-uniform-revolver-20261010/') || out.startsWith('/tmp/halfsword-artoria-rare-20261010/') || out.startsWith('/tmp/halfsword-ice-hbo-20261010/') || out.startsWith('/tmp/halfsword-crown-boss-20261010/') || out.startsWith('/tmp/halfsword-crown-uniform-20261010/')));
 await fs.mkdir(path.dirname(out), { recursive: true });
 assert.equal(await fs.realpath(path.dirname(out)), path.dirname(out)); await fs.mkdir(out);
 const base = new URL(args.base || 'https://yoonjl-svg.github.io/halfsword-codex/');
@@ -243,7 +243,7 @@ try {
     images: [...document.images].map(image => ({ path: new URL(image.src).pathname, width: image.naturalWidth, height: image.naturalHeight })),
     play: [...document.querySelectorAll('a.play')].map(link => ({ href: link.href, text: link.textContent.trim() })) }));
   assert(landing.scrollWidth <= landing.width + 1);
-  const expectedImages = [`encounters/${heroFile}`, ...(crown ? ['front', 'side', 'back'].map(view => `encounters/crown-boss-${view}.webp`) : []), ...scenarios.map(fixture => `ui/weapons/${fixture.id}.webp`)];
+  const expectedImages = [`encounters/${heroFile}`, ...(crown ? ['front', 'side', 'back', 'detail'].map(view => `encounters/crown-boss-${view}.webp`) : []), ...scenarios.map(fixture => `ui/weapons/${fixture.id}.webp`)];
   assert.deepEqual(landing.images.map(image => image.path).sort(), expectedImages.map(file => new URL(file, base).pathname).sort());
   assert(landing.images.every(image => image.width > 0 && image.height > 0));
   assert.equal(landing.play.length, 1); assert.equal(landing.play[0].href, destination);

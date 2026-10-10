@@ -16,7 +16,7 @@ const hashes=()=>Object.fromEntries(fs.readdirSync('src').filter(f=>f.endsWith('
 const result={basis:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),sourceBefore:hashes(),dt:DT,checks:[],rows:[],limits:['Two bounded actual-game native combat samples; no win-rate, balance or human motion claim.','Wound, helmet and plate destruction are explicit synthetic damage fixtures.','Stage order checks do not replace browser transition/completion tests.']};
 const check=(name,ok,detail)=>{result.checks.push({name,ok:!!ok,...(detail?{detail}:{})});};
 const c=CHARACTERS_BY_ID.crown_boss;
-const uniform=c.look.outfit==='crown_blue_uniform';
+const uniform=['crown_blue_uniform','crown_rose_uniform'].includes(c.look.outfit);
 if(uniform) result.limits[1]='Uniform profile: explicit chest/head/thigh/forearm wound fixtures; no helmet/plate destruction fixture because this outfit has neither.';
 check('registered-final-character',c?.look===getLook('crown_boss')&&c.lookVersion===CHARACTER_LOOK_VERSION.crown_boss&&!CHARACTERS.some(x=>x.id===c.id));
 check('prior-journey-preserved',JSON.stringify(STAGE_ORDER.slice(0,-1))===JSON.stringify(['poseidon','clearing','temple','castle','poseidon_night','cathedral']));

@@ -4,7 +4,7 @@ import { getLook, CHARACTER_LOOK_VERSION } from './looks.js';
 
 export const EXPANSION_CHARACTERS = [
   {
-    id: 'crown_boss', name: '푸른 제복의 총사', epithet: '마지막 문지기', age: 28,
+    id: 'crown_boss', name: '붉은 제복의 총사', epithet: '마지막 문지기', age: 28,
     origin: '인도 · 서해안의 항구 도시', weapon: 'pistol', voice: 'isolde',
     backstory: '바다를 건너온 총사가 텅 빈 성소의 마지막 문을 지킨다. 낡은 계급장보다 끝까지 지킨 약속을 믿는다.',
     want: '긴 여정의 끝에서 상대의 실력을 확인하는 것.',

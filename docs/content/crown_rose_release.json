@@ -1,0 +1,73 @@
+{
+  "status": "Local native/physics/visual/mobile passed; public pending",
+  "basis": "14b6e5cd999a26b7fd02d341f95f279b240a0f6f",
+  "character": "crown_boss",
+  "lookVersion": "v4",
+  "outfit": "crown_rose_uniform",
+  "weapon": "pistol",
+  "gameCommit": null,
+  "sourceHashes": {
+    "src/outfits.js": "36aacd67279a6c8aef0e913b1d8f7663be709151d86235b105cb3f0c6569af66",
+    "src/looks.js": "44e569f1d50eacff74c77622f0d9c6daefcde883f20c91ec1b643077352dc351",
+    "src/characters_expansion.js": "493e2081992f958cc69aa34cd41222024c259f64c796a4f2aba51ecce6882135",
+    "src/gun.js": "a87128950078a735b032856d96f97e655d9f8c2ef752ae0101b061d70cdd6f9b",
+    "src/ai.js": "9651b8439b67b926d6c2fc2de642711af7f2f74d4d06646edfe2afd79af064e9",
+    "src/fighter.js": "b6bf5877950e48c61b482164db191d7cc4e4b74a93a31c7a69f84cc0e0af7f28",
+    "src/skill.js": "31ae2e9855206704936a82a029684aaac217970b68dc571ee7a6e0571514526d",
+    "src/config.js": "08b9818b6d9f45aecd1d7f88f664fc43491db73a395f0b242bf211e0ece3200c",
+    "src/stages.js": "9669101630feae334e98efafe05f6b991edfe9bfc025449987c8334c17955560",
+    "tools/sim/experiments/crown_boss_gate.mjs": "ee9cb95700b2fe31d6bbe872d868741cef4faa0a20fbd1ed605629fe27a6e353",
+    "tools/browser/artoria_rare_delivery_20261010.mjs": "876b50548b0342524b166b2b6e72d95aa8762f785ce17529192325fbd8ae8b07"
+  },
+  "native": {
+    "pass": true,
+    "checks": 15,
+    "sourceStable": true,
+    "reportSHA256": "0dbcbf3f1f63a38a0e2b0be3549976fc5f608fd2dd5605ccc56af02df5ebb373"
+  },
+  "physicsEquality": {
+    "pass": true,
+    "snapshots": 361,
+    "beforeSHA256": "27503c5d7789489e9ca6b7ac6a400b6f1827e4bbc60993a7e643bc12524e6b4a",
+    "afterSHA256": "27503c5d7789489e9ca6b7ac6a400b6f1827e4bbc60993a7e643bc12524e6b4a",
+    "scope": "Creation plus360fixedsteps; visual-only change, no physical size/mass/collider/AI difference in this bounded fixture."
+  },
+  "portraitPhotos": {
+    "crown-boss-detail.webp": "74a54eff4a5e26d9404a284ca786574f2972251c89f5328f8023070965f96dc0",
+    "crown-boss.webp": "956739d7cf7852f1a96e93306cc5f799c1259692a3462ce67da386a9162e13b6",
+    "crown-boss-back.webp": "c16719302836c7e2d83db1e79abacc0ed41d81da05bc0c89b8b490fe137db324",
+    "crown-boss-side.webp": "a219dacb5d2a3de9cc9562edf826f4b5ad5635fcd6112e29cb5c6d2d07b9eb5c",
+    "crown-boss-front.webp": "cc95ae7bf23a95b90563f650bf76a2c3672d6465fd95a0d4679c1711b5b30007"
+  },
+  "portraitReportSHA256": "cdf7a14db8d1c0d341464565a1a450c0e1e2fd1a49a9df16e1e908db314bc4d8",
+  "reusedGunEvidence": {
+    "receipt": "docs/content/crown_revolver_release.json",
+    "scope": "Prior timer boundaries/reload. Gun/AI/Fighter/Skill/config files unchanged and current/baseline weapon+persona+361 physical states equal; new visual injury checks executed.",
+    "confirmedUnchangedFiles": [
+      "src/gun.js",
+      "src/ai.js",
+      "src/fighter.js",
+      "src/skill.js",
+      "src/config.js"
+    ]
+  },
+  "local": {
+    "pass": true,
+    "flows": 1,
+    "requests": 191,
+    "uniqueFiles": 180,
+    "errors": 0,
+    "scope": "mobile",
+    "reportSHA256": "dc08ec9a06e5da157dc8a2ddd007ec58bb0578a7d38c7de5d37eede26f91406f"
+  },
+  "public": null,
+  "pages": null,
+  "playURL": "https://yoonjl-svg.github.io/halfsword-codex/crown-boss.html",
+  "limits": [
+    "User rejected v3; final v4 aesthetic acceptance pending.",
+    "Only visible facial/head/hair geometry changed, existing small black eyes and copper skin retained. Collider remains original.",
+    "Hair is attached to head; no hair dynamics or cloth solver. Extreme neck movement clipping is not exhaustively assessed.",
+    "Neutral portrait rendering uses actual native AI/weapon pose; no physics/pose override.",
+    "Browser mobile emulation is not physical-phone FPS or a full campaign test."
+  ]
+}
