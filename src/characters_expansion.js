@@ -74,7 +74,7 @@ export const EXPANSION_CHARACTERS = [
   },
   {
     id: 'omari', name: '오마리', epithet: '빚 없는 선장', age: 51,
-    origin: '아프리카 동해안 · 인도양의 산호 항구', weapon: 'falchion', voice: 'bran',
+    origin: '아프리카 동해안 · 인도양의 산호 항구', weapon: 'falchion', voice: 'omari',
     backstory: '상인의 배에서 밧줄을 잡던 소년은 선장이 됐고, 끝내 남의 깃발 아래 항해하기를 그만뒀다. 항구는 그를 해적이라 부른다. 그는 빚에 묶인 선원들의 몸값을 사들이며 다시 바다로 나갈 배를 마련한다.',
     want: '마지막 선원까지 빚에서 풀어 주고, 누구에게도 소유되지 않은 배를 띄우는 것.',
     school: '좁은 갑판의 짧은 베기와 밀어붙이기에서 영감을 받은 창작 검객. 기존 펄션 유파를 사용한다.',
@@ -97,7 +97,7 @@ export const EXPANSION_CHARACTERS = [
   },
   {
     id: 'yeongman', name: '영만', epithet: '숲이 부른 이름', age: 19,
-    origin: '일본 · 오래된 신목이 선 산골', weapon: 'monohoshizao', voice: 'soft_female',
+    origin: '일본 · 오래된 신목이 선 산골', weapon: 'monohoshizao', voice: 'isolde',
     backstory: '신목 아래 작은 사당을 돌보는 열아홉 살 무녀. 장마 뒤 숲을 베어 길을 내겠다는 사람들이 찾아오자, 사당에 남은 긴 칼을 들고 처음으로 산을 내려왔다. 나무와 물의 길에는 밝지만 사람의 싸움에는 아직 서툴다.',
     want: '마을의 물길과 신목을 지키고, 돌아와 다시 평범한 아침을 맞는 것.',
     school: '긴 일본도의 거리와 큰 베기에서 영감을 받은 창작 검객. 무녀의 역사적 실전 검술을 재현했다는 뜻은 아니다.',

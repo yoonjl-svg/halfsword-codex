@@ -117,8 +117,8 @@ async function showCast() {
       title.id = `character-${row.id}`;
       card.setAttribute('aria-labelledby', title.id);
       card.append(title);
-      const meta = element('p', `${row.age == null ? '나이 미상' : `${row.age}세`} · `, 'meta');
-      meta.append(element('span', excluded ? '이번 비교 제외 · 기존 유지' : changed ? '새 배정' : '기존 유지', 'badge'));
+      const meta = element('p', `${row.id === 'player' ? '내 캐릭터' : row.age == null ? '나이 미상' : `${row.age}세`} · `, 'meta');
+      meta.append(element('span', excluded ? '이번 비교 제외 · 기존 유지' : changed ? '새 배정' : row.id === 'player' ? '사망음 교정' : '기존 유지', 'badge'));
       card.append(meta);
       if (row.note) card.append(element('p', row.note));
       if (!excluded) {

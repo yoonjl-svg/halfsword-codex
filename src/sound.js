@@ -310,7 +310,12 @@ export const VOICES = {
     bleed: ['voice/generic_bleed1', 'voice/generic_bleed2'],
     hurt: ['voice/generic_hurt1', 'voice/generic_hurt2'], gain: 0.7, rate: 1,
   } },
-  player: { f0: 118, tract: 1.0, breath: 0.35, rough: 0.3, style: 'grunt', rec: { ko: 2, bleed: 2, hurt: 2 } }, // HaelDB 3번 목소리
+  // CC0 self-recorded injury/death takes by thebardofblasphemy; no pitch shift.
+  omari: { f0: 115, tract: 1, breath: 0.45, rough: 0.35, style: 'exhale',
+    rec: { ko: 1, bleed: 1, hurt: 2, gain: 0.75, rate: 1 } },
+  player: { f0: 118, tract: 1.0, breath: 0.35, rough: 0.3, style: 'grunt', rec: {
+    ko: ['voice/player_exhale'], bleed: ['voice/player_exhale'], hurt: 2,
+  } }, // Quiet final exhale; existing HaelDB hurt recordings remain unchanged.
   generic: { f0: 124, tract: 1.0, breath: 0.35, rough: 0.3, style: 'grunt', rec: { ko: 2, bleed: 2, hurt: 2 } }, // HaelDB 첫 목소리 (전부 CC0)
   bran: { f0: 98, tract: 0.93, breath: 0.3, rough: 0.55, style: 'sob', rec: { ko: 2, bleed: 2, hurt: 2, rate: 0.92 } }, // Baradari(거칠고 낮음) + 지친 신음 kanyonwyvern(CC0). 굵고 거친 목
   isolde: { f0: 215, tract: 1.17, breath: 0.55, rough: 0.1, style: 'gasp', rec: { ko: 1, bleed: 1, hurt: 2, revive: 1, gain: 1.3 } }, // 짧게 맞는 소리 "흣"·"읏" 녹음(mvVoiceActing, CC0, 사장님 선택). 비명(450~525Hz)은 차분한 스물한 살 검사에게 부자연스러웠다
@@ -2518,12 +2523,24 @@ export class Sound {
   /**
    * 죽음. voice = VOICES 의 id (캐릭터 id, 플레이어는 'player'), cause = fighter.causeOfDeath
    *  '기절'·'머리' → 짧게 뚝 끊기는 소리, '출혈'·'목' → 숨이 잦아드는 긴 소리 ('목'은 피 끓는 소리가 섞인다)
-   *  me = 플레이어 자신이 죽음: 목소리 대신 귀가 멍해지고(삐—) 온 소리가 먹먹해진다
+   *  me = 플레이어 자신이 죽음: 짧은 날숨 뒤 기존 이명과 주변 소리의 먹먹함을 유지한다.
    */
   death(voice, cause, { me = false, pos } = {}) {
     if (!this._on || !this.ctx) return;
     const kind = cause === '출혈' || cause === '목' ? 'bleed' : 'ko';
     const id = voice in VOICES ? voice : 'generic';
+    if (me || id === 'player') {
+      // Recorded exhale already contains a soft attack/fade. A failed download stays
+      // silent rather than falling back to the old synthesized death cry.
+      const rec = this.pickSample(`voice:player:${kind}`);
+      if (rec) {
+        const ev = this.event({ bus: this.fleshBus, gain: 0.25, bright: 2800, prio: 3, pos });
+        this.layer(ev, rec, { rate: 1 });
+        this.playerDeathVoice = ev;
+      }
+      if (me) this.fadeOutWorld();
+      return;
+    }
     const ev = this.event({ bus: this.fleshBus, gain: me ? 0.7 : 0.9, prio: 3, pos });
     if (VOICES[id].mute) {
       // 목소리 없음 ("쿵"은 몸이 땅에 닿을 때 BodySounds 가 낸다). 목을 베였으면 피 끓는 소리만
@@ -2544,7 +2561,7 @@ export class Sound {
    * 참수 (32차, 디렉터: COMBAT.decapitate — 목을 가르고 지나간 치명 베기). 베는 소리(main.js onWound 의 cut)는 이미 났다.
    *  그 위에 짧고 무거운 절단감만 얹는다(과장 없이, "적막"): 목뼈가 끊기는 둔한 "뚝"(뼈 조각·나무 쪼개짐 녹음을 낮게),
    *  목이 떨어져 나가는 무거운 젖은 소리(wetHeavy 낮게), 몸통이 받는 낮은 "쿵", 0.12초 뒤 목 단면의 낮은 젖은 소리 한 번.
-   *  목소리는 내지 않는다 — 숨이 목(성대)을 지나지 않는다. BodySounds 가 이때 죽음 목소리를 건너뛴다. 내가 당하면 귀가 멍해진다
+   *  목소리는 내지 않는다 — 숨이 목(성대)을 지나지 않는다. BodySounds 가 이때 죽음 목소리를 건너뛴다. 내가 당하면 주변 소리가 먹먹해진다
    */
   decapitate({ me = false, pos } = {}) {
     if (!this._on || !this.ctx) return;
@@ -3305,6 +3322,14 @@ export class Sound {
   resetRound() {
     if (!this.ctx) return;
     const t = this.ctx.currentTime;
+    if (this.playerDeathVoice) {
+      this.playerDeathVoice.out.gain.cancelScheduledValues(t);
+      this.playerDeathVoice.out.gain.setValueAtTime(0, t);
+      for (const source of this.playerDeathVoice.srcs) {
+        try { source.stop(t); } catch { /* Already finished. */ }
+      }
+      this.playerDeathVoice = null;
+    }
     this.muffle.frequency.cancelScheduledValues(t);
     this.muffle.frequency.setTargetAtTime(20000, t, 0.1);
   }

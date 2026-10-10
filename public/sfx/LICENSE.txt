@@ -139,6 +139,24 @@ voice/reitanna_gasp.mp3 and voice/reitanna_long_sigh.mp3 — CC0 (public domain)
   Reitanna, "long sigh.wav": https://freesound.org/people/Reitanna/sounds/242690/
   Previously retained in docs/sound_reserve after user approval; copied byte-for-byte
   on 2026-10-11. Earlier processing: 70 Hz high-pass, peak -1 dBFS, mono MP3.
-  No pitch shift. Shared by Yeongman and Eira (gasp for hurt/KO; sigh for bleeding).
+  No pitch shift. Used by Eira; Yeongman was restored to her original voice (gasp for hurt/KO; sigh for bleeding).
   Tome reuses the existing HaelDB generic_* recordings listed above at base rate1;
   this does not represent a new actor or a verified elderly vocal performance.
+
+-------------------------------------------------------------------------------
+2026-10-11 player quiet death edit — CC0, Sadiquecat, "Catching breath (Genuine)"
+  https://freesound.org/people/Sadiquecat/sounds/792641/
+  voice/player_exhale.mp3 <- existing breath/breath1.mp3, 0.88-1.78 s;
+  low-pass 2800 Hz, 60 ms fade-in, 650 ms fade-out starting at 250 ms,
+  mono 44.1 kHz MP3. No pitch shift. Original breath recording is retained.
+
+2026-10-11 Omari new recording bank — CC0 1.0, thebardofblasphemy
+  "grunts of male death and pain"
+  https://opengameart.org/content/grunts-male-death-and-pain
+  https://creativecommons.org/publicdomain/zero/1.0/
+  https://opengameart.org/sites/default/files/death%20pain%20grunts.wav
+  Original SHA-256: 3f00fba827f20ff9ccea1bc07d2c21ab8d3a36e81b48a6005cf8459f02779586
+  voice/omari_hurt1.mp3 <- 6.90-7.47 s; voice/omari_hurt2.mp3 <- 8.31-9.26 s
+  voice/omari_ko1.mp3 <- 0.45-2.02 s; voice/omari_bleed1.mp3 <- 3.90-6.20 s
+  Edits: high-pass 70 Hz, low-pass 6000 Hz, peak scaled to 0.8 before
+  15 ms fade-in/100 ms fade-out, mono 44.1 kHz MP3. No pitch shift.
