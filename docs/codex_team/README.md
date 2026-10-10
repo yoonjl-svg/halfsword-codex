@@ -1,6 +1,6 @@
 # 혼합안 독립 개발 인계
 
-음성 후속 ·10/11 KST: [영만 원복·오마리 새 녹음군·조용한 플레이어 사망](../sound/voice_restraint_20261011.md). 기존 이명 유지. 공개 전달 확인 중.
+음성 후속 ·10/11 KST: [영만 원복·오마리 새 녹음군·조용한 플레이어 사망](../sound/voice_restraint_20261011.md). 기존 이명 유지. `1ea73c5` 공개 완료. 로컬/공개 각4묶음·오류0·공개115파일 해시 일치. [전달 영수증](../sound/voice_restraint_release.json).
 
 
 플랑베르주 외형 ·10/11 KST: [Cleveland1919.71 기반 디자인](../content/flamberge_design_20261011.md), [모바일 3D/사진 비교](https://yoonjl-svg.github.io/halfsword-codex/flamberge-viewer.html). `e05f5a4` 외형 시안 공개 완료: 로컬/공개 각3묶음, 오류0, 공개13파일 SHA-256 일치. 전투 추가 완료가 아니다.
