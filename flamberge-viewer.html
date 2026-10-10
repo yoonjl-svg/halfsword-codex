@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#1b201f"><title>플랑베르주 · 적막</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#151b19;color:#efe9dd;font:16px/1.65 system-ui,-apple-system,sans-serif}main{max-width:900px;margin:auto;padding:20px 16px 48px}h1{margin:8px 0;font-size:30px}h2{font-size:21px;margin-top:28px}p{color:#c1c4bd;margin:8px 0}a{color:#e0c89a;text-underline-offset:3px}small{color:#bec2ba}#viewer{height:68vh;min-height:420px;max-height:800px;border:1px solid #53605b;border-radius:12px;overflow:hidden;margin-top:16px;position:relative}canvas{width:100%;height:100%;display:block;touch-action:none}.controls{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}button{font:inherit;padding:10px 13px;min-height:48px;cursor:pointer;color:#f3eddf;background:#29332e;border:1px solid #687265;border-radius:8px}button[aria-pressed=true]{color:#191d18;background:#dfc99b}button:focus-visible,a:focus-visible{outline:3px solid #f0d590;outline-offset:3px}.facts{display:grid;grid-template-columns:1fr 1fr;gap:8px}.facts div{background:#242d27;padding:12px;border-radius:8px}.facts strong{display:block;font-size:23px}.photos{display:grid;grid-template-columns:1fr 1fr;gap:12px}.photos figure{margin:0}img{display:block;width:100%;height:auto;border-radius:8px;background:#242827}figcaption{color:#c1c4bd;font-size:14px;margin-top:6px}.reference{max-height:680px;width:auto;max-width:100%;margin:12px auto}.note{border-left:3px solid #b7a77e;padding-left:12px}nav{display:flex;gap:18px;min-height:44px;align-items:center}@media(max-width:500px){.photos{grid-template-columns:1fr}h1{font-size:27px}#viewer{min-height:410px}}
+</style><script type="module" src="/src/flamberge_viewer.js"></script></head><body><main>
+<nav><a href="./">게임으로</a><a href="#reference">실물 원형 보기</a></nav>
+<h1>플랑베르주</h1><p>16세기 독일 물결날 양손검 · 클리블랜드미술관 1919.71을 바탕으로</p>
+<p class="note">에픽 무기 외형 시안입니다. 특수효과와 전투 수치는 아직 적용하지 않았습니다.</p>
+<div id="viewer"><canvas aria-label="돌려 보고 확대할 수 있는 플랑베르주 3D 모델"></canvas></div>
+<p id="status" role="status">3D 모델을 준비하는 중…</p>
+<div class="controls"><button data-view="whole">전체 / 초기화</button><button data-view="hilt">손잡이·코등이</button><button data-view="blade">물결날</button><button data-view="edge">칼날 두께</button><button id="zoom-in" aria-label="확대">＋</button><button id="zoom-out" aria-label="축소">−</button></div>
+<div class="facts"><div>전체 길이<strong>168.9cm</strong></div><div>날 전체 · 리카소 포함<strong>118.7cm</strong></div><div>날을 세우지 않은 밑동<strong>26.7cm</strong></div><div>코등이 폭<strong>50.5cm</strong></div></div>
+<h2>불꽃 같은 윤곽, 실제 검의 구조</h2><p>잔물결이 이어지는 양날, 곧고 긴 리카소, 앞쪽으로 휘어진 보조 갈고리. 넓은 코등이에는 여섯 개의 말린 장식을 넣고, 긴 검갈색 가죽 손잡이에 황동 리벳과 청동 폼멜을 붙였습니다.</p>
+<p>아래는 게임과 같은 Three.js 재질로 만든 실제 3D 모델 사진입니다.</p>
+<div class="photos"><figure><img src="./details/flamberge-whole.webp" alt="플랑베르주 전체 형상"><figcaption>길고 가는 실물 비례</figcaption></figure><figure><img src="./details/flamberge-hilt.webp" alt="긴 가죽 손잡이와 말린 코등이 장식"><figcaption>가죽·리벳·말린 코등이·보조 갈고리</figcaption></figure><figure><img src="./details/flamberge-blade.webp" alt="물결날과 양면 날 세움"><figcaption>촘촘하고 얕은 물결</figcaption></figure><figure><img src="./details/flamberge-edge.webp" alt="비껴 본 칼날 단면"><figcaption>두께와 양면의 날 세움</figcaption></figure></div>
+<h2 id="reference">원형 유물</h2><p><a href="https://www.clevelandart.org/art/1919.71" target="_blank" rel="noopener">Two-Handed Sword with Flamboyant Blade</a> · 독일, 1550–1600. 사진과 치수는 클리블랜드미술관 자료입니다.</p>
+<img class="reference" src="./details/flamberge-reference.jpg" alt="클리블랜드미술관 소장 물결날 양손검 1919.71 사진" loading="lazy"><small>Cleveland Museum of Art · Gift of Mr. and Mrs. John L. Severance · CC0</small>
+<p>공식 자료의 전체 길이·날 길이·리카소·코등이 폭을 맞췄습니다. 칼날 단면 두께, 뒷면 장식과 세부 곡률은 사진에 근거한 복원 추정입니다. 부식·가죽 손상은 줄여 사용 가능한 검으로 표현했습니다. 유물의 정확한 3D 복제라고 주장하지 않습니다.</p>
+</main></body></html>
