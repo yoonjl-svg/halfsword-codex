@@ -617,6 +617,7 @@ for (const [id, source, version] of [
   ['isolde', 'v4', 'v5'], ['yeongman', 'v4', 'v5'], ['artoria', 'v4', 'v5'],
   ['margarethe', 'v4', 'v5'], ['crown_boss', 'v6', 'v7'],
 ]) LOOK_ARCHIVE[id][version] = { ...LOOK_ARCHIVE[id][source], originalTorsoWidth: true };
+LOOK_ARCHIVE.crown_boss.v8 = { ...LOOK_ARCHIVE.crown_boss.v7, highWaist: true };
 LOOK_ARCHIVE.renji = { v1: {
   tunic: 0x242329, quilt: 0x29262d, sleeve: 0x242329, straps: null,
   belt: 0x65408a, hoseUpper: 0x202537, hoseLower: 0x202537, shoes: 0x27222b,
@@ -632,6 +633,8 @@ LOOK_ARCHIVE.eira = { v1: {
   outfit: 'eira_winter_priest', armor: null, stockEyes: true,
 } };
 
+LOOK_ARCHIVE.renji.v2 = { ...LOOK_ARCHIVE.renji.v1 }; // Reference-led hair, seated hat and loose cloth revision.
+
 // 지금 게임에서 실제로 쓰는 버전 (감독/오너가 확정하면 여기만 바꾸면 됨)
 export const CHARACTER_LOOK_VERSION = {
   bran: 'v1',
@@ -643,8 +646,8 @@ export const CHARACTER_LOOK_VERSION = {
   omari: 'v1',
   yeongman: 'v5',
   artoria: 'v5',
-  crown_boss: 'v7',
-  renji: 'v1',
+  crown_boss: 'v8',
+  renji: 'v2',
   eira: 'v1',
 };
 

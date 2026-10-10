@@ -2348,7 +2348,7 @@ const CROWN_BLUE_UNIFORM = {
     addMerged(g, [box(0.008, 0.009, 0.025, [0.081, 0.158, 0]), ball(0.005, 8, 6, [0.085, 0.169, 0])], 0xc0ab78, CLOTH);
     for (const s of [-1, 1]) uniformLine(g, [[0.105, 0.097, s * 0.135], [0.129, 0.004, s * 0.101], [0.103, -0.125, s * 0.095]], 0x416c99, 0.0014);
   },
-  abdomen(g) {
+  abdomen(g, look) {
     uniformTorso(g, 0.94);
     // Overlapping tailored waist joins the independently moving chest/hips.
     // The visual overlap does not add a collider or constrain the spine.
@@ -2358,16 +2358,30 @@ const CROWN_BLUE_UNIFORM = {
       wp.setXYZ(i, wp.getX(i) * (0.107 + 0.015 * t), wp.getY(i), wp.getZ(i) * (0.151 + 0.012 * t));
     }
     waist.computeVertexNormals(); g.children[0].geometry.copy(waist); waist.dispose();
-    addMerged(g, [clothPanel(0.119, [[0.082, 0.088], [0.082, 0.112], [-0.069, 0.15], [-0.069, 0.125]], 0.003)], UNIFORM_LIGHT, CLOTH);
-    const belt = new THREE.CylinderGeometry(1, 1, 0.036, 32, 1, true); belt.scale(0.121, 1, 0.166); belt.translate(0, -0.039, 0);
+    // Samira v8 raises the belt assembly by 7 cm; archived cuts retain it.
+    const beltRise = look.highWaist ? 0.07 : 0, beltY = -0.039 + beltRise;
+    const strap = clothPanel(0.119, look.highWaist
+      ? [[0.082, 0.088], [0.082, 0.112], [beltY, 0.124], [beltY, 0.1]]
+      : [[0.082, 0.088], [0.082, 0.112], [-0.069, 0.15], [-0.069, 0.125]], 0.003);
+    if (look.highWaist) {
+      // Tuck the shortened lower end under the curved belt, keeping the
+      // upper overlap with the chest strap at its existing position.
+      const p = strap.attributes.position;
+      for (let i = 0; i < p.count; i++) if (p.getY(i) < 0.04) {
+        p.setX(i, 0.121 * Math.sqrt(1 - Math.pow(p.getZ(i) / 0.166, 2)) - 0.002 + p.getX(i) - 0.119);
+      }
+      strap.computeVertexNormals();
+    }
+    addMerged(g, [strap], UNIFORM_LIGHT, CLOTH);
+    const belt = new THREE.CylinderGeometry(1, 1, 0.036, 32, 1, true); belt.scale(0.121, 1, 0.166); belt.translate(0, beltY, 0);
     addMerged(g, [belt], 0x40372f, { ...CLOTH, side: THREE.DoubleSide });
-    addMerged(g, [box(0.012, 0.03, 0.043, [0.124, -0.039, -0.012])], 0xb6b8af, { metalness: 0.35, roughness: 0.5 });
-    addMerged(g, [box(0.014, 0.018, 0.026, [0.129, -0.039, -0.012])], 0x514838, CLOTH);
-    const pouches = [-0.092, -0.139].map(z => bake(artoriaRoundedBox(0.036, 0.057, 0.035, 0.009), [0.12, -0.047, z]));
+    addMerged(g, [box(0.012, 0.03, 0.043, [0.124, beltY, -0.012])], 0xb6b8af, { metalness: 0.35, roughness: 0.5 });
+    addMerged(g, [box(0.014, 0.018, 0.026, [0.129, beltY, -0.012])], 0x514838, CLOTH);
+    const pouches = [-0.092, -0.139].map(z => bake(artoriaRoundedBox(0.036, 0.057, 0.035, 0.009), [0.12, -0.047 + beltRise, z]));
     addMerged(g, pouches, 0x635545, CLOTH);
-    addMerged(g, [-0.092, -0.139].map(z => box(0.038, 0.012, 0.038, [0.12, -0.023, z])), 0x817057, CLOTH);
+    addMerged(g, [-0.092, -0.139].map(z => box(0.038, 0.012, 0.038, [0.12, -0.023 + beltRise, z])), 0x817057, CLOTH);
   },
-  pelvis(g) {
+  pelvis(g, look) {
     uniformTorso(g, 1);
     // Jacket skirt ends above the distinct dark pleats, flared slightly at hips.
     const skirt = new THREE.CylinderGeometry(1, 1.12, 0.135, 32, 4, true), p = skirt.attributes.position;
@@ -2378,8 +2392,11 @@ const CROWN_BLUE_UNIFORM = {
     skirt.computeVertexNormals(); addMerged(g, [skirt], UNIFORM_BLUE, { ...CLOTH, side: THREE.DoubleSide });
     uniformLine(g, [[0.119, 0.055, 0.012], [0.126, -0.036, 0.012], [0.129, -0.105, 0.012]], 0x193c60);
     addMerged(g, [ball(0.0045, 8, 6, [0.133, -0.055, 0.012])], 0xc0ab78, CLOTH);
-    addMerged(g, [bake(artoriaRoundedBox(0.04, 0.118, 0.079, 0.012), [0.03, -0.02, 0.189])], 0x494437, CLOTH);
-    addMerged(g, [box(0.048, 0.023, 0.082, [0.03, 0.032, 0.189])], 0x786b50, CLOTH);
+    const beltRise = look.highWaist ? 0.07 : 0;
+    addMerged(g, [bake(artoriaRoundedBox(0.04, 0.118, 0.079, 0.012), [0.03, -0.02 + beltRise, 0.189])], 0x494437, CLOTH);
+    addMerged(g, [box(0.048, 0.023, 0.082, [0.03, 0.032 + beltRise, 0.189])], 0x786b50, CLOTH);
+    if (look.highWaist) addMerged(g, [0.012, 0.048].map(x =>
+      box(0.014, 0.094, 0.009, [x, 0.146, 0.169], [-0.3, 0, 0])), 0x40372f, CLOTH);
   },
   uarmS(g) { sleeveVolume(g, 1.055, 1.01); }, uarmO(g) { sleeveVolume(g, 1.055, 1.01); },
   farmS: uniformCuff, farmO: uniformCuff,

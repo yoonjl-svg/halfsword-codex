@@ -1,10 +1,11 @@
+import { createRenjiHead } from './outfit_renji_head.js';
 // Kurose Renji: visual clothing only. +X front, +Y up, +Z right.
 // Keep the native face, eyes, nose, hands and representative wound meshes intact.
 export function createRenjiOutfit(h) {
-  const { THREE, bake, box, cyl, ball, addMerged, CLOTH, isoldeLock, artoriaCloth } = h;
+  const { THREE, bake, box, cyl, ball, addMerged, CLOTH, artoriaCloth } = h;
   const INK = 0x17191e, NAVY = 0x202637, FOLD = 0x303548;
   const WINE = 0x49202d, VIOLET = 0x665080, LIGHT = 0x816b9a;
-  const STRAW = 0xb9a477, STRAW_DARK = 0x80704d;
+  const STRAW_DARK = 0x80704d;
   const cloth = { ...CLOTH, metalness: 0, roughness: 0.96 };
   const doubleCloth = { ...cloth, side: THREE.DoubleSide };
   const layer = (g) => artoriaCloth(g, 'renji-cloth');
@@ -49,75 +50,99 @@ export function createRenjiOutfit(h) {
     geo.computeVertexNormals();
     return geo;
   }
-  function hatTilt(geo) {
-    // Raise the front edge enough to see the stock eyes from the game camera.
+  const head = createRenjiHead(h);
+  // Reuse the wound-bearing stock mesh; soften only its rendered cloth surface.
+  function soften(g, width, height, depth) {
+    const geo = new THREE.CylinderGeometry(1, 1, height, 24, 4);
     const p = geo.attributes.position;
-    for (let i = 0; i < p.count; i++) p.setY(i, p.getY(i) + p.getX(i) * 0.15);
-    geo.computeVertexNormals(); return geo;
-  }
-  function head(g, look) {
-    const l = layer(g), cap = g.children[4];
-    // Hair only: no quietFace, eye scaling, face/nose geometry or transform edits.
-    if (cap?.geometry?.type === 'SphereGeometry') {
-      const geo = new THREE.SphereGeometry(0.107, 20, 12, 0, Math.PI * 2, 0, Math.PI * 0.65);
-      const p = geo.attributes.position;
-      for (let i = 0; i < p.count; i++) {
-        const a = Math.atan2(p.getZ(i), p.getX(i));
-        const t = Math.floor(i / 21) / 12;
-        const theta = t * Math.PI * (0.65 - 0.24 * Math.max(0, Math.cos(a)));
-        p.setXYZ(i, 0.107 * Math.sin(theta) * Math.cos(a), 0.107 * Math.cos(theta), 0.107 * Math.sin(theta) * Math.sin(a));
-      }
-      geo.computeVertexNormals(); cap.geometry.dispose(); cap.geometry = geo;
-      cap.position.set(-0.008, 0.004, 0); cap.rotation.set(0, 0, 0);
-      cap.material.color.setHex(look.hair);
+    for (let i = 0; i < p.count; i++) {
+      const y = p.getY(i), t = (y / height + .5);
+      const waist = .84 + .16 * Math.sin(t * Math.PI * .75);
+      p.setXYZ(i, p.getX(i) * width * .5 * waist, y, p.getZ(i) * depth * .5 * waist);
     }
-    const locks = [
-      isoldeLock([[0.055, 0.091, -0.056], [0.089, 0.076, -0.011], [0.103, 0.052, 0.036], [0.074, 0.03, 0.078]], [0.043, 0.039, 0.032, 0.003], 0.008),
-      isoldeLock([[0.042, 0.083, -0.066], [0.08, 0.059, -0.079], [0.075, 0.015, -0.094], [0.03, -0.06, -0.098]], [0.03, 0.032, 0.023, 0.002], 0.008),
-    ];
-    for (const s of [-1, 1]) locks.push(isoldeLock([[-0.034, 0.049, s * 0.091], [-0.064, -0.012, s * 0.093], [-0.063, -0.084, s * 0.074], [-0.037, -0.129, s * 0.061]], [0.043, 0.043, 0.031, 0.003], 0.012));
-    addMerged(l, locks, look.hair, cloth);
-
-    // A shallow open straw cone and a thin circular lip, never a metal helmet.
-    const cone = cyl(0.002, 0.292, 0.157, 40, true, [0, 0.1595, 0]);
-    const rim = bake(new THREE.TorusGeometry(0.292, 0.0033, 4, 40), [0, 0.081, 0], [Math.PI / 2, 0, 0]);
-    addMerged(l, [hatTilt(cone), hatTilt(rim)], STRAW, doubleCloth);
-    const weave = [];
-    for (let i = 0; i < 24; i++) {
-      const a = i * Math.PI / 12, c = Math.cos(a), s = Math.sin(a);
-      weave.push(hatTilt(line([0.008 * c, 0.235, 0.008 * s], [0.29 * c, 0.083, 0.29 * s], 0.00135, 4)));
-    }
-    for (const r of [0.096, 0.19, 0.268]) {
-      const ring = bake(new THREE.TorusGeometry(r, 0.001, 3, 40), [0, 0.24 - r * 0.538, 0], [Math.PI / 2, 0, 0]);
-      weave.push(hatTilt(ring));
-    }
-    // Short chin cords lie beside the cheeks and leave both eye boxes open.
-    for (const s of [-1, 1]) {
-      weave.push(line([0.009, 0.081, s * 0.099], [0.063, -0.08, s * 0.075], 0.0016));
-      weave.push(line([0.063, -0.08, s * 0.075], [0.046, -0.103, 0], 0.0016));
-    }
-    addMerged(l, weave, STRAW_DARK, cloth);
+    geo.computeVertexNormals();
+    g.children[0].geometry.dispose(); g.children[0].geometry = geo;
   }
   function chest(g) {
-    tint(g, INK);
+    tint(g, INK); soften(g, .26, .29, .34);
+    for (const mesh of g.children.slice(1)) mesh.visible = false;
     const l = layer(g);
-    // The kimono crosses on the front; small burgundy edges read at game scale.
-    addMerged(l, [panel(0.127, [[0.137, -0.139], [0.134, -0.082], [-0.14, 0.127], [-0.14, 0.078]]),
-      panel(0.125, [[0.134, 0.139], [0.134, 0.09], [0.032, -0.006], [-0.001, 0.025]])], WINE, cloth);
-    addMerged(l, [panel(0.132, [[0.139, -0.135], [0.137, -0.103], [-0.14, 0.108], [-0.14, 0.078]])], 0x30303a, cloth);
-    const scarf = bake(new THREE.TorusGeometry(0.076, 0.028, 6, 20), [0, 0.171, 0], [Math.PI / 2, 0, 0], [1, 1.22, 1]);
-    const lower = bake(new THREE.TorusGeometry(0.082, 0.021, 6, 20), [0, 0.144, 0], [Math.PI / 2, 0, 0], [1, 1.2, 1]);
-    addMerged(l, [scarf, lower, ball(0.037, 10, 7, [-0.017, 0.135, 0.094]),
-      panel(-0.126, [[0.145, 0.08], [0.124, 0.142], [-0.136, 0.135], [-0.17, 0.076]], 0.012)], VIOLET, cloth);
-    addMerged(l, [panel(-0.134, [[-0.126, 0.077], [-0.119, 0.136], [-0.143, 0.135], [-0.17, 0.076]], 0.006),
-      bake(new THREE.TorusGeometry(0.084, 0.0035, 4, 20), [0, 0.169, 0], [Math.PI / 2, 0, 0], [1, 1.2, 1])], LIGHT, cloth);
+    // Keep the front plain: irregular near-vertical fabric folds, no X closure.
+    addMerged(l,[
+      panel(.12,[[.076,-.087],[.074,-.081],[-.119,-.067],[-.12,-.072]]),
+      panel(.124,[[.043,.065],[.047,.071],[-.117,.052],[-.12,.047]]),
+    ],0x222127,cloth);
+    // User's photos: a white horizontal cloth roll at the lower back, bound
+    // at its middle, carried by two shoulder straps with straw shoes below.
+    const roll=new THREE.CapsuleGeometry(.096,.365,7,24);
+    roll.rotateX(Math.PI/2);
+    const rp=roll.attributes.position;
+    for(let i=0;i<rp.count;i++) {
+      const x=rp.getX(i),y=rp.getY(i),z=rp.getZ(i);
+      const pinch=.85+.15*Math.min(1,Math.abs(z)/.095);
+      const crease=1+.025*Math.cos(Math.atan2(y,x)*7+z*11);
+      rp.setXYZ(i,-.223+x*pinch*crease,-.265+y*.88*pinch*crease,z);
+    }
+    roll.computeVertexNormals();
+    const pack=addMerged(l,[roll],0xd9d1bb,cloth);pack.name='renji-cloth-bundle';
+    const straps=[];
+    for(const side of [-1,1]) straps.push(h.isoldeLock([
+      [.083,.09,side*.142],[.014,.168,side*.136],[-.103,.15,side*.124],
+      [-.217,-.035,side*.079],[-.321,-.211,side*.009],
+    ],[.025,.025,.028,.027,.022],.004));
+    // Broad shoulder bands form a V on the back; no crossed chest straps.
+    addMerged(l,straps,0xc9bea3,cloth);
+    const knots=[];
+    for(const z of [-.009,0,.009]) knots.push(bake(new THREE.TorusGeometry(.084,.0033,5,24),[-.223,-.265,z],null,[1,.9,1]));
+    knots.push(ball(.021,10,7,[-.314,-.211,0]));
+    knots.push(panel(-.319,[[-.202,.006],[-.17,.041],[-.184,.056],[-.213,.016]],.007));
+    knots.push(panel(-.319,[[-.20,-.005],[-.176,-.043],[-.20,-.051],[-.218,-.012]],.007));
+    const folds=[];
+    for(const side of [-1,1]) {
+      for(const dy of [-.023,.018]) folds.push(line([-.306,-.255+dy,side*.02],[-.31,-.26+dy*1.8,side*.13],.0018));
+      knots.push(line([-.318,-.218,0],[-.325,-.427,side*.026],.0032));
+    }
+    addMerged(l,knots,0xb0a48a,cloth);addMerged(l,folds,0xbeb49c,cloth);
+    const soles=[],weave=[],edges=[];
+    for(const side of [-1,1]) {
+      const cy=-.522+(side===1?.018:0),cz=side*.04;
+      soles.push(bake(ball(1,14,10),[-.326,cy,cz],null,[.009,.084,.029]));
+      // Visible plaited rim and toe bands distinguish dangling straw sandals.
+      for(let i=0;i<28;i++){
+        const a=i*Math.PI/14,b=(i+1)*Math.PI/14;
+        edges.push(line([-.338,cy+.082*Math.cos(a),cz+.027*Math.sin(a)],[-.338,cy+.082*Math.cos(b),cz+.027*Math.sin(b)],.003,4));
+      }
+      for(let i=-4;i<=4;i++){
+        const dy=i*.015,w=.026*Math.sqrt(Math.max(0,1-(dy/.084)**2));
+        weave.push(line([-.34,cy+dy-.005,cz-w],[-.34,cy+dy+.005,cz+w],.0016,4));
+      }
+      weave.push(line([-.344,cy+.03,cz],[-.344,cy-.013,cz-.024],.004,5));
+      weave.push(line([-.344,cy+.03,cz],[-.344,cy-.013,cz+.024],.004,5));
+    }
+    addMerged(l,soles,0x9e8250,cloth);addMerged(l,edges,0xb49a61,cloth);addMerged(l,weave,0x786440,cloth);
+    const scarf = bake(new THREE.TorusGeometry(.086,.034,8,24), [0,.172,0], [Math.PI/2,.12,-.09], [1,1.25,1]);
+    const lower = bake(new THREE.TorusGeometry(.088,.027,8,24), [.004,.134,0], [Math.PI/2,-.10,.08], [1,1.3,1]);
+    const tail = panel(-.082, [[.169,.052],[.157,.18],[.105,.30],[.035,.40],[-.079,.451],[-.193,.414],
+      [-.163,.38],[-.124,.396],[-.14,.362],[-.058,.347],[.026,.267],[.063,.15],[.071,.067]], .008);
+    addMerged(l,[scarf,lower,tail,ball(.035,10,7,[-.033,.143,.103])],VIOLET,cloth);
+    addMerged(l,[
+      panel(-.077,[[.125,.192],[.097,.278],[.016,.359],[-.116,.404],[-.14,.398],[-.035,.353],[.062,.263]],.004),
+      bake(new THREE.TorusGeometry(.091,.003,4,24), [.008,.174,0], [Math.PI/2,.12,-.09], [1,1.23,1]),
+    ],LIGHT,cloth);
   }
   function abdomen(g) {
-    tint(g, INK);
-    const l = layer(g);
-    addMerged(l, [box(0.236, 0.079, 0.34, [0, -0.034, 0]),
-      box(0.016, 0.046, 0.068, [0.125, -0.035, -0.044])], VIOLET, cloth);
-    addMerged(l, [-0.058, -0.023, 0.0].map(y => box(0.005, 0.004, 0.333, [0.121, y, 0])), LIGHT, cloth);
+    tint(g, INK); soften(g,.234,.145,.294);
+    for (const mesh of g.children.slice(1)) mesh.visible = false;
+    const l=layer(g);
+    const sash = cyl(.164,.157,.071,28,false,[0,-.027,0]);
+    sash.scale(.74,1,1);
+    addMerged(l,[sash,ball(.033,10,7,[.116,-.025,-.097])],VIOLET,cloth);
+    const ridges=[];
+    for(const [y,r] of [[-.003,.164],[-.025,.163],[-.050,.159]]) {
+      const ring=bake(new THREE.TorusGeometry(r,.0028,4,28),[0,y,0],[Math.PI/2,0,0],[.75,1,1]);
+      ridges.push(ring);
+    }
+    addMerged(l,ridges,LIGHT,cloth);
   }
   function pelvis(g) {
     tint(g, NAVY);
@@ -128,7 +153,6 @@ export function createRenjiOutfit(h) {
       panel(0.121, [[0.075, -0.135], [0.075, 0.135], [-0.146, 0.117], [-0.146, -0.117]])], NAVY, doubleCloth);
     addMerged(l, [panel(0.128, [[0.04, -0.067], [0.04, -0.031], [-0.18, -0.035], [-0.216, -0.072]]),
       panel(0.13, [[0.039, -0.025], [0.039, 0.013], [-0.15, 0.024], [-0.18, -0.016]])], VIOLET, cloth);
-    addMerged(l, [box(0.242, 0.008, 0.343, [0, 0.067, 0])], WINE, cloth);
 
     // A completely sheathed side sword, built into the pelvis's visual group.
     // It has no weapon registration, collider, blade edge, attack or damage data.
@@ -146,16 +170,25 @@ export function createRenjiOutfit(h) {
       line([-0.13, 0.051, -0.176], [-0.217, -0.06, -0.206], 0.006)], VIOLET, cloth);
   }
   function upperArm(g) {
-    tint(g, INK); const l = layer(g);
-    addMerged(l, [cyl(0.068, 0.083, 0.264, 16, true, [0, -0.011, 0])], INK, doubleCloth);
-    addMerged(l, [cyl(0.0835, 0.084, 0.012, 16, true, [0, -0.138, 0])], WINE, doubleCloth);
+    tint(g,INK); const l=layer(g);
+    addMerged(l,[cyl(.073,.099,.287,20,true,[0,-.015,0])],INK,doubleCloth);
   }
   function forearm(g) {
-    tint(g, INK); const l = layer(g);
-    // Stop above the unmodified hand sphere at Y=-.135.
-    addMerged(l, [cyl(0.07, 0.051, 0.184, 16, true, [0, 0.012, 0])], INK, doubleCloth);
-    addMerged(l, [cyl(0.052, 0.05, 0.022, 16, true, [0, -0.077, 0])], VIOLET, doubleCloth);
-    addMerged(l, [cyl(0.064, 0.061, 0.006, 16, true, [0, 0.033, 0])], WINE, doubleCloth);
+    tint(g,INK); const l=layer(g);
+    // Loose, flared, torn sleeve from the illustration. The narrow cuff/hand
+    // remains readable inside it; no changes to the arm, wrist or grip bodies.
+    const geo=new THREE.CylinderGeometry(.076,.109,.215,32,6,true);
+    const p=geo.attributes.position, colors=[], dark=new THREE.Color(INK), red=new THREE.Color(0x441d28);
+    for(let i=0;i<p.count;i++) {
+      const x=p.getX(i), y=p.getY(i), z=p.getZ(i), t=(.1075-y)/.215, a=Math.atan2(z,x);
+      const edge=Math.pow(t,5)*(.018+.038*(.5+.5*Math.sin(a*5+.4))+.038*Math.max(0,-Math.cos(a)));
+      const fold=1+.055*Math.sin(a*6);
+      p.setXYZ(i,x*fold,y+.011-edge,z*fold);
+      const color=dark.clone().lerp(red,Math.pow(t,3)*.88);colors.push(color.r,color.g,color.b);
+    }
+    geo.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));geo.computeVertexNormals();
+    addMerged(l,[geo],0xffffff,{...doubleCloth,vertexColors:true});
+    addMerged(l,[cyl(.047,.047,.034,12,true,[0,-.103,0])],0x252128,doubleCloth);
   }
   function thigh(g) {
     tint(g, NAVY); const l = layer(g);
@@ -170,13 +203,19 @@ export function createRenjiOutfit(h) {
     addMerged(l, seams, FOLD, cloth);
   }
   function shin(g) {
-    tint(g, NAVY); const l = layer(g);
-    // Shin centre .29 gives local knee=+.21. Start 7cm above it, inside the
-    // thigh cloth; preserve the ankle hem. Both pieces keep their own bone.
-    addMerged(l, [pleats(0.114, 0.126, 0.4315, 0.06425, 1.03, 0.94, 0.14)], NAVY, doubleCloth);
-    addMerged(l, [pleats(0.1265, 0.128, 0.019, -0.145, 1.03, 0.94, 0.14)], WINE, doubleCloth);
-    addMerged(l, [pleats(0.128, 0.129, 0.008, -0.152, 1.03, 0.94, 0.14)], VIOLET, doubleCloth);
-    addMerged(l, [cyl(0.053, 0.05, 0.057, 12, true, [0, -0.179, 0])], 0xc5bba7, doubleCloth);
+    tint(g,NAVY); const l=layer(g);
+    // Preserve the proven knee overlap; widen into the long reference hem.
+    const geo=pleats(.114,.144,.4315,.06425,1.03,.94,.14);
+    const colors=[], dark=new THREE.Color(NAVY), wine=new THREE.Color(0x401c2b);
+    const p=geo.attributes.position;
+    for(let i=0;i<p.count;i++) {
+      const t=Math.max(0,Math.min(1,(.20-p.getY(i))/.35));
+      const c=dark.clone().lerp(wine,Math.pow(t,2)*.83);colors.push(c.r,c.g,c.b);
+    }
+    geo.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));
+    addMerged(l,[geo],0xffffff,{...doubleCloth,vertexColors:true});
+    addMerged(l,[pleats(.1445,.146,.014,-.144,1.03,.94,.27)],VIOLET,doubleCloth);
+    addMerged(l,[cyl(.053,.05,.057,12,true,[0,-.179,0])],0x30232a,doubleCloth);
   }
   function foot(g) {
     tint(g, 0x232128); const l = layer(g);

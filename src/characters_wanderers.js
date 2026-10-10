@@ -3,8 +3,8 @@ import { getLook, CHARACTER_LOOK_VERSION } from './looks.js';
 
 export const WANDERER_CHARACTERS = [
   {
-    id: 'renji', name: '쿠로세 렌지', epithet: '칼을 뽑지 않는 낭인', age: 32,
-    origin: '일본 · 북쪽 항구와 산길', weapon: 'morgenstern', voice: 'liao',
+    id: 'renji', name: '김씨', epithet: '칼을 뽑지 않는 낭인', age: 32,
+    origin: '북쪽 항구와 산길', weapon: 'morgenstern', voice: 'liao',
     backstory: '형이 남긴 검을 허리에 차고 떠도는 낭인. 그 검으로 사람을 베지 않겠다는 약속 때문에, 항구에서 얻은 낯선 철퇴로 호위 일을 한다. 삿갓 아래 마른 찻잎을 넣고 다니며 길에서 만난 이에게 먼저 차를 권한다.',
     want: '형의 검과 유품을 바다 건너 남은 가족에게 돌려주는 것.',
     school: '기존 둔기 동작을 사용하는 창작 낭인. 허리의 검은 장식이며 실제 전투에는 모르겐슈테른만 사용한다.',
@@ -28,7 +28,7 @@ export const WANDERER_CHARACTERS = [
   },
   {
     id: 'eira', name: '에이라 린드', epithet: '눈길의 사제', age: 26,
-    origin: '북방 빙해 · 눈에 갇힌 피오르 교구', weapon: 'rapier', voice: 'isolde',
+    origin: '동시베리아 내륙 · 얼어붙은 호수 교구', weapon: 'rapier', voice: 'isolde',
     backstory: '긴 겨울이면 마을 사이를 걸어 약과 편지를 나르는 순회 사제. 돌아오지 못한 사람들의 이름을 작은 종 안쪽에 새긴다. 얼어붙은 길에서 자신과 짐을 지키려 레이피어를 배웠다. 봄을 믿지만, 봄이 모든 사람에게 제때 오지 않는다는 것도 안다.',
     want: '올겨울에도 가장 먼 마을의 등불이 꺼지지 않게 하는 것.',
     school: '기존 레이피어 유파를 사용하는 창작 사제. 특정 종교의 실제 전투 전통을 재현한 것은 아니다.',
