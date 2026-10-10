@@ -44,6 +44,7 @@ for(const [id,label] of cases){
    if(kind==='eyes'){camera.fov=30;camera.updateProjectionMatrix();camera.position.set(headPoint.x-.54,headPoint.y+.015,headPoint.z+.04);camera.lookAt(headPoint.x,headPoint.y+.005,headPoint.z);}
    else if(kind==='front'){camera.position.set(-3.95,1.28,0.06);camera.lookAt(0,0.98,0);}
    else if(kind==='detail'){camera.position.set(-1.72,1.71,0.70);camera.lookAt(0,1.52,0);}
+   else if(kind==='fittings'){camera.fov=30;camera.updateProjectionMatrix();camera.position.set(-1.43,1.25,0.87);camera.lookAt(0,0.99,0);}
    else if(kind==='side'){camera.position.set(0,1.35,4.0);camera.lookAt(0,0.93,0);}
    else if(kind==='back'){camera.position.set(3.15,1.5,-2.1);camera.lookAt(0,0.95,0);}
    else {camera.position.set(-3.10,1.47,2.30);camera.lookAt(0,0.98,0);}

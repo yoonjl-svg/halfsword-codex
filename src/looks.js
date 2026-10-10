@@ -651,6 +651,8 @@ LOOK_ARCHIVE.silver_wanderer = { v1: {
   outfit: 'silver_wanderer', armor: null, stockEyes: true,
 } };
 
+LOOK_ARCHIVE.silver_wanderer.v2 = { ...LOOK_ARCHIVE.silver_wanderer.v1, outfit: 'silver_wanderer_detail' };
+
 // 지금 게임에서 실제로 쓰는 버전 (감독/오너가 확정하면 여기만 바꾸면 됨)
 export const CHARACTER_LOOK_VERSION = {
   bran: 'v1',
@@ -666,7 +668,7 @@ export const CHARACTER_LOOK_VERSION = {
   renji: 'v2',
   eira: 'v1',
   sherpa: 'v1',
-  silver_wanderer: 'v1',
+  silver_wanderer: 'v2',
 };
 
 /** id의 특정 버전을 꺼낸다. 버전이 없으면 현재 버전 → v0 순으로 물러난다. (main.js의 ?look=, ?lookv= 미리보기용) */
