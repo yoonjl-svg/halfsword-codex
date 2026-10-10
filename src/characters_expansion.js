@@ -1,13 +1,15 @@
 // Independent encounters. Existing campaign order and random roster stay explicit in characters.js.
 // Biographies are fiction; personas reuse the game's weapon schools, not historical motion captures.
 import { getLook, CHARACTER_LOOK_VERSION } from './looks.js';
+import { WANDERER_CHARACTERS } from './characters_wanderers.js';
 
 export const EXPANSION_CHARACTERS = [
+  ...WANDERER_CHARACTERS,
   {
-    id: 'crown_boss', name: '붉은 제복의 총사', epithet: '마지막 문지기', age: 28,
+    id: 'crown_boss', name: '사미라 미르자', epithet: '붉은 봉인의 전령', age: 28,
     origin: '인도 · 서해안의 항구 도시', weapon: 'pistol', voice: 'isolde',
-    backstory: '바다를 건너온 총사가 텅 빈 성소의 마지막 문을 지킨다. 낡은 계급장보다 끝까지 지킨 약속을 믿는다.',
-    want: '긴 여정의 끝에서 상대의 실력을 확인하는 것.',
+    backstory: '인도 서해안의 항구에서 출발한 군의 전령. 폭풍으로 철수 명령을 제때 전하지 못한 뒤, 돌아오지 못한 동료들의 이름과 봉인된 명령서를 품고 다닌다. 지금은 먼 성소의 마지막 문을 지키며, 그 문을 넘어갈 사람만큼은 헛되이 보내지 않으려 한다.',
+    want: '끝내 전하지 못한 마지막 소식을 남은 가족에게 돌려주고, 자신의 임무를 마치는 것.',
     school: '기존 리볼버의 조준·사격·장전을 사용하는 창작 최종 보스.',
     signatureMoves: '간격을 벌리고 조준이 맞는 순간 사격한 뒤, 여섯 발을 소진하면 장전한다.',
     favoriteGuards: '한손으로 총구를 겨누며 다음 발을 준비한다.',
@@ -21,8 +23,8 @@ export const EXPANSION_CHARACTERS = [
       idle: { guard: 'langort', gesture: 'still' },
     } },
     look: getLook('crown_boss'), lookVersion: CHARACTER_LOOK_VERSION.crown_boss,
-    taunt: '여기까지 온 실력을 보여 주세요.',
-    lines: { intro: ['여기까지 온 실력을 보여 주세요.', '이 문 너머에는, 더는 적이 없습니다.'], win: ['무기를 거두세요. 다시 올 수 있습니다.'] },
+    taunt: '이 문을 넘을 이유는 있겠지요.',
+    lines: { intro: ['이 문을 넘을 이유는 있겠지요.', '이번엔 아무도 헛되이 보내지 않겠습니다.'], win: ['서두르지 마세요. 돌아갈 길은 남아 있습니다.', '무기를 거두세요. 전할 말이 아직 있잖아요.'] },
   },
   {
     id: 'artoria', name: '아르토리아', epithet: '돌아온 맹세', age: 24,

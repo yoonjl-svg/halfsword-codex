@@ -15,6 +15,8 @@
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { weaponEnv } from './weapon_looks.js';
+import { createRenjiOutfit } from './outfit_renji.js';
+import { createEiraOutfit } from './outfit_eira.js';
 
 const _m4 = new THREE.Matrix4();
 const _euler = new THREE.Euler();
@@ -2474,7 +2476,10 @@ const CROWN_ROSE_UNIFORM = Object.fromEntries(Object.entries(CROWN_BLUE_UNIFORM)
   },
 ]));
 
+export const newOutfitHelpers = { THREE, bake, box, cyl, ball, cone, addMerged, CLOTH, quietFace, isoldeLock, artoriaCloth, sleeveVolume, clothNeck };
 export const OUTFITS = {
+  renji_wanderer: createRenjiOutfit(newOutfitHelpers),
+  eira_winter_priest: createEiraOutfit(newOutfitHelpers),
   crown_rose_uniform: CROWN_ROSE_UNIFORM,
   crown_blue_uniform: CROWN_BLUE_UNIFORM,
   crown_sovereign_light: CROWN_SOVEREIGN_LIGHT,
@@ -2584,7 +2589,7 @@ export function polishOutfit(g, d, look) {
     // Candidate1 still read as broad slabs. User-authorized second step: only
     // the visible ribcage is 8% narrower, blending into a 4% narrower waist.
     // Anchors, capsules, mass and the captured armor coverage stay unchanged.
-    g.scale.z *= d.name === 'chest' ? 0.92 : 0.96;
+    if (!look.originalTorsoWidth) g.scale.z *= d.name === 'chest' ? 0.92 : 0.96;
   }
   if (d.name === 'uarmS' || d.name === 'uarmO') {
     for (const mesh of g.userData.armor || []) {

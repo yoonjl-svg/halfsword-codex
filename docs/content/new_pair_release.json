@@ -1,0 +1,62 @@
+{
+  "basis": "81d9193",
+  "scope": "Two independent encounters, three character names/lore, original female torso widths",
+  "sourceHashes": {
+    "src/characters_expansion.js": "a3c8ae6d33e01b451a393c85023a1217792ad3b6f4565ba106fc4acdc8c699ba",
+    "src/characters_wanderers.js": "58560182119824252d0b120e92a5a06e104ae6e7d61b18f39bd6a265751dc44d",
+    "src/looks.js": "931a6480655e11efc01c1286137a32ba7b958eea99383bc5a1cac9eb6435d7ab",
+    "src/outfits.js": "12fa8235cf9ab14cfa4f5aec54f4b978602d0418f09fef144bf883be18dc853a",
+    "src/outfit_renji.js": "2671e347c3a046155641c6e9d7acf7ecdd38ff84c8ca7600348256d90ac5beda",
+    "src/outfit_eira.js": "84ff113704ea951314310a75cf3280b65eea07b25bd160667737d3310af0433c",
+    "tools/sim/experiments/new_pair_gate.mjs": "d8501a174e8d49392b365b798f933bf395c059f461e260575f31ebb37f397a74",
+    "tools/browser/new_pair_delivery_20261010.mjs": "7a304a71f672ea1f295c9a51cba54a888f184b048f92a2f620b37c18dc2cdf01"
+  },
+  "native": {
+    "pass": true,
+    "checks": 23,
+    "reportSha256": "0fd53f6cd92a2ce54b2a7d3421499b3354b63256f2572dfef86fff6b0c580415",
+    "limits": [
+      "480 input steps per newcomer recorded no clashes or natural wounds; not a combat balance check.",
+      "Wound visual retention uses separate synthetic wound fixtures.",
+      "Final source differs from native run only by restoring the pre-existing OUTFITS export; runtime values are identical."
+    ]
+  },
+  "visual": {
+    "portraits": 6,
+    "pageErrors": 0,
+    "sourceFolders": {
+      "renji": "portraits-final",
+      "eira": "portraits-release",
+      "samira": "portraits"
+    }
+  },
+  "local": {
+    "pass": true,
+    "flows": 2,
+    "runs": [
+      {
+        "encounter": "renji",
+        "pass": true,
+        "requests": 190,
+        "errors": 0,
+        "reportSha256": "57854c65ad4ee073d9f4feb541934e514ae79564f15389b60b9be3f4021ef3ed"
+      },
+      {
+        "encounter": "eira",
+        "pass": true,
+        "requests": 190,
+        "errors": 0,
+        "reportSha256": "4b2f0fdd69a7dfbc093fb7518fedbad2d13b40b816ed5721a81035cc8debcb3e"
+      }
+    ]
+  },
+  "public": {
+    "status": "pending"
+  },
+  "publication": {
+    "mostRecentDeadline": "2026-10-09",
+    "status": "remote_verified",
+    "archiveSha": "fead10d4b52654f046a56160e3267879a82fdbc5",
+    "today": "six-section draft validated; deadline not yet reached"
+  }
+}

@@ -1,0 +1,53 @@
+// Fictional independent encounters; existing weapon control and body dimensions.
+import { getLook, CHARACTER_LOOK_VERSION } from './looks.js';
+
+export const WANDERER_CHARACTERS = [
+  {
+    id: 'renji', name: '쿠로세 렌지', epithet: '칼을 뽑지 않는 낭인', age: 32,
+    origin: '일본 · 북쪽 항구와 산길', weapon: 'morgenstern', voice: 'liao',
+    backstory: '형이 남긴 검을 허리에 차고 떠도는 낭인. 그 검으로 사람을 베지 않겠다는 약속 때문에, 항구에서 얻은 낯선 철퇴로 호위 일을 한다. 삿갓 아래 마른 찻잎을 넣고 다니며 길에서 만난 이에게 먼저 차를 권한다.',
+    want: '형의 검과 유품을 바다 건너 남은 가족에게 돌려주는 것.',
+    school: '기존 둔기 동작을 사용하는 창작 낭인. 허리의 검은 장식이며 실제 전투에는 모르겐슈테른만 사용한다.',
+    signatureMoves: '철퇴를 몸 가까이 거두었다가 짧게 내려친다.',
+    favoriteGuards: '오른쪽 어깨와 옆 지킴.',
+    temperament: '무뚝뚝하지만 약속한 일은 끝까지 한다. 허리의 검을 이야기할 때만 말이 짧아진다.',
+    movementNotes: '기존 둔기 유파가 실제 철퇴 길이에 맞춰 간격을 계산한다.',
+    weaknesses: '짧은 철퇴가 닿기 전의 거리와 빗나간 뒤의 빈틈.',
+    ai: { level: 'normal', persona: {
+      school: 'tree_branch',
+      level: { skill: 0.76, discipline: 0.84, strength: 1, aggression: 0.8 },
+      pers: { precision: 0.8, guardStick: 2.7, fearful: 0.22, angry: 0.2,
+        dogged: 0.4, rhythm: 2.8, aggr: 0.84, vor: 0.45,
+        guardPref: { tagR: 1.7, wechselR: 1.3 }, techPref: { oberhau: 1.4, zornhau: 1.4 } },
+      idle: { guard: 'tagR', gesture: 'still' },
+    } },
+    look: getLook('renji'), lookVersion: CHARACTER_LOOK_VERSION.renji,
+    taunt: '검은 두고 간다. 이걸로 하지.',
+    lines: { intro: ['검은 두고 간다. 이걸로 하지.', '차가 식기 전에 끝내자.'],
+      win: ['검을 뽑을 일은 없었군.', '이제 길을 비켜 주겠나.'] },
+  },
+  {
+    id: 'eira', name: '에이라 린드', epithet: '눈길의 사제', age: 26,
+    origin: '북방 빙해 · 눈에 갇힌 피오르 교구', weapon: 'rapier', voice: 'isolde',
+    backstory: '긴 겨울이면 마을 사이를 걸어 약과 편지를 나르는 순회 사제. 돌아오지 못한 사람들의 이름을 작은 종 안쪽에 새긴다. 얼어붙은 길에서 자신과 짐을 지키려 레이피어를 배웠다. 봄을 믿지만, 봄이 모든 사람에게 제때 오지 않는다는 것도 안다.',
+    want: '올겨울에도 가장 먼 마을의 등불이 꺼지지 않게 하는 것.',
+    school: '기존 레이피어 유파를 사용하는 창작 사제. 특정 종교의 실제 전투 전통을 재현한 것은 아니다.',
+    signatureMoves: '칼끝으로 길을 막고 상대가 다가오면 짧게 찌른다.',
+    favoriteGuards: '쟁기와 긴 자세.',
+    temperament: '차분하고 실용적이다. 위로할 말을 고르기 전에 젖은 장갑부터 벗겨 준다.',
+    movementNotes: '기존 레이피어의 간격과 찌르기 동작을 사용한다.',
+    weaknesses: '칼끝 안쪽으로 깊게 붙는 압박.',
+    ai: { level: 'normal', persona: {
+      school: 'rapier',
+      level: { skill: 0.78, discipline: 0.88, strength: 1, aggression: 0.75 },
+      pers: { precision: 0.85, guardStick: 3.2, fearful: 0.25, angry: 0.1,
+        dogged: 0.3, rhythm: 3.2, aggr: 0.78, vor: 0.35,
+        guardPref: { pflugR: 1.8, langort: 1.8 }, techPref: { stichPflug: 2, stichOchs: 1.5 } },
+      idle: { guard: 'pflugR', gesture: 'still' },
+    } },
+    look: getLook('eira'), lookVersion: CHARACTER_LOOK_VERSION.eira,
+    taunt: '눈이 더 쌓이기 전에 지나가야 해요.',
+    lines: { intro: ['눈이 더 쌓이기 전에 지나가야 해요.', '칼을 거두면, 불가에 자리가 있어요.'],
+      win: ['숨을 고르세요. 아직 따뜻해질 수 있어요.', '여기서 잠들면 안 돼요.'] },
+  },
+];

@@ -612,18 +612,40 @@ for (const [id, source, version] of [
 LOOK_ARCHIVE.crown_boss.v6 = { ...LOOK_ARCHIVE.crown_boss.v5, stockFace: true };
 LOOK_ARCHIVE.artoria.v4 = { ...LOOK_ARCHIVE.artoria.v3, eyeColor: 0x418f87 };
 
+// 10/10 user rollback: original chest and waist width; keep approved face/eye fixes.
+for (const [id, source, version] of [
+  ['isolde', 'v4', 'v5'], ['yeongman', 'v4', 'v5'], ['artoria', 'v4', 'v5'],
+  ['margarethe', 'v4', 'v5'], ['crown_boss', 'v6', 'v7'],
+]) LOOK_ARCHIVE[id][version] = { ...LOOK_ARCHIVE[id][source], originalTorsoWidth: true };
+LOOK_ARCHIVE.renji = { v1: {
+  tunic: 0x242329, quilt: 0x29262d, sleeve: 0x242329, straps: null,
+  belt: 0x65408a, hoseUpper: 0x202537, hoseLower: 0x202537, shoes: 0x27222b,
+  skin: 0xd7b995, hands: 0xd7b995, helmet: null, metal: 0x777178, hair: 0x241d16,
+  headband: null, grip: 0x33252d, hilt: 0x8b7872, accent: 0x65408a,
+  outfit: 'renji_wanderer', armor: null, stockEyes: true,
+} };
+LOOK_ARCHIVE.eira = { v1: {
+  tunic: 0x252e44, quilt: 0x293249, sleeve: 0x252e44, straps: null,
+  belt: 0x292c35, hoseUpper: 0xc3c4c8, hoseLower: 0x252630, shoes: 0x252630,
+  skin: 0xe5cbb9, hands: 0xe5cbb9, helmet: null, metal: 0xa7a7af, hair: 0xc4d6e8,
+  headband: null, grip: 0x333342, hilt: 0xa7a7af, accent: 0xe4e5e9,
+  outfit: 'eira_winter_priest', armor: null, stockEyes: true,
+} };
+
 // 지금 게임에서 실제로 쓰는 버전 (감독/오너가 확정하면 여기만 바꾸면 됨)
 export const CHARACTER_LOOK_VERSION = {
   bran: 'v1',
-  isolde: 'v4', // v2 outfit with softened tailoring; rejected v3 remains archived.
+  isolde: 'v5', // v2 outfit with softened tailoring; rejected v3 remains archived.
   liao: 'v6',
   heinrich: 'v2',
-  margarethe: 'v4',
+  margarethe: 'v5',
   tome: 'v1',
   omari: 'v1',
-  yeongman: 'v4',
-  artoria: 'v4',
-  crown_boss: 'v6',
+  yeongman: 'v5',
+  artoria: 'v5',
+  crown_boss: 'v7',
+  renji: 'v1',
+  eira: 'v1',
 };
 
 /** id의 특정 버전을 꺼낸다. 버전이 없으면 현재 버전 → v0 순으로 물러난다. (main.js의 ?look=, ?lookv= 미리보기용) */
