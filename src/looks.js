@@ -603,18 +603,25 @@ export const LOOK_ARCHIVE = {
   },
 };
 
+// Preserve each accepted outfit and its old preview; tailoring only changes its
+// rendered surface. In particular Isolde still derives from v2, not rejected v3.
+for (const [id, source, version] of [
+  ['isolde', 'v2', 'v4'], ['yeongman', 'v3', 'v4'],
+  ['artoria', 'v2', 'v3'], ['margarethe', 'v3', 'v4'], ['crown_boss', 'v4', 'v5'],
+]) LOOK_ARCHIVE[id][version] = { ...LOOK_ARCHIVE[id][source], tailoring: 'soft-shoulders', stockEyes: true };
+
 // 지금 게임에서 실제로 쓰는 버전 (감독/오너가 확정하면 여기만 바꾸면 됨)
 export const CHARACTER_LOOK_VERSION = {
   bran: 'v1',
-  isolde: 'v2', // User prefers the original; v3 stays in the visual archive only.
+  isolde: 'v4', // v2 outfit with softened tailoring; rejected v3 remains archived.
   liao: 'v6',
   heinrich: 'v2',
-  margarethe: 'v3',
+  margarethe: 'v4',
   tome: 'v1',
   omari: 'v1',
-  yeongman: 'v3',
-  artoria: 'v2',
-  crown_boss: 'v4',
+  yeongman: 'v4',
+  artoria: 'v3',
+  crown_boss: 'v5',
 };
 
 /** id의 특정 버전을 꺼낸다. 버전이 없으면 현재 버전 → v0 순으로 물러난다. (main.js의 ?look=, ?lookv= 미리보기용) */

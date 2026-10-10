@@ -22,6 +22,7 @@ assert(CHARACTERS_BY_ID.artoria?.weapon === 'excalibur');
 
 const own = fileURLToPath(import.meta.url), root = path.resolve(path.dirname(own), '../..'), args = {};
 for (const arg of process.argv.slice(2)) {
+  if (arg === '--tailoring') { assert(!args.tailoring); args.tailoring = true; continue; }
   if (arg === '--hero') { assert(!args.hero, 'Duplicate --hero'); args.hero = true; continue; }
   const match = /^--(base|build|out|local-evidence|encounter|scope)=(.+)$/.exec(arg);
   assert(match && !Object.hasOwn(args, match[1]), 'Unknown or duplicate argument'); args[match[1]] = match[2];
@@ -31,7 +32,7 @@ assert(['artoria', 'crown_boss'].includes(encounterId));
 const encounter = CHARACTERS_BY_ID[encounterId], crown = encounterId === 'crown_boss';
 const scope = args.scope || 'full';
 assert(['full', 'appearance', 'mobile'].includes(scope));
-assert(scope === 'full' || crown);
+assert(scope === 'full' || crown || args.tailoring && scope === 'mobile');
 let reusedProgression = null;
 if (scope === 'appearance') {
   const receiptPath = path.join(root, 'docs/content/crown_boss_release.json');
@@ -48,12 +49,12 @@ if (scope === 'appearance') {
 }
 const activeScenarios = scope === 'full' ? scenarios : scenarios.slice(0, 1);
 const stageId = crown ? 'crown_sanctum' : 'loggia';
-const landingFile = crown ? 'crown-boss.html' : 'artoria.html';
+const landingFile = args.tailoring ? 'female-tailoring.html' : crown ? 'crown-boss.html' : 'artoria.html';
 const heroFile = crown ? 'crown-boss.webp' : 'artoria.webp';
 const query = `?cards=sain,ice&foe=${encounterId}&stage=${stageId}`;
 assert(args.build && path.isAbsolute(args.build) && args.out && path.isAbsolute(args.out));
 const build = await fs.realpath(args.build), out = path.resolve(args.out);
-assert((out.startsWith('/tmp/halfsword-rose-uniform-20261010/') || out.startsWith('/tmp/halfsword-uniform-revolver-20261010/') || out.startsWith('/tmp/halfsword-artoria-rare-20261010/') || out.startsWith('/tmp/halfsword-ice-hbo-20261010/') || out.startsWith('/tmp/halfsword-crown-boss-20261010/') || out.startsWith('/tmp/halfsword-crown-uniform-20261010/')));
+assert((out.startsWith('/tmp/halfsword-female-tailoring-20261010/') || out.startsWith('/tmp/halfsword-rose-uniform-20261010/') || out.startsWith('/tmp/halfsword-uniform-revolver-20261010/') || out.startsWith('/tmp/halfsword-artoria-rare-20261010/') || out.startsWith('/tmp/halfsword-ice-hbo-20261010/') || out.startsWith('/tmp/halfsword-crown-boss-20261010/') || out.startsWith('/tmp/halfsword-crown-uniform-20261010/')));
 await fs.mkdir(path.dirname(out), { recursive: true });
 assert.equal(await fs.realpath(path.dirname(out)), path.dirname(out)); await fs.mkdir(out);
 const base = new URL(args.base || 'https://yoonjl-svg.github.io/halfsword-codex/');
@@ -78,6 +79,7 @@ if (!local) {
   assert(previous.pass && previous.local); assert.equal(previous.encounterId, encounterId); assert.equal(previous.toolHash, toolHash);
   assert.equal(previous.scope, scope);
   assert.equal(previous.heroRequested, args.hero === true);
+  assert.equal(previous.tailoring, args.tailoring === true);
   assert.deepEqual(previous.buildManifest, before, 'Public and local checks must use the same build');
 }
 const settings = { difficulty: 'normal', pixel: false, blood: true, sound: false, invertTilt: false,
@@ -223,7 +225,7 @@ try {
   const geometry = value => value.weaponMeshes.map(({ name, visible, vertices, color, shader }) => ({ name, visible, vertices, color, shader }));
   const landingURL = new URL(landingFile, base).href;
   const destination = new URL(query, base).href;
-  if (!crown && before['ice-artoria-detail.html']) {
+  if (!crown && !args.tailoring && before['ice-artoria-detail.html']) {
     await page.goto(new URL('ice-artoria-detail.html', base).href, { waitUntil: 'load' });
     await page.evaluate(async () => {
       document.querySelectorAll('details').forEach(node => { node.open = true; });
@@ -243,16 +245,19 @@ try {
     images: [...document.images].map(image => ({ path: new URL(image.src).pathname, width: image.naturalWidth, height: image.naturalHeight })),
     play: [...document.querySelectorAll('a.play')].map(link => ({ href: link.href, text: link.textContent.trim() })) }));
   assert(landing.scrollWidth <= landing.width + 1);
-  const expectedImages = [`encounters/${heroFile}`, ...(crown ? ['front', 'side', 'back', 'detail'].map(view => `encounters/crown-boss-${view}.webp`) : []), ...scenarios.map(fixture => `ui/weapons/${fixture.id}.webp`)];
+  const expectedImages = args.tailoring
+    ? ['isolde', 'yeongman', 'artoria', 'margarethe', 'crown_boss'].flatMap(id => ['before', 'after'].flatMap(version => ['front', 'threeq'].map(view => `encounters/tailoring-${id}-${version}-${view}.webp`)))
+    : [`encounters/${heroFile}`, ...(crown ? ['front', 'side', 'back', 'detail'].map(view => `encounters/crown-boss-${view}.webp`) : []), ...scenarios.map(fixture => `ui/weapons/${fixture.id}.webp`)];
   assert.deepEqual(landing.images.map(image => image.path).sort(), expectedImages.map(file => new URL(file, base).pathname).sort());
   assert(landing.images.every(image => image.width > 0 && image.height > 0));
-  assert.equal(landing.play.length, 1); assert.equal(landing.play[0].href, destination);
+  assert.equal(landing.play.length, args.tailoring ? 5 : 1);
+  assert.equal(landing.play.filter(link => link.href === destination).length, 1);
   await page.screenshot({ path: path.join(out, 'landing-portrait.png') });
   for (const fixture of activeScenarios) {
     const row = { ...fixture }, eventStart = native.length; flows.push(row);
     await page.setViewportSize({ width: 390, height: 844 });
     if (page.url() !== landingURL) await page.goto(landingURL, { waitUntil: 'load' });
-    await Promise.all([page.waitForURL(destination, { waitUntil: 'load' }), page.locator('a.play').tap()]);
+    await Promise.all([page.waitForURL(destination, { waitUntil: 'load' }), page.locator('a.play').nth(landing.play.findIndex(link => link.href === destination)).tap()]);
     await wait(() => window.game?.enemy && game.combat && game.characterModel);
     row.entry = await read(); policy(row.entry, fixture, false);
     await page.evaluate(() => { window.rareAccepted = 0; const sample = () => {
@@ -385,7 +390,7 @@ try {
   clearTimeout(deadline); const buildStable = JSON.stringify(before) === JSON.stringify(await manifest(build));
   pass = pass && buildStable && errors.length === 0 && toolHash === sha(await fs.readFile(own)); if (!pass) process.exitCode = 1;
   const report = { pass, local, head, startedUTC, completedUTC: new Date().toISOString(), wallMs: performance.now() - start,
-    base: base.href, toolHash, buildStable, buildManifest: before, heroRequested: args.hero === true, encounterId, scope, reusedProgression, progression, scenarios: activeScenarios, settings, landing, detail, flows, requests, attempts, errors, fatal,
+    base: base.href, toolHash, buildStable, buildManifest: before, heroRequested: args.hero === true, tailoring: args.tailoring === true, encounterId, scope, reusedProgression, progression, scenarios: activeScenarios, settings, landing, detail, flows, requests, attempts, errors, fatal,
     tlsVerification: true, proxyRetained: !local,
     limits: ['Chromium touch/mobile emulation; physical-phone frame performance and human visual acceptance are not assessed.',
       'Actual trusted card taps, sword strokes and movement inputs are repeated for each weapon before and after restart. No AI, damage, health or physics state is overridden.',

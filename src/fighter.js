@@ -35,7 +35,7 @@ import { getWeapon, MATERIALS, weaponMatOpts, DEFAULT_WEAPON, BREAK } from './we
 import { breakWeaponLook } from './weapon_looks.js';
 import { spawnDebris, scatterDebris, debrisEnabled } from './debris.js'; // 흩어지는 조각: 부러진 칼날 끝과 부서진 투구·판금을 한 모듈이 띄우고 치운다
 // 방어구 겉모습(찌그러짐·금): 전투 쪽이 투구·판금 내구도가 바뀔 때마다 부른다
-import { decorateOutfit, setHelmetWear, setPlateWear } from './outfits.js';
+import { decorateOutfit, polishOutfit, setHelmetWear, setPlateWear } from './outfits.js';
 import { reviveOf, tryRevive, reviveTick } from './revive.js';
 import { limbSeverCandidate, detachLimb, disableMissingLegSupport } from './limb_sever.js';
 import { collectSupportContacts } from './support_contacts.js';
@@ -360,6 +360,9 @@ export class Fighter {
         this.plateBoxes[d.name] = armorBoxes(group, dressTo, d.kind !== 'chest' && d.kind !== 'abdomen');
         if (d.kind !== 'arm') this.plateGait.push(d.name);
       }
+      // Preserve armor coverage/breakage bounds before changing its visible
+      // silhouette. Tailoring never moves bodies, joints or colliders.
+      isolatedVisual(() => polishOutfit(dressTo, d, o.look), 0);
       if (d.kind === 'head') {
         this.faceMat = mesh.material;
         this.skinColor = mesh.material.color.clone();

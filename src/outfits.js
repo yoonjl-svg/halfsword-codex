@@ -2521,6 +2521,75 @@ export function decorateOutfit(dressTo, d, look) {
   }
 }
 
+/** Render-only tailoring, called after the original armor bounds are captured. */
+export function polishOutfit(g, d, look) {
+  if (look.stockEyes && d.name === 'head') {
+    for (const eye of g.children.slice(1, 3)) eye.scale.set(1, 1, 1);
+  }
+  if (look.tailoring !== 'soft-shoulders') return;
+  const replace = (mesh, geo) => {
+    mesh.geometry.dispose(); mesh.geometry = geo;
+    geo.computeBoundingBox(); geo.computeBoundingSphere();
+  };
+  if (d.name === 'chest' || d.name === 'abdomen') {
+    const main = g.children[0], p = main.geometry.parameters;
+    // Round the garment, keeping its widest ribcage/shoulder span unchanged.
+    if (p?.width && p.height && p.depth && !['crown_rose_uniform', 'artoria_silver_v2'].includes(look.outfit)) {
+      // The uniform and silver under-armor already have fitted surfaces.
+      replace(main, artoriaRoundedBox(p.width, p.height, p.depth,
+        d.name === 'chest' ? 0.045 : 0.03));
+    }
+    // The dragon breastplate is deliberately still heavy/dark; bevel its box
+    // rather than replacing the established armor or its detached pieces.
+    if (look.outfit === 'margarethe_dragon_horned' && d.name === 'chest') {
+      // Old raised quilting and crossed leather straps must not protrude
+      // through the bevelled steel edge. Retain the original neck collar.
+      for (const mesh of g.children.slice(1, g.children.indexOf(g.userData.armor[0]))) {
+        if (mesh !== g.children[7]) mesh.visible = false;
+      }
+      const armor = g.userData.armor;
+      replace(armor[0], artoriaRoundedBox(0.26, 0.25, 0.34, 0.035).translate(0, 0.01, 0));
+      for (const [i, h, y] of [[1, 0.02, 0.128], [2, 0.024, -0.108]]) {
+        // Rounded rectangular edge bands keep the original part identities.
+        const geo = artoriaRoundedBox(0.272, 0.07, 0.352, 0.025);
+        geo.scale(1, h / 0.07, 1); geo.translate(0, y, 0); replace(armor[i], geo);
+      }
+    }
+    if (look.outfit === 'crown_rose_uniform' && d.name === 'chest') {
+      // Flatten the two epaulettes about their own centres, not the shoulders.
+      for (const mesh of g.children.slice(1)) {
+        if (!mesh.geometry || !mesh.visible) continue;
+        mesh.geometry.computeBoundingBox(); const b = mesh.geometry.boundingBox;
+        if (b.min.y < 0.12 || b.max.y - b.min.y > 0.025 || b.max.z - b.min.z < 0.035 || b.max.x - b.min.x < 0.1) continue;
+        const geo = mesh.geometry.clone(), a = geo.attributes.position;
+        for (let i = 0; i < a.count; i++) {
+          const z = a.getZ(i), centre = Math.sign(z) * 0.142;
+          a.setY(i, 0.132 + (a.getY(i) - 0.135) * 0.6);
+          a.setZ(i, centre + (z - centre) * 0.82);
+        }
+        geo.computeVertexNormals(); replace(mesh, geo);
+      }
+    }
+    // Candidate1 still read as broad slabs. User-authorized second step: only
+    // the visible ribcage is 8% narrower, blending into a 4% narrower waist.
+    // Anchors, capsules, mass and the captured armor coverage stay unchanged.
+    g.scale.z *= d.name === 'chest' ? 0.92 : 0.96;
+  }
+  if (d.name === 'uarmS' || d.name === 'uarmO') {
+    for (const mesh of g.userData.armor || []) {
+      const geo = mesh.geometry.clone(), p = geo.attributes.position;
+      // All overlapping cap layers use the same transform to keep their seams.
+      for (let i = 0; i < p.count; i++) {
+        // Silver caps must retain their height above the existing upper-arm
+        // sleeve; flattening them exposed its rounded tip through the armor.
+        const height = look.outfit === 'artoria_silver_v2' ? 1 : 0.88;
+        p.setXYZ(i, p.getX(i) * 0.94, 0.075 + (p.getY(i) - 0.075) * height, p.getZ(i) * 0.94);
+      }
+      geo.computeVertexNormals(); replace(mesh, geo);
+    }
+  }
+}
+
 /**
  * 판금 부위 하나의 금: 첫 판금 메쉬의 앞면(+x)을 세로로 가로지르는 짙은 지그재그 선.
  * 캐릭터를 만들 때(isolatedVisual 안) 미리 만들어 숨겨 둔다 — 싸우는 도중에 메쉬를 새로 만들면
