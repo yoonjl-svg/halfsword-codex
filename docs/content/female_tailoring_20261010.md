@@ -11,3 +11,5 @@
 재현: `node tools/sim/experiments/female_tailoring_measure.mjs <기준 또는 현재 tree의 절대경로> <새 결과 JSON>`을 별도 프로세스로 실행, 각 row의 visual 제외 필드(id/weapon/ai/armor/masses/snapshots/pre/post)를 동일 비교한다. 브라우저는 `tools/browser/artoria_rare_delivery_20261010.mjs --tailoring --scope=mobile --encounter=crown_boss` 및 `artoria`로 같은 고정 빌드의 로컬/공개 진입·터치·일시정지·재시작을 검사한다. 모든20사진의 공개 바이트 일치도 검사한다.
 
 [휴대폰 전후 비교·플레이](https://yoonjl-svg.github.io/halfsword-codex/female-tailoring.html). 최종 소스/사진/빌드/공개 상태는 [영수증](female_tailoring_release.json)을 따른다. 미적 수락은 사용자 판단이다. 실제 몸 폭까지 줄인 물리 변경이 아니므로 외형과 충돌 경계에 약1cm/면 차이가 생길 수 있으며, 과도한 추가 축소는 이번 범위가 아니다.
+
+전달 완료: `fe29ce4`, Pages38022362358 성공. 고정 빌드 로컬/공개에서 총사·아르토리아 각1흐름(각 환경2흐름)의 실제 터치·이동·일시정지·재시작과20사진/요청 파일 일치, 오류0을 확인했다. 다른3명은 실제모델 캡처/시작과 native상처 검사를 했으며 별도 모바일 재시작 검사는 아니다. 최근 마감 교환 일지는 시작/종료 원격 확인했고10일23:30 초안은 아직 발행 시각 전이다.
