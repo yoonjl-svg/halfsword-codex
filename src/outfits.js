@@ -1766,9 +1766,12 @@ const ARTORIA_OUTFIT = {
     for (let i = -1; i <= 1; i++) hair.push(isoldeLock([[-0.121, -0.016, i * 0.024], [-0.14, -0.095, i * 0.031], [-0.131, -0.216, i * 0.037]], [0.038, 0.043, 0.004], 0.012));
     const hairMesh = addMerged(g, hair, look.hair, { ...CLOTH, roughness: 0.84 }); hairMesh.name = 'artoria-hair';
     addMerged(g, [box(0.02, 0.016, 0.09, [-0.126, -0.026, 0])], ARTORIA_TEAL, CLOTH);
-    addMerged(g, [-1, 1].map((s) => box(0.007, 0.016, 0.025, [0.101, 0.012, s * 0.035])), 0x418f87, CLOTH);
-    addMerged(g, [-1, 1].map((s) => box(0.006, 0.013, 0.008, [0.107, 0.012, s * 0.035])), 0x162d30, CLOTH);
-    addMerged(g, [-1, 1].map((s) => box(0.003, 0.004, 0.004, [0.111, 0.016, s * 0.033])), 0xeaf3e9, CLOTH);
+    if (look.eyeColor == null) {
+      // Retain the old layered eyes only in the archived appearances.
+      addMerged(g, [-1, 1].map((s) => box(0.007, 0.016, 0.025, [0.101, 0.012, s * 0.035])), 0x418f87, CLOTH);
+      addMerged(g, [-1, 1].map((s) => box(0.006, 0.013, 0.008, [0.107, 0.012, s * 0.035])), 0x162d30, CLOTH);
+      addMerged(g, [-1, 1].map((s) => box(0.003, 0.004, 0.004, [0.111, 0.016, s * 0.033])), 0xeaf3e9, CLOTH);
+    }
   },
   chest(g, look) {
     const fabric = artoriaCloth(g); clothNeck(fabric, look);
@@ -2524,7 +2527,10 @@ export function decorateOutfit(dressTo, d, look) {
 /** Render-only tailoring, called after the original armor bounds are captured. */
 export function polishOutfit(g, d, look) {
   if (look.stockEyes && d.name === 'head') {
-    for (const eye of g.children.slice(1, 3)) eye.scale.set(1, 1, 1);
+    for (const eye of g.children.slice(1, 3)) {
+      eye.scale.set(1, 1, 1);
+      if (look.eyeColor != null) eye.material.color.setHex(look.eyeColor);
+    }
   }
   if (look.tailoring !== 'soft-shoulders') return;
   const replace = (mesh, geo) => {

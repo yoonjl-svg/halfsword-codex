@@ -609,6 +609,7 @@ for (const [id, source, version] of [
   ['isolde', 'v2', 'v4'], ['yeongman', 'v3', 'v4'],
   ['artoria', 'v2', 'v3'], ['margarethe', 'v3', 'v4'], ['crown_boss', 'v4', 'v5'],
 ]) LOOK_ARCHIVE[id][version] = { ...LOOK_ARCHIVE[id][source], tailoring: 'soft-shoulders', stockEyes: true };
+LOOK_ARCHIVE.artoria.v4 = { ...LOOK_ARCHIVE.artoria.v3, eyeColor: 0x418f87 };
 
 // 지금 게임에서 실제로 쓰는 버전 (감독/오너가 확정하면 여기만 바꾸면 됨)
 export const CHARACTER_LOOK_VERSION = {
@@ -620,7 +621,7 @@ export const CHARACTER_LOOK_VERSION = {
   tome: 'v1',
   omari: 'v1',
   yeongman: 'v4',
-  artoria: 'v3',
+  artoria: 'v4',
   crown_boss: 'v5',
 };
 
