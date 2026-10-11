@@ -167,19 +167,23 @@ function drawCardIds() {
 
 // ── 설정 (브라우저에 저장) ──
 const DEFAULTS = { difficulty: 'normal', pixel: false, blood: true, sound: true, invertTilt: false, moveMode: 'stick', skill: '0.7', guardNames: true, trail: true, fpsCap: true };
+const ACCOUNT_PREVIEW = new URLSearchParams(location.search).get('account') === '1';
+const SETTINGS_KEY = ACCOUNT_PREVIEW ? 'stillness-account:v1:halfsword-codex:game-settings' : 'gladiator-settings';
 const settings = { ...DEFAULTS };
 try {
-  Object.assign(settings, JSON.parse(localStorage.getItem('gladiator-settings') || '{}'));
+  Object.assign(settings, JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}'));
   delete settings.legWeight; // 없앤 설정 ('다리로 체중 받치기'는 이제 늘 켜짐)
 } catch {
   /* 저장소를 못 쓰면 기본값으로 */
 }
+const accountSettingsListeners = new Set();
 const saveSettings = () => {
   try {
-    localStorage.setItem('gladiator-settings', JSON.stringify(settings));
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
   } catch {
     /* 무시 */
   }
+  for (const listener of accountSettingsListeners) listener({ ...settings });
 };
 // An unavailable sensor changes this session's controls, preserving the user's
 // saved movement preference for the next visit (including comparison exits).
@@ -1852,3 +1856,24 @@ window.game = {
   fighterLight, // 예: game.fighterLight.enabled = false 로 캐릭터 조명을 끄고 비교
   reviveFx, // 부활 연출 (예: game.reviveFx.active, game.reviveFx.group)
 };
+
+// Optional account preview; regular game and physical controls are unchanged.
+if (ACCOUNT_PREVIEW) {
+  import('./account/mount.js').then(({ mountAccount }) => mountAccount({
+    read: () => ({ ...settings }),
+    subscribe: (callback) => accountSettingsListeners.add(callback),
+    canApply: () => $('menu').classList.contains('show'),
+    apply: (next) => {
+      Object.assign(settings, next);
+      sensorMoveFallback = null; tiltAttempt++; tiltPending = false; input.resetTransient();
+      if (ai && !currentFoe) ai.setLevel(settings.difficulty);
+      if (player) player.skill.level = +settings.skill;
+      refreshSettingsUI(); resize();
+      try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); } catch { /* storage unavailable */ }
+    },
+  })).catch(() => {
+    const note = document.createElement('p');
+    note.textContent = '계정 연결을 시작하지 못했습니다. 게임은 계속할 수 있습니다.';
+    $('menu').querySelector('.card').append(note);
+  });
+}
