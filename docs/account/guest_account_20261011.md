@@ -14,6 +14,7 @@
 - node controller/공식 SDK의 HTTP fixture: 16검사 통과. 재접속, 이름/설정 검증, blocked storage, 첫 오프라인, 잃은 인증, 저장 중 편집, 계정 전환, 지연 응답, CAS/backup, 이메일 OTP 종류와 wrong UID/비밀 키 거부.
 - Vite production build 통과. 계정 모듈은 선택 입구에서만 lazy load한다. 첫 빌드 계정 JS 약226KB(gzip 약60KB), 일반판은 이를 다운로드할 필요가 없다.
 - 로컬 모바일 6흐름 통과: 320px 안내, 이름/설정 reload, offline edit, 전투 진입/입력/일시정지/재시작, 일반판 분리. 초기 브라우저 검사 스크립트가 기존 상태 이름을 잘못 사용해 timeout했고 실제 `choose`/`fight` 값으로 교정한 후 통과했다. 제품 실패를 숨기기 위해 문턱을 낮춘 것이 아니다.
+- 공개 브라우저는 관리 프록시 CA를 신뢰하는 Playwright request transport로 실제 HTTPS bytes를 가져와 렌더한다(TLS 검사 유지). Chromium 자체 기본 신뢰 저장소로 첫 접근은 인증서 오류여서 이 검증 경로로 조정했다.
 - 공개 배포/파일 일치는 별도 release.json에 기록한다. 원본 PWA 최신본은 이번에 열람/수정하지 않아 이식 호환은 미검증이다.
 
 ## 재현/후속

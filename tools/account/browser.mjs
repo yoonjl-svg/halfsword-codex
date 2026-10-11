@@ -12,6 +12,15 @@ const launch={executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=
 if(!local){const u=new URL(process.env.HTTPS_PROXY);launch.proxy={server:u.protocol+'//'+u.host};if(u.username)launch.proxy.username=decodeURIComponent(u.username);if(u.password)launch.proxy.password=decodeURIComponent(u.password);}
 const browser=await chromium.launch(launch),errors=[],hashes={};
 const context=await browser.newContext({viewport:{width:844,height:390},isMobile:true,hasTouch:true,deviceScaleFactor:1});
+// Chromium does not inherit the managed proxy CA; Playwright's request transport does.
+// Fetch actual public bytes with TLS verification enabled, then render those bytes.
+if (!local) await context.route('**/*', async route => {
+ try {
+  const url=new URL(route.request().url());assert.equal(url.origin,base.origin);assert(url.pathname.startsWith(base.pathname));assert.equal(route.request().method(),'GET');
+  const response=await route.fetch({maxRedirects:0,maxRetries:0,timeout:30000});assert.equal(response.status(),200);
+  await route.fulfill({response,body:await response.body()});
+ } catch(error) {errors.push('public fetch: '+error.message);await route.abort();}
+});
 const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
 const pending=[];
 page.on('response',r=>{if(r.url().startsWith(base.href)&&r.status()===200)pending.push((async()=>{const url=new URL(r.url());const relative=decodeURIComponent(url.pathname.slice(base.pathname.length))||'index.html';if(!relative||relative.includes('..'))return;try{const actual=await r.body(),expected=await fs.readFile(path.join(build,relative));assert.equal(createHash('sha256').update(actual).digest('hex'),createHash('sha256').update(expected).digest('hex'),relative);hashes[relative]=createHash('sha256').update(actual).digest('hex');}catch(e){errors.push('hash '+relative+': '+e.message);}})());});
