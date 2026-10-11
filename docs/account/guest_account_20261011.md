@@ -22,3 +22,5 @@
 `node --test tools/account/*.test.mjs`; `node integrations/stillness-account/backend/run-tests.mjs /tmp/halfsword-account-dbtest`; `npm run build -- --outDir /tmp/halfsword-account-build-20261011`; `node tools/account/browser.mjs URL OUTDIR BUILD`; `python3 -B tools/account/package.py`.
 
 [준비판 안내](https://yoonjl-svg.github.io/halfsword-codex/account.html), [코드/연결 인계](../../integrations/stillness-account/README.md). 계정 삭제 UI·재화/성장·전적/순위는 이번 범위 밖이다. 라이브 서비스 개통은 별도 공급자 계정/권한 없이는 완료할 수 없다. 기본 Supabase 발송은 수신자와 발송량 제한이 있어 일반 이용자 이메일 인증을 보장하지 않는다. 운영 메일 발송 설정 후 실제 이메일/새 기기 복원부터 검사한다.
+
+공개 전달: `a63eac7`, Pages38116470189 성공. 로컬/공개 모바일 각6흐름, 실제 공개179고유 파일 SHA-256 일치·페이지 오류0. 준비판과 인계 ZIP18파일 전달 완료. 라이브 계정 서비스는 여전히 미연결이다. [영수증](release.json).
