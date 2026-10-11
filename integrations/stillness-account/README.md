@@ -1,16 +1,27 @@
 # 가입 없는 적막 계정 · 2026-10-11
 
-사용자 결정: 가입 문턱 최소화, 기존 서비스 없음. 자동 Supabase 익명 계정＋선택 이메일 OTP 보관/복원. 비밀번호 없음. 첫 범위는 닉네임과 10개 설정. 진행/전적/순위/인벤토리는 아직 저장하지 않는다.
+사용자 결정: 가입 문턱 최소화, 기존 서비스 없음. 자동 Supabase 익명 계정＋선택 이메일 OTP 보관/복원. 비밀번호 없음. 닉네임과 10개 설정에 더해, 별도 성장 시험 공간에서 승수·코인·성장 포인트·아이템·장식 표시·플레이어 힘 단계를 저장한다. 경쟁 순위·유료 재화·거래는 구현하지 않았다.
 
-현재 코드: `/src/account/`. 원본 halfsword는 수정하지 않았으며 원본 최신 코드 호환을 검증했다고 주장하지 않는다. 우리 fork의 `?account=1`에만 연결했다. `config.js` URL/키는 빈 값이라 공개 준비판은 **기기 저장만** 한다. 준비판의 상태 문구가 계정 저장 성공으로 표시되어서는 안 된다.
+현재 코드: `/src/account/`. 원본 halfsword는 수정하지 않았으며 원본 최신 코드 호환을 검증했다고 주장하지 않는다. 우리 fork의 `?account=1`은 이름/설정 준비판, **`?account=1&growth=1`은 성장 연습판**이다. 성장 입구는 두 항목이 각 한 번 있고 다른 query 항목이 없을 때만 켜진다. 무기 고정·연구용 주소와 섞거나 중복 항목을 넣으면 성장 기능이 꺼진다. `config.js` URL/키는 빈 값이라 현재는 **기기 저장만** 한다. 실제 Supabase 프로젝트 개설·연결·다른 기기 복원은 아직 검증하지 않았다.
+
+## 성장 시험 범위
+
+- 임시 규칙: 1승당 10코인, 누적 3승마다 1포인트. 1포인트로 플레이어 힘 1단계, 최대 5단계. 다음 경기부터 근력 계수에 단계당 +2%를 적용한다. 같은 비율의 피해량 증가를 뜻하지 않는다.
+- 상점의 `wayfarer_seal`(여행자의 인장)은 30코인 장식이다. 구매·표시/해제를 지원하며 무기·방어구나 전투 능력은 추가하지 않는다.
+- 패배·동시 사망·중도 재시작에는 승리 보상이 없다. 카드 선택 뒤 실제 전투가 시작될 때 경기 표를 요청한다. 서버 모드에서는 등록되지 않은 경기와 오프라인에서 새로 시작한 경기에 보상을 주지 않는다.
+- 성장 앱 ID는 `halfsword-codex-growth-trial`이다. 이름/설정 앱 ID와 분리하며 일반판 경제는 기본 비활성이다. 원본으로 이식할 때는 성장 앱 ID·SQL 정책도 함께 별도로 정한다.
+- **기기 연습의 코인·아이템·강화는 서버로 가져올 수 없다.** 실제 서버를 연결하면 해당 Auth UID의 서버 기록을 사용한다. 기존 서버 계정에 로그인해도 다른 게스트의 성장 기록을 합치지 않는다.
+- 서버는 가격·보상·잔액·포인트와 중복 요청을 관리하지만 승패 자체는 클라이언트 보고다. 경기 표·3초 최소 시간·24시간 만료는 서버 심판이나 검증된 부정행위 방지 기능이 아니다.
+
+사용자 안내는 `public/growth.html`, 운영자가 준비할 순서는 [`public/growth-setup.html`](../../public/growth-setup.html)에 있다. 계정＋성장 SQL 합본 `public/account-growth-setup.sql`은 **새 프로젝트에서 한 번만** 실행한다. 기존 계정 테이블이 있으면 `backend/progression.sql`만 추가하는 경로를 사용한다. 세부 RPC·권한·실패/재시도 규칙은 [`backend/PROGRESSION.md`](backend/PROGRESSION.md)를 따른다.
 
 ## 이식
 
 1. 패키지의 `src/account/`를 대상 Vite 프로젝트에 복사한다. 기존 파일이 있으면 덮어쓰지 말고 비교한다.
 2. `npm install --save-exact @supabase/supabase-js@2.117.3`로 공식 SDK와 lockfile을 갱신한다.
-3. `backend/README.md`에 따라 본인 소유 Supabase 프로젝트, SQL, 익명 가입, 이메일 보관/복원 발송을 구성한다. 수동 identity linking 설정도 켠다. 설정에 필요한 값은 프로젝트 URL와 **publishable 키**뿐이다. 서비스 비밀 키는 배포하지 않는다.
+3. `public/growth-setup.html`과 `backend/README.md`에 따라 본인 소유 Supabase 프로젝트, SQL, 익명 가입, 이메일 보관/복원 발송을 구성한다. 수동 identity linking 설정도 켠다. 앱 연결에 필요한 값은 프로젝트 URL와 **publishable 키**뿐이다. 운영용 이메일 발송은 별도로 구성한다. 서비스 비밀 키·DB 비밀번호·개인 토큰은 배포하거나 채팅에 올리지 않는다.
 4. `config.js`의 appId를 원본이라면 `halfsword`처럼 고유하게 설정한다. 두 fork가 같은 GitHub Pages origin이면 앱ID별 저장키를 사용하되 동일 origin 자체는 보안 경계가 아님에 유의한다.
-5. 게임 초기화/설정 UI 준비 후 아래 adapter로 `mountAccount`를 한 번 호출한다. 계정 전용 게임 설정키도 appId별로 구분한다. 우리 구현 예시는 `game-adapter.patch`지만 원본에 자동 적용하지 않는다.
+5. 게임 초기화/설정 UI 준비 후 아래 adapter로 `mountAccount`를 한 번 호출한다. 계정 전용 게임 설정키도 appId별로 구분한다. `game-adapter.patch`는 우리 계정 추가 전 기준 `97f5f42`부터 현재 `src/main.js`까지의 전체 adapter 차이다. 원본에 자동 적용하지 말고 생명주기와 설정 side effect를 비교한다.
 
 ```js
 import { mountAccount } from './account/mount.js';
@@ -26,7 +37,9 @@ mountAccount({
 });
 ```
 
-설정 변경 완료 시 listener에 전체 설정을 전달한다. 메뉴가 닫혀 있으면 계정의 설정을 보류하고 다음 메뉴에서 '저장된 설정 적용'을 사용한다. 게임 플레이/렌더 루프는 네트워크를 기다리지 않는다. 페이지 안내 `account.html`도 복사한다.
+설정 변경 완료 시 listener에 전체 설정을 전달한다. 메뉴가 닫혀 있으면 계정의 설정을 보류하고 다음 메뉴에서 '저장된 설정 적용'을 사용한다. 게임 플레이/렌더 루프는 네트워크를 기다리지 않는다. `public/account.html`, `public/growth.html`, `public/growth-setup.html`, `public/account-growth-setup.sql`도 복사한다.
+
+성장을 연결할 때는 `mountAccount`에 `growth: { connect: controller => { /* 게임 adapter에 보관 */ } }`를 제공한다. 경기 재시작 때 `cancel()`, 카드 선택을 마친 전투 시작 때 `applyGrowthStrength(player, controller.state)`와 `begin()`, 최초 종료 판정 때 `finish(player.alive && !enemy.alive)`를 호출한다. 선택적 입구 검사는 `growthEntry`를 사용한다. 힘은 매 경기 snapshot의 절대 계수로 설정하므로 여러 번 적용해도 중첩되지 않는다. 실제 게임 hook 위치는 patch를 따른다.
 
 ## 저장/계정 전환 원칙
 
@@ -36,7 +49,7 @@ mountAccount({
 - 게스트→이메일 연결은 `updateUser`＋`email_change` OTP, 기존 계정 로그인은 `signInWithOtp(shouldCreateUser:false)`＋`email` OTP. 기존 게스트 UID 유지와 이메일 실발송은 라이브 검증이 필요하다.
 - 기기 보관/계정 저장/미전송 상태를 구분한다. 세션을 잃었다고 새 게스트를 몰래 만들지 않는다.
 - 로그아웃은 연결된 계정만 제공하며 해당 기기의 세션을 끝낸다. 서버 데이터/다른 기기 세션은 삭제하지 않는다. 계정 삭제 UI는 아직 없고 관리자 Auth 삭제 시 SQL cascade로 저장이 삭제된다.
-- 저장 내용은 설정뿐이며 클라이언트 수치를 신뢰하는 순위/재화 시스템이 아니다.
+- 성장 RPC는 현재 UID의 토큰을 고정해 요청하고, 응답 중 계정이 바뀌면 이전 응답을 적용하지 않는다. 미전송 요청도 앱＋UID별 분리하며 동일 UUID로 재시도한다. 시간 부족 `PT425`만 지연 재시도하고 결과/UUID 충돌 `PT409`는 재보상으로 바꾸지 않는다.
 
 ## PWA와 운영 연결
 
@@ -48,9 +61,15 @@ mountAccount({
 
 - `node --test tools/account/controller.test.mjs`
 - `node integrations/stillness-account/backend/run-tests.mjs /tmp/halfsword-account-dbtest` (PGlite 임시 설치는 backend README)
+- `node --test tools/account/growth.test.mjs`
+- `node integrations/stillness-account/backend/run-progression-tests.mjs /tmp/halfsword-account-dbtest`
+- `node tools/account/growth-browser.mjs <base URL> <artifact directory> <frozen build directory>`
+- `growth-physics.test.mjs`는 우리 게임의 `tools/sim/harness_m.mjs`가 필요한 실제 물리 검사다. 다른 프로젝트에는 해당 게임 연결에 맞춰 이식한다.
 - `npm run build`
 - `node tools/account/browser.mjs <base URL> <artifact directory>`
 
 SQL fixture와 클라이언트 가짜 transport 검사는 실제 Supabase Auth/메일/PostgREST 개통 증거가 아니다. 운영 전 backend README의 live checklist를 완료한다.
+
+`tools/account/package.py`는 `src/account/`, `backend/`, `tools/account/` 전체와 위 네 공개 파일, README, adapter patch를 SHA-256 manifest와 함께 묶는다. 코드를 고정한 뒤 patch를 다시 생성하고 패키지를 만든다. ZIP 생성은 서버 개통이나 공개 전달 완료를 뜻하지 않는다.
 
 근거: Supabase 공식 [anonymous sign-ins](https://supabase.com/docs/guides/auth/auth-anonymous), [passwordless email](https://supabase.com/docs/guides/auth/auth-email-passwordless), [production checklist](https://supabase.com/docs/guides/deployment/going-into-prod). 원격 원본 자료나 상대 신규 기록은 이번 작업에서 열람하지 않았다.

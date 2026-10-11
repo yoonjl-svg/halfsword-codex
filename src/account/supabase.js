@@ -20,6 +20,11 @@ export function createTransport(config) {
   };
   return {
     client,
+    growthRpc: async (method, args, userId) => {
+      if (!['snapshot', 'begin_round', 'finish_round', 'purchase', 'allocate', 'equip'].includes(method)) throw Error('Unknown growth operation');
+      const token = await bearer(userId);
+      return checked(await client.rpc('growth_' + method, args).setHeader('Authorization', token));
+    },
     session: async () => checked(await client.auth.getSession()).session?.user || null,
     guest: async () => checked(await client.auth.signInAnonymously()).user,
     load: async (userId) => {

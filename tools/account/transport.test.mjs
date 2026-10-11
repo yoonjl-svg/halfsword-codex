@@ -22,6 +22,11 @@ test('official SDK anonymous + link/recovery OTP + bound identity requests (HTTP
  try {
   assert.equal(await t.session(),null);assert.equal((await t.guest()).id,uid);
   await t.load(uid);await t.save(0,{display_name:'fixture',settings:{}},uid);
+  await t.growthRpc('snapshot',{p_app_id:'halfsword-codex-growth-trial'},uid);
+  assert.equal(calls.at(-1).path,'/rest/v1/rpc/growth_snapshot');
+  assert.equal(calls.at(-1).authorization,`Bearer ${token}`);
+  await assert.rejects(()=>t.growthRpc('purchase',{},'other'),{code:'PT401'});
+  await assert.rejects(()=>t.growthRpc('unexpected',{},uid),/Unknown growth operation/);
   await assert.rejects(()=>t.save(0,{display_name:'wrong',settings:{}},'other'),{code:'PT401'});
   await t.sendCode('player@example.com','link');await t.verify('player@example.com','123456','link');
   await t.sendCode('player@example.com','login');await t.verify('player@example.com','123456','login');
@@ -33,6 +38,8 @@ test('official SDK anonymous + link/recovery OTP + bound identity requests (HTTP
   const original=t.client.auth.getSession.bind(t.client.auth);let reads=0;
   t.client.auth.getSession=async()=>{reads++;if(reads===1)return original();return {data:{session:{...session(),access_token:'B-token',user:{...user,id:'B'}}},error:null};};
   await t.save(1,{display_name:'A-only',settings:{}},uid);
+  assert.equal(calls.at(-1).authorization,`Bearer ${token}`);
+  reads=0;await t.growthRpc('snapshot',{p_app_id:'halfsword-codex-growth-trial'},uid);
   assert.equal(calls.at(-1).authorization,`Bearer ${token}`);
   t.client.auth.getSession=original;
  } finally { await t.client.auth.stopAutoRefresh();globalThis.fetch=prior; }

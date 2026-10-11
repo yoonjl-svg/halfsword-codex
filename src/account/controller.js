@@ -5,14 +5,15 @@ export class AccountController {
   constructor({ appId, transport = null, storage, initialSettings = {}, onChange = () => {} }) {
     this.prefix = namespace(appId); this.appId = appId; this.transport = transport; this.storage = storage; this.onChange = onChange;
     this.epoch = 0; this.edit = 0; this.revision = 0; this.user = null; this.ready = !transport; this.dirty = false; this.saving = false;
-    this.profile = cleanProfile({ settings: initialSettings }); this.status = transport ? 'connecting' : 'local'; this.storageOK = true;
+    this.profile = cleanProfile({ settings: initialSettings }); this.status = transport ? 'connecting' : 'local'; this.storageOK = true; this.listeners = new Set();
     const local = this.read('device');
     if (local) this.profile = cleanProfile(local.profile);
   }
   read(key) { try { const value = JSON.parse(this.storage.getItem(this.prefix + key) || 'null'); if (value && key !== 'last-user') cleanProfile(value.profile); return value; } catch { this.storageOK = false; return null; } }
   write(key, value) { try { this.storage.setItem(this.prefix + key, JSON.stringify(value)); } catch { this.storageOK = false; } }
   snapshot() { return { profile: structuredClone(this.profile), user: this.user && { id: this.user.id, is_anonymous: this.user.is_anonymous }, status: this.status, storageOK: this.storageOK, ready: this.ready, dirty: this.dirty }; }
-  emit() { this.onChange(this.snapshot()); }
+  emit() { const state = this.snapshot(); this.onChange(state); for (const listener of this.listeners) listener(state); }
+  subscribe(listener) { this.listeners.add(listener); listener(this.snapshot()); return () => this.listeners.delete(listener); }
   persist() { this.write(this.user ? `user:${this.user.id}` : 'device', { profile: this.profile, revision: this.revision, dirty: this.dirty }); }
   start() {
     if (!this.starting) this.starting = this.startOnce().finally(() => { this.starting = null; });

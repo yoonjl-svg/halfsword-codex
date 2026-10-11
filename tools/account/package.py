@@ -13,7 +13,10 @@ for folder in ['src/account', 'integrations/stillness-account/backend', 'tools/a
             files[name] = p.read_bytes()
 for name, src in [('README.md', 'integrations/stillness-account/README.md'),
                   ('game-adapter.patch', 'integrations/stillness-account/game-adapter.patch'),
-                  ('public/account.html', 'public/account.html')]:
+                  ('public/account.html', 'public/account.html'),
+                  ('public/growth.html', 'public/growth.html'),
+                  ('public/growth-setup.html', 'public/growth-setup.html'),
+                  ('public/account-growth-setup.sql', 'public/account-growth-setup.sql')]:
     files[name] = (root / src).read_bytes()
 manifest = {'format': 1, 'files': [{'path': n, 'bytes': len(b), 'sha256': hashlib.sha256(b).hexdigest()} for n, b in sorted(files.items())]}
 files['MANIFEST.json'] = (json.dumps(manifest, ensure_ascii=False, indent=2) + '\n').encode()

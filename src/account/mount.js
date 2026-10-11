@@ -99,6 +99,10 @@ export async function mountAccount(adapter) {
     if (controller.dirty) { await controller.flush(); if (controller.dirty) { message('아직 전송하지 못한 설정이 있습니다. 연결 후 다시 시도해주세요.'); return; } }
     await transport.signOut(); controller.sessionEnded(); message('이 기기에서 로그아웃했습니다.');
   });
+  if (adapter.growth) {
+    const { mountGrowth } = await import('./growth-panel.js');
+    mountGrowth({ account: controller, transport, storage, adapter: adapter.growth });
+  }
   render(controller.snapshot()); await controller.start();
   // Keep async work outside the SDK auth callback's storage lock.
   transport?.client.auth.onAuthStateChange((event, session) => {

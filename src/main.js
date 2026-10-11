@@ -60,6 +60,7 @@ import { configureSwordsmanshipDefault, swordsmanshipDefaultSupportsWeapon } fro
 import { configureCombatDefaults } from './combat_defaults.js';
 import { configureRecoveryFinishTrial, mountRecoveryFinishTrial } from './recovery_finish_trial.js';
 import { configureOpportunityTrial, mountOpportunityTrial } from './opportunity_trial.js';
+import { growthEntry, applyGrowthStrength } from './account/growth-model.js';
 import { initializeOpportunityDrill, advanceOpportunityDrill, mountOpportunityDrill, updateOpportunityDrill } from './opportunity_drill.js';
 
 await RAPIER.init();
@@ -168,6 +169,8 @@ function drawCardIds() {
 // ── 설정 (브라우저에 저장) ──
 const DEFAULTS = { difficulty: 'normal', pixel: false, blood: true, sound: true, invertTilt: false, moveMode: 'stick', skill: '0.7', guardNames: true, trail: true, fpsCap: true };
 const ACCOUNT_PREVIEW = new URLSearchParams(location.search).get('account') === '1';
+const GROWTH_PREVIEW = growthEntry(requestedParams);
+let accountGrowth = null;
 const SETTINGS_KEY = ACCOUNT_PREVIEW ? 'stillness-account:v1:halfsword-codex:game-settings' : 'gladiator-settings';
 const settings = { ...DEFAULTS };
 try {
@@ -1253,6 +1256,7 @@ function showHint(text, ms = 3500) {
 }
 
 async function startFight() {
+  accountGrowth?.cancel(); // Restart abandons an unfinished reward ticket.
   sound.unlock();
   sound.ambience(); // 배경의 고요 (포세이돈: 파도·바람, 산사: 산바람·풍경·산새). 아주 작게, 처음 한 번만 켜진다
   // 폰이면 전체화면 + 가로 고정 시도 (지원 안 하면 조용히 넘어감)
@@ -1294,6 +1298,10 @@ async function startFight() {
 
 /** 무기를 받았다: 싸움 시작 ("Battle", 조이스틱, 조작 안내) */
 function beginFight() {
+  if (GROWTH_PREVIEW) {
+    applyGrowthStrength(player, accountGrowth?.state); // Absolute snapshot; upgrades affect the next fight.
+    void accountGrowth?.begin();
+  }
   input.resetTransient();
   state = 'fight';
   limbDemoAt = ['armS', 'legF'].includes(limbDemo) ? stats.simTime + 1 : Infinity;
@@ -1510,6 +1518,7 @@ function checkRoundEnd(dt) {
       roundOver = true;
       resultShown = false;
       const win = !enemy.alive;
+      if (GROWTH_PREVIEW) void accountGrowth?.finish(player.alive && !enemy.alive);
       lastRoundWon = win; // 다음 판을 열 때 다음 무대로 넘어갈지 (nextRoundStage)
       showRoundResult();
       if (!win && currentFoe) showFoeLine(currentFoe, randomLine(currentFoe, 'win')); // 상대의 승리 대사 (죽은 쪽은 말이 없다)
@@ -1860,6 +1869,7 @@ window.game = {
 // Optional account preview; regular game and physical controls are unchanged.
 if (ACCOUNT_PREVIEW) {
   import('./account/mount.js').then(({ mountAccount }) => mountAccount({
+    growth: GROWTH_PREVIEW ? { connect: growth => { accountGrowth = growth; } } : null,
     read: () => ({ ...settings }),
     subscribe: (callback) => accountSettingsListeners.add(callback),
     canApply: () => $('menu').classList.contains('show'),
