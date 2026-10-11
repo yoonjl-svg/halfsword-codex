@@ -103,7 +103,7 @@ export function createSilverWandererOutfit(h) {
     addMerged(l, [line([[.116, .132, -.004], [.118, .027, .006], [.118, -.139, -.002]], .002)], 0xbbbfc4, cloth);
     addMerged(l, [line([[.117, .074, -.093], [.123, .039, -.046], [.12, .012, -.018]], .002),
       line([[.117, -.088, .11], [.124, -.106, .057], [.118, -.119, .027]], .002)], 0xd0d1d0, cloth);
-    if (look?.hairStyle !== 'swept_long_front') backHair(g);
+    if (!look?.hairStyle) backHair(g);
   }
   function abdomen(g) {
     torso(g, WHITE); const l = layer(g);
