@@ -72,3 +72,17 @@ test('cancelled in-flight registration cannot arrive after its replacement',asyn
  const rpc=async(m,a)=>{if(m==='begin_round'&&++begins===1)await delayed.promise;return f.rpc(m,a);};
  const c=new GrowthController({rpc,storage:f.storage});await c.identify('practice');const first=c.begin();await waitTurn();c.cancel();const next=c.begin();await waitTurn();assert.equal(begins,1);delayed.resolve();await Promise.all([first,next]);f.tick();await c.finish(true);assert.equal(c.state.wins,1);
 });
+test('settlement UI events only follow committed operations, never cache refresh; throwing UI cannot replay a purchase',async()=>{
+ const f=fixture(),events=[];const c=new GrowthController({rpc:f.rpc,storage:f.storage,onSettled:e=>{events.push(e);throw Error('UI handler failed');}});
+ await c.identify('practice');await c.refresh();assert.equal(events.length,0);
+ for(let i=0;i<3;i++){await c.begin();f.tick();await c.finish(true);}
+ assert.equal(events.length,3);assert.equal(events[0].state.coins-events[0].previous.coins,10);
+ await c.enqueue('purchase',{p_item_id:'wayfarer_seal'});await c.flush();await c.refresh();
+ assert.equal(events.length,4);assert.equal(c.pending().length,0);assert.equal(c.state.coins,0);assert.equal(c.state.inventory.length,1);
+});
+test('lost reward response shows no award until recovery and no duplicate delta after snapshot',async()=>{
+ const f=fixture(),events=[];let fail=true;
+ const rpc=async(m,a,u)=>{const value=await f.rpc(m,a,u);if(m==='finish_round'&&fail){fail=false;throw Error('lost response');}return value;};
+ const c=new GrowthController({rpc,storage:f.storage,onSettled:e=>events.push(e)});await c.identify('practice');await c.begin();f.tick();await c.finish(true);assert.equal(events.length,0);assert.equal(c.pendingCount(),1);
+ await c.refresh();assert.equal(events.length,1);assert.equal(events[0].state.coins-events[0].previous.coins,0);assert.equal(c.state.coins,10);assert.equal(c.pendingCount(),0);
+});

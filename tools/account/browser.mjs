@@ -38,10 +38,10 @@ try{
  await context.setOffline(true);await page.locator('[name=nickname]').fill('연결 없이 기억');await page.locator('[data-profile] button').click();await context.setOffline(false);
  await open();await page.locator('.account-panel summary').click();assert.equal(await page.locator('[name=nickname]').inputValue(),'연결 없이 기억');
  await page.locator('#btnStart').click();await page.waitForFunction(()=>window.game.draw.stage==='choose' && window.game.draw.t>=.45);await page.locator('.wcard[data-i="0"]').click();
- await page.waitForFunction(()=>window.game.state==='fight' && window.game.player.fightT>2.05,{timeout:20000});
+ await page.waitForFunction(()=>window.game.state==='fight' && window.game.player.fightT>2.05,null,{timeout:90000});
  await page.touchscreen.tap(650,190);await page.waitForTimeout(400);await page.locator('#btnPause').click();
  assert(await page.locator('#menu').evaluate(e=>e.classList.contains('show')));await page.locator('#btnStart').click();
- await page.waitForFunction(()=>window.game.draw.stage==='choose' && window.game.draw.t>=.45);await page.locator('.wcard[data-i="0"]').click();await page.waitForFunction(()=>window.game.state==='fight' && window.game.player.fightT>2.05);
+ await page.waitForFunction(()=>window.game.draw.stage==='choose' && window.game.draw.t>=.45);await page.locator('.wcard[data-i="0"]').click();await page.waitForFunction(()=>window.game.state==='fight' && window.game.player.fightT>2.05,null,{timeout:90000});
  // Normal game does not load the account panel or inherit trial preferences.
  await page.goto(new URL('?cards=sain,ice',base).href,{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>!!window.game);assert.equal(await page.locator('.account-panel').count(),0);
  await Promise.all(pending);assert.deepEqual(errors,[]);

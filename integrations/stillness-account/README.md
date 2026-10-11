@@ -15,6 +15,16 @@
 
 사용자 안내는 `public/growth.html`, 운영자가 준비할 순서는 [`public/growth-setup.html`](../../public/growth-setup.html)에 있다. 계정＋성장 SQL 합본 `public/account-growth-setup.sql`은 **새 프로젝트에서 한 번만** 실행한다. 기존 계정 테이블이 있으면 `backend/progression.sql`만 추가하는 경로를 사용한다. 세부 RPC·권한·실패/재시도 규칙은 [`backend/PROGRESSION.md`](backend/PROGRESSION.md)를 따른다.
 
+## 모바일 UI · 2026-10-12
+
+성장 adapter를 제공하면 `hub.js`가 기존 제목·설정·시작/재개 DOM을 이동해 여정·상점·보관함·성장·계정·설정 화면을 만든다. 기존 이벤트와 전투 hook은 유지한다. 인장 SVG는 UI 장식이며 캐릭터 장비 메시를 생성하지 않는다. 일반 `?account=1` 계정 패널은 유지한다.
+
+- 상단 코인/계정, 결과 보상, 구매 확인/취소, 보유/장착 상태, 성장 확인. 요청 완료 전 잔액을 미리 바꾸지 않는다.
+- 보상/구매/강화 요청이 남아 있으면 다음 경기 시작을 잠시 막고 모든 화면에서 재연결 상태를 표시한다. 보류 결과 때문에 다음 경기 등록이 사라지는 것을 막는다.
+- 로그인과 이메일 연결은 별도 단계, 인증번호 취소/수정/재전송 30초 제한, 입력값 보존을 지원한다. 서버 미설정이면 이메일 버튼을 비활성화한다.
+- `GrowthController.onSettled`는 처리 완료 알림이다. snapshot 불러오기는 보상 획득 알림이 아니며 알림 예외가 완료된 요청을 재전송하지 않는다.
+- 이번 사용자 허가로 원본 `bb181e1590cde3097b66ecab1c0587fbcc8e6129`의 공개 UI만 참고했다. 갈색/크림/금색 색상과 터치 버튼 분위기를 맞췄다. 원본에는 현재 이 성장 UI가 없으며 원본 저장소를 수정하지 않았다.
+
 ## 이식
 
 1. 패키지의 `src/account/`를 대상 Vite 프로젝트에 복사한다. 기존 파일이 있으면 덮어쓰지 말고 비교한다.
@@ -65,6 +75,7 @@ mountAccount({
 - `node integrations/stillness-account/backend/run-progression-tests.mjs /tmp/halfsword-account-dbtest`
 - `node tools/account/growth-browser.mjs <base URL> <artifact directory> <frozen build directory>`
 - `growth-physics.test.mjs`는 우리 게임의 `tools/sim/harness_m.mjs`가 필요한 실제 물리 검사다. 다른 프로젝트에는 해당 게임 연결에 맞춰 이식한다.
+- `node tools/account/auth-ui-browser.mjs` (실제 UI＋모의 인증 transport; 실제 메일 증거 아님)
 - `npm run build`
 - `node tools/account/browser.mjs <base URL> <artifact directory>`
 
@@ -72,4 +83,4 @@ SQL fixture와 클라이언트 가짜 transport 검사는 실제 Supabase Auth/�
 
 `tools/account/package.py`는 `src/account/`, `backend/`, `tools/account/` 전체와 위 네 공개 파일, README, adapter patch를 SHA-256 manifest와 함께 묶는다. 코드를 고정한 뒤 patch를 다시 생성하고 패키지를 만든다. ZIP 생성은 서버 개통이나 공개 전달 완료를 뜻하지 않는다.
 
-근거: Supabase 공식 [anonymous sign-ins](https://supabase.com/docs/guides/auth/auth-anonymous), [passwordless email](https://supabase.com/docs/guides/auth/auth-email-passwordless), [production checklist](https://supabase.com/docs/guides/deployment/going-into-prod). 원격 원본 자료나 상대 신규 기록은 이번 작업에서 열람하지 않았다.
+근거: Supabase 공식 [anonymous sign-ins](https://supabase.com/docs/guides/auth/auth-anonymous), [passwordless email](https://supabase.com/docs/guides/auth/auth-email-passwordless), [production checklist](https://supabase.com/docs/guides/deployment/going-into-prod). 초기 계정 기반 작업에는 원본 열람이 없었다. 10/12 UI 작업에서는 위에 명시한 공개 화면만 사용자 허가로 참고했다.

@@ -1,13 +1,14 @@
 import { GROWTH_APP, emptyGrowth, checkedGrowth } from './growth-model.js';
 
 export class GrowthController {
-  constructor({ rpc, storage, onChange = () => {}, uuid = () => crypto.randomUUID() }) {
-    this.rpc = rpc; this.storage = storage; this.onChange = onChange; this.uuid = uuid;
+  constructor({ rpc, storage, onChange = () => {}, onSettled = () => {}, uuid = () => crypto.randomUUID() }) {
+    this.rpc = rpc; this.storage = storage; this.onChange = onChange; this.onSettled = onSettled; this.uuid = uuid;
     this.identity = null; this.epoch = 0; this.state = emptyGrowth(); this.ready = false; this.running = false; this.status = '계정 연결 중'; this.error = ''; this.round = null;
     this.roundTail = Promise.resolve(); this.flushing = null;
   }
   prefix() { return `stillness-growth:v1:${GROWTH_APP}:${this.identity}:`; }
-  emit() { this.onChange({ state: structuredClone(this.state), ready: this.ready, busy: this.running, status: this.status, error: this.error, identity: this.identity }); }
+  emit() { this.onChange({ state: structuredClone(this.state), ready: this.ready, busy: this.running, status: this.status, error: this.error, identity: this.identity, roundActive: !!this.round, pendingCount: this.pendingCount() }); }
+  pendingCount() { try { return this.pending().length; } catch { return 1; } }
   pending() {
     const rows = []; const prefix = this.prefix() + 'pending:';
     for (let i = 0; i < this.storage.length; i++) {
@@ -50,7 +51,7 @@ export class GrowthController {
   async begin() {
     this.cancel();
     if (!this.identity || !this.ready) { this.status = '이번 판은 연습 · 성장 연결 전'; this.emit(); return; }
-    const handle = { epoch: this.epoch, identity: this.identity, active: true, id: this.uuid() }; this.round = handle;
+    const handle = { epoch: this.epoch, identity: this.identity, active: true, id: this.uuid() }; this.round = handle; this.emit();
     handle.ticket = this.roundTail.catch(() => {}).then(async () => {
       await this.flush(); // Settle the previous result before replacing the server's active ticket.
       if (!handle.active || handle.epoch !== this.epoch || this.pending().length) return null;
@@ -106,7 +107,10 @@ export class GrowthController {
         try {
           const result = await this.rpc(op.method, op.args, this.identity);
           if (epoch !== this.epoch) return;
+          const previous = structuredClone(this.state);
           this.accept(result); this.storage.removeItem(op.key); this.status = '저장됨';
+          // UI notification must never turn an accepted ledger operation into a retry.
+          try { this.onSettled({ method: op.method, args: op.args, previous, state: structuredClone(this.state), identity: this.identity }); } catch { /* Ledger remains committed. */ }
         } catch (error) {
           if (epoch !== this.epoch) return;
           if (error.code === 'PT425') {
