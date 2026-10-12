@@ -98,7 +98,7 @@ export async function mountAccount(adapter) {
       el('[data-session]').textContent = signedIn ? '연결된 계정' : transport && state.user ? '게스트 계정' : '이 기기의 게스트';
       el('[data-guest-continue]').innerHTML = `${signedIn ? '이 계정으로 계속하기' : '가입 없이 계속하기'} <span aria-hidden="true">→</span>`;
       el('[data-availability]').textContent = !transport ? '계정 연결 준비 중 · 지금은 기기 저장으로 이용하세요.' : state.status === 'connecting' ? '계정을 연결하고 있습니다.' : state.status === 'offline' ? '연결이 원활하지 않습니다. 잠시 후 다시 시도해주세요.' : state.status === 'expired' ? '이메일로 로그인하면 이전 계정을 불러올 수 있습니다.' : '이메일로 받은 인증번호를 사용합니다.';
-      el('[data-device-help]').textContent = signedIn ? '이 계정에 기록을 보관합니다. 저장 상태를 확인해주세요.' : '이 브라우저에 기록합니다. 브라우저 데이터를 지우면 사라질 수 있습니다.';
+      el('[data-device-help]').textContent = signedIn ? '이 계정에 기록을 보관합니다. 저장 상태를 확인해주세요.' : transport && state.user ? '게스트 계정에 저장합니다. 이메일을 연결해야 브라우저 데이터를 지운 뒤에도 불러올 수 있습니다.' : '이 브라우저에 기록합니다. 브라우저 데이터를 지우면 사라질 수 있습니다.';
     }
     renderAuth(state);
     const settings = JSON.stringify(state.profile.settings);

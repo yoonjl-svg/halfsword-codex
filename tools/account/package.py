@@ -18,6 +18,9 @@ for name, src in [('README.md', 'integrations/stillness-account/README.md'),
                   ('public/growth-setup.html', 'public/growth-setup.html'),
                   ('public/account-growth-setup.sql', 'public/account-growth-setup.sql')]:
     files[name] = (root / src).read_bytes()
+# A fork must deliberately choose its own project/app namespace. The public key
+# is not secret, but shipping our active configuration can mix another app's data.
+files['src/account/config.js'] = b"// Set your own public project URL, publishable key and unique appId.\nexport default Object.freeze({ appId: 'halfsword-codex', url: '', publishableKey: '' });\n"
 manifest = {'format': 1, 'files': [{'path': n, 'bytes': len(b), 'sha256': hashlib.sha256(b).hexdigest()} for n, b in sorted(files.items())]}
 files['MANIFEST.json'] = (json.dumps(manifest, ensure_ascii=False, indent=2) + '\n').encode()
 p = root / 'public/stillness-account.zip'
