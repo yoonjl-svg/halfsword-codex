@@ -38,7 +38,7 @@ document.addEventListener('visibilitychange', () => {
   }
 });
 
-async function play(row, voice, kind, label, button) {
+async function play(row, voice, kind, variation, label, button) {
   stopAudio();
   const request = revision;
   try {
@@ -56,15 +56,22 @@ async function play(row, voice, kind, label, button) {
     });
     await loadQueue;
     if (request !== revision) return;
-    if (!sound.samples[`voice:${voice}:${kind}`]?.length) throw new Error('sample-unavailable');
+    const sampleKey = `voice:${voice}:${kind}`;
+    if (sound.samples[sampleKey]?.length !== takeCount(voice, kind)) throw new Error('sample-unavailable');
     if (sound.ctx.state !== 'running') throw new Error('audio-suspended');
     sound.on = true;
-    if (kind === 'hurt') sound.hurt(voice, 0.7);
-    else sound.death(voice, kind === 'ko' ? '기절' : '출혈');
+    const pickSample = sound.pickSample;
+    sound.pickSample = function (key) {
+      return key === sampleKey ? this.samples[key][variation] : pickSample.call(this, key);
+    };
+    try {
+      if (kind === 'hurt') sound.hurt(voice, 0.7);
+      else sound.death(voice, kind === 'ko' ? '기절' : '출혈');
+    } finally { sound.pickSample = pickSample; }
     activeButton = button;
     button.classList.add('is-playing');
-    const eventLabel = kind === 'hurt' ? '짧은 신음' : kind === 'ko' ? '기절' : '출혈';
-    status.textContent = `${row.name} · ${label} · ${eventLabel} 재생 중`;
+    const eventLabel = kind === 'hurt' ? '피격' : kind === 'ko' ? '기절' : '출혈';
+    status.textContent = `${row.name} · ${label} · ${eventLabel} ${variation + 1} 재생 중`;
     const end = Math.max(sound.ctx.currentTime, ...sound.voices.map((event) => event.end));
     finishTimer = setTimeout(() => {
       if (request !== revision) return;
@@ -86,16 +93,24 @@ function element(tag, text, className) {
   return node;
 }
 
+function takeCount(voice, kind) {
+  const takes = VOICES[voice]?.rec?.[kind];
+  return Array.isArray(takes) ? takes.length : takes || 0;
+}
+
 function controls(row, voice, label) {
   const group = element('fieldset');
   group.append(element('legend', label));
   const buttons = element('div', '', 'buttons');
-  for (const [kind, text] of [['hurt', '짧은 신음'], ['ko', '기절'], ['bleed', '출혈']]) {
-    const button = element('button', text);
-    button.type = 'button';
-    button.setAttribute('aria-label', `${row.name} ${label} ${text} 듣기`);
-    button.addEventListener('click', () => play(row, voice, kind, label, button));
-    buttons.append(button);
+  for (let variation = 0; variation < 2; variation++) {
+    for (const [kind, text] of [['hurt', '피격'], ['ko', '기절'], ['bleed', '출혈']]) {
+      if (variation >= takeCount(voice, kind)) continue;
+      const button = element('button', `${text} ${variation + 1}`);
+      button.type = 'button';
+      button.setAttribute('aria-label', `${row.name} ${label} ${text} ${variation + 1} 듣기`);
+      button.addEventListener('click', () => play(row, voice, kind, variation, label, button));
+      buttons.append(button);
+    }
   }
   group.append(buttons);
   return group;
@@ -109,8 +124,7 @@ async function showCast() {
     if (!Array.isArray(rows)) throw new Error('invalid-catalog');
     const ordered = [...rows].sort((a, b) => Number(Boolean(b.changed)) - Number(Boolean(a.changed)));
     for (const row of ordered) {
-      const excluded = row.id === 'sherpa';
-      const changed = Boolean(row.changed) && !excluded;
+      const changed = Boolean(row.changed);
       const card = element('section', '', `character${changed ? ' changed' : ''}`);
       card.dataset.character = row.id;
       const title = element('h2', row.name);
@@ -118,10 +132,10 @@ async function showCast() {
       card.setAttribute('aria-labelledby', title.id);
       card.append(title);
       const meta = element('p', `${row.id === 'player' ? '내 캐릭터' : row.age == null ? '나이 미상' : `${row.age}세`} · `, 'meta');
-      meta.append(element('span', excluded ? '이번 비교 제외 · 기존 유지' : changed ? '새 배정' : row.id === 'player' ? '사망음 교정' : '기존 유지', 'badge'));
+      meta.append(element('span', changed ? '새 배정' : '각 2개 변주', 'badge'));
       card.append(meta);
       if (row.note) card.append(element('p', row.note));
-      if (!excluded) {
+      {
         if (changed) card.append(controls(row, row.before, '이전'), controls(row, row.voice, '새 배정'));
         else card.append(controls(row, row.voice, '현재 목소리'));
       }

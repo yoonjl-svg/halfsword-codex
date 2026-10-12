@@ -6,8 +6,8 @@ import { WANDERER_CHARACTERS } from './characters_wanderers.js';
 export const EXPANSION_CHARACTERS = [
   ...WANDERER_CHARACTERS,
   {
-    id: 'crown_boss', name: '사미라 미르자', epithet: '붉은 봉인의 전령', age: 28,
-    origin: '인도 · 서해안의 항구 도시', weapon: 'pistol', voice: 'isolde',
+    id: 'crown_boss', name: '마야 라토르', epithet: '붉은 봉인의 전령', age: 28,
+    origin: '인도 · 서해안의 항구 도시', weapon: 'pistol', voice: 'maya',
     backstory: '인도 서해안의 항구에서 출발한 군의 전령. 폭풍으로 철수 명령을 제때 전하지 못한 뒤, 돌아오지 못한 동료들의 이름과 봉인된 명령서를 품고 다닌다. 지금은 먼 성소의 마지막 문을 지키며, 그 문을 넘어갈 사람만큼은 헛되이 보내지 않으려 한다.',
     want: '끝내 전하지 못한 마지막 소식을 남은 가족에게 돌려주고, 자신의 임무를 마치는 것.',
     school: '기존 리볼버의 조준·사격·장전을 사용하는 창작 최종 보스.',
@@ -96,7 +96,7 @@ export const EXPANSION_CHARACTERS = [
     lines: { intro: ['배는 내가 몰지. 내 삶도 마찬가지야.', '몸값은 안 받는다. 길만 비켜.', '바람이 바뀌기 전에 끝내자고.'], win: ['빚은 여기서 끝이다.', '살아 있으면, 다음 항구에서 보자.', '우리 배에 빈자리는 있어. 족쇄는 없고.'] },
   },
   {
-    id: 'yeongman', name: '영만', epithet: '숲이 부른 이름', age: 19,
+    id: 'yeongman', name: '미나미', epithet: '숲이 부른 이름', age: 19,
     origin: '일본 · 오래된 신목이 선 산골', weapon: 'monohoshizao', voice: 'isolde',
     backstory: '신목 아래 작은 사당을 돌보는 열아홉 살 무녀. 장마 뒤 숲을 베어 길을 내겠다는 사람들이 찾아오자, 사당에 남은 긴 칼을 들고 처음으로 산을 내려왔다. 나무와 물의 길에는 밝지만 사람의 싸움에는 아직 서툴다.',
     want: '마을의 물길과 신목을 지키고, 돌아와 다시 평범한 아침을 맞는 것.',

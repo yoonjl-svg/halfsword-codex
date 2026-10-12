@@ -433,7 +433,7 @@ export const LOOK_ARCHIVE = {
       outfit: 'omari_seafarer',
     },
   },
-  // 영만 is the user-confirmed name; nineteen-year-old adult proportions stay native.
+  // 미나미 is the user-confirmed name; nineteen-year-old adult proportions stay native.
   yeongman: {
     v1: {
       tunic: 0xe9e5d5, quilt: 0xe9e5d5, sleeve: 0xe9e5d5,

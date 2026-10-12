@@ -1,0 +1,125 @@
+{
+  "baseline": "c5afbb569961d6bb8e57e48bbed69d0d1ffeaf54",
+  "baselineInventorySHA256": "695994949fdf6be885fe9e57327f4875263a2930cf1ff004738d66261f871b61",
+  "audit": {
+    "summary": {
+      "characters": 15,
+      "subjectsIncludingPlayerAndFallback": 17,
+      "profiles": 11,
+      "publicVoiceFiles": 63,
+      "selectedUniqueFiles": 55,
+      "missingFiles": [],
+      "unknownProvenance": [],
+      "missingDistinctSlots": 0,
+      "hurtKOAliasProfiles": [],
+      "allTargetCountsMet": true,
+      "allHurtKODistinct": true,
+      "catalogMatchesRoster": true,
+      "excludedLiaoBleed2Selected": false,
+      "assetHashMismatches": []
+    },
+    "inputHashes": {
+      "src/sound.js": "0276eda5a8ed87eee3388140f4a4e2aeac48fb284057056dc61c1de06748117f",
+      "src/characters.js": "c1cbcbd18fabf18c32cf7f810c780928edca848513c207a1aef6689b6b137265",
+      "src/characters_expansion.js": "cbf398ee11b4c934dcb8229d1e5bb6782ac3023b924709171c279462126fcc30",
+      "src/characters_wanderers.js": "356005eee7621399dffd714b46044b91a7de54a1e351dc43ee9838c1ad8002eb",
+      "src/main.js": "bc3d4ab476823dd4c9b512e48de2689b0da96d7c58f2e85591ff23cc2b0c2279",
+      "public/sfx/LICENSE.txt": "e6988ed986f68046b23571c8cf678a7c60817366389bdfe0943d3bf3eb166ba0",
+      "public/voice-casting.json": "46e901951e7cbdfc0f71ea5da993568a9a7cd7f04a7ac15b3d92b0747c508a16",
+      "docs/sound/voice_refresh_assets_20261012.json": "dd781a13489e6e1a1d8c15a221cfd6873a7c8fc76f068322972f188990c21337"
+    },
+    "changedDuringAudit": [],
+    "rawReportSHA256": "28b251875e149d9eae1c2f0b6825ba7b17b5bfaf6c271952024054303c9a2901"
+  },
+  "audio": {
+    "pass": true,
+    "profiles": [
+      "maya",
+      "soft_female",
+      "tome",
+      "omari",
+      "player",
+      "generic",
+      "bran",
+      "isolde",
+      "liao",
+      "heinrich",
+      "margarethe"
+    ],
+    "sampleRates": [
+      44100,
+      48000
+    ],
+    "expectedRenders": 132,
+    "rendered": 132,
+    "retry": {
+      "id": "maya",
+      "kind": "hurt",
+      "file": "voice/maya_hurt2",
+      "url": "http://127.0.0.1:4182/sfx/voice/maya_hurt2.mp3",
+      "firstCount": 1,
+      "secondCount": 2,
+      "completeEventSets": 3,
+      "attempts": 2,
+      "pass": true
+    },
+    "errors": [],
+    "sources": {
+      "src/sound.js": "0276eda5a8ed87eee3388140f4a4e2aeac48fb284057056dc61c1de06748117f",
+      "src/config.js": "08b9818b6d9f45aecd1d7f88f664fc43491db73a395f0b242bf211e0ece3200c",
+      "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+      "src/stage_detail_sound.js": "7bafc635c73f3f08fb3b883daeb3b55f4c2f413b9fbb2b8b1941ae003fb236f3"
+    },
+    "completedUTC": "2026-10-12T05:48:08.576Z",
+    "limits": [
+      "Each row is a separate OfflineAudioContext rendering through actual Sound.build/hurt/death, with only pickSample temporarily forced to its requested variant.",
+      "Partial-load retry is an actual browser fetch receiving one injected HTTP 503 followed by the real asset response.",
+      "Scheduled voice events do not establish natural combat wound frequency, acting suitability, human listening approval, or physical phone loudness.",
+      "Player death is rendered through its quiet recording branch; player world fade and tinnitus are separate behavior checks."
+    ]
+  },
+  "audioReportSHA256": "23f54655cee60ff3956df974da9ff92f58cff24b53dd0b37009e3b6f703624ca",
+  "accountChecks": {
+    "passed": 32,
+    "failed": 0
+  },
+  "build": {
+    "passed": true,
+    "command": "npm run build -- --outDir /tmp/voice-refresh-build-20261012"
+  },
+  "subjectiveListening": "not claimed; user comparison remains",
+  "localBrowser": {
+    "pass": true,
+    "checks": [
+      {
+        "name": "16subjects, exact six buttons, each used profile plus Maya comparison, no early voice fetch, stop, unchanged settings, no rejected take",
+        "taps": 66,
+        "widths": [
+          320,
+          390,
+          844
+        ]
+      },
+      {
+        "name": "mobile game input/pause/restart crown_boss",
+        "voice": "maya"
+      },
+      {
+        "name": "mobile game input/pause/restart eira",
+        "voice": "soft_female"
+      },
+      {
+        "name": "player death uses one quiet exhale; tinnitus code unchanged"
+      },
+      {
+        "name": "mobile game input/pause/restart omari",
+        "voice": "omari"
+      }
+    ],
+    "errors": [],
+    "tlsVerification": true,
+    "completedUTC": "2026-10-12T05:52:45.251Z",
+    "matchedBuildFiles": 227,
+    "rawReportSHA256": "844eabd9f92bc4fb23a3f9d2a66d1f35a9d8e806278e1cc896a9081b88857764"
+  }
+}

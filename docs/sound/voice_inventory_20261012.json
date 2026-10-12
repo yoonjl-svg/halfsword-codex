@@ -1,0 +1,2602 @@
+{
+  "schemaVersion": 1,
+  "generatedUTC": "2026-10-12T05:33:15.081Z",
+  "baselineCommit": "c5afbb569961d6bb8e57e48bbed69d0d1ffeaf54",
+  "inputHashes": {
+    "src/sound.js": "9abcd024c47a1b0ea54f6de30c3e5ae88adb42afff6e72b7092e65760f014256",
+    "src/characters.js": "c1cbcbd18fabf18c32cf7f810c780928edca848513c207a1aef6689b6b137265",
+    "src/characters_expansion.js": "3ecd7b736cb4dfb7714b2e09f8bbf5520d31a4fb61137bbd6e90b6d0bf52110c",
+    "src/characters_wanderers.js": "356005eee7621399dffd714b46044b91a7de54a1e351dc43ee9838c1ad8002eb",
+    "src/main.js": "bc3d4ab476823dd4c9b512e48de2689b0da96d7c58f2e85591ff23cc2b0c2279",
+    "public/sfx/LICENSE.txt": "f57478b088ef8c2f2869c08691fa63fb0e0a8b75a0bdadb4e800f646d7044f38"
+  },
+  "changedDuringAudit": [],
+  "command": "node tools/audio/voice_inventory_20261012.mjs [output.json] [--strict] [--target=2]",
+  "method": {
+    "rosterResolution": "src/main.js: ch?.voice || ch?.variantOf || ch?.id || 'generic'; unknown Sound voice falls back to generic",
+    "pcm": "ffmpeg decode, mono 48000 Hz float32 little-endian; SHA-256 of complete decoded frames",
+    "ffmpeg": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "ffprobe": "ffprobe version 7.1.5-0+deb13u1 Copyright (c) 2007-2026 the FFmpeg developers",
+    "silenceDetection": "-36 dB, minimum silence 0.12 s; boundaries are signal evidence, not listening approval"
+  },
+  "summary": {
+    "characters": 15,
+    "subjectsIncludingPlayerAndFallback": 17,
+    "profiles": 10,
+    "publicVoiceFiles": 47,
+    "selectedUniqueFiles": 39,
+    "missingFiles": [],
+    "unknownProvenance": [],
+    "missingDistinctSlots": 14,
+    "hurtKOAliasProfiles": [
+      "soft_female"
+    ],
+    "allTargetCountsMet": false,
+    "allHurtKODistinct": false
+  },
+  "target": 2,
+  "subjects": [
+    {
+      "id": "bran",
+      "name": "오소리 브란",
+      "age": 34,
+      "explicitVoice": null,
+      "variantOf": null,
+      "requestedVoice": "bran",
+      "voice": "bran",
+      "fallback": false
+    },
+    {
+      "id": "isolde",
+      "name": "이졸데 반 아커러",
+      "age": 21,
+      "explicitVoice": null,
+      "variantOf": null,
+      "requestedVoice": "isolde",
+      "voice": "isolde",
+      "fallback": false
+    },
+    {
+      "id": "liao",
+      "name": "랴오 쓰위엔",
+      "age": 40,
+      "explicitVoice": null,
+      "variantOf": null,
+      "requestedVoice": "liao",
+      "voice": "liao",
+      "fallback": false
+    },
+    {
+      "id": "heinrich",
+      "name": "하인리히 도른",
+      "age": 46,
+      "explicitVoice": null,
+      "variantOf": null,
+      "requestedVoice": "heinrich",
+      "voice": "heinrich",
+      "fallback": false
+    },
+    {
+      "id": "margarethe",
+      "name": "마르그레테 슈바르츠",
+      "age": 58,
+      "explicitVoice": null,
+      "variantOf": null,
+      "requestedVoice": "margarethe",
+      "voice": "margarethe",
+      "fallback": false
+    },
+    {
+      "id": "heinrich_mad",
+      "name": "광기의 하인리히 도른",
+      "age": 46,
+      "explicitVoice": null,
+      "variantOf": "heinrich",
+      "requestedVoice": "heinrich",
+      "voice": "heinrich",
+      "fallback": false
+    },
+    {
+      "id": "silver_wanderer",
+      "name": "은발의 검사",
+      "age": null,
+      "explicitVoice": "tome",
+      "variantOf": null,
+      "requestedVoice": "tome",
+      "voice": "tome",
+      "fallback": false
+    },
+    {
+      "id": "sherpa",
+      "name": "세르파",
+      "age": null,
+      "explicitVoice": "liao",
+      "variantOf": null,
+      "requestedVoice": "liao",
+      "voice": "liao",
+      "fallback": false
+    },
+    {
+      "id": "renji",
+      "name": "김씨",
+      "age": 32,
+      "explicitVoice": "tome",
+      "variantOf": null,
+      "requestedVoice": "tome",
+      "voice": "tome",
+      "fallback": false
+    },
+    {
+      "id": "eira",
+      "name": "투야나 니콜라예바",
+      "age": 26,
+      "explicitVoice": "soft_female",
+      "variantOf": null,
+      "requestedVoice": "soft_female",
+      "voice": "soft_female",
+      "fallback": false
+    },
+    {
+      "id": "crown_boss",
+      "name": "마야 라토르",
+      "age": 28,
+      "explicitVoice": "isolde",
+      "variantOf": null,
+      "requestedVoice": "isolde",
+      "voice": "isolde",
+      "fallback": false
+    },
+    {
+      "id": "artoria",
+      "name": "아르토리아",
+      "age": 24,
+      "explicitVoice": "soft_female",
+      "variantOf": null,
+      "requestedVoice": "soft_female",
+      "voice": "soft_female",
+      "fallback": false
+    },
+    {
+      "id": "tome",
+      "name": "토메 비달",
+      "age": 64,
+      "explicitVoice": "tome",
+      "variantOf": null,
+      "requestedVoice": "tome",
+      "voice": "tome",
+      "fallback": false
+    },
+    {
+      "id": "omari",
+      "name": "오마리",
+      "age": 51,
+      "explicitVoice": "omari",
+      "variantOf": null,
+      "requestedVoice": "omari",
+      "voice": "omari",
+      "fallback": false
+    },
+    {
+      "id": "yeongman",
+      "name": "미나미",
+      "age": 19,
+      "explicitVoice": "isolde",
+      "variantOf": null,
+      "requestedVoice": "isolde",
+      "voice": "isolde",
+      "fallback": false
+    },
+    {
+      "id": "@player",
+      "name": "Player",
+      "voice": "player"
+    },
+    {
+      "id": "@generic",
+      "name": "Generic fallback",
+      "voice": "generic"
+    }
+  ],
+  "profiles": {
+    "soft_female": {
+      "subjects": [
+        "eira",
+        "artoria"
+      ],
+      "gain": 1,
+      "rate": 1,
+      "mute": false,
+      "events": {
+        "hurt": {
+          "paths": [
+            "voice/reitanna_gasp"
+          ],
+          "configuredCount": 1,
+          "decodedCount": 1,
+          "distinctCount": 1,
+          "target": 2,
+          "shortage": 1,
+          "aliases": []
+        },
+        "ko": {
+          "paths": [
+            "voice/reitanna_gasp"
+          ],
+          "configuredCount": 1,
+          "decodedCount": 1,
+          "distinctCount": 1,
+          "target": 2,
+          "shortage": 1,
+          "aliases": []
+        },
+        "bleed": {
+          "paths": [
+            "voice/reitanna_long_sigh"
+          ],
+          "configuredCount": 1,
+          "decodedCount": 1,
+          "distinctCount": 1,
+          "target": 2,
+          "shortage": 1,
+          "aliases": []
+        },
+        "revive": {
+          "paths": [],
+          "configuredCount": 0,
+          "decodedCount": 0,
+          "distinctCount": 0,
+          "aliases": []
+        }
+      },
+      "crossEventAliases": [
+        {
+          "kinds": [
+            "hurt",
+            "ko"
+          ],
+          "files": [
+            "voice/reitanna_gasp",
+            "voice/reitanna_gasp"
+          ],
+          "samePath": true
+        }
+      ],
+      "hurtKODistinct": false,
+      "targetCountsMet": false
+    },
+    "tome": {
+      "subjects": [
+        "silver_wanderer",
+        "renji",
+        "tome"
+      ],
+      "gain": 0.7,
+      "rate": 1,
+      "mute": false,
+      "events": {
+        "hurt": {
+          "paths": [
+            "voice/generic_hurt1",
+            "voice/generic_hurt2"
+          ],
+          "configuredCount": 2,
+          "decodedCount": 2,
+          "distinctCount": 2,
+          "target": 2,
+          "shortage": 0,
+          "aliases": []
+        },
+        "ko": {
+          "paths": [
+            "voice/generic_ko1",
+            "voice/generic_ko2"
+          ],
+          "configuredCount": 2,
+          "decodedCount": 2,
+          "distinctCount": 2,
+          "target": 2,
+          "shortage": 0,
+          "aliases": []
+        },
+        "bleed": {
+          "paths": [
+            "voice/generic_bleed1",
+            "voice/generic_bleed2"
+          ],
+          "configuredCount": 2,
+          "decodedCount": 2,
+          "distinctCount": 2,
+          "target": 2,
+          "shortage": 0,
+          "aliases": []
+        },
+        "revive": {
+          "paths": [],
+          "configuredCount": 0,
+          "decodedCount": 0,
+          "distinctCount": 0,
+          "aliases": []
+        }
+      },
+      "crossEventAliases": [],
+      "hurtKODistinct": true,
+      "targetCountsMet": true
+    },
+    "omari": {
+      "subjects": [
+        "omari"
+      ],
+      "gain": 0.75,
+      "rate": 1,
+      "mute": false,
+      "events": {
+        "hurt": {
+          "paths": [
+            "voice/omari_hurt1",
+            "voice/omari_hurt2"
+          ],
+          "configuredCount": 2,
+          "decodedCount": 2,
+          "distinctCount": 2,
+          "target": 2,
+          "shortage": 0,
+          "aliases": []
+        },
+        "ko": {
+          "paths": [
+            "voice/omari_ko1_short"
+          ],
+          "configuredCount": 1,
+          "decodedCount": 1,
+          "distinctCount": 1,
+          "target": 2,
+          "shortage": 1,
+          "aliases": []
+        },
+        "bleed": {
+          "paths": [
+            "voice/omari_bleed1_short2"
+          ],
+          "configuredCount": 1,
+          "decodedCount": 1,
+          "distinctCount": 1,
+          "target": 2,
+          "shortage": 1,
+          "aliases": []
+        },
+        "revive": {
+          "paths": [],
+          "configuredCount": 0,
+          "decodedCount": 0,
+          "distinctCount": 0,
+          "aliases": []
+        }
+      },
+      "crossEventAliases": [],
+      "hurtKODistinct": true,
+      "targetCountsMet": false
+    },
+    "player": {
+      "subjects": [
+        "@player"
+      ],
+      "gain": 1,
+      "rate": 1,
+      "mute": false,
+      "events": {
+        "hurt": {
+          "paths": [
+            "voice/player_hurt1",
+            "voice/player_hurt2"
+          ],
+          "configuredCount": 2,
+          "decodedCount": 2,
+          "distinctCount": 2,
+          "target": 2,
+          "shortage": 0,
+          "aliases": []
+        },
+        "ko": {
+          "paths": [
+            "voice/player_exhale"
+          ],
+          "configuredCount": 1,
+          "decodedCount": 1,
+          "distinctCount": 1,
+          "target": 2,
+          "shortage": 1,
+          "aliases": []
+        },
+        "bleed": {
+          "paths": [
+            "voice/player_exhale"
+          ],
+          "configuredCount": 1,
+          "decodedCount": 1,
+          "distinctCount": 1,
+          "target": 2,
+          "shortage": 1,
+          "aliases": []
+        },
+        "revive": {
+          "paths": [],
+          "configuredCount": 0,
+          "decodedCount": 0,
+          "distinctCount": 0,
+          "aliases": []
+        }
+      },
+      "crossEventAliases": [
+        {
+          "kinds": [
+            "ko",
+            "bleed"
+          ],
+          "files": [
+            "voice/player_exhale",
+            "voice/player_exhale"
+          ],
+          "samePath": true
+        }
+      ],
+      "hurtKODistinct": true,
+      "targetCountsMet": false
+    },
+    "generic": {
+      "subjects": [
+        "@generic"
+      ],
+      "gain": 1,
+      "rate": 1,
+      "mute": false,
+      "events": {
+        "hurt": {
+          "paths": [
+            "voice/generic_hurt1",
+            "voice/generic_hurt2"
+          ],
+          "configuredCount": 2,
+          "decodedCount": 2,
+          "distinctCount": 2,
+          "target": 2,
+          "shortage": 0,
+          "aliases": []
+        },
+        "ko": {
+          "paths": [
+            "voice/generic_ko1",
+            "voice/generic_ko2"
+          ],
+          "configuredCount": 2,
+          "decodedCount": 2,
+          "distinctCount": 2,
+          "target": 2,
+          "shortage": 0,
+          "aliases": []
+        },
+        "bleed": {
+          "paths": [
+            "voice/generic_bleed1",
+            "voice/generic_bleed2"
+          ],
+          "configuredCount": 2,
+          "decodedCount": 2,
+          "distinctCount": 2,
+          "target": 2,
+          "shortage": 0,
+          "aliases": []
+        },
+        "revive": {
+          "paths": [],
+          "configuredCount": 0,
+          "decodedCount": 0,
+          "distinctCount": 0,
+          "aliases": []
+        }
+      },
+      "crossEventAliases": [],
+      "hurtKODistinct": true,
+      "targetCountsMet": true
+    },
+    "bran": {
+      "subjects": [
+        "bran"
+      ],
+      "gain": 1,
+      "rate": 0.92,
+      "mute": false,
+      "events": {
+        "hurt": {
+          "paths": [
+            "voice/bran_hurt1",
+            "voice/bran_hurt2"
+          ],
+          "configuredCount": 2,
+          "decodedCount": 2,
+          "distinctCount": 2,
+          "target": 2,
+          "shortage": 0,
+          "aliases": []
+        },
+        "ko": {
+          "paths": [
+            "voice/bran_ko1",
+            "voice/bran_ko2"
+          ],
+          "configuredCount": 2,
+          "decodedCount": 2,
+          "distinctCount": 2,
+          "target": 2,
+          "shortage": 0,
+          "aliases": []
+        },
+        "bleed": {
+          "paths": [
+            "voice/bran_bleed1",
+            "voice/bran_bleed2"
+          ],
+          "configuredCount": 2,
+          "decodedCount": 2,
+          "distinctCount": 2,
+          "target": 2,
+          "shortage": 0,
+          "aliases": []
+        },
+        "revive": {
+          "paths": [],
+          "configuredCount": 0,
+          "decodedCount": 0,
+          "distinctCount": 0,
+          "aliases": []
+        }
+      },
+      "crossEventAliases": [],
+      "hurtKODistinct": true,
+      "targetCountsMet": true
+    },
+    "isolde": {
+      "subjects": [
+        "isolde",
+        "crown_boss",
+        "yeongman"
+      ],
+      "gain": 1.3,
+      "rate": 1,
+      "mute": false,
+      "events": {
+        "hurt": {
+          "paths": [
+            "voice/isolde_hurt1",
+            "voice/isolde_hurt2"
+          ],
+          "configuredCount": 2,
+          "decodedCount": 2,
+          "distinctCount": 2,
+          "target": 2,
+          "shortage": 0,
+          "aliases": []
+        },
+        "ko": {
+          "paths": [
+            "voice/isolde_ko1"
+          ],
+          "configuredCount": 1,
+          "decodedCount": 1,
+          "distinctCount": 1,
+          "target": 2,
+          "shortage": 1,
+          "aliases": []
+        },
+        "bleed": {
+          "paths": [
+            "voice/isolde_bleed1"
+          ],
+          "configuredCount": 1,
+          "decodedCount": 1,
+          "distinctCount": 1,
+          "target": 2,
+          "shortage": 1,
+          "aliases": []
+        },
+        "revive": {
+          "paths": [
+            "voice/isolde_revive1"
+          ],
+          "configuredCount": 1,
+          "decodedCount": 1,
+          "distinctCount": 1,
+          "aliases": []
+        }
+      },
+      "crossEventAliases": [],
+      "hurtKODistinct": true,
+      "targetCountsMet": false
+    },
+    "liao": {
+      "subjects": [
+        "liao",
+        "sherpa"
+      ],
+      "gain": 0.6,
+      "rate": 0.95,
+      "mute": false,
+      "events": {
+        "hurt": {
+          "paths": [
+            "voice/liao_hurt1",
+            "voice/liao_hurt2"
+          ],
+          "configuredCount": 2,
+          "decodedCount": 2,
+          "distinctCount": 2,
+          "target": 2,
+          "shortage": 0,
+          "aliases": []
+        },
+        "ko": {
+          "paths": [
+            "voice/liao_ko1"
+          ],
+          "configuredCount": 1,
+          "decodedCount": 1,
+          "distinctCount": 1,
+          "target": 2,
+          "shortage": 1,
+          "aliases": []
+        },
+        "bleed": {
+          "paths": [
+            "voice/liao_bleed1"
+          ],
+          "configuredCount": 1,
+          "decodedCount": 1,
+          "distinctCount": 1,
+          "target": 2,
+          "shortage": 1,
+          "aliases": []
+        },
+        "revive": {
+          "paths": [],
+          "configuredCount": 0,
+          "decodedCount": 0,
+          "distinctCount": 0,
+          "aliases": []
+        }
+      },
+      "crossEventAliases": [],
+      "hurtKODistinct": true,
+      "targetCountsMet": false
+    },
+    "heinrich": {
+      "subjects": [
+        "heinrich",
+        "heinrich_mad"
+      ],
+      "gain": 1,
+      "rate": 1,
+      "mute": false,
+      "events": {
+        "hurt": {
+          "paths": [
+            "voice/heinrich_hurt1",
+            "voice/heinrich_hurt2"
+          ],
+          "configuredCount": 2,
+          "decodedCount": 2,
+          "distinctCount": 2,
+          "target": 2,
+          "shortage": 0,
+          "aliases": []
+        },
+        "ko": {
+          "paths": [
+            "voice/heinrich_ko1",
+            "voice/heinrich_ko2"
+          ],
+          "configuredCount": 2,
+          "decodedCount": 2,
+          "distinctCount": 2,
+          "target": 2,
+          "shortage": 0,
+          "aliases": []
+        },
+        "bleed": {
+          "paths": [
+            "voice/heinrich_bleed1",
+            "voice/heinrich_bleed2"
+          ],
+          "configuredCount": 2,
+          "decodedCount": 2,
+          "distinctCount": 2,
+          "target": 2,
+          "shortage": 0,
+          "aliases": []
+        },
+        "revive": {
+          "paths": [],
+          "configuredCount": 0,
+          "decodedCount": 0,
+          "distinctCount": 0,
+          "aliases": []
+        }
+      },
+      "crossEventAliases": [],
+      "hurtKODistinct": true,
+      "targetCountsMet": true
+    },
+    "margarethe": {
+      "subjects": [
+        "margarethe"
+      ],
+      "gain": 1.1,
+      "rate": 1,
+      "mute": false,
+      "events": {
+        "hurt": {
+          "paths": [
+            "voice/margarethe_hurt1"
+          ],
+          "configuredCount": 1,
+          "decodedCount": 1,
+          "distinctCount": 1,
+          "target": 2,
+          "shortage": 1,
+          "aliases": []
+        },
+        "ko": {
+          "paths": [
+            "voice/margarethe_ko1"
+          ],
+          "configuredCount": 1,
+          "decodedCount": 1,
+          "distinctCount": 1,
+          "target": 2,
+          "shortage": 1,
+          "aliases": []
+        },
+        "bleed": {
+          "paths": [
+            "voice/margarethe_bleed1"
+          ],
+          "configuredCount": 1,
+          "decodedCount": 1,
+          "distinctCount": 1,
+          "target": 2,
+          "shortage": 1,
+          "aliases": []
+        },
+        "revive": {
+          "paths": [],
+          "configuredCount": 0,
+          "decodedCount": 0,
+          "distinctCount": 0,
+          "aliases": []
+        }
+      },
+      "crossEventAliases": [
+        {
+          "kinds": [
+            "ko",
+            "bleed"
+          ],
+          "files": [
+            "voice/margarethe_ko1",
+            "voice/margarethe_bleed1"
+          ],
+          "samePath": false
+        }
+      ],
+      "hurtKODistinct": true,
+      "targetCountsMet": false
+    }
+  },
+  "shortages": [
+    {
+      "voice": "soft_female",
+      "kind": "hurt",
+      "missingDistinctTakes": 1,
+      "subjects": [
+        "eira",
+        "artoria"
+      ]
+    },
+    {
+      "voice": "soft_female",
+      "kind": "ko",
+      "missingDistinctTakes": 1,
+      "subjects": [
+        "eira",
+        "artoria"
+      ]
+    },
+    {
+      "voice": "soft_female",
+      "kind": "bleed",
+      "missingDistinctTakes": 1,
+      "subjects": [
+        "eira",
+        "artoria"
+      ]
+    },
+    {
+      "voice": "omari",
+      "kind": "ko",
+      "missingDistinctTakes": 1,
+      "subjects": [
+        "omari"
+      ]
+    },
+    {
+      "voice": "omari",
+      "kind": "bleed",
+      "missingDistinctTakes": 1,
+      "subjects": [
+        "omari"
+      ]
+    },
+    {
+      "voice": "player",
+      "kind": "ko",
+      "missingDistinctTakes": 1,
+      "subjects": [
+        "@player"
+      ]
+    },
+    {
+      "voice": "player",
+      "kind": "bleed",
+      "missingDistinctTakes": 1,
+      "subjects": [
+        "@player"
+      ]
+    },
+    {
+      "voice": "isolde",
+      "kind": "ko",
+      "missingDistinctTakes": 1,
+      "subjects": [
+        "isolde",
+        "crown_boss",
+        "yeongman"
+      ]
+    },
+    {
+      "voice": "isolde",
+      "kind": "bleed",
+      "missingDistinctTakes": 1,
+      "subjects": [
+        "isolde",
+        "crown_boss",
+        "yeongman"
+      ]
+    },
+    {
+      "voice": "liao",
+      "kind": "ko",
+      "missingDistinctTakes": 1,
+      "subjects": [
+        "liao",
+        "sherpa"
+      ]
+    },
+    {
+      "voice": "liao",
+      "kind": "bleed",
+      "missingDistinctTakes": 1,
+      "subjects": [
+        "liao",
+        "sherpa"
+      ]
+    },
+    {
+      "voice": "margarethe",
+      "kind": "hurt",
+      "missingDistinctTakes": 1,
+      "subjects": [
+        "margarethe"
+      ]
+    },
+    {
+      "voice": "margarethe",
+      "kind": "ko",
+      "missingDistinctTakes": 1,
+      "subjects": [
+        "margarethe"
+      ]
+    },
+    {
+      "voice": "margarethe",
+      "kind": "bleed",
+      "missingDistinctTakes": 1,
+      "subjects": [
+        "margarethe"
+      ]
+    }
+  ],
+  "fileAliases": [
+    {
+      "paths": [
+        "voice/margarethe_bleed1",
+        "voice/margarethe_ko1"
+      ],
+      "decodedPCM_SHA256": "abf4fbc6874d85c20ae394007005596c6ea18fafcca018d318ae24506b14ac97",
+      "sameEncodedBytes": true
+    }
+  ],
+  "files": {
+    "voice/bran_bleed1": {
+      "path": "public/sfx/voice/bran_bleed1.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "baradari",
+        "originalFile": "die2.wav"
+      },
+      "exists": true,
+      "bytes": 8813,
+      "sha256": "dbb80cdfaf286afea6500e2e5f2a59b073fc02dbd941dacc9a5fcfde20fdf6de",
+      "decodedPCM_SHA256": "8978b5f45577831538c3395fd85d8fb907b84ba4242c7ac217da08e42d4ebd70",
+      "decodedFrames": 51251,
+      "decodedSeconds": 1.0677291666666666,
+      "containerSeconds": 1.097143,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.9072158932685852,
+      "rms": 0.13647492549130594,
+      "nonFinite": 0
+    },
+    "voice/bran_bleed2": {
+      "path": "public/sfx/voice/bran_bleed2.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "kanyonwyvern",
+        "originalFile": "736662 preview MP3"
+      },
+      "exists": true,
+      "bytes": 13138,
+      "sha256": "f174398a4b6d1cf80d5e677e915d01e42fbf5c5241b315d15cef06f310c6484e",
+      "decodedPCM_SHA256": "610db0065caa3eb5ab79c17c1e075085ac4d71f86b3682d97a495799dacf4980",
+      "decodedFrames": 72249,
+      "decodedSeconds": 1.5051875,
+      "containerSeconds": 1.541224,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.5198808908462524,
+      "rms": 0.10515657487094535,
+      "nonFinite": 0
+    },
+    "voice/bran_hurt1": {
+      "path": "public/sfx/voice/bran_hurt1.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "baradari",
+        "originalFile": "pain1.wav"
+      },
+      "exists": true,
+      "bytes": 5567,
+      "sha256": "ca588b7d65ba5c1dc3d92c3ee7a1877da1e54578a88eabc46b5eb30d6eb5a2b6",
+      "decodedPCM_SHA256": "faa120226932cdf1877daf3e0f03eb8384db7c677dc9deea46637b1969edd1bf",
+      "decodedFrames": 25682,
+      "decodedSeconds": 0.5350416666666666,
+      "containerSeconds": 0.574694,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.9104222655296326,
+      "rms": 0.1338420959649786,
+      "nonFinite": 0
+    },
+    "voice/bran_hurt2": {
+      "path": "public/sfx/voice/bran_hurt2.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "baradari",
+        "originalFile": "pain3.wav"
+      },
+      "exists": true,
+      "bytes": 5302,
+      "sha256": "616bfe53a564d6163c7f996886924d2fa9e8bd861804dc91d6a4dd3e92b6e563",
+      "decodedPCM_SHA256": "b73dac3c2cb715ee9ca449ab3f918a858edcc3d76152159ebea2fe4c7927a26f",
+      "decodedFrames": 25682,
+      "decodedSeconds": 0.5350416666666666,
+      "containerSeconds": 0.574694,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.9233267307281494,
+      "rms": 0.15367070361983062,
+      "nonFinite": 0
+    },
+    "voice/bran_ko1": {
+      "path": "public/sfx/voice/bran_ko1.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "baradari",
+        "originalFile": "die1.wav"
+      },
+      "exists": true,
+      "bytes": 9078,
+      "sha256": "214318e1ab8f4618b7092c91a047adbd2cbc1313dfaa3b3928d1807c014a3efa",
+      "decodedPCM_SHA256": "b626ee7f04155233bfb553ed9a0a4aa2e22aa9d4e25ad66fbdc1da44598fe008",
+      "decodedFrames": 45504,
+      "decodedSeconds": 0.948,
+      "containerSeconds": 0.992653,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.9095606803894043,
+      "rms": 0.13393326297939995,
+      "nonFinite": 0
+    },
+    "voice/bran_ko2": {
+      "path": "public/sfx/voice/bran_ko2.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "baradari",
+        "originalFile": "deathh.wav"
+      },
+      "exists": true,
+      "bytes": 6135,
+      "sha256": "0806a7c5ef186918474e8a296317eaa511d37e8eb1a7a0874167aef709e8b436",
+      "decodedPCM_SHA256": "8261189182bda7bb1a2d6c0443d27e5676a1fca284917fefac9c978e458483c0",
+      "decodedFrames": 30178,
+      "decodedSeconds": 0.6287083333333333,
+      "containerSeconds": 0.679184,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.899147629737854,
+      "rms": 0.14205597997789055,
+      "nonFinite": 0
+    },
+    "voice/generic_bleed1": {
+      "path": "public/sfx/voice/generic_bleed1.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "yell3.wav"
+      },
+      "exists": true,
+      "bytes": 10866,
+      "sha256": "0035a0d3dcf781b5e4f2b128918161402c44b10951b172006b30e9283671fded",
+      "decodedPCM_SHA256": "cd372b88b3e36bd54cd99a2d3fd8187333b3fceea6f8f827569a08ffa28d2ed6",
+      "decodedFrames": 72000,
+      "decodedSeconds": 1.5,
+      "containerSeconds": 1.541224,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.9051524996757507,
+      "rms": 0.1311208337270553,
+      "nonFinite": 0
+    },
+    "voice/generic_bleed2": {
+      "path": "public/sfx/voice/generic_bleed2.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "yell8.wav"
+      },
+      "exists": true,
+      "bytes": 8946,
+      "sha256": "192c9fdc4f653c920f53aba16396735cf66d02c159c5fcadceac85acf9652d45",
+      "decodedPCM_SHA256": "0763fd0b4e0331c8ca300cc3afcc284b6e110ae589b43fd24e7d84641d3ea24c",
+      "decodedFrames": 53747,
+      "decodedSeconds": 1.1197291666666667,
+      "containerSeconds": 1.149388,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.9145722985267639,
+      "rms": 0.13821066198449478,
+      "nonFinite": 0
+    },
+    "voice/generic_hurt1": {
+      "path": "public/sfx/voice/generic_hurt1.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "yell7.wav"
+      },
+      "exists": true,
+      "bytes": 6219,
+      "sha256": "a0feed565a4c6bcdebe4a288453d863c4b939bfee8d2f2025516036f5e98661d",
+      "decodedPCM_SHA256": "a54b19c3a5d6978606382039a7a0c654c489e543872195d573c2a0cb1bfd39dd",
+      "decodedFrames": 28800,
+      "decodedSeconds": 0.6,
+      "containerSeconds": 0.626939,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.8796718716621399,
+      "rms": 0.229860615359961,
+      "nonFinite": 0
+    },
+    "voice/generic_hurt2": {
+      "path": "public/sfx/voice/generic_hurt2.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "yell9.wav"
+      },
+      "exists": true,
+      "bytes": 7419,
+      "sha256": "0785d3079b755363eb1e521f0adfc0fe3c47dbe6a6633de70a9aeede0dddf90f",
+      "decodedPCM_SHA256": "a7b4325294e6a0e040548ef028d8d991d325305e5e12cb206668ed23eaa191dc",
+      "decodedFrames": 28800,
+      "decodedSeconds": 0.6,
+      "containerSeconds": 0.626939,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.907008171081543,
+      "rms": 0.1445055637745964,
+      "nonFinite": 0
+    },
+    "voice/generic_ko1": {
+      "path": "public/sfx/voice/generic_ko1.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "yell12.wav"
+      },
+      "exists": true,
+      "bytes": 6340,
+      "sha256": "8bef9effeb14fe4a46a7d144b1992a6de7057f11f95fba3216093ff55a2999fb",
+      "decodedPCM_SHA256": "74df6e0573fb0ecb74717056d1cf927a420f670cee7f9e7e76be93f22a3eac2e",
+      "decodedFrames": 38400,
+      "decodedSeconds": 0.8,
+      "containerSeconds": 0.835918,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.9317017793655396,
+      "rms": 0.24057580539080892,
+      "nonFinite": 0
+    },
+    "voice/generic_ko2": {
+      "path": "public/sfx/voice/generic_ko2.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "yell13.wav"
+      },
+      "exists": true,
+      "bytes": 5820,
+      "sha256": "9526714d6d51c61779b3a0503cead558b1e665a4d798faab56b419760f5d9b15",
+      "decodedPCM_SHA256": "763212bc6f54c2b652f549b511b05f76c5815e3a68c381ef37f952c3c113ecc5",
+      "decodedFrames": 38400,
+      "decodedSeconds": 0.8,
+      "containerSeconds": 0.835918,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.9193956851959229,
+      "rms": 0.16217804022049642,
+      "nonFinite": 0
+    },
+    "voice/heinrich_bleed1": {
+      "path": "public/sfx/voice/heinrich_bleed1.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "2yell6.wav"
+      },
+      "exists": true,
+      "bytes": 15555,
+      "sha256": "bdc33c57931a529f1866c195f8a99448f5dbada6a8f973a97ed7b04f54d1ac08",
+      "decodedPCM_SHA256": "2ecc5e031a264b13912a728dbe47436413e3a5ff663638cda2e27b08ad10749f",
+      "decodedFrames": 96000,
+      "decodedSeconds": 2,
+      "containerSeconds": 2.037551,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.8732737302780151,
+      "rms": 0.10365135166184546,
+      "nonFinite": 0
+    },
+    "voice/heinrich_bleed2": {
+      "path": "public/sfx/voice/heinrich_bleed2.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "2yell8.wav"
+      },
+      "exists": true,
+      "bytes": 12244,
+      "sha256": "7eda046c8ce21d1bc90357d0adc0a83a46cb4c5a1ea444f8b76dd8c856260a60",
+      "decodedPCM_SHA256": "f6269bdcd36fd0b447cc629ea18b89799a23b6dd78ded62aa1ac66383eb4c44c",
+      "decodedFrames": 58484,
+      "decodedSeconds": 1.2184166666666667,
+      "containerSeconds": 1.253878,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.9147434830665588,
+      "rms": 0.1996201669907968,
+      "nonFinite": 0
+    },
+    "voice/heinrich_hurt1": {
+      "path": "public/sfx/voice/heinrich_hurt1.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "2yell7.wav"
+      },
+      "exists": true,
+      "bytes": 5930,
+      "sha256": "8bfd824b930ee18d1c37c96e25962e7fce014418acd8ee63fc7768fa72bd9932",
+      "decodedPCM_SHA256": "e5c35dc7ff2398624d0e575d343c5f27398e712720f8211493440d0a77f27ee7",
+      "decodedFrames": 28800,
+      "decodedSeconds": 0.6,
+      "containerSeconds": 0.626939,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.9045356512069702,
+      "rms": 0.1933281142738965,
+      "nonFinite": 0
+    },
+    "voice/heinrich_hurt2": {
+      "path": "public/sfx/voice/heinrich_hurt2.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "2yell2.wav"
+      },
+      "exists": true,
+      "bytes": 6299,
+      "sha256": "14d0de4350269a803bc17d78b66b8493196ea65946c5418696150e221b8c0718",
+      "decodedPCM_SHA256": "e6e0fdbc50b26ce1cc5863427e96693d30cb46a4a050b5c173437e61546da47e",
+      "decodedFrames": 28800,
+      "decodedSeconds": 0.6,
+      "containerSeconds": 0.626939,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.8939467668533325,
+      "rms": 0.23733451341300116,
+      "nonFinite": 0
+    },
+    "voice/heinrich_ko1": {
+      "path": "public/sfx/voice/heinrich_ko1.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "2yell1.wav"
+      },
+      "exists": true,
+      "bytes": 4731,
+      "sha256": "2d77417d84e2186ea2552e5023e65bd8149d777c1b46489c5e810876251ebcb2",
+      "decodedPCM_SHA256": "ae1a67762a033b566045781b2eb3468bd707e57b7a453e2d66b03c6086d6de05",
+      "decodedFrames": 23714,
+      "decodedSeconds": 0.49404166666666666,
+      "containerSeconds": 0.522449,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.9070220589637756,
+      "rms": 0.21324167833293722,
+      "nonFinite": 0
+    },
+    "voice/heinrich_ko2": {
+      "path": "public/sfx/voice/heinrich_ko2.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "2yell10.wav"
+      },
+      "exists": true,
+      "bytes": 6996,
+      "sha256": "d4b10f511f0f3af401d6c36a4451b395f7e80a68cd83d5d36682af7439e85e61",
+      "decodedPCM_SHA256": "cf2bcca1f2fd7610cb30acefa9fe3c317efd0db740dc6329cd20b968473ffa42",
+      "decodedFrames": 38400,
+      "decodedSeconds": 0.8,
+      "containerSeconds": 0.835918,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.8639267683029175,
+      "rms": 0.17303036449328968,
+      "nonFinite": 0
+    },
+    "voice/isolde_bleed1": {
+      "path": "public/sfx/voice/isolde_bleed1.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "mvvoice",
+        "intervalSeconds": [
+          7.8,
+          8.9
+        ]
+      },
+      "exists": true,
+      "bytes": 10169,
+      "sha256": "7349151991fe658e534ecb291a2701f7da45c77db83714ec3590fc0f457674f2",
+      "decodedPCM_SHA256": "344cc22a7d5defe04cdf25cf051e9c774720a180593ea593da3de0cec9181cfb",
+      "decodedFrames": 52800,
+      "decodedSeconds": 1.1,
+      "containerSeconds": 1.149388,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.9206857681274414,
+      "rms": 0.13446692806696156,
+      "nonFinite": 0
+    },
+    "voice/isolde_hurt1": {
+      "path": "public/sfx/voice/isolde_hurt1.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "mvvoice",
+        "intervalSeconds": [
+          0.4,
+          1.3
+        ]
+      },
+      "exists": true,
+      "bytes": 5902,
+      "sha256": "4282557a7a6eb8cb2d6411d1248dbc7389066d341ef9b074889e45861e57de40",
+      "decodedPCM_SHA256": "a5cc9d4f4e4a966d73ccfa345a49a1ab9b5f06ca7d2e8b626ddf954296d642d6",
+      "decodedFrames": 28800,
+      "decodedSeconds": 0.6,
+      "containerSeconds": 0.626939,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.9067224860191345,
+      "rms": 0.11159160836012859,
+      "nonFinite": 0
+    },
+    "voice/isolde_hurt2": {
+      "path": "public/sfx/voice/isolde_hurt2.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "mvvoice",
+        "intervalSeconds": [
+          1.9,
+          2.7
+        ]
+      },
+      "exists": true,
+      "bytes": 5849,
+      "sha256": "a32ff974a17c8681c46bb0fc3d5d01c39506b523a562e77ad62a083efdb76573",
+      "decodedPCM_SHA256": "57acc89712621de6e92371f99074ed99ff0693139e498b3646735f151ec71c44",
+      "decodedFrames": 28800,
+      "decodedSeconds": 0.6,
+      "containerSeconds": 0.626939,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.8987107872962952,
+      "rms": 0.11160501114041345,
+      "nonFinite": 0
+    },
+    "voice/isolde_ko1": {
+      "path": "public/sfx/voice/isolde_ko1.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "mvvoice",
+        "intervalSeconds": [
+          3.3,
+          4.4
+        ]
+      },
+      "exists": true,
+      "bytes": 10035,
+      "sha256": "4e32caacd812a2522b953a39a41f510765d974f91bd93e1fab254d332ec4cc6f",
+      "decodedPCM_SHA256": "34cff63b901a7319dfd4346653b6dfee945ae732e5dfd7f2c2b00a4987c60935",
+      "decodedFrames": 52800,
+      "decodedSeconds": 1.1,
+      "containerSeconds": 1.149388,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.889937162399292,
+      "rms": 0.06962754416124044,
+      "nonFinite": 0
+    },
+    "voice/isolde_revive1": {
+      "path": "public/sfx/voice/isolde_revive1.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "mvvoice",
+        "intervalSeconds": [
+          6.55,
+          7.02
+        ]
+      },
+      "exists": true,
+      "bytes": 5070,
+      "sha256": "6ab8a4eeb07b9f8aa63607112621f33e9cbcf71bb01ad601b33f2421e5319f37",
+      "decodedPCM_SHA256": "fd18ecc30cc00089891625d5b361a45fa3b671053b3f0654ba457611e825e644",
+      "decodedFrames": 22560,
+      "decodedSeconds": 0.47,
+      "containerSeconds": 0.496327,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.8938102722167969,
+      "rms": 0.12562578029957513,
+      "nonFinite": 0
+    },
+    "voice/liao_bleed1": {
+      "path": "public/sfx/voice/liao_bleed1.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "2yell3.wav"
+      },
+      "exists": true,
+      "bytes": 10081,
+      "sha256": "60c9ad034d7e5673ad2380b9eb245686f1a35439e8e7a740151b8ac65673596e",
+      "decodedPCM_SHA256": "9df42b69c7febbb91c3d5eeb0aa1a2ef9aaf0de987ef793db5eaf0f6d6394ea0",
+      "decodedFrames": 48000,
+      "decodedSeconds": 1,
+      "containerSeconds": 1.044898,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.8946318030357361,
+      "rms": 0.14535187487051066,
+      "nonFinite": 0
+    },
+    "voice/liao_bleed2": {
+      "path": "public/sfx/voice/liao_bleed2.mp3",
+      "selected": false,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "2yell9.wav"
+      },
+      "exists": true,
+      "bytes": 8213,
+      "sha256": "d9326c0d9be1e896edce87721c5ede8c564964e13eb9b8a9927fb9e79cc8474e",
+      "decodedPCM_SHA256": "b226d19cd9abefaf5a561b8750e2c7785c6dc431db929da2503986a7b7158db6",
+      "decodedFrames": 57600,
+      "decodedSeconds": 1.2,
+      "containerSeconds": 1.227755,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.8955185413360596,
+      "rms": 0.17464894185808355,
+      "nonFinite": 0
+    },
+    "voice/liao_hurt1": {
+      "path": "public/sfx/voice/liao_hurt1.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "2yell4.wav",
+        "intervalSeconds": [
+          0.6,
+          1.02
+        ]
+      },
+      "exists": true,
+      "bytes": 5285,
+      "sha256": "0910cf21b051277afbf8b6b6b5546304a6b695b79684a121173e62ce55eb4fbd",
+      "decodedPCM_SHA256": "6b10c9392ad929e7304bd48b658c8e050da999c6f51ae8d7a7b96904b86c7a61",
+      "decodedFrames": 19708,
+      "decodedSeconds": 0.41058333333333336,
+      "containerSeconds": 0.444082,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.9280402660369873,
+      "rms": 0.12639585381391302,
+      "nonFinite": 0
+    },
+    "voice/liao_hurt2": {
+      "path": "public/sfx/voice/liao_hurt2.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "2yell5.wav",
+        "intervalSeconds": [
+          0.2,
+          0.72
+        ]
+      },
+      "exists": true,
+      "bytes": 6198,
+      "sha256": "5ce47937ba97e9cfba6246b7a9695d2384f3ad217c812e65383c8f0be366ebb0",
+      "decodedPCM_SHA256": "2a3d6394aff8f8cb6f85d399846fc3a509caa5e9e3eff51814e41d1d0ccae0ae",
+      "decodedFrames": 24960,
+      "decodedSeconds": 0.52,
+      "containerSeconds": 0.548571,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.905189037322998,
+      "rms": 0.19614004351715625,
+      "nonFinite": 0
+    },
+    "voice/liao_ko1": {
+      "path": "public/sfx/voice/liao_ko1.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "2yell11.wav",
+        "intervalSeconds": [
+          0.33,
+          0.78
+        ]
+      },
+      "exists": true,
+      "bytes": 4967,
+      "sha256": "e54f76dfb74e1f95ba13ad7496b80d3693e7eb6244f6d74e886747fdea8488b0",
+      "decodedPCM_SHA256": "b189a3b40d00d141d355c02a90d9a6090dd7e72002503b6a1a76aef9d6693ccf",
+      "decodedFrames": 21600,
+      "decodedSeconds": 0.45,
+      "containerSeconds": 0.496327,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.5429812669754028,
+      "rms": 0.1524659775650682,
+      "nonFinite": 0
+    },
+    "voice/margarethe_bleed1": {
+      "path": "public/sfx/voice/margarethe_bleed1.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "hisoul_exhale",
+        "originalFile": "520276 preview MP3"
+      },
+      "exists": true,
+      "bytes": 8422,
+      "sha256": "e5aca105777dc33b1962b08fcb443f0c2d339357a4fb366b79011131298be321",
+      "decodedPCM_SHA256": "abf4fbc6874d85c20ae394007005596c6ea18fafcca018d318ae24506b14ac97",
+      "decodedFrames": 44351,
+      "decodedSeconds": 0.9239791666666667,
+      "containerSeconds": 0.966531,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.883313775062561,
+      "rms": 0.15151162656471825,
+      "nonFinite": 0
+    },
+    "voice/margarethe_hurt1": {
+      "path": "public/sfx/voice/margarethe_hurt1.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "hisoul_hurt",
+        "originalFile": "520275 preview MP3"
+      },
+      "exists": true,
+      "bytes": 4706,
+      "sha256": "eaea1f83d82345689b8f65f6810e3d72944f2dec8b58e8cfb2373a46af88d24e",
+      "decodedPCM_SHA256": "d10d13ce58e025187403ef83d76f54aff294b548c3701706679b0a62ef25af7e",
+      "decodedFrames": 21781,
+      "decodedSeconds": 0.45377083333333335,
+      "containerSeconds": 0.496327,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.8497757315635681,
+      "rms": 0.22033045427073394,
+      "nonFinite": 0
+    },
+    "voice/margarethe_ko1": {
+      "path": "public/sfx/voice/margarethe_ko1.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "hisoul_exhale",
+        "originalFile": "520276 preview MP3"
+      },
+      "exists": true,
+      "bytes": 8422,
+      "sha256": "e5aca105777dc33b1962b08fcb443f0c2d339357a4fb366b79011131298be321",
+      "decodedPCM_SHA256": "abf4fbc6874d85c20ae394007005596c6ea18fafcca018d318ae24506b14ac97",
+      "decodedFrames": 44351,
+      "decodedSeconds": 0.9239791666666667,
+      "containerSeconds": 0.966531,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.883313775062561,
+      "rms": 0.15151162656471825,
+      "nonFinite": 0
+    },
+    "voice/omari_bleed1": {
+      "path": "public/sfx/voice/omari_bleed1.mp3",
+      "selected": false,
+      "provenance": {
+        "source": "thebard",
+        "intervalSeconds": [
+          3.9,
+          6.2
+        ]
+      },
+      "exists": true,
+      "bytes": 27479,
+      "sha256": "6cc389e9cb8901f0fd03254f27d2cc985c9e32da7865ca97a78a8fd85e46ed40",
+      "decodedPCM_SHA256": "fc2a352f1b2a3fbb6b4711d25595f7f61152edd3eb4c1d088a5b968cddfaa1a2",
+      "decodedFrames": 110400,
+      "decodedSeconds": 2.3,
+      "containerSeconds": 2.35102,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.8031662702560425,
+      "rms": 0.15722284597583294,
+      "nonFinite": 0
+    },
+    "voice/omari_bleed1_short": {
+      "path": "public/sfx/voice/omari_bleed1_short.mp3",
+      "selected": false,
+      "provenance": {
+        "source": "thebard",
+        "intervalSeconds": [
+          3.9,
+          5.74
+        ]
+      },
+      "exists": true,
+      "bytes": 22706,
+      "sha256": "76dae06615907452894c0c0f12ab1e756e2fa25df5777a1aa82f061c1ee0f4e9",
+      "decodedPCM_SHA256": "a59e6e0afa531b2af624f2bca971eb5420855635e7236445a2f162ef2daf9cbb",
+      "decodedFrames": 88320,
+      "decodedSeconds": 1.84,
+      "containerSeconds": 1.880816,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.8011247515678406,
+      "rms": 0.15321698335447373,
+      "nonFinite": 0
+    },
+    "voice/omari_bleed1_short2": {
+      "path": "public/sfx/voice/omari_bleed1_short2.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "thebard",
+        "intervalSeconds": [
+          3.9,
+          5.556
+        ]
+      },
+      "exists": true,
+      "bytes": 20646,
+      "sha256": "3bbb13513da159aa27935891179c7296fe2834c7dee79f71c7665616e66cb15c",
+      "decodedPCM_SHA256": "2a7fb8add851c5c2cdd5e5200da7097dd7f10214c3d06009239decc70627de75",
+      "decodedFrames": 79489,
+      "decodedSeconds": 1.6560208333333333,
+      "containerSeconds": 1.697959,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.8011247515678406,
+      "rms": 0.15055479819502438,
+      "nonFinite": 0
+    },
+    "voice/omari_hurt1": {
+      "path": "public/sfx/voice/omari_hurt1.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "thebard",
+        "intervalSeconds": [
+          6.9,
+          7.47
+        ]
+      },
+      "exists": true,
+      "bytes": 6299,
+      "sha256": "318c96d6a6aae6a24d0cc446abefc20ddb5b663ccc1b62364b05cec5480f1ff7",
+      "decodedPCM_SHA256": "14025f6d2a8b97f2e79f1f3e6187e38cac1635f93352f5b38771db5bfe5f1706",
+      "decodedFrames": 27360,
+      "decodedSeconds": 0.57,
+      "containerSeconds": 0.600816,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.7996383309364319,
+      "rms": 0.19861114388991383,
+      "nonFinite": 0
+    },
+    "voice/omari_hurt2": {
+      "path": "public/sfx/voice/omari_hurt2.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "thebard",
+        "intervalSeconds": [
+          8.31,
+          9.26
+        ]
+      },
+      "exists": true,
+      "bytes": 10133,
+      "sha256": "893d049daf452c5023003d5952b7f0beb80d180efa80718d3ce55d15481e6452",
+      "decodedPCM_SHA256": "d5c2790b0ccee5b48b700a3f8a6e7fecee53da3a0a9677198a0fd05f0be40e9a",
+      "decodedFrames": 45600,
+      "decodedSeconds": 0.95,
+      "containerSeconds": 0.992653,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.803116500377655,
+      "rms": 0.16545983749765727,
+      "nonFinite": 0
+    },
+    "voice/omari_ko1": {
+      "path": "public/sfx/voice/omari_ko1.mp3",
+      "selected": false,
+      "provenance": {
+        "source": "thebard",
+        "intervalSeconds": [
+          0.45,
+          2.02
+        ]
+      },
+      "exists": true,
+      "bytes": 16449,
+      "sha256": "002ba43c280ac95a49cf7b0fbabe4c1468749a8fb397c554016338bfece8a9e3",
+      "decodedPCM_SHA256": "f791d1a2a6da708835142bde7ffa661d519ef734fe235510122df90c858dc388",
+      "decodedFrames": 75360,
+      "decodedSeconds": 1.57,
+      "containerSeconds": 1.619592,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.8066771626472473,
+      "rms": 0.22701125792219484,
+      "nonFinite": 0
+    },
+    "voice/omari_ko1_short": {
+      "path": "public/sfx/voice/omari_ko1_short.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "thebard",
+        "intervalSeconds": [
+          0.45,
+          1.863
+        ]
+      },
+      "exists": true,
+      "bytes": 15224,
+      "sha256": "3d9ff40a9e3dae187cfc89666c2957f55d4acc488f7de883dc896f52ec44afca",
+      "decodedPCM_SHA256": "0fa48684dc8e0ab938222ea9d745cee895828a767919eda0baf95a142538a327",
+      "decodedFrames": 67824,
+      "decodedSeconds": 1.413,
+      "containerSeconds": 1.462857,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.8066771626472473,
+      "rms": 0.23924907007944599,
+      "nonFinite": 0
+    },
+    "voice/player_bleed1": {
+      "path": "public/sfx/voice/player_bleed1.mp3",
+      "selected": false,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "3yell10.wav"
+      },
+      "exists": true,
+      "bytes": 10921,
+      "sha256": "8952b2c80b7969a8a25c161c3e512a6ae5b0ce178231b48ce8ed187b510d99f7",
+      "decodedPCM_SHA256": "125700165c24deac6eedf9c6a8f43f787d1cb912542ad2196029449ffa3cdcad",
+      "decodedFrames": 62663,
+      "decodedSeconds": 1.3054791666666667,
+      "containerSeconds": 1.332245,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.9672388434410095,
+      "rms": 0.19726825362080105,
+      "nonFinite": 0
+    },
+    "voice/player_bleed2": {
+      "path": "public/sfx/voice/player_bleed2.mp3",
+      "selected": false,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "3yell13.wav"
+      },
+      "exists": true,
+      "bytes": 15681,
+      "sha256": "a94d7ac3bd2b6d3b51ac9cb2760d1dae4efb1ce257f39037a8cfd440b9016ed2",
+      "decodedPCM_SHA256": "e26aec93c209f8556af2e5e5f4d892d57732d4d9dd6dcf65e561336ff8fbe077",
+      "decodedFrames": 86400,
+      "decodedSeconds": 1.8,
+      "containerSeconds": 1.828571,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.9326456785202026,
+      "rms": 0.18744749003521066,
+      "nonFinite": 0
+    },
+    "voice/player_exhale": {
+      "path": "public/sfx/voice/player_exhale.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "breath",
+        "intervalSeconds": [
+          0.88,
+          1.78
+        ],
+        "intervalRelativeTo": "public/sfx/breath/breath1.mp3 (already trimmed source)"
+      },
+      "exists": true,
+      "bytes": 7882,
+      "sha256": "28e670f330ca8f31d5567f021ba8b61df06dc7370e7e007a8f224e3cb2af3704",
+      "decodedPCM_SHA256": "a09c571b34c25860a752c9faaba995a164f2d11010b23c2b50efe574e31d5551",
+      "decodedFrames": 43200,
+      "decodedSeconds": 0.9,
+      "containerSeconds": 0.940408,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.8687505722045898,
+      "rms": 0.14928459969700544,
+      "nonFinite": 0
+    },
+    "voice/player_hurt1": {
+      "path": "public/sfx/voice/player_hurt1.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "3grunt1.wav"
+      },
+      "exists": true,
+      "bytes": 4393,
+      "sha256": "b5477f87eda294ffe0ff2b83516026ed23de7d56f82187035a661e0579ae6f36",
+      "decodedPCM_SHA256": "c3e02627be4514d0e1b3e959c829b054f5d9eda2786979cb1a3e5a1ed5d99208",
+      "decodedFrames": 19657,
+      "decodedSeconds": 0.40952083333333333,
+      "containerSeconds": 0.444082,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.9010770916938782,
+      "rms": 0.2866091925902941,
+      "nonFinite": 0
+    },
+    "voice/player_hurt2": {
+      "path": "public/sfx/voice/player_hurt2.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "3grunt4.wav"
+      },
+      "exists": true,
+      "bytes": 3458,
+      "sha256": "5666014dce032de026632f490f3fbc7cfdb364d3bf91e5a7606a99cb52c83daa",
+      "decodedPCM_SHA256": "0c834daf09d679578ee36b78b21b0ecaa7c451fece1c7c5ae4ad010274e19870",
+      "decodedFrames": 12681,
+      "decodedSeconds": 0.2641875,
+      "containerSeconds": 0.313469,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.9017815589904785,
+      "rms": 0.1889885083442307,
+      "nonFinite": 0
+    },
+    "voice/player_ko1": {
+      "path": "public/sfx/voice/player_ko1.mp3",
+      "selected": false,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "3grunt3.wav"
+      },
+      "exists": true,
+      "bytes": 4807,
+      "sha256": "6bea0bfac03bbc3344bc3163b8f9b4bc80fa87fe88de5e8623c3f41ddf7c3ee6",
+      "decodedPCM_SHA256": "af4ed954d549919518e8a10f8212dd956c1049e2821298453f3c8a7bc062695f",
+      "decodedFrames": 24000,
+      "decodedSeconds": 0.5,
+      "containerSeconds": 0.548571,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.8803683519363403,
+      "rms": 0.18180254124317974,
+      "nonFinite": 0
+    },
+    "voice/player_ko2": {
+      "path": "public/sfx/voice/player_ko2.mp3",
+      "selected": false,
+      "provenance": {
+        "source": "haeldb",
+        "originalFile": "3grunt5.wav"
+      },
+      "exists": true,
+      "bytes": 3793,
+      "sha256": "f9fe64f44808e71f243a9a7d82a54af6669c10945e12ba05d525daf0d33076a4",
+      "decodedPCM_SHA256": "3d5941c4b640ab0693a9634a963bc9efc4efa05160b5304df0288fbc328ef267",
+      "decodedFrames": 17536,
+      "decodedSeconds": 0.36533333333333334,
+      "containerSeconds": 0.391837,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.843863308429718,
+      "rms": 0.15228977108272349,
+      "nonFinite": 0
+    },
+    "voice/reitanna_gasp": {
+      "path": "public/sfx/voice/reitanna_gasp.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "reitanna_gasp",
+        "originalFile": "241563 preview MP3"
+      },
+      "exists": true,
+      "bytes": 5664,
+      "sha256": "3e246ca892b2fd73df4f8b4c249afc65665b5aa4054fd37de115e514ab650ba6",
+      "decodedPCM_SHA256": "26e681df4fa5c564111cadec1fe91949bba855c45e7f1c20d26c040f2d4f7197",
+      "decodedFrames": 30698,
+      "decodedSeconds": 0.6395416666666667,
+      "containerSeconds": 0.679184,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.8627067804336548,
+      "rms": 0.1541502552215854,
+      "nonFinite": 0
+    },
+    "voice/reitanna_long_sigh": {
+      "path": "public/sfx/voice/reitanna_long_sigh.mp3",
+      "selected": true,
+      "provenance": {
+        "source": "reitanna_sigh",
+        "originalFile": "242690 preview MP3"
+      },
+      "exists": true,
+      "bytes": 10268,
+      "sha256": "5f2ef90d0a5146561265d79420c67b64ef8c0e837dad780d7739701dd88f8b8d",
+      "decodedPCM_SHA256": "ea3176af32223610d8d04184b39b70c743be882c797a49438f6c8c5723801b53",
+      "decodedFrames": 58763,
+      "decodedSeconds": 1.2242291666666667,
+      "containerSeconds": 1.253878,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.8868014812469482,
+      "rms": 0.2172852846500777,
+      "nonFinite": 0
+    }
+  },
+  "sources": {
+    "haeldb": {
+      "author": "HaelDB",
+      "title": "Male Grunt/Yelling sounds",
+      "license": "CC0",
+      "url": "https://opengameart.org/content/male-gruntyelling-sounds",
+      "licenseLine": 15,
+      "originalLocated": false
+    },
+    "baradari": {
+      "author": "Michel Baradari",
+      "title": "11 male human pain/death sounds",
+      "license": "CC-BY-3.0",
+      "url": "https://opengameart.org/content/11-male-human-paindeath-sounds",
+      "licenseLine": 33,
+      "originalLocated": false
+    },
+    "kanyonwyvern": {
+      "author": "kanyonwyvern",
+      "title": "Male Groan in Exhaustion",
+      "license": "CC0",
+      "url": "https://freesound.org/people/kanyonwyvern/sounds/736662/",
+      "originalLocated": false
+    },
+    "hisoul_exhale": {
+      "author": "hisoul",
+      "title": "Zisa, Relief, Moan, Tired, Exhale_2.wav",
+      "license": "CC0",
+      "url": "https://freesound.org/people/hisoul/sounds/520276/",
+      "originalLocated": false
+    },
+    "hisoul_hurt": {
+      "author": "hisoul",
+      "title": "Zisa, Pain, Shout Short, Impact_6.wav",
+      "license": "CC0",
+      "url": "https://freesound.org/people/hisoul/sounds/520275/",
+      "originalLocated": false
+    },
+    "mvvoice": {
+      "author": "mvVoiceActing",
+      "title": "girl damage",
+      "license": "CC0",
+      "url": "https://freesound.org/people/mvVoiceActing/sounds/855460/",
+      "originalLocated": false
+    },
+    "reitanna_gasp": {
+      "author": "Reitanna",
+      "title": "gasp.wav",
+      "license": "CC0",
+      "url": "https://freesound.org/people/Reitanna/sounds/241563/",
+      "originalLocated": false,
+      "retainedProcessedCopy": "docs/sound_reserve/reitanna_gasp.mp3"
+    },
+    "reitanna_sigh": {
+      "author": "Reitanna",
+      "title": "long sigh.wav",
+      "license": "CC0",
+      "url": "https://freesound.org/people/Reitanna/sounds/242690/",
+      "originalLocated": false,
+      "retainedProcessedCopy": "docs/sound_reserve/reitanna_long_sigh.mp3"
+    },
+    "breath": {
+      "author": "Sadiquecat",
+      "title": "Catching breath (Genuine)",
+      "license": "CC0",
+      "url": "https://freesound.org/people/Sadiquecat/sounds/792641/",
+      "originalLocated": false,
+      "retainedProcessedCopy": "public/sfx/breath/breath1.mp3",
+      "originalIntervalSeconds": [
+        0.05,
+        2.35
+      ]
+    },
+    "thebard": {
+      "author": "thebardofblasphemy",
+      "title": "grunts of male death and pain",
+      "license": "CC0-1.0",
+      "url": "https://opengameart.org/content/grunts-male-death-and-pain",
+      "localOriginal": "/tmp/voice-male-candidate-20261011/thebard_death_pain_grunts.wav",
+      "expectedSHA256": "3f00fba827f20ff9ccea1bc07d2c21ab8d3a36e81b48a6005cf8459f02779586",
+      "licenseLine": 153,
+      "originalLocated": true
+    }
+  },
+  "sourceInventory": [
+    {
+      "source": "reitanna_gasp",
+      "path": "/workspace/halfsword-codex/docs/sound_reserve/reitanna_gasp.mp3",
+      "original": false,
+      "exists": true,
+      "bytes": 5664,
+      "sha256": "3e246ca892b2fd73df4f8b4c249afc65665b5aa4054fd37de115e514ab650ba6",
+      "decodedPCM_SHA256": "26e681df4fa5c564111cadec1fe91949bba855c45e7f1c20d26c040f2d4f7197",
+      "decodedFrames": 30698,
+      "decodedSeconds": 0.6395416666666667,
+      "containerSeconds": 0.679184,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.8627067804336548,
+      "rms": 0.1541502552215854,
+      "nonFinite": 0,
+      "expectedHashMatches": null,
+      "retainedIntervals": [],
+      "nonSilentIntervals": [
+        {
+          "interval": [
+            0,
+            0.6395416666666667
+          ],
+          "overlapsRetainedEdit": false,
+          "unusedOriginalCandidate": false
+        }
+      ]
+    },
+    {
+      "source": "reitanna_sigh",
+      "path": "/workspace/halfsword-codex/docs/sound_reserve/reitanna_long_sigh.mp3",
+      "original": false,
+      "exists": true,
+      "bytes": 10268,
+      "sha256": "5f2ef90d0a5146561265d79420c67b64ef8c0e837dad780d7739701dd88f8b8d",
+      "decodedPCM_SHA256": "ea3176af32223610d8d04184b39b70c743be882c797a49438f6c8c5723801b53",
+      "decodedFrames": 58763,
+      "decodedSeconds": 1.2242291666666667,
+      "containerSeconds": 1.253878,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.8868014812469482,
+      "rms": 0.2172852846500777,
+      "nonFinite": 0,
+      "expectedHashMatches": null,
+      "retainedIntervals": [],
+      "nonSilentIntervals": [
+        {
+          "interval": [
+            0,
+            1.2242291666666667
+          ],
+          "overlapsRetainedEdit": false,
+          "unusedOriginalCandidate": false
+        }
+      ]
+    },
+    {
+      "source": "breath",
+      "path": "/workspace/halfsword-codex/public/sfx/breath/breath1.mp3",
+      "original": false,
+      "exists": true,
+      "bytes": 17709,
+      "sha256": "a4cb1bbfa818c6f64790a7b1eac4ea18e2e7bbe76922a5be0375fe4d8a6aefd0",
+      "decodedPCM_SHA256": "bf8b92f18f0b3374035c5eea8520b4b903ba9bf3319015d2388ce919a2a48e4b",
+      "decodedFrames": 110400,
+      "decodedSeconds": 2.3,
+      "containerSeconds": 2.35102,
+      "streams": [
+        {
+          "codec_name": "mp3",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.8824508190155029,
+      "rms": 0.11122926854668831,
+      "nonFinite": 0,
+      "expectedHashMatches": null,
+      "retainedIntervals": [
+        {
+          "asset": "voice/player_exhale",
+          "selected": true,
+          "interval": [
+            0.88,
+            1.78
+          ]
+        }
+      ],
+      "nonSilentIntervals": [
+        {
+          "interval": [
+            0,
+            2.3
+          ],
+          "overlapsRetainedEdit": true,
+          "unusedOriginalCandidate": false
+        }
+      ]
+    },
+    {
+      "source": "thebard",
+      "path": "/tmp/voice-male-candidate-20261011/thebard_death_pain_grunts.wav",
+      "original": true,
+      "exists": true,
+      "bytes": 4380108,
+      "sha256": "3f00fba827f20ff9ccea1bc07d2c21ab8d3a36e81b48a6005cf8459f02779586",
+      "decodedPCM_SHA256": "4153599928167f679ec2e09ae7a5812267f9b831c94b0f51691d7d73aae51bfd",
+      "decodedFrames": 2383709,
+      "decodedSeconds": 49.660604166666666,
+      "containerSeconds": 49.66059,
+      "streams": [
+        {
+          "codec_name": "pcm_s16le",
+          "sample_rate": "44100",
+          "channels": 1
+        }
+      ],
+      "peak": 0.7637907862663269,
+      "rms": 0.06694099878048416,
+      "nonFinite": 0,
+      "expectedHashMatches": true,
+      "retainedIntervals": [
+        {
+          "asset": "voice/omari_hurt1",
+          "selected": true,
+          "interval": [
+            6.9,
+            7.47
+          ]
+        },
+        {
+          "asset": "voice/omari_hurt2",
+          "selected": true,
+          "interval": [
+            8.31,
+            9.26
+          ]
+        },
+        {
+          "asset": "voice/omari_ko1",
+          "selected": false,
+          "interval": [
+            0.45,
+            2.02
+          ]
+        },
+        {
+          "asset": "voice/omari_ko1_short",
+          "selected": true,
+          "interval": [
+            0.45,
+            1.863
+          ]
+        },
+        {
+          "asset": "voice/omari_bleed1",
+          "selected": false,
+          "interval": [
+            3.9,
+            6.2
+          ]
+        },
+        {
+          "asset": "voice/omari_bleed1_short",
+          "selected": false,
+          "interval": [
+            3.9,
+            5.74
+          ]
+        },
+        {
+          "asset": "voice/omari_bleed1_short2",
+          "selected": true,
+          "interval": [
+            3.9,
+            5.556
+          ]
+        }
+      ],
+      "nonSilentIntervals": [
+        {
+          "interval": [
+            0.505873,
+            1.894898
+          ],
+          "overlapsRetainedEdit": true,
+          "unusedOriginalCandidate": false
+        },
+        {
+          "interval": [
+            3.96356,
+            6.084807
+          ],
+          "overlapsRetainedEdit": true,
+          "unusedOriginalCandidate": false
+        },
+        {
+          "interval": [
+            6.938413,
+            7.35678
+          ],
+          "overlapsRetainedEdit": true,
+          "unusedOriginalCandidate": false
+        },
+        {
+          "interval": [
+            8.353832,
+            9.148027
+          ],
+          "overlapsRetainedEdit": true,
+          "unusedOriginalCandidate": false
+        },
+        {
+          "interval": [
+            10.016122,
+            12.349252
+          ],
+          "overlapsRetainedEdit": false,
+          "unusedOriginalCandidate": true
+        },
+        {
+          "interval": [
+            14.46415,
+            16.102063
+          ],
+          "overlapsRetainedEdit": false,
+          "unusedOriginalCandidate": true
+        },
+        {
+          "interval": [
+            17.445533,
+            18.613061
+          ],
+          "overlapsRetainedEdit": false,
+          "unusedOriginalCandidate": true
+        },
+        {
+          "interval": [
+            20.351338,
+            21.964898
+          ],
+          "overlapsRetainedEdit": false,
+          "unusedOriginalCandidate": true
+        },
+        {
+          "interval": [
+            23.885057,
+            25.715011
+          ],
+          "overlapsRetainedEdit": false,
+          "unusedOriginalCandidate": true
+        },
+        {
+          "interval": [
+            27.588776,
+            28.464059
+          ],
+          "overlapsRetainedEdit": false,
+          "unusedOriginalCandidate": true
+        },
+        {
+          "interval": [
+            29.865465,
+            30.315283
+          ],
+          "overlapsRetainedEdit": false,
+          "unusedOriginalCandidate": true
+        },
+        {
+          "interval": [
+            31.496939,
+            32.4939
+          ],
+          "overlapsRetainedEdit": false,
+          "unusedOriginalCandidate": true
+        },
+        {
+          "interval": [
+            33.523583,
+            34.802358
+          ],
+          "overlapsRetainedEdit": false,
+          "unusedOriginalCandidate": true
+        },
+        {
+          "interval": [
+            35.964875,
+            37.300023
+          ],
+          "overlapsRetainedEdit": false,
+          "unusedOriginalCandidate": true
+        },
+        {
+          "interval": [
+            38.829524,
+            39.462154
+          ],
+          "overlapsRetainedEdit": false,
+          "unusedOriginalCandidate": true
+        },
+        {
+          "interval": [
+            40.398118,
+            41.033537
+          ],
+          "overlapsRetainedEdit": false,
+          "unusedOriginalCandidate": true
+        },
+        {
+          "interval": [
+            42.216576,
+            43.525215
+          ],
+          "overlapsRetainedEdit": false,
+          "unusedOriginalCandidate": true
+        },
+        {
+          "interval": [
+            44.945215,
+            45.976689
+          ],
+          "overlapsRetainedEdit": false,
+          "unusedOriginalCandidate": true
+        },
+        {
+          "interval": [
+            47.381406,
+            49.026417
+          ],
+          "overlapsRetainedEdit": false,
+          "unusedOriginalCandidate": true
+        }
+      ]
+    }
+  ],
+  "preservedConstraints": [
+    "Liao voice/liao_bleed2 is a rejected recording; do not fill the shortage by restoring it.",
+    "Yeongman keeps the original Isolde actor and existing takes.",
+    "Player death remains quiet; existing tinnitus behavior is not part of this inventory.",
+    "Sharing a complete voice set between characters is permitted, including Sherpa.",
+    "Maya requires a separate new profile; current crown_boss assignment is recorded exactly as observed."
+  ],
+  "limitations": [
+    "Exact PCM equality proves aliases; different hashes alone do not prove separate performances. Trims, gain changes or re-encodes of one take are not new recordings.",
+    "Provenance is transcribed from public/sfx/LICENSE.txt, not freshly verified on source websites.",
+    "Search of /tmp and /workspace/halfsword-handoff excluded build/mirror asset trees; only the Omari original was located. Missing masters may exist elsewhere.",
+    "No human audition, actor-age verification, browser playback, gameplay changes, external communication or deployment performed.",
+    "Non-silent source intervals are technically available candidates and need listening before use.",
+    "The target concerns hurt, KO and bleed; Isolde revive remains separately inventoried."
+  ]
+}
