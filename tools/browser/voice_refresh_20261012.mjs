@@ -62,7 +62,7 @@ try{
  assert(!Object.keys(report.assets).some(r=>['liao_bleed2','player_exhale2','margarethe_ko2','margarethe_bleed2','margarethe_ko1','tuyana_bleed2_fade','maya_hurt1','maya_bleed1','maya_bleed2'].some(x=>r.endsWith('/'+x+'.mp3'))));
  assert.equal(await page.evaluate(()=>localStorage.getItem('gladiator-settings')),saved);
  report.checks.push({name:'16subjects, explicit player death exception, selected numbered buttons, no early voice fetch, stop, unchanged settings, no rejected take',taps,widths:[320,390,844]});
- await page.locator(`[data-character="${selected.includes('margarethe')?'margarethe':'crown_boss'}"]`).scrollIntoViewIfNeeded();await page.screenshot({path:out+'/audition.png'});await page.close();
+ await page.locator(`[data-character="${selected[0]||'crown_boss'}"]`).scrollIntoViewIfNeeded();await page.screenshot({path:out+'/audition.png'});await page.close();
  for(const[id,voice]of(gameIds.length?gameIds.map(id=>[id,cast.find(r=>r.id===id).voice]):[['crown_boss','maya'],['eira','soft_female'],['omari','omari']])){
   page=await open(base+'?foe='+id+'&stage=poseidon&cards=longsword,sabre');await page.setViewportSize({width:844,height:390});
   const wait=fn=>page.waitForFunction(fn,null,{timeout:90000});await wait(()=>window.game?.enemy);

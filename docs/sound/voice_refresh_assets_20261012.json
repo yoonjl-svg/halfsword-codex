@@ -111,6 +111,14 @@
       "license": "CC0 1.0",
       "url": "https://freesound.org/people/Reitanna/sounds/351160/",
       "source_sha256": "f96523ee1af522658dd4e7c7825c87cb63ef9fcca5d4c3eb01fb682cda83928f"
+    },
+    {
+      "id": "haeldb_tome_yell12",
+      "author": "HaelDB",
+      "title": "Male Grunt/Yelling sounds / yell12.wav",
+      "license": "CC0",
+      "url": "https://opengameart.org/content/male-gruntyelling-sounds",
+      "source_sha256": "7bc85e86d21552e525d2ffa82dd4276f2d46828593993018d4646ac68e4b1108"
     }
   ],
   "files": [
@@ -313,6 +321,15 @@
       "performance_id": "AuraVoice excerpt 5.565-6.095s",
       "edits": "70Hz HP;6500Hz LP;rubberband tempo=1.000000000000,pitch=1;gain1.076880362447;0.015s linear fade-in;0.055s power1.25 fade-out;mono44.1k96kbpsMP3",
       "sha256": "b878699f33a2bc335f23be730c059a1db16bd362ce05bd8368e944ef1791e3d9"
+    },
+    {
+      "path": "voice/tome_ko1_warm",
+      "source": "haeldb_tome_yell12",
+      "source_start": 0.144625,
+      "source_end": 0.944625,
+      "performance_id": "HaelDB/yell12.wav",
+      "edits": "atrim=start=0.144625:end=0.944625,asetpts=PTS-STARTPTS,highpass=f=70,rubberband=tempo=1:pitch=0.8908987181403393:formant=shifted:pitchq=quality,equalizer=f=1800:t=q:w=0.8:g=-3,highshelf=f=3000:t=q:w=0.7:g=-2;gain1.484834868788;12ms in,60ms out;44.1k mono96kbpsMP3. Same take as generic_ko1, not new performance.",
+      "sha256": "7dcb815f81144a5d63378abf953e0933c8bcc32415d28a665755ab58d7e8b8de"
     }
   ],
   "note": "2026-10-13: old SkyRae KO2/bleed2 and player_exhale2 retained for history only, excluded from casting. Four new distinct performances replace selected KO2/bleed2. Cross-character Reitanna sigh sharing disclosed; player explicit single-death exception. Follow-up: margarethe_ko1 and tuyana_bleed2_fade also excluded; Schwarz KO1 uses existing Reitanna gasp and Tuyana/Artoria bleed2 uses separate Reitanna351160 breath. No within-bank KO/bleed exception for these profiles. Maya follow-up: split original bleed1/2 into single-burst excerpts; keep two for bleed and one for hurt1. Not new recordings or six independent full takes."

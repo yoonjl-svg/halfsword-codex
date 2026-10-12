@@ -311,7 +311,7 @@ export const VOICES = {
   // Separate casting from Liao; these are the existing generic/default-opponent takes,
   // not a new actor or an age-validated elderly performance. Audition on voices.html.
   tome: { f0: 124, tract: 1, breath: 0.45, rough: 0.3, style: 'exhale', rec: {
-    ko: ['voice/generic_ko1', 'voice/generic_ko2'],
+    ko: ['voice/tome_ko1_warm', 'voice/generic_ko2'],
     bleed: ['voice/generic_bleed1', 'voice/generic_bleed2'],
     hurt: ['voice/generic_hurt1', 'voice/generic_hurt2'], gain: 0.7, rate: 1,
   } },
