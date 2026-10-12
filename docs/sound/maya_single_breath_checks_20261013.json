@@ -1,0 +1,190 @@
+{
+  "baseline": "f9a42e0009efbe14e6400ee3d4b3e529c2703a84",
+  "edits": {
+    "source_sha256": "80a9fb09203bb8feb065ba15197609b118cbe167c9a2264670a31ee22c384adb",
+    "files": [
+      {
+        "path": "voice/maya_bleed1_single",
+        "source": "aura_maya",
+        "source_start": 4.925,
+        "source_end": 5.52,
+        "parent_take": "maya_bleed1",
+        "performance_id": "AuraVoice excerpt 4.925-5.52s",
+        "stretch": 1.12,
+        "decodedSeconds": 0.6682766439909297,
+        "peak": 0.4744097590446472,
+        "rms": 0.08707259595394135,
+        "last100msRMS": 0.010796526446938515,
+        "bytes": 8821,
+        "edits": "70Hz HP;6500Hz LP;rubberband tempo=0.892857142857,pitch=1;gain1.076880362447;0.025s linear fade-in;0.2s power1.25 fade-out;mono44.1k96kbpsMP3",
+        "sha256": "7a122bfa731bbdc6be2aeaedf8f1b6975f91d2d4a0703412b71778d9e31c3a38"
+      },
+      {
+        "path": "voice/maya_bleed2_single",
+        "source": "aura_maya",
+        "source_start": 9.805,
+        "source_end": 10.285,
+        "parent_take": "maya_bleed2",
+        "performance_id": "AuraVoice excerpt 9.805-10.285s",
+        "stretch": 1.12,
+        "decodedSeconds": 0.5376190476190477,
+        "peak": 0.43312549591064453,
+        "rms": 0.09081920236349106,
+        "last100msRMS": 0.008739165961742401,
+        "bytes": 7253,
+        "edits": "70Hz HP;6500Hz LP;rubberband tempo=0.892857142857,pitch=1;gain1.329745173454;0.025s linear fade-in;0.18s power1.25 fade-out;mono44.1k96kbpsMP3",
+        "sha256": "a5ed9f9345e8ba554e3ff6a79e1f06b2b50e7fef6899b7552f952074e039e710"
+      },
+      {
+        "path": "voice/maya_hurt1_single",
+        "source": "aura_maya",
+        "source_start": 5.565,
+        "source_end": 6.095,
+        "parent_take": "maya_bleed1",
+        "performance_id": "AuraVoice excerpt 5.565-6.095s",
+        "stretch": 1,
+        "decodedSeconds": 0.5336734693877551,
+        "peak": 0.418623149394989,
+        "rms": 0.11214709281921387,
+        "last100msRMS": 0.028275934979319572,
+        "bytes": 7253,
+        "edits": "70Hz HP;6500Hz LP;rubberband tempo=1.000000000000,pitch=1;gain1.076880362447;0.015s linear fade-in;0.055s power1.25 fade-out;mono44.1k96kbpsMP3",
+        "sha256": "b878699f33a2bc335f23be730c059a1db16bd362ce05bd8368e944ef1791e3d9"
+      }
+    ],
+    "limitations": "Signal boundaries and output metrics, not subjective audition. Two excerpts from original bleed1 serve bleed1 and hurt1; they are non-overlapping portions of one performance."
+  },
+  "inventory": {
+    "summary": {
+      "characters": 15,
+      "subjectsIncludingPlayerAndFallback": 17,
+      "profiles": 11,
+      "publicVoiceFiles": 71,
+      "selectedUniqueFiles": 55,
+      "missingFiles": [],
+      "unknownProvenance": [],
+      "missingDistinctSlots": 0,
+      "hurtKOAliasProfiles": [],
+      "allTargetCountsMet": true,
+      "allHurtKODistinct": true,
+      "catalogMatchesRoster": true,
+      "excludedLiaoBleed2Selected": false,
+      "excludedPlayerExhale2Selected": false,
+      "playerDeathOriginalOnly": true,
+      "requiredDeathSeparationMet": true,
+      "deathSeparationConcerns": [],
+      "assetHashMismatches": []
+    },
+    "maya": {
+      "subjects": [
+        "crown_boss"
+      ],
+      "gain": 1,
+      "rate": 1,
+      "mute": false,
+      "events": {
+        "hurt": {
+          "paths": [
+            "voice/maya_hurt1_single",
+            "voice/maya_hurt2"
+          ],
+          "configuredCount": 2,
+          "decodedCount": 2,
+          "distinctCount": 2,
+          "target": 2,
+          "shortage": 0,
+          "aliases": []
+        },
+        "ko": {
+          "paths": [
+            "voice/maya_ko1",
+            "voice/maya_ko2"
+          ],
+          "configuredCount": 2,
+          "decodedCount": 2,
+          "distinctCount": 2,
+          "target": 2,
+          "shortage": 0,
+          "aliases": []
+        },
+        "bleed": {
+          "paths": [
+            "voice/maya_bleed1_single",
+            "voice/maya_bleed2_single"
+          ],
+          "configuredCount": 2,
+          "decodedCount": 2,
+          "distinctCount": 2,
+          "target": 2,
+          "shortage": 0,
+          "aliases": []
+        },
+        "revive": {
+          "paths": [],
+          "configuredCount": 0,
+          "decodedCount": 0,
+          "distinctCount": 0,
+          "aliases": []
+        }
+      },
+      "crossEventAliases": [],
+      "hurtKODistinct": true,
+      "targetCountsMet": true
+    }
+  },
+  "audio": {
+    "pass": true,
+    "profiles": [
+      "maya"
+    ],
+    "rendered": 12,
+    "sampleRates": [
+      44100,
+      48000
+    ],
+    "retry": {
+      "id": "maya",
+      "kind": "hurt",
+      "file": "voice/maya_hurt2",
+      "url": "http://127.0.0.1:4182/sfx/voice/maya_hurt2.mp3",
+      "firstCount": 1,
+      "secondCount": 2,
+      "completeEventSets": 3,
+      "attempts": 2,
+      "pass": true
+    },
+    "sources": {
+      "src/sound.js": "b0543499307610d82ad25a98ffe9719fe124e459339ebb7dc9fd5072c2ea146c",
+      "src/config.js": "08b9818b6d9f45aecd1d7f88f664fc43491db73a395f0b242bf211e0ece3200c",
+      "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+      "src/stage_detail_sound.js": "7bafc635c73f3f08fb3b883daeb3b55f4c2f413b9fbb2b8b1941ae003fb236f3"
+    },
+    "completedUTC": "2026-10-12T15:52:44.437Z",
+    "errors": []
+  },
+  "requiredAccountTests": {
+    "pass": 32,
+    "fail": 0
+  },
+  "build": "passed",
+  "delivery": "pending",
+  "local": {
+    "checks": [
+      {
+        "name": "16subjects, explicit player death exception, selected numbered buttons, no early voice fetch, stop, unchanged settings, no rejected take",
+        "taps": 12,
+        "widths": [
+          320,
+          390,
+          844
+        ]
+      },
+      {
+        "name": "mobile game input/pause/restart crown_boss",
+        "voice": "maya"
+      }
+    ],
+    "assets": 184,
+    "errors": []
+  }
+}

@@ -297,9 +297,10 @@ const VOWELS = {
  *  mute: 목소리 없이 몸이 "쿵" 쓰러지는 소리만 (BodySounds 가 쓰러짐을 꼭 한 번, 무겁게 낸다). 지금은 쓰는 캐릭터가 없다
  */
 export const VOICES = {
-  // Maya Rathore: six separate AuraVoice performances (CC0), original pitch.
+  // Maya Rathore: AuraVoice (CC0). Single-burst excerpts for bleed and hurt1; original pitch.
   maya: { f0: 210, tract: 1.13, breath: 0.4, rough: 0.2, style: 'exhale',
-    rec: { hurt: 2, ko: 2, bleed: 2, gain: 1, rate: 1 } },
+    rec: { hurt: ['voice/maya_hurt1_single', 'voice/maya_hurt2'], ko: 2,
+      bleed: ['voice/maya_bleed1_single', 'voice/maya_bleed2_single'], gain: 1, rate: 1 } },
   // 2026-10-11: one shared young/quiet group, using the user's saved Reitanna clips.
   // Explicit file lists reuse a recording without duplicating encoded assets.
   soft_female: { f0: 225, tract: 1.17, breath: 0.6, rough: 0.1, style: 'gasp', rec: {
