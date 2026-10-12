@@ -288,3 +288,18 @@ voice/tome_ko1_warm.mp3: original 0.144625–0.944625s; pitch -2 semitones, temp
 1.8kHz bell -3dB,3kHz high shelf -2dB; target RMS -1.5dB vs generic_ko1;
 12ms fade-in,60ms fade-out;mono44.1k96kbpsMP3. Same performance, not a new take.
 Original generic_ko1 remains unchanged for the generic fallback bank.
+
+2026-10-13 — Maya bleed2 subtle EQ: AuraVoice, CC0
+https://opengameart.org/content/female-hurt-grunts-groans
+voice/maya_bleed2_light.mp3: same original9.805–10.285s and pitch-preserving12%stretch
+as maya_bleed2_single;350Hz bell -1dB,Q0.7;RMS matched;pitch/duration unchanged.
+25ms in/180ms out,mono44.1k96kbpsMP3. Same performance,not a new variation.
+maya_bleed2_single retained for history and excluded from current casting.
+
+2026-10-13 — Tome KO1 cleanup: HaelDB, yell12.wav — CC0
+https://opengameart.org/content/male-gruntyelling-sounds
+voice/tome_ko1_clean.mp3: same source0.144625–0.944625s;
+44.1kHz->39290Hz direct rate change,SoXR precision28 resampling;no phase-vocoder;
+1.8kHz bell-3dB/3kHz shelf-2dB preserved,fade edges and RMSmatch;128kbps monoMP3.
+Lowered pitch retained;duration0.800->0.898s. Same recording,not a new take.
+tome_ko1_warm retained for history,no longer selected.

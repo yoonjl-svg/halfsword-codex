@@ -330,6 +330,24 @@
       "performance_id": "HaelDB/yell12.wav",
       "edits": "atrim=start=0.144625:end=0.944625,asetpts=PTS-STARTPTS,highpass=f=70,rubberband=tempo=1:pitch=0.8908987181403393:formant=shifted:pitchq=quality,equalizer=f=1800:t=q:w=0.8:g=-3,highshelf=f=3000:t=q:w=0.7:g=-2;gain1.484834868788;12ms in,60ms out;44.1k mono96kbpsMP3. Same take as generic_ko1, not new performance.",
       "sha256": "7dcb815f81144a5d63378abf953e0933c8bcc32415d28a665755ab58d7e8b8de"
+    },
+    {
+      "path": "voice/maya_bleed2_light",
+      "source": "aura_maya",
+      "source_start": 9.805,
+      "source_end": 10.285,
+      "performance_id": "AuraVoice excerpt 9.805-10.285s",
+      "edits": "atrim=start=9.805:end=10.285,asetpts=PTS-STARTPTS,highpass=f=70,lowpass=f=6500,rubberband=tempo=0.8928571428571428:pitch=1,equalizer=f=350:t=q:w=0.7:g=-1; original gain1.3297451734542847;25ms linear in/180ms power1.25 out;RMSmatch1.050716400146;44.1k mono96kbpsMP3",
+      "sha256": "4f4a40699ff9a06e92827ad6ce6ed8f35d839e4c60885983075e5c09f7975b08"
+    },
+    {
+      "path": "voice/tome_ko1_clean",
+      "source": "haeldb_tome_yell12",
+      "source_start": 0.144625,
+      "source_end": 0.944625,
+      "performance_id": "HaelDB/yell12.wav",
+      "edits": "atrim=start=0.144625:end=0.944625,asetpts=PTS-STARTPTS,aformat=sample_rates=44100:channel_layouts=mono,highpass=f=70,asetrate=39290,aresample=44100:resampler=soxr:precision=28,equalizer=f=1800:t=q:w=0.8:g=-3,highshelf=f=3000:t=q:w=0.7:g=-2;gain1.810127361521;in0.013469388s,out0.067346939s;128kbpsmonoMP3;RMSmatched to prior warm clip,no phase-vocoder/time reconstruction",
+      "sha256": "5fea16e53a4e7ca9ce42b2993b1895a6869a9f26e4f65996234df9e74377b67f"
     }
   ],
   "note": "2026-10-13: old SkyRae KO2/bleed2 and player_exhale2 retained for history only, excluded from casting. Four new distinct performances replace selected KO2/bleed2. Cross-character Reitanna sigh sharing disclosed; player explicit single-death exception. Follow-up: margarethe_ko1 and tuyana_bleed2_fade also excluded; Schwarz KO1 uses existing Reitanna gasp and Tuyana/Artoria bleed2 uses separate Reitanna351160 breath. No within-bank KO/bleed exception for these profiles. Maya follow-up: split original bleed1/2 into single-burst excerpts; keep two for bleed and one for hurt1. Not new recordings or six independent full takes."

@@ -1,0 +1,474 @@
+{
+  "baseline": "64f76e0ded29cb1a37fcce28edd6c9b64da14405",
+  "mayaControl": {
+    "method": "Same source segments,70HzHP6500HzLP,matched RMS .09 and proportional fades; no pitch shift. F0 has octave/aperiodicity limitations. Not subjective audition.",
+    "rows": [
+      {
+        "file": "bleed2_unstretched.wav",
+        "sha256": "79034dd1917a5b42cd7413732f567d98d5bb6aac28370c2c9940dd496cc8570d",
+        "seconds": 0.48,
+        "peak": 0.3321286737918854,
+        "rms": 0.08998580276966095,
+        "centroidHz": 882.7841311833433,
+        "energy2000_5000": 0.03517224720184838,
+        "energyAbove5000": 0.00015298026767056487,
+        "periodicFrameCount": 34,
+        "estimatedF0MedianHz": 313.8461538461538,
+        "estimatedF0P10P90": [
+          251.1904761904762,
+          378.29457364341084
+        ],
+        "power150_600_fraction": 0.2792064771327734
+      },
+      {
+        "file": "bleed2_stretched.wav",
+        "sha256": "b3d7cc48db7f69e05f96324dee46b47e49ccd30dac144b99903ae0bf886b57ec",
+        "seconds": 0.537625,
+        "peak": 0.42571717500686646,
+        "rms": 0.08998227119445801,
+        "centroidHz": 914.3278439766946,
+        "energy2000_5000": 0.035050280446361125,
+        "energyAbove5000": 0.00017422314502252336,
+        "periodicFrameCount": 37,
+        "estimatedF0MedianHz": 307.6923076923077,
+        "estimatedF0P10P90": [
+          250.0,
+          375.6367663344407
+        ],
+        "power150_600_fraction": 0.23012357968697503
+      },
+      {
+        "file": "bleed1_unstretched.wav",
+        "sha256": "5639ffd55ba70b6e1dd9a79e06cae4f5219a0c62ea81acc474ed7c2a467c8745",
+        "seconds": 0.5966875,
+        "peak": 0.41831451654434204,
+        "rms": 0.08993826806545258,
+        "centroidHz": 1170.8547463447962,
+        "energy2000_5000": 0.09558867863064303,
+        "energyAbove5000": 0.004524952974947502,
+        "periodicFrameCount": 16,
+        "estimatedF0MedianHz": 344.12580943570765,
+        "estimatedF0P10P90": [
+          329.93197278911566,
+          363.6363636363636
+        ],
+        "power150_600_fraction": 0.3671159211929445
+      }
+    ]
+  },
+  "mayaEdit": {
+    "sourceInterval": [
+      9.805,
+      10.285
+    ],
+    "eq": {
+      "frequencyHz": 350,
+      "q": 0.7,
+      "gainDB": -1
+    },
+    "pitch": 1,
+    "tempo": 0.8928571428571428,
+    "makeupGain": 1.0507164001464844,
+    "RMSdifferenceDB": 0.0044690194301340224,
+    "before": {
+      "file": "maya_bleed2_single.mp3",
+      "sha256": "a5ed9f9345e8ba554e3ff6a79e1f06b2b50e7fef6899b7552f952074e039e710",
+      "seconds": 0.537625,
+      "peak": 0.4283068776130676,
+      "rms": 0.09080013632774353,
+      "centroidHz": 913.4673685549511,
+      "energy2000_5000": 0.03485264619499313,
+      "energyAbove5000": 0.00017717600771792138,
+      "periodicFrameCount": 37,
+      "estimatedF0MedianHz": 307.6923076923077,
+      "estimatedF0P10P90": [
+        250.0,
+        375.6367663344407
+      ]
+    },
+    "after": {
+      "file": "maya_bleed2_light.mp3",
+      "sha256": "4f4a40699ff9a06e92827ad6ce6ed8f35d839e4c60885983075e5c09f7975b08",
+      "seconds": 0.537625,
+      "peak": 0.4384582042694092,
+      "rms": 0.09084686636924744,
+      "centroidHz": 946.0698511240811,
+      "energy2000_5000": 0.038610953450794815,
+      "energyAbove5000": 0.00018623608191537455,
+      "periodicFrameCount": 37,
+      "estimatedF0MedianHz": 307.6923076923077,
+      "estimatedF0P10P90": [
+        250.0,
+        375.6367663344407
+      ]
+    },
+    "recipe": "atrim=start=9.805:end=10.285,asetpts=PTS-STARTPTS,highpass=f=70,lowpass=f=6500,rubberband=tempo=0.8928571428571428:pitch=1,equalizer=f=350:t=q:w=0.7:g=-1; original gain1.3297451734542847;25ms linear in/180ms power1.25 out;RMSmatch1.050716400146;44.1k mono96kbpsMP3",
+    "limits": "Signal comparison, not subjective audition. Same take and same pitch-preserving time stretch, only low-mid EQ plus RMS matching changed."
+  },
+  "tomeEdit": {
+    "source_sha256": "7bc85e86d21552e525d2ffa82dd4276f2d46828593993018d4646ac68e4b1108",
+    "source_start": 0.144625,
+    "source_end": 0.944625,
+    "method": "Band-limited direct playback rate change (SoXR), no pitch-preserving time reconstruction; original -2-semitone target preserved, duration allowed to increase.128kbps final MP3.",
+    "recipe": "atrim=start=0.144625:end=0.944625,asetpts=PTS-STARTPTS,aformat=sample_rates=44100:channel_layouts=mono,highpass=f=70,asetrate=39290,aresample=44100:resampler=soxr:precision=28,equalizer=f=1800:t=q:w=0.8:g=-3,highshelf=f=3000:t=q:w=0.7:g=-2",
+    "gain": 1.8101273615206872,
+    "fadeInSeconds": 0.013469387755102041,
+    "fadeOutSeconds": 0.0673469387755102,
+    "before": {
+      "file": "tome_ko1_warm.mp3",
+      "sha256": "7dcb815f81144a5d63378abf953e0933c8bcc32415d28a665755ab58d7e8b8de",
+      "seconds": 0.8,
+      "peak": 0.7569601535797119,
+      "rms": 0.15320788323879242,
+      "centroidHz": 908.0937570913435,
+      "energy2000_5000": 0.009317161073335451,
+      "energyAbove5000": 0.00011063844761129632,
+      "periodicFrameCount": 26,
+      "estimatedF0MedianHz": 363.6363636363636,
+      "estimatedF0P10P90": [
+        304.78955007256894,
+        395.1219512195122
+      ]
+    },
+    "after": {
+      "file": "tome_ko1_clean.mp3",
+      "sha256": "5fea16e53a4e7ca9ce42b2993b1895a6869a9f26e4f65996234df9e74377b67f",
+      "seconds": 0.8979375,
+      "peak": 0.5763053894042969,
+      "rms": 0.153249129652977,
+      "centroidHz": 896.4895003205642,
+      "energy2000_5000": 0.0097694094964787,
+      "energyAbove5000": 0.00011202402263608726,
+      "periodicFrameCount": 31,
+      "estimatedF0MedianHz": 355.55555555555554,
+      "estimatedF0P10P90": [
+        82.05128205128206,
+        400.0
+      ]
+    },
+    "RMSdifferenceDB": 0.0023380884669974697,
+    "limits": "No subjective audition. Cannot prove perceived grit/low-resolution quality is solved from these metrics."
+  },
+  "tomeSourceAudit": {
+    "method": "Read-only FFmpeg decode to float32 mono44100; Welch2048/1024 spectral power;20ms RMS with5ms hop. Spectrum is whole-vocal content, not isolated noise. No listening or candidate generation.",
+    "files": {
+      "original_wav": {
+        "sha256": "7bc85e86d21552e525d2ffa82dd4276f2d46828593993018d4646ac68e4b1108",
+        "format": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "pcm_s16le",
+              "sample_rate": "44100",
+              "channels": 2,
+              "bits_per_sample": 16,
+              "bit_rate": "1411200"
+            }
+          ],
+          "format": {
+            "duration": "1.000000",
+            "size": "177556",
+            "bit_rate": "1420448"
+          }
+        },
+        "decoded_duration_seconds": 1.0,
+        "peak_dbfs": -5.33,
+        "rms_dbfs": -17.69,
+        "samples_abs_ge_0_999": 0,
+        "samples_abs_gt_1": 0,
+        "edge_50ms": [
+          {
+            "interval_seconds": [
+              0,
+              0.05
+            ],
+            "rms_dbfs": -59.52,
+            "peak_dbfs": -51.74
+          },
+          {
+            "interval_seconds": [
+              0.95,
+              1.0
+            ],
+            "rms_dbfs": -53.84,
+            "peak_dbfs": -48.86
+          }
+        ],
+        "largest_adjacent_step": {
+          "amplitude": 0.1318488,
+          "seconds": 0.515102,
+          "ratio_to_peak": 0.2435,
+          "local201samples_rms_dbfs": -13.14
+        },
+        "spectrum_all": {
+          "centroid_hz": 1046.9,
+          "rolloff95_hz": 1442.7,
+          "rolloff99_hz": 2820.8,
+          "band_energy_db_relative_total": {
+            "0-70Hz": -34.63,
+            "70-300Hz": -37.77,
+            "300-1000Hz": -2.22,
+            "1000-3000Hz": -4.05,
+            "3000-6000Hz": -21.64,
+            "6000-8000Hz": -41.23,
+            "8000-12000Hz": -45.48,
+            "12000-16000Hz": -45.51,
+            "16000-20000Hz": -55.83,
+            "20000-22050Hz": -70.33
+          }
+        }
+      },
+      "generic_mp3": {
+        "sha256": "8bef9effeb14fe4a46a7d144b1992a6de7057f11f95fba3216093ff55a2999fb",
+        "format": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "mp3",
+              "sample_rate": "44100",
+              "channels": 1,
+              "bits_per_sample": 0,
+              "bit_rate": "60255"
+            }
+          ],
+          "format": {
+            "duration": "0.835918",
+            "size": "6340",
+            "bit_rate": "60675"
+          }
+        },
+        "decoded_duration_seconds": 0.8,
+        "peak_dbfs": -0.62,
+        "rms_dbfs": -12.38,
+        "samples_abs_ge_0_999": 0,
+        "samples_abs_gt_1": 0,
+        "edge_50ms": [
+          {
+            "interval_seconds": [
+              0,
+              0.05
+            ],
+            "rms_dbfs": -55.6,
+            "peak_dbfs": -44.66
+          },
+          {
+            "interval_seconds": [
+              0.75,
+              0.8
+            ],
+            "rms_dbfs": -79.27,
+            "peak_dbfs": -69.3
+          }
+        ],
+        "largest_adjacent_step": {
+          "amplitude": 0.2105331,
+          "seconds": 0.370454,
+          "ratio_to_peak": 0.2262,
+          "local201samples_rms_dbfs": -8.78
+        },
+        "spectrum_all": {
+          "centroid_hz": 1047.4,
+          "rolloff95_hz": 1442.7,
+          "rolloff99_hz": 2842.4,
+          "band_energy_db_relative_total": {
+            "0-70Hz": -42.93,
+            "70-300Hz": -38.16,
+            "300-1000Hz": -2.24,
+            "1000-3000Hz": -4.04,
+            "3000-6000Hz": -21.2,
+            "6000-8000Hz": -40.62,
+            "8000-12000Hz": -44.9,
+            "12000-16000Hz": -45.12,
+            "16000-20000Hz": -84.89,
+            "20000-22050Hz": -109.31
+          }
+        }
+      },
+      "warm_mp3": {
+        "sha256": "7dcb815f81144a5d63378abf953e0933c8bcc32415d28a665755ab58d7e8b8de",
+        "format": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "mp3",
+              "sample_rate": "44100",
+              "channels": 1,
+              "bits_per_sample": 0,
+              "bit_rate": "96000"
+            }
+          ],
+          "format": {
+            "duration": "0.835918",
+            "size": "10388",
+            "bit_rate": "99416"
+          }
+        },
+        "decoded_duration_seconds": 0.8,
+        "peak_dbfs": -2.37,
+        "rms_dbfs": -16.29,
+        "samples_abs_ge_0_999": 0,
+        "samples_abs_gt_1": 0,
+        "edge_50ms": [
+          {
+            "interval_seconds": [
+              0,
+              0.05
+            ],
+            "rms_dbfs": -58.35,
+            "peak_dbfs": -50.28
+          },
+          {
+            "interval_seconds": [
+              0.75,
+              0.8
+            ],
+            "rms_dbfs": -73.5,
+            "peak_dbfs": -65.19
+          }
+        ],
+        "largest_adjacent_step": {
+          "amplitude": 0.1080794,
+          "seconds": 0.370045,
+          "ratio_to_peak": 0.142,
+          "local201samples_rms_dbfs": -15.16
+        },
+        "spectrum_all": {
+          "centroid_hz": 911.1,
+          "rolloff95_hz": 1248.9,
+          "rolloff99_hz": 1873.4,
+          "band_energy_db_relative_total": {
+            "0-70Hz": -41.09,
+            "70-300Hz": -37.56,
+            "300-1000Hz": -1.31,
+            "1000-3000Hz": -5.88,
+            "3000-6000Hz": -25.84,
+            "6000-8000Hz": -46.29,
+            "8000-12000Hz": -45.62,
+            "12000-16000Hz": -49.09,
+            "16000-20000Hz": -82.28,
+            "20000-22050Hz": -108.96
+          }
+        }
+      }
+    },
+    "limits": [
+      "44.1kHz16bit PCM proves the delivered source format, not original microphone/capture quality or absence of earlier compression.",
+      "High-frequency energy differences contain pitch-shift/EQ/codec effects; they do not identify audible noise alone.",
+      "Signal derivatives during loud voiced content are not by themselves clicks.",
+      "No isolated room-noise reference exists; edge measurements may include breath and applied fades.",
+      "Pitch-shifting rough/aperiodic short vocals can introduce phase/transient texture, but this audit cannot establish what the user heard."
+    ]
+  },
+  "inventory": {
+    "characters": 15,
+    "subjectsIncludingPlayerAndFallback": 17,
+    "profiles": 11,
+    "publicVoiceFiles": 74,
+    "selectedUniqueFiles": 56,
+    "missingFiles": [],
+    "unknownProvenance": [],
+    "missingDistinctSlots": 0,
+    "hurtKOAliasProfiles": [],
+    "allTargetCountsMet": true,
+    "allHurtKODistinct": true,
+    "catalogMatchesRoster": true,
+    "excludedLiaoBleed2Selected": false,
+    "excludedPlayerExhale2Selected": false,
+    "playerDeathOriginalOnly": true,
+    "requiredDeathSeparationMet": true,
+    "deathSeparationConcerns": [],
+    "assetHashMismatches": []
+  },
+  "audio": [
+    {
+      "pass": true,
+      "requestedProfiles": [
+        "maya"
+      ],
+      "rendered": 12,
+      "sampleRates": [
+        44100,
+        48000
+      ],
+      "retry": {
+        "id": "maya",
+        "kind": "hurt",
+        "file": "voice/maya_hurt2",
+        "url": "http://127.0.0.1:4182/sfx/voice/maya_hurt2.mp3",
+        "firstCount": 1,
+        "secondCount": 2,
+        "completeEventSets": 3,
+        "attempts": 2,
+        "pass": true
+      },
+      "sources": {
+        "src/sound.js": "dfe857c274fe562b799bfabef1fa90f9e811d56e8a895b10dfe83b7900bc9704",
+        "src/config.js": "08b9818b6d9f45aecd1d7f88f664fc43491db73a395f0b242bf211e0ece3200c",
+        "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+        "src/stage_detail_sound.js": "7bafc635c73f3f08fb3b883daeb3b55f4c2f413b9fbb2b8b1941ae003fb236f3"
+      },
+      "completedUTC": "2026-10-12T16:19:05.815Z",
+      "errors": []
+    },
+    {
+      "pass": true,
+      "requestedProfiles": [
+        "tome"
+      ],
+      "rendered": 12,
+      "sampleRates": [
+        44100,
+        48000
+      ],
+      "retry": {
+        "id": "maya",
+        "kind": "hurt",
+        "file": "voice/maya_hurt2",
+        "url": "http://127.0.0.1:4182/sfx/voice/maya_hurt2.mp3",
+        "firstCount": 1,
+        "secondCount": 2,
+        "completeEventSets": 3,
+        "attempts": 2,
+        "pass": true
+      },
+      "sources": {
+        "src/sound.js": "8d3c73e44279614f03b34c0b94e151dcc7b4b7a4930f074103e4e4714c172c8a",
+        "src/config.js": "08b9818b6d9f45aecd1d7f88f664fc43491db73a395f0b242bf211e0ece3200c",
+        "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+        "src/stage_detail_sound.js": "7bafc635c73f3f08fb3b883daeb3b55f4c2f413b9fbb2b8b1941ae003fb236f3"
+      },
+      "completedUTC": "2026-10-12T16:24:06.628Z",
+      "errors": []
+    }
+  ],
+  "mayaReuseReason": "Only Tome KO1 reference changed after Maya12 passed; Maya VOICES, assets and Sound methods unchanged. Public playback is rechecked for both.",
+  "requiredAccountTests": {
+    "pass": 32,
+    "fail": 0,
+    "reusedForTomeFollowup": "Only two voice asset references changed; no account code changes. CI also runs this suite."
+  },
+  "build": "combined passed",
+  "delivery": "pending",
+  "localBrowser": {
+    "checks": [
+      {
+        "name": "16subjects, explicit player death exception, selected numbered buttons, no early voice fetch, stop, unchanged settings, no rejected take",
+        "taps": 18,
+        "widths": [
+          320,
+          390,
+          844
+        ]
+      },
+      {
+        "name": "mobile game input/pause/restart tome",
+        "voice": "tome"
+      }
+    ],
+    "assets": 190,
+    "errors": []
+  }
+}

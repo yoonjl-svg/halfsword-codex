@@ -300,7 +300,7 @@ export const VOICES = {
   // Maya Rathore: AuraVoice (CC0). Single-burst excerpts for bleed and hurt1; original pitch.
   maya: { f0: 210, tract: 1.13, breath: 0.4, rough: 0.2, style: 'exhale',
     rec: { hurt: ['voice/maya_hurt1_single', 'voice/maya_hurt2'], ko: 2,
-      bleed: ['voice/maya_bleed1_single', 'voice/maya_bleed2_single'], gain: 1, rate: 1 } },
+      bleed: ['voice/maya_bleed1_single', 'voice/maya_bleed2_light'], gain: 1, rate: 1 } },
   // 2026-10-11: one shared young/quiet group, using the user's saved Reitanna clips.
   // Explicit file lists reuse a recording without duplicating encoded assets.
   soft_female: { f0: 225, tract: 1.17, breath: 0.6, rough: 0.1, style: 'gasp', rec: {
@@ -311,7 +311,7 @@ export const VOICES = {
   // Separate casting from Liao; these are the existing generic/default-opponent takes,
   // not a new actor or an age-validated elderly performance. Audition on voices.html.
   tome: { f0: 124, tract: 1, breath: 0.45, rough: 0.3, style: 'exhale', rec: {
-    ko: ['voice/tome_ko1_warm', 'voice/generic_ko2'],
+    ko: ['voice/tome_ko1_clean', 'voice/generic_ko2'],
     bleed: ['voice/generic_bleed1', 'voice/generic_bleed2'],
     hurt: ['voice/generic_hurt1', 'voice/generic_hurt2'], gain: 0.7, rate: 1,
   } },
