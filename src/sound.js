@@ -303,8 +303,8 @@ export const VOICES = {
   // 2026-10-11: one shared young/quiet group, using the user's saved Reitanna clips.
   // Explicit file lists reuse a recording without duplicating encoded assets.
   soft_female: { f0: 225, tract: 1.17, breath: 0.6, rough: 0.1, style: 'gasp', rec: {
-    ko: ['voice/reitanna_gasp', 'voice/reitanna_long_sigh'],
-    bleed: ['voice/reitanna_long_sigh', 'voice/reitanna_gasp'],
+    ko: ['voice/reitanna_gasp', 'voice/tuyana_ko2_exhale'],
+    bleed: ['voice/reitanna_long_sigh', 'voice/tuyana_bleed2_fade'],
     hurt: ['voice/tuyana_hurt1', 'voice/tuyana_hurt2'], gain: 1, rate: 1,
   } },
   // Separate casting from Liao; these are the existing generic/default-opponent takes,
@@ -318,14 +318,14 @@ export const VOICES = {
   omari: { f0: 115, tract: 1, breath: 0.45, rough: 0.35, style: 'exhale',
     rec: { ko: ['voice/omari_ko1_short', 'voice/omari_ko2'], bleed: ['voice/omari_bleed1_short2', 'voice/omari_bleed2'], hurt: 2, gain: 0.75, rate: 1 } },
   player: { f0: 118, tract: 1.0, breath: 0.35, rough: 0.3, style: 'grunt', rec: {
-    ko: ['voice/player_exhale', 'voice/player_exhale2'], bleed: ['voice/player_exhale', 'voice/player_exhale2'], hurt: 2,
+    ko: ['voice/player_exhale'], bleed: ['voice/player_exhale'], hurt: 2,
   } }, // Quiet final exhale; existing HaelDB hurt recordings remain unchanged.
   generic: { f0: 124, tract: 1.0, breath: 0.35, rough: 0.3, style: 'grunt', rec: { ko: 2, bleed: 2, hurt: 2 } }, // HaelDB 첫 목소리 (전부 CC0)
   bran: { f0: 98, tract: 0.93, breath: 0.3, rough: 0.55, style: 'sob', rec: { ko: 2, bleed: 2, hurt: 2, rate: 0.92 } }, // Baradari(거칠고 낮음) + 지친 신음 kanyonwyvern(CC0). 굵고 거친 목
   isolde: { f0: 215, tract: 1.17, breath: 0.55, rough: 0.1, style: 'gasp', rec: { ko: ['voice/isolde_ko1', 'voice/isolde_revive1'], bleed: ['voice/isolde_bleed1', 'voice/isolde_ko1'], hurt: 2, revive: 1, gain: 1.3 } }, // 기존 mvVoiceActing 독립 연기 조각 재사용. 미나미의 원래 목소리 유지.
   liao: { f0: 112, tract: 1.0, breath: 0.65, rough: 0.35, style: 'sigh', rec: { ko: 2, bleed: ['voice/liao_bleed1', 'voice/liao_bleed3'], hurt: 2, gain: 0.6, rate: 0.95 } }, // HaelDB 2번 목소리 유지. 사용자 미채택 출혈2번은 제외.
   heinrich: { f0: 132, tract: 1.03, breath: 0.3, rough: 0.35, style: 'laugh', rec: { ko: 2, bleed: 2, hurt: 2 } }, // HaelDB 가장 높은 목소리(과장된 외침, 전부 CC0)
-  margarethe: { f0: 160, tract: 1.12, breath: 0.6, rough: 0.25, style: 'exhale', rec: { ko: 2, bleed: 2, hurt: 2, gain: 1.1 } }, // 기존 hisoul 1번 유지, SkyRae 독립 연기 2번 보충. 음높이 변조 없음.
+  margarethe: { f0: 160, tract: 1.12, breath: 0.6, rough: 0.25, style: 'exhale', rec: { ko: ['voice/margarethe_ko1', 'voice/margarethe_ko2_exhale'], bleed: ['voice/margarethe_bleed1', 'voice/margarethe_bleed2_fade'], hurt: 2, gain: 1.1 } }, // 기존 hisoul 1번/피격 유지. 미채택 SkyRae 사망2번 제외, 기절2 Cici 날숨/출혈2 Reitanna 하강 날숨.
 };
 
 /**

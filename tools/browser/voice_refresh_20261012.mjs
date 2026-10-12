@@ -5,6 +5,9 @@ import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {chromium} from '/workspace/cloud-onboarding/browser/node_modules/playwright/index.mjs';
 const [base,out,build] = process.argv.slice(2);
+const selected=(process.argv.find(x=>x.startsWith('--characters='))?.slice(13)||'').split(',').filter(Boolean);
+const gameIds=(process.argv.find(x=>x.startsWith('--game='))?.slice(7)||'').split(',').filter(Boolean);
+const takeCount=(id,kind)=>id==='player'&&kind!=='피격'?1:2;
 assert(base && out && build); await fs.mkdir(out,{recursive:true});
 const local = new URL(base).hostname==='127.0.0.1';
 const launch={executablePath:'/usr/bin/chromium',args:['--no-sandbox','--disable-background-networking','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']};
@@ -43,33 +46,33 @@ try{
  for(const width of[320,390,844]){await page.setViewportSize({width,height:width===844?390:844});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));}
  await page.setViewportSize({width:390,height:844});
  const cast=await page.evaluate(async()=>fetch('./voice-casting.json').then(r=>r.json()));
- for(const row of cast){assert.equal(await page.locator(`[data-character="${row.id}"] button`).count(),row.changed?12:6);}
+ for(const row of cast){assert.equal(await page.locator(`[data-character="${row.id}"] button`).count(),row.id==='player'?4:row.changed?12:6);}
  assert.equal(cast.find(r=>r.id==='eira').name,'투야나 니콜라예바');assert.equal(cast.find(r=>r.id==='yeongman').name,'미나미');assert.equal(cast.find(r=>r.id==='yeongman').voice,'isolde');
  const used=new Set();let taps=0;
  const cases=[];
- for(const row of cast){if(!used.has(row.voice)){used.add(row.voice);cases.push([row,row.changed?'새 배정':'현재 목소리']);}}
- cases.push([cast.find(r=>r.id==='crown_boss'),'이전']);
- for(const[row,label]of cases)for(const kind of['피격','기절','출혈'])for(const n of[1,2]){
+ for(const row of cast.filter(r=>!selected.length||selected.includes(r.id))){if(!used.has(row.voice)){used.add(row.voice);cases.push([row,row.changed?'새 배정':'현재 목소리']);}}
+ if(!selected.length||selected.includes('crown_boss'))cases.push([cast.find(r=>r.id==='crown_boss'),'이전']);
+ for(const[row,label]of cases)for(const kind of['피격','기절','출혈'])for(let n=1;n<=takeCount(row.id,kind);n++){
   const btn=page.locator(`[data-character="${row.id}"]`).getByRole('button',{name:`${row.name} ${label} ${kind} ${n} 듣기`,exact:true});
   const before=await page.evaluate(()=>audioAudit.starts.length);await btn.tap();
   await page.waitForFunction(n=>audioAudit.starts.length>n,before,{timeout:30000});
   assert((await page.locator('#status').textContent()).includes(`${kind} ${n} 재생 중`));
   await page.locator('#stop').tap();assert.equal(await page.locator('.is-playing').count(),0);taps++;
  }
- assert(!Object.keys(report.assets).some(r=>r.endsWith('/liao_bleed2.mp3')));
+ assert(!Object.keys(report.assets).some(r=>['liao_bleed2','player_exhale2','margarethe_ko2','margarethe_bleed2'].some(x=>r.endsWith('/'+x+'.mp3'))));
  assert.equal(await page.evaluate(()=>localStorage.getItem('gladiator-settings')),saved);
- report.checks.push({name:'16subjects, exact six buttons, each used profile plus Maya comparison, no early voice fetch, stop, unchanged settings, no rejected take',taps,widths:[320,390,844]});
- await page.locator('[data-character="crown_boss"]').scrollIntoViewIfNeeded();await page.screenshot({path:out+'/audition.png'});await page.close();
- for(const[id,voice]of[['crown_boss','maya'],['eira','soft_female'],['omari','omari']]){
+ report.checks.push({name:'16subjects, explicit player death exception, selected numbered buttons, no early voice fetch, stop, unchanged settings, no rejected take',taps,widths:[320,390,844]});
+ await page.locator(`[data-character="${selected.includes('margarethe')?'margarethe':'crown_boss'}"]`).scrollIntoViewIfNeeded();await page.screenshot({path:out+'/audition.png'});await page.close();
+ for(const[id,voice]of(gameIds.length?gameIds.map(id=>[id,cast.find(r=>r.id===id).voice]):[['crown_boss','maya'],['eira','soft_female'],['omari','omari']])){
   page=await open(base+'?foe='+id+'&stage=poseidon&cards=longsword,sabre');await page.setViewportSize({width:844,height:390});
   const wait=fn=>page.waitForFunction(fn,null,{timeout:90000});await wait(()=>window.game?.enemy);
   async function enter(){await page.locator('#btnStart').tap();await wait(()=>game.state==='fight'||(game.state==='draw'&&game.draw.stage==='choose'&&game.draw.t>.45));if(await page.evaluate(()=>game.state==='draw'))await page.locator('.wcard[data-i="0"]').tap();await wait(()=>game.state==='fight'&&game.player.fightT>2.05);}
   await enter();await page.waitForFunction(v=>['hurt','ko','bleed'].every(k=>game.sound.samples[`voice:${v}:${k}`]?.length===2),voice,{timeout:30000});
   await page.evaluate(()=>{window.accepted=0;const observe=()=>{if(game.state==='fight'&&game.player.handHeld&&game.player.inputActive)accepted++;requestAnimationFrame(observe);};requestAnimationFrame(observe);});
   const cdp=await context.newCDPSession(page);await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:685,y:270,id:1}]});await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:610,y:170,id:1}]});await wait(()=>accepted>0);await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await cdp.detach();
-  if(id==='omari'){
+  if(id==='omari'||id==='margarethe'){
    const before=await page.evaluate(()=>audioAudit.starts.length);await page.evaluate(()=>game.player.die('출혈'));await wait(()=>game.state==='paused');await page.waitForFunction(n=>audioAudit.starts.length>n,before);
-   assert(await page.evaluate(()=>game.sound.playerDeathVoice?.srcs.length===1));report.checks.push({name:'player death uses one quiet exhale; tinnitus code unchanged'});
+   assert(await page.evaluate(()=>game.sound.playerDeathVoice?.srcs.length===1 && game.sound.samples['voice:player:ko'].length===1 && game.sound.samples['voice:player:bleed'].length===1));report.checks.push({name:'player death uses one quiet exhale; tinnitus code unchanged'});
   }else{await page.locator('#btnPause').tap();await wait(()=>game.state==='paused');}
   await page.evaluate(()=>window.oldPlayer=game.player);await enter();assert(await page.evaluate(()=>oldPlayer!==game.player));
   await page.waitForFunction(v=>['hurt','ko','bleed'].every(k=>game.sound.samples[`voice:${v}:${k}`]?.length===2),voice);

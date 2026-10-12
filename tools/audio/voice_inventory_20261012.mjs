@@ -14,6 +14,9 @@ const args = process.argv.slice(2);
 const output = path.resolve(args.find(x => !x.startsWith('--')) || path.join(root, 'docs/sound/voice_inventory_20261012.json'));
 const target = Number(args.find(x => x.startsWith('--target='))?.slice(9) || 2);
 if (!Number.isInteger(target) || target < 1) throw new Error('target must be a positive integer');
+// User-approved exception: player keeps its original single quiet death recording.
+const targetOverrides = { player: { hurt: 2, ko: 1, bleed: 1 } };
+const eventTarget = (id, kind) => targetOverrides[id]?.[kind] ?? target;
 const kinds = ['hurt', 'ko', 'bleed'];
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const run = (bin, argv) => execFileSync(bin, argv, { maxBuffer: 128 * 1024 * 1024 });
@@ -76,7 +79,7 @@ if (assetManifest) {
     if (!Number.isFinite(file.source_start) || !Number.isFinite(file.source_end) || file.source_start < 0 || file.source_end <= file.source_start) throw new Error(`${manifestPath}: invalid source interval for ${file.path}`);
     if (typeof file.sha256 !== 'string' || !/^[a-fA-F0-9]{64}$/.test(file.sha256)) throw new Error(`${manifestPath}: invalid asset SHA-256 for ${file.path}`);
     assetPaths.add(file.path);
-    provenance[file.path] = { source: file.source, intervalSeconds: [file.source_start, file.source_end], edits: file.edits ?? null, expectedAssetSHA256: file.sha256.toLowerCase(), manifest: manifestPath };
+    provenance[file.path] = { source: file.source, intervalSeconds: [file.source_start, file.source_end], ...(file.performance_id ? { performanceId: file.performance_id } : {}), edits: file.edits ?? null, expectedAssetSHA256: file.sha256.toLowerCase(), manifest: manifestPath };
   }
 }
 
@@ -129,14 +132,41 @@ const profiles = Object.fromEntries(Object.entries(VOICES).map(([id, p]) => {
     const paths = selections[id][kind];
     const hashes = paths.map(p => files[p].decodedPCM_SHA256).filter(Boolean);
     const distinctCount = new Set(hashes).size;
-    return [kind, { paths, configuredCount: paths.length, decodedCount: hashes.length, distinctCount, ...(kinds.includes(kind) ? { target, shortage: Math.max(0, target - distinctCount) } : {}), aliases: group(paths.map((path, index) => ({ path, index })), x => files[x.path].decodedPCM_SHA256) }];
+    const required = eventTarget(id, kind);
+    return [kind, { paths, configuredCount: paths.length, decodedCount: hashes.length, distinctCount, ...(kinds.includes(kind) ? { target: required, shortage: Math.max(0, required - distinctCount) } : {}), aliases: group(paths.map((path, index) => ({ path, index })), x => files[x.path].decodedPCM_SHA256) }];
   }));
   const crossEventAliases = [];
   for (let a = 0; a < kinds.length; a++) for (let b = a + 1; b < kinds.length; b++) {
     for (const first of events[kinds[a]].paths) for (const second of events[kinds[b]].paths) if (files[first].decodedPCM_SHA256 && files[first].decodedPCM_SHA256 === files[second].decodedPCM_SHA256) crossEventAliases.push({ kinds: [kinds[a], kinds[b]], files: [first, second], samePath: first === second });
   }
-  return [id, { subjects: subjects.filter(c => c.voice === id).map(c => c.id), gain: p.rec?.gain ?? 1, rate: p.rec?.rate ?? 1, mute: !!p.mute, events, crossEventAliases, hurtKODistinct: !crossEventAliases.some(x => x.kinds[0] === 'hurt' && x.kinds[1] === 'ko'), targetCountsMet: kinds.every(k => events[k].configuredCount === target && events[k].distinctCount === target) }];
+  return [id, { subjects: subjects.filter(c => c.voice === id).map(c => c.id), gain: p.rec?.gain ?? 1, rate: p.rec?.rate ?? 1, mute: !!p.mute, events, crossEventAliases, hurtKODistinct: !crossEventAliases.some(x => x.kinds[0] === 'hurt' && x.kinds[1] === 'ko'), targetCountsMet: kinds.every(k => events[k].configuredCount === eventTarget(id, k) && events[k].distinctCount === eventTarget(id, k)) }];
 }));
+
+// Current correction scope only. Other retained cross-event sharing stays visible
+// in crossEventAliases; this is not a claim that every KO/bleed bank is disjoint.
+const deathSeparationChecks = [], deathSeparationConcerns = [];
+for (const id of ['soft_female', 'margarethe']) {
+  for (const ko of selections[id]?.ko || []) for (const bleed of selections[id]?.bleed || []) {
+    const permittedOriginalPair = id === 'margarethe' && ko === 'voice/margarethe_ko1' && bleed === 'voice/margarethe_bleed1';
+    const reasons = [];
+    if (!permittedOriginalPair) {
+      if (files[ko]?.decodedPCM_SHA256 && files[ko].decodedPCM_SHA256 === files[bleed]?.decodedPCM_SHA256) reasons.push('identical decoded recording');
+      const a = provenance[ko], b = provenance[bleed];
+      const sourceA = sources[a?.source], sourceB = sources[b?.source];
+      const sourceHashA = sourceA?.source_sha256 || sourceA?.expectedSHA256;
+      const sourceHashB = sourceB?.source_sha256 || sourceB?.expectedSHA256;
+      const sameOriginal = !!a && !!b && (a.source === b.source || (sourceHashA && sourceHashA === sourceHashB));
+      if (sameOriginal) {
+        const overlap = a.intervalSeconds && b.intervalSeconds && Math.max(a.intervalSeconds[0], b.intervalSeconds[0]) < Math.min(a.intervalSeconds[1], b.intervalSeconds[1]);
+        if (overlap) reasons.push('overlapping intervals of the same original recording');
+        else if (!a.performanceId || !b.performanceId || a.performanceId === b.performanceId) reasons.push('same original recording without documented separate performances');
+      }
+    }
+    const check = { profile: id, ko, bleed, permittedOriginalPair, pass: reasons.length === 0, reasons };
+    deathSeparationChecks.push(check);
+    if (!check.pass) deathSeparationConcerns.push(check);
+  }
+}
 
 function nonSilentIntervals(file, duration) {
   const result = spawnSync('ffmpeg', ['-hide_banner', '-i', file, '-af', 'silencedetect=noise=-36dB:d=0.12', '-f', 'null', '-'], { encoding: 'utf8', maxBuffer: 4 * 1024 * 1024 });
@@ -166,18 +196,20 @@ for (const [id, source] of Object.entries(sources)) {
 const missing = Object.entries(files).filter(([, x]) => !x.exists).map(([p]) => p);
 const assetHashMismatches = Object.entries(files).filter(([, x]) => x.provenance?.expectedAssetSHA256 && x.sha256 !== x.provenance.expectedAssetSHA256).map(([p]) => p);
 const excludedLiaoBleed2Selected = selected.has('voice/liao_bleed2');
+const excludedPlayerExhale2Selected = selected.has('voice/player_exhale2');
+const playerDeathOriginalOnly = ['ko', 'bleed'].every(kind => selections.player?.[kind]?.length === 1 && selections.player[kind][0] === 'voice/player_exhale');
 const shortages = Object.entries(profiles).flatMap(([voice, p]) => kinds.filter(k => p.events[k].shortage).map(kind => ({ voice, kind, missingDistinctTakes: p.events[kind].shortage, subjects: p.subjects })));
 const changedDuringAudit = inputs.filter(p => sha(fs.readFileSync(path.join(root, p))) !== inputHashes[p]);
 const report = {
   schemaVersion: 1, generatedUTC: new Date().toISOString(), baselineCommit: run('git', ['-C', root, 'rev-parse', 'HEAD']).toString().trim(), inputHashes, changedDuringAudit,
   command: 'node tools/audio/voice_inventory_20261012.mjs [output.json] [--strict] [--target=2]',
   method: { rosterResolution: "src/main.js: ch?.voice || ch?.variantOf || ch?.id || 'generic'; unknown Sound voice falls back to generic", pcm: 'ffmpeg decode, mono 48000 Hz float32 little-endian; SHA-256 of complete decoded frames', ffmpeg: run('ffmpeg', ['-version']).toString().split('\n')[0], ffprobe: run('ffprobe', ['-version']).toString().split('\n')[0], silenceDetection: '-36 dB, minimum silence 0.12 s; boundaries are signal evidence, not listening approval' },
-  summary: { characters: characters.length, subjectsIncludingPlayerAndFallback: subjects.length, profiles: Object.keys(profiles).length, publicVoiceFiles: publicAssets.length, selectedUniqueFiles: selected.size, missingFiles: missing, unknownProvenance: Object.entries(files).filter(([, x]) => !x.provenance).map(([p]) => p), missingDistinctSlots: shortages.reduce((n, x) => n + x.missingDistinctTakes, 0), hurtKOAliasProfiles: Object.keys(profiles).filter(id => !profiles[id].hurtKODistinct), allTargetCountsMet: Object.values(profiles).every(p => p.targetCountsMet), allHurtKODistinct: Object.values(profiles).every(p => p.hurtKODistinct), catalogMatchesRoster: catalog.pass, excludedLiaoBleed2Selected, assetHashMismatches },
-  target, subjects, catalog, profiles, shortages, fileAliases, files, sources, sourceInventory, assetManifest: manifestExists ? { path: manifestPath, sources: assetManifest.sources.length, files: assetManifest.files.length } : null,
-  preservedConstraints: [ 'Liao voice/liao_bleed2 is a rejected recording; do not fill the shortage by restoring it.', 'Yeongman keeps the original Isolde actor and existing takes.', 'Player death remains quiet; existing tinnitus behavior is not part of this inventory.', 'Sharing a complete voice set between characters is permitted, including Sherpa.', 'Maya requires a separate new profile; current crown_boss assignment is recorded exactly as observed.' ],
+  summary: { characters: characters.length, subjectsIncludingPlayerAndFallback: subjects.length, profiles: Object.keys(profiles).length, publicVoiceFiles: publicAssets.length, selectedUniqueFiles: selected.size, missingFiles: missing, unknownProvenance: Object.entries(files).filter(([, x]) => !x.provenance).map(([p]) => p), missingDistinctSlots: shortages.reduce((n, x) => n + x.missingDistinctTakes, 0), hurtKOAliasProfiles: Object.keys(profiles).filter(id => !profiles[id].hurtKODistinct), allTargetCountsMet: Object.values(profiles).every(p => p.targetCountsMet), allHurtKODistinct: Object.values(profiles).every(p => p.hurtKODistinct), catalogMatchesRoster: catalog.pass, excludedLiaoBleed2Selected, excludedPlayerExhale2Selected, playerDeathOriginalOnly, requiredDeathSeparationMet: deathSeparationConcerns.length === 0, deathSeparationConcerns, assetHashMismatches },
+  target, targetOverrides, subjects, catalog, profiles, deathSeparationChecks, shortages, fileAliases, files, sources, sourceInventory, assetManifest: manifestExists ? { path: manifestPath, sources: assetManifest.sources.length, files: assetManifest.files.length } : null,
+  preservedConstraints: [ 'Liao voice/liao_bleed2 is a rejected recording; do not fill the shortage by restoring it.', 'Yeongman keeps the original Isolde actor and existing takes.', 'Explicit player exception: hurt keeps two takes; KO and bleed each select only the original voice/player_exhale. voice/player_exhale2 must stay unselected. Existing tinnitus behavior is outside this inventory.', 'Sharing a complete voice set between characters is permitted, including Sherpa.', 'Maya requires a separate new profile; current crown_boss assignment is recorded exactly as observed.' ],
   limitations: [ 'Exact PCM equality proves aliases; different hashes alone do not prove separate performances. Trims, gain changes or re-encodes of one take are not new recordings.', 'Provenance is transcribed from public/sfx/LICENSE.txt, not freshly verified on source websites.', 'Search of /tmp and /workspace/halfsword-handoff excluded build/mirror asset trees; only the Omari original was located. Missing masters may exist elsewhere.', 'No human audition, actor-age verification, browser playback, gameplay changes, external communication or deployment performed.', 'Non-silent source intervals are technically available candidates and need listening before use.', 'The target concerns hurt, KO and bleed; Isolde revive remains separately inventoried.' ],
 };
 fs.mkdirSync(path.dirname(output), { recursive: true });
 fs.writeFileSync(output, `${JSON.stringify(report, null, 2)}\n`);
 console.log(JSON.stringify({ output, ...report.summary, shortages }, null, 2));
-if (changedDuringAudit.length || missing.length || (args.includes('--strict') && (!report.summary.allTargetCountsMet || !report.summary.allHurtKODistinct || !catalog.pass || excludedLiaoBleed2Selected || assetHashMismatches.length || report.summary.unknownProvenance.length))) process.exitCode = 1;
+if (changedDuringAudit.length || missing.length || (args.includes('--strict') && (!report.summary.allTargetCountsMet || !report.summary.allHurtKODistinct || !catalog.pass || excludedLiaoBleed2Selected || excludedPlayerExhale2Selected || !playerDeathOriginalOnly || deathSeparationConcerns.length || assetHashMismatches.length || report.summary.unknownProvenance.length))) process.exitCode = 1;
