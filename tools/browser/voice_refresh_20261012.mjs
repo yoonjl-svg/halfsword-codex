@@ -59,7 +59,7 @@ try{
   assert((await page.locator('#status').textContent()).includes(`${kind} ${n} 재생 중`));
   await page.locator('#stop').tap();assert.equal(await page.locator('.is-playing').count(),0);taps++;
  }
- assert(!Object.keys(report.assets).some(r=>['liao_bleed2','player_exhale2','margarethe_ko2','margarethe_bleed2'].some(x=>r.endsWith('/'+x+'.mp3'))));
+ assert(!Object.keys(report.assets).some(r=>['liao_bleed2','player_exhale2','margarethe_ko2','margarethe_bleed2','margarethe_ko1','tuyana_bleed2_fade'].some(x=>r.endsWith('/'+x+'.mp3'))));
  assert.equal(await page.evaluate(()=>localStorage.getItem('gladiator-settings')),saved);
  report.checks.push({name:'16subjects, explicit player death exception, selected numbered buttons, no early voice fetch, stop, unchanged settings, no rejected take',taps,widths:[320,390,844]});
  await page.locator(`[data-character="${selected.includes('margarethe')?'margarethe':'crown_boss'}"]`).scrollIntoViewIfNeeded();await page.screenshot({path:out+'/audition.png'});await page.close();

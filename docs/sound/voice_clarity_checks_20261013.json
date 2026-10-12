@@ -1,0 +1,616 @@
+{
+  "baselineCommit": "0e7eb9e944186d0426849b5b5fc9d7acdb5af544",
+  "inventory": {
+    "summary": {
+      "characters": 15,
+      "subjectsIncludingPlayerAndFallback": 17,
+      "profiles": 11,
+      "publicVoiceFiles": 68,
+      "selectedUniqueFiles": 55,
+      "missingFiles": [],
+      "unknownProvenance": [],
+      "missingDistinctSlots": 0,
+      "hurtKOAliasProfiles": [],
+      "allTargetCountsMet": true,
+      "allHurtKODistinct": true,
+      "catalogMatchesRoster": true,
+      "excludedLiaoBleed2Selected": false,
+      "excludedPlayerExhale2Selected": false,
+      "playerDeathOriginalOnly": true,
+      "requiredDeathSeparationMet": true,
+      "deathSeparationConcerns": [],
+      "assetHashMismatches": []
+    },
+    "inputHashes": {
+      "src/sound.js": "30a445651681e417841bdad9a38922685181b86ac9553524cbcb48994a2fe576",
+      "src/characters.js": "c1cbcbd18fabf18c32cf7f810c780928edca848513c207a1aef6689b6b137265",
+      "src/characters_expansion.js": "cbf398ee11b4c934dcb8229d1e5bb6782ac3023b924709171c279462126fcc30",
+      "src/characters_wanderers.js": "356005eee7621399dffd714b46044b91a7de54a1e351dc43ee9838c1ad8002eb",
+      "src/main.js": "bc3d4ab476823dd4c9b512e48de2689b0da96d7c58f2e85591ff23cc2b0c2279",
+      "public/sfx/LICENSE.txt": "d24af62696ed489f5d22d00e46d2cf62ca953b27a332a668e2af4b93e884faaa",
+      "public/voice-casting.json": "cf2a6f1df8a23384c79aae8d90bb647473c9cb5ac1a7990b35b4f073e80f26d4",
+      "docs/sound/voice_refresh_assets_20261012.json": "e1f939c53c46d172e86c991537b0f460d3812b8bcb4d4334be2369dd38691da4"
+    },
+    "deathSeparationChecks": [
+      {
+        "profile": "soft_female",
+        "ko": "voice/reitanna_gasp",
+        "bleed": "voice/reitanna_long_sigh",
+        "pass": true,
+        "reasons": []
+      },
+      {
+        "profile": "soft_female",
+        "ko": "voice/reitanna_gasp",
+        "bleed": "voice/tuyana_bleed2_breath",
+        "pass": true,
+        "reasons": []
+      },
+      {
+        "profile": "soft_female",
+        "ko": "voice/tuyana_ko2_exhale",
+        "bleed": "voice/reitanna_long_sigh",
+        "pass": true,
+        "reasons": []
+      },
+      {
+        "profile": "soft_female",
+        "ko": "voice/tuyana_ko2_exhale",
+        "bleed": "voice/tuyana_bleed2_breath",
+        "pass": true,
+        "reasons": []
+      },
+      {
+        "profile": "margarethe",
+        "ko": "voice/reitanna_gasp",
+        "bleed": "voice/margarethe_bleed1",
+        "pass": true,
+        "reasons": []
+      },
+      {
+        "profile": "margarethe",
+        "ko": "voice/reitanna_gasp",
+        "bleed": "voice/margarethe_bleed2_fade",
+        "pass": true,
+        "reasons": []
+      },
+      {
+        "profile": "margarethe",
+        "ko": "voice/margarethe_ko2_exhale",
+        "bleed": "voice/margarethe_bleed1",
+        "pass": true,
+        "reasons": []
+      },
+      {
+        "profile": "margarethe",
+        "ko": "voice/margarethe_ko2_exhale",
+        "bleed": "voice/margarethe_bleed2_fade",
+        "pass": true,
+        "reasons": []
+      }
+    ]
+  },
+  "audio": {
+    "pass": true,
+    "base": "http://127.0.0.1:4182",
+    "scope": "selected",
+    "requestedProfiles": [
+      "margarethe",
+      "soft_female"
+    ],
+    "approvedTargets": {
+      "default": {
+        "hurt": 2,
+        "ko": 2,
+        "bleed": 2
+      },
+      "player": {
+        "hurt": 2,
+        "ko": 1,
+        "bleed": 1
+      }
+    },
+    "profiles": [
+      "margarethe",
+      "soft_female"
+    ],
+    "sampleRates": [
+      44100,
+      48000
+    ],
+    "expectedRenders": 24,
+    "rendered": 24,
+    "rows": [
+      {
+        "id": "margarethe",
+        "kind": "hurt",
+        "variant": 0,
+        "sr": 44100,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 19990,
+        "decodedSeconds": 0.45328798185941044,
+        "playbackRate": 1.03961980342865,
+        "renderFrames": 132300,
+        "peak": 0.7271418571472168,
+        "rms": 0.07204029120822165
+      },
+      {
+        "id": "margarethe",
+        "kind": "hurt",
+        "variant": 1,
+        "sr": 44100,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 17938,
+        "decodedSeconds": 0.4067573696145125,
+        "playbackRate": 0.9756646752357483,
+        "renderFrames": 132300,
+        "peak": 0.44194889068603516,
+        "rms": 0.03145464417944583
+      },
+      {
+        "id": "margarethe",
+        "kind": "ko",
+        "variant": 0,
+        "sr": 44100,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 27041,
+        "decodedSeconds": 0.6131746031746032,
+        "playbackRate": 0.9803973436355591,
+        "renderFrames": 132300,
+        "peak": 0.7959995865821838,
+        "rms": 0.06947759205248433
+      },
+      {
+        "id": "margarethe",
+        "kind": "ko",
+        "variant": 1,
+        "sr": 44100,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 22688,
+        "decodedSeconds": 0.514467120181406,
+        "playbackRate": 0.9929946660995483,
+        "renderFrames": 132300,
+        "peak": 0.4357185363769531,
+        "rms": 0.03439631776147592
+      },
+      {
+        "id": "margarethe",
+        "kind": "bleed",
+        "variant": 0,
+        "sr": 44100,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 40569,
+        "decodedSeconds": 0.9199319727891156,
+        "playbackRate": 0.9740533828735352,
+        "renderFrames": 132300,
+        "peak": 0.8023540377616882,
+        "rms": 0.07863502234932854
+      },
+      {
+        "id": "margarethe",
+        "kind": "bleed",
+        "variant": 1,
+        "sr": 44100,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 39690,
+        "decodedSeconds": 0.9,
+        "playbackRate": 1.0164501667022705,
+        "renderFrames": 132300,
+        "peak": 0.32586002349853516,
+        "rms": 0.04122898441773829
+      },
+      {
+        "id": "soft_female",
+        "kind": "hurt",
+        "variant": 0,
+        "sr": 44100,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 14264,
+        "decodedSeconds": 0.32344671201814057,
+        "playbackRate": 1.0164769887924194,
+        "renderFrames": 132300,
+        "peak": 0.5110912322998047,
+        "rms": 0.02498552473979854
+      },
+      {
+        "id": "soft_female",
+        "kind": "hurt",
+        "variant": 1,
+        "sr": 44100,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 13627,
+        "decodedSeconds": 0.30900226757369614,
+        "playbackRate": 0.9622745513916016,
+        "renderFrames": 132300,
+        "peak": 0.4047665596008301,
+        "rms": 0.024911938995036454
+      },
+      {
+        "id": "soft_female",
+        "kind": "ko",
+        "variant": 0,
+        "sr": 44100,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 27041,
+        "decodedSeconds": 0.6131746031746032,
+        "playbackRate": 0.9772208333015442,
+        "renderFrames": 132300,
+        "peak": 0.7535057663917542,
+        "rms": 0.06418922733537759
+      },
+      {
+        "id": "soft_female",
+        "kind": "ko",
+        "variant": 1,
+        "sr": 44100,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 16538,
+        "decodedSeconds": 0.37501133786848073,
+        "playbackRate": 1.018796682357788,
+        "renderFrames": 132300,
+        "peak": 0.2556183338165283,
+        "rms": 0.024413004664771937
+      },
+      {
+        "id": "soft_female",
+        "kind": "bleed",
+        "variant": 0,
+        "sr": 44100,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 53182,
+        "decodedSeconds": 1.2059410430839002,
+        "playbackRate": 1.0139671564102173,
+        "renderFrames": 132300,
+        "peak": 0.7659372091293335,
+        "rms": 0.12255711116716808
+      },
+      {
+        "id": "soft_female",
+        "kind": "bleed",
+        "variant": 1,
+        "sr": 44100,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 22050,
+        "decodedSeconds": 0.5,
+        "playbackRate": 1.013004183769226,
+        "renderFrames": 132300,
+        "peak": 0.3802006244659424,
+        "rms": 0.024668919340978684
+      },
+      {
+        "id": "margarethe",
+        "kind": "hurt",
+        "variant": 0,
+        "sr": 48000,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 21754,
+        "decodedSeconds": 0.4532083333333333,
+        "playbackRate": 0.9923794865608215,
+        "renderFrames": 144000,
+        "peak": 0.7291251420974731,
+        "rms": 0.07388310938908893
+      },
+      {
+        "id": "margarethe",
+        "kind": "hurt",
+        "variant": 1,
+        "sr": 48000,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 19522,
+        "decodedSeconds": 0.40670833333333334,
+        "playbackRate": 0.9994699358940125,
+        "renderFrames": 144000,
+        "peak": 0.44317197799682617,
+        "rms": 0.03108511875214054
+      },
+      {
+        "id": "margarethe",
+        "kind": "ko",
+        "variant": 0,
+        "sr": 48000,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 29430,
+        "decodedSeconds": 0.613125,
+        "playbackRate": 0.9999061822891235,
+        "renderFrames": 144000,
+        "peak": 0.7957698106765747,
+        "rms": 0.06880748663623283
+      },
+      {
+        "id": "margarethe",
+        "kind": "ko",
+        "variant": 1,
+        "sr": 48000,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 24692,
+        "decodedSeconds": 0.5144166666666666,
+        "playbackRate": 0.972281813621521,
+        "renderFrames": 144000,
+        "peak": 0.44100451469421387,
+        "rms": 0.03487453303992991
+      },
+      {
+        "id": "margarethe",
+        "kind": "bleed",
+        "variant": 0,
+        "sr": 48000,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 44153,
+        "decodedSeconds": 0.9198541666666666,
+        "playbackRate": 0.9865345358848572,
+        "renderFrames": 144000,
+        "peak": 0.8088191747665405,
+        "rms": 0.0780766269008226
+      },
+      {
+        "id": "margarethe",
+        "kind": "bleed",
+        "variant": 1,
+        "sr": 48000,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 43200,
+        "decodedSeconds": 0.9,
+        "playbackRate": 0.9892684817314148,
+        "renderFrames": 144000,
+        "peak": 0.32601118087768555,
+        "rms": 0.041936120466855964
+      },
+      {
+        "id": "soft_female",
+        "kind": "hurt",
+        "variant": 0,
+        "sr": 48000,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 15522,
+        "decodedSeconds": 0.323375,
+        "playbackRate": 0.9623987674713135,
+        "renderFrames": 144000,
+        "peak": 0.5119121074676514,
+        "rms": 0.025739979124996766
+      },
+      {
+        "id": "soft_female",
+        "kind": "hurt",
+        "variant": 1,
+        "sr": 48000,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 14828,
+        "decodedSeconds": 0.3089166666666667,
+        "playbackRate": 0.9822543263435364,
+        "renderFrames": 144000,
+        "peak": 0.40541839599609375,
+        "rms": 0.02466461528154518
+      },
+      {
+        "id": "soft_female",
+        "kind": "ko",
+        "variant": 0,
+        "sr": 48000,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 29430,
+        "decodedSeconds": 0.613125,
+        "playbackRate": 0.9920017123222351,
+        "renderFrames": 144000,
+        "peak": 0.7524871230125427,
+        "rms": 0.0637145194625457
+      },
+      {
+        "id": "soft_female",
+        "kind": "ko",
+        "variant": 1,
+        "sr": 48000,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 18000,
+        "decodedSeconds": 0.375,
+        "playbackRate": 1.0086355209350586,
+        "renderFrames": 144000,
+        "peak": 0.2569906711578369,
+        "rms": 0.024604004781490853
+      },
+      {
+        "id": "soft_female",
+        "kind": "bleed",
+        "variant": 0,
+        "sr": 48000,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 57882,
+        "decodedSeconds": 1.205875,
+        "playbackRate": 0.9748103618621826,
+        "renderFrames": 144000,
+        "peak": 0.7657753825187683,
+        "rms": 0.12512498080555934
+      },
+      {
+        "id": "soft_female",
+        "kind": "bleed",
+        "variant": 1,
+        "sr": 48000,
+        "required": 2,
+        "loaded": 2,
+        "selectedBufferUsed": true,
+        "decodedFrames": 24000,
+        "decodedSeconds": 0.5,
+        "playbackRate": 1.012485146522522,
+        "renderFrames": 144000,
+        "peak": 0.3835129737854004,
+        "rms": 0.024726236648081115
+      }
+    ],
+    "retry": {
+      "id": "maya",
+      "kind": "hurt",
+      "file": "voice/maya_hurt2",
+      "url": "http://127.0.0.1:4182/sfx/voice/maya_hurt2.mp3",
+      "firstCount": 1,
+      "secondCount": 2,
+      "completeEventSets": 3,
+      "attempts": 2,
+      "pass": true
+    },
+    "errors": [],
+    "failure": null,
+    "sources": {
+      "src/sound.js": "30a445651681e417841bdad9a38922685181b86ac9553524cbcb48994a2fe576",
+      "src/config.js": "08b9818b6d9f45aecd1d7f88f664fc43491db73a395f0b242bf211e0ece3200c",
+      "src/slash_draw.js": "16a11a1d4366173bce88caad813084d2905de46c33cadeaaf7c976b2b374eb13",
+      "src/stage_detail_sound.js": "7bafc635c73f3f08fb3b883daeb3b55f4c2f413b9fbb2b8b1941ae003fb236f3"
+    },
+    "completedUTC": "2026-10-12T15:35:46.465Z",
+    "limits": [
+      "Each row is a separate OfflineAudioContext rendering through actual Sound.build/hurt/death, with only pickSample temporarily forced to its requested variant.",
+      "Partial-load retry is an actual browser fetch receiving one injected HTTP 503 followed by the real asset response.",
+      "Scheduled voice events do not establish natural combat wound frequency, acting suitability, human listening approval, or physical phone loudness.",
+      "Player death is rendered through its quiet recording branch; player world fade and tinnitus are separate behavior checks."
+    ]
+  },
+  "render": {
+    "path": "voice/tuyana_bleed2_breath",
+    "durationSeconds": 0.5,
+    "bytes": 6940,
+    "sha256": "cc313fa786794ac4890e5eaa99371aa053853bd7816d18feec3a193e0a572e67",
+    "gain": 5.772505845425348,
+    "decodedRMS": 0.07883032411336899,
+    "decodedPeak": 0.48205578327178955,
+    "decodedThirdsRMS": [
+      0.12946580350399017,
+      0.04302792623639107,
+      0.005464364308863878
+    ],
+    "source": {
+      "role": "Tuyana/Artoria bleed2 replacement",
+      "author": "Reitanna",
+      "title": "deep sigh and exhale.wav",
+      "source_url": "https://freesound.org/people/Reitanna/sounds/351160/",
+      "download_url": "https://cdn.freesound.org/previews/351/351160_950925-hq.mp3",
+      "license": "CC0 1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "source_sha256": "f96523ee1af522658dd4e7c7825c87cb63ef9fcca5d4c3eb01fb682cda83928f",
+      "license_evidence_sha256": "fa01bdcbc728473c1a52247778f46368f606492c765088ff0c93ec8c8aaa5a49",
+      "source_description": "when things are just getting so tiresome... you just need to sigh.",
+      "interval_seconds": [
+        1.1,
+        1.6
+      ],
+      "duration_seconds": 0.5,
+      "rms_segments": [
+        {
+          "interval_seconds": [
+            1.1,
+            1.26
+          ],
+          "rms": 0.028822768479585648,
+          "rms_dbfs": -30.805286134797147
+        },
+        {
+          "interval_seconds": [
+            1.26,
+            1.42
+          ],
+          "rms": 0.00923964660614729,
+          "rms_dbfs": -40.6868927832498
+        },
+        {
+          "interval_seconds": [
+            1.42,
+            1.6
+          ],
+          "rms": 0.0021413241047412157,
+          "rms_dbfs": -53.386351882996344
+        }
+      ],
+      "periodicity_screen": {
+        "confidence_threshold": 0.62,
+        "confident_frames": 2,
+        "total_frames": 45,
+        "median_acf_confidence": 0.27075690990247847,
+        "method": "50ms Hann autocorrelation,10ms hop,70–450Hz; breath signal pitch estimates can be unreliable.",
+        "conclusion": "Only2of45frames passed the correlation threshold; do not infer a reliable pitch trend."
+      },
+      "rationale": "Explicitly named sigh/exhale source and description, same Reitanna actor as accepted KO1/bleed1 but a different recording ID and performance. Selected second energy burst after the pause; its amplitude naturally decreases throughout the proposed interval. No healed/spell/attack clip used.",
+      "distinct_from": [
+        "Reitanna241563 gasp",
+        "Reitanna242690 long sigh",
+        "CiciType2damaged1",
+        "CiciType2damaged2",
+        "CiciType2healed2"
+      ],
+      "limitations": "No subjective listening performed; nonverbal classification comes from source title and description, not audition or speech recognition. No project edit or rendered replacement. Root must choose final gain/fades."
+    },
+    "subjectiveListening": false
+  },
+  "accountTests": {
+    "pass": 32,
+    "fail": 0
+  },
+  "build": {
+    "pass": true,
+    "directory": "/tmp/voice-clarity-build-20261013"
+  },
+  "publicDelivery": "pending",
+  "localBrowser": {
+    "pass": true,
+    "checks": [
+      {
+        "name": "16subjects, explicit player death exception, selected numbered buttons, no early voice fetch, stop, unchanged settings, no rejected take",
+        "taps": 12,
+        "widths": [
+          320,
+          390,
+          844
+        ]
+      },
+      {
+        "name": "mobile game input/pause/restart eira",
+        "voice": "soft_female"
+      }
+    ],
+    "assets": 184,
+    "errors": []
+  }
+}

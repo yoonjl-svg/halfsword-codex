@@ -147,9 +147,8 @@ const profiles = Object.fromEntries(Object.entries(VOICES).map(([id, p]) => {
 const deathSeparationChecks = [], deathSeparationConcerns = [];
 for (const id of ['soft_female', 'margarethe']) {
   for (const ko of selections[id]?.ko || []) for (const bleed of selections[id]?.bleed || []) {
-    const permittedOriginalPair = id === 'margarethe' && ko === 'voice/margarethe_ko1' && bleed === 'voice/margarethe_bleed1';
     const reasons = [];
-    if (!permittedOriginalPair) {
+    {
       if (files[ko]?.decodedPCM_SHA256 && files[ko].decodedPCM_SHA256 === files[bleed]?.decodedPCM_SHA256) reasons.push('identical decoded recording');
       const a = provenance[ko], b = provenance[bleed];
       const sourceA = sources[a?.source], sourceB = sources[b?.source];
@@ -162,7 +161,7 @@ for (const id of ['soft_female', 'margarethe']) {
         else if (!a.performanceId || !b.performanceId || a.performanceId === b.performanceId) reasons.push('same original recording without documented separate performances');
       }
     }
-    const check = { profile: id, ko, bleed, permittedOriginalPair, pass: reasons.length === 0, reasons };
+    const check = { profile: id, ko, bleed, pass: reasons.length === 0, reasons };
     deathSeparationChecks.push(check);
     if (!check.pass) deathSeparationConcerns.push(check);
   }

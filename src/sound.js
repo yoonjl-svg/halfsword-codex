@@ -304,7 +304,7 @@ export const VOICES = {
   // Explicit file lists reuse a recording without duplicating encoded assets.
   soft_female: { f0: 225, tract: 1.17, breath: 0.6, rough: 0.1, style: 'gasp', rec: {
     ko: ['voice/reitanna_gasp', 'voice/tuyana_ko2_exhale'],
-    bleed: ['voice/reitanna_long_sigh', 'voice/tuyana_bleed2_fade'],
+    bleed: ['voice/reitanna_long_sigh', 'voice/tuyana_bleed2_breath'],
     hurt: ['voice/tuyana_hurt1', 'voice/tuyana_hurt2'], gain: 1, rate: 1,
   } },
   // Separate casting from Liao; these are the existing generic/default-opponent takes,
@@ -325,7 +325,7 @@ export const VOICES = {
   isolde: { f0: 215, tract: 1.17, breath: 0.55, rough: 0.1, style: 'gasp', rec: { ko: ['voice/isolde_ko1', 'voice/isolde_revive1'], bleed: ['voice/isolde_bleed1', 'voice/isolde_ko1'], hurt: 2, revive: 1, gain: 1.3 } }, // 기존 mvVoiceActing 독립 연기 조각 재사용. 미나미의 원래 목소리 유지.
   liao: { f0: 112, tract: 1.0, breath: 0.65, rough: 0.35, style: 'sigh', rec: { ko: 2, bleed: ['voice/liao_bleed1', 'voice/liao_bleed3'], hurt: 2, gain: 0.6, rate: 0.95 } }, // HaelDB 2번 목소리 유지. 사용자 미채택 출혈2번은 제외.
   heinrich: { f0: 132, tract: 1.03, breath: 0.3, rough: 0.35, style: 'laugh', rec: { ko: 2, bleed: 2, hurt: 2 } }, // HaelDB 가장 높은 목소리(과장된 외침, 전부 CC0)
-  margarethe: { f0: 160, tract: 1.12, breath: 0.6, rough: 0.25, style: 'exhale', rec: { ko: ['voice/margarethe_ko1', 'voice/margarethe_ko2_exhale'], bleed: ['voice/margarethe_bleed1', 'voice/margarethe_bleed2_fade'], hurt: 2, gain: 1.1 } }, // 기존 hisoul 1번/피격 유지. 미채택 SkyRae 사망2번 제외, 기절2 Cici 날숨/출혈2 Reitanna 하강 날숨.
+  margarethe: { f0: 160, tract: 1.12, breath: 0.6, rough: 0.25, style: 'exhale', rec: { ko: ['voice/reitanna_gasp', 'voice/margarethe_ko2_exhale'], bleed: ['voice/margarethe_bleed1', 'voice/margarethe_bleed2_fade'], hurt: 2, gain: 1.1 } }, // 기존 hisoul 출혈1/피격 유지. 기절1은 별도 Reitanna gasp. KO/출혈 네 녹음은 모두 분리.
 };
 
 /**
