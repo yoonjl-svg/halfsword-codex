@@ -35,4 +35,4 @@ python3 -m http.server 4184 --bind 127.0.0.1 --directory /tmp/voice-soften-build
 node tools/browser/voice_refresh_20261012.mjs http://127.0.0.1:4184/ /tmp/voice-soften-local /tmp/voice-soften-build --characters=player,margarethe,eira,artoria --game=margarethe,eira
 ```
 
-공개 상태와 결과는 [전달 영수증](voice_soften_release.json)에 확정한다. [슈바르츠 청취](https://yoonjl-svg.github.io/halfsword-codex/voices.html#character-margarethe) · [투야나 청취](https://yoonjl-svg.github.io/halfsword-codex/voices.html#character-eira).
+`87c8e77`/Pages38268370036 공개 완료. 공개 모바일4묶음·185파일 해시 일치·오류0 확인. 첫 시도에서 음원3파일 HTTP503이 있었고 개별 재요청200/해시 확인 후 동일 빌드 재검사는 통과했다. [전달 영수증](voice_soften_release.json). [슈바르츠 청취](https://yoonjl-svg.github.io/halfsword-codex/voices.html#character-margarethe) · [투야나 청취](https://yoonjl-svg.github.io/halfsword-codex/voices.html#character-eira).
