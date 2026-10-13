@@ -664,6 +664,15 @@ LOOK_ARCHIVE.chanda = { v1: {
   originalTorsoWidth: true,
 } };
 
+LOOK_ARCHIVE.ratna = { v1: {
+  tunic: 0xded2b4, quilt: 0xb9a98a, sleeve: 0xa87350, straps: null,
+  belt: 0x884936, hoseUpper: 0x264e4d, hoseLower: 0xa87350, shoes: 0x45362b,
+  skin: 0xa87350, hands: 0xa87350, helmet: null, metal: 0xa18a53, hair: 0x34342f,
+  headband: null, grip: 0x493326, hilt: 0xa18a53, accent: 0x884936,
+  outfit: 'ratna_ferryman', armor: null, stockEyes: true, eyeColor: 0x302019,
+  originalTorsoWidth: true,
+} };
+
 // 지금 게임에서 실제로 쓰는 버전 (감독/오너가 확정하면 여기만 바꾸면 됨)
 export const CHARACTER_LOOK_VERSION = {
   bran: 'v1',
@@ -681,6 +690,7 @@ export const CHARACTER_LOOK_VERSION = {
   sherpa: 'v1',
   silver_wanderer: 'v4',
   chanda: 'v1',
+  ratna: 'v1',
 };
 
 /** id의 특정 버전을 꺼낸다. 버전이 없으면 현재 버전 → v0 순으로 물러난다. (main.js의 ?look=, ?lookv= 미리보기용) */

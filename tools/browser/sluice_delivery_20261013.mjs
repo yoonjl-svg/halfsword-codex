@@ -1,4 +1,4 @@
-// One frozen-build delivery flow for the sluice introduction and Chanda encounter.
+// One frozen-build delivery flow for the sluice introduction and Ratna encounter.
 // Derived from new_pair_delivery_20261010.mjs; no campaign, account or physics fixtures.
 // --base=http://127.0.0.1:PORT/ --build=/absolute/build --out=/tmp/halfsword-sluice-20261013/local
 // Public: same build, --out=/tmp/halfsword-sluice-20261013/public --local-evidence=/absolute/local/report.json
@@ -12,8 +12,8 @@ import { CHARACTERS_BY_ID } from '../../src/characters.js';
 
 const own = fileURLToPath(import.meta.url), root = path.resolve(path.dirname(own), '../..');
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
-const photos = ['sluice-game', 'sluice-vista'].map(name => `encounters/${name}.webp`);
-const query = '?cards=sain,ice&foe=chanda&stage=sluice';
+const photos = ['sluice-game', 'sluice-vista', 'ratna-front', 'ratna-back'].map(name => `encounters/${name}.webp`);
+const query = '?cards=sain,ice&foe=ratna&stage=sluice';
 async function manifest(dir, prefix = '') {
   const result = {};
   for (const entry of (await fs.readdir(dir, { withFileTypes: true })).sort((a, b) => a.name.localeCompare(b.name))) {
@@ -38,9 +38,9 @@ async function main() {
   const local = ['localhost', '127.0.0.1', '[::1]'].includes(base.hostname);
   assert((local && base.protocol === 'http:') || base.href === 'https://yoonjl-svg.github.io/halfsword-codex/');
   assert(!base.search && !base.hash && !base.username && !base.password && base.pathname.endsWith('/'));
-  const character = CHARACTERS_BY_ID.chanda;
-  assert(character, 'Chanda must be registered'); assert.equal(character.weapon, 'sabre'); assert.equal(character.voice, 'maya');
-  const contract = { enemy: 'chanda', name: character.name, stage: 'sluice', weapon: 'sabre', voice: 'maya',
+  const character = CHARACTERS_BY_ID.ratna;
+  assert(character, 'Ratna must be registered'); assert.equal(character.weapon, 'falchion'); assert.equal(character.voice, 'tome');
+  const contract = { enemy: 'ratna', name: character.name, stage: 'sluice', weapon: 'falchion', voice: 'tome',
     outfit: character.look.outfit, lookVersion: character.lookVersion, playerWeapon: 'sain', query, photos };
   const before = await manifest(build), toolHash = sha(await fs.readFile(own));
   for (const name of ['index.html', 'sluice.html', ...photos]) assert(before[name], `Missing frozen file: ${name}`);
@@ -137,6 +137,7 @@ async function main() {
       const bodies = [p, e].flatMap(f => [...Object.values(f.bodies), f.sword])
         .flatMap(body => [body.translation(), body.rotation(), body.linvel(), body.angvel()].flatMap(value => Object.values(value)));
       return { state: game.state, steps: game.combat.stepNo, frame: game.renderInfo().frame, stage: game.stage,
+        terrain: [p,e].map(f=>({model:f.movementSurface,scale:f.surfaceSpeedScale})), mudLabelHidden:document.getElementById('wetlandFooting').hidden,
         enemyName: e.name, enemyWeapon: e.weapon.id, playerWeapon: p.weapon.id,
         playerUUID: p.swordGroup.uuid, enemyUUID: e.swordGroup.uuid, outfit,
         finite: bodies.every(Number.isFinite), bodies, pelvis: { ...p.bodies.pelvis.translation() }, swordRotation: { ...p.sword.rotation() },
@@ -151,18 +152,19 @@ async function main() {
     const outfitIds = value => value.outfit.map(item => item.uuid);
     const outfitSignature = value => value.outfit.map(({ outfit, part }) => ({ outfit, part }));
     function policy(value, selected = true, audible = true) {
+      assert(value.terrain.every(f=>f.model==='wetland' && f.scale>=0.4 && f.scale<=1));
       assert.equal(value.stage.id, contract.stage); assert.equal(value.stage.pinned, contract.stage);
       assert.equal(value.enemyName, contract.name); assert.equal(value.enemyWeapon, contract.weapon);
       if (selected) assert.equal(value.playerWeapon, contract.playerWeapon);
       assert(value.finite && value.scrollWidth <= value.width + 1); assert.equal(value.saved, saved);
       assert.equal(value.model.requested, false); assert.equal(value.model.loads, 0);
       assert(value.outfit.length && value.outfit.every(item => item.outfit === contract.outfit));
-      assert(value.outfit.some(item => item.visible), 'Chanda outfit must be visible');
+      assert(value.outfit.some(item => item.visible), 'Ratna outfit must be visible');
       assert.equal(value.sound.on, true); assert.equal(value.sound.stage, contract.stage);
       if (audible) {
         assert.equal(value.sound.mudSteps, 8); assert.equal(value.sound.context, 'running'); assert(value.sound.primed);
-        for (const kind of ['hurt', 'ko', 'bleed']) assert.equal(value.sound.voiceSamples[`voice:maya:${kind}`], 2);
-        assert(Object.keys(value.sound.voiceSamples).every(key => /^voice:(maya|player):/.test(key)));
+        for (const kind of ['hurt', 'ko', 'bleed']) assert.equal(value.sound.voiceSamples[`voice:tome:${kind}`], 2);
+        assert(Object.keys(value.sound.voiceSamples).every(key => /^voice:(tome|player):/.test(key)));
         assert.equal(value.sound.detail?.stage, contract.stage); assert(value.sound.detail.ambientNodes > 0);
       }
     }
@@ -172,7 +174,7 @@ async function main() {
     landing = await page.evaluate(() => ({ title: document.title,
       links: [...document.querySelectorAll('a[href]')].map(a => ({ href: a.href, text: a.textContent.trim() })),
       images: [...document.images].map(img => ({ path: new URL(img.src).pathname, width: img.naturalWidth, height: img.naturalHeight })) }));
-    assert.equal(landing.title, '잠든 습지 · 라트나 제안 — 적막'); assert(landing.links.some(link => link.href === destination));
+    assert.equal(landing.title, '잠든 습지 · 라트나 — 적막'); assert(landing.links.some(link => link.href === destination));
     assert.deepEqual(landing.images.map(img => img.path).sort(), photos.map(name => new URL(name, base).pathname).sort());
     assert(landing.images.every(img => img.width > 0 && img.height > 0));
     for (const link of landing.links) {
@@ -202,8 +204,8 @@ async function main() {
     await page.setViewportSize({ width: 844, height: 390 }); cdp = await context.newCDPSession(page);
     async function startRound(label) {
       await page.locator('#btnStart').tap(); await wait(() => game.state === 'draw' && game.draw.stage === 'choose' && game.draw.t >= .45);
-      const cards = await page.evaluate(() => [...game.draw.ids]); assert.deepEqual(cards, ['sain', 'ice', 'sabre']);
-      await wait(() => game.sound.ctx?.state === 'running' && ['hurt', 'ko', 'bleed'].every(kind => game.sound.samples[`voice:maya:${kind}`]?.length === 2));
+      const cards = await page.evaluate(() => [...game.draw.ids]); assert.deepEqual(cards, ['sain', 'ice', 'falchion']);
+      await wait(() => game.sound.ctx?.state === 'running' && ['hurt', 'ko', 'bleed'].every(kind => game.sound.samples[`voice:tome:${kind}`]?.length === 2));
       if (label === 'first') {
         await wait(() => game.sound._stageDetails?.stats.accepted > 0);
         await page.screenshot({ path: path.join(out, 'cards.png') });
@@ -231,6 +233,19 @@ async function main() {
       flow[label].movementM = Math.hypot(moved.pelvis.x - beforeMove.pelvis.x, moved.pelvis.z - beforeMove.pelvis.z);
       assert(flow[label].movementM > .001, 'Stick touch must move the player');
       await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+      if (label === 'first') {
+        // Enter the nearby rear-right puddle using the actual on-screen stick.
+        const origin = await read();
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [point] });
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ ...point, x: point.x + 32, y: point.y + 12 }] });
+        await wait(step => game.player.surfaceSpeedScale < .95 || game.combat.stepNo > step + 720 || game.state !== 'fight', origin.steps);
+        flow[label].puddle = await read();
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+        policy(flow[label].puddle);
+        assert(flow[label].puddle.terrain[0].scale < .95, 'Actual stick movement must enter a visible puddle');
+        assert.equal(flow[label].puddle.mudLabelHidden, false, 'Puddle entry must show the slow-ground cue');
+        await page.screenshot({ path: path.join(out, 'puddle-entry.png') });
+      }
     }
     async function pause() {
       await page.locator('#btnPause').tap(); await wait(() => game.state === 'paused' && game.sound._stageDetails?.paused);
@@ -277,7 +292,7 @@ async function main() {
       tlsVerification: true, proxyRetained: !local,
       limits: ['Chromium mobile/touch emulation; physical-phone performance and human appearance/sound acceptance are not established.',
         'One Sain card flow with trusted touch attack/movement, pause/resume and fresh restart; no account or campaign tests.',
-        'Sound context, Maya sample decoding and naturally accepted sluice details are observed; no injury or sound event is injected.',
+        'Sound context, Tome sample decoding and naturally accepted sluice details are observed; no injury or sound event is injected.',
         'No AI, damage, health, pose, physics clock or progression state is overridden. This is delivery validation, not physics equivalence or combat balance.',
         'Every fetched own file must match the frozen build. Public run requires the same passing local tool/build contract; one logged GET 502/503 retry is allowed.'] };
     await fs.writeFile(path.join(out, 'report.json'), JSON.stringify(report, null, 2) + '\n');

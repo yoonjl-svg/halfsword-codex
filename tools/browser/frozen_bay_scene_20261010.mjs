@@ -41,10 +41,10 @@ try {
   renderer.dispose();return{runs,cues,foe:STAGE_FOE[stageId]};
  },stageId);
  await fs.writeFile(out+'/scene-observed.json',JSON.stringify({result,errors},null,2));
- assert.equal(result.foe,stageId==='sluice'?'chanda':stageId==='qinglan'?'renji':'eira');assert.equal(errors.length,0);
+ assert.equal(result.foe,stageId==='sluice'?'ratna':stageId==='qinglan'?'renji':'eira');assert.equal(errors.length,0);
  for(const r of result.runs){assert(r.finite);assert(r.triangles<(stageId==='sluice'?110000:stageId==='qinglan'?100000:65000));assert(r.calls<(stageId==='sluice'?40:stageId==='qinglan'?35:20));assert.deepEqual(r.disposed,r.owned);assert.equal(r.cleared.geometries,0);assert.equal(r.active.textures-r.cleared.textures,r.owned.textures);assert.deepEqual(r.cleared,result.runs[0].cleared);assert.deepEqual(r.hash,result.runs[0].hash);}
  for(const kind of (stageId==='sluice'?['sluiceDrip','jungleRustle','jungleBird']:stageId==='qinglan'?['springDrip','cliffBird']:['lakeIceBoom','frozenPierCreak'])){const cues=result.cues.filter(c=>c.kind===kind);assert(cues.length>=3);for(let i=1;i<cues.length;i++)assert(cues[i].time-cues[i-1].time>=({springDrip:2.1,sluiceDrip:2.5,jungleRustle:8,jungleBird:30}[kind]??24));assert(cues.every(c=>c.name==='stageDetail'&&Number.isFinite(c.amp)&&c.amp>0));}
- const sources={};for(const file of (stageId==='sluice'?['src/stage_sluice.js','src/stages.js']:stageId==='qinglan'?['src/stage_qinglan.js','src/stage_qinglan_vista.js','src/stages.js']:['src/stage_frozen_bay.js','src/stage_frozen_bay_shore.js','src/stages.js']))sources[file]=createHash('sha256').update(await fs.readFile(file)).digest('hex');
+ const sources={};for(const file of (stageId==='sluice'?['src/stage_sluice.js','src/stage_sluice_bear.js','src/wetland_ground.js','src/stages.js']:stageId==='qinglan'?['src/stage_qinglan.js','src/stage_qinglan_vista.js','src/stages.js']:['src/stage_frozen_bay.js','src/stage_frozen_bay_shore.js','src/stages.js']))sources[file]=createHash('sha256').update(await fs.readFile(file)).digest('hex');
  await fs.writeFile(out+'/scene-report.json',JSON.stringify({pass:true,stageId,sources,method:'Three.js standalone actual renderer, three build/clear cycles; synthetic stage clock110s (sluice160s). No claim of human sound evaluation or physical phone FPS.',...result,errors},null,2));
  console.log(JSON.stringify({pass:true,triangles:result.runs[0].triangles,calls:result.runs[0].calls,resources:result.runs[0].owned,cues:result.cues.length}));
 }finally{await browser.close();}

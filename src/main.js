@@ -1,3 +1,4 @@
+import { configureWetlandMovement } from './wetland_ground.js';
 // ─────────────────────────────────────────────────────────────
 //  게임 본체: 화면 준비 → 물리 세계 → 매 프레임 반복(게임 루프)
 // ─────────────────────────────────────────────────────────────
@@ -519,6 +520,8 @@ function newRound(weaponId) {
     weapon: foeWeapon, // prepareRound 가 정한 상대 무기
     revive: currentFoe?.revive, // 부활 (이졸데: 처음 죽으면 한 번 다시 일어선다, src/revive.js)
   });
+  for (const f of [player, enemy]) configureWetlandMovement(f, stages.id);
+  $('wetlandFooting').hidden = true;
   // 같은 선택형 팔 제어를 양쪽에 적용하고 재시작 때도 주소 설정을 유지한다.
   for (const f of [player, enemy]) f.armTorqueModel = armTrial.model;
   for (const f of [player, enemy]) f.armSupportModel = linkedArmSupport ? 'linked' : 'legacy';
@@ -1686,6 +1689,7 @@ function frame(now) {
     player.stickX = player.alive ? m.x : 0; // 스틱 원값 (감정 배수 전): 근접 밀치기 걸쇠가 읽는다 (fighter.closeStep)
     player.stickY = player.alive ? m.y : 0;
     updateGuardName(dt);
+    $('wetlandFooting').hidden = !(player.alive && player.surfaceSpeedScale < 0.98);
     // 마우스로 조작할 땐 손가락 흔적 대신 오른쪽 아래 원판에 손 위치의 흔적을 그린다
     const mouseMode = !input.isTouchDevice;
     if (mouseMode && player.alive) trail.addPad(player.skill.aim.x, player.skill.aim.y, now / 1000);
@@ -1858,6 +1862,8 @@ window.game = {
       stages.warm(renderer, camera);
     }
     sound.setStage(stages.id);
+    for (const f of [player, enemy]) if (f) configureWetlandMovement(f, stages.id);
+    $('wetlandFooting').hidden = true;
   },
   AI,
   settings,

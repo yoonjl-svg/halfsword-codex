@@ -1,0 +1,138 @@
+{
+  "base": "56adbf16743dad874097e0222d40751856082dc5",
+  "source_sha256": {
+    "src/stage_sluice.js": "f669722b7f9aca0b752feabe546600f1153ee270108145abc309e77ad54e2ccf",
+    "src/stage_sluice_bear.js": "96bddedf516764984cf0665e897b2e6c54347b52882cefaf2d0830322ec03fbe",
+    "src/wetland_ground.js": "79b3c2489ad0ce8538c80bd7c3640a2de46cd52984c9a645e427759ac2065e46",
+    "src/fighter.js": "89c3ddd1fca1d4e9b5e0876f4950dd43c2f1ebe01733f59fd567fa5f1a115aea",
+    "src/main.js": "858cdf33f5aa1c356150e8a0e3ac92b7805d7aca495891afb3d3fbb6779c7ebf",
+    "src/stages.js": "77e068e7e97ba06729dba59f151ed179fffdc2c1951cf4fdeb8a77f792909b46",
+    "src/outfit_ratna.js": "d8a46d12a7ec0f19b7b9f54280343fceb453846afae9d5eadebeb407701e7a31",
+    "src/characters_expansion.js": "0ed9bb68c4f07e98d0e027e15bb641c3a6f0f6343ab5fed752b65c1cc1079fca",
+    "src/outfits.js": "f4627cfed6e753ab4624a2ff7c67ab14a0e4dc356e409beea0d6f35923b472af",
+    "src/looks.js": "d4721be07d0d396763be29fdef5148cf1ee861b018d67839e520c7a60fd84c4a",
+    "index.html": "ee9a9ab0b949232072ffffe87f0a7a57cf3f78ee5270c6c6665a2637a2f5f614",
+    "public/sluice.html": "11bafbf62b9af39d27307dfe6f98845afa925d915d9290ae039f3200b825c523",
+    "public/encounters/sluice-game.webp": "353fae1619d1d4e533c5d432c5bc777a492f511f5530da4a40b02f534ec6f0f5",
+    "public/encounters/sluice-vista.webp": "49ec2ea95c4aea34b128bfa7d6ff71a946cad8375ee5f6af868dd157a5a51e06",
+    "public/encounters/ratna-front.webp": "3f41f5bb1be1c79cbfda777ba9e67af39b33cfb2c01914c7fd803aadf382d92c",
+    "public/encounters/ratna-back.webp": "5a7a3ee2822e42b03a44a03808bf78d68a03738756ba7383bf1af221292b89f9",
+    "tools/browser/sluice_delivery_20261013.mjs": "38f332745c7502a0225e27cbb1b7904bcebb6ead5046fd567126598d60c5cb9b"
+  },
+  "stage": {
+    "pass": true,
+    "triangles": 106799,
+    "draw_calls": 19,
+    "resources": {
+      "geometries": 19,
+      "materials": 18,
+      "textures": 4
+    },
+    "cycles": 3,
+    "all_disposed": true,
+    "cues": 36,
+    "source_sha256": {
+      "src/stage_sluice.js": "f669722b7f9aca0b752feabe546600f1153ee270108145abc309e77ad54e2ccf",
+      "src/stage_sluice_bear.js": "96bddedf516764984cf0665e897b2e6c54347b52882cefaf2d0830322ec03fbe",
+      "src/wetland_ground.js": "79b3c2489ad0ce8538c80bd7c3640a2de46cd52984c9a645e427759ac2065e46",
+      "src/stages.js": "77e068e7e97ba06729dba59f151ed179fffdc2c1951cf4fdeb8a77f792909b46"
+    }
+  },
+  "movement": {
+    "pass": true,
+    "report_sha256": "ad2b0c1cd11baee77d338eb59c9d53600213ad11d60fc6f9bf0359159e94cc26",
+    "source_sha256": {
+      "src/fighter.js": "89c3ddd1fca1d4e9b5e0876f4950dd43c2f1ebe01733f59fd567fa5f1a115aea",
+      "src/wetland_ground.js": "79b3c2489ad0ce8538c80bd7c3640a2de46cd52984c9a645e427759ac2065e46",
+      "src/config.js": "08b9818b6d9f45aecd1d7f88f664fc43491db73a395f0b242bf211e0ece3200c",
+      "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+      "tools/sim/experiments/wetland_movement_gate.mjs": "b0ed6fe084a078f13c5bb0543e7aeff6bb590cb2a303a02f5a6f68e95acc1c62"
+    },
+    "conditions": 8,
+    "speeds": [
+      {
+        "name": "falchion-dry-route",
+        "coreMeanVx": 2.3444957031923184,
+        "lastScale": 1
+      },
+      {
+        "name": "falchion-mud-route",
+        "coreMeanVx": 0.9141330691901121,
+        "lastScale": 1
+      },
+      {
+        "name": "longsword-dry-route",
+        "coreMeanVx": 2.292419812258552,
+        "lastScale": 1
+      },
+      {
+        "name": "longsword-mud-route",
+        "coreMeanVx": 0.8729977269064296,
+        "lastScale": 1
+      }
+    ]
+  },
+  "appearance": {
+    "pass": true,
+    "report_sha256": "5d9f28f514831fd859df2d612a1dccf0125d26d5e451d1d4291023bbdd507d7f",
+    "source_sha256": {
+      "src/looks.js": "d4721be07d0d396763be29fdef5148cf1ee861b018d67839e520c7a60fd84c4a",
+      "src/outfits.js": "f4627cfed6e753ab4624a2ff7c67ab14a0e4dc356e409beea0d6f35923b472af",
+      "src/outfit_ratna.js": "d8a46d12a7ec0f19b7b9f54280343fceb453846afae9d5eadebeb407701e7a31",
+      "src/characters.js": "c1cbcbd18fabf18c32cf7f810c780928edca848513c207a1aef6689b6b137265",
+      "src/characters_expansion.js": "0ed9bb68c4f07e98d0e027e15bb641c3a6f0f6343ab5fed752b65c1cc1079fca",
+      "src/fighter.js": "89c3ddd1fca1d4e9b5e0876f4950dd43c2f1ebe01733f59fd567fa5f1a115aea",
+      "src/limb_sever.js": "08313ce99ff5d33abc95a5eac0f205eb6507e3cf47cd6854f7e080ac5d428499",
+      "src/effects.js": "0b17850dba1041b9b419e78fe6c5e3bbc251dbc999ad310bf0a6e47f33fa9c9d",
+      "src/visual_resources.js": "b3a1cb71743ef0e454b45d098657a4ce2807f31ca4513ff40f9a4ca70083941d",
+      "src/config.js": "08b9818b6d9f45aecd1d7f88f664fc43491db73a395f0b242bf211e0ece3200c",
+      "src/ai.js": "9651b8439b67b926d6c2fc2de642711af7f2f74d4d06646edfe2afd79af064e9",
+      "src/combat.js": "70936d96309e59e1f4884b7224d86fff894948d7daec0bf6a1d7d75d3369a056",
+      "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+      "tools/sim/experiments/ratna_appearance_gate.mjs": "a6b6ca851b515b7dc874ce4ca5e9926999a7164e505d07d5085426f9b71972fc",
+      "package-lock.json": "2230e8c718b9839b45fd06a39ebaaf1663da82f9617ca474cda34ac2e0d962c2"
+    },
+    "checks": [
+      "Registered adult ferryman with existing falchion and mature male voice",
+      "Native world snapshot identical",
+      "Stock male head, nose and eyes preserved",
+      "Native capsule metadata preserved for off-center wound projection",
+      "Original torso width and no armor bonus",
+      "Costume layers belong to individual wound representatives",
+      "Paddle, chart and sounding weight remain on their own body part",
+      "Nine native wound surfaces accept cuts and expanding decals",
+      "Upper-arm cuts project onto the visible cream sleeves",
+      "Native forearm and lower leg separation succeeds",
+      "Wounds and detached limbs retain costume and representative identities",
+      "Separated sandal and cuff follow their detached rigid bodies",
+      "All Ratna geometry finite after cuts and separation",
+      "Compact procedural costume remains below 18000 triangles",
+      "Round cleanup disposes each geometry and material once"
+    ],
+    "triangles": 14160,
+    "resourcesDisposed": 168
+  },
+  "local": {
+    "pass": true,
+    "report_sha256": "260b5a405d805b648e88d7c4868bd09bb5a278c3cf56d135103c99864c56ae55",
+    "completedUTC": "2026-10-13T13:22:24.729Z",
+    "requests": 190,
+    "uniqueFiles": 182,
+    "errors": 0,
+    "toolHash": "38f332745c7502a0225e27cbb1b7904bcebb6ead5046fd567126598d60c5cb9b",
+    "touchEvents": 35,
+    "landingWidths": [
+      320,
+      390,
+      844
+    ],
+    "mudSteps": 8,
+    "puddleEntryScale": 0.9454938948134459,
+    "flow": "Landing, Start, card, attack/movement, actual puddle entry, pause/resume, fresh restart",
+    "retries": []
+  },
+  "public": null,
+  "limits": [
+    "Native walking isolates a parked enemy, not combat balance. Mobile Chromium emulation is not physical-phone performance or user aesthetic acceptance. Bear is a scenery focal point beyond the combat boundary, not a central collider."
+  ]
+}

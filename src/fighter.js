@@ -1,3 +1,4 @@
+import { wetlandMoveScale } from './wetland_ground.js';
 import { constrainRecoveryArmReach, usesCoupledArmRecovery } from './arm_recovery_reach.js';
 import { driveOffShoulderMotor } from './off_shoulder_motor.js';
 import { updateIntentEdgePlane, smoothIntentElevation } from './edge_intent.js';
@@ -1570,7 +1571,10 @@ export class Fighter {
     const speed = (hybrid ? GAIT.moveSpeed : BODY.moveSpeed) * (0.45 + 0.55 * this.legHealth) * (this.weapon.moveMul ?? 1) * (this.wearsPlate() ? ARMOR.moveMul : 1); // moveMul: 권총은 발이 빠르다 (weapons.js), 판금은 느리다 (config.js ARMOR)
     const st = this.stumble;
     const mvIn = this.feetHeld ? HELD_MOVE : this.move; // 시작 정지: 조종 입력(플레이어·AI·기술 내딛기)만 0, 균형 잡는 걸음(stumble)은 그대로
-    const mv = this.state === 'stand' ? { x: mvIn.x * (1 - st.length()) + st.x, y: mvIn.y * (1 - st.length()) + st.y } : { x: 0, y: 0 };
+    // Mud changes voluntary travel, never the automatic balance-catching step.
+    const terrainScale = this.movementSurface === 'wetland' ? wetlandMoveScale(p.x, p.z) : 1;
+    this.surfaceSpeedScale = terrainScale;
+    const mv = this.state === 'stand' ? { x: mvIn.x * terrainScale * (1 - st.length()) + st.x, y: mvIn.y * terrainScale * (1 - st.length()) + st.y } : { x: 0, y: 0 };
     if (this.state === 'stand' && this.daze > 0.2) {
       // 멍하면 발이 제멋대로 움찔거린다
       mv.x += Math.sin(this.stateTime * 3.1) * this.daze * 0.5;

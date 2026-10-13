@@ -3,6 +3,8 @@
 // tall plants, masonry and roots stay outside the 10.5m camera orbit;
 // low ground-cover starts beyond the fighting area without hiding the fighters.
 import * as THREE from 'three';
+import { buildSluiceBear } from './stage_sluice_bear.js';
+import { WETLAND_PUDDLES, puddleOutline, wetlandIslandRadius as islandRadius } from './wetland_ground.js';
 import { Kit, rng, h3, box, limb, canvasTex } from './stage_kit.js';
 
 const TAU = Math.PI * 2;
@@ -426,10 +428,6 @@ function ferns(K, leaves, r) {
 
 // An irregular mud island opens into connected shallows among the tree trunks.
 // Opaque water and merged plants avoid reflection passes / alpha-card overdraw.
-function islandRadius(a) {
-  return 9.6 + 1.45 * Math.sin(a * 3 + 0.4) + 0.85 * Math.cos(a * 5 - 0.8);
-}
-
 function wetland(scene, K, leaves, crowns, clock) {
   const r = rng(63981), positions = [], colors = [], uv = [], indices = [];
   const shore = [], shoreColors = [], shoreIndices = [], segments = 144;
@@ -449,13 +447,12 @@ function wetland(scene, K, leaves, crowns, clock) {
       shoreIndices.push(k,k+2,k+1,k+1,k+2,k+3);
     }
   }
-  // Shallow rain puddles connect the dry island visually to the surrounding
-  // wetland; these remain a surface film over the unchanged level floor.
-  for(const [cx,cz,rx,rz] of [[-2,4.4,1.5,0.8],[2,-4.7,2.2,0.85],[-5,-3.7,0.8,0.52]]){
-    const start=positions.length/3,n=28;
+  // The same irregular outlines drive the visible water and native movement.
+  for(const {x:cx,z:cz,rx,rz,phase} of WETLAND_PUDDLES){
+    const start=positions.length/3,n=56;
     positions.push(cx,0.018,cz);uv.push(cx*0.065,cz*0.065);colors.push(dark.r,dark.g,dark.b);
     for(let i=0;i<=n;i++){
-      const a=i/n*TAU,f=1+0.09*Math.sin(a*3+cz),x=cx+Math.cos(a)*rx*f,z=cz+Math.sin(a)*rz*f;
+      const a=i/n*TAU,f=puddleOutline(a,phase),x=cx+Math.cos(a)*rx*f,z=cz+Math.sin(a)*rz*f;
       positions.push(x,0.018,z);uv.push(x*0.065,z*0.065);colors.push(dark.r,dark.g,dark.b);
       if(i<n)indices.push(start,start+i+2,start+i+1);
     }
@@ -621,6 +618,7 @@ export function buildSluice(scene, { hemi, sun } = {}) {
   if (sun) { sun.color.set(0xffedd0); sun.intensity = 1.42; sun.position.set(sunOffset.x, sunOffset.y, sunOffset.z); }
   const soil = soilTexture(), stone = stoneTexture(), bark = barkTexture();
   ground(scene, soil); paving(K, r); sluice(K, leaves, crowns, r); forest(K, leaves, crowns, r); ferns(K, leaves, r); wetland(scene, K, leaves, crowns, clock);
+  const bear = buildSluiceBear(scene, { stoneMap: stone, position: [14, 0, -2] });
   const pool = water(scene, K, r);
   const birdModel = perchedBird(scene);
   // Fallen stones and leaf litter occupy forest margins, not the camera lane.
@@ -666,7 +664,7 @@ export function buildSluice(scene, { hemi, sun } = {}) {
     sunOffset,
     fighterLight: { color: 0xf1eedb, rimColor: 0xe2e9d2, level: 0.89, rim: 1.04 },
     waterPulse: 0,
-    visualDetails: { hero: { ...HERO }, pool: { x: 17, y: 0.03, z: -1.35 }, flatRadius: 6.5, clearOrbit: 10.5, wetland: { waterLevel: 0.018, innerMin: 7.3, outerMax: 40 }, mergedTriangles: triangleCount, leafCount: leaves.length, crownCount: crowns.length },
+    visualDetails: { bear: { position: bear.mesh.position.toArray(), triangles: bear.triangleCount }, hero: { ...HERO }, pool: { x: 17, y: 0.03, z: -1.35 }, flatRadius: 6.5, clearOrbit: 10.5, wetland: { waterLevel: 0.018, innerMin: 7.3, outerMax: 40 }, mergedTriangles: triangleCount, leafCount: leaves.length, crownCount: crowns.length },
     update(dt) {
       const step = Math.min(Math.max(Number.isFinite(dt) ? dt : 0, 0), 0.1);
       if (step === 0) return;
