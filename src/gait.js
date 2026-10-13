@@ -158,9 +158,12 @@ export class Gait {
     this.sinceEnter = 0;
     const p = this.f.bodies.pelvis.translation();
     // 일어선 직후: 골반 높이 목표는 지금 높이에서 출발해 천천히 자세 높이로 간다 (한 번에 바꾸면 솟았다가 주저앉는다)
-    this.hNomF = this.levH ? clamp(p.y, GAIT.guardHeight - 0.03, GAIT.walkHeight) : undefined;
+    this.groundY = this.f.groundHeightAt(p.x, p.z);
+    this.hNomF = this.levH ? clamp(p.y - this.groundY, GAIT.guardHeight - 0.03, GAIT.walkHeight) : undefined;
+    if (this.f.terrain) this.hNom = this.groundY + BODY.standHeight;
     this.h = p.y;
-    this.hv = this.levH ? clamp(this.f.bodies.pelvis.linvel().y, -0.3, 0.3) : 0;
+    const v = this.f.bodies.pelvis.linvel();
+    this.hv = this.levH ? clamp(v.y - this.f.groundVelocityAt(p.x, p.z, v), -0.3, 0.3) : 0;
     this.sinceTD = 0;
     this.walking = false;
     this.speedF = 0;
@@ -201,8 +204,10 @@ export class Gait {
       L.fq.copy(_qF);
       L.fp.copy(_s1);
       L.ankle.set(-0.05, 0.035, 0).applyQuaternion(_qF).add(_s1);
-      L.soleY = _s2.set(0, -0.035, 0).applyQuaternion(_qF).add(_s1).y;
-      L.toeY = _s2.copy(SOLE_T).applyQuaternion(_qF).add(_s1).y;
+      _s2.set(0, -0.035, 0).applyQuaternion(_qF).add(_s1);
+      L.soleY = _s2.y - f.groundHeightAt(_s2.x, _s2.z);
+      _s2.copy(SOLE_T).applyQuaternion(_qF).add(_s1);
+      L.toeY = _s2.y - f.groundHeightAt(_s2.x, _s2.z);
       const fx = _s2.set(1, 0, 0).applyQuaternion(_qF);
       L.footYaw = Math.atan2(-fx.z, fx.x);
     }
@@ -255,6 +260,16 @@ export class Gait {
     const f = this.f;
     if (!this.active) this.enter();
     else this.sense();
+    if (f.terrain) {
+      const p = f.bodies.pelvis.translation();
+      const groundY = f.groundHeightAt(p.x, p.z);
+      // h/hNom are world heights; filtering and hv describe posture above
+      // the surface. Transport the target with terrain, never the body.
+      const dy = groundY - this.groundY;
+      this.h += dy;
+      this.hNom += dy;
+      this.groundY = groundY;
+    }
     // 넘겨받기: 일어선 직후엔 발을 펜싱 자세로 고쳐 딛을 때까지 보조 힘을 유지한다
     //  (무릎 꿇었던 자리 그대로 한 발로 서면 골반이 주저앉는다)
     this.sinceEnter += dt;
@@ -354,8 +369,9 @@ export class Gait {
     }
     if (swing && walkNow && swing.kind === 'settle' && swing.t < swing.T * GAIT.convertMax) {
       swing.p0.copy(swing.des);
-      swing.y0 = Math.max(0, swing.des.y - ANKLE_H);
-      swing.p0.y = ANKLE_H;
+      const floor = this.ankleHeight(swing.des.x, swing.des.z);
+      swing.y0 = Math.max(0, swing.des.y - floor);
+      swing.p0.y = floor;
       swing.v0.set(0, 0, 0);
       swing.T = clamp(swing.T - swing.t, GAIT.convertMinT, Math.max(GAIT.convertMinT, Tsw * 0.8)); // 이미 오래 들고 있었으면 조금 빨리 딛는다 (너무 서두르면 발이 땅을 긁는다)
       swing.t = 0;
@@ -506,7 +522,7 @@ export class Gait {
     const hNomT = (walkNow ? walkH : GAIT.guardHeight) - hurt - Math.max(0, drop);
     const hr = GAIT.heightRate * dt;
     this.hNomF = this.hNomF === undefined ? hNomT : this.hNomF + clamp(hNomT - this.hNomF, -hr, hr);
-    const hNom = this.hNomF;
+    const hNom = this.f.terrain ? this.groundY + this.hNomF : this.hNomF;
     let hGeo = Infinity;
     let hLow = Infinity;
     for (const k of ['F', 'B']) {
@@ -516,14 +532,19 @@ export class Gait {
       const Ls = legLen(l.phi);
       const hx = l.hip.x - l.plant.x;
       const hz = l.hip.z - l.plant.z;
-      let hy = ANKLE_H + Math.sqrt(Math.max(0.04, Ls * Ls - hx * hx - hz * hz)) + HIP_DROP;
+      let hy = (f.terrain ? l.plant.y : ANKLE_H) + Math.sqrt(Math.max(0.04, Ls * Ls - hx * hx - hz * hz)) + HIP_DROP;
       // 뒤로 빠진 발은 뒤꿈치를 들어(발끝으로 서서) 더 높이 받칠 수 있다
       //  (발이 엉덩이 옆을 지나 뒤로 빠지는 동안 조금씩 더한다: 한 번에 켜고 끄면 골반 높이 목표가 한 스텝에 몇 cm씩 뛴다)
       const back = hx * fwd.x + hz * fwd.z; // + = 발이 엉덩이 뒤에
       if (back > 0) {
         const r = Math.hypot(hx, hz);
         const r2 = Math.max(0, r - HEEL_DX);
-        const hyHeel = ANKLE_H + HEEL_DY + Math.sqrt(Math.max(0.04, Ls * Ls - r2 * r2)) + HIP_DROP;
+        let hyHeel = ANKLE_H + HEEL_DY + Math.sqrt(Math.max(0.04, Ls * Ls - r2 * r2)) + HIP_DROP;
+        if (f.terrain) {
+          const heelAnkle = this.toePivot(l, _hp.copy(l.plant), 0.35);
+          const heelReach2 = (l.hip.x - heelAnkle.x) ** 2 + (l.hip.z - heelAnkle.z) ** 2;
+          hyHeel = heelAnkle.y + Math.sqrt(Math.max(0.04, Ls * Ls - heelReach2)) + HIP_DROP;
+        }
         if (hyHeel > hy) hy += (hyHeel - hy) * clamp(back / GAIT.heelBlend, 0, 1);
       }
       // 두 발로 딛을 땐 더 높이 받칠 수 있는 다리 기준 (뒷발은 뒤꿈치를 들어 따라온다)
@@ -622,7 +643,9 @@ export class Gait {
     const x = l.k === 'F' ? GAIT.guardLength * (1 - GAIT.weightFront) : -GAIT.guardLength * GAIT.weightFront;
     const z = l.side * GAIT.guardWidth * 0.5;
     // 오른쪽 = (-fz, 0, fx)
-    return out.set(c.x + fx * x - fz * z, ANKLE_H, c.z + fz * x + fx * z);
+    out.set(c.x + fx * x - fz * z, ANKLE_H, c.z + fz * x + fx * z);
+    out.y = this.ankleHeight(out.x, out.z);
+    return out;
   }
 
   /** 몸이 곧 바라볼 방향 (지금 도는 빠르기로 조금 앞질러) */
@@ -650,7 +673,7 @@ export class Gait {
     l.kind = kind;
     l.t = 0;
     l.T = T;
-    l.p0.set(l.ankle.x, ANKLE_H, l.ankle.z);
+    l.p0.set(l.ankle.x, this.ankleHeight(l.ankle.x, l.ankle.z), l.ankle.z);
     l.p1.copy(l.p0);
     l.v0.set(this.vf.x * GAIT.liftCarry, 0, this.vf.z * GAIT.liftCarry);
     l.yaw0 = l.footYaw;
@@ -706,6 +729,7 @@ export class Gait {
     const lat = (out.x - other.plant.x) * rgt.x + (out.z - other.plant.z) * rgt.z;
     const need = GAIT.minWidth - lat * l.side;
     if (need > 0) out.addScaledVector(rgt, need * l.side);
+    if (f.terrain) out.y = this.ankleHeight(out.x, out.z);
   }
 
   touchdown(l, speed) {
@@ -741,7 +765,7 @@ export class Gait {
 
   /** 지금 발 자리를 딛은 자리로 기억한다 (발바닥 가운데·발끝이 땅에 붙은 곳도) */
   plantAt(l) {
-    l.plant.set(l.ankle.x, ANKLE_H, l.ankle.z);
+    l.plant.set(l.ankle.x, this.ankleHeight(l.ankle.x, l.ankle.z), l.ankle.z);
     l.yaw = l.footYaw;
     l.yawTD = l.footYaw;
     l.pinC.copy(SOLE_C).applyQuaternion(l.fq).add(l.fp);
@@ -749,6 +773,18 @@ export class Gait {
     // 뒤꿈치를 든 채(발끝으로) 디뎠으면: 발끝 자리를 기준으로 발을 평평히 내렸을 때의 발목·발바닥 가운데 자리를 기억한다
     //  (들린 발 그대로 기억하면 뒤꿈치가 내려앉을 때 붙잡는 자리와 발이 어긋나 발이 끌린다)
     const fx = _s2.set(1, 0, 0).applyQuaternion(l.fq);
+    if (this.f.terrain) {
+      const n = this.f.terrain.normalAt(l.plant.x, l.plant.z);
+      const heelDown = fx.x * n.x + fx.y * n.y + fx.z * n.z < -GAIT.heelTD;
+      l.pinC.y = this.f.groundHeightAt(l.pinC.x, l.pinC.z);
+      l.pinT.y = this.f.groundHeightAt(l.pinT.x, l.pinT.z);
+      if (heelDown) {
+        this.floorFrame(l.plant.x, l.plant.z, l.yaw);
+        l.pinC.copy(l.pinT).addScaledVector(_floorFwd, -(SOLE_T.x - SOLE_C.x));
+        l.plant.copy(l.pinT).addScaledVector(_floorFwd, -TOE_X).addScaledVector(_floorNormal, ANKLE_H);
+      }
+      return;
+    }
     if (fx.y < -GAIT.heelTD) {
       const cx = Math.cos(l.yaw);
       const cz = -Math.sin(l.yaw);
@@ -802,7 +838,7 @@ export class Gait {
         const late = l.t > l.T ? Math.min(0.02, (l.t - l.T) * 0.3) : 0;
         // 발은 일찍 들고(발끝이 걸리지 않게) 늦게 내린다. 들린 동안 발끝을 살짝 든다
         const up = THREE.MathUtils.smoothstep(u, 0, 0.3) * (1 - THREE.MathUtils.smoothstep(u, Math.min(0.75, l.hFrac - 0.15), 1));
-        _a.y = ANKLE_H + Math.max(l.lift * up, l.y0 * (1 - THREE.MathUtils.smoothstep(u, 0, 0.5))) - late;
+        _a.y = this.ankleHeight(_a.x, _a.z) + Math.max(l.lift * up, l.y0 * (1 - THREE.MathUtils.smoothstep(u, 0, 0.5))) - late;
         const yaw = l.yaw0 + wrap(l.yaw1 - l.yaw0) * s;
         // 엉덩이에 대한 발의 속도를 제한한다 (다리를 채찍처럼 휘두르면 그 반동이 몸을 떠민다)
         _d.subVectors(_a, l.hip);
@@ -876,6 +912,12 @@ export class Gait {
 
   /** 발끝(발바닥 앞쪽 모서리)을 축으로 뒤꿈치를 th만큼 들었을 때의 발목 위치 (ankle을 고친다) */
   toePivot(l, ankle, th) {
+    if (this.f.terrain) {
+      this.floorFrame(ankle.x, ankle.z, l.yaw);
+      const back = TOE_X * Math.cos(th) - SOLE_Y * Math.sin(th);
+      const up = TOE_X * Math.sin(th) + SOLE_Y * Math.cos(th);
+      return ankle.addScaledVector(_floorFwd, TOE_X - back).addScaledVector(_floorNormal, up - SOLE_Y);
+    }
     const fx = Math.cos(l.yaw);
     const fz = -Math.sin(l.yaw);
     // 평평할 때 발끝 → 발목: 뒤로 TOE_X, 위로 SOLE_Y
@@ -926,7 +968,8 @@ export class Gait {
     // 발목(공 관절): 발바닥이 땅과 나란히 yaw 방향을 보게 (pitch만큼 발끝을 들거나 뒤꿈치를 든다)
     //  발목 목표 = (정강이 목표 자세)⁻¹ × (발 월드 자세)
     _qS.copy(_qT).multiply(_qK.setFromAxisAngle(Z_AXIS, -phi)).invert();
-    _qW.setFromAxisAngle(UP, yaw);
+    if (f.terrain) _qW.copy(this.floorFrame(ankle.x, ankle.z, yaw));
+    else _qW.setFromAxisAngle(UP, yaw);
     if (pitch) _qW.multiply(_qK.setFromAxisAngle(Z_AXIS, pitch));
     J[l.foot].target.copy(_qS).multiply(_qW);
   }
@@ -968,7 +1011,7 @@ export class Gait {
       const toe = l.heel > 0.05;
       const pin = toe ? l.pinT : l.pinC;
       const pt = _s1.copy(toe ? SOLE_T : SOLE_C).applyQuaternion(l.fq).add(l.fp);
-      if (pt.y > 0.03) continue;
+      if (pt.y - f.groundHeightAt(pt.x, pt.z) > 0.03) continue;
       const rawGround = supportContact
         ? supportContact.contacts.filter(c => c.hasSupport).reduce((sum, c) => sum + c.rawNormalImpulseNs * c.normalAlignmentWithUp, 0) / (f.lastDt || 1 / 120)
         : this.groundForce(l);
@@ -981,6 +1024,10 @@ export class Gait {
       const rx = pt.x - c.x;
       const ry = pt.y - c.y;
       const rz = pt.z - c.z;
+      if (f.terrain) {
+        this.pinTerrainFoot(l, pin, pt, N, fb, v, w, { x: rx, y: ry, z: rz });
+        continue;
+      }
       // 그 점의 속도 = v + ω × r
       const vx = v.x + w.y * rz - w.z * ry;
       const vz = v.z + w.x * ry - w.y * rx;
@@ -1034,6 +1081,64 @@ export class Gait {
     }
   }
 
+  /** Ankle clearance measured along the physical floor normal. */
+  ankleHeight(x, z) {
+    const terrain = this.f.terrain;
+    return terrain ? terrain.heightAt(x, z) + ANKLE_H / terrain.normalAt(x, z).y : ANKLE_H;
+  }
+
+  /** World foot basis: yaw projected into the floor, sole normal from terrain. */
+  floorFrame(x, z, yaw) {
+    const n = this.f.terrain.normalAt(x, z);
+    _floorNormal.set(n.x, n.y, n.z);
+    _floorFwd.set(Math.cos(yaw), 0, -Math.sin(yaw));
+    _floorFwd.y = -(_floorNormal.x * _floorFwd.x + _floorNormal.z * _floorFwd.z) / _floorNormal.y;
+    _floorFwd.normalize();
+    _floorRight.crossVectors(_floorFwd, _floorNormal).normalize();
+    _floorMatrix.makeBasis(_floorFwd, _floorNormal, _floorRight);
+    return _floorQuat.setFromRotationMatrix(_floorMatrix);
+  }
+
+  /** The same load-limited stance friction, expressed in the surface plane. */
+  pinTerrainFoot(l, pin, pt, N, fb, v, w, r) {
+    const f = this.f;
+    const n = f.terrain.normalAt(pt.x, pt.z);
+    _floorNormal.set(n.x, n.y, n.z);
+    _pinVelocity.set(v.x + w.y * r.z - w.z * r.y, v.y + w.z * r.x - w.x * r.z, v.z + w.x * r.y - w.y * r.x);
+    _pinVelocity.addScaledVector(_floorNormal, -_pinVelocity.dot(_floorNormal));
+    l.Nf = Math.max(N, (l.Nf || 0) * (1 - GAIT.pinHold * (f.lastDt || 1 / 120)));
+    // groundForce reports vertical support, whereas Coulomb friction uses
+    // normal load. Preserve N/Nf as vertical support for the handover logic.
+    const lim = GAIT.pinMu * l.Nf / n.y;
+    _pinError.subVectors(pin, pt).addScaledVector(_floorNormal, -_pinError.dot(_floorNormal));
+    const e = _pinError.length();
+    const eMax = lim / GAIT.pinK;
+    if (e > eMax) {
+      _pinError.multiplyScalar(1 - eMax / e);
+      for (const p of [l.pinC, l.pinT, l.plant]) {
+        p.sub(_pinError);
+        p.y = p === l.plant ? this.ankleHeight(p.x, p.z) : f.groundHeightAt(p.x, p.z);
+      }
+    }
+    _pinError.subVectors(pin, pt).addScaledVector(_floorNormal, -_pinError.dot(_floorNormal));
+    _pinForce.copy(_pinError).multiplyScalar(GAIT.pinK).addScaledVector(_pinVelocity, -GAIT.pinD);
+    const fl = _pinForce.length();
+    l.pinF = fl;
+    l.pinLim = lim;
+    if (fl > lim) _pinForce.multiplyScalar(lim / (fl + 1e-9));
+    fb.addForceAtPoint(_pinForce, pt, true);
+    const lt = lim * 0.05;
+    let ye = wrap(l.yaw - l.footYaw);
+    const yMax = lt / GAIT.pinYawK;
+    if (Math.abs(ye) > yMax) {
+      l.yaw = l.footYaw + Math.sign(ye) * yMax;
+      ye = Math.sign(ye) * yMax;
+    }
+    const spin = w.x * n.x + w.y * n.y + w.z * n.z;
+    _pinForce.copy(_floorNormal).multiplyScalar(clamp(GAIT.pinYawK * ye - GAIT.pinYawD * spin, -lt, lt));
+    fb.addTorque(_pinForce, true);
+  }
+
   /** 관절 목표 속도 기록(driveJoints의 prevRV)을 지운다 → 목표가 한 번에 바뀌어도 모터가 튀지 않는다 */
   resetRates() {
     const J = this.f.jointByName;
@@ -1079,3 +1184,12 @@ const _gfPair = (other) => {
   if (b && b.isFixed()) _gf.w.contactPair(_gf.col, other, _gfSum);
 };
 const _p = { x: 0, y: 0, z: 0 };
+
+const _floorNormal = new THREE.Vector3();
+const _floorFwd = new THREE.Vector3();
+const _floorRight = new THREE.Vector3();
+const _floorMatrix = new THREE.Matrix4();
+const _floorQuat = new THREE.Quaternion();
+const _pinVelocity = new THREE.Vector3();
+const _pinError = new THREE.Vector3();
+const _pinForce = new THREE.Vector3();

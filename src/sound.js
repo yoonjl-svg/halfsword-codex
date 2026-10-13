@@ -1641,6 +1641,7 @@ const STAGE_SOUND = {
   sacred_grove: { step: 'stepGravel', grit: 'stepGravel' },
   frozen_bay: { step: 'stepSnow', grit: 'stepSnow' }, // 얇게 쌓인 마른 눈, 탁 트인 호수라 성벽 울림 없음
   qinglan: { step: 'stepStone', grit: 'stepStone' }, // 한낮의 열린 암반 쉼터, 실내 울림 없음
+  etna: { step: 'stepStone', grit: 'stepStone' }, // rough volcanic rock
   dayr: { step: 'stepStone', grit: 'stepStone' }, // 닳은 벽돌 안뜰
   sluice: { step: 'stepMud', grit: 'stepMud' }, // 잠든 습지: 젖은 흙 둔덕, 얕은 물과 침수림
   poseidon: { step: 'step' },
@@ -3552,8 +3553,9 @@ export class BodySounds {
       for (const k of ['footF', 'footB']) {
         const b = f.bodies[k];
         const ft = this.feet[k];
-        const y = b.translation().y;
-        const vy = b.linvel().y;
+        const p = b.translation(), v = b.linvel();
+        const y = p.y - (f.terrain?.heightAt(p.x, p.z) ?? 0);
+        const vy = v.y - (f.terrain ? f.groundVelocityAt(p.x, p.z, v) : 0);
         if (y > 0.09) {
           ft.up = true;
           ft.vy = Math.min(ft.vy, vy);
@@ -3568,8 +3570,9 @@ export class BodySounds {
     if (f.state !== 'stand') {
       for (const k of ['pelvis', 'chest']) {
         const b = f.bodies[k];
-        const y = b.translation().y;
-        const vy = b.linvel().y;
+        const p = b.translation(), v = b.linvel();
+        const y = p.y - (f.terrain?.heightAt(p.x, p.z) ?? 0);
+        const vy = v.y - (f.terrain ? f.groundVelocityAt(p.x, p.z, v) : 0);
         const v0 = this.fallV[k];
         if (v0 < -1 && vy > v0 * 0.35 && y < 0.45) {
           // 떨어지던 몸이 땅에서 멈췄다. 골반·가슴이 잇달아 닿으면 한 번만 크게

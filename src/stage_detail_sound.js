@@ -16,9 +16,10 @@ export const STAGE_DETAIL_PROFILES = Object.freeze({
   jungleRustle: { stage: 'sluice', duration: 2.0, gain: 0.025, gap: 8 },
   jungleBird: { stage: 'sluice', duration: 1.7, gain: 0.043, gap: 30 },
   caravanRing: { stage: 'dayr', duration: 1.1, gain: 0.025, gap: 22 },
+  etnaCrust: { stage: 'etna', duration: 1.6, gain: 0.032, gap: 20 },
 });
 
-export const hasStageDetails = (stage) => stage === 'dayr' || stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove' || stage === 'frozen_bay' || stage === 'qinglan' || stage === 'sluice';
+export const hasStageDetails = (stage) => stage === 'etna' || stage === 'dayr' || stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove' || stage === 'frozen_bay' || stage === 'qinglan' || stage === 'sluice';
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 const TAU = Math.PI * 2;
 
@@ -30,6 +31,20 @@ export function synthStageDetail(kind, sr, rng) {
   const profile = STAGE_DETAIL_PROFILES[kind];
   if (!profile || !Number.isFinite(sr) || sr < 8000) return new Float32Array(0);
   const out = new Float32Array(Math.ceil(profile.duration * sr));
+  if (kind === 'etnaCrust') {
+    // Distant brittle crust: filtered low crack and a short granular fall.
+    // No continuous fire roar or explosive/combat transient.
+    let low = 0, body = 0;
+    for (let i = 0; i < out.length; i++) {
+      const t = i / sr, n = rng() * 2 - 1;
+      low += (1 - Math.exp(-TAU * 560 / sr)) * (n - low);
+      body += (1 - Math.exp(-TAU * 115 / sr)) * (n - body);
+      const attack = 1 - Math.exp(-t / 0.008), tail = Math.min(1, (out.length - 1 - i) / (sr * 0.12));
+      const grit = Math.max(0, Math.sin(t * 39) + Math.sin(t * 71) * 0.4);
+      out[i] = tail * attack * (0.6 * body * Math.exp(-t / 0.28) + 0.16 * low * grit * Math.exp(-t / 0.4));
+    }
+    return out;
+  }
   if (kind === 'caravanRing') {
     // A small iron ring touching its peg: dry, damped and irregular partials.
     const pitch = 0.96 + rng() * 0.08;
@@ -268,6 +283,9 @@ export class StageDetailSound {
       // Open inland ice: sparse dry air, without surf, storm or room echo.
       addNoise({ rate: 0.87, frequency: 520, gain: 0.0026, lfo: 0.037, depth: 0.0009, ceiling: 1500, pan: -0.15 });
       addNoise({ rate: 0.71, type: 'lowpass', frequency: 135, gain: 0.0035, lfo: 0.061, depth: 0.0011, ceiling: 750, pan: 0.12 });
+    } else if (this.stage === 'etna') {
+      addNoise({ rate: 0.77, frequency: 370, gain: 0.0038, lfo: 0.031, depth: 0.0013, ceiling: 1250 });
+      addNoise({ rate: 0.65, type: 'lowpass', frequency: 95, gain: 0.0020, lfo: 0.052, depth: 0.0007, ceiling: 420, pan: 0.3 });
     } else if (this.stage === 'dayr') {
       // Dry air through a shaded brick iwan. No surf or crowded market bed.
       addNoise({ rate: 0.81, frequency: 430, gain: 0.0017, lfo: 0.038, depth: 0.00065, ceiling: 1250, pan: 0.12 });

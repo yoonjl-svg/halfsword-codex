@@ -177,6 +177,7 @@ export class Fighter {
     this.name = o.name;
     this.side = 1; // 오른손잡이
     this.heading = o.heading ?? 0;
+    this.terrain = o.terrain ?? null; // Optional physical floor; absent keeps the original flat arena.
     this.faceTarget = null; // 바라볼 지점(보통 상대 골반). main이 매 스텝 넣어준다.
 
     // ── 몸 상태 (체력 게이지 대신) ──
@@ -285,7 +286,8 @@ export class Fighter {
 
     const yaw = new THREE.Quaternion().setFromAxisAngle(UP, this.heading);
     this.yaw = yaw;
-    const origin = new THREE.Vector3(o.x, 0, 0);
+    const spawnZ = o.z ?? 0;
+    const origin = new THREE.Vector3(o.x, this.groundHeightAt(o.x, spawnZ), spawnZ);
     const toWorld = (p) => new THREE.Vector3(...p).applyQuaternion(yaw).add(origin);
 
     const spec = getWeapon(o.weapon || DEFAULT_WEAPON);
@@ -1547,6 +1549,17 @@ export class Fighter {
     return THREE.MathUtils.radToDeg(Math.acos(THREE.MathUtils.clamp(up.dot(ref), -1, 1)));
   }
 
+  /** Height and vertical surface velocity in the world gravity frame. */
+  groundHeightAt(x, z) {
+    return this.terrain ? this.terrain.heightAt(x, z) : 0;
+  }
+
+  groundVelocityAt(x, z, v) {
+    if (!this.terrain) return 0;
+    const n = this.terrain.normalAt(x, z);
+    return -(n.x * v.x + n.z * v.z) / n.y;
+  }
+
   // 골반을 떠받치고, 몸을 세우고, 걷게 한다.
   driveBalance(dt) {
     if (this.missingSupportLeg) {
@@ -1633,11 +1646,12 @@ export class Fighter {
 
     // 1) 체중 받치기 (다리를 펴는 힘)
     if (mus > 0.1 && loadSum > 0) {
-      const h = hybrid ? G.h : BODY.standHeight - (1 - this.legHealth) * 0.1 - this.stanceDrop - this.crouch;
+      const h = hybrid ? G.h : this.groundHeightAt(p.x, p.z) + BODY.standHeight - (1 - this.legHealth) * 0.1 - this.stanceDrop - this.crouch;
+      const verticalSpeed = this.terrain ? v.y - this.groundVelocityAt(p.x, p.z, v) : v.y;
       // hybrid: 보조 힘은 몸무게의 GAIT.assist만 (일어선 직후엔 100%에서 천천히 줄인다). 나머지는 다리 관절이 받친다
       const share = hybrid ? G.supportShare(M * g) : BODY.support;
-      let fy = M * g * share + BODY.supportStiffness * (h - p.y) - BODY.supportDamping * v.y;
-      if (probe) Object.assign(probe, { baseSupportN: M * g * share, heightSpringN: BODY.supportStiffness * (h - p.y), verticalDampingN: -BODY.supportDamping * v.y });
+      let fy = M * g * share + BODY.supportStiffness * (h - p.y) - BODY.supportDamping * verticalSpeed;
+      if (probe) Object.assign(probe, { baseSupportN: M * g * share, heightSpringN: BODY.supportStiffness * (h - p.y), verticalDampingN: -BODY.supportDamping * verticalSpeed });
       // 다친 다리는 힘을 못 쓴다 → 체중을 버틸 수 있는 한계
       const legPower = (load.F * this.limbs.legF + load.B * this.limbs.legB) / loadSum;
       const forceLimit = M * g * (1.2 + 1.3 * legPower) * Math.min(1, loadSum * 1.5);
@@ -1723,7 +1737,7 @@ export class Fighter {
     vel.multiplyScalar(1 / M);
     this.com = this.com || new THREE.Vector3();
     this.com.copy(com);
-    const w0 = Math.sqrt(9.81 / Math.max(0.5, com.y));
+    const w0 = Math.sqrt(9.81 / Math.max(0.5, this.terrain ? com.y - this.groundHeightAt(com.x, com.z) : com.y));
     const cpx = com.x + vel.x / w0;
     const cpz = com.z + vel.z / w0;
     // 걷는 중엔 무게중심이 발보다 앞서는 게 정상이다(다음 발로 받는다).
@@ -1733,12 +1747,12 @@ export class Fighter {
     // 발바닥 위치 (땅에 닿은 발만)
     const a = this.solePoint('footF', _c3);
     const b = this.solePoint('footB', _c4);
-    const ga = a.y < 0.09;
-    const gb = b.y < 0.09;
+    const ga = a.y - this.groundHeightAt(a.x, a.z) < 0.09;
+    const gb = b.y - this.groundHeightAt(b.x, b.z) < 0.09;
     // 발마다 "체중을 받을 수 있는 정도": 땅에 닿아 있고(높이) 몸 아래에 있을수록(수평 거리) 크다
     const pp = this.bodies.pelvis.translation();
     const loadOf = (f) => {
-      const grounded = THREE.MathUtils.clamp((0.16 - f.y) / 0.08, 0, 1);
+      const grounded = THREE.MathUtils.clamp((0.16 - (this.terrain ? f.y - this.groundHeightAt(f.x, f.z) : f.y)) / 0.08, 0, 1);
       const under = THREE.MathUtils.clamp(1.3 - Math.hypot(f.x - pp.x, f.z - pp.z) / 0.7, 0, 1);
       return grounded * under;
     };
@@ -1856,6 +1870,18 @@ export class Fighter {
       K('thighB', -0.15, knB);
       K('shinB', -1.75, knB);
       K('footB', 0.8, knB); // 뒷발은 발끝으로 땅을 짚는다
+    }
+    if (this.terrain && !(this.gait?.active && this.state === 'stand')) {
+      for (const k of ['F', 'B']) {
+        const p = this.bodies['foot' + k].translation();
+        const normal = this.terrain.normalAt(p.x, p.z);
+        const tilt = _terrainTilt.setFromUnitVectors(UP, _terrainNormal.set(normal.x, normal.y, normal.z));
+        // Express the world floor tilt in the commanded shin frame. Knee/hip
+        // recovery and the trailing toe bend retain their existing motion.
+        rot(this.bodies.pelvis, _terrainShin).multiply(J['thigh' + k].target).multiply(J['shin' + k].target);
+        _terrainFoot.copy(_terrainShin).multiply(J['foot' + k].target).premultiply(tilt);
+        J['foot' + k].target.copy(_terrainShin.invert()).multiply(_terrainFoot);
+      }
     }
     const setZ = (name, a) => J[name].target.setFromAxisAngle(Z_AXIS, a);
     // 빈 손은 앞으로 들어 균형을 잡는다 (다친 팔은 힘없이 늘어진다)
@@ -2722,3 +2748,9 @@ function distToSegment2D(px, pz, ax, az, bx, bz) {
 }
 const _axis = new THREE.Vector3();
 const _v2d = new THREE.Vector2();
+
+// Scratch storage for optional terrain ankle commands.
+const _terrainNormal = new THREE.Vector3();
+const _terrainTilt = new THREE.Quaternion();
+const _terrainShin = new THREE.Quaternion();
+const _terrainFoot = new THREE.Quaternion();

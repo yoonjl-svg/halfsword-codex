@@ -1,4 +1,5 @@
 import { routeAroundStageObstacle } from './arena_obstacle.js';
+import { avoidEtnaLava } from './terrain_navigation.js';
 // ─────────────────────────────────────────────────────────────
 //  상대 AI: 사람 검객처럼 싸운다
 //
@@ -265,6 +266,7 @@ export class AI {
   update(dt) {
     this.updateCombat(dt);
     routeAroundStageObstacle(this);
+    avoidEtnaLava(this);
   }
 
   updateCombat(dt) {

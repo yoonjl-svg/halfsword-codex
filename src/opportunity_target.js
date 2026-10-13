@@ -95,7 +95,8 @@ export function findOpportunity(att, snapshot, kind = 'cut', acceptTarget = null
   // Same low-posture boundary as the selected finish-entry comparison. That
   // mechanic owns a fully low opponent and retains its existing 2.5x rules.
   const lowHighest = Math.max(snapshot.chest.y, snapshot.pelvis.y, !cfg.edged ? snapshot.head.y : -Infinity);
-  if (['down', 'getup'].includes(snapshot.state) && lowHighest <= LOW_FINISH.enterHeight &&
+  const terrainY = att.terrain?.heightAt(snapshot.pelvis.x, snapshot.pelvis.z) ?? 0;
+  if (['down', 'getup'].includes(snapshot.state) && lowHighest - terrainY <= LOW_FINISH.enterHeight &&
       lowHighest + LOW_FINISH.minimumDrop < chest.y) return null;
   const shoulder = new THREE.Vector3(...ARM.shoulder);
   shoulder.z *= att.side ?? 1;

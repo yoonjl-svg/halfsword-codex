@@ -247,7 +247,10 @@ export class ReviveFx {
     const p = f.bodies.pelvis.translation();
     this.pos.x += (p.x - this.pos.x) * Math.min(1, dt * 6);
     this.pos.z += (p.z - this.pos.z) * Math.min(1, dt * 6);
-    this.group.position.set(this.pos.x, 0, this.pos.z);
+    const groundY = f.terrain?.heightAt(this.pos.x, this.pos.z) ?? 0;
+    this.group.position.set(this.pos.x, groundY, this.pos.z);
+    if (f.terrain) { const n = f.terrain.normalAt(this.pos.x, this.pos.z); this.halo.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(n.x, n.y, n.z)); }
+    else this.halo.quaternion.identity();
 
     const ou = this.outer.material.uniforms;
     const cu = this.core.material.uniforms;
@@ -288,7 +291,7 @@ export class ReviveFx {
     const toCam = cam ? this._v.set(cam.x - this.pos.x, 0, cam.z - this.pos.z) : this._v.set(0, 0, 0);
     const lc = toCam.length();
     if (lc > 1e-3) toCam.multiplyScalar(0.7 / lc);
-    this.light.position.set(toCam.x, 2.1, toCam.z);
+    this.light.position.set(toCam.x, 2.1, toCam.z); // group already follows groundY
 
     // 몸의 빛: 일어서며 차츰 밝아지다 다 서는 순간 한 번 번쩍, 빛과 함께 사라진다
     const rise = smooth(R.lie - 0.2, R.lie + R.kneel + R.rise, T);

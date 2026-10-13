@@ -9,6 +9,7 @@ import { Fighter, GROUND_GROUPS } from '../../src/fighter.js';
 import { LOOKS } from '../../src/looks.js';
 import { AI } from '../../src/ai.js';
 import { Combat } from '../../src/combat.js';
+import { createArenaGround, applyTerrainHazards } from '../../src/etna_ground.js';
 
 await RAPIER.init();
 export { RAPIER, THREE, CONFIG, AI };
@@ -34,25 +35,13 @@ export function newRound(opts = {}) {
   world.integrationParameters.numSolverIterations = opts.iters ?? 6;
   const eventQueue = new RAPIER.EventQueue(true);
   const colliderInfo = new Map();
-  const ground = world.createRigidBody(RAPIER.RigidBodyDesc.fixed());
-  world.createCollider(RAPIER.ColliderDesc.cuboid(30, 0.5, 30).setTranslation(0, -0.5, 0).setFriction(0.9).setCollisionGroups(GROUND_GROUPS), ground);
-  const n = 32;
-  const R = ARENA.radius + 0.25;
-  for (let i = 0; i < (opts.walls === false ? 0 : n); i++) {
-    const a = (i / n) * Math.PI * 2;
-    const half = R * Math.tan(Math.PI / n) + 0.05;
-    const q = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), -a);
-    world.createCollider(
-      RAPIER.ColliderDesc.cuboid(0.2, 0.6, half).setTranslation(Math.cos(a) * R, 0.6, Math.sin(a) * R).setRotation({ x: q.x, y: q.y, z: q.z, w: q.w }).setCollisionGroups(GROUND_GROUPS),
-      ground,
-    );
-  }
+  const environment = createArenaGround(RAPIER, world, GROUND_GROUPS, { stageId: opts.stageId, radius: ARENA.radius, walls: opts.walls !== false });
   const scene = new THREE.Scene();
   const gap = opts.gap ?? ARENA.startGap;
   // look/look2 = 플레이어·상대 자리 겉모습 (캐릭터 look 을 주면 투구·판금이 판정에 들어간다, config.js ARMOR). 생략하면 예전 그대로
   //  breakSeed(판 시드)는 무기 파손 굴림과 방어구 연출 전용 난수의 씨앗 (fighter.js — 한 프로세스에서 판을 어떤 순서로 돌려도 같은 판은 같게)
-  const player = new Fighter(RAPIER, world, scene, colliderInfo, { index: 0, name: 'P', x: -gap / 2, heading: 0, look: opts.look ?? LOOKS.player, weapon: opts.weapon, breakSeed: opts.seed, revive: opts.revive2 });
-  const enemy = new Fighter(RAPIER, world, scene, colliderInfo, { index: 1, name: 'E', x: gap / 2, heading: Math.PI, look: opts.look2 ?? (opts.sameLook ? LOOKS.player : LOOKS.enemy), weapon: opts.weapon2 ?? opts.weapon, breakSeed: opts.seed, revive: opts.revive });
+  const player = new Fighter(RAPIER, world, scene, colliderInfo, { index: 0, name: 'P', x: -gap / 2, z: opts.playerZ ?? 0, heading: opts.heading ?? 0, terrain: environment.terrain, look: opts.look ?? LOOKS.player, weapon: opts.weapon, breakSeed: opts.seed, revive: opts.revive2 });
+  const enemy = new Fighter(RAPIER, world, scene, colliderInfo, { index: 1, name: 'E', x: gap / 2, z: opts.enemyZ ?? 0, heading: opts.heading2 ?? Math.PI, terrain: environment.terrain, look: opts.look2 ?? (opts.sameLook ? LOOKS.player : LOOKS.enemy), weapon: opts.weapon2 ?? opts.weapon, breakSeed: opts.seed, revive: opts.revive });
   // 부활(캐릭터 시트 revive, src/revive.js): persona 와 같은 짝 — opts.revive = enemy(AI 쪽 캐릭터), opts.revive2 = player
   if (opts.onFighter) { opts.onFighter(player, world, RAPIER); opts.onFighter(enemy, world, RAPIER); }
   player.initializeOnehandReadyPose(); // Same optional first command as main.newRound, before either AI/step.
@@ -61,7 +50,7 @@ export function newRound(opts = {}) {
   player.skill.level = opts.skill ?? 0.7;
   const hits = [];
   const combat = new Combat(colliderInfo, { onWound: (att, vic, r) => { hits.push(`${att.name}->${r.zone}:${r.type} ${r.energy.toFixed(0)}J`); G.wounds.push({ t: G.t, att, vic, zone: r.zone, type: r.type, energy: r.energy, severity: r.severity }); G.onWound?.(att, vic, r); }, onClash: () => { G && G.clashes++; } });
-  const G = { world, eventQueue, player, enemy, ai, combat, hits, t: 0, ai2: null, parkEnemy: false, clashes: 0, wounds: [] };
+  const G = { world, eventQueue, environment, player, enemy, ai, combat, hits, t: 0, ai2: null, parkEnemy: false, clashes: 0, wounds: [] };
   if (opts.AI2Class) G.ai2 = new opts.AI2Class(player, enemy, opts.difficulty2 ?? opts.difficulty ?? 'normal', opts.persona2 ?? null);
   G.step = () => {
     player.foe = G.parkEnemy ? null : enemy;
@@ -78,6 +67,7 @@ export function newRound(opts = {}) {
     enemy.cacheState();
     world.step(eventQueue, combat.physicsHooks);
     combat.afterStep(world, eventQueue);
+    applyTerrainHazards(environment, colliderInfo);
     G.t += DT;
   };
   G.park = () => {

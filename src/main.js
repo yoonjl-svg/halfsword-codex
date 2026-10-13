@@ -1,3 +1,4 @@
+import { createArenaGround, applyTerrainHazards, terrainForStage } from './etna_ground.js';
 import { configureStageObstacle, clampStageCamera } from './arena_obstacle.js';
 import { configureWetlandMovement } from './wetland_ground.js';
 // ─────────────────────────────────────────────────────────────
@@ -347,6 +348,7 @@ input.trail = trail;
 
 let world, eventQueue, colliderInfo, player, enemy, ai, combat;
 let arenaStone = null;
+let arenaGround = null;
 input.onHandReset = () => player?.skill.clearThrustRange('input-reset');
 let bodySounds = [];
 /**
@@ -479,23 +481,8 @@ function newRound(weaponId) {
   eventQueue = new RAPIER.EventQueue(true);
   colliderInfo = new Map();
 
-  // 바닥 + 원형 경계 벽 (보이지 않는 벽: 눈에 보이는 건 대리석 테두리)
-  const ground = world.createRigidBody(RAPIER.RigidBodyDesc.fixed());
-  world.createCollider(RAPIER.ColliderDesc.cuboid(30, 0.5, 30).setTranslation(0, -0.5, 0).setFriction(0.9).setCollisionGroups(GROUND_GROUPS), ground);
-  const n = 32;
-  const R = ARENA.radius + 0.25;
-  for (let i = 0; i < n; i++) {
-    const a = (i / n) * Math.PI * 2;
-    const half = R * Math.tan(Math.PI / n) + 0.05;
-    const q = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), -a);
-    world.createCollider(
-      RAPIER.ColliderDesc.cuboid(0.2, 0.6, half)
-        .setTranslation(Math.cos(a) * R, 0.6, Math.sin(a) * R)
-        .setRotation({ x: q.x, y: q.y, z: q.z, w: q.w })
-        .setCollisionGroups(GROUND_GROUPS),
-      ground,
-    );
-  }
+  arenaGround = createArenaGround(RAPIER, world, GROUND_GROUPS, { stageId: stages.id, radius: ARENA.radius });
+  particles.terrain = arenaGround.terrain;
 
   arenaStone = configureStageObstacle(RAPIER, world, stages.id, GROUND_GROUPS);
   const before = new Set(scene.children);
@@ -504,6 +491,7 @@ function newRound(weaponId) {
   player = new Fighter(RAPIER, world, scene, colliderInfo, {
     index: 0,
     name: '나',
+    terrain: arenaGround.terrain,
     x: -startGap / 2,
     heading: 0,
     look: LOOKS.player,
@@ -517,6 +505,7 @@ function newRound(weaponId) {
   enemy = new Fighter(RAPIER, world, scene, colliderInfo, {
     index: 1,
     name: currentFoe ? currentFoe.name : '상대',
+    terrain: arenaGround.terrain,
     x: startGap / 2,
     heading: Math.PI,
     look: enemyLook,
@@ -1552,8 +1541,8 @@ function showRoundMenu() {
   const loser = win ? enemy : player;
   // 한 줄로 짧게: 이겼으면 내가 한 일(베었다), 졌으면 내가 당한 일(베였다)
   const cause = win
-    ? { 목: '목을 베었다', 머리: '머리를 쳤다', 출혈: '출혈로 쓰러뜨렸다', 기절: '기절시켰다', 내려찍기: '내려찍었다' }[loser.causeOfDeath] || '쓰러뜨렸다'
-    : { 목: '목을 베였다', 머리: '머리를 맞았다', 출혈: '피를 너무 흘렸다', 기절: '기절했다', 내려찍기: '내려찍혔다' }[loser.causeOfDeath] || '쓰러졌다';
+    ? { 목: '목을 베었다', 머리: '머리를 쳤다', 출혈: '출혈로 쓰러뜨렸다', 기절: '기절시켰다', 내려찍기: '내려찍었다', 용암: '상대가 용암에 닿았다' }[loser.causeOfDeath] || '쓰러뜨렸다'
+    : { 목: '목을 베였다', 머리: '머리를 맞았다', 출혈: '피를 너무 흘렸다', 기절: '기절했다', 내려찍기: '내려찍혔다', 용암: '용암에 닿았다' }[loser.causeOfDeath] || '쓰러졌다';
   const journeyComplete = win && currentFoe?.id === 'crown_boss' && foeParam === 'stage' && !STAGE_PIN;
   $('menuTitle').textContent = journeyComplete ? '여정 완료' : win ? '승리' : '패배';
   // 졌으면 상대의 승리 대사를 한 줄 덧붙인다 (사장님 확정)
@@ -1590,7 +1579,8 @@ function updateCamera(dt) {
   // 판 시작: 조금 높고 먼 자리에서 무대를 보여 주다가 발이 풀릴 때(ARENA.startHold)까지 평소 자리로 부드럽게 내려온다 (사장님 9/30).
   //  시계는 판마다 새로 0부터 세는 player.fightT (싸움 전 메뉴·무기 뽑기 동안엔 0이라 시작 자리에서 기다린다)
   const open = ARENA.startHold > 0 ? 1 - THREE.MathUtils.smoothstep(player.fightT, 0, ARENA.startHold) : 0;
-  const camH = CAMERA.height + CAMERA.openUp * open;
+  const terrainY = player.terrain?.heightAt(a.x, a.z) ?? 0;
+  const camH = CAMERA.height + CAMERA.openUp * open + terrainY;
   camTarget
     .copy(a)
     .addScaledVector(camDir, -(CAMERA.back + CAMERA.openBack * open))
@@ -1603,7 +1593,8 @@ function updateCamera(dt) {
   clampStageCamera(a, camTarget, arenaStone?.navigation);
   camera.position.lerp(camTarget, k);
   clampStageCamera(a, camera.position, arenaStone?.navigation);
-  const look = _cd.copy(a).addScaledVector(camDir, CAMERA.lookAhead).setY(1.1);
+  if (player.terrain) camera.position.y = Math.max(camera.position.y, player.terrain.heightAt(camera.position.x, camera.position.z) + 0.45);
+  const look = _cd.copy(a).addScaledVector(camDir, CAMERA.lookAhead).setY(1.1 + terrainY);
   camLook.lerp(look, k);
   // 발걸음: 디딜 때 살짝 내려앉음
   if (player.footstep > 0) {
@@ -1617,8 +1608,8 @@ function updateCamera(dt) {
   camera.position.add(camShake.o);
   camera.lookAt(camLook);
   camera.position.sub(camShake.o); // 다음 프레임 따라가기는 흔들림 없는 위치 기준
-  sun.position.set(a.x + SUN_OFF.x, SUN_OFF.y, a.z + SUN_OFF.z);
-  sun.target.position.set(a.x, 0, a.z);
+  sun.position.set(a.x + SUN_OFF.x, SUN_OFF.y + terrainY, a.z + SUN_OFF.z);
+  sun.target.position.set(a.x, terrainY, a.z);
 }
 
 // ── 지금 검술 자세 이름 (자세가 바뀌면 잠깐 보여 준다) ──
@@ -1731,6 +1722,7 @@ function frame(now) {
       enemy.cacheState();
       world.step(eventQueue, combat.physicsHooks);
       combat.afterStep(world, eventQueue);
+      applyTerrainHazards(arenaGround, colliderInfo);
       if (stats.simTime >= limbDemoAt) {
         limbDemoAt = Infinity;
         previewLimbInjury(enemy, limbDemo);
@@ -1862,16 +1854,21 @@ window.game = {
   renderInfo: () => ({ frame: renderer.info.render.frame, calls: renderer.info.render.calls, triangles: renderer.info.render.triangles, ...renderer.info.memory, programs: renderer.info.programs?.length }),
   renderCap, // 화면 갱신 상한: game.renderCap.interval = 잰 화면 간격(초). 끄기는 설정 '화면 갱신 60 fps 묶기' (game.settings.fpsCap)
   // 배경: game.stage 로 지금 배경·짓는 시간 확인, game.setStage('castle') 로 바로 바꿔 보기 (싸우는 중이면 잠깐 멈칫한다)
+  get terrain() { return arenaGround?.terrain ?? null; },
   get arenaObstacle() { return arenaStone ? { colliderCount: arenaStone.handles.size, navigation: arenaStone.navigation } : null; },
   get stage() {
     return { id: stages.id, pinned: STAGE_PIN, buildMs: stages.buildMs, clearMs: stages.clearMs, warmMs: stages.warmMs };
   },
   setStage(id) {
+    const changesTerrain = !!terrainForStage(id) !== !!terrainForStage(stages.id);
     if (useStage(id)) {
       clearFlying();
       stages.warm(renderer, camera);
     }
     sound.setStage(stages.id);
+    // A slope changes the physical floor; rebuild the round rather than leaving
+    // an old collider and gait cache beneath a different rendered stage.
+    if (world && changesTerrain) { newRound(player.weapon.id); return; }
     if (world) arenaStone = configureStageObstacle(RAPIER, world, stages.id, GROUND_GROUPS, arenaStone);
     for (const f of [player, enemy]) if (f) {
       configureWetlandMovement(f, stages.id);

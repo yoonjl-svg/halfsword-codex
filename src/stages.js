@@ -25,10 +25,12 @@ import { buildSacredGrove } from './stage_sacred_grove.js';
 import { buildFrozenBay } from './stage_frozen_bay.js';
 import { buildQinglan } from './stage_qinglan.js';
 import { buildDayr } from './stage_dayr.js';
+import { buildEtna } from './stage_etna.js';
 import { buildSluice } from './stage_sluice.js';
 
 // 배경 id → 짓는 함수. 짓는 함수는 { update(dt), excite(amount), sunOffset? } 를 돌려준다
 const BUILDERS = {
+  etna: buildEtna,
   dayr: buildDayr,
   sluice: buildSluice,
   qinglan: buildQinglan,

@@ -1,0 +1,87 @@
+{
+  "basis": "db72960",
+  "status": "local_verified_public_pending",
+  "stage": "etna",
+  "url": "https://yoonjl-svg.github.io/halfsword-codex/etna.html",
+  "local": {
+    "pass": true,
+    "head": "db729604d566783b278772c6d31804492f589279",
+    "completedUTC": "2026-10-13T19:27:32.705Z",
+    "wallMs": 114080.05696999999,
+    "toolHash": "6f6b39c959babcbcd748aa968cb7fbd12d63176e7b99190653cc4f07ee08268b",
+    "buildStable": true,
+    "reportSha256": "ec07b1cb5feed800b492c6e4b47dbbba9fcee3f5684a4f5312dca76dd04efd0d",
+    "requests": 188,
+    "files": 181,
+    "errors": 0
+  },
+  "public": {
+    "pass": false,
+    "status": "pending"
+  },
+  "limits": [
+    "Physical phone FPS and human appearance/play acceptance not tested.",
+    "Selected native scenarios do not establish all-weapon or long-session balance.",
+    "Etna-inspired invented terrain, not a mapped real eruption."
+  ],
+  "scene": {
+    "pass": true,
+    "builds": 3,
+    "triangles": 36595,
+    "meshes": 10,
+    "geometriesDisposedOnce": 10,
+    "materialsDisposedOnce": 10,
+    "texturesDisposedOnce": 5,
+    "minSolidPropRadiusM": 12.024,
+    "cameraTerrainRadiusM": 10.5,
+    "reportSha256": "f26e628774068062e4f0be3457aa3feea6b883aaeed4f0abc873869f99e05e7c"
+  },
+  "native": {
+    "gait": {
+      "pass": true,
+      "reportSha256": "82b006a697916eeb39cbd70af4fb050a8bc444194cabe39d0522220a1ce9e8ff"
+    },
+    "ai": {
+      "pass": true,
+      "reportSha256": "ff1b30d7ffad52725455ec4497f365ad5d759999f94b0146e6598cea509047f3"
+    },
+    "hazards": {
+      "pass": true,
+      "reportSha256": "72a35d57cd73c2d319e3de184710eaeea234a558a1e80b57cfdf37f835810fc4"
+    },
+    "audio": {
+      "pass": true,
+      "reportSha256": "c297caf38c721e7ef0e0fc5d706a3aee2e0ef3b44aa6bbf59870446993e0b05a"
+    }
+  },
+  "supersededLocal": {
+    "pass": true,
+    "reportSha256": "5f2b2fd0d228fc5d3a2878612dc45a8d8f777cd249e08c3b3a1b93981ea5b69e",
+    "reason": "Final review corrected revival light to use terrain height exactly once; new final-build run is required."
+  },
+  "sourceHashes": {
+    "src/etna_ground.js": "45c1958f648ba4f56d707c92a45ed75af58f30eb01d02eda9e4cdd78c322a87f",
+    "src/terrain_navigation.js": "cd6da71daf4e4680037786a6e9475bc22f1b957e4593785a6ffb6da945628c2c",
+    "src/stage_etna.js": "99070997ad96d261f0e7d80d840b4d4934e85417a74d93fe8c74d6ec5fff8beb",
+    "src/fighter.js": "954919e99500f42a9525da5d37ee49d11d3c1a3a244cd4a488b7ee0db5235a71",
+    "src/gait.js": "c42380df8c5215435886ea31e1ff6997fd9f3bdf038115ef0b378f2bf5389a1e",
+    "src/ai.js": "e1ec0b4c67142f42009fd6d74ba684688aeca631e5f0d8a4c37d0599b7a118a5",
+    "src/main.js": "67aecd5b358b4656e7927d1fb35f3c40e26efa332e522924e42bc429d1ac48bd",
+    "src/finish_entry.js": "bed08c41701f7b117ab9a6b60601a60f2d1ec6df9a341970bcb555c2cc131305",
+    "src/opportunity_target.js": "9f1a39ac0a607d08e8994662d5593cd9b7e0f16d06135a1aac8e867a5614d795",
+    "src/effects.js": "1345837e010aa3bccab821f1fa21db857cf674eda0196845da5422915b015936",
+    "src/revive_fx.js": "8474da4ec01da0ae1b307869518fd76307538710b49c1d76fa295373d41f2c19",
+    "src/sound.js": "ec90a20f17b0cf6bdac8f127d4672d7d064834d55dbc3123fa38afca95ff3eaf",
+    "src/stage_detail_sound.js": "e6dc63611c764f81fccf064c7ff6a15f29561857604794cc05578bb92f6429c9",
+    "src/stages.js": "717ecb4fca22bbc0696780640ddb6315672353b587549e4a0a78566934052d2d",
+    "tools/sim/harness_m.mjs": "d61ddd487ed2c6bf7ad0a4977bb2148cb88842a03b3d140422c0bbb03d4b36f7",
+    "tools/sim/experiments/etna_ai_gate.mjs": "ded35cf48abd82233061024932474114b275ab36c0846f570e742119de5c3099",
+    "tools/sim/experiments/etna_gait_gate.mjs": "90e1f2968128d43681f86a4cca10399ab409ee058eefdc3e4ca88717b7c067e8",
+    "tools/sim/experiments/etna_hazard_gate.mjs": "f6b97dea9dd41f86d1158ec95baaacee40b098873d55fa167bf48fe515163644",
+    "tools/audio/stage_etna_checks_20261014.mjs": "143d5a3747c775f95c4f495ae973200f1ffdeb3a6fe922f07104fadafb0f4f72",
+    "tools/sim/terrain_navigation.test.mjs": "82494b79830827885442a7f13701e518dc0cf45284eacabad7f5754b604c7866",
+    "tools/browser/etna_capture_20261014.mjs": "26b9227428c82754afa21e88a739c63ebed0648d7f7877af8f1754df5d1de610",
+    "tools/browser/etna_delivery_20261014.mjs": "6f6b39c959babcbcd748aa968cb7fbd12d63176e7b99190653cc4f07ee08268b",
+    "public/etna.html": "3fe80ddc195c0a88e45f84bb69afe86d9d651ca219ef83aec8c456ec2702a05e"
+  }
+}

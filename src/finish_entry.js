@@ -1,6 +1,6 @@
 import { BODY, SKILL } from './config.js';
 
-/** Adopted low-target entry. Combat floors are currently the plane y=0.
+/** Adopted low-target entry. Height is relative to the victim’s current terrain, flat by default.
  * Heights are gameplay entry geometry, not measured human motion limits.
  * The exit margin spans roughly one torso half-thickness to avoid chatter.
  */
@@ -28,7 +28,8 @@ export function lowFinishPosture(att, vic = att?.foe, continuing = false, cached
   const head = headTarget ? position(vic, 'head')?.y : -Infinity;
   if (!chest || !pelvis || !attacker || (headTarget && !Number.isFinite(head))) return false;
   const highest = Math.max(chest.y, pelvis.y, head);
+  const terrainY = vic.terrain?.heightAt(pelvis.x, pelvis.z) ?? 0;
   const limit = LOW_FINISH.enterHeight + (continuing ? LOW_FINISH.exitMargin : 0);
-  return Number.isFinite(highest) && highest <= limit &&
+  return Number.isFinite(highest) && highest - terrainY <= limit &&
     highest + LOW_FINISH.minimumDrop < attacker.y;
 }
