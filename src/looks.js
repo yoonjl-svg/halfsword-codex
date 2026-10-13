@@ -677,6 +677,7 @@ LOOK_ARCHIVE.ratna.v2 = {
   hoseUpper: 0xc29b45, trouserSeam: 0x9d7936, shoes: 0xb8a071,
   hair: 0x302e28, ratnaRevision: 2,
 };
+LOOK_ARCHIVE.ratna.v3 = { ...LOOK_ARCHIVE.ratna.v2, ratnaRevision: 3 };
 
 // 지금 게임에서 실제로 쓰는 버전 (감독/오너가 확정하면 여기만 바꾸면 됨)
 export const CHARACTER_LOOK_VERSION = {
@@ -695,7 +696,7 @@ export const CHARACTER_LOOK_VERSION = {
   sherpa: 'v1',
   silver_wanderer: 'v4',
   chanda: 'v1',
-  ratna: 'v2',
+  ratna: 'v3',
 };
 
 /** id의 특정 버전을 꺼낸다. 버전이 없으면 현재 버전 → v0 순으로 물러난다. (main.js의 ?look=, ?lookv= 미리보기용) */

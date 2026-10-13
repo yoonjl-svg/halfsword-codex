@@ -12,7 +12,7 @@ import { CHARACTERS_BY_ID } from '../../src/characters.js';
 
 const own = fileURLToPath(import.meta.url), root = path.resolve(path.dirname(own), '../..');
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
-const photos = ['sluice-game', 'sluice-vista', 'ratna-front', 'ratna-back'].map(name => `encounters/${name}.webp`);
+const photos = ['sluice-game', 'sluice-vista', 'ratna-front', 'ratna-back', 'ratna-detail', 'bear-front', 'bear-face'].map(name => `encounters/${name}.webp`);
 const query = '?cards=sain,ice&foe=ratna&stage=sluice';
 async function manifest(dir, prefix = '') {
   const result = {};
@@ -39,8 +39,8 @@ async function main() {
   assert((local && base.protocol === 'http:') || base.href === 'https://yoonjl-svg.github.io/halfsword-codex/');
   assert(!base.search && !base.hash && !base.username && !base.password && base.pathname.endsWith('/'));
   const character = CHARACTERS_BY_ID.ratna;
-  assert(character, 'Ratna must be registered'); assert.equal(character.weapon, 'falchion'); assert.equal(character.voice, 'tome');
-  const contract = { enemy: 'ratna', name: character.name, stage: 'sluice', weapon: 'falchion', voice: 'tome',
+  assert(character, 'Ratna must be registered'); assert.equal(character.weapon, 'rapier'); assert.equal(character.voice, 'tome');
+  const contract = { enemy: 'ratna', name: character.name, stage: 'sluice', weapon: 'rapier', voice: 'tome',
     outfit: character.look.outfit, lookVersion: character.lookVersion, wetlandImmunity: character.terrainTraits?.wetlandImmunity === true, colliderCount: 8, playerWeapon: 'sain', query, photos };
   const before = await manifest(build), toolHash = sha(await fs.readFile(own));
   for (const name of ['index.html', 'sluice.html', ...photos]) assert(before[name], `Missing frozen file: ${name}`);
@@ -208,7 +208,7 @@ async function main() {
     await page.setViewportSize({ width: 844, height: 390 }); cdp = await context.newCDPSession(page);
     async function startRound(label) {
       await page.locator('#btnStart').tap(); await wait(() => game.state === 'draw' && game.draw.stage === 'choose' && game.draw.t >= .45);
-      const cards = await page.evaluate(() => [...game.draw.ids]); assert.deepEqual(cards, ['sain', 'ice', 'falchion']);
+      const cards = await page.evaluate(() => [...game.draw.ids]); assert.deepEqual(cards, ['sain', 'ice', 'rapier']);
       await wait(() => game.sound.ctx?.state === 'running' && ['hurt', 'ko', 'bleed'].every(kind => game.sound.samples[`voice:tome:${kind}`]?.length === 2));
       if (label === 'first') {
         await wait(() => game.sound._stageDetails?.stats.accepted > 0);

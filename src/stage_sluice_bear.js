@@ -9,45 +9,47 @@ export const BEAR_AVOID_RADIUS = 1.35;
 export const BEAR_GROUND_RADIUS = BEAR_AVOID_RADIUS;
 
 const TAU = Math.PI * 2;
-const STONE = 0x444941;
-const LIGHT_STONE = 0x50544a;
-const DARK_STONE = 0x292f29;
-const MOSS = 0x4e5d3c;
-const OCHRE_STONE = 0xc0a777;
-const MUZZLE_STONE = 0xb9aa87;
+const STONE = 0x929292;
+const DARK_STONE = 0x656565;
+const MOSS = 0x777777;
+const COLLAR_STONE = 0x9c9c9c;
+const MUZZLE_STONE = 0x9d9d9d;
 
-// Sculpted cross sections in model space (forward = −Z).
+// Model space faces −Z. The rounded abdomen is wider than the sloping
+// shoulders; a short thick neck blends into the small sun-bear head.
 const BODY = [
-  [1.36, 0.52, 0.4, 0, 0.16], [1.78, 0.74, 0.5, 0, 0.14],
-  [2.32, 0.84, 0.6, 0, 0.1], [2.92, 0.84, 0.6, 0, 0.05],
-  [3.48, 0.9, 0.58, 0, 0.04], [3.94, 0.93, 0.51, 0, 0.07],
-  [4.23, 0.8, 0.43, 0, 0.07], [4.48, 0.65, 0.37, 0, 0.035],
-  [4.65, 0.43, 0.31, 0, -0.015],
+  [1.57, 0.3, 0.24, 0, 0.13], [1.67, 0.52, 0.36, 0, 0.13],
+  [1.91, 0.74, 0.48, 0, 0.115], [2.3, 0.9, 0.59, 0, 0.09],
+  [2.73, 0.935, 0.635, 0, 0.075], [3.17, 0.905, 0.61, 0, 0.065],
+  [3.59, 0.85, 0.54, 0, 0.06], [3.95, 0.785, 0.48, 0, 0.055],
+  [4.25, 0.66, 0.42, 0, 0.05], [4.5, 0.52, 0.375, 0, 0.04],
+  [4.69, 0.445, 0.34, 0, 0.015],
 ];
 const HEAD = [
-  [4.47, 0.36, 0.3, 0, -0.02], [4.69, 0.5, 0.4, 0, -0.035],
-  [4.98, 0.61, 0.465, 0, -0.025], [5.27, 0.625, 0.455, 0, 0.005],
-  [5.48, 0.51, 0.37, 0, 0.04], [5.63, 0.33, 0.24, 0, 0.06],
-  [5.69, 0.11, 0.095, 0, 0.065],
+  [4.48, 0.32, 0.26, 0, 0.025], [4.65, 0.38, 0.31, 0, 0.01],
+  [4.87, 0.48, 0.385, 0, -0.015], [5.13, 0.57, 0.425, 0, -0.02],
+  [5.37, 0.54, 0.405, 0, 0.005], [5.57, 0.445, 0.335, 0, 0.025],
+  [5.7, 0.3, 0.22, 0, 0.04], [5.755, 0.105, 0.085, 0, 0.045],
 ];
 const LEG = [
-  [0.13, 0.24, 0.3, 0.42, 0.07], [0.5, 0.25, 0.31, 0.43, 0.08],
-  [0.94, 0.27, 0.34, 0.45, 0.15], [1.34, 0.35, 0.4, 0.43, 0.16],
-  [1.72, 0.39, 0.42, 0.36, 0.13], [1.96, 0.3, 0.34, 0.31, 0.12],
+  [0.21, 0.155, 0.22, 0.85, 0.045], [0.48, 0.18, 0.25, 0.84, 0.08],
+  [0.88, 0.235, 0.29, 0.76, 0.125], [1.23, 0.285, 0.34, 0.64, 0.14],
+  [1.61, 0.335, 0.39, 0.49, 0.13], [1.94, 0.325, 0.36, 0.39, 0.115],
+  [2.12, 0.24, 0.275, 0.34, 0.1],
 ];
 const FOOT = [
-  [0.115, 0.28, 0.45, 0.43, -0.17], [0.22, 0.32, 0.51, 0.43, -0.17],
-  [0.41, 0.3, 0.47, 0.43, -0.14], [0.6, 0.21, 0.32, 0.43, -0.015],
+  [0.115, 0.235, 0.355, 0.89, -0.17], [0.21, 0.27, 0.395, 0.91, -0.18],
+  [0.335, 0.255, 0.33, 0.89, -0.11], [0.46, 0.155, 0.22, 0.835, 0.025],
 ];
 const ARM = [
-  [1.7, 0.18, 0.21, 0.93, -0.17], [2.02, 0.21, 0.24, 0.96, -0.12],
-  [2.48, 0.225, 0.26, 0.99, -0.06], [2.94, 0.24, 0.27, 0.98, -0.015],
-  [3.45, 0.27, 0.295, 0.91, 0.035], [3.93, 0.29, 0.275, 0.77, 0.065],
-  [4.16, 0.19, 0.19, 0.67, 0.075],
+  [2.25, 0.165, 0.2, 1.005, -0.2], [2.59, 0.2, 0.245, 1.04, -0.12],
+  [3.03, 0.225, 0.275, 1.015, -0.035], [3.45, 0.25, 0.295, 0.925, 0.035],
+  [3.82, 0.265, 0.265, 0.79, 0.075], [4.09, 0.215, 0.21, 0.66, 0.085],
+  [4.23, 0.125, 0.14, 0.59, 0.075],
 ];
 const HANGING_PAW = [
-  [1.33, 0.145, 0.18, 0.91, -0.255], [1.5, 0.22, 0.24, 0.935, -0.24],
-  [1.74, 0.23, 0.25, 0.95, -0.215], [1.99, 0.175, 0.2, 0.96, -0.17],
+  [2.115, 0.145, 0.17, 0.965, -0.255], [2.28, 0.21, 0.225, 0.985, -0.25],
+  [2.47, 0.2, 0.23, 1.015, -0.21], [2.64, 0.16, 0.19, 1.035, -0.165],
 ];
 const mirrorRings = (rings, side) => rings.map(([y, rx, rz, x, z]) => [y, rx, rz, x * side, z]);
 
@@ -68,12 +70,12 @@ function obstacleShapes(position, rotationY) {
   const shapes = [Object.freeze({ name: 'bear-footing', type: 'cylinder',
     center: Object.freeze(world([0, 0.06, 0])), halfHeight: 0.06, radius: 1.25 })];
   for (const side of [-1, 1]) shapes.push(capsule(`bear-hindleg-${side < 0 ? 'left' : 'right'}`,
-    [side * 0.43, 0.42, -0.3], [side * 0.34, 1.66, 0.17], 0.31));
-  shapes.push(cuboid('bear-torso', [0, 3.06, 0.055], [0.855, 1.48, 0.57]));
-  shapes.push(capsule('bear-head', [0, 4.925, -0.03], [0, 5.115, -0.03], 0.65));
+    [side * 0.845, 0.425, -0.18], [side * 0.455, 1.825, 0.12], 0.285));
+  shapes.push(cuboid('bear-torso', [0, 2.93, 0.08], [0.89, 1.25, 0.62]));
+  shapes.push(capsule('bear-head', [0, 4.6, -0.02], [0, 5.205, -0.02], 0.55));
   for (const side of [-1, 1]) shapes.push(capsule(`bear-forelimb-${side < 0 ? 'left' : 'right'}`,
-    [side * 0.94, 1.6, -0.23], [side * 0.85, 3.91, 0.04], 0.26));
-  shapes.push(capsule('bear-muzzle', [0, 4.96, -0.62], [0, 4.96, -0.83], 0.17));
+    [side * 1.01, 2.2, -0.22], [side * 0.83, 3.91, 0.06], 0.235));
+  shapes.push(capsule('bear-muzzle', [0, 5.045, -0.53], [0, 5.045, -0.735], 0.195));
   return Object.freeze(shapes);
 }
 
@@ -116,7 +118,7 @@ function carvedLoft(rings, sides = 14, square = 0.94) {
 
 function part(kit, geometry, color = STONE, position = [0, 0, 0], rotation = [0, 0, 0], scale = 1, options = {}) {
   kit.put('bear', geometry, color, position, rotation, scale, {
-    rough: 0.018, vary: 0.035, noise: 0.045,
+    rough: 0.008, vary: 0.025, noise: 0.035,
     uv: 'box', uvScale: 0.56, snow: 0.085, snowColor: MOSS,
     ...options,
   });
@@ -140,8 +142,8 @@ function incision(kit, points, radius = 0.015, color = DARK_STONE) {
   }
 }
 
-// The sun bear's identifying crescent is a broad U of worn pale ochre
-// stone, inset into the actual curved chest rather than a floating necklace.
+// The identifying U is a thin, shallow relief in the same grey stone.
+// Its small value difference catches the light without colored inlay.
 function chestCrescent() {
   const positions = [], indices = [], steps = 18;
   const chestZ = (x, y) => {
@@ -151,12 +153,12 @@ function chestCrescent() {
     const rx = THREE.MathUtils.lerp(a[1], b[1], t);
     const rz = THREE.MathUtils.lerp(a[2], b[2], t);
     const cz = THREE.MathUtils.lerp(a[4], b[4], t);
-    return cz - rz * Math.max(0, 1 - (Math.abs(x) / rx) ** (2 / 0.94)) ** (0.94 / 2) - 0.035;
+    return cz - rz * Math.max(0, 1 - (Math.abs(x) / rx) ** (2 / 0.94)) ** (0.94 / 2) - 0.018;
   };
   for (let i = 0; i <= steps; i++) {
     const a = 0.025 + i / steps * (Math.PI - 0.05), c = Math.cos(a), s = Math.sin(a);
-    const outer = [-(0.66 + 0.04 * s) * c, 4.21 - 0.66 * s];
-    const inner = [-(0.66 - 0.15 * s) * c, 4.21 - 0.30 * s];
+    const outer = [-(0.57 + 0.025 * s) * c, 4.13 - 0.48 * s];
+    const inner = [-(0.57 - 0.03 * s) * c, 4.13 - 0.35 * s];
     for (const [x, y] of [outer, inner]) positions.push(x, y, chestZ(x, y));
     if (i < steps) {
       const k = i * 2;
@@ -170,65 +172,107 @@ function chestCrescent() {
 }
 
 function sculptBear(kit) {
+  const headPieces = [];
   // Low circular stone footing leaves walkable ground all around the idol.
   part(kit, carvedLoft([
     [0, 1.24, 1.24], [0.055, 1.25, 1.25], [0.095, 1.2, 1.2], [0.12, 1.12, 1.12],
-  ], 16), 0x59624f, [0, 0, 0], [0, 0, 0], 1, { rough: 0.006, snow: 0.5 });
+  ], 16), 0x858585, [0, 0, 0], [0, 0, 0], 1, { rough: 0.006, snow: 0.5 });
 
   // Two distinct weight-bearing hindlegs and long plantigrade hindpaws make
   // this an upright bear, not a seated idol or a person with a bear's head.
   for (const side of [-1, 1]) {
-    part(kit, carvedLoft(mirrorRings(LEG, side)), 0x42493f);
-    part(kit, carvedLoft(mirrorRings(FOOT, side), 12, 0.7), 0x464d40);
+    part(kit, carvedLoft(mirrorRings(LEG, side), 18), 0x909090);
+    part(kit, carvedLoft(mirrorRings(FOOT, side), 16, 0.91), 0x929292);
     for (let toe = -1; toe <= 2; toe++) {
-      const x = side * 0.43 + (toe - 0.5) * 0.108;
-      incision(kit, [[x, 0.28, -0.638], [x, 0.42, -0.503], [x, 0.46, -0.38]], 0.01);
+      const x = side * 0.91 + (toe - 0.5) * 0.09;
+      incision(kit, [[x, 0.195, -0.553], [x, 0.31, -0.438], [x, 0.345, -0.345]], 0.01);
     }
   }
-  part(kit, carvedLoft(BODY, 18));
-  part(kit, chestCrescent(), OCHRE_STONE, [0, 0, 0], [0, 0, 0], 1,
+  part(kit, carvedLoft(BODY, 24));
+  part(kit, chestCrescent(), COLLAR_STONE, [0, 0, 0], [0, 0, 0], 1,
     { rough: 0.002, vary: 0.025, noise: 0.025, snow: 0.025 });
 
   for (const side of [-1, 1]) {
-    // The long sun-bear forelimbs hang down beside the thighs, with their
-    // paws below the belly. No lifted wrists or human hands at the chest.
-    part(kit, carvedLoft(mirrorRings(ARM, side), 12), 0x464b42);
-    part(kit, carvedLoft(mirrorRings(HANGING_PAW, side), 12, 0.76), 0x41483e);
+    // The sun-bear forelimbs hang outside the rounded abdomen; their wrists
+    // bend slightly inward and their small paws end beside the lower belly.
+    part(kit, carvedLoft(mirrorRings(ARM, side), 16), 0x919191);
+    part(kit, carvedLoft(mirrorRings(HANGING_PAW, side), 14, 0.92), 0x909090);
     for (let toe = -1; toe <= 2; toe++) {
-      const x = side * 0.935 + (toe - 0.5) * 0.075;
-      incision(kit, [[x, 1.36, -0.398], [x, 1.51, -0.477], [x, 1.64, -0.468]], 0.009, 0x242b24);
+      const x = side * 0.975 + (toe - 0.5) * 0.078;
+      incision(kit, [[x, 2.16, -0.401], [x, 2.29, -0.471], [x, 2.4, -0.45]], 0.008, 0x777777);
+      part(kit, new THREE.ConeGeometry(0.039, 0.165, 6), 0x868686,
+        [x, 2.05, -0.378], [-0.14, 0, Math.PI], 1, { rough: 0.002, snow: 0 });
     }
-    // Tiny round ears sit against the head, not on tall mouse-like stalks.
-    oval(kit, [side * 0.472, 5.592, 0.064], [0.173, 0.205, 0.124], 0x454b40,
-      [0, side * -0.13, side * -0.1]);
-    oval(kit, [side * 0.479, 5.6, -0.047], [0.088, 0.112, 0.019], DARK_STONE,
-      [0, side * -0.13, side * -0.1], { rough: 0.003, snow: 0.025 });
+    const earStart = kit.bins.bear.length;
+    // The little flattened ears merge into the upper sides of the skull.
+    // Their tops barely rise above the crown, avoiding a cartoon silhouette.
+    oval(kit, [side * 0.445, 5.555, 0.045], [0.146, 0.171, 0.095], STONE,
+      [0, side * -0.13, side * -0.46]);
+    oval(kit, [side * 0.451, 5.564, -0.042], [0.075, 0.093, 0.015], 0x7b7b7b,
+      [0, side * -0.13, side * -0.46], { rough: 0.002, snow: 0.025 });
+    headPieces.push(...kit.bins.bear.slice(earStart));
   }
-  part(kit, carvedLoft(HEAD, 16, 0.87), LIGHT_STONE);
-
-  // A broad pale lower face, compact round skull and short blunt nose are
-  // the sun bear's facial landmarks. The pale material is weathered inlay.
+  // A fixed stone neck collar penetrates both the torso and turned skull.
+  // This overlap closes the wedge that a rotated, tapered head otherwise opens.
   part(kit, carvedLoft([
-    [0, 0.43, 0.28], [0.14, 0.43, 0.253], [0.32, 0.335, 0.202],
-    [0.44, 0.255, 0.155], [0.47, 0.22, 0.12],
-  ], 12, 0.77), MUZZLE_STONE, [0, 4.94, -0.414], [-Math.PI / 2, 0, 0], 1,
-    { snow: 0.02, noise: 0.035 });
-  oval(kit, [0, 5.005, -0.898], [0.221, 0.139, 0.09], 0x252c27,
-    [0, 0, 0], { rough: 0.005, snow: 0 });
+    [4.28, 0.59, 0.39, 0, 0.04], [4.52, 0.53, 0.39, -0.02, 0.035],
+    [4.73, 0.465, 0.35, -0.04, 0.025], [4.96, 0.36, 0.29, -0.055, 0.015],
+  ], 24), STONE, [0, 0, 0], [0, 0, 0], 1, { rough: 0.004 });
+  const faceStart = kit.bins.bear.length;
+  part(kit, carvedLoft(HEAD, 22, 1.04), STONE);
+
+  // The reference has a compact muzzle about half the head width. Its
+  // short lower jaw, small open eyes and neutral mouth avoid a smiling mask.
+  part(kit, carvedLoft([
+    [0, 0.283, 0.225], [0.095, 0.3, 0.204], [0.195, 0.265, 0.163],
+    [0.265, 0.21, 0.127], [0.288, 0.173, 0.102],
+  ], 18, 1.02), MUZZLE_STONE, [0, 5.135, -0.388], [-Math.PI / 2, 0, 0], 1,
+    { rough: 0.004, snow: 0.015, noise: 0.025 });
+  // The rounded triangular nose is only about 23% of the skull width.
+  part(kit, carvedLoft([
+    [5.148, 0.046, 0.032, 0, -0.724], [5.192, 0.101, 0.048, 0, -0.737],
+    [5.248, 0.132, 0.05, 0, -0.73], [5.284, 0.095, 0.035, 0, -0.713],
+  ], 14, 1.01), 0x707070, [0, 0, 0], [0, 0, 0], 1, { rough: 0.002, snow: 0 });
+  // Conform the dark eye cuts to the skull, with no protruding eye spheres.
+  const eyeSurface = new THREE.Mesh(carvedLoft(HEAD, 22, 1.04),
+    new THREE.MeshBasicMaterial({ side: THREE.DoubleSide }));
+  const eyeRay = new THREE.Raycaster(), eyeSegments = 16;
   for (const side of [-1, 1]) {
-    oval(kit, [side * 0.362, 5.231, -0.41], [0.099, 0.056, 0.03], 0x202720,
-      [0, side * -0.48, side * -0.05], { rough: 0.003, snow: 0 });
-    oval(kit, [side * 0.365, 5.303, -0.391], [0.168, 0.047, 0.056], LIGHT_STONE,
-      [0, side * -0.48, side * 0.11], { rough: 0.006, snow: 0.04 });
-    incision(kit, [[side * 0.02, 4.791, -0.843], [side * 0.185, 4.771, -0.805],
-      [side * 0.319, 4.789, -0.674]], 0.01, 0x68694e);
+    const positions = [], indices = [];
+    const eyePoint = (x, y) => {
+      eyeRay.set(new THREE.Vector3(x, y, -2), new THREE.Vector3(0, 0, 1));
+      const hit = eyeRay.intersectObject(eyeSurface, false)[0];
+      positions.push(x, y, (hit?.point.z ?? -0.34) - 0.005);
+    };
+    eyePoint(side * 0.276, 5.372);
+    for (let i = 0; i < eyeSegments; i++) {
+      const a = i / eyeSegments * TAU;
+      eyePoint(side * 0.276 + Math.cos(a) * 0.044, 5.372 + Math.sin(a) * 0.034);
+      indices.push(0, (i + 1) % eyeSegments + 1, i + 1);
+    }
+    const eye = new THREE.BufferGeometry();
+    eye.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    eye.setIndex(indices); eye.computeVertexNormals();
+    part(kit, eye, 0x626262, [0, 0, 0], [0, 0, 0], 1, { rough: 0, snow: 0, vary: 0.01 });
+    oval(kit, [side * 0.066, 5.228, -0.776], [0.022, 0.015, 0.005], 0x5d5d5d,
+      [0, side * -0.15, 0], { rough: 0.001, snow: 0 });
+    incision(kit, [[0, 5.026, -0.676], [side * 0.135, 5.026, -0.66]], 0.006, 0x797979);
   }
+  eyeSurface.geometry.dispose(); eyeSurface.material.dispose();
   // Restrained fractures preserve the identity of an ancient stone idol.
-  incision(kit, [[0.45, 5.49, -0.235], [0.415, 5.39, -0.316], [0.46, 5.31, -0.338]], 0.008, 0x30382e);
+  incision(kit, [[0.45, 5.49, -0.235], [0.415, 5.39, -0.316], [0.46, 5.31, -0.338]], 0.008, 0x777777);
+  headPieces.push(...kit.bins.bear.slice(faceStart));
+  // The photographed animal looks slightly to its right, with a small head
+  // tilt. Transform only the face/skull/ears; the body and colliders stay fixed.
+  const pivot = new THREE.Vector3(0, 5.12, 0);
+  const turn = new THREE.Matrix4().makeTranslation(...pivot.toArray())
+    .multiply(new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(0, 0.28, -0.075, 'YXZ')))
+    .multiply(new THREE.Matrix4().makeTranslation(...pivot.clone().negate().toArray()));
+  for (const geometry of headPieces) geometry.applyMatrix4(turn);
   incision(kit, [[-0.37, 2.98, -0.48], [-0.32, 2.76, -0.478],
-    [-0.38, 2.54, -0.438], [-0.3, 2.37, -0.431]], 0.009, 0x30392f);
+    [-0.38, 2.54, -0.438], [-0.3, 2.37, -0.431]], 0.009, 0x777777);
   incision(kit, [[0.81, 0.11, -0.735], [0.73, 0.112, -0.82],
-    [0.75, 0.07, -0.95]], 0.012, 0x53684d);
+    [0.75, 0.07, -0.95]], 0.012, 0x777777);
 }
 
 /** Render-only helper. The caller creates colliders from the returned shapes. */
@@ -250,12 +294,12 @@ export function buildSluiceBear(scene, {
   const positions = mesh.geometry.attributes.position;
   const normals = mesh.geometry.attributes.normal;
   const colors = mesh.geometry.attributes.color;
-  const color = new THREE.Color(), damp = new THREE.Color(0x3a4b36), moss = new THREE.Color(MOSS);
+  const color = new THREE.Color(), damp = new THREE.Color(0x727272), moss = new THREE.Color(MOSS);
   for (let i = 0; i < positions.count; i++) {
     const x = positions.getX(i), y = positions.getY(i), z = positions.getZ(i);
     const patch = 0.5 + Math.sin(x * 2.1 + z * 1.7) * Math.cos(y * 1.8 + z * 0.8) * 0.5;
     const flood = 1 - THREE.MathUtils.smoothstep(y, 0.62 + patch * 0.16, 1.4 + patch * 0.21);
-    color.fromBufferAttribute(colors, i).lerp(damp, flood * 0.48);
+    color.fromBufferAttribute(colors, i).lerp(damp, flood * 0.3);
     const upper = THREE.MathUtils.smoothstep(normals.getY(i), 0.3, 0.9);
     const growth = THREE.MathUtils.smoothstep(patch, 0.51, 0.83) * (upper * 0.16 + flood * 0.2);
     color.lerp(moss, growth);

@@ -26,12 +26,12 @@ try{
  let stone=configureStageObstacle(RAPIER,w,'sluice',GROUND_GROUPS);
  check('Eight real fixed statue colliders',stone.handles.size===8&&w.colliders.len()===8);
  w.step();
- for(const [y,z] of [[.6,.4],[1.05,-.4],[1.6,0],[2.5,0],[4,0]]){
+ for(const [y,z] of [[.6,.8],[1.05,-.65],[1.9,0],[2.5,0],[4,0]]){
   const ray=new RAPIER.Ray({x:-4,y,z},{x:1,y:0,z:0});
   const hit=w.castRay(ray,8,true);check('Stone obstructs solid leg/torso at '+y+','+z,!!hit&&stone.handles.has(hit.collider.handle));
  }
  check('Visible gap between legs remains open',!w.castRay(new RAPIER.Ray({x:-4,y:.6,z:0},{x:1,y:0,z:0}),8,true));
- const moving=w.createRigidBody(RAPIER.RigidBodyDesc.dynamic().setTranslation(-3,1.6,0).setGravityScale(0).setLinvel(5,0,0).setCcdEnabled(true));
+ const moving=w.createRigidBody(RAPIER.RigidBodyDesc.dynamic().setTranslation(-3,2.5,0).setGravityScale(0).setLinvel(5,0,0).setCcdEnabled(true));
  w.createCollider(RAPIER.ColliderDesc.ball(.12).setMass(1).setRestitution(0),moving);
  for(let i=0;i<180;i++)w.step();
  check('Dynamic body cannot pass through torso',moving.translation().x<-.55);
@@ -45,7 +45,7 @@ try{
  }
  check('Camera segment clearance at 72 directions',true);
  for(const seed of [73,131,209]){
-  const g=newRound({seed,weapon:'sain',weapon2:'falchion',look2:CHARACTERS_BY_ID.ratna.look,persona:CHARACTERS_BY_ID.ratna.ai.persona,onFighter(f){
+  const g=newRound({seed,weapon:'sain',weapon2:CHARACTERS_BY_ID.ratna.weapon,look2:CHARACTERS_BY_ID.ratna.look,persona:CHARACTERS_BY_ID.ratna.ai.persona,onFighter(f){
    configureWetlandMovement(f,'sluice');f.arenaObstacle=BEAR_NAVIGATION;
    if(f.index===1)f.terrainTraits=CHARACTERS_BY_ID.ratna.terrainTraits;
   }});

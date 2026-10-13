@@ -1,5 +1,5 @@
 // Actual native fighter, decal projection, limb separation and resource cleanup.
-// node tools/sim/experiments/ratna_appearance_gate.mjs /tmp/halfsword-ratna-v2-20261013/appearance-native.json
+// node tools/sim/experiments/ratna_appearance_gate.mjs /tmp/halfsword-ratna-v3-20261013/appearance-native.json
 import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
@@ -13,7 +13,7 @@ import { rebuildDecal } from '../../../src/effects.js';
 import { disposeVisualTrees } from '../../../src/visual_resources.js';
 
 const root = fileURLToPath(new URL('../../../', import.meta.url));
-const out = path.resolve(process.argv[2] || '/tmp/halfsword-ratna-v2-20261013/appearance-native.json');
+const out = path.resolve(process.argv[2] || '/tmp/halfsword-ratna-v3-20261013/appearance-native.json');
 assert(out.startsWith('/tmp/'), 'Keep generated evidence outside the checkout, under /tmp');
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const sourceFiles = [
@@ -26,8 +26,8 @@ const result = {
   pass: false, completedAt: null,
   baseCommit: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(),
   sourceSha256: Object.fromEntries(sourceFiles.map(file => [file, sha(fs.readFileSync(path.join(root, file)))])),
-  options: { seed: 73, weapon: 'longsword', weapon2: 'falchion', walls: false, gap: 12 },
-  look: { id: 'ratna', version: 'v2', outfit: 'ratna_ferryman', voice: 'tome' },
+  options: { seed: 73, weapon: 'longsword', weapon2: 'rapier', walls: false, gap: 12 },
+  look: { id: 'ratna', version: 'v3', outfit: 'ratna_ferryman', voice: 'tome' },
   input: 'Native newRound, nine mild cuts, native decal projection/reprojection, two joint cuts and 90 simulation steps.',
   checks: [],
   limits: [
@@ -36,6 +36,7 @@ const result = {
     'Decal projection runs without canvas textures; browser evidence assesses visible wound quality.',
     'Rigid clothes, decorative paddle, monkey and shoes have no additional collision or animal AI.',
     'Wetland movement exemption is character metadata here; terrain behavior is tested by its separate gate.',
+    'Head-clearance probes use native face radius and neck anchors; hair overlap and extreme combined head poses remain visual limitations.',
   ],
 };
 const check = (name, value) => { assert(value, name); result.checks.push(name); };
@@ -48,15 +49,19 @@ function dispose(g) {
   }
   g.eventQueue.free(); g.world.free();
 }
-let dressed, neutral, archived, restarted;
+let dressed, neutral, archived, archivedV2, restarted;
 try {
   const look = getLook('ratna'), character = CHARACTERS_BY_ID.ratna;
-  check('Registered adult ferryman with existing falchion and mature male voice',
-    character?.age === 52 && character.weapon === 'falchion' && character.voice === 'tome'
-    && character.look === look && character.lookVersion === 'v2' && look.outfit === result.look.outfit
-    && character.epithet === '습지 뱃사공' && character.terrainTraits?.wetlandImmunity === true);
+  check('Registered adult wetland guide uses the existing rapier and rapier school',
+    character?.age === 52 && character.weapon === 'rapier' && character.voice === 'tome'
+    && character.ai.persona.school === 'rapier' && character.ai.persona.idle.guard === 'pflugR'
+    && character.look === look && character.lookVersion === 'v3' && look.outfit === result.look.outfit
+    && character.name === '라트나 위라세타쿤' && character.epithet === '습지 안내인'
+    && character.terrainTraits?.wetlandImmunity === true);
+  result.options.persona = character.ai.persona;
   dressed = newRound({ ...result.options, look2: look });
   neutral = newRound({ ...result.options, look2: { ...look, outfit: null } });
+  check('Native fighter equips the registered rapier', dressed.enemy.weapon.id === 'rapier');
   result.snapshotSha256 = { dressed: sha(dressed.world.takeSnapshot()), neutral: sha(neutral.world.takeSnapshot()) };
   check('Native world snapshot identical', result.snapshotSha256.dressed === result.snapshotSha256.neutral);
   archived = newRound({ ...result.options, look2: getLook('ratna', 'v1') });
@@ -65,6 +70,11 @@ try {
     && !archived.enemy.groups.chest.getObjectByName('ratna-monkey')
     && !archived.enemy.groups.footF.getObjectByName('ratna-reed-shoe')
     && sha(archived.world.takeSnapshot()) === result.snapshotSha256.dressed);
+  archivedV2 = newRound({ ...result.options, look2: getLook('ratna', 'v2') });
+  check('Archived v2 preserves its fine curls and outer monkey placement', getLook('ratna', 'v2').ratnaRevision === 2
+    && !archivedV2.enemy.groups.head.getObjectByName('ratna-curls')
+    && archivedV2.enemy.groups.chest.getObjectByName('ratna-monkey')?.position.z === 0
+    && sha(archivedV2.world.takeSnapshot()) === result.snapshotSha256.dressed);
   for (let i = 0; i < 4; i++) {
     const a = dressed.enemy.groups.head.children[i], b = neutral.enemy.groups.head.children[i];
     assert.deepEqual(a.geometry.attributes.position.array, b.geometry.attributes.position.array);
@@ -101,8 +111,41 @@ try {
   result.monkeyBounds = { min: monkeyBounds.min.toArray(), max: monkeyBounds.max.toArray() };
   check('Complete monkey belongs to the left shoulder chest and clears face and weapon side',
     monkey?.part === 'chest' && monkey.parent === dressed.enemy.partMesh.chest
-    && monkeyBounds.max.z < -0.15 && monkeyBounds.min.y > -0.025
+    && monkeyBounds.max.z < -0.12 && monkeyBounds.min.y > -0.025
     && monkeyBounds.max.y < 0.36 && monkeyBounds.max.x < 0.1);
+  check('Whole monkey moved three centimeters inward on the left shoulder',
+    Math.abs(monkey.node.position.z - archivedV2.enemy.groups.chest.getObjectByName('ratna-monkey').position.z - 0.03) < 1e-9);
+  const monkeyPoints = [];
+  monkey.node.traverse(mesh => {
+    if (!mesh.isMesh) return;
+    const p = mesh.geometry.attributes.position;
+    for (let i = 0; i < p.count; i++) monkeyPoints.push(new THREE.Vector3().fromBufferAttribute(p, i).applyMatrix4(monkey.node.matrix));
+  });
+  const chestBody = dressed.enemy.bodies.chest, headBody = dressed.enemy.bodies.head;
+  const chestInverse = new THREE.Quaternion().copy(chestBody.rotation()).invert();
+  const headCenter = new THREE.Vector3().copy(headBody.translation()).sub(new THREE.Vector3().copy(chestBody.translation())).applyQuaternion(chestInverse);
+  const neck = new THREE.Vector3().copy(dressed.enemy.jointByName.head.joint.anchor1());
+  const headRadius = dressed.enemy.partMesh.head.geometry.parameters.radius;
+  const gapAt = (x, y, z) => {
+    const center = headCenter.clone().sub(neck).applyEuler(new THREE.Euler(x, y, z)).add(neck);
+    return Math.min(...monkeyPoints.map(p => p.distanceTo(center))) - headRadius;
+  };
+  const gaps = (xs, ys, zs) => xs.flatMap(x => ys.flatMap(y => zs.map(z => gapAt(x, y, z))));
+  result.monkeyHeadClearanceM = { neutral: gapAt(0, 0, 0),
+    smallPoseMin: Math.min(...gaps([-0.2, 0, 0.2], [-0.45, 0, 0.45], [-0.2, 0, 0.2])),
+    jointLimitPoseMin: Math.min(...gaps([-0.5, 0, 0.5], [-1, 0, 1], [-0.7, 0, 0.5])) };
+  check('Monkey clears the native face in neutral and small head rotations',
+    result.monkeyHeadClearanceM.neutral > 0.02 && result.monkeyHeadClearanceM.smallPoseMin > 0);
+  if (result.monkeyHeadClearanceM.jointLimitPoseMin < 0) result.limits.push(
+    'Combined extreme neck-limit poses can overlap the decorative monkey; no new collision or head restriction is introduced.');
+  const curls = dressed.enemy.groups.head.getObjectByName('ratna-curls'), curlBounds = new THREE.Box3();
+  curls?.traverse(mesh => {
+    if (mesh.isMesh) { mesh.geometry.computeBoundingBox(); curlBounds.union(mesh.geometry.boundingBox); }
+  });
+  result.curlBounds = { min: curlBounds.min.toArray(), max: curlBounds.max.toArray() };
+  check('Raised spiral curls stay compact around the original head', curls?.parent === dressed.enemy.partMesh.head
+    && curlBounds.max.y > 0.12 && curlBounds.max.y < 0.145 && curlBounds.min.y > -0.075
+    && Math.max(Math.abs(curlBounds.min.z), Math.abs(curlBounds.max.z)) < 0.14);
   check('Warm ochre trousers and broad reed shoes use native body parts',
     dressed.enemy.partMesh.thighF.material.color.getHex() === 0xc29b45
     && ['footF', 'footB'].every(part => {
@@ -204,6 +247,7 @@ try {
 } finally {
   if (neutral) dispose(neutral);
   if (archived) dispose(archived);
+  if (archivedV2) dispose(archivedV2);
   if (restarted) dispose(restarted);
   if (dressed) dispose(dressed);
   result.completedAt = new Date().toISOString();
