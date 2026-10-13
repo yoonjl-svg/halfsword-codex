@@ -1,0 +1,131 @@
+{
+  "base": "2579bc92922f4aea5607f14d21516a8716112a11",
+  "source_sha256": {
+    "src/stage_sluice.js": "93693d99dd9dfa59dac0e233598edbe8e567d15419952eff6ad8d748900c0b43",
+    "src/outfit_chanda.js": "be1ad91354d873c38ef3bb2cbd715e9827d778d02340365b5fb4cca5b98a6b15",
+    "src/looks.js": "8729e08a18573ccfbc9bd3bf0ae6894c23224da434fd9dc2f144b3da3525e692",
+    "src/outfits.js": "92545978519421906263e814ead6161f98ed04d90bcff797f291a35fadbd638e",
+    "src/characters_expansion.js": "b44870772d754a594ac09ecbb1836ba88b05ff1c1e276b233b062ebd30d23957",
+    "src/stages.js": "fb86e4c67d2a6dcbff37a23205829f0120f9e204e498c98747de81c7365a74af",
+    "src/main.js": "bc3d4ab476823dd4c9b512e48de2689b0da96d7c58f2e85591ff23cc2b0c2279",
+    "src/sound.js": "26d4659733901b37f0a0453f831090f12eabd2be59830dc9b737a642b3ce5e8e",
+    "src/stage_detail_sound.js": "61c194170acf93892cb65fc574ed0384af788780ce2edcb72100a1029e4a99f2",
+    "public/voice-casting.json": "ec550e4719c3f0a91df25c9b4c1348ac05b59384d8fda86c36d5debe8df00638",
+    "public/sluice.html": "2195093f0ce2dfbf19403f8d0b4bfab506a610936b79d55c8cca5f3076197468",
+    "tools/browser/frozen_bay_scene_20261010.mjs": "a78a19f749646330ce91a8dd02048e669808b05b1bd51089fd93b4fa71d1e41a",
+    "tools/browser/sluice_delivery_20261013.mjs": "ea8a87e24d8114312fd6e30fd64535ea669de062d75b9fa0643758f5183a83f1",
+    "tools/sim/experiments/chanda_appearance_gate.mjs": "f4d0951c307e14eb38d13fd6f36b75e3f1edee2727e26acf54be150964f022c3",
+    "tools/audio/stage_sluice_checks_20261013.mjs": "9a939121cf633164ce4a5de65ddaba8af17bfaed466e23e1a79cc23f3c870c55",
+    "public/encounters/sluice-game.webp": "b3010c82c7101f34b410c04f4a0201aecbd868ee93de909bc94342c478f7cd08",
+    "public/encounters/sluice-vista.webp": "f6e90764887e698688d697460c0822cee1c2f88c2359a5b7d9fbd60e5c151700",
+    "public/encounters/chanda-front.webp": "4ac187955bd83c6e9624c107a873de7507eeb4fbead0cb120e7d3539940de42c",
+    "public/encounters/chanda-threeq.webp": "116914b09d0d0982d8e204b5bb97a7925d4c2d458730f2f8f79320d8e0d9327d"
+  },
+  "native_appearance": {
+    "pass": true,
+    "completedAt": "2026-10-13T11:42:06.820Z",
+    "baseCommit": "2579bc92922f4aea5607f14d21516a8716112a11",
+    "sourceSha256": {
+      "src/looks.js": "8729e08a18573ccfbc9bd3bf0ae6894c23224da434fd9dc2f144b3da3525e692",
+      "src/outfits.js": "92545978519421906263e814ead6161f98ed04d90bcff797f291a35fadbd638e",
+      "src/outfit_chanda.js": "be1ad91354d873c38ef3bb2cbd715e9827d778d02340365b5fb4cca5b98a6b15",
+      "src/fighter.js": "1ca303085c5ec7ddaaf43742afc43f75d0e7122342280bd60d3b2d95554eecc2",
+      "src/config.js": "08b9818b6d9f45aecd1d7f88f664fc43491db73a395f0b242bf211e0ece3200c",
+      "src/ai.js": "9651b8439b67b926d6c2fc2de642711af7f2f74d4d06646edfe2afd79af064e9",
+      "src/combat.js": "70936d96309e59e1f4884b7224d86fff894948d7daec0bf6a1d7d75d3369a056",
+      "tools/sim/harness_m.mjs": "00efa410b70ab55bb639d15c9365d6876b9593e3e7c6c7cd07641acac325f9c0",
+      "tools/sim/experiments/chanda_appearance_gate.mjs": "f4d0951c307e14eb38d13fd6f36b75e3f1edee2727e26acf54be150964f022c3",
+      "package-lock.json": "2230e8c718b9839b45fd06a39ebaaf1663da82f9617ca474cda34ac2e0d962c2"
+    },
+    "options": {
+      "seed": 73,
+      "weapon": "longsword",
+      "weapon2": "sabre",
+      "walls": false,
+      "gap": 12
+    },
+    "look": {
+      "id": "chanda",
+      "version": "v1",
+      "outfit": "chanda_watergate"
+    },
+    "input": "Native harness newRound; seven direct applyWound calls, followed by 90 native simulation steps.",
+    "checks": [
+      "Native world snapshot identical",
+      "Stock head, nose and eye dimensions preserved",
+      "Original torso width",
+      "Unarmored keeper",
+      "Wounds retain segmented clothing",
+      "All Chanda geometry finite after wounds"
+    ],
+    "limits": [
+      "Physics comparison covers the initial world snapshot with and without the outfit.",
+      "Synthetic cuts check appearance retention; they do not demonstrate natural combat hits or balance.",
+      "Rigid segmented garments have no fabric collision simulation; screenshots assess visual quality separately."
+    ],
+    "snapshotSha256": {
+      "dressed": "e646649e5c6660a1e5d41859b1b46b77a0b4cd39da2d41c843b8952a5e18ce0f",
+      "neutral": "e646649e5c6660a1e5d41859b1b46b77a0b4cd39da2d41c843b8952a5e18ce0f"
+    },
+    "woundedParts": [
+      "head",
+      "chest",
+      "abdomen",
+      "pelvis",
+      "farmS",
+      "thighF",
+      "shinF"
+    ],
+    "layers": 13,
+    "wounds": 7,
+    "stepsAfterWounds": 90,
+    "meshes": 78,
+    "triangles": 15691
+  },
+  "stage": {
+    "pass": true,
+    "triangles": 98781,
+    "calls": 16,
+    "owned_resources": {
+      "geometries": 16,
+      "materials": 15,
+      "textures": 3
+    },
+    "cycles": 3,
+    "all_disposed": true,
+    "events": 36
+  },
+  "audio": {
+    "pass": true,
+    "renders": 39,
+    "existing_unchanged": 30,
+    "method": "Synthetic PCM finite/nonzero/clip and smooth edges; all previously available cues byte-identical to2579bc9 with same RNG. Does not establish auditory realism."
+  },
+  "account_tests": {
+    "pass": 32,
+    "fail": 0
+  },
+  "limits": [
+    "First art preview, not user acceptance.",
+    "Synthetic sound and automated browser checks are not human hearing/physical phone FPS.",
+    "Stage only adds visual geometry; native appearance checks do not prove all animations realistic."
+  ],
+  "local_delivery": {
+    "pass": true,
+    "completedUTC": "2026-10-13T11:52:47.181Z",
+    "report_sha256": "93748ba8d4d50d22e0b22895ee053f5f5661310ca67b9ecb8c536079784e08c9",
+    "requests": 190,
+    "unique_files": 182,
+    "errors": 0,
+    "tool_sha256": "ea8a87e24d8114312fd6e30fd64535ea669de062d75b9fa0643758f5183a83f1",
+    "trusted_touch_events": 32,
+    "landing_widths": [
+      320,
+      390,
+      844
+    ],
+    "flow": "Landing → Start → Sain → touch attack/movement → pause/resume → fresh restart."
+  },
+  "public_delivery": "pending",
+  "resolved_delivery_failure": "First local run requested eight nonexistent sluice cardback images twice; removed PX_BACKS entry and retained classic fallback. All48 errors belonged to those requests. Previous report preserved; rebuilt and reran mobile flow."
+}

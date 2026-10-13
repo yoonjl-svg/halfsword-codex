@@ -12,9 +12,12 @@ export const STAGE_DETAIL_PROFILES = Object.freeze({
   frozenPierCreak: { stage: 'frozen_bay', duration: 1.9, gain: 0.030, gap: 24 },
   springDrip: { stage: 'qinglan', duration: 0.65, gain: 0.028, gap: 2 },
   cliffBird: { stage: 'qinglan', duration: 1.25, gain: 0.055, gap: 26 },
+  sluiceDrip: { stage: 'sluice', duration: 0.7, gain: 0.042, gap: 2.5 },
+  jungleRustle: { stage: 'sluice', duration: 2.0, gain: 0.025, gap: 8 },
+  jungleBird: { stage: 'sluice', duration: 1.7, gain: 0.043, gap: 30 },
 });
 
-export const hasStageDetails = (stage) => stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove' || stage === 'frozen_bay' || stage === 'qinglan';
+export const hasStageDetails = (stage) => stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove' || stage === 'frozen_bay' || stage === 'qinglan' || stage === 'sluice';
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 const TAU = Math.PI * 2;
 
@@ -26,16 +29,31 @@ export function synthStageDetail(kind, sr, rng) {
   const profile = STAGE_DETAIL_PROFILES[kind];
   if (!profile || !Number.isFinite(sr) || sr < 8000) return new Float32Array(0);
   const out = new Float32Array(Math.ceil(profile.duration * sr));
-  if (kind === 'springDrip' || kind === 'cliffBird') {
+  if (kind === 'jungleBird') {
+    // Sparse rounded woodland call, a procedural interpretation rather than
+    // a species recording. Two breaths with a quiet gap, not a constant chorus.
     const pitch = 0.94 + rng() * 0.12;
-    if (kind === 'springDrip') {
+    for (const [start, duration, base] of [[0.06, 0.27, 1180], [0.62, 0.36, 990]]) {
+      let phase = 0;
+      const count = Math.floor(duration * sr), offset = Math.floor(start * sr);
+      for (let i = 0; i < count; i++) {
+        const u = i / count, t = i / sr;
+        phase += TAU * (base + 210 * Math.sin(Math.PI * u) - 80 * u + 15 * Math.sin(t * 38)) * pitch / sr;
+        out[offset + i] = Math.sin(Math.PI * u) ** 2 * (0.26 * Math.sin(phase) + 0.022 * Math.sin(phase * 2) + 0.006 * (rng() * 2 - 1));
+      }
+    }
+    return out;
+  }
+  if (kind === 'springDrip' || kind === 'cliffBird' || kind === 'sluiceDrip') {
+    const pitch = 0.94 + rng() * 0.12;
+    if (kind === 'springDrip' || kind === 'sluiceDrip') {
       // One visible drop entering the small rock basin: a quickly damped
       // rising bubble and tiny splash, without a sustained bell or rain bed.
       let phase = 0, splash = 0;
       const a = 1 - Math.exp(-TAU * 2300 / sr);
       for (let i = 0; i < out.length; i++) {
         const t = i / sr, tail = Math.min(1, (out.length - 1 - i) / (sr * 0.05));
-        phase += TAU * (840 + 520 * (1 - Math.exp(-t / 0.045))) * pitch / sr;
+        phase += TAU * (840 + 520 * (1 - Math.exp(-t / 0.045))) * pitch * (kind === 'sluiceDrip' ? 0.78 : 1) / sr;
         splash += a * (rng() * 2 - 1 - splash);
         const envelope = (1 - Math.exp(-t / 0.0025)) * Math.exp(-t / 0.038);
         out[i] = tail * (0.31 * Math.sin(phase) * envelope
@@ -113,7 +131,7 @@ export function synthStageDetail(kind, sr, rng) {
     }
     return out;
   }
-  const cutoff = { clothRustle: 1600, riggingCreak: 800, waterLap: 950, groveRustle: 2100, paperRustle: 2600 }[kind];
+  const cutoff = { clothRustle: 1600, riggingCreak: 800, waterLap: 950, groveRustle: 2100, paperRustle: 2600, jungleRustle: 1250 }[kind];
   const a = 1 - Math.exp(-TAU * cutoff / sr);
   const lowA = 1 - Math.exp(-TAU * 170 / sr);
   let filtered = 0, low = 0, phase = 0, peak = 0;
@@ -241,6 +259,11 @@ export class StageDetailSound {
       // The near seep is represented only by its visible, scheduled drops.
       addNoise({ rate: 0.89, frequency: 1450, gain: 0.0014, lfo: 0.049, depth: 0.0005, ceiling: 2400, pan: -0.12 });
       addNoise({ rate: 0.73, frequency: 620, gain: 0.0018, lfo: 0.071, depth: 0.0003, ceiling: 1250, pan: 0.22 });
+    } else if (this.stage === 'sluice') {
+      // Low moving water underneath sparse, visibly triggered leaf/drop cues.
+      // No invisible rainfall, room echo, or continuous animal chorus.
+      addNoise({ rate: 0.69, frequency: 920, gain: 0.0036, lfo: 0.075, depth: 0.0007, ceiling: 1700, pan: 0.3 });
+      addNoise({ rate: 0.81, frequency: 470, gain: 0.0019, lfo: 0.043, depth: 0.0006, ceiling: 1350, pan: -0.16 });
     }
     let remaining = nodes.length;
     for (const source of nodes) {

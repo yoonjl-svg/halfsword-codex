@@ -655,6 +655,15 @@ LOOK_ARCHIVE.silver_wanderer.v2 = { ...LOOK_ARCHIVE.silver_wanderer.v1, outfit: 
 LOOK_ARCHIVE.silver_wanderer.v3 = { ...LOOK_ARCHIVE.silver_wanderer.v2, hairStyle: 'swept_long_front' };
 LOOK_ARCHIVE.silver_wanderer.v4 = { ...LOOK_ARCHIVE.silver_wanderer.v2, hairStyle: 'full_layered' };
 
+LOOK_ARCHIVE.chanda = { v1: {
+  tunic: 0x252c4b, quilt: 0x414967, sleeve: 0xa96f4e, straps: null,
+  belt: 0x978360, hoseUpper: 0x353d50, hoseLower: 0xb0a58a, shoes: 0x43372d,
+  skin: 0xa96f4e, hands: 0xa96f4e, helmet: null, metal: 0x93805a, hair: 0x161714,
+  headband: null, grip: 0x49392a, hilt: 0x93805a, accent: 0xb49354,
+  outfit: 'chanda_watergate', armor: null, stockEyes: true, eyeColor: 0x322019,
+  originalTorsoWidth: true,
+} };
+
 // 지금 게임에서 실제로 쓰는 버전 (감독/오너가 확정하면 여기만 바꾸면 됨)
 export const CHARACTER_LOOK_VERSION = {
   bran: 'v1',
@@ -671,6 +680,7 @@ export const CHARACTER_LOOK_VERSION = {
   eira: 'v1',
   sherpa: 'v1',
   silver_wanderer: 'v4',
+  chanda: 'v1',
 };
 
 /** id의 특정 버전을 꺼낸다. 버전이 없으면 현재 버전 → v0 순으로 물러난다. (main.js의 ?look=, ?lookv= 미리보기용) */

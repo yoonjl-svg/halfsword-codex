@@ -5,14 +5,14 @@ import fs from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {chromium} from '/workspace/cloud-onboarding/browser/node_modules/playwright/index.mjs';
 const stageId=process.argv[2]??'frozen_bay';
-assert(['frozen_bay','qinglan'].includes(stageId));
+assert(['frozen_bay','qinglan','sluice'].includes(stageId));
 const out=process.argv[3]??(stageId==='qinglan'?'/tmp/halfsword-qinglan-20261010':'/tmp/halfsword-frozen-bay-20261010');
 assert(/^\/tmp\/halfsword-[a-z0-9-]+$/.test(out));
 const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
 try {
  const page=await browser.newPage();const errors=[];page.on('pageerror',e=>errors.push(String(e)));
  await page.route('**/frozen-bay-audit',r=>r.fulfill({contentType:'text/html',body:'<!doctype html><title>Stage resource audit</title>'}));
- await page.goto('http://127.0.0.1:4240/frozen-bay-audit');
+ await page.goto((process.env.STAGE_BASE || 'http://127.0.0.1:4240')+'/frozen-bay-audit');
  const result=await page.evaluate(async(stageId)=>{
   const THREE=await import('/node_modules/three/build/three.module.js');
   const {Stages,STAGE_FOE}=await import('/src/stages.js');
@@ -30,7 +30,7 @@ try {
    }});
    stages.warm(renderer,camera);renderer.render(scene,camera);
    const active={...renderer.info.memory},calls=renderer.info.render.calls;
-   if(n===0){arena.update(NaN);arena.update(-1);for(let i=0;i<1100;i++)arena.update(.1);}
+   if(n===0){arena.update(NaN);arena.update(-1);for(let i=0;i<(stageId==='sluice'?1600:1100);i++)arena.update(.1);}
    const geos=new Set(),mats=new Set(),textures=new Set();for(const o of stages.objects)o.traverse(c=>{
     if(c.geometry)geos.add(c.geometry);for(const m of [c.material].flat().filter(Boolean)){mats.add(m);for(const t of Object.values(m))if(t?.isTexture)textures.add(t);}
    });let disposed={geometries:0,materials:0,textures:0};
@@ -41,10 +41,10 @@ try {
   renderer.dispose();return{runs,cues,foe:STAGE_FOE[stageId]};
  },stageId);
  await fs.writeFile(out+'/scene-observed.json',JSON.stringify({result,errors},null,2));
- assert.equal(result.foe,stageId==='qinglan'?'renji':'eira');assert.equal(errors.length,0);
- for(const r of result.runs){assert(r.finite);assert(r.triangles<(stageId==='qinglan'?100000:65000));assert(r.calls<(stageId==='qinglan'?35:20));assert.deepEqual(r.disposed,r.owned);assert.equal(r.cleared.geometries,0);assert.equal(r.active.textures-r.cleared.textures,r.owned.textures);assert.deepEqual(r.cleared,result.runs[0].cleared);assert.deepEqual(r.hash,result.runs[0].hash);}
- for(const kind of (stageId==='qinglan'?['springDrip','cliffBird']:['lakeIceBoom','frozenPierCreak'])){const cues=result.cues.filter(c=>c.kind===kind);assert(cues.length>=3);for(let i=1;i<cues.length;i++)assert(cues[i].time-cues[i-1].time>=(kind==='springDrip'?2.1:24));assert(cues.every(c=>c.name==='stageDetail'&&Number.isFinite(c.amp)&&c.amp>0));}
- const sources={};for(const file of (stageId==='qinglan'?['src/stage_qinglan.js','src/stage_qinglan_vista.js','src/stages.js']:['src/stage_frozen_bay.js','src/stage_frozen_bay_shore.js','src/stages.js']))sources[file]=createHash('sha256').update(await fs.readFile(file)).digest('hex');
- await fs.writeFile(out+'/scene-report.json',JSON.stringify({pass:true,stageId,sources,method:'Three.js standalone actual renderer, three build/clear cycles; synthetic stage clock110s. No claim of human sound evaluation or physical phone FPS.',...result,errors},null,2));
+ assert.equal(result.foe,stageId==='sluice'?'chanda':stageId==='qinglan'?'renji':'eira');assert.equal(errors.length,0);
+ for(const r of result.runs){assert(r.finite);assert(r.triangles<(stageId==='sluice'?110000:stageId==='qinglan'?100000:65000));assert(r.calls<(stageId==='sluice'?40:stageId==='qinglan'?35:20));assert.deepEqual(r.disposed,r.owned);assert.equal(r.cleared.geometries,0);assert.equal(r.active.textures-r.cleared.textures,r.owned.textures);assert.deepEqual(r.cleared,result.runs[0].cleared);assert.deepEqual(r.hash,result.runs[0].hash);}
+ for(const kind of (stageId==='sluice'?['sluiceDrip','jungleRustle','jungleBird']:stageId==='qinglan'?['springDrip','cliffBird']:['lakeIceBoom','frozenPierCreak'])){const cues=result.cues.filter(c=>c.kind===kind);assert(cues.length>=3);for(let i=1;i<cues.length;i++)assert(cues[i].time-cues[i-1].time>=({springDrip:2.1,sluiceDrip:2.5,jungleRustle:8,jungleBird:30}[kind]??24));assert(cues.every(c=>c.name==='stageDetail'&&Number.isFinite(c.amp)&&c.amp>0));}
+ const sources={};for(const file of (stageId==='sluice'?['src/stage_sluice.js','src/stages.js']:stageId==='qinglan'?['src/stage_qinglan.js','src/stage_qinglan_vista.js','src/stages.js']:['src/stage_frozen_bay.js','src/stage_frozen_bay_shore.js','src/stages.js']))sources[file]=createHash('sha256').update(await fs.readFile(file)).digest('hex');
+ await fs.writeFile(out+'/scene-report.json',JSON.stringify({pass:true,stageId,sources,method:'Three.js standalone actual renderer, three build/clear cycles; synthetic stage clock110s (sluice160s). No claim of human sound evaluation or physical phone FPS.',...result,errors},null,2));
  console.log(JSON.stringify({pass:true,triangles:result.runs[0].triangles,calls:result.runs[0].calls,resources:result.runs[0].owned,cues:result.cues.length}));
 }finally{await browser.close();}
