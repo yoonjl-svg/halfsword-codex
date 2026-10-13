@@ -1,3 +1,4 @@
+import { configureStageObstacle, clampStageCamera } from './arena_obstacle.js';
 import { configureWetlandMovement } from './wetland_ground.js';
 // ─────────────────────────────────────────────────────────────
 //  게임 본체: 화면 준비 → 물리 세계 → 매 프레임 반복(게임 루프)
@@ -345,6 +346,7 @@ const trail = new InputTrail(canvas); // 방금 조작한 흔적 (반투명 선)
 input.trail = trail;
 
 let world, eventQueue, colliderInfo, player, enemy, ai, combat;
+let arenaStone = null;
 input.onHandReset = () => player?.skill.clearThrustRange('input-reset');
 let bodySounds = [];
 /**
@@ -495,6 +497,7 @@ function newRound(weaponId) {
     );
   }
 
+  arenaStone = configureStageObstacle(RAPIER, world, stages.id, GROUND_GROUPS);
   const before = new Set(scene.children);
   const foeWeapon = foeWeaponId;
   const startGap = opportunityTrial.drillGap ?? ARENA.startGap;
@@ -520,7 +523,11 @@ function newRound(weaponId) {
     weapon: foeWeapon, // prepareRound 가 정한 상대 무기
     revive: currentFoe?.revive, // 부활 (이졸데: 처음 죽으면 한 번 다시 일어선다, src/revive.js)
   });
-  for (const f of [player, enemy]) configureWetlandMovement(f, stages.id);
+  enemy.terrainTraits = currentFoe?.terrainTraits ?? null;
+  for (const f of [player, enemy]) {
+    configureWetlandMovement(f, stages.id);
+    f.arenaObstacle = arenaStone?.navigation ?? null;
+  }
   $('wetlandFooting').hidden = true;
   // 같은 선택형 팔 제어를 양쪽에 적용하고 재시작 때도 주소 설정을 유지한다.
   for (const f of [player, enemy]) f.armTorqueModel = armTrial.model;
@@ -1593,7 +1600,9 @@ function updateCamera(dt) {
   const r = Math.hypot(camTarget.x, camTarget.z);
   if (r > 10.5) camTarget.multiplyScalar(10.5 / r).setY(camH);
   const k = 1 - Math.exp(-dt * 6);
+  clampStageCamera(a, camTarget, arenaStone?.navigation);
   camera.position.lerp(camTarget, k);
+  clampStageCamera(a, camera.position, arenaStone?.navigation);
   const look = _cd.copy(a).addScaledVector(camDir, CAMERA.lookAhead).setY(1.1);
   camLook.lerp(look, k);
   // 발걸음: 디딜 때 살짝 내려앉음
@@ -1853,6 +1862,7 @@ window.game = {
   renderInfo: () => ({ frame: renderer.info.render.frame, calls: renderer.info.render.calls, triangles: renderer.info.render.triangles, ...renderer.info.memory, programs: renderer.info.programs?.length }),
   renderCap, // 화면 갱신 상한: game.renderCap.interval = 잰 화면 간격(초). 끄기는 설정 '화면 갱신 60 fps 묶기' (game.settings.fpsCap)
   // 배경: game.stage 로 지금 배경·짓는 시간 확인, game.setStage('castle') 로 바로 바꿔 보기 (싸우는 중이면 잠깐 멈칫한다)
+  get arenaObstacle() { return arenaStone ? { colliderCount: arenaStone.handles.size, navigation: arenaStone.navigation } : null; },
   get stage() {
     return { id: stages.id, pinned: STAGE_PIN, buildMs: stages.buildMs, clearMs: stages.clearMs, warmMs: stages.warmMs };
   },
@@ -1862,7 +1872,11 @@ window.game = {
       stages.warm(renderer, camera);
     }
     sound.setStage(stages.id);
-    for (const f of [player, enemy]) if (f) configureWetlandMovement(f, stages.id);
+    if (world) arenaStone = configureStageObstacle(RAPIER, world, stages.id, GROUND_GROUPS, arenaStone);
+    for (const f of [player, enemy]) if (f) {
+      configureWetlandMovement(f, stages.id);
+      f.arenaObstacle = arenaStone?.navigation ?? null;
+    }
     $('wetlandFooting').hidden = true;
   },
   AI,

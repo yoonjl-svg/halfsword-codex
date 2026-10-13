@@ -1,3 +1,4 @@
+import { routeAroundStageObstacle } from './arena_obstacle.js';
 // ─────────────────────────────────────────────────────────────
 //  상대 AI: 사람 검객처럼 싸운다
 //
@@ -262,6 +263,11 @@ export class AI {
 
   // ───────────────────────── 매 스텝 ─────────────────────────
   update(dt) {
+    this.updateCombat(dt);
+    routeAroundStageObstacle(this);
+  }
+
+  updateCombat(dt) {
     const me = this.me;
     const foe = this.foe;
     // Early-return states must not leave a pending approach command alive.

@@ -1,5 +1,5 @@
 // Actual native fighter, decal projection, limb separation and resource cleanup.
-// node tools/sim/experiments/ratna_appearance_gate.mjs /tmp/halfsword-ratna-20261013/appearance-native.json
+// node tools/sim/experiments/ratna_appearance_gate.mjs /tmp/halfsword-ratna-v2-20261013/appearance-native.json
 import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
@@ -13,7 +13,7 @@ import { rebuildDecal } from '../../../src/effects.js';
 import { disposeVisualTrees } from '../../../src/visual_resources.js';
 
 const root = fileURLToPath(new URL('../../../', import.meta.url));
-const out = path.resolve(process.argv[2] || '/tmp/halfsword-ratna-20261013/appearance-native.json');
+const out = path.resolve(process.argv[2] || '/tmp/halfsword-ratna-v2-20261013/appearance-native.json');
 assert(out.startsWith('/tmp/'), 'Keep generated evidence outside the checkout, under /tmp');
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const sourceFiles = [
@@ -27,14 +27,15 @@ const result = {
   baseCommit: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(),
   sourceSha256: Object.fromEntries(sourceFiles.map(file => [file, sha(fs.readFileSync(path.join(root, file)))])),
   options: { seed: 73, weapon: 'longsword', weapon2: 'falchion', walls: false, gap: 12 },
-  look: { id: 'ratna', version: 'v1', outfit: 'ratna_ferryman', voice: 'tome' },
+  look: { id: 'ratna', version: 'v2', outfit: 'ratna_ferryman', voice: 'tome' },
   input: 'Native newRound, nine mild cuts, native decal projection/reprojection, two joint cuts and 90 simulation steps.',
   checks: [],
   limits: [
     'Physics comparison covers the initial world snapshot with and without the outfit.',
     'Synthetic cuts and separation test appearance retention, not combat frequency or balance.',
     'Decal projection runs without canvas textures; browser evidence assesses visible wound quality.',
-    'Rigid segmented clothes and the decorative paddle have no fabric or prop collision simulation.',
+    'Rigid clothes, decorative paddle, monkey and shoes have no additional collision or animal AI.',
+    'Wetland movement exemption is character metadata here; terrain behavior is tested by its separate gate.',
   ],
 };
 const check = (name, value) => { assert(value, name); result.checks.push(name); };
@@ -47,16 +48,23 @@ function dispose(g) {
   }
   g.eventQueue.free(); g.world.free();
 }
-let dressed, neutral;
+let dressed, neutral, archived, restarted;
 try {
   const look = getLook('ratna'), character = CHARACTERS_BY_ID.ratna;
   check('Registered adult ferryman with existing falchion and mature male voice',
     character?.age === 52 && character.weapon === 'falchion' && character.voice === 'tome'
-    && character.look === look && character.lookVersion === 'v1' && look.outfit === result.look.outfit);
+    && character.look === look && character.lookVersion === 'v2' && look.outfit === result.look.outfit
+    && character.epithet === '습지 뱃사공' && character.terrainTraits?.wetlandImmunity === true);
   dressed = newRound({ ...result.options, look2: look });
   neutral = newRound({ ...result.options, look2: { ...look, outfit: null } });
   result.snapshotSha256 = { dressed: sha(dressed.world.takeSnapshot()), neutral: sha(neutral.world.takeSnapshot()) };
   check('Native world snapshot identical', result.snapshotSha256.dressed === result.snapshotSha256.neutral);
+  archived = newRound({ ...result.options, look2: getLook('ratna', 'v1') });
+  check('Archived v1 remains available with original trousers and sandals', getLook('ratna', 'v1').hoseUpper === 0x264e4d
+    && !getLook('ratna', 'v1').ratnaRevision
+    && !archived.enemy.groups.chest.getObjectByName('ratna-monkey')
+    && !archived.enemy.groups.footF.getObjectByName('ratna-reed-shoe')
+    && sha(archived.world.takeSnapshot()) === result.snapshotSha256.dressed);
   for (let i = 0; i < 4; i++) {
     const a = dressed.enemy.groups.head.children[i], b = neutral.enemy.groups.head.children[i];
     assert.deepEqual(a.geometry.attributes.position.array, b.geometry.attributes.position.array);
@@ -84,6 +92,26 @@ try {
     layers.some(({ node, part }) => node.name === 'ratna-paddle' && part === 'chest')
     && layers.some(({ node, part }) => node.name === 'ratna-map' && part === 'pelvis')
     && layers.some(({ node, part }) => node.name === 'ratna-sounding-weight' && part === 'pelvis'));
+  const monkey = layers.find(({ node }) => node.name === 'ratna-monkey');
+  const monkeyBounds = new THREE.Box3();
+  monkey?.node.traverse(mesh => {
+    if (mesh.isMesh) { mesh.geometry.computeBoundingBox(); monkeyBounds.union(mesh.geometry.boundingBox); }
+  });
+  if (monkey) { monkey.node.updateMatrix(); monkeyBounds.applyMatrix4(monkey.node.matrix); }
+  result.monkeyBounds = { min: monkeyBounds.min.toArray(), max: monkeyBounds.max.toArray() };
+  check('Complete monkey belongs to the left shoulder chest and clears face and weapon side',
+    monkey?.part === 'chest' && monkey.parent === dressed.enemy.partMesh.chest
+    && monkeyBounds.max.z < -0.15 && monkeyBounds.min.y > -0.025
+    && monkeyBounds.max.y < 0.36 && monkeyBounds.max.x < 0.1);
+  check('Warm ochre trousers and broad reed shoes use native body parts',
+    dressed.enemy.partMesh.thighF.material.color.getHex() === 0xc29b45
+    && ['footF', 'footB'].every(part => {
+      const shoe = dressed.enemy.groups[part].getObjectByName('ratna-reed-shoe');
+      if (!shoe || shoe.parent !== dressed.enemy.partMesh[part]) return false;
+      shoe.children[0].geometry.computeBoundingBox();
+      const size = shoe.children[0].geometry.boundingBox.getSize(new THREE.Vector3());
+      return size.x > 0.29 && size.z > 0.15 && size.y < 0.025;
+    }));
 
   result.woundedParts = ['head', 'chest', 'abdomen', 'pelvis', 'uarmS', 'uarmO', 'farmS', 'thighF', 'shinF'];
   const decals = [];
@@ -164,11 +192,19 @@ try {
   result.disposedResources = resources.size;
   check('Round cleanup disposes each geometry and material once', resources.size > 0
     && [...resources.values()].every(count => count === 1) && roots.every(group => group.parent === null));
+  restarted = newRound({ ...result.options, look2: look });
+  const freshMonkey = restarted.enemy.groups.chest.getObjectByName('ratna-monkey');
+  check('Restart creates one fresh monkey and clean injury state', freshMonkey && freshMonkey !== monkey.node
+    && freshMonkey.children.every((mesh, i) => mesh.geometry !== monkey.node.children[i]?.geometry)
+    && restarted.enemy.wounds.length === 0 && !restarted.enemy.detachedParts?.size
+    && sha(restarted.world.takeSnapshot()) === result.snapshotSha256.dressed);
   result.pass = true;
 } catch (error) {
   result.failure = error.stack || String(error); process.exitCode = 1;
 } finally {
   if (neutral) dispose(neutral);
+  if (archived) dispose(archived);
+  if (restarted) dispose(restarted);
   if (dressed) dispose(dressed);
   result.completedAt = new Date().toISOString();
   fs.mkdirSync(path.dirname(out), { recursive: true });

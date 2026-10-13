@@ -1068,8 +1068,11 @@ const _qW = new THREE.Quaternion();
 const _f = { x: 0, y: 0, z: 0 };
 // groundForce용 (매 스텝 함수를 새로 만들지 않게)
 const _gf = { imp: 0, col: null, w: null };
-const _gfSum = (m) => {
-  for (let i = 0, n = m.numContacts(); i < n; i++) _gf.imp += m.contactImpulse(i);
+const _gfSum = (m, flipped) => {
+  // Rapier's normal points first -> second; only its upward component on
+  // this foot supports weight. Side-wall impacts must not become foot load.
+  const up = Math.max(0, m.normal().y * (flipped ? 1 : -1));
+  for (let i = 0, n = m.numContacts(); i < n; i++) _gf.imp += m.contactImpulse(i) * up;
 };
 const _gfPair = (other) => {
   const b = other.parent();

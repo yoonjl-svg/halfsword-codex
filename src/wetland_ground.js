@@ -25,6 +25,9 @@ export function wetlandMoveScale(x, z) {
   }
   return 1 - (1 - WETLAND_CORE_SPEED) * wet;
 }
+export function fighterWetlandMoveScale(fighter, x, z) {
+  return fighter.movementSurface === 'wetland' && !fighter.terrainTraits?.wetlandImmunity ? wetlandMoveScale(x, z) : 1;
+}
 export function configureWetlandMovement(fighter, stageId) {
   fighter.movementSurface = stageId === 'sluice' ? 'wetland' : null;
   fighter.surfaceSpeedScale = 1;

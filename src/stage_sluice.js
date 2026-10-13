@@ -618,7 +618,7 @@ export function buildSluice(scene, { hemi, sun } = {}) {
   if (sun) { sun.color.set(0xffedd0); sun.intensity = 1.42; sun.position.set(sunOffset.x, sunOffset.y, sunOffset.z); }
   const soil = soilTexture(), stone = stoneTexture(), bark = barkTexture();
   ground(scene, soil); paving(K, r); sluice(K, leaves, crowns, r); forest(K, leaves, crowns, r); ferns(K, leaves, r); wetland(scene, K, leaves, crowns, clock);
-  const bear = buildSluiceBear(scene, { stoneMap: stone, position: [14, 0, -2] });
+  const bear = buildSluiceBear(scene, { stoneMap: stone });
   const pool = water(scene, K, r);
   const birdModel = perchedBird(scene);
   // Fallen stones and leaf litter occupy forest margins, not the camera lane.

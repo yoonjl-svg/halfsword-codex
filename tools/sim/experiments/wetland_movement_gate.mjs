@@ -8,10 +8,11 @@ import { configureWetlandMovement, wetlandMoveScale, WETLAND_PUDDLES, puddleOutl
 const out=process.argv[2];assert(out?.startsWith('/tmp/'));
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const rows=[];let failure=null;
-function run(name,{stage=null,z=0,x=-2.8,walk=true,weapon='falchion'}={}){
+function run(name,{stage=null,z=0,x=-2.8,walk=true,weapon='falchion',immune=false}={}){
  const g=newRound({seed:73,weapon,weapon2:weapon,walls:false,skill:0.7,onFighter(f){
   f.armSupportModel='linked';f.finishEntryModel='grounded';
   if(f.index===0){f.onehandArmModel='manual';f.stanceMemoryModel='fresh';}
+  if(f.index===0 && immune) f.terrainTraits={wetlandImmunity:true};
   configureWetlandMovement(f,stage);
  }});g.park();
  const f=g.player;applySwordsmanship(f);
@@ -30,7 +31,7 @@ function run(name,{stage=null,z=0,x=-2.8,walk=true,weapon='falchion'}={}){
   }
   const core=samples.filter(s=>s.tick>300&&s.x>=-1.65&&s.x<=0.3&&Math.abs(s.z-z)<0.8);
   const mean=core.reduce((sum,s)=>sum+s.vx,0)/(core.length||1);
-  const row={name,stage,z,walk,weapon,begin:began,coreSamples:core.length,coreMeanVx:mean,last:samples.at(-1),frames,samples};rows.push(row);return row;
+  const row={name,stage,z,walk,weapon,immune,begin:began,coreSamples:core.length,coreMeanVx:mean,last:samples.at(-1),frames,samples};rows.push(row);return row;
  }finally{g.player.clearLoose();g.enemy.clearLoose();g.eventQueue.free();g.world.free();}
 }
 try{
@@ -47,6 +48,9 @@ try{
  assert.deepEqual(still.frames,wetStill.frames,'Standing in mud must not alter automatic balance');
  for(const weapon of ['falchion','longsword']){
   const a=run(weapon+'-dry-route',{z:-2,weapon}),b=run(weapon+'-mud-route',{stage:'sluice',z:-2,weapon});
+  const immune=run(weapon+'-reed-shoes',{stage:'sluice',z:-2,weapon,immune:true});
+  assert.deepEqual(a.frames,immune.frames,'Reed shoes must retain dry native movement through puddles');
+  assert(immune.samples.every(s=>s.scale===1));
   assert(a.coreSamples>=8&&b.coreSamples>=8,'Need actual motion inside the spatial core');
   assert(b.coreMeanVx<a.coreMeanVx*0.75,'Mud should visibly slow actual travel by at least25%');
   assert(b.last.scale===1&&b.last.x>6.5,'Must leave the mud without becoming trapped');

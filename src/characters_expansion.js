@@ -6,15 +6,16 @@ import { WANDERER_CHARACTERS } from './characters_wanderers.js';
 export const EXPANSION_CHARACTERS = [
   ...WANDERER_CHARACTERS,
   {
-    id: 'ratna', name: '라트나', epithet: '잠긴 길의 뱃사공', age: 52,
+    id: 'ratna', name: '라트나', epithet: '습지 뱃사공', age: 52,
     origin: '동남아시아 · 담수 침수림에 잠긴 옛 마을', weapon: 'falchion', voice: 'tome',
-    backstory: '물에 잠긴 마을들을 오가며 뱃길을 안내하는 쉰두 살 뱃사공. 떠난 사람들의 집에서 편지와 유품을 찾아 남은 가족에게 돌려준다. 물이 깊어진 곳은 황동 추로 더듬고, 돌아갈 길은 접힌 지도에 고쳐 그린다.',
+    terrainTraits: { wetlandImmunity: true },
+    backstory: '물에 잠긴 마을들을 오가며 뱃길을 안내하는 쉰두 살 뱃사공. 떠난 사람들의 집에서 편지와 유품을 찾아 남은 가족에게 돌려준다. 작은 원숭이가 어깨에 앉아 동행한다. 물이 깊어진 곳은 황동 추로 더듬고, 돌아갈 길은 접힌 지도에 고쳐 그린다.',
     want: '마지막 집에 남은 소식까지 제 주인에게 돌려주고, 마을 사이의 뱃길을 잇는 것.',
     school: '가상의 담수림 뱃사공. 기존 팔션 유파와 공통 한손검 제어를 사용한다.',
     signatureMoves: '몸 가까이 칼을 두고 짧게 비스듬히 벤 뒤 간격을 되찾는다.',
     favoriteGuards: '옆 지킴과 오른쪽 어깨 자세.',
     temperament: '목소리가 낮고 서두르지 않는다. 잃어버린 물건보다 그것을 기다리는 사람을 먼저 생각한다.',
-    movementNotes: '기존 남성 얼굴과 공통 신체 규격을 사용한다. 등의 노는 장식이며 무기나 보호구가 아니다.',
+    movementNotes: '넓고 가벼운 갈대·나무 밑창 신발 덕분에 습지의 감속을 받지 않는다. 등에는 나무 노를 메고, 작은 원숭이와 함께 잠긴 뱃길을 오간다.',
     weaknesses: '짧은 칼끝 바깥에서 이어지는 긴 무기의 압박.',
     ai: { level: 'normal', persona: {
       school: 'falchion',

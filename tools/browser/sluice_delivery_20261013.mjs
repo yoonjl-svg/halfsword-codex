@@ -41,7 +41,7 @@ async function main() {
   const character = CHARACTERS_BY_ID.ratna;
   assert(character, 'Ratna must be registered'); assert.equal(character.weapon, 'falchion'); assert.equal(character.voice, 'tome');
   const contract = { enemy: 'ratna', name: character.name, stage: 'sluice', weapon: 'falchion', voice: 'tome',
-    outfit: character.look.outfit, lookVersion: character.lookVersion, playerWeapon: 'sain', query, photos };
+    outfit: character.look.outfit, lookVersion: character.lookVersion, wetlandImmunity: character.terrainTraits?.wetlandImmunity === true, colliderCount: 8, playerWeapon: 'sain', query, photos };
   const before = await manifest(build), toolHash = sha(await fs.readFile(own));
   for (const name of ['index.html', 'sluice.html', ...photos]) assert(before[name], `Missing frozen file: ${name}`);
   if (!local) {
@@ -137,8 +137,9 @@ async function main() {
       const bodies = [p, e].flatMap(f => [...Object.values(f.bodies), f.sword])
         .flatMap(body => [body.translation(), body.rotation(), body.linvel(), body.angvel()].flatMap(value => Object.values(value)));
       return { state: game.state, steps: game.combat.stepNo, frame: game.renderInfo().frame, stage: game.stage,
-        terrain: [p,e].map(f=>({model:f.movementSurface,scale:f.surfaceSpeedScale})), mudLabelHidden:document.getElementById('wetlandFooting').hidden,
-        enemyName: e.name, enemyWeapon: e.weapon.id, playerWeapon: p.weapon.id,
+        terrain: [p,e].map(f=>({model:f.movementSurface,scale:f.surfaceSpeedScale,immune:f.terrainTraits?.wetlandImmunity===true})), mudLabelHidden:document.getElementById('wetlandFooting').hidden,
+        companionVisible: !!e.groups.chest.getObjectByName('ratna-monkey') && shown(e.groups.chest.getObjectByName('ratna-monkey')),
+        arenaObstacle: game.arenaObstacle, enemyName: e.name, enemyWeapon: e.weapon.id, playerWeapon: p.weapon.id,
         playerUUID: p.swordGroup.uuid, enemyUUID: e.swordGroup.uuid, outfit,
         finite: bodies.every(Number.isFinite), bodies, pelvis: { ...p.bodies.pelvis.translation() }, swordRotation: { ...p.sword.rotation() },
         active: game.input.activeTouch, accepted: window.sluiceAccepted || 0,
@@ -153,6 +154,8 @@ async function main() {
     const outfitSignature = value => value.outfit.map(({ outfit, part }) => ({ outfit, part }));
     function policy(value, selected = true, audible = true) {
       assert(value.terrain.every(f=>f.model==='wetland' && f.scale>=0.4 && f.scale<=1));
+      assert.equal(value.terrain[1].immune, true); assert.equal(value.terrain[1].scale, 1);
+      assert.equal(value.arenaObstacle?.colliderCount, contract.colliderCount);
       assert.equal(value.stage.id, contract.stage); assert.equal(value.stage.pinned, contract.stage);
       assert.equal(value.enemyName, contract.name); assert.equal(value.enemyWeapon, contract.weapon);
       if (selected) assert.equal(value.playerWeapon, contract.playerWeapon);
@@ -160,6 +163,7 @@ async function main() {
       assert.equal(value.model.requested, false); assert.equal(value.model.loads, 0);
       assert(value.outfit.length && value.outfit.every(item => item.outfit === contract.outfit));
       assert(value.outfit.some(item => item.visible), 'Ratna outfit must be visible');
+      assert(value.companionVisible, 'Shoulder monkey must be present');
       assert.equal(value.sound.on, true); assert.equal(value.sound.stage, contract.stage);
       if (audible) {
         assert.equal(value.sound.mudSteps, 8); assert.equal(value.sound.context, 'running'); assert(value.sound.primed);

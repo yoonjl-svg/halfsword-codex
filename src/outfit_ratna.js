@@ -43,7 +43,7 @@ export function createRatnaOutfit(h) {
     for (let i = 1; i < yz.length - 1; i++) indices.push(0, i, i + 1);
     geo.setIndex(indices); geo.computeVertexNormals(); return geo;
   }
-  function head(g, look) {
+  function headV1(g, look) {
     // Only hair is reshaped. Native face sphere, eyes and nose stay untouched.
     // Start with an open cap so the remapped hairline keeps both triangles in
     // every bottom cell (a full sphere omits one at its collapsed south pole).
@@ -80,6 +80,79 @@ export function createRatnaOutfit(h) {
     addMerged(layer(g, 'hair'), dark, look.hair, cloth);
     addMerged(layer(g, 'hair'), grey, SALT, cloth);
   }
+  function head(g, look) {
+    if (look.ratnaRevision !== 2) return headV1(g, look);
+    const cap = g.children[4], segments = 24, rings = 14;
+    const geo = new THREE.SphereGeometry(0.108, segments, rings, 0, Math.PI * 2, 0, Math.PI * 0.67);
+    const p = geo.attributes.position;
+    for (let i = 0; i < p.count; i++) {
+      const a = Math.atan2(p.getZ(i), p.getX(i)), t = Math.floor(i / (segments + 1)) / rings;
+      const theta = t * Math.PI * (0.65 - 0.28 * Math.max(0, Math.cos(a)));
+      const r = 0.108 + 0.002 * Math.sin(a * 11 + t * 7) * Math.sin(theta);
+      p.setXYZ(i, r * Math.sin(theta) * Math.cos(a), r * Math.cos(theta), r * Math.sin(theta) * Math.sin(a));
+    }
+    geo.computeVertexNormals(); cap.geometry.dispose(); cap.geometry = geo;
+    cap.position.set(-0.008, 0.006, 0); cap.rotation.set(0, 0, 0);
+    const curls = [], beard = [], grey = [];
+    const scalp = (a, theta) => new THREE.Vector3(-0.008 + 0.111 * Math.sin(theta) * Math.cos(a),
+      0.006 + 0.111 * Math.cos(theta), 0.111 * Math.sin(theta) * Math.sin(a));
+    // Fine dark arcs sit against a continuous short cap: grey never becomes
+    // a separate pale lump, and the native face/eye/nose meshes are untouched.
+    for (const [theta, count] of [[0.35, 6], [0.67, 9], [1.0, 12]]) for (let i = 0; i < count; i++) {
+      const a = i / count * Math.PI * 2 + theta;
+      const points = [scalp(a - 0.12, theta + 0.025), scalp(a, theta - 0.065),
+        scalp(a + 0.13, theta - 0.025), scalp(a + 0.08, theta + 0.04)];
+      curls.push(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points), 6, 0.0026, 4, false));
+    }
+    for (const s of [-1, 1]) {
+      beard.push(bake(ball(0.021, 8, 6), [0.055, -0.05, s * 0.067], null, [0.65, 1.1, 0.85]),
+        bake(ball(0.018, 8, 6), [0.072, -0.067, s * 0.04], null, [0.75, 0.65, 1.2]),
+        box(0.006, 0.005, 0.029, [0.099, 0.034, s * 0.035], [s * -0.055, 0, 0]),
+        bake(ball(0.016, 8, 6), [0.096, -0.039, s * 0.015], null, [0.32, 0.35, 1.2]));
+      for (let i = 0; i < 3; i++) {
+        const x = -0.022 + i * 0.012, z = s * (0.107 - i * 0.001);
+        grey.push(line([x, 0.011, z], [x + 0.003, 0.031, z - s * 0.003], 0.0008, 4));
+      }
+      grey.push(line([0.079, -0.063, s * 0.039], [0.073, -0.075, s * 0.031], 0.0007, 4));
+    }
+    beard.push(bake(ball(0.025, 10, 6), [0.054, -0.086, 0], null, [1.1, 0.5, 1.45]));
+    addMerged(layer(g, 'hair'), curls, 0x3a382f, cloth);
+    addMerged(layer(g, 'hair'), beard, look.hair, cloth);
+    addMerged(layer(g, 'hair'), grey, 0x83867b, cloth);
+  }
+  function shoulderMonkey(g) {
+    // One seated companion on the left shoulder. Its complete silhouette,
+    // including the curled tail, follows the chest, never the head or arm.
+    const l = layer(g, 'monkey'), fur = [], light = [], dark = [];
+    l.position.y = -0.044; // Feet sit on the native left shoulder's sleeve cap.
+    const brown = 0x70513a, pale = 0xb89168;
+    fur.push(bake(ball(0.048, 12, 8), [-0.025, 0.211, -0.225], [0, 0, 0.17], [0.85, 1.26, 0.85]),
+      bake(ball(0.041, 12, 8), [0.019, 0.303, -0.232], null, [0.98, 1.04, 1]),
+      bake(ball(0.034, 10, 6), [-0.027, 0.174, -0.227], null, [1.2, 0.77, 1.08]),
+      line([-0.004, 0.249, -0.23], [0.012, 0.282, -0.232], 0.025, 10));
+    for (const s of [-1, 1]) {
+      const z = -0.232 + s * 0.027, footZ = -0.218 + s * 0.016;
+      fur.push(bake(ball(0.024, 8, 6), [0.009, 0.17, z], null, [1.2, 0.8, 0.85]),
+        line([0.002, 0.239, z], [0.051, 0.191, z - s * 0.003], 0.011),
+        line([0.051, 0.191, z - s * 0.003], [0.059, 0.16, z], 0.009),
+        line([0.018, 0.164, z], [0.03, 0.148, footZ], 0.008),
+        bake(ball(0.018, 10, 6), [0.022, 0.307, -0.232 + s * 0.05], null, [0.5, 1, 0.86]));
+      light.push(bake(ball(0.011, 8, 6), [0.03, 0.307, -0.232 + s * 0.05], null, [0.3, 0.85, 0.8]),
+        bake(ball(0.02, 10, 6), [0.052, 0.306, -0.232 + s * 0.014], null, [0.48, 1.1, 0.85]),
+        bake(ball(0.013, 8, 6), [0.062, 0.154, z], null, [1.2, 0.4, 0.7]),
+        bake(ball(0.012, 8, 6), [0.03, 0.147, footZ], null, [1.5, 0.4, 0.75]));
+      dark.push(ball(0.0037, 8, 6, [0.064, 0.313, -0.232 + s * 0.015]));
+    }
+    light.push(bake(ball(0.022, 10, 6), [0.018, 0.216, -0.225], null, [0.22, 1.6, 1.3]),
+      bake(ball(0.018, 10, 6), [0.063, 0.292, -0.232], null, [0.48, 0.65, 1]));
+    dark.push(bake(ball(0.007, 8, 6), [0.073, 0.296, -0.232], null, [0.5, 0.5, 1]),
+      line([0.072, 0.286, -0.24], [0.072, 0.286, -0.224], 0.0014, 4));
+    const tail = new THREE.CatmullRomCurve3([[-0.066, 0.18, -0.24], [-0.112, 0.15, -0.255],
+      [-0.145, 0.103, -0.255], [-0.139, 0.052, -0.244], [-0.113, 0.045, -0.228],
+      [-0.107, 0.069, -0.218]].map(p => new THREE.Vector3(...p)));
+    fur.push(new THREE.TubeGeometry(tail, 14, 0.007, 6, false));
+    addMerged(l, fur, brown, cloth); addMerged(l, light, pale, cloth); addMerged(l, dark, 0x28221c, cloth);
+  }
   function paddle(g) {
     const l = layer(g, 'paddle'), angle = -0.46;
     // Build in its own frame, then bake the whole wooden paddle diagonally
@@ -111,14 +184,15 @@ export function createRatnaOutfit(h) {
     addMerged(l, [box(0.008, 0.35, 0.021, [0.128, 0, 0], [0.7, 0, 0]),
       box(0.008, 0.35, 0.021, [-0.137, 0, 0], [0.7, 0, 0])], LEATHER, cloth);
     paddle(g);
+    if (look.ratnaRevision === 2) shoulderMonkey(g);
   }
   function abdomen(g) {
     torso(g, CREAM, 0.026); const l = layer(g);
     addMerged(l, [bake(artoriaRoundedBox(0.233, 0.057, 0.337, 0.017), [0, -0.044, 0])], RUST, cloth);
     addMerged(l, [-0.06, -0.031].map(y => box(0.004, 0.006, 0.29, [0.119, y, 0])), RUST_EDGE, cloth);
   }
-  function pelvis(g) {
-    torso(g, TEAL, 0.026); const l = layer(g);
+  function pelvis(g, look) {
+    torso(g, look.hoseUpper, 0.026); const l = layer(g);
     addMerged(l, [bake(artoriaRoundedBox(0.224, 0.083, 0.348, 0.017), [0, 0.058, 0]),
       panel(0.12, [[0.078, -0.15], [0.079, -0.018], [-0.094, 0.018], [-0.069, -0.086]]),
       bake(ball(0.027, 10, 6), [0.124, 0.034, -0.089], null, [0.45, 0.6, 1])], RUST, twoSided);
@@ -155,26 +229,42 @@ export function createRatnaOutfit(h) {
     addMerged(l, [cyl(0.065, 0.065, 0.005, 18, true, [0, -0.098, 0])], FOLD, twoSided);
   }
   function forearm(g, look) { tint(g, look.skin); }
-  function thigh(g) {
+  function thigh(g, look) {
     const geo = garment([[-0.218, 0.065], [-0.182, 0.074], [-0.032, 0.091], [0.143, 0.089], [0.219, 0.069]]);
     const parameters = g.children[0].geometry.parameters;
     g.children[0].geometry.copy(geo); g.children[0].geometry.parameters = parameters;
-    geo.dispose(); tint(g, TEAL);
+    geo.dispose(); tint(g, look.hoseUpper);
     g.children[0].material.side = THREE.DoubleSide;
-    addMerged(layer(g), [cyl(0.069, 0.069, 0.023, 18, true, [0, -0.207, 0])], TEAL_EDGE, twoSided);
+    addMerged(layer(g), [cyl(0.069, 0.069, 0.023, 18, true, [0, -0.207, 0])], look.trouserSeam ?? TEAL_EDGE, twoSided);
   }
   function shin(g, look) {
     tint(g, look.skin);
     // A short cuff follows each shin independently; the lower calves are bare.
     // Close just the upper end so a bent knee cannot expose the skin cap
     // through the open cuff. This still belongs solely to the native shin.
-    addMerged(layer(g), [garment([[0.153, 0.062], [0.171, 0.069], [0.228, 0.067], [0.234, 0]])], TEAL, twoSided);
-    addMerged(layer(g), [cyl(0.065, 0.065, 0.01, 18, true, [0, 0.157, 0])], TEAL_EDGE, twoSided);
+    addMerged(layer(g), [garment([[0.153, 0.062], [0.171, 0.069], [0.228, 0.067], [0.234, 0]])], look.hoseUpper, twoSided);
+    addMerged(layer(g), [cyl(0.065, 0.065, 0.01, 18, true, [0, 0.157, 0])], look.trouserSeam ?? TEAL_EDGE, twoSided);
   }
   function foot(g, look) {
     tint(g, look.skin); const l = layer(g);
     const geo = artoriaRoundedBox(0.25, 0.075, 0.11, 0.018);
     g.children[0].geometry.copy(geo); geo.dispose();
+    if (look.ratnaRevision === 2) {
+      const shoes = layer(g, 'reed-shoe');
+      addMerged(shoes, [bake(artoriaRoundedBox(0.31, 0.019, 0.161, 0.008), [0.008, -0.036, 0])], look.shoes, cloth);
+      const reeds = [];
+      for (let i = 0; i < 10; i++) {
+        const x = -0.127 + i * 0.03, width = 0.151 - 0.012 * Math.abs(i - 4.5) / 4.5;
+        reeds.push(line([x, -0.024, -width / 2], [x, -0.024, width / 2], 0.0021, 5));
+      }
+      addMerged(shoes, reeds, 0xd3bc86, cloth);
+      addMerged(shoes, [-1, 1].map(s => line([-0.123, -0.023, s * 0.058], [0.145, -0.023, s * 0.058], 0.0025, 5)), ROPE, cloth);
+      addMerged(shoes, [box(0.031, 0.009, 0.118, [0.058, 0.039, 0]),
+        box(0.027, 0.009, 0.116, [-0.042, 0.039, 0]),
+        ...[-1, 1].flatMap(s => [line([0.058, 0.04, s * 0.052], [0.061, -0.022, s * 0.067], 0.007, 6),
+          line([-0.042, 0.04, s * 0.052], [-0.044, -0.022, s * 0.066], 0.006, 6)])], LEATHER, cloth);
+      return;
+    }
     addMerged(l, [bake(artoriaRoundedBox(0.257, 0.015, 0.116, 0.005), [0, -0.037, 0]),
       box(0.028, 0.009, 0.11, [0.059, 0.039, 0]),
       box(0.026, 0.009, 0.11, [-0.04, 0.039, 0]),
