@@ -8,6 +8,22 @@ export function createSilverWandererCourtHair(h, originalHead) {
   const material={...CLOTH,metalness:.04,roughness:.6};
   const gold={...CLOTH,metalness:.55,roughness:.43,steel:.6};
   const ivory={...CLOTH,metalness:.05,roughness:.6};
+  function flatFringe() {
+    // One broad diagonal sweep lies 1–2 mm above the same spherical cap.
+    // No separate tubular roots, raised tips or bright crown highlights.
+    const pos=[],uv=[],idx=[],across=24,rows=10;
+    for(let j=0;j<=rows;j++)for(let i=0;i<=across;i++) {
+      const u=i/across,t=j/rows,a=-.98+2.1*u;
+      const top=.18+.18*Math.sin(Math.PI*u),hem=1.06+.2*u+.08*Math.sin(Math.PI*u);
+      const theta=THREE.MathUtils.lerp(top,hem,t);
+      const r=.1092+.0008*Math.sin(Math.PI*t)*Math.sin(Math.PI*u);
+      pos.push(-.009+r*Math.sin(theta)*Math.cos(a),.005+r*Math.cos(theta),r*Math.sin(theta)*Math.sin(a));
+      uv.push(u,t);
+      if(j<rows&&i<across){const p=j*(across+1)+i;idx.push(p,p+1,p+across+1,p+1,p+across+2,p+across+1);}
+    }
+    const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+    geo.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));geo.setIndex(idx);geo.computeVertexNormals();return geo;
+  }
   function lock(points,widths,depth=.009) {
     const curve=new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p)));
     const pos=[],uv=[],idx=[],rings=18,sides=8,across=new THREE.Vector3(),normal=new THREE.Vector3();
@@ -49,7 +65,7 @@ export function createSilverWandererCourtHair(h, originalHead) {
       }
       mesh.geometry.computeVertexNormals();mesh.geometry.computeBoundingSphere();
     }
-    const swept=[],gleam=[];
+    const swept=[flatFringe()],gleam=[];
     // Broad curved sections sweep behind the ears and overlap at the low tie.
     for(const side of [-1,1]) {
       swept.push(lock([[.022,.075,side*.074],[-.022,.026,side*.111],[-.098,-.04,side*.116],

@@ -60,12 +60,16 @@ export function createSilverWandererOutfit(h) {
     const locks = [], lights = [];
     // A swept, off-center part; open forehead and long temple strands.
     for (const s of [-1, 1]) {
-      locks.push(isoldeLock([[.025, .113, -.024], [.062, .098, s * .047],
-        [.064, .061, s * .088], [.021, .018, s * .107]], [.052, .063, .045, .012], .01));
+      // The half-up variant supplies a cap-following fringe instead of these
+      // two lifted crown locks. Earlier styles keep their original geometry.
+      if (look?.hairStyle !== 'court_half_tie') {
+        locks.push(isoldeLock([[.025, .113, -.024], [.062, .098, s * .047],
+          [.064, .061, s * .088], [.021, .018, s * .107]], [.052, .063, .045, .012], .01));
+        lights.push(isoldeLock([[.025, .115, -.024], [.061, .102, s * .042],
+          [.07, .068, s * .075]], [.008, .009, .002], .006));
+      }
       locks.push(isoldeLock([[.031, .076, s * .084], [.069, .005, s * .102],
         [.052, -.091, s * .118], [.10, -.19, s * .117]], [.029, .034, .027, .003], .009));
-      lights.push(isoldeLock([[.025, .115, -.024], [.061, .102, s * .042],
-        [.07, .068, s * .075]], [.008, .009, .002], .006));
     }
     for (let i = -2; i <= 2; i++) locks.push(isoldeLock([
       [-.081, .074, i * .034], [-.114, -.012, i * .041],

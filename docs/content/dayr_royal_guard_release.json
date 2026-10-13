@@ -1,6 +1,6 @@
 {
   "basis": "d017a96e487fdbf98c23094e423a68326943d517",
-  "status": "local_verified_public_pending",
+  "status": "flat_fringe_local_pass_public_pending",
   "nameDecision": "pending; remain 은발의 검사",
   "lore": "amnesiac royal guard, not traveler",
   "stage": "dayr",
@@ -15,12 +15,13 @@
     "src/characters_wanderers.js": "574a0e7601e32c186c49eeb54a731253b93df10c26cdfaccdcfdd60d9fef774f",
     "src/looks.js": "b3963597d21661bfc30c93244ecdff3c8bde0757d59468f8435b4feeca2eca2b",
     "src/outfit_silver_wanderer_detail.js": "bfe1865acfe80345cc121985aa769e4ecab9d4be906cbdb22d5cad3578fe22fe",
-    "src/outfit_silver_wanderer_court_hair.js": "1714585c03c342072297528046e8f81b6451422da996e7282ea22904e53676f9",
-    "public/silver-wanderer.html": "18d0b67a1bec307ac100ff4506d0c33fe6b7ead23cf26be760cf93af79a4ba23",
+    "src/outfit_silver_wanderer_court_hair.js": "c0ddfdc57094aec5fde92b20eb8d2d25f9ba3f7c603d52279db7011d795489b9",
+    "public/silver-wanderer.html": "6ff9979555aba0dc2a022d7a7d9696c9eabc74ace88b4e3e89ba1b07b74cbce4",
     "tools/browser/new_pair_delivery_20261010.mjs": "32590ff0e15fb54e00d374f3c15c63be05a693bf966f68e1d0f1bdf61a42c4b3",
     "tools/browser/dayr_audio_20261014.mjs": "24a870ac9d90556893a7011b9f2e6191c1975e27b7c928b909a681521aa26c8d",
     "tools/browser/dayr_scene_20261014.mjs": "fe25ae383f286635c034d327cff0ce1ffe444bc83c637f4ed4ea03791dcd6c22",
-    "tools/browser/dayr_capture_20261014.mjs": "03d7d4bdecd5cdab6e7af9aab908f2a427abbb974934bb47766b7af629ec897f"
+    "tools/browser/dayr_capture_20261014.mjs": "03d7d4bdecd5cdab6e7af9aab908f2a427abbb974934bb47766b7af629ec897f",
+    "src/outfit_silver_wanderer.js": "832f2eb022f95a2c402c983345035ec96faf3b4608b56958253b725e3eef3615"
   },
   "scene": {
     "pass": true,
@@ -37,14 +38,6 @@
     "pass": 32,
     "fail": 0
   },
-  "local": {
-    "pass": true,
-    "reportSha256": "fdb567cc8c49862f65241fb4d79b27e88efb3adba64fd3aa11a21526c3d6654e",
-    "flows": 1,
-    "files": 193,
-    "errors": 0,
-    "completedUTC": "2026-10-13T16:26:58.052Z"
-  },
   "public": {
     "pass": false,
     "status": "pending"
@@ -53,5 +46,35 @@
     "Chromium mobile/touch emulation; physical-phone FPS and human art/audio acceptance unverified.",
     "No exact reconstruction of historical geography or a documented Saladin armor.",
     "New hair uses existing long fall; all-animation clipping not exhaustively tested."
-  ]
+  ],
+  "superseded": {
+    "commit": "b60a82710aab4a9eea60ebdb5f3d8caf18cfe070",
+    "pages": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38433597862",
+    "reason": "User rejected paired raised crown fringe; removed in final flat-fringe candidate",
+    "local": {
+      "pass": true,
+      "reportSha256": "fdb567cc8c49862f65241fb4d79b27e88efb3adba64fd3aa11a21526c3d6654e",
+      "flows": 1,
+      "files": 193,
+      "errors": 0,
+      "completedUTC": "2026-10-13T16:26:58.052Z"
+    }
+  },
+  "hairNative": {
+    "pass": true,
+    "reportSha256": "a2fdabf483e76f4134b66b36cc09d380b304f41db2246d8b26e2797bd846597c",
+    "physicsEqual": true,
+    "faceEqual": true,
+    "trianglesDelta": 2716,
+    "meshesDelta": 3
+  },
+  "local": {
+    "pass": true,
+    "reportSha256": "eaeb64e137ce74668a48a66003f222da1a1bffacd8cdb6df26a5a9e7f0af1871",
+    "flows": 1,
+    "requests": 195,
+    "files": 193,
+    "errors": 0,
+    "completedUTC": "2026-10-13T17:17:57.861Z"
+  }
 }

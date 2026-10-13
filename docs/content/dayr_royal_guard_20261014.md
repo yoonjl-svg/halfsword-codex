@@ -20,17 +20,21 @@
 
 무대 생성/해제3회:48,662삼각형·해당 카메라16draw calls, geometry16/material14/texture3 정확히 해제, 유한/동일 정점, 바닥 y0, 근경 통행·문루 시야,120초 중4회 고리 이벤트 일치. 실제 물리 검증과 휴대폰 실기 FPS를 대신하지 않는다.
 
-문양 추가는 기존 v4 대비1,792삼각형·7mesh 증가이며 신체/물리 snapshot과 머리 형상 동일. 이전 v2/v3 유지. 새 머리(v5)는 낮은 반묶음/한쪽 가는 땋음이며 기존 v4 비교를 보존했다. 머리 장식 기준+3,180삼각형·4mesh, 물리/얼굴 동일성 통과. 최종 공개 판정은 영수증에 기록한다.
+문양 추가는 기존 v4 대비1,792삼각형·7mesh 증가이며 신체/물리 snapshot과 머리 형상 동일. 이전 v2/v3 유지. 새 머리(v5)는 낮은 반묶음/한쪽 가는 땋음이며 기존 v4 비교를 보존했다. 최종 앞머리 교정 후 머리 기준+2,716삼각형·3mesh, 물리/얼굴 동일성 통과. 최종 공개 판정은 영수증에 기록한다.
 
 ```sh
 npm run dev -- --host 127.0.0.1 --port 4320
 node tools/browser/dayr_scene_20261014.mjs http://127.0.0.1:4320/ /tmp/halfsword-dayr-scene-20261014
 node tools/browser/dayr_audio_20261014.mjs /tmp/halfsword-dayr-20261014/audio-master.json
-node tools/browser/dayr_capture_20261014.mjs /tmp/halfsword-dayr-20261014/game-shots-clean
-CAPTURE_IDS=silver_wanderer CAPTURE_VIEWS=front,threeq,back,detail,fittings CAPTURE_BASE=http://127.0.0.1:4320 CAPTURE_OUT=/tmp/halfsword-dayr-20261014/portraits-final node tools/browser/native_character_portrait.mjs
-npm run build -- --outDir /tmp/halfsword-dayr-20261014/build
+node tools/browser/dayr_capture_20261014.mjs /tmp/halfsword-dayr-20261014/game-shots-flat
+CAPTURE_IDS=silver_wanderer CAPTURE_VIEWS=front,threeq,back,detail CAPTURE_BASE=http://127.0.0.1:4320 CAPTURE_OUT=/tmp/halfsword-dayr-20261014/portraits-flat node tools/browser/native_character_portrait.mjs
+npm run build -- --outDir /tmp/halfsword-dayr-20261014/build-flat
 ```
 
 기존 `new_pair_delivery_20261010.mjs --encounter=silver_wanderer`를 최종 frozen build의 로컬/공개에 각각 실행한다. 모든 응답은 같은 빌드와 해시로 대조한다. 첫 카드 진입·실제 손/이동 입력·일시정지/재개·재시작을 확인한다. 음향은 실제 master render와 mute/pause/전환 제어를 검사한다. 사람의 청음·미적 수락, 모든 부상 자세의 머리/옷 관통, 실기 FPS는 미검증이다.
 
 최종 상태·공개 커밋·검증 결과: [전달 영수증](dayr_royal_guard_release.json). 검사 이미지의 높은 카메라와 실제 전투 시점을 구분한다. 원자료 `/tmp/halfsword-dayr-20261014`와 `/tmp/halfsword-dayr-scene-20261014`.
+
+## 사용자 후속 · 앞머리
+
+첫 v5에서 상속된 두 갈래 정수리 덩어리가 더듬이처럼 보인다는 피드백. v5에서 해당 덩어리와 강조선을 제거하고 두피 표면을 따르는 낮은 한쪽 쓸림으로 교체했다. 기존 v4 비교와 낮은 반묶음/땋음/긴 뒷머리는 유지한다. 앞선 b60a827 공개본을 최종 수락본으로 취급하지 않는다.
