@@ -12,7 +12,7 @@ import { CHARACTERS_BY_ID } from '../../src/characters.js';
 
 const own = fileURLToPath(import.meta.url), root = path.resolve(path.dirname(own), '../..');
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
-const photos = ['sluice-game', 'sluice-vista', 'chanda-front', 'chanda-threeq'].map(name => `encounters/${name}.webp`);
+const photos = ['sluice-game', 'sluice-vista'].map(name => `encounters/${name}.webp`);
 const query = '?cards=sain,ice&foe=chanda&stage=sluice';
 async function manifest(dir, prefix = '') {
   const result = {};
@@ -141,7 +141,7 @@ async function main() {
         playerUUID: p.swordGroup.uuid, enemyUUID: e.swordGroup.uuid, outfit,
         finite: bodies.every(Number.isFinite), bodies, pelvis: { ...p.bodies.pelvis.translation() }, swordRotation: { ...p.sword.rotation() },
         active: game.input.activeTouch, accepted: window.sluiceAccepted || 0,
-        sound: { on: s.on, context: s.ctx?.state ?? null, stage: s.stage, primed: s.primed ?? false,
+        sound: { mudSteps: s.samples.stepMud?.length ?? 0, on: s.on, context: s.ctx?.state ?? null, stage: s.stage, primed: s.primed ?? false,
           voiceSamples: Object.fromEntries(Object.entries(s.samples).filter(([key]) => key.startsWith('voice:')).map(([key, values]) => [key, values.length])),
           events: s.stats.events, detail: detail ? { stage: detail.stage, paused: detail.paused,
             ambientNodes: detail.ambient?.nodes.length ?? 0, activeVoices: detail.voices.size, ...detail.stats } : null },
@@ -160,7 +160,7 @@ async function main() {
       assert(value.outfit.some(item => item.visible), 'Chanda outfit must be visible');
       assert.equal(value.sound.on, true); assert.equal(value.sound.stage, contract.stage);
       if (audible) {
-        assert.equal(value.sound.context, 'running'); assert(value.sound.primed);
+        assert.equal(value.sound.mudSteps, 8); assert.equal(value.sound.context, 'running'); assert(value.sound.primed);
         for (const kind of ['hurt', 'ko', 'bleed']) assert.equal(value.sound.voiceSamples[`voice:maya:${kind}`], 2);
         assert(Object.keys(value.sound.voiceSamples).every(key => /^voice:(maya|player):/.test(key)));
         assert.equal(value.sound.detail?.stage, contract.stage); assert(value.sound.detail.ambientNodes > 0);
@@ -172,7 +172,7 @@ async function main() {
     landing = await page.evaluate(() => ({ title: document.title,
       links: [...document.querySelectorAll('a[href]')].map(a => ({ href: a.href, text: a.textContent.trim() })),
       images: [...document.images].map(img => ({ path: new URL(img.src).pathname, width: img.naturalWidth, height: img.naturalHeight })) }));
-    assert.equal(landing.title, '잠든 밀림 · 찬다 — 적막'); assert(landing.links.some(link => link.href === destination));
+    assert.equal(landing.title, '잠든 습지 · 라트나 제안 — 적막'); assert(landing.links.some(link => link.href === destination));
     assert.deepEqual(landing.images.map(img => img.path).sort(), photos.map(name => new URL(name, base).pathname).sort());
     assert(landing.images.every(img => img.width > 0 && img.height > 0));
     for (const link of landing.links) {
@@ -255,7 +255,8 @@ async function main() {
     assert(native.events.some(event => event.href === destination) && native.events.some(event => event.card === '0'));
     for (const id of ['btnStart', 'btnPause', 'btnResume']) assert(native.events.some(event => event.target === id));
     for (const name of ['sluice.html', ...photos]) assert(requests.some(item => item.name === name && item.match));
-    assert(requests.some(item => /^assets\/main-/.test(item.name))); assert(requests.every(item => item.match));
+    assert(requests.filter(item => /^sfx\/step\/mud[1-8]\.mp3$/.test(item.name) && item.match).length >= 8, 'Wetland mud footsteps must be delivered');
+    assert(requests.some(item => /^assets\/main-/.test(item.name)));  assert(requests.every(item => item.match));
     assert.deepEqual(errors, []); pass = true;
   } catch (error) {
     fatal = { message: clean(error.message), stack: clean(error.stack) }; process.exitCode = 1;

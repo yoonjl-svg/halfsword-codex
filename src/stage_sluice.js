@@ -1,6 +1,6 @@
-// 잠든 밀림 — layered rainforest surrounding an old sluice, after a shower at14:00.
+// 잠든 습지 — freshwater flooded forest around a firm mud island after rain.
 // Visual scenery only. The level floor is flat through the 6.5m fighting area;
-// tall plants, masonry, roots and water stay outside the 10.5m camera orbit;
+// tall plants, masonry and roots stay outside the 10.5m camera orbit;
 // low ground-cover starts beyond the fighting area without hiding the fighters.
 import * as THREE from 'three';
 import { Kit, rng, h3, box, limb, canvasTex } from './stage_kit.js';
@@ -135,7 +135,7 @@ function ground(scene, map) {
       const shade = 0.90 + Math.sin(x * 0.38 + Math.cos(z * 0.30)) * 0.07;
       color.multiplyScalar(shade);
       // No ground vertex in the camera disk rises above the actual duel plane.
-      let y = -0.016 + outer * (0.12 + Math.sin(x * 0.21) * Math.cos(z * 0.15) * 0.19);
+      let y = -0.016; // Low floodplain; visible shallows never change the physics floor.
       y += THREE.MathUtils.smoothstep(rad, 34, 73) * (1.1 + Math.sin(a * 3.2 + 1) * 0.7);
       positions.push(x, y, z); colors.push(color.r, color.g, color.b); uv.push(x * 0.27, z * 0.27);
       if (ring < rings && j < segments) {
@@ -399,7 +399,7 @@ function forest(K, leaves, crowns, r) {
 
 function ferns(K, leaves, r) {
   const patches = [[13.8,-7.4],[15.7,6.4],[20,-10],[-13.9,-4.8],[-14.6,9.6],[-3.2,16.4],[6,-16.4],[14.1,12.5],[-11,-13.2]];
-  for (let i = 0; i < 43; i++) {
+  for (let i = 0; i < 29; i++) {
     const patch = patches[i % patches.length], x = patch[0] + (r() - 0.5) * 2.3, z = patch[1] + (r() - 0.5) * 2.3;
     if (Math.hypot(x, z) < 13.5) continue;
     for (let j = 0; j < 5; j++) {
@@ -424,56 +424,108 @@ function ferns(K, leaves, r) {
   }
 }
 
-// Large leaf silhouettes and overhead layers establish a rainforest interior.
-// This uses merged opaque geometry and an isolated RNG: existing event timing,
-// animals and water are unchanged, with no new materials or physics bodies.
-function jungleInterior(K, leaves, crowns) {
-  const r = rng(63981);
-  const canopy = [[-11,12],[-12,-13],[3,17],[3,-17],[13,13],[14,-13],[25,9],[26,-12]];
-  canopy.forEach(([x,z], i) => {
-    const height = i >= 4 ? 7.2 + r() * 1.2 : 8.6 + r() * 3.2;
-    const a = Math.atan2(z,x), inward = [x * (i >= 4 ? 0.72 : 0.54), height, z * 0.60];
-    limb(K, 'bark', [x,0,z], [x + Math.cos(a)*0.45,height*0.77,z], 0.36,0.16,C.barkDark,{},7);
-    limb(K, 'bark', [x,height*0.67,z], inward,0.18,0.045,C.barkDark,{},6);
-    for(let j=0;j<4;j++) {
-      const angle = a + j*1.7, p = [inward[0]+Math.sin(angle)*2.3,height+j*0.52,inward[2]+Math.cos(angle)*2.8];
-      crowns.push({pos:p,width:3.15+r()*1.2,height:1.7,a:angle,color:j%3?0x567346:C.leaf,detailed:true});
-      broadSpray(leaves,[p[0],p[1]-1.9,p[2]],angle,5,2.1+r()*0.5,r);
+// An irregular mud island opens into connected shallows among the tree trunks.
+// Opaque water and merged plants avoid reflection passes / alpha-card overdraw.
+function islandRadius(a) {
+  return 9.6 + 1.45 * Math.sin(a * 3 + 0.4) + 0.85 * Math.cos(a * 5 - 0.8);
+}
+
+function wetland(scene, K, leaves, crowns, clock) {
+  const r = rng(63981), positions = [], colors = [], uv = [], indices = [];
+  const shore = [], shoreColors = [], shoreIndices = [], segments = 144;
+  const dark = new THREE.Color(0x91aaa0), pale = new THREE.Color(0xa5b8ab);
+  for (let i = 0; i <= segments; i++) {
+    const a = i / segments * TAU, inner = islandRadius(a), outer = 36 + Math.sin(a * 4) * 4;
+    for (const [j, d] of [inner, outer].entries()) {
+      const x = Math.cos(a) * d, z = Math.sin(a) * d;
+      positions.push(x, 0.018, z); uv.push(x * 0.065, z * 0.065);
+      const c = j ? pale : dark; colors.push(c.r, c.g, c.b);
+      const sd = inner - (j ? 0 : 0.72);
+      shore.push(Math.cos(a) * sd, j ? 0.019 : 0.001, Math.sin(a) * sd);
+      const mud = new THREE.Color(j ? 0x38443a : 0x4b4a38); shoreColors.push(mud.r,mud.g,mud.b);
     }
-    // Vines stay around the perimeter, never crossing the combat/camera disk.
-    for(let j=0;j<2;j++) {
-      const px=x+(r()-0.5)*1.4, pz=z+(r()-0.5)*1.4, low=2.4+r()*1.8;
-      const curve=new THREE.CatmullRomCurve3([
-        new THREE.Vector3(px,height,pz),new THREE.Vector3(px+0.5,height*0.63,pz-0.3),
-        new THREE.Vector3(px-0.25,low+1.1,pz+0.25),new THREE.Vector3(px+0.18,low,pz)]);
-      put(K,'vine',new THREE.TubeGeometry(curve,10,0.035,4,false),C.barkDark);
-      broadSpray(leaves,[px,low+0.2,pz],a,3,0.68,r);
+    if(i < segments) {
+      const k=i*2; indices.push(k,k+2,k+1,k+1,k+2,k+3);
+      shoreIndices.push(k,k+2,k+1,k+1,k+2,k+3);
     }
-  });
-  // Broken pockets rather than a circular hedge: broad blades in the middle
-  // layer, small understory below, and low ferns spilling onto the path margins.
-  const pockets=[[10,-10],[12,-7],[13,7],[9,12],[-4,12],[-12,8],[-13,-7],[-4,-13],[4,-12],[18,6],[19,-8]];
-  pockets.forEach(([x,z],i)=>{
-    const height=1.4+r()*1.2;
-    for(let j=0;j<3;j++){
-      let px=x+(r()-0.5)*2.3,pz=z+(r()-0.5)*2.3;
-      const radius=Math.hypot(px,pz);
-      if(radius<15) { px*=15/radius; pz*=15/radius; }
-      broadSpray(leaves,[px,height*(0.65+j*0.23),pz],i*1.4+j,7,1.45+r()*0.85,r);
-      limb(K,'vine',[px,0.03,pz],[px,height,pz],0.045,0.018,0x516440,{},4);
-    }
-  });
-  for(let i=0;i<28;i++){
-    const a=i*2.39996,d=8.5+r()*3.2;
-    const p=[Math.cos(a)*d,0.25+r()*0.2,Math.sin(a)*d];
-    broadSpray(leaves,p,a,5,0.63+r()*0.3,r);
-    limb(K,'vine',[p[0],0.015,p[2]],p,0.035,0.018,0x516440,{},4);
   }
-  // The masonry becomes a glimpse through vegetation: cover a pier and the
-  // lintel asymmetrically, keeping the central channel visibly open.
-  for(const [x,y,z] of [[18.9,5.3,4.2],[20.2,6.4,3.6],[20.1,7.8,-3.8],[18.9,3.0,-6.1]]){
-    broadSpray(leaves,[x,y,z],r()*TAU,9,1.7+r()*0.5,r);
-    crowns.push({pos:[x+0.4,y+0.2,z],width:2.35,height:1.25,a:r()*TAU,color:C.leafDeep,detailed:true});
+  // Shallow rain puddles connect the dry island visually to the surrounding
+  // wetland; these remain a surface film over the unchanged level floor.
+  for(const [cx,cz,rx,rz] of [[-2,4.4,1.5,0.8],[2,-4.7,2.2,0.85],[-5,-3.7,0.8,0.52]]){
+    const start=positions.length/3,n=28;
+    positions.push(cx,0.018,cz);uv.push(cx*0.065,cz*0.065);colors.push(dark.r,dark.g,dark.b);
+    for(let i=0;i<=n;i++){
+      const a=i/n*TAU,f=1+0.09*Math.sin(a*3+cz),x=cx+Math.cos(a)*rx*f,z=cz+Math.sin(a)*rz*f;
+      positions.push(x,0.018,z);uv.push(x*0.065,z*0.065);colors.push(dark.r,dark.g,dark.b);
+      if(i<n)indices.push(start,start+i+2,start+i+1);
+    }
+  }
+  const map=canvasTex(512,512,(g,w,h)=>{
+    g.fillStyle='#c0cfca';g.fillRect(0,0,w,h);
+    // Soft vertical canopy streaks and broken horizontal glints suggest quiet
+    // water, not a mirror of scene geometry. The texture tiles at world scale.
+    for(let i=0;i<75;i++){
+      const x=r()*w,y=r()*h,ww=3+r()*15,hh=15+r()*95;
+      const shade=g.createRadialGradient(x,y,0,x,y,hh);shade.addColorStop(0,'rgba(32,56,39,0.08)');shade.addColorStop(1,'rgba(32,56,39,0)');g.fillStyle=shade;g.fillRect(x-ww,y-hh,ww*2,hh*2);
+    }
+    for(let i=0;i<480;i++){
+      g.strokeStyle=i%4?'rgba(44,77,63,0.10)':'rgba(239,247,225,0.68)';
+      const x=r()*w,y=r()*h;g.lineWidth=0.6+r()*0.8;
+      g.beginPath();g.moveTo(x,y);g.quadraticCurveTo(x+6,y-1,x+8+r()*30,y);g.stroke();
+    }
+  });
+  const g=geometry(positions,indices);g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));
+  g.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));
+  const material=new THREE.MeshStandardMaterial({map,vertexColors:true,roughness:0.26,metalness:0.025,emissive:0x19332e,emissiveIntensity:0.35});
+  material.onBeforeCompile=shader=>{
+    shader.uniforms.wetlandTime=clock;
+    shader.fragmentShader='uniform float wetlandTime;\n'+shader.fragmentShader;
+    shader.fragmentShader=shader.fragmentShader.replace('#include <map_fragment>',`#include <map_fragment>
+      diffuseColor.rgb *= 0.98 + 0.02 * sin(vMapUv.y * 92.0 + wetlandTime * 0.32 + sin(vMapUv.x * 37.0));`);
+  };
+  material.customProgramCacheKey=()=> 'sluice-wetland-water-v1';
+  const water=new THREE.Mesh(g,material);water.name='sluice-flooded-forest-water';water.receiveShadow=true;scene.add(water);
+  const sg=geometry(shore,shoreIndices);sg.setAttribute('color',new THREE.Float32BufferAttribute(shoreColors,3));
+  const bank=new THREE.Mesh(sg,new THREE.MeshStandardMaterial({vertexColors:true,roughness:0.96}));
+  bank.name='sluice-irregular-mud-bank';bank.receiveShadow=true;scene.add(bank);
+
+  // Retain high leafy cover, with open spaces underneath where water is visible.
+  for(const [x,z] of [[-11,12],[-12,-13],[3,17],[3,-17],[13,13],[14,-13],[25,9],[26,-12]]){
+    const a=Math.atan2(z,x),height=8+r()*3,inward=[x*0.68,height,z*0.66];
+    limb(K,'bark',[x,0,z],[x,height*0.77,z],0.36,0.16,C.barkDark,{},7);
+    limb(K,'bark',[x,height*0.67,z],inward,0.18,0.045,C.barkDark,{},6);
+    for(let j=0;j<3;j++){
+      const angle=a+j*1.7,p=[inward[0]+Math.sin(angle)*2.3,height+j*0.52,inward[2]+Math.cos(angle)*2.8];
+      crowns.push({pos:p,width:3.3+r(),height:1.7,a:angle,color:0x567346,detailed:true});
+      broadSpray(leaves,[p[0],p[1]-1.9,p[2]],angle,4,2.1,r);
+    }
+  }
+  // Clumps at broken intervals: sedges, not a regular reed fence around a ring.
+  for(let i=0;i<52;i++){
+    const a=i*2.39996+0.2*r(),d=12.4+r()*11,x=Math.cos(a)*d,z=Math.sin(a)*d;
+    for(let j=0;j<9;j++){
+      const angle=r()*TAU,h=0.55+r()*1.25,width=0.035+r()*0.05;
+      const blade=geometry([-width,0,0,width,0,0,width*0.6,h*0.65,0.14,0,h,0.4,-width*0.6,h*0.65,0.14], [0,2,1,0,4,2,4,3,2,1,2,0,2,4,0,2,3,4]);
+      // Kit expands indexed faces before rebuilding the normal attribute.
+      blade.deleteAttribute('normal');
+      put(K,'vine',blade,j%3?0x69794a:0x8b935b,[x+(r()-0.5)*0.6,0.02,z+(r()-0.5)*0.6],[0,angle,0]);
+    }
+    if(i%3===0) broadSpray(leaves,[x,0.55,z],a,4,0.65,r);
+  }
+  // Flat floating leaves have a visible notch; a few pale buds mark the pools.
+  for(let i=0;i<115;i++){
+    const a=r()*TAU,d=islandRadius(a)+0.8+r()*13,x=Math.cos(a)*d,z=Math.sin(a)*d;
+    const ps=[0,0,0],idx=[];
+    for(let j=0;j<=12;j++) { const t=0.16+j/12*(TAU-0.32);ps.push(Math.cos(t),0.015*Math.sin(t)**2,Math.sin(t));if(j<12)idx.push(0,j+2,j+1); }
+    const size=0.18+r()*0.34;
+    put(K,'leaf',geometry(ps,idx),i%3?0x6c8550:0x91a76a,[x,0.026,z],[0,r()*TAU,0],[size,1,size*0.82]);
+    if(i%23===0)put(K,'leaf',new THREE.ConeGeometry(0.06,0.14,5),0xc5c6a3,[x,0.13,z]);
+  }
+  // Short exposed root arches emerge from shallow water near the forest edge.
+  for(let i=0;i<24;i++){
+    const a=i*2.39996,d=13.5+r()*7,x=Math.cos(a)*d,z=Math.sin(a)*d,span=0.8+r()*1.4,h=0.35+r()*0.85;
+    const curve=new THREE.CatmullRomCurve3([new THREE.Vector3(x,0,z),new THREE.Vector3(x+span*0.35,h,z+0.2),new THREE.Vector3(x+span,0.02,z+0.5)]);
+    put(K,'bark',new THREE.TubeGeometry(curve,8,0.07+r()*0.06,5,false),C.barkDark,undefined,undefined,1,{uv:'box',uvScale:0.6});
   }
 }
 
@@ -568,7 +620,7 @@ export function buildSluice(scene, { hemi, sun } = {}) {
   if (hemi) { hemi.color.set(0xdde7d4); hemi.groundColor.set(0x807664); hemi.intensity = 1.23; }
   if (sun) { sun.color.set(0xffedd0); sun.intensity = 1.42; sun.position.set(sunOffset.x, sunOffset.y, sunOffset.z); }
   const soil = soilTexture(), stone = stoneTexture(), bark = barkTexture();
-  ground(scene, soil); paving(K, r); sluice(K, leaves, crowns, r); forest(K, leaves, crowns, r); ferns(K, leaves, r); jungleInterior(K, leaves, crowns);
+  ground(scene, soil); paving(K, r); sluice(K, leaves, crowns, r); forest(K, leaves, crowns, r); ferns(K, leaves, r); wetland(scene, K, leaves, crowns, clock);
   const pool = water(scene, K, r);
   const birdModel = perchedBird(scene);
   // Fallen stones and leaf litter occupy forest margins, not the camera lane.
@@ -614,7 +666,7 @@ export function buildSluice(scene, { hemi, sun } = {}) {
     sunOffset,
     fighterLight: { color: 0xf1eedb, rimColor: 0xe2e9d2, level: 0.89, rim: 1.04 },
     waterPulse: 0,
-    visualDetails: { hero: { ...HERO }, pool: { x: 17, y: 0.03, z: -1.35 }, flatRadius: 6.5, clearOrbit: 10.5, mergedTriangles: triangleCount, leafCount: leaves.length, crownCount: crowns.length },
+    visualDetails: { hero: { ...HERO }, pool: { x: 17, y: 0.03, z: -1.35 }, flatRadius: 6.5, clearOrbit: 10.5, wetland: { waterLevel: 0.018, innerMin: 7.3, outerMax: 40 }, mergedTriangles: triangleCount, leafCount: leaves.length, crownCount: crowns.length },
     update(dt) {
       const step = Math.min(Math.max(Number.isFinite(dt) ? dt : 0, 0), 0.1);
       if (step === 0) return;
