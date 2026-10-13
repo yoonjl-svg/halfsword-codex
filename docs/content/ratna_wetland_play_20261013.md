@@ -28,4 +28,4 @@ npm run build -- --outDir /tmp/halfsword-wetland-ratna-build-20261013
 node tools/browser/sluice_delivery_20261013.mjs --base=http://127.0.0.1:4219/ --build=/tmp/halfsword-wetland-ratna-build-20261013 --out=/tmp/halfsword-sluice-20261013/ratna/local
 ```
 
-`sluice.html`에서 실제 게임/풍경/라트나 정면·후면 사진을 제공한다. 모바일 Chromium에서 입구/선택/공격/이동/웅덩이 진입/일시정지/재시작과 공개 파일 해시를 검증한다. 실제 휴대폰 FPS와 사용자 미적·조작감 수락은 별도다. 공개 검증 진행 중.
+`sluice.html`에서 실제 게임/풍경/라트나 정면·후면 사진을 제공한다. 모바일 Chromium에서 입구/선택/공격/이동/웅덩이 진입/일시정지/재시작과 공개 파일 해시를 검증한다. 실제 휴대폰 FPS와 사용자 미적·조작감 수락은 별도다. `d5b3151` 공개 완료. 로컬·공개 모바일 웅덩이 진입/조작/재시작, 공개182파일 해시 일치·오류0. [영수증](ratna_wetland_release.json).
