@@ -2,12 +2,15 @@
 import { createSilverWandererOutfit } from './outfit_silver_wanderer.js';
 import { createSilverWandererHair } from './outfit_silver_wanderer_hair.js';
 import { createSilverWandererFullHair } from './outfit_silver_wanderer_full_hair.js';
+import { createSilverWandererCourtHair } from './outfit_silver_wanderer_court_hair.js';
 
 export function createSilverWandererDetail(h) {
   const { THREE, bake, box, cyl, ball, addMerged, CLOTH, artoriaCloth } = h;
   const base = createSilverWandererOutfit(h), SILVER = 0xc5c5cc, GOLD = 0xad914e;
   const newHair = createSilverWandererHair(h);
   const fullHair = createSilverWandererFullHair(h,base.head);
+  const courtHair = createSilverWandererCourtHair(h,base.head);
+  const hasPersianDetails = look => ['full_layered','court_half_tie'].includes(look?.hairStyle);
   const thread = { ...CLOTH, metalness: .12, roughness: .73 };
   const metal = { ...CLOTH, metalness: .6, roughness: .36, steel: .7 };
   const leather = { ...CLOTH, metalness: 0, roughness: .83 };
@@ -33,6 +36,57 @@ export function createSilverWandererDetail(h) {
     return line(Array.from({ length: count + 1 }, (_, i) => {
       const a = i / count * Math.PI * 2; return [radius * Math.cos(a), y, radius * Math.sin(a)];
     }), .0013);
+  }
+  // Fictional Persian-inspired ornament: split leaves, scrolling stems and an
+  // eight-point rosette. These are surface details, never protective armor.
+  const chased = { ...metal, side: THREE.DoubleSide };
+  const INK = 0x514a58, INLAY = 0xc3a567;
+  function panel(points, surface) {
+    const outline = points.map(([x,y]) => new THREE.Vector2(x,y));
+    const indices = THREE.ShapeUtils.triangulateShape(outline, []).flat();
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position',new THREE.Float32BufferAttribute(points.flatMap(p=>surface(...p)),3));
+    geo.setAttribute('uv',new THREE.Float32BufferAttribute(points.flat(),2));
+    geo.setIndex(indices);geo.computeVertexNormals();return geo;
+  }
+  function splitLeaf(surface, u, v, w, h, tilt = 0) {
+    const leaves=[], c=Math.cos(tilt), s=Math.sin(tilt);
+    for (const side of [-1,1]) {
+      const shape=new THREE.Shape();shape.moveTo(0,-1);
+      shape.bezierCurveTo(-.12,-.4,-.76,-.14,-.65,.54);
+      shape.bezierCurveTo(-.49,.3,-.34,.28,-.24,.37);
+      shape.bezierCurveTo(-.35,.56,-.23,.9,0,1);
+      shape.bezierCurveTo(.03,.24,-.07,-.13,0,-1);
+      const points=shape.getPoints(6).slice(0,-1).map(p=>{
+        const x=p.x*w*side,y=p.y*h;return [u+x*c-y*s,v+x*s+y*c];
+      });
+      leaves.push(panel(points,surface));
+    }
+    return leaves;
+  }
+  function rosette(surface, u, v, radius) {
+    return panel(Array.from({length:16},(_,i)=>{
+      const a=i*Math.PI/8,r=radius*(i%2?.53:1);
+      return [u+Math.sin(a)*r,v+Math.cos(a)*r];
+    }),surface);
+  }
+  function persianCollar(l) {
+    const stems=[], leaves=[], edging=[];
+    for(const side of [-1,1]) {
+      const surface=(u,y)=>collar(y,side*u,.0029);
+      // Two crossing stems with open gaps keep the woven rhythm legible.
+      for(const sign of [-1,1]) stems.push(line(Array.from({length:17},(_,i)=>{
+        const t=i/16;return surface(.99+sign*.12*Math.sin(t*Math.PI*2),.18+t*.065);
+      }),.00125));
+      for(const y of [.196,.232])leaves.push(...splitLeaf(surface,.99,y,.155,.0115));
+      edging.push(line(rows.map(([y])=>collar(y,side*.61,.003)),.001));
+      // Larger terminal on the visible lower collar, clear of the long hair.
+      stems.push(line([[.89,.177],[.83,.15],[.84,.119],[.94,.1],[1.02,.092]]
+        .map(([a,y])=>surface(a,y)),.0014));
+      leaves.push(...splitLeaf(surface,1.02,.084,.092,.013));
+    }
+    addMerged(l,[...stems,...edging],INLAY,thread);
+    addMerged(l,leaves,SILVER,{...thread,side:THREE.DoubleSide});
   }
   // More bevel samples and seam-averaged normals, local to this outfit.
   // Retain the native representative geometry object/parameters for wounds.
@@ -63,25 +117,29 @@ export function createSilverWandererDetail(h) {
     for (const mesh of old?.children || []) if (mesh.material?.color.getHex() === 0xb6bbc3) mesh.visible = false;
     for (const s of [-1,1]) {
       edging.push(line(rows.map(([y])=>collar(y,s*.58)),.0023));
-      // One curling stem with alternating leaves, rather than parallel loops.
-      silver.push(line(Array.from({length:17},(_,i)=> {
+      // Older looks retain their original collar embroidery.
+      if(!hasPersianDetails(look)) {
+        silver.push(line(Array.from({length:17},(_,i)=> {
         const t=i/16; return collar(.249-t*.077,s*(.97+.075*Math.sin(t*Math.PI*2)));
-      }),.0015));
-      for (const y of [.237,.211,.185]) {
-        silver.push(line([[y-.004,.96],[y+.001,.80],[y+.008,.77],[y+.009,.85],[y+.003,.89]]
-          .map(([yy,a])=>collar(yy,s*a)),.0015));
-        silver.push(line([[y-.005,.98],[y-.011,1.13],[y-.007,1.22],[y+.002,1.16],[y-.005,.98]]
-          .map(([yy,a])=>collar(yy,s*a)),.0014));
+        }),.0015));
+        for (const y of [.237,.211,.185]) {
+          silver.push(line([[y-.004,.96],[y+.001,.80],[y+.008,.77],[y+.009,.85],[y+.003,.89]]
+            .map(([yy,a])=>collar(yy,s*a)),.0015));
+          silver.push(line([[y-.005,.98],[y-.011,1.13],[y-.007,1.22],[y+.002,1.16],[y-.005,.98]]
+            .map(([yy,a])=>collar(yy,s*a)),.0014));
+        }
       }
       // Woven hem continues around the short mantle, away from arm joints.
       edging.push(line(Array.from({length:22},(_,i)=>collar(.04,s*(.58+i/21*(Math.PI-.58)))),.0018));
     }
     edging.push(line(Array.from({length:37},(_,i)=>collar(.253,.58+i/36*(Math.PI*2-1.16))),.0018));
     addMerged(l,edging,0x8d879d,thread); addMerged(l,silver,SILVER,thread);
+    if(hasPersianDetails(look))persianCollar(l);
     // A modest three-button placket and soft white seam folds on the shirt.
     const shirtX = y => .12 * (.96 + .04 * (y + .14) / .28) + .0015;
     addMerged(l,[.069,.016,-.037].map(y=>bake(ball(.0038,8,6),[shirtX(y),y,.002],null,[.5,1,1])),SILVER,metal);
     addMerged(l,[-1,1].map(s=>line([[shirtX(.083),.083,s*.045],[shirtX(.014),.014,s*.054],[shirtX(-.091),-.091,s*.061]],.001)),0xd8d8d7,leather);
+    if (look?.hairStyle === 'court_half_tie') { courtHair.chest(g,look); return; }
     if (look?.hairStyle === 'full_layered') { fullHair.chest(g,look); return; }
     if (look?.hairStyle === 'swept_long_front') return;
     const strands=[];
@@ -104,7 +162,7 @@ export function createSilverWandererDetail(h) {
     addMerged(l,[.06,.093,.126].map(z=>bake(ball(.0025,6,4),[.12,-.05,z],null,[.5,1,1])),0x211a24,leather);
     addMerged(l,[box(.006,.063,.009,[.123,-.052,.047]),box(.006,.063,.009,[.12,-.052,-.079])],0x604957,leather);
   }
-  function pelvis(g) {
+  function pelvis(g,look) {
     soften(g); const l=layer(g), trim=[], fasteners=[];
     const old = g.children[0].children.find(n=>n.name==='silver-wanderer-cloth');
     for(const mesh of old?.children||[]) if(mesh.material?.color.getHex()===0xa88b45) mesh.visible=false;
@@ -119,10 +177,18 @@ export function createSilverWandererDetail(h) {
       trim.push(place(bake(new THREE.TorusGeometry(.019,.0024,4,12),[.031,y,0],[0,Math.PI/2,0])));
     }
     const scroll=[];
-    for(const y of [.303,-.301]) scroll.push(place(line([[.027,y+.012,-.009],[.029,y+.004,.009],
+    if(hasPersianDetails(look)) {
+      // Chased motifs on the existing mouth and chape; scabbard dimensions stay fixed.
+      for(const [y,r] of [[.315,.0285],[-.303,.0215]])for(let k=0;k<4;k++) {
+        const a=k*Math.PI/2;
+        const surface=(u,v)=>[r*Math.cos(a+u),v,r*Math.sin(a+u)];
+        scroll.push(...splitLeaf(surface,0,y,.42,.012).map(place));
+      }
+    } else for(const y of [.303,-.301]) scroll.push(place(line([[.027,y+.012,-.009],[.029,y+.004,.009],
       [.029,y-.003,-.009],[.027,y-.012,.007]],.0012)));
     addMerged(l,fasteners,0x30242d,leather); addMerged(l,trim,GOLD,metal);
-    addMerged(l,scroll,0xe2c77f,metal);
+    addMerged(l,scroll,hasPersianDetails(look)?INK:0xe2c77f,
+      hasPersianDetails(look)?chased:metal);
     // Short attached suspension straps; never a solid band crossing both legs.
     addMerged(l,[line([[.028,.079,-.177],[.063,.068,-.213],[.049,.054,-.24]],.005),
       line([[-.033,.067,-.179],[.018,-.022,-.218],[.029,-.03,-.24]],.005)],0x4e3541,leather);
@@ -130,6 +196,33 @@ export function createSilverWandererDetail(h) {
   function upperArm(g,look,d) {
     const l=layer(g), side=Math.sign(d.pos[2])||1;
     const surface=(x,y)=>[x,y,side*(.07488*Math.sqrt(Math.max(.02,1-(x/.072)**2-((y-.098)/.07344)**2))+.0018)];
+    if(hasPersianDetails(look)) {
+      // A thin lenticular silver cartouche lies on the existing cloth cap.
+      // Subdivided concentric rings follow the shoulder rather than spanning it.
+      const rim=Array.from({length:33},(_,i)=>{
+        const a=i*Math.PI/16;return [.039*Math.sin(a),.111+.035*Math.cos(a)];
+      });
+      const plateSurface=(x,y)=>{const p=surface(x,y);p[2]+=side*.0004;return p;};
+      const engrave=(x,y)=>{const p=surface(x,y);p[2]+=side*.0015;return p;};
+      const plates=[];
+      for(let j=0;j<4;j++)for(let i=0;i<32;i++) {
+        const point=(k,r)=>[rim[k][0]*r,.111+(rim[k][1]-.111)*r];
+        const inner=j/4,outer=(j+1)/4;
+        plates.push(panel(j===0?[[0,.111],point(i,outer),point(i+1,outer)]:[
+          point(i,inner),point(i,outer),point(i+1,outer),point(i+1,inner)],plateSurface));
+      }
+      addMerged(l,plates,0xb6bbc3,chased);
+      const vines=[];
+      for(const s of [-1,1])vines.push(line([[-.006*s,.082],[-.027*s,.091],[-.03*s,.111],
+        [-.025*s,.128],[-.019*s,.131],[-.016*s,.126],[-.02*s,.123]].map(p=>engrave(...p)),.00125));
+      const leaves=[];
+      for(const s of [-1,1])leaves.push(...splitLeaf(engrave,s*.025,.098,.009,.011,s*.34));
+      addMerged(l,[...vines,...leaves,rosette(engrave,0,.111,.017)],INK,chased);
+      addMerged(l,[line(rim.map(p=>engrave(...p)),.0015),
+        rosette((x,y)=>{const p=engrave(x,y);p[2]+=side*.0004;return p;},0,.111,.011)],INLAY,chased);
+      addMerged(l,[ring(.065,.0715)],0xa298b0,thread);
+      return;
+    }
     const glyph=[[-.019,.111],[-.012,.126],[.001,.119],[.009,.127],[.017,.113],
       [.006,.107],[.017,.093],[.005,.094],[.012,.083],[-.003,.088],[-.012,.079],[-.011,.099],[-.019,.111]];
     addMerged(l,[line(glyph.map(([x,y])=>surface(x,y)),.0019),
@@ -137,16 +230,22 @@ export function createSilverWandererDetail(h) {
     // Fine rolled cuff edge beneath the mantle, with small seam stitches.
     addMerged(l,[ring(.065,.0715)],0xa298b0,thread);
   }
-  function forearm(g) {
+  function forearm(g,look) {
     const l=layer(g), work=[];
     const surface=(y,a)=> {const r=.059-(.059-.049)*THREE.MathUtils.clamp((-.039-y)/.058,0,1)+.002;
       return [r*Math.cos(a),y,r*Math.sin(a)];};
-    for(let k=0;k<6;k++) {
-      const a=k*Math.PI/3;
-      work.push(line([[.018,-.052],[.095,-.057],[-.05,-.067],[.09,-.076],[.025,-.082]]
-        .map(([da,y])=>surface(y,a+da)),.0013));
+    if(hasPersianDetails(look)) {
+      const leafSurface=(a,y)=>surface(y,a);
+      for(let k=0;k<6;k++)work.push(...splitLeaf(leafSurface,k*Math.PI/3,-.067,.25,.011));
+      addMerged(l,[line(Array.from({length:49},(_,i)=>{
+        const a=i*Math.PI/24;return surface(-.067+.005*Math.sin(a*6),a);
+      }),.0012)],INLAY,thread);
+    } else for(let k=0;k<6;k++) {
+        const a=k*Math.PI/3;
+        work.push(line([[.018,-.052],[.095,-.057],[-.05,-.067],[.09,-.076],[.025,-.082]]
+          .map(([da,y])=>surface(y,a+da)),.0013));
     }
-    addMerged(l,work,SILVER,thread);
+    addMerged(l,work,SILVER,hasPersianDetails(look)?{...thread,side:THREE.DoubleSide}:thread);
     addMerged(l,[ring(-.041,.061),ring(-.081,.055),ring(-.103,.049)],0xd6d4dc,metal);
     addMerged(l,[cyl(.047,.046,.007,20,true,[0,-.116,0])],0x55435f,leather);
   }
@@ -168,6 +267,7 @@ export function createSilverWandererDetail(h) {
     shinF:(g)=>skirt(g,1,true),shinB:(g)=>skirt(g,-1,true)};
   return Object.fromEntries(Object.entries(base).map(([part,decorate])=>[part,(g,look,d)=>{
     if (part === 'head' && look?.hairStyle === 'swept_long_front') { newHair(g,look); return; }
+    if (part === 'head' && look?.hairStyle === 'court_half_tie') { courtHair.head(g,look); return; }
     if (part === 'head' && look?.hairStyle === 'full_layered') { fullHair.head(g,look); return; }
     decorate(g,look,d);details[part]?.(g,look,d);
   }]));

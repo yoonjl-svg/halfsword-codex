@@ -15,9 +15,10 @@ export const STAGE_DETAIL_PROFILES = Object.freeze({
   sluiceDrip: { stage: 'sluice', duration: 0.7, gain: 0.042, gap: 2.5 },
   jungleRustle: { stage: 'sluice', duration: 2.0, gain: 0.025, gap: 8 },
   jungleBird: { stage: 'sluice', duration: 1.7, gain: 0.043, gap: 30 },
+  caravanRing: { stage: 'dayr', duration: 1.1, gain: 0.025, gap: 22 },
 });
 
-export const hasStageDetails = (stage) => stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove' || stage === 'frozen_bay' || stage === 'qinglan' || stage === 'sluice';
+export const hasStageDetails = (stage) => stage === 'dayr' || stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove' || stage === 'frozen_bay' || stage === 'qinglan' || stage === 'sluice';
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 const TAU = Math.PI * 2;
 
@@ -29,6 +30,19 @@ export function synthStageDetail(kind, sr, rng) {
   const profile = STAGE_DETAIL_PROFILES[kind];
   if (!profile || !Number.isFinite(sr) || sr < 8000) return new Float32Array(0);
   const out = new Float32Array(Math.ceil(profile.duration * sr));
+  if (kind === 'caravanRing') {
+    // A small iron ring touching its peg: dry, damped and irregular partials.
+    const pitch = 0.96 + rng() * 0.08;
+    for (let i = 0; i < out.length; i++) {
+      const t = i / sr, attack = 1 - Math.exp(-t / 0.0018);
+      const tail = Math.min(1, (out.length - 1 - i) / (sr * 0.08));
+      out[i] = attack * tail * (0.23 * Math.sin(TAU * 670 * pitch * t) * Math.exp(-t / 0.095)
+        + 0.10 * Math.sin(TAU * 1093 * pitch * t) * Math.exp(-t / 0.057)
+        + 0.06 * Math.sin(TAU * 1771 * pitch * t) * Math.exp(-t / 0.03)
+        + 0.035 * (rng() * 2 - 1) * Math.exp(-t / 0.009));
+    }
+    return out;
+  }
   if (kind === 'jungleBird') {
     // Sparse rounded woodland call, a procedural interpretation rather than
     // a species recording. Two breaths with a quiet gap, not a constant chorus.
@@ -254,6 +268,10 @@ export class StageDetailSound {
       // Open inland ice: sparse dry air, without surf, storm or room echo.
       addNoise({ rate: 0.87, frequency: 520, gain: 0.0026, lfo: 0.037, depth: 0.0009, ceiling: 1500, pan: -0.15 });
       addNoise({ rate: 0.71, type: 'lowpass', frequency: 135, gain: 0.0035, lfo: 0.061, depth: 0.0011, ceiling: 750, pan: 0.12 });
+    } else if (this.stage === 'dayr') {
+      // Dry air through a shaded brick iwan. No surf or crowded market bed.
+      addNoise({ rate: 0.81, frequency: 430, gain: 0.0017, lfo: 0.038, depth: 0.00065, ceiling: 1250, pan: 0.12 });
+      addNoise({ rate: 0.69, frequency: 1100, gain: 0.00075, lfo: 0.061, depth: 0.0003, ceiling: 2100, pan: -0.2 });
     } else if (this.stage === 'qinglan') {
       // Clear noon: sparse leaves/awning air above a very distant river.
       // The near seep is represented only by its visible, scheduled drops.

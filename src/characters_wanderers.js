@@ -3,12 +3,16 @@ import { getLook, CHARACTER_LOOK_VERSION } from './looks.js';
 
 export const WANDERER_CHARACTERS = [
   {
-    id: 'silver_wanderer', name: '은발의 검사', epithet: '보랏빛 망토의 여행자',
-    weapon: 'longsword', voice: 'tome',
-    backstory: '사용자가 제공한 그림을 바탕으로 만든 외형 시안. 이름과 배경은 아직 정하지 않았다.',
-    ai: { level: 'normal', persona: { school: 'longsword', idle: { guard: 'pflugR', gesture: 'still' } } },
+    id: 'silver_wanderer', name: '은발의 검사', epithet: '이름을 잃은 왕실 근위검사',
+    origin: '출신 불명 · 왕실 근위대', weapon: 'monohoshizao', voice: 'tome',
+    backstory: '이름과 출신을 잃었지만, 검을 다루는 몸의 기억은 남아 있었다. 낯선 긴 칼로 보여 준 실력을 인정받아 왕실 근위대에 들어갔다. 은빛 갑옷의 덩굴 문양은 이제 그가 지키는 왕실의 표식이다. 소금길의 역참에서는 왕실 호송대를 호위한다. 과거를 묻는 말에는 답하지 못해도, 맡은 사람을 지키는 일에는 망설임이 없다.',
+    want: '잃어버린 이름을 찾는 동안에도, 자신을 받아 준 왕실과 맡겨진 사람들을 지키는 것.',
+    school: '기존 모노호시자오 동작을 사용하는 창작 검객. 의상의 문양으로 실제 출신이나 역사적 유파를 확정하지 않는다.',
+    temperament: '예의 바르고 과묵하다. 기억나지 않는 일을 아는 척하지 않는다.',
+    ai: { level: 'normal', persona: { school: 'monohoshizao', idle: { guard: 'tagR', gesture: 'still' } } },
     look: getLook('silver_wanderer'), lookVersion: CHARACTER_LOOK_VERSION.silver_wanderer,
-    taunt: '준비됐나.', lines: { intro: ['준비됐나.'], win: ['여기까지 하자.'] },
+    taunt: '왕실의 호송대다. 용건을 밝혀라.',
+    lines: { intro: ['왕실의 호송대다. 용건을 밝혀라.', '이름은 잊었지만, 이 자세는 기억한다.'], win: ['이곳은 내가 지킨다.', '더 다가오지 마라.'] },
   },
   {
     id: 'sherpa', name: '세르파', epithet: '길 밖을 조사하는 안내인', age: null,
