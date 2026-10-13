@@ -83,6 +83,23 @@ function pavingTexture() {
   });
 }
 
+function woodTexture() {
+  const r = rng(141061);
+  return canvasTex(256, 512, (ctx, w, h) => {
+    ctx.fillStyle = '#ddd1b7'; ctx.fillRect(0, 0, w, h);
+    for (let i = 0; i < 180; i++) {
+      const x = r() * w;
+      ctx.strokeStyle = i % 4 ? 'rgba(72,59,41,.11)' : 'rgba(255,243,211,.22)';
+      ctx.lineWidth = .4 + r() * 1.7; ctx.beginPath(); ctx.moveTo(x, 0);
+      ctx.bezierCurveTo(x + 4, h * .3, x - 3, h * .65, x + (r() - .5) * 5, h); ctx.stroke();
+    }
+    for (let i = 0; i < 10; i++) {
+      const x = r() * w, y = r() * h;
+      ctx.strokeStyle = 'rgba(85,67,43,.16)'; ctx.lineWidth = .8; ctx.beginPath(); ctx.ellipse(x, y, 2 + r() * 3, 7 + r() * 10, 0, 0, Math.PI * 2); ctx.stroke();
+    }
+  });
+}
+
 // Two-centred pointed arch: the two circles meet at a cusp, and meet their
 // vertical jambs tangentially. These are actual open vaults, not dark decals.
 function archPoint(width, spring, rise, t) {
@@ -125,6 +142,16 @@ function vaultedCell(K, x, width = 4.15) {
   for (const dx of [-.31, -.1, .11, .32]) K.put('wood', box(.018, 1.79, .025), 0x403d34, [dx, 1.06, -2.65]);
   K.put('iron', box(.71, .055, .035), C.iron, [0, 1.48, -2.61]);
   K.put('iron', new THREE.TorusGeometry(.065, .014, 4, 8), C.iron, [.24, 1.06, -2.6]);
+  if (Math.abs(Math.abs(x) - 10.62) < .1 || Math.abs(x) < .1) {
+    for (const y of [.58, 1.48]) {
+      K.put('iron', box(.73, .057, .045), C.iron, [0, y, -2.60]);
+      for (const dx of [-.27, .27]) K.put('iron', new THREE.SphereGeometry(.025, 6, 4), 0x726959, [dx, y, -2.567]);
+    }
+    for (let j = 0; j < 9; j++) K.put('trim', box(.28, .13, .095), j % 3 ? C.worn : C.brick,
+      [-1.4 + j * .35, 4.83, .063], undefined, 1, { rough: .012, vary: .1 });
+    for (const side of [-1, 1]) for (let j = 0; j < 4; j++) K.put('trim', box(.23, .115, .065), C.worn,
+      [side * 1.456, .21 + j * .16, .204], [0, 0, side * j * .014], 1, { rough: .016, vary: .13 });
+  }
   voussoirs(K, 2.66, 2.15, 1.95, .25, .025, .17, C.pale, 24);
   for (const sign of [-1, 1]) {
     masonry(K, box(.23, 2.16, .18), C.pale, [sign * 1.455, 1.08, .10]);
@@ -154,14 +181,30 @@ function iwan(K, position, rotation, scale = 1) {
     // Shallow blank recessed brick panels, a caravanserai's sober facade.
     masonry(K, box(1.30, 2.1, .055), C.worn, [sign * 5.14, 6.89, .04]);
     masonry(K, box(1.03, 1.86, .073), C.brick, [sign * 5.14, 6.89, .085]);
+    // Quiet brick basket bond inside the existing recessed panels: shallow
+    // projecting headers and imperfect edges, with no added tile or writing.
+    for (let row = 0; row < 3; row++) for (let col = 0; col < 2; col++) for (const pair of [-1, 1]) {
+      const vertical = (row + col) % 2;
+      K.put('trim', box(.37, .155, .055), C.brick,
+        [sign * 5.14 + (col - .5) * .47 + (vertical ? pair * .093 : 0), 6.36 + row * .53 + (vertical ? 0 : pair * .093), .138],
+        [0, 0, vertical ? Math.PI / 2 : 0], 1, { rough: .006, vary: .065 });
+    }
   }
   masonry(K, box(13.12, .24, .55), C.pale, [0, 10.86, -.015]);
   masonry(K, box(12.82, .15, .42), C.worn, [0, 10.39, .07]);
   for (let i = 0; i < 36; i++) K.put('trim', box(.16, .20, .16), C.pale, [-6.04 + i * .345, 10.58, .18], [0, 0, Math.PI / 4], 1, { vary: .14 });
-  // Simple open doors stand against the tunnel walls, leaving the desert view.
+  // Aged plank leaves remain open against the tunnel: iron strap hinges,
+  // rounded rivet heads and worn pull rings reveal their thickness up close.
   for (const sign of [-1, 1]) {
-    K.put('wood', box(.11, 3.45, 2.3), C.wood, [sign * 3.69, 1.77, -3.55]);
-    for (const y of [.68, 1.83, 2.91]) K.put('iron', box(.14, .13, 2.15), C.iron, [sign * 3.66, y, -3.55]);
+    for (let j = 0; j < 8; j++) K.put('wood', box(.13, 3.45, .278), j % 3 ? C.wood : 0x827058,
+      [sign * 3.69, 1.77, -4.556 + j * .2875], undefined, 1, { vary: .11, rough: .009 });
+    for (const y of [.68, 1.83, 2.91]) {
+      K.put('iron', box(.15, .115, 2.09), C.iron, [sign * 3.66, y, -3.57]);
+      for (const z of [-4.34, -3.57, -2.80]) K.put('iron', new THREE.SphereGeometry(.037, 7, 4), 0x706858, [sign * 3.566, y, z]);
+      K.put('iron', cyl(.064, .064, .23, 7), C.iron, [sign * 3.66, y, -4.64]);
+    }
+    K.put('iron', box(.04, .23, .15), C.iron, [sign * 3.588, 1.43, -2.78]);
+    K.put('iron', new THREE.TorusGeometry(.112, .022, 6, 14), 0x706858, [sign * 3.547, 1.32, -2.78], [0, Math.PI / 2, 0]);
   }
   K.put('shade', box(7.55, .014, 4.8), 0x776b53, [0, .015, -2.4]);
   K.pop();
@@ -208,12 +251,14 @@ function floor(K) {
   const paved = K.put('floor', g, 0xffffff, undefined, undefined, 1, { uv: 'box', uvScale: 1 / 5.76, vary: 0, noise: .012 });
   const p = paved.attributes.position, color = paved.attributes.color;
   for (let i = 0; i < p.count; i++) {
-    // Architecture lies beyond the character shadow map. This fixed, soft
-    // afternoon shade grounds the west/south walls without changing lighting.
-    const west = 1 - THREE.MathUtils.smoothstep(p.getX(i), -18, -12.5);
-    const south = 1 - THREE.MathUtils.smoothstep(p.getZ(i), -18, -13.2);
-    const shade = 1 - Math.max(west, south) * .25;
-    color.setXYZ(i, color.getX(i) * shade, color.getY(i) * shade, color.getZ(i) * shade);
+    // Sunset enters through the eastern iwan. The courtyard receives cool
+    // open-sky fill, with a long warm strip through the gate; geometry stays
+    // flat. Architecture lies outside the small character shadow map.
+    const east = THREE.MathUtils.smoothstep(p.getX(i), 1, 18);
+    const gate = (1 - THREE.MathUtils.smoothstep(Math.abs(p.getZ(i) - .01765 * (18 - p.getX(i))), 3.05, 4.15))
+      * THREE.MathUtils.smoothstep(p.getX(i), -16, -8);
+    const shade = (.11 + east * .12) * (1 - gate);
+    color.setXYZ(i, color.getX(i) * (1 - shade + gate * .17), color.getY(i) * (1 - shade * .87 + gate * .025), color.getZ(i) * (1 - shade * .48 - gate * .10));
   }
   // Worn perimeter flags stand well outside the duel/camera clear area.
   for (const sign of [-1, 1]) for (let j = -14; j <= 14; j += 1.1) {
@@ -236,6 +281,32 @@ function shrub(K, x, z, scale, seed) {
   K.pop();
 }
 
+function nicheLuggage(K) {
+  // One modest stopover still life, tucked into an existing shaded lodging
+  // bay. The cloth drapes over the load with real folds and a sagging hem.
+  K.push([19.03, 0, -10.62], -Math.PI / 2);
+  K.put('wood', box(1.8, .11, 1.08), C.wood, [0, .41, -.06]);
+  for (const x of [-.68, .68]) for (const z of [-.43, .30]) K.put('wood', box(.10, .37, .11), C.wood, [x, .185, z]);
+  K.put('wood', box(1.27, .43, .66), 0x726650, [0, .675, -.06]);
+  const clothAt = (u, v) => [u, 1.00 - Math.max(0, Math.abs(u) - .58) * 1.3 - Math.max(0, Math.abs(v) - .28) * 1.36
+    + Math.sin(u * 18 + v * 3) * .022 * THREE.MathUtils.smoothstep(Math.abs(v), .20, .59), v - .06];
+  const points = [];
+  for (let i = 0; i < 16; i++) for (let j = 0; j < 12; j++) {
+    const u = -.81 + i * 1.62 / 16, v = -.59 + j * 1.18 / 12;
+    const a = clothAt(u, v), b = clothAt(u + 1.62 / 16, v), c = clothAt(u, v + 1.18 / 12), d = clothAt(u + 1.62 / 16, v + 1.18 / 12);
+    points.push(...a, ...c, ...b, ...b, ...c, ...d);
+  }
+  K.put('cloth', triangles(points), 0x8f8470, undefined, undefined, 1, { noise: .028, vary: .03 });
+  for (const u of [-.45, .42]) for (let j = 0; j < 12; j++) {
+    const a = clothAt(u, -.59 + j * 1.18 / 12), b = clothAt(u, -.59 + (j + 1) * 1.18 / 12);
+    a[1] += .019; b[1] += .019; limb(K, 'rope', a, b, .016, .016, 0xa4977b, {}, 5);
+  }
+  // A rolled muted wool blanket rests beside the covered pack.
+  K.put('cloth', cyl(.17, .17, .78, 12), 0x6e7467, [1.08, .20, -.18], [0, 0, Math.PI / 2]);
+  for (const x of [.83, 1.33]) K.put('rope', new THREE.TorusGeometry(.174, .012, 4, 12), 0xafa085, [x, .20, -.18], [0, Math.PI / 2, 0]);
+  K.pop();
+}
+
 function props(K) {
   const well = [10.7, 0, -12.1]; K.push(well, -.18);
   for (let level = 0; level < 4; level++) for (let j = 0; j < 16; j++) {
@@ -248,13 +319,18 @@ function props(K) {
   for (const sign of [-1, 1]) limb(K, 'wood', [sign * 1.13, 2.14, 0], [sign * .39, 2.94, 0], .045, .045, C.wood, {}, 6);
   K.put('iron', new THREE.TorusGeometry(.22, .035, 6, 18), C.iron, [0, 2.74, 0]);
   for (let i = 0; i < 4; i++) K.put('rope', new THREE.TorusGeometry(.35 + i * .035, .018, 5, 22), 0xa39473, [-1.12, .036 + i * .024, .91], [Math.PI / 2, .04, 0]);
+  K.put('wood', cyl(.24, .19, .37, 12, true), 0x897351, [1.54, .195, .76]);
+  K.put('shade', cyl(.214, .214, .012, 12), 0x4e4535, [1.54, .33, .76]);
+  for (const y of [.10, .32]) K.put('iron', new THREE.TorusGeometry(y < .2 ? .207 : .233, .018, 4, 12), C.iron, [1.54, y, .76], [Math.PI / 2, 0, 0]);
+  K.put('iron', new THREE.TorusGeometry(.22, .013, 4, 12, Math.PI), C.iron, [1.54, .36, .76]);
   K.pop();
   // Terracotta water jars at the shaded door, with visibly open dark necks.
-  for (const [x, z, s] of [[16.1, -6.7, 1], [15.4, -7.05, .69], [-15.5, 11.2, .9]]) {
+  for (const [x, z, s] of [[16.1, -6.7, 1], [18.86, -9.35, .69], [-15.5, 11.2, .9]]) {
     const profile = [[0, 0], [.22, 0], [.37, .24], [.43, .55], [.33, .87], [.18, 1.02], [.18, 1.17], [.22, 1.2]];
     K.put('pot', new THREE.LatheGeometry(profile.map(([a, b]) => new THREE.Vector2(a * s, b * s)), 12), 0xa97c59, [x, 0, z]);
     K.put('shade', cyl(.168 * s, .168 * s, .014, 12), 0x504434, [x, 1.16 * s, z]);
   }
+  nicheLuggage(K);
   for (const [x, z, s] of [[13.6, 14.7, 1.3], [-14.7, -12.4, .9], [-16, 14.2, 1.5], [15.8, -11.6, .8], [13.5, -15.6, .75], [-8.8, 16.5, .7]]) shrub(K, x, z, s, 141020 + Math.round(x * 10));
   const r = rng(141030);
   for (let i = 0; i < 45; i++) {
@@ -265,8 +341,27 @@ function props(K) {
 }
 
 function desert(K, scene) {
-  K.put('desert', new THREE.PlaneGeometry(680, 680).rotateX(-Math.PI / 2), C.sand, [0, -.08, 0], undefined, 1, { noise: .025 });
-  const r = rng(141032);
+  // Saline weathering belongs to the same flat surface: broad, almost
+  // imperceptible whitening far off the road, with no pasted islands or mounds.
+  const xs = [-340, -180, -80, 0, 24, 50, ...Array.from({ length: 27 }, (_, i) => 60 + i * 5), 240, 340];
+  const zs = [-340, -180, -100, ...Array.from({ length: 31 }, (_, i) => -75 + i * 5), 110, 180, 340];
+  const groundPoints = [];
+  for (let i = 0; i < xs.length - 1; i++) for (let j = 0; j < zs.length - 1; j++) {
+    const a = [xs[i], -.08, zs[j]], b = [xs[i + 1], -.08, zs[j]], c = [xs[i], -.08, zs[j + 1]], d = [xs[i + 1], -.08, zs[j + 1]];
+    groundPoints.push(...a, ...c, ...b, ...b, ...c, ...d);
+  }
+  const ground = K.put('desert', triangles(groundPoints), C.sand, undefined, undefined, 1, { noise: .008 });
+  const p = ground.attributes.position, color = ground.attributes.color, pale = new THREE.Color(0xe6d7b8);
+  for (let i = 0; i < p.count; i++) {
+    let fade = 0;
+    for (const [x, z, rx, rz] of [[88, -32, 18, 12], [132, 37, 23, 16], [169, -49, 21, 14]]) {
+      const dx = (p.getX(i) - x) / rx, dz = (p.getZ(i) - z) / rz;
+      const d = Math.hypot(dx, dz) * (1 + Math.sin(dx * 3 + dz * 2) * .09);
+      fade = Math.max(fade, Math.max(0, 1 - d * d) ** 3 * .16);
+    }
+    color.setXYZ(i, color.getX(i) + (pale.r - color.getX(i)) * fade,
+      color.getY(i) + (pale.g - color.getY(i)) * fade, color.getZ(i) + (pale.b - color.getZ(i)) * fade);
+  }
   // The horizon is deliberately low and nearly level: a dry salt basin rather
   // than giant sand dunes. Muted broken ridges sit far behind the open iwan.
   for (let band = 0; band < 3; band++) {
@@ -276,43 +371,71 @@ function desert(K, scene) {
       const height = q => 1.2 + band * 1.1 + Math.max(0, Math.sin(q * .61 + band) + Math.sin(q * 1.78) * .3) * (2.9 + band);
       p.push(x, -.12, z, x, height(i + 1), next, x, height(i), z, x, -.12, z, x, -.12, next, x, height(i + 1), next);
     }
-    K.put('horizon', triangles(p), [0xb7aa94, 0xc0b6a3, 0xcac3b3][band]);
+    K.put('horizon', triangles(p), [0xa58b8e, 0xb79a9d, 0xc8a7a5][band]);
   }
-  for (let j = 0; j < 38; j++) {
-    const x = 25 + r() * 140, z = (r() - .5) * 190, width = 4 + r() * 15;
-    K.put('salt', triangles([x, -.067, z, x + width, -.067, z + .4, x + width * .8, -.067, z - .4,
-      x, -.067, z, x + width * .8, -.067, z - .4, x - 2, -.067, z - .9]), j % 3 ? 0xe1d6bc : 0xcebb98);
-  }
-  const map = canvasTex(512, 256, (ctx, w, h) => {
+  const map = canvasTex(1024, 512, (ctx, w, h) => {
     const gradient = ctx.createLinearGradient(0, 0, 0, h);
-    gradient.addColorStop(0, '#527f99'); gradient.addColorStop(.36, '#9bb7bf');
-    gradient.addColorStop(.49, '#e0d9be'); gradient.addColorStop(.54, '#e8d6b2');
-    gradient.addColorStop(1, '#c8b99c'); ctx.fillStyle = gradient; ctx.fillRect(0, 0, w, h);
-    for (let i = 0; i < 8; i++) {
-      ctx.fillStyle = 'rgba(242,233,205,.055)'; ctx.fillRect(0, 96 + i * 4, w, 1.5);
+    gradient.addColorStop(0, '#273554'); gradient.addColorStop(.23, '#536386');
+    gradient.addColorStop(.36, '#9990b2'); gradient.addColorStop(.425, '#ce98aa');
+    gradient.addColorStop(.475, '#f4b095'); gradient.addColorStop(.498, '#ffcb99');
+    gradient.addColorStop(.535, '#d6a192'); gradient.addColorStop(1, '#a08280');
+    ctx.fillStyle = gradient; ctx.fillRect(0, 0, w, h);
+    // Longitude matches the sphere's +X opening. Broad amber haze is confined
+    // to the setting sun; the opposite sky retains a cooler violet dusk.
+    const azimuth = Math.atan2(-6, 340), u = ((Math.PI - azimuth) / (2 * Math.PI));
+    for (const x of [u * w - w, u * w, u * w + w]) {
+      ctx.save(); ctx.translate(x, h * .492); ctx.scale(1, .28);
+      const glow = ctx.createRadialGradient(0, 0, 0, 0, 0, w * .26);
+      glow.addColorStop(0, 'rgba(255,215,151,.70)'); glow.addColorStop(.35, 'rgba(255,167,116,.38)'); glow.addColorStop(1, 'rgba(255,140,109,0)');
+      ctx.fillStyle = glow; ctx.fillRect(-w * .26, -w * .26, w * .52, w * .52); ctx.restore();
+    }
+    // Thin, feathered clouds catch peach light. Overlapping translucent
+    // ellipses avoid hard painted stripes across the otherwise open desert sky.
+    const cloud = rng(141046);
+    for (let i = 0; i < 27; i++) {
+      const x = cloud() * w, y = h * (.30 + cloud() * .152), length = 26 + cloud() * 95, height = .8 + cloud() * 2.2;
+      for (let j = 5; j >= 0; j--) {
+        ctx.fillStyle = j > 1 ? 'rgba(154,117,149,.030)' : 'rgba(255,195,159,.10)';
+        ctx.beginPath(); ctx.ellipse(x, y + j * .15, length + j * 6, height + j * .4, -.035, 0, Math.PI * 2); ctx.fill();
+      }
     }
   });
   map.wrapS = map.wrapT = THREE.ClampToEdgeWrapping;
   const sky = new THREE.Mesh(new THREE.SphereGeometry(480, 32, 16), new THREE.MeshBasicMaterial({ map, side: THREE.BackSide, depthWrite: false, fog: false }));
   sky.name = 'dayr-sky'; sky.renderOrder = -10; scene.add(sky);
+  // One texture/quad contains the small amber solar disc and its soft halo.
+  // Depth testing keeps it behind the real gate and desert ridges; it never
+  // overlays fighters or walls. It is static, with no postprocessing bloom.
+  const sunMap = canvasTex(512, 512, (ctx, w, h) => {
+    const glow = ctx.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w / 2);
+    glow.addColorStop(0, 'rgba(255,248,207,1)'); glow.addColorStop(.135, 'rgba(255,235,163,1)');
+    glow.addColorStop(.157, 'rgba(255,205,107,1)'); glow.addColorStop(.165, 'rgba(255,175,81,.54)');
+    glow.addColorStop(.24, 'rgba(255,156,92,.24)'); glow.addColorStop(.50, 'rgba(255,156,111,.09)');
+    glow.addColorStop(1, 'rgba(255,156,111,0)'); ctx.fillStyle = glow; ctx.fillRect(0, 0, w, h);
+  });
+  sunMap.wrapS = sunMap.wrapT = THREE.ClampToEdgeWrapping;
+  const disc = new THREE.Mesh(new THREE.PlaneGeometry(124.8, 124.8), new THREE.MeshBasicMaterial({ map: sunMap, transparent: true, depthWrite: false, fog: false, toneMapped: false }));
+  disc.name = 'dayr-setting-sun'; disc.position.set(340, 12.5, -6); disc.lookAt(0, 2, 0); scene.add(disc);
 }
 
 export function buildDayr(scene, { hemi, sun } = {}) {
   const before = new Set(scene.children);
-  const sunOffset = { x: -8, y: 10, z: -6 };
-  scene.background = new THREE.Color(0xded1b6);
-  scene.fog = new THREE.Fog(0xdcd0b6, 68, 290);
-  if (hemi) { hemi.color.setHex(0xc3d5db); hemi.groundColor.setHex(0xa89a7b); hemi.intensity = 1.35; }
-  if (sun) { sun.color.setHex(0xffdea9); sun.intensity = 2.05; sun.position.set(sunOffset.x, sunOffset.y, sunOffset.z); }
+  // Same azimuth/elevation as the visible disc, scaled into the shared shadow
+  // camera's range. Fighter-only fill keeps the backlit opponent readable.
+  const sunOffset = { x: 14, y: .515, z: -.25 };
+  scene.background = new THREE.Color(0xe6ad96);
+  scene.fog = new THREE.Fog(0xe1ad9b, 68, 290);
+  if (hemi) { hemi.color.setHex(0xb8bfdf); hemi.groundColor.setHex(0xd0a386); hemi.intensity = 1.55; }
+  if (sun) { sun.color.setHex(0xffb878); sun.intensity = 2.6; sun.position.set(sunOffset.x, sunOffset.y, sunOffset.z); }
   const K = new OwnedKit(141001); desert(K, scene); floor(K); courtyard(K); const well = props(K);
-  const brickMap = brickTexture(), pavingMap = pavingTexture();
+  const brickMap = brickTexture(), pavingMap = pavingTexture(), woodMap = woodTexture();
   const standard = (extra = {}) => new THREE.MeshStandardMaterial({ vertexColors: true, roughness: .96, ...extra });
   const materials = {
     brick: standard({ map: brickMap }), trim: standard(), floor: standard({ map: pavingMap }),
-    wood: standard(), iron: standard({ roughness: .83, metalness: .24 }), rope: standard(),
+    wood: standard({ map: woodMap }), iron: standard({ roughness: .83, metalness: .24 }), rope: standard(), cloth: standard({ side: THREE.DoubleSide }),
     leaf: standard({ side: THREE.DoubleSide }), pot: standard({ side: THREE.DoubleSide }),
     rubble: standard(), shade: standard(), desert: standard(),
-    horizon: new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.DoubleSide }), salt: standard({ side: THREE.DoubleSide }),
+    horizon: new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.DoubleSide }),
   };
   for (const [bin, mat] of Object.entries(materials)) {
     const mesh = K.mesh(bin, mat, { cast: ['brick', 'trim', 'wood', 'pot'].includes(bin), receive: true });
@@ -341,7 +464,7 @@ export function buildDayr(scene, { hemi, sun } = {}) {
   let time = 0, nextRing = 11;
   const stage = {
     sunOffset,
-    fighterLight: { color: 0xffe5c5, rimColor: 0xc9dce1, rim: .8, level: .43 },
+    fighterLight: { color: 0xffe3cf, rimColor: 0xffd09a, rim: .92, level: .55 },
     stats: { triangles: trianglesCount, meshes: meshesCount, clearRadius: 10.5, proceduralTextureMax: 1024 },
     excite() {},
     update(dt) {

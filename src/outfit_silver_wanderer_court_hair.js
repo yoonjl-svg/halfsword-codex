@@ -44,7 +44,88 @@ export function createSilverWandererCourtHair(h, originalHead) {
     const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
     geo.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));geo.setIndex(idx);geo.computeVertexNormals();return geo;
   }
+  function crownPoint(theta,a,relief=0) {
+    const r=.1125+.0025*Math.sin(theta)**2+.0013*Math.sin(a*6+theta*3)*Math.sin(theta)**2+relief;
+    return [-.009+r*Math.sin(theta)*Math.cos(a),.005+r*1.075*Math.cos(theta),r*Math.sin(theta)*Math.sin(a)];
+  }
+  function layeredCrown() {
+    const geo=new THREE.SphereGeometry(.1125,40,18,0,Math.PI*2,0,Math.PI*.77),p=geo.attributes.position;
+    for(let i=0;i<p.count;i++) {
+      const a=Math.atan2(p.getZ(i),p.getX(i)),t=Math.floor(i/41)/18;
+      const theta=t*(Math.PI*(.77-.4*Math.max(0,Math.cos(a)))+.035*Math.sin(a*3));
+      const point=crownPoint(theta,a);p.setXYZ(i,...point);
+    }
+    geo.computeVertexNormals();return geo;
+  }
+  function crownSweep(points,widths) {
+    const curve=new THREE.CatmullRomCurve3(points.map(([theta,a])=>new THREE.Vector3(theta,a,0)));
+    const pos=[],uv=[],idx=[],rows=20,columns=8;
+    for(let j=0;j<=rows;j++) {
+      const t=j/rows,center=curve.getPoint(t),u=t*(widths.length-1),k=Math.min(widths.length-2,Math.floor(u));
+      const width=THREE.MathUtils.lerp(widths[k],widths[k+1],u-k);
+      for(let i=0;i<=columns;i++) {
+        const across=i/columns*2-1;
+        // Broad, overlapping scalp-following sections: roots never detach.
+        const theta=center.x+across*.075*Math.sin(t*Math.PI),a=center.y+across*width;
+        pos.push(...crownPoint(theta,a,.0015+.0075*Math.sin(i/columns*Math.PI)*Math.sin(t*Math.PI)));
+        uv.push(i/columns,t);
+        if(j<rows&&i<columns){const n=j*(columns+1)+i;idx.push(n,n+1,n+columns+1,n+1,n+columns+2,n+columns+1);}
+      }
+    }
+    const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+    geo.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));geo.setIndex(idx);geo.computeVertexNormals();return geo;
+  }
+  function plait(points,radius,spread,turns) {
+    const path=new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p))),pieces=[];
+    for(let strand=0;strand<3;strand++) {
+      const braid=[];
+      for(let i=0;i<=60;i++) {
+        const t=i/60,at=path.getPoint(t),axis=path.getTangent(t).normalize();
+        const cross=new THREE.Vector3(0,0,1).addScaledVector(axis,-axis.z).normalize();
+        const normal=new THREE.Vector3().crossVectors(cross,axis).normalize(),a=t*Math.PI*2*turns+strand*Math.PI*2/3;
+        at.addScaledVector(cross,spread*Math.cos(a)).addScaledVector(normal,spread*Math.sin(a));braid.push(at);
+      }
+      pieces.push(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(braid),64,radius,5,false));
+    }
+    return pieces;
+  }
+  function braidedHead(g,look) {
+    // Retain v4's filled side/back volume and long cheek sections, then replace
+    // the smooth cap. The inherited lifted crown locks are gated off in v6.
+    fullHair.head(g,look);
+    const cap=g.children[4];cap.geometry.dispose();cap.geometry=layeredCrown();cap.position.set(0,0,0);
+    const layer=artoriaCloth(g,'silver-wanderer-hair'),dark=[],soft=[];
+    // Overlapping fans cover the whole front crown through the hairline.
+    // The central sweep closes the former smooth triangle between side locks.
+    dark.push(crownSweep([[.13,-.7],[.44,-.43],[.78,-.23],[1.08,-.1],[1.34,.14]],
+      [.92,.67,.52,.37,.012]));
+    soft.push(crownSweep([[.14,-.43],[.48,-.1],[.86,.2],[1.18,.54],[1.53,.94],[1.78,1.12]],
+      [.84,.6,.45,.32,.18,.014]));
+    soft.push(crownSweep([[.12,-.86],[.43,-.7],[.83,-.61],[1.16,-.5],[1.51,-.86],[1.84,-1.03]],
+      [.84,.57,.43,.35,.19,.015]));
+    dark.push(crownSweep([[.17,-1.11],[.53,-1.04],[1.01,-1.0],[1.54,-1.21],[1.95,-1.31]],
+      [.62,.47,.35,.2,.015]));
+    for(let i=0;i<2;i++)dark.push(crownSweep([[.16,.35+i*.8],[.57,.87+i*.67],
+      [1.09,1.52+i*.55],[1.72,1.85+i*.45]], [.62,.46,.37,.018]));
+    // A few broad tips break the cap edge while lying against the filled sides.
+    for(const side of [-1,1])dark.push(lock([[.06,.04,side*.092],[.072,-.015,side*.111],
+      [.04,-.09,side*.132],[.004,-.20,side*.145]], [.035,.045,.037,.003],.007));
+    for(const side of [-1,1])dark.push(lock([[.015,.015,side*.132],[-.03,-.035,side*.166],
+      [-.087,-.09,side*.166],[-.156,-.13,side*.104],[-.219,-.156,side*.016]],
+      [.028,.052,.06,.055,.027],.009));
+    addMerged(layer,dark,look.hair,material);addMerged(layer,soft,0x827d8a,material);
+    const braid=[];
+    for(const side of [-1,1])braid.push(...plait([[.038,.041,side*.115],[.013,.004,side*.149],
+      [-.038,-.044,side*.184],[-.095,-.097,side*.18],[-.169,-.135,side*.108],[-.223,-.154,side*.024]],.004,.005,5));
+    braid.push(...plait([[-.223,-.16,0],[-.237,-.25,0],[-.248,-.34,.006],[-.259,-.435,.014]],.005,.009,5));
+    braid.push(lock([[-.26,-.43,.014],[-.269,-.48,.014],[-.278,-.54,.007]], [.031,.042,.003],.008));
+    addMerged(layer,braid,0x918b99,material);
+    addMerged(layer,[ball(.018,16,10,[-.237,-.152,0],null,[.25,.62,1.4])],0xd8cfb7,ivory);
+    addMerged(layer,[bake(new THREE.TorusGeometry(.020,.002,5,24),[-.242,-.152,0],
+      [0,Math.PI/2,0],[1.3,.64,1]),cyl(.017,.016,.011,12,false,[-.26,-.431,.014])],0xad914e,gold);
+  }
   function head(g,look) {
+    if(look?.hairStyle==='court_braided_layers'){braidedHead(g,look);return;}
     originalHead(g,look);
     const layer=artoriaCloth(g,'silver-wanderer-hair');
     // Compact the existing face-framing locks and gather their rear ends.

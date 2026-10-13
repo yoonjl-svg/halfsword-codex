@@ -5,12 +5,12 @@ import { createSilverWandererFullHair } from './outfit_silver_wanderer_full_hair
 import { createSilverWandererCourtHair } from './outfit_silver_wanderer_court_hair.js';
 
 export function createSilverWandererDetail(h) {
-  const { THREE, bake, box, cyl, ball, addMerged, CLOTH, artoriaCloth } = h;
+  const { THREE, bake, box, cyl, ball, addMerged, CLOTH, artoriaCloth, artoriaRoundedBox } = h;
   const base = createSilverWandererOutfit(h), SILVER = 0xc5c5cc, GOLD = 0xad914e;
   const newHair = createSilverWandererHair(h);
   const fullHair = createSilverWandererFullHair(h,base.head);
   const courtHair = createSilverWandererCourtHair(h,base.head);
-  const hasPersianDetails = look => ['full_layered','court_half_tie'].includes(look?.hairStyle);
+  const hasPersianDetails = look => ['full_layered','court_half_tie','court_braided_layers'].includes(look?.hairStyle);
   const thread = { ...CLOTH, metalness: .12, roughness: .73 };
   const metal = { ...CLOTH, metalness: .6, roughness: .36, steel: .7 };
   const leather = { ...CLOTH, metalness: 0, roughness: .83 };
@@ -135,11 +135,19 @@ export function createSilverWandererDetail(h) {
     edging.push(line(Array.from({length:37},(_,i)=>collar(.253,.58+i/36*(Math.PI*2-1.16))),.0018));
     addMerged(l,edging,0x8d879d,thread); addMerged(l,silver,SILVER,thread);
     if(hasPersianDetails(look))persianCollar(l);
+    if(look?.hairStyle==='court_braided_layers') {
+      const border=[];
+      for(const side of [-1,1])for(const a of [.86,1.22,1.58,1.94,2.3,2.66]) {
+        const surface=(u,y)=>collar(y,side*u,.0035);
+        border.push(...splitLeaf(surface,a,.055,.052,.009));
+      }
+      addMerged(l,border,INLAY,{...thread,side:THREE.DoubleSide});
+    }
     // A modest three-button placket and soft white seam folds on the shirt.
     const shirtX = y => .12 * (.96 + .04 * (y + .14) / .28) + .0015;
     addMerged(l,[.069,.016,-.037].map(y=>bake(ball(.0038,8,6),[shirtX(y),y,.002],null,[.5,1,1])),SILVER,metal);
     addMerged(l,[-1,1].map(s=>line([[shirtX(.083),.083,s*.045],[shirtX(.014),.014,s*.054],[shirtX(-.091),-.091,s*.061]],.001)),0xd8d8d7,leather);
-    if (look?.hairStyle === 'court_half_tie') { courtHair.chest(g,look); return; }
+    if (['court_half_tie','court_braided_layers'].includes(look?.hairStyle)) { courtHair.chest(g,look); return; }
     if (look?.hairStyle === 'full_layered') { fullHair.chest(g,look); return; }
     if (look?.hairStyle === 'swept_long_front') return;
     const strands=[];
@@ -150,15 +158,27 @@ export function createSilverWandererDetail(h) {
     }
     addMerged(l,strands,0xa39caa,{...thread,metalness:0,roughness:.65});
   }
-  function abdomen(g) {
+  function abdomen(g,look) {
     soften(g); const l=layer(g), stitches=[];
     for (const y of [-.026,-.079]) for(let z=-.14;z<.15;z+=.012)
       stitches.push(line([[.12,y,z],[.12,y,z+.006]],.0008,3));
     addMerged(l,stitches,0x968076,leather);
-    // Engraved frame and tongue around the existing buckle, no belt resizing.
-    addMerged(l,[line([[.134,-.022,-.039],[.134,-.022,.009],[.134,-.081,.009],
-      [.134,-.081,-.039],[.134,-.022,-.039]],.002),
-      line([[.14,-.05,-.03],[.14,-.043,-.012],[.14,-.055,-.003]],.0014)],SILVER,metal);
+    if(look?.hairStyle==='court_braided_layers') {
+      // A shallow plum sash sits over the original belt; no body widening.
+      const old=g.children[0].children.find(n=>n.name==='silver-wanderer-cloth');
+      for(const mesh of old?.children||[])if(mesh.material?.color.getHex()===0x79737d)mesh.visible=false;
+      addMerged(l,[bake(artoriaRoundedBox(.242,.058,.345,.013),[0,-.046,0])],0x513c60,thread);
+      addMerged(l,[-.023,-.069].map(y=>line([[.124,y,-.155],[.127,y,-.06],[.127,y,.06],[.124,y,.155]],.0013)),INLAY,thread);
+      const front=(u,v)=>[.14,v,u];
+      addMerged(l,[rosette(front,-.015,-.046,.027)],INLAY,chased);
+      addMerged(l,[rosette((u,v)=>[.142,v,u],-.015,-.046,.018)],SILVER,chased);
+      addMerged(l,[bake(ball(.008,8,6),[.145,-.046,-.015],null,[.45,1,1])],0x386b70,metal);
+    } else {
+      // Engraved frame and tongue around the existing buckle, no belt resizing.
+      addMerged(l,[line([[.134,-.022,-.039],[.134,-.022,.009],[.134,-.081,.009],
+        [.134,-.081,-.039],[.134,-.022,-.039]],.002),
+        line([[.14,-.05,-.03],[.14,-.043,-.012],[.14,-.055,-.003]],.0014)],SILVER,metal);
+    }
     addMerged(l,[.06,.093,.126].map(z=>bake(ball(.0025,6,4),[.12,-.05,z],null,[.5,1,1])),0x211a24,leather);
     addMerged(l,[box(.006,.063,.009,[.123,-.052,.047]),box(.006,.063,.009,[.12,-.052,-.079])],0x604957,leather);
   }
@@ -249,13 +269,32 @@ export function createSilverWandererDetail(h) {
     addMerged(l,[ring(-.041,.061),ring(-.081,.055),ring(-.103,.049)],0xd6d4dc,metal);
     addMerged(l,[cyl(.047,.046,.007,20,true,[0,-.116,0])],0x55435f,leather);
   }
-  function skirt(g,side,lower) {
-    const l=layer(g), a=side===1?.14:Math.PI*2-.14;
+  function skirt(g,side,lower,look) {
+    const tailored=look?.hairStyle==='court_braided_layers',opening=tailored?.23:.14;
+    const l=layer(g), a=side===1?opening:Math.PI*2-opening;
     const rows=lower?[[.282,.118,.115,-.034],[.14,.127,.125,-.038],[-.09,.145,.142,-.04],[-.175,.13,.136,-.037]]
       :[[.25,.135,.13,-.019],[.11,.142,.137,-.022],[-.12,.137,.137,-.03],[-.265,.134,.136,-.033]];
+    if(tailored)rows[3][0]=lower?(side===1?-.125:-.15):(side===1?-.24:-.26);
     const seam=rows.map(([y,rx,rz,x],j)=>[x+rx*Math.cos(a)*(1+.034*Math.cos(a*8+j*.25))+.002,
       y,rz*Math.sin(a)*(1+.034*Math.cos(a*8+j*.25))+side*.001]);
     addMerged(l,[line(seam,.0015)],0x94839f,thread);
+    if(tailored) {
+      const border=[line(seam.map(([x,y,z])=>[x+.001,y,z]),.0011)];
+      if(lower) {
+        const hem=rows[3][0],start=side===1?opening:Math.PI;
+        const surface=(angle,y)=>{
+          const u=THREE.MathUtils.clamp((y-hem)/(-.09-hem),0,1),rx=THREE.MathUtils.lerp(.13,.145,u),rz=THREE.MathUtils.lerp(.136,.142,u);
+          const f=1+.034*Math.cos(angle*8+(3-u)*.25);
+          return [-.037+rx*Math.cos(angle)*f+.001*Math.cos(angle),y,rz*Math.sin(angle)*f+.001*Math.sin(angle)];
+        };
+        border.push(line(Array.from({length:33},(_,i)=>surface(start+i/32*(Math.PI-opening),hem+.018)),.0014));
+        for(let i=0;i<7;i++) {
+          const a=start+.15+i/6*(Math.PI-opening-.3);
+          border.push(...splitLeaf(surface,a,hem+.031,.049,.009));
+        }
+      }
+      addMerged(l,border,INLAY,{...thread,side:THREE.DoubleSide});
+    }
     if(lower) {
       // Narrow engraved ridge on the visible silver greave.
       addMerged(l,[line([[.059,.076,-.018],[.065,.052,0],[.059,.076,.018]],.0014),
@@ -263,11 +302,11 @@ export function createSilverWandererDetail(h) {
     }
   }
   const details={chest,abdomen,pelvis,uarmS:upperArm,uarmO:upperArm,farmS:forearm,farmO:forearm,
-    thighF:(g)=>skirt(g,1,false),thighB:(g)=>skirt(g,-1,false),
-    shinF:(g)=>skirt(g,1,true),shinB:(g)=>skirt(g,-1,true)};
+    thighF:(g,look)=>skirt(g,1,false,look),thighB:(g,look)=>skirt(g,-1,false,look),
+    shinF:(g,look)=>skirt(g,1,true,look),shinB:(g,look)=>skirt(g,-1,true,look)};
   return Object.fromEntries(Object.entries(base).map(([part,decorate])=>[part,(g,look,d)=>{
     if (part === 'head' && look?.hairStyle === 'swept_long_front') { newHair(g,look); return; }
-    if (part === 'head' && look?.hairStyle === 'court_half_tie') { courtHair.head(g,look); return; }
+    if (part === 'head' && ['court_half_tie','court_braided_layers'].includes(look?.hairStyle)) { courtHair.head(g,look); return; }
     if (part === 'head' && look?.hairStyle === 'full_layered') { fullHair.head(g,look); return; }
     decorate(g,look,d);details[part]?.(g,look,d);
   }]));

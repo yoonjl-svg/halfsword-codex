@@ -655,6 +655,7 @@ LOOK_ARCHIVE.silver_wanderer.v2 = { ...LOOK_ARCHIVE.silver_wanderer.v1, outfit: 
 LOOK_ARCHIVE.silver_wanderer.v3 = { ...LOOK_ARCHIVE.silver_wanderer.v2, hairStyle: 'swept_long_front' };
 LOOK_ARCHIVE.silver_wanderer.v4 = { ...LOOK_ARCHIVE.silver_wanderer.v2, hairStyle: 'full_layered' };
 LOOK_ARCHIVE.silver_wanderer.v5 = { ...LOOK_ARCHIVE.silver_wanderer.v4, hairStyle: 'court_half_tie' };
+LOOK_ARCHIVE.silver_wanderer.v6 = { ...LOOK_ARCHIVE.silver_wanderer.v5, hairStyle: 'court_braided_layers' };
 
 LOOK_ARCHIVE.chanda = { v1: {
   tunic: 0x252c4b, quilt: 0x414967, sleeve: 0xa96f4e, straps: null,
@@ -695,7 +696,7 @@ export const CHARACTER_LOOK_VERSION = {
   renji: 'v2',
   eira: 'v1',
   sherpa: 'v1',
-  silver_wanderer: 'v5',
+  silver_wanderer: 'v6',
   chanda: 'v1',
   ratna: 'v3',
 };

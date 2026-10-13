@@ -221,8 +221,8 @@ try {
   assert.deepEqual(landing.play.map(link => link.href), encounters.map(item => new URL(queryFor(item), base).href));
   const expectedNames = registryContract.landing.map(item => item.name);
   assert.deepEqual(landing.headings.map(text => expectedNames.find(name => text.includes(name))).filter(Boolean), expectedNames);
-  const expectedImages = encounters.flatMap(item => (item.id === 'silver_wanderer' ? ['front', 'threeq', 'back', 'detail', 'fittings', 'before-threeq', 'before-detail', 'before-hair-detail', 'before-hair-back', 'before-persian-threeq', 'before-persian-detail', 'before-court-threeq', 'before-court-detail', 'before-court-back'] : item.id === 'renji' ? ['front', 'threeq', 'back', 'feet'] : ['sherpa', 'silver_wanderer'].includes(item.id) ? ['front', 'threeq', 'back'] : ['front', 'threeq']).map(view => new URL(`encounters/${item.image}-${view}.webp`, base).pathname));
-  if (encounterId === 'silver_wanderer') for (const view of ['combat', 'courtyard']) expectedImages.push(new URL(`encounters/dayr-${view}.webp`, base).pathname);
+  const expectedImages = encounters.flatMap(item => (item.id === 'silver_wanderer' ? ['front', 'threeq', 'back', 'detail', 'fittings', 'before-threeq', 'before-detail', 'before-hair-detail', 'before-hair-back', 'before-persian-threeq', 'before-persian-detail', 'before-court-threeq', 'before-court-detail', 'before-court-back', 'before-braid-threeq', 'before-braid-detail', 'before-braid-back'] : item.id === 'renji' ? ['front', 'threeq', 'back', 'feet'] : ['sherpa', 'silver_wanderer'].includes(item.id) ? ['front', 'threeq', 'back'] : ['front', 'threeq']).map(view => new URL(`encounters/${item.image}-${view}.webp`, base).pathname));
+  if (encounterId === 'silver_wanderer') for (const view of ['combat', 'courtyard', 'before-sunset-combat', 'before-sunset-courtyard']) expectedImages.push(new URL(`encounters/dayr-${view}.webp`, base).pathname);
   assert.deepEqual(landing.images.map(image => image.path).sort(), expectedImages.sort());
   assert(landing.images.every(image => image.width > 0 && image.height > 0));
   await page.screenshot({ path: path.join(out, 'landing-portrait.png') });
@@ -261,7 +261,7 @@ try {
     await page.locator('details summary').first().tap();
     const mobile = await page.evaluate(() => ({width: innerWidth, scrollWidth: document.documentElement.scrollWidth, text: document.body.innerText}));
     assert(mobile.scrollWidth <= mobile.width + 1);
-    for (const term of (encounterId === 'silver_wanderer' ? ['은발의 검사', '기억', '모노호시자오', '데이르에 가친'] : ['성별 불명', '조사', '세이버'])) assert(mobile.text.includes(term));
+    for (const term of (encounterId === 'silver_wanderer' ? ['다라이시', '기억', '모노호시자오', '데이르에 가친', '일몰'] : ['성별 불명', '조사', '세이버'])) assert(mobile.text.includes(term));
     await page.screenshot({path: path.join(out, `${encounterId}-320.png`), fullPage:true});
   }
   await page.setViewportSize({ width: 390, height: 844 });
@@ -304,9 +304,12 @@ try {
   async function pause() {
     await page.locator('#btnPause').tap(); await wait(() => game.state === 'paused'); const value = await read(); policy(value); return value;
   }
-  await startRound('first'); await page.screenshot({ path: path.join(out, 'gameplay-landscape.png') });
+  await startRound('first');
   flow.paused = await pause(); await wait(frame => game.renderInfo().frame > frame + 1, flow.paused.frame);
   const still = await read(); assert.deepEqual(still.bodies, flow.paused.bodies); assert.equal(still.steps, flow.paused.steps);
+  // Touch/physics assertions above still run during combat. Capture the already
+  // verified pause state so SwiftShader does not race ongoing physics/painting.
+  await page.screenshot({ path: path.join(out, 'gameplay-paused-landscape.png') });
   await page.locator('#btnResume').tap(); await wait(step => game.state === 'fight' && game.combat.stepNo > step, still.steps);
   flow.resumed = await read(); policy(flow.resumed); assert.equal(flow.resumed.player.uuid, flow.first.state.player.uuid);
   assert.deepEqual(outfitIds(flow.resumed), outfitIds(flow.first.state)); await pause();

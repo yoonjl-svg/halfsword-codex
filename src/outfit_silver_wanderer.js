@@ -62,7 +62,7 @@ export function createSilverWandererOutfit(h) {
     for (const s of [-1, 1]) {
       // The half-up variant supplies a cap-following fringe instead of these
       // two lifted crown locks. Earlier styles keep their original geometry.
-      if (look?.hairStyle !== 'court_half_tie') {
+      if (!['court_half_tie','court_braided_layers'].includes(look?.hairStyle)) {
         locks.push(isoldeLock([[.025, .113, -.024], [.062, .098, s * .047],
           [.064, .061, s * .088], [.021, .018, s * .107]], [.052, .063, .045, .012], .01));
         lights.push(isoldeLock([[.025, .115, -.024], [.061, .102, s * .042],
@@ -140,15 +140,18 @@ export function createSilverWandererOutfit(h) {
     addMerged(l, [cyl(.06, .058, .012, 20, true, [0, -.045, 0]),
       cyl(.053, .05, .012, 20, true, [0, -.082, 0]), cyl(.049, .047, .009, 20, true, [0, -.1, 0])], SILVER, steel);
   }
-  function skirt(g, side, lower) {
+  function skirt(g, side, lower, look) {
     tint(g, WHITE); const l = layer(g);
+    const tailored=look?.hairStyle==='court_braided_layers';
     // Each half follows its own leg; an open front keeps white trousers readable.
-    const start = side === 1 ? .14 : Math.PI;
+    const opening=tailored?.23:.14,start = side === 1 ? opening : Math.PI;
+    const hem=tailored?(side===1?-.125:-.15):-.175;
     const rows = lower ? [[.29, .118, .115, -.034], [.14, .127, .125, -.038], [-.09, .145, .142, -.04], [-.175, .13, .136, -.037]]
       : [[.264, .135, .13, -.019], [.11, .142, .137, -.022], [-.12, .137, .137, -.03], [-.265, .134, .136, -.033]];
-    addMerged(l, [drape(rows, start, Math.PI - .14, .034)], 0x665976, cloth);
+    if(tailored){if(lower)rows[3]=[hem,.13,.136,-.037];else rows[3][0]=side===1?-.24:-.26;}
+    addMerged(l, [drape(rows, start, Math.PI - opening, .034)], 0x665976, cloth);
     if (lower) {
-      addMerged(l, [drape([[-.166, .131, .137, -.037], [-.177, .131, .137, -.037]], start, Math.PI - .14, .034)], HEM, cloth);
+      addMerged(l, [drape([[hem+.009, .131, .137, -.037], [hem-.002, .131, .137, -.037]], start, Math.PI - opening, .034)], HEM, cloth);
       addMerged(l, [drape([[.12, .058, .058], [.043, .063, .06], [-.13, .049, .049], [-.2, .053, .052]], -.92, 1.84, .006)], SILVER, steel);
       addMerged(l, [line([[.058, .12, 0], [.066, .034, 0], [.052, -.13, 0], [.056, -.2, 0]], .0023)], 0xd9dce1, steel);
     }
@@ -158,6 +161,6 @@ export function createSilverWandererOutfit(h) {
     addMerged(layer(g), [-.025, .007, .039].map(x => box(.021, .005, .105, [x, .041, 0], [0, 0, -.05])), SILVER, steel);
   }
   return { head, chest, abdomen, pelvis, uarmS: upperArm, uarmO: upperArm, farmS: forearm, farmO: forearm,
-    thighF: g => skirt(g, 1, false), thighB: g => skirt(g, -1, false),
-    shinF: g => skirt(g, 1, true), shinB: g => skirt(g, -1, true), footF: foot, footB: foot };
+    thighF: (g,look) => skirt(g, 1, false,look), thighB: (g,look) => skirt(g, -1, false,look),
+    shinF: (g,look) => skirt(g, 1, true,look), shinB: (g,look) => skirt(g, -1, true,look), footF: foot, footB: foot };
 }
