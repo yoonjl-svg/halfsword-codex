@@ -18,7 +18,9 @@
 
 실제 채택 시 후보를 `public/sfx/voice/isolde_bleed2.mp3`로 복사하고 `src/sound.js`의 isolde `bleed[1]`만 교체한다. 기존 출혈1/기절/부활·gain1.3·이졸데/미나미 공유는 보존한다. 우화가 이미 편집한기절2는 덮어쓰지 않는다. **이번 변경은 전달용 원본·후보 공개이며 어느 게임의 프로필 배정도 변경하지 않았다.**
 
-출혈2 별도 녹음 공개 검증 진행 중.
+첫 공개 검사는 파일·재생 확인 뒤 미완료 다운로드를 기다리지 않고 브라우저를 닫아 정리 오류가 남았다. 그 결과는 수락하지 않고 검사 도구가 진행 중 요청과 networkidle을 기다리도록 수정해 로컬·공개를 재확인한다.
+
+`7937e79`/Pages38422181535 공개 완료. 공개9파일 해시 일치·3음원 디코딩과 실제 터치 재생·320/390px 화면 통과. 후보 공개이며 게임 배정은 미적용이다.
 
 검증: `node tools/browser/isolde_bleed2_handoff_20261014.mjs <base> /tmp/halfsword-isolde-bleed2-20261014/<report>`.
 공개:https://yoonjl-svg.github.io/halfsword-codex/transfers/isolde-bleed2-20261014/index.html
