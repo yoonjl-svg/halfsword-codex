@@ -1,13 +1,14 @@
-// 잠든 물길 — a forest sluice after an early wet-season shower, about 14:00.
+// 잠든 밀림 — layered rainforest surrounding an old sluice, after a shower at14:00.
 // Visual scenery only. The level floor is flat through the 6.5m fighting area;
-// trees, masonry, roots and water all start beyond the 10.5m camera orbit.
+// tall plants, masonry, roots and water stay outside the 10.5m camera orbit;
+// low ground-cover starts beyond the fighting area without hiding the fighters.
 import * as THREE from 'three';
 import { Kit, rng, h3, box, limb, canvasTex } from './stage_kit.js';
 
 const TAU = Math.PI * 2;
 const HERO = { x: 21.2, z: -1.6, rotation: -Math.PI / 2 };
 const C = {
-  earth: 0x8e6b64, earthDeep: 0x74534e, stone: 0xa0a9a7,
+  earth: 0x68664f, earthDeep: 0x454d3d, stone: 0xa0a9a7,
   stoneDark: 0x7e8780, wet: 0x49564b, tide: 0x313d34,
   bark: 0x958b72, barkDark: 0x686e57, moss: 0x617b48,
   leaf: 0x486a3e, leafDeep: 0x305642, leafLight: 0x819654,
@@ -17,7 +18,7 @@ const C = {
 function soilTexture() {
   const r = rng(63302);
   return canvasTex(512, 512, (g, w, h) => {
-    g.fillStyle = '#dad0bd'; g.fillRect(0, 0, w, h);
+    g.fillStyle = '#c4c7b1'; g.fillRect(0, 0, w, h);
     for (let i = 0; i < 65; i++) {
       const x = r() * w, y = r() * h, rad = 10 + r() * 95;
       const patch = g.createRadialGradient(x, y, 0, x, y, rad);
@@ -29,6 +30,13 @@ function soilTexture() {
       const v = 100 + (r() * 145 | 0);
       g.fillStyle = `rgba(${v},${v - 8},${v - 16},${0.06 + r() * 0.17})`;
       const s = 0.4 + r() * 1.4; g.fillRect(r() * w, r() * h, s, s * 0.7);
+    }
+    // Muted fallen leaves break the bare soil without raised duel-floor props.
+    for(let i=0;i<190;i++) {
+      const x=r()*w,y=r()*h,len=5+r()*12,width=2+r()*4;
+      g.save();g.translate(x,y);g.rotate(r()*TAU);
+      g.fillStyle=i%3?'rgba(61,69,42,0.17)':'rgba(124,106,56,0.22)';
+      g.beginPath();g.moveTo(0,-len/2);g.quadraticCurveTo(width,0,0,len/2);g.quadraticCurveTo(-width,0,0,-len/2);g.fill();g.restore();
     }
     // Faint runoff traces and leaf impressions, with no regular arena markings.
     for (let i = 0; i < 72; i++) {
@@ -123,6 +131,9 @@ function ground(scene, map) {
       const soil = 0.5 + 0.5 * Math.sin(x * 0.31 + Math.sin(z * 0.19) * 2.4);
       color.set(C.earth).lerp(new THREE.Color(C.earthDeep), outer * 0.32 + soil * 0.12);
       color.lerp(new THREE.Color(0x4b6247), outer * (0.60 + 0.18 * Math.sin(z * 0.21) ** 2));
+      // Broad, soft canopy shade belongs to the soil instead of a uniform plaza.
+      const shade = 0.90 + Math.sin(x * 0.38 + Math.cos(z * 0.30)) * 0.07;
+      color.multiplyScalar(shade);
       // No ground vertex in the camera disk rises above the actual duel plane.
       let y = -0.016 + outer * (0.12 + Math.sin(x * 0.21) * Math.cos(z * 0.15) * 0.19);
       y += THREE.MathUtils.smoothstep(rad, 34, 73) * (1.1 + Math.sin(a * 3.2 + 1) * 0.7);
@@ -137,7 +148,7 @@ function ground(scene, map) {
   g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
   g.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
   const mesh = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ map, vertexColors: true, roughness: 1 }));
-  mesh.name = 'sluice-flat-burgundy-earth'; mesh.receiveShadow = true; scene.add(mesh);
+  mesh.name = 'sluice-flat-shaded-loam'; mesh.receiveShadow = true; scene.add(mesh);
 }
 
 function paving(K, r) {
@@ -149,6 +160,9 @@ function paving(K, r) {
       const w = 0.79 + r() * 0.16, d = 0.77 + r() * 0.16, cut = 0.05 + r() * 0.14;
       const y = 0.001 + r() * 0.004;
       const slab = geometry([-w / 2, y, -d / 2, w / 2 - cut, y, -d / 2, w / 2, y, -d / 2 + cut, w / 2, y, d / 2, -w / 2 + cut, y, d / 2, -w / 2, y, d / 2 - cut], [0, 5, 1, 1, 5, 4, 1, 4, 2, 2, 4, 3]);
+      // Keep deterministic RNG consumption while breaking the old parade-like path.
+      const retained = Math.abs(col) <= 1 && h3(row, col, 0, 63973) > 0.38;
+      if (!retained) { slab.dispose(); r(); continue; }
       put(K, 'paving', slab, row < 7 ? 0x999487 : C.stoneDark, [x, 0, z], [0, (r() - 0.5) * 0.09, 0], 1, { vary: 0.2, noise: 0.1, uv: 'box', uvScale: 0.8 });
     }
   }
@@ -410,6 +424,59 @@ function ferns(K, leaves, r) {
   }
 }
 
+// Large leaf silhouettes and overhead layers establish a rainforest interior.
+// This uses merged opaque geometry and an isolated RNG: existing event timing,
+// animals and water are unchanged, with no new materials or physics bodies.
+function jungleInterior(K, leaves, crowns) {
+  const r = rng(63981);
+  const canopy = [[-11,12],[-12,-13],[3,17],[3,-17],[13,13],[14,-13],[25,9],[26,-12]];
+  canopy.forEach(([x,z], i) => {
+    const height = i >= 4 ? 7.2 + r() * 1.2 : 8.6 + r() * 3.2;
+    const a = Math.atan2(z,x), inward = [x * (i >= 4 ? 0.72 : 0.54), height, z * 0.60];
+    limb(K, 'bark', [x,0,z], [x + Math.cos(a)*0.45,height*0.77,z], 0.36,0.16,C.barkDark,{},7);
+    limb(K, 'bark', [x,height*0.67,z], inward,0.18,0.045,C.barkDark,{},6);
+    for(let j=0;j<4;j++) {
+      const angle = a + j*1.7, p = [inward[0]+Math.sin(angle)*2.3,height+j*0.52,inward[2]+Math.cos(angle)*2.8];
+      crowns.push({pos:p,width:3.15+r()*1.2,height:1.7,a:angle,color:j%3?0x567346:C.leaf,detailed:true});
+      broadSpray(leaves,[p[0],p[1]-1.9,p[2]],angle,5,2.1+r()*0.5,r);
+    }
+    // Vines stay around the perimeter, never crossing the combat/camera disk.
+    for(let j=0;j<2;j++) {
+      const px=x+(r()-0.5)*1.4, pz=z+(r()-0.5)*1.4, low=2.4+r()*1.8;
+      const curve=new THREE.CatmullRomCurve3([
+        new THREE.Vector3(px,height,pz),new THREE.Vector3(px+0.5,height*0.63,pz-0.3),
+        new THREE.Vector3(px-0.25,low+1.1,pz+0.25),new THREE.Vector3(px+0.18,low,pz)]);
+      put(K,'vine',new THREE.TubeGeometry(curve,10,0.035,4,false),C.barkDark);
+      broadSpray(leaves,[px,low+0.2,pz],a,3,0.68,r);
+    }
+  });
+  // Broken pockets rather than a circular hedge: broad blades in the middle
+  // layer, small understory below, and low ferns spilling onto the path margins.
+  const pockets=[[10,-10],[12,-7],[13,7],[9,12],[-4,12],[-12,8],[-13,-7],[-4,-13],[4,-12],[18,6],[19,-8]];
+  pockets.forEach(([x,z],i)=>{
+    const height=1.4+r()*1.2;
+    for(let j=0;j<3;j++){
+      let px=x+(r()-0.5)*2.3,pz=z+(r()-0.5)*2.3;
+      const radius=Math.hypot(px,pz);
+      if(radius<15) { px*=15/radius; pz*=15/radius; }
+      broadSpray(leaves,[px,height*(0.65+j*0.23),pz],i*1.4+j,7,1.45+r()*0.85,r);
+      limb(K,'vine',[px,0.03,pz],[px,height,pz],0.045,0.018,0x516440,{},4);
+    }
+  });
+  for(let i=0;i<28;i++){
+    const a=i*2.39996,d=8.5+r()*3.2;
+    const p=[Math.cos(a)*d,0.25+r()*0.2,Math.sin(a)*d];
+    broadSpray(leaves,p,a,5,0.63+r()*0.3,r);
+    limb(K,'vine',[p[0],0.015,p[2]],p,0.035,0.018,0x516440,{},4);
+  }
+  // The masonry becomes a glimpse through vegetation: cover a pier and the
+  // lintel asymmetrically, keeping the central channel visibly open.
+  for(const [x,y,z] of [[18.9,5.3,4.2],[20.2,6.4,3.6],[20.1,7.8,-3.8],[18.9,3.0,-6.1]]){
+    broadSpray(leaves,[x,y,z],r()*TAU,9,1.7+r()*0.5,r);
+    crowns.push({pos:[x+0.4,y+0.2,z],width:2.35,height:1.25,a:r()*TAU,color:C.leafDeep,detailed:true});
+  }
+}
+
 function water(scene, K, r) {
   const poolCenter = new THREE.Vector3(17.0, 0.03, -1.35), positions = [poolCenter.x, poolCenter.y, poolCenter.z], colors = [], indices = [];
   const centerColor = new THREE.Color(C.water), edgeColor = new THREE.Color(0x798568);
@@ -496,12 +563,12 @@ function perchedBird(scene) {
 export function buildSluice(scene, { hemi, sun } = {}) {
   const r = rng(633917), K = new Kit(637317), leaves = [], crowns = [], clock = { value: 0 };
   const sunOffset = { x: -6.2, y: 11.0, z: -7.2 };
-  scene.background = new THREE.Color(0xc6d2c2);
-  scene.fog = new THREE.Fog(0xafc0a9, 30, 100);
-  if (hemi) { hemi.color.set(0xdde7d4); hemi.groundColor.set(0x807664); hemi.intensity = 1.38; }
-  if (sun) { sun.color.set(0xffedd0); sun.intensity = 1.70; sun.position.set(sunOffset.x, sunOffset.y, sunOffset.z); }
+  scene.background = new THREE.Color(0x94a58e);
+  scene.fog = new THREE.Fog(0x7b9176, 26, 90);
+  if (hemi) { hemi.color.set(0xdde7d4); hemi.groundColor.set(0x807664); hemi.intensity = 1.23; }
+  if (sun) { sun.color.set(0xffedd0); sun.intensity = 1.42; sun.position.set(sunOffset.x, sunOffset.y, sunOffset.z); }
   const soil = soilTexture(), stone = stoneTexture(), bark = barkTexture();
-  ground(scene, soil); paving(K, r); sluice(K, leaves, crowns, r); forest(K, leaves, crowns, r); ferns(K, leaves, r);
+  ground(scene, soil); paving(K, r); sluice(K, leaves, crowns, r); forest(K, leaves, crowns, r); ferns(K, leaves, r); jungleInterior(K, leaves, crowns);
   const pool = water(scene, K, r);
   const birdModel = perchedBird(scene);
   // Fallen stones and leaf litter occupy forest margins, not the camera lane.

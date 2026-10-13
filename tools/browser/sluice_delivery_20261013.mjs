@@ -172,7 +172,7 @@ async function main() {
     landing = await page.evaluate(() => ({ title: document.title,
       links: [...document.querySelectorAll('a[href]')].map(a => ({ href: a.href, text: a.textContent.trim() })),
       images: [...document.images].map(img => ({ path: new URL(img.src).pathname, width: img.naturalWidth, height: img.naturalHeight })) }));
-    assert(landing.title.trim()); assert(landing.links.some(link => link.href === destination));
+    assert.equal(landing.title, '잠든 밀림 · 찬다 — 적막'); assert(landing.links.some(link => link.href === destination));
     assert.deepEqual(landing.images.map(img => img.path).sort(), photos.map(name => new URL(name, base).pathname).sort());
     assert(landing.images.every(img => img.width > 0 && img.height > 0));
     for (const link of landing.links) {
