@@ -17,9 +17,10 @@ export const STAGE_DETAIL_PROFILES = Object.freeze({
   jungleBird: { stage: 'sluice', duration: 1.7, gain: 0.043, gap: 30 },
   caravanRing: { stage: 'dayr', duration: 1.1, gain: 0.025, gap: 22 },
   etnaCrust: { stage: 'etna', duration: 1.6, gain: 0.032, gap: 20 },
+  dunhuangWood: { stage: 'dunhuang', duration: 1.65, gain: 0.023, gap: 24 },
 });
 
-export const hasStageDetails = (stage) => stage === 'etna' || stage === 'dayr' || stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove' || stage === 'frozen_bay' || stage === 'qinglan' || stage === 'sluice';
+export const hasStageDetails = (stage) => stage === 'dunhuang' || stage === 'etna' || stage === 'dayr' || stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove' || stage === 'frozen_bay' || stage === 'qinglan' || stage === 'sluice';
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 const TAU = Math.PI * 2;
 
@@ -31,6 +32,23 @@ export function synthStageDetail(kind, sr, rng) {
   const profile = STAGE_DETAIL_PROFILES[kind];
   if (!profile || !Number.isFinite(sr) || sr < 8000) return new Float32Array(0);
   const out = new Float32Array(Math.ceil(profile.duration * sr));
+  if (kind === 'dunhuangWood') {
+    // A dry eave/sign joint strains with a visible sway. Two soft, irregular
+    // stick/slip folds keep this short cue separate from a tonal wind bed.
+    let low = 0, grain = 0, phase = 0;
+    const variation = rng(), pitch = 0.94 + variation * 0.12;
+    const lowA = 1 - Math.exp(-TAU * 140 / sr), grainA = 1 - Math.exp(-TAU * 820 / sr);
+    for (let i = 0; i < out.length; i++) {
+      const t = i / sr, u = i / (out.length - 1), n = rng() * 2 - 1;
+      low += lowA * (n - low); grain += grainA * (n - grain);
+      const fold = Math.sin(Math.PI * u) ** 2;
+      const strain = 0.15 + 0.85 * Math.sin(t * (6.1 + variation) + 0.32 * Math.sin(t * 17)) ** 4;
+      phase += TAU * (133 + 23 * Math.sin(Math.PI * u) + 7 * Math.sin(t * 29)) * pitch / sr;
+      out[i] = fold * strain * (0.35 * (grain - low) + 0.033 * Math.sin(phase)
+        + 0.011 * Math.sin(phase * 2.17));
+    }
+    return out;
+  }
   if (kind === 'etnaCrust') {
     // Distant brittle crust: filtered low crack and a short granular fall.
     // No continuous fire roar or explosive/combat transient.
@@ -290,6 +308,11 @@ export class StageDetailSound {
       // Dry air through a shaded brick iwan. No surf or crowded market bed.
       addNoise({ rate: 0.81, frequency: 430, gain: 0.0017, lfo: 0.038, depth: 0.00065, ceiling: 1250, pan: 0.12 });
       addNoise({ rate: 0.69, frequency: 1100, gain: 0.00075, lfo: 0.061, depth: 0.0003, ceiling: 2100, pan: -0.2 });
+    } else if (this.stage === 'dunhuang') {
+      // Cool, clear morning at an open cliff: thin moving air and fine sand
+      // friction, without low surf, rain, fire rumble or pitched drone.
+      addNoise({ rate: 0.91, frequency: 760, gain: 0.0018, lfo: 0.043, depth: 0.0006, ceiling: 1900, pan: -0.18 });
+      addNoise({ rate: 0.83, frequency: 2100, gain: 0.00065, lfo: 0.073, depth: 0.00025, ceiling: 3200, pan: 0.2 });
     } else if (this.stage === 'qinglan') {
       // Clear noon: sparse leaves/awning air above a very distant river.
       // The near seep is represented only by its visible, scheduled drops.

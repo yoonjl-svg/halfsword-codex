@@ -861,9 +861,9 @@ function legendaryJianSpec(id, nameKo, nameEn, desc) {
 }
 
 const ganjiang = legendaryJianSpec('ganjiang', '간장', 'Ganjiang',
-  '어두운 회금빛 칼몸에 귀갑문을 새긴 명검.\n길이 100cm, 질량 0.95kg의 한손 양날검.');
+  '어두운 회금빛 칼몸에 귀갑문을 새긴 명검.\n길이 95cm, 질량 0.95kg의 한손 양날검.');
 const moye = legendaryJianSpec('moye', '막야', 'Moye',
-  '밝은 은강철에 물결 같은 결이 흐르는 명검.\n길이 96cm, 질량 1.12kg의 한손 양날검.');
+  '밝은 은강철에 물결 같은 결이 흐르는 명검.\n길이 91cm, 질량 1.12kg의 한손 양날검.');
 
 // (옛 11 '환두대도' 는 감독 결정으로 삭제 — 세이버·팔쉬온과 겹쳤다. 'hwandudaedo' 는 별칭으로 롱소드를 가리킨다.)
 

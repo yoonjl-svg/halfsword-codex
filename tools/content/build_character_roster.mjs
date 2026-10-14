@@ -27,7 +27,7 @@ const items=ids.map((id,i)=>{
 });
 const liveCount=items.filter(i=>i.appearanceSource?.kind==='live').length;
 const countText=catalog?`${items.length}개 외형 · 본게임 ${liveCount} · 제작 시안 ${items.length-liveCount}`:`${items.length-2}명 · 별도 모습 1개 · 기본 플레이어`;
-const basisText=catalog?'2026.10.14 11:40 KST 본게임 적용본 기준 · 다라이시·찬다는 본게임 미적용 시안입니다.':'2026.10.14 현재 외형';
+const basisText=catalog?'2026.10.14 11:40 KST 본게임 적용본 기준 · 다라이시·찬다·병마용은 본게임 미적용 시안입니다.':'2026.10.14 현재 외형';
 const cards=items.map(c=>`<article class="card" data-id="${esc(c.id)}"><a class="portrait" href="${esc(c.image)}" data-index="${c.number-1}" aria-label="${esc(c.name)} 정면 크게 보기"><span class="number">${String(c.number).padStart(2,'0')}</span><img src="${esc(c.image)}" width="720" height="960" alt="${esc(c.name)} 정면 전신" loading="${c.number<=6?'eager':'lazy'}" decoding="async"></a><div class="caption"><h2>${esc(c.name)}</h2><p class="epithet">${esc(c.epithet)}</p><p class="facts">${c.age===null?(c.id==='player'?'': '나이 미정 · '):`${c.age}세 · `}${esc(c.weapon)}</p>${c.note?`<p class="badge">${esc(c.note)}</p>`:''}</div></article>`).join('\n');
 const html=`<!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#191715"><link rel="icon" href="data:,"><title>캐릭터 정면 도감 · 적막</title>

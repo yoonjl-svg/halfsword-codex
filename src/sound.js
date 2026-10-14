@@ -294,9 +294,10 @@ const VOWELS = {
  *       revive = 부활 때 곁들이는 짧은 숨 들이켬 개수(이졸데만),
  *       rate = 재생 속도(목소리 높이), gain = 음량
  *       녹음은 들어 보지 않고 음높이·길이 분석으로 골랐다 — 귀로 듣고 바꾸려면 파일만 갈아 끼우면 된다
- *  mute: 목소리 없이 몸이 "쿵" 쓰러지는 소리만 (BodySounds 가 쓰러짐을 꼭 한 번, 무겁게 낸다). 지금은 쓰는 캐릭터가 없다
+ *  mute: 목소리·숨 없이 몸이 "쿵" 쓰러지는 소리만 (BodySounds 가 쓰러짐을 꼭 한 번, 무겁게 낸다).
  */
 export const VOICES = {
+  silent: { mute: true }, // Terracotta warrior: no human voice recordings or synthesis.
   // Maya Rathore: AuraVoice (CC0). Single-burst excerpts for bleed and hurt1; original pitch.
   maya: { f0: 210, tract: 1.13, breath: 0.4, rough: 0.2, style: 'exhale',
     rec: { hurt: ['voice/maya_hurt1_single', 'voice/maya_hurt2'], ko: 2,
@@ -1643,6 +1644,7 @@ const STAGE_SOUND = {
   qinglan: { step: 'stepStone', grit: 'stepStone' }, // 한낮의 열린 암반 쉼터, 실내 울림 없음
   etna: { step: 'stepStone', grit: 'stepStone' }, // rough volcanic rock
   dayr: { step: 'stepStone', grit: 'stepStone' }, // 닳은 벽돌 안뜰
+  dunhuang: { step: 'step', grit: 'step', room: { dur: 0.28, rt: 0.16, e0: 0.035, e1: 0.075, lp: 2600, metal: 0.055, flesh: 0.018 } }, // 마른 모래흙·약한 짧은 절벽 반사
   sluice: { step: 'stepMud', grit: 'stepMud' }, // 잠든 습지: 젖은 흙 둔덕, 얕은 물과 침수림
   poseidon: { step: 'step' },
   poseidon_night: { step: 'step', night: true }, // 밤의 포세이돈 (하인리히 재등장): 같은 바다·바람에 네 귀퉁이 화로·횃대의 불을 더하고 바람을 어둡게
@@ -2464,6 +2466,7 @@ export class Sound {
   hurt(voice, severity = 0.5, { me = false, pos } = {}) {
     if (!this._on || !this.ctx) return;
     const id = voice in VOICES ? voice : 'generic';
+    if (VOICES[id].mute) return;
     const rec = this.pickSample(`voice:${id}:hurt`);
     if (!rec) return;
     const R = VOICES[id].rec || {};
@@ -2538,6 +2541,12 @@ export class Sound {
     if (!this._on || !this.ctx) return;
     const kind = cause === '출혈' || cause === '목' ? 'bleed' : 'ko';
     const id = voice in VOICES ? voice : 'generic';
+    if (VOICES[id].mute) {
+      // BodySounds retains the physical landing cue; this profile has no
+      // breath, death voice or human throat gurgle, even in a player preview.
+      if (me) this.fadeOutWorld();
+      return;
+    }
     if (me || id === 'player') {
       // Recorded exhale already contains a soft attack/fade. A failed download stays
       // silent rather than falling back to the old synthesized death cry.
@@ -2551,12 +2560,6 @@ export class Sound {
       return;
     }
     const ev = this.event({ bus: this.fleshBus, gain: me ? 0.7 : 0.9, prio: 3, pos });
-    if (VOICES[id].mute) {
-      // 목소리 없음 ("쿵"은 몸이 땅에 닿을 때 BodySounds 가 낸다). 목을 베였으면 피 끓는 소리만
-      if (cause === '목') this.layer(ev, this.pick('wetHeavy'), { gain: 0.5, rate: between(Math.random, 0.55, 0.65), delay: 0.08 });
-      if (me) this.fadeOutWorld();
-      return;
-    }
     // 녹음이 있으면 녹음(캐릭터에 맞게 재생 속도로 목소리 높이를 조금 바꾼다), 없으면 합성 목소리
     const rec = this.pickSample(`voice:${id}:${kind}`);
     const R = VOICES[id].rec;
@@ -3604,7 +3607,7 @@ export class BodySounds {
     // 내 숨: "지금 얼마나 위험한가"를 귀로 알려 준다 (화면 가장자리 붉은빛의 짝). 나만 낸다 — 상대는 내지 않는다.
     // 피가 80% 아래이고, 아직 피가 흐르거나(출혈 문턱은 붉은 테두리 맥박과 같은 0.002) 60% 아래로 위험할 때만.
     // 출혈이 멎고 피가 60% 이상이면 다음 숨부터 내지 않는다(끊지 않고). 죽으면 바로 멈추고, 판이 바뀌면 새로 만들어져 초기화된다
-    if (this.me) {
+    if (this.me && !VOICES[this.voice]?.mute) {
       const danger = f.state !== 'dead' && f.blood < VITALS.weakBlood && (f.bleed > 0.002 || f.blood < 0.6);
       if (!danger) this.breathT = 0;
       else {
