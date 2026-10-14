@@ -395,6 +395,119 @@ function landscape(K, scene) {
   sky.name = 'dunhuang-morning-sky'; sky.renderOrder = -10; scene.add(sky);
 }
 
+// A fictional interrupted procession, not an archaeological reconstruction.
+// All raised scenery stays beyond the 13 m duel buffer; tracks are visual only.
+function abandonedProcession(K) {
+  const origin = [14.0, 0, 10.7], heading = 1.27;
+  const wood = 0x766049, edge = 0x9b8160, dark = 0x423b31;
+  K.push(origin, heading);
+  K.frame.multiply(new THREE.Matrix4().makeRotationZ(.14));
+  K.frame.multiply(new THREE.Matrix4().makeRotationX(-.06));
+  // The low deck and partly buried wheels give the load weight and a clear
+  // three-dimensional silhouette, with the front shaft pointing at a cave.
+  for (const x of [-1.18, 1.18]) K.put('procession', box(.22, .28, 4.6), dark, [x, .88, 0]);
+  for (let i = 0; i < 9; i++) K.put('procession', box(2.72, .17, .45), i % 3 ? wood : edge, [0, 1.03, -1.96 + i * .49], [0, (i % 3 - 1) * .006, 0]);
+  const wheel = (x, y, z, damaged = false) => {
+    const arc = damaged ? Math.PI * 1.48 : Math.PI * 2;
+    const outer = new THREE.TorusGeometry(.94, .105, 5, 18, arc);
+    const inner = new THREE.TorusGeometry(.82, .075, 4, 18, arc);
+    if (damaged) { outer.rotateZ(2.5); inner.rotateZ(2.5); }
+    K.put('procession', outer, dark, [x, y, z], [0, Math.PI / 2, damaged ? -.16 : 0]);
+    K.put('procession', inner, edge, [x, y, z], [0, Math.PI / 2, damaged ? -.16 : 0]);
+    K.put('procession', cyl(.17, .19, .38, 8), wood, [x, y, z], [0, 0, Math.PI / 2]);
+    for (let j = 0; j < 10; j++) {
+      if (damaged && (j === 2 || j === 3)) continue;
+      const a = j / 10 * Math.PI * 2, radius = damaged && j === 4 ? .42 : .85;
+      limb(K, 'procession', [x, y, z], [x, y + Math.sin(a) * radius, z + Math.cos(a) * radius], .055, .042, edge, {}, 4);
+    }
+  };
+  for (const z of [-1.35, 1.35]) {
+    limb(K, 'procession', [-1.57, .68, z], [1.57, .68, z], .095, .095, dark, {}, 6);
+    wheel(-1.54, z < 0 ? .55 : .68, z, z < 0); wheel(1.54, .68, z);
+  }
+  // Rails wrap around the bed; the broken front leaves the crates visible.
+  for (const x of [-1.35, 1.35]) {
+    for (const z of [-2.16, -.72, .72, 2.16]) K.put('procession', box(.12, 1.16, .12), dark, [x, 1.56, z]);
+    for (const y of [1.27, 1.63, 1.99]) K.put('procession', box(.12, .19, 4.45), wood, [x, y, 0]);
+  }
+  for (const y of [1.26, 1.63, 1.99]) K.put('procession', box(2.82, .19, .12), wood, [0, y, -2.2]);
+  limb(K, 'procession', [-.89, .91, 1.7], [-.82, .34, 4.23], .09, .065, dark, {}, 5);
+  limb(K, 'procession', [.89, .91, 1.7], [.94, .51, 3.12], .09, .055, dark, {}, 5);
+  limb(K, 'procession', [1.24, .12, 3.26], [1.57, .05, 4.15], .075, .035, wood, {}, 5);
+  // A pair of large packing cases, with diagonal braces and a slumped lid.
+  for (const [x, y, z, w, h, d] of [[-.52,1.68,-.84,1.22,1.14,1.62],[.52,1.60,.87,1.15,.98,1.44]]) {
+    K.put('procession', box(w, .12, d), dark, [x,y-h/2,z]);
+    for (const side of [-1,1]) {
+      K.put('procession', box(.10,h,d), 0x897457, [x+side*w/2,y,z], undefined, 1, { noise: .045 });
+      K.put('procession', box(w,h,.10), 0x897457, [x,y,z+side*d/2], undefined, 1, { noise: .045 });
+    }
+    for (const dx of [-w * .43,w * .43]) for (const dz of [-d * .51,d * .51]) K.put('procession', box(.10,h + .10,.09), dark, [x+dx,y,z+dz]);
+    for (const dy of [-h*.42,h*.42]) K.put('procession', box(w+.09,.10,d+.08), edge, [x,y+dy,z]);
+    for (const side of [-1,1]) limb(K,'procession',[x-w*.44,y-h*.39,z+side*(d*.5+.055)],[x+w*.44,y+h*.39,z+side*(d*.5+.055)],.045,.045,dark,{},4);
+  }
+  K.put('procession', box(1.28,.10,1.68), edge, [-.67,1.89,-1.53], [1.06,.12,-.10]);
+  K.put('procession', box(1.25,.11,1.55), edge, [.52,2.15,.87]);
+  // An exposed clay head and shoulder inside the open case link the cargo to
+  // the fictional guardian without scattering unrelated relics across the arena.
+  K.put('procession', new THREE.SphereGeometry(.25,8,6), 0xa88969, [-.52,2.35,-.80], [0,.28,0], [.83,1.15,.88]);
+  K.put('procession', box(.58,.34,.36), 0x94785b, [-.52,2.06,-.80]);
+  K.put('procession', cyl(.09,.12,.16,7), dark, [-.52,2.65,-.81]);
+  K.put('procession', box(.09,.12,.11), 0x9d7f60, [-.48,2.35,-.57]);
+  // Sagging, torn ochre canvas hangs over an asymmetric timber frame. Its
+  // subdivided folds are real geometry, visible from the side and underneath.
+  for (const [x,z,y] of [[-1.28,-1.85,3.77],[1.28,-1.85,3.61],[-1.28,1.65,3.56],[1.28,1.65,3.21]])
+    limb(K,'procession',[x,1.03,z],[x,y,z],.055,.04,dark,{},5);
+  limb(K,'procession',[-1.28,3.77,-1.85],[-1.28,3.56,1.65],.05,.04,wood,{},5);
+  limb(K,'procession',[1.28,3.61,-1.85],[1.28,3.21,1.65],.05,.04,wood,{},5);
+  const canvas = [], nx = 10, nz = 12;
+  const clothPoint = (i,j) => {
+    const u=i/nx,v=j/nz;
+    const sag = Math.pow(v,3) * Math.max(0,1-u*1.5) * .93;
+    return [(u-.5)*3.04,3.68-v*.37-Math.sin(u*Math.PI)*.28+Math.sin(v*7+u*2)*.09-sag,-1.99+v*3.98];
+  };
+  for(let i=0;i<nx;i++)for(let j=0;j<nz;j++){
+    if ((j > 6 && i === 3) || (j > 9 && i > 1 && i < 5) || (j > 8 && i > 7)) continue;
+    const a=clothPoint(i,j),b=clothPoint(i+1,j),c=clothPoint(i,j+1),d=clothPoint(i+1,j+1);
+    canvas.push(...a,...c,...b,...b,...c,...d);
+  }
+  K.put('procession-cloth',triangles(canvas),0xa98c60,undefined,undefined,1,{noise:.035,vary:.025});
+  // One tall faded pennant makes the interrupted procession readable at range.
+  limb(K,'procession',[-1.15,.15,-2.35],[-1.48,4.72,-2.1],.065,.03,dark,{},6);
+  K.put('procession-cloth',triangles([-1.48,4.61,-2.1,-1.43,3.70,-2.12,-.28,3.80,-1.82,
+    -1.48,4.61,-2.1,-.28,3.80,-1.82,-.07,4.37,-1.78]),0x8c604c,undefined,undefined,1,{noise:.035});
+  K.pop();
+  // A small windward dune partly swallows the undercarriage, then dwindles
+  // into two interrupted wheel ruts. No collision or arena-height change.
+  const dune=[],rings=5,segments=32;
+  const dunePoint=(r,i)=>{
+    const a=i/segments*Math.PI*2,t=r/rings;
+    return [14.0+Math.cos(a)*3.55*t,.012+Math.pow(1-t,1.7)*.64,10.7+Math.sin(a)*2.55*t];
+  };
+  for(let r=0;r<rings;r++)for(let i=0;i<segments;i++){
+    const a=dunePoint(r,i),b=dunePoint(r,i+1),c=dunePoint(r+1,i),d=dunePoint(r+1,i+1);
+    dune.push(...a,...b,...c,...b,...d,...c);
+  }
+  K.put('procession-sand',triangles(dune),0xd0bd99,undefined,undefined,1,{uv:'box',uvScale:.115,noise:.025});
+  for (const side of [-1,1]) {
+    const rut = [], count = 96;
+    const point = (i, edge) => {
+      const t = i / count, z = 12.8 + t * 21;
+      const x = 14.1 + side * 1.27 - Math.sin(t * 2.0) * 1.2 + Math.sin(t * 16 + side) * .065;
+      const width = .075 + Math.sin(t * 27 + side) * .018;
+      return [x + edge * width, .018, z];
+    };
+    for (let i = 0; i < count; i++) {
+      // Broad, uneven drifts conceal unequal lengths along each rut.
+      const t = i / count, cover = Math.sin(t * 19 + side * 1.7) + Math.sin(t * 31 - side * .8) * .44;
+      if (cover > .78) continue;
+      const a = point(i,-1), b = point(i,1), c = point(i+1,-1), d = point(i+1,1);
+      rut.push(...a,...c,...b,...b,...c,...d);
+    }
+    K.put('procession-sand',triangles(rut),0xc4b393,undefined,undefined,1,{noise:.018,uv:'box',uvScale:.115});
+  }
+  return { center: origin, heading, story: 'Fictional interrupted transport procession', clearRadius: 13, cartHeight: 4.75 };
+}
+
 function blowingSand(scene) {
   const random = rng(141416), count = 92, p = new Float32Array(count * 3), initial = [];
   for (let i = 0; i < count; i++) initial.push({ x: -29 + random() * 42, z: -28 + random() * 56, y: .035 + random() * .11, speed: .28 + random() * .43, phase: random() * Math.PI * 2 });
@@ -426,17 +539,19 @@ export function buildDunhuang(scene, { hemi, sun } = {}) {
   if (sun) { sun.color.setHex(0xffedcd); sun.intensity = 2.25; sun.position.set(sunOffset.x, sunOffset.y, sunOffset.z); }
   const K = new OwnedKit(141400);
   landscape(K, scene); const caveCount = cliff(K); pavilion(K); const painting = mural(scene);
+  const procession = abandonedProcession(K);
   const earthMap = earthTexture(), rockMap = cliffTexture();
   const standard = (extra = {}) => new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, ...extra });
   const materials = {
     ground: standard({ map: earthMap }), riverbed: standard({ map: earthMap }),
+    procession: standard(), 'procession-cloth': standard({ side: THREE.DoubleSide }), 'procession-sand': standard({ map: earthMap }),
     cliff: standard({ map: rockMap }), plaster: standard({ map: rockMap }), interior: standard(),
     cave: standard(), shade: standard(), timber: standard(),
     tile: standard({ side: THREE.DoubleSide }), stone: standard(), shrub: standard(),
     hills: new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.DoubleSide }),
   };
   for (const [bin, material] of Object.entries(materials)) {
-    const mesh = K.mesh(bin, material, { cast: ['cliff', 'plaster', 'interior', 'timber', 'tile'].includes(bin), receive: true });
+    const mesh = K.mesh(bin, material, { cast: ['cliff', 'plaster', 'interior', 'timber', 'tile', 'procession', 'procession-cloth'].includes(bin), receive: true });
     if (mesh) { mesh.name = `dunhuang-${bin}`; scene.add(mesh); } else material.dispose();
     for (const geometry of K.bins[bin] ?? []) geometry.dispose();
   }
@@ -462,7 +577,7 @@ export function buildDunhuang(scene, { hemi, sun } = {}) {
   const info = {
     id: 'dunhuang', title: '천불의 절벽', season: 'early autumn', timeOfDay: '08:00',
     inspiration: 'Fictional Mogao-inspired cliff forecourt; no oasis composite',
-    flatGroundY: 0, clearRadius: 10.5, cliffFrontX: CLIFF_X, caveCount,
+    flatGroundY: 0, clearRadius: 10.5, cliffFrontX: CLIFF_X, caveCount, procession,
     pavilion: { levels: 6, maxProjection: 5.05, galleryDepth: [1.24, .94], roofThickness: .18, solidSideReturns: true },
     mural: { position: painting.position.toArray(), width: 8.3, height: 6.8, source: 'original procedural apsara painting on eroded cave plaster' },
     woodCue: { position: { ...SIGN }, period, first: nextCreak },

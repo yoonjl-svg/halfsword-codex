@@ -941,6 +941,9 @@ document.querySelectorAll('[data-setting]').forEach((el) => {
 });
 refreshSettingsUI();
 
+// Authored quotations (e.g. the terracotta's historical excerpts) already carry
+// their literal double quotes. Preserve them without adding a second wrapper.
+const quoteFoeLine = line => /^"[\s\S]*"$/.test(line) ? line : `“${line}”`;
 let lastFoeLine = ''; // 이번 판 끝에 상대가 한 말 (결과 화면에도 적는다)
 /** 상대의 한마디 (승리 대사): 소개 칸을 다시 써서 이름 + 대사만 잠깐 보여 준다 */
 function showFoeLine(ch, line) {
@@ -950,7 +953,7 @@ function showFoeLine(ch, line) {
   clearTimeout(showFoeIntro.t);
   el.querySelector('b').textContent = ch.name;
   el.querySelector('i').textContent = '';
-  el.querySelector('span').textContent = `“${line}”`;
+  el.querySelector('span').textContent = quoteFoeLine(line);
   el.querySelector('em').textContent = '';
   el.classList.add('show');
   showFoeIntro.t = setTimeout(() => el.classList.remove('show'), 3400);
@@ -965,7 +968,7 @@ function showFoeIntro(ch) {
   if (!ch) return el.classList.remove('show');
   el.querySelector('b').textContent = ch.name;
   el.querySelector('i').textContent = ch.epithet;
-  el.querySelector('span').textContent = `“${randomLine(ch, 'intro')}”`; // 시작 대사 3종 중 하나
+  el.querySelector('span').textContent = quoteFoeLine(randomLine(ch, 'intro')); // 시작 대사 3종 중 하나
   el.querySelector('em').textContent = '';
   el.classList.add('show');
 }
@@ -1553,7 +1556,7 @@ function showRoundMenu() {
   const journeyComplete = win && currentFoe?.id === 'crown_boss' && foeParam === 'stage' && !STAGE_PIN;
   $('menuTitle').textContent = journeyComplete ? '여정 완료' : win ? '승리' : '패배';
   // 졌으면 상대의 승리 대사를 한 줄 덧붙인다 (사장님 확정)
-  $('menuSub').textContent = !win && lastFoeLine ? `${cause} · ${currentFoe.name}: “${lastFoeLine}”` : cause;
+  $('menuSub').textContent = !win && lastFoeLine ? `${cause} · ${currentFoe.name}: ${quoteFoeLine(lastFoeLine)}` : cause;
   // 여정(무대마다 그곳 검객): 이기면 다음 상대, 지면 같은 상대와 다시 (주소로 상대·배경을 고정했으면 그냥 다시 싸우기)
   $('btnStart').textContent = journeyComplete ? '새 여정' : win && foeParam === 'stage' && !STAGE_PIN ? '다음 상대' : '다시 싸우기';
   $('btnResume').style.display = 'none';

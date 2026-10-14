@@ -39,9 +39,9 @@ async function main() {
   assert((local && base.protocol === 'http:') || base.href === 'https://yoonjl-svg.github.io/halfsword-codex/');
   assert(!base.search && !base.hash && !base.username && !base.password && base.pathname.endsWith('/'));
   const character = CHARACTERS_BY_ID.terracotta;
-  assert(character, 'Terracotta must be registered'); assert.equal(character.weapon, 'ganjiang'); assert.equal(character.voice, 'silent');
+  assert(character, 'Terracotta must be registered'); assert.equal(character.weapon, 'goujian'); assert.equal(character.voice, 'silent');
   assert.equal(character.look.stockEyes, true, 'Keep the existing stock-eye character');
-  const contract = { enemy: 'terracotta', name: character.name, stage: 'dunhuang', weapon: 'ganjiang', voice: 'silent', physiology: character.physiology,
+  const contract = { enemy: 'terracotta', name: character.name, stage: 'dunhuang', weapon: 'goujian', voice: 'silent', physiology: character.physiology,
     outfit: character.look.outfit, lookVersion: character.lookVersion, stockEyes: true,
     playerWeapon: 'goujian', query, photos };
   const before = await manifest(build), toolHash = sha(await fs.readFile(own));
@@ -213,7 +213,7 @@ async function main() {
     await page.setViewportSize({ width: 844, height: 390 }); cdp = await context.newCDPSession(page);
     async function startRound(label) {
       await page.locator('#btnStart').tap(); await wait(() => game.state === 'draw' && game.draw.stage === 'choose' && game.draw.t >= .45);
-      const cards = await page.evaluate(() => [...game.draw.ids]); assert.deepEqual(cards, ['goujian', 'sain', 'ganjiang']);
+      const cards = await page.evaluate(() => [...game.draw.ids]); assert.deepEqual(cards, ['goujian', 'sain', 'goujian']);
       await wait(() => game.sound.ctx?.state === 'running' && game.sound.primed);
       if (label === 'first') {
         await wait(() => game.sound._stageDetails?.stats.accepted > 0);
