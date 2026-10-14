@@ -39,7 +39,7 @@ export const WANDERER_CHARACTERS = [
       win: ['아직 조사가 끝나지 않았어.', '본 것은 잊는 편이 좋아.'] },
   },
   {
-    id: 'renji', name: '김씨', epithet: '칼을 뽑지 않는 낭인', age: 32,
+    id: 'renji', name: '김씨', epithet: '용문객잔 주인', age: 32,
     origin: '북쪽 항구와 산길', weapon: 'morgenstern', voice: 'tome',
     backstory: '형이 남긴 검을 허리에 차고 떠도는 낭인. 그 검으로 사람을 베지 않겠다는 약속 때문에, 항구에서 얻은 낯선 철퇴로 호위 일을 한다. 삿갓 아래 마른 찻잎을 넣고 다니며 길에서 만난 이에게 먼저 차를 권한다.',
     want: '형의 검과 유품을 바다 건너 남은 가족에게 돌려주는 것.',

@@ -6,8 +6,9 @@ import assert from 'node:assert/strict';
 import { CHARACTERS_BY_ID } from '../../src/characters.js';
 import { WEAPONS } from '../../src/weapons.js';
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const order=['player','bran','isolde','liao','heinrich','heinrich_mad','margarethe','crown_boss','tome','omari','yeongman','artoria','renji','eira','silver_wanderer','ratna','chanda','sherpa'];
-const ids=[...order,...Object.keys(CHARACTERS_BY_ID).filter(id=>!order.includes(id))];
+const order=['player','bran','isolde','liao','heinrich','heinrich_mad','margarethe','crown_boss','tome','omari','yeongman','artoria','renji','eira','silver_wanderer','ratna','chanda'];
+const excludedIds=new Set(['sherpa']); // Withdrawn by the user; keep out of regenerated atlases.
+const ids=[...order,...Object.keys(CHARACTERS_BY_ID).filter(id=>!order.includes(id))].filter(id=>!excludedIds.has(id));
 assert.equal(new Set(ids).size,ids.length);
 const catalogPath='public/character-roster/source-catalog.json';
 const catalog=fs.existsSync(catalogPath)?JSON.parse(fs.readFileSync(catalogPath,'utf8')):null;
@@ -18,15 +19,15 @@ const items=ids.map((id,i)=>{
  const path=`public/character-roster/${id}.webp`;assert(fs.existsSync(path),`Capture first: ${path}`);
  const bytes=fs.readFileSync(path),hash=createHash('sha256').update(bytes).digest('hex');
  if(source)assert.equal(hash,source.imageSha256,`Recapture/catalog mismatch: ${id}`);
- const baseNote=id==='sherpa'?'사용 보류':id==='heinrich_mad'?'하인리히의 다른 모습':id==='player'?'공용 플레이어':'';
+ const baseNote=id==='heinrich_mad'?'하인리히의 다른 모습':id==='player'?'공용 플레이어':'';
  return {id,number:i+1,name:c.name,epithet:c.epithet,age:c.age??null,weapon:source?.weaponName??(c.weapon?WEAPONS[c.weapon].nameKo:'선택 무기'),
  origin:c.origin??'',note:[source?.kind==='prototype'?'제작 시안':'',baseNote].filter(Boolean).join(' · '),
  appearanceSource:source?{kind:source.kind,repo:source.repo,commit:source.commit,id:source.sourceId}:null,
  image:`character-roster/${id}.webp?v=${hash.slice(0,12)}`,sha256:hash,bytes:bytes.length,lookVersion:c.lookVersion??'default'};
 });
 const liveCount=items.filter(i=>i.appearanceSource?.kind==='live').length;
-const countText=catalog?`${items.length}개 외형 · 본게임 ${liveCount} · 제작 시안 ${items.length-liveCount}`:`${Object.keys(CHARACTERS_BY_ID).length-1}명 · 별도 모습 1개 · 기본 플레이어`;
-const basisText=catalog?'2026.10.14 11:40 KST 본게임 적용본 기준 · 다라이시·찬다·세르파는 본게임 미적용 시안입니다.':'2026.10.14 현재 외형';
+const countText=catalog?`${items.length}개 외형 · 본게임 ${liveCount} · 제작 시안 ${items.length-liveCount}`:`${items.length-2}명 · 별도 모습 1개 · 기본 플레이어`;
+const basisText=catalog?'2026.10.14 11:40 KST 본게임 적용본 기준 · 다라이시·찬다는 본게임 미적용 시안입니다.':'2026.10.14 현재 외형';
 const cards=items.map(c=>`<article class="card" data-id="${esc(c.id)}"><a class="portrait" href="${esc(c.image)}" data-index="${c.number-1}" aria-label="${esc(c.name)} 정면 크게 보기"><span class="number">${String(c.number).padStart(2,'0')}</span><img src="${esc(c.image)}" width="720" height="960" alt="${esc(c.name)} 정면 전신" loading="${c.number<=6?'eager':'lazy'}" decoding="async"></a><div class="caption"><h2>${esc(c.name)}</h2><p class="epithet">${esc(c.epithet)}</p><p class="facts">${c.age===null?(c.id==='player'?'': '나이 미정 · '):`${c.age}세 · `}${esc(c.weapon)}</p>${c.note?`<p class="badge">${esc(c.note)}</p>`:''}</div></article>`).join('\n');
 const html=`<!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#191715"><link rel="icon" href="data:,"><title>캐릭터 정면 도감 · 적막</title>
@@ -35,7 +36,7 @@ const html=`<!doctype html>
 @media(min-width:600px){.grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 14px}.grid.large{grid-template-columns:repeat(3,minmax(0,1fr))}.caption{padding:12px}.caption h2{font-size:15px}.caption p{font-size:12px}}
 @media(min-width:1050px){.grid{grid-template-columns:repeat(6,minmax(0,1fr))}.grid.large{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-height:500px) and (orientation:landscape){dialog{width:min(820px,calc(100% - 24px))}.detail-image{height:50dvh}.detail-top,.detail-nav{padding-block:6px}}
-</style></head><body><main><header><p class="eyebrow">STILLNESS · CHARACTER ATLAS</p><h1>캐릭터 정면 도감</h1><p class="intro">얼굴, 머리, 옷의 실루엣을 한자리에서 비교하세요.<br>사진을 누르면 크게 볼 수 있습니다.</p></header><div class="toolbar"><p class="count">${countText}</p><div class="modes" aria-label="썸네일 크기"><button id="compact" aria-pressed="true">모아 보기</button><button id="large" aria-pressed="false">크게 보기</button></div></div><section class="grid" id="roster" aria-label="전체 캐릭터 정면">${cards}</section><footer><p>${basisText} 같은 크기와 조명으로 촬영했습니다. 전투 중 자세와 조명에 따라 인상이 달라질 수 있습니다.</p><p>세르파는 사용 보류 상태이며 비교를 위해 포함했습니다. 광기의 하인리히는 같은 인물의 다른 모습입니다.</p><a href="./">게임으로 돌아가기</a></footer></main><dialog id="detail" aria-labelledby="detail-name"><div class="detail-top"><h2 id="detail-name"></h2><button class="close" id="close" aria-label="확대 사진 닫기">×</button></div><img class="detail-image" id="detail-image" width="720" height="960" alt=""><div class="detail-meta"><p id="detail-epithet"></p><p class="detail-facts" id="detail-facts"></p><p id="detail-origin"></p><a class="raw" id="original" target="_blank" rel="noopener">사진만 열기</a></div><div class="detail-nav"><button id="prev" aria-label="이전 캐릭터">← 이전</button><span class="detail-position" id="position"></span><button id="next" aria-label="다음 캐릭터">다음 →</button></div></dialog><script id="roster-data" type="application/json">${JSON.stringify(items).replace(/</g,'\\u003c')}</script><script src="character-roster.js" defer></script></body></html>\n`;
+</style></head><body><main><header><p class="eyebrow">STILLNESS · CHARACTER ATLAS</p><h1>캐릭터 정면 도감</h1><p class="intro">얼굴, 머리, 옷의 실루엣을 한자리에서 비교하세요.<br>사진을 누르면 크게 볼 수 있습니다.</p></header><div class="toolbar"><p class="count">${countText}</p><div class="modes" aria-label="썸네일 크기"><button id="compact" aria-pressed="true">모아 보기</button><button id="large" aria-pressed="false">크게 보기</button></div></div><section class="grid" id="roster" aria-label="전체 캐릭터 정면">${cards}</section><footer><p>${basisText} 같은 크기와 조명으로 촬영했습니다. 전투 중 자세와 조명에 따라 인상이 달라질 수 있습니다.</p><p>광기의 하인리히는 같은 인물의 다른 모습입니다.</p><a href="./">게임으로 돌아가기</a></footer></main><dialog id="detail" aria-labelledby="detail-name"><div class="detail-top"><h2 id="detail-name"></h2><button class="close" id="close" aria-label="확대 사진 닫기">×</button></div><img class="detail-image" id="detail-image" width="720" height="960" alt=""><div class="detail-meta"><p id="detail-epithet"></p><p class="detail-facts" id="detail-facts"></p><p id="detail-origin"></p><a class="raw" id="original" target="_blank" rel="noopener">사진만 열기</a></div><div class="detail-nav"><button id="prev" aria-label="이전 캐릭터">← 이전</button><span class="detail-position" id="position"></span><button id="next" aria-label="다음 캐릭터">다음 →</button></div></dialog><script id="roster-data" type="application/json">${JSON.stringify(items).replace(/</g,'\\u003c')}</script><script src="character-roster.js" defer></script></body></html>\n`;
 fs.writeFileSync('public/characters.html',html);
 fs.writeFileSync('public/character-roster/manifest.json',JSON.stringify({generatedUTC:new Date().toISOString(),basis:catalog?.basis??null,items},null,2)+'\n');
 console.log(JSON.stringify({page:'public/characters.html',count:items.length,imagesBytes:items.reduce((sum,i)=>sum+i.bytes,0)}));

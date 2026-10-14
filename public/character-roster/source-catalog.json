@@ -200,13 +200,16 @@
       "imageSha256": "002091335671bc7808d12ef83eeb2b8c34b3ae30a1d00352935ba3c8e2d11275",
       "character": {
         "name": "김씨",
-        "epithet": "걷는 남자",
+        "epithet": "용문객잔 주인",
         "age": 32,
         "origin": "북쪽 항구와 산길",
         "weapon": "morgenstern",
         "lookVersion": "v3"
       },
-      "weaponName": "모르겐슈테른 (가시 철퇴)"
+      "weaponName": "모르겐슈테른 (가시 철퇴)",
+      "fieldOrigins": {
+        "epithet": "User decision 2026-10-14; supersedes pinned peer epithet"
+      }
     },
     "eira": {
       "kind": "live",
@@ -286,21 +289,15 @@
         "lookVersion": "v1"
       },
       "weaponName": "세이버 (기병도)"
-    },
-    "sherpa": {
-      "kind": "prototype",
-      "repo": "yoonjl-svg/halfsword-codex",
-      "commit": "b80fd2dbb73a8457dd1ed31a595df6d4814f617b",
-      "sourceId": "sherpa",
-      "imageSha256": "b860242094e63a42e55bf755a2537e7175a2c2c7e1850247731b800ad4115115",
-      "character": {
-        "name": "세르파",
-        "epithet": "길 밖을 조사하는 안내인",
-        "origin": "고산지대 · 출신 불명",
-        "weapon": "sabre",
-        "lookVersion": "v1"
-      },
-      "weaponName": "세이버 (기병도)"
+    }
+  },
+  "userOverrides": {
+    "date": "2026-10-14",
+    "excludedIds": [
+      "sherpa"
+    ],
+    "epithet": {
+      "renji": "용문객잔 주인"
     }
   }
 }
