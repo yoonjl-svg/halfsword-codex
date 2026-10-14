@@ -222,54 +222,109 @@ function cliff(K) {
   K.pop(); return caves.length;
 }
 
-function roof(K, x, y, width, depth = 3.2) {
-  const p = [], across = 20, rows = 5;
-  const point = (i, j) => {
+function roof(K, x, y, width, depth = 3.2, front = 2.1) {
+  const upper = [], lower = [], edge = [], across = 24, rows = 6, thickness = .18;
+  const point = (i, j, underside = false) => {
     const u = i / across * 2 - 1, v = j / rows;
-    return [x + u * width / 2, y + Math.pow(Math.abs(u), 5) * .56 + v * .82 + v * v * .32, 2.1 - v * depth];
+    return [x + u * width / 2 * (1 - v * .065),
+      y + Math.pow(Math.abs(u), 5) * .58 + v * .68 + v * v * .46 - (underside ? thickness : 0), front - v * depth];
   };
+  const quad = (list, a, b, c, d) => list.push(...a, ...b, ...c, ...b, ...d, ...c);
   for (let i = 0; i < across; i++) for (let j = 0; j < rows; j++) {
-    const a = point(i, j), b = point(i + 1, j), c = point(i, j + 1), d = point(i + 1, j + 1);
-    p.push(...a, ...b, ...c, ...b, ...d, ...c);
+    quad(upper, point(i, j), point(i + 1, j), point(i, j + 1), point(i + 1, j + 1));
+    quad(lower, point(i, j, true), point(i, j + 1, true), point(i + 1, j, true), point(i + 1, j + 1, true));
   }
-  K.put('tile', triangles(p), C.tile, undefined, undefined, 1, { noise: .08, vary: .07 });
+  for (let i = 0; i < across; i++) for (const j of [0, rows]) {
+    quad(edge, point(i, j), point(i, j, true), point(i + 1, j), point(i + 1, j, true));
+  }
+  for (let j = 0; j < rows; j++) for (const i of [0, across]) {
+    quad(edge, point(i, j), point(i, j + 1), point(i, j, true), point(i, j + 1, true));
+  }
+  K.put('tile', triangles(upper), C.tile, undefined, undefined, 1, { noise: .055, vary: .05 });
+  K.put('timber', triangles(lower), 0x49382e, undefined, undefined, 1, { noise: .02 });
+  K.put('tile', triangles(edge), 0x625343, undefined, undefined, 1, { noise: .025 });
   for (let i = 0; i <= across; i++) {
-    // Rolled pan-tile ridges follow the same curved roof profile.
-    for (let j = 0; j < rows; j++) limb(K, 'tile', point(i, j).map((v, a) => v + (a === 1 ? .038 : 0)), point(i, j + 1).map((v, a) => v + (a === 1 ? .038 : 0)), .033, .033, i % 3 ? 0x978876 : 0xb09e84, {}, 5);
-    const edge = point(i, 0);
-    K.put('timber', box(.12, .16, .24), C.bright, [edge[0], edge[1] - .12, edge[2] - .06]);
+    // Tile rolls and rafters run back into the cliff, exposing real eave depth.
+    for (let j = 0; j < rows; j++) {
+      const a = point(i, j), b = point(i, j + 1);
+      limb(K, 'tile', [a[0], a[1] + .035, a[2]], [b[0], b[1] + .035, b[2]], .033, .033, i % 3 ? 0x978876 : 0xb09e84, {}, 5);
+      if (j < 3) limb(K, 'timber', [a[0], a[1] - .23, a[2]], [b[0], b[1] - .23, b[2]], .055, .055, C.bright, { noise: .02 }, 4);
+    }
+    const a = point(i, 0);
+    K.put('timber', box(.105, .12, .22), C.bright, [a[0], a[1] - .23, a[2] - .025]);
+    if (i < across) {
+      const b = point(i + 1, 0);
+      limb(K, 'timber', [a[0], a[1] - .11, a[2]], [b[0], b[1] - .11, b[2]], .07, .07, C.red, {}, 5);
+    }
   }
-  for (let i = 0; i < across; i++) {
-    const a = point(i, 0), b = point(i + 1, 0);
-    limb(K, 'timber', [a[0], a[1] - .12, a[2]], [b[0], b[1] - .12, b[2]], .07, .07, C.red, {}, 5);
-  }
-  for (const side of [-1, 1]) limb(K, 'tile', [x + side * width / 2, y + .53, 2.1], [x + side * (width / 2 + .20), y + .93, 2.3], .09, .025, C.tile, {}, 5);
+  for (const side of [-1, 1]) limb(K, 'tile', [x + side * width / 2, y + .56, front], [x + side * (width / 2 + .18), y + .97, front + .16], .09, .025, C.tile, {}, 5);
 }
 
 function pavilion(K) {
   K.push([CLIFF_X, 0, 0], -Math.PI / 2);
   const towerX = 2.5;
-  // Stacked red timber gallery attached to the cliff; the stepped roof profile
-  // is deliberately distinct from a freestanding pagoda or desert fortress.
+  // Six fictional levels inspired by Mogao: substantial stepped plaster rooms
+  // carry deep timber galleries. Local +z faces the forecourt; the rear wall is
+  // beyond the cliff's maximum 1.55 m relief, so rock cannot fill these rooms.
   const tiers = [[0, 5.75, 12.4], [6.6, 9.65, 10.6], [10.5, 13.65, 9.2], [14.5, 17.2, 7.8], [18.05, 20.55, 6.4], [21.35, 23.55, 5.2]];
   for (let level = 0; level < tiers.length; level++) {
-    const [floor, top, width] = tiers[level], postX = width * .37;
-    for (const dx of [-postX, 0, postX]) {
-      K.put('timber', cyl(.105, .12, top - floor, 7), C.red, [towerX + dx, (top + floor) / 2, 1.17]);
-      K.put('cliff', box(.43, .20, .43), C.worn, [towerX + dx, floor + .10, 1.17]);
-      for (const dy of [.21, .40, .56]) {
-        K.put('timber', box(.5 + dy * 1.3, .12, .26), dy > .3 ? C.bright : C.red, [towerX + dx, top - dy, 1.18]);
-        K.put('timber', box(.15, .12, .62 + dy * .7), C.red, [towerX + dx, top - dy - .07, 1.12]);
+    const [floor, top, width] = tiers[level], half = width * .39;
+    const front = 3.92 - level * .13, wallFront = 2.68 - level * .07;
+    const roofFront = front + .94, postX = half - .23, height = top - floor;
+    const doorWidth = Math.min(1.65, width * .20), doorHeight = Math.min(3.8, height - .38);
+    const sill = floor + (level ? .16 : .23), archSpring = sill + doorHeight - doorWidth / 2;
+    const wall = new THREE.Shape();
+    wall.moveTo(-half, floor); wall.lineTo(half, floor); wall.lineTo(half, top + .14); wall.lineTo(-half, top + .14); wall.closePath();
+    const opening = new THREE.Path();
+    opening.moveTo(-doorWidth / 2, sill); opening.lineTo(-doorWidth / 2, archSpring);
+    opening.absarc(0, archSpring, doorWidth / 2, Math.PI, 0, true);
+    opening.lineTo(doorWidth / 2, sill); opening.closePath(); wall.holes.push(opening);
+    const wallGeometry = new THREE.ExtrudeGeometry(wall, { depth: .40, bevelEnabled: false, curveSegments: 6, steps: 1 });
+    K.put('plaster', wallGeometry, level % 2 ? 0xb4a184 : 0xc2af90, [towerX, 0, wallFront - .40], undefined, 1, { noise: .025, uv: 'box', uvScale: .24 });
+    // Backing, sill and side returns form a recessed doorway, not a black decal.
+    K.put('interior', box(doorWidth + .12, doorHeight + .08, .12), 0x342c25, [towerX, sill + doorHeight / 2, 1.72]);
+    K.put('timber', box(doorWidth + .2, .11, wallFront - 1.72), 0x564333, [towerX, sill, (wallFront + 1.72) / 2]);
+    for (const side of [-1, 1]) {
+      K.put('interior', box(.13, doorHeight, wallFront - 1.72), 0x716047,
+        [towerX + side * (doorWidth / 2 + .015), sill + doorHeight / 2, (wallFront + 1.72) / 2]);
+      // Thick pale cheeks return to the cliff, visible in an oblique view.
+      K.put('plaster', box(.53, height + .30, wallFront + 1.0), C.pale,
+        [towerX + side * half, floor + (height + .30) / 2, (wallFront - 1.0) / 2], undefined, 1, { noise: .025, uv: 'box', uvScale: .24 });
+      K.put('timber', box(.19, .26, front - 1.8), C.red, [towerX + side * postX, top - .19, (front + 1.8) / 2]);
+    }
+    // Continuous, weight-bearing floor plates and a shaded ceiling volume.
+    const floorFront = front + .18;
+    K.put(level ? 'timber' : 'plaster', box(width * .82, level ? .34 : .28, floorFront + .6), level ? C.timber : C.worn,
+      [towerX, floor + (level ? -.07 : .14), (floorFront - .6) / 2]);
+    K.put('interior', box(width * .77, .19, front - 1.55), 0x47382c, [towerX, top - .10, (front + 1.55) / 2]);
+    const posts = level > 3 ? [-postX, 0, postX] : [-postX, -postX / 3, postX / 3, postX];
+    for (const dx of posts) {
+      K.put('timber', cyl(.12, .145, height - .17, 8), C.red, [towerX + dx, floor + (height + .17) / 2, front]);
+      K.put('plaster', box(.43, .20, .43), C.worn, [towerX + dx, floor + .12, front]);
+      for (let step = 0; step < 3; step++) {
+        const y = top - .74 + step * .22;
+        K.put('timber', box(.42 + step * .31, .14, .34 + step * .29), step === 2 ? C.bright : C.red, [towerX + dx, y, front + step * .065]);
+        for (const side of [-1, 1]) K.put('timber', box(.13, .17, .34), C.bright,
+          [towerX + dx + side * (.17 + step * .15), y + .095, front + .03]);
       }
+      limb(K, 'timber', [towerX + dx, top - .87, front - .02], [towerX + dx, top - .10, front + .67], .072, .066, C.red, {}, 5);
     }
-    K.put('timber', box(width * .79, .20, .24), C.red, [towerX, top - .18, 1.17]);
+    K.put('timber', box(width * .80, .24, .30), C.red, [towerX, top - .19, front + .20]);
+    K.put('timber', box(width * .77, .17, .22), C.timber, [towerX, top - .62, front]);
     if (level) {
-      K.put('timber', box(width * .85, .22, 1.5), C.timber, [towerX, floor, .62]);
-      for (const y of [floor + .21, floor + .91]) K.put('timber', box(width * .78, .095, .10), C.bright, [towerX, y, 1.32]);
-      const count = Math.floor(width * 2.2);
-      for (let j = 0; j <= count; j++) K.put('timber', box(.048, .72, .06), C.red, [towerX - width * .385 + j / count * width * .77, floor + .55, 1.32]);
+      const railZ = front + .10, railHalf = postX;
+      for (const y of [floor + .28, floor + .94]) {
+        K.put('timber', box(railHalf * 2, .11, .12), C.bright, [towerX, y, railZ]);
+        for (const side of [-1, 1]) K.put('timber', box(.12, .11, railZ - wallFront), C.red,
+          [towerX + side * railHalf, y, (railZ + wallFront) / 2]);
+      }
+      const count = Math.ceil(railHalf * 2 / .36);
+      for (let j = 0; j <= count; j++) K.put('timber', box(.062, .65, .07), C.red,
+        [towerX - railHalf + j / count * railHalf * 2, floor + .61, railZ]);
+      for (const side of [-1, 1]) for (let j = 1; j < 4; j++) K.put('timber', box(.07, .65, .062), C.red,
+        [towerX + side * railHalf, floor + .61, wallFront + (railZ - wallFront) * j / 4]);
     }
-    roof(K, towerX, top, width);
+    roof(K, towerX, top, width, roofFront + .62, roofFront);
   }
   // A lower independent eave frames the nearby painted recess, clear of the
   // tower and at a human scale. Bare plaster surrounds the preserved fragment.
@@ -375,12 +430,13 @@ export function buildDunhuang(scene, { hemi, sun } = {}) {
   const standard = (extra = {}) => new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, ...extra });
   const materials = {
     ground: standard({ map: earthMap }), riverbed: standard({ map: earthMap }),
-    cliff: standard({ map: rockMap }), cave: standard(), shade: standard(), timber: standard(),
+    cliff: standard({ map: rockMap }), plaster: standard({ map: rockMap }), interior: standard(),
+    cave: standard(), shade: standard(), timber: standard(),
     tile: standard({ side: THREE.DoubleSide }), stone: standard(), shrub: standard(),
     hills: new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.DoubleSide }),
   };
   for (const [bin, material] of Object.entries(materials)) {
-    const mesh = K.mesh(bin, material, { cast: ['cliff', 'timber', 'tile'].includes(bin), receive: true });
+    const mesh = K.mesh(bin, material, { cast: ['cliff', 'plaster', 'interior', 'timber', 'tile'].includes(bin), receive: true });
     if (mesh) { mesh.name = `dunhuang-${bin}`; scene.add(mesh); } else material.dispose();
     for (const geometry of K.bins[bin] ?? []) geometry.dispose();
   }
@@ -407,6 +463,7 @@ export function buildDunhuang(scene, { hemi, sun } = {}) {
     id: 'dunhuang', title: '천불의 절벽', season: 'early autumn', timeOfDay: '08:00',
     inspiration: 'Fictional Mogao-inspired cliff forecourt; no oasis composite',
     flatGroundY: 0, clearRadius: 10.5, cliffFrontX: CLIFF_X, caveCount,
+    pavilion: { levels: 6, maxProjection: 5.05, galleryDepth: [1.24, .94], roofThickness: .18, solidSideReturns: true },
     mural: { position: painting.position.toArray(), width: 8.3, height: 6.8, source: 'original procedural apsara painting on eroded cave plaster' },
     woodCue: { position: { ...SIGN }, period, first: nextCreak },
     sand: { count: sand.count, maxHeight: sand.maxHeight },

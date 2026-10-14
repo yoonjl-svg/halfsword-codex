@@ -47,6 +47,17 @@ export class Particles {
     }
   }
 
+  // A few short-lived dry grains; no persistent ground stain or blood option dependency.
+  clayChips(point, dir, energy) {
+    const n = Math.min(12, 3 + Math.floor(Math.max(0, energy) / 18));
+    for (let i = 0; i < n; i++) {
+      const angle = i * 2.399963, speed = .35 + Math.min(1.8, energy / 120);
+      const v = new THREE.Vector3(dir.x * speed * .25 + Math.cos(angle) * .45,
+        .35 + (i % 3) * .18, dir.z * speed * .25 + Math.sin(angle) * .45);
+      this.add(point, v, i % 2 ? 0x8b887a : 0xb0ac9a, .009 + (i % 3) * .004, .25 + (i % 4) * .1, false);
+    }
+  }
+
   /** 상처에서 뚝뚝 떨어지는 핏방울 */
   drip(point) {
     if (!this.bloodOn) return;
@@ -229,6 +240,15 @@ function texture(kind) {
   } else if (kind === 'stab') {
     blob(64, 64, 40, 'rgba(90,6,6,0.5)');
     blob(64, 64, 14, 'rgba(20,2,2,1)');
+  } else if (kind === 'clay') {
+    g.lineCap = 'butt'; g.lineJoin = 'miter';
+    for (const [offset, color, width] of [[2, 'rgba(190,187,168,.6)', 3], [0, 'rgba(65,63,54,.85)', 2]]) {
+      g.strokeStyle = color; g.lineWidth = width; g.beginPath();
+      for (const [i, point] of [[57,9],[64,35],[55,56],[71,84],[62,120]].entries()) {
+        if (!i) g.moveTo(point[0] + offset, point[1]); else g.lineTo(point[0] + offset, point[1]);
+      }
+      g.moveTo(55 + offset,56); g.lineTo(37 + offset,68); g.lineTo(31 + offset,85); g.stroke();
+    }
   } else if (kind === 'bruise') {
     for (let i = 0; i < 6; i++) blob(64 + (r() - 0.5) * 30, 64 + (r() - 0.5) * 30, 20 + r() * 18, 'rgba(70,35,70,0.35)');
   } else if (kind === 'scratch') {

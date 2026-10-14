@@ -33,7 +33,7 @@ async function main() {
   }
   assert(args.build && path.isAbsolute(args.build) && args.out && path.isAbsolute(args.out), 'Absolute --build and --out required');
   const build = await fs.realpath(args.build), out = path.resolve(args.out);
-  assert(out.startsWith('/tmp/halfsword-dunhuang-play-20261014/'), 'Output must be under /tmp/halfsword-dunhuang-play-20261014/');
+  assert(/^\/tmp\/halfsword-dunhuang-(play|followup)-20261014\//.test(out), 'Output must be under /tmp/halfsword-dunhuang-play-20261014/');
   const base = new URL(args.base || 'https://yoonjl-svg.github.io/halfsword-codex/');
   const local = ['localhost', '127.0.0.1', '[::1]'].includes(base.hostname);
   assert((local && base.protocol === 'http:') || base.href === 'https://yoonjl-svg.github.io/halfsword-codex/');
@@ -41,7 +41,7 @@ async function main() {
   const character = CHARACTERS_BY_ID.terracotta;
   assert(character, 'Terracotta must be registered'); assert.equal(character.weapon, 'ganjiang'); assert.equal(character.voice, 'silent');
   assert.equal(character.look.stockEyes, true, 'Keep the existing stock-eye character');
-  const contract = { enemy: 'terracotta', name: character.name, stage: 'dunhuang', weapon: 'ganjiang', voice: 'silent',
+  const contract = { enemy: 'terracotta', name: character.name, stage: 'dunhuang', weapon: 'ganjiang', voice: 'silent', physiology: character.physiology,
     outfit: character.look.outfit, lookVersion: character.lookVersion, stockEyes: true,
     playerWeapon: 'longsword', query, photos };
   const before = await manifest(build), toolHash = sha(await fs.readFile(own));
@@ -139,7 +139,7 @@ async function main() {
       const bodies = [p, e].flatMap(f => [...Object.values(f.bodies), f.sword])
         .flatMap(body => [body.translation(), body.rotation(), body.linvel(), body.angvel()].flatMap(value => Object.values(value)));
       return { state: game.state, steps: game.combat.stepNo, frame: game.renderInfo().frame, stage: game.stage,
-        enemyName: e.name, enemyWeapon: e.weapon.id, playerWeapon: p.weapon.id,
+        physiology: e.physiology, enemyName: e.name, enemyWeapon: e.weapon.id, playerWeapon: p.weapon.id,
         playerUUID: p.swordGroup.uuid, enemyUUID: e.swordGroup.uuid, outfit,
         finite: bodies.every(Number.isFinite), bodies, pelvis: { ...p.bodies.pelvis.translation() }, swordRotation: { ...p.sword.rotation() },
         active: game.input.activeTouch, accepted: window.dunhuangAccepted || 0,
@@ -154,7 +154,7 @@ async function main() {
     const outfitSignature = value => value.outfit.map(({ outfit, part }) => ({ outfit, part }));
     function policy(value, selected = true, audible = true) {
       assert.equal(value.stage.id, contract.stage); assert.equal(value.stage.pinned, contract.stage);
-      assert.equal(value.enemyName, contract.name); assert.equal(value.enemyWeapon, contract.weapon);
+      assert.deepEqual(value.physiology, contract.physiology); assert.equal(value.enemyName, contract.name); assert.equal(value.enemyWeapon, contract.weapon);
       if (selected) assert.equal(value.playerWeapon, contract.playerWeapon);
       assert(value.finite && value.scrollWidth <= value.width + 1); assert.equal(value.saved, saved);
       assert.equal(value.model.requested, false); assert.equal(value.model.loads, 0);

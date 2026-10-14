@@ -33,6 +33,7 @@ function stopMotor(j) {
 export function detachLimb(f, target, h, woundBleed) {
   const joint = f.jointByName[target.root];
   if (!joint?.joint || f.detachedParts?.has(target.root)) return false;
+  if (f.physiology?.bleeds === false) woundBleed = 0;
   const localParent = new THREE.Vector3().copy(joint.joint.anchor1());
   const localChild = new THREE.Vector3().copy(joint.joint.anchor2());
   const normalParent = localParent.clone().normalize();

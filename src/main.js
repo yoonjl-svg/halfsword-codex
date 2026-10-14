@@ -510,6 +510,7 @@ function newRound(weaponId) {
     heading: Math.PI,
     look: enemyLook,
     weapon: foeWeapon, // prepareRound 가 정한 상대 무기
+    physiology: currentFoe?.physiology,
     revive: currentFoe?.revive, // 부활 (이졸데: 처음 죽으면 한 번 다시 일어선다, src/revive.js)
   });
   enemy.terrainTraits = currentFoe?.terrainTraits ?? null;
@@ -645,8 +646,10 @@ function onWound(att, vic, r, point, pr) {
   if (r.pass) stats.passes++;
   const e = r.energy;
   const opened = r.type !== 'blunt' && r.severity > 0;
+  const bleeds = vic.physiology?.bleeds !== false;
   // 피: 벤 방향으로 흩뿌림
-  if (opened) particles.blood(point, r.dir, 6 + r.severity * 40, r.speed);
+  if (!bleeds) { if (e > 5) particles.clayChips(point, r.dir, e); }
+  else if (opened) particles.blood(point, r.dir, 6 + r.severity * 40, r.speed);
   // 흔적 (몸 표면에 붙어서 같이 움직인다)
   const mesh = vic.partMesh[pr.v.part];
   const group = vic.groups[pr.v.part];
@@ -664,7 +667,9 @@ function onWound(att, vic, r, point, pr) {
     // 투구·판금: 긁힘, 세면 찌그러짐 (벗겨지거나 부서지면 조각과 함께 날아간다).
     //  조각 투구(마르그레테)는 사발 조각 메쉬에, 판금은 그 부위에서 맞은 곳에 가장 가까운 판금 메쉬에 붙인다
     const steel = r.helmet && vic.helmetGroup ? (vic.helmetGroup.userData.pieces?.bowl ?? vic.helmetGroup).children[0] : r.plate ? vic.plateMeshNear(pr.v.part, r.local) : null;
-    if (steel?.geometry) {
+    if (!bleeds) {
+      if (e > 5) stickDecal(mesh, local, bladeLocal, 'clay', 0.035 + Math.min(.035, e / 2200), Math.min(.18, .04 + e / 900));
+    } else if (steel?.geometry) {
       const p = r.local.clone().applyMatrix4(new THREE.Matrix4().copy(steel.matrixWorld).invert().multiply(group.matrixWorld));
       stickDecal(steel, p, bladeLocal, 'scratch', 0.03, Math.min(0.16, 0.04 + e / 1200));
       if (e > 60) stickDecal(steel, p, null, 'dent', 0.03 + Math.min(0.05, e / 4000), 0.03 + Math.min(0.05, e / 4000));
@@ -681,7 +686,7 @@ function onWound(att, vic, r, point, pr) {
       stickDecal(mesh, local, bladeLocal, 'bruise', 0.03, 0.08);
     }
   }
-  if (opened) att.bloodyBlade(0.08 + r.severity * 0.15);
+  if (opened && bleeds) att.bloodyBlade(0.08 + r.severity * 0.15);
   // 소리: 투구는 투구 소리. 판금은 전투 판정(r.plate — 아직 붙어 있는 판이 덮은 곳을 맞았다)을 따른다:
   //  날이 들지 못했으면 판금이 막는 소리(때린 무기 재질대로), 판을 뚫고 들어갔으면 강철 소리 한 번 (살 소리는 아래에서 따로)
   //  불꽃: 막혔으면 더 많고, 판을 뚫고 들어가도 강철을 긁은 불꽃이 조금 튄다 (ARMOR 를 켰을 때만 — 끄면 예전 그대로)
@@ -697,10 +702,11 @@ function onWound(att, vic, r, point, pr) {
     vic.armorBroke = false;
     sound.plateBreak(e);
   }
-  if (r.type === 'cut') sound.cut(e, r.pass);
+  if (!bleeds) sound.clay(e, point);
+  else if (r.type === 'cut') sound.cut(e, r.pass);
   else if (r.type === 'stab' && opened) sound.stab(e); // 날이 들지 못한 내려찍기 즉사 찌르기(r.finish, 심각도 0)는 막힌 타격 소리
   else sound.blunt(e);
-  if (e > 70 && (r.zone === 'head' || r.zone === 'arm' || r.zone === 'leg') && !r.helmet && !r.plate) sound.bone(e);
+  if (bleeds && e > 70 && (r.zone === 'head' || r.zone === 'arm' || r.zone === 'leg') && !r.helmet && !r.plate) sound.bone(e);
   // 멈칫: 재질에 따라. 살을 깨끗이 가르면 짧게, 박히거나 뼈·투구에 걸리면 길게 (최대 0.1초 — 조작이 늦게 느껴지지 않게)
   const bone = e > 70 && (r.zone === 'head' || r.zone === 'arm' || r.zone === 'leg');
   const stopT = r.pass ? Math.min(0.06, e / 2000) : r.stuck || bone || r.helmet || r.plate ? Math.min(0.1, e / 900) : Math.min(0.08, e / 1200);
@@ -785,6 +791,7 @@ function updateBindSound() {
 // 상처에서 떨어지는 핏방울
 const _wp = new THREE.Vector3();
 function updateDrips(f, dt) {
+  if (f.physiology?.bleeds === false) return;
   for (const w of f.wounds) {
     // 옷에 번지는 핏자국: 흘린 피만큼 커진다 (가끔씩 다시 투사)
     if (w.soak) {

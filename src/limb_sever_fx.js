@@ -27,6 +27,7 @@ export function createLimbSeverFx(particles) {
   };
   const materials = visual(() => ({
     flesh: new THREE.MeshStandardMaterial({ color: FLESH, roughness: 0.65, side: THREE.DoubleSide }),
+    clay: new THREE.MeshStandardMaterial({ color: 0x8b887a, roughness: 1, side: THREE.DoubleSide }),
     bone: new THREE.MeshStandardMaterial({ color: 0xcfc4b2, roughness: 0.8, side: THREE.DoubleSide }),
   }));
   retainVisualResources(...Object.values(materials));
@@ -34,17 +35,18 @@ export function createLimbSeverFx(particles) {
   const direction = new THREE.Vector3();
   const rotation = new THREE.Quaternion();
 
-  const disc = (group, local, normal, radius) => {
+  const disc = (group, local, normal, radius, dry) => {
     if (!group) return null;
     return visual(() => {
       const end = new THREE.Group();
       end.name = 'limbSeverStump';
       end.position.copy(local);
       end.quaternion.setFromUnitVectors(Z, normal);
-      const flesh = new THREE.Mesh(new THREE.CircleGeometry(radius, 14), materials.flesh);
+      const flesh = new THREE.Mesh(new THREE.CircleGeometry(radius, 14), dry ? materials.clay : materials.flesh);
       const bone = new THREE.Mesh(new THREE.CircleGeometry(radius * 0.2, 8), materials.bone);
       bone.position.z = 0.0006;
-      end.add(flesh, bone);
+      end.add(flesh);
+      if (!dry) end.add(bone);
       group.add(end);
       return end;
     });
@@ -55,8 +57,8 @@ export function createLimbSeverFx(particles) {
     const child = f.groups?.[event.root];
     const normalParent = event.normalParent.clone().normalize();
     const normalChild = event.normalChild.clone().normalize();
-    disc(parent, event.localParent, normalParent, event.radius);
-    disc(child, event.localChild, normalChild, event.radius);
+    disc(parent, event.localParent, normalParent, event.radius, f.physiology?.bleeds === false);
+    disc(child, event.localChild, normalChild, event.radius, f.physiology?.bleeds === false);
     return {
       parent, child, normalParent, normalChild,
       localParent: event.localParent.clone(), localChild: event.localChild.clone(),
@@ -92,7 +94,7 @@ export function createLimbSeverFx(particles) {
       for (const st of states) {
         const before = st.t;
         st.t += elapsed;
-        if (!blood || !elapsed) continue;
+        if (!blood || f.physiology?.bleeds === false || !elapsed) continue;
         // 양쪽 모두 목 분출보다 적고 짧다. bloodOff 중에도 시각 시계는
         // 진행하여 나중에 켰을 때 지난 분출을 몰아서 내지 않는다.
         for (const [side, duration, rate] of [['parent', PARENT_T, 18], ['child', CHILD_T, 8]]) {

@@ -25,17 +25,20 @@ const geoBone = new THREE.CircleGeometry(NECK_R * 0.28, 10);
 const matFlesh = new THREE.MeshStandardMaterial({ color: FLESH, roughness: 0.55, side: THREE.DoubleSide });
 const matRing = new THREE.MeshStandardMaterial({ color: 0x6a1a18, roughness: 0.6, side: THREE.DoubleSide });
 const matBone = new THREE.MeshStandardMaterial({ color: BONE, roughness: 0.8, side: THREE.DoubleSide });
-retainVisualResources(geoFlesh, geoRing, geoBone, matFlesh, matRing, matBone);
+const matClay = new THREE.MeshStandardMaterial({ color: 0x8b887a, roughness: 1, side: THREE.DoubleSide });
+const matClayRim = new THREE.MeshStandardMaterial({ color: 0xaaa697, roughness: 1, side: THREE.DoubleSide });
+retainVisualResources(geoFlesh, geoRing, geoBone, matFlesh, matRing, matBone, matClay, matClayRim);
 
 /** 단면 원판 하나 (그룹 기준 pos 에, 법선 n 쪽을 보게) */
-function stumpDisc(group, pos, n) {
+function stumpDisc(group, pos, n, dry = false) {
   const g = new THREE.Group();
-  const flesh = new THREE.Mesh(geoFlesh, matFlesh);
-  const ring = new THREE.Mesh(geoRing, matRing);
+  const flesh = new THREE.Mesh(geoFlesh, dry ? matClay : matFlesh);
+  const ring = new THREE.Mesh(geoRing, dry ? matClayRim : matRing);
   const bone = new THREE.Mesh(geoBone, matBone);
   ring.position.z = 0.0005;
   bone.position.set(-NECK_R * 0.3, 0, 0.001); // 목뼈는 목 뒤쪽(몸 기준 −x)에 치우친다
-  g.add(flesh, ring, bone);
+  g.add(flesh, ring);
+  if (!dry) g.add(bone);
   g.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), n);
   g.position.copy(pos);
   g.name = 'decapStump';
@@ -63,8 +66,8 @@ export function createDecapFx(particles) {
     const w = f.wounds.find((x) => x.stump && !x.limbStump);
     const local = w ? w.local.clone() : new THREE.Vector3(0, 0.17, 0);
     local.y = Math.max(local.y, 0.176); // 옷깃(원기둥) 위에 얹는다
-    const body = f.groups.chest ? stumpDisc(f.groups.chest, local, UP) : null;
-    const head = f.groups.head ? stumpDisc(f.groups.head, new THREE.Vector3(0, -0.072, 0), DOWN) : null;
+    const body = f.groups.chest ? stumpDisc(f.groups.chest, local, UP, f.physiology?.bleeds === false) : null;
+    const head = f.groups.head ? stumpDisc(f.groups.head, new THREE.Vector3(0, -0.072, 0), DOWN, f.physiology?.bleeds === false) : null;
     const st = { t: 0, body, head, local, acc: 0, hacc: 0 };
     done.set(f, st);
     return st;
@@ -75,11 +78,12 @@ export function createDecapFx(particles) {
       if (!f?.decapitated) continue;
       const st = done.get(f) ?? attach(f);
       st.t += dt;
-      const blood = particles.bloodOn;
-      const col = blood ? FLESH : FLESH_OFF;
+      const showBlood = particles.bloodOn;
+      const blood = showBlood && f.physiology?.bleeds !== false;
+      const col = showBlood ? FLESH : FLESH_OFF;
       if (matFlesh.color.getHex() !== col) {
         matFlesh.color.setHex(col);
-        matRing.color.setHex(blood ? 0x6a1a18 : 0x4a4644);
+        matRing.color.setHex(showBlood ? 0x6a1a18 : 0x4a4644);
       }
       if (!blood || dt <= 0) continue;
       // 몸통 단면: 박동하며 뿜는 피 (초당 70 → 10 방울, 2.2 Hz 박동)

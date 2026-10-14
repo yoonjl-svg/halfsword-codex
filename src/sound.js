@@ -3365,6 +3365,14 @@ export class Sound {
     for (let i = 0; i < n; i++) this._shard(ev, 'armor', { gain: 0.5 - 0.08 * i, delay: 0.1 + 0.09 * i + between(Math.random, 0, 0.05), grit: true });
   }
 
+  // Dry baked-clay impact: reuse the existing short synthesized crack, no wet/flesh layers.
+  clay(energy, pos) {
+    if (!this._on || !this.ctx) return;
+    const e = clamp01(energy / 150);
+    const ev = this.event({ bus: this.fleshBus, gain: .18 + .42 * e, prio: 1.5, pos });
+    this.layer(ev, this.pick('bone'), { gain: .8, rate: .78, dur: .22 });
+  }
+
   /** 뼈 부딪히는/부러지는 소리 */
   bone(energy) {
     if (!this._on || !this.ctx) return;

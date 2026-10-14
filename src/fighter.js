@@ -177,6 +177,9 @@ export class Fighter {
     this.name = o.name;
     this.side = 1; // 오른손잡이
     this.heading = o.heading ?? 0;
+    // Character capability, independent of appearance/name. Existing fighters
+    // retain the human rules when no physiology is supplied.
+    this.physiology = Object.freeze({ bleeds: true, deathRequiresHeadDetachment: false, ...o.physiology });
     this.terrain = o.terrain ?? null; // Optional physical floor; absent keeps the original flat arena.
     this.faceTarget = null; // 바라볼 지점(보통 상대 골반). main이 매 스텝 넣어준다.
 
@@ -1063,6 +1066,7 @@ export class Fighter {
   }
 
   setState(s) {
+    if (s === 'dead' && !this.canDie) return;
     this.state = s;
     this.stateTime = 0;
   }
@@ -1085,7 +1089,7 @@ export class Fighter {
   }
 
   die(cause, finishingStrike = false) {
-    if (this.state === 'dead') return;
+    if (this.state === 'dead' || !this.canDie) return;
     // Preserve the old no-revival rule only when a committed finishing stab
     // actually causes a fatal wound. A survived hit sets no lasting status;
     // later bleeding/concussion and unrelated hits retain ordinary revival.
@@ -1094,8 +1098,18 @@ export class Fighter {
     this.setState('dead');
   }
 
+  get canDie() {
+    return !this.physiology.deathRequiresHeadDetachment
+      || (this.decapitated && !this.jointByName.head?.joint);
+  }
+
   // ── 출혈·의식·통증 ──
   updateVitals(dt) {
+    if (!this.physiology.bleeds) {
+      this.blood = 1;
+      this.bleed = 0;
+      for (const w of this.wounds) w.bleed = 0;
+    }
     if (this.bleed > 0) {
       this.blood = Math.max(0, this.blood - this.bleed * dt);
       // 피가 굳으며 출혈이 줄어든다 (큰 상처일수록 느리게)
@@ -1157,24 +1171,32 @@ export class Fighter {
         this.consciousness -= h.energy * VITALS.concussionPerJoule * k;
         if (h.energy * k > 45) this.knockDown(h.energy * k > 90); // 머리를 세게 맞으면 주저앉거나 쓰러진다
         this.daze = Math.min(1, (this.daze || 0) + h.energy * k / 100); // 멍함
+        // A clay neck breaks at the same accumulated head-impact threshold
+        // that ends a human fight. Only an actual head/neck hit can do this;
+        // an unrelated die('기절') request never manufactures a detached head.
+        if (this.physiology.deathRequiresHeadDetachment && this.consciousness <= 0) this.detachHeadFromWound(h);
       }
       return;
     }
 
     // 베기/찌르기 → 상처 + 출혈. 찌르기는 ×1.6 (가슴 찌르기 +0.25 는 이것과 겹쳐 지움 — 사장님 9/30 14:30, 128판 0회)
     const bleedPerSev = h.bleedPerSev;
-    const bleed = sev * bleedPerSev * (h.type === 'stab' ? 1.6 : 1);
+    const bleed = this.physiology.bleeds ? sev * bleedPerSev * (h.type === 'stab' ? 1.6 : 1) : 0;
     this.bleed += bleed;
     this.wounds.push({ part: h.part, type: h.type, severity: sev, bleed, local: h.local.clone() });
 
     // 치명상
     if (Z === 'neck' && sev > 0.5) {
-      // 참수 (COMBAT.decapitate): 칼이 목을 가르고 지나간 베기만. 튕긴 충돌·찌르기·둔기·총은 아니다
-      const decap = COMBAT.decapitate && h.type === 'cut' && h.pass && h.passing;
+      // Humans: only a passing neck cut separates the head. A nonliving
+      // fighter's neck also fractures under an otherwise fatal neck wound.
+      const decap = this.physiology.deathRequiresHeadDetachment || (COMBAT.decapitate && h.type === 'cut' && h.pass && h.passing);
       if (decap) this.decapitate(sev, bleed);
       this.die('목', !!h.finishingStrike);
       if (decap) COMBAT_HOOKS.onDecapitate?.(this, this.bodies.head);
-    } else if (Z === 'head' && ((h.type === 'cut' && sev > 0.8) || (h.type === 'stab' && sev > 0.5))) this.die('머리', !!h.finishingStrike);
+    } else if (Z === 'head' && ((h.type === 'cut' && sev > 0.8) || (h.type === 'stab' && sev > 0.5))) {
+      if (this.physiology.deathRequiresHeadDetachment) this.detachHeadFromWound(h);
+      else this.die('머리', !!h.finishingStrike);
+    }
 
     // 팔다리 기능
     const limb = { uarmS: 'armS', farmS: 'armS', uarmO: 'armO', farmO: 'armO', thighF: 'legF', shinF: 'legF', footF: 'legF', thighB: 'legB', shinB: 'legB', footB: 'legB' }[h.part];
@@ -1187,6 +1209,14 @@ export class Fighter {
     if (Z === 'head' && h.type === 'cut') this.consciousness -= sev * 0.5;
   }
 
+  // A severe impact fractures a nonliving fighter's neck. Reuse the existing
+  // fatal wound/concussion thresholds; the loose head keeps physical velocity.
+  detachHeadFromWound(h) {
+    if (!this.decapitate(h.severity, 0)) return;
+    this.die(h.zone === 'neck' ? '목' : '머리', !!h.finishingStrike);
+    COMBAT_HOOKS.onDecapitate?.(this, this.bodies.head);
+  }
+
   /**
    * 참수: 목 관절(가슴 → 머리)을 뗀다. 물리 스텝 밖(combat.afterStep → strike → applyWound)에서만 불린다.
    *  머리 몸·콜라이더·겉모습(얼굴·눈·머리카락·투구)은 그대로 — 머리는 칼·끌림이 준 속도 그대로 날아간다(더하는 힘 없음).
@@ -1194,13 +1224,16 @@ export class Fighter {
    */
   decapitate(sev, bleed) {
     const J = this.jointByName.head;
+    if (!J?.joint || this.decapitated) return false;
     const a = J.joint.anchor1(); // 가슴 몸 기준 목 관절 자리
     this.world.removeImpulseJoint(J.joint, true);
     this.joints.splice(this.joints.indexOf(J), 1); // 근육을 더는 걸지 않는다 (applyPose 의 J.head 목표 쓰기는 아무 데도 안 간다)
     J.joint = null;
     this.decapitated = true;
+    if (!this.physiology.bleeds) bleed = 0;
     this.bleed += bleed;
     this.wounds.push({ part: 'chest', type: 'cut', severity: sev, bleed, local: new THREE.Vector3(a.x, a.y, a.z), stump: true });
+    return true;
   }
 
   /**
