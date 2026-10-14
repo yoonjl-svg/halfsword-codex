@@ -1,6 +1,6 @@
 # 혼합안 독립 개발 인계
 
-월왕구천검 ·10/14: 사용자 길이 하한69cm에 따라 **80cm·1.15kg·레어 한손검** 제작. [제작·검증](../content/goujian_20261014.md), [실물 근거](../content/goujian_research_20261014.md). native24검사 통과, 회전 보기/대련 공개 검사 진행 중.
+월왕구천검 ·10/14: 사용자 길이 하한69cm에 따라 **80cm·1.15kg·레어 한손검** 제작. [제작·검증](../content/goujian_20261014.md), [실물 근거](../content/goujian_research_20261014.md). `c971990`/Pages38514243199 공개 완료. 로컬·공개5구도와 모바일 선택/터치공격/이동/정지/재개/재시작 통과, 공개179파일 일치·오류0. [영수증](../content/goujian_release.json).
 
 둔황 후속 ·10/14: [무혈 병마용·머리 분리 사망·입체 누각](../content/dunhuang_followup_20261014.md). 원래 인간 전투는 유지. `901b1f3`/Pages38510848057 공개 완료. 로컬·공개 모바일 입력/재시작과 병마용 프로필 확인, 공개178파일 일치·오류0. [영수증](../content/dunhuang_followup_release.json).
 
