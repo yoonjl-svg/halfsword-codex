@@ -1,5 +1,7 @@
 # Stillness (적막)
 
+샛별 개발판은 우화의 `fdd64557067deced82900ecc33cec84d21be0274`를 공통 기준으로 재포크했습니다. [기준·검증 기록](docs/codex_team/REFORK_20261015.md) · [제작/전달 지침](docs/codex_team/README.md). 이 저장소의 공개 주소는 `https://yoonjl-svg.github.io/halfsword-codex/`입니다.
+
 〈하프 소드〉에서 영감을 받은 **물리 기반 중세 결투 게임**을 만들어 보는 첫 게임 프로젝트예요.
 스마트폰 브라우저에서 바로 플레이할 수 있게 만들고 있어요.
 
