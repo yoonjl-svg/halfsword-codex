@@ -1541,8 +1541,8 @@ function showRoundMenu() {
   const loser = win ? enemy : player;
   // 한 줄로 짧게: 이겼으면 내가 한 일(베었다), 졌으면 내가 당한 일(베였다)
   const cause = win
-    ? { 목: '목을 베었다', 머리: '머리를 쳤다', 출혈: '출혈로 쓰러뜨렸다', 기절: '기절시켰다', 내려찍기: '내려찍었다', 용암: '상대가 용암에 닿았다' }[loser.causeOfDeath] || '쓰러뜨렸다'
-    : { 목: '목을 베였다', 머리: '머리를 맞았다', 출혈: '피를 너무 흘렸다', 기절: '기절했다', 내려찍기: '내려찍혔다', 용암: '용암에 닿았다' }[loser.causeOfDeath] || '쓰러졌다';
+    ? { 목: '목을 베었다', 머리: '머리를 쳤다', 출혈: '출혈로 쓰러뜨렸다', 기절: '기절시켰다', 내려찍기: '내려찍었다', 용암: '상대가 화상으로 쓰러졌다' }[loser.causeOfDeath] || '쓰러뜨렸다'
+    : { 목: '목을 베였다', 머리: '머리를 맞았다', 출혈: '피를 너무 흘렸다', 기절: '기절했다', 내려찍기: '내려찍혔다', 용암: '화상으로 쓰러졌다' }[loser.causeOfDeath] || '쓰러졌다';
   const journeyComplete = win && currentFoe?.id === 'crown_boss' && foeParam === 'stage' && !STAGE_PIN;
   $('menuTitle').textContent = journeyComplete ? '여정 완료' : win ? '승리' : '패배';
   // 졌으면 상대의 승리 대사를 한 줄 덧붙인다 (사장님 확정)

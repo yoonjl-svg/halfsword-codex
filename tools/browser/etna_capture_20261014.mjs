@@ -6,7 +6,6 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 
 const out = process.argv[2];
-const reuseGate = process.argv[3];
 assert(out?.startsWith('/tmp/'));
 await fs.mkdir(out, { recursive: true });
 const report = { pass: false, errors: [], source: {}, lifecycle: [], limitations: ['Desktop software rendering is not physical-phone performance.', 'Camera-only observation views do not represent a normal combat camera.'] };
@@ -14,14 +13,9 @@ for (const name of ['src/stage_etna.js', 'src/etna_ground.js', 'src/stage_kit.js
 report.toolSha256 = createHash('sha256').update(await fs.readFile(new URL(import.meta.url))).digest('hex');
 const browser = await chromium.launch({ executablePath: '/usr/bin/chromium', args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
 try {
-  if (reuseGate) {
-    const previous = JSON.parse(await fs.readFile(reuseGate));
-    assert.equal(previous.lifecycle.length, 3);
-    report.lifecycle = previous.lifecycle;
-    report.reusedLifecycle = { path: reuseGate, source: previous.source, reason: 'Only deterministic lava canvas colours changed after the lifecycle gate; mesh/material/texture ownership and terrain stayed identical.' };
-  } else {
   const page = await browser.newPage({ viewport: { width: 1200, height: 720 } });
   page.on('pageerror', error => report.errors.push(String(error)));
+  page.on('console', message => { if (message.type() === 'error') report.errors.push(message.text()); });
   await page.route('**/__etna_scene', route => route.fulfill({ contentType: 'text/html', body: '<html><body style="margin:0"><script type="module">import * as THREE from "/node_modules/three/build/three.module.js";import{Stages}from "/src/stages.js";import{ETNA,etnaHeight}from "/src/etna_ground.js";Object.assign(window,{THREE,Stages,ETNA,etnaHeight});</script></body></html>' }));
   await page.goto('http://127.0.0.1:4320/__etna_scene');
   await page.waitForFunction(() => window.Stages);
@@ -65,31 +59,39 @@ try {
       check(maxGroundError < 1e-6 && maxLavaError < 1e-6, 'Visible ground/lava differs from shared physics');
       baselineGeometry ??= geometryHash; baselineTexture ??= textureHash;
       check(geometryHash === baselineGeometry && textureHash === baselineTexture, 'Stage is not deterministic');
-      renderer.render(scene, camera);
-      const events = [], lava = scene.getObjectByName('etna-cooled-lava-crust');
+      renderer.compile(scene, camera); renderer.render(scene, camera);
+      const events = [], lava = scene.getObjectByName('etna-cooled-lava-crust'), spatter = scene.getObjectByName('etna-small-molten-spatter');
       stage.onEvent = (name, event) => { check(name === 'stageDetail', 'Unexpected event channel'); events.push(event); };
-      const offset = lava.material.map.offset.y;
+      const clock = lava.material.userData.flowClock, initialClock = clock.value;
+      const positions = lava.geometry.attributes.position.array.slice(), particleBuffer = spatter.geometry.attributes.position.array;
+      const initialParticles = particleBuffer.slice();
       for (const dt of [NaN, Infinity, -1, 0]) stage.update(dt);
-      check(lava.material.map.offset.y === offset, 'Invalid delta animated stage');
+      check(clock.value === initialClock && particleBuffer.every((v, i) => v === initialParticles[i]), 'Invalid delta animated stage');
       for (let i = 0; i < 700; i++) stage.update(.1);
+      check(Math.abs(clock.value - 70) < 1e-8, 'Flow clock did not advance');
+      check(lava.geometry.attributes.position.array.every((v, i) => v === positions[i]), 'Flow changed physical lava height/boundary');
+      check(spatter.geometry.attributes.position.array === particleBuffer && particleBuffer.every(Number.isFinite), 'Spatter replaced its buffer or became nonfinite');
+      check(particleBuffer.some((v, i) => v !== initialParticles[i]), 'Spatter did not animate');
+      check(stage.stats.groundSlopeDegrees === window.ETNA.degrees, 'Slope stats diverged from shared terrain');
       check(events.length === 4 && events.every(e => e.kind === 'etnaCrust' && Object.values(e.pos).every(Number.isFinite)), 'Lava event sequence invalid');
+      renderer.render(scene, camera);
       const render = { ...renderer.info.render };
       for (const set of Object.values(resources)) for (const resource of set) { counts.set(resource, 0); resource.addEventListener('dispose', () => counts.set(resource, counts.get(resource) + 1)); }
       stages.clear();
       check([...counts.values()].every(n => n === 1), 'Stage resource disposal was not exactly once');
       check(scene.children.length === 3 && stages.objects.length === 0, 'Stage left objects behind');
-      rows.push({ round, triangles, meshes, buildMs: stages.buildMs, render, geometryHash, textureHash, minPropRadius, maxGroundError, maxLavaError, resources: Object.fromEntries(Object.entries(resources).map(([k, v]) => [k, v.size])), disposalExactlyOnce: true, events });
+      rows.push({ round, triangles, meshes, buildMs: stages.buildMs, render, geometryHash, textureHash, minPropRadius, maxGroundError, maxLavaError, flowSeconds: clock.value, particleBufferReused: true, boundaryUnchanged: true, resources: Object.fromEntries(Object.entries(resources).map(([k, v]) => [k, v.size])), disposalExactlyOnce: true, events });
     }
     renderer.dispose(); renderer.domElement.remove();
     return rows;
   });
   await page.close();
-  }
   const gamePage = await browser.newPage({ viewport: { width: 1200, height: 720 } });
   gamePage.on('pageerror', error => report.errors.push(String(error)));
+  gamePage.on('console', message => { if (message.type() === 'error') report.errors.push(message.text()); });
   await gamePage.addInitScript(() => localStorage.setItem('gladiator-settings', JSON.stringify({ pixel: false, sound: false, difficulty: 'normal', skill: '0.3', fpsCap: true })));
   await gamePage.route('**/@vite/client', r => r.fulfill({ contentType: 'application/javascript', body: '// Capture without HMR.' }));
-  await gamePage.goto('http://127.0.0.1:4320/?weapon=longsword&foe=sherpa&foeWeapon=sabre&stage=etna', { waitUntil: 'networkidle' });
+  await gamePage.goto('http://127.0.0.1:4320/?weapon=longsword&foe=artoria&foeWeapon=excalibur&stage=etna', { waitUntil: 'networkidle' });
   await gamePage.waitForFunction(() => window.game?.enemy?.groups?.head);
   await gamePage.locator('#btnStart').click();
   await gamePage.waitForFunction(() => game.state === 'fight' && game.stats.simTime >= 1.2, null, { timeout: 90000 });
@@ -105,7 +107,25 @@ try {
   await gamePage.evaluate(() => { game.camera.position.set(-6.5, 3.0, 9.5); game.camera.lookAt(3.5, -.3, 9.7); });
   await settle();
   await gamePage.locator('canvas').first().screenshot({ path: out + '/etna-lava.png' });
-  assert.equal(report.facts.stage, 'etna'); assert.equal(report.facts.weapon, 'sabre'); assert.deepEqual(report.errors, []);
+  const motionState = () => gamePage.evaluate(() => {
+    let scene = game.enemy.groups.head; while (scene.parent) scene = scene.parent;
+    return { flowSeconds: scene.getObjectByName('etna-cooled-lava-crust').material.userData.flowClock.value,
+      simulationSeconds: game.stats.simTime, camera: game.camera.position.toArray(), quaternion: game.camera.quaternion.toArray(), state: game.state };
+  });
+  const beforeMotion = await motionState();
+  await gamePage.evaluate(() => document.getElementById('btnResume').click());
+  await gamePage.waitForFunction(start => {
+    let scene = game.enemy.groups.head; while (scene.parent) scene = scene.parent;
+    return scene.getObjectByName('etna-cooled-lava-crust').material.userData.flowClock.value >= start + 6;
+  }, beforeMotion.flowSeconds, { timeout: 90000 });
+  await gamePage.evaluate(() => document.getElementById('btnPause').click());
+  await settle();
+  await gamePage.locator('canvas').first().screenshot({ path: out + '/etna-lava-after6s.png' });
+  const afterMotion = await motionState();
+  assert.deepEqual(afterMotion.camera, beforeMotion.camera); assert.deepEqual(afterMotion.quaternion, beforeMotion.quaternion);
+  assert(afterMotion.flowSeconds - beforeMotion.flowSeconds >= 6);
+  report.motion = { before: beforeMotion, after: afterMotion, screenshots: ['etna-lava.png', 'etna-lava-after6s.png'], actualLiveGameProgress: true };
+  assert.equal(report.facts.stage, 'etna'); assert.equal(report.facts.weapon, 'excalibur'); assert.deepEqual(report.errors, []);
   report.pass = true;
 } catch (error) { report.failure = error.stack; process.exitCode = 1; }
 finally {

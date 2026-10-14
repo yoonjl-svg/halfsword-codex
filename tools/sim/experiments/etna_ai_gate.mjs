@@ -37,7 +37,7 @@ try {
     report.runs.push({ kind: 'native AI approach', seed: 251, steps: 720, seconds: g.t,
       redirects, minZ, maxZ, state: g.enemy.state, death: g.enemy.terrainDeath ?? null });
     check('Real AI reverses at least one downhill approach request', redirects > 0);
-    check('Unforced AI remains alive outside lava', g.enemy.alive && !g.enemy.terrainDeath && maxZ < 5.25);
+    check('Unforced AI remains alive outside lava', g.enemy.alive && !g.enemy.lavaBurn && maxZ < 5.25);
   } finally { close(g); }
 
   // Controlled external impulse tests the boundary contract, not the force of a
@@ -45,7 +45,7 @@ try {
   const pushed = newRound({ seed: 251, stageId: 'etna', playerZ: 0, enemyZ: 3.6,
     gap: 2.5, heading2: Math.PI / 2 });
   try {
-    let impulseApplied = false, before = null, deathAt = null, maxZ = -Infinity;
+    let impulseApplied = false, before = null, contactAt = null, deathAt = null, maxZ = -Infinity;
     pushed.before = () => {
       if (impulseApplied || pushed.t < 2.1) return;
       impulseApplied = true;
@@ -54,16 +54,17 @@ try {
         body.applyImpulse({ x: 0, y: 0, z: body.mass() * 7 }, true);
       }
     };
-    for (let i = 0; i < 720; i++) {
+    for (let i = 0; i < 1800; i++) {
       pushed.step();
+      if (pushed.enemy.lavaBurn && contactAt === null) { contactAt = pushed.t; assert(pushed.enemy.alive, 'First contact must not be instant death'); }
       maxZ = Math.max(maxZ, pushed.enemy.bodies.pelvis.translation().z);
       if (pushed.enemy.terrainDeath) { deathAt = pushed.t; break; }
     }
     report.runs.push({ kind: 'native external downhill impulse', seed: 251,
-      deltaVelocity: 7, before, maxZ, deathAt, death: pushed.enemy.terrainDeath ?? null });
+      deltaVelocity: 7, before, maxZ, contactAt, deathAt, death: pushed.enemy.terrainDeath ?? null });
     check('External impulse begins with a standing live AI', impulseApplied && before.state === 'stand');
     check('Physical downhill impulse can cross the lava edge despite AI avoidance', maxZ > 5.25);
-    check('Physical body lava contact still kills the AI', !pushed.enemy.alive && !!pushed.enemy.terrainDeath);
+    check('Sustained physical lava exposure eventually kills the AI', !pushed.enemy.alive && !!pushed.enemy.terrainDeath && deathAt-contactAt>5.9);
   } finally { close(pushed); }
   report.pass = true;
 } catch (error) {

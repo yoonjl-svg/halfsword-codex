@@ -586,6 +586,11 @@ export class Fighter {
     return (this.limbs.legF + this.limbs.legB) / 2;
   }
 
+  /** A heat-destroyed supporting foot cannot recover by averaging with the healthy leg. */
+  get legsCannotSupport() {
+    return this.legHealth < 0.25 || !!this.lavaBurn?.legs.some(limb => this.limbs[limb] < 0.25);
+  }
+
   /** 칼 든 팔 기능 */
   get armHealth() {
     return this.limbs.armS;
@@ -1026,13 +1031,13 @@ export class Fighter {
       // 기울기는 일부러 숙인 만큼(배를 다쳐 웅크림·자세)을 빼고 잰다: 웅크린 채 일어서자마자 넘어졌다고 다시 쓰러지기를 되풀이하지 않게
       const fallTilt = tilt - THREE.MathUtils.radToDeg(this.hunch);
       if (fallTilt > BODY.fallTiltDeg || this.balance <= 0 || lostFooting) this.knockDown(fallTilt > BODY.fallTiltDeg + 15);
-      else if (this.legHealth < 0.25) this.knockDown(false); // 다리가 버티지 못해 주저앉는다
+      else if (this.legsCannotSupport) this.knockDown(false); // 다리가 버티지 못해 주저앉는다
     } else if (this.state === 'down') {
       if (this.stateTime > this.downTime && this.consciousness > 0.3) this.setState('getup');
     } else if (this.state === 'getup') {
       if (this.stateTime > this.kneelTime) {
         // 무릎 꿇은 자세에서 일어서기. 다리가 못 버티면 무릎 꿇은 채로 남는다
-        if (this.legHealth < 0.25) this.setState('kneel');
+        if (this.legsCannotSupport) this.setState('kneel');
         else if (this.stateTime > this.kneelTime + this.riseTime) {
           this.setState('stand');
           this.balance = 60;

@@ -1,7 +1,7 @@
-// One frozen-build delivery flow for the Etna introduction and existing Sherpa encounter.
+// One frozen-build delivery flow for the Etna introduction and existing Artoria encounter.
 // Derived from new_pair_delivery_20261010.mjs; no campaign, account or physics fixtures.
-// --base=http://127.0.0.1:PORT/ --build=/absolute/build --out=/tmp/halfsword-etna-20261014/local01
-// Public: same build, --out=/tmp/halfsword-etna-20261014/public01 --local-evidence=/absolute/local01/report.json
+// --base=http://127.0.0.1:PORT/ --build=/absolute/build --out=/tmp/halfsword-etna-v2-20261014/local01
+// Public: same build, --out=/tmp/halfsword-etna-v2-20261014/public01 --local-evidence=/absolute/local01/report.json
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -13,7 +13,7 @@ import { CHARACTERS_BY_ID } from '../../src/characters.js';
 const own = fileURLToPath(import.meta.url), root = path.resolve(path.dirname(own), '../..');
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const photos = ['etna-combat', 'etna-vista', 'etna-lava'].map(name => `encounters/${name}.webp`);
-const query = '?cards=longsword,sain&foe=sherpa&stage=etna';
+const query = '?cards=longsword,sain&foe=artoria&stage=etna';
 async function manifest(dir, prefix = '') {
   const result = {};
   for (const entry of (await fs.readdir(dir, { withFileTypes: true })).sort((a, b) => a.name.localeCompare(b.name))) {
@@ -33,17 +33,17 @@ async function main() {
   }
   assert(args.build && path.isAbsolute(args.build) && args.out && path.isAbsolute(args.out), 'Absolute --build and --out required');
   const build = await fs.realpath(args.build), out = path.resolve(args.out);
-  assert(out.startsWith('/tmp/halfsword-etna-20261014/'), 'Output must be under /tmp/halfsword-etna-20261014/');
+  assert(out.startsWith('/tmp/halfsword-etna-v2-20261014/'), 'Output must be under /tmp/halfsword-etna-v2-20261014/');
   const base = new URL(args.base || 'https://yoonjl-svg.github.io/halfsword-codex/');
   const local = ['localhost', '127.0.0.1', '[::1]'].includes(base.hostname);
   assert((local && base.protocol === 'http:') || base.href === 'https://yoonjl-svg.github.io/halfsword-codex/');
   assert(!base.search && !base.hash && !base.username && !base.password && base.pathname.endsWith('/'));
-  const character = CHARACTERS_BY_ID.sherpa;
-  assert(character, 'Existing Sherpa must be registered'); assert.equal(character.weapon, 'sabre'); assert.equal(character.voice, 'liao');
+  const character = CHARACTERS_BY_ID.artoria;
+  assert(character, 'Existing Artoria must be registered'); assert.equal(character.weapon, 'excalibur'); assert.equal(character.voice, 'soft_female');
   assert.equal(character.look.stockEyes, true, 'Keep the existing stock-eye character');
-  const contract = { enemy: 'sherpa', name: character.name, stage: 'etna', weapon: 'sabre', voice: 'liao',
+  const contract = { enemy: 'artoria', name: character.name, stage: 'etna', weapon: 'excalibur', voice: 'soft_female',
     outfit: character.look.outfit, lookVersion: character.lookVersion, stockEyes: true,
-    degrees: 7, lavaEdgeZ: 5.25, playerWeapon: 'longsword', query, photos };
+    degrees: 10, lavaEdgeZ: 5.25, playerWeapon: 'longsword', query, photos };
   const before = await manifest(build), toolHash = sha(await fs.readFile(own));
   for (const name of ['index.html', 'etna.html', ...photos]) assert(before[name], `Missing frozen file: ${name}`);
   if (!local) {
@@ -177,7 +177,7 @@ async function main() {
         assert.equal(fighter.lavaEdgeZ, contract.lavaEdgeZ);
         for (const sample of fighter.heights) {
           assert.equal(sample.fighter, sample.floor);
-          assert(Math.abs(sample.floor + Math.tan(7 * Math.PI / 180) * Math.max(-4, sample.z)) < 1e-10);
+          assert(Math.abs(sample.floor + Math.tan(10 * Math.PI / 180) * Math.max(-4, sample.z)) < 1e-10);
         }
         assert(fighter.feet.every(foot => Number.isFinite(foot.clearance)));
       }
@@ -187,12 +187,12 @@ async function main() {
       assert(value.finite && value.scrollWidth <= value.width + 1); assert.equal(value.saved, saved);
       assert.equal(value.model.requested, false); assert.equal(value.model.loads, 0);
       assert(value.outfit.length && value.outfit.every(item => item.outfit === contract.outfit));
-      assert(value.outfit.some(item => item.visible), 'Existing Sherpa outfit must be visible');
+      assert(value.outfit.some(item => item.visible), 'Existing Artoria outfit must be visible');
       assert.equal(value.sound.on, true); assert.equal(value.sound.stage, contract.stage);
       if (audible) {
         assert.equal(value.sound.context, 'running'); assert(value.sound.primed);
-        for (const kind of ['hurt', 'ko', 'bleed']) assert.equal(value.sound.voiceSamples[`voice:liao:${kind}`], 2);
-        assert(Object.keys(value.sound.voiceSamples).every(key => /^voice:(liao|player):/.test(key)));
+        for (const kind of ['hurt', 'ko', 'bleed']) assert.equal(value.sound.voiceSamples[`voice:soft_female:${kind}`], 2);
+        assert(Object.keys(value.sound.voiceSamples).every(key => /^voice:(soft_female|player):/.test(key)));
         assert.equal(value.sound.detail?.stage, contract.stage); assert(value.sound.detail.ambientNodes > 0);
       }
     }
@@ -232,8 +232,8 @@ async function main() {
     await page.setViewportSize({ width: 844, height: 390 }); cdp = await context.newCDPSession(page);
     async function startRound(label) {
       await page.locator('#btnStart').tap(); await wait(() => game.state === 'draw' && game.draw.stage === 'choose' && game.draw.t >= .45);
-      const cards = await page.evaluate(() => [...game.draw.ids]); assert.deepEqual(cards, ['longsword', 'sain', 'sabre']);
-      await wait(() => game.sound.ctx?.state === 'running' && ['hurt', 'ko', 'bleed'].every(kind => game.sound.samples[`voice:liao:${kind}`]?.length === 2));
+      const cards = await page.evaluate(() => [...game.draw.ids]); assert.deepEqual(cards, ['longsword', 'sain', 'excalibur']);
+      await wait(() => game.sound.ctx?.state === 'running' && ['hurt', 'ko', 'bleed'].every(kind => game.sound.samples[`voice:soft_female:${kind}`]?.length === 2));
       if (label === 'first') {
         await wait(() => game.sound._stageDetails?.stats.accepted > 0);
       }
@@ -243,7 +243,7 @@ async function main() {
       for (const fighter of state.terrain) {
         assert(fighter.feet.some(foot => foot.supported), 'A standing fighter must have a real floor contact');
         assert(fighter.feet.filter(foot => foot.supported).every(foot => Math.abs(foot.clearance) < .10),
-          'Supported foot soles must track the actual 7-degree floor');
+          'Supported foot soles must track the actual 10-degree floor');
       }
       await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: 690, y: 270, id: 1 }] });
       await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: 635, y: 175, id: 1 }] });
@@ -320,7 +320,7 @@ async function main() {
       tlsVerification: true, proxyRetained: !local,
       limits: ['Chromium mobile/touch emulation; physical-phone performance and human appearance/sound acceptance are not established.',
         'One Longsword card flow with trusted touch attack/movement, pause/resume and fresh restart; no account or campaign tests.',
-        'Sound context, Liao sample decoding and naturally accepted Etna details are observed; no injury or sound event is injected.',
+        'Sound context, Soft-female sample decoding and naturally accepted Etna details are observed; no injury or sound event is injected.',
         'No AI, damage, health, pose, physics clock or progression state is overridden. Lava lethality is covered by native gates; this browser flow does not inject a death.',
         'Every fetched own file must match the frozen build. Public run requires the same passing local tool/build contract; one logged GET 502/503 retry is allowed.'] };
     await fs.writeFile(path.join(out, 'report.json'), JSON.stringify(report, null, 2) + '\n');

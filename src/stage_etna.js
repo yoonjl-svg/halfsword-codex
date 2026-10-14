@@ -318,6 +318,42 @@ function plume(scene) {
   return mesh;
 }
 
+function lavaSpatter(scene) {
+  // Sixteen tiny molten fragments share one draw call and fixed buffers. A
+  // fragment makes a low arc, cools and sinks back; there are no tall fountains.
+  const r = rng(151137), count = 16, particles = [];
+  const corners = [[0, 1, 0], [-.82, -.45, .48], [.82, -.45, .48], [0, -.45, -.95]];
+  const faces = [0, 1, 2, 0, 2, 3, 0, 3, 1, 1, 3, 2];
+  const position = new Float32Array(count * faces.length * 3), colors = new Float32Array(position.length);
+  for (let i = 0; i < count; i++) particles.push({
+    x: (r() - .5) * 11, z: 6.15 + r() * 9.8, period: 7 + r() * 7, phase: r() * 14,
+    duration: .8 + r() * .65, height: .10 + r() * .24, size: .018 + r() * .018, drift: (r() - .5) * .26,
+  });
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(position, 3).setUsage(THREE.DynamicDrawUsage));
+  g.setAttribute('color', new THREE.BufferAttribute(colors, 3).setUsage(THREE.DynamicDrawUsage));
+  g.boundingSphere = new THREE.Sphere(new THREE.Vector3(0, ETNA.lavaLevel, 11), 13);
+  const mesh = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ vertexColors: true, toneMapped: false }));
+  mesh.name = 'etna-small-molten-spatter'; scene.add(mesh);
+  const update = time => {
+    for (let i = 0; i < count; i++) {
+      const p = particles[i], age = (time + p.phase) % p.period, life = Math.min(1, age / p.duration);
+      const active = age < p.duration, arc = 4 * life * (1 - life);
+      const size = active ? p.size * Math.sin(Math.PI * life) ** .45 : 0;
+      const x = p.x + p.drift * life, y = ETNA.lavaLevel + .012 + p.height * arc, z = p.z + .14 * life;
+      const warm = active ? 1 - life * .70 : 0;
+      for (let j = 0; j < faces.length; j++) {
+        const k = (i * faces.length + j) * 3, v = corners[faces[j]];
+        position[k] = x + v[0] * size; position[k + 1] = y + v[1] * size; position[k + 2] = z + v[2] * size;
+        colors[k] = warm; colors[k + 1] = warm * (.16 + .26 * (1 - life)); colors[k + 2] = warm * .015;
+      }
+    }
+    g.attributes.position.needsUpdate = g.attributes.color.needsUpdate = true;
+  };
+  update(0);
+  return update;
+}
+
 function lava(scene) {
   const outline = [[-8.7, ETNA.lavaEdgeZ], [8.7, ETNA.lavaEdgeZ], [10.2, 8], [9.3, 10.5], [12.5, 13.2], [11.6, 17.8], [15.8, 22], [14, 29], [9.3, 31.4],
     [7.5, 26.3], [4.1, 24.7], [1, 31], [-3, 36], [-6.1, 34], [-5.6, 29], [-8.9, 24.2], [-13.9, 23], [-15.4, 17.3], [-11.5, 16], [-10, 11], [-11.3, 8]];
@@ -329,11 +365,35 @@ function lava(scene) {
   const index = g.index; for (let i = 0; i < index.count; i += 3) { const b = index.getX(i + 1); index.setX(i + 1, index.getX(i + 2)); index.setX(i + 2, b); } g.computeVertexNormals();
   const maps = lavaTextures();
   const mat = new THREE.MeshStandardMaterial({ ...maps, color: 0xf1d9c4, emissive: 0xff822b, emissiveIntensity: 1.55, roughness: .96, metalness: .01 });
+  const clock = { value: 0 };
+  mat.userData.flowClock = clock;
+  mat.onBeforeCompile = shader => {
+    shader.uniforms.etnaTime = clock;
+    shader.fragmentShader = 'uniform float etnaTime;\n' + shader.fragmentShader;
+    shader.fragmentShader = shader.fragmentShader.replace('#include <map_fragment>', `
+      // Slow advection and uneven shear move crust/openings together. Only UVs
+      // move: the physical height and every point of the shore stay fixed.
+      vec2 etnaFlowUv = vMapUv - vec2(0.0, etnaTime * 0.006);
+      etnaFlowUv += vec2(
+        sin(vMapUv.y * 13.0 + etnaTime * 0.37) * 0.024 + sin(vMapUv.x * 19.0 - etnaTime * 0.23) * 0.010,
+        sin(vMapUv.x * 15.0 - vMapUv.y * 7.0 + etnaTime * 0.29) * 0.020
+      );
+      ${THREE.ShaderChunk.map_fragment.replaceAll('vMapUv', 'etnaFlowUv')}`);
+    shader.fragmentShader = shader.fragmentShader.replace('#include <emissivemap_fragment>', `
+      ${THREE.ShaderChunk.emissivemap_fragment.replaceAll('vEmissiveMapUv', 'etnaFlowUv')}
+      // Each opening rolls through a different heat phase. This avoids a
+      // synchronous flashing surface while allowing amber cores to surface.
+      float etnaHeat = 0.5 + 0.5 * sin(etnaFlowUv.x * 23.0 + etnaFlowUv.y * 37.0 - etnaTime * 0.83
+        + sin(etnaFlowUv.y * 19.0 + etnaTime * 0.31));
+      totalEmissiveRadiance *= 0.72 + 0.58 * etnaHeat;
+      totalEmissiveRadiance += vec3(0.12, 0.20, 0.018) * emissiveColor.r * pow(etnaHeat, 3.0);`);
+  };
+  mat.customProgramCacheKey = () => 'etna-viscous-lava-v2';
   const mesh = new THREE.Mesh(g, mat); mesh.name = 'etna-cooled-lava-crust'; mesh.receiveShadow = true; scene.add(mesh);
   // Just two local pools of reflected orange light. No stage-wide red wash.
   const glow = new THREE.PointLight(0xff5e1c, 2.3, 8, 2); glow.position.set(-3.5, ETNA.lavaLevel + .7, 7.4); scene.add(glow);
   const glow2 = new THREE.PointLight(0xff6926, 2.0, 8, 2); glow2.position.set(4.6, ETNA.lavaLevel + .6, 8.3); scene.add(glow2);
-  return { material: mat, maps, lights: [glow, glow2] };
+  return { clock, spatter: lavaSpatter(scene), lights: [glow, glow2] };
 }
 
 export function buildEtna(scene, { hemi, sun } = {}) {
@@ -366,14 +426,13 @@ export function buildEtna(scene, { hemi, sun } = {}) {
   const stage = {
     sunOffset,
     fighterLight: { color: 0xdde6f4, rimColor: 0xc7d9f3, rim: 1.0, level: .87 },
-    stats: { triangles, meshes, clearRadius: 6.5, cameraClearRadius: 10.8, proceduralTextureMax: 1024, groundSlopeDegrees: 7, lavaLevel: ETNA.lavaLevel },
+    stats: { triangles, meshes, clearRadius: 6.5, cameraClearRadius: 10.8, proceduralTextureMax: 1024, groundSlopeDegrees: ETNA.degrees, lavaLevel: ETNA.lavaLevel },
     excite() {},
     update(dt) {
       if (!Number.isFinite(dt) || dt <= 0) return;
       time += Math.min(dt, .1);
-      // 7mm/s visual drift, with no shoreline motion or water-like waves.
-      molten.maps.map.offset.y = molten.maps.emissiveMap.offset.y = -time * .0008;
-      molten.material.emissiveIntensity = 1.48 + Math.sin(time * .31) * .07;
+      molten.clock.value = time;
+      molten.spatter(time);
       molten.lights[0].intensity = 2.25 + Math.sin(time * .27) * .12;
       molten.lights[1].intensity = 1.95 + Math.sin(time * .21 + 1.4) * .10;
       ashPlume.position.x = Math.sin(time * .037) * .8;
