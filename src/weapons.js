@@ -15,6 +15,7 @@ import { classifyWeapon } from './weapon_class.js';
 import { drawGroupedWeaponCards } from './weapon_draw.js';
 import { MORGENSTERN_DESIGN as MACE } from './morgenstern_design.js';
 import { SAIN_COLORS, ICE_COLORS, sainPartMesh, sainDecorate, icePartMesh, iceDecorate } from './rare_sword_details.js';
+import { GOUJIAN_COLORS, goujianPartMesh, goujianDecorate } from './goujian_details.js';
 import * as THREE from 'three';
 import { swordKit, metalMat, weaponEnv, hiddenParts, drawTreeBranch, drawRubberChicken, drawFrozenTuna, drawPistol, morgensternKit, PISTOL_GRIP, PISTOL_BORE_X } from './weapon_looks.js';
 
@@ -1235,10 +1236,36 @@ const ice = finalizeSpec('ice', {
   },
 });
 
+// [I] Elongated interpretation of the 55.7cm bronze original, not a replica.
+// 80cm overall (-.09..+.71), 62cm blade, 1.15kg. Bronze appearance uses the
+// existing common-metal collision/sound model; no invented bronze advantage.
+const goujian = finalizeSpec('goujian', {
+  nameKo: '월왕구천검', nameEn: 'Sword of Goujian',
+  desc: '검은 마름모 무늬와 청록 상감의 청동검.\n전체 80cm로 늘린 한손 양날검.',
+  grip: 'one-hand', material: 'steel', tier: 'rare',
+  hiltLength: 0.09, bladeLength: 0.62, gripAlong: -0.10,
+  mCut: 1.05, mThrust: 1.05, mBlunt: 1.0,
+  partMesh: goujianPartMesh, decorate: goujianDecorate,
+  buildParts() {
+    const L = this.bladeLength;
+    const grip = boxInertia(0.13, 0.016, 0.079, 0.014);
+    const pommel = boxInertia(0.14, 0.026, 0.004, 0.026);
+    const guard = boxInertia(0.10, 0.034, 0.007, 0.016);
+    const blade = bladeInertia(0.78, L, 0.38, 0.26, 0.046, 0.009);
+    return [
+      partTuple(['box', 0.016, 0.079, 0.014], -0.001, 0.13, 0, grip.Ie, grip.It, GOUJIAN_COLORS.grip),
+      partTuple(['box', 0.026, 0.004, 0.026], -0.086, 0.14, 0, pommel.Ie, pommel.It, GOUJIAN_COLORS.metal),
+      partTuple(['box', 0.034, 0.007, 0.016], 0.083, 0.10, 0, guard.Ie, guard.It, GOUJIAN_COLORS.metal),
+      partTuple(['box', 0.023, L / 2, 0.0045], this.hiltLength + L / 2, 0.78,
+        blade.comY, blade.Ie, blade.It, GOUJIAN_COLORS.blade, true),
+    ];
+  },
+});
+
 export const WEAPONS = {
   longsword, zweihander, estoc, sabre, rapier, falchion,
   monohoshizao, qinggang, ganjiang, moye, excalibur, excalibur_replica: excaliburReplica, lightsaber, tree_branch: treeBranch,
-  rubber_chicken: rubberChicken, frozen_tuna: frozenTuna, pistol, morgenstern, sain, ice,
+  rubber_chicken: rubberChicken, frozen_tuna: frozenTuna, pistol, morgenstern, sain, ice, goujian,
 };
 
 // 다른 담당이 쓰는 짧은 이름 → 정식 id (characters.js의 'branch', URL 파라미터의 'chicken' 등)

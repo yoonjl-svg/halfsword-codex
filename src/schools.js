@@ -89,9 +89,9 @@ SCHOOLS.jian = {
 // 청강검(에픽): 물리는 지안이지만 양손 가정(토크 22) 뒤 무기 담당이 다시 잰 measure (전 1.32/1.55/1.02/0.38)
 SCHOOLS.qinggang = { ...SCHOOLS.jian, id: 'qinggang', weapon: 'qinggang', measure: { contact: 1.35, reach: 1.52, clinch: 1.04, cutTime: 0.24 } }; // 10라운드 hybrid 재실측 (전 1.37/1.61/1.06/0.36)
 
-// New legendary jian reuse Chinese one-hand technique choices. Distances below
+// New jian reuse Chinese one-hand technique choices. Distances below
 // are geometric estimates from Qinggang, not new measured combat statistics.
-for (const id of ['ganjiang', 'moye', 'sain']) {
+for (const id of ['ganjiang', 'moye', 'sain', 'goujian']) {
   const weapon = getWeapon(id), base = getWeapon('qinggang');
   const scale = (weapon.hiltLength + weapon.bladeLength) / (base.hiltLength + base.bladeLength);
   const m = SCHOOLS.qinggang.measure;
