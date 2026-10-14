@@ -26,7 +26,7 @@ try{
   controls.minDistance=0.08;controls.maxDistance=8;controls.rotateSpeed=0.65;
   let lost=false,active='whole',adjusted=false;
   const render=()=>{if(!lost)renderer.render(scene,camera);};
-  const views={whole:{target:[0,.31,0],height:.96,angle:[.22,.035,1]},
+  const views={whole:{target:[0,.335,0],height:1.01,angle:[.22,.035,1]},
     hilt:{target:[0,.014,0],height:.24,angle:[.38,-.18,1]},
     blade:{target:[0,.30,0],height:.31,angle:[.32,.03,1]},
     edge:{target:[0,.30,0],height:.31,angle:[1,.04,.32]},

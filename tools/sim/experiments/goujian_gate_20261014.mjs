@@ -22,7 +22,7 @@ for (const name of files) {
   fs.copyFileSync(path.join(root, name), target);
 }
 fs.symlinkSync(path.join(root, 'node_modules'), path.join(frozen, 'node_modules'), 'dir');
-const baseline = 'c640139';
+const baseline = '4e19099';
 fs.writeFileSync(path.join(frozen, 'src/weapons_baseline.js'), execFileSync('git', ['show', `${baseline}:src/weapons.js`], { cwd: root }));
 const engineFiles = ['node_modules/@dimforge/rapier3d-compat/rapier.mjs', 'node_modules/@dimforge/rapier3d-compat/rapier_wasm3d_bg.wasm'];
 const engineHashes = () => Object.fromEntries(engineFiles.map(p => [p, hash(fs.readFileSync(path.join(root, p)))]));
@@ -126,10 +126,16 @@ try {
     result.rows.push(row); console.log(JSON.stringify({ scenario: row.scenario, steps: row.steps, wounds: row.wounds.length, clashes: row.clashes, finite: !row.nonfinite }));
   };
 
+  const expectedMass = .37 + .78 * .67 / .62;
   const spec = getWeapon('goujian'), parts = spec.buildParts({}), physics = weaponPhysics(spec);
   const lo = Math.min(...parts.map(([s, y]) => y - s[2])), hi = Math.max(...parts.map(([s, y]) => y + s[2]));
   result.spec = { id: spec.id, tier: spec.tier, grip: spec.grip, fullLengthM: hi - lo, colliderBoundsY: [lo, hi], bladeLengthM: spec.bladeLength, physics, parts };
-  check('approved-spec', spec.id === 'goujian' && spec.tier === 'rare' && spec.grip === 'one-hand' && !spec.twoHand && near(hi - lo, .8) && near(spec.bladeLength, .62) && near(physics.mass, 1.15));
+  const previousSpec = getBaseline('goujian'), previousPhysics = weaponPhysics(previousSpec), previousParts = previousSpec.buildParts({});
+  result.dimensionChange = { baseline, basis: 'Actual buildParts mass/COM/hand-inertia calculation; current values are also checked against the native Fighter below.',
+    previous: { fullLengthM: Math.max(...previousParts.map(([s, y]) => y + s[2])) - Math.min(...previousParts.map(([s, y]) => y - s[2])), bladeLengthM: previousSpec.bladeLength, ...previousPhysics },
+    current: { fullLengthM: hi - lo, bladeLengthM: spec.bladeLength, ...physics },
+    delta: Object.fromEntries(['mass', 'com', 'I'].map(key => [key, physics[key] - previousPhysics[key]])) };
+  check('approved-spec', spec.id === 'goujian' && spec.tier === 'rare' && spec.grip === 'one-hand' && !spec.twoHand && near(hi - lo, .85) && near(spec.bladeLength, .67) && near(physics.mass, expectedMass));
   check('part-mass-inertia', parts.every(p => p[2].every(Number.isFinite) && p[2][0] > 0 && p[2][2] > 0 && p[2][3] > 0) && physics.I > 0);
   check('ordinary-v2-support', ordinary.active && swordsmanshipDefaultSupportsWeapon(spec, ordinary) && schoolOf('goujian').weapon === 'goujian' && CONFIG.COMBAT.limbSeverTrial);
   for (const id of ['qinggang', 'sain']) {
@@ -142,8 +148,8 @@ try {
     try {
       for (const r of tracked) { counts.set(r, 0); r.addEventListener('dispose', () => counts.set(r, counts.get(r) + 1)); }
       const native = { mass: f.sword.mass(), com: f.sword.localCom(), inertia: f.sword.principalInertia(), handInertia: f.swordIhand };
-      check(`constructor${cycle}/native-mass-inertia`, near(native.mass, 1.15) && near(native.handInertia, physics.I) && Object.values(native.inertia).every(x => Number.isFinite(x) && x > 0));
-      check(`constructor${cycle}/finite-visible-bound`, visual.finite && visual.vertices > 0 && near(visual.length, .8, .001) && visual.length >= .69 && visual.maxOutsideM <= .01, visual);
+      check(`constructor${cycle}/native-mass-inertia`, near(native.mass, expectedMass) && near(native.handInertia, physics.I) && Object.values(native.inertia).every(x => Number.isFinite(x) && x > 0));
+      check(`constructor${cycle}/finite-visible-bound`, visual.finite && visual.vertices > 0 && near(visual.length, .85, .001) && visual.length >= .69 && visual.maxOutsideM <= .01, visual);
       if (cycle) check('constructor-recreation-fresh', [...tracked].every(r => !oldResources.has(r)) && JSON.stringify(native) === JSON.stringify(oldPhysics));
       oldResources = tracked; oldPhysics = native; result.visual = visual; result.native = native;
     } finally { cleanup(G); }
@@ -198,7 +204,7 @@ try {
       f.breakWeapon(); row.debrisAtBreak = debrisCount();
       const cut = f.weaponCfg.hiltLength + f.weaponCfg.bladeLength, visual = geometry(f.swordGroup, true);
       const colliderTop = Math.max(...f.swordColliders.filter(c => c.isEnabled()).map(c => c.translationWrtParent().y + c.halfExtents().y));
-      check('break/native-visual-trim', f.weaponBroken && near(f.weaponCfg.bladeLength, .31) && f.sword.mass() < row.before.mass && f.swordIhand < row.before.inertia
+      check('break/native-visual-trim', f.weaponBroken && near(f.weaponCfg.bladeLength, .335) && f.sword.mass() < row.before.mass && f.swordIhand < row.before.inertia
         && visual.finite && visual.max[1] <= cut + 1e-4 && near(colliderTop, cut, .001) && row.debrisAtBreak > 0, { cut, colliderTop, visual });
       for (let i = 0; i < Math.round(4 / DT); i++) { G.step(); tickDebris(DT); observe(G, row); }
       row.debrisAfter = debrisCount(); row.after = { length: f.weaponCfg.bladeLength, mass: f.sword.mass(), inertia: f.swordIhand };

@@ -33,7 +33,7 @@ async function main() {
   }
   assert(args.build && path.isAbsolute(args.build) && args.out && path.isAbsolute(args.out), 'Absolute --build and --out required');
   const build = await fs.realpath(args.build), out = path.resolve(args.out);
-  assert(/^\/tmp\/halfsword-goujian-20261014\//.test(out), 'Output must be under /tmp/halfsword-goujian-20261014/');
+  assert(/^\/tmp\/halfsword-goujian-(85-)?20261014\//.test(out), 'Output must be under /tmp/halfsword-goujian-20261014/');
   const base = new URL(args.base || 'https://yoonjl-svg.github.io/halfsword-codex/');
   const local = ['localhost', '127.0.0.1', '[::1]'].includes(base.hostname);
   assert((local && base.protocol === 'http:') || base.href === 'https://yoonjl-svg.github.io/halfsword-codex/');
