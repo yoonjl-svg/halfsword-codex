@@ -10,7 +10,8 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { CHARACTERS_BY_ID } from '../../src/characters.js';
 import { etnaHeight, etnaNormal } from '../../src/etna_ground.js';
-const terrainProbes = [[0,-6], [1.5,-4], [0,0], [-3,2], [4,4], [0,5.25]].map(([x,z]) => ({x,z,height:etnaHeight(x,z),normal:etnaNormal(x,z)}));
+// Normalize signed zero before persisting/comparing the JSON contract.
+const terrainProbes = JSON.parse(JSON.stringify([[0,-6], [1.5,-4], [0,0], [-3,2], [4,4], [0,5.25]].map(([x,z]) => ({x,z,height:etnaHeight(x,z),normal:etnaNormal(x,z)}))));
 
 const own = fileURLToPath(import.meta.url), root = path.resolve(path.dirname(own), '../..');
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
