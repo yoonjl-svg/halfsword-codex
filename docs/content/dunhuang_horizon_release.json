@@ -1,0 +1,90 @@
+{
+  "baseCommit": "314e5c9937ded9a2ebacd1ac155475799291e2ac",
+  "deployedCommit": "f448bc592d6abea62c285b1b3840981e0bbe1ff3",
+  "pages": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38533360041",
+  "local": {
+    "pass": true,
+    "requests": 191,
+    "uniqueFiles": 180,
+    "errors": 0
+  },
+  "public": {
+    "pass": true,
+    "requests": 191,
+    "uniqueFiles": 180,
+    "errors": 0,
+    "completedUTC": "2026-10-14T08:15:55.839Z"
+  },
+  "regression": {
+    "pass": true,
+    "sourceStable": true,
+    "groups": [
+      "force_ledger",
+      "grip_reaction",
+      "cut_reaction",
+      "arm_capacity",
+      "arm_duel",
+      "build"
+    ]
+  },
+  "stage": {
+    "rounds": 3,
+    "stats": {
+      "triangles": 88807,
+      "meshes": 20,
+      "vertices": 265124,
+      "textures": 5,
+      "clearRadius": 10.5,
+      "proceduralTextureMax": 1024
+    },
+    "minSolidRadius": 13.517755328923847
+  },
+  "source": {
+    "baseCommit": "314e5c9937ded9a2ebacd1ac155475799291e2ac",
+    "sourceFiles": {
+      "src/stage_dunhuang.js": {
+        "bytes": 40643,
+        "sha256": "34b08b7fb71250ffc66a388b5781fae9d2f35085cd92396aaa8d3e949725a6a8"
+      },
+      "public/dunhuang.html": {
+        "bytes": 8083,
+        "sha256": "4226e36298222f07bb2e2688c14161cac8a10780a31db7a515aa82eeeb62c430"
+      },
+      "public/encounters/dunhuang-combat.webp": {
+        "bytes": 43936,
+        "sha256": "60546d987e29bc68dbecbe053f4a409aea2c8eba61d358dd2a683d24a6ca1397"
+      },
+      "public/encounters/dunhuang-vista.webp": {
+        "bytes": 20430,
+        "sha256": "b2b8ddad32247a19ffcbf4331cb8dd40e3c620a3581004d056503e6a1954cb76"
+      },
+      "public/encounters/dunhuang-caravan.webp": {
+        "bytes": 23836,
+        "sha256": "c98b2976e00f983ece503c5fa5a3a2310d6c47f835790d65dd238eb152ce2ee3"
+      }
+    },
+    "tools": {
+      "capture.mjs": "aa84645bd7bfd516edf62ad98336a43382453041fb9b2ede76b9a7d3f52e0365",
+      "delivery.mjs": "f6c55dc419b4ab7a93b4c749c0625ef3dba71b80c2af21aea7a442e827340fc7",
+      "stage-smoke.mjs": "5be9e3a144d9de3a38f3448c73cdb898659d1a2c9e8ff957c840f43917ee1417"
+    }
+  },
+  "toolHash": "f6c55dc419b4ab7a93b4c749c0625ef3dba71b80c2af21aea7a442e827340fc7",
+  "limitations": [
+    "Chromium mobile/touch emulation; physical-phone performance and human appearance/sound acceptance are not established.",
+    "One Longsword card flow with trusted touch attack/movement, pause/resume and fresh restart; no account or campaign tests.",
+    "Sound context, silent enemy profile and naturally accepted Dunhuang details are observed; no injury or sound event is injected.",
+    "No AI, damage, health, pose, physics clock or progression state is overridden. This browser flow does not inject a death.",
+    "Every fetched own file must match the frozen build. Public run requires the same passing local tool/build contract; one logged GET 502/503 retry is allowed."
+  ],
+  "effectStatus": "Proposals only; tier remains rare and character dialogue unchanged.",
+  "archive": {
+    "name": "dunhuang-horizon-20261014.tar.xz",
+    "bytes": 3440800,
+    "sha256": "0737ce0d29a751ca7fcd3afac948bfcacea62633ade798d882ad0ac3626b4bab",
+    "excludes": [
+      "regression/build (rebuild from commit and saved manifest)",
+      "server.log"
+    ]
+  }
+}

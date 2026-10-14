@@ -16,4 +16,8 @@
 
 촬영은 기존 실제 게임의 일반 카드 선택/일시정지 경로를 재사용하고 바뀐 전투/반대편 전경/수레3구도만 갱신한다. 변경 없는 얼굴·벽화·정면 사진과 기존 무기 배정 native19항목은 재실행하지 않는다. 동결 빌드 전달 도구는 기존 Yue 도구에서 변경 없는 찬다 대련만 제외해 재사용한다.
 
-실제3구도 촬영에서 구천검/무대/대사 따옴표·오류0 확인. 전체 회귀6그룹·빌드·소스 안정성 통과. 동결 빌드의 로컬 모바일 진입·터치 공격/이동·정지/재개·재시작 통과. 공개 전달 상태와 재현 자료는 최종 전달 영수증에 기록한다. 실제 휴대폰 FPS와 사용자 미적 채택은 자동검사로 판단하지 않는다.
+실제3구도 촬영에서 구천검/무대/대사 따옴표·오류0 확인. 전체 회귀6그룹·빌드·소스 안정성 통과. 동결 빌드의 로컬 모바일 진입·터치 공격/이동·정지/재개·재시작 통과. `f448bc5`/Pages38533360041 공개 완료. 로컬·공개 모바일 진입/터치 공격·이동/정지·재개/재시작 통과, 공개 요청191개 바이트 일치·오류0. [영수증](dunhuang_horizon_release.json). 실제 휴대폰 FPS와 사용자 미적 채택은 자동검사로 판단하지 않는다.
+
+재현 명령: `node /tmp/halfsword-dunhuang-horizon-20261014/stage-smoke.mjs`; `python3 tools/automation/run_checks.py --out /tmp/halfsword-dunhuang-horizon-20261014/regression --cache-dir /workspace/cloud-onboarding/check-cache`; 아카이브의 `capture.mjs`, `delivery.mjs`와 실제 local/public 명령 기록을 재사용한다.
+
+근거 아카이브: `dunhuang-horizon-20261014.tar.xz`, SHA-256 `0737ce0d29a751ca7fcd3afac948bfcacea62633ade798d882ad0ac3626b4bab`.
