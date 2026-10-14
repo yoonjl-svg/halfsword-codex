@@ -9,8 +9,9 @@ import { ETNA_TERRAIN } from '../../../src/etna_ground.js';
 const out = process.argv[2] || '/tmp/halfsword-etna-gait.json';
 const flatReference = process.argv[3];
 assert(out.startsWith('/tmp/'), 'Keep run evidence outside the repository.');
+assert(!fs.existsSync(out), 'Do not overwrite earlier evidence.');
 const seed = 73021;
-const sources = ['src/fighter.js', 'src/gait.js', 'src/etna_ground.js', 'tools/sim/harness_m.mjs'];
+const sources = ['src/fighter.js', 'src/gait.js', 'src/etna_ground.js', 'tools/sim/harness_m.mjs', 'tools/sim/experiments/etna_gait_gate.mjs'];
 const hashes = () => Object.fromEntries(sources.map(path => [path, createHash('sha256').update(fs.readFileSync(new URL('../../../' + path, import.meta.url))).digest('hex')]));
 const before = hashes();
 const rows = [], failures = [];
@@ -50,6 +51,24 @@ for (const z of [-2, 2]) {
   } finally { for (const G of [flat, hill]) { G.eventQueue.free(); G.world.free(); } }
 }
 
+// Pick the shallowest and steepest facets in a fixed inner arena region. The
+// existing spawn gap sets x; no body is translated after construction. Keeping
+// these fixtures inside radius 4.75 leaves space for the normal recovery step.
+const gradeAt = (x, z) => {
+  const normal = ETNA_TERRAIN.normalAt(x, z);
+  return Math.atan2(Math.hypot(normal.x, normal.z), normal.y) * 180 / Math.PI;
+};
+const extrema = { radius: 4.75, spacing: .25, maxZ: 3.5, shallow: null, steep: null };
+for (let x = -extrema.radius; x <= extrema.radius; x += extrema.spacing) {
+  for (let z = -extrema.radius; z <= extrema.maxZ; z += extrema.spacing) {
+    if (x * x + z * z > extrema.radius * extrema.radius) continue;
+    const sample = { x, z, grade: gradeAt(x, z) };
+    if (!extrema.shallow || sample.grade < extrema.shallow.grade) extrema.shallow = sample;
+    if (!extrema.steep || sample.grade > extrema.steep.grade) extrema.steep = sample;
+  }
+}
+check(extrema.steep.grade - extrema.shallow.grade > 8, 'Extrema fixtures do not span meaningfully different grades.');
+
 const cases = [
   { name: 'idle-high', z: -2, heading: 0, move: [0, 0] },
   { name: 'idle-low', z: 2, heading: 0, move: [0, 0] },
@@ -58,17 +77,23 @@ const cases = [
   { name: 'across', z: 0, heading: 0, move: [0, .5] },
   { name: 'side-uphill', z: 1, heading: 0, move: [-.5, 0] },
   { name: 'side-downhill', z: -2, heading: 0, move: [.5, 0] },
-  { name: 'shelf-uphill', z: -3.5, heading: Math.PI / 2, move: [0, .5] },
+  { name: 'upper-mountainside-uphill', z: -3.5, heading: Math.PI / 2, move: [0, .5] },
   { name: 'getup-high', z: -2, heading: 0, move: [0, 0], recovery: true },
   { name: 'getup-low', z: 2, heading: 0, move: [0, 0], recovery: true },
+  ...Object.entries({ shallow: extrema.shallow, steep: extrema.steep }).flatMap(([band, location]) => [
+    { name: `idle-${band}-grade`, x: location.x, z: location.z, selectedGrade: location.grade, heading: 0, move: [0, 0] },
+    { name: `getup-${band}-grade`, x: location.x, z: location.z, selectedGrade: location.grade, heading: 0, move: [0, 0], recovery: true },
+  ]),
 ];
 for (const spec of cases) {
-  const G = newRound({ seed, walls: false, stageId: 'etna', playerZ: spec.z, enemyZ: -20, heading: spec.heading });
+  const G = newRound({ seed, walls: false, stageId: 'etna', gap: spec.x === undefined ? undefined : -2 * spec.x,
+    playerZ: spec.z, enemyZ: -20, heading: spec.heading });
   // This flag only disables the distant opponent AI; no body is relocated.
   G.parkEnemy = true;
   const f = G.player, terrain = ETNA_TERRAIN, samples = [], transitions = [];
   let previousState = null, start, endMove, firstStand = null, firstGetup = null;
   let supportTicks = 0, measuredTicks = 0, standingTicks = 0, minHeight = Infinity, maxHeight = -Infinity, maxTilt = 0, minSole = Infinity;
+  let minGrade = Infinity, maxGrade = -Infinity;
   let i = 0;
   G.before = () => {
     f.faceTarget = null;
@@ -96,6 +121,8 @@ for (const spec of cases) {
         if (load > 1) supportTicks++;
         if (f.state === 'stand') standingTicks++;
         minHeight = Math.min(minHeight, h); maxHeight = Math.max(maxHeight, h); maxTilt = Math.max(maxTilt, tilt);
+        const grade = gradeAt(p.x, p.z);
+        minGrade = Math.min(minGrade, grade); maxGrade = Math.max(maxGrade, grade);
         for (const foot of ['footF', 'footB']) {
           const sole = f.solePoint(foot, new THREE.Vector3());
           minSole = Math.min(minSole, sole.y - terrain.heightAt(sole.x, sole.z));
@@ -117,16 +144,16 @@ for (const spec of cases) {
     if (directionLength) check(progress > (spec.move[0] ? .6 : 2), `${spec.name}: no meaningful requested progress (${progress}m).`);
     if (spec.name.startsWith('idle')) check(Math.abs(end.z - start.z) < .15, `${spec.name}: resting downhill drift exceeds .15m.`);
     if (spec.recovery) check(firstGetup !== null && firstStand !== null && firstStand < 960, `${spec.name}: no physical recovery before the supported final window.`);
-    rows.push({ ...spec, progress, start, end: { ...end }, firstGetup, firstStand, supportFraction, standingFraction, minHeight, maxHeight, maxTilt, minSole, transitions, samples });
+    rows.push({ ...spec, progress, start, end: { ...end }, firstGetup, firstStand, supportFraction, standingFraction, minHeight, maxHeight, maxTilt, minSole, minGrade, maxGrade, transitions, samples });
   } finally { G.eventQueue.free(); G.world.free(); }
 }
 Math.random = savedRandom;
 const after = hashes();
 check(JSON.stringify(before) === JSON.stringify(after), 'Production source changed during this run.');
 const report = { pass: failures.length === 0, completedUTC: new Date().toISOString(), seed, policy, sources: before, flatReference: flatReference ?? null,
-  flatTraceCompared: !!flatReference, flatTraceFrames: flatTrace.length, flatTrace, failures, rows,
+  flatTraceCompared: !!flatReference, flatTraceFrames: flatTrace.length, flatTrace, extrema, failures, rows,
   method: 'Production newRound/Fighter/Gait/Combat/Rapier loop, existing input movement; getup uses existing knockDown(true) plus a55Ns chest impulse. No player translations, forced velocities, strength changes, or pose replacements.',
   limitations: ['Headless physics evidence; visual quality and mobile input need separate browser review.', 'No moving combat opponent in these locomotion fixtures; opponent is spawned remotely before simulation.', 'Support load is native contact impulse divided by timestep, used only as presence evidence.'] };
 fs.writeFileSync(out, JSON.stringify(report, null, 2) + '\n');
-console.log(JSON.stringify({ pass: report.pass, failures, flatTraceCompared: report.flatTraceCompared, rows: rows.map(({ name, progress, supportFraction, standingFraction, minHeight, maxHeight, maxTilt, firstStand }) => ({ name, progress, supportFraction, standingFraction, minHeight, maxHeight, maxTilt, firstStand })), out }));
+console.log(JSON.stringify({ pass: report.pass, failures, flatTraceCompared: report.flatTraceCompared, rows: rows.map(({ name, progress, supportFraction, standingFraction, minHeight, maxHeight, maxTilt, minGrade, maxGrade, firstStand }) => ({ name, progress, supportFraction, standingFraction, minHeight, maxHeight, maxTilt, minGrade, maxGrade, firstStand })), out }));
 if (!report.pass) process.exitCode = 1;

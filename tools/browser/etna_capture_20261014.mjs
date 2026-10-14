@@ -29,7 +29,7 @@ try {
     let baselineGeometry, baselineTexture;
     for (let round = 0; round < 3; round++) {
       const stage = stages.build('etna'), resources = { geometries: new Set(), materials: new Set(), textures: new Set() }, counts = new Map();
-      let triangles = 0, meshes = 0, geometryHash = 2166136261, textureHash = 2166136261, minPropRadius = Infinity, maxGroundError = 0, maxLavaError = 0;
+      let triangles = 0, meshes = 0, geometryHash = 2166136261, textureHash = 2166136261, minPropRadius = Infinity, maxGroundError = 0, maxGroundInteriorError = 0, groundInteriorSamples = 0, maxLavaError = 0;
       for (const root of stages.objects) root.traverse(object => {
         if (object.geometry) {
           resources.geometries.add(object.geometry);
@@ -38,8 +38,21 @@ try {
             check(attribute.array.every(Number.isFinite), `${object.name} has nonfinite ${name}`);
             for (const value of attribute.array) geometryHash = Math.imul(geometryHash ^ Math.round(value * 1e5), 16777619) >>> 0;
           }
+          if (object.geometry.index) for (const value of object.geometry.index.array) geometryHash = Math.imul(geometryHash ^ value, 16777619) >>> 0;
           const p = object.geometry.attributes.position;
-          if (object.name === 'etna-shared-slope') for (let i = 0; i < p.count; i++) if (Math.hypot(p.getX(i), p.getZ(i)) <= 10.5) maxGroundError = Math.max(maxGroundError, Math.abs(p.getY(i) - window.etnaHeight(p.getX(i), p.getZ(i))));
+          if (object.name === 'etna-shared-slope') {
+            for (let i = 0; i < p.count; i++) if (Math.hypot(p.getX(i), p.getZ(i)) <= 10.5) maxGroundError = Math.max(maxGroundError, Math.abs(p.getY(i) - window.etnaHeight(p.getX(i), p.getZ(i))));
+            const index = object.geometry.index.array;
+            for (let i = 0; i < index.length; i += 3) {
+              const triangle = [index[i], index[i + 1], index[i + 2]];
+              for (const weights of [[1 / 3, 1 / 3, 1 / 3], [.6, .15, .25], [.15, .6, .25]]) {
+                let x = 0, y = 0, z = 0;
+                for (let j = 0; j < 3; j++) { x += p.getX(triangle[j]) * weights[j]; y += p.getY(triangle[j]) * weights[j]; z += p.getZ(triangle[j]) * weights[j]; }
+                if (Math.hypot(x, z) > 10.5) continue;
+                maxGroundInteriorError = Math.max(maxGroundInteriorError, Math.abs(y - window.etnaHeight(x, z))); groundInteriorSamples++;
+              }
+            }
+          }
           if (object.name === 'etna-cooled-lava-crust') for (let i = 0; i < p.count; i++) maxLavaError = Math.max(maxLavaError, Math.abs(p.getY(i) - window.ETNA.lavaLevel));
           if (/^etna-(stone|wood)$/.test(object.name)) for (let i = 0; i < p.count; i++) minPropRadius = Math.min(minPropRadius, Math.hypot(p.getX(i), p.getZ(i)));
         }
@@ -56,7 +69,7 @@ try {
       check(triangles < 100000 && meshes < 35, 'Geometry budget exceeded');
       check(stage.stats.triangles === triangles && stage.stats.meshes === meshes, 'Stage stats mismatch');
       check(minPropRadius > 10.8, 'Solid scenery intrudes into the camera orbit');
-      check(maxGroundError < 1e-6 && maxLavaError < 1e-6, 'Visible ground/lava differs from shared physics');
+      check(groundInteriorSamples > 1000 && maxGroundError < 1e-6 && maxGroundInteriorError < 1e-6 && maxLavaError < 1e-6, 'Visible ground/lava differs from shared physics');
       baselineGeometry ??= geometryHash; baselineTexture ??= textureHash;
       check(geometryHash === baselineGeometry && textureHash === baselineTexture, 'Stage is not deterministic');
       renderer.compile(scene, camera); renderer.render(scene, camera);
@@ -80,7 +93,7 @@ try {
       stages.clear();
       check([...counts.values()].every(n => n === 1), 'Stage resource disposal was not exactly once');
       check(scene.children.length === 3 && stages.objects.length === 0, 'Stage left objects behind');
-      rows.push({ round, triangles, meshes, buildMs: stages.buildMs, render, geometryHash, textureHash, minPropRadius, maxGroundError, maxLavaError, flowSeconds: clock.value, particleBufferReused: true, boundaryUnchanged: true, resources: Object.fromEntries(Object.entries(resources).map(([k, v]) => [k, v.size])), disposalExactlyOnce: true, events });
+      rows.push({ round, triangles, meshes, buildMs: stages.buildMs, render, geometryHash, textureHash, minPropRadius, maxGroundError, maxGroundInteriorError, groundInteriorSamples, maxLavaError, flowSeconds: clock.value, particleBufferReused: true, boundaryUnchanged: true, resources: Object.fromEntries(Object.entries(resources).map(([k, v]) => [k, v.size])), disposalExactlyOnce: true, events });
     }
     renderer.dispose(); renderer.domElement.remove();
     return rows;

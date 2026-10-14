@@ -1,7 +1,7 @@
 // One frozen-build delivery flow for the Etna introduction and existing Artoria encounter.
 // Derived from new_pair_delivery_20261010.mjs; no campaign, account or physics fixtures.
-// --base=http://127.0.0.1:PORT/ --build=/absolute/build --out=/tmp/halfsword-etna-v2-20261014/local01
-// Public: same build, --out=/tmp/halfsword-etna-v2-20261014/public01 --local-evidence=/absolute/local01/report.json
+// --base=http://127.0.0.1:PORT/ --build=/absolute/build --out=/tmp/halfsword-etna-v3-20261014/local01
+// Public: same build, --out=/tmp/halfsword-etna-v3-20261014/public01 --local-evidence=/absolute/local01/report.json
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -9,6 +9,8 @@ import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { CHARACTERS_BY_ID } from '../../src/characters.js';
+import { etnaHeight, etnaNormal } from '../../src/etna_ground.js';
+const terrainProbes = [[0,-6], [1.5,-4], [0,0], [-3,2], [4,4], [0,5.25]].map(([x,z]) => ({x,z,height:etnaHeight(x,z),normal:etnaNormal(x,z)}));
 
 const own = fileURLToPath(import.meta.url), root = path.resolve(path.dirname(own), '../..');
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
@@ -33,7 +35,7 @@ async function main() {
   }
   assert(args.build && path.isAbsolute(args.build) && args.out && path.isAbsolute(args.out), 'Absolute --build and --out required');
   const build = await fs.realpath(args.build), out = path.resolve(args.out);
-  assert(out.startsWith('/tmp/halfsword-etna-v2-20261014/'), 'Output must be under /tmp/halfsword-etna-v2-20261014/');
+  assert(out.startsWith('/tmp/halfsword-etna-v3-20261014/'), 'Output must be under /tmp/halfsword-etna-v3-20261014/');
   const base = new URL(args.base || 'https://yoonjl-svg.github.io/halfsword-codex/');
   const local = ['localhost', '127.0.0.1', '[::1]'].includes(base.hostname);
   assert((local && base.protocol === 'http:') || base.href === 'https://yoonjl-svg.github.io/halfsword-codex/');
@@ -43,7 +45,7 @@ async function main() {
   assert.equal(character.look.stockEyes, true, 'Keep the existing stock-eye character');
   const contract = { enemy: 'artoria', name: character.name, stage: 'etna', weapon: 'excalibur', voice: 'soft_female',
     outfit: character.look.outfit, lookVersion: character.lookVersion, stockEyes: true,
-    degrees: 10, lavaEdgeZ: 5.25, playerWeapon: 'longsword', query, photos };
+    degrees: 10, profile: 'irregular-v3', terrainProbes, lavaEdgeZ: 5.25, playerWeapon: 'longsword', query, photos };
   const before = await manifest(build), toolHash = sha(await fs.readFile(own));
   for (const name of ['index.html', 'etna.html', ...photos]) assert(before[name], `Missing frozen file: ${name}`);
   if (!local) {
@@ -129,7 +131,7 @@ async function main() {
     page.on('console', message => { if (message.type() === 'error') errors.push({ kind: 'console', message: clean(message.text()) }); });
     page.on('requestfailed', request => errors.push({ kind: 'requestfailed', message: clean(request.failure()?.errorText), url: clean(request.url()) }));
     const wait = (fn, arg) => page.waitForFunction(fn, arg, { timeout: 90000 });
-    const read = () => page.evaluate(() => {
+    const read = () => page.evaluate(probes => {
       const p = game.player, e = game.enemy, s = game.sound, detail = s._stageDetails;
       const shown = object => { for (let node = object; node; node = node.parent) if (!node.visible) return false; return true; };
       const outfit = []; for (const group of Object.values(e.groups)) group.traverse(object => {
@@ -139,8 +141,8 @@ async function main() {
       const bodies = [p, e].flatMap(f => [...Object.values(f.bodies), f.sword])
         .flatMap(body => [body.translation(), body.rotation(), body.linvel(), body.angvel()].flatMap(value => Object.values(value)));
       const terrain = [p, e].map(f => ({ id: f.terrain?.id, degrees: f.terrain?.degrees,
-        shared: f.terrain === game.terrain, state: f.state, lavaEdgeZ: f.terrain?.lavaEdgeZ,
-        heights: [-4, 0, 4].map(z => ({ z, fighter: f.groundHeightAt(0, z), floor: game.terrain?.heightAt(0, z) })),
+        shared: f.terrain === game.terrain, profile: f.terrain?.profile, state: f.state, lavaEdgeZ: f.terrain?.lavaEdgeZ,
+        heights: probes.map(({x,z}) => ({ x, z, fighter: f.groundHeightAt(x,z), floor: game.terrain?.heightAt(x,z), normal: game.terrain?.normalAt(x,z) })),
         feet: ['footF', 'footB'].map(name => {
           const body = f.bodies[name], position = body.translation(), q = body.rotation();
           // Actual sole midpoint, transformed from the production foot box.
@@ -167,7 +169,7 @@ async function main() {
             ambientNodes: detail.ambient?.nodes.length ?? 0, activeVoices: detail.voices.size, ...detail.stats } : null },
         saved: localStorage.getItem('gladiator-settings'), width: innerWidth, scrollWidth: document.documentElement.scrollWidth,
         model: game.characterModel, gravity: { ...game.world.gravity } };
-    });
+    }, terrainProbes);
     const outfitIds = value => value.outfit.map(item => item.uuid);
     const outfitSignature = value => value.outfit.map(({ outfit, part }) => ({ outfit, part }));
     function policy(value, selected = true, audible = true) {
@@ -175,9 +177,12 @@ async function main() {
         assert.equal(fighter.id, contract.stage); assert.equal(fighter.degrees, contract.degrees);
         assert(fighter.shared, 'Both fighters must use the arena terrain contract');
         assert.equal(fighter.lavaEdgeZ, contract.lavaEdgeZ);
+        assert.equal(fighter.profile, contract.profile);
         for (const sample of fighter.heights) {
           assert.equal(sample.fighter, sample.floor);
-          assert(Math.abs(sample.floor + Math.tan(10 * Math.PI / 180) * Math.max(-4, sample.z)) < 1e-10);
+          const expected = contract.terrainProbes.find(p => p.x === sample.x && p.z === sample.z);
+          assert(Math.abs(sample.floor - expected.height) < 1e-10);
+          for (const axis of ['x','y','z']) assert(Math.abs(sample.normal[axis] - expected.normal[axis]) < 1e-10);
         }
         assert(fighter.feet.every(foot => Number.isFinite(foot.clearance)));
       }
@@ -243,7 +248,7 @@ async function main() {
       for (const fighter of state.terrain) {
         assert(fighter.feet.some(foot => foot.supported), 'A standing fighter must have a real floor contact');
         assert(fighter.feet.filter(foot => foot.supported).every(foot => Math.abs(foot.clearance) < .10),
-          'Supported foot soles must track the actual 10-degree floor');
+          'Supported foot soles must track the actual irregular slope');
       }
       await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: 690, y: 270, id: 1 }] });
       await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: 635, y: 175, id: 1 }] });

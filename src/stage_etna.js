@@ -1,9 +1,9 @@
 // A quiet cinder saddle inspired by Etna before sunrise. The playable surface
-// shares its height function with physics; only the scenery beyond it is rough.
+// shares its irregular triangle surface with physics.
 // No external textures: all generated resources are owned by Stages.clear().
 import * as THREE from 'three';
 import { Kit, rng, h3, box, canvasTex } from './stage_kit.js';
-import { ETNA, etnaHeight } from './etna_ground.js';
+import { ETNA, etnaHeight, etnaGroundMesh } from './etna_ground.js';
 
 const TAU = Math.PI * 2;
 const C = { basalt: 0x494448, umber: 0x59443b, ash: 0x5b5552, stone: 0x5c5652, straw: 0x93846a };
@@ -143,8 +143,8 @@ function lavaTextures() {
 }
 
 function landHeight(x, z) {
-  // Leave a complete extra row of grid triangles around the playable disk,
-  // so interpolation cannot pull any in-arena point off the physics plane.
+  // Embellish only beyond the shared playable surface, with a complete extra
+  // ring of untouched triangles around the arena.
   const d = Math.hypot(x, z), blend = smooth(12, 19, d);
   const broken = .55 * Math.sin(x * .23 + z * .12) + .27 * Math.sin(x * .72 - z * .32) + .16 * Math.cos(z * .81 + x * .46);
   const uphill = smooth(9, 34, -z) * (2 + .8 * Math.sin(x * .12));
@@ -156,12 +156,16 @@ function landHeight(x, z) {
 }
 
 function ground() {
-  const g = new THREE.PlaneGeometry(112, 112, 112, 112); g.rotateX(-Math.PI / 2);
+  const { vertices, indices } = etnaGroundMesh(56), g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+  g.setIndex(new THREE.BufferAttribute(indices, 1));
+  g.setAttribute('uv', new THREE.BufferAttribute(new Float32Array(vertices.length / 3 * 2), 2));
   const pos = g.attributes.position, col = [], uv = g.attributes.uv;
   const basalt = new THREE.Color(C.basalt), umber = new THREE.Color(C.umber), ash = new THREE.Color(C.ash), color = new THREE.Color();
   for (let i = 0; i < pos.count; i++) {
-    const x = pos.getX(i), z = pos.getZ(i), y = landHeight(x, z);
-    pos.setY(i, y); uv.setXY(i, x / 7.7, z / 7.7);
+    const x = pos.getX(i), z = pos.getZ(i);
+    if (Math.hypot(x, z) > 12) pos.setY(i, landHeight(x, z));
+    uv.setXY(i, x / 7.7, z / 7.7);
     const patch = .5 + Math.sin(x * .37 + z * .12) * .23 + Math.sin(z * .52 - x * .18) * .17;
     color.copy(basalt).lerp(umber, Math.max(0, patch - .35));
     color.lerp(ash, .16 + Math.max(0, Math.sin(x * .31 + z * .24)) * .22);

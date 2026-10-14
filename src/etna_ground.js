@@ -1,12 +1,45 @@
 import { Vector3 } from 'three';
 // One terrain contract for rendering, Rapier, foot placement and AI navigation.
-// +z is downhill. Spawn positions are at the same height across the slope.
+// +z is downhill. Broad folds and shorter lips vary the local grade without
+// terraces or steps. The horizontal lava shoreline stays at z=5.25.
 const degrees = 10;
 const slope = Math.tan(degrees * Math.PI / 180);
-export const ETNA = Object.freeze({ slope, degrees, lavaEdgeZ: 5.25, lavaLevel: -slope * 5.25, shelfZ: -4 });
-export const etnaHeight = (x, z) => -slope * Math.max(ETNA.shelfZ, z);
+export const ETNA = Object.freeze({ slope, degrees, lavaEdgeZ: 5.25, lavaLevel: -slope * 5.25, profile: 'irregular-v3' });
+const fold = (x, z) => .085 * Math.sin(1.05 * z + .65 * Math.sin(.6 * x)) + .022 * Math.sin(2.4 * z - .4 * x);
+const vertexHeight = (x, z) => Math.fround(-slope * z + fold(x, z) - fold(x, ETNA.lavaEdgeZ));
+// The same triangles are used for rendering, collision, height and foot normal.
+// Finer cells cover the entire arena and camera orbit; distant cells are coarse.
+const axis = [];
+for (let p = -56; p <= 56; p += Math.abs(p + .01) < 12 ? .5 : Math.abs(p + .01) < 30 ? 1 : 2) axis.push(p);
+const zAxis = [...axis, ETNA.lavaEdgeZ].sort((a, b) => a - b);
+const heights = Float32Array.from(zAxis.flatMap(z => axis.map(x => vertexHeight(x, z))));
+function cell(values, p) {
+  let lo = 0, hi = values.length - 1;
+  while (hi - lo > 1) { const mid = (lo + hi) >> 1; if (values[mid] <= p) lo = mid; else hi = mid; }
+  return lo;
+}
+function facet(x, z) {
+  const i = cell(axis, x), j = cell(zAxis, z), dx = axis[i + 1] - axis[i], dz = zAxis[j + 1] - zAxis[j];
+  const u = (x - axis[i]) / dx, v = (z - zAxis[j]) / dz, a = j * axis.length + i;
+  const ha = heights[a], hb = heights[a + 1], hc = heights[a + axis.length], hd = heights[a + axis.length + 1];
+  if (u + v <= 1) return { y: ha + u * (hb - ha) + v * (hc - ha), dx: (hb - ha) / dx, dz: (hc - ha) / dz };
+  return { y: hd + (1 - u) * (hc - hd) + (1 - v) * (hb - hd), dx: (hd - hc) / dx, dz: (hd - hb) / dz };
+}
+export const etnaHeight = (x, z) => facet(x, z).y;
 export function etnaNormal(x, z) {
-  return z <= ETNA.shelfZ ? { x: 0, y: 1, z: 0 } : { x: 0, y: Math.cos(degrees * Math.PI / 180), z: Math.sin(degrees * Math.PI / 180) };
+  const f = facet(x, z), length = Math.hypot(f.dx, 1, f.dz);
+  return { x: -f.dx / length, y: 1 / length, z: -f.dz / length };
+}
+export function etnaGroundMesh(extent = 30) {
+  const xs = axis.filter(x => Math.abs(x) <= extent), zs = zAxis.filter(z => Math.abs(z) <= extent);
+  const vertices = new Float32Array(xs.length * zs.length * 3), indices = [];
+  let i = 0;
+  for (const z of zs) for (const x of xs) { vertices[i++] = x; vertices[i++] = vertexHeight(x, z); vertices[i++] = z; }
+  for (let row = 0; row < zs.length - 1; row++) for (let col = 0; col < xs.length - 1; col++) {
+    const a = row * xs.length + col, c = a + xs.length;
+    indices.push(a, c, a + 1, a + 1, c, c + 1);
+  }
+  return { vertices, indices: new Uint32Array(indices) };
 }
 export const ETNA_TERRAIN = Object.freeze({ id: 'etna', heightAt: etnaHeight, normalAt: etnaNormal, ...ETNA });
 export const terrainForStage = id => id === 'etna' ? ETNA_TERRAIN : null;
@@ -15,10 +48,8 @@ export const terrainForStage = id => id === 'etna' ? ETNA_TERRAIN : null;
 export function createArenaGround(R, world, groups, { stageId = null, radius = 6.5, walls = true } = {}) {
   const terrain = terrainForStage(stageId), ground = world.createRigidBody(R.RigidBodyDesc.fixed());
   if (terrain) {
-    const vertices = [], indices = [], zs = [-30, ETNA.shelfZ, 30];
-    for (const z of zs) for (const x of [-30, 30]) vertices.push(x, etnaHeight(x, z), z);
-    for (let row = 0; row < 2; row++) { const a = row * 2; indices.push(a, a + 2, a + 1, a + 1, a + 2, a + 3); }
-    world.createCollider(R.ColliderDesc.trimesh(new Float32Array(vertices), new Uint32Array(indices)).setFriction(0.9).setCollisionGroups(groups), ground);
+    const { vertices, indices } = etnaGroundMesh();
+    world.createCollider(R.ColliderDesc.trimesh(vertices, indices).setFriction(0.9).setCollisionGroups(groups), ground);
   } else {
     world.createCollider(R.ColliderDesc.cuboid(30, 0.5, 30).setTranslation(0, -0.5, 0).setFriction(0.9).setCollisionGroups(groups), ground);
   }
