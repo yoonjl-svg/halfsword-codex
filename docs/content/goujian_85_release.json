@@ -1,0 +1,56 @@
+{
+  "status": "published_verified_with_ai_observation_limit",
+  "checkedUTC": "2026-10-14T06:14:24.987352+00:00",
+  "baseline": "4e19099",
+  "deployedCommit": "e7eb2f5cec6dbcbb9aa03ff3e55bf634eb0f3ace",
+  "pagesRun": 38520704446,
+  "page": "https://yoonjl-svg.github.io/halfsword-codex/goujian.html?v=2",
+  "spec": {
+    "lengthM": 0.85,
+    "bladeM": 0.67,
+    "massKg": 1.2129032258064516,
+    "tier": "rare",
+    "grip": "one-hand"
+  },
+  "native": {
+    "pass": false,
+    "passed": 23,
+    "total": 24,
+    "failed": [
+      "duels/goujian-actual-contact-and-wound"
+    ],
+    "steps": 3606,
+    "sourceManifestSHA256": "0e5ed503056e734cc85d915fd2cddb04de2d813b17cb96b9bf9d645c03542c5d"
+  },
+  "controlledContact": {
+    "pass": true,
+    "checks": 8,
+    "sourceManifestSHA256": "0bba1d47001e1c8f9b609125a1ed185919f31ec0fcf65a5f08fb6971a764c716",
+    "baselineWounds": 1,
+    "currentWounds": 2
+  },
+  "regression": {
+    "pass": true,
+    "sourceStable": true,
+    "groups": 6
+  },
+  "public": {
+    "viewerViews": 5,
+    "responses": 190,
+    "uniqueFiles": 179,
+    "errors": 0,
+    "trustedTouchEvents": 48,
+    "reportSHA256": "48eb57f3b07a41586dbc5609d75f726ad6d484f539fe52b69de40aba94aae065"
+  },
+  "archive": {
+    "name": "goujian-85-20261014.tar.xz",
+    "bytes": 2141116,
+    "sha256": "502552c9d8ea9cfdb9c01f57606824d74e05a91062faed3a136652693508c3be"
+  },
+  "limits": [
+    "Original two fixed 10-second AI duels observed no new Goujian wound; native gate remains 23/24.",
+    "Controlled native contact confirms damage wiring, not AI hit rate, average power or handling.",
+    "Enlarged interpretation, not an exact artifact replica or measured bronze material model.",
+    "Mobile Chromium emulation, not physical-phone FPS or user aesthetic acceptance."
+  ]
+}
