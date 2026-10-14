@@ -22,6 +22,7 @@ import { createSilverWandererOutfit } from './outfit_silver_wanderer.js';
 import { createSilverWandererDetail } from './outfit_silver_wanderer_detail.js';
 import { createChandaOutfit } from './outfit_chanda.js';
 import { createRatnaOutfit } from './outfit_ratna.js';
+import { createTerracottaOutfit } from './outfit_terracotta.js';
 
 const _m4 = new THREE.Matrix4();
 const _euler = new THREE.Euler();
@@ -2500,6 +2501,7 @@ const CROWN_ROSE_UNIFORM = Object.fromEntries(Object.entries(CROWN_BLUE_UNIFORM)
 
 export const newOutfitHelpers = { THREE, bake, box, cyl, ball, cone, addMerged, CLOTH, quietFace, isoldeLock, artoriaCloth, sleeveVolume, clothNeck, artoriaRoundedBox };
 export const OUTFITS = {
+  terracotta_guard: createTerracottaOutfit(newOutfitHelpers),
   ratna_ferryman: createRatnaOutfit(newOutfitHelpers),
   chanda_watergate: createChandaOutfit(newOutfitHelpers),
   silver_wanderer_detail: createSilverWandererDetail(newOutfitHelpers),

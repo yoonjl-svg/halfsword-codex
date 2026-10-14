@@ -681,6 +681,15 @@ LOOK_ARCHIVE.ratna.v2 = {
 };
 LOOK_ARCHIVE.ratna.v3 = { ...LOOK_ARCHIVE.ratna.v2, ratnaRevision: 3 };
 
+LOOK_ARCHIVE.terracotta = { v1: {
+  tunic: 0x929084, quilt: 0x7c7b70, sleeve: 0xa4a094, straps: null,
+  belt: 0x929084, hoseUpper: 0xa4a094, hoseLower: 0xa4a094, shoes: 0x7c7b70,
+  skin: 0xa4a094, hands: 0xa4a094, helmet: null, metal: 0x929084, hair: 0x73756d,
+  headband: null, grip: 0x493829, hilt: 0x9c8554, accent: 0xa6a193,
+  outfit: 'terracotta_guard', armor: null, stockEyes: true, eyeColor: 0x4b4741,
+  originalTorsoWidth: true,
+} };
+
 // 지금 게임에서 실제로 쓰는 버전 (감독/오너가 확정하면 여기만 바꾸면 됨)
 export const CHARACTER_LOOK_VERSION = {
   bran: 'v1',
@@ -699,6 +708,7 @@ export const CHARACTER_LOOK_VERSION = {
   silver_wanderer: 'v6',
   chanda: 'v1',
   ratna: 'v3',
+  terracotta: 'v1',
 };
 
 /** id의 특정 버전을 꺼낸다. 버전이 없으면 현재 버전 → v0 순으로 물러난다. (main.js의 ?look=, ?lookv= 미리보기용) */
