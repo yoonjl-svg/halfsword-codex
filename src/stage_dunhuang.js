@@ -353,15 +353,33 @@ function landscape(K, scene) {
   const random = rng(141414);
   K.put('ground', new THREE.PlaneGeometry(760, 760), 0xf2ead9, [0, 0, 0], [-Math.PI / 2, 0, 0], 1, { uv: 'box', uvScale: .115, noise: .008 });
   // The opposite side is an exposed dry riverbed, with no water or oasis.
-  const p = [];
-  for (let i = 0; i < 48; i++) {
-    const z0 = -170 + i * 7, z1 = z0 + 7;
-    const center = z => -31 + Math.sin(z * .022) * 4 + Math.sin(z * .09) * 1.2;
-    const a = [center(z0) - 5, .005, z0], b = [center(z0) + 5, .005, z0];
-    const c = [center(z1) - 5, .005, z1], d = [center(z1) + 5, .005, z1];
+  const p = [], banks = [], gravel = [];
+  const riverCenter = z => -31 + Math.sin(z * .022) * 4 + Math.sin(z * .09) * 1.2;
+  const riverWidth = z => 5.0 + Math.sin(z * .061 + .4) * .8 + Math.sin(z * .143) * .32;
+  for (let i = 0; i < 72; i++) {
+    const z0 = -170 + i * 4.7, z1 = z0 + 4.7;
+    const a = [riverCenter(z0) - riverWidth(z0), .005, z0], b = [riverCenter(z0) + riverWidth(z0), .005, z0];
+    const c = [riverCenter(z1) - riverWidth(z1), .005, z1], d = [riverCenter(z1) + riverWidth(z1), .005, z1];
     p.push(...a, ...c, ...b, ...b, ...c, ...d);
+    for (const side of [-1,1]) {
+      const bankPoint = (z, edge) => [riverCenter(z) + side * (riverWidth(z) + edge * 1.9),
+        edge === 1 ? .28 + Math.sin(z * .11 + side) * .10 : .007, z];
+      for (let edge = 0; edge < 2; edge++) {
+        const a = bankPoint(z0,edge), b = bankPoint(z1,edge), c = bankPoint(z0,edge+1), d = bankPoint(z1,edge+1);
+        if (side > 0) banks.push(...a,...b,...c,...c,...b,...d);
+        else banks.push(...a,...c,...b,...c,...d,...b);
+      }
+    }
+    // Intermittent pale bars and darker pebble beds, not running water.
+    if (i % 7 !== 1 && i % 7 !== 2) {
+      const offset = Math.sin(z0 * .073) * 2.4, w = 1.0 + Math.sin(z0 * .19) * .45;
+      gravel.push(riverCenter(z0)+offset-w,.009,z0,riverCenter(z1)+offset-w*.7,.009,z1,riverCenter(z0)+offset+w,.009,z0,
+        riverCenter(z0)+offset+w,.009,z0,riverCenter(z1)+offset-w*.7,.009,z1,riverCenter(z1)+offset+w*.7,.009,z1);
+    }
   }
-  K.put('riverbed', triangles(p), 0xb5ae98, undefined, undefined, 1, { noise: .028 });
+  K.put('riverbed', triangles(p), 0xc6bda5, undefined, undefined, 1, { noise: .025, uv: 'box', uvScale: .115 });
+  K.put('riverbed', triangles(banks), 0xcfc1a1, undefined, undefined, 1, { noise: .025, uv: 'box', uvScale: .115 });
+  K.put('riverbed', triangles(gravel), 0xb1a994, undefined, undefined, 1, { noise: .045, uv: 'box', uvScale: .16 });
   for (let i = 0; i < 170; i++) {
     const z = (random() - .5) * 180, x = -31 + Math.sin(z * .022) * 4 + (random() - .5) * 10;
     K.put('stone', new THREE.DodecahedronGeometry(.06 + random() * .20, 0), i % 3 ? C.stone : C.worn, [x, .045, z], [random(), random(), random()], [1.6, .45, .9], { noise: .06 });
@@ -374,15 +392,39 @@ function landscape(K, scene) {
       K.put('shrub', new THREE.IcosahedronGeometry(size * .23, 0), C.leaf, end, undefined, [1.5, .52, .7], { noise: .04, vary: .22 });
     }
   }
+  // Sanwei-inspired dry ridges across the Daquan valley. These are game-local
+  // coordinates, not surveyed compass bearings or a geographic reconstruction.
+  // Each band has foothills, a broken crest and a rear slope rather than a flat
+  // silhouette; low saddles leave space between the more prominent summits.
+  const ridgeRandom = rng(141427), sections = 48, slope = [0,.19,.70,1,.41,0];
   for (let band = 0; band < 3; band++) {
-    const p = [], count = 29, x = -105 - band * 68;
-    const top = i => 4 + band * 2 + (Math.sin(i * .72 + band) + 1) * (3.8 + band) + Math.sin(i * 2.14) * 1.1;
-    for (let i = 0; i < count; i++) {
-      const z0 = -260 + i * 19, z1 = z0 + 19;
-      const a = [x + 10, .01, z0], b = [x + 10, .01, z1], c = [x, top(i), z0], d = [x, top(i + 1), z1];
-      p.push(...a, ...c, ...b, ...b, ...c, ...d);
+    const points = [], heights = [], shifts = [], front = [-55,-113,-186][band], depth = [68,84,101][band];
+    for (let i = 0; i <= sections; i++) {
+      heights.push(4 + Math.pow(ridgeRandom(),.78) * (band ? 32 + band * 3 : 24));
+      shifts.push((ridgeRandom()-.5)*9);
     }
-    K.put('hills', triangles(p), [0xaaa89c, 0xb4b6ad, 0xbdc5be][band], undefined, undefined, 1, { vary: .025, noise: .012 });
+    // Unequal wide valleys interrupt both silhouette and slope, independently
+    // in each band so distant shoulders remain visible through the near gaps.
+    for (const [center,width] of [[7+band*2,2],[19-band,3],[32+band,2],[43-band*2,2]])
+      for (let i = Math.max(0,center-width); i <= Math.min(sections,center+width); i++)
+        heights[i] *= .16 + Math.abs(i-center)/(width+1)*.72;
+    const ridgePoint = (row,i) => {
+      const t = row/(slope.length-1), z = -263+i*11.5;
+      const crag = row === 0 || row === slope.length-1 ? 0 : Math.sin(i*2.31+row*1.19+band)*1.4;
+      return [front-depth*t+shifts[i]*(.35+Math.sin(t*Math.PI)*.65),
+        .014+Math.max(0,heights[i]*slope[row]+crag), z + shifts[i]*Math.sin(t*Math.PI)*.8];
+    };
+    for (let row = 0; row < slope.length-1; row++) for (let i = 0; i < sections; i++) {
+      const a = ridgePoint(row,i), b = ridgePoint(row,i+1), c = ridgePoint(row+1,i), d = ridgePoint(row+1,i+1);
+      if ((i+row)%2) points.push(...a,...c,...b,...b,...c,...d);
+      else points.push(...a,...c,...d,...a,...d,...b);
+    }
+    const rock = K.put('hills',triangles(points),[0x9e9582,0xaaa79a,0xb8bcb3][band],undefined,undefined,1,{noise:.008,vary:.015});
+    const normals=rock.attributes.normal,colors=rock.attributes.color;
+    for(let i=0;i<colors.count;i++) {
+      const shade=.82+.20*Math.abs(normals.getY(i))-.14*normals.getX(i)-.09*normals.getZ(i);
+      colors.setXYZ(i,colors.getX(i)*shade,colors.getY(i)*shade,colors.getZ(i)*shade);
+    }
   }
   const skyMap = canvasTex(512, 256, (ctx, w, h) => {
     const gradient = ctx.createLinearGradient(0, 0, 0, h);
@@ -398,7 +440,8 @@ function landscape(K, scene) {
 // A fictional interrupted procession, not an archaeological reconstruction.
 // All raised scenery stays beyond the 13 m duel buffer; tracks are visual only.
 function abandonedProcession(K) {
-  const origin = [14.0, 0, 10.7], heading = 1.27;
+  const origin = [-16.2, 0, 8.8], heading = 1.27;
+  // Opposite the +X cliff, with its sand and ruts anchored to this same origin.
   const wood = 0x766049, edge = 0x9b8160, dark = 0x423b31;
   K.push(origin, heading);
   K.frame.multiply(new THREE.Matrix4().makeRotationZ(.14));
@@ -481,7 +524,7 @@ function abandonedProcession(K) {
   const dune=[],rings=5,segments=32;
   const dunePoint=(r,i)=>{
     const a=i/segments*Math.PI*2,t=r/rings;
-    return [14.0+Math.cos(a)*3.55*t,.012+Math.pow(1-t,1.7)*.64,10.7+Math.sin(a)*2.55*t];
+    return [origin[0]+Math.cos(a)*3.55*t,.012+Math.pow(1-t,1.7)*.64,origin[2]+Math.sin(a)*2.55*t];
   };
   for(let r=0;r<rings;r++)for(let i=0;i<segments;i++){
     const a=dunePoint(r,i),b=dunePoint(r,i+1),c=dunePoint(r+1,i),d=dunePoint(r+1,i+1);
@@ -491,8 +534,8 @@ function abandonedProcession(K) {
   for (const side of [-1,1]) {
     const rut = [], count = 96;
     const point = (i, edge) => {
-      const t = i / count, z = 12.8 + t * 21;
-      const x = 14.1 + side * 1.27 - Math.sin(t * 2.0) * 1.2 + Math.sin(t * 16 + side) * .065;
+      const t = i / count, z = origin[2] + 2.1 + t * 21;
+      const x = origin[0] + .1 + side * 1.27 - Math.sin(t * 2.0) * 1.2 + Math.sin(t * 16 + side) * .065;
       const width = .075 + Math.sin(t * 27 + side) * .018;
       return [x + edge * width, .018, z];
     };
