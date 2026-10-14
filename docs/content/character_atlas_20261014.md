@@ -17,3 +17,5 @@ node tools/content/build_character_roster.mjs
 ```
 
 원본 촬영·전달 검사 도구/보고서는 저장소 밖 근거 묶음에 보존한다. 공개 여부·페이지/이미지 해시·보존 경로는 [전달 영수증](character_atlas_release.json)을 따른다.
+
+`7fa95a1`/Pages38501402585 공개 완료. 로컬/공개 각8배열·18사진 확대·21파일 해시 일치·오류0.
