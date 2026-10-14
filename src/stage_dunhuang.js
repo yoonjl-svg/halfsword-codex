@@ -354,7 +354,7 @@ function landscape(K, scene) {
   K.put('ground', new THREE.PlaneGeometry(760, 760), 0xf2ead9, [0, 0, 0], [-Math.PI / 2, 0, 0], 1, { uv: 'box', uvScale: .115, noise: .008 });
   // The opposite side is an exposed dry riverbed, with no water or oasis.
   const p = [], banks = [], gravel = [];
-  const riverCenter = z => -31 + Math.sin(z * .022) * 4 + Math.sin(z * .09) * 1.2;
+  const riverCenter = z => -41 + Math.sin(z * .022) * 4 + Math.sin(z * .09) * 1.2;
   const riverWidth = z => 5.0 + Math.sin(z * .061 + .4) * .8 + Math.sin(z * .143) * .32;
   for (let i = 0; i < 72; i++) {
     const z0 = -170 + i * 4.7, z1 = z0 + 4.7;
@@ -381,11 +381,11 @@ function landscape(K, scene) {
   K.put('riverbed', triangles(banks), 0xcfc1a1, undefined, undefined, 1, { noise: .025, uv: 'box', uvScale: .115 });
   K.put('riverbed', triangles(gravel), 0xb1a994, undefined, undefined, 1, { noise: .045, uv: 'box', uvScale: .16 });
   for (let i = 0; i < 170; i++) {
-    const z = (random() - .5) * 180, x = -31 + Math.sin(z * .022) * 4 + (random() - .5) * 10;
+    const z = (random() - .5) * 180, x = -41 + Math.sin(z * .022) * 4 + (random() - .5) * 10;
     K.put('stone', new THREE.DodecahedronGeometry(.06 + random() * .20, 0), i % 3 ? C.stone : C.worn, [x, .045, z], [random(), random(), random()], [1.6, .45, .9], { noise: .06 });
   }
   for (let i = 0; i < 42; i++) {
-    const z = (random() - .5) * 165, x = -20 - random() * 38, size = .45 + random() * .9;
+    const z = (random() - .5) * 165, x = -30 - random() * 38, size = .45 + random() * .9;
     for (let b = 0; b < 5; b++) {
       const a = random() * Math.PI * 2, end = [x + Math.cos(a) * size * .55, size * (.35 + random() * .7), z + Math.sin(a) * size * .55];
       limb(K, 'shrub', [x, .025, z], end, .02 * size, .006, 0x817457, {}, 5);
@@ -425,6 +425,9 @@ function landscape(K, scene) {
       const shade=.82+.20*Math.abs(normals.getY(i))-.14*normals.getX(i)-.09*normals.getZ(i);
       colors.setXYZ(i,colors.getX(i)*shade,colors.getY(i)*shade,colors.getZ(i)*shade);
     }
+    // Remove only the nearest ridge after generation, preserving all seed
+    // consumption and the exact geometry/colors of the two distant bands.
+    if (band === 0) K.bins.hills.pop().dispose();
   }
   const skyMap = canvasTex(512, 256, (ctx, w, h) => {
     const gradient = ctx.createLinearGradient(0, 0, 0, h);

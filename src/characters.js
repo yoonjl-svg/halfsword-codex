@@ -462,6 +462,13 @@ export function randomLine(char, key) {
   return char?.taunt || '';
 }
 
+/** Keep authored quote pairs and put a verified source outside the quotation. */
+export function formatCharacterLine(char, line) {
+  const quoted = /^"[\s\S]*"$/.test(line) ? line : `“${line}”`;
+  const source = char?.lineSources?.[line];
+  return source ? `${quoted}(${source})` : quoted;
+}
+
 /** id가 없거나 목록에 없으면 무작위 캐릭터 (excludeId가 있으면 그 캐릭터는 뺀다) */
 export function randomCharacter(excludeId) {
   const pool = excludeId ? CHARACTERS.filter((c) => c.id !== excludeId) : CHARACTERS;
