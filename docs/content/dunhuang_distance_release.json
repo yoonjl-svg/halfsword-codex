@@ -1,0 +1,135 @@
+{
+  "baseCommit": "23af918a9f3b736893c156c0310dc8fc9443ea85",
+  "deployedCommit": "1890fdf132592236153d74a57a3b53903ac8d631",
+  "pages": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38536597933",
+  "local": {
+    "pass": true,
+    "requests": 191,
+    "errors": 0
+  },
+  "public": {
+    "pass": true,
+    "requests": 191,
+    "uniqueFiles": 180,
+    "errors": 0,
+    "completedUTC": "2026-10-14T08:43:06.183Z"
+  },
+  "regression": {
+    "pass": true,
+    "sourceStable": true,
+    "groups": [
+      "force_ledger",
+      "grip_reaction",
+      "cut_reaction",
+      "arm_capacity",
+      "arm_duel",
+      "build"
+    ]
+  },
+  "stage": {
+    "rounds": 3,
+    "stats": {
+      "triangles": 88327,
+      "meshes": 20,
+      "vertices": 263684,
+      "textures": 5,
+      "clearRadius": 10.5,
+      "proceduralTextureMax": 1024
+    },
+    "minSolidRadius": 13.517755328923847
+  },
+  "stageCompare": {
+    "pass": true,
+    "distantBandsAllAttributesExact": true,
+    "removedNearestTriangles": 480,
+    "cartCliffTimberRoofAllAttributesExact": true,
+    "translated": [
+      {
+        "name": "riverbed",
+        "deltaX": -10,
+        "maxError": 1.9073486328125e-06,
+        "vertices": 2466
+      },
+      {
+        "name": "stone",
+        "deltaX": -10,
+        "maxError": 1.9073486328125e-06,
+        "vertices": 18360
+      },
+      {
+        "name": "shrub",
+        "deltaX": -10,
+        "maxError": 3.814697265625e-06,
+        "vertices": 18900
+      }
+    ]
+  },
+  "dialogue": {
+    "pass": true,
+    "total": 172,
+    "cited": 7,
+    "method": "Actual shared UI formatter: all character dialogue output preserved except the seven sourced terracotta slots."
+  },
+  "source": {
+    "baseCommit": "23af918a9f3b736893c156c0310dc8fc9443ea85",
+    "sourceFiles": {
+      "src/stage_dunhuang.js": {
+        "bytes": 40843,
+        "sha256": "8e67e1a72402d1e97ec26513a9e0e0ba7c0aca7603fee14ec43aecc611f32af5"
+      },
+      "src/main.js": {
+        "bytes": 110524,
+        "sha256": "e685706787758b4f77455a1b4571243a1b34e31e3d6b8e771fa7fe975a1d73e8"
+      },
+      "src/characters.js": {
+        "bytes": 40317,
+        "sha256": "a40a85374432de87ca78e8a14bf667ba7c16f6b94e43e89fa18cbf6e8d46fbed"
+      },
+      "src/characters_terracotta.js": {
+        "bytes": 2869,
+        "sha256": "f1830a259ef810838f18b125d24a8dd3a5d419472f33035236f26077e764d7f5"
+      },
+      "public/dunhuang.html": {
+        "bytes": 8950,
+        "sha256": "75df03f38db3210cde6dddc21ce8ca49afa2a595e8fe39f7a1033333b9d6ec27"
+      },
+      "public/encounters/dunhuang-combat.webp": {
+        "bytes": 45634,
+        "sha256": "365d178d3ba387e3c3f897ea2c629220bed69795db8c4b948da39e62063f80b8"
+      },
+      "public/encounters/dunhuang-vista.webp": {
+        "bytes": 19810,
+        "sha256": "783038000083fd8f7aec846ba8877beee746841d8cf3795f940035e8a2f4351e"
+      },
+      "public/encounters/dunhuang-caravan.webp": {
+        "bytes": 21640,
+        "sha256": "bdb638e422658e93603085bb63f280267cd3fc59d80eb720548dd0f5bccb710c"
+      }
+    },
+    "tools": {
+      "stage-smoke.mjs": "07c68de367399e56e2e65b026b81fb84ddfaafbdd4baebe967f8d1555edc9cd1",
+      "stage-compare.mjs": "e4008c0c9d5f5bd27308dcb073533c71d24b9a6282be28289e4305fa7cb992be",
+      "capture.mjs": "e3708db555d27df77607714af1c10ae51b47cdb1c63d25d519e4eda18d29e175",
+      "delivery.mjs": "f068f1ca638b3133d370a955b8c065cd94cbb9aa0790892476d57b9562b4f4bc",
+      "dialogue-format.mjs": "50d4ca83deba5087423d96031724bb9e75ca36947e6541a7a81e02c6da24b19b"
+    }
+  },
+  "toolHash": "f068f1ca638b3133d370a955b8c065cd94cbb9aa0790892476d57b9562b4f4bc",
+  "limits": [
+    "Chromium mobile/touch emulation; physical-phone performance and human appearance/sound acceptance are not established.",
+    "One Longsword card flow with trusted touch attack/movement, pause/resume and fresh restart; no account or campaign tests.",
+    "Sound context, silent enemy profile and naturally accepted Dunhuang details are observed; no injury or sound event is injected.",
+    "No AI, damage, health, pose, physics clock or progression state is overridden. This browser flow does not inject a death.",
+    "Every fetched own file must match the frozen build. Public run requires the same passing local tool/build contract; one logged GET 502/503 retry is allowed."
+  ],
+  "pending": "Four new quotations are proposals only. Ability delegated to peer; no ability, tier or recovery-system changes.",
+  "archive": {
+    "name": "dunhuang-distance-20261014.tar.xz",
+    "bytes": 3406088,
+    "sha256": "2f0765765f3ee2f1a6fae519b2469a1ddf92b783eed52cdc00a651f3610288c5",
+    "excludes": [
+      "regression/build (rebuild from commit and saved manifest)",
+      "server.log"
+    ]
+  }
+}
