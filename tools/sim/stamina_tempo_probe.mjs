@@ -36,7 +36,7 @@ export function tempoTrial({weapon,action,driver,level,contact=false,seconds=8,t
     // Retain collision and wound-energy reporting but let the passive target survive repeated contacts.
     if(contact)g.enemy.applyWound=()=>{};
     else for(let i=0;i<f.sword.numColliders();i++)f.sword.collider(i).setCollisionGroups(0);
-    if(action==='cut')f.handOffset.set(...tech.from);
+    if(action==='cut'){f.handOffset.set(...tech.from);f.handHeld=true;f.inputActive=true;}
     for(let i=0;i<360;i++){f.move.set(0,0);g.step();}
     const initialSpeed=length(f.sword.velocityAtPoint(f.bladePoint(.7)));
     const pin=()=>{if(a)a.staminaRest=false;f.stamina.value=[100,-10,-60][level];f.stamina.level=level;f.stamina.exhaustLeft=0;};
@@ -54,23 +54,26 @@ export function tempoTrial({weapon,action,driver,level,contact=false,seconds=8,t
     if(!accepted)return {weapon,action,driver,level,status:'rejected',reason:'Real gameplay action entry rejected the trial'};
     const points=[tech.from,...tech.path];
     let peak=0,peakAt=0,endAt=null,finite=true,stopped=false,drivePeak=0,drivePeakAt=0;
+    let prevPoint=f.bladePoint(.7).clone(),sampledPeak=0,sampledPeakAt=0;
     const samples=[],hits=[];
     g.onWound=(att,vic,r)=>{if(att===f&&vic===g.enemy)hits.push({time:r6(g.t-t0),zone:r.zone,type:r.type,energy:r6(r.energy)});};
     const t0=g.t;
     for(let i=0;i<Math.ceil(seconds/DT);i++) {
       const t=i*DT;pin();f.move.set(0,0);
       if(action==='cut'&&endAt===null) {
-        if(a)a.moveHand(DT);
+        if(a){a.handSpeed=a.level.strikeSpeed;a.moveHand(DT);}
         else {const u=Math.min(1,t/.18);f.handOffset.set(...onPath(points,u));f.inputActive=u<1;f.handHeld=true;}
       } else if(action==='secret'&&a&&a.secretRun)aiUpdate(DT);
       g.step();pin();
       const p=f.bladePoint(.7),v=f.sword.velocityAtPoint(p),speed=length(v),at=(i+1)*DT;
       if(![p.x,p.y,p.z,v.x,v.y,v.z,...Object.values(f.bodies.pelvis.translation())].every(Number.isFinite)) {finite=false;break;}
+      const sampledSpeed=p.distanceTo(prevPoint)/DT;prevPoint.copy(p);
+      if(sampledSpeed>sampledPeak){sampledPeak=sampledSpeed;sampledPeakAt=at;}
       if(speed>peak){peak=speed;peakAt=at;}
       const tp=f.skill.tap,pm=f.skill.pom;
       const inDrive=action==='thrust'?tp&&tp.t<tp.K.aim+tp.K.extend+tp.K.hold:action==='pommel'?pm&&f.skill.thrustPose.w>=.99:endAt===null;
       if(inDrive&&speed>drivePeak){drivePeak=speed;drivePeakAt=at;}
-      if(trace)samples.push({t:r6(at),speed:r6(speed),hand:f.handOffset.toArray().map(r6),aim:f.skill.aim.toArray().map(r6),body:{...f.bodyPose},state:f.state});
+      if(trace)samples.push({t:r6(at),speed:r6(speed),sampledSpeed:r6(sampledSpeed),kinematic:f.sword.isKinematic(),hand:f.handOffset.toArray().map(r6),aim:f.skill.aim.toArray().map(r6),body:{...f.bodyPose},state:f.state});
       const done=action==='cut'?(a?!a.path.length:t>=.18&&f.skill.aim.distanceTo(f.skill.aimRaw)<.02)
         :action==='thrust'?!f.skill.tap:action==='pommel'?!f.skill.pom:!(a?a.secretRun:f.skill.sec)&&!f.iai&&!f.combo;
       if(done&&endAt===null)endAt=at;
@@ -79,7 +82,7 @@ export function tempoTrial({weapon,action,driver,level,contact=false,seconds=8,t
       if(endAt!==null&&at>=endAt+.3)break;
     }
     return {weapon,tradition:f.swordArt.tradition,action,tech:action==='secret'?S.name:tech.name,driver,level,value:[100,-10,-60][level],contact,
-      status:'measured',peakAt:r6(peakAt),peakSpeed:r6(peak),initialSpeed:r6(initialSpeed),drivePeak:r6(drivePeak),drivePeakAt:r6(drivePeakAt),endAt:r6(endAt),completed:endAt!==null,finite,stopped,state:f.state,
+      status:'measured',peakAt:r6(peakAt),peakSpeed:r6(peak),initialSpeed:r6(initialSpeed),sampledPeak:r6(sampledPeak),sampledPeakAt:r6(sampledPeakAt),drivePeak:r6(drivePeak),drivePeakAt:r6(drivePeakAt),endAt:r6(endAt),completed:endAt!==null,finite,stopped,state:f.state,
       energyHits:hits,impactEnergy:hits.length?Math.max(...hits.map(h=>h.energy)):null,...(trace?{samples}:{})};
   } finally {g.world.free();}
 }

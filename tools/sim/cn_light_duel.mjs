@@ -22,10 +22,14 @@ import { newRound, DT, CONFIG, THREE } from './harness_m.mjs';
 import { AI } from '../../src/ai.js';
 import { Fighter } from '../../src/fighter.js';
 import { WEAPONS } from '../../src/weapons.js';
-import { SCHOOLS } from '../../src/schools.js';
+import { SCHOOLS, CN_AI_FEET } from '../../src/schools.js';
 import { wilson } from './corr_lib.mjs';
 
 const { GAIT, BALANCE, BODY } = CONFIG;
+if(process.env.CLD_FEET) {
+ const values=JSON.parse(process.env.CLD_FEET);
+ for(const [key,value] of Object.entries(values)){if(!(key in CN_AI_FEET)||!Number.isFinite(value))throw Error('Invalid CN_AI_FEET override: '+key);CN_AI_FEET[key]=value;}
+}
 const SEED0 = +process.env.CLD_SEED0 || 0;
 const jsonOut = []; // CLD_JSON=파일 → 갈래마다 판·칼 날값 (묶음 넷을 모아 192 판 분포를 셈 — 문서 §7)
 
@@ -340,7 +344,7 @@ for (const arm of ARMS) {
   console.log(`- X 공격(AI 기술 하나 = 한 번 · 이어 치기도 각자): 베기 분당 ${f1((cuts / T) * 60)} · 찌르기 ${f1((thrusts / T) * 60)} · 비기 ${f2((secrets / T) * 60)}`);
   if (ROWS) for (const r of R) console.log(`  씨앗 ${r.seed} ${r.res} ${f1(r.t)} s · X ${f1(r.xDist)} m (${f1((r.xDist / r.t) * 60)} m/분) · Y ${f1(r.yDist)} m · 클린치 ${f1(r.clinchT)} s · 넘어짐 ${r.falls}`);
   atkReport(R, T);
-  if (process.env.CLD_JSON) jsonOut.push({ arm: arm.name, weapon: id, seed0: SEED0, games: R.map((r) => ({ ...r, kd: r.kd, watch: r.watch.filter((_, i) => i % 6 === 0), watchIn: (r.watchIn ?? []).filter((_, i) => i % 6 === 0), strikes: r.strikes.map((x) => ({ t0: x.t0, d0: x.d0, dDecide: x.dDecide, dAI: x.dAI, cd: x.cd, contact: x.contact, clinch: x.clinch, myC: x.myC, foeC: x.foeC, stepT: x.stepT, lag: x.lag, why: x.why, tech: x.tech, kind: x.kind, dMin: x.dMin, dCut: x.dCut, dEnd: x.dEnd, adv: x.adv, vMax: x.vMax, res: x.res })) })) }); // 묶음 모으기용 (CLD_JSON=파일 — 판·칼마다 날값)
+  if (process.env.CLD_JSON) jsonOut.push({ feet: {...CN_AI_FEET}, arm: arm.name, weapon: id, seed0: SEED0, games: R.map((r) => ({ ...r, kd: r.kd, watch: r.watch.filter((_, i) => i % 6 === 0), watchIn: (r.watchIn ?? []).filter((_, i) => i % 6 === 0), strikes: r.strikes.map((x) => ({ t0: x.t0, d0: x.d0, dDecide: x.dDecide, dAI: x.dAI, cd: x.cd, contact: x.contact, clinch: x.clinch, myC: x.myC, foeC: x.foeC, stepT: x.stepT, lag: x.lag, why: x.why, tech: x.tech, kind: x.kind, dMin: x.dMin, dCut: x.dCut, dEnd: x.dEnd, adv: x.adv, vMax: x.vMax, res: x.res })) })) }); // 묶음 모으기용 (CLD_JSON=파일 — 판·칼마다 날값)
 }
 
 /** 공격 거리 (문서 §7): X 의 AI 가 낸 칼마다 — 거리는 가슴-가슴 − X measure.contact (+ = 바깥) */
