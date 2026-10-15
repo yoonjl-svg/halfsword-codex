@@ -4,6 +4,8 @@
 - 기준 `3aa7f224e41c204f5418cc806e2d3ed97ef10d77`. 구현 `b73a9c82`.
 - **포크 yoonjl-svg/halfsword-codex만 수정.** 공통 몸·입력·AI·유파·보법·기력·대련 무기 선택 규칙은 수정하지 않았다.
 
+- 공개 배포: `0ab0bc31e8e60ff7e2e4ad547827a2d205b292ec`, [Actions38758532085](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38758532085) **Success / 1m46s** 확인. [포크 게임](https://yoonjl-svg.github.io/halfsword-codex/).
+
 ## 최종 동작
 
 1. 첫 화면의 `start_pixel.css` 버튼 스타일과 `createPixelGrove` 숲·바람을 재사용한다. 제목도 기존 픽셀 글자 함수로 그린다. 버튼 색/글꼴/테두리/모서리/나무 결이 첫 화면과 일치하는지 브라우저에서 비교했다. 작은 화면에서 높이와 폭만 배치에 맞춘다.
