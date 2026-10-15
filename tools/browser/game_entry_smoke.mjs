@@ -63,11 +63,10 @@ try{
  assert.equal(await p.locator('#lobbyName').textContent(),'샛별');
  await p.locator('#tabSkills').tap();assert.equal(await p.locator('.skill-group').count(),5);assert.ok(await p.locator('.skill-group p.unlocked').count()>0);
  await screenshot(p,'lobby-skills');
- await p.locator('#lobbyBack').tap();await title(p);await p.locator('#openSettings').tap();await p.locator('#titleFps').uncheck();
- assert.equal(await p.evaluate(()=>JSON.parse(localStorage.getItem('gladiator-settings')).fpsCap),false);
- await p.locator('#titleFps').check();await p.locator('#closeSettings').tap();await p.locator('#newJourney').tap();
+ await p.locator('#lobbyBack').tap();await title(p);await p.locator('#openAccount').tap();assert.equal(await p.locator('#accountEmail').isVisible(),true);
+ await p.locator('#closeAccount').tap();await p.locator('#newJourney').tap();
  assert.equal(await p.locator('#lobbyName').textContent(),'샛별');assert.equal(await checkpoint(p),null);
- check('lobby: actual character touch rotation, unchanged physics, existing thumbnails, editable name, tabs, fps setting and safe back navigation',{thumbs});
+ check('lobby: actual character touch rotation, unchanged physics, existing thumbnails, editable name, tabs, account entry and safe back navigation',{thumbs});
  await p.locator('#lobbyDepart').tap();await phase(p,'draw');
  await p.waitForFunction(()=>game.draw.t>.6);
  assert.equal(await p.locator('#gameEntrance').count(),0);const drawn=await checkpoint(p);

@@ -99,11 +99,20 @@ html[data-start-theme="pixel"] {
 /* 첫 화면 하단의 공지/설정: 종전 공지 박스(약78×36)의 90%, 동일한 두 칸. */
 [data-start-theme="pixel"] .title-footer{gap:8px}
 [data-start-theme="pixel"] .title-footer button{box-sizing:border-box;width:70px;min-height:0;height:32px;padding:0;font-size:12px}
-[data-start-theme="pixel"] #settingsDialog{width:min(360px,calc(100vw - 40px))}
-[data-start-theme="pixel"] .settings-content{padding:18px 26px;font-size:14px}
-[data-start-theme="pixel"] .settings-content p{font-size:12px;color:var(--c-sub);margin:12px 0 0}
-[data-start-theme="pixel"] .settings-content p:empty{display:none}
-[data-start-theme="pixel"] .setting-row{display:flex;align-items:center;justify-content:space-between;gap:14px}
-[data-start-theme="pixel"] .setting-row input{accent-color:var(--c-accent);width:18px;height:18px;margin:0}
-[data-start-theme="pixel"] #settingsDialog .notice-footer{justify-content:flex-end}
+[data-start-theme="pixel"] #openAccount{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+[data-start-theme="pixel"] #openAccount[data-connected=true]{width:auto;min-width:70px;max-width:min(220px,40vw);padding:0 10px}
+[data-start-theme="pixel"] #accountDialog{width:min(380px,calc(100vw - 40px))}
+[data-start-theme="pixel"] .account-content{padding:16px 24px;overflow:auto;font-size:12px}
+[data-start-theme="pixel"] .account-content p{margin:0 0 12px;color:var(--c-sub);line-height:1.6;overflow-wrap:anywhere}
+[data-start-theme="pixel"] .account-content p:empty{display:none}
+[data-start-theme="pixel"] .account-content label{display:block;margin-bottom:5px}
+[data-start-theme="pixel"] .account-content input{box-sizing:border-box;width:100%;padding:9px 10px;background:#211c16;border:1px solid var(--line);color:var(--c-text);font:14px Pretendard,sans-serif;border-radius:0}
+[data-start-theme="pixel"] .account-submit{width:100%;margin:12px 0 6px;padding:8px 12px;border:2px solid #8d7049;border-right-color:#453422;border-bottom-color:#453422;background:#60462f;color:var(--c-text);font:600 12px Pretendard,sans-serif;box-shadow:inset 0 -2px #392b1e}
+[data-start-theme="pixel"] .account-text-button{background:transparent;border:0;padding:6px 0;color:var(--c-sub);font:12px Pretendard,sans-serif;text-decoration:underline;text-underline-offset:3px}
+[data-start-theme="pixel"] .account-secondary{display:flex;justify-content:space-between;gap:12px}
+[data-start-theme="pixel"] .account-content .account-note{margin:14px 0 0}
+[data-start-theme="pixel"] #accountStatus{color:var(--c-text);margin-top:12px}
+[data-start-theme="pixel"] #accountAddress{color:var(--c-text);font-size:14px}
+[data-start-theme="pixel"] #accountDialog .notice-footer{justify-content:flex-end}
+[data-start-theme="pixel"] #accountDialog button:disabled{opacity:.5;cursor:default}
 @media(max-height:500px) and (orientation:landscape){[data-start-theme="pixel"] .title-footer button{height:29px}}

@@ -173,7 +173,7 @@ export function createPixelGrove(canvas, reducedMotion) {
 }
 
 export async function paintPixelWordmark(heading,{
-  text='Stillness',font='600 32px Cinzel',height=47,baseline=34,tracking=1,
+  text='Stillness',font='600 32px Cinzel',height=47,baseline=34,tracking=1,letterOffsets=[],
 }={}){
   try {
     await document.fonts.load(font,text);
@@ -183,7 +183,7 @@ export async function paintPixelWordmark(heading,{
     const letters=[...text];
     const width=Math.ceil(letters.reduce((n,c)=>n+m.measureText(c).width+tracking,0))+12;
     mask.width=width;mask.height=height;m.font=font;m.fillStyle='#fff';
-    let x=6;for(const letter of letters){m.fillText(letter,x,baseline);x+=m.measureText(letter).width+tracking;}
+    let x=6;for(const [i,letter] of letters.entries()){m.fillText(letter,x,baseline+(letterOffsets[i]||0));x+=m.measureText(letter).width+tracking;}
     const pixels=m.getImageData(0,0,width,height).data,points=[];
     for(let y=0;y<height;y++)for(let x=0;x<width;x++)if(pixels[(y*width+x)*4+3]>=110)points.push([x,y]);
     const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;canvas.setAttribute('aria-hidden','true');

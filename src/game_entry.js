@@ -30,7 +30,7 @@ if (isDirectGameLink(params)) {
     root.replaceChildren(style, markup);
     let choosing = false;
     screen = mountStartScreen({ root, pixelTheme: true, storageKey: 'stillness.start.notices.v1',
-      settings: async () => { const game = await loaded; return { get: game.getLobbySettings, set: game.setLobbyFps }; }, async onChoice(choice) {
+      async onChoice(choice) {
       if (choosing) return;
       choosing = true; screen.setBusy(true); screen.setStatus('');
       try {

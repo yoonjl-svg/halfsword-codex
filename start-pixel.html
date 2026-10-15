@@ -25,7 +25,7 @@
           </div>
           <p id="selectionStatus" class="sr-only" role="status"></p>
         </div>
-        <footer class="title-footer"><button id="openNotices" type="button">공지사항</button><button id="openSettings" type="button">설정</button></footer>
+        <footer class="title-footer"><button id="openNotices" type="button">공지사항</button><button id="openAccount" type="button">계정 연결</button></footer>
       </section>
       <dialog id="noticeDialog" aria-labelledby="noticeHeading" aria-describedby="noticeIntro">
         <header class="notice-header">
@@ -39,10 +39,17 @@
           <button id="confirmNotices" class="confirm-button" type="button">확인<span aria-hidden="true">→</span></button>
         </footer>
       </dialog>
-      <dialog id="settingsDialog" aria-labelledby="settingsHeading">
-        <header class="notice-header"><h2 id="settingsHeading" tabindex="-1">설정</h2></header>
-        <div class="settings-content"><label class="setting-row" for="titleFps">화면 60 fps 제한<input id="titleFps" type="checkbox" checked /></label><p>화면 갱신을 제한해 배터리 소모를 줄입니다.</p><p id="settingsStatus" role="status"></p></div>
-        <footer class="notice-footer"><button id="closeSettings" class="confirm-button" type="button">확인</button></footer>
+      <dialog id="accountDialog" aria-labelledby="accountHeading">
+        <header class="notice-header"><h2 id="accountHeading" tabindex="-1">계정 연결</h2></header>
+        <div class="account-content">
+          <div id="accountConnected" hidden><p id="accountAddress"></p><button id="accountLogout" class="account-text-button" type="button">이 기기에서 로그아웃</button></div>
+          <div id="accountForms">
+            <form id="accountEmailForm"><p id="accountIntro">이메일로 받은 인증번호로 연결합니다.</p><label for="accountEmail">이메일</label><input id="accountEmail" type="email" autocomplete="email" autocapitalize="none" spellcheck="false" required /><button id="accountSend" class="account-submit" type="submit">인증번호 받기</button><button id="accountMode" class="account-text-button" type="button">기존 계정으로 로그인</button></form>
+            <form id="accountCodeForm" hidden><p id="accountCodeHelp"></p><label for="accountCode">인증번호</label><input id="accountCode" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6,10}" minlength="6" maxlength="10" required /><button id="accountVerify" class="account-submit" type="submit">연결하기</button><div class="account-secondary"><button id="accountResend" class="account-text-button" type="button">다시 받기</button><button id="accountEditEmail" class="account-text-button" type="button">이메일 수정</button></div></form>
+          </div>
+          <p id="accountStatus" role="status"></p><p class="account-note">여정 기록은 현재 기기에 저장됩니다.</p>
+        </div>
+        <footer class="notice-footer"><button id="closeAccount" class="confirm-button" type="button">닫기</button></footer>
       </dialog>
     </main>
     <noscript>시작 화면을 보려면 JavaScript를 켜 주세요.</noscript>
