@@ -59,7 +59,9 @@ jobs:
             const state = result.data.status;
             core.notice(`Known Pages deployment ${deploymentId}: ${state}`);
             if (['succeed', 'succeeded', 'finished', 'failed', 'cancelled', 'canceled', 'deployment_failed', 'deployment_cancelled'].includes(state)) return;
-            if (!['deployment_in_progress', 'syncing_files', 'finalizing', 'queued', 'pending', 'in_progress', 'deployment_queued'].includes(state)) {
+            // The status API returned an empty string for this exact timed-out ID.
+            // Pages' 400 response explicitly identified it as the pending blocker.
+            if (state !== '' && !['deployment_in_progress', 'syncing_files', 'finalizing', 'queued', 'pending', 'in_progress', 'deployment_queued'].includes(state)) {
               throw new Error(`Unknown Pages state; refusing to cancel: ${state}`);
             }
             await github.request('POST /repos/{owner}/{repo}/pages/deployments/{deploymentId}/cancel', args);
