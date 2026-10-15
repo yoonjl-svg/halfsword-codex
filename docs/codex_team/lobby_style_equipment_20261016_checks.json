@@ -1,0 +1,309 @@
+{
+  "implementation": "b73a9c82d0620514ba55802f5eac19e31d7638d6",
+  "equipment": {
+    "checks": [
+      {
+        "name": "title button CSS shared; 80% character frame; 5×4 square grid; two single-cell items; departure below",
+        "layout": {
+          "columns": 5,
+          "rows": 4,
+          "cell": [
+            51.296875,
+            51.25
+          ],
+          "width": 262.53125,
+          "frame": {
+            "x": 41.15625,
+            "y": 44,
+            "width": 201.28125,
+            "height": 267.1875,
+            "top": 44,
+            "right": 242.4375,
+            "bottom": 311.1875,
+            "left": 41.15625
+          },
+          "panel": {
+            "x": 16,
+            "y": 44,
+            "width": 251.609375,
+            "height": 334,
+            "top": 44,
+            "right": 267.609375,
+            "bottom": 378,
+            "left": 16
+          },
+          "depart": {
+            "x": 41.15625,
+            "y": 321.1875,
+            "width": 201.28125,
+            "height": 36,
+            "top": 321.1875,
+            "right": 242.4375,
+            "bottom": 357.1875,
+            "left": 41.15625
+          }
+        }
+      },
+      {
+        "name": "selection is separate from equip; direct swap removes old weapon; unequip/clear and repeated cycles; physics untouched"
+      },
+      {
+        "name": "equipped weapon rotates with model; persistence through reload/name edit/back navigation; selection resets"
+      },
+      {
+        "name": "departure still enters existing journey card flow"
+      },
+      {
+        "name": "desktop: fits, equipment buttons and departure reachable"
+      },
+      {
+        "name": "portrait: fits, equipment buttons and departure reachable"
+      },
+      {
+        "name": "small-portrait: fits, equipment buttons and departure reachable"
+      },
+      {
+        "name": "small-landscape: fits, equipment buttons and departure reachable"
+      },
+      {
+        "name": "storage denied: equip still works and survives lobby remount within session"
+      }
+    ],
+    "errors": []
+  },
+  "entry": {
+    "results": [
+      {
+        "check": "root opens approved pixel notices/title; old game remains stopped",
+        "header": {
+          "color": "rgb(243, 233, 216)",
+          "size": "17px"
+        },
+        "buttons": [
+          {
+            "width": 205,
+            "background": "rgb(133, 96, 47)"
+          },
+          {
+            "width": 205,
+            "background": "rgb(101, 73, 47)"
+          }
+        ]
+      },
+      {
+        "check": "continue without checkpoint stays on title with explanation"
+      },
+      {
+        "check": "lobby: actual character touch rotation, unchanged physics, existing thumbnails, editable name, tabs, fps setting and safe back navigation",
+        "thumbs": [
+          {
+            "loaded": true,
+            "src": "ui/weapons/tree_branch.webp"
+          },
+          {
+            "loaded": true,
+            "src": "ui/weapons/longsword.webp"
+          }
+        ]
+      },
+      {
+        "check": "new journey enters first-stage weapon draw and stores cards",
+        "checkpoint": {
+          "stage": "poseidon",
+          "foe": "heinrich",
+          "foeWeapon": "excalibur_replica",
+          "weapon": null,
+          "cards": [
+            "longsword",
+            "rapier"
+          ],
+          "lastWeapon": null,
+          "version": 1
+        }
+      },
+      {
+        "check": "reload/continue restores the same draw, opponent and opponent weapon"
+      },
+      {
+        "check": "card choice enters live combat and stores chosen weapon",
+        "checkpoint": {
+          "stage": "poseidon",
+          "foe": "heinrich",
+          "foeWeapon": "excalibur_replica",
+          "weapon": "longsword",
+          "cards": null,
+          "lastWeapon": "longsword",
+          "version": 1
+        }
+      },
+      {
+        "check": "actual touchscreen joystick movement and tap attack work after entry",
+        "from": [
+          -2.8188745975494385,
+          -0.0028142218943685293
+        ],
+        "to": [
+          -2.86238694190979,
+          -0.004228776786476374
+        ]
+      },
+      {
+        "check": "pause and resume remain usable"
+      },
+      {
+        "check": "continue restores armed round at stage start"
+      },
+      {
+        "check": "win saves next stage immediately; resume does not award duplicate clear"
+      },
+      {
+        "check": "new journey resets stage while preserving unlocks and settings"
+      },
+      {
+        "check": "existing restart still returns to draw"
+      },
+      {
+        "check": "existing direct test link bypasses title and cannot overwrite journey"
+      },
+      {
+        "check": "desktop: integrated title and compact notices fit",
+        "right": 986,
+        "bottom": 760,
+        "centerA": 728,
+        "centerB": 728
+      },
+      {
+        "check": "desktop: lobby fits, no overflow, keyboard tab selection works"
+      },
+      {
+        "check": "portrait: integrated title and compact notices fit",
+        "right": 370,
+        "bottom": 732,
+        "centerA": 700,
+        "centerB": 700
+      },
+      {
+        "check": "portrait: lobby fits, no overflow, keyboard tab selection works"
+      },
+      {
+        "check": "small-portrait: integrated title and compact notices fit",
+        "right": 300,
+        "bottom": 546,
+        "centerA": 514,
+        "centerB": 514
+      },
+      {
+        "check": "small-portrait: lobby fits, no overflow, keyboard tab selection works"
+      },
+      {
+        "check": "storage denied still allows a new game"
+      }
+    ],
+    "errors": []
+  },
+  "gates": [
+    {
+      "name": "fights12",
+      "command": [
+        "node",
+        "tools/sim/fights12.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "18a6e7362b0671a34a92ae5b85cc9c8f895a3c716cadba4de87433a5406671b0",
+      "baselineMatches": false,
+      "pass": true
+    },
+    {
+      "name": "live_battery",
+      "command": [
+        "node",
+        "tools/sim/live_battery.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "e7ee3d96dc05c4b9b095e8120531b065cf42f367fa74c9c80c5788b2a6a666c4",
+      "baselineMatches": true,
+      "pass": true
+    },
+    {
+      "name": "finish_thrust",
+      "command": [
+        "node",
+        "tools/sim/finish_thrust.mjs",
+        "1",
+        "--stand"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "433ac9845913951fe96d3a880ba0c66a01127021c3f970f33ecefa390ea82f81",
+      "baselineMatches": true,
+      "pass": true
+    },
+    {
+      "name": "corr",
+      "command": [
+        "node",
+        "tools/sim/corr_s0.mjs",
+        "--limits=off,on",
+        "--scenes=a,b"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "d7d2192af9c689b6b2af03bb92ed4f07afbbb9718f2e7da2a30365800603c6ff",
+      "baselineMatches": true,
+      "identical": 12,
+      "pass": true
+    },
+    {
+      "name": "weapon_smoke",
+      "command": [
+        "node",
+        "tools/sim/weapon_smoke.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "27b922fcf9ca8ce25d3b0c8df104a09bf2f5b1b8abcd2f1f22b80794533bcd4e",
+      "baselineMatches": true,
+      "pass": true
+    }
+  ],
+  "offline": {
+    "passed": true,
+    "files": 354,
+    "checks": [
+      "offline reload",
+      "pixel grove and card frames",
+      "existing thumbnails",
+      "longsword equip",
+      "direct branch replacement",
+      "unequip",
+      "journey draw"
+    ],
+    "errors": []
+  },
+  "finalBuild": {
+    "version": "9d58dafa4f67bdd1e837693b",
+    "files": 354,
+    "totalBytes": 6850646,
+    "excludedDirectories": [
+      "corr",
+      "r2p",
+      "support",
+      "wb"
+    ],
+    "commit": null
+  },
+  "screenshots": "Actual local production browser; no public-browser verification",
+  "captureHashes": {
+    "unequipped.png": "90abf23554a14b06f4a3447a86f0108ac395333a7a38923a2a4a4863db81798f",
+    "lobby-name.png": "8c56411e7010b724716ceeefd8a8cf7c0e204f0d696bfceb27698cce8997e449",
+    "lobby-desktop.png": "edc850f4294f17910d7b5447ac02760b16187c09f1ab079369580eeb9d669b13",
+    "lobby-rotation.png": "941c713d5d4b853efc330c0249961c561c4705565e4f5f4251c414dacf977e92",
+    "longsword-equipped.png": "3142c7564a246197affd477fcf717d8f6821b5c174769f19b2edbd1e9b46dcf5",
+    "lobby-portrait.png": "749e435bd64dff4dbb84fac53e99244a769b5b352e6688b6253bf3e10d635bd7",
+    "lobby-phone.png": "80539482897b151f39ecc6917191def99bda0c14fa612df62dd9aef2e55a0274",
+    "branch-equipped.png": "0c92bc297a4d3c7eed48149eb2bf2d52ae6430c7127e6d712b37d515434ef25d",
+    "title-reference.png": "8b290cd3161ffba439aa74401f3e9c707a2448a6e5ae5da4b196e007a2f977c6"
+  }
+}

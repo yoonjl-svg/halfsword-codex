@@ -14,8 +14,10 @@ for(const [name,width,height] of [['desktop',1440,900],['phone',844,390],['portr
  await p.waitForTimeout(600);await p.screenshot({path:`${out}/lobby-${name}.png`});
  if(name==='phone'){
   const button=await p.locator('#lobbyDepart').boundingBox();assert.ok(button.y+button.height<=height);
-  await p.locator('#characterView').focus();for(let i=0;i<4;i++)await p.keyboard.press('ArrowRight');
-  await p.locator('[data-weapon=longsword]').click();await p.screenshot({path:`${out}/lobby-rotation.png`});
+  await p.locator('[data-weapon=longsword]').click();await p.locator('#equipItem').click();await p.screenshot({path:`${out}/longsword-equipped.png`});
+  await p.locator('#characterView').focus();for(let i=0;i<4;i++)await p.keyboard.press('ArrowRight');await p.screenshot({path:`${out}/lobby-rotation.png`});
+  await p.keyboard.press('Home');await p.locator('[data-weapon=tree_branch]').click();await p.locator('#equipItem').click();await p.screenshot({path:`${out}/branch-equipped.png`});
+  await p.locator('#unequipItem').click();await p.screenshot({path:`${out}/unequipped.png`});
   await p.locator('#editName').click();await p.screenshot({path:`${out}/lobby-name.png`});await p.locator('#cancelName').click();
  }
  console.log(name,await p.locator('.lobby-columns').evaluate(el=>({width:el.clientWidth,height:el.clientHeight,scroll:el.scrollWidth})),errors);

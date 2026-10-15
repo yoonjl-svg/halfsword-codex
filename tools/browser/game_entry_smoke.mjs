@@ -56,7 +56,7 @@ try{
  await screenshot(p,'lobby-back');
  assert.deepEqual(await p.evaluate(()=>game.player.meshes.map(({rb})=>({p:rb.translation(),q:rb.rotation()}))),beforeBodies);
  await p.locator('#characterView').focus();await p.keyboard.press('Home');
- await p.locator('[data-weapon=longsword]').tap();assert.match(await p.locator('#itemName').textContent(),/롱소드/);
+ await p.locator('[data-weapon=longsword]').tap();assert.equal(await p.locator('#equipItem').isEnabled(),true);assert.equal(await p.locator('#unequipItem').isEnabled(),false);
  await p.locator('#editName').tap();await p.locator('#playerNameInput').fill('  샛별  ');await p.locator('#nameForm button[type=submit]').click();
  assert.equal(await p.locator('#lobbyName').textContent(),'샛별');
  await p.locator('#editName').tap();await p.locator('#playerNameInput').fill('취소할 이름');await p.locator('#cancelName').tap();
