@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#171717" />
+    <title>Stillness</title>
+    <link rel="icon" type="image/png" href="./icons/favicon-32.png" />
+    <link rel="preload" href="/fonts/Cinzel-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Pretendard-Regular.subset.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Pretendard-SemiBold.subset.woff2" as="font" type="font/woff2" crossorigin />
+  </head>
+  <body>
+    <main id="entrance" data-phase="notice">
+      <canvas id="windScene" aria-hidden="true"></canvas>
+      <div class="scene-shade" aria-hidden="true"></div>
+      <section id="titleScreen" class="title-screen" aria-label="시작 화면" inert>
+        <div class="title-group">
+          <p class="title-korean">적막</p>
+          <h1>Stillness</h1>
+          <div class="title-rule" aria-hidden="true"><span></span></div>
+          <div class="start-actions" aria-label="여정 선택">
+            <button type="button" id="newJourney" aria-pressed="false">처음부터 하기</button>
+            <button type="button" id="continueJourney" aria-pressed="false">이어하기</button>
+          </div>
+          <p id="selectionStatus" class="sr-only" role="status"></p>
+        </div>
+        <footer class="title-footer"><span>Stillness</span><button id="openNotices" type="button">공지사항</button></footer>
+      </section>
+      <dialog id="noticeDialog" aria-labelledby="noticeHeading" aria-describedby="noticeIntro">
+        <header class="notice-header">
+          <span class="notice-brand">Stillness</span><span id="noticeCount" class="notice-count"></span>
+          <h2 id="noticeHeading" tabindex="-1">공지사항</h2>
+          <p id="noticeIntro">새로 달라진 여정을 확인하세요.</p>
+        </header>
+        <div id="noticeList" class="notice-list" tabindex="0" aria-label="업데이트 목록, 스크롤 가능"></div>
+        <footer class="notice-footer">
+          <label class="hide-read"><input id="hideRead" type="checkbox" /><span>지난 업데이트 숨김</span></label>
+          <button id="confirmNotices" class="confirm-button" type="button">확인<span aria-hidden="true">→</span></button>
+        </footer>
+      </dialog>
+    </main>
+    <noscript>시작 화면을 보려면 JavaScript를 켜 주세요.</noscript>
+    <script type="module" src="/src/start_preview.js"></script>
+  </body>
+</html>
