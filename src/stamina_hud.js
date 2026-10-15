@@ -36,11 +36,14 @@ export function createStaminaHud(root) {
         bar.hidden = false;
         bar.style.left = `${x}px`;
         bar.style.top = `${y}px`;
-        bar.dataset.exhausted = String(f.stamina.exhausted);
+        const st = f.stamina;
+        bar.dataset.exhausted = String(st.exhausted);
+        bar.dataset.level = String(st.level);
+        bar.dataset.full = String(st.value >= 99.99 && st.level === 0);
         const percent = Math.round(f.stamina.ratio * 100);
         bar.setAttribute('aria-valuenow', String(percent));
-        bar.setAttribute('aria-valuetext', `${percent}%${f.stamina.exhausted ? ' · 기력 고갈' : ''}`);
-        fill.style.transform = `scaleX(${f.stamina.ratio})`;
+        bar.setAttribute('aria-valuetext', st.exhausted ? `탈진 회복 ${Math.round(st.progress * 100)}% · 이동 불가` : `${percent}%${st.level === 2 ? ' · 심한 지침' : st.level === 1 ? ' · 지침' : ''}`);
+        fill.style.transform = `scaleX(${st.exhausted ? st.progress : st.ratio})`;
       });
     },
   };

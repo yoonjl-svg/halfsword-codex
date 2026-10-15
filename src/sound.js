@@ -16,7 +16,7 @@
 //
 //  들어보기: 메뉴의 "소리 들어보기" (sounds.html)
 // ─────────────────────────────────────────────────────────────
-import { SOUND, VITALS } from './config.js';
+import { SOUND, VITALS, STAMINA } from './config.js';
 import { drawnSlash, DRAWN_SLASH } from './slash_draw.js';
 import { StageDetailSound, hasStageDetails } from './stage_detail_sound.js';
 
@@ -2500,12 +2500,12 @@ export class Sound {
    * 내 숨 한 번 (녹음: 들이쉬고 "후우"). 피를 흘려 위험할 때 BodySounds 가 몇 초마다 부른다 — 화면 가장자리 붉은빛의 소리 짝.
    * d = 위험도 0~1 (피 80% → 0, 45% → 1). 목소리보다 약 10dB 작게 시작해 d 가 클수록 조금 커지고 무거워진다(느리게 재생)
    */
-  breath(d = 0) {
+  breath(d = 0, pos = null) {
     if (!this._on || !this.ctx) return;
     const rec = this.pickSample('breath');
     if (!rec) return;
     const k = clamp01(d);
-    const ev = this.event({ bus: this.fleshBus, gain: (0.25 + 0.1 * k) * 0.875 * 0.85, prio: 0.2 }); // 신음보다 약 18dB 작게, d=1 이면 2.4dB 더 (사장님 '지금보다 절반 정도로 작게': 0.5+0.2k → 0.25+0.1k; 사장님 10/1 22:20 '데시벨 10~15% 줄여': 들리는 크기 10~15% 덜 = −1.5~−2.3dB → 가운데 −1.9dB = 진폭 ×0.80 → 0.2+0.08k) — 10/7 샛별 일반판과 같은 값으로(사장님 10/3 샛별에 '현재 저체력 숨소리에서 추가 15 % 감소' → (0.25+0.1k)×0.875×0.85; 우리 옛 0.2+0.08k 보다 7 % 작음)
+    const ev = this.event({ bus: this.fleshBus, gain: (0.25 + 0.1 * k) * 0.875 * 0.85, prio: 0.2, pos }); // 신음보다 약 18dB 작게, d=1 이면 2.4dB 더 (사장님 '지금보다 절반 정도로 작게': 0.5+0.2k → 0.25+0.1k; 사장님 10/1 22:20 '데시벨 10~15% 줄여': 들리는 크기 10~15% 덜 = −1.5~−2.3dB → 가운데 −1.9dB = 진폭 ×0.80 → 0.2+0.08k) — 10/7 샛별 일반판과 같은 값으로(사장님 10/3 샛별에 '현재 저체력 숨소리에서 추가 15 % 감소' → (0.25+0.1k)×0.875×0.85; 우리 옛 0.2+0.08k 보다 7 % 작음)
     this.layer(ev, rec, { rate: (1 - 0.06 * k) * between(Math.random, 0.97, 1.03) });
   }
 
@@ -3587,6 +3587,8 @@ export class BodySounds {
     this.lastHurt = -9;
     this.swordVy = 0; // 칼이 떨어지던 가장 빠른 속도 (바닥에 닿는 순간을 잡는다)
     this.lastLand = -9;
+    this.staminaBreathT = 0;
+    this.staminaWasExhausted = false;
     this.breathT = 0; // 다음 숨 시각 (0 = 지금은 숨을 내지 않는다)
     this.decap = !!fighter.decapitated; // 참수를 이미 알렸나 (32차)
     this.nSevered = fighter.severed?.length || 0; // 알린 절단 수 (fighter.sever)
@@ -3672,10 +3674,21 @@ export class BodySounds {
       }
     }
 
+    // 기력 숨은 출혈/상처 회복 계산과 독립. 기존 숨 녹음을 재사용한다.
+    const staminaBreath = STAMINA.on && f.alive && !f.revival && !VOICES[this.voice]?.mute && f.stamina.level > 0;
+    if (staminaBreath) {
+      const exhausted = f.stamina.exhausted;
+      if (this.t >= this.staminaBreathT || (exhausted && !this.staminaWasExhausted)) {
+        s.breath(exhausted ? 1 : f.stamina.level === 2 ? 0.7 : 0.35, this.me ? null : f.bodies.chest.translation());
+        this.staminaBreathT = this.t + (exhausted ? 1.25 : f.stamina.level === 2 ? 2 : 3);
+      }
+      this.staminaWasExhausted = exhausted;
+    } else { this.staminaBreathT = 0; this.staminaWasExhausted = false; }
+
     // 내 숨: "지금 얼마나 위험한가"를 귀로 알려 준다 (화면 가장자리 붉은빛의 짝). 나만 낸다 — 상대는 내지 않는다.
     // 피가 80% 아래이고, 아직 피가 흐르거나(출혈 문턱은 붉은 테두리 맥박과 같은 0.002) 60% 아래로 위험할 때만.
     // 출혈이 멎고 피가 60% 이상이면 다음 숨부터 내지 않는다(끊지 않고). 죽으면 바로 멈추고, 판이 바뀌면 새로 만들어져 초기화된다
-    if (this.me) {
+    if (this.me && !staminaBreath) {
       const danger = f.state !== 'dead' && f.blood < VITALS.weakBlood && (f.bleed > 0.002 || f.blood < 0.6);
       if (!danger) this.breathT = 0;
       else {

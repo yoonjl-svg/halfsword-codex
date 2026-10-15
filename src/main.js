@@ -1704,6 +1704,10 @@ function paintGuard(key, name, tail) {
   guardName.replaceChildren(b, d);
 }
 function updateGuardName() {
+  if (player?.alive && player.stamina.exhausted) {
+    if (guardShown !== 'exhausted') paintGuard('exhausted', '탈진', '숨 고르기 · 이동·공격·막기 불가');
+    return;
+  }
   // 막기 버튼을 누르는 동안: ① 자세 칸에 지금 잡은 막기 자세 이름 (첫 줄 유파 이름 · 둘째 줄 원어 · 막기 / 막기 기다림). 자리가 바뀔 때마다 바꿔 끼운다
   if (playerGuard?.active && player.alive) {
     const key = `parry:${playerGuard.mode}:${playerGuard.line}`;
@@ -1930,15 +1934,18 @@ function frame(now) {
   if (state === 'fight' && player) {
     // 손 목표 갱신 (입력 → 플레이어)
     const d = input.consumeHandDelta();
+    const exhausted = player.stamina.exhausted;
+    if (exhausted) { d.x = 0; d.y = 0; }
     // 멈칫하는 동안엔 손가락 움직임도 느리게 반영한다 (멈칫이 끝나는 순간 손이 휙 튀지 않게)
     const inScale = hitStop > 0 ? 0.25 : 1;
     // 칼 쪽 화면을 톡 치면(마우스는 끌지 않고 클릭) 찌른다 (skill.js thrust). 권총은 손가락이 닿는 순간 쏜다 (쏘는 타이밍이 실력이라 뗄 때까지 늦추지 않는다)
     input.tapOnDown = !!player.weapon?.gun;
     let taps = input.consumeTaps();
+    if (exhausted) taps = 0;
     // 플레이어 비기 (10/9 23:5x): 창이 열려 있을 때 공격 입력(톡 = 찌르기, 휘두르기만큼 빠른 끌기 = 베기)이 오면 그 입력 대신 비기 완벽 실행.
     //  실행·경직 동안은 칼 입력(끌기·톡)을 무시한다 — 발(스틱)은 실행 동안 내 것, 경직 동안은 안 듣는다 (사장님 10/10 20:5x '잠깐 아예 못 움직이게' — 칼은 skill.js holdStiff 가 멈춰 둔다)
     const swipe = Math.hypot(d.x, d.y) / Math.max(dt, 1e-3) >= CONFIG.SKILL.swingSpeed;
-    let secBusy = !!player.skill.secretPhase;
+    let secBusy = exhausted || !!player.skill.secretPhase;
     // 이베리아 길목 (사장님 결정 10/11 13:2x): 준비(armed)가 켜져 있으면 창을 기다리지 않고 공격 입력 하나가 곧 길목 한 칼 (secret.js fireArmed — 플레이어만)
     const gilReady = !!playerSecret?.S?.do?.gilmok && !!playerSecret.gilArm?.armed;
     if ((playerSecret?.open || gilReady) && !secBusy && player.alive && (taps > 0 || swipe)) {
@@ -1981,7 +1988,7 @@ function frame(now) {
     watchMudNotice(); // 잠든 습지: 진흙을 처음 밟으면 알림 줄 한 번 (다른 무대는 배율 1 이라 안 뜬다)
     const m = input.move;
     const emv = player.emoMods?.move ?? 1; // 감정 고유 능력: 집념이면 발이 묶이고 공포면 빨라진다
-    const feet = player.alive && player.skill.secretPhase !== 'stiff'; // 비기 경직: 스틱이 안 듣는다 (걸음·근접 밀치기 없음 — 몸은 물리대로)
+    const feet = player.alive && !exhausted && player.skill.secretPhase !== 'stiff'; // 비기 경직: 스틱이 안 듣는다 (걸음·근접 밀치기 없음 — 몸은 물리대로)
     player.move.set(feet ? m.x * emv : 0, feet ? m.y * emv : 0);
     player.stickX = feet ? m.x : 0; // 스틱 원값 (감정 배수 전): 근접 밀치기 걸쇠가 읽는다 (fighter.closeStep)
     player.stickY = feet ? m.y : 0;

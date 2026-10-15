@@ -148,7 +148,14 @@
       #staminaHud { position: fixed; inset: 0; pointer-events: none; }
       .stamina-bar { position: absolute; width: 56px; height: 2px; transform: translate(-50%, -100%); background: rgba(24,18,14,.35); border-radius: 1px; overflow: hidden; }
       .stamina-bar > span { display: block; width: 100%; height: 100%; background: var(--c-sub); opacity: .85; transform-origin: left center; }
-      .stamina-bar[data-exhausted="true"] { box-shadow: inset 0 0 0 .5px rgba(184,168,142,.45); }
+      .stamina-bar { transition: opacity .4s; }
+      .stamina-bar[data-full="true"] { opacity: .15; }
+      .stamina-bar[data-level="1"], .stamina-bar[data-level="2"] { box-shadow: inset 0 0 0 .5px rgba(184,168,142,.45); animation: stamina-breath 1.8s ease-in-out infinite; }
+      .stamina-bar[data-level="2"] { animation-duration: 1.1s; }
+      .stamina-bar[data-exhausted="true"] { box-shadow: inset 0 0 0 .5px rgba(184,168,142,.45); animation: none; }
+      .stamina-bar[data-exhausted="true"] > span { background: #948e7c; }
+      @keyframes stamina-breath { 50% { opacity: .38; } }
+      @media (prefers-reduced-motion: reduce) { .stamina-bar { animation: none !important; } }
       /* ② 패시브·비기: 줄 하나(40px) — 자세 칸처럼 새 알림이 오면 그 자리에서 바꿔 끼운다. 10/14 03:1x: 마지막 기술이 계속 보인다(새 판에 비움),
          비기 창·고노센 준비만 잠깐 덮었다가 마지막 기술로 돌아온다 (main.js techPut · techTick) */
       .stack .slot { height: 40px; translate: 6px 0; }
