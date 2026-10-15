@@ -1,5 +1,6 @@
 // node tools/sim/stamina_tempo_probe.mjs OUT [weapon,...|all] [cut,thrust,pommel,secret] [human,ai]
-// Free swing: attack onset -> peak speed at blade 70%. Contact is a separate physical trial.
+// Attacker blade collision disabled: onset -> peak speed at blade 70%; passive foe remains.
+// Contact energy is measured in a separate trial with the attacker blade enabled.
 // Identical initial pose/input/seed across 100,-10,-60; stamina is pinned only in this instrument.
 import { newRound, DT, AI } from './harness_m.mjs';
 import { WEAPON_LIST, RETIRED_WEAPONS } from '../../src/weapons.js';
