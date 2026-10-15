@@ -17,7 +17,15 @@ async function readAll(page){
  }
 }
 async function bounds(page){
- return page.evaluate(()=>{const d=document.querySelector('dialog'),r=d.getBoundingClientRect(),b=document.getElementById('confirmNotices').getBoundingClientRect();return {dialog:[r.left,r.top,r.right,r.bottom],confirm:[b.left,b.top,b.right,b.bottom],viewport:[innerWidth,innerHeight],scroll:document.getElementById('noticeList').scrollHeight>document.getElementById('noticeList').clientHeight};});
+ const bounds=await page.evaluate(()=>{const d=document.querySelector('dialog'),r=d.getBoundingClientRect(),b=document.getElementById('confirmNotices').getBoundingClientRect(),label=document.querySelector('.hide-read').getBoundingClientRect(),f=document.querySelector('.notice-footer').getBoundingClientRect();return {dialog:[r.left,r.top,r.right,r.bottom],confirm:[b.left,b.top,b.right,b.bottom],hideRead:[label.left,label.top,label.right,label.bottom],footerHeight:f.height,viewport:[innerWidth,innerHeight],scroll:document.getElementById('noticeList').scrollHeight>document.getElementById('noticeList').clientHeight};});
+ if(pixelTheme){
+  const c=bounds.confirm,l=bounds.hideRead;
+  assert.ok(Math.abs((c[1]+c[3])-(l[1]+l[3]))<2,'notice controls should share one row');
+  assert.ok(l[2]+10<=c[0],'notice label and confirm must not overlap');
+  assert.ok(c[2]-c[0]<=80&&c[3]-c[1]>=32,'compact confirm remains usable');
+  assert.ok(bounds.footerHeight<=64,'notice footer should give space back to the list');
+ }
+ return bounds;
 }
 async function pixelTitleLayout(page){
  await page.waitForSelector('.title-korean[data-painted="true"] canvas');

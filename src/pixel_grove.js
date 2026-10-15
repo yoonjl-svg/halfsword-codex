@@ -42,6 +42,32 @@ export function createPixelGrove(canvas, reducedMotion) {
       if(n>.91&&py<ry*.3)box(bg,x+px,y+py,1,1,'#c3a15d');
     }
   }
+  function plantedLongsword(){
+    // 나무 오른쪽 뿌리 곁. 세로 화면에서는 폭도 고려해 메뉴 아래에 머문다.
+    const length=Math.min(h*.29,w*.48),x=treeX+Math.max(12,spread*.27),y=ground+1;
+    const lean=.38,up=Math.sqrt(1-lean*lean),blade=Math.max(1,length*.035);
+    const p=(across,along)=>[x+across*up+along*lean,y+across*lean-along*up];
+    const shape=(points,color)=>polygon(points.map(([u,v])=>p(u,v*length)),color);
+    polygon([[x-2,y-1],[x+4,y],[x-10,y+3],[x-16,y+2]],'#292b20');
+    // 긴 양날 칼몸: 날의 밝은 면과 중앙의 어두운 면을 분리한다.
+    shape([[0,-.035],[-blade-1,.17],[-blade-1,.73],[blade+1,.73],[blade+1,.17]],'#303329');
+    shape([[0,-.02],[-blade,.18],[-blade,.72],[blade,.72],[blade,.18]],'#b8bcae');
+    shape([[0,.015],[-blade,.18],[-blade,.71],[0,.71]],'#dedcc4');
+    shape([[0,.08],[0,.70],[blade*.55,.70],[blade*.55,.19]],'#7d867c');
+    // 두 손으로 쥐는 가죽 손잡이와 곧게 뻗은 십자 가드.
+    shape([[-blade,.72],[-blade,.95],[blade,.95],[blade,.72]],'#29271f');
+    shape([[-blade*.5,.74],[-blade*.5,.94],[blade*.5,.94],[blade*.5,.74]],'#705337');
+    for(let v=.77;v<.94;v+=.045)line(bg,...p(-blade*.6,v*length),...p(blade*.6,(v+.012)*length),1,'#a18455');
+    const guard=length*.15;
+    shape([[-guard,.69],[-guard,.76],[-blade,.78],[blade,.78],[guard,.76],[guard,.69],[blade,.71],[-blade,.71]],'#302d23');
+    shape([[-guard+1,.715],[-guard+1,.745],[0,.755],[guard-1,.745],[guard-1,.715],[0,.73]],'#b5ae8b');
+    const pommel=blade*1.55;
+    shape([[-pommel,.94],[-pommel,1],[0,1.03],[pommel,1],[pommel,.94],[0,.92]],'#302d23');
+    shape([[-pommel*.5,.95],[-pommel*.5,.99],[0,1.01],[pommel*.5,.99],[pommel*.5,.95],[0,.94]],'#c1b891');
+    // 칼끝을 흙과 풀로 가려 땅 위에 놓인 검이 아니라 꽂힌 검으로 보이게 한다.
+    polygon([[x-3,y],[x,y-1],[x+4,y+1],[x+3,y+3],[x-4,y+2]],'#4b4931');
+    line(bg,x-2,y+1,x-4,y-3,1,'#77704a');line(bg,x+2,y+1,x+4,y-2,1,'#77704a');
+  }
   function drawBackground(){
     box(bg,0,0,w,h,'#544a38');
     box(bg,0,h*.24,w,h*.32,'#60533c');
@@ -86,6 +112,7 @@ export function createPixelGrove(canvas, reducedMotion) {
     for(let i=0;i<7;i++)line(bg,treeX,ground-5,treeX+(i-3)*spread*.08,ground+random(i)*4,2,'#29291e');
     const clusters=[[-.49,.86,.26],[-.27,1.01,.27],[.01,1.07,.27],[.31,1.04,.28],[.58,.93,.26],[.77,.82,.22],[.36,.83,.22],[-.49,.69,.19]];
     clusters.forEach(([x,y,r],i)=>foliage(...p(x,y),spread*r,spread*r*.48,173*i));
+    plantedLongsword();
     // 풀·돌·낙엽을 작은 픽셀 묶음으로 그린다. 제목이 놓이는 가운데는 비운다.
     for(let i=0;i<145;i++){
       const x=random(i+781)*w,y=h*(.85+random(i+829)*.15),color=['#565336','#717047','#393b28'][i%3];
