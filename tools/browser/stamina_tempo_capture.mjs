@@ -11,6 +11,7 @@ try{
   const errors=[];page.on('pageerror',e=>errors.push(String(e)));
   await page.clock.install({time:new Date('2026-10-16T01:00:00+09:00')});await page.clock.pauseAt(new Date('2026-10-16T01:00:01+09:00'));
   await page.goto(base+'/?weapon='+(kind==='cn'?'qinggang':'longsword')+'&foe=default&stage=castle&emo=0&tempo=1'+query,{waitUntil:'networkidle'});
+  if(process.env.TEMPO_CONFIG)await page.evaluate(c=>Object.assign(game.config.STAMINA,c),JSON.parse(process.env.TEMPO_CONFIG));
   await page.evaluate(()=>{game.renderCap.tick=()=>false;document.getElementById('btnStart').click();});
   for(let i=0;i<120&&await page.evaluate(()=>game.state!=='fight');i++)await page.clock.runFor(16);
   await page.evaluate(()=>{game.ai.update=()=>{};});await page.clock.runFor(4000);
@@ -30,10 +31,14 @@ try{
     game.ai.update=function(dt){old.call(this,dt);};
     f.step=function(dt){a.update(dt);step(dt);window.captureElapsed+=dt;};
    }
-   game.renderCap.tick=()=>true;
+   game.renderCap.tick=()=>false;
   },{kind,level});
-  for(let n=0;n<seconds*8;n++){await page.clock.runFor(125);await page.screenshot({path:dir+'/'+String(n).padStart(4,'0')+'.png'});}
-  const state=await page.evaluate(()=>({state:game.state,seconds:window.captureElapsed,stamina:game.player.stamina.value,config:{cnLightAi:game.config.GAIT.cnLightAi,cnAiTune:game.config.GAIT.cnAiTune}}));
+  for(let n=0;n<seconds*8;n++){
+   await page.evaluate(()=>{game.renderCap.tick=()=>false;});await page.clock.runFor(109);
+   await page.evaluate(()=>{game.renderCap.tick=()=>true;});await page.clock.runFor(16);
+   await page.screenshot({path:dir+'/'+String(n).padStart(4,'0')+'.png'});
+  }
+  const state=await page.evaluate(()=>({state:game.state,seconds:window.captureElapsed,stamina:game.player.stamina.value,config:{stamina:{...game.config.STAMINA},cnLightAi:game.config.GAIT.cnLightAi,cnAiTune:game.config.GAIT.cnAiTune}}));
   results.push({name,kind,level,frameRate:8,frames:seconds*8,...state,errors});console.log(name,JSON.stringify(state));await page.close();
  }
 }finally{fs.writeFileSync(out+'/manifest.json',JSON.stringify(results,null,2)+'\n');await browser.close();}
