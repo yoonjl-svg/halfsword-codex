@@ -1,0 +1,712 @@
+{
+  "recordedUtc": "2026-10-15T09:56:53.266018+00:00",
+  "repository": "yoonjl-svg/halfsword-codex",
+  "branch": "codex/refork-20261015",
+  "sourceCommit": "ba14a6f806a42787c7c28e500c05e657622ec4bb",
+  "baseCommit": "9db75870",
+  "localOnly": true,
+  "remoteWrites": false,
+  "publicDeployment": false,
+  "rule": {
+    "perFighterPerSecond": 10,
+    "physicsTimestep": 0.008333333333333333,
+    "perFullStep": 0.08333333333333333,
+    "weaponWeightMultiplier": false,
+    "recoveryDuringClinch": false,
+    "walkCostDuringClinch": false,
+    "releaseRecoveryDelay": 0.6,
+    "endsWhenEitherExhausts": true,
+    "forcedExhaustionRecoverySeconds": 2.5
+  },
+  "filesSha256": {
+    "src/config.js": "b88f5128797c6152b5078bde951c865e0f32846faf20cb1d5e29f15ab82521ec",
+    "src/stamina.js": "022a5d59325152c72fafed7d5f25290f63d482fdf6160fc1f781964e095133e9",
+    "tools/sim/stamina_clinch.test.mjs": "8f5d28691950f3e1576262ce26cc16d9573d6fc0cb3745d2461e5ff0a9e7241e",
+    "tools/browser/stamina_clinch_smoke.mjs": "884e96480774d34568732c8e0d685fd353e9061e0ec63afba4d5db38c8087e8a"
+  },
+  "tests": {
+    "command": "node --test tools/sim/stamina.test.mjs tools/sim/stamina_integration.test.mjs tools/sim/stamina_clinch.test.mjs",
+    "tests": 37,
+    "passed": 37,
+    "failed": 0,
+    "logSha256": "3bbb6e239a7647a3c181b5e269337dc8bfdce5ffa2b6747a5cffd9c915b11fd6"
+  },
+  "build": {
+    "pwa": true,
+    "version": "c41576dc9712e0d15dc515ea",
+    "files": 345,
+    "totalBytes": 6760632
+  },
+  "gates": {
+    "off": [
+      {
+        "name": "fights12",
+        "command": [
+          "node",
+          "tools/sim/fights12.mjs"
+        ],
+        "stamina": false,
+        "exit": 0,
+        "sha256": "7c95ba21aeefd1766192c8a56a52646f8be56fbeb701d3818416441a7a730d32",
+        "baselineMatches": true,
+        "pass": true
+      },
+      {
+        "name": "live_battery",
+        "command": [
+          "node",
+          "tools/sim/live_battery.mjs"
+        ],
+        "stamina": false,
+        "exit": 0,
+        "sha256": "e7ee3d96dc05c4b9b095e8120531b065cf42f367fa74c9c80c5788b2a6a666c4",
+        "baselineMatches": true,
+        "pass": true
+      },
+      {
+        "name": "finish_thrust",
+        "command": [
+          "node",
+          "tools/sim/finish_thrust.mjs",
+          "1",
+          "--stand"
+        ],
+        "stamina": false,
+        "exit": 0,
+        "sha256": "433ac9845913951fe96d3a880ba0c66a01127021c3f970f33ecefa390ea82f81",
+        "baselineMatches": true,
+        "pass": true
+      },
+      {
+        "name": "corr",
+        "command": [
+          "node",
+          "tools/sim/corr_s0.mjs",
+          "--limits=off,on",
+          "--scenes=a,b"
+        ],
+        "stamina": false,
+        "exit": 0,
+        "sha256": "4a55f73cc5439135042cfc961914248ab08888ed2d755604356a35b4ce122e0b",
+        "baselineMatches": true,
+        "identical": 12,
+        "pass": true
+      },
+      {
+        "name": "weapon_smoke",
+        "command": [
+          "node",
+          "tools/sim/weapon_smoke.mjs"
+        ],
+        "stamina": false,
+        "exit": 0,
+        "sha256": "27b922fcf9ca8ce25d3b0c8df104a09bf2f5b1b8abcd2f1f22b80794533bcd4e",
+        "baselineMatches": true,
+        "pass": true
+      }
+    ],
+    "on": [
+      {
+        "name": "fights12",
+        "command": [
+          "node",
+          "tools/sim/fights12.mjs"
+        ],
+        "stamina": true,
+        "exit": 0,
+        "sha256": "5a02a22d1625205b0bcdfc390ddaf40320df9ec24f842c2fa560832a7d5fbe4c",
+        "baselineMatches": false,
+        "pass": true
+      },
+      {
+        "name": "live_battery",
+        "command": [
+          "node",
+          "tools/sim/live_battery.mjs"
+        ],
+        "stamina": true,
+        "exit": 0,
+        "sha256": "807dc4e9458ae7f9dc1bf8406e438bd1af6ada9daf77fdcd35cf47cd2db5e62a",
+        "baselineMatches": false,
+        "pass": true
+      },
+      {
+        "name": "finish_thrust",
+        "command": [
+          "node",
+          "tools/sim/finish_thrust.mjs",
+          "1",
+          "--stand"
+        ],
+        "stamina": true,
+        "exit": 0,
+        "sha256": "433ac9845913951fe96d3a880ba0c66a01127021c3f970f33ecefa390ea82f81",
+        "baselineMatches": true,
+        "pass": true
+      },
+      {
+        "name": "corr",
+        "command": [
+          "node",
+          "tools/sim/corr_s0.mjs",
+          "--limits=off,on",
+          "--scenes=a,b"
+        ],
+        "stamina": true,
+        "exit": 0,
+        "sha256": "60a9807f3257f66b672d9f8383f65afdc9fa9130a2ca89bcf3aeec79c8a78373",
+        "baselineMatches": true,
+        "identical": 12,
+        "pass": true
+      },
+      {
+        "name": "weapon_smoke",
+        "command": [
+          "node",
+          "tools/sim/weapon_smoke.mjs"
+        ],
+        "stamina": true,
+        "exit": 0,
+        "sha256": "27b922fcf9ca8ce25d3b0c8df104a09bf2f5b1b8abcd2f1f22b80794533bcd4e",
+        "baselineMatches": true,
+        "pass": true
+      }
+    ]
+  },
+  "browser": {
+    "origin": "http://127.0.0.1:4173",
+    "viewport": [
+      844,
+      390
+    ],
+    "preparedStickInputs": true,
+    "sideObservationCamera": true,
+    "fakeClock": true,
+    "buildVersion": "c41576dc9712e0d15dc515ea",
+    "results": [
+      {
+        "check": "actual press and contact start one shared drain",
+        "sim": 2.749999999999993,
+        "phase": "press",
+        "fighters": [
+          {
+            "value": 99.66666666666669,
+            "cost": 0.3333333333333333,
+            "seconds": 0.03333333333333333,
+            "recovered": 0,
+            "walking": 0,
+            "active": true,
+            "exhausted": false,
+            "left": 0,
+            "barge": "press",
+            "state": "stand"
+          },
+          {
+            "value": 99.66666666666669,
+            "cost": 0.3333333333333333,
+            "seconds": 0.03333333333333333,
+            "recovered": 0,
+            "walking": 0,
+            "active": true,
+            "exhausted": false,
+            "left": 0,
+            "barge": "press",
+            "state": "stand"
+          }
+        ],
+        "bars": [
+          {
+            "hidden": false,
+            "fill": "scaleX(0.996667)",
+            "value": "100",
+            "x": 364.65625,
+            "y": 159.984375
+          },
+          {
+            "hidden": false,
+            "fill": "scaleX(0.996667)",
+            "value": "100",
+            "x": 357.65625,
+            "y": 156.546875
+          }
+        ]
+      },
+      {
+        "check": "before capture",
+        "sim": 2.783333333333326,
+        "phase": "press",
+        "fighters": [
+          {
+            "value": 79.66666666666669,
+            "cost": 0.6666666666666666,
+            "seconds": 0.06666666666666667,
+            "recovered": 0,
+            "walking": 0,
+            "active": true,
+            "exhausted": false,
+            "left": 0,
+            "barge": "press",
+            "state": "stand"
+          },
+          {
+            "value": 79.66666666666669,
+            "cost": 0.6666666666666666,
+            "seconds": 0.06666666666666667,
+            "recovered": 0,
+            "walking": 0,
+            "active": true,
+            "exhausted": false,
+            "left": 0,
+            "barge": "press",
+            "state": "stand"
+          }
+        ],
+        "bars": [
+          {
+            "hidden": false,
+            "fill": "scaleX(0.796667)",
+            "value": "80",
+            "x": 368.78125,
+            "y": 53.234375
+          },
+          {
+            "hidden": false,
+            "fill": "scaleX(0.796667)",
+            "value": "80",
+            "x": 415.65625,
+            "y": 53.4375
+          }
+        ]
+      },
+      {
+        "check": "both meters continuously lose the same ten per contact second",
+        "delta": [
+          21.999999999999947,
+          21.999999999999947
+        ],
+        "sim": 5.016666666666706,
+        "phase": "press",
+        "fighters": [
+          {
+            "value": 57.666666666667396,
+            "cost": 22.666666666666615,
+            "seconds": 2.2666666666666613,
+            "recovered": 0,
+            "walking": 0,
+            "active": true,
+            "exhausted": false,
+            "left": 0,
+            "barge": "press",
+            "state": "stand"
+          },
+          {
+            "value": 57.666666666667396,
+            "cost": 22.666666666666615,
+            "seconds": 2.2666666666666613,
+            "recovered": 0,
+            "walking": 0,
+            "active": true,
+            "exhausted": false,
+            "left": 0,
+            "barge": "press",
+            "state": "stand"
+          }
+        ],
+        "bars": [
+          {
+            "hidden": false,
+            "fill": "scaleX(0.576667)",
+            "value": "58",
+            "x": 358.6875,
+            "y": 46.046875
+          },
+          {
+            "hidden": false,
+            "fill": "scaleX(0.576667)",
+            "value": "58",
+            "x": 408.46875,
+            "y": 54.046875
+          }
+        ]
+      },
+      {
+        "check": "pause stops clinch drain",
+        "sim": 5.016666666666706,
+        "phase": "press",
+        "fighters": [
+          {
+            "value": 57.666666666667396,
+            "cost": 22.666666666666615,
+            "seconds": 2.2666666666666613,
+            "recovered": 0,
+            "walking": 0,
+            "active": true,
+            "exhausted": false,
+            "left": 0,
+            "barge": "press",
+            "state": "stand"
+          },
+          {
+            "value": 57.666666666667396,
+            "cost": 22.666666666666615,
+            "seconds": 2.2666666666666613,
+            "recovered": 0,
+            "walking": 0,
+            "active": true,
+            "exhausted": false,
+            "left": 0,
+            "barge": "press",
+            "state": "stand"
+          }
+        ],
+        "bars": [
+          {
+            "hidden": true,
+            "fill": "scaleX(0.576667)",
+            "value": "58",
+            "x": 0,
+            "y": 0
+          },
+          {
+            "hidden": true,
+            "fill": "scaleX(0.576667)",
+            "value": "58",
+            "x": 0,
+            "y": 0
+          }
+        ]
+      },
+      {
+        "check": "clinch exhausts one fighter and stops paired drain",
+        "sim": 5.100000000000043,
+        "phase": "press",
+        "fighters": [
+          {
+            "value": 49.5,
+            "cost": 23.499999999999925,
+            "seconds": 2.349999999999993,
+            "recovered": 0,
+            "walking": 0,
+            "active": false,
+            "exhausted": false,
+            "left": 0,
+            "state": "stand"
+          },
+          {
+            "value": -50,
+            "cost": 23.499999999999925,
+            "seconds": 2.349999999999993,
+            "recovered": 0,
+            "walking": 0,
+            "active": false,
+            "exhausted": true,
+            "left": 2.5,
+            "state": "stand"
+          }
+        ],
+        "bars": [
+          {
+            "hidden": false,
+            "fill": "scaleX(0.495)",
+            "value": "50",
+            "x": 341.078125,
+            "y": 48.953125
+          },
+          {
+            "hidden": false,
+            "fill": "scaleX(0)",
+            "value": "0",
+            "x": 392.328125,
+            "y": 54.71875
+          }
+        ]
+      },
+      {
+        "check": "exhaustion capture",
+        "sim": 5.533333333333398,
+        "phase": "after",
+        "fighters": [
+          {
+            "value": 49.5,
+            "cost": 23.499999999999925,
+            "seconds": 2.349999999999993,
+            "recovered": 0,
+            "walking": 0,
+            "active": false,
+            "exhausted": false,
+            "left": 0,
+            "state": "stand"
+          },
+          {
+            "value": -41.33333333333346,
+            "cost": 23.499999999999925,
+            "seconds": 2.349999999999993,
+            "recovered": 8.666666666666544,
+            "walking": 0,
+            "active": false,
+            "exhausted": true,
+            "left": 2.066666666666668,
+            "state": "stand"
+          }
+        ],
+        "bars": [
+          {
+            "hidden": false,
+            "fill": "scaleX(0.495)",
+            "value": "50",
+            "x": 336.859375,
+            "y": 54.4375
+          },
+          {
+            "hidden": false,
+            "fill": "scaleX(0.173333)",
+            "value": "0",
+            "x": 439.96875,
+            "y": 47.4375
+          }
+        ]
+      },
+      {
+        "check": "held AI defense cannot stop forced recovery to zero",
+        "sim": 7.941666666666851,
+        "phase": "after",
+        "fighters": [
+          {
+            "value": 83.125,
+            "cost": 23.499999999999925,
+            "seconds": 2.349999999999993,
+            "recovered": 33.625,
+            "walking": 0,
+            "active": false,
+            "exhausted": false,
+            "left": 0,
+            "state": "stand"
+          },
+          {
+            "value": 0,
+            "cost": 23.499999999999925,
+            "seconds": 2.349999999999993,
+            "recovered": 49.99999999999967,
+            "walking": 0,
+            "active": false,
+            "exhausted": false,
+            "left": 0,
+            "state": "stand"
+          }
+        ],
+        "bars": [
+          {
+            "hidden": false,
+            "fill": "scaleX(0.83125)",
+            "value": "83",
+            "x": 362.171875,
+            "y": 56.140625
+          },
+          {
+            "hidden": false,
+            "fill": "scaleX(0)",
+            "value": "0",
+            "x": 469.796875,
+            "y": 56.953125
+          }
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "browserRegression": {
+    "checks": [
+      "two thin muted beige meters",
+      "walking consumes distance cost and recovers",
+      "held guard stops recovery without idle cost",
+      "touch thrust at unlock stage zero costs seven once",
+      "severe fatigue empty bar",
+      "exhaustion rejects held movement and block",
+      "forced recovery reaches zero despite held block",
+      "normal speed returns at fifteen",
+      "pause freezes resource and hides bars",
+      "restart resets resource without duplicate bars"
+    ],
+    "errors": [],
+    "buildVersion": "74325cfc603b41d2333ce5c7",
+    "note": "Run before the final same-step clinch-contact deduplication fix; final fix is covered by the 37 tests and final seven-check clinch browser run."
+  },
+  "physicalProbe": [
+    {
+      "mutual": false,
+      "seed": 7,
+      "costs": [
+        {
+          "move": 3,
+          "attack": 0,
+          "block": 0,
+          "secret": 0,
+          "push": 0,
+          "clinch": 9.083333333333329
+        },
+        {
+          "move": 0,
+          "attack": 0,
+          "block": 0,
+          "secret": 0,
+          "push": 0,
+          "clinch": 9.083333333333329
+        }
+      ],
+      "states": [
+        "stand",
+        "stand"
+      ]
+    },
+    {
+      "mutual": false,
+      "seed": 11,
+      "costs": [
+        {
+          "move": 3,
+          "attack": 0,
+          "block": 0,
+          "secret": 0,
+          "push": 0,
+          "clinch": 9.083333333333329
+        },
+        {
+          "move": 0,
+          "attack": 0,
+          "block": 0,
+          "secret": 0,
+          "push": 0,
+          "clinch": 9.083333333333329
+        }
+      ],
+      "states": [
+        "stand",
+        "stand"
+      ]
+    },
+    {
+      "mutual": false,
+      "seed": 23,
+      "costs": [
+        {
+          "move": 3,
+          "attack": 0,
+          "block": 0,
+          "secret": 0,
+          "push": 0,
+          "clinch": 9.083333333333329
+        },
+        {
+          "move": 0,
+          "attack": 0,
+          "block": 0,
+          "secret": 0,
+          "push": 0,
+          "clinch": 9.083333333333329
+        }
+      ],
+      "states": [
+        "stand",
+        "stand"
+      ]
+    },
+    {
+      "mutual": true,
+      "seed": 7,
+      "costs": [
+        {
+          "move": 0,
+          "attack": 0,
+          "block": 0,
+          "secret": 0,
+          "push": 0,
+          "clinch": 29.41666666666652
+        },
+        {
+          "move": 0,
+          "attack": 0,
+          "block": 0,
+          "secret": 0,
+          "push": 0,
+          "clinch": 29.41666666666652
+        }
+      ],
+      "states": [
+        "stand",
+        "stand"
+      ]
+    },
+    {
+      "mutual": true,
+      "seed": 11,
+      "costs": [
+        {
+          "move": 0,
+          "attack": 0,
+          "block": 0,
+          "secret": 0,
+          "push": 0,
+          "clinch": 29.41666666666652
+        },
+        {
+          "move": 0,
+          "attack": 0,
+          "block": 0,
+          "secret": 0,
+          "push": 0,
+          "clinch": 29.41666666666652
+        }
+      ],
+      "states": [
+        "stand",
+        "stand"
+      ]
+    },
+    {
+      "mutual": true,
+      "seed": 23,
+      "costs": [
+        {
+          "move": 0,
+          "attack": 0,
+          "block": 0,
+          "secret": 0,
+          "push": 0,
+          "clinch": 29.41666666666652
+        },
+        {
+          "move": 0,
+          "attack": 0,
+          "block": 0,
+          "secret": 0,
+          "push": 0,
+          "clinch": 29.41666666666652
+        }
+      ],
+      "states": [
+        "stand",
+        "stand"
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "screenshots/stamina_clinch/clinch-after.png",
+      "sha256": "171229f096097fcf12cefd72c74dc4b802176971e8d852b75e47f6c22561e203"
+    },
+    {
+      "path": "screenshots/stamina_clinch/clinch-before.png",
+      "sha256": "0a747a8249e6ac377865076382e800bd9e3214f0f128157b360da1e94e0c4f3f"
+    },
+    {
+      "path": "screenshots/stamina_clinch/clinch-exhaustion.png",
+      "sha256": "55d54cc6f24fc42886ae3f9cc3b457a029c59a0deab06071b0c223da15f25a03"
+    }
+  ],
+  "limitations": [
+    "Prepared physical and browser scenes do not measure natural duel clinch durations or tactical balance.",
+    "Actual device FPS and audio were not measured.",
+    "Prior stamina v2 blade-speed calibration limits remain unchanged."
+  ],
+  "rawEvidenceDirectory": "/workspace/stamina-clinch-validation"
+}
