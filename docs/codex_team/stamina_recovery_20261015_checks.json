@@ -1,0 +1,163 @@
+{
+  "gameCommit": "c76b4a6f",
+  "rates": {
+    "player": 21,
+    "ai": 15,
+    "forcedExhaustion": 20
+  },
+  "tests": {
+    "unitAndPhysics": 44,
+    "browserRegression": 10,
+    "browserRecovery": 1,
+    "failuresRemaining": 0
+  },
+  "gates": [
+    {
+      "name": "fights12",
+      "command": [
+        "node",
+        "tools/sim/fights12.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "5a02a22d1625205b0bcdfc390ddaf40320df9ec24f842c2fa560832a7d5fbe4c",
+      "baselineMatches": false,
+      "pass": true
+    },
+    {
+      "name": "live_battery",
+      "command": [
+        "node",
+        "tools/sim/live_battery.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "e7ee3d96dc05c4b9b095e8120531b065cf42f367fa74c9c80c5788b2a6a666c4",
+      "baselineMatches": true,
+      "pass": true
+    },
+    {
+      "name": "finish_thrust",
+      "command": [
+        "node",
+        "tools/sim/finish_thrust.mjs",
+        "1",
+        "--stand"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "433ac9845913951fe96d3a880ba0c66a01127021c3f970f33ecefa390ea82f81",
+      "baselineMatches": true,
+      "pass": true
+    },
+    {
+      "name": "corr",
+      "command": [
+        "node",
+        "tools/sim/corr_s0.mjs",
+        "--limits=off,on",
+        "--scenes=a,b"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "0f471e962491f22e05412e8aeaff832c6ee11acdb0fa5c10dd991b459fd1b037",
+      "baselineMatches": true,
+      "identical": 12,
+      "pass": true
+    },
+    {
+      "name": "weapon_smoke",
+      "command": [
+        "node",
+        "tools/sim/weapon_smoke.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "27b922fcf9ca8ce25d3b0c8df104a09bf2f5b1b8abcd2f1f22b80794533bcd4e",
+      "baselineMatches": true,
+      "pass": true
+    }
+  ],
+  "recoveryScreenshot": {
+    "results": [
+      {
+        "check": "same two seconds: human21/s and AI15/s",
+        "before": [
+          {
+            "who": "player",
+            "ai": false,
+            "value": 20,
+            "time": 2.6249999999999933,
+            "spent": {
+              "move": 0,
+              "attack": 0,
+              "block": 0,
+              "secret": 0,
+              "push": 0,
+              "clinch": 0
+            },
+            "bar": "21"
+          },
+          {
+            "who": "AI",
+            "ai": true,
+            "value": 20,
+            "time": 2.6249999999999933,
+            "spent": {
+              "move": 0,
+              "attack": 0,
+              "block": 0,
+              "secret": 0,
+              "push": 0,
+              "clinch": 0
+            },
+            "bar": "20"
+          }
+        ],
+        "after": [
+          {
+            "who": "player",
+            "ai": false,
+            "value": 61.99999999999956,
+            "time": 4.6250000000000195,
+            "spent": {
+              "move": 0,
+              "attack": 0,
+              "block": 0,
+              "secret": 0,
+              "push": 0,
+              "clinch": 0
+            },
+            "bar": "62"
+          },
+          {
+            "who": "AI",
+            "ai": true,
+            "value": 50,
+            "time": 4.6250000000000195,
+            "spent": {
+              "move": 0,
+              "attack": 0,
+              "block": 0,
+              "secret": 0,
+              "push": 0,
+              "clinch": 0
+            },
+            "bar": "50"
+          }
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "build": {
+    "version": "555ea3c8eee56253ffd13e9e",
+    "files": 345,
+    "totalBytes": 6763963
+  },
+  "limits": [
+    "Local Chromium mobile emulation",
+    "Public Pages host blocked by cloud network policy",
+    "No new natural-duel win-rate study"
+  ]
+}
