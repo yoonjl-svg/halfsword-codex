@@ -38,4 +38,4 @@
 
 [게임 공지창](../screenshots/game_entry/notices-in-game.png) · [세로 시작 화면](../screenshots/game_entry/title-portrait.png).
 
-본 게임 주소: <https://yoonjl-svg.github.io/halfsword-codex/>. 배포 결과는 후속 영수증에 기록한다. 공개 직접 접속은 클라우드 정책으로 차단되어 위 사진은 로컬 검증과 구분한다.
+본 게임 주소: <https://yoonjl-svg.github.io/halfsword-codex/>. 소스 `cce9a58d7857cef0b4758b0363c974c8946901ea`를 포크 main/작업 가지에 원자적으로 푸시했고 [Pages38751239177](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38751239177)가43초에 성공했다. [배포 영수증](game_entry_20261015_release.json). 공개 직접 접속은 클라우드 정책으로 차단되어 위 사진은 로컬 검증과 구분한다.
