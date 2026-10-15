@@ -11,6 +11,7 @@ import { Fighter, GROUND_GROUPS } from './fighter.js';
 import { createStaminaHud } from './stamina_hud.js';
 import { createScreenTint } from './screen_tint.js';
 import { isDirectGameLink, readJourney, writeJourney } from './journey_save.js';
+import { readProfile, recordDuel } from './player_profile.js';
 import { InputTrail } from './trail.js';
 import { Input, attachStick } from './input.js';
 import { LOOKS, getLook } from './looks.js';
@@ -518,7 +519,7 @@ function newRound(weaponId) {
   const foeWeapon = foeWeaponId;
   player = new Fighter(RAPIER, world, scene, colliderInfo, {
     index: 0,
-    name: '나',
+    name: readProfile().name,
     x: -ARENA.startGap / 2,
     z: startZ,
     heading: 0,
@@ -1314,13 +1315,23 @@ function saveJourneyRound(weapon, cards = null) {
   if (JOURNEY_SAVE_ENABLED) writeJourney({ stage: stages.id, foe: currentFoe?.id ?? null, foeWeapon: getWeapon(foeWeaponId).id, weapon, cards, lastWeapon: lastPlayerWeapon });
 }
 
-// 시작 화면의 선택만 연결한다. 기존 일시정지/재대결과 유파 동작은 그대로 사용한다.
-export async function launchJourney(choice) {
-  const saved = choice === 'continue' ? readJourney() : null;
+function validJourney() {
+  const saved = readJourney();
   const weapons = new Set(WEAPON_LIST.map(w => w.id));
-  if (choice === 'continue' && (!saved || !STAGE_IDS.includes(saved.stage)
+  if (!saved || !STAGE_IDS.includes(saved.stage)
     || (saved.foe && !CHARACTERS_BY_ID[saved.foe])
-    || [saved.weapon, saved.foeWeapon, saved.lastWeapon, ...(saved.cards || [])].some(id => id && !weapons.has(id)))) return false;
+    || [saved.weapon, saved.foeWeapon, saved.lastWeapon, ...(saved.cards || [])].some(id => id && !weapons.has(id))) return null;
+  return saved;
+}
+export const canContinueJourney = () => !!validJourney();
+export const getLobbyPlayer = () => player;
+export const getLobbySettings = () => ({ fpsCap: settings.fpsCap });
+export function setLobbyFps(enabled) { settings.fpsCap = !!enabled; saveSettings(); refreshSettingsUI(); }
+
+// 대기실의 출발 버튼에서만 판을 시작한다.
+export async function launchJourney(choice) {
+  const saved = choice === 'continue' ? validJourney() : null;
+  if (choice === 'continue' && !saved) return false;
   pendingJourney = saved;
   stageFought = false; lastRoundWon = false; lastPlayerWeapon = saved?.lastWeapon || null;
   if (useStage(saved?.stage || nextStage())) stages.warm(renderer, camera);
@@ -1390,6 +1401,7 @@ $('btnPause').addEventListener('pointerdown', (event) => {
   pause();
 });
 window.addEventListener('keydown', (e) => {
+  if (document.documentElement.hasAttribute('data-start-open')) return;
   if (state === 'draw') {
     // 무기 뽑기: 1·2 로 카드 고르기 (3 번째는 상대 칸이라 키가 없다), 결과를 보는 동안 스페이스·엔터로 바로 싸움
     const k = { Digit1: 0, Digit2: 1, Numpad1: 0, Numpad2: 1 }[e.code];
@@ -1594,6 +1606,7 @@ function checkRoundEnd(dt) {
       roundOver = true;
       resultShown = false;
       const win = !enemy.alive;
+      if (JOURNEY_SAVE_ENABLED) recordDuel(win);
       lastRoundWon = win; // 다음 판을 열 때 다음 무대로 넘어갈지 (nextRoundStage)
       // 고유 동작 해금 (사장님 결정 10/13 22:3x): 여정(무대마다 그곳 검객 — 이기면 다음 무대로 넘어간다: nextRoundStage 의 advance)에서 이긴 판 = 무대 하나 깸.
       //  깬 수가 10 의 배수가 되면 인장 하나 → 아래 가운데 안내 줄(#hint)에 한 줄 (도장 연출·모음 화면은 다음 작업)
