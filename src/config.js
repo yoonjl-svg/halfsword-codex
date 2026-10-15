@@ -14,11 +14,14 @@ export const PHYSICS = {
 // 기력(스태미너) — 설계 docs/design/stamina_2026-10-15.md (사장님 결정 §0) · 구현 샛별 저장소(c8e2bdaf … 577f4d53) · 들여온 기록 docs/strike/stamina_import_2026-10-15.md.
 //  계산은 src/stamina.js(사람·AI 같은 장부 — 회복만 사람 21 · AI 15), 머리 위 막대 src/stamina_hud.js. 모든 시간은 물리(게임) 시간.
 //  on: true = 켬(기본) · false = 기력 없음(지금 본판 그대로 — 관문 바이트 같음). 주소 `?stamina=0` = 끔(main.js). 시뮬은 with_config STAMINA.on=false
-//  범위 100 … 0 … −50(탈진) · 0 아래 이동·공격 × 0.7 · −30 아래 × 0.5 — 사장님 결정(배율 0.7 · 0.5 는 stamina.js speed) · 되돌림 +15 · −15 는 설계 시작값(stamina.js stages)
+//  범위100…−80. 사용자 새 목표: 0 아래 이동 .7/공격 .8, −40 아래 이동 .4/공격 .6. 되돌림 +15 유지.
 export const STAMINA = {
-  // 단계 문턱(사장님 10/16 00:5x '심한 지침을 -30이 아니라 -40으로 탈진을 -80으로' — 전 −30 · −50): 0 아래 지침(× 0.7) · severeAt 아래 심한 지침(× 0.5) · floor 에서 탈진.
+  // 단계 문턱: 0 아래 지침 · severeAt 아래 심한 지침 · floor 에서 탈진.
   //  stageBack: 한 단계 위로 돌아오려면 문턱보다 15 더 회복해야(지침 → 생생 +15 · 심한 지침 → 지침 severeAt + 15 = −25 — 설계안 §0 11 '단계 되돌림', 값 그대로)
   on: true, max: 100, floor: -80, severeAt: -40, stageBack: 15,
+  // 사용자 10/16 새 지시: 이동 −30%/−60%, 공격 −20%/−40%.
+  // 공격 목표는 실제 타격 접촉 시간비 1.25/1.6667이며 계기에서 따로 검증한다.
+  moveTired: 0.7, moveSevere: 0.4, attackTired: 0.8, attackSevere: 0.6,
   // 비용: 베기 12 · 찌르기 7 · 막아 받기 3(상대 공격 한 번에 한 번) — × 무게 · 비기 35 · 첫 걸음 박차기 12(우리 본판 gait.js fastBegin — 독일 뒤 · 이베리아 옆) — 무게 없음.
   //  shotCost: 권총 한 발 2 × 무게(샛별 저장소 첫 판부터 — 설계안에 없음, 사장님 확인 전)
   cutCost: 12, thrustCost: 7, blockCost: 3, secretCost: 35, pushCost: 12, shotCost: 2,
@@ -31,6 +34,13 @@ export const STAMINA = {
   // 회복: 0.6 s 동안 공격·막아 받기·박차기·비기·클린치를 안 쓰면 AI 초당 15 · 사람 21(샛별 저장소 c76b4a6f — 설계안은 모두 15, 사장님 확인 전) · 막기 유지 중엔 멈춤
   recoverPerSecond: 15, playerRecoverPerSecond: 21, recoverDelay: 0.6,
   exhaustSeconds: 2.5, exhaustRecover: 32, // 탈진: 2.5 s 제자리 숨 고르기(사장님 결정) · 끝에서 0(지침 단계)으로. 초당 32 = −floor ÷ 2.5 — 2.5 s 끝에 0 에 닿게(전 50 ÷ 2.5 = 20 과 같은 규칙, 10/16 탈진 −80 에 맞춤 · 탈진 중 값은 막대에 안 보이고(진행은 시간) 끝에서 0 으로 맞추므로 게임 차이 없음)
+  attackTempo: true, // 실제 타격 접촉 시간 보정. 목표/예외/계수: docs/codex_team/STAMINA_CONTACT_20261016.md
+  tempoPowerTired: 0.64, tempoPowerSevere: 0.36,
+  tempoRateTired: 0.8, tempoRateSevere: 0.6,
+  tempoProfiles: true,
+  tempoThrustTired: 0.75, tempoThrustSevere: 0.55, tempoHeavyMass: 2.5,
+  tempoPommelTired: 0.72, tempoPommelSevere: 0.50,
+  tempoBody: true, tempoCaps: true, tempoInput: true, tempoGravity: true, tempoWristDamping: true,
   tiredPower: 0.49, severePower: 0.25, // 지침·심한 지침의 팔·손목 힘 배율(안쪽 값 — 칼끝 빠르기를 0.7 · 0.5 가까이로 맞추려던 시작값, 보정 끝나지 않음 — 사장님 확인 전)
   aiRestAt: 20, aiAggressiveRestAt: -10, aiResumeAt: 35, // AI: 20 아래(공격적 기질 −10 아래) 새 공격 멈추고 물러남 · 35 에서 다시(되돌림 35 는 샛별 저장소 값 — 사장님 확인 전)
 };

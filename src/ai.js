@@ -2558,7 +2558,7 @@ export class AI {
     const dx = tx - off.x;
     const dy = ty - off.y;
     const dd = Math.hypot(dx, dy);
-    const step = this.handSpeed * dt * (this.mode === 'attack' || this.mode === 'secret' ? this.me.stamina.speed : 1);
+    const step = this.handSpeed * dt * (this.mode === 'attack' || this.mode === 'secret' ? this.me.stamina.attackSpeed : 1);
     if (dd > step) {
       off.x += (dx / dd) * step;
       off.y += (dy / dd) * step;

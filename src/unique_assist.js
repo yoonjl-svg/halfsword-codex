@@ -394,14 +394,14 @@ export class PlayerUniqueAssist {
   }
 
   /** 매 스텝, 검술 층이 휘두르기를 판단한 뒤: 긋기 시작을 읽고 맞으면 강화를 연다 (잇는 동작의 뒷몫이 먼저) */
-  detect(dt, swinging) {
+  detect(dt, swinging, inputVelocity = this.f.skill.vel) {
     const now = this.t;
     this.track();
     const was = this.wasSwing;
     this.wasSwing = swinging;
     const f = this.f;
     const hand = [f.handOffset.x, f.handOffset.y];
-    if (this.r) this.r.travel += hyp(f.skill.vel.x, f.skill.vel.y) * dt; // 이 긋기에서 손 목표가 간 길 (끝 힘 '뒷몫' 판단)
+    if (this.r) this.r.travel += hyp(inputVelocity.x, inputVelocity.y) * dt; // 이 긋기에서 손 목표가 간 길 (끝 힘 '뒷몫' 판단)
     if (!swinging) {
       this.quietT += dt;
       if (this.cur && this.quietT >= UA.onsetQuiet) this.closeStroke(now - this.quietT);
@@ -409,7 +409,7 @@ export class PlayerUniqueAssist {
       return;
     }
     this.quietT = 0;
-    const v = f.skill.vel;
+    const v = inputVelocity;
     const sp = hyp(v.x, v.y);
     const dir = [v.x / sp, v.y / sp];
     let start = null;
