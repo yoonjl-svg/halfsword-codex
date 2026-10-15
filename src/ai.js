@@ -2660,7 +2660,8 @@ export class AI {
       const hold = this.holdDist();
       const err = d - hold;
       // 멀면 걸어서 다가가고, 간격 가까이에선 발끝으로 조금씩 파고든다 (성큼 들어가면 상대 칼에 걸린다)
-      let v = clamp(err * (feet?.holdGain ?? 1.6), -1.9, d > hold + 0.5 ? 1.2 : (feet?.holdNear ?? 0.18));
+      const brake = feet ? this.myClosing < 0 && feet.holdBrakeOut > 0 ? feet.holdBrakeOut : feet.holdBrake : 0;
+      let v = clamp(err * (feet?.holdGain ?? 1.6) - brake * this.myClosing, -1.9, d > hold + 0.5 ? 1.2 : (feet?.holdNear ?? 0.18));
       if (this.chasing && err > 0) v = speed; // 빈손 상대는 뛰어서 쫓는다
       v -= Math.max(0, this.foeClosing) * L.discipline * (1 - 0.3 * this.anger) * (feet?.fleeK ?? 1); // 상대가 다가오면 그만큼 물러난다 (화나면 덜 물러난다)
       if (Math.abs(err) < 0.12 && Math.abs(this.foeClosing) < 0.3) {
@@ -2671,7 +2672,7 @@ export class AI {
           if (feet) this.shuffleTimer *= feet.shuffleT;
           this.shuffle = Math.random() < 0.5 ? 0 : rand(-0.3 - 0.3 * this.fear, 0.18 * (1 - this.fear)); // 겁먹으면 잔걸음이 뒷걸음으로 기운다
         }
-        v = this.shuffle;
+        v = this.shuffle * (feet?.shuffleK ?? 1);
       }
       fwd = toStick(v);
       // 옆으로 돌기 (가끔 방향을 바꾸고 가끔 멈춘다)

@@ -400,7 +400,7 @@ const CHINESE_BOW = { drop: 0.22, lowMax: 0.24, rate: 1.2, inTime: 0.12, outTime
 //    스위치 GAIT.cnLight(`?cnLight=0` = 끔) · 걸음 칸에서 읽으므로 `?schoolGait=0` 이어도 꺼진다
 // AI 스틱 판단만. 몸·가속·최고 속도와 다른 유파에는 적용하지 않는다.
 // 가벼운 발이 실제 켜진 스텝에만 ai.js가 읽는다. 단위는 기존 toStick 기준.
-export const CN_AI_FEET = { shuffleT: 0.82, holdGain: 1.6, holdNear: 0.18,
+export const CN_AI_FEET = { shuffleT: 0.82, holdGain: 1.6, holdNear: 0.18, holdBrake: 0, holdBrakeOut: 0, shuffleK: 1,
   fleeK: 2 / 3, withdrawGain: 3, withdrawMin: 0.3, defBack: -0.3, defVoid: -0.8 };
 const CHINESE_GAIT = { guardHeight: 0.88, walkHeight: 0.95, guardLength: 0.55, guardWidth: 0.16, weightFront: 0.55, maxStride: 0.5, cadence0: 2.5, dsFrac: 0.18, width: 0.07, minWidth: 0.11, lift: 0.05, liftSettle: 0.03, toeUp: 0.15, sway: 0.018, bobAdd: 0.015, dsLow: 1.2, footwork: 'follow', followIn: 3.3, followVmax: 0.8, trailReach: 0.42, dragLift: 0.03, cutStep: { kind: 'lunge', fwd: 0.5, draw: true }, passAs: { kind: 'lunge', fwdK: 0.85, draw: true }, drawT: 0.3, guardLow: CHINESE_GUARD_LOW, bow: CHINESE_BOW, light: 1.5, strideK: 0.9 };
 //  ⓑ 이베리아 (몬탄테): 좌우로 번갈아 베며 앞뒤로 걷기·둥근 걸음 [원전 2차] · 넓게 서서 큰 칼의 원심력을 받는다 [해석] — 수는 [추정]

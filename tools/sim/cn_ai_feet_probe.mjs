@@ -4,6 +4,8 @@
 import {newRound,DT,AI,CONFIG,THREE} from './harness_m.mjs';
 import {mkdirSync,writeFileSync} from 'node:fs';
 const {GAIT,BODY}=CONFIG;
+const {CN_AI_FEET}=await import('../../src/schools.js');
+if(process.env.CLD_FEET) Object.assign(CN_AI_FEET,JSON.parse(process.env.CLD_FEET));
 const [out='/tmp/cn-feet',weaponArg='qinggang,goujian']=process.argv.slice(2);
 const cases=[...[.6,-.4].map(err=>({kind:'hold',err,T:4})),
   ...[.18,-.3].flatMap(v=>[.5,.8,1.2].map(T=>({kind:'shuffle',v,T}))),
@@ -25,6 +27,7 @@ for(const weapon of weaponArg.split(','))for(const arm of ['off','on','tune'])fo
   for(let i=0;i<Math.ceil((C.T+.6)/DT);i++){
    const t=i*DT;
    a.mode=C.kind==='withdraw'?'withdraw':C.kind==='defend'?'defend':'watch';
+   const mv=f.bodies.pelvis.linvel();a.myClosing=mv.x*forward.x+mv.z*forward.z;
    a.defVoid=C.stick===-1;a.foeClosing=C.closing??0;a.circleTimer=999;a.circle=0;
    a.shuffleTimer=999;a.shuffle=C.kind==='shuffle'&&t<C.T?C.v:0;
    if(t<C.T){

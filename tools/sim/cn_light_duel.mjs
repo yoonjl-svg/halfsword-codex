@@ -24,6 +24,7 @@ import { Fighter } from '../../src/fighter.js';
 import { WEAPONS } from '../../src/weapons.js';
 import { SCHOOLS, CN_AI_FEET } from '../../src/schools.js';
 import { wilson } from './corr_lib.mjs';
+import { feetEpisodes } from './cn_feet_episodes.mjs';
 
 const { GAIT, BALANCE, BODY } = CONFIG;
 if(process.env.CLD_FEET) {
@@ -213,6 +214,7 @@ function fight(arm, s, xFirst) {
   const Y = xFirst ? G.enemy : G.player;
   atk = { ai: xFirst ? G.ai2 : G.ai, X: xFirst ? G.player : G.enemy, cut: 0, thrust: 0, secret: 0, t: 0, cur: null, strikes: [], dDecide: null, tDecide: null, watch: [], watchIn: [], wN: 0, wX: [], wY: [], yWhy: {}, appV: [], appIn: [], watchN: 0, watchOff: 0, decides: 0, aborts: 0, yai: xFirst ? G.ai : G.ai2, yStrikes: 0, yHit: 0, yBound: 0, yMiss: 0, modeT: {} };
   X._kdLog = [];
+  const episodes=process.env.CLD_EPISODES==='1'?feetEpisodes(atk.ai,G,DT):null;
   const clinch = X.swordArt.measure.clinch;
   const tx = newTrack(X);
   const ty = newTrack(Y);
@@ -235,6 +237,7 @@ function fight(arm, s, xFirst) {
     }
     G.step();
     t += DT;
+    episodes?.tick(t);
     atk.t = t;
     strikeTick(atk);
     if (atk.ai.mode === 'watch' && X.state === 'stand' && Y.state === 'stand' && X.alive && Y.alive) (atk.decides > 0 || atk.yStrikes > 0 ? atk.watchIn : atk.watch).push(X.foeDistance()); // 첫 칼(어느 쪽이든 공격 결심·칼) 전 = 판 시작 다가감 · 뒤 = 맞붙은 뒤
@@ -291,11 +294,12 @@ function fight(arm, s, xFirst) {
   const got = G.wounds.filter((w) => w.vic === X).length;
   strikeEnd(atk, 'cut');
   const A = atk;
+  const episodeData=episodes?.finish();
   atk = null;
   GAIT.cnLight = CN0;
   GAIT.cnLightAi = CNAI0;
   GAIT.cnAiTune = TUNE0;
-  return { seed, xFirst, res, t, nan, xDist: tx.dist, xWalkT: tx.walkT, xPath: tx.path, yDist: ty.dist, clinchT, closeT, falls, got, swordMass: X.swordMass, light: X.gait?.P.light ?? null, clinch, cuts: A.cut, thrusts: A.thrust, secrets: A.secret, kd: X._kdLog, strikes: A.strikes, watch: A.watch, watchIn: A.watchIn, contact: X.swordArt.measure.contact, decides: A.decides, aborts: A.aborts, yStrikes: A.yStrikes, yHit: A.yHit, yBound: A.yBound, yMiss: A.yMiss, modeT: A.modeT, headW: G.wounds.filter((w) => w.vic === X && /head|neck|face/.test(w.zone) && w.severity > 0).length, wX: A.wX, wY: A.wY, yWhy: A.yWhy, watchN: A.watchN, watchOff: A.watchOff, appV: A.appV.filter((_, i) => i % 3 === 0), appIn: A.appIn.filter((_, i) => i % 3 === 0) };
+  return { ...(episodeData?{episodes:episodeData}:{}), seed, xFirst, res, t, nan, xDist: tx.dist, xWalkT: tx.walkT, xPath: tx.path, yDist: ty.dist, clinchT, closeT, falls, got, swordMass: X.swordMass, light: X.gait?.P.light ?? null, clinch, cuts: A.cut, thrusts: A.thrust, secrets: A.secret, kd: X._kdLog, strikes: A.strikes, watch: A.watch, watchIn: A.watchIn, contact: X.swordArt.measure.contact, decides: A.decides, aborts: A.aborts, yStrikes: A.yStrikes, yHit: A.yHit, yBound: A.yBound, yMiss: A.yMiss, modeT: A.modeT, headW: G.wounds.filter((w) => w.vic === X && /head|neck|face/.test(w.zone) && w.severity > 0).length, wX: A.wX, wY: A.wY, yWhy: A.yWhy, watchN: A.watchN, watchOff: A.watchOff, appV: A.appV.filter((_, i) => i % 3 === 0), appIn: A.appIn.filter((_, i) => i % 3 === 0) };
 }
 
 const f2 = (v) => (v == null || !Number.isFinite(v) ? '-' : v.toFixed(2));
