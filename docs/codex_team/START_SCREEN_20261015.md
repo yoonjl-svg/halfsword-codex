@@ -35,4 +35,4 @@
 
 [PC 화면](../screenshots/start_preview/title-desktop.png) · [휴대폰 세로 화면](../screenshots/start_preview/title-phone-portrait.png).
 
-시안 주소: <https://yoonjl-svg.github.io/halfsword-codex/start.html>. 배포 결과는 완료 후 별도 영수증에 기록한다.
+시안 주소: <https://yoonjl-svg.github.io/halfsword-codex/start.html>. 소스 `1b92b7987d829b286b344eba94dd7145708073af`를 포크 main/작업 가지에 원자적으로 푸시했고 [Pages38740005090](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38740005090)가40초에 성공했다. [배포 영수증](start_screen_20261015_release.json). 클라우드 네트워크 정책으로 공개 게임 직접 열람이 차단되어 공개 화면 재검증은 별개로 남는다.
