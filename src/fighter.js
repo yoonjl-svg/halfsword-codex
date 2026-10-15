@@ -1022,9 +1022,9 @@ export class Fighter {
    * 손(걸러진 값)보다 먼저 움직인다 → 골반 → 가슴 → 팔 → 칼 순서로 힘이 이어진다 (실제 베기의 순서).
    */
   updateBodyPose(dt) {
-    if (STAMINA.attackTempo && STAMINA.tempoBody && this.stamina.speed > 0 && this.stamina.speed < 1 && !this.stamina.guarding) dt *= this.stamina.speed;
+    if (this.stamina.retimeBody) dt *= this.stamina.attackSpeed;
     const sk = this.skill;
-    const aimCommand = STAMINA.attackTempo && this.stamina.speed > 0 && this.stamina.speed < 1 && !this.stamina.guarding && !this.aiControlled ? sk.aim : sk.aimRaw;
+    const aimCommand = this.stamina.retimeBody ? sk.aim : sk.aimRaw;
     const gw = this.guardWeight();
     const G = guardAt(aimCommand.x, aimCommand.y, this.bodyGuard, this.finish, sk.thrustPose);
     const bp = this.bodyPose;
@@ -2590,7 +2590,7 @@ export class Fighter {
           const wc = j.child.angvel();
           const wp = j.parent.angvel();
           const wRel = (wc.x - wp.x) * ax.x + (wc.y - wp.y) * ax.y + (wc.z - wp.z) * ax.z;
-          mErr *= hill(Math.sign(_rv.z - _cur.z || 1) * wRel, this.weaponCfg.elbowVmax * (this.stamina.exhausted || (STAMINA.attackTempo && !STAMINA.tempoCaps) ? 1 : this.stamina.speed));
+          mErr *= hill(Math.sign(_rv.z - _cur.z || 1) * wRel, this.weaponCfg.elbowVmax * (this.stamina.exhausted || (STAMINA.attackTempo && !this.stamina.guarding && !STAMINA.tempoCaps) ? 1 : this.stamina.motorSpeed));
         }
         const tz = _cur.z + THREE.MathUtils.clamp(_rv.z - _cur.z, -mErr, mErr);
         const vz = THREE.MathUtils.clamp((_rv.z - prev.z) * inv, -15, 15);
@@ -2806,16 +2806,23 @@ export class Fighter {
     const wErr = _mW.sub(wT);
     _mT.addScaledVector(wErr.addScaledVector(boneAxis, -wErr.dot(boneAxis)), -d);
     // 중력 보상: 팔과 칼의 무게를 미리 알고 버틴다 (사람도 무게를 예상하고 힘을 준다 → 처지지 않는다)
-    const mus = k / j.k / (this.armBoost ?? 1); // 10/13: 찍기 근육 배율(armBoost)은 무게를 더 버티는 데 쓰지 않는다 (1 이면 같은 float)
+    const mus = k / j.k / (this.armBoost ?? 1) / (STAMINA.attackTempo && !this.stamina.guarding && STAMINA.tempoGravity ? this.stamina.power : 1); // 10/13: 찍기 근육 배율(armBoost)은 무게를 더 버티는 데 쓰지 않는다 (1 이면 같은 float)
     this.gravityTorque([this.bodies.uarmS, this.bodies.farmS, this.armed ? this.sword : null], j.child, -0.15, _mG).multiplyScalar(-mus);
     // 팔꿈치를 굽히면 아래팔과 칼의 무게가 위팔을 길이 방향으로 비튼다 → 그 몫도 미리 버틴다
     //  (되먹임이 아닌 고정 보정이라 비틀기 축이 가벼워도 불안정해지지 않는다)
     const twistFF = THREE.MathUtils.clamp(_mG.dot(boneAxis), -10, 10);
-    _mT.add(_mG.addScaledVector(boneAxis, -_mG.dot(boneAxis)));
+    const tempoGravity = STAMINA.attackTempo && !this.stamina.guarding && STAMINA.tempoGravity && this.stamina.power < 1;
+    _mG.addScaledVector(boneAxis, -_mG.dot(boneAxis));
+    if (!tempoGravity) _mT.add(_mG);
     // 힘-속도 관계: 팔을 빨리 휘두를수록 어깨 힘이 빠진다
     const tlen = _mT.length();
-    const cap = maxT * hill(tlen > 1e-6 ? wSw.dot(_mT) / tlen : 0, this.weaponCfg.shoulderVmax * (this.stamina.exhausted || (STAMINA.attackTempo && !STAMINA.tempoCaps) ? 1 : this.stamina.speed));
+    const cap = maxT * hill(tlen > 1e-6 ? wSw.dot(_mT) / tlen : 0, this.weaponCfg.shoulderVmax * (this.stamina.exhausted || (STAMINA.attackTempo && !this.stamina.guarding && !STAMINA.tempoCaps) ? 1 : this.stamina.motorSpeed));
     if (tlen > cap) _mT.setLength(cap);
+    if (tempoGravity) {
+      _mT.add(_mG);
+      const fullCap = maxT / this.stamina.power;
+      if (_mT.length() > fullCap) _mT.setLength(fullCap);
+    }
     // 비틀기: 위팔 자체의 비틀림 관성은 ≈0.003kg·m²로 아주 작다 → 안정 한계(강도 ≤10, 감쇠 ≤0.2) 안에서만
     //  (엔진 쪽 회전 감쇠(팔 몸체 1.5)가 함께 잡아줘서 조금 더 세게 걸 수 있다)
     //  관절 가동 범위 교정 (JOINTS twistK, 10/9 2차): 강성 25 → twistK 로 올리면 감쇠 0.8·상한 20 도 같은 배율 (25 = 오늘 그대로, 같은 float)
@@ -3030,7 +3037,7 @@ export class Fighter {
       }
     } else this.vertLeadAmt = 0;
     if (this.stamina.pose > 0) aim.lerp(_v6.set(0.28, -0.93, this.side * 0.08).applyQuaternion(this.yaw).normalize(), this.stamina.pose).normalize();
-    else if (this.stamina.level === 2 && this.stamina.speed < 1 && !this.skill.swinging && !this.skill.tap) { aim.y -= 0.12; aim.normalize(); }
+    else if (this.stamina.level === 2 && this.stamina.speed < 1 && !this.skill.swinging && !this.skill.tap && !(STAMINA.attackTempo && (this.handHeld || this.skill.pom || this.skill.sec || this.iai || this.stamina.attacking))) { aim.y -= 0.12; aim.normalize(); }
     const mapAim = _mapAim.copy(aim); // 자세 지도 방향(빈손 짝힘·보정은 늘 이것을 본다)
     if (BODY.trunkFollow > 0) { // WA2-2 follow-through 가 읽는 '칼이 겨눔보다 뒤처진 각'(rad): 칼날 축 ↔ 자세 지도 방향 (hold 와 무관하게 지도 기준)
       rot(sword, _q1);
@@ -3175,20 +3182,27 @@ export class Fighter {
         }
       }
     }
+    if (STAMINA.attackTempo && !this.stamina.guarding && STAMINA.tempoWristDamping && this.stamina.speed > 0) damp *= this.stamina.motorSpeed;
     torque.addScaledVector(wSwing.sub(wAim), -damp);
     // 칼 무게도 같은 힘 안에서 버틴다 (칼끝이 처지지 않게)
-    this.gravityTorque([sword], forearm, 0.13, _mG).multiplyScalar(-Math.min(1, str));
-    torque.add(_mG);
+    this.gravityTorque([sword], forearm, 0.13, _mG).multiplyScalar(-Math.min(1, STAMINA.attackTempo && !this.stamina.guarding && STAMINA.tempoGravity ? str / this.stamina.power : str));
+    const tempoGravity = STAMINA.attackTempo && !this.stamina.guarding && STAMINA.tempoGravity && this.stamina.power < 1;
+    if (!tempoGravity) torque.add(_mG);
     // 힘-속도 관계: 손목이 빨리 돌수록 힘이 빠진다 (근육 활성화 지연 30ms로 부드럽게)
     const fw = forearm.angvel();
     const tl = torque.length();
     const vAlong = tl > 1e-6 ? ((w.x - fw.x) * torque.x + (w.y - fw.y) * torque.y + (w.z - fw.z) * torque.z) / tl : 0;
     // 손목 각속도 한계는 힘(strength)의 제곱근에 비례한다 (감독 확정 V1, docs/characters.md "관절 각속도 한계를 힘에 묶는 실험"):
     //  힘이 세면 더 빠른 칼끝까지 힘이 실려 한 방이 실제로 세진다. 힘 1.0이면 예전과 같다 (기본 AI 회귀 동일)
-    const h = hill(vAlong, this.weaponCfg.wristVmax * Math.sqrt(this.strength) * (this.stamina.exhausted || (STAMINA.attackTempo && !STAMINA.tempoCaps) ? 1 : this.stamina.speed), 0.25, this.weaponCfg.brakeEcc);
+    const h = hill(vAlong, this.weaponCfg.wristVmax * Math.sqrt(this.strength) * (this.stamina.exhausted || (STAMINA.attackTempo && !this.stamina.guarding && !STAMINA.tempoCaps) ? 1 : this.stamina.motorSpeed), 0.25, this.weaponCfg.brakeEcc);
     this.wristHill = (this.wristHill ?? h) + (h - (this.wristHill ?? h)) * Math.min(1, (this.lastDt || 1 / 120) / 0.03);
     cap *= this.wristHill;
     if (tl > cap) torque.setLength(cap);
+    if (tempoGravity) {
+      torque.add(_mG);
+      const fullCap = this.weaponCfg.maxAimTorque * str / this.stamina.power;
+      if (torque.length() > fullCap) torque.setLength(fullCap);
+    }
     // 측정용 (테스트 도구가 읽는다)
     this.debug.aim.copy(aim);
     this.debug.wristTorque.copy(torque);

@@ -557,9 +557,9 @@ function stepIai(f, combat) {
     const x = Math.min(1, t / (I.T * (I.slideShare ?? SECRET.iaiSlideShare)));
     return 1 - (1 - x) * (1 - x);
   };
-  const ds = I.slide * (pr(I.t + dt * f.stamina.speed) - pr(I.t));
+  const ds = I.slide * (pr(I.t + dt * f.stamina.attackSpeed) - pr(I.t));
   if (ds > 1e-5) shiftFighter(f, I.dx * ds, I.dz * ds);
-  I.t += dt * f.stamina.speed;
+  I.t += dt * f.stamina.attackSpeed;
   const u = Math.min(1, I.t / I.T);
   I.u = u;
   const P = I.pose(I, u);
@@ -1183,7 +1183,7 @@ function stepCombo(f, combat) {
   const dt = combat.dt || 1 / 120;
   const foe = f.foe;
   if (!f.alive || !f.armed || !foe) return endCombo(f, combat);
-  I.t += dt * f.stamina.speed;
+  I.t += dt * f.stamina.attackSpeed;
   f.instantGhost = Math.max(f.instantGhost ?? 0, Math.ceil(SECRET.instantNoCollide / dt) + 1);
   // 토막 넘기기 — 이 수의 토막이 끝나면 다음 수를 지금 자리에서 짠다 (없으면 끝)
   for (;;) {

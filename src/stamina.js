@@ -42,8 +42,29 @@ export class Stamina {
   }
   get ratio() { return clamp(this.value / STAMINA.max, 0, 1); }
   get exhausted() { return STAMINA.on && this.exhaustLeft > 0; }
-  get speed() { return !STAMINA.on ? 1 : this.exhausted ? 0 : this.level === 2 ? 0.5 : this.level === 1 ? 0.7 : 1; }
-  get power() { return !STAMINA.on || this.exhausted ? 1 : this.level === 2 ? (STAMINA.attackTempo ? STAMINA.tempoPowerSevere : STAMINA.severePower) : this.level === 1 ? (STAMINA.attackTempo ? STAMINA.tempoPowerTired : STAMINA.tiredPower) : 1; }
+  get speed() { return !STAMINA.on ? 1 : this.exhausted ? 0 : this.level === 2 ? STAMINA.moveSevere : this.level === 1 ? STAMINA.moveTired : 1; }
+  get attackSpeed() {
+    if (!STAMINA.on) return 1;
+    if (this.exhausted) return 0;
+    if (!this.level) return 1;
+    const severe = this.level === 2;
+    if (!STAMINA.attackTempo) return severe ? STAMINA.attackSevere : STAMINA.attackTired;
+    const f = this.fighter;
+    if (STAMINA.tempoProfiles) {
+      if (f.skill?.pom) return severe ? STAMINA.tempoPommelSevere : STAMINA.tempoPommelTired;
+      this.captureMass(f.swordMass);
+      if (f.skill?.tap && !f.weaponCfg?.thrustStyle && this.originalMass < STAMINA.tempoHeavyMass)
+        return severe ? STAMINA.tempoThrustSevere : STAMINA.tempoThrustTired;
+    }
+    return severe ? STAMINA.tempoRateSevere : STAMINA.tempoRateTired;
+  }
+  get retimeBody() {
+    return STAMINA.on && STAMINA.attackTempo && STAMINA.tempoBody && this.level > 0 && !this.exhausted && !this.guarding
+      && !(STAMINA.tempoProfiles && this.fighter.skill?.tap);
+  }
+  // 막기 자세/신뢰도 보정은 보류한 범위다. 기존 방어 근육의 한도는 유지한다.
+  get motorSpeed() { return this.guarding && STAMINA.on && !this.exhausted ? this.level === 2 ? .5 : this.level === 1 ? .7 : 1 : this.attackSpeed; }
+  get power() { const tune=STAMINA.attackTempo&&!this.guarding;return !STAMINA.on || this.exhausted ? 1 : this.level === 2 ? (tune ? STAMINA.tempoPowerSevere : STAMINA.severePower) : this.level === 1 ? (tune ? STAMINA.tempoPowerTired : STAMINA.tiredPower) : 1; }
   get progress() { return this.exhausted ? 1 - this.exhaustLeft / STAMINA.exhaustSeconds : 0; }
   get guarding() {
     const c = this.controller;
@@ -208,7 +229,7 @@ export class Stamina {
       return;
     }
     const at = [f.handOffset?.x ?? 0, f.handOffset?.y ?? 0];
-    if (!sk.swinging) {
+    if (!(sk.inputMotion ? sk.inputSwinging : sk.swinging)) {
       if (this.stroke) {
         this.stroke.travel += Math.hypot(at[0] - this.stroke.end[0], at[1] - this.stroke.end[1]);
         this.stroke.end = at;
@@ -218,7 +239,8 @@ export class Stamina {
       this.strokeStart = at;
       return;
     }
-    const vx = sk.vel.x, vy = sk.vel.y, n = Math.hypot(vx, vy);
+    const velocity = sk.inputMotion?.vel ?? sk.vel;
+    const vx = velocity.x, vy = velocity.y, n = Math.hypot(vx, vy);
     if (n < 1e-6) return;
     const dir = [vx / n, vy / n];
     const turn = this.stroke ? Math.acos(clamp(dir[0] * this.stroke.dir[0] + dir[1] * this.stroke.dir[1], -1, 1)) * 180 / Math.PI : 180;

@@ -1,3 +1,4 @@
+import { tempoHand, observeTempoInput } from './attack_tempo.js';
 // ─────────────────────────────────────────────────────────────
 //  검술 층 (숙련도 보정)
 //
@@ -24,7 +25,7 @@
 //  level: 0 = 보정 없음(날것 그대로의 물리 조작), 1 = 숙련된 검사
 // ─────────────────────────────────────────────────────────────
 import * as THREE from 'three';
-import { SKILL, WEAPON, THRUST, BODY, GAIT, POMMEL, SECRET, AI_LEVELS, ARM, UNIQUE_ASSIST } from './config.js';
+import { STAMINA, SKILL, WEAPON, THRUST, BODY, GAIT, POMMEL, SECRET, AI_LEVELS, ARM, UNIQUE_ASSIST } from './config.js';
 import { gunCanFire, gunPose, headOff } from './gun.js';
 import { FINISH, armRay, updateFinish, finishHands } from './finish.js';
 import { VITAL, playerVitalThrust, measureThrustRange } from './vital_target.js'; // 약한 자세 겨눔 탭 찌르기 (FINISH.vital, 10/12)
@@ -350,7 +351,7 @@ export class Skill {
     const f = this.f;
     const T = THRUST;
     const K = tp?.K; // 이번 찌르기의 시간·뻗는 거리 (무기의 찌르기 장점 반영)
-    if (tp) tp.t += dt * f.stamina.speed;
+    if (tp) tp.t += dt * f.stamina.attackSpeed;
     this.thrustPush = false;
     // 찍기(tp.down)의 끝은 시간이 아니라 몸의 일(plungePose 의 tEnd): 끝난 뒤 자세로 돌아오는 시간만 잰다
     if (!tp || tp.t >= (tp.down ? (tp.tEnd ?? Infinity) + K.recover : K.aim + K.extend + K.hold + K.recover) || !f.alive || !f.armed || !f.foe) {
@@ -456,7 +457,7 @@ export class Skill {
     const pose = this.thrustPose;
     const f = this.f;
     const P = POMMEL;
-    p.t += dt * f.stamina.speed;
+    p.t += dt * f.stamina.attackSpeed;
     const end = P.chamber + P.drive + P.hold;
     if (p.t >= end + P.recover || !f.alive || !f.armed || !f.foe) {
       this.pom = null;
@@ -690,7 +691,7 @@ export class Skill {
     const dx = tx - off.x;
     const dy = ty - off.y;
     const dd = Math.hypot(dx, dy);
-    const step = v * dt * this.f.stamina.speed;
+    const step = v * dt * this.f.stamina.attackSpeed;
     if (dd > step) {
       off.x += (dx / dd) * step;
       off.y += (dy / dd) * step;
@@ -1172,6 +1173,8 @@ export class Skill {
     this.aimRaw.copy(off);
     this.aim.copy(off);
     this.vel.set(0, 0);
+    if (this.inputMotion) { this.inputMotion.prev.copy(off); this.inputMotion.vel.set(0, 0); }
+    this.inputSwinging = false;
     this.follow.set(0, 0);
     this.aimVel.set(0, 0);
     this.swinging = false;
@@ -1250,29 +1253,33 @@ export class Skill {
       const g = this.sec ? gilmokSeg(this.sec.cur?.name, this.sec.stage === 'stiff') : { seg: null, s: 1 };
       gilmokCutPose(f, g.seg, g.s, dt);
     }
-    const off = f.handOffset;
     const R = WEAPON.reach;
-    if (off.length() > R) off.setLength(R);
+    if (f.handOffset.length() > R) f.handOffset.setLength(R);
+    observeTempoInput(this, dt);
+    const off = tempoHand(this, dt);
+    if (off !== f.handOffset && off.length() > R) off.setLength(R);
     if (this.sec?.stage === 'stiff' || f.secretStiff) return this.holdStiff(dt); // 비기 경직 (플레이어 sec · AI 는 ai.js moveHand 가 secretStiff 를 켠다)
     this.stiffHeld = false;
 
     // 손 목표 속도 (손가락 떨림을 거르기 위해 살짝 부드럽게)
-    const rx = (off.x - this.prev.x) / dt;
-    const ry = (off.y - this.prev.y) / dt;
+    const motionDt = STAMINA.attackTempo && STAMINA.tempoInput && f.stamina.attackSpeed > 0 && !f.stamina.guarding ? dt * f.stamina.attackSpeed : dt;
+    const rx = (off.x - this.prev.x) / motionDt;
+    const ry = (off.y - this.prev.y) / motionDt;
     this.prev.copy(off);
-    const k = 1 - Math.exp(-dt * 25);
+    const k = 1 - Math.exp(-motionDt * 25);
     this.vel.x += (rx - this.vel.x) * k;
     this.vel.y += (ry - this.vel.y) * k;
     const sp = this.vel.length();
     const swinging = sp > SKILL.swingSpeed && f.alive && f.armed;
     this.swinging = swinging;
+    this.inputSwinging = this.inputMotion ? this.inputMotion.vel.length() > SKILL.swingSpeed && f.alive && f.armed : swinging;
     if (GAIT.deChase && !f.aiControlled) this.whiffTrack(dt, swinging); // 사람 휘두르기 헛침 → 상대 걸음(독일 간격 잡기, 10/15). AI 는 ai.js afterStrike 가 알린다
-    if (this.uniq) this.uniq.detect(dt, swinging); // 플레이어 고유 동작: 긋기 시작(시작 패드·처음 방향)을 읽고 해금된 고유 동작이 맞으면 그 긋기에 강화를 얹는다 (잇는 동작은 이어 그은 긋기에 뒷몫)
+    if (this.uniq) this.uniq.detect(dt, this.inputSwinging, this.inputMotion?.vel); // 원래 입력 시계/방향으로 인식. 유파 동작·보법 정의는 그대로.
     // 플레이어 막기 버튼 (10/11 — parry_button.js): 버튼이 손 목표를 휘두르기 문턱보다 빠르게 옮기는 동안은 AI 막기(손이 parrySpeed 로 옮겨져 휘두르기로 잡힘)처럼
     //  휘두르기 꼴의 거르기·몸 따라가기를 쓴다. 휘두르기 사건(swinging — 내딛기·베기 덩이·자세로 돌아가기)은 손가락 끌기만 (버튼이 prev 도 옮긴다). 버튼이 없으면 guardDrive 없음 → 그대로
     const fast = swinging || this.guardDrive > SKILL.swingSpeed;
     // 휘두르는 중인 정도 (0~1): 휘두르기 시작하면 빨리 1로, 멈추면 천천히 0으로 (몸을 크게 쓰는 건 벨 때뿐)
-    this.activity += ((fast ? 1 : 0) - this.activity) * Math.min(1, dt / (fast ? 0.04 : 0.4));
+    this.activity += ((fast ? 1 : 0) - this.activity) * Math.min(1, motionDt / (fast ? 0.04 : 0.4));
 
     // 0) 가죽끈: anchor는 손가락(off)이 반경(inputDeadRadius)을 넘어야 그만큼만 끌려간다.
     //  반경 안의 떨림은 anchor를 전혀 움직이지 못한다 — 어디서 떨든(자세 경계라도) 걸러진다.
@@ -1302,8 +1309,8 @@ export class Skill {
       this.aimRaw.copy(this.anchor);
     } else {
       // 1) 이어 베기: 휘두르는 동안 움직이는 방향으로 목표를 더 밀어 두었다가 천천히 되돌린다
-      if (swinging) this.follow.addScaledVector(this.vel, dt * SKILL.followGain * L * fk);
-      this.follow.multiplyScalar(Math.exp(-dt / SKILL.followDecay));
+      if (swinging) this.follow.addScaledVector(this.vel, motionDt * SKILL.followGain * L * fk);
+      this.follow.multiplyScalar(Math.exp(-motionDt / SKILL.followDecay));
       const fm = SKILL.followMax * L * fk;
       if (this.follow.length() > fm) this.follow.setLength(fm);
       this.aimRaw.copy(this.anchor).add(this.follow);
@@ -1313,16 +1320,16 @@ export class Skill {
     //  (사람의 손도 순간적으로 속도를 바꾸지 못한다. 목표가 튀면 근육이 그 충격을 몸통에 그대로 전해 출렁인다)
     // 휘두르는 순간엔 근육을 긴장시켜(공동 수축) 더 빠르고 단단하게 따라간다
     const wT = fast ? SKILL.aimFilterStrike : SKILL.aimFilter;
-    this.filterW = (this.filterW ?? wT) + (wT - (this.filterW ?? wT)) * Math.min(1, dt * 30);
+    this.filterW = (this.filterW ?? wT) + (wT - (this.filterW ?? wT)) * Math.min(1, motionDt * 30);
     const w = this.filterW;
     const ax = w * w * (this.aimRaw.x - this.aim.x) - 2 * w * this.aimVel.x;
     const ay = w * w * (this.aimRaw.y - this.aim.y) - 2 * w * this.aimVel.y;
-    // 목표 궤적/도착점은 그대로 두고 플레이어의 손 목표 추종 시간만 늦춘다.
-    // AI/비기는 이미 경로 이동 속도에 배율을 받으므로 두 번 곱하지 않는다.
-    const aimDt = dt * (!f.aiControlled && !this.sec && !f.stamina.guarding ? f.stamina.speed : 1);
+    // 지친 경로와 그 경로를 따르는 필터를 같은 명령 시간으로 진행한다.
+    // 속도 기반 이어 베기까지 같은 시계로 적분해 공격 호가 줄지 않게 한다.
+    const aimDt = dt * (!f.stamina.guarding && (STAMINA.attackTempo && STAMINA.tempoInput || !f.aiControlled && !this.sec) ? f.stamina.attackSpeed : 1);
     this.aimVel.x += ax * aimDt;
     this.aimVel.y += ay * aimDt;
-    if (!f.aiControlled && f.stamina.speed < 1 && !f.stamina.guarding) this.aimVel.clampLength(0, AI_LEVELS.normal.strikeSpeed * f.stamina.speed);
+    if (!f.aiControlled && f.stamina.attackSpeed < 1 && !f.stamina.guarding) this.aimVel.clampLength(0, AI_LEVELS.normal.strikeSpeed * (STAMINA.attackTempo && STAMINA.tempoInput ? 1 : f.stamina.attackSpeed));
     this.aim.x += this.aimVel.x * aimDt;
     this.aim.y += this.aimVel.y * aimDt;
 
@@ -1349,7 +1356,7 @@ export class Skill {
       this.cutPending = true;
       this.recovering = false;
     }
-    this.idle = f.inputActive ? 0 : this.idle + dt;
+    this.idle = f.inputActive || this.tempoInput?.pending ? 0 : this.idle + dt;
     // 보정 v2 사건: 손 뗌 = 손가락이 화면에서 떨어진 스텝 (handHeld 참 → 거짓, main.js — 입력 쪽 사건이라 공포 떨림에 속지 않음)
     this.lift = !!this.heldPrev && !f.handHeld;
     this.heldPrev = !!f.handHeld;

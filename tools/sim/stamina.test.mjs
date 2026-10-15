@@ -16,6 +16,14 @@ test('공격은 한 번에 베기12/찌르기7, 막기3; 무게는 원래 질량
  const w=actor({swordMass:2.9}); const k=Math.sqrt(2.9/1.6);near(w.stamina.weight,k);w.swordMass=.4;near(w.stamina.weight,k);w.stamina.attack();near(w.stamina.spent.attack,12*k);
 });
 test('무게 배율은 0.75~1.5',()=>{near(actor({swordMass:.1}).stamina.weight,.75);near(actor({swordMass:20}).stamina.weight,1.5);});
+test('찌르기 시간 분류는 원래 질량과 찌르기 특성 사용, 방어 근육은 기존 한도',()=>{
+ const saved={...STAMINA};Object.assign(STAMINA,{attackTempo:true,tempoProfiles:true});
+ try{for(const [mass,style,rate] of [[1.6,null,.55],[2.9,null,.6],[1.1,{},.6]]){
+  const f=actor({swordMass:mass,weaponCfg:{thrustStyle:style}});f.skill.tap={};f.stamina.value=-60;f.stamina.stages();
+  near(f.stamina.attackSpeed,rate);f.swordMass=.2;near(f.stamina.attackSpeed,rate);
+  f.stamina.controller={held:true};near(f.stamina.motorSpeed,.5);near(f.stamina.power,.25);
+ }}finally{Object.assign(STAMINA,saved);}
+});
 test('짧은 입력 끊김/작은 방향 흔들림은 같은 긋기, 반대 방향은 새 공격',()=>{
  const f=actor();f.handOffset.set(-.5,.1);tick(f,.01);swing(f,.1,3);assert.equal(f.stamina.counts.cut,1);
  f.skill.swinging=false;tick(f,.08);swing(f,.2,3,.1);assert.equal(f.stamina.counts.cut,1);
@@ -75,7 +83,15 @@ test('오래 막고 접촉 없이 놓으면 이미 지난 회복 지연을 다�
 });
 test('0/심한 지침(STAMINA.severeAt) 단계와 +15 해제 문턱',()=>{
  const s=actor().stamina;s.value=-1;s.stages();near(s.speed,.7);s.value=10;s.stages();near(s.speed,.7);s.value=15;s.stages();near(s.speed,1);
- const S=STAMINA.severeAt,B=STAMINA.stageBack;s.value=S-1;s.stages();near(s.speed,.5);s.value=S+B-5;s.stages();near(s.speed,.5);s.value=S+B;s.stages();near(s.speed,.7);
+ const S=STAMINA.severeAt,B=STAMINA.stageBack;s.value=S-1;s.stages();near(s.speed,.4);s.value=S+B-5;s.stages();near(s.speed,.4);s.value=S+B;s.stages();near(s.speed,.7);
+});
+
+test('movement and attack use the separately approved fatigue rates',()=>{
+ const s=actor().stamina;
+ near(s.speed,1);near(s.attackSpeed,1);
+ s.value=-1;s.stages();near(s.speed,.7);near(s.attackSpeed,.8);
+ s.value=-41;s.stages();near(s.speed,.4);near(s.attackSpeed,.6);
+ s.value=-80;s.stages();near(s.speed,0);near(s.attackSpeed,0);
 });
 test('탈진2.5초: 막기를 누르고 있어도 회복,0/지침으로 해제,추가비용없음',()=>{
  const f=actor();f.stamina.controller={held:true};f.stamina.spend('attack',180);near(f.stamina.value,STAMINA.floor);near(f.stamina.speed,0);
