@@ -31,4 +31,4 @@
 
 [세로 화면](../screenshots/start_pixel_refined/title-phone-portrait.png) · [PC 화면](../screenshots/start_pixel_refined/title-desktop.png).
 
-배포 주소: <https://yoonjl-svg.github.io/halfsword-codex/start-pixel.html>. 공개 배포 결과는 후속 영수증에 기록한다. 클라우드 네트워크 정책으로 공개 페이지 직접 검증은 차단되어 있으며 위 사진은 로컬 프로덕션 화면이다.
+배포 주소: <https://yoonjl-svg.github.io/halfsword-codex/start-pixel.html>. 소스 `e7237a0048895513665bb57bf4933770331cb6d8`를 포크 main/작업 가지에 원자적으로 푸시했고 [Pages38745218093](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38745218093)가1분26초에 성공했다. [배포 영수증](start_pixel_refined_20261015_release.json). 클라우드 네트워크 정책으로 공개 페이지 직접 검증은 차단되어 있으며 위 사진은 로컬 프로덕션 화면이다.
