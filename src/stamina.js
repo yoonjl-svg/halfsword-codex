@@ -1,5 +1,5 @@
 import { classifyStroke } from './attack_stroke.js';
-import { STAMINA, UNIQUE_ASSIST } from './config.js';
+import { STAMINA, UNIQUE_ASSIST, CLOSE } from './config.js';
 
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 
@@ -24,10 +24,13 @@ export class Stamina {
     this.position = null;
     this.lastShots = 0;
     this.pose = 0;
-    this.spent = { move: 0, attack: 0, block: 0, secret: 0, push: 0 };
+    this.spent = { move: 0, attack: 0, block: 0, secret: 0, push: 0, clinch: 0 };
     this.counts = { cut: 0, thrust: 0, block: 0, secret: 0, exhaustion: 0 };
     this.recovered = 0;
     this.action = 'rest';
+    this.clinching = false;
+    this.clinchSeconds = 0;
+    this.clinchStep = null;
   }
 
   captureMass(mass) { if (this.originalMass == null && mass > 0) this.originalMass = mass; }
@@ -47,6 +50,56 @@ export class Stamina {
       : !!c?.held && !c.broken);
   }
   get inSecret() { return !!(this.fighter.skill?.sec || this.controller?.secretRun); }
+
+  /** 기존 누르기 단계 + 실제 팔/칼 접촉. 거리만 가깝거나 공격 중인 것은 클린치가 아니다. */
+  canClinch(other) {
+    if (!STAMINA.on || !CLOSE.on || !(STAMINA.clinchPerSecond > 0) || !other || other === this) return false;
+    const a = this.fighter, b = other.fighter;
+    if (a.foe !== b || b.foe !== a) return false;
+    for (const s of [this, other]) {
+      const f = s.fighter, sk = f.skill;
+      if (!f.alive || f.revival || f.state !== 'stand' || f.feetHeld || s.exhausted || s.value <= STAMINA.floor || s.inSecret || sk?.swinging || sk?.tap || sk?.pom || (f.gun?.shots ?? 0) > s.lastShots) return false;
+    }
+    const pressing = (f) => f.canShove && f.barge?.phase === 'press' && f.stickY > 0 && f.foeDistance() <= CLOSE.reach(f.armed ? f.weapon : null) && f.closeTouch();
+    return !!(pressing(a) || pressing(b));
+  }
+
+  /** 두 Fighter.step 중 먼저 오는 쪽이 양쪽 비용을 확정하고, 뒤쪽은 같은 결과를 소비한다.
+   *  양쪽이 밀어도 한 번만 청구하며, 먼저 탈진한 쪽 때문에 뒤쪽 비용이 빠지지 않는다. */
+  stepClinch(dt) {
+    const other = this.fighter.foe?.stamina;
+    let pair = this.clinchStep;
+    if (!other) { this.clinching = false; this.clinchStep = null; return false; }
+    if (pair?.pending === this && (pair.a === other || pair.b === other)) {
+      pair.pending = null;
+    } else {
+      const active = this.canClinch(other);
+      pair = { a: this, b: other, pending: other, active };
+      this.clinchStep = other.clinchStep = pair;
+      this.clinching = other.clinching = active;
+      if (active) {
+        // 마지막 스텝도 실제 차감량이 같다. 부동소수점 잔차는 경계에서만 정리한다.
+        const amount = Math.min(STAMINA.clinchPerSecond * dt, this.value - STAMINA.floor, other.value - STAMINA.floor);
+        for (const s of [this, other]) {
+          s.spend('clinch', amount);
+          s.clinchSeconds += amount / STAMINA.clinchPerSecond;
+          if (s.value < STAMINA.floor + 1e-9) { s.value = STAMINA.floor; s.stages(); }
+        }
+        if (this.exhausted || other.exhausted) {
+          for (const s of [this, other]) {
+            s.clinching = false;
+            if (s.fighter.barge) { s.fighter.barge = null; s.fighter.bargeEnd = 'exhausted'; }
+          }
+        }
+      }
+    }
+    if (!pair.active) return false;
+    this.rest = 0;
+    this.action = this.exhausted ? 'exhausted' : 'clinch';
+    this.stroke = null;
+    this.quiet = Infinity;
+    return true;
+  }
 
   stages() {
     if (this.exhausted) return;
@@ -91,7 +144,7 @@ export class Stamina {
 
   /** 접촉 fresh와 별개로 상대 공격 번호당 한 번만 청구한다. 공격 중 칼 충돌은 공격 비용에 포함. */
   block(attacker) {
-    if (!STAMINA.on || this.exhausted || this.inSecret || !this.fighter.armed) return;
+    if (!STAMINA.on || this.exhausted || this.inSecret || this.clinchStep?.active || !this.fighter.armed) return;
     const other = attacker?.stamina;
     if (!other || !other.attackId || other.time > other.attackUntil) return;
     const f = this.fighter;
@@ -140,6 +193,12 @@ export class Stamina {
     this.position = p ? { x: p.x, z: p.z } : null;
     if (!STAMINA.on) {
       this.value = STAMINA.max; this.level = 0; this.exhaustLeft = 0; this.pose = 0; this.rest = 0;
+      this.clinching = false; this.clinchStep = null;
+      return;
+    }
+    // 회복·걷기보다 우선. 이번 스텝 비용으로 탈진했으면 강제 회복은 다음 스텝부터.
+    if (this.stepClinch(dt)) {
+      if (!this.exhausted) this.pose = Math.max(0, this.pose - dt * 6);
       return;
     }
     if (!f.alive || f.revival) return;
