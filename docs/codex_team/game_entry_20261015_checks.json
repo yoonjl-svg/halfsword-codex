@@ -1,0 +1,222 @@
+{
+  "checkedAt": "2026-10-15T23:24:51.770540+09:00",
+  "implementationCommit": "215d7b7e3e70e357262c9a1592c7f0b4f2ccb214",
+  "integratedBrowser": {
+    "results": [
+      {
+        "check": "root opens approved pixel notices/title; old game remains stopped",
+        "header": {
+          "color": "rgb(243, 233, 216)",
+          "size": "17px"
+        },
+        "buttons": [
+          {
+            "width": 205,
+            "background": "rgb(133, 96, 47)"
+          },
+          {
+            "width": 205,
+            "background": "rgb(101, 73, 47)"
+          }
+        ]
+      },
+      {
+        "check": "continue without checkpoint stays on title with explanation"
+      },
+      {
+        "check": "new journey enters first-stage weapon draw and stores cards",
+        "checkpoint": {
+          "stage": "poseidon",
+          "foe": "heinrich",
+          "foeWeapon": "excalibur_replica",
+          "weapon": null,
+          "cards": [
+            "longsword",
+            "rapier"
+          ],
+          "lastWeapon": null,
+          "version": 1
+        }
+      },
+      {
+        "check": "reload/continue restores the same draw, opponent and opponent weapon"
+      },
+      {
+        "check": "card choice enters live combat and stores chosen weapon",
+        "checkpoint": {
+          "stage": "poseidon",
+          "foe": "heinrich",
+          "foeWeapon": "excalibur_replica",
+          "weapon": "longsword",
+          "cards": null,
+          "lastWeapon": "longsword",
+          "version": 1
+        }
+      },
+      {
+        "check": "actual touchscreen joystick movement and tap attack work after entry",
+        "from": [
+          -2.819814682006836,
+          -0.002772766863927245
+        ],
+        "to": [
+          -2.863646984100342,
+          -0.004245526622980833
+        ]
+      },
+      {
+        "check": "pause and resume remain usable"
+      },
+      {
+        "check": "continue restores armed round at stage start"
+      },
+      {
+        "check": "win saves next stage immediately; resume does not award duplicate clear"
+      },
+      {
+        "check": "new journey resets stage while preserving unlocks and settings"
+      },
+      {
+        "check": "existing restart still returns to draw"
+      },
+      {
+        "check": "existing direct test link bypasses title and cannot overwrite journey"
+      },
+      {
+        "check": "desktop: integrated title and compact notices fit",
+        "right": 986,
+        "bottom": 760,
+        "centerA": 728,
+        "centerB": 728
+      },
+      {
+        "check": "portrait: integrated title and compact notices fit",
+        "right": 370,
+        "bottom": 732,
+        "centerA": 700,
+        "centerB": 700
+      },
+      {
+        "check": "small-portrait: integrated title and compact notices fit",
+        "right": 300,
+        "bottom": 546,
+        "centerA": 514,
+        "centerB": 514
+      },
+      {
+        "check": "storage denied still allows a new game"
+      }
+    ],
+    "errors": []
+  },
+  "prototypeRegression": {
+    "pixel": {
+      "passed": 14,
+      "errors": []
+    },
+    "classic": {
+      "passed": 13,
+      "errors": []
+    }
+  },
+  "saveUnitTests": {
+    "command": "node --test tools/sim/journey_save.test.mjs",
+    "pass": 5,
+    "fail": 0
+  },
+  "offline": {
+    "pass": true,
+    "checks": [
+      "normal root launch cached",
+      "offline reload shows pixel title and starts stage-one draw"
+    ],
+    "files": 353,
+    "errors": []
+  },
+  "gatesOn": [
+    {
+      "name": "fights12",
+      "command": [
+        "node",
+        "tools/sim/fights12.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "18a6e7362b0671a34a92ae5b85cc9c8f895a3c716cadba4de87433a5406671b0",
+      "baselineMatches": false,
+      "pass": true
+    },
+    {
+      "name": "live_battery",
+      "command": [
+        "node",
+        "tools/sim/live_battery.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "e7ee3d96dc05c4b9b095e8120531b065cf42f367fa74c9c80c5788b2a6a666c4",
+      "baselineMatches": true,
+      "pass": true
+    },
+    {
+      "name": "finish_thrust",
+      "command": [
+        "node",
+        "tools/sim/finish_thrust.mjs",
+        "1",
+        "--stand"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "433ac9845913951fe96d3a880ba0c66a01127021c3f970f33ecefa390ea82f81",
+      "baselineMatches": true,
+      "pass": true
+    },
+    {
+      "name": "corr",
+      "command": [
+        "node",
+        "tools/sim/corr_s0.mjs",
+        "--limits=off,on",
+        "--scenes=a,b"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "c46f7e8df5c419b359c26b01faca6fa136aa27304f775f737d7898d59cfdc905",
+      "baselineMatches": true,
+      "identical": 12,
+      "pass": true
+    },
+    {
+      "name": "weapon_smoke",
+      "command": [
+        "node",
+        "tools/sim/weapon_smoke.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "27b922fcf9ca8ce25d3b0c8df104a09bf2f5b1b8abcd2f1f22b80794533bcd4e",
+      "baselineMatches": true,
+      "pass": true
+    }
+  ],
+  "build": {
+    "version": "67cbc1b32fc8e40754c9593f",
+    "files": 353,
+    "totalBytes": 6824268,
+    "excludedDirectories": [
+      "corr",
+      "r2p",
+      "support",
+      "wb"
+    ],
+    "commit": null
+  },
+  "screenshots": "Actual local production browser; cards fixed to longsword/rapier using existing cards parameter. Combat screenshots taken before disabling AI for input checks or forcing victory for checkpoint checks.",
+  "limitations": [
+    "Continue restarts the saved stage from its beginning; mid-fight body/health state is not serialized",
+    "Browser-local checkpoint, no account login or cross-device save",
+    "Public page direct verification blocked by cloud network policy",
+    "Chromium emulation, not physical Safari/FPS testing"
+  ]
+}
