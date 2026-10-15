@@ -1,0 +1,538 @@
+{
+  "checkedAt": "2026-10-15T22:56:13.173247+09:00",
+  "implementationCommit": "ca8885413c61fab79d32ad977cd823658b3efb6b",
+  "pixelBrowser": {
+    "results": [
+      {
+        "check": "first launch: six real notices in scrollable dialog",
+        "dialog": [
+          454,
+          140,
+          986,
+          760
+        ],
+        "confirm": [
+          886,
+          710,
+          958,
+          746
+        ],
+        "hideRead": [
+          482,
+          712,
+          599,
+          744
+        ],
+        "footerHeight": 61,
+        "viewport": [
+          1440,
+          900
+        ],
+        "scroll": true
+      },
+      {
+        "check": "notices use the game text colors and three type sizes",
+        "typography": {
+          ".notice-header h2": {
+            "size": "17px",
+            "color": "rgb(243, 233, 216)"
+          },
+          ".notice-count": {
+            "size": "12px",
+            "color": "rgb(184, 168, 142)"
+          },
+          ".notice-entry h3": {
+            "size": "14px",
+            "color": "rgb(243, 233, 216)"
+          },
+          ".notice-entry p": {
+            "size": "14px",
+            "color": "rgb(184, 168, 142)"
+          },
+          ".notice-meta": {
+            "size": "12px",
+            "color": "rgb(184, 168, 142)"
+          },
+          ".unread": {
+            "size": "12px",
+            "color": "rgb(217, 164, 65)"
+          },
+          ".hide-read": {
+            "size": "12px",
+            "color": "rgb(184, 168, 142)"
+          },
+          ".confirm-button": {
+            "size": "14px",
+            "color": "rgb(243, 233, 216)"
+          }
+        }
+      },
+      {
+        "check": "pixel Korean title, 18% smaller framed buttons and left notices control",
+        "title": {
+          "fontReady": true,
+          "text": "Stillness",
+          "width": 178,
+          "rendering": "crisp-edges"
+        },
+        "layout": {
+          "english": {
+            "text": "Stillness",
+            "inkHeight": 102.24468085106383,
+            "rendering": "crisp-edges"
+          },
+          "korean": {
+            "text": "적막",
+            "inkHeight": 44,
+            "rendering": "crisp-edges"
+          },
+          "buttons": [
+            {
+              "text": "처음부터",
+              "width": 227.953125,
+              "height": 49.1875,
+              "left": 750.015625,
+              "right": 977.96875,
+              "top": 509.125,
+              "bottom": 558.3125,
+              "background": "rgb(133, 96, 47)",
+              "border": 4
+            },
+            {
+              "text": "이어하기",
+              "width": 227.953125,
+              "height": 49.1875,
+              "left": 750.015625,
+              "right": 977.96875,
+              "top": 574.3125,
+              "bottom": 623.5,
+              "background": "rgb(101, 73, 47)",
+              "border": 4
+            }
+          ],
+          "footer": {
+            "text": "공지사항",
+            "left": 26,
+            "top": 844,
+            "controls": 1
+          },
+          "width": 1440,
+          "height": 900
+        }
+      },
+      {
+        "check": "choice feedback preserves game progress/settings"
+      },
+      {
+        "check": "hide-read preference persists; offscreen notices remain unread",
+        "read": [
+          "20261015-walking-577f4d53",
+          "20261015-recovery-c76b4a6f",
+          "20261015-preparation-f933bc07",
+          "20261015-hud-2f593ba6"
+        ],
+        "remaining": [
+          "20261015-clinch",
+          "20261015-exhaustion"
+        ]
+      },
+      {
+        "check": "all read: next launch goes to title"
+      },
+      {
+        "check": "reopen notices and turn hiding off"
+      },
+      {
+        "check": "invalid saved preference recovers"
+      },
+      {
+        "check": "phone-landscape: dialog, scrolling and title fit",
+        "width": 844,
+        "height": 390,
+        "dialog": [
+          172,
+          16,
+          672,
+          374
+        ],
+        "confirm": [
+          576,
+          328,
+          648,
+          364
+        ],
+        "hideRead": [
+          196,
+          333.5,
+          313,
+          358.5
+        ],
+        "footerHeight": 53,
+        "viewport": [
+          844,
+          390
+        ],
+        "scroll": true,
+        "layout": {
+          "english": {
+            "text": "Stillness",
+            "inkHeight": 67.63563829787235,
+            "rendering": "crisp-edges"
+          },
+          "korean": {
+            "text": "적막",
+            "inkHeight": 36.41379310344828,
+            "rendering": "crisp-edges"
+          },
+          "buttons": [
+            {
+              "text": "처음부터",
+              "width": 205,
+              "height": 39.359375,
+              "left": 403.90625,
+              "right": 608.90625,
+              "top": 234.90625,
+              "bottom": 274.265625,
+              "background": "rgb(133, 96, 47)",
+              "border": 4
+            },
+            {
+              "text": "이어하기",
+              "width": 205,
+              "height": 39.359375,
+              "left": 403.90625,
+              "right": 608.90625,
+              "top": 286.265625,
+              "bottom": 325.625,
+              "background": "rgb(101, 73, 47)",
+              "border": 4
+            }
+          ],
+          "footer": {
+            "text": "공지사항",
+            "left": 26,
+            "top": 352,
+            "controls": 1
+          },
+          "width": 844,
+          "height": 390
+        }
+      },
+      {
+        "check": "phone-portrait: dialog, scrolling and title fit",
+        "width": 390,
+        "height": 844,
+        "dialog": [
+          20,
+          112,
+          370,
+          732
+        ],
+        "confirm": [
+          270,
+          682,
+          342,
+          718
+        ],
+        "hideRead": [
+          48,
+          684,
+          165,
+          716
+        ],
+        "footerHeight": 61,
+        "viewport": [
+          390,
+          844
+        ],
+        "scroll": true,
+        "layout": {
+          "english": {
+            "text": "Stillness",
+            "inkHeight": 54.42686170212766,
+            "rendering": "crisp-edges"
+          },
+          "korean": {
+            "text": "적막",
+            "inkHeight": 36.413781527815196,
+            "rendering": "crisp-edges"
+          },
+          "buttons": [
+            {
+              "text": "처음부터",
+              "width": 227.953125,
+              "height": 49.1875,
+              "left": 81.015625,
+              "right": 308.96875,
+              "top": 410.28436279296875,
+              "bottom": 459.47186279296875,
+              "background": "rgb(133, 96, 47)",
+              "border": 4
+            },
+            {
+              "text": "이어하기",
+              "width": 227.953125,
+              "height": 49.1875,
+              "left": 81.015625,
+              "right": 308.96875,
+              "top": 475.47186279296875,
+              "bottom": 524.6593627929688,
+              "background": "rgb(101, 73, 47)",
+              "border": 4
+            }
+          ],
+          "footer": {
+            "text": "공지사항",
+            "left": 26,
+            "top": 788,
+            "controls": 1
+          },
+          "width": 390,
+          "height": 844
+        }
+      },
+      {
+        "check": "small-landscape: dialog, scrolling and title fit",
+        "width": 568,
+        "height": 320,
+        "dialog": [
+          34,
+          16,
+          534,
+          304
+        ],
+        "confirm": [
+          438,
+          258,
+          510,
+          294
+        ],
+        "hideRead": [
+          58,
+          263.5,
+          175,
+          288.5
+        ],
+        "footerHeight": 53,
+        "viewport": [
+          568,
+          320
+        ],
+        "scroll": true,
+        "layout": {
+          "english": {
+            "text": "Stillness",
+            "inkHeight": 62.5438829787234,
+            "rendering": "crisp-edges"
+          },
+          "korean": {
+            "text": "적막",
+            "inkHeight": 36.41379310344828,
+            "rendering": "crisp-edges"
+          },
+          "buttons": [
+            {
+              "text": "처음부터",
+              "width": 205,
+              "height": 39.359375,
+              "left": 238.296875,
+              "right": 443.296875,
+              "top": 197.984375,
+              "bottom": 237.34375,
+              "background": "rgb(133, 96, 47)",
+              "border": 4
+            },
+            {
+              "text": "이어하기",
+              "width": 205,
+              "height": 39.359375,
+              "left": 238.296875,
+              "right": 443.296875,
+              "top": 249.34375,
+              "bottom": 288.703125,
+              "background": "rgb(101, 73, 47)",
+              "border": 4
+            }
+          ],
+          "footer": {
+            "text": "공지사항",
+            "left": 26,
+            "top": 282,
+            "controls": 1
+          },
+          "width": 568,
+          "height": 320
+        }
+      },
+      {
+        "check": "small-portrait: dialog, scrolling and title fit",
+        "width": 320,
+        "height": 568,
+        "dialog": [
+          20,
+          22,
+          300,
+          546
+        ],
+        "confirm": [
+          200,
+          496,
+          272,
+          532
+        ],
+        "hideRead": [
+          48,
+          498,
+          165,
+          530
+        ],
+        "footerHeight": 61,
+        "viewport": [
+          320,
+          568
+        ],
+        "scroll": true,
+        "layout": {
+          "english": {
+            "text": "Stillness",
+            "inkHeight": 43.41489361702128,
+            "rendering": "crisp-edges"
+          },
+          "korean": {
+            "text": "적막",
+            "inkHeight": 36.41379889126482,
+            "rendering": "crisp-edges"
+          },
+          "buttons": [
+            {
+              "text": "처음부터",
+              "width": 203.359375,
+              "height": 49.1875,
+              "left": 58.3125,
+              "right": 261.671875,
+              "top": 276.8500061035156,
+              "bottom": 326.0375061035156,
+              "background": "rgb(133, 96, 47)",
+              "border": 4
+            },
+            {
+              "text": "이어하기",
+              "width": 203.359375,
+              "height": 49.1875,
+              "left": 58.3125,
+              "right": 261.671875,
+              "top": 342.0375061035156,
+              "bottom": 391.2250061035156,
+              "background": "rgb(101, 73, 47)",
+              "border": 4
+            }
+          ],
+          "footer": {
+            "text": "공지사항",
+            "left": 26,
+            "top": 512,
+            "controls": 1
+          },
+          "width": 320,
+          "height": 568
+        }
+      },
+      {
+        "check": "reduced motion: immediate static title"
+      },
+      {
+        "check": "storage denied: screen remains usable"
+      }
+    ],
+    "errors": []
+  },
+  "gatesOn": [
+    {
+      "name": "fights12",
+      "command": [
+        "node",
+        "tools/sim/fights12.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "18a6e7362b0671a34a92ae5b85cc9c8f895a3c716cadba4de87433a5406671b0",
+      "baselineMatches": false,
+      "pass": true
+    },
+    {
+      "name": "live_battery",
+      "command": [
+        "node",
+        "tools/sim/live_battery.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "e7ee3d96dc05c4b9b095e8120531b065cf42f367fa74c9c80c5788b2a6a666c4",
+      "baselineMatches": true,
+      "pass": true
+    },
+    {
+      "name": "finish_thrust",
+      "command": [
+        "node",
+        "tools/sim/finish_thrust.mjs",
+        "1",
+        "--stand"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "433ac9845913951fe96d3a880ba0c66a01127021c3f970f33ecefa390ea82f81",
+      "baselineMatches": true,
+      "pass": true
+    },
+    {
+      "name": "corr",
+      "command": [
+        "node",
+        "tools/sim/corr_s0.mjs",
+        "--limits=off,on",
+        "--scenes=a,b"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "3ab12608505cb3a6fe0d5eeea810ef7fa5399d6ead9fbc271819320d91c3c3d3",
+      "baselineMatches": true,
+      "identical": 12,
+      "pass": true
+    },
+    {
+      "name": "weapon_smoke",
+      "command": [
+        "node",
+        "tools/sim/weapon_smoke.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "27b922fcf9ca8ce25d3b0c8df104a09bf2f5b1b8abcd2f1f22b80794533bcd4e",
+      "baselineMatches": true,
+      "pass": true
+    }
+  ],
+  "build": {
+    "version": "99682673d66cac9fdbd3c289",
+    "files": 350,
+    "totalBytes": 6800879,
+    "excludedDirectories": [
+      "corr",
+      "r2p",
+      "support",
+      "wb"
+    ],
+    "commit": null
+  },
+  "visualReview": [
+    "Actual desktop, phone landscape and portrait captures: one slanted longsword under tree, tip buried in ground",
+    "Footer controls share one row at all five viewports, including 320px portrait; confirm 72x36 CSS px"
+  ],
+  "limitations": [
+    "Local production Chromium screenshots, not physical phone/Safari testing",
+    "Standalone start-pixel.html prototype, no account or save-game actions",
+    "Public page direct verification blocked by cloud network policy"
+  ],
+  "notRepeated": "Classic prototype browser checks: implementation touches only the pixel renderer and pixel-scoped CSS."
+}
