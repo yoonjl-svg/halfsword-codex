@@ -290,7 +290,8 @@ export class Stamina {
     this.rest += dt;
     if (!this.guarding) {
       const before = this.value;
-      this.value = Math.min(STAMINA.max, this.value + active * STAMINA.recoverPerSecond);
+      const rate = f.aiControlled ? STAMINA.recoverPerSecond : STAMINA.playerRecoverPerSecond;
+      this.value = Math.min(STAMINA.max, this.value + active * rate);
       this.recovered += this.value - before;
     }
     this.stages();

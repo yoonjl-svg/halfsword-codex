@@ -19,7 +19,7 @@ export const STAMINA = {
   strokeQuiet: 0.12, strokeTravel: 0.06, strokeCenter: 0.22,
   weaponReferenceMass: 1.6,
   stepDistance: 0.6, maxWalkSpeed: 3,
-  recoverPerSecond: 15, recoverDelay: 0.6,
+  recoverPerSecond: 15, playerRecoverPerSecond: 21, recoverDelay: 0.6,
   exhaustSeconds: 2.5, exhaustRecover: 20,
   tiredPower: 0.49, severePower: 0.25,
   aiRestAt: 20, aiAggressiveRestAt: -10, aiResumeAt: 35,

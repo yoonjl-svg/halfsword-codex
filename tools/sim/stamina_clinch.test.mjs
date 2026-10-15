@@ -71,12 +71,12 @@ test('클린치 발 디딤·유지 접촉은 걷기나 예전 공격의 막기 �
   fs.forEach(f => { near(f.stamina.spent.clinch, 10); near(f.stamina.spent.move, 0); near(f.stamina.spent.block, 0); });
 });
 test('밀기 종료부터0.6초 후 회복, 짧게 놓아도 즉시 회복하지 않음', () => {
-  const fs = pair(); tick(fs, 1); fs.forEach(f => { f.stickY = 0; });
+  const fs = pair(); fs[1].aiControlled = true; tick(fs, 1); fs.forEach(f => { f.stickY = 0; });
   tick(fs, 0.6); fs.forEach(f => near(f.stamina.value, 70));
-  tick(fs, 0.2); fs.forEach(f => near(f.stamina.value, 73));
+  tick(fs, 0.2); near(fs[0].stamina.value, 74.2); near(fs[1].stamina.value, 73);
   fs.forEach(f => { f.stickY = 1; }); tick(fs, 0.1);
   fs.forEach(f => { f.stickY = 0; }); tick(fs, 0.2);
-  fs.forEach(f => near(f.stamina.value, 72));
+  near(fs[0].stamina.value, 73.2); near(fs[1].stamina.value, 72);
 });
 test('기력50 대−30:2초 뒤30 대−50, 갱신 순서에 따른 차이 없이 탈진', () => {
   for (const reverse of [false, true]) {

@@ -59,11 +59,11 @@ test('사람/AI 방어 유지 중 소모도 회복도 없음, 마지막 접촉�
  for(const ai of [false,true]) {
   const f=actor({aiControlled:ai});const c=ai?{mode:'defend'}:{held:true};f.stamina.controller=c;f.stamina.value=50;tick(f,2);near(f.stamina.value,50);
   const a=actor();a.stamina.attack();f.stamina.block(a);tick(f,.2);
-  c.mode='watch';c.held=false;tick(f,.4);near(f.stamina.value,47);tick(f,.2);near(f.stamina.value,50);
+  c.mode='watch';c.held=false;tick(f,.4);near(f.stamina.value,47);tick(f,.2);near(f.stamina.value,ai?50:51.2);
  }
 });
 test('오래 막고 접촉 없이 놓으면 이미 지난 회복 지연을 다시 부과하지 않음',()=>{
- const f=actor();f.stamina.value=50;f.stamina.controller={held:true};tick(f,2);f.stamina.controller.held=false;tick(f,.2);near(f.stamina.value,53);
+ const f=actor();f.stamina.value=50;f.stamina.controller={held:true};tick(f,2);f.stamina.controller.held=false;tick(f,.2);near(f.stamina.value,54.2);
 });
 test('0/-30 단계와 +15/-15 해제 문턱',()=>{
  const s=actor().stamina;s.value=-1;s.stages();near(s.speed,.7);s.value=10;s.stages();near(s.speed,.7);s.value=15;s.stages();near(s.speed,1);
@@ -73,10 +73,10 @@ test('탈진2.5초: 막기를 누르고 있어도 회복,0/지침으로 해제,�
  const f=actor();f.stamina.controller={held:true};f.stamina.spend('attack',180);near(f.stamina.value,-50);near(f.stamina.speed,0);
  f.stamina.attack();near(f.stamina.spent.attack,180);tick(f,2);near(f.stamina.value,-10);assert.ok(f.stamina.exhausted);
  tick(f,.5);near(f.stamina.value,0);near(f.stamina.speed,.7);assert.equal(f.stamina.exhausted,false);
- f.stamina.controller.held=false;tick(f,1);near(f.stamina.value,15);near(f.stamina.speed,1);
+ f.stamina.controller.held=false;tick(f,1);near(f.stamina.value,21);near(f.stamina.speed,1);
 });
 test('회복/탈진은 dt 분할과 무관, 일시정지 dt0은 진행하지 않음',()=>{
- for(const dt of [1/120,1/60,.1]){const f=actor();f.stamina.spend('attack',150);tick(f,2.5,dt);near(f.stamina.value,0);near(f.stamina.exhaustLeft,0);f.stamina.step(0);near(f.stamina.value,0);}
+ for(const aiControlled of [false,true])for(const dt of [1/120,1/60,.1]){const f=actor({aiControlled});f.stamina.spend('attack',150);tick(f,2.5,dt);near(f.stamina.value,0);near(f.stamina.exhaustLeft,0);f.stamina.step(0);near(f.stamina.value,0);}
 });
 test('기력 끔은 비용·힘·이동·입력 제한 모두 해제',()=>{
  const f=actor();f.stamina.spend('attack',150);try{STAMINA.on=false;f.stamina.attack();near(f.stamina.speed,1);near(f.stamina.power,1);assert.equal(f.stamina.exhausted,false);tick(f,.1);near(f.stamina.value,100);}finally{STAMINA.on=true;}

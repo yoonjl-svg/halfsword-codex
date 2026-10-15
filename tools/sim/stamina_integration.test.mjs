@@ -8,6 +8,13 @@ import { requestIai } from '../../src/secret_instant.js';
 import { STAMINA, SECRET } from '../../src/config.js';
 const near=(a,b,e=1e-5)=>assert.ok(Math.abs(a-b)<e,`${a} != ${b}`);
 function game(fn,weapon='longsword'){const g=newRound({weapon,seed:7});try{return fn(g);}finally{g.world.free();}}
+test('실제 사람/AI는0.6초 뒤 각각21/s·15/s 회복하며100을 넘지 않음',()=>game(g=>{
+ g.ai.update=()=>{};for(let i=0;i<240;i++)g.step();
+ for(const f of [g.player,g.enemy]){f.stamina.value=20;f.stamina.rest=0;}
+ for(let i=0;i<72;i++)g.step();near(g.player.stamina.value,20);near(g.enemy.stamina.value,20);
+ for(let i=0;i<240;i++)g.step();near(g.player.stamina.value,62);near(g.enemy.stamina.value,50);
+ for(let i=0;i<480;i++)g.step();near(g.player.stamina.value,100);near(g.enemy.stamina.value,100);
+}));
 test('실제 파손 전 강체 질량을 고정',()=>{for(const id of ['rapier','zweihander'])game(g=>{const p=g.player;const k=p.stamina.weight;p.breakWeapon();assert.ok(p.swordMass<p.stamina.originalMass);p.stamina.attack();near(p.stamina.spent.attack,12*k);},id);});
 test('고유 동작 해금0/5에서 같은 입력의 공격 횟수와 비용이 같음',()=>{
  const rows=[];for(const stage of [0,5])game(g=>{g.ai.update=()=>{};const p=g.player;new PlayerUniqueAssist(p,{stage});
