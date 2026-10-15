@@ -1,140 +1,73 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { Vector2 } from 'three';
 import { Stamina } from '../../src/stamina.js';
 import { STAMINA } from '../../src/config.js';
-
-function actor(overrides = {}) {
-  const f = { alive: true, armed: true, state: 'stand', feetHeld: false, move: { x: 0, y: 0 }, skill: {}, swordMass: 1.5, ...overrides };
-  f.stamina = new Stamina(f);
-  return f;
+const near = (a,b,e=1e-7) => assert.ok(Math.abs(a-b)<e, `${a} != ${b}`);
+function actor(extra={}) {
+ const pos={x:0,y:1,z:0};
+ const f={ alive:true, armed:true, state:'stand', heading:0, swordMass:1.6, move:new Vector2(), handOffset:new Vector2(), skill:{vel:new Vector2(),swinging:false}, bodies:{pelvis:{translation:()=>pos}}, ...extra };
+ f.stamina=new Stamina(f); f.pos=pos; return f;
 }
-const tick = (f, seconds, dt = 1 / 120) => { for (let i = 0; i < Math.round(seconds / dt); i++) f.stamina.step(dt); };
-
-test('이동·공격·막기는 소모, 막기는 공격의 1/8보다 적고 이중 청구 없음', () => {
-  const move = actor({ move: { x: 0, y: 1 } });
-  const attack = actor({ skill: { swinging: true } });
-  const block = actor({ skill: { swinging: true } });
-  block.stamina.controller = { active: true };
-  for (const f of [move, attack, block]) tick(f, 2);
-  assert.ok(move.stamina.value < 100);
-  assert.ok(attack.stamina.spent.attack > 8 * block.stamina.spent.block);
-  assert.equal(block.stamina.spent.attack, 0);
+const tick=(f,seconds,dt=1/120)=>{for(let t=0;t<seconds-1e-9;t+=dt)f.stamina.step(Math.min(dt,seconds-t));};
+test('공격은 한 번에 베기12/찌르기7, 막기3; 무게는 원래 질량으로 고정',()=>{
+ const f=actor(); f.stamina.attack(); f.stamina.attack('thrust');near(f.stamina.value,81);
+ const w=actor({swordMass:2.9}); const k=Math.sqrt(2.9/1.6);near(w.stamina.weight,k);w.swordMass=.4;near(w.stamina.weight,k);w.stamina.attack();near(w.stamina.spent.attack,12*k);
 });
-
-test('무거운 무기는 같은 이동·공격·막기에 더 소모', () => {
-  for (const action of ['move', 'attack', 'block']) {
-    const pair = [0.7, 4].map(swordMass => actor({ swordMass }));
-    for (const f of pair) {
-      if (action === 'move') f.move.y = 1;
-      if (action === 'attack') f.skill.swinging = true;
-      if (action === 'block') f.stamina.controller = { active: true };
-      tick(f, 1);
-    }
-    assert.ok(pair[1].stamina.value < pair[0].stamina.value, action);
-  }
+test('무게 배율은 0.75~1.5',()=>{near(actor({swordMass:.1}).stamina.weight,.75);near(actor({swordMass:20}).stamina.weight,1.5);});
+test('짧은 입력 끊김/작은 방향 흔들림은 같은 긋기, 반대 방향은 새 공격',()=>{
+ const f=actor();f.skill.swinging=true;f.skill.vel.set(3,0);tick(f,.1);assert.equal(f.stamina.counts.cut,1);
+ f.skill.swinging=false;tick(f,.04);f.skill.swinging=true;f.skill.vel.set(3,.1);tick(f,.1);assert.equal(f.stamina.counts.cut,1);
+ f.skill.vel.set(-3,0);tick(f,.1);assert.equal(f.stamina.counts.cut,2);
+ f.skill.swinging=false;tick(f,.08);f.skill.swinging=true;tick(f,.1);assert.equal(f.stamina.counts.cut,3);
 });
-
-test('시작 발 묶임·쓰러짐에는 이동 입력을 청구하지 않음', () => {
-  for (const overrides of [{ feetHeld: true }, { state: 'down' }, { state: 'kneel' }]) {
-    const f = actor({ move: { x: 1, y: 1 }, ...overrides });
-    tick(f, 1);
-    assert.equal(f.stamina.value, 100);
-  }
+test('해금 객체가 없어도 공격 비용, 자동 막기 이동에는 공격 비용 없음',()=>{
+ const f=actor();assert.equal(f.skill.uniq,undefined);f.skill.swinging=true;f.skill.vel.set(3,0);tick(f,.1);near(f.stamina.spent.attack,12);
+ const d=actor();d.stamina.controller={held:true};d.skill.swinging=true;d.skill.vel.set(3,0);tick(d,1);near(d.stamina.spent.attack,0);near(d.stamina.spent.block,0);
 });
-
-test('휴식 지연 후 회복, 행동 재개는 회복 지연을 다시 시작', () => {
-  const f = actor({ skill: { swinging: true } });
-  tick(f, 1);
-  const spent = f.stamina.value;
-  f.skill.swinging = false;
-  tick(f, 0.5);
-  assert.equal(f.stamina.value, spent);
-  tick(f, 1);
-  assert.ok(f.stamina.value > spent);
-  f.move.y = 1;
-  tick(f, 0.1);
-  f.move.y = 0;
-  const now = f.stamina.value;
-  tick(f, 0.5);
-  assert.equal(f.stamina.value, now);
-  tick(f, 20);
-  assert.equal(f.stamina.value, 100);
+test('실제 접촉 청구는 상대 공격당 한 번, 다음 공격에서 다시 청구',()=>{
+ const a=actor(),b=actor();b.stamina.controller={held:true};a.stamina.attack();for(let i=0;i<8;i++)b.stamina.block(a);near(b.stamina.spent.block,3);
+ a.stamina.attack();b.stamina.block(a);near(b.stamina.spent.block,6);
 });
-
-test('고갈하면 힘 저하, 약간 회복해도 유지하고 20%에서 해제', () => {
-  const f = actor({ skill: { swinging: true } });
-  tick(f, 6);
-  assert.equal(f.stamina.value, 0);
-  assert.ok(f.stamina.exhausted && f.stamina.power < 1);
-  f.skill.swinging = false;
-  tick(f, 1.5);
-  assert.ok(f.stamina.value > 0 && f.stamina.exhausted);
-  tick(f, 1);
-  assert.ok(f.stamina.value >= 20 && !f.stamina.exhausted);
-  assert.equal(f.stamina.power, 1);
+test('비기는35 한 번, 구성 공격/걷기와 이중 청구하지 않음',()=>{
+ const f=actor();f.skill.sec={};f.stamina.secret();f.stamina.attack();f.stamina.attack('thrust');near(f.stamina.value,65);near(f.stamina.spent.attack,0);near(f.stamina.spent.secret,35);
 });
-
-test('AI 막기는 싸게, 간 보기 손 이동은 공격이 아님', () => {
-  const f = actor({ aiControlled: true, skill: { swinging: true } });
-  const c = f.stamina.controller = { mode: 'watch' };
-  tick(f, 1);
-  assert.equal(f.stamina.value, 100);
-  c.mode = 'defend';
-  tick(f, 1);
-  assert.ok(f.stamina.spent.block > 0);
-  assert.equal(f.stamina.spent.attack, 0);
-  c.mode = 'attack'; c.phase = 'strike';
-  tick(f, 1);
-  assert.ok(f.stamina.spent.attack > f.stamina.spent.block * 8);
+test('걷는 중에도 회복; 실제0.6m당1, 일본1.5, 제자리 입력은 무료',()=>{
+ for(const [trad,cost] of [['german',1],['japanese',1.5]]) {
+  const f=actor({swordArt:{tradition:trad}});f.stamina.value=20;f.stamina.rest=.6;f.move.y=1;f.stamina.step(1/120);
+  for(let i=0;i<120;i++){f.pos.x+=.01;f.stamina.step(1/120);}
+  near(f.stamina.spent.move,2*cost);assert.ok(f.stamina.value>30);
+ }
+ const f=actor();f.move.y=1;tick(f,2);near(f.stamina.spent.move,0);
 });
-
-test('버튼 없이 칼을 세워 받는 접촉도 막기로 청구', () => {
-  const f = actor({ feel: { touching: true } });
-  tick(f, 1);
-  assert.ok(f.stamina.spent.block > 0);
-  assert.equal(f.stamina.spent.attack, 0);
+test('비자발적/기술 이동에는 걷기 비용 없음',()=>{
+ for(const extra of [{feetHeld:true},{gait:{req:{}}},{state:'down'}]){
+ const f=actor(extra);f.move.y=1;f.stamina.step(.01);for(let i=0;i<100;i++){f.pos.x+=.01;f.stamina.step(.01);}near(f.stamina.spent.move,0);}
 });
-
-test('찌르기·폼멜과 사격도 청구; 사격은 발당 한 번', () => {
-  for (const key of ['tap', 'pom', 'thrustPush']) {
-    const f = actor({ skill: { [key]: true } });
-    tick(f, 0.5);
-    assert.ok(f.stamina.spent.attack > 0, key);
-  }
-  const f = actor({ gun: { shots: 1 } });
-  tick(f, 0.1);
-  const cost = f.stamina.spent.attack;
-  tick(f, 0.1);
-  assert.equal(f.stamina.spent.attack, cost);
+test('사람/AI 방어 유지 중 소모도 회복도 없음, 마지막 접촉의 지연은 유지',()=>{
+ for(const ai of [false,true]) {
+  const f=actor({aiControlled:ai});const c=ai?{mode:'defend'}:{held:true};f.stamina.controller=c;f.stamina.value=50;tick(f,2);near(f.stamina.value,50);
+  const a=actor();a.stamina.attack();f.stamina.block(a);tick(f,.2);
+  c.mode='watch';c.held=false;tick(f,.4);near(f.stamina.value,47);tick(f,.2);near(f.stamina.value,50);
+ }
 });
-
-test('같은 게임 시간은 스텝 간격과 무관하게 같은 비용·회복', () => {
-  const a = actor({ move: { x: 1, y: 0 } });
-  const b = actor({ move: { x: 1, y: 0 } });
-  tick(a, 5); tick(b, 5, 1 / 60);
-  a.move.x = b.move.x = 0;
-  tick(a, 1.5); tick(b, 1.5, 1 / 60);
-  assert.ok(Math.abs(a.stamina.value - b.stamina.value) < 1e-8);
+test('오래 막고 접촉 없이 놓으면 이미 지난 회복 지연을 다시 부과하지 않음',()=>{
+ const f=actor();f.stamina.value=50;f.stamina.controller={held:true};tick(f,2);f.stamina.controller.held=false;tick(f,.2);near(f.stamina.value,53);
 });
-
-test('사망·부활 중에는 정지, 새 검객은 가득 찬 기력', () => {
-  const f = actor({ alive: false, skill: { swinging: true } });
-  f.stamina.value = 30;
-  tick(f, 5);
-  assert.equal(f.stamina.value, 30);
-  f.alive = true; f.revival = {};
-  tick(f, 5);
-  assert.equal(f.stamina.value, 30);
-  assert.equal(actor().stamina.value, 100);
+test('0/-30 단계와 +15/-15 해제 문턱',()=>{
+ const s=actor().stamina;s.value=-1;s.stages();near(s.speed,.7);s.value=10;s.stages();near(s.speed,.7);s.value=15;s.stages();near(s.speed,1);
+ s.value=-31;s.stages();near(s.speed,.5);s.value=-20;s.stages();near(s.speed,.5);s.value=-15;s.stages();near(s.speed,.7);
 });
-
-test('끔 대조는 고갈 효과까지 제거', () => {
-  const f = actor({ skill: { swinging: true } });
-  tick(f, 6);
-  try {
-    STAMINA.on = false;
-    tick(f, 1);
-    assert.equal(f.stamina.value, 100);
-    assert.equal(f.stamina.power, 1);
-  } finally { STAMINA.on = true; }
+test('탈진2.5초: 막기를 누르고 있어도 회복,0/지침으로 해제,추가비용없음',()=>{
+ const f=actor();f.stamina.controller={held:true};f.stamina.spend('attack',180);near(f.stamina.value,-50);near(f.stamina.speed,0);
+ f.stamina.attack();near(f.stamina.spent.attack,180);tick(f,2);near(f.stamina.value,-10);assert.ok(f.stamina.exhausted);
+ tick(f,.5);near(f.stamina.value,0);near(f.stamina.speed,.7);assert.equal(f.stamina.exhausted,false);
+ f.stamina.controller.held=false;tick(f,1);near(f.stamina.value,15);near(f.stamina.speed,1);
 });
+test('회복/탈진은 dt 분할과 무관, 일시정지 dt0은 진행하지 않음',()=>{
+ for(const dt of [1/120,1/60,.1]){const f=actor();f.stamina.spend('attack',150);tick(f,2.5,dt);near(f.stamina.value,0);near(f.stamina.exhaustLeft,0);f.stamina.step(0);near(f.stamina.value,0);}
+});
+test('기력 끔은 비용·힘·이동·입력 제한 모두 해제',()=>{
+ const f=actor();f.stamina.spend('attack',150);try{STAMINA.on=false;f.stamina.attack();near(f.stamina.speed,1);near(f.stamina.power,1);assert.equal(f.stamina.exhausted,false);tick(f,.1);near(f.stamina.value,100);}finally{STAMINA.on=true;}
+});
+test('사망·부활 중 기력 정지, 새 판100',()=>{for(const extra of [{alive:false},{revival:{}}]){const f=actor(extra);f.stamina.value=20;tick(f,3);near(f.stamina.value,20);}near(actor().stamina.value,100);});

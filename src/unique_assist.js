@@ -1,3 +1,4 @@
+import { classifyStroke } from './attack_stroke.js';
 // ─────────────────────────────────────────────────────────────
 //  플레이어 고유 동작 강화 (10/14 — docs/strike/unique_player_2026-10-13.md '10/14 강화 방식'. 10/13 판 '이어 주기'를 다시 만듦)
 //
@@ -298,22 +299,7 @@ export class PlayerUniqueAssist {
   }
 
   /** 시작 자리·처음 방향 → 기본 동작 (시작 패드가 그 동작의 from 이고 첫 방향이 허용 각 안). { pad, tech, kind } */
-  classify(start, dir) {
-    let pad = null;
-    let pd = UA.padRadius;
-    for (const [name, p] of Object.entries(G)) {
-      if (name === 'kron') continue; // 왕관은 막기 자리 (긋기 시작 자세 아님)
-      const d = hyp(start[0] - p[0], start[1] - p[1]);
-      if (d <= pd) {
-        pd = d;
-        pad = name;
-      }
-    }
-    if (!pad) return { pad: null, tech: null, kind: 'cut' };
-    const t = TECH.find((x) => x.from === G[pad]);
-    if (t && angDeg(dir, [t.path[0][0] - t.from[0], t.path[0][1] - t.from[1]]) <= UA.angle) return { pad, tech: t.name, kind: t.kind };
-    return { pad, tech: null, kind: 'cut' };
-  }
+  classify(start, dir) { return classifyStroke(start, dir); }
 
   condOk(c, cur, dir, now) {
     if (c.tech && cur.tech !== c.tech) return false;

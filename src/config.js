@@ -11,19 +11,16 @@ export const PHYSICS = {
   maxStepsPerFrame: 6, // 프레임이 밀렸을 때 따라잡기 위한 최대 스텝 수
 };
 
-// 기력: 게임 시간 기준. 고갈 불이익은 팔/손목 힘에만 준다.
+// 기력 2차: 행동당 비용, 빚/탈진. 원래 무기 질량은 판 동안 고정한다.
 export const STAMINA = {
-  on: true,
-  max: 100,
-  movePerSecond: 4,
-  attackPerSecond: 22,
-  blockPerSecond: 2,
-  shotCost: 2,
-  weaponReferenceMass: 1.5,
-  recoverPerSecond: 15,
-  recoverDelay: 0.8,
-  exhaustedRecovery: 0.2, // 20%까지 쉬어야 고갈 해제
-  exhaustedPower: 0.6,
+  on: true, max: 100, floor: -50,
+  cutCost: 12, thrustCost: 7, blockCost: 3, secretCost: 35, pushCost: 12, shotCost: 2,
+  weaponReferenceMass: 1.6,
+  stepDistance: 0.6, maxWalkSpeed: 3,
+  recoverPerSecond: 15, recoverDelay: 0.6,
+  exhaustSeconds: 2.5, exhaustRecover: 20,
+  tiredPower: 0.49, severePower: 0.25,
+  aiRestAt: 20, aiAggressiveRestAt: -10, aiResumeAt: 35,
 };
 
 export const ARENA = {

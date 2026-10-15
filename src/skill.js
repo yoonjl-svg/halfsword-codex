@@ -158,7 +158,7 @@ export class Skill {
    */
   thrust({ step = true, vital = undefined, rangeCommit = false } = {}) {
     const f = this.f;
-    if (this.tap || this.pom || (this.vitalRange && !rangeCommit) || !f.alive || !f.armed || !f.foe || (f.state !== 'stand' && f.state !== 'kneel')) return false;
+    if (f.stamina.exhausted || this.tap || this.pom || (this.vitalRange && !rangeCommit) || !f.alive || !f.armed || !f.foe || (f.state !== 'stand' && f.state !== 'kneel')) return false;
     // 권총(??? 등급): 찌르기 = 발사. 장전 중이면 쏘지 않는다 (gun.js)
     if (f.weapon?.gun) return gunCanFire(f, { now: true }); // 권총: 찌르는 동작 없이 사격 자세(gunPose, 자동 조준 + 흔들림)의 지금 총신 방향으로 바로 쏜다 (AI 조준 보정은 gunAI)
     // 지금 손 목표 (몸 기준 [앞, 위, 칼 든 쪽]). 검술 보정이 다 걸려 있으면 자세 지도의 손, 덜 걸려 있으면(보정 약·끔)
@@ -197,6 +197,7 @@ export class Skill {
       }
     }
     const h0 = rangeCommit && this.thrustPose.w > 0 ? this.thrustPose.hand.slice() : g ? [g[0], g[1], g[2]] : [0.3, -0.2, 0.12];
+    if (!f.aiControlled) f.stamina.attack('thrust');
     this.tap = { t: 0, h0, down, head: !down && !V && this.aimRaw.y > THRUST.headPad, K };
     if (rangeCommit) this.tap.w0 = this.thrustPose.w; // 간격 맞추기 자세에서 곧장 이어 간다 (덧씌우기를 0 으로 떨어뜨리지 않는다)
     if (V) {
@@ -347,7 +348,7 @@ export class Skill {
     const f = this.f;
     const T = THRUST;
     const K = tp?.K; // 이번 찌르기의 시간·뻗는 거리 (무기의 찌르기 장점 반영)
-    if (tp) tp.t += dt;
+    if (tp) tp.t += dt * f.stamina.speed;
     this.thrustPush = false;
     // 찍기(tp.down)의 끝은 시간이 아니라 몸의 일(plungePose 의 tEnd): 끝난 뒤 자세로 돌아오는 시간만 잰다
     if (!tp || tp.t >= (tp.down ? (tp.tEnd ?? Infinity) + K.recover : K.aim + K.extend + K.hold + K.recover) || !f.alive || !f.armed || !f.foe) {
@@ -437,10 +438,11 @@ export class Skill {
    */
   pommel({ target = POMMEL.target, step = true } = {}) {
     const f = this.f;
-    if (this.tap || this.pom || !f.alive || !f.armed || !f.foe || f.weapon?.gun || f.state !== 'stand') return false;
+    if (f.stamina.exhausted || this.tap || this.pom || !f.alive || !f.armed || !f.foe || f.weapon?.gun || f.state !== 'stand') return false;
     const g = f.handBase || f.guardPose.hand; // 지금 손 목표 (덧씌우기 전, driveSword 가 매 스텝 적는다)
     this.pom = { t: 0, h0: g ? [g[0], g[1], g[2]] : [0.3, -0.2, 0.12], head: target === 'head' && !headOff(f.foe), go: null };
     this.pommels++;
+    if (!f.aiControlled) f.stamina.attack('cut');
     // 한 걸음 내딛으며 찍는다 (찌르기와 같은 요청 꼴: gait lunge 0.3 s — 당기는 동안 발이 나가 내지를 때 딛는다)
     if (step && POMMEL.step > 0 && f.gait?.active) f.gait.requestStep({ kind: 'lunge', fwd: POMMEL.step, duration: 0.3 });
     return true;
@@ -452,7 +454,7 @@ export class Skill {
     const pose = this.thrustPose;
     const f = this.f;
     const P = POMMEL;
-    p.t += dt;
+    p.t += dt * f.stamina.speed;
     const end = P.chamber + P.drive + P.hold;
     if (p.t >= end + P.recover || !f.alive || !f.armed || !f.foe) {
       this.pom = null;
@@ -542,7 +544,7 @@ export class Skill {
    */
   secret(o) {
     const f = this.f;
-    if (this.sec || this.tap || this.pom || !o?.S || !f.alive || !f.armed || f.state !== 'stand' || !f.foe) return false;
+    if (f.stamina.exhausted || this.sec || this.tap || this.pom || !o?.S || !f.alive || !f.armed || f.state !== 'stand' || !f.foe) return false;
     const S = o.S;
     const D = S.do;
     const school = f.swordArt?.school;
@@ -624,6 +626,7 @@ export class Skill {
       run.queue.push(D.step ? { ...base, step: { ...D.step, fwd: secVal(D.step.fwd), push: secVal(D.step.push) } } : base);
     } else return false;
     this.sec = run;
+    f.stamina.secret();
     this.recovering = false;
     this.cutPending = true;
     const st = (this.secretStats[S.name] ??= { fired: 0, landed: 0 });
@@ -638,6 +641,7 @@ export class Skill {
     const t = run.queue.shift();
     if (!t) return false;
     run.cur = t;
+    this.f.stamina.attack(t.kind === 'thrust' ? 'thrust' : 'cut', true);
     run.bound = false;
     run.segHit = false;
     if (run.flow) {
@@ -684,7 +688,7 @@ export class Skill {
     const dx = tx - off.x;
     const dy = ty - off.y;
     const dd = Math.hypot(dx, dy);
-    const step = v * dt;
+    const step = v * dt * this.f.stamina.speed;
     if (dd > step) {
       off.x += (dx / dd) * step;
       off.y += (dy / dd) * step;
@@ -1179,10 +1183,27 @@ export class Skill {
     if (this.corr === 'v2' && this.level > 0) this.idleGoal = 0;
   }
 
+  holdExhausted(dt) {
+    const f = this.f;
+    if (this.sec) this.secretEnd();
+    this.tap = this.pom = this.vitalRange = null;
+    this.thrustPose.w = 0;
+    this.thrustPush = false;
+    if (this.uniq?.running) this.uniq.end('exhausted');
+    const k = Math.min(1, dt * 6);
+    f.handOffset.x += (0.08 - f.handOffset.x) * k;
+    f.handOffset.y += (-0.32 - f.handOffset.y) * k;
+    this.stiffHeld = true;
+    this.holdStiff(dt);
+    this.guardDrive = 0;
+    this.cutPending = this.recovering = false;
+  }
+
   update(dt) {
     if (dt <= 0) return;
     const f = this.f;
     const L = this.level;
+    if (f.stamina.exhausted) return this.holdExhausted(dt);
     this.sinceThrust = this.tap ? 0 : this.sinceThrust + dt;
     if (this.sec) this.updateSecret(dt); // 플레이어 비기: 손 목표를 비기 길로 (이 스텝의 거르기·몸 따라가기는 아래 그대로)
     if (this.uniq) this.uniq.drive(dt); // 플레이어 고유 동작 강화 (unique_assist.js — main.js 가 플레이어에게만 붙인다, AI 는 없음): 몸 덧씌우기·끝 힘·걸음 (손 목표는 건드리지 않는다)
@@ -1257,10 +1278,14 @@ export class Skill {
     const w = this.filterW;
     const ax = w * w * (this.aimRaw.x - this.aim.x) - 2 * w * this.aimVel.x;
     const ay = w * w * (this.aimRaw.y - this.aim.y) - 2 * w * this.aimVel.y;
-    this.aimVel.x += ax * dt;
-    this.aimVel.y += ay * dt;
-    this.aim.x += this.aimVel.x * dt;
-    this.aim.y += this.aimVel.y * dt;
+    // 목표 궤적/도착점은 그대로 두고 플레이어의 손 목표 추종 시간만 늦춘다.
+    // AI/비기는 이미 경로 이동 속도에 배율을 받으므로 두 번 곱하지 않는다.
+    const aimDt = dt * (!f.aiControlled && !this.sec && !f.stamina.guarding ? f.stamina.speed : 1);
+    this.aimVel.x += ax * aimDt;
+    this.aimVel.y += ay * aimDt;
+    if (!f.aiControlled && f.stamina.speed < 1 && !f.stamina.guarding) this.aimVel.clampLength(0, AI_LEVELS.normal.strikeSpeed * f.stamina.speed);
+    this.aim.x += this.aimVel.x * aimDt;
+    this.aim.y += this.aimVel.y * aimDt;
 
     // 3) 내딛기: 잠깐 멈췄다가 새로 휘두르기 시작할 때, 상대가 한 걸음 거리에 있으면
     if (swinging && this.quiet > 0.2 && f.state === 'stand') {

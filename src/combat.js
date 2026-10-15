@@ -519,6 +519,8 @@ export class Combat {
     }
     const A = this.info.get(pairs[0][0]);
     const B = this.info.get(pairs[0][1]);
+    A.fighter.stamina.block(B.fighter);
+    B.fighter.stamina.block(A.fighter);
     if (!point) point = A.fighter.bladePoint(0.6);
     if (J > 0) n.normalize();
     const nrm = n.clone();

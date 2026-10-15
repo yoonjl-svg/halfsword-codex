@@ -40,6 +40,19 @@ export function requestInstant(f, opt = {}) {
 /** combat.afterStep 끝에서: 걸어 둔 순간 베기 실행 · 충돌 끔 시간 줄이기 */
 export function runInstants(combat) {
   for (const f of combat.fighters) {
+    if (f.stamina?.exhausted) {
+      if (f.iai) setKinematic(f, false);
+      if (f.iaiRopes) {
+        if (f.iaiRopes.grip && f.armed && !f.gripCone) f.gripConeOn();
+        if (f.iaiRopes.shoulder && !f.shoulderRopes) f.shoulderOn();
+        f.iaiRopes = null;
+      }
+      f.secretStance = null;
+      f.instantReq = f.iaiReq = f.iai = null;
+      f.instantGhost = f.iaiHoldT = f.iaiFade = 0;
+      f.iaiOneHold = false;
+      continue;
+    }
     if (f.instantGhost > 0) f.instantGhost--;
     if (f.instantReq) runInstant(f, combat);
     if (f.iaiReq) startIai(f, combat);
@@ -544,9 +557,9 @@ function stepIai(f, combat) {
     const x = Math.min(1, t / (I.T * (I.slideShare ?? SECRET.iaiSlideShare)));
     return 1 - (1 - x) * (1 - x);
   };
-  const ds = I.slide * (pr(I.t + dt) - pr(I.t));
+  const ds = I.slide * (pr(I.t + dt * f.stamina.speed) - pr(I.t));
   if (ds > 1e-5) shiftFighter(f, I.dx * ds, I.dz * ds);
-  I.t += dt;
+  I.t += dt * f.stamina.speed;
   const u = Math.min(1, I.t / I.T);
   I.u = u;
   const P = I.pose(I, u);
@@ -1137,6 +1150,7 @@ function comboPad(H) {
 function comboMoveStart(f, I, mi) {
   const m = I.moves[mi];
   I.mi = mi;
+  f.stamina.attack(m.kind === 'thrust' || m.dyn?.kind === 'thrust' ? 'thrust' : 'cut', true);
   I.moveName = m.name;
   I.hitM = false;
   I.blockM = false;
@@ -1169,7 +1183,7 @@ function stepCombo(f, combat) {
   const dt = combat.dt || 1 / 120;
   const foe = f.foe;
   if (!f.alive || !f.armed || !foe) return endCombo(f, combat);
-  I.t += dt;
+  I.t += dt * f.stamina.speed;
   f.instantGhost = Math.max(f.instantGhost ?? 0, Math.ceil(SECRET.instantNoCollide / dt) + 1);
   // 토막 넘기기 — 이 수의 토막이 끝나면 다음 수를 지금 자리에서 짠다 (없으면 끝)
   for (;;) {
