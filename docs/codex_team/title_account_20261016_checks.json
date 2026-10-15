@@ -1,0 +1,248 @@
+{
+  "implementation": "3688f3913acdffed3fbad8c1b47e4d2cab389d4c",
+  "account": {
+    "results": [
+      "OTP request, cooldown, invalid code and successful verification via mocked Auth; only verified local-part shown",
+      "refresh/back navigation retain linked identity; local sign-out resets label",
+      "desktop: dialog fits, Escape closes, journey proceeds",
+      "portrait: dialog fits, Escape closes, journey proceeds",
+      "small: dialog fits, Escape closes, journey proceeds",
+      "pre-refork growth account storage recognized",
+      "existing anonymous account links through updateUser/email_change; verified UID retained",
+      "existing-account login disables new-user creation and verifies email OTP",
+      "mail rate-limit failure leaves account unlinked and game playable"
+    ],
+    "errors": [],
+    "auth": "mocked provider responses; no live email sent"
+  },
+  "entry": {
+    "results": [
+      {
+        "check": "root opens approved pixel notices/title; old game remains stopped",
+        "header": {
+          "color": "rgb(243, 233, 216)",
+          "size": "17px"
+        },
+        "buttons": [
+          {
+            "width": 205,
+            "background": "rgb(133, 96, 47)"
+          },
+          {
+            "width": 205,
+            "background": "rgb(101, 73, 47)"
+          }
+        ]
+      },
+      {
+        "check": "continue without checkpoint stays on title with explanation"
+      },
+      {
+        "check": "lobby: actual character touch rotation, unchanged physics, existing thumbnails, editable name, tabs, account entry and safe back navigation",
+        "thumbs": [
+          {
+            "loaded": true,
+            "src": "ui/weapons/tree_branch.webp"
+          },
+          {
+            "loaded": true,
+            "src": "ui/weapons/longsword.webp"
+          }
+        ]
+      },
+      {
+        "check": "new journey enters first-stage weapon draw and stores cards",
+        "checkpoint": {
+          "stage": "poseidon",
+          "foe": "heinrich",
+          "foeWeapon": "excalibur_replica",
+          "weapon": null,
+          "cards": [
+            "longsword",
+            "rapier"
+          ],
+          "lastWeapon": null,
+          "version": 1
+        }
+      },
+      {
+        "check": "reload/continue restores the same draw, opponent and opponent weapon"
+      },
+      {
+        "check": "card choice enters live combat and stores chosen weapon",
+        "checkpoint": {
+          "stage": "poseidon",
+          "foe": "heinrich",
+          "foeWeapon": "excalibur_replica",
+          "weapon": "longsword",
+          "cards": null,
+          "lastWeapon": "longsword",
+          "version": 1
+        }
+      },
+      {
+        "check": "actual touchscreen joystick movement and tap attack work after entry",
+        "from": [
+          -2.813925266265869,
+          -0.0032246827613562346
+        ],
+        "to": [
+          -2.85750150680542,
+          -0.004089032765477896
+        ]
+      },
+      {
+        "check": "pause and resume remain usable"
+      },
+      {
+        "check": "continue restores armed round at stage start"
+      },
+      {
+        "check": "win saves next stage immediately; resume does not award duplicate clear"
+      },
+      {
+        "check": "new journey resets stage while preserving unlocks and settings"
+      },
+      {
+        "check": "existing restart still returns to draw"
+      },
+      {
+        "check": "existing direct test link bypasses title and cannot overwrite journey"
+      },
+      {
+        "check": "desktop: integrated title and compact notices fit",
+        "right": 986,
+        "bottom": 760,
+        "centerA": 728,
+        "centerB": 728
+      },
+      {
+        "check": "desktop: lobby fits, no overflow, keyboard tab selection works"
+      },
+      {
+        "check": "portrait: integrated title and compact notices fit",
+        "right": 370,
+        "bottom": 732,
+        "centerA": 700,
+        "centerB": 700
+      },
+      {
+        "check": "portrait: lobby fits, no overflow, keyboard tab selection works"
+      },
+      {
+        "check": "small-portrait: integrated title and compact notices fit",
+        "right": 300,
+        "bottom": 546,
+        "centerA": 514,
+        "centerB": 514
+      },
+      {
+        "check": "small-portrait: lobby fits, no overflow, keyboard tab selection works"
+      },
+      {
+        "check": "storage denied still allows a new game"
+      }
+    ],
+    "errors": []
+  },
+  "offline": {
+    "passed": true,
+    "files": 355,
+    "checks": [
+      "offline reload",
+      "pixel grove and card frames",
+      "existing and new helmet thumbnails",
+      "armor equip/unequip",
+      "account dialog offline, no false linked state",
+      "longsword equip",
+      "direct branch replacement",
+      "unequip",
+      "journey draw"
+    ],
+    "errors": []
+  },
+  "gates": [
+    {
+      "name": "fights12",
+      "command": [
+        "node",
+        "tools/sim/fights12.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "18a6e7362b0671a34a92ae5b85cc9c8f895a3c716cadba4de87433a5406671b0",
+      "baselineMatches": false,
+      "pass": true
+    },
+    {
+      "name": "live_battery",
+      "command": [
+        "node",
+        "tools/sim/live_battery.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "e7ee3d96dc05c4b9b095e8120531b065cf42f367fa74c9c80c5788b2a6a666c4",
+      "baselineMatches": true,
+      "pass": true
+    },
+    {
+      "name": "finish_thrust",
+      "command": [
+        "node",
+        "tools/sim/finish_thrust.mjs",
+        "1",
+        "--stand"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "433ac9845913951fe96d3a880ba0c66a01127021c3f970f33ecefa390ea82f81",
+      "baselineMatches": true,
+      "pass": true
+    },
+    {
+      "name": "corr",
+      "command": [
+        "node",
+        "tools/sim/corr_s0.mjs",
+        "--limits=off,on",
+        "--scenes=a,b"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "b2d1dea6b02f684ae4e0932d7c7d32f7313fb14d93110fcea4e1d20fb38df675",
+      "baselineMatches": true,
+      "identical": 12,
+      "pass": true
+    },
+    {
+      "name": "weapon_smoke",
+      "command": [
+        "node",
+        "tools/sim/weapon_smoke.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "27b922fcf9ca8ce25d3b0c8df104a09bf2f5b1b8abcd2f1f22b80794533bcd4e",
+      "baselineMatches": true,
+      "pass": true
+    }
+  ],
+  "build": {
+    "version": "c2b858609084bacbba0da66e",
+    "files": 355,
+    "totalBytes": 7086220,
+    "excludedDirectories": [
+      "corr",
+      "r2p",
+      "support",
+      "wb"
+    ],
+    "commit": null
+  },
+  "liveAuth": {
+    "checked": false,
+    "reason": "HTTP proxy CONNECT 403 for existing Supabase project; no real email sent or received",
+    "mockedAuthIsNotLiveEvidence": true
+  }
+}
