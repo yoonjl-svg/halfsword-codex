@@ -34,12 +34,47 @@ try{
  await p.locator('#continueJourney').click();await p.waitForTimeout(100);
  assert.match(await p.locator('#selectionStatus').textContent(),/이어갈 여정이 없습니다/);assert.equal(await p.evaluate(()=>game.state),'menu');
  check('continue without checkpoint stays on title with explanation');
- await p.locator('#newJourney').click();await phase(p,'draw');
+ await p.locator('#newJourney').click();
+ await p.locator('#characterView canvas').waitFor();
+ assert.equal(await p.evaluate(()=>game.stats.simTime),0);
+ assert.equal(await p.evaluate(()=>game.state),'menu');
+ assert.equal(await checkpoint(p),null);
+ assert.equal(await p.locator('#lobbyRank').textContent(),'견습생');
+ assert.equal(await p.locator('#lobbySchool').textContent(),'독일 유파');
+ assert.equal(await p.locator('#duelRecord').textContent(),'0승리 0패배 (0%)');
+ assert.equal(await p.locator('#panelInventory').isVisible(),true);
+ const thumbs=await p.locator('.inventory-item img').evaluateAll(els=>els.map(e=>({loaded:e.complete&&e.naturalWidth>0,src:e.getAttribute('src')})));
+ assert.ok(thumbs.every(t=>t.loaded));
+ await screenshot(p,'lobby-phone');
+ const beforeBodies=await p.evaluate(()=>game.player.meshes.map(({rb})=>({p:rb.translation(),q:rb.rotation()})));
+ const turn=await p.locator('#characterView').boundingBox(),touch=await context.newCDPSession(p);
+ const tx=turn.x+turn.width*.15,ty=turn.y+turn.height*.5;
+ await touch.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:tx,y:ty}]});
+ await touch.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:tx+turn.width*.5,y:ty}]});
+ await touch.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+ assert.ok(Math.abs(Number(await p.locator('#characterView').getAttribute('data-angle'))-180)<3);
+ await screenshot(p,'lobby-back');
+ assert.deepEqual(await p.evaluate(()=>game.player.meshes.map(({rb})=>({p:rb.translation(),q:rb.rotation()}))),beforeBodies);
+ await p.locator('#characterView').focus();await p.keyboard.press('Home');
+ await p.locator('[data-weapon=longsword]').tap();assert.match(await p.locator('#itemName').textContent(),/롱소드/);
+ await p.locator('#editName').tap();await p.locator('#playerNameInput').fill('  샛별  ');await p.locator('#nameForm button[type=submit]').click();
+ assert.equal(await p.locator('#lobbyName').textContent(),'샛별');
+ await p.locator('#editName').tap();await p.locator('#playerNameInput').fill('취소할 이름');await p.locator('#cancelName').tap();
+ assert.equal(await p.locator('#lobbyName').textContent(),'샛별');
+ await p.locator('#tabSkills').tap();assert.equal(await p.locator('.skill-group').count(),5);assert.ok(await p.locator('.skill-group p.unlocked').count()>0);
+ await screenshot(p,'lobby-skills');
+ await p.locator('#tabSettings').tap();await p.locator('#lobbyFps').uncheck();
+ assert.equal(await p.evaluate(()=>JSON.parse(localStorage.getItem('gladiator-settings')).fpsCap),false);
+ await p.locator('#lobbyFps').check();await p.locator('#tabInventory').tap();
+ await p.locator('#lobbyBack').tap();await title(p);await p.locator('#newJourney').tap();
+ assert.equal(await p.locator('#lobbyName').textContent(),'샛별');assert.equal(await checkpoint(p),null);
+ check('lobby: actual character touch rotation, unchanged physics, existing thumbnails, editable name, tabs, fps setting and safe back navigation',{thumbs});
+ await p.locator('#lobbyDepart').tap();await phase(p,'draw');
  await p.waitForFunction(()=>game.draw.t>.6);
  assert.equal(await p.locator('#gameEntrance').count(),0);const drawn=await checkpoint(p);
  assert.equal(drawn.stage,'poseidon');assert.equal(drawn.cards.length,2);await screenshot(p,'cards-in-game');
  check('new journey enters first-stage weapon draw and stores cards',{checkpoint:drawn});
- await p.reload({waitUntil:'networkidle'});await title(p);await p.locator('#continueJourney').click();await phase(p,'draw');
+ await p.reload({waitUntil:'networkidle'});await title(p);await p.locator('#continueJourney').click();await p.locator('#lobbyDepart').click();await phase(p,'draw');
  const restored=await checkpoint(p);assert.deepEqual(restored,drawn);
  assert.deepEqual(await p.evaluate(()=>game.draw.ids.slice(0,2)),drawn.cards);
  check('reload/continue restores the same draw, opponent and opponent weapon');
@@ -47,6 +82,7 @@ try{
  const armed=await checkpoint(p);assert.equal(armed.weapon,drawn.cards[0]);
  await p.waitForTimeout(1000);await screenshot(p,'fight-in-game');
  const before=await p.evaluate(()=>game.stats.simTime);await p.waitForFunction(t=>game.stats.simTime>t,before,{timeout:20000});
+ assert.equal(await p.evaluate(()=>game.player.name),'샛별');
  check('card choice enters live combat and stores chosen weapon',{checkpoint:armed});
  // 실제 입력 회귀: 첫 사진 뒤에만 AI를 멈추고 이동·공격을 관측한다.
  await p.evaluate(()=>{game.ai.update=()=>{};});await p.waitForTimeout(1800);
@@ -63,7 +99,7 @@ try{
  check('actual touchscreen joystick movement and tap attack work after entry',{from:a,to:b});
  await p.locator('#btnPause').tap();await phase(p,'paused');await p.locator('#btnResume').tap();await phase(p,'fight');
  check('pause and resume remain usable');
- await p.reload({waitUntil:'networkidle'});await title(p);await p.locator('#continueJourney').click();await phase(p,'fight');
+ await p.reload({waitUntil:'networkidle'});await title(p);await p.locator('#continueJourney').click();await p.locator('#lobbyDepart').click();await phase(p,'fight');
  assert.equal(await p.evaluate(()=>game.player.weapon.id),armed.weapon);
  assert.equal(await p.evaluate(()=>game.enemy.weapon.id),armed.foeWeapon);
  assert.equal(await p.evaluate(()=>game.stage.id),armed.stage);
@@ -71,13 +107,14 @@ try{
  // 재접속 경계 검사만 위해 상대 패배를 강제한다. 실제 플레이 사진은 위에서 이미 촬영했다.
  await p.evaluate(()=>game.enemy.die('기절',true));
  await p.waitForFunction(k=>JSON.parse(localStorage.getItem(k)).stage==='clearing',key);
+ assert.deepEqual(await p.evaluate(()=>JSON.parse(localStorage.getItem('stillness.fork.profile.v1'))),{version:1,name:'샛별',wins:1,losses:0});
  const cleared=await p.evaluate(()=>localStorage.getItem('stillness.journeyClears.v1'));assert.equal(cleared,'38');
- await p.reload({waitUntil:'networkidle'});await title(p);await p.locator('#continueJourney').click();await phase(p,'draw');
+ await p.reload({waitUntil:'networkidle'});await title(p);await p.locator('#continueJourney').click();await p.locator('#lobbyDepart').click();await phase(p,'draw');
  assert.equal(await p.evaluate(()=>game.stage.id),'clearing');assert.equal(await p.evaluate(()=>localStorage.getItem('stillness.journeyClears.v1')),'38');
  check('win saves next stage immediately; resume does not award duplicate clear');
- await p.reload({waitUntil:'networkidle'});await title(p);await p.locator('#newJourney').click();await phase(p,'draw');
+ await p.reload({waitUntil:'networkidle'});await title(p);await p.locator('#newJourney').click();await p.locator('#lobbyDepart').click();await phase(p,'draw');
  assert.equal(await p.evaluate(()=>game.stage.id),'poseidon');assert.equal(await p.evaluate(()=>localStorage.getItem('stillness.journeyClears.v1')),'38');
- assert.equal(await p.evaluate(()=>localStorage.getItem('gladiator-settings')),'{"fpsCap":true}');
+ assert.equal(await p.evaluate(()=>JSON.parse(localStorage.getItem('gladiator-settings')).fpsCap),true);
  check('new journey resets stage while preserving unlocks and settings');
  await p.locator('#btnPause').tap();await phase(p,'paused');await p.locator('#btnStart').tap();await phase(p,'draw');
  check('existing restart still returns to draw');
@@ -92,10 +129,17 @@ try{
   const rects=await q.locator('#noticeDialog').evaluate(d=>{const r=d.getBoundingClientRect(),root=d.getRootNode(),a=root.getElementById('confirmNotices').getBoundingClientRect(),b=root.querySelector('.hide-read').getBoundingClientRect();return {right:r.right,bottom:r.bottom,centerA:(a.top+a.bottom)/2,centerB:(b.top+b.bottom)/2};});
   assert.ok(rects.right<=width&&rects.bottom<=height&&Math.abs(rects.centerA-rects.centerB)<1);
   await title(q);assert.equal(await q.locator('.title-screen').evaluate(el=>getComputedStyle(el).transitionDuration),'0s');
-  if(name!=='small-portrait')await screenshot(q,`title-${name}`);check(`${name}: integrated title and compact notices fit`,rects);await c.close();
+  if(name!=='small-portrait')await screenshot(q,`title-${name}`);check(`${name}: integrated title and compact notices fit`,rects);
+  await q.locator('#newJourney').click();await q.locator('#characterView canvas').waitFor();
+  assert.equal(await q.locator('#lobbySchool').textContent(),'아직 없음');
+  assert.ok(await q.locator('.lobby').evaluate(el=>el.scrollWidth<=el.clientWidth));
+  await q.locator('#lobbyDepart').scrollIntoViewIfNeeded();assert.equal(await q.locator('#lobbyDepart').isVisible(),true);
+  if(name!=='small-portrait'){await q.locator('.lobby').evaluate(el=>el.scrollTop=0);await screenshot(q,`lobby-${name}`);}
+  await q.locator('#tabInventory').focus();await q.keyboard.press('ArrowDown');assert.equal(await q.locator('#panelSkills').isVisible(),true);
+  check(`${name}: lobby fits, no overflow, keyboard tab selection works`);await c.close();
  }
  const denied=await browser.newContext({viewport:{width:844,height:390},serviceWorkers:'allow',reducedMotion:'reduce'});await denied.addInitScript(()=>{Storage.prototype.getItem=()=>{throw Error('denied');};Storage.prototype.setItem=()=>{throw Error('denied');};});
- const d=await denied.newPage();watch(d);await d.goto(base+'/',{waitUntil:'networkidle'});await title(d);await d.locator('#newJourney').click();await phase(d,'draw');check('storage denied still allows a new game');await denied.close();
+ const d=await denied.newPage();watch(d);await d.goto(base+'/',{waitUntil:'networkidle'});await title(d);await d.locator('#newJourney').click();await d.locator('#lobbyDepart').click();await phase(d,'draw');check('storage denied still allows a new game');await denied.close();
  assert.deepEqual(errors,[]);
 }finally{fs.writeFileSync(`${out}/results.json`,JSON.stringify({results,errors},null,2));await browser.close();}
 console.log(`PASS ${results.length} integrated entry checks; errors ${errors.length}`);
