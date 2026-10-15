@@ -31,6 +31,19 @@
       "observedPagesStatus": "",
       "error": "Unknown Pages state; refusing to cancel:"
     },
-    "emptyStateHandling": "Only the explicitly identified stale e2f04f61 ID may be cancelled when its API status is empty; terminal states still skip."
+    "emptyStateHandling": "Only the explicitly identified stale e2f04f61 ID may be cancelled when its API status is empty; terminal states still skip.",
+    "cancellationAttempt": {
+      "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38774189920",
+      "cancellationRequest": "accepted; reported by the workflow notice",
+      "subsequentDeploy": "400: e2f04f61 still reported in progress immediately after request",
+      "releaseOfBackendLock": "not confirmed"
+    },
+    "temporaryStepRemoved": true
+  },
+  "normalRetryAfterCancellation": {
+    "requestedAt": "2026-10-15T17:06:23.625658+00:00",
+    "status": "requested",
+    "gameCodeChanged": false,
+    "workflowRestoredTo": "e2f04f61"
   }
 }
