@@ -9,6 +9,7 @@ import { FINISH as FINISH_SWITCH } from './finish.js'; // 마무리 스위치 en
 import { VITAL as VITAL_SWITCH } from './vital_target.js'; // 약한 자세 겨눔 갈래 스위치 (10/12)
 import { Fighter, GROUND_GROUPS } from './fighter.js';
 import { createStaminaHud } from './stamina_hud.js';
+import { createScreenTint } from './screen_tint.js';
 import { InputTrail } from './trail.js';
 import { Input, attachStick } from './input.js';
 import { LOOKS, getLook } from './looks.js';
@@ -50,6 +51,7 @@ await RAPIER.init();
 const params = new URLSearchParams(location.search.slice(1).replace(/\?/g, '&')); // 주소에 ? 를 두 번 써도(…?r2p=1?weapon=…) 뒤쪽 인자까지 읽는다 (사장님 10/8 08:30 링크 입력 실수 대비)
 if (params.has('stamina')) CONFIG.STAMINA.on = params.get('stamina') !== '0';
 const staminaHud = createStaminaHud(document.getElementById('staminaHud'));
+const screenTint = createScreenTint();
 // 주인공은 판마다 무기 카드 세 장 중 하나를 골라 받는다 (아래 "무기 뽑기"). 주소에 ?weapon=을 적으면 뽑기 없이 그 무기로 고정.
 //  진짜 엑스칼리버는 주인공만 받을 수 있고, 복제품은 하인리히 몫이라 뽑기에서 뺀다
 const PLAYER_WEAPON_POOL = WEAPON_LIST.map((w) => w.id).filter((id) => id !== 'excalibur_replica' && !RETIRED_WEAPONS.has(id)); // 빼 둔 무기(에스톡·세이버·팔쉬온 — 사장님 10/13 23:2x)는 카드에 안 나온다
@@ -833,7 +835,6 @@ function updateDrips(f, dt) {
 // ── UI ──
 const $ = (id) => document.getElementById(id);
 const menu = $('menu');
-const hud = $('hud');
 const topButtons = $('topButtons');
 const toast = $('toast');
 const hint = $('hint');
@@ -1266,7 +1267,7 @@ async function startFight() {
   }
   $('rotate').classList.add('enabled');
   menu.classList.remove('show');
-  hud.classList.add('show');
+  screenTint.visible = true;
   topButtons.classList.add('show');
   closeDraw(); // 뽑기 도중에 "처음부터 다시"를 눌렀으면 그 카드는 치운다
   toast.classList.remove('show');
@@ -1533,25 +1534,15 @@ function updatePlayerEmotion(dt) {
   T.ax = T.x;
   T.ay = T.y;
   // 화면: 감정별 색이 세기만큼 (공포 푸른 회색·분노 붉음·집념 금빛)
-  const el = $('emotion');
-  if (el) {
-    el.dataset.emotion = playerEmo.emotion || '';
-    el.style.opacity = (playerEmo.emotion && EMO_ABILITY.enabled ? 0.25 + 0.5 * playerEmo.intensity : playerEmo.emotion ? 0.15 : 0).toFixed(3);
-  }
+  screenTint.setEmotion(playerEmo.emotion, playerEmo.emotion && EMO_ABILITY.enabled ? 0.25 + 0.5 * playerEmo.intensity : playerEmo.emotion ? 0.15 : 0);
 }
 
 // 체력 게이지 대신: 피를 흘리거나 아프면 화면 가장자리가 붉게 물든다 (하프 소드처럼 숫자 없음)
-//  값이 바뀔 때만 스타일을 쓴다 (같은 값을 매 프레임 쓰지 않게 — 보이는 것은 같다)
-const hudLast = { opacity: null };
 function updateHud() {
   const lost = THREE.MathUtils.clamp((1 - player.blood) / 0.5, 0, 1);
   const pulse = player.bleed > 0.002 ? 0.15 * (0.5 + 0.5 * Math.sin(performance.now() / 180)) : 0;
   const v = Math.min(1, lost * 0.85 + Math.min(1, player.pain) * 0.35 + pulse);
-  const opacity = v.toFixed(3);
-  if (opacity !== hudLast.opacity) $('vignette').style.opacity = hudLast.opacity = opacity;
-  // 10/13 사장님 '붉은 화면이 될 때 화면 오른쪽 일부 영역이 바뀌지 않고 그대로' — 의식이 흐려질 때 붉은 테두리 자체에 걸던 blur 필터를 뺐다.
-  //  그 필터는 뒤의 장면이 아니라 이 테두리만 흐리게 해 보이는 차이가 거의 없었고, 휴대폰 사파리에서 화면 전체 크기 층에 매 프레임 바뀌는 필터를 걸면
-  //  층의 일부 조각이 다시 그려지지 않는 문제가 알려져 있다(데스크톱 크로미엄에서는 재현 안 됨 — 사장님 기기 확인 필요)
+  screenTint.setBlood(v);
 }
 
 /** 판 끝 결과 글자: 결정타 슬로모션(slowMo)이 끝난 뒤에 한 번. 슬로모션 동안 참수·쓰러지는 장면을 글자가 가리지 않게 */
@@ -2088,11 +2079,13 @@ function frame(now) {
   }
   updateCamera(dt); // 거르는 프레임에도: 흔들림 스프링·발걸음(player.footstep 소비)·소리 자리(sound.listener)가 여기 달려 있다
   staminaHud.update([player, enemy], camera, state === 'fight' && !roundOver);
+  screenTint.update(dt);
   let renderMs = 0;
   if (paint) {
     fighterLight.update(fighterMeshes);
     const renderT0 = perf ? performance.now() : 0;
     renderer.render(scene, camera);
+    screenTint.render(renderer);
     renderMs = perf ? performance.now() - renderT0 : 0;
   } else camera.updateMatrixWorld(); // 그리기가 해 주던 카메라 행렬 갱신 — 소리 좌우(sound._where)가 읽는다
   if (perf) perf.frame(now, frameMs, physMs, renderMs, physSteps, capped, simWant, simGot, paint);
@@ -2155,6 +2148,7 @@ window.game = {
   freeCam: false,
   renderInfo: () => ({ frame: renderer.info.render.frame, calls: renderer.info.render.calls, triangles: renderer.info.render.triangles, ...renderer.info.memory, programs: renderer.info.programs?.length }),
   renderCap, // 화면 갱신 상한: game.renderCap.interval = 잰 화면 간격(초). 끄기는 설정 '화면 60 fps 제한' (game.settings.fpsCap)
+  screenTint,
   // 배경: game.stage 로 지금 배경·짓는 시간 확인, game.setStage('castle') 로 바로 바꿔 보기 (싸우는 중이면 잠깐 멈칫한다)
   get stage() {
     return { id: stages.id, pinned: STAGE_PIN, buildMs: stages.buildMs, clearMs: stages.clearMs, warmMs: stages.warmMs };

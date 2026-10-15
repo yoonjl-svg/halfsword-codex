@@ -34,8 +34,9 @@ export function createStaminaHud(root) {
         const y = (1 - point.y) * height / 2;
         if (x < 30 || x > width - 30 || y < 8 || y > height - 8) return;
         bar.hidden = false;
-        bar.style.left = `${x}px`;
-        bar.style.top = `${y}px`;
+        const dpr = window.devicePixelRatio || 1;
+        bar.style.left = `${Math.round(x * dpr) / dpr}px`;
+        bar.style.top = `${Math.round(y * dpr) / dpr}px`;
         const st = f.stamina;
         bar.dataset.exhausted = String(st.exhausted);
         bar.dataset.level = String(st.level);

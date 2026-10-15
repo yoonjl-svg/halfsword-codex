@@ -104,15 +104,8 @@
       #game.pixel { image-rendering: pixelated; image-rendering: crisp-edges; }
 
       /* HUD: 붉은 테두리(출혈/통증) */
-      #hud { position: fixed; inset: 0; display: none; pointer-events: none; }
-      #hud.show { display: block; }
-      #vignette { position: absolute; inset: 0; opacity: 0; transition: opacity .2s; will-change: opacity; transform: translateZ(0); /* 10/13: 한 층으로 통째 합성 — 사파리에서 일부 조각만 다시 그려지지 않게 */
-        background: radial-gradient(ellipse at center, rgba(120,0,0,0) 45%, rgba(120,0,0,.55) 78%, rgba(60,0,0,.9) 100%); }
-      /* 플레이어 감정(emotions.js): 지배 감정에 따라 가장자리 색이 다르다 — 공포 푸른 회색, 분노 붉음, 집념 금빛 */
-      #emotion { position: absolute; inset: 0; opacity: 0; transition: opacity .4s; }
-      #emotion[data-emotion="fear"] { background: radial-gradient(ellipse at center, rgba(60,80,110,0) 50%, rgba(60,80,110,.5) 85%, rgba(20,30,50,.8) 100%); }
-      #emotion[data-emotion="anger"] { background: radial-gradient(ellipse at center, rgba(200,30,0,0) 55%, rgba(200,30,0,.45) 88%, rgba(120,0,0,.8) 100%); }
-      #emotion[data-emotion="obsession"] { background: radial-gradient(ellipse at center, rgba(220,170,40,0) 55%, rgba(220,170,40,.4) 88%, rgba(140,90,0,.75) 100%); }
+      /* 출혈·감정 색막은 screen_tint.js가 게임 캔버스에 합성한다.
+         전체 화면 CSS 층의 크기/타일이 Safari에서 부분적으로 남는 경로를 쓰지 않는다. */
       #topButtons { position: fixed; top: max(8px, env(safe-area-inset-top)); z-index: 2; left: 50%; transform: translateX(-50%); display: none; gap: 8px; }
       #topButtons.show { display: flex; }
       .iconBtn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: var(--panel); color: var(--c-text); font-size: 17px; font-family: revert; } /* 글리프 단추 (일시정지 Ⅱ) — 글자 규칙 밖(그림). 글꼴은 브라우저 기본 단추 글꼴 그대로(revert — 10/14): 화면 글꼴 줄의 Ⅱ(Noto Sans TC 조각)는 위아래 가로획이 붙은 로마 숫자라 '멈춤' 그림으로 안 읽힌다 */
@@ -146,10 +139,10 @@
       /* ② 를 담는 겉 칸 (main.js updateTechCue) — 자리를 차지하지 않는다 (숨기면 ② 가 숨는다) */
       #techCue { position: fixed; inset: 0; pointer-events: none; }
       #staminaHud { position: fixed; inset: 0; pointer-events: none; }
-      .stamina-bar { position: absolute; width: 56px; height: 2px; transform: translate(-50%, -100%); background: rgba(24,18,14,.35); border-radius: 1px; overflow: hidden; box-shadow: 0 0 0 .5px var(--c-text); }
+      .stamina-bar { position: absolute; width: 56px; height: 2px; transform: translate(-50%, -100%); background: rgba(24,18,14,.35); border-radius: 1px; overflow: hidden; box-shadow: 0 0 0 .25px var(--c-text), 0 0 0 .5px var(--c-accent); }
       .stamina-bar > span { display: block; width: 100%; height: 100%; background: var(--c-sub); opacity: .85; transform-origin: left center; }
       .stamina-bar { transition: opacity .4s; }
-      .stamina-bar[data-full="true"] { opacity: .15; }
+      .stamina-bar[data-full="true"] { opacity: .6; }
       .stamina-bar[data-level="1"], .stamina-bar[data-level="2"] { animation: stamina-breath 1.8s ease-in-out infinite; }
       .stamina-bar[data-level="2"] { animation-duration: 1.1s; }
       .stamina-bar[data-exhausted="true"] { animation: none; }
@@ -371,7 +364,6 @@
     <canvas id="game"></canvas>
 
     <!-- 체력 게이지 없음: 피를 흘리거나 아프면 화면 가장자리가 붉게 물든다 -->
-    <div id="hud"><div id="vignette"></div><div id="emotion"></div></div>
     <div id="topButtons">
       <button class="iconBtn" id="btnPause" aria-label="일시정지">Ⅱ</button>
     </div>
