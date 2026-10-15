@@ -235,7 +235,7 @@ export function ashGround(scene, groundY, { wet = true, paint = null } = {}) {
     const n1 = h3(Math.round(x * 0.5), 0, Math.round(z * 0.5), 4) * 0.5 + h3(x * 0.8, 2, z * 0.8, 6) * 0.5;
     const n2 = h3(Math.round(x * 0.18), 5, Math.round(z * 0.18), 7);
     tmp.copy(cAsh).lerp(cSoot, THREE.MathUtils.clamp((n1 - 0.45) * 1.8, 0, 1) * 0.7); // 더 탄 자리는 더 검다
-    const trod = THREE.MathUtils.clamp((8.4 - rr) / 2.0, 0, 1);
+    const trod = THREE.MathUtils.clamp((ARENA.radius + 1.9 - rr) / 2.0, 0, 1);
     tmp.lerp(cEarth, trod * (0.55 + 0.45 * n1));
     // 타다 남은 마른 풀 (바깥쪽, 드문드문)
     if (rr > 12) tmp.lerp(cDry, THREE.MathUtils.clamp((n2 - 0.62) * 3, 0, 1) * 0.6 * THREE.MathUtils.smoothstep(rr, 12, 18));
@@ -400,7 +400,7 @@ export function birchTree(K, r, groundY, x, z, h, lean) {
 }
 
 /** 새싹: 탄 땅 사이로 드문드문 (인스턴싱, 작은 세모잎 두 장). avoid: [{x, z, r}] */
-export function sproutField(scene, groundY, { N = 1900, avoid = [], seed = 66, r0 = 8.8, r1 = 17 } = {}) {
+export function sproutField(scene, groundY, { N = 1900, avoid = [], seed = 66, r0 = ARENA.radius + 2.3, r1 = 17 } = {}) {
   const sr = rng(seed);
   const g = new THREE.BufferGeometry();
   // 잎 두 장 = 삼각형 넷 (양면)
@@ -687,7 +687,7 @@ export function buildClearing(scene, lights = {}, { rain = true } = {}) {
   // ── 탄 그루터기와 쓰러진 통나무 (결투 자리 밖 9~24m) ──
   for (let i = 0; i < 54; i++) {
     const a = r() * Math.PI * 2;
-    const d = 9.3 + r() * 14;
+    const d = ARENA.radius + 2.8 + r() * 14;
     const x = Math.cos(a) * d;
     const z = Math.sin(a) * d;
     if (x < -10 && z > 4 && z < 14) continue; // 오두막 마당

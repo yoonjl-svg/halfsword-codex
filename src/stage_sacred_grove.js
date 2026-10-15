@@ -2,6 +2,7 @@
 // and camera remain authoritative. All trunks, roots, gates and large rocks stay
 // outside the 10.5m camera orbit; the 6.5m fighting floor has only flush stones.
 import * as THREE from 'three';
+import { ARENA } from './config.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { rng, h3, Kit, canvasTex, UP } from './stage_kit.js';
 
@@ -256,13 +257,13 @@ function ground(scene, texture) {
       // Broad, interlocking moss tongues replace the regular green ring. The
       // duel surface stays flat; this is pigment, not collision relief.
       const edge = Math.sin(a * 3 + 0.7) * 1.7 + Math.sin(a * 7 - 1.4) * 0.62;
-      const forest = THREE.MathUtils.smoothstep(rad, 7.3 + edge * 0.35, 12.9 + edge);
+      const forest = THREE.MathUtils.smoothstep(rad, ARENA.radius + 0.8 + edge * 0.35, ARENA.radius + 6.4 + edge);
       const shade = (Math.sin(x * 0.86 + Math.sin(z * 0.63)) * Math.sin(z * 0.74 - x * 0.22) + 1) * 0.5;
       // 결투장 흙 (10/11): 다져진 흙에 솔잎 깔림(붉은 갈색)이 넓게 덮이고, 이끼가 군데군데 혀처럼 번진다.
       //  디딤돌 고리(6.57 m) 둘레는 이끼가 조금 더 짙다. 밝은 디딤돌이 어두운 바닥에서 경계를 그대로 그린다
       const needles = 0.5 + 0.5 * Math.sin(x * 0.93 + Math.sin(z * 0.71) * 1.3) * Math.cos(z * 0.82 - x * 0.31);
       const mossy = 0.5 + 0.5 * Math.sin(x * 0.57 - z * 0.41 + Math.sin(x * 0.33 + z * 0.92) * 1.5);
-      const ringMoss = Math.exp(-Math.pow((rad - 6.6) / 0.9, 2)) * 0.3;
+      const ringMoss = Math.exp(-Math.pow((rad - ARENA.radius - 0.1) / 0.9, 2)) * 0.3;
       floor.copy(base).lerp(litterColor, 0.5 + 0.32 * needles).lerp(floorMoss, Math.min(0.78, THREE.MathUtils.smoothstep(mossy, 0.5, 0.86) * 0.68 + ringMoss));
       tmp.copy(floor).lerp(moss, forest).lerp(dark, forest * (0.1 + shade * 0.4));
       const approach = Math.exp(-Math.pow((z + 0.19 * x - 0.7) / 1.05, 2)) * THREE.MathUtils.smoothstep(x, 7, 13) * (1 - THREE.MathUtils.smoothstep(x, 17.3, 19));
@@ -669,10 +670,10 @@ export function buildSacredGrove(scene, { hemi, sun } = {}) {
   ground(scene, floorTex);
   afternoonSky(scene);
 
-  // Unevenly spaced, almost flush moss stones suggest the 6.5m combat boundary.
+  // Almost flush moss stones follow the shared combat boundary.
   for (let i = 0; i < 61; i++) {
     if (i % 19 < 3) continue;
-    const a = i / 61 * TAU, d = 6.57 + (r() - 0.5) * 0.1;
+    const a = i / 61 * TAU, d = ARENA.radius + 0.07 + (r() - 0.5) * 0.1;
     put(K, 'stone', new THREE.DodecahedronGeometry(1, 0), i % 4 === 0 ? 0xa0a698 : C.stone, [Math.cos(a) * d, -0.035, Math.sin(a) * d], [0, r() * TAU, 0], [0.21 + r() * 0.09, 0.075, 0.32 + r() * 0.15], { rough: 0.022, noise: 0.08 });
   }
   // Moss-stained boulders stay outside the full camera orbit including their size.

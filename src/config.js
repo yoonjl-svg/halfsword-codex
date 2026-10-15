@@ -45,8 +45,10 @@ export const STAMINA = {
   aiRestAt: 20, aiAggressiveRestAt: -10, aiResumeAt: 35, // AI: 20 아래(공격적 기질 −10 아래) 새 공격 멈추고 물러남 · 35 에서 다시(되돌림 35 는 샛별 저장소 값 — 사장님 확인 전)
 };
 
+// 바닥 면적 2배: 길이는 √2배. 인물·무기·시작 간격은 확대하지 않는다.
+export const ARENA_SCALE = Math.SQRT2;
 export const ARENA = {
-  radius: 6.5, // 원형 경기장 반지름 (대리석 경계 테두리 위치)
+  radius: 6.5 * ARENA_SCALE, // 원형 경기장 반지름 (대리석 경계 테두리 위치)
   startGap: 5.6, // 시작할 때 두 검투사 사이 거리. 사장님 9/30 "멀리 떨어트려 맵을 보게"(4.2 → 7.0) → 09:10 "너무 떨어져 있어, 조금만 붙이자, 그래도 초기보다는 멀게"(→ 5.6, 롱소드 닿는 거리 밖 3.6 m)
   startHold: 2.0, // 판 시작 뒤 이 시간(초) 동안 둘 다 발만 묶는다 (팔·칼은 자유). 사장님 값 (fighter.js feetHeld)
 };

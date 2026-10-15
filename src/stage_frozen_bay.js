@@ -5,6 +5,7 @@
 //  싸우는 바닥·물리는 그대로(장식만). 그림자: 물가 나무(wood)만 드리운다. docs/stages.md '얼어붙은 만'
 // East-Siberian inland lake, winter predawn. Visual ice only: no physics changes.
 import * as THREE from 'three';
+import { ARENA } from './config.js';
 import { Kit, canvasTex, rng, box, cyl, limb } from './stage_kit.js';
 import { buildFrozenBayShore, CHAPEL, bankHeight } from './stage_frozen_bay_shore.js';
 
@@ -117,12 +118,12 @@ function duelGround(scene) {
     g.restore();
   });
   iceTex.wrapS = iceTex.wrapT = THREE.ClampToEdgeWrapping;
-  const ice = new THREE.Mesh(new THREE.CircleGeometry(8.6, 48), new THREE.MeshStandardMaterial({ map: iceTex, transparent: true, depthWrite: false, roughness: 0.42, metalness: 0.04, polygonOffset: true, polygonOffsetFactor: -1 }));
+  const ice = new THREE.Mesh(new THREE.CircleGeometry(ARENA.radius + 2.1, 48), new THREE.MeshStandardMaterial({ map: iceTex, transparent: true, depthWrite: false, roughness: 0.42, metalness: 0.04, polygonOffset: true, polygonOffsetFactor: -1 }));
   ice.rotation.x = -Math.PI / 2; ice.position.y = 0.01; ice.receiveShadow = true; ice.renderOrder = 1; ice.name = 'frozen-bay-duel-ice'; scene.add(ice);
   // ② 눈 둑 고리 (+ 둑 밖 눈 무더기·갈대) — 꼭짓점 색 한 재질
   const k = new Kit(101083);
   const ring = [], N = 72;
-  const bank = (a) => 7.35 + 0.18 * Math.sin(a * 5 + 1) + 0.1 * Math.sin(a * 13);
+  const bank = (a) => ARENA.radius + 0.85 + 0.18 * Math.sin(a * 5 + 1) + 0.1 * Math.sin(a * 13);
   const height = (a) => 0.2 + 0.08 * Math.sin(a * 7 + 0.4) + 0.05 * Math.sin(a * 17);
   const prof = [[-0.55, 0], [-0.22, 0.75], [0.05, 1], [0.35, 0.7], [0.75, 0]]; // 둑 단면 (안쪽 → 바깥, 높이 비)
   for (let i = 0; i < N; i++) for (let j = 0; j < prof.length - 1; j++) {
@@ -133,11 +134,11 @@ function duelGround(scene) {
   k.put('snow', rg, 0xc9d5de, undefined, undefined, 1, { vary: 0, noise: 0.05 }); rg.dispose();
   const lump = new THREE.SphereGeometry(1, 8, 4, 0, Math.PI * 2, 0, Math.PI / 2);
   for (let i = 0; i < 26; i++) { // 둑 밖 납작한 눈 무더기 (8.5~15 m)
-    const a = r() * Math.PI * 2, d = 8.5 + r() * 6.5, s = 0.25 + r() * 0.45;
+    const a = r() * Math.PI * 2, d = ARENA.radius + 2 + r() * 6.5, s = 0.25 + r() * 0.45;
     k.put('snow', lump, 0xa3b5c4, [Math.cos(a) * d, -0.02, Math.sin(a) * d], [0, r() * 3, 0], [s * (1 + r()), 0.05 + r() * 0.08, s], { vary: 0.08, noise: 0.05 });
   }
   for (let i = 0; i < 40; i++) { // 바람에 쓸린 눈 결 (얇고 긴 띠)
-    const a = r() * Math.PI * 2, d = 8.6 + r() * 9;
+    const a = r() * Math.PI * 2, d = ARENA.radius + 2.1 + r() * 9;
     k.put('snow', box(0.12 + r() * 0.25, 0.012, 1.2 + r() * 2.8), 0xa9bccb, [Math.cos(a) * d, 0.004, Math.sin(a) * d], [0, 0.6 + (r() - 0.5) * 0.3, 0], 1, { vary: 0.1, noise: 0 });
   }
   frozenReeds(k, r);
