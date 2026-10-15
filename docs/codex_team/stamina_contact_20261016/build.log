@@ -1,0 +1,44 @@
+
+> halfsword@0.1.0 build
+> vite build && node tools/pwa/build.mjs
+
+vite v8.3.1 building client environment for production...
+transforming...
+✓ 192 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/start.html                                     2.91 kB │ gzip:     1.17 kB
+dist/sounds.html                                    3.43 kB │ gzip:     1.69 kB
+dist/voices.html                                    3.91 kB │ gzip:     1.96 kB
+dist/start-pixel.html                               4.76 kB │ gzip:     1.72 kB
+dist/test.html                                      9.93 kB │ gzip:     3.69 kB
+dist/index.html                                    27.84 kB │ gzip:     8.66 kB
+dist/assets/soundgen-BqLZDlG_.js                   39.38 kB
+dist/assets/start_preview-D_Pe81u1.css             17.13 kB │ gzip:     4.17 kB
+dist/assets/start_preview-Br7HgRb2.js               0.11 kB │ gzip:     0.11 kB
+dist/assets/modulepreload-polyfill-P2Xu9kJm.js      0.67 kB │ gzip:     0.38 kB
+dist/assets/voices-BG076vaf.js                      6.50 kB │ gzip:     3.00 kB
+dist/assets/test-D7ArP-U5.js                        8.33 kB │ gzip:     3.46 kB
+dist/assets/config-BtYM4kur.js                     12.57 kB │ gzip:     5.83 kB
+dist/assets/gun-BUeKphr7.js                        13.41 kB │ gzip:     6.09 kB
+dist/assets/sounds-2PI3HS51.js                     20.77 kB │ gzip:     9.05 kB
+dist/assets/characters-C6OoH8-A.js                 42.70 kB │ gzip:    16.55 kB
+dist/assets/main-CuuJugFh.js                       56.36 kB │ gzip:    17.48 kB
+dist/assets/sound-BrqEjUs7.js                      93.66 kB │ gzip:    30.00 kB
+dist/assets/start_screen-BsKa6Wku.js              236.97 kB │ gzip:    64.52 kB
+dist/assets/journey_save-yQ966jyi.js              468.00 kB │ gzip:   126.65 kB
+dist/assets/schools-LhlW8K-P.js                   555.58 kB │ gzip:   159.21 kB
+dist/assets/main-2C3AVdkh.js                    3,200.41 kB │ gzip: 1,188.36 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 2.06s
+{"pwa":true,"version":"cd16cd3055511b343f58ba78","files":355,"totalBytes":7108595}
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

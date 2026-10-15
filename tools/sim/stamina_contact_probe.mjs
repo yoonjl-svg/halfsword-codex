@@ -25,6 +25,6 @@ for(const r of rows){
  r.pass=r.error!=null&&r.error<=.07&&r.finite&&r.completed&&!r.stopped;
 }
 writeFileSync(out+'/rows.json',JSON.stringify(rows,null,2)+'\n');
-const summary={rows:rows.length,hit:rows.filter(r=>r.firstContact).length,pass:rows.filter(r=>r.pass).length,nonfinite:rows.filter(r=>r.finite===false).length,invalidFixtures:rows.filter(r=>r.status!=='measured'&&r.status!=='not-applicable').length,contactPartChanged:rows.filter(r=>r.contactPartChanged).length};
+const summary={rows:rows.length,hit:rows.filter(r=>r.firstContact).length,pass:rows.filter(r=>r.pass).length,nonfinite:rows.filter(r=>r.finite===false).length,invalidFixtures:rows.filter(r=>r.status==='invalid-fixture').length,unmeasuredRows:rows.filter(r=>r.status!=='measured'&&r.status!=='not-applicable').length,contactPartChanged:rows.filter(r=>r.contactPartChanged).length};
 console.log(JSON.stringify(summary));writeFileSync(out+'/summary.json',JSON.stringify(summary,null,2)+'\n');
 writeFileSync(out+'/config.json',JSON.stringify({stamina:{...STAMINA},fixtures:process.env.TEMPO_FIXTURES??null},null,2)+'\n');
