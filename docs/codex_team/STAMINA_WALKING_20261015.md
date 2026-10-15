@@ -31,4 +31,4 @@
 | --- | --- | --- |
 | ![동방 걷기 비용3.5](../screenshots/stamina_walking/chinese-five-steps.png) | ![일반 걷기 비용7](../screenshots/stamina_walking/german-five-steps.png) | ![일본 걷기 비용10.5](../screenshots/stamina_walking/japanese-five-steps.png) |
 
-공개 테스트: <https://yoonjl-svg.github.io/halfsword-codex/>. 현재 변경의 배포 결과는 완료 후 별도 영수증으로 기록한다.
+공개 테스트: <https://yoonjl-svg.github.io/halfsword-codex/>. 소스 `79f503d6fe061c21c1aea9ab23fec6a3d4ea6a9a`를 우리 main/작업 가지에 원자적으로 푸시했고 [Pages38733140289](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38733140289)가45초에 성공했다. [배포 영수증](stamina_walking_20261015_release.json). 클라우드 네트워크 정책으로 공개 게임 직접 열람이 차단되어 공개 화면 재검증은 별개로 남는다.
