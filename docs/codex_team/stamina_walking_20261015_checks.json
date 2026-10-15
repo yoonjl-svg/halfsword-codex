@@ -1,0 +1,240 @@
+{
+  "checkedAt": "2026-10-15T21:14:03.128738+09:00",
+  "gameCommit": "577f4d53aa19428f38b3f838fcf4473f1394df01",
+  "walking": {
+    "distance": 0.62,
+    "costs": {
+      "chinese": 0.7,
+      "default": 1.4,
+      "japanese": 2.1
+    }
+  },
+  "unitAndPhysics": {
+    "passed": 45,
+    "failed": 0
+  },
+  "browser": {
+    "existingChecks": 10,
+    "existingErrors": [],
+    "walking": {
+      "results": [
+        {
+          "check": "five walking charges through actual input with recovery held",
+          "weapon": "qinggang",
+          "tradition": "chinese",
+          "cost": 0.7,
+          "chargedDistance": 3.1,
+          "before": {
+            "tradition": "chinese",
+            "value": 70,
+            "time": 2.64166666666666,
+            "distanceRemainder": 0,
+            "spent": {
+              "move": 0,
+              "attack": 0,
+              "block": 0,
+              "secret": 0,
+              "push": 0,
+              "clinch": 0
+            },
+            "recovered": 0,
+            "guard": true,
+            "state": "stand"
+          },
+          "after": {
+            "tradition": "chinese",
+            "value": 66.49999999999999,
+            "time": 7.158333333333479,
+            "distanceRemainder": 0.07659064051743189,
+            "spent": {
+              "move": 3.5,
+              "attack": 0,
+              "block": 0,
+              "secret": 0,
+              "push": 0,
+              "clinch": 0
+            },
+            "recovered": 0,
+            "guard": true,
+            "state": "stand"
+          }
+        },
+        {
+          "check": "five walking charges through actual input with recovery held",
+          "weapon": "longsword",
+          "tradition": "german",
+          "cost": 1.4,
+          "chargedDistance": 3.1,
+          "before": {
+            "tradition": "german",
+            "value": 70,
+            "time": 2.61666666666666,
+            "distanceRemainder": 0,
+            "spent": {
+              "move": 0,
+              "attack": 0,
+              "block": 0,
+              "secret": 0,
+              "push": 0,
+              "clinch": 0
+            },
+            "recovered": 0,
+            "guard": true,
+            "state": "stand"
+          },
+          "after": {
+            "tradition": "german",
+            "value": 62.99999999999998,
+            "time": 7.141666666666811,
+            "distanceRemainder": 0.03893033603449533,
+            "spent": {
+              "move": 7,
+              "attack": 0,
+              "block": 0,
+              "secret": 0,
+              "push": 0,
+              "clinch": 0
+            },
+            "recovered": 0,
+            "guard": true,
+            "state": "stand"
+          }
+        },
+        {
+          "check": "five walking charges through actual input with recovery held",
+          "weapon": "uchigatana",
+          "tradition": "japanese",
+          "cost": 2.1,
+          "chargedDistance": 3.1,
+          "before": {
+            "tradition": "japanese",
+            "value": 70,
+            "time": 2.61666666666666,
+            "distanceRemainder": 0,
+            "spent": {
+              "move": 0,
+              "attack": 0,
+              "block": 0,
+              "secret": 0,
+              "push": 0,
+              "clinch": 0
+            },
+            "recovered": 0,
+            "guard": true,
+            "state": "stand"
+          },
+          "after": {
+            "tradition": "japanese",
+            "value": 59.50000000000001,
+            "time": 7.125000000000144,
+            "distanceRemainder": 0.11589835906588508,
+            "spent": {
+              "move": 10.5,
+              "attack": 0,
+              "block": 0,
+              "secret": 0,
+              "push": 0,
+              "clinch": 0
+            },
+            "recovered": 0,
+            "guard": true,
+            "state": "stand"
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  "gatesOn": [
+    {
+      "name": "fights12",
+      "command": [
+        "node",
+        "tools/sim/fights12.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "18a6e7362b0671a34a92ae5b85cc9c8f895a3c716cadba4de87433a5406671b0",
+      "baselineMatches": false,
+      "pass": true
+    },
+    {
+      "name": "live_battery",
+      "command": [
+        "node",
+        "tools/sim/live_battery.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "e7ee3d96dc05c4b9b095e8120531b065cf42f367fa74c9c80c5788b2a6a666c4",
+      "baselineMatches": true,
+      "pass": true
+    },
+    {
+      "name": "finish_thrust",
+      "command": [
+        "node",
+        "tools/sim/finish_thrust.mjs",
+        "1",
+        "--stand"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "433ac9845913951fe96d3a880ba0c66a01127021c3f970f33ecefa390ea82f81",
+      "baselineMatches": true,
+      "pass": true
+    },
+    {
+      "name": "corr",
+      "command": [
+        "node",
+        "tools/sim/corr_s0.mjs",
+        "--limits=off,on",
+        "--scenes=a,b"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "791c346f777339f411f1c3f4e1583c4875c8d8de6f2584a9af85bbc9cbc97ead",
+      "baselineMatches": true,
+      "identical": 12,
+      "pass": true
+    },
+    {
+      "name": "weapon_smoke",
+      "command": [
+        "node",
+        "tools/sim/weapon_smoke.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha256": "27b922fcf9ca8ce25d3b0c8df104a09bf2f5b1b8abcd2f1f22b80794533bcd4e",
+      "baselineMatches": true,
+      "pass": true
+    }
+  ],
+  "fights12Previous": {
+    "hash": "5a02a22d",
+    "dead": 9,
+    "downsPerFight": 0.9,
+    "openedPerFight": 7.3
+  },
+  "fights12Current": {
+    "hash": "18a6e736",
+    "dead": 8,
+    "downsPerFight": 0.8,
+    "openedPerFight": 7.3
+  },
+  "build": {
+    "success": true,
+    "pwa": "b39292ced709e3f1f1b5c51c",
+    "files": 345,
+    "bytes": 6764035
+  },
+  "screenshots": "local production build; AI disabled; initial70; guard held to stop recovery; real KeyD movement; five walking charges",
+  "limits": [
+    "No physical phone/FPS test",
+    "Public Pages direct access blocked by cloud network policy",
+    "Stamina-off gates not repeated"
+  ],
+  "rawLogs": "/workspace/stamina-walking-validation"
+}
