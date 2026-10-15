@@ -21,4 +21,4 @@
 
 ![같은2초 동안 사람42·AI30 회복](../screenshots/stamina_recovery/after-two-seconds.png)
 
-공개 테스트: <https://yoonjl-svg.github.io/halfsword-codex/>. 배포 완료는 후속 영수증에 기록한다. 클라우드 네트워크 정책으로 공개 게임 직접 열람이 차단되어 공개 화면 재검증은 별개로 남는다.
+공개 테스트: <https://yoonjl-svg.github.io/halfsword-codex/>. 소스 `52785c99dbfb1e95bcc3b7e195da8ea61d053d44`를 우리 main/작업 가지에 원자적으로 푸시했고 [Pages38731408228](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38731408228)가41초에 성공했다. [배포 영수증](stamina_recovery_20261015_release.json). 클라우드 네트워크 정책으로 공개 게임 직접 열람이 차단되어 공개 화면 재검증은 별개로 남는다.
