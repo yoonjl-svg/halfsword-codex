@@ -2,6 +2,8 @@
 
 기준 `4602e7419fa5fa02eaba6bc135ba5d8aa79f5a0d`, 구현 `3b280a1bf2898b811ac3853002039348795b3584`. 포크 `yoonjl-svg/halfsword-codex`만 변경했다. [검사 결과](lobby_profile_armor_20261016_checks.json).
 
+공개 배포: 소스 `214119e07b0eb7f7c7d382f454455c5273ce1595`, [Actions38761717878](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38761717878) **Success / 1m11s** 확인. [포크 게임](https://yoonjl-svg.github.io/halfsword-codex/).
+
 ## 사용자 결정과 적용
 
 - 프로필은 **Lv.1 여행자 → 이름(수정 아이콘) → 대표 유파** 순서. ‘대면 결과’ 아래 정사각형 도트 금화와 기본100 표시.
