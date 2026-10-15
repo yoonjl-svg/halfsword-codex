@@ -32,4 +32,4 @@
 
 [PC 화면](../screenshots/start_pixel/title-desktop.png) · [세로 화면](../screenshots/start_pixel/title-phone-portrait.png) · [실제 브라우저 전환 녹화](../screenshots/start_pixel/wind-transition.mp4).
 
-2안 주소: <https://yoonjl-svg.github.io/halfsword-codex/start-pixel.html>. 배포 결과는 완료 후 기록한다.
+2안 주소: <https://yoonjl-svg.github.io/halfsword-codex/start-pixel.html>. 소스 `9754fb2037978185097598ec865c186f86874910`를 포크 main/작업 가지에 원자적으로 푸시했고 [Pages38742527122](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38742527122)가53초에 성공했다. [배포 영수증](start_pixel_20261015_release.json). 클라우드 네트워크 정책으로 공개 페이지 직접 접속이 차단되어 화면 검증은 위 로컬 프로덕션 촬영과 구분한다.
