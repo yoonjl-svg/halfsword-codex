@@ -142,23 +142,25 @@ export function createPixelGrove(canvas, reducedMotion) {
   resize();return {calm,gust};
 }
 
-export async function paintPixelWordmark(heading){
+export async function paintPixelWordmark(heading,{
+  text='Stillness',font='600 32px Cinzel',height=47,baseline=34,tracking=1,
+}={}){
   try {
-    await document.fonts.load('600 32px Cinzel','Stillness');
-    if(!document.fonts.check('600 32px Cinzel','Stillness'))return;
+    await document.fonts.load(font,text);
+    if(!document.fonts.check(font,text))return;
     const mask=document.createElement('canvas'),m=mask.getContext('2d');
-    m.font='600 32px Cinzel';
-    const letters=[...'Stillness'],tracking=1;
+    m.font=font;
+    const letters=[...text];
     const width=Math.ceil(letters.reduce((n,c)=>n+m.measureText(c).width+tracking,0))+12;
-    mask.width=width;mask.height=47;m.font='600 32px Cinzel';m.fillStyle='#fff';
-    let x=6;for(const letter of letters){m.fillText(letter,x,34);x+=m.measureText(letter).width+tracking;}
-    const pixels=m.getImageData(0,0,width,47).data,points=[];
-    for(let y=0;y<47;y++)for(let x=0;x<width;x++)if(pixels[(y*width+x)*4+3]>=110)points.push([x,y]);
-    const canvas=document.createElement('canvas');canvas.width=width;canvas.height=47;canvas.setAttribute('aria-hidden','true');
+    mask.width=width;mask.height=height;m.font=font;m.fillStyle='#fff';
+    let x=6;for(const letter of letters){m.fillText(letter,x,baseline);x+=m.measureText(letter).width+tracking;}
+    const pixels=m.getImageData(0,0,width,height).data,points=[];
+    for(let y=0;y<height;y++)for(let x=0;x<width;x++)if(pixels[(y*width+x)*4+3]>=110)points.push([x,y]);
+    const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;canvas.setAttribute('aria-hidden','true');
     const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
     ctx.fillStyle='#21180f';for(const [x,y] of points)ctx.fillRect(x+1,y+3,2,2);
     ctx.fillStyle='#422d18';for(const [x,y] of points)ctx.fillRect(x-1,y-1,3,3);
-    for(const [x,y] of points){ctx.fillStyle=y<17?'#ffe8ae':y<26?'#e7c57c':y<32?'#c59b50':'#a47735';ctx.fillRect(x,y,1,1);}
+    for(const [x,y] of points){const band=y*47/height;ctx.fillStyle=band<17?'#ffe8ae':band<26?'#e7c57c':band<32?'#c59b50':'#a47735';ctx.fillRect(x,y,1,1);}
     heading.append(canvas);heading.dataset.painted='true';
   } catch { /* 글꼴/캔버스가 준비되지 않으면 기존 웹폰트 제목을 보여 준다. */ }
 }

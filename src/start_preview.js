@@ -12,7 +12,12 @@ const entrance = $('entrance'), title = $('titleScreen'), dialog = $('noticeDial
 const list = $('noticeList'), checkbox = $('hideRead'), seen = new Set();
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const scene = (pixelTheme ? createPixelGrove : createPixelWind)($('windScene'), reducedMotion);
-if (pixelTheme) paintPixelWordmark(document.querySelector('.pixel-wordmark'));
+if (pixelTheme) {
+  paintPixelWordmark(document.querySelector('.pixel-wordmark'));
+  paintPixelWordmark(document.querySelector('.title-korean'), {
+    text: '적막', font: '600 18px Pretendard', height: 29, baseline: 22, tracking: 4,
+  });
+}
 let saved = { hideRead: false, readIds: [] }, transition = 0, visibleNotes = [];
 try {
   const value = JSON.parse(localStorage.getItem(STORAGE_KEY));

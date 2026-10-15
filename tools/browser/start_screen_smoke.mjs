@@ -19,11 +19,51 @@ async function readAll(page){
 async function bounds(page){
  return page.evaluate(()=>{const d=document.querySelector('dialog'),r=d.getBoundingClientRect(),b=document.getElementById('confirmNotices').getBoundingClientRect();return {dialog:[r.left,r.top,r.right,r.bottom],confirm:[b.left,b.top,b.right,b.bottom],viewport:[innerWidth,innerHeight],scroll:document.getElementById('noticeList').scrollHeight>document.getElementById('noticeList').clientHeight};});
 }
+async function pixelTitleLayout(page){
+ await page.waitForSelector('.title-korean[data-painted="true"] canvas');
+ const layout=await page.evaluate(()=>{
+  const wordmark=selector=>{
+   const el=document.querySelector(selector),canvas=el.querySelector('canvas'),rect=canvas.getBoundingClientRect();
+   const pixels=canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data,rows=[];
+   for(let y=0;y<canvas.height;y++)for(let x=0;x<canvas.width;x++)if(pixels[(y*canvas.width+x)*4+3]){rows.push(y);break;}
+   return {text:el.textContent,inkHeight:(Math.max(...rows)-Math.min(...rows)+1)*rect.height/canvas.height,rendering:getComputedStyle(canvas).imageRendering};
+  };
+  const buttons=[...document.querySelectorAll('.start-actions button')].map(el=>{
+   const r=el.getBoundingClientRect(),s=getComputedStyle(el);return {text:el.textContent,width:r.width,height:r.height,left:r.left,right:r.right,top:r.top,bottom:r.bottom,background:s.backgroundColor,border:parseFloat(s.borderWidth)};
+  });
+  const footer=document.querySelector('.title-footer'),f=footer.getBoundingClientRect();
+  return {english:wordmark('h1'),korean:wordmark('.title-korean'),buttons,footer:{text:footer.textContent,left:f.left,top:f.top,controls:footer.children.length},width:innerWidth,height:innerHeight};
+ });
+ assert.equal(layout.korean.text,'적막');assert.match(layout.korean.rendering,/pixelated|crisp-edges/);
+ assert.ok(layout.korean.inkHeight>24&&layout.korean.inkHeight<layout.english.inkHeight,JSON.stringify(layout));
+ const compact=layout.width>layout.height&&layout.height<=500;
+ const oldWidth=compact?250:layout.width<layout.height?Math.min(278,layout.width-72):278,oldHeight=compact?48:60;
+ assert.deepEqual(layout.buttons.map(b=>b.text),['처음부터','이어하기']);
+ for(const b of layout.buttons){
+  assert.ok(Math.abs(b.width/oldWidth-.82)<.002&&Math.abs(b.height/oldHeight-.82)<.002,JSON.stringify(b));
+  assert.ok(b.background.startsWith('rgb(')&&b.border>=4);
+  assert.ok(b.left>=0&&b.right<=layout.width&&b.top>0&&b.bottom<layout.height,JSON.stringify(b));
+ }
+ assert.equal(layout.footer.text,'공지사항');assert.equal(layout.footer.controls,1);
+ assert.ok(layout.footer.left<layout.width*.1&&layout.footer.top>layout.height*.8);
+ return layout;
+}
 try{
  const page=await browser.newPage({viewport:{width:1440,height:900}});watch(page);
  await page.goto(`${base}/${route}`,{waitUntil:'networkidle'});await page.evaluate(()=>document.fonts.ready);
  assert.equal(await page.locator('dialog').evaluate(d=>d.open),true);assert.equal(await page.locator('.notice-entry').count(),6);
  let b=await bounds(page);assert.equal(b.scroll,true);check('first launch: six real notices in scrollable dialog',b);await shot(page,'notices-desktop');
+ if(pixelTheme){
+  const typography=await page.evaluate(()=>Object.fromEntries(['.notice-header h2','.notice-count','.notice-entry h3','.notice-entry p','.notice-meta','.unread','.hide-read','.confirm-button'].map(selector=>{const s=getComputedStyle(document.querySelector(selector));return [selector,{size:s.fontSize,color:s.color}];})));
+  assert.deepEqual(typography['.notice-header h2'],{size:'17px',color:'rgb(243, 233, 216)'});
+  assert.deepEqual(typography['.notice-entry h3'],{size:'14px',color:'rgb(243, 233, 216)'});
+  assert.deepEqual(typography['.notice-entry p'],{size:'14px',color:'rgb(184, 168, 142)'});
+  assert.deepEqual(typography['.notice-meta'],{size:'12px',color:'rgb(184, 168, 142)'});
+  assert.equal(typography['.unread'].color,'rgb(217, 164, 65)');
+  assert.equal(new Set(Object.values(typography).map(s=>s.size)).size,3);
+  assert.equal(new Set(Object.values(typography).map(s=>s.color)).size,3);
+  check('notices use the game text colors and three type sizes',{typography});
+ }
  await page.evaluate(()=>localStorage.setItem('gladiator-settings','{"prototype-sentinel":true}'));
  await page.locator('#hideRead').check();await page.locator('#confirmNotices').click();
  await page.waitForTimeout(850);await shot(page,'wind-transition-desktop');await ready(page);await shot(page,'title-desktop');
@@ -31,9 +71,8 @@ try{
   await page.waitForSelector('h1[data-painted="true"] canvas');
   const title=await page.locator('h1').evaluate(el=>({fontReady:document.fonts.check('600 32px Cinzel','Stillness'),text:el.textContent,width:el.querySelector('canvas').width,rendering:getComputedStyle(el.querySelector('canvas')).imageRendering}));
   assert.equal(title.fontReady,true);assert.equal(title.text,'Stillness');assert.ok(title.width>100);assert.match(title.rendering,/pixelated|crisp-edges/);
-  const buttons=await page.locator('.start-actions button').evaluateAll(els=>els.map(el=>({text:el.textContent,background:getComputedStyle(el).backgroundColor,border:parseFloat(getComputedStyle(el).borderWidth),height:el.getBoundingClientRect().height})));
-  assert.deepEqual(buttons.map(b=>b.text),['처음부터','이어하기']);assert.ok(buttons.every(b=>b.background.startsWith('rgb(')&&b.border>=4&&b.height>=48));
-  check('pixel Cinzel wordmark and two opaque framed buttons',{title,buttons});
+  const layout=await pixelTitleLayout(page);
+  check('pixel Korean title, 18% smaller framed buttons and left notices control',{title,layout});
  }else{
   const cdp=await page.context().newCDPSession(page);await cdp.send('DOM.enable');await cdp.send('CSS.enable');
   const doc=await cdp.send('DOM.getDocument');const node=await cdp.send('DOM.querySelector',{nodeId:doc.root.nodeId,selector:'h1'});
@@ -56,7 +95,8 @@ try{
   await mobile.locator('#confirmNotices').click();await ready(mobile);
   const title=await mobile.locator('h1').boundingBox();assert.ok(title.x>=0&&title.x+title.width<=width+1,JSON.stringify(title));
   assert.equal(await mobile.locator('#continueJourney').isVisible(),true);
-  if(name.startsWith('phone'))await shot(mobile,`title-${name}`);check(`${name}: dialog, scrolling and title fit`,{width,height,...b});await mobile.close();
+  const layout=pixelTheme?await pixelTitleLayout(mobile):undefined;
+  if(name.startsWith('phone'))await shot(mobile,`title-${name}`);check(`${name}: dialog, scrolling and title fit`,{width,height,...b,layout});await mobile.close();
  }
  const reduced=await browser.newPage({viewport:{width:844,height:390},reducedMotion:'reduce'});watch(reduced);await reduced.goto(`${base}/${route}`,{waitUntil:'networkidle'});await reduced.locator('#confirmNotices').click();await ready(reduced);assert.equal(await reduced.locator('#titleScreen').evaluate(el=>getComputedStyle(el).transitionDuration),'0s');check('reduced motion: immediate static title');
  const denied=await browser.newPage();watch(denied);await denied.addInitScript(()=>{Storage.prototype.getItem=()=>{throw new DOMException('denied','SecurityError');};Storage.prototype.setItem=()=>{throw new DOMException('denied','SecurityError');};});await denied.goto(`${base}/${route}`,{waitUntil:'networkidle'});await denied.locator('#hideRead').check();await denied.locator('#confirmNotices').click();await ready(denied);check('storage denied: screen remains usable');

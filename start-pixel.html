@@ -16,7 +16,7 @@
       <div class="scene-shade" aria-hidden="true"></div>
       <section id="titleScreen" class="title-screen" aria-label="시작 화면" inert>
         <div class="title-group">
-          <p class="title-korean">적막</p>
+          <p class="title-korean"><span>적막</span></p>
           <h1 class="pixel-wordmark"><span>Stillness</span></h1>
           <div class="title-rule" aria-hidden="true"><span></span></div>
           <div class="start-actions" aria-label="여정 선택">
@@ -25,13 +25,13 @@
           </div>
           <p id="selectionStatus" class="sr-only" role="status"></p>
         </div>
-        <footer class="title-footer"><span>Stillness</span><button id="openNotices" type="button">공지사항</button></footer>
+        <footer class="title-footer"><button id="openNotices" type="button">공지사항</button></footer>
       </section>
       <dialog id="noticeDialog" aria-labelledby="noticeHeading" aria-describedby="noticeIntro">
         <header class="notice-header">
-          <span class="notice-brand">Stillness</span><span id="noticeCount" class="notice-count"></span>
           <h2 id="noticeHeading" tabindex="-1">공지사항</h2>
-          <p id="noticeIntro">새로 달라진 여정을 확인하세요.</p>
+          <span id="noticeCount" class="notice-count"></span>
+          <p id="noticeIntro" class="sr-only">최근 업데이트를 확인하세요.</p>
         </header>
         <div id="noticeList" class="notice-list" tabindex="0" aria-label="업데이트 목록, 스크롤 가능"></div>
         <footer class="notice-footer">
