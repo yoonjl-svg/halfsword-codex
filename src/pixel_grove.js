@@ -163,10 +163,13 @@ export function createPixelGrove(canvas, reducedMotion) {
   function resume(){if(active&&!frame&&!document.hidden&&!reducedMotion.matches)frame=requestAnimationFrame(tick);}
   function calm(){active=false;cancelAnimationFrame(frame);frame=0;draw(0);}
   function gust(){active=true;start=performance.now();last=-Infinity;draw(0);resume();}
-  new ResizeObserver(resize).observe(canvas);
-  document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;}else resume();});
-  reducedMotion.addEventListener('change',()=>{if(reducedMotion.matches){cancelAnimationFrame(frame);frame=0;draw(0);}else resume();});
-  resize();return {calm,gust};
+  const observer=new ResizeObserver(resize);observer.observe(canvas);
+  const visibility=()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;}else resume();};
+  const motion=()=>{if(reducedMotion.matches){cancelAnimationFrame(frame);frame=0;draw(0);}else resume();};
+  document.addEventListener('visibilitychange',visibility);
+  reducedMotion.addEventListener('change',motion);
+  const dispose=()=>{active=false;cancelAnimationFrame(frame);observer.disconnect();document.removeEventListener('visibilitychange',visibility);reducedMotion.removeEventListener('change',motion);};
+  resize();return {calm,gust,dispose};
 }
 
 export async function paintPixelWordmark(heading,{

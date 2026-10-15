@@ -10,6 +10,7 @@ import { VITAL as VITAL_SWITCH } from './vital_target.js'; // 약한 자세 겨�
 import { Fighter, GROUND_GROUPS } from './fighter.js';
 import { createStaminaHud } from './stamina_hud.js';
 import { createScreenTint } from './screen_tint.js';
+import { isDirectGameLink, readJourney, writeJourney } from './journey_save.js';
 import { InputTrail } from './trail.js';
 import { Input, attachStick } from './input.js';
 import { LOOKS, getLook } from './looks.js';
@@ -49,6 +50,8 @@ await RAPIER.init();
 // 테스트용 URL 파라미터: ?weapon=monohoshizao&foeWeapon=chicken (무기 id는 weapons.js의 WEAPONS 키,
 //  Fighter 생성자가 알아서 getWeapon()으로 찾는다. 없으면 기본 롱소드)
 const params = new URLSearchParams(location.search.slice(1).replace(/\?/g, '&')); // 주소에 ? 를 두 번 써도(…?r2p=1?weapon=…) 뒤쪽 인자까지 읽는다 (사장님 10/8 08:30 링크 입력 실수 대비)
+const JOURNEY_SAVE_ENABLED = !isDirectGameLink(params);
+let pendingJourney = null;
 if (params.has('stamina')) CONFIG.STAMINA.on = params.get('stamina') !== '0';
 const staminaHud = createStaminaHud(document.getElementById('staminaHud'));
 const screenTint = createScreenTint();
@@ -1052,9 +1055,10 @@ function setWeaponsVisible(v) {
 }
 
 /** 카드 세 장을 새로 채워 엎어 놓는다: 내 카드 두 장 + 상대 무기 (prepareRound 가 정한 무기) */
-function openDraw() {
+function openDraw(savedCards = null) {
   const foeId = getWeapon(foeWeaponId).id; // 짧은 별칭(chicken 등)도 상대가 실제로 드는 무기 id 로
-  Object.assign(draw, { stage: 'choose', t: 0, ids: [...drawCardIds(), foeId], pick: -1, others: false, foe: false, built: false, skip: false });
+  Object.assign(draw, { stage: 'choose', t: 0, ids: [...(savedCards || drawCardIds()), foeId], pick: -1, others: false, foe: false, built: false, skip: false });
+  saveJourneyRound(null, draw.ids.slice(0, 2));
   setCardBack(stages.id); // 이번 판 배경의 뒷면
   cardEls.forEach((el, i) => {
     const w = getWeapon(draw.ids[i]);
@@ -1187,6 +1191,7 @@ function buildPicked() {
   draw.built = true;
   lastPlayerWeapon = draw.ids[draw.pick];
   newRound(lastPlayerWeapon);
+  saveJourneyRound(lastPlayerWeapon);
   setWeaponsVisible(false);
 }
 
@@ -1254,6 +1259,8 @@ function showHint(text, ms = 3500) {
 }
 
 async function startFight() {
+  const savedRound = pendingJourney;
+  pendingJourney = null;
   sound.unlock();
   sound.ambience(); // 배경의 고요 (포세이돈: 파도·바람, 산사: 산바람·풍경·산새). 아주 작게, 처음 한 번만 켜진다
   // 폰이면 전체화면 + 가로 고정 시도 (지원 안 하면 조용히 넘어감)
@@ -1272,11 +1279,21 @@ async function startFight() {
   closeDraw(); // 뽑기 도중에 "처음부터 다시"를 눌렀으면 그 카드는 치운다
   toast.classList.remove('show');
   nextRoundStage(); // 배경: 첫 판은 메뉴 뒤 그대로, 그 다음 판부터는 정해진 순서로 다음 배경 (짓는 멈칫은 메뉴가 아직 떠 있는 동안)
-  prepareRound(); // 이번 상대 · 상대 무기
+  if (savedRound?.foe) {
+    currentFoe = CHARACTERS_BY_ID[savedRound.foe];
+    foeWeaponId = savedRound.foeWeapon;
+    sound.prepareVoices(['player', voiceOf(currentFoe)]);
+  } else prepareRound(); // 이번 상대 · 상대 무기
   hideFoeIntro(); // 가운데 소개는 싸움이 시작될 때 (beginFight) — 카드를 고르는 동안에는 띄우지 않는다
   showStageInfo(); // 왼쪽 위 무대 줄
   techClear(); // 새 판이 열렸다: 오른쪽 위 ② 마지막 기술 · ① 자세 칸을 비운다 (10/14 03:1x·03:3x — 둘 다 시간으로는 사라지지 않는다)
   guardClear();
+  if (savedRound?.weapon) {
+    lastPlayerWeapon = savedRound.weapon;
+    newRound(savedRound.weapon);
+    beginFight();
+    return;
+  }
   if (FIXED_WEAPON) {
     // 테스트용 ?weapon= : 뽑기 없이 그 무기로 바로 싸움 시작
     newRound(FIXED_WEAPON);
@@ -1290,7 +1307,26 @@ async function startFight() {
   input.enabled = false;
   applyMoveMode();
   setDrawGuide('on'); // 왼쪽 위 무대 줄 아래 "무기 카드를 한 장 고르세요" (10/14 03:3x 되살림 — 카드 자리를 재기 전에)
-  openDraw();
+  openDraw(savedRound?.cards);
+}
+
+function saveJourneyRound(weapon, cards = null) {
+  if (JOURNEY_SAVE_ENABLED) writeJourney({ stage: stages.id, foe: currentFoe?.id ?? null, foeWeapon: getWeapon(foeWeaponId).id, weapon, cards, lastWeapon: lastPlayerWeapon });
+}
+
+// 시작 화면의 선택만 연결한다. 기존 일시정지/재대결과 유파 동작은 그대로 사용한다.
+export async function launchJourney(choice) {
+  const saved = choice === 'continue' ? readJourney() : null;
+  const weapons = new Set(WEAPON_LIST.map(w => w.id));
+  if (choice === 'continue' && (!saved || !STAGE_IDS.includes(saved.stage)
+    || (saved.foe && !CHARACTERS_BY_ID[saved.foe])
+    || [saved.weapon, saved.foeWeapon, saved.lastWeapon, ...(saved.cards || [])].some(id => id && !weapons.has(id)))) return false;
+  pendingJourney = saved;
+  stageFought = false; lastRoundWon = false; lastPlayerWeapon = saved?.lastWeapon || null;
+  if (useStage(saved?.stage || nextStage())) stages.warm(renderer, camera);
+  sound.setStage(stages.id);
+  await startFight();
+  return true;
 }
 
 /** 무기를 받았다: 싸움 시작 (판 시작 알림, 조이스틱, 조작 안내) */
@@ -1564,6 +1600,8 @@ function checkRoundEnd(dt) {
       if (win && foeParam === 'stage' && !STAGE_PIN && !testRoute.active) {
         const cl = addJourneyClear();
         if (cl.seal) showHint(sealNotice(cl.seal), 3400);
+        // 승리 직후 다음 무대를 저장해 재접속으로 같은 승리/인장을 중복 받지 않는다.
+        if (JOURNEY_SAVE_ENABLED) writeJourney({ stage: nextStage(stages.id), lastWeapon: player.weapon.id });
       }
       showRoundResult();
       if (!win && currentFoe) showFoeLine(currentFoe, randomLine(currentFoe, 'win')); // 상대의 승리 대사 (죽은 쪽은 말이 없다)
@@ -1915,6 +1953,8 @@ const renderCap = createRenderCap();
 
 function frame(now) {
   requestAnimationFrame(frame);
+  // 시작 화면이 앞에 있는 동안에는 뒤의 3D 렌더·물리 시간을 멈춘다.
+  if (document.documentElement.hasAttribute('data-start-open')) { last = now; acc = 0; return; }
   sound.setPaused(state !== 'fight' && state !== 'draw'); // 샛별 저장소 무대 셋의 배경음·세부음만 메뉴·일시정지 동안 줄인다 (stage_detail_sound.js)
   const frameMs = now - last;
   let dt = Math.min(0.1, frameMs / 1000);

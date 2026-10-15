@@ -1,0 +1,101 @@
+import { chromium } from 'playwright';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const base=process.argv[2]||'http://127.0.0.1:4173',out=process.argv[3]||'/tmp/game-entry';
+fs.mkdirSync(out,{recursive:true});
+const browser=await chromium.launch({executablePath:process.env.PW_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader']});
+const results=[],errors=[],key='stillness.fork.journey.v1';
+const check=(name,data={})=>results.push({check:name,...data});
+const watch=p=>{p.on('pageerror',e=>errors.push(String(e)));p.on('console',m=>{if(m.type()==='error')errors.push(m.text());});p.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`);});};
+const phase=async(p,state)=>p.waitForFunction(s=>game.state===s,state,{timeout:40000});
+const checkpoint=p=>p.evaluate(k=>JSON.parse(localStorage.getItem(k)),key);
+async function title(p){
+ await p.waitForFunction(()=>window.game?.player,{timeout:40000});
+ if(await p.locator('#noticeDialog').evaluate(d=>d.open))await p.locator('#confirmNotices').click();
+ await p.waitForFunction(()=>document.querySelector('#gameEntrance').shadowRoot.getElementById('entrance').dataset.phase==='ready');
+}
+async function screenshot(p,name){await p.screenshot({path:`${out}/${name}.png`});}
+try{
+ const context=await browser.newContext({viewport:{width:844,height:390},deviceScaleFactor:2,isMobile:true,hasTouch:true,serviceWorkers:'allow'});
+ const p=await context.newPage();watch(p);
+ await p.addInitScript(()=>{if(!localStorage.getItem('gladiator-settings')){localStorage.setItem('gladiator-settings','{"fpsCap":true}');localStorage.setItem('stillness.journeyClears.v1','37');}});
+ await p.goto(base+'/?cards=longsword,rapier',{waitUntil:'networkidle'});await p.waitForFunction(()=>window.game?.player);
+ assert.equal(await p.locator('#noticeDialog').evaluate(d=>d.open),true);
+ const header=await p.locator('#noticeHeading').evaluate(el=>({color:getComputedStyle(el).color,size:getComputedStyle(el).fontSize}));
+ assert.deepEqual(header,{color:'rgb(243, 233, 216)',size:'17px'});
+ await screenshot(p,'notices-in-game');
+ for(let i=0;i<20;i++){const done=await p.locator('#noticeList').evaluate(el=>{el.scrollTop+=el.clientHeight/2;return el.scrollTop+el.clientHeight>=el.scrollHeight-1;});await p.waitForTimeout(60);if(done)break;}
+ await p.locator('#hideRead').check();await title(p);
+ const buttons=await p.locator('.start-actions button').evaluateAll(els=>els.map(el=>({width:el.getBoundingClientRect().width,background:getComputedStyle(el).backgroundColor})));
+ assert.ok(buttons.every(b=>Math.abs(b.width-205)<.1&&b.background.startsWith('rgb(')));
+ assert.equal(await p.locator('.pixel-wordmark > span').evaluate(el=>getComputedStyle(el).position),'absolute');
+ assert.equal(await p.evaluate(()=>game.stats.simTime),0);await screenshot(p,'title-in-game');
+ check('root opens approved pixel notices/title; old game remains stopped',{header,buttons});
+ await p.locator('#continueJourney').click();await p.waitForTimeout(100);
+ assert.match(await p.locator('#selectionStatus').textContent(),/이어갈 여정이 없습니다/);assert.equal(await p.evaluate(()=>game.state),'menu');
+ check('continue without checkpoint stays on title with explanation');
+ await p.locator('#newJourney').click();await phase(p,'draw');
+ await p.waitForFunction(()=>game.draw.t>.6);
+ assert.equal(await p.locator('#gameEntrance').count(),0);const drawn=await checkpoint(p);
+ assert.equal(drawn.stage,'poseidon');assert.equal(drawn.cards.length,2);await screenshot(p,'cards-in-game');
+ check('new journey enters first-stage weapon draw and stores cards',{checkpoint:drawn});
+ await p.reload({waitUntil:'networkidle'});await title(p);await p.locator('#continueJourney').click();await phase(p,'draw');
+ const restored=await checkpoint(p);assert.deepEqual(restored,drawn);
+ assert.deepEqual(await p.evaluate(()=>game.draw.ids.slice(0,2)),drawn.cards);
+ check('reload/continue restores the same draw, opponent and opponent weapon');
+ await p.waitForFunction(()=>game.draw.t>.6);await p.locator('#draw .wcard[data-i="0"]').tap();await phase(p,'fight');
+ const armed=await checkpoint(p);assert.equal(armed.weapon,drawn.cards[0]);
+ await p.waitForTimeout(1000);await screenshot(p,'fight-in-game');
+ const before=await p.evaluate(()=>game.stats.simTime);await p.waitForFunction(t=>game.stats.simTime>t,before,{timeout:20000});
+ check('card choice enters live combat and stores chosen weapon',{checkpoint:armed});
+ // 실제 입력 회귀: 첫 사진 뒤에만 AI를 멈추고 이동·공격을 관측한다.
+ await p.evaluate(()=>{game.ai.update=()=>{};});await p.waitForTimeout(1800);
+ const cdp=await context.newCDPSession(p),stick=await p.locator('#moveStick').boundingBox();
+ const x=stick.x+stick.width/2,y=stick.y+stick.height/2;
+ const position=()=>p.evaluate(()=>{const v=game.player.bodies.pelvis.translation();return [v.x,v.z];});
+ const a=await position();
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y}]});
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:x+45,y}]});await p.waitForFunction(a=>{const v=game.player.bodies.pelvis.translation();return Math.hypot(v.x-a[0],v.z-a[1])>.04;},a,{timeout:20000});
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+ const b=await position();assert.ok(Math.hypot(b[0]-a[0],b[1]-a[1])>.02);
+ const attackBefore=await p.evaluate(()=>game.player.stamina.spent.attack);
+ await p.touchscreen.tap(600,180);await p.waitForFunction(n=>game.player.stamina.spent.attack>n,attackBefore,{timeout:20000});
+ check('actual touchscreen joystick movement and tap attack work after entry',{from:a,to:b});
+ await p.locator('#btnPause').tap();await phase(p,'paused');await p.locator('#btnResume').tap();await phase(p,'fight');
+ check('pause and resume remain usable');
+ await p.reload({waitUntil:'networkidle'});await title(p);await p.locator('#continueJourney').click();await phase(p,'fight');
+ assert.equal(await p.evaluate(()=>game.player.weapon.id),armed.weapon);
+ assert.equal(await p.evaluate(()=>game.enemy.weapon.id),armed.foeWeapon);
+ assert.equal(await p.evaluate(()=>game.stage.id),armed.stage);
+ check('continue restores armed round at stage start');
+ // 재접속 경계 검사만 위해 상대 패배를 강제한다. 실제 플레이 사진은 위에서 이미 촬영했다.
+ await p.evaluate(()=>game.enemy.die('기절',true));
+ await p.waitForFunction(k=>JSON.parse(localStorage.getItem(k)).stage==='clearing',key);
+ const cleared=await p.evaluate(()=>localStorage.getItem('stillness.journeyClears.v1'));assert.equal(cleared,'38');
+ await p.reload({waitUntil:'networkidle'});await title(p);await p.locator('#continueJourney').click();await phase(p,'draw');
+ assert.equal(await p.evaluate(()=>game.stage.id),'clearing');assert.equal(await p.evaluate(()=>localStorage.getItem('stillness.journeyClears.v1')),'38');
+ check('win saves next stage immediately; resume does not award duplicate clear');
+ await p.reload({waitUntil:'networkidle'});await title(p);await p.locator('#newJourney').click();await phase(p,'draw');
+ assert.equal(await p.evaluate(()=>game.stage.id),'poseidon');assert.equal(await p.evaluate(()=>localStorage.getItem('stillness.journeyClears.v1')),'38');
+ assert.equal(await p.evaluate(()=>localStorage.getItem('gladiator-settings')),'{"fpsCap":true}');
+ check('new journey resets stage while preserving unlocks and settings');
+ await p.locator('#btnPause').tap();await phase(p,'paused');await p.locator('#btnStart').tap();await phase(p,'draw');
+ check('existing restart still returns to draw');
+ const savedBefore=await checkpoint(p);
+ await p.goto(base+'/?test=1&weapon=longsword&foe=heinrich&stage=castle',{waitUntil:'networkidle'});await p.waitForFunction(()=>window.game?.player);
+ assert.equal(await p.locator('#gameEntrance').count(),0);await p.locator('#btnStart').tap();await phase(p,'fight');
+ assert.equal(await p.evaluate(()=>game.stage.id),'castle');assert.deepEqual(await checkpoint(p),savedBefore);
+ check('existing direct test link bypasses title and cannot overwrite journey');await context.close();
+ for(const [name,width,height] of [['desktop',1440,900],['portrait',390,844],['small-portrait',320,568]]){
+  const c=await browser.newContext({viewport:{width,height},serviceWorkers:'allow',reducedMotion:'reduce'}),q=await c.newPage();watch(q);
+  await q.goto(base+'/',{waitUntil:'networkidle'});await q.waitForFunction(()=>window.game?.player);
+  const rects=await q.locator('#noticeDialog').evaluate(d=>{const r=d.getBoundingClientRect(),root=d.getRootNode(),a=root.getElementById('confirmNotices').getBoundingClientRect(),b=root.querySelector('.hide-read').getBoundingClientRect();return {right:r.right,bottom:r.bottom,centerA:(a.top+a.bottom)/2,centerB:(b.top+b.bottom)/2};});
+  assert.ok(rects.right<=width&&rects.bottom<=height&&Math.abs(rects.centerA-rects.centerB)<1);
+  await title(q);assert.equal(await q.locator('.title-screen').evaluate(el=>getComputedStyle(el).transitionDuration),'0s');
+  if(name!=='small-portrait')await screenshot(q,`title-${name}`);check(`${name}: integrated title and compact notices fit`,rects);await c.close();
+ }
+ const denied=await browser.newContext({viewport:{width:844,height:390},serviceWorkers:'allow',reducedMotion:'reduce'});await denied.addInitScript(()=>{Storage.prototype.getItem=()=>{throw Error('denied');};Storage.prototype.setItem=()=>{throw Error('denied');};});
+ const d=await denied.newPage();watch(d);await d.goto(base+'/',{waitUntil:'networkidle'});await title(d);await d.locator('#newJourney').click();await phase(d,'draw');check('storage denied still allows a new game');await denied.close();
+ assert.deepEqual(errors,[]);
+}finally{fs.writeFileSync(`${out}/results.json`,JSON.stringify({results,errors},null,2));await browser.close();}
+console.log(`PASS ${results.length} integrated entry checks; errors ${errors.length}`);
