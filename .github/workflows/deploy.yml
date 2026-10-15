@@ -38,5 +38,32 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # One-time recovery for our 2026-10-16 import: the workflow timed out,
+      # but Pages retained this exact deployment and rejected subsequent builds.
+      # Uses the existing pages:write permission; no live deployment is removed.
+      - name: Release the known timed-out Pages deployment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            if (owner !== 'yoonjl-svg' || repo !== 'halfsword-codex') return;
+            const deploymentId = 'e2f04f61e0acdfd8208b5dd4f98d6a2f4aa2d261';
+            const args = { owner, repo, deploymentId };
+            let result;
+            try {
+              result = await github.request('GET /repos/{owner}/{repo}/pages/deployments/{deploymentId}', args);
+            } catch (error) {
+              if (error.status === 404) { core.notice('The known Pages deployment is no longer pending.'); return; }
+              throw error;
+            }
+            const state = result.data.status;
+            core.notice(`Known Pages deployment ${deploymentId}: ${state}`);
+            if (['succeed', 'succeeded', 'finished', 'failed', 'cancelled', 'canceled', 'deployment_failed', 'deployment_cancelled'].includes(state)) return;
+            if (!['deployment_in_progress', 'syncing_files', 'finalizing', 'queued', 'pending', 'in_progress', 'deployment_queued'].includes(state)) {
+              throw new Error(`Unknown Pages state; refusing to cancel: ${state}`);
+            }
+            await github.request('POST /repos/{owner}/{repo}/pages/deployments/{deploymentId}/cancel', args);
+            core.notice(`Cancelled only the known stale Pages deployment ${deploymentId}.`);
+            await new Promise(resolve => setTimeout(resolve, 3000));
       - id: deployment
         uses: actions/deploy-pages@v4
