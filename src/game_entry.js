@@ -29,7 +29,8 @@ if (isDirectGameLink(params)) {
     const markup = new DOMParser().parseFromString(template, 'text/html').getElementById('entrance');
     root.replaceChildren(style, markup);
     let choosing = false;
-    screen = mountStartScreen({ root, pixelTheme: true, storageKey: 'stillness.start.notices.v1', async onChoice(choice) {
+    screen = mountStartScreen({ root, pixelTheme: true, storageKey: 'stillness.start.notices.v1',
+      settings: async () => { const game = await loaded; return { get: game.getLobbySettings, set: game.setLobbyFps }; }, async onChoice(choice) {
       if (choosing) return;
       choosing = true; screen.setBusy(true); screen.setStatus('');
       try {

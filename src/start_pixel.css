@@ -96,3 +96,14 @@ html[data-start-theme="pixel"] {
   [data-start-theme="pixel"] .title-footer button { min-height: 32px; padding: 0 12px; }
 }
 @media (prefers-reduced-motion: reduce) { [data-start-theme="pixel"] .title-screen { transition: none; translate: none; } }
+/* 첫 화면 하단의 공지/설정: 종전 공지 박스(약78×36)의 90%, 동일한 두 칸. */
+[data-start-theme="pixel"] .title-footer{gap:8px}
+[data-start-theme="pixel"] .title-footer button{box-sizing:border-box;width:70px;min-height:0;height:32px;padding:0;font-size:12px}
+[data-start-theme="pixel"] #settingsDialog{width:min(360px,calc(100vw - 40px))}
+[data-start-theme="pixel"] .settings-content{padding:18px 26px;font-size:14px}
+[data-start-theme="pixel"] .settings-content p{font-size:12px;color:var(--c-sub);margin:12px 0 0}
+[data-start-theme="pixel"] .settings-content p:empty{display:none}
+[data-start-theme="pixel"] .setting-row{display:flex;align-items:center;justify-content:space-between;gap:14px}
+[data-start-theme="pixel"] .setting-row input{accent-color:var(--c-accent);width:18px;height:18px;margin:0}
+[data-start-theme="pixel"] #settingsDialog .notice-footer{justify-content:flex-end}
+@media(max-height:500px) and (orientation:landscape){[data-start-theme="pixel"] .title-footer button{height:29px}}

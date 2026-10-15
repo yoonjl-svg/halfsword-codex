@@ -1,9 +1,10 @@
 import style from './lobby.css?inline';
 import titleStyle from './start_pixel.css?inline';
 import { createPixelGrove, paintPixelWordmark } from './pixel_grove.js';
-import { LOBBY_ITEMS, readLobbyEquipment, saveLobbyEquipment } from './lobby_equipment.js';
+import { LOBBY_ITEMS, LOBBY_ARMOR, readLobbyEquipment, saveLobbyEquipment, readLobbyArmor, saveLobbyArmor } from './lobby_equipment.js';
 import { createLobbyCharacter } from './lobby_character.js';
 import { readProfile, renamePlayer } from './player_profile.js';
+import { readProgress } from './lobby_progress.js';
 import { journeyClears, masteryOf, SEAL_NAMES, PLAYER_UNIQUE } from './unique_assist.js';
 import { TRADITIONS } from './schools.js';
 import { getWeapon } from './weapons.js';
@@ -15,28 +16,26 @@ export function mountLobby({ root, game, choice, onDepart, onBack }) {
     <div class="lobby-columns">
       <section class="character-panel"><div class="portrait-card card-frame" aria-label="내 캐릭터"><div class="character-view" id="characterView" tabindex="0" role="group" aria-label="캐릭터 360도 보기. 드래그 또는 좌우 방향키로 회전, Home으로 정면"></div><p class="rotate-hint">↔ 드래그하여 회전</p></div><div class="departure-actions start-actions"><button class="depart" id="lobbyDepart">${choice === 'continue' ? '여정 이어가기' : '여정 시작'}</button></div><p id="lobbyStatus" class="lobby-status" role="status"></p></section>
       <section class="profile-panel" aria-label="내 정보">
-        <dl class="profile-data"><dt>레벨 호칭</dt><dd id="lobbyRank"></dd><dt>대표 유파</dt><dd id="lobbySchool"></dd><dt>이름</dt><dd class="name-row"><span id="lobbyName"></span><button class="edit-name" id="editName" aria-label="이름 수정"><svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m3 10 7-7 3 3-7 7-4 1 1-4ZM9 4l3 3M2 14h12"/></svg></button></dd></dl>
-        <p class="duel-record"><span>대면 후 전적</span><b id="duelRecord"></b></p>
-        <nav class="lobby-tabs start-actions" role="tablist" aria-label="대기실 메뉴" aria-orientation="vertical">
-          <button role="tab" id="tabInventory" aria-controls="panelInventory" aria-selected="true" data-panel="Inventory">인벤토리</button>
+        <dl class="profile-data"><dt class="sr-only">레벨과 호칭</dt><dd id="lobbyRank"></dd><dt class="sr-only">이름</dt><dd class="name-row"><span id="lobbyName"></span><button class="edit-name" id="editName" aria-label="이름 수정"><svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m3 10 7-7 3 3-7 7-4 1 1-4ZM9 4l3 3M2 14h12"/></svg></button></dd><dt>대표 유파</dt><dd id="lobbySchool"></dd></dl>
+        <p class="duel-record"><span>대면 결과</span><b id="duelRecord"></b></p>
+        <p class="coin-balance"><svg class="coin-icon" viewBox="0 0 16 16" role="img" aria-label="금화" shape-rendering="crispEdges"><path fill="#674823" d="M2 0h12v2h2v12h-2v2H2v-2H0V2h2Z"/><path fill="#d9a441" d="M3 1h10v2h2v10h-2v2H3v-2H1V3h2Z"/><path fill="#f3d785" d="M4 3h8v2H5v7H3V4h1Z"/><path fill="#93662b" d="M11 5h2v7h-1v1H5v-2h6Z"/><path fill="#f3d785" d="M7 6h2v4H7Z"/></svg><span id="lobbyCoins"></span></p>
+        <nav class="lobby-tabs start-actions" role="tablist" aria-label="대기실 메뉴">
+          <button role="tab" id="tabWeapons" aria-controls="panelInventory" aria-selected="true" data-panel="Inventory" data-category="weapon">무기</button>
+          <button role="tab" id="tabArmor" aria-controls="panelInventory" aria-selected="false" tabindex="-1" data-panel="Inventory" data-category="armor">방어구</button>
+          <button role="tab" id="tabShop" aria-controls="panelShop" aria-selected="false" tabindex="-1" data-panel="Shop">상점</button>
           <button role="tab" id="tabSkills" aria-controls="panelSkills" aria-selected="false" tabindex="-1" data-panel="Skills">스킬북</button>
-          <button role="tab" id="tabSettings" aria-controls="panelSettings" aria-selected="false" tabindex="-1" data-panel="Settings">설정</button>
         </nav>
       </section>
       <section class="contents-panel" aria-label="대기실 상세">
-        <div role="tabpanel" id="panelInventory" aria-labelledby="tabInventory">
-          <div class="panel-heading"><h2>인벤토리</h2><span>무기 · 2</span></div>
-          <div class="inventory-frame card-frame"><div class="inventory-grid" aria-label="가로 5칸 세로 4칸 인벤토리">
-            ${Array.from({length:20}, (_, i) => {
-              const id = LOBBY_ITEMS[i];
-              return id ? `<button class="inventory-item" data-weapon="${id}" aria-label="${getWeapon(id).nameKo} 선택" aria-pressed="false"><img src="ui/weapons/${id}.webp" alt="${getWeapon(id).nameKo}" draggable="false"><span class="equipped-badge" hidden>장착 중</span></button>` : '<span class="inventory-slot" aria-hidden="true"></span>';
-            }).join('')}
-          </div></div>
+        <div role="tabpanel" id="panelInventory" aria-labelledby="tabWeapons">
+          <div class="panel-heading"><h2 id="inventoryHeading">무기</h2><span id="inventoryCount"></span></div>
+          <div class="inventory-frame card-frame"><div class="inventory-grid" aria-label="가로 5칸 세로 4칸"></div>
+          <div class="item-detail" id="armorDetail" hidden><p><b id="armorName"></b><span id="armorRarity"></span></p><p id="armorDescription"></p></div></div>
           <div class="equipment-actions start-actions"><button id="equipItem" disabled>장착</button><button id="unequipItem" disabled>해제</button></div>
           <p id="equipmentStatus" class="sr-only" role="status"></p>
         </div>
+        <div role="tabpanel" id="panelShop" aria-labelledby="tabShop" hidden><div class="panel-heading"><h2>상점</h2></div><p class="empty-panel">아직 판매 중인 물품이 없습니다.</p></div>
         <div role="tabpanel" id="panelSkills" aria-labelledby="tabSkills" hidden><div class="panel-heading"><h2>스킬북</h2><span>유파 숙련</span></div><div id="skillList"></div></div>
-        <div role="tabpanel" id="panelSettings" aria-labelledby="tabSettings" hidden><div class="panel-heading"><h2>설정</h2></div><label class="setting-row">화면 60 fps 제한<input id="lobbyFps" type="checkbox"></label><p class="setting-note">화면 갱신을 제한해 배터리 소모를 줄입니다.</p></div>
       </section>
     </div>
   </main><dialog class="name-dialog" id="nameDialog" aria-labelledby="nameHeading"><form id="nameForm"><h2 id="nameHeading">이름 수정</h2><label for="playerNameInput">이름 · 최대 16자</label><input id="playerNameInput" name="playerName" autocomplete="off" required maxlength="32"><p class="name-error" id="nameError" role="status"></p><div class="dialog-actions start-actions"><button type="button" id="cancelName">취소</button><button type="submit">저장</button></div></form></dialog>`;
@@ -47,14 +46,17 @@ export function mountLobby({ root, game, choice, onDepart, onBack }) {
   const profile = readProfile(), mastery = masteryOf(journeyClears());
   const representative = Object.keys(mastery).sort((a,b) => mastery[b] - mastery[a])[0];
   const level = mastery[representative];
-  $('lobbyRank').textContent = level ? SEAL_NAMES[level - 1] : '입문자';
+  const progress = readProgress();
+  $('lobbyRank').textContent = `Lv.${progress.level} ${progress.title}`;
+  $('lobbyCoins').textContent = progress.coins.toLocaleString('ko-KR');
   $('lobbySchool').textContent = level ? `${TRADITIONS[representative].nameKo} 유파` : '아직 없음';
   $('lobbyName').textContent = profile.name;
   const total = profile.wins + profile.losses;
   $('duelRecord').textContent = `${profile.wins}승리 ${profile.losses}패배 (${total ? Math.round(profile.wins / total * 100) : 0}%)`;
   const preview = createLobbyCharacter($('characterView'), game.getLobbyPlayer());
-  let selectedItem = null, equippedItem = readLobbyEquipment();
-  preview.setWeapon(equippedItem);
+  let selectedItem = null, category = 'weapon';
+  const equipped = { weapon: readLobbyEquipment(), armor: readLobbyArmor() };
+  preview.setWeapon(equipped.weapon); preview.setArmor(equipped.armor);
   for (const [school, stage] of Object.entries(mastery)) {
     const section = document.createElement('section'); section.className = 'skill-group';
     const heading = document.createElement('h3'); heading.textContent = TRADITIONS[school].nameKo;
@@ -74,49 +76,67 @@ export function mountLobby({ root, game, choice, onDepart, onBack }) {
   function selectTab(tab) {
     for (const item of tabs) {
       const selected = item === tab; item.setAttribute('aria-selected', String(selected)); item.tabIndex = selected ? 0 : -1;
-      $('panel' + item.dataset.panel).hidden = !selected;
+    }
+    for (const panel of root.querySelectorAll('[role=tabpanel]')) panel.hidden = panel.id !== 'panel' + tab.dataset.panel;
+    if (tab.dataset.category) {
+      category = tab.dataset.category; selectedItem = null;
+      $('panelInventory').setAttribute('aria-labelledby', tab.id); renderInventory();
     }
     root.querySelector('.contents-panel').scrollTop = 0;
   }
   for (const tab of tabs) {
     listen(tab, 'click', () => selectTab(tab));
     listen(tab, 'keydown', e => {
-      if (!['ArrowUp','ArrowDown','Home','End'].includes(e.key)) return;
+      if (!['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home','End'].includes(e.key)) return;
       e.preventDefault(); const index = tabs.indexOf(tab);
-      const next = tabs[e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : (index + (e.key === 'ArrowDown' ? 1 : -1) + tabs.length) % tabs.length];
+      const offset = { ArrowUp: -2, ArrowDown: 2, ArrowLeft: -1, ArrowRight: 1 }[e.key];
+      const next = tabs[e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : (index + offset + tabs.length) % tabs.length];
       selectTab(next); next.focus();
     });
   }
-  function refreshEquipment() {
-    for (const button of root.querySelectorAll('[data-weapon]')) {
-      const id = button.dataset.weapon;
-      button.setAttribute('aria-pressed', String(id === selectedItem));
-      button.querySelector('.equipped-badge').hidden = id !== equippedItem;
-      button.setAttribute('aria-label', `${getWeapon(id).nameKo}${id === equippedItem ? ' · 장착 중' : ''} 선택`);
-    }
-    $('equipItem').disabled = !selectedItem || selectedItem === equippedItem;
-    $('unequipItem').disabled = !selectedItem || selectedItem !== equippedItem;
-  }
-  for (const item of root.querySelectorAll('[data-weapon]')) listen(item, 'click', () => {
-    selectedItem = selectedItem === item.dataset.weapon ? null : item.dataset.weapon;
+  const grid = root.querySelector('.inventory-grid');
+  const itemName = id => category === 'armor' ? LOBBY_ARMOR.nameKo : getWeapon(id).nameKo;
+  function renderInventory() {
+    const items = category === 'armor' ? [LOBBY_ARMOR.id] : LOBBY_ITEMS;
+    $('inventoryHeading').textContent = category === 'armor' ? '방어구' : '무기';
+    $('inventoryCount').textContent = `${items.length}개`;
+    grid.innerHTML = Array.from({length:20}, (_, i) => {
+      const id = items[i];
+      if (!id) return '<span class="inventory-slot" aria-hidden="true"></span>';
+      const thumbnail = category === 'armor' ? LOBBY_ARMOR.thumbnail : `ui/weapons/${id}.webp`;
+      return `<button class="inventory-item" data-item="${id}" data-${category}="${id}" aria-pressed="false"><img src="${thumbnail}" alt="${itemName(id)}" draggable="false"><span class="equipped-badge" hidden>장착 중</span></button>`;
+    }).join('');
     refreshEquipment();
-  });
-  listen(root.querySelector('.inventory-grid'), 'click', event => {
-    if (!event.target.closest('[data-weapon]')) { selectedItem = null; refreshEquipment(); }
+  }
+  function refreshEquipment() {
+    for (const button of grid.querySelectorAll('[data-item]')) {
+      const id = button.dataset.item;
+      button.setAttribute('aria-pressed', String(id === selectedItem));
+      button.querySelector('.equipped-badge').hidden = id !== equipped[category];
+      button.setAttribute('aria-label', `${itemName(id)}${id === equipped[category] ? ' · 장착 중' : ''} 선택`);
+    }
+    $('equipItem').disabled = !selectedItem || selectedItem === equipped[category];
+    $('unequipItem').disabled = !selectedItem || selectedItem !== equipped[category];
+    $('armorDetail').hidden = category !== 'armor' || !selectedItem;
+    $('armorName').textContent = LOBBY_ARMOR.nameKo; $('armorRarity').textContent = LOBBY_ARMOR.rarity;
+    $('armorDescription').textContent = LOBBY_ARMOR.description;
+  }
+  listen(grid, 'click', event => {
+    const id = event.target.closest('[data-item]')?.dataset.item;
+    selectedItem = !id || id === selectedItem ? null : id; refreshEquipment();
   });
   function equip(id) {
     try {
-      preview.setWeapon(id); equippedItem = id;
-      const saved = saveLobbyEquipment(id);
-      $('equipmentStatus').textContent = `${id ? getWeapon(id).nameKo + ' 장착' : '장착 해제'}${saved ? '' : '. 이번 실행 동안 유지됩니다.'}`;
+      if (category === 'armor') preview.setArmor(id); else preview.setWeapon(id);
+      equipped[category] = id;
+      const saved = category === 'armor' ? saveLobbyArmor(id) : saveLobbyEquipment(id);
+      $('equipmentStatus').textContent = `${id ? itemName(id) + ' 장착' : '장착 해제'}${saved ? '' : '. 이번 실행 동안 유지됩니다.'}`;
       refreshEquipment();
-    } catch { $('equipmentStatus').textContent = '무기를 표시하지 못했습니다. 다시 시도해 주세요.'; }
+    } catch { $('equipmentStatus').textContent = '장비를 표시하지 못했습니다. 다시 시도해 주세요.'; }
   }
-  listen($('equipItem'), 'click', () => { if (selectedItem && selectedItem !== equippedItem) equip(selectedItem); });
-  listen($('unequipItem'), 'click', () => { if (selectedItem && selectedItem === equippedItem) equip(null); });
-  refreshEquipment();
-  $('lobbyFps').checked = game.getLobbySettings().fpsCap;
-  listen($('lobbyFps'), 'change', () => game.setLobbyFps($('lobbyFps').checked));
+  listen($('equipItem'), 'click', () => { if (selectedItem && selectedItem !== equipped[category]) equip(selectedItem); });
+  listen($('unequipItem'), 'click', () => { if (selectedItem && selectedItem === equipped[category]) equip(null); });
+  renderInventory();
   listen($('editName'), 'click', () => { $('playerNameInput').value = readProfile().name; $('nameError').textContent = ''; $('nameDialog').showModal(); $('playerNameInput').select(); });
   listen($('cancelName'), 'click', () => $('nameDialog').close());
   listen($('nameForm'), 'submit', e => {

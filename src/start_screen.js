@@ -2,7 +2,7 @@ import { UPDATE_NOTES } from './update_notes.js';
 import { createPixelWind } from './pixel_wind.js';
 import { createPixelGrove, paintPixelWordmark } from './pixel_grove.js';
 
-export function mountStartScreen({ root = document, pixelTheme = false, storageKey, onChoice } = {}) {
+export function mountStartScreen({ root = document, pixelTheme = false, storageKey, onChoice, settings } = {}) {
 const STORAGE_KEY = storageKey || (pixelTheme ? 'stillness.start-preview.pixel.notices.v1' : 'stillness.start-preview.notices.v1');
 const $ = id => root.getElementById(id);
 const events = new AbortController();
@@ -78,6 +78,26 @@ listen($('confirmNotices'), 'click', () => {
 listen(dialog, 'cancel', event => { event.preventDefault(); $('confirmNotices').click(); });
 listen(list, 'scroll', recordVisible, { passive: true });
 listen($('openNotices'), 'click', () => showNotices(true));
+// 비교 시안의 설정은 메모리에만 둔다. 실제 게임은 기존 설정 API를 전달한다.
+let previewFps = true;
+const settingsApi = settings || { get: () => ({ fpsCap: previewFps }), set: value => { previewFps = value; } };
+if ($('openSettings')) {
+  listen($('openSettings'), 'click', async () => {
+    $('settingsDialog').showModal(); $('settingsHeading').focus();
+    $('titleFps').disabled = true; $('settingsStatus').textContent = '';
+    try {
+      const api = await (typeof settingsApi === 'function' ? settingsApi() : settingsApi);
+      if (events.signal.aborted) return;
+      $('titleFps').checked = api.get().fpsCap; $('titleFps').disabled = false;
+    } catch { if (!events.signal.aborted) $('settingsStatus').textContent = '설정을 불러오지 못했습니다. 다시 시도해 주세요.'; }
+  });
+  listen($('titleFps'), 'change', async () => {
+    const value = $('titleFps').checked;
+    try { const api = await (typeof settingsApi === 'function' ? settingsApi() : settingsApi); if (!events.signal.aborted) api.set(value); }
+    catch { if (!events.signal.aborted) { $('titleFps').checked = !value; $('settingsStatus').textContent = '설정을 저장하지 못했습니다.'; } }
+  });
+  listen($('closeSettings'), 'click', () => $('settingsDialog').close());
+}
 for (const id of ['newJourney', 'continueJourney']) listen($(id), 'click', () => {
   if (onChoice) { onChoice(id === 'newJourney' ? 'new' : 'continue'); return; }
   for (const other of ['newJourney', 'continueJourney']) $(other).setAttribute('aria-pressed', String(other === id));
@@ -88,7 +108,7 @@ showNotices();
 
 return {
   setStatus(text) { $('selectionStatus').textContent = text; $('selectionStatus').classList.remove('sr-only'); },
-  setBusy(busy) { for (const id of ['newJourney', 'continueJourney', 'openNotices']) $(id).disabled = busy; },
-  destroy() { clearTimeout(transition); events.abort(); if (dialog.open) dialog.close(); if (scene.dispose) scene.dispose(); else scene.calm(); },
+  setBusy(busy) { for (const id of ['newJourney', 'continueJourney', 'openNotices', 'openSettings']) if ($(id)) $(id).disabled = busy; },
+  destroy() { clearTimeout(transition); events.abort(); if (dialog.open) dialog.close(); $('settingsDialog')?.close(); if (scene.dispose) scene.dispose(); else scene.calm(); },
 };
 }

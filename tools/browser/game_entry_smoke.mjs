@@ -39,7 +39,7 @@ try{
  assert.equal(await p.evaluate(()=>game.stats.simTime),0);
  assert.equal(await p.evaluate(()=>game.state),'menu');
  assert.equal(await checkpoint(p),null);
- assert.equal(await p.locator('#lobbyRank').textContent(),'견습생');
+ assert.equal(await p.locator('#lobbyRank').textContent(),'Lv.1 여행자');
  assert.equal(await p.locator('#lobbySchool').textContent(),'독일 유파');
  assert.equal(await p.locator('#duelRecord').textContent(),'0승리 0패배 (0%)');
  assert.equal(await p.locator('#panelInventory').isVisible(),true);
@@ -63,10 +63,9 @@ try{
  assert.equal(await p.locator('#lobbyName').textContent(),'샛별');
  await p.locator('#tabSkills').tap();assert.equal(await p.locator('.skill-group').count(),5);assert.ok(await p.locator('.skill-group p.unlocked').count()>0);
  await screenshot(p,'lobby-skills');
- await p.locator('#tabSettings').tap();await p.locator('#lobbyFps').uncheck();
+ await p.locator('#lobbyBack').tap();await title(p);await p.locator('#openSettings').tap();await p.locator('#titleFps').uncheck();
  assert.equal(await p.evaluate(()=>JSON.parse(localStorage.getItem('gladiator-settings')).fpsCap),false);
- await p.locator('#lobbyFps').check();await p.locator('#tabInventory').tap();
- await p.locator('#lobbyBack').tap();await title(p);await p.locator('#newJourney').tap();
+ await p.locator('#titleFps').check();await p.locator('#closeSettings').tap();await p.locator('#newJourney').tap();
  assert.equal(await p.locator('#lobbyName').textContent(),'샛별');assert.equal(await checkpoint(p),null);
  check('lobby: actual character touch rotation, unchanged physics, existing thumbnails, editable name, tabs, fps setting and safe back navigation',{thumbs});
  await p.locator('#lobbyDepart').tap();await phase(p,'draw');
@@ -135,7 +134,7 @@ try{
   assert.ok(await q.locator('.lobby').evaluate(el=>el.scrollWidth<=el.clientWidth));
   await q.locator('#lobbyDepart').scrollIntoViewIfNeeded();assert.equal(await q.locator('#lobbyDepart').isVisible(),true);
   if(name!=='small-portrait'){await q.locator('.lobby').evaluate(el=>el.scrollTop=0);await screenshot(q,`lobby-${name}`);}
-  await q.locator('#tabInventory').focus();await q.keyboard.press('ArrowDown');assert.equal(await q.locator('#panelSkills').isVisible(),true);
+  await q.locator('#tabWeapons').focus();await q.keyboard.press('End');assert.equal(await q.locator('#panelSkills').isVisible(),true);
   check(`${name}: lobby fits, no overflow, keyboard tab selection works`);await c.close();
  }
  const denied=await browser.newContext({viewport:{width:844,height:390},serviceWorkers:'allow',reducedMotion:'reduce'});await denied.addInitScript(()=>{Storage.prototype.getItem=()=>{throw Error('denied');};Storage.prototype.setItem=()=>{throw Error('denied');};});

@@ -4,11 +4,15 @@ import { buildLobbyWeapon, disposeLobbyWeapon } from './lobby_weapon.js';
 // 실제 플레이어의 겉모습만 복제한다. 전투의 몸·관절·자세·공유 자원은 변경하지 않는다.
 export function createLobbyCharacter(container, fighter) {
   const scene = new THREE.Scene(), model = new THREE.Group();
-  let swordArm = null, weapon = null;
+  let swordArm = null, weapon = null, helmet = null;
   scene.add(model);
   for (const { rb, group, kind } of fighter.meshes) {
     if (kind === 'loose' || kind === 'weapon') continue;
     const copy = group.clone(true), p = rb.translation(), q = rb.rotation();
+    if (group === fighter.groups.head) {
+      const index = group.children.indexOf(fighter.helmetGroup);
+      if (index >= 0) helmet = copy.children[index];
+    }
     copy.position.set(p.x, p.y, p.z); copy.quaternion.set(q.x, q.y, q.z, q.w);
     // 로비에서는 빈손을 내린다. 복제한 칼팔 두 조각만 어깨에서 함께 회전한다.
     if (group === fighter.groups.uarmS || group === fighter.groups.farmS) {
@@ -85,6 +89,10 @@ export function createLobbyCharacter(container, fighter) {
     }
     container.dataset.equipped = id || '';
     container.setAttribute('aria-label', `캐릭터 360도 보기. ${id ? (id === 'longsword' ? '롱소드' : '나뭇가지') + ' 장착.' : '맨손.'} 드래그 또는 좌우 방향키로 회전, Home으로 정면`);
+    render();
+  }, setArmor(id) {
+    if (helmet) helmet.visible = id === 'kettle';
+    container.dataset.armor = id || '';
     render();
   }, dispose() {
     if (weapon) disposeLobbyWeapon(weapon);

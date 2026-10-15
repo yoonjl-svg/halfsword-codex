@@ -25,7 +25,7 @@
           </div>
           <p id="selectionStatus" class="sr-only" role="status"></p>
         </div>
-        <footer class="title-footer"><button id="openNotices" type="button">공지사항</button></footer>
+        <footer class="title-footer"><button id="openNotices" type="button">공지사항</button><button id="openSettings" type="button">설정</button></footer>
       </section>
       <dialog id="noticeDialog" aria-labelledby="noticeHeading" aria-describedby="noticeIntro">
         <header class="notice-header">
@@ -38,6 +38,11 @@
           <label class="hide-read"><input id="hideRead" type="checkbox" /><span>지난 업데이트 숨김</span></label>
           <button id="confirmNotices" class="confirm-button" type="button">확인<span aria-hidden="true">→</span></button>
         </footer>
+      </dialog>
+      <dialog id="settingsDialog" aria-labelledby="settingsHeading">
+        <header class="notice-header"><h2 id="settingsHeading" tabindex="-1">설정</h2></header>
+        <div class="settings-content"><label class="setting-row" for="titleFps">화면 60 fps 제한<input id="titleFps" type="checkbox" checked /></label><p>화면 갱신을 제한해 배터리 소모를 줄입니다.</p><p id="settingsStatus" role="status"></p></div>
+        <footer class="notice-footer"><button id="closeSettings" class="confirm-button" type="button">확인</button></footer>
       </dialog>
     </main>
     <noscript>시작 화면을 보려면 JavaScript를 켜 주세요.</noscript>
