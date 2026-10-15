@@ -145,6 +145,10 @@
       #guardName small { -webkit-line-clamp: 2; }
       /* ② 를 담는 겉 칸 (main.js updateTechCue) — 자리를 차지하지 않는다 (숨기면 ② 가 숨는다) */
       #techCue { position: fixed; inset: 0; pointer-events: none; }
+      #staminaHud { position: fixed; inset: 0; pointer-events: none; }
+      .stamina-bar { position: absolute; width: 56px; height: 3px; transform: translate(-50%, -100%); background: rgba(24,18,14,.65); border-radius: 2px; box-shadow: 0 0 0 1px rgba(24,18,14,.55); overflow: hidden; }
+      .stamina-bar > span { display: block; width: 100%; height: 100%; background: var(--c-text); transform-origin: left center; }
+      .stamina-bar[data-exhausted="true"] { box-shadow: 0 0 0 1px var(--c-text); }
       /* ② 패시브·비기: 줄 하나(40px) — 자세 칸처럼 새 알림이 오면 그 자리에서 바꿔 끼운다. 10/14 03:1x: 마지막 기술이 계속 보인다(새 판에 비움),
          비기 창·고노센 준비만 잠깐 덮었다가 마지막 기술로 돌아온다 (main.js techPut · techTick) */
       .stack .slot { height: 40px; translate: 6px 0; }
@@ -380,6 +384,7 @@
     </div>
     <!-- 오른쪽 위 두 묶음: ① 자세 · (#techCue 안) ② 패시브·비기 — 둘 다 줄 하나 (10/10 20:3x, §14) -->
     <div id="guardName" class="slot"></div>
+    <div id="staminaHud"></div>
     <div id="techCue"><div id="techSlot" class="stack" aria-live="polite"><div class="slot"></div></div></div>
     <div id="moveStick" aria-label="이동 조이스틱"><div id="moveKnob"></div></div>
     <button id="btnParry" aria-label="막기 (누르고 있기)">막기</button>

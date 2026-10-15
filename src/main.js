@@ -8,6 +8,7 @@ import { PHYSICS, ARENA, CAMERA, AI_PROFICIENCY } from './config.js';
 import { FINISH as FINISH_SWITCH } from './finish.js'; // 마무리 스위치 entry·mode·vital·plateNeck (주소 ?finishEntry · ?finishMode · ?vital · ?plateNeck)
 import { VITAL as VITAL_SWITCH } from './vital_target.js'; // 약한 자세 겨눔 갈래 스위치 (10/12)
 import { Fighter, GROUND_GROUPS } from './fighter.js';
+import { createStaminaHud } from './stamina_hud.js';
 import { InputTrail } from './trail.js';
 import { Input, attachStick } from './input.js';
 import { LOOKS, getLook } from './looks.js';
@@ -47,6 +48,8 @@ await RAPIER.init();
 // 테스트용 URL 파라미터: ?weapon=monohoshizao&foeWeapon=chicken (무기 id는 weapons.js의 WEAPONS 키,
 //  Fighter 생성자가 알아서 getWeapon()으로 찾는다. 없으면 기본 롱소드)
 const params = new URLSearchParams(location.search.slice(1).replace(/\?/g, '&')); // 주소에 ? 를 두 번 써도(…?r2p=1?weapon=…) 뒤쪽 인자까지 읽는다 (사장님 10/8 08:30 링크 입력 실수 대비)
+if (params.has('stamina')) CONFIG.STAMINA.on = params.get('stamina') !== '0';
+const staminaHud = createStaminaHud(document.getElementById('staminaHud'));
 // 주인공은 판마다 무기 카드 세 장 중 하나를 골라 받는다 (아래 "무기 뽑기"). 주소에 ?weapon=을 적으면 뽑기 없이 그 무기로 고정.
 //  진짜 엑스칼리버는 주인공만 받을 수 있고, 복제품은 하인리히 몫이라 뽑기에서 뺀다
 const PLAYER_WEAPON_POOL = WEAPON_LIST.map((w) => w.id).filter((id) => id !== 'excalibur_replica' && !RETIRED_WEAPONS.has(id)); // 빼 둔 무기(에스톡·세이버·팔쉬온 — 사장님 10/13 23:2x)는 카드에 안 나온다
@@ -569,6 +572,7 @@ function newRound(weaponId) {
   const uniqueStage = uniqueStageFor(player.swordArt?.tradition, { test: testRoute.active, param: UNIQUE_STAGE_PARAM }).stage; // 손에 든 무기 유파의 숙련도 (본판 = 인장 수 · 테스트 경로 5 · ?uniqueStage)
   playerSecret = new PlayerSecretWatch(player, enemy, { locked: uniqueStage < CONFIG.UNIQUE_ASSIST.secretStage }); // 내 무기 유파의 비기 — 숙련도 5 에서만 (사장님 결정 10/13 23:1x '숙련도 5단계 … 거기서 비기를 배우게'). 그 전·스위치 끔·무유파·권총이면 S = null — 아무 일도 없다
   playerGuard = new PlayerParryGuard(player, enemy); // 막기 버튼 (누르는 동안만 손을 쥔다 — 권총·맨손이면 아무 일도 없다)
+  player.stamina.controller = playerGuard;
   playerUnique = new PlayerUniqueAssist(player, { stage: uniqueStage }); // 고유 동작 강화: 손에 든 무기 유파의 숙련도(인장 수)만큼 열림 (단계 0 · 무유파 · 끔이면 붙지 않음)
   uniqueCueSeen = null;
   secretSlow = 0;
@@ -2076,6 +2080,7 @@ function frame(now) {
     if (roundOver) tickDebris(dt * 0.5);
   }
   updateCamera(dt); // 거르는 프레임에도: 흔들림 스프링·발걸음(player.footstep 소비)·소리 자리(sound.listener)가 여기 달려 있다
+  staminaHud.update([player, enemy], camera, state === 'fight' && !roundOver);
   let renderMs = 0;
   if (paint) {
     fighterLight.update(fighterMeshes);

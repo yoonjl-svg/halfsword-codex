@@ -11,6 +11,21 @@ export const PHYSICS = {
   maxStepsPerFrame: 6, // 프레임이 밀렸을 때 따라잡기 위한 최대 스텝 수
 };
 
+// 기력: 게임 시간 기준. 고갈 불이익은 팔/손목 힘에만 준다.
+export const STAMINA = {
+  on: true,
+  max: 100,
+  movePerSecond: 4,
+  attackPerSecond: 22,
+  blockPerSecond: 2,
+  shotCost: 2,
+  weaponReferenceMass: 1.5,
+  recoverPerSecond: 15,
+  recoverDelay: 0.8,
+  exhaustedRecovery: 0.2, // 20%까지 쉬어야 고갈 해제
+  exhaustedPower: 0.6,
+};
+
 export const ARENA = {
   radius: 6.5, // 원형 경기장 반지름 (대리석 경계 테두리 위치)
   startGap: 5.6, // 시작할 때 두 검투사 사이 거리. 사장님 9/30 "멀리 떨어트려 맵을 보게"(4.2 → 7.0) → 09:10 "너무 떨어져 있어, 조금만 붙이자, 그래도 초기보다는 멀게"(→ 5.6, 롱소드 닿는 거리 밖 3.6 m)

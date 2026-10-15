@@ -66,6 +66,7 @@ export class AI {
    */
   constructor(me, foe, levelName = 'normal', persona = null) {
     this.me = me;
+    me.stamina.controller = this; // 기력 층이 현재 공격/막기를 읽는다 (AI 판단 변경 없음)
     this.foe = foe;
     this.sense = new Senses(me, foe);
     me.aiControlled = true; // 유파 걸음(gait.js gaitParams): AI 가 모는 몸은 플레이어 완화 값(gait.player)을 받지 않는다 — 읽기 표시일 뿐
