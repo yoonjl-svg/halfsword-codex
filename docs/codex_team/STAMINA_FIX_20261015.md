@@ -59,4 +59,4 @@ Chromium에서는 원래 Safari 결함 자체를 재현하지 못했다. 따라�
 
 ## 공개 전달
 
-포크 테스트 페이지: <https://yoonjl-svg.github.io/halfsword-codex/>. 소스 푸시·Pages 완료는 후속 영수증에 기록한다. 이 환경의 공개 게임 도메인 접근은 네트워크 정책상403이므로 공개판 직접 촬영과 iPhone Safari 검증은 별개로 남는다.
+포크 테스트 페이지: <https://yoonjl-svg.github.io/halfsword-codex/>. 소스 `72ac73b75ee252f762e1444ee4764017b7b29004`를 작업 가지/main에 원자적으로 푸시했고 [Pages38726871498](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38726871498)가53초에 성공했다. [배포 영수증](stamina_fix_20261015_release.json). 이 환경의 공개 게임 도메인 접근은 네트워크 정책상403이므로 공개판 직접 촬영과 iPhone Safari 검증은 별개로 남는다.
