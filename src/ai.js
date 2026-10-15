@@ -24,7 +24,7 @@ import * as THREE from 'three';
 import { AI_LEVELS, AI_PROFICIENCY, ARENA, BODY, SKILL, CLOSE, GAIT, SECRET, BIND, DRYPATH } from './config.js';
 import { Senses } from './ai_sense.js';
 import { padDist, WATCH_GUARDS } from './ai_techniques.js';
-import { TRADITIONS } from './schools.js'; // 패시브 고유 동작 목록 (10/9 — TRADITIONS[유파].passives)
+import { TRADITIONS, CN_AI_FEET } from './schools.js'; // 패시브 고유 동작 목록 (10/9 — TRADITIONS[유파].passives)
 import { resolveSwordArt } from './sword_art.js'; // 검술 풀이: 유파 꾸러미·라이브러리 병합·간격을 한 곳에서 (10/8 ① 구조)
 import { aiUniqueStages } from './unique_assist.js'; // 숙련도 거르기 (10/13): 고유 동작·패시브 단계 표 한 곳
 import { installCover } from './frames.js'; // 유파 막기 자리 몸꼴 덧씌우기 (10/11 중국 — schools.js parryCover)
@@ -2593,6 +2593,7 @@ export class AI {
   moveFeet(dt, d) {
     const me = this.me;
     const L = this.level;
+    const feet = this.art.tradition === 'chinese' && GAIT.cnAiTune && GAIT.cnLight && !me.aiLightHold && me.gait?.P.light > 1 ? CN_AI_FEET : null;
     let fwd = 0;
     let side = 0;
     const speed = BODY.moveSpeed;
@@ -2645,9 +2646,9 @@ export class AI {
     } else if (this.mode === 'withdraw') {
       // 간격 밖까지 물러난다. 가까워질수록 천천히 (관성으로 너무 멀리 가지 않게)
       //  (-0.2보다 더 당겨야 검술 층이 손 움직임을 휘두르기로 보고 앞으로 내딛지 않는다)
-      fwd = Math.min(-0.25, toStick(clamp((d - this.holdDist() - 0.05) * 3, -1.9, -0.3)));
+      fwd = Math.min(-0.25, toStick(clamp((d - this.holdDist() - 0.05) * (feet?.withdrawGain ?? 3), -1.9, -(feet?.withdrawMin ?? 0.3))));
     } else if (this.mode === 'defend') {
-      fwd = this.defVoid ? -1 : -0.3; // 막을 때도 살짝 물러선다 (앞으로 쏠리지 않게)
+      fwd = this.defVoid ? (feet?.defVoid ?? -1) : (feet?.defBack ?? -0.3); // 막을 때도 살짝 물러선다 (앞으로 쏠리지 않게)
     } else if (this.mode === 'secret') {
       // 비기 꼴 (일본 後の先): ① 물러서며 끌어 담기 — 뒤로 (뒷발 걸음은 gait 'retreat' 가 딛는다) · 경직 — 걸음 없음
       fwd = this.secretRun?.stage === 'back' ? -0.3 : this.secretRun?.stage === 'hold' ? this.secretHoldFeet() : 0;
@@ -2659,14 +2660,15 @@ export class AI {
       const hold = this.holdDist();
       const err = d - hold;
       // 멀면 걸어서 다가가고, 간격 가까이에선 발끝으로 조금씩 파고든다 (성큼 들어가면 상대 칼에 걸린다)
-      let v = clamp(err * 1.6, -1.9, d > hold + 0.5 ? 1.2 : 0.18);
+      let v = clamp(err * (feet?.holdGain ?? 1.6), -1.9, d > hold + 0.5 ? 1.2 : (feet?.holdNear ?? 0.18));
       if (this.chasing && err > 0) v = speed; // 빈손 상대는 뛰어서 쫓는다
-      v -= Math.max(0, this.foeClosing) * L.discipline * (1 - 0.3 * this.anger); // 상대가 다가오면 그만큼 물러난다 (화나면 덜 물러난다)
+      v -= Math.max(0, this.foeClosing) * L.discipline * (1 - 0.3 * this.anger) * (feet?.fleeK ?? 1); // 상대가 다가오면 그만큼 물러난다 (화나면 덜 물러난다)
       if (Math.abs(err) < 0.12 && Math.abs(this.foeClosing) < 0.3) {
         // 제자리: 잔걸음으로 들어갔다 빠졌다 (리듬)
         this.shuffleTimer -= dt;
         if (this.shuffleTimer <= 0) {
           this.shuffleTimer = rand(0.5, 1.2);
+          if (feet) this.shuffleTimer *= feet.shuffleT;
           this.shuffle = Math.random() < 0.5 ? 0 : rand(-0.3 - 0.3 * this.fear, 0.18 * (1 - this.fear)); // 겁먹으면 잔걸음이 뒷걸음으로 기운다
         }
         v = this.shuffle;

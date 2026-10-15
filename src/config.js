@@ -31,6 +31,9 @@ export const STAMINA = {
   // 회복: 0.6 s 동안 공격·막아 받기·박차기·비기·클린치를 안 쓰면 AI 초당 15 · 사람 21(샛별 저장소 c76b4a6f — 설계안은 모두 15, 사장님 확인 전) · 막기 유지 중엔 멈춤
   recoverPerSecond: 15, playerRecoverPerSecond: 21, recoverDelay: 0.6,
   exhaustSeconds: 2.5, exhaustRecover: 32, // 탈진: 2.5 s 제자리 숨 고르기(사장님 결정) · 끝에서 0(지침 단계)으로. 초당 32 = −floor ÷ 2.5 — 2.5 s 끝에 0 에 닿게(전 50 ÷ 2.5 = 20 과 같은 규칙, 10/16 탈진 −80 에 맞춤 · 탈진 중 값은 막대에 안 보이고(진행은 시간) 끝에서 0 으로 맞추므로 게임 차이 없음)
+  attackTempo: false, // 지친 공격 시간표 실험 — 전 무기 실측 통과 전 기본 끔
+  tempoPowerTired: 0.49, tempoPowerSevere: 0.25,
+  tempoBody: true, tempoCaps: true,
   tiredPower: 0.49, severePower: 0.25, // 지침·심한 지침의 팔·손목 힘 배율(안쪽 값 — 칼끝 빠르기를 0.7 · 0.5 가까이로 맞추려던 시작값, 보정 끝나지 않음 — 사장님 확인 전)
   aiRestAt: 20, aiAggressiveRestAt: -10, aiResumeAt: 35, // AI: 20 아래(공격적 기질 −10 아래) 새 공격 멈추고 물러남 · 35 에서 다시(되돌림 35 는 샛별 저장소 값 — 사장님 확인 전)
 };
@@ -182,6 +185,7 @@ export const GAIT = {
   //  미는 시간(stepTime)·멈추며 더 가는 몫(contactDist)을 가속 배율로 고친 셈은 재 보니 승률이 그대로라 넣지 않음. 0 = 끔(사람·AI 같이 — 지금 판 그대로, 바이트 같음). `?cnLightAi=0`.
   //  사람(플레이어)은 AI 가 없어 그대로 · 가벼운 발이 없는 몸은 어차피 × 1. 규칙 자리는 사장님 확인 전 (확인표 1766~)
   cnLightAi: 1,
+  cnAiTune: 0, // 동방 AI 판단 실험: 통과 전에는 기존 몸/판단 유지
   // 첫 걸음 박차기 (10/15 사장님 승인 1 단계 '첫걸음 박차기는 넣고 끌 수 있게 해서 내가 해보겠음' — docs/strike/step_burst_2026-10-15.md): 서 있던 몸이 뒤·옆으로 떼는 첫 걸음만 빠르다 —
   //  빠른 걸음 장치(gait.js fastBegin — 몸 빠르기·발 박자 × fastK, 가속 한도 × burstAccel)를 그 한 걸음에. 이어 걷는 걸음은 제 빠르기. 모든 유파의 바탕 걸음(이탈리아 빼고 · 옆 박차기는 이베리아만 — 10/15 15:1x, schools.js IBERIAN_GAIT.burstSide — **10/15 20:4x 부터 뒤 박차기는 독일만: 아래 burstDe**) · 지금은 플레이어만(AI 가 몰지 않는 몸)
   //  빠르기는 걷는 빠르기에 대한 배율이 아니라 절대 목표(m/s — 스틱 끝·다치지 않은 몸 기준): fastK = 목표 ÷ 그 쪽 걷는 빠르기(moveSpeed × backFactor·sideFactor) → 걷는 빠르기 값을 바꿔도 박차기는 그대로.

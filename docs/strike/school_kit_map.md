@@ -118,3 +118,11 @@
 | 유파 걸음 | `src/gait.js` `gaitParams`(보폭 규칙 — `*_GAIT.strideK` · 스위치 `GAIT.strideRule` · 이탈리아 고른 짝걸음 덮기 `ITALIAN_GAIT.even` · 스위치 `GAIT.itEven`) · 고른 짝걸음 `update` ③ gate · `fastPeek` · 발소리 `src/sound.js` `BodySounds.update`(gait `leg.tdN`) · 빠른 걸음 `fastBegin`·`update`(이탈리아 박자 걸음 · 독일 간격 잡기 빠른 디딤 `foeWhiff`) · 독일 간격 잡기 잡기 `holdTick`(`src/fighter.js` `driveBalance` 가 부름 — 플레이어만, 스위치 `GAIT.deHold`) — 값은 `src/schools.js` `ITALIAN_GAIT.rhythm` · `TRADITIONS.german.chase`(잡기 시간도 그 `window`) · 헛침 알림은 `src/ai.js` `afterStrike`(AI) · `src/skill.js` `whiffTrack`(사람) · 동방 가벼운 발 `src/fighter.js` `driveBalance` 가속 한도 `lim`(보통 걸음 몫 × 걸음 칸 `light` — 사람·AI 같이, 스위치 `GAIT.cnLight`) — 값은 `src/schools.js` `CHINESE_GAIT.light` · AI 몸은 공격 꼴에서만 — `src/ai.js` `update` 의 `aiLightHold`, 스위치 `GAIT.cnLightAi`) — 값은 `src/schools.js` `CHINESE_GAIT.light` · 첫 걸음 박차기 거는 자리 `src/gait.js` `update` 걷기 시작(뒤 = 무기 유파 독일 `swordArt.tradition` · 옆 = 걸음 칸 `burstSide`(이베리아) — 플레이어만, 스위치 `GAIT.burstDe`) |
 | 걷기 기력(유파별) · 박차기 기력 | `src/stamina.js` `step`(골반 수평 이동 0.62 m 마다 — 값 `src/config.js` `STAMINA.stepDistance`·`stepCosts`, 유파 열쇠 `swordArt.tradition`) · 박차기 `src/gait.js` `fastBegin` → `stamina.burst()`(`STAMINA.pushCost`) · 스위치 `STAMINA.on` · `?stamina=0` |
 | 패시브·속임수·굴림(AI) | `src/ai.js` |
+
+### 샛별 포크 후속 실험 · 2026-10-16
+
+우화 main `4f17370d`를 먼저 통합한 뒤 첨부 설계 범위에서 시험했다. 유파 기술·발동 조건·보법 몸 정의는 유지한다.
+
+- 동방 AI: `GAIT.cnAiTune=1`일 때만 `CN_AI_FEET`의 간격/잔걸음/물러남 스틱 판단을 시험한다. 동방이면서 실제 `cnLight`·`!aiLightHold`·`gait.P.light>1`인 스텝만 적용한다. 공격 판단과 공통 `toStick`은 유지한다. **채택 관문 미통과: 기본0, cnLightAi 기본1 유지.**
+- 지친 공격: `STAMINA.attackTempo=true`일 때만 몸 자세 추종 시간과 사람 몸의 목표를 지친 손 목표에 맞추는 후보. 기력 비용·회복·이동·유파 궤적은 유지한다. **전 무기 시간 비율 관문 미통과: 기본false.**
+- 상세 결과·측정 한계는 `docs/codex_team/FOLLOWUP_20261016.md`를 따른다. 꺼진 실험을 채택된 유파 동작으로 해석하지 않는다.

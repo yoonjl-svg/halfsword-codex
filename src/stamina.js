@@ -43,7 +43,7 @@ export class Stamina {
   get ratio() { return clamp(this.value / STAMINA.max, 0, 1); }
   get exhausted() { return STAMINA.on && this.exhaustLeft > 0; }
   get speed() { return !STAMINA.on ? 1 : this.exhausted ? 0 : this.level === 2 ? 0.5 : this.level === 1 ? 0.7 : 1; }
-  get power() { return !STAMINA.on || this.exhausted ? 1 : this.level === 2 ? STAMINA.severePower : this.level === 1 ? STAMINA.tiredPower : 1; }
+  get power() { return !STAMINA.on || this.exhausted ? 1 : this.level === 2 ? (STAMINA.attackTempo ? STAMINA.tempoPowerSevere : STAMINA.severePower) : this.level === 1 ? (STAMINA.attackTempo ? STAMINA.tempoPowerTired : STAMINA.tiredPower) : 1; }
   get progress() { return this.exhausted ? 1 - this.exhaustLeft / STAMINA.exhaustSeconds : 0; }
   get guarding() {
     const c = this.controller;
