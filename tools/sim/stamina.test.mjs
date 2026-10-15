@@ -10,20 +10,31 @@ function actor(extra={}) {
  f.stamina=new Stamina(f); f.pos=pos; return f;
 }
 const tick=(f,seconds,dt=1/120)=>{for(let t=0;t<seconds-1e-9;t+=dt)f.stamina.step(Math.min(dt,seconds-t));};
+const swing=(f,seconds,x,y=0)=>{f.skill.swinging=true;f.skill.vel.set(x,y);for(let t=0;t<seconds-1e-9;t+=1/120){const dt=Math.min(1/120,seconds-t);f.handOffset.x+=x*dt;f.handOffset.y+=y*dt;f.stamina.step(dt);}};
 test('공격은 한 번에 베기12/찌르기7, 막기3; 무게는 원래 질량으로 고정',()=>{
  const f=actor(); f.stamina.attack(); f.stamina.attack('thrust');near(f.stamina.value,81);
  const w=actor({swordMass:2.9}); const k=Math.sqrt(2.9/1.6);near(w.stamina.weight,k);w.swordMass=.4;near(w.stamina.weight,k);w.stamina.attack();near(w.stamina.spent.attack,12*k);
 });
 test('무게 배율은 0.75~1.5',()=>{near(actor({swordMass:.1}).stamina.weight,.75);near(actor({swordMass:20}).stamina.weight,1.5);});
 test('짧은 입력 끊김/작은 방향 흔들림은 같은 긋기, 반대 방향은 새 공격',()=>{
- const f=actor();f.skill.swinging=true;f.skill.vel.set(3,0);tick(f,.1);assert.equal(f.stamina.counts.cut,1);
- f.skill.swinging=false;tick(f,.04);f.skill.swinging=true;f.skill.vel.set(3,.1);tick(f,.1);assert.equal(f.stamina.counts.cut,1);
- f.skill.vel.set(-3,0);tick(f,.1);assert.equal(f.stamina.counts.cut,2);
- f.skill.swinging=false;tick(f,.08);f.skill.swinging=true;tick(f,.1);assert.equal(f.stamina.counts.cut,3);
+ const f=actor();f.handOffset.set(-.5,.1);tick(f,.01);swing(f,.1,3);assert.equal(f.stamina.counts.cut,1);
+ f.skill.swinging=false;tick(f,.08);swing(f,.2,3,.1);assert.equal(f.stamina.counts.cut,1);
+ swing(f,.3,-3);assert.equal(f.stamina.counts.cut,2);
+ f.skill.swinging=false;tick(f,.16);swing(f,.3,3);assert.equal(f.stamina.counts.cut,3);
 });
 test('해금 객체가 없어도 공격 비용, 자동 막기 이동에는 공격 비용 없음',()=>{
- const f=actor();assert.equal(f.skill.uniq,undefined);f.skill.swinging=true;f.skill.vel.set(3,0);tick(f,.1);near(f.stamina.spent.attack,12);
- const d=actor();d.stamina.controller={held:true};d.skill.swinging=true;d.skill.vel.set(3,0);tick(d,1);near(d.stamina.spent.attack,0);near(d.stamina.spent.block,0);
+ const f=actor();assert.equal(f.skill.uniq,undefined);f.handOffset.set(-.5,.1);tick(f,.01);swing(f,.1,3);near(f.stamina.spent.attack,12);
+ const d=actor();d.stamina.controller={held:true};swing(d,.2,3);near(d.stamina.spent.attack,0);near(d.stamina.spent.block,0);
+});
+test('실제 손 이동 없는 속도 신호나 작은 흔들림에는 비용 없음',()=>{
+ const f=actor();f.skill.swinging=true;f.skill.vel.set(3,0);tick(f,.2);near(f.stamina.spent.attack,0);
+ swing(f,.01,3);f.skill.swinging=false;tick(f,.2);near(f.stamina.spent.attack,0);
+});
+test('준비 중 실제 공격 접촉은 한 번 청구, 방어 자세의 접촉에는 공격 비용 없음',()=>{
+ const f=actor();tick(f,.01);swing(f,.05,2,2);near(f.stamina.spent.attack,0);
+ for(let i=0;i<8;i++)f.stamina.contactAttack('cut');near(f.stamina.spent.attack,12);
+ f.skill.swinging=false;tick(f,.2);f.stamina.contactAttack('cut');near(f.stamina.spent.attack,12);
+ const d=actor();d.stamina.controller={held:true};swing(d,.2,2);d.stamina.contactAttack('cut');near(d.stamina.spent.attack,0);
 });
 test('실제 접촉 청구는 상대 공격당 한 번, 다음 공격에서 다시 청구',()=>{
  const a=actor(),b=actor();b.stamina.controller={held:true};a.stamina.attack();for(let i=0;i<8;i++)b.stamina.block(a);near(b.stamina.spent.block,3);

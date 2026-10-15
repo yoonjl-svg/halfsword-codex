@@ -1,5 +1,6 @@
 import { classifyStroke } from './attack_stroke.js';
 import { STAMINA, UNIQUE_ASSIST, CLOSE } from './config.js';
+import { entersAttackLine, isPreparation } from './stamina_stroke.js';
 
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 
@@ -18,6 +19,7 @@ export class Stamina {
     this.attackUntil = -1;
     this.blockedAttack = new WeakMap();
     this.stroke = null;
+    this.strokeTail = null;
     this.quiet = Infinity;
     this.strokeStart = null;
     this.distance = 0;
@@ -50,6 +52,11 @@ export class Stamina {
       : !!c?.held && !c.broken);
   }
   get inSecret() { return !!(this.fighter.skill?.sec || this.controller?.secretRun); }
+  get attacking() {
+    const f = this.fighter;
+    return f.aiControlled ? this.controller?.mode === 'attack' && this.controller.phase === 'strike'
+      : !!(f.skill?.tap || f.skill?.pom || this.stroke?.paid || (this.strokeTail?.paid && this.time <= this.strokeTail.until));
+  }
 
   /** 기존 누르기 단계 + 실제 팔/칼 접촉. 거리만 가깝거나 공격 중인 것은 클린치가 아니다. */
   canClinch(other) {
@@ -127,6 +134,12 @@ export class Stamina {
   }
 
   attack(kind = 'cut', bundled = this.inSecret) {
+    // 탭 같은 명시 입력은 직전 준비를 끝내고 새 동작 한 번만 청구한다.
+    this.finishStroke();
+    this.chargeAttack(kind, bundled);
+  }
+
+  chargeAttack(kind = 'cut', bundled = this.inSecret) {
     if (!STAMINA.on || this.exhausted || !this.fighter.alive) return;
     this.attackId++;
     this.attackUntil = this.time + 1.5;
@@ -147,39 +160,72 @@ export class Stamina {
     if (!STAMINA.on || this.exhausted || this.inSecret || this.clinchStep?.active || !this.fighter.armed) return;
     const other = attacker?.stamina;
     if (!other || !other.attackId || other.time > other.attackUntil) return;
-    const f = this.fighter;
-    const attacking = f.aiControlled ? this.controller?.mode === 'attack' && this.controller.phase === 'strike' : f.skill?.swinging || f.skill?.tap || f.skill?.pom;
-    if (attacking && !this.guarding) return;
+    if (this.attacking && !this.guarding) return;
     if (this.blockedAttack.get(attacker) === other.attackId) return;
     this.blockedAttack.set(attacker, other.attackId);
     if (this.spend('block', STAMINA.blockCost * this.weight)) this.counts.block++;
   }
 
-  /** unique_assist의 0.06초 끊김/90도 방향 규칙. 해금/강화 객체에 연결하지 않는다. */
+  commitStroke(stroke, kind = stroke?.kind) {
+    if (!stroke || stroke.paid || this.exhausted) return;
+    stroke.paid = true;
+    this.chargeAttack(kind, false);
+  }
+
+  finishStroke() {
+    const s = this.stroke;
+    if (!s) return;
+    if (s.travel >= STAMINA.strokeTravel && !isPreparation(s)) this.commitStroke(s);
+    s.until = this.time + 0.35;
+    this.strokeTail = s;
+    this.stroke = null;
+  }
+
+  /** 준비로 보류한 손길도 실제로 칼/몸을 치면 공격이다. 정지한 칼은 이 훅을 부르지 않는다. */
+  contactAttack(kind) {
+    if (this.fighter.aiControlled || this.guarding || this.inSecret || this.exhausted) return;
+    const s = this.stroke ?? (this.time <= this.strokeTail?.until ? this.strokeTail : null);
+    if (this.strokeTail?.paid && this.time <= this.strokeTail.until && s && !s.enters && !s.matched) return;
+    this.commitStroke(s, kind ?? s?.kind);
+  }
+
+  /** 기술 감지의 방향 규칙은 재사용하되, 기력은 준비→실행→회수 단위로 확정한다. */
   observeStroke(dt) {
     const f = this.fighter, sk = f.skill;
     if (f.aiControlled) return;
     if (this.guarding || this.inSecret || sk.tap || sk.pom || sk.recovering || !f.armed || f.weapon?.gun) {
-      this.stroke = null;
+      if (!this.inSecret && !sk.tap && !sk.pom) this.finishStroke();
+      else this.stroke = null;
       this.quiet = Infinity;
+      this.strokeStart = f.handOffset ? [f.handOffset.x, f.handOffset.y] : null;
       return;
     }
+    const at = [f.handOffset?.x ?? 0, f.handOffset?.y ?? 0];
     if (!sk.swinging) {
-      if (f.handOffset) this.strokeStart = [f.handOffset.x, f.handOffset.y];
+      if (this.stroke) {
+        this.stroke.travel += Math.hypot(at[0] - this.stroke.end[0], at[1] - this.stroke.end[1]);
+        this.stroke.end = at;
+      }
       this.quiet += dt;
-      if (this.quiet >= UNIQUE_ASSIST.onsetQuiet) this.stroke = null;
+      if (this.quiet >= STAMINA.strokeQuiet) this.finishStroke();
+      this.strokeStart = at;
       return;
     }
     const vx = sk.vel.x, vy = sk.vel.y, n = Math.hypot(vx, vy);
     if (n < 1e-6) return;
     const dir = [vx / n, vy / n];
-    const turn = this.stroke ? Math.acos(clamp(dir[0] * this.stroke[0] + dir[1] * this.stroke[1], -1, 1)) * 180 / Math.PI : 180;
+    const turn = this.stroke ? Math.acos(clamp(dir[0] * this.stroke.dir[0] + dir[1] * this.stroke.dir[1], -1, 1)) * 180 / Math.PI : 180;
     if (!this.stroke || turn > UNIQUE_ASSIST.turnDeg) {
-      this.stroke = dir;
-      const at = this.strokeStart ?? [f.handOffset?.x ?? 0, f.handOffset?.y ?? 0];
-      this.attack(classifyStroke(at, dir).kind);
-      this.strokeStart = [f.handOffset?.x ?? 0, f.handOffset?.y ?? 0];
+      const start = this.stroke?.end ?? this.strokeStart ?? at;
+      this.finishStroke();
+      const classified = classifyStroke(start, dir);
+      this.stroke = { start, end: start, dir, kind: classified.kind, matched: !!classified.tech,
+        enters: entersAttackLine(start, dir), travel: 0, paid: false };
     }
+    const s = this.stroke;
+    s.travel += Math.hypot(at[0] - s.end[0], at[1] - s.end[1]);
+    s.end = at;
+    if (s.travel >= STAMINA.strokeTravel && (s.matched || s.enters || s.travel >= 0.9)) this.commitStroke(s);
     this.quiet = 0;
   }
 
@@ -221,7 +267,7 @@ export class Stamina {
     this.pose = Math.max(0, this.pose - dt * 6);
     this.action = this.guarding ? 'guard' : 'rest';
     this.observeStroke(dt);
-    if ((f.aiControlled && this.controller?.phase === 'strike') || (!f.aiControlled && f.skill?.swinging)) this.attackUntil = this.time + 0.35;
+    if ((f.aiControlled && this.controller?.phase === 'strike') || (!f.aiControlled && f.skill?.swinging && this.stroke?.paid)) this.attackUntil = this.time + 0.35;
     if (this.exhausted) return;
     const shots = f.gun?.shots ?? 0;
     if (shots > this.lastShots) this.spend('attack', (shots - this.lastShots) * STAMINA.shotCost * this.weight);

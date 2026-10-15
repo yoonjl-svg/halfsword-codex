@@ -519,8 +519,6 @@ export class Combat {
     }
     const A = this.info.get(pairs[0][0]);
     const B = this.info.get(pairs[0][1]);
-    A.fighter.stamina.block(B.fighter);
-    B.fighter.stamina.block(A.fighter);
     if (!point) point = A.fighter.bladePoint(0.6);
     if (J > 0) n.normalize();
     const nrm = n.clone();
@@ -534,7 +532,12 @@ export class Combat {
       const r = velAt(SA, point, _a).sub(velAt(SB, point, _b));
       vn = Math.max(0, r.dot(nrm));
       vt = Math.sqrt(Math.max(0, r.lengthSq() - r.dot(nrm) ** 2));
+      // 접점으로 움직인 자기 칼만 공격 확정. 받는 쪽의 정지한 칼은 공격으로 세지 않는다.
+      if (velAt(SA, point, _a).dot(nrm) > 0.5) A.fighter.stamina.contactAttack();
+      if (velAt(SB, point, _a).dot(nrm) < -0.5) B.fighter.stamina.contactAttack();
     }
+    A.fighter.stamina.block(B.fighter);
+    B.fighter.stamina.block(A.fighter);
     const fresh = this.stepNo - this.bladeLast > STEEL.rearmSteps; // 떨어져 있다가 새로 부딪힘
     this.bladeLast = this.stepNo;
     // 새로 부딪혀 튕긴 순간: 칼이 손 안에서 길이 축으로 팽이처럼 도는 몫은 손아귀가 잡는다 (gripTwist)
@@ -684,6 +687,7 @@ export class Combat {
     }
     const r = this.analyze(pr, point, S, P);
     if (!r || r.energy < STRIKE.minEnergy) return null;
+    att.stamina.contactAttack(r.type === 'stab' ? 'thrust' : 'cut');
     vic.hitCooldowns.set(key, STRIKE.hitCooldown);
     if (passing) r.stuck = r.energy <= r.absorb; // 에너지가 모자라 칼이 박힘
     if (r.type !== 'blunt' || r.severity > 0 || r.energy > 10) {

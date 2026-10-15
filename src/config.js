@@ -16,6 +16,7 @@ export const STAMINA = {
   on: true, max: 100, floor: -50,
   cutCost: 12, thrustCost: 7, blockCost: 3, secretCost: 35, pushCost: 12, shotCost: 2,
   clinchPerSecond: 10,
+  strokeQuiet: 0.12, strokeTravel: 0.06, strokeCenter: 0.22,
   weaponReferenceMass: 1.6,
   stepDistance: 0.6, maxWalkSpeed: 3,
   recoverPerSecond: 15, recoverDelay: 0.6,
