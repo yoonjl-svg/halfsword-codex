@@ -146,13 +146,13 @@
       /* ② 를 담는 겉 칸 (main.js updateTechCue) — 자리를 차지하지 않는다 (숨기면 ② 가 숨는다) */
       #techCue { position: fixed; inset: 0; pointer-events: none; }
       #staminaHud { position: fixed; inset: 0; pointer-events: none; }
-      .stamina-bar { position: absolute; width: 56px; height: 2px; transform: translate(-50%, -100%); background: rgba(24,18,14,.35); border-radius: 1px; overflow: hidden; }
+      .stamina-bar { position: absolute; width: 56px; height: 2px; transform: translate(-50%, -100%); background: rgba(24,18,14,.35); border-radius: 1px; overflow: hidden; box-shadow: 0 0 0 .5px var(--c-text); }
       .stamina-bar > span { display: block; width: 100%; height: 100%; background: var(--c-sub); opacity: .85; transform-origin: left center; }
       .stamina-bar { transition: opacity .4s; }
       .stamina-bar[data-full="true"] { opacity: .15; }
-      .stamina-bar[data-level="1"], .stamina-bar[data-level="2"] { box-shadow: inset 0 0 0 .5px rgba(184,168,142,.45); animation: stamina-breath 1.8s ease-in-out infinite; }
+      .stamina-bar[data-level="1"], .stamina-bar[data-level="2"] { animation: stamina-breath 1.8s ease-in-out infinite; }
       .stamina-bar[data-level="2"] { animation-duration: 1.1s; }
-      .stamina-bar[data-exhausted="true"] { box-shadow: inset 0 0 0 .5px rgba(184,168,142,.45); animation: none; }
+      .stamina-bar[data-exhausted="true"] { animation: none; }
       .stamina-bar[data-exhausted="true"] > span { background: #948e7c; }
       @keyframes stamina-breath { 50% { opacity: .38; } }
       @media (prefers-reduced-motion: reduce) { .stamina-bar { animation: none !important; } }
