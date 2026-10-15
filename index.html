@@ -146,9 +146,9 @@
       /* ② 를 담는 겉 칸 (main.js updateTechCue) — 자리를 차지하지 않는다 (숨기면 ② 가 숨는다) */
       #techCue { position: fixed; inset: 0; pointer-events: none; }
       #staminaHud { position: fixed; inset: 0; pointer-events: none; }
-      .stamina-bar { position: absolute; width: 56px; height: 3px; transform: translate(-50%, -100%); background: rgba(24,18,14,.65); border-radius: 2px; box-shadow: 0 0 0 1px rgba(24,18,14,.55); overflow: hidden; }
-      .stamina-bar > span { display: block; width: 100%; height: 100%; background: var(--c-text); transform-origin: left center; }
-      .stamina-bar[data-exhausted="true"] { box-shadow: 0 0 0 1px var(--c-text); }
+      .stamina-bar { position: absolute; width: 56px; height: 2px; transform: translate(-50%, -100%); background: rgba(24,18,14,.35); border-radius: 1px; overflow: hidden; }
+      .stamina-bar > span { display: block; width: 100%; height: 100%; background: var(--c-sub); opacity: .85; transform-origin: left center; }
+      .stamina-bar[data-exhausted="true"] { box-shadow: inset 0 0 0 .5px rgba(184,168,142,.45); }
       /* ② 패시브·비기: 줄 하나(40px) — 자세 칸처럼 새 알림이 오면 그 자리에서 바꿔 끼운다. 10/14 03:1x: 마지막 기술이 계속 보인다(새 판에 비움),
          비기 창·고노센 준비만 잠깐 덮었다가 마지막 기술로 돌아온다 (main.js techPut · techTick) */
       .stack .slot { height: 40px; translate: 6px 0; }

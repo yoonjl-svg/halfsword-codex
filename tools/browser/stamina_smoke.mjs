@@ -22,6 +22,18 @@ try {
   await page.evaluate(() => {
     game.renderCap.tick = () => false;
     document.getElementById('btnStart').click();
+  });
+  // 터치 화면의 startFight는 전체화면 요청을 await한 뒤 검객/AI를 새로 만든다.
+  // 새 판이 열린 다음에 시험 장면을 준비해야 이전 AI를 멈추는 경합이 없다.
+  const waitFight = async () => {
+    for (let i = 0; i < 60; i++) {
+      if (await page.evaluate(() => game.state === 'fight')) return;
+      await page.clock.runFor(16);
+    }
+    throw new Error('fight did not start');
+  };
+  await waitFight();
+  await page.evaluate(() => {
     // UI/입력 검사를 위해 상대 AI만 멈춰 피격으로 검사가 끝나지 않게 한다.
     game.ai.update = () => {};
   });
@@ -38,14 +50,14 @@ try {
       x: el.getBoundingClientRect().x, y: el.getBoundingClientRect().y,
       value: el.getAttribute('aria-valuenow'), exhausted: el.dataset.exhausted,
     })),
-    messageColor: getComputedStyle(document.querySelector('#guardName b')).color,
+    messageColor: getComputedStyle(document.querySelector('#guardName small')).color,
   }));
   let s = await snapshot();
   assert.equal(s.state, 'fight');
   assert.equal(s.bars.length, 2);
   assert.ok(s.bars.every(b => !b.hidden), JSON.stringify(s));
-  assert.ok(s.bars.every(b => b.color === s.messageColor && b.height === 3 && b.width === 56));
-  results.push({ check: 'bar placement and shared beige', ...s });
+  assert.ok(s.bars.every(b => b.color === s.messageColor && b.height === 2 && b.width === 56));
+  results.push({ check: 'bar placement and muted beige', ...s });
 
   await page.keyboard.down('KeyD');
   await page.clock.runFor(800);
@@ -109,6 +121,7 @@ try {
   assert.equal((await snapshot()).value, pausedValue);
   results.push({ check: 'pause freezes stamina and hides bars', ...s });
   await page.evaluate(() => document.getElementById('btnStart').click());
+  await waitFight();
   await page.clock.runFor(32);
   assert.ok((await snapshot()).value > 99);
   assert.equal(await page.locator('.stamina-bar').count(), 2);
@@ -117,7 +130,7 @@ try {
   await page.evaluate(() => { game.ai.update = () => {}; game.renderCap.tick = () => true; });
   await page.clock.runFor(32);
   s = await snapshot();
-  assert.ok(s.bars.every(b => !b.hidden && b.x >= 0 && b.x + b.width <= 390 && b.height === 3), JSON.stringify(s));
+  assert.ok(s.bars.every(b => !b.hidden && b.x >= 0 && b.x + b.width <= 390 && b.height === 2), JSON.stringify(s));
   assert.ok(await page.locator('#rotate').isVisible());
   await page.screenshot({ path: `${out}/full-portrait.png` });
   results.push({ check: 'restart and portrait rotation prompt', ...s });
