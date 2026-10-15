@@ -24,6 +24,13 @@
     "method": "Existing Pages CI permission; inspect and cancel only the explicitly identified stale deployment, then deploy the same game source",
     "permissionsChanged": false,
     "gameCodeChanged": false,
-    "status": "requested"
+    "status": "requested",
+    "firstInspection": {
+      "url": "https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38773802582",
+      "status": "failed safely before cancellation",
+      "observedPagesStatus": "",
+      "error": "Unknown Pages state; refusing to cancel:"
+    },
+    "emptyStateHandling": "Only the explicitly identified stale e2f04f61 ID may be cancelled when its API status is empty; terminal states still skip."
   }
 }
