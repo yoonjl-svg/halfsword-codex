@@ -1,0 +1,645 @@
+{
+  "recordedUtc": "2026-10-15T09:30:52.109743+00:00",
+  "repository": "yoonjl-svg/halfsword-codex",
+  "branch": "codex/refork-20261015",
+  "gameSourceCommit": "a0ef8402ef73bd9e55b7f934f126859ddf692733",
+  "previousSourceCommit": "50359cb8",
+  "upstreamGameBase": "fdd64557067deced82900ecc33cec84d21be0274",
+  "localOnly": true,
+  "remoteWrites": false,
+  "publicDeployment": false,
+  "sourceSha256": {
+    "index.html": "18b214b33fbc238c61622202261fa010f2c3ee211737fed7bf05881510a8618f",
+    "src/ai.js": "1c348e3a031bf7c9bf1e4aa3ec475760644aca09b4395d57fce01976aab95a95",
+    "src/attack_stroke.js": "ae70227edf3d717f5f3e437106ba84f24cb48d73221eb7964596a0917761dfa6",
+    "src/combat.js": "b9781ed53dae5389d8bdf8c7cf24bb2ad6e6c943c2785e2516402bc0efc42585",
+    "src/config.js": "3c22cb19125e003b331bdca5fd40768f0c30ed3099657948d39b2a7322fd902e",
+    "src/fighter.js": "11cab6da5659cb7a60cb14d86139f7a36523c0f912316d4d9692d41c7737bf91",
+    "src/main.js": "6d12ac662fb71f34d9560fb4b6c72adc0c672f4b911e1912092c3d37beff2946",
+    "src/parry_button.js": "c3a6b378f3d6e11b71134b5a185301411ac126d04a0db2ec8b4ca4e4551f38a5",
+    "src/secret_instant.js": "abd961b6309b66f18ad3311e19c24a286d0fd7a4338f7a9b46d5c25a74de7c52",
+    "src/skill.js": "aa4ae715847cd54fc60767c127fd841fdb1a02913cbdf736d88facc68588c176",
+    "src/sound.js": "f3f397cb5506c132f60e5bc389c49e2bea1831e5029492d771cc09889243d7ec",
+    "src/stamina.js": "47046404a0f5bf0a13c972c776fb9f798e1a7d8ef32267e96f8164bbaec10c95",
+    "src/stamina_hud.js": "6d7456471c4c7fbc713df984df3dd8b311fdc779cd08cc4847703596400ea665",
+    "src/unique_assist.js": "dbb426c90b1b2ebaf1cdd013d6940612ead9b9084ef5e2d95a7c7867ab060497"
+  },
+  "toolSha256": {
+    "tools/sim/stamina.test.mjs": "531297878b4ae6ad2eda32df80303429e06d63f1348099017b48f23aaa835a0a",
+    "tools/sim/stamina_integration.test.mjs": "736e64ffdcc232b1bff4fb6d680c2be169e81c9328530cde0d433c258c22e0f2",
+    "tools/sim/stamina_gates.mjs": "6793ea0c4c082019ab1d943175bd7323a5190fa0e2b82d5539fd7e8b5954f16f",
+    "tools/sim/stamina_duels.mjs": "a2770f47c10371d6937ef1c95187fd1730b2cef2bca68f7944c0281df659cad6",
+    "tools/sim/stamina_scenarios.mjs": "f9b2e5f81f6f6d86495fa3f4dc345340123bfde9c4a9d8d5b551cf43109f0a3c",
+    "tools/sim/stamina_exhaustion_probe.mjs": "2c05eed2125ae2964e47b8f8814fb752ce7f0a71c03ea0a7748c043e5091375c",
+    "tools/sim/stamina_speed_probe.mjs": "6890833ab16792e36fbe171e0a988f8a55cbbaef35326a6bdfb00b1772b87ca2",
+    "tools/browser/stamina_smoke.mjs": "aa92333d45b9b9943b08793e94bbcde8e31f5dd23f8126c73c65af40a7d87e19"
+  },
+  "tests": {
+    "command": "node --test tools/sim/stamina.test.mjs tools/sim/stamina_integration.test.mjs",
+    "tests": 26,
+    "passed": 26,
+    "failed": 0,
+    "logSha256": "30f8cbc48711a3bd7212065b49b17cbc5c23434833c245363be62acd1c67c0af"
+  },
+  "browser": {
+    "origin": "http://127.0.0.1:4173",
+    "servedBuildIndexSha256": "86485829dfe4e0c8861143b554bf5932a2515d78feb6ee0e65bd4d348b70e67d",
+    "viewport": [
+      844,
+      390
+    ],
+    "serviceWorkers": "allow",
+    "fakeClock": true,
+    "intermediateRenderingSkipped": true,
+    "checks": [
+      "two thin muted beige meters",
+      "walking consumes distance cost and recovers",
+      "held guard stops recovery without idle cost",
+      "touch thrust at unlock stage zero costs seven once",
+      "severe fatigue empty bar",
+      "exhaustion rejects held movement and block",
+      "forced recovery reaches zero despite held block",
+      "normal speed returns at fifteen",
+      "pause freezes resource and hides bars",
+      "restart resets resource without duplicate bars"
+    ],
+    "errors": [],
+    "receiptSha256": "e77e542d2f2df2f4671d3f23d4e2fe2550a726e02c9eae7e0942074cb03bf18b"
+  },
+  "build": {
+    "pwa": true,
+    "version": "92d0092c01fffd70a392766d",
+    "files": 345,
+    "totalBytes": 6759139
+  },
+  "gates": {
+    "off": [
+      {
+        "name": "fights12",
+        "command": [
+          "node",
+          "tools/sim/fights12.mjs"
+        ],
+        "stamina": false,
+        "exit": 0,
+        "sha256": "7c95ba21aeefd1766192c8a56a52646f8be56fbeb701d3818416441a7a730d32",
+        "baselineMatches": true,
+        "pass": true
+      },
+      {
+        "name": "live_battery",
+        "command": [
+          "node",
+          "tools/sim/live_battery.mjs"
+        ],
+        "stamina": false,
+        "exit": 0,
+        "sha256": "e7ee3d96dc05c4b9b095e8120531b065cf42f367fa74c9c80c5788b2a6a666c4",
+        "baselineMatches": true,
+        "pass": true
+      },
+      {
+        "name": "finish_thrust",
+        "command": [
+          "node",
+          "tools/sim/finish_thrust.mjs",
+          "1",
+          "--stand"
+        ],
+        "stamina": false,
+        "exit": 0,
+        "sha256": "433ac9845913951fe96d3a880ba0c66a01127021c3f970f33ecefa390ea82f81",
+        "baselineMatches": true,
+        "pass": true
+      },
+      {
+        "name": "corr",
+        "command": [
+          "node",
+          "tools/sim/corr_s0.mjs",
+          "--limits=off,on",
+          "--scenes=a,b"
+        ],
+        "stamina": false,
+        "exit": 0,
+        "sha256": "12488b6b0eccab186153a99ad2f35822519c5f097fa091b6db5cf504b105193a",
+        "baselineMatches": true,
+        "identical": 12,
+        "pass": true
+      },
+      {
+        "name": "weapon_smoke",
+        "command": [
+          "node",
+          "tools/sim/weapon_smoke.mjs"
+        ],
+        "stamina": false,
+        "exit": 0,
+        "sha256": "27b922fcf9ca8ce25d3b0c8df104a09bf2f5b1b8abcd2f1f22b80794533bcd4e",
+        "baselineMatches": true,
+        "pass": true
+      }
+    ],
+    "on": [
+      {
+        "name": "fights12",
+        "command": [
+          "node",
+          "tools/sim/fights12.mjs"
+        ],
+        "stamina": true,
+        "exit": 0,
+        "sha256": "5a02a22d1625205b0bcdfc390ddaf40320df9ec24f842c2fa560832a7d5fbe4c",
+        "baselineMatches": false,
+        "pass": true
+      },
+      {
+        "name": "live_battery",
+        "command": [
+          "node",
+          "tools/sim/live_battery.mjs"
+        ],
+        "stamina": true,
+        "exit": 0,
+        "sha256": "807dc4e9458ae7f9dc1bf8406e438bd1af6ada9daf77fdcd35cf47cd2db5e62a",
+        "baselineMatches": false,
+        "pass": true
+      },
+      {
+        "name": "finish_thrust",
+        "command": [
+          "node",
+          "tools/sim/finish_thrust.mjs",
+          "1",
+          "--stand"
+        ],
+        "stamina": true,
+        "exit": 0,
+        "sha256": "433ac9845913951fe96d3a880ba0c66a01127021c3f970f33ecefa390ea82f81",
+        "baselineMatches": true,
+        "pass": true
+      },
+      {
+        "name": "corr",
+        "command": [
+          "node",
+          "tools/sim/corr_s0.mjs",
+          "--limits=off,on",
+          "--scenes=a,b"
+        ],
+        "stamina": true,
+        "exit": 0,
+        "sha256": "681e5de3293c02507aaf901c577bcd8c773391cdb35225ca31c6ca41915fd237",
+        "baselineMatches": true,
+        "identical": 12,
+        "pass": true
+      },
+      {
+        "name": "weapon_smoke",
+        "command": [
+          "node",
+          "tools/sim/weapon_smoke.mjs"
+        ],
+        "stamina": true,
+        "exit": 0,
+        "sha256": "27b922fcf9ca8ce25d3b0c8df104a09bf2f5b1b8abcd2f1f22b80794533bcd4e",
+        "baselineMatches": true,
+        "pass": true
+      }
+    ]
+  },
+  "gateNotes": [
+    "Off stdout exactly matches original hashes except corr, whose elapsed time changes. corr criterion is 12/12 IDENTICAL.",
+    "On output differences are recorded without changing baseline expectations."
+  ],
+  "duels": {
+    "off": {
+      "mode": "main",
+      "rounds": 48,
+      "summary": [
+        {
+          "weapon": "longsword",
+          "rounds": 8,
+          "wins": 2,
+          "losses": 4,
+          "draws": 2,
+          "meanSeconds": 17.97,
+          "exhaustions": 0,
+          "woundsWhileExhausted": 0
+        },
+        {
+          "weapon": "rapier",
+          "rounds": 8,
+          "wins": 2,
+          "losses": 4,
+          "draws": 2,
+          "meanSeconds": 19.25,
+          "exhaustions": 0,
+          "woundsWhileExhausted": 0
+        },
+        {
+          "weapon": "zweihander",
+          "rounds": 8,
+          "wins": 2,
+          "losses": 6,
+          "draws": 0,
+          "meanSeconds": 17.43,
+          "exhaustions": 0,
+          "woundsWhileExhausted": 0
+        },
+        {
+          "weapon": "uchigatana",
+          "rounds": 8,
+          "wins": 0,
+          "losses": 4,
+          "draws": 4,
+          "meanSeconds": 22.89,
+          "exhaustions": 0,
+          "woundsWhileExhausted": 0
+        },
+        {
+          "weapon": "qinggang",
+          "rounds": 8,
+          "wins": 3,
+          "losses": 5,
+          "draws": 0,
+          "meanSeconds": 18.58,
+          "exhaustions": 0,
+          "woundsWhileExhausted": 0
+        },
+        {
+          "weapon": "falchion",
+          "rounds": 8,
+          "wins": 5,
+          "losses": 3,
+          "draws": 0,
+          "meanSeconds": 14.17,
+          "exhaustions": 0,
+          "woundsWhileExhausted": 0
+        }
+      ],
+      "meanSeconds": 18.3809,
+      "fightersReachedZero": 0,
+      "exhaustions": 0,
+      "rawSha256": "3f821c9f87cabb619e9cf42939ceba1a556ff3f22cf191bbbf99ed55ef24559a"
+    },
+    "on": {
+      "mode": "main",
+      "rounds": 48,
+      "summary": [
+        {
+          "weapon": "longsword",
+          "rounds": 8,
+          "wins": 2,
+          "losses": 5,
+          "draws": 1,
+          "meanSeconds": 17.77,
+          "exhaustions": 0,
+          "woundsWhileExhausted": 0
+        },
+        {
+          "weapon": "rapier",
+          "rounds": 8,
+          "wins": 2,
+          "losses": 4,
+          "draws": 2,
+          "meanSeconds": 19.34,
+          "exhaustions": 0,
+          "woundsWhileExhausted": 0
+        },
+        {
+          "weapon": "zweihander",
+          "rounds": 8,
+          "wins": 2,
+          "losses": 6,
+          "draws": 0,
+          "meanSeconds": 17.32,
+          "exhaustions": 0,
+          "woundsWhileExhausted": 0
+        },
+        {
+          "weapon": "uchigatana",
+          "rounds": 8,
+          "wins": 0,
+          "losses": 4,
+          "draws": 4,
+          "meanSeconds": 22.89,
+          "exhaustions": 0,
+          "woundsWhileExhausted": 0
+        },
+        {
+          "weapon": "qinggang",
+          "rounds": 8,
+          "wins": 3,
+          "losses": 4,
+          "draws": 1,
+          "meanSeconds": 18.08,
+          "exhaustions": 0,
+          "woundsWhileExhausted": 0
+        },
+        {
+          "weapon": "falchion",
+          "rounds": 8,
+          "wins": 5,
+          "losses": 3,
+          "draws": 0,
+          "meanSeconds": 14.17,
+          "exhaustions": 0,
+          "woundsWhileExhausted": 0
+        }
+      ],
+      "meanSeconds": 18.261,
+      "fightersReachedZero": 0,
+      "exhaustions": 0,
+      "rawSha256": "0b92bcac9198ba2becb2bd2d96dd6bf30792ce8669e7017073433ccffbf5221d"
+    }
+  },
+  "fixedInputScenarios": [
+    {
+      "name": "cuts_fast",
+      "weapon": "longsword",
+      "zero": 4.025,
+      "severe": 5.025,
+      "exhaust": 6.025,
+      "exhaustions": 6,
+      "costs": {
+        "move": 0,
+        "attack": 504.0000037550926,
+        "block": 0,
+        "secret": 0,
+        "push": 0
+      },
+      "counts": {
+        "cut": 42,
+        "thrust": 0,
+        "block": 0,
+        "secret": 0,
+        "exhaustion": 6
+      },
+      "finalState": "stand"
+    },
+    {
+      "name": "cuts_slow",
+      "weapon": "longsword",
+      "zero": 15.025,
+      "severe": 20.025,
+      "exhaust": 23.025,
+      "exhaustions": 1,
+      "costs": {
+        "move": 0,
+        "attack": 348.00000259280205,
+        "block": 0,
+        "secret": 0,
+        "push": 0
+      },
+      "counts": {
+        "cut": 29,
+        "thrust": 0,
+        "block": 0,
+        "secret": 0,
+        "exhaustion": 1
+      },
+      "finalState": "stand"
+    },
+    {
+      "name": "thrusts_fast",
+      "weapon": "rapier",
+      "zero": 8.508,
+      "severe": null,
+      "exhaust": null,
+      "exhaustions": 0,
+      "costs": {
+        "move": 0,
+        "attack": 226.35964439486247,
+        "block": 0,
+        "secret": 0,
+        "push": 0
+      },
+      "counts": {
+        "cut": 0,
+        "thrust": 39,
+        "block": 0,
+        "secret": 0,
+        "exhaustion": 0
+      },
+      "finalState": "stand"
+    }
+  ],
+  "forcedExhaustionScenarios": [
+    {
+      "seed": 1,
+      "started": 2.008,
+      "recovered": 2.5,
+      "wounds": 2,
+      "alive": true,
+      "state": "getup"
+    },
+    {
+      "seed": 2,
+      "started": 2.008,
+      "recovered": 2.5,
+      "wounds": 0,
+      "alive": true,
+      "state": "stand"
+    },
+    {
+      "seed": 3,
+      "started": 2.008,
+      "recovered": 2.5,
+      "wounds": 3,
+      "alive": true,
+      "state": "getup"
+    },
+    {
+      "seed": 4,
+      "started": 2.008,
+      "recovered": 2.5,
+      "wounds": 5,
+      "alive": true,
+      "state": "getup"
+    }
+  ],
+  "bladeSpeedMeasurements": [
+    {
+      "weapon": "longsword",
+      "tech": "zornhau",
+      "level": 0,
+      "peak": 14.145,
+      "pathEnd": 0.117,
+      "tilt": 20.5,
+      "state": "stand",
+      "speedRatio": 1
+    },
+    {
+      "weapon": "longsword",
+      "tech": "zornhau",
+      "level": 1,
+      "peak": 10.695,
+      "pathEnd": 0.158,
+      "tilt": 20.02,
+      "state": "stand",
+      "speedRatio": 0.756
+    },
+    {
+      "weapon": "longsword",
+      "tech": "zornhau",
+      "level": 2,
+      "peak": 8.912,
+      "pathEnd": 0.217,
+      "tilt": 21.22,
+      "state": "stand",
+      "speedRatio": 0.63
+    },
+    {
+      "weapon": "rapier",
+      "tech": "zornhau",
+      "level": 0,
+      "peak": 6.856,
+      "pathEnd": 0.117,
+      "tilt": 15.2,
+      "state": "stand",
+      "speedRatio": 1
+    },
+    {
+      "weapon": "rapier",
+      "tech": "zornhau",
+      "level": 1,
+      "peak": 5.463,
+      "pathEnd": 0.158,
+      "tilt": 15.28,
+      "state": "stand",
+      "speedRatio": 0.797
+    },
+    {
+      "weapon": "rapier",
+      "tech": "zornhau",
+      "level": 2,
+      "peak": 5.507,
+      "pathEnd": 0.217,
+      "tilt": 15.16,
+      "state": "stand",
+      "speedRatio": 0.803
+    },
+    {
+      "weapon": "zweihander",
+      "tech": "zornhau",
+      "level": 0,
+      "peak": 9.757,
+      "pathEnd": 0.117,
+      "tilt": 14.02,
+      "state": "stand",
+      "speedRatio": 1
+    },
+    {
+      "weapon": "zweihander",
+      "tech": "zornhau",
+      "level": 1,
+      "peak": 8.326,
+      "pathEnd": 0.158,
+      "tilt": 15.02,
+      "state": "stand",
+      "speedRatio": 0.853
+    },
+    {
+      "weapon": "zweihander",
+      "tech": "zornhau",
+      "level": 2,
+      "peak": 8.413,
+      "pathEnd": 0.217,
+      "tilt": 14.33,
+      "state": "stand",
+      "speedRatio": 0.862
+    },
+    {
+      "weapon": "monohoshizao",
+      "tech": "zornhau",
+      "level": 0,
+      "peak": 13.343,
+      "pathEnd": 0.117,
+      "tilt": 8.44,
+      "state": "stand",
+      "speedRatio": 1
+    },
+    {
+      "weapon": "monohoshizao",
+      "tech": "zornhau",
+      "level": 1,
+      "peak": 10.746,
+      "pathEnd": 0.158,
+      "tilt": 7.8,
+      "state": "stand",
+      "speedRatio": 0.805
+    },
+    {
+      "weapon": "monohoshizao",
+      "tech": "zornhau",
+      "level": 2,
+      "peak": 9.3,
+      "pathEnd": 0.217,
+      "tilt": 7.61,
+      "state": "stand",
+      "speedRatio": 0.697
+    },
+    {
+      "weapon": "qinggang",
+      "tech": "zornhau",
+      "level": 0,
+      "peak": 15.408,
+      "pathEnd": 0.117,
+      "tilt": 19.53,
+      "state": "stand",
+      "speedRatio": 1
+    },
+    {
+      "weapon": "qinggang",
+      "tech": "zornhau",
+      "level": 1,
+      "peak": 13.1,
+      "pathEnd": 0.158,
+      "tilt": 18.25,
+      "state": "stand",
+      "speedRatio": 0.85
+    },
+    {
+      "weapon": "qinggang",
+      "tech": "zornhau",
+      "level": 2,
+      "peak": 7.384,
+      "pathEnd": 0.217,
+      "tilt": 15.98,
+      "state": "stand",
+      "speedRatio": 0.479
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "screenshots/stamina_v2/debt-landscape.png",
+      "sha256": "a89f57e953ae4b99ad5d45ca67a3941ddddcf977688a13b1ef44c291b7db831c",
+      "kind": "local build, prepared state, real renderer"
+    },
+    {
+      "path": "screenshots/stamina_v2/exhausted-landscape.png",
+      "sha256": "90d61433dacb2b25f54b6c10e30350cd7c143725ac909bd401485beea58c7a53",
+      "kind": "local build, prepared state, real renderer"
+    },
+    {
+      "path": "screenshots/stamina_v2/full-landscape.png",
+      "sha256": "75fe0db619129c283bea2be1616b8ce6acefe5abb9635bd5c826e7a0dce698c3",
+      "kind": "local build, prepared state, real renderer"
+    },
+    {
+      "path": "screenshots/stamina_v2/recovered-landscape.png",
+      "sha256": "8ab2b53719aeb3060ad6776fb5ded0d856e6c0a46e38889237ca72e63c697bd0",
+      "kind": "local build, prepared state, real renderer"
+    }
+  ],
+  "limitations": [
+    "Actual blade peak speed calibration is incomplete: severe fatigue ratios range 0.479–0.862, versus target 0.5.",
+    "No natural zero stamina or exhaustion occurred in the 48 on duels; these do not establish exhausted combat balance.",
+    "Fixed player input cadence does not automatically slow as physical movement slows; predicted exhaustion times differ.",
+    "New upstream first-step push is absent in this fork; no school/footwork import and no push cost trigger added.",
+    "Block success probability and block poses were intentionally deferred by the user.",
+    "Mobile screenshots are emulated; physical-device FPS and audio loudness were not measured."
+  ],
+  "rawEvidenceDirectory": "/workspace/stamina-v2-validation"
+}

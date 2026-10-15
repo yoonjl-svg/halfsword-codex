@@ -2,12 +2,12 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-const base=process.argv[2]||'http://127.0.0.1:5173';
+const base=process.argv[2]||'http://127.0.0.1:4173';
 const out=process.argv[3]||'/tmp/stamina-shots';fs.mkdirSync(out,{recursive:true});
 const browser=await chromium.launch({executablePath:process.env.PW_CHROMIUM||'/usr/bin/chromium',args:['--use-gl=angle','--use-angle=swiftshader','--no-sandbox']});
 const errors=[],results=[];
 try {
- const page=await browser.newPage({viewport:{width:844,height:390},hasTouch:true,isMobile:true,serviceWorkers:'block'});
+ const page=await browser.newPage({viewport:{width:844,height:390},hasTouch:true,isMobile:true});
  page.on('pageerror',e=>errors.push(String(e)));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
  page.on('requestfailed',r=>errors.push(r.url()));page.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`);});
  await page.clock.install({time:new Date('2026-10-15T09:00:00Z')});await page.clock.pauseAt(new Date('2026-10-15T09:00:01Z'));
