@@ -22,4 +22,4 @@
 
 [PC 화면](../screenshots/start_pixel_sword/title-desktop.png) · [세로 화면](../screenshots/start_pixel_sword/title-phone-portrait.png).
 
-주소: <https://yoonjl-svg.github.io/halfsword-codex/start-pixel.html>. 배포 완료 여부는 후속 영수증에 기록한다. 공개 페이지 직접 확인은 클라우드 접속 제한으로 수행할 수 없으며 화면 검증은 위 로컬 프로덕션 촬영과 구분한다.
+주소: <https://yoonjl-svg.github.io/halfsword-codex/start-pixel.html>. 소스 `489dfd9734e17887a9c11de0fe088a2431a87960`를 포크 main/작업 가지에 원자적으로 푸시했고 [Pages38747020541](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38747020541)가1분45초에 성공했다. [배포 영수증](start_pixel_sword_20261015_release.json). 공개 페이지 직접 확인은 클라우드 접속 제한으로 수행할 수 없으며 화면 검증은 위 로컬 프로덕션 촬영과 구분한다.
