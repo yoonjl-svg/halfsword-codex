@@ -1,4 +1,6 @@
 import {WEAPONS} from '../../src/weapons.js';
+// 확장 계기(19무기·사람/AI·베기/찌르기/찍기/비기·최고 속도 도달 시각/실접촉 에너지): stamina_tempo_probe.mjs.
+// 이 파일은 수입 전5무기 zornhau 기준을 재현하기 위해 유지한다.
 // 동일 기술/출발 자세에서 실제 칼날70% 지점의 최고 속도와 동작 시간을 비교.
 import { newRound, DT, AI } from './harness_m.mjs';
 const rows=[];

@@ -83,12 +83,14 @@ if (!WEAPONS[id]) throw new Error(`무기 없음: ${id}`);
 const N = +nArg || 24;
 // 갈래: 가벼운 발(cnLight) · 동방 AI 걸음 박자 고침(cnLightAi — 10/15 문서 §7)
 const ARM_DEF = { off: { name: 'off', cnLight: 0, cnLightAi: 0, label: '끔 (`GAIT.cnLight=0`)' }, on: { name: 'on', cnLight: 1, cnLightAi: 0, label: '켬 · AI 고침 끔 (`GAIT.cnLightAi=0` — 고침 전 판)' }, ai: { name: 'ai', cnLight: 1, cnLightAi: 1, label: '켬 + AI 고침 (기본)' } };
+ARM_DEF.tune={name:'tune',cnLight:1,cnLightAi:0,cnAiTune:1,label:'모든 꼴 가벼운 발 + 판단 보정'};
 const ARMS = armArg.split(',').map((a) => ARM_DEF[a]);
 if (ARMS.some((a) => a == null)) throw new Error(`갈래는 off,on,ai 가운데: ${armArg}`);
 const ROWS = process.env.CLD_ROWS === '1';
 const ATK_ROWS = process.env.CLD_ATK === '1';
 const CN0 = GAIT.cnLight;
 const CNAI0 = GAIT.cnLightAi;
+const TUNE0 = GAIT.cnAiTune;
 // [시험 갈래 — 게임에 없음] 가벼운 발을 X AI 상태에 따라 켰다 껐다 (CLD_ABL — 켬 갈래에서만, 원인 가르기 · 문서 §7):
 //  attack = X AI 가 공격 꼴(준비·다가가기·벰·뒤따름)일 때만 · noattack = 공격 꼴이 아닐 때만(간 보기·막기·물러남) · hurt = X 가 상처를 받은 뒤 0.6 s 동안만 끔 ·
 //  nowatch · nodefend · nowithdraw = 그 모드에서만 끔
@@ -196,6 +198,7 @@ function track(T) {
 function fight(arm, s, xFirst) {
   GAIT.cnLight = arm.cnLight;
   GAIT.cnLightAi = arm.cnLightAi;
+  GAIT.cnAiTune = arm.cnAiTune??0;
   const seed = (xFirst ? 1000 : 2000) + s + SEED0;
   const x = { weapon: id, persona: { school } };
   const y = { weapon: 'longsword', persona: { school: 'longsword' } };
@@ -220,7 +223,11 @@ function fight(arm, s, xFirst) {
   for (let i = 0; i < 40 / DT; i++) {
     if (ABL && arm.cnLight) {
       const m = atk.ai.mode === 'attack';
-      GAIT.cnLight = ABL === 'attack' ? (m ? 1 : 0) : ABL === 'noattack' ? (m ? 0 : 1) : ABL === 'hurt' ? (hurtT >= 0 && t - hurtT < 0.6 ? 0 : 1) : ABL.startsWith('no') && atk.ai.mode === ABL.slice(2) ? 0 : 1; // no<모드> = 그 모드(watch·defend·withdraw)에서만 끔
+      const watch=atk.ai.mode==='watch',err=X.foeDistance()-atk.ai.holdDist();
+      const shuffle=watch&&Math.abs(err)<.12&&Math.abs(atk.ai.foeClosing)<.3;
+      const flee=watch&&!shuffle&&atk.ai.foeClosing>0;
+      const hold=watch&&!shuffle&&!flee;
+      GAIT.cnLight = ABL === 'noshuffle' ? +!shuffle : ABL === 'noflee' ? +!flee : ABL === 'nohold' ? +!hold : ABL === 'attack' ? (m ? 1 : 0) : ABL === 'noattack' ? (m ? 0 : 1) : ABL === 'hurt' ? (hurtT >= 0 && t - hurtT < 0.6 ? 0 : 1) : ABL.startsWith('no') && atk.ai.mode === ABL.slice(2) ? 0 : 1; // no<모드> = 그 모드(watch·defend·withdraw)에서만 끔
     }
     G.step();
     t += DT;
@@ -283,6 +290,7 @@ function fight(arm, s, xFirst) {
   atk = null;
   GAIT.cnLight = CN0;
   GAIT.cnLightAi = CNAI0;
+  GAIT.cnAiTune = TUNE0;
   return { seed, xFirst, res, t, nan, xDist: tx.dist, xWalkT: tx.walkT, xPath: tx.path, yDist: ty.dist, clinchT, closeT, falls, got, swordMass: X.swordMass, light: X.gait?.P.light ?? null, clinch, cuts: A.cut, thrusts: A.thrust, secrets: A.secret, kd: X._kdLog, strikes: A.strikes, watch: A.watch, watchIn: A.watchIn, contact: X.swordArt.measure.contact, decides: A.decides, aborts: A.aborts, yStrikes: A.yStrikes, yHit: A.yHit, yBound: A.yBound, yMiss: A.yMiss, modeT: A.modeT, headW: G.wounds.filter((w) => w.vic === X && /head|neck|face/.test(w.zone) && w.severity > 0).length, wX: A.wX, wY: A.wY, yWhy: A.yWhy, watchN: A.watchN, watchOff: A.watchOff, appV: A.appV.filter((_, i) => i % 3 === 0), appIn: A.appIn.filter((_, i) => i % 3 === 0) };
 }
 
@@ -425,4 +433,5 @@ if (process.env.CLD_SPEEDS) {
 }
 GAIT.cnLight = CN0;
 GAIT.cnLightAi = CNAI0;
+  GAIT.cnAiTune = TUNE0;
 if (process.env.CLD_JSON) (await import('node:fs')).writeFileSync(process.env.CLD_JSON, JSON.stringify(jsonOut));

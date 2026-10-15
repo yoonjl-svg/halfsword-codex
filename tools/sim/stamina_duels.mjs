@@ -1,19 +1,22 @@
 // node tools/sim/stamina_duels.mjs main on|off
-// 현재 본판 동작 그대로(별도 동작 라이브러리 덮어쓰기 없음), 유파5/무기6 × 자리교대8 = 48판.
+// 현재 본판 동작 그대로(별도 동작 라이브러리 덮어쓰기 없음), 무기5 × 자리교대24 = 120판(사용자 지시: 설계안48의 절반). STD_WEAPONS/STD_ROUNDS로 분할.
 import {newRound,DT,AI} from './harness_m.mjs';
+import { SCHOOLS } from '../../src/schools.js';
 import {STAMINA} from '../../src/config.js';
 if(process.argv[2]!=='main')throw Error('main 인자를 명시하세요');
 STAMINA.on=process.argv[3]!=='off';
-const weapons=['longsword','rapier','zweihander','uchigatana','qinggang','falchion'];
+const weapons=(process.env.STD_WEAPONS??'longsword,rapier,zweihander,uchigatana,qinggang').split(',');
+const rounds=Number(process.env.STD_ROUNDS??24);
+if(!Number.isInteger(rounds)||rounds<2||rounds%2)throw Error('STD_ROUNDS must be a positive even count');
 const rows=[];
-for(const weapon of weapons)for(let n=0;n<8;n++){
+for(const weapon of weapons)for(let n=0;n<rounds;n++){
  const swap=n%2===1,seed=1000+n;
- const g=newRound({weapon:swap?'longsword':weapon,weapon2:swap?weapon:'longsword',AI2Class:AI,seed});
+ const g=newRound({weapon:swap?'longsword':weapon,weapon2:swap?weapon:'longsword',AI2Class:AI,seed,walls:true,difficulty:'normal',difficulty2:'normal',persona:{school:SCHOOLS[swap?weapon:'longsword']?swap?weapon:'longsword':'longsword'},persona2:{school:SCHOOLS[swap?'longsword':weapon]?swap?'longsword':weapon:'longsword'}});
  const fighters=[g.player,g.enemy];
  const metrics=fighters.map(f=>({weapon:f.weapon.id,tradition:f.swordArt.tradition,firstZero:null,firstSevere:null,firstExhaustion:null,woundsWhileExhausted:0}));
  g.onWound=(att,vic,r)=>{if(vic.stamina.exhausted&&r.severity>0)metrics[fighters.indexOf(vic)].woundsWhileExhausted++;};
  try{
-  while(g.t<30&&fighters.every(f=>f.alive)){
+  while(g.t<40&&fighters.every(f=>f.alive)){
    g.step();
    for(let i=0;i<2;i++){
     const f=fighters[i],m=metrics[i],s=f.stamina,p=f.bodies.pelvis.translation();
