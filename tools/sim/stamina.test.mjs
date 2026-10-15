@@ -43,13 +43,21 @@ test('실제 접촉 청구는 상대 공격당 한 번, 다음 공격에서 다�
 test('비기는35 한 번, 구성 공격/걷기와 이중 청구하지 않음',()=>{
  const f=actor();f.skill.sec={};f.stamina.secret();f.stamina.attack();f.stamina.attack('thrust');near(f.stamina.value,65);near(f.stamina.spent.attack,0);near(f.stamina.spent.secret,35);
 });
-test('걷는 중에도 회복; 실제0.6m당1, 일본1.5, 제자리 입력은 무료',()=>{
- for(const [trad,cost] of [['german',1],['japanese',1.5]]) {
-  const f=actor({swordArt:{tradition:trad}});f.stamina.value=20;f.stamina.rest=.6;f.move.y=1;f.stamina.step(1/120);
-  for(let i=0;i<120;i++){f.pos.x+=.01;f.stamina.step(1/120);}
+test('사람/AI 걷기는0.62m당 동방0.7·일반1.4·일본2.1, 걷는 중 회복·제자리 무료',()=>{
+ for(const aiControlled of [false,true])for(const [trad,cost] of [['chinese',.7],['german',1.4],['italian',1.4],['iberian',1.4],['japanese',2.1],['none',1.4]]) {
+  const f=actor({aiControlled,swordArt:{tradition:trad}});f.stamina.value=20;f.stamina.rest=.6;f.move.y=1;f.stamina.step(1/120);
+  for(let i=0;i<123;i++){f.pos.x+=.01;f.stamina.step(1/120);}near(f.stamina.spent.move,cost);
+  f.pos.x+=.01;f.stamina.step(1/120);
   near(f.stamina.spent.move,2*cost);assert.ok(f.stamina.value>30);
  }
  const f=actor();f.move.y=1;tick(f,2);near(f.stamina.spent.move,0);
+});
+test('거리0.62 직전에는 미청구, 일시정지·남은 거리를 거쳐 다음 문턱에서 한 번 청구',()=>{
+ const f=actor();f.move.y=1;f.stamina.step(.01);
+ for(let i=0;i<61;i++){f.pos.x+=.01;f.stamina.step(.01);}near(f.stamina.spent.move,0);
+ f.stamina.step(0);near(f.stamina.spent.move,0);
+ f.pos.x+=.01;f.stamina.step(.01);near(f.stamina.spent.move,1.4);
+ f.pos.x+=.01;f.stamina.step(.01);near(f.stamina.spent.move,1.4);
 });
 test('비자발적/기술 이동에는 걷기 비용 없음',()=>{
  for(const extra of [{feetHeld:true},{gait:{req:{}}},{state:'down'}]){

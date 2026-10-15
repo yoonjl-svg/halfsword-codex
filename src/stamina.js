@@ -282,7 +282,8 @@ export class Stamina {
       const steps = Math.floor((this.distance + 1e-9) / STAMINA.stepDistance);
       if (steps) {
         this.distance -= steps * STAMINA.stepDistance;
-        this.spend('move', steps * (f.swordArt?.tradition === 'japanese' ? 1.5 : 1));
+        const cost = STAMINA.stepCosts[f.swordArt?.tradition] ?? STAMINA.stepCosts.default;
+        this.spend('move', steps * cost);
       }
     }
     if (this.exhausted) return;
