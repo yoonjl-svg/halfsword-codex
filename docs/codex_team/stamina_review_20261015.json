@@ -1,0 +1,927 @@
+{
+  "source": "5b3eafba",
+  "scope": "read-only gameplay investigation and temporary browser CSS comparisons; no source or public game changes",
+  "preparation": [
+    {
+      "prepSeconds": 0.16,
+      "fixture": "same hand target path, both standard longswords, gap8; AI uses startAttack/startStrike with autonomous decision loop parked",
+      "rows": [
+        {
+          "label": "before",
+          "t": 2,
+          "fighters": [
+            {
+              "who": "P",
+              "attackCost": 0,
+              "cutCount": 0,
+              "thrustCount": 0,
+              "value": 100,
+              "state": "stand",
+              "hand": [
+                0.15,
+                0
+              ],
+              "swinging": false
+            },
+            {
+              "who": "E",
+              "attackCost": 0,
+              "cutCount": 0,
+              "thrustCount": 0,
+              "value": 100,
+              "state": "stand",
+              "hand": [
+                0.15,
+                0
+              ],
+              "swinging": false
+            }
+          ]
+        },
+        {
+          "label": "raise to shoulder guard",
+          "t": 2.1583,
+          "fighters": [
+            {
+              "who": "P",
+              "attackCost": 12.000000089406967,
+              "cutCount": 1,
+              "thrustCount": 0,
+              "value": 87.99999991059303,
+              "state": "stand",
+              "hand": [
+                0.42000000000000004,
+                0.42
+              ],
+              "swinging": true
+            },
+            {
+              "who": "E",
+              "attackCost": 0,
+              "cutCount": 0,
+              "thrustCount": 0,
+              "value": 100,
+              "state": "stand",
+              "hand": [
+                0.42000000000000004,
+                0.42
+              ],
+              "swinging": true
+            }
+          ]
+        },
+        {
+          "label": "hold preparation",
+          "t": 2.275,
+          "fighters": [
+            {
+              "who": "P",
+              "attackCost": 12.000000089406967,
+              "cutCount": 1,
+              "thrustCount": 0,
+              "value": 87.99999991059303,
+              "state": "stand",
+              "hand": [
+                0.42,
+                0.42
+              ],
+              "swinging": false
+            },
+            {
+              "who": "E",
+              "attackCost": 0,
+              "cutCount": 0,
+              "thrustCount": 0,
+              "value": 100,
+              "state": "stand",
+              "hand": [
+                0.42,
+                0.42
+              ],
+              "swinging": false
+            }
+          ]
+        },
+        {
+          "label": "one descending cut",
+          "t": 2.55,
+          "fighters": [
+            {
+              "who": "P",
+              "attackCost": 24.000000178813934,
+              "cutCount": 2,
+              "thrustCount": 0,
+              "value": 75.99999982118607,
+              "state": "stand",
+              "hand": [
+                -0.4,
+                -0.42000000000000004
+              ],
+              "swinging": true
+            },
+            {
+              "who": "E",
+              "attackCost": 12.000000089406967,
+              "cutCount": 1,
+              "thrustCount": 0,
+              "value": 87.99999991059303,
+              "state": "stand",
+              "hand": [
+                -0.4,
+                -0.42000000000000004
+              ],
+              "swinging": true
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "who": "P",
+          "t": 2.025,
+          "kind": "cut",
+          "hand": [
+            0.20684210526315788,
+            0.08842105263157894
+          ],
+          "speed": 1.7829779182546874
+        },
+        {
+          "who": "E",
+          "t": 2.275,
+          "kind": "cut",
+          "hand": [
+            0.42,
+            0.42
+          ],
+          "speed": 0.16738769632529307
+        },
+        {
+          "who": "P",
+          "t": 2.2917,
+          "kind": "cut",
+          "hand": [
+            0.3557142857142857,
+            0.36
+          ],
+          "speed": 1.5479943875369218
+        }
+      ]
+    },
+    {
+      "prepSeconds": 0.6,
+      "fixture": "same hand target path, both standard longswords, gap8; AI uses startAttack/startStrike with autonomous decision loop parked",
+      "rows": [
+        {
+          "label": "before",
+          "t": 2,
+          "fighters": [
+            {
+              "who": "P",
+              "attackCost": 0,
+              "cutCount": 0,
+              "thrustCount": 0,
+              "value": 100,
+              "state": "stand",
+              "hand": [
+                0.15,
+                0
+              ],
+              "swinging": false
+            },
+            {
+              "who": "E",
+              "attackCost": 0,
+              "cutCount": 0,
+              "thrustCount": 0,
+              "value": 100,
+              "state": "stand",
+              "hand": [
+                0.15,
+                0
+              ],
+              "swinging": false
+            }
+          ]
+        },
+        {
+          "label": "raise to shoulder guard",
+          "t": 2.6,
+          "fighters": [
+            {
+              "who": "P",
+              "attackCost": 0,
+              "cutCount": 0,
+              "thrustCount": 0,
+              "value": 100,
+              "state": "stand",
+              "hand": [
+                0.42000000000000004,
+                0.42
+              ],
+              "swinging": false
+            },
+            {
+              "who": "E",
+              "attackCost": 0,
+              "cutCount": 0,
+              "thrustCount": 0,
+              "value": 100,
+              "state": "stand",
+              "hand": [
+                0.42000000000000004,
+                0.42
+              ],
+              "swinging": false
+            }
+          ]
+        },
+        {
+          "label": "hold preparation",
+          "t": 2.7167,
+          "fighters": [
+            {
+              "who": "P",
+              "attackCost": 0,
+              "cutCount": 0,
+              "thrustCount": 0,
+              "value": 100,
+              "state": "stand",
+              "hand": [
+                0.42,
+                0.42
+              ],
+              "swinging": false
+            },
+            {
+              "who": "E",
+              "attackCost": 0,
+              "cutCount": 0,
+              "thrustCount": 0,
+              "value": 100,
+              "state": "stand",
+              "hand": [
+                0.42,
+                0.42
+              ],
+              "swinging": false
+            }
+          ]
+        },
+        {
+          "label": "one descending cut",
+          "t": 2.9917,
+          "fighters": [
+            {
+              "who": "P",
+              "attackCost": 12.000000089406967,
+              "cutCount": 1,
+              "thrustCount": 0,
+              "value": 87.99999991059303,
+              "state": "stand",
+              "hand": [
+                -0.4,
+                -0.42000000000000004
+              ],
+              "swinging": true
+            },
+            {
+              "who": "E",
+              "attackCost": 12.000000089406967,
+              "cutCount": 1,
+              "thrustCount": 0,
+              "value": 87.99999991059303,
+              "state": "stand",
+              "hand": [
+                -0.4,
+                -0.42000000000000004
+              ],
+              "swinging": true
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "who": "E",
+          "t": 2.7167,
+          "kind": "cut",
+          "hand": [
+            0.42,
+            0.42
+          ],
+          "speed": 0.04503161442825736
+        },
+        {
+          "who": "P",
+          "t": 2.7333,
+          "kind": "cut",
+          "hand": [
+            0.3557142857142857,
+            0.36
+          ],
+          "speed": 1.6113286462835685
+        }
+      ]
+    }
+  ],
+  "drawback": {
+    "fixture": "standard longsword, same preparation target, skill.thrust vs AI.startStrike",
+    "tech": "stichPflug",
+    "accepted": true,
+    "result": [
+      {
+        "label": "start",
+        "t": 1.9999999999999953,
+        "fighters": [
+          {
+            "who": "P",
+            "cost": 0,
+            "counts": {
+              "cut": 0,
+              "thrust": 0,
+              "block": 0,
+              "secret": 0,
+              "exhaustion": 0
+            },
+            "state": "stand"
+          },
+          {
+            "who": "E",
+            "cost": 0,
+            "counts": {
+              "cut": 0,
+              "thrust": 0,
+              "block": 0,
+              "secret": 0,
+              "exhaustion": 0
+            },
+            "state": "stand"
+          }
+        ]
+      },
+      {
+        "label": "draw back to pflug in 0.1s",
+        "t": 2.099999999999995,
+        "fighters": [
+          {
+            "who": "P",
+            "cost": 12.000000089406967,
+            "counts": {
+              "cut": 1,
+              "thrust": 0,
+              "block": 0,
+              "secret": 0,
+              "exhaustion": 0
+            },
+            "state": "stand"
+          },
+          {
+            "who": "E",
+            "cost": 0,
+            "counts": {
+              "cut": 0,
+              "thrust": 0,
+              "block": 0,
+              "secret": 0,
+              "exhaustion": 0
+            },
+            "state": "stand"
+          }
+        ]
+      },
+      {
+        "label": "tap thrust",
+        "t": 2.2249999999999948,
+        "fighters": [
+          {
+            "who": "P",
+            "cost": 19.00000014156103,
+            "counts": {
+              "cut": 1,
+              "thrust": 1,
+              "block": 0,
+              "secret": 0,
+              "exhaustion": 0
+            },
+            "state": "stand"
+          },
+          {
+            "who": "E",
+            "cost": 7.000000052154064,
+            "counts": {
+              "cut": 0,
+              "thrust": 1,
+              "block": 0,
+              "secret": 0,
+              "exhaustion": 0
+            },
+            "state": "stand"
+          }
+        ]
+      }
+    ]
+  },
+  "hud": {
+    "results": [
+      {
+        "label": "full-current",
+        "stage": "frozen_bay",
+        "sim": 2.8999999999999924,
+        "bars": [
+          {
+            "hidden": false,
+            "x": 306.234375,
+            "y": 115.984375,
+            "width": 56,
+            "height": 2,
+            "opacity": "0.15",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(1)",
+            "full": "true"
+          },
+          {
+            "hidden": false,
+            "x": 482.921875,
+            "y": 115.890625,
+            "width": 56,
+            "height": 2,
+            "opacity": "0.15",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(1)",
+            "full": "true"
+          }
+        ]
+      },
+      {
+        "label": "partial-current",
+        "stage": "frozen_bay",
+        "sim": 2.9333333333333256,
+        "bars": [
+          {
+            "hidden": false,
+            "x": 305.4375,
+            "y": 116.65625,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          },
+          {
+            "hidden": false,
+            "x": 483.8125,
+            "y": 116.5625,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          }
+        ]
+      },
+      {
+        "label": "white-gold-thin",
+        "stage": "frozen_bay",
+        "sim": 2.9333333333333256,
+        "bars": [
+          {
+            "hidden": false,
+            "x": 305.4375,
+            "y": 116.65625,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.25px, rgb(217, 164, 65) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          },
+          {
+            "hidden": false,
+            "x": 483.8125,
+            "y": 116.5625,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.25px, rgb(217, 164, 65) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          }
+        ]
+      },
+      {
+        "label": "gold-dark",
+        "stage": "frozen_bay",
+        "sim": 2.9333333333333256,
+        "bars": [
+          {
+            "hidden": false,
+            "x": 305.4375,
+            "y": 116.65625,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(217, 164, 65) 0px 0px 0px 0.5px, rgb(13, 9, 7) 0px 0px 0px 1px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          },
+          {
+            "hidden": false,
+            "x": 483.8125,
+            "y": 116.5625,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(217, 164, 65) 0px 0px 0px 0.5px, rgb(13, 9, 7) 0px 0px 0px 1px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          }
+        ]
+      },
+      {
+        "label": "camera-0",
+        "stage": "frozen_bay",
+        "sim": 2.974999999999992,
+        "bars": [
+          {
+            "hidden": false,
+            "x": 396.390625,
+            "y": 118.0625,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          },
+          {
+            "hidden": false,
+            "x": 390.09375,
+            "y": 114.734375,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          }
+        ]
+      },
+      {
+        "label": "camera-45",
+        "stage": "frozen_bay",
+        "sim": 3.0083333333333253,
+        "bars": [
+          {
+            "hidden": false,
+            "x": 341.0625,
+            "y": 117.03125,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          },
+          {
+            "hidden": false,
+            "x": 469.1875,
+            "y": 114.328125,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          }
+        ]
+      },
+      {
+        "label": "camera-90",
+        "stage": "frozen_bay",
+        "sim": 3.0416666666666585,
+        "bars": [
+          {
+            "hidden": false,
+            "x": 303.546875,
+            "y": 114.96875,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          },
+          {
+            "hidden": false,
+            "x": 485.703125,
+            "y": 114.84375,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          }
+        ]
+      },
+      {
+        "label": "camera-135",
+        "stage": "frozen_bay",
+        "sim": 3.0749999999999917,
+        "bars": [
+          {
+            "hidden": false,
+            "x": 314.65625,
+            "y": 112.171875,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          },
+          {
+            "hidden": false,
+            "x": 450.859375,
+            "y": 115.359375,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          }
+        ]
+      },
+      {
+        "label": "camera-180",
+        "stage": "frozen_bay",
+        "sim": 3.108333333333325,
+        "bars": [
+          {
+            "hidden": false,
+            "x": 391.1875,
+            "y": 110.140625,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          },
+          {
+            "hidden": false,
+            "x": 395.703125,
+            "y": 115.28125,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          }
+        ]
+      },
+      {
+        "label": "camera-225",
+        "stage": "frozen_bay",
+        "sim": 3.1499999999999915,
+        "bars": [
+          {
+            "hidden": false,
+            "x": 470.609375,
+            "y": 110.546875,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          },
+          {
+            "hidden": false,
+            "x": 339.96875,
+            "y": 114.359375,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          }
+        ]
+      },
+      {
+        "label": "camera-270",
+        "stage": "frozen_bay",
+        "sim": 3.1833333333333247,
+        "bars": [
+          {
+            "hidden": false,
+            "x": 485.609375,
+            "y": 112.453125,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          },
+          {
+            "hidden": false,
+            "x": 303.09375,
+            "y": 112.546875,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          }
+        ]
+      },
+      {
+        "label": "camera-315",
+        "stage": "frozen_bay",
+        "sim": 3.216666666666658,
+        "bars": [
+          {
+            "hidden": false,
+            "x": 449.875,
+            "y": 113.875,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          },
+          {
+            "hidden": false,
+            "x": 315.765625,
+            "y": 110.0625,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          }
+        ]
+      },
+      {
+        "label": "full-current",
+        "stage": "poseidon_night",
+        "sim": 2.8749999999999925,
+        "bars": [
+          {
+            "hidden": false,
+            "x": 306.75,
+            "y": 115.484375,
+            "width": 56,
+            "height": 2,
+            "opacity": "0.15",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(1)",
+            "full": "true"
+          },
+          {
+            "hidden": false,
+            "x": 482.359375,
+            "y": 115.390625,
+            "width": 56,
+            "height": 2,
+            "opacity": "0.15",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(1)",
+            "full": "true"
+          }
+        ]
+      },
+      {
+        "label": "partial-current",
+        "stage": "poseidon_night",
+        "sim": 2.916666666666659,
+        "bars": [
+          {
+            "hidden": false,
+            "x": 305.859375,
+            "y": 116.328125,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          },
+          {
+            "hidden": false,
+            "x": 483.359375,
+            "y": 116.21875,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          }
+        ]
+      },
+      {
+        "label": "white-gold-thin",
+        "stage": "poseidon_night",
+        "sim": 2.916666666666659,
+        "bars": [
+          {
+            "hidden": false,
+            "x": 305.859375,
+            "y": 116.328125,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.25px, rgb(217, 164, 65) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          },
+          {
+            "hidden": false,
+            "x": 483.359375,
+            "y": 116.21875,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(243, 233, 216) 0px 0px 0px 0.25px, rgb(217, 164, 65) 0px 0px 0px 0.5px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          }
+        ]
+      },
+      {
+        "label": "gold-dark",
+        "stage": "poseidon_night",
+        "sim": 2.916666666666659,
+        "bars": [
+          {
+            "hidden": false,
+            "x": 305.859375,
+            "y": 116.328125,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(217, 164, 65) 0px 0px 0px 0.5px, rgb(13, 9, 7) 0px 0px 0px 1px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          },
+          {
+            "hidden": false,
+            "x": 483.359375,
+            "y": 116.21875,
+            "width": 56,
+            "height": 2,
+            "opacity": "1",
+            "shadow": "rgb(217, 164, 65) 0px 0px 0px 0.5px, rgb(13, 9, 7) 0px 0px 0px 1px",
+            "fillOpacity": "0.85",
+            "fill": "scaleX(0.6)",
+            "full": "false"
+          }
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "artifactRoot": "/workspace/stamina-review-20261015"
+}
