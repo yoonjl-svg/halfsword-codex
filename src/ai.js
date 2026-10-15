@@ -249,6 +249,10 @@ export class AI {
     this.lastAtkT = -Infinity; // 마지막으로 공격 꼴이던 때 (중국 chineseRest)
     this.restBefore = Infinity; // 이번 공격을 시작하기 전 내 공격 없이 지난 시간 (s)
     this.defBindSeen = false; // bindDef: 한 번 막는 동안 처음 맞닿음에만
+    // 시험: 헛스윙 연습 상대 (src/whiff_drill.js — ?foeWhiff=1 일 때만 main.js 가 판마다 붙인다). null 이면 아래 drill 자리는 아무 일도 안 한다(바이트 그대로)
+    this.drill = null;
+    this.drillOut = false; // 이번 스텝 헛스윙을 하나 (updateCombat — drill 이 있을 때만 켜짐)
+    this.drillAtk = false; // 지금 공격이 헛스윙 공격인가 (startAttack 이 공격마다 정함)
     this.guard = this.pickGuard(null);
   }
 
@@ -288,6 +292,11 @@ export class AI {
    *  마른 길(drySense > 0 — 라트나 · 잠든 습지만)이면 돌아갈 쪽을 덜 젖은 쪽으로 미리 고르고(dryRouteSide), 돌아가기까지 끝난 스틱을 덜 젖은 쪽으로 튼다(dryFeet).
    *  둘 다 자기 무대에서만 일한다(습지 · 화산섬은 함께 나오지 않음) — 용암 피하기를 마지막에 둬 안전 쪽이 이긴다 */
   update(dt) {
+    // 동방 AI 걸음 박자 (10/15 — GAIT.cnLightAi · docs/strike/cn_light_feet_2026-10-15.md §7): 가벼운 발 몸(유파 걸음 칸 light)의 AI 는 공격 꼴(준비·다가가기·벰·뒤따름)일 때만 가벼운 발 —
+    //  간 보기·막기·물러남(비기 꼴 포함)의 발놀림 박자(간격 비례 제어·잔걸음·'관성으로 너무 멀리 가지 않게' 늦추는 물러남)는 옛 가속(3.2 m/s²) 몸에 맞춘 값이라 그 꼴에서는 옛 가속으로 민다
+    //  (fighter.js driveBalance 가 읽음 — 지난 스텝의 꼴 · 칸 없는 몸은 어차피 × 1). 끄면(0) 늘 false(사람·AI 같이 — 지금 판, 바이트 같음). 사람은 AI 가 없어 그대로
+    this.me.aiLightHold = GAIT.cnLightAi ? this.mode !== 'attack' : false;
+    // 기력 탈진 (샛별 저장소 6ac1070d — docs/strike/stamina_import_2026-10-15.md): 2.5 s 제자리 숨 고르기 — 비기·공격·막기·걸음 의도를 모두 거두고 스틱 0 (몸은 물리대로 · 균형 디딤 그대로). 기력 끔이면 늘 거짓
     if (this.me.stamina.exhausted) {
       if (this.secretRun) this.secretAbort();
       this.mode = 'watch'; this.phase = 'ready'; this.path.length = 0;
@@ -412,6 +421,9 @@ export class AI {
     const r = me.right(_v1);
     this.foeLat = dx * r.x + dz * r.z; // 상대가 내 오른쪽으로 비껴 선 정도
     if (me.weapon?.gun) return gunAI(this, dt); // 권총(??? 등급): 간격을 벌려 도망 다니며 쏜다 (gun.js)
+    // 시험: 헛스윙 연습 (whiff_drill.js — 없으면 늘 false). 하는 동안은 드릴이 판단을 맡는다 — 미룬 패시브는 버린다(물러남 끝에 들어가 치지 않게)
+    this.drillOut = !!this.drill && this.drill.out(this, d, dt);
+    if (this.drillOut) this.pendingPassive = null;
     // 상대가 얼마나 몰아치는가: 다가오며 휘두르는 사람이면 곧장 벨 수 있는 자세(지붕·황소)로 기다린다
     const aggrNow = (this.foeClosing > 0.6 ? 0.6 : 0) + (Math.hypot(s.hvx, s.hvy) > 3 && d < this.foeReach + 0.6 ? 0.6 : 0);
     this.foeAggro += (Math.min(1, aggrNow) - this.foeAggro) * Math.min(1, dt / 2.5);
@@ -450,7 +462,7 @@ export class AI {
     if (!this.secretRun && me.powerMul !== 1) me.powerMul = 1;
     if (!this.secretRun && me.secretHit !== 1) me.secretHit = 1; // 결정타 판정 배율도 비기 밖에선 1
     if (kneeling && this.secretRun) this.secretAbort();
-    if (this.secret && !kneeling && !this.secretRun) this.secretScan(dt, c, r);
+    if (this.secret && !kneeling && !this.secretRun && !this.drillOut) this.secretScan(dt, c, r); // 헛스윙 연습 동안은 비기 사건을 보지 않는다 (whiff_drill.js)
 
     if (kneeling) {
       // 다리를 못 쓰니 물러나거나 파고들 수 없다: 위험이 오면 그래도 막고, 아니면 사정거리 안에 있을 때만
@@ -478,7 +490,7 @@ export class AI {
 
     // 일본 발도 대기 (10/10 02:4x): 상대 간격 밖에 iaiArmTime 초 머물면 웅크린 발도 대기 자세 (간격 안·공격·막기면 풀림). 고노센은 이 자세에서만 (cond.armed)
     if (this.iaiArm && SECRET.iai) {
-      this.iaiArm.tick(dt, d > this.foeReach && !kneeling, this.mode === 'attack' || this.mode === 'defend' || (!!this.secretRun && this.secretRun.stage !== 'instant'));
+      this.iaiArm.tick(dt, d > this.foeReach && !kneeling, this.mode === 'attack' || this.mode === 'defend' || (!!this.secretRun && this.secretRun.stage !== 'instant') || this.drillOut); // 헛스윙 연습 동안은 대기하지 않는다
       iaiReadyPose(me, this.iaiArm.armed && this.mode !== 'attack', dt);
     }
     // 이베리아 길목 지키기 준비 (10/11 v6): 상대가 내 칼끝 거리(reach) 밖에 gilmokArmTime 초 머물면 칼을 몸 옆으로 감아 뒤로 둔 옆 자세(가로 탈류·가로 레베스)로 길목을 지킨다.
@@ -488,7 +500,7 @@ export class AI {
     //   유지(깜빡이지 않게 — 재사용). 감는 모습이 곧 길목의 예고다. 쪽 = 낮은 자세의 쪽(아래 레베스면 왼쪽, 아니면 오른쪽 — 피 단Ⅰ 탈류부터)
     if (this.gilArm) {
       const was = this.gilArm.armed;
-      this.gilArm.tick(dt, d > gilmokLine(me, this.M.reach, this.secret.do) && !kneeling, this.mode === 'attack' || this.mode === 'defend' || !!this.secretRun);
+      this.gilArm.tick(dt, d > gilmokLine(me, this.M.reach, this.secret.do) && !kneeling, this.mode === 'attack' || this.mode === 'defend' || !!this.secretRun || this.drillOut); // 헛스윙 연습 동안은 준비하지 않는다
       const A = this.gilArm.armed && (this.mode === 'watch' || this.mode === 'withdraw');
       if (this.gilArm.armed && !was) {
         this.guard = gilmokLowGuard(this.school.guards, this.guard, [this.me.handOffset.x, this.me.handOffset.y]); // secret.js — 플레이어와 같은 규칙
@@ -630,6 +642,7 @@ export class AI {
     const L = this.level;
     this.phase = 'ready';
     if (th && this.respond(th, d)) return;
+    if (this.drillOut) return this.drillWatch(dt, s, d); // 시험: 헛스윙 연습 (whiff_drill.js) — 들어오는 칼 받기만 위에서 평소대로
     if (this.pendingPassive?.left != null && this.passivePending(s, d)) return; // 미룬 패시브 (물러남 끝 斂翅 · 간격 밖에서 굴려 나온 돌려 물러남)
     // 이베리아 길목 지키기 준비 (10/11 v6): 준비된 동안은 먼저 치지도(기회·패시브) 낌새에 앞질러 치거나 물러나지도(preThreat·seize) 않고 칼끝 거리 선을 지킨다 —
     //  48 판 첫 측정: 이 걸쇠 없이는 상대가 칼끝 거리에 들자마자 내가 먼저 공격을 열어 준비가 풀려 창 0 번. 들어오는 칼(위 respond)은 그대로 받는다. 자세 손은 update 끝에서 옆 자세로 덮는다
@@ -661,8 +674,24 @@ export class AI {
     if (opp.score >= need && d < this.holdDist() + reachOut) this.startAttack(this.pickTech(s, opp.kind), opp.kind);
   }
 
+  /**
+   * 시험: 헛스윙 연습의 간 보기 (src/whiff_drill.js — drillOut 일 때만 watch 가 부른다). 자세 바꾸기는 평소 간 보기와 같고,
+   *  때가 되고(drill.next) 드릴 거리 근처면 그 자리에서 보통 기술로 친다 — 걸음·다가가기 없음(drillAtk: attack·stepTime·moveFeet). 닿지 않으면 afterStrike 가 헛침을 알린다
+   */
+  drillWatch(dt, s, d) {
+    this.guardTimer -= dt;
+    if (this.guardTimer <= 0) {
+      this.guardTimer = this.pers.rhythm * rand(0.6, 1.4);
+      this.guard = this.pickGuard(s);
+    }
+    this.hand.set(this.guard.pad[0], this.guard.pad[1]);
+    this.handSpeed = this.pers.guardSpeed;
+    if (this.drill.due(this, d) && this.startAttack(this.pickTech(s, 'drill'), 'drill', { noFeint: true, noPending: true, drill: true })) this.drill.fired();
+  }
+
   /** 간을 볼 거리: 상대 칼이 닿는 거리 + 여유. 인내심이 줄수록 여유를 줄여 간격 끝에 선다 */
   holdDist() {
+    if (this.drillOut) return this.drill.dist(this); // 시험: 헛스윙 연습 — 드릴 거리 (물러남이 거기서 끝난다)
     const L = this.level;
     let m = this.pers.margin * (0.3 + 0.7 * this.patience) * (0.6 + 0.4 * L.discipline * (1 - 0.3 * this.anger)); // 화나면 규율이 흐트러진다
     if (this.guard?.name === 'alber') m -= 0.12; // 바보 자세: 머리를 비워 두고 조금 더 다가가 유인한다
@@ -940,7 +969,7 @@ export class AI {
     this.atkClash = false;
     this.atkWounds0 = this.foe.wounds?.length ?? 0; // 이베리아 '피해' = 이 칼이 상대에게 낸 벤 상처 (SECRET.iberianHurt 'wound')
     // 이베리아 (10/10): 맺힘 셋이 차 있으면 다음 공격(이어 치기 아닌 새 공격)이 비기 — 못 내면 원래 공격 그대로
-    if (this.binds?.ready && !opt.chain && !opt.secret && !opt.passive && !this.secretRun && this.mode !== 'secret' && this.me.state === 'stand' && this.secretGo(this.secret)) return true;
+    if (this.binds?.ready && !opt.chain && !opt.secret && !opt.passive && !opt.drill && !this.secretRun && this.mode !== 'secret' && this.me.state === 'stand' && this.secretGo(this.secret)) return true; // 헛스윙 연습 공격(opt.drill)은 비기로 바꾸지 않는다
     // 미룬 패시브(斂翅 물러남 끝 등 — 10/9 13:xx): 그 패시브가 나기 전에 내 공격 기회(되받기·seize·맞받기)가 오면 그 기회를 패시브가 가져간다
     //  (이어 치기·흐름·패시브가 낸 공격은 건드리지 않는다). 못 내면 원래 공격 그대로
     const PP = this.pendingPassive;
@@ -951,6 +980,7 @@ export class AI {
     const L = this.level;
     const hand = [this.me.handOffset.x, this.me.handOffset.y];
     this.mode = 'attack';
+    this.drillAtk = !!opt.drill; // 시험: 헛스윙 연습 공격 — 그 자리에서 친다 (attack 다가가기·stepTime·moveFeet)
     this.tech = tech;
     this.why = why;
     this.hitLanded = false;
@@ -986,7 +1016,7 @@ export class AI {
     // 준비 자세가 가까우면 곧바로 친다 (숙련자는 크게 들어 올리지 않는다)
     const cd = padDist(hand, this.tech.from);
     this.phase = cd > 0.06 && !opt.skipChamber ? 'windup' : 'approach';
-    this.quick = why !== 'patience' && why !== 'open' && why !== 'weak' && why !== 'offbalance';
+    this.quick = why !== 'patience' && why !== 'open' && why !== 'weak' && why !== 'offbalance' && why !== 'drill'; // 헛스윙 연습 공격도 보통 빠르기로 준비 자세를 잡는다 (읽히는 공격)
     // 빈틈을 잡아 순간적으로 치는 공격(recover/stepin/press/counter/stop 등)은 준비 자세로 옮기는 손도
     //  빠르게 움직여야 한다. 느린 chamberSpeed로 챔버하면 정작 순간을 놓친다
     this.fastChamber = !!opt.fastChamber || this.quick;
@@ -1076,8 +1106,8 @@ export class AI {
       this.need = this.M.contact + t.reach * this.reachScale + 0.05 + (this.why === 'stop' ? 0.2 : 0);
       if (this.secretRun?.S.do.lead) this.need += this.secretVal(this.secretRun.S.do.lead); // 비기 앞당김: 긴 길(脇 → 上段 → 真向)이 닿기까지 다가오는 상대를 셈 — 그만큼 일찍 친다
       // 기술 걸음 'approach'(유파 고유 동작 step 칸): 닿기 조금 전에 먼저 비껴 딛고, 발이 닿으면 곧장 친다 (step 칸 없는 기술은 이 줄을 지나치기만 한다)
-      if (t.step?.when === 'approach' && !this.feint && this.approachStep(dt, s, th, d)) return;
-      if (this.timer <= 0 && this.contactDist() <= this.need) {
+      if (t.step?.when === 'approach' && !this.feint && !this.drillAtk && this.approachStep(dt, s, th, d)) return;
+      if (this.timer <= 0 && (this.drillAtk || this.contactDist() <= this.need)) { // 헛스윙 연습 공격은 닿는 거리를 기다리지 않는다 (그 자리에서 — 허공)
         // 상대 칼끝이 나를 겨누고 있으면 베며 내딛지 않는다 (칼끝으로 뛰어드는 꼴). 먼저 그 칼을 쳐서 비킨다
         this.pointBlocked = s.state === 'stand' && this.foeClass(s).online;
         this.startStrike();
@@ -1260,6 +1290,7 @@ export class AI {
 
   /** 베며 내딛는 시간: 이미 닿는 거리면 내딛지 않는다 (다가오던 걸음의 관성으로 충분하다) */
   stepTime() {
+    if (this.drillAtk) return 0; // 시험: 헛스윙 연습 공격은 내딛지 않는다 (whiff_drill.js)
     if (this.why === 'stop') return 0; // 상대가 달려오고 있다: 내가 들어갈 필요가 없다 (옆으로 비켜 선다)
     if (this.pointBlocked && !this.secretRun) return 0; // 칼끝부터 쳐서 비킨다. 들어가는 것은 그다음 칼(이어 치기)에서 (비기는 걸음 결심 — 그대로 딛는다)
     // 기술 걸음 'strike'(step 칸): 닿는 거리여도 딛는다 — 거리를 줄이려는 게 아니라 상대 칼끝 줄에서 벗어나려는 걸음
@@ -1367,6 +1398,9 @@ export class AI {
   /** 친 뒤: 이어 치기(Nachschlag) 또는 물러나기(Abzug) */
   afterStrike(d) {
     const L = this.level;
+    // 헛침(아래 패시브 사건 'missed' 와 같은 가름 — 몸에도 칼에도 안 닿음)이면 상대 걸음에 알린다: 독일 유파 몸이면 간격 잡기 받을 창(gait.js foeWhiff — 10/15).
+    //  GAIT.deChase 0 이면 걸음 쪽이 아무것도 안 한다. 읽기·알림만(난수·이 AI 상태 그대로)
+    if (!this.hitLanded && !this.bound) this.foe.gait?.foeWhiff();
     if (this.hitLanded && !this.strikeTallied) {
       this.stats.landed++;
       this.evLanded = true; // 감정층 사건: 맞혔다
@@ -1533,7 +1567,7 @@ export class AI {
     this.timer -= dt;
     if (th && this.respond(th, d)) return;
     if (this.pendingPassive?.left != null && this.passivePending(s, d)) return; // 미룬 패시브 (시간이 도는 것만 — 물러남 끝 것은 아래 끝에서)
-    if (this.seize(s, d, dt)) return;
+    if (!this.drillOut && this.seize(s, d, dt)) return; // 헛스윙 연습 동안은 붙잡지 않는다 (whiff_drill.js)
     if (d < this.M.reach + 0.2) {
       // 아직 상대 칼이 닿는 거리: 상대가 칼을 든 쪽에서 올 베기를 가리며 물러난다 (준비 자세를 읽는다)
       const p = this.coverFor(s);
@@ -1597,10 +1631,11 @@ export class AI {
     this.defLine = th.line;
     // 패시브 threat (이 위협에 한 번 — threatSeen 과 같은 번호): 맞받아치기 목록 바꿈·막기·피하기 강제. 없으면 난수 없이 아래 그대로
     //  맞받아치기 꼴(counter)은 간격(맞받아 벨 거리) 안에서만 굴린다 — 굴려 나오면 확정이라 굴림이 곧 낸 수가 되게 (10/9 13:xx)
-    const P = this.passives.length ? this.passiveFor('threat', th) : null;
+    //  시험: 헛스윙 연습 동안(drillOut)은 패시브·맞받아 베기 없이 받기만 (whiff_drill.js — 내 헛스윙이 상대 칼을 쳐 그 칼이 내 쪽으로 튄 것도 위협으로 읽혀 맞받아 들어가 베곤 했다)
+    const P = this.passives.length && !this.drillOut ? this.passiveFor('threat', th) : null;
     if (P && (!P.do.counter || this.counterRange(d)) && this.passiveRoll(P) && this.passiveThreat(P, th, d)) return true;
     // 1) 같은 순간에 맞받아 베기 (Indes): 들어오는 칼을 내 칼로 밀어내며 그대로 벤다 (겁먹으면 엄두를 못 낸다)
-    if (Math.random() < L.counter * (1 - 0.8 * this.fear) && this.counterRange(d)) {
+    if (!this.drillOut && Math.random() < L.counter * (1 - 0.8 * this.fear) && this.counterRange(d)) {
       const t = this.counterTech(th);
       if (t && this.startAttack(t, 'counter', { noFeint: true, skipChamber: true })) {
         this.stats.counters++;
@@ -1627,11 +1662,16 @@ export class AI {
   defend(dt, s, d) {
     const L = this.level;
     this.timer -= dt;
-    if (this.timer < 0.4 && this.seize(s, d, dt)) return;
+    if (!this.drillOut && this.timer < 0.4 && this.seize(s, d, dt)) return;
     const p = this.school.parry[this.defLine] || this.school.pose.point;
     this.hand.set(p[0], p[1]);
     this.handSpeed = this.defVoid ? L.parrySpeed * 0.6 : L.parrySpeed;
     this.checkBind();
+    if (this.drillOut) {
+      // 시험: 헛스윙 연습 동안은 받기만 (whiff_drill.js) — 막기 연환·버릇·되받기 없이, 칼이 지나가면 물러난다 (드릴 거리에서 곧 간 보기로)
+      if ((this.noThreat > 0.12 && Math.hypot(s.hvx, s.hvy) < 2.5 && this.timer < 0.35) || this.timer <= 0) this.startWithdraw(0.6);
+      return;
+    }
     // 막기 연환 비기 (10/11 — schools.js *_SECRET_PARRY): 정한 자리로 받아 낸 막기 → 독일은 맞붙은 그 순간, 중국은 칼이 갈라진 순간 곧장. 버릇(bindDef)·흐름 되받기보다 먼저
     if (this.secret?.when === 'parry' && !this.defVoid && this.parryCombo(d, dt)) return;
     const pcWait = !!this.pcPend; // 기다리는 동안(중국 갈라짐 · 독일 붙음 이어짐)은 맞닿음에 거는 버릇·흐름 되받기를 걸지 않는다 (막기 연환이 그 자리를 맡음)
@@ -2601,6 +2641,7 @@ export class AI {
         // 달려드는 상대를 맞받아 벨 때는 옆으로 비켜 선다 (상대 칼이 지나가는 줄에서 벗어난다)
         if (this.why === 'stop') side = this.pers.circleDir * 0.6;
       }
+      if (this.drillAtk && d >= this.M.clinch) fwd = this.drill.atkFeet(this); // 시험: 헛스윙 연습 공격은 그 자리에서 — 다가가기·내딛기 없음 (whiff_drill.js)
     } else if (this.mode === 'withdraw') {
       // 간격 밖까지 물러난다. 가까워질수록 천천히 (관성으로 너무 멀리 가지 않게)
       //  (-0.2보다 더 당겨야 검술 층이 손 움직임을 휘두르기로 보고 앞으로 내딛지 않는다)
@@ -2610,6 +2651,9 @@ export class AI {
     } else if (this.mode === 'secret') {
       // 비기 꼴 (일본 後の先): ① 물러서며 끌어 담기 — 뒤로 (뒷발 걸음은 gait 'retreat' 가 딛는다) · 경직 — 걸음 없음
       fwd = this.secretRun?.stage === 'back' ? -0.3 : this.secretRun?.stage === 'hold' ? this.secretHoldFeet() : 0;
+    } else if (this.drillOut) {
+      // 시험: 헛스윙 연습의 간 보기 (whiff_drill.js) — 드릴 거리까지만 다가가고, 플레이어가 다가와도 물러나지 않는다(옆으로 돌지도 않음 — 제 걸음이 지나쳐 안쪽에 섰을 때만 물러남). 그 거리 안으로 들어오면 평소대로
+      fwd = this.drill.feet(this, d);
     } else {
       // 간 보기: 상대 칼이 닿는 거리 바로 밖을 지킨다
       const hold = this.holdDist();

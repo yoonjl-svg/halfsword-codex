@@ -14,6 +14,7 @@
 import { classifyWeapon } from './weapon_class.js';
 import { MONTANTE } from './config.js';
 import * as THREE from 'three';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { swordKit, metalMat, weaponEnv, hiddenParts, drawTreeBranch, drawRubberChicken, drawFrozenTuna, drawPistol, drawMorgenstern, PISTOL_GRIP, PISTOL_BORE_X } from './weapon_looks.js';
 import { SAIN_COLORS, ICE_COLORS, sainPartMesh, sainDecorate, icePartMesh, iceDecorate } from './rare_sword_details.js'; // 사인검·아이스 겉모습 (샛별 저장소에서 가져옴 6e71ba2·4a425f9)
 import { FLAMBERGE_MUSEUM, FLAMBERGE_HILT, FLAMBERGE_COLORS, flambergePartMesh, flambergeDecorate } from './flamberge_look.js'; // 플랑베르주 겉모습 (샛별 저장소 325a5c38 의 생김새를 옮겨 고침)
@@ -166,6 +167,45 @@ function addMesh(group, geo, mat, pos) {
   const m = new THREE.Mesh(geo, mat);
   if (pos) m.position.set(...pos);
   group.add(m);
+  return m;
+}
+
+// 같은 재질의 작은 장식 조각을 메쉬 하나로 그린다 (그림자를 드리우는 조각이 메쉬마다 따로면 그림자 그리기까지 두 번씩 그려진다).
+//  pieces: [지오메트리, 자리 [x, y, z], z 축 기울기(rad)] — 조각마다 메쉬로 그릴 때와 같은 행렬(position·rotation.z)로 구운 복제본을 합친다.
+//  조각은 모두 같은 꼴이어야 한다(색인 있음 · 위치·법선·uv — 상자·원기둥 같은 기본 지오메트리끼리). 합친 메쉬는 그림자를 드리운다.
+//  넘겨준 지오메트리는 부르는 쪽 것이라 풀지 않는다.
+const _mergeM = new THREE.Matrix4();
+const _mergeQ = new THREE.Quaternion();
+const _mergeE = new THREE.Euler();
+const _mergeP = new THREE.Vector3();
+const _mergeS = new THREE.Vector3(1, 1, 1);
+function addMerged(group, pieces, mat) {
+  const baked = pieces.map(([geo, pos, rotZ = 0]) => geo.clone().applyMatrix4(_mergeM.compose(_mergeP.set(...pos), _mergeQ.setFromEuler(_mergeE.set(0, 0, rotZ)), _mergeS)));
+  const m = addMesh(group, mergeGeometries(baked), mat);
+  for (const g of baked) g.dispose();
+  m.castShadow = true;
+  return m;
+}
+
+// 츠카이토 (모노호시자오·우치가타나): 납작한 비단 끈이 앞뒤 면에서 X 자로 엇갈려 감기고 옆면에서 꺾여 넘어가는 매듭 —
+//  y0(카시라 쪽 첫 줄)부터 0.034 m 마다 0.205 까지. 끈·매듭 상자는 자리·기울기째 구워 메쉬 하나('tsukaIto')로 그린다 — 상자마다
+//  메쉬였을 땐 그림자 그리기까지 그리기 호출이 상자 수 × 2 들었다(성 안뜰 폰 가로: 미나미 + 모노호시자오 404 → 262, 같은 미나미 + 롱소드 266 ·
+//  이졸데 + 우치가타나 343 → 225, 롱소드 230). 자리·각도·색·그림자 드리우기는 상자마다 그리던 때와 같다.
+function addTsukaIto(group, silk, y0) {
+  const step = 0.034;
+  const strip = new THREE.BoxGeometry(0.0062, step * 0.78, 0.0022);
+  const knot = new THREE.BoxGeometry(0.0026, 0.007, 0.022);
+  const ito = [];
+  for (let y = y0; y <= 0.205; y += step) {
+    for (const sz of [-1, 1]) {
+      for (const lean of [-1, 1]) ito.push([strip, [0, y, sz * 0.0162], lean * 0.72]);
+    }
+    for (const sx of [-1, 1]) ito.push([knot, [sx * 0.0133, y + step / 2, 0]]);
+  }
+  const m = addMerged(group, ito, silk);
+  m.name = 'tsukaIto';
+  strip.dispose();
+  knot.dispose();
   return m;
 }
 
@@ -718,22 +758,8 @@ const monohoshizao = finalizeSpec('monohoshizao', {
     const fuchi = addMesh(group, new THREE.CylinderGeometry(0.0148, 0.0148, 0.008, 14), iron, [0, 0.231, 0]);
     fuchi.scale.z = 1.2;
     // 츠카이토: 납작한 비단 끈이 앞뒤 면에서 X 자로 엇갈려 감기고, 엇갈린 사이사이로 흰 사메가 마름모꼴로 드러난다
-    //  (고리 모양으로 감으면 장난감처럼 보였다). 옆면에서는 끈이 꺾여 넘어가는 매듭이 보인다.
-    const step = 0.034;
-    const strip = new THREE.BoxGeometry(0.0062, step * 0.78, 0.0022);
-    for (let y = -0.178; y <= 0.205; y += step) {
-      for (const sz of [-1, 1]) {
-        for (const lean of [-1, 1]) {
-          const st = addMesh(group, strip, silk, [0, y, sz * 0.0162]);
-          st.rotation.z = lean * 0.72;
-          st.castShadow = true;
-        }
-      }
-      for (const sx of [-1, 1]) {
-        const knot = addMesh(group, new THREE.BoxGeometry(0.0026, 0.007, 0.022), silk, [sx * 0.0133, y + step / 2, 0]);
-        knot.castShadow = true;
-      }
-    }
+    //  (고리 모양으로 감으면 장난감처럼 보였다). 옆면에서는 끈이 꺾여 넘어가는 매듭이 보인다. 끈 48 · 매듭 24 상자가 메쉬 하나
+    addTsukaIto(group, silk, -0.178);
   },
 });
 
@@ -794,21 +820,7 @@ const uchigatana = finalizeSpec('uchigatana', {
     }
     const fuchi = addMesh(group, new THREE.CylinderGeometry(0.0148, 0.0148, 0.008, 14), iron, [0, 0.231, 0]);
     fuchi.scale.z = 1.2;
-    const step = 0.034;
-    const strip = new THREE.BoxGeometry(0.0062, step * 0.78, 0.0022);
-    for (let y = -0.12; y <= 0.205; y += step) {
-      for (const sz of [-1, 1]) {
-        for (const lean of [-1, 1]) {
-          const st = addMesh(group, strip, silk, [0, y, sz * 0.0162]);
-          st.rotation.z = lean * 0.72;
-          st.castShadow = true;
-        }
-      }
-      for (const sx of [-1, 1]) {
-        const knot = addMesh(group, new THREE.BoxGeometry(0.0026, 0.007, 0.022), silk, [sx * 0.0133, y + step / 2, 0]);
-        knot.castShadow = true;
-      }
-    }
+    addTsukaIto(group, silk, -0.12); // 모노호시자오와 같은 끈 — 츠카가 짧아 카시라 쪽 첫 줄이 위다 (끈 40 · 매듭 20 상자가 메쉬 하나)
   },
 });
 
@@ -1135,7 +1147,7 @@ const pistol = finalizeSpec('pistol', {
   //  롱소드 0.27)에 너무 세서 매 물리 스텝 감쇠 토크가 넘쳐 상한에 붙은 채 방향이 뒤집혔다 — 60 Hz 떨림 + 겨눔이 18° 비켜 섰다.
   //  0.8 부터 다시 떨고 0.35 아래는 12 Hz 울림이 남아 0.45. 놓아주기 감쇠(releaseDamping 1.5)도 같은 까닭으로 맞춘다
   controlOverrides: { twistScale: 0.25, aimDamping: 0.45, releaseDamping: 0.45 },
-  moveMul: 1.4, // 걷는 최고 속도 ×1.4 (도망 다니며 쏘라고 — 사장님 '칼 들었을 때보다 30% 빠르게' → 9/29 '1.3배에서 1.4배로 상향')
+  moveMul: 1.2, // 걷는 최고 속도 ×1.2 (도망 다니며 쏘라고 — 사장님 '칼 들었을 때보다 30% 빠르게' → 9/29 '1.3배에서 1.4배로 상향' → 10/15 '지금 속도 조정 때문에 리볼버가 너무 강해짐. 이동속도 보너스를 +20%로' · 확인표 1636)
   fragility: 0, // 부서지지 않는다
   edged: false, mBlunt: 0, // 근접전 불가: 몸을 쳐도 상처·멍이 없다
   hiltLength: 0.05, bladeLength: 0.15, // 칼 원점(손)~총구 0.20 m (사장님: 머스킷처럼 길어 보여 짧은 권총으로 — 예전 0.32 m)

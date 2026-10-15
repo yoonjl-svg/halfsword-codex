@@ -82,7 +82,7 @@ try {
   assert.deepEqual(s.fighters, paused.fighters);
   results.push({ check: 'pause stops clinch drain', ...s });
   await page.locator('#btnResume').click(); await page.clock.runFor(32);
-  await page.evaluate(() => { game.player.stamina.value = 50; game.enemy.stamina.value = -49.5; game.ai.mode = 'defend'; game.ai.defVoid = false; });
+  await page.evaluate(() => { game.player.stamina.value = 50; game.enemy.stamina.value = -79.5; game.ai.mode = 'defend'; game.ai.defVoid = false; });
   for (let i = 0; i < 60; i++) { await page.clock.runFor(16); s = await snap(); if (s.fighters[1].exhausted) break; }
   assert.ok(s.fighters[1].exhausted, JSON.stringify(s));
   assert.ok(s.fighters.every(f => !f.active));

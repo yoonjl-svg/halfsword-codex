@@ -380,7 +380,8 @@ function cellSettings(c) {
   return { skill: c.skill, fpsCap: true }; // 10/10: 픽셀·소리 설정 줄은 없어졌다(픽셀 = 주소 ?pixel=1, 소리 = 늘 켬 → 아래 blockBody 에서 game.sound.on = false)
 }
 function cellQuery(c) {
-  const q = new URLSearchParams({ weapon: L.PROGRAMME.fight.weapon, foe: L.PROGRAMME.fight.foe, stage: 'poseidon' });
+  // openSweep=0: 판 시작을 9/30 꼴(정지 2 s — live_common PROGRAMME.startHoldMs 2000)로. 10/15 무대 훑기는 첫 판 3.3 게임 초 발을 묶어 차림표가 어긋난다 (docs/strike/camera_open_2026-10-15.md)
+  const q = new URLSearchParams({ weapon: L.PROGRAMME.fight.weapon, foe: L.PROGRAMME.fight.foe, stage: 'poseidon', openSweep: '0' });
   return q.toString();
 }
 /** 켜진 상태 ↔ 요청: 어긋나면 오류 목록 */

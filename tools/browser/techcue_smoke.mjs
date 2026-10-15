@@ -41,7 +41,8 @@ async function open(q, label) {
   const page = await ctx.newPage();
   page.on('pageerror', (e) => errors.push(`${label} pageerror ${e}`));
   page.on('console', (m) => m.type() === 'error' && errors.push(`${label} ${m.text()}`));
-  await page.goto(base + '/' + q, { waitUntil: 'networkidle' });
+  // openSweep=0: 판 시작을 9/30 꼴(정지 2 s)로 — 10/15 무대 훑기는 첫 판 3.3 게임 초 발을 묶어 fight() 의 2.5 s 가 어긋난다 (docs/strike/camera_open_2026-10-15.md)
+  await page.goto(base + '/' + q + '&openSweep=0', { waitUntil: 'networkidle' });
   await page.waitForFunction(() => window.game?.player?.sword, null, { timeout: 90000 });
   return page;
 }

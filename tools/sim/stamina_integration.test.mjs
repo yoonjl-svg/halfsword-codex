@@ -35,24 +35,24 @@ test('AI 실제 공격은 기술당 한 번, 기력 부족 시 휴식 결심',()
  g.enemy.stamina.value=5;a.mode='watch';a.update(DT);assert.ok(a.staminaRest);assert.equal(a.startAttack(t,'test'),false);
 }));
 test('탈진 중 이동·찌르기·막기·비기 예약 차단,2.5초 뒤0으로 복귀',()=>game(g=>{
- g.ai.update=()=>{};const p=g.player;const guard=new PlayerParryGuard(p,g.enemy);p.stamina.controller=guard;guard.held=true;p.stamina.spend('attack',150);
+ g.ai.update=()=>{};const p=g.player;const guard=new PlayerParryGuard(p,g.enemy);p.stamina.controller=guard;guard.held=true;p.stamina.spend('attack',STAMINA.max-STAMINA.floor);
  p.instantReq={};p.iaiReq={};p.move.set(1,1);assert.equal(p.skill.thrust(),false);
  for(let i=0;i<300;i++){p.move.set(1,1);guard.step(DT);g.step();if(i<299){assert.ok(p.feetHeld);near(p.move.length(),0);assert.equal(guard.active,false);assert.equal(p.skill.swinging,false);}}
  near(p.stamina.value,0);assert.equal(p.stamina.exhausted,false);assert.equal(p.stamina.level,1);assert.equal(p.instantReq,null);assert.equal(p.iaiReq,null);assert.equal(p.state,'stand');
 }));
-test('AI 탈진은 지형 우회보다 우선하여 자발적 이동을 막음',()=>game(g=>{g.enemy.stamina.spend('attack',150);g.ai.update(DT);near(g.enemy.move.length(),0);assert.equal(g.ai.mode,'watch');}));
+test('AI 탈진은 지형 우회보다 우선하여 자발적 이동을 막음',()=>game(g=>{g.enemy.stamina.spend('attack',STAMINA.max-STAMINA.floor);g.ai.update(DT);near(g.enemy.move.length(),0);assert.equal(g.ai.mode,'watch');}));
 test('진행 중 발도는 탈진 때 끝나고 팔·칼의 동적 물리와 양손 잡기를 복구',()=>{
  const previous=SECRET.iaiKinematic;
  try{for(const kinematic of [0,1]){SECRET.iaiKinematic=kinematic;game(g=>{
   g.ai.update=()=>{};const p=g.player;for(let i=0;i<240;i++)g.step();
   requestIai(p,{player:true});g.step();assert.ok(p.iai);assert.equal(p.sword.isKinematic(),!!kinematic);
-  p.iaiOneHold=true;p.stamina.spend('attack',150);g.step();
+  p.iaiOneHold=true;p.stamina.spend('attack',STAMINA.max-STAMINA.floor);g.step();
   assert.equal(p.iai,null);assert.equal(p.iaiOneHold,false);assert.equal(p.sword.isDynamic(),true);
   for(const part of ['uarmS','farmS'])assert.equal(p.bodies[part].isDynamic(),true);
   for(let i=0;i<60;i++)g.step();assert.ok(Number.isFinite(p.bodies.pelvis.translation().y));
  },'uchigatana');}}finally{SECRET.iaiKinematic=previous;}
 });
-test('끔 상태는 탈진 입력 차단도 없고 동일 힘',()=>game(g=>{g.step();g.player.stamina.spend('attack',150);try{STAMINA.on=false;assert.equal(g.player.stamina.exhausted,false);near(g.player.stamina.power,1);assert.ok(g.player.skill.thrust());}finally{STAMINA.on=true;}}));
+test('끔 상태는 탈진 입력 차단도 없고 동일 힘',()=>game(g=>{g.step();g.player.stamina.spend('attack',STAMINA.max-STAMINA.floor);try{STAMINA.on=false;assert.equal(g.player.stamina.exhausted,false);near(g.player.stamina.power,1);assert.ok(g.player.skill.thrust());}finally{STAMINA.on=true;}}));
 
 test('실제 칼 충돌을 상대 공격당 한 번의 막기 비용으로 셈',()=>game(g=>{
  const guard=new PlayerParryGuard(g.player,g.enemy);g.player.stamina.controller=guard;guard.held=true;g.before=()=>guard.step(DT);

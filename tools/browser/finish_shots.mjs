@@ -38,7 +38,8 @@ page.on('requestfailed', (r) => errors.push(`requestfailed: ${r.url()}`));
 page.on('response', (r) => r.status() >= 400 && errors.push(`http ${r.status()}: ${r.url()}`));
 await page.clock.install({ time: new Date('2026-09-30T12:00:00') });
 await page.clock.pauseAt(new Date('2026-09-30T12:00:01'));
-await page.goto(`${base}/?weapon=longsword${Q ? `&${Q}` : ''}`, { waitUntil: 'networkidle' });
+// openSweep=0: 판 시작을 9/30 꼴(정지 2 s)로 — 10/15 무대 훑기는 첫 판 3.3 게임 초 발을 묶어 아래 2.6 s 가 어긋난다 (docs/strike/camera_open_2026-10-15.md)
+await page.goto(`${base}/?weapon=longsword&openSweep=0${Q ? `&${Q}` : ''}`, { waitUntil: 'networkidle' });
 for (let i = 0; i < 300 && !(await page.evaluate(() => !!window.game?.player?.sword)); i++) await page.waitForTimeout(100);
 await page.clock.runFor(200);
 await page.evaluate(() => document.getElementById('btnStart').click());

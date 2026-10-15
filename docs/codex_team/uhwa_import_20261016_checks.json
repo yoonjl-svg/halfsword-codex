@@ -1,0 +1,219 @@
+{
+  "peer": {
+    "readAuthorization": "User explicitly requested reading and importing all latest upstream systems on this turn; outside regular window allowed for this task.",
+    "peerSource": "4f17370d2b34c3699724dc8539d0d2fa22c68237",
+    "reportDate": "2026-10-15",
+    "reportSource": "46918c86b4ec71bb25052fafa1ed1dea83e8e31b",
+    "reportedMarkdownSha256": "eeb0b16448627249fb749d83cfa24aeee3cd0609f01afed4eb0b7d4085a46846",
+    "actualMarkdownSha256": "eeb0b16448627249fb749d83cfa24aeee3cd0609f01afed4eb0b7d4085a46846",
+    "reportHashMatches": true,
+    "notes": "Report includes plans; implemented systems determined by main diff. No upstream writes."
+  },
+  "off": [
+    {
+      "name": "fights12",
+      "command": [
+        "node",
+        "tools/sim/fights12.mjs"
+      ],
+      "stamina": false,
+      "exit": 0,
+      "sha8": "7f5860c7",
+      "expect": "7f5860c7",
+      "pass": true
+    },
+    {
+      "name": "live_battery",
+      "command": [
+        "node",
+        "tools/sim/live_battery.mjs"
+      ],
+      "stamina": false,
+      "exit": 0,
+      "sha8": "648aca66",
+      "expect": "648aca66",
+      "pass": true
+    },
+    {
+      "name": "finish_thrust",
+      "command": [
+        "node",
+        "tools/sim/finish_thrust.mjs",
+        "1",
+        "--stand"
+      ],
+      "stamina": false,
+      "exit": 0,
+      "sha8": "2de06c03",
+      "expect": "2de06c03",
+      "pass": true
+    },
+    {
+      "name": "corr",
+      "command": [
+        "node",
+        "tools/sim/corr_s0.mjs",
+        "--limits=on,off",
+        "--scenes=a,b"
+      ],
+      "stamina": false,
+      "exit": 0,
+      "sha8": "352580b2",
+      "identical": 12,
+      "expect": "IDENTICAL 12",
+      "pass": true
+    },
+    {
+      "name": "weapon_smoke",
+      "command": [
+        "node",
+        "tools/sim/weapon_smoke.mjs"
+      ],
+      "stamina": false,
+      "exit": 0,
+      "sha8": "7085b282",
+      "ok": 23,
+      "expect": "7085b282",
+      "pass": true
+    }
+  ],
+  "on": [
+    {
+      "name": "fights12",
+      "command": [
+        "node",
+        "tools/sim/fights12.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha8": "a071c0af",
+      "expect": "a071c0af",
+      "pass": true
+    },
+    {
+      "name": "live_battery",
+      "command": [
+        "node",
+        "tools/sim/live_battery.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha8": "648aca66",
+      "expect": "648aca66",
+      "pass": true
+    },
+    {
+      "name": "finish_thrust",
+      "command": [
+        "node",
+        "tools/sim/finish_thrust.mjs",
+        "1",
+        "--stand"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha8": "2de06c03",
+      "expect": "2de06c03",
+      "pass": true
+    },
+    {
+      "name": "corr",
+      "command": [
+        "node",
+        "tools/sim/corr_s0.mjs",
+        "--limits=on,off",
+        "--scenes=a,b"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha8": "098fd36a",
+      "identical": 12,
+      "expect": "IDENTICAL 12",
+      "pass": true
+    },
+    {
+      "name": "weapon_smoke",
+      "command": [
+        "node",
+        "tools/sim/weapon_smoke.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha8": "7085b282",
+      "ok": 23,
+      "expect": "7085b282",
+      "pass": true
+    }
+  ],
+  "staminaTests": {
+    "passed": 45,
+    "failed": 0
+  },
+  "entry": {
+    "passed": 20,
+    "errors": 0
+  },
+  "names": {
+    "lines": 752,
+    "violations": 0
+  },
+  "pwa": {
+    "version": "d1126f795205bb28b0218ca5",
+    "files": 355,
+    "totalBytes": 7104088,
+    "excludedDirectories": [
+      "corr",
+      "r2p",
+      "support",
+      "wb"
+    ],
+    "commit": null
+  },
+  "cameraFlows": {
+    "passed": true,
+    "consoleErrors": 0,
+    "initialFailure": "Manual RAF prevented RAF-based initial loading wait. Fixed harness polling only; original timeout log retained."
+  },
+  "cameraPath": [
+    {
+      "id": "poseidon",
+      "mode": "sweep",
+      "params": {
+        "r0": 9,
+        "h0": 4.2,
+        "arc": 150,
+        "dir": 1,
+        "lookY0": 1.6,
+        "down": 0.3,
+        "look": 0.35
+      },
+      "minStage": 2.112,
+      "minAt": 1,
+      "minWho": "BufferGeometry col=#ffffff @(0.0,0.3,0.1) r12.0",
+      "minPos": [
+        -5.7,
+        2.3,
+        0.9
+      ],
+      "minFighter": null,
+      "minParticle": 2.335,
+      "clip": [],
+      "close": [],
+      "blocked": {
+        "look": 0,
+        "foeChest": 0,
+        "foeHead": 0,
+        "meChest": 0,
+        "meHead": 0
+      },
+      "blockWho": {},
+      "shots": [
+        "/workspace/uhwa-integration-20261016/camera-shots/poseidon_u0.png",
+        "/workspace/uhwa-integration-20261016/camera-shots/poseidon_u05.png",
+        "/workspace/uhwa-integration-20261016/camera-shots/poseidon_u1.png"
+      ],
+      "run": null,
+      "errors": []
+    }
+  ]
+}

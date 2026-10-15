@@ -78,10 +78,10 @@ test('밀기 종료부터0.6초 후 회복, 짧게 놓아도 즉시 회복하지
   fs.forEach(f => { f.stickY = 0; }); tick(fs, 0.2);
   near(fs[0].stamina.value, 73.2); near(fs[1].stamina.value, 72);
 });
-test('기력50 대−30:2초 뒤30 대−50, 갱신 순서에 따른 차이 없이 탈진', () => {
+test('기력50 대 탈진+20:2초 뒤30 대 탈진, 갱신 순서에 따른 차이 없이 탈진', () => {
   for (const reverse of [false, true]) {
-    const fs = pair(); fs[0].stamina.value = 50; fs[1].stamina.value = -30; tick(fs, 2, 1 / 120, reverse);
-    near(fs[0].stamina.value, 30); near(fs[1].stamina.value, -50);
+    const fs = pair(); fs[0].stamina.value = 50; fs[1].stamina.value = STAMINA.floor + 20; tick(fs, 2, 1 / 120, reverse);
+    near(fs[0].stamina.value, 30); near(fs[1].stamina.value, STAMINA.floor);
     near(fs[0].stamina.spent.clinch, 20); near(fs[1].stamina.spent.clinch, 20);
     near(fs[1].stamina.exhaustLeft, 2.5);
     fs.forEach(f => { assert.equal(f.stamina.clinching, false); assert.equal(f.barge, null); });
@@ -93,12 +93,12 @@ test('기력50 대−30:2초 뒤30 대−50, 갱신 순서에 따른 차이 없�
 });
 test('탈진 직전 마지막 소수점 비용도 양쪽이 같고, 동시 탈진도 강제 회복', () => {
   for (const both of [false, true]) {
-    const fs = pair(); fs[0].stamina.value = both ? -49.98 : 80; fs[1].stamina.value = -49.98;
+    const fs = pair(); fs[0].stamina.value = both ? STAMINA.floor + 0.02 : 80; fs[1].stamina.value = STAMINA.floor + 0.02;
     fs[1].stamina.attack('cut', true); // 직전 공격 번호가 남아 있어도 누르기 접촉에 추가 청구하지 않는다.
     tick(fs, 1 / 120); fs[0].stamina.block(fs[1]);
-    near(fs[0].stamina.value, both ? -50 : 79.98); near(fs[0].stamina.spent.block, 0);
+    near(fs[0].stamina.value, both ? STAMINA.floor : 79.98); near(fs[0].stamina.spent.block, 0);
     fs.forEach(f => near(f.stamina.spent.clinch, 0.02));
-    near(fs[1].stamina.value, -50); near(fs[1].stamina.exhaustLeft, 2.5);
+    near(fs[1].stamina.value, STAMINA.floor); near(fs[1].stamina.exhaustLeft, 2.5);
     tick(fs, 2.5); near(fs[1].stamina.value, 0); if (both) near(fs[0].stamina.value, 0);
   }
 });
@@ -135,7 +135,7 @@ function physicalClinch(mutual, exhaust = false) {
     };
     for (let i = 0; i < 120 * 9 && fs.every(f => f.alive); i++) {
       if (exhaust && !prepared && fs[0].stamina.clinching) {
-        fs[0].stamina.value = 50; fs[1].stamina.value = -49.5;
+        fs[0].stamina.value = 50; fs[1].stamina.value = STAMINA.floor + 0.5;
         fs[1].stamina.controller = { held: true }; prepared = true;
       }
       const before = fs.map(f => ({ cost: f.stamina.spent.clinch, move: f.stamina.spent.move, recovered: f.stamina.recovered }));
@@ -149,7 +149,7 @@ function physicalClinch(mutual, exhaust = false) {
       }
       if (exhaust && fs[1].stamina.exhausted && exhaustedAt == null) {
         exhaustedAt = g.t;
-        near(fs[0].stamina.value, 49.5); near(fs[1].stamina.value, -50);
+        near(fs[0].stamina.value, 49.5); near(fs[1].stamina.value, STAMINA.floor);
         fs.forEach(f => assert.equal(f.barge, null));
       }
       if (exhaustedAt != null && !fs[1].stamina.exhausted) {

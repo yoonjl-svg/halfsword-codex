@@ -5,6 +5,7 @@
 //  무대(10/14): 기본은 무작위(여정 무대 — 지금 그대로). 새 무대(잠든 습지 · 철불 절벽 · 소금 사막 — 10/14 19:4x 여정에 들어감)를 고르면 stage=<id> 로 그 무대에 고정된다 (기억하지 않는다)
 //  마지막 고른 무기·캐릭터·상대는 localStorage 에 기억한다 (읽기·쓰기 실패해도 그냥 동작).
 //  비기 판(이베리아·중국·독일)은 기억하지 않는다 — 10/13 사장님 'test 경로로는 아직 끊기지 않는 흐름이 발동' = 예전에 고른 v5 가 기억돼 있던 것. 열 때마다 본판 기본값에서 시작
+//  상대 헛스윙(10/15 사장님 '테스트 경로에 헛스윙 넣어' — src/whiff_drill.js): 켜면 시작 주소에 foeWhiff=1. 기본 끔이고 기억하지 않는다(비기 판·무대와 같음)
 import { WEAPON_LIST, TIER_LABEL, RETIRED_WEAPONS, WEAPONS } from './weapons.js';
 import { CHARACTERS, CHARACTER_GUESTS } from './characters.js';
 import { TRADITIONS, traditionOf } from './schools.js';
@@ -89,6 +90,12 @@ const STAGE_PICKS = [
   { id: 'etna', name: '화산섬 (여정 14)', sub: '새 무대 (10/14) — 결투장 전체가 산비탈 · 낮은 쪽 용암에 닿으면 화상(다리 → 무릎). 판이 바뀌어도 이 무대' },
   { id: 'dayr', name: '소금 사막 (여정 15)', sub: '새 무대 (10/14) — 소금 벌판 역참의 해 질 녘 · 낮은 해와 긴 그림자. 판이 바뀌어도 이 무대' },
 ];
+// 상대 헛스윙 (10/15 — 독일 보법 '간격 잡기'는 상대가 헛쳐야 켜져 AI 와는 시험이 어려웠다 · docs/strike/german_hold_2026-10-15.md §7): 켜면 상대가 제 칼이 닿지 않는 거리에서
+//  2~3 s 마다 허공을 벤다(main.js → whiff_drill.js). 다가가면 평소대로 싸운다. 기억하지 않는다 — 켜 둔 것이 남아 '왜 상대가 허공을 베나' 헷갈리지 않게
+const WHIFF_PICKS = [
+  { id: 'off', name: '끔', sub: '평소 상대' },
+  { id: 'on', name: '켬', sub: '닿지 않는 거리에서 2~3초마다 허공을 벰 · 다가가면 평소대로' },
+];
 const saved = loadPick();
 const pick = {
   weapon: weapons.some((w) => w.id === saved.weapon) ? saved.weapon : NEW_WEAPONS[0],
@@ -98,6 +105,7 @@ const pick = {
   cnSecret: SECRET.cnSecret,
   deSecret: SECRET.deSecret,
   stage: 'random', // 무대도 기억하지 않는다 (열 때마다 무작위에서 — 고른 무대가 남아 '왜 늘 습지인가' 헷갈리지 않게)
+  whiff: 'off', // 상대 헛스윙도 기억하지 않는다 (열 때마다 끔)
 };
 
 function weaponButton(w, big) {
@@ -193,6 +201,7 @@ function render() {
   for (const el of document.querySelectorAll('#cnSecret .pick')) el.setAttribute('aria-pressed', String(el.dataset.id === pick.cnSecret));
   for (const el of document.querySelectorAll('#deSecret .pick')) el.setAttribute('aria-pressed', String(el.dataset.id === pick.deSecret));
   for (const el of document.querySelectorAll('#stagePick .pick')) el.setAttribute('aria-pressed', String(el.dataset.id === pick.stage));
+  for (const el of document.querySelectorAll('#whiffPick .pick')) el.setAttribute('aria-pressed', String(el.dataset.id === pick.whiff));
   const w = weapons.find((x) => x.id === pick.weapon);
   const h = heroes.find((x) => x.id === pick.hero);
   const s = $('summary');
@@ -205,7 +214,7 @@ function render() {
   const f = foes.find((x) => x.id === pick.foe);
   const foeTxt = f && f.id !== 'random' ? `상대 ${f.name}` : '';
   const stageTxt = pick.stage !== 'random' && st ? `무대 ${st.name}` : '';
-  s.append(bw, ' · ', bh, document.createElement('br'), foeTxt || stageTxt ? `${foeTxt || '상대 무작위'} · ${stageTxt || '무대 무작위'}` : '상대·무대 무작위');
+  s.append(bw, ' · ', bh, document.createElement('br'), `${foeTxt || stageTxt ? `${foeTxt || '상대 무작위'} · ${stageTxt || '무대 무작위'}` : '상대·무대 무작위'}${pick.whiff === 'on' ? ' · 상대 헛스윙' : ''}`);
 }
 
 function startUrl() {
@@ -213,6 +222,7 @@ function startUrl() {
   if (pick.ibSecret !== SECRET.iberianSecret) q.set('ibSecret', pick.ibSecret); // 본판 기본값이 아니면 판을 주소에 (10/13 — 전엔 독일 기본을 'parry' 로 잘못 알아 감아 들기를 고를 수 없었다)
   if (pick.cnSecret !== SECRET.cnSecret) q.set('cnSecret', pick.cnSecret);
   if (pick.deSecret !== SECRET.deSecret) q.set('deSecret', pick.deSecret);
+  if (pick.whiff === 'on') q.set('foeWhiff', '1'); // 상대 헛스윙 (main.js → whiff_drill.js) — 끄면 주소에 안 적는다
   return `./index.html?${q.toString()}`;
 }
 
@@ -227,6 +237,7 @@ for (const x of IB_SECRETS) $('ibSecret').append(ibSecretButton(x));
 for (const x of CN_SECRETS) $('cnSecret').append(ibSecretButton(x, 'cnSecret'));
 for (const x of DE_SECRETS) $('deSecret').append(ibSecretButton(x, 'deSecret'));
 for (const x of STAGE_PICKS) $('stagePick').append(ibSecretButton(x, 'stage'));
+for (const x of WHIFF_PICKS) $('whiffPick').append(ibSecretButton(x, 'whiff'));
 $('weaponCount').textContent = `${weapons.length}종`;
 $('heroNote').textContent =
   '고른 캐릭터는 겉모습과 이름만 가져옵니다. 투구·판금은 겉모습에 딸려 있어 실제로 막아 줍니다(기본 주인공은 투구). ' +

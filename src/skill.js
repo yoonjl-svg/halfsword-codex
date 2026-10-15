@@ -24,7 +24,7 @@
 //  level: 0 = 보정 없음(날것 그대로의 물리 조작), 1 = 숙련된 검사
 // ─────────────────────────────────────────────────────────────
 import * as THREE from 'three';
-import { SKILL, WEAPON, THRUST, BODY, GAIT, POMMEL, SECRET, AI_LEVELS, ARM } from './config.js';
+import { SKILL, WEAPON, THRUST, BODY, GAIT, POMMEL, SECRET, AI_LEVELS, ARM, UNIQUE_ASSIST } from './config.js';
 import { gunCanFire, gunPose, headOff } from './gun.js';
 import { FINISH, armRay, updateFinish, finishHands } from './finish.js';
 import { VITAL, playerVitalThrust, measureThrustRange } from './vital_target.js'; // 약한 자세 겨눔 탭 찌르기 (FINISH.vital, 10/12)
@@ -39,6 +39,8 @@ const _p = new THREE.Vector3();
 const _q = new THREE.Vector3();
 const _u = new THREE.Vector3();
 const _b = new THREE.Vector3();
+const _wa = new THREE.Vector3(); // 사람 휘두르기 헛침 셈 전용 (whiffTrack)
+const _wb = new THREE.Vector3();
 const _sq = new THREE.Quaternion();
 const _d1 = new THREE.Vector3();
 const _d2 = new THREE.Vector3();
@@ -442,7 +444,7 @@ export class Skill {
     const g = f.handBase || f.guardPose.hand; // 지금 손 목표 (덧씌우기 전, driveSword 가 매 스텝 적는다)
     this.pom = { t: 0, h0: g ? [g[0], g[1], g[2]] : [0.3, -0.2, 0.12], head: target === 'head' && !headOff(f.foe), go: null };
     this.pommels++;
-    if (!f.aiControlled) f.stamina.attack('cut');
+    f.stamina.attack('cut'); // 기력: 사람·AI 같은 규칙(설계안 §1) — AI 찍기(persona.close then 'pommel')는 startStrike 를 거치지 않으니 여기서 한 번 (10/16 감독: 들여온 판은 사람만 청구 — D14)
     // 한 걸음 내딛으며 찍는다 (찌르기와 같은 요청 꼴: gait lunge 0.3 s — 당기는 동안 발이 나가 내지를 때 딛는다)
     if (step && POMMEL.step > 0 && f.gait?.active) f.gait.requestStep({ kind: 'lunge', fwd: POMMEL.step, duration: 0.3 });
     return true;
@@ -1183,6 +1185,42 @@ export class Skill {
     if (this.corr === 'v2' && this.level > 0) this.idleGoal = 0;
   }
 
+  /**
+   * 사람 휘두르기 헛침 (10/15 독일 간격 잡기 — docs/strike/german_chase_2026-10-15.md): AI 가 몰지 않는 몸만(AI 는 ai.js afterStrike 의 missed 가 알린다).
+   *  한 번의 공격 = 휘두르기(또는 탭 찌르기)가 이어진 동안 + 손이 멈춘 뒤(UNIQUE_ASSIST.onsetQuiet) 칼이 다 지나갈 때까지(AI follow 와 같은 꼴: 0.3 s 지나고
+   *  칼끝이 6 m/s 아래로, 늦어도 0.5 s). 그 사이 다시 휘두르면 같은 공격으로 잇는다 — 감기 + 긋기, 잇따른 긋기는 한 번(AI 도 감기·베기·지나감이 한 공격) · 그 사이 한 번이라도 닿으면 헛침 아님.
+   *  맞힘 = 상대 아픔 +0.05(AI hitLanded·unique_assist 와 같은 눈) · 맞물림 = 칼끼리 0.07 m(ai.js checkBind 와 같은 기하). 끝날 때 둘 다 없으면 상대 걸음에 알린다
+   *  (gait.foeWhiff — 독일 유파 몸만 받음). 손 목표·몸·난수는 건드리지 않는다
+   */
+  whiffTrack(dt, swinging) {
+    const f = this.f;
+    const foe = f.foe;
+    const W = (this.whiff ??= { on: false, quiet: 0, tail: 0, landed: false, bound: false, pain: null });
+    if (swinging || this.tap) {
+      if (!W.on) {
+        W.on = true;
+        W.landed = false;
+        W.bound = false;
+      }
+      W.quiet = 0;
+      W.tail = 0;
+    } else if (W.on && (W.quiet += dt) >= UNIQUE_ASSIST.onsetQuiet) {
+      W.tail += dt;
+      if ((W.tail >= 0.3 && f.tipVel.length() < 6) || W.tail >= 0.5) this.whiffEnd(W, foe);
+    }
+    if (W.on && foe) {
+      if (W.pain != null && foe.pain > W.pain + 0.05) W.landed = true;
+      if (!W.bound && foe.armed && f.tipPrev && foe.tipPrev && segDist(f.bladePoint(0.1, _wa), f.tipPrev, foe.bladePoint(0.1, _wb), foe.tipPrev) < 0.07) W.bound = true;
+    }
+    W.pain = foe ? foe.pain : null;
+  }
+
+  whiffEnd(W, foe) {
+    W.on = false;
+    if (!W.landed && !W.bound) foe?.gait?.foeWhiff();
+  }
+
+  /** 기력 탈진 (샛별 저장소 6ac1070d — docs/strike/stamina_import_2026-10-15.md): 비기·찌르기·손잡이 찍기·고유 동작을 거두고 손을 늘어뜨린 자리로 — 입력은 main.js 가 0 으로 */
   holdExhausted(dt) {
     const f = this.f;
     if (this.sec) this.secretEnd();
@@ -1228,6 +1266,7 @@ export class Skill {
     const sp = this.vel.length();
     const swinging = sp > SKILL.swingSpeed && f.alive && f.armed;
     this.swinging = swinging;
+    if (GAIT.deChase && !f.aiControlled) this.whiffTrack(dt, swinging); // 사람 휘두르기 헛침 → 상대 걸음(독일 간격 잡기, 10/15). AI 는 ai.js afterStrike 가 알린다
     if (this.uniq) this.uniq.detect(dt, swinging); // 플레이어 고유 동작: 긋기 시작(시작 패드·처음 방향)을 읽고 해금된 고유 동작이 맞으면 그 긋기에 강화를 얹는다 (잇는 동작은 이어 그은 긋기에 뒷몫)
     // 플레이어 막기 버튼 (10/11 — parry_button.js): 버튼이 손 목표를 휘두르기 문턱보다 빠르게 옮기는 동안은 AI 막기(손이 parrySpeed 로 옮겨져 휘두르기로 잡힘)처럼
     //  휘두르기 꼴의 거르기·몸 따라가기를 쓴다. 휘두르기 사건(swinging — 내딛기·베기 덩이·자세로 돌아가기)은 손가락 끌기만 (버튼이 prev 도 옮긴다). 버튼이 없으면 guardDrive 없음 → 그대로

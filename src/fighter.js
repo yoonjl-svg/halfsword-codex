@@ -238,6 +238,7 @@ const _v3 = new THREE.Vector3();
 const _q1 = new THREE.Quaternion();
 const UP = new THREE.Vector3(0, 1, 0);
 const HELD_MOVE = Object.freeze({ x: 0, y: 0 }); // 발이 묶인 동안 읽는 조종 입력 (feetHeld)
+const HOLD_MOVE = { x: 0, y: 0 }; // 독일 간격 잡기 동안 읽는 조종 입력 — 옆 몫만(앞 몫 0, gait.js holdTick · driveBalance)
 const Z_AXIS = new THREE.Vector3(0, 0, 1);
 
 const toV = (v) => _v3.set(v.x, v.y, v.z);
@@ -751,6 +752,20 @@ export class Fighter {
    */
   get legsCannotSupport() {
     return this.legHealth < 0.25 || (!!this.lavaBurn && this.lavaBurn.legs.some((limb) => this.limbs[limb] < 0.25));
+  }
+
+  /**
+   * 균형 흔들림 배율 (1 = 그대로) — 이 몸이 받는 '균형이 흔들리는 양'에 곱하는 오직 한 자리 (docs/strike/japanese_steady_2026-10-15.md · 확인표 1520~).
+   *  지금은 유파 보법 '버티기'(사장님 10/15 '휘청·넘어짐 저항') 하나: 지금 걸음 값(gait.P — 손에 든 무기 유파의 걸음 칸)의 steady → 1 − steady (일본 0.25 → 0.75).
+   *  곱하는 곳 둘: ① 무게중심이 발 밖으로 벗어난 몫 offBalance(updateFooting) — 휘청 걸음·서두름(GAIT.hurryFrom)·붙잡기 반사(gait levC)·
+   *  발 디딤 잃음(offBalanceTime)·기준 막대 풀림이 모두 이 값을 읽는다 ② 맞아서 깎이는 휘청임 게이지(applyWound — balance ≤ 0 넘어짐).
+   *  머리 맞아 주저앉음(타격 에너지 문턱)·다리가 못 버팀(legsCannotSupport)은 부상이라 곱하지 않는다.
+   *  steady 칸이 없는 유파(독일·무유파 …)·`?jpSteady=0`·`?schoolGait=0`(걸음 값이 GAIT 그 자체)은 1 → 두 곳 모두 곱하는 줄을 건너뛴다(지금 길 그대로).
+   *  나중에 스태미너가 들어오면 여기에 곱한다 — 두 곳에 한꺼번에 걸린다.
+   */
+  get swayScale() {
+    const s = BALANCE.schoolSteady ? this.gait?.P.steady : 0;
+    return s > 0 ? 1 - s : 1;
   }
 
   /** 칼 든 팔 기능 */
@@ -1452,7 +1467,10 @@ export class Fighter {
     const bit = h.type !== 'blunt' && sev > 0;
     // 통증과 휘청임 (에너지가 클수록)
     this.pain = Math.min(2, this.pain + sev * 0.8 + h.energy / 150);
-    this.balance -= h.energy * VITALS.staggerPerJoule;
+    let stagger = h.energy * VITALS.staggerPerJoule;
+    const sway = this.swayScale; // 유파 버티기 (swayScale ②): 휘청임 게이지가 덜 깎인다 — 아래 머리 맞아 주저앉음(에너지 문턱)은 그대로. 칸 없는 유파는 1 이라 건너뜀
+    if (sway !== 1) stagger *= sway;
+    this.balance -= stagger;
 
     // 옷과 투구·판금도 상한다 (투구·판금이 막은 부위의 옷은 그대로)
     if (h.helmet) {
@@ -2137,7 +2155,15 @@ export class Fighter {
     const hybrid = !!G && this.state === 'stand';
     const speed = (hybrid ? GAIT.moveSpeed : BODY.moveSpeed) * (0.45 + 0.55 * this.legHealth) * (this.weapon.moveMul ?? 1) * (this.wearsPlate() ? ARMOR.moveMul : 1); // moveMul: 권총은 발이 빠르다 (weapons.js), 판금은 느리다 (config.js ARMOR)
     const st = this.stumble;
-    const mvIn = this.feetHeld ? HELD_MOVE : this.move; // 시작 정지: 조종 입력(플레이어·AI·기술 내딛기)만 0, 균형 잡는 걸음(stumble)은 그대로
+    let mvIn = this.feetHeld ? HELD_MOVE : this.move; // 시작 정지: 조종 입력(플레이어·AI·기술 내딛기)만 0, 균형 잡는 걸음(stumble)은 그대로
+    // 독일 간격 잡기의 잡기 (10/15 — GAIT.deHold, gait.js holdTick · docs/strike/german_hold_2026-10-15.md): 플레이어(AI 가 몰지 않는 몸)만 — 조종 입력을 읽기 전에 걸고·풀고·시간을 센다.
+    //  잡는 동안 조종 입력의 앞(상대 쪽 — 몸은 늘 상대를 본다) 몫만 0 — 옆·뒤 몫·균형 걸음(stumble)·기술 걸음(gait req)은 그대로, 몸이 가진 빠르기는 물리대로(아래 가속 한도).
+    //  끄면(0)·AI 는 부르지도 읽지도 않는다(바이트 같음)
+    if (hybrid && GAIT.deHold && !this.aiControlled && G.active) G.holdTick(dt);
+    if (hybrid && G.hold && mvIn.y > 0) {
+      HOLD_MOVE.x = mvIn.x;
+      mvIn = HOLD_MOVE;
+    }
     // 진흙(잠든 습지 웅덩이)은 조종 입력만 줄인다 — 균형 잡는 걸음(stumble)·중력·공격은 그대로. 다른 무대는 정확히 1 (샛별 저장소 325a5c38 의 한 줄을 옮김)
     const terrainScale = fighterWetlandMoveScale(this, p.x, p.z);
     this.surfaceSpeedScale = terrainScale;
@@ -2220,7 +2246,13 @@ export class Fighter {
     const dvx = want.x - v.x;
     const dvz = want.z - v.z;
     const grip = Math.min(1, loadSum * 1.5);
-    const lim = M * (hybrid ? GAIT.maxAccel : BODY.maxAccel) * grip; // 사람이 발로 낼 수 있는 가속에는 한계가 있다 (다리로 서면 몸이 무거워 조금 더 느리게)
+    // 빠른 걸음(10/15 — gait.js fastBegin)이 가속 한도 배율을 두면(독일 간격 잡기 빠른 디딤 chase.accel — 헛침 뒤 박차고 들어감) 그 걸음 동안만 곱한다. 보통 걸음·이탈리아 박자 걸음은 × 1 (같은 수)
+    //  첫 걸음 박차기(10/15 — GAIT.stepBurst)는 박찬 걸음 뒤에도 몸이 박찬 빠르기를 다 줄일 때까지(gait.burstBrake) 같은 배율 — 세게 멈춤. 간격 잡기의 잡기(gait.holdBrake)도
+    //  잡기를 건 뒤 몸이 설 때까지 같은 배율(같은 값 — 새 값 없음). 둘 다 플레이어만이라 AI 는 늘 같은 수
+    //  동방 보법 '가벼운 발'(10/15 — GAIT.cnLight · 유파 걸음 칸 light, 동방 1.5 · docs/strike/cn_light_feet_2026-10-15.md): 위 셋이 아닌 보통 걸음 몫(× 1)만 곱한다 —
+    //  걷기 시작·멈춤·방향 바꿈이 같은 한도라 함께 빨라지고 최고 빠르기(speed)는 그대로. 몸의 일이라 사람·AI 같이. 칸 없는 유파·끔(0)은 × 1 그대로(바이트 같음)
+    //  동방 AI 걸음 박자(10/15 — GAIT.cnLightAi · ai.js update 의 aiLightHold): 가벼운 발 몸의 AI 가 공격 꼴이 아닐 때(간 보기·막기·물러남)는 보통 걸음 몫 × 1(옛 가속) — 사람·끔은 그대로
+    const lim = M * (hybrid ? GAIT.maxAccel * (G.fastK > 1 ? G.fastAcc : G.burstBrake || G.holdBrake ? GAIT.burstAccel : GAIT.cnLight && !this.aiLightHold ? (G.P.light ?? 1) : 1) : BODY.maxAccel) * grip; // 사람이 발로 낼 수 있는 가속에는 한계가 있다 (다리로 서면 몸이 무거워 조금 더 느리게)
     const fx = THREE.MathUtils.clamp(M * BODY.moveAccel * dvx, -lim, lim) * mus;
     const fz = THREE.MathUtils.clamp(M * BODY.moveAccel * dvz, -lim, lim) * mus;
     push(fx, 0, fz);
@@ -2366,6 +2398,10 @@ export class Fighter {
     // 지금 발 위치 기준과, 계획한 다음 발 위치 기준 중 더 가까운 쪽
     const off = Math.min(offFrom(cpx, cpz), offFrom(cpx - planX, cpz - planZ));
     this.offBalance = this.state === 'stand' ? Math.max(0, off - BALANCE.footMargin) : 0;
+    // 유파 버티기 (swayScale ①): 발 둘레 여유(footMargin) 밖으로 벗어난 몫에만 곱한다 — 여유 안에서는 그대로 0, 아래 문턱(fallRange·stumbleRange)과
+    //  걸음 쪽 문턱(hurryFrom·catchOff)은 그대로라 같은 밀림에 덜 휘청이고 덜 붙잡고 덜 넘어진다. 칸 없는 유파는 1 이라 건너뜀
+    const sway = this.swayScale;
+    if (sway !== 1) this.offBalance *= sway;
     if (this.offBalance > BALANCE.fallRange) this.offBalanceTime += dt;
     else this.offBalanceTime = Math.max(0, this.offBalanceTime - dt * 2);
     // 넘어지지 않으려고 캡처 포인트 쪽으로 딛는 걸음 (몸 기준 방향으로 변환)

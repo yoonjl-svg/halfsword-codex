@@ -92,7 +92,8 @@ async function decapRun(tag) {
   page.on('response', (r) => r.status() >= 400 && errors.push(`${tag} http ${r.status()}: ${r.url()}`));
   await page.clock.install({ time: new Date('2026-09-30T12:00:00') });
   await page.clock.pauseAt(new Date('2026-09-30T12:00:01'));
-  const q = `weapon=zweihander&stage=castle&foe=${tag}`;
+  // openSweep=0: 판 시작을 9/30 꼴(정지 2 s)로 — 10/15 무대 훑기는 첫 판 3.3 게임 초 발을 묶어 아래 2.7 s·다시 싸우기 1.5 s 가 어긋난다 (docs/strike/camera_open_2026-10-15.md)
+  const q = `weapon=zweihander&stage=castle&foe=${tag}&openSweep=0`;
   await page.goto(`${base}/?${q}`, { waitUntil: 'networkidle' });
   for (let i = 0; i < 300 && !(await page.evaluate(() => !!window.game?.player?.sword)); i++) await page.waitForTimeout(100);
   await run(page, 200);

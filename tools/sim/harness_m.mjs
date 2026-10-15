@@ -34,6 +34,11 @@ export { RAPIER, THREE, CONFIG, AI };
   if (process.env.FINISH_WRIST) FINISH.strikeWrist = +process.env.FINISH_WRIST;
   if (process.env.FINISH_CHEST_S) FINISH.chestS = +process.env.FINISH_CHEST_S;
 }
+// 이탈리아 박자 걸음 셈 (10/15 — src/schools.js setItalianRhythm, docs/strike/italian_rhythm_2026-10-15.md §8 · §9): IT_RHYTHM=2+2(기본 · ×1.3) · 4+2 · 3+2 · 3(옛 짝 셈 3 + 1 — 지난 판 비교, 그때 ×1.5) · 0(끔). 안 주면 src 기본 그대로
+if (process.env.IT_RHYTHM != null) {
+  const { setItalianRhythm } = await import('../../src/schools.js');
+  if (!setItalianRhythm(process.env.IT_RHYTHM)) throw new Error(`IT_RHYTHM=${process.env.IT_RHYTHM} 을 읽지 못함`);
+}
 const { PHYSICS, ARENA } = CONFIG;
 export const DT = PHYSICS.timestep;
 

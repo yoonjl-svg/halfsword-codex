@@ -20,7 +20,8 @@ page.on('pageerror', (e) => errors.push('pageerror ' + e));
 page.on('console', (m) => {
   if (m.type() === 'error') errors.push(m.text());
 });
-await page.goto(`${base}/?weapon=${weapon}&foeWeapon=longsword&ibSecret=${ver}&slowMo=0`, { waitUntil: 'networkidle' });
+// openSweep=0: 판 시작을 9/30 꼴(정지 2 s)로 — 10/15 무대 훑기는 첫 판 3.3 게임 초 발을 묶어 아래 2.6 s 가 어긋난다 (docs/strike/camera_open_2026-10-15.md)
+await page.goto(`${base}/?weapon=${weapon}&foeWeapon=longsword&ibSecret=${ver}&slowMo=0&openSweep=0`, { waitUntil: 'networkidle' });
 await page.waitForFunction(() => window.game?.player?.sword, null, { timeout: 60000 });
 await page.getByText('여정 시작').click();
 await page.waitForFunction(() => window.game.state === 'fight' && window.game.playerSecret, null, { timeout: 60000 });

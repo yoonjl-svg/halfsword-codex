@@ -27,7 +27,7 @@ export class Stamina {
     this.lastShots = 0;
     this.pose = 0;
     this.spent = { move: 0, attack: 0, block: 0, secret: 0, push: 0, clinch: 0 };
-    this.counts = { cut: 0, thrust: 0, block: 0, secret: 0, exhaustion: 0 };
+    this.counts = { cut: 0, thrust: 0, block: 0, secret: 0, push: 0, exhaustion: 0 };
     this.recovered = 0;
     this.action = 'rest';
     this.clinching = false;
@@ -117,10 +117,10 @@ export class Stamina {
       this.counts.exhaustion++;
       this.stroke = null;
       this.action = 'exhausted';
-    } else if (this.value < -30) this.level = 2;
-    else if (this.level === 2 && this.value >= -15 - 1e-9) this.level = 1;
+    } else if (this.value < STAMINA.severeAt) this.level = 2; // 심한 지침 −40 아래(사장님 10/16 — 전 −30)
+    else if (this.level === 2 && this.value >= STAMINA.severeAt + STAMINA.stageBack - 1e-9) this.level = 1;
     else if (this.level === 0 && this.value < 0) this.level = 1;
-    if (this.level === 1 && this.value >= 15 - 1e-9) this.level = 0;
+    if (this.level === 1 && this.value >= STAMINA.stageBack - 1e-9) this.level = 0;
   }
 
   spend(kind, amount) {
@@ -153,6 +153,13 @@ export class Stamina {
     this.attackId++;
     this.attackUntil = this.time + 1.5;
     if (this.spend('secret', STAMINA.secretCost)) this.counts.secret++;
+  }
+
+  /** 첫 걸음 박차기 (우리 본판 gait.js fastBegin — 박찬 걸음을 뗄 때 한 번): pushCost 12, 무게 배율 없음 · 회복 0.6 s 시계를 다시 센다(공격·막아 받기·비기와 같이).
+   *  박차기가 걸리는 몸만 부른다 — 독일 뒤(비스듬히 뒤) · 이베리아 옆(비스듬히 옆) · 지금은 플레이어만(GAIT.stepBurst · burstDe). 박찬 걸음의 걸은 거리는 걷기 비용으로 따로 센다 */
+  burst() {
+    if (!STAMINA.on || this.exhausted) return;
+    if (this.spend('push', STAMINA.pushCost)) this.counts.push++;
   }
 
   /** 접촉 fresh와 별개로 상대 공격 번호당 한 번만 청구한다. 공격 중 칼 충돌은 공격 비용에 포함. */
