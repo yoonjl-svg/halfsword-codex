@@ -1,0 +1,644 @@
+{
+  "schema_version": 1,
+  "status": "published",
+  "date": "2026-10-15",
+  "report_id": "yoonjl-svg/halfsword-codex@2026-10-15T23:30+09:00",
+  "team": "codex",
+  "repo": "yoonjl-svg/halfsword-codex",
+  "window": {
+    "start_exclusive": "2026-10-14T23:30:00+09:00",
+    "end_inclusive": "2026-10-15T23:30:00+09:00"
+  },
+  "technical_base": "fdd64557067deced82900ecc33cec84d21be0274",
+  "source_observed_head": "ce2e6b0f1060692bcdfe0e94aac711b39ce2f315",
+  "source_observed_at": "2026-10-15T14:49:21.422943+00:00",
+  "source_sha": "ce2e6b0f1060692bcdfe0e94aac711b39ce2f315",
+  "source_committed_at": "2026-10-15T14:27:03+00:00",
+  "selection_basis": "first-parent committer time; not historical remote state",
+  "notes_path": "docs/dev_exchange/notes/2026-10-15.md",
+  "notes_blob_sha": "edf407b7cfffdfc2173ac4d885a78de26d71ae82",
+  "notes_sha256": "68b5505ac808d0cf4ea6cb43eeb6c0144060c6fa6b8ad2ceb2a783e06b06191d",
+  "authored_decision_record": "present",
+  "commit_count": 42,
+  "commits": [
+    {
+      "sha": "ce2e6b0f1060692bcdfe0e94aac711b39ce2f315",
+      "committed_at": "2026-10-15T14:27:03Z",
+      "subject": "Record successful game entry deployment [skip ci]",
+      "paths": [
+        "docs/codex_team/GAME_ENTRY_20261015.md",
+        "docs/codex_team/game_entry_20261015_release.json",
+        "docs/dev_exchange/notes/2026-10-15.md"
+      ],
+      "path_count": 3
+    },
+    {
+      "sha": "cce9a58d7857cef0b4758b0363c974c8946901ea",
+      "committed_at": "2026-10-15T14:24:58Z",
+      "subject": "Record game entry, checkpoint and offline validation",
+      "paths": [
+        "docs/codex_team/GAME_ENTRY_20261015.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/START_PIXEL_SWORD_20261015.md",
+        "docs/codex_team/game_entry_20261015_checks.json",
+        "docs/dev_exchange/notes/2026-10-15.md",
+        "docs/screenshots/game_entry/cards-in-game.png",
+        "docs/screenshots/game_entry/fight-in-game.png",
+        "docs/screenshots/game_entry/notices-in-game.png",
+        "docs/screenshots/game_entry/title-desktop.png",
+        "docs/screenshots/game_entry/title-in-game.png",
+        "docs/screenshots/game_entry/title-portrait.png"
+      ],
+      "path_count": 11
+    },
+    {
+      "sha": "215d7b7e3e70e357262c9a1592c7f0b4f2ccb214",
+      "committed_at": "2026-10-15T14:23:29Z",
+      "subject": "Connect approved pixel start screen to game and journey checkpoints",
+      "paths": [
+        "index.html",
+        "src/game_entry.js",
+        "src/journey_save.js",
+        "src/main.js",
+        "src/pixel_grove.js",
+        "src/start_preview.js",
+        "src/start_screen.js",
+        "tools/browser/game_entry_smoke.mjs",
+        "tools/sim/journey_save.test.mjs"
+      ],
+      "path_count": 9
+    },
+    {
+      "sha": "1da3fb2d5f6fc88f1ef6306bbc5ded5b7252d56e",
+      "committed_at": "2026-10-15T13:58:56Z",
+      "subject": "Record successful longsword start screen deployment [skip ci]",
+      "paths": [
+        "docs/codex_team/START_PIXEL_SWORD_20261015.md",
+        "docs/codex_team/start_pixel_sword_20261015_release.json",
+        "docs/dev_exchange/notes/2026-10-15.md"
+      ],
+      "path_count": 3
+    },
+    {
+      "sha": "489dfd9734e17887a9c11de0fe088a2431a87960",
+      "committed_at": "2026-10-15T13:56:26Z",
+      "subject": "Record longsword and compact notice screen validation",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/codex_team/START_PIXEL_REFINED_20261015.md",
+        "docs/codex_team/START_PIXEL_SWORD_20261015.md",
+        "docs/codex_team/start_pixel_sword_20261015_checks.json",
+        "docs/dev_exchange/notes/2026-10-15.md",
+        "docs/screenshots/start_pixel_sword/notices-desktop.png",
+        "docs/screenshots/start_pixel_sword/notices-phone-landscape.png",
+        "docs/screenshots/start_pixel_sword/notices-phone-portrait.png",
+        "docs/screenshots/start_pixel_sword/title-desktop.png",
+        "docs/screenshots/start_pixel_sword/title-phone-landscape.png",
+        "docs/screenshots/start_pixel_sword/title-phone-portrait.png",
+        "docs/screenshots/start_pixel_sword/wind-transition-desktop.png"
+      ],
+      "path_count": 12
+    },
+    {
+      "sha": "ca8885413c61fab79d32ad977cd823658b3efb6b",
+      "committed_at": "2026-10-15T13:55:20Z",
+      "subject": "Add planted longsword and compact notice confirmation row",
+      "paths": [
+        "src/pixel_grove.js",
+        "src/start_pixel.css",
+        "tools/browser/start_screen_smoke.mjs"
+      ],
+      "path_count": 3
+    },
+    {
+      "sha": "5f7903f3bcc48ded4dbe2440e9fa4147922a2962",
+      "committed_at": "2026-10-15T13:46:17Z",
+      "subject": "Record successful refined start screen deployment [skip ci]",
+      "paths": [
+        "docs/codex_team/START_PIXEL_REFINED_20261015.md",
+        "docs/codex_team/start_pixel_refined_20261015_release.json",
+        "docs/dev_exchange/notes/2026-10-15.md"
+      ],
+      "path_count": 3
+    },
+    {
+      "sha": "e7237a0048895513665bb57bf4933770331cb6d8",
+      "committed_at": "2026-10-15T13:43:49Z",
+      "subject": "Record refined pixel start screen validation and screenshots",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/codex_team/START_PIXEL_20261015.md",
+        "docs/codex_team/START_PIXEL_REFINED_20261015.md",
+        "docs/codex_team/start_pixel_refined_20261015_checks.json",
+        "docs/dev_exchange/notes/2026-10-15.md",
+        "docs/screenshots/start_pixel_refined/notices-desktop.png",
+        "docs/screenshots/start_pixel_refined/notices-phone-landscape.png",
+        "docs/screenshots/start_pixel_refined/notices-phone-portrait.png",
+        "docs/screenshots/start_pixel_refined/title-desktop.png",
+        "docs/screenshots/start_pixel_refined/title-phone-landscape.png",
+        "docs/screenshots/start_pixel_refined/title-phone-portrait.png",
+        "docs/screenshots/start_pixel_refined/wind-transition-desktop.png"
+      ],
+      "path_count": 12
+    },
+    {
+      "sha": "ced47392bb22bc99a09958bea1a81c9ae7d176d7",
+      "committed_at": "2026-10-15T13:42:44Z",
+      "subject": "Refine pixel Korean title and simplify start notices",
+      "paths": [
+        "src/pixel_grove.js",
+        "src/start_pixel.css",
+        "src/start_preview.js",
+        "start-pixel.html",
+        "tools/browser/start_screen_smoke.mjs"
+      ],
+      "path_count": 5
+    },
+    {
+      "sha": "6ef1550cb85928943fc38bffa8cbf3a61f6055d3",
+      "committed_at": "2026-10-15T13:29:29Z",
+      "subject": "Record warm pixel prototype deployment [skip ci]",
+      "paths": [
+        "docs/codex_team/START_PIXEL_20261015.md",
+        "docs/codex_team/start_pixel_20261015_release.json",
+        "docs/dev_exchange/notes/2026-10-15.md"
+      ],
+      "path_count": 3
+    },
+    {
+      "sha": "9754fb2037978185097598ec865c186f86874910",
+      "committed_at": "2026-10-15T13:24:53Z",
+      "subject": "Verify warm pixel prototype and preserve visual comparison",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/codex_team/START_PIXEL_20261015.md",
+        "docs/codex_team/START_SCREEN_20261015.md",
+        "docs/codex_team/start_pixel_20261015_checks.json",
+        "docs/dev_exchange/notes/2026-10-15.md",
+        "docs/screenshots/start_pixel/classic-title-phone-landscape.png",
+        "docs/screenshots/start_pixel/notices-desktop.png",
+        "docs/screenshots/start_pixel/notices-phone-landscape.png",
+        "docs/screenshots/start_pixel/notices-phone-portrait.png",
+        "docs/screenshots/start_pixel/title-desktop.png",
+        "docs/screenshots/start_pixel/title-phone-landscape.png",
+        "docs/screenshots/start_pixel/title-phone-portrait.png",
+        "docs/screenshots/start_pixel/wind-transition-desktop.png",
+        "docs/screenshots/start_pixel/wind-transition.mp4",
+        "tools/browser/start_screen_smoke.mjs"
+      ],
+      "path_count": 15
+    },
+    {
+      "sha": "c84b8ca0f1217d61965eec0ee94266bc42247441",
+      "committed_at": "2026-10-15T13:23:45Z",
+      "subject": "Add warm pixel-art Stillness title and framed menu buttons",
+      "paths": [
+        "src/pixel_grove.js",
+        "src/start_pixel.css",
+        "src/start_preview.js",
+        "start-pixel.html",
+        "vite.config.js"
+      ],
+      "path_count": 5
+    },
+    {
+      "sha": "83f92965001626fa337648833c83c01a6acdac80",
+      "committed_at": "2026-10-15T13:09:05Z",
+      "subject": "Record Stillness start prototype deployment [skip ci]",
+      "paths": [
+        "docs/codex_team/START_SCREEN_20261015.md",
+        "docs/codex_team/start_screen_20261015_release.json",
+        "docs/dev_exchange/notes/2026-10-15.md"
+      ],
+      "path_count": 3
+    },
+    {
+      "sha": "1b92b7987d829b286b344eba94dd7145708073af",
+      "committed_at": "2026-10-15T13:06:51Z",
+      "subject": "Verify Stillness start prototype and capture preview screens",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/codex_team/START_SCREEN_20261015.md",
+        "docs/codex_team/start_screen_20261015_checks.json",
+        "docs/dev_exchange/notes/2026-10-15.md",
+        "docs/screenshots/start_preview/notices-desktop.png",
+        "docs/screenshots/start_preview/notices-phone-landscape.png",
+        "docs/screenshots/start_preview/notices-phone-portrait.png",
+        "docs/screenshots/start_preview/title-desktop.png",
+        "docs/screenshots/start_preview/title-phone-landscape.png",
+        "docs/screenshots/start_preview/title-phone-portrait.png",
+        "docs/screenshots/start_preview/wind-transition-desktop.png",
+        "docs/screenshots/start_preview/wind-transition.mp4",
+        "tools/browser/start_screen_smoke.mjs"
+      ],
+      "path_count": 13
+    },
+    {
+      "sha": "4bb2d8f8dc4c0084bb12a7ed8352cfd3c59cace8",
+      "committed_at": "2026-10-15T13:05:45Z",
+      "subject": "Add Stillness announcement and title screen prototype",
+      "paths": [
+        "src/pixel_wind.js",
+        "src/start_preview.js",
+        "src/start_screen.css",
+        "src/update_notes.js",
+        "start.html",
+        "vite.config.js"
+      ],
+      "path_count": 6
+    },
+    {
+      "sha": "f2512e767f14b7103afabe9ff06cf2289a1b9273",
+      "committed_at": "2026-10-15T12:15:55Z",
+      "subject": "Record walking stamina deployment [skip ci]",
+      "paths": [
+        "docs/codex_team/STAMINA_WALKING_20261015.md",
+        "docs/codex_team/stamina_walking_20261015_release.json",
+        "docs/dev_exchange/notes/2026-10-15.md"
+      ],
+      "path_count": 3
+    },
+    {
+      "sha": "79f503d6fe061c21c1aea9ab23fec6a3d4ea6a9a",
+      "committed_at": "2026-10-15T12:14:16Z",
+      "subject": "Verify walking stamina in game and record screenshots",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/codex_team/STAMINA_V2_20261015.md",
+        "docs/codex_team/STAMINA_WALKING_20261015.md",
+        "docs/codex_team/stamina_walking_20261015_checks.json",
+        "docs/dev_exchange/notes/2026-10-15.md",
+        "docs/screenshots/stamina_walking/chinese-five-steps.png",
+        "docs/screenshots/stamina_walking/german-five-steps.png",
+        "docs/screenshots/stamina_walking/japanese-five-steps.png",
+        "tools/browser/stamina_walking_smoke.mjs"
+      ],
+      "path_count": 9
+    },
+    {
+      "sha": "577f4d53aa19428f38b3f838fcf4473f1394df01",
+      "committed_at": "2026-10-15T12:12:48Z",
+      "subject": "Adjust walking stamina costs and distance threshold",
+      "paths": [
+        "src/config.js",
+        "src/stamina.js",
+        "tools/sim/stamina.test.mjs"
+      ],
+      "path_count": 3
+    },
+    {
+      "sha": "ef8a0c6e16ecf95d133af065620ba3d6f2127881",
+      "committed_at": "2026-10-15T12:02:01Z",
+      "subject": "docs: record player recovery Pages deployment [skip ci]",
+      "paths": [
+        "docs/codex_team/STAMINA_RECOVERY_20261015.md",
+        "docs/codex_team/stamina_recovery_20261015_release.json",
+        "docs/dev_exchange/notes/2026-10-15.md"
+      ],
+      "path_count": 3
+    },
+    {
+      "sha": "52785c99dbfb1e95bcc3b7e195da8ea61d053d44",
+      "committed_at": "2026-10-15T12:00:22Z",
+      "subject": "docs: verify player recovery advantage and capture game meters",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/codex_team/STAMINA_RECOVERY_20261015.md",
+        "docs/codex_team/STAMINA_V2_20261015.md",
+        "docs/codex_team/stamina_recovery_20261015_checks.json",
+        "docs/dev_exchange/notes/2026-10-15.md",
+        "docs/screenshots/stamina_recovery/after-two-seconds.png",
+        "tools/browser/stamina_recovery_smoke.mjs"
+      ],
+      "path_count": 7
+    },
+    {
+      "sha": "c76b4a6f4b4ad0dd3988767fc0e797432f46f83a",
+      "committed_at": "2026-10-15T11:58:59Z",
+      "subject": "balance: raise human stamina recovery to 21 per second",
+      "paths": [
+        "src/config.js",
+        "src/stamina.js",
+        "tools/sim/stamina.test.mjs",
+        "tools/sim/stamina_clinch.test.mjs",
+        "tools/sim/stamina_integration.test.mjs"
+      ],
+      "path_count": 5
+    },
+    {
+      "sha": "b1e91488b361e91f8d566e8f21b94d62775ba668",
+      "committed_at": "2026-10-15T11:24:31Z",
+      "subject": "docs: record stamina fixes Pages deployment [skip ci]",
+      "paths": [
+        "docs/codex_team/STAMINA_FIX_20261015.md",
+        "docs/codex_team/stamina_fix_20261015_release.json",
+        "docs/dev_exchange/notes/2026-10-15.md"
+      ],
+      "path_count": 3
+    },
+    {
+      "sha": "72ac73b75ee252f762e1444ee4764017b7b29004",
+      "committed_at": "2026-10-15T11:22:22Z",
+      "subject": "docs: record preparation-cost fixes and screen validation",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/codex_team/STAMINA_FIX_20261015.md",
+        "docs/codex_team/stamina_fix_20261015_checks.json",
+        "docs/dev_exchange/notes/2026-10-15.md",
+        "docs/screenshots/stamina_fix/etna-after.png",
+        "docs/screenshots/stamina_fix/full-after.png",
+        "docs/screenshots/stamina_fix/full-before.png"
+      ],
+      "path_count": 7
+    },
+    {
+      "sha": "2f593ba6c2d45e2cc5a83c2ee78a17ddc88a70f2",
+      "committed_at": "2026-10-15T11:20:39Z",
+      "subject": "fix: clarify stamina meters and render screen tint across the game canvas",
+      "paths": [
+        "index.html",
+        "src/main.js",
+        "src/screen_tint.js",
+        "src/stamina_hud.js",
+        "tools/browser/stamina_visibility_smoke.mjs"
+      ],
+      "path_count": 5
+    },
+    {
+      "sha": "f933bc072f4c1cf4b7fe6847f878d59190d5ec3c",
+      "committed_at": "2026-10-15T11:20:32Z",
+      "subject": "fix: avoid charging player preparation as a separate attack",
+      "paths": [
+        "src/combat.js",
+        "src/config.js",
+        "src/stamina.js",
+        "src/stamina_stroke.js",
+        "tools/sim/stamina.test.mjs",
+        "tools/sim/stamina_preparation.test.mjs"
+      ],
+      "path_count": 6
+    },
+    {
+      "sha": "1eec98a567dbcdded373645ec6926969451d2761",
+      "committed_at": "2026-10-15T10:51:56Z",
+      "subject": "docs: reproduce player preparation costs and assess stamina visibility",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/codex_team/STAMINA_REVIEW_20261015.md",
+        "docs/codex_team/screenshots/stamina_review/frozen_bay-full-current.png",
+        "docs/codex_team/screenshots/stamina_review/frozen_bay-gold-dark.png",
+        "docs/codex_team/screenshots/stamina_review/frozen_bay-white-gold-thin.png",
+        "docs/codex_team/stamina_review_20261015.json",
+        "docs/dev_exchange/notes/2026-10-15.md"
+      ],
+      "path_count": 7
+    },
+    {
+      "sha": "5b3eafba5f5c8d1dc043424fe1ea6619c8f34dbf",
+      "committed_at": "2026-10-15T10:08:48Z",
+      "subject": "docs: record stamina test-link deployment and verification limits [skip ci]",
+      "paths": [
+        "docs/codex_team/STAMINA_HUD_20261015.md",
+        "docs/codex_team/stamina_border_validation.json",
+        "docs/dev_exchange/notes/2026-10-15.md"
+      ],
+      "path_count": 3
+    },
+    {
+      "sha": "0315419fa07709c71d4b0615d2716aee81c406d0",
+      "committed_at": "2026-10-15T10:06:09Z",
+      "subject": "style: outline stamina bars with the existing light text color",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/codex_team/STAMINA_HUD_20261015.md",
+        "docs/codex_team/STAMINA_V2_20261015.md",
+        "docs/codex_team/screenshots/stamina_border/border-after.png",
+        "docs/codex_team/screenshots/stamina_border/border-before.png",
+        "docs/codex_team/stamina_border_validation.json",
+        "docs/dev_exchange/notes/2026-10-15.md",
+        "index.html"
+      ],
+      "path_count": 8
+    },
+    {
+      "sha": "d24194e63b401d08c339a61288d4396a4c84fd93",
+      "committed_at": "2026-10-15T09:56:53Z",
+      "subject": "docs: record clinch stamina checks and game screenshots",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/codex_team/STAMINA_CLINCH_20261015.md",
+        "docs/codex_team/STAMINA_V2_20261015.md",
+        "docs/codex_team/screenshots/stamina_clinch/clinch-after.png",
+        "docs/codex_team/screenshots/stamina_clinch/clinch-before.png",
+        "docs/codex_team/screenshots/stamina_clinch/clinch-exhaustion.png",
+        "docs/codex_team/stamina_clinch_validation.json",
+        "docs/dev_exchange/notes/2026-10-15.md"
+      ],
+      "path_count": 8
+    },
+    {
+      "sha": "ba14a6f806a42787c7c28e500c05e657622ec4bb",
+      "committed_at": "2026-10-15T09:54:49Z",
+      "subject": "feat: drain both fighters continuously during a clinch",
+      "paths": [
+        "src/config.js",
+        "src/stamina.js",
+        "tools/browser/stamina_clinch_smoke.mjs",
+        "tools/sim/stamina_clinch.test.mjs"
+      ],
+      "path_count": 4
+    },
+    {
+      "sha": "9db75870f23c157316e16df02983c89526db52ed",
+      "committed_at": "2026-10-15T09:31:34Z",
+      "subject": "test: record stamina validation, screenshots and tuning limits",
+      "paths": [
+        "AGENTS.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/STAMINA_20261015.md",
+        "docs/codex_team/STAMINA_V2_20261015.md",
+        "docs/codex_team/screenshots/stamina_v2/debt-landscape.png",
+        "docs/codex_team/screenshots/stamina_v2/exhausted-landscape.png",
+        "docs/codex_team/screenshots/stamina_v2/full-landscape.png",
+        "docs/codex_team/screenshots/stamina_v2/recovered-landscape.png",
+        "docs/codex_team/stamina_v2_validation.json",
+        "docs/dev_exchange/notes/2026-10-15.md",
+        "tools/browser/stamina_smoke.mjs",
+        "tools/sim/stamina_duels.mjs",
+        "tools/sim/stamina_exhaustion_probe.mjs",
+        "tools/sim/stamina_gates.mjs",
+        "tools/sim/stamina_scenarios.mjs"
+      ],
+      "path_count": 16
+    },
+    {
+      "sha": "a0ef8402ef73bd9e55b7f934f126859ddf692733",
+      "committed_at": "2026-10-15T09:27:38Z",
+      "subject": "feat: show fatigue and exhaustion in the game HUD",
+      "paths": [
+        "index.html",
+        "src/main.js",
+        "src/sound.js",
+        "src/stamina_hud.js",
+        "tools/browser/stamina_smoke.mjs"
+      ],
+      "path_count": 5
+    },
+    {
+      "sha": "6ac1070dbe484451a73196d0c98452706ffd3cec",
+      "committed_at": "2026-10-15T09:27:38Z",
+      "subject": "feat: apply stamina debt, recovery and exhaustion rules",
+      "paths": [
+        "src/ai.js",
+        "src/attack_stroke.js",
+        "src/combat.js",
+        "src/config.js",
+        "src/fighter.js",
+        "src/parry_button.js",
+        "src/secret_instant.js",
+        "src/skill.js",
+        "src/stamina.js",
+        "src/unique_assist.js",
+        "tools/sim/stamina.test.mjs",
+        "tools/sim/stamina_integration.test.mjs"
+      ],
+      "path_count": 12
+    },
+    {
+      "sha": "50359cb86a80557a0d445e5b30a84a3353ead3d8",
+      "committed_at": "2026-10-15T08:09:26Z",
+      "subject": "style: soften and slim stamina bars",
+      "paths": [
+        "docs/codex_team/STAMINA_20261015.md",
+        "index.html",
+        "tools/browser/stamina_smoke.mjs"
+      ],
+      "path_count": 3
+    },
+    {
+      "sha": "b556c24707c89c68cdabec789c8d3bd2b43bdff7",
+      "committed_at": "2026-10-15T07:10:39Z",
+      "subject": "docs: require screenshots for visible game changes",
+      "paths": [
+        "AGENTS.md"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "c8e2bdaf8c8ab8205dee3002acfea1f892e8491b",
+      "committed_at": "2026-10-15T07:09:49Z",
+      "subject": "feat: add stamina costs, exhaustion and overhead bars",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/codex_team/STAMINA_20261015.md",
+        "docs/dev_exchange/notes/2026-10-15.md",
+        "index.html",
+        "src/ai.js",
+        "src/config.js",
+        "src/fighter.js",
+        "src/main.js",
+        "src/stamina.js",
+        "src/stamina_hud.js",
+        "tools/browser/stamina_smoke.mjs",
+        "tools/sim/stamina.test.mjs",
+        "tools/sim/stamina_integration.test.mjs"
+      ],
+      "path_count": 13
+    },
+    {
+      "sha": "7a35f843028a5b3a83a6f0657f7a60885c43aad4",
+      "committed_at": "2026-10-15T03:46:34Z",
+      "subject": "docs: assess spacing and camera prerequisites for footwork [skip ci]",
+      "paths": [
+        "docs/dev_exchange/notes/2026-10-15.md",
+        "docs/strike/school_footwork_benefits_2026-10-15.md"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "279f1e2fbddfccb6e4ca04b8fabfd420be3ed99e",
+      "committed_at": "2026-10-14T16:08:17Z",
+      "subject": "docs: audit school footwork benefits against current baseline [skip ci]",
+      "paths": [
+        "docs/dev_exchange/notes/2026-10-15.md",
+        "docs/strike/school_footwork_benefits_2026-10-15.md"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "1e299fb2158637d6dd7c8d6f8478efea5fce4585",
+      "committed_at": "2026-10-14T15:49:33Z",
+      "subject": "docs: record refork gates and verified public delivery [skip ci]",
+      "paths": [
+        "docs/codex_team/REFORK_20261015.md",
+        "docs/codex_team/refork_20261015_release.json",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-15.md"
+      ],
+      "path_count": 4
+    },
+    {
+      "sha": "af340e101b8162268856788fdffa9d24048abc64",
+      "committed_at": "2026-10-14T15:36:41Z",
+      "subject": "chore: restore Codex exchange and presentation standards on fdd6455 base",
+      "paths": [
+        ".github/workflows/dev-exchange.yml",
+        "AGENTS.md",
+        "README.md",
+        "docs/codex_team/CONTENT_PRESENTATION_STANDARD.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/REFORK_20261015.md",
+        "docs/codex_team/refork_20261015_gates.json",
+        "docs/dev_exchange/NOTE_TEMPLATE.md",
+        "docs/dev_exchange/PROTOCOL.md",
+        "docs/dev_exchange/README.md",
+        "docs/dev_exchange/REVIEW_TEMPLATE.md",
+        "docs/dev_exchange/config.json",
+        "docs/dev_exchange/ledger.md",
+        "docs/dev_exchange/notes/2026-10-15.md",
+        "docs/devmeet/README.md"
+      ],
+      "path_count": 28
+    },
+    {
+      "sha": "043efe324e85a3ceab99ea49732ec6d8426c46c9",
+      "committed_at": "2026-10-14T15:28:44Z",
+      "subject": "chore: refork game baseline at fdd6455 while preserving prior development history",
+      "paths": [],
+      "path_count": 0
+    },
+    {
+      "sha": "7ea8162e36595fdc14cbf2420d93dc422c910119",
+      "committed_at": "2026-10-14T14:52:47Z",
+      "subject": "docs: preserve content preview and character atlas conventions across reforks [skip ci]",
+      "paths": [
+        "AGENTS.md",
+        "docs/codex_team/CONTENT_PRESENTATION_STANDARD.md",
+        "docs/codex_team/README.md",
+        "docs/dev_exchange/notes/2026-10-15.md"
+      ],
+      "path_count": 4
+    }
+  ],
+  "previous_report_id": "yoonjl-svg/halfsword-codex@2026-10-14T23:30+09:00",
+  "previous_source_sha": "7684c7324db64b1b72d156108765a75234d1447b",
+  "deployment": {
+    "status": "unknown",
+    "error_type": "APIError",
+    "query_limit": 100,
+    "currently_live_verified": false
+  },
+  "workflow_run_url": null,
+  "notes_heading_normalization": {
+    "policy": "trailing-unnumbered-h2-to-h3-v1",
+    "count": 0,
+    "trailing_appendices_demoted": [],
+    "raw_notes_hash_preserved": true
+  },
+  "notes_link_rewrite": {
+    "basis": "source-note-relative paths pinned to source_sha",
+    "count": 16,
+    "raw_notes_hash_preserved": true
+  },
+  "markdown_sha256": "f8de40b8d1ac1967e72538ff2b225d683e861512a6b9548f9d54d1d831526e4a"
+}
