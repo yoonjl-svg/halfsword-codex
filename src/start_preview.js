@@ -1,14 +1,18 @@
 import './start_screen.css';
+import './start_pixel.css';
 import { UPDATE_NOTES } from './update_notes.js';
 import { createPixelWind } from './pixel_wind.js';
+import { createPixelGrove, paintPixelWordmark } from './pixel_grove.js';
 
 // 시안은 게임의 진행/설정/계정 저장소를 읽거나 지우지 않는다.
-const STORAGE_KEY = 'stillness.start-preview.notices.v1';
+const pixelTheme = document.documentElement.dataset.startTheme === 'pixel';
+const STORAGE_KEY = pixelTheme ? 'stillness.start-preview.pixel.notices.v1' : 'stillness.start-preview.notices.v1';
 const $ = id => document.getElementById(id);
 const entrance = $('entrance'), title = $('titleScreen'), dialog = $('noticeDialog');
 const list = $('noticeList'), checkbox = $('hideRead'), seen = new Set();
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-const scene = createPixelWind($('windScene'), reducedMotion);
+const scene = (pixelTheme ? createPixelGrove : createPixelWind)($('windScene'), reducedMotion);
+if (pixelTheme) paintPixelWordmark(document.querySelector('.pixel-wordmark'));
 let saved = { hideRead: false, readIds: [] }, transition = 0, visibleNotes = [];
 try {
   const value = JSON.parse(localStorage.getItem(STORAGE_KEY));

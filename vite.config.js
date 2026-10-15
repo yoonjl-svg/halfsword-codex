@@ -18,7 +18,7 @@ export default defineConfig({
   server: { host: true },
   build: {
     rolldownOptions: {
-      input: { main: 'index.html', sounds: 'sounds.html', voices: 'voices.html', test: 'test.html', start: 'start.html' }, // start: 공지→시작 화면 시안 (10/15), voices: 인물 목소리·리볼버 소리 듣기 (10/12)
+      input: { main: 'index.html', sounds: 'sounds.html', voices: 'voices.html', test: 'test.html', start: 'start.html', startPixel: 'start-pixel.html' }, // start/startPixel: 공지→시작 화면 비교 시안 (10/15), voices: 인물 목소리·리볼버 소리 듣기 (10/12)
     },
   },
 });
