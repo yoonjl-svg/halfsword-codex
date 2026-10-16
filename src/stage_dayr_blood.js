@@ -36,11 +36,19 @@ function runMap(){
 function sprayMap(seed,wall=false){
  const r=rng(seed);
  return canvasTex(256,256,c=>{
-  for(let i=0;i<94;i++){
+  for(let i=0;i<(wall?136:94);i++){
    const t=r(),x=35+t*184,y=145-(t*.50+r()*.48)*112+(r()-.5)*(25+55*t);
-   const radius=.6+r()*(wall?3.1:2.6)*(1-t*.45);
-   c.fillStyle=i%4?'#792021':'#501116';c.beginPath();c.ellipse(x,y,radius*(1+1.4*t),radius,-.42,0,Math.PI*2);c.fill();
-   if(wall&&i%15===0){c.strokeStyle='#68191b';c.lineWidth=Math.max(.8,radius*.65);c.beginPath();c.moveTo(x,y);c.bezierCurveTo(x+1,y+9,x-1,y+18,x+1,y+23+r()*20);c.stroke();}
+   const radius=.6+r()*(wall?4.7:2.6)*(1-t*.45);
+   c.fillStyle=wall?(i%4?'#98262b':'#61151b'):(i%4?'#792021':'#501116');c.beginPath();c.ellipse(x,y,radius*(1+1.4*t),radius,-.42,0,Math.PI*2);c.fill();
+   if(wall&&i%18===0){c.strokeStyle='#7b1b22';c.lineWidth=Math.max(1,radius*.70);c.beginPath();c.moveTo(x,y);c.bezierCurveTo(x+1,y+9,x-1,y+18,x+1,y+27+r()*24);c.stroke();}
+  }
+  if(wall){
+   // Uneven impact patches anchor the finer spray; still lit by the real lamps.
+   for(const [x,y,rx,ry] of [[83,122,18,12],[125,102,14,9],[159,83,10,7]]){
+    c.fillStyle='#851d24';c.beginPath();
+    for(let i=0;i<20;i++){const a=i*Math.PI/10,k=.65+r()*.65,px=x+Math.cos(a)*rx*k,py=y+Math.sin(a)*ry*k;i?c.lineTo(px,py):c.moveTo(px,py);}
+    c.closePath();c.fill();
+   }
   }
  });
 }
@@ -61,7 +69,7 @@ export function addDayrBlood(scene,root){
  }
  // Solid piers beside the meeting bay. Geometry projection clips stains to
  // the real bricks, so they cannot hang across the arch openings or float.
- decal(wall,'dayr-wall-blood-spray-0',[6.27,1.04,-17.97],[0,0,-.12],[.82,1.16,.18],wallSpray,.85);
- decal(wall,'dayr-wall-blood-spray-1',[10.35,.78,-17.97],[0,0,.24],[.72,.92,.18],wallSpray,.85);
+ decal(wall,'dayr-wall-blood-spray-0',[6.27,1.10,-17.97],[0,0,-.12],[1.22,1.58,.18],wallSpray,.85);
+ decal(wall,'dayr-wall-blood-spray-1',[10.35,.95,-17.97],[0,0,.24],[1.04,1.32,.18],wallSpray,.85);
  return group;
 }
