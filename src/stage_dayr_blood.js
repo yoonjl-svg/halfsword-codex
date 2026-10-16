@@ -2,6 +2,7 @@
 import * as T from 'three';
 import {DecalGeometry} from 'three/addons/geometries/DecalGeometry.js';
 import {canvasTex,rng} from './stage_kit.js';
+import {DAYR_FAR_SIDE} from './stage_dayr_far_side.js';
 
 function poolMap(seed){
  const r=rng(seed);
@@ -52,8 +53,28 @@ function sprayMap(seed,wall=false){
   }
  });
 }
+function crawlMap(){
+ const r=rng(172310);
+ return canvasTex(256,768,c=>{
+  c.lineCap='round';
+  // Broken parallel smears, with paler gaps between pulls across the paving.
+  for(let lane=0;lane<15;lane++)for(let y=72;y<744;y+=22+r()*22){
+   if(r()<.20)continue;
+   const x=128+(lane-7)*4+12*Math.sin(y*.015)+r()*6;
+   c.globalAlpha=.36+r()*.5;c.strokeStyle=lane%3?'#681a1f':'#481115';c.lineWidth=2+r()*6;
+   c.beginPath();c.moveTo(x,y);c.quadraticCurveTo(x+3,y+13,x-2+r()*6,y+18+r()*26);c.stroke();
+  }
+  c.globalAlpha=.72;
+  for(const [x,y,side] of [[51,308,-1],[201,474,1],[61,648,-1]]){
+   c.fillStyle='#67191e';c.beginPath();c.ellipse(x,y,12,18,side*.23,0,Math.PI*2);c.fill();
+   c.strokeStyle='#67191e';c.lineWidth=3;
+   for(let finger=0;finger<4;finger++){c.beginPath();c.moveTo(x-9+finger*6,y-8);c.lineTo(x-7+finger*6+side*4,y-31-finger%2*5);c.stroke();}
+   c.globalAlpha=.43;c.lineWidth=8;c.beginPath();c.moveTo(x,y+10);c.lineTo(x+side*6,y+46);c.stroke();c.globalAlpha=.72;
+  }
+ });
+}
 export function addDayrBlood(scene,root){
- const group=new T.Group();group.name='dayr-blood-aftermath';group.userData={visualOnly:true,pools:2,poolRuns:1,floorSprays:2,wallSprays:2};root.add(group);
+ const group=new T.Group();group.name='dayr-blood-aftermath';group.userData={visualOnly:true,pools:4,poolRuns:1,crawlTrails:1,floorSprays:2,wallSprays:2};root.add(group);
  const floor=scene.getObjectByName('dayr-floor'),wall=scene.getObjectByName('dayr-brick');scene.updateMatrixWorld(true);
  const groundSpray=sprayMap(172230),wallSpray=sprayMap(172231,true);
  function decal(surface,name,p,rot,size,map,roughness){
@@ -71,5 +92,10 @@ export function addDayrBlood(scene,root){
  // the real bricks, so they cannot hang across the arch openings or float.
  decal(wall,'dayr-wall-blood-spray-0',[6.27,1.10,-17.97],[0,0,-.12],[1.22,1.58,.18],wallSpray,.85);
  decal(wall,'dayr-wall-blood-spray-1',[10.35,.95,-17.97],[0,0,.24],[1.04,1.32,.18],wallSpray,.85);
+ const {seated,prone}=DAYR_FAR_SIDE;
+ decal(floor,'dayr-blood-pool-2',[seated.position[0],.012,seated.position[2]-.10],[-Math.PI/2,0,.10],[.96,.68,.12],poolMap(172212),.52);
+ decal(floor,'dayr-blood-pool-3',[prone.position[0],.012,prone.position[2]],[-Math.PI/2,0,prone.yaw],[1.10,1.25,.12],poolMap(172213),.52);
+ const drag=new T.Vector3(0,0,1.8).applyAxisAngle(new T.Vector3(0,1,0),prone.yaw).add(new T.Vector3(...prone.position));
+ decal(floor,'dayr-blood-crawl-trail',[drag.x,.012,drag.z],[-Math.PI/2,0,prone.yaw],[1.05,4.2,.12],crawlMap(),.64);
  return group;
 }

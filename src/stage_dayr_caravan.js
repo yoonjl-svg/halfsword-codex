@@ -2,6 +2,7 @@
 import * as T from 'three';
 import {workshop} from './stage_night_second.js';
 import {canvasTex} from './stage_kit.js';
+import {addDayrFarSide,DAYR_FAR_SIDE} from './stage_dayr_far_side.js';
 
 const V=p=>new T.Vector3(...p);
 function rope(w,points,r,color){w.put(new T.TubeGeometry(new T.CatmullRomCurve3(points.map(V)),18,r,5,false),color);}
@@ -153,7 +154,9 @@ export function addDayrCaravan(root){
  dagger(w,[8.91,.026,-14.40],1.2);dagger(w,[11.87,.026,-9.43],-.2);
  w.put(new T.CylinderGeometry(.075,.06,.15,10,1,true),0xa28658,[8.78,.08,-15.57],[0,0,1.5]);
  w.finish('dayr-caravan-unloaded-goods');
+ addDayrFarSide(area);
  for(const [i,p] of [[0,[23.7,-.055,2.3]],[1,[13.4,0,-9.05]],[2,[8.0,.50,-17.72]]])steps.push(lantern(area,p,i));
- area.userData={visualOnly:true,camels:3,fallen:2,concealedDaggers:3,royalSeal:'fictional-sun'};
+ DAYR_FAR_SIDE.lanterns.forEach((p,i)=>steps.push(lantern(area,p,i+3)));
+ area.userData={visualOnly:true,camels:3,fallen:4,seated:1,unidentified:1,concealedDaggers:3,royalSeal:'fictional-sun'};
  return steps;
 }
