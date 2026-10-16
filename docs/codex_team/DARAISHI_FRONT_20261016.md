@@ -30,3 +30,9 @@
 `night_second_delivery.mjs --daraishi-only`: 새 소개/기존 밤7차의390×844·844×390, 사진7장/15장·기존8초 영상·대련 무기/상대·넘침·HTTP/JS 오류 검사 모두 통과. Vite/PWA 빌드 성공. 공통 관문의 다섯 출력은 앞선 v7 결과와 동일(corr 실행시간 행 제외).
 
 검사 재현: `node tools/browser/daraishi_front_check.mjs http://127.0.0.1:4194 /tmp/daraishi-front-check.json`. 이전 외형 기준은 저장소에 보존했다. 공개 확인 영수증은 후속 기록에서 연결한다.
+
+## 우리 포크 공개 완료
+
+공개 `0856f65d641308d600cf43d0c8f9e0620cfebdfd`, Pages38931330148 성공(1분21초). 소스·페이지·새 사진16파일 원격 바이트 일치. [영수증](daraishi_front_20261016_release.json). 환경 정책상 공개 CDN 브라우저 접근은 불가하여 로컬 프로덕션 브라우저·Actions HTML·고정SHA 원본으로 확인했다. 우화 전달 없음.
+
+[전후 비교·직접 대련](https://yoonjl-svg.github.io/halfsword-codex/daraishi-front.html).
