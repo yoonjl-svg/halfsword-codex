@@ -41,6 +41,12 @@ function camel(root,index,pos,yaw,{kneeling=false,color=0xa58a63}={}){
  rope(w,[[-.85,1.45-low,0],[-1.01,1.08-low,.03],[-1.05,.70-low/2,.06]],.026,fur);
  blob(w,[.055,.13,.045],0x5a4a38,[-1.05,.67-low/2,.06]);
  const blanket=cloth(group,'dayr-camel-saddlecloth',index===1?0x5c7974:0x864f48,[[0,1.45-low,-.51],[0,1.88-low,-.36],[0,2.29-low,-.18],[0,2.35-low,0],[0,2.29-low,.18],[0,1.88-low,.36],[0,1.45-low,.51]],1.10);
+ const clothP=blanket.geometry.attributes.position;
+ for(let i=0;i<clothP.count;i++){
+  const q=1-((clothP.getX(i)+.12)/.39)**2-(clothP.getZ(i)/.32)**2;
+  if(q>0)clothP.setY(i,Math.max(clothP.getY(i),1.80-low+.53*Math.sqrt(q)+.07));
+ }
+ blanket.geometry.computeVertexNormals();
  for(const side of [-1,1]){
   for(let i=0;i<7;i++)w.rod([-.45+i*.15,1.48-low,side*.52],[-.45+i*.15,1.36-low,side*.53],.009,0xc0a477);
   parcel(w,[-.26,1.08-low,side*.60],.91,index===1?0xa59674:0x9c805e);
