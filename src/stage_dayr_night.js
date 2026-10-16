@@ -5,6 +5,7 @@ import {beginNight} from './stage_night_variants.js';
 import {animate,workshop} from './stage_night_second.js';
 import {addDayrCaravan} from './stage_dayr_caravan.js';
 import {addDayrBlood} from './stage_dayr_blood.js';
+import {canvasTex} from './stage_kit.js';
 
 function lamps(root){
  const w=workshop(root,171004),flames=[],lights=[];
@@ -22,14 +23,21 @@ function lamps(root){
 
 export function buildDayrNight(scene,lights){
  const {stage,root}=beginNight(scene,lights,buildDayr,'dayr_night',{boundaryFires:false});
- // Keep the night sky from acting like a bright blue dawn behind the dark court.
- root.getObjectByName('midnight-sky').material.color.setHex(0x526078);
- root.traverse(o=>{if(o.isPoints&&o.material.fog===false)o.material.opacity=.34;});
+ // This night has a black zenith and a subdued blood-red horizon, not blue dawn.
+ const sky=root.getObjectByName('midnight-sky').material;
+ sky.map.dispose();
+ sky.map=canvasTex(8,256,(c,w,h)=>{
+  const g=c.createLinearGradient(0,0,0,h);
+  for(const [at,color] of [[0,'#060304'],[.42,'#1a080e'],[.52,'#341014'],[.65,'#200a0e'],[1,'#090405']])g.addColorStop(at,color);
+  c.fillStyle=g;c.fillRect(0,0,w,h);
+ });
+ sky.color.setHex(0xffffff);
+ root.traverse(o=>{if(o.isPoints&&o.material.fog===false){o.material.opacity=.20;o.material.color.setHex(0xbda9a5);}});
  scene.getObjectByName('dayr-setting-sun').visible=false;
  const floor=scene.getObjectByName('dayr-floor'),a=floor.geometry.attributes.color,p=floor.geometry.attributes.position;
  // Remove the daytime baked orange gate beam only in this fresh night build.
  for(let i=0;i<a.count;i++){const v=.91+.012*Math.sin(p.getX(i)*1.3+p.getZ(i)*.8);a.setXYZ(i,v,v,v);}a.needsUpdate=true;
- scene.background=new T.Color(0x0c1420);scene.fog=new T.Fog(0x0c1420,55,220);
+ scene.background=new T.Color(0x17090c);scene.fog=new T.Fog(0x17090c,55,220);
  lights.hemi.intensity=.22;lights.hemi.color.set(0x92a5bf);lights.hemi.groundColor.set(0x34323a);
  lights.sun.intensity=.12;lights.sun.color.set(0xa8bbd3);stage.sunOffset={x:9,y:14,z:5};lights.sun.position.set(9,14,5);
  // The sunset-specific narrow shadow frustum is unsuitable for a high moon.

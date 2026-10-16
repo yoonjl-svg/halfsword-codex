@@ -14,6 +14,25 @@ function poolMap(seed){
   for(let i=0;i<34;i++){const a=r()*Math.PI*2,d=.85+r()*.35;c.fillStyle=i%3?'#681719':'#7c2121';c.beginPath();c.ellipse(126+Math.cos(a)*90*d,129+Math.sin(a)*65*d,1+r()*5,1+r()*3,r()*Math.PI,0,Math.PI*2);c.fill();}
  });
 }
+// A thin run from the existing pool; its original outline and size stay intact.
+function runMap(){
+ return canvasTex(512,256,c=>{
+  const r=rng(172240),upper=[],lower=[];
+  for(let i=0;i<=64;i++){
+   const t=i/64,x=22+t*479,y=195-120*t+15*Math.sin(t*6)-5*Math.sin(t*16);
+   const half=Math.max(2,2+19*t*t+2*Math.sin(t*34)+r()*3);
+   upper.push([x,y-half]);lower.push([x,y+half*(.72+r()*.40)]);
+  }
+  c.beginPath();[...upper,...lower.reverse()].forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y));c.closePath();
+  const g=c.createLinearGradient(20,190,500,75);
+  g.addColorStop(0,'#701b1c');g.addColorStop(.6,'#4e1115');g.addColorStop(1,'#300d10');
+  c.fillStyle=g;c.fill();
+  // Small breaks in the last beads keep the tapered end from looking drawn.
+  for(const [x,y,rx,ry] of [[14,201,4,1.6],[49,195,6,2],[121,180,4,1.8],[228,150,7,2.2]]){
+   c.fillStyle='#681719';c.beginPath();c.ellipse(x,y,rx,ry,-.24,0,Math.PI*2);c.fill();
+  }
+ });
+}
 function sprayMap(seed,wall=false){
  const r=rng(seed);
  return canvasTex(256,256,c=>{
@@ -26,7 +45,7 @@ function sprayMap(seed,wall=false){
  });
 }
 export function addDayrBlood(scene,root){
- const group=new T.Group();group.name='dayr-blood-aftermath';group.userData={visualOnly:true,pools:2,floorSprays:2,wallSprays:2};root.add(group);
+ const group=new T.Group();group.name='dayr-blood-aftermath';group.userData={visualOnly:true,pools:2,poolRuns:1,floorSprays:2,wallSprays:2};root.add(group);
  const floor=scene.getObjectByName('dayr-floor'),wall=scene.getObjectByName('dayr-brick');scene.updateMatrixWorld(true);
  const groundSpray=sprayMap(172230),wallSpray=sprayMap(172231,true);
  function decal(surface,name,p,rot,size,map,roughness){
@@ -34,6 +53,7 @@ export function addDayrBlood(scene,root){
   const mat=new T.MeshStandardMaterial({map,transparent:true,depthWrite:false,roughness,metalness:0,polygonOffset:true,polygonOffsetFactor:-3});
   const m=new T.Mesh(geo,mat);m.name=name;m.renderOrder=2;group.add(m);
  }
+ decal(floor,'dayr-blood-pool-run',[6.65,.01,-14.65],[-Math.PI/2,0,0],[3.2,1.1,.10],runMap(),.52);
  for(const [i,x,z,yaw] of [[0,8.0,-14.95,.68],[1,11.6,-8.75,-1.4]]){
   const local=new T.Vector3(.12,0,-.23).applyAxisAngle(new T.Vector3(0,1,0),yaw);
   decal(floor,`dayr-blood-pool-${i}`,[x+local.x,.01,z+local.z],[-Math.PI/2,0,yaw],[1.65,1.42,.10],poolMap(172210+i),.52);
