@@ -43,6 +43,13 @@ try{for(const [stage,foe] of pairs){
     g.camera.position.set(p.x-f.x*1.1,p.y+.025,p.z-f.z*1.1);g.camera.lookAt(p.x,p.y-.025,p.z);
     g.camera.fov=28;g.camera.updateProjectionMatrix();
    }
+   if(view==='weapon'){
+    f.applyAxisAngle(new T.Vector3(0,1,0),.85);
+    const tip=new T.Vector3(0,g.enemy.weaponCfg.hiltLength+g.enemy.weaponCfg.bladeLength,0).applyQuaternion(g.enemy.sword.rotation()).add(g.enemy.sword.translation());
+    const x=v.x*.65+tip.x*.35,z=v.z*.65+tip.z*.35;
+    g.camera.position.set(x+f.x*4.6,1.45,z+f.z*4.6);g.camera.lookAt(x,1.1,z);
+    g.camera.fov=40;g.camera.updateProjectionMatrix();
+   }
   },view);await page.clock.runFor(16);await page.screenshot({path:prefix+`-${view}.png`});
  }
  rows.push({...info,errors});fs.writeFileSync(out+'/capture.json',JSON.stringify(rows,null,2)+'\n');console.log(stage,foe,JSON.stringify(errors));await page.close();

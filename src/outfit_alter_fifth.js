@@ -44,11 +44,7 @@ export function decorateFifthAlter(g,look,part){
  }
  if(look.alter==='renji'&&part==='pelvis'){
   const old=g.getObjectByName('renji-sheathed-sword');if(!old)return;
-  // The actual sword is in his hands. Replace the old hilt/wrap with an empty scabbard.
-  for(const m of old.children)m.visible=false;
-  const scabbard=new T.CylinderGeometry(.019,.014,.61,10,1,true);scabbard.scale(.72,1,1);scabbard.translate(0,-.31,0);
-  mesh(old,scabbard,0x27252b,'renji-empty-scabbard');
-  const mouth=new T.TorusGeometry(.019,.0026,5,14);mouth.rotateX(Math.PI/2);mouth.scale(.72,1,1);mouth.translate(0,-.005,0);
-  mesh(old,mouth,0x8a7761,'empty-scabbard-mouth');
+  // The whole wrapped sword is now in his hand. No duplicate or empty scabbard.
+  old.visible=false;
  }
 }

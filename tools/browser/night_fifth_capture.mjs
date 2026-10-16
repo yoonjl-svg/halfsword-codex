@@ -11,7 +11,7 @@ try{for(const [id,foe] of [['etna','chanda'],['qinglan','renji']].filter(p=>!onl
  const stage=before?id:id+'_night',enemy=before?foe:foe+'_mad',p=await browser.newPage({viewport:{width:1200,height:675},deviceScaleFactor:1,hasTouch:true}),errors=[];
  p.on('pageerror',e=>errors.push(String(e)));p.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
  await p.clock.install({time:new Date('2026-10-16T18:00:00Z')});await p.clock.pauseAt(new Date('2026-10-16T18:00:01Z'));
- const foeWeapon=id==='etna'?'moye':before?'morgenstern':'uchigatana';
+ const foeWeapon=id==='etna'?'moye':before?'morgenstern':'brothers_sword';
  await p.goto(`${base}/?stage=${stage}&foe=${enemy}&weapon=longsword&foeWeapon=${foeWeapon}&emo=0`,{waitUntil:'networkidle'});
  await p.evaluate(()=>{game.renderCap.tick=()=>false;document.getElementById('btnStart').click()});
  for(let i=0;i<120&&await p.evaluate(()=>game.state!=='fight');i++)await p.clock.runFor(16);
