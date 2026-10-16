@@ -35,3 +35,7 @@
 **화면 컨펌 전이므로 우화에게 보내지 않았다.** 별도 수신main 열람/동기화도 이 시안 작업에 섞지 않았다. 보낼 때 받는 쪽 최신main 기준 전달 가지 위에 기능과 필요한 연결만 이식한 뒤 검증한다. 저장소 전체 일치를 요구하지 않는다.
 
 의존 파일: `characters.js`(손님 선언 뒤 등록),`outfit_alter.js`/새 외형 모듈,`stage_dunhuang.js`(기본false night 옵션)/새 밤 모듈,`stages.js`의 builder/이름/상대,`sound.js`/`stage_detail_sound.js`의 원래 음향 연결. 기존 학교/보법/공통 물리 파일 변경 없음. 되돌림은 구현 커밋 `c8a5331f` revert, 소개/사진 문서는 별도다.
+
+## 공개 확인
+
+공개 소스 `7432d8b4ab652087e783fa900224914bfd9e10bf`. Pages [38908984412](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38908984412) **Success/44초**. 고정 SHA 원격 코드/HTML/사진19파일 바이트 일치. [휴대폰 소개·대련](https://yoonjl-svg.github.io/halfsword-codex/night-encounters-6.html). [배포 영수증](night_sixth_20261016_release.json). 우리 포크 main과 작업 가지 원격 SHA 확인 완료. 사용자 화면 컨펌·우화 전달은 아직 별도다.
