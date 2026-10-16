@@ -34,11 +34,11 @@ try{
      }),
     };
    });
-   const audioOK=result.audios.length===(file==='night-encounters-4.html'?3:0)&&result.audios.every(audio=>{
-    const name=audio.source.split('/').at(-1),seconds={'thunder-short.mp3':1.8,'thunder-rolling.mp3':3.8,'thunder-extended.mp3':6.2}[name];
+   const audioOK=result.audios.length===(file==='night-encounters-4.html'?4:0)&&result.audios.every(audio=>{
+    const name=audio.source.split('/').at(-1),seconds={'thunder-short.mp3':1.8,'thunder-rolling.mp3':3.8,'thunder-extended.mp3':6.2,'thunder-flow.mp3':80}[name];
     return audio.ready>=2&&audio.duration>=seconds&&audio.duration<seconds+.2;
    });
-   const pass=audioOK&&result.decoded&&!result.overflow&&!errors.length&&result.videos.every(video=>video.ready>=2&&video.duration===(video.source.endsWith('/wetland-storm.mp4')?12:4))&&result.links.length===duels.length&&result.links.every(link=>link.weapon==='longsword'&&duels.includes(link.target));
+   const pass=audioOK&&result.decoded&&!result.overflow&&!errors.length&&result.videos.every(video=>video.ready>=2&&video.duration===(video.source.endsWith('/wetland-storm.mp4')?14:4))&&result.links.length===duels.length&&result.links.every(link=>link.weapon==='longsword'&&duels.includes(link.target));
    report.pages.push({file,viewport,...result,errors,pass});
    await page.close();
   }
