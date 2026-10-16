@@ -7,9 +7,10 @@ export function createWetlandStorm(seed = 161026) {
   const state={time:0,flash:0,flashes:0,thunders:0,group:0};
   function schedule(){
     const group=block++,first=(group*10)+2+random()*4;
-    const times=random()<.58?[first,first+.65+random()*1.05]:[first];
+    const times=random()<.58?[first,first+.65+random()*3.05]:[first];
     for(const at of times)queue.push({type:'flash',at,amp:.75+random()*.25,duration:.22+random()*.09,group});
-    if(random()<.8)queue.push({type:'thunder',at:times.at(-1)+1.3+random()*1.1,amp:.65+random()*.3,group,flashes:times.length});
+    // Thunder belongs to the first flash, even if the second flash comes later.
+    if(random()<.8)queue.push({type:'thunder',at:first+2.3+random()*2.1,amp:.65+random()*.3,group,flashes:times.length});
     queue.sort((a,b)=>a.at-b.at);
   }
   schedule();

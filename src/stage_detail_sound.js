@@ -29,6 +29,12 @@ export const STAGE_DETAIL_PROFILES = Object.freeze({
   wetlandThunder: { stage: 'sluice', nightOnly: true, duration: 3.8, gain: .24, gap: 5 },
 });
 
+export const WETLAND_THUNDER_VARIANTS = Object.freeze([
+  Object.freeze({ name: 'short', duration: 1.8 }),
+  Object.freeze({ name: 'rolling', duration: 3.8 }),
+  Object.freeze({ name: 'extended', duration: 6.2 }),
+]);
+
 const detailBase = stage => ['loggia_night','corsair_night','sacred_grove_night','sluice_night'].includes(stage) ? stage.slice(0,-6) : stage;
 export const hasStageDetails = (id) => {const stage=detailBase(id);return stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove' || stage === 'frozen_bay' || stage === 'qinglan' || stage === 'sluice' || stage === 'dayr' || stage === 'dunhuang' || stage === 'etna';};
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
@@ -38,12 +44,35 @@ const TAU = Math.PI * 2;
  * rng is the existing sound.js makeRng. Returned mono PCM is also used by the
  * offline review renderer; no recordings, network assets or sample imports.
  */
-export function synthStageDetail(kind, sr, rng) {
+export function synthStageDetail(kind, sr, rng, variant = 1) {
   const profile = STAGE_DETAIL_PROFILES[kind];
   if (!profile || !Number.isFinite(sr) || sr < 8000) return new Float32Array(0);
-  const out = new Float32Array(Math.ceil(profile.duration * sr));
+  const thunder = kind === 'wetlandThunder' ? WETLAND_THUNDER_VARIANTS[variant] ?? WETLAND_THUNDER_VARIANTS[1] : null;
+  const out = new Float32Array(Math.ceil((thunder?.duration ?? profile.duration) * sr));
   if (kind === 'wetlandThunder') {
-    // A distant rolling body, not a close gunshot. Deterministic cached variants.
+    // Three different envelopes, not just three noise seeds. The middle form
+    // preserves the original rolling sound; the long form swells repeatedly.
+    if (thunder.name !== 'rolling') {
+      const short=thunder.name==='short',shift=rng(),starts=short?[0]:[0,.82+shift*.22,1.95+shift*.18,3.25+shift*.28];
+      const a=1-Math.exp(-TAU*(short?155:85)/sr),b=1-Math.exp(-TAU*(short?1050:480)/sr);
+      let low=0,mid=0,peak=0;
+      for(let i=0;i<out.length;i++){
+        const t=i/sr,n=rng()*2-1;low+=a*(n-low);mid+=b*(n-mid);
+        let body=0,crackle=0;
+        for(let j=0;j<starts.length;j++){
+          const age=t-starts[j];if(age<0)continue;
+          const weight=short?1:1-j*.14,rise=1-Math.exp(-age/(short?.028:.10));
+          body+=weight*rise*Math.exp(-age/(short?.42:1.1));
+          crackle+=weight*rise*Math.exp(-age/(short?.14:.32));
+        }
+        const tail=Math.min(1,(out.length-1-i)/(sr*(short?.22:.65)));
+        const roll=short?1:.64+.36*Math.sin(t*4.1+shift*3+.3*Math.sin(t*7))**2;
+        out[i]=tail*(2.8*low*body*roll+(short?.32:.16)*(mid-low)*crackle);
+        peak=Math.max(peak,Math.abs(out[i]));
+      }
+      if(peak>.65)for(let i=0;i<out.length;i++)out[i]*=.65/peak;
+      return out;
+    }
     let low=0,mid=0;const a=1-Math.exp(-TAU*110/sr),b=1-Math.exp(-TAU*620/sr),shift=rng()*2;
     for(let i=0;i<out.length;i++){
       const t=i/sr,n=rng()*2-1;low+=a*(n-low);mid+=b*(n-mid);
@@ -382,7 +411,7 @@ export class StageDetailSound {
     if (!buffer) {
       const sr = 22050;
       const seed = 9127 + Object.keys(STAGE_DETAIL_PROFILES).indexOf(data.kind) * 311 + variant * 101;
-      const pcm = synthStageDetail(data.kind, sr, this.makeRng(seed));
+      const pcm = synthStageDetail(data.kind, sr, this.makeRng(seed), variant);
       buffer = c.createBuffer(1, pcm.length, sr); buffer.getChannelData(0).set(pcm);
       this.buffers.set(key, buffer);
     }

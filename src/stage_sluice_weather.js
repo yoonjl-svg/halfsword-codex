@@ -35,7 +35,7 @@ export function addSluiceWeather(scene,lights,root,stage,original){
   });
   const material=new T.MeshBasicMaterial({map:overcastTexture(),side:T.BackSide,depthWrite:false,fog:false});
   const sky=new T.Mesh(new T.SphereGeometry(510,32,16),material);sky.name='wetland-overcast-sky';root.add(sky);
-  const rain=springRain(root,{n:850,seed:164082,size:.14,opacity:.17,speedScale:.30,windScale:.16,color:0x8296a4});
+  const rain=springRain(root,{n:850,seed:164082,size:.14,opacity:.17,speedScale:.65,windScale:.16,color:0x8296a4});
   const drops=root.getObjectByName('rain-particles');drops.name='wetland-mist-drizzle';
   const old=stage.update.bind(stage);
   const apply=()=>{const f=storm.state.flash;
