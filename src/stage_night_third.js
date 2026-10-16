@@ -68,7 +68,8 @@ function fallenPine(root,origin,yaw,length,seed){
  w.finish('fallen-pine-trunk-and-boughs');return group;
 }
 export function buildSacredGroveNight(scene,lights){
- const {stage,root}=beginNight(scene,lights,buildSacredGrove,'sacred_grove_night',{boundaryFires:false});
+ const build=(s,l)=>buildSacredGrove(s,l,{animals:false});
+ const {stage,root}=beginNight(scene,lights,build,'sacred_grove_night',{boundaryFires:false});
  lights.hemi.intensity=1.0;lights.sun.intensity=.58;stage.sunOffset={x:5,y:12,z:-3};
  fallenPine(root,[-18,.03,7.2],-.25,8.5,16321);
  fallenPine(root,[14.2,.03,14.8],.55,7.6,16322);
@@ -77,7 +78,7 @@ export function buildSacredGroveNight(scene,lights){
  const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(new Float32Array(n*3),3));g.setAttribute('color',new T.Float32BufferAttribute(new Float32Array(n*3),3));
  const map=canvasTex(32,32,(c)=>{const q=c.createRadialGradient(16,16,0,16,16,16);q.addColorStop(0,'#f1edb0');q.addColorStop(.16,'#cee192');q.addColorStop(.5,'rgba(170,205,100,.25)');q.addColorStop(1,'rgba(130,180,80,0)');c.fillStyle=q;c.fillRect(0,0,32,32)});
  const flies=new T.Points(g,new T.PointsMaterial({map,vertexColors:true,size:.15,transparent:true,opacity:.82,depthWrite:false}));flies.name='living-root-fireflies';root.add(flies);
- root.userData.stories=['세 그루가 뿌리를 드러낸 채 쓰러졌다. 꺾인 가지와 아직 푸른 잎이 숲 가장자리에 남아 있다.','서 있는 신목의 뿌리에는 반딧불이 모인다. 무너진 숲 한가운데 남은 생명의 자리.'];
+ root.userData.stories=['사슴은 떠났다. 세 그루가 뿌리를 드러낸 채 쓰러지고, 미나미만 꺾인 가지를 머리에 꽂은 채 남았다.','서 있는 신목의 뿌리에는 반딧불이 모인다. 무너진 숲 한가운데 남은 생명의 자리.'];
  root.userData.details={fallen:[[-18,0,7.2],[14.2,0,14.8],[-12.8,0,-13.3]],roots:[21,1,-3]};
  return animate(stage,root,[t=>{seeds.forEach((s,i)=>{g.attributes.position.setXYZ(i,21+Math.cos(s.a+t*.026)*s.d,s.h+Math.sin(t*.6+s.p)*.23,-3+Math.sin(s.a+t*.026)*s.d);const b=.25+.75*Math.max(0,Math.sin(t*1.2+s.p))**2;g.attributes.color.setXYZ(i,b,b*.98,b*.61)});g.attributes.position.needsUpdate=true;g.attributes.color.needsUpdate=true}]);
 }

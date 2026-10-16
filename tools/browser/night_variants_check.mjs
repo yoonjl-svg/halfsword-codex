@@ -2,10 +2,10 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {chromium} from 'playwright';
-import {CHARACTERS,CHARACTER_VARIANTS,aiAtProficiency} from '../../src/characters.js';
+import {CHARACTERS_BY_ID,CHARACTER_VARIANTS,aiAtProficiency} from '../../src/characters.js';
 const base=process.argv[2]||'http://127.0.0.1:4194',out=process.argv[3]||'/tmp/night-variants-check.json';
-for(const id of ['eira','liao','margarethe','isolde','tome','omari']){
- const original=CHARACTERS.find(c=>c.id===id),alter=CHARACTER_VARIANTS.find(c=>c.id===id+'_mad');
+for(const id of ['eira','liao','margarethe','isolde','tome','omari','bran','minami','ratna']){
+ const original=CHARACTERS_BY_ID[id],alter=CHARACTER_VARIANTS.find(c=>c.id===id+'_mad');
  assert.deepEqual(alter.ai,original.ai);
  for(let p=1;p<=5;p++)assert.deepEqual(aiAtProficiency(alter,p),aiAtProficiency(original,p));
  assert.equal(alter.weapon,original.weapon);
@@ -35,6 +35,6 @@ try{
   fs.writeFileSync(out,JSON.stringify({pass:false,rows,errors},null,2)+'\n');
  }
  assert.deepEqual(errors,[]);
- fs.writeFileSync(out,JSON.stringify({pass:true,aiPairs:6,proficiencyPairs:30,stageBuilds:rows.length,rows,errors},null,2)+'\n');
- console.log(JSON.stringify({pass:true,aiPairs:6,proficiencyPairs:30,stageBuilds:rows.length,errors}));
+ fs.writeFileSync(out,JSON.stringify({pass:true,aiPairs:9,proficiencyPairs:45,stageBuilds:rows.length,rows,errors},null,2)+'\n');
+ console.log(JSON.stringify({pass:true,aiPairs:9,proficiencyPairs:45,stageBuilds:rows.length,errors}));
 }finally{await browser.close()}

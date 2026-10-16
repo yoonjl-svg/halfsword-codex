@@ -28,7 +28,7 @@ export const STAGE_DETAIL_PROFILES = Object.freeze({
   etnaCrust: { stage: 'etna', duration: 1.6, gain: 0.032, gap: 20 },
 });
 
-const detailBase = stage => ['loggia_night','corsair_night','sacred_grove_night'].includes(stage) ? stage.slice(0,-6) : stage;
+const detailBase = stage => ['loggia_night','corsair_night','sacred_grove_night','sluice_night'].includes(stage) ? stage.slice(0,-6) : stage;
 export const hasStageDetails = (id) => {const stage=detailBase(id);return stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove' || stage === 'frozen_bay' || stage === 'qinglan' || stage === 'sluice' || stage === 'dayr' || stage === 'dunhuang' || stage === 'etna';};
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 const TAU = Math.PI * 2;

@@ -659,7 +659,7 @@ function groveDeer(scene) {
 }
 
 /** Build a bounded, disposable visual stage, using only isolated seeded RNG. */
-export function buildSacredGrove(scene, { hemi, sun } = {}) {
+export function buildSacredGrove(scene, { hemi, sun } = {}, { animals = true } = {}) {
   const r = rng(197719), K = new Kit(88291), foliage = [], windClock = { value: 0 };
   const sunOffset = { ...SUN_OFFSET };
   scene.background = new THREE.Color(GROVE_FOG.sky); scene.fog = new THREE.Fog(GROVE_FOG.color, GROVE_FOG.near, GROVE_FOG.far); // 무대를 떠나면 stages.js restore() 가 처음 안개로 되돌린다
@@ -766,7 +766,7 @@ export function buildSacredGrove(scene, { hemi, sun } = {}) {
   }
   plants(scene, r);
   const water = stream(scene, K, r); distantHaze(scene); lightShafts(scene, r);
-  const deer = groveDeer(scene);
+  const deer = animals ? groveDeer(scene) : null;
 
   const materials = {
     heroBark: new THREE.MeshStandardMaterial({ map: heroBark, vertexColors: true, roughness: 1 }),
@@ -800,7 +800,7 @@ export function buildSacredGrove(scene, { hemi, sun } = {}) {
     fighterLight: { color: 0xf6e8cc, rimColor: 0xf1e4c2, level: 0.84, rim: 1.08 }, // 오후 햇빛 쪽으로 조금 따뜻하게
     update(dt) {
       const step = Math.min(Math.max(Number.isFinite(dt) ? dt : 0, 0), 0.1); time += step; gust *= Math.exp(-step * 1.6);
-      water.offset.y = time * 0.012; windClock.value = time; deer.update(time);
+      water.offset.y = time * 0.012; windClock.value = time; deer?.update(time);
       // Sound follows a real visible wind phase; no timers survive stage clearing.
       const boughWind = Math.sin(time * 0.38 + HERO.x * 0.12 + HERO.z * 0.17);
       const paperWind = Math.sin(time * 0.67 + HERO.z * 0.73);
