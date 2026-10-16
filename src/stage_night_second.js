@@ -8,7 +8,7 @@ import {buildCastle} from './stage_castle.js';
 import {buildCathedral} from './stage_cathedral.js';
 import {Kit,bakeLight,pointGlow,rng} from './stage_kit.js';
 
-function workshop(root,seed){
+export function workshop(root,seed){
  const kit=new Kit(seed);
  const put=(g,color,p,rot=[0,0,0],scale=1)=>{kit.put('props',g,color,p,rot,scale,{vary:.045});g.dispose()};
  const box=(s,c,p,rot)=>put(new T.BoxGeometry(...s),c,p,rot);
@@ -18,7 +18,7 @@ function workshop(root,seed){
  const finish=(name,light)=>{const mesh=kit.mesh('props',new T.MeshStandardMaterial({vertexColors:true,roughness:.88,flatShading:true}),{light,cast:true});mesh.name=name;root.add(mesh);for(const g of kit.bins.props)g.dispose();return mesh};
  return {put,box,ball,rod,finish};
 }
-function bakeWarm(scene,original,points){
+export function bakeWarm(scene,original,points){
  const light=pointGlow(points),v=new T.Vector3(),done=new Set();scene.updateMatrixWorld(true);
  for(const o of original)o.traverse(m=>{
   if(!m.isMesh||m.isInstancedMesh||!m.geometry?.attributes.position||Array.isArray(m.material)||m.material.isMeshBasicMaterial||done.has(m.geometry))return;
@@ -40,7 +40,7 @@ function lantern(w,x,y,z){
  w.put(new T.TorusGeometry(.095,.012,4,12),0x95815a,[x,y+.56,z]);
  w.put(new T.CylinderGeometry(.055,.06,.18,7),0xcebb8e,[x,y-.12,z]);
 }
-function animate(stage,root,steps){
+export function animate(stage,root,steps){
  const old=stage.update.bind(stage);let t=0;
  stage.update=dt=>{old(dt);t+=Math.min(.1,Math.max(0,dt));for(const step of steps)step(t)};
  root.userData.cameraSafeRadius=10.5;return stage;

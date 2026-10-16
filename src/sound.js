@@ -1678,7 +1678,7 @@ const STAGE_SOUND = {
   clearing_a: { step: 'stepMud', grit: 'stepMud', rain: true }, // 같은 컨셉의 1안 (보관용, ?stage=clearing_a — 오너는 2안을 골랐다)
   clearing_a_dry: { step: 'stepMud', grit: 'stepMud', rain: false }, // 1안의 비 없는 판: 비만 뺀다
 };
-for (const id of ['clearing','castle','cathedral']) STAGE_SOUND[id+'_night']={...STAGE_SOUND[id],night:true};
+for (const id of ['clearing','castle','cathedral','loggia','corsair','sacred_grove']) STAGE_SOUND[id+'_night']={...STAGE_SOUND[id],night:true};
 STAGE_SOUND.clearing_night.rain=false;
 STAGE_SOUND.castle_night.heavySnow=true;
 

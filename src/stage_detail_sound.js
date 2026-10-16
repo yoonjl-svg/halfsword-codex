@@ -28,7 +28,8 @@ export const STAGE_DETAIL_PROFILES = Object.freeze({
   etnaCrust: { stage: 'etna', duration: 1.6, gain: 0.032, gap: 20 },
 });
 
-export const hasStageDetails = (stage) => stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove' || stage === 'frozen_bay' || stage === 'qinglan' || stage === 'sluice' || stage === 'dayr' || stage === 'dunhuang' || stage === 'etna';
+const detailBase = stage => ['loggia_night','corsair_night','sacred_grove_night'].includes(stage) ? stage.slice(0,-6) : stage;
+export const hasStageDetails = (id) => {const stage=detailBase(id);return stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove' || stage === 'frozen_bay' || stage === 'qinglan' || stage === 'sluice' || stage === 'dayr' || stage === 'dunhuang' || stage === 'etna';};
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 const TAU = Math.PI * 2;
 
@@ -220,7 +221,7 @@ export class StageDetailSound {
   constructor(sound, makeRng) {
     this.sound = sound;
     this.makeRng = makeRng;
-    this.stage = sound.stage;
+    this.stage = detailBase(sound.stage);
     this.paused = !!sound._stagePaused;
     this.voices = new Set();
     this.buffers = new Map(); // At most three variants for each detail kind.
@@ -233,7 +234,7 @@ export class StageDetailSound {
   setStage(stage) {
     this.stopVoices();
     this.stopAmbient();
-    this.stage = stage;
+    this.stage = detailBase(stage);
     this.buffers.clear();
     this.last.clear();
     this.lastAny = -Infinity;
