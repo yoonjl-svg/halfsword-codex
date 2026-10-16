@@ -27,6 +27,9 @@ export const STAGE_DETAIL_PROFILES = Object.freeze({
   //  샛별 표에서는 자리 14(그쪽 15 는 철불 절벽 dunhuangWood)라 변형 셋의 잡음 결은 샛별 판과 다르다(합성 꼴·길이·세기는 같다)
   etnaCrust: { stage: 'etna', duration: 1.6, gain: 0.032, gap: 20 },
   wetlandThunder: { stage: 'sluice', nightOnly: true, duration: 3.8, gain: .24, gap: 5 },
+  courtyardCloth: { stage: 'courtyard', duration: 1.25, gain: .024, gap: 5 },
+  courtyardDrip: { stage: 'courtyard', duration: .65, gain: .018, gap: 8 },
+  courtyardRing: { stage: 'courtyard', duration: 1.1, gain: .02, gap: 8 },
 });
 
 export const WETLAND_THUNDER_VARIANTS = Object.freeze([
@@ -36,7 +39,7 @@ export const WETLAND_THUNDER_VARIANTS = Object.freeze([
 ]);
 
 const detailBase = stage => ['loggia_night','corsair_night','sacred_grove_night','sluice_night','etna_night','qinglan_night'].includes(stage) ? stage.slice(0,-6) : stage;
-export const hasStageDetails = (id) => {const stage=detailBase(id);return stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove' || stage === 'frozen_bay' || stage === 'qinglan' || stage === 'sluice' || stage === 'dayr' || stage === 'dunhuang' || stage === 'etna';};
+export const hasStageDetails = (id) => {const stage=detailBase(id);return stage === 'courtyard' || stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove' || stage === 'frozen_bay' || stage === 'qinglan' || stage === 'sluice' || stage === 'dayr' || stage === 'dunhuang' || stage === 'etna';};
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 const TAU = Math.PI * 2;
 
@@ -47,6 +50,8 @@ const TAU = Math.PI * 2;
 export function synthStageDetail(kind, sr, rng, variant = 1) {
   const profile = STAGE_DETAIL_PROFILES[kind];
   if (!profile || !Number.isFinite(sr) || sr < 8000) return new Float32Array(0);
+  // Reuse material sounds, while preserving every existing stage's seed order.
+  kind = ({courtyardCloth:'clothRustle',courtyardDrip:'springDrip',courtyardRing:'caravanRing'})[kind] ?? kind;
   const thunder = kind === 'wetlandThunder' ? WETLAND_THUNDER_VARIANTS[variant] ?? WETLAND_THUNDER_VARIANTS[1] : null;
   const out = new Float32Array(Math.ceil((thunder?.duration ?? profile.duration) * sr));
   if (kind === 'wetlandThunder') {
@@ -340,7 +345,10 @@ export class StageDetailSound {
       mod.connect(amount).connect(volume.gain);
       nodes.push(mod); connections.push(mod, amount);
     };
-    if (this.stage === 'loggia') {
+    if (this.stage === 'courtyard') {
+      addNoise({rate:.8,frequency:530,gain:.0025,lfo:.049,depth:.0011,ceiling:1550,pan:.15});
+      addNoise({rate:.72,frequency:1200,gain:.001,lfo:.071,depth:.0004,ceiling:2200,pan:-.2});
+    } else if (this.stage === 'loggia') {
       addNoise({ frequency: 420, gain: 0.003, lfo: 0.041, depth: 0.001, ceiling: 1350 });
       addNoise({ rate: 0.81, type: 'lowpass', frequency: 180, gain: 0.005, lfo: 0.067, depth: 0.002 });
     } else if (this.stage === 'corsair') {

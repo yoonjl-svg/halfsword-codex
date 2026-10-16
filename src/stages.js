@@ -1,3 +1,4 @@
+import { buildCourtyard } from './stage_courtyard.js';
 import { buildLoggiaNight, buildSacredGroveNight, buildCorsairNight } from './stage_night_third.js';
 import { buildSluiceNight } from './stage_sluice_night.js';
 import { buildEtnaNight, buildQinglanNight } from './stage_night_fifth.js';
@@ -37,6 +38,7 @@ import { buildEtna } from './stage_etna.js';
 
 // 배경 id → 짓는 함수. 짓는 함수는 { update(dt), excite(amount), sunOffset? } 를 돌려준다
 const BUILDERS = {
+  courtyard: buildCourtyard, // 마야 전용 중정 디자인 시안, 일반 여정 순서는 아직 유지.
   etna_night: buildEtnaNight, qinglan_night: buildQinglanNight,
   sluice_night: buildSluiceNight, loggia_night: buildLoggiaNight, sacred_grove_night: buildSacredGroveNight, corsair_night: buildCorsairNight,
   clearing_night: buildClearingNight, castle_night: buildCastleNight, cathedral_night: buildCathedralNight,
@@ -84,7 +86,7 @@ export const STAGE_ORDER = ['poseidon', 'clearing', 'temple', 'castle', 'cathedr
 //  10/14 19:4x: 잠든 습지 = 라트나 · 소금 사막 = 다라이시 (손님 인물 CHARACTER_GUESTS — CHARACTERS_BY_ID 로 풀린다, 무작위 회전에는 그대로 없음).
 //   철불 절벽(dunhuang) = 병마용(terracotta, 손님 인물 — 10/14 감독 짝, 사장님 19:4x 정식 경로 결정에 따름)
 //   화산섬(etna) = 찬다(사장님 10/14 19:4x '찬다는 화산섬이 전용 스테이지' — 10/14 감독이 병합 때 짝 지음)
-export const STAGE_FOE = { etna_night: 'chanda_mad', qinglan_night: 'renji_mad', sluice_night: 'ratna_mad', loggia_night: 'tome_mad', sacred_grove_night: 'minami_mad', corsair_night: 'omari_mad', clearing_night: 'bran_mad', castle_night: 'isolde_mad', cathedral_night: 'margarethe_mad', frozen_bay_night: 'eira_mad', temple_night: 'liao_mad', poseidon: 'heinrich', clearing: 'bran', clearing_a: 'bran', clearing_a_dry: 'bran', temple: 'liao', castle: 'isolde', poseidon_night: 'heinrich_mad', cathedral: 'margarethe', loggia: 'tome', corsair: 'omari', sacred_grove: 'minami', frozen_bay: 'eira', qinglan: 'renji', sluice: 'ratna', dayr: 'silver_wanderer', dunhuang: 'terracotta', etna: 'chanda' };
+export const STAGE_FOE = { courtyard: 'samira', etna_night: 'chanda_mad', qinglan_night: 'renji_mad', sluice_night: 'ratna_mad', loggia_night: 'tome_mad', sacred_grove_night: 'minami_mad', corsair_night: 'omari_mad', clearing_night: 'bran_mad', castle_night: 'isolde_mad', cathedral_night: 'margarethe_mad', frozen_bay_night: 'eira_mad', temple_night: 'liao_mad', poseidon: 'heinrich', clearing: 'bran', clearing_a: 'bran', clearing_a_dry: 'bran', temple: 'liao', castle: 'isolde', poseidon_night: 'heinrich_mad', cathedral: 'margarethe', loggia: 'tome', corsair: 'omari', sacred_grove: 'minami', frozen_bay: 'eira', qinglan: 'renji', sluice: 'ratna', dayr: 'silver_wanderer', dunhuang: 'terracotta', etna: 'chanda' };
 // 그 무대 검객 후보 (사장님 10/10 20:0x — 샛별 저장소에서 가져온 넷의 무대 짝. 무대마다 한 명뿐인 STAGE_FOE 짝을 밀어내지 않고 후보로 더한다, 확인표 752).
 //  여정(foe=stage)에서 그 무대를 열 때 [본디 짝, ...후보] 가운데 하나를 고르게 고른다 → 본디 짝은 그 무대에서 절반만 나온다.
 //  졌을 때 같은 무대를 다시 열면 같은 상대(아래 stageFoeId 의 prevId). STAGE_FOE 자체는 그대로다
@@ -105,6 +107,7 @@ export function stageFoeId(stageId, prevId = null, rnd = Math.random) {
 // 무대의 화면 이름 (10/14 왼쪽 위 '스테이지 3 · 산사' — docs/ui/hud_intro_2026-10-14.md). 이름은 docs/stages.md 의 무대 이름 그대로
 //  (보관용 1안 두 무대는 같은 화전 터). 번호는 STAGE_ORDER 의 자리 + 1, 순서표에 없는 무대(어두운 홀 등)는 이름만 (stageLabel)
 export const STAGE_NAME_KO = {
+  courtyard: '봉인의 중정',
   etna_night: '밤의 화산섬', qinglan_night: '밤의 청람잔도',
   sluice_night: '밤의 잠든 습지', loggia_night: '밤의 붉은 회랑', sacred_grove_night: '밤의 신목의 숲', corsair_night: '밤의 산호 항구',
   clearing_night: '밤의 화전 터', castle_night: '밤의 성 안뜰', cathedral_night: '밤의 대성당',
