@@ -885,7 +885,7 @@ for (const c of CHARACTER_GUESTS) finishAI(c);
 const ratnaBase = CHARACTER_GUESTS.find(c => c.id === 'ratna');
 const ratnaAlter = { ...ratnaBase, id: 'ratna_mad', variantOf: 'ratna', mad: true, appearanceOnly: true,
   name: `광기의 ${ratnaBase.name}`, ai: JSON.parse(JSON.stringify(ratnaBase.ai)),
-  look: alterLook(ratnaBase.look, 'ratna'), lookVersion: `${ratnaBase.lookVersion}-alter3`, eyes: 'madGlow' };
+  look: alterLook(ratnaBase.look, 'ratna'), lookVersion: `${ratnaBase.lookVersion}-alter4`, eyes: 'madGlow' };
 finishAI(ratnaAlter);
 CHARACTER_VARIANTS.push(ratnaAlter);
 

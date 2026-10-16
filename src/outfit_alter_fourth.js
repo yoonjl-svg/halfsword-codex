@@ -75,30 +75,43 @@ export function addShoulderIguana(g){
 export function addRatnaHeadscarf(g){
   const w=sculpture(g,'alter-ratna-white-headscarf'),cloth=0xc9cbca,fold=0xa9afaf;
   const n=32,rows=12,pos=[],idx=[];
-  // The front edge sits above the curls; the cloth descends to the low back knot.
-  // Original curls and beard stay intact underneath and around the open edge.
+  // Keep the forehead open, but drape the rear cloth down over the occiput to
+  // the nape. A longer rear panel (not a larger hemisphere) avoids a cap rim.
+  const surface=(a,t,offset=0)=>{
+    const rear=(1-Math.cos(a))*.5,theta=(1.46-.43*Math.cos(a))*t;
+    const gather=rear*t*t*t;
+    const ripple=1+.014*Math.sin(a*9+t*4.08)*Math.sin(theta);
+    const p=new T.Vector3(
+      -.008+(.136+offset)*Math.sin(theta)*Math.cos(a)*ripple+.018*gather,
+      .006+(.135+offset)*Math.cos(theta)-.09*gather,
+      (.132+offset)*Math.sin(theta)*Math.sin(a)*ripple*(1-.10*gather));
+    // Draping must not pull the upper panel through the original curly hair.
+    const y=p.y-.006,r=Math.hypot(p.x+.008,p.z),clearance=.133+offset;
+    if(r>0&&y>-.06){const minRadius=Math.sqrt(Math.max(0,clearance*clearance-y*y));
+      if(r<minRadius){const scale=minRadius/r;p.x=-.008+(p.x+.008)*scale;p.z*=scale;}}
+    return p;
+  };
   for(let j=0;j<=rows;j++)for(let i=0;i<=n;i++){
-    const a=i/n*Math.PI*2,theta=(1.46-.43*Math.cos(a))*j/rows;
-    const ripple=1+.014*Math.sin(a*9+j*.34)*Math.sin(theta);
-    pos.push(-.008+.136*Math.sin(theta)*Math.cos(a)*ripple,.006+.135*Math.cos(theta),.132*Math.sin(theta)*Math.sin(a)*ripple);
+    pos.push(...surface(i/n*Math.PI*2,j/rows).toArray());
     if(j<rows&&i<n){const k=j*(n+1)+i;idx.push(k,k+n+1,k+1,k+1,k+n+1,k+n+2)}
   }
   const cap=new T.BufferGeometry();cap.setAttribute('position',new T.Float32BufferAttribute(pos,3));cap.setIndex(idx);cap.computeVertexNormals();w.put(cap,cloth);
-  const edge=[];for(let i=0;i<=n;i++){const a=i/n*Math.PI*2,t=1.46-.43*Math.cos(a);edge.push(new T.Vector3(-.008+.136*Math.sin(t)*Math.cos(a),.006+.135*Math.cos(t),.132*Math.sin(t)*Math.sin(a)))}
-  w.put(new T.TubeGeometry(new T.CatmullRomCurve3(edge),48,.0035,4,false),fold);
-  for(const side of [-1,1])for(const lift of [.10,.24]){
+  const edge=[];for(let i=0;i<=n;i++)edge.push(surface(i/n*Math.PI*2,1));
+  w.put(new T.TubeGeometry(new T.CatmullRomCurve3(edge),48,.0016,4,false),fold);
+  // Soft seams converge at the lower tie rather than circling like a hat band.
+  for(const side of [-1,1])for(const lift of [.12,.29]){
     const crease=[];for(let i=0;i<=12;i++){
-      const a=side*(.72+i/12*2.05),theta=1.46-.43*Math.cos(a)-lift*(1-i/12);
-      crease.push(new T.Vector3(-.008+.139*Math.sin(theta)*Math.cos(a),.006+.137*Math.cos(theta),.135*Math.sin(theta)*Math.sin(a)));
+      const t=i/12,a=side*(.72+t*2.28);
+      crease.push(surface(a,1-lift*(1-t)-.035,.002));
     }
-    w.put(new T.TubeGeometry(new T.CatmullRomCurve3(crease),20,.0016,4,false),0xb1b7b6);
+    w.put(new T.TubeGeometry(new T.CatmullRomCurve3(crease),20,.0013,4,false),0xb1b7b6);
   }
-  w.ball([-.143,-.027,.018],[.025,.018,.027],cloth);
+  w.ball([-.137,-.107,.018],[.024,.018,.027],cloth);
   // Two short folded tails, placed centrally/right of the left-shoulder iguana.
-  for(const [z,length] of [[.005,.12],[.044,.15]]){
-    const v=[-.15,-.025,z-.014,-.15,-.025,z+.014,-.169,-.07,z-.018,-.18,-.07,z+.013,-.17,-.025-length,z-.010,-.18,-.02-length,z+.018];
+  for(const [z,length] of [[.005,.10],[.044,.13]]){
+    const v=[-.15,-.105,z-.014,-.15,-.105,z+.014,-.169,-.15,z-.018,-.18,-.15,z+.013,-.17,-.105-length,z-.010,-.18,-.10-length,z+.018];
     const tail=new T.BufferGeometry();tail.setAttribute('position',new T.Float32BufferAttribute(v,3));tail.setIndex([0,2,1,1,2,3,2,4,3,3,4,5]);tail.computeVertexNormals();
-    w.put(tail,cloth);w.rod([-.177,-.065,z+.004],[-.18,-.01-length,z+.01],.002,.001,fold);
+    w.put(tail,cloth);w.rod([-.177,-.145,z+.004],[-.18,-.09-length,z+.01],.0015,.001,fold);
   }
   const scarf=w.finish();scarf.material.side=T.DoubleSide;
 }
