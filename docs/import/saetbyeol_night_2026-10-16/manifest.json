@@ -1,0 +1,1010 @@
+{
+  "schema_version": 1,
+  "recipient_base": "eaf75841c165bc87d9d469c25a0afaaf4746e991",
+  "source_sha": "8233ac9403a95834a3413a7374f152910ab3bd83",
+  "transfer_branch": "codex/night-alters-handoff-20261016",
+  "code_head": "2cd78f090d172bf76296cc02a93c580ce4bdaa7d",
+  "captured_at": "2026-10-16T19:26:21.726283+09:00",
+  "source_files": [
+    "src/arena.js",
+    "src/arena_obstacle.js",
+    "src/camera_rig.js",
+    "src/characters.js",
+    "src/config.js",
+    "src/etna_ground.js",
+    "src/fighter_light.js",
+    "src/mad_eyes.js",
+    "src/main.js",
+    "src/outfit_alter.js",
+    "src/outfit_alter_fourth.js",
+    "src/outfit_guild_badge.js",
+    "src/outfit_ratna.js",
+    "src/outfits.js",
+    "src/sound.js",
+    "src/soundlab.js",
+    "src/stage_castle.js",
+    "src/stage_cathedral.js",
+    "src/stage_clearing.js",
+    "src/stage_clearing_b.js",
+    "src/stage_corsair.js",
+    "src/stage_detail_sound.js",
+    "src/stage_frozen_bay.js",
+    "src/stage_loggia.js",
+    "src/stage_night_lamps.js",
+    "src/stage_night_second.js",
+    "src/stage_night_third.js",
+    "src/stage_night_variants.js",
+    "src/stage_poseidon_night.js",
+    "src/stage_sacred_grove.js",
+    "src/stage_sluice.js",
+    "src/stage_sluice_night.js",
+    "src/stage_sluice_weather.js",
+    "src/stages.js",
+    "src/wetland_ground.js",
+    "src/wetland_storm.js"
+  ],
+  "protected_files_byte_identical": [
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "src/gait.js",
+    "src/lobby.css",
+    "src/lobby.js",
+    "src/lobby_character.js",
+    "src/lobby_equipment.js",
+    "src/lobby_progress.js",
+    "src/lobby_rig.js",
+    "src/player_profile.js",
+    "src/schools.js",
+    "src/skill.js",
+    "src/skill_books.js",
+    "src/skill_tree.js",
+    "src/stage_qinglan.js",
+    "src/stage_qinglan_vista.js",
+    "src/stamina.js",
+    "src/unique_assist.js"
+  ],
+  "stage_order_identical": true,
+  "presentation_origin": "Original halfsword-codex source 8233ac94; the two docs/import portraits are newly captured against integrated code_head.",
+  "files": [
+    {
+      "path": "public/encounters/alter-refine-20261016/castle_night-isolde_mad-back.webp",
+      "bytes": 29574,
+      "sha256": "c951b5a71b676cdbb54503eee4da988447708baf828a645e52025fb2d9bd03fb"
+    },
+    {
+      "path": "public/encounters/alter-refine-20261016/cathedral_night-margarethe_mad-back.webp",
+      "bytes": 44246,
+      "sha256": "f0d05970ebf3c20652c26f8847ffdba6dc06cbb1a25014fe7c9cc9451b756c5c"
+    },
+    {
+      "path": "public/encounters/alter-refine-20261016/cathedral_night-margarethe_mad-front.webp",
+      "bytes": 48810,
+      "sha256": "44e95e87c7de01bc21a2b2e87aaac4bcac18c95897ae33aeab60d960fa9b71d8"
+    },
+    {
+      "path": "public/encounters/alter-refine-20261016/cathedral_night-margarethe_mad-gameplay.webp",
+      "bytes": 102388,
+      "sha256": "ed507f370190c3aa63c53179ae1170acd07e6fe6f16cccd315b63672f42b5e0e"
+    },
+    {
+      "path": "public/encounters/alter-refine-20261016/cathedral_night-margarethe_mad-hair.webp",
+      "bytes": 47700,
+      "sha256": "09d48470f8f376a1860d9b0e1078b895a416653f0e5955e20c180fcc85af71cf"
+    },
+    {
+      "path": "public/encounters/alter-refine-20261016/cathedral_night-margarethe_mad-head.webp",
+      "bytes": 41652,
+      "sha256": "348fc2baea0afede21aa1bbcf885a361efd4362073f1aa34cf410a70d6ba77a5"
+    },
+    {
+      "path": "public/encounters/alter-refine-20261016/corsair-coral.webp",
+      "bytes": 80652,
+      "sha256": "bef5b61cedd12055d00b8c1734f9f5385258e40e57dd07de3f1846f9c3f231d5"
+    },
+    {
+      "path": "public/encounters/alter-refine-20261016/corsair-reef.webp",
+      "bytes": 86342,
+      "sha256": "5af893f258cf02810e24957901d02a5f0d422ab8c8464a930e22dedcc6d01b92"
+    },
+    {
+      "path": "public/encounters/alter-refine-20261016/corsair_night-coral.webp",
+      "bytes": 51558,
+      "sha256": "2a1fea366568323893adc80ac146ceecefcf4291fdbf90302edd66b7df47a850"
+    },
+    {
+      "path": "public/encounters/alter-refine-20261016/corsair_night-gameplay.webp",
+      "bytes": 54106,
+      "sha256": "08d3af8fe9fa853a2b0996dd0138f1e6532bc945d22af154aafeaf4f62483769"
+    },
+    {
+      "path": "public/encounters/alter-refine-20261016/corsair_night-overview.webp",
+      "bytes": 50162,
+      "sha256": "f75cbfcbe7e0597cd63733f6279736b9e1bc7d485799d8ecda6f0a50702b0b25"
+    },
+    {
+      "path": "public/encounters/alter-refine-20261016/corsair_night-wreck.webp",
+      "bytes": 34538,
+      "sha256": "083d268c109be09599f35ec040579a72ee2e515c17a3ad6710a54ee0b9f93566"
+    },
+    {
+      "path": "public/encounters/alter-refine-20261016/loggia_night-tome_mad-back.webp",
+      "bytes": 17984,
+      "sha256": "5a380ab5cdce3e7e6f5bbf740cf9dbe7a47aa643b0cd64fc827d800f10afefcf"
+    },
+    {
+      "path": "public/encounters/alter-refine-20261016/loggia_night-tome_mad-front.webp",
+      "bytes": 22528,
+      "sha256": "760cb275648e88e00747f913fd9ac108408883fa47b8df466abd220d4d46e821"
+    },
+    {
+      "path": "public/encounters/alter-refine-20261016/loggia_night-tome_mad-gameplay.webp",
+      "bytes": 55976,
+      "sha256": "fc2cb5cd2da02924ae35f438242c8e15f0ceb0768fe847cb06f9f0fc2e18ed71"
+    },
+    {
+      "path": "public/encounters/alter-refine-20261016/loggia_night-tome_mad-head.webp",
+      "bytes": 23166,
+      "sha256": "4ff789c16fe09e50d6e198a6ccb4a3774b7516b666cc8464ab4099a851869e57"
+    },
+    {
+      "path": "public/encounters/alter-refine-20261016/loggia_night-tome_mad-waist.webp",
+      "bytes": 29762,
+      "sha256": "e88553863c4735c531b75eedfbd80f3a69df704b594c12a176dc9da80fd976c2"
+    },
+    {
+      "path": "public/encounters/bron-ratna-20261016/bron-head-observer.mp4",
+      "bytes": 43044,
+      "sha256": "c8b5fc0b22b5c672eef8c5c81e51f2ad02b2ffce60af8d146fd7b436e912d05c"
+    },
+    {
+      "path": "public/encounters/bron-ratna-20261016/bron-head-observer.webp",
+      "bytes": 16854,
+      "sha256": "7ac48da48b22a29a785f674f9145c3aacd7d1a6148eb2660f6926e44b09db2bb"
+    },
+    {
+      "path": "public/encounters/bron-ratna-20261016/clearing_night-bran_mad-front.webp",
+      "bytes": 22162,
+      "sha256": "80ff08ee85e2146731711b3fd252488399f6d5078585cd447677f077307adeac"
+    },
+    {
+      "path": "public/encounters/bron-ratna-20261016/clearing_night-bran_mad-gameplay.webp",
+      "bytes": 44176,
+      "sha256": "227c65a2adf0f299b71af1a3f4dc903258e78f38ac55246103beb2ca2898e0d2"
+    },
+    {
+      "path": "public/encounters/bron-ratna-20261016/clearing_night-bran_mad-head.webp",
+      "bytes": 25124,
+      "sha256": "0b7bf733e31882e5745147f816016f15b44ca7bff96188fb0dd474c912b8feb9"
+    },
+    {
+      "path": "public/encounters/bron-ratna-20261016/sluice_night-ratna_mad-front.webp",
+      "bytes": 39228,
+      "sha256": "b4358b6d3c6a4235cf1892e516bbb080f9b2f95ca919984c4ea214b1ab557adb"
+    },
+    {
+      "path": "public/encounters/isolde-guild-20261016/castle_night-isolde_mad-back.webp",
+      "bytes": 36020,
+      "sha256": "8010247240167d1e36373fb6d3e6d656477216547ee387465f6f47a8d7d2dba6"
+    },
+    {
+      "path": "public/encounters/isolde-guild-20261016/castle_night-isolde_mad-embroidery.webp",
+      "bytes": 16762,
+      "sha256": "c9151ce0db3353d2107bfd28ef8c77b0cfc5ad60485103708466347e1d0ff362"
+    },
+    {
+      "path": "public/encounters/isolde-guild-20261016/castle_night-isolde_mad-front.webp",
+      "bytes": 31384,
+      "sha256": "e2075eedd2fb395b8654d82d56c0b0583bf28fc5f0d5ad42ff34530b60ea35da"
+    },
+    {
+      "path": "public/encounters/isolde-guild-20261016/castle_night-isolde_mad-gameplay.webp",
+      "bytes": 88932,
+      "sha256": "b9db0778fd632cadc64df2f7fdbe6a3e854ee3b46bf4ee27d0cbfea8bdfdc539"
+    },
+    {
+      "path": "public/encounters/isolde-guild-20261016/castle_night-isolde_mad-hair.webp",
+      "bytes": 42790,
+      "sha256": "240e1e840e364ede78bde30814ea8e829d5fdae14e972369a7398486aca2f7d6"
+    },
+    {
+      "path": "public/encounters/isolde-guild-20261016/castle_night-isolde_mad-head.webp",
+      "bytes": 30662,
+      "sha256": "498833c1f9d091708e74a555fc2121f4d27885d1e5075a7d3358ed8de52b89c7"
+    },
+    {
+      "path": "public/encounters/night-fourth-20261016/clearing_night-bran-front.webp",
+      "bytes": 23514,
+      "sha256": "923cebe1d6a885b86d9a258126558500692b6d1f1d91854efd6706f84cc6ca3e"
+    },
+    {
+      "path": "public/encounters/night-fourth-20261016/clearing_night-bran_mad-head.webp",
+      "bytes": 26544,
+      "sha256": "fd0a7afac55428e38c8f3a48a96ae5d1e72b4743d0b66791766f5716acf49b0d"
+    },
+    {
+      "path": "public/encounters/night-fourth-20261016/sacred_grove-absent-deer.webp",
+      "bytes": 99350,
+      "sha256": "06a5dbcb6cfffde15cfc82640d96d2941c345a255bf5033f2094e8e489952662"
+    },
+    {
+      "path": "public/encounters/night-fourth-20261016/sacred_grove_night-absent-deer.webp",
+      "bytes": 73250,
+      "sha256": "586b38affdd63e41467a12fa208dd6c5da6c304e187468fd312011b95bfec903"
+    },
+    {
+      "path": "public/encounters/night-fourth-20261016/sacred_grove_night-fallen.webp",
+      "bytes": 62500,
+      "sha256": "65f5f78aff6fd87fc5e17afd940ee8deaac490762f13d956417835bc5ddccdeb"
+    },
+    {
+      "path": "public/encounters/night-fourth-20261016/sacred_grove_night-gameplay.webp",
+      "bytes": 99340,
+      "sha256": "7bb5a90ebf42e8b4c75133785cada9c34c6e81b695619fbb372c206092d97b03"
+    },
+    {
+      "path": "public/encounters/night-fourth-20261016/sacred_grove_night-minami-front.webp",
+      "bytes": 51480,
+      "sha256": "8986310b16b1eec7bd69a3eb5c69bd0beb6c393cf0ee65ec09000a17680727fa"
+    },
+    {
+      "path": "public/encounters/night-fourth-20261016/sacred_grove_night-minami_mad-front.webp",
+      "bytes": 49730,
+      "sha256": "50e31d2ad420487d41b23e7710a35d0bdabaee61afa95dd2506726b30ebb35fe"
+    },
+    {
+      "path": "public/encounters/night-fourth-20261016/sacred_grove_night-minami_mad-hair.webp",
+      "bytes": 54862,
+      "sha256": "1c83c9d7fdd0a925ce36c74c3a80cf69950bc608df218687f321199fd5253e39"
+    },
+    {
+      "path": "public/encounters/night-fourth-20261016/sacred_grove_night-overview.webp",
+      "bytes": 91330,
+      "sha256": "d0f34c67117461e1bfb9eb1196402804b16d588c20fb4172595a0cabaa81ad99"
+    },
+    {
+      "path": "public/encounters/night-fourth-20261016/sacred_grove_night-roots.webp",
+      "bytes": 59818,
+      "sha256": "bf9148e3c103acc3fb5698b59380bfd5861942ffc62953ef39e604384b4e6dcf"
+    },
+    {
+      "path": "public/encounters/night-fourth-20261016/sluice_night-ratna_mad-front.webp",
+      "bytes": 41676,
+      "sha256": "350c305fa7e96715649328a7389f0fdc0bf2830385e6577bba65bc2045414b18"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/adult-bear-after.webp",
+      "bytes": 9860,
+      "sha256": "b1e82bcda12cc858757986131a7377384e36077ec729a9e7923242b20883a8e5"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/adult-bear-before.webp",
+      "bytes": 9956,
+      "sha256": "a59ac33bbe34d7374d50b3a9a94c275bea6fbf2d456010c7f75623eaa736ec9c"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/eira-before.webp",
+      "bytes": 15990,
+      "sha256": "3605bef9d9ffecf6fba99f5657bd152e944b1a432372139bda1d46f9d2a0cecd"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/eira_mad-detail.webp",
+      "bytes": 21532,
+      "sha256": "6eabd95209be0f5097cf29a721fa97a4702ce49cd4124ae360fecaccd3853e1d"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/eira_mad-eyes.mp4",
+      "bytes": 126654,
+      "sha256": "c306002e807640d182114ec808d6a97cf3693f4f90066d21f429fd3a91c8e305"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/eira_mad-front.webp",
+      "bytes": 26660,
+      "sha256": "944777a05f0f19e56d49a4b9f199fd0a6fd721e9733d1d84e6d0cfabbff637ad"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/eira_mad-portrait.webp",
+      "bytes": 22030,
+      "sha256": "02968338ee5317cb65be0dabb29a6b7d6a3d10d50c53db95c7465d14178ebb93"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/frozen_bay_night-gameplay-previous.webp",
+      "bytes": 52488,
+      "sha256": "ce2e6dc6d5715aefa47a34f79947e019a57091bf1ca2ccfd9a69078a12a2070c"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/frozen_bay_night-gameplay.webp",
+      "bytes": 60852,
+      "sha256": "4e7072523061f0b7ae702cac820056ba7c89b0098ca2059c89d00d05e7d5716b"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/frozen_bay_night-overview.webp",
+      "bytes": 40430,
+      "sha256": "b1026747fbc4928d70e63f98d751cebdc3b0a77670414015cebc1411949970b5"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/frozen_bay_night-visitor.webp",
+      "bytes": 39714,
+      "sha256": "0f0a8ba9ea21d839289507f9a1d1d3f3b9e7790b5ba9b410dee90ca4a8ef380b"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/heinrich-before.webp",
+      "bytes": 21980,
+      "sha256": "02b6f0aa64251164cbe74c1d352d4114918d9f2210853c9f5b44cec939c415cd"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/heinrich_mad-front.webp",
+      "bytes": 26712,
+      "sha256": "52a95cb1e9ad6f7fa92b6e1be51c1e7d3abfe55c6fb6d6aa7b99fbaa0e43372c"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/heinrich_mad-portrait.webp",
+      "bytes": 28946,
+      "sha256": "fec73ac9540c1505926f87a5902bfd6de320a37a83fcde157a1293f6129f8e33"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/hood-back.webp",
+      "bytes": 21940,
+      "sha256": "146fdd3d296b2052753319193d298566c46c3dedeb1b2589cd88f8c6fab567b6"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/hood-side.webp",
+      "bytes": 30114,
+      "sha256": "a86f9feaea9b14547d970e8e64d80be88d9522307f54bc217b9b0ddb6061e670"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/liao-before.webp",
+      "bytes": 52638,
+      "sha256": "cf6f1183d267ef3c030b9935cd3cbd01f31cd9c38350039b90c032babf99eda9"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/poseidon_night-gameplay.webp",
+      "bytes": 56148,
+      "sha256": "1c1d2b94f6cf4afe2687a623b9291cb6165e8e6c07d05f497bc11e2482d13e79"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/poseidon_night-offerings.webp",
+      "bytes": 29596,
+      "sha256": "40c54e989c38c9bd1635a3750859b408a0048faa5cf47e7c79bba6e58a576388"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/temple_night-cloth.webp",
+      "bytes": 36478,
+      "sha256": "c4aee26badaa95d5f4ae55d96fddc2acacfff986b2336ba2a2cd03e34d94852d"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/temple_night-gameplay-previous.webp",
+      "bytes": 74558,
+      "sha256": "4da5d70cf50c107233d0a1bc8a93b53c95d6838e1d5a8ce1345292b08ed1e10b"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/temple_night-gameplay.webp",
+      "bytes": 87484,
+      "sha256": "2f2294317f211bb9130bef8b5e2f29d84026646e70f312fc1b8ee053aa2491fd"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/temple_night-overview.webp",
+      "bytes": 52330,
+      "sha256": "9ca3b16563d80e50c1555c282d83b44343578812f958035100cdc9ac811fcc37"
+    },
+    {
+      "path": "public/encounters/night-refined-20261016/temple_night-tea.webp",
+      "bytes": 30812,
+      "sha256": "7e1c2ba1abad5be4ade7da02c3991eef1c1bd89f72d7da946e3c615f198daf23"
+    },
+    {
+      "path": "public/encounters/night-second-20261016/castle-gameplay.webp",
+      "bytes": 82842,
+      "sha256": "515736d15babd2e0c2541d83f99ae56ef783e1baa87195e64dc05be5440e167f"
+    },
+    {
+      "path": "public/encounters/night-second-20261016/castle_night-gameplay.webp",
+      "bytes": 73308,
+      "sha256": "932ce250e10a803808aa7c5112b802a2db898b6ae8509f47c19b2d5b1cd1d028"
+    },
+    {
+      "path": "public/encounters/night-second-20261016/cathedral-gameplay.webp",
+      "bytes": 152766,
+      "sha256": "b63e3b8ba3b20a0afab8e950e88946bf820a618f622c3cd2b34a8e7ff7eae8b8"
+    },
+    {
+      "path": "public/encounters/night-second-20261016/cathedral-tomb.webp",
+      "bytes": 54084,
+      "sha256": "2e721bb1a2d7b0e3816c3e3c9424b6897302e20ce48b0e017ec7c4504846bb8f"
+    },
+    {
+      "path": "public/encounters/night-second-20261016/cathedral_night-bats.webp",
+      "bytes": 95908,
+      "sha256": "f6d3aa7d9e6163d9bfd62894583fde2dbc55edb626a3a3cd3f9fcd3f31226051"
+    },
+    {
+      "path": "public/encounters/night-second-20261016/cathedral_night-gameplay.webp",
+      "bytes": 115876,
+      "sha256": "f6e9402cf21172c4ee12102784c0579d8e22fa5d3408389d0e86b770be13da44"
+    },
+    {
+      "path": "public/encounters/night-second-20261016/cathedral_night-overview.webp",
+      "bytes": 94378,
+      "sha256": "b2f1955f22d6ef090da5b27ff1bdf296161b8dc0884b3c453995673b6f4543dd"
+    },
+    {
+      "path": "public/encounters/night-second-20261016/cathedral_night-tomb.webp",
+      "bytes": 42828,
+      "sha256": "169c6ccde4ce27f81445bfa3a542e3e8766cb7b2bc42412f833ec93149fcb6e8"
+    },
+    {
+      "path": "public/encounters/night-second-20261016/clearing-gameplay.webp",
+      "bytes": 68450,
+      "sha256": "1b7f68907a7a0ce13c84e51ac665cb54b1c6ac50e4a250a459390fd8b7b645f6"
+    },
+    {
+      "path": "public/encounters/night-second-20261016/clearing_night-tree.webp",
+      "bytes": 41554,
+      "sha256": "dbbf9023d13195e3f4071bc4e54c8a3a6585de587cf236408212e045025aa6db"
+    },
+    {
+      "path": "public/encounters/night-second-20261016/liao-glow-after.webp",
+      "bytes": 32326,
+      "sha256": "062a93cbf926f81d984c6aed82e43ff826d9c8f6ce9a3be498c87fbfe724b9dd"
+    },
+    {
+      "path": "public/encounters/night-second-20261016/liao-glow-before.webp",
+      "bytes": 32548,
+      "sha256": "76880149a600db248407651e9be49098a01fb56e0a4435994aa2e8c01c211fa4"
+    },
+    {
+      "path": "public/encounters/night-second-20261016/liao_mad-detail.webp",
+      "bytes": 33816,
+      "sha256": "8700f1ec1b9d6d506e0454ebe25de3b40b665319fed953319ce16341cdf6b7ca"
+    },
+    {
+      "path": "public/encounters/night-second-20261016/liao_mad-eyes.mp4",
+      "bytes": 121112,
+      "sha256": "8b0bdceda77fbd477d4ed69a2d412faa674c8f3eda7682423aa9042ce343c87a"
+    },
+    {
+      "path": "public/encounters/night-second-20261016/liao_mad-front.webp",
+      "bytes": 48930,
+      "sha256": "00db085639dff47de9f7c8d9c9d6049f15def83391442f266f4b7cf87e72a859"
+    },
+    {
+      "path": "public/encounters/night-second-20261016/liao_mad-portrait.webp",
+      "bytes": 50302,
+      "sha256": "8ac8678ae34a784f8b1082ff2cd688b309255fafd31ebcc58829cdfb37d67a70"
+    },
+    {
+      "path": "public/encounters/night-third-20261016/castle_night-isolde-front.webp",
+      "bytes": 27464,
+      "sha256": "e1f195ac28aa3ccffbb07aa286962b01fd6418ddc43a2aecb610a575511c8da9"
+    },
+    {
+      "path": "public/encounters/night-third-20261016/castle_night-isolde_mad-front.webp",
+      "bytes": 28044,
+      "sha256": "b60d1545fc81de3cc516274cda823b1e0dd250783854fe30d0dda286ca5cf6b8"
+    },
+    {
+      "path": "public/encounters/night-third-20261016/cathedral_night-margarethe-front.webp",
+      "bytes": 48962,
+      "sha256": "ec8440d3c50d25f53eb20dd46c3efbac671f589a6e085f67d731e8f8db1a6530"
+    },
+    {
+      "path": "public/encounters/night-third-20261016/cathedral_night-margarethe_mad-front.webp",
+      "bytes": 48904,
+      "sha256": "1530eccaf16f9cd212f89f9b1a8081f080cc043a76a09bc48417cba310b7e4fa"
+    },
+    {
+      "path": "public/encounters/night-third-20261016/corsair-coral.webp",
+      "bytes": 79324,
+      "sha256": "551ce73076cc490ca192df87f3545f1b1e736679e77915004d43d4b7a36f9113"
+    },
+    {
+      "path": "public/encounters/night-third-20261016/corsair-surf.mp4",
+      "bytes": 125193,
+      "sha256": "5c751d8ff18f151cd8029a1871c5a41ee45c88ff71ea38c6b84d96f522d85a40"
+    },
+    {
+      "path": "public/encounters/night-third-20261016/corsair_night-coral.webp",
+      "bytes": 50364,
+      "sha256": "b79b2a0eb7c2f70fe3abdbfc974c3e0a60f231394641228a51b06a6b421735b9"
+    },
+    {
+      "path": "public/encounters/night-third-20261016/corsair_night-omari-front.webp",
+      "bytes": 44664,
+      "sha256": "f22c2d08644f3ba422d569f8891f8c654a5d13b65bfb9978a87551769e71e3b1"
+    },
+    {
+      "path": "public/encounters/night-third-20261016/corsair_night-omari_mad-back.webp",
+      "bytes": 24700,
+      "sha256": "3cd2b0b223a49ad3b8a4cd7027925fbf4fec25b340e35ce2f88b6506de2e9a28"
+    },
+    {
+      "path": "public/encounters/night-third-20261016/corsair_night-omari_mad-front.webp",
+      "bytes": 45018,
+      "sha256": "27f303db53d5cbe99f5fd77c70c96072c1a108ee6aedad2dfcbe1ef53e4d085c"
+    },
+    {
+      "path": "public/encounters/night-third-20261016/corsair_night-omari_mad-head.webp",
+      "bytes": 43348,
+      "sha256": "f88ef2223da5f71ab6bd130446d18a91beaa6b7963c323b570cda9f4ac6e117d"
+    },
+    {
+      "path": "public/encounters/night-third-20261016/loggia_night-archive.webp",
+      "bytes": 17900,
+      "sha256": "02a2e0f8b49b5ad5478efad90292230cc8c9960cb1232e43ca6858ea89d18a47"
+    },
+    {
+      "path": "public/encounters/night-third-20261016/loggia_night-overview.webp",
+      "bytes": 43888,
+      "sha256": "0dd1a6dfc6cd708fb71c95fd48960c30442ea18a5de1e827c9fdda3a8771dabd"
+    },
+    {
+      "path": "public/encounters/night-third-20261016/loggia_night-pages.webp",
+      "bytes": 30686,
+      "sha256": "22349508364cc562a929f8f9f59d59a97e5506b5c1fd4ba023e5f8dc37fd392c"
+    },
+    {
+      "path": "public/encounters/night-third-20261016/loggia_night-tome-front.webp",
+      "bytes": 22794,
+      "sha256": "76c1f3073f54b900e2a2e6dc43df9cb92b83b64bea26da4167200b5fa3f09ba2"
+    },
+    {
+      "path": "public/encounters/night-third-20261016/loggia_night-tome_mad-front.webp",
+      "bytes": 22524,
+      "sha256": "5d83d23b5c6ddf3807ec63f1b3dcf2b3a49c2ae384f5dc2b0f98680daf145910"
+    },
+    {
+      "path": "public/encounters/night-weather-20261016/castle-snowfall.mp4",
+      "bytes": 581597,
+      "sha256": "79fe84fc2eda3f50b8ad0420468d2a9fde361ef457ba093a881854095f3117af"
+    },
+    {
+      "path": "public/encounters/night-weather-20261016/castle_night-footsteps.webp",
+      "bytes": 48754,
+      "sha256": "3add72ce45fd6b9d919e37df430312a27da3211f0ef6aabc370db2d4ab22cb98"
+    },
+    {
+      "path": "public/encounters/night-weather-20261016/castle_night-overview.webp",
+      "bytes": 85576,
+      "sha256": "18c1d8c267f0b41b42a11fa7bca864ec81d2016197efe6ca7c6847647e8a4b9c"
+    },
+    {
+      "path": "public/encounters/night-weather-20261016/castle_night-training.webp",
+      "bytes": 39640,
+      "sha256": "6d840e0fc80c9eab166f24c652bbc8328d3d7ac6609d824735855e7500c7548a"
+    },
+    {
+      "path": "public/encounters/night-weather-20261016/castle_night-wall-torches.webp",
+      "bytes": 63528,
+      "sha256": "8c17114968fbd1caf73bb1a944b313dab7f2b88e32947ef07c6a018a9492f770"
+    },
+    {
+      "path": "public/encounters/night-weather-20261016/clearing_night-overview.webp",
+      "bytes": 30842,
+      "sha256": "9490898a1acc1969a70dc693e1e398de5fb4d4450a02bc5d4c6795a4fcd4e6c1"
+    },
+    {
+      "path": "public/encounters/night-weather-20261016/clearing_night-trace.webp",
+      "bytes": 19538,
+      "sha256": "ce16b3f9a00b9ad3df5e992c151c3926505913ee501475a485ae440e8f284506"
+    },
+    {
+      "path": "public/encounters/night-weather-20261016/clearing_night-tree.webp",
+      "bytes": 28950,
+      "sha256": "59a2102d3bb6265ed14359ae11c5d2ef4538d40b0ee6d64295546e798f87a4db"
+    },
+    {
+      "path": "public/encounters/ratna-scarf-20261016/gameplay-dark.webp",
+      "bytes": 32838,
+      "sha256": "4d27b331c143520975dcc902cbb3712785682d9562e590afc56acafad301770f"
+    },
+    {
+      "path": "public/encounters/ratna-scarf-20261016/gameplay-flash.webp",
+      "bytes": 81810,
+      "sha256": "8858ec62cae730f50658b51b8c7b1bab5af23c7c40597a0d0869f4a3348b4195"
+    },
+    {
+      "path": "public/encounters/ratna-scarf-20261016/letters-dark.webp",
+      "bytes": 19928,
+      "sha256": "5ed23542a62d43673ddc5a6052ad80fa23557678bb5376990928a54e9dd90be2"
+    },
+    {
+      "path": "public/encounters/ratna-scarf-20261016/letters-flash.webp",
+      "bytes": 72246,
+      "sha256": "4c2f0d99b8ec3dc0d479411e61002556de3e1303cd64ee4815a0d6a2d535a236"
+    },
+    {
+      "path": "public/encounters/ratna-scarf-20261016/sluice-ratna_mad-head.webp",
+      "bytes": 51562,
+      "sha256": "cc68e055aabb67854c5393bd8a3e0f43593313dfcbdfd8d150d69873f93020d2"
+    },
+    {
+      "path": "public/encounters/ratna-scarf-20261016/sluice-ratna_mad-knot.webp",
+      "bytes": 44614,
+      "sha256": "8210f1114f23892aa26ac84bdc14e9e41067436cd934577a035ab9a66b53c4c3"
+    },
+    {
+      "path": "public/encounters/ratna-scarf-20261016/sluice_night-ratna_mad-front.webp",
+      "bytes": 19054,
+      "sha256": "bb0665167de958f9b05a6f220a849f8e36a6790bc2cfd9a5472e4ae7bb82ccec"
+    },
+    {
+      "path": "public/encounters/ratna-scarf-20261016/thunder-extended.mp3",
+      "bytes": 76217,
+      "sha256": "f1211f7d40ada4af51830559f48807cefb9fa9dba727cab435742cf1d68a36aa"
+    },
+    {
+      "path": "public/encounters/ratna-scarf-20261016/thunder-rolling.mp3",
+      "bytes": 47377,
+      "sha256": "a5fa147907c9a5bc0a63a4e2a9f16525a74c483536985572f2ff5d3066b57560"
+    },
+    {
+      "path": "public/encounters/ratna-scarf-20261016/thunder-short.mp3",
+      "bytes": 23240,
+      "sha256": "bd234e9210ac8387134637291b63fb80909fefe14384c834262dfccbddf6cce4"
+    },
+    {
+      "path": "public/encounters/ratna-scarf-20261016/village-dark.webp",
+      "bytes": 20162,
+      "sha256": "9bac64fa94f83f4a04e3fb29f5d5c0f45d3ee45472080e6b3201a865088df0cd"
+    },
+    {
+      "path": "public/encounters/ratna-scarf-20261016/village-flash.webp",
+      "bytes": 83244,
+      "sha256": "407c13ff2d20adb2cba8eb8a4b5df9f80c305a547ee223ba2a04b490cfc9c043"
+    },
+    {
+      "path": "public/encounters/thunder-dynamics-20261016/thunder-flow.mp3",
+      "bytes": 961141,
+      "sha256": "042e34933d61b4b76f3ed679d01be6b1ea1e8e6cbdd073710366cf57ce79c265"
+    },
+    {
+      "path": "public/encounters/thunder-dynamics-20261016/wetland-storm.mp4",
+      "bytes": 472703,
+      "sha256": "f86f00e79b48487700828e7b652870b935b28133468b1c604f24b5606937fd8a"
+    },
+    {
+      "path": "public/encounters/wetland-weather-20261016/sluice-ratna_mad-knot.webp",
+      "bytes": 43006,
+      "sha256": "be2bd0acf8ae17f2da902a9b8c19dff3f29a17aa0db9649992eb7b797830b81a"
+    },
+    {
+      "path": "public/encounters/wetland-weather-20261016/sluice_night-ratna-front.webp",
+      "bytes": 16882,
+      "sha256": "bc73beb8595a9d2c8000c2381f7f75a9c97bd4df121bc874fe0e8536788e4655"
+    },
+    {
+      "path": "public/night-encounters-2.html",
+      "bytes": 15368,
+      "sha256": "92a1b57f20310b9f722920225c26e103055599ad572cedf3731e59857420c919"
+    },
+    {
+      "path": "public/night-encounters-3.html",
+      "bytes": 27801,
+      "sha256": "d0b4829d264491d7f139d24f525cb3365404f526bb79697a0966a53f7618cfae"
+    },
+    {
+      "path": "public/night-encounters-4.html",
+      "bytes": 21143,
+      "sha256": "7de897576aea52ab80a09c8df0472b5b0b03d449c5b3ac17d4292b6f861a7d23"
+    },
+    {
+      "path": "public/night-encounters.html",
+      "bytes": 14641,
+      "sha256": "589d5c713ea5258f6591cd19e96d97fa138bceea39a1f884bdbdd81fa0a24e47"
+    },
+    {
+      "path": "src/arena.js",
+      "bytes": 69977,
+      "sha256": "a7f93249975b7c0c922d5842f7048cf970629bc2b5aeb74f2598d1f7b6922d1e"
+    },
+    {
+      "path": "src/arena_obstacle.js",
+      "bytes": 7317,
+      "sha256": "c4c5f9b0a677a96777e0d90bd9c070826260ecf693994b22d4ca9df814fb7013"
+    },
+    {
+      "path": "src/camera_rig.js",
+      "bytes": 8815,
+      "sha256": "334af427ee122432298a08fdcf6718d3477a8e4c429f80f6f1ae346cf16ab2b1"
+    },
+    {
+      "path": "src/characters.js",
+      "bytes": 92130,
+      "sha256": "da4a14385d497683d95eaa364274ba712b820a42f63f3738a8ff0d3df5453126"
+    },
+    {
+      "path": "src/config.js",
+      "bytes": 145071,
+      "sha256": "55cf9cdc346030da93684a0229f852debc68424787e8f4895351dbd0af1b4f80"
+    },
+    {
+      "path": "src/etna_ground.js",
+      "bytes": 12557,
+      "sha256": "252ae49d3a869b96d6d183e08183b7f020e89407791c7df8bff94fd9ce72ac35"
+    },
+    {
+      "path": "src/fighter_light.js",
+      "bytes": 14685,
+      "sha256": "cb9cf718ef8e80aa6c1d74bd2045f29bdc3ad945e27ddea261aaa0fb550ba886"
+    },
+    {
+      "path": "src/mad_eyes.js",
+      "bytes": 10208,
+      "sha256": "79297261ac841dd30aac15e13e3a53528b1f837688bb8a83acfd6e7f7d3dc2c6"
+    },
+    {
+      "path": "src/main.js",
+      "bytes": 181157,
+      "sha256": "db05c3ec76f023b92d55109017c05e319430fc5f6a68c3eba3d97d3c32ca3b10"
+    },
+    {
+      "path": "src/outfit_alter.js",
+      "bytes": 8551,
+      "sha256": "35f16d8fd22754408973f176c046276009e8da1bd5e404291bfc3055a0f1fcc9"
+    },
+    {
+      "path": "src/outfit_alter_fourth.js",
+      "bytes": 6797,
+      "sha256": "846a9494fe62435b784e8b322e2f8d9203d8cc6212b20d61dc1aafa86f07d0df"
+    },
+    {
+      "path": "src/outfit_guild_badge.js",
+      "bytes": 4088,
+      "sha256": "05997b00a7eac204ec791fbfd5c37cbf635cf96e5d3909c83fca155d71b5603a"
+    },
+    {
+      "path": "src/outfit_ratna.js",
+      "bytes": 28981,
+      "sha256": "ea44aefd1518c9d704729820e9c83d1c789f0fbbf68aa8d92d7c58dc15e080bd"
+    },
+    {
+      "path": "src/outfits.js",
+      "bytes": 179763,
+      "sha256": "a042692a3bf7953709631a39e8388c98f2724529da945a4a2e277b9de3998b33"
+    },
+    {
+      "path": "src/sound.js",
+      "bytes": 210543,
+      "sha256": "a7f371db6e530cd98c10c6944b11b075da3589e2106a7d9ac8d388fbd76e024d"
+    },
+    {
+      "path": "src/soundlab.js",
+      "bytes": 31034,
+      "sha256": "6c7f4cf88f7870612ec4f2b8ee1c732a886c850eed27ffc97032ab87208932b7"
+    },
+    {
+      "path": "src/stage_castle.js",
+      "bytes": 38115,
+      "sha256": "c4c1684c03ccee912dd9bbb0882a28b2b5d59a5658ccef9137773d822d8b27ec"
+    },
+    {
+      "path": "src/stage_cathedral.js",
+      "bytes": 52214,
+      "sha256": "e147b02b4efdb72a01b46d3042a7c8d7c1bf0063ed3b2feb67f22fa25d4abba3"
+    },
+    {
+      "path": "src/stage_clearing.js",
+      "bytes": 43346,
+      "sha256": "e6a0ca363b7a5db6ebfc1e2f6a82b2273510fd37a15ab52c69c5944e0cb8479e"
+    },
+    {
+      "path": "src/stage_clearing_b.js",
+      "bytes": 23104,
+      "sha256": "7581f8b9005132fbd0a69e8e69a35bf1c93d5fe26de3588c7c0df922de3a2a27"
+    },
+    {
+      "path": "src/stage_corsair.js",
+      "bytes": 69842,
+      "sha256": "d57a762d09ee10e05703e7b504c0c3d8b340bc0eff03491b7a63925ca244b592"
+    },
+    {
+      "path": "src/stage_detail_sound.js",
+      "bytes": 26321,
+      "sha256": "fb87a41c670496dbe1a3c4f1fd3b2af8eb4ac254c4ccd6e0c2fa3bcae256dcca"
+    },
+    {
+      "path": "src/stage_frozen_bay.js",
+      "bytes": 29170,
+      "sha256": "5453189311f4946a700a6abcfd95f88597e92a6fd874b78dc93acc91e7e1119c"
+    },
+    {
+      "path": "src/stage_loggia.js",
+      "bytes": 42570,
+      "sha256": "aef84723d33dfd926a7faf0d456129b9a0a1e69737f6de0b91351a39594ee042"
+    },
+    {
+      "path": "src/stage_night_lamps.js",
+      "bytes": 3404,
+      "sha256": "80a6b501d3595c427502f5e063172adbf132e0876ca21a68e3083686a79da452"
+    },
+    {
+      "path": "src/stage_night_second.js",
+      "bytes": 10926,
+      "sha256": "fd006398024dfd1caa5796111a14a18b89dc7fb5c508ebdcc68281ab3fc5d5b2"
+    },
+    {
+      "path": "src/stage_night_third.js",
+      "bytes": 9716,
+      "sha256": "df350c7851b818bdf75a12d7d0ec983daf3d43af4e622f963d0cfd1b0b93c187"
+    },
+    {
+      "path": "src/stage_night_variants.js",
+      "bytes": 9592,
+      "sha256": "a7c92f30c9f7b1d2db2892b3a808539a96f1b37a91af602af0b89cbcfda9daa8"
+    },
+    {
+      "path": "src/stage_poseidon_night.js",
+      "bytes": 24721,
+      "sha256": "022eb731762cc10dba25685594ba2c5029842a761bee2a39a4f68ae129e7bf5a"
+    },
+    {
+      "path": "src/stage_sacred_grove.js",
+      "bytes": 61921,
+      "sha256": "90e32f232cd127a1503a91c917b66d901d91f14665d061f2521f8d4ae77c546b"
+    },
+    {
+      "path": "src/stage_sluice.js",
+      "bytes": 62331,
+      "sha256": "2b7cced1abcc68d6cde96df13c6b0eb80f866f1a571c7f358237c58f5c0da897"
+    },
+    {
+      "path": "src/stage_sluice_night.js",
+      "bytes": 3750,
+      "sha256": "ee8780839dc8e3b133cd7a4bc21df88c358a8b3cb70211ae39c35ba1460dde42"
+    },
+    {
+      "path": "src/stage_sluice_weather.js",
+      "bytes": 2956,
+      "sha256": "56a5c3f25bd298f14a5e9b825d496b83a2326ac3280e42b1d531e69fbb018637"
+    },
+    {
+      "path": "src/stages.js",
+      "bytes": 23528,
+      "sha256": "dc9afb54655b7f010468a8f18986d5b115b972d6a04b8cd38d2f9b4b3279924c"
+    },
+    {
+      "path": "src/wetland_ground.js",
+      "bytes": 3153,
+      "sha256": "10834a3e2f3d7631889d954c48e98307d5592fe78f11f77932db98c0f94ad51f"
+    },
+    {
+      "path": "src/wetland_storm.js",
+      "bytes": 1992,
+      "sha256": "00b63f8e5fbeee133b923a4edbcb8e313daf041f152e4b3f86ec60b2250fbf32"
+    }
+  ],
+  "checks": [
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/area-browser.json",
+      "sha256": "1941e9830ae7b641f0ac35e7b2753d9f8701c161c0da3d1a432823bdfe08fa20"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/area.log",
+      "sha256": "ba5eaf0a27f1a73e5f8410d74866a1c78e38c8467708f27b44ebab2c31525b75"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/baseline-gates.json",
+      "sha256": "bc8b0a4e6930b542d237c902ef97be30aac10f10c3e45c38ec5a714d4188fb1d"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/baseline-on-corr.stderr",
+      "sha256": "06210b38572a0a9d5c904cc541365ad69d7afaac6d4ed10f5d33268b0ae185d2"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/baseline-on-corr.stdout",
+      "sha256": "55aeaaebea4eb96520303710abb68655e77573a9a8f2be3a1b7f04dde03a83ea"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/baseline-on-fights12.stderr",
+      "sha256": "06210b38572a0a9d5c904cc541365ad69d7afaac6d4ed10f5d33268b0ae185d2"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/baseline-on-fights12.stdout",
+      "sha256": "a071c0af3cb506667f4c8d61d761dfeec5dadff45cf6077fdf56ee736b991fcc"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/baseline-on-finish_thrust.stderr",
+      "sha256": "06210b38572a0a9d5c904cc541365ad69d7afaac6d4ed10f5d33268b0ae185d2"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/baseline-on-finish_thrust.stdout",
+      "sha256": "2de06c0349330957cfcd9fb44ab1e7ea58ad70332e1c0431c7781e00344b3e8c"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/baseline-on-live_battery.stderr",
+      "sha256": "06210b38572a0a9d5c904cc541365ad69d7afaac6d4ed10f5d33268b0ae185d2"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/baseline-on-live_battery.stdout",
+      "sha256": "648aca6674af94a06ca3530d6352d479f6a96ff3ead6d5cf87b8e303a41adda7"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/baseline-on-weapon_smoke.stderr",
+      "sha256": "06210b38572a0a9d5c904cc541365ad69d7afaac6d4ed10f5d33268b0ae185d2"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/baseline-on-weapon_smoke.stdout",
+      "sha256": "7085b282404ac67e5609bb6c87aeb3e7654b59b175615e36388650bd448ad1f6"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/build.log",
+      "sha256": "239861b95974f9957188c0b48c783b0a9a44349f481344f6aa56cfff468c3d98"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/delivery.json",
+      "sha256": "330ee2319c9f69e504094b952039f06fe59bdeb8f4346e6359d0f55b9b839bda"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/fights12-original-radius.stderr",
+      "sha256": "06210b38572a0a9d5c904cc541365ad69d7afaac6d4ed10f5d33268b0ae185d2"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/fights12-original-radius.stdout",
+      "sha256": "a071c0af3cb506667f4c8d61d761dfeec5dadff45cf6077fdf56ee736b991fcc"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/lobby.json",
+      "sha256": "78dbfb230c7498411bf58aa12b8e83bab9c4ffe6f438d20b47cf4e7b17d5b848"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/portraits.json",
+      "sha256": "17fdff3b9d3817362f8c8c208b578602054df2a21c8b5e3f3711ffcd04e6c640"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/storm.json",
+      "sha256": "3f51b17693f7f03c8ce146965accbf489c7e34f937f61a09c5a77890680706ac"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/transfer-gates.json",
+      "sha256": "5d3380d7011271001d726695836f00cb2e645acf83feead18c296ddb52c1be5e"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/transfer-on-corr.stderr",
+      "sha256": "06210b38572a0a9d5c904cc541365ad69d7afaac6d4ed10f5d33268b0ae185d2"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/transfer-on-corr.stdout",
+      "sha256": "4cac33e0cc049db37676a72a11304024c102a8d1a5b936532cd786b8fafcad55"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/transfer-on-fights12.stderr",
+      "sha256": "06210b38572a0a9d5c904cc541365ad69d7afaac6d4ed10f5d33268b0ae185d2"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/transfer-on-fights12.stdout",
+      "sha256": "5dfe035ccc206fcc6ccc12fc21c70d85b047c103f8d8fe51ae7647d37488fe7d"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/transfer-on-finish_thrust.stderr",
+      "sha256": "06210b38572a0a9d5c904cc541365ad69d7afaac6d4ed10f5d33268b0ae185d2"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/transfer-on-finish_thrust.stdout",
+      "sha256": "2de06c0349330957cfcd9fb44ab1e7ea58ad70332e1c0431c7781e00344b3e8c"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/transfer-on-live_battery.stderr",
+      "sha256": "06210b38572a0a9d5c904cc541365ad69d7afaac6d4ed10f5d33268b0ae185d2"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/transfer-on-live_battery.stdout",
+      "sha256": "648aca6674af94a06ca3530d6352d479f6a96ff3ead6d5cf87b8e303a41adda7"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/transfer-on-weapon_smoke.stderr",
+      "sha256": "06210b38572a0a9d5c904cc541365ad69d7afaac6d4ed10f5d33268b0ae185d2"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/transfer-on-weapon_smoke.stdout",
+      "sha256": "7085b282404ac67e5609bb6c87aeb3e7654b59b175615e36388650bd448ad1f6"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/variants.json",
+      "sha256": "8e36be38c5a0e3f442ad4ba9c835fbd5ff38a238fdb46a5f3eaf7a2fb1cbe439"
+    },
+    {
+      "path": "docs/import/saetbyeol_night_2026-10-16/checks/weather-browser.json",
+      "sha256": "4b80e78883d7194b71dc9b6d3925c65d9c8e6bb679c833ce8c8c400fa164dc50"
+    }
+  ]
+}
