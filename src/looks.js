@@ -789,7 +789,9 @@ LOOK_ARCHIVE.silver_wanderer.v6 = { ...LOOK_ARCHIVE.silver_wanderer.v5, hairStyl
 //  docs/import/salt_desert_port_2026-10-14.md): v6 실루엣(보라 깃·짧은 어깨 망토·흰 셔츠·보라 갈라진 자락·흰 바지·은 각반·긴 은발·땋음) 그대로 ·
 //  잔선(덩굴·잎·박음질·가는 테·고리 줄) 뺌 — 어깨 원판의 팔각 꽃·허리 띠의 팔각 꽃만 · 땋음은 마디 땋음(머리보다 밝은 은빛) · 머리 층 칸 줄임 ·
 //  빈 검집 0.66 → 0.94 m · 부위마다 같은 재질 합침. 모듈 쪽 '── v7' 줄(daraishiRevision 7). 값 모두 사장님 확인 전(확인표 1219~1221)
-LOOK_ARCHIVE.silver_wanderer.v7 = { ...LOOK_ARCHIVE.silver_wanderer.v6, daraishiRevision: 7 };
+// 10/15 (사장님 23:1x 'v7이 제일 예쁜 거 같애. 되돌려.' — 지금 쓰는 판 v10 → v7): 빈 검집만 v8 자리(daraishiScabbard 8 — 입을 바깥으로 1.2 cm · 입을 축으로 0.12 rad).
+//  v7 자리면 왼다리 자락 바깥 겉면에 걸쳐 검집 축이 자락을 지나는 표본 14.5 % → v8 자리 1.3 % (5c5ab01 과 같은 셈, 10/14 v10 감독 결정과 같게). 나머지는 v7 그대로 (확인표 1811)
+LOOK_ARCHIVE.silver_wanderer.v7 = { ...LOOK_ARCHIVE.silver_wanderer.v6, daraishiRevision: 7, daraishiScabbard: 8 };
 // v8 (우리 판 — 사장님 10/14 12:2x '조금만 더 페르시안 귀족의 전통 · 하의 길이나 겹침이 애매'): v7 위에 카바(outfit_silver_wanderer_qaba.js) —
 //  흰 긴 겉옷이 가슴부터 종아리 중간(0.30 m)까지 한 벌 · 왼쪽 자락이 오른쪽으로 건너 여미는 앞섶 테 · 캄마르반드(천 띠 + 매듭 + 늘어진 끝) · 양옆 트임 ·
 //  보랏빛 회색 바지가 가죽 장화로 · 은 각반과 갈라진 보라 자락은 없앰 · 검집은 자락 밖으로 0.08 rad. 값 모두 사장님 확인 전(확인표 1226~1234)
@@ -848,7 +850,7 @@ export const CHARACTER_LOOK_VERSION = {
   renji: 'v3', // 외형 3차 10/11 — 옛 판 ?look=renji:v2(바지·행전) · v1
   eira: 'v5', // 10/11 01:4x 매듭 굵게 — 옛 판 ?look=eira:v4 · v3 · v2 · v1
   ratna: 'v4', // 10/14 여정 밖 인물 (우리 v4) — 샛별 판 ?look=ratna:v3 · v2 · v1
-  silver_wanderer: 'v10', // 10/14 여정 밖 인물 다라이시 (우리 v10 — v7 바탕 + v9 아래 자락, 사장님 18:4x) — 우리 v9(v7·v8 절충) ?look=silver_wanderer:v9 · v8(흰 카바) :v8 · v7(겉모습 덜기만) :v7 · 샛별 판 v6 · v5 · v4 · v2 · v1
+  silver_wanderer: 'v7', // 다라이시 — 우리 v7(겉모습 덜기 · 빈 검집만 v8 자리): 사장님 10/15 23:1x 'v7이 제일 예쁜 거 같애. 되돌려.' — v10(v7 바탕 + v9 아래 자락, 10/14 18:4x) ?look=silver_wanderer:v10 · v9(v7·v8 절충) :v9 · v8(흰 카바) :v8 · 샛별 판 v6 · v5 · v4 · v2 · v1
   chanda: 'v2', // 10/14 여정 밖 인물 찬다 (우리 v2 — 무릎 틈 메움) — 샛별 판 ?look=chanda:v1
   terracotta: 'v2', // 10/14 여정 밖 인물 병마용 (우리 v2 — 잔선 덜기) — 샛별 판 ?look=terracotta:v1
 };
