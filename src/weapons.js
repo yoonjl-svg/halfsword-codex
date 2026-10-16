@@ -1534,23 +1534,25 @@ const goujian = finalizeSpec('goujian', {
 });
 
 // Kim keeps his brother's sword wrapped: a single-hand blunt weapon, never an edge
-// or spike, including after breakage. Dimensions/mass are game estimates [I].
+// or spike. Unbreakable by user request; dimensions/mass are game estimates [I].
 const brothersSword = finalizeSpec('brothers_sword', {
   nameKo: '형의 칼', nameEn: "Brother's Sword",
   desc: '불살을 지키려 흰 천에 감싼 형의 칼.\n날을 드러내지 않고 한 손 둔기로 쓴다.',
   grip: 'one-hand', material: 'wood', soundMaterial: 'wood', tier: 'rare',
   characterOnly: true, // Kim's personal weapon; do not change the ordinary card pool.
-  edged: false, spike: false, mCut: 0, mThrust: 0, mBlunt: 1,
+  edged: false, spike: false, mCut: 0, mThrust: 0, mBlunt: 1.6,
+  fragility: 0, durability: 1, // No break roll or broken geometry, even against breakMult weapons.
   hiltLength: .12, bladeLength: .81,
   partMesh: hiddenParts,
   buildParts() {
-    const grip = boxInertia(.22, .019, .12, .019);
-    const cap = sphereInertia(.08, .015);
-    const body = boxInertia(.95, .021, .405, .021);
+    // 1.60kg: same total as the longsword; wrapped sword/scabbard carries most mass.
+    const grip = boxInertia(.28, .019, .12, .019);
+    const cap = sphereInertia(.10, .015);
+    const body = boxInertia(1.22, .021, .405, .021);
     return [
-      partTuple(['box', .019, .12, .019], -.012, .22, 0, grip.Ie, grip.It, null),
-      partTuple(['ball', .015], -.121, .08, 0, cap.Ie, cap.It, null),
-      partTuple(['box', .021, .405, .021], .525, .95, 0, body.Ie, body.It, null, true),
+      partTuple(['box', .019, .12, .019], -.012, .28, 0, grip.Ie, grip.It, null),
+      partTuple(['ball', .015], -.121, .10, 0, cap.Ie, cap.It, null),
+      partTuple(['box', .021, .405, .021], .525, 1.22, 0, body.Ie, body.It, null, true),
     ];
   },
   decorate: drawBrothersSword,

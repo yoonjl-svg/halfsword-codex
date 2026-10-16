@@ -15,9 +15,11 @@ for(let seed=1;seed<=32;seed++){
  const rng=()=>{let a=seed;return ()=>{a=(Math.imul(a,1664525)+1013904223)>>>0;return a/2**32}};
  assert.deepEqual(drawWeaponCards(Object.keys(WEAPONS),2,{rnd:rng(),exclude:'morgenstern'}),drawWeaponCards(oldPool,2,{rnd:rng(),exclude:'morgenstern'}));
 }
-for(const broken of [false,true]){
- const G=newRound({weapon:'brothers_sword',weapon2:'longsword',seed:5});
- if(broken)G.player.breakWeapon();
+assert.equal(WEAPONS.brothers_sword.fragile,false);
+for(const impactStress of [false,true]){
+ const G=newRound({weapon:'brothers_sword',weapon2:'qinggang',seed:5});
+ if(impactStress)for(let i=0;i<512;i++)G.player.absorbWeaponImpact(1000000,G.enemy);
+ assert.equal(G.player.weaponBroken,false);
  const a=G.player,v=G.enemy;
  a.cacheState();v.cacheState();
  const pr={w:{fighter:a,part:'blade'},v:{fighter:v,part:'chest',kind:'chest'}};
@@ -30,7 +32,7 @@ for(const broken of [false,true]){
   const blood=v.blood,bleed=v.bleed,wounds=v.wounds.length;
   v.applyWound({...r,part:'chest'});
   assert.equal(v.blood,blood);assert.equal(v.bleed,bleed);assert.equal(v.wounds.length,wounds);
-  report.contacts.push({broken,direction:localDir.toArray(),type:r.type,energy:r.energy,noBleeding:true,noFinish:true});
+  report.contacts.push({impactStress,broken:a.weaponBroken,direction:localDir.toArray(),type:r.type,energy:r.energy,noBleeding:true,noFinish:true});
  }
  G.eventQueue.free();G.world.free();
 }
@@ -43,6 +45,7 @@ for(let seed=1;seed<=6;seed++)for(const side of [0,1]){
  for(let i=0;i<12/DT;i++){
   G.step();
   assert.ok([...Object.values(f.bodies.pelvis.translation()),...Object.values(f.sword.linvel())].every(Number.isFinite));
+  assert.equal(f.weaponBroken,false);
  }
  const hits=G.wounds.filter(w=>w.att===f);
  assert.ok(hits.every(w=>w.type==='blunt'));
