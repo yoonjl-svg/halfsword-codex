@@ -148,7 +148,7 @@ export function addDayrCaravan(root){
  const puddleMap=canvasTex(128,128,(c)=>{c.fillStyle='#fff';c.beginPath();for(let i=0;i<32;i++){const a=i*Math.PI/16,r=48+6*Math.sin(i*2.1);const x=64+Math.cos(a)*r,y=64+Math.sin(a)*r*.69;i?c.lineTo(x,y):c.moveTo(x,y);}c.closePath();c.fill();});
  const puddle=new T.Mesh(new T.PlaneGeometry(1.9,1.6),new T.MeshStandardMaterial({map:puddleMap,color:0x454a47,transparent:true,opacity:.65,roughness:.25,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-1}));puddle.rotation.x=-Math.PI/2;puddle.position.set(12.73,.018,-11.15);puddle.name='dayr-spilled-well-water';area.add(puddle);
  // Two men struck outside their meeting place. The spilled cup / dropped blade
- // convey the abrupt interruption without adding a combat encounter or gore.
+ // convey the abrupt interruption without adding a combat encounter.
  fallen(area,0,[8.0,0,-14.95],.68,0x635e52);fallen(area,1,[11.6,0,-8.75],-1.4,0x766150);
  dagger(w,[8.91,.026,-14.40],1.2);dagger(w,[11.87,.026,-9.43],-.2);
  w.put(new T.CylinderGeometry(.075,.06,.15,10,1,true),0xa28658,[8.78,.08,-15.57],[0,0,1.5]);
