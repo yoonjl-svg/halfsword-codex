@@ -38,7 +38,7 @@ export function buildClearingB(scene, lights = {}, { rain = true } = {}) {
   const CAMP = { x: -15, z: 8.5, rot: 0.6 }; // 움막
   const OAK = { x: -12.5, z: -9.5 }; // 반쯤 탄 참나무
   const PYRE = { x: 12.5, z: -12 }; // 불더미
-  const FIELD = { x0: 5, x1: 19, z0: 7, z1: 17 }; // 이랑
+  const FIELD = { x0: ARENA.radius - 1.5, x1: 19, z0: 7, z1: 17 }; // 넓어진 결투 자리 밖에서 시작하는 이랑
   const POST = { x: 19, z: -11 }; // 경계 말뚝
   const openAz = -0.75; // 북동쪽이 트였다
 
@@ -59,7 +59,7 @@ export function buildClearingB(scene, lights = {}, { rain = true } = {}) {
       if (i === 4 || i === 9) continue; // 틈 둘
       const a = (i / n) * Math.PI * 2 + 0.2;
       const len = ((2 * Math.PI * R0) / n) * (0.78 + r() * 0.12);
-      fallenLog(K, groundY, Math.cos(a) * R0 + (r() - 0.5) * 0.2, Math.sin(a) * R0 + (r() - 0.5) * 0.2, len, 0.15 + r() * 0.07, a + Math.PI / 2 + (r() - 0.5) * 0.12);
+      fallenLog(K, groundY, Math.cos(a) * R0 + (r() - 0.5) * 0.2, Math.sin(a) * R0 + (r() - 0.5) * 0.2, len, 0.15 + r() * 0.07, -a + Math.PI / 2 + (r() - 0.5) * 0.12);
     }
     // 틈에는 말뚝 하나씩
     for (const i of [4, 9]) {
@@ -71,7 +71,7 @@ export function buildClearingB(scene, lights = {}, { rain = true } = {}) {
   // ── 탄 그루터기 (더 크고 드물게) 와 쓰러진 통나무 ──
   for (let i = 0; i < 40; i++) {
     const a = r() * Math.PI * 2;
-    const d = 9.5 + r() * 14;
+    const d = ARENA.radius + 3 + r() * 14;
     const x = Math.cos(a) * d;
     const z = Math.sin(a) * d;
     if (Math.hypot(x - CAMP.x, z - CAMP.z) < 6 || Math.hypot(x - OAK.x, z - OAK.z) < 3 || Math.hypot(x - PYRE.x, z - PYRE.z) < 4) continue;

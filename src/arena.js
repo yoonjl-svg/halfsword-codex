@@ -862,7 +862,7 @@ export function buildArena(scene) {
     for (let i = 0; i < nP; i++) {
       if (r() < 0.13) continue;
       const a = ((i + 0.5) / nP) * Math.PI * 2 + (r() - 0.5) * 0.02;
-      const inner = 5.95 + r() * 0.3;
+      const inner = ARENA.radius - 0.55 + r() * 0.3;
       const rc = (inner + KIN - 0.02) / 2;
       const w = KIN - 0.02 - inner;
       const len = (2 * Math.PI * rc) / nP - 0.035 - r() * 0.05;
@@ -919,6 +919,8 @@ export function buildArena(scene) {
   // ── 테두리 바깥 잔해 (카메라를 가리지 않게 1m 아래로만): 누운 기둥 토막, 뒤집힌 주두, 떨어진 들보, 돌 조각 ──
   {
     const ring = (a, d) => new THREE.Vector3(Math.cos(a) * d, 0, Math.sin(a) * d);
+    // 잔해 크기는 그대로, 옛 경계와의 간격만 유지하며 바깥으로 옮긴다.
+    const outerRing = (a, d) => ring(a, d + ARENA.radius - 6.5);
     // 누운 기둥 토막
     for (const [a, d, yaw, y0] of [
       [1.0, 8.7, 1.1, 2.2],
@@ -930,13 +932,13 @@ export function buildArena(scene) {
     ]) {
       const h = 1.0 + r() * 0.2;
       const rad = colR(y0 + h / 2);
-      const p = ring(a, d).setY(rad - 0.14);
+      const p = outerRing(a, d).setY(rad - 0.14);
       nearCol.add(drumGeo(y0, h, true, r() < 0.4 ? 0.12 : 0, Math.floor(r() * 99)).translate(0, -h / 2, 0), p, yaw, 0, Math.PI / 2 + (r() - 0.5) * 0.08, { uv: 'keep', ground: -0.3 });
     }
     // 두 토막이 이어진 채 쓰러진 기둥 조각
     {
       const a = 5.2;
-      const base = ring(a, 9.2);
+      const base = outerRing(a, 9.2);
       const yaw = -a + 0.3;
       const ax = new THREE.Vector3(Math.cos(yaw), 0, -Math.sin(yaw));
       for (let k = 0; k < 2; k++) {
@@ -947,21 +949,21 @@ export function buildArena(scene) {
     }
     // 뒤집혀 떨어진 주두 (아바쿠스가 땅에 박혔다)
     {
-      const p = ring(0.3, 8.8);
+      const p = outerRing(0.3, 8.8);
       const yaw = 0.5;
       nearStone.add(new THREE.BoxGeometry(1.64, 0.32, 1.64, 2, 1, 2), p.clone().setY(0.1), yaw, 0.1, 0.05, { rough: 0.08 });
       nearStone.add(new THREE.CylinderGeometry(0.5, 0.8, 0.42, FLUTES), p.clone().setY(0.47).add(new THREE.Vector3(0.02, 0, 0.04)), yaw, 0.1, 0.05, { rough: 0.03 });
       nearCol.add(drumGeo(COL_H - 0.28, 0.28, true, 0.08, 7), p.clone().setY(0.66).add(new THREE.Vector3(0.05, 0, 0.08)), yaw, 0.1, 0.05, { uv: 'keep' });
     }
     // 떨어진 들보 (옆으로 누움)
-    nearStone.add(new THREE.BoxGeometry(2.7, 0.85, 1.15, 4, 1, 2), ring(4.95, 9.4).setY(0.32), -4.95 + 1.9, 0.04, 0.03, { rough: 0.09 });
-    nearStone.add(new THREE.BoxGeometry(1.6, 0.7, 0.95, 3, 1, 1), ring(1.05, 9.7).setY(0.25), 0.3, 0.06, 0.12, { rough: 0.09 });
+    nearStone.add(new THREE.BoxGeometry(2.7, 0.85, 1.15, 4, 1, 2), outerRing(4.95, 9.4).setY(0.32), -4.95 + 1.9, 0.04, 0.03, { rough: 0.09 });
+    nearStone.add(new THREE.BoxGeometry(1.6, 0.7, 0.95, 3, 1, 1), outerRing(1.05, 9.7).setY(0.25), 0.3, 0.06, 0.12, { rough: 0.09 });
     // 크고 작은 돌덩이
     for (let i = 0; i < 16; i++) {
       const a = r() * Math.PI * 2;
       const d = 7.6 + r() * 2.8;
       const s = 0.25 + r() * 0.55;
-      nearStone.add(new THREE.BoxGeometry(s * (1 + r()), s * (0.6 + r() * 0.4), s * (0.8 + r() * 0.5), 2, 1, 2), ring(a, d).setY(s * 0.2), r() * 6, (r() - 0.5) * 0.5, (r() - 0.5) * 0.5, { rough: s * 0.25 });
+      nearStone.add(new THREE.BoxGeometry(s * (1 + r()), s * (0.6 + r() * 0.4), s * (0.8 + r() * 0.5), 2, 1, 2), outerRing(a, d).setY(s * 0.2), r() * 6, (r() - 0.5) * 0.5, (r() - 0.5) * 0.5, { rough: s * 0.25 });
     }
     // 대리석 부스러기
     for (let i = 0; i < 70; i++) {

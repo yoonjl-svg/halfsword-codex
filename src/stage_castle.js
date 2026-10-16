@@ -187,7 +187,7 @@ export function buildCastle(scene, lights = {}) {
     const colorAt = (x, z) => {
       const rr = Math.hypot(x, z);
       const n1 = h3(Math.round(x * 0.5), 0, Math.round(z * 0.5), 4) * 0.5 + h3(x * 0.8, 2, z * 0.8, 6) * 0.5;
-      let trod = THREE.MathUtils.clamp((8.2 - rr) / 1.8, 0, 1);
+      let trod = THREE.MathUtils.clamp((ARENA.radius + 1.7 - rr) / 1.8, 0, 1);
       trod = Math.max(trod, THREE.MathUtils.clamp((1.8 - Math.abs(z)) / 0.8, 0, 1) * (x > -IN && x < IN ? 0.8 : 0));
       tmp.copy(cSnow).lerp(cTrod, trod * (0.6 + 0.4 * n1));
       tmp.lerp(cMud, trod * THREE.MathUtils.clamp((n1 - 0.6) * 2.5, 0, 1) * 0.5);

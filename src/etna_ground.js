@@ -3,22 +3,23 @@
 //   출처: 샛별 저장소 origin/main 7684c732(내용은 53188ff8 '결투장 전체 불규칙 비탈')의 src/etna_ground.js 를 옮겨 고침
 //   (docs/import/volcano_port_2026-10-14.md). 코드 id 는 샛별 쪽 그대로 etna, 화면 이름은 '화산섬'(사장님 결정 10/14).
 //   · +z 가 내리막. 명목 10° 비탈에 넓은 굴곡(0.085 m)과 짧은 턱(0.022 m)을 섞은 불규칙 산비탈 — 결투장 표본 평균 약 10.3°(2.6~17.7°), 계단·수직 단차 없음
-//   · 용암 물가는 z 5.25 m 의 곧은 선이고 용암면은 그 선의 땅 높이(−0.926 m)에 수평 — 물가 선에서는 굴곡을 빼 높이를 맞춘다
+//   · 용암 물가는 ETNA.lavaEdgeZ 의 곧은 선이고 용암면은 그 선의 땅 높이에 수평 — 물가 선에서는 굴곡을 빼 높이를 맞춘다
 //   · 같은 삼각형이 그림·충돌·높이·법선을 정한다(삼각형 안은 평면 보간) — 그림만 굴곡을 더한 판이 아니다
 //   · 용암 규칙은 '약하게'(사장님 결정 10/14): 화상(다리·팔 기능 감소 · 통증 · 출혈 0)과 그 결과(기존 문턱으로 무릎 꺾임·칼 놓침)만.
 //     용암 사망·새 사망 원인·부활 예외·결과 화면 글은 없다
 //   지형이 없는 무대(지금의 모든 평지 무대)는 이 파일의 바닥을 쓰지 않는다 — main.js·시뮬 도구의 평평한 상자 바닥 그대로(바이트 같은 길)
 // ─────────────────────────────────────────────────────────────
 import * as THREE from 'three';
-import { VITALS } from './config.js';
+import { ARENA, ARENA_SCALE, VITALS } from './config.js';
 
 const degrees = 10;
 const slope = Math.tan((degrees * Math.PI) / 180);
-export const ETNA = Object.freeze({ slope, degrees, lavaEdgeZ: 5.25, lavaLevel: -slope * 5.25, profile: 'irregular-v3' });
-// 넓은 굴곡과 짧은 턱 (파장·옆 위상이 다른 두 사인) — 물가 선의 굴곡을 빼서 z 5.25 에서 높이가 곧게 lavaLevel 이 된다
+const lavaEdgeZ = 5.25 * ARENA_SCALE; // 위험 구역의 경기장 내 비율 유지, 평균 경사 10° 유지
+export const ETNA = Object.freeze({ slope, degrees, lavaEdgeZ, lavaLevel: -slope * lavaEdgeZ, profile: 'irregular-v3' });
+// 넓은 굴곡과 짧은 턱 — 물가 선의 굴곡을 빼서 lavaEdgeZ 에서 높이가 곧게 lavaLevel 이 된다
 const fold = (x, z) => 0.085 * Math.sin(1.05 * z + 0.65 * Math.sin(0.6 * x)) + 0.022 * Math.sin(2.4 * z - 0.4 * x);
 const vertexHeight = (x, z) => Math.fround(-slope * z + fold(x, z) - fold(x, ETNA.lavaEdgeZ));
-// 칸: 결투장·카메라 둘레(|p| < 12 m) 0.5 m · 30 m 까지 1 m · 그 밖 2 m. z 축에는 물가 선(5.25)을 한 줄 더 넣는다
+// 칸: 결투장·카메라 둘레(|p| < 12 m) 0.5 m · 30 m 까지 1 m · 그 밖 2 m. z 축에는 물가 선을 한 줄 더 넣는다
 const axis = [];
 for (let p = -56; p <= 56; p += Math.abs(p + 0.01) < 12 ? 0.5 : Math.abs(p + 0.01) < 30 ? 1 : 2) axis.push(p);
 const zAxis = [...axis, ETNA.lavaEdgeZ].sort((a, b) => a - b);
@@ -95,7 +96,7 @@ export const WALL_SINK = 0.3;
  *  main.js newRound · 시뮬 도구(jelly_harness)가 지형이 있을 때만 부른다. 반환 { world, ground, floor, lava, terrain }
  *  floor 는 setSupportFloor 로 알린다(발 체중 받침은 이 그물 접촉만 — 벽에 닿은 발 힘은 받침이 아니다)
  */
-export function createTerrainGround(R, world, groups, terrain, { radius = 6.5, walls = true } = {}) {
+export function createTerrainGround(R, world, groups, terrain, { radius = ARENA.radius, walls = true } = {}) {
   const ground = world.createRigidBody(R.RigidBodyDesc.fixed());
   const { vertices, indices } = etnaGroundMesh();
   const floor = world.createCollider(R.ColliderDesc.trimesh(vertices, indices).setFriction(0.9).setCollisionGroups(groups), ground);
@@ -115,7 +116,7 @@ export function createTerrainGround(R, world, groups, terrain, { radius = 6.5, w
       ground,
     );
   }
-  // 용암은 힘·벽이 아니라 감지 상자다(윗면 = 보이는 수평 용암면, 물가 선 z 5.25 부터). 그 밑으로 바위 비탈이 그대로 이어진다
+  // 용암은 감지 상자다(윗면 = 보이는 수평 용암면, lavaEdgeZ 부터). 그 밑으로 바위 비탈이 그대로 이어진다
   const lava = world.createCollider(
     R.ColliderDesc.cuboid(30, 5, 30)
       .setTranslation(0, terrain.lavaLevel - 5, terrain.lavaEdgeZ + 30)
