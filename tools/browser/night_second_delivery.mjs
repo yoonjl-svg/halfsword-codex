@@ -42,7 +42,7 @@ try{
     return audio.ready>=2&&audio.duration>=seconds&&audio.duration<seconds+.2;
    });
    const nativeOK=(file!=='night-encounters-6.html'||result.links.every(link=>link.foeWeapon==='goujian'))&&(file!=='maya-courtyard.html'||result.links.every(link=>link.foeWeapon==='pistol'))&&(file!=='night-encounters-5.html'||result.links.every(link=>link.foeWeapon===({'etna_night/chanda_mad':'moye','qinglan_night/renji_mad':'brothers_sword'}[link.target])));
-   const pass=nativeOK&&audioOK&&result.decoded&&!result.overflow&&!errors.length&&result.videos.every(video=>video.ready>=2&&video.duration===(file==='maya-courtyard.html'?8:video.source.endsWith('/wetland-storm.mp4')?14:4))&&result.links.length===duels.length&&result.links.every(link=>link.weapon===(file==='maya-courtyard.html'?'brothers_sword':'longsword')&&duels.includes(link.target));
+   const pass=nativeOK&&audioOK&&result.decoded&&!result.overflow&&!errors.length&&result.videos.every(video=>video.ready>=2&&video.duration===(file==='night-encounters-6.html'?10:file==='maya-courtyard.html'?8:video.source.endsWith('/wetland-storm.mp4')?14:4))&&result.links.length===duels.length&&result.links.every(link=>link.weapon===(file==='maya-courtyard.html'?'brothers_sword':'longsword')&&duels.includes(link.target));
    report.pages.push({file,viewport,...result,errors,pass});
    await page.close();
   }
