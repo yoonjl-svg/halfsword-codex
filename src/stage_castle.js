@@ -118,7 +118,7 @@ function flakeTexture() {
  * 성 안뜰 경기장을 만든다. 반환: { update(dt), excite(amount), sunOffset }
  *  lights: main.js 의 { hemi, sun } — 해 질 녘 빛으로 바꾼다
  */
-export function buildCastle(scene, lights = {}) {
+export function buildCastle(scene, lights = {}, { heavySnow = false, wallTorchRows = false } = {}) {
   const r = rng(1417);
   const K = new Kit(313);
   const FOG = 0x4e5876;
@@ -155,7 +155,9 @@ export function buildCastle(scene, lights = {}) {
     [8.5, -8.5],
     [-8.5, -8.5],
   ];
-  const torches = [
+  const torches = wallTorchRows ? [-15, -5, 5, 15].flatMap(p => [
+    [p, IN, 0, 1], [p, -IN, 0, -1], [-IN, p, -1, 0], [IN, p, 1, 0],
+  ]) : [
     // [x, z, 벽을 보는 방향(바깥 법선)]
     [-IN, -10, -1, 0],
     [-IN, 10, -1, 0],
@@ -166,9 +168,11 @@ export function buildCastle(scene, lights = {}) {
     [IN, -9, 1, 0],
     [IN, 3.2, 1, 0],
   ];
+  const torchReach = wallTorchRows ? 0.55 : 0.35;
+  const torchFlameY = wallTorchRows ? 4 : 3.42;
   const glowPts = [
     ...braziers.map(([x, z]) => ({ x, y: 1.3, z, r: 8, c: [0.95, 0.5, 0.18] })),
-    ...torches.map(([x, z, nx, nz]) => ({ x: x - nx * 0.5, y: 3.3, z: z - nz * 0.5, r: 5.5, c: [1.0, 0.52, 0.18] })),
+    ...torches.map(([x, z, nx, nz]) => ({ x: x - nx * (torchReach + 0.15), y: wallTorchRows ? 4 : 3.3, z: z - nz * (torchReach + 0.15), r: wallTorchRows ? 9 : 5.5, c: wallTorchRows ? [3, 1.56, 0.54] : [1, 0.52, 0.18] })),
   ];
   const glow = pointGlow(glowPts);
 
@@ -564,11 +568,13 @@ export function buildCastle(scene, lights = {}) {
     K.put('embers', new THREE.CircleGeometry(0.5, 12), 0xff5a1a, [x, 1.2, z], [-Math.PI / 2, 0, 0]);
   }
   for (const [x, z, nx, nz] of torches) {
-    const tx = x - nx * 0.35;
-    const tz = z - nz * 0.35;
-    K.put('iron', box(0.08, 0.08, 0.5), C.iron, [x - nx * 0.18, 2.9, z - nz * 0.18], [0, nx ? Math.PI / 2 : 0, 0]);
-    K.put('wood', cyl(0.05, 0.035, 0.6, 6), C.woodDark, [tx, 3.05, tz]);
-    K.put('iron', new THREE.CylinderGeometry(0.1, 0.06, 0.18, 8, 1, true), C.iron, [tx, 3.35, tz]);
+    const tx = x - nx * torchReach;
+    const tz = z - nz * torchReach;
+    const rot = [0, nx ? Math.PI / 2 : 0, 0];
+    if (wallTorchRows) K.put('iron', box(0.28, 0.5, 0.08), C.iron, [x - nx * 0.04, 3.2, z - nz * 0.04], rot);
+    K.put('iron', box(wallTorchRows ? 0.12 : 0.08, wallTorchRows ? 0.12 : 0.08, wallTorchRows ? 0.7 : 0.5), C.iron, [x - nx * (wallTorchRows ? 0.28 : 0.18), wallTorchRows ? 3.2 : 2.9, z - nz * (wallTorchRows ? 0.28 : 0.18)], rot);
+    K.put('wood', cyl(wallTorchRows ? 0.085 : 0.05, wallTorchRows ? 0.06 : 0.035, wallTorchRows ? 1 : 0.6, 6), C.woodDark, [tx, wallTorchRows ? 3.4 : 3.05, tz]);
+    K.put('iron', new THREE.CylinderGeometry(wallTorchRows ? 0.2 : 0.1, wallTorchRows ? 0.12 : 0.06, wallTorchRows ? 0.28 : 0.18, 8, 1, true), C.iron, [tx, wallTorchRows ? 3.88 : 3.35, tz]);
   }
 
   // ── 먼 설산 (성벽 너머로 봉우리만 보인다) ──
@@ -656,7 +662,7 @@ export function buildCastle(scene, lights = {}) {
   // ── 불꽃 (화로 셋씩, 횃불 둘씩): 인스턴싱 원뿔, 매 프레임 일렁인다 ──
   const flames = [];
   for (const [x, z] of braziers) for (let i = 0; i < 3; i++) flames.push({ x: x + (i - 1) * 0.16, y: 1.2, z: z + ((i % 2) - 0.5) * 0.14, s: 0.9 - Math.abs(i - 1) * 0.25, ph: r() * 6 });
-  for (const [x, z, nx, nz] of torches) for (let i = 0; i < 2; i++) flames.push({ x: x - nx * 0.35, y: 3.42, z: z - nz * 0.35, s: 0.45 - i * 0.15, ph: r() * 6 });
+  for (const [x, z, nx, nz] of torches) for (let i = 0; i < 2; i++) flames.push({ x: x - nx * torchReach, y: torchFlameY, z: z - nz * torchReach, s: (0.45 - i * 0.15) * (wallTorchRows ? 2.4 : 1), ph: r() * 6 });
   const flameGeo = new THREE.ConeGeometry(0.16, 0.7, 7);
   flameGeo.translate(0, 0.35, 0);
   const flameMesh = new THREE.InstancedMesh(
@@ -671,7 +677,7 @@ export function buildCastle(scene, lights = {}) {
   scene.add(flameMesh);
 
   // ── 눈송이 ──
-  const FLAKES = 3200;
+  const FLAKES = heavySnow ? 12800 : 3200;
   const fr = rng(88);
   const fpos = new Float32Array(FLAKES * 3);
   const fsp = new Float32Array(FLAKES);
@@ -680,11 +686,12 @@ export function buildCastle(scene, lights = {}) {
     fpos[i * 3] = (fr() - 0.5) * 2 * BOX;
     fpos[i * 3 + 1] = fr() * 16;
     fpos[i * 3 + 2] = (fr() - 0.5) * 2 * BOX;
-    fsp[i] = 0.6 + fr() * 0.7;
+    fsp[i] = (0.6 + fr() * 0.7) * (heavySnow ? 1.5 : 1);
   }
   const flakeGeo = new THREE.BufferGeometry();
   flakeGeo.setAttribute('position', new THREE.BufferAttribute(fpos, 3));
-  const flakes = new THREE.Points(flakeGeo, new THREE.PointsMaterial({ size: 0.085, map: flakeTexture(), transparent: true, depthWrite: false, color: 0xf2f5ff }));
+  const flakes = new THREE.Points(flakeGeo, new THREE.PointsMaterial({ size: heavySnow ? 0.10 : 0.085, map: flakeTexture(), transparent: true, depthWrite: false, color: 0xf2f5ff }));
+  flakes.name = 'castle-snowfall';
   flakes.frustumCulled = false;
   scene.add(flakes);
 
@@ -707,9 +714,9 @@ export function buildCastle(scene, lights = {}) {
       }
     }
     flameMesh.instanceMatrix.needsUpdate = true;
-    // 눈: 천천히 내리며 흔들리고, 큰 타격이 나오면 바람에 휘몰아친다
-    const wx = 0.35 + gust * 4;
-    const wz = 0.15 + gust * 1.5;
+    // 밤의 폭설은 일정한 사선 바람 위에 느린 돌풍을 더한다. 낮의 눈은 기존 그대로.
+    const wx = (heavySnow ? 1.8 + Math.sin(t * 0.35) * 0.65 : 0.35) + gust * 4;
+    const wz = (heavySnow ? 0.65 + Math.cos(t * 0.27) * 0.2 : 0.15) + gust * 1.5;
     for (let i = 0; i < FLAKES; i++) {
       const j = i * 3;
       fpos[j + 1] -= fsp[i] * dt * (1 - gust * 0.4);
@@ -731,6 +738,7 @@ export function buildCastle(scene, lights = {}) {
 
   const api = {
     sunOffset,
+    torchLights: glowPts.slice(braziers.length),
     onEvent: null, // main.js 가 채운다: (name, data) => …
     /** 큰 타격: 눈보라가 휘몰아치고 불꽃이 크게 일렁이고 종이 크게 흔들린다 */
     excite(amount) {

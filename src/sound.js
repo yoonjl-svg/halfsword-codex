@@ -1679,6 +1679,8 @@ const STAGE_SOUND = {
   clearing_a_dry: { step: 'stepMud', grit: 'stepMud', rain: false }, // 1안의 비 없는 판: 비만 뺀다
 };
 for (const id of ['clearing','castle','cathedral']) STAGE_SOUND[id+'_night']={...STAGE_SOUND[id],night:true};
+STAGE_SOUND.clearing_night.rain=false;
+STAGE_SOUND.castle_night.heavySnow=true;
 
 
 // ─────────────────────────────────────────────────────────────
@@ -2949,11 +2951,13 @@ export class Sound {
    */
   _ambCastle() {
     const K = this._ambKit();
+    const heavySnow = STAGE_SOUND[this.stage]?.heavySnow;
+    const windBase = heavySnow ? 0.022 : 0.014;
     const wind = K.src(1);
     const bp = K.filt('bandpass', 520, 0.8);
-    const wg = K.gain(0.014);
-    K.lfo(0.07, wg.gain, 0.009);
-    K.lfo(0.031, wg.gain, 0.005);
+    const wg = K.gain(windBase);
+    K.lfo(0.07, wg.gain, heavySnow ? 0.012 : 0.009);
+    K.lfo(0.031, wg.gain, heavySnow ? 0.007 : 0.005);
     K.lfo(0.07, bp.frequency, 180);
     wind.connect(bp).connect(K.filt('lowpass', 1500)).connect(wg).connect(K.out);
     const low = K.src(0.83);
@@ -2962,7 +2966,7 @@ export class Sound {
     K.loop(fire, 0.03, -0.55, 0.94);
     K.loop(fire, 0.03, 0.55, 1.07);
     K.start();
-    this._amb = { out: K.out, nodes: K.nodes, wind: wg, windBase: 0.014 };
+    this._amb = { out: K.out, nodes: K.nodes, wind: wg, windBase };
     // 마구간의 말: 아주 가끔(50~110초마다) 발굽으로 짚을 "쿵 쿵" 차거나 콧바람 "푸르르"
     this._every(50000, 110000, () => this.stageCall(Math.random() < 0.55 ? 'stamp' : 'snort'));
   }

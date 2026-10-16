@@ -57,7 +57,9 @@ function winged(root,{bat=false,count=12,center,spread=1}){
  }mesh.instanceMatrix.needsUpdate=true};
 }
 export function buildClearingNight(scene,lights){
- const {stage,root,original}=beginNight(scene,lights,buildClearingB,'clearing_night',{boundaryFires:false});
+ const build=(scene,lights)=>buildClearingB(scene,lights,{rain:false,wet:true});
+ const {stage,root,original}=beginNight(scene,lights,build,'clearing_night',{boundaryFires:false});
+ root.userData.weather='비가 그친 뒤, 젖은 흙과 웅덩이';
  lights.hemi.intensity=.93;lights.sun.intensity=.48;lights.sun.color.set(0xc0cbd3);
  // An empty rope on the original oak's dead branch. No body or named owner.
  const ox=-12.5,oz=-9.5,oy=slopeY(ox,oz,-1),a=2.6,len=3*.70;
@@ -75,7 +77,10 @@ export function buildClearingNight(scene,lights){
  return animate(stage,root,[flames(root,[[lamp[0],lamp[1]+.02,lamp[2],.22]]),winged(root,{center:lamp,spread:.55}),t=>{cord.rotation.z=.025*Math.sin(t*.9);cord.rotation.x=.015*Math.sin(t*.6)}]);
 }
 export function buildCastleNight(scene,lights){
- const {stage,root,original}=beginNight(scene,lights,buildCastle,'castle_night',{boundaryFires:false});
+ const build=(scene,lights)=>buildCastle(scene,lights,{heavySnow:true,wallTorchRows:true});
+ const {stage,root,original}=beginNight(scene,lights,build,'castle_night',{boundaryFires:false});
+ root.userData.weather='폭설, 성벽 사이로 몰아치는 눈바람';
+ root.userData.wallTorches={count:stage.torchLights.length,spacing:10,height:4};
  lights.hemi.intensity=.78;lights.sun.intensity=.44;stage.sunOffset={x:-7,y:9,z:4};
  const w=workshop(root,16302);
  // A route from the gate hugs the wall; repeated prints stop at the existing dummy.
@@ -92,12 +97,12 @@ export function buildCastleNight(scene,lights){
  w.rod([x+.7,.12,z+.55],[x+.52,1.35,z+.12],.043,0xac9065);
  w.rod([x+.32,1.10,z+.20],[x+.82,1.10,z+.20],.035,0x7e623d);
  w.put(new T.CylinderGeometry(.11,.09,.18,9,1,true),0x9a7351,[x+.54,.68,z]);
- lantern(w,4.7,1.05,-13.2);
- const light=bakeWarm(scene,original,[{x:4.7,y:1.15,z:-13.2,r:10,c:[4,2,.6]}]);w.finish('midnight-training-traces',light);
+ // The wall torches light the training bench; no freestanding lantern here.
+ w.finish('midnight-training-traces',pointGlow(stage.torchLights));
  root.userData.stories=['성문에서 훈련장으로 이어진 발자국. 허수아비 앞에는 짧은 왕복 자국이 겹쳐 있다.','벗어 둔 외투와 목검, 한 잔의 온기. 누군가는 다른 이들이 잠든 뒤에도 연습했다.'];
  root.userData.details={prints:[3.6,.03,-12.5],bench:[x,.6,z],dummy:[4,1.3,-14.2]};
  const steam=new T.Points(new T.BufferGeometry().setAttribute('position',new T.Float32BufferAttribute(new Float32Array(15*3),3)),new T.PointsMaterial({color:0xc0c5c8,size:.045,transparent:true,opacity:.23,depthWrite:false}));steam.name='training-cup-steam';root.add(steam);
- return animate(stage,root,[flames(root,[[4.7,1.08,-13.2,.20]]),t=>{const p=steam.geometry.attributes.position;for(let i=0;i<p.count;i++){const y=(t*.13+i/p.count*.45)%.45;p.setXYZ(i,x+.54+Math.sin(t+i)*y*.12,.78+y,z+Math.cos(t*.7+i)*y*.1)}p.needsUpdate=true}]);
+ return animate(stage,root,[t=>{const p=steam.geometry.attributes.position;for(let i=0;i<p.count;i++){const y=(t*.13+i/p.count*.45)%.45;p.setXYZ(i,x+.54+Math.sin(t+i)*y*.12,.78+y,z+Math.cos(t*.7+i)*y*.1)}p.needsUpdate=true}]);
 }
 export function buildCathedralNight(scene,lights){
  const build=(scene,lights)=>buildCathedral(scene,lights,{emptyTomb:true});

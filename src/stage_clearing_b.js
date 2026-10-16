@@ -28,9 +28,9 @@ const CB = {
 
 /**
  * 화전 터 2안을 만든다. 반환: { update(dt), excite(amount), sunOffset, fighterLight }
- *  lights: main.js 의 { hemi, sun }. opt.rain: 봄비 (기본 켬)
+ *  lights: main.js 의 { hemi, sun }. opt.rain: 봄비 (기본 켬), wet: 비가 그친 뒤에도 젖은 땅 유지
  */
-export function buildClearingB(scene, lights = {}, { rain = true } = {}) {
+export function buildClearingB(scene, lights = {}, { rain = true, wet = rain } = {}) {
   const r = rng(3307);
   const K = new Kit(881);
   const { FOG, sunOffset } = morning(scene, lights, { rain });
@@ -45,7 +45,7 @@ export function buildClearingB(scene, lights = {}, { rain = true } = {}) {
   // 땅: 이랑 자리는 갈아 놓은 흙색
   const cField = new THREE.Color(CB.field);
   ashGround(scene, groundY, {
-    wet: rain,
+    wet,
     paint: (x, z, tmp) => {
       if (x > FIELD.x0 - 0.5 && x < FIELD.x1 + 0.5 && z > FIELD.z0 - 0.5 && z < FIELD.z1 + 0.5) tmp.lerp(cField, 0.75);
     },
@@ -370,7 +370,7 @@ export function buildClearingB(scene, lights = {}, { rain = true } = {}) {
   ]);
   clearingMeshes(scene, K, pointGlow(glowPts)); // 잉걸불의 붉은 빛을 둘레(불더미·그루터기)에 구워 넣는다
 
-  if (rain)
+  if (wet)
     puddles(scene, groundY, [
       [-2.8, 2.6, 1.5, 0.9, 0.9],
       [3.6, -3.2, 1.0, 0.7, 0.2],
