@@ -9,35 +9,82 @@ const P = { stone:0xc4a37e, pale:0xdbc4a1, rose:0xa47758, dark:0x5d5147,
   recess:0x645f57, wood:0x554137, iron:0x363331, rope:0x988366, cloth:0xbbae8b };
 const WELL = { x:-21, z:-1, hx:8, hz:10, depth:6.25 };
 
+// All floor detail is laid out in metres, then baked once. Scenery lies outside
+// the fighters' small moving shadow map, so its grounded shade is baked here.
 function stoneTexture() {
   const r=rng(161017);
-  return canvasTex(256,256,(c,w,h)=>{
-    c.fillStyle='#ded7c8';c.fillRect(0,0,w,h);
-    for(let i=0;i<1400;i++){
-      c.fillStyle=`rgba(88,65,42,${.018+r()*.05})`;
-      c.fillRect(r()*w,r()*h,1+r()*8,.4+r()*1.4);
+  return canvasTex(512,512,(c,w,h)=>{
+    c.fillStyle='#e0d6c4';c.fillRect(0,0,w,h);
+    for(let row=0;row<8;row++)for(let col=-1;col<5;col++){
+      const x=col*128+(row%2)*64,y=row*64;
+      c.fillStyle=`rgba(110,81,50,${.025+r()*.055})`;c.fillRect(x+1,y+1,126,62);
+      c.fillStyle='rgba(62,44,29,.15)';c.fillRect(x,y,128,1.6);c.fillRect(x,y,1,64);
+      c.fillStyle='rgba(255,244,216,.15)';c.fillRect(x+1,y+2,125,1);
     }
-    for(let y=0;y<256;y+=64){c.fillStyle='rgba(69,48,28,.1)';c.fillRect(0,y,256,1.5);}
+    for(let i=0;i<3000;i++){
+      c.fillStyle=`rgba(88,65,42,${.025+r()*.07})`;
+      c.fillRect(r()*w,r()*h,1+r()*7,.5+r()*1.2);
+    }
   });
 }
 function pavingTexture() {
-  const r=rng(161018);
-  return canvasTex(1024,1024,(c,w,h)=>{
-    c.fillStyle='#bfb29a';c.fillRect(0,0,w,h);
-    for(let row=0;row<48;row++)for(let col=-1;col<33;col++){
-      const x=col*32+(row%2)*16,y=row*22;
-      c.fillStyle=`hsl(39,${11+r()*4}%,${69+r()*4}%)`;c.fillRect(x,y,31.5,21.5);
-      c.fillStyle='rgba(255,242,210,.07)';c.fillRect(x,y,31.5,.7);
+  const r=rng(161018),N=1536,unit=N/80;
+  const tex=canvasTex(N,N,(c,w,h)=>{
+    c.fillStyle='#b8a187';c.fillRect(0,0,w,h);
+    c.translate(w/2,h/2);c.scale(unit,unit);
+    const poly=(pts,color)=>{c.beginPath();pts.forEach(([x,z],i)=>i?c.lineTo(x,z):c.moveTo(x,z));c.closePath();c.fillStyle=color;c.fill();};
+    // Human-scale, uneven sandstone flags, not enormous square floor tiles.
+    for(let row=-60;row<61;row++){
+      const z=row*.66;let x=-41+(row%2)*.5;
+      while(x<41){
+        const width=.72+r()*.56,ch=.035+r()*.07;
+        poly([[x+.025,z+.02],[x+width-.025,z+.02],[x+width-.02,z+.61-ch],[x+width-ch,z+.63],[x+.02,z+.62]],`hsl(${31+r()*7},${23+r()*7}%,${64+r()*9}%)`);
+        if(r()<.13){c.strokeStyle='rgba(82,62,43,.2)';c.lineWidth=.014;c.beginPath();c.moveTo(x+width*.22,z);c.lineTo(x+width*.45,z+.2);c.lineTo(x+width*.38,z+.4);c.stroke();}
+        x+=width;
+      }
     }
-    for(let i=0;i<4500;i++){
-      c.fillStyle=`rgba(145,113,70,${.025+r()*.05})`;
-      c.fillRect(r()*w,r()*h,1+r()*7,1+r()*2);
+    // Narrow courses outline the well and gallery thresholds without a raised
+    // collision lip. Wind fills the joints near walls; the middle stays readable.
+    for(const [x,z,ww,dd]of [[-12.5,-1,.32,21],[-21,-11.5,17,.32],[-21,9.5,17,.32],[0,-20.6,55,.35],[23.9,0,.35,40]]){
+      c.fillStyle='rgba(133,102,73,.3)';c.fillRect(x-ww/2,z-dd/2,ww,dd);
     }
-    // Broad, quiet shade at the architecture, with clear warm stone centrally.
-    const shade=c.createRadialGradient(512,512,150,512,512,600);
-    shade.addColorStop(0,'rgba(63,59,60,0)');shade.addColorStop(.7,'rgba(63,59,60,.03)');shade.addColorStop(1,'rgba(63,59,60,.24)');
-    c.fillStyle=shade;c.fillRect(0,0,w,h);
+    for(let i=0;i<140;i++){
+      const x=-34+r()*66,z=-29+r()*54;
+      if(Math.hypot(x,z)<10&&r()<.9)continue;
+      const rad=.7+r()*2.4,g=c.createRadialGradient(x,z,0,x,z,rad);
+      g.addColorStop(0,'rgba(202,175,132,.43)');g.addColorStop(1,'rgba(202,175,132,0)');c.fillStyle=g;c.fillRect(x-rad,z-rad,rad*2,rad*2);
+    }
+    // A worn route from the public entrance to the sealed gate and the water.
+    c.lineCap='round';c.lineJoin='round';
+    for(const [alpha,width]of [[.045,3.6],[.06,1.9]]){
+      c.strokeStyle=`rgba(232,216,186,${alpha})`;c.lineWidth=width;
+      c.beginPath();c.moveTo(8,26);c.bezierCurveTo(8,9,1,0,0,-22);c.stroke();
+      c.beginPath();c.moveTo(6,8);c.quadraticCurveTo(-2,5,-12,6);c.stroke();
+    }
+    // Sun in local coordinates (-9, 7, -5). Project roof/wall silhouettes onto
+    // the floor, matching the real sun after the environment's quarter turn.
+    const shadow=(x0,z0,x1,z1,height)=>{
+      const dx=height*9/7,dz=height*5/7;
+      c.save();c.shadowColor='rgba(48,42,37,.24)';c.shadowBlur=unit*.18;
+      poly([[x0,z0],[x1,z0],[x1+dx,z0+dz],[x1+dx,z1+dz],[x0+dx,z1+dz],[x0,z1]],'rgba(51,46,40,.28)');c.restore();
+    };
+    shadow(-33,-29,30,-21.3,4.8);shadow(-4.7,-26,4.7,-22,9.3);
+    shadow(-34,-27,-33,24,3.1);shadow(25,-20,31,23,4.5);
+    shadow(-34,23.4,5.1,25,3);shadow(10.9,23.4,31,25,3);
+    for(const x of [-22.9,-18.7,-14.5,-10.3,-6.1,6.1,10.3,14.5,18.7,22.9]){
+      shadow(x-.23,-21.9,x+.23,-21.5,4.4);
+      c.fillStyle='rgba(51,43,35,.19)';c.fillRect(x-.65,-22.15,1.3,1.1);
+    }
+    // Ground contact for jars and the well pavilion, rather than floating props.
+    shadow(-33,-3,-28.5,1.3,3.7);
+    for(const [x,z]of [[-26,17.7],[-23.3,19.5],[-26,16],[-27,20]]){
+      c.fillStyle='rgba(58,54,36,.19)';c.beginPath();c.ellipse(x,z,2.2,1.4,.3,0,Math.PI*2);c.fill();
+    }
+    for(const [x,z,rad]of [[-12.15,5.6,.6],[-11.8,6.65,.48],[4.9,-20.8,.6]]){
+      const g=c.createRadialGradient(x,z,0,x,z,rad);g.addColorStop(0,'rgba(40,35,30,.42)');g.addColorStop(1,'rgba(40,35,30,0)');c.fillStyle=g;c.fillRect(x-rad,z-rad,rad*2,rad*2);
+    }
   });
+  tex.wrapS=tex.wrapT=THREE.ClampToEdgeWrapping;return tex;
 }
 function arch(K,x,y,z,w,h,depth=.55,color=P.pale) {
   // Corbelled multi-lobed opening: short springers and a gently cusped crown.
@@ -81,31 +128,157 @@ function architecture(K) {
   for(let x=-1;x<=1;x+=.28)K.put('stone',box(.065,1.12,.10),P.stone,[x,8,-22.54]);
   for(const y of [7.55,7.9,8.25,8.5])K.put('stone',box(2.2,.07,.10),P.pale,[0,y,-22.51]);
   pavilion(K,0,9.3,-24.4,.88);
-  // Two shaded galleries. Low side buildings leave the camera's orbit open.
+  // Deep, connected wings: open colonnade, room wall, solid roof and return
+  // walls. The old black rectangles immediately behind the arches were flat.
   for(const side of [-1,1]){
-    K.put('stone',box(20,5.05,2.0),P.rose,[side*15,2.525,-25.0]);
-    K.put('shade',box(19.2,3.8,.08),P.recess,[side*15,1.9,-23.94]);
+    K.put('stone',box(26,5.05,.8),P.rose,[side*17.4,2.525,-28.3]);
+    K.put('stone',box(26,.18,7.3),P.stone,[side*17.4,.09,-25.0]);
     for(let j=0;j<5;j++){
-      const x=side*(6.1+j*4.2);column(K,x,0,-21.7,4.5);
-      if(j<4)arch(K,x+side*2.1,0,-21.7,3.65,4.35,.5,P.stone);
+      const x=side*(6.1+j*4.2);column(K,x,.18,-21.7,4.35);
+      if(j<4)arch(K,x+side*2.1,.18,-21.7,3.65,4.2,.72,P.stone);
+      K.put('stone',box(.45,4.25,6.6),P.rose,[x,2.3,-25]);
+      if(j<4){
+        const xx=x+side*2.1;
+        K.put('interior',box(3.7,3.9,.18),0x978572,[xx,2.15,-27.72]);
+        for(const dx of [-1.35,1.35])K.put('stone',box(.95,3.9,.5),P.stone,[xx+dx,2.15,-26.2]);
+        K.put('stone',box(3.7,.95,.5),P.stone,[xx,3.72,-26.2]);
+        K.put('wood',box(1.4,2.6,.14),j%2?0x755d47:0x493e34,[xx,.18+1.3,-27.55]);
+        for(let k=0;k<5;k++)K.put('wood',box(.018,2.5,.03),0x392e27,[xx-.56+k*.28,1.48,-27.46]);
+        K.put('stone',box(1.85,.16,1.8),P.pale,[xx,.26,-26.5]);
+      }
     }
-    K.put('stone',box(21.3,.32,4.2),P.pale,[side*15.3,4.65,-23.1]);
-    K.put('stone',box(20.8,.6,.4),P.stone,[side*15.3,5.1,-21.45]);
-    for(let j=0;j<24;j++)K.put('stone',box(.32,.35,.48),P.pale,[side*5.3+side*j*.87,5.55,-21.45]);
+    K.put('stone',box(26.7,.35,8.0),P.pale,[side*17.4,4.66,-25]);
+    K.put('interior',box(25.8,.08,6.9),0x71604f,[side*17.4,4.44,-25]);
+    K.put('stone',box(26.6,.7,.5),P.stone,[side*17.4,5.18,-21.45]);
+    K.put('stone',box(26.6,.14,.72),P.pale,[side*17.4,5.61,-21.45]);
+    for(let j=0;j<9;j++){
+      const x=side*(6.2+j*2.9);
+      K.put('wood',box(.16,.22,6.6),P.wood,[x,4.27,-24.8]);
+      K.put('stone',box(.19,.4,.75),P.rose,[x,4.22,-21.45],[.32,0,0]);
+    }
   }
-  K.push([26,0,-1],-Math.PI/2);
-  for(let j=0;j<5;j++){
-    const x=-10+j*5;
-    K.put('stone',box(4.8,4.4,3),j%2?P.stone:P.rose,[x,2.2,-1]);
-    K.put('shade',box(2.05,2.8,.1),P.recess,[x,1.4,.56]);arch(K,x,0,.65,2.1,3.1);
-    K.put('stone',box(5.1,.2,4),P.pale,[x,4.5,-.5]);
+  // Lodging and animal stalls form the east return, joining both enclosure walls.
+  K.push([30,0,-1],-Math.PI/2);
+  K.put('stone',box(43,4.5,.8),P.stone,[0,2.25,-1]);
+  for(let j=0;j<8;j++){
+    const x=-19+j*5.25;
+    K.put('stone',box(.65,4.4,5.1),P.rose,[x,2.2,1.5]);
+    column(K,x,0,4.15,4.3);
+    if(j<7){
+      arch(K,x+2.62,0,4.15,4.55,4.08,.6);
+      K.put('wood',box(1.55,2.65,.13),0x66503c,[x+2.6,1.325,-.51]);
+      for(const d of [-1.13,1.13])K.put('stone',box(.35,3,.4),P.pale,[x+2.6+d,1.5,-.25]);
+      K.put('stone',box(2.6,.25,.55),P.pale,[x+2.6,3.0,-.24]);
+    }
   }
+  K.put('stone',box(44,.3,6.8),P.pale,[0,4.5,1.5]);
+  K.put('interior',box(43,.05,5.4),0x77634f,[0,4.31,1.5]);
+  K.put('stone',box(44,.6,.55),P.stone,[0,4.95,4.5]);
+  K.put('stone',box(44,.15,.8),P.pale,[0,5.31,4.5]);
   K.pop();
-  // A low south wall, widely spaced open pavilions: no close foreground wall.
-  K.put('stone',box(57,1.25,.75),P.rose,[0,.625,26]);
-  K.put('stone',box(57,.16,1.05),P.pale,[0,1.33,26]);
-  pavilion(K,15,0,26,1.25);pavilion(K,-9,0,26,1.05);
+  // Thick boundary walls make this an enclosed yard at ground level. A real
+  // open entrance reveals the road outside; there is no platform under the yard.
+  K.put('stone',box(1.1,3.1,54),P.rose,[-34,1.55,-2]);
+  K.put('stone',box(1.4,.2,54),P.pale,[-34,3.2,-2]);
+  for(const [x,w]of [[-14.45,39.1],[21,20.2]]){
+    K.put('stone',box(w,3,1.3),P.stone,[x,1.5,24.5]);
+    K.put('stone',box(w,.2,1.6),P.pale,[x,3.1,24.5]);
+  }
+  for(const x of [4.7,11.3]){
+    K.put('stone',box(1.2,5.1,2.4),P.rose,[x,2.55,24.5]);
+    K.put('stone',box(1.65,.25,2.8),P.pale,[x,5.18,24.5]);
+  }
+  arch(K,8,0,24.5,5.4,4.8,1.7);
+  K.put('stone',box(8.2,.32,3),P.pale,[8,5.5,24.5]);
+  for(let z=-25;z<24;z+=6.2){
+    K.put('stone',box(1.65,3.25,.9),P.stone,[-33.7,1.625,z]);
+    K.put('stone',box(1.8,.22,1.1),P.pale,[-33.7,3.32,z]);
+  }
+  for(const x of [-30,-23,-9,-2,16,23,30]){
+    K.put('stone',box(.85,3.15,1.65),P.rose,[x,1.575,24.25]);
+    K.put('stone',box(1.1,.18,1.85),P.pale,[x,3.24,24.25]);
+  }
+  for(const [x,w]of [[-14.45,39.1],[21,20.2]])K.put('stone',box(w,.28,1.65),0x9b805e,[x,.14,24.4]);
+  pavilion(K,-17,0,24.5,1.05);
 }
+function surroundings(K) {
+  const r=rng(161022);
+  // Alluvial ground and low rocky shoulders continue beyond the compound.
+  for(let i=0;i<36;i++){
+    const a=i/36*Math.PI*2,rad=69+r()*85;
+    K.put('earth',new THREE.SphereGeometry(1,9,4,0,Math.PI*2,0,Math.PI/2),i%3?0xa28b70:0x978b77,
+      [Math.cos(a)*rad,-.12,Math.sin(a)*rad],[0,r()*6.28,0],[11+r()*22,1.3+r()*5,9+r()*18],{rough:.1,vary:.13});
+  }
+  // A pale, irregular caravan track leaves the open entrance at the same level.
+  for(let j=0;j<27;j++){
+    const z=26+j*2.7,x=8+Math.sin(j*.14)*7;
+    K.put('road',new THREE.CircleGeometry(4.2+r()*.8,9),0xc7b190,[x,-.075,z],[-Math.PI/2,0,r()*6.28],[1,1.55,1],{vary:.035,noise:.02});
+    if(j<26)for(const side of [-1,1]){
+      const nextX=8+Math.sin((j+1)*.14)*7+side*1.35,xx=x+side*1.35;
+      const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute([xx-.055,-.068,z,xx+.055,-.068,z,nextX+.055,-.068,z+2.7,xx-.055,-.068,z,nextX+.055,-.068,z+2.7,nextX-.055,-.068,z+2.7],3));g.setIndex([0,2,1,3,5,4]);g.computeVertexNormals();
+      K.put('road',g,0xb19a7d);
+    }
+  }
+  // A few low houses sit on the earth beyond the walls, giving human scale and
+  // a reason for a public water courtyard. No floating skyline facade.
+  for(const [x,z,w,d,h]of [[-46,-37,9,8,4.6],[-57,-42,12,8,3.7],[-43,37,10,9,3.8],[37,47,8,7,3.1],[47,54,11,9,4.3],[-49,14,8,6,3.2]]){
+    K.put('stone',box(w,h,d),0xaa8d6b,[x,h/2-.1,z], [0,0,0],1,{rough:.045});
+    K.put('stone',box(w+.5,.3,d+.5),P.pale,[x,h,z]);
+    for(const side of [-1,1])K.put('shade',box(.7,1,.06),0x564a3b,[x+side*w*.23,h*.65,z+d/2+.04]);
+    K.put('wood',box(1.4,2,.09),0x5e4a37,[x,1,z+d/2+.06]);
+  }
+  // Rubble and dry scrub accumulate at the outside foot of walls, not on the
+  // combat disk. Scatter remains deterministic and static.
+  for(let i=0;i<68;i++){
+    const side=i%2?-1:1,x=side*(36+r()*18),z=-32+r()*70;
+    K.put('earth',new THREE.DodecahedronGeometry(.15+r()*.38,0),0xb69a78,[x,.05,z],[r(),r()*6.28,r()],[1.5,.6,1],{vary:.17});
+    if(i%4===0)for(let k=0;k<4;k++)limb(K,'wood',[x,0,z],[x+(r()-.5)*.7,.4+r()*.45,z+(r()-.5)*.7],.025,.007,0x7f7452);
+  }
+}
+function workingYard(K) {
+  // One old shade tree beside the water. Its low, irregular crown and roots
+  // supply a familiar ground-level scale without crowding the fighters.
+  const tree=[-28,0,16];
+  limb(K,'wood',tree,[-28.35,2.7,16.1],.38,.26,0x70624b);
+  limb(K,'wood',[-28.35,2.7,16.1],[-27.6,5.0,16.3],.26,.12,0x70624b);
+  for(const [x,y,z]of [[-31.1,4.3,15.1],[-25.5,4.8,17.4],[-28.2,5.6,13.3],[-30,5.2,18.2]]){
+    limb(K,'wood',[-28.3,2.6,16.1],[x,y,z],.18,.055,0x75664d);
+    limb(K,'wood',[x,y,z],[x+.6,y+.7,z-.4],.055,.018,0x75664d);
+    K.put('foliage',new THREE.IcosahedronGeometry(1,1),0x81835b,[x,y+.35,z],[0,x,0],[1.85,.85,1.6],{rough:.15,vary:.13});
+  }
+  for(let i=0;i<7;i++){
+    const a=i*Math.PI*2/7;limb(K,'wood',[-28,.2,16],[-28+Math.cos(a)*1.2,.03,16+Math.sin(a)*1.2],.13,.025,0x75664d);
+  }
+  // A drinking trough and tether rings identify the east wing as a waystation.
+  K.put('stone',box(1.25,.18,4.3),P.rose,[23.5,.09,10.5]);
+  for(const x of [23,24])K.put('stone',box(.2,.6,4.3),P.stone,[x,.4,10.5]);
+  for(const z of [8.45,12.55])K.put('stone',box(1.15,.6,.2),P.stone,[23.5,.4,z]);
+  K.put('shade',box(.77,.025,3.8),0x5d6d5d,[23.5,.25,10.5]);
+  for(const z of [-9,1,12])K.put('iron',new THREE.TorusGeometry(.12,.025,5,12),P.iron,[25.65,1.1,z],[0,Math.PI/2,0]);
+  // A parked handcart: empty axle, spokes, pole, worn boards and tied bundles.
+  K.push([21,0,-16],.3);
+  K.put('wood',box(2,.16,2.8),0x866545,[0,.8,0]);
+  for(const x of [-.94,.94]){
+    K.put('wood',box(.13,.7,2.8),P.wood,[x,1.15,0]);
+    K.put('wood',new THREE.TorusGeometry(.66,.065,5,12),0x6d5139,[x*1.3,.68,.3],[0,Math.PI/2,0]);
+    for(let n=0;n<8;n++){const a=n*Math.PI/4;limb(K,'wood',[x*1.3,.68,.3],[x*1.3,.68+Math.cos(a)*.62,.3+Math.sin(a)*.62],.035,.025,P.wood);}
+    limb(K,'wood',[x*.6,.8,1.4],[x*.6,.14,4.2],.07,.04,P.wood);
+  }
+  limb(K,'iron',[-1.35,.68,.3],[1.35,.68,.3],.065,.065,P.iron);
+  for(let i=0;i<3;i++)K.put('cloth',box(.75,.42,.85),i%2?0xa29475:0x877658,[-.45+i%2*.9,1.1+Math.floor(i/2)*.42,-.65],[0,.08*i,0],1,{rough:.05});
+  K.pop();
+  // Drain stone follows the water-side edge; dark seam is shallow and recessed.
+  K.put('shade',box(.16,.012,21),0x81705b,[-11.4,.007,-.5]);
+  for(let i=0;i<28;i++)for(const dx of [-.2,.2])K.put('stone',box(.19,.035,.68),P.pale,[-11.4+dx,.009,-10.8+i*.76]);
+  // Repair patches and old lime plaster catch sidelight on the large wall faces.
+  const r=rng(161023);
+  for(let i=0;i<38;i++){
+    const x=-31+r()*62,y=.35+r()*3.3;
+    if(Math.abs(x)<4.9)continue;
+    K.put('stone',box(.4+r()*1.2,.18+r()*.65,.035),i%3?0xb59c7d:0xcfbea0,[x,y,-27.86],[0,0,(r()-.5)*.05],1,{rough:.03,vary:.1});
+  }
+}
+
 function stepwell(K) {
   const {x,z,hx,hz}=WELL;
   // Four square terraces; switching stair flights descend between each landing.
@@ -196,28 +369,35 @@ export function buildCourtyard(scene,{hemi,sun}) {
   sun.color.setHex(0xffe7c4);sun.intensity=2.0;sun.position.set(sunOffset.x,sunOffset.y,sunOffset.z);
   const K=new Kit(161016),r=rng(161019);
   // Allocate input geometry only long enough for Kit to clone/merge it.
-  const raw=K.put.bind(K);K.put=(bin,g,...args)=>{const result=raw(bin,g,...args);g.dispose();return result;};
+  const raw=K.put.bind(K);K.put=(bin,g,color,pos,rot,scale,opt)=>{const result=raw(bin,g,color,pos,rot,scale,bin==='stone'?{uv:'box',uvScale:1/3,...opt}:opt);g.dispose();return result;};
   const {x,z,hx,hz}=WELL;
-  // Four paving rectangles leave a real rectangular opening over the well.
-  for(const [cx,cz,w,d]of [[(x-hx-42)/2,0,x-hx+42,84],[(x+hx+42)/2,0,42-x-hx,84],[x,(-42+z-hz)/2,hx*2,z-hz+42],[x,(42+z+hz)/2,hx*2,42-z-hz]])
-    K.put('floor',box(w,.28,d),0xffffff,[cx,-.14,cz],[0,0,0],1,{vary:0,noise:0,uv:'box',uvScale:1/84});
+  // Paving ends under the enclosure. The soil continues beneath it and outside
+  // at almost the same elevation, never as the edge of a raised square slab.
+  const floorRects=[[-34,x-hx,-29,25],[x+hx,31,-29,25],[x-hx,x+hx,-29,z-hz],[x-hx,x+hx,z+hz,25]];
+  for(const [x0,x1,z0,z1]of floorRects)K.put('floor',box(x1-x0,.16,z1-z0),0xffffff,[(x0+x1)/2,-.08,(z0+z1)/2],[0,0,0],1,{vary:0,noise:0});
+  for(const g of K.bins.floor){const p=g.attributes.position,uv=g.attributes.uv;for(let i=0;i<p.count;i++)uv.setXY(i,(p.getX(i)+40)/80,(40-p.getZ(i))/80);}
   K.put('shade',box(16,.2,20),0x40534a,[x,-6.5,z]);
-  for(const [px,pz,w,d]of [[-121,0,158,400],[121,0,158,400],[0,-121,84,158],[0,121,84,158]])
-    K.put('earth',box(w,.3,d),0xb6a58b,[px,-.31,pz],[0,0,0],1,{vary:.03,noise:.03});
-  architecture(K);stepwell(K);traces(K);
-  for(let i=0;i<95;i++){
-    const a=r()*Math.PI*2,rad=12+r()*29,px=Math.cos(a)*rad,pz=Math.sin(a)*rad;
-    if(px>x-hx&&px<x+hx&&pz>z-hz&&pz<z+hz)continue;
-    K.put('sand',new THREE.CircleGeometry(.6+r()*2,7),0xc4ad87,[px,.012,pz],[-Math.PI/2,0,r()*6.28],[1,.5+r()*.4,1],{vary:.1});
+  for(const [x0,x1,z0,z1]of [[-210,x-hx,-210,210],[x+hx,210,-210,210],[x-hx,x+hx,-210,z-hz],[x-hx,x+hx,z+hz,210]])
+    K.put('earth',box(x1-x0,.5,z1-z0),0xb3a084,[(x0+x1)/2,-.35,(z0+z1)/2],[0,0,0],1,{vary:.025,noise:.015});
+  architecture(K);stepwell(K);traces(K);surroundings(K);workingYard(K);
+  for(let i=0;i<75;i++){
+    const a=r()*Math.PI*2,rad=12+r()*22,px=Math.cos(a)*rad,pz=Math.sin(a)*rad;
+    if(px<x-hx||px>30||pz<-28||pz>24||(px<x+hx&&pz>z-hz&&pz<z+hz))continue;
+    K.put('sand',new THREE.CircleGeometry(.4+r()*1.4,7),0xc4ad87,[px,.012,pz],[-Math.PI/2,0,r()*6.28],[1,.5+r()*.4,1],{vary:.1});
   }
   const materials={
     stone:new THREE.MeshStandardMaterial({vertexColors:true,map:stoneTexture(),roughness:1}),
     floor:new THREE.MeshStandardMaterial({vertexColors:true,map:pavingTexture(),roughness:.98}),
   };
-  for(const name of ['wood','iron','rope','cloth','pot','wax','sand','shade','earth'])materials[name]=new THREE.MeshStandardMaterial({vertexColors:true,roughness:name==='iron'?.8:1,side:['cloth','pot'].includes(name)?THREE.DoubleSide:THREE.FrontSide});
+  for(const name of ['wood','iron','rope','cloth','pot','wax','sand','shade','earth','interior','road','foliage'])materials[name]=new THREE.MeshStandardMaterial({vertexColors:true,roughness:name==='iron'?.8:1,side:['cloth','pot'].includes(name)?THREE.DoubleSide:THREE.FrontSide});
   materials.sand.transparent=true;materials.sand.opacity=.14;materials.sand.depthWrite=false;
   for(const [bin,mat]of Object.entries(materials)){
-    const mesh=K.mesh(bin,mat,{cast:false,receive:bin!=='cloud',light:bin==='stone'?(xx,yy)=>{const d=Math.min(0,yy)*.07;return [d,d,d];}:null});
+    const mesh=K.mesh(bin,mat,{cast:false,receive:true,light:bin==='stone'?(xx,yy,zz)=>{
+      let d=Math.min(0,yy)*.07;
+      if(yy>.2&&yy<4.5&&Math.abs(xx)>5&&zz<-21.7&&zz>-29)d-=.4*THREE.MathUtils.smoothstep(-zz,21.7,26.2);
+      if(yy>.2&&yy<4.3&&xx>25.8&&Math.abs(zz)<22)d-=.36*THREE.MathUtils.smoothstep(xx,25.8,29.2);
+      return [d,d,d*.92];
+    }:null});
     if(mesh){mesh.name='courtyard-'+bin;scene.add(mesh);}else mat.dispose();
     for(const g of K.bins[bin]??[])g.dispose();
   }
