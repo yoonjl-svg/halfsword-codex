@@ -97,7 +97,12 @@ export function addYueApparitions(root){
  const poses=(i,t,walking,phase)=>{
   const u=(phase%1+1)%1;
   let hand=[.36,1.22,.22],tip=[.76,1.77,-.10],step=0,lean=0;
-  if(walking){hand=[.08+Math.sin(t*2.7+i)*.035,1.06,.25];tip=i<19?[.03,2.60,.25]:[.31,.48,.25];}
+  if(walking){
+   // Keep the 2.51m weapon; a lower hand and slight rearward lean prevent
+   // the marching spear from reading as an elevated flagpole.
+   hand=[.08+Math.sin(t*2.7+i)*.035,i<19?.90:1.06,.25];
+   tip=i<19?[-.47,2.41,.25]:[.31,.48,.25];
+  }
   else{
    const ready=[.06,1.65,.23],raised=[-.23,2.27,.16],hit=[.54,1.24,-.04],end=[1.24,1.16,-.08];
    const cross=[.38,1.22,.30],crossTip=[.95,1.42,.48];
