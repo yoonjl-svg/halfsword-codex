@@ -54,7 +54,7 @@ export function addGuildEmbroidery(vest, rows) {
     // a Tudor rose. Its meaning belongs to the fictional guild, not a dynasty.
     const rose=[];
     for(let i=0;i<=100;i++){
-      const a=i/100*Math.PI*2,r=.154+.041*Math.cos(5*(a-Math.PI/2));
+      const a=i/100*Math.PI*2,r=.154+.026*Math.cos(5*(a-Math.PI/2));
       rose.push([Math.cos(a)*r,.38+Math.sin(a)*r]);
     }
     cord(rose,.030,false);
