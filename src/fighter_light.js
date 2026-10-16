@@ -17,14 +17,15 @@
 //   어림에는 main.js 의 hemi·sun 만 들어간다. 스테이지가 따로 단 진짜 조명(PointLight 등)은 세지 않는다 → 그 빛은 채움 위에 더해진다
 //
 //  스테이지가 할 수 있는 것: 반환 객체에 fighterLight 를 넣어 색을 물들이고 더 밝게 할 수 있다 (없어도 된다)
-//    fighterLight: { color, level, rim, rimColor, env }
+//    fighterLight: { color, level, rim, rimColor, env, weatherDim? }
 //      color    보조광·바탕빛 색 (밝기는 무시하고 색만 쓴다). 기본: 해 색과 흰색의 반반
 //      level    "어둡다"의 기준. 올리면 캐릭터가 더 밝아진다. 기본 LEVEL, LEVEL_MIN 아래로는 못 내린다
 //      rim      테두리광·윤곽 빛 세기 배율 (기본 1 = 모자란 만큼에 비례, RIM_MIN~3)
 //      rimColor 테두리광·윤곽 빛 색. 기본: 반구광 하늘색과 흰색의 반반
 //      env      금속 반사 세기 배율 (ENV_MIN~1). 기본: 스테이지 밝기에서 자동
 //   색은 짙게 적어도 한 채널이 밝기의 CHROMA_MAX 배를 넘지 않게 흰색 쪽으로 옅어진다 (새파랑 0x0000ff → 푸르스름한 흰빛)
-//  끌 수는 없다. 자세한 약속은 docs/stages.md 의 "조명 약속".
+//  기본 최소값은 유지. 사용자 지정 밤 습지의 weatherDim(.15~1, 기본1)만 채움/반사를 추가 감쇠한다.
+//  자세한 약속은 docs/stages.md 의 "조명 약속".
 // ─────────────────────────────────────────────────────────────
 import * as THREE from 'three';
 
@@ -159,7 +160,10 @@ export function createFighterLight(lights, stage = {}) {
   }
   function updateUniforms() {
     const e = (state.stageLight = stageLight());
-    const deficit = (state.deficit = state.enabled ? Math.max(0, state.level - e) : 0);
+    // Explicit weather direction: only the midnight wetland opts into dimming
+    // the usual readability fill. Other stages keep their existing minimums.
+    const weatherDim = THREE.MathUtils.clamp(num(cfg.weatherDim, 1), .15, 1);
+    const deficit = (state.deficit = state.enabled ? Math.max(0, state.level - e) * weatherDim : 0);
     if (cfgKey) keyHue.copy(cfgKey);
     else hue(lights.sun?.color ?? WHITE, 0.5, keyHue);
     if (cfgRim) rimHue.copy(cfgRim);
@@ -173,7 +177,7 @@ export function createFighterLight(lights, stage = {}) {
     U.flRim.value.copy(rimHue).multiplyScalar(state.rim);
     U.flGlow.value.copy(rimHue).multiplyScalar(state.glow);
     const autoEnv = THREE.MathUtils.clamp(e / ENV_REF, ENV_MIN, 1);
-    state.env = state.enabled ? THREE.MathUtils.clamp(num(cfg.env, autoEnv), ENV_MIN, 1) : 1;
+    state.env = state.enabled ? THREE.MathUtils.clamp(num(cfg.env, autoEnv), ENV_MIN, 1) * weatherDim : 1;
   }
 
   // 캐릭터 물체 목록. 매 프레임 나무 전체를 훑지 않고 메시와 그 재질을 기억해 두었다가, 재질이 바뀐 메시만 다시 본다.

@@ -7,7 +7,7 @@ import {canvasTex,rng} from './stage_kit.js';
 import {addNightBoundaryFires} from './stage_night_lamps.js';
 
 const NIGHT=0x24324a;
-export function beginNight(scene,lights,build,id,{boundaryFires=true}={}){
+export function beginNight(scene,lights,build,id,{boundaryFires=true,nightSky=true}={}){
   const before=new Set(scene.children),stage=build(scene,lights);
   const original=scene.children.filter(o=>!before.has(o));
   const mats=new Set();
@@ -27,12 +27,14 @@ export function beginNight(scene,lights,build,id,{boundaryFires=true}={}){
   lights.sun.position.set(7,9,-4);
   stage.fighterLight={color:0xc7bec8,rimColor:0x9dc9d7,rim:1.25,level:.50};
   const root=new THREE.Group();root.name=id+'-story';root.userData={hour:3,visualOnly:true,stories:[]};scene.add(root);
+  if(nightSky){
   const sky=canvasTex(8,256,(g,w,h)=>{const grad=g.createLinearGradient(0,0,0,h);grad.addColorStop(0,'#0b1427');grad.addColorStop(.46,'#2e405a');grad.addColorStop(.55,'#46576b');grad.addColorStop(1,'#17243a');g.fillStyle=grad;g.fillRect(0,0,w,h)});
   const dome=new THREE.Mesh(new THREE.SphereGeometry(510,24,12),new THREE.MeshBasicMaterial({map:sky,side:THREE.BackSide,fog:false,depthWrite:false}));dome.name='midnight-sky';root.add(dome);
   const r=rng(31016),pos=[];
   for(let i=0;i<700;i++){const a=r()*Math.PI*2,y=.08+r()*.92,rr=Math.sqrt(1-y*y);pos.push(Math.cos(a)*rr*430,y*430,Math.sin(a)*rr*430)}
   const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
   root.add(new THREE.Points(geo,new THREE.PointsMaterial({color:0xb4c3d9,size:1.1,sizeAttenuation:false,fog:false,transparent:true,opacity:.66,depthWrite:false})));
+  }
   const fires=boundaryFires?addNightBoundaryFires(scene,root,original,id==='temple_night'):()=>{};
   return {stage,root,fires,original};
 }

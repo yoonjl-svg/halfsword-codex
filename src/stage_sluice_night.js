@@ -4,6 +4,7 @@ import * as T from 'three';
 import { buildSluice } from './stage_sluice.js';
 import { beginNight } from './stage_night_variants.js';
 import { workshop } from './stage_night_second.js';
+import { addSluiceWeather } from './stage_sluice_weather.js';
 
 function letterBundle(w,p,angle){
   // Bake all local letters into the same story mesh, without a text texture.
@@ -20,9 +21,7 @@ function letterBundle(w,p,angle){
 
 export function buildSluiceNight(scene,lights){
   const build=(s,l)=>buildSluice(s,l,{nightOpened:true});
-  const {stage,root}=beginNight(scene,lights,build,'sluice_night',{boundaryFires:false});
-  lights.hemi.intensity=1.03;lights.sun.intensity=.61;stage.sunOffset={x:-6,y:13,z:-7};
-  stage.fighterLight={color:0xc7bec8,rimColor:0x9dc9d7,level:.64,rim:1.25};
+  const {stage,root,original}=beginNight(scene,lights,build,'sluice_night',{boundaryFires:false,nightSky:false});
   const w=workshop(root,16401);
   // Newly exposed mud between the stones, confined to the outer village. The
   // combat puddles and their depth/movement sampling remain byte-identical.
@@ -57,5 +56,6 @@ export function buildSluiceNight(scene,lights){
   w.finish('sluice-exposed-village-and-delivered-letters');
   root.userData.stories=['새벽 세 시, 옛 수문의 빗장이 위로 당겨져 있다. 전투장 밖의 물길에서 돌길과 빈집의 문턱이 드러났다.','문은 사라졌지만 편지는 도착했다. 젖지 않도록 쌓고 돌로 눌러 둔 꾸러미가 세 문턱에 남았다.'];
   root.userData.details={path:[14.5,.1,-6.5],letters:doors,gate:[hx,3,hz],combatTerrainUnchanged:true};
+  addSluiceWeather(scene,lights,root,stage,original);
   return stage;
 }

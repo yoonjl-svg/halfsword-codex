@@ -26,6 +26,7 @@ export const STAGE_DETAIL_PROFILES = Object.freeze({
   // 화산섬 (샛별 저장소 origin/main 7684c732 의 굳은 껍질 소리를 옮김 — docs/import/volcano_port_2026-10-14.md). 표 끝(자리 15)에 붙여 있던 세부음 씨앗(자리 0~14)은 그대로.
   //  샛별 표에서는 자리 14(그쪽 15 는 철불 절벽 dunhuangWood)라 변형 셋의 잡음 결은 샛별 판과 다르다(합성 꼴·길이·세기는 같다)
   etnaCrust: { stage: 'etna', duration: 1.6, gain: 0.032, gap: 20 },
+  wetlandThunder: { stage: 'sluice', nightOnly: true, duration: 3.8, gain: .24, gap: 5 },
 });
 
 const detailBase = stage => ['loggia_night','corsair_night','sacred_grove_night','sluice_night'].includes(stage) ? stage.slice(0,-6) : stage;
@@ -41,6 +42,17 @@ export function synthStageDetail(kind, sr, rng) {
   const profile = STAGE_DETAIL_PROFILES[kind];
   if (!profile || !Number.isFinite(sr) || sr < 8000) return new Float32Array(0);
   const out = new Float32Array(Math.ceil(profile.duration * sr));
+  if (kind === 'wetlandThunder') {
+    // A distant rolling body, not a close gunshot. Deterministic cached variants.
+    let low=0,mid=0;const a=1-Math.exp(-TAU*110/sr),b=1-Math.exp(-TAU*620/sr),shift=rng()*2;
+    for(let i=0;i<out.length;i++){
+      const t=i/sr,n=rng()*2-1;low+=a*(n-low);mid+=b*(n-mid);
+      const rise=1-Math.exp(-t/.055),tail=Math.min(1,(out.length-1-i)/(sr*.45));
+      const roll=.6+.4*Math.sin(t*6.2+shift)**2;
+      out[i]=rise*tail*(2.6*low*roll*Math.exp(-t/1.35)+.24*(mid-low)*Math.exp(-t/.30));
+    }
+    return out;
+  }
   if (kind === 'etnaCrust') {
     // 화산섬: 먼 굳은 용암 껍질이 부서지는 소리 — 걸러 낮춘 금 가는 소리와 짧게 흘러내리는 알갱이 (샛별 원문 그대로).
     //  계속되는 불 굉음·폭발·싸움 소리 같은 순간음은 없다
@@ -222,6 +234,7 @@ export class StageDetailSound {
     this.sound = sound;
     this.makeRng = makeRng;
     this.stage = detailBase(sound.stage);
+    this.stageId = sound.stage;
     this.paused = !!sound._stagePaused;
     this.voices = new Set();
     this.buffers = new Map(); // At most three variants for each detail kind.
@@ -235,6 +248,7 @@ export class StageDetailSound {
     this.stopVoices();
     this.stopAmbient();
     this.stage = detailBase(stage);
+    this.stageId = stage;
     this.buffers.clear();
     this.last.clear();
     this.lastAny = -Infinity;
@@ -320,6 +334,11 @@ export class StageDetailSound {
       // 잠든 습지: 낮게 흐르는 물 위에 눈에 보이는 잎·물방울 소리만 드문드문. 보이지 않는 빗소리·방 울림·동물 합창은 없다
       addNoise({ rate: 0.69, frequency: 920, gain: 0.0036, lfo: 0.075, depth: 0.0007, ceiling: 1700, pan: 0.3 });
       addNoise({ rate: 0.81, frequency: 470, gain: 0.0019, lfo: 0.043, depth: 0.0006, ceiling: 1350, pan: -0.16 });
+      if(this.stageId==='sluice_night'){
+        // Fine rain on water and leaves, softly spread across the stereo field.
+        addNoise({rate:.91,frequency:2600,gain:.013,lfo:.087,depth:.0015,ceiling:5200,pan:-.45});
+        addNoise({rate:.77,frequency:1800,gain:.010,lfo:.063,depth:.0012,ceiling:4300,pan:.45});
+      }
     } else if (this.stage === 'dayr') {
       // 소금 사막: 그늘진 벽돌 문루를 지나는 마른 바람 두 겹 (샛별 값 그대로 — 우리 무대 바탕 가운데 가장 작다). 시장 소음·물소리 없음
       // Dry air through a shaded brick iwan. No surf or crowded market bed.
@@ -349,6 +368,7 @@ export class StageDetailSound {
     const sound = this.sound, c = sound.ctx, profile = STAGE_DETAIL_PROFILES[data.kind];
     const reject = () => { this.stats.rejected++; return false; };
     if (!profile || profile.stage !== this.stage || !sound.on || this.paused || (!c.startRendering && c.state !== 'running')) return reject();
+    if(profile.nightOnly&&this.stageId!=='sluice_night')return reject();
     const amp = data.amp ?? 0.5;
     if (!Number.isFinite(amp) || amp <= 0 || (data.pos && !['x', 'y', 'z'].every((k) => Number.isFinite(data.pos[k])))) return reject();
     const t = c.currentTime;
