@@ -5,13 +5,15 @@ import {buildQinglan} from './stage_qinglan.js';
 import {beginNight} from './stage_night_variants.js';
 import {workshop,animate} from './stage_night_second.js';
 import {canvasTex,rng} from './stage_kit.js';
+import {getWeapon} from './weapons.js';
+import {LOOKS} from './looks.js';
 
 function add(parent,geo,mat,pos,name){const m=new T.Mesh(geo,mat);m.name=name;m.position.set(...pos);m.castShadow=true;parent.add(m);return m}
 const rough=color=>new T.MeshStandardMaterial({color,roughness:.9,side:T.DoubleSide});
-function deepSky(root,scene){
+function deepSky(root,scene,dim=false){
  const sky=root.getObjectByName('midnight-sky');
- const map=canvasTex(8,256,(c,w,h)=>{const g=c.createLinearGradient(0,0,0,h);g.addColorStop(0,'#080f1d');g.addColorStop(.5,'#1d2e44');g.addColorStop(1,'#101a29');c.fillStyle=g;c.fillRect(0,0,w,h)});
- sky.material.map.dispose();sky.material.map=map;sky.material.needsUpdate=true;scene.background=new T.Color(0x1d2e44);
+ const map=canvasTex(8,256,(c,w,h)=>{const g=c.createLinearGradient(0,0,0,h);g.addColorStop(0,dim?'#070d19':'#080f1d');g.addColorStop(.5,dim?'#19283a':'#1d2e44');g.addColorStop(1,dim?'#0e1723':'#101a29');c.fillStyle=g;c.fillRect(0,0,w,h)});
+ sky.material.map.dispose();sky.material.map=map;sky.material.needsUpdate=true;scene.background=new T.Color(dim?0x19283a:0x1d2e44);
 }
 
 function stoppedWatercourse(root){
@@ -60,16 +62,51 @@ function lastWater(root){
  return {position:[x,y+.6,z],update:t=>{for(let i=0;i<seeds.length;i++){const q=(t*.12+seeds[i])%1;geo.attributes.position.setXYZ(i,x+.55+.25*Math.sin(q*4+i),y+.15+q*1.65,z+.6+.19*Math.sin(q*3+i))}geo.attributes.position.needsUpdate=true}};
 }
 
+function geothermalSteam(root){
+ const sites=[[-7,-3],[-6,5],[-2,-8],[5.7,-5],[7,3.8],[-10.5,8.5],[10.4,-9],[-14,-10],[15,3.5],[18,-11],[-17,5],[8,14]];
+ const vents=sites.map(([x,z])=>({x,y:landHeight(x,z),z})),r=rng(16530),perVent=10,count=vents.length*perVent;
+ const geo=new T.BufferGeometry(),position=new T.BufferAttribute(new Float32Array(count*3),3),fade=new T.BufferAttribute(new Float32Array(count),1),scale=new T.BufferAttribute(new Float32Array(count),1);
+ geo.setAttribute('position',position);geo.setAttribute('steamFade',fade);geo.setAttribute('steamScale',scale);
+ const seeds=Array.from({length:count},(_,i)=>({phase:(i%perVent+r()*.5)/perVent,side:r()*6.28,height:1.5+r()*.8,rate:.11+r()*.035}));
+ const map=canvasTex(64,64,c=>{const g=c.createRadialGradient(32,32,0,32,32,32);g.addColorStop(0,'rgba(220,225,227,.65)');g.addColorStop(.38,'rgba(208,218,224,.27)');g.addColorStop(1,'rgba(208,218,224,0)');c.fillStyle=g;c.fillRect(0,0,64,64)});
+ const material=new T.PointsMaterial({map,color:0xc0c8cd,size:1.05,transparent:true,opacity:.32,depthWrite:false});
+ material.onBeforeCompile=shader=>{
+  shader.vertexShader='attribute float steamFade; attribute float steamScale; varying float vSteamFade;\n'+shader.vertexShader;
+  shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvSteamFade = steamFade;').replace('#include <size_attenuation_vertex>','#include <size_attenuation_vertex>\ngl_PointSize *= steamScale;');
+  // Points shaders use an inline size-attenuation block in current Three.js.
+  if(!shader.vertexShader.includes('gl_PointSize *= steamScale;'))shader.vertexShader=shader.vertexShader.replace('gl_PointSize = size;','gl_PointSize = size * steamScale;');
+  shader.fragmentShader='varying float vSteamFade;\n'+shader.fragmentShader;
+  shader.fragmentShader=shader.fragmentShader.replace('#include <map_particle_fragment>','#include <map_particle_fragment>\ndiffuseColor.a *= vSteamFade;');
+ };
+ material.customProgramCacheKey=()=> 'etna-geothermal-steam-v1';
+ const steam=new T.Points(geo,material);steam.name='etna-geothermal-steam';steam.frustumCulled=false;root.add(steam);
+ const w=workshop(root,16531);
+ for(const v of vents)for(let j=0;j<2;j++){
+  const dx=.23+j*.13,dz=.18-j*.27;
+  w.rod([v.x-dx,landHeight(v.x-dx,v.z-dz)+.018,v.z-dz],[v.x+dx,landHeight(v.x+dx,v.z+dz)+.018,v.z+dz],.014,0x262529);
+ }
+ w.finish('geothermal-ground-fissures');
+ root.userData.geothermal={ventCount:vents.length,particles:count,positions:vents};
+ return t=>{
+  for(let i=0;i<count;i++){
+   const v=vents[Math.floor(i/perVent)],s=seeds[i],q=(t*s.rate+s.phase)%1,spread=.08+q*.25;
+   position.setXYZ(i,v.x+.20*q+Math.sin(q*3.5+s.side)*spread,v.y+.035+q*s.height,v.z+.10*q+Math.cos(q*3+s.side)*spread);
+   fade.setX(i,Math.sin(q*Math.PI)**.8);scale.setX(i,.28+q*.85);
+  }
+  position.needsUpdate=fade.needsUpdate=scale.needsUpdate=true;
+ };
+}
+
 export function buildEtnaNight(scene,lights){
  const {stage,root}=beginNight(scene,lights,buildEtna,'etna_night',{boundaryFires:false});
- deepSky(root,scene);
- lights.hemi.intensity=1.00;lights.sun.intensity=.68;
+ deepSky(root,scene,true);
+ lights.hemi.intensity=.85;lights.sun.intensity=.58;
  lights.hemi.groundColor.set(0x57434a);stage.fighterLight={color:0xc9c2bb,rimColor:0xdd9d72,rim:1.05,level:.60};
- scene.fog=new T.Fog(0x283343,65,330);
- const channel=stoppedWatercourse(root),water=lastWater(root);
+ scene.fog=new T.Fog(0x242e3c,65,330);
+ const channel=stoppedWatercourse(root),water=lastWater(root),steam=geothermalSteam(root);
  root.userData.stories=['옛 돌 물길의 안쪽에 물때만 남았다. 검게 굳은 용암이 아래쪽 길을 틀어막고 있다.','깨진 물항아리와 부러진 운반대. 돌에 샌 마지막 물이 작은 김으로 사라지는데 수문지기는 아직 떠나지 않았다.'];
  root.userData.details={...channel,jars:water.position};
- return animate(stage,root,[water.update]);
+ return animate(stage,root,[water.update,steam]);
 }
 
 function arrow(w,tip,tail){
@@ -106,6 +143,35 @@ function ambush(root){
  w.finish('ambush-arrows-and-scattered-belongings');
  return {arrows:rock,baggage:[x,.6,z]};
 }
+function abandonedSwords(root){
+ // Two blades stand inside the actual arena, two beyond its edge. Visual only:
+ // these traces must not silently change navigation, collision or weapon pickups.
+ const placements=[
+  ['qinggang',4.3,2.8,.25,.10,.5],['uchigatana',-2.7,-5.2,-.18,.22,1.3],
+  ['qinggang',10.8,3.4,-.28,-.12,2.2],['uchigatana',-11.5,-4.2,.12,-.27,.2],
+ ];
+ const swords=new T.Group();swords.name='qinglan-abandoned-swords';root.add(swords);
+ for(const [id,x,z,dx,dz,twist]of placements){
+  const spec=getWeapon(id),g=new T.Group();g.name='buried-'+id;
+  spec.buildParts(LOOKS.player).forEach(([shape,y,,color,isBlade],i)=>{
+   const mesh=spec.partMesh?.(i,isBlade,shape,color??0x888888,{},LOOKS.player,'common')??new T.Mesh(
+    shape[0]==='ball'?new T.SphereGeometry(shape[1],10,8):new T.BoxGeometry(shape[1]*2,shape[2]*2,shape[3]*2),new T.MeshStandardMaterial({color:color??0x888888}));
+   mesh.position.y=y;mesh.visible=color!=null;g.add(mesh);
+  });
+  spec.decorate?.(g,LOOKS.player);
+  // Reuse the live weapon geometry, but give scenery its own worn material. No
+  // shared fighter environment maps/textures enter the stage disposal tree.
+  g.traverse(m=>{if(m.isMesh){
+   const worn=old=>new T.MeshStandardMaterial({color:(old.color?.clone()??new T.Color(0x8e8e87)).lerp(new T.Color(0x666763),.28),vertexColors:old.vertexColors,roughness:.83,metalness:.15,side:T.DoubleSide});
+   m.material=Array.isArray(m.material)?m.material.map(worn):worn(m.material);m.castShadow=true;
+  }});
+  g.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),new T.Vector3(dx,-1,dz).normalize());
+  g.quaternion.multiply(new T.Quaternion().setFromAxisAngle(new T.Vector3(0,1,0),twist));
+  g.position.set(x,.55,z);swords.add(g);
+ }
+ root.userData.abandonedSwords=placements.map(([weapon,x,z])=>({weapon,x,z,insideArena:Math.hypot(x,z)<9.1924}));
+ return [4.3,.4,2.8];
+}
 export function buildQinglanNight(scene,lights){
  const build=(s,l)=>buildQinglan(s,l,{night:true});
  const {stage,root}=beginNight(scene,lights,build,'qinglan_night',{boundaryFires:false});
@@ -113,7 +179,7 @@ export function buildQinglanNight(scene,lights){
  // Retain the immense gorge and river. Moonlit granite stays readable at night.
  scene.fog=new T.Fog(0x1d2e44,100,460);lights.hemi.intensity=.82;lights.sun.intensity=.54;
  stage.sunOffset={x:5,y:13,z:-5};stage.fighterLight={color:0xd0c5be,rimColor:0xb9cdda,rim:1.1,level:.56};
- root.userData.details=ambush(root);
- root.userData.stories=['한 방향에서 날아온 화살이 쉼터의 바위를 박고 있다. 꺾인 화살대 사이로 더는 사람이 지나지 않는다.','운반대와 여행짐이 길가에 버려졌다. 무슨 일이 있었는지는 말하지 않지만, 김씨가 들고 있는 것은 이제 형의 칼이다.'];
+ root.userData.details={...ambush(root),swords:abandonedSwords(root)};
+ root.userData.stories=['한 방향에서 날아온 화살이 쉼터의 바위를 박고 있다. 꺾인 화살대 사이로 더는 사람이 지나지 않는다.','운반대와 여행짐이 길가에 버려졌다. 칼 네 자루가 싸움터와 길가의 땅에 남아 있다. 김씨는 형의 칼에 감긴 천을 풀지 않는다.'];
  return animate(stage,root,[]);
 }

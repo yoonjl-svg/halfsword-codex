@@ -3,8 +3,8 @@ import {chromium} from 'playwright';import fs from 'node:fs';
 const base=process.argv[2]||'http://127.0.0.1:4194',out=process.argv[3]||'/tmp/night-second';
 const only=process.argv.find(a=>a.startsWith('--only='))?.slice(7),before=process.argv.includes('--before');fs.mkdirSync(out,{recursive:true});
 const views={
- etna:[['overview',[-6,4,7],[14,2,-3],58],['channel',[8,4,1],[13.4,1,-3.8],52],['jars',[9.1,3,-3.0],[11.8,2.0,-5.4],44]],
- qinglan:[['overview',[-6,5,10],[25,0,-3],58],['arrows',[8.5,2.8,-10.5],[12.2,.8,-6.4],48],['baggage',[8.6,2.4,8.2],[11.9,.6,4.8],48]]
+ etna:[['overview',[-6,4,7],[14,2,-3],58],['channel',[8,4,1],[13.4,1,-3.8],52],['jars',[9.1,3,-3.0],[11.8,2.0,-5.4],44],['steam',[-9,3,6],[1,1.2,-2],62]],
+ qinglan:[['overview',[-6,5,10],[25,0,-3],58],['arrows',[8.5,2.8,-10.5],[12.2,.8,-6.4],48],['baggage',[8.6,2.4,8.2],[11.9,.6,4.8],48],['swords',[.7,1.9,6.6],[4.3,.35,2.8],45]]
 };
 const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader']});const rows=[];
 try{for(const [id,foe] of [['etna','chanda'],['qinglan','renji']].filter(p=>!only||p[0]===only)){

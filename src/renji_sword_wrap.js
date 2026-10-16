@@ -32,20 +32,64 @@ export function renjiSwordWrapGeometry(){
  return {wrap,cords};
 }
 
+// Held variant: a flattened, closed scabbard under broad overlapping cloth.
+// The original waist prop above remains unchanged.
 export function drawBrothersSword(group){
- const {wrap,cords}=renjiSwordWrapGeometry();
- // Old prop points down. Bake the hand origin and 1.30 length scale into vertices,
- // so the existing break/disposal code sees ordinary, untransformed meshes.
- const add=(pieces,color,name,transform=true)=>{
-  if(transform)for(const geo of pieces){geo.translate(0,-.1,0);geo.rotateZ(Math.PI);geo.scale(1,1.30,1)}
-  const geo=mergeGeometries(pieces);pieces.forEach(g=>g.dispose());
-  const m=new T.Mesh(geo,new T.MeshStandardMaterial({color,roughness:.96,metalness:0}));
-  m.name=name;m.castShadow=true;group.add(m);
+ const profile=[[-1,-.65],[-.82,-1],[.82,-1],[1,-.65],[1,.65],[.82,1],[-.82,1],[-1,.65]];
+ const section=y=>{
+  const t=T.MathUtils.clamp((y-.12)/.81,0,1),end=T.MathUtils.smoothstep(t,.89,1);
+  return {x:-.012*t*t,w:.031-.006*t-.005*end,d:.0108-.0015*t};
  };
- add(wrap,0xd6cfbf,'renji-sword-wrap');add(cords,0x3f362c,'renji-sword-cords');
- // Shallow cloth overlaps, using the same low-poly rings as the existing ties.
- const folds=[];
- for(let i=0;i<13;i++)folds.push(bake(new T.TorusGeometry(.0207-i*.00010,.0011,3,10),[0,-.02-i*.044,0],[Math.PI/2+.23,0,0]));
- add(folds,0xbab2a2,'wrapped-sword-folds');
- add([cyl(.015,.015,.008,8,false,[0,.193,0])],0x9e8558,'wrapped-sword-pommel');
+ const add=(geo,color,name)=>{
+  const m=new T.Mesh(geo,new T.MeshStandardMaterial({color,roughness:.97,metalness:0,side:T.DoubleSide}));
+  m.name=name;m.castShadow=true;group.add(m);return m;
+ };
+ const shell=(levels,shape)=>{
+  const p=[],ix=[];
+  for(const y of levels){const s=shape(y);for(const [x,z]of profile)p.push(s.x+x*s.w,y,z*s.d)}
+  for(let j=0;j<levels.length-1;j++)for(let i=0;i<8;i++){
+   const a=j*8+i,b=j*8+(i+1)%8;ix.push(a,a+8,b,b,a+8,b+8);
+  }
+  for(const [j,flip]of [[0,false],[levels.length-1,true]])for(let i=1;i<7;i++){
+   const a=j*8,b=a+i,c=b+1;ix.push(...(flip?[a,c,b]:[a,b,c]));
+  }
+  const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(p,3));g.setIndex(ix);g.computeVertexNormals();return g;
+ };
+ add(shell([.105,.15,.32,.52,.72,.86,.91,.933],section),0xd6cfbf,'renji-sword-wrap');
+ add(shell([-.13,-.115,-.03,.065,.106],y=>({x:0,w:.0185+.001*Math.cos(y*20),d:.012})),0xd1c8b6,'wrapped-sword-grip');
+ // A cloth-covered oval guard, not the round tsuba of a bamboo practice sword.
+ add(shell([.102,.109,.122],()=>({x:0,w:.042,d:.014})),0xded7c9,'wrapped-sword-collar');
+ // Seven broad, diagonal strips overlap the flat faces and turn around the edges.
+ // Irregular pitch and soft seam tones avoid the evenly spaced dark bamboo rings.
+ const p=[],ix=[],colors=[];
+ for(let k=0;k<7;k++){
+  const start=.145+k*.105+.006*Math.sin(k*2.7),width=.113+.012*Math.cos(k*1.9),first=p.length/3;
+  for(let i=0;i<=8;i++)for(const side of [0,1]){
+   const [x,z]=profile[i%8],y=T.MathUtils.clamp(start+i/8*.055+(side-.5)*width,.127,.931),s=section(y);
+   p.push(s.x+x*(s.w+.0008),y,z*(s.d+.0011));
+   const c=.965+.025*Math.sin(k*1.8)+(side?-.018:.006);colors.push(c,c,c);
+  }
+  for(let i=0;i<8;i++){const a=first+i*2;ix.push(a,a+1,a+2,a+1,a+3,a+2)}
+ }
+ const strips=new T.BufferGeometry();strips.setAttribute('position',new T.Float32BufferAttribute(p,3));strips.setAttribute('color',new T.Float32BufferAttribute(colors,3));strips.setIndex(ix);strips.computeVertexNormals();
+ add(strips,0xe2dbce,'wrapped-sword-overlapping-cloth').material.vertexColors=true;
+ const seams=[],seamIndex=[];
+ for(let k=0;k<7;k++)for(const face of [-1,1]){
+  const mid=.19+k*.104+.008*Math.sin(k*2.7),first=seams.length/3;
+  for(const [edge,offset]of [[-1,-.002],[-1,.002],[1,-.002],[1,.002]]){
+   const y=mid+edge*(.022+.005*Math.sin(k))+offset,s=section(y);
+   seams.push(s.x+edge*s.w*.86,y,face*(s.d+.0018));
+  }
+  seamIndex.push(first,first+1,first+2,first+1,first+3,first+2);
+ }
+ const crease=new T.BufferGeometry();crease.setAttribute('position',new T.Float32BufferAttribute(seams,3));crease.setIndex(seamIndex);crease.computeVertexNormals();
+ add(crease,0xa99f8e,'wrapped-sword-soft-creases');
+ // A small tucked corner and two uneven grip ties; no repeated shaft hoops.
+ const flap=new T.BufferGeometry();flap.setAttribute('position',new T.Float32BufferAttribute([.029,.78,.012,.048,.752,.014,.036,.715,.018,.026,.744,.013],3));flap.setIndex([0,1,2,0,2,3]);flap.computeVertexNormals();
+ add(flap,0xdcd4c5,'wrapped-sword-tucked-corner');
+ const ties=[];
+ for(const y of [-.075,.035]){
+  const geo=bake(new T.TorusGeometry(.0195,.0018,4,12),[0,y,0],[Math.PI/2+.16,0,0]);geo.scale(1,1,.67);ties.push(geo);
+ }
+ const knots=mergeGeometries(ties);ties.forEach(g=>g.dispose());add(knots,0xa49a87,'wrapped-sword-grip-ties');
 }

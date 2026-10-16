@@ -23,22 +23,30 @@ const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['-
 try{
  report.runtime=[];
  for(const [id,foe,weapon] of [['etna_night','chanda_mad','moye'],['qinglan_night','renji_mad','brothers_sword']]){
-  const page=await browser.newPage();page.on('pageerror',e=>report.errors.push(String(e)));
+  const page=await browser.newPage();page.on('pageerror',e=>report.errors.push(String(e)));page.on('console',m=>{if(m.type()==='error')report.errors.push(m.text())});
   await page.clock.install({time:new Date('2026-10-16T18:00:00Z')});await page.clock.pauseAt(new Date('2026-10-16T18:00:01Z'));
   await page.goto(`${base}/?stage=${id}&foe=${foe}&weapon=longsword&foeWeapon=${weapon}&emo=0`,{waitUntil:'networkidle'});
   await page.evaluate(()=>{game.renderCap.tick=()=>false;document.getElementById('btnStart').click()});
   for(let i=0;i<150&&await page.evaluate(()=>game.state!=='fight');i++)await page.clock.runFor(16);
+  const steamBefore=await page.evaluate(()=>Array.from(game.scene.getObjectByName('etna-geothermal-steam')?.geometry.attributes.position.array??[]));
   await page.evaluate(()=>{window.detailEvents=[];const original=game.sound.stageEvent.bind(game.sound);game.sound.stageEvent=(name,data)=>{if(name==='stageDetail')detailEvents.push(data.kind);return original(name,data)}});
   await page.clock.runFor(14000);
   const data=await page.evaluate(()=>{
    const f=game.enemy,r=game.scene.children.find(o=>o.name===game.stage.id+'-story');
-   const detailNames=['chanda-cracked-half-mask','renji-loose-long-hair'];
-   return {stage:game.stage.id,state:game.state,weapon:f.weapon.id,terrain:game.terrain?.id??null,enemyTerrain:f.terrain?.id??null,sound:game.sound.stage,stories:r.userData.stories,hour:r.userData.hour,details:detailNames.filter(n=>Object.values(f.groups).some(g=>g.getObjectByName(n))),headArmor:f.helmetType,position:{...f.bodies.pelvis.translation()},events:detailEvents,colliders:game.world.colliders.len(),alive:f.alive};
+   const detailNames=['chanda-white-face-veil','renji-loose-long-hair'];
+   return {stage:game.stage.id,state:game.state,weapon:f.weapon.id,terrain:game.terrain?.id??null,enemyTerrain:f.terrain?.id??null,sound:game.sound.stage,stories:r.userData.stories,hour:r.userData.hour,details:detailNames.filter(n=>Object.values(f.groups).some(g=>g.getObjectByName(n))),headArmor:f.helmetType,position:{...f.bodies.pelvis.translation()},events:detailEvents,colliders:game.world.colliders.len(),alive:f.alive,geothermal:r.userData.geothermal,abandonedSwords:r.userData.abandonedSwords};
   });
   assert.equal(data.weapon,weapon);assert.equal(data.sound,id);assert.equal(data.hour,3);assert.ok(data.stories.length>=2);
   assert.ok(Object.values(data.position).every(Number.isFinite));
-  if(id==='etna_night'){assert.equal(data.terrain,'etna');assert.equal(data.enemyTerrain,'etna');assert.ok(data.events.includes('etnaCrust'));assert.ok(data.details.includes('chanda-cracked-half-mask'));assert.equal(data.headArmor,null)}
-  else{assert.equal(data.terrain,null);assert.ok(!data.events.includes('cliffBird'));assert.ok(data.events.includes('springDrip'));assert.ok(data.details.includes('renji-loose-long-hair'));assert.equal(data.headArmor,'kasa')}
+  if(id==='etna_night'){
+   assert.equal(data.terrain,'etna');assert.equal(data.enemyTerrain,'etna');assert.ok(data.events.includes('etnaCrust'));assert.ok(data.details.includes('chanda-white-face-veil'));assert.equal(data.headArmor,null);
+   assert.equal(data.geothermal.ventCount,12);assert.equal(data.geothermal.particles,120);
+   const steamAfter=await page.evaluate(()=>Array.from(game.scene.getObjectByName('etna-geothermal-steam').geometry.attributes.position.array));
+   assert.ok(steamAfter.every(Number.isFinite));assert.notDeepEqual(steamAfter,steamBefore);data.steamAnimated=true;assert.equal(data.colliders,70);
+  }else{
+   assert.equal(data.terrain,null);assert.ok(!data.events.includes('cliffBird'));assert.ok(data.events.includes('springDrip'));assert.ok(data.details.includes('renji-loose-long-hair'));assert.equal(data.headArmor,'kasa');
+   assert.equal(data.abandonedSwords.length,4);assert.equal(data.abandonedSwords.filter(s=>s.insideArena).length,2);assert.equal(data.colliders,68);
+  }
   report.runtime.push(data);await page.close();
  }
  const page=await browser.newPage();await page.goto(source+'/night-encounters-4.html');

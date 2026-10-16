@@ -8,23 +8,28 @@ function mesh(parent,geo,color,name){
 }
 export function decorateFifthAlter(g,look,part){
  if(look.alter==='chanda'&&part==='head'){
-  const mask=new T.Group();mask.name='chanda-cracked-half-mask';g.add(mask);
-  const n=10,rows=8,p=[],ix=[];
-  // Fired-clay cheek/chin shell; leave both eyes and the nose readable.
+  const veil=new T.Group();veil.name='chanda-white-face-veil';g.add(veil);
+  const n=18,rows=14,p=[],ix=[],colors=[];
+  // A single thin cloth sheet, tied under the eyes, hanging below the chin.
+  // Half-length drop, half-depth folds and fine ties: light cloth rather than a shell.
   for(let j=0;j<=rows;j++)for(let i=0;i<=n;i++){
-   const u=i/n,v=j/rows,z=-.107+u*.105,y=-.018-v*.09+.018*Math.sin(u*Math.PI);
-   const x=Math.sqrt(Math.max(.001,.116**2-z*z-y*y*.50))+.005;
+   const u=i/n,v=j/rows,a=u*2-1;
+   const z=a*(.102-.020*Math.sin(v*Math.PI*.75));
+   const y=.008-.16*v-.007*(1-a*a)+v**5*(.009*a*a+.0045*Math.sin(u*9+.3));
+   const fold=Math.sin(u*Math.PI*6+.35)*(.00075+.005*v*v);
+   const x=.088+.055*(1-a*a)+.013*v+.0045*Math.sin(v*Math.PI)+fold;
    p.push(x,y,z);
+   const shade=.94+.045*Math.cos(u*Math.PI*6+.35);colors.push(shade,shade,shade);
    if(i<n&&j<rows){const k=j*(n+1)+i;ix.push(k,k+1,k+n+1,k+1,k+n+2,k+n+1)}
   }
-  const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(p,3));geo.setIndex(ix);geo.computeVertexNormals();
-  mesh(mask,geo,0x292b2b,'chanda-black-clay-mask');
-  for(const pts of [[[-.075,-.025],[-.062,-.048],[-.073,-.065],[-.054,-.093]],[[-.062,-.048],[-.035,-.055],[-.027,-.071]]]){
-   const v=pts.map(([z,y])=>new T.Vector3(Math.sqrt(Math.max(.001,.116**2-z*z-y*y*.50))+.0065,y,z));
-   mesh(mask,new T.TubeGeometry(new T.CatmullRomCurve3(v),12,.0014,4,false),0xb2a99a,'mask-clay-fracture');
+  const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(p,3));geo.setAttribute('color',new T.Float32BufferAttribute(colors,3));geo.setIndex(ix);geo.computeVertexNormals();
+  const cloth=mesh(veil,geo,0xf1ece1,'chanda-hanging-white-cloth');
+  Object.assign(cloth.material,{roughness:1,vertexColors:true,transparent:true,opacity:.90,depthWrite:false});cloth.castShadow=false;
+  const tie=new T.CatmullRomCurve3([[.092,.008,-.101],[.015,.017,-.116],[-.095,.022,-.072],[-.119,.022,.015],[-.072,.02,.095],[.018,.016,.116],[.092,.008,.101]].map(v=>new T.Vector3(...v)));
+  mesh(veil,new T.TubeGeometry(tie,32,.00115,4,false),0xd4ccbc,'veil-head-tie');
+  for(const pts of [[[-.117,.022,.014],[-.125,.002,.03],[-.122,-.079,.033]],[[-.117,.022,.014],[-.127,-.008,.006],[-.125,-.10,-.008]]]){
+   mesh(veil,new T.TubeGeometry(new T.CatmullRomCurve3(pts.map(v=>new T.Vector3(...v))),8,.0012,4,false),0xd4ccbc,'veil-tie-tail');
   }
-  const cord=new T.CylinderGeometry(.113,.113,.006,24,1,true);cord.translate(0,-.022,0);
-  mesh(mask,cord,0x403c34,'mask-tie');
  }
  if(look.alter==='renji'&&part==='head'){
   // Keep the original bangs and hat; longer uneven locks emerge below the brim.
