@@ -74,7 +74,7 @@ function crawlMap(){
  });
 }
 export function addDayrBlood(scene,root){
- const group=new T.Group();group.name='dayr-blood-aftermath';group.userData={visualOnly:true,pools:4,poolRuns:1,crawlTrails:1,floorSprays:2,wallSprays:2};root.add(group);
+ const group=new T.Group();group.name='dayr-blood-aftermath';group.userData={visualOnly:true,pools:3,poolRuns:1,crawlTrails:1,floorSprays:2,wallSprays:2};root.add(group);
  const floor=scene.getObjectByName('dayr-floor'),wall=scene.getObjectByName('dayr-brick');scene.updateMatrixWorld(true);
  const groundSpray=sprayMap(172230),wallSpray=sprayMap(172231,true);
  function decal(surface,name,p,rot,size,map,roughness){
@@ -92,8 +92,7 @@ export function addDayrBlood(scene,root){
  // the real bricks, so they cannot hang across the arch openings or float.
  decal(wall,'dayr-wall-blood-spray-0',[6.27,1.10,-17.97],[0,0,-.12],[1.22,1.58,.18],wallSpray,.85);
  decal(wall,'dayr-wall-blood-spray-1',[10.35,.95,-17.97],[0,0,.24],[1.04,1.32,.18],wallSpray,.85);
- const {seated,prone}=DAYR_FAR_SIDE;
- decal(floor,'dayr-blood-pool-2',[seated.position[0],.012,seated.position[2]-.10],[-Math.PI/2,0,.10],[.96,.68,.12],poolMap(172212),.52);
+ const {prone}=DAYR_FAR_SIDE;
  decal(floor,'dayr-blood-pool-3',[prone.position[0],.012,prone.position[2]],[-Math.PI/2,0,prone.yaw],[1.10,1.25,.12],poolMap(172213),.52);
  const drag=new T.Vector3(0,0,1.8).applyAxisAngle(new T.Vector3(0,1,0),prone.yaw).add(new T.Vector3(...prone.position));
  decal(floor,'dayr-blood-crawl-trail',[drag.x,.012,drag.z],[-Math.PI/2,0,prone.yaw],[1.05,4.2,.12],crawlMap(),.64);

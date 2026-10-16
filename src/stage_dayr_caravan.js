@@ -157,6 +157,6 @@ export function addDayrCaravan(root){
  addDayrFarSide(area);
  for(const [i,p] of [[0,[23.7,-.055,2.3]],[1,[13.4,0,-9.05]],[2,[8.0,.50,-17.72]]])steps.push(lantern(area,p,i));
  DAYR_FAR_SIDE.lanterns.forEach((p,i)=>steps.push(lantern(area,p,i+3)));
- area.userData={visualOnly:true,camels:3,fallen:4,seated:1,unidentified:1,concealedDaggers:3,royalSeal:'fictional-sun'};
+ area.userData={visualOnly:true,camels:3,fallen:3,unidentified:1,concealedDaggers:3,royalSeal:'fictional-sun'};
  return steps;
 }

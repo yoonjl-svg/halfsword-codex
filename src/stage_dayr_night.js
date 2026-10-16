@@ -46,8 +46,8 @@ export function buildDayrNight(scene,lights){
  const caravan=addDayrCaravan(root),fire=lamps(root);
  addDayrBlood(scene,root);
  root.userData.stories=['문루 앞에는 짐을 실은 낙타들이 기다린다. 우물 곁에는 풀어놓은 안장과 물통이 남아 있다.',
-  '상인의 천 아래 같은 단검들이 숨겨져 있다. 모의하던 방과 우물, 맞은편 구석과 바닥에 네 사람이 죽어 있다. 상인인지 암살자인지 알 수 없는 여행복의 인물 뒤로, 기어서 벗어나려 한 듯한 핏자국이 끊긴다.'];
- root.userData.details={caravan:[25.8,1.1,.1],conspiracy:[8.32,.5,-17.5],aftermath:[8,.2,-14.95],well:[13.5,.7,-11.4],seated:[-15.9,.6,17.7],crawl:[-9.2,.2,14]};
+  '상인의 천 아래 같은 단검들이 숨겨져 있다. 모의하던 방과 우물, 맞은편 바닥에 세 사람이 죽어 있다. 상인인지 암살자인지 알 수 없는 여행복의 인물 뒤로, 기어서 벗어나려 한 듯한 핏자국이 끊긴다.'];
+ root.userData.details={caravan:[25.8,1.1,.1],conspiracy:[8.32,.5,-17.5],aftermath:[8,.2,-14.95],well:[13.5,.7,-11.4],crawl:[-9.2,.2,14]};
  root.userData.addedColliders=0;root.userData.lamps=8;
  return animate(stage,root,[...caravan,fire]);
 }

@@ -10,7 +10,6 @@ const views={dayr:[
  ['threshold',[11.3,2.3,2.8],[25.5,1.0,0],48],
  ['well',[7,3.2,-6.1],[12.7,.8,-11.3],51],
  ['far-side',[-3.2,3.2,6.4],[-12,.7,16.3],55],
- ['seated',[-13.1,1.8,13.5],[-15.8,.60,17.5],43],
  ['crawl',[-4.2,3.1,9.9],[-8.25,.15,13.55],48]
 ]};
 const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader']});const rows=[];
