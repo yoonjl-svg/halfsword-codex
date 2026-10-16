@@ -29,10 +29,10 @@ try{for(const [stage,foe] of pairs){
     // Stay in front of the central statue; both versions use the same camera.
     g.camera.position.set(v.x+f.x*2.35,1.25,v.z+f.z*2.35);g.camera.lookAt(v.x,1.02,v.z);g.camera.fov=55;g.camera.updateProjectionMatrix();
    }
-   if(view==='hair'||view==='waist'){
-    const p=g.enemy.bodies[view==='hair'?'head':'abdomen'].translation();
-    f.applyAxisAngle(new T.Vector3(0,1,0),view==='hair'?2.3:.25);
-    const d=view==='hair'?2.2:1.65,y=p.y+(view==='hair'?-.17:-.04);
+   if(view==='hair'||view==='waist'||view==='knot'){
+    const p=g.enemy.bodies[view==='waist'?'abdomen':'head'].translation();
+    f.applyAxisAngle(new T.Vector3(0,1,0),view==='knot'?-2.45:view==='hair'?2.3:.25);
+    const d=view==='knot'?1.4:view==='hair'?2.2:1.65,y=p.y+(view==='knot'?-.02:view==='hair'?-.17:-.04);
     g.camera.position.set(p.x+f.x*d,y+.03,p.z+f.z*d);g.camera.lookAt(p.x,y,p.z);
     g.camera.fov=view==='hair'?30:29;g.camera.updateProjectionMatrix();
    }

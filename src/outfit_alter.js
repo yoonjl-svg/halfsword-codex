@@ -2,7 +2,7 @@
 // No body, collider, armor coverage or AI changes.
 import * as THREE from 'three';
 import { addGuildEmbroidery } from './outfit_guild_badge.js';
-import { addShoulderIguana, addGroveBranch, addCosmeticKettle } from './outfit_alter_fourth.js';
+import { addShoulderIguana, addGroveBranch, addCosmeticKettle, addRatnaHeadscarf } from './outfit_alter_fourth.js';
 
 export function alterLook(base, kind) {
   const look={...base,alter:kind};
@@ -100,6 +100,7 @@ export function decorateAlter(g,look,part) {
     }
   }
   if(part!=='head')return;
+  if(look.alter==='ratna')addRatnaHeadscarf(g);
   if(look.alter==='bran')addCosmeticKettle(g);
   if(look.alter==='minami')addGroveBranch(g);
   if(look.alter==='eira'){
