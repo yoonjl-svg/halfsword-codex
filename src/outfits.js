@@ -872,7 +872,10 @@ const MARGARETHE_DRAGON_HORNED = {
       [0.118, 0.016, 0],
     );
     helmPiece(helm, 'hornR', [taperedTube(MG3_HORN_R, MG3_HORN_RADII, 10, 6)], MG_PLATE, MG3_PLATE, MG3_HORN_R[0]);
-    helmPiece(helm, 'hornL', [taperedTube(mirrorZ(MG3_HORN_R), MG3_HORN_RADII, 10, 6)], MG_PLATE, MG3_PLATE, mirrorZ(MG3_HORN_R)[0]);
+    const brokenHorn = look.alter === 'margarethe';
+    // Cosmetic break only: retain the helmet piece, wear stages and armor coverage.
+    const leftHorn = mirrorZ(MG3_HORN_R).slice(0, brokenHorn ? 2 : 4);
+    helmPiece(helm, 'hornL', [taperedTube(leftHorn, brokenHorn ? [0.025, 0.018] : MG3_HORN_RADII, 10, 6)], MG_PLATE, MG3_PLATE, leftHorn[0]);
     // 첨탑 끝의 술 뭉치 + 뒤로 흘러내리는 굵은 술. 양옆 두 가닥이 폭을 더해 뒤에서 봐도 갈고리가
     // 아니라 술 다발로 읽히고, 끝으로 갈수록 가운데로 모인다
     const side = (s) => MG3_PLUME.map(([x, y], i) => [x * 0.94, y - 0.01, s * 0.03 * (1 - 0.6 * (i / (MG3_PLUME.length - 1)))]);

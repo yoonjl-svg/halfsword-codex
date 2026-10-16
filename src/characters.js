@@ -665,12 +665,12 @@ export const CHARACTER_VARIANTS = [
     eyes: 'madGlow', // 외형 담당과 맞춘 표식: 붉은 눈 + 안광 아우라
   },
   // Visual previews: the original proficiency, persona and combat stats are unchanged.
-  ...['eira', 'liao'].map((id) => {
+  ...['eira', 'liao', 'margarethe', 'isolde'].map((id) => {
     const base = CHARACTERS.find((c) => c.id === id);
     return { ...base, id: `${id}_mad`, variantOf: id, mad: true, appearanceOnly: true,
       name: `광기의 ${base.name}`, ai: JSON.parse(JSON.stringify(base.ai)),
       look: alterLook(base.look, id), lookVersion: `${base.lookVersion}-alter1`,
-      eyes: id === 'eira' ? 'madGlow' : 'clothGlow',
+      eyes: id === 'liao' ? 'clothGlow' : 'madGlow',
     };
   }),
 ];

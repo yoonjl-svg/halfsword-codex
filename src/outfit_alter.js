@@ -13,6 +13,15 @@ export function alterLook(base, kind) {
     look.outfitPalette={0x3a5f9e:0xb88745,0x27447a:0x76512e,0x33558f:0x936e3f,0x1e2a44:0x4a3528};
     look.blindfold=true;
   }
+  if(kind==='margarethe') {
+    look.outfitPalette={0x2c2c32:0xd9d1b9,0x1c1c20:0x948b77,0x8d939b:0xf1e5c9,
+      0x1b1b20:0xc7bfae,0x131316:0x8d8377,0x1e1e22:0xb7ab98,0x24242a:0x9d9285};
+  }
+  if(kind==='isolde') {
+    look.outfitPalette={0xe6ded0:0x684274,0xd8cdb8:0x4a3155,0x33363f:0xc4b79f,
+      0x2b2e36:0xc4b79f,0x4a4d57:0x9d8661};
+    look.outfit='isolde_saber'; // Remove the three long-hair sections; add the cropped head below.
+  }
   // Base garments and added outfit parts share the same palette substitution.
   for(const key of ['tunic','quilt','sleeve','hoseUpper','hoseLower','belt','metal'])
     if(look.outfitPalette?.[look[key]]!=null)look[key]=look.outfitPalette[look[key]];
@@ -22,13 +31,26 @@ export function alterLook(base, kind) {
 export function decorateAlter(g,look,part) {
   if(!look.alter)return;
   const seen=new Set();
-  g.traverse(o=>{for(const m of Array.isArray(o.material)?o.material:[o.material]){
+  g.traverse(o=>{
+    // Helmet wear restores its saved base color; save the altered palette there too.
+    const wearColor=look.outfitPalette?.[o.userData.base?.color];
+    if(wearColor!=null)o.userData.base={...o.userData.base,color:wearColor};
+    for(const m of Array.isArray(o.material)?o.material:[o.material]){
     if(!m?.color||seen.has(m))continue;seen.add(m);
     const c=look.outfitPalette?.[m.color.getHex()];if(c!=null)m.color.setHex(c);
   }});
   if(part!=='head')return;
   const mat=(color)=>new THREE.MeshStandardMaterial({color,roughness:.92,metalness:0,side:THREE.DoubleSide});
   const add=(parent,geo,m,pos)=>{const x=new THREE.Mesh(geo,m);if(pos)x.position.set(...pos);x.castShadow=true;parent.add(x);return x};
+  if(look.alter==='isolde'){
+    const hair=new THREE.Group();hair.name='alter-cropped-hair';g.add(hair);
+    const black=mat(look.hair);
+    add(hair,new THREE.BoxGeometry(.052,.14,.18),black,[-.087,-.025,0]);
+    for(const s of [-1,1])for(let i=0;i<3;i++){
+      const lock=add(hair,new THREE.BoxGeometry(.038,.105+i*.012,.023),black,[-.052+i*.039,-.035-i*.006,s*.094]);
+      lock.rotation.x=s*(.08+i*.03);
+    }
+  }
   if(look.alter==='eira'){
     const hood=new THREE.Group();hood.name='alter-deep-hood';g.add(hood);
     const cloth=mat(0x68394f),lining=mat(0x30212d),edge=mat(0x9a6b7b);
