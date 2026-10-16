@@ -95,7 +95,7 @@ export function attachMadEyes(fighter, on, { veiled = false } = {}) {
       m.name='veiled-eye-glow';m.position.set(.124,.016,z);m.rotation.y=Math.PI/2;m.renderOrder=3;head.add(m);patches.push(m);
     }
     let died=-1;
-    return {update(t){if(fighter.state==='dead'&&died<0)died=t;const life=died<0?1:Math.max(0,1-(t-died)/DIE_T);patches.forEach((m,i)=>{m.material.opacity=.24*flicker(t,i*1.7)*life})},
+    return {update(t){if(fighter.state==='dead'&&died<0)died=t;const life=died<0?1:Math.max(0,1-(t-died)/DIE_T);patches.forEach((m,i)=>{m.material.opacity=.44*flicker(t,i*1.7)*life})},
       dispose(){for(const m of patches){head.remove(m);m.geometry.dispose();m.material.dispose()}}};
   }
 
