@@ -41,8 +41,8 @@ try{
   if(stage.endsWith('_night')){
    assert.equal(actual.story.hour,3);assert.equal(actual.story.addedColliders,0);
    assert.equal(actual.face.opacity,.88);assert.equal(actual.cloak.thickness,0);assert.ok(actual.oldPropsAbsent);
-   assert.equal(actual.ghosts.count,20);assert.deepEqual(actual.ghosts.factions,['yue','wu']);assert.equal(actual.ghosts.duelPairs,8);assert.equal(actual.ghosts.walkers,4);
-   assert.equal(actual.ghosts.draws,30);assert.equal(actual.ghosts.colliders,0);
+   assert.equal(actual.ghosts.count,20);assert.deepEqual(actual.ghosts.factions,['yue','wu']);assert.equal(actual.ghosts.duelPairs,8);assert.equal(actual.ghosts.walkers,4);assert.equal(actual.ghosts.marchingSpears,3);assert.equal(actual.ghosts.marchingBanners,1);
+   assert.equal(actual.ghosts.draws,33);assert.equal(actual.ghosts.colliders,0);
    const t0=await p.evaluate(()=>{document.getElementById('btnPause').click();return game.scene.getObjectByName('yue-apparitions').userData.time});
    await p.clock.runFor(2000);
    const t1=await p.evaluate(()=>game.scene.getObjectByName('yue-apparitions').userData.time);assert.equal(t0,t1);

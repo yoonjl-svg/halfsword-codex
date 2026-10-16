@@ -9,7 +9,8 @@ const views={dunhuang:[
  ['west',[-1.5,2.0,0],[-14,1,0],65],
  ['north',[0,2.0,1.5],[0,1,14],65],
  ['south',[0,2.0,-1.5],[0,1,-14],65],
- ['battlefield',[-20,23,-24],[0,0,0],66]
+ ['battlefield',[-20,23,-24],[0,0,0],66],
+ ['standard',[-8,2.3,-9],[-8.6,1.5,-15.2],46]
 ]};
 const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader']});const rows=[];
 try{for(const [id,foe] of [['dunhuang','terracotta']].filter(p=>!only||p[0]===only)){

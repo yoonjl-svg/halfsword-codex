@@ -1,4 +1,4 @@
-// Wu / Yue war memories, never Fighters: 20 apparitions in 30 instanced draws.
+// Wu / Yue war memories, never Fighters: 20 apparitions; distinct marching spears and one wind-blown standard.
 // Native 1.75m proportions / clay-guard silhouette, simplified armor at distance.
 import * as T from 'three';
 import {Kit} from './stage_kit.js';
@@ -44,6 +44,26 @@ function templates(wu=false){
  const blade=new T.ExtrudeGeometry(shape,{depth:.012,bevelEnabled:false});blade.translate(0,0,-.006);put(blade,0xcbd7c0);
  box([.12,.026,.04],edge,[0,.025,0]);put(new T.CylinderGeometry(.017,.019,.14,8),cloth,[0,-.065,0]);
  put(new T.CylinderGeometry(.036,.036,.022,10),plate,[0,-.145,0]);
+ bone='spear';
+ // Marchers carry real silhouettes: slender shaft, long bronze spear point.
+ put(new T.CylinderGeometry(.013,.016,2.18,8),edge,[0,.24,0]);
+ const spearPoint=new T.Shape();spearPoint.moveTo(-.04,1.30);spearPoint.lineTo(-.035,1.48);spearPoint.lineTo(0,1.66);spearPoint.lineTo(.035,1.48);spearPoint.lineTo(.04,1.30);spearPoint.closePath();
+ const spearGeo=new T.ExtrudeGeometry(spearPoint,{depth:.012,bevelEnabled:false});spearGeo.translate(0,0,-.006);put(spearGeo,plate);
+ put(new T.CylinderGeometry(.023,.023,.09,8),plate,[0,1.30,0]);
+ if(!wu){
+  bone='banner';
+  // One narrow field standard on a Yue spear. The marks are fictional bands,
+  // not a purported ancient character or an archaeological reconstruction.
+  const bannerColor=0x94aaa0,trim=0xc2cbb3,nx=12,ny=8,pos=[],colors=[];
+  const point=(u,v)=>[-u*.62,.62+(1-v)*.65+.07*u*u*Math.sin(v*7),0];
+  for(let y=0;y<ny;y++)for(let x=0;x<nx;x++){
+   const corners=[[x/nx,y/ny],[(x+1)/nx,y/ny],[x/nx,(y+1)/ny],[(x+1)/nx,(y+1)/ny]];
+   const c=(x===nx-1||y===0||y===ny-1||(x===4&&y>1&&y<6))?trim:bannerColor;
+   for(const index of [0,1,2,1,3,2]){pos.push(...point(...corners[index]));const color=new T.Color(c);colors.push(color.r,color.g,color.b)}
+  }
+  const clothGeo=new T.BufferGeometry();clothGeo.setAttribute('position',new T.Float32BufferAttribute(pos,3));clothGeo.setAttribute('color',new T.Float32BufferAttribute(colors,3));clothGeo.computeVertexNormals();
+  const panel=kit.put(bone,clothGeo,bannerColor);panel.setAttribute('color',new T.Float32BufferAttribute(colors,3));clothGeo.dispose();
+ }
  const result={};
  for(const id of Object.keys(kit.bins)){
   const unused=new T.MeshBasicMaterial(),mesh=kit.mesh(id,unused);unused.dispose();
@@ -81,15 +101,17 @@ export function addYueApparitions(root){
   const m=new T.InstancedMesh(g,mat,COUNT/2);m.name=(camp?'wu':'yue')+'-ghost-'+id;m.frustumCulled=false;m.castShadow=false;m.receiveShadow=false;
   m.instanceMatrix.setUsage(T.DynamicDrawUsage);group.add(m);meshes[camp][id]=m;
  }
- const actors=Array.from({length:COUNT},(_,i)=>({id:i,faction:i%2?'wu':'yue',kind:i<DUEL_COUNT?'duel':'walk',position:[0,0,0],opacity:1}));
- group.userData={actors,count:COUNT,duelPairs:8,walkers:4,factions:['yue','wu'],draws:group.children.length,triangles,colliders:0,clock:'stage time; pause-aware',visualOnly:true};
+ const actors=Array.from({length:COUNT},(_,i)=>({id:i,faction:i%2?'wu':'yue',kind:i<DUEL_COUNT?'duel':'walk',equipment:i<DUEL_COUNT?'sword':i===18?'spear-banner':i<19?'spear':'sword',position:[0,0,0],opacity:1}));
+ group.userData={actors,count:COUNT,duelPairs:8,walkers:4,factions:['yue','wu'],marchingSpears:3,marchingBanners:1,draws:group.children.length,triangles,colliders:0,clock:'stage time; pause-aware',visualOnly:true};
  const world=new T.Matrix4(),part=new T.Matrix4(),q=new T.Quaternion(),identity=new T.Quaternion(),scale=V(1,1,1),rot=new T.Euler();
+ const hidden=new T.Matrix4().makeScale(0,0,0);
+ const hide=(id,i)=>meshes[i%2][id]?.setMatrixAt(Math.floor(i/2),hidden);
  const place=(id,i,p,rotation)=>{part.compose(p,rotation??identity,scale);part.premultiply(world);meshes[i%2][id].setMatrixAt(Math.floor(i/2),part)};
  const segment=(id,i,a,b)=>{q.setFromUnitVectors(UP,a.clone().sub(b).normalize());place(id,i,a.clone().add(b).multiplyScalar(.5),q)};
  const poses=(i,t,walking,phase)=>{
   const u=(phase%1+1)%1;
   let hand=[.36,1.22,.22],tip=[.76,1.77,-.10],step=0,lean=0;
-  if(walking){hand=[.08+Math.sin(t*2.7+i)*.035,1.06,.25];tip=[.31,.48,.25];}
+  if(walking){hand=[.08+Math.sin(t*2.7+i)*.035,1.06,.25];tip=i<19?[.03,2.60,.25]:[.31,.48,.25];}
   else{
    const ready=[.06,1.65,.23],raised=[-.23,2.27,.16],hit=[.54,1.24,-.04],end=[1.24,1.16,-.08];
    const cross=[.38,1.22,.30],crossTip=[.95,1.42,.48];
@@ -120,17 +142,27 @@ export function addYueApparitions(root){
    wrist.y+=bob;const elbow=joint(shoulder,wrist,.30,.28,V(0,-1,side*.5));
    segment(upper,i,shoulder,elbow);segment(lower,i,elbow,wrist);
   }
-  q.setFromUnitVectors(UP,V(...tip).sub(V(...hand)).normalize());place('sword',i,V(...hand).add(V(0,bob,0)),q);
+  q.setFromUnitVectors(UP,V(...tip).sub(V(...hand)).normalize());
+  const held=V(...hand).add(V(0,bob,0));
+  if(walking&&i<19){hide('sword',i);place('spear',i,held,q)}
+  else{place('sword',i,held,q);hide('spear',i)}
+  if(i===18)place('banner',i,held,q);else hide('banner',i);
  };
  // Surround the whole duel field, leaving the 10.5m camera/combat buffer clear.
  const centers=[
   [13.2,-4.3,Math.PI/2],[13.0,9.0,2.5],[4.2,13.6,.35],[-7.6,12.4,-.65],
   [-13.2,3.0,Math.PI/2],[-12.4,-7.2,.10],[-2.8,-13.7,-.30],[7.4,-12.1,.75]
  ];
+ const banner=meshes[0].banner.geometry,bannerBase=banner.attributes.position.array.slice();meshes[0].banner.material=mat.clone();meshes[0].banner.material.side=T.DoubleSide;meshes[0].banner.material.onBeforeCompile=mat.onBeforeCompile;meshes[0].banner.material.customProgramCacheKey=mat.customProgramCacheKey;
  let previous=-Infinity;
  const update=t=>{
   if(t>=previous&&t-previous<1/30)return;previous=t;
   time.value=t;
+  const bp=banner.attributes.position;
+  for(let i=0;i<bp.count;i++){
+   const x=bannerBase[i*3],y=bannerBase[i*3+1],u=-x/.62;
+   bp.setZ(i,.045*u*Math.sin(t*3.2-u*5+y*2)+.015*u*u*Math.sin(t*5-u*3));
+  }bp.needsUpdate=true;
   for(let i=0;i<COUNT;i++){
    let x,z,angle,phase,fade;
    if(i<DUEL_COUNT){
@@ -142,7 +174,7 @@ export function addYueApparitions(root){
     x=cx+Math.cos(a)*distance*side;z=cz+Math.sin(a)*distance*side;angle=-a+(side>0?Math.PI:0);
     fade=.80+.16*Math.sin(t*.30+pair*1.8);
    }else{
-    const wu=i%2===1,lane=Math.floor((i-DUEL_COUNT)/2),p=((t*.018+(wu?.5:0))%1+1)%1;
+    const wu=i%2===1,lane=Math.floor((i-DUEL_COUNT)/2),p=((t*.018+(wu?.5:0)+lane*.23)%1+1)%1;
     const along=(wu?1:-1)*(20-p*40);
     if(lane===0){x=14.9+.15*Math.sin(p*6.28+i);z=along;angle=wu?Math.PI/2:-Math.PI/2;}
     else{x=along;z=-15.2+.15*Math.sin(p*6.28+i);angle=wu?Math.PI:0;}
