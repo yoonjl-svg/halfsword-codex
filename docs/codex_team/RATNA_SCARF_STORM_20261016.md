@@ -31,3 +31,5 @@
 ## 6. 운영과 전달
 
 우리 포크에서만 수정·배포한다. 소개4페이지×휴대폰 세로/가로8조건에서 사진·영상·3소리 디코딩, 넘침 없음/대련 링크 검사 통과. [브라우저](ratna_scarf_storm_20261016_checks/browser.json) · [시계/파형](ratna_scarf_storm_20261016_checks/storm.json) · [전달](ratna_scarf_storm_20261016_checks/delivery.json). 개발일지 원고 저장과23:30 KST 정기 발행은 구별한다. 우화 저장소 수정/별도 메시지 없음. 공개 배포 완료 여부는 별도 영수증에 남긴다.
+
+공개 배포 완료: `a060a991`, Pages`38884547215` Success/1분30초. 사진·영상·소리·소개24파일 원격 바이트 일치. [배포 영수증](ratna_scarf_storm_20261016_release.json). github.io 직접 플레이는 네트워크 허용 목록 밖이므로 로컬 실동작 검사와 공개 배포 성공을 구별한다.
