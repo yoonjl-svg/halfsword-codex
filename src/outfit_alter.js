@@ -22,6 +22,14 @@ export function alterLook(base, kind) {
       0x2b2e36:0xc4b79f,0x4a4d57:0x9d8661};
     look.outfit='isolde_saber'; // Remove the three long-hair sections; add the cropped head below.
   }
+  if(kind==='tome') {
+    look.outfitPalette={0x632b3c:0xc8baa1,0x8b4d58:0x9b8767,0x1c191b:0xe0d5bc,
+      0x4a2230:0x96856b,0x35343b:0xa99d88};
+  }
+  if(kind==='omari') {
+    look.outfitPalette={0xe4d4b4:0x40988e,0x193b4b:0x32948d,0x47616a:0x82b4a0,0x813848:0xb6935a,
+      0x665a4b:0x344e4b,0xa55c60:0xd5b776};
+  }
   // Base garments and added outfit parts share the same palette substitution.
   for(const key of ['tunic','quilt','sleeve','hoseUpper','hoseLower','belt','metal'])
     if(look.outfitPalette?.[look[key]]!=null)look[key]=look.outfitPalette[look[key]];
@@ -39,9 +47,43 @@ export function decorateAlter(g,look,part) {
     if(!m?.color||seen.has(m))continue;seen.add(m);
     const c=look.outfitPalette?.[m.color.getHex()];if(c!=null)m.color.setHex(c);
   }});
-  if(part!=='head')return;
   const mat=(color)=>new THREE.MeshStandardMaterial({color,roughness:.92,metalness:0,side:THREE.DoubleSide});
   const add=(parent,geo,m,pos)=>{const x=new THREE.Mesh(geo,m);if(pos)x.position.set(...pos);x.castShadow=true;parent.add(x);return x};
+  if(look.alter==='omari'&&['chest','abdomen','pelvis'].includes(part)){
+    // An open, salt-worn captain's coat. Each short section follows its own body
+    // part, as the existing clothing does; there is no new cloth physics.
+    const coat=new THREE.Group();coat.name='alter-worn-captain-coat';g.add(coat);
+    const cloth=mat(0x294b4a),edge=mat(0x8c9c81),n=20,pos=[],idx=[];
+    const top=part==='chest'?.16:part==='abdomen'?.09:.10;
+    const bottom=part==='chest'?-.18:part==='abdomen'?-.10:-.36;
+    for(let row=0;row<2;row++)for(let i=0;i<=n;i++){
+      const a=.68+(Math.PI*2-1.36)*i/n,rx=part==='pelvis'?.165:.148,rz=part==='chest'?.205:part==='abdomen'?.187:.207;
+      const torn=part==='pelvis'&&row===1?(.035*Math.sin(i*2.1)+(i===5||i===14?.095:0)):0;
+      pos.push(Math.cos(a)*rx*(row?1.08:1),row?bottom+torn:top,Math.sin(a)*rz*(row?1.08:1));
+      if(row===0&&i<n){const k=i;idx.push(k,k+n+1,k+1,k+1,k+n+1,k+n+2)}
+    }
+    const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));geo.setIndex(idx);geo.computeVertexNormals();add(coat,geo,cloth);
+    if(part==='chest')for(const s of [-1,1]){
+      const lapel=add(coat,new THREE.BoxGeometry(.022,.23,.05),edge,[.13,.045,s*.13]);lapel.rotation.x=s*.20;
+    }
+  }
+  if(look.alter==='tome'&&part==='chest'){
+    const book=new THREE.Group();book.name='alter-sealed-book';g.add(book);
+    const leather=mat(0x554835),pages=mat(0xc1b393),iron=mat(0x443f3b),brass=mat(0xa58a51);
+    add(book,new THREE.BoxGeometry(.12,.51,.38),pages,[-.23,-.025,0]);
+    for(const x of [-.30,-.16])add(book,new THREE.BoxGeometry(.025,.57,.43),leather,[x,-.025,0]);
+    add(book,new THREE.BoxGeometry(.16,.57,.034),leather,[-.23,-.025,.213]);
+    for(const z of [-.15,.15])add(book,new THREE.BoxGeometry(.035,.43,.038),leather,[-.14,.01,z]);
+    const links=new THREE.InstancedMesh(new THREE.TorusGeometry(.021,.005,5,10),iron,23),d=new THREE.Object3D();book.add(links);
+    for(let i=0;i<23;i++){
+      const vertical=i<14,k=vertical?i:i-14;
+      d.position.set(-.322,vertical?-.285+k*.04:-.025,vertical?0:-.16+k*.04);
+      d.rotation.set(0,Math.PI/2,0);d.rotateY(k%2?.65:0);if(!vertical)d.rotateZ(Math.PI/2);d.scale.set(1,1.2,1);d.updateMatrix();links.setMatrixAt(i,d.matrix);
+    }
+    add(book,new THREE.BoxGeometry(.035,.075,.065),brass,[-.35,-.05,0]);
+    add(book,new THREE.BoxGeometry(.004,.025,.009),iron,[-.371,-.05,0]);
+  }
+  if(part!=='head')return;
   if(look.alter==='isolde'){
     const hair=new THREE.Group();hair.name='alter-cropped-hair';g.add(hair);
     const black=mat(look.hair);
