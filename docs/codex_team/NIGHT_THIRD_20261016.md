@@ -57,3 +57,5 @@
 ## 완료 기록
 
 독립 소개3페이지의390×844/844×390 총6화면 전달 검사 통과: 사진37/27/26장 모두 디코딩, 가로 넘침·HTTP/앱 오류0, 영상4초 확인. 새 페이지의 네 얼터 대련 링크가 초기에는 원본 ID를 가리켜 수정한 뒤 전부 재확인했다. [전달 결과](night_third_20261016_checks/delivery.json). 일지 원고에 후속 제목이 누적되어6절 규칙을 깨던 문제는 내용을 유지하고 ‘시도와 결과’ 아래 하위 제목으로 정리했고 `validate-notes` 통과했다.
+
+공개 소스 `0e2fe63de0a6f9c69c3a90b49c92d9164155a4be`, Pages [38865303265](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38865303265) Success/40초 확인. 원격 고정 소스의 페이지/manifest/사진·영상59파일 모두 로컬과 SHA256 일치. github.io 직접 접속은 환경 정책으로 미검증이며 실제 사진은 로컬 프로덕션 빌드 촬영이다. [배포 영수증](night_third_20261016_release.json). 이전 마감10/15 일지는 API 검사 실패 뒤 `dev-exchange/e58a749b`에 고정한 원격 Markdown/JSON으로 날짜·6절·본문 해시를 대체 검증했다. 오늘 작업은 아직 일지 초안이다.
