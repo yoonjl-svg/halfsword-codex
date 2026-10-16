@@ -5,10 +5,24 @@ import { addGuildEmbroidery } from './outfit_guild_badge.js';
 import { decorateFifthAlter } from './outfit_alter_fifth.js';
 import { decorateTerracottaAlter } from './outfit_alter_terracotta.js';
 import { decorateDaraishiAlter, DARAISHI_RIBBON_RED } from './outfit_alter_daraishi.js';
+import { decorateRoyalMessengerAlter } from './outfit_alter_royal_messenger.js';
 import { addShoulderIguana, addGroveBranch, addCosmeticKettle, addRatnaHeadscarf } from './outfit_alter_fourth.js';
 
 export function alterLook(base, kind) {
   const look={...base,alter:kind};
+  if(kind==='samira')look.outfitPalette={
+    0x922e40:0xd1c6ae,0x6e2131:0xa49983,0xefece4:0x293e50,
+    0x33232c:0x293947,0x2c2530:0x333942,0x231d25:0x252a30,0xb39a5f:0x8b7959,
+  };
+  if(kind==='artoria'){
+    // Owner chose beach-volleyball bikini AND actual armor removal.
+    // Native body, silver hair, weapon and AI survive; armor's ordinary movement
+    // penalty disappears with the armor, rather than adding a new stat bonus.
+    Object.assign(look,{outfit:'artoria_beach',armor:null,helmet:null,tailoring:null,
+      tunic:base.skin,quilt:base.skin,sleeve:base.skin,hands:base.skin,
+      hoseUpper:base.skin,hoseLower:base.skin,shoes:base.skin,eyeColor:0x3b121b});
+    look.outfitPalette={0x28797b:0xbb5152}; // the existing small hair tie
+  }
   if(kind==='silver_wanderer')look.outfitPalette={0xe9e9e5:0x3b4b5a,0x433653:0x7f593f,0x776b88:0xab8660,
     0x5a4c68:0x6d503e,0x665976:0x8d684d,0x66528a:0x987252,0x34263f:0x39424b,
     0xcfb57b:0xbeb398,0xd8d6e0:0xc2beb4,0x413039:0x323a42,0x2f2338:0x303942};
@@ -79,6 +93,7 @@ export function decorateAlter(g,look,part) {
     const c=look.outfitPalette?.[m.color.getHex()];if(c!=null)m.color.setHex(c);
   }});
   decorateFifthAlter(g,look,part);
+  decorateRoyalMessengerAlter(g,look,part);
   const mat=(color)=>new THREE.MeshStandardMaterial({color,roughness:.92,metalness:0,side:THREE.DoubleSide});
   const add=(parent,geo,m,pos)=>{const x=new THREE.Mesh(geo,m);if(pos)x.position.set(...pos);x.castShadow=true;parent.add(x);return x};
   if(look.alter==='ratna'&&part==='chest')addShoulderIguana(g);
