@@ -2,7 +2,7 @@
 import * as T from 'three';
 
 export function decorateDaraishiAlter(g,part,palette){
- // The v10 lower coat stores its colors in skinned vertex attributes rather
+ // The archived v10 lower coat stores colors in skinned vertex attributes rather
  // than material.color. Recolor those exact swatches without touching skin/hair.
  const pairs=Object.entries(palette).map(([from,to])=>[new T.Color(+from),new T.Color(to)]);
  g.traverse(o=>{
