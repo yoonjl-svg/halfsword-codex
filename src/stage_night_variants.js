@@ -4,8 +4,9 @@ import * as THREE from 'three';
 import {buildFrozenBay} from './stage_frozen_bay.js';
 import {buildTemple} from './stage_temple.js';
 import {canvasTex,rng} from './stage_kit.js';
+import {addNightBoundaryFires} from './stage_night_lamps.js';
 
-const NIGHT=0x0b1323;
+const NIGHT=0x24324a;
 function beginNight(scene,lights,build,id){
   const before=new Set(scene.children),stage=build(scene,lights);
   const original=scene.children.filter(o=>!before.has(o));
@@ -15,24 +16,25 @@ function beginNight(scene,lights,build,id){
     if(c.isMesh&&c.geometry.type==='SphereGeometry'&&c.geometry.parameters.radius>=200&&m?.side===THREE.BackSide)c.visible=false;
     for(const x of Array.isArray(m)?m:[m])if(x&&!mats.has(x)){mats.add(x);
       // Distant painted mountain layers must lose their daytime brightness too.
-      if(x.isMeshBasicMaterial&&x.vertexColors)x.color.multiplyScalar(.055);
+      if(x.isMeshBasicMaterial&&x.vertexColors)x.color.multiplyScalar(.16);
     }
   });
   scene.background=new THREE.Color(NIGHT);scene.fog=new THREE.Fog(NIGHT,55,id==='temple_night'?350:210);
-  lights.hemi.color.set(0x94aec9);lights.hemi.groundColor.set(0x262137);lights.hemi.intensity=.62;
-  lights.sun.color.set(0xa8c4dc);lights.sun.intensity=.34;
+  lights.hemi.color.set(0xa6bad1);lights.hemi.groundColor.set(0x39334a);lights.hemi.intensity=.85;
+  lights.sun.color.set(0xb9cee4);lights.sun.intensity=.55;
   stage.sunOffset={x:7,y:9,z:-4};
   stage.nightHour=3;
   lights.sun.position.set(7,9,-4);
   stage.fighterLight={color:0xc7bec8,rimColor:0x9dc9d7,rim:1.25,level:.50};
   const root=new THREE.Group();root.name=id+'-story';root.userData={hour:3,visualOnly:true,stories:[]};scene.add(root);
-  const sky=canvasTex(8,256,(g,w,h)=>{const grad=g.createLinearGradient(0,0,0,h);grad.addColorStop(0,'#030610');grad.addColorStop(.46,'#101a30');grad.addColorStop(.55,'#1b2637');grad.addColorStop(1,'#070c17');g.fillStyle=grad;g.fillRect(0,0,w,h)});
+  const sky=canvasTex(8,256,(g,w,h)=>{const grad=g.createLinearGradient(0,0,0,h);grad.addColorStop(0,'#0b1427');grad.addColorStop(.46,'#2e405a');grad.addColorStop(.55,'#46576b');grad.addColorStop(1,'#17243a');g.fillStyle=grad;g.fillRect(0,0,w,h)});
   const dome=new THREE.Mesh(new THREE.SphereGeometry(510,24,12),new THREE.MeshBasicMaterial({map:sky,side:THREE.BackSide,fog:false,depthWrite:false}));dome.name='midnight-sky';root.add(dome);
   const r=rng(31016),pos=[];
   for(let i=0;i<700;i++){const a=r()*Math.PI*2,y=.08+r()*.92,rr=Math.sqrt(1-y*y);pos.push(Math.cos(a)*rr*430,y*430,Math.sin(a)*rr*430)}
   const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
   root.add(new THREE.Points(geo,new THREE.PointsMaterial({color:0xb4c3d9,size:1.1,sizeAttenuation:false,fog:false,transparent:true,opacity:.66,depthWrite:false})));
-  return {stage,root};
+  const fires=addNightBoundaryFires(scene,root,original,id==='temple_night');
+  return {stage,root,fires};
 }
 function addMesh(root,geo,color,pos,scale){
  const m=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({color,roughness:.95,flatShading:true}));
@@ -77,10 +79,10 @@ function cub(root){
  return t=>{head.rotation.y=.10*Math.sin(t*.3);head.rotation.x=.025*Math.sin(t*.7);g.scale.y=1+.008*Math.sin(t*1.8)};
 }
 export function buildFrozenBayNight(scene,lights){
- const {stage,root}=beginNight(scene,lights,buildFrozenBay,'frozen_bay_night');
+ const {stage,root,fires}=beginNight(scene,lights,buildFrozenBay,'frozen_bay_night');
  root.userData.stories=['오로라 아래, 작은 발자국이 물가에서 결투장 가까이 이어진다.','어른 곰은 물가에 남고 새끼곰은 투야나가 서는 쪽을 기다린다.'];
  const glow=aurora(root),visit=cub(root),old=stage.update.bind(stage);let t=0;
- stage.update=dt=>{old(dt);t+=Math.min(.1,Math.max(0,dt));glow(t);visit(t)};
+ stage.update=dt=>{old(dt);t+=Math.min(.1,Math.max(0,dt));glow(t);visit(t);fires(t)};
  return stage;
 }
 function candle(root,x,y,z,height=.34){
@@ -106,9 +108,9 @@ function templeTrace(root){
  return t=>{a(t);b(t)};
 }
 export function buildTempleNight(scene,lights){
- const {stage,root}=beginNight(scene,lights,buildTemple,'temple_night');moon(root);
+ const {stage,root,fires}=beginNight(scene,lights,buildTemple,'temple_night');moon(root);
  root.userData.stories=['초승달 아래 돌 위에 한쪽 안대와 남은 천이 놓여 있다.','빈 자리 앞의 찻잔 둘과 아직 타는 촛불. 누군가 돌아오기를 기다렸을까.'];
  const candles=templeTrace(root),old=stage.update.bind(stage);let t=0;
- stage.update=dt=>{old(dt);t+=Math.min(.1,Math.max(0,dt));candles(t)};
+ stage.update=dt=>{old(dt);t+=Math.min(.1,Math.max(0,dt));candles(t);fires(t)};
  return stage;
 }

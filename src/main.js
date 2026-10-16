@@ -586,7 +586,7 @@ function newRound(weaponId) {
       reviveFx.warm();
     });
   }
-  const madEyes = attachMadEyes(enemy, currentFoe?.eyes === 'madGlow' || params.has('madEyes')); // 광기의 붉은 안광 (외형 PM, mad_eyes.js — 캐릭터 항목 eyes: 'madGlow' / 시험 ?madEyes=1). 잔상은 장면에 두므로 fighterMeshes 뒤에
+  const madEyes = attachMadEyes(enemy, ['madGlow','clothGlow'].includes(currentFoe?.eyes) || params.has('madEyes'), { veiled: currentFoe?.eyes === 'clothGlow' }); // clothGlow: faint light transmitted through Liao's wrap
   if (madEyes) auras.push(madEyes);
   for (const f of [player, enemy]) { const h = attachHands(f); if (h) auras.push(h); } // 벙어리장갑 손 (외형 PM, hands.js — 겉모습만)
   swordTrails.attach([player, enemy]); // 칼 잔상 띠: 이번 판 두 검객 (지난 띠는 지운다)

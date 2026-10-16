@@ -670,7 +670,7 @@ export const CHARACTER_VARIANTS = [
     return { ...base, id: `${id}_mad`, variantOf: id, mad: true, appearanceOnly: true,
       name: `광기의 ${base.name}`, ai: JSON.parse(JSON.stringify(base.ai)),
       look: alterLook(base.look, id), lookVersion: `${base.lookVersion}-alter1`,
-      ...(id === 'eira' ? { eyes: 'madGlow' } : {}),
+      eyes: id === 'eira' ? 'madGlow' : 'clothGlow',
     };
   }),
 ];

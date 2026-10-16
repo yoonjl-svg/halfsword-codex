@@ -305,7 +305,7 @@ function baikalBackdrop(scene) {
 /** 예배당 앞 눈 둔덕 + 결투를 지켜보는 북극곰 (10/13 23:0x 사장님 '그 앞에 북극곰이 앉아서 결투를 지켜보게').
  *  ① 눈 둔덕(SNOW_MOUND): 예배당 박공벽(결투장 쪽 — 문은 반대쪽) 앞에 낮고 둥근 눈 언덕(꼭대기 ≈ 예배당 바닥 1.7 m) — 비탈 위에 들뜬 예배당 앞 틈을 가린다.
  *     면마다 명암이 지는 평면 음영(무대 물가 눈 둑과 같은 결), 색은 예배당 지붕 눈과 같은 먼 빛 눈색. (10/13 23:4x 사장님 결정 '눈 둔덕 위에 올리고 1.5배로' 때 쌓음)
- *  ② 북극곰(BEAR): 엉덩이를 깔고 앞다리를 곧게 세워 앉아 결투장 한가운데(0, 0)를 본다. 앉은 키 2.49 m(실제 곰 1.66 m 의 1.5배, 10/13 23:4x), 크림빛 흰 털·검은 코와 눈.
+ *  ② 북극곰(BEAR): 엉덩이를 깔고 앞다리를 곧게 세워 앉아 결투장 한가운데(0, 0)를 본다. 앉은 키 약 2.41 m(1.5배 곰에서 몸통 높이만 5% 축소, 10/16), 크림빛 흰 털·검은 코와 눈.
  *     10/14 00:0x 사장님 '북극곰 넘 작다; 예배당 근처 말고 돔 앞으로 옮겨': 188 m 예배당 둔덕 위(900×600 결투 카메라 키 약 9 px)에서
  *     결투 카메라 첫 화면 오른쪽 가장자리의 나무 없는 둥근 눈 언덕(물가 둑 shoreLand 가 시작되는 오른쪽 곶, a ≈ 0.5~0.6 · 반지름 36~53 m — '돔')
  *     앞자락(결투장 쪽, 물가 36.3 m 에서 3.7 m 올라간 첫 눈 비탈, 반지름 BEAR.r)으로 옮겼다. 크기는 그대로, 거리로 크게(900×600 결투 카메라 키 약 40 px).
@@ -327,22 +327,24 @@ function chapelMoundAndBear(c, out) {
   const x = Math.cos(BEAR.a) * BEAR.r, z = Math.sin(BEAR.a) * BEAR.r;
   const paw = BEAR.r - 0.39 * BEAR.scale; // 앞발 자리(결투장 쪽, 비탈 아래)
   const y = bankHeight(Math.cos(BEAR.a) * paw, Math.sin(BEAR.a) * paw) - 0.03;
-  out.bear = { x: +x.toFixed(2), y: +y.toFixed(2), z: +z.toFixed(2), height: +(1.66 * BEAR.scale).toFixed(2) };
+  const waistShorten=.055; // 10/16: torso height 1.10 × 5%; head/limb sizes unchanged
+  const upper=([x,y,z])=>[x,y-waistShorten,z];
+  out.bear = { x: +x.toFixed(2), y: +y.toFixed(2), z: +z.toFixed(2), height: +((1.66-waistShorten) * BEAR.scale).toFixed(2), torsoScale:.95 };
   c.push([x, y, z], Math.atan2(-x, -z), BEAR.scale); // 곰의 +Z 가 결투장 한가운데를 본다 (아래 치수는 배율 1 기준)
   const FUR = 0xe6dcc4, FUR2 = 0xd6cdb8, DARK = 0x16181c;
   const ball = new THREE.SphereGeometry(1, 7, 5);
   const fur = { vary: 0, noise: 0.03 };
   const blob = (pos, s, rot, col = FUR) => c.put('log', ball, col, pos, rot, s, col === DARK ? { vary: 0, noise: 0 } : fur);
   blob([0, 0.36, -0.22], [0.48, 0.37, 0.5]); // 엉덩이 (깔고 앉음)
-  blob([0, 0.78, -0.06], [0.4, 0.55, 0.38], [-0.22, 0, 0]); // 몸통 (위가 앞으로 조금 기욺)
-  blob([0, 1.1, 0.1], [0.34, 0.32, 0.33], undefined, FUR2); // 가슴·어깨
-  limb(c, 'log', [0, 1.14, 0.12], [0, 1.4, 0.3], 0.23, 0.15, FUR, fur, 7); // 긴 목
-  blob([0, 1.47, 0.36], [0.16, 0.15, 0.2]); // 머리
-  limb(c, 'log', [0, 1.45, 0.48], [0, 1.41, 0.66], 0.095, 0.06, FUR, fur, 7); // 주둥이
-  blob([0, 1.415, 0.665], [0.04, 0.035, 0.035], undefined, DARK); // 코
+  blob([0, 0.78-waistShorten/2, -0.06], [0.4, 0.55*.95, 0.38], [-0.22, 0, 0]); // 몸통만5% 짧게
+  blob(upper([0, 1.1, 0.1]), [0.34, 0.32, 0.33], undefined, FUR2); // 가슴·어깨
+  limb(c, 'log', upper([0, 1.14, 0.12]), upper([0, 1.4, 0.3]), 0.23, 0.15, FUR, fur, 7); // 목 길이 유지
+  blob(upper([0, 1.47, 0.36]), [0.16, 0.15, 0.2]); // 머리
+  limb(c, 'log', upper([0, 1.45, 0.48]), upper([0, 1.41, 0.66]), 0.095, 0.06, FUR, fur, 7); // 주둥이
+  blob(upper([0, 1.415, 0.665]), [0.04, 0.035, 0.035], undefined, DARK); // 코
   for (const s of [-1, 1]) {
-    blob([s * 0.075, 1.52, 0.49], [0.024, 0.024, 0.02], undefined, DARK); // 눈
-    blob([s * 0.11, 1.6, 0.3], [0.05, 0.045, 0.03]); // 귀
+    blob(upper([s * 0.075, 1.52, 0.49]), [0.024, 0.024, 0.02], undefined, DARK); // 눈
+    blob(upper([s * 0.11, 1.6, 0.3]), [0.05, 0.045, 0.03]); // 귀
     limb(c, 'log', [s * 0.17, 1.0, 0.2], [s * 0.17, 0.06, 0.34], 0.12, 0.085, FUR, fur, 6); // 곧게 세운 앞다리
     blob([s * 0.17, 0.045, 0.39], [0.1, 0.05, 0.14]); // 앞발
     blob([s * 0.3, 0.27, -0.04], [0.16, 0.24, 0.3], [0.25, 0, 0], FUR2); // 접은 뒷다리 허벅지
