@@ -32,3 +32,7 @@
 - 실제 iPhone/Safari 성능과 사용자 외양 수락은 미검증이다. 로컬 빌드 촬영, 소스 업로드, Pages 배포 완료를 구별한다.
 
 소개 페이지: `night-encounters-2.html`. 기존 `night-encounters.html`에서도 다음3곳 링크와 더 밝아진 랴오 사진/영상을 연결한다. 초기 은화·추모 촛불 시안은 공개하지 않는다.
+
+## 배포 완료
+
+공개 소스 `ab0e22ff9bc45152877ae3dce1d9e8b555b252ae`, Pages [38859426512](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38859426512) 성공(40초). 원격 HTML2개·manifest·이미지21개·영상1개, 총25파일 해시 일치. 현재 네트워크 정책상 github.io 직접 브라우저 열람은 불가하므로 로컬 실제 촬영/모바일 검사와 Pages 완료/원격 자산 일치를 구별한다. [배포 영수증](night_second_20261016_release.json).
