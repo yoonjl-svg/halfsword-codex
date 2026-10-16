@@ -18,7 +18,7 @@ try{
  await page.clock.install({time:new Date('2026-10-16T18:00:00Z')});await page.clock.pauseAt(new Date('2026-10-16T18:00:01Z'));
  await page.goto(base+'/?stage=frozen_bay_night&foe=eira_mad&weapon=longsword&emo=0',{waitUntil:'networkidle'});
  await page.evaluate(()=>{game.renderCap.tick=()=>true});
- for(let lap=0;lap<3;lap++)for(const id of ['temple_night','temple','frozen_bay_night','frozen_bay','poseidon_night','poseidon']){
+ for(let lap=0;lap<3;lap++)for(const id of (process.argv[4]?.split(',')||['temple_night','temple','frozen_bay_night','frozen_bay','poseidon_night','poseidon'])){
   await page.evaluate(id=>game.setStage(id),id);await page.clock.runFor(64);
   const row=await page.evaluate(()=>{const r=game.renderInfo();return {stage:game.stage.id,resources:{geometries:r.geometries,textures:r.textures,programs:r.programs},nightRoots:game.scene.children.filter(x=>x.name.endsWith('-story')).map(x=>({name:x.name,hour:x.userData.hour})),radius:game.config.ARENA.radius}});
   // The retained fighter caches shader variants when it first sees each light rig.
@@ -28,7 +28,7 @@ try{
    if(lap>1)assert.deepEqual(row,prev);
   }
   if(!id.endsWith('_night'))assert.equal(row.nightRoots.length,0);
-  if(['temple_night','frozen_bay_night'].includes(id))assert.equal(row.nightRoots[0].hour,3);
+  if(id.endsWith('_night')&&id!=='poseidon_night')assert.equal(row.nightRoots[0].hour,3);
   rows.push({lap,stage:id,value:row});
   fs.writeFileSync(out,JSON.stringify({pass:false,rows,errors},null,2)+'\n');
  }

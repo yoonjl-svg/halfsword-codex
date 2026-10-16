@@ -6,7 +6,7 @@ import fs from 'node:fs';
 const base=process.argv[2]||'http://127.0.0.1:4194',out=process.argv[3]||'/tmp/night-revision';
 fs.mkdirSync(out,{recursive:true});
 const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader']});
-const report=[];
+const report=[],only=process.argv.find(s=>s.startsWith('--only='))?.slice(7);
 async function open(stage,foe,url=base,oldBear=false){
  const p=await browser.newPage({viewport:{width:720,height:480},deviceScaleFactor:1});
  const errors=[];p.on('pageerror',e=>errors.push(String(e)));
@@ -23,7 +23,7 @@ async function open(stage,foe,url=base,oldBear=false){
  return {p,errors};
 }
 try{
- for(const [stage,foe] of [['frozen_bay_night','eira_mad'],['temple_night','liao_mad']]){
+ for(const [stage,foe] of [['frozen_bay_night','eira_mad'],['temple_night','liao_mad']].filter(p=>!only||p[1]===only)){
   const {p,errors}=await open(stage,foe);const frames=`${out}/${foe}-frames`;fs.mkdirSync(frames,{recursive:true});
   await p.evaluate(()=>{const g=game,T=g.THREE,h=g.enemy.bodies.head.translation(),f=new T.Vector3(1,0,0).applyQuaternion(g.enemy.yaw);
    g.camera.position.set(h.x+f.x*1.8,h.y+.025,h.z+f.z*1.8);g.camera.lookAt(h.x,h.y-.02,h.z);g.camera.fov=24;g.camera.updateProjectionMatrix();
@@ -43,7 +43,7 @@ try{
   }
   report.push({foe,samples,errors});fs.writeFileSync(out+'/report.json',JSON.stringify(report,null,2)+'\n');await p.close();
  }
- for(const oldBear of [true,false]){
+ for(const oldBear of (process.argv.includes('--no-bear')?[]:[true,false])){
   const {p,errors}=await open('frozen_bay_night','eira_mad','http://127.0.0.1:4193',oldBear);
   await p.evaluate(()=>{game.camera.position.set(28,2.6,17.2);game.camera.lookAt(34.1,2,20.9);game.camera.fov=32;game.camera.updateProjectionMatrix()});
   await p.clock.runFor(32);await p.screenshot({path:`${out}/adult-bear-${oldBear?'before':'after'}.png`});report.push({oldBear,errors});await p.close();
