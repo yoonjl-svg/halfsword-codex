@@ -20,15 +20,24 @@ export function decorateDaraishiAlter(g,part,palette){
  const add=(geo,mat,p)=>{const m=new T.Mesh(geo,mat);m.position.set(...p);m.castShadow=true;cuff.add(m);return m};
  // A hollow band wraps the existing sleeve just above the hand, not a solid
  // cylinder intersecting the wrist. The short broken chain stays by the arm.
- add(new T.CylinderGeometry(.066,.061,.068,16,1,true),iron,[0,-.092,0]);
+ const band=add(new T.CylinderGeometry(.066,.061,.068,16,1,true),iron,[0,-.092,0]);
  for(const y of [-.126,-.058]){
   const rim=add(new T.TorusGeometry(y<-.1?.061:.066,.006,5,16),dark,[0,y,0]);rim.rotation.x=Math.PI/2;
  }
- add(new T.BoxGeometry(.029,.05,.021),dark,[.056,-.092,.035]);
- add(new T.SphereGeometry(.007,6,4),iron,[.072,-.092,.042]);
+ add(new T.BoxGeometry(.029,.05,.021),dark,[0,-.092,-.065]);
+ add(new T.SphereGeometry(.007,6,4),iron,[0,-.092,-.079]);
+ const chain=new T.Group();chain.name='daraishi-shackle-chain';chain.position.set(0,-.092,-.079);cuff.add(chain);
  for(let i=0;i<3;i++){
   const broken=i===2;
-  const link=add(new T.TorusGeometry(.025,.0065,5,12,broken?Math.PI*1.48:Math.PI*2),iron,[.063+i*.009,-.143-i*.038,.039]);
+  const link=new T.Mesh(new T.TorusGeometry(.025,.0065,5,12,broken?Math.PI*1.48:Math.PI*2),iron);
+  link.position.set(i*.003,-.024-i*.042,0);link.castShadow=true;chain.add(link);
   link.scale.y=1.3;link.rotation.y=i%2?Math.PI/2:0;link.rotation.z=broken?.65:.18;
  }
+ // Keep the short chain hanging below a raised wrist, as existing dangling
+ // outfit details do. This is a render-only orientation, not a body constraint.
+ const q=new T.Quaternion(),down=new T.Vector3(0,-1,0),localDown=new T.Vector3();
+ band.onBeforeRender=()=>{
+  cuff.getWorldQuaternion(q).invert();localDown.copy(down).applyQuaternion(q);
+  chain.quaternion.setFromUnitVectors(down,localDown);chain.updateMatrixWorld(true);
+ };
 }
