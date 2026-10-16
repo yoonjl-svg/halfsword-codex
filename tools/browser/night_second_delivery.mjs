@@ -4,8 +4,9 @@ import fs from 'node:fs';
 const base=process.argv[2]||'http://127.0.0.1:4194';
 const out=process.argv[3]||'/tmp/night-second-delivery.json';
 const expected={
- 'night-encounters-3.html':['cathedral_night/margarethe_mad','castle_night/isolde_mad','loggia_night/tome_mad','corsair_night/omari_mad','sacred_grove_night/minami','corsair/omari'],
- 'night-encounters-2.html':['clearing_night/bran','castle_night/isolde_mad','cathedral_night/margarethe_mad','temple_night/liao_mad'],
+ 'night-encounters-4.html':['clearing_night/bran_mad','sacred_grove_night/minami_mad','sluice_night/ratna_mad'],
+ 'night-encounters-3.html':['cathedral_night/margarethe_mad','castle_night/isolde_mad','loggia_night/tome_mad','corsair_night/omari_mad','sacred_grove_night/minami_mad','corsair/omari'],
+ 'night-encounters-2.html':['clearing_night/bran_mad','castle_night/isolde_mad','cathedral_night/margarethe_mad','temple_night/liao_mad'],
  'night-encounters.html':['frozen_bay_night/eira_mad','temple_night/liao_mad','poseidon_night/heinrich_mad'],
 };
 const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox']});
