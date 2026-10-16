@@ -26,7 +26,7 @@ export function placeDaraishiScabbard(THREE, bake, geo, look) {
   if (!(look?.daraishiRevision >= 8 || look?.daraishiLower === 10 || look?.daraishiScabbard === 8)) return bake(geo, SCABBARD_POS, SCABBARD_ROT); // ── v10 · v7(10/15): v8 자리
   const rot = [DARAISHI_SCABBARD.splay, 0, SCABBARD_ROT[2]], mouth = new THREE.Vector3(0, DARAISHI_SCABBARD.top, 0);
   const was = mouth.clone().applyEuler(new THREE.Euler(...SCABBARD_ROT)), now = mouth.clone().applyEuler(new THREE.Euler(...rot));
-  return bake(geo, [SCABBARD_POS[0] + was.x - now.x, SCABBARD_POS[1] + was.y - now.y, SCABBARD_POS[2] + was.z - now.z - DARAISHI_SCABBARD.out], rot);
+  return bake(geo, [SCABBARD_POS[0] + was.x - now.x, SCABBARD_POS[1] + was.y - now.y, SCABBARD_POS[2] + was.z - now.z - DARAISHI_SCABBARD.out + (look?.daraishiScabbardInset||0)], rot);
 }
 export function createSilverWandererOutfit(h) {
   const { THREE, bake, box, cyl, ball, addMerged, CLOTH, isoldeLock,

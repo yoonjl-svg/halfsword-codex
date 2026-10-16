@@ -39,7 +39,8 @@ try{
   const prior=JSON.parse(fs.readFileSync(process.env.BEFORE_GEOMETRY||new URL('../../docs/codex_team/daraishi_curve_20261016_checks/before.json',import.meta.url)));
   const baseId='silver_wanderer',alterId='silver_wanderer_mad';
   assert.deepEqual(report.characters[alterId].groups,prior.characters[alterId].groups,'alter geometry/materials unchanged');
-  for(const [part,hash] of Object.entries(prior.characters[baseId].groups))if(!['chest','abdomen','head'].includes(part))assert.equal(report.characters[baseId].groups[part],hash,part);
+  const changedParts=['chest','abdomen','head',...(process.argv.includes('--scabbard')?['pelvis']:[])];
+  for(const [part,hash] of Object.entries(prior.characters[baseId].groups))if(!changedParts.includes(part))assert.equal(report.characters[baseId].groups[part],hash,part);
   for(const id of [baseId,alterId])for(const k of ['strength','weapon','colliders','masses'])assert.deepEqual(report.characters[id][k],prior.characters[id][k]);
   if(prior.characters[baseId].frontLockHash){
    assert.equal(report.characters[baseId].frontLockHash,prior.characters[baseId].frontLockHash,'approved loose fringe unchanged');
@@ -47,7 +48,7 @@ try{
   }
   assert.equal(report.characters[alterId].details.length,0);
   assert.equal(report.characters[baseId].details.filter(x=>x.locks===1).length,1);assert.equal(report.characters[baseId].details.filter(x=>x.closures===3).length,1);
-  report.preservation={alter:true,baseExceptHeadChestAbdomen:true,physical:true};
+  report.preservation={alter:true,baseExcept:changedParts,approvedFringeAndHeadGeometry:!!prior.characters[baseId].frontLockHash,physical:true};
  }
  assert.deepEqual(report.errors,[]);report.pass=true;fs.writeFileSync(out,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({pass:true,before,triangles:Object.fromEntries(Object.entries(report.characters).map(([k,v])=>[k,v.triangles])),preservation:report.preservation}));
 }finally{await browser.close()}

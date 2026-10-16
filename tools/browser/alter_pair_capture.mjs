@@ -48,6 +48,11 @@ try{for(const [stage,foe] of pairs){
     g.camera.position.set(p.x+f.x*1.7,p.y+.10,p.z+f.z*1.7);g.camera.lookAt(p.x,p.y+.015,p.z);
     g.camera.fov=29;g.camera.updateProjectionMatrix();
    }
+   if(view==='scabbard'){
+    const p=g.enemy.bodies.pelvis.translation();f.applyAxisAngle(new T.Vector3(0,1,0),.9);
+    g.camera.position.set(p.x+f.x*2.4,p.y-.03,p.z+f.z*2.4);g.camera.lookAt(p.x,p.y-.14,p.z);
+    g.camera.fov=34;g.camera.updateProjectionMatrix();
+   }
    if(view==='weapon'){
     f.applyAxisAngle(new T.Vector3(0,1,0),.85);
     const tip=new T.Vector3(0,g.enemy.weaponCfg.hiltLength+g.enemy.weaponCfg.bladeLength,0).applyQuaternion(g.enemy.sword.rotation()).add(g.enemy.sword.translation());

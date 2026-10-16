@@ -74,7 +74,7 @@ export function createDaraishiFront(h) {
   const points=[[.032,.104,-.026],[.077,.079,-.031],[.105,.040,-.052],[.109,-.004,-.066],[.103,-.049,-.060],[.095,-.081,-.044]];
   addMerged(layer,[isoldeLock(points,[.019,.022,.018,.014,.007,.001],.0038)],look.hair,{...cloth,roughness:.63});
   const glint=points.slice(1,5).map(([x,y,z])=>[x+.0035,y,z-.003]);
-  addMerged(layer,[isoldeLock(glint,[.002,.003,.002,.0003],.001)],0x9994a0,{...cloth,roughness:.68});
+  addMerged(layer,[isoldeLock(glint,[.002,.003,.002,.0003],.001)],look.hairPalette?.glint??0x9994a0,{...cloth,roughness:.68});
   layer.userData={cosmetic:true,frontStudy:1,locks:1};
  }
  function slimSides(g) {
