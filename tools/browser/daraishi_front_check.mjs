@@ -32,7 +32,7 @@ try{
   await p.close();
  }
  if(!before){
-  const prior=JSON.parse(fs.readFileSync(process.env.BEFORE_GEOMETRY||'/tmp/daraishi-front-before-geometry.json'));
+  const prior=JSON.parse(fs.readFileSync(process.env.BEFORE_GEOMETRY||new URL('../../docs/codex_team/daraishi_front_20261016_checks/daraishi-front-before-geometry.json',import.meta.url)));
   const baseId='silver_wanderer',alterId='silver_wanderer_mad';
   assert.deepEqual(report.characters[alterId].groups,prior.characters[alterId].groups,'alter geometry/materials unchanged');
   for(const [part,hash] of Object.entries(prior.characters[baseId].groups))if(!['chest','abdomen','head'].includes(part))assert.equal(report.characters[baseId].groups[part],hash,part);

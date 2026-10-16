@@ -4,6 +4,7 @@ import fs from 'node:fs';
 const base=process.argv[2]||'http://127.0.0.1:4194';
 const out=process.argv[3]||'/tmp/night-second-delivery.json';
 const expected={
+ 'daraishi-front.html':['dayr/silver_wanderer'],
  'night-encounters-7.html':['dayr_night/silver_wanderer_mad'],
  'night-encounters-6.html':['dunhuang_night/terracotta_mad'],
  'maya-courtyard.html':['courtyard/samira'],
@@ -16,7 +17,7 @@ const expected={
 const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox']});
 const report={pages:[]};
 try{
- for(const [file,duels] of Object.entries(expected).filter(([file])=>process.argv.includes('--seventh-only')?file==='night-encounters-7.html':process.argv.includes('--sixth-only')?file==='night-encounters-6.html':process.argv.includes('--maya-only')?file==='maya-courtyard.html':!process.argv.includes('--fifth-only')||file==='night-encounters-5.html')){
+ for(const [file,duels] of Object.entries(expected).filter(([file])=>process.argv.includes('--daraishi-only')?['daraishi-front.html','night-encounters-7.html'].includes(file):process.argv.includes('--seventh-only')?file==='night-encounters-7.html':process.argv.includes('--sixth-only')?file==='night-encounters-6.html':process.argv.includes('--maya-only')?file==='maya-courtyard.html':!process.argv.includes('--fifth-only')||file==='night-encounters-5.html')){
   for(const viewport of [{width:390,height:844},{width:844,height:390}]){
    const page=await browser.newPage({viewport}),errors=[];
    page.on('pageerror',error=>errors.push(String(error)));
@@ -43,7 +44,7 @@ try{
     return audio.ready>=2&&audio.duration>=seconds&&audio.duration<seconds+.2;
    });
    const nativeOK=(file!=='night-encounters-6.html'||result.links.every(link=>link.foeWeapon==='goujian'))&&(file!=='maya-courtyard.html'||result.links.every(link=>link.foeWeapon==='pistol'))&&(file!=='night-encounters-5.html'||result.links.every(link=>link.foeWeapon===({'etna_night/chanda_mad':'moye','qinglan_night/renji_mad':'brothers_sword'}[link.target])));
-   const seventhOK=file!=='night-encounters-7.html'||result.links.every(link=>link.foeWeapon==='monohoshizao');
+   const seventhOK=!['night-encounters-7.html','daraishi-front.html'].includes(file)||result.links.every(link=>link.foeWeapon==='monohoshizao');
    const pass=seventhOK&&nativeOK&&audioOK&&result.decoded&&!result.overflow&&!errors.length&&result.videos.every(video=>video.ready>=2&&video.duration===(file==='night-encounters-6.html'?10:['maya-courtyard.html','night-encounters-7.html'].includes(file)?8:video.source.endsWith('/wetland-storm.mp4')?14:4))&&result.links.length===duels.length&&result.links.every(link=>link.weapon===(file==='maya-courtyard.html'?'brothers_sword':'longsword')&&duels.includes(link.target));
    report.pages.push({file,viewport,...result,errors,pass});
    await page.close();
