@@ -4,7 +4,7 @@ import * as THREE from 'three';
 import { addGuildEmbroidery } from './outfit_guild_badge.js';
 import { decorateFifthAlter } from './outfit_alter_fifth.js';
 import { decorateTerracottaAlter } from './outfit_alter_terracotta.js';
-import { decorateDaraishiAlter } from './outfit_alter_daraishi.js';
+import { decorateDaraishiAlter, DARAISHI_RIBBON_RED } from './outfit_alter_daraishi.js';
 import { addShoulderIguana, addGroveBranch, addCosmeticKettle, addRatnaHeadscarf } from './outfit_alter_fourth.js';
 
 export function alterLook(base, kind) {
@@ -22,8 +22,8 @@ export function alterLook(base, kind) {
     0xad914e:0x92989e,0xa88b45:0x92989e,0xcfb57b:0xa9adb0,
     0xb6bbc3:0x4b525c,0xc5c5cc:0x939da8,0xd8d6e0:0x6b737b,0x9b9fa8:0x3e4248,
     0x655047:0x1d1f23,0x514a58:0x28292d,0x513c60:0x202125,0xc3a567:0x8b929b,
+    0x386b70:DARAISHI_RIBBON_RED,
   };
-  if(kind==='silver_wanderer'&&base.daraishiBlack)look.eyeColor=0x4f1824;
   if(kind==='chanda')look.outfitPalette={0x252c4b:0xc5c1b5,0x414967:0x91958d,0x353d50:0x787f7a,0xb49354:0x537b77,0x866d3f:0x365a58,0xb0a58a:0xa9ada4};
   if(kind==='renji')look.outfitPalette={0x20232a:0x81453f,0x17191e:0x81453f,0x2a2930:0xa16a59,0x2d2930:0x65332f,0x202637:0x4c2c31,0x202537:0x4c2c31,0x303548:0x715051};
   if(kind==='bran')look.outfitPalette={0xa08757:0x354658,0x7c6740:0x293747,0xcdbb92:0x75828b,0xa89468:0x4e606b,0x6b5637:0x344351,0x5c4830:0x293747,0x4a3a26:0x354351};

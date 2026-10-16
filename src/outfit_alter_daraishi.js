@@ -2,9 +2,11 @@
 // No armor, constraints, mass or combat logic.
 import * as T from 'three';
 
+export const DARAISHI_RIBBON_RED=0xa04a4b;
+
 function addRedTie(g){
  const root=new T.Group();root.name='daraishi-red-hair-tie';root.userData={cosmetic:true,tails:2};g.add(root);
- const cloth=new T.MeshStandardMaterial({color:0xa04a4b,roughness:.94,metalness:0,side:T.DoubleSide});
+ const cloth=new T.MeshStandardMaterial({color:DARAISHI_RIBBON_RED,roughness:.94,metalness:0,side:T.DoubleSide});
  const add=(geo,p)=>{const m=new T.Mesh(geo,cloth);if(p)m.position.set(...p);m.castShadow=true;root.add(m);return m};
  add(new T.CylinderGeometry(.026,.027,.014,16,1,true),[-.236,-.158,0]);
  const knot=add(new T.SphereGeometry(1,8,6),[-.265,-.157,0]);knot.scale.set(.009,.012,.019);
@@ -36,7 +38,7 @@ export function decorateDaraishiAlter(g,part,palette,look={}){
   }
   a.needsUpdate=true;
  });
- if(look.daraishiBlack){if(part==='head'){addRedTie(g);g.userData.madEyeIntensity=.65;}return;}
+ if(look.daraishiBlack){if(part==='head')addRedTie(g);return;}
  if(part!=='farmO')return;
  const cuff=new T.Group();cuff.name='daraishi-broken-wrist-shackle';cuff.userData={cosmetic:true,chainLinks:3};g.add(cuff);
  const iron=new T.MeshStandardMaterial({color:0x87857b,metalness:.56,roughness:.72});
