@@ -80,6 +80,7 @@ const APRON = 0xcdbb92;
 const APRON_DARK = 0xa89468;
 const CUFF_BRAN = 0x6b5637;
 const BRAN_FARMER = {
+  head() {}, // The visual-only alter kettle is attached by decorateAlter.
   abdomen(g) {
     // 앞치마 위쪽 (가슴받이)
     addMerged(g, [box(0.16, 0.14, 0.02, [0.16, 0.03, 0])], APRON);
@@ -1796,6 +1797,7 @@ function mikoLowTailLengths(g, look) {
   }
   addMerged(g, hair, look.hair, { ...CLOTH, roughness: 1, metalness: 0 });
   // 흰 종이: 묶은 다발을 감싼 접힌 종이 띠(아래로 조금 넓어진다)와 접힌 금 한 줄
+  if(look.alter==='minami')return; // Her fallen branch replaces the paper hair ornament.
   addMerged(g, [bake(new THREE.CylinderGeometry(0.024, 0.028, 0.075, 12, 1, false), [-0.15, 0.125, 0], [0, 0, 0.1], [1, 1, 1.15])], MIKO_PAPER, CLOTH);
   addMerged(g, [box(0.002, 0.07, 0.004, [-0.177, 0.124, 0], [0, 0, 0.1])], LINEN_SHADE, CLOTH);
   // 붉고 흰 끈: 종이 위아래를 감는 가는 고리 넷(붉·흰 번갈아)과 작은 나비 매듭

@@ -2,9 +2,14 @@
 // No body, collider, armor coverage or AI changes.
 import * as THREE from 'three';
 import { addGuildEmbroidery } from './outfit_guild_badge.js';
+import { addShoulderIguana, addGroveBranch, addCosmeticKettle } from './outfit_alter_fourth.js';
 
 export function alterLook(base, kind) {
   const look={...base,alter:kind};
+  if(kind==='bran')look.outfitPalette={0xa08757:0x354658,0x7c6740:0x293747,0xcdbb92:0x75828b,0xa89468:0x4e606b,0x6b5637:0x344351,0x5c4830:0x293747,0x4a3a26:0x354351};
+  if(kind==='minami')look.outfitPalette={0xe9e2ce:0x303b51,0xcac4af:0x596277,0xe9e5d5:0x303b51,0xf4f1e8:0x778495,0xafa991:0x586477,0x3f5747:0xc6c9c1,0x3b5344:0xb4bab1,0x627b5c:0xaeb7ac};
+  // Sleeve is skin on Ratna; never remap that shared color with his clothes.
+  if(kind==='ratna')look.outfitPalette={0xded2b4:0x46445f,0xb9a98a:0x333448,0xe9dec4:0x77728b,0xb68854:0x53536c,0x8d673f:0x3a394e,0x884936:0x6d5c77,0xb07351:0x93849a};
   if(kind==='heinrich') look.outfitPalette={0xc7cdd3:0x3e3544,0x6e747b:0x37303e,0x5c6168:0x282330};
   if(kind==='eira') {
     look.outfitPalette={0x222c48:0x854b60,0x18203a:0x4a2b40,0xf1f0ec:0xdcc8b8,0xc9ced6:0xb79caa,0xdadde3:0xcbb7c0};
@@ -53,6 +58,7 @@ export function decorateAlter(g,look,part) {
   }});
   const mat=(color)=>new THREE.MeshStandardMaterial({color,roughness:.92,metalness:0,side:THREE.DoubleSide});
   const add=(parent,geo,m,pos)=>{const x=new THREE.Mesh(geo,m);if(pos)x.position.set(...pos);x.castShadow=true;parent.add(x);return x};
+  if(look.alter==='ratna'&&part==='chest')addShoulderIguana(g);
   if(look.alter==='omari'&&['chest','abdomen','pelvis'].includes(part)){
     // An open, salt-worn captain's coat. Each short section follows its own body
     // part, as the existing clothing does; there is no new cloth physics.
@@ -94,6 +100,8 @@ export function decorateAlter(g,look,part) {
     }
   }
   if(part!=='head')return;
+  if(look.alter==='bran')addCosmeticKettle(g);
+  if(look.alter==='minami')addGroveBranch(g);
   if(look.alter==='eira'){
     const hood=new THREE.Group();hood.name='alter-deep-hood';g.add(hood);
     const cloth=mat(0x68394f),lining=mat(0x30212d),edge=mat(0x9a6b7b);

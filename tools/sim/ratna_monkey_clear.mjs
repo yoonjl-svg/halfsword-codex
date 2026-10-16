@@ -29,8 +29,11 @@ for (const a of process.argv.slice(2)) {
   const m = a.match(/^--([^=]+)(?:=(.*))?$/);
   if (m) args[m[1]] = m[2] ?? true;
 }
-const LOOK = getLook('ratna');
-const RATNA = CHARACTERS_BY_ID.ratna;
+// --companion=iguana checks the alter's actual merged shoulder decoration.
+const IGUANA = args.companion === 'iguana';
+const LOOK = IGUANA ? CHARACTERS_BY_ID.ratna_mad.look : getLook('ratna');
+const RATNA = IGUANA ? CHARACTERS_BY_ID.ratna_mad : CHARACTERS_BY_ID.ratna;
+const COMPANION_NODE = IGUANA ? 'alter-shoulder-iguana' : 'ratna-monkey';
 const W = WEAPONS[RATNA.weapon];
 const art = resolveSwordArt(W, null);
 
@@ -62,7 +65,7 @@ const ALONG_X = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 
 /** 원숭이 판(Group 'ratna-monkey')의 메쉬를 이어진 조각마다 볼록 껍질로 (판 좌표). 꼬리 관(15 고리 × 7)은 이웃 두 고리씩 */
 function monkeyHulls(layer) {
   const hulls = [];
-  for (const mesh of layer.children) {
+  for (const mesh of layer.isMesh ? [layer] : layer.children) {
     if (!mesh.isMesh) continue;
     const pos = mesh.geometry.attributes.position;
     const n = pos.count;
@@ -77,6 +80,7 @@ function monkeyHulls(layer) {
     }
     const idx = mesh.geometry.index;
     if (idx) for (let t = 0; t < idx.count; t += 3) (join(idx.getX(t), idx.getX(t + 1)), join(idx.getX(t), idx.getX(t + 2)));
+    if (!idx) for (let t = 0; t < n; t += 3) { join(t, t + 1); join(t, t + 2); }
     const comps = new Map();
     for (let i = 0; i < n; i++) {
       const r = find(i);
@@ -225,7 +229,7 @@ function solo(seat) {
   const G = newRound({ walls: false, weapon: RATNA.weapon, weapon2: 'longsword', seed: 7, look: LOOK });
   G.park();
   const P = G.player;
-  const layer = P.groups.chest.getObjectByName('ratna-monkey');
+  const layer = P.groups.chest.getObjectByName(COMPANION_NODE);
   if (!layer) throw new Error('원숭이 판이 없다 (look.ratnaRevision ≥ 2 인지)');
   if (seat) placeLayer(layer, seat);
   return { G, P, layer };
@@ -365,7 +369,7 @@ function runLive(seat, prof, base) {
     const ai = aiAtProficiency(RATNA, prof);
     const G = newRound({ walls: true, weapon: 'longsword', weapon2: RATNA.weapon, seed: 100 + s, look2: LOOK, difficulty: ai.level, persona: ai.persona, AI2Class: AI, difficulty2: 'normal' });
     const E = G.enemy;
-    const layer = E.groups.chest.getObjectByName('ratna-monkey');
+    const layer = E.groups.chest.getObjectByName(COMPANION_NODE);
     if (seat) placeLayer(layer, seat);
     const hulls = monkeyHulls(layer);
     for (let t = 0; t < secs; t += DT) {
@@ -406,7 +410,7 @@ for (const sn of seatNames) {
   if (sn !== 'as' && !seat) throw new Error(`자리 없음: ${sn}`);
   const label = sn === 'as' ? `as (looks.js ratnaMonkey '${LOOK.ratnaMonkey}')` : `${sn} — ${seat.ko}`;
   const base = restSeat(seat);
-  console.log(`\n## 원숭이 자리 ${label} · ${W.nameKo} (${art.tradition}) · 겉모습 v${LOOK.ratnaRevision}`);
+  console.log(`\n## ${IGUANA ? '이구아나' : '원숭이'} 자리 ${label} · ${W.nameKo} (${art.tradition}) · 겉모습 v${LOOK.ratnaRevision}`);
   console.log(`쉴 때(곧은 자세) 앉은 자리 조각 깊이: 왼팔 ${cm(base.seatL)} · 오른팔 ${cm(base.seatR)} cm (이보다 1 cm 넘게 더 묻히면 겹침)`);
   const rec = { base, guards: null, techs: null, live: [] };
   const head = '칼·주먹 cm | 왼팔 cm (자유 조각) | 왼팔 cm (앉은 자리) | 오른팔 cm (자유 조각) | 오른팔 cm (앉은 자리) | 머리 cm (참고) | 겹침';

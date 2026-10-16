@@ -665,7 +665,7 @@ export const CHARACTER_VARIANTS = [
     eyes: 'madGlow', // 외형 담당과 맞춘 표식: 붉은 눈 + 안광 아우라
   },
   // Visual previews: the original proficiency, persona and combat stats are unchanged.
-  ...['eira', 'liao', 'margarethe', 'isolde', 'tome', 'omari'].map((id) => {
+  ...['eira', 'liao', 'margarethe', 'isolde', 'tome', 'omari', 'bran', 'minami'].map((id) => {
     const base = CHARACTERS.find((c) => c.id === id);
     return { ...base, id: `${id}_mad`, variantOf: id, mad: true, appearanceOnly: true,
       name: `광기의 ${base.name}`, ai: JSON.parse(JSON.stringify(base.ai)),
@@ -879,6 +879,15 @@ export const CHARACTER_GUESTS = [
   },
 ];
 for (const c of CHARACTER_GUESTS) finishAI(c);
+
+// Guests are declared after the base rotation. Register Ratna's visual variant
+// here so no guest has to enter the random combat roster or change its AI.
+const ratnaBase = CHARACTER_GUESTS.find(c => c.id === 'ratna');
+const ratnaAlter = { ...ratnaBase, id: 'ratna_mad', variantOf: 'ratna', mad: true, appearanceOnly: true,
+  name: `광기의 ${ratnaBase.name}`, ai: JSON.parse(JSON.stringify(ratnaBase.ai)),
+  look: alterLook(ratnaBase.look, 'ratna'), lookVersion: `${ratnaBase.lookVersion}-alter1`, eyes: 'madGlow' };
+finishAI(ratnaAlter);
+CHARACTER_VARIANTS.push(ratnaAlter);
 
 /** id → 시트. 기본 회전·변형·손님 인물까지 (변형은 여정의 정해진 자리·?foe=id, 손님 인물은 여정의 제 무대(STAGE_FOE)·테스트 경로의 상대 고르기·?foe=id) */
 export const CHARACTERS_BY_ID = Object.fromEntries([...CHARACTERS, ...CHARACTER_VARIANTS, ...CHARACTER_GUESTS].map((c) => [c.id, c]));
