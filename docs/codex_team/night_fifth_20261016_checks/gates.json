@@ -1,0 +1,76 @@
+[
+  {
+    "name": "fights12",
+    "command": [
+      "node",
+      "tools/sim/fights12.mjs"
+    ],
+    "stamina": true,
+    "exit": 0,
+    "sha8": "5dfe035c",
+    "expect": "a071c0af",
+    "pass": false,
+    "source_sha": "f9aa5681e931efc4323c3ce1796f606e420b78c6",
+    "explanation": "Existing expanded arena baseline, unchanged this task. Legacy expectation intentionally preserved."
+  },
+  {
+    "name": "live_battery",
+    "command": [
+      "node",
+      "tools/sim/live_battery.mjs"
+    ],
+    "stamina": true,
+    "exit": 0,
+    "sha8": "648aca66",
+    "expect": "648aca66",
+    "pass": true,
+    "source_sha": "f9aa5681e931efc4323c3ce1796f606e420b78c6"
+  },
+  {
+    "name": "finish_thrust",
+    "command": [
+      "node",
+      "tools/sim/finish_thrust.mjs",
+      "1",
+      "--stand"
+    ],
+    "stamina": true,
+    "exit": 0,
+    "sha8": "2de06c03",
+    "expect": "2de06c03",
+    "pass": true,
+    "source_sha": "f9aa5681e931efc4323c3ce1796f606e420b78c6"
+  },
+  {
+    "name": "corr",
+    "command": [
+      "node",
+      "tools/sim/corr_s0.mjs",
+      "--limits=on,off",
+      "--scenes=a,b"
+    ],
+    "stamina": true,
+    "exit": 0,
+    "sha8": "6a5451f6",
+    "identical": 12,
+    "expect": "IDENTICAL 12",
+    "pass": true,
+    "source_sha": "f9aa5681e931efc4323c3ce1796f606e420b78c6"
+  },
+  {
+    "name": "weapon_smoke",
+    "command": [
+      "node",
+      "tools/sim/weapon_smoke.mjs"
+    ],
+    "stamina": true,
+    "exit": 0,
+    "sha8": "729ce58e",
+    "ok": 24,
+    "expect": "7085b282",
+    "pass": false,
+    "source_sha": "8d460e6670aeab2342e8e323e7830a101a69f3a7",
+    "original_23_lines_identical": true,
+    "explanation": "Expected 23-weapon hash preserved; new personal weapon adds one OK line. Existing 23 lines byte-identical."
+  }
+]
