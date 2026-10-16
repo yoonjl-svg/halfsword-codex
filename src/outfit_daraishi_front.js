@@ -31,12 +31,16 @@ export function createDaraishiFront(h) {
   const c=Math.cos(a),s=Math.sin(a),r=(Math.abs(c/rx)**4+Math.abs(s/rz)**4)**-.25,f=1+.008*Math.cos(a*8+(j+u)*.25);
   return [(r*f+raise)*c,y,(r*f+raise)*s];
  }
- function torso(g,part) {
+ function torso(g,part,look) {
   g.children[0].material.color.setHex(ivory);
   const layer=artoriaCloth(g,'silver-wanderer-front-tailoring'),surface=frontSurface(g);
   const band=[],stems=[],knots=[],folds=[];
   const chest=part==='chest',top=chest ? .122 : .068,bottom=chest ? -.128 : -.02;
-  const zAt=y=>chest?-.047+(.122-y)/.25*.11:.063+(.068-y)*.12;
+  // A single gentle S follows the vertical center from chest to belt. The
+  // abdomen continues the same curve after the 4 mm space between body parts.
+  const zAt=y=>look.daraishiFront>=2
+   ?.018*Math.sin(2*Math.PI*(chest ? .122-y : .254+.068-y)/.342)
+   :chest?-.047+(.122-y)/.25*.11:.063+(.068-y)*.12;
   const path=Array.from({length:25},(_,i)=>{const y=T.MathUtils.lerp(top,bottom,i/24);return [zAt(y),y]});
   band.push(strip(path,.022,surface,.0045));
   // Slightly raised woven edge and its shadow give a real overlap at the seam.
@@ -53,7 +57,7 @@ export function createDaraishiFront(h) {
    // A few paired leaves echo the existing eight-petal badges without adding
    // another heraldic plate. The large plum seam reads at combat distance.
    for(const y of [.102,.048,-.010,-.071])for(const side of [-1,1]){
-    const z=zAt(y),stem=Array.from({length:7},(_,i)=>{const t=i/6;return surface(z+side*(.001+.007*Math.sin(t*Math.PI)),y+t*.018,.0068)});
+    const stem=Array.from({length:7},(_,i)=>{const t=i/6,v=y+t*.018,z=zAt(look.daraishiFront>=2?v:y);return surface(z+side*(.001+.007*Math.sin(t*Math.PI)),v,.0068)});
     stems.push(line(stem,.00125));
    }
    // Shallow fabric ridges converge toward the belt, staying on the shirt.
@@ -73,9 +77,24 @@ export function createDaraishiFront(h) {
   addMerged(layer,[isoldeLock(glint,[.002,.003,.002,.0003],.001)],0x9994a0,{...cloth,roughness:.68});
   layer.userData={cosmetic:true,frontStudy:1,locks:1};
  }
+ function slimSides(g) {
+  // Compress only the lateral bulge of the existing head-attached hair.
+  // Crown, face, central rear braid and approved new fringe stay untouched.
+  const layer=g.getObjectByName('silver-wanderer-hair');if(!layer)return;
+  for(const mesh of layer.children){
+   const geo=mesh.geometry,p=geo?.attributes.position;if(!p)continue;
+   for(let i=0;i<p.count;i++){
+    const x=p.getX(i),y=p.getY(i),z=p.getZ(i),a=Math.abs(z);
+    const weight=T.MathUtils.smoothstep(.075-y,0,.12)
+      *(1-T.MathUtils.smoothstep(-y,.24,.38))*T.MathUtils.smoothstep(x,-.23,-.08);
+    p.setZ(i,z-Math.sign(z)*Math.max(0,a-.075)*.4*weight);
+   }
+   geo.computeVertexNormals();geo.computeBoundingBox();geo.computeBoundingSphere();
+  }
+ }
  return (g,look,part)=>{
-  if(look?.daraishiFront!==1||look.alter)return;
-  if(part==='head')hair(g,look);
-  else if(part==='chest'||part==='abdomen')torso(g,part);
+  if(![1,2].includes(look?.daraishiFront)||look.alter)return;
+  if(part==='head'){if(look.daraishiFront>=2)slimSides(g);hair(g,look);}
+  else if(part==='chest'||part==='abdomen')torso(g,part,look);
  };
 }

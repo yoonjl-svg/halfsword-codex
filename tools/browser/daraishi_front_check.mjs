@@ -23,7 +23,11 @@ try{
      rows.push({name:o.name,matrix:o.matrix.toArray(),visible:o.visible,attributes:Object.fromEntries(Object.entries(o.geometry.attributes).map(([k,v])=>[k,[...v.array]])),index:o.geometry.index?[...o.geometry.index.array]:null,material:{color:m.color?.getHex(),opacity:m.opacity,roughness:m.roughness,metalness:m.metalness,side:m.side}});
     });groups[key]=await hash(rows);
    }
-   return {groups,triangles:tris,details,strength:game.enemy.strength,weapon:game.enemy.weapon.id,colliders:game.world.colliders.len(),masses:Object.fromEntries(Object.entries(game.enemy.bodies).map(([k,b])=>[k,b.mass()]))};
+   const geo=o=>({matrix:o.matrix.toArray(),attributes:Object.fromEntries(Object.entries(o.geometry.attributes).map(([k,v])=>[k,[...v.array]])),index:o.geometry.index?[...o.geometry.index.array]:null});
+   const head=game.enemy.groups.head,frontLock=head.getObjectByName('silver-wanderer-front-lock');
+   const frontLockHash=frontLock?await hash(frontLock.children.filter(o=>o.geometry).map(geo)):null;
+   const headCoreHash=await hash(head.children.slice(0,5).filter(o=>o.geometry).map(geo));
+   return {groups,frontLockHash,headCoreHash,triangles:tris,details,strength:game.enemy.strength,weapon:game.enemy.weapon.id,colliders:game.world.colliders.len(),masses:Object.fromEntries(Object.entries(game.enemy.bodies).map(([k,b])=>[k,b.mass()]))};
   });
   if(!before){
    await p.clock.runFor(7000);await p.evaluate(()=>{game.renderCap.tick=()=>true});await p.clock.runFor(16);
@@ -32,11 +36,15 @@ try{
   await p.close();
  }
  if(!before){
-  const prior=JSON.parse(fs.readFileSync(process.env.BEFORE_GEOMETRY||new URL('../../docs/codex_team/daraishi_front_20261016_checks/daraishi-front-before-geometry.json',import.meta.url)));
+  const prior=JSON.parse(fs.readFileSync(process.env.BEFORE_GEOMETRY||new URL('../../docs/codex_team/daraishi_curve_20261016_checks/before.json',import.meta.url)));
   const baseId='silver_wanderer',alterId='silver_wanderer_mad';
   assert.deepEqual(report.characters[alterId].groups,prior.characters[alterId].groups,'alter geometry/materials unchanged');
   for(const [part,hash] of Object.entries(prior.characters[baseId].groups))if(!['chest','abdomen','head'].includes(part))assert.equal(report.characters[baseId].groups[part],hash,part);
   for(const id of [baseId,alterId])for(const k of ['strength','weapon','colliders','masses'])assert.deepEqual(report.characters[id][k],prior.characters[id][k]);
+  if(prior.characters[baseId].frontLockHash){
+   assert.equal(report.characters[baseId].frontLockHash,prior.characters[baseId].frontLockHash,'approved loose fringe unchanged');
+   assert.equal(report.characters[baseId].headCoreHash,prior.characters[baseId].headCoreHash,'face and crown unchanged');
+  }
   assert.equal(report.characters[alterId].details.length,0);
   assert.equal(report.characters[baseId].details.filter(x=>x.locks===1).length,1);assert.equal(report.characters[baseId].details.filter(x=>x.closures===3).length,1);
   report.preservation={alter:true,baseExceptHeadChestAbdomen:true,physical:true};

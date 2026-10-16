@@ -8,8 +8,8 @@ const source=process.env.SOURCE_BASE||'http://127.0.0.1:4193',base=process.argv[
 assert.equal(STAGE_IDS.filter(s=>s.endsWith('_night')).length,14);assert.equal(CHARACTER_VARIANTS.length,14);
 assert.equal(STAGE_FOE.dayr_night,'silver_wanderer_mad');assert.ok(!STAGE_ORDER.includes('dayr_night'));
 assert.equal(C.silver_wanderer_mad.appearanceOnly,true);
-assert.equal(C.silver_wanderer.lookVersion,'v7-front1');assert.equal(C.silver_wanderer_mad.lookVersion,'v7-alter1');
-assert.equal(C.silver_wanderer.look.daraishiFront,1);assert.equal(C.silver_wanderer_mad.look.daraishiFront,undefined);
+assert.equal(C.silver_wanderer.lookVersion,'v7-front2');assert.equal(C.silver_wanderer_mad.lookVersion,'v7-alter1');
+assert.equal(C.silver_wanderer.look.daraishiFront,2);assert.equal(C.silver_wanderer_mad.look.daraishiFront,undefined);
 for(const id of ['silver_wanderer','silver_wanderer_mad']){assert.equal(C[id].look.daraishiRevision,7);assert.equal(C[id].look.daraishiLower,undefined);assert.equal(C[id].look.daraishiScabbard,8);}
 for(const k of ['ai','weapon','body','strength','voice','physiology'])assert.deepEqual(C.silver_wanderer[k],C.silver_wanderer_mad[k],k);
 for(let p=1;p<=5;p++)assert.deepEqual(aiAtProficiency(C.silver_wanderer,p),aiAtProficiency(C.silver_wanderer_mad,p));
