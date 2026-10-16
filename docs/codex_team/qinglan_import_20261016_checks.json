@@ -1,0 +1,180 @@
+{
+  "source": "c46f6fb70aaf6564dde87f0b7414a1c398056970",
+  "sameSourceBlobs": {
+    "src/stage_qinglan.js": "b5462ad2d2b478206eb3c18101e962451a2bbae3",
+    "src/stage_qinglan_vista.js": "78270cb0f0c7f11d4ea21dea513d0f27719d27d5"
+  },
+  "area": [
+    {
+      "stage": "qinglan",
+      "radius": 9.19238815542512,
+      "area": 265.4645792283376,
+      "sampled": 96,
+      "missing": [],
+      "raised": [],
+      "wallCount": 32,
+      "wallFailures": [],
+      "startGap": 5.6,
+      "render": {
+        "frame": 17,
+        "calls": 221,
+        "triangles": 118324,
+        "geometries": 125,
+        "textures": 10,
+        "programs": 28
+      },
+      "errors": []
+    }
+  ],
+  "movement": {
+    "stage": "qinglan",
+    "before": {
+      "x": -2.939077615737915,
+      "y": 0.873749852180481,
+      "z": -0.016065629199147224
+    },
+    "after": {
+      "x": -9.121899604797363,
+      "y": 0.9344871640205383,
+      "z": -0.028373369947075844
+    },
+    "radius": 9.121943731909578,
+    "errors": [],
+    "pass": true
+  },
+  "opening": [
+    {
+      "id": "qinglan",
+      "mode": "sweep",
+      "params": {
+        "r0": 9,
+        "h0": 4.2,
+        "arc": 150,
+        "dir": 1,
+        "lookY0": 1.6,
+        "down": 0.3,
+        "look": 0.35
+      },
+      "minStage": 2.3,
+      "minAt": 1,
+      "minWho": "qinglan-floor col=#ffffff @(-4.0,0.2,-0.2) r23.9",
+      "minPos": [
+        -5.7,
+        2.3,
+        0.9
+      ],
+      "minFighter": null,
+      "minParticle": null,
+      "clip": [],
+      "close": [],
+      "blocked": {
+        "look": 0,
+        "foeChest": 0,
+        "foeHead": 0,
+        "meChest": 0,
+        "meHead": 0
+      },
+      "blockWho": {},
+      "shots": [
+        "/workspace/qinglan-import-20261016/opening/qinglan_u0.png",
+        "/workspace/qinglan-import-20261016/opening/qinglan_u05.png",
+        "/workspace/qinglan-import-20261016/opening/qinglan_u1.png"
+      ],
+      "run": null,
+      "errors": []
+    }
+  ],
+  "screensAndDisposal": {
+    "pass": true,
+    "stage": "qinglan",
+    "radius": 9.19238815542512,
+    "foe": "김씨",
+    "state": "fight",
+    "resources": [
+      {
+        "geometries": 151,
+        "textures": 10,
+        "programs": 35
+      },
+      {
+        "geometries": 151,
+        "textures": 10,
+        "programs": 35
+      },
+      {
+        "geometries": 151,
+        "textures": 10,
+        "programs": 35
+      }
+    ],
+    "errors": []
+  },
+  "gates": [
+    {
+      "name": "fights12",
+      "command": [
+        "node",
+        "tools/sim/fights12.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha8": "5dfe035c",
+      "expect": "a071c0af",
+      "pass": false
+    },
+    {
+      "name": "live_battery",
+      "command": [
+        "node",
+        "tools/sim/live_battery.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha8": "648aca66",
+      "expect": "648aca66",
+      "pass": true
+    },
+    {
+      "name": "finish_thrust",
+      "command": [
+        "node",
+        "tools/sim/finish_thrust.mjs",
+        "1",
+        "--stand"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha8": "2de06c03",
+      "expect": "2de06c03",
+      "pass": true
+    },
+    {
+      "name": "corr",
+      "command": [
+        "node",
+        "tools/sim/corr_s0.mjs",
+        "--limits=on,off",
+        "--scenes=a,b"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha8": "84ca8140",
+      "identical": 12,
+      "expect": "IDENTICAL 12",
+      "pass": true
+    },
+    {
+      "name": "weapon_smoke",
+      "command": [
+        "node",
+        "tools/sim/weapon_smoke.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha8": "7085b282",
+      "ok": 23,
+      "expect": "7085b282",
+      "pass": true
+    }
+  ]
+}

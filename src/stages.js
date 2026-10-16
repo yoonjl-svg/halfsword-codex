@@ -47,7 +47,7 @@ const BUILDERS = {
   sacred_grove: buildSacredGrove, // 신목의 숲: 거대한 신목·금줄과 흰 종이·이끼 (stage_sacred_grove.js) — 미나미의 무대
   // 샛별 저장소에서 가져온 두 무대 더 (사장님 10/10 20:4x '얼어붙은 만이 린드, 청람잔도가 김씨 전용 스테이지' — 지오메트리·재질·조명·소리 그대로, docs/stages.md)
   frozen_bay: buildFrozenBay, // 얼어붙은 만: 동시베리아 내륙 호수의 겨울 새벽, 먹청색 얼음·눈 덮인 물가·낙엽송·선착장 (stage_frozen_bay.js) — 투야나 니콜라예바(id eira, 전 이름 에이라 린드)의 무대
-  qinglan: buildQinglan, // 청람잔도: 초여름 맑은 정오, 큰 강 협곡 위 바위 쉼터·돌계단 잔도·작은 샘 (stage_qinglan.js) — 김씨의 무대
+  qinglan: buildQinglan, // 청람잔도: 화강암 쉼터·강 협곡·돌계단·정자·샘과 뒤 바위 면의 옛 판자 잔도 (우화 c46f6fb7 이식, 포크 전투 면적 2배) — 김씨의 무대
   // 샛별 저장소에서 가져온 무대 (사장님 10/14 02:3x — 진흙 감속 켬 · 가운데 말레이곰 석상 충돌, docs/import/sluice_port_2026-10-14.md). 10/14 19:4x 여정 정식 경로로
   sluice: buildSluice, // 잠든 습지: 비 그친 한낮의 열대 담수 침수림, 진흙 섬·얕은 물·옛 돌 수문, 가운데 말레이곰 석상 (stage_sluice.js) — 라트나의 무대
   // 샛별 저장소에서 가져온 무대 (사장님 10/14 08:1x — 화면 이름 '소금 사막' · 해는 그림자가 나오는 가장 낮은 각, docs/import/salt_desert_port_2026-10-14.md). 10/14 19:4x 여정 정식 경로로
