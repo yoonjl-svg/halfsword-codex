@@ -10,20 +10,19 @@ assert.equal(terrainForStage('etna_night'),terrainForStage('etna'));
 assert.equal(terrainForStage('qinglan_night'),null);
 assert.deepEqual(C.chanda.ai,C.chanda_mad.ai);
 assert.equal(C.chanda.weapon,C.chanda_mad.weapon);
-assert.equal(C.renji.weapon,'morgenstern');assert.equal(C.renji_mad.weapon,'uchigatana');
+assert.equal(C.renji.weapon,'morgenstern');assert.equal(C.renji_mad.weapon,'brothers_sword');
 assert.equal(C.renji_mad.appearanceOnly,false);
 for(let p=1;p<=5;p++){
  assert.deepEqual(aiAtProficiency(C.chanda,p),aiAtProficiency(C.chanda_mad,p));
  const old=aiAtProficiency(C.renji,p),alt=aiAtProficiency(C.renji_mad,p);
  assert.equal(old.level,alt.level);assert.deepEqual(old.persona.level,alt.persona.level);
- const pers={...old.persona.pers};delete pers.guardPref;delete pers.techPref;
- assert.deepEqual(pers,alt.persona.pers);assert.deepEqual(alt.persona.proficiency,{japanese:p});
+ assert.deepEqual(old.persona.pers,alt.persona.pers);assert.deepEqual(old.persona.proficiency,alt.persona.proficiency);
 }
 report.stats={chandaUnchanged:true,kimNoStatBoost:true,proficiencies:5,variants:12};
 const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--autoplay-policy=no-user-gesture-required']});
 try{
  report.runtime=[];
- for(const [id,foe,weapon] of [['etna_night','chanda_mad','moye'],['qinglan_night','renji_mad','uchigatana']]){
+ for(const [id,foe,weapon] of [['etna_night','chanda_mad','moye'],['qinglan_night','renji_mad','brothers_sword']]){
   const page=await browser.newPage();page.on('pageerror',e=>report.errors.push(String(e)));
   await page.clock.install({time:new Date('2026-10-16T18:00:00Z')});await page.clock.pauseAt(new Date('2026-10-16T18:00:01Z'));
   await page.goto(`${base}/?stage=${id}&foe=${foe}&weapon=longsword&foeWeapon=${weapon}&emo=0`,{waitUntil:'networkidle'});
@@ -33,13 +32,13 @@ try{
   await page.clock.runFor(14000);
   const data=await page.evaluate(()=>{
    const f=game.enemy,r=game.scene.children.find(o=>o.name===game.stage.id+'-story');
-   const detailNames=['chanda-cracked-half-mask','renji-loose-long-hair','renji-empty-scabbard'];
+   const detailNames=['chanda-cracked-half-mask','renji-loose-long-hair'];
    return {stage:game.stage.id,state:game.state,weapon:f.weapon.id,terrain:game.terrain?.id??null,enemyTerrain:f.terrain?.id??null,sound:game.sound.stage,stories:r.userData.stories,hour:r.userData.hour,details:detailNames.filter(n=>Object.values(f.groups).some(g=>g.getObjectByName(n))),headArmor:f.helmetType,position:{...f.bodies.pelvis.translation()},events:detailEvents,colliders:game.world.colliders.len(),alive:f.alive};
   });
   assert.equal(data.weapon,weapon);assert.equal(data.sound,id);assert.equal(data.hour,3);assert.ok(data.stories.length>=2);
   assert.ok(Object.values(data.position).every(Number.isFinite));
   if(id==='etna_night'){assert.equal(data.terrain,'etna');assert.equal(data.enemyTerrain,'etna');assert.ok(data.events.includes('etnaCrust'));assert.ok(data.details.includes('chanda-cracked-half-mask'));assert.equal(data.headArmor,null)}
-  else{assert.equal(data.terrain,null);assert.ok(!data.events.includes('cliffBird'));assert.ok(data.events.includes('springDrip'));assert.ok(data.details.includes('renji-loose-long-hair')&&data.details.includes('renji-empty-scabbard'));assert.equal(data.headArmor,'kasa')}
+  else{assert.equal(data.terrain,null);assert.ok(!data.events.includes('cliffBird'));assert.ok(data.events.includes('springDrip'));assert.ok(data.details.includes('renji-loose-long-hair'));assert.equal(data.headArmor,'kasa')}
   report.runtime.push(data);await page.close();
  }
  const page=await browser.newPage();await page.goto(source+'/night-encounters-4.html');

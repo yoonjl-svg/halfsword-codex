@@ -895,14 +895,12 @@ for(const id of ['chanda','renji']){
  const alter={...base,id:id+'_mad',variantOf:id,mad:true,appearanceOnly:id==='chanda',retainBaseStats:true,
   name:`광기의 ${base.name}`,ai:JSON.parse(JSON.stringify(base.ai)),look:alterLook(base.look,id),lookVersion:base.lookVersion+'-alter1',eyes:'madGlow'};
  if(id==='renji'){
-  alter.weapon='uchigatana';alter.ai.persona.school='uchigatana';
-  delete alter.ai.persona.pers.guardPref;delete alter.ai.persona.pers.techPref;
-  alter.school='형의 검을 꺼내 든 김씨. 기존 우치가타나·일본 유파 동작을 사용한다.';
-  alter.backstory='습격의 흔적이 남은 산길에 혼자 서 있다. 흰 천으로 싸 두었던 형의 칼을 꺼냈고 허리에는 빈 칼집만 남았다. 끝내 무엇을 지키려 검을 뽑았는지는 말하지 않는다.';
-  alter.favoriteGuards='기존 일본 유파의 중단과 어깨 지킴.';
-  alter.movementNotes='기존 일본 유파의 검과 보법 연결을 사용한다. 새로운 동작이나 적극성 강화는 없다.';
-  alter.weaknesses='형의 칼이 빗나간 뒤의 빈틈. 수치상 강화 없이 무기의 길이·무게와 기존 유파가 바뀐다.';
-  alter.signatureMoves='형의 검을 두 손으로 들고 기존 일본 유파의 베기와 찌르기를 쓴다.';
+  alter.weapon='brothers_sword';alter.ai.persona.school='brothers_sword';
+  alter.school='흰 천에 감싼 형의 칼을 한 손 둔기로 쓴다. 기존 김씨의 무유파 몸놀림과 성향을 유지한다.';
+  alter.backstory='습격의 흔적이 남은 산길에 혼자 서 있다. 형의 칼을 꺼냈지만 불살을 지키려 흰 천을 풀지 않았다. 날 대신 천으로 감싼 긴 몸으로 길을 지킨다.';
+  alter.movementNotes='기존 한손 둔기 동작에 새 무기의 길이·무게·실측 간격을 적용한다. 적극성과 보법은 강화하지 않는다.';
+  alter.weaknesses='가시 찌르기와 갑옷 무시 효과가 없는 둔기. 길게 휘두른 뒤의 빈틈을 조심해야 한다.';
+  alter.signatureMoves='형의 칼을 한 손으로 휘둘러 밀어낸다. 천에 싸인 날은 베거나 찌르지 않는다.';
   alter.taunt='오늘은 이 칼을 쓰겠네.';
   alter.lines={intro:['오늘은 이 칼을 쓰겠네.','차를 권할 때는 지났네.'],win:['…형에게 돌려줄 말이 늘었군.']};
  }
