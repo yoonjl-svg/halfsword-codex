@@ -44,7 +44,7 @@ export function buildLoggiaNight(scene,lights){
  }
  // Moonlight entering the opened bay makes the paper trail readable.
  w.finish('archive-stone-frame',bakeWarm(scene,original,[{x,y:3,z:z+1,r:9,c:[.65,.84,1.05]}]));
- root.userData.stories=['닫혀 있던 서고의 문이 벌어지고 봉인지가 찢겨 있다. 누가 열었는지는 알 수 없다.','뜯겨 나온 책장이 회랑을 따라 이어진다. 토메의 등에는 사슬로 잠근 책이 남아 있다.'];
+ root.userData.stories=['닫혀 있던 서고의 문이 벌어지고 봉인지가 찢겨 있다. 누가 열었는지는 알 수 없다.','뜯겨 나온 책장이 회랑을 따라 이어진다. 토메의 허리에는 금색 열쇠 두 개가 매달려 있다.'];
  root.userData.details={archive:[x,1.8,z],pages:[x-.5,.05,z+3.3]};
  return animate(stage,root,[t=>{for(const {m,y,phase} of leaves){m.position.y=y+Math.max(0,Math.sin(t*.7+phase))**8*.055;m.rotation.x=-Math.PI/2+.03*Math.sin(t*.7+phase)}}]);
 }

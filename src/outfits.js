@@ -141,10 +141,12 @@ const ISOLDE_LONGHAIR = {
   chest(g, look) {
     ISOLDE_SABER.chest(g, look);
     // 등을 덮는 머리 (어깨 너비보다 조금 좁게)
-    addMerged(g, [box(0.03, 0.3, 0.2, [-0.137, 0.0, 0])], look.hair, { roughness: 1 });
+    const bob=look.alter==='isolde';
+    addMerged(g, [box(0.03, bob?0.09:0.3, 0.2, [-0.137, bob?0.105:0, 0])], look.hair, { roughness: 1 });
   },
   abdomen(g, look) {
     ISOLDE_SABER.abdomen(g, look);
+    if(look.alter==='isolde')return; // shoulder-length cut keeps the original head/side shapes
     // 허리까지: 아래로 갈수록 좁아지고 끝이 둥글게 모인다
     addMerged(
       g,
@@ -872,10 +874,8 @@ const MARGARETHE_DRAGON_HORNED = {
       [0.118, 0.016, 0],
     );
     helmPiece(helm, 'hornR', [taperedTube(MG3_HORN_R, MG3_HORN_RADII, 10, 6)], MG_PLATE, MG3_PLATE, MG3_HORN_R[0]);
-    const brokenHorn = look.alter === 'margarethe';
-    // Cosmetic break only: retain the helmet piece, wear stages and armor coverage.
-    const leftHorn = mirrorZ(MG3_HORN_R).slice(0, brokenHorn ? 2 : 4);
-    helmPiece(helm, 'hornL', [taperedTube(leftHorn, brokenHorn ? [0.025, 0.018] : MG3_HORN_RADII, 10, 6)], MG_PLATE, MG3_PLATE, leftHorn[0]);
+    const leftHorn = mirrorZ(MG3_HORN_R);
+    helmPiece(helm, 'hornL', [taperedTube(leftHorn, MG3_HORN_RADII, 10, 6)], MG_PLATE, MG3_PLATE, leftHorn[0]);
     // 첨탑 끝의 술 뭉치 + 뒤로 흘러내리는 굵은 술. 양옆 두 가닥이 폭을 더해 뒤에서 봐도 갈고리가
     // 아니라 술 다발로 읽히고, 끝으로 갈수록 가운데로 모인다
     const side = (s) => MG3_PLUME.map(([x, y], i) => [x * 0.94, y - 0.01, s * 0.03 * (1 - 0.6 * (i / (MG3_PLUME.length - 1)))]);
@@ -1998,6 +1998,16 @@ function ropaUpperArm(g) {
 function librarianHead(g, look) {
   TOME_RAPIER.head(g, look);
   const RY = 0.01, RZ = 0.036, RX = 0.104, R = 0.019;
+  if(look.alter==='tome'){
+    const frame=addMerged(g,[
+      bake(new THREE.TorusGeometry(.022,.0031,6,24),[RX+.005,RY,-RZ],[0,Math.PI/2,0]),
+      ball(.004,6,4,[RX+.005,RY-.015,-RZ-.016]),
+      taperedTube([[RX+.005,RY-.015,-RZ-.016],[.11,-.05,-.081],[.05,-.12,-.108],[-.01,-.16,-.102]], [.0016,.0016,.0016,.0016],18,4),
+    ],0xc3a66b,{roughness:.43,metalness:.5,steel:.45});
+    frame.name='alter-monocle';
+    return;
+  }
+
   // 둥근 테 둘(눈을 감싸고 눈썹 아래에서 멈춘다) + 코 위를 넘는 다리 + 끈을 맨 작은 귀
   addMerged(g, [
     ...[-1, 1].map((s) => bake(new THREE.TorusGeometry(R, 0.0034, 6, 22), [RX, RY, s * RZ], [0, Math.PI / 2, 0])),
@@ -2012,7 +2022,7 @@ function librarianHead(g, look) {
   // 알은 넣지 않는다: 옅은 투명 원판은 대결 거리에서 보이지 않고 그리기 수만 는다 (테만)
 }
 /** 배: v1 더블릿 겉면·앞 솔기 + 겉옷 + 겉옷 위 허리띠(놋 고리) + 왼쪽 허리 열쇠 꾸러미 · 잉크통 · 펜 통 */
-function librarianAbdomen(g) {
+function librarianAbdomen(g,look={}) {
   clothBase(g, TOME_WINE);
   addMerged(g, [box(0.005, 0.09, 0.006, [0.114, 0.031, -0.062]), box(0.005, 0.09, 0.006, [0.114, 0.031, 0.062])], TOME_SEAM, CLOTH);
   ropaTorso(g, [[0.095, 0.124, 0.182, 0.078, 0.02], [0.0, 0.125, 0.184, 0.08, 0.022], [-0.09, 0.126, 0.186, 0.082, 0.025]]);
@@ -2020,23 +2030,25 @@ function librarianAbdomen(g) {
   const belt = clothLoft([-0.026, -0.06], 48, (a) => { const r = seRadius(a, 0.131, 0.19, ROPA_N); return [Math.cos(a) * r, Math.sin(a) * r]; });
   const L = -1; // 왼쪽(빈손 쪽) = −z
   // 열쇠 꾸러미: 띠 아래 고리 하나에 큰 쇠 열쇠 셋이 부채처럼 늘어진다 (손잡이 고리 · 자루 · 이빨)
-  const ring = [0.085, -0.071, L * 0.2];
-  const iron = [bake(new THREE.TorusGeometry(0.016, 0.0032, 5, 16), ring)];
+  const gold=look.alter==='tome';
+  const ring = gold?[.145,-.071,L*.19]:[0.085, -0.071, L * 0.2];
+  const iron = [bake(new THREE.TorusGeometry(0.016, 0.0032, 5, 16), ring,gold?[0,Math.PI/2,0]:undefined)];
   const M = new THREE.Matrix4(), Q = new THREE.Quaternion(), P = new THREE.Vector3(), S = new THREE.Vector3(1, 1, 1);
-  [-0.32, 0.02, 0.36].forEach((ang, i) => {
-    const len = [0.085, 0.1, 0.09][i];
+  (gold?[-.28,.28]:[-0.32,0.02,0.36]).forEach((ang, i) => {
+    const len = gold?[.105,.12][i]:[0.085, 0.1, 0.09][i];
     const key = [
       bake(new THREE.TorusGeometry(0.012, 0.0036, 5, 12), [0, -0.014, 0]),
       cyl(0.0043, 0.0043, len, 6, false, [0, -0.026 - len / 2, 0]),
       box(0.016, 0.019, 0.005, [0.009, -0.021 - len, 0]),
       box(0.008, 0.007, 0.0055, [0.007, -0.011 - len, 0]),
     ];
-    Q.setFromEuler(new THREE.Euler(0, 0, ang));
-    P.set(ring[0], ring[1] - 0.013, ring[2] + L * 0.005 * (i - 1));
+    Q.setFromEuler(new THREE.Euler(0,gold?Math.PI/2:0,ang,'YXZ'));
+    P.set(ring[0]+(gold?i*.004:0), ring[1] - 0.013, ring[2] + L * 0.005 * (i - 1));
     M.compose(P, Q, S);
     for (const k of key) iron.push(k.applyMatrix4(M));
   });
-  addMerged(g, iron, KEY_IRON, KEY_IRON_OPTS);
+  const keys=addMerged(g,iron,gold?0xd1a447:KEY_IRON,gold?{roughness:.42,metalness:.55,steel:.65}:KEY_IRON_OPTS);
+  if(gold){keys.name='alter-two-gold-keys';keys.userData.keyCount=2}
   // 잉크통(뿔) + 펜 통(가죽): 열쇠 뒤, 띠에서 짧은 끈으로
   const horn = [-0.064, -0.112, L * 0.205];
   addMerged(g, [cyl(0.0105, 0.0145, 0.05, 10, false, horn, [0, 0, -0.12])], INK_HORN, { roughness: 0.55, metalness: 0.05 });

@@ -14,17 +14,20 @@ export function alterLook(base, kind) {
     look.blindfold=true;
   }
   if(kind==='margarethe') {
+    look.hair=0xa4a6a2; // muted light gray, visibly darker than ivory armor
+    look.plume=base.plume??base.hair; // the helmet's feather is not natural hair
     look.outfitPalette={0x2c2c32:0xd9d1b9,0x1c1c20:0x948b77,0x8d939b:0xf1e5c9,
       0x1b1b20:0xc7bfae,0x131316:0x8d8377,0x1e1e22:0xb7ab98,0x24242a:0x9d9285};
   }
   if(kind==='isolde') {
-    look.outfitPalette={0xe6ded0:0x684274,0xd8cdb8:0x4a3155,0x33363f:0xc4b79f,
-      0x2b2e36:0xc4b79f,0x4a4d57:0x9d8661};
-    look.outfit='isolde_saber'; // Remove the three long-hair sections; add the cropped head below.
+    // Preserve the original clothes, hair cap and side locks. The existing
+    // long-hair decorator trims only the rear length to the shoulder line.
+    look.guildVest=true;
   }
   if(kind==='tome') {
-    look.outfitPalette={0x632b3c:0xc8baa1,0x8b4d58:0x9b8767,0x1c191b:0xe0d5bc,
-      0x4a2230:0x96856b,0x35343b:0xa99d88};
+    // Keep the wine doublet, sleeves and dark trousers. Only the outer ropa
+    // and its facing change, so the original two clothing layers stay legible.
+    look.outfitPalette={0x1c191b:0xb6ad98,0x4a2230:0x81755e};
   }
   if(kind==='omari') {
     look.outfitPalette={0xe4d4b4:0x40988e,0x193b4b:0x32948d,0x47616a:0x82b4a0,0x813848:0xb6935a,
@@ -67,32 +70,28 @@ export function decorateAlter(g,look,part) {
       const lapel=add(coat,new THREE.BoxGeometry(.022,.23,.05),edge,[.13,.045,s*.13]);lapel.rotation.x=s*.20;
     }
   }
-  if(look.alter==='tome'&&part==='chest'){
-    const book=new THREE.Group();book.name='alter-sealed-book';g.add(book);
-    const leather=mat(0x554835),pages=mat(0xc1b393),iron=mat(0x443f3b),brass=mat(0xa58a51);
-    add(book,new THREE.BoxGeometry(.12,.51,.38),pages,[-.23,-.025,0]);
-    for(const x of [-.30,-.16])add(book,new THREE.BoxGeometry(.025,.57,.43),leather,[x,-.025,0]);
-    add(book,new THREE.BoxGeometry(.16,.57,.034),leather,[-.23,-.025,.213]);
-    for(const z of [-.15,.15])add(book,new THREE.BoxGeometry(.035,.43,.038),leather,[-.14,.01,z]);
-    const links=new THREE.InstancedMesh(new THREE.TorusGeometry(.021,.005,5,10),iron,23),d=new THREE.Object3D();book.add(links);
-    for(let i=0;i<23;i++){
-      const vertical=i<14,k=vertical?i:i-14;
-      d.position.set(-.322,vertical?-.285+k*.04:-.025,vertical?0:-.16+k*.04);
-      d.rotation.set(0,Math.PI/2,0);d.rotateY(k%2?.65:0);if(!vertical)d.rotateZ(Math.PI/2);d.scale.set(1,1.2,1);d.updateMatrix();links.setMatrixAt(i,d.matrix);
+  if(look.guildVest&&['chest','abdomen'].includes(part)){
+    // A pull-over training vest: continuous front/back, round neck, armholes,
+    // no buttons, lapels or front opening. Follow the existing body segments.
+    const vest=new THREE.Group();vest.name='alter-purple-guild-vest';g.add(vest);
+    const rows=part==='chest'?[[.18,.081,.096],[.14,.139,.191],[-.045,.143,.193],[-.175,.144,.193]]:
+      [[.10,.133,.183],[-.10,.136,.188]];
+    const n=48,pos=[],idx=[];
+    for(let j=0;j<rows.length;j++)for(let i=0;i<=n;i++){
+      const [y,rx,rz]=rows[j],a=i/n*Math.PI*2,c=Math.cos(a),z=Math.sin(a);
+      const rr=1/Math.pow(Math.pow(Math.abs(c)/rx,10)+Math.pow(Math.abs(z)/rz,10),1/10);
+      pos.push(c*rr,y,z*rr);
+      // Sleeveless opening, between the shoulder seam and the armpit.
+      const hole=part==='chest'&&j===1&&Math.abs(Math.sin((i+.5)/n*Math.PI*2))>.83;
+      if(j<rows.length-1&&i<n&&!hole){const k=j*(n+1)+i;idx.push(k,k+1,k+n+1,k+1,k+n+2,k+n+1)}
     }
-    add(book,new THREE.BoxGeometry(.035,.075,.065),brass,[-.35,-.05,0]);
-    add(book,new THREE.BoxGeometry(.004,.025,.009),iron,[-.371,-.05,0]);
+    const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));geo.setIndex(idx);geo.computeVertexNormals();
+    add(vest,geo,mat(0x654272));
+    if(part==='chest'){
+      const collar=add(vest,new THREE.CylinderGeometry(.082,.083,.009,32,1,true),mat(0x8b6b91),[0,.18,0]);collar.scale.z=.096/.081;
+    }
   }
   if(part!=='head')return;
-  if(look.alter==='isolde'){
-    const hair=new THREE.Group();hair.name='alter-cropped-hair';g.add(hair);
-    const black=mat(look.hair);
-    add(hair,new THREE.BoxGeometry(.052,.14,.18),black,[-.087,-.025,0]);
-    for(const s of [-1,1])for(let i=0;i<3;i++){
-      const lock=add(hair,new THREE.BoxGeometry(.038,.105+i*.012,.023),black,[-.052+i*.039,-.035-i*.006,s*.094]);
-      lock.rotation.x=s*(.08+i*.03);
-    }
-  }
   if(look.alter==='eira'){
     const hood=new THREE.Group();hood.name='alter-deep-hood';g.add(hood);
     const cloth=mat(0x68394f),lining=mat(0x30212d),edge=mat(0x9a6b7b);

@@ -669,7 +669,7 @@ export const CHARACTER_VARIANTS = [
     const base = CHARACTERS.find((c) => c.id === id);
     return { ...base, id: `${id}_mad`, variantOf: id, mad: true, appearanceOnly: true,
       name: `광기의 ${base.name}`, ai: JSON.parse(JSON.stringify(base.ai)),
-      look: alterLook(base.look, id), lookVersion: `${base.lookVersion}-alter1`,
+      look: alterLook(base.look, id), lookVersion: `${base.lookVersion}-alter${['margarethe','isolde','tome'].includes(id)?2:1}`,
       eyes: id === 'liao' ? 'clothGlow' : 'madGlow',
     };
   }),
