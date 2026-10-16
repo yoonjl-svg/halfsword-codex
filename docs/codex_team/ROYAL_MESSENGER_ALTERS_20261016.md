@@ -27,3 +27,5 @@
 ## 공개 상태
 
 소스 `150f4ef9`. 검토 페이지 `royal-messenger-alters.html`과 실제 사진17장 준비. 모바일390×844/844×390에서 사진14장 디코딩·넘침 없음·두 대련 링크/실제 무기 확인 통과. Pages 배포 검증은 후속 영수증으로 기록한다. 우화에게 보내지 않았음.
+
+공개 `0bbe0391` / [Pages38953211127](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38953211127) 성공(1분25초), 원격26파일 바이트 일치. [휴대폰 검토 페이지](https://yoonjl-svg.github.io/halfsword-codex/royal-messenger-alters.html?v=0bbe0391), [검증 영수증](royal_messenger_20261016_release.json). 환경에서 Pages CDN 브라우저 직접 확인은 제한되어 로컬 프로덕션/모바일 검사와 Actions·고정SHA 원격 확인을 구분한다. 우화 미발송.
