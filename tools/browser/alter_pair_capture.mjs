@@ -21,7 +21,8 @@ try{for(const [stage,foe] of pairs){
  await page.addStyleTag({content:'body > :not(#game){visibility:hidden!important}'});
  await page.evaluate(()=>{game.freeCam=true;for(const m of game.player.meshes)m.group.visible=false});
  await page.setViewportSize({width:720,height:960});
- for(const view of ['front','back','head',...(process.argv.includes('--details')?['hair','waist']:[])]){
+ const selectedViews=process.argv.find(a=>a.startsWith('--views='))?.slice(8).split(',');
+ for(const view of selectedViews||['front','back','head',...(process.argv.includes('--details')?['hair','waist']:[])]){
   await page.evaluate(view=>{const g=game,T=g.THREE,v=(view==='head'?g.enemy.bodies.head:g.enemy.bodies.pelvis).translation(),f=new T.Vector3(1,0,0).applyQuaternion(g.enemy.yaw);
    const dist=view==='head'?1.7:(view==='back'?-4.2:4.2);g.camera.position.set(v.x+f.x*dist,view==='head'?v.y+.04:1.25,v.z+f.z*dist);g.camera.lookAt(v.x,view==='head'?v.y+.015:1.02,v.z);g.camera.fov=view==='head'?24:34;g.camera.updateProjectionMatrix();
    if(view==='hair'||view==='waist'){
@@ -30,6 +31,11 @@ try{for(const [stage,foe] of pairs){
     const d=view==='hair'?2.2:1.65,y=p.y+(view==='hair'?-.17:-.04);
     g.camera.position.set(p.x+f.x*d,y+.03,p.z+f.z*d);g.camera.lookAt(p.x,y,p.z);
     g.camera.fov=view==='hair'?30:29;g.camera.updateProjectionMatrix();
+   }
+   if(view==='embroidery'){
+    const p=g.enemy.bodies.chest.translation();
+    g.camera.position.set(p.x-f.x*1.1,p.y+.025,p.z-f.z*1.1);g.camera.lookAt(p.x,p.y-.025,p.z);
+    g.camera.fov=28;g.camera.updateProjectionMatrix();
    }
   },view);await page.clock.runFor(16);await page.screenshot({path:prefix+`-${view}.png`});
  }
