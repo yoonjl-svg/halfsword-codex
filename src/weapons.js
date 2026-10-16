@@ -1537,7 +1537,7 @@ const goujian = finalizeSpec('goujian', {
 // or spike. Unbreakable by user request; dimensions/mass are game estimates [I].
 const brothersSword = finalizeSpec('brothers_sword', {
   nameKo: '황약사의 검', nameEn: "Huang Yaoshi's Sword",
-  desc: '흰 천으로 감싸진 검. 오랫동안 아무도 풀지 않은 듯 단단히 매여 있다.\n“사람의 가장 큰 번뇌는 기억력 때문이라 하더군.”',
+  desc: '흰 천으로 감싼 검. 오랫동안 풀지 않은 듯 단단히 매여 있다.\n“사람의 가장 큰 번뇌는 기억력 때문이라더군.”',
   grip: 'one-hand', material: 'wood', soundMaterial: 'wood', tier: 'epic',
   // A descriptive ability title, not an added status effect or combat trigger.
   ability: '취생몽사: 몽롱한 일격',
