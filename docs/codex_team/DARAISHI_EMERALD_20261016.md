@@ -21,3 +21,9 @@
 외형·실행 검사: 앞머리·얼굴/정수리 geometry 해시 동일, 얼터 전체 geometry/material 동일, 기본 하의/팔 동일, 질량·충돌69개·힘·무기 동일. 기본23,094/얼터18,022 삼각형 유지. 실제 전투7초·렌더 오류0. 빌드 성공. 기력/전투 핵심 변경이 없고 직전 곡선 시안의5관문과 이번 물리 보존 검사로 범위를 확인했다(이 색 시안에서 기력 전체 관문은 중복 실행하지 않음).
 
 실제 낮/밤 전신·머리·앞판·뒷모습·검집 측면을 촬영했다. 검집은 동일 구도 전후 비교를 보존한다. 페이지·공개 결과는 후속 기록.
+
+## 화면·모바일 확인 완료
+
+구현 e9eb76bc. 새 현재 사진7장/칼집 이전 사진1장. 동일 카메라의 은발·에메랄드 및 검집 간격 비교를 `daraishi-front.html`에 게시했다.390×844/844×390에서 새 소개 사진9장, 밤7차 사진15장·영상8초·무기/상대 직접 대련 링크 확인. 가로 넘침·이미지 오류·HTTP/JS 오류0. Vite/PWA 빌드 성공. 원본 촬영과 게시 이미지 출처/해시는 manifest에 보존.
+
+실행 검사 재현: `BEFORE_GEOMETRY=docs/codex_team/daraishi_emerald_20261016_checks/before.json node tools/browser/daraishi_front_check.mjs http://127.0.0.1:4194 /tmp/daraishi-check.json --scabbard`. 관통 표본 검사: `node tools/browser/daraishi_scabbard_clearance.mjs http://127.0.0.1:4194 /tmp/scabbard-clearance.json`.
