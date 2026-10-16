@@ -1536,11 +1536,11 @@ const goujian = finalizeSpec('goujian', {
 // Kim keeps his brother's sword wrapped: a single-hand blunt weapon, never an edge
 // or spike. Unbreakable by user request; dimensions/mass are game estimates [I].
 const brothersSword = finalizeSpec('brothers_sword', {
-  nameKo: '취생몽사', nameEn: 'Chwisaeng Mongsa',
-  desc: '불살을 지키려 흰 천에 감싼 형의 칼.\n묵직한 몸체로 강한 둔타를 가한다.',
+  nameKo: '황약사의 검', nameEn: "Huang Yaoshi's Sword",
+  desc: '흰 천으로 감싸진 검. 오랫동안 아무도 풀지 않은 듯 단단히 매여 있다.\n“사람의 가장 큰 번뇌는 기억력 때문이라 하더군.”',
   grip: 'one-hand', material: 'wood', soundMaterial: 'wood', tier: 'epic',
   // A descriptive ability title, not an added status effect or combat trigger.
-  ability: '황약사: 몽롱한 일격',
+  ability: '취생몽사: 몽롱한 일격',
   edged: false, spike: false, mCut: 0, mThrust: 0, mBlunt: 1.6,
   fragility: 0, durability: 1, // No break roll or broken geometry, even against breakMult weapons.
   hiltLength: .12, bladeLength: .81,

@@ -22,8 +22,8 @@ try{
  await page.locator('#draw .wcard').nth(0).dispatchEvent('click');
  await page.waitForFunction(()=>game.draw.stage==='reveal'&&game.draw.t>=1.35);await page.evaluate(()=>{game.draw.hold=true;game.renderCap.tick=()=>true});await page.waitForTimeout(100);
  assert.equal(await page.locator('#draw .wcard').nth(0).getAttribute('data-tier'),'epic');
- assert.equal(await page.locator('#draw .wcard .wname').nth(0).textContent(),'취생몽사');
- assert.equal(await page.locator('#draw .wcard .wabil').nth(0).textContent(),'(황약사: 몽롱한 일격)');
+ assert.equal(await page.locator('#draw .wcard .wname').nth(0).textContent(),'황약사의 검');
+ assert.equal(await page.locator('#draw .wcard .wabil').nth(0).textContent(),'(취생몽사: 몽롱한 일격)');
  assert.ok(await page.locator('#draw .wcard').nth(0).evaluate(e=>e.classList.contains('flipped')));
  for(const [width,height]of [[1200,675],[844,390],[568,320]]){
   await page.setViewportSize({width,height});await page.waitForTimeout(150);

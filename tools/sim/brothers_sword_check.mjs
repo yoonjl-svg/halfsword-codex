@@ -12,7 +12,7 @@ assert.deepEqual(schoolOf('brothers_sword').guards,schoolOf('morgenstern').guard
 // Now a player-drawable epic; retain exclusion and distinct-card behavior.
 const playerPool=Object.keys(WEAPONS).filter(id=>id!=='excalibur_replica'&&!RETIRED_WEAPONS.has(id));
 assert.equal(WEAPONS.brothers_sword.tier,'epic');assert.equal(WEAPONS.brothers_sword.power,1.1);
-assert.equal(WEAPONS.brothers_sword.ability,'황약사: 몽롱한 일격');
+assert.equal(WEAPONS.brothers_sword.ability,'취생몽사: 몽롱한 일격');
 assert.deepEqual(drawWeaponCards(['brothers_sword'],1),['brothers_sword']);
 let offered=0;
 for(let seed=1;seed<=128;seed++){
