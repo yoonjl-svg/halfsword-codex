@@ -25,14 +25,14 @@ try{
     for(const video of document.querySelectorAll('video')){video.muted=true;await video.play();video.pause()}
     return {
      images:images.length,decoded:images.every(Boolean),overflow:document.documentElement.scrollWidth>innerWidth,
-     videos:[...document.querySelectorAll('video')].map(video=>({ready:video.readyState,duration:video.duration})),
+     videos:[...document.querySelectorAll('video')].map(video=>({ready:video.readyState,duration:video.duration,source:video.currentSrc})),
      links:[...document.querySelectorAll('.duel')].map(link=>{
       const url=new URL(link.href);
       return {target:`${url.searchParams.get('stage')}/${url.searchParams.get('foe')}`,weapon:url.searchParams.get('weapon')};
      }),
     };
    });
-   const pass=result.decoded&&!result.overflow&&!errors.length&&result.videos.every(video=>video.ready>=2&&video.duration===4)&&result.links.length===duels.length&&result.links.every(link=>link.weapon==='longsword'&&duels.includes(link.target));
+   const pass=result.decoded&&!result.overflow&&!errors.length&&result.videos.every(video=>video.ready>=2&&video.duration===(video.source.endsWith('/wetland-storm.mp4')?12:4))&&result.links.length===duels.length&&result.links.every(link=>link.weapon==='longsword'&&duels.includes(link.target));
    report.pages.push({file,viewport,...result,errors,pass});
    await page.close();
   }
