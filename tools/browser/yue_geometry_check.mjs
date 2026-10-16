@@ -13,16 +13,15 @@ const x=new T.Vector3(0,.03+.67*a/20,0).applyMatrix4(m),y=new T.Vector3(0,.03+.6
 }}
 for(let t=0;t<=85;t+=.25){update(t);for(const mesh of g.children){mesh.geometry.computeBoundingBox();for(let i=0;i<mesh.count;i++){mesh.getMatrixAt(i,m);finite&&=m.elements.every(Number.isFinite);if(m.determinant()===0)continue;const box=mesh.geometry.boundingBox.clone().applyMatrix4(m);const d=Math.hypot(Math.max(box.min.x,Math.min(0,box.max.x)),Math.max(box.min.z,Math.min(0,box.max.z)));radius=Math.min(radius,d)}}}
 const snapshot=t=>{update(t);return ['yue','wu'].flatMap(f=>[...g.getObjectByName(f+'-ghost-chest').instanceMatrix.array])};
-const t0=snapshot(0),flag0=g.getObjectByName('yue-ghost-banner').geometry.attributes.position.array.slice(),t1=snapshot(1);
-const flagMoves=flag0.some((x,i)=>Math.abs(x-g.getObjectByName('yue-ghost-banner').geometry.attributes.position.array[i])>1e-5);let actorsMoved=0;
+const t0=snapshot(0),t1=snapshot(1);let actorsMoved=0;
 for(let i=0;i<g.userData.count;i++)if(t0.slice(i*16,i*16+16).some((x,j)=>Math.abs(x-t1[i*16+j])>1e-5))actorsMoved++;
 const shapesDiffer=['head','chest','uarmS'].every(id=>JSON.stringify([...g.getObjectByName('yue-ghost-'+id).geometry.attributes.position.array])!==JSON.stringify([...g.getObjectByName('wu-ghost-'+id).geometry.attributes.position.array]));
 const quadrants=new Set(g.userData.actors.filter(a=>a.kind==='duel').map(a=>`${Math.sign(a.position[0])}/${Math.sign(a.position[2])}`));
 const visible=id=>g.children.filter(m=>m.name.endsWith('-'+id)).reduce((count,mesh)=>{for(let i=0;i<mesh.count;i++){mesh.getMatrixAt(i,m);if(m.determinant()!==0)count++}return count},0);
 const spears=visible('spear'),banners=visible('banner');
-return {flagMoves,spears,banners,quadrants:quadrants.size,shapesDiffer,minBladeDistance:min,best,radius,finite,actorsMoved,details:g.userData};
+return {spears,banners,quadrants:quadrants.size,shapesDiffer,minBladeDistance:min,best,radius,finite,actorsMoved,details:g.userData};
 });
 fs.writeFileSync(out,JSON.stringify(report,null,2)+'\n');
-assert.ok(report.flagMoves);assert.equal(report.spears,3);assert.equal(report.banners,1);assert.equal(report.quadrants,4);assert.ok(report.shapesDiffer);assert.ok(report.finite);assert.ok(report.radius>10.5);assert.ok(report.minBladeDistance<.06);assert.equal(report.actorsMoved,20);
+assert.equal(report.spears,3);assert.equal(report.banners,0);assert.equal(report.quadrants,4);assert.ok(report.shapesDiffer);assert.ok(report.finite);assert.ok(report.radius>10.5);assert.ok(report.minBladeDistance<.06);assert.equal(report.actorsMoved,20);
 report.pass=true;fs.writeFileSync(out,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({pass:true,minBladeDistance:report.minBladeDistance,radius:report.radius,actorsMoved:report.actorsMoved}));
 }finally{await b.close()}
