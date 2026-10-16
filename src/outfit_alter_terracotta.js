@@ -1,5 +1,6 @@
-// Cosmetic painted clay and staple repair; no armor or damage-rule changes.
+// Pale human face / painted armor / white mantle; appearance only.
 import * as T from 'three';
+import {addYueCommanderCloak} from './outfit_yue_cloak.js';
 export function decorateTerracottaAlter(g,part){
  if(part!=='head'){
   const palette={0x929084:0x8d4035,0xa4a094:0xaa5946,0x7c7b70:0x563932,
@@ -11,17 +12,35 @@ export function decorateTerracottaAlter(g,part){
     if(!m?.color||seen.has(m))continue;seen.add(m);
     const color=palette[m.color.getHex()];if(color!==undefined)m.color.setHex(color);
    }});
+  addYueCommanderCloak(g,part);
   return;
  }
- const repair=new T.Group();repair.name='terracotta-bronze-face-repair';g.add(repair);
- const clayCrack=new T.MeshStandardMaterial({color:0x45433b,roughness:1});
- const bronze=new T.MeshStandardMaterial({color:0x9a865b,roughness:.76,metalness:.35});
- const onFace=(y,z,lift=.003)=>new T.Vector3(Math.sqrt(Math.max(.001,.107**2-y*y-z*z))+lift,y,z);
- const path=[[.077,.034],[.057,.042],[.035,.038],[.012,.051],[-.009,.047],[-.027,.057],[-.048,.046],[-.069,.043]];
- const crack=new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(path.map(([y,z])=>onFace(y,z))),28,.0018,4,false),clayCrack);repair.add(crack);
- for(const [y,z] of [[.055,.042],[-.012,.048],[-.052,.045]]){
-  const pts=[onFace(y-.003,z-.014,.003),onFace(y-.003,z-.014,.007),onFace(y+.003,z+.014,.007),onFace(y+.003,z+.014,.003)];
-  const staple=new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts),9,.0024,5,false),bronze);staple.castShadow=true;repair.add(staple);
+ // Preserve the original head, hair cap and crown silhouette; replace clay
+ // relief with a human face. Alpha is modest so the expression stays readable.
+ const face=g.children[0],nose=g.children[3],hair=g.children[4];
+ const skin=0xe0e4d8;
+ for(const o of [face,nose]){
+  o.material.color.setHex(skin);o.material.vertexColors=false;
+  o.material.transparent=true;o.material.opacity=.88;o.material.depthWrite=false;
+  o.material.roughness=.87;o.material.needsUpdate=true;
  }
- repair.userData={cosmetic:true,staples:3,interpretation:'창작 수복 흔적; 진대 공법 복원 아님'};
+ nose.scale.set(.76,.90,.88);
+ hair.material.color.setHex(0x303b3c);
+ for(const name of ['terracotta-sculpture','terracotta-face-incisions','terracotta-age']){
+  const o=g.getObjectByName(name);if(o)o.visible=false;
+ }
+ for(const name of ['terracotta-cap','terracotta-hair-grooves'])g.getObjectByName(name)?.traverse(o=>{if(o.material?.color)o.material.color.setHex(0x354448)});
+ const human=new T.Group();human.name='terracotta-pale-human-face';human.userData={opacity:.88,cosmetic:true};g.add(human);
+ const flesh=new T.MeshStandardMaterial({color:skin,roughness:.87,transparent:true,opacity:.88,depthWrite:false});
+ const ink=new T.MeshStandardMaterial({color:0x394241,roughness:1});
+ const add=(geo,mat,p,scale)=>{const m=new T.Mesh(geo,mat);m.position.set(...p);if(scale)m.scale.set(...scale);human.add(m);return m};
+ for(const side of [-1,1]){
+  add(new T.SphereGeometry(.022,8,6),flesh,[-.007,-.023,side*.096],[.58,1.25,.43]);
+  const brow=add(new T.BoxGeometry(.008,.0035,.036),ink,[.092,.038,side*.035]);brow.rotation.x=side*.10;
+  const points=[[.106,-.038,side*.004],[.105,-.041,side*.023],[.092,-.047,side*.039]].map(p=>new T.Vector3(...p));
+  add(new T.TubeGeometry(new T.CatmullRomCurve3(points),9,.0035,5,false),ink,[0,0,0]);
+ }
+ add(new T.SphereGeometry(.019,8,6),ink,[.077,-.079,0],[.26,.70,.78]);
+ add(new T.ConeGeometry(.012,.035,6),ink,[.066,-.098,0],[.4,1,.7]).rotation.z=Math.PI;
+ g.userData.spectralHumanFace=true;
 }

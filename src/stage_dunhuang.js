@@ -469,7 +469,7 @@ function landscape(K, scene) {
 
 // A fictional interrupted procession, not an archaeological reconstruction.
 // All raised scenery stays beyond the 13 m duel buffer; tracks are visual only.
-function abandonedProcession(K, night = false) {
+function abandonedProcession(K) {
   const origin = [-16.2, 0, 8.8], heading = 1.27;
   // Opposite the +X cliff, with its sand and ruts anchored to this same origin.
   const wood = 0x766049, edge = 0x9b8160, dark = 0x423b31;
@@ -508,7 +508,6 @@ function abandonedProcession(K, night = false) {
   limb(K, 'procession', [.89, .91, 1.7], [.94, .51, 3.12], .09, .055, dark, {}, 5);
   limb(K, 'procession', [1.24, .12, 3.26], [1.57, .05, 4.15], .075, .035, wood, {}, 5);
   // A pair of large packing cases, with diagonal braces and a slumped lid.
-  if (!night) {
   for (const [x, y, z, w, h, d] of [[-.52,1.68,-.84,1.22,1.14,1.62],[.52,1.60,.87,1.15,.98,1.44]]) {
     K.put('procession', box(w, .12, d), dark, [x,y-h/2,z]);
     for (const side of [-1,1]) {
@@ -527,7 +526,6 @@ function abandonedProcession(K, night = false) {
   K.put('procession', box(.58,.34,.36), 0x94785b, [-.52,2.06,-.80]);
   K.put('procession', cyl(.09,.12,.16,7), dark, [-.52,2.65,-.81]);
   K.put('procession', box(.09,.12,.11), 0x9d7f60, [-.48,2.35,-.57]);
-  }
   // Sagging, torn ochre canvas hangs over an asymmetric timber frame. Its
   // subdivided folds are real geometry, visible from the side and underneath.
   for (const [x,z,y] of [[-1.28,-1.85,3.77],[1.28,-1.85,3.61],[-1.28,1.65,3.56],[1.28,1.65,3.21]])
@@ -541,7 +539,6 @@ function abandonedProcession(K, night = false) {
     return [(u-.5)*3.04,3.68-v*.37-Math.sin(u*Math.PI)*.28+Math.sin(v*7+u*2)*.09-sag,-1.99+v*3.98];
   };
   for(let i=0;i<nx;i++)for(let j=0;j<nz;j++){
-    if (night && i > 2) continue; // The cover has been pulled off the empty load.
     if ((j > 6 && i === 3) || (j > 9 && i > 1 && i < 5) || (j > 8 && i > 7)) continue;
     const a=clothPoint(i,j),b=clothPoint(i+1,j),c=clothPoint(i,j+1),d=clothPoint(i+1,j+1);
     canvas.push(...a,...c,...b,...b,...c,...d);
@@ -638,14 +635,14 @@ function duelRing(scene) {
   mesh.name = 'dunhuang-duel-ring'; mesh.castShadow = false; mesh.receiveShadow = false; scene.add(mesh);
 }
 
-export function buildDunhuang(scene, { hemi, sun } = {}, { night = false } = {}) {
+export function buildDunhuang(scene, { hemi, sun } = {}) {
   const before = new Set(scene.children), sunOffset = { x: -12, y: 8, z: -9 };
   scene.background = new THREE.Color(0xc7d7d8); scene.fog = new THREE.Fog(0xcbd2c9, 95, 330);
   if (hemi) { hemi.color.setHex(0xc3dcec); hemi.groundColor.setHex(0xc2b18e); hemi.intensity = 1.55; }
   if (sun) { sun.color.setHex(0xffedcd); sun.intensity = 2.25; sun.position.set(sunOffset.x, sunOffset.y, sunOffset.z); }
   const K = new OwnedKit(141400);
   landscape(K, scene); cliff(K); pavilion(K); mural(scene);
-  abandonedProcession(K, night);
+  abandonedProcession(K);
   duelRing(scene); // ② 결투장 띠 (난수를 안 쓴다)
   const earthMap = earthTexture(), rockMap = cliffTexture();
   const standard = (extra = {}) => new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, ...extra });

@@ -907,11 +907,11 @@ for(const id of ['chanda','renji']){
  finishAI(alter);CHARACTER_VARIANTS.push(alter);
 }
 
-// Night 6: painted clay and repaired face; all native clay physiology survives.
+// Night 6: painted armor, pale human apparition; native combat physiology survives.
 const terracottaBase=CHARACTER_GUESTS.find(c=>c.id==='terracotta');
 const terracottaAlter={...terracottaBase,id:'terracotta_mad',variantOf:'terracotta',mad:true,appearanceOnly:true,
  name:`광기의 ${terracottaBase.name}`,ai:JSON.parse(JSON.stringify(terracottaBase.ai)),
- look:alterLook(terracottaBase.look,'terracotta'),lookVersion:terracottaBase.lookVersion+'-alter1',eyes:'madGlow'};
+ look:alterLook(terracottaBase.look,'terracotta'),lookVersion:terracottaBase.lookVersion+'-alter2',eyes:'madGlow'};
 finishAI(terracottaAlter);CHARACTER_VARIANTS.push(terracottaAlter);
 
 /** id → 시트. 기본 회전·변형·손님 인물까지 (변형은 여정의 정해진 자리·?foe=id, 손님 인물은 여정의 제 무대(STAGE_FOE)·테스트 경로의 상대 고르기·?foe=id) */
