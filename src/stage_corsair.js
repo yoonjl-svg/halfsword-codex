@@ -1163,14 +1163,24 @@ export function buildCorsair(scene, lights = {}, {night=false} = {}) {
   }
   // Fine grains are shaded at world scale and fade with distance. The atlas
   // supplies the broad damp/traffic patches; no extra downloaded texture.
+  // Pale shell/coral sand accumulated around each reef, not a white shoreline
+  // stripe. Shared by the day and night builders; the existing wet shading and
+  // lighting still apply. This is part of the opaque floor, not a decal layer.
+  const coralSand = [
+    [16.8,-1.8,3.5,3.9], [16.9,9.2,3.4,3.2], [14.9,-7,3.5,2.8],
+    [12.4,6.1,2.9,3.8], [10.1,-10.4,2.1,1.8], [-12.4,-5.2,1.9,1.7],
+    [9.4,-5.6,1.7,1.9], [-9.9,6.9,1.7,1.8],
+  ];
   mats.floor.onBeforeCompile = (shader) => {
     shader.vertexShader = `varying vec2 harborEarthXZ;\n${shader.vertexShader}`.replace('#include <begin_vertex>', `
       #include <begin_vertex>
       harborEarthXZ = (modelMatrix * vec4(position, 1.0)).xz;
     `);
     shader.uniforms.corsairPuddles = { value: PUDDLES.map(([x, z, rx, rz]) => new THREE.Vector4(x, z, rx, rz)) };
+    shader.uniforms.corsairCoralSand = { value: coralSand.map(p => new THREE.Vector4(...p)) };
     shader.fragmentShader = `varying vec2 harborEarthXZ;
       uniform vec4 corsairPuddles[${PUDDLES.length}];
+      uniform vec4 corsairCoralSand[${coralSand.length}];
       float harborValue(vec2 p) {
         vec2 i = floor(p), f = fract(p);
         f = f * f * (3.0 - 2.0 * f);
@@ -1189,6 +1199,23 @@ export function buildCorsair(scene, lights = {}, {night=false} = {}) {
       // Broad trodden/dry patches a few metres across, so the open sand is not one flat tone.
       float patchN = harborValue(harborEarthXZ * 0.17 + 3.1) * 0.65 + harborValue(harborEarthXZ * 0.41) * 0.35;
       diffuseColor.rgb *= 0.9 + patchN * 0.2;
+      float sandNoise = harborValue(harborEarthXZ * 1.15 + 17.3) * 0.6
+                      + harborValue(harborEarthXZ * 3.7 - 8.2) * 0.4;
+      float reefSand = 0.0;
+      for (int i = 0; i < ${coralSand.length}; i++) {
+        vec4 S = corsairCoralSand[i];
+        float q = length((harborEarthXZ - S.xy) / S.zw);
+        reefSand = max(reefSand, 1.0 - smoothstep(0.1, 1.25, q + (sandNoise - 0.5) * 0.85));
+      }
+      // Small irregular deposits interleave with the old yellow sand, thinning
+      // toward their edges. Ivory, pale shell pink and cool gray-white grains.
+      float scatter = smoothstep(0.28, 0.67, sandNoise);
+      float paleAmount = reefSand * (0.36 + scatter * 0.64);
+      vec3 paleSand = mix(vec3(0.82,0.80,0.73), vec3(0.77,0.70,0.66),
+                         harborValue(harborEarthXZ * 0.63 + 41.0) * 0.5);
+      paleSand = mix(paleSand, vec3(0.73,0.77,0.75), smoothstep(0.55,0.85,sandNoise) * 0.3);
+      paleSand *= 0.94 + grain * 0.12 * nearGrain;
+      diffuseColor.rgb = mix(diffuseColor.rgb, paleSand, paleAmount * 0.94);
       // Wet sand: a ragged band along the sea edge (x > 12 m) and a damp rim
       // round every tide pool. Darker, cooler, and a little glossier.
       float wetEdge = harborValue(harborEarthXZ * 0.42) - 0.5;
@@ -1204,7 +1231,7 @@ export function buildCorsair(scene, lights = {}, {night=false} = {}) {
       roughnessFactor = mix(roughnessFactor, 0.55, wet);
     `);
   };
-  mats.floor.customProgramCacheKey = () => 'corsair-compact-sandy-earth-2';
+  mats.floor.customProgramCacheKey = () => 'corsair-compact-sandy-earth-3';
   const windTime = { value: 0 };
   mats.cloth.onBeforeCompile = (shader) => {
     shader.uniforms.corsairWindTime = windTime;
