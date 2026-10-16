@@ -1,6 +1,7 @@
 // Appearance only. Materials are freshly built by dressPart / the outfit factories.
 // No body, collider, armor coverage or AI changes.
 import * as THREE from 'three';
+import { addGuildEmbroidery } from './outfit_guild_badge.js';
 
 export function alterLook(base, kind) {
   const look={...base,alter:kind};
@@ -89,6 +90,7 @@ export function decorateAlter(g,look,part) {
     add(vest,geo,mat(0x654272));
     if(part==='chest'){
       const collar=add(vest,new THREE.CylinderGeometry(.082,.083,.009,32,1,true),mat(0x8b6b91),[0,.18,0]);collar.scale.z=.096/.081;
+      addGuildEmbroidery(vest,rows);
     }
   }
   if(part!=='head')return;
