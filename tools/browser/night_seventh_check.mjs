@@ -30,14 +30,15 @@ try{
  assert.equal(start.state,'fight');assert.equal(start.weapon,'monohoshizao');assert.equal(start.helmet,null);
  await p.clock.runFor(14000);
  report.runtime=await p.evaluate(()=>{
-  const g=game,r=g.scene.getObjectByName('dayr_night-story'),trail=g.scene.getObjectByName('dayr-barefoot-salt-trail');
+  const g=game,r=g.scene.getObjectByName('dayr_night-story'),caravan=g.scene.getObjectByName('dayr-assassin-caravan');
+  const bounds=[],v=new g.THREE.Vector3();caravan.updateMatrixWorld(true);caravan.traverse(o=>{const p=o.geometry?.attributes.position;if(!p)return;for(let i=0;i<p.count;i++){v.fromBufferAttribute(p,i).applyMatrix4(o.matrixWorld);bounds.push(Math.hypot(v.x,v.z));}});
   const cuff=Object.values(g.enemy.groups).flatMap(o=>o.getObjectByName('daraishi-broken-wrist-shackle')?[o.getObjectByName('daraishi-broken-wrist-shackle')]:[]);
   const tie=g.enemy.groups.head.getObjectByName('daraishi-red-hair-tie');
-  const pos=g.enemy.bodies.pelvis.translation();return {start:null,position:{...pos},hour:r.userData.hour,stories:r.userData.stories,sunHidden:!g.scene.getObjectByName('dayr-setting-sun').visible,footprints:trail.userData.footprints,minRadius:trail.userData.minRadius,cell:g.scene.getObjectByName('dayr-open-escort-cell').userData,cuffs:cuff.map(o=>o.userData),tie:tie?.userData,events,frame:g.renderInfo(),addedColliders:r.userData.addedColliders};
+  const pos=g.enemy.bodies.pelvis.translation();return {start:null,position:{...pos},hour:r.userData.hour,stories:r.userData.stories,sunHidden:!g.scene.getObjectByName('dayr-setting-sun').visible,caravan:caravan.userData,minRadius:Math.min(...bounds),oldEscapeGone:!g.scene.getObjectByName('dayr-open-escort-cell')&&!g.scene.getObjectByName('dayr-barefoot-salt-trail'),cuffs:cuff.map(o=>o.userData),tie:tie?.userData,events,frame:g.renderInfo(),addedColliders:r.userData.addedColliders};
  });report.runtime.start=start;
- assert.equal(report.runtime.hour,3);assert.ok(report.runtime.sunHidden);assert.equal(report.runtime.stories.length,2);assert.equal(report.runtime.footprints,48);assert.ok(report.runtime.minRadius>10.5);assert.equal(report.runtime.cuffs.length,0);assert.equal(report.runtime.tie.tails,2);assert.equal(report.runtime.addedColliders,0);assert.ok(Object.values(report.runtime.position).every(Number.isFinite));assert.ok(report.runtime.events.includes('caravanRing'));
+ assert.equal(report.runtime.hour,3);assert.ok(report.runtime.sunHidden);assert.equal(report.runtime.stories.length,2);assert.ok(report.runtime.oldEscapeGone);assert.equal(report.runtime.caravan.camels,3);assert.equal(report.runtime.caravan.fallen,2);assert.ok(report.runtime.minRadius>10.5);assert.equal(report.runtime.cuffs.length,0);assert.equal(report.runtime.tie.tails,2);assert.equal(report.runtime.addedColliders,0);assert.ok(Object.values(report.runtime.position).every(Number.isFinite));assert.ok(report.runtime.events.includes('caravanRing'));
  await p.evaluate(()=>{game.renderCap.tick=()=>true;document.getElementById('btnPause').click()});await p.clock.runFor(16);
- const snapshot=()=>p.evaluate(()=>Array.from(game.scene.getObjectByName('dayr-trail-salt-drift').geometry.attributes.position.array));
+ const snapshot=()=>p.evaluate(()=>game.scene.getObjectByName('dayr-caravan-camel-0').getObjectByName('dayr-camel-head').quaternion.toArray());
  const t0=await snapshot();await p.clock.runFor(1000);assert.deepEqual(await snapshot(),t0);await p.evaluate(()=>document.getElementById('btnResume').click());await p.clock.runFor(300);assert.notDeepEqual(await snapshot(),t0);report.pause=true;
  report.hairTie=await p.evaluate(()=>{const c=game.enemy.groups.head.getObjectByName('daraishi-red-hair-tie');return {pieces:c.children.length,finite:c.children.every(o=>o.matrixWorld.elements.every(Number.isFinite))}});
  assert.equal(report.hairTie.pieces,4);assert.ok(report.hairTie.finite);

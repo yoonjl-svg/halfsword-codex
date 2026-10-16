@@ -4,10 +4,11 @@ const base=process.argv[2]||'http://127.0.0.1:4194',out=process.argv[3]||'/tmp/n
 const only=process.argv.find(a=>a.startsWith('--only='))?.slice(7),before=process.argv.includes('--before');fs.mkdirSync(out,{recursive:true});
 const views={dayr:[
  ['overview',[-6,4,8],[18,3.4,0],58],
- ['cell',[4.8,2.3,-12.4],[8.32,1.2,-18],47],
- ['tracks',[10.6,3.6,-5.7],[14,.08,-10.3],48],
- ['threshold',[12,2.4,3.5],[24,.2,0],48],
- ['well',[6.5,2.8,-7.8],[10.7,1.0,-12.1],51]
+ ['conspiracy',[6.1,3.0,-13.7],[8.32,.48,-17.5],46],
+ ['aftermath',[5.8,2.5,-10.6],[8.6,.25,-15.5],49],
+ ['caravan',[22.8,2.5,-6.6],[27.0,1.2,.1],51],
+ ['threshold',[11.3,2.3,2.8],[25.5,1.0,0],48],
+ ['well',[7,3.2,-6.1],[12.7,.8,-11.3],51]
 ]};
 const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader']});const rows=[];
 try{for(const [id,foe] of [['dayr','silver_wanderer']].filter(p=>!only||p[0]===only)){
@@ -30,7 +31,7 @@ try{for(const [id,foe] of [['dayr','silver_wanderer']].filter(p=>!only||p[0]===o
  if(process.argv.includes('--clip')){
   fs.mkdirSync(`${out}/${stage}-frames`,{recursive:true});
   for(let i=0;i<80;i++){
-   if(i===0||i===40){const [,pos,target,fov]=views[id].find(v=>v[0]===(i===0?'cell':'threshold'));
+   if(i===0||i===40){const [,pos,target,fov]=views[id].find(v=>v[0]===(i===0?'conspiracy':'threshold'));
     await p.evaluate(({pos,target,fov})=>{game.camera.position.set(...pos);game.camera.lookAt(...target);game.camera.fov=fov;game.camera.updateProjectionMatrix()},{pos,target,fov});}
    // Simulate all 100 ms, rendering only the final frame for this 10 fps clip.
    await p.evaluate(()=>{game.renderCap.tick=()=>false});await p.clock.runFor(84);
