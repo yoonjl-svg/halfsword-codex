@@ -3,6 +3,9 @@
 export function createWetlandStorm(seed = 161026) {
   let s=seed>>>0,time=0,block=0,lastFlash=-100,amp=0,duration=.25;
   const random=()=>{s=(Math.imul(s,1664525)+1013904223)>>>0;return s/4294967296;};
+  // Sound choices have their own stream, so they cannot move any flash or cue.
+  let soundSeed=(seed^0x7468756e)>>>0,lastVariant=-1;
+  const soundRandom=()=>{soundSeed=(Math.imul(soundSeed,1664525)+1013904223)>>>0;return soundSeed/4294967296;};
   const queue=[];
   const state={time:0,flash:0,flashes:0,thunders:0,group:0};
   function schedule(){
@@ -10,7 +13,12 @@ export function createWetlandStorm(seed = 161026) {
     const times=random()<.58?[first,first+.65+random()*3.05]:[first];
     for(const at of times)queue.push({type:'flash',at,amp:.75+random()*.25,duration:.22+random()*.09,group});
     // Thunder belongs to the first flash, even if the second flash comes later.
-    if(random()<.8)queue.push({type:'thunder',at:first+2.3+random()*2.1,amp:.65+random()*.3,group,flashes:times.length});
+    if(random()<.8){
+      let variant=Math.floor(soundRandom()*3);
+      if(variant===lastVariant)variant=(variant+1+Math.floor(soundRandom()*2))%3;
+      lastVariant=variant;
+      queue.push({type:'thunder',at:first+2.3+random()*2.1,amp:.55+random()*.4,variant,group,flashes:times.length});
+    }
     queue.sort((a,b)=>a.at-b.at);
   }
   schedule();

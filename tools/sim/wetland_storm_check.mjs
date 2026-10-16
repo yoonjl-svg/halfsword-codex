@@ -2,10 +2,20 @@ import assert from 'node:assert/strict';import fs from 'node:fs';import {execFil
 import {createWetlandStorm} from '../../src/wetland_storm.js';
 import {STAGE_DETAIL_PROFILES,synthStageDetail,WETLAND_THUNDER_VARIANTS} from '../../src/stage_detail_sound.js';
 const random=seed=>()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296};
+const previousStorm=await import('data:text/javascript;base64,'+Buffer.from(execFileSync('git',['show','07875441:src/wetland_storm.js'])).toString('base64'));
 const rows=[];
 for(const seed of [161026,1,38,20261016]){
  function run(dt){const clock=createWetlandStorm(seed),events=[];for(let t=0;t<120-1e-8;t+=dt)clock.update(dt,e=>events.push(e));return {clock,events}}
  const a=run(1/30),b=run(1/120);assert.deepEqual(a.events,b.events);
+ const oldClock=previousStorm.createWetlandStorm(seed),oldEvents=[];
+ for(let t=0;t<120-1e-8;t+=1/30)oldClock.update(1/30,e=>oldEvents.push(e));
+ const timing=events=>events.map(e=>e.type==='thunder'?{type:e.type,at:e.at,group:e.group,flashes:e.flashes}:e);
+ assert.deepEqual(timing(a.events),timing(oldEvents));
+ const sounds=a.events.filter(e=>e.type==='thunder');
+ assert.equal(new Set(sounds.map(e=>e.variant)).size,3);
+ assert.ok(sounds.every((e,i)=>e.amp>=.55&&e.amp<=.95&&(!i||e.variant!==sounds[i-1].variant)));
+ assert.ok(sounds.some(e=>e.amp<.65));
+ assert.ok(sounds.some((e,i)=>e.variant!==e.group%3));
  for(let group=0;group<12;group++){
   const flashes=a.events.filter(e=>e.group===group&&e.type==='flash'),thunder=a.events.filter(e=>e.group===group&&e.type==='thunder');
   assert.ok(flashes.length===1||flashes.length===2);assert.ok(thunder.length<=1);
@@ -15,7 +25,7 @@ for(const seed of [161026,1,38,20261016]){
   if(thunder.length){const delay=thunder[0].at-flashes[0].at;assert.ok(delay>=2.3&&delay<=4.4)}
  }
  const saved={...a.clock.state};for(const dt of [0,-1,NaN,Infinity])a.clock.update(dt);assert.deepEqual(a.clock.state,saved);
- rows.push({seed,flashes:a.events.filter(e=>e.type==='flash').length,thunders:a.events.filter(e=>e.type==='thunder').length,events:a.events});
+ rows.push({seed,flashes:a.events.filter(e=>e.type==='flash').length,thunders:sounds.length,timingUnchanged:true,minAmp:Math.min(...sounds.map(e=>e.amp)),maxAmp:Math.max(...sounds.map(e=>e.amp)),events:a.events});
 }
 assert.ok(rows.some(r=>r.events.some(e=>e.type==='thunder'&&e.flashes===2)));
 const old=await import('data:text/javascript;base64,'+Buffer.from(execFileSync('git',['show','4c77620f:src/stage_detail_sound.js'])).toString('base64'));

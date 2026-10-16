@@ -16,6 +16,9 @@ try{
  report.rainSpeed={min:Math.min(...speeds),max:Math.max(...speeds)};assert.ok(report.rainSpeed.min>=4.22&&report.rainSpeed.max<=6.18);
  await p.keyboard.press('p');await p.clock.runFor(32);const paused=await snapshot();assert.equal(await p.evaluate(()=>game.state),'paused');await p.clock.runFor(1500);assert.deepEqual((await snapshot()).weather,paused.weather);
  await p.keyboard.press('p');await p.clock.runFor(500);assert.ok((await snapshot()).weather.time>paused.weather.time);report.pause=true;
+ await p.evaluate(()=>{window.thunderEvents=[];const original=game.sound.stageEvent.bind(game.sound);game.sound.stageEvent=(name,data)=>{if(data?.kind==='wetlandThunder')thunderEvents.push(data);return original(name,data)}});
+ await p.clock.runFor(9000);report.thunderEvents=await p.evaluate(()=>thunderEvents);
+ assert.ok(report.thunderEvents.length>0&&report.thunderEvents.every(e=>Number.isInteger(e.variant)&&e.variant>=0&&e.variant<3&&e.amp>=.55&&e.amp<=.95));
  await p.evaluate(()=>{game.setStage('sluice');game.renderCap.tick=()=>true});await p.clock.runFor(32);
  report.day=await p.evaluate(()=>({weather:!!game.scene.getObjectByName('wetland-overcast-sky'),rain:!!game.scene.getObjectByName('wetland-mist-drizzle'),shafts:game.scene.getObjectByName('sluice-light-shafts').visible,obstacle:game.arenaObstacle,surface:game.enemy.movementSurface,level:game.fighterLight.level,env:game.fighterLight.env}));
  assert.equal(report.day.weather,false);assert.equal(report.day.rain,false);assert.equal(report.day.shafts,true);assert.equal(report.day.level,.89);assert.ok(report.day.env>=.4);assert.deepEqual(report.day.obstacle,report.night.obstacle);assert.equal(report.day.surface,report.night.surface);
@@ -29,11 +32,17 @@ try{
   const e={kind:'wetlandThunder',amp:.8,seed:0,time:6.4},accepted=d.event(e),beforePause=d.voices.size;
   d.setPaused(true);const pausedVoices=d.voices.size,rejectPaused=!d.event(e);d.setPaused(false);d.last.clear();d.lastAny=-Infinity;d.event(e);s.on=false;const mutedVoices=d.voices.size;
   s.on=true;d.setStage('sluice_night');const variants=[];
-  for(let seed=0;seed<3;seed++){d.stopVoices();d.last.clear();d.lastAny=-Infinity;const ok=d.event({...e,seed});variants.push({seed,ok,seconds:d.buffers.get('wetlandThunder:'+seed)?.duration})}
+  for(let variant=0;variant<3;variant++){
+   d.stopVoices();d.last.clear();d.lastAny=-Infinity;const ok=d.event({...e,seed:99,variant,amp:.55}),quietGain=d.stats.last.gain;
+   d.stopVoices();d.last.clear();d.lastAny=-Infinity;const loud=d.event({...e,seed:99,variant,amp:.95}),loudGain=d.stats.last.gain;
+   variants.push({variant,ok,loud,seconds:d.buffers.get('wetlandThunder:'+variant)?.duration,quietGain,loudGain});
+  }
   const cached=d.buffers.size;
   d.setStage('sluice');const dayNodes=d.ambience().nodes.length,rejectDay=!d.event(e),buffers=d.buffers.size;
   d.setStage('loggia');const rejectOther=!d.event(e);d.stopAmbient();await c.close();return {nightNodes,dayNodes,drip,accepted,beforePause,pausedVoices,rejectPaused,mutedVoices,rejectDay,rejectOther,buffers,variants,cached};
  });
- assert.deepEqual(report.audio,{nightNodes:8,dayNodes:4,drip:true,accepted:true,beforePause:2,pausedVoices:0,rejectPaused:true,mutedVoices:0,rejectDay:true,rejectOther:true,buffers:0,variants:[{seed:0,ok:true,seconds:1.8},{seed:1,ok:true,seconds:3.8},{seed:2,ok:true,seconds:6.2}],cached:3});
+ const {variants,...lifecycle}=report.audio;
+ assert.deepEqual(lifecycle,{nightNodes:8,dayNodes:4,drip:true,accepted:true,beforePause:2,pausedVoices:0,rejectPaused:true,mutedVoices:0,rejectDay:true,rejectOther:true,buffers:0,cached:3});
+ variants.forEach((v,i)=>{assert.equal(v.ok&&v.loud,true);assert.equal(v.seconds,[1.8,3.8,6.2][i]);assert.ok(Math.abs(v.quietGain-.132)<1e-6&&Math.abs(v.loudGain-.228)<1e-6)});
  assert.deepEqual(errors,[]);report.pass=true;report.errors=errors;fs.writeFileSync(out,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));
 }finally{await b.close()}

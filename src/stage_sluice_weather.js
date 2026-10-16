@@ -46,7 +46,7 @@ export function addSluiceWeather(scene,lights,root,stage,original){
   };
   stage.update=dt=>{
     old(dt);const step=Math.min(.1,Math.max(0,Number.isFinite(dt)?dt:0));if(!step)return;
-    storm.update(step,e=>{if(e.type==='thunder')stage.onEvent?.('stageDetail',{kind:'wetlandThunder',amp:e.amp,seed:e.group,time:e.at});});
+    storm.update(step,e=>{if(e.type==='thunder')stage.onEvent?.('stageDetail',{kind:'wetlandThunder',amp:e.amp,variant:e.variant,seed:e.group,time:e.at});});
     rain(step,storm.state.time,0);sky.rotation.y=storm.state.time*.0015;apply();
   };
   apply();
