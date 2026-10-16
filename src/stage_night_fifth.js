@@ -69,7 +69,7 @@ function geothermalSteam(root){
  geo.setAttribute('position',position);geo.setAttribute('steamFade',fade);geo.setAttribute('steamScale',scale);
  const seeds=Array.from({length:count},(_,i)=>({phase:(i%perVent+r()*.5)/perVent,side:r()*6.28,height:1.5+r()*.8,rate:.11+r()*.035}));
  const map=canvasTex(64,64,c=>{const g=c.createRadialGradient(32,32,0,32,32,32);g.addColorStop(0,'rgba(220,225,227,.65)');g.addColorStop(.38,'rgba(208,218,224,.27)');g.addColorStop(1,'rgba(208,218,224,0)');c.fillStyle=g;c.fillRect(0,0,64,64)});
- const material=new T.PointsMaterial({map,color:0xc0c8cd,size:1.05,transparent:true,opacity:.32,depthWrite:false});
+ const material=new T.PointsMaterial({map,color:0xc0c8cd,size:1.65,transparent:true,opacity:.24,depthWrite:false});
  material.onBeforeCompile=shader=>{
   shader.vertexShader='attribute float steamFade; attribute float steamScale; varying float vSteamFade;\n'+shader.vertexShader;
   shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvSteamFade = steamFade;').replace('#include <size_attenuation_vertex>','#include <size_attenuation_vertex>\ngl_PointSize *= steamScale;');
@@ -89,9 +89,9 @@ function geothermalSteam(root){
  root.userData.geothermal={ventCount:vents.length,particles:count,positions:vents};
  return t=>{
   for(let i=0;i<count;i++){
-   const v=vents[Math.floor(i/perVent)],s=seeds[i],q=(t*s.rate+s.phase)%1,spread=.08+q*.25;
+   const v=vents[Math.floor(i/perVent)],s=seeds[i],q=(t*s.rate+s.phase)%1,spread=.16+q*.50;
    position.setXYZ(i,v.x+.20*q+Math.sin(q*3.5+s.side)*spread,v.y+.035+q*s.height,v.z+.10*q+Math.cos(q*3+s.side)*spread);
-   fade.setX(i,Math.sin(q*Math.PI)**.8);scale.setX(i,.28+q*.85);
+   fade.setX(i,Math.sin(q*Math.PI)**.8);scale.setX(i,.48+q*1.12);
   }
   position.needsUpdate=fade.needsUpdate=scale.needsUpdate=true;
  };
@@ -144,11 +144,13 @@ function ambush(root){
  return {arrows:rock,baggage:[x,.6,z]};
 }
 function abandonedSwords(root){
- // Two blades stand inside the actual arena, two beyond its edge. Visual only:
+ // Three blades stand inside the actual arena, four beyond its edge. Visual only:
  // these traces must not silently change navigation, collision or weapon pickups.
  const placements=[
   ['qinggang',4.3,2.8,.25,.10,.5],['uchigatana',-2.7,-5.2,-.18,.22,1.3],
   ['qinggang',10.8,3.4,-.28,-.12,2.2],['uchigatana',-11.5,-4.2,.12,-.27,.2],
+  ['qinggang',-4.8,2.0,-.32,.08,1.8],['uchigatana',7.8,-8.2,.18,.30,2.7],
+  ['qinggang',-.8,12,.24,-.22,.8],
  ];
  const swords=new T.Group();swords.name='qinglan-abandoned-swords';root.add(swords);
  for(const [id,x,z,dx,dz,twist]of placements){
@@ -180,6 +182,6 @@ export function buildQinglanNight(scene,lights){
  scene.fog=new T.Fog(0x1d2e44,100,460);lights.hemi.intensity=.82;lights.sun.intensity=.54;
  stage.sunOffset={x:5,y:13,z:-5};stage.fighterLight={color:0xd0c5be,rimColor:0xb9cdda,rim:1.1,level:.56};
  root.userData.details={...ambush(root),swords:abandonedSwords(root)};
- root.userData.stories=['한 방향에서 날아온 화살이 쉼터의 바위를 박고 있다. 꺾인 화살대 사이로 더는 사람이 지나지 않는다.','운반대와 여행짐이 길가에 버려졌다. 칼 네 자루가 싸움터와 길가의 땅에 남아 있다. 김씨는 형의 칼에 감긴 천을 풀지 않는다.'];
+ root.userData.stories=['한 방향에서 날아온 화살이 쉼터의 바위를 박고 있다. 꺾인 화살대 사이로 더는 사람이 지나지 않는다.','운반대와 여행짐이 길가에 버려졌다. 칼 일곱 자루가 싸움터와 길가의 땅에 남아 있다. 김씨는 형의 칼에 감긴 천을 풀지 않는다.'];
  return animate(stage,root,[]);
 }

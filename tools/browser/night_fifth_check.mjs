@@ -45,7 +45,7 @@ try{
    assert.ok(steamAfter.every(Number.isFinite));assert.notDeepEqual(steamAfter,steamBefore);data.steamAnimated=true;assert.equal(data.colliders,70);
   }else{
    assert.equal(data.terrain,null);assert.ok(!data.events.includes('cliffBird'));assert.ok(data.events.includes('springDrip'));assert.ok(data.details.includes('renji-loose-long-hair'));assert.equal(data.headArmor,'kasa');
-   assert.equal(data.abandonedSwords.length,4);assert.equal(data.abandonedSwords.filter(s=>s.insideArena).length,2);assert.equal(data.colliders,68);
+   assert.equal(data.abandonedSwords.length,7);assert.equal(data.abandonedSwords.filter(s=>s.insideArena).length,3);assert.equal(data.colliders,68);
   }
   report.runtime.push(data);await page.close();
  }
