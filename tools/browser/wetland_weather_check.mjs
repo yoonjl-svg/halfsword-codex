@@ -21,11 +21,12 @@ try{
   const {Sound,makeRng}=await import('/src/sound.js'),{StageDetailSound}=await import('/src/stage_detail_sound.js');
   const c=new AudioContext();await c.resume();const s=new Sound();s.ctx=c;s.stage='sluice_night';s.master=c.createGain();s.master.gain.value=0;s.master.connect(c.destination);
   const d=new StageDetailSound(s,makeRng);s._stageDetails=d;const nightNodes=d.ambience().nodes.length;
+  const drip=d.event({kind:'sluiceDrip',amp:.7,seed:0,time:4.7});
   const e={kind:'wetlandThunder',amp:.8,seed:0,time:6.4},accepted=d.event(e),beforePause=d.voices.size;
   d.setPaused(true);const pausedVoices=d.voices.size,rejectPaused=!d.event(e);d.setPaused(false);d.last.clear();d.lastAny=-Infinity;d.event(e);s.on=false;const mutedVoices=d.voices.size;
   s.on=true;d.setStage('sluice');const dayNodes=d.ambience().nodes.length,rejectDay=!d.event(e),buffers=d.buffers.size;
-  d.setStage('loggia');const rejectOther=!d.event(e);d.stopAmbient();await c.close();return {nightNodes,dayNodes,accepted,beforePause,pausedVoices,rejectPaused,mutedVoices,rejectDay,rejectOther,buffers};
+  d.setStage('loggia');const rejectOther=!d.event(e);d.stopAmbient();await c.close();return {nightNodes,dayNodes,drip,accepted,beforePause,pausedVoices,rejectPaused,mutedVoices,rejectDay,rejectOther,buffers};
  });
- assert.deepEqual(report.audio,{nightNodes:8,dayNodes:4,accepted:true,beforePause:1,pausedVoices:0,rejectPaused:true,mutedVoices:0,rejectDay:true,rejectOther:true,buffers:0});
+ assert.deepEqual(report.audio,{nightNodes:8,dayNodes:4,drip:true,accepted:true,beforePause:2,pausedVoices:0,rejectPaused:true,mutedVoices:0,rejectDay:true,rejectOther:true,buffers:0});
  assert.deepEqual(errors,[]);report.pass=true;report.errors=errors;fs.writeFileSync(out,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));
 }finally{await b.close()}

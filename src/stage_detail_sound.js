@@ -372,7 +372,10 @@ export class StageDetailSound {
     const amp = data.amp ?? 0.5;
     if (!Number.isFinite(amp) || amp <= 0 || (data.pos && !['x', 'y', 'z'].every((k) => Number.isFinite(data.pos[k])))) return reject();
     const t = c.currentTime;
-    if (t - this.lastAny < 2 || t - (this.last.get(data.kind) ?? -Infinity) < profile.gap || this.voices.size >= 2) return reject();
+    // A water drip just before the delayed rumble must not cancel its weather
+    // cue. Keep the thunder's own spacing and the existing two-voice ceiling.
+    const thunder = data.kind === 'wetlandThunder';
+    if ((!thunder && t - this.lastAny < 2) || t - (this.last.get(data.kind) ?? -Infinity) < profile.gap || this.voices.size >= 2) return reject();
     const variant = (Number.isFinite(data.seed) ? Math.abs(data.seed | 0) : 0) % 3;
     const key = data.kind + ':' + variant;
     let buffer = this.buffers.get(key);
