@@ -77,6 +77,22 @@ export function createDaraishiFront(h) {
   addMerged(layer,[isoldeLock(glint,[.002,.003,.002,.0003],.001)],look.hairPalette?.glint??0x9994a0,{...cloth,roughness:.68});
   layer.userData={cosmetic:true,frontStudy:1,locks:1};
  }
+ function closeNeck(g,look) {
+  // The open mantle previously exposed the rear hair through an empty neck.
+  // A closed shirt yoke overlaps both the chest and a real skin-coloured neck.
+  // Attach only to the cosmetic chest layer, with no collision/armor changes.
+  const layer=artoriaCloth(g,'silver-wanderer-neck'),p=[],idx=[],n=20;
+  const rows=[[.108,.106,.165],[.135,.095,.133],[.169,.056,.061],[.169,.046,.046]];
+  for(let j=0;j<rows.length;j++)for(let i=0;i<=n;i++){
+   const a=i/n*Math.PI*2,[y,rx,rz]=rows[j];p.push(rx*Math.cos(a),y,rz*Math.sin(a));
+   if(j&&i){const k=j*(n+1)+i;idx.push(k-n-2,k-1,k-n-1,k-n-1,k-1,k);}
+  }
+  const yoke=new T.BufferGeometry();yoke.setAttribute('position',new T.Float32BufferAttribute(p,3));yoke.setAttribute('uv',new T.Float32BufferAttribute(new Float32Array(p.length/3*2),2));yoke.setIndex(idx);yoke.computeVertexNormals();
+  addMerged(layer,[yoke],ivory,cloth);
+  const neck=new T.CylinderGeometry(.043,.052,.10,16);neck.translate(0,.177,0);
+  addMerged(layer,[neck],look.skin,{...cloth,roughness:.82});
+  layer.userData={cosmetic:true,neckClosure:true};
+ }
  function slimSides(g) {
   // Compress only the lateral bulge of the existing head-attached hair.
   // Crown, face, central rear braid and approved new fringe stay untouched.
@@ -95,6 +111,6 @@ export function createDaraishiFront(h) {
  return (g,look,part)=>{
   if(![1,2].includes(look?.daraishiFront)||look.alter)return;
   if(part==='head'){if(look.daraishiFront>=2)slimSides(g);hair(g,look);}
-  else if(part==='chest'||part==='abdomen')torso(g,part,look);
+  else if(part==='chest'||part==='abdomen'){torso(g,part,look);if(part==='chest'&&look.daraishiNeck)closeNeck(g,look);}
  };
 }

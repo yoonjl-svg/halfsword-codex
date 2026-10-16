@@ -7,17 +7,18 @@ const pairs=(process.argv[4]||'cathedral_night:margarethe,cathedral_night:margar
 fs.mkdirSync(out,{recursive:true});
 const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader']});
 const rows=[];
-try{for(const [stage,foe] of pairs){
+try{for(const [stage,foe,version] of pairs){
  const page=await browser.newPage({viewport:{width:1200,height:675},deviceScaleFactor:1,hasTouch:true}),errors=[];
  page.on('pageerror',e=>errors.push(String(e)));page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
  await page.clock.install({time:new Date('2026-10-16T18:00:00Z')});await page.clock.pauseAt(new Date('2026-10-16T18:00:01Z'));
  const native=process.argv.includes('--native-weapons')?`&foeWeapon=${CHARACTERS_BY_ID[foe].weapon}`:'';
- await page.goto(`${base}/?stage=${stage}&foe=${foe}&weapon=longsword${native}&emo=0`,{waitUntil:'networkidle'});
+ const look=version?`&look=${encodeURIComponent(foe+':'+version)}`:'';
+ await page.goto(`${base}/?stage=${stage}&foe=${foe}&weapon=longsword${native}${look}&emo=0`,{waitUntil:'networkidle'});
  await page.evaluate(()=>{game.renderCap.tick=()=>false;document.getElementById('btnStart').click()});
  for(let i=0;i<120&&await page.evaluate(()=>game.state!=='fight');i++)await page.clock.runFor(16);
  await page.evaluate(()=>{game.ai.update=()=>{}});await page.clock.runFor(2500);
  await page.evaluate(()=>{game.renderCap.tick=()=>true});await page.clock.runFor(16);
- const prefix=`${out}/${stage}-${foe}`;
+ const prefix=`${out}/${stage}-${foe}${version?'-'+version:''}`;
  await page.screenshot({path:prefix+'-gameplay.png'});
  const info=await page.evaluate(()=>({stage:game.stage.id,foe:game.enemy.name,state:game.state,strength:game.enemy.strength,level:game.ai.level,proficiency:game.ai.persona.proficiency,plateBoxes:Object.fromEntries(Object.entries(game.enemy.plateBoxes||{}).map(([key,boxes])=>[key,{partial:boxes.partial,boxes:boxes.list.map(b=>({min:b.box.min,max:b.box.max}))}])),helmet:game.enemy.helmetType,render:game.renderInfo()}));
  await page.addStyleTag({content:'body > :not(#game){visibility:hidden!important}'});
@@ -62,6 +63,6 @@ try{for(const [stage,foe] of pairs){
    }
   },view);await page.clock.runFor(16);await page.screenshot({path:prefix+`-${view}.png`});
  }
- rows.push({...info,errors});fs.writeFileSync(out+'/capture.json',JSON.stringify(rows,null,2)+'\n');console.log(stage,foe,JSON.stringify(errors));await page.close();
+ rows.push({...info,lookVersion:version||null,errors});fs.writeFileSync(out+'/capture.json',JSON.stringify(rows,null,2)+'\n');console.log(stage,foe,version||'',JSON.stringify(errors));await page.close();
 }}finally{await browser.close()}
 if(rows.some(r=>r.errors.length||r.state!=='fight'))process.exitCode=1;

@@ -814,6 +814,23 @@ LOOK_ARCHIVE.silver_wanderer['v7-front3'] = {
   ...LOOK_ARCHIVE.silver_wanderer['v7-front2'], hair: 0x76d1c5,
   hairPalette: {soft:0x8bded1,braid:0xa9ecdf,glint:0xb4eee3}, daraishiScabbardInset:.008,
 };
+// Emerald was rejected. Keep the approved shape and 8 mm scabbard adjustment;
+// the three nearby silver palettes remain explicit previews until selected.
+LOOK_ARCHIVE.silver_wanderer['v7-front4'] = {
+  ...LOOK_ARCHIVE.silver_wanderer['v7-front2'], daraishiScabbardInset:.008,daraishiNeck:1,
+};
+LOOK_ARCHIVE.silver_wanderer['v7-silver-a'] = {
+  ...LOOK_ARCHIVE.silver_wanderer['v7-front4'],hair:0x94919b,
+  hairPalette:{soft:0xaaa7b1,braid:0xcbc8d1,glint:0xbdbac4},
+};
+LOOK_ARCHIVE.silver_wanderer['v7-silver-b'] = {
+  ...LOOK_ARCHIVE.silver_wanderer['v7-front4'],hair:0x7f899b,
+  hairPalette:{soft:0x959fb0,braid:0xb8c2d0,glint:0xacb7ca},
+};
+LOOK_ARCHIVE.silver_wanderer['v7-silver-c'] = {
+  ...LOOK_ARCHIVE.silver_wanderer['v7-front4'],hair:0x93877e,
+  hairPalette:{soft:0xaa9e93,braid:0xc9c0b3,glint:0xbcb2a6},
+};
 
 // 찬다 (여정 밖 인물 — characters.js CHARACTER_GUESTS, 10/14) — 샛별 저장소 LOOK_ARCHIVE.chanda v1 (675233e2 · origin/main 7684c732, 값 그대로) + 우리 v2.
 //  복식 모듈 하나(outfits.js chanda_watergate = src/outfit_chanda.js)가 chandaRevision 으로 판을 가른다. 방어구·투구 없음
@@ -858,7 +875,7 @@ export const CHARACTER_LOOK_VERSION = {
   renji: 'v3', // 외형 3차 10/11 — 옛 판 ?look=renji:v2(바지·행전) · v1
   eira: 'v5', // 10/11 01:4x 매듭 굵게 — 옛 판 ?look=eira:v4 · v3 · v2 · v1
   ratna: 'v4', // 10/14 여정 밖 인물 (우리 v4) — 샛별 판 ?look=ratna:v3 · v2 · v1
-  silver_wanderer: 'v7-front3', // 승인된 곡선/머리 형태 유지·밝은 에메랄드색/검집8mm 안쪽. 이전 은발 :v7-front2.
+  silver_wanderer: 'v7-front4', // 원래 은회색 복귀/목 틈 수정/칼집8mm 유지. 색 후보 :v7-silver-a/b/c 는 선택 전 미리보기.
   chanda: 'v2', // 10/14 여정 밖 인물 찬다 (우리 v2 — 무릎 틈 메움) — 샛별 판 ?look=chanda:v1
   terracotta: 'v2', // 10/14 여정 밖 인물 병마용 (우리 v2 — 잔선 덜기) — 샛별 판 ?look=terracotta:v1
 };
