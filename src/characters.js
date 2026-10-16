@@ -23,7 +23,7 @@ export const CHARACTERS = [
   // ───────────────────────────────────────────── 1. 쉬움 : 촌뜨기 난동꾼 ─────────────────────────────────────────────
   {
     id: 'bran',
-    name: '브란 오소리', // 사장님 10/11 01:0x '오소리 브란은 브란 오소리로 바꾸자'
+    name: '브론 오소리', // 10/11 이름 순서 변경(당시 브란), 10/16 원본·얼터 모두 브론으로 개명. ID/음성은 bran 유지.
     epithet: '가장', // 사장님 10/11 01:1x (전 '나무꾼')
     age: 34,
     origin: '검은숲 변두리 화전민 마을',
@@ -85,7 +85,7 @@ export const CHARACTERS = [
     taunt: '젠장! 이런 막대기뿐이라니.',
     // 상황별 대사 (docs/character_lore.md). 화면에 어떻게 띄울지는 UI 설계 몫
     lines: {
-      // 10/10 19:4x 사장님 '브란 대사 바꿔' — 작가 제안 3 줄 + 디렉터가 되풀이·칭얼거림을 걷어 냄(나무꾼·은화·막대기·성마름은 살림)
+      // 10/10 19:4x 사장님 '브론 대사 바꿔' — 작가 제안 3 줄 + 디렉터가 되풀이·칭얼거림을 걷어 냄(나무꾼·은화·막대기·성마름은 살림)
       intro: ['젠장! 이런 막대기뿐이라니.', '은화 열 닢. 약속은 지켜라.', '자세? 힘이 최고야.'], // '자세? 힘이 최고야.' 사장님 19:5x '이게 나아'
       introStray: ['오늘은 운이 좋군.'], // 칼을 주워 든 판의 시작 대사 — 사장님 10/10 20:3x '오늘은 운이 좋군. 이거 칼 들었을 때의 대사' // 칼을 주워 든 판(weaponAlt 10 %) — 막대기 대사를 뺀 시작 대사 (main.js showFoeIntro)
       attack: ['받아라!', '이거나 먹어라.', '장작 패듯이.'],
@@ -245,7 +245,7 @@ export const CHARACTERS = [
       '조용히 확신에 차 있고, 상대를 사람으로 보지 않는다("버러지"). 이기고 있으면 더 깊이 들어가 확실히 끝내려 하다가 빈틈을 보이기도 한다. ' +
       '맞으면 웃는다 — 왕의 검을 든 자가 흘리는 피가 아니라고 믿기 때문이다. 물러나지 않는다.',
     movementNotes:
-      '자세를 매우 자주(1.3초 안팎) 바꾸고, 먼 자세로도 서슴없이 건너뛴다(guardStick 낮음) — 그런데 브란이나 랴오와 달리 이건 계산된 눈속임이다(feint·followUp이 모두 높다). ' +
+      '자세를 매우 자주(1.3초 안팎) 바꾸고, 먼 자세로도 서슴없이 건너뛴다(guardStick 낮음) — 그런데 브론이나 랴오와 달리 이건 계산된 눈속임이다(feint·followUp이 모두 높다). ' +
       '간격을 바짝 좁혀 상대를 압박하고(margin 작음), 달려드는 상대를 물러나지 않고 맞받는다(vor 높음).',
     weaknesses: '인내심이 짧아(patienceTime 짧음) 판이 길어지면 먼저 무리하게 들어온다. 확신이 너무 강해 같은 유인책(가짜 공격)에 두 번 걸리면 오히려 더 큰 동작으로 반응해 큰 빈틈을 남긴다.',
     // 진짜 엑스칼리버는 이 세계에 있고 플레이어 몫이다. AI 하인리히에겐 겉모습만 같은 복제품(제원 = 롱소드)을
@@ -558,7 +558,7 @@ const HEINRICH = CHARACTERS.find((c) => c.id === 'heinrich');
 
 // ── 숙련도 (사장님 결정 10/13 22:4x~23:0x — docs/strike/ai_proficiency_2026-10-13.md) ──
 //  "AI 상대는 숙련도 수치에 따라 쓸지 말지를 결정하게 하자. 지금 '난이도'를 그렇게 개편 … 각 검술의 숙련도가 있고 캐릭터마다 숙련도가 달라."
-//  시트 ai.proficiency = 자기 유파(시트 무기 weapon 의 유파 — schools.js traditionOf)의 숙련도. 다른 유파 = 0 (브란이 주워 온 칼처럼 다른 유파 무기를 들면 고유 동작 없음).
+//  시트 ai.proficiency = 자기 유파(시트 무기 weapon 의 유파 — schools.js traditionOf)의 숙련도. 다른 유파 = 0 (브론이 주워 온 칼처럼 다른 유파 무기를 들면 고유 동작 없음).
 //  무유파 무기(나뭇가지·권총·모르겐슈테른)는 고유 동작이 없어 숙련도는 실력 숫자에만 쓰인다.
 //  aiAtProficiency 가 ai.level(실력 숫자 이름 = config.js AI_PROFICIENCY.levels[숙련도])과 persona.proficiency({ 유파: 숙련도 } — ai.js·sword_art.js 가 고유 동작을 거르고, 5 에서만 비기)를 만든다.
 //  시트 기본값(finishAI — 도구는 지금처럼 ai.level·ai.persona 를 읽는다)과 시험 주소 ?foeProficiency=N(main.js)이 같은 함수를 쓴다.
@@ -669,7 +669,7 @@ export const CHARACTER_VARIANTS = [
     const base = CHARACTERS.find((c) => c.id === id);
     return { ...base, id: `${id}_mad`, variantOf: id, mad: true, appearanceOnly: true,
       name: `광기의 ${base.name}`, ai: JSON.parse(JSON.stringify(base.ai)),
-      look: alterLook(base.look, id), lookVersion: `${base.lookVersion}-alter${id==='isolde'?3:['margarethe','tome'].includes(id)?2:1}`,
+      look: alterLook(base.look, id), lookVersion: `${base.lookVersion}-alter${id==='isolde'?3:['margarethe','tome','bran'].includes(id)?2:1}`,
       eyes: id === 'liao' ? 'clothGlow' : 'madGlow',
     };
   }),
@@ -885,7 +885,7 @@ for (const c of CHARACTER_GUESTS) finishAI(c);
 const ratnaBase = CHARACTER_GUESTS.find(c => c.id === 'ratna');
 const ratnaAlter = { ...ratnaBase, id: 'ratna_mad', variantOf: 'ratna', mad: true, appearanceOnly: true,
   name: `광기의 ${ratnaBase.name}`, ai: JSON.parse(JSON.stringify(ratnaBase.ai)),
-  look: alterLook(ratnaBase.look, 'ratna'), lookVersion: `${ratnaBase.lookVersion}-alter1`, eyes: 'madGlow' };
+  look: alterLook(ratnaBase.look, 'ratna'), lookVersion: `${ratnaBase.lookVersion}-alter2`, eyes: 'madGlow' };
 finishAI(ratnaAlter);
 CHARACTER_VARIANTS.push(ratnaAlter);
 

@@ -23,7 +23,7 @@ async function open(stage,foe,url=base,oldBear=false){
  return {p,errors};
 }
 try{
- for(const [stage,foe] of [['frozen_bay_night','eira_mad'],['temple_night','liao_mad']].filter(p=>!only||p[1]===only)){
+ for(const [stage,foe] of [['frozen_bay_night','eira_mad'],['temple_night','liao_mad'],['clearing_night','bran_mad']].filter(p=>!only||p[1]===only)){
   const {p,errors}=await open(stage,foe);const frames=`${out}/${foe}-frames`;fs.mkdirSync(frames,{recursive:true});
   await p.evaluate(()=>{const g=game,T=g.THREE,h=g.enemy.bodies.head.translation(),f=new T.Vector3(1,0,0).applyQuaternion(g.enemy.yaw);
    g.camera.position.set(h.x+f.x*1.8,h.y+.025,h.z+f.z*1.8);g.camera.lookAt(h.x,h.y-.02,h.z);g.camera.fov=24;g.camera.updateProjectionMatrix();

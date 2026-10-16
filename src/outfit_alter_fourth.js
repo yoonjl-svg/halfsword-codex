@@ -26,7 +26,7 @@ function sculpture(parent,name){
 export function addCosmeticKettle(g){
   // Identical three shapes/dimensions to the player's dressPart kettle. This
   // decoration intentionally has no userData.helmet or physical armor spec.
-  const h=new T.Group();h.name='alter-player-kettle-hat';h.position.y=.05;h.rotation.z=.12;g.add(h);
+  const h=new T.Group();h.name='alter-player-kettle-hat';g.add(h);
   const steel=new T.MeshStandardMaterial({color:0xb9c0c7,metalness:.75,roughness:.3});
   const add=(geo,mat,p)=>{const m=new T.Mesh(geo,mat);m.position.set(...p);m.castShadow=true;h.add(m)};
   add(new T.SphereGeometry(.117,18,10,0,Math.PI*2,0,Math.PI*.5),steel,[0,.018,0]);
@@ -46,7 +46,7 @@ export function addGroveBranch(g){
 }
 
 export function addShoulderIguana(g){
-  const w=sculpture(g,'alter-shoulder-iguana'),green=0x789453,dark=0x475b36,pale=0xa7b87d;
+  const w=sculpture(g,'alter-shoulder-iguana'),green=0xa2b969,dark=0x527354,pale=0xd1d49b;
   // Low crouch along the left shoulder, inside the upper-arm line. Head faces
   // forward; the long tail folds down the back rather than into the sword arc.
   w.ball([-.075,.205,-.145],[.104,.043,.037],green);

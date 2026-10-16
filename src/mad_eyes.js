@@ -78,7 +78,7 @@ const _v = new THREE.Vector3();
 /**
  * 검객의 두 눈에 붉은 안광을 붙인다. on 이 아니면 null (main.js 가 auras 처럼 update(t)/dispose() 를 부른다).
  */
-export function attachMadEyes(fighter, on, { veiled = false } = {}) {
+export function attachMadEyes(fighter, on, { veiled = false, sheltered = false } = {}) {
   if (!on) return null;
   const head = fighter.groups?.head;
   const scene = fighter.scene;
@@ -105,7 +105,9 @@ export function attachMadEyes(fighter, on, { veiled = false } = {}) {
     core.position.set(EYE_X, EYE_Y, z);
     core.renderOrder = 3;
     const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: _halo, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false }));
-    halo.position.set(EYE_X + 0.004, EYE_Y, z);
+    // A low kettle brim hides the eye itself. A narrow, dim spill sits below
+    // its lip; normal depth testing keeps the solid helmet opaque.
+    halo.position.set(sheltered ? .147 : EYE_X + 0.004, sheltered ? -.029 : EYE_Y, z);
     halo.renderOrder = 3;
     head.add(core, halo);
     const trail = [];
@@ -141,17 +143,19 @@ export function attachMadEyes(fighter, on, { veiled = false } = {}) {
       for (const e of eyes) {
         const fl = flicker(t, e.ph);
         const k = fl * life;
-        e.core.material.opacity = (0.28 + 0.44 * fl) * life * MAD_EYE_INTENSITY;
+        e.core.material.opacity = (0.28 + 0.44 * fl) * life * MAD_EYE_INTENSITY * (sheltered ? .12 : 1);
         e.core.scale.setScalar(CORE_S * (0.85 + 0.3 * k));
-        e.halo.material.opacity = 0.30 * k * MAD_EYE_INTENSITY;
+        e.halo.material.opacity = 0.30 * k * MAD_EYE_INTENSITY * (sheltered ? .65 : 1);
         e.halo.scale.setScalar(HALO_S * (0.8 + 0.4 * k));
+        if(sheltered)e.halo.scale.y *= .40;
         // 잔상: 눈 자리의 속도(세계 좌표 변화 — 고개 돌림도 잡힌다, 물리 상태는 읽지 않는다)를 따라 뒤로 늘어놓고, 빠를 때만 보여 준다
-        e.core.getWorldPosition(_p);
+        (sheltered ? e.halo : e.core).getWorldPosition(_p);
         if (e.prev && rdt > 0) e.vel.copy(_p).sub(e.prev).divideScalar(rdt);
         else e.vel.set(0, 0, 0);
         (e.prev ??= new THREE.Vector3()).copy(_p);
         const v = e.vel.length();
-        const trailK = Math.min(1, Math.max(0, (v - TRAIL_V0) / (TRAIL_V1 - TRAIL_V0))) * life;
+        const threshold = sheltered ? .32 : TRAIL_V0;
+        const trailK = Math.min(1, Math.max(0, (v - threshold) / (TRAIL_V1 - threshold))) * life;
         for (let i = 0; i < TRAIL_N; i++) {
           const s = e.trail[i];
           if (trailK <= 0.01) {
@@ -162,11 +166,12 @@ export function attachMadEyes(fighter, on, { veiled = false } = {}) {
           const fade = 1 - age / TRAIL_T + 0.1;
           s.visible = true;
           s.position.copy(_p).addScaledVector(e.vel, -age * Math.min(1, 1.1 / Math.max(v, 1e-3)));
-          s.material.opacity = 0.55 * trailK * fade * k * MAD_EYE_INTENSITY;
+          s.material.opacity = 0.55 * trailK * fade * k * MAD_EYE_INTENSITY * (sheltered ? .65 : 1);
           s.scale.setScalar(HALO_S * (0.6 + 0.6 * fade));
+          if(sheltered)s.scale.y *= .48;
         }
       }
-      face.material.opacity = 0.035 * flicker(t * 0.6, 3.1) * life * MAD_EYE_INTENSITY;
+      face.material.opacity = 0.035 * flicker(t * 0.6, 3.1) * life * MAD_EYE_INTENSITY * (sheltered ? .5 : 1);
     },
     dispose() {
       for (const e of eyes) {
