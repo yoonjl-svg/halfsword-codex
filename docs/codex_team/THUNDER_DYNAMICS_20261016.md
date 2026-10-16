@@ -33,3 +33,5 @@
 우리 포크에만 배포. 우화 저장소 쓰기/별도 메시지 없음. 일지 원고 갱신은23:30 KST 정기 발행과 구별한다. 빌드·브라우저·공개 배포 결과는 완료 기록/영수증으로 남긴다.
 
 로컬 완료: 빌드 성공, 소개4페이지×휴대폰 세로/가로8조건의 사진·영상/음원 디코딩·넘침·대련 링크 검사 통과. [브라우저](thunder_dynamics_20261016_checks/browser.json) · [시계/파형](thunder_dynamics_20261016_checks/storm.json) · [실제 소리 렌더](thunder_dynamics_20261016_checks/flow.json) · [전달](thunder_dynamics_20261016_checks/delivery.json).
+
+공개 배포 완료: `2a13065a`, Pages`38885617366` Success/43초. 음원·영상·manifest·소개6파일 원격 바이트 일치. [배포 영수증](thunder_dynamics_20261016_release.json). github.io 직접 플레이는 네트워크 허용 목록 밖이며 로컬 재생 검사와 구별한다.
