@@ -33,4 +33,6 @@
 
 ## 배포
 
-공개 소스와 배포 영수증은 완료 후 기록한다.
+공개 소스 **`e1f09c3e7d59416764c53ab0b05f4ae15c00a5fd`**를 우리 main·작업 가지 원격 해시로 확인했다. [Pages 38838574389](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/38838574389) **Success**, 총44초(빌드24초·배포11초). 최종 로컬 생산 빌드에서 새 청람잔도 공지 표시도 확인했다.
+
+[청람잔도 직접 열기](https://yoonjl-svg.github.io/halfsword-codex/?stage=qinglan&weapon=longsword&foe=renji). 이 환경의 공개 게임 도메인은 프록시 CONNECT403으로 접근이 막혀 공개판 직접 조작은 검증하지 못했다. 게임/화면 검증은 동일 코드의 로컬 생산 빌드, 공개 배포 완료는 Actions에서 확인했다. 저장소에 공개한 경기 화면은 HTTP200이며 로컬 사진과 SHA256이 일치한다. [배포 영수증](qinglan_import_20261016_release.json).
