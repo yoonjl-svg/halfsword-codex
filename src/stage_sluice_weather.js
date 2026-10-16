@@ -27,8 +27,11 @@ export function addSluiceWeather(scene,lights,root,stage,original){
   scene.background=dark.clone();scene.fog=new T.Fog(dark,14,100);
   lights.hemi.color.set(0x9aaabb);lights.hemi.groundColor.set(0x20232c);lights.sun.color.set(0xd9e4f2);
   // The builder already omits day sunshafts. Dim its self-lit puddles as well.
+  const dimmed=new Set();
   for(const object of original)object.traverse(o=>{
-    if(o.material?.emissiveIntensity)o.material.emissiveIntensity*=.08;
+    for(const m of Array.isArray(o.material)?o.material:[o.material])if(m&&!dimmed.has(m)){
+      dimmed.add(m);if(m.emissiveIntensity)m.emissiveIntensity*=.08;
+    }
   });
   const material=new T.MeshBasicMaterial({map:overcastTexture(),side:T.BackSide,depthWrite:false,fog:false});
   const sky=new T.Mesh(new T.SphereGeometry(510,32,16),material);sky.name='wetland-overcast-sky';root.add(sky);
