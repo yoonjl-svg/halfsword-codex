@@ -3,7 +3,7 @@
 // the well/buildings are outside it. The central water kiosk is real cover.
 // No change to the journey yet.
 import * as THREE from 'three';
-import { buildCourtyardCover } from './stage_courtyard_cover.js';
+import { buildCourtyardCover, courtyardCoverTexture } from './stage_courtyard_cover.js';
 import { ARENA } from './config.js';
 import { Kit, box, cyl, limb, canvasTex, rng } from './stage_kit.js';
 
@@ -421,7 +421,7 @@ export function buildCourtyard(scene,{hemi,sun}) {
   }
   const stoneMap=stoneTexture();
   const materials={
-    cover:new THREE.MeshStandardMaterial({vertexColors:true,map:stoneMap,roughness:1}),
+    cover:new THREE.MeshStandardMaterial({vertexColors:true,map:courtyardCoverTexture(),roughness:.9}),
     stone:new THREE.MeshStandardMaterial({vertexColors:true,map:stoneMap,roughness:1}),
     floor:new THREE.MeshStandardMaterial({vertexColors:true,map:pavingTexture(),roughness:.98}),
   };
