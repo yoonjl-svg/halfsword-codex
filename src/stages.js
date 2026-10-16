@@ -1,3 +1,4 @@
+import { buildFrozenBayNight, buildTempleNight } from './stage_night_variants.js';
 // ─────────────────────────────────────────────────────────────
 //  스테이지(배경) 관리: 다섯 배경 중 하나를 짓고, 바꿀 때는 먼저 지은 배경을 깨끗이 치운다
 //   오너 결정: 스테이지는 고르는 화면 없이 판마다 늘 같은 순서 — 포세이돈 신전 → 화전 터 → 산사 → 성 안뜰 → 대성당 (STAGE_ORDER).
@@ -32,6 +33,8 @@ import { buildEtna } from './stage_etna.js';
 
 // 배경 id → 짓는 함수. 짓는 함수는 { update(dt), excite(amount), sunOffset? } 를 돌려준다
 const BUILDERS = {
+  frozen_bay_night: buildFrozenBayNight,
+  temple_night: buildTempleNight,
   poseidon:(scene) => buildArena(scene), // 바닷가 절벽 위 무너진 포세이돈 신전 (arena.js). 빛·안개는 main.js 처음 값을 그대로 쓴다
   temple: buildTemple, // 한국의 산 속 절 (stage_temple.js)
   castle: buildCastle, // 눈 내리는 중세 성의 안뜰, 해 질 녘 (stage_castle.js)
@@ -74,7 +77,7 @@ export const STAGE_ORDER = ['poseidon', 'clearing', 'temple', 'castle', 'cathedr
 //  10/14 19:4x: 잠든 습지 = 라트나 · 소금 사막 = 다라이시 (손님 인물 CHARACTER_GUESTS — CHARACTERS_BY_ID 로 풀린다, 무작위 회전에는 그대로 없음).
 //   철불 절벽(dunhuang) = 병마용(terracotta, 손님 인물 — 10/14 감독 짝, 사장님 19:4x 정식 경로 결정에 따름)
 //   화산섬(etna) = 찬다(사장님 10/14 19:4x '찬다는 화산섬이 전용 스테이지' — 10/14 감독이 병합 때 짝 지음)
-export const STAGE_FOE = { poseidon: 'heinrich', clearing: 'bran', clearing_a: 'bran', clearing_a_dry: 'bran', temple: 'liao', castle: 'isolde', poseidon_night: 'heinrich_mad', cathedral: 'margarethe', loggia: 'tome', corsair: 'omari', sacred_grove: 'minami', frozen_bay: 'eira', qinglan: 'renji', sluice: 'ratna', dayr: 'silver_wanderer', dunhuang: 'terracotta', etna: 'chanda' };
+export const STAGE_FOE = { frozen_bay_night: 'eira_mad', temple_night: 'liao_mad', poseidon: 'heinrich', clearing: 'bran', clearing_a: 'bran', clearing_a_dry: 'bran', temple: 'liao', castle: 'isolde', poseidon_night: 'heinrich_mad', cathedral: 'margarethe', loggia: 'tome', corsair: 'omari', sacred_grove: 'minami', frozen_bay: 'eira', qinglan: 'renji', sluice: 'ratna', dayr: 'silver_wanderer', dunhuang: 'terracotta', etna: 'chanda' };
 // 그 무대 검객 후보 (사장님 10/10 20:0x — 샛별 저장소에서 가져온 넷의 무대 짝. 무대마다 한 명뿐인 STAGE_FOE 짝을 밀어내지 않고 후보로 더한다, 확인표 752).
 //  여정(foe=stage)에서 그 무대를 열 때 [본디 짝, ...후보] 가운데 하나를 고르게 고른다 → 본디 짝은 그 무대에서 절반만 나온다.
 //  졌을 때 같은 무대를 다시 열면 같은 상대(아래 stageFoeId 의 prevId). STAGE_FOE 자체는 그대로다
@@ -95,6 +98,7 @@ export function stageFoeId(stageId, prevId = null, rnd = Math.random) {
 // 무대의 화면 이름 (10/14 왼쪽 위 '스테이지 3 · 산사' — docs/ui/hud_intro_2026-10-14.md). 이름은 docs/stages.md 의 무대 이름 그대로
 //  (보관용 1안 두 무대는 같은 화전 터). 번호는 STAGE_ORDER 의 자리 + 1, 순서표에 없는 무대(어두운 홀 등)는 이름만 (stageLabel)
 export const STAGE_NAME_KO = {
+  frozen_bay_night: '밤의 얼어붙은 만', temple_night: '밤의 산사',
   poseidon: '포세이돈 신전', clearing: '화전 터', clearing_a: '화전 터', clearing_a_dry: '화전 터', temple: '산사', castle: '성 안뜰',
   poseidon_night: '밤의 포세이돈 신전', cathedral: '대성당', darkhall: '어두운 홀', loggia: '붉은 회랑', corsair: '산호 항구',
   sacred_grove: '신목의 숲', frozen_bay: '얼어붙은 만', qinglan: '청람잔도', sluice: '잠든 습지',

@@ -87,7 +87,11 @@ const CODE = `
     irradiance += flAmb;
   #endif
   float flF = 1.0 - saturate( dot( geometryNormal, geometryViewDir ) );
-  totalEmissiveRadiance += flGlow * ( flF * flF ) * saturate( 0.8 + dot( geometryNormal, flRimDir ) );
+  vec3 flSurfaceGlow = flGlow;
+  #ifdef FL_CLOTH_GLOW
+    flSurfaceGlow *= mix( vec3( 1.0 ), diffuseColor.rgb, 0.85 );
+  #endif
+  totalEmissiveRadiance += flSurfaceGlow * ( flF * flF ) * saturate( 0.8 + dot( geometryNormal, flRimDir ) );
 }
 #include <lights_fragment_end>`;
 

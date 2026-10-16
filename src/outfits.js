@@ -1,3 +1,4 @@
+import { decorateAlter } from './outfit_alter.js';
 // ─────────────────────────────────────────────────────────────
 //  겉모습 장식 레이어. fighter.js의 dressPart가 만든 기본 몸통(상자·캡슐) 위에
 //  갑옷판·머리모양·수염·안대 같은 장식 메쉬를 "얹기만" 한다 — 콜라이더·질량·관절은
@@ -387,7 +388,8 @@ function liaoWavyHead(locks) {
       cyl(0.004, 0.004, 0.05, 4, false, [0.07, 0.04, -0.06], [0, 0, 1.0]),
       cyl(0.004, 0.004, 0.05, 4, false, [0.07, -0.01, -0.06], [0, 0, -1.0]),
     ];
-    addMerged(g, patch, 0x1a1a1a, { roughness: 0.9 });
+    if (!look.blindfold) addMerged(g, patch, 0x1a1a1a, { roughness: 0.9 });
+    else for (const geo of patch) geo.dispose();
     // 입가에 문 풀 한 줄기 (입꼬리에서 앞·옆으로, 끝이 살짝 들린다) + 끝의 이삭
     addMerged(
       g,
@@ -2879,6 +2881,7 @@ export function decorateOutfit(dressTo, d, look) {
   dressTo.userData.outfit = look.outfit;
   dressTo.userData.outfitPart = d.name;
   fn(dressTo, look, d);
+  decorateAlter(dressTo, look, d.name);
   // 방어구 부위: 이 부위에 얹은 판금 메쉬들을 userData.armor로 알려 둔다. 오너 결정("판금도 피해를
   // 줄여 주고, 닳고, 완전히 부서지면 사라진다"): look.armor === 'plate'이고 ARMOR.on이면 fighter.js가 이
   // 표시가 있는 부위에 판금 내구도를 주고, 파손되면 곁 판을, 0이 되면 남은 메쉬(금 포함)를 떼어 흩뜨린 뒤 없앤다

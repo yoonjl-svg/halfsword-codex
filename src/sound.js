@@ -1658,6 +1658,7 @@ const SAMPLES = {
 // 배경(스테이지)마다 다른 것: 발소리 녹음(step), 쓰러질 때 바닥 알갱이(grit), 전투 소리가 벽에 되울리는 방(room).
 // room: reverbIR 모양 + 쇳소리(metal)·몸 소리(flesh)를 울림으로 보내는 양. 바깥(포세이돈·산사)은 울림 없음
 const STAGE_SOUND = {
+  temple_night: { step: 'stepGravel', grit: 'stepGravel', night: true },
   loggia: { step: 'stepStone', grit: 'stepStone', room: { dur: 0.65, rt: 0.45, e0: 0.04, e1: 0.09, lp: 4500, metal: 0.16, flesh: 0.06 } },
   corsair: { step: 'step', grit: 'step' }, // 다져진 모래흙 선착장: 돌 판석 대신 모래가 눌리는 발소리
   sacred_grove: { step: 'stepGravel', grit: 'stepGravel' },
@@ -2695,7 +2696,7 @@ export class Sound {
   ambience() {
     if (this._amb || !this.ctx || !this.master) return;
     if (hasStageDetails(this.stage)) return this._amb = this._details().ambience();
-    const amb = { temple: this._ambTemple, castle: this._ambCastle, cathedral: this._ambCathedral, darkhall: this._ambHall, poseidon_night: this._ambPoseidon, clearing: this._ambClearing, clearing_a: this._ambClearing, clearing_a_dry: this._ambClearing }[this.stage];
+    const amb = { temple_night: this._ambTemple, temple: this._ambTemple, castle: this._ambCastle, cathedral: this._ambCathedral, darkhall: this._ambHall, poseidon_night: this._ambPoseidon, clearing: this._ambClearing, clearing_a: this._ambClearing, clearing_a_dry: this._ambClearing }[this.stage];
     if (amb) return amb.call(this);
     return this._ambPoseidon();
   }
@@ -2800,6 +2801,7 @@ export class Sound {
    * 발소리·쓰러짐의 바닥 소리, 전투 소리의 울림(방), 큰 타격의 반응도 배경을 따른다
    */
   setStage(id) {
+    if (id === 'frozen_bay_night') id = 'frozen_bay'; // same lake ice / pier, never the fallback sea
     const next = id in STAGE_SOUND ? id : 'poseidon';
     if (next === this.stage) return;
     this.stage = next;
@@ -3080,7 +3082,7 @@ export class Sound {
     this._amb = { out, nodes: [pine, low, w1, w2, w3], wind: pg, windBase: 0.007 };
     // 풍경은 9~26초마다, 산새는 14~40초마다
     if (this.stage !== 'loggia') this._every(9000, 26000, () => this.windChime());
-    this._every(14000, 40000, () => this.bird());
+    if (!STAGE_SOUND[this.stage]?.night) this._every(14000, 40000, () => this.bird());
   }
 
   /**

@@ -1,3 +1,4 @@
+import { alterLook } from './outfit_alter.js';
 // ─────────────────────────────────────────────────────────────
 //  상대 캐릭터 12인(다섯 + 샛별 저장소에서 가져온 셋 6~8 · 넷 9~12): 저마다 다른 유파·성격·자세 전환 습관을 가진 검객들.
 //
@@ -562,12 +563,13 @@ const HEINRICH = CHARACTERS.find((c) => c.id === 'heinrich');
 //  aiAtProficiency 가 ai.level(실력 숫자 이름 = config.js AI_PROFICIENCY.levels[숙련도])과 persona.proficiency({ 유파: 숙련도 } — ai.js·sword_art.js 가 고유 동작을 거르고, 5 에서만 비기)를 만든다.
 //  시트 기본값(finishAI — 도구는 지금처럼 ai.level·ai.persona 를 읽는다)과 시험 주소 ?foeProficiency=N(main.js)이 같은 함수를 쓴다.
 //  변형(mad: true — 사장님 10/13 "'광기의'는 궁극적으로 모든 캐릭터들에게 … 기본 캐릭터+1 의 숙련도와 추가 파워" · 10/14 "얼터 에고 컨셉 — 칭호는 본캐랑 같음": 이름 앞에 '광기의', 칭호는 본캐 그대로): 변형 표시 하나 → 숙련도 +1(VARIANT_PLUS, 상한 AI_PROFICIENCY.max) ·
-//   실력 숫자 = 그 숙련도에서 원본이 받을 실효값 × MAD_SCALE(+20% — 사장님 9/28 확정을 추가 힘으로 그대로, 디렉터 해석). 다른 인물에게 변형을 만들 때도 madVariantAI(원본) 로
+//   기존 하인리히 실력 숫자 = 그 숙련도에서 원본이 받을 실효값 × MAD_SCALE(+20%).
+//   10/16 새 투야나·랴오는 외양만: appearanceOnly는 원본 AI를 그대로 쓰고 이 강화 규칙을 적용하지 않는다.
 const VARIANT_PLUS = 1;
 export function aiAtProficiency(c, p) {
   const level = AI_PROFICIENCY.levels[p] ?? 'normal';
   const persona = { ...c.ai.persona, proficiency: { [traditionOf(WEAPONS[c.weapon])]: p } };
-  if (c.mad) {
+  if (c.mad && !c.appearanceOnly) {
     const base = CHARACTERS.find((x) => x.id === c.variantOf);
     persona.level = scaledLevel({ level, persona: base.ai.persona }, MAD_SCALE);
   }
@@ -658,10 +660,19 @@ export const CHARACTER_VARIANTS = [
       intro: ['무릎은 필요 없다. 목만.'],
       win: ['…이제 파도 소리가 들리는군.'],
     },
-    look: HEINRICH.look,
+    look: alterLook(HEINRICH.look, 'heinrich'),
     lookVersion: HEINRICH.lookVersion,
     eyes: 'madGlow', // 외형 담당과 맞춘 표식: 붉은 눈 + 안광 아우라
   },
+  // Visual previews: the original proficiency, persona and combat stats are unchanged.
+  ...['eira', 'liao'].map((id) => {
+    const base = CHARACTERS.find((c) => c.id === id);
+    return { ...base, id: `${id}_mad`, variantOf: id, mad: true, appearanceOnly: true,
+      name: `광기의 ${base.name}`, ai: JSON.parse(JSON.stringify(base.ai)),
+      look: alterLook(base.look, id), lookVersion: `${base.lookVersion}-alter1`,
+      ...(id === 'eira' ? { eyes: 'madGlow' } : {}),
+    };
+  }),
 ];
 
 for (const c of CHARACTER_VARIANTS) finishAI(c);

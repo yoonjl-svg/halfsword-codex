@@ -24,6 +24,7 @@ const TRAIL_N = 6; // 눈 하나의 잔상 스프라이트 수
 const TRAIL_T = 0.16; // 초: 잔상이 남는 시간
 const TRAIL_V0 = 0.8; // m/s: 눈 자리가 이 속도부터 잔상이 보이기 시작 (머리 중심보다 눈은 고개 돌림만으로도 더 빨리 움직인다)
 const TRAIL_V1 = 2.4; // m/s: 이 속도면 잔상이 가장 진하다 (휘두를 때 머리는 1.5~3 m/s)
+export const MAD_EYE_INTENSITY = 0.9; // 10/16: shared glow opacity -10%, size and animation unchanged
 const DIE_T = 2.5; // 초: 죽은 뒤 꺼지는 시간
 
 /** 심: 작은 밝은 점 → 진홍 → 검붉은 가장자리 (보통 섞기라 살색 위에서도 붉은 점으로 보인다). 사장님: "더 진한 핏빛으로" — 흰빛·노랑을 뺐다 */
@@ -128,9 +129,9 @@ export function attachMadEyes(fighter, on) {
       for (const e of eyes) {
         const fl = flicker(t, e.ph);
         const k = fl * life;
-        e.core.material.opacity = Math.min(1, 0.42 + 0.5 * fl) * life; // 죽으면 심까지 완전히 꺼진다 (밝기 조금 낮춤: 0.55+0.6fl → 0.42+0.5fl)
+        e.core.material.opacity = Math.min(1, 0.42 + 0.5 * fl) * life * MAD_EYE_INTENSITY; // 죽으면 심까지 완전히 꺼진다 (밝기 조금 낮춤: 0.55+0.6fl → 0.42+0.5fl)
         e.core.scale.setScalar(CORE_S * (0.85 + 0.3 * k));
-        e.halo.material.opacity = 0.5 * k; // 0.75 → 0.5
+        e.halo.material.opacity = 0.5 * k * MAD_EYE_INTENSITY; // 0.75 → 0.5
         e.halo.scale.setScalar(HALO_S * (0.8 + 0.4 * k));
         // 잔상: 눈 자리의 속도(세계 좌표 변화 — 고개 돌림도 잡힌다, 물리 상태는 읽지 않는다)를 따라 뒤로 늘어놓고, 빠를 때만 보여 준다
         e.core.getWorldPosition(_p);
@@ -149,11 +150,11 @@ export function attachMadEyes(fighter, on) {
           const fade = 1 - age / TRAIL_T + 0.1;
           s.visible = true;
           s.position.copy(_p).addScaledVector(e.vel, -age);
-          s.material.opacity = 0.9 * trailK * fade * k;
+          s.material.opacity = 0.9 * trailK * fade * k * MAD_EYE_INTENSITY;
           s.scale.setScalar(HALO_S * (0.6 + 0.6 * fade));
         }
       }
-      face.material.opacity = 0.055 * flicker(t * 0.6, 3.1) * life; // 더 세면 은발·투구까지 붉게 물들어 맨머리처럼 보였다
+      face.material.opacity = 0.055 * flicker(t * 0.6, 3.1) * life * MAD_EYE_INTENSITY; // 더 세면 은발·투구까지 붉게 물들어 맨머리처럼 보였다
     },
     dispose() {
       for (const e of eyes) {
