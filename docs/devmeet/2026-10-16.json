@@ -1,0 +1,785 @@
+{
+  "schema_version": 1,
+  "status": "published",
+  "date": "2026-10-16",
+  "report_id": "yoonjl-svg/halfsword-codex@2026-10-16T23:30+09:00",
+  "team": "codex",
+  "repo": "yoonjl-svg/halfsword-codex",
+  "window": {
+    "start_exclusive": "2026-10-15T23:30:00+09:00",
+    "end_inclusive": "2026-10-16T23:30:00+09:00"
+  },
+  "technical_base": "4f17370d2b34c3699724dc8539d0d2fa22c68237",
+  "source_observed_head": "ef8b3752aab2f4555f990740853ee74871e7179e",
+  "source_observed_at": "2026-10-16T14:30:20.729334+00:00",
+  "source_sha": "ef8b3752aab2f4555f990740853ee74871e7179e",
+  "source_committed_at": "2026-10-16T14:29:00+00:00",
+  "selection_basis": "first-parent committer time; not historical remote state",
+  "notes_path": "docs/dev_exchange/notes/2026-10-16.md",
+  "notes_blob_sha": "e4dd4dc26be79b4e711e6802e1e8347cb55405b8",
+  "notes_sha256": "15d1a4619ee518d8f620b6d01b43092c69a4e77f354c716068349907ffe63133",
+  "authored_decision_record": "present",
+  "commit_count": 140,
+  "commits": [
+    {
+      "sha": "ef8b3752aab2f4555f990740853ee74871e7179e",
+      "committed_at": "2026-10-16T14:29:00Z",
+      "subject": "fix: give every apparition spearman a plain spear",
+      "paths": [
+        "AGENTS.md",
+        "docs/dev_exchange/notes/2026-10-16.md",
+        "docs/dev_exchange/pending/NEXT_HANDOFF_20261016.md",
+        "src/stage_yue_apparitions.js",
+        "tools/browser/yue_apparitions_check.mjs",
+        "tools/browser/yue_geometry_check.mjs"
+      ],
+      "path_count": 6
+    },
+    {
+      "sha": "8e04200b127447f5c1afd0e56597810c73b0974d",
+      "committed_at": "2026-10-16T14:19:31Z",
+      "subject": "docs: record the apparition battlefield deployment receipt",
+      "paths": [
+        "docs/codex_team/WU_YUE_APPARITIONS_20261016.md",
+        "docs/codex_team/wu_yue_20261016_release.json"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "27726e21f276d275d1320808742cb72fd1d2fd34",
+      "committed_at": "2026-10-16T14:17:10Z",
+      "subject": "docs: publish the apparition battlefield and commander review",
+      "paths": [
+        "AGENTS.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/WU_YUE_APPARITIONS_20261016.md",
+        "docs/codex_team/wu_yue_20261016_checks/build.json",
+        "docs/codex_team/wu_yue_20261016_checks/build.log",
+        "docs/codex_team/wu_yue_20261016_checks/delivery.json",
+        "docs/codex_team/wu_yue_20261016_checks/gates.json",
+        "docs/codex_team/wu_yue_20261016_checks/geometry-intermediate-failure.json",
+        "docs/codex_team/wu_yue_20261016_checks/geometry.json",
+        "docs/codex_team/wu_yue_20261016_checks/images.json",
+        "docs/codex_team/wu_yue_20261016_checks/landscapes.json",
+        "docs/codex_team/wu_yue_20261016_checks/last-publication.json",
+        "docs/codex_team/wu_yue_20261016_checks/on-corr.stderr",
+        "docs/codex_team/wu_yue_20261016_checks/on-corr.stdout",
+        "docs/codex_team/wu_yue_20261016_checks/on-fights12.stderr"
+      ],
+      "path_count": 43
+    },
+    {
+      "sha": "7dc45c4820172437fa737b3d7bd85c514c7c8777",
+      "committed_at": "2026-10-16T14:15:13Z",
+      "subject": "feat: equip apparition marchers with spears and one standard",
+      "paths": [
+        "src/stage_yue_apparitions.js",
+        "tools/browser/yue_apparitions_check.mjs",
+        "tools/browser/yue_geometry_check.mjs",
+        "tools/browser/yue_spectacle_capture.mjs"
+      ],
+      "path_count": 4
+    },
+    {
+      "sha": "602742ba7ef34831401e267f3492fb1ef3a97ed4",
+      "committed_at": "2026-10-16T14:09:22Z",
+      "subject": "feat: surround the night cliff with Wu and Yue apparitions",
+      "paths": [
+        "src/characters.js",
+        "src/mad_eyes.js",
+        "src/outfit_alter_terracotta.js",
+        "src/outfit_yue_cloak.js",
+        "src/stage_dunhuang.js",
+        "src/stage_dunhuang_night.js",
+        "src/stage_yue_apparitions.js",
+        "tools/browser/night_sixth_check.mjs",
+        "tools/browser/yue_apparitions_check.mjs",
+        "tools/browser/yue_geometry_check.mjs",
+        "tools/browser/yue_spectacle_capture.mjs"
+      ],
+      "path_count": 11
+    },
+    {
+      "sha": "de396aa3c728afc741af1fedfd3f4d0e7cc29293",
+      "committed_at": "2026-10-16T13:36:18Z",
+      "subject": "Record verified deployment of the thirteenth night pair",
+      "paths": [
+        "docs/codex_team/NIGHT_SIXTH_20261016.md",
+        "docs/codex_team/night_sixth_20261016_release.json"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "7432d8b4ab652087e783fa900224914bfd9e10bf",
+      "committed_at": "2026-10-16T13:35:06Z",
+      "subject": "Publish Iron Cliff night review with actual game photos and checks",
+      "paths": [
+        "AGENTS.md",
+        "docs/codex_team/NIGHT_SIXTH_20261016.md",
+        "docs/codex_team/night_sixth_20261016_checks/audio.json",
+        "docs/codex_team/night_sixth_20261016_checks/delivery.json",
+        "docs/codex_team/night_sixth_20261016_checks/features.json",
+        "docs/codex_team/night_sixth_20261016_checks/gates.json",
+        "docs/codex_team/night_sixth_20261016_checks/images.json",
+        "docs/codex_team/night_sixth_20261016_checks/portrait-capture.json",
+        "docs/codex_team/night_sixth_20261016_checks/stage-capture.json",
+        "docs/dev_exchange/notes/2026-10-16.md",
+        "docs/dev_exchange/pending/NEXT_HANDOFF_20261016.md",
+        "public/encounters/night-sixth-20261016/dunhuang_night-boat.webp",
+        "public/encounters/night-sixth-20261016/dunhuang_night-cart.webp",
+        "public/encounters/night-sixth-20261016/dunhuang_night-gameplay.webp",
+        "public/encounters/night-sixth-20261016/dunhuang_night-overview.webp"
+      ],
+      "path_count": 24
+    },
+    {
+      "sha": "c8a5331f8800a327794b4bdbc5a1e45b6c53d0d1",
+      "committed_at": "2026-10-16T13:32:52Z",
+      "subject": "Add painted terracotta alter and homeward night at Iron Cliff",
+      "paths": [
+        "src/characters.js",
+        "src/outfit_alter.js",
+        "src/outfit_alter_terracotta.js",
+        "src/sound.js",
+        "src/stage_detail_sound.js",
+        "src/stage_dunhuang.js",
+        "src/stage_dunhuang_night.js",
+        "src/stages.js"
+      ],
+      "path_count": 8
+    },
+    {
+      "sha": "1010604c76c6ea02f0a05f5f55b71f0a4a708613",
+      "committed_at": "2026-10-16T13:17:58Z",
+      "subject": "Record verified detailed courtyard preview release",
+      "paths": [
+        "docs/codex_team/COURTYARD_DETAIL_20261016.md",
+        "docs/codex_team/courtyard_detail_20261016_release.json"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "922f3efa0e10bee56b9a52fc6c8455688e3e4554",
+      "committed_at": "2026-10-16T13:15:50Z",
+      "subject": "Show refined water kiosk and clarify footwork research delivery status",
+      "paths": [
+        "AGENTS.md",
+        "docs/codex_team/COURTYARD_DETAIL_20261016.md",
+        "docs/codex_team/FOOTWORK_STATUS_20261016.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/courtyard_detail_20261016_checks/capture.json",
+        "docs/codex_team/courtyard_detail_20261016_checks/cover-browser.json",
+        "docs/codex_team/courtyard_detail_20261016_checks/delivery.json",
+        "docs/codex_team/courtyard_detail_20261016_checks/footwork-message.json",
+        "docs/codex_team/courtyard_detail_20261016_checks/integration.json",
+        "docs/codex_team/courtyard_detail_20261016_checks/offline.json",
+        "docs/codex_team/courtyard_detail_20261016_checks/physics-preserved.json",
+        "docs/codex_team/courtyard_detail_20261016_checks/pwa-build.json",
+        "docs/dev_exchange/notes/2026-10-16.md",
+        "docs/dev_exchange/pending/NEXT_HANDOFF_20261016.md",
+        "docs/strike/school_footwork_benefits_2026-10-15.md"
+      ],
+      "path_count": 29
+    },
+    {
+      "sha": "e4172a0794663a9fdf25689db9a0b9e848ce9fb0",
+      "committed_at": "2026-10-16T13:15:40Z",
+      "subject": "Keep review captures out of the game offline installation",
+      "paths": [
+        "tools/browser/courtyard_offline_check.mjs",
+        "tools/pwa/build.mjs"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "ebf5f7c8446739d37d6503faf1c2f5492816a82d",
+      "committed_at": "2026-10-16T13:09:37Z",
+      "subject": "Refine courtyard water kiosk with dressed stone and serving details",
+      "paths": [
+        "src/stage_courtyard.js",
+        "src/stage_courtyard_cover.js",
+        "tools/browser/courtyard_capture.mjs"
+      ],
+      "path_count": 3
+    },
+    {
+      "sha": "c4c68b46bc29bf2cf04f55ad15b9fe257d4239cc",
+      "committed_at": "2026-10-16T13:01:13Z",
+      "subject": "Record verified courtyard cover preview deployment",
+      "paths": [
+        "docs/codex_team/COURTYARD_GROUNDING_20261016.md",
+        "docs/codex_team/courtyard_grounding_20261016_release.json"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "9b34583943fbaee85a8eb40b193af1bbd5a5c83c",
+      "committed_at": "2026-10-16T12:57:38Z",
+      "subject": "Present courtyard cover and regional details with verified game captures",
+      "paths": [
+        "AGENTS.md",
+        "docs/codex_team/COURTYARD_20261016.md",
+        "docs/codex_team/COURTYARD_GROUNDING_20261016.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/courtyard_grounding_20261016_checks/capture.json",
+        "docs/codex_team/courtyard_grounding_20261016_checks/cards.json",
+        "docs/codex_team/courtyard_grounding_20261016_checks/cover-browser.json",
+        "docs/codex_team/courtyard_grounding_20261016_checks/cover-physics.json",
+        "docs/codex_team/courtyard_grounding_20261016_checks/delivery.json",
+        "docs/codex_team/courtyard_grounding_20261016_checks/floor.json",
+        "docs/codex_team/courtyard_grounding_20261016_checks/integration.json",
+        "docs/codex_team/courtyard_grounding_20261016_checks/on-corr.stderr",
+        "docs/codex_team/courtyard_grounding_20261016_checks/on-corr.stdout",
+        "docs/codex_team/courtyard_grounding_20261016_checks/on-fights12.stderr",
+        "docs/codex_team/courtyard_grounding_20261016_checks/on-fights12.stdout"
+      ],
+      "path_count": 45
+    },
+    {
+      "sha": "b8ce22c766ac5ff0ad095196a9bfe0c7c37dba1f",
+      "committed_at": "2026-10-16T12:54:23Z",
+      "subject": "Add Rajasthan stonework and a physical water kiosk for cover",
+      "paths": [
+        "src/arena_obstacle.js",
+        "src/stage_courtyard.js",
+        "src/stage_courtyard_cover.js",
+        "tools/browser/courtyard_capture.mjs",
+        "tools/browser/courtyard_check.mjs",
+        "tools/browser/courtyard_cover_check.mjs",
+        "tools/sim/courtyard_cover.mjs"
+      ],
+      "path_count": 7
+    },
+    {
+      "sha": "e66b7edceb2c7e503d39288bd757b6141ede672c",
+      "committed_at": "2026-10-16T12:39:06Z",
+      "subject": "Ground Maya's courtyard in a connected waystation compound",
+      "paths": [
+        "src/stage_courtyard.js",
+        "tools/browser/courtyard_capture.mjs"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "5aff02ebab400d859f3b7512e721eb340d3c5ed4",
+      "committed_at": "2026-10-16T12:37:29Z",
+      "subject": "Shorten Huang Yaoshi sword's quoted description",
+      "paths": [
+        "src/weapons.js"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "96f0257e7c9070e6f0bae33af90192355b76c4e1",
+      "committed_at": "2026-10-16T12:30:06Z",
+      "subject": "Record verified courtyard and sword wording deployment",
+      "paths": [
+        "docs/codex_team/COURTYARD_20261016.md",
+        "docs/codex_team/courtyard_20261016_checks/raw-source.json",
+        "docs/codex_team/courtyard_20261016_release.json"
+      ],
+      "path_count": 3
+    },
+    {
+      "sha": "0c8496018f02445db1a0435af42a7fdac3f6b342",
+      "committed_at": "2026-10-16T12:27:55Z",
+      "subject": "Publish actual courtyard review images and final sword card wording",
+      "paths": [
+        "AGENTS.md",
+        "docs/codex_team/CHWISAENG_MAYA_20261016.md",
+        "docs/codex_team/COURTYARD_20261016.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/courtyard_20261016_checks/capture.json",
+        "docs/codex_team/courtyard_20261016_checks/delivery.json",
+        "docs/codex_team/courtyard_20261016_checks/floor.json",
+        "docs/codex_team/courtyard_20261016_checks/integration.json",
+        "docs/codex_team/courtyard_20261016_checks/on-corr.stderr",
+        "docs/codex_team/courtyard_20261016_checks/on-corr.stdout",
+        "docs/codex_team/courtyard_20261016_checks/on-fights12.stderr",
+        "docs/codex_team/courtyard_20261016_checks/on-fights12.stdout",
+        "docs/codex_team/courtyard_20261016_checks/on-finish_thrust.stderr",
+        "docs/codex_team/courtyard_20261016_checks/on-finish_thrust.stdout",
+        "docs/codex_team/courtyard_20261016_checks/on-gates.json"
+      ],
+      "path_count": 41
+    },
+    {
+      "sha": "35fe190ed8ccbdaff07f5b65844b008171bb6b1c",
+      "committed_at": "2026-10-16T12:25:54Z",
+      "subject": "Build Maya stepwell courtyard preview with wind and narrative traces",
+      "paths": [
+        "src/sound.js",
+        "src/stage_courtyard.js",
+        "src/stage_detail_sound.js",
+        "src/stages.js",
+        "tools/browser/courtyard_capture.mjs",
+        "tools/browser/courtyard_check.mjs"
+      ],
+      "path_count": 6
+    },
+    {
+      "sha": "6a0651a36cb5156d1083c8820eefa45957bdfaa3",
+      "committed_at": "2026-10-16T12:25:54Z",
+      "subject": "Shorten Huang Yaoshi sword description to the user’s final wording",
+      "paths": [
+        "src/weapons.js"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "fd5a35c3338718d2ea69a2de68927ff3ccb7f12d",
+      "committed_at": "2026-10-16T12:14:14Z",
+      "subject": "Rename wrapped sword to Huang Yaoshi’s Sword and apply chosen description",
+      "paths": [
+        "AGENTS.md",
+        "docs/codex_team/CHWISAENG_MAYA_20261016.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/huang_sword_20261016_checks/cards.json",
+        "docs/dev_exchange/notes/2026-10-16.md",
+        "docs/dev_exchange/pending/NEXT_HANDOFF_20261016.md",
+        "public/encounters/huang-sword-20261016/epic-card-1200.webp",
+        "public/encounters/huang-sword-20261016/epic-card-568.webp",
+        "public/encounters/huang-sword-20261016/epic-card-844.webp",
+        "public/encounters/huang-sword-20261016/manifest.json",
+        "public/night-encounters-5.html",
+        "src/weapons.js",
+        "tools/browser/chwisaeng_check.mjs",
+        "tools/sim/brothers_sword_check.mjs"
+      ],
+      "path_count": 14
+    },
+    {
+      "sha": "732a327b03a93234e7d2c5c59364719d341f91e3",
+      "committed_at": "2026-10-16T11:58:31Z",
+      "subject": "Record Chwisaeng deployment and clarify stepped courtyard proposal",
+      "paths": [
+        "docs/codex_team/chwisaeng_20261016_checks/remote.json",
+        "docs/codex_team/chwisaeng_20261016_release.json",
+        "docs/design/maya_courtyard_2026-10-16.md"
+      ],
+      "path_count": 3
+    },
+    {
+      "sha": "9d8f80f172c7929d7203d4f948d71835ccecf2a5",
+      "committed_at": "2026-10-16T11:56:51Z",
+      "subject": "Document Chwisaeng card review and propose Maya stepwell courtyard",
+      "paths": [
+        "AGENTS.md",
+        "docs/codex_team/CHWISAENG_MAYA_20261016.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/chwisaeng_20261016_checks/browser.json",
+        "docs/codex_team/chwisaeng_20261016_checks/delivery.json",
+        "docs/codex_team/chwisaeng_20261016_checks/gates.json",
+        "docs/codex_team/chwisaeng_20261016_checks/images.json",
+        "docs/codex_team/chwisaeng_20261016_checks/weapon.json",
+        "docs/design/maya_courtyard_2026-10-16.md",
+        "docs/dev_exchange/notes/2026-10-16.md",
+        "docs/dev_exchange/pending/NEXT_HANDOFF_20261016.md",
+        "public/encounters/chwisaeng-20261016/chanda-botanist.webp",
+        "public/encounters/chwisaeng-20261016/epic-card-1200.webp",
+        "public/encounters/chwisaeng-20261016/epic-card-568.webp",
+        "public/encounters/chwisaeng-20261016/epic-card-844.webp"
+      ],
+      "path_count": 17
+    },
+    {
+      "sha": "227f08a7ac711cd67af4bf4d2937b03d84964a0e",
+      "committed_at": "2026-10-16T11:54:40Z",
+      "subject": "Make Chwisaeng Mongsa a playable epic blunt weapon and rename Chanda title",
+      "paths": [
+        "src/characters.js",
+        "src/weapons.js",
+        "tools/browser/chwisaeng_check.mjs",
+        "tools/sim/brothers_sword_check.mjs"
+      ],
+      "path_count": 4
+    },
+    {
+      "sha": "ea07991f4bdbe5d67071d768673f73fffb213bf1",
+      "committed_at": "2026-10-16T11:39:48Z",
+      "subject": "Record verified refinement deployment and pending user review",
+      "paths": [
+        "docs/codex_team/night_fifth_refinement_20261016_checks/remote.json",
+        "docs/codex_team/night_fifth_refinement_20261016_release.json",
+        "docs/dev_exchange/notes/2026-10-16.md"
+      ],
+      "path_count": 3
+    },
+    {
+      "sha": "38f8a10bb33b370ccceb7e5854382a031b91ea30",
+      "committed_at": "2026-10-16T11:38:05Z",
+      "subject": "Publish actual screenshots and review notes for night refinements",
+      "paths": [
+        "AGENTS.md",
+        "docs/codex_team/NIGHT_FIFTH_REFINEMENT_20261016.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/night_fifth_refinement_20261016_checks/delivery.json",
+        "docs/codex_team/night_fifth_refinement_20261016_checks/gates.json",
+        "docs/codex_team/night_fifth_refinement_20261016_checks/images.json",
+        "docs/codex_team/night_fifth_refinement_20261016_checks/lifecycle.json",
+        "docs/codex_team/night_fifth_refinement_20261016_checks/originals.json",
+        "docs/codex_team/night_fifth_refinement_20261016_checks/portraits.json",
+        "docs/codex_team/night_fifth_refinement_20261016_checks/runtime.json",
+        "docs/codex_team/night_fifth_refinement_20261016_checks/stages.json",
+        "docs/dev_exchange/notes/2026-10-16.md",
+        "docs/dev_exchange/pending/NEXT_HANDOFF_20261016.md",
+        "public/encounters/night-fifth-refinement-20261016/etna_night-chanda-front.webp",
+        "public/encounters/night-fifth-refinement-20261016/etna_night-chanda_mad-back.webp"
+      ],
+      "path_count": 33
+    },
+    {
+      "sha": "30d2e84ea1bb0c84c89afc9189915f406f1fd991",
+      "committed_at": "2026-10-16T11:35:56Z",
+      "subject": "Add three abandoned swords and widen geothermal steam",
+      "paths": [
+        "src/stage_night_fifth.js",
+        "tools/browser/night_fifth_check.mjs"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "466c919ea782c4756c5565728417dc75c5d0f300",
+      "committed_at": "2026-10-16T11:34:01Z",
+      "subject": "Refine fifth night pair cloth, wrapped sword and stage traces",
+      "paths": [
+        "public/ui/weapons/brothers_sword.webp",
+        "src/outfit_alter_fifth.js",
+        "src/renji_sword_wrap.js",
+        "src/stage_night_fifth.js",
+        "tools/browser/night_fifth_capture.mjs",
+        "tools/browser/night_fifth_check.mjs"
+      ],
+      "path_count": 6
+    },
+    {
+      "sha": "03704e61aebeaeef3249a75e09ae6871e970dd3a",
+      "committed_at": "2026-10-16T11:10:08Z",
+      "subject": "Require visual review before handoff and queue owner balance requests",
+      "paths": [
+        "AGENTS.md",
+        "docs/codex_team/night_fifth_20261016_release.json",
+        "docs/dev_exchange/PROTOCOL.md",
+        "docs/dev_exchange/notes/2026-10-16.md",
+        "docs/dev_exchange/pending/NEXT_HANDOFF_20261016.md"
+      ],
+      "path_count": 5
+    },
+    {
+      "sha": "7a2189280d3ba0d0656563d031770e3bea3a1fec",
+      "committed_at": "2026-10-16T11:09:02Z",
+      "subject": "Record successful fifth-night deployment and synchronized transfer verification",
+      "paths": [
+        "docs/codex_team/NIGHT_FIFTH_20261016.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/night_fifth_20261016_checks/receiver-delivery.json",
+        "docs/codex_team/night_fifth_20261016_checks/receiver-features.json",
+        "docs/codex_team/night_fifth_20261016_checks/remote.json",
+        "docs/codex_team/night_fifth_20261016_release.json"
+      ],
+      "path_count": 6
+    },
+    {
+      "sha": "c5c2c8c830700776fb96aafe2d8bed3282f98d8c",
+      "committed_at": "2026-10-16T11:07:14Z",
+      "subject": "Publish night five review with actual wrapped-sword screenshots and verification",
+      "paths": [
+        "AGENTS.md",
+        "docs/codex_team/NIGHT_FIFTH_20261016.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/night_fifth_20261016_checks/delivery.json",
+        "docs/codex_team/night_fifth_20261016_checks/features.json",
+        "docs/codex_team/night_fifth_20261016_checks/floor_boundary.json",
+        "docs/codex_team/night_fifth_20261016_checks/gates.json",
+        "docs/codex_team/night_fifth_20261016_checks/images.json",
+        "docs/codex_team/night_fifth_20261016_checks/lifecycle.json",
+        "docs/codex_team/night_fifth_20261016_checks/portraits.json",
+        "docs/codex_team/night_fifth_20261016_checks/scenes.json",
+        "docs/codex_team/night_fifth_20261016_checks/weapon.json",
+        "docs/codex_team/night_fifth_20261016_checks/weapon_measure.json",
+        "docs/dev_exchange/notes/2026-10-16.md",
+        "public/encounters/night-fifth-20261016/etna_night-chanda-front.webp"
+      ],
+      "path_count": 35
+    },
+    {
+      "sha": "8d460e6670aeab2342e8e323e7830a101a69f3a7",
+      "committed_at": "2026-10-16T11:05:10Z",
+      "subject": "Make the wrapped sword unbreakable at 1.6kg with stronger blunt impact",
+      "paths": [
+        "src/weapon_measured.js",
+        "src/weapons.js",
+        "tools/sim/brothers_sword_check.mjs"
+      ],
+      "path_count": 3
+    },
+    {
+      "sha": "f9aa5681e931efc4323c3ce1796f606e420b78c6",
+      "committed_at": "2026-10-16T11:02:19Z",
+      "subject": "Give Kim his cloth-wrapped brother sword as a one-hand blunt weapon",
+      "paths": [
+        "src/characters.js",
+        "src/outfit_alter_fifth.js",
+        "src/outfit_renji_baji.js",
+        "src/renji_sword_wrap.js",
+        "src/weapon_measured.js",
+        "src/weapons.js",
+        "tools/browser/alter_pair_capture.mjs",
+        "tools/browser/night_fifth_capture.mjs",
+        "tools/browser/night_fifth_check.mjs",
+        "tools/sim/brothers_sword_check.mjs"
+      ],
+      "path_count": 10
+    },
+    {
+      "sha": "69f10c8a6e96281bb131e3062411bf24267fe3e9",
+      "committed_at": "2026-10-16T10:49:06Z",
+      "subject": "Add Chanda and sword-bearing Kim night encounters at Etna and Qinglan",
+      "paths": [
+        "src/characters.js",
+        "src/etna_ground.js",
+        "src/outfit_alter.js",
+        "src/outfit_alter_fifth.js",
+        "src/sound.js",
+        "src/stage_detail_sound.js",
+        "src/stage_etna.js",
+        "src/stage_night_fifth.js",
+        "src/stage_qinglan.js",
+        "src/stages.js",
+        "tools/browser/alter_pair_capture.mjs",
+        "tools/browser/night_fifth_capture.mjs",
+        "tools/browser/night_fifth_check.mjs"
+      ],
+      "path_count": 13
+    },
+    {
+      "sha": "b23b08ad6093fd951e42b9c3a2b5842bf4c6c3b6",
+      "committed_at": "2026-10-16T10:29:12Z",
+      "subject": "Record verified synchronized night handoff publication",
+      "paths": [
+        "docs/codex_team/README.md",
+        "docs/codex_team/night_handoff_20261016_receipt.json",
+        "docs/dev_exchange/notes/2026-10-16.md"
+      ],
+      "path_count": 3
+    },
+    {
+      "sha": "0532969f54f316237d3d5c3426b572256760ee58",
+      "committed_at": "2026-10-16T10:27:26Z",
+      "subject": "Prepare synchronized night handoff message and remember recipient-base rule",
+      "paths": [
+        "AGENTS.md",
+        "docs/dev_exchange/PROTOCOL.md",
+        "docs/dev_exchange/messages/2026-10-16-night-alters.md"
+      ],
+      "path_count": 3
+    },
+    {
+      "sha": "8233ac9403a95834a3413a7374f152910ab3bd83",
+      "committed_at": "2026-10-16T10:13:49Z",
+      "subject": "Record verified thunder variation deployment",
+      "paths": [
+        "docs/codex_team/THUNDER_DYNAMICS_20261016.md",
+        "docs/codex_team/thunder_dynamics_20261016_release.json"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "2a13065a455c6b5116ccde48690413f0135e96f3",
+      "committed_at": "2026-10-16T10:11:48Z",
+      "subject": "Present thunder variation with a natural-timing audio preview",
+      "paths": [
+        "AGENTS.md",
+        "docs/codex_team/RATNA_SCARF_STORM_20261016.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/THUNDER_DYNAMICS_20261016.md",
+        "docs/codex_team/thunder_dynamics_20261016_checks/browser.json",
+        "docs/codex_team/thunder_dynamics_20261016_checks/delivery.json",
+        "docs/codex_team/thunder_dynamics_20261016_checks/flow.json",
+        "docs/codex_team/thunder_dynamics_20261016_checks/gates.json",
+        "docs/codex_team/thunder_dynamics_20261016_checks/storm.json",
+        "docs/dev_exchange/notes/2026-10-16.md",
+        "public/encounters/thunder-dynamics-20261016/manifest.json",
+        "public/encounters/thunder-dynamics-20261016/thunder-flow.mp3",
+        "public/encounters/thunder-dynamics-20261016/wetland-storm.mp4",
+        "public/night-encounters-4.html",
+        "tools/browser/night_second_delivery.mjs"
+      ],
+      "path_count": 16
+    },
+    {
+      "sha": "77f7adf257588ca855581e6260edb094811da23d",
+      "committed_at": "2026-10-16T10:09:06Z",
+      "subject": "Randomize thunder types and broaden gentle volume variation",
+      "paths": [
+        "src/stage_detail_sound.js",
+        "src/stage_sluice_weather.js",
+        "src/wetland_storm.js",
+        "tools/browser/wetland_weather_check.mjs",
+        "tools/sim/wetland_storm_check.mjs"
+      ],
+      "path_count": 5
+    },
+    {
+      "sha": "85dbbe464320e90a56fe1a459edc989542e670df",
+      "committed_at": "2026-10-16T10:04:27Z",
+      "subject": "Record verified Ratna scarf and storm follow-up deployment",
+      "paths": [
+        "docs/codex_team/RATNA_SCARF_STORM_20261016.md",
+        "docs/codex_team/ratna_scarf_storm_20261016_release.json"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "a060a99116d3eacc3b3698f1eea85ef54d05e182",
+      "committed_at": "2026-10-16T10:02:11Z",
+      "subject": "Present deeper Ratna scarf and revised wetland storm with sound previews",
+      "paths": [
+        "AGENTS.md",
+        "docs/codex_team/RATNA_SCARF_STORM_20261016.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/WETLAND_STORM_20261016.md",
+        "docs/codex_team/ratna_scarf_storm_20261016_checks/browser.json",
+        "docs/codex_team/ratna_scarf_storm_20261016_checks/clip.json",
+        "docs/codex_team/ratna_scarf_storm_20261016_checks/delivery.json",
+        "docs/codex_team/ratna_scarf_storm_20261016_checks/gates.json",
+        "docs/codex_team/ratna_scarf_storm_20261016_checks/portraits.json",
+        "docs/codex_team/ratna_scarf_storm_20261016_checks/samples.json",
+        "docs/codex_team/ratna_scarf_storm_20261016_checks/storm.json",
+        "docs/dev_exchange/notes/2026-10-16.md",
+        "public/encounters/ratna-scarf-20261016/gameplay-dark.webp",
+        "public/encounters/ratna-scarf-20261016/gameplay-flash.webp",
+        "public/encounters/ratna-scarf-20261016/letters-dark.webp"
+      ],
+      "path_count": 36
+    },
+    {
+      "sha": "0787544123740e409e425ee0d5e9bf65225e5357",
+      "committed_at": "2026-10-16T09:57:41Z",
+      "subject": "Vary wetland thunder and revise storm timing and rain speed",
+      "paths": [
+        "src/stage_detail_sound.js",
+        "src/stage_sluice_weather.js",
+        "src/wetland_storm.js",
+        "tools/browser/wetland_weather_check.mjs",
+        "tools/sim/wetland_storm_check.mjs"
+      ],
+      "path_count": 5
+    },
+    {
+      "sha": "8e6d84d5bf86088a2664a8959620ad60ed1740c9",
+      "committed_at": "2026-10-16T09:57:41Z",
+      "subject": "Drape Ratna headscarf down to the nape",
+      "paths": [
+        "src/characters.js",
+        "src/outfit_alter_fourth.js"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "8594686786a1984f2fe2cce3dd83f865235f7721",
+      "committed_at": "2026-10-16T09:46:28Z",
+      "subject": "Record verified wetland storm deployment",
+      "paths": [
+        "docs/codex_team/WETLAND_STORM_20261016.md",
+        "docs/codex_team/wetland_storm_20261016_release.json"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "ef5b18bfa3a93d31205e6cc6562d6353652dd8e7",
+      "committed_at": "2026-10-16T09:44:31Z",
+      "subject": "Record thunder interaction checks and final weather source",
+      "paths": [
+        "docs/codex_team/WETLAND_STORM_20261016.md",
+        "docs/codex_team/wetland_storm_20261016_checks/browser.json",
+        "docs/dev_exchange/notes/2026-10-16.md",
+        "public/encounters/wetland-weather-20261016/manifest.json"
+      ],
+      "path_count": 4
+    },
+    {
+      "sha": "40835a119c6d337c311fcedcaa641f0de35c5e5b",
+      "committed_at": "2026-10-16T09:44:09Z",
+      "subject": "Keep scheduled thunder audible after nearby water details",
+      "paths": [
+        "src/stage_detail_sound.js",
+        "tools/browser/wetland_weather_check.mjs"
+      ],
+      "path_count": 2
+    },
+    {
+      "sha": "3e278621444392ade66537c21274d7a7abd1230b",
+      "committed_at": "2026-10-16T09:42:10Z",
+      "subject": "Present midnight storm and Ratna headscarf with verified captures",
+      "paths": [
+        "AGENTS.md",
+        "docs/codex_team/README.md",
+        "docs/codex_team/WETLAND_STORM_20261016.md",
+        "docs/codex_team/WETLAND_WEATHER_REVIEW_20261016.md",
+        "docs/codex_team/wetland_storm_20261016_checks/browser.json",
+        "docs/codex_team/wetland_storm_20261016_checks/capture.json",
+        "docs/codex_team/wetland_storm_20261016_checks/clip.json",
+        "docs/codex_team/wetland_storm_20261016_checks/delivery.json",
+        "docs/codex_team/wetland_storm_20261016_checks/gates.json",
+        "docs/codex_team/wetland_storm_20261016_checks/lifecycle.json",
+        "docs/codex_team/wetland_storm_20261016_checks/portraits.json",
+        "docs/codex_team/wetland_storm_20261016_checks/storm.json",
+        "docs/dev_exchange/notes/2026-10-16.md",
+        "public/encounters/wetland-weather-20261016/gameplay-dark.webp",
+        "public/encounters/wetland-weather-20261016/gameplay-flash.webp"
+      ],
+      "path_count": 36
+    },
+    {
+      "sha": "8d7598c8caa0e0bf8b7ee923ac0e4050f4e12006",
+      "committed_at": "2026-10-16T09:40:50Z",
+      "subject": "Apply storm emission dimming once per shared material",
+      "paths": [
+        "src/stage_sluice_weather.js"
+      ],
+      "path_count": 1
+    },
+    {
+      "sha": "347def3af4c9abdb4487fae3989f525c78277bc2",
+      "committed_at": "2026-10-16T09:36:12Z",
+      "subject": "Make midnight wetland dark with mist rain and grouped lightning",
+      "paths": [
+        "docs/stages.md",
+        "src/fighter_light.js",
+        "src/stage_clearing.js",
+        "src/stage_detail_sound.js",
+        "src/stage_night_variants.js",
+        "src/stage_sluice_night.js",
+        "src/stage_sluice_weather.js",
+        "src/wetland_storm.js",
+        "tools/browser/wetland_weather_capture.mjs",
+        "tools/browser/wetland_weather_check.mjs",
+        "tools/browser/wetland_weather_clip.mjs",
+        "tools/sim/wetland_storm_check.mjs"
+      ],
+      "path_count": 12
+    }
+  ],
+  "previous_report_id": "yoonjl-svg/halfsword-codex@2026-10-15T23:30+09:00",
+  "previous_source_sha": "ce2e6b0f1060692bcdfe0e94aac711b39ce2f315",
+  "deployment": {
+    "status": "unknown",
+    "error_type": "APIError",
+    "query_limit": 100,
+    "currently_live_verified": false
+  },
+  "workflow_run_url": null,
+  "notes_heading_normalization": {
+    "policy": "trailing-unnumbered-h2-to-h3-v1",
+    "count": 0,
+    "trailing_appendices_demoted": [],
+    "raw_notes_hash_preserved": true
+  },
+  "notes_link_rewrite": {
+    "basis": "source-note-relative paths pinned to source_sha",
+    "count": 42,
+    "raw_notes_hash_preserved": true
+  },
+  "markdown_sha256": "c4212523e2749bf2b01cc6beffaaaf84b38bc19475027a860c6d46bc23f5a148"
+}
