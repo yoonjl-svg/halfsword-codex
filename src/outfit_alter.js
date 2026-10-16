@@ -2,10 +2,13 @@
 // No body, collider, armor coverage or AI changes.
 import * as THREE from 'three';
 import { addGuildEmbroidery } from './outfit_guild_badge.js';
+import { decorateFifthAlter } from './outfit_alter_fifth.js';
 import { addShoulderIguana, addGroveBranch, addCosmeticKettle, addRatnaHeadscarf } from './outfit_alter_fourth.js';
 
 export function alterLook(base, kind) {
   const look={...base,alter:kind};
+  if(kind==='chanda')look.outfitPalette={0x252c4b:0xc5c1b5,0x414967:0x91958d,0x353d50:0x787f7a,0xb49354:0x537b77,0x866d3f:0x365a58,0xb0a58a:0xa9ada4};
+  if(kind==='renji')look.outfitPalette={0x20232a:0x81453f,0x17191e:0x81453f,0x2a2930:0xa16a59,0x2d2930:0x65332f,0x202637:0x4c2c31,0x202537:0x4c2c31,0x303548:0x715051};
   if(kind==='bran')look.outfitPalette={0xa08757:0x354658,0x7c6740:0x293747,0xcdbb92:0x75828b,0xa89468:0x4e606b,0x6b5637:0x344351,0x5c4830:0x293747,0x4a3a26:0x354351};
   if(kind==='minami')look.outfitPalette={0xe9e2ce:0x303b51,0xcac4af:0x596277,0xe9e5d5:0x303b51,0xf4f1e8:0x778495,0xafa991:0x586477,0x3f5747:0xc6c9c1,0x3b5344:0xb4bab1,0x627b5c:0xaeb7ac};
   // Sleeve is skin on Ratna; never remap that shared color with his clothes.
@@ -56,6 +59,7 @@ export function decorateAlter(g,look,part) {
     if(!m?.color||seen.has(m))continue;seen.add(m);
     const c=look.outfitPalette?.[m.color.getHex()];if(c!=null)m.color.setHex(c);
   }});
+  decorateFifthAlter(g,look,part);
   const mat=(color)=>new THREE.MeshStandardMaterial({color,roughness:.92,metalness:0,side:THREE.DoubleSide});
   const add=(parent,geo,m,pos)=>{const x=new THREE.Mesh(geo,m);if(pos)x.position.set(...pos);x.castShadow=true;parent.add(x);return x};
   if(look.alter==='ratna'&&part==='chest')addShoulderIguana(g);

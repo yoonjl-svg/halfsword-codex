@@ -35,7 +35,7 @@ export const WETLAND_THUNDER_VARIANTS = Object.freeze([
   Object.freeze({ name: 'extended', duration: 6.2 }),
 ]);
 
-const detailBase = stage => ['loggia_night','corsair_night','sacred_grove_night','sluice_night'].includes(stage) ? stage.slice(0,-6) : stage;
+const detailBase = stage => ['loggia_night','corsair_night','sacred_grove_night','sluice_night','etna_night','qinglan_night'].includes(stage) ? stage.slice(0,-6) : stage;
 export const hasStageDetails = (id) => {const stage=detailBase(id);return stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove' || stage === 'frozen_bay' || stage === 'qinglan' || stage === 'sluice' || stage === 'dayr' || stage === 'dunhuang' || stage === 'etna';};
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 const TAU = Math.PI * 2;
@@ -398,6 +398,7 @@ export class StageDetailSound {
     const reject = () => { this.stats.rejected++; return false; };
     if (!profile || profile.stage !== this.stage || !sound.on || this.paused || (!c.startRendering && c.state !== 'running')) return reject();
     if(profile.nightOnly&&this.stageId!=='sluice_night')return reject();
+    if(this.stageId==='qinglan_night'&&data.kind==='cliffBird')return reject();
     const amp = data.amp ?? 0.5;
     if (!Number.isFinite(amp) || amp <= 0 || (data.pos && !['x', 'y', 'z'].every((k) => Number.isFinite(data.pos[k])))) return reject();
     const t = c.currentTime;

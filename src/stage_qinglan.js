@@ -388,7 +388,7 @@ function smallBird(scene) {
   const right=new THREE.Mesh(geo([0,0,0,.55,0,.08,.22,0,-.12]),mat);
   group.add(left,right);group.visible=false;scene.add(group);return{group,left,right};
 }
-export function buildQinglan(scene,{hemi,sun}) {
+export function buildQinglan(scene,{hemi,sun},{night=false}={}) {
   scene.background=new THREE.Color(0xb9d4d5);scene.fog=new THREE.Fog(0x9bbbc7,130,420);
   hemi.color.setHex(0xd5e9ff);hemi.groundColor.setHex(0x576458);hemi.intensity=1.65;
   sun.color.setHex(0xfff7ed);sun.intensity=2.5;
@@ -406,7 +406,7 @@ export function buildQinglan(scene,{hemi,sun}) {
   const stage={sunOffset:SUN_OFFSET,fighterLight:{color:0xe4ede7,rimColor:0xc4dfe4,rim:.8,level:.35},stats:vista.stats,excite(){},
     update(dt){
       if(!Number.isFinite(dt)||dt<=0)return;time+=Math.min(dt,.1);
-      if(time>=nextBird){birdStart=time;birdCalled=false;nextBird=time+33+r()*13;}
+      if(!night&&time>=nextBird){birdStart=time;birdCalled=false;nextBird=time+33+r()*13;}
       const pass=time-birdStart;bird.group.visible=pass>=0&&pass<5.2;
       if(bird.group.visible){bird.group.position.set(48+Math.sin(pass*.8)*2,6+Math.sin(pass)*.8,12+pass*3.4);
         bird.group.rotation.y=-Math.PI/2;bird.left.rotation.z=Math.sin(time*8)*.22;bird.right.rotation.z=-Math.sin(time*8)*.22;
