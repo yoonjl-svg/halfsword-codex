@@ -13,9 +13,11 @@ try{
  await p.clock.runFor(18000);
  report.fight=await p.evaluate(()=>({stage:game.stage.id,sound:game.sound.stage,foe:game.enemy.name,weapon:game.enemy.weapon.id,shots:game.enemy.gun?.shots??0,terrain:game.terrain,colliders:game.world.colliders.len(),position:{...game.enemy.bodies.pelvis.translation()},events:events.map(e=>e.kind)}));
  assert.equal(report.fight.foe,'마야 라토르');assert.equal(report.fight.weapon,'pistol');assert.equal(report.fight.terrain,null);assert.ok(report.fight.shots>0);assert.ok(Object.values(report.fight.position).every(Number.isFinite));assert.equal(report.fight.sound,'courtyard');
+ // The central kiosk intentionally hides opponents; check the surrounding scene here.
+ // Its physical camera/start-view protection is checked by courtyard_cover tests.
  report.camera=await p.evaluate(()=>{
   const T=game.THREE,root=game.scene.getObjectByName('courtyard-environment'),meshes=[];root.updateMatrixWorld(true);
-  root.traverse(o=>{if(o.isMesh&&!o.material.transparent&&o.name!=='courtyard-sky')meshes.push(o)});
+  root.traverse(o=>{if(o.isMesh&&!o.material.transparent&&o.name!=='courtyard-sky'&&o.name!=='courtyard-cover')meshes.push(o)});
   const ray=new T.Raycaster(),bad=[],nonfinite=[];
   root.traverse(o=>{if(o.geometry?.attributes.position&&!Array.from(o.geometry.attributes.position.array).every(Number.isFinite))nonfinite.push(o.name)});
   const paths=game.camOpenPath(60);

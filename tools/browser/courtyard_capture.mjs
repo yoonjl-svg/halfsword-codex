@@ -17,6 +17,8 @@ try{
  await p.evaluate(()=>{game.freeCam=true;for(const o of game.scene.children)if(o.renderOrder===2||o.renderOrder===3){if(o.material?.transparent)o.material.opacity=0;}for(const f of [game.player,game.enemy])for(const m of f.meshes)m.group.visible=false});
  for(let [name,pos,target,fov]of [
   ['overview',[13,10,19],[-8,-.7,-6],58],
+  ['cover',[-4.2,2.3,4.8],[0,1.45,0],52],
+  ['jharokha',[8,7,-13],[2.8,7.8,-21.85],50],
   ['well',[-6,7,13],[-21,-2,-1],56],
   ['gate',[6,2.4,-9],[0,4,-24],52],
   ['traces',[-8.5,2.5,10],[-12.2,.5,5.8],49],

@@ -1,7 +1,9 @@
 // Maya's preview: a Rajasthan-inspired sandstone waystation and deep baori.
-// Original architecture, not a reconstruction. The duel disc stays flat/empty;
-// the well and buildings are scenery beyond it. No change to the journey yet.
+// Original architecture, not a reconstruction. The duel ground stays flat;
+// the well/buildings are outside it. The central water kiosk is real cover.
+// No change to the journey yet.
 import * as THREE from 'three';
+import { buildCourtyardCover } from './stage_courtyard_cover.js';
 import { ARENA } from './config.js';
 import { Kit, box, cyl, limb, canvasTex, rng } from './stage_kit.js';
 
@@ -76,6 +78,7 @@ function pavingTexture() {
       c.fillStyle='rgba(51,43,35,.19)';c.fillRect(x-.65,-22.15,1.3,1.1);
     }
     // Ground contact for jars and the well pavilion, rather than floating props.
+    shadow(-1.34,-1.05,1.34,1.05,2.9);
     shadow(-33,-3,-28.5,1.3,3.7);
     for(const [x,z]of [[-26,17.7],[-23.3,19.5],[-26,16],[-27,20]]){
       c.fillStyle='rgba(58,54,36,.19)';c.beginPath();c.ellipse(x,z,2.2,1.4,.3,0,Math.PI*2);c.fill();
@@ -200,6 +203,35 @@ function architecture(K) {
   }
   for(const [x,w]of [[-14.45,39.1],[21,20.2]])K.put('stone',box(w,.28,1.65),0x9b805e,[x,.14,24.4]);
   pavilion(K,-17,0,24.5,1.05);
+}
+function regionalStonework(K) {
+  // Projecting jharokha bays: brackets carry their weight, the pierced stone
+  // screens admit air, and broad chajjas shield the wall from sun and rain.
+  K.push([0,1.4,-.65]);
+  for(const x of [-2.8,2.8]){
+    K.put('stone',box(2.3,2.0,.3),P.stone,[x,6.45,-21.92]);
+    for(const dx of [-.76,.76]){
+      K.put('stone',box(.27,.65,.8),P.rose,[x+dx,4.9,-21.2],[.48,0,0]);
+      K.put('stone',box(.34,.22,1.3),P.stone,[x+dx,5.1,-21.25]);
+    }
+    K.put('stone',box(2.35,.24,1.65),P.pale,[x,5.42,-21.25]);
+    K.put('shade',box(1.85,1.75,.05),0x6b5846,[x,6.38,-21.72]);
+    for(const dx of [-1.03,1.03])K.put('stone',box(.21,1.9,1.2),P.stone,[x+dx,6.45,-21.2]);
+    K.put('stone',box(2.6,.2,1.9),P.pale,[x,7.48,-21.15]);
+    // Diamond jaali: holes remain actual openings between slender stone bars.
+    for(let row=0;row<5;row++)for(let col=0;col<5;col++){
+      const xx=x-.84+col*.42,yy=5.64+row*.34;
+      limb(K,'stone',[xx,yy,-20.57],[xx+.21,yy+.17,-20.57],.035,.035,P.pale,{},5);
+      limb(K,'stone',[xx+.21,yy+.17,-20.57],[xx+.42,yy,-20.57],.035,.035,P.pale,{},5);
+      limb(K,'stone',[xx,yy,-20.57],[xx+.21,yy-.17,-20.57],.035,.035,P.pale,{},5);
+      limb(K,'stone',[xx+.21,yy-.17,-20.57],[xx+.42,yy,-20.57],.035,.035,P.pale,{},5);
+    }
+    K.put('stone',box(2.1,.14,.15),P.rose,[x,5.58,-20.57]);
+    K.put('stone',box(2.1,.14,.15),P.rose,[x,7.32,-20.57]);
+    // A shallow curved stone canopy, lower than the gate chhatri.
+    K.put('stone',new THREE.SphereGeometry(1.2,12,6,0,Math.PI*2,0,Math.PI/2),P.rose,[x,7.6,-21.15],[0,0,0],[1,.47,.7]);
+  }
+  K.pop();
 }
 function surroundings(K) {
   const r=rng(161022);
@@ -374,19 +406,23 @@ export function buildCourtyard(scene,{hemi,sun}) {
   // Paving ends under the enclosure. The soil continues beneath it and outside
   // at almost the same elevation, never as the edge of a raised square slab.
   const floorRects=[[-34,x-hx,-29,25],[x+hx,31,-29,25],[x-hx,x+hx,-29,z-hz],[x-hx,x+hx,z+hz,25]];
-  for(const [x0,x1,z0,z1]of floorRects)K.put('floor',box(x1-x0,.16,z1-z0),0xffffff,[(x0+x1)/2,-.08,(z0+z1)/2],[0,0,0],1,{vary:0,noise:0});
+  // Split long floor triangles: a close oblique view otherwise showed flat
+  // clamped-texture wedges in the renderer, despite correct CPU rays/UVs.
+  for(const [x0,x1,z0,z1]of floorRects)K.put('floor',box(x1-x0,.16,z1-z0,Math.ceil((x1-x0)/3),1,Math.ceil((z1-z0)/3)),0xffffff,[(x0+x1)/2,-.08,(z0+z1)/2],[0,0,0],1,{vary:0,noise:0});
   for(const g of K.bins.floor){const p=g.attributes.position,uv=g.attributes.uv;for(let i=0;i<p.count;i++)uv.setXY(i,(p.getX(i)+40)/80,(40-p.getZ(i))/80);}
   K.put('shade',box(16,.2,20),0x40534a,[x,-6.5,z]);
-  for(const [x0,x1,z0,z1]of [[-210,x-hx,-210,210],[x+hx,210,-210,210],[x-hx,x+hx,-210,z-hz],[x-hx,x+hx,z+hz,210]])
+  for(const [x0,x1,z0,z1]of [[-210,-34,-210,210],[31,210,-210,210],[-34,31,-210,-29],[-34,31,25,210]])
     K.put('earth',box(x1-x0,.5,z1-z0),0xb3a084,[(x0+x1)/2,-.35,(z0+z1)/2],[0,0,0],1,{vary:.025,noise:.015});
-  architecture(K);stepwell(K);traces(K);surroundings(K);workingYard(K);
+  architecture(K);stepwell(K);traces(K);surroundings(K);workingYard(K);regionalStonework(K);buildCourtyardCover(K,P);
   for(let i=0;i<75;i++){
     const a=r()*Math.PI*2,rad=12+r()*22,px=Math.cos(a)*rad,pz=Math.sin(a)*rad;
     if(px<x-hx||px>30||pz<-28||pz>24||(px<x+hx&&pz>z-hz&&pz<z+hz))continue;
     K.put('sand',new THREE.CircleGeometry(.4+r()*1.4,7),0xc4ad87,[px,.012,pz],[-Math.PI/2,0,r()*6.28],[1,.5+r()*.4,1],{vary:.1});
   }
+  const stoneMap=stoneTexture();
   const materials={
-    stone:new THREE.MeshStandardMaterial({vertexColors:true,map:stoneTexture(),roughness:1}),
+    cover:new THREE.MeshStandardMaterial({vertexColors:true,map:stoneMap,roughness:1}),
+    stone:new THREE.MeshStandardMaterial({vertexColors:true,map:stoneMap,roughness:1}),
     floor:new THREE.MeshStandardMaterial({vertexColors:true,map:pavingTexture(),roughness:.98}),
   };
   for(const name of ['wood','iron','rope','cloth','pot','wax','sand','shade','earth','interior','road','foliage'])materials[name]=new THREE.MeshStandardMaterial({vertexColors:true,roughness:name==='iron'?.8:1,side:['cloth','pot'].includes(name)?THREE.DoubleSide:THREE.FrontSide});
