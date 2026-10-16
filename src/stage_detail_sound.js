@@ -26,9 +26,17 @@ export const STAGE_DETAIL_PROFILES = Object.freeze({
   // 화산섬 (샛별 저장소 origin/main 7684c732 의 굳은 껍질 소리를 옮김 — docs/import/volcano_port_2026-10-14.md). 표 끝(자리 15)에 붙여 있던 세부음 씨앗(자리 0~14)은 그대로.
   //  샛별 표에서는 자리 14(그쪽 15 는 철불 절벽 dunhuangWood)라 변형 셋의 잡음 결은 샛별 판과 다르다(합성 꼴·길이·세기는 같다)
   etnaCrust: { stage: 'etna', duration: 1.6, gain: 0.032, gap: 20 },
+  wetlandThunder: { stage: 'sluice', nightOnly: true, duration: 3.8, gain: .24, gap: 5 },
 });
 
-export const hasStageDetails = (stage) => stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove' || stage === 'frozen_bay' || stage === 'qinglan' || stage === 'sluice' || stage === 'dayr' || stage === 'dunhuang' || stage === 'etna';
+export const WETLAND_THUNDER_VARIANTS = Object.freeze([
+  Object.freeze({ name: 'short', duration: 1.8 }),
+  Object.freeze({ name: 'rolling', duration: 3.8 }),
+  Object.freeze({ name: 'extended', duration: 6.2 }),
+]);
+
+const detailBase = stage => ['loggia_night','corsair_night','sacred_grove_night','sluice_night'].includes(stage) ? stage.slice(0,-6) : stage;
+export const hasStageDetails = (id) => {const stage=detailBase(id);return stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove' || stage === 'frozen_bay' || stage === 'qinglan' || stage === 'sluice' || stage === 'dayr' || stage === 'dunhuang' || stage === 'etna';};
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 const TAU = Math.PI * 2;
 
@@ -36,10 +44,44 @@ const TAU = Math.PI * 2;
  * rng is the existing sound.js makeRng. Returned mono PCM is also used by the
  * offline review renderer; no recordings, network assets or sample imports.
  */
-export function synthStageDetail(kind, sr, rng) {
+export function synthStageDetail(kind, sr, rng, variant = 1) {
   const profile = STAGE_DETAIL_PROFILES[kind];
   if (!profile || !Number.isFinite(sr) || sr < 8000) return new Float32Array(0);
-  const out = new Float32Array(Math.ceil(profile.duration * sr));
+  const thunder = kind === 'wetlandThunder' ? WETLAND_THUNDER_VARIANTS[variant] ?? WETLAND_THUNDER_VARIANTS[1] : null;
+  const out = new Float32Array(Math.ceil((thunder?.duration ?? profile.duration) * sr));
+  if (kind === 'wetlandThunder') {
+    // Three different envelopes, not just three noise seeds. The middle form
+    // preserves the original rolling sound; the long form swells repeatedly.
+    if (thunder.name !== 'rolling') {
+      const short=thunder.name==='short',shift=rng(),starts=short?[0]:[0,.82+shift*.22,1.95+shift*.18,3.25+shift*.28];
+      const a=1-Math.exp(-TAU*(short?155:85)/sr),b=1-Math.exp(-TAU*(short?1050:480)/sr);
+      let low=0,mid=0,peak=0;
+      for(let i=0;i<out.length;i++){
+        const t=i/sr,n=rng()*2-1;low+=a*(n-low);mid+=b*(n-mid);
+        let body=0,crackle=0;
+        for(let j=0;j<starts.length;j++){
+          const age=t-starts[j];if(age<0)continue;
+          const weight=short?1:1-j*.14,rise=1-Math.exp(-age/(short?.028:.10));
+          body+=weight*rise*Math.exp(-age/(short?.42:1.1));
+          crackle+=weight*rise*Math.exp(-age/(short?.14:.32));
+        }
+        const tail=Math.min(1,(out.length-1-i)/(sr*(short?.22:.65)));
+        const roll=short?1:.64+.36*Math.sin(t*4.1+shift*3+.3*Math.sin(t*7))**2;
+        out[i]=tail*(2.8*low*body*roll+(short?.32:.16)*(mid-low)*crackle);
+        peak=Math.max(peak,Math.abs(out[i]));
+      }
+      if(peak>.65)for(let i=0;i<out.length;i++)out[i]*=.65/peak;
+      return out;
+    }
+    let low=0,mid=0;const a=1-Math.exp(-TAU*110/sr),b=1-Math.exp(-TAU*620/sr),shift=rng()*2;
+    for(let i=0;i<out.length;i++){
+      const t=i/sr,n=rng()*2-1;low+=a*(n-low);mid+=b*(n-mid);
+      const rise=1-Math.exp(-t/.055),tail=Math.min(1,(out.length-1-i)/(sr*.45));
+      const roll=.6+.4*Math.sin(t*6.2+shift)**2;
+      out[i]=rise*tail*(2.6*low*roll*Math.exp(-t/1.35)+.24*(mid-low)*Math.exp(-t/.30));
+    }
+    return out;
+  }
   if (kind === 'etnaCrust') {
     // 화산섬: 먼 굳은 용암 껍질이 부서지는 소리 — 걸러 낮춘 금 가는 소리와 짧게 흘러내리는 알갱이 (샛별 원문 그대로).
     //  계속되는 불 굉음·폭발·싸움 소리 같은 순간음은 없다
@@ -220,7 +262,8 @@ export class StageDetailSound {
   constructor(sound, makeRng) {
     this.sound = sound;
     this.makeRng = makeRng;
-    this.stage = sound.stage;
+    this.stage = detailBase(sound.stage);
+    this.stageId = sound.stage;
     this.paused = !!sound._stagePaused;
     this.voices = new Set();
     this.buffers = new Map(); // At most three variants for each detail kind.
@@ -233,7 +276,8 @@ export class StageDetailSound {
   setStage(stage) {
     this.stopVoices();
     this.stopAmbient();
-    this.stage = stage;
+    this.stage = detailBase(stage);
+    this.stageId = stage;
     this.buffers.clear();
     this.last.clear();
     this.lastAny = -Infinity;
@@ -319,6 +363,11 @@ export class StageDetailSound {
       // 잠든 습지: 낮게 흐르는 물 위에 눈에 보이는 잎·물방울 소리만 드문드문. 보이지 않는 빗소리·방 울림·동물 합창은 없다
       addNoise({ rate: 0.69, frequency: 920, gain: 0.0036, lfo: 0.075, depth: 0.0007, ceiling: 1700, pan: 0.3 });
       addNoise({ rate: 0.81, frequency: 470, gain: 0.0019, lfo: 0.043, depth: 0.0006, ceiling: 1350, pan: -0.16 });
+      if(this.stageId==='sluice_night'){
+        // Fine rain on water and leaves, softly spread across the stereo field.
+        addNoise({rate:.91,frequency:2600,gain:.013,lfo:.087,depth:.0015,ceiling:5200,pan:-.45});
+        addNoise({rate:.77,frequency:1800,gain:.010,lfo:.063,depth:.0012,ceiling:4300,pan:.45});
+      }
     } else if (this.stage === 'dayr') {
       // 소금 사막: 그늘진 벽돌 문루를 지나는 마른 바람 두 겹 (샛별 값 그대로 — 우리 무대 바탕 가운데 가장 작다). 시장 소음·물소리 없음
       // Dry air through a shaded brick iwan. No surf or crowded market bed.
@@ -348,17 +397,22 @@ export class StageDetailSound {
     const sound = this.sound, c = sound.ctx, profile = STAGE_DETAIL_PROFILES[data.kind];
     const reject = () => { this.stats.rejected++; return false; };
     if (!profile || profile.stage !== this.stage || !sound.on || this.paused || (!c.startRendering && c.state !== 'running')) return reject();
+    if(profile.nightOnly&&this.stageId!=='sluice_night')return reject();
     const amp = data.amp ?? 0.5;
     if (!Number.isFinite(amp) || amp <= 0 || (data.pos && !['x', 'y', 'z'].every((k) => Number.isFinite(data.pos[k])))) return reject();
     const t = c.currentTime;
-    if (t - this.lastAny < 2 || t - (this.last.get(data.kind) ?? -Infinity) < profile.gap || this.voices.size >= 2) return reject();
-    const variant = (Number.isFinite(data.seed) ? Math.abs(data.seed | 0) : 0) % 3;
+    // A water drip just before the delayed rumble must not cancel its weather
+    // cue. Keep the thunder's own spacing and the existing two-voice ceiling.
+    const thunder = data.kind === 'wetlandThunder';
+    if ((!thunder && t - this.lastAny < 2) || t - (this.last.get(data.kind) ?? -Infinity) < profile.gap || this.voices.size >= 2) return reject();
+    const variant = thunder && Number.isInteger(data.variant) && data.variant >= 0 && data.variant < 3
+      ? data.variant : (Number.isFinite(data.seed) ? Math.abs(data.seed | 0) : 0) % 3;
     const key = data.kind + ':' + variant;
     let buffer = this.buffers.get(key);
     if (!buffer) {
       const sr = 22050;
       const seed = 9127 + Object.keys(STAGE_DETAIL_PROFILES).indexOf(data.kind) * 311 + variant * 101;
-      const pcm = synthStageDetail(data.kind, sr, this.makeRng(seed));
+      const pcm = synthStageDetail(data.kind, sr, this.makeRng(seed), variant);
       buffer = c.createBuffer(1, pcm.length, sr); buffer.getChannelData(0).set(pcm);
       this.buffers.set(key, buffer);
     }

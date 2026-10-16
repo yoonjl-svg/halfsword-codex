@@ -89,6 +89,7 @@ export const SWEEP_STAGE = Object.freeze({
 });
 
 export function sweepParams(stageId) {
+  if(stageId === 'sluice_night')stageId = 'sluice';
   return { ...SWEEP_DEFAULT, ...(SWEEP_STAGE[stageId] ?? {}) };
 }
 

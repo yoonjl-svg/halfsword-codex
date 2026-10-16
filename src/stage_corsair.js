@@ -762,28 +762,48 @@ function coral(K, pos, rotY, scale, kind, seed, planar = false) {
   const tones = {
     pink: [0xc7707c, 0xe6939c, 0xf6c3c0],
     orange: [0xc8643a, 0xe88a52, 0xf7c08a],
-    red: [0xa94a3e, 0xd0705a, 0xeea58a],
+    red: [0xa54b69, 0xd582a2, 0xffd3ce],
+    violet: [0x655895,0xa48aca,0xe3c9e9],
+    mint: [0x367e79,0x68b4a3,0xc1e0c1],
   }[kind];
   const norm = (d) => { const l = Math.hypot(...d); return d.map((v) => v / l); };
   const opt = { vary: 0.1, noise: 0.06 };
   const grow = (a, dir, len, rad, depth) => {
     const b = [a[0] + dir[0] * len, a[1] + dir[1] * len, a[2] + dir[2] * len];
-    limb(K, 'coral', a, b, rad, rad * 0.72, tones[2 - depth] ?? tones[0], opt, 5);
+    limb(K, 'coral', a, b, rad, rad * 0.72, tones[Math.max(0,Math.ceil((4-depth)/2))] ?? tones[2], opt, 5);
     if (depth === 0) {
       K.put('coral', new THREE.IcosahedronGeometry(rad * 0.95, 0), tones[2], b, [0, 0, 0], 1, opt);
       return;
     }
-    const n = depth === 2 ? 3 + Math.floor(r() * 2) : 2;
+    const n = depth === 4 ? 4 : 2;
     for (let i = 0; i < n; i++) {
       const az = planar ? (i % 2 ? 0 : Math.PI) + (r() - 0.5) * 0.6 : (i / n) * TAU + r() * 1.2;
       const tilt = 0.45 + r() * 0.5;
       const d = norm([dir[0] * 0.55 + Math.cos(az) * Math.sin(tilt), dir[1] * 0.55 + Math.cos(tilt) * 0.85, planar ? 0 : dir[2] * 0.55 + Math.sin(az) * Math.sin(tilt)]);
-      grow(b, d, len * (0.66 + r() * 0.2), rad * 0.7, depth - 1);
+      grow(b, d, len * (0.66 + r() * 0.2), rad * 0.62, depth - 1);
     }
   };
   K.push(pos, rotY, scale);
-  grow([0, -0.04, 0], [0, 1, 0], planar ? 0.14 : 0.2, planar ? 0.035 : 0.05, 2);
+  grow([0, -0.04, 0], [0, 1, 0], planar ? 0.26 : 0.30, planar ? 0.037 : 0.052, 4);
   K.pop();
+}
+
+// Scalloped plates: low shelves between the taller sea fans, pale living rims.
+function plateCoral(K,pos,scale,seed){
+ const r=rng(seed);K.push(pos,r()*TAU,scale);
+ for(let layer=0;layer<4;layer++){
+  const radius=.72-layer*.105,points=[],colors=[],indices=[],segments=36;
+  const dark=new THREE.Color(layer%2?0x758ebe:0x539fa0),pale=new THREE.Color(0xc5e2d0);
+  for(let ring=0;ring<3;ring++)for(let i=0;i<=segments;i++){
+   const a=i/segments*TAU,f=ring/2,rr=radius*f*(1+.1*Math.sin(a*7+layer));
+   points.push(Math.cos(a)*rr+.08*layer,.13+layer*.22+f*f*(.10+.06*Math.sin(a*7+layer)),Math.sin(a)*rr);
+   const c=dark.clone().lerp(pale,ring===2?.88:ring*.1);colors.push(c.r,c.g,c.b);
+   if(ring<2&&i<segments){const k=ring*(segments+1)+i;indices.push(k,k+1,k+segments+1,k+1,k+segments+2,k+segments+1)}
+  }
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(points,3));g.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));g.setIndex(indices);g.computeVertexNormals();
+  const piece=K.put('coral',g,0xffffff,[0,0,0],[0,0,0],1,{vary:0});const flat=g.toNonIndexed();piece.setAttribute('color',flat.attributes.color.clone());flat.dispose();g.dispose();
+ }
+ K.pop();
 }
 
 function brainCoral(K, pos, scale, color) {
@@ -891,7 +911,10 @@ function forecourt(K, nets) {
     [[-12.4, 0, -5.2], 'orange', 1.0], [[12.9, 0, 8.6], 'pink', 1.3], [[20.4, -0.07, 4.6], 'orange', 1.2],
     [[9.4, 0, -5.6], 'pink', 0.8], [[-9.9, 0, 6.9], 'orange', 0.7],
   ];
-  C1.forEach(([pos, kind, sc, planar], i) => coral(K, pos, r() * TAU, sc, kind, 5300 + i * 17, planar));
+  C1.forEach(([pos, kind, sc, planar], i) => coral(K, pos, planar?Math.PI/2+(r()-.5)*.6:r()*TAU, sc*(pos[0]>14?1.25:1), kind, 5300 + i * 17, planar));
+  coral(K,[17.9,0,-3.3],1.5,2.9,'violet',5419,true);
+  coral(K,[16.6,0,10.5],1.7,2.7,'mint',5420,true);
+  for(const [x,z,sc] of [[16,-.2,1.5],[18,7.6,1.5],[14.6,-6.7,1.1],[13.5,7.7,.9]])plateCoral(K,[x,.01,z],sc,Math.round(x*100+z));
   brainCoral(K, [11.6, 0.0, 6.1], 0.32, 0xe0a070);
   brainCoral(K, [16.9, 0.0, -1.9], 0.42, 0xd98b6a);
   brainCoral(K, [17.9, 0.0, 9.7], 0.3, 0xe7b48a);
@@ -933,7 +956,7 @@ function forecourt(K, nets) {
 }
 
 /** Native stage contract; Stages owns and disposes every added scene resource. */
-export function buildCorsair(scene, lights = {}) {
+export function buildCorsair(scene, lights = {}, {night=false} = {}) {
   const r = rng(511709);
   const K = new Kit(51017);
   const sunOffset = { x: -6, y: 8, z: 7 };
@@ -956,6 +979,10 @@ export function buildCorsair(scene, lights = {}) {
   const sea = ocean(scene, sunOffset);
   const wash = harborWash(scene);
   const gulls = harborGulls(scene);
+  if(night){
+    sea.uniforms.seaColor.value.set(0x143741);sea.uniforms.shallowColor.value.set(0x285a61);sea.uniforms.skyColor.value.set(0x27384c);sea.uniforms.fogColor.value.set(0x24324a);sea.uniforms.sunDir.value.set(7,9,-4).normalize();
+    wash.uniforms.color.value.set(0x7b9fa8);
+  }
   const stoneTex = coralTexture();
   const floorTex = earthTexture();
   const stoneOpt = { uv: 'box', uvScale: 0.42, vary: 0.11, noise: 0.035 };
@@ -1013,6 +1040,7 @@ export function buildCorsair(scene, lights = {}) {
   forecourt(K, netKit);
   const pools = tidePools();
   pools.mat.uniforms.sunDir.value.set(sunOffset.x, sunOffset.y, sunOffset.z).normalize();
+  if(night){pools.mat.uniforms.sky.value.set(0x344859);pools.mat.uniforms.bed.value.set(0x333c3d);pools.mat.uniforms.rim.value.set(0x434b4b);pools.mat.uniforms.sunDir.value.set(7,9,-4).normalize()}
   scene.add(pools.mesh);
 
   // Coral gate, deeply carved timber doors, and an asymmetric arcaded storehouse.
@@ -1122,7 +1150,7 @@ export function buildCorsair(scene, lights = {}) {
     brass: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.55, metalness: 0.38 }),
     cloth: new THREE.MeshStandardMaterial({ vertexColors: true, map: sailTexture(), roughness: 1, flatShading: true, side: THREE.DoubleSide }),
     leaf: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, side: THREE.DoubleSide }),
-    coral: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.8 }),
+    coral: new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.8, side: THREE.DoubleSide }),
   };
   {
     // Nets: one transparent draw; mip-averaged alpha lets them fade, not shimmer, with distance.
@@ -1135,14 +1163,24 @@ export function buildCorsair(scene, lights = {}) {
   }
   // Fine grains are shaded at world scale and fade with distance. The atlas
   // supplies the broad damp/traffic patches; no extra downloaded texture.
+  // Pale shell/coral sand accumulated around each reef, not a white shoreline
+  // stripe. Shared by the day and night builders; the existing wet shading and
+  // lighting still apply. This is part of the opaque floor, not a decal layer.
+  const coralSand = [
+    [16.8,-1.8,3.5,3.9], [16.9,9.2,3.4,3.2], [14.9,-7,3.5,2.8],
+    [12.4,6.1,2.9,3.8], [10.1,-10.4,2.1,1.8], [-12.4,-5.2,1.9,1.7],
+    [9.4,-5.6,1.7,1.9], [-9.9,6.9,1.7,1.8],
+  ];
   mats.floor.onBeforeCompile = (shader) => {
     shader.vertexShader = `varying vec2 harborEarthXZ;\n${shader.vertexShader}`.replace('#include <begin_vertex>', `
       #include <begin_vertex>
       harborEarthXZ = (modelMatrix * vec4(position, 1.0)).xz;
     `);
     shader.uniforms.corsairPuddles = { value: PUDDLES.map(([x, z, rx, rz]) => new THREE.Vector4(x, z, rx, rz)) };
+    shader.uniforms.corsairCoralSand = { value: coralSand.map(p => new THREE.Vector4(...p)) };
     shader.fragmentShader = `varying vec2 harborEarthXZ;
       uniform vec4 corsairPuddles[${PUDDLES.length}];
+      uniform vec4 corsairCoralSand[${coralSand.length}];
       float harborValue(vec2 p) {
         vec2 i = floor(p), f = fract(p);
         f = f * f * (3.0 - 2.0 * f);
@@ -1161,6 +1199,23 @@ export function buildCorsair(scene, lights = {}) {
       // Broad trodden/dry patches a few metres across, so the open sand is not one flat tone.
       float patchN = harborValue(harborEarthXZ * 0.17 + 3.1) * 0.65 + harborValue(harborEarthXZ * 0.41) * 0.35;
       diffuseColor.rgb *= 0.9 + patchN * 0.2;
+      float sandNoise = harborValue(harborEarthXZ * 1.15 + 17.3) * 0.6
+                      + harborValue(harborEarthXZ * 3.7 - 8.2) * 0.4;
+      float reefSand = 0.0;
+      for (int i = 0; i < ${coralSand.length}; i++) {
+        vec4 S = corsairCoralSand[i];
+        float q = length((harborEarthXZ - S.xy) / S.zw);
+        reefSand = max(reefSand, 1.0 - smoothstep(0.1, 1.25, q + (sandNoise - 0.5) * 0.85));
+      }
+      // Small irregular deposits interleave with the old yellow sand, thinning
+      // toward their edges. Ivory, pale shell pink and cool gray-white grains.
+      float scatter = smoothstep(0.28, 0.67, sandNoise);
+      float paleAmount = reefSand * (0.36 + scatter * 0.64);
+      vec3 paleSand = mix(vec3(0.82,0.80,0.73), vec3(0.77,0.70,0.66),
+                         harborValue(harborEarthXZ * 0.63 + 41.0) * 0.5);
+      paleSand = mix(paleSand, vec3(0.73,0.77,0.75), smoothstep(0.55,0.85,sandNoise) * 0.3);
+      paleSand *= 0.94 + grain * 0.12 * nearGrain;
+      diffuseColor.rgb = mix(diffuseColor.rgb, paleSand, paleAmount * 0.94);
       // Wet sand: a ragged band along the sea edge (x > 12 m) and a damp rim
       // round every tide pool. Darker, cooler, and a little glossier.
       float wetEdge = harborValue(harborEarthXZ * 0.42) - 0.5;
@@ -1176,7 +1231,7 @@ export function buildCorsair(scene, lights = {}) {
       roughnessFactor = mix(roughnessFactor, 0.55, wet);
     `);
   };
-  mats.floor.customProgramCacheKey = () => 'corsair-compact-sandy-earth-2';
+  mats.floor.customProgramCacheKey = () => 'corsair-compact-sandy-earth-3';
   const windTime = { value: 0 };
   mats.cloth.onBeforeCompile = (shader) => {
     shader.uniforms.corsairWindTime = windTime;

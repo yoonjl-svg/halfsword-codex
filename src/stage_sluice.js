@@ -278,7 +278,7 @@ function taperedRoot(points, radii) {
   g.computeVertexNormals(); return g;
 }
 
-function sluice(K, leaves, crowns, r) {
+function sluice(K, leaves, crowns, r, nightOpened = false) {
   K.push([HERO.x, 0, HERO.z], HERO.rotation);
   // The hydraulic frame has long square beams and an unobstructed rectangular
   // opening, with a clear tilt where the living roots have lifted its right end.
@@ -315,9 +315,9 @@ function sluice(K, leaves, crowns, r) {
   }
   // Dark old timber survives at the sides; the central view stays open.
   for (const [x, y, angle, length] of [[-2.42, 2.34, 0.03, 1.70], [-1.92, 1.96, -0.12, 1.11], [2.3, 2.59, -0.19, 2.21]]) {
-    put(K, 'bark', box(0.31, length, 0.22), C.wood, [x, y, 0.52], [0.04, 0, angle], 1, { rough: 0.035, noise: 0.06, uv: 'box', uvScale: 0.65 });
+    put(K, 'bark', box(0.31, length, 0.22), C.wood, [x, y + (nightOpened ? 3.35 : 0), 0.52], [0.04, 0, angle], 1, { rough: 0.035, noise: 0.06, uv: 'box', uvScale: 0.65 });
   }
-  put(K, 'bark', box(3.48, 0.19, 0.22), 0x494e40, [0.55, 1.88, 0.54], [0.02, 0.08, -0.19]);
+  put(K, 'bark', box(3.48, 0.19, 0.22), 0x494e40, [0.55, 1.88 + (nightOpened ? 3.35 : 0), 0.54], [0.02, 0.08, -0.19]);
   K.pop();
 
   // The side walls have collapsed in unequal lengths, with exposed end faces.
@@ -873,7 +873,7 @@ function perchedBird(scene) {
 const xyz = ([x, y, z]) => ({ x, y, z });
 const DRIP_POS = xyz(gateP([17.62, 0.07, -1.98])), RUSTLE_POS = xyz(gateP([19.7, 11, 4.5])), BIRD_POS = xyz(gateP([21.95, 1.70, -7.70])); // 세부음 자리 (보이는 물방울·잎·새와 같은 곳)
 /** Bounded, deterministic scenery. No physics bodies, global timers or RNG use. */
-export function buildSluice(scene, { hemi, sun } = {}) {
+export function buildSluice(scene, { hemi, sun } = {}, { nightOpened = false } = {}) {
   const r = rng(633917), K = new Kit(637317), leaves = [], crowns = [], clock = { value: 0 };
   const sunOffset = { x: -6.2, y: 11.0, z: -7.2 };
   scene.background = new THREE.Color(0x94a58e);
@@ -881,10 +881,10 @@ export function buildSluice(scene, { hemi, sun } = {}) {
   if (hemi) { hemi.color.set(0xdde7d4); hemi.groundColor.set(0x807664); hemi.intensity = 1.23; }
   if (sun) { sun.color.set(0xffedd0); sun.intensity = 1.42; sun.position.set(sunOffset.x, sunOffset.y, sunOffset.z); }
   const soil = soilTexture(), stone = stoneTexture(), bark = barkTexture();
-  ground(scene, soil); paving(K, r); sluice(K, leaves, crowns, r); forest(K, leaves, crowns, r); ferns(K, leaves, r); wetland(scene, K, leaves, crowns, clock);
+  ground(scene, soil); paving(K, r); sluice(K, leaves, crowns, r, nightOpened); forest(K, leaves, crowns, r); ferns(K, leaves, r); wetland(scene, K, leaves, crowns, clock);
   const bear = buildSluiceBear(scene); // 결투장 한가운데, 판 시작 카메라 쪽(−X)을 본다
   const pool = water(scene, K, r);
-  lightShafts(scene, sunOffset);
+  if (!nightOpened) lightShafts(scene, sunOffset);
   const birdModel = perchedBird(scene);
   // Fallen stones and leaf litter occupy forest margins, not the camera lane.
   for (let i = 0; i < 36; i++) {

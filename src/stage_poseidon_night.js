@@ -480,6 +480,7 @@ export function buildPoseidonNight(scene, lights = {}) {
   step(0);
 
   return {
+    nightHour: 3, // all night variants depict local 03:00
     sunOffset,
     // 밤: 캐릭터는 화로의 따뜻한 빛으로 채우고 달빛 테두리로 떼어 놓는다
     fighterLight: { color: 0xffc493, rimColor: 0xaabfe6, rim: 1.5, level: 0.44 },

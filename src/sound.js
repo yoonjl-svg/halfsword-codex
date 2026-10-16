@@ -1658,6 +1658,7 @@ const SAMPLES = {
 // 배경(스테이지)마다 다른 것: 발소리 녹음(step), 쓰러질 때 바닥 알갱이(grit), 전투 소리가 벽에 되울리는 방(room).
 // room: reverbIR 모양 + 쇳소리(metal)·몸 소리(flesh)를 울림으로 보내는 양. 바깥(포세이돈·산사)은 울림 없음
 const STAGE_SOUND = {
+  temple_night: { step: 'stepGravel', grit: 'stepGravel', night: true },
   loggia: { step: 'stepStone', grit: 'stepStone', room: { dur: 0.65, rt: 0.45, e0: 0.04, e1: 0.09, lp: 4500, metal: 0.16, flesh: 0.06 } },
   corsair: { step: 'step', grit: 'step' }, // 다져진 모래흙 선착장: 돌 판석 대신 모래가 눌리는 발소리
   sacred_grove: { step: 'stepGravel', grit: 'stepGravel' },
@@ -1677,6 +1678,10 @@ const STAGE_SOUND = {
   clearing_a: { step: 'stepMud', grit: 'stepMud', rain: true }, // 같은 컨셉의 1안 (보관용, ?stage=clearing_a — 오너는 2안을 골랐다)
   clearing_a_dry: { step: 'stepMud', grit: 'stepMud', rain: false }, // 1안의 비 없는 판: 비만 뺀다
 };
+for (const id of ['clearing','castle','cathedral','loggia','corsair','sacred_grove','sluice']) STAGE_SOUND[id+'_night']={...STAGE_SOUND[id],night:true};
+STAGE_SOUND.clearing_night.rain=false;
+STAGE_SOUND.castle_night.heavySnow=true;
+
 
 // ─────────────────────────────────────────────────────────────
 //  실제로 소리를 내는 부분
@@ -2695,7 +2700,7 @@ export class Sound {
   ambience() {
     if (this._amb || !this.ctx || !this.master) return;
     if (hasStageDetails(this.stage)) return this._amb = this._details().ambience();
-    const amb = { temple: this._ambTemple, castle: this._ambCastle, cathedral: this._ambCathedral, darkhall: this._ambHall, poseidon_night: this._ambPoseidon, clearing: this._ambClearing, clearing_a: this._ambClearing, clearing_a_dry: this._ambClearing }[this.stage];
+    const amb = { clearing_night: this._ambClearing, castle_night: this._ambCastle, cathedral_night: this._ambCathedral, temple_night: this._ambTemple, temple: this._ambTemple, castle: this._ambCastle, cathedral: this._ambCathedral, darkhall: this._ambHall, poseidon_night: this._ambPoseidon, clearing: this._ambClearing, clearing_a: this._ambClearing, clearing_a_dry: this._ambClearing }[this.stage];
     if (amb) return amb.call(this);
     return this._ambPoseidon();
   }
@@ -2800,6 +2805,7 @@ export class Sound {
    * 발소리·쓰러짐의 바닥 소리, 전투 소리의 울림(방), 큰 타격의 반응도 배경을 따른다
    */
   setStage(id) {
+    if (id === 'frozen_bay_night') id = 'frozen_bay'; // same lake ice / pier, never the fallback sea
     const next = id in STAGE_SOUND ? id : 'poseidon';
     if (next === this.stage) return;
     this.stage = next;
@@ -2945,11 +2951,13 @@ export class Sound {
    */
   _ambCastle() {
     const K = this._ambKit();
+    const heavySnow = STAGE_SOUND[this.stage]?.heavySnow;
+    const windBase = heavySnow ? 0.022 : 0.014;
     const wind = K.src(1);
     const bp = K.filt('bandpass', 520, 0.8);
-    const wg = K.gain(0.014);
-    K.lfo(0.07, wg.gain, 0.009);
-    K.lfo(0.031, wg.gain, 0.005);
+    const wg = K.gain(windBase);
+    K.lfo(0.07, wg.gain, heavySnow ? 0.012 : 0.009);
+    K.lfo(0.031, wg.gain, heavySnow ? 0.007 : 0.005);
     K.lfo(0.07, bp.frequency, 180);
     wind.connect(bp).connect(K.filt('lowpass', 1500)).connect(wg).connect(K.out);
     const low = K.src(0.83);
@@ -2958,7 +2966,7 @@ export class Sound {
     K.loop(fire, 0.03, -0.55, 0.94);
     K.loop(fire, 0.03, 0.55, 1.07);
     K.start();
-    this._amb = { out: K.out, nodes: K.nodes, wind: wg, windBase: 0.014 };
+    this._amb = { out: K.out, nodes: K.nodes, wind: wg, windBase };
     // 마구간의 말: 아주 가끔(50~110초마다) 발굽으로 짚을 "쿵 쿵" 차거나 콧바람 "푸르르"
     this._every(50000, 110000, () => this.stageCall(Math.random() < 0.55 ? 'stamp' : 'snort'));
   }
@@ -2979,8 +2987,8 @@ export class Sound {
     air.connect(K.filt('bandpass', 650, 0.7)).connect(K.filt('lowpass', 1500)).connect(ag).connect(K.out);
     K.start();
     this._amb = { out: K.out, nodes: K.nodes, wind: ag, windBase: 0.005 };
-    this._every(18000, 45000, () => this.stageCall('dove'));
-    this._every(30000, 70000, () => this.stageCall('wings'));
+    if (!STAGE_SOUND[this.stage]?.night) this._every(18000, 45000, () => this.stageCall('dove'));
+    this._every(30000, 70000, () => this.stageCall(STAGE_SOUND[this.stage]?.night ? 'bat' : 'wings'));
     this._every(35000, 80000, () => this.stageCall('debris', 0.4));
   }
 
@@ -3080,7 +3088,7 @@ export class Sound {
     this._amb = { out, nodes: [pine, low, w1, w2, w3], wind: pg, windBase: 0.007 };
     // 풍경은 9~26초마다, 산새는 14~40초마다
     if (this.stage !== 'loggia') this._every(9000, 26000, () => this.windChime());
-    this._every(14000, 40000, () => this.bird());
+    if (!STAGE_SOUND[this.stage]?.night) this._every(14000, 40000, () => this.bird());
   }
 
   /**
@@ -3119,7 +3127,7 @@ export class Sound {
     K.loop(this.pick('fireLoop'), 0.012, 0.6, 0.85); // 잉걸불이 남은 불더미의 약한 "탁탁" (오른쪽 멀리, 느리게 재생해 낮게)
     K.start();
     this._amb = { out: K.out, nodes: K.nodes, wind: wg, windBase: 0.004 }; // 큰 타격에는 바람만 잠깐 세진다 (비는 그대로)
-    this._every(20000, 55000, () => this.crow());
+    if (!STAGE_SOUND[this.stage]?.night) this._every(20000, 55000, () => this.crow());
   }
 
   /** 까마귀들이 날아오름 (화전 터, 배경이 'crows' 로 알릴 때): 날갯짓 두세 번 + 놀란 "까악" 한둘. 멀리, 작게 (적막함을 깨지 않게). 4초에 한 번만 */
@@ -3244,7 +3252,7 @@ export class Sound {
     // {kind, amp:0..1, pos:{x,y,z}, seed, time}: fired by a visible wind/cloth/water peak.
     if (name === 'stageDetail' && hasStageDetails(this.stage)) return this._details().event(data);
     if (name === 'crows') return this._crowsUp(data); // 화전 터: 참나무의 까마귀들이 날아오른다 (외형 PM이 onEvent('crows') 로 알린다)
-    if (name !== 'bell' || this.stage !== 'castle') return;
+    if (name !== 'bell' || !['castle','castle_night'].includes(this.stage)) return;
     if (!this._spaced('bell')) return; // 30차: 한 번 흔들리면 양 끝마다 치던 종을 10초에 한 번만 (사장님 "간격을 좀 두자")
     const c = this.ctx;
     const x = clamp01((data.amp ?? 0.3) / (data.max ?? 0.55));
@@ -3374,8 +3382,8 @@ export class Sound {
       if (Math.random() < 0.4 + amount * 0.6) this._hitCall('flap', amount);
       return;
     }
-    if (this.stage === 'castle') return this._hitCall('flare', amount);
-    if (this.stage === 'cathedral') {
+    if (['castle','castle_night'].includes(this.stage)) return this._hitCall('flare', amount);
+    if (['cathedral','cathedral_night'].includes(this.stage)) {
       this._hitCall('debris', amount);
       if (amount > 0.5 && Math.random() < amount * 0.6) this._hitCall('wings', amount);
       return;

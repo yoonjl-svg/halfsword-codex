@@ -14,7 +14,7 @@ export const CAMERA_PAD = 0.28;
 //  판 시작 카메라(열림 1 · 0.5 · 0)에서 상대 머리·가슴(가운데·좌우 0.2)·골반·무릎까지 광선이 석상(곰 + 받침)에 하나도 안 닿는 가장 작은 값 (0.05 m 간격으로 잼).
 //  곰 3.0 m 에서 0.45 → 사장님 10/14 10:3x 곰 3.2 m 에서 0.50 (0.45 면 열림 1 카메라 → 상대 가슴 오른쪽 0.2 광선 하나가 석상에 닿는다)
 export const START_SIDE = 0.5;
-export const stageStartZ = (stageId) => (stageId === 'sluice' ? START_SIDE : 0);
+export const stageStartZ = (stageId) => (stageId === 'sluice' || stageId === 'sluice_night' ? START_SIDE : 0);
 
 /**
  * 판(물리 세계)마다 부른다: 습지면 고정 몸체 하나에 석상 충돌체를 만들고, 아니면 null. previous 가 같은 세계의 것이면 먼저 지운다.
@@ -22,7 +22,7 @@ export const stageStartZ = (stageId) => (stageId === 'sluice' ? START_SIDE : 0);
  */
 export function configureStageObstacle(RAPIER, world, stageId, groups, previous = null) {
   if (previous?.world === world) world.removeRigidBody(previous.body);
-  if (stageId !== 'sluice') return null;
+  if (stageId !== 'sluice' && stageId !== 'sluice_night') return null;
   const body = world.createRigidBody(RAPIER.RigidBodyDesc.fixed());
   const handles = new Set();
   for (const s of BEAR_OBSTACLE_SHAPES) {

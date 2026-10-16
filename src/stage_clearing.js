@@ -616,7 +616,7 @@ export function ashDrift(scene, { n = 600, seed = 77 } = {}) {
  * 봄비: 가는 빗줄기(점 스프라이트)가 결투 자리 둘레 24m 상자 안에 내린다. 바람에 비스듬하고, 큰 타격이 나오면 휘몰아친다.
  *  폰에서 가볍게: 점 2400개, 질감 한 장. 반환 step(dt, t, gust)
  */
-export function springRain(scene, { n = 2400, seed = 55 } = {}) {
+export function springRain(scene, { n = 2400, seed = 55, size = .55, opacity = .42, speedScale = 1, windScale = 1, color = 0xd6dcdd } = {}) {
   const rr = rng(seed);
   const pos = new Float32Array(n * 3);
   const sp = new Float32Array(n);
@@ -626,16 +626,17 @@ export function springRain(scene, { n = 2400, seed = 55 } = {}) {
     pos[i * 3] = (rr() - 0.5) * 2 * BOX;
     pos[i * 3 + 1] = rr() * H;
     pos[i * 3 + 2] = (rr() - 0.5) * 2 * BOX;
-    sp[i] = 6.5 + rr() * 3;
+    sp[i] = (6.5 + rr() * 3) * speedScale;
   }
   const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-  const pts = new THREE.Points(geo, new THREE.PointsMaterial({ size: 0.55, map: rainTexture(), transparent: true, opacity: 0.42, depthWrite: false, color: 0xd6dcdd }));
+  const pts = new THREE.Points(geo, new THREE.PointsMaterial({ size, map: rainTexture(), transparent: true, opacity, depthWrite: false, color }));
+  pts.name = 'rain-particles';
   pts.frustumCulled = false;
   scene.add(pts);
   return (dt, t, gust) => {
-    const wx = -0.9 - gust * 5;
-    const wz = 0.3 + gust * 1.5;
+    const wx = (-0.9 - gust * 5) * windScale;
+    const wz = (0.3 + gust * 1.5) * windScale;
     for (let i = 0; i < n; i++) {
       const j = i * 3;
       pos[j + 1] -= sp[i] * dt;

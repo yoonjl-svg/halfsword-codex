@@ -303,7 +303,7 @@ export function createRatnaOutfit(h) {
     }
     if (!v4) paddle(g);
     else if (seat.bag) backBag(g);
-    if (look.ratnaRevision >= 2) shoulderMonkey(g, look);
+    if (look.ratnaRevision >= 2 && look.alter !== 'ratna') shoulderMonkey(g, look);
   }
   function abdomen(g) {
     torso(g, CREAM, 0.026); const l = layer(g);

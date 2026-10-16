@@ -457,7 +457,7 @@ function loggiaShade(x, y, z) {
   return [age + n * 0.03 - shade * 0.5, age - shade * 0.47, age - n * 0.04 - shade * 0.38];
 }
 
-export function buildLoggia(scene, { hemi, sun } = {}) {
+export function buildLoggia(scene, { hemi, sun } = {}, {archiveBay=false} = {}) {
   const random = rng(64091);
   const kit = new Kit(1947);
   const fogColor = 0xcfa58e; // warm dusk haze
@@ -562,8 +562,10 @@ export function buildLoggia(scene, { hemi, sun } = {}) {
       put('stone', archBand(2.16, 2.4, 0.13), PALETTE.light, [x, 4.35, 0.38], undefined, 1, stone);
       block('stone', 0.27, 0.4, 0.2, PALETTE.light, [x, 6.64, 0.51]);
       // Stone benches sit in shade between the front and rear colonnades.
-      block('stone', 2.2, 0.19, 0.65, PALETTE.sand, [x, 0.75, -1.78]);
-      for (const side of [-1, 1]) block('stone', 0.25, 0.66, 0.58, PALETTE.trim, [x + side * 0.77, 0.33, -1.78]);
+      if(!(archiveBay&&position[2]===-14.3&&x===7.5)){
+        block('stone', 2.2, 0.19, 0.65, PALETTE.sand, [x, 0.75, -1.78]);
+        for (const side of [-1, 1]) block('stone', 0.25, 0.66, 0.58, PALETTE.trim, [x + side * 0.77, 0.33, -1.78]);
+      }
     }
     const piers = [...new Set(centers.flatMap((x) => [x - 2.5, x + 2.5]))];
     for (const x of piers) {

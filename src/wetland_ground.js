@@ -43,6 +43,6 @@ export function fighterWetlandMoveScale(fighter, x, z) {
   return fighter.movementSurface === 'wetland' ? wetlandMoveScale(x, z) : 1;
 }
 export function configureWetlandMovement(fighter, stageId) {
-  fighter.movementSurface = stageId === 'sluice' ? 'wetland' : null;
+  fighter.movementSurface = stageId === 'sluice' || stageId === 'sluice_night' ? 'wetland' : null;
   fighter.surfaceSpeedScale = 1;
 }
