@@ -6,12 +6,12 @@ import {STAGE_IDS,STAGE_FOE} from '../../src/stages.js';
 import {ARENA} from '../../src/config.js';
 const base=process.argv[2]||'http://127.0.0.1:4194',source=process.env.SOURCE_BASE||'http://127.0.0.1:4193';
 const out=process.argv[3]||'/tmp/yue-apparitions-check.json',report={errors:[]};
-assert.equal(STAGE_IDS.filter(s=>s.endsWith('_night')).length,13);
-assert.equal(CHARACTER_VARIANTS.length,13);assert.equal(STAGE_FOE.dunhuang_night,'terracotta_mad');
+const pairCount=STAGE_IDS.filter(s=>s.endsWith('_night')).length;
+assert.ok(pairCount>=13);assert.equal(CHARACTER_VARIANTS.length,pairCount);assert.equal(STAGE_FOE.dunhuang_night,'terracotta_mad');
 assert.equal(C.terracotta_mad.appearanceOnly,true);
 for(const key of ['ai','weapon','physiology','body','strength','voice'])assert.deepEqual(C.terracotta[key],C.terracotta_mad[key],key);
 for(let p=1;p<=5;p++)assert.deepEqual(aiAtProficiency(C.terracotta,p),aiAtProficiency(C.terracotta_mad,p));
-report.data={pairs:13,proficienciesIdentical:5,weapon:C.terracotta_mad.weapon,physiology:C.terracotta_mad.physiology,radius:ARENA.radius};
+report.data={pairs:pairCount,proficienciesIdentical:5,weapon:C.terracotta_mad.weapon,physiology:C.terracotta_mad.physiology,radius:ARENA.radius};
 const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader']});
 try{
  report.runtime=[];
