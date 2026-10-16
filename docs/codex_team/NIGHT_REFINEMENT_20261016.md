@@ -27,3 +27,5 @@
 ## 이식·되돌리기
 
 `stage_night_variants.js`는 새 `stage_night_lamps.js`를 import한다. `mad_eyes.js`의 세 번째 인자 `{veiled}`를 `main.js`가 `characters.js`의 `clothGlow`와 연결한다. 후드/천은 `outfit_alter.js`, 곰은 `stage_frozen_bay.js`, 포세이돈 복원은 `stage_poseidon_night.js`다. 공통 API와 의존 연결을 비교하고 구현 커밋 단위로 이식/되돌린다. 상대 저장소 변경이나 새 메시지 발행은 하지 않았다.
+
+배포 완료: 게임/소개 소스 `1d11381c`, Pages 실행38857419524 Success/50초. 원격 HTML 바이트 및 사진·영상30개 해시 일치. 로컬 모바일 사진26장·영상2개 전달 검사 통과. 공개 github.io 직접 실행은 환경정책 제한으로 확인하지 못했다. [배포 영수증](night_refinement_20261016_release.json).
