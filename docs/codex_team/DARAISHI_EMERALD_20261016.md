@@ -27,3 +27,9 @@
 구현 e9eb76bc. 새 현재 사진7장/칼집 이전 사진1장. 동일 카메라의 은발·에메랄드 및 검집 간격 비교를 `daraishi-front.html`에 게시했다.390×844/844×390에서 새 소개 사진9장, 밤7차 사진15장·영상8초·무기/상대 직접 대련 링크 확인. 가로 넘침·이미지 오류·HTTP/JS 오류0. Vite/PWA 빌드 성공. 원본 촬영과 게시 이미지 출처/해시는 manifest에 보존.
 
 실행 검사 재현: `BEFORE_GEOMETRY=docs/codex_team/daraishi_emerald_20261016_checks/before.json node tools/browser/daraishi_front_check.mjs http://127.0.0.1:4194 /tmp/daraishi-check.json --scabbard`. 관통 표본 검사: `node tools/browser/daraishi_scabbard_clearance.mjs http://127.0.0.1:4194 /tmp/scabbard-clearance.json`.
+
+## 우리 포크 공개 완료
+
+공개439b386e956d55277821a1e4b5ac1f1d21d510a0 / Pages38934015506 성공(1분34초), 소스·소개·사진18파일 원격 일치. [영수증](daraishi_emerald_20261016_release.json). 정책상 공개 CDN 직접 브라우저 확인은 못 했으며 로컬 프로덕션·Actions HTML·고정SHA 원본을 확인했다.
+
+[실제 전후 사진·대련](https://yoonjl-svg.github.io/halfsword-codex/daraishi-front.html). 기본 색 시안 검토 대기, 얼터 작업/상대 전달은 미진행.
