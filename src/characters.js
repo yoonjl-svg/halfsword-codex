@@ -918,7 +918,8 @@ finishAI(terracottaAlter);CHARACTER_VARIANTS.push(terracottaAlter);
 const daraishiBase=CHARACTER_GUESTS.find(c=>c.id==='silver_wanderer');
 const daraishiAlter={...daraishiBase,id:'silver_wanderer_mad',variantOf:'silver_wanderer',mad:true,appearanceOnly:true,
  name:`광기의 ${daraishiBase.name}`,ai:JSON.parse(JSON.stringify(daraishiBase.ai)),
- look:alterLook(daraishiBase.look,'silver_wanderer'),lookVersion:daraishiBase.lookVersion+'-alter1',eyes:'madGlow',
+ // Base-first tailoring review: keep the alter on its previously reviewed V7.
+ look:alterLook(getLook('silver_wanderer','v7'),'silver_wanderer'),lookVersion:'v7-alter1',eyes:'madGlow',
  backstory:'호송대가 머물던 역참에 홀로 남아 있다. 먹청색 옷 아래 손목에는 끊어진 구속구가 걸려 있다. 안쪽에서 열린 철창과 소금길에서 사라지는 맨발 자국. 그가 지키던 사람이 누구였는지, 그 자신은 기억하고 있을까.'};
 finishAI(daraishiAlter);CHARACTER_VARIANTS.push(daraishiAlter);
 

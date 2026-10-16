@@ -43,6 +43,11 @@ try{for(const [stage,foe] of pairs){
     g.camera.position.set(p.x-f.x*1.1,p.y+.025,p.z-f.z*1.1);g.camera.lookAt(p.x,p.y-.025,p.z);
     g.camera.fov=28;g.camera.updateProjectionMatrix();
    }
+   if(view==='front-detail'){
+    const p=g.enemy.bodies.chest.translation();f.applyAxisAngle(new T.Vector3(0,1,0),.16);
+    g.camera.position.set(p.x+f.x*1.7,p.y+.10,p.z+f.z*1.7);g.camera.lookAt(p.x,p.y+.015,p.z);
+    g.camera.fov=29;g.camera.updateProjectionMatrix();
+   }
    if(view==='weapon'){
     f.applyAxisAngle(new T.Vector3(0,1,0),.85);
     const tip=new T.Vector3(0,g.enemy.weaponCfg.hiltLength+g.enemy.weaponCfg.bladeLength,0).applyQuaternion(g.enemy.sword.rotation()).add(g.enemy.sword.translation());

@@ -806,6 +806,9 @@ LOOK_ARCHIVE.silver_wanderer.v9 = { ...LOOK_ARCHIVE.silver_wanderer.v8, daraishi
 //  엉덩이 자락과 다리 바깥 자락은 v7 의 자리·벌어짐 그대로, 길이는 v9(옷단 0.30 m, 좌우 같게), 겉감 #66528A · 옷단 테 · 앞섶 테 · 트임 테 · 문양은 v9
 //  (outfit_silver_wanderer_v10.js). 값 모두 사장님 확인 전(확인표 1360~)
 LOOK_ARCHIVE.silver_wanderer.v10 = { ...LOOK_ARCHIVE.silver_wanderer.v7, daraishiLower: 10 };
+// Owner 10/16: tailor the base V7 shirt and add one loose fringe first;
+// the alter keeps its previously reviewed V7 appearance until a later step.
+LOOK_ARCHIVE.silver_wanderer['v7-front1'] = { ...LOOK_ARCHIVE.silver_wanderer.v7, daraishiFront: 1 };
 
 // 찬다 (여정 밖 인물 — characters.js CHARACTER_GUESTS, 10/14) — 샛별 저장소 LOOK_ARCHIVE.chanda v1 (675233e2 · origin/main 7684c732, 값 그대로) + 우리 v2.
 //  복식 모듈 하나(outfits.js chanda_watergate = src/outfit_chanda.js)가 chandaRevision 으로 판을 가른다. 방어구·투구 없음
@@ -850,7 +853,7 @@ export const CHARACTER_LOOK_VERSION = {
   renji: 'v3', // 외형 3차 10/11 — 옛 판 ?look=renji:v2(바지·행전) · v1
   eira: 'v5', // 10/11 01:4x 매듭 굵게 — 옛 판 ?look=eira:v4 · v3 · v2 · v1
   ratna: 'v4', // 10/14 여정 밖 인물 (우리 v4) — 샛별 판 ?look=ratna:v3 · v2 · v1
-  silver_wanderer: 'v7', // 다라이시 — 우리 v7(겉모습 덜기 · 빈 검집만 v8 자리): 사장님 10/15 23:1x 'v7이 제일 예쁜 거 같애. 되돌려.' — v10(v7 바탕 + v9 아래 자락, 10/14 18:4x) ?look=silver_wanderer:v10 · v9(v7·v8 절충) :v9 · v8(흰 카바) :v8 · 샛별 판 v6 · v5 · v4 · v2 · v1
+  silver_wanderer: 'v7-front1', // 기본만 앞섶/금실/앞머리 시안. 하의는 v7. 기존 v7은 ?look=silver_wanderer:v7.
   chanda: 'v2', // 10/14 여정 밖 인물 찬다 (우리 v2 — 무릎 틈 메움) — 샛별 판 ?look=chanda:v1
   terracotta: 'v2', // 10/14 여정 밖 인물 병마용 (우리 v2 — 잔선 덜기) — 샛별 판 ?look=terracotta:v1
 };
