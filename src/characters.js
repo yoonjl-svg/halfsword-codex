@@ -569,7 +569,7 @@ const VARIANT_PLUS = 1;
 export function aiAtProficiency(c, p) {
   const level = AI_PROFICIENCY.levels[p] ?? 'normal';
   const persona = { ...c.ai.persona, proficiency: { [traditionOf(WEAPONS[c.weapon])]: p } };
-  if (c.mad && !c.appearanceOnly) {
+  if (c.mad && !c.appearanceOnly && !c.retainBaseStats) {
     const base = CHARACTERS.find((x) => x.id === c.variantOf);
     persona.level = scaledLevel({ level, persona: base.ai.persona }, MAD_SCALE);
   }
@@ -888,6 +888,26 @@ const ratnaAlter = { ...ratnaBase, id: 'ratna_mad', variantOf: 'ratna', mad: tru
   look: alterLook(ratnaBase.look, 'ratna'), lookVersion: `${ratnaBase.lookVersion}-alter4`, eyes: 'madGlow' };
 finishAI(ratnaAlter);
 CHARACTER_VARIANTS.push(ratnaAlter);
+
+// Night 5: Chanda is cosmetic; Kim explicitly draws his brother's sword.
+for(const id of ['chanda','renji']){
+ const base=[...CHARACTERS,...CHARACTER_GUESTS].find(c=>c.id===id);
+ const alter={...base,id:id+'_mad',variantOf:id,mad:true,appearanceOnly:id==='chanda',retainBaseStats:true,
+  name:`광기의 ${base.name}`,ai:JSON.parse(JSON.stringify(base.ai)),look:alterLook(base.look,id),lookVersion:base.lookVersion+'-alter1',eyes:'madGlow'};
+ if(id==='renji'){
+  alter.weapon='uchigatana';alter.ai.persona.school='uchigatana';
+  delete alter.ai.persona.pers.guardPref;delete alter.ai.persona.pers.techPref;
+  alter.school='형의 검을 꺼내 든 김씨. 기존 우치가타나·일본 유파 동작을 사용한다.';
+  alter.backstory='습격의 흔적이 남은 산길에 혼자 서 있다. 흰 천으로 싸 두었던 형의 칼을 꺼냈고 허리에는 빈 칼집만 남았다. 끝내 무엇을 지키려 검을 뽑았는지는 말하지 않는다.';
+  alter.favoriteGuards='기존 일본 유파의 중단과 어깨 지킴.';
+  alter.movementNotes='기존 일본 유파의 검과 보법 연결을 사용한다. 새로운 동작이나 적극성 강화는 없다.';
+  alter.weaknesses='형의 칼이 빗나간 뒤의 빈틈. 수치상 강화 없이 무기의 길이·무게와 기존 유파가 바뀐다.';
+  alter.signatureMoves='형의 검을 두 손으로 들고 기존 일본 유파의 베기와 찌르기를 쓴다.';
+  alter.taunt='오늘은 이 칼을 쓰겠네.';
+  alter.lines={intro:['오늘은 이 칼을 쓰겠네.','차를 권할 때는 지났네.'],win:['…형에게 돌려줄 말이 늘었군.']};
+ }
+ finishAI(alter);CHARACTER_VARIANTS.push(alter);
+}
 
 /** id → 시트. 기본 회전·변형·손님 인물까지 (변형은 여정의 정해진 자리·?foe=id, 손님 인물은 여정의 제 무대(STAGE_FOE)·테스트 경로의 상대 고르기·?foe=id) */
 export const CHARACTERS_BY_ID = Object.fromEntries([...CHARACTERS, ...CHARACTER_VARIANTS, ...CHARACTER_GUESTS].map((c) => [c.id, c]));

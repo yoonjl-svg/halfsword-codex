@@ -1,6 +1,7 @@
 // Actual game renderer with fixed time. Portraits move the camera and hide only the player.
 import {chromium} from 'playwright';
 import fs from 'node:fs';
+import {CHARACTERS_BY_ID} from '../../src/characters.js';
 const base=process.argv[2]||'http://127.0.0.1:4194',out=process.argv[3]||'/tmp/alter-pairs';
 const pairs=(process.argv[4]||'cathedral_night:margarethe,cathedral_night:margarethe_mad,castle_night:isolde,castle_night:isolde_mad').split(',').map(s=>s.split(':'));
 fs.mkdirSync(out,{recursive:true});
@@ -10,7 +11,8 @@ try{for(const [stage,foe] of pairs){
  const page=await browser.newPage({viewport:{width:1200,height:675},deviceScaleFactor:1,hasTouch:true}),errors=[];
  page.on('pageerror',e=>errors.push(String(e)));page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
  await page.clock.install({time:new Date('2026-10-16T18:00:00Z')});await page.clock.pauseAt(new Date('2026-10-16T18:00:01Z'));
- await page.goto(`${base}/?stage=${stage}&foe=${foe}&weapon=longsword&emo=0`,{waitUntil:'networkidle'});
+ const native=process.argv.includes('--native-weapons')?`&foeWeapon=${CHARACTERS_BY_ID[foe].weapon}`:'';
+ await page.goto(`${base}/?stage=${stage}&foe=${foe}&weapon=longsword${native}&emo=0`,{waitUntil:'networkidle'});
  await page.evaluate(()=>{game.renderCap.tick=()=>false;document.getElementById('btnStart').click()});
  for(let i=0;i<120&&await page.evaluate(()=>game.state!=='fight');i++)await page.clock.runFor(16);
  await page.evaluate(()=>{game.ai.update=()=>{}});await page.clock.runFor(2500);

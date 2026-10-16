@@ -84,7 +84,7 @@ export function etnaGroundMesh(extent = 30) {
 /** 땅 계약: 싸움꾼(fighter.terrain)·걸음·효과·AI 가 이것 하나만 본다 */
 export const ETNA_TERRAIN = Object.freeze({ id: 'etna', heightAt: etnaHeight, normalAt: etnaNormal, ...ETNA });
 /** 무대 id → 땅 (지형 없는 무대는 null — 평지 길 그대로) */
-export const terrainForStage = (id) => (id === 'etna' ? ETNA_TERRAIN : null);
+export const terrainForStage = (id) => (id === 'etna' || id === 'etna_night' ? ETNA_TERRAIN : null);
 
 // 보이지 않는 경계 벽(반지름 + 0.25 m, 32 마디)을 땅 높이를 따라 올린다: 마디 가운데 땅 위로 1.2 m (샛별 판 그대로).
 //  우리 판에서 더한 것 — 마디 상자를 땅속으로 WALL_SINK 만큼 더 묻는다: 마디(약 1.4 m) 끝의 땅이 가운데보다 최대 0.22 m 낮아
