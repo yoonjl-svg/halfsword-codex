@@ -43,6 +43,13 @@ function footprints(root){
  const geo=new T.PlaneGeometry(.17,.31);geo.rotateX(-Math.PI/2);
  const path=new T.CatmullRomCurve3([[8.32,.014,-17.55],[11.9,.014,-14.1],[14.2,.014,-9.5],[14.6,.014,-4.6],[18.2,.014,-.4],[23,.014,.45],[29,.014,.9]].map(p=>new T.Vector3(...p)));
  const count=48,marks=new T.InstancedMesh(geo,material,count),o=new T.Object3D();marks.name='dayr-bare-footprints';marks.frustumCulled=false;group.add(marks);
+ const opacity=new Float32Array(count);geo.setAttribute('trailOpacity',new T.InstancedBufferAttribute(opacity,1));
+ // Fade alpha, not RGB: darkening a pale print made its last steps turn black.
+ material.onBeforeCompile=shader=>{
+  shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nattribute float trailOpacity;\nvarying float vTrailOpacity;').replace('#include <begin_vertex>','#include <begin_vertex>\nvTrailOpacity = trailOpacity;');
+  shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying float vTrailOpacity;').replace('#include <color_fragment>','#include <color_fragment>\ndiffuseColor.a *= vTrailOpacity;');
+ };
+ material.customProgramCacheKey=()=> 'dayr-trail-alpha-v1';
  let minRadius=Infinity;const data=[];
  for(let i=0;i<count;i++){
   const u=i/(count-1),p=path.getPointAt(u),t=path.getTangentAt(u),side=i%2?1:-1;
@@ -50,7 +57,7 @@ function footprints(root){
   // Outside the paving the original salt ground sits lower.
   if(p.x>21.5)p.y=-.055;
   o.position.copy(p);o.rotation.set(0,Math.atan2(t.x,t.z)+side*.07,0);o.scale.set(1,1,1);o.updateMatrix();marks.setMatrixAt(i,o.matrix);
-  const fade=u>.78?Math.max(.05,1-(u-.78)/.22):1;marks.setColorAt(i,new T.Color().setScalar(fade));
+  opacity[i]=u>.78?Math.max(0,1-(u-.78)/.22):1;
   minRadius=Math.min(minRadius,Math.hypot(p.x,p.z));data.push(p.toArray());
  }
  // Salt skim drifts across the last marks: a specific disappearing trail,

@@ -32,7 +32,10 @@ try{for(const [id,foe] of [['dayr','silver_wanderer']].filter(p=>!only||p[0]===o
   for(let i=0;i<80;i++){
    if(i===0||i===40){const [,pos,target,fov]=views[id].find(v=>v[0]===(i===0?'cell':'threshold'));
     await p.evaluate(({pos,target,fov})=>{game.camera.position.set(...pos);game.camera.lookAt(...target);game.camera.fov=fov;game.camera.updateProjectionMatrix()},{pos,target,fov});}
-   await p.clock.runFor(100);await p.screenshot({path:`${out}/${stage}-frames/${String(i).padStart(3,'0')}.png`});
+   // Simulate all 100 ms, rendering only the final frame for this 10 fps clip.
+   await p.evaluate(()=>{game.renderCap.tick=()=>false});await p.clock.runFor(84);
+   await p.evaluate(()=>{game.renderCap.tick=()=>true});await p.clock.runFor(16);
+   await p.screenshot({path:`${out}/${stage}-frames/${String(i).padStart(3,'0')}.png`});
   }
  }
  rows.push({...info,errors});fs.writeFileSync(out+'/capture.json',JSON.stringify(rows,null,2)+'\n');console.log(stage,JSON.stringify(errors));await p.close();
