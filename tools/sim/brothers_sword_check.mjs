@@ -2,19 +2,27 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {newRound,DT,AI,THREE as T} from './harness_m.mjs';
 import {CHARACTERS_BY_ID as C,aiAtProficiency} from '../../src/characters.js';
-import {WEAPONS,drawWeaponCards} from '../../src/weapons.js';
+import {WEAPONS,drawWeaponCards,RETIRED_WEAPONS} from '../../src/weapons.js';
 import {schoolOf} from '../../src/schools.js';
 import {weaponPhysics} from '../../src/weapon_class.js';
 const out=process.argv[2]||'/tmp/brothers-sword-check.json',report={physics:weaponPhysics(WEAPONS.brothers_sword),bouts:[],contacts:[]};
 assert.equal(schoolOf('brothers_sword').tradition,'none');
 assert.deepEqual(schoolOf('brothers_sword').tech,schoolOf('morgenstern').tech);
 assert.deepEqual(schoolOf('brothers_sword').guards,schoolOf('morgenstern').guards);
-// Adding a personal weapon must not change ordinary draws, including exclusions.
-const oldPool=Object.keys(WEAPONS).filter(id=>id!=='brothers_sword');
-for(let seed=1;seed<=32;seed++){
+// Now a player-drawable epic; retain exclusion and distinct-card behavior.
+const playerPool=Object.keys(WEAPONS).filter(id=>id!=='excalibur_replica'&&!RETIRED_WEAPONS.has(id));
+assert.equal(WEAPONS.brothers_sword.tier,'epic');assert.equal(WEAPONS.brothers_sword.power,1.1);
+assert.equal(WEAPONS.brothers_sword.ability,'황약사: 몽롱한 일격');
+assert.deepEqual(drawWeaponCards(['brothers_sword'],1),['brothers_sword']);
+let offered=0;
+for(let seed=1;seed<=128;seed++){
  const rng=()=>{let a=seed;return ()=>{a=(Math.imul(a,1664525)+1013904223)>>>0;return a/2**32}};
- assert.deepEqual(drawWeaponCards(Object.keys(WEAPONS),2,{rnd:rng(),exclude:'morgenstern'}),drawWeaponCards(oldPool,2,{rnd:rng(),exclude:'morgenstern'}));
+ const cards=drawWeaponCards(playerPool,2,{rnd:rng(),exclude:'morgenstern'});
+ assert.equal(new Set(cards).size,2);assert.ok(!cards.includes('morgenstern'));
+ if(cards.includes('brothers_sword'))offered++;
+ assert.ok(!drawWeaponCards(playerPool,2,{rnd:rng(),exclude:'brothers_sword'}).includes('brothers_sword'));
 }
+assert.ok(offered>0);report.draws={seeds:128,offered,previousWeaponExcluded:true};
 assert.equal(WEAPONS.brothers_sword.fragile,false);
 for(const impactStress of [false,true]){
  const G=newRound({weapon:'brothers_sword',weapon2:'qinggang',seed:5});
