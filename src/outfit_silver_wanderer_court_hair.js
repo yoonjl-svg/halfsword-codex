@@ -151,9 +151,14 @@ export function createSilverWandererCourtHair(h, originalHead) {
       knots.push(...knotBraid([[-.223,-.16,0],[-.237,-.25,0],[-.248,-.34,.006],[-.259,-.435,.014]],.016,.024,.002));
       addMerged(layer,knots,BRAID_LIGHT,{...material,flatShading:true});
       addMerged(layer,[lock([[-.26,-.43,.014],[-.269,-.48,.014],[-.278,-.54,.007]], [.031,.042,.003],.008,9)],look.hair,material);
-      addMerged(layer,[ball(.018,10,6,[-.237,-.152,0],null,[.25,.62,1.4])],0xd8cfb7,ivory);
-      addMerged(layer,[bake(new THREE.TorusGeometry(.020,.002,4,12),[-.242,-.152,0],
-        [0,Math.PI/2,0],[1.3,.64,1]),cyl(.017,.016,.011,8,false,[-.26,-.431,.014])],0xad914e,gold);
+      // The black alter ties cloth at the same gathering point; keep the lower
+      // braid fitting, but replace its ivory clasp rather than stacking props.
+      if(!look.daraishiBlack){
+        addMerged(layer,[ball(.018,10,6,[-.237,-.152,0],null,[.25,.62,1.4])],0xd8cfb7,ivory);
+        addMerged(layer,[bake(new THREE.TorusGeometry(.020,.002,4,12),[-.242,-.152,0],
+          [0,Math.PI/2,0],[1.3,.64,1])],0xad914e,gold);
+      }
+      addMerged(layer,[cyl(.017,.016,.011,8,false,[-.26,-.431,.014])],0xad914e,gold);
       return;
     }
     const braid=[];

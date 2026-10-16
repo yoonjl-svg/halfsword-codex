@@ -914,13 +914,12 @@ const terracottaAlter={...terracottaBase,id:'terracotta_mad',variantOf:'terracot
  look:alterLook(terracottaBase.look,'terracotta'),lookVersion:terracottaBase.lookVersion+'-alter2',eyes:'madGlow'};
 finishAI(terracottaAlter);CHARACTER_VARIANTS.push(terracottaAlter);
 
-// Night 7: escort or captive? A cosmetic counterpart, with the same long blade.
+// Owner-approved black-clad counterpart. The lost identity remains private lore.
 const daraishiBase=CHARACTER_GUESTS.find(c=>c.id==='silver_wanderer');
 const daraishiAlter={...daraishiBase,id:'silver_wanderer_mad',variantOf:'silver_wanderer',mad:true,appearanceOnly:true,
  name:`광기의 ${daraishiBase.name}`,ai:JSON.parse(JSON.stringify(daraishiBase.ai)),
- // Base-first tailoring review: keep the alter on its previously reviewed V7.
- look:alterLook(getLook('silver_wanderer','v7'),'silver_wanderer'),lookVersion:'v7-alter1',eyes:'madGlow',
- backstory:'호송대가 머물던 역참에 홀로 남아 있다. 먹청색 옷 아래 손목에는 끊어진 구속구가 걸려 있다. 안쪽에서 열린 철창과 소금길에서 사라지는 맨발 자국. 그가 지키던 사람이 누구였는지, 그 자신은 기억하고 있을까.'};
+ look:alterLook({...getLook('silver_wanderer','v7-silver-c'),daraishiBlack:1},'silver_wanderer'),lookVersion:'v7-alter2',eyes:'madGlow',
+ backstory:'흑의에 애쉬 실버 머리의 검사. 머리 뒤에는 짧고 해진 붉은 끈이 묶여 있다. 무엇을 기억하려는 매듭인지 자신도 알지 못한다. 이름을 잃어도, 검을 쥐는 손은 망설이지 않는다.'};
 finishAI(daraishiAlter);CHARACTER_VARIANTS.push(daraishiAlter);
 
 /** id → 시트. 기본 회전·변형·손님 인물까지 (변형은 여정의 정해진 자리·?foe=id, 손님 인물은 여정의 제 무대(STAGE_FOE)·테스트 경로의 상대 고르기·?foe=id) */

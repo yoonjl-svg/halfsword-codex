@@ -815,7 +815,7 @@ LOOK_ARCHIVE.silver_wanderer['v7-front3'] = {
   hairPalette: {soft:0x8bded1,braid:0xa9ecdf,glint:0xb4eee3}, daraishiScabbardInset:.008,
 };
 // Emerald was rejected. Keep the approved shape and 8 mm scabbard adjustment;
-// the three nearby silver palettes remain explicit previews until selected.
+// three nearby silver palettes were previewed; the owner selected C below.
 LOOK_ARCHIVE.silver_wanderer['v7-front4'] = {
   ...LOOK_ARCHIVE.silver_wanderer['v7-front2'], daraishiScabbardInset:.008,daraishiNeck:1,
 };
@@ -875,7 +875,7 @@ export const CHARACTER_LOOK_VERSION = {
   renji: 'v3', // 외형 3차 10/11 — 옛 판 ?look=renji:v2(바지·행전) · v1
   eira: 'v5', // 10/11 01:4x 매듭 굵게 — 옛 판 ?look=eira:v4 · v3 · v2 · v1
   ratna: 'v4', // 10/14 여정 밖 인물 (우리 v4) — 샛별 판 ?look=ratna:v3 · v2 · v1
-  silver_wanderer: 'v7-front4', // 원래 은회색 복귀/목 틈 수정/칼집8mm 유지. 색 후보 :v7-silver-a/b/c 는 선택 전 미리보기.
+  silver_wanderer: 'v7-silver-c', // 사용자 확정: 따뜻한 애쉬 실버, 승인된 형태/목 연결/칼집8mm 유지.
   chanda: 'v2', // 10/14 여정 밖 인물 찬다 (우리 v2 — 무릎 틈 메움) — 샛별 판 ?look=chanda:v1
   terracotta: 'v2', // 10/14 여정 밖 인물 병마용 (우리 v2 — 잔선 덜기) — 샛별 판 ?look=terracotta:v1
 };

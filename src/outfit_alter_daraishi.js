@@ -1,7 +1,30 @@
-// Cosmetic prisoner/escort ambiguity; no armor, constraints, mass or combat logic.
+// Cosmetic Daraishi variants: archived shackle, approved black-clad/red-tie look.
+// No armor, constraints, mass or combat logic.
 import * as T from 'three';
 
-export function decorateDaraishiAlter(g,part,palette){
+function addRedTie(g){
+ const root=new T.Group();root.name='daraishi-red-hair-tie';root.userData={cosmetic:true,tails:2};g.add(root);
+ const cloth=new T.MeshStandardMaterial({color:0xa04a4b,roughness:.94,metalness:0,side:T.DoubleSide});
+ const add=(geo,p)=>{const m=new T.Mesh(geo,cloth);if(p)m.position.set(...p);m.castShadow=true;root.add(m);return m};
+ add(new T.CylinderGeometry(.026,.027,.014,16,1,true),[-.236,-.158,0]);
+ const knot=add(new T.SphereGeometry(1,8,6),[-.265,-.157,0]);knot.scale.set(.009,.012,.019);
+ // Two short strips of the same knot lie behind the gathered hair. A folded
+ // cross-section and uneven split hems read as cloth instead of round cords.
+ for(const side of [-1,1]){
+  const length=side<0?.127:.088,curve=new T.CatmullRomCurve3([
+   new T.Vector3(-.267,-.163,side*.008),new T.Vector3(-.276,-.163-length*.35,side*.019),
+   new T.Vector3(-.286,-.163-length*.76,side*.034),new T.Vector3(-.279,-.163-length,side*.046)]);
+  const p=[],uv=[],idx=[],rows=12,cols=4;
+  for(let j=0;j<=rows;j++)for(let i=0;i<=cols;i++){
+   const t=j/rows,u=i/cols,at=curve.getPoint(t),w=.017*(1-t*.26);
+   p.push(at.x-.0028*Math.sin(u*Math.PI),at.y+(j===rows?[0,.003,-.003,.004,0][i]:0),at.z+(u-.5)*w);uv.push(u,t);
+   if(j<rows&&i<cols){const n=j*(cols+1)+i;idx.push(n,n+cols+1,n+1,n+1,n+cols+1,n+cols+2);}
+  }
+  const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(p,3));geo.setAttribute('uv',new T.Float32BufferAttribute(uv,2));geo.setIndex(idx);geo.computeVertexNormals();add(geo);
+ }
+}
+
+export function decorateDaraishiAlter(g,part,palette,look={}){
  // The archived v10 lower coat stores colors in skinned vertex attributes rather
  // than material.color. Recolor those exact swatches without touching skin/hair.
  const pairs=Object.entries(palette).map(([from,to])=>[new T.Color(+from),new T.Color(to)]);
@@ -13,6 +36,7 @@ export function decorateDaraishiAlter(g,part,palette){
   }
   a.needsUpdate=true;
  });
+ if(look.daraishiBlack){if(part==='head'){addRedTie(g);g.userData.madEyeIntensity=.65;}return;}
  if(part!=='farmO')return;
  const cuff=new T.Group();cuff.name='daraishi-broken-wrist-shackle';cuff.userData={cosmetic:true,chainLinks:3};g.add(cuff);
  const iron=new T.MeshStandardMaterial({color:0x87857b,metalness:.56,roughness:.72});

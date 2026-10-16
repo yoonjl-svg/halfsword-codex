@@ -8,12 +8,15 @@ const source=process.env.SOURCE_BASE||'http://127.0.0.1:4193',base=process.argv[
 assert.equal(STAGE_IDS.filter(s=>s.endsWith('_night')).length,14);assert.equal(CHARACTER_VARIANTS.length,14);
 assert.equal(STAGE_FOE.dayr_night,'silver_wanderer_mad');assert.ok(!STAGE_ORDER.includes('dayr_night'));
 assert.equal(C.silver_wanderer_mad.appearanceOnly,true);
-assert.equal(C.silver_wanderer.lookVersion,'v7-front4');assert.equal(C.silver_wanderer_mad.lookVersion,'v7-alter1');
-assert.equal(C.silver_wanderer.look.daraishiFront,2);assert.equal(C.silver_wanderer_mad.look.daraishiFront,undefined);
+assert.equal(C.silver_wanderer.lookVersion,'v7-silver-c');assert.equal(C.silver_wanderer_mad.lookVersion,'v7-alter2');
+assert.equal(C.silver_wanderer.look.daraishiFront,2);assert.equal(C.silver_wanderer_mad.look.daraishiFront,2);
+assert.equal(C.silver_wanderer.look.hair,0x93877e);assert.equal(C.silver_wanderer_mad.look.hair,C.silver_wanderer.look.hair);
+assert.deepEqual(C.silver_wanderer_mad.look.hairPalette,C.silver_wanderer.look.hairPalette);
 for(const id of ['silver_wanderer','silver_wanderer_mad']){assert.equal(C[id].look.daraishiRevision,7);assert.equal(C[id].look.daraishiLower,undefined);assert.equal(C[id].look.daraishiScabbard,8);}
 for(const k of ['ai','weapon','body','strength','voice','physiology'])assert.deepEqual(C.silver_wanderer[k],C.silver_wanderer_mad[k],k);
 for(let p=1;p<=5;p++)assert.deepEqual(aiAtProficiency(C.silver_wanderer,p),aiAtProficiency(C.silver_wanderer_mad,p));
 report.data={pairs:14,proficienciesIdentical:5,weapon:C.silver_wanderer.weapon,radius:ARENA.radius};
+if(process.argv.includes('--data-only')){report.pass=true;fs.writeFileSync(out,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));process.exit(0);}
 if(!process.env.DAY_BEFORE)throw new Error('Set DAY_BEFORE to the saved pre-change src/stage_dayr.js');
 const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--autoplay-policy=no-user-gesture-required']});
 try{
@@ -29,14 +32,15 @@ try{
  report.runtime=await p.evaluate(()=>{
   const g=game,r=g.scene.getObjectByName('dayr_night-story'),trail=g.scene.getObjectByName('dayr-barefoot-salt-trail');
   const cuff=Object.values(g.enemy.groups).flatMap(o=>o.getObjectByName('daraishi-broken-wrist-shackle')?[o.getObjectByName('daraishi-broken-wrist-shackle')]:[]);
-  const pos=g.enemy.bodies.pelvis.translation();return {start:null,position:{...pos},hour:r.userData.hour,stories:r.userData.stories,sunHidden:!g.scene.getObjectByName('dayr-setting-sun').visible,footprints:trail.userData.footprints,minRadius:trail.userData.minRadius,cell:g.scene.getObjectByName('dayr-open-escort-cell').userData,cuffs:cuff.map(o=>o.userData),events,frame:g.renderInfo(),addedColliders:r.userData.addedColliders};
+  const tie=g.enemy.groups.head.getObjectByName('daraishi-red-hair-tie');
+  const pos=g.enemy.bodies.pelvis.translation();return {start:null,position:{...pos},hour:r.userData.hour,stories:r.userData.stories,sunHidden:!g.scene.getObjectByName('dayr-setting-sun').visible,footprints:trail.userData.footprints,minRadius:trail.userData.minRadius,cell:g.scene.getObjectByName('dayr-open-escort-cell').userData,cuffs:cuff.map(o=>o.userData),tie:tie?.userData,events,frame:g.renderInfo(),addedColliders:r.userData.addedColliders};
  });report.runtime.start=start;
- assert.equal(report.runtime.hour,3);assert.ok(report.runtime.sunHidden);assert.equal(report.runtime.stories.length,2);assert.equal(report.runtime.footprints,48);assert.ok(report.runtime.minRadius>10.5);assert.equal(report.runtime.cuffs.length,1);assert.equal(report.runtime.cuffs[0].chainLinks,3);assert.equal(report.runtime.addedColliders,0);assert.ok(Object.values(report.runtime.position).every(Number.isFinite));assert.ok(report.runtime.events.includes('caravanRing'));
+ assert.equal(report.runtime.hour,3);assert.ok(report.runtime.sunHidden);assert.equal(report.runtime.stories.length,2);assert.equal(report.runtime.footprints,48);assert.ok(report.runtime.minRadius>10.5);assert.equal(report.runtime.cuffs.length,0);assert.equal(report.runtime.tie.tails,2);assert.equal(report.runtime.addedColliders,0);assert.ok(Object.values(report.runtime.position).every(Number.isFinite));assert.ok(report.runtime.events.includes('caravanRing'));
  await p.evaluate(()=>{game.renderCap.tick=()=>true;document.getElementById('btnPause').click()});await p.clock.runFor(16);
  const snapshot=()=>p.evaluate(()=>Array.from(game.scene.getObjectByName('dayr-trail-salt-drift').geometry.attributes.position.array));
  const t0=await snapshot();await p.clock.runFor(1000);assert.deepEqual(await snapshot(),t0);await p.evaluate(()=>document.getElementById('btnResume').click());await p.clock.runFor(300);assert.notDeepEqual(await snapshot(),t0);report.pause=true;
- report.chain=await p.evaluate(()=>{const c=game.scene.getObjectByName('daraishi-shackle-chain'),T=game.THREE;const dir=new T.Vector3(0,-1,0).applyQuaternion(c.getWorldQuaternion(new T.Quaternion()));return {direction:dir.toArray(),links:c.children.length,finite:c.children.every(o=>o.matrixWorld.elements.every(Number.isFinite))}});
- assert.equal(report.chain.links,3);assert.ok(report.chain.finite);assert.ok(report.chain.direction[1]<-.999);
+ report.hairTie=await p.evaluate(()=>{const c=game.enemy.groups.head.getObjectByName('daraishi-red-hair-tie');return {pieces:c.children.length,finite:c.children.every(o=>o.matrixWorld.elements.every(Number.isFinite))}});
+ assert.equal(report.hairTie.pieces,4);assert.ok(report.hairTie.finite);
  report.transitions=await p.evaluate(()=>{
   const values=[];for(let i=0;i<7;i++){game.setStage('dayr');const gone=!game.scene.getObjectByName('dayr_night-story'),sunVisible=game.scene.getObjectByName('dayr-setting-sun').visible;game.setStage('dayr_night');const {geometries,textures,programs}=game.renderInfo();values.push({gone,sunVisible,roots:game.scene.children.filter(o=>o.name==='dayr_night-story').length,geometries,textures,programs})}return values;
  });assert.ok(report.transitions.every(v=>v.gone&&v.sunVisible&&v.roots===1));assert.deepEqual(report.transitions.at(-1),report.transitions[1]);

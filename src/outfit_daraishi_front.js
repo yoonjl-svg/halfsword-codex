@@ -1,4 +1,4 @@
-// V7 tailoring study, initially for the base character only. All geometry is
+// V7 tailoring, shared with the approved black alter. All geometry is
 // cosmetic and part-local: no new body, mass, armor coverage or constraints.
 export function createDaraishiFront(h) {
  const {THREE:T,artoriaCloth,addMerged,CLOTH,isoldeLock}=h;
@@ -109,7 +109,7 @@ export function createDaraishiFront(h) {
   }
  }
  return (g,look,part)=>{
-  if(![1,2].includes(look?.daraishiFront)||look.alter)return;
+  if(![1,2].includes(look?.daraishiFront))return;
   if(part==='head'){if(look.daraishiFront>=2)slimSides(g);hair(g,look);}
   else if(part==='chest'||part==='abdomen'){torso(g,part,look);if(part==='chest'&&look.daraishiNeck)closeNeck(g,look);}
  };

@@ -83,7 +83,7 @@ export function attachMadEyes(fighter, on, { veiled = false, sheltered = false }
   const head = fighter.groups?.head;
   const scene = fighter.scene;
   if (!head || !scene) return null;
-  const intensity=MAD_EYE_INTENSITY*(head.userData.spectralHumanFace ? .35 : 1);
+  const intensity=MAD_EYE_INTENSITY*(head.userData.spectralHumanFace ? .35 : 1)*(head.userData.madEyeIntensity??1);
   _core ??= coreTexture();
   _halo ??= haloTexture();
 
