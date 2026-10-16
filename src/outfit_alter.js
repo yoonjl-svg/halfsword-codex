@@ -3,6 +3,7 @@
 import * as THREE from 'three';
 import { addGuildEmbroidery } from './outfit_guild_badge.js';
 import { decorateFifthAlter } from './outfit_alter_fifth.js';
+import { decorateTerracottaAlter } from './outfit_alter_terracotta.js';
 import { addShoulderIguana, addGroveBranch, addCosmeticKettle, addRatnaHeadscarf } from './outfit_alter_fourth.js';
 
 export function alterLook(base, kind) {
@@ -50,6 +51,7 @@ export function alterLook(base, kind) {
 
 export function decorateAlter(g,look,part) {
   if(!look.alter)return;
+  if(look.alter==='terracotta')decorateTerracottaAlter(g,part);
   const seen=new Set();
   g.traverse(o=>{
     // Helmet wear restores its saved base color; save the altered palette there too.
