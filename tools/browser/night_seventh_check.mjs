@@ -32,6 +32,8 @@ try{
  await p.evaluate(()=>{game.renderCap.tick=()=>true;document.getElementById('btnPause').click()});await p.clock.runFor(16);
  const snapshot=()=>p.evaluate(()=>Array.from(game.scene.getObjectByName('dayr-trail-salt-drift').geometry.attributes.position.array));
  const t0=await snapshot();await p.clock.runFor(1000);assert.deepEqual(await snapshot(),t0);await p.evaluate(()=>document.getElementById('btnResume').click());await p.clock.runFor(300);assert.notDeepEqual(await snapshot(),t0);report.pause=true;
+ report.chain=await p.evaluate(()=>{const c=game.scene.getObjectByName('daraishi-shackle-chain'),T=game.THREE;const dir=new T.Vector3(0,-1,0).applyQuaternion(c.getWorldQuaternion(new T.Quaternion()));return {direction:dir.toArray(),links:c.children.length,finite:c.children.every(o=>o.matrixWorld.elements.every(Number.isFinite))}});
+ assert.equal(report.chain.links,3);assert.ok(report.chain.finite);assert.ok(report.chain.direction[1]<-.999);
  report.transitions=await p.evaluate(()=>{
   const values=[];for(let i=0;i<7;i++){game.setStage('dayr');const gone=!game.scene.getObjectByName('dayr_night-story'),sunVisible=game.scene.getObjectByName('dayr-setting-sun').visible;game.setStage('dayr_night');const {geometries,textures,programs}=game.renderInfo();values.push({gone,sunVisible,roots:game.scene.children.filter(o=>o.name==='dayr_night-story').length,geometries,textures,programs})}return values;
  });assert.ok(report.transitions.every(v=>v.gone&&v.sunVisible&&v.roots===1));assert.deepEqual(report.transitions.at(-1),report.transitions[1]);
