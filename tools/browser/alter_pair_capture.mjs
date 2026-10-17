@@ -16,7 +16,7 @@ try{for(const [stage,foe,version] of pairs){
  await page.goto(`${base}/?stage=${stage}&foe=${foe}&weapon=longsword${native}${look}&emo=0`,{waitUntil:'networkidle'});
  await page.evaluate(()=>{game.renderCap.tick=()=>false;document.getElementById('btnStart').click()});
  for(let i=0;i<120&&await page.evaluate(()=>game.state!=='fight');i++)await page.clock.runFor(16);
- await page.evaluate(()=>{game.ai.update=()=>{}});await page.clock.runFor(2500);
+ await page.evaluate(()=>{game._captureAiUpdate=game.ai.update;game.ai.update=()=>{}});await page.clock.runFor(2500);
  await page.evaluate(()=>{game.renderCap.tick=()=>true});await page.clock.runFor(16);
  const prefix=`${out}/${stage}-${foe}${version?'-'+version:''}`;
  await page.screenshot({path:prefix+'-gameplay.png'});
@@ -62,6 +62,16 @@ try{for(const [stage,foe,version] of pairs){
     g.camera.fov=40;g.camera.updateProjectionMatrix();
    }
   },view);await page.clock.runFor(16);await page.screenshot({path:prefix+`-${view}.png`});
+ }
+ if(process.argv.includes('--motion4')){
+  const frames=prefix+'-motion';fs.mkdirSync(frames,{recursive:true});
+  await page.evaluate(()=>{game.ai.update=game._captureAiUpdate;delete game._captureAiUpdate});
+  for(let i=0;i<40;i++){
+   await page.evaluate(()=>{const g=game,T=g.THREE,p=g.enemy.bodies.pelvis.translation(),f=new T.Vector3(1,0,0).applyQuaternion(g.enemy.yaw).applyAxisAngle(new T.Vector3(0,1,0),.45);
+    g.camera.position.set(p.x+f.x*4.5,1.25,p.z+f.z*4.5);g.camera.lookAt(p.x,1.02,p.z);g.camera.fov=34;g.camera.updateProjectionMatrix()});
+   await page.clock.runFor(100);await page.screenshot({path:`${frames}/${String(i).padStart(3,'0')}.png`});
+  }
+  info.motion={seconds:4,fps:10,frames:40,nativeAI:true,camera:'tracking three-quarter observation; player visuals hidden'};
  }
  rows.push({...info,lookVersion:version||null,errors});fs.writeFileSync(out+'/capture.json',JSON.stringify(rows,null,2)+'\n');console.log(stage,foe,version||'',JSON.stringify(errors));await page.close();
 }}finally{await browser.close()}

@@ -20,6 +20,7 @@ import { createRenjiOutfit } from './outfit_renji.js'; // 김씨 복식 (샛별 
 import { createEiraOutfit } from './outfit_eira.js'; // 에이라 린드(지금 투야나 니콜라예바) 복식 v1 (샛별 저장소에서 가져옴)
 import { createSamiraOutfit } from './outfit_samira.js'; // 사미라 v2 앙가르카 (디자인 리뷰 10/10)
 import { createArtoriaBeachOutfit } from './outfit_artoria_beach.js';
+import { createArtoriaBallroomOutfit } from './outfit_artoria_ballroom.js';
 import { createTuyanaOutfit } from './outfit_tuyana.js'; // 투야나 v2 겨울 사제복 (디자인 리뷰 10/10)
 import { createRenjiBajiOutfit } from './outfit_renji_baji.js'; // 김씨 v2 하카마 → 바지·행전 (외형 다듬기 2차 10/10)
 import { createRatnaOutfit } from './outfit_ratna.js'; // 라트나 위라세타쿤 복식 (샛별 저장소에서 가져옴 10/14 — 샛별 v1~v3 + 우리 v4)
@@ -2843,6 +2844,7 @@ const RENJI_V1 = createRenjiOutfit(newOutfitHelpers); // 김씨 v1 (v2 가 하�
 
 export const OUTFITS = {
   artoria_beach: createArtoriaBeachOutfit(newOutfitHelpers, ARTORIA_OUTFIT.head),
+  artoria_ballroom: createArtoriaBallroomOutfit(newOutfitHelpers, ARTORIA_OUTFIT.head),
   // 샛별 저장소에서 가져온 인물 넷 (10/10) — 위 머리말
   artoria_silver_v2: ARTORIA_OUTFIT_V2,
   artoria_silver_v3: ARTORIA_OUTFIT_V3, // 아르토리아 v2 — 망토·앞자락 (외형 다듬기 2차 10/10)

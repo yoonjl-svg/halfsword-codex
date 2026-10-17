@@ -922,13 +922,13 @@ const daraishiAlter={...daraishiBase,id:'silver_wanderer_mad',variantOf:'silver_
  backstory:'흑의에 애쉬 실버 머리의 검사. 머리 뒤에는 짧고 해진 붉은 끈이 묶여 있다. 무엇을 기억하려는 매듭인지 자신도 알지 못한다. 이름을 잃어도, 검을 쥐는 손은 망설이지 않는다.'};
 finishAI(daraishiAlter);CHARACTER_VARIANTS.push(daraishiAlter);
 
-// Maya / Artoria: preserve native weapons and AI. Artoria's beach outfit also
+// Maya / Artoria: preserve native weapons and AI. Artoria's unarmored outfit also
 // removes armor at the owner's explicit request; she gets no mad stat bonus.
 for(const id of ['samira','artoria']){
  const base=[...CHARACTERS,...CHARACTER_GUESTS].find(c=>c.id===id);
  const alter={...base,id:id+'_mad',variantOf:id,mad:true,appearanceOnly:id==='samira',retainBaseStats:true,
   name:`광기의 ${base.name}`,ai:JSON.parse(JSON.stringify(base.ai)),
-  look:alterLook(base.look,id),lookVersion:base.lookVersion+'-alter1',eyes:'madGlow'};
+  look:alterLook(base.look,id),lookVersion:base.lookVersion+(id==='artoria'?'-alter2':'-alter1'),eyes:'madGlow'};
  finishAI(alter);CHARACTER_VARIANTS.push(alter);
 }
 

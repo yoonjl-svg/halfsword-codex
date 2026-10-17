@@ -15,13 +15,14 @@ export function alterLook(base, kind) {
     0x33232c:0x293947,0x2c2530:0x333942,0x231d25:0x252a30,0xb39a5f:0x8b7959,
   };
   if(kind==='artoria'){
-    // Owner chose beach-volleyball bikini AND actual armor removal.
+    // Owner replaced the rejected bikini with a ballroom dress. Keep the
+    // already-approved actual armor removal; boots and dress grant no armor.
     // Native body, silver hair, weapon and AI survive; armor's ordinary movement
     // penalty disappears with the armor, rather than adding a new stat bonus.
-    Object.assign(look,{outfit:'artoria_beach',armor:null,helmet:null,tailoring:null,
+    Object.assign(look,{outfit:'artoria_ballroom',armor:null,helmet:null,tailoring:null,
       tunic:base.skin,quilt:base.skin,sleeve:base.skin,hands:base.skin,
       hoseUpper:base.skin,hoseLower:base.skin,shoes:base.skin,eyeColor:0x3b121b});
-    look.outfitPalette={0x28797b:0xbb5152}; // the existing small hair tie
+    look.outfitPalette={0x28797b:0xe0d1b2}; // the existing tie beneath the ivory bow
   }
   if(kind==='silver_wanderer')look.outfitPalette={0xe9e9e5:0x3b4b5a,0x433653:0x7f593f,0x776b88:0xab8660,
     0x5a4c68:0x6d503e,0x665976:0x8d684d,0x66528a:0x987252,0x34263f:0x39424b,
