@@ -1,0 +1,30 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><title>동방 막기 · 읽기와 실제 도착</title><link rel="icon" href="data:,">
+<style>body{margin:0;padding:22px;background:#202329;color:#e7dcc6;font:17px sans-serif}h1{font-size:25px;margin:0 0 10px}p,footer{font-size:16px;color:#c8bfaf}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{padding:12px;background:#2a2e34;border:1px solid #575a60}h2{font-size:18px;margin:0 0 8px}img{width:100%;display:block}.meta{margin-top:8px;line-height:1.5;white-space:pre-line}</style>
+<h1>방어 자세를 골라도, 칼이 제때 가려야 합니다</h1><p>실제 게임 모델·물리 엔진 / 롱소드 올려베기 1.5m / 같은 시각 1.267초 촬영<br>흰 점: 실제 손목 · 붉은 점: 손 목표 · 연결선은 연구용 계측 표시입니다.</p><main class="grid" id="shots"></main><footer>위: 같은 입력의 현재/후보 비교. 아래: 요략세를 계속 고정해도 입력25ms 차이로 결과가 달라지는 진단.<br>상처·둔타 설명은 공격 전체의 결과입니다. 공개 게임 변경 전의 로컬 시험장이며, 고정 자세 진단은 출시 알고리즘이 아닙니다.</footer>
+<script>window.process={env:{PATH_KIND:'',PATH_LINE:''}};</script><script type="module">
+import * as THREE from 'three';
+import {trial} from './parry_reading_trials.mjs';
+import {PathResearchGuard} from './chinese_path_guard.mjs';
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setSize(560,335);renderer.setPixelRatio(1);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.setClearColor(0x45464a);renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.2;
+const camera=new THREE.PerspectiveCamera(35,560/335,.05,40);camera.position.set(-1.6,2.35,4.4);camera.lookAt(0,1.05,0);
+const captures=[];
+for(const spec of [{kind:'base',lead:.2,label:'현재 막기 · 0.200초 먼저 입력'},{kind:'low-preview',lead:.2,label:'칼 위치를 읽은 후보 · 같은 입력'},{kind:'force:lowL',lead:.2,label:'요략세 고정 진단 · 0.200초 전'},{kind:'force:lowL',lead:.225,label:'요략세 고정 진단 · 0.225초 전'}]){
+ const press=Math.round((1.2416666666666647-spec.lead)*120)/120;
+ process.env.PATH_KIND=spec.kind;process.env.PATH_LINE=spec.kind.startsWith('force:')?'lowL':'';
+ let initialized=false,capture;
+ const r=trial({name:'unterhau',cfg:'qinggang',atk:'longsword',gap:1.5,playerModel:true,heldAt:t=>t+1e-9>=press,Guard:spec.kind==='base'?undefined:PathResearchGuard,onFrame(G,guard){
+  const scene=G.player.scene;
+  if(!initialized){initialized=true;scene.add(new THREE.HemisphereLight(0xfff8e8,0x4e5060,2.1));const sun=new THREE.DirectionalLight(0xfff2d2,2.5);sun.position.set(-3,6,5);scene.add(sun);const floor=new THREE.Mesh(new THREE.PlaneGeometry(12,12),new THREE.MeshStandardMaterial({color:0x5d5b54,roughness:1}));floor.rotation.x=-Math.PI/2;floor.position.y=-.005;scene.add(floor);const grid=new THREE.GridHelper(12,24,0x999388,0x737069);grid.position.y=.001;scene.add(grid);}
+  if(!capture&&G.t+1e-8>=1.2666666667){
+   const f=G.player,rb=f.bodies.farmS,actual=new THREE.Vector3(.13,0,0).applyQuaternion(rb.rotation()).add(rb.translation()),goal=f.handTarget.clone();
+   for(const [point,color] of [[actual,0xfff6d5],[goal,0xe47766]]){const marker=new THREE.Mesh(new THREE.SphereGeometry(.025,12,8),new THREE.MeshBasicMaterial({color,depthTest:false}));marker.position.copy(point);marker.renderOrder=30;scene.add(marker);}
+   const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints([actual,goal]),new THREE.LineBasicMaterial({color:0xe47766,depthTest:false}));line.renderOrder=30;scene.add(line);
+   f.syncMeshes();G.enemy.syncMeshes();renderer.render(scene,camera);capture={...spec,press,t:G.t,handError:actual.distanceTo(goal),line:guard.line,image:renderer.domElement.toDataURL()};
+  }
+ }});
+ const blunt=r.wounds.filter(w=>w.t>=press&&w.type==='blunt'&&w.energy>10);
+ captures.push({...capture,injured:r.injured,blunt:blunt.map(w=>({t:w.t,zone:w.zone,energy:w.energy})),wounds:r.wounds.filter(w=>w.type!=='blunt')});
+}
+for(const c of captures){const el=document.createElement('article');el.className='card';const h=document.createElement('h2');h.textContent=c.label;const img=new Image();img.src=c.image;const meta=document.createElement('div');meta.className='meta';meta.textContent=`${c.injured?'베임 발생':'베임 없음'} · 실제 효과가 있는 둔타 ${c.blunt.length}회\n손목−목표 거리 ${(c.handError*100).toFixed(0)}cm`;el.append(h,img,meta);document.querySelector('#shots').append(el);}
+window.result=captures.map(({image,...r})=>r);window.ready=true;
+</script></html>
