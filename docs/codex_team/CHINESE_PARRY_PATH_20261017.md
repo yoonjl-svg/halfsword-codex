@@ -1,5 +1,7 @@
 # 동방 칼 경로·방어 도착 연구 인계
 
+> **후속 사용자 기준 갱신:** [공통 평가 기준](RESEARCH_EVALUATION_STANDARD.md)에 따라 약30초 전투의 종합 순이득과 인간 플레이어의 이득을 우선한다. 아래 ‘미채택’은 당시 생산 게임 적용 상태이며 영구 탈락 판정이 아니다. low-preview는 개선 신호가 있는 재평가 후보로 보존한다. 새 실패/잔여 둔타/입력 폭 문제를 손실로 평가하되, 부분 피해 경감과 비교한다. 현재 자료는30초 종합 이득이나 인간 체감을 아직 입증하지 않았다. 새 실험·게임 적용은 이번 기준 갱신에 포함되지 않는다.
+
 사용자 요청: 실제 칼 경로를 올바른 방어 자세로 연결하고 입력 오차에도 안전한 구간 확보 연구. 인간 플레이어 경험이 기준이며 비기 자동 연결은 아직 구현하지 않는다.
 
 연구 결과 `defab0bcc487f4b5f9f34046a5c75119ecc83ba0`, 우리 포크 `codex/chinese-parry-path-20261017`. [보고서·실제 엔진 비교 사진](https://github.com/yoonjl-svg/halfsword-codex/blob/defab0bcc487f4b5f9f34046a5c75119ecc83ba0/docs/research/chinese_parry_path_20261017/README.md), [계산 결과](https://github.com/yoonjl-svg/halfsword-codex/blob/defab0bcc487f4b5f9f34046a5c75119ecc83ba0/docs/research/chinese_parry_path_20261017/report.json).
