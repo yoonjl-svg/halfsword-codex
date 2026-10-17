@@ -1,0 +1,27 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><title>동방 막기 2차 · 방어 전환의 빈틈</title><link rel="icon" href="data:,"><style>body{margin:0;padding:22px;background:#202329;color:#e7dcc6;font:17px sans-serif}h1{font-size:25px;margin:0 0 10px}p,footer{font-size:16px;color:#c8bfaf;line-height:1.5}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.card{padding:10px;background:#2a2e34;border:1px solid #575a60}h2{font-size:17px;margin:0 0 8px}img{width:100%;display:block}.meta{margin-top:8px;line-height:1.5;white-space:pre-line}</style>
+<h1>동방 막기 2차 · 손이 내려와도 칼날은 아직 위에 있다</h1><p>실제 게임 모델·물리 엔진의 같은 전투 / 로컬 연구판<br>위: 현재 막기. 아래: 위쪽 준비 줄을 잠시 유지한 후보. 상대 칼 위치는 주황 선으로 표시했습니다.</p><main class="grid" id="shots"></main><footer>막기 버튼은 3.008초부터 계속 누른 상태입니다. 아래 후보는 이 첫 치명상을 피했지만,<br>같은 전투에서 나중에 출혈로 사망했습니다. 전체 개선이나 공개 게임 적용을 뜻하지 않습니다.</footer>
+<script>window.process={env:{}};</script><script type="module">
+import * as THREE from 'three';
+import {live} from './chinese_benefit_live.mjs';
+import {gapGuard} from './chinese_gap_model.mjs';
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setSize(384,340);renderer.setPixelRatio(1);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.setClearColor(0x45464a);renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.2;
+const camera=new THREE.PerspectiveCamera(33,384/340,.05,40),shots=[];
+let visualSeed=7919;const visualRandom=()=>{visualSeed=(Math.imul(visualSeed,1664525)+1013904223)>>>0;return visualSeed/4294967296;};
+for(const kind of ['base','gate20']){
+ let initialized=false,index=0,marker;const captures=[],times=[3.55,3.65,3.775];
+ const result=live({kind,GuardOverride:gapGuard(kind),seed:103,atk:'longsword',policy:'reactive',gap:2.2,seconds:4.2,onFrame(G,g){
+  const physicsRandom=Math.random;Math.random=visualRandom;try{
+  const scene=G.player.scene;
+  if(!initialized){initialized=true;scene.add(new THREE.HemisphereLight(0xfff8e8,0x4e5060,2.1));const sun=new THREE.DirectionalLight(0xfff2d2,2.5);sun.position.set(-3,6,5);scene.add(sun);const floor=new THREE.Mesh(new THREE.PlaneGeometry(12,12),new THREE.MeshStandardMaterial({color:0x5d5b54,roughness:1}));floor.rotation.x=-Math.PI/2;floor.position.y=-.005;scene.add(floor);const grid=new THREE.GridHelper(12,24,0x999388,0x737069);grid.position.y=.001;scene.add(grid);marker=new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(),new THREE.Vector3()]),new THREE.LineBasicMaterial({color:0xffa74f,depthTest:false}));marker.renderOrder=10;scene.add(marker);}
+  if(index<times.length&&G.t+1e-8>=times[index]){
+   G.player.syncMeshes();G.enemy.syncMeshes();const a=G.player.bodies.chest.translation(),b=G.enemy.bodies.chest.translation();const center=new THREE.Vector3((a.x+b.x)/2,1.30,(a.z+b.z)/2);camera.position.copy(center).add(new THREE.Vector3(-2.5,1.3,4.5));camera.lookAt(center);
+   marker.geometry.setFromPoints([G.enemy.bladePoint(0,new THREE.Vector3()),G.enemy.bladePoint(1,new THREE.Vector3())]);renderer.render(scene,camera);
+   const s=g.sense.seen(0);captures.push({kind,t:G.t,line:g.line,mode:g.mode,held:g.held,handHeight:s.hy,tipAboveChest:s.ty-a.y,image:renderer.domElement.toDataURL()});index++;
+  }
+  }finally{Math.random=physicsRandom;}
+ }});
+ for(const capture of captures){const el=document.createElement('article');el.className='card';const h=document.createElement('h2');h.textContent=`${kind==='base'?'현재':'준비 줄 유지 후보'} · ${capture.t.toFixed(3)}초`;const img=new Image();img.src=capture.image;const meta=document.createElement('div');meta.className='meta';meta.textContent=`선택: ${capture.line} (${capture.mode==='idle'?'준비':'위협 감지'})\n상대 칼끝: 가슴보다 ${(capture.tipAboveChest*100).toFixed(0)}cm 위`;el.append(h,img,meta);document.querySelector('#shots').append(el);shots.push({...capture,image:undefined});}
+ shots.push({kind,health:result.health,duration:result.duration});
+}
+window.result=shots;window.ready=true;
+</script></html>

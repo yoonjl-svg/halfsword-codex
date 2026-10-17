@@ -144,6 +144,7 @@ export class PathResearchGuard {
     }
     this.active = true;
     this.stats.heldT += dt;
+    const coverSense = this.researchCoverSense?.({s,c,d,foeReach,dt,th}) ?? s;
     // 한 공격에 한 번 줄을 정한다 (ai.js respond — 굴림 없음)
     if (th && this.threatId !== this.threatSeen) {
       this.threatSeen = this.threatId;
@@ -159,8 +160,8 @@ export class PathResearchGuard {
       // 따라가기 (10/16 — docs/strike/yoryak_shape_2026-10-16.md): 막는 중 위협이 잠깐 끊기면(상대가 준비 자세에서 멈춤) 기다릴 때와 같은 규칙(coverFor)으로
       //  상대 칼이 있는 쪽 줄로 옮긴다 — 준비 동작을 공격으로 읽어 굳힌 줄(위)을 칼을 내린 준비 자세(아래)로 바로잡는다.
       //  가까운 올려 베기는 다리를 먼저 베어, 긋기 전에 아래 자리(동방 요략세)에 가 있어야 막는다
-      const p = AI.prototype.coverFor.call({ school: this.school }, s);
-      const ln = coverLineOf(this.school, s, p);
+      const p = AI.prototype.coverFor.call({ school: this.school }, coverSense);
+      const ln = coverLineOf(this.school, coverSense, p);
       if (ln && ln !== this.defLine) {
         this.defLine = ln;
         this.stats.follow = (this.stats.follow ?? 0) + 1;
@@ -194,8 +195,8 @@ export class PathResearchGuard {
     } else {
       this.mode = 'idle';
       this.stats.waitT += dt;
-      p = AI.prototype.coverFor.call({ school: this.school }, s); // 기다림: AI 가 물러나며 가리는 자리 (같은 함수)
-      this.line = p === this.school.pose.point ? 'point' : (coverLineOf(this.school, s, p) ?? 'point');
+      p = AI.prototype.coverFor.call({ school: this.school }, coverSense); // 연구 hook이 없으면 기존과 동일
+      this.line = p === this.school.pose.point ? 'point' : (coverLineOf(this.school, coverSense, p) ?? 'point');
     }
     this.coverLine = this.mode === 'idle' && this.line !== 'point' ? this.line : null;
     // 손 목표를 막기 빠르기로 (ai.js moveHand 와 같은 꼴)
