@@ -1,0 +1,43 @@
+
+> halfsword@0.1.0 build
+> vite build && node tools/pwa/build.mjs
+
+vite v8.3.1 building client environment for production...
+transforming...
+✓ 201 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/sounds.html                                    3.43 kB │ gzip:     1.69 kB
+dist/voices.html                                    3.91 kB │ gzip:     1.97 kB
+dist/test.html                                     10.01 kB │ gzip:     3.71 kB
+dist/index.html                                    28.96 kB │ gzip:     9.07 kB
+dist/assets/soundgen-Pj3sfv45.js                   40.82 kB
+dist/assets/modulepreload-polyfill-P2Xu9kJm.js      0.67 kB │ gzip:     0.38 kB
+dist/assets/lobby_progress-D_jgGdYg.js              3.20 kB │ gzip:     1.44 kB
+dist/assets/voices-BKw8s1oX.js                      6.50 kB │ gzip:     3.01 kB
+dist/assets/test-BMYBIhTV.js                        8.33 kB │ gzip:     3.44 kB
+dist/assets/config-DzA3981q.js                     12.60 kB │ gzip:     5.85 kB
+dist/assets/gun-DYwMmne2.js                        13.41 kB │ gzip:     6.09 kB
+dist/assets/pixel_grove-BkIIPwGC.js                13.71 kB │ gzip:     5.04 kB
+dist/assets/sounds-DrtDyHXu.js                     20.77 kB │ gzip:     9.05 kB
+dist/assets/main-DWv1rHQd.js                       37.26 kB │ gzip:    12.67 kB
+dist/assets/lobby-Dml8kfjE.js                      46.67 kB │ gzip:    16.61 kB
+dist/assets/characters-DgD9l4Ya.js                 59.95 kB │ gzip:    20.43 kB
+dist/assets/sound-DWW2fMgP.js                      96.05 kB │ gzip:    30.82 kB
+dist/assets/title_account-3aOd3M-n.js             219.43 kB │ gzip:    57.20 kB
+dist/assets/schools-BJ30AOwS.js                   551.75 kB │ gzip:   160.75 kB
+dist/assets/seal_coins-B7QshKAB.js                837.34 kB │ gzip:   256.01 kB
+dist/assets/main-dyfpTZEH.js                    2,879.00 kB │ gzip: 1,081.46 kB
+
+✓ built in 1.09s
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+{"pwa":true,"version":"8cb859a7b4d6bbf2103748ab","files":507,"totalBytes":15276847}
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
