@@ -180,3 +180,14 @@
 | 유파 걸음 | `src/gait.js` `gaitParams`(보폭 규칙 — `*_GAIT.strideK` · 스위치 `GAIT.strideRule` · 이탈리아 고른 짝걸음 덮기 `ITALIAN_GAIT.even` · 스위치 `GAIT.itEven`) · 고른 짝걸음 `update` ③ gate · `fastPeek` · 발소리 `src/sound.js` `BodySounds.update`(gait `leg.tdN`) · 빠른 걸음 `fastBegin`·`update`(이탈리아 박자 걸음 · 독일 간격 잡기 빠른 디딤 `foeWhiff`) · 독일 간격 잡기 잡기 `holdTick`(`src/fighter.js` `driveBalance` 가 부름 — 플레이어만, 스위치 `GAIT.deHold`) — 값은 `src/schools.js` `ITALIAN_GAIT.rhythm` · `TRADITIONS.german.chase`(잡기 시간도 그 `window`) · 헛침 알림은 `src/ai.js` `afterStrike`(AI) · `src/skill.js` `whiffTrack`(사람) · 동방 가벼운 발 `src/fighter.js` `driveBalance` 가속 한도 `lim`(보통 걸음 몫 × 걸음 칸 `light` — 사람·AI 같이, 스위치 `GAIT.cnLight`) — 값은 `src/schools.js` `CHINESE_GAIT.light` · AI 몸은 공격 꼴에서만 — `src/ai.js` `update` 의 `aiLightHold`, 스위치 `GAIT.cnLightAi`) — 값은 `src/schools.js` `CHINESE_GAIT.light` · 첫 걸음 박차기 거는 자리 `src/gait.js` `update` 걷기 시작(뒤 = 무기 유파 독일 `swordArt.tradition` · 옆 = 걸음 칸 `burstSide`(이베리아) — 플레이어만, 스위치 `GAIT.burstDe`) |
 | 걷기 기력(유파별) · 박차기 기력 | `src/stamina.js` `step`(골반 수평 이동 0.62 m 마다 — 값 `src/config.js` `STAMINA.stepDistance`·`stepCosts`, 유파 열쇠 `swordArt.tradition`) · 박차기 `src/gait.js` `fastBegin` → `stamina.burst()`(`STAMINA.pushCost`) · 스위치 `STAMINA.on` · `?stamina=0` |
 | 패시브·속임수·굴림(AI) | `src/ai.js` |
+
+
+## 샛별 일본 흘림 후속 연구 (2026-10-17, 기본 게임 변경 없음)
+
+후속 사용자 승인: 흘림당한 쪽의 짧고 자연스러운 경직 연구. [회복 지연 결과](../research/japanese_recovery_20261017/README.md): 기본 끔, 독립 시험 페이지에서만0.36초(팔/손목 제어력25%→복구) + 공격 입력 때 강제 흘림 목표 해제. 양 역할/기존 비교 가능. 기존 발동 문턱·몸꼴·보법·고노센 연결 그대로. 일반 게임 채택은 인간 양 역할 시험 뒤 판단한다.
+
+[흘림 빈도·반격 입력 1차](../research/japanese_flow_20261017/README.md): 6후보 선별 뒤 입력 우선 후보를 독립36조건씩 비교. 사망17→17/36, 찌르기5→4/12·베기7→8/12로 순이득 미확정. 흘림408막기접촉 중14, 26/36조건0회. 공격 입력과 강제 흘림 목표의 겹침은 확인했으나 해제만으로 유효 반격을 확보하지 못했다. 일본 기본 몸꼴/보법·AI·고노센 연결 변경0. 연구 단계이며 표의 실제 해금/역할은 그대로다.
+
+[흘림 기회 확대·좌우 몸꼴 후속](../research/japanese_flow_redesign_20261017/README.md): 기본 끔, 별도 연구판에서 실제 접촉 방향/120ms 창 + 공격당 추가기력40·팔 제어력 저하 없음·−70→자연회복−35 탈진. 최종 선정6조건 기존6→후보6회(후보3조건 집중), 새 가로 몸꼴의 독립 조건 개선 미재현/팔 피해 증가로 채택 보류. 실제 유효 베기 중 접점과 명령상 공격 종료·실제 칼날 위협 종료의 차이가 다음 병목이다. 인간 체감용 후보이며 빈도 목표 달성/최종 채택 답 아님. 고노센·일본 표·보법 및 기본 게임 값 그대로, 우화 전달0.
+
+[가로 위협 선제 접점 후속](../research/japanese_flow_intercept_20261017/README.md): 실제 강체 칼 경로·몸 콜라이더 예측으로 가로에만 조기 몸꼴 선택. 대표 접점41.7ms 선행, 가로4조건 흘림1→4·사지/출혈 손실 감소와 새 둔타/막기 비용 증가를 함께 검토해 **인간 시험 추천안**으로 보존.30초 사람의 종합 이득은 미확정이며 작은 손해만으로 기각하지 않는다. 사선 일괄 적용은 피해 증가로 제외. tools 시험판 `intercept`만 연결, 생산 src 변경0·우화 발송0.

@@ -22,6 +22,8 @@
 //     칼과 맞은 부위에 같은 크기, 반대 방향으로 준다.
 // ─────────────────────────────────────────────────────────────
 import * as THREE from 'three';
+import { beginFlowRecovery } from './nagashi_recovery.js';
+import { FLOW_REDESIGN, flowCandidate, spendFlowPenalty } from './nagashi_redesign.js';
 import { STRIKE, ANATOMY, STEEL, ARMOR, BIND, VITALS, NAGASHI, SKILL } from './config.js';
 import { BREAK } from './weapons.js';
 import { updateGun } from './gun.js';
@@ -548,7 +550,7 @@ export class Combat {
     const fresh = this.stepNo - this.bladeLast > STEEL.rearmSteps; // 떨어져 있다가 새로 부딪힘
     this.bladeLast = this.stepNo;
     // 우케나가시 흘려 받기 (config NAGASHI): 받은 칼을 칼 지붕을 따라 미끄러뜨리고, 받는 쪽 손 흔들림·무기 닳음을 던다 (아래 feel)
-    const flowD = fresh && NAGASHI.on && SA && SB && J > 0 ? this.nagashi(A, B, SA, SB, point, nrm, vn) : null;
+    const flowD = (fresh || FLOW_REDESIGN.on) && NAGASHI.on && SA && SB && J > 0 ? this.nagashi(A, B, SA, SB, point, nrm, vn) : null;
     // 새로 부딪혀 튕긴 순간: 칼이 손 안에서 길이 축으로 팽이처럼 도는 몫은 손아귀가 잡는다 (gripTwist)
     if (fresh) for (const f of [A.fighter, B.fighter]) gripTwist(f);
     const va = A.body.velocityAtPoint(point);
@@ -594,6 +596,7 @@ export class Combat {
    *  돌려줌: 흘려 받은 싸움꾼(D) · 없으면 null
    */
   nagashi(A, B, SA, SB, point, nrm, vn) {
+    if (FLOW_REDESIGN.on) return this.nagashiExpanded(A, B, SA, SB, point, nrm, vn);
     for (const [D, O, SO] of [[A.fighter, B.fighter, SB], [B.fighter, A.fighter, SA]]) {
       const st = D.skill?._cover;
       if (!st?.nagashi || D.schoolParry === false || !O.swordProps) continue;
@@ -615,7 +618,35 @@ export class Combat {
       O.sword.applyImpulseAtPoint({ x: dir.x * Jt, y: dir.y * Jt, z: dir.z * Jt }, vp(pO), true);
       D.sword.applyImpulseAtPoint({ x: -dir.x * Jt, y: -dir.y * Jt, z: -dir.z * Jt }, vp(onAxis(D.sword)), true);
       st.forceT = NAGASHI.poseT;
+      const recovery = Jt > 0 && beginFlowRecovery(O, D);
       this.lastNagashi = { step: this.stepNo, d: D.index, Jt, vn, dir: dir.clone() };
+      this.lastNagashi.recovery = recovery;
+      return D;
+    }
+    return null;
+  }
+
+  // Research path: identical slide impulse coefficient, actual contact only,
+  // no arm-control penalty and no forced transfer to the central roof posture.
+  nagashiExpanded(A, B, SA, SB, point, nrm, vn) {
+    for (const [D, O, SO] of [[A.fighter, B.fighter, SB], [B.fighter, A.fighter, SA]]) {
+      const candidate = flowCandidate(D, O, SO, point, nrm, vn, D.stamina.time);
+      if (!candidate) continue;
+      const dir = candidate.direction;
+      const onAxis = (sw) => {
+        const ax = _n3.set(0, 1, 0).applyQuaternion(rotQ(sw));
+        const o = tv(sw.translation());
+        return o.addScaledVector(ax, _n2.copy(point).sub(o).dot(ax));
+      };
+      const pO = onAxis(O.sword);
+      const Jt = gripMass(O.swordProps, liveState(O.sword), pO, dir, STEEL.handMass) * NAGASHI.slideK * candidate.impact;
+      if (!(Jt > 0)) continue;
+      O.sword.applyImpulseAtPoint({ x: dir.x * Jt, y: dir.y * Jt, z: dir.z * Jt }, vp(pO), true);
+      D.sword.applyImpulseAtPoint({ x: -dir.x * Jt, y: -dir.y * Jt, z: -dir.z * Jt }, vp(onAxis(D.sword)), true);
+      const penalty = spendFlowPenalty(O, D);
+      this.lastNagashi = { step: this.stepNo, d: D.index, Jt, vn, dir: dir.clone(),
+        recovery: false, redesign: true, penalty, age: candidate.age,
+        entry: candidate.entry, exitGain: candidate.gain };
       return D;
     }
     return null;
