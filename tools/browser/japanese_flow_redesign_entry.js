@@ -3,9 +3,10 @@ import {FLOW_RECOVERY} from '../../src/nagashi_recovery.js';
 import {FLOW_REDESIGN} from '../../src/nagashi_redesign.js';
 import {installAdaptiveFlowPoses} from '../sim/japanese_flow_redesign_poses.mjs';
 import {installFlowPractice} from '../sim/japanese_recovery_practice.mjs';
+import {installEarlyIntercept} from '../sim/japanese_flow_intercept_model.mjs';
 const q=new URLSearchParams(location.search);
 const raw=q.get('redesign')??'core';
-const allowed=['base','core','horizontal'];
+const allowed=['base','core','horizontal','intercept'];
 const value=allowed.includes(raw)?raw:'core';
 Object.assign(FLOW_REDESIGN,{on:value!=='base',naturalExhaust:value!=='base'});
 Object.assign(FLOW_RECOVERY,{seconds:0,release:value!=='base'});
@@ -27,6 +28,7 @@ function poll(){
    }
   }
   if(value==='horizontal')installAdaptiveFlowPoses(g);
+  if(value==='intercept')for(const f of [g.player,g.enemy])if(f.swordArt?.tradition==='japanese'&&f.schoolParry!==false)installEarlyIntercept(g,.36,{horizontalOnly:true,fighter:f});
   const nagashi=g.combat.nagashi.bind(g.combat);
   g.combat.nagashi=(...args)=>{const defender=nagashi(...args);if(defender){state.flows[defender.index]++;state.last={d:defender.index,t:g.stats.simTime};}return defender;};
  }
