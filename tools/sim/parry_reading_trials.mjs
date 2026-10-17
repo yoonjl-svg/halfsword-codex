@@ -22,12 +22,12 @@ for (const list of Object.values(NEW_TECH)) for (const t of list) if (t.from && 
 export const attacks = Object.fromEntries(pool.map(t => [t.name, t]));
 const v3 = p => ({ x: p.x, y: p.y, z: p.z });
 
-export function trial({ cfg = 'uchigatana', atk = 'longsword', gap = 1.4, name = 'oberhau', held = true, trace = false, Guard = PlayerParryGuard, prepareOnly = false, onFrame }) {
+export function trial({ cfg = 'uchigatana', atk = 'longsword', gap = 1.4, name = 'oberhau', held = true, heldAt, trace = false, Guard = PlayerParryGuard, prepareOnly = false, onFrame, strokeSpeed = 11, prepPause = .15, seed = 1 }) {
   const attack = attacks[name];
   if (!attack) throw new Error(`Unknown attack ${name}`);
   const [weapon, mode = 'school'] = cfg.split(':');
   SKILL.parryAssist = 0;
-  const G = newRound({ weapon, weapon2: atk, seed: 1, gap });
+  const G = newRound({ weapon, weapon2: atk, seed, gap });
   const D = G.player, A = G.enemy;
   D.skill.corr = SKILL.corr;
   D.skill.corrTip = SKILL.corrTip;
@@ -75,6 +75,7 @@ export function trial({ cfg = 'uchigatana', atk = 'longsword', gap = 1.4, name =
   const setPad = (x, y) => (A.handOffset.set(x, y), A.skill.aimRaw?.set?.(x, y));
   const right = new THREE.Vector3();
   G.before = () => {
+    if (heldAt) guard.held = heldAt(G.t);
     guard.step(DT);
     D.inputActive = guard.active;
     const state = eventState();
@@ -89,7 +90,9 @@ export function trial({ cfg = 'uchigatana', atk = 'longsword', gap = 1.4, name =
       const d = Math.max(.01, Math.hypot(s.cx - c.x, s.cz - c.z));
       const reach = (D.swordArt.measureFor(A.weapon)?.reach ?? 1) + .05;
       const threat = threatNow(guard.sense, A, s, c, rt, d, reach, 0);
-      r.frames.push({ ...state, s, c, right: rt, d, reach, threat, timer: guard.timer, noThreat: guard.noThreat, read: guard.readDebug ?? null });
+      r.frames.push({ ...state, s, c, right: rt, d, reach, threat, timer: guard.timer, noThreat: guard.noThreat, read: guard.readDebug ?? null,
+        own: { aim: v3(D.skill.aim), pad: v3(D.handOffset), base: v3(D.bladePoint(0, new THREE.Vector3())), tip: v3(D.bladePoint(1, new THREE.Vector3())), handGoal: D.skill._cover?.last?.hand ?? null, bladeGoal: D.skill._cover?.last?.blade ?? null },
+        foeBase: v3(A.bladePoint(0, new THREE.Vector3())) });
     }
     const o = A.handOffset;
     const go = (tx, ty, sp) => {
@@ -101,10 +104,10 @@ export function trial({ cfg = 'uchigatana', atk = 'longsword', gap = 1.4, name =
     const before = ph;
     if (ph === 0 && G.t > .6) ph = 1;
     else if (ph === 1 && go(attack.from[0], attack.from[1], 3)) (ph = 2), (t0 = G.t);
-    else if (ph === 2 && G.t - t0 > (prepareOnly ? .8 : .15)) {
+    else if (ph === 2 && G.t - t0 > (prepareOnly ? .8 : prepPause)) {
       if (prepareOnly) (ph = 4), (t0 = G.t);
       else (ph = 3), (pts = attack.path.map(p => p.slice()));
-    } else if (ph === 3 && go(pts[0][0], pts[0][1], 11) && (pts.shift(), !pts.length)) (ph = 4), (t0 = G.t);
+    } else if (ph === 3 && go(pts[0][0], pts[0][1], strokeSpeed) && (pts.shift(), !pts.length)) (ph = 4), (t0 = G.t);
     if (before !== ph) r.phases.push({ t: G.t, ph });
   };
   try {

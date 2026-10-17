@@ -1,0 +1,514 @@
+{
+  "candidates": 12,
+  "E": [
+    {
+      "cfg": "uchigatana",
+      "base": 17,
+      "candidate": 15,
+      "weightedDelta": -1.4163372859025032
+    },
+    {
+      "cfg": "zweihander",
+      "base": 25,
+      "candidate": 25,
+      "weightedDelta": 0
+    },
+    {
+      "cfg": "qinggang",
+      "base": 17,
+      "candidate": 17,
+      "weightedDelta": 0.21409749670619235
+    },
+    {
+      "cfg": "longsword",
+      "base": 21,
+      "candidate": 21,
+      "weightedDelta": 0
+    },
+    {
+      "cfg": "rapier",
+      "base": 14,
+      "candidate": 13,
+      "weightedDelta": -0.7081686429512516
+    },
+    {
+      "cfg": "longsword:basic",
+      "base": 24,
+      "candidate": 24,
+      "weightedDelta": 0
+    },
+    {
+      "cfg": "uchigatana:nocover",
+      "base": 16,
+      "candidate": 15,
+      "weightedDelta": -0.7081686429512516
+    }
+  ],
+  "E2": [
+    {
+      "cfg": "uchigatana",
+      "n": 228,
+      "base": 17,
+      "candidate": 15,
+      "newHits": [],
+      "saved": [
+        "uchigatana|longsword|unterhau|1.4",
+        "uchigatana|longsword|unterhau|1.6"
+      ],
+      "weightedDelta": -1.4163372859025032,
+      "zornNew": 0
+    }
+  ],
+  "holdout": [
+    {
+      "cfg": "uchigatana",
+      "n": 96,
+      "base": 18,
+      "candidate": 15,
+      "newHits": [],
+      "saved": [
+        {
+          "cfg": "uchigatana",
+          "name": "unterhau",
+          "gap": 1.5,
+          "speed": 8,
+          "pause": 0.05
+        },
+        {
+          "cfg": "uchigatana",
+          "name": "unterhau",
+          "gap": 1.7,
+          "speed": 8,
+          "pause": 0.05
+        },
+        {
+          "cfg": "uchigatana",
+          "name": "unterhau",
+          "gap": 1.5,
+          "speed": 14,
+          "pause": 0.05
+        }
+      ]
+    },
+    {
+      "cfg": "longsword",
+      "n": 96,
+      "base": 23,
+      "candidate": 23,
+      "newHits": [],
+      "saved": []
+    },
+    {
+      "cfg": "qinggang",
+      "n": 96,
+      "base": 30,
+      "candidate": 28,
+      "newHits": [],
+      "saved": [
+        {
+          "cfg": "qinggang",
+          "name": "unterhau",
+          "gap": 1.3,
+          "speed": 8,
+          "pause": 0.05
+        },
+        {
+          "cfg": "qinggang",
+          "name": "unterhau",
+          "gap": 1.5,
+          "speed": 8,
+          "pause": 0.05
+        }
+      ]
+    }
+  ],
+  "lives": {
+    "E_training": {
+      "base": {
+        "n": 10,
+        "seconds": 1200.0000000004159,
+        "fresh": 950,
+        "flows": 16,
+        "contactsPerFlow": 59.375,
+        "cuts": 211,
+        "energy": 12523.295268313528,
+        "switches": 3657,
+        "activations": 0,
+        "alive": 10,
+        "earlyEnd": []
+      },
+      "candidate": {
+        "n": 10,
+        "seconds": 1178.4000000003987,
+        "fresh": 876,
+        "flows": 14,
+        "contactsPerFlow": 62.57142857142857,
+        "cuts": 182,
+        "energy": 11381.48574847935,
+        "switches": 3507,
+        "activations": 36,
+        "alive": 10,
+        "earlyEnd": [
+          {
+            "seed": 2,
+            "t": 98.40000000002438,
+            "alive": true
+          }
+        ]
+      }
+    },
+    "E_holdout": {
+      "base": {
+        "n": 5,
+        "seconds": 600.0000000002078,
+        "fresh": 503,
+        "flows": 5,
+        "contactsPerFlow": 100.6,
+        "cuts": 136,
+        "energy": 8268.723373311881,
+        "switches": 1864,
+        "activations": 0,
+        "alive": 5,
+        "earlyEnd": []
+      },
+      "candidate": {
+        "n": 5,
+        "seconds": 600.0000000002078,
+        "fresh": 533,
+        "flows": 6,
+        "contactsPerFlow": 88.83333333333333,
+        "cuts": 119,
+        "energy": 7191.890921605545,
+        "switches": 1831,
+        "activations": 12,
+        "alive": 5,
+        "earlyEnd": []
+      }
+    },
+    "E_damage": {
+      "base": {
+        "n": 5,
+        "seconds": 149.15833333332802,
+        "fresh": 73,
+        "flows": 2,
+        "contactsPerFlow": 36.5,
+        "cuts": 31,
+        "energy": 2238.784546807529,
+        "switches": 222,
+        "activations": 0,
+        "alive": 1,
+        "earlyEnd": [
+          {
+            "seed": 11,
+            "t": 60.00833333333057,
+            "alive": true
+          },
+          {
+            "seed": 12,
+            "t": 14.774999999999801,
+            "alive": false
+          },
+          {
+            "seed": 13,
+            "t": 10.375000000000052,
+            "alive": false
+          },
+          {
+            "seed": 14,
+            "t": 7.416666666666825,
+            "alive": false
+          },
+          {
+            "seed": 15,
+            "t": 56.58333333333076,
+            "alive": false
+          }
+        ]
+      },
+      "candidate": {
+        "n": 5,
+        "seconds": 128.70833333332916,
+        "fresh": 64,
+        "flows": 2,
+        "contactsPerFlow": 32,
+        "cuts": 29,
+        "energy": 2135.1329824816753,
+        "switches": 209,
+        "activations": 1,
+        "alive": 0,
+        "earlyEnd": [
+          {
+            "seed": 11,
+            "t": 39.55833333333173,
+            "alive": false
+          },
+          {
+            "seed": 12,
+            "t": 14.774999999999801,
+            "alive": false
+          },
+          {
+            "seed": 13,
+            "t": 10.375000000000052,
+            "alive": false
+          },
+          {
+            "seed": 14,
+            "t": 7.416666666666825,
+            "alive": false
+          },
+          {
+            "seed": 15,
+            "t": 56.58333333333076,
+            "alive": false
+          }
+        ]
+      }
+    },
+    "E2_holdout": {
+      "base": {
+        "n": 5,
+        "seconds": 489.8416666667944,
+        "fresh": 393,
+        "flows": 7,
+        "contactsPerFlow": 56.142857142857146,
+        "cuts": 92,
+        "energy": 5999.700361655416,
+        "switches": 1487,
+        "activations": 0,
+        "alive": 5,
+        "earlyEnd": [
+          {
+            "seed": 17,
+            "t": 55.08333333333085,
+            "alive": true
+          },
+          {
+            "seed": 18,
+            "t": 74.7583333333389,
+            "alive": true
+          }
+        ]
+      },
+      "candidate": {
+        "n": 5,
+        "seconds": 489.8416666667944,
+        "fresh": 350,
+        "flows": 10,
+        "contactsPerFlow": 35,
+        "cuts": 91,
+        "energy": 5965.620055246199,
+        "switches": 1443,
+        "activations": 4,
+        "alive": 5,
+        "earlyEnd": [
+          {
+            "seed": 17,
+            "t": 55.08333333333085,
+            "alive": true
+          },
+          {
+            "seed": 18,
+            "t": 74.7583333333389,
+            "alive": true
+          }
+        ]
+      }
+    },
+    "E2_damage": {
+      "base": {
+        "n": 5,
+        "seconds": 135.63333333332884,
+        "fresh": 37,
+        "flows": 1,
+        "contactsPerFlow": 37,
+        "cuts": 53,
+        "energy": 3341.22169220749,
+        "switches": 125,
+        "activations": 0,
+        "alive": 0,
+        "earlyEnd": [
+          {
+            "seed": 16,
+            "t": 38.12499999999848,
+            "alive": false
+          },
+          {
+            "seed": 17,
+            "t": 27.61666666666574,
+            "alive": false
+          },
+          {
+            "seed": 18,
+            "t": 18.02499999999962,
+            "alive": false
+          },
+          {
+            "seed": 19,
+            "t": 31.508333333332185,
+            "alive": false
+          },
+          {
+            "seed": 20,
+            "t": 20.35833333333282,
+            "alive": false
+          }
+        ]
+      },
+      "candidate": {
+        "n": 5,
+        "seconds": 135.63333333332884,
+        "fresh": 37,
+        "flows": 1,
+        "contactsPerFlow": 37,
+        "cuts": 53,
+        "energy": 3341.22169220749,
+        "switches": 125,
+        "activations": 0,
+        "alive": 0,
+        "earlyEnd": [
+          {
+            "seed": 16,
+            "t": 38.12499999999848,
+            "alive": false
+          },
+          {
+            "seed": 17,
+            "t": 27.61666666666574,
+            "alive": false
+          },
+          {
+            "seed": 18,
+            "t": 18.02499999999962,
+            "alive": false
+          },
+          {
+            "seed": 19,
+            "t": 31.508333333332185,
+            "alive": false
+          },
+          {
+            "seed": 20,
+            "t": 20.35833333333282,
+            "alive": false
+          }
+        ]
+      }
+    },
+    "H": {
+      "base": {
+        "n": 5,
+        "seconds": 600.0000000002078,
+        "fresh": 461,
+        "flows": 8,
+        "contactsPerFlow": 57.625,
+        "cuts": 115,
+        "energy": 6332.122098115374,
+        "switches": 1881,
+        "activations": 0,
+        "alive": 5,
+        "earlyEnd": []
+      },
+      "candidate": {
+        "n": 5,
+        "seconds": 600.0000000002078,
+        "fresh": 501,
+        "flows": 4,
+        "contactsPerFlow": 125.25,
+        "cuts": 109,
+        "energy": 6541.508448054816,
+        "switches": 1821,
+        "activations": 0,
+        "alive": 5,
+        "earlyEnd": []
+      }
+    }
+  },
+  "oracle": [
+    {
+      "start": null,
+      "n": 26,
+      "injured": 1,
+      "clashes": 13,
+      "covered": 0,
+      "coveredOnOriginalContacts": 0,
+      "nag": 9,
+      "newHits": [],
+      "saved": []
+    },
+    {
+      "start": 0.7,
+      "n": 26,
+      "injured": 6,
+      "clashes": 7,
+      "covered": 7,
+      "coveredOnOriginalContacts": 1,
+      "nag": 7,
+      "newHits": [
+        "uchigatana|longsword|oberhau|1.35",
+        "uchigatana|longsword|oberhau|1.4",
+        "uchigatana|longsword|oberhau|1.45",
+        "uchigatana|zweihander|oberhau|1",
+        "uchigatana|zweihander|oberhau|1.35"
+      ],
+      "saved": []
+    },
+    {
+      "start": 0.85,
+      "n": 26,
+      "injured": 1,
+      "clashes": 11,
+      "covered": 11,
+      "coveredOnOriginalContacts": 0,
+      "nag": 11,
+      "newHits": [],
+      "saved": []
+    },
+    {
+      "start": 1,
+      "n": 26,
+      "injured": 2,
+      "clashes": 11,
+      "covered": 11,
+      "coveredOnOriginalContacts": 0,
+      "nag": 11,
+      "newHits": [
+        "uchigatana|zweihander|oberhau|1.35"
+      ],
+      "saved": []
+    },
+    {
+      "start": 1.15,
+      "n": 26,
+      "injured": 4,
+      "clashes": 13,
+      "covered": 13,
+      "coveredOnOriginalContacts": 0,
+      "nag": 9,
+      "newHits": [
+        "uchigatana|zweihander|oberhau|1.2",
+        "uchigatana|zweihander|oberhau|1.35",
+        "uchigatana|zweihander|oberhau|1.45"
+      ],
+      "saved": []
+    },
+    {
+      "start": 1.3,
+      "n": 26,
+      "injured": 2,
+      "clashes": 12,
+      "covered": 1,
+      "coveredOnOriginalContacts": 1,
+      "nag": 10,
+      "newHits": [
+        "uchigatana|zweihander|oberhau|1"
+      ],
+      "saved": []
+    }
+  ],
+  "edgeSummary": {
+    "n": 85,
+    "releaseIllegal": 0,
+    "preparationOrOutOfScopeActivations": 0
+  }
+}
