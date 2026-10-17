@@ -64,8 +64,7 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
     for(const y of [-.035,-.09,-.145])ornament(g,(dy,z)=>{
       const a=Math.asin(z/.165);return point(chestRows,y+dy,a,.011);
     },.017,.019);
-    // Retain her native silver side locks, including their chest continuation.
-    addMerged(g,[-1,1].map(s=>isoldeLock([[.13,.15,s*.145],[.175,.06,s*.15],[.164,-.067,s*.17]],[.03,.032,.002],.012)),look.hair,CLOTH).name='artoria-hair';
+    // The side locks now sweep behind the head; no separate chest hair tips.
   }
   // A short court necklace rests below the neck with room to breathe,
   // clearly above the dress neckline. No light or armor effect.
@@ -233,6 +232,56 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
     addMerged(g,[bake(artoriaRoundedBox(.255,.012,.112,.005),[.005,-.035,0]),
       bake(artoriaRoundedBox(.055,.023,.082,.008),[-.081,-.038,0])],0x19191e,leather);
   }
+  function braidedHair(g,look){
+    // Replace only the native added hairstyle; keep the face, shaped scalp cap
+    // and identical three fringe pieces. The base armored outfit is untouched.
+    const oldHair=g.getObjectByName('artoria-hair');
+    if(oldHair){g.remove(oldHair);oldHair.geometry.dispose();oldHair.material.dispose()}
+    for(const child of [...g.children]){
+      if(!child.isMesh||child.material?.color?.getHex()!==0x28797b)continue;
+      child.geometry.computeBoundingBox();const box=child.geometry.boundingBox;
+      const center=box.getCenter(new THREE.Vector3()),size=box.getSize(new THREE.Vector3());
+      if(Math.abs(center.x+.126)<.001&&Math.abs(center.y+.026)<.001&&Math.abs(size.z-.09)<.001){
+        g.remove(child);child.geometry.dispose();child.material.dispose();
+      }
+    }
+    const holder=new THREE.Group();holder.name='artoria-swept-braids';g.add(holder);
+    const fringe=[];
+    for(const side of [-1,1])fringe.push(isoldeLock([[.015,.085,side*.055],[.087,.071,side*.06],[.106,.025,side*.082],[.081,-.023,side*.09]],[.052,.052,.035,.002],.015));
+    fringe.push(isoldeLock([[.002,.099,-.01],[.084,.074,-.012],[.104,.037,.009]],[.045,.034,.003],.012));
+    addMerged(holder,fringe,look.hair,{...CLOTH,roughness:.84});
+    function plait(points,turns,startRadius,endRadius){
+      const path=new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p)));
+      const pieces=[];
+      for(let strand=0;strand<3;strand++){
+        const pts=[],radii=[];
+        for(let i=0;i<=96;i++){
+          const t=i/96,p=path.getPoint(t),tangent=path.getTangent(t).normalize();
+          const n=new THREE.Vector3(p.x+.008,0,p.z);
+          n.addScaledVector(tangent,-n.dot(tangent)).normalize();
+          const across=new THREE.Vector3().crossVectors(tangent,n).normalize();
+          const radius=lerp(startRadius,endRadius,t),phase=t*Math.PI*2*turns+strand*Math.PI*2/3;
+          p.addScaledVector(across,Math.sin(phase)*radius*.67);
+          p.addScaledVector(n,Math.cos(phase*2)*radius*.33);
+          pts.push(p.toArray());radii.push(radius*.74);
+        }
+        pieces.push(taperedTube(pts,radii,144,8));
+      }
+      addMerged(holder,pieces,look.hair,{...CLOTH,roughness:.84});
+    }
+    // Both former side locks curve back close to the skull, then meet low.
+    for(const side of [-1,1])plait([
+      [.006,.067,side*.09],[-.030,.039,side*.103],[-.075,.009,side*.083],
+      [-.105,-.023,side*.047],[-.127,-.049,side*.012],
+    ],2.2,.012,.009);
+    // A small gathered section joins the side braids to the nape, without
+    // an unsupported bridge behind the skull. The shared plait bends softly.
+    addMerged(holder,[bake(new THREE.SphereGeometry(.025,16,12),[-.112,-.037,0],null,[.8,.85,1.05])],look.hair,CLOTH);
+    plait([[-.129,-.046,0],[-.137,-.105,.003],[-.141,-.181,.001],[-.139,-.252,-.007]],2.8,.015,.006);
+    addMerged(holder,[isoldeLock([[-.139,-.248,-.007],[-.135,-.277,-.01],[-.127,-.293,-.009]],[.016,.014,.002],.006)],look.hair,CLOTH);
+    // A small cloth tie finishes the braid without the former armor-color clasp.
+    addMerged(holder,[bake(new THREE.CylinderGeometry(.0085,.0085,.007,12),[-.139,-.249,-.007])],DRESS,CLOTH);
+  }
   function crown(g){
     const holder=new THREE.Group();holder.name='artoria-lily-crown';g.add(holder);
     // Fit the skull cap, not the side locks. Owner requested the whole crown
@@ -280,7 +329,7 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
     addMerged(holder,Array.from({length:32},(_,i)=>bake(new THREE.SphereGeometry(.0028,8,6),at(i/32*Math.PI*2,.092,.131))),pearl,CLOTH);
   }
   return {
-    head(g,look){originalHead(g,look);crown(g)},chest,abdomen,pelvis,
+    head(g,look){originalHead(g,look);braidedHair(g,look);crown(g)},chest,abdomen,pelvis,
     uarmS(g,l){limb(g,l,true)},uarmO(g,l){limb(g,l,true)},
     farmS(g,l){limb(g,l,false,true)},farmO(g,l){limb(g,l,false,true)},
     thighF(g,l){limb(g,l)},thighB(g,l){limb(g,l)},shinF:boot,shinB:boot,footF:foot,footB:foot,
