@@ -22,6 +22,7 @@ import { GUARD_BASE, GUARD_BASE_ONE } from './guards.js';
 import { TECH, FEINTS, G, WATCH_GUARDS, TECH_BY_NAME } from './ai_techniques.js';
 import { THRUST, SKILL } from './config.js';
 import { FLOW_RECOVERY } from './nagashi_recovery.js';
+import { FLOW_REDESIGN } from './nagashi_redesign.js';
 
 export const MOTION = {
   // 본판 스위치 = config SKILL.motionLib (사장님 10/8 18:50 '적용', 확인표 34 — 기본 켬). 켜져 있으면 Fighter·AI 생성자가 sword_art.js resolveSwordArt 로 라이브러리 몫을 입힌다(옛 이름 applyMotionLibrary·libSchool 은 motion_library.js 호환 겉면).
@@ -300,6 +301,7 @@ export function installCover(fighter, ai, covers) {
     // 칸 down (10/11 중국 덮는 자세 — 사장님 01:5x '거정세로 바꿔야지'): 완전히 쓰러져 칼을 머리 위로 들어 가리는 동안(ai.js 'down' 가지 — 손은 pose.cover 패드)도 그 몸꼴로 덮는다.
     //  칸 없는 꾸러미(지금 중국 말고 모두)는 전과 같다. 쓰러진 몸은 근육이 0.1 이라(fighter.js — driveSword 문턱 0.12 밑) 다리를 잃은 몸이 아니면 손·칼 서보가 거의 돌지 않는다
     let want = D.down && fighter.state === 'down' ? D.down : ai.mode === 'defend' && !ai.defVoid ? D[ai.defLine] : ai.coverLine && D[ai.coverLine]?.watch ? D[ai.coverLine] : null;
+    if (FLOW_REDESIGN.on && fighter.flowPoseSelector) want = fighter.flowPoseSelector(want, dt);
     if (st.forceT > 0) (st.forceT -= dt), (want = st.nagashi ?? want); // 흘려 받기 (combat.js — config NAGASHI)
     if (want) st.last = want;
     st.w = Math.max(0, Math.min(1, st.w + (want ? dt / MOTION.coverIn : -dt / MOTION.coverOut))); // 덮는 시간·걷는 시간 (MOTION)

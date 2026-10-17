@@ -1,3 +1,4 @@
+import { FLOW_REDESIGN } from './nagashi_redesign.js';
 import { classifyStroke } from './attack_stroke.js';
 import { STAMINA, UNIQUE_ASSIST, CLOSE } from './config.js';
 import { entersAttackLine, isPreparation } from './stamina_stroke.js';
@@ -88,7 +89,12 @@ export class Stamina {
   // 막기 자세/신뢰도 보정은 보류한 범위다. 기존 방어 근육의 한도는 유지한다.
   get motorSpeed() { return this.guarding && STAMINA.on && !this.exhausted ? this.level === 2 ? .5 : this.level === 1 ? .7 : 1 : this.attackSpeed; }
   get power() { const tune=STAMINA.attackTempo&&!this.guarding;return !STAMINA.on || this.exhausted ? 1 : this.level === 2 ? (tune ? STAMINA.tempoPowerSevere : STAMINA.severePower) : this.level === 1 ? (tune ? STAMINA.tempoPowerTired : STAMINA.tiredPower) : 1; }
-  get progress() { return this.exhausted ? 1 - this.exhaustLeft / STAMINA.exhaustSeconds : 0; }
+  get progress() {
+    if (!this.exhausted) return 0;
+    return this.exhaustNaturalTarget != null
+      ? clamp((this.value - STAMINA.floor) / (this.exhaustNaturalTarget - STAMINA.floor), 0, 1)
+      : 1 - this.exhaustLeft / STAMINA.exhaustSeconds;
+  }
   get guarding() {
     const c = this.controller;
     return !!this.fighter.armed && (this.fighter.aiControlled
@@ -156,7 +162,10 @@ export class Stamina {
     if (this.exhausted) return;
     if (this.value <= STAMINA.floor) {
       this.value = STAMINA.floor;
-      this.exhaustLeft = STAMINA.exhaustSeconds;
+      this.exhaustNaturalTarget = FLOW_REDESIGN.naturalExhaust ? STAMINA.severeAt : null;
+      this.exhaustLeft = this.exhaustNaturalTarget != null
+        ? (this.exhaustNaturalTarget - this.value) / (this.fighter.aiControlled ? STAMINA.recoverPerSecond : STAMINA.playerRecoverPerSecond)
+        : STAMINA.exhaustSeconds;
       this.level = 3;
       this.counts.exhaustion++;
       this.stroke = null;
@@ -186,6 +195,7 @@ export class Stamina {
   chargeAttack(kind = 'cut', bundled = this.inSecret) {
     if (!STAMINA.on || this.exhausted || !this.fighter.alive) return;
     this.attackId++;
+    if (FLOW_REDESIGN.on) { this.flowAttackKind = kind; this.flowAttackStart = this.time; } // same paid attack classification for people and AI
     this.attackUntil = this.time + 1.5;
     if (bundled) return;
     this.counts[kind] = (this.counts[kind] ?? 0) + 1;
@@ -195,6 +205,7 @@ export class Stamina {
   secret() {
     if (!STAMINA.on || this.exhausted) return;
     this.attackId++;
+    if (FLOW_REDESIGN.on) { this.flowAttackKind = 'secret'; this.flowAttackStart = this.time; }
     this.attackUntil = this.time + 1.5;
     if (this.spend('secret', STAMINA.secretCost)) this.counts.secret++;
   }
@@ -306,14 +317,19 @@ export class Stamina {
       const slice = Math.min(dt, this.exhaustLeft);
       const before = this.value;
       this.exhaustLeft = Math.max(0, this.exhaustLeft - slice);
-      this.value = Math.min(0, this.value + STAMINA.exhaustRecover * slice);
+      const target = this.exhaustNaturalTarget ?? 0;
+      const rate = this.exhaustNaturalTarget != null
+        ? (f.aiControlled ? STAMINA.recoverPerSecond : STAMINA.playerRecoverPerSecond) : STAMINA.exhaustRecover;
+      this.value = Math.min(target, this.value + rate * slice);
       this.recovered += this.value - before;
       this.pose = Math.min(1, this.pose + dt * 6);
       this.action = 'exhausted';
       this.rest = 0;
       if (this.exhaustLeft < 1e-9) {
-        this.exhaustLeft = 0; this.value = 0; this.level = 1;
-        this.rest = STAMINA.recoverDelay; // 이미 2.5초 쉼. 다음 스텝부터 정상 회복.
+        this.exhaustLeft = 0; this.value = target;
+        this.level = this.exhaustNaturalTarget != null ? 2 : 1;
+        this.exhaustNaturalTarget = null;
+        this.rest = STAMINA.recoverDelay; // 강제 회복을 마쳤으므로 새 대기 없이 정상 회복.
       }
       return;
     }
