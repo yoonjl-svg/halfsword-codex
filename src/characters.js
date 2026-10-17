@@ -928,7 +928,7 @@ for(const id of ['samira','artoria']){
  const base=[...CHARACTERS,...CHARACTER_GUESTS].find(c=>c.id===id);
  const alter={...base,id:id+'_mad',variantOf:id,mad:true,appearanceOnly:id==='samira',retainBaseStats:true,
   name:`광기의 ${base.name}`,ai:JSON.parse(JSON.stringify(base.ai)),
-  look:alterLook(base.look,id),lookVersion:base.lookVersion+(id==='artoria'?'-alter12':'-alter1'),eyes:'madGlow'};
+  look:alterLook(base.look,id),lookVersion:base.lookVersion+(id==='artoria'?'-alter13':'-alter1'),eyes:'madGlow'};
  finishAI(alter);CHARACTER_VARIANTS.push(alter);
 }
 

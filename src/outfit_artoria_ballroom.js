@@ -108,7 +108,7 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
     line(g,pts,THREAD,.0011);
     line(g,[project(-h*.3,0),project(h*.3,0)],GOLD,.0013);
   }
-  function abdomen(g){
+  function abdomen(g,look,d,groups){
     main(g,surface((t,a)=>point(waistRows,lerp(-.11,.11,t),a)),DRESS);
     addMerged(g,[surface((t,a)=>{
       const y=lerp(-.11,.11,t),angle=lerp(-.26-.2*t,.26+.2*t,a/(Math.PI*2));
@@ -124,10 +124,9 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
       const y=.065-i*.033,p=point(waistRows,y,Math.PI+side*.18,.003),q=point(waistRows,y-.031,Math.PI-side*.18,.003);
       line(g,[p,q],FOLD,.0014);
     }
+    courtCord(g,groups?.pelvis);
   }
-  function pelvis(g){
-    main(g,artoriaRoundedBox(.208,.18,.312,.045),DRESS);
-    const at=(t,a,outer=false)=>{
+  function skirtPoint(t,a,outer=false){
       const flare=Math.pow(t,.72),fold=Math.pow(t,.8)*(.012*Math.cos(a*12+.25)+.003*Math.cos(a*19));
       // Leave enough front room for the native bent-knee guard and advancing
       // boot. The original short dress never had to enclose this leg motion.
@@ -135,7 +134,10 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
       const rz=lerp(.154,.399,flare)+fold+(outer?.007:0);
       // Hem clears the ground and rear foot; no long train crossing the gait.
       return [Math.cos(a)*rx,.118-.916*t+Math.pow(t,5)*.008*Math.cos(a*12),Math.sin(a)*rz];
-    };
+  }
+  function pelvis(g){
+    main(g,artoriaRoundedBox(.208,.18,.312,.045),DRESS);
+    const at=skirtPoint;
     const under=surface((t,a)=>at(t,a),28,96);
     const colors=[];
     for(let j=0;j<=28;j++)for(let i=0;i<=96;i++){
@@ -171,16 +173,21 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
     };
     addMerged(g,[surface((t,a)=>waistPoint(t,a/(Math.PI*2)),8,20)],UNDER,fabric);
     for(const side of [0,1])line(g,Array.from({length:12},(_,i)=>waistPoint(i/11,side)),GOLD,.0021);
-    courtCord(g,at);
   }
 
   // Black cincture inspired by the tied cords worn over liturgical robes.
   // A visual court accessory, not a real church rank or armor component.
-  function courtCord(g,skirt){
+  function courtCord(g,pelvisGroup){
     const holder=new THREE.Group();holder.name='artoria-black-cincture';g.add(holder);
     const cordMat={...CLOTH,roughness:.68},black=0x141219,thread=0x2b2730;
-    const onSkirt=(t,a)=>{
-      const p=skirt(t,a,true);p[0]+=.010*Math.cos(a);p[2]+=.010*Math.sin(a);return p;
+    // Centre the wrap at abdomen y=0, the narrowest part of the fitted bodice.
+    // The former skirt-top attachment sat about 7 cm too low and too wide.
+    const onBody=(t,a)=>{
+      const y=.025-.916*t,waist=point(waistRows,y,a,.010);
+      const skirtT=Math.max(0,(.118-(y+.16))/.916),p=skirtPoint(skirtT,a,true);
+      p[0]+=.010*Math.cos(a);p[2]+=.010*Math.sin(a);p[1]=y;
+      const blend=THREE.MathUtils.smoothstep(-y,.010,.042);
+      return waist.map((v,i)=>lerp(v,p[i],blend));
     };
     function rope(points,r=.0055){
       const path=new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p)));
@@ -198,16 +205,16 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
     }
     // A gently sagging loop, knotted just off centre, with unequal tasselled ends.
     rope(Array.from({length:65},(_,i)=>{
-      const a=i/64*Math.PI*2;return onSkirt(.012+.015*Math.max(0,Math.cos(a)),a);
+      const a=i/64*Math.PI*2;return onBody(.012+.015*Math.max(0,Math.cos(a)),a);
     }));
-    const knot=onSkirt(.028,-.54);
+    const knot=onBody(.028,-.54);
     rope(Array.from({length:25},(_,i)=>{
       const a=i/24*Math.PI*2;return [knot[0]+.009+.005*Math.sin(a),knot[1]+.011*Math.cos(a),knot[2]+.016*Math.sin(a)];
     }),.0065);
     for(const [end,side] of [[.35,-1],[.44,1]]){
       const angle=t=>-.54+side*.07*Math.sin(t*Math.PI*.75);
       const pts=Array.from({length:25},(_,i)=>{
-        const t=i/24,p=onSkirt(lerp(.031,end,t),angle(t));p[0]+=.012*Math.sin(t*Math.PI);return p;
+        const t=i/24,p=onBody(lerp(.031,end,t),angle(t));p[0]+=.012*Math.sin(t*Math.PI);return p;
       });
       rope(pts,.005);
       const tip=pts.at(-1);
@@ -222,6 +229,33 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
         ],[.0022,.0025,.0017],12,5));
       }
       addMerged(holder,tassels,thread,cordMat);
+    }
+    // The wrap follows the waist; the ends follow the skirt. Blend their
+    // existing render transforms so torso twist cannot bury the cords.
+    // This deforms only cosmetic vertices, never bodies/joints or simulation.
+    if(pelvisGroup){
+      const relative=new THREE.Matrix4(),rest=new THREE.Matrix4().makeTranslation(0,.16,0);
+      const normalMatrix=new THREE.Matrix3(),v=new THREE.Vector3(),n=new THREE.Vector3();
+      for(const mesh of holder.children){
+        const position=mesh.geometry.attributes.position,normal=mesh.geometry.attributes.normal;
+        const original=position.array.slice(),normals=normal.array.slice();
+        const weights=Array.from({length:position.count},(_,i)=>THREE.MathUtils.smoothstep(-original[i*3+1],.010,.042));
+        if(!weights.some(w=>w>0))continue;
+        mesh.frustumCulled=false;
+        const update=()=>{
+          relative.copy(g.matrixWorld).invert().multiply(pelvisGroup.matrixWorld).multiply(rest);
+          normalMatrix.getNormalMatrix(relative);
+          for(let i=0;i<position.count;i++){
+            const k=i*3,w=weights[i];v.fromArray(original,k).applyMatrix4(relative);
+            position.setXYZ(i,lerp(original[k],v.x,w),lerp(original[k+1],v.y,w),lerp(original[k+2],v.z,w));
+            n.fromArray(normals,k).applyMatrix3(normalMatrix).normalize();
+            n.set(lerp(normals[k],n.x,w),lerp(normals[k+1],n.y,w),lerp(normals[k+2],n.z,w)).normalize();
+            normal.setXYZ(i,n.x,n.y,n.z);
+          }
+          position.needsUpdate=true;normal.needsUpdate=true;
+        };
+        mesh.onBeforeRender=update;mesh.onBeforeShadow=update;
+      }
     }
   }
 
@@ -375,7 +409,9 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
     // Fit the skull cap, not the side locks. Owner requested the whole crown
     // smaller: preserve all proportions at 72%, with its base seated on the cap.
     holder.scale.setScalar(.72);holder.position.set(-.008,.025,0);
-    const metal={metalness:.58,roughness:.43,steel:.6};
+    // A restrained polish: retain the gold pigment and metalness, with a
+    // slightly tighter reflection on the bevels rather than added glow.
+    const metal={metalness:.58,roughness:.35,steel:.66};
     const gold=0xb59a62,shade=0x897142,pearl=0xe4d8bd;
     const at=(a,y,r=.126)=>[Math.cos(a)*r,y,Math.sin(a)*r];
     const band=surface((t,a)=>at(a,.062+t*.030,.125+t*.003),4,64);

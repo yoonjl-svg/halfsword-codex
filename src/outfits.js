@@ -2894,14 +2894,14 @@ export const OUTFITS = {
 };
 
 /** dressPart가 부위 하나를 다 그린 뒤 불린다. look.outfit이 가리키는 세트에 그 부위용 함수가 있으면 얹는다. */
-export function decorateOutfit(dressTo, d, look) {
+export function decorateOutfit(dressTo, d, look, groups) {
   const set = look?.outfit && OUTFITS[look.outfit];
   const fn = set && set[d.name];
   if (!fn) return;
   const before = dressTo.children.length;
   dressTo.userData.outfit = look.outfit;
   dressTo.userData.outfitPart = d.name;
-  fn(dressTo, look, d);
+  fn(dressTo, look, d, groups);
   decorateAlter(dressTo, look, d.name);
   // 방어구 부위: 이 부위에 얹은 판금 메쉬들을 userData.armor로 알려 둔다. 오너 결정("판금도 피해를
   // 줄여 주고, 닳고, 완전히 부서지면 사라진다"): look.armor === 'plate'이고 ARMOR.on이면 fighter.js가 이
