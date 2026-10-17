@@ -22,7 +22,7 @@ for (const list of Object.values(NEW_TECH)) for (const t of list) if (t.from && 
 export const attacks = Object.fromEntries(pool.map(t => [t.name, t]));
 const v3 = p => ({ x: p.x, y: p.y, z: p.z });
 
-export function trial({ cfg = 'uchigatana', atk = 'longsword', gap = 1.4, name = 'oberhau', held = true, heldAt, trace = false, Guard = PlayerParryGuard, prepareOnly = false, onFrame, strokeSpeed = 11, prepPause = .15, seed = 1 }) {
+export function trial({ cfg = 'uchigatana', atk = 'longsword', gap = 1.4, name = 'oberhau', held = true, heldAt, trace = false, Guard = PlayerParryGuard, prepareOnly = false, onFrame, strokeSpeed = 11, prepPause = .15, seed = 1, playerModel = false, startingStamina = 100 }) {
   const attack = attacks[name];
   if (!attack) throw new Error(`Unknown attack ${name}`);
   const [weapon, mode = 'school'] = cfg.split(':');
@@ -37,6 +37,11 @@ export function trial({ cfg = 'uchigatana', atk = 'longsword', gap = 1.4, name =
   const saved = mode === 'nocover' ? Object.getOwnPropertyDescriptor(TRADITIONS[tr], 'parryCover') : null;
   if (saved) Object.defineProperty(TRADITIONS[tr], 'parryCover', { value: null, configurable: true, writable: true });
   const guard = new Guard(D, A);
+  if (playerModel) {
+    D.stamina.controller = guard; // main.js newRound's player connection
+    D.stamina.value = startingStamina;
+    D.stamina.stages();
+  }
   if (saved) Object.defineProperty(TRADITIONS[tr], 'parryCover', saved);
   guard.held = held;
   G.ai.update = () => {};
@@ -70,7 +75,7 @@ export function trial({ cfg = 'uchigatana', atk = 'longsword', gap = 1.4, name =
   const prevWound = G.combat.hooks.onWound;
   G.combat.hooks.onWound = (att, vic, result, p, pr) => {
     prevWound?.(att, vic, result, p, pr);
-    if (vic === D) r.wounds.push({ ...eventState(), type: result.type, zone: result.zone, energy: result.energy, point: v3(p) });
+    if (vic === D) r.wounds.push({ ...eventState(), type: result.type, zone: result.zone, energy: result.energy, ...(playerModel ? {severity: result.severity} : {}), point: v3(p) });
   };
   const setPad = (x, y) => (A.handOffset.set(x, y), A.skill.aimRaw?.set?.(x, y));
   const right = new THREE.Vector3();
@@ -109,6 +114,11 @@ export function trial({ cfg = 'uchigatana', atk = 'longsword', gap = 1.4, name =
       else (ph = 3), (pts = attack.path.map(p => p.slice()));
     } else if (ph === 3 && go(pts[0][0], pts[0][1], strokeSpeed) && (pts.shift(), !pts.length)) (ph = 4), (t0 = G.t);
     if (before !== ph) r.phases.push({ t: G.t, ph });
+    if (playerModel) {
+      G.ai.mode = ph ? 'attack' : 'idle';
+      G.ai.phase = ['idle', 'wind', 'hold', 'strike', 'follow'][ph];
+      if (before === 2 && ph === 3) A.stamina.attack(attack.kind === 'thrust' ? 'thrust' : 'cut'); // AI.startStrike
+    }
   };
   try {
     while (!(ph === 4 && G.t - t0 > .6) && G.t < 6) {
@@ -124,6 +134,12 @@ export function trial({ cfg = 'uchigatana', atk = 'longsword', gap = 1.4, name =
     r.nag = r.clashes.some(c => c.nagashi);
     r.switches = r.transitions.filter(x => x.t >= .6 && x.from != null).length;
     r.stats = { ...guard.stats };
+    if (playerModel) {
+      r.instrumentation = 3;
+      r.stamina = {start: startingStamina, end: D.stamina.value, spent: {...D.stamina.spent}, recovered: D.stamina.recovered, counts: {...D.stamina.counts}};
+      r.alive = D.alive;
+      r.blood = D.blood;
+    }
     if (!trace) delete r.frames;
     return r;
   } finally {
