@@ -17,3 +17,9 @@
 - 320/390/844/1200px에서 원본16개·기본비교·이전/다음 순환·Escape/포커스 복귀·가로 넘침 없음·오류0. [브라우저검증](../art/pixel_profiles_alter_frame1_20261017/gallery-verification.json).
 - [전체 실제 검토페이지 캡처](../art/pixel_profiles_alter_frame1_20261017/gallery-desktop.png), [휴대폰](../art/pixel_profiles_alter_frame1_20261017/gallery-mobile.png), [아르토리아비교](../art/pixel_profiles_alter_frame1_20261017/artoria-comparison.png).
 - 게임src/계정/물리/기존 프로필 UI는 변경하지 않았다. 공개 검토 페이지 배포는 기존 우리 포크 정적 경로에만 수행한다.
+
+## 공개 검토 페이지
+
+https://yoonjl-svg.github.io/halfsword-codex/encounters/pixel-profiles-alter-frame1-20261017/
+
+우리 main `8ad8e0bf` → `7944a535dd26e6646e70210754151c46bf27adbf`, 새 정적 경로18파일만 반영. 게임src와 기존 기본프로필 트리는 정확히 유지했다. Actions **39050204932 Success**, 원격18파일 바이트/해시 일치. [영수증](../art/pixel_profiles_alter_frame1_20261017/publication.json). 환경에서 Pages 도메인 직접 브라우저 접속은 제한되어 로컬 동일경로 브라우저검사와 원격파일·배포상태 확인을 구별한다. 실제 게임 프로필UI 연결·우화 전달은 하지 않았다.
