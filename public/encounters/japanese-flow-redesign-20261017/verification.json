@@ -1,0 +1,584 @@
+{
+  "roles_and_exhaustion": [
+    {
+      "role": "defender",
+      "initial": {
+        "role": "defender",
+        "value": "intercept",
+        "weapon": "uchigatana",
+        "foe": "longsword",
+        "privateStorage": true,
+        "workers": 0,
+        "interceptHook": true
+      },
+      "start": {
+        "t": 2.8833333333333258,
+        "value": -70,
+        "exhausted": true,
+        "speed": 0,
+        "canThrust": false
+      },
+      "end": {
+        "t": 4.583333333333351,
+        "value": -35,
+        "level": 2,
+        "held": true,
+        "arm": 1,
+        "recovery": null
+      },
+      "errors": [],
+      "checks": {
+        "roles": true,
+        "interceptHook": true,
+        "value": true,
+        "weapon": true,
+        "foe": true,
+        "privateStorage": true,
+        "noWorkerScript": true,
+        "exhaustLocks": true,
+        "naturalDuration": true,
+        "unlockAtMinus35": true,
+        "guardStillHeld": true,
+        "noArmPenalty": true,
+        "horizontalHook": true,
+        "baseClean": true
+      }
+    },
+    {
+      "role": "attacker",
+      "initial": {
+        "role": "attacker",
+        "value": "intercept",
+        "weapon": "qinggang",
+        "foe": "uchigatana",
+        "privateStorage": true,
+        "workers": 0,
+        "interceptHook": true
+      },
+      "start": {
+        "t": 2.8833333333333258,
+        "value": -70,
+        "exhausted": true,
+        "speed": 0,
+        "canThrust": false
+      },
+      "end": {
+        "t": 4.583333333333351,
+        "value": -35,
+        "level": 2,
+        "held": true,
+        "arm": 1,
+        "recovery": null
+      },
+      "errors": [],
+      "checks": {
+        "roles": true,
+        "interceptHook": true,
+        "value": true,
+        "weapon": true,
+        "foe": true,
+        "privateStorage": true,
+        "noWorkerScript": true,
+        "exhaustLocks": true,
+        "naturalDuration": true,
+        "unlockAtMinus35": true,
+        "guardStillHeld": true,
+        "noArmPenalty": true,
+        "horizontalHook": true,
+        "baseClean": true
+      }
+    }
+  ],
+  "comparison_matrix": [
+    {
+      "role": "defender",
+      "variant": "base",
+      "practice": "0",
+      "observed": {
+        "value": "base",
+        "role": "defender",
+        "mode": "duel",
+        "state": "fight",
+        "sim": 0.6333333333333335,
+        "weapon": "uchigatana",
+        "foe": "longsword",
+        "hook": false,
+        "otherHook": false,
+        "controllerIsAi": true,
+        "drill": null,
+        "privateStorage": true,
+        "privateSession": true,
+        "manifest": 0,
+        "pwa": 0
+      },
+      "parentStorage": {
+        "local": "untouched",
+        "session": null
+      },
+      "workers": 0,
+      "outside": [],
+      "errors": [],
+      "checks": {
+        "mode": true,
+        "live": true,
+        "roleWeapons": true,
+        "selectedHook": true,
+        "practice": true,
+        "storage": true,
+        "noPwa": true,
+        "assetsUnderTrial": true
+      }
+    },
+    {
+      "role": "defender",
+      "variant": "base",
+      "practice": "1",
+      "observed": {
+        "value": "base",
+        "role": "defender",
+        "mode": "practice",
+        "state": "fight",
+        "sim": 0.6166666666666669,
+        "weapon": "uchigatana",
+        "foe": "longsword",
+        "hook": false,
+        "otherHook": false,
+        "controllerIsAi": true,
+        "drill": "zwerchL",
+        "privateStorage": true,
+        "privateSession": true,
+        "manifest": 0,
+        "pwa": 0
+      },
+      "parentStorage": {
+        "local": "untouched",
+        "session": null
+      },
+      "workers": 0,
+      "outside": [],
+      "errors": [],
+      "checks": {
+        "mode": true,
+        "live": true,
+        "roleWeapons": true,
+        "selectedHook": true,
+        "practice": true,
+        "storage": true,
+        "noPwa": true,
+        "assetsUnderTrial": true
+      }
+    },
+    {
+      "role": "defender",
+      "variant": "core",
+      "practice": "0",
+      "observed": {
+        "value": "core",
+        "role": "defender",
+        "mode": "duel",
+        "state": "fight",
+        "sim": 0.6000000000000003,
+        "weapon": "uchigatana",
+        "foe": "longsword",
+        "hook": false,
+        "otherHook": false,
+        "controllerIsAi": true,
+        "drill": null,
+        "privateStorage": true,
+        "privateSession": true,
+        "manifest": 0,
+        "pwa": 0
+      },
+      "parentStorage": {
+        "local": "untouched",
+        "session": null
+      },
+      "workers": 0,
+      "outside": [],
+      "errors": [],
+      "checks": {
+        "mode": true,
+        "live": true,
+        "roleWeapons": true,
+        "selectedHook": true,
+        "practice": true,
+        "storage": true,
+        "noPwa": true,
+        "assetsUnderTrial": true
+      }
+    },
+    {
+      "role": "defender",
+      "variant": "core",
+      "practice": "1",
+      "observed": {
+        "value": "core",
+        "role": "defender",
+        "mode": "practice",
+        "state": "fight",
+        "sim": 0.6333333333333335,
+        "weapon": "uchigatana",
+        "foe": "longsword",
+        "hook": false,
+        "otherHook": false,
+        "controllerIsAi": true,
+        "drill": "zwerchL",
+        "privateStorage": true,
+        "privateSession": true,
+        "manifest": 0,
+        "pwa": 0
+      },
+      "parentStorage": {
+        "local": "untouched",
+        "session": null
+      },
+      "workers": 0,
+      "outside": [],
+      "errors": [],
+      "checks": {
+        "mode": true,
+        "live": true,
+        "roleWeapons": true,
+        "selectedHook": true,
+        "practice": true,
+        "storage": true,
+        "noPwa": true,
+        "assetsUnderTrial": true
+      }
+    },
+    {
+      "role": "defender",
+      "variant": "intercept",
+      "practice": "0",
+      "observed": {
+        "value": "intercept",
+        "role": "defender",
+        "mode": "duel",
+        "state": "fight",
+        "sim": 0.6000000000000003,
+        "weapon": "uchigatana",
+        "foe": "longsword",
+        "hook": true,
+        "otherHook": false,
+        "controllerIsAi": true,
+        "drill": null,
+        "privateStorage": true,
+        "privateSession": true,
+        "manifest": 0,
+        "pwa": 0
+      },
+      "parentStorage": {
+        "local": "untouched",
+        "session": null
+      },
+      "workers": 0,
+      "outside": [],
+      "errors": [],
+      "checks": {
+        "mode": true,
+        "live": true,
+        "roleWeapons": true,
+        "selectedHook": true,
+        "practice": true,
+        "storage": true,
+        "noPwa": true,
+        "assetsUnderTrial": true
+      }
+    },
+    {
+      "role": "defender",
+      "variant": "intercept",
+      "practice": "1",
+      "observed": {
+        "value": "intercept",
+        "role": "defender",
+        "mode": "practice",
+        "state": "fight",
+        "sim": 0.6333333333333335,
+        "weapon": "uchigatana",
+        "foe": "longsword",
+        "hook": true,
+        "otherHook": false,
+        "controllerIsAi": true,
+        "drill": "zwerchL",
+        "privateStorage": true,
+        "privateSession": true,
+        "manifest": 0,
+        "pwa": 0
+      },
+      "parentStorage": {
+        "local": "untouched",
+        "session": null
+      },
+      "workers": 0,
+      "outside": [],
+      "errors": [],
+      "checks": {
+        "mode": true,
+        "live": true,
+        "roleWeapons": true,
+        "selectedHook": true,
+        "practice": true,
+        "storage": true,
+        "noPwa": true,
+        "assetsUnderTrial": true
+      }
+    },
+    {
+      "role": "attacker",
+      "variant": "base",
+      "practice": "0",
+      "observed": {
+        "value": "base",
+        "role": "attacker",
+        "mode": "duel",
+        "state": "fight",
+        "sim": 0.6000000000000003,
+        "weapon": "qinggang",
+        "foe": "uchigatana",
+        "hook": false,
+        "otherHook": false,
+        "controllerIsAi": true,
+        "drill": null,
+        "privateStorage": true,
+        "privateSession": true,
+        "manifest": 0,
+        "pwa": 0
+      },
+      "parentStorage": {
+        "local": "untouched",
+        "session": null
+      },
+      "workers": 0,
+      "outside": [],
+      "errors": [],
+      "checks": {
+        "mode": true,
+        "live": true,
+        "roleWeapons": true,
+        "selectedHook": true,
+        "practice": true,
+        "storage": true,
+        "noPwa": true,
+        "assetsUnderTrial": true
+      }
+    },
+    {
+      "role": "attacker",
+      "variant": "base",
+      "practice": "1",
+      "observed": {
+        "value": "base",
+        "role": "attacker",
+        "mode": "practice",
+        "state": "fight",
+        "sim": 0.6166666666666669,
+        "weapon": "qinggang",
+        "foe": "uchigatana",
+        "hook": false,
+        "otherHook": false,
+        "controllerIsAi": false,
+        "drill": null,
+        "privateStorage": true,
+        "privateSession": true,
+        "manifest": 0,
+        "pwa": 0
+      },
+      "parentStorage": {
+        "local": "untouched",
+        "session": null
+      },
+      "workers": 0,
+      "outside": [],
+      "errors": [],
+      "checks": {
+        "mode": true,
+        "live": true,
+        "roleWeapons": true,
+        "selectedHook": true,
+        "practice": true,
+        "storage": true,
+        "noPwa": true,
+        "assetsUnderTrial": true
+      }
+    },
+    {
+      "role": "attacker",
+      "variant": "core",
+      "practice": "0",
+      "observed": {
+        "value": "core",
+        "role": "attacker",
+        "mode": "duel",
+        "state": "fight",
+        "sim": 0.6000000000000003,
+        "weapon": "qinggang",
+        "foe": "uchigatana",
+        "hook": false,
+        "otherHook": false,
+        "controllerIsAi": true,
+        "drill": null,
+        "privateStorage": true,
+        "privateSession": true,
+        "manifest": 0,
+        "pwa": 0
+      },
+      "parentStorage": {
+        "local": "untouched",
+        "session": null
+      },
+      "workers": 0,
+      "outside": [],
+      "errors": [],
+      "checks": {
+        "mode": true,
+        "live": true,
+        "roleWeapons": true,
+        "selectedHook": true,
+        "practice": true,
+        "storage": true,
+        "noPwa": true,
+        "assetsUnderTrial": true
+      }
+    },
+    {
+      "role": "attacker",
+      "variant": "core",
+      "practice": "1",
+      "observed": {
+        "value": "core",
+        "role": "attacker",
+        "mode": "practice",
+        "state": "fight",
+        "sim": 0.6166666666666669,
+        "weapon": "qinggang",
+        "foe": "uchigatana",
+        "hook": false,
+        "otherHook": false,
+        "controllerIsAi": false,
+        "drill": null,
+        "privateStorage": true,
+        "privateSession": true,
+        "manifest": 0,
+        "pwa": 0
+      },
+      "parentStorage": {
+        "local": "untouched",
+        "session": null
+      },
+      "workers": 0,
+      "outside": [],
+      "errors": [],
+      "checks": {
+        "mode": true,
+        "live": true,
+        "roleWeapons": true,
+        "selectedHook": true,
+        "practice": true,
+        "storage": true,
+        "noPwa": true,
+        "assetsUnderTrial": true
+      }
+    },
+    {
+      "role": "attacker",
+      "variant": "intercept",
+      "practice": "0",
+      "observed": {
+        "value": "intercept",
+        "role": "attacker",
+        "mode": "duel",
+        "state": "fight",
+        "sim": 0.6000000000000003,
+        "weapon": "qinggang",
+        "foe": "uchigatana",
+        "hook": true,
+        "otherHook": false,
+        "controllerIsAi": true,
+        "drill": null,
+        "privateStorage": true,
+        "privateSession": true,
+        "manifest": 0,
+        "pwa": 0
+      },
+      "parentStorage": {
+        "local": "untouched",
+        "session": null
+      },
+      "workers": 0,
+      "outside": [],
+      "errors": [],
+      "checks": {
+        "mode": true,
+        "live": true,
+        "roleWeapons": true,
+        "selectedHook": true,
+        "practice": true,
+        "storage": true,
+        "noPwa": true,
+        "assetsUnderTrial": true
+      }
+    },
+    {
+      "role": "attacker",
+      "variant": "intercept",
+      "practice": "1",
+      "observed": {
+        "value": "intercept",
+        "role": "attacker",
+        "mode": "practice",
+        "state": "fight",
+        "sim": 0.6333333333333335,
+        "weapon": "qinggang",
+        "foe": "uchigatana",
+        "hook": true,
+        "otherHook": false,
+        "controllerIsAi": false,
+        "drill": null,
+        "privateStorage": true,
+        "privateSession": true,
+        "manifest": 0,
+        "pwa": 0
+      },
+      "parentStorage": {
+        "local": "untouched",
+        "session": null
+      },
+      "workers": 0,
+      "outside": [],
+      "errors": [],
+      "checks": {
+        "mode": true,
+        "live": true,
+        "roleWeapons": true,
+        "selectedHook": true,
+        "practice": true,
+        "storage": true,
+        "noPwa": true,
+        "assetsUnderTrial": true
+      }
+    }
+  ],
+  "mobile_menu": [
+    {
+      "width": 844,
+      "height": 390,
+      "button": {
+        "top": 321.09375,
+        "bottom": 358.09375
+      },
+      "visible": true,
+      "default": "intercept"
+    },
+    {
+      "width": 667,
+      "height": 375,
+      "button": {
+        "top": 314.4375,
+        "bottom": 351.4375
+      },
+      "visible": true,
+      "default": "intercept"
+    }
+  ]
+}
