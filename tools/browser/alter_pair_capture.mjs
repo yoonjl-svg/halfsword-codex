@@ -69,7 +69,9 @@ try{for(const [stage,foe,version] of pairs){
   for(let i=0;i<40;i++){
    await page.evaluate(()=>{const g=game,T=g.THREE,p=g.enemy.bodies.pelvis.translation(),f=new T.Vector3(1,0,0).applyQuaternion(g.enemy.yaw).applyAxisAngle(new T.Vector3(0,1,0),.45);
     g.camera.position.set(p.x+f.x*4.5,1.25,p.z+f.z*4.5);g.camera.lookAt(p.x,1.02,p.z);g.camera.fov=34;g.camera.updateProjectionMatrix()});
-   await page.clock.runFor(100);await page.screenshot({path:`${frames}/${String(i).padStart(3,'0')}.png`});
+   await page.evaluate(()=>{game.renderCap.tick=()=>false});await page.clock.runFor(80);
+   await page.evaluate(()=>{game.renderCap.tick=()=>true});await page.clock.runFor(20);
+   await page.screenshot({path:`${frames}/${String(i).padStart(3,'0')}.png`});
   }
   info.motion={seconds:4,fps:10,frames:40,nativeAI:true,camera:'tracking three-quarter observation; player visuals hidden'};
  }
