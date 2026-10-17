@@ -15,7 +15,7 @@
 - 추가40 일회, 팔 제어력 저하 없음, 자연 탈진−35 해제를 유지. 실제 흘림 직후 찌르기 입력이 즉시 수락되고 방어 덮개가 해제됨을 검증했다.
 - 오래된 공격의 실제 종료 판독은 미완 과제로 남긴다. 무해한 회수와 실제 접근 위험을 구별해야 하며 공격번호를 계속 재사용해 추가40을 지급하지 않는다.
 
-연구 전체와 실패/원자료/계측 정정은 최종 사용자 검토 후 한 번에 전달한다. **우화 발송0**. 일반 게임 src 변경0. 별도 검토 경로는 `public/encounters/japanese-flow-redesign-20261017/`이며 배포 영수증과 실제 시험 링크는 준비 완료 후 별도 기록한다.
+연구 전체와 실패/원자료/계측 정정은 최종 사용자 검토 후 한 번에 전달한다. **우화 발송0**. 일반 게임 src 변경0. 별도 검토 경로는 `public/encounters/japanese-flow-redesign-20261017/`이며 [배포 영수증](JAPANESE_FLOW_REDESIGN_PUBLICATION_20261017.json): 우리 공개 main `c5128dd2`, Actions39036041062 성공·원격 엔트리 해시 일치. [인간 시험 링크](https://yoonjl-svg.github.io/halfsword-codex/encounters/japanese-flow-redesign-20261017/). Pages 직접 브라우저 검증은 환경 제한으로 미수행하며 로컬의 실제 하위 경로12조합을 검증했다.
 
 ## 앞선 1차 결론
 
