@@ -1,0 +1,22 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><title>동방 방어 · 실제 엔진 비교</title><link rel="icon" href="data:,">
+<style>body{margin:0;background:#202329;color:#e7dcc6;font:18px sans-serif;padding:24px}h1{font-size:25px;margin:0 0 8px}p{font-size:16px;color:#c8bfaf;margin:8px 0 16px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{background:#2a2e34;padding:12px;border:1px solid #575a60}h2{font-size:19px;margin:0 0 8px}img{width:100%;display:block}.meta{font-size:17px;margin-top:8px}footer{font-size:15px;color:#c1b6a2;margin-top:14px}</style>
+<h1>동방 방어 연구 · 준비 몸꼴의 효과와 한계</h1><p>왼쪽 인물이 플레이어 · 실제 게임 모델·물리 엔진 · 상대 롱소드 / 거리 1.6m</p><main class="grid" id="shots"></main><footer>공개 게임 변경 전의 로컬 연구 장면입니다. 몸꼴·막기 속도는 그대로이며, 후보는 버튼을 누른 대기 중에도 준비 몸꼴을 적용합니다.</footer>
+<script>window.process={env:{CN_READ:'ready'}};</script><script type="module">
+import * as THREE from 'three';
+import {trial} from './parry_reading_trials.mjs';
+import {ChineseResearchGuard} from './chinese_player_guard.mjs';
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setSize(580,330);renderer.setPixelRatio(1);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.setClearColor(0x45464a);renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.2;
+const camera=new THREE.PerspectiveCamera(35,580/330,.05,40);camera.position.set(-1.6,2.35,4.7);camera.lookAt(0,1.1,0);
+const captures=[];
+for(const test of [{name:'unterhau',label:'올려베기 · 입력 0.900초',press:.9,at:1.2666666667},{name:'oberhau',label:'내려베기 · 입력 0.908초',press:109/120,at:1.2666666667}])for(const candidate of [false,true]){
+ let initialized=false,capture;
+ const r=trial({name:test.name,cfg:'qinggang',atk:'longsword',gap:1.6,playerModel:true,heldAt:t=>t+1e-9>=test.press,Guard:candidate?ChineseResearchGuard:undefined,onFrame(G,guard){
+  const scene=G.player.scene;
+  if(!initialized){initialized=true;scene.add(new THREE.HemisphereLight(0xfff8e8,0x4e5060,2.1));const sun=new THREE.DirectionalLight(0xfff2d2,2.5);sun.position.set(-3,6,5);scene.add(sun);const floor=new THREE.Mesh(new THREE.PlaneGeometry(12,12),new THREE.MeshStandardMaterial({color:0x5d5b54,roughness:1}));floor.rotation.x=-Math.PI/2;floor.position.y=-.005;scene.add(floor);const grid=new THREE.GridHelper(12,24,0x999388,0x737069);grid.position.y=.001;scene.add(grid);}
+  if(!capture&&G.t+1e-8>=test.at){G.player.syncMeshes();G.enemy.syncMeshes();renderer.render(scene,camera);capture={name:test.name,label:test.label,press:test.press,candidate,t:G.t,line:guard.line,image:renderer.domElement.toDataURL()};}
+ }});
+ captures.push({...capture,injured:r.injured,wounds:r.wounds.filter(w=>w.type!=='blunt')});
+}
+for(const c of captures){const el=document.createElement('article');el.className='card';const h=document.createElement('h2');h.textContent=`${c.candidate?'준비 몸꼴 후보':'현재 막기'} · ${c.label}`;const img=new Image();img.src=c.image;const meta=document.createElement('div');meta.className='meta';meta.textContent=`${c.injured?'이 공격에서 칼날 상처 발생':'이 공격에서 칼날 상처 없음'} · 촬영 ${c.t.toFixed(3)}초`;el.append(h,img,meta);document.querySelector('#shots').append(el);}
+window.result=captures.map(({image,...r})=>r);window.ready=true;
+</script></html>

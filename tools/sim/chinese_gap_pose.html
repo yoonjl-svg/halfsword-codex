@@ -1,0 +1,28 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><title>동방 막기 2차 · 몸꼴 후보</title><link rel="icon" href="data:,"><style>body{margin:0;padding:22px;background:#202329;color:#e7dcc6;font:17px sans-serif}h1{font-size:25px;margin:0 0 10px}p,footer{font-size:16px;color:#c8bfaf;line-height:1.5}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{padding:12px;background:#2a2e34;border:1px solid #575a60}h2{font-size:18px;margin:0 0 8px}img{width:100%;display:block}.meta{margin-top:8px;line-height:1.5;white-space:pre-line}</style>
+<h1>동방 막기 2차 · 팔 앞에 칼을 세우는 후보</h1><p>실제 게임 모델·물리 엔진 촬영 / 공개 게임 적용 전의 로컬 시험장<br>같은 공격·같은 시각의 실제 화면. 오른쪽은 손을 안쪽에 두는 시험용 몸꼴입니다.</p><main class="grid" id="shots"></main><footer>사진은 1.15초 시점입니다. 자세 변경은 연구판에만 있습니다.<br>독립 24조건에서 사망은 그대로였고 출혈·팔다리 손실은 늘었습니다. 현재 게임에 채택하지 않았습니다.</footer>
+<script>window.process={env:{}};</script><script type="module">
+import * as THREE from 'three';
+import {trial} from './parry_reading_trials.mjs';
+import {observeHealth} from './chinese_benefit_model.mjs';
+import {gapGuard as guardClass} from './chinese_gap_model.mjs';
+import {DT} from './harness_m.mjs';
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setSize(560,350);renderer.setPixelRatio(1);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.setClearColor(0x45464a);renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.2;
+const camera=new THREE.PerspectiveCamera(35,560/350,.05,40);camera.position.set(-1.7,2.5,4.5);camera.lookAt(0,1.05,0);
+const shots=[];
+for(const spec of [
+ {kind:'base',name:'zornhau',atk:'qinggang',gap:1.5,press:.95,at:1.15,label:'현재 위쪽 사선 막기'},
+ {kind:'inside',name:'zornhau',atk:'qinggang',gap:1.5,press:.95,at:1.15,label:'안쪽 사선 가림 · 연구 후보'}
+]){
+ let observer,clock=0,health,capture,initialized=false;const Parent=guardClass(spec.kind);class Guard extends Parent{constructor(d,a){super(d,a);observer=observeHealth(d,()=>clock);}}
+ trial({...spec,cfg:'qinggang',playerModel:true,Guard,heldAt:t=>t+1e-9>=spec.press,onFrame(G,g){
+  clock=G.t;observer.step(DT,g);health=observer.finish();const scene=G.player.scene;
+  if(!initialized){initialized=true;scene.add(new THREE.HemisphereLight(0xfff8e8,0x4e5060,2.1));const sun=new THREE.DirectionalLight(0xfff2d2,2.5);sun.position.set(-3,6,5);scene.add(sun);const floor=new THREE.Mesh(new THREE.PlaneGeometry(12,12),new THREE.MeshStandardMaterial({color:0x5d5b54,roughness:1}));floor.rotation.x=-Math.PI/2;floor.position.y=-.005;scene.add(floor);const grid=new THREE.GridHelper(12,24,0x999388,0x737069);grid.position.y=.001;scene.add(grid);}
+  if(!capture&&G.t+1e-8>=spec.at){G.player.syncMeshes();G.enemy.syncMeshes();renderer.render(scene,camera);capture={t:G.t,line:g.line,image:renderer.domElement.toDataURL()};}
+ }});
+ const row={...spec,...capture,health};shots.push(row);
+ const el=document.createElement('article');el.className='card';const h=document.createElement('h2');h.textContent=spec.label;const img=new Image();img.src=capture.image;const meta=document.createElement('div');meta.className='meta';
+ meta.textContent=`${health.end.alive?'공격 종료 시 생존':'공격 중 사망'} · 효과 있는 몸 피격 ${health.hits}회\n${spec.name==='unterhau'?`팔다리 기능 손실 합 ${(health.limbLost*100).toFixed(1)}점 / 400점`:`출혈을 만든 상처 ${health.cutHits}회 · 의식 손실 ${(health.concussion*100).toFixed(1)}점`}`;
+ el.append(h,img,meta);document.querySelector('#shots').append(el);
+}
+window.result=shots.map(({image,...r})=>r);window.ready=true;
+</script></html>

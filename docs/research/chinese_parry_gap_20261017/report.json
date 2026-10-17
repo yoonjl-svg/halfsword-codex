@@ -1,0 +1,959 @@
+{
+  "baseline": "0bd04a51fe07d6e8b3a7d493e7d493dc6eb8ce8b",
+  "parent": "64ffa8339148f2d69f2a5f5a15b789705431ba34",
+  "diagnosis": {
+    "n": 40,
+    "deaths": 21,
+    "disarmed": 16,
+    "wins": 4,
+    "observedSeconds": 855.941666666642,
+    "bloodLoss": 0.23951537465527303,
+    "limbLoss": 0.9119033966620771,
+    "concussion": 0.5021423226765799,
+    "downTime": 3.705416666666685,
+    "blockCost": 10.85625,
+    "hits": 622,
+    "cuts": 275,
+    "deathsWhileDisarmed": 13,
+    "byPhase": {
+      "released": {
+        "hits": 86,
+        "bleed": 0.38332163978437017,
+        "concussion": 3.4746815559997963,
+        "pain": 25.149601990732947,
+        "balance": 1573.5446751690185,
+        "limb": 3.51213638247249
+      },
+      "down/getup": {
+        "hits": 162,
+        "bleed": 2.3883178531068414,
+        "concussion": 4.494666582560017,
+        "pain": 46.751122180447354,
+        "balance": 3596.643500154361,
+        "limb": 4.555799653730795
+      },
+      "guard-defend": {
+        "hits": 203,
+        "bleed": 1.7786850352148647,
+        "concussion": 6.294623761198016,
+        "pain": 97.83269167074955,
+        "balance": 5437.930338883227,
+        "limb": 24.065156654914436
+      },
+      "disarmed": {
+        "hits": 102,
+        "bleed": 1.6584139896965162,
+        "concussion": 4.176661133352636,
+        "pain": 40.59840902342241,
+        "balance": 2548.0959496376654,
+        "limb": 1.639288801767263
+      },
+      "counter": {
+        "hits": 25,
+        "bleed": 0.01946527904003687,
+        "concussion": 0.8445832387695873,
+        "pain": 6.076248340161101,
+        "balance": 395.7393682043171,
+        "limb": 1.1354746106688176
+      },
+      "guard-idle": {
+        "hits": 44,
+        "bleed": 0.06610931675919308,
+        "concussion": 0.8004766351831318,
+        "pain": 11.849297263358118,
+        "balance": 711.4088203261812,
+        "limb": 1.5682797629292855
+      }
+    },
+    "byLine": {
+      "highC": {
+        "hits": 39,
+        "bleed": 0.15729498659068397,
+        "concussion": 0.9456455474165948,
+        "pain": 16.84817313979128,
+        "balance": 1004.4453791292709,
+        "limb": 4.10976918421631
+      },
+      "highL": {
+        "hits": 55,
+        "bleed": 0.6756971446364965,
+        "concussion": 4.055056118865888,
+        "pain": 39.2019861820894,
+        "balance": 2295.0161753825932,
+        "limb": 8.154250796600374
+      },
+      "lowR": {
+        "hits": 42,
+        "bleed": 0.11239086312232498,
+        "concussion": 0.4196407152674988,
+        "pain": 15.563646456712426,
+        "balance": 817.0012753328798,
+        "limb": 3.706134873758148
+      },
+      "lowL": {
+        "hits": 34,
+        "bleed": 0.8524533929594127,
+        "concussion": 0.5652057101877286,
+        "pain": 15.550083326617063,
+        "balance": 810.9343386092531,
+        "limb": 5.234945049870705
+      },
+      "thrust": {
+        "hits": 34,
+        "bleed": 0.04348595711452117,
+        "concussion": 0.4333724254857444,
+        "pain": 8.047358759946853,
+        "balance": 551.4443410806175,
+        "limb": 1.0278277229710815
+      },
+      "point": {
+        "hits": 18,
+        "bleed": 0.020457666838962683,
+        "concussion": 0.19699686415064144,
+        "pain": 3.7743933212824636,
+        "balance": 216.3664122652178,
+        "limb": 0.5500776206943986
+      },
+      "highR": {
+        "hits": 30,
+        "bleed": 0.06932793917564463,
+        "concussion": 0.4791830150070515,
+        "pain": 12.765021621068922,
+        "balance": 676.1651363038202,
+        "limb": 2.8504311697327
+      }
+    },
+    "swordArm": {
+      "hits": 50,
+      "loss": 15.81660323593107,
+      "bounceHits": 15,
+      "bounceLoss": 7.586881061739247
+    },
+    "armedGuardArmDamage": {
+      "armHits": 57,
+      "armLoss": 19.754677882465568,
+      "bounceHits": 16,
+      "bounceLoss": 8.586881061739247,
+      "definition": "Active guard arm wounds with actual limb loss; upper-line wound preceded within .25s by point/low line while tip >.5m above chest. Sampled history every .05s; association, not causal proof."
+    }
+  },
+  "screen": {
+    "base": {
+      "n": 57,
+      "deaths": 1,
+      "disarmed": 0,
+      "wins": 0,
+      "observedSeconds": 95.24999999999977,
+      "bloodLoss": 0.016070015785184022,
+      "limbLoss": 0.1389601625935552,
+      "concussion": 0.09341614780893047,
+      "downTime": 0.12017543859649135,
+      "blockCost": 1.6578947368421053,
+      "hits": 139,
+      "cuts": 58
+    },
+    "delay12": {
+      "n": 57,
+      "deaths": 0,
+      "disarmed": 0,
+      "wins": 0,
+      "observedSeconds": 95.24999999999977,
+      "bloodLoss": 0.004608631642616367,
+      "limbLoss": 0.15062982339126457,
+      "concussion": 0.07529465491073448,
+      "downTime": 0.07339181286549715,
+      "blockCost": 1.5,
+      "hits": 138,
+      "cuts": 62
+    },
+    "gate20": {
+      "n": 57,
+      "deaths": 0,
+      "disarmed": 0,
+      "wins": 0,
+      "observedSeconds": 95.24999999999977,
+      "bloodLoss": 0.0044962151961008365,
+      "limbLoss": 0.15853774371039164,
+      "concussion": 0.08037339762242139,
+      "downTime": 0.08523391812865506,
+      "blockCost": 1.5394736842105263,
+      "hits": 141,
+      "cuts": 61
+    },
+    "inside": {
+      "n": 57,
+      "deaths": 2,
+      "disarmed": 0,
+      "wins": 0,
+      "observedSeconds": 95.24999999999977,
+      "bloodLoss": 0.027102861404171542,
+      "limbLoss": 0.14476551335478183,
+      "concussion": 0.09841781729722636,
+      "downTime": 0.11739766081871357,
+      "blockCost": 1.5,
+      "hits": 139,
+      "cuts": 63
+    },
+    "inside-ready": {
+      "n": 57,
+      "deaths": 1,
+      "disarmed": 0,
+      "wins": 0,
+      "observedSeconds": 95.24999999999977,
+      "bloodLoss": 0.01683492306824892,
+      "limbLoss": 0.14289661412904206,
+      "concussion": 0.08318834474356489,
+      "downTime": 0.09956140350877203,
+      "blockCost": 1.4605263157894737,
+      "hits": 134,
+      "cuts": 61
+    }
+  },
+  "explore": {
+    "base": {
+      "all": {
+        "n": 16,
+        "deaths": 9,
+        "disarmed": 8,
+        "wins": 3,
+        "observedSeconds": 339.0083333333234,
+        "bloodLoss": 0.21863556813961907,
+        "limbLoss": 0.8362247781768423,
+        "concussion": 0.5679421110425239,
+        "downTime": 3.335937500000016,
+        "blockCost": 9.421875,
+        "hits": 241,
+        "cuts": 112
+      },
+      "reactive": {
+        "n": 8,
+        "deaths": 6,
+        "disarmed": 5,
+        "wins": 0,
+        "observedSeconds": 172.5749999999949,
+        "bloodLoss": 0.29257360100876967,
+        "limbLoss": 1.1061504843359782,
+        "concussion": 0.9150331849907276,
+        "downTime": 5.186458333333364,
+        "blockCost": 10.40625,
+        "hits": 151,
+        "cuts": 76
+      },
+      "exchange": {
+        "n": 8,
+        "deaths": 3,
+        "disarmed": 3,
+        "wins": 3,
+        "observedSeconds": 166.4333333333285,
+        "bloodLoss": 0.14469753527046847,
+        "limbLoss": 0.5662990720177061,
+        "concussion": 0.22085103709432027,
+        "downTime": 1.4854166666666666,
+        "blockCost": 8.4375,
+        "hits": 90,
+        "cuts": 36
+      }
+    },
+    "delay12": {
+      "all": {
+        "n": 16,
+        "deaths": 9,
+        "disarmed": 9,
+        "wins": 2,
+        "observedSeconds": 281.49166666665985,
+        "bloodLoss": 0.23339540583207266,
+        "limbLoss": 0.9252127780230585,
+        "concussion": 0.6203071574874357,
+        "downTime": 4.5411458333333785,
+        "blockCost": 7.59375,
+        "hits": 265,
+        "cuts": 128
+      },
+      "reactive": {
+        "n": 8,
+        "deaths": 5,
+        "disarmed": 6,
+        "wins": 1,
+        "observedSeconds": 139.5166666666633,
+        "bloodLoss": 0.32079572278879653,
+        "limbLoss": 1.1961684216901833,
+        "concussion": 0.6044322206901,
+        "downTime": 5.582291666666725,
+        "blockCost": 6.1875,
+        "hits": 151,
+        "cuts": 90
+      },
+      "exchange": {
+        "n": 8,
+        "deaths": 4,
+        "disarmed": 3,
+        "wins": 1,
+        "observedSeconds": 141.97499999999656,
+        "bloodLoss": 0.1459950888753488,
+        "limbLoss": 0.6542571343559334,
+        "concussion": 0.6361820942847715,
+        "downTime": 3.5000000000000324,
+        "blockCost": 9,
+        "hits": 114,
+        "cuts": 38
+      }
+    },
+    "gate20": {
+      "all": {
+        "n": 16,
+        "deaths": 10,
+        "disarmed": 7,
+        "wins": 2,
+        "observedSeconds": 311.9083333333254,
+        "bloodLoss": 0.22499985332543945,
+        "limbLoss": 0.8019003787528096,
+        "concussion": 0.5615233266679579,
+        "downTime": 4.49791666666668,
+        "blockCost": 9.28125,
+        "hits": 245,
+        "cuts": 120
+      },
+      "reactive": {
+        "n": 8,
+        "deaths": 6,
+        "disarmed": 4,
+        "wins": 0,
+        "observedSeconds": 170.44999999999547,
+        "bloodLoss": 0.29583585743820534,
+        "limbLoss": 0.9351617467127943,
+        "concussion": 0.7288269576230824,
+        "downTime": 6.294791666666667,
+        "blockCost": 11.53125,
+        "hits": 151,
+        "cuts": 79
+      },
+      "exchange": {
+        "n": 8,
+        "deaths": 4,
+        "disarmed": 3,
+        "wins": 2,
+        "observedSeconds": 141.4583333333299,
+        "bloodLoss": 0.1541638492126735,
+        "limbLoss": 0.6686390107928248,
+        "concussion": 0.39421969571283333,
+        "downTime": 2.7010416666666943,
+        "blockCost": 7.03125,
+        "hits": 94,
+        "cuts": 41
+      }
+    },
+    "inside": {
+      "all": {
+        "n": 16,
+        "deaths": 8,
+        "disarmed": 8,
+        "wins": 2,
+        "observedSeconds": 335.83333333332325,
+        "bloodLoss": 0.19380996848858303,
+        "limbLoss": 0.7702528853860673,
+        "concussion": 0.5927776039040309,
+        "downTime": 4.135416666666666,
+        "blockCost": 9.421875,
+        "hits": 216,
+        "cuts": 96
+      },
+      "reactive": {
+        "n": 8,
+        "deaths": 4,
+        "disarmed": 5,
+        "wins": 0,
+        "observedSeconds": 185.1083333333275,
+        "bloodLoss": 0.30750373913269874,
+        "limbLoss": 1.1107858858486328,
+        "concussion": 0.8264741793092133,
+        "downTime": 6.677083333333321,
+        "blockCost": 11.25,
+        "hits": 155,
+        "cuts": 73
+      },
+      "exchange": {
+        "n": 8,
+        "deaths": 4,
+        "disarmed": 3,
+        "wins": 2,
+        "observedSeconds": 150.7249999999958,
+        "bloodLoss": 0.0801161978444673,
+        "limbLoss": 0.4297198849235016,
+        "concussion": 0.3590810284988487,
+        "downTime": 1.593750000000012,
+        "blockCost": 7.59375,
+        "hits": 61,
+        "cuts": 23
+      }
+    },
+    "inside-ready": {
+      "all": {
+        "n": 16,
+        "deaths": 13,
+        "disarmed": 6,
+        "wins": 2,
+        "observedSeconds": 232.54166666666208,
+        "bloodLoss": 0.1899310988985268,
+        "limbLoss": 0.6060271470734856,
+        "concussion": 0.581622167563254,
+        "downTime": 2.956250000000038,
+        "blockCost": 6.609375,
+        "hits": 192,
+        "cuts": 89
+      },
+      "reactive": {
+        "n": 8,
+        "deaths": 8,
+        "disarmed": 2,
+        "wins": 0,
+        "observedSeconds": 96.93333333333204,
+        "bloodLoss": 0.2104089069532075,
+        "limbLoss": 0.6258335266928204,
+        "concussion": 0.5525526074849313,
+        "downTime": 2.7385416666666913,
+        "blockCost": 5.625,
+        "hits": 99,
+        "cuts": 51
+      },
+      "exchange": {
+        "n": 8,
+        "deaths": 5,
+        "disarmed": 4,
+        "wins": 2,
+        "observedSeconds": 135.60833333333002,
+        "bloodLoss": 0.16945329084384606,
+        "limbLoss": 0.5862207674541507,
+        "concussion": 0.6106917276415764,
+        "downTime": 3.1739583333333843,
+        "blockCost": 7.59375,
+        "hits": 93,
+        "cuts": 38
+      }
+    }
+  },
+  "confirm": {
+    "base": {
+      "all": {
+        "n": 24,
+        "deaths": 13,
+        "disarmed": 11,
+        "wins": 1,
+        "observedSeconds": 525.6999999999845,
+        "bloodLoss": 0.2725037484282451,
+        "limbLoss": 0.9452535490535072,
+        "concussion": 0.5175229413766648,
+        "downTime": 3.4909722222222577,
+        "blockCost": 8.15625,
+        "hits": 332,
+        "cuts": 167
+      },
+      "reactive": {
+        "n": 12,
+        "deaths": 7,
+        "disarmed": 5,
+        "wins": 0,
+        "observedSeconds": 264.9416666666589,
+        "bloodLoss": 0.24084058096298203,
+        "limbLoss": 0.9762588262767062,
+        "concussion": 0.6896691277464644,
+        "downTime": 3.449305555555592,
+        "blockCost": 10.5,
+        "hits": 187,
+        "cuts": 83
+      },
+      "exchange": {
+        "n": 12,
+        "deaths": 6,
+        "disarmed": 6,
+        "wins": 1,
+        "observedSeconds": 260.7583333333257,
+        "bloodLoss": 0.30416691589350814,
+        "limbLoss": 0.9142482718303082,
+        "concussion": 0.34537675500686493,
+        "downTime": 3.532638888888922,
+        "blockCost": 5.8125,
+        "hits": 145,
+        "cuts": 84
+      }
+    },
+    "inside": {
+      "all": {
+        "n": 24,
+        "deaths": 13,
+        "disarmed": 11,
+        "wins": 1,
+        "observedSeconds": 531.8416666666508,
+        "bloodLoss": 0.2892544440185087,
+        "limbLoss": 1.078823274217248,
+        "concussion": 0.4631163491015095,
+        "downTime": 4.822916666666663,
+        "blockCost": 7.03125,
+        "hits": 328,
+        "cuts": 176
+      },
+      "reactive": {
+        "n": 12,
+        "deaths": 7,
+        "disarmed": 8,
+        "wins": 0,
+        "observedSeconds": 276.6916666666582,
+        "bloodLoss": 0.3205501659191422,
+        "limbLoss": 1.2453540118022064,
+        "concussion": 0.6171025056418423,
+        "downTime": 5.036111111111167,
+        "blockCost": 6.375,
+        "hits": 220,
+        "cuts": 117
+      },
+      "exchange": {
+        "n": 12,
+        "deaths": 6,
+        "disarmed": 3,
+        "wins": 1,
+        "observedSeconds": 255.14999999999273,
+        "bloodLoss": 0.2579587221178753,
+        "limbLoss": 0.9122925366322897,
+        "concussion": 0.30913019256117663,
+        "downTime": 4.609722222222161,
+        "blockCost": 7.6875,
+        "hits": 108,
+        "cuts": 59
+      }
+    }
+  },
+  "window": {
+    "base|1.1": {
+      "n": 9,
+      "deaths": 0,
+      "disarmed": 0,
+      "wins": 0,
+      "observedSeconds": 14.84999999999997,
+      "bloodLoss": 0.002034084985614316,
+      "limbLoss": 0.024089556959701695,
+      "concussion": 0.1744853170547945,
+      "downTime": 0.3490740740740745,
+      "blockCost": 2.25,
+      "hits": 34,
+      "cuts": 11,
+      "noCutInputs": [
+        0.2,
+        0.225,
+        0.275,
+        0.30000000000000004
+      ],
+      "poseFrames": 0,
+      "outsideReachFrames": 0,
+      "maxPoseReach": 0
+    },
+    "inside|1.1": {
+      "n": 9,
+      "deaths": 0,
+      "disarmed": 0,
+      "wins": 0,
+      "observedSeconds": 14.84999999999997,
+      "bloodLoss": 0.0022276939065789658,
+      "limbLoss": 0.006496004113104446,
+      "concussion": 0.13778848196535,
+      "downTime": 0.23888888888888912,
+      "blockCost": 2.25,
+      "hits": 37,
+      "cuts": 12,
+      "noCutInputs": [
+        0.275
+      ],
+      "poseFrames": 14,
+      "outsideReachFrames": 0,
+      "maxPoseReach": 0.35202069129814134
+    },
+    "base|1.5": {
+      "n": 9,
+      "deaths": 0,
+      "disarmed": 2,
+      "wins": 0,
+      "observedSeconds": 14.84999999999997,
+      "bloodLoss": 0.0026552671577782577,
+      "limbLoss": 0.2222222222222222,
+      "concussion": 0,
+      "downTime": 0,
+      "blockCost": 2.25,
+      "hits": 2,
+      "cuts": 2,
+      "noCutInputs": [
+        0.1,
+        0.125,
+        0.15000000000000002,
+        0.17500000000000002,
+        0.2,
+        0.225,
+        0.30000000000000004
+      ],
+      "poseFrames": 0,
+      "outsideReachFrames": 0,
+      "maxPoseReach": 0
+    },
+    "inside|1.5": {
+      "n": 9,
+      "deaths": 0,
+      "disarmed": 1,
+      "wins": 0,
+      "observedSeconds": 14.84999999999997,
+      "bloodLoss": 0.0015229277112263197,
+      "limbLoss": 0.1112663694170972,
+      "concussion": 0,
+      "downTime": 0,
+      "blockCost": 2.25,
+      "hits": 2,
+      "cuts": 2,
+      "noCutInputs": [
+        0.1,
+        0.125,
+        0.17500000000000002,
+        0.2,
+        0.225,
+        0.275,
+        0.30000000000000004
+      ],
+      "poseFrames": 12,
+      "outsideReachFrames": 0,
+      "maxPoseReach": 0.33420650188229767
+    }
+  },
+  "confirmPairs": [
+    {
+      "seed": 301,
+      "atk": "longsword",
+      "policy": "reactive",
+      "baseAlive": false,
+      "candidateAlive": true,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": -0.18225251206563298,
+      "limbDelta": 1.2090363371258723
+    },
+    {
+      "seed": 301,
+      "atk": "longsword",
+      "policy": "exchange",
+      "baseAlive": false,
+      "candidateAlive": false,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": -0.5436232046172674,
+      "limbDelta": -0.04428681003218449
+    },
+    {
+      "seed": 301,
+      "atk": "qinggang",
+      "policy": "reactive",
+      "baseAlive": false,
+      "candidateAlive": false,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": 0,
+      "limbDelta": 0
+    },
+    {
+      "seed": 301,
+      "atk": "qinggang",
+      "policy": "exchange",
+      "baseAlive": false,
+      "candidateAlive": false,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": 0,
+      "limbDelta": 0
+    },
+    {
+      "seed": 301,
+      "atk": "zweihander",
+      "policy": "reactive",
+      "baseAlive": true,
+      "candidateAlive": true,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": 0.012374451130262143,
+      "limbDelta": -0.02464519263382492
+    },
+    {
+      "seed": 301,
+      "atk": "zweihander",
+      "policy": "exchange",
+      "baseAlive": true,
+      "candidateAlive": true,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": -0.14617053390743406,
+      "limbDelta": -0.9090758916416497
+    },
+    {
+      "seed": 302,
+      "atk": "longsword",
+      "policy": "reactive",
+      "baseAlive": false,
+      "candidateAlive": false,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": 0.4331355336294571,
+      "limbDelta": 0.16905180590445745
+    },
+    {
+      "seed": 302,
+      "atk": "longsword",
+      "policy": "exchange",
+      "baseAlive": true,
+      "candidateAlive": true,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": 0,
+      "limbDelta": 0
+    },
+    {
+      "seed": 302,
+      "atk": "qinggang",
+      "policy": "reactive",
+      "baseAlive": false,
+      "candidateAlive": false,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": 0,
+      "limbDelta": 0
+    },
+    {
+      "seed": 302,
+      "atk": "qinggang",
+      "policy": "exchange",
+      "baseAlive": false,
+      "candidateAlive": false,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": 0,
+      "limbDelta": 0
+    },
+    {
+      "seed": 302,
+      "atk": "zweihander",
+      "policy": "reactive",
+      "baseAlive": true,
+      "candidateAlive": true,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": 0.041670803755097574,
+      "limbDelta": 0.6349279771432101
+    },
+    {
+      "seed": 302,
+      "atk": "zweihander",
+      "policy": "exchange",
+      "baseAlive": true,
+      "candidateAlive": true,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": 0.28282065804664647,
+      "limbDelta": 1.1423980060882852
+    },
+    {
+      "seed": 303,
+      "atk": "longsword",
+      "policy": "reactive",
+      "baseAlive": false,
+      "candidateAlive": false,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": 0,
+      "limbDelta": 0
+    },
+    {
+      "seed": 303,
+      "atk": "longsword",
+      "policy": "exchange",
+      "baseAlive": false,
+      "candidateAlive": false,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": 0,
+      "limbDelta": 0
+    },
+    {
+      "seed": 303,
+      "atk": "qinggang",
+      "policy": "reactive",
+      "baseAlive": false,
+      "candidateAlive": false,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": 0.35024579367414477,
+      "limbDelta": 0.006276760320649943
+    },
+    {
+      "seed": 303,
+      "atk": "qinggang",
+      "policy": "exchange",
+      "baseAlive": false,
+      "candidateAlive": true,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": -0.4830451386036414,
+      "limbDelta": -0.6092098250547516
+    },
+    {
+      "seed": 303,
+      "atk": "zweihander",
+      "policy": "reactive",
+      "baseAlive": true,
+      "candidateAlive": true,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": 0.18712977072862735,
+      "limbDelta": 0.07105447546298294
+    },
+    {
+      "seed": 303,
+      "atk": "zweihander",
+      "policy": "exchange",
+      "baseAlive": false,
+      "candidateAlive": false,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": 0,
+      "limbDelta": 0
+    },
+    {
+      "seed": 304,
+      "atk": "longsword",
+      "policy": "reactive",
+      "baseAlive": true,
+      "candidateAlive": false,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": 0.08209737543845685,
+      "limbDelta": -0.28688129534038964
+    },
+    {
+      "seed": 304,
+      "atk": "longsword",
+      "policy": "exchange",
+      "baseAlive": true,
+      "candidateAlive": false,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": 0.4209997067465495,
+      "limbDelta": 0.8162667343967837
+    },
+    {
+      "seed": 304,
+      "atk": "qinggang",
+      "policy": "reactive",
+      "baseAlive": false,
+      "candidateAlive": false,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": 0,
+      "limbDelta": 0
+    },
+    {
+      "seed": 304,
+      "atk": "qinggang",
+      "policy": "exchange",
+      "baseAlive": true,
+      "candidateAlive": true,
+      "baseWin": true,
+      "candidateWin": true,
+      "bloodDelta": 0,
+      "limbDelta": 0
+    },
+    {
+      "seed": 304,
+      "atk": "zweihander",
+      "policy": "reactive",
+      "baseAlive": true,
+      "candidateAlive": true,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": 0.03211380318350854,
+      "limbDelta": 1.450321358323045
+    },
+    {
+      "seed": 304,
+      "atk": "zweihander",
+      "policy": "exchange",
+      "baseAlive": true,
+      "candidateAlive": true,
+      "baseWin": false,
+      "candidateWin": false,
+      "bloodDelta": -0.08547981297244711,
+      "limbDelta": -0.4195610361327061
+    }
+  ],
+  "verification": [
+    {
+      "name": "baseline-57-exact",
+      "passed": 57
+    },
+    {
+      "name": "school-scope-pairs",
+      "passed": 6
+    },
+    {
+      "name": "release-range-no-attack-charge",
+      "passed": 4
+    },
+    {
+      "name": "browser-node-damage-exact",
+      "passed": 2
+    },
+    {
+      "name": "pose-browser-node-damage-exact",
+      "passed": 2
+    }
+  ],
+  "browser": [
+    {
+      "kind": "gate20",
+      "errors": [],
+      "checks": {
+        "controllerConnected": true,
+        "noOutOfRangeOverride": true,
+        "buttonHolds": true,
+        "recoveryPaused": true,
+        "noAttackChargeWhileGuarding": true,
+        "releaseWorks": true,
+        "recoveryResumes": true,
+        "noSecret": true,
+        "attackBreaksGuard": true
+      }
+    },
+    {
+      "kind": "inside",
+      "errors": [],
+      "checks": {
+        "controllerConnected": true,
+        "noOutOfRangeOverride": true,
+        "buttonHolds": true,
+        "recoveryPaused": true,
+        "noAttackChargeWhileGuarding": true,
+        "releaseWorks": true,
+        "recoveryResumes": true,
+        "noSecret": true,
+        "attackBreaksGuard": true
+      }
+    }
+  ],
+  "counts": {
+    "diagnosticReplays": 40,
+    "singleAttacks": 285,
+    "exploratoryNewEncounters": 64,
+    "independentEncounters": 48,
+    "inputWindow": 36,
+    "scopeTrials": 12,
+    "releaseTrials": 4,
+    "visualNodePairs": 4,
+    "browserButtonChecks": 18
+  },
+  "limits": [
+    "Small fixed command-model sample, not human playtest or population frequencies. Some paired policies share an identical opening; 40 conditions are not 40 independent human games.",
+    "Blood/limb/concussion are separate applied effects, not a single HP score. Compare survival, defeat and exposure too.",
+    "The transition marker is an association. Forced pose changes alter physics and later opponent/player decisions.",
+    "No production source/public game/upstream change; all candidates remain research.",
+    "Initial screenshot run consumed physics RNG through Three object creation; excluded pilot preserved. Final render uses isolated visual RNG and Node/browser damage agrees exactly."
+  ]
+}

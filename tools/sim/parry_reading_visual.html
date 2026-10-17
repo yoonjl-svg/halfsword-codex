@@ -1,0 +1,26 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><title>막기 읽기 물리 실험</title><link rel="icon" href="data:,">
+<style>
+body{margin:0;background:#202329;color:#e7dcc6;font:19px sans-serif;padding:28px}h1{font-size:27px;margin:0 0 10px}p{font-size:16px;color:#bfb7a7;margin:8px 0 20px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.card{background:#2a2e34;padding:12px;border:1px solid #575a60}h2{font-size:20px;margin:0 0 8px}img{width:100%;display:block}.meta{font-size:15px;margin:9px 0 0;color:#ded0b6}footer{font-size:15px;color:#c1b6a2;margin-top:17px}
+</style><h1>막기 읽기 연구 · 같은 공격, 같은 시각</h1><p>일본 막기 / 상대 롱소드 내려베기 / 간격 1.4m · 실제 게임 모델과 물리 엔진의 실험 장면</p><main class="grid" id="shots"></main><footer>후보는 시험 전용입니다. 자세를 오래 유지하는 것만으로 실제 방어가 좋아지는지는 별도 검증합니다.</footer>
+<script>window.process={env:{READ_SCOPE:'center'}};</script>
+<script type="module">
+import * as THREE from 'three';
+import { trial } from './parry_reading_trials.mjs';
+import { ResearchGuard } from './parry_reading_guard.mjs';
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});
+renderer.setSize(650,390);renderer.setPixelRatio(1);renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.setClearColor(0x45464a);renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.2;
+const camera=new THREE.PerspectiveCamera(35,650/390,.05,40);
+camera.position.set(-1.6,2.35,4.7);camera.lookAt(0,1.1,0);
+const marks=[1.15,1.30]; const captures=[];
+for(const candidate of [false,true]){
+ let index=0,initialized=false;
+ trial({name:'oberhau',cfg:'uchigatana',atk:'longsword',gap:1.4,held:true,Guard:candidate?ResearchGuard:undefined,onFrame(G,guard){
+  const scene=G.player.scene;
+  if(!initialized){initialized=true;scene.add(new THREE.HemisphereLight(0xfff8e8,0x4e5060,2.1));const sun=new THREE.DirectionalLight(0xfff2d2,2.5);sun.position.set(-3,6,5);scene.add(sun);const floor=new THREE.Mesh(new THREE.PlaneGeometry(12,12),new THREE.MeshStandardMaterial({color:0x5d5b54,roughness:1}));floor.rotation.x=-Math.PI/2;floor.position.y=-.005;scene.add(floor);const grid=new THREE.GridHelper(12,24,0x999388,0x737069);grid.position.y=.001;scene.add(grid);}
+  if(index<marks.length&&G.t+1e-8>=marks[index]){G.player.syncMeshes();G.enemy.syncMeshes();renderer.render(scene,camera);captures.push({candidate,t:marks[index],mode:guard.mode,line:guard.line,cover:G.player.skill._cover?.w??0,image:renderer.domElement.toDataURL()});index++;}
+ }});
+}
+for(const t of marks)for(const candidate of [false,true]){const c=captures.find(x=>x.t===t&&x.candidate===candidate);const el=document.createElement('article');el.className='card';const h=document.createElement('h2');h.textContent=`${candidate?'후보 H3b':'현재 기준판'} · ${t.toFixed(2)}초`;const img=new Image();img.src=c.image;const meta=document.createElement('div');meta.className='meta';meta.textContent=`${c.mode==='defend'?'적극 막기 유지':'대기 상태'} · ${c.line} · 자세 적용 ${Math.round(c.cover*100)}%`;el.append(h,img,meta);document.querySelector('#shots').append(el);}
+window.result=captures.map(({image,...r})=>r);window.ready=true;
+</script></html>

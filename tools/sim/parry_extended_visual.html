@@ -1,0 +1,27 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><title>막기 확장 연구 · 실제 엔진 비교</title><link rel="icon" href="data:,">
+<style>
+body{margin:0;background:#202329;color:#e7dcc6;font:18px sans-serif;padding:24px}h1{font-size:25px;margin:0 0 8px}p{font-size:15px;color:#c8bfaf;margin:8px 0 16px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{background:#2a2e34;padding:12px;border:1px solid #575a60}h2{font-size:18px;margin:0 0 8px}img{width:100%;display:block}.meta{font-size:15px;margin:8px 0 0;color:#ded0b6}footer{font-size:14px;color:#c1b6a2;margin-top:14px}
+</style><h1>막기 확장 연구 · 개선과 회귀를 함께 확인</h1><p>실제 게임 모델·물리 엔진의 시험 장면 · 상대 롱소드 올려베기 · 같은 입력·같은 시각 1.267초</p><main class="grid" id="shots"></main><footer>연구용 로컬 실험장입니다. 위쪽은 일본 1.6m, 아래쪽은 동방 1.8m. 결과는 해당 공격 전체의 칼날 상처 유무입니다.</footer>
+<script>window.process={env:{READ_KIND:'rise'}};</script>
+<script type="module">
+import * as THREE from 'three';
+import {trial} from './parry_reading_trials.mjs';
+import {ExtendedGuard} from './parry_extended_guard.mjs';
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});
+renderer.setSize(580,330);renderer.setPixelRatio(1);renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.setClearColor(0x45464a);renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.2;
+const camera=new THREE.PerspectiveCamera(35,580/330,.05,40);
+camera.position.set(-1.6,2.35,4.7);camera.lookAt(0,1.1,0);
+const captures=[];
+for(const cfg of ['uchigatana','qinggang'])for(const candidate of [false,true]) {
+ let initialized=false,capture=null;
+ const r=trial({name:'unterhau',cfg,atk:'longsword',gap:cfg==='uchigatana'?1.6:1.8,held:true,Guard:candidate?ExtendedGuard:undefined,onFrame(G,guard){
+  const scene=G.player.scene;
+  if(!initialized){initialized=true;scene.add(new THREE.HemisphereLight(0xfff8e8,0x4e5060,2.1));const sun=new THREE.DirectionalLight(0xfff2d2,2.5);sun.position.set(-3,6,5);scene.add(sun);const floor=new THREE.Mesh(new THREE.PlaneGeometry(12,12),new THREE.MeshStandardMaterial({color:0x5d5b54,roughness:1}));floor.rotation.x=-Math.PI/2;floor.position.y=-.005;scene.add(floor);const grid=new THREE.GridHelper(12,24,0x999388,0x737069);grid.position.y=.001;scene.add(grid);}
+  if(!capture&&G.t+1e-8>=1.2666666667){G.player.syncMeshes();G.enemy.syncMeshes();renderer.render(scene,camera);capture={cfg,candidate,t:G.t,line:guard.line,image:renderer.domElement.toDataURL()};}
+ }});
+ captures.push({...capture,injured:r.injured,wounds:r.wounds.filter(w=>w.type!=='blunt')});
+}
+for(const c of captures){const el=document.createElement('article');el.className='card';const h=document.createElement('h2');h.textContent=`${c.cfg==='uchigatana'?'일본':'동방'} · ${c.candidate?'후보 E: 낮은 막기 유지':'기존 막기'}`;const img=new Image();img.src=c.image;const meta=document.createElement('div');meta.className='meta';meta.textContent=`${c.line} · ${c.injured?'이 공격에서 팔에 상처 발생':'이 공격에서 칼날 상처 없음'}`;el.append(h,img,meta);document.querySelector('#shots').append(el);}
+window.result=captures.map(({image,...r})=>r);window.ready=true;
+</script></html>

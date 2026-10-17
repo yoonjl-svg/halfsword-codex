@@ -1,0 +1,1058 @@
+{
+  "baseSha": "f21266d6bcb3c44c02e0bd365a68cda5416ad6d1",
+  "adopted": false,
+  "scope": "research only; no production files changed",
+  "definitions": {
+    "injured": "at least one non-blunt wound; not all damage",
+    "switches": "actual chronological line transitions after .6s, including idle guard lines",
+    "weights": "frequency weights from MSG-S-012; all trials including misses remain in denominator",
+    "contactV2": "actual strike() call; pair not observed for >2.5 ticks marks new episode; contact-point relative velocity from cached pre-step rigid bodies; 2.5 m/s filters moving contacts"
+  },
+  "weights": {
+    "zornhau": 129,
+    "zornhauL": 73,
+    "stichPflug": 45,
+    "unterhau": 43,
+    "zuoyi": 31,
+    "unterhauL": 30,
+    "oberhau": 23,
+    "talhoReves": 21,
+    "stichOchsL": 16,
+    "stichOchs": 15,
+    "zwerch": 13,
+    "찌르기→베기": 12,
+    "talhoRodeado": 12,
+    "zwerchL": 11,
+    "hirakiGiri": 10,
+    "stichPflugL": 6,
+    "tsubameGaeshi": 6,
+    "inquartata": 5,
+    "위→다리": 5
+  },
+  "halfA": [
+    {
+      "cfg": "uchigatana",
+      "n": 228,
+      "baseInjured": 17,
+      "candidateInjured": 19,
+      "newHits": [
+        "uchigatana|longsword|위→다리|1.2",
+        "uchigatana|rapier|oberhau|1.6",
+        "uchigatana|rapier|oberhau|1.8"
+      ],
+      "saved": [
+        "uchigatana|longsword|위→다리|1.4"
+      ],
+      "net": 2,
+      "baseWeighted": 7.608695652173913,
+      "candidateWeighted": 8.36627140974967,
+      "weightedDelta": 0.7575757575757569,
+      "zornNew": 0
+    },
+    {
+      "cfg": "zweihander",
+      "n": 228,
+      "baseInjured": 25,
+      "candidateInjured": 23,
+      "newHits": [],
+      "saved": [
+        "zweihander|longsword|oberhau|1.6",
+        "zweihander|zweihander|oberhau|1.2"
+      ],
+      "net": -2,
+      "baseWeighted": 10.408432147562582,
+      "candidateWeighted": 9.650856389986824,
+      "weightedDelta": -0.7575757575757578,
+      "zornNew": 0
+    },
+    {
+      "cfg": "qinggang",
+      "n": 228,
+      "baseInjured": 17,
+      "candidateInjured": 16,
+      "newHits": [
+        "qinggang|longsword|oberhau|1.6"
+      ],
+      "saved": [
+        "qinggang|longsword|oberhau|1.2",
+        "qinggang|longsword|oberhau|1.4"
+      ],
+      "net": -1,
+      "baseWeighted": 5.895915678524374,
+      "candidateWeighted": 5.517127799736495,
+      "weightedDelta": -0.3787878787878789,
+      "zornNew": 0
+    },
+    {
+      "cfg": "longsword",
+      "n": 228,
+      "baseInjured": 21,
+      "candidateInjured": 21,
+      "newHits": [],
+      "saved": [],
+      "net": 0,
+      "baseWeighted": 11.462450592885375,
+      "candidateWeighted": 11.462450592885375,
+      "weightedDelta": 0,
+      "zornNew": 0
+    },
+    {
+      "cfg": "rapier",
+      "n": 228,
+      "baseInjured": 14,
+      "candidateInjured": 13,
+      "newHits": [],
+      "saved": [
+        "rapier|longsword|tsubameGaeshi|1.2"
+      ],
+      "net": -1,
+      "baseWeighted": 6.571146245059288,
+      "candidateWeighted": 6.472332015810276,
+      "weightedDelta": -0.09881422924901173,
+      "zornNew": 0
+    },
+    {
+      "cfg": "longsword:basic",
+      "n": 228,
+      "baseInjured": 24,
+      "candidateInjured": 23,
+      "newHits": [],
+      "saved": [
+        "longsword:basic|longsword|oberhau|1.6"
+      ],
+      "net": -1,
+      "baseWeighted": 13.455204216073781,
+      "candidateWeighted": 13.076416337285902,
+      "weightedDelta": -0.3787878787878789,
+      "zornNew": 0
+    },
+    {
+      "cfg": "uchigatana:nocover",
+      "n": 228,
+      "baseInjured": 16,
+      "candidateInjured": 14,
+      "newHits": [],
+      "saved": [
+        "uchigatana:nocover|longsword|위→다리|1.4",
+        "uchigatana:nocover|longsword|위→다리|1.8"
+      ],
+      "net": -2,
+      "baseWeighted": 6.801712779973649,
+      "candidateWeighted": 6.637022397891963,
+      "weightedDelta": -0.16469038208168651,
+      "zornNew": 0
+    }
+  ],
+  "screen": {
+    "h3a": [
+      {
+        "cfg": "uchigatana",
+        "n": 12,
+        "baseInjured": 3,
+        "candidateInjured": 3,
+        "newHits": [
+          "uchigatana|longsword|위→다리|1.2"
+        ],
+        "saved": [
+          "uchigatana|longsword|unterhau|1.6"
+        ],
+        "net": 0,
+        "baseWeighted": 17.846153846153847,
+        "candidateWeighted": 12,
+        "weightedDelta": -5.846153846153847,
+        "zornNew": 0
+      },
+      {
+        "cfg": "zweihander",
+        "n": 12,
+        "baseInjured": 5,
+        "candidateInjured": 5,
+        "newHits": [],
+        "saved": [],
+        "net": 0,
+        "baseWeighted": 23.23076923076923,
+        "candidateWeighted": 23.23076923076923,
+        "weightedDelta": 0,
+        "zornNew": 0
+      },
+      {
+        "cfg": "qinggang",
+        "n": 12,
+        "baseInjured": 2,
+        "candidateInjured": 2,
+        "newHits": [],
+        "saved": [],
+        "net": 0,
+        "baseWeighted": 15.846153846153847,
+        "candidateWeighted": 15.846153846153847,
+        "weightedDelta": 0,
+        "zornNew": 0
+      },
+      {
+        "cfg": "longsword",
+        "n": 12,
+        "baseInjured": 4,
+        "candidateInjured": 4,
+        "newHits": [],
+        "saved": [],
+        "net": 0,
+        "baseWeighted": 35.69230769230769,
+        "candidateWeighted": 35.69230769230769,
+        "weightedDelta": 0,
+        "zornNew": 0
+      },
+      {
+        "cfg": "rapier",
+        "n": 12,
+        "baseInjured": 2,
+        "candidateInjured": 3,
+        "newHits": [
+          "rapier|longsword|zornhauL|1.2"
+        ],
+        "saved": [],
+        "net": 1,
+        "baseWeighted": 11.23076923076923,
+        "candidateWeighted": 22.46153846153846,
+        "weightedDelta": 11.23076923076923,
+        "zornNew": 1
+      },
+      {
+        "cfg": "longsword:basic",
+        "n": 12,
+        "baseInjured": 5,
+        "candidateInjured": 5,
+        "newHits": [],
+        "saved": [],
+        "net": 0,
+        "baseWeighted": 42.30769230769231,
+        "candidateWeighted": 42.30769230769231,
+        "weightedDelta": 0,
+        "zornNew": 0
+      },
+      {
+        "cfg": "uchigatana:nocover",
+        "n": 12,
+        "baseInjured": 3,
+        "candidateInjured": 3,
+        "newHits": [
+          "uchigatana:nocover|longsword|zornhau|1.2"
+        ],
+        "saved": [
+          "uchigatana:nocover|longsword|unterhau|1.6"
+        ],
+        "net": 0,
+        "baseWeighted": 17.846153846153847,
+        "candidateWeighted": 31.076923076923077,
+        "weightedDelta": 13.23076923076923,
+        "zornNew": 1
+      }
+    ],
+    "h3c": [
+      {
+        "cfg": "uchigatana",
+        "n": 12,
+        "baseInjured": 3,
+        "candidateInjured": 4,
+        "newHits": [
+          "uchigatana|longsword|위→다리|1.2"
+        ],
+        "saved": [],
+        "net": 1,
+        "baseWeighted": 17.846153846153847,
+        "candidateWeighted": 18.615384615384617,
+        "weightedDelta": 0.76923076923077,
+        "zornNew": 0
+      },
+      {
+        "cfg": "zweihander",
+        "n": 12,
+        "baseInjured": 5,
+        "candidateInjured": 5,
+        "newHits": [],
+        "saved": [],
+        "net": 0,
+        "baseWeighted": 23.23076923076923,
+        "candidateWeighted": 23.23076923076923,
+        "weightedDelta": 0,
+        "zornNew": 0
+      },
+      {
+        "cfg": "qinggang",
+        "n": 12,
+        "baseInjured": 2,
+        "candidateInjured": 2,
+        "newHits": [],
+        "saved": [],
+        "net": 0,
+        "baseWeighted": 15.846153846153847,
+        "candidateWeighted": 15.846153846153847,
+        "weightedDelta": 0,
+        "zornNew": 0
+      },
+      {
+        "cfg": "longsword",
+        "n": 12,
+        "baseInjured": 4,
+        "candidateInjured": 4,
+        "newHits": [],
+        "saved": [],
+        "net": 0,
+        "baseWeighted": 35.69230769230769,
+        "candidateWeighted": 35.69230769230769,
+        "weightedDelta": 0,
+        "zornNew": 0
+      },
+      {
+        "cfg": "rapier",
+        "n": 12,
+        "baseInjured": 2,
+        "candidateInjured": 2,
+        "newHits": [],
+        "saved": [],
+        "net": 0,
+        "baseWeighted": 11.23076923076923,
+        "candidateWeighted": 11.23076923076923,
+        "weightedDelta": 0,
+        "zornNew": 0
+      },
+      {
+        "cfg": "longsword:basic",
+        "n": 12,
+        "baseInjured": 5,
+        "candidateInjured": 5,
+        "newHits": [],
+        "saved": [],
+        "net": 0,
+        "baseWeighted": 42.30769230769231,
+        "candidateWeighted": 42.30769230769231,
+        "weightedDelta": 0,
+        "zornNew": 0
+      },
+      {
+        "cfg": "uchigatana:nocover",
+        "n": 12,
+        "baseInjured": 3,
+        "candidateInjured": 3,
+        "newHits": [],
+        "saved": [],
+        "net": 0,
+        "baseWeighted": 17.846153846153847,
+        "candidateWeighted": 17.846153846153847,
+        "weightedDelta": 0,
+        "zornNew": 0
+      }
+    ]
+  },
+  "contact": {
+    "baseline": {
+      "uchigatana": {
+        "n": 26,
+        "clash": 13,
+        "defend": 0,
+        "covered": 0,
+        "injured": 1,
+        "nagBouts": 9
+      },
+      "longsword": {
+        "n": 26,
+        "clash": 19,
+        "defend": 10,
+        "covered": 7,
+        "injured": 7,
+        "nagBouts": 0
+      },
+      "qinggang": {
+        "n": 26,
+        "clash": 24,
+        "defend": 13,
+        "covered": 12,
+        "injured": 10,
+        "nagBouts": 0
+      }
+    },
+    "h3a": {
+      "uchigatana": {
+        "n": 26,
+        "clash": 11,
+        "covered": 11,
+        "coveredOnOriginalContacts": 0,
+        "injured": 1,
+        "nagBouts": 11
+      },
+      "longsword": {
+        "n": 26,
+        "clash": 8,
+        "covered": 8,
+        "coveredOnOriginalContacts": 7,
+        "injured": 6,
+        "nagBouts": 0
+      },
+      "qinggang": {
+        "n": 26,
+        "clash": 16,
+        "covered": 15,
+        "coveredOnOriginalContacts": 15,
+        "injured": 6,
+        "nagBouts": 0
+      }
+    },
+    "h3c": {
+      "uchigatana": {
+        "n": 26,
+        "clash": 11,
+        "covered": 11,
+        "coveredOnOriginalContacts": 0,
+        "injured": 1,
+        "nagBouts": 11
+      },
+      "longsword": {
+        "n": 26,
+        "clash": 8,
+        "covered": 8,
+        "coveredOnOriginalContacts": 7,
+        "injured": 6,
+        "nagBouts": 0
+      },
+      "qinggang": {
+        "n": 26,
+        "clash": 18,
+        "covered": 17,
+        "coveredOnOriginalContacts": 15,
+        "injured": 11,
+        "nagBouts": 0
+      }
+    }
+  },
+  "bodyRiskB": {
+    "longsword": {
+      "n": 13,
+      "injured": 6,
+      "injuredGaps": [
+        1.1,
+        1.15,
+        1.2,
+        1.3,
+        1.35,
+        1.5
+      ],
+      "freshMovingBodyTouch": 6
+    },
+    "zweihander": {
+      "n": 13,
+      "injured": 0,
+      "injuredGaps": [],
+      "freshMovingBodyTouch": 0
+    }
+  },
+  "offlineV2": [
+    {
+      "grace": 0.15,
+      "n": 228,
+      "contacts": 78,
+      "coveredAtContact": 42,
+      "prepTriggers": 0,
+      "byAttack": {
+        "zornhau": {
+          "contact": 2,
+          "covered": 2,
+          "trigger": 12
+        },
+        "zornhauL": {
+          "contact": 2,
+          "covered": 2,
+          "trigger": 12
+        },
+        "stichPflug": {
+          "contact": 5,
+          "covered": 0,
+          "trigger": 0
+        },
+        "unterhau": {
+          "contact": 5,
+          "covered": 5,
+          "trigger": 12
+        },
+        "zuoyi": {
+          "contact": 2,
+          "covered": 0,
+          "trigger": 0
+        },
+        "unterhauL": {
+          "contact": 7,
+          "covered": 4,
+          "trigger": 12
+        },
+        "oberhau": {
+          "contact": 4,
+          "covered": 4,
+          "trigger": 12
+        },
+        "talhoReves": {
+          "contact": 4,
+          "covered": 4,
+          "trigger": 12
+        },
+        "stichOchsL": {
+          "contact": 6,
+          "covered": 0,
+          "trigger": 0
+        },
+        "stichOchs": {
+          "contact": 2,
+          "covered": 0,
+          "trigger": 0
+        },
+        "zwerch": {
+          "contact": 4,
+          "covered": 0,
+          "trigger": 0
+        },
+        "찌르기→베기": {
+          "contact": 10,
+          "covered": 10,
+          "trigger": 12
+        },
+        "talhoRodeado": {
+          "contact": 2,
+          "covered": 2,
+          "trigger": 12
+        },
+        "zwerchL": {
+          "contact": 3,
+          "covered": 0,
+          "trigger": 0
+        },
+        "hirakiGiri": {
+          "contact": 2,
+          "covered": 2,
+          "trigger": 12
+        },
+        "stichPflugL": {
+          "contact": 5,
+          "covered": 0,
+          "trigger": 0
+        },
+        "tsubameGaeshi": {
+          "contact": 5,
+          "covered": 4,
+          "trigger": 12
+        },
+        "inquartata": {
+          "contact": 5,
+          "covered": 0,
+          "trigger": 0
+        },
+        "위→다리": {
+          "contact": 3,
+          "covered": 3,
+          "trigger": 12
+        }
+      }
+    },
+    {
+      "grace": 0.25,
+      "n": 228,
+      "contacts": 78,
+      "coveredAtContact": 45,
+      "prepTriggers": 0,
+      "byAttack": {
+        "zornhau": {
+          "contact": 2,
+          "covered": 2,
+          "trigger": 12
+        },
+        "zornhauL": {
+          "contact": 2,
+          "covered": 2,
+          "trigger": 12
+        },
+        "stichPflug": {
+          "contact": 5,
+          "covered": 0,
+          "trigger": 0
+        },
+        "unterhau": {
+          "contact": 5,
+          "covered": 5,
+          "trigger": 12
+        },
+        "zuoyi": {
+          "contact": 2,
+          "covered": 0,
+          "trigger": 0
+        },
+        "unterhauL": {
+          "contact": 7,
+          "covered": 6,
+          "trigger": 12
+        },
+        "oberhau": {
+          "contact": 4,
+          "covered": 4,
+          "trigger": 12
+        },
+        "talhoReves": {
+          "contact": 4,
+          "covered": 4,
+          "trigger": 12
+        },
+        "stichOchsL": {
+          "contact": 6,
+          "covered": 0,
+          "trigger": 0
+        },
+        "stichOchs": {
+          "contact": 2,
+          "covered": 0,
+          "trigger": 0
+        },
+        "zwerch": {
+          "contact": 4,
+          "covered": 0,
+          "trigger": 0
+        },
+        "찌르기→베기": {
+          "contact": 10,
+          "covered": 10,
+          "trigger": 12
+        },
+        "talhoRodeado": {
+          "contact": 2,
+          "covered": 2,
+          "trigger": 12
+        },
+        "zwerchL": {
+          "contact": 3,
+          "covered": 0,
+          "trigger": 0
+        },
+        "hirakiGiri": {
+          "contact": 2,
+          "covered": 2,
+          "trigger": 12
+        },
+        "stichPflugL": {
+          "contact": 5,
+          "covered": 0,
+          "trigger": 0
+        },
+        "tsubameGaeshi": {
+          "contact": 5,
+          "covered": 5,
+          "trigger": 12
+        },
+        "inquartata": {
+          "contact": 5,
+          "covered": 0,
+          "trigger": 0
+        },
+        "위→다리": {
+          "contact": 3,
+          "covered": 3,
+          "trigger": 12
+        }
+      }
+    },
+    {
+      "grace": 0.35,
+      "n": 228,
+      "contacts": 78,
+      "coveredAtContact": 45,
+      "prepTriggers": 0,
+      "byAttack": {
+        "zornhau": {
+          "contact": 2,
+          "covered": 2,
+          "trigger": 12
+        },
+        "zornhauL": {
+          "contact": 2,
+          "covered": 2,
+          "trigger": 12
+        },
+        "stichPflug": {
+          "contact": 5,
+          "covered": 0,
+          "trigger": 0
+        },
+        "unterhau": {
+          "contact": 5,
+          "covered": 5,
+          "trigger": 12
+        },
+        "zuoyi": {
+          "contact": 2,
+          "covered": 0,
+          "trigger": 0
+        },
+        "unterhauL": {
+          "contact": 7,
+          "covered": 6,
+          "trigger": 12
+        },
+        "oberhau": {
+          "contact": 4,
+          "covered": 4,
+          "trigger": 12
+        },
+        "talhoReves": {
+          "contact": 4,
+          "covered": 4,
+          "trigger": 12
+        },
+        "stichOchsL": {
+          "contact": 6,
+          "covered": 0,
+          "trigger": 0
+        },
+        "stichOchs": {
+          "contact": 2,
+          "covered": 0,
+          "trigger": 0
+        },
+        "zwerch": {
+          "contact": 4,
+          "covered": 0,
+          "trigger": 0
+        },
+        "찌르기→베기": {
+          "contact": 10,
+          "covered": 10,
+          "trigger": 12
+        },
+        "talhoRodeado": {
+          "contact": 2,
+          "covered": 2,
+          "trigger": 12
+        },
+        "zwerchL": {
+          "contact": 3,
+          "covered": 0,
+          "trigger": 0
+        },
+        "hirakiGiri": {
+          "contact": 2,
+          "covered": 2,
+          "trigger": 12
+        },
+        "stichPflugL": {
+          "contact": 5,
+          "covered": 0,
+          "trigger": 0
+        },
+        "tsubameGaeshi": {
+          "contact": 5,
+          "covered": 5,
+          "trigger": 12
+        },
+        "inquartata": {
+          "contact": 5,
+          "covered": 0,
+          "trigger": 0
+        },
+        "위→다리": {
+          "contact": 3,
+          "covered": 3,
+          "trigger": 12
+        }
+      }
+    }
+  ],
+  "flow": {
+    "base": {
+      "seeds": 10,
+      "secondsPerSeed": 120,
+      "fresh": 950,
+      "flows": 16,
+      "contactsPerFlow": 59.375,
+      "rows": [
+        {
+          "seed": 1,
+          "fresh": 90,
+          "flows": 0
+        },
+        {
+          "seed": 2,
+          "fresh": 68,
+          "flows": 2
+        },
+        {
+          "seed": 3,
+          "fresh": 128,
+          "flows": 3
+        },
+        {
+          "seed": 4,
+          "fresh": 100,
+          "flows": 1
+        },
+        {
+          "seed": 5,
+          "fresh": 75,
+          "flows": 2
+        },
+        {
+          "seed": 6,
+          "fresh": 97,
+          "flows": 0
+        },
+        {
+          "seed": 7,
+          "fresh": 95,
+          "flows": 3
+        },
+        {
+          "seed": 8,
+          "fresh": 93,
+          "flows": 1
+        },
+        {
+          "seed": 9,
+          "fresh": 105,
+          "flows": 3
+        },
+        {
+          "seed": 10,
+          "fresh": 99,
+          "flows": 1
+        }
+      ]
+    },
+    "h3b": {
+      "seeds": 10,
+      "secondsPerSeed": 120,
+      "fresh": 977,
+      "flows": 20,
+      "contactsPerFlow": 48.85,
+      "rows": [
+        {
+          "seed": 1,
+          "fresh": 98,
+          "flows": 0
+        },
+        {
+          "seed": 2,
+          "fresh": 80,
+          "flows": 3
+        },
+        {
+          "seed": 3,
+          "fresh": 91,
+          "flows": 2
+        },
+        {
+          "seed": 4,
+          "fresh": 102,
+          "flows": 1
+        },
+        {
+          "seed": 5,
+          "fresh": 99,
+          "flows": 2
+        },
+        {
+          "seed": 6,
+          "fresh": 122,
+          "flows": 0
+        },
+        {
+          "seed": 7,
+          "fresh": 115,
+          "flows": 5
+        },
+        {
+          "seed": 8,
+          "fresh": 88,
+          "flows": 1
+        },
+        {
+          "seed": 9,
+          "fresh": 88,
+          "flows": 5
+        },
+        {
+          "seed": 10,
+          "fresh": 94,
+          "flows": 1
+        }
+      ]
+    }
+  },
+  "switching": {
+    "base": 380,
+    "h3a-screen": 280,
+    "h3b-map": 374,
+    "h3c-screen": 373
+  },
+  "instrumentationMismatches": [],
+  "preparation": {
+    "base": [
+      {
+        "name": "oberhau",
+        "gap": 1.4,
+        "injured": false,
+        "switches": 3,
+        "readFrames": 0,
+        "defendSeconds": 0.3
+      },
+      {
+        "name": "oberhau",
+        "gap": 2.4,
+        "injured": false,
+        "switches": 0,
+        "readFrames": 0,
+        "defendSeconds": 0
+      },
+      {
+        "name": "unterhau",
+        "gap": 1.4,
+        "injured": false,
+        "switches": 2,
+        "readFrames": 0,
+        "defendSeconds": 0.3
+      },
+      {
+        "name": "unterhau",
+        "gap": 2.4,
+        "injured": false,
+        "switches": 1,
+        "readFrames": 0,
+        "defendSeconds": 0
+      },
+      {
+        "name": "stichPflug",
+        "gap": 1.4,
+        "injured": false,
+        "switches": 1,
+        "readFrames": 0,
+        "defendSeconds": 0
+      },
+      {
+        "name": "stichPflug",
+        "gap": 2.4,
+        "injured": false,
+        "switches": 1,
+        "readFrames": 0,
+        "defendSeconds": 0
+      }
+    ],
+    "h3c": [
+      {
+        "name": "oberhau",
+        "gap": 1.4,
+        "injured": false,
+        "switches": 2,
+        "readFrames": 31,
+        "defendSeconds": 0.3333333333333333
+      },
+      {
+        "name": "oberhau",
+        "gap": 2.4,
+        "injured": false,
+        "switches": 2,
+        "readFrames": 31,
+        "defendSeconds": 0.25833333333333336
+      },
+      {
+        "name": "unterhau",
+        "gap": 1.4,
+        "injured": false,
+        "switches": 2,
+        "readFrames": 0,
+        "defendSeconds": 0.3
+      },
+      {
+        "name": "unterhau",
+        "gap": 2.4,
+        "injured": false,
+        "switches": 1,
+        "readFrames": 0,
+        "defendSeconds": 0
+      },
+      {
+        "name": "stichPflug",
+        "gap": 1.4,
+        "injured": false,
+        "switches": 1,
+        "readFrames": 0,
+        "defendSeconds": 0
+      },
+      {
+        "name": "stichPflug",
+        "gap": 2.4,
+        "injured": false,
+        "switches": 1,
+        "readFrames": 0,
+        "defendSeconds": 0
+      }
+    ]
+  },
+  "gates": [
+    {
+      "name": "fights12",
+      "command": [
+        "node",
+        "tools/sim/fights12.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha8": "5dfe035c",
+      "expect": "5dfe035c",
+      "pass": true
+    },
+    {
+      "name": "live_battery",
+      "command": [
+        "node",
+        "tools/sim/live_battery.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha8": "648aca66",
+      "expect": "648aca66",
+      "pass": true
+    },
+    {
+      "name": "finish_thrust",
+      "command": [
+        "node",
+        "tools/sim/finish_thrust.mjs",
+        "1",
+        "--stand"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha8": "2de06c03",
+      "expect": "2de06c03",
+      "pass": true
+    },
+    {
+      "name": "corr",
+      "command": [
+        "node",
+        "tools/sim/corr_s0.mjs",
+        "--limits=on,off",
+        "--scenes=a,b"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha8": "93416af9",
+      "identical": 12,
+      "expect": "IDENTICAL 12",
+      "pass": true
+    },
+    {
+      "name": "weapon_smoke",
+      "command": [
+        "node",
+        "tools/sim/weapon_smoke.mjs"
+      ],
+      "stamina": true,
+      "exit": 0,
+      "sha8": "7085b282",
+      "ok": 23,
+      "expect": "7085b282",
+      "pass": true
+    }
+  ]
+}
