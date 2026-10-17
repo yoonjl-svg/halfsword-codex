@@ -1,0 +1,114 @@
+{
+  "createdAt": "2026-10-17T14:23:08.654781+00:00",
+  "recipientBase": "e92b5a6f3f5a4351712f3182a18c37bff8ee8d36",
+  "codeCommit": "d98fa34d1b98eac11daf9853f9772ec6d428edeb",
+  "gates": [
+    {
+      "name": "fights12",
+      "command": "node tools/sim/fights12.mjs",
+      "bothExit": 0,
+      "baseSha256": "5dfe035ccc206fcc6ccc12fc21c70d85b047c103f8d8fe51ae7647d37488fe7d",
+      "deliverySha256": "5dfe035ccc206fcc6ccc12fc21c70d85b047c103f8d8fe51ae7647d37488fe7d",
+      "exactStdoutEquality": true,
+      "passed": true,
+      "note": "identical output on latest recipient and delivery"
+    },
+    {
+      "name": "live_battery",
+      "command": "node tools/sim/live_battery.mjs",
+      "bothExit": 0,
+      "baseSha256": "648aca6674af94a06ca3530d6352d479f6a96ff3ead6d5cf87b8e303a41adda7",
+      "deliverySha256": "648aca6674af94a06ca3530d6352d479f6a96ff3ead6d5cf87b8e303a41adda7",
+      "exactStdoutEquality": true,
+      "passed": true,
+      "note": "identical output on latest recipient and delivery"
+    },
+    {
+      "name": "finish_thrust-stand",
+      "command": "node tools/sim/finish_thrust.mjs 1 --stand",
+      "bothExit": 0,
+      "baseSha256": "2de06c0349330957cfcd9fb44ab1e7ea58ad70332e1c0431c7781e00344b3e8c",
+      "deliverySha256": "2de06c0349330957cfcd9fb44ab1e7ea58ad70332e1c0431c7781e00344b3e8c",
+      "exactStdoutEquality": true,
+      "passed": true,
+      "note": "identical output on latest recipient and delivery"
+    },
+    {
+      "name": "weapon_smoke",
+      "command": "node tools/sim/weapon_smoke.mjs",
+      "bothExit": 0,
+      "baseSha256": "e06f14ed741ef193062568b76c780df6f597fe2580b7eb0199b9c156e7383c91",
+      "deliverySha256": "e06f14ed741ef193062568b76c780df6f597fe2580b7eb0199b9c156e7383c91",
+      "exactStdoutEquality": true,
+      "passed": true,
+      "note": "identical output on latest recipient and delivery"
+    },
+    {
+      "name": "corr_s0",
+      "command": "node tools/sim/corr_s0.mjs --limits=off,on",
+      "bothExit": 0,
+      "baseSha256": "4d43fe5a78b12dbb673a1a5203895b0da9b64b620a65b79d5f43164126836169",
+      "deliverySha256": "93aada831f64d34ad1bb16d442a8b1cd054f3959d9deeebbead09eb90a484930",
+      "exactStdoutEquality": false,
+      "passed": true,
+      "note": "12/12 IDENTICAL on each; timing text differs"
+    }
+  ],
+  "implementationChecks": 14,
+  "browser": {
+    "viewport": [
+      844,
+      390
+    ],
+    "roles": [
+      "defender",
+      "attacker"
+    ],
+    "errors": 0,
+    "checksPassed": true,
+    "screenshotsViewed": true
+  },
+  "build": {
+    "game": true,
+    "isolatedLab": true
+  },
+  "archiveAndReplay": [
+    {
+      "bundle": "japanese_flow",
+      "filesVerified": 22
+    },
+    {
+      "bundle": "japanese_recovery",
+      "filesVerified": 27
+    },
+    {
+      "bundle": "japanese_flow_redesign",
+      "filesVerified": 77
+    },
+    {
+      "bundle": "japanese_flow_intercept",
+      "filesVerified": 25
+    },
+    {
+      "replay": "trace",
+      "exactParsedEquality": true
+    },
+    {
+      "replay": "horizontal",
+      "exactParsedEquality": true
+    },
+    {
+      "replay": "independent-trace",
+      "exactParsedEquality": true
+    },
+    {
+      "replay": "independent-horizontal",
+      "exactParsedEquality": true
+    }
+  ],
+  "replayConditions": 12,
+  "originalDataComparisons": "parsed JSON exact equality; original source conditions reproduced, not new human balance evidence",
+  "initialCommandCorrection": "The first finish_thrust call omitted 1 --stand and started unnecessary large default sweeps. Stopped both (exit -15); partial outputs/gates.json retained. Correct standard gate finished exit0 on both trees and matched exactly.",
+  "defaultCandidateEnabled": false,
+  "human30SecondNetBenefitConfirmed": false
+}

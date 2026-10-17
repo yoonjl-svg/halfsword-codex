@@ -1,0 +1,81 @@
+[
+  {
+    "name": "upper-horizontal",
+    "valid": true
+  },
+  {
+    "name": "upper-diagonal",
+    "valid": true
+  },
+  {
+    "name": "down-over-arm",
+    "valid": true
+  },
+  {
+    "name": "axial-thrust",
+    "valid": false
+  },
+  {
+    "name": "retreating",
+    "valid": false
+  },
+  {
+    "name": "slow-bind",
+    "valid": false
+  },
+  {
+    "name": "below-waist",
+    "valid": false
+  },
+  {
+    "name": "not-guarding",
+    "valid": false
+  },
+  {
+    "name": "tip-feeds-body",
+    "valid": false
+  },
+  {
+    "name": "contact-identity-and-false-guard",
+    "distinctDefenders": true,
+    "distinctAttackers": true,
+    "brokenRejected": true,
+    "releasedRejected": true
+  },
+  {
+    "name": "contact-window",
+    "continuedAt110ms": true,
+    "expiredAt130ms": true,
+    "recontactAfterSeparation": true,
+    "noRepeatAttack": true
+  },
+  {
+    "name": "attack-attribution-window",
+    "expiredIdRejected": true,
+    "renewedSlowSwingAccepted": true
+  },
+  {
+    "name": "actual-engine-exhaustion",
+    "role": "player",
+    "seconds": 1.6666666666666632,
+    "unlock": -35,
+    "stageBack": [
+      -20,
+      15
+    ],
+    "guardIgnoredOnlyDuringExhaustion": true,
+    "noArmRecovery": true
+  },
+  {
+    "name": "actual-engine-exhaustion",
+    "role": "AI",
+    "seconds": 2.3333333333333277,
+    "unlock": -35,
+    "stageBack": [
+      -20,
+      15
+    ],
+    "guardIgnoredOnlyDuringExhaustion": true,
+    "noArmRecovery": true
+  }
+]
