@@ -1,0 +1,68 @@
+[
+  {
+    "name": "fights12",
+    "command": [
+      "node",
+      "tools/sim/fights12.mjs"
+    ],
+    "stamina": true,
+    "exit": 0,
+    "sha8": "5dfe035c",
+    "expect": "5dfe035c",
+    "pass": true
+  },
+  {
+    "name": "live_battery",
+    "command": [
+      "node",
+      "tools/sim/live_battery.mjs"
+    ],
+    "stamina": true,
+    "exit": 0,
+    "sha8": "648aca66",
+    "expect": "648aca66",
+    "pass": true
+  },
+  {
+    "name": "finish_thrust",
+    "command": [
+      "node",
+      "tools/sim/finish_thrust.mjs",
+      "1",
+      "--stand"
+    ],
+    "stamina": true,
+    "exit": 0,
+    "sha8": "2de06c03",
+    "expect": "2de06c03",
+    "pass": true
+  },
+  {
+    "name": "corr",
+    "command": [
+      "node",
+      "tools/sim/corr_s0.mjs",
+      "--limits=on,off",
+      "--scenes=a,b"
+    ],
+    "stamina": true,
+    "exit": 0,
+    "sha8": "048c471c",
+    "identical": 12,
+    "expect": "IDENTICAL 12",
+    "pass": true
+  },
+  {
+    "name": "weapon_smoke",
+    "command": [
+      "node",
+      "tools/sim/weapon_smoke.mjs"
+    ],
+    "stamina": true,
+    "exit": 0,
+    "sha8": "7085b282",
+    "ok": 23,
+    "expect": "7085b282",
+    "pass": true
+  }
+]
