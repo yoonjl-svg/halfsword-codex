@@ -178,3 +178,8 @@
 | 유파 걸음 | `src/gait.js` `gaitParams`(보폭 규칙 — `*_GAIT.strideK` · 스위치 `GAIT.strideRule` · 이탈리아 고른 짝걸음 덮기 `ITALIAN_GAIT.even` · 스위치 `GAIT.itEven`) · 고른 짝걸음 `update` ③ gate · `fastPeek` · 발소리 `src/sound.js` `BodySounds.update`(gait `leg.tdN`) · 빠른 걸음 `fastBegin`·`update`(이탈리아 박자 걸음 · 독일 간격 잡기 빠른 디딤 `foeWhiff`) · 독일 간격 잡기 잡기 `holdTick`(`src/fighter.js` `driveBalance` 가 부름 — 플레이어만, 스위치 `GAIT.deHold`) — 값은 `src/schools.js` `ITALIAN_GAIT.rhythm` · `TRADITIONS.german.chase`(잡기 시간도 그 `window`) · 헛침 알림은 `src/ai.js` `afterStrike`(AI) · `src/skill.js` `whiffTrack`(사람) · 동방 가벼운 발 `src/fighter.js` `driveBalance` 가속 한도 `lim`(보통 걸음 몫 × 걸음 칸 `light` — 사람·AI 같이, 스위치 `GAIT.cnLight`) — 값은 `src/schools.js` `CHINESE_GAIT.light` · AI 몸은 공격 꼴에서만 — `src/ai.js` `update` 의 `aiLightHold`, 스위치 `GAIT.cnLightAi`) — 값은 `src/schools.js` `CHINESE_GAIT.light` · 첫 걸음 박차기 거는 자리 `src/gait.js` `update` 걷기 시작(뒤 = 무기 유파 독일 `swordArt.tradition` · 옆 = 걸음 칸 `burstSide`(이베리아) — 플레이어만, 스위치 `GAIT.burstDe`) |
 | 걷기 기력(유파별) · 박차기 기력 | `src/stamina.js` `step`(골반 수평 이동 0.62 m 마다 — 값 `src/config.js` `STAMINA.stepDistance`·`stepCosts`, 유파 열쇠 `swordArt.tradition`) · 박차기 `src/gait.js` `fastBegin` → `stamina.burst()`(`STAMINA.pushCost`) · 스위치 `STAMINA.on` · `?stamina=0` |
 | 패시브·속임수·굴림(AI) | `src/ai.js` |
+
+
+## 샛별 일본 흘림 후속 연구 (2026-10-17, 기본 게임 변경 없음)
+
+[흘림 빈도·반격 입력 1차](../research/japanese_flow_20261017/README.md): 6후보 선별 뒤 입력 우선 후보를 독립36조건씩 비교. 사망17→17/36, 찌르기5→4/12·베기7→8/12로 순이득 미확정. 흘림408막기접촉 중14, 26/36조건0회. 공격 입력과 강제 흘림 목표의 겹침은 확인했으나 해제만으로 유효 반격을 확보하지 못했다. 일본 기본 몸꼴/보법·AI·고노센 연결 변경0. 연구 단계이며 표의 실제 해금/역할은 그대로다.
