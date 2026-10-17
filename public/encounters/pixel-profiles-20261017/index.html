@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#22201c">
+<title>Stillness · 도트 프로필 시안</title>
+<style>
+@font-face{font-family:Stillness;src:url('../../fonts/Cinzel-latin.woff2') format('woff2');font-display:swap}
+@font-face{font-family:GameText;src:url('../../fonts/Pretendard-Regular.subset.woff2') format('woff2');font-display:swap}
+:root{color-scheme:dark;font-family:GameText,system-ui,sans-serif;background:#22201c;color:#dfd5c3}
+*{box-sizing:border-box}body{margin:0}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit;color:inherit;cursor:pointer}
+header{max-width:1320px;margin:auto;padding:36px 22px 22px}h1{font:500 clamp(34px,6vw,58px)/1 Stillness,serif;margin:0 0 14px;letter-spacing:.07em}h2{font-size:18px;font-weight:400;margin:0 0 9px}p{color:#b7ae9f;line-height:1.6;margin:0;font-size:14px}
+.gallery{max-width:1320px;margin:0 auto;padding:0 20px 38px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:23px 14px;align-items:start}
+.card{display:block;text-align:left;padding:0;border:0;background:none;min-width:0}.card:focus-visible,.control:focus-visible,a:focus-visible{outline:2px solid #d7bc80;outline-offset:5px}
+.portrait{position:relative;width:100%;aspect-ratio:var(--ratio,1);overflow:hidden;background:#faf5e8}
+.portrait img{position:absolute;top:var(--top,0);left:var(--left,0);width:var(--width,100%);height:var(--height,100%);max-width:none;image-rendering:pixelated}
+.card strong{display:block;margin:9px 0 3px;font-size:15px;font-weight:400;line-height:1.4}.card small{display:block;color:#a99d88;font-size:12px;line-height:1.4}
+footer{max-width:1320px;margin:auto;padding:0 22px 30px;font-size:12px;color:#a99d88}a{color:#d7bc80;text-underline-offset:3px}
+dialog{position:fixed;inset:0;width:min(94vw,650px);max-height:96dvh;margin:auto;padding:13px;border:1px solid #8a7654;background:#25221d;color:#dfd5c3;overflow:auto}
+dialog::backdrop{background:#090807dc}.detail-image{width:min(100%,70dvh);margin:0 auto}.detail-name{font-size:20px;margin:12px 0 4px}.detail-meta{font-size:13px;color:#b7ae9f;line-height:1.5}
+.detail-actions{display:flex;gap:9px;align-items:center;justify-content:space-between;margin-top:14px}.control{background:#332e25;border:1px solid #806c48;padding:8px 13px;font-size:14px}.source{font-size:12px;margin-top:12px}
+.error{max-width:1280px;margin:12px auto;padding:22px;color:#e7c699}
+@media(max-width:1050px){.gallery{grid-template-columns:repeat(4,minmax(0,1fr))}}@media(max-width:680px){header{padding:28px 16px 20px}.gallery{padding:0 14px 30px;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 12px}.card strong{font-size:14px}footer{padding-left:16px}.detail-actions .control{padding:8px 12px}}
+</style>
+<header>
+  <h1>Stillness</h1>
+  <h2>도트 프로필 · 첫 시안</h2>
+  <p>기본 캐릭터 16명과 여행자. 초상화를 누르면 크게 볼 수 있습니다.</p>
+</header>
+<main id="gallery" class="gallery" aria-label="기본 캐릭터 프로필"></main>
+<footer>실제 캐릭터의 머리·복식·소품을 바탕으로 그린 프로필 시안입니다. <a href="../../../">첫 화면으로</a></footer>
+<dialog id="detail" aria-labelledby="detail-name">
+  <div id="detail-image" class="detail-image"></div>
+  <h2 id="detail-name" class="detail-name"></h2>
+  <div id="detail-meta" class="detail-meta"></div>
+  <div class="detail-actions"><button class="control" id="previous" aria-label="이전 캐릭터">← 이전</button><span id="position"></span><button class="control" id="next" aria-label="다음 캐릭터">다음 →</button><button class="control" id="close">닫기</button></div>
+  <div class="source"><a id="original" target="_blank" rel="noopener">원본 시트 보기</a></div>
+</dialog>
+<script type="module">
+const gallery=document.querySelector('#gallery'),dialog=document.querySelector('#detail');
+let rows=[],sheets={},index=0,opener=null;
+function picture(row){
+  const sheet=sheets[row.sheet],box=document.createElement('div'),img=document.createElement('img');
+  const [x,y,w,h]=row.rect||[row.slot*sheet.width/sheet.count,0,sheet.width/sheet.count,sheet.height];
+  box.className='portrait';box.style.setProperty('--ratio',w/h);box.style.setProperty('--left',(-x/w*100)+'%');box.style.setProperty('--top',(-y/h*100)+'%');box.style.setProperty('--width',(sheet.width/w*100)+'%');box.style.setProperty('--height',(sheet.height/h*100)+'%');
+  img.src=sheet.file;img.alt=row.name+' 도트 프로필';img.decoding='async';box.append(img);return box;
+}
+function show(next){index=(next+rows.length)%rows.length;const row=rows[index];document.querySelector('#detail-image').replaceChildren(picture(row));document.querySelector('#detail-name').textContent=row.name;document.querySelector('#detail-meta').textContent=row.epithet||'';document.querySelector('#position').textContent=(index+1)+' / '+rows.length;document.querySelector('#original').href=sheets[row.sheet].file;}
+function close(){dialog.close();document.body.style.overflow='';opener?.focus();}
+document.querySelector('#close').onclick=close;document.querySelector('#previous').onclick=()=>show(index-1);document.querySelector('#next').onclick=()=>show(index+1);
+dialog.addEventListener('cancel',e=>{e.preventDefault();close()});dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)close()}});
+dialog.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();show(index+(e.key==='ArrowLeft'?-1:1))}});
+try{
+ const response=await fetch('profiles.json');if(!response.ok)throw Error('profiles '+response.status);const data=await response.json();rows=data.characters;sheets=data.sheets;
+ rows.forEach((row,i)=>{const button=document.createElement('button');button.className='card';button.setAttribute('aria-label',row.name+' 크게 보기');button.append(picture(row));const name=document.createElement('strong'),sub=document.createElement('small');name.textContent=row.name;sub.textContent=row.epithet||'';button.append(name,sub);button.onclick=()=>{opener=button;show(i);dialog.showModal();document.body.style.overflow='hidden';document.querySelector('#close').focus()};gallery.append(button)});
+}catch(error){const p=document.createElement('p');p.className='error';p.textContent='프로필을 불러오지 못했습니다. 잠시 뒤 새로고침해 주세요.';gallery.replaceWith(p);console.error(error)}
+</script>
+</html>
