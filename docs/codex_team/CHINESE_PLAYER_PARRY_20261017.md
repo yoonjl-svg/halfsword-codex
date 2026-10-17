@@ -1,5 +1,7 @@
 # 동방 플레이어 막기 안정성 연구 인계 · 2026-10-17
 
+> 후속 완료: [칼 경로·실제 도착 연구](CHINESE_PARRY_PATH_20261017.md). 아래 칼날 상처 없음은 완전 방어 성공이 아니며 둔타가 남을 수 있다. 후속은 실제 효과 있는 몸 피격/입력 폭도 분리한다.
+
 사용자 최신 지시: **인간 플레이어 경험이 밸런스 기준**, AI 대련은 보조. 동방은 적정 타이밍 방어 성공 뒤 비기 자동 연결 예정이지만 이번에는 알고만 있고 구현하지 않는다. 동방 안정성을 먼저 연구한다.
 
 결과 `204ef85738f873e59c83c13f1dbda1286023bc63`, 우리 포크 가지 `codex/chinese-parry-player-20261017`. [보고서·실제 엔진 비교 사진](https://github.com/yoonjl-svg/halfsword-codex/blob/204ef85738f873e59c83c13f1dbda1286023bc63/docs/research/chinese_player_parry_20261017/README.md), [계산 결과](https://github.com/yoonjl-svg/halfsword-codex/blob/204ef85738f873e59c83c13f1dbda1286023bc63/docs/research/chinese_player_parry_20261017/report.json).
