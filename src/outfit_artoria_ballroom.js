@@ -41,6 +41,7 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
   function chest(g,look){
     main(g,surface((t,a)=>point(chestRows,lerp(-.165,.18,t),a)),look.skin);
     clothNeck(g,look);
+    carcanet(g);
     addMerged(g,[-1,1].map(s=>bake(new THREE.SphereGeometry(.048,18,12),[0,.099,s*.19],null,[1,.94,1])),look.skin,CLOTH);
     // Soft V court neckline and woven trim, inspired by Renaissance
     // formal dress; not a reconstruction of a single historical garment.
@@ -65,6 +66,22 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
     },.017,.019);
     // Retain her native silver side locks, including their chest continuation.
     addMerged(g,[-1,1].map(s=>isoldeLock([[.13,.15,s*.145],[.175,.06,s*.15],[.164,-.067,s*.17]],[.03,.032,.002],.012)),look.hair,CLOTH).name='artoria-hair';
+  }
+  // Loose court necklace: its front falls below the collarbones, leaving
+  // the neck uncovered. Appearance only, with no light or armor effect.
+  function carcanet(g){
+    const jewel=new THREE.Group();jewel.name='artoria-court-necklace';g.add(jewel);
+    const drape=a=>point(chestRows,.152-.088*Math.pow(Math.max(0,Math.cos(a)),1.3),a,.007);
+    const gold={metalness:.52,roughness:.42,steel:.6};
+    const pts=Array.from({length:97},(_,i)=>drape(i/96*Math.PI*2));
+    addMerged(jewel,[taperedTube(pts,pts.map(()=>.0015),128,5)],0xb39761,gold);
+    addMerged(jewel,[-.9,-.5,.5,.9].map(a=>bake(new THREE.SphereGeometry(.0042,10,8),drape(a))),0xe3d6ba,{...CLOTH,roughness:.48});
+    const chain=Array.from({length:12},(_,i)=>point(chestRows,.064-i/11*.032,0,.008));
+    addMerged(jewel,[taperedTube(chain,chain.map(()=>.0013),24,5)],0xb39761,gold);
+    const center=point(chestRows,.049,0,.010);
+    addMerged(jewel,[bake(new THREE.SphereGeometry(.0135,12,10),center,null,[.36,1.18,.88])],0xb39761,gold);
+    addMerged(jewel,[bake(new THREE.OctahedronGeometry(.0095,1),[center[0]+.004,center[1],0],null,[.48,1.18,.87])],0x74303c,{metalness:.12,roughness:.31});
+    addMerged(jewel,[bake(new THREE.SphereGeometry(.0055,12,10),point(chestRows,.029,0,.009),null,[.85,1.15,.85])],0xe3d6ba,{...CLOTH,roughness:.48});
   }
   // Four-leaf embroidery, built as thread rather than floating metal badges.
   function ornament(g,project,w,h){
@@ -140,7 +157,7 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
     for(const side of [0,1])line(g,Array.from({length:12},(_,i)=>waistPoint(i/11,side)),GOLD,.0021);
   }
 
-  function limb(g,look,upper=false,forearm=false,outerSide=1){
+  function limb(g,look,upper=false,forearm=false){
     const old=g.children[0].geometry.parameters,{radius,height}=old;
     const geo=new THREE.CapsuleGeometry(radius,height+.014,8,24),p=geo.attributes.position;
     for(let i=0;i<p.count;i++){
@@ -164,24 +181,18 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
       edge(g,a=>[Math.cos(a)*.048,-.098,Math.sin(a)*.048],GOLD,.0021);
     }
     if(upper){
-      // Keep the fitted sleeve, cutting steeply down toward the outside of
-      // each arm. Together with the unchanged central V this reads as an M.
+      // Owner rejected puff volume: follow the arm with a narrow sleeve, no
+      // gathered shoulder or horizontal band that broadens the silhouette.
       const at=(t,a)=>{
         const r=.047+.008*Math.sin(t*Math.PI);
         return [Math.cos(a)*r,.157-t*.33,Math.sin(a)*r];
       };
-      const cut=a=>.045+.34*(1+outerSide*Math.sin(a))/2;
-      const sleeve=main(g,surface((t,a)=>at(lerp(cut(a),1,t),a),14,48),DRESS);
+      // Use the sleeve as this limb's visible surface. Keeping a second skin
+      // capsule immediately beneath it causes jagged intersections at the cuff.
+      const sleeve=main(g,surface(at,14,40),DRESS);
       sleeve.material.side=THREE.DoubleSide;sleeve.name='artoria-court-fitted-sleeve';
-      // Only the uncovered part is skin, avoiding a complete skin capsule
-      // intersecting the fitted cloth. The shoulder end rounds into the torso.
-      addMerged(g,[surface((u,a)=>{
-        const t=u*cut(a),p=at(t,a),cap=p[1]>.105?Math.sqrt(Math.max(0,1-((p[1]-.105)/.052)**2)):1;
-        p[0]*=.96*cap;p[2]*=.96*cap;return p;
-      },12,48)],look.skin,{...CLOTH,side:THREE.DoubleSide}).name='artoria-exposed-outer-arm';
-      edge(g,a=>at(cut(a),a),GOLD,.0018);
       line(g,Array.from({length:17},(_,i)=>{
-        const p=at(lerp(cut(Math.PI),1,i/16),Math.PI);p[0]-=.0015;return p;
+        const p=at(i/16,Math.PI);p[0]-=.0015;return p;
       }),THREAD,.0013);
     }
   }
@@ -228,7 +239,7 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
   }
   return {
     head(g,look){originalHead(g,look);bow(g)},chest,abdomen,pelvis,
-    uarmS(g,l,d){limb(g,l,true,false,Math.sign(d.pos[2]))},uarmO(g,l,d){limb(g,l,true,false,Math.sign(d.pos[2]))},
+    uarmS(g,l){limb(g,l,true)},uarmO(g,l){limb(g,l,true)},
     farmS(g,l){limb(g,l,false,true)},farmO(g,l){limb(g,l,false,true)},
     thighF(g,l){limb(g,l)},thighB(g,l){limb(g,l)},shinF:boot,shinB:boot,footF:foot,footB:foot,
   };
