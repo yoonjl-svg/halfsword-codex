@@ -1,0 +1,825 @@
+{
+  "createdAt": "2026-10-17T16:07:16.453Z",
+  "sourceRoot": "/workspace/halfsword-icon-handoff",
+  "sourceHead": "c8ca9c340527de0d60e88d4117f555f248d45d7e",
+  "sourceBase": "http://127.0.0.1:4217",
+  "assetDir": "/workspace/portrait-alter-originals-frame1-20261017/reference-webp",
+  "method": "Selected source production Fighter constructor and registry looks in an isolated inspection scene. Fresh uninjured body parts remain at their constructor positions; both arm mesh groups are lowered by rigid transforms into the same slightly open resting pose. The source-native hand appearance hook/update supplies open hands using an unarmed inspection state; held weapons and their aura are omitted. No geometry, materials, body scale, costume children, game source, or physical body transforms are changed, and physics is not stepped. The production mad-eye effect is included for the Heinrich variant at fixed time 1.2. Camera is exactly front (+X), orthographic, level, and shared across every subject. No character-specific reframing or height normalization. Neutral studio lights replace stage lighting and its adaptive fighter-light fill. These are design inspection renders, not gameplay pose or lighting claims.",
+  "handsHook": "attachHands",
+  "settings": {
+    "width": 720,
+    "height": 960,
+    "webpQuality": 0.85,
+    "frontAxis": "+X",
+    "cameraPosition": [
+      6,
+      0.98,
+      0
+    ],
+    "cameraTarget": [
+      0,
+      0.98,
+      0
+    ],
+    "orthographicHeight": 2.08,
+    "orthographicWidth": 1.56,
+    "background": "#c9c7be",
+    "weaponsVisible": false,
+    "armAbductionDegrees": 8
+  },
+  "expectedIds": [
+    "player",
+    "bran",
+    "isolde",
+    "liao",
+    "heinrich",
+    "margarethe",
+    "tome",
+    "omari",
+    "minami",
+    "artoria",
+    "samira",
+    "renji",
+    "eira",
+    "heinrich_mad",
+    "eira_mad",
+    "liao_mad",
+    "margarethe_mad",
+    "isolde_mad",
+    "tome_mad",
+    "omari_mad",
+    "bran_mad",
+    "minami_mad",
+    "ratna_mad",
+    "chanda_mad",
+    "renji_mad",
+    "terracotta_mad",
+    "silver_wanderer_mad",
+    "samira_mad",
+    "artoria_mad",
+    "ratna",
+    "silver_wanderer",
+    "chanda",
+    "terracotta"
+  ],
+  "capturedIds": [
+    "heinrich_mad",
+    "eira_mad",
+    "liao_mad",
+    "margarethe_mad",
+    "isolde_mad",
+    "tome_mad",
+    "omari_mad",
+    "bran_mad",
+    "minami_mad",
+    "ratna_mad",
+    "chanda_mad",
+    "renji_mad",
+    "terracotta_mad",
+    "silver_wanderer_mad",
+    "samira_mad",
+    "artoria_mad"
+  ],
+  "sourceHashes": {
+    "src/characters.js": "e56cc3c86361fd0c50111c5412ae8ef881eebf5e92dfe71075152049476318f7",
+    "src/hands.js": "2541cb7e0b12655618403dbd3b7b4d5889ffcc200e47ac0137dedca422d11896",
+    "src/looks.js": "e4a996f1a5c0d3b4aa5879489b087a8f50bc33f825c2cfbd901abeba2cf45377",
+    "src/outfit_alter.js": "bd497b327081746a0b83ddd7bdb6b406be37fb0ce45a1831823d6fbb96399a46",
+    "src/outfit_alter_daraishi.js": "365622e52369065c01f284b4217bfc262500d45c7aa0ddaea882ae0c6f01d9da",
+    "src/outfit_alter_fifth.js": "b603232c86e47a212fb5e43e79b8b18255f36a60812465dc4277beb0fcfff0fd",
+    "src/outfit_alter_fourth.js": "846a9494fe62435b784e8b322e2f8d9203d8cc6212b20d61dc1aafa86f07d0df",
+    "src/outfit_alter_royal_messenger.js": "7065ab4740cbe1472757f2aadedc889b5a8fed9ee6be19da4e6be17bed10397c",
+    "src/outfit_alter_terracotta.js": "73136374c24bfa9a2168b0c854f86279ecc48b74d49f7bd25040761bdbe68205",
+    "src/outfit_artoria_ballroom.js": "ee02d2201492caeb25b5c1df20096bb645c2cc1a7d5831cdb50be4144e9e3d17",
+    "src/outfit_chanda.js": "b6903b4eca51ccf1813b0eeb603f2117efb4550bb8897ac7700d9119ba4da0e4",
+    "src/outfit_daraishi_front.js": "97e6a5b204bc965320c82c30320eb89227902d4c655929ea787bf536dd2b6b89",
+    "src/outfit_eira.js": "4317b76f97284e68d9981148b641bce35556a46fc1e6cfc24f744a01239f77f4",
+    "src/outfit_guild_badge.js": "58574ca64a4aba643af57eab511381c8e5c500dfd9832171ebc8a21e6453059a",
+    "src/outfit_ratna.js": "ea44aefd1518c9d704729820e9c83d1c789f0fbbf68aa8d92d7c58dc15e080bd",
+    "src/outfit_renji.js": "d9fdef35abcfea92ae858d836b7b0de2be01416adcdb0498b324c524880fe28b",
+    "src/outfit_renji_baji.js": "3e8c756af15972e2932352b66916c4a0fba2a4b63e2f7ca99be6027a02ebb6a2",
+    "src/outfit_renji_head.js": "3b1fd556fd0926ee9da555f3e67bb3c77292e001e04aa8779b9fa5bb362ea673",
+    "src/outfit_samira.js": "d58dcb689e018eba27425271655bbfb4c490609e1b1a22b4bf00e7bc08d69fb7",
+    "src/outfit_silver_wanderer.js": "5d03b03c8f40fab222c7b392f8cce10e561b5a27cda4fe67bfc33af531a39d07",
+    "src/outfit_silver_wanderer_court_hair.js": "f31abba709661f1b89fbeb6d03c191c4e66ac9b907e73b88eab276b79431dc2a",
+    "src/outfit_silver_wanderer_detail.js": "24f3d55d6540eb6df4952c8b21281148b80ada14934c57dda35a7b35f672f491",
+    "src/outfit_silver_wanderer_full_hair.js": "12eeca380be8817159be1095731128e235e1b1398da9decdb29aea27b420c289",
+    "src/outfit_silver_wanderer_qaba.js": "d9cc06fc8808f2e955852085dc4d03fb7347c8e5f44e18749e4f29e0d6bad7d6",
+    "src/outfit_silver_wanderer_v10.js": "b2038733fcd2a515aa9ce8956e6c1b60d13a7bb4fe3417a4ac187a7b8f8a5b14",
+    "src/outfit_silver_wanderer_v9.js": "0cdbd39f54689a18b2ff6ca401df1aaa786b6ec3aa82ed06f19e7b5d02cff7bd",
+    "src/outfit_terracotta.js": "ed960e8568c1a788e030389e4b07294115a54b0ae7ba1827df0bdad93fc69e24",
+    "src/outfit_tuyana.js": "66d84c2d7d3e5c54f46efcf27af2e3e115afb70fd8340b9742054aafc9f6ec1f",
+    "src/outfit_yue_cloak.js": "46cdac3acbf84e8606333fc27d516e4207ae3581e6439bafaa7a0a92145ffb4a",
+    "src/outfits.js": "4a825df944e017fdc55fc4b0bebb85e822afd1fdce6950dfeaccb5055858c92b"
+  },
+  "results": [
+    {
+      "id": "heinrich_mad",
+      "name": "광기의 하인리히 도른",
+      "lookVersion": "v2",
+      "eyes": "madGlow",
+      "weaponOmitted": "excalibur_replica",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 60,
+      "vertices": 4681,
+      "bounds": {
+        "min": [
+          -0.2240000069141388,
+          0.007500000298023224,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.2550961971282959,
+          1.7612000543050454,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 119.44612878228675,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 16,
+        "calls": 64,
+        "triangles": 4122,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "character-roster/heinrich_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 11244,
+      "sha256": "4ed33952debe5ef9d6111f5efb64411555f1d6e47faabced497fd153af78d513",
+      "registryLookVersion": "v2"
+    },
+    {
+      "id": "eira_mad",
+      "name": "광기의 투야나 니콜라예바",
+      "lookVersion": "v5-alter1",
+      "eyes": "madGlow",
+      "weaponOmitted": "rapier",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 67,
+      "vertices": 17122,
+      "bounds": {
+        "min": [
+          -0.2290000021457672,
+          3.725290298461914e-9,
+          -0.3874606701195699
+        ],
+        "max": [
+          0.2178841531276703,
+          1.809720441699028,
+          0.33999997340242594
+        ]
+      },
+      "frameBounds": {
+        "left": 203.07693535272585,
+        "right": 538.8280015936471,
+        "top": 97.05210383121786,
+        "bottom": 932.3076905883274
+      },
+      "feetBottomPixels": 27.692309411672568,
+      "renderer": {
+        "frame": 19,
+        "calls": 72,
+        "triangles": 23688,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "character-roster/eira_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 18638,
+      "sha256": "6d1eb42f1e0cc8b9cc2843f83dad514194cfc831d3445d830aea6550b79b45ad",
+      "registryLookVersion": "v5-alter1"
+    },
+    {
+      "id": "liao_mad",
+      "name": "광기의 랴오 쓰위엔",
+      "lookVersion": "v6-alter1",
+      "eyes": "clothGlow",
+      "weaponOmitted": "qinggang",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 59,
+      "vertices": 5242,
+      "bounds": {
+        "min": [
+          -0.2924647331237793,
+          0.007500000298023224,
+          -0.3581753765636908
+        ],
+        "max": [
+          0.2096095085144043,
+          1.7619536966085434,
+          0.3581753765636908
+        ]
+      },
+      "frameBounds": {
+        "left": 194.68828773983438,
+        "right": 525.3117122601644,
+        "top": 119.09829387297998,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 22,
+        "calls": 59,
+        "triangles": 5047,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "character-roster/liao_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 13072,
+      "sha256": "1e83da550b732a08ca2d9cc1deea60be82fcaedb2aba57697cd6751ee5f9b268",
+      "registryLookVersion": "v6-alter1"
+    },
+    {
+      "id": "margarethe_mad",
+      "name": "광기의 마르그레테 슈바르츠",
+      "lookVersion": "v3-alter2",
+      "eyes": "madGlow",
+      "weaponOmitted": "longsword",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 57,
+      "vertices": 5326,
+      "bounds": {
+        "min": [
+          -0.2511919999201613,
+          0.007500000298023224,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.23499999940395355,
+          1.8725834483395936,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 68.03840845864914,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 25,
+        "calls": 62,
+        "triangles": 4820,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "character-roster/margarethe_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 10132,
+      "sha256": "46e9f6e3888d5bb73610050e6953b6e4ae1471e3e209ac97973cac86b8298416",
+      "registryLookVersion": "v3-alter2"
+    },
+    {
+      "id": "isolde_mad",
+      "name": "광기의 이졸데 반 아커러",
+      "lookVersion": "v2-alter3",
+      "eyes": "madGlow",
+      "weaponOmitted": "longsword",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 45,
+      "vertices": 7624,
+      "bounds": {
+        "min": [
+          -0.2096095085144043,
+          0.007500000298023224,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.2096095085144043,
+          1.7612000543050454,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 119.44612878228675,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 28,
+        "calls": 50,
+        "triangles": 5362,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "character-roster/isolde_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 9742,
+      "sha256": "23eba64ed781d0c6d6e42d5b968e80953e55dddc0aa67dd876bc28fe7cffa2d6",
+      "registryLookVersion": "v2-alter3"
+    },
+    {
+      "id": "tome_mad",
+      "name": "광기의 토메 비달",
+      "lookVersion": "v2-alter2",
+      "eyes": "madGlow",
+      "weaponOmitted": "rapier",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 59,
+      "vertices": 7536,
+      "bounds": {
+        "min": [
+          -0.1419108361005783,
+          0.007500000298023224,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.17500000074505806,
+          1.7454117983579636,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 126.7330161424784,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 31,
+        "calls": 64,
+        "triangles": 8252,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "character-roster/tome_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 14664,
+      "sha256": "bf11564f096fcac531686480e7d5b9ed261b3e863cb16babda6d09d1821e4bd6",
+      "registryLookVersion": "v2-alter2"
+    },
+    {
+      "id": "omari_mad",
+      "name": "광기의 오마리",
+      "lookVersion": "v2-alter1",
+      "eyes": "madGlow",
+      "weaponOmitted": "zweihander",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 53,
+      "vertices": 9509,
+      "bounds": {
+        "min": [
+          -0.17820000648498535,
+          0.007500000298023224,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.1885165125131607,
+          1.7430118471384048,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 127.84068593612085,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 34,
+        "calls": 58,
+        "triangles": 12376,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "character-roster/omari_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 17602,
+      "sha256": "4e4e127cf83d3c403b9895fdbcf4d33d1b4e9ed0e6990a545ae8dfd84b77d884",
+      "registryLookVersion": "v2-alter1"
+    },
+    {
+      "id": "bran_mad",
+      "name": "광기의 브론 오소리",
+      "lookVersion": "v1-alter2",
+      "eyes": "madGlow",
+      "weaponOmitted": "tree_branch",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 47,
+      "vertices": 4196,
+      "bounds": {
+        "min": [
+          -0.2150000035762787,
+          0.007500000298023224,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.2736373543739319,
+          1.7612000543050454,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 119.44612878228675,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 37,
+        "calls": 52,
+        "triangles": 3672,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "character-roster/bran_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 11580,
+      "sha256": "46c689039d7520fa29d8c30b0d5783bc9474b612ef9a0aebb5fc982f85d1b441",
+      "registryLookVersion": "v1-alter2"
+    },
+    {
+      "id": "minami_mad",
+      "name": "광기의 미나미",
+      "lookVersion": "v5-alter1",
+      "eyes": "madGlow",
+      "weaponOmitted": "monohoshizao",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 56,
+      "vertices": 15999,
+      "bounds": {
+        "min": [
+          -0.17919999361038208,
+          0.006000000983476639,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.17600000277161598,
+          1.731000005543232,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 133.38461282620062,
+        "bottom": 929.5384610845492
+      },
+      "feetBottomPixels": 30.461538915450774,
+      "renderer": {
+        "frame": 40,
+        "calls": 61,
+        "triangles": 12094,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "character-roster/minami_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 15336,
+      "sha256": "4b70a969a8432b040566cdcb5a715580b6dba13287d916ff29ac333a897af122",
+      "registryLookVersion": "v5-alter1"
+    },
+    {
+      "id": "ratna_mad",
+      "name": "광기의 라트나 위라세타쿤",
+      "lookVersion": "v4-alter4",
+      "eyes": "madGlow",
+      "weaponOmitted": "ice",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 61,
+      "vertices": 30149,
+      "bounds": {
+        "min": [
+          -0.35254871010780336,
+          -0.0004999972879886627,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.21300000324845314,
+          1.761000007390976,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 119.53845812724191,
+        "bottom": 932.538460286764
+      },
+      "feetBottomPixels": 27.461539713235993,
+      "renderer": {
+        "frame": 43,
+        "calls": 68,
+        "triangles": 23857,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "character-roster/ratna_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 18418,
+      "sha256": "96bf49643d352676bd55699d2a24ef5b9868af09ffe9d5812b9698b4a2e3de0d",
+      "registryLookVersion": "v4-alter4"
+    },
+    {
+      "id": "chanda_mad",
+      "name": "광기의 찬다",
+      "lookVersion": "v2-alter1",
+      "eyes": "madGlow",
+      "weaponOmitted": "moye",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 62,
+      "vertices": 11153,
+      "bounds": {
+        "min": [
+          -0.13496807217597961,
+          0.0025000013411045074,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.1785000003874302,
+          1.834507867693901,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 85.61175337204571,
+        "bottom": 931.1538455348748
+      },
+      "feetBottomPixels": 28.84615446512521,
+      "renderer": {
+        "frame": 46,
+        "calls": 68,
+        "triangles": 14826,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "character-roster/chanda_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 15876,
+      "sha256": "84dccc2ddb734b13ffdbcb40c93cb6828719c04ee0eca4c53118a566c0ef4be6",
+      "registryLookVersion": "v2-alter1"
+    },
+    {
+      "id": "renji_mad",
+      "name": "광기의 김씨",
+      "lookVersion": "v3-alter1",
+      "eyes": "madGlow",
+      "weaponOmitted": "brothers_sword",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 64,
+      "vertices": 19487,
+      "bounds": {
+        "min": [
+          -0.3478042185306549,
+          0.006000000983476639,
+          -0.3985905643260296
+        ],
+        "max": [
+          0.2930000126361847,
+          1.752360001206398,
+          0.45100000500679016
+        ]
+      },
+      "frameBounds": {
+        "left": 151.84615153532698,
+        "right": 543.9648758427822,
+        "top": 123.52615328935478,
+        "bottom": 929.5384610845492
+      },
+      "feetBottomPixels": 30.461538915450774,
+      "renderer": {
+        "frame": 49,
+        "calls": 69,
+        "triangles": 21960,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "character-roster/renji_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 19506,
+      "sha256": "9fa288aa4bfb9d8eda8e05da206264c4e54e6a7930b2464ff32aaf9083ed78eb",
+      "registryLookVersion": "v3-alter1"
+    },
+    {
+      "id": "terracotta_mad",
+      "name": "광기의 병마용",
+      "lookVersion": "v2-alter2",
+      "eyes": "madGlow",
+      "weaponOmitted": "goujian",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 67,
+      "vertices": 27491,
+      "bounds": {
+        "min": [
+          -0.37599971890449524,
+          0.006000000983476639,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.17948000505566597,
+          1.8036039471626282,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050143,
+        "right": 513.8485129194974,
+        "top": 99.87510130955624,
+        "bottom": 929.5384610845492
+      },
+      "feetBottomPixels": 30.461538915450774,
+      "renderer": {
+        "frame": 52,
+        "calls": 72,
+        "triangles": 16234,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "character-roster/terracotta_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 18514,
+      "sha256": "51ca086a7098f6f7d4afd408bdc88506d80676f4fa5c953c844279bcf8305faf",
+      "registryLookVersion": "v2-alter2"
+    },
+    {
+      "id": "silver_wanderer_mad",
+      "name": "광기의 다라이시",
+      "lookVersion": "v7-alter2",
+      "eyes": "madGlow",
+      "weaponOmitted": "monohoshizao",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 78,
+      "vertices": 16606,
+      "bounds": {
+        "min": [
+          -0.2972581684589386,
+          0.007500000298023224,
+          -0.3734223544597626
+        ],
+        "max": [
+          0.17500000074505806,
+          1.7467267513275146,
+          0.33519583670885117
+        ]
+      },
+      "frameBounds": {
+        "left": 205.2942292112988,
+        "right": 532.3487789814283,
+        "top": 126.12611477191635,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 55,
+        "calls": 83,
+        "triangles": 22358,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "character-roster/silver_wanderer_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 15164,
+      "sha256": "1366973e417a116823a064ede8d64d5bb5bae9a0e0e4c0352d8fba33a67ba7c5",
+      "registryLookVersion": "v7-alter2"
+    },
+    {
+      "id": "samira_mad",
+      "name": "광기의 마야 라토르",
+      "lookVersion": "v4-alter1",
+      "eyes": "madGlow",
+      "weaponOmitted": "pistol",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 94,
+      "vertices": 16206,
+      "bounds": {
+        "min": [
+          -0.19941598176956177,
+          0.006000000983476639,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.2020000000949949,
+          1.7483525574207306,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 125.3757427288936,
+        "bottom": 929.5384610845492
+      },
+      "feetBottomPixels": 30.461538915450774,
+      "renderer": {
+        "frame": 58,
+        "calls": 99,
+        "triangles": 22486,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "character-roster/samira_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 16526,
+      "sha256": "13d8f8d872e171633b6e3d59f11af8ff7b134f1529ded2b80b465a901f14d1c6",
+      "registryLookVersion": "v4-alter1"
+    },
+    {
+      "id": "artoria_mad",
+      "name": "광기의 아르토리아",
+      "lookVersion": "v4-alter13",
+      "eyes": "madGlow",
+      "weaponOmitted": "excalibur",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 176,
+      "vertices": 133429,
+      "bounds": {
+        "min": [
+          -0.37880897521972656,
+          -0.004499997943639755,
+          -0.4221906363964081
+        ],
+        "max": [
+          0.4766875207424164,
+          1.8093040072917936,
+          0.420299768447876
+        ]
+      },
+      "frameBounds": {
+        "left": 166.01549148559505,
+        "right": 554.8572167983416,
+        "top": 97.24430432686448,
+        "bottom": 934.3846144355259
+      },
+      "feetBottomPixels": 25.61538556447408,
+      "renderer": {
+        "frame": 61,
+        "calls": 181,
+        "triangles": 204214,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "character-roster/artoria_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 23004,
+      "sha256": "8da19305fbaa4089a2340708547b8bab519ef32f3f635e10976bc99fb73ad900",
+      "registryLookVersion": "v4-alter13"
+    }
+  ],
+  "errors": [],
+  "servedSourceMatches": true,
+  "sourceStable": true,
+  "complete": false
+}
