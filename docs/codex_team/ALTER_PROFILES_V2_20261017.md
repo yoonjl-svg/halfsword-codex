@@ -46,3 +46,5 @@
 -320/390/844/1200px에서16장/3열 비교/다운로드/이전다음 순환/Escape포커스/가로넘침없음/JS·HTTP오류0 검증.
 -사용자가 추가한16/32배 픽셀 재해석을 호평해64/128배로 확대하고 액자를 선명하게 유지하도록 요청했다. 랴오·마야8시안 뒤 기본 플레이어·하인리히·아르토리아64/128배6장이 추가 범위다. 정확한 고정 격자 미달 한계를 명시했다. [최신 기록](../art/pixel_profiles_redraw_16_128_20261017/README.md), [초기16/32배 기록](../art/pixel_profiles_redraw_16_32_20261017/README.md).
 -공개는 두 정적 검토 페이지에 한정. 실제 게임UI 연결이나 우화 전달은 하지 않았다. 배포영수증은 `../art/pixel_profiles_alter_frame1_v2_20261017/publication.json`에 별도 기록한다.
+
+공개 완료: main `cb93e1b3671d1fcc2e303324fbdc82eb3b383759`, [Actions39056795103 성공](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/39056795103). v2원본16장과 픽셀시험14장/두갤러리만 공개, 총34파일 원격바이트 일치. [얼터16명 비교 페이지](https://yoonjl-svg.github.io/halfsword-codex/encounters/pixel-profiles-alter-frame1-v2-20261017/). 기존 게임src와 기본/v1얼터 트리 불변. Pages 직접 접속은 환경 정책상 불가하며 로컬 브라우저와 원격파일/배포 검증을 구별했다. 투야나 미세미소/목표픽셀격자 한계는 유지한다.
