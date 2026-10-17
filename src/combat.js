@@ -22,6 +22,7 @@
 //     칼과 맞은 부위에 같은 크기, 반대 방향으로 준다.
 // ─────────────────────────────────────────────────────────────
 import * as THREE from 'three';
+import { beginFlowRecovery } from './nagashi_recovery.js';
 import { STRIKE, ANATOMY, STEEL, ARMOR, BIND, VITALS, NAGASHI } from './config.js';
 import { BREAK } from './weapons.js';
 import { updateGun } from './gun.js';
@@ -611,7 +612,9 @@ export class Combat {
       O.sword.applyImpulseAtPoint({ x: dir.x * Jt, y: dir.y * Jt, z: dir.z * Jt }, vp(pO), true);
       D.sword.applyImpulseAtPoint({ x: -dir.x * Jt, y: -dir.y * Jt, z: -dir.z * Jt }, vp(onAxis(D.sword)), true);
       st.forceT = NAGASHI.poseT;
+      const recovery = Jt > 0 && beginFlowRecovery(O, D);
       this.lastNagashi = { step: this.stepNo, d: D.index, Jt, vn, dir: dir.clone() };
+      this.lastNagashi.recovery = recovery;
       return D;
     }
     return null;
