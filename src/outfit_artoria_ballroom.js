@@ -218,6 +218,9 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
   }
   function crown(g){
     const holder=new THREE.Group();holder.name='artoria-lily-crown';g.add(holder);
+    // Fit the skull cap, not the side locks. Owner requested the whole crown
+    // smaller: preserve all proportions at 72%, with its base seated on the cap.
+    holder.scale.setScalar(.72);holder.position.set(-.008,.025,0);
     const metal={metalness:.58,roughness:.43,steel:.6};
     const gold=0xb59a62,shade=0x897142,pearl=0xe4d8bd;
     const at=(a,y,r=.126)=>[Math.cos(a)*r,y,Math.sin(a)*r];
