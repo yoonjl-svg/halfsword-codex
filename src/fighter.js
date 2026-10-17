@@ -2969,6 +2969,7 @@ export class Fighter {
       handLocal.lerp(_v6.set(0.23, -0.26 + breath, this.side * 0.17), this.stamina.pose);
     }
     const target = this.handTarget.copy(handLocal).applyQuaternion(this.yaw).add(_v1.set(c.x, c.y, c.z));
+    this.parryGuard?.adjustHandTarget?.(target); // 선택적 연구 제어기: 기본 막기에는 hook 없음
     if (mus >= 0.12 && this.state !== 'dead') this.armIK(target);
     else this.armFull = false;
     if (mus < 0.12 || !this.armed) {
@@ -3043,6 +3044,7 @@ export class Fighter {
     } else this.vertLeadAmt = 0;
     if (this.stamina.pose > 0) aim.lerp(_v6.set(0.28, -0.93, this.side * 0.08).applyQuaternion(this.yaw).normalize(), this.stamina.pose).normalize();
     else if (this.stamina.level === 2 && this.stamina.speed < 1 && !this.skill.swinging && !this.skill.tap && !(STAMINA.attackTempo && (this.handHeld || this.skill.pom || this.skill.sec || this.iai || this.stamina.attacking))) { aim.y -= 0.12; aim.normalize(); }
+    this.parryGuard?.adjustBladeAim?.(aim); // 힘/물리 판정은 그대로, 선택적 목표 보정
     const mapAim = _mapAim.copy(aim); // 자세 지도 방향(빈손 짝힘·보정은 늘 이것을 본다)
     if (BODY.trunkFollow > 0) { // WA2-2 follow-through 가 읽는 '칼이 겨눔보다 뒤처진 각'(rad): 칼날 축 ↔ 자세 지도 방향 (hold 와 무관하게 지도 기준)
       rot(sword, _q1);
