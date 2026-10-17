@@ -1,5 +1,7 @@
 # 흘림 개편 결과 · 인간 시험 추천 후보
 
+**최신 전달 상태:** 사용자 후속 명시 지시로 일본 연구 전체를 발행했다. [전달 기록](JAPANESE_RESEARCH_HANDOFF_20261017.md), 메시지 `fd5801ef`. 아래 미발송/최종 검토 대기 문구는 각 연구 당시 이력이다. 후보의30초 인간 순이득이 미확정이라는 한계는 그대로다.
+
 연구 커밋 `ebe8de5da77b2cb6b59645a36e30e0c3873ed111`, 로컬 가지 `codex/japanese-flow-redesign-20261017`, 구현 작업공간 `/workspace/halfsword-night-handoff`.
 
 상세 기록/원자료/실패/실제 스크린샷: 해당 커밋의 `docs/research/japanese_flow_redesign_20261017/README.md`와 `manifest.json`. 이전 일본1차·회복 지연·동방 연구와 함께 나중에 전달할 자료이며 **우화 발송0**.
