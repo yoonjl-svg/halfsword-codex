@@ -32,7 +32,7 @@ try{
     plate:f.plate,plateGait:f.plateGait,helmet:f.helmetType,
     boxes:Object.fromEntries(Object.entries(f.plateBoxes).map(([k,boxes])=>[k,{partial:boxes.partial,boxes:boxes.list.map(b=>({min:b.box.min,max:b.box.max}))}])),
     props:{dispatch:!!f.groups.pelvis.getObjectByName('maya-open-dispatch-case'),crown:!!f.groups.head.getObjectByName('artoria-broken-circlet'),cape:!!f.groups.chest.getObjectByName('artoria-cape')},
-    top:!!f.groups.chest.getObjectByName('artoria-ballroom-bodice'),bottom:!!f.groups.pelvis.getObjectByName('artoria-ballroom-skirt'),bow:!!f.groups.head.getObjectByName('artoria-ivory-bow'),boots:['shinF','shinB'].every(k=>f.groups[k].getObjectByName('artoria-knee-boot'))};
+    top:!!f.groups.chest.getObjectByName('artoria-ballroom-bodice'),bottom:!!f.groups.pelvis.getObjectByName('artoria-ballroom-skirt'),bow:!!f.groups.head.getObjectByName('artoria-ivory-bow'),courtCrown:!!f.groups.head.getObjectByName('artoria-lily-crown'),boots:['shinF','shinB'].every(k=>f.groups[k].getObjectByName('artoria-knee-boot'))};
   });
   // Actually advance combat, including aiming/swinging, with rendering sampled.
   for(let i=0;i<24;i++){
@@ -52,7 +52,7 @@ try{
  }
  const a=report.characters.artoria_mad,b=report.characters.artoria;
  assert.equal(Object.keys(b.plate).length,11);assert.deepEqual(a.plate,{});assert.deepEqual(a.boxes,{});assert.deepEqual(a.plateGait,[]);
- assert.equal(a.props.cape,false);assert.equal(a.props.crown,false);assert.ok(a.top&&a.bottom&&a.bow&&a.boots);
+ assert.equal(a.props.cape,false);assert.equal(a.props.crown,false);assert.ok(a.top&&a.bottom&&a.courtCrown&&a.boots);assert.equal(a.bow,false);
  const prior=JSON.parse(fs.readFileSync(new URL('../../docs/codex_team/royal_messenger_20261016_checks/combat.json',import.meta.url))).characters.artoria_mad;
  for(const k of ['weapon','strength','level','proficiency','colliders','plate','plateGait','helmet','boxes'])assert.deepEqual(a[k],prior[k],`prior unarmored Artoria / ${k}`);
  for(const [part,mass] of Object.entries(a.masses)){

@@ -67,21 +67,21 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
     // Retain her native silver side locks, including their chest continuation.
     addMerged(g,[-1,1].map(s=>isoldeLock([[.13,.15,s*.145],[.175,.06,s*.15],[.164,-.067,s*.17]],[.03,.032,.002],.012)),look.hair,CLOTH).name='artoria-hair';
   }
-  // Loose court necklace: its front falls below the collarbones, leaving
-  // the neck uncovered. Appearance only, with no light or armor effect.
+  // A short court necklace rests below the neck with room to breathe,
+  // clearly above the dress neckline. No light or armor effect.
   function carcanet(g){
     const jewel=new THREE.Group();jewel.name='artoria-court-necklace';g.add(jewel);
-    const drape=a=>point(chestRows,.152-.088*Math.pow(Math.max(0,Math.cos(a)),1.3),a,.007);
+    const drape=a=>point(chestRows,.163-.035*Math.pow(Math.max(0,Math.cos(a)),1.3),a,.007);
     const gold={metalness:.52,roughness:.42,steel:.6};
     const pts=Array.from({length:97},(_,i)=>drape(i/96*Math.PI*2));
     addMerged(jewel,[taperedTube(pts,pts.map(()=>.0015),128,5)],0xb39761,gold);
     addMerged(jewel,[-.9,-.5,.5,.9].map(a=>bake(new THREE.SphereGeometry(.0042,10,8),drape(a))),0xe3d6ba,{...CLOTH,roughness:.48});
-    const chain=Array.from({length:12},(_,i)=>point(chestRows,.064-i/11*.032,0,.008));
+    const chain=Array.from({length:12},(_,i)=>point(chestRows,.128-i/11*.032,0,.008));
     addMerged(jewel,[taperedTube(chain,chain.map(()=>.0013),24,5)],0xb39761,gold);
-    const center=point(chestRows,.049,0,.010);
+    const center=point(chestRows,.113,0,.010);
     addMerged(jewel,[bake(new THREE.SphereGeometry(.0135,12,10),center,null,[.36,1.18,.88])],0xb39761,gold);
     addMerged(jewel,[bake(new THREE.OctahedronGeometry(.0095,1),[center[0]+.004,center[1],0],null,[.48,1.18,.87])],0x74303c,{metalness:.12,roughness:.31});
-    addMerged(jewel,[bake(new THREE.SphereGeometry(.0055,12,10),point(chestRows,.029,0,.009),null,[.85,1.15,.85])],0xe3d6ba,{...CLOTH,roughness:.48});
+    addMerged(jewel,[bake(new THREE.SphereGeometry(.0055,12,10),point(chestRows,.093,0,.009),null,[.85,1.15,.85])],0xe3d6ba,{...CLOTH,roughness:.48});
   }
   // Four-leaf embroidery, built as thread rather than floating metal badges.
   function ornament(g,project,w,h){
@@ -216,29 +216,51 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
     addMerged(g,[bake(artoriaRoundedBox(.255,.012,.112,.005),[.005,-.035,0]),
       bake(artoriaRoundedBox(.055,.023,.082,.008),[-.081,-.038,0])],0x19191e,leather);
   }
-  function bow(g){
-    const holder=new THREE.Group();holder.name='artoria-ivory-bow';holder.position.set(-.14,-.045,0);g.add(holder);
-    for(const s of [-1,1]){
-      // Wide folded wings sit behind the nape, not above the head like ears.
-      const verts=[],idx=[],n=32,rows=8;
-      const at=(t,v)=>[-.008-.021*Math.sin(t*Math.PI)*(1-v*v),
-        .009*Math.sin(t*Math.PI)+v*(.013+.040*Math.sin(t*Math.PI*.83)),s*(.013+t*.15)];
-      for(let i=0;i<=n;i++)for(let j=0;j<=rows;j++){
-        verts.push(...at(i/n,j/rows*2-1));
-        if(i<n&&j<rows){const k=i*(rows+1)+j;idx.push(k,k+rows+1,k+1,k+1,k+rows+1,k+rows+2)}
-      }
-      const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(verts,3));geo.setIndex(idx);geo.computeVertexNormals();
-      addMerged(holder,[geo],IVORY,fabric);
-      for(const side of [-1,1])line(holder,Array.from({length:17},(_,i)=>at(i/16,side)),0xc4b395,.0012);
-      line(holder,Array.from({length:13},(_,i)=>at(i/12*.76,0)),0xcfc0a2,.001);
-      const tail=[[-.006,-.009,s*.02],[-.015,-.062,s*.052],[-.005,-.133,s*.073],[-.017,-.167,s*.085]];
-      addMerged(holder,[isoldeLock(tail,[.036,.041,.038,.029],.0025)],IVORY,fabric);
-      line(holder,tail.map(([x,y,z])=>[x-.002,y,z+s*.013]),0xb4a48b,.0013);
+  function crown(g){
+    const holder=new THREE.Group();holder.name='artoria-lily-crown';g.add(holder);
+    const metal={metalness:.58,roughness:.43,steel:.6};
+    const gold=0xb59a62,shade=0x897142,pearl=0xe4d8bd;
+    const at=(a,y,r=.126)=>[Math.cos(a)*r,y,Math.sin(a)*r];
+    const band=surface((t,a)=>at(a,.062+t*.030,.125+t*.003),4,64);
+    addMerged(holder,[band],shade,{...metal,side:THREE.DoubleSide});
+    const inlay=surface((t,a)=>at(a,.069+t*.015,.129),2,64);
+    addMerged(holder,[inlay],0x402631,{...CLOTH,side:THREE.DoubleSide});
+    for(const y of [.062,.091]){
+      const pts=Array.from({length:97},(_,i)=>at(i/96*Math.PI*2,y,.13));
+      addMerged(holder,[taperedTube(pts,pts.map(()=>.003),128,6)],gold,metal);
     }
-    addMerged(holder,[bake(new THREE.SphereGeometry(.026,14,10),[0,0,0],null,[.58,1,.85])],0xc5b493,fabric);
+    // Thin, bevelled lily leaves: tall centre, lower side/rear leaves.
+    // This is an invented court crown, not a claim to a historical regalia.
+    const angles=[0,.68,-.68,1.4,-1.4,2.15,-2.15,Math.PI];
+    for(const a of angles){
+      const front=Math.max(0,Math.cos(a)),height=.080+.055*front,width=.058+.012*front;
+      const flower=new THREE.Shape();
+      flower.moveTo(-.14,0);flower.lineTo(-.18,.22);
+      flower.bezierCurveTo(-.52,.18,-.62,.52,-.42,.62);
+      flower.bezierCurveTo(-.26,.59,-.24,.43,-.12,.40);
+      flower.bezierCurveTo(-.30,.70,-.11,.86,0,1);
+      flower.bezierCurveTo(.11,.86,.30,.70,.12,.40);
+      flower.bezierCurveTo(.24,.43,.26,.59,.42,.62);
+      flower.bezierCurveTo(.62,.52,.52,.18,.18,.22);
+      flower.lineTo(.14,0);flower.closePath();
+      const geo=new THREE.ExtrudeGeometry(flower,{depth:.035,bevelEnabled:true,bevelThickness:.018,bevelSize:.018,bevelSegments:2,steps:1,curveSegments:7});
+      const pos=geo.attributes.position;
+      for(let i=0;i<pos.count;i++){
+        const u=pos.getX(i)*width,y=pos.getY(i)*height,n=pos.getZ(i)*width;
+        pos.setXYZ(i,Math.cos(a)*(.129+n)-Math.sin(a)*u,.086+y,Math.sin(a)*(.129+n)+Math.cos(a)*u);
+      }
+      geo.computeVertexNormals();addMerged(holder,[geo],gold,metal);
+      const stem=Array.from({length:12},(_,i)=>at(a,.094+i/11*(height-.018),.134));
+      addMerged(holder,[taperedTube(stem,stem.map(()=>.0015),24,5)],shade,metal);
+      addMerged(holder,[bake(new THREE.SphereGeometry(.0052,10,8),at(a,.088+height,.13))],pearl,{...CLOTH,roughness:.5});
+      const setting=new THREE.Group();setting.position.fromArray(at(a,.078,.132));setting.rotation.y=-a;holder.add(setting);
+      addMerged(setting,[bake(new THREE.SphereGeometry(.010,12,10),[0,0,0],null,[.35,1,.85])],gold,metal);
+      addMerged(setting,[bake(new THREE.OctahedronGeometry(.0075,1),[.003,0,0],null,[.4,1,.82])],0x70313c,{metalness:.12,roughness:.34});
+    }
+    addMerged(holder,Array.from({length:32},(_,i)=>bake(new THREE.SphereGeometry(.0028,8,6),at(i/32*Math.PI*2,.092,.131))),pearl,CLOTH);
   }
   return {
-    head(g,look){originalHead(g,look);bow(g)},chest,abdomen,pelvis,
+    head(g,look){originalHead(g,look);crown(g)},chest,abdomen,pelvis,
     uarmS(g,l){limb(g,l,true)},uarmO(g,l){limb(g,l,true)},
     farmS(g,l){limb(g,l,false,true)},farmO(g,l){limb(g,l,false,true)},
     thighF(g,l){limb(g,l)},thighB(g,l){limb(g,l)},shinF:boot,shinB:boot,footF:foot,footB:foot,
