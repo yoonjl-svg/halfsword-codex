@@ -184,6 +184,8 @@ export class PathResearchGuard {
     if (this.me.swordArt?.tradition === 'chinese' && this.me.schoolParry !== false && process.env.PATH_LINE) {
       this.defLine = process.env.PATH_LINE;
     }
+    const researchLine = this.selectResearchLine?.({s,c,d,foeReach,dt,th});
+    if (researchLine) this.defLine = researchLine;
     let p;
     if (this.defLine) {
       this.mode = 'defend';
