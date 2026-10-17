@@ -12,6 +12,7 @@
 //  실측이 없어 물리적으로 그럴듯하게 추정/창작한 값. 아래 각 무기 설명에 표기해 둔다.
 // ─────────────────────────────────────────────────────────────
 import { classifyWeapon } from './weapon_class.js';
+import { drawBrothersSword } from './renji_sword_wrap.js';
 import { MONTANTE } from './config.js';
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
@@ -65,6 +66,7 @@ export const TIER_DRAW = { common: 40, rare: 27, epic: 16, legend: 5, trash: 7, 
 //   그 칸이 뽑히면 묶음 안에서 하나를 고르고(난수 한 번 더), 같은 판에 묶음의 다른 무기는 나오지 않는다. 지난 판 무기를 뺄 때도 묶음째 뺀다.
 //   묶음 없는 무기(지금 간장·막야 말고 전부)는 전과 같은 난수 수·같은 결과다.
 export function drawWeaponCards(pool, n = 2, { exclude = null, rnd = Math.random } = {}) {
+  pool = pool.filter(id => !getWeapon(id).characterOnly);
   const groupOf = (id) => getWeapon(id).drawGroup || id;
   const exGroup = exclude == null ? null : groupOf(exclude);
   let left = pool.filter((id) => groupOf(id) !== exGroup);
@@ -1531,6 +1533,32 @@ const goujian = finalizeSpec('goujian', {
   },
 });
 
+// Kim keeps his brother's sword wrapped: a single-hand blunt weapon, never an edge
+// or spike. Unbreakable by user request; dimensions/mass are game estimates [I].
+const brothersSword = finalizeSpec('brothers_sword', {
+  nameKo: '황약사의 검', nameEn: "Huang Yaoshi's Sword",
+  desc: '흰 천으로 감싼 검. 오랫동안 풀지 않은 듯 단단히 매여 있다.\n“번뇌는 기억력 때문이라더군.”',
+  grip: 'one-hand', material: 'wood', soundMaterial: 'wood', tier: 'epic',
+  // A descriptive ability title, not an added status effect or combat trigger.
+  ability: '취생몽사: 몽롱한 일격',
+  edged: false, spike: false, mCut: 0, mThrust: 0, mBlunt: 1.6,
+  fragility: 0, durability: 1, // No break roll or broken geometry, even against breakMult weapons.
+  hiltLength: .12, bladeLength: .81,
+  partMesh: hiddenParts,
+  buildParts() {
+    // 1.60kg: same total as the longsword; wrapped sword/scabbard carries most mass.
+    const grip = boxInertia(.28, .019, .12, .019);
+    const cap = sphereInertia(.10, .015);
+    const body = boxInertia(1.22, .021, .405, .021);
+    return [
+      partTuple(['box', .019, .12, .019], -.012, .28, 0, grip.Ie, grip.It, null),
+      partTuple(['ball', .015], -.121, .10, 0, cap.Ie, cap.It, null),
+      partTuple(['box', .021, .405, .021], .525, 1.22, 0, body.Ie, body.It, null, true),
+    ];
+  },
+  decorate: drawBrothersSword,
+});
+
 // 무기마다 적은 desc 는 무기 뽑기 카드(main.js)의 앞면에 쓰는 한두 줄 설명이다 (\n 으로 줄을 나눈다).
 //  글자 데이터일 뿐 물리·밸런스와는 상관없다. 카드 앞면의 작은 그림은 public/ui/weapons/<id>.webp
 //  (tools/browser/weapon_thumbs.mjs 로 이 무기 모델을 그대로 찍어 만든다 — 겉모습을 바꾸면 다시 돌린다).
@@ -1542,6 +1570,7 @@ export const WEAPONS = {
   ganjiang, moye, sain, ice, // 샛별 저장소에서 가져옴 (10/10, 사장님 확인 전) — 같은 까닭으로 끝에 둔다
   flamberge, // 샛별 저장소 생김새를 옮겨 고침 (10/14, 사장님 확인 전) — 같은 까닭으로 끝에 둔다
   goujian, // 샛별 저장소에서 가져옴 (10/14 — 에픽·뽑기에 넣음·와신상담은 사장님 결정) — 같은 까닭으로 끝에 둔다
+  brothers_sword: brothersSword,
 };
 
 // 다른 담당이 쓰는 짧은 이름 → 정식 id (characters.js의 'branch', URL 파라미터의 'chicken' 등)

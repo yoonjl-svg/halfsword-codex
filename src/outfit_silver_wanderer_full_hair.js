@@ -69,7 +69,7 @@ export function createSilverWandererFullHair(h, originalHead) {
         [-.219,-.075,z*1.12],[-.247,-.325,z*1.12],[-.264,-.59+edge*.016,z*1.06],
         [-.276,end,z*.97]], [.004,.096,.099,.096,.072,.003],.005,slim?13:26));
     }
-    addMerged(l,hair,look.hair,material);addMerged(l,soft,0x85808b,material);
+    addMerged(l,hair,look.hair,material);addMerged(l,soft,look.hairPalette?.soft??0x85808b,material);
   }
   return {head,chest};
 }

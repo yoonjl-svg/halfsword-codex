@@ -83,6 +83,7 @@ export function attachMadEyes(fighter, on, { veiled = false, sheltered = false }
   const head = fighter.groups?.head;
   const scene = fighter.scene;
   if (!head || !scene) return null;
+  const intensity=MAD_EYE_INTENSITY*(head.userData.spectralHumanFace ? .35 : 1);
   _core ??= coreTexture();
   _halo ??= haloTexture();
 
@@ -143,9 +144,9 @@ export function attachMadEyes(fighter, on, { veiled = false, sheltered = false }
       for (const e of eyes) {
         const fl = flicker(t, e.ph);
         const k = fl * life;
-        e.core.material.opacity = (0.28 + 0.44 * fl) * life * MAD_EYE_INTENSITY * (sheltered ? .12 : 1);
+        e.core.material.opacity = (0.28 + 0.44 * fl) * life * intensity * (sheltered ? .12 : 1);
         e.core.scale.setScalar(CORE_S * (0.85 + 0.3 * k));
-        e.halo.material.opacity = 0.30 * k * MAD_EYE_INTENSITY * (sheltered ? .65 : 1);
+        e.halo.material.opacity = 0.30 * k * intensity * (sheltered ? .65 : 1);
         e.halo.scale.setScalar(HALO_S * (0.8 + 0.4 * k));
         if(sheltered)e.halo.scale.y *= .40;
         // 잔상: 눈 자리의 속도(세계 좌표 변화 — 고개 돌림도 잡힌다, 물리 상태는 읽지 않는다)를 따라 뒤로 늘어놓고, 빠를 때만 보여 준다
@@ -166,12 +167,12 @@ export function attachMadEyes(fighter, on, { veiled = false, sheltered = false }
           const fade = 1 - age / TRAIL_T + 0.1;
           s.visible = true;
           s.position.copy(_p).addScaledVector(e.vel, -age * Math.min(1, 1.1 / Math.max(v, 1e-3)));
-          s.material.opacity = 0.55 * trailK * fade * k * MAD_EYE_INTENSITY * (sheltered ? .65 : 1);
+          s.material.opacity = 0.55 * trailK * fade * k * intensity * (sheltered ? .65 : 1);
           s.scale.setScalar(HALO_S * (0.6 + 0.6 * fade));
           if(sheltered)s.scale.y *= .48;
         }
       }
-      face.material.opacity = 0.035 * flicker(t * 0.6, 3.1) * life * MAD_EYE_INTENSITY * (sheltered ? .5 : 1);
+      face.material.opacity = 0.035 * flicker(t * 0.6, 3.1) * life * intensity * (sheltered ? .5 : 1);
     },
     dispose() {
       for (const e of eyes) {

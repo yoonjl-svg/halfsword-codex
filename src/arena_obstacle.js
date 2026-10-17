@@ -3,6 +3,7 @@
 //   출처: 샛별 저장소 origin/main 325a5c38 의 src/arena_obstacle.js 를 옮겨 고침 — 우리 석상 꼴(받침 원기둥 + 캡슐, stage_sluice_bear.js)과
 //   반지름(0.90 m, 확인표 1113)에 맞췄다. 보이지 않는 몸 끌기는 없다: AI 는 스틱 입력의 방향만 바꾸고, 플레이어는 직접 돌아가야 한다.
 // ─────────────────────────────────────────────────────────────
+import { COURTYARD_COVER_SHAPES, COURTYARD_NAVIGATION, COURTYARD_START_Z } from './stage_courtyard_cover.js';
 import { BEAR_OBSTACLE_SHAPES, BEAR_AVOID_RADIUS } from './stage_sluice_bear.js';
 
 export const BEAR_NAVIGATION = Object.freeze({ x: 0, z: 0, radius: BEAR_AVOID_RADIUS });
@@ -14,24 +15,25 @@ export const CAMERA_PAD = 0.28;
 //  판 시작 카메라(열림 1 · 0.5 · 0)에서 상대 머리·가슴(가운데·좌우 0.2)·골반·무릎까지 광선이 석상(곰 + 받침)에 하나도 안 닿는 가장 작은 값 (0.05 m 간격으로 잼).
 //  곰 3.0 m 에서 0.45 → 사장님 10/14 10:3x 곰 3.2 m 에서 0.50 (0.45 면 열림 1 카메라 → 상대 가슴 오른쪽 0.2 광선 하나가 석상에 닿는다)
 export const START_SIDE = 0.5;
-export const stageStartZ = (stageId) => (stageId === 'sluice' || stageId === 'sluice_night' ? START_SIDE : 0);
+export const stageStartZ = (stageId) => (stageId === 'courtyard' ? COURTYARD_START_Z : stageId === 'sluice' || stageId === 'sluice_night' ? START_SIDE : 0);
 
 /**
- * 판(물리 세계)마다 부른다: 습지면 고정 몸체 하나에 석상 충돌체를 만들고, 아니면 null. previous 가 같은 세계의 것이면 먼저 지운다.
+ * 판(물리 세계)마다 부른다: 습지 석상 또는 중정 급수정의 고정 충돌체를 만들고, 다른 무대는 null. previous 가 같은 세계의 것이면 먼저 지운다.
  *  combat 의 colliderInfo 에는 넣지 않는다 — 칼·몸이 닿으면 땅처럼 물리로만 막히고, 총알 광선은 땅·돌로 친다
  */
 export function configureStageObstacle(RAPIER, world, stageId, groups, previous = null) {
   if (previous?.world === world) world.removeRigidBody(previous.body);
-  if (stageId !== 'sluice' && stageId !== 'sluice_night') return null;
+  const courtyard=stageId==='courtyard';
+  if (!courtyard && stageId !== 'sluice' && stageId !== 'sluice_night') return null;
   const body = world.createRigidBody(RAPIER.RigidBodyDesc.fixed());
   const handles = new Set();
-  for (const s of BEAR_OBSTACLE_SHAPES) {
-    const d = s.type === 'cylinder' ? RAPIER.ColliderDesc.cylinder(s.halfHeight, s.radius) : s.type === 'capsule' ? RAPIER.ColliderDesc.capsule(s.halfHeight, s.radius) : RAPIER.ColliderDesc.cuboid(...s.halfExtents);
+  for (const s of courtyard ? COURTYARD_COVER_SHAPES : BEAR_OBSTACLE_SHAPES) {
+    const d = s.type === 'convex' ? RAPIER.ColliderDesc.convexHull(new Float32Array(s.points)) : s.type === 'cylinder' ? RAPIER.ColliderDesc.cylinder(s.halfHeight, s.radius) : s.type === 'capsule' ? RAPIER.ColliderDesc.capsule(s.halfHeight, s.radius) : RAPIER.ColliderDesc.cuboid(...s.halfExtents);
     d.setTranslation(...s.center).setCollisionGroups(groups).setFriction(0.8).setRestitution(0.02);
     if (s.rotation) d.setRotation(s.rotation);
     handles.add(world.createCollider(d, body).handle);
   }
-  return { world, body, handles, navigation: BEAR_NAVIGATION };
+  return { world, body, handles, navigation: courtyard ? COURTYARD_NAVIGATION : BEAR_NAVIGATION };
 }
 
 /** a → b 선분이 가운데 centre 에서 radius 안을 지나나 (수평) */
@@ -44,7 +46,7 @@ export function obstacleSegmentBlocked(a, b, radius, centre = BEAR_NAVIGATION) {
   return Math.hypot(a.x + t * dx - centre.x, a.z + t * dz - centre.z) < radius;
 }
 
-/** AI 스틱 입력만 바꾼다: 상대에게 가는 길이 석상에 막혔으면 다가가던 세기 그대로 방향만 석상 둘레로. 서 있는 공격·부활·물러남은 그대로 */
+/** AI 스틱 입력만 바꾼다: 상대에게 가는 길이 석상에 막혔으면 다가가던 세기 그대로 방향만 석상 둘레로. 기존 무대의 서 있는 공격·부활·물러남은 그대로. 중정 총수만 막힌 사선을 찾아 돌아간다. */
 export function routeAroundStageObstacle(ai) {
   const f = ai.me;
   const foe = ai.foe;
@@ -66,10 +68,11 @@ export function routeAroundStageObstacle(ai) {
   }
   const c = Math.cos(f.heading);
   const s = Math.sin(f.heading);
-  const speed = Math.hypot(f.move.x, f.move.y);
+  const seekingShot = obstacle.seekSight && f.weapon?.gun; // Only the courtyard kiosk: a blocked gunner walks around for a firing angle.
+  const speed = Math.max(seekingShot ? .65 : 0, Math.hypot(f.move.x, f.move.y));
   const mx = f.move.x * s + f.move.y * c;
   const mz = f.move.x * c - f.move.y * s;
-  if (speed < 0.01 || mx * (target.x - p.x) + mz * (target.z - p.z) <= 0) return; // 멈춘 공격·물러남은 그대로
+  if (!seekingShot && (speed < 0.01 || mx * (target.x - p.x) + mz * (target.z - p.z) <= 0)) return; // 멈춘 공격·물러남은 그대로
   const angle = Math.atan2(p.z - obstacle.z, p.x - obstacle.x);
   const targetAngle = Math.atan2(target.z - obstacle.z, target.x - obstacle.x);
   const delta = Math.atan2(Math.sin(targetAngle - angle), Math.cos(targetAngle - angle));

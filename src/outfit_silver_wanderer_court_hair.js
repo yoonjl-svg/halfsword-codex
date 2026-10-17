@@ -141,19 +141,24 @@ export function createSilverWandererCourtHair(h, originalHead) {
     for(const side of [-1,1])dark.push(lock([[.015,.015,side*.132],[-.03,-.035,side*.166],
       [-.087,-.09,side*.166],[-.156,-.13,side*.104],[-.219,-.156,side*.016]],
       [.028,.052,.06,.055,.027],.009,slim?9:18));
-    addMerged(layer,dark,look.hair,material);addMerged(layer,soft,0x827d8a,material);
+    addMerged(layer,dark,look.hair,material);addMerged(layer,soft,look.hairPalette?.soft??0x827d8a,material);
     if(slim) {
       // ── v7 마디 땋음: 샛별 v6 의 같은 길(옆 둘 · 묶은 자리에서 뒤로 하나). 옆: size 1.25 cm · 간격 2.0 cm · 머리 위로 5 mm, 뒤: 1.6 cm · 2.4 cm · 2 mm.
       //  마디 색 BRAID_LIGHT 는 머리(look.hair #77737F, L* 약 49)보다 한 단계 밝은 은빛(L* 약 70) — 결투 거리에서 머리 덩어리와 갈라 읽히게. 끝 술은 머리 색
-      const BRAID_LIGHT=0xaea9b8,knots=[];
+      const BRAID_LIGHT=look.hairPalette?.braid??0xaea9b8,knots=[];
       for(const side of [-1,1])knots.push(...knotBraid([[.038,.041,side*.115],[.013,.004,side*.149],
         [-.038,-.044,side*.184],[-.095,-.097,side*.18],[-.169,-.135,side*.108],[-.223,-.154,side*.024]],.0125,.02,.005));
       knots.push(...knotBraid([[-.223,-.16,0],[-.237,-.25,0],[-.248,-.34,.006],[-.259,-.435,.014]],.016,.024,.002));
       addMerged(layer,knots,BRAID_LIGHT,{...material,flatShading:true});
       addMerged(layer,[lock([[-.26,-.43,.014],[-.269,-.48,.014],[-.278,-.54,.007]], [.031,.042,.003],.008,9)],look.hair,material);
-      addMerged(layer,[ball(.018,10,6,[-.237,-.152,0],null,[.25,.62,1.4])],0xd8cfb7,ivory);
-      addMerged(layer,[bake(new THREE.TorusGeometry(.020,.002,4,12),[-.242,-.152,0],
-        [0,Math.PI/2,0],[1.3,.64,1]),cyl(.017,.016,.011,8,false,[-.26,-.431,.014])],0xad914e,gold);
+      // The black alter ties cloth at the same gathering point; keep the lower
+      // braid fitting, but replace its ivory clasp rather than stacking props.
+      if(!look.daraishiBlack){
+        addMerged(layer,[ball(.018,10,6,[-.237,-.152,0],null,[.25,.62,1.4])],0xd8cfb7,ivory);
+        addMerged(layer,[bake(new THREE.TorusGeometry(.020,.002,4,12),[-.242,-.152,0],
+          [0,Math.PI/2,0],[1.3,.64,1])],0xad914e,gold);
+      }
+      addMerged(layer,[cyl(.017,.016,.011,8,false,[-.26,-.431,.014])],0xad914e,gold);
       return;
     }
     const braid=[];

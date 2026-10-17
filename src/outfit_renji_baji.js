@@ -9,6 +9,8 @@
 //  겉모습만: 대표 메쉬는 같은 메쉬·같은 종류·같은 치수 값으로 꼴만 바꾼다 — 몸·질량·관절·충돌체·손 구체 그대로. +X 앞 · +Y 위 · +Z 오른쪽.
 //  v3 (opts.hakama, 사장님 10/11 00:4x '김씨 원래가 낫다. 이전 턴의 모습에 칼만 흰 천으로 감싸. 밝힌 먹빛은 유지.'): v1 옷 그대로(하카마·넓은 소매) +
 //   v2 의 밝힌 먹빛(웃옷·소매) + 허리 칼을 바랜 흰 무명(0xd6cfbf)으로 싸서 끈으로 묶음. 바지·행전 판(v2)은 ?look=renji:v2 로만 남김.
+import { renjiSwordWrapGeometry } from './renji_sword_wrap.js';
+
 export function createRenjiBajiOutfit(h, v1, opts = {}) {
   const HAKAMA = !!opts.hakama;
   const { THREE, bake, cyl, ball, addMerged, CLOTH, artoriaCloth, taperedTube, reshapeMain } = h;
@@ -77,19 +79,8 @@ export function createRenjiBajiOutfit(h, v1, opts = {}) {
     if (!sword) return;
     // v1 칼집·코등이·자루는 천 속에 감춘다(폼멜 끝 쇠만 보임) — 단면이 둥글어져 납작한 칼집 꼴이 사라진다
     for (const m of sword.children) if (m.isMesh && m.material?.color?.getHex() !== 0x9e8558) m.visible = false;
-    const wrap = [cyl(0.021, 0.019, 0.62, 10, false, [0, -0.3, 0]), ball(0.019, 8, 6, [0, -0.61, 0]),
-      cyl(0.037, 0.037, 0.03, 12, false, [0, 0.017, 0]), // 코등이 자리의 불룩함(코등이 쇠는 천 속)
-      cyl(0.019, 0.018, 0.165, 10, false, [0, 0.1, 0])];
-    // 천 끝이 고르지 않게: 칼끝 쪽에 늘어진 자락 한 장
-    wrap.push(taperedTube([[0.006, -0.6, 0.012], [0.012, -0.64, 0.016], [0.016, -0.67, 0.012]], [0.012, 0.009, 0.004], 8, 5));
+    const { wrap, cords } = renjiSwordWrapGeometry();
     addMerged(sword, wrap, SWORD_WRAP, cloth).name = 'renji-sword-wrap';
-    const cords = [];
-    for (const y of [0.165, 0.075, -0.06, -0.21, -0.36, -0.5]) cords.push(bake(new THREE.TorusGeometry(y > 0.04 ? 0.0195 : 0.0215, 0.0024, 4, 12), [0, y, 0], [Math.PI / 2 + 0.3, 0, 0]));
-    // 매듭 셋(자루 · 칼집 가운데 · 칼끝 쪽) + 늘어진 끈 끝
-    for (const y of [0.075, -0.21, -0.5]) {
-      cords.push(ball(0.0075, 6, 5, [0.021, y, 0]));
-      cords.push(taperedTube([[0.024, y, 0.004], [0.03, y - 0.02, 0.008], [0.032, y - 0.04, 0.006]], [0.0022, 0.002, 0.0016], 8, 4));
-    }
     addMerged(sword, cords, SWORD_CORD, cloth);
   }
   // ── 허벅지: 통 넉넉한 바지(무릎 쪽으로 조금 좁아짐, 앞이 살짝 불룩) ──

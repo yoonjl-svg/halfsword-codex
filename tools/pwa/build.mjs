@@ -1,6 +1,6 @@
 // 적막 PWA: vite build 뒤에 dist/sw.js 와 dist/pwa-build.json 을 만든다 (npm run build 가 부른다 — docs/pwa_2026-10-13.md)
 //  node tools/pwa/build.mjs [dist 폴더]
-//  - 오프라인에 담을 목록 = dist 전부 − 옛 실험판 폴더(corr·r2p·support·wb) − sw.js·pwa-build.json 자신. 파일마다 크기·SHA-256
+//  - 오프라인 목록 = dist − 옛 실험판 − 검토용 사진/영상(encounters) − 생성 파일. 파일마다 크기·SHA-256
 //  - 판 번호 = (목록 + 워커 틀)의 해시 앞 24 자 → 내용이 바뀐 빌드마다 캐시 이름이 바뀐다. 같은 내용이면 같은 판(쓸데없이 다시 받지 않는다)
 //  - 의존성·네트워크·시각 없음 (같은 dist → 같은 sw.js)
 import fs from 'node:fs/promises';
@@ -10,9 +10,11 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const dist = path.resolve(root, process.argv[2] || 'dist');
-const EXCLUDED_DIRS = new Set(['corr', 'r2p', 'support', 'wb']); // 본판이 아닌 옛 실험판 (주소로는 그대로 열린다 — 오프라인에 담지 않을 뿐)
+// encounters contains review-page captures, not runtime game assets. Keep them
+// available online without downloading every historical screenshot on install.
+const EXCLUDED_DIRS = new Set(['corr', 'r2p', 'support', 'wb', 'encounters']);
 const GENERATED = new Set(['sw.js', 'pwa-build.json']);
-const BUDGET_BYTES = 30 * 1024 * 1024; // 넘으면 담을 목록을 다시 보라고 멈춘다 (지금 약 6 MB)
+const BUDGET_BYTES = 30 * 1024 * 1024; // 넘으면 담을 목록을 다시 보라고 멈춘다
 const NAV_TIMEOUT_MS = 10000; // 화면 요청이 이보다 늦으면 깔린 판으로 연다 (깔린 판이 있을 때만) — 사장님 확인 전
 const REQUIRED = ['index.html', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'icons/apple-touch-icon.png', 'icons/favicon-32.png'];
 

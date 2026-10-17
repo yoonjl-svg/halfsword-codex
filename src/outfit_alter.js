@@ -2,10 +2,45 @@
 // No body, collider, armor coverage or AI changes.
 import * as THREE from 'three';
 import { addGuildEmbroidery } from './outfit_guild_badge.js';
+import { decorateFifthAlter } from './outfit_alter_fifth.js';
+import { decorateTerracottaAlter } from './outfit_alter_terracotta.js';
+import { decorateDaraishiAlter, DARAISHI_RIBBON_RED } from './outfit_alter_daraishi.js';
+import { decorateRoyalMessengerAlter } from './outfit_alter_royal_messenger.js';
 import { addShoulderIguana, addGroveBranch, addCosmeticKettle, addRatnaHeadscarf } from './outfit_alter_fourth.js';
 
 export function alterLook(base, kind) {
   const look={...base,alter:kind};
+  if(kind==='samira')look.outfitPalette={
+    0x922e40:0xd1c6ae,0x6e2131:0xa49983,0xefece4:0x293e50,
+    0x33232c:0x293947,0x2c2530:0x333942,0x231d25:0x252a30,0xb39a5f:0x8b7959,
+  };
+  if(kind==='artoria'){
+    // Owner replaced the rejected bikini with a ballroom dress. Keep the
+    // already-approved actual armor removal; boots and dress grant no armor.
+    // Native body, silver hair, weapon and AI survive; armor's ordinary movement
+    // penalty disappears with the armor, rather than adding a new stat bonus.
+    Object.assign(look,{outfit:'artoria_ballroom',armor:null,helmet:null,tailoring:null,
+      tunic:base.skin,quilt:base.skin,sleeve:base.skin,hands:base.skin,
+      hoseUpper:base.skin,hoseLower:base.skin,shoes:base.skin,eyeColor:0x3b121b});
+    look.outfitPalette={0x28797b:0xe0d1b2}; // the existing tie beneath the ivory bow
+  }
+  if(kind==='silver_wanderer')look.outfitPalette={0xe9e9e5:0x3b4b5a,0x433653:0x7f593f,0x776b88:0xab8660,
+    0x5a4c68:0x6d503e,0x665976:0x8d684d,0x66528a:0x987252,0x34263f:0x39424b,
+    0xcfb57b:0xbeb398,0xd8d6e0:0xc2beb4,0x413039:0x323a42,0x2f2338:0x303942};
+  if(kind==='silver_wanderer'&&base.daraishiBlack)look.outfitPalette={
+    // Near-neutral black fabrics with small value steps. Hair/skin are
+    // deliberately absent: both versions share the owner's chosen ash silver.
+    0xe9e9e5:0x28292c,0x433653:0x191c20,0x776b88:0x3b3d41,
+    0x5a4c68:0x222427,0x665976:0x303235,0x34263f:0x1b1c1f,
+    0x413039:0x181a1d,0x2f2338:0x202124,0xe7dfcf:0x29282c,
+    0xeee7d9:0x343337,0xb7ad99:0x1d1c20,0xc4ac78:0xa0a3a6,0x88745d:0x858a90,
+    0xad914e:0x92989e,0xa88b45:0x92989e,0xcfb57b:0xa9adb0,
+    0xb6bbc3:0x4b525c,0xc5c5cc:0x939da8,0xd8d6e0:0x6b737b,0x9b9fa8:0x3e4248,
+    0x655047:0x1d1f23,0x514a58:0x28292d,0x513c60:0x202125,0xc3a567:0x8b929b,
+    0x386b70:DARAISHI_RIBBON_RED,
+  };
+  if(kind==='chanda')look.outfitPalette={0x252c4b:0xc5c1b5,0x414967:0x91958d,0x353d50:0x787f7a,0xb49354:0x537b77,0x866d3f:0x365a58,0xb0a58a:0xa9ada4};
+  if(kind==='renji')look.outfitPalette={0x20232a:0x81453f,0x17191e:0x81453f,0x2a2930:0xa16a59,0x2d2930:0x65332f,0x202637:0x4c2c31,0x202537:0x4c2c31,0x303548:0x715051};
   if(kind==='bran')look.outfitPalette={0xa08757:0x354658,0x7c6740:0x293747,0xcdbb92:0x75828b,0xa89468:0x4e606b,0x6b5637:0x344351,0x5c4830:0x293747,0x4a3a26:0x354351};
   if(kind==='minami')look.outfitPalette={0xe9e2ce:0x303b51,0xcac4af:0x596277,0xe9e5d5:0x303b51,0xf4f1e8:0x778495,0xafa991:0x586477,0x3f5747:0xc6c9c1,0x3b5344:0xb4bab1,0x627b5c:0xaeb7ac};
   // Sleeve is skin on Ratna; never remap that shared color with his clothes.
@@ -47,6 +82,8 @@ export function alterLook(base, kind) {
 
 export function decorateAlter(g,look,part) {
   if(!look.alter)return;
+  if(look.alter==='silver_wanderer')decorateDaraishiAlter(g,part,look.outfitPalette,look);
+  if(look.alter==='terracotta')decorateTerracottaAlter(g,part);
   const seen=new Set();
   g.traverse(o=>{
     // Helmet wear restores its saved base color; save the altered palette there too.
@@ -56,6 +93,8 @@ export function decorateAlter(g,look,part) {
     if(!m?.color||seen.has(m))continue;seen.add(m);
     const c=look.outfitPalette?.[m.color.getHex()];if(c!=null)m.color.setHex(c);
   }});
+  decorateFifthAlter(g,look,part);
+  decorateRoyalMessengerAlter(g,look,part);
   const mat=(color)=>new THREE.MeshStandardMaterial({color,roughness:.92,metalness:0,side:THREE.DoubleSide});
   const add=(parent,geo,m,pos)=>{const x=new THREE.Mesh(geo,m);if(pos)x.position.set(...pos);x.castShadow=true;parent.add(x);return x};
   if(look.alter==='ratna'&&part==='chest')addShoulderIguana(g);

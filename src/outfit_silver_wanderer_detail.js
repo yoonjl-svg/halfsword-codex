@@ -12,6 +12,7 @@
 import { createSilverWandererOutfit, DARAISHI_SCABBARD, placeDaraishiScabbard } from './outfit_silver_wanderer.js';
 import { createDaraishiQaba } from './outfit_silver_wanderer_qaba.js'; // ── v8
 import { createDaraishiV9 } from './outfit_silver_wanderer_v9.js'; // ── v9
+import { createDaraishiFront } from './outfit_daraishi_front.js';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'; // ── v7 mergeLayers
 import { createSilverWandererFullHair } from './outfit_silver_wanderer_full_hair.js';
 import { createSilverWandererCourtHair } from './outfit_silver_wanderer_court_hair.js';
@@ -23,6 +24,7 @@ export function createSilverWandererDetail(h) {
   const courtHair = createSilverWandererCourtHair(h,base.head);
   const qaba = createDaraishiQaba(h); // ── v8
   const v9 = createDaraishiV9(h); // ── v9 (가슴·배 장식만 — 자락·소매는 base 의 v9)
+  const frontStudy = createDaraishiFront(h);
   const hasPersianDetails = look => ['full_layered','court_half_tie','court_braided_layers'].includes(look?.hairStyle);
   const thread = { ...CLOTH, metalness: .12, roughness: .73 };
   const metal = { ...CLOTH, metalness: .6, roughness: .36, steel: .7 };
@@ -232,6 +234,7 @@ export function createSilverWandererDetail(h) {
       addMerged(l,[put(bake(new THREE.CircleGeometry(.024,10),[0,.331,0],[-Math.PI/2,0,0]))],0x221a21,leather);
       addMerged(l,[.27,.19].map(y=>put(cyl(.027,.027,.023,10,true,[0,y,0]))),0x30242d,leather);
       const sz=(look.daraishiRevision>=8||look.daraishiLower===10||look.daraishiScabbard===8)?[-.252,-.258]:[-.24,-.24]; // ── v8: 바깥으로 옮기고 기울인 검집까지 매다는 끈을 늘인다 (── v10 · v7(10/15) 도 v8 자리)
+      for(let i=0;i<sz.length;i++)sz[i]+=look.daraishiScabbardInset||0; // body and fittings move together; belt anchors stay put
       addMerged(l,[line([[.028,.079,-.177],[.063,.068,-.213],[.049,.054,sz[0]]],.005),
         line([[-.033,.067,-.179],[.018,-.022,-.218],[.029,-.03,sz[1]]],.005)],0x4e3541,leather);
       return;
@@ -394,9 +397,10 @@ export function createSilverWandererDetail(h) {
     }
   }
   return Object.fromEntries(Object.entries(base).map(([part,decorate])=>[part,(g,look,d)=>{
-    if (part === 'head' && ['court_half_tie','court_braided_layers'].includes(look?.hairStyle)) { courtHair.head(g,look); if (look?.daraishiRevision >= 7) mergeLayers(g); return; }
+    if (part === 'head' && ['court_half_tie','court_braided_layers'].includes(look?.hairStyle)) { courtHair.head(g,look); frontStudy(g,look,part); if (look?.daraishiRevision >= 7) mergeLayers(g); return; }
     if (part === 'head' && look?.hairStyle === 'full_layered') { fullHair.head(g,look); return; }
     decorate(g,look,d);details[part]?.(g,look,d);
+    frontStudy(g,look,part);
     if (look?.daraishiRevision >= 7) mergeLayers(g); // ── v7
   }]));
 }
