@@ -1,5 +1,7 @@
 # 일본 막기·흘림 연구 전달 완료
 
+후속 원본 커밋 요청: [원 연구 SHA·단계별 자료·가져오기 안내](JAPANESE_SOURCE_COMMITS_20261017.md). 마지막 원 연구는 `06c07a11`, 수신판에 맞춘 전달 결과는 `c8ca9c34`다.
+
 사용자의 “일본 막기와 흘림 개편에 대한 지금까지의 연구도 우화에게 전달해”를 실행했다. 과거 완성 후 대기 조건은 이번 명시적 요청으로 대체하며, **최신안은 인간 시험 추천 후보/30초 인간 순이득 미확정**으로 전달했다.
 
 - [정식 메시지 C-JP-FLOW-20261017](https://github.com/yoonjl-svg/halfsword-codex/blob/fd5801efe55a7cfbf80b06131555a04bda384e20/docs/devmeet/messages/2026-10-17-japanese-parry-flow-research.md)
