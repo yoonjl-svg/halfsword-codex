@@ -71,11 +71,28 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
   // clearly above the dress neckline. No light or armor effect.
   function carcanet(g){
     const jewel=new THREE.Group();jewel.name='artoria-court-necklace';g.add(jewel);
-    const drape=a=>point(chestRows,.163-.035*Math.pow(Math.max(0,Math.cos(a)),1.3),a,.007);
     const gold={metalness:.52,roughness:.42,steel:.6};
-    const pts=Array.from({length:97},(_,i)=>drape(i/96*Math.PI*2));
-    addMerged(jewel,[taperedTube(pts,pts.map(()=>.0015),128,5)],0xb39761,gold);
-    addMerged(jewel,[-.9,-.5,.5,.9].map(a=>bake(new THREE.SphereGeometry(.0042,10,8),drape(a))),0xe3d6ba,{...CLOTH,roughness:.48});
+    // A narrow, straight-sided V in the front view. Follow the chest in depth
+    // while keeping both chain branches well inside the gown's wider V.
+    const front=(t,side=1)=>{
+      const y=lerp(.128,.176,t),z=side*.042*t,[rx,rz]=radii(chestRows,y);
+      const x=rx*Math.pow(Math.max(0,1-Math.pow(Math.abs(z)/rz,2.35)),1/2.35)+.007;
+      return [x,y,z];
+    };
+    for(const side of [-1,1]){
+      const pts=Array.from({length:25},(_,i)=>front(i/24,side));
+      addMerged(jewel,[taperedTube(pts,pts.map(()=>.0015),48,5)],0xb39761,gold);
+    }
+    // Complete the chain behind the neck; its front arc is replaced by the V.
+    const anchor=front(1),angle=Math.atan2(anchor[2],anchor[0]),radius=Math.hypot(anchor[0],anchor[2]);
+    const back=Array.from({length:65},(_,i)=>{
+      const a=lerp(angle,Math.PI*2-angle,i/64);
+      return [Math.cos(a)*radius,.176,Math.sin(a)*radius];
+    });
+    addMerged(jewel,[taperedTube(back,back.map(()=>.0015),96,5)],0xb39761,gold);
+    addMerged(jewel,[-1,1].flatMap(side=>[.38,.72].map(t=>
+      bake(new THREE.SphereGeometry(.0042,10,8),front(t,side))
+    )),0xe3d6ba,{...CLOTH,roughness:.48});
     const chain=Array.from({length:12},(_,i)=>point(chestRows,.128-i/11*.032,0,.008));
     addMerged(jewel,[taperedTube(chain,chain.map(()=>.0013),24,5)],0xb39761,gold);
     const center=point(chestRows,.113,0,.010);
