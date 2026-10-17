@@ -1,5 +1,7 @@
 # 막기 읽기 연구 1차 인계 · 2026-10-17
 
+> 2026-10-17 계측 정정: 당시 도구에는 플레이어 stamina.controller 연결과 대본 공격 번호가 빠졌다. 아래는 당시 조건의 보존 결과이며 실제 플레이어의 회복/막기 비용 검증으로 재사용하지 않는다. [수정된 동방 후속](CHINESE_PLAYER_PARRY_20261017.md)을 먼저 읽는다.
+
 사용자가 MSG-S-012 확인 뒤 ‘실험 시작하자’고 지시했다. 수신 최신 main을 다시 fetch해 `f21266d6bcb3c44c02e0bd365a68cda5416ad6d1`임을 확인하고 기존 `/workspace/halfsword-night-handoff` checkout을 연구 가지로 전환했다. 새 worktree를 만들지 않았다. `codex/refork-20261015`의 게임 코드는 건드리지 않았다.
 
 - 연구 가지: `codex/parry-reading-research-20261017`
