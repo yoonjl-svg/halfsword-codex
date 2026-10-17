@@ -52,6 +52,11 @@ try{for(const [stage,foe,version] of pairs){
     g.camera.position.set(p.x+f.x*1.7,p.y+.10,p.z+f.z*1.7);g.camera.lookAt(p.x,p.y+.015,p.z);
     g.camera.fov=29;g.camera.updateProjectionMatrix();
    }
+   if(view==='cincture'){
+    const p=g.enemy.bodies.pelvis.translation();f.applyAxisAngle(new T.Vector3(0,1,0),.12);
+    g.camera.position.set(p.x+f.x*1.8,p.y-.10,p.z+f.z*1.8);g.camera.lookAt(p.x,p.y-.13,p.z);
+    g.camera.fov=28;g.camera.updateProjectionMatrix();
+   }
    if(view==='scabbard'){
     const p=g.enemy.bodies.pelvis.translation();f.applyAxisAngle(new T.Vector3(0,1,0),.9);
     g.camera.position.set(p.x+f.x*2.4,p.y-.03,p.z+f.z*2.4);g.camera.lookAt(p.x,p.y-.14,p.z);

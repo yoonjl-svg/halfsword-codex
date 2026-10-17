@@ -171,6 +171,58 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
     };
     addMerged(g,[surface((t,a)=>waistPoint(t,a/(Math.PI*2)),8,20)],UNDER,fabric);
     for(const side of [0,1])line(g,Array.from({length:12},(_,i)=>waistPoint(i/11,side)),GOLD,.0021);
+    courtCord(g,at);
+  }
+
+  // Black cincture inspired by the tied cords worn over liturgical robes.
+  // A visual court accessory, not a real church rank or armor component.
+  function courtCord(g,skirt){
+    const holder=new THREE.Group();holder.name='artoria-black-cincture';g.add(holder);
+    const cordMat={...CLOTH,roughness:.68},black=0x141219,thread=0x2b2730;
+    const onSkirt=(t,a)=>{
+      const p=skirt(t,a,true);p[0]+=.010*Math.cos(a);p[2]+=.010*Math.sin(a);return p;
+    };
+    function rope(points,r=.0055){
+      const path=new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p)));
+      const count=Math.max(32,Math.ceil(path.getLength()*200));
+      addMerged(holder,[taperedTube(points,points.map(()=>r*.88),count,8)],black,cordMat);
+      const frame=path.computeFrenetFrames(count,false),pieces=[];
+      for(let strand=0;strand<3;strand++){
+        const pts=Array.from({length:count+1},(_,i)=>{
+          const phase=i/count*path.getLength()*Math.PI*2/.026+strand*Math.PI*2/3;
+          return path.getPointAt(i/count).addScaledVector(frame.normals[i],Math.cos(phase)*r*.69).addScaledVector(frame.binormals[i],Math.sin(phase)*r*.69).toArray();
+        });
+        pieces.push(taperedTube(pts,pts.map(()=>r*.33),count,5));
+      }
+      addMerged(holder,pieces,thread,cordMat);
+    }
+    // A gently sagging loop, knotted just off centre, with unequal tasselled ends.
+    rope(Array.from({length:65},(_,i)=>{
+      const a=i/64*Math.PI*2;return onSkirt(.012+.015*Math.max(0,Math.cos(a)),a);
+    }));
+    const knot=onSkirt(.028,-.54);
+    rope(Array.from({length:25},(_,i)=>{
+      const a=i/24*Math.PI*2;return [knot[0]+.009+.005*Math.sin(a),knot[1]+.011*Math.cos(a),knot[2]+.016*Math.sin(a)];
+    }),.0065);
+    for(const [end,side] of [[.35,-1],[.44,1]]){
+      const angle=t=>-.54+side*.07*Math.sin(t*Math.PI*.75);
+      const pts=Array.from({length:25},(_,i)=>{
+        const t=i/24,p=onSkirt(lerp(.031,end,t),angle(t));p[0]+=.012*Math.sin(t*Math.PI);return p;
+      });
+      rope(pts,.005);
+      const tip=pts.at(-1);
+      addMerged(holder,[bake(new THREE.SphereGeometry(.009,12,10),[tip[0],tip[1]-.004,tip[2]],null,[.85,1.1,.85])],black,cordMat);
+      const tassels=[];
+      for(let i=0;i<10;i++){
+        const a=i/10*Math.PI*2;
+        tassels.push(taperedTube([
+          [tip[0]+Math.cos(a)*.004,tip[1]-.008,tip[2]+Math.sin(a)*.004],
+          [tip[0]+.007+Math.cos(a)*.010,tip[1]-.028,tip[2]+Math.sin(a)*.010],
+          [tip[0]+.012+Math.cos(a)*.009,tip[1]-.048,tip[2]+Math.sin(a)*.009],
+        ],[.0022,.0025,.0017],12,5));
+      }
+      addMerged(holder,tassels,thread,cordMat);
+    }
   }
 
   function limb(g,look,upper=false,forearm=false){
