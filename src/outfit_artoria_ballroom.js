@@ -2,7 +2,8 @@
 // original body, joints, AI and the already-unarmored combat state are preserved.
 export function createArtoriaBallroomOutfit(h, originalHead) {
   const {THREE,addMerged,CLOTH,bake,reshapeMain,artoriaRoundedBox,clothNeck,isoldeLock,taperedTube}=h;
-  const DRESS=0x27242e,FOLD=0x403a46,SEAM=0x5e5260,BOOT=0x29272d,IVORY=0xe0d1b2;
+  const DRESS=0x25232b,FOLD=0x3d3540,SEAM=0x66555d,BOOT=0x29272d,IVORY=0xe0d1b2;
+  const GOLD=0xa8905d,THREAD=0x786849,UNDER=0x66505a;
   const fabric={...CLOTH,roughness:.78,side:THREE.DoubleSide};
   const leather={...CLOTH,roughness:.63};
   const chestRows=[[-.165,.091,.136],[-.10,.100,.146],[-.035,.118,.166],[.035,.124,.169],[.10,.111,.171],[.137,.091,.158],[.18,.045,.049]];
@@ -41,47 +42,101 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
     main(g,surface((t,a)=>point(chestRows,lerp(-.165,.18,t),a)),look.skin);
     clothNeck(g,look);
     addMerged(g,[-1,1].map(s=>bake(new THREE.SphereGeometry(.048,18,12),[0,.099,s*.19],null,[1,.94,1])),look.skin,CLOTH);
-    // A shallow sweetheart neckline; both shoulders remain open above the cuff.
-    const top=a=>Math.cos(a)>0?.023+.039*Math.exp(-Math.pow((Math.abs(Math.sin(a))-.57)/.36,2)):.032;
+    // Square court neckline and wide woven trim, inspired by Renaissance
+    // formal dress; not a reconstruction of a single historical garment.
+    const top=a=>Math.cos(a)>0?.042+.058*THREE.MathUtils.smoothstep(Math.abs(Math.sin(a)),.55,.82):.075;
     addMerged(g,[surface((t,a)=>point(chestRows,lerp(-.166,top(a),t),a,.003))],DRESS,fabric).name='artoria-ballroom-bodice';
-    addMerged(g,[surface((t,a)=>point(chestRows,top(a)-t*.027,a,.005+.004*Math.sin(t*Math.PI)),4)],FOLD,fabric).name='artoria-folded-neckline';
-    edge(g,a=>point(chestRows,top(a),a,.007),SEAM,.0017);
-    // Subtle fitted seams continue the curved silhouette into the waist.
-    for(const s of [-1,1])line(g,Array.from({length:12},(_,i)=>{
-      const y=.027-i/11*.19,a=s*(.56+.10*i/11);return point(chestRows,y,a,.005);
-    }),FOLD,.0016);
+    addMerged(g,[surface((t,a)=>point(chestRows,top(a)-t*.025,a,.006),4)],FOLD,fabric).name='artoria-court-neckline';
+    edge(g,a=>point(chestRows,top(a),a,.008),GOLD,.0028);
+    edge(g,a=>point(chestRows,top(a)-.022,a,.008),THREAD,.0016);
+    // Small seed pearls follow the woven neckline. Their scale stays quiet.
+    addMerged(g,Array.from({length:25},(_,i)=>{
+      const a=-1.22+i/24*2.44;return bake(new THREE.SphereGeometry(.0032,8,6),point(chestRows,top(a)-.012,a,.009));
+    }),IVORY,CLOTH);
+    // The front stomacher narrows toward a pointed waist. Dark wine silk is
+    // confined to this inset and the undergown; the main silhouette stays black.
+    addMerged(g,[surface((t,a)=>{
+      const y=lerp(-.165,.038,t),angle=lerp(-.46,.46,a/(Math.PI*2));
+      return point(chestRows,y,angle,.008);
+    },14,24)],UNDER,fabric).name='artoria-court-stomacher';
+    for(const side of [-1,1])line(g,Array.from({length:14},(_,i)=>point(chestRows,.038-i/13*.203,side*.46,.01)),GOLD,.0023);
+    for(const y of [-.015,-.080,-.143])ornament(g,(dy,z)=>{
+      const a=Math.asin(z/.165);return point(chestRows,y+dy,a,.011);
+    },.020,.024);
     // Retain her native silver side locks, including their chest continuation.
     addMerged(g,[-1,1].map(s=>isoldeLock([[.13,.15,s*.145],[.175,.06,s*.15],[.164,-.067,s*.17]],[.03,.032,.002],.012)),look.hair,CLOTH).name='artoria-hair';
   }
+  // Four-leaf embroidery, built as thread rather than floating metal badges.
+  function ornament(g,project,w,h){
+    const pts=Array.from({length:33},(_,i)=>{
+      const a=i/32*Math.PI*2,r=.72+.28*Math.cos(4*a);
+      return project(Math.cos(a)*h*r,Math.sin(a)*w*r);
+    });
+    line(g,pts,THREAD,.0011);
+    line(g,[project(-h*.3,0),project(h*.3,0)],GOLD,.0013);
+  }
   function abdomen(g){
     main(g,surface((t,a)=>point(waistRows,lerp(-.11,.11,t),a)),DRESS);
-    for(const s of [-1,1])line(g,Array.from({length:14},(_,i)=>point(waistRows,.108-i/13*.215,s*.66,.002)),FOLD,.0015);
-    // Tiny back lacing sits on the dress; it is not a new armor or body part.
-    for(let i=0;i<4;i++)for(const s of [-1,1]){
-      const y=.065-i*.033,p=point(waistRows,y,Math.PI+s*.18,.003),q=point(waistRows,y-.031,Math.PI-s*.18,.003);
+    addMerged(g,[surface((t,a)=>{
+      const y=lerp(-.11,.11,t),angle=lerp(-.26-.2*t,.26+.2*t,a/(Math.PI*2));
+      return point(waistRows,y,angle,.004);
+    },14,24)],UNDER,fabric);
+    for(const side of [-1,1])line(g,Array.from({length:14},(_,i)=>{
+      const t=i/13;return point(waistRows,-.11+t*.22,side*(.26+.2*t),.006);
+    }),GOLD,.0023);
+    ornament(g,(dy,z)=>point(waistRows,.015+dy,Math.asin(z/.125),.006),.019,.030);
+    // A restrained V-shaped girdle separates the bodice from the full skirt.
+    edge(g,a=>point(waistRows,-.092+.045*Math.abs(Math.sin(a)),a,.004),GOLD,.003);
+    for(let i=0;i<4;i++)for(const side of [-1,1]){
+      const y=.065-i*.033,p=point(waistRows,y,Math.PI+side*.18,.003),q=point(waistRows,y-.031,Math.PI-side*.18,.003);
       line(g,[p,q],FOLD,.0014);
     }
   }
   function pelvis(g){
     main(g,artoriaRoundedBox(.208,.18,.312,.045),DRESS);
-    const at=(t,a)=>{
-      const flare=Math.pow(t,.8),fold=Math.pow(t,.9)*(.011*Math.cos(a*10+.25)+.0035*Math.cos(a*17));
-      const rx=lerp(.103,.257,flare)+fold,rz=lerp(.154,.305,flare)+fold;
-      return [Math.cos(a)*rx,.118-.485*t+Math.pow(t,5)*(.006*Math.sin(a*3)+.005*Math.cos(a*10)),Math.sin(a)*rz];
+    const at=(t,a,outer=false)=>{
+      const flare=Math.pow(t,.72),fold=Math.pow(t,.8)*(.012*Math.cos(a*12+.25)+.003*Math.cos(a*19));
+      // Leave enough front room for the native bent-knee guard and advancing
+      // boot. The original short dress never had to enclose this leg motion.
+      const rx=lerp(.103,.41+.05*Math.cos(a),flare)+.05*Math.sin(t*Math.PI)+fold+(outer?.007:0);
+      const rz=lerp(.154,.399,flare)+fold+(outer?.007:0);
+      // Hem clears the ground and rear foot; no long train crossing the gait.
+      return [Math.cos(a)*rx,.118-.916*t+Math.pow(t,5)*.008*Math.cos(a*12),Math.sin(a)*rz];
     };
-    const skirt=surface(at,24,96);
-    // Shade the folds without turning black fabric into flat unlit geometry.
+    const under=surface((t,a)=>at(t,a),28,96);
     const colors=[];
-    for(let j=0;j<=24;j++)for(let i=0;i<=96;i++){
-      const shade=.82+.18*Math.cos(i/96*Math.PI*20+.25);colors.push(shade,shade,shade);
+    for(let j=0;j<=28;j++)for(let i=0;i<=96;i++){
+      const shade=.87+.13*Math.cos(i/96*Math.PI*24+.25);colors.push(shade,shade,shade);
     }
-    skirt.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));
-    addMerged(g,[skirt],DRESS,{...fabric,vertexColors:true}).name='artoria-ballroom-skirt';
-    // Double-sided fabric supplies the inside too. A second lifted lining
-    // would cross the rapidly flaring waist and show as a gray patch.
-    edge(g,a=>at(1,a),FOLD,.0022);
-    // A narrow doubled hem, with the original black palette kept restrained.
-    edge(g,a=>at(.972,a),0x37313d,.0013);
+    under.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));
+    addMerged(g,[under],UNDER,{...fabric,vertexColors:true}).name='artoria-ballroom-skirt';
+    // Open black overskirt: a narrow opening at the waist widens over the
+    // brocaded front panel. The complete undergown remains beneath it.
+    const opening=t=>.12+.58*Math.pow(t,.68);
+    const outerAt=(t,u)=>at(t,lerp(opening(t),Math.PI*2-opening(t),u),true);
+    addMerged(g,[surface((t,a)=>outerAt(t,a/(Math.PI*2)),28,96)],DRESS,fabric).name='artoria-court-overskirt';
+    for(const side of [-1,1]){
+      line(g,Array.from({length:40},(_,i)=>at(i/39,side*opening(i/39),true)),GOLD,.0031);
+      line(g,Array.from({length:40},(_,i)=>at(i/39,side*(opening(i/39)+.035),true)),THREAD,.0015);
+    }
+    line(g,Array.from({length:65},(_,i)=>outerAt(1,i/64)),GOLD,.0031);
+    line(g,Array.from({length:65},(_,i)=>outerAt(.974,i/64)),THREAD,.0018);
+    edge(g,a=>at(1,a),THREAD,.0022);
+    // Repeating small woven motifs on the exposed silk, arranged vertically.
+    // Modest contrast and spacing keep this from reading as an apron.
+    for(const t of [.30,.47,.64,.81])for(const side of (t<.4?[0]:[-1,1])){
+      const center=side*.22;
+      ornament(g,(dy,z)=>{
+        const p=at(t-dy/.916,center+z/.28);p[0]+=.003;return p;
+      },.020,.026);
+    }
+    // The long pointed waist sits over the skirt, completing the court bodice.
+    const inset=surface((t,a)=>{
+      const y=.131-.084*t,width=.042*(1-t),z=(a/Math.PI-1)*width;
+      return [.115+.025*t,y,z];
+    },8,20);
+    addMerged(g,[inset],UNDER,fabric);
+    for(const side of [-1,1])line(g,[[.115,.131,side*.042],[.140,.047,0]],GOLD,.0021);
   }
   function limb(g,look,upper=false,forearm=false){
     const old=g.children[0].geometry.parameters,{radius,height}=old;
@@ -95,14 +150,33 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
     g.children[0].material.color.setHex(look.skin);g.children[0].material.metalness=0;
     if(forearm){
       for(const m of g.children.slice(1))if(m.material)m.material.color.setHex(look.skin);
-      addMerged(g,[bake(new THREE.SphereGeometry(.04,14,10),[0,.14,0],null,[1,1.08,1])],look.skin,CLOTH);
+      // Fitted forearm sleeves, gathered into a small ivory wrist ruffle.
+      const sleeve=surface((t,a)=>{
+        const r=lerp(.044,.055,t);return [Math.cos(a)*r,-.104+t*.278,Math.sin(a)*r];
+      },10,32);
+      addMerged(g,[sleeve],DRESS,fabric).name='artoria-court-lower-sleeve';
+      const cuff=surface((t,a)=>{
+        const r=.045+.014*t+.004*t*Math.cos(a*12);return [Math.cos(a)*r,-.097-.041*t,Math.sin(a)*r];
+      },5,48);
+      addMerged(g,[cuff],IVORY,fabric);
+      edge(g,a=>[Math.cos(a)*.048,-.098,Math.sin(a)*.048],GOLD,.0021);
     }
     if(upper){
-      const cuff=surface((t,a)=>{const r=.052+.005*Math.sin(t*Math.PI);return [Math.cos(a)*r,.12-t*.079,Math.sin(a)*r]},8,40);
-      addMerged(g,[cuff],DRESS,fabric).name='artoria-off-shoulder-sleeve';
-      edge(g,a=>[Math.cos(a)*.054,.12,Math.sin(a)*.054],FOLD,.0024);
+      addMerged(g,[surface((t,a)=>{
+        const r=lerp(.047,.060,t);return [Math.cos(a)*r,-.17+t*.25,Math.sin(a)*r];
+      },8,32)],DRESS,fabric);
+      const at=(t,a)=>{
+        const r=.052+.031*Math.pow(Math.sin(t*Math.PI),.75)+.0025*Math.sin(t*Math.PI)*Math.cos(a*8);
+        return [Math.cos(a)*r,.157-t*.202,Math.sin(a)*r];
+      };
+      addMerged(g,[surface(at,14,48)],DRESS,fabric).name='artoria-court-puff-sleeve';
+      for(let i=0;i<8;i++)line(g,Array.from({length:13},(_,j)=>{
+        const p=at(.12+j/12*.76,i/8*Math.PI*2);p[0]*=1.012;p[2]*=1.012;return p;
+      }),THREAD,.0016);
+      edge(g,a=>at(.97,a),GOLD,.0025);
     }
   }
+
   function boot(g){
     const rows=[[-.229,.042,.044],[-.15,.047,.048],[-.04,.064,.060],[.10,.062,.058],[.205,.066,.061],[.285,.071,.065]];
     main(g,surface((t,a)=>point(rows,lerp(-.229,.285,t),a),22,48),BOOT);
