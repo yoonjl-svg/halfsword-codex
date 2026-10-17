@@ -1,5 +1,5 @@
 /** Input distance compensation only: never adds forces, energy, or sword steering. */
-// 적막 10/7: 샛별 일반판(f18fc7b·41bbe61)에서 그대로 — 사장님 선택(10/4 KST, 샛별 기록 mobile_vertical_default_20261003.md): "b가 나아. 손으로 같은 거리를 그을 때 속도에도 거리에도 보정이 생기는 거 맞지? 둘 다 필요해." 폰 touch 의 세로 이동만 1.35 배(거리·속도 둘 다), 마우스·펜·가로·탭 판정 픽셀은 그대로. ?mobileVerticalGain=1 이 옛 매핑.
+// Stillness 10/7: 샛별 일반판(f18fc7b·41bbe61)에서 그대로 — 사장님 선택(10/4 KST, 샛별 기록 mobile_vertical_default_20261003.md): "b가 나아. 손으로 같은 거리를 그을 때 속도에도 거리에도 보정이 생기는 거 맞지? 둘 다 필요해." 폰 touch 의 세로 이동만 1.35 배(거리·속도 둘 다), 마우스·펜·가로·탭 판정 픽셀은 그대로. ?mobileVerticalGain=1 이 옛 매핑.
 export const MOBILE_VERTICAL_GAIN = Object.freeze({ default: 1.35, min: 1, max: 1.8 });
 
 function validGain(value) {

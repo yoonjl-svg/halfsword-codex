@@ -6,6 +6,7 @@
 //  싸움 쪽은 책 없는 새 프로필(주소 판 — 대기실 여정과 같은 몫: 산 책 없음)
 //  npm run build && npx vite preview --port 5230 →  node tools/browser/uifix_weapon_capture.mjs http://127.0.0.1:5230 [고치기 전 주소] docs/handoff
 import { chromium } from 'playwright';
+import { titleToLobby } from './to_lobby.mjs'; // 10/17: 첫 화면 → 곧바로 여정 → 정지 → 대기실 (사장님 '첫화면에서 바로 전투로')
 import fs from 'node:fs';
 const base = process.argv[2] || 'http://127.0.0.1:5230', before = process.argv[3] || '', out = process.argv[4] || 'docs/handoff';
 fs.mkdirSync(out, { recursive: true });
@@ -60,7 +61,7 @@ async function lobbyShots(url, id, width, height) {
   await p.waitForFunction(() => window.game?.player, null, { timeout: 60000 });
   if (await p.locator('#noticeDialog').evaluate((d) => d.open)) await p.locator('#confirmNotices').click();
   await p.waitForFunction(() => document.querySelector('#gameEntrance')?.shadowRoot.getElementById('entrance')?.dataset.phase === 'ready', null, { timeout: 20000 });
-  await p.locator('#newJourney').click(); await p.locator('#characterView canvas').waitFor({ timeout: 20000 });
+  await titleToLobby(p);
   const view = 'document.querySelector("#gameEntrance").shadowRoot.getElementById("characterView")';
   await p.evaluate(new Function('w', `${view}.lobbyPreview.setWeapon(w)`), id);
   await p.waitForFunction(new Function(`return ${view}.dataset.rig === 'ready'`), null, { timeout: 60000 });

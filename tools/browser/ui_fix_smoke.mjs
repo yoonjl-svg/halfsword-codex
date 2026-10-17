@@ -1,5 +1,5 @@
 // 화면 고침 실제 흐름 점검 (사장님 10/16 08:3x · 08:4x — docs/import/ui_fix_2026-10-16.md §3~§5) — 배포판 + 미리 보기 서버, 인증 서버는 막음(부르면 실패)
-//  ① 일시정지 → 대기실 (첫 화면·대기실 여정): 정지 창 '대기실' · 설정 줄 그대로 → 대기실('여정 이어가기') · 금화 · 대면 결과 · 이어하기 지점 그대로(사장님 08:4x '깎지 마')
+//  ① 첫 화면 'Stage 1' → 곧바로 카드 (사장님 10/17 11:2x — 대기실을 거치지 않음) · 일시정지 → 대기실: 정지 창 '대기실' · 설정 줄 그대로 → 대기실('Stage 입장') · 금화 · 대면 결과 · 이어하기 지점 그대로(사장님 08:4x '깎지 마')
 //     → 다시 출발 = 같은 무대 · 같은 무기 (카드 없이)
 //  ② 결과 창 — 이김: '승리' · '금화 +N' · 설정 줄 없음 · '다음 여정' · '대기실' → 대기실 금화 = 전 + N → 출발 = 다음 무대
 //     짐: '패배' · '금화 −N'(또는 ±0) · '다시 겨루기'(같은 무대 — 진 판은 넘어가지 않음) · '대기실'
@@ -8,10 +8,12 @@
 //  ③ 테스트 경로 · 주소 판: 정지 · 결과 창에 '대기실' 없음 · 결과 창 설정 줄 그대로 (메뉴 그대로)
 //  ④ 대기실 캐릭터: '드래그하여 회전' 없음 · 천천히 반 칸 끌면 180°(멈췄다 놓으면 관성 없음) · 튕기면 더 돌다 섬 · 선 뒤로는 그리지 않음 · 막는 각 없음(몇 바퀴든) · Home = 가까운 정면
 //  ⑤ 대기실 무기 = 싸움 무기 (08:4x — 같은 문서 §6): 나뭇가지를 장착한 대기실 몸 ↔ 그 무기로 연 여정 판의 플레이어(상대 AI 멈춤 · 자세를 고쳐 딛고 선 뒤) — 골반 기준 손목 · 칼끝 · 칼날 축
+//  10/17: ④ ⑤ 의 대기실도 첫 화면 → 곧바로 카드 → 정지 → '대기실' 로 연다 (tools/browser/to_lobby.mjs)
 //  npm run build && npx vite preview --port 5230 →  node tools/browser/ui_fix_smoke.mjs http://127.0.0.1:5230 /tmp/<빈 폴더>
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import { departTitle, titleToLobby } from './to_lobby.mjs';
 const base = process.argv[2] || 'http://127.0.0.1:5230', out = process.argv[3] || '/tmp/ui-fix';
 fs.mkdirSync(out, { recursive: true });
 const browser = await chromium.launch({ executablePath: process.env.PW_CHROMIUM || '/opt/pw-browsers/chromium', args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader'] });
@@ -25,10 +27,10 @@ async function title(p) {
   if (await p.locator('#noticeDialog').evaluate((d) => d.open)) await p.locator('#confirmNotices').click();
   await p.waitForFunction(() => document.querySelector('#gameEntrance')?.shadowRoot.getElementById('entrance')?.dataset.phase === 'ready', null, { timeout: 20000 });
 }
-async function lobby(p, url) {
+async function lobby(p, url) { // 첫 화면 → 곧바로 여정 → 정지 → 대기실 (url 없으면 지금 첫 화면에서)
   if (url != null) await p.goto(base + url, { waitUntil: 'networkidle' });
   await title(p);
-  await p.locator('#newJourney').click(); await p.locator('#characterView canvas').waitFor({ timeout: 20000 });
+  return titleToLobby(p);
 }
 const inLobby = (p) => p.waitForFunction(() => !!document.querySelector('#gameEntrance')?.shadowRoot.querySelector('.lobby #characterView canvas') && document.documentElement.hasAttribute('data-start-open'), null, { timeout: 30000 });
 const pick = async (p, i = 0) => { await p.waitForFunction(() => game.state === 'draw' && game.draw.t > 0.6, null, { timeout: 30000 }); await p.locator(`#draw .wcard[data-i="${i}"]`).click(); await p.waitForFunction(() => game.state === 'fight', null, { timeout: 30000 }); };
@@ -54,8 +56,9 @@ try {
   {
     const c = await browser.newContext({ viewport: { width: 844, height: 390 }, deviceScaleFactor: 1, reducedMotion: 'reduce', hasTouch: true }); await noAuth(c);
     const p = await c.newPage(); watch(p);
-    await lobby(p, '/?title=1&cards=longsword,rapier');
-    await depart(p); await pick(p, 0);
+    await p.goto(base + '/?title=1&cards=longsword,rapier', { waitUntil: 'networkidle' }); await title(p);
+    assert.equal(await departTitle(p), 'draw'); // 첫 화면 'Stage 1' → 곧바로 카드 (덮개 걷힘 · 대기실 없음)
+    await pick(p, 0);
     const stage0 = await p.evaluate(() => game.stage.id);
     // ① 일시정지 → 대기실
     await p.locator('#btnPause').click(); await p.waitForFunction(() => game.state === 'paused', null, { timeout: 10000 });
@@ -65,14 +68,14 @@ try {
     const before = await store(p);
     await p.locator('#btnLobby').click(); await inLobby(p);
     assert.equal(await p.evaluate(() => game.state), 'menu');
-    assert.equal(await inRoot(p, `return root.getElementById('lobbyDepart').textContent`), '여정 이어가기');
+    assert.equal(await inRoot(p, `return root.getElementById('lobbyDepart').textContent`), 'Stage 입장');
     assert.deepEqual(await store(p), before); // 금화 · 대면 결과 · 이어하기 지점 그대로
     assert.equal(await inRoot(p, `return root.getElementById('lobbyCoins').textContent`), String(before.coins));
     await p.waitForTimeout(400); await shot(p, 'lobby-after-pause');
     await depart(p);
     assert.equal(await p.evaluate(() => game.state), 'fight'); // 고른 무기로 그 무대 시작부터 — 카드 없이
     assert.deepEqual(await p.evaluate(() => [game.stage.id, game.player.weapon.id]), [stage0, 'longsword']);
-    checks.push({ check: 'pause → 대기실: menu has 대기실 + settings row; lobby opens as 여정 이어가기; coins · duel record · checkpoint unchanged; departing resumes the same stage with the same weapon', stage0, coins: before.coins });
+    checks.push({ check: 'title Stage 1 → straight to the card draw (no lobby); pause → 대기실: menu has 대기실 + settings row; lobby opens as Stage 입장; coins · duel record · checkpoint unchanged; departing resumes the same stage with the same weapon', stage0, coins: before.coins });
     // ② 이긴 판 결과 창
     await end(p, 'enemy');
     const won = await menu(p);
@@ -136,7 +139,7 @@ try {
   {
     const c = await browser.newContext({ viewport: { width: 844, height: 390 }, deviceScaleFactor: 1, reducedMotion: 'reduce', hasTouch: true, isMobile: true }); await noAuth(c);
     const p = await c.newPage(); watch(p);
-    await lobby(p, '/');
+    assert.equal(await lobby(p, '/'), 'draw');
     assert.ok(!/드래그/.test(await inRoot(p, `return root.querySelector('.lobby').textContent`)), 'drag hint text is gone');
     assert.equal(await inRoot(p, `return root.querySelectorAll('.rotate-hint').length`), 0);
     const view = p.locator('#characterView'), box = await view.boundingBox(), cdp = await c.newCDPSession(p);
@@ -180,7 +183,7 @@ try {
   {
     const c = await browser.newContext({ viewport: { width: 844, height: 390 }, deviceScaleFactor: 1, reducedMotion: 'reduce' }); await noAuth(c);
     const p = await c.newPage(); watch(p);
-    await lobby(p, '/?title=1&cards=longsword,rapier');
+    assert.equal(await lobby(p, '/?title=1&cards=longsword,rapier'), 'draw');
     await p.locator('[data-weapon=tree_branch]').click(); await p.locator('#equipItem').click();
     const ready = () => p.waitForFunction(() => document.querySelector('#gameEntrance').shadowRoot.getElementById('characterView').dataset.rig === 'ready', null, { timeout: 60000 });
     await ready();

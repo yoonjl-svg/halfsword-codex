@@ -13,7 +13,7 @@
     <!-- 설치되는 앱(PWA, docs/pwa_2026-10-13.md): 매니페스트 · 아이폰 홈 화면 아이콘·이름 · 전체 화면에서 상태 막대 아래까지 그린다(안전 영역은 아래 --safe-*) -->
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="apple-touch-icon" sizes="192x192" href="./icons/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="적막" />
+    <meta name="apple-mobile-web-app-title" content="Stillness" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <title>Stillness</title>
     <!-- 화면 글꼴 (10/14 10:4x 사장님 '갈무리+자카드보다 프리텐다드+킨젤' — 웹폰트 비교 3안, docs/ui/webfont_2026-10-14.md): 우리 파일만 쓴다(public/fonts — 오프라인 앱이라
@@ -351,8 +351,8 @@
       .toggle::after { content: ''; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: var(--c-sub); transition: left .15s; }
       .toggle.on { background: var(--c-accent); }
       .toggle.on::after { left: 22px; background: #1b1410; }
-      .primary { width: 100%; margin-top: 14px; padding: 13px; font-size: var(--fs-m); font-weight: var(--fw-head); border: 0; border-radius: 8px; background: var(--c-accent); color: var(--c-on-accent); }
-      .secondary { width: 100%; margin-top: 8px; padding: 11px; font-size: var(--fs-m); border: 1px solid var(--line); border-radius: 8px; background: transparent; color: var(--c-text); }
+      .primary { width: 100%; margin-top: 14px; padding: 13px; font-size: var(--fs-m); line-height: calc(var(--fs-m) + 2px); font-weight: var(--fw-head); border: 0; border-radius: 8px; background: var(--c-accent); color: var(--c-on-accent); }
+      .secondary { width: 100%; margin-top: 8px; padding: 11px; font-size: var(--fs-m); line-height: calc(var(--fs-m) + 2px); border: 1px solid var(--line); border-radius: 8px; background: transparent; color: var(--c-text); }
       .actions { position: sticky; bottom: -20px; margin: 0 -20px -20px; padding: 0 20px 20px; background: var(--panel); }
       .howto { font-size: var(--fs-s); color: var(--c-sub); line-height: 1.6; margin: 12px 0 0; padding-left: 18px; }
       .minor { color: var(--c-accent); font-size: var(--fs-s); margin-left: 6px; }

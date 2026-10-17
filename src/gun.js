@@ -3,7 +3,7 @@
 //   · '찌르기'(탭)로 쏜다. 총은 저절로 상대를 겨누지만(자동 조준 — 끌기로 총을 돌리지 않는다, 조이스틱은 이동만) 겨눔이 상대 몸
 //     둘레를 느리게 크게 흔들린다(GUN.sway*). 레이저 점이 몸 위를 들락날락할 때 그 순간에 맞춰 탭하는 것이 실력이다(사장님).
 //     사람은 지금 총신 방향(칼 축 = 몸체 +y, 레이저가 보여 준다)으로 바로 한 발. AI 도 같은 흔들림으로 겨누고, 레이저가 골반 이상의 몸
-//     (골반~머리)을 지날 때(GUN.aiAimTol) 쏜다. 싱글액션 6연발(사장님 "사실감"): 겨눈 사격 사이 GUN.cooldown, 여섯 발을 다 쏘면 GUN.reload 초 동안
+//     (골반~머리)을 지날 때(GUN.aiAimTol) 쏜다. 싱글액션 6연발(사장님 "사실감"): 겨눈 사격 사이 GUN.cooldown(AI 가 모는 몸은 × GUN.aiCooldownK), 여섯 발을 다 쏘면 GUN.reload 초 동안
 //     실린더를 열고 한 발씩 채운다 — 다 채워야 다시 쏠 수 있다.
 //   · 맞으면 늘 같은 세기(GUN.energy)의 찌르기 상처 — 새 상처 종류는 만들지 않는다. 투구·판금은 총알을 막는 대신 그 자리에서 부서진다.
 //     맨머리 한 발 = 즉사, 가슴은 두세 발. 쏘면 팔 동작으로 총구를 튀겨 올린다(GUN.kick*, 물리 반동은 작은 '탁'). 총신 방향으로 레이저(탄 길)를 그린다
@@ -24,8 +24,11 @@ export const GUN = {
   energy: 80, // J: 맞으면 늘 이 세기의 찌르기. 70 → 80 (그쪽 70 → 75 → 80). 방어구·부위별 피해 계산은 그대로. 가슴 두 발로 죽는 가장 낮은 값이 75 J 였다(gun_dummy)
   // 싱글액션 6연발 (사장님 9/29 "사실감"). 아래 시간은 게임 값이며 사람 실측 평균이 아니다
   rounds: 6, // 실린더에 드는 탄
-  cooldown: 0.8, // 초: 한 발 쏜 뒤 다음 발까지 (공이를 젖히고 다시 겨눔). 0.7 → 0.8. 인물 배율 gunCooldownK 가 곱해진다(사미라 1.5 → 1.2 s)
-  reload: 8, // 초: 여섯 발을 다 쏘면 전체 장전 (9 → 8). 다 끝나야 탄 6 으로 돌아오고 다시 쏜다. gunCooldownK 는 곱하지 않는다
+  cooldown: 0.8, // 초: 한 발 쏜 뒤 다음 발까지 (공이를 젖히고 다시 겨눔). 0.7 → 0.8. 인물 배율 gunCooldownK 가 곱해진다(사미라 1.5 → 1.2 s). AI 가 모는 몸은 아래 aiCooldownK 를 한 번 더 곱한다
+  aiCooldownK: 1.8, // 배: AI 가 모는 몸(f.aiControlled — ai.js AI 가 붙이는 표시)의 발 사이 간격에만 곱한다. 사장님 10/16 지시 (샛별 쪽 메모로 전달 — 10/17 들여옴, 확인표 2022).
+  //  인물 배율 위에 얹는다: 인물 배율 없는 AI 0.8 → 1.44 s · 사미라 1.2 → 2.16 s. 사람(플레이어) 간격 · 첫 발(aiFirst) · 장전(reload) · 위력 · 명중은 그대로.
+  //  쏠 때마다 새로 곱하고 몸에 쌓아 두지 않는다 — 다시 시작 · 무기 바꿈 · 새 판에도 두 번 곱해지지 않는다
+  reload: 8, // 초: 여섯 발을 다 쏘면 전체 장전 (9 → 8). 다 끝나야 탄 6 으로 돌아오고 다시 쏜다. gunCooldownK · aiCooldownK 는 곱하지 않는다
   reloadOpen: 0.9, // 초: 장전 첫머리 — 실린더를 열고 빈 탄피를 밀어낸다 (그 뒤부터 한 발씩 넣는 소리)
   reloadClose: 0.8, // 초: 장전 끝에 남겨 두는 닫기 구간 — 마지막 한 발은 이 구간 바로 앞에 넣는다
   reloadInsertInterval: (7.3 / 6) * 0.8 * 0.8, // 초(≈0.779): 한 발 넣는 소리 사이. 옛 고른 간격 7.3/6 에서 20% 씩 두 번 줄임 — 여섯 발이 닫기 앞으로 몰려 끝에 긴 빈틈이 없다
@@ -341,7 +344,7 @@ export function updateGun(f, world, combat, dt) {
     g.reloading = true;
     g.cool = GUN.reload;
     sound('onReloadStart', f);
-  } else g.cool = GUN.cooldown * (f.gunCooldownK ?? 1); // gunCooldownK: 인물 핸디캡(사미라 1.5 — 사장님 지시 10/10 20:0x, ai.js persona.gunCooldownK). 없으면 1 (그대로). 장전 시간(GUN.reload)에는 곱하지 않는다
+  } else g.cool = GUN.cooldown * (f.gunCooldownK ?? 1) * (f.aiControlled ? GUN.aiCooldownK : 1); // gunCooldownK: 인물 핸디캡(사미라 1.5 — 사장님 지시 10/10 20:0x, ai.js persona.gunCooldownK). 없으면 1 (그대로). aiCooldownK: AI 가 모는 몸만(사장님 10/16 지시 — 사람은 × 1 그대로). 장전 시간(GUN.reload)에는 둘 다 곱하지 않는다
   fire(f, world, combat);
 }
 

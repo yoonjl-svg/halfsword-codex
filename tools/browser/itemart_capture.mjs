@@ -6,6 +6,7 @@
 //                   그 줄은 다른 작업자가 지우는 중이라(같은 날 2 단계), 합친 뒤 모습을 미리 보려고. 저장소 CSS 는 안 바꾼다.
 //  배포판 + 미리 보기 서버 →  node tools/browser/itemart_capture.mjs http://127.0.0.1:5250 /tmp/<빈 폴더> [--lobby-smooth]
 import { chromium } from 'playwright';
+import { titleToLobby } from './to_lobby.mjs'; // 10/17: 첫 화면 → 곧바로 여정 → 정지 → 대기실 (사장님 '첫화면에서 바로 전투로')
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 const base = process.argv[2] || 'http://127.0.0.1:5250', out = process.argv[3] || '/tmp/itemart-capture', smooth = process.argv.includes('--lobby-smooth');
@@ -38,7 +39,7 @@ try {
   await p.waitForFunction(() => window.game?.player, null, { timeout: 60000 });
   if (await p.locator('#noticeDialog').evaluate((d) => d.open)) await p.locator('#confirmNotices').tap();
   await p.waitForFunction(() => document.querySelector('#gameEntrance')?.shadowRoot.getElementById('entrance')?.dataset.phase === 'ready', null, { timeout: 20000 });
-  await p.locator('#newJourney').tap(); await p.locator('#characterView canvas').waitFor({ timeout: 20000 });
+  await titleToLobby(p, '#newJourney', 'tap');
   if (smooth) await p.evaluate(() => { const s = document.createElement('style'); s.textContent = '.coin-icon{image-rendering:auto}'; document.querySelector('#gameEntrance').shadowRoot.append(s); });
   await p.evaluate(() => document.fonts.ready); await images(); await p.waitForTimeout(600);
   rects.wallet = await rectOf(p, '.coin-balance');

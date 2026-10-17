@@ -25,7 +25,7 @@ import { COIN_ICON, POUCH_ICON } from './wallet_icons.js'; // 금화 · 머리 �
 //  같은 그림은 한 번만 잰다(이번 실행 동안). 재기 전 · 못 재면 그림 상자 = 칸의 80 % 그대로 (lobby.css .inventory-item img 의 --fit · --fx · --fy)
 const thumbFits = new Map();
 function fitThumb(img) {
-  const apply = f => { img.style.setProperty('--fit', f.fit.toFixed(3)); img.style.setProperty('--fx', f.x.toFixed(3)); img.style.setProperty('--fy', f.y.toFixed(3)); img.dataset.fit = 'content'; };
+  const apply = f => { img.style.setProperty('--fit', f.fit.toFixed(3)); img.style.setProperty('--fx', f.x.toFixed(3)); img.style.setProperty('--fy', f.y.toFixed(3)); img.dataset.fit = 'content'; if (f.busy) img.dataset.top = 'busy'; };
   const known = thumbFits.get(img.src);
   if (known) { apply(known); return; }
   img.decode().then(() => {
@@ -36,6 +36,11 @@ function fitThumb(img) {
     for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) if (a[(y * n + x) * 4 + 3] > 24) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
     if (x1 < 0) return;
     const f = { fit: Math.min(1.6, n / Math.max(x1 - x0 + 1, y1 - y0 + 1)), x: (x0 + x1 + 1) / 2 / n - .5, y: (y0 + y1 + 1) / 2 / n - .5 };
+    // '장착 중' 알약 자리에 그림이 있나 (목걸이처럼 위 가장자리가 찬 그림 — 10/17 점검에서 찾음): 낮은 화면 칸(폭 54 px 안팎)에서 알약이 덮는 곳 =
+    //  칸 왼쪽 68 % · 위 18 %. 그림은 보이는 부분의 긴 쪽이 칸의 80 % · 가운데라, 칸 좌표 u, v → 그림 좌표 = 가운데 + (u − .5) × 긴 쪽 / .8 . 찼으면 lobby.css 가 장착 중일 때만 줄여 내린다
+    const span = Math.max(x1 - x0 + 1, y1 - y0 + 1), cx = (x0 + x1 + 1) / 2, cy = (y0 + y1 + 1) / 2, k = span / .8;
+    const zx0 = Math.max(0, Math.floor(cx - .5 * k)), zx1 = Math.min(n - 1, Math.ceil(cx + .18 * k)), zy0 = Math.max(0, Math.floor(cy - .5 * k)), zy1 = Math.min(n - 1, Math.ceil(cy - .32 * k));
+    for (let y = zy0; y <= zy1 && !f.busy; y++) for (let x = zx0; x <= zx1; x++) if (a[(y * n + x) * 4 + 3] > 24) { f.busy = true; break; }
     thumbFits.set(img.src, f); apply(f);
   }).catch(() => {});
 }
@@ -46,9 +51,9 @@ export function mountLobby({ root, game, choice, onDepart, onBack }) {
   const ctx = game.getSkillBookContext?.() ?? { test: false };
   root.innerHTML = `<style>${uiStyle}\n${style}\n${typeStyle}</style><main class="lobby" aria-labelledby="lobbyHeading">
     <canvas class="lobby-backdrop" id="lobbyGrove" aria-hidden="true"></canvas><div class="lobby-shade" aria-hidden="true"></div>
-    <header class="lobby-header"><h1 id="lobbyHeading" tabindex="-1"><span>대기실</span></h1><p id="lobbyStatus" class="lobby-status" role="status"></p><button id="lobbyBack" class="secondary small on-art utility">첫 화면으로</button></header>
+    <header class="lobby-header"><h1 id="lobbyHeading" tabindex="-1"><span>대기실</span></h1><p id="lobbyStatus" class="lobby-status" role="status"></p><button id="lobbyBack" class="secondary small on-art utility">첫 화면</button></header>
     <div class="lobby-columns">
-      <section class="character-panel"><div class="portrait-card card-frame" aria-label="내 캐릭터"><div class="character-view" id="characterView" tabindex="0" role="group" aria-label="캐릭터 360도 보기. 드래그 또는 좌우 방향키로 회전, Home으로 정면"></div></div><button class="primary depart" id="lobbyDepart">${choice === 'continue' ? '여정 이어가기' : '여정 시작'}</button></section>
+      <section class="character-panel"><div class="portrait-card card-frame" aria-label="내 캐릭터"><div class="character-view" id="characterView" tabindex="0" role="group" aria-label="캐릭터 360도 보기. 드래그 또는 좌우 방향키로 회전, Home으로 정면"></div></div><button class="primary depart" id="lobbyDepart">Stage 입장</button></section>
       <section class="profile-panel" aria-label="내 정보">
         <dl class="profile-data"><dt class="sr-only">레벨과 호칭</dt><dd id="lobbyRank" class="rank-row"><span id="lobbyLevel"></span><span class="title-picker"><button type="button" id="titleSelect" class="title-select" aria-haspopup="listbox" aria-expanded="false" aria-controls="titleList" aria-labelledby="titleLabel titleCurrent"><span id="titleLabel" class="sr-only">호칭</span><span id="titleCurrent"></span>${CHEVRON}</button><ul id="titleList" class="title-list" role="listbox" aria-labelledby="titleLabel" hidden></ul></span></dd><dt class="sr-only">이름</dt><dd class="name-row"><span id="lobbyName"></span><button class="edit-name" id="editName" aria-label="이름 수정"><svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m3 10 7-7 3 3-7 7-4 1 1-4ZM9 4l3 3M2 14h12"/></svg></button></dd></dl>
         <p class="duel-record"><span>대면 결과</span><b id="duelRecord"></b></p>
@@ -202,6 +207,7 @@ export function mountLobby({ root, game, choice, onDepart, onBack }) {
       const id = button.dataset.item, on = isOn(id);
       button.setAttribute('aria-pressed', String(id === selectedItem));
       button.querySelector('.equipped-badge').hidden = !on;
+      button.classList.toggle('is-equipped', on); // lobby.css — 알약 자리가 찬 그림은 장착 중일 때 줄여 내림
       button.setAttribute('aria-label', `${itemName(id)}${on ? ' · 장착 중' : ''} 선택`);
     }
     // 장착 · 해제: 지금 누를 수 있는 쪽 = 주 단추 · 다른 쪽 = 누를 수 없는 부 단추 (꼴은 entrance_ui.css — 누를 수 있나로 고른다)

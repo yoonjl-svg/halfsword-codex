@@ -32,6 +32,19 @@ test('blocked storage and blocked storage property do not stop a new game',()=>{
  try{Object.defineProperty(globalThis,'localStorage',{configurable:true,get(){throw Error('blocked property')}});assert.equal(readJourney(),null);assert.equal(writeJourney({stage:'castle'}),false);}
  finally{if(old)Object.defineProperty(globalThis,'localStorage',old);else delete globalThis.localStorage;}
 });
+test('blocked storage keeps the checkpoint in memory for this run only (10/17: lobby \'Stage 입장\' always continues)',()=>{
+ const denied={getItem(){throw Error('blocked')},setItem(){throw Error('blocked')}};
+ const round={stage:'castle',foe:'isolde',foeWeapon:'longsword',weapon:null,lastWeapon:null,cards:['longsword','rapier']};
+ assert.equal(writeJourney(round,denied),false);assert.deepEqual(readJourney(denied),round); // 같은 실행 안에서는 이어하기
+ assert.equal(readJourney(memory()),null); // 다른 저장소에는 새지 않음
+ const flaky={data:new Map(),ok:false,getItem(k){return this.data.get(k)??null},setItem(k,v){if(!this.ok)throw Error('full');this.data.set(k,v)}};
+ assert.equal(writeJourney(round,flaky),false);assert.deepEqual(readJourney(flaky),round);
+ flaky.ok=true;const next={stage:'clearing',lastWeapon:'longsword'};assert.equal(writeJourney(next,flaky),true); // 쓰기가 되면 메모리 쪽은 지우고 저장소를 읽는다
+ assert.deepEqual(readJourney(flaky),{...next,foe:null,foeWeapon:null,weapon:null,cards:null});
+ const old=Object.getOwnPropertyDescriptor(globalThis,'localStorage');
+ try{Object.defineProperty(globalThis,'localStorage',{configurable:true,get(){throw Error('blocked property')}});assert.equal(writeJourney(round),false);assert.deepEqual(readJourney(),round);}
+ finally{if(old)Object.defineProperty(globalThis,'localStorage',old);else delete globalThis.localStorage;}
+});
 test('any game argument keeps the old direct entry; plain address shows the title',()=>{
  const p=q=>new URLSearchParams(q);
  for(const query of ['test=1','stage=castle','weapon=longsword','hero=heinrich','foe=random','look=heinrich:v0','lookv=0','foeWeapon=rapier','stamina=0','foeWhiff=1','tempo=1','itRhythm=4','camFollow=old','cards=longsword,rapier','fps=1','offline=1','title=0','title=0&stage=castle'])assert.equal(skipsTitle(p(query)),true,query);

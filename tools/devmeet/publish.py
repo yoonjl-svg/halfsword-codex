@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""개발자 회의록 발행 (적막 → 샛별 수신기 규격). 디렉터가 23:22 KST 트리거에서 부른다.
+"""개발자 회의록 발행 (Stillness → 샛별 수신기 규격). 디렉터가 23:22 KST 트리거에서 부른다.
 
 사용: python3 tools/devmeet/publish.py YYYY-MM-DD [--no-push]
-전제: 디렉터가 미리 써 둔 것 — docs/devmeet/YYYY-MM-DD.md (첫 줄 '# 개발자 회의록 YYYY-MM-DD (적막)'), docs/devmeet/ledger.md 갱신,
+전제: 디렉터가 미리 써 둔 것 — docs/devmeet/YYYY-MM-DD.md (첫 줄 '# 개발자 회의록 YYYY-MM-DD (Stillness)' — 10/16 까지는 옛 한글 이름 · 사장님 10/17 '우리 게임 이름은 이제 Stillness'), docs/devmeet/ledger.md 갱신,
       (선택) docs/devmeet/notes/YYYY-MM-DD-uhwa.md 남김말.
 하는 일: ① 작성 노트 docs/dev_exchange/notes/YYYY-MM-DD.md 를 일지와 같은 바이트로 만들어 먼저 커밋 (= manifest 의 source_sha)
          ② docs/devmeet/YYYY-MM-DD.json manifest(샛별 PROTOCOL.md v1: report_id, window, technical_base 14bcf1f, source_sha, notes_blob_sha,
@@ -50,7 +50,7 @@ def main():
     open(note_path, 'wb').write(md)
     sh('git', 'add', note_path)
     sh('git', '-c', 'user.name=Claude', '-c', 'user.email=noreply@anthropic.com', 'commit', '-q', '-m',
-       f'Devmeet: authored note {day} (source for the published report)\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_014nJCzE4hyxiYc9innhSUng')
+       f'Devmeet: authored note {day} (source for the published report)\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_014nJCzE4hyxiYc9innhSUng')
     source_sha = sh('git', 'rev-parse', 'HEAD')
     notes_blob = sh('git', 'rev-parse', f'HEAD:{note_path}')
     # ② manifest
@@ -84,7 +84,7 @@ def main():
     open(json_path, 'w', encoding='utf-8').write(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
     sh('git', 'add', md_path, json_path, 'docs/devmeet/ledger.md', 'docs/devmeet/notes', 'docs/dev_exchange')
     sh('git', '-c', 'user.name=Claude', '-c', 'user.email=noreply@anthropic.com', 'commit', '-q', '-m',
-       f'Devmeet: report {day} published (manifest, ledger, notes)\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_014nJCzE4hyxiYc9innhSUng')
+       f'Devmeet: report {day} published (manifest, ledger, notes)\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_014nJCzE4hyxiYc9innhSUng')
     head = sh('git', 'rev-parse', 'HEAD')
     if push:
         subprocess.run(['git', 'push', '-q', '-u', 'origin', DEV], check=True)

@@ -19,10 +19,15 @@ export function skipsTitle(params) {
 }
 
 const id = (value) => typeof value === 'string' && /^[a-z0-9_]{1,64}$/.test(value);
+// 저장이 막혀도(사생활 보호 창 · 사이트 데이터 막음) 같은 실행 안에서는 이어하기가 되게: 쓰기에 실패한 지점을 메모리에 둔다 — 저장소마다(저장소를 못 열면 '막힘' 하나).
+//  10/17 점검에서 찾음: 첫 화면 → 곧바로 싸움이 된 뒤로 대기실 출발 'Stage 입장'은 늘 이어하기 지점부터라, 저장이 막히면 대기실에서 '여정을 열지 못했습니다'로 막혔다.
+//  앱을 닫으면 사라진다(저장이 막힌 기기는 원래 다음 실행에 이어할 수 없다). 다음 쓰기가 성공하면 메모리 쪽은 지운다
+const unsaved = new WeakMap(), BLOCKED = {};
+const storeOf = (storage) => { try { return storage ?? globalThis.localStorage ?? BLOCKED; } catch { return BLOCKED; } };
 export function readJourney(storage) {
   try {
-    storage ??= globalThis.localStorage;
-    const value = JSON.parse(storage.getItem(JOURNEY_SAVE_KEY));
+    storage = storeOf(storage);
+    const value = unsaved.get(storage) ?? JSON.parse(storage.getItem(JOURNEY_SAVE_KEY));
     if (!value || value.version !== 1 || !id(value.stage)) return null;
     for (const key of ['foe', 'foeWeapon', 'weapon', 'lastWeapon']) if (value[key] != null && !id(value[key])) return null;
     if (value.cards != null && (!Array.isArray(value.cards) || value.cards.length !== 2 || !value.cards.every(id))) return null;
@@ -33,11 +38,14 @@ export function readJourney(storage) {
   }
 }
 export function writeJourney(checkpoint, storage) {
+  const value = { ...checkpoint, version: 1 };
+  storage = storeOf(storage);
   try {
-    storage ??= globalThis.localStorage;
-    storage.setItem(JOURNEY_SAVE_KEY, JSON.stringify({ ...checkpoint, version: 1 }));
+    storage.setItem(JOURNEY_SAVE_KEY, JSON.stringify(value));
+    unsaved.delete(storage);
     return true;
   } catch {
+    unsaved.set(storage, value); // 저장은 못 했지만 이번 실행 동안은 이어하기 지점으로 (위 unsaved)
     return false;
   }
 }

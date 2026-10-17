@@ -597,7 +597,7 @@ function newRound(weaponId) {
     revive: currentFoe?.revive, // 부활 (이졸데: 처음 죽으면 한 번 다시 일어선다, src/revive.js)
     physiology: currentFoe?.physiology, // 몸 규칙 (병마용: 출혈 0 · 머리가 떨어져야만 죽음 · 흙 몸 — fighter.js HUMAN_BODY). 없으면 사람
   });
-  if (loadout?.armor === LOBBY_ARMOR.id) player.stamina.setMaxBonus(LOBBY_ARMOR.staminaBonus); // 케틀 햇 '생존술: 기력 +30' — 최대 130에서 시작·회복 (문턱 0 · −40 · −80 그대로 · 기력 끔이면 아무 일 없음)
+  if (loadout?.armor === LOBBY_ARMOR.id) player.stamina.setMaxBonus(LOBBY_ARMOR.staminaBonus); // 케틀 햇 '생존술: 기력 +30' — 최대 130에서 시작·회복 (문턱 0 · −35 · −70 그대로 · 기력 끔이면 아무 일 없음)
   //  판 시작 장착으로 정한다: 판 중에 투구가 맞아 벗겨져도(fighter.js knockOffHelmet) 그 판은 130 그대로 — 사장님 결정 10/16 08:1x '아이템은 사라져도 효과는 그대로 둬.'
   if (loadout?.neck === HERO_TEAR.id) player.stamina.setInfinite(true); // 용사의 눈물 '기력 무한' (사장님 10/17) — 플레이어만 · 청구 · 지침 · 탈진 없음 · 머리 위 내 막대 없음(stamina_hud.js) · 몸에 붙이는 것 없음(겉모습 그대로)
   for (const f of [player, enemy]) {
@@ -1298,7 +1298,7 @@ function closeDraw() {
   setDrawGuide(null);
 }
 
-// 판 알림 (가운데 — 판 시작 · 승리 · 패배만). 판 시작 글은 이 상수 하나 (10/10 19:2x 사장님 'Battle 을 한국어로 · 적막에 어울리는 걸로').
+// 판 알림 (가운데 — 판 시작 · 승리 · 패배만). 판 시작 글은 이 상수 하나 (10/10 19:2x 사장님 — Battle 을 한국어로, 게임 분위기에 어울리는 말로).
 //  사장님 결정 '대면' (10/10 19:4x — 후보 결투·겨룸·일합·승부·마주섬·대면). 바꾸려면 이 값만
 const FIGHT_START_TEXT = '대면';
 function showToast(text, ms = 1200) {
@@ -1386,7 +1386,7 @@ async function startFight() {
   openDraw(savedRound?.cards);
 }
 
-// ── 여정 이어하기 (첫 화면 '이어하기' · 대기실 '여정 시작/이어가기' — game_entry.js 가 아래 내보낸 함수를 부른다, docs/import/lobby_port_2026-10-16.md §5) ──
+// ── 여정 이어하기 (첫 화면 'Stage 1' · '이어하기' · 대기실 'Stage 입장' — game_entry.js 가 아래 내보낸 함수를 부른다, docs/import/lobby_port_2026-10-16.md §5) ──
 //  저장 단위는 무대 시작 자리: 카드를 펼치면 { 무대 · 상대 · 상대 무기 · 내 카드 둘 }, 고르면 { … · 내 무기 }, 이기면 곧바로 { 다음 무대 } (같은 승리를 다시 받지 않게).
 //  무대 차례 = STAGE_ORDER (nextStage), 깬 수(통계)는 checkRoundEnd 의 addJourneyClear 만 센다 — 이어하기 지점은 깬 수를 바꾸지 않는다.
 function saveJourneyRound(weapon, cards = null) {
@@ -1519,7 +1519,7 @@ function resume() {
 // ── 싸움 → 대기실 (사장님 10/16 08:3x '전투에서 대기실로 가는 기능이 필요해. 정지 누르면 거기에 넣어' · 결과 창 '다음 여정과 대기실 선택지로' — docs/import/ui_fix_2026-10-16.md §3 · §4) ──
 //  첫 화면·대기실로 연 여정만 (journeySaves + game_entry.js 가 출발할 때 건 setLobbyReturn) — 테스트 경로 · 주소 판 메뉴는 그대로.
 //  판을 떠난다: 금화 · 대면 결과는 안 바뀐다(사장님 08:4x '깎지 마') · 이어하기 지점도 그대로(지금 무대 시작 — 이긴 판이면 이미 다음 무대) · 대기실 동안 게임 소리는 멈춤.
-//  대기실이 다시 '여정 이어가기'로 출발하면 launchJourney('continue') 가 그 지점부터 판을 새로 연다
+//  대기실이 다시 'Stage 입장'으로 출발하면 launchJourney('continue') 가 그 지점부터 판을 새로 연다
 let lobbyReturn = null;
 export function setLobbyReturn(fn) {
   lobbyReturn = typeof fn === 'function' ? fn : null;

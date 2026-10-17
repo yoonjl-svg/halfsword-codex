@@ -2,12 +2,14 @@
 //  소리는 들을 수 없으니 오디오 API 를 감싸 적는다: 소리 문맥 만들기 · 소리 시작/멈춤/끝 · 문맥 상태 + 스피커 앞 분석기로 크기(RMS · 꼭대기 — 좌우를 섞은 값)
 //  ① 누르기 전에는 소리 문맥이 없다 ② 공지 확인 = 문맥 + 바람(되풀이 잡음 셋 · 물결 셋) + 딸깍 하나 ③ 확인 류 단추마다 딸깍 하나(계정 창 인증번호 받기 포함 — 인증 서버는 안 부름) ·
 //     그 밖 단추는 없음 · 연타는 쌓이지 않음(울리던 앞 딸깍을 끔)
-//  ④ 처음부터 → 대기실: 바람 멈춤(잦아든 뒤 끝) · 대기실 확인 류 단추 딸깍 · 조용하면 문맥이 잠듦 ⑤ 첫 화면으로 → 바람 다시 ⑥ 여정 시작 → 싸움: 게임 문맥은 따로, 첫 화면 문맥은 새 소리 없이 잠듦
+//  ④ Stage 1 → 곧바로 싸움(카드 — 10/17 대기실을 거치지 않음): 바람 멈춤(잦아든 뒤 끝) · 싸움 소리는 제 문맥 · 정지 → 대기실: 바람 없음 · 대기실 확인 류 단추 딸깍 · 조용하면 문맥이 잠듦
+//  ⑤ 첫 화면(대기실 단추) → 바람 다시 ⑥ Stage 1 → 싸움 → 정지 → 대기실 → Stage 입장 → 싸움: 게임 문맥은 따로(대기실 뒤 다시 돎), 첫 화면 문맥은 새 소리 없이 잠듦
 //  ⑦ 첫 누름이 단추가 아니어도(공지 목록) 바람만 · 키보드 Enter 확인 = 딸깍 ⑧ 오디오가 없는 브라우저 · 막힌 문맥(resume 거절)에서도 오류 0 · 싸움까지 그대로
 //  npm run build && node tools/pwa/build.mjs && npx vite preview --port 4302 →  node tools/browser/ui_sound_smoke.mjs http://127.0.0.1:4302 /tmp/<빈 폴더>
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import { departTitle, lobbyFromBattle } from './to_lobby.mjs';
 const base = process.argv[2] || 'http://127.0.0.1:4302', out = process.argv[3] || '/tmp/ui-sound';
 fs.mkdirSync(out, { recursive: true });
 const browser = await chromium.launch({ executablePath: process.env.PW_CHROMIUM || '/opt/pw-browsers/chromium', args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--autoplay-policy=no-user-gesture-required'] });
@@ -104,7 +106,7 @@ async function press(p, sel, how = 'tap', wait = 180) {
 }
 const one = (log, what) => assert.equal(clicks(log).length, 1, `${what}: 딸깍 하나 (${JSON.stringify(clicks(log))})`);
 const none = (log, what) => assert.equal(clicks(log).length, 0, `${what}: 딸깍 없음 (${JSON.stringify(clicks(log))})`);
-// 여정 시작 뒤: 카드(대기실에서 장착한 무기가 없으면) → 싸움 · 장착한 무기가 있으면 카드 없이 바로 싸움 (main.js journeyLoadout)
+// 여정 출발 뒤(첫 화면 Stage 1 · 대기실 Stage 입장): 카드(대기실에서 장착한 무기가 없으면) → 싸움 · 장착한 무기가 있으면 카드 없이 바로 싸움 (main.js journeyLoadout)
 async function toFight(p) {
   await p.waitForFunction(() => game.state === 'draw' || game.state === 'fight', null, { timeout: 60000 });
   const drew = await p.evaluate(() => game.state === 'draw');
@@ -125,7 +127,7 @@ async function levels(p, id, seconds, every = 0.25) {
 }
 
 try {
-  // ── A. 폰 가로(터치) — 처음 온 사람: 공지 → 첫 화면 → 대기실 → 첫 화면 → 대기실 → 싸움 ──
+  // ── A. 폰 가로(터치) — 처음 온 사람: 공지 → 첫 화면 → 싸움(카드) → 정지 → 대기실 → 첫 화면 → 싸움 → 정지 → 대기실 → 싸움 ──
   {
     const context = await browser.newContext({ viewport: { width: 844, height: 390 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, serviceWorkers: 'allow' });
     await noAuth(context);
@@ -169,7 +171,7 @@ try {
     none(await press(p, '#hideRead'), '지난 업데이트 숨김 미닫이');
     one(await press(p, '#confirmNotices'), '공지 확인(첫 화면에서 연 공지)');
     one(await press(p, '#continueJourney', 'tap', 300), '이어하기 (여정 없음 — 첫 화면에 남음)');
-    assert.match(await p.locator('#selectionStatus').textContent(), /이어갈 여정이 없습니다/);
+    assert.equal(await p.locator('#selectionStatus').textContent(), '이어갈 여정이 없습니다. Stage 1로 시작해 주세요.');
     // 연타: 이어하기 다섯 번 40 ms 사이 — 딸깍마다 앞 딸깍을 끈다 (겹쳐 커지지 않게)
     const box = await p.locator('#continueJourney').boundingBox();
     let m = await mark(p);
@@ -207,22 +209,32 @@ try {
     none(await press(p, '#closeAccount'), '계정 닫기');
     check('title account dialog: 인증번호 받기 = one click (empty email — no auth call), open/text/close buttons none');
 
-    // ④ 처음부터 → 대기실: 딸깍 + 바람 멈춤
+    // ④ Stage 1 → 곧바로 싸움(카드 고르기 — 아직 장착한 무기 없음): 딸깍 + 바람 멈춤 · 싸움 소리 문맥(2)은 이때 생긴다
     m = await mark(p);
-    await p.locator('#newJourney').tap();
-    await p.locator('#characterView canvas').waitFor({ timeout: 20000 });
+    assert.equal(await departTitle(p, '#newJourney', 'tap'), 'draw');
     await p.waitForTimeout(1300);
     log = await since(p, m);
-    one(log, '처음부터');
+    one(log, 'Stage 1');
     const windStops = log.filter((e) => e.ev === 'stop' && e.ctx === 1 && (e.loop || e.kind === 'OscillatorNode'));
     const windEnded = log.filter((e) => e.ev === 'ended' && e.ctx === 1 && (e.loop || e.kind === 'OscillatorNode'));
     assert.equal(windStops.length, 6, '바람 여섯 소리 멈춤 예약');
     assert.ok(windStops.every((e) => e.when - e.now > 0.8 && e.when - e.now < 0.9), '잦아듦 0.8 초 뒤 끝 ' + JSON.stringify(windStops[0]));
-    assert.equal(windEnded.length, 6, '대기실에 들어오고 1.3 초 안에 바람이 다 끝났다');
-    const lobbyQuiet = await meter(p, 1);
-    report.lobbyEnter = { windStops: windStops.map((e) => +(e.when - e.now).toFixed(3)), ended: windEnded.length, meter: lobbyQuiet };
+    assert.equal(windEnded.length, 6, '싸움으로 넘어가고 1.3 초 안에 바람이 다 끝났다');
+    const gameCtx = log.find((e) => e.ev === 'ctx' && e.ctx === 2);
+    assert.ok(gameCtx, '싸움 소리는 제 문맥(2)에서');
+    report.battleEnter = { windStops: windStops.map((e) => +(e.when - e.now).toFixed(3)), ended: windEnded.length, gameCtx, meter: await meter(p, 1) };
+    await shot(p, 'A-battle-draw');
+    check('④ Stage 1 → battle (card draw, no lobby): one click, wind fades 0.8 s and all 6 wind nodes end; game audio opens its own context (2)', report.battleEnter);
+
+    // 대기실 = 싸움의 정지 → '대기실': 바람은 다시 켜지지 않는다 · 정지 · 대기실은 덮개 밖 게임 단추라 딸깍 없음
+    m = await mark(p);
+    await lobbyFromBattle(p, 'tap');
+    log = await since(p, m);
+    none(log, '정지 → 대기실');
+    assert.equal(windSources(log).length, 0, '대기실에는 바람 없음');
+    assert.equal(await p.locator('#lobbyDepart').textContent(), 'Stage 입장');
     await shot(p, 'A-lobby');
-    check('④ 처음부터 → lobby: one click, wind fades 0.8 s and all 6 wind nodes end', report.lobbyEnter);
+    check('pause → 대기실 from battle: lobby opens (depart button Stage 입장), no wind and no click on the way');
 
     // 대기실 확인 류 · 아닌 단추
     none(await press(p, '[data-weapon=tree_branch]'), '무기 칸 고르기');
@@ -252,32 +264,30 @@ try {
     assert.ok(log.some((e) => e.ev === 'state' && e.ctx === 1 && e.state === 'suspended'), '대기실에서 조용하면 첫 화면 문맥이 잠든다');
     check('lobby: one click each for 장착 · 해제 · 구입 · 봉인 · 사용 · 이름 저장; none for item/tab/book/close/name-open/cancel/title box; context sleeps after 2 s of silence');
 
-    // ⑤ 첫 화면으로 → 바람 다시 (문맥이 이미 있어 누른 그 자리에서) · 공지 확인 = 딸깍 + 바람 장면 세짐
+    // ⑤ 첫 화면(대기실 단추) → 바람 다시 (문맥이 이미 있어 누른 그 자리에서) · 공지 확인 = 딸깍 + 바람 장면 세짐
     m = await mark(p);
     await p.locator('#lobbyBack').tap();
     await p.waitForTimeout(300);
     log = await since(p, m);
-    none(log, '첫 화면으로');
+    none(log, '첫 화면');
     assert.equal(windSources(log).length, 3, '첫 화면으로 돌아오면 바람 다시');
     assert.ok(log.some((e) => e.ev === 'state' && e.ctx === 1 && e.state === 'running'), '잠든 문맥이 깨어난다');
     if (await p.locator('#noticeDialog').evaluate((d) => d.open)) one(await press(p, '#confirmNotices'), '공지 확인(다시)');
     await ready(p);
     check('⑤ back to title: wind restarts at once (sleeping context resumed inside the press)');
 
-    // ⑥ 처음부터 → 대기실 → 여정 시작 → 싸움 (위에서 나뭇가지를 장착해 두었으니 카드 없이 바로 싸움 — main.js journeyLoadout)
+    // ⑥ Stage 1 → 곧바로 싸움 (위 대기실에서 나뭇가지를 장착해 두었으니 카드 없이 — main.js journeyLoadout) → 정지 → 대기실 → Stage 입장 → 싸움
     m = await mark(p);
-    await p.locator('#newJourney').tap();
-    await p.locator('#characterView canvas').waitFor({ timeout: 20000 });
-    await p.locator('#lobbyDepart').tap();
-    await p.waitForFunction(() => !document.querySelector('#gameEntrance'), null, { timeout: 60000 });
+    assert.equal(await departTitle(p, '#newJourney', 'tap'), 'fight');
+    await lobbyFromBattle(p, 'tap');
+    assert.equal(await departTitle(p, '#lobbyDepart', 'tap'), 'fight'); // 대기실 출발도 같은 덮개 — 걷힐 때까지
     const departAt = (await audioLog(p)).length;
     const path = await toFight(p);
     await p.waitForTimeout(3000);
     log = await since(p, m);
     const afterDepart = (await audioLog(p)).slice(departAt);
-    assert.equal(clicks(log).length, 2, '처음부터 · 여정 시작 딸깍 둘');
-    const gameCtx = log.find((e) => e.ev === 'ctx' && e.ctx === 2);
-    assert.ok(gameCtx, '싸움 소리는 제 문맥(2)에서');
+    assert.equal(clicks(log).length, 2, 'Stage 1 · Stage 입장 딸깍 둘');
+    assert.equal(log.filter((e) => e.ev === 'ctx').length, 0, '싸움 소리는 ④에서 만든 제 문맥(2) 그대로 — 새 문맥 없음');
     const uiStarts = afterDepart.filter((e) => e.ev === 'start' && e.ctx === 1).length;
     assert.equal(uiStarts, 0, '싸움 동안 첫 화면 문맥은 새 소리 없음');
     const ui = await meter(p, 1);
@@ -285,11 +295,13 @@ try {
     const openWind = (await audioLog(p)).filter((e) => e.ctx === 1 && (e.loop || e.kind === 'OscillatorNode'));
     const started = openWind.filter((e) => e.ev === 'start').map((e) => e.id), ended = new Set(openWind.filter((e) => e.ev === 'ended').map((e) => e.id));
     assert.ok(started.every((id) => ended.has(id)), '바람이 싸움으로 이어지지 않는다');
+    const game2 = await meter(p, 2);
+    assert.equal(game2?.state, 'running', '대기실 동안 멈춘 싸움 소리 문맥이 Stage 입장 뒤 다시 돈다');
     const gameStarts = (await audioLog(p)).filter((e) => e.ev === 'start' && e.ctx === 2).length;
     assert.ok(gameStarts > 0, '싸움 소리는 그대로 난다');
     await shot(p, 'A-fight');
-    report.fight = { path, gameCtx, uiState: ui.state, uiStartsDuringFight: uiStarts, gameSourcesStarted: gameStarts, windNodesStarted: started.length, windNodesStillOpen: started.filter((id) => !ended.has(id)).length };
-    check('⑥ depart → live fight: game audio in its own context (2), title context suspended with no new sources, no wind left', report.fight);
+    report.fight = { path, gameState: game2?.state, uiState: ui.state, uiStartsDuringFight: uiStarts, gameSourcesStarted: gameStarts, gameSourcesAfterLobby: afterDepart.filter((e) => e.ev === 'start' && e.ctx === 2).length, windNodesStarted: started.length, windNodesStillOpen: started.filter((id) => !ended.has(id)).length };
+    check('⑥ Stage 1 → live fight (lobby weapon, no cards) → pause → 대기실 → Stage 입장 → fight: one click each, game audio stays in its own context (2) and runs again after the lobby, title context suspended with no new sources, no wind left', report.fight);
     await context.close();
   }
 
@@ -343,14 +355,14 @@ try {
     await p.locator('#confirmNotices').tap();
     await ready(p);
     await p.locator('#continueJourney').tap();
-    await p.locator('#newJourney').tap();
-    await p.locator('#characterView canvas').waitFor({ timeout: 20000 });
+    assert.equal(await departTitle(p, '#newJourney', 'tap'), 'draw');
+    await lobbyFromBattle(p, 'tap');
     await p.locator('[data-weapon=tree_branch]').tap();
     await p.locator('#equipItem').tap();
     await p.locator('#unequipItem').tap(); // 카드 길로 (장착 · 해제 둘 다 눌러 본다)
-    await p.locator('#lobbyDepart').tap();
+    await departTitle(p, '#lobbyDepart', 'tap'); // Stage 입장 — 덮개가 걷힐 때까지
     const path = await toFight(p);
-    check(`⑧-${tag} ${tag === 'C' ? 'no AudioContext at all' : 'blocked context (resume rejected, stays suspended)'}: title → lobby → ${path} works, no errors`);
+    check(`⑧-${tag} ${tag === 'C' ? 'no AudioContext at all' : 'blocked context (resume rejected, stays suspended)'}: title → Stage 1 → card draw → pause → lobby → ${path} works, no errors`);
     await context.close();
   }
 

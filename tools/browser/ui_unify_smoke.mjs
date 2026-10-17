@@ -8,10 +8,12 @@
 //  ⑤ 대표 유파 칸 없음
 //  ⑥ 세 칸 위아래 줄 같음 · 사슬 틀 두께 셋 다 14 · 재고 틀 = 별자리 틀(크기 · 자리) · 재고 틀 안 남는 띠 없음 · 캐릭터 카드 약 2 : 3 · 틀 길이 = 사슬 마디(12 px)의 배수 — 844×390 · 932×430 · 1280×720
 //  ⑦ 칸 그림: 보이는 부분이 칸의 약 80 % · 매끈하게(픽셀 확대 아님) · 뒤에 등급 빛(케틀 햇 레전드 · 나뭇가지 쓰레기) · '장착 중'이 그림을 안 가림 · 금화 그림 픽셀 확대 아님
+//  10/17 11:2x: 첫 화면 주 단추 = 'Stage 1'(전 '처음부터') · 한글 제목 줄 없음(이름은 Stillness 하나) · 대기실 = 첫 화면 → 곧바로 카드 → 정지 → '대기실'(tools/browser/to_lobby.mjs) — 대기실 출발 단추는 늘 'Stage 입장'(12:1x — 전 '여정 시작' · '여정 이어가기')
 //  npm run build && node tools/pwa/build.mjs && npx vite preview --port 5261 →  node tools/browser/ui_unify_smoke.mjs http://127.0.0.1:5261 /tmp/<빈 폴더>
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import { titleToLobby } from './to_lobby.mjs';
 const base = process.argv[2] || 'http://127.0.0.1:5261', out = process.argv[3] || '/tmp/ui-unify';
 fs.mkdirSync(out, { recursive: true });
 const browser = await chromium.launch({ executablePath: process.env.PW_CHROMIUM || '/opt/pw-browsers/chromium', args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader'] });
@@ -32,7 +34,7 @@ async function title(p) {
   if (await p.locator('#noticeDialog').evaluate((d) => d.open)) await p.locator('#confirmNotices').click();
   await p.waitForFunction(() => document.querySelector('#gameEntrance')?.shadowRoot.getElementById('entrance')?.dataset.phase === 'ready', null, { timeout: 20000 });
 }
-const toLobby = async (p) => { await p.locator('#newJourney').click(); await p.locator('#characterView canvas').waitFor({ timeout: 20000 }); };
+const toLobby = (p) => titleToLobby(p); // 첫 화면 'Stage 1' → 곧바로 카드 → 정지 → '대기실'
 const report = {};
 
 try {
@@ -55,15 +57,17 @@ try {
     const got = {};
     got['공지 확인'] = await read(p, '#confirmNotices'); got['지난 업데이트 숨김'] = await read(p, '#hideRead');
     await title(p);
-    got['처음부터'] = await read(p, '#newJourney'); got['이어하기'] = await read(p, '#continueJourney'); got['공지사항'] = await read(p, '#openNotices');
+    assert.deepEqual(await shadow(p, `return ['newJourney', 'continueJourney'].map((id) => root.getElementById(id).textContent.trim());`), ['Stage 1', '이어하기']);
+    got['Stage 1'] = await read(p, '#newJourney'); got['이어하기'] = await read(p, '#continueJourney'); got['공지사항'] = await read(p, '#openNotices');
     await p.locator('#openSettings').click(); await p.waitForFunction(() => !document.querySelector('#gameEntrance').shadowRoot.getElementById('titleFps').disabled);
     got['설정 확인'] = await read(p, '#closeSettings'); got['60 fps 제한'] = await read(p, '#titleFps');
     await p.locator('#closeSettings').click();
     await p.waitForFunction(() => !document.querySelector('#gameEntrance').shadowRoot.getElementById('openAccount').disabled, null, { timeout: 20000 });
     await p.locator('#openAccount').click(); got['인증번호 받기'] = await read(p, '#accountSend'); got['계정 닫기'] = await read(p, '#closeAccount'); await p.locator('#closeAccount').click();
     await toLobby(p);
-    got['여정 시작'] = await read(p, '#lobbyDepart'); got['첫 화면으로'] = await read(p, '#lobbyBack');
-    assert.equal((await shadow(p, `return root.getElementById('lobbyBack').textContent.trim();`)), '첫 화면으로'); // 화살표 없음 — 첫 화면 '공지사항'과 같은 꼴 (사장님 18:0x)
+    assert.equal(await shadow(p, `return root.getElementById('lobbyDepart').textContent.trim();`), 'Stage 입장'); // 출발 단추 글은 하나 (12:1x · 하는 일은 이어하기 지점부터)
+    got['Stage 입장'] = await read(p, '#lobbyDepart'); got['첫 화면'] = await read(p, '#lobbyBack');
+    assert.equal((await shadow(p, `return root.getElementById('lobbyBack').textContent.trim();`)), '첫 화면'); // 화살표 없음 — 첫 화면 '공지사항'과 같은 꼴 (사장님 18:0x) · 글 '첫 화면'(12:2x — 전 '첫 화면으로')
     await p.locator('[data-weapon=tree_branch]').click();
     got['장착(누를 수 있음)'] = await read(p, '#equipItem'); got['해제(누를 수 없음)'] = await read(p, '#unequipItem');
     await p.locator('#tabSkills').click(); await p.locator('.book-node[data-book="1"]').click();
@@ -72,20 +76,21 @@ try {
     await p.locator('#editName').click(); got['이름 저장'] = await read(p, '#nameForm button[type=submit]'); got['이름 취소'] = await read(p, '#cancelName'); await p.locator('#cancelName').click();
     // 주 단추: 모든 값 같음 + 높이 같음 (폭만 자리 값)
     const ALL = PROPS;
-    for (const k of ['처음부터', '공지 확인', '설정 확인', '인증번호 받기', '여정 시작', '장착(누를 수 있음)', '봉인(누를 수 있음)', '이름 저장']) { same(got[k], battle.primary, ALL, k); assert.equal(got[k].height, battle.primary.height, `${k} height`); }
+    for (const k of ['Stage 1', '공지 확인', '설정 확인', '인증번호 받기', 'Stage 입장', '장착(누를 수 있음)', '봉인(누를 수 있음)', '이름 저장']) { same(got[k], battle.primary, ALL, k); assert.equal(got[k].height, battle.primary.height, `${k} height`); }
     // 부 단추: 모든 값 같음 + 높이 같음
     for (const k of ['계정 닫기', '이름 취소']) { same(got[k], battle.secondary, ALL, k); assert.equal(got[k].height, battle.secondary.height, `${k} height`); }
     // 그림 위 부 단추(이어하기): 바탕만 싸움 창(.card) 바탕 — 싸움 부 단추는 늘 창 위에 있다
     same(got['이어하기'], battle.secondary, ALL.filter((k) => k !== 'backgroundColor'), '이어하기'); assert.equal(got['이어하기'].backgroundColor, battle.card.backgroundColor); assert.equal(got['이어하기'].height, battle.secondary.height);
-    // 작은 부 단추(아래 줄 · 첫 화면으로): 글 크기 12 · 패딩만 다름
-    same(got['첫 화면으로'], got['공지사항'], PROPS.filter((k) => !/width|height/i.test(k) || /border|min/i.test(k)), '첫 화면으로 = 공지사항'); // 사장님 18:0x '첫 화면의 공지사항처럼'
-    for (const k of ['공지사항', '첫 화면으로']) { same(got[k], battle.secondary, ['borderRadius', 'color', 'fontFamily', 'fontWeight', 'borderTopWidth', 'borderTopStyle', 'borderTopColor', 'minHeight', 'lineHeight', 'letterSpacing'], k); assert.equal(got[k].fontSize, '12px'); assert.equal(got[k].backgroundColor, battle.card.backgroundColor); }
+    // 작은 부 단추(아래 줄 · 첫 화면): 글 크기 12 · 패딩만 다름
+    same(got['첫 화면'], got['공지사항'], PROPS.filter((k) => !/width|height/i.test(k) || /border|min/i.test(k)), '첫 화면 = 공지사항'); // 사장님 18:0x '첫 화면의 공지사항처럼'
+    // 줄 높이는 글자 크기 + 2px (entrance_ui.css — 10/17 라틴 글자 단추 높이 고침) → 작은 단추는 12 + 2 = 14px, 싸움 부 단추는 16px
+    for (const k of ['공지사항', '첫 화면']) { same(got[k], battle.secondary, ['borderRadius', 'color', 'fontFamily', 'fontWeight', 'borderTopWidth', 'borderTopStyle', 'borderTopColor', 'minHeight', 'letterSpacing'], k); assert.equal(got[k].fontSize, '12px'); assert.equal(got[k].lineHeight, '14px'); assert.equal(got[k].backgroundColor, battle.card.backgroundColor); }
     // 누를 수 없는 짝 단추: 부 단추 꼴 + 흐리게 .4
     for (const k of ['해제(누를 수 없음)', '사용(누를 수 없음)']) { same(got[k], battle.secondary, ALL, k); assert.equal(got[k].opacity, '0.4'); }
     // 미닫이 = 싸움 .toggle (켜진 꼴 — 싸움 메뉴의 60 fps 는 처음에 켜져 있다)
     for (const k of ['60 fps 제한']) { same(got[k], battle.toggle, ['width', 'height', 'borderRadius', 'borderTopWidth', 'borderTopStyle', 'borderTopColor', 'backgroundColor'], k); }
     report[size] = { battle: { primary: pick(battle.primary, [...ALL, 'height', 'width']), secondary: pick(battle.secondary, [...ALL, 'height', 'width']), card: battle.card.backgroundColor }, entrance: Object.fromEntries(Object.entries(got).map(([k, v]) => [k, pick(v, ['height', 'width', 'backgroundColor', 'paddingTop', 'fontSize', 'opacity'])])) };
-    checks.push(`${size}: entrance primaries (처음부터 · 공지/설정 확인 · 인증번호 받기 · 여정 시작 · 장착 · 봉인 · 이름 저장) and secondaries (계정 닫기 · 이름 취소) equal the battle #btnStart / pause #btnResume on ${ALL.length} computed values and height (${battle.primary.height} / ${battle.secondary.height}); 이어하기 = secondary on the battle card fill; small secondaries 12 px; disabled pair = secondary at .4; toggles = battle .toggle`);
+    checks.push(`${size}: entrance primaries (Stage 1 · 공지/설정 확인 · 인증번호 받기 · Stage 입장 · 장착 · 봉인 · 이름 저장) and secondaries (계정 닫기 · 이름 취소) equal the battle #btnStart / pause #btnResume on ${ALL.length} computed values and height (${battle.primary.height} / ${battle.secondary.height}); 이어하기 = secondary on the battle card fill; small secondaries 12 px; disabled pair = secondary at .4; toggles = battle .toggle`);
     await ec.close();
   }
 
@@ -108,9 +113,10 @@ try {
     assert.equal(await p.evaluate(() => JSON.parse(localStorage.getItem('stillness.title.notices.v1')).hideRead), true);
     checks.push('notices: 지난 업데이트 숨김 = switch (role=switch · aria-checked · label) 44×24 pill with an 18 px knob 2 → 22 px, accent when on; label tap toggles; saved on 확인 as before');
     await p.waitForFunction(() => document.querySelector('#gameEntrance').shadowRoot.getElementById('entrance').dataset.phase === 'ready', null, { timeout: 20000 });
-    // 나타나기: 픽셀 제목 글자만 끊어서 · 단추와 아래 줄은 매끈하게
-    const appear = await shadow(p, `const t=(s)=>getComputedStyle(root.querySelector(s)).transitionTimingFunction;return {korean:t('.title-korean'),wordmark:t('.pixel-wordmark'),rule:t('.title-rule'),buttons:t('.start-actions'),footer:t('.title-footer'),screen:getComputedStyle(root.querySelector('.title-screen')).transitionDuration}`);
-    for (const k of ['korean', 'wordmark', 'rule']) assert.match(appear[k], /steps\(7/, `${k}: ${appear[k]}`);
+    // 나타나기: 픽셀 제목 글자(STILLNESS · 가름줄)만 끊어서 · 단추와 아래 줄은 매끈하게 · 한글 제목 줄 없음 (10/17 — 이름은 Stillness 하나)
+    const appear = await shadow(p, `const t=(s)=>getComputedStyle(root.querySelector(s)).transitionTimingFunction;return {wordmark:t('.pixel-wordmark'),rule:t('.title-rule'),buttons:t('.start-actions'),footer:t('.title-footer'),screen:getComputedStyle(root.querySelector('.title-screen')).transitionDuration,korean:root.querySelectorAll('.title-korean').length,name:root.querySelector('.title-group h1').textContent.trim()}`);
+    assert.equal(appear.korean, 0); assert.equal(appear.name, 'Stillness');
+    for (const k of ['wordmark', 'rule']) assert.match(appear[k], /steps\(7/, `${k}: ${appear[k]}`);
     for (const k of ['buttons', 'footer']) assert.ok(!/steps/.test(appear[k]) && /ease/.test(appear[k]), `${k}: ${appear[k]}`);
     // 단추마다: 납작한 바탕 · 그림자 · 잘라 낸 모서리 · 글 그림자 없음 · 네 테두리 색 같음(볼록 테두리 아님) · 모서리 8
     const flat = await shadow(p, `return [...root.querySelectorAll('#titleScreen button')].filter((e)=>e.getClientRects().length).map((e)=>{const s=getComputedStyle(e);return {id:e.id,radius:s.borderRadius,shadow:s.boxShadow,image:s.backgroundImage,clip:s.clipPath,text:s.textShadow,bevel:new Set([s.borderTopColor,s.borderRightColor,s.borderBottomColor,s.borderLeftColor]).size,transition:s.transitionTimingFunction};})`);
@@ -118,7 +124,7 @@ try {
     // 누르는 동안: 내려앉지 않는다 (전 나무 판자 3 px) — 누른 채 단추 밖으로 옮겨 놓는다(눌림으로 치지 않게)
     const press = async (sel) => { const box = await p.locator(sel).boundingBox(); await p.mouse.move(box.x + box.width / 2, box.y + box.height / 2); await p.mouse.down(); const during = await shadow(p, `const e=root.querySelector('${sel}');return {transform:getComputedStyle(e).transform,shadow:getComputedStyle(e).boxShadow,y:e.getBoundingClientRect().y,active:e.matches(':active')}`); await p.mouse.move(2, 2); await p.mouse.up(); return { before: box.y, ...during }; };
     for (const sel of ['#newJourney', '#continueJourney']) { const r = await press(sel); assert.equal(r.active, true, sel); assert.equal(r.transform, 'none', sel); assert.equal(r.shadow, 'none', sel); assert.ok(Math.abs(r.y - r.before) < .5, `${sel} moved ${r.before} → ${r.y}`); }
-    checks.push({ check: 'title buttons: no wood-plank CSS left, flat fill, radius 8, no bevel/clip/text shadow; pressing does not drop (transform none, same y); only the pixel lettering appears in 7 steps, buttons and footer ease in', appear });
+    checks.push({ check: 'title buttons: no wood-plank CSS left, flat fill, radius 8, no bevel/clip/text shadow; pressing does not drop (transform none, same y); no Korean title line (name = Stillness); only the pixel lettering appears in 7 steps, buttons and footer ease in', appear });
     // 설정 '화면 60 fps 제한' 미닫이 — 같은 값 · 같은 저장 (gladiator-settings · 메뉴 미닫이)
     await p.locator('#openSettings').tap(); await p.waitForFunction(() => !document.querySelector('#gameEntrance').shadowRoot.getElementById('titleFps').disabled);
     t = await sw('#titleFps'); assert.equal(t.role, 'switch'); assert.equal(t.checked, 'true'); assert.equal(t.label, '화면 60 fps 제한');
@@ -142,7 +148,7 @@ try {
     await p.locator('#tabSkills').tap();
     const schoolTabs = await shadow(p, `return [...root.querySelectorAll('.school-tabs [role=tab]')].slice(0,2).map((e)=>{const s=getComputedStyle(e);return {sel:e.getAttribute('aria-selected'),border:s.borderTopColor,color:s.color,bg:s.backgroundColor,radius:s.borderRadius,w:s.borderTopWidth};})`);
     assert.deepEqual(schoolTabs, tabs.slice(0, 2)); // 메뉴 탭 = 유파 탭 같은 꼴
-    checks.push('lobby buttons (여정 시작 · 첫 화면으로 · 탭 · 장착/해제 · 이름 창) flat, radius 8, no bevel/shadow; pressing 여정 시작 does not drop; category tabs = school tabs (outline · selected accent border + text · radius 8)');
+    checks.push('lobby buttons (Stage 입장 · 첫 화면 · 탭 · 장착/해제 · 이름 창) flat, radius 8, no bevel/shadow; pressing Stage 입장 does not drop; category tabs = school tabs (outline · selected accent border + text · radius 8)');
     await c.close();
   }
 

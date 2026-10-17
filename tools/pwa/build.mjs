@@ -1,4 +1,4 @@
-// 적막 PWA: vite build 뒤에 dist/sw.js 와 dist/pwa-build.json 을 만든다 (npm run build 가 부른다 — docs/pwa_2026-10-13.md)
+// Stillness PWA: vite build 뒤에 dist/sw.js 와 dist/pwa-build.json 을 만든다 (npm run build 가 부른다 — docs/pwa_2026-10-13.md)
 //  node tools/pwa/build.mjs [dist 폴더]
 //  - 오프라인에 담을 목록 = dist 전부 − 옛 실험판 폴더(corr·r2p·support·wb) − sw.js·pwa-build.json 자신. 파일마다 크기·SHA-256
 //  - 판 번호 = (목록 + 워커 틀)의 해시 앞 24 자 → 내용이 바뀐 빌드마다 캐시 이름이 바뀐다. 같은 내용이면 같은 판(쓸데없이 다시 받지 않는다)

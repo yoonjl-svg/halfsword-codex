@@ -1,4 +1,4 @@
-/* 적막 서비스 워커 — tools/pwa/build.mjs 가 빌드 끝에 이 틀로 dist/sw.js 를 만든다 (docs/pwa_2026-10-13.md).
+/* Stillness 서비스 워커 — tools/pwa/build.mjs 가 빌드 끝에 이 틀로 dist/sw.js 를 만든다 (docs/pwa_2026-10-13.md).
  *
  *  - 화면(HTML) 요청: 네트워크 먼저(HTTP 캐시도 다시 확인). 안 되면(오프라인) 이 워커가 깔아 둔 판의 HTML.
  *    → 새 판을 올리면 다음에 여는 순간 새 HTML · 새 묶음(이름에 해시)이 바로 온다. 워커가 옛 판이어도 마찬가지.

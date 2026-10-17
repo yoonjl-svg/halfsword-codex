@@ -1,5 +1,5 @@
 // 첫 화면·대기실 배경 (샛별 저장소 픽셀 시안 그대로 — docs/import/lobby_port_2026-10-16.md §2): 제한된 따뜻한 팔레트와 정수 픽셀로 그리는 숲 · 나무 뿌리 곁에 꽂힌 롱소드 · 바람에 날리는 낙엽.
-// 게임 자원/물리는 사용하지 않는다 (2D 캔버스 하나 · 낙엽은 초당 20 장면만 다시 그린다). paintPixelWordmark = 웹폰트 글자를 픽셀 글자로 다시 그린다 ('Stillness' · '적막' · '대기실').
+// 게임 자원/물리는 사용하지 않는다 (2D 캔버스 하나 · 낙엽은 초당 20 장면만 다시 그린다). paintPixelWordmark = 웹폰트 글자를 픽셀 글자로 다시 그린다 ('Stillness' · '대기실').
 export function createPixelGrove(canvas, reducedMotion) {
   const ctx = canvas.getContext('2d', { alpha: false });
   const background = document.createElement('canvas'), bg = background.getContext('2d', { alpha: false });

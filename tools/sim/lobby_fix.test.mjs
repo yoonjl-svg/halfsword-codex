@@ -34,14 +34,14 @@ function actor(extra = {}) {
 const tick = (f, seconds, dt = 1 / 120) => { for (let t = 0; t < seconds - 1e-9; t += dt) f.stamina.step(Math.min(dt, seconds - t)); };
 
 // ── 케틀 햇 '생존술: 기력 +30' (사장님 10/16 03:5x) ──
-test('케틀 햇: 최대 130에서 시작 · 130까지만 회복 · 문턱 0 / −40 / −80 그대로 · 막대 = 130의 몫', () => {
+test('케틀 햇: 최대 130에서 시작 · 130까지만 회복 · 문턱 0 / STAMINA.severeAt / STAMINA.floor 그대로 · 막대 = 130의 몫', () => {
   const f = actor(); f.stamina.setMaxBonus(30);
   near(f.stamina.max, 130); near(f.stamina.value, 130); near(f.stamina.ratio, 1);
   f.stamina.spend('attack', 70); near(f.stamina.value, 60); near(f.stamina.ratio, 60 / 130); assert.equal(f.stamina.level, 0);
   tick(f, 10); near(f.stamina.value, 130); // 사람 회복 21/s — 130에서 멈춤
   f.stamina.spend('attack', 130.5); assert.equal(f.stamina.level, 1); // −0.5: 지침
-  f.stamina.spend('attack', 40); assert.equal(f.stamina.level, 2); // −40.5: 심한 지침
-  f.stamina.spend('attack', 40); assert.equal(f.stamina.exhausted, true); near(f.stamina.value, STAMINA.floor); // −80 탈진
+  f.stamina.spend('attack', 40); assert.equal(f.stamina.level, 2); // −40.5: 심한 지침 (severeAt −35 아래)
+  f.stamina.spend('attack', 40); assert.equal(f.stamina.exhausted, true); near(f.stamina.value, STAMINA.floor); // −80.5 → floor(−70)에서 멈춤 · 탈진
   const plain = actor(); near(plain.stamina.max, 100); near(plain.stamina.value, 100); // 덧 없는 몸(AI · 그 밖)은 100 그대로
 });
 test('기력 끔(?stamina=0)이면 덧 없이 100 — 지금 판 그대로', () => {

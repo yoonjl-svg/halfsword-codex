@@ -1,4 +1,4 @@
-# 적막 앱 아이콘 v3 (도트) — 먹빛 바탕에 아주 옅은 마름모 격자(카드 뒷면 결) · 둥근 금빛 문장 · 세운 장검(칼끝 아래 = 고요) · 반짝이
+# Stillness 앱 아이콘 v3 (도트) — 먹빛 바탕에 아주 옅은 마름모 격자(카드 뒷면 결) · 둥근 금빛 문장 · 세운 장검(칼끝 아래 = 고요) · 반짝이
 # 다시 뽑기: python3 -I tools/icon/gen_app_icon.py <출력 폴더>  → px32·px32_mask(원본 32×32) · icon-512 · icon-maskable-512 · icon-192 · apple-touch-icon(192 — 6배 정수 확대) · favicon-32·64 · preview.png(견본, public 에는 넣지 않는다)
 #  본판 자리: public/icons/ (docs/pwa_2026-10-13.md). 도트가 뭉개지지 않게 정수 배 NEAREST 확대만 쓴다
 import sys, math

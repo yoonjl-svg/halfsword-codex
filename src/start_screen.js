@@ -1,9 +1,11 @@
-// 첫 화면: 공지 → 바람·낙엽과 픽셀 제목 '적막 / Stillness' → 처음부터 · 이어하기 (샛별 저장소 시작 화면 — docs/import/lobby_port_2026-10-16.md §2)
+// 첫 화면: 공지 → 바람·낙엽과 픽셀 제목 'Stillness' → Stage 1 · 이어하기 → 곧바로 싸움 (샛별 저장소 시작 화면 — docs/import/lobby_port_2026-10-16.md §2)
+//  사장님 10/17 11:2x: 게임 이름은 이제 Stillness — 한글 제목 줄을 지움 · '처음부터'는 모든 게 지워지는 것처럼 들려 'Stage 1'(첫 무대부터 — 금화 · 장비 · 스킬북 · 기록은 그대로) ·
+//   첫 화면 → 대기실 → 싸움이 아니라 첫 화면에서 곧바로 싸움(game_entry.js depart — 대기실은 싸움의 정지 · 결과 창에서)
 //  아래 꾸밈(ENTRANCE_HTML)과 동작은 샛별 쪽 마지막 판(e52d23b0) 그대로이고, 다른 점은:
 //   ① 아래 줄 세 칸 = 공지사항 · 설정 · 계정 연결 (설정은 샛별 3b280a1b 판에 있던 것 — 마지막 판은 설정 자리에 계정 연결)
 //   ② 계정 연결은 메일 6자리 번호로만 (src/account/title_account.js) · 그 모듈은 첫 화면이 뜬 뒤에 따로 받는다(첫 그림을 늦추지 않게)
 //   ③ 픽셀 시안만 (첫 시안의 바람 장면 pixel_wind.js 는 들여오지 않았다)
-//   ④ 단추 = 싸움 화면 단추 (사장님 10/16 15:3x ② — docs/import/ui_unify_2026-10-16.md): 처음부터 · 공지 확인 · 설정 확인 · 인증번호 받기 · 연결하기 = 주 단추(.primary),
+//   ④ 단추 = 싸움 화면 단추 (사장님 10/16 15:3x ② — docs/import/ui_unify_2026-10-16.md): Stage 1 · 공지 확인 · 설정 확인 · 인증번호 받기 · 연결하기 = 주 단추(.primary),
 //      이어하기 · 아래 줄 세 칸 · 계정 닫기 = 부 단추(.secondary — 그림 위면 .on-art · 작으면 .small) · 꼴은 entrance_ui.css
 //   ⑤ '화면 60 fps 제한' · '지난 업데이트 숨김' = 싸움 화면 미닫이 (사장님 ③ "설정은 미닫이가 맞아") — role=switch · aria-checked, 하는 일 · 저장은 전과 같다
 //  game_entry.js 가 Shadow DOM 안에 붙인다 — 게임 HUD 글자 규칙(index.html)과 섞이지 않는다.
@@ -17,11 +19,10 @@ export const ENTRANCE_HTML = `<main id="entrance" data-phase="notice">
   <div class="scene-shade" aria-hidden="true"></div>
   <section id="titleScreen" class="title-screen" aria-label="시작 화면" inert>
     <div class="title-group">
-      <p class="title-korean"><span>적막</span></p>
       <h1 class="pixel-wordmark"><span>Stillness</span></h1>
       <div class="title-rule" aria-hidden="true"><span></span></div>
       <div class="start-actions" aria-label="여정 선택">
-        <button type="button" id="newJourney" class="primary" aria-pressed="false">처음부터</button>
+        <button type="button" id="newJourney" class="primary" aria-pressed="false" aria-label="Stage 1 — 첫 무대부터">Stage 1</button>
         <button type="button" id="continueJourney" class="secondary on-art" aria-pressed="false">이어하기</button>
       </div>
       <p id="selectionStatus" class="sr-only" role="status"></p>
@@ -76,9 +77,6 @@ const setOn = (el, on) => el.setAttribute('aria-checked', String(!!on));
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const scene = createPixelGrove($('windScene'), reducedMotion);
 paintPixelWordmark(root.querySelector('.pixel-wordmark'));
-paintPixelWordmark(root.querySelector('.title-korean'), {
-  text: '적막', font: '600 18px Pretendard', height: 29, baseline: 22, tracking: 4, letterOffsets: [0, 1],
-});
 let saved = { hideRead: false, readIds: [] }, transition = 0, visibleNotes = [];
 // 첫 화면 아래 줄 '공지사항'으로 연 공지 (처음 들어올 때의 공지 → 첫 화면과 다른 길): 확인 = 창만 닫는다 — 첫 화면 바람·제목 나타남을 다시 틀지 않는다
 //  (사장님 10/16 08:3x '공지사항 눌렀다가 확인 누르면 창이 닫히는 게 아니라 다시 애니메이션이 재생되는데 고칠 수 있나' — docs/import/ui_fix_2026-10-16.md §2)

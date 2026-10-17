@@ -1,4 +1,4 @@
-// 적막 PWA (설치되는 앱 · 오프라인 · 새 판 갱신) — docs/pwa_2026-10-13.md
+// Stillness PWA (설치되는 앱 · 오프라인 · 새 판 갱신) — docs/pwa_2026-10-13.md
 //  화면은 하나도 더하지 않는다(메뉴·버튼 없음). 게임 상태·설정은 main.js 몫이고 여기서는 읽기만 한다(window.game.state).
 //
 //  - 배포판(vite build)에서만 서비스 워커(sw.js — tools/pwa/build.mjs 가 만든다)를 등록한다. 개발 서버에서는 등록하지 않는다.

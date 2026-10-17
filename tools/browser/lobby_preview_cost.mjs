@@ -6,6 +6,7 @@
 //   · 10/17 판(docs/import/lobby_preview_2026-10-17.md): 위 '한 번 그리기'는 장착을 바꿀 때(그림자 지도까지) · turnMs · callsPerTurn = 돌릴 때(카메라만 — lobbyPreview.turnTo) · samples = 계단 펴기 표본 수
 //  node tools/browser/lobby_preview_cost.mjs <주소> [n=5] [화소 비=3]   (폰 가로 844×390 · 소프트웨어 GL — 실기기 값이 아니라 두 판의 비)
 import { chromium } from 'playwright';
+import { departTitle } from './to_lobby.mjs'; // 10/17: 첫 화면 → 곧바로 여정 (사장님 '첫화면에서 바로 전투로')
 const base = process.argv[2] || 'http://127.0.0.1:5210', runs = +(process.argv[3] || 5), dpr = +(process.argv[4] || 3);
 const browser = await chromium.launch({ executablePath: process.env.PW_CHROMIUM || '/opt/pw-browsers/chromium', args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader'] });
 const counter = () => {
@@ -28,8 +29,11 @@ try {
     await p.waitForFunction(() => window.game?.player, null, { timeout: 60000 });
     if (await p.locator('#noticeDialog').evaluate((d) => d.open)) await p.locator('#confirmNotices').click();
     await p.waitForFunction(() => document.querySelector('#gameEntrance')?.shadowRoot.getElementById('entrance')?.dataset.phase === 'ready', null, { timeout: 20000 });
+    await departTitle(p); // 10/17: 첫 화면 → 곧바로 여정 — 대기실은 정지 → '대기실'에서 연다 (준비 시간은 '대기실'을 누른 때부터)
+    await p.evaluate(() => document.getElementById('btnPause').click());
+    await p.waitForFunction(() => window.game.state === 'paused' && !document.getElementById('btnLobby').hidden, null, { timeout: 30000 });
     await p.evaluate(() => { window.__preview.start = performance.now(); });
-    await p.locator('#newJourney').click();
+    await p.locator('#btnLobby').click();
     await p.waitForFunction(() => window.__preview.first != null, null, { timeout: 30000 });
     await p.waitForTimeout(300);
     const one = await p.evaluate(() => {

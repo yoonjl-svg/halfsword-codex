@@ -6,6 +6,7 @@
 //  저장: <out>/<이름표>_<장면>_<phone|pc>.png · <out>/<이름표>_measure.json — 전(바탕 커밋)/후를 같은 도구로 찍어 tools/ui/uiunify_pair.py 로 붙인다
 //  npm run build && npx vite preview --port 5261 →  node tools/browser/uiunify_capture.mjs http://127.0.0.1:5261 /tmp/<빈 폴더> after
 import { chromium } from 'playwright';
+import { titleToLobby } from './to_lobby.mjs'; // 10/17: 첫 화면 → 곧바로 여정 → 정지 → 대기실 (사장님 '첫화면에서 바로 전투로')
 import fs from 'node:fs';
 const [base = 'http://127.0.0.1:5261', out = '/tmp/uiunify', label = 'after'] = process.argv.slice(2);
 fs.mkdirSync(out, { recursive: true });
@@ -29,7 +30,7 @@ async function open(width, height, phone) {
 }
 const tap = (p, sel) => p.locator(sel).click();
 const ready = (p) => p.waitForFunction(() => document.querySelector('#gameEntrance')?.shadowRoot.getElementById('entrance')?.dataset.phase === 'ready', null, { timeout: 20000 });
-const toLobby = async (p) => { await tap(p, '#newJourney'); await p.locator('#characterView canvas').waitFor({ timeout: 20000 }); await p.waitForFunction(() => document.querySelector('#gameEntrance').shadowRoot.getElementById('characterView').dataset.rig === 'ready', null, { timeout: 60000 }); await p.waitForTimeout(400); };
+const toLobby = async (p) => { await titleToLobby(p); await p.waitForTimeout(400); };
 const shot = (p, scene, size) => p.screenshot({ path: `${out}/${label}_${scene}_${size}.png` });
 // 대기실 배치 (CSS px): 세 칸 · 캐릭터 카드 · 재고 틀 · 별자리 틀(유파 탭 + 판 — 바탕 커밋은 판만 틀이라 .tree-frame) · 칸 · 칸 그림(보이는 부분 = 그림 파일의 불투명 상자 × 그린 크기)
 const layout = (p) => p.evaluate(async () => {

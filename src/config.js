@@ -14,12 +14,12 @@ export const PHYSICS = {
 // 기력(스태미너) — 설계 docs/design/stamina_2026-10-15.md (사장님 결정 §0) · 구현 샛별 저장소(c8e2bdaf … 577f4d53) · 들여온 기록 docs/strike/stamina_import_2026-10-15.md.
 //  계산은 src/stamina.js(사람·AI 같은 장부 — 회복만 사람 21 · AI 15), 머리 위 막대 src/stamina_hud.js. 모든 시간은 물리(게임) 시간.
 //  on: true = 켬(기본) · false = 기력 없음(지금 본판 그대로 — 관문 바이트 같음). 주소 `?stamina=0` = 끔(main.js). 시뮬은 with_config STAMINA.on=false
-//  범위 100 … 0 … −80(탈진) · 0 아래 지침 · −40 아래 심한 지침 — 배율은 아래 moveTired … attackSevere · 되돌림 +15
+//  범위 100 … 0 … −70(탈진) · 0 아래 지침 · −35 아래 심한 지침 — 배율은 아래 moveTired … attackSevere · 되돌림 +15
 //  지친 배율 · 실제 접촉 시간 보정: 샛별 저장소 47b2e16e (사장님 10/17 '샛별의 기력접촉 보정 적용해' — 들여온 기록 docs/import/stamina_contact_2026-10-17.md)
 export const STAMINA = {
-  // 단계 문턱(사장님 10/16 00:5x '심한 지침을 -30이 아니라 -40으로 탈진을 -80으로' — 전 −30 · −50): 0 아래 지침 · severeAt 아래 심한 지침 · floor 에서 탈진.
-  //  stageBack: 한 단계 위로 돌아오려면 문턱보다 15 더 회복해야(지침 → 생생 +15 · 심한 지침 → 지침 severeAt + 15 = −25 — 설계안 §0 11 '단계 되돌림', 값 그대로)
-  on: true, max: 100, floor: -80, severeAt: -40, stageBack: 15,
+  // 단계 문턱(사장님 10/17 12:0x '-40 -80 기준으로 잡은 거 -35 -70으로 변경' — 그 전 10/16 00:5x −40 · −80, 처음 −30 · −50): 0 아래 지침 · severeAt 아래 심한 지침 · floor 에서 탈진.
+  //  stageBack: 한 단계 위로 돌아오려면 문턱보다 15 더 회복해야(지침 → 생생 +15 · 심한 지침 → 지침 severeAt + 15 = −20 — 설계안 §0 11 '단계 되돌림', 값 그대로)
+  on: true, max: 100, floor: -70, severeAt: -35, stageBack: 15,
   // 지친 배율(사장님 10/16 샛별 쪽 지시 '이동 −30 % · −60 %, 공격 −20 % · −40 %' → 10/17 본판 적용): 이동 × 0.7 · × 0.4 (전 0.7 · 0.5) · 공격 × 0.8 · × 0.6 (전 0.7 · 0.5)
   //  공격 배율의 뜻 = 공격 시작부터 첫 실제 접촉까지 시간이 1 ÷ 0.8 = 1.25 배 · 1 ÷ 0.6 = 1.667 배 (칼끝 최고 빠르기 시각이 아님) — 그 시간비를 맞추는 안쪽 계수가 아래 tempo* (재는 도구 tools/sim/stamina_contact_probe.mjs)
   moveTired: 0.7, moveSevere: 0.4, attackTired: 0.8, attackSevere: 0.6,
@@ -34,7 +34,7 @@ export const STAMINA = {
   stepDistance: 0.62, stepCosts: { default: 1.4, chinese: 0.7, japanese: 2.1 }, maxWalkSpeed: 3,
   // 회복: 0.6 s 동안 공격·막아 받기·박차기·비기·클린치를 안 쓰면 AI 초당 15 · 사람 21(샛별 저장소 c76b4a6f — 설계안은 모두 15, 사장님 확인 전) · 막기 유지 중엔 멈춤
   recoverPerSecond: 15, playerRecoverPerSecond: 21, recoverDelay: 0.6,
-  exhaustSeconds: 2.5, exhaustRecover: 32, // 탈진: 2.5 s 제자리 숨 고르기(사장님 결정) · 끝에서 0(지침 단계)으로. 초당 32 = −floor ÷ 2.5 — 2.5 s 끝에 0 에 닿게(전 50 ÷ 2.5 = 20 과 같은 규칙, 10/16 탈진 −80 에 맞춤 · 탈진 중 값은 막대에 안 보이고(진행은 시간) 끝에서 0 으로 맞추므로 게임 차이 없음)
+  exhaustSeconds: 2.5, exhaustRecover: 28, // 탈진: 2.5 s 제자리 숨 고르기(사장님 결정) · 끝에서 0(지침 단계)으로. 초당 28 = −floor ÷ 2.5 — 2.5 s 끝에 0 에 닿게(같은 규칙 — 10/16 −80 ÷ 2.5 = 32 · 10/17 탈진 −70 에 맞춤 · 탈진 중 값은 막대에 안 보이고(진행은 시간) 끝에서 0 으로 맞추므로 게임 차이 없음)
   // 실제 접촉 시간 보정 (attackTempo false = 공격 시계에 attackTired · attackSevere 를 그대로 곱함 · 안쪽 계수 없음). 아래 값은 샛별 저장소 19 무기 266 조건 고정 표적 측정에서 정한 것 — 사장님 확인 전
   //  tempoPower*: 공격 중 지친 팔·손목 힘(막는 동안은 아래 tiredPower · severePower 그대로) · tempoRate*: 베기 · 비기 명령 시계 · tempoThrust*: 찌르기(원래 질량 tempoHeavyMass 2.5 kg 넘거나 찌르기 특성 무기는 tempoRate*) · tempoPommel*: 손잡이 찍기
   //  tempoBody: 몸 돌림도 같은 시계 · tempoCaps: 관절 빠르기 한계도 같은 배율(motorSpeed) · tempoInput: 사람 손길을 순서 그대로 늦게 보냄(고유 동작 · 긋기 청구는 원래 손길로 읽음 — src/attack_tempo.js)

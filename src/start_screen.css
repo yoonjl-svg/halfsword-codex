@@ -19,7 +19,6 @@ button { touch-action: manipulation; }
 #entrance[data-phase="wind"] .title-screen, #entrance[data-phase="ready"] .title-screen { opacity: 1; translate: 0 0; }
 #entrance[data-phase="wind"] .title-screen { transition-delay: .45s; }
 .title-group { text-align: center; width: 100%; transform: translateY(-4vh); }
-.title-korean { font-size: 12px; letter-spacing: .7em; padding-left: .7em; color: #b4b4b4; margin: 0 0 15px; }
 h1 { font-family: Cinzel, serif; font-weight: 400; font-size: clamp(48px, 8vw, 112px); line-height: 1.1; letter-spacing: .07em; margin: 0; text-shadow: 0 2px 12px #15151570; }
 .title-rule { display: flex; align-items: center; justify-content: center; width: 124px; margin: 26px auto 31px; gap: 13px; }
 .title-rule::before, .title-rule::after { content: ''; width: 48px; height: 1px; background: #ffffff35; }
@@ -67,12 +66,14 @@ dialog::backdrop { background: #10101095; }
   .notice-entry { padding: 15px 0; }
   .notice-footer { padding: 9px 23px 13px; }
   .hide-read { margin-bottom: 7px; min-height: 25px; }
-  .title-korean { margin-bottom: 9px; }
   h1 { font-size: clamp(46px, 8vw, 76px); }
   .title-rule { margin: 13px auto 15px; }
   .start-actions { gap: 0; }
   .title-footer { bottom: max(6px, env(safe-area-inset-bottom)); }
 }
+/* 첫 화면 → 곧바로 싸움 (사장님 10/17 — game_entry.js depart): 대기실을 걷어 내던 것과 같은 0.3 s 로 첫 화면을 걷어 낸다 (lobby.css .lobby[data-leaving] 와 같은 값) */
+#entrance[data-leaving] { opacity: 0; transition: opacity .3s ease; }
 @media (prefers-reduced-motion: reduce) {
   .title-screen { transition: none; translate: none; }
+  #entrance[data-leaving] { transition: none; }
 }

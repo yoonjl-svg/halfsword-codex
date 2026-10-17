@@ -5,6 +5,7 @@
 //  별자리 자리(src/skill_tree.js CONSTELLATIONS)를 고치면 돌린다. 하나라도 걸리면 종료 코드 1
 //  npm run build && npx vite preview --port 5210 →  node tools/browser/skill_tree_layout.mjs http://127.0.0.1:5210
 import { chromium } from 'playwright';
+import { titleToLobby } from './to_lobby.mjs'; // 10/17: 첫 화면 → 곧바로 여정 → 정지 → 대기실 (사장님 '첫화면에서 바로 전투로')
 const base = process.argv[2] || 'http://127.0.0.1:5210';
 const browser = await chromium.launch({ executablePath: process.env.PW_CHROMIUM || '/opt/pw-browsers/chromium', args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader'] });
 let bad = 0;
@@ -17,7 +18,7 @@ for (const [name, w, h] of [['landscape', 844, 390], ['landscape-740', 740, 360]
   await p.waitForFunction(() => window.game?.player, null, { timeout: 60000 });
   if (await p.locator('#noticeDialog').evaluate((d) => d.open)) await p.locator('#confirmNotices').click();
   await p.waitForFunction(() => document.querySelector('#gameEntrance')?.shadowRoot.getElementById('entrance')?.dataset.phase === 'ready', null, { timeout: 20000 });
-  await p.locator('#newJourney').click(); await p.locator('#characterView canvas').waitFor();
+  await titleToLobby(p);
   await p.locator('#tabSkills').click();
   const report = [];
   for (const school of ['german', 'italian', 'iberian', 'japanese', 'chinese']) {

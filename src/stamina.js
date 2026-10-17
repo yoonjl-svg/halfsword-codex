@@ -9,7 +9,7 @@ export class Stamina {
   constructor(fighter) {
     this.fighter = fighter;
     this.controller = null;
-    this.maxBonus = 0; // 최대 기력 덧 (대기실 장비 — 케틀 햇 '생존술: 기력 +30', main.js setMaxBonus · 플레이어만). 문턱 0 · −40 · −80 과 그 밖 규칙은 그대로
+    this.maxBonus = 0; // 최대 기력 덧 (대기실 장비 — 케틀 햇 '생존술: 기력 +30', main.js setMaxBonus · 플레이어만). 문턱 0 · −35 · −70 과 그 밖 규칙은 그대로
     this.infinite = false; // 기력 무한 (대기실 장비 — 용사의 눈물 '기력 무한', main.js setInfinite · 플레이어만). 거짓이면 아래 모든 길이 전과 한 글자도 다르지 않다
     this.value = STAMINA.max;
     this.level = 0;
@@ -161,7 +161,7 @@ export class Stamina {
       this.counts.exhaustion++;
       this.stroke = null;
       this.action = 'exhausted';
-    } else if (this.value < STAMINA.severeAt) this.level = 2; // 심한 지침 −40 아래(사장님 10/16 — 전 −30)
+    } else if (this.value < STAMINA.severeAt) this.level = 2; // 심한 지침 −35 아래(사장님 10/17 — 그 전 −40 · 처음 −30)
     else if (this.level === 2 && this.value >= STAMINA.severeAt + STAMINA.stageBack - 1e-9) this.level = 1;
     else if (this.level === 0 && this.value < 0) this.level = 1;
     if (this.level === 1 && this.value >= STAMINA.stageBack - 1e-9) this.level = 0;

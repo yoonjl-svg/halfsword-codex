@@ -5,6 +5,7 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import { departTitle, titleToLobby } from './to_lobby.mjs';
 const base=process.argv[2]||'http://127.0.0.1:5201',out=process.argv[3]||'/tmp/title-account';fs.mkdirSync(out,{recursive:true});
 const browser=await chromium.launch({executablePath:process.env.PW_CHROMIUM||'/opt/pw-browsers/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader']});
 const results=[],errors=[],key='stillness-account:v1:auth';
@@ -23,7 +24,7 @@ async function start(context,path='/'){
 }
 const label=p=>p.locator('#openAccount').textContent();
 try{
- // 1. 새 계정: 번호 받기 → 틀린 번호 → 맞는 번호 → 연결 · 새로 열기 · 대기실 왕복 · 로그아웃
+ // 1. 새 계정: 번호 받기 → 틀린 번호 → 맞는 번호 → 연결 · 새로 열기 · 대기실 왕복(Stage 1 → 싸움 → 정지 → 대기실 → 첫 화면 — 10/17) · 로그아웃
  const c=await browser.newContext({viewport:{width:844,height:390},isMobile:true,hasTouch:true,reducedMotion:'reduce'});
  const calls=[];let failVerify=true,active=user;
  await c.route('https://*.supabase.co/**',async route=>{
@@ -59,16 +60,16 @@ try{
  const stored=await p.evaluate(()=>Object.keys(localStorage).filter(k=>k.includes('account')||k.startsWith('sb-')));assert.deepEqual(stored,[key]);
  results.push('OTP request without redirect link, 6-digit text with spam-folder hint, cooldown, invalid code and email verification via mocked Auth; only verified local-part shown; one storage key');
  await p.reload({waitUntil:'networkidle'});await p.locator('#confirmNotices').click();await p.waitForFunction(()=>document.querySelector('#gameEntrance').shadowRoot.getElementById('openAccount').textContent==='traveler.test',null,{timeout:20000});
- await p.locator('#newJourney').tap();await p.locator('#lobbyBack').tap();await p.locator('#confirmNotices').click();await p.waitForFunction(()=>document.querySelector('#gameEntrance').shadowRoot.getElementById('openAccount').textContent==='traveler.test',null,{timeout:20000});
+ await titleToLobby(p,'#newJourney','tap');await p.locator('#lobbyBack').tap();await p.locator('#confirmNotices').click();await p.waitForFunction(()=>document.querySelector('#gameEntrance').shadowRoot.getElementById('openAccount').textContent==='traveler.test',null,{timeout:20000});
  await p.locator('#openAccount').tap();await p.locator('#accountLogout').tap();await p.waitForFunction(()=>document.querySelector('#gameEntrance').shadowRoot.getElementById('openAccount').textContent==='계정 연결');await p.locator('#closeAccount').tap();
- assert.ok(calls.some(x=>x.path.endsWith('/logout')));results.push('refresh/back navigation retain linked identity; local sign-out resets label');await c.close();
+ assert.ok(calls.some(x=>x.path.endsWith('/logout')));results.push('refresh and Stage 1 → battle → pause → 대기실 → 첫 화면 retain linked identity; local sign-out resets label');await c.close();
  // 2. 화면 크기: 창이 화면 안 · Esc 로 닫힘 · 여정 그대로
  for(const [name,width,height] of [['desktop',1280,720],['portrait',390,844],['small',320,568]]){
   const ctx=await browser.newContext({viewport:{width,height},reducedMotion:'reduce'});await ctx.route('https://*.supabase.co/**',r=>{errors.push('auth server called (no session): '+r.request().url());r.abort();});
   const q=await start(ctx);await q.locator('#openAccount').click();
   const r=await q.locator('#accountDialog').boundingBox();assert.ok(r.x>=0&&r.y>=0&&r.x+r.width<=width&&r.y+r.height<=height);
   const foot=await q.locator('.title-footer button').evaluateAll(els=>els.map(e=>e.getBoundingClientRect().right));assert.ok(foot.every(x=>x<=width));
-  await q.keyboard.press('Escape');assert.equal(await q.locator('#accountDialog').evaluate(d=>d.open),false);await q.locator('#newJourney').click();await q.locator('#lobbyDepart').click();await q.waitForFunction(()=>game.state==='draw',null,{timeout:60000});results.push(`${name}: dialog fits, Escape closes, journey proceeds; no auth request without a saved login`);await ctx.close();
+  await q.keyboard.press('Escape');assert.equal(await q.locator('#accountDialog').evaluate(d=>d.open),false);assert.equal(await departTitle(q),'draw');results.push(`${name}: dialog fits, Escape closes, Stage 1 goes straight to the journey; no auth request without a saved login`);await ctx.close();
  }
  // 3. 기존 계정 로그인: 새 사용자 만들기 끔
  const existing=await browser.newContext({viewport:{width:844,height:390},reducedMotion:'reduce'});let createFlag,otpQuery;
@@ -80,7 +81,7 @@ try{
  // 4. 메일 한도 실패: 연결 안 됨 · 게임은 그대로
  const failed=await browser.newContext({viewport:{width:844,height:390},reducedMotion:'reduce'});
  await failed.route('https://*.supabase.co/**',route=>route.fulfill({status:429,contentType:'application/json',body:JSON.stringify({error_code:'over_email_send_rate_limit',msg:'Email rate limit exceeded'})}));
- const f=await start(failed);await f.locator('#openAccount').click();await f.locator('#accountEmail').fill(user.email);await f.locator('#accountSend').click();await f.waitForFunction(()=>document.querySelector('#gameEntrance').shadowRoot.getElementById('accountStatus').textContent.includes('요청이 많습니다'));assert.equal(await label(f),'계정 연결');assert.equal(await f.locator('#accountEmailForm').isVisible(),true);await f.locator('#closeAccount').click();await f.locator('#newJourney').click();await f.locator('#lobbyDepart').click();await f.waitForFunction(()=>game.state==='draw',null,{timeout:60000});results.push('mail rate-limit failure leaves account unlinked and game playable');await failed.close();
+ const f=await start(failed);await f.locator('#openAccount').click();await f.locator('#accountEmail').fill(user.email);await f.locator('#accountSend').click();await f.waitForFunction(()=>document.querySelector('#gameEntrance').shadowRoot.getElementById('accountStatus').textContent.includes('요청이 많습니다'));assert.equal(await label(f),'계정 연결');assert.equal(await f.locator('#accountEmailForm').isVisible(),true);await f.locator('#closeAccount').click();assert.equal(await departTitle(f),'draw');results.push('mail rate-limit failure leaves account unlinked and game playable (Stage 1 → card draw)');await failed.close();
  // 5. 메일 링크 꼴(#access_token=…)로 들어와도 로그인하지 않는다 (detectSessionInUrl: false) · 다른 판의 저장 열쇠도 읽지 않는다
  const link=await browser.newContext({viewport:{width:844,height:390},reducedMotion:'reduce'});const lcalls=[];
  await link.addInitScript(({s})=>{localStorage.setItem('stillness-account:v1:other-build:auth',JSON.stringify(s));localStorage.setItem('sb-xrdxiyhhvdqiyklevgap-auth-token',JSON.stringify(s));},{s:session(user)});

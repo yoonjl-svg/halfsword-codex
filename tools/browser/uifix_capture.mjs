@@ -4,6 +4,7 @@
 //  장면: notices(본문·날짜 10) · lobby(안내 줄 없음) · pause(정지 창 '대기실') · result-win · result-loss(금화 줄 · 설정 줄 없음 · 다음 여정/다시 겨루기 · 대기실)
 //  npm run build && npx vite preview --port 5230 →  node tools/browser/uifix_capture.mjs http://127.0.0.1:5230 docs/handoff
 import { chromium } from 'playwright';
+import { titleToLobby } from './to_lobby.mjs'; // 10/17: 첫 화면 → 곧바로 여정 → 정지 → 대기실 (사장님 '첫화면에서 바로 전투로')
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 const base = process.argv[2] || 'http://127.0.0.1:5230', out = process.argv[3] || 'docs/handoff';
@@ -25,7 +26,7 @@ const title = async (p) => {
   if (await p.locator('#noticeDialog').evaluate((d) => d.open)) await p.locator('#confirmNotices').click();
   await p.waitForFunction(() => document.querySelector('#gameEntrance')?.shadowRoot.getElementById('entrance')?.dataset.phase === 'ready', null, { timeout: 20000 });
 };
-const toLobby = async (p) => { await title(p); await p.locator('#newJourney').click(); await p.locator('#characterView canvas').waitFor({ timeout: 20000 }); await p.waitForTimeout(600); };
+const toLobby = async (p) => { await title(p); await titleToLobby(p); await p.waitForTimeout(600); };
 const depart = async (p) => { await p.locator('#lobbyDepart').click(); await p.waitForFunction(() => !document.getElementById('gameEntrance') && ['draw', 'fight'].includes(game.state), null, { timeout: 60000 }); };
 const pick = async (p) => { await p.waitForFunction(() => game.state === 'draw' && game.draw.t > 0.6, null, { timeout: 30000 }); await p.locator('#draw .wcard[data-i="0"]').click(); await p.waitForFunction(() => game.state === 'fight', null, { timeout: 30000 }); };
 const settle = (p) => p.waitForFunction(() => game.stats.simTime > 4.5, null, { timeout: 90000 }); // 판 시작 훑기 · 알림이 지나간 뒤

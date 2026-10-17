@@ -90,8 +90,8 @@ test('movement and attack use the separately approved fatigue rates',()=>{
  const s=actor().stamina;
  near(s.speed,1);near(s.attackSpeed,1);
  s.value=-1;s.stages();near(s.speed,.7);near(s.attackSpeed,.8);
- s.value=-41;s.stages();near(s.speed,.4);near(s.attackSpeed,.6);
- s.value=-80;s.stages();near(s.speed,0);near(s.attackSpeed,0);
+ s.value=STAMINA.severeAt-1;s.stages();near(s.speed,.4);near(s.attackSpeed,.6);
+ s.value=STAMINA.floor;s.stages();near(s.speed,0);near(s.attackSpeed,0);
 });
 test('탈진2.5초: 막기를 누르고 있어도 회복,0/지침으로 해제,추가비용없음',()=>{
  const f=actor();f.stamina.controller={held:true};f.stamina.spend('attack',180);near(f.stamina.value,STAMINA.floor);near(f.stamina.speed,0);

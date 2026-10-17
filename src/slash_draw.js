@@ -1,6 +1,6 @@
 // User-selected round-2 A2/B2 timbres, shortened for weak/strong runtime cuts.
 // Source: tools/audio/slash_draw_candidate.mjs (heavy draw/fiber). No recordings.
-// 적막 10/7: 샛별 일반판(7cbac07, 사용자 선택 10/2·'15 % 크게' 10/3)에서 그대로 가져옴 — 사장님 지시 10/7 20:50 "나와 직접 상의해 개선한 것은 그대로 가져와". 순수 합성(필터·잡음·포락선), 입출력 없음.
+// Stillness 10/7: 샛별 일반판(7cbac07, 사용자 선택 10/2·'15 % 크게' 10/3)에서 그대로 가져옴 — 사장님 지시 10/7 20:50 "나와 직접 상의해 개선한 것은 그대로 가져와". 순수 합성(필터·잡음·포락선), 입출력 없음.
 export const DRAWN_SLASH = Object.freeze({
   weakDuration: .26,
   strongDuration: .35,

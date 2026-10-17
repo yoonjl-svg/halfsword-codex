@@ -1,7 +1,7 @@
 /* 첫 화면 픽셀 시안 (샛별 저장소 시작 화면 마지막 판 — 공지 · 설정 · 계정 창 꾸밈).
    game_entry.js 가 Shadow DOM 안에 넣으며 html[data-start-theme=pixel] 을 :host 로 바꾼다 — 아래 --dlg-line · 바탕색은 그 안에서만.
    10/16 15:3x 사장님 ② "나무 판자를 전투 단추로 바꿔" · ③ "설정은 미닫이가 맞아" (docs/import/ui_unify_2026-10-16.md — 스타일 규칙 '겉은 픽셀, 속은 매끈'):
-    · 겉(픽셀) = 숲 배경 · 큰 제목 글자(적막 · STILLNESS · 가름줄) — 그대로
+    · 겉(픽셀) = 숲 배경 · 큰 제목 글자(STILLNESS · 가름줄) — 그대로 (한글 제목 줄은 10/17 사장님 '게임 이름은 이제 Stillness'로 지움)
     · 속(매끈) = 단추 · 미닫이 = 싸움 화면 꼴(entrance_ui.css). 여기 있던 나무 판자 단추 · 눌릴 때 3 px 뚝 · 단추 앞 픽셀 화살표 · 네모 체크는 지웠다
     · 창(공지 · 설정 · 계정)의 나무 창 꼴 · 색은 그대로 둔다(사장님 '색 수는 첫 화면은 두고' — 창을 싸움 창으로 바꿀지는 사장님 확인 전, 문서 §8)
     · 대기실은 이 파일을 더는 넣지 않는다(대기실 단추도 entrance_ui.css) */
@@ -14,20 +14,18 @@ html[data-start-theme="pixel"] {
   background: #30291e;
 }
 [data-start-theme="pixel"] .scene-shade { background: linear-gradient(0deg, #211c19b0 0%, transparent 24%, transparent 80%, #211c1930 100%); }
-/* 나타나기 (감독 진단 (c) — 전: 첫 화면 전체가 0.7 s 7 단계로 끊어 나타남): 픽셀 제목 글자(적막 · STILLNESS · 가름줄)만 7 단계로 끊고(픽셀 결),
+/* 나타나기 (감독 진단 (c) — 전: 첫 화면 전체가 0.7 s 7 단계로 끊어 나타남): 픽셀 제목 글자(STILLNESS · 가름줄)만 7 단계로 끊고(픽셀 결),
    단추 · 아래 줄은 매끈하게 (같은 0.7 s · 같은 8 px 올라옴 — 바람이 지나간 뒤 0.45 s 늦게, 그대로) */
 [data-start-theme="pixel"] .title-screen { padding-left: 25vw; opacity: 1; translate: none; transition: none; }
-[data-start-theme="pixel"] :is(.title-korean, .pixel-wordmark, .title-rule, .start-actions, .title-footer) { opacity: 0; translate: 0 8px; }
-[data-start-theme="pixel"] :is(.title-korean, .pixel-wordmark, .title-rule) { transition: opacity .7s steps(7), translate .7s steps(7); }
+[data-start-theme="pixel"] :is(.pixel-wordmark, .title-rule, .start-actions, .title-footer) { opacity: 0; translate: 0 8px; }
+[data-start-theme="pixel"] :is(.pixel-wordmark, .title-rule) { transition: opacity .7s steps(7), translate .7s steps(7); }
 [data-start-theme="pixel"] :is(.start-actions, .title-footer) { transition: opacity .7s ease, translate .7s ease; }
-[data-start-theme="pixel"] #entrance:is([data-phase="wind"], [data-phase="ready"]) :is(.title-korean, .pixel-wordmark, .title-rule, .start-actions, .title-footer) { opacity: 1; translate: 0 0; }
-[data-start-theme="pixel"] #entrance[data-phase="wind"] :is(.title-korean, .pixel-wordmark, .title-rule, .start-actions, .title-footer) { transition-delay: .45s; }
+[data-start-theme="pixel"] #entrance:is([data-phase="wind"], [data-phase="ready"]) :is(.pixel-wordmark, .title-rule, .start-actions, .title-footer) { opacity: 1; translate: 0 0; }
+[data-start-theme="pixel"] #entrance[data-phase="wind"] :is(.pixel-wordmark, .title-rule, .start-actions, .title-footer) { transition-delay: .45s; }
 [data-start-theme="pixel"] .title-group { transform: translateY(-2vh); }
-[data-start-theme="pixel"] .title-korean { position: relative; color: var(--c-text); font-size: 32px; letter-spacing: .2em; padding: 0; font-weight: 600; margin: 0 auto 0; text-shadow: 2px 2px #302319; }
-[data-start-theme="pixel"] .title-korean canvas { display: block; height: 58px; width: auto; margin: auto; image-rendering: pixelated; image-rendering: crisp-edges; }
 [data-start-theme="pixel"] .pixel-wordmark { position: relative; width: min(100%, 650px); margin: 0 auto; font-weight: 600; line-height: 1; text-shadow: 3px 3px #362617; }
 [data-start-theme="pixel"] .pixel-wordmark canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; image-rendering: crisp-edges; }
-[data-start-theme="pixel"] .pixel-wordmark[data-painted="true"] > span, [data-start-theme="pixel"] .title-korean[data-painted="true"] > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+[data-start-theme="pixel"] .pixel-wordmark[data-painted="true"] > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 [data-start-theme="pixel"] .title-rule { width: 120px; margin: 7px auto 28px; gap: 12px; }
 [data-start-theme="pixel"] .title-rule::before, [data-start-theme="pixel"] .title-rule::after { height: 2px; width: 40px; background: #b99b63; box-shadow: 0 2px #33291c; }
 [data-start-theme="pixel"] .title-rule span { transform: none; width: 4px; height: 4px; background: #eed49a; box-shadow: 0 -4px #c5a56b, 0 4px #967849, -4px 0 #c5a56b, 4px 0 #967849; }
@@ -39,7 +37,7 @@ html[data-start-theme="pixel"] {
 /* 아래 줄 세 칸 (공지사항 · 설정 · 계정 연결) = 작은 부 단추 · 그림 위라 창 바탕 (entrance_ui.css .secondary.small.on-art) — 폭은 전과 같은 70 px 세 칸(글은 가운데 · 옆 여백 없이) ·
    계정이 이어지면 메일 앞부분이 들어가게 폭을 글에 맞춘다(220 px · 화면 40 % 까지 — 넘치면 …) */
 [data-start-theme="pixel"] .title-footer { justify-content: flex-start; gap: 8px; }
-/* 아래 줄 작은 단추의 폭 70 · 옆 패딩 0 은 entrance_ui.css .secondary.small.utility (대기실 '첫 화면으로'와 같은 꼴) */
+/* 아래 줄 작은 단추의 폭 70 · 옆 패딩 0 은 entrance_ui.css .secondary.small.utility (대기실 '첫 화면'과 같은 꼴) */
 [data-start-theme="pixel"] #openAccount { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 [data-start-theme="pixel"] #openAccount[data-connected=true] { width: auto; min-width: 70px; max-width: min(220px, 40vw); padding-left: 10px; padding-right: 10px; }
 [data-start-theme="pixel"] dialog {
@@ -75,14 +73,14 @@ html[data-start-theme="pixel"] {
   [data-start-theme="pixel"] .title-screen { padding: 22px; }
   [data-start-theme="pixel"] .title-group { transform: translateY(-5vh); }
   [data-start-theme="pixel"] .pixel-wordmark { width: 100%; }
-  [data-start-theme="pixel"] .title-korean canvas { height: 48px; }
   [data-start-theme="pixel"] .title-rule { margin: 6px auto 26px; }
   [data-start-theme="pixel"] .start-actions button { width: calc(min(278px, 100vw - 72px) * .82); }
 }
 @media (max-height: 500px) and (orientation: landscape) {
   [data-start-theme="pixel"] .pixel-wordmark { width: min(100%, 430px); }
-  [data-start-theme="pixel"] .title-korean canvas { height: 48px; }
-  [data-start-theme="pixel"] .title-group { transform: translateY(-6px); }
+  /* 한글 제목 줄(48 px)을 지운 뒤(10/17)에도 STILLNESS · 단추를 전과 같은 높이에 둔다 — 가운데로 올리면 작은 폰(667 × 375)에서 제목 끝이 달을 가린다.
+     전 −6 px + 지운 줄의 절반 24 px = +18 px (태블릿 · PC 는 달이 멀어 가운데 그대로) */
+  [data-start-theme="pixel"] .title-group { transform: translateY(18px); }
   [data-start-theme="pixel"] .title-rule { margin: 1px auto 16px; }
   [data-start-theme="pixel"] .start-actions { gap: 8px; }
   [data-start-theme="pixel"] .start-actions button { width: calc(250px * .82); }
@@ -92,7 +90,7 @@ html[data-start-theme="pixel"] {
   [data-start-theme="pixel"] .notice-entry { padding: 14px 0; }
   [data-start-theme="pixel"] .notice-footer { padding: 8px 22px; }
 }
-@media (prefers-reduced-motion: reduce) { [data-start-theme="pixel"] :is(.title-screen, .title-korean, .pixel-wordmark, .title-rule, .start-actions, .title-footer) { transition: none; translate: none; } }
+@media (prefers-reduced-motion: reduce) { [data-start-theme="pixel"] :is(.title-screen, .pixel-wordmark, .title-rule, .start-actions, .title-footer) { transition: none; translate: none; } }
 /* 설정 창: '화면 60 fps 제한' = 싸움 화면 미닫이 (사장님 ③ "설정은 미닫이가 맞아" — 같은 값 · 같은 저장 gladiator-settings) · 확인 = 주 단추 */
 [data-start-theme="pixel"] #settingsDialog { width: min(360px, calc(100vw - 40px)); }
 [data-start-theme="pixel"] .settings-content { padding: 18px 26px; font-size: 14px; }

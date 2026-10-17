@@ -5,6 +5,7 @@
 //  저장 상태: 깬 무대 37(인장 3 → 첫 대기실에서 금화 +300) · 금화 940 + 300 · 머리 3 · 산 책 = 독일 I·II·III(II 봉인) · 일본 I·V — 사진용 미리 채움(실제 사기 흐름은 lobby_fix_smoke 가 본다)
 //  npm run build && npx vite preview --port 5210 →  node tools/browser/lobbyfix_capture.mjs http://127.0.0.1:5210 docs/handoff [고치기 전 배포판 주소]
 import { chromium } from 'playwright';
+import { titleToLobby } from './to_lobby.mjs'; // 10/17: 첫 화면 → 곧바로 여정 → 정지 → 대기실 (사장님 '첫화면에서 바로 전투로')
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 const base = process.argv[2] || 'http://127.0.0.1:5210', out = process.argv[3] || 'docs/handoff', before = process.argv[4] || null;
@@ -43,7 +44,7 @@ for (const [size, width, height, phone] of SIZES) {
     await tap('#accountSend'); await p.locator('#accountCode').waitFor({ state: 'visible' }); await p.locator('#accountCode').fill('123456'); await p.waitForTimeout(200); await shot('account-code');
     await tap('#closeAccount');
   }
-  await tap('#newJourney'); await p.locator('#characterView canvas').waitFor({ timeout: 20000 }); await p.waitForTimeout(700);
+  await titleToLobby(p, '#newJourney', phone ? 'tap' : 'click'); await p.waitForTimeout(700);
   assert.match(await p.locator('#lobbyStatus').textContent(), /인장 3개를 금화 300으로/);
   await inRoot(p, `root.querySelector('.lobby').scrollTop=0;`); await shot('lobby');
   if (height > width) { assert.equal(await p.locator('#landscapeHint').isVisible(), true); await scrollTo('#landscapeHint'); await shot('landscape-hint'); }
@@ -86,7 +87,7 @@ async function previewCloseUp(url, name) {
   await p.goto(url + '/', { waitUntil: 'networkidle' }); await p.waitForFunction(() => window.game?.player, null, { timeout: 60000 });
   if (await p.locator('#noticeDialog').evaluate((d) => d.open)) await p.locator('#confirmNotices').click();
   await p.waitForFunction(() => document.querySelector('#gameEntrance').shadowRoot.getElementById('entrance').dataset.phase === 'ready', null, { timeout: 20000 });
-  await p.locator('#newJourney').click(); await p.locator('#characterView canvas').waitFor({ timeout: 20000 }); await p.waitForTimeout(800);
+  await titleToLobby(p); await p.waitForTimeout(800);
   const box = await p.locator('#characterView').boundingBox();
   const path = `${out}/lobbyfix_${name}_phone-landscape.png`;
   await p.screenshot({ path, clip: { x: box.x + box.width * 0.18, y: box.y + 4, width: box.width * 0.64, height: box.height * 0.62 } }); saved.push(path);

@@ -159,6 +159,12 @@ input:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
 @media (hover: hover) { .inventory-item:not([aria-pressed="true"]):hover { border-color: var(--c-sub); } }
 /* '장착 중': 그림을 가리지 않게 칸 왼쪽 위 귀퉁이에 걸친 작은 알약 (사장님 ⑨ — 글 그대로). 무기 그림은 모두 ↗ 대각선 · 케틀 햇은 위가 비어 왼쪽 위가 빈 자리 */
 .equipped-badge { position: absolute; z-index: 1; top: -5px; left: -3px; padding: 0 5px; border-radius: 999px; background: var(--c-accent); color: var(--c-on-accent); font-size: var(--fs-xs); line-height: 14px; white-space: nowrap; pointer-events: none; }
+/*  낮은 화면(칸 폭 54 px 안팎 — 알약 38 × 14 px 가 칸의 왼쪽 68 % · 위 18 % 를 덮는다)에서 알약 자리에 그림이 찬 칸(목걸이 '용사의 눈물'처럼 위 가장자리가 찬 그림 —
+    lobby.js fitThumb 가 재서 data-top="busy")은 장착 중일 때만 그림을 74 % 로 줄이고 6 % 내린다: 보이는 위 끝 = 칸의 19 % (알약 아래 끝 아래) · 아래 끝 93 %.
+    10/17 점검에서 찾음(844 × 390 에서 목걸이 사슬 위쪽이 알약 밑으로). 넓은 화면은 칸이 커서 그대로 */
+@media (max-height: 500px) {
+  .inventory-item.is-equipped > img[data-top="busy"] { --box: calc(74% * var(--fit)); top: calc(56% - var(--box) / 2 - var(--fy) * var(--box)); }
+}
 /* 설명 카드 (칸을 고르면 틀 안 아래쪽): 이름 · 등급 · 설명 · 장착 / 해제 — 스킬북 설명 카드(구입 · 사용 · 봉인)와 같은 자리 · 같은 꼴 */
 /*  바탕 = 싸움 창 --panel 두 겹(거의 불투명 — 칸 · 별자리가 글 뒤로 비치면 읽기 어렵다. 반투명 창은 호칭 내림 상자 — 사장님 16:0x) */
 .item-detail { position: absolute; z-index: 2; left: 6px; right: 6px; bottom: 6px; padding: 8px 10px 10px; background: linear-gradient(var(--panel), var(--panel)), var(--panel); border: 1px solid var(--line); border-radius: 8px; font-size: var(--fs-s); line-height: 18px; }

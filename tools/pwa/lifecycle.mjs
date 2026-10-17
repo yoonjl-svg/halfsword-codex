@@ -1,4 +1,4 @@
-// 적막 PWA 수명 점검 (Playwright · 진짜 서비스 워커) — docs/pwa_2026-10-13.md
+// Stillness PWA 수명 점검 (Playwright · 진짜 서비스 워커) — docs/pwa_2026-10-13.md
 //  샛별 저장소의 PWA 묶음에 든 시험(tests/lifecycle.mjs)을 우리 갱신 방식(화면 네트워크 먼저 · 곧바로 넘어감)에 맞춰 다시 쓴 것.
 //
 //    npm run build            (dist/sw.js · dist/pwa-build.json 까지)
@@ -168,10 +168,10 @@ try {
   assert.equal(new URL(manifest.json.start_url, manifest.url).href, base);
   assert.equal(new URL(manifest.json.scope, manifest.url).href, base);
   assert.equal(new URL(manifest.json.id, manifest.url).href, base);
-  assert.equal(manifest.json.name, '적막');
-  assert.equal(manifest.json.short_name, '적막');
+  assert.equal(manifest.json.name, 'Stillness');
+  assert.equal(manifest.json.short_name, 'Stillness');
   assert.equal(manifest.json.display, 'standalone');
-  assert.equal(manifest.title, '적막');
+  assert.equal(manifest.title, 'Stillness');
   for (const ic of manifest.icons) assert.equal(`${ic.w}x${ic.h}`, ic.sizes);
   assert(manifest.icons.some((i) => i.purpose === 'maskable'));
   assert.equal(manifest.apple.w, 192); // 도트 6배 정수 확대 (180 은 칸이 고르지 않다)

@@ -5,10 +5,12 @@
 //     (청구 시도 = 장부 spend 에 들어온 값 — 기력 무한이면 모두 거절되고 spent 0)
 //  ③ 같은 흐름에 용사의 눈물 없이: 내 막대가 보이고 같은 몰아붙이기에 기력이 깎이고 지친다 (전과 같음)
 //  ④ 케틀 햇만 벗고 용사의 눈물만: 맨머리 + 기력 무한 (두 자리가 따로) ⑤ 테스트 경로(여정이 아님)는 저장된 용사의 눈물을 읽지 않는다 (케틀 햇과 같은 규칙)
+//  10/17 11:2x 흐름: 첫 화면 'Stage 1' → 곧바로 카드 → 정지 → 대기실 (tools/browser/to_lobby.mjs) · 대기실 출발 = 'Stage 입장'(첫 화면에서 펼친 같은 카드) · ③ 은 첫 화면에서 곧장 싸움
 //  npm run build && npx vite preview --port 4304 →  node tools/browser/hero_tear_smoke.mjs http://127.0.0.1:4304 /tmp/<빈 폴더> [사진 폴더]
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import { departTitle, lobbyFromBattle } from './to_lobby.mjs';
 const base = process.argv[2] || 'http://127.0.0.1:4304', out = process.argv[3] || '/tmp/hero-tear', shots = process.argv[4] || out;
 fs.mkdirSync(out, { recursive: true }); fs.mkdirSync(shots, { recursive: true });
 const browser = await chromium.launch({ executablePath: process.env.PW_CHROMIUM || '/opt/pw-browsers/chromium', args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader'] });
@@ -28,21 +30,28 @@ async function context(seed = null, dpr = 1) { // 싸움 흐름은 화소 비 1 
   const p = await ctx.newPage(); watch(p);
   return { ctx, p };
 }
-async function lobby(p, url = '/?title=1&cards=longsword,rapier') { // 카드 고정 — 무작위 카드에 나뭇가지가 나와도 흐름이 같게 (lobby_fix_smoke 와 같은 주소)
+async function title(p, url = '/?title=1&cards=longsword,rapier') { // 카드 고정 — 무작위 카드에 나뭇가지가 나와도 흐름이 같게 (lobby_fix_smoke 와 같은 주소)
   await p.goto(base + url, { waitUntil: 'networkidle' });
   await p.waitForFunction(() => window.game?.player, null, { timeout: 90000 });
   if (await p.locator('#noticeDialog').evaluate((d) => d.open)) await p.locator('#confirmNotices').tap();
   await p.waitForFunction(() => document.querySelector('#gameEntrance')?.shadowRoot.getElementById('entrance')?.dataset.phase === 'ready', null, { timeout: 30000 });
-  await p.locator('#newJourney').tap(); await p.locator('#characterView canvas').waitFor({ timeout: 30000 });
-  await p.waitForFunction(() => document.querySelector('#gameEntrance').shadowRoot.getElementById('characterView').dataset.rig === 'ready', null, { timeout: 60000 }).catch(() => {});
+}
+async function lobby(p) { // 첫 화면 'Stage 1' → 곧바로 카드(무기 장착 없음) → 정지 → '대기실'
+  await title(p);
+  assert.equal(await departTitle(p, '#newJourney', 'tap'), 'draw');
+  await lobbyFromBattle(p, 'tap');
 }
 const card = (p) => p.locator('#itemDetail').evaluate((e) => { const r = e.getBoundingClientRect(), f = e.closest('.inventory-frame').getBoundingClientRect(); return { hidden: e.hidden, tier: e.dataset.tier, name: e.querySelector('#itemName').textContent, rarity: e.querySelector('#itemRarity').textContent, description: e.querySelector('#itemDescription').textContent, abilityColor: getComputedStyle(e.querySelector('.item-ability')).color, inside: r.left >= f.left - .5 && r.right <= f.right + .5 && r.top >= f.top - .5 && r.bottom <= f.bottom + .5, overflow: e.scrollHeight > e.clientHeight + 1 }; });
 const badges = (p) => p.locator('.inventory-item').evaluateAll((els) => els.map((e) => ({ id: e.dataset.item, on: !e.querySelector('.equipped-badge').hidden, label: e.getAttribute('aria-label') })));
-async function depart(p) { // 무기 장착 없음 → 카드 → 첫 카드(롱소드) → 싸움 · 발이 풀릴 때까지 (첫 무대 훑기)
-  await p.locator('#lobbyDepart').tap();
+async function pickFirst(p) { // 카드 → 첫 카드(롱소드) → 싸움 · 발이 풀릴 때까지 (첫 무대 훑기)
   await p.waitForFunction(() => game.state === 'draw' && game.draw.t > 0.6, null, { timeout: 90000 });
   await p.locator('#draw .wcard[data-i="0"]').tap();
   await p.waitForFunction(() => game.state === 'fight' && !game.player.feetHeld && game.stats.simTime > 1, null, { timeout: 180000 });
+}
+async function depart(p) { // 대기실 'Stage 입장'(무기 장착 없음) → 첫 화면에서 펼친 같은 카드 → 첫 카드
+  assert.equal(await p.locator('#lobbyDepart').textContent(), 'Stage 입장');
+  await p.locator('#lobbyDepart').tap();
+  await pickFirst(p);
 }
 // 플레이어 몸에 붙은 그림 (몸 조각 · 칼 · 투구 · 손 — Fighter.meshes 의 group 아래 메쉬 수 · 그 메쉬들의 꼭짓점 수) — 용사의 눈물이 있든 없든 같아야 한다 (몸에 아무것도 안 붙임)
 const meshCount = (p) => p.evaluate(() => { let n = 0, v = 0; for (const { group } of game.player.meshes) group.traverse((c) => { if (c.isMesh) { n++; v += c.geometry?.attributes?.position?.count ?? 0; } }); return `${n} meshes / ${v} vertices`; });
@@ -126,7 +135,7 @@ try {
   assert.deepEqual(await p.locator('.inventory-item').evaluateAll((els) => els.map((e) => [e.dataset.armor, e.dataset.tier])), [['kettle', 'legend'], ['hero_tear', 'legend']]);
   assert.deepEqual((await badges(p)).map((b) => [b.id, b.on]), [['kettle', true], ['hero_tear', true]]); // 새 기기: 둘 다 씀 (사장님 10/17 '용사의 눈물은 장착을 기본으로')
   await p.waitForTimeout(400);
-  checks.push('lobby armor tab: 2 items (kettle hat · hero tear), both thumbnails load at 256 px, legend glow; new device = kettle on, tear on (default equipped)');
+  checks.push('lobby (title Stage 1 → cards → pause → 대기실) armor tab: 2 items (kettle hat · hero tear), both thumbnails load at 256 px, legend glow; new device = kettle on, tear on (default equipped)');
   const view = await p.locator('#characterView').boundingBox();
   const frames = () => p.locator('#characterView').getAttribute('data-frames');
   const before = await p.screenshot({ clip: view }), framesBefore = await frames();
@@ -174,13 +183,14 @@ try {
   const last = lineTear.at(-1);
   await overlay(p, `용사의 눈물 장착 · 게임 ${sTear.simSeconds}s 몰아붙인 뒤\n기력 ${last.value}/${last.max} · 지침 ${sTear.maxLevel} · 탈진 ${sTear.exhaustedSamples} · 빠르기 ${sTear.minSpeed}\n휘두름 ${sTear.swings} · 막아 받기 ${sTear.blocks} · 청구 시도 ${Object.entries(sTear.tried).map(([k, v]) => `${k} ${v}`).join(' · ')} → 깎인 것 ${sTear.spent}\n내 막대 ${sTear.myBarShown}/${sTear.samples} 번 보임 · 상대 막대 ${last.foeBar ?? '-'}% (상대 기력 ${last.foeValue})`);
   await shot(p, '05_fight_tear_after_swings'); await unoverlay(p);
-  checks.push(`tear fight: infinite on player only (foe false) · max 130 with kettle · my bar never shown, foe bar shown · guard phase ${sTear.blocks} blocked foe attacks + ${sTear.swings} swings/thrusts + parry hold over ${sTear.simSeconds} s game time: min value 130, level 0, exhausted 0, speed 1, spent 0 (tried ${JSON.stringify(sTear.tried)})`);
+  checks.push(`tear fight (lobby Stage 입장 → the same cards dealt from the title): infinite on player only (foe false) · max 130 with kettle · my bar never shown, foe bar shown · guard phase ${sTear.blocks} blocked foe attacks + ${sTear.swings} swings/thrusts + parry hold over ${sTear.simSeconds} s game time: min value 130, level 0, exhausted 0, speed 1, spent 0 (tried ${JSON.stringify(sTear.tried)})`);
   await A.ctx.close();
 
-  // ── ③ 용사의 눈물 없이 (전과 같음 — 이제 처음부터 걸려 있으니 벗은 저장으로 시작) ──
+  // ── ③ 용사의 눈물 없이 (전과 같음 — 이제 처음부터 걸려 있으니 벗은 저장으로 시작) · 첫 화면에서 곧장 (대기실을 거치지 않아도 저장된 장착을 읽는다) ──
   const B = await context({ 'stillness.lobby.neck.v1': '{"version":1,"neck":null}' });
-  await lobby(B.p);
-  await depart(B.p);
+  await title(B.p);
+  assert.equal(await departTitle(B.p, '#newJourney', 'tap'), 'draw');
+  await pickFirst(B.p);
   const plainFight = await B.p.evaluate(() => ({ infinite: game.player.stamina.infinite, max: game.player.stamina.max, value: game.player.stamina.value, helmet: game.player.hasHelmet }));
   assert.deepEqual(plainFight, { infinite: false, max: 130, value: 130, helmet: true });
   const meshesPlain = await meshCount(B.p);
@@ -195,7 +205,7 @@ try {
   const lastP = linePlain.at(-1);
   await overlay(B.p, `용사의 눈물 없음 (전과 같음) · 게임 ${sPlain.simSeconds}s 몰아붙인 뒤\n기력 ${lastP.value}/${lastP.max} · 가장 낮음 ${sPlain.minValue} · 지침 최대 ${sPlain.maxLevel} · 탈진 ${sPlain.exhaustedSamples}/${sPlain.samples}\n휘두름 ${sPlain.swings} · 막아 받기 ${sPlain.blocks} · 깎인 것 ${sPlain.spent}\n내 막대 ${sPlain.myBarShown}/${sPlain.samples} 번 보임 (지금 ${lastP.myBar ?? '-'}%)`);
   await shot(B.p, '07_fight_plain_after_swings'); await unoverlay(B.p);
-  checks.push(`without tear: my bar shown (${sPlain.myBarShown}/${sPlain.samples}) · same hammering drains: min ${sPlain.minValue}, max level ${sPlain.maxLevel}, exhausted samples ${sPlain.exhaustedSamples}, spent ${sPlain.spent}; fighter mesh count equal with/without tear (${meshesPlain})`);
+  checks.push(`without tear (saved unequipped, Stage 1 on the title straight to the cards — no lobby): my bar shown (${sPlain.myBarShown}/${sPlain.samples}) · same hammering drains: min ${sPlain.minValue}, max level ${sPlain.maxLevel}, exhausted samples ${sPlain.exhaustedSamples}, spent ${sPlain.spent}; fighter mesh count equal with/without tear (${meshesPlain})`);
   await B.ctx.close();
 
   // ── ④ 케틀 햇만 벗고 용사의 눈물만 ──

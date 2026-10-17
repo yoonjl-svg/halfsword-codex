@@ -5,10 +5,12 @@
 //     · 옛 메뉴로 먼저 연 사람(깬 수 39): 판을 연 때 바꿈 · 그 뒤 이겨 40 이 되어도 안 줌 · 다음 대기실이 알림 한 번 (확인표 1928)
 //  ④ 테스트 경로 = 책 모두 '사용'(일본 걸음 · 버티기 · 유파 막기 · 고유 공격 넷 · 비기)
 //  ⑤ 주소 판: 책 없음 = 기본 몫 · ?uniqueStage=0 / 2 / 5 = 책 없음 / 보법·막기 / 모두 · 산 책(일본 I · V)은 주소 판에서도 그대로
+//  10/17 11:2x 흐름: 대기실 = 첫 화면 'Stage 1' → 곧바로 카드 → 정지 → '대기실' (tools/browser/to_lobby.mjs) · 대기실 출발 = 'Stage 입장'(같은 카드)
 //  npm run build && npx vite preview --port 5220 →  node tools/browser/no_seals_smoke.mjs http://127.0.0.1:5220 /tmp/<빈 폴더>
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import { titleToLobby } from './to_lobby.mjs';
 const base = process.argv[2] || 'http://127.0.0.1:5220', out = process.argv[3] || '/tmp/no-seals';
 fs.mkdirSync(out, { recursive: true });
 const browser = await chromium.launch({ executablePath: process.env.PW_CHROMIUM || '/opt/pw-browsers/chromium', args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader'] });
@@ -25,10 +27,10 @@ async function title(p) {
   if (await p.locator('#noticeDialog').evaluate((d) => d.open)) await p.locator('#confirmNotices').click();
   await p.waitForFunction(() => document.querySelector('#gameEntrance')?.shadowRoot.getElementById('entrance')?.dataset.phase === 'ready', null, { timeout: 20000 });
 }
-async function lobby(p, url) {
+async function lobby(p, url) { // 첫 화면 → 곧바로 여정 → 정지 → 대기실 (url 없으면 지금 첫 화면에서)
   if (url != null) await p.goto(base + url, { waitUntil: 'networkidle' });
   await title(p);
-  await p.locator('#newJourney').click(); await p.locator('#characterView canvas').waitFor({ timeout: 20000 });
+  await titleToLobby(p);
 }
 const shadowText = (p) => p.evaluate(() => document.querySelector('#gameEntrance')?.shadowRoot.querySelector('.lobby')?.textContent ?? '');
 const clears = (p) => p.evaluate(() => localStorage.getItem('stillness.journeyClears.v1'));
@@ -53,12 +55,13 @@ try {
     await p.locator('#tabSkills').click(); await p.locator('.book-node').first().waitFor();
     assert.ok(!/인장/.test(await shadowText(p)), 'lobby text mentions 인장');
     assert.deepEqual(JSON.parse(await p.evaluate(() => localStorage.getItem('stillness.lobby.sealCoins.v1'))).converted, 0); // 인장 0 — 알림 없이 기록만 (다시 안 바꿈)
-    await p.locator('#lobbyDepart').click(); await pick(p, 0);
+    assert.equal(await p.locator('#lobbyDepart').textContent(), 'Stage 입장');
+    await p.locator('#lobbyDepart').click(); await pick(p, 0); // 첫 화면에서 펼친 같은 카드 (이어하기 지점)
     assert.deepEqual({ ...(await kit(p)), w: undefined }, { ...NONE, w: undefined });
     await win(p); const hints = await noSeal(p, 'lobby journey win');
     assert.equal(await clears(p), '1');
     await p.screenshot({ path: `${out}/fresh-win.png` });
-    checks.push({ check: 'fresh profile: no conversion notice, no 인장 text in the lobby or skill tree, book-less journey = base kit, a win shows no seal hint (clear count 0 → 1)', hints });
+    checks.push({ check: 'fresh profile (title Stage 1 → cards → pause → 대기실): no conversion notice, no 인장 text in the lobby or skill tree, book-less journey (Stage 입장) = base kit, a win shows no seal hint (clear count 0 → 1)', hints });
     await c.close();
   }
   // ② 옛 메뉴 여정 — 깬 수 9 → 10

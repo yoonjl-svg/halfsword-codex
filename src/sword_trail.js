@@ -9,7 +9,7 @@
 //     프레임마다 update() 가 꼭짓점을 다시 쓴다. 물리·판정에는 손대지 않는다(읽기만).
 //   · 무기가 부러지면 bladePoint 가 남은 토막 길이를 쓰므로 띠도 토막만큼만. 리볼버(weapon.gun)·손에서 놓친 칼에는 안 붙는다.
 //   · setTone('normal'|'gold'|'grey'): 금색 = "멈출 수 없는 구간", 회색 = "복귀 중" (디렉터가 R4 에서 부른다). 지금은 normal 만.
-//   · "적막" 컨셉: 은은한 찬 강철빛, 요란하지 않게.
+//   · "Stillness" 컨셉: 은은한 찬 강철빛, 요란하지 않게.
 //  main.js: const swordTrails = createSwordTrails(scene); 판마다 swordTrails.attach([player, enemy]);
 //           물리 스텝 뒤 swordTrails.sample(PHYSICS.timestep); 프레임마다 swordTrails.update();
 // ─────────────────────────────────────────────────────────────

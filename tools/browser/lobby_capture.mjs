@@ -4,6 +4,7 @@
 //  깬 무대 37(인장 셋 — 사장님처럼 여정을 꽤 한 상태)로 찍는다. 폰은 터치 화면 흉내(세로 싸움은 '폰을 가로로 돌려 주세요'가 덮는 실제 모습 그대로 + 그 안내만 숨긴 fight-start-hud)
 //  npm run build && npx vite preview --port 5201 →  node tools/browser/lobby_capture.mjs http://127.0.0.1:5201 docs/handoff
 import { chromium } from 'playwright';
+import { titleToLobby } from './to_lobby.mjs'; // 10/17: 첫 화면 → 곧바로 여정 → 정지 → 대기실 (사장님 '첫화면에서 바로 전투로')
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 const base=process.argv[2]||'http://127.0.0.1:5201',out=process.argv[3]||'docs/handoff';fs.mkdirSync(out,{recursive:true});
@@ -32,7 +33,7 @@ for(const [size,width,height,phone] of SIZES){
   await tap('#accountSend');await p.locator('#accountCode').waitFor({state:'visible'});await p.locator('#accountCode').fill('123456');await p.waitForTimeout(200);await shot('account-code');
   await tap('#closeAccount');
  }
- await tap('#newJourney');await p.locator('#characterView canvas').waitFor({timeout:20000});await p.waitForTimeout(700);
+ await titleToLobby(p,'#newJourney',phone?'tap':'click');await p.waitForTimeout(700);
  await inRoot(p,`root.querySelector('.lobby').scrollTop=0;`);await shot('panels');
  if(height>width){await inRoot(p,`const l=root.querySelector('.lobby');l.scrollTop=l.scrollHeight;`);await p.waitForTimeout(200);await shot('panels-scrolled');}
  await p.locator('[data-weapon=tree_branch]').scrollIntoViewIfNeeded();await tap('[data-weapon=tree_branch]');await tap('#equipItem');
