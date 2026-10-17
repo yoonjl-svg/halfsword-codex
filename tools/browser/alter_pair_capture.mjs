@@ -26,8 +26,10 @@ try{for(const [stage,foe,version] of pairs){
  await page.setViewportSize({width:720,height:960});
  const selectedViews=process.argv.find(a=>a.startsWith('--views='))?.slice(8).split(',');
  for(const view of selectedViews||['front','back','head',...(process.argv.includes('--details')?['hair','waist']:[])]){
-  await page.evaluate(view=>{const g=game,T=g.THREE,headView=view==='head'||view==='head-side',v=(headView?g.enemy.bodies.head:g.enemy.bodies.pelvis).translation(),f=new T.Vector3(1,0,0).applyQuaternion(g.enemy.yaw);
+  await page.evaluate(view=>{const g=game,T=g.THREE,headView=['head','head-side','head-side-left','head-back'].includes(view),v=(headView?g.enemy.bodies.head:g.enemy.bodies.pelvis).translation(),f=new T.Vector3(1,0,0).applyQuaternion(g.enemy.yaw);
    if(view==='head-side')f.applyAxisAngle(new T.Vector3(0,1,0),Math.PI/2);
+   if(view==='head-side-left')f.applyAxisAngle(new T.Vector3(0,1,0),-Math.PI/2);
+   if(view==='head-back')f.applyAxisAngle(new T.Vector3(0,1,0),Math.PI);
    const dist=headView?1.7:(view==='back'?-4.2:4.2);g.camera.position.set(v.x+f.x*dist,headView?v.y+.04:1.25,v.z+f.z*dist);g.camera.lookAt(v.x,headView?v.y+.015:1.02,v.z);g.camera.fov=headView?24:34;g.camera.updateProjectionMatrix();
    if(view==='front'&&g.stage.id.startsWith('sluice')){
     // Stay in front of the central statue; both versions use the same camera.

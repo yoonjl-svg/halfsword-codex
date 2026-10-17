@@ -233,8 +233,20 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
       bake(artoriaRoundedBox(.055,.023,.082,.008),[-.081,-.038,0])],0x19191e,leather);
   }
   function braidedHair(g,look){
-    // Replace only the native added hairstyle; keep the face, shaped scalp cap
-    // and identical three fringe pieces. The base armored outfit is untouched.
+    // Preserve the face and exact three native fringe pieces. Extend the rear
+    // cap first: braids alone left the lower occiput visibly bare in profile.
+    const cap=g.children[4];
+    if(cap?.isMesh){
+      const geo=new THREE.SphereGeometry(.107,40,24,0,Math.PI*2,0,Math.PI*.84);
+      const p=geo.attributes.position;
+      for(let i=0;i<p.count;i++){
+        const a=Math.atan2(p.getZ(i),p.getX(i)),t=Math.floor(i/41)/24;
+        const rear=THREE.MathUtils.smoothstep(-Math.cos(a),0,.75);
+        const theta=t*Math.PI*(.64+.20*rear-.23*Math.max(0,Math.cos(a)));
+        p.setXYZ(i,.107*Math.sin(theta)*Math.cos(a),.107*Math.cos(theta),.107*Math.sin(theta)*Math.sin(a));
+      }
+      geo.computeVertexNormals();cap.geometry.dispose();cap.geometry=geo;
+    }
     const oldHair=g.getObjectByName('artoria-hair');
     if(oldHair){g.remove(oldHair);oldHair.geometry.dispose();oldHair.material.dispose()}
     for(const child of [...g.children]){
@@ -245,22 +257,35 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
         g.remove(child);child.geometry.dispose();child.material.dispose();
       }
     }
-    const holder=new THREE.Group();holder.name='artoria-swept-braids';g.add(holder);
+    const holder=new THREE.Group();holder.name='artoria-coronation-braids';g.add(holder);
     const fringe=[];
     for(const side of [-1,1])fringe.push(isoldeLock([[.015,.085,side*.055],[.087,.071,side*.06],[.106,.025,side*.082],[.081,-.023,side*.09]],[.052,.052,.035,.002],.015));
     fringe.push(isoldeLock([[.002,.099,-.01],[.084,.074,-.012],[.104,.037,.009]],[.045,.034,.003],.012));
     addMerged(holder,fringe,look.hair,{...CLOTH,roughness:.84});
-    function plait(points,turns,startRadius,endRadius){
+    // Fine swept channels make the continuous cap read as gathered hair.
+    // They sit on the scalp surface and disappear beneath the braided bun.
+    const channels=[];
+    for(const side of [-1,1])for(let row=0;row<8;row++){
+      const pts=Array.from({length:25},(_,i)=>{
+        const t=i/24,a=side*lerp(1.40,2.96,t),y=lerp(.065-row*.010,-.015-row*.008,t);
+        const r=Math.sqrt(.107*.107-(y-.004)*(y-.004))+.0006;
+        return [-.008+r*Math.cos(a),y,r*Math.sin(a)];
+      });
+      channels.push(taperedTube(pts,pts.map((_,i)=>.00065*Math.sin(Math.PI*(.1+.8*i/24))),36,4));
+    }
+    addMerged(holder,channels,new THREE.Color(look.hair).multiplyScalar(.87).getHex(),CLOTH);
+    function plait(points,turns,startRadius,endRadius,backPlane=false){
       const path=new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p)));
       const pieces=[];
       for(let strand=0;strand<3;strand++){
         const pts=[],radii=[];
         for(let i=0;i<=96;i++){
           const t=i/96,p=path.getPoint(t),tangent=path.getTangent(t).normalize();
-          const n=new THREE.Vector3(p.x+.008,0,p.z);
+          const n=backPlane?new THREE.Vector3(-1,0,0):new THREE.Vector3(p.x+.008,0,p.z);
           n.addScaledVector(tangent,-n.dot(tangent)).normalize();
           const across=new THREE.Vector3().crossVectors(tangent,n).normalize();
-          const radius=lerp(startRadius,endRadius,t),phase=t*Math.PI*2*turns+strand*Math.PI*2/3;
+          const root=backPlane?1:lerp(.18,1,THREE.MathUtils.smoothstep(t,0,.12));
+          const radius=lerp(startRadius,endRadius,t)*root,phase=t*Math.PI*2*turns+strand*Math.PI*2/3;
           p.addScaledVector(across,Math.sin(phase)*radius*.67);
           p.addScaledVector(n,Math.cos(phase*2)*radius*.33);
           pts.push(p.toArray());radii.push(radius*.74);
@@ -269,18 +294,29 @@ export function createArtoriaBallroomOutfit(h, originalHead) {
       }
       addMerged(holder,pieces,look.hair,{...CLOTH,roughness:.84});
     }
-    // Both former side locks curve back close to the skull, then meet low.
+    // A compact, filled chignon covers the lower rear head. Its volume overlaps
+    // the cap; none of the decorative plaits has to bridge an empty scalp.
+    addMerged(holder,[bake(new THREE.SphereGeometry(1,28,20),[-.105,-.037,0],null,[.041,.058,.071])],look.hair,{...CLOTH,roughness:.84});
+    for(const side of [-1,1]){
+      // Two interwoven sweeps per side: upper wreath under the crown and a
+      // lower plait drawn closely behind the ear into the low braided bun.
+      plait([[.005,.070,side*.084],[-.038,.058,side*.094],[-.081,.043,side*.074],[-.111,.023,side*.043],[-.126,.010,0]],3.1,.013,.012);
+      plait([[.008,.029,side*.101],[-.029,.003,side*.105],[-.070,-.025,side*.083],[-.103,-.058,side*.056],[-.129,-.075,side*.014]],3.2,.012,.013);
+    }
+    // Oval braided wreath and two folded plaits fill the back of the updo.
+    // Fixed rear normals keep the weave stable around the oval's top/bottom.
+    const oval=Array.from({length:25},(_,i)=>{
+      const a=i/24*Math.PI*2;return [-.133-.007*Math.cos(a),-.035+.047*Math.cos(a),.062*Math.sin(a)];
+    });
+    plait(oval,8,.013,.013,true);
     for(const side of [-1,1])plait([
-      [.006,.067,side*.09],[-.030,.039,side*.103],[-.075,.009,side*.083],
-      [-.105,-.023,side*.047],[-.127,-.049,side*.012],
-    ],2.2,.012,.009);
-    // A small gathered section joins the side braids to the nape, without
-    // an unsupported bridge behind the skull. The shared plait bends softly.
-    addMerged(holder,[bake(new THREE.SphereGeometry(.025,16,12),[-.112,-.037,0],null,[.8,.85,1.05])],look.hair,CLOTH);
-    plait([[-.129,-.046,0],[-.137,-.105,.003],[-.141,-.181,.001],[-.139,-.252,-.007]],2.8,.015,.006);
-    addMerged(holder,[isoldeLock([[-.139,-.248,-.007],[-.135,-.277,-.01],[-.127,-.293,-.009]],[.016,.014,.002],.006)],look.hair,CLOTH);
-    // A small cloth tie finishes the braid without the former armor-color clasp.
-    addMerged(holder,[bake(new THREE.CylinderGeometry(.0085,.0085,.007,12),[-.139,-.249,-.007])],DRESS,CLOTH);
+      [-.148,.002,side*.018],[-.155,-.021,side*.035],[-.158,-.048,side*.026],
+      [-.151,-.060,0],[-.151,-.036,-side*.018],[-.148,-.011,0],
+    ],4,.011,.009,true);
+    // Restrained gilt pins and seed pearls tie the hairstyle to the regalia.
+    const pins=[[-.129,.013,-.041],[-.129,.013,.041],[-.155,-.040,0]];
+    addMerged(holder,pins.map(p=>bake(new THREE.SphereGeometry(.0048,10,8),p,null,[.5,1,1])),GOLD,{metalness:.4,roughness:.5});
+    addMerged(holder,pins.map(p=>bake(new THREE.SphereGeometry(.0032,10,8),[p[0]-.0028,p[1],p[2]])),IVORY,CLOTH);
   }
   function crown(g){
     const holder=new THREE.Group();holder.name='artoria-lily-crown';g.add(holder);
