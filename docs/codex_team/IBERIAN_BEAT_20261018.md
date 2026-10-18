@@ -2,6 +2,8 @@
 
 ## 최신 후속: 두 방식 × 두 강도
 
+**손맛 테스트 공개:** [내가 막기](https://yoonjl-svg.github.io/halfsword-codex/encounters/iberian-beat-20261018/?mode=impulse6&role=defender&practice=1), [내가 공격](https://yoonjl-svg.github.io/halfsword-codex/encounters/iberian-beat-20261018/?mode=impulse6&role=attacker&practice=1). 상단에서5군을 바꾸면 새 판. [소스·검증](https://github.com/yoonjl-svg/halfsword-codex/tree/090b426295fd0d17280117dd485953684f3f4cb5/docs/research/iberian_compare_20261018/playtest). 공개main `5560ac03`/Pages `39121876761` 성공, 원격들머리/번들4파일byte동일. 일반게임src 변경0·독립public 경로416파일만 추가. 로컬844×390/양역할/모드/초기화/저장격리/터치 막기·드래그 통과, 실제 접촉 충격 확인. 실제 인간 체감 검증은 미완이고 공개주소 직접HTTP는 환경정책으로 막혀 로컬·원격소스·Pages완료 확인과 구분한다.
+
 사용자 “처음 고안한 방식과 추가 충격 방식을 적정 강도, 다소 센 강도로 각각 비교한 뒤 전투 양상 보고”. 비교 완료 연구 **[`175f605f`](https://github.com/yoonjl-svg/halfsword-codex/tree/175f605f26655ea0fea17a40fa86d3873329638e)**, 같은 연구 가지. [전체 보고](https://github.com/yoonjl-svg/halfsword-codex/blob/175f605f26655ea0fea17a40fa86d3873329638e/docs/research/iberian_compare_20261018/README.md), [집계](https://github.com/yoonjl-svg/halfsword-codex/blob/175f605f26655ea0fea17a40fa86d3873329638e/docs/research/iberian_compare_20261018/summary.json).
 
 - 처음 방식=약한 실제 충격(배율.7/속도목표 상한4/충격상한3)+복귀목표 보정16° 또는24°/0.28초. 직접 방식=배율1.4/상한8/6N·s 또는배율2.1/상한12/9N·s. 팔 힘 저하 없음. 강한 후보는 핵심 강도50% 증가이며 최적값으로 검증됐다는 뜻이 아니다.
