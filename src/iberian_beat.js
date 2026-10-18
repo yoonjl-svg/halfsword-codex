@@ -7,7 +7,13 @@ const along = (f, p) => {
   return {u, p:a.addScaledVector(ab,u)};
 };
 const velocity = (s,p) => s.w.clone().cross(V(p).sub(s.com)).add(s.v);
-export const IBERIAN_BEAT = Object.freeze({gain:.7, speedCap:4, impulseCap:3, minSpeed:1, coverWeight:.5, cooldown:.6, direction:'side'});
+export const IBERIAN_BEAT = Object.freeze({gain:.7, speedCap:4, impulseCap:3, minSpeed:.6, coverWeight:.15, cooldown:.6, direction:'side', yieldSeconds:0, yieldScale:.35});
+export function beatArmScale(f) {
+  const s=f.iberianYield;if(!s)return 1;
+  const t=f.stamina.time-s.start;
+  if(t>=s.duration||!f.alive||!f.armed){f.iberianYield=null;return 1;}
+  return s.scale+(1-s.scale)*THREE.MathUtils.smoothstep(t,s.duration*.35,s.duration);
+}
 export function installIberianBeat(combat, options={}) {
   const cfg={...IBERIAN_BEAT,...options}, events=[], candidates=[], last=new Map();
   combat.iberianBeat = ({A,B,point,nrm,vn,J,gripMass,liveState,handMass}) => {
@@ -21,7 +27,10 @@ export function installIberianBeat(combat, options={}) {
       const time=combat.stepNo*combat.dt;
       const row={time,d:D.index,o:O.index,line:g.defLine,w:st.w,vn,J,atD:pd.u,atO:po.u,incoming:vo.dot(toward),lat,attackId:O.stamina.attackId};
       candidates.push(row);
-      if(vn<cfg.minSpeed||row.incoming<.5||pd.u<0||pd.u>1.1||po.u<0||po.u>1.1)continue;
+      // A beat can strike an incoming blade from its side, even when the contact
+      // point itself is already moving away. Require a moving opponent blade and
+      // genuine closing contact; don't reward hitting a motionless held weapon.
+      if(vn<cfg.minSpeed||vo.length()<1||pd.u<-.08||pd.u>1.1||po.u<-.08||po.u>1.1)continue;
       const prev=last.get(D);
       if(prev&&(time-prev.time<cfg.cooldown||prev.opponent===O&&prev.id===O.stamina.attackId))continue;
       last.set(D,{time,opponent:O,id:O.stamina.attackId});
@@ -33,6 +42,7 @@ export function installIberianBeat(combat, options={}) {
       const mass=1/(1/md+1/mo), dv=Math.min(cfg.speedCap,cfg.gain*vn), impulse=Math.min(cfg.impulseCap,mass*dv);
       const beforeO=V(O.sword.velocityAtPoint(po.p)),beforeD=V(D.sword.velocityAtPoint(pd.p));
       if(impulse>0){O.sword.applyImpulseAtPoint(dir.clone().multiplyScalar(impulse),po.p,true);D.sword.applyImpulseAtPoint(dir.clone().multiplyScalar(-impulse),pd.p,true);}
+      if(impulse>0&&cfg.yieldSeconds>0)O.iberianYield={start:O.stamina.time,duration:cfg.yieldSeconds,scale:cfg.yieldScale};
       const e={...row,dir:dir.toArray(),md,mo,dv,impulse,point:V(point).toArray(),deltaO:V(O.sword.velocityAtPoint(po.p)).sub(beforeO).toArray(),deltaD:V(D.sword.velocityAtPoint(pd.p)).sub(beforeD).toArray()};
       events.push(e);combat.lastIberianBeat=e;return;
     }

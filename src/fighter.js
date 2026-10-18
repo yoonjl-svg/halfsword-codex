@@ -14,6 +14,7 @@ import { STAMINA, BODY, WEAPON, VITALS, BALANCE, SKILL, SKILL_BODY, GRIP, STEEL,
 import { COMBAT_HOOKS } from './combat.js';
 import { Skill } from './skill.js';
 import { Stamina } from './stamina.js';
+import { beatArmScale } from './iberian_beat.js';
 import { Gait, hybridJointDefs } from './gait.js';
 import { guardAt, finishAt } from './guards.js';
 import { resolveSwordArt, applySwordArt } from './sword_art.js'; // 검술 풀이: 자세표·동작 라이브러리·덧씌우기·쥠·HUD 이름을 한 곳에서 (10/8 ① 구조)
@@ -1325,6 +1326,7 @@ export class Fighter {
     updateFinish(this, dt); // 상대가 쓰러져 있으면 아래쪽 자세를 내려찍기로 (finish.js)
     this.skill.update(dt);
     this.stamina.step(dt);
+    this.iberianArmScale = beatArmScale(this); // opt-in contact study only
     this.updateBodyPose(dt);
     this.driveBalance(dt);
     if (this.gait?.active) this.gait.pinFeet();
@@ -2568,6 +2570,7 @@ export class Fighter {
       if (n === 'uarmS' || n === 'farmS') mus *= (0.3 + 0.7 * this.limbs.armS) * this.strength;
       if (n === 'uarmS' || n === 'farmS' || n === 'uarmO' || n === 'farmO') mus *= armBoost; // 10/13 내려찍기: 찍는 동안만 두 팔 근육 × FINISH.strikeArm (그 밖엔 1)
       if (n === 'uarmS' || n === 'farmS' || n === 'uarmO' || n === 'farmO') mus *= this.stamina.power;
+      if (n === 'uarmS' || n === 'farmS' || n === 'uarmO' || n === 'farmO') mus *= this.iberianArmScale ?? 1;
       if (n.endsWith('F') && isLeg) mus *= 0.4 + 0.6 * this.limbs.legF;
       if (n.endsWith('B') && isLeg) mus *= 0.4 + 0.6 * this.limbs.legB;
       // gain: 다리가 체중을 싣는 걸음에서 딛은 다리는 근육을 더 단단히 쓴다 (gait.js)
@@ -2981,7 +2984,7 @@ export class Fighter {
       this.prevAim = null; // 손목 제어가 멈춘 동안의 묵은 목표를 버린다 — 안 버리면 재개 첫 스텝에 지난 목표와의 차를 한 스텝 각속도(최대 120 rad/s)로 읽는다 (10/7; 샛별 A-021 뒤 injury_followup 과 같은 결함)
       return; // 쓰러지거나 칼을 놓치면 손목에 힘을 쓰지 않는다
     }
-    const str = this.strength * (this.powerMul ?? 1) * plungeBoost(this, 'strikeWrist') * mus * (0.35 + 0.65 * this.armHealth) * this.stamina.power; // 기력 지침의 공통 힘 배율. 유파 목표는 유지
+    const str = this.strength * (this.powerMul ?? 1) * plungeBoost(this, 'strikeWrist') * mus * (0.35 + 0.65 * this.armHealth) * this.stamina.power * (this.iberianArmScale ?? 1); // opt-in beat recovery; targets unchanged
     const forearm = this.bodies.farmS;
 
     // 칼끝 방향: 손 위치가 곧 검술의 자세(가드)다.
