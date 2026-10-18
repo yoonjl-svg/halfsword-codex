@@ -2839,7 +2839,12 @@ export class Fighter {
     //  위팔 축 몫 × edgeArm 만큼 비틀기 목표를 옮긴다 — 아래팔 엎침·뒤침(손목 밧줄 ±80°)이 끝에 닿으면 어깨 돌림이 나머지를 낸다(사람 날 세우기 = 엎침 + 어깨 돌림).
     //  edgeArm 0 이면 이 줄은 eTw 그대로 (같은 float). 비틀기 서보 강성·감쇠·상한은 그대로
     const eTwE = this.edgeArmErr && j.child === this.bodies.uarmS ? eTw + JOINTS.edgeArm * this.edgeArmErr.dot(boneAxis) : eTw;
-    _mT.addScaledVector(boneAxis, THREE.MathUtils.clamp(eTwE * 25 * twR - wTw * 0.8 * twR, -20 * twR, 20 * twR) + twistFF);
+    // Isolated research hook: effort ceiling only; gains, gravity and range limits unchanged.
+    const studyTwistScale = this._studyShoulderTwistCapScale ?? 1;
+    const twistMax = 20 * twR * studyTwistScale;
+    const twistServo = THREE.MathUtils.clamp(eTwE * 25 * twR - wTw * 0.8 * twR, -twistMax, twistMax);
+    this._studyTwistAudit?.({scale:studyTwistScale, cap:twistMax, servo:twistServo, gravity:twistFF});
+    _mT.addScaledVector(boneAxis, twistServo + twistFF);
     j.child.addTorque(vecArg(_mT), true);
     j.parent.addTorque({ x: -_mT.x, y: -_mT.y, z: -_mT.z }, true);
   }

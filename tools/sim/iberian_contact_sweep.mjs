@@ -54,6 +54,8 @@ export function installContactSweep(f,owner,cfg){
    state.run={t:0,line:owner.defLine,threat:owner.threatId,side,hand:null,prev:null,gain,push:push.applyQuaternion(f.yaw.clone().invert()),guideGain};state.last=clock;
    state.events.push({t:clock,line:owner.defLine,side,point:point.toArray(),J:near?0:fe.impact,trigger:near?'near':'contact',eta:near?.eta??0,atD,atO,lever,gain,outward,guideGain});
   }
+  // Native talho/reves observer: same eligible contact, no pose/hold/motor changes.
+  if(cfg.observeOnly){state.run=null;return out;}
   const run=state.run;
   if(run&&owner.threatId!==run.threat){state.run=null;state.phase='new-threat';state.speed=0;}
   if(state.run){owner.mode='defend';owner.defLine=state.run.line;owner.line=state.run.line;owner.timer=Math.max(owner.timer,dt*2);}

@@ -1,7 +1,7 @@
 // Research-only: reduce existing native effort ceilings, NOT tracking gains.
 // Joint max clips elastic target error; existing damping/gravity/grip routes remain.
 // This is NOT a new hard cap on every force applied to an entire arm.
-export function installForceCap(f,{floor=1,hold=.24,recovery=.24}={}){
+export function installForceCap(f,{floor=1,hold=.24,recovery=.24,shoulderTwist=false}={}){
  const events=[];let state=null;const seconds=hold+recovery;
  const scale=()=>{
   if(!state||!f.alive||!f.armed||f.state!=='stand')return 1;
@@ -19,8 +19,9 @@ export function installForceCap(f,{floor=1,hold=.24,recovery=.24}={}){
   const s=scale();f._studyForceCapScale=s;
   if(s===1)return joints(...args);
   const arms=f.joints.filter(j=>['uarmS','farmS','uarmO','farmO'].includes(j.name));
-  const old=arms.map(j=>j.max);arms.forEach((j,i)=>j.max=old[i]*s);
-  try{return joints(...args);}finally{arms.forEach((j,i)=>j.max=old[i]);}
+  const old=arms.map(j=>j.max), oldTwist=f._studyShoulderTwistCapScale;arms.forEach((j,i)=>j.max=old[i]*s);
+  if(shoulderTwist)f._studyShoulderTwistCapScale=(oldTwist??1)*s;
+  try{return joints(...args);}finally{arms.forEach((j,i)=>j.max=old[i]);if(shoulderTwist){if(oldTwist===undefined)delete f._studyShoulderTwistCapScale;else f._studyShoulderTwistCapScale=oldTwist;}}
  };
  const sword=f.driveSword.bind(f);
  f.driveSword=(...args)=>{
