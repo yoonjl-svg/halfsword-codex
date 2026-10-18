@@ -6,12 +6,12 @@ import {installIberianBeat} from '../../src/iberian_beat.js';
 import {observeHealth} from './iberian_health.mjs';
 import * as THREE from 'three';
 import {writeFileSync,mkdirSync} from 'node:fs';
-export function probe({attack='zornhau',atk='longsword',gap=1.5,gain=0,press=-99,seed=1,counter=false,track=false,direction='side',yieldSeconds=0,impulseCap=3,speedCap=4,recoilDegrees=0,recoilSeconds=.28,recoilMode="offset",onFrame,book=true,installed=true}={}) {
+export function probe({attack='zornhau',atk='longsword',gap=1.5,gain=0,press=-99,seed=1,counter=false,track=false,direction='side',yieldSeconds=0,impulseCap=3,speedCap=4,recoilDegrees=0,recoilSeconds=.28,recoilMode="offset",onFrame,onStart,GuardOverride,book=true,installed=true}={}) {
   const tech=TECH.find(t=>t.name===attack);if(!tech)throw Error(attack);
   SKILL.parryAssist=0;
   const G=newRound({weapon:'zweihander',weapon2:atk,gap,seed}),D=G.player,A=G.enemy;
   D.skill.corr=SKILL.corr;D.skill.corrTip=SKILL.corrTip;D.skill.autoGuard=true;D.schoolParry=book;
-  const guard=new PlayerParryGuard(D,A);D.stamina.controller=guard;
+  const guard=new (GuardOverride??PlayerParryGuard)(D,A);D.stamina.controller=guard;
   const study=installIberianBeat(G.combat,{gain,direction,yieldSeconds,impulseCap,speedCap,recoilDegrees,recoilSeconds,recoilMode}),health=observeHealth(D,()=>G.t),enemy=observeHealth(A,()=>G.t);
   if(!installed)delete G.combat.iberianBeat;
   G.ai.update=()=>{};A.move.set(0,0);
@@ -30,6 +30,7 @@ export function probe({attack='zornhau',atk='longsword',gap=1.5,gain=0,press=-99
     else if(phase===2&&G.t-t0>=.15){phase=3;points=tech.path.map(p=>p.slice());}
     else if(phase===3&&go(A,...points[0],11)){points.shift();if(!points.length){phase=4;t0=G.t;}}
   };
+  onStart?.(G,guard);
   try{
     while(G.t<5&&!(phase===4&&G.t-t0>1.1)&&D.alive&&A.alive){
       G.step();health.step(DT,guard);enemy.step(DT);
