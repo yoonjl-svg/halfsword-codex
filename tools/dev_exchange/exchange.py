@@ -620,6 +620,42 @@ def check_publication(root, day=None, gh=api, now=None):
             'url': f'https://github.com/{repo}/blob/{ref}/{base}.md'}
 
 
+def check_publication_git(root, day=None, now=None):
+    """Verify the same immutable pair through the platform's HTTPS Git route.
+
+    Do not treat cached origin refs as a fresh remote observation. No peer reads,
+    credentials, branch checkout, API fallback or remote writes are required.
+    """
+    cfg = config(root)
+    repo, branch = cfg['repo'], cfg['report_ref']
+    if not re.fullmatch(r'[\w./-]+', branch) or '..' in branch or branch.startswith('-'):
+        raise ValueError('Invalid archive branch')
+    git(root, 'fetch', '--no-tags', f'https://github.com/{repo}.git', 'refs/heads/' + branch)
+    ref = git(root, 'rev-parse', 'FETCH_HEAD').decode().strip()
+    if not re.fullmatch('[0-9a-f]{40}', ref):
+        raise ValueError('Invalid archive SHA')
+    # Reuse all existing date/schema/size/hash/six-section checks unchanged.
+    def read(endpoint):
+        if endpoint == f'repos/{repo}/git/ref/heads/{branch}':
+            return {'object': {'sha': ref}}
+        prefix = f'repos/{repo}/contents/'
+        if not endpoint.startswith(prefix) or not endpoint.endswith('?ref=' + ref):
+            raise ValueError('Unexpected archive read')
+        path = endpoint[len(prefix):].split('?ref=')[0]
+        if path.startswith('/') or '..' in path.split('/'):
+            raise ValueError('Unsafe archive path')
+        try:
+            raw = git(root, 'show', ref + ':' + path)
+        except subprocess.CalledProcessError as error:
+            if error.returncode == 128:
+                raise APIError(404) from error
+            raise
+        return {'encoding': 'base64', 'size': len(raw), 'content': base64.b64encode(raw).decode()}
+    result = check_publication(root, day, gh=read, now=now)
+    result['transport'] = 'fresh_https_git_fetch'
+    return result
+
+
 def main():
     parser = argparse.ArgumentParser()
     sub = parser.add_subparsers(dest='command', required=True)
@@ -628,6 +664,7 @@ def main():
     publication = sub.add_parser('check-publication')
     publication.add_argument('--repo-root', required=True)
     publication.add_argument('--date')
+    publication.add_argument('--transport', choices=('git', 'api'), default='git')
     for command in ('publish', 'receive'):
         p = sub.add_parser(command)
         p.add_argument('--date', required=True)
@@ -639,7 +676,8 @@ def main():
             print(json.dumps(validate_notes(args.repo_root), ensure_ascii=False))
             return 0
         if args.command == 'check-publication':
-            print(json.dumps(check_publication(args.repo_root, args.date), ensure_ascii=False))
+            check = check_publication_git if args.transport == 'git' else check_publication
+            print(json.dumps(check(args.repo_root, args.date), ensure_ascii=False))
             return 0
         result = globals()[args.command](args.date, args.repo_root, args.output_root)
         print(json.dumps(result, ensure_ascii=False))
