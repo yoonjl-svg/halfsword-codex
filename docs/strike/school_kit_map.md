@@ -190,3 +190,10 @@
 | 유파 걸음 | `src/gait.js` `gaitParams`(보폭 규칙 — `*_GAIT.strideK` · 스위치 `GAIT.strideRule` · 이탈리아 고른 짝걸음 덮기 `ITALIAN_GAIT.even` · 스위치 `GAIT.itEven`) · 고른 짝걸음 `update` ③ gate · `fastPeek` · 발소리 `src/sound.js` `BodySounds.update`(gait `leg.tdN`) · 빠른 걸음 `fastBegin`·`update`(이탈리아 박자 걸음 · 독일 간격 잡기 빠른 디딤 `foeWhiff`) · 독일 간격 잡기 잡기 `holdTick`(`src/fighter.js` `driveBalance` 가 부름 — 플레이어만, 스위치 `GAIT.deHold`) — 값은 `src/schools.js` `ITALIAN_GAIT.rhythm` · `TRADITIONS.german.chase`(잡기 시간도 그 `window`) · 헛침 알림은 `src/ai.js` `afterStrike`(AI) · `src/skill.js` `whiffTrack`(사람) · 동방 가벼운 발 `src/fighter.js` `driveBalance` 가속 한도 `lim`(보통 걸음 몫 × 걸음 칸 `light` — 사람·AI 같이, 스위치 `GAIT.cnLight`) — 값은 `src/schools.js` `CHINESE_GAIT.light` · AI 몸은 공격 꼴에서만 — `src/ai.js` `update` 의 `aiLightHold`, 스위치 `GAIT.cnLightAi`) — 값은 `src/schools.js` `CHINESE_GAIT.light` · 첫 걸음 박차기 거는 자리 `src/gait.js` `update` 걷기 시작(뒤 = 무기 유파 독일 `swordArt.tradition` · 옆 = 걸음 칸 `burstSide`(이베리아) — 플레이어만, 스위치 `GAIT.burstDe`) |
 | 걷기 기력(유파별) · 박차기 기력 | `src/stamina.js` `step`(골반 수평 이동 0.62 m 마다 — 값 `src/config.js` `STAMINA.stepDistance`·`stepCosts`, 유파 열쇠 `swordArt.tradition`) · 박차기 `src/gait.js` `fastBegin` → `stamina.burst()`(`STAMINA.pushCost`) · 스위치 `STAMINA.on` · `?stamina=0` |
 | 패시브·속임수·굴림(AI) | `src/ai.js` |
+
+
+## 샛별 이베리아 연구 임시 동작 — 2026-10-19 (미채택)
+
+**바깥 밀어내기(outward24)**: 이베리아 막기 책 해금·실제 highL/highR 방어 중 칼 접촉·몸 바깥 방향 조건을 만족하면 자기 손/검을0.18초 쓸고0.10초 받친 뒤0.20초 복구. 기존 팔/손목 모터만 사용하며 추가 충격/걸음 변경 없음. 인간 막기 입력용, AI 연결은 이미 선택한 방어에만 허용하는 별도 어댑터. 역사적 기술명/신규 스킬북 아님. 조건 나쁘면 기존 막기 유지, 해제·공격 전환·새 위협·탈진·무장해제 시 취소.
+
+상대 제어력 실험은 위 손길과 별도: 잔여10%0.12초+0.24초 복구를 **다음 인간 단기 혜택 시험 후보**로 추천하나,30초 전체 피해 개선/정식 적용 미확정. 이번 전달은 tools/docs 연구 자료이며 기본 게임에 자동 연결하지 않는다. [전체 수치와 실패](../research/iberian_control_duration_20261018/README.md).

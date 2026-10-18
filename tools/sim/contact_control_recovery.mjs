@@ -1,11 +1,11 @@
 // Same .12 s floor + .24 s smooth recovery as historical Japanese trial.
 // Research-only adapters use the existing arm/wrist multiplier, no RB writes.
-export function installControlRecovery(f,{floor=.25,seconds=.36}={}){
+export function installControlRecovery(f,{floor=.25,seconds=.36,holdSeconds=null}={}){
  const events=[];let state=null;
  const scale=()=>{
   if(!state||!f.alive||!f.armed||f.state!=='stand')return 1;
   const t=f.stamina.time-state.start;if(t>=seconds)return 1;
-  const x=Math.max(0,Math.min(1,(t/seconds-1/3)*1.5));return floor+(1-floor)*x*x*(3-2*x);
+  const x=Math.max(0,Math.min(1,holdSeconds===null?(t/seconds-1/3)*1.5:(t-holdSeconds)/(seconds-holdSeconds)));return floor+(1-floor)*x*x*(3-2*x);
  };
  const begin=defender=>{
   if(!(floor<1)||!f.alive||!f.armed||f.state!=='stand')return false;
