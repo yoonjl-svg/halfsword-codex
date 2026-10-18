@@ -8,3 +8,5 @@
 -30초 전체 사지4.674→5.325(+14%), 의식4.702→4.492, 출혈 거의같음, 패배3→2/자기파손0→1. 전체 상향/최적값 확정 금지. 사용자 기준은30초 종합 득실과 인간 경험.
 - 일반게임·공개 시험 링크 변경0. 최신판용 도구는 수신 flowArmScale 후크를 이용하며 생산src 무변경. 동작 이름/단계를 유파 지도에 미채택 연구로 기록.
 - 10/18 일지 누락과10/19 연구는 구별. 발행 영수증/전달 상태는 후속 보완 참조.
+
+원격 완료 영수증: archive `0298e3fc52cceae44b2596ce55697d0b55fbf2a3`, 전달 `d0755fe8`,53파일 및 일지/메시지8파일 byte 확인. [후속 메시지](https://github.com/yoonjl-svg/halfsword-codex/blob/0298e3fc52cceae44b2596ce55697d0b55fbf2a3/docs/devmeet/messages/2026-10-19-iberian-outward-5seconds.md) / [누락 일지 보완](https://github.com/yoonjl-svg/halfsword-codex/blob/0298e3fc52cceae44b2596ce55697d0b55fbf2a3/docs/devmeet/2026-10-18-supplement.md). 실제 열람/채택 미확인.

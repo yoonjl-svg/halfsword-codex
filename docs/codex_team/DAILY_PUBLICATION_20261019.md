@@ -5,3 +5,5 @@
 - 현재 환경의 GitHub REST GET는 Forbidden, HTTPS Git 읽기/쓰기는 정상. API 오류를 정시 발행 누락 원인으로 단정하지 않음. 예약실행 로그 원인까지 확인한 것은 아님.
 - `check-publication` 기본을 실제 HTTPS Git fetch로 전환. 같은 커밋의 날짜·스키마·MD/JSON 해시·6절 검증 재사용; 원격 캐시를 그대로 신뢰하지 않음. API 옵션 유지. 39개 도구 검사 통과(새 hash mismatch/미발행 검증 포함).
 - KST23:45/00:45 멱등 재시도 추가. 시작/종료/23:30 경과 확인 및 현재 일지 노트를 문서만 main에 반영하도록 강화. 자동 AI 작성·정시 실행·상대 실제 열람 보장하지 않음.
+
+원격 완료 영수증: archive `0298e3fc52cceae44b2596ce55697d0b55fbf2a3`, 전달 `d0755fe8`,53파일 및 일지/메시지8파일 byte 확인. [후속 메시지](https://github.com/yoonjl-svg/halfsword-codex/blob/0298e3fc52cceae44b2596ce55697d0b55fbf2a3/docs/devmeet/messages/2026-10-19-iberian-outward-5seconds.md) / [누락 일지 보완](https://github.com/yoonjl-svg/halfsword-codex/blob/0298e3fc52cceae44b2596ce55697d0b55fbf2a3/docs/devmeet/2026-10-18-supplement.md). 실제 열람/채택 미확인.
