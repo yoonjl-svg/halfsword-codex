@@ -1,5 +1,13 @@
 # 이베리아 쳐내기 연구 — 2026-10-18
 
+## 최신: 인간 시험 피드백과 동적 막기 연구
+
+사용자는 두 방식의 튕김 체감을 느끼기 어렵고 추가 충격의 무기 파손이 너무 많다고 보고했다. 직접6 추천을 보류한다. 막기 몸꼴·손길을 실제로 움직여 접촉 경로를 바꾸는 연구로 전환한다. 파손 증가는 사용자 관찰이며 이전 실험에 파손 계측이 없으므로 수치로 확정하지 않는다. 새 계측에 양측 실제 파손/충돌별 파손 확률, 피격/후속 빈틈을 포함한다. 아래 미시험·추천 문장은 당시 이력.
+
+**1차 비교 완료:** 연구 [`ad496b25`](https://github.com/yoonjl-svg/halfsword-codex/blob/ad496b253bb6c01f9b0d742e14eeb2485a21a59e/docs/research/iberian_dynamic_20261018/README.md). 기존군+손/칼/몸통 경로5후보, 단발72+최대30초72=144실행. 실제 인간 새 후보 시험0. 공통시간261.35초 기준 마지막 옆·위 쓸기는 자기 팔다리 손상+41%·의식+16%, 전체12조건 자기 파손2→2/사망2→3. 작은 사선은 출혈·사망 이득 신호가 있으나 자기 파손2→5. 피해와 파손을 함께 개선했다고 채택할 후보는 없음. 접촉 순간 실제 칼 이동이 늦는 문제·접촉 위치/각도·종료 경로를 다음 설계 우선으로 기록. 연구 도구만 변경, 일반 게임src/기존 시험URL 그대로. 실제 강체 재생 사진·원자료·관찰 무간섭/중단 검사 보존. 우화 발송0.
+
+![동적 막기 연구 비교](https://raw.githubusercontent.com/yoonjl-svg/halfsword-codex/ad496b253bb6c01f9b0d742e14eeb2485a21a59e/docs/research/iberian_dynamic_20261018/replay/comparison.png)
+
 ## 최신 후속: 두 방식 × 두 강도
 
 **손맛 테스트 공개:** [내가 막기](https://yoonjl-svg.github.io/halfsword-codex/encounters/iberian-beat-20261018/?mode=impulse6&role=defender&practice=1), [내가 공격](https://yoonjl-svg.github.io/halfsword-codex/encounters/iberian-beat-20261018/?mode=impulse6&role=attacker&practice=1). 상단에서5군을 바꾸면 새 판. [소스·검증](https://github.com/yoonjl-svg/halfsword-codex/tree/090b426295fd0d17280117dd485953684f3f4cb5/docs/research/iberian_compare_20261018/playtest). 공개main `5560ac03`/Pages `39121876761` 성공, 원격들머리/번들4파일byte동일. 일반게임src 변경0·독립public 경로416파일만 추가. 로컬844×390/양역할/모드/초기화/저장격리/터치 막기·드래그 통과, 실제 접촉 충격 확인. 실제 인간 체감 검증은 미완이고 공개주소 직접HTTP는 환경정책으로 막혀 로컬·원격소스·Pages완료 확인과 구분한다.
