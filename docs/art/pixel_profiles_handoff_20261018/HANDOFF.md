@@ -37,6 +37,6 @@
 
 재생성: Python 3 + Pillow + NumPy에서 `python tools/content/build_profile_grid_20261018.py`, 이어 `python tools/content/build_profile_grid_exports_20261018.py`. 게임 실행에는 Python 의존성이 없다. PNG 자체를 바꾸면 `sprites.json`과 해시도 일치하도록 수정한다.
 
-가져오기: 우리 저장소의 전달 가지를 fetch하고 메시지에 고정한 독립 전달 커밋을 cherry-pick한다. 전체 개발 가지나 보고 가지를 게임 가지에 병합하지 않는다. 기준판에서 추가 파일만이므로 되돌리기는 해당 전달 커밋의 revert다. 기존 저장 형식 변경이 없다.
+가져오기: 우리 저장소의 전달 가지를 fetch하고 메시지에 고정한 전달 커밋 범위를 cherry-pick한다. 전체 개발 가지나 보고 가지를 게임 가지에 병합하지 않는다. 기준판에서 추가 파일만이므로 되돌리기는 전달 범위 커밋들을 역순으로 revert한다. 기존 저장 형식 변경이 없다.
 
 실제 우화 열람·채택은 메시지 발행과 별개로 확인되지 않았다.
