@@ -1,0 +1,1489 @@
+{
+  "version": "independent-visual-audit-20261018",
+  "reviewer": "portrait_references",
+  "readOnlyAssetAudit": true,
+  "reviewedCount": 34,
+  "reviewed": [
+    "gallery-base.png",
+    "gallery-alter.png",
+    "all34 published low.png individually",
+    "original.png direct comparison for renji,margarethe,tome,bran"
+  ],
+  "summary": "34 images are visually related but are not a structurally consistent sprite set. Earlier style acceptance did not establish common cell spacing, common frame geometry or preserved eye readability.",
+  "methodLimits": [
+    "Qualitative visual audit only; exact interval and frame-coordinate measurement belongs to root audit.",
+    "Large monochrome rectangles can be merged cells and alone do not prove a larger base grid.",
+    "All landmarks are rough manual estimates in current low canvas, not numerical detections. They must be checked after transformation."
+  ],
+  "referenceCaveat": "player1 and artoria are style references, not structural exemptions; they themselves have mixed-looking subdivision and different frame/corner proportions.",
+  "recommendedConstruction": {
+    "canvas": 1254,
+    "interior": [
+      77,
+      77,
+      1177,
+      1177
+    ],
+    "grid": [
+      22,
+      22
+    ],
+    "cellPx": 50,
+    "frame": "One immutable high-resolution frame1 master composited identically onto every portrait.",
+    "landmarkTargets": {
+      "eyeLineY": 552,
+      "chinY": 802,
+      "upperShoulderY": 877,
+      "eyeToChinRange": [
+        200,
+        300
+      ],
+      "faceCoreWidthRange": [
+        350,
+        500
+      ],
+      "notes": "Targets guide composition rather than erase age/sex/body proportions. Crown/hat/hair is not face size. Preserve true eye covering; permit accessories to crop instead of shrinking face. For eye-less lows restore eye cells from high-quality original landmarks, not invented uncovered eyes."
+    }
+  },
+  "strongestDensityOutliers": {
+    "finer": [
+      "ratna_mad",
+      "terracotta_mad",
+      "omari_mad",
+      "silver_wanderer",
+      "eira"
+    ],
+    "coarserPerceived": [
+      "liao_mad",
+      "samira_mad"
+    ],
+    "mixedSubdetail": [
+      "samira",
+      "isolde_mad",
+      "silver_wanderer_mad",
+      "ratna",
+      "terracotta"
+    ]
+  },
+  "visibleEyeMissing": [
+    "isolde",
+    "margarethe",
+    "tome",
+    "renji",
+    "eira",
+    "silver_wanderer",
+    "chanda"
+  ],
+  "eyeReadabilityRepair": [
+    "bran",
+    "liao",
+    "omari"
+  ],
+  "trueCoveredEyeExceptions": [
+    "player1",
+    "player2",
+    "bran_mad",
+    "liao_mad"
+  ],
+  "partialExceptions": {
+    "liao": "Only patched eye exempt; other eye visible.",
+    "terracotta": "Clay eye grooves rather than human pupils."
+  },
+  "characters": [
+    {
+      "id": "player1",
+      "densityComparedWithReferences": "reference",
+      "pixelUnitReview": "투구와 옷에 큰 직사각형·작은 정사각형이 혼재한다. 넓은 같은 색면은 합쳐진 셀일 수 있으므로 큰 면 자체를 기본 픽셀로 세면 안 된다.",
+      "faceBodyPixelRatioReview": "기준 시안이지만 투구·피부·옷의 분할 간격이 하나로 정렬돼 있지 않다.",
+      "frameReview": "기준용. 네모 모서리와 그 안쪽 작은 발 장식이 비교적 크며 다른 인물과 공통 래스터가 아니다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "covered-preserve",
+      "eyeNote": "낮은 케틀햇 아래 가려진 눈 위치는 추정치; 눈을 새로 드러내지 않음.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          430,
+          500,
+          845,
+          800
+        ],
+        "eyeLineYPx": 550,
+        "eyeCentersPxApprox": [
+          [
+            500,
+            550
+          ],
+          [
+            760,
+            550
+          ]
+        ],
+        "chinYPx": 790,
+        "upperShoulderYPx": 850,
+        "uncertaintyPx": 60,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "player2",
+      "densityComparedWithReferences": "near",
+      "pixelUnitReview": "투구 리벳과 챙에 옷의 큰 색면보다 작은 단위가 남는다.",
+      "faceBodyPixelRatioReview": "플레이어1과 비교하면 챙의 잔단계가 많고 얼굴 각도 때문에 같은 도트 폭도 다르게 읽힌다.",
+      "frameReview": "플레이어1과 유사하지만 코너 안쪽 발 길이·금색 홈·변의 밝은 띠가 동일하지 않다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "covered-preserve",
+      "eyeNote": "눈은 낮은 챙에 가려진 상태 유지.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          495,
+          530,
+          915,
+          795
+        ],
+        "eyeLineYPx": 570,
+        "eyeCentersPxApprox": [
+          [
+            650,
+            565
+          ],
+          [
+            825,
+            600
+          ]
+        ],
+        "chinYPx": 780,
+        "upperShoulderYPx": 870,
+        "uncertaintyPx": 60,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "bran",
+      "densityComparedWithReferences": "finer",
+      "pixelUnitReview": "금발과 갈색 옷 명암이 작은 칸으로 반복되는 반면 얼굴은 거의 비어 있다.",
+      "faceBodyPixelRatioReview": "얼굴 생략량과 머리·옷 묘사 밀도의 격차가 크며 player1보다 촘촘하다.",
+      "frameReview": "player1보다 상단 금선이 내려오고 코너가 작다. 좌상단 보조 네모의 간격도 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "ambiguous-repair",
+      "eyeNote": "눈썹 같은 갈색 띠는 있으나 눈이 별도로 읽히기 약하다.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          460,
+          320,
+          915,
+          780
+        ],
+        "eyeLineYPx": 470,
+        "eyeCentersPxApprox": [
+          [
+            650,
+            450
+          ],
+          [
+            815,
+            480
+          ]
+        ],
+        "chinYPx": 770,
+        "upperShoulderYPx": 840,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-eye-readability-and-structure-inconsistent"
+    },
+    {
+      "id": "isolde",
+      "densityComparedWithReferences": "finer",
+      "pixelUnitReview": "머리·블라우스에 작은 칸이 반복되고 얼굴은 단일 피부색 면이다.",
+      "faceBodyPixelRatioReview": "머리/옷만 촘촘하고 얼굴 정보는 부족하다.",
+      "frameReview": "코너의 큰 바깥 네모·안쪽 보조 네모가 player1과 다르며 프레임 안쪽 폭도 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "missing-fail",
+      "eyeNote": "노출된 양눈 복원 필요.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          500,
+          340,
+          925,
+          785
+        ],
+        "eyeLineYPx": 530,
+        "eyeCentersPxApprox": [
+          [
+            735,
+            515
+          ],
+          [
+            870,
+            550
+          ]
+        ],
+        "chinYPx": 775,
+        "upperShoulderYPx": 910,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-visible-eyes-missing-and-structure-inconsistent"
+    },
+    {
+      "id": "liao",
+      "densityComparedWithReferences": "finer",
+      "pixelUnitReview": "머리·붉은 띠·푸른 옷의 작은 칸과 얼굴의 큰 면이 혼합된다.",
+      "faceBodyPixelRatioReview": "안대·띠 세부는 많지만 노출된 한 눈은 매우 약하다.",
+      "frameReview": "좌우 프레임이 바깥쪽에 더 가깝고 코너가 작다. 세로 금선 간격도 기준과 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "ambiguous-repair",
+      "eyeNote": "검은 안대는 유지; 반대편 노출 눈은 눈썹과 구별되게 해야 함.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          400,
+          475,
+          850,
+          815
+        ],
+        "eyeLineYPx": 550,
+        "eyeCentersPxApprox": [
+          [
+            447,
+            548
+          ],
+          [
+            630,
+            540
+          ]
+        ],
+        "chinYPx": 805,
+        "upperShoulderYPx": 900,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-eye-readability-and-structure-inconsistent"
+    },
+    {
+      "id": "heinrich",
+      "densityComparedWithReferences": "near",
+      "pixelUnitReview": "큰 은발·갑옷 블록은 기준에 가깝지만 금테와 눈썹·입의 얇은 직사각형이 혼합된다.",
+      "faceBodyPixelRatioReview": "기본 중 기준과 가까운 편이나 머리와 판금의 단위가 완전히 같지 않다.",
+      "frameReview": "금선이 안쪽으로 들어와 있고 코너의 볼록한 중심 보석·내부 발이 player1과 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "readable",
+      "eyeNote": "수염 끝과 턱을 혼동하지 않도록 턱 좌표는 추정.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          540,
+          325,
+          995,
+          820
+        ],
+        "eyeLineYPx": 510,
+        "eyeCentersPxApprox": [
+          [
+            760,
+            500
+          ],
+          [
+            920,
+            540
+          ]
+        ],
+        "chinYPx": 800,
+        "upperShoulderYPx": 865,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "margarethe",
+      "densityComparedWithReferences": "mixed",
+      "pixelUnitReview": "갑옷 가장자리·끈은 작은 칸, 투구·술은 큰 칸, 얼굴은 완전한 빈 색면이다.",
+      "faceBodyPixelRatioReview": "장비가 얼굴보다 많은 정보를 차지한다. 얼굴/턱이 기준보다 아래쪽이다.",
+      "frameReview": "기준보다 상단선이 내려가고 코너 안쪽 작은 장식의 모양이 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "missing-fail",
+      "eyeNote": "투구 아래 눈은 원본에서 노출된다. 양눈 복원 필요.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          430,
+          530,
+          825,
+          905
+        ],
+        "eyeLineYPx": 650,
+        "eyeCentersPxApprox": [
+          [
+            635,
+            650
+          ],
+          [
+            760,
+            680
+          ]
+        ],
+        "chinYPx": 890,
+        "upperShoulderYPx": 950,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-visible-eyes-missing-and-structure-inconsistent"
+    },
+    {
+      "id": "tome",
+      "densityComparedWithReferences": "mixed",
+      "pixelUnitReview": "큰 머리·옷 블록과 작은 안경 테·단추가 섞인다.",
+      "faceBodyPixelRatioReview": "안경을 남겼지만 안경 안에 눈이 없어 얼굴 인식이 약해졌다.",
+      "frameReview": "금선은 비교적 가늘고 코너 장식이 두꺼워 코너/선 비율이 기준과 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "missing-fail",
+      "eyeNote": "안경 안의 피부색만 있는 부분에 눈 복원 필요. 수염 끝 제외.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          350,
+          300,
+          925,
+          885
+        ],
+        "eyeLineYPx": 575,
+        "eyeCentersPxApprox": [
+          [
+            555,
+            565
+          ],
+          [
+            390,
+            605
+          ]
+        ],
+        "chinYPx": 850,
+        "upperShoulderYPx": 950,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-visible-eyes-missing-and-structure-inconsistent"
+    },
+    {
+      "id": "omari",
+      "densityComparedWithReferences": "near",
+      "pixelUnitReview": "교정 후 큰 블록에 가까우나 귀고리·금테·모자띠에는 작은 하위 단위가 남는다.",
+      "faceBodyPixelRatioReview": "큰 수염과 눈의 어두운 띠가 뭉쳐 표정이 단순해졌다.",
+      "frameReview": "바깥 여백이 더 넓고 코너 안쪽 발이 작아 프레임/장식 비율이 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "ambiguous-repair",
+      "eyeNote": "눈 위치에 어두운 면은 있으나 눈썹/모자그늘과 구별되는 셀 권장.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          400,
+          390,
+          850,
+          810
+        ],
+        "eyeLineYPx": 520,
+        "eyeCentersPxApprox": [
+          [
+            590,
+            510
+          ],
+          [
+            425,
+            550
+          ]
+        ],
+        "chinYPx": 800,
+        "upperShoulderYPx": 885,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-eye-readability-and-structure-inconsistent"
+    },
+    {
+      "id": "minami",
+      "densityComparedWithReferences": "mixed",
+      "pixelUnitReview": "머리/블라우스는 작은 칸, 얼굴은 큰 면; 잎 문양은 더 작은 단위다.",
+      "faceBodyPixelRatioReview": "얼굴보다 옷의 질감·문양이 세밀해 혼합 밀도가 드러난다.",
+      "frameReview": "상단선·코너 위치는 가까워도 네모 중심과 보조 발의 비율이 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "readable",
+      "eyeNote": "검은 눈 덩어리는 판독 가능하나 양눈 구별 보완 여지.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          440,
+          340,
+          915,
+          775
+        ],
+        "eyeLineYPx": 530,
+        "eyeCentersPxApprox": [
+          [
+            715,
+            520
+          ],
+          [
+            855,
+            540
+          ]
+        ],
+        "chinYPx": 760,
+        "upperShoulderYPx": 830,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "artoria",
+      "densityComparedWithReferences": "reference",
+      "pixelUnitReview": "머리·갑옷은 대체로 중간 크기 칸이나 눈·금테·앞머리 경계에 작은 칸과 긴 직사각형이 섞인다.",
+      "faceBodyPixelRatioReview": "기준 시안 자체도 player1의 단순한 면보다 변화 수가 많다. 예외 없이 격자 정규화해야 한다.",
+      "frameReview": "player1보다 코너가 작고 액자 선 중심 위치·안쪽 폭·밝은 띠 비율이 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "readable",
+      "eyeNote": "청록 눈이 분명히 읽힌다.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          370,
+          410,
+          900,
+          840
+        ],
+        "eyeLineYPx": 590,
+        "eyeCentersPxApprox": [
+          [
+            620,
+            590
+          ],
+          [
+            430,
+            635
+          ]
+        ],
+        "chinYPx": 820,
+        "upperShoulderYPx": 890,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "samira",
+      "densityComparedWithReferences": "mixed",
+      "pixelUnitReview": "머리·피부 블록보다 가슴 금색 사슬이 훨씬 작은 칸으로 그려져 있다.",
+      "faceBodyPixelRatioReview": "얼굴/머리는 기준에 가깝지만 사슬이 별도 해상도로 보여 혼합 격자의 명백한 사례다.",
+      "frameReview": "코너가 작고 바깥쪽에 더 가까우며 가로 금선/세로 금선의 밝기 폭이 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "readable",
+      "eyeNote": "노출 눈은 어두운 블록으로 판독된다.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          420,
+          460,
+          875,
+          900
+        ],
+        "eyeLineYPx": 600,
+        "eyeCentersPxApprox": [
+          [
+            575,
+            605
+          ],
+          [
+            430,
+            630
+          ]
+        ],
+        "chinYPx": 885,
+        "upperShoulderYPx": 950,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "renji",
+      "densityComparedWithReferences": "mixed",
+      "pixelUnitReview": "삿갓은 중간 칸, 목도리·옷은 더 작은 칸, 얼굴은 빈 면이다.",
+      "faceBodyPixelRatioReview": "모자에 화면 비중을 많이 주면서 눈과 얼굴이 사라졌다.",
+      "frameReview": "금선/코너 배치가 기준보다 바깥쪽이며 코너 안쪽 발 길이가 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "missing-fail",
+      "eyeNote": "원본에서 양눈이 노출됨. 삿갓 착용만으로 가림 예외를 적용하면 안 됨.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          460,
+          500,
+          900,
+          860
+        ],
+        "eyeLineYPx": 610,
+        "eyeCentersPxApprox": [
+          [
+            690,
+            605
+          ],
+          [
+            830,
+            650
+          ]
+        ],
+        "chinYPx": 845,
+        "upperShoulderYPx": 935,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-visible-eyes-missing-and-structure-inconsistent"
+    },
+    {
+      "id": "eira",
+      "densityComparedWithReferences": "finer",
+      "pixelUnitReview": "머리·털·흰 옷에 작은 음영 칸이 많이 반복된다.",
+      "faceBodyPixelRatioReview": "얼굴은 무표정 빈 면인데 주변 은발·털은 촘촘하여 밀도 불균형이 크다.",
+      "frameReview": "프레임이 더 바깥으로 펼쳐지고 코너가 작다. 상단 여백이 특히 얕다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "missing-fail",
+      "eyeNote": "양눈 복원 필요.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          470,
+          430,
+          925,
+          815
+        ],
+        "eyeLineYPx": 565,
+        "eyeCentersPxApprox": [
+          [
+            730,
+            560
+          ],
+          [
+            860,
+            590
+          ]
+        ],
+        "chinYPx": 800,
+        "upperShoulderYPx": 885,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-visible-eyes-missing-and-structure-inconsistent"
+    },
+    {
+      "id": "ratna",
+      "densityComparedWithReferences": "near",
+      "pixelUnitReview": "교정 후 얼굴·머리·셔츠는 기준에 가깝지만 원숭이 얼굴/손이 더 작은 칸이다.",
+      "faceBodyPixelRatioReview": "인물과 어깨 동물의 해상도가 달라 보인다.",
+      "frameReview": "코너 보조 발이 거의 없어 선과 큰 네모만 남는 형태이며 기준 프레임의 세부와 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "readable",
+      "eyeNote": "수염 아래 끝을 턱으로 오인하지 않음.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          420,
+          375,
+          865,
+          885
+        ],
+        "eyeLineYPx": 560,
+        "eyeCentersPxApprox": [
+          [
+            635,
+            565
+          ],
+          [
+            805,
+            595
+          ]
+        ],
+        "chinYPx": 850,
+        "upperShoulderYPx": 930,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "silver_wanderer",
+      "densityComparedWithReferences": "finer",
+      "pixelUnitReview": "머리·옷·금색 여밈이 작은 칸으로 빽빽한데 얼굴은 큰 빈 면이다.",
+      "faceBodyPixelRatioReview": "기본에서 눈 생략과 주변 밀도 차이가 특히 두드러진다.",
+      "frameReview": "좌상단 보조 네모·상단 두 선의 간격이 기준과 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "missing-fail",
+      "eyeNote": "노출 눈 복원 필요.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          550,
+          390,
+          950,
+          840
+        ],
+        "eyeLineYPx": 570,
+        "eyeCentersPxApprox": [
+          [
+            770,
+            570
+          ],
+          [
+            895,
+            600
+          ]
+        ],
+        "chinYPx": 820,
+        "upperShoulderYPx": 915,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-visible-eyes-missing-and-structure-inconsistent"
+    },
+    {
+      "id": "chanda",
+      "densityComparedWithReferences": "mixed",
+      "pixelUnitReview": "머리/옷은 작은 칸, 얼굴은 무안면, 금색 버클은 작은 중심 장식이 있다.",
+      "faceBodyPixelRatioReview": "높은 머리묶음 때문에 얼굴이 아래쪽에 있고 옷보다 얼굴이 과도하게 비었다.",
+      "frameReview": "바깥 여백·코너 크기·세로 띠 두께가 기준과 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "missing-fail",
+      "eyeNote": "노출 눈 복원 필요; 얼굴 중심을 위로 옮기는 구도 검토.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          420,
+          475,
+          935,
+          910
+        ],
+        "eyeLineYPx": 630,
+        "eyeCentersPxApprox": [
+          [
+            715,
+            635
+          ],
+          [
+            860,
+            670
+          ]
+        ],
+        "chinYPx": 890,
+        "upperShoulderYPx": 990,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-visible-eyes-missing-and-structure-inconsistent"
+    },
+    {
+      "id": "terracotta",
+      "densityComparedWithReferences": "mixed",
+      "pixelUnitReview": "얼굴·관은 큰 칸이나 가슴 갑찰·끈은 작은 사각형 패턴이다.",
+      "faceBodyPixelRatioReview": "높은 관 때문에 얼굴/턱/어깨가 아래에 몰리고 가슴에서 도트 밀도가 증가한다.",
+      "frameReview": "전체 액자가 바깥에 더 가깝고 코너 작음; 이마 장식과 윗변 사이 여백도 얕다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "clay-slits-preserve",
+      "eyeNote": "기본 토우의 눈 홈을 유지하며 사람의 흰자·동공을 만들지 않음.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          420,
+          470,
+          980,
+          960
+        ],
+        "eyeLineYPx": 660,
+        "eyeCentersPxApprox": [
+          [
+            735,
+            655
+          ],
+          [
+            915,
+            685
+          ]
+        ],
+        "chinYPx": 935,
+        "upperShoulderYPx": 1030,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "heinrich_mad",
+      "densityComparedWithReferences": "near",
+      "pixelUnitReview": "머리·얼굴은 중간 큰 칸, 갑옷 금테의 계단과 어깨 음영은 더 잘게 쪼개져 있다.",
+      "faceBodyPixelRatioReview": "기준과 가까운 큰 얼굴이나 눈/갑옷에서 하위 크기가 섞인다.",
+      "frameReview": "바깥 여백이 넓고 코너가 큼; 가로선의 금색 중심과 어두운 홈 비율이 기준과 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "readable",
+      "eyeNote": "붉은 눈 판독 가능.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          365,
+          350,
+          865,
+          875
+        ],
+        "eyeLineYPx": 590,
+        "eyeCentersPxApprox": [
+          [
+            555,
+            585
+          ],
+          [
+            410,
+            600
+          ]
+        ],
+        "chinYPx": 850,
+        "upperShoulderYPx": 935,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "eira_mad",
+      "densityComparedWithReferences": "mixed",
+      "pixelUnitReview": "후드 큰 면과 은발/흰 옷의 작은 칸이 혼합된다.",
+      "faceBodyPixelRatioReview": "얼굴 눈은 읽히지만 후드와 털의 서로 다른 밀도가 드러난다.",
+      "frameReview": "가로 바와 세로 바가 비교적 두껍고 코너는 작아 선/코너 비율이 달라진다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "readable",
+      "eyeNote": "후드에 가려도 눈은 노출된 부분 유지.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          400,
+          420,
+          815,
+          850
+        ],
+        "eyeLineYPx": 600,
+        "eyeCentersPxApprox": [
+          [
+            605,
+            600
+          ],
+          [
+            450,
+            640
+          ]
+        ],
+        "chinYPx": 830,
+        "upperShoulderYPx": 910,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "liao_mad",
+      "densityComparedWithReferences": "coarser-perceived",
+      "pixelUnitReview": "머리 대부분이 한 덩어리이고 얼굴·옷도 매우 큰 색면으로 정리되어 있다. 실제 기본 셀 크기는 병합 색면만으로 단정할 수 없다.",
+      "faceBodyPixelRatioReview": "다른 얼터보다 현저히 단순한 아이콘처럼 읽혀 한 세트의 밀도가 갈린다.",
+      "frameReview": "금선에 여러 밝은 홈/질감이 남고 코너 발 크기가 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "covered-preserve",
+      "eyeNote": "양눈 천가리개 유지. 안광을 보이려고 천을 벗기지 않음.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          455,
+          520,
+          940,
+          835
+        ],
+        "eyeLineYPx": 530,
+        "eyeCentersPxApprox": [
+          [
+            700,
+            530
+          ],
+          [
+            850,
+            530
+          ]
+        ],
+        "chinYPx": 815,
+        "upperShoulderYPx": 920,
+        "uncertaintyPx": 60,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "margarethe_mad",
+      "densityComparedWithReferences": "mixed",
+      "pixelUnitReview": "얼굴은 큰 칸인데 투구·흰 갑옷·은발의 작은 칸이 많다.",
+      "faceBodyPixelRatioReview": "투구 비중으로 눈·턱이 아래에 놓이며 갑옷이 얼굴보다 촘촘하다.",
+      "frameReview": "코너와 안쪽 보조 장식이 크고 상단선이 상대적으로 안쪽이다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "readable",
+      "eyeNote": "투구 아래 붉은 눈 읽힘.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          350,
+          540,
+          835,
+          925
+        ],
+        "eyeLineYPx": 660,
+        "eyeCentersPxApprox": [
+          [
+            550,
+            660
+          ],
+          [
+            410,
+            690
+          ]
+        ],
+        "chinYPx": 900,
+        "upperShoulderYPx": 960,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "isolde_mad",
+      "densityComparedWithReferences": "mixed",
+      "pixelUnitReview": "머리/의상 중간 칸보다 길드 문양이 더 작은 정사각형이다.",
+      "faceBodyPixelRatioReview": "얼굴 눈은 남았지만 자수가 별도 작은 격자로 작동한다.",
+      "frameReview": "상단 금선이 두껍고 코너/보조 네모 비율이 기준과 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "readable",
+      "eyeNote": "긴 앞가닥과 어깨선 단발 유지.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          335,
+          385,
+          830,
+          820
+        ],
+        "eyeLineYPx": 575,
+        "eyeCentersPxApprox": [
+          [
+            515,
+            580
+          ],
+          [
+            375,
+            600
+          ]
+        ],
+        "chinYPx": 800,
+        "upperShoulderYPx": 935,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "tome_mad",
+      "densityComparedWithReferences": "mixed",
+      "pixelUnitReview": "머리는 큰 칸, 코·콧수염·외눈안경·금색 줄은 더 작은 단위다.",
+      "faceBodyPixelRatioReview": "같은 얼굴 안에서 눈·코·수염 해상도가 달라 보이며 옷도 촘촘하다.",
+      "frameReview": "굵은 코너에 비해 세로선이 가늘며 코너 바깥 테두리 각이 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "readable",
+      "eyeNote": "노출 붉은 눈과 외눈안경 유지. 얼굴이 아래로 길게 내려옴.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          395,
+          360,
+          965,
+          930
+        ],
+        "eyeLineYPx": 590,
+        "eyeCentersPxApprox": [
+          [
+            730,
+            595
+          ],
+          [
+            925,
+            625
+          ]
+        ],
+        "chinYPx": 900,
+        "upperShoulderYPx": 1030,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "omari_mad",
+      "densityComparedWithReferences": "finer",
+      "pixelUnitReview": "수염·땋은머리·가슴 장식·옷깃의 작은 칸이 촘촘하다.",
+      "faceBodyPixelRatioReview": "같은 모자 캐릭터 플레이어보다 훨씬 세밀하고 얼굴/몸 대비 도트가 작다.",
+      "frameReview": "액자가 안쪽에 들어가며 코너와 안쪽 발의 크기가 기준과 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "readable",
+      "eyeNote": "어두운 눈이 눈썹과 일부 합쳐져 재확인 권장.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          465,
+          430,
+          970,
+          890
+        ],
+        "eyeLineYPx": 580,
+        "eyeCentersPxApprox": [
+          [
+            820,
+            590
+          ],
+          [
+            690,
+            550
+          ]
+        ],
+        "chinYPx": 865,
+        "upperShoulderYPx": 940,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "bran_mad",
+      "densityComparedWithReferences": "near",
+      "pixelUnitReview": "투구는 큰 칸, 옷/끈에는 더 작은 칸이 남아 있다.",
+      "faceBodyPixelRatioReview": "player1과 콘셉트 비교에는 가깝지만 투구·상의의 간격이 동일하지 않다.",
+      "frameReview": "상단선이 낮고 코너는 둥근 베벨/보조 발이 커져 기준과 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "covered-preserve",
+      "eyeNote": "케틀햇으로 눈 가림 유지.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          365,
+          510,
+          875,
+          825
+        ],
+        "eyeLineYPx": 545,
+        "eyeCentersPxApprox": [
+          [
+            460,
+            540
+          ],
+          [
+            670,
+            540
+          ]
+        ],
+        "chinYPx": 800,
+        "upperShoulderYPx": 935,
+        "uncertaintyPx": 60,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "minami_mad",
+      "densityComparedWithReferences": "mixed",
+      "pixelUnitReview": "머리·얼굴은 중간 칸, 줄무늬·잎 문양·머리 장식은 작은 칸이다.",
+      "faceBodyPixelRatioReview": "기본 미나미와 비슷하게 옷이 얼굴보다 세밀하다.",
+      "frameReview": "위쪽 금색 띠가 굵고 코너 발/내부 작은 네모 비율이 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "readable",
+      "eyeNote": "붉은 눈은 판독 가능.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          330,
+          375,
+          835,
+          825
+        ],
+        "eyeLineYPx": 560,
+        "eyeCentersPxApprox": [
+          [
+            500,
+            555
+          ],
+          [
+            350,
+            585
+          ]
+        ],
+        "chinYPx": 800,
+        "upperShoulderYPx": 870,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "ratna_mad",
+      "densityComparedWithReferences": "finer",
+      "pixelUnitReview": "머리·수염·두건·얼굴에 작은 칸이 많고 이구아나는 더 작은 칸을 쓴다.",
+      "faceBodyPixelRatioReview": "인물·소품 모두 기준보다 촘촘하다. 작은 동물 묘사 때문에 전체밀도가 높다.",
+      "frameReview": "기준의 안쪽 보조 발 없이 네모만 붙는 모서리 형태에 가깝다. 프레임 장식 차이가 큰 사례.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "readable",
+      "eyeNote": "큰 인물 셀과 같은 격자에서 이구아나를 재설계해야 함.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          325,
+          330,
+          865,
+          890
+        ],
+        "eyeLineYPx": 510,
+        "eyeCentersPxApprox": [
+          [
+            540,
+            510
+          ],
+          [
+            390,
+            540
+          ]
+        ],
+        "chinYPx": 865,
+        "upperShoulderYPx": 945,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "chanda_mad",
+      "densityComparedWithReferences": "finer",
+      "pixelUnitReview": "머리·눈/눈썹·흰 천 주름·상의가 작은 칸으로 나뉜다.",
+      "faceBodyPixelRatioReview": "얼굴과 마스크 안에서도 단위가 섞이고 기본 찬다의 빈 얼굴과 차이가 크다.",
+      "frameReview": "금선과 코너는 상대적으로 두껍고 보조 발 모양도 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "readable",
+      "eyeNote": "눈은 노출, 흰 마스크가 입만 가림. 노출 눈을 가려선 안 됨.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          345,
+          405,
+          885,
+          930
+        ],
+        "eyeLineYPx": 585,
+        "eyeCentersPxApprox": [
+          [
+            610,
+            595
+          ],
+          [
+            420,
+            640
+          ]
+        ],
+        "chinYPx": 910,
+        "upperShoulderYPx": 1000,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "renji_mad",
+      "densityComparedWithReferences": "mixed",
+      "pixelUnitReview": "삿갓·얼굴·목도리의 작은 칸과 큰 색면이 섞인다.",
+      "faceBodyPixelRatioReview": "모자 캐릭터 중 의상 분할이 많으며 눈 주변은 머리와 붙는다.",
+      "frameReview": "코너 장식이 작고 액자 전체가 바깥으로 넓게 펼쳐져 비율 차이가 큼.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "partial-readable",
+      "eyeNote": "노출된 붉은 눈 1개 읽힘. 원본 노출량 기준으로 머리에 묻히지 않게 함.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          390,
+          490,
+          820,
+          815
+        ],
+        "eyeLineYPx": 565,
+        "eyeCentersPxApprox": [
+          [
+            500,
+            565
+          ],
+          [
+            390,
+            605
+          ]
+        ],
+        "chinYPx": 800,
+        "upperShoulderYPx": 925,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "terracotta_mad",
+      "densityComparedWithReferences": "finer",
+      "pixelUnitReview": "갑옷 매듭·흉부 끈·머리 장식·수염에서 작은 단위가 특히 많다.",
+      "faceBodyPixelRatioReview": "얼굴/몸의 정보량이 기준보다 높아 큰도트 세트에서 가장 튀는 사례 중 하나다.",
+      "frameReview": "상단 금선과 코너 내부 발이 기준과 다르며 인물 머리 꼭대기가 윗변에 가까움.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "readable",
+      "eyeNote": "얼터는 살아 있는 창백한 얼굴이므로 기본 토우와 구별.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          370,
+          380,
+          835,
+          815
+        ],
+        "eyeLineYPx": 555,
+        "eyeCentersPxApprox": [
+          [
+            530,
+            555
+          ],
+          [
+            400,
+            595
+          ]
+        ],
+        "chinYPx": 800,
+        "upperShoulderYPx": 900,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "silver_wanderer_mad",
+      "densityComparedWithReferences": "mixed",
+      "pixelUnitReview": "머리 큰 칸과 작은 은색 버클/가느다란 옷선이 혼합된다.",
+      "faceBodyPixelRatioReview": "얼굴은 기준에 가까운데 여밈 장식의 내부 구멍이 더 작은 해상도로 그려져 있다.",
+      "frameReview": "코너 발이 작고 프레임 금선 밝은 띠·안쪽 홈 간격이 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "readable",
+      "eyeNote": "붉은 눈과 머리/허리 붉은 장식 유지.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          400,
+          400,
+          845,
+          835
+        ],
+        "eyeLineYPx": 580,
+        "eyeCentersPxApprox": [
+          [
+            535,
+            580
+          ],
+          [
+            400,
+            610
+          ]
+        ],
+        "chinYPx": 810,
+        "upperShoulderYPx": 925,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "samira_mad",
+      "densityComparedWithReferences": "coarser-perceived",
+      "pixelUnitReview": "큰 머리 덩어리·넓은 옷면 위에 작은 눈/입 칸이 얹힌다. 직사각형 폭도 제각각이다.",
+      "faceBodyPixelRatioReview": "다른 얼터보다 훨씬 상징적이고 단순하다. 랴오와 함께 밀도의 반대 끝이다.",
+      "frameReview": "작은 코너와 넓은 금선의 비율이 player1과 다르며 장식 발도 짧다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "readable",
+      "eyeNote": "눈은 명확하나 과하게 단순한 눈 두 점/입 한 점이라 기준과 묘사 수준 조율.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          500,
+          490,
+          930,
+          835
+        ],
+        "eyeLineYPx": 595,
+        "eyeCentersPxApprox": [
+          [
+            740,
+            585
+          ],
+          [
+            895,
+            625
+          ]
+        ],
+        "chinYPx": 815,
+        "upperShoulderYPx": 945,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    },
+    {
+      "id": "artoria_mad",
+      "densityComparedWithReferences": "mixed",
+      "pixelUnitReview": "큰 은발 칸에 왕관 보석·목걸이·눈의 작은 칸이 혼합된다.",
+      "faceBodyPixelRatioReview": "왕관을 보이느라 눈·턱·어깨가 상당히 아래로 내려가 기본 아르토리아와 얼굴 크롭이 다르다.",
+      "frameReview": "코너 크기·세로 금선 간격·하단 안쪽 발이 기준과 다르다.",
+      "strictGridVerdict": "normalize-to-shared-fixed-grid",
+      "strictFrameVerdict": "replace-with-identical-frame-master",
+      "eyeVerdict": "readable",
+      "eyeNote": "왕관이 아니라 얼굴을 기준으로 위치/크롭 통일. 왕관 윗끝은 프레임 가까움.",
+      "landmarks": {
+        "source": "current published low.png visual manual estimate",
+        "canvas": [
+          1254,
+          1254
+        ],
+        "faceCoreBBoxPx": [
+          445,
+          455,
+          965,
+          925
+        ],
+        "eyeLineYPx": 660,
+        "eyeCentersPxApprox": [
+          [
+            735,
+            660
+          ],
+          [
+            920,
+            720
+          ]
+        ],
+        "chinYPx": 900,
+        "upperShoulderYPx": 1000,
+        "uncertaintyPx": 35,
+        "warning": "Rough construction anchors, not measured segmentation. BBox excludes major hat/hair volume; beard/jaw ambiguity remains. Use eye-to-chin first; inspect the reprojected result."
+      },
+      "overallVerdict": "fail-strict-common-grid-and-frame"
+    }
+  ],
+  "followUpDraftReview": {
+    "reviewedFiles": [
+      "/workspace/portrait-audit-20261018/edited-0.png",
+      "/workspace/portrait-audit-20261018/edited-1.png",
+      "/workspace/portrait-audit-20261018/edited-2.png",
+      "/workspace/portrait-audit-20261018/edited-3.png",
+      "/workspace/portrait-audit-20261018/edited-4.png"
+    ],
+    "status": "first fixed-grid pass; not final acceptance",
+    "improved": [
+      "Shared frame geometry and 50px cell rhythm are now visually consistent across all 34.",
+      "The previously absent exposed eyes in Isolde, Schwarz, Tuyana, Daraishi, Chanda and Kim now read as facial marks.",
+      "Covered-eye designs remain covered."
+    ],
+    "blockersOrChecks": [
+      {
+        "id": "terracotta",
+        "finding": "Tall clay cap top is cropped flat at inner top edge; face and armor appear low. Preserve cap silhouette while controlling eye/chin placement."
+      },
+      {
+        "id": "liao_mad",
+        "finding": "Broad, nearly unshaded face occupies a visually larger field than neighbors. Compare face width/eye-to-chin with references; do not use hair volume as face size."
+      },
+      {
+        "id": "minami",
+        "finding": "Far eye is under active correction by root; final placement needs reinspection."
+      },
+      {
+        "id": "tome_mad",
+        "finding": "Monocle is under active correction by root; final side and lens position need reinspection."
+      }
+    ],
+    "accessoryAssessment": "Ratna shoulder iguana, basic shoulder monkey, Chanda thin white mask, and Kim wrapped weapon cues remain. Fine guild insignia cannot retain high-resolution detail at 22x22, but its location and gold contrast should remain.",
+    "limits": "Contact sheets reviewed visually; exact RGBA/frame identity and grid correctness require root numerical tests. Draft files may change after review."
+  }
+}
