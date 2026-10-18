@@ -1,0 +1,83 @@
+{
+  "rows": [
+    {
+      "id": "base",
+      "cfg": {
+        "id": "base",
+        "label": "기존 막기"
+      },
+      "weapon": "zweihander",
+      "enemy": "longsword",
+      "school": true,
+      "privateStorage": true,
+      "pwa": 0,
+      "practice": true
+    },
+    {
+      "id": "candidate",
+      "cfg": {
+        "id": "candidate",
+        "onlyOutward": true,
+        "duration": 0.18,
+        "hold": 0.1,
+        "recover": 0.2,
+        "hand": [
+          0,
+          0,
+          0
+        ],
+        "angle": [
+          0,
+          0
+        ],
+        "normalGuide": 0.24,
+        "label": "바깥으로 밀어 쓸기"
+      },
+      "weapon": "zweihander",
+      "enemy": "longsword",
+      "school": true,
+      "privateStorage": true,
+      "pwa": 0,
+      "practice": true
+    },
+    {
+      "defense": {
+        "time": 5.241666666666717,
+        "held": true,
+        "procs": [
+          1,
+          0
+        ],
+        "eligible": [
+          1,
+          0
+        ],
+        "alive": true,
+        "attacks": 2
+      },
+      "attack": {
+        "role": "attacker",
+        "weapon": "longsword",
+        "enemy": "zweihander",
+        "guard": true,
+        "held": true
+      },
+      "duel": {
+        "practice": false,
+        "guard": false,
+        "aiSweep": true
+      },
+      "reset": {
+        "state": "menu",
+        "procs": [
+          0,
+          0
+        ],
+        "blood": 1
+      },
+      "storage": "keep",
+      "overflow": false
+    }
+  ],
+  "errors": []
+}
