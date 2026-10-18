@@ -1,6 +1,6 @@
 # 샛별 — 재포크 이후 작업 지침
 
-- **2026-10-18 미나미 눈매 추가 시안**: 사용자 요청으로 현재안 A를 보존하고, 눈꼬리가 살짝 올라간 B를 별도 제작. B는 화면 왼쪽 눈 2셀만 변경. `minami/low-eye-option1.png`/`low-eye-option2.png` 비교이며 현재 `low.png` 교체나 채택이 아니다. [시안 기록](docs/art/pixel_profiles_minami_option2_20261018/README.md).
+- **2026-10-18 미나미 눈매 추가 시안**: 사용자 요청으로 현재안 A를 보존하고, 눈꼬리가 살짝 올라간 B를 별도 제작. 최초 B는 화면 왼쪽 눈 2셀 변경. 후속 사용자 지시로 B의 해당 눈 전체(3셀 모양)를 오른쪽 한 셀 이동했고, 모양·색·높이는 그대로 유지. `minami/low-eye-option1.png`/`low-eye-option2.png` 비교이며 현재 `low.png` 교체나 채택이 아니다. [시안 기록](docs/art/pixel_profiles_minami_option2_20261018/README.md).
 
 - **2026-10-18 미나미·아르토리아 눈 최신**: 사용자 재선택으로 미나미는 `5a0e7edb`의 눈 가장자리 두 셀 수정본으로 정확 재적용. 광기의 아르토리아는 최초 `99b5603d` 눈 모양/색을 그대로 보존하면서 내려간 쪽만 한 셀 올린다. 눈꼬리 모양을 바꿔 높이 문제를 해결하지 않는다. 아래 미나미 복원 기록은 이전 이력. 최신 [후속 기록](docs/art/pixel_profiles_refinement_20261018/README.md).
 
