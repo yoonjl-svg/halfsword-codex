@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
+import {gunzipSync} from 'node:zlib';
+import {newRound} from './harness_m.mjs';
+import {beginFlowRecovery,FLOW_RECOVERY} from '../../src/nagashi_recovery.js';
+const out='docs/research/japanese_control_strength_20261018',results=[];
+const read=p=>JSON.parse(gunzipSync(readFileSync(p)));
+const a=read('docs/research/japanese_recovery_20261017/raw/independent-0.36.json.gz'),b=read(`${out}/raw/live-0.25.json.gz`);
+assert.equal(a.length,24);assert.equal(b.length,24);
+for(let i=0;i<24;i++)for(const k of ['health','enemy','commands','timeline','events'])assert.deepEqual(a[i][k],b[i][k]);
+results.push({historical25Exact:true,cases:24});
+Object.assign(FLOW_RECOVERY,{seconds:.36,floor:0,release:true});
+const G=newRound({weapon:'longsword',weapon2:'uchigatana',seed:720});G.park();for(let i=0;i<240;i++)G.step();
+const f=G.player;f.stamina.attackId=12;
+const physical=()=>JSON.stringify([f.sword.translation(),f.sword.linvel(),f.sword.angvel(),f.handOffset.toArray()]);
+const before=physical();assert(beginFlowRecovery(f,G.enemy));assert.equal(before,physical());assert(!beginFlowRecovery(f,G.enemy));
+let min=1;for(let i=0;i<60;i++){G.step();min=Math.min(min,f.flowArmScale);}
+assert.equal(min,0);assert.equal(f.flowArmScale,1);assert(!beginFlowRecovery(f,G.enemy));f.stamina.attackId=13;assert(beginFlowRecovery(f,G.enemy));
+results.push({floor:0,noImmediateBodyOrInputChange:true,noStack:true,minimum:min,restoresTo1:true,newAttackAllowed:true});
+G.world.free();G.eventQueue.free();Object.assign(FLOW_RECOVERY,{seconds:0,floor:.25,release:false});
+mkdirSync(`${out}/checks`,{recursive:true});writeFileSync(`${out}/checks/implementation.json`,JSON.stringify(results,null,2));console.log(JSON.stringify(results));
