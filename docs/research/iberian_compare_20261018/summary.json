@@ -1,0 +1,4462 @@
+{
+  "design": {
+    "liveConditionsPerArm": 12,
+    "diagnosticConditionsPerArm": 24,
+    "arms": 5,
+    "totalRuns": 180,
+    "humanPlaytests": 0,
+    "commonEnds": [
+      26.258333333332484,
+      29.999999999998938,
+      17.47499999999965,
+      29.999999999998938,
+      29.999999999998938,
+      29.999999999998938,
+      29.999999999998938,
+      21.549999999999418,
+      18.52499999999959,
+      29.999999999998938,
+      23.21666666666599,
+      24.166666666665936
+    ]
+  },
+  "live": {
+    "base": {
+      "full": {
+        "player": {
+          "limb": 5.871521361483323,
+          "concussion": 2.5736199249227782,
+          "bleed": 0.8217215731585655,
+          "balance": 2290.5960523262816,
+          "pain": 39.730343791130174,
+          "hits": 133,
+          "effectiveHits": 133,
+          "deaths": 2,
+          "bloodLost": 1.4636072360149843
+        },
+        "enemy": {
+          "limb": 6.579820228560369,
+          "concussion": 3.259440720231785,
+          "bleed": 0.19900475895366895,
+          "balance": 2419.4925075201854,
+          "pain": 39.82806999493696,
+          "hits": 199,
+          "effectiveHits": 199,
+          "deaths": 0,
+          "bloodLost": 1.2045451779002756
+        },
+        "counters": {
+          "inputs": 113,
+          "withEnemyDamage": 66,
+          "withPlayerDamage": 39,
+          "withTrade": 27,
+          "enemyLimb": 4.739032189959843,
+          "playerLimb": 2.2201811927153132
+        },
+        "rhythm": {
+          "duration": 344.76666666665477,
+          "meanDistance": 1.7432132806618585,
+          "nearFractionUnder1_35": 0.08107716809034313,
+          "clinchFraction": 0.0,
+          "enemyAttackCharges": 167,
+          "enemyAttackChargesPer30s": 14.53156724354686,
+          "playerBeatEvents": 16,
+          "aiBeatEvents": 0,
+          "medianCounterInputAfterBeat": 0.23333297933763308,
+          "eventsWithCounterInput": 12,
+          "meanChestClearanceFirst03": 0.6211845899815517,
+          "envelopeClearFractionFirst03": 0.9583333333333334
+        },
+        "blockSpent": 416.0039881913526,
+        "attackSpent": 1401.4891641009644,
+        "heldTime": 138.65833333333285,
+        "exhaustedTime": 1.8166666666666627,
+        "negativeStaminaTime": 10.058333333333403
+      },
+      "common": {
+        "player": {
+          "limb": 5.511870357968267,
+          "concussion": 2.5736199249227782,
+          "bleed": 0.8140147659403858,
+          "balance": 2234.7751219241104,
+          "pain": 38.5750350007983,
+          "hits": 130,
+          "effectiveHits": 130
+        },
+        "enemy": {
+          "limb": 6.176646069100361,
+          "concussion": 3.163003111913061,
+          "bleed": 0.19209320193435456,
+          "balance": 2227.0729723328877,
+          "pain": 36.80170572448536,
+          "hits": 180,
+          "effectiveHits": 180
+        },
+        "counters": {
+          "inputs": 102,
+          "withEnemyDamage": 61,
+          "withPlayerDamage": 38,
+          "withTrade": 26,
+          "enemyLimb": 4.687593908267181,
+          "playerLimb": 1.8605301892002568
+        },
+        "rhythm": {
+          "duration": 311.1916666666567,
+          "meanDistance": 1.7451687048072346,
+          "nearFractionUnder1_35": 0.07836839569616187,
+          "clinchFraction": 0.0,
+          "enemyAttackCharges": 153,
+          "enemyAttackChargesPer30s": 14.7497522962809,
+          "playerBeatEvents": 14,
+          "aiBeatEvents": 0,
+          "medianCounterInputAfterBeat": 0.2166661168759365,
+          "eventsWithCounterInput": 11,
+          "meanChestClearanceFirst03": 0.6203539616121263,
+          "envelopeClearFractionFirst03": 0.9523809523809523
+        }
+      }
+    },
+    "offset16": {
+      "full": {
+        "player": {
+          "limb": 5.069948231876209,
+          "concussion": 3.9919547437605636,
+          "bleed": 0.5552814242485885,
+          "balance": 2481.033520907991,
+          "pain": 41.77989892463043,
+          "hits": 142,
+          "effectiveHits": 142,
+          "deaths": 3,
+          "bloodLost": 0.9308215152948511
+        },
+        "enemy": {
+          "limb": 6.38973695584925,
+          "concussion": 3.9530207779662625,
+          "bleed": 0.2057081421263794,
+          "balance": 2473.5831364570026,
+          "pain": 39.67273252055853,
+          "hits": 213,
+          "effectiveHits": 213,
+          "deaths": 0,
+          "bloodLost": 1.2407602842626042
+        },
+        "counters": {
+          "inputs": 101,
+          "withEnemyDamage": 66,
+          "withPlayerDamage": 36,
+          "withTrade": 25,
+          "enemyLimb": 5.355766947661734,
+          "playerLimb": 1.7151387994882001
+        },
+        "rhythm": {
+          "duration": 330.95833333332223,
+          "meanDistance": 1.7774621533081012,
+          "nearFractionUnder1_35": 0.06500754147812972,
+          "clinchFraction": 0.0,
+          "enemyAttackCharges": 152,
+          "enemyAttackChargesPer30s": 13.778169457384323,
+          "playerBeatEvents": 15,
+          "aiBeatEvents": 0,
+          "medianCounterInputAfterBeat": 0.2499996251426504,
+          "eventsWithCounterInput": 14,
+          "meanChestClearanceFirst03": 0.7132736223825263,
+          "envelopeClearFractionFirst03": 0.9901960784313726
+        },
+        "blockSpent": 403.88736717607054,
+        "attackSpent": 1178.0048209302056,
+        "heldTime": 119.99166666666684,
+        "exhaustedTime": 0,
+        "negativeStaminaTime": 0.6250000000000002
+      },
+      "common": {
+        "player": {
+          "limb": 4.573169455974966,
+          "concussion": 3.4521889746096583,
+          "bleed": 0.5122502186159361,
+          "balance": 2344.3341750025807,
+          "pain": 38.52586857612496,
+          "hits": 134,
+          "effectiveHits": 134
+        },
+        "enemy": {
+          "limb": 6.38973695584925,
+          "concussion": 3.4882269016469976,
+          "bleed": 0.2057081421263794,
+          "balance": 2409.05302938906,
+          "pain": 38.812331092985964,
+          "hits": 206,
+          "effectiveHits": 206
+        },
+        "counters": {
+          "inputs": 93,
+          "withEnemyDamage": 63,
+          "withPlayerDamage": 35,
+          "withTrade": 24,
+          "enemyLimb": 5.355766947661734,
+          "playerLimb": 1.7151387994882001
+        },
+        "rhythm": {
+          "duration": 311.1916666666567,
+          "meanDistance": 1.7764037134891728,
+          "nearFractionUnder1_35": 0.06487875381403566,
+          "clinchFraction": 0.0,
+          "enemyAttackCharges": 138,
+          "enemyAttackChargesPer30s": 13.303698149586694,
+          "playerBeatEvents": 15,
+          "aiBeatEvents": 0,
+          "medianCounterInputAfterBeat": 0.2499996251426504,
+          "eventsWithCounterInput": 14,
+          "meanChestClearanceFirst03": 0.7132736223825263,
+          "envelopeClearFractionFirst03": 0.9901960784313726
+        }
+      }
+    },
+    "offset24": {
+      "full": {
+        "player": {
+          "limb": 7.483669276290595,
+          "concussion": 3.2770660842613175,
+          "bleed": 0.5388124999068471,
+          "balance": 2765.304776001419,
+          "pain": 47.052719831981996,
+          "hits": 165,
+          "effectiveHits": 165,
+          "deaths": 1,
+          "bloodLost": 1.1842575401643571
+        },
+        "enemy": {
+          "limb": 6.057201395248095,
+          "concussion": 2.711603557206683,
+          "bleed": 0.1651869466479098,
+          "balance": 2597.3172018716878,
+          "pain": 40.84552162530153,
+          "hits": 217,
+          "effectiveHits": 217,
+          "deaths": 0,
+          "bloodLost": 1.0484688153595343
+        },
+        "counters": {
+          "inputs": 119,
+          "withEnemyDamage": 68,
+          "withPlayerDamage": 40,
+          "withTrade": 26,
+          "enemyLimb": 4.80456929523352,
+          "playerLimb": 3.018494537260266
+        },
+        "rhythm": {
+          "duration": 351.54999999998773,
+          "meanDistance": 1.7367122802249495,
+          "nearFractionUnder1_35": 0.06801079085616925,
+          "clinchFraction": 0.0,
+          "enemyAttackCharges": 176,
+          "enemyAttackChargesPer30s": 15.019200682691462,
+          "playerBeatEvents": 16,
+          "aiBeatEvents": 1,
+          "medianCounterInputAfterBeat": 0.2416652493790572,
+          "eventsWithCounterInput": 13,
+          "meanChestClearanceFirst03": 0.7255341806808703,
+          "envelopeClearFractionFirst03": 0.921875
+        },
+        "blockSpent": 440.2372302219169,
+        "attackSpent": 1518.616500582025,
+        "heldTime": 153.84166666666547,
+        "exhaustedTime": 0,
+        "negativeStaminaTime": 17.833333333333375
+      },
+      "common": {
+        "player": {
+          "limb": 7.0570480255288865,
+          "concussion": 2.5966543484433293,
+          "bleed": 0.5278198925731303,
+          "balance": 2377.8034937342177,
+          "pain": 41.767466871503146,
+          "hits": 145,
+          "effectiveHits": 145
+        },
+        "enemy": {
+          "limb": 5.944402788860669,
+          "concussion": 2.5568038753182543,
+          "bleed": 0.1626677440177681,
+          "balance": 2422.786727774947,
+          "pain": 38.38953594433078,
+          "hits": 201,
+          "effectiveHits": 201
+        },
+        "counters": {
+          "inputs": 103,
+          "withEnemyDamage": 62,
+          "withPlayerDamage": 36,
+          "withTrade": 24,
+          "enemyLimb": 4.691770688846095,
+          "playerLimb": 2.5918732864985583
+        },
+        "rhythm": {
+          "duration": 311.1916666666567,
+          "meanDistance": 1.752384736251834,
+          "nearFractionUnder1_35": 0.06070338846956801,
+          "clinchFraction": 0.0,
+          "enemyAttackCharges": 153,
+          "enemyAttackChargesPer30s": 14.7497522962809,
+          "playerBeatEvents": 13,
+          "aiBeatEvents": 1,
+          "medianCounterInputAfterBeat": 0.23749888433705646,
+          "eventsWithCounterInput": 12,
+          "meanChestClearanceFirst03": 0.6946040513923089,
+          "envelopeClearFractionFirst03": 0.9038461538461539
+        }
+      }
+    },
+    "impulse6": {
+      "full": {
+        "player": {
+          "limb": 5.794101640065478,
+          "concussion": 4.500845566957814,
+          "bleed": 0.5596972857260343,
+          "balance": 2611.7824726609165,
+          "pain": 43.471762320566526,
+          "hits": 148,
+          "effectiveHits": 148,
+          "deaths": 1,
+          "bloodLost": 1.4290891746106036
+        },
+        "enemy": {
+          "limb": 7.345290856629217,
+          "concussion": 5.209205006773973,
+          "bleed": 0.36910536742948874,
+          "balance": 3193.7608798523556,
+          "pain": 52.2357218260979,
+          "hits": 255,
+          "effectiveHits": 255,
+          "deaths": 0,
+          "bloodLost": 1.6756951312620267
+        },
+        "counters": {
+          "inputs": 118,
+          "withEnemyDamage": 75,
+          "withPlayerDamage": 46,
+          "withTrade": 32,
+          "enemyLimb": 5.370701733936932,
+          "playerLimb": 1.467053255806491
+        },
+        "rhythm": {
+          "duration": 351.54999999998773,
+          "meanDistance": 1.7464041400069648,
+          "nearFractionUnder1_35": 0.07227033934402953,
+          "clinchFraction": 0.0,
+          "enemyAttackCharges": 165,
+          "enemyAttackChargesPer30s": 14.080500640023248,
+          "playerBeatEvents": 17,
+          "aiBeatEvents": 0,
+          "medianCounterInputAfterBeat": 0.23333297933763308,
+          "eventsWithCounterInput": 14,
+          "meanChestClearanceFirst03": 0.6269478681966844,
+          "envelopeClearFractionFirst03": 0.8633217993079585
+        },
+        "blockSpent": 387.7318724890277,
+        "attackSpent": 1488.99809365578,
+        "heldTime": 147.2333333333325,
+        "exhaustedTime": 0,
+        "negativeStaminaTime": 10.508333333333454
+      },
+      "common": {
+        "player": {
+          "limb": 5.680852379530508,
+          "concussion": 4.334956045640361,
+          "bleed": 0.5230153705690984,
+          "balance": 2394.1059410885928,
+          "pain": 39.5214663243715,
+          "hits": 133,
+          "effectiveHits": 133
+        },
+        "enemy": {
+          "limb": 6.059850018914597,
+          "concussion": 4.799627323782293,
+          "bleed": 0.2688146401627875,
+          "balance": 2845.335284406459,
+          "pain": 45.501616739234706,
+          "hits": 230,
+          "effectiveHits": 230
+        },
+        "counters": {
+          "inputs": 102,
+          "withEnemyDamage": 67,
+          "withPlayerDamage": 38,
+          "withTrade": 27,
+          "enemyLimb": 5.041278774933841,
+          "playerLimb": 1.467053255806491
+        },
+        "rhythm": {
+          "duration": 311.1916666666567,
+          "meanDistance": 1.7576725272729499,
+          "nearFractionUnder1_35": 0.07001766500722659,
+          "clinchFraction": 0.0,
+          "enemyAttackCharges": 145,
+          "enemyAttackChargesPer30s": 13.97852341804399,
+          "playerBeatEvents": 16,
+          "aiBeatEvents": 0,
+          "medianCounterInputAfterBeat": 0.23333297933763308,
+          "eventsWithCounterInput": 14,
+          "meanChestClearanceFirst03": 0.6257034330203057,
+          "envelopeClearFractionFirst03": 0.8628472222222222
+        }
+      }
+    },
+    "impulse9": {
+      "full": {
+        "player": {
+          "limb": 6.645648324479859,
+          "concussion": 4.156059162525508,
+          "bleed": 0.7180304840968978,
+          "balance": 2727.0577452349894,
+          "pain": 44.90719841022404,
+          "hits": 135,
+          "effectiveHits": 135,
+          "deaths": 3,
+          "bloodLost": 1.8509524437302853
+        },
+        "enemy": {
+          "limb": 6.174264196569332,
+          "concussion": 3.642960367788231,
+          "bleed": 0.27286607281408976,
+          "balance": 2731.7808509206848,
+          "pain": 44.11194952986898,
+          "hits": 219,
+          "effectiveHits": 219,
+          "deaths": 1,
+          "bloodLost": 1.691949497633379
+        },
+        "counters": {
+          "inputs": 103,
+          "withEnemyDamage": 70,
+          "withPlayerDamage": 35,
+          "withTrade": 24,
+          "enemyLimb": 5.000176890975523,
+          "playerLimb": 2.5554326904922418
+        },
+        "rhythm": {
+          "duration": 329.449999999989,
+          "meanDistance": 1.7341446152603266,
+          "nearFractionUnder1_35": 0.07909090909090909,
+          "clinchFraction": 0.0,
+          "enemyAttackCharges": 171,
+          "enemyAttackChargesPer30s": 15.571406890272183,
+          "playerBeatEvents": 15,
+          "aiBeatEvents": 0,
+          "medianCounterInputAfterBeat": 0.2124992555005525,
+          "eventsWithCounterInput": 14,
+          "meanChestClearanceFirst03": 0.7901069481927363,
+          "envelopeClearFractionFirst03": 0.9944444444444445
+        },
+        "blockSpent": 383.692998817267,
+        "attackSpent": 1246.6656733501375,
+        "heldTime": 129.44166666666652,
+        "exhaustedTime": 0,
+        "negativeStaminaTime": 7.841666666666775
+      },
+      "common": {
+        "player": {
+          "limb": 5.98728436315692,
+          "concussion": 3.609699577017189,
+          "bleed": 0.6706379186588116,
+          "balance": 2465.781053164983,
+          "pain": 41.25667257421553,
+          "hits": 124,
+          "effectiveHits": 124
+        },
+        "enemy": {
+          "limb": 5.931422882023387,
+          "concussion": 3.429821820605234,
+          "bleed": 0.268703078850445,
+          "balance": 2659.0510922418757,
+          "pain": 42.86468648324187,
+          "hits": 215,
+          "effectiveHits": 215
+        },
+        "counters": {
+          "inputs": 98,
+          "withEnemyDamage": 68,
+          "withPlayerDamage": 32,
+          "withTrade": 23,
+          "enemyLimb": 4.762757697083031,
+          "playerLimb": 2.5554326904922418
+        },
+        "rhythm": {
+          "duration": 311.1916666666567,
+          "meanDistance": 1.7463713921012083,
+          "nearFractionUnder1_35": 0.07355066645254536,
+          "clinchFraction": 0.0,
+          "enemyAttackCharges": 156,
+          "enemyAttackChargesPer30s": 15.03896312561974,
+          "playerBeatEvents": 14,
+          "aiBeatEvents": 0,
+          "medianCounterInputAfterBeat": 0.20833239412516846,
+          "eventsWithCounterInput": 13,
+          "meanChestClearanceFirst03": 0.8117706980500037,
+          "envelopeClearFractionFirst03": 1.0
+        }
+      }
+    }
+  },
+  "probe": {
+    "base": {
+      "False": {
+        "conditions": 12,
+        "eligible": 4,
+        "player": {
+          "limb": 0.4523907223958835,
+          "concussion": 0.08742025350174831,
+          "bleed": 0.5111449463622377,
+          "balance": 249.08806183829066,
+          "pain": 5.600213650970617,
+          "hits": 8,
+          "effectiveHits": 8,
+          "deaths": 1,
+          "bloodLost": 0.03367581583185797
+        },
+        "enemy": {
+          "limb": 0,
+          "concussion": 0.0887587806020882,
+          "bleed": 0.011476308410468119,
+          "balance": 110.74498073190128,
+          "pain": 1.8153765746216468,
+          "hits": 8,
+          "effectiveHits": 8,
+          "deaths": 0,
+          "bloodLost": 0.007783762246944215
+        },
+        "counters": {
+          "inputs": 0,
+          "withEnemyDamage": 0,
+          "withPlayerDamage": 0,
+          "withTrade": 0,
+          "enemyLimb": 0,
+          "playerLimb": 0
+        },
+        "trajectories": [
+          {
+            "attack": "zornhau",
+            "gap": 1.4,
+            "event": {
+              "time": 1.291666734032333,
+              "d": 0,
+              "o": 1,
+              "line": "highR",
+              "w": 1,
+              "vn": 4.173146459421781,
+              "J": 1.3993639945983887,
+              "atD": 0.011299108737156888,
+              "atO": 0.22523106279880784,
+              "incoming": 0.9833726243095586,
+              "lat": 0.21824625226826808,
+              "attackId": 0,
+              "dir": [
+                0.01772302400681952,
+                0,
+                0.9998429348753002
+              ],
+              "md": 4.353756718887117,
+              "mo": 1.7283235855373669,
+              "dv": 0,
+              "impulse": 0,
+              "point": [
+                -0.03454480320215225,
+                1.3667075634002686,
+                0.2109145224094391
+              ],
+              "deltaO": [
+                0,
+                0,
+                0
+              ],
+              "deltaD": [
+                0,
+                0,
+                0
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.5399323277625225,
+                "head": 0.43459531623661907,
+                "envelope": 0.27459531623661904
+              },
+              "0.2": {
+                "chest": 0.6949054764054959,
+                "head": 0.6340323327838209,
+                "envelope": 0.46490547640549595
+              },
+              "0.3": {
+                "chest": 1.06067416712893,
+                "head": 1.1336664830891965,
+                "envelope": 0.8279253049948665
+              },
+              "0.5": {
+                "chest": 1.2854579268274486,
+                "head": 1.3723513023445586,
+                "envelope": 1.023077885118214
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zornhau",
+            "gap": 1.6,
+            "event": {
+              "time": 1.1666667275130749,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 0.27083333333333304,
+              "vn": 3.034995606119172,
+              "J": 0.32474739104509354,
+              "atD": 0.5326223367682529,
+              "atO": 0.025705864437117212,
+              "incoming": 0.9028428454384491,
+              "lat": -0.03186706065339451,
+              "attackId": 0,
+              "dir": [
+                -0.02250009308127365,
+                0,
+                -0.9997468408608922
+              ],
+              "md": 1.2521819804824768,
+              "mo": 3.064918888462775,
+              "dv": 0,
+              "impulse": 0,
+              "point": [
+                0.4152910113334656,
+                1.5778645277023315,
+                -0.03959355503320694
+              ],
+              "deltaO": [
+                0,
+                0,
+                0
+              ],
+              "deltaD": [
+                0,
+                0,
+                0
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.8924120265023693,
+                "head": 0.6935333157089415,
+                "envelope": 0.5335333157089415
+              },
+              "0.2": {
+                "chest": 0.4677980938756903,
+                "head": 0.31076363595361517,
+                "envelope": 0.15076363595361517
+              },
+              "0.3": {
+                "chest": 0.608276846909384,
+                "head": 0.38253703811381645,
+                "envelope": 0.22253703811381645
+              },
+              "0.5": {
+                "chest": 0.286673850553491,
+                "head": 0.2431460067204003,
+                "envelope": 0.05667385055349097
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zwerch",
+            "gap": 1.4,
+            "event": {
+              "time": 1.216666730120778,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 1,
+              "vn": 5.2038894596954375,
+              "J": 4.720662474632263,
+              "atD": -0.0291528476615808,
+              "atO": 0.3341439436283527,
+              "incoming": -2.2829978995878095,
+              "lat": 0.14176618201319469,
+              "attackId": 0,
+              "dir": [
+                0.03004447637053812,
+                0,
+                0.9995485628220473
+              ],
+              "md": 4.170806378301619,
+              "mo": 1.1412716384622368,
+              "dv": 0,
+              "impulse": 0,
+              "point": [
+                -0.049116771668195724,
+                1.1770994663238525,
+                0.13549518585205078
+              ],
+              "deltaO": [
+                0,
+                0,
+                0
+              ],
+              "deltaD": [
+                0,
+                0,
+                0
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.7337190497163922,
+                "head": 0.7594379993957064,
+                "envelope": 0.48507786466049463
+              },
+              "0.2": {
+                "chest": 1.0165589425611314,
+                "head": 0.842905428878537,
+                "envelope": 0.682905428878537
+              },
+              "0.3": {
+                "chest": 1.2712039450568466,
+                "head": 1.059776288508142,
+                "envelope": 0.8997762885081421
+              },
+              "0.5": {
+                "chest": 1.2319700347192715,
+                "head": 1.020670077368157,
+                "envelope": 0.8606700773681569
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zwerch",
+            "gap": 1.6,
+            "event": {
+              "time": 1.2083333963528275,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 1,
+              "vn": 14.668257948377061,
+              "J": 3.0953309535980225,
+              "atD": -0.027894783220714193,
+              "atO": 0.539866670134179,
+              "incoming": -6.2816998351193,
+              "lat": 0.13239560155339422,
+              "attackId": 0,
+              "dir": [
+                0.020508113002776093,
+                0,
+                0.9997896865346558
+              ],
+              "md": 4.178213038836921,
+              "mo": 0.5791827253711371,
+              "dv": 0,
+              "impulse": 0,
+              "point": [
+                -0.15030504763126373,
+                1.0837690830230713,
+                0.12626250088214874
+              ],
+              "deltaO": [
+                0,
+                0,
+                0
+              ],
+              "deltaD": [
+                0,
+                0,
+                0
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 1.2644728493665944,
+                "head": 1.2425751094714161,
+                "envelope": 1.0344728493665944
+              },
+              "0.2": {
+                "chest": 1.5500037903852517,
+                "head": 1.5118760330219352,
+                "envelope": 1.3200037903852517
+              },
+              "0.3": {
+                "chest": 1.6447578379934613,
+                "head": 1.617870460859411,
+                "envelope": 1.4147578379934613
+              },
+              "0.5": {
+                "chest": 1.4596758528218892,
+                "head": 1.4373708069821216,
+                "envelope": 1.2296758528218892
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          }
+        ]
+      },
+      "True": {
+        "conditions": 12,
+        "eligible": 4,
+        "player": {
+          "limb": 1.1375019803645705,
+          "concussion": 0.2665552974829911,
+          "bleed": 0.05167991405519653,
+          "balance": 270.88906215831,
+          "pain": 5.731458356600176,
+          "hits": 12,
+          "effectiveHits": 12,
+          "deaths": 0,
+          "bloodLost": 0.043082652281220546
+        },
+        "enemy": {
+          "limb": 0.11859056412908475,
+          "concussion": 0.23182303983679253,
+          "bleed": 0.01586478113074819,
+          "balance": 213.53018666439613,
+          "pain": 3.3764043509955037,
+          "hits": 17,
+          "effectiveHits": 17,
+          "deaths": 0,
+          "bloodLost": 0.010195486354832028
+        },
+        "counters": {
+          "inputs": 8,
+          "withEnemyDamage": 7,
+          "withPlayerDamage": 2,
+          "withTrade": 2,
+          "enemyLimb": 0.11859056412908475,
+          "playerLimb": 0.685111257968687
+        },
+        "trajectories": [
+          {
+            "attack": "zornhau",
+            "gap": 1.4,
+            "event": {
+              "time": 1.291666734032333,
+              "d": 0,
+              "o": 1,
+              "line": "highR",
+              "w": 1,
+              "vn": 4.173146459421781,
+              "J": 1.3993639945983887,
+              "atD": 0.011299108737156888,
+              "atO": 0.22523106279880784,
+              "incoming": 0.9833726243095586,
+              "lat": 0.21824625226826808,
+              "attackId": 0,
+              "dir": [
+                0.01772302400681952,
+                0,
+                0.9998429348753002
+              ],
+              "md": 4.353756718887117,
+              "mo": 1.7283235855373669,
+              "dv": 0,
+              "impulse": 0,
+              "point": [
+                -0.03454480320215225,
+                1.3667075634002686,
+                0.2109145224094391
+              ],
+              "deltaO": [
+                0,
+                0,
+                0
+              ],
+              "deltaD": [
+                0,
+                0,
+                0
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.5399323277625225,
+                "head": 0.43459531623661907,
+                "envelope": 0.27459531623661904
+              },
+              "0.2": {
+                "chest": 0.694552341943384,
+                "head": 0.6356543507250884,
+                "envelope": 0.464552341943384
+              },
+              "0.3": {
+                "chest": 1.092831874436798,
+                "head": 1.1586849721095593,
+                "envelope": 0.862831874436798
+              },
+              "0.5": {
+                "chest": 1.278879483087308,
+                "head": 1.4120419433895914,
+                "envelope": 0.9776725030789697
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zornhau",
+            "gap": 1.6,
+            "event": {
+              "time": 1.1666667275130749,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 0.27083333333333304,
+              "vn": 3.034995606119172,
+              "J": 0.32474739104509354,
+              "atD": 0.5326223367682529,
+              "atO": 0.025705864437117212,
+              "incoming": 0.9028428454384491,
+              "lat": -0.03186706065339451,
+              "attackId": 0,
+              "dir": [
+                -0.02250009308127365,
+                0,
+                -0.9997468408608922
+              ],
+              "md": 1.2521819804824768,
+              "mo": 3.064918888462775,
+              "dv": 0,
+              "impulse": 0,
+              "point": [
+                0.4152910113334656,
+                1.5778645277023315,
+                -0.03959355503320694
+              ],
+              "deltaO": [
+                0,
+                0,
+                0
+              ],
+              "deltaD": [
+                0,
+                0,
+                0
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.8924120265023693,
+                "head": 0.6935333157089415,
+                "envelope": 0.5335333157089415
+              },
+              "0.2": {
+                "chest": 0.4677980938756903,
+                "head": 0.31076363595361517,
+                "envelope": 0.15076363595361517
+              },
+              "0.3": {
+                "chest": 0.5927390117080112,
+                "head": 0.36828865974705816,
+                "envelope": 0.20828865974705815
+              },
+              "0.5": {
+                "chest": 0.3974177974433831,
+                "head": 0.3754510088375046,
+                "envelope": 0.16741779744338312
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zwerch",
+            "gap": 1.4,
+            "event": {
+              "time": 1.216666730120778,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 1,
+              "vn": 5.2038894596954375,
+              "J": 4.720662474632263,
+              "atD": -0.0291528476615808,
+              "atO": 0.3341439436283527,
+              "incoming": -2.2829978995878095,
+              "lat": 0.14176618201319469,
+              "attackId": 0,
+              "dir": [
+                0.03004447637053812,
+                0,
+                0.9995485628220473
+              ],
+              "md": 4.170806378301619,
+              "mo": 1.1412716384622368,
+              "dv": 0,
+              "impulse": 0,
+              "point": [
+                -0.049116771668195724,
+                1.1770994663238525,
+                0.13549518585205078
+              ],
+              "deltaO": [
+                0,
+                0,
+                0
+              ],
+              "deltaD": [
+                0,
+                0,
+                0
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.7337190497163922,
+                "head": 0.7594379993957064,
+                "envelope": 0.48507786466049463
+              },
+              "0.2": {
+                "chest": 1.0165589425611314,
+                "head": 0.842905428878537,
+                "envelope": 0.682905428878537
+              },
+              "0.3": {
+                "chest": 1.271405848302489,
+                "head": 1.0610249298579704,
+                "envelope": 0.9010249298579703
+              },
+              "0.5": {
+                "chest": 1.3250833155625332,
+                "head": 1.1750188485487,
+                "envelope": 1.0150188485487002
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zwerch",
+            "gap": 1.6,
+            "event": {
+              "time": 1.2083333963528275,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 1,
+              "vn": 14.668257948377061,
+              "J": 3.0953309535980225,
+              "atD": -0.027894783220714193,
+              "atO": 0.539866670134179,
+              "incoming": -6.2816998351193,
+              "lat": 0.13239560155339422,
+              "attackId": 0,
+              "dir": [
+                0.020508113002776093,
+                0,
+                0.9997896865346558
+              ],
+              "md": 4.178213038836921,
+              "mo": 0.5791827253711371,
+              "dv": 0,
+              "impulse": 0,
+              "point": [
+                -0.15030504763126373,
+                1.0837690830230713,
+                0.12626250088214874
+              ],
+              "deltaO": [
+                0,
+                0,
+                0
+              ],
+              "deltaD": [
+                0,
+                0,
+                0
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 1.2644728493665944,
+                "head": 1.2425751094714161,
+                "envelope": 1.0344728493665944
+              },
+              "0.2": {
+                "chest": 1.5500037903852517,
+                "head": 1.5118760330219352,
+                "envelope": 1.3200037903852517
+              },
+              "0.3": {
+                "chest": 1.6453065928461388,
+                "head": 1.6194887281052115,
+                "envelope": 1.4153065928461388
+              },
+              "0.5": {
+                "chest": 1.4894511230554082,
+                "head": 1.494890825347427,
+                "envelope": 1.2594511230554082
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          }
+        ]
+      }
+    },
+    "offset16": {
+      "False": {
+        "conditions": 12,
+        "eligible": 4,
+        "player": {
+          "limb": 0.4523907223958835,
+          "concussion": 0.08742025350174831,
+          "bleed": 0.5111449463622377,
+          "balance": 261.3566254406021,
+          "pain": 5.763794499001437,
+          "hits": 9,
+          "effectiveHits": 9,
+          "deaths": 1,
+          "bloodLost": 0.03367581583185797
+        },
+        "enemy": {
+          "limb": 0,
+          "concussion": 0,
+          "bleed": 0.006187354220358787,
+          "balance": 91.05796944119365,
+          "pain": 1.412331947622842,
+          "hits": 7,
+          "effectiveHits": 7,
+          "deaths": 0,
+          "bloodLost": 0.004762646741284127
+        },
+        "counters": {
+          "inputs": 0,
+          "withEnemyDamage": 0,
+          "withPlayerDamage": 0,
+          "withTrade": 0,
+          "enemyLimb": 0,
+          "playerLimb": 0
+        },
+        "trajectories": [
+          {
+            "attack": "zornhau",
+            "gap": 1.4,
+            "event": {
+              "time": 1.291666734032333,
+              "d": 0,
+              "o": 1,
+              "line": "highR",
+              "w": 1,
+              "vn": 4.173146459421781,
+              "J": 1.3993639945983887,
+              "atD": 0.011299108737156888,
+              "atO": 0.22523106279880784,
+              "incoming": 0.9833726243095586,
+              "lat": 0.21824625226826808,
+              "attackId": 0,
+              "dir": [
+                0.01772302400681952,
+                0,
+                0.9998429348753002
+              ],
+              "md": 4.353756718887117,
+              "mo": 1.7283235855373669,
+              "dv": 2.921202521595246,
+              "impulse": 3,
+              "point": [
+                -0.03454480320215225,
+                1.3667075634002686,
+                0.2109145224094391
+              ],
+              "deltaO": [
+                0.07455265522003174,
+                -0.012950897216796875,
+                2.134232997894287
+              ],
+              "deltaD": [
+                -0.026490896940231323,
+                -0.0015346407890319824,
+                -1.146490216255188
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.6507962667387598,
+                "head": 0.5514351439092878,
+                "envelope": 0.3914351439092878
+              },
+              "0.2": {
+                "chest": 0.7386720335064689,
+                "head": 0.6940312816699303,
+                "envelope": 0.508672033506469
+              },
+              "0.3": {
+                "chest": 0.9765163542686358,
+                "head": 1.0869018343182248,
+                "envelope": 0.7125593882058684
+              },
+              "0.5": {
+                "chest": 1.2278046507177691,
+                "head": 1.3432793288624183,
+                "envelope": 0.9376858738100644
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zornhau",
+            "gap": 1.6,
+            "event": {
+              "time": 1.1666667275130749,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 0.27083333333333304,
+              "vn": 3.034995606119172,
+              "J": 0.32474739104509354,
+              "atD": 0.5326223367682529,
+              "atO": 0.025705864437117212,
+              "incoming": 0.9028428454384491,
+              "lat": -0.03186706065339451,
+              "attackId": 0,
+              "dir": [
+                -0.02250009308127365,
+                0,
+                -0.9997468408608922
+              ],
+              "md": 1.2521819804824768,
+              "mo": 3.064918888462775,
+              "dv": 2.12449692428342,
+              "impulse": 1.8886450556371497,
+              "point": [
+                0.4152910113334656,
+                1.5778645277023315,
+                -0.03959355503320694
+              ],
+              "deltaO": [
+                -0.029841065406799316,
+                -0.030896306037902832,
+                -1.2349420189857483
+              ],
+              "deltaD": [
+                0.09161150455474854,
+                0.03061676025390625,
+                1.5145577788352966
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.8402328038966189,
+                "head": 0.6361590813514746,
+                "envelope": 0.47615908135147456
+              },
+              "0.2": {
+                "chest": 0.3256153989139917,
+                "head": 0.2338152111229608,
+                "envelope": 0.0738152111229608
+              },
+              "0.3": {
+                "chest": 0.25651036223932244,
+                "head": 0.25345785733443243,
+                "envelope": 0.026510362239322433
+              },
+              "0.5": {
+                "chest": 0.1363016887946467,
+                "head": 0.35415315368861866,
+                "envelope": -0.0936983112053533
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.30833333333333335
+          },
+          {
+            "attack": "zwerch",
+            "gap": 1.4,
+            "event": {
+              "time": 1.216666730120778,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 1,
+              "vn": 5.2038894596954375,
+              "J": 4.720662474632263,
+              "atD": -0.0291528476615808,
+              "atO": 0.3341439436283527,
+              "incoming": -2.2829978995878095,
+              "lat": 0.14176618201319469,
+              "attackId": 0,
+              "dir": [
+                0.03004447637053812,
+                0,
+                0.9995485628220473
+              ],
+              "md": 4.170806378301619,
+              "mo": 1.1412716384622368,
+              "dv": 3.642722621786806,
+              "impulse": 3,
+              "point": [
+                -0.049116771668195724,
+                1.1770994663238525,
+                0.13549518585205078
+              ],
+              "deltaO": [
+                0.20346316695213318,
+                0.08282315731048584,
+                2.813023865222931
+              ],
+              "deltaD": [
+                -0.029023654758930206,
+                0.0013431310653686523,
+                -1.238948941230774
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.6568973478766517,
+                "head": 0.7024128169365116,
+                "envelope": 0.3987457252717367
+              },
+              "0.2": {
+                "chest": 0.9408395293128069,
+                "head": 0.7729581659905563,
+                "envelope": 0.6129581659905563
+              },
+              "0.3": {
+                "chest": 1.137968721900902,
+                "head": 0.9281890726957692,
+                "envelope": 0.7681890726957692
+              },
+              "0.5": {
+                "chest": 1.2437536563094507,
+                "head": 1.038631147712374,
+                "envelope": 0.8786311477123739
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zwerch",
+            "gap": 1.6,
+            "event": {
+              "time": 1.2083333963528275,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 1,
+              "vn": 14.668257948377061,
+              "J": 3.0953309535980225,
+              "atD": -0.027894783220714193,
+              "atO": 0.539866670134179,
+              "incoming": -6.2816998351193,
+              "lat": 0.13239560155339422,
+              "attackId": 0,
+              "dir": [
+                0.020508113002776093,
+                0,
+                0.9997896865346558
+              ],
+              "md": 4.178213038836921,
+              "mo": 0.5791827253711371,
+              "dv": 4,
+              "impulse": 2.0346836252061333,
+              "point": [
+                -0.15030504763126373,
+                1.0837690830230713,
+                0.12626250088214874
+              ],
+              "deltaO": [
+                0.4453136920928955,
+                0.2574434280395508,
+                3.5286192893981934
+              ],
+              "deltaD": [
+                -0.012687385082244873,
+                0.0009584426879882812,
+                -0.8382605910301208
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 1.2963654258969133,
+                "head": 1.2758713867752252,
+                "envelope": 1.0663654258969133
+              },
+              "0.2": {
+                "chest": 1.594326863132512,
+                "head": 1.5621352404540776,
+                "envelope": 1.364326863132512
+              },
+              "0.3": {
+                "chest": 1.6538709585097828,
+                "head": 1.6337679152644442,
+                "envelope": 1.4238709585097828
+              },
+              "0.5": {
+                "chest": 1.4920448110403945,
+                "head": 1.471044852536288,
+                "envelope": 1.2620448110403946
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          }
+        ]
+      },
+      "True": {
+        "conditions": 12,
+        "eligible": 4,
+        "player": {
+          "limb": 1.1375019803645705,
+          "concussion": 0.2665552974829911,
+          "bleed": 0.05167991405519653,
+          "balance": 277.1527592890385,
+          "pain": 5.814974318343222,
+          "hits": 12,
+          "effectiveHits": 12,
+          "deaths": 0,
+          "bloodLost": 0.043082652281220546
+        },
+        "enemy": {
+          "limb": 0.003666952131359924,
+          "concussion": 0,
+          "bleed": 0.00680507881300353,
+          "balance": 188.3276719581864,
+          "pain": 2.7350179988308283,
+          "hits": 17,
+          "effectiveHits": 17,
+          "deaths": 0,
+          "bloodLost": 0.004999459009682683
+        },
+        "counters": {
+          "inputs": 8,
+          "withEnemyDamage": 7,
+          "withPlayerDamage": 1,
+          "withTrade": 1,
+          "enemyLimb": 0.003666952131359924,
+          "playerLimb": 0.685111257968687
+        },
+        "trajectories": [
+          {
+            "attack": "zornhau",
+            "gap": 1.4,
+            "event": {
+              "time": 1.291666734032333,
+              "d": 0,
+              "o": 1,
+              "line": "highR",
+              "w": 1,
+              "vn": 4.173146459421781,
+              "J": 1.3993639945983887,
+              "atD": 0.011299108737156888,
+              "atO": 0.22523106279880784,
+              "incoming": 0.9833726243095586,
+              "lat": 0.21824625226826808,
+              "attackId": 0,
+              "dir": [
+                0.01772302400681952,
+                0,
+                0.9998429348753002
+              ],
+              "md": 4.353756718887117,
+              "mo": 1.7283235855373669,
+              "dv": 2.921202521595246,
+              "impulse": 3,
+              "point": [
+                -0.03454480320215225,
+                1.3667075634002686,
+                0.2109145224094391
+              ],
+              "deltaO": [
+                0.07455265522003174,
+                -0.012950897216796875,
+                2.134232997894287
+              ],
+              "deltaD": [
+                -0.026490896940231323,
+                -0.0015346407890319824,
+                -1.146490216255188
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.6507962667387598,
+                "head": 0.5514351439092878,
+                "envelope": 0.3914351439092878
+              },
+              "0.2": {
+                "chest": 0.7363352237867221,
+                "head": 0.6922498774222821,
+                "envelope": 0.5063352237867221
+              },
+              "0.3": {
+                "chest": 1.0067265188512267,
+                "head": 1.121886809707973,
+                "envelope": 0.7384883953560522
+              },
+              "0.5": {
+                "chest": 1.262488685790562,
+                "head": 1.399255205553421,
+                "envelope": 0.9615473177963083
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zornhau",
+            "gap": 1.6,
+            "event": {
+              "time": 1.1666667275130749,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 0.27083333333333304,
+              "vn": 3.034995606119172,
+              "J": 0.32474739104509354,
+              "atD": 0.5326223367682529,
+              "atO": 0.025705864437117212,
+              "incoming": 0.9028428454384491,
+              "lat": -0.03186706065339451,
+              "attackId": 0,
+              "dir": [
+                -0.02250009308127365,
+                0,
+                -0.9997468408608922
+              ],
+              "md": 1.2521819804824768,
+              "mo": 3.064918888462775,
+              "dv": 2.12449692428342,
+              "impulse": 1.8886450556371497,
+              "point": [
+                0.4152910113334656,
+                1.5778645277023315,
+                -0.03959355503320694
+              ],
+              "deltaO": [
+                -0.029841065406799316,
+                -0.030896306037902832,
+                -1.2349420189857483
+              ],
+              "deltaD": [
+                0.09161150455474854,
+                0.03061676025390625,
+                1.5145577788352966
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.8402328038966189,
+                "head": 0.6361590813514746,
+                "envelope": 0.47615908135147456
+              },
+              "0.2": {
+                "chest": 0.3256153989139917,
+                "head": 0.2338152111229608,
+                "envelope": 0.0738152111229608
+              },
+              "0.3": {
+                "chest": 0.25876205517185447,
+                "head": 0.2603027179502116,
+                "envelope": 0.028762055171854456
+              },
+              "0.5": {
+                "chest": 0.1272322836339563,
+                "head": 0.352032663448799,
+                "envelope": -0.1027677163660437
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.31666666666666665
+          },
+          {
+            "attack": "zwerch",
+            "gap": 1.4,
+            "event": {
+              "time": 1.216666730120778,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 1,
+              "vn": 5.2038894596954375,
+              "J": 4.720662474632263,
+              "atD": -0.0291528476615808,
+              "atO": 0.3341439436283527,
+              "incoming": -2.2829978995878095,
+              "lat": 0.14176618201319469,
+              "attackId": 0,
+              "dir": [
+                0.03004447637053812,
+                0,
+                0.9995485628220473
+              ],
+              "md": 4.170806378301619,
+              "mo": 1.1412716384622368,
+              "dv": 3.642722621786806,
+              "impulse": 3,
+              "point": [
+                -0.049116771668195724,
+                1.1770994663238525,
+                0.13549518585205078
+              ],
+              "deltaO": [
+                0.20346316695213318,
+                0.08282315731048584,
+                2.813023865222931
+              ],
+              "deltaD": [
+                -0.029023654758930206,
+                0.0013431310653686523,
+                -1.238948941230774
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.6568973478766517,
+                "head": 0.7024128169365116,
+                "envelope": 0.3987457252717367
+              },
+              "0.2": {
+                "chest": 0.9408395293128069,
+                "head": 0.7729581659905563,
+                "envelope": 0.6129581659905563
+              },
+              "0.3": {
+                "chest": 1.1359815009421026,
+                "head": 0.927727167779992,
+                "envelope": 0.767727167779992
+              },
+              "0.5": {
+                "chest": 1.2595434083132415,
+                "head": 1.1196401662370707,
+                "envelope": 0.9596401662370707
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zwerch",
+            "gap": 1.6,
+            "event": {
+              "time": 1.2083333963528275,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 1,
+              "vn": 14.668257948377061,
+              "J": 3.0953309535980225,
+              "atD": -0.027894783220714193,
+              "atO": 0.539866670134179,
+              "incoming": -6.2816998351193,
+              "lat": 0.13239560155339422,
+              "attackId": 0,
+              "dir": [
+                0.020508113002776093,
+                0,
+                0.9997896865346558
+              ],
+              "md": 4.178213038836921,
+              "mo": 0.5791827253711371,
+              "dv": 4,
+              "impulse": 2.0346836252061333,
+              "point": [
+                -0.15030504763126373,
+                1.0837690830230713,
+                0.12626250088214874
+              ],
+              "deltaO": [
+                0.4453136920928955,
+                0.2574434280395508,
+                3.5286192893981934
+              ],
+              "deltaD": [
+                -0.012687385082244873,
+                0.0009584426879882812,
+                -0.8382605910301208
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 1.2963654258969133,
+                "head": 1.2758713867752252,
+                "envelope": 1.0663654258969133
+              },
+              "0.2": {
+                "chest": 1.594326863132512,
+                "head": 1.5621352404540776,
+                "envelope": 1.364326863132512
+              },
+              "0.3": {
+                "chest": 1.654452818486317,
+                "head": 1.6354593792828447,
+                "envelope": 1.424452818486317
+              },
+              "0.5": {
+                "chest": 1.494180689139126,
+                "head": 1.5004272278982842,
+                "envelope": 1.264180689139126
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          }
+        ]
+      }
+    },
+    "offset24": {
+      "False": {
+        "conditions": 12,
+        "eligible": 4,
+        "player": {
+          "limb": 0.4523907223958835,
+          "concussion": 0.08742025350174831,
+          "bleed": 0.5111449463622377,
+          "balance": 260.8993154636669,
+          "pain": 5.757697032642301,
+          "hits": 9,
+          "effectiveHits": 9,
+          "deaths": 1,
+          "bloodLost": 0.03367581583185797
+        },
+        "enemy": {
+          "limb": 0,
+          "concussion": 0,
+          "bleed": 0.006150781574342829,
+          "balance": 86.00499418791728,
+          "pain": 1.3434960384051855,
+          "hits": 6,
+          "effectiveHits": 6,
+          "deaths": 0,
+          "bloodLost": 0.004740614365466134
+        },
+        "counters": {
+          "inputs": 0,
+          "withEnemyDamage": 0,
+          "withPlayerDamage": 0,
+          "withTrade": 0,
+          "enemyLimb": 0,
+          "playerLimb": 0
+        },
+        "trajectories": [
+          {
+            "attack": "zornhau",
+            "gap": 1.4,
+            "event": {
+              "time": 1.291666734032333,
+              "d": 0,
+              "o": 1,
+              "line": "highR",
+              "w": 1,
+              "vn": 4.173146459421781,
+              "J": 1.3993639945983887,
+              "atD": 0.011299108737156888,
+              "atO": 0.22523106279880784,
+              "incoming": 0.9833726243095586,
+              "lat": 0.21824625226826808,
+              "attackId": 0,
+              "dir": [
+                0.01772302400681952,
+                0,
+                0.9998429348753002
+              ],
+              "md": 4.353756718887117,
+              "mo": 1.7283235855373669,
+              "dv": 2.921202521595246,
+              "impulse": 3,
+              "point": [
+                -0.03454480320215225,
+                1.3667075634002686,
+                0.2109145224094391
+              ],
+              "deltaO": [
+                0.07455265522003174,
+                -0.012950897216796875,
+                2.134232997894287
+              ],
+              "deltaD": [
+                -0.026490896940231323,
+                -0.0015346407890319824,
+                -1.146490216255188
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.6880904711188202,
+                "head": 0.6010500324195003,
+                "envelope": 0.44105003241950025
+              },
+              "0.2": {
+                "chest": 0.751970154717633,
+                "head": 0.712873290702709,
+                "envelope": 0.521970154717633
+              },
+              "0.3": {
+                "chest": 1.002315200234856,
+                "head": 1.1104493139886151,
+                "envelope": 0.7373703577244568
+              },
+              "0.5": {
+                "chest": 1.248090661592559,
+                "head": 1.3593698631818911,
+                "envelope": 0.9602635499348602
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zornhau",
+            "gap": 1.6,
+            "event": {
+              "time": 1.1666667275130749,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 0.27083333333333304,
+              "vn": 3.034995606119172,
+              "J": 0.32474739104509354,
+              "atD": 0.5326223367682529,
+              "atO": 0.025705864437117212,
+              "incoming": 0.9028428454384491,
+              "lat": -0.03186706065339451,
+              "attackId": 0,
+              "dir": [
+                -0.02250009308127365,
+                0,
+                -0.9997468408608922
+              ],
+              "md": 1.2521819804824768,
+              "mo": 3.064918888462775,
+              "dv": 2.12449692428342,
+              "impulse": 1.8886450556371497,
+              "point": [
+                0.4152910113334656,
+                1.5778645277023315,
+                -0.03959355503320694
+              ],
+              "deltaO": [
+                -0.029841065406799316,
+                -0.030896306037902832,
+                -1.2349420189857483
+              ],
+              "deltaD": [
+                0.09161150455474854,
+                0.03061676025390625,
+                1.5145577788352966
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.8387994349857242,
+                "head": 0.6377678448052593,
+                "envelope": 0.47776784480525925
+              },
+              "0.2": {
+                "chest": 0.31897824140055886,
+                "head": 0.24027308204680042,
+                "envelope": 0.08027308204680042
+              },
+              "0.3": {
+                "chest": 0.24720479790098457,
+                "head": 0.24322300765708488,
+                "envelope": 0.01720479790098456
+              },
+              "0.5": {
+                "chest": 0.13616816592102612,
+                "head": 0.3501261198782995,
+                "envelope": -0.09383183407897389
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.30833333333333335
+          },
+          {
+            "attack": "zwerch",
+            "gap": 1.4,
+            "event": {
+              "time": 1.216666730120778,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 1,
+              "vn": 5.2038894596954375,
+              "J": 4.720662474632263,
+              "atD": -0.0291528476615808,
+              "atO": 0.3341439436283527,
+              "incoming": -2.2829978995878095,
+              "lat": 0.14176618201319469,
+              "attackId": 0,
+              "dir": [
+                0.03004447637053812,
+                0,
+                0.9995485628220473
+              ],
+              "md": 4.170806378301619,
+              "mo": 1.1412716384622368,
+              "dv": 3.642722621786806,
+              "impulse": 3,
+              "point": [
+                -0.049116771668195724,
+                1.1770994663238525,
+                0.13549518585205078
+              ],
+              "deltaO": [
+                0.20346316695213318,
+                0.08282315731048584,
+                2.813023865222931
+              ],
+              "deltaD": [
+                -0.029023654758930206,
+                0.0013431310653686523,
+                -1.238948941230774
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.595470652266905,
+                "head": 0.6672209458141897,
+                "envelope": 0.3189851352423232
+              },
+              "0.2": {
+                "chest": 0.8425352575869812,
+                "head": 0.7193359067566154,
+                "envelope": 0.5593359067566154
+              },
+              "0.3": {
+                "chest": 1.0376598848495724,
+                "head": 0.8285821817088723,
+                "envelope": 0.6685821817088723
+              },
+              "0.5": {
+                "chest": 1.2496113076258706,
+                "head": 1.0462879662882183,
+                "envelope": 0.8862879662882183
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zwerch",
+            "gap": 1.6,
+            "event": {
+              "time": 1.2083333963528275,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 1,
+              "vn": 14.668257948377061,
+              "J": 3.0953309535980225,
+              "atD": -0.027894783220714193,
+              "atO": 0.539866670134179,
+              "incoming": -6.2816998351193,
+              "lat": 0.13239560155339422,
+              "attackId": 0,
+              "dir": [
+                0.020508113002776093,
+                0,
+                0.9997896865346558
+              ],
+              "md": 4.178213038836921,
+              "mo": 0.5791827253711371,
+              "dv": 4,
+              "impulse": 2.0346836252061333,
+              "point": [
+                -0.15030504763126373,
+                1.0837690830230713,
+                0.12626250088214874
+              ],
+              "deltaO": [
+                0.4453136920928955,
+                0.2574434280395508,
+                3.5286192893981934
+              ],
+              "deltaD": [
+                -0.012687385082244873,
+                0.0009584426879882812,
+                -0.8382605910301208
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 1.2993350265424988,
+                "head": 1.2804790783074254,
+                "envelope": 1.0693350265424988
+              },
+              "0.2": {
+                "chest": 1.5748854390593758,
+                "head": 1.5413865577868082,
+                "envelope": 1.3448854390593759
+              },
+              "0.3": {
+                "chest": 1.6240467941105536,
+                "head": 1.6002923090630887,
+                "envelope": 1.3940467941105537
+              },
+              "0.5": {
+                "chest": 1.6264593039647965,
+                "head": 1.620207304411888,
+                "envelope": 1.3964593039647966
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          }
+        ]
+      },
+      "True": {
+        "conditions": 12,
+        "eligible": 4,
+        "player": {
+          "limb": 1.1375019803645705,
+          "concussion": 0.2665552974829911,
+          "bleed": 0.05167991405519653,
+          "balance": 276.6954493121033,
+          "pain": 5.808876851984086,
+          "hits": 12,
+          "effectiveHits": 12,
+          "deaths": 0,
+          "bloodLost": 0.043082652281220546
+        },
+        "enemy": {
+          "limb": 0.03224206662204099,
+          "concussion": 0,
+          "bleed": 0.009533537759069404,
+          "balance": 202.7667483247805,
+          "pain": 3.044841693320627,
+          "hits": 17,
+          "effectiveHits": 17,
+          "deaths": 0,
+          "bloodLost": 0.006205629535632973
+        },
+        "counters": {
+          "inputs": 8,
+          "withEnemyDamage": 7,
+          "withPlayerDamage": 1,
+          "withTrade": 1,
+          "enemyLimb": 0.03224206662204099,
+          "playerLimb": 0.685111257968687
+        },
+        "trajectories": [
+          {
+            "attack": "zornhau",
+            "gap": 1.4,
+            "event": {
+              "time": 1.291666734032333,
+              "d": 0,
+              "o": 1,
+              "line": "highR",
+              "w": 1,
+              "vn": 4.173146459421781,
+              "J": 1.3993639945983887,
+              "atD": 0.011299108737156888,
+              "atO": 0.22523106279880784,
+              "incoming": 0.9833726243095586,
+              "lat": 0.21824625226826808,
+              "attackId": 0,
+              "dir": [
+                0.01772302400681952,
+                0,
+                0.9998429348753002
+              ],
+              "md": 4.353756718887117,
+              "mo": 1.7283235855373669,
+              "dv": 2.921202521595246,
+              "impulse": 3,
+              "point": [
+                -0.03454480320215225,
+                1.3667075634002686,
+                0.2109145224094391
+              ],
+              "deltaO": [
+                0.07455265522003174,
+                -0.012950897216796875,
+                2.134232997894287
+              ],
+              "deltaD": [
+                -0.026490896940231323,
+                -0.0015346407890319824,
+                -1.146490216255188
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.6880904711188202,
+                "head": 0.6010500324195003,
+                "envelope": 0.44105003241950025
+              },
+              "0.2": {
+                "chest": 0.7482970089503663,
+                "head": 0.7089199411691518,
+                "envelope": 0.5182970089503663
+              },
+              "0.3": {
+                "chest": 1.0300373935824187,
+                "head": 1.1362118344590841,
+                "envelope": 0.7680448172169274
+              },
+              "0.5": {
+                "chest": 1.276664260691338,
+                "head": 1.4112839516103894,
+                "envelope": 0.975622686853753
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zornhau",
+            "gap": 1.6,
+            "event": {
+              "time": 1.1666667275130749,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 0.27083333333333304,
+              "vn": 3.034995606119172,
+              "J": 0.32474739104509354,
+              "atD": 0.5326223367682529,
+              "atO": 0.025705864437117212,
+              "incoming": 0.9028428454384491,
+              "lat": -0.03186706065339451,
+              "attackId": 0,
+              "dir": [
+                -0.02250009308127365,
+                0,
+                -0.9997468408608922
+              ],
+              "md": 1.2521819804824768,
+              "mo": 3.064918888462775,
+              "dv": 2.12449692428342,
+              "impulse": 1.8886450556371497,
+              "point": [
+                0.4152910113334656,
+                1.5778645277023315,
+                -0.03959355503320694
+              ],
+              "deltaO": [
+                -0.029841065406799316,
+                -0.030896306037902832,
+                -1.2349420189857483
+              ],
+              "deltaD": [
+                0.09161150455474854,
+                0.03061676025390625,
+                1.5145577788352966
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.8387994349857242,
+                "head": 0.6377678448052593,
+                "envelope": 0.47776784480525925
+              },
+              "0.2": {
+                "chest": 0.31897824140055886,
+                "head": 0.24027308204680042,
+                "envelope": 0.08027308204680042
+              },
+              "0.3": {
+                "chest": 0.255001598193266,
+                "head": 0.2541194399015048,
+                "envelope": 0.025001598193266
+              },
+              "0.5": {
+                "chest": 0.12704379636400862,
+                "head": 0.3497177115357583,
+                "envelope": -0.1029562036359914
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.31666666666666665
+          },
+          {
+            "attack": "zwerch",
+            "gap": 1.4,
+            "event": {
+              "time": 1.216666730120778,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 1,
+              "vn": 5.2038894596954375,
+              "J": 4.720662474632263,
+              "atD": -0.0291528476615808,
+              "atO": 0.3341439436283527,
+              "incoming": -2.2829978995878095,
+              "lat": 0.14176618201319469,
+              "attackId": 0,
+              "dir": [
+                0.03004447637053812,
+                0,
+                0.9995485628220473
+              ],
+              "md": 4.170806378301619,
+              "mo": 1.1412716384622368,
+              "dv": 3.642722621786806,
+              "impulse": 3,
+              "point": [
+                -0.049116771668195724,
+                1.1770994663238525,
+                0.13549518585205078
+              ],
+              "deltaO": [
+                0.20346316695213318,
+                0.08282315731048584,
+                2.813023865222931
+              ],
+              "deltaD": [
+                -0.029023654758930206,
+                0.0013431310653686523,
+                -1.238948941230774
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.595470652266905,
+                "head": 0.6672209458141897,
+                "envelope": 0.3189851352423232
+              },
+              "0.2": {
+                "chest": 0.8425352575869812,
+                "head": 0.7193359067566154,
+                "envelope": 0.5593359067566154
+              },
+              "0.3": {
+                "chest": 1.034762539269803,
+                "head": 0.8274751224469502,
+                "envelope": 0.6674751224469502
+              },
+              "0.5": {
+                "chest": 1.2194375083430906,
+                "head": 1.079779024152915,
+                "envelope": 0.919779024152915
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zwerch",
+            "gap": 1.6,
+            "event": {
+              "time": 1.2083333963528275,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 1,
+              "vn": 14.668257948377061,
+              "J": 3.0953309535980225,
+              "atD": -0.027894783220714193,
+              "atO": 0.539866670134179,
+              "incoming": -6.2816998351193,
+              "lat": 0.13239560155339422,
+              "attackId": 0,
+              "dir": [
+                0.020508113002776093,
+                0,
+                0.9997896865346558
+              ],
+              "md": 4.178213038836921,
+              "mo": 0.5791827253711371,
+              "dv": 4,
+              "impulse": 2.0346836252061333,
+              "point": [
+                -0.15030504763126373,
+                1.0837690830230713,
+                0.12626250088214874
+              ],
+              "deltaO": [
+                0.4453136920928955,
+                0.2574434280395508,
+                3.5286192893981934
+              ],
+              "deltaD": [
+                -0.012687385082244873,
+                0.0009584426879882812,
+                -0.8382605910301208
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 1.2993350265424988,
+                "head": 1.2804790783074254,
+                "envelope": 1.0693350265424988
+              },
+              "0.2": {
+                "chest": 1.5748854390593758,
+                "head": 1.5413865577868082,
+                "envelope": 1.3448854390593759
+              },
+              "0.3": {
+                "chest": 1.62519138521088,
+                "head": 1.6029075560269122,
+                "envelope": 1.39519138521088
+              },
+              "0.5": {
+                "chest": 1.5261466958374965,
+                "head": 1.5356442664383052,
+                "envelope": 1.2961466958374965
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          }
+        ]
+      }
+    },
+    "impulse6": {
+      "False": {
+        "conditions": 12,
+        "eligible": 4,
+        "player": {
+          "limb": 0.4523907223958835,
+          "concussion": 0.08742025350174831,
+          "bleed": 0.5111449463622377,
+          "balance": 249.08806183829066,
+          "pain": 5.600213650970617,
+          "hits": 8,
+          "effectiveHits": 8,
+          "deaths": 1,
+          "bloodLost": 0.03367581583185797
+        },
+        "enemy": {
+          "limb": 0,
+          "concussion": 0,
+          "bleed": 0.006150781574342829,
+          "balance": 103.18435774218761,
+          "pain": 1.57255421912879,
+          "hits": 8,
+          "effectiveHits": 8,
+          "deaths": 0,
+          "bloodLost": 0.004740614365466134
+        },
+        "counters": {
+          "inputs": 0,
+          "withEnemyDamage": 0,
+          "withPlayerDamage": 0,
+          "withTrade": 0,
+          "enemyLimb": 0,
+          "playerLimb": 0
+        },
+        "trajectories": [
+          {
+            "attack": "zornhau",
+            "gap": 1.4,
+            "event": {
+              "time": 1.291666734032333,
+              "d": 0,
+              "o": 1,
+              "line": "highR",
+              "w": 1,
+              "vn": 4.173146459421781,
+              "J": 1.3993639945983887,
+              "atD": 0.011299108737156888,
+              "atO": 0.22523106279880784,
+              "incoming": 0.9833726243095586,
+              "lat": 0.21824625226826808,
+              "attackId": 0,
+              "dir": [
+                0.01772302400681952,
+                0,
+                0.9998429348753002
+              ],
+              "md": 4.353756718887117,
+              "mo": 1.7283235855373669,
+              "dv": 5.842405043190492,
+              "impulse": 6,
+              "point": [
+                -0.03454480320215225,
+                1.3667075634002686,
+                0.2109145224094391
+              ],
+              "deltaO": [
+                0.14910531044006348,
+                -0.025902271270751953,
+                4.268465518951416
+              ],
+              "deltaD": [
+                -0.05298177897930145,
+                -0.003069251775741577,
+                -2.292980194091797
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.5338963014776734,
+                "head": 0.4587503811848952,
+                "envelope": 0.29875038118489516
+              },
+              "0.2": {
+                "chest": 0.6811136872986939,
+                "head": 0.6362303346852727,
+                "envelope": 0.45111368729869394
+              },
+              "0.3": {
+                "chest": 1.043087432044142,
+                "head": 1.124931654474573,
+                "envelope": 0.8019602959758128
+              },
+              "0.5": {
+                "chest": 1.2190000744836795,
+                "head": 1.3254804320768243,
+                "envelope": 0.9381909467966381
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zornhau",
+            "gap": 1.6,
+            "event": {
+              "time": 1.1666667275130749,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 0.27083333333333304,
+              "vn": 3.034995606119172,
+              "J": 0.32474739104509354,
+              "atD": 0.5326223367682529,
+              "atO": 0.025705864437117212,
+              "incoming": 0.9028428454384491,
+              "lat": -0.03186706065339451,
+              "attackId": 0,
+              "dir": [
+                -0.02250009308127365,
+                0,
+                -0.9997468408608922
+              ],
+              "md": 1.2521819804824768,
+              "mo": 3.064918888462775,
+              "dv": 4.24899384856684,
+              "impulse": 3.7772901112742994,
+              "point": [
+                0.4152910113334656,
+                1.5778645277023315,
+                -0.03959355503320694
+              ],
+              "deltaO": [
+                -0.05968201160430908,
+                -0.061792731285095215,
+                -2.4698840379714966
+              ],
+              "deltaD": [
+                0.18322288990020752,
+                0.061233699321746826,
+                3.029115319252014
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.8105399920170493,
+                "head": 0.5963071947973942,
+                "envelope": 0.4363071947973942
+              },
+              "0.2": {
+                "chest": 0.5515029193847055,
+                "head": 0.3895585324642711,
+                "envelope": 0.22955853246427108
+              },
+              "0.3": {
+                "chest": 0.4319166410175783,
+                "head": 0.5060923967411017,
+                "envelope": 0.2019166410175783
+              },
+              "0.5": {
+                "chest": 0.8337297793173958,
+                "head": 0.9651630795732213,
+                "envelope": 0.5645916744300435
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zwerch",
+            "gap": 1.4,
+            "event": {
+              "time": 1.216666730120778,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 1,
+              "vn": 5.2038894596954375,
+              "J": 4.720662474632263,
+              "atD": -0.0291528476615808,
+              "atO": 0.3341439436283527,
+              "incoming": -2.2829978995878095,
+              "lat": 0.14176618201319469,
+              "attackId": 0,
+              "dir": [
+                0.03004447637053812,
+                0,
+                0.9995485628220473
+              ],
+              "md": 4.170806378301619,
+              "mo": 1.1412716384622368,
+              "dv": 7.285445243573612,
+              "impulse": 6,
+              "point": [
+                -0.049116771668195724,
+                1.1770994663238525,
+                0.13549518585205078
+              ],
+              "deltaO": [
+                0.40692634880542755,
+                0.16564643383026123,
+                5.626047670841217
+              ],
+              "deltaD": [
+                -0.05804731696844101,
+                0.002686142921447754,
+                -2.477897882461548
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.7200466566773417,
+                "head": 0.7421880249555445,
+                "envelope": 0.47645747617377854
+              },
+              "0.2": {
+                "chest": 0.9814822890981839,
+                "head": 0.8083574029562478,
+                "envelope": 0.6483574029562478
+              },
+              "0.3": {
+                "chest": 1.186179127240725,
+                "head": 0.977243069568559,
+                "envelope": 0.817243069568559
+              },
+              "0.5": {
+                "chest": 1.235580224859871,
+                "head": 1.028452399750076,
+                "envelope": 0.868452399750076
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zwerch",
+            "gap": 1.6,
+            "event": {
+              "time": 1.2083333963528275,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 1,
+              "vn": 14.668257948377061,
+              "J": 3.0953309535980225,
+              "atD": -0.027894783220714193,
+              "atO": 0.539866670134179,
+              "incoming": -6.2816998351193,
+              "lat": 0.13239560155339422,
+              "attackId": 0,
+              "dir": [
+                0.020508113002776093,
+                0,
+                0.9997896865346558
+              ],
+              "md": 4.178213038836921,
+              "mo": 0.5791827253711371,
+              "dv": 8,
+              "impulse": 4.069367250412267,
+              "point": [
+                -0.15030504763126373,
+                1.0837690830230713,
+                0.12626250088214874
+              ],
+              "deltaO": [
+                0.890627384185791,
+                0.5148868560791016,
+                7.057240009307861
+              ],
+              "deltaD": [
+                -0.02537471055984497,
+                0.0019169449806213379,
+                -1.6765216588974
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 1.2594925508815014,
+                "head": 1.2396647967831553,
+                "envelope": 1.0294925508815014
+              },
+              "0.2": {
+                "chest": 1.5771551235670898,
+                "head": 1.539945952910043,
+                "envelope": 1.3471551235670898
+              },
+              "0.3": {
+                "chest": 1.6807697735304377,
+                "head": 1.6622956515266545,
+                "envelope": 1.4507697735304377
+              },
+              "0.5": {
+                "chest": 1.489359298910074,
+                "head": 1.46658968299779,
+                "envelope": 1.259359298910074
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          }
+        ]
+      },
+      "True": {
+        "conditions": 12,
+        "eligible": 4,
+        "player": {
+          "limb": 1.1375019803645705,
+          "concussion": 0.2665552974829911,
+          "bleed": 0.05167991405519653,
+          "balance": 264.8841956867271,
+          "pain": 5.651393470312403,
+          "hits": 11,
+          "effectiveHits": 11,
+          "deaths": 0,
+          "bloodLost": 0.043082652281220546
+        },
+        "enemy": {
+          "limb": 0.5073414578389105,
+          "concussion": 0,
+          "bleed": 0.017022384242319485,
+          "balance": 251.59699934453067,
+          "pain": 4.131208249452119,
+          "hits": 21,
+          "effectiveHits": 21,
+          "deaths": 0,
+          "bloodLost": 0.008706797825743462
+        },
+        "counters": {
+          "inputs": 8,
+          "withEnemyDamage": 8,
+          "withPlayerDamage": 1,
+          "withTrade": 1,
+          "enemyLimb": 0.5073414578389105,
+          "playerLimb": 0.685111257968687
+        },
+        "trajectories": [
+          {
+            "attack": "zornhau",
+            "gap": 1.4,
+            "event": {
+              "time": 1.291666734032333,
+              "d": 0,
+              "o": 1,
+              "line": "highR",
+              "w": 1,
+              "vn": 4.173146459421781,
+              "J": 1.3993639945983887,
+              "atD": 0.011299108737156888,
+              "atO": 0.22523106279880784,
+              "incoming": 0.9833726243095586,
+              "lat": 0.21824625226826808,
+              "attackId": 0,
+              "dir": [
+                0.01772302400681952,
+                0,
+                0.9998429348753002
+              ],
+              "md": 4.353756718887117,
+              "mo": 1.7283235855373669,
+              "dv": 5.842405043190492,
+              "impulse": 6,
+              "point": [
+                -0.03454480320215225,
+                1.3667075634002686,
+                0.2109145224094391
+              ],
+              "deltaO": [
+                0.14910531044006348,
+                -0.025902271270751953,
+                4.268465518951416
+              ],
+              "deltaD": [
+                -0.05298177897930145,
+                -0.003069251775741577,
+                -2.292980194091797
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.5338963014776734,
+                "head": 0.4587503811848952,
+                "envelope": 0.29875038118489516
+              },
+              "0.2": {
+                "chest": 0.6783760536843142,
+                "head": 0.6358216381338349,
+                "envelope": 0.4483760536843142
+              },
+              "0.3": {
+                "chest": 1.0433789998332135,
+                "head": 1.1389456961959024,
+                "envelope": 0.7922426317595694
+              },
+              "0.5": {
+                "chest": 1.2603577889460273,
+                "head": 1.4012827379199888,
+                "envelope": 0.9544281637715668
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zornhau",
+            "gap": 1.6,
+            "event": {
+              "time": 1.1666667275130749,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 0.27083333333333304,
+              "vn": 3.034995606119172,
+              "J": 0.32474739104509354,
+              "atD": 0.5326223367682529,
+              "atO": 0.025705864437117212,
+              "incoming": 0.9028428454384491,
+              "lat": -0.03186706065339451,
+              "attackId": 0,
+              "dir": [
+                -0.02250009308127365,
+                0,
+                -0.9997468408608922
+              ],
+              "md": 1.2521819804824768,
+              "mo": 3.064918888462775,
+              "dv": 4.24899384856684,
+              "impulse": 3.7772901112742994,
+              "point": [
+                0.4152910113334656,
+                1.5778645277023315,
+                -0.03959355503320694
+              ],
+              "deltaO": [
+                -0.05968201160430908,
+                -0.061792731285095215,
+                -2.4698840379714966
+              ],
+              "deltaD": [
+                0.18322288990020752,
+                0.061233699321746826,
+                3.029115319252014
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.8105399920170493,
+                "head": 0.5963071947973942,
+                "envelope": 0.4363071947973942
+              },
+              "0.2": {
+                "chest": 0.5515029193847055,
+                "head": 0.3895585324642711,
+                "envelope": 0.22955853246427108
+              },
+              "0.3": {
+                "chest": 0.4312284704366569,
+                "head": 0.509764955519174,
+                "envelope": 0.2012284704366569
+              },
+              "0.5": {
+                "chest": 1.3556811492467757,
+                "head": 1.485303839764489,
+                "envelope": 1.0569760752129176
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zwerch",
+            "gap": 1.4,
+            "event": {
+              "time": 1.216666730120778,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 1,
+              "vn": 5.2038894596954375,
+              "J": 4.720662474632263,
+              "atD": -0.0291528476615808,
+              "atO": 0.3341439436283527,
+              "incoming": -2.2829978995878095,
+              "lat": 0.14176618201319469,
+              "attackId": 0,
+              "dir": [
+                0.03004447637053812,
+                0,
+                0.9995485628220473
+              ],
+              "md": 4.170806378301619,
+              "mo": 1.1412716384622368,
+              "dv": 7.285445243573612,
+              "impulse": 6,
+              "point": [
+                -0.049116771668195724,
+                1.1770994663238525,
+                0.13549518585205078
+              ],
+              "deltaO": [
+                0.40692634880542755,
+                0.16564643383026123,
+                5.626047670841217
+              ],
+              "deltaD": [
+                -0.05804731696844101,
+                0.002686142921447754,
+                -2.477897882461548
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.7200466566773417,
+                "head": 0.7421880249555445,
+                "envelope": 0.47645747617377854
+              },
+              "0.2": {
+                "chest": 0.9814822890981839,
+                "head": 0.8083574029562478,
+                "envelope": 0.6483574029562478
+              },
+              "0.3": {
+                "chest": 1.1864487469383505,
+                "head": 0.9787807364348522,
+                "envelope": 0.8187807364348522
+              },
+              "0.5": {
+                "chest": 1.2101060778945352,
+                "head": 1.062338320066931,
+                "envelope": 0.9023383200669309
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zwerch",
+            "gap": 1.6,
+            "event": {
+              "time": 1.2083333963528275,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 1,
+              "vn": 14.668257948377061,
+              "J": 3.0953309535980225,
+              "atD": -0.027894783220714193,
+              "atO": 0.539866670134179,
+              "incoming": -6.2816998351193,
+              "lat": 0.13239560155339422,
+              "attackId": 0,
+              "dir": [
+                0.020508113002776093,
+                0,
+                0.9997896865346558
+              ],
+              "md": 4.178213038836921,
+              "mo": 0.5791827253711371,
+              "dv": 8,
+              "impulse": 4.069367250412267,
+              "point": [
+                -0.15030504763126373,
+                1.0837690830230713,
+                0.12626250088214874
+              ],
+              "deltaO": [
+                0.890627384185791,
+                0.5148868560791016,
+                7.057240009307861
+              ],
+              "deltaD": [
+                -0.02537471055984497,
+                0.0019169449806213379,
+                -1.6765216588974
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 1.2594925508815014,
+                "head": 1.2396647967831553,
+                "envelope": 1.0294925508815014
+              },
+              "0.2": {
+                "chest": 1.5771551235670898,
+                "head": 1.539945952910043,
+                "envelope": 1.3471551235670898
+              },
+              "0.3": {
+                "chest": 1.6813414835251392,
+                "head": 1.6638128065457853,
+                "envelope": 1.4513414835251393
+              },
+              "0.5": {
+                "chest": 1.461532240282657,
+                "head": 1.465683732369735,
+                "envelope": 1.231532240282657
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          }
+        ]
+      }
+    },
+    "impulse9": {
+      "False": {
+        "conditions": 12,
+        "eligible": 4,
+        "player": {
+          "limb": 1.102743184220325,
+          "concussion": 0.08742025350174831,
+          "bleed": 0.5222938457077996,
+          "balance": 303.02499627025736,
+          "pain": 7.062632733100964,
+          "hits": 9,
+          "effectiveHits": 9,
+          "deaths": 1,
+          "bloodLost": 0.04243719278706937
+        },
+        "enemy": {
+          "limb": 0.01106544870208348,
+          "concussion": 0,
+          "bleed": 0.0063878983322446185,
+          "balance": 118.48990403779473,
+          "pain": 1.7892743968249802,
+          "hits": 8,
+          "effectiveHits": 8,
+          "deaths": 0,
+          "bloodLost": 0.004881625111481602
+        },
+        "counters": {
+          "inputs": 0,
+          "withEnemyDamage": 0,
+          "withPlayerDamage": 0,
+          "withTrade": 0,
+          "enemyLimb": 0,
+          "playerLimb": 0
+        },
+        "trajectories": [
+          {
+            "attack": "zornhau",
+            "gap": 1.4,
+            "event": {
+              "time": 1.291666734032333,
+              "d": 0,
+              "o": 1,
+              "line": "highR",
+              "w": 1,
+              "vn": 4.173146459421781,
+              "J": 1.3993639945983887,
+              "atD": 0.011299108737156888,
+              "atO": 0.22523106279880784,
+              "incoming": 0.9833726243095586,
+              "lat": 0.21824625226826808,
+              "attackId": 0,
+              "dir": [
+                0.01772302400681952,
+                0,
+                0.9998429348753002
+              ],
+              "md": 4.353756718887117,
+              "mo": 1.7283235855373669,
+              "dv": 8.76360756478574,
+              "impulse": 9,
+              "point": [
+                -0.03454480320215225,
+                1.3667075634002686,
+                0.2109145224094391
+              ],
+              "deltaO": [
+                0.22365805506706238,
+                -0.03885316848754883,
+                6.4026994705200195
+              ],
+              "deltaD": [
+                -0.07947267591953278,
+                -0.00460389256477356,
+                -3.4394702911376953
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.5235992679048439,
+                "head": 0.46314548753369333,
+                "envelope": 0.2935992679048439
+              },
+              "0.2": {
+                "chest": 0.6680414678390392,
+                "head": 0.6376046192186021,
+                "envelope": 0.4380414678390392
+              },
+              "0.3": {
+                "chest": 1.0334594929174827,
+                "head": 1.1164653273120149,
+                "envelope": 0.7901951066070094
+              },
+              "0.5": {
+                "chest": 1.2287384219955177,
+                "head": 1.3312137271775082,
+                "envelope": 0.9470943710540545
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zornhau",
+            "gap": 1.6,
+            "event": {
+              "time": 1.1666667275130749,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 0.27083333333333304,
+              "vn": 3.034995606119172,
+              "J": 0.32474739104509354,
+              "atD": 0.5326223367682529,
+              "atO": 0.025705864437117212,
+              "incoming": 0.9028428454384491,
+              "lat": -0.03186706065339451,
+              "attackId": 0,
+              "dir": [
+                -0.02250009308127365,
+                0,
+                -0.9997468408608922
+              ],
+              "md": 1.2521819804824768,
+              "mo": 3.064918888462775,
+              "dv": 6.373490772850261,
+              "impulse": 5.665935166911449,
+              "point": [
+                0.4152910113334656,
+                1.5778645277023315,
+                -0.03959355503320694
+              ],
+              "deltaO": [
+                -0.0895230770111084,
+                -0.09268903732299805,
+                -3.7048263549804688
+              ],
+              "deltaD": [
+                0.2748345136642456,
+                0.09185165166854858,
+                4.543680191040039
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.8192581294039479,
+                "head": 0.6269559032325861,
+                "envelope": 0.46695590323258607
+              },
+              "0.2": {
+                "chest": 0.2992977173488067,
+                "head": 0.31207900806527605,
+                "envelope": 0.06929771734880671
+              },
+              "0.3": {
+                "chest": 0.28735851573329696,
+                "head": 0.39851860584099863,
+                "envelope": 0.05735851573329695
+              },
+              "0.5": {
+                "chest": 0.36077382160085963,
+                "head": 0.5725954300207032,
+                "envelope": 0.0722978534761142
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zwerch",
+            "gap": 1.4,
+            "event": {
+              "time": 1.216666730120778,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 1,
+              "vn": 5.2038894596954375,
+              "J": 4.720662474632263,
+              "atD": -0.0291528476615808,
+              "atO": 0.3341439436283527,
+              "incoming": -2.2829978995878095,
+              "lat": 0.14176618201319469,
+              "attackId": 0,
+              "dir": [
+                0.03004447637053812,
+                0,
+                0.9995485628220473
+              ],
+              "md": 4.170806378301619,
+              "mo": 1.1412716384622368,
+              "dv": 10.92816786536042,
+              "impulse": 9,
+              "point": [
+                -0.049116771668195724,
+                1.1770994663238525,
+                0.13549518585205078
+              ],
+              "deltaO": [
+                0.6103897839784622,
+                0.2484750747680664,
+                8.439090311527252
+              ],
+              "deltaD": [
+                -0.08707095682621002,
+                0.004029273986816406,
+                -3.716846466064453
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.7610149803682144,
+                "head": 0.7663257884978332,
+                "envelope": 0.530123411037186
+              },
+              "0.2": {
+                "chest": 1.0136444846480017,
+                "head": 0.8392312462983543,
+                "envelope": 0.6792312462983543
+              },
+              "0.3": {
+                "chest": 1.2349406292757081,
+                "head": 1.0262649928414984,
+                "envelope": 0.8662649928414984
+              },
+              "0.5": {
+                "chest": 1.230174520046969,
+                "head": 1.022861687372012,
+                "envelope": 0.862861687372012
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zwerch",
+            "gap": 1.6,
+            "event": {
+              "time": 1.2083333963528275,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 1,
+              "vn": 14.668257948377061,
+              "J": 3.0953309535980225,
+              "atD": -0.027894783220714193,
+              "atO": 0.539866670134179,
+              "incoming": -6.2816998351193,
+              "lat": 0.13239560155339422,
+              "attackId": 0,
+              "dir": [
+                0.020508113002776093,
+                0,
+                0.9997896865346558
+              ],
+              "md": 4.178213038836921,
+              "mo": 0.5791827253711371,
+              "dv": 12,
+              "impulse": 6.1040508756184,
+              "point": [
+                -0.15030504763126373,
+                1.0837690830230713,
+                0.12626250088214874
+              ],
+              "deltaO": [
+                1.3359465599060059,
+                0.7723278999328613,
+                10.585874080657959
+              ],
+              "deltaD": [
+                -0.038062095642089844,
+                0.0028754472732543945,
+                -2.514781951904297
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 1.2163211841906372,
+                "head": 1.2094488182115508,
+                "envelope": 0.9863211841906372
+              },
+              "0.2": {
+                "chest": 1.3932260691481415,
+                "head": 1.353116860526619,
+                "envelope": 1.1632260691481415
+              },
+              "0.3": {
+                "chest": 1.5133272719672066,
+                "head": 1.486548168499499,
+                "envelope": 1.2833272719672066
+              },
+              "0.5": {
+                "chest": 1.5383816135996675,
+                "head": 1.529323305877045,
+                "envelope": 1.3083816135996675
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          }
+        ]
+      },
+      "True": {
+        "conditions": 12,
+        "eligible": 4,
+        "player": {
+          "limb": 1.7878544421890121,
+          "concussion": 0.2665552974829911,
+          "bleed": 0.06282881340075838,
+          "balance": 318.82113011869376,
+          "pain": 7.11381255244275,
+          "hits": 12,
+          "effectiveHits": 12,
+          "deaths": 0,
+          "bloodLost": 0.05184402923643194
+        },
+        "enemy": {
+          "limb": 0.40335379130442583,
+          "concussion": 0,
+          "bleed": 0.014794077102294814,
+          "balance": 199.50710054407605,
+          "pain": 3.317833217978075,
+          "hits": 15,
+          "effectiveHits": 15,
+          "deaths": 0,
+          "bloodLost": 0.008012927856688501
+        },
+        "counters": {
+          "inputs": 8,
+          "withEnemyDamage": 7,
+          "withPlayerDamage": 1,
+          "withTrade": 1,
+          "enemyLimb": 0.40335379130442583,
+          "playerLimb": 0.685111257968687
+        },
+        "trajectories": [
+          {
+            "attack": "zornhau",
+            "gap": 1.4,
+            "event": {
+              "time": 1.291666734032333,
+              "d": 0,
+              "o": 1,
+              "line": "highR",
+              "w": 1,
+              "vn": 4.173146459421781,
+              "J": 1.3993639945983887,
+              "atD": 0.011299108737156888,
+              "atO": 0.22523106279880784,
+              "incoming": 0.9833726243095586,
+              "lat": 0.21824625226826808,
+              "attackId": 0,
+              "dir": [
+                0.01772302400681952,
+                0,
+                0.9998429348753002
+              ],
+              "md": 4.353756718887117,
+              "mo": 1.7283235855373669,
+              "dv": 8.76360756478574,
+              "impulse": 9,
+              "point": [
+                -0.03454480320215225,
+                1.3667075634002686,
+                0.2109145224094391
+              ],
+              "deltaO": [
+                0.22365805506706238,
+                -0.03885316848754883,
+                6.4026994705200195
+              ],
+              "deltaD": [
+                -0.07947267591953278,
+                -0.00460389256477356,
+                -3.4394702911376953
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.5235992679048439,
+                "head": 0.46314548753369333,
+                "envelope": 0.2935992679048439
+              },
+              "0.2": {
+                "chest": 0.6667091572870906,
+                "head": 0.6375923153585596,
+                "envelope": 0.4367091572870906
+              },
+              "0.3": {
+                "chest": 1.0335831648368436,
+                "head": 1.1299842415374919,
+                "envelope": 0.7810104016086798
+              },
+              "0.5": {
+                "chest": 1.261177238271153,
+                "head": 1.402889153556979,
+                "envelope": 0.9547247523836633
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zornhau",
+            "gap": 1.6,
+            "event": {
+              "time": 1.1666667275130749,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 0.27083333333333304,
+              "vn": 3.034995606119172,
+              "J": 0.32474739104509354,
+              "atD": 0.5326223367682529,
+              "atO": 0.025705864437117212,
+              "incoming": 0.9028428454384491,
+              "lat": -0.03186706065339451,
+              "attackId": 0,
+              "dir": [
+                -0.02250009308127365,
+                0,
+                -0.9997468408608922
+              ],
+              "md": 1.2521819804824768,
+              "mo": 3.064918888462775,
+              "dv": 6.373490772850261,
+              "impulse": 5.665935166911449,
+              "point": [
+                0.4152910113334656,
+                1.5778645277023315,
+                -0.03959355503320694
+              ],
+              "deltaO": [
+                -0.0895230770111084,
+                -0.09268903732299805,
+                -3.7048263549804688
+              ],
+              "deltaD": [
+                0.2748345136642456,
+                0.09185165166854858,
+                4.543680191040039
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.8192581294039479,
+                "head": 0.6269559032325861,
+                "envelope": 0.46695590323258607
+              },
+              "0.2": {
+                "chest": 0.2992977173488067,
+                "head": 0.31207900806527605,
+                "envelope": 0.06929771734880671
+              },
+              "0.3": {
+                "chest": 0.27898412320960264,
+                "head": 0.39306353628695745,
+                "envelope": 0.04898412320960263
+              },
+              "0.5": {
+                "chest": 0.48024205911888496,
+                "head": 0.6917863946570463,
+                "envelope": 0.16601321824581625
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zwerch",
+            "gap": 1.4,
+            "event": {
+              "time": 1.216666730120778,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 1,
+              "vn": 5.2038894596954375,
+              "J": 4.720662474632263,
+              "atD": -0.0291528476615808,
+              "atO": 0.3341439436283527,
+              "incoming": -2.2829978995878095,
+              "lat": 0.14176618201319469,
+              "attackId": 0,
+              "dir": [
+                0.03004447637053812,
+                0,
+                0.9995485628220473
+              ],
+              "md": 4.170806378301619,
+              "mo": 1.1412716384622368,
+              "dv": 10.92816786536042,
+              "impulse": 9,
+              "point": [
+                -0.049116771668195724,
+                1.1770994663238525,
+                0.13549518585205078
+              ],
+              "deltaO": [
+                0.6103897839784622,
+                0.2484750747680664,
+                8.439090311527252
+              ],
+              "deltaD": [
+                -0.08707095682621002,
+                0.004029273986816406,
+                -3.716846466064453
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 0.7610149803682144,
+                "head": 0.7663257884978332,
+                "envelope": 0.530123411037186
+              },
+              "0.2": {
+                "chest": 1.0136444846480017,
+                "head": 0.8392312462983543,
+                "envelope": 0.6792312462983543
+              },
+              "0.3": {
+                "chest": 1.2352698090030925,
+                "head": 1.0276996606849313,
+                "envelope": 0.8676996606849313
+              },
+              "0.5": {
+                "chest": 1.2219481743176719,
+                "head": 1.073088355050318,
+                "envelope": 0.913088355050318
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          },
+          {
+            "attack": "zwerch",
+            "gap": 1.6,
+            "event": {
+              "time": 1.2083333963528275,
+              "d": 0,
+              "o": 1,
+              "line": "highL",
+              "w": 1,
+              "vn": 14.668257948377061,
+              "J": 3.0953309535980225,
+              "atD": -0.027894783220714193,
+              "atO": 0.539866670134179,
+              "incoming": -6.2816998351193,
+              "lat": 0.13239560155339422,
+              "attackId": 0,
+              "dir": [
+                0.020508113002776093,
+                0,
+                0.9997896865346558
+              ],
+              "md": 4.178213038836921,
+              "mo": 0.5791827253711371,
+              "dv": 12,
+              "impulse": 6.1040508756184,
+              "point": [
+                -0.15030504763126373,
+                1.0837690830230713,
+                0.12626250088214874
+              ],
+              "deltaO": [
+                1.3359465599060059,
+                0.7723278999328613,
+                10.585874080657959
+              ],
+              "deltaD": [
+                -0.038062095642089844,
+                0.0028754472732543945,
+                -2.514781951904297
+              ]
+            },
+            "points": {
+              "0.1": {
+                "chest": 1.2163211841906372,
+                "head": 1.2094488182115508,
+                "envelope": 0.9863211841906372
+              },
+              "0.2": {
+                "chest": 1.3932260691481415,
+                "head": 1.353116860526619,
+                "envelope": 1.1632260691481415
+              },
+              "0.3": {
+                "chest": 1.5137376944309644,
+                "head": 1.488116223108995,
+                "envelope": 1.2837376944309644
+              },
+              "0.5": {
+                "chest": 1.600939873069227,
+                "head": 1.6215481390840911,
+                "envelope": 1.370939873069227
+              }
+            },
+            "envelopeClearSecondsFirst04": 0.4
+          }
+        ]
+      }
+    }
+  },
+  "paired": [
+    {
+      "seed": 941,
+      "atk": "longsword",
+      "policy": "slash",
+      "commonEnd": 26.258333333332484,
+      "arms": {
+        "base": {
+          "duration": 29.999999999998938,
+          "beats": 2,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.7286917212580987,
+          "pConcussion": 0.2616434350723491,
+          "eLimb": 1.0437254281490627
+        },
+        "offset16": {
+          "duration": 29.999999999998938,
+          "beats": 1,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.4844318405998522,
+          "pConcussion": 0.032447521281320335,
+          "eLimb": 0.72326802955017
+        },
+        "offset24": {
+          "duration": 29.999999999998938,
+          "beats": 3,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.48229070138553465,
+          "pConcussion": 0.1809985134903932,
+          "eLimb": 0.8845636855761148
+        },
+        "impulse6": {
+          "duration": 29.999999999998938,
+          "beats": 2,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.32241026235283843,
+          "pConcussion": 1.4129915746415278,
+          "eLimb": 0.9512683415098259
+        },
+        "impulse9": {
+          "duration": 26.258333333332484,
+          "beats": 2,
+          "pAlive": false,
+          "eAlive": true,
+          "pLimb": 0.44525324593847815,
+          "pConcussion": 0.4402239858746041,
+          "eLimb": 0.5122242448933333
+        }
+      }
+    },
+    {
+      "seed": 941,
+      "atk": "longsword",
+      "policy": "riposte",
+      "commonEnd": 29.999999999998938,
+      "arms": {
+        "base": {
+          "duration": 29.999999999998938,
+          "beats": 2,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.35127293266303183,
+          "pConcussion": 0.2288860177558314,
+          "eLimb": 0.23086424259003535
+        },
+        "offset16": {
+          "duration": 29.999999999998938,
+          "beats": 4,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.10323082099772207,
+          "pConcussion": 0.19978459241643187,
+          "eLimb": 0.3361786984331735
+        },
+        "offset24": {
+          "duration": 29.999999999998938,
+          "beats": 2,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 1.1541172754596214,
+          "pConcussion": 0.0798013762539812,
+          "eLimb": 0.3457386434448493
+        },
+        "impulse6": {
+          "duration": 29.999999999998938,
+          "beats": 3,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 1.6891189158114983,
+          "pConcussion": 0.39417627033199787,
+          "eLimb": 0
+        },
+        "impulse9": {
+          "duration": 29.999999999998938,
+          "beats": 2,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.24650274430313357,
+          "pConcussion": 0,
+          "eLimb": 0.2223599492827788
+        }
+      }
+    },
+    {
+      "seed": 941,
+      "atk": "qinggang",
+      "policy": "slash",
+      "commonEnd": 17.47499999999965,
+      "arms": {
+        "base": {
+          "duration": 29.999999999998938,
+          "beats": 4,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.33967204327988143,
+          "pConcussion": 0,
+          "eLimb": 0.5109381679690639
+        },
+        "offset16": {
+          "duration": 20.88333333333279,
+          "beats": 1,
+          "pAlive": false,
+          "eAlive": true,
+          "pLimb": 0.49087009358972655,
+          "pConcussion": 0.8174155923633885,
+          "eLimb": 0.14717951355933145
+        },
+        "offset24": {
+          "duration": 29.999999999998938,
+          "beats": 1,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.25389164491269556,
+          "pConcussion": 0.7657489676339428,
+          "eLimb": 0.37364364724762067
+        },
+        "impulse6": {
+          "duration": 29.999999999998938,
+          "beats": 1,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.26936215647046846,
+          "pConcussion": 0.04144989237285668,
+          "eLimb": 0.610240491842206
+        },
+        "impulse9": {
+          "duration": 17.47499999999965,
+          "beats": 1,
+          "pAlive": false,
+          "eAlive": true,
+          "pLimb": 1.1814024298468284,
+          "pConcussion": 1.010415834198772,
+          "eLimb": 0.3601344431523369
+        }
+      }
+    },
+    {
+      "seed": 941,
+      "atk": "qinggang",
+      "policy": "riposte",
+      "commonEnd": 29.999999999998938,
+      "arms": {
+        "base": {
+          "duration": 29.999999999998938,
+          "beats": 0,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 1.4144280391374113,
+          "pConcussion": 0.16471512784067255,
+          "eLimb": 0.5937812697531621
+        },
+        "offset16": {
+          "duration": 29.999999999998938,
+          "beats": 0,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 1.4144280391374113,
+          "pConcussion": 0.16471512784067255,
+          "eLimb": 0.5937812697531621
+        },
+        "offset24": {
+          "duration": 29.999999999998938,
+          "beats": 0,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 1.4144280391374113,
+          "pConcussion": 0.16471512784067255,
+          "eLimb": 0.5937812697531621
+        },
+        "impulse6": {
+          "duration": 29.999999999998938,
+          "beats": 0,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 1.4144280391374113,
+          "pConcussion": 0.16471512784067255,
+          "eLimb": 0.5937812697531621
+        },
+        "impulse9": {
+          "duration": 29.999999999998938,
+          "beats": 0,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 1.4144280391374113,
+          "pConcussion": 0.16471512784067255,
+          "eLimb": 0.5937812697531621
+        }
+      }
+    },
+    {
+      "seed": 941,
+      "atk": "zweihander",
+      "policy": "slash",
+      "commonEnd": 29.999999999998938,
+      "arms": {
+        "base": {
+          "duration": 29.999999999998938,
+          "beats": 2,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.15039338087513898,
+          "pConcussion": 0.07703562824025634,
+          "eLimb": 0.1076653265646953
+        },
+        "offset16": {
+          "duration": 29.999999999998938,
+          "beats": 1,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.2567353056088446,
+          "pConcussion": 0,
+          "eLimb": 0.9227641971254432
+        },
+        "offset24": {
+          "duration": 29.999999999998938,
+          "beats": 1,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 1.2162077542550058,
+          "pConcussion": 0,
+          "eLimb": 0.6588708071028225
+        },
+        "impulse6": {
+          "duration": 29.999999999998938,
+          "beats": 2,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.12938162180950386,
+          "pConcussion": 0.26705629737605663,
+          "eLimb": 0.7264394567606576
+        },
+        "impulse9": {
+          "duration": 29.999999999998938,
+          "beats": 3,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.3395441964405421,
+          "pConcussion": 0,
+          "eLimb": 0.28271724553253663
+        }
+      }
+    },
+    {
+      "seed": 941,
+      "atk": "zweihander",
+      "policy": "riposte",
+      "commonEnd": 29.999999999998938,
+      "arms": {
+        "base": {
+          "duration": 29.999999999998938,
+          "beats": 1,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.14618407371876208,
+          "pConcussion": 0.23519255316396548,
+          "eLimb": 0.44655868484037864
+        },
+        "offset16": {
+          "duration": 29.999999999998938,
+          "beats": 3,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.439575761857669,
+          "pConcussion": 0,
+          "eLimb": 0.46869407503649463
+        },
+        "offset24": {
+          "duration": 29.999999999998938,
+          "beats": 4,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 1.064536719307756,
+          "pConcussion": 0.13854582390465608,
+          "eLimb": 0.11582045346663472
+        },
+        "impulse6": {
+          "duration": 29.999999999998938,
+          "beats": 3,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.9123764639874802,
+          "pConcussion": 0.04832662462311743,
+          "eLimb": 0.38245544214602045
+        },
+        "impulse9": {
+          "duration": 29.999999999998938,
+          "beats": 2,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.03317376625609003,
+          "pConcussion": 0.09164100334386871,
+          "eLimb": 0.5391541191603275
+        }
+      }
+    },
+    {
+      "seed": 942,
+      "atk": "longsword",
+      "policy": "slash",
+      "commonEnd": 29.999999999998938,
+      "arms": {
+        "base": {
+          "duration": 29.999999999998938,
+          "beats": 0,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.27517545375884234,
+          "pConcussion": 0.5155537567243321,
+          "eLimb": 1.8880277994621153
+        },
+        "offset16": {
+          "duration": 29.999999999998938,
+          "beats": 0,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.27517545375884234,
+          "pConcussion": 0.5155537567243321,
+          "eLimb": 1.8880277994621153
+        },
+        "offset24": {
+          "duration": 29.999999999998938,
+          "beats": 0,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.27517545375884234,
+          "pConcussion": 0.5155537567243321,
+          "eLimb": 1.8880277994621153
+        },
+        "impulse6": {
+          "duration": 29.999999999998938,
+          "beats": 0,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.27517545375884234,
+          "pConcussion": 0.5155537567243321,
+          "eLimb": 1.8880277994621153
+        },
+        "impulse9": {
+          "duration": 29.999999999998938,
+          "beats": 0,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.27517545375884234,
+          "pConcussion": 0.5155537567243321,
+          "eLimb": 1.8880277994621153
+        }
+      }
+    },
+    {
+      "seed": 942,
+      "atk": "longsword",
+      "policy": "riposte",
+      "commonEnd": 21.549999999999418,
+      "arms": {
+        "base": {
+          "duration": 21.549999999999418,
+          "beats": 0,
+          "pAlive": false,
+          "eAlive": true,
+          "pLimb": 0.3395740655866504,
+          "pConcussion": 1.090593406125371,
+          "eLimb": 0.09154646205671724
+        },
+        "offset16": {
+          "duration": 21.549999999999418,
+          "beats": 0,
+          "pAlive": false,
+          "eAlive": true,
+          "pLimb": 0.3395740655866504,
+          "pConcussion": 1.090593406125371,
+          "eLimb": 0.09154646205671724
+        },
+        "offset24": {
+          "duration": 21.549999999999418,
+          "beats": 0,
+          "pAlive": false,
+          "eAlive": true,
+          "pLimb": 0.3395740655866504,
+          "pConcussion": 1.090593406125371,
+          "eLimb": 0.09154646205671724
+        },
+        "impulse6": {
+          "duration": 21.549999999999418,
+          "beats": 0,
+          "pAlive": false,
+          "eAlive": true,
+          "pLimb": 0.3395740655866504,
+          "pConcussion": 1.090593406125371,
+          "eLimb": 0.09154646205671724
+        },
+        "impulse9": {
+          "duration": 21.549999999999418,
+          "beats": 0,
+          "pAlive": false,
+          "eAlive": true,
+          "pLimb": 0.3395740655866504,
+          "pConcussion": 1.090593406125371,
+          "eLimb": 0.09154646205671724
+        }
+      }
+    },
+    {
+      "seed": 942,
+      "atk": "qinggang",
+      "policy": "slash",
+      "commonEnd": 18.52499999999959,
+      "arms": {
+        "base": {
+          "duration": 29.999999999998938,
+          "beats": 1,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 1.1860110153707444,
+          "pConcussion": 0,
+          "eLimb": 0.9921038783702525
+        },
+        "offset16": {
+          "duration": 18.52499999999959,
+          "beats": 1,
+          "pAlive": false,
+          "eAlive": true,
+          "pLimb": 0.1860110153707445,
+          "pConcussion": 0.8141946446780451,
+          "eLimb": 0.4945047151162236
+        },
+        "offset24": {
+          "duration": 29.999999999998938,
+          "beats": 2,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.7631237037525701,
+          "pConcussion": 0.1135816672078741,
+          "eLimb": 0.4396328208148119
+        },
+        "impulse6": {
+          "duration": 29.999999999998938,
+          "beats": 1,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.1860110153707445,
+          "pConcussion": 0.31613179464369767,
+          "eLimb": 0.5679080673183295
+        },
+        "impulse9": {
+          "duration": 29.999999999998938,
+          "beats": 3,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.5209254878859462,
+          "pConcussion": 0.7547637242905423,
+          "eLimb": 0.622890541961979
+        }
+      }
+    },
+    {
+      "seed": 942,
+      "atk": "qinggang",
+      "policy": "riposte",
+      "commonEnd": 29.999999999998938,
+      "arms": {
+        "base": {
+          "duration": 29.999999999998938,
+          "beats": 0,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.21836074166096986,
+          "pConcussion": 0,
+          "eLimb": 0.46170392971113183
+        },
+        "offset16": {
+          "duration": 29.999999999998938,
+          "beats": 0,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.21836074166096986,
+          "pConcussion": 0,
+          "eLimb": 0.46170392971113183
+        },
+        "offset24": {
+          "duration": 29.999999999998938,
+          "beats": 0,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.21836074166096986,
+          "pConcussion": 0,
+          "eLimb": 0.46170392971113183
+        },
+        "impulse6": {
+          "duration": 29.999999999998938,
+          "beats": 0,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.21836074166096986,
+          "pConcussion": 0,
+          "eLimb": 0.46170392971113183
+        },
+        "impulse9": {
+          "duration": 29.999999999998938,
+          "beats": 0,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.21836074166096986,
+          "pConcussion": 0,
+          "eLimb": 0.46170392971113183
+        }
+      }
+    },
+    {
+      "seed": 942,
+      "atk": "zweihander",
+      "policy": "slash",
+      "commonEnd": 23.21666666666599,
+      "arms": {
+        "base": {
+          "duration": 23.21666666666599,
+          "beats": 2,
+          "pAlive": false,
+          "eAlive": true,
+          "pLimb": 0.27003446595374037,
+          "pConcussion": 0,
+          "eLimb": 0.024829176497528582
+        },
+        "offset16": {
+          "duration": 29.999999999998938,
+          "beats": 2,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.7731292187802719,
+          "pConcussion": 0.3572501023310022,
+          "eLimb": 0.10123813236398738
+        },
+        "offset24": {
+          "duration": 29.999999999998938,
+          "beats": 3,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.3019631770735369,
+          "pConcussion": 0.22752744508009437,
+          "eLimb": 0.04302174293081429
+        },
+        "impulse6": {
+          "duration": 29.999999999998938,
+          "beats": 2,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.037902904119070935,
+          "pConcussion": 0.24985082227818411,
+          "eLimb": 0.9007080626690327
+        },
+        "impulse9": {
+          "duration": 29.999999999998938,
+          "beats": 1,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 1.3234494888077368,
+          "pConcussion": 0.08815232412734486,
+          "eLimb": 0.26285503304986413
+        }
+      }
+    },
+    {
+      "seed": 942,
+      "atk": "zweihander",
+      "policy": "riposte",
+      "commonEnd": 24.166666666665936,
+      "arms": {
+        "base": {
+          "duration": 29.999999999998938,
+          "beats": 2,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.45172342822005107,
+          "pConcussion": 0,
+          "eLimb": 0.188075862596225
+        },
+        "offset16": {
+          "duration": 29.999999999998938,
+          "beats": 2,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0.08842587492750387,
+          "pConcussion": 0,
+          "eLimb": 0.16085013368129975
+        },
+        "offset24": {
+          "duration": 29.999999999998938,
+          "beats": 1,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0,
+          "pConcussion": 0,
+          "eLimb": 0.16085013368129975
+        },
+        "impulse6": {
+          "duration": 29.999999999998938,
+          "beats": 3,
+          "pAlive": true,
+          "eAlive": true,
+          "pLimb": 0,
+          "pConcussion": 0,
+          "eLimb": 0.1712115334000185
+        },
+        "impulse9": {
+          "duration": 24.166666666665936,
+          "beats": 1,
+          "pAlive": true,
+          "eAlive": false,
+          "pLimb": 0.3078586648572299,
+          "pConcussion": 0,
+          "eLimb": 0.3368691585530498
+        }
+      }
+    }
+  ],
+  "matchedFirstBeat": {
+    "base": {
+      "0.1": {
+        "n": 8,
+        "medianCm": 0.0,
+        "minCm": 0.0,
+        "maxCm": 0.0,
+        "positive": 0,
+        "valuesCm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "0.2": {
+        "n": 8,
+        "medianCm": 0.0,
+        "minCm": 0.0,
+        "maxCm": 0.0,
+        "positive": 0,
+        "valuesCm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "0.3": {
+        "n": 8,
+        "medianCm": 0.0,
+        "minCm": 0.0,
+        "maxCm": 0.0,
+        "positive": 0,
+        "valuesCm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "0.5": {
+        "n": 8,
+        "medianCm": 0.0,
+        "minCm": 0.0,
+        "maxCm": 0.0,
+        "positive": 0,
+        "valuesCm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "offset16": {
+      "0.1": {
+        "n": 8,
+        "medianCm": 3.7038307772703947,
+        "minCm": -6.947556419142087,
+        "maxCm": 32.994538135452615,
+        "positive": 5,
+        "valuesCm": [
+          32.994538135452615,
+          6.9121538848667115,
+          2.120982347413014,
+          -6.947556419142087,
+          -6.947556419142087,
+          14.89520788364429,
+          -4.545397893763847,
+          5.286679207127776
+        ]
+      },
+      "0.2": {
+        "n": 8,
+        "medianCm": 5.288298432383343,
+        "minCm": -5.0313899788969385,
+        "maxCm": 57.251646547751925,
+        "positive": 5,
+        "valuesCm": [
+          17.272387409777878,
+          6.477800691700164,
+          -2.733173957077284,
+          57.251646547751925,
+          57.251646547751925,
+          4.098796173066521,
+          -5.0313899788969385,
+          -2.1400102581368374
+        ]
+      },
+      "0.3": {
+        "n": 8,
+        "medianCm": 2.568963397157642,
+        "minCm": -10.243454221242654,
+        "maxCm": 61.148534315566835,
+        "positive": 5,
+        "valuesCm": [
+          3.856564687887709,
+          5.92969510554722,
+          -10.06647191166855,
+          61.148534315566835,
+          60.91454437772688,
+          1.2813621064275749,
+          -9.41674756794988,
+          -10.243454221242654
+        ]
+      },
+      "0.5": {
+        "n": 8,
+        "medianCm": -1.344727423839917,
+        "minCm": -48.12159561393177,
+        "maxCm": 55.9597127037383,
+        "positive": 4,
+        "valuesCm": [
+          -48.12159561393177,
+          -2.78182990970906,
+          2.0517818533211827,
+          55.9597127037383,
+          13.15340985389718,
+          0.0923750620292263,
+          -43.41564221229211,
+          -7.6996533223579355
+        ]
+      }
+    },
+    "offset24": {
+      "0.1": {
+        "n": 8,
+        "medianCm": 5.988195411847888,
+        "minCm": -5.979114351458891,
+        "maxCm": 36.89618663493515,
+        "positive": 5,
+        "valuesCm": [
+          36.89618663493515,
+          9.87653786232785,
+          5.764441266429804,
+          -5.529269479570403,
+          -5.529269479570403,
+          28.08912323245022,
+          -5.979114351458891,
+          6.211949557265973
+        ]
+      },
+      "0.2": {
+        "n": 8,
+        "medianCm": 11.052944183157088,
+        "minCm": -9.505994762387292,
+        "maxCm": 77.36758868757825,
+        "positive": 5,
+        "valuesCm": [
+          19.366259562926615,
+          10.765219562026163,
+          -0.051111177708790256,
+          77.36758868757825,
+          77.36758868757825,
+          11.340668804288011,
+          -9.505994762387292,
+          -1.2688523575860255
+        ]
+      },
+      "0.3": {
+        "n": 8,
+        "medianCm": 3.443787883474947,
+        "minCm": -15.109834025422275,
+        "maxCm": 62.52978666260238,
+        "positive": 5,
+        "valuesCm": [
+          4.544707089247058,
+          10.550971432984982,
+          -3.225109790883879,
+          62.52978666260238,
+          62.289120752309415,
+          2.3428686777028362,
+          -15.052185352606461,
+          -15.109834025422275
+        ]
+      },
+      "0.5": {
+        "n": 8,
+        "medianCm": -1.5101318282112808,
+        "minCm": -70.50106162948302,
+        "maxCm": 32.690850265293406,
+        "positive": 4,
+        "valuesCm": [
+          -39.28512488402812,
+          9.506685275820923,
+          -3.4164875690708083,
+          32.690850265293406,
+          18.003208244462797,
+          0.39622391264824697,
+          -70.50106162948302,
+          -11.348601244851885
+        ]
+      }
+    },
+    "impulse6": {
+      "0.1": {
+        "n": 8,
+        "medianCm": 11.47825563416069,
+        "minCm": -0.7607393744105295,
+        "maxCm": 44.8078461725605,
+        "positive": 6,
+        "valuesCm": [
+          44.8078461725605,
+          6.951003418064516,
+          -0.7607393744105295,
+          15.109394504768147,
+          15.109394504768147,
+          11.351569661041527,
+          -0.16186389349619468,
+          11.604941607279851
+        ]
+      },
+      "0.2": {
+        "n": 8,
+        "medianCm": 3.3780724276075342,
+        "minCm": -1.688078223217837,
+        "maxCm": 87.05073638860794,
+        "positive": 6,
+        "valuesCm": [
+          22.97980294229238,
+          2.7776860696372143,
+          -0.4374921680357968,
+          87.05073638860794,
+          87.05073638860794,
+          3.978458785577854,
+          -1.688078223217837,
+          1.3310672002770252
+        ]
+      },
+      "0.3": {
+        "n": 8,
+        "medianCm": 1.091108136239266,
+        "minCm": -8.295825549738367,
+        "maxCm": 59.733311690874814,
+        "positive": 6,
+        "valuesCm": [
+          0.9566588714545743,
+          7.95763101652304,
+          0.48659473458209646,
+          59.733311690874814,
+          59.31494815011007,
+          1.2255574010239578,
+          -4.350754234386067,
+          -8.295825549738367
+        ]
+      },
+      "0.5": {
+        "n": 8,
+        "medianCm": 0.6647471460433112,
+        "minCm": -27.685276078383193,
+        "maxCm": 24.08849047927409,
+        "positive": 4,
+        "valuesCm": [
+          -27.685276078383193,
+          4.327085079093377,
+          -2.997590787006754,
+          24.08849047927409,
+          13.48204927859592,
+          7.46404308312632,
+          -16.225492058255597,
+          -10.081147966818339
+        ]
+      }
+    },
+    "impulse9": {
+      "0.1": {
+        "n": 8,
+        "medianCm": 24.12337605161116,
+        "minCm": -1.2520475518047691,
+        "maxCm": 61.3545268343737,
+        "positive": 6,
+        "valuesCm": [
+          61.3545268343737,
+          9.058723657963485,
+          -0.7773074000978708,
+          28.04711240677369,
+          28.04711240677369,
+          26.640780278724453,
+          -1.2520475518047691,
+          21.60597182449787
+        ]
+      },
+      "0.2": {
+        "n": 8,
+        "medianCm": 9.188627955924094,
+        "minCm": -5.528308368443136,
+        "maxCm": 94.43498173241096,
+        "positive": 6,
+        "valuesCm": [
+          32.261992929078055,
+          1.9483533225185867,
+          -2.478401601406399,
+          94.43498173241096,
+          94.43498173241096,
+          9.69398125254255,
+          -5.528308368443136,
+          8.68327465930564
+        ]
+      },
+      "0.3": {
+        "n": 8,
+        "medianCm": 0.8708871320453199,
+        "minCm": -15.138282811614756,
+        "maxCm": 71.13772470817479,
+        "positive": 5,
+        "valuesCm": [
+          0.8720528711736231,
+          0.8697213929170167,
+          -7.369567945101169,
+          71.13772470817479,
+          70.81377876404169,
+          3.506888914900136,
+          -9.08809419353853,
+          -15.138282811614756
+        ]
+      },
+      "0.5": {
+        "n": 8,
+        "medianCm": -3.2289636109372037,
+        "minCm": -54.05623460268275,
+        "maxCm": 42.08532868627818,
+        "positive": 3,
+        "valuesCm": [
+          -54.05623460268275,
+          -5.6073031985400785,
+          0.5451593293369694,
+          42.08532868627818,
+          34.35304041088736,
+          -0.8506240233343287,
+          -20.234195794671216,
+          -22.025719204854276
+        ]
+      }
+    }
+  }
+}
