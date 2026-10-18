@@ -549,6 +549,8 @@ export class Combat {
     this.bladeLast = this.stepNo;
     // 우케나가시 흘려 받기 (config NAGASHI): 받은 칼을 칼 지붕을 따라 미끄러뜨리고, 받는 쪽 손 흔들림·무기 닳음을 던다 (아래 feel)
     const flowD = fresh && NAGASHI.on && SA && SB && J > 0 ? this.nagashi(A, B, SA, SB, point, nrm, vn) : null;
+    // Optional research only; absent in ordinary rounds. Shares the actual steel contact.
+    if (fresh && SA && SB && J > 0) this.iberianBeat?.({ A: A.fighter, B: B.fighter, point, nrm, vn, J, gripMass, liveState, handMass: STEEL.handMass });
     // 새로 부딪혀 튕긴 순간: 칼이 손 안에서 길이 축으로 팽이처럼 도는 몫은 손아귀가 잡는다 (gripTwist)
     if (fresh) for (const f of [A.fighter, B.fighter]) gripTwist(f);
     const va = A.body.velocityAtPoint(point);
