@@ -1,0 +1,176 @@
+{
+  "rows": [
+    {
+      "id": "alone",
+      "cfg": {
+        "onlyOutward": true,
+        "duration": 0.18,
+        "hold": 0.1,
+        "recover": 0.2,
+        "hand": [
+          0,
+          0,
+          0
+        ],
+        "angle": [
+          0,
+          0
+        ],
+        "normalGuide": 0.24,
+        "id": "alone",
+        "label": "쓸기만 · 감소 없음",
+        "floor": 1,
+        "forceHold": 0.24
+      },
+      "weapon": "zweihander",
+      "enemy": "longsword",
+      "school": true,
+      "privateStorage": true,
+      "pwa": 0,
+      "practice": true
+    },
+    {
+      "id": "short",
+      "cfg": {
+        "onlyOutward": true,
+        "duration": 0.18,
+        "hold": 0.1,
+        "recover": 0.2,
+        "hand": [
+          0,
+          0,
+          0
+        ],
+        "angle": [
+          0,
+          0
+        ],
+        "normalGuide": 0.24,
+        "id": "short",
+        "label": "힘 −75% · 0.24초",
+        "floor": 0.25,
+        "forceHold": 0.24
+      },
+      "weapon": "zweihander",
+      "enemy": "longsword",
+      "school": true,
+      "privateStorage": true,
+      "pwa": 0,
+      "practice": true
+    },
+    {
+      "id": "long",
+      "cfg": {
+        "onlyOutward": true,
+        "duration": 0.18,
+        "hold": 0.1,
+        "recover": 0.2,
+        "hand": [
+          0,
+          0,
+          0
+        ],
+        "angle": [
+          0,
+          0
+        ],
+        "normalGuide": 0.24,
+        "id": "long",
+        "label": "힘 −75% · 0.60초",
+        "floor": 0.25,
+        "forceHold": 0.6
+      },
+      "weapon": "zweihander",
+      "enemy": "longsword",
+      "school": true,
+      "privateStorage": true,
+      "pwa": 0,
+      "practice": true
+    },
+    {
+      "defenses": [
+        {
+          "id": "short",
+          "controls": [
+            {
+              "scale": 1,
+              "events": []
+            },
+            {
+              "scale": 1,
+              "events": [
+                {
+                  "start": 5.108333333333377,
+                  "until": 5.588333333333377,
+                  "duration": 0.48,
+                  "attackId": 1,
+                  "defender": 0,
+                  "floor": 0.25
+                }
+              ]
+            }
+          ],
+          "time": 5.591666666666734,
+          "held": true,
+          "procs": [
+            1,
+            0
+          ],
+          "alive": true
+        },
+        {
+          "id": "long",
+          "controls": [
+            {
+              "scale": 1,
+              "events": []
+            },
+            {
+              "scale": 1,
+              "events": [
+                {
+                  "start": 5.108333333333377,
+                  "until": 5.948333333333377,
+                  "duration": 0.84,
+                  "attackId": 1,
+                  "defender": 0,
+                  "floor": 0.25
+                }
+              ]
+            }
+          ],
+          "time": 5.975000000000087,
+          "held": true,
+          "procs": [
+            1,
+            0
+          ],
+          "alive": true
+        }
+      ],
+      "attack": {
+        "role": "attacker",
+        "weapon": "longsword",
+        "enemy": "zweihander",
+        "guard": true,
+        "held": true
+      },
+      "duel": {
+        "practice": false,
+        "guard": false,
+        "aiSweep": true
+      },
+      "reset": {
+        "state": "menu",
+        "procs": [
+          0,
+          0
+        ],
+        "blood": 1
+      },
+      "storage": "keep",
+      "overflow": false
+    }
+  ],
+  "errors": []
+}
