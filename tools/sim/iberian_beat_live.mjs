@@ -6,7 +6,7 @@ import {PlayerParryGuard} from '../../src/parry_button.js';
 import {installIberianBeat} from '../../src/iberian_beat.js';
 import * as THREE from 'three';
 function rng(seed){let a=seed>>>0;return()=>{a=(a+0x6d2b79f5)>>>0;let t=Math.imul(a^a>>>15,a|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296;};}
-export function live({gain=0,yieldSeconds=0,impulseCap=3,seed=101,atk='longsword',policy='riposte',seconds=30,gap=2.2,onFrame,onStart,GuardOverride,weapon='zweihander',reaction=.22,book=true}={}){
+export function live({gain=0,yieldSeconds=0,impulseCap=3,recoilDegrees=0,recoilSeconds=.28,seed=101,atk='longsword',policy='riposte',seconds=30,gap=2.2,onFrame,onStart,GuardOverride,weapon='zweihander',reaction=.22,book=true}={}){
  SKILL.parryAssist=0;
  const G=newRound({weapon,weapon2:atk,gap,seed});
  const D=G.player,A=G.enemy;
@@ -14,8 +14,8 @@ export function live({gain=0,yieldSeconds=0,impulseCap=3,seed=101,atk='longsword
  D.schoolFootwork=true;D.schoolParry=book;
  const Guard=GuardOverride??PlayerParryGuard,guard=new Guard(D,A);D.stamina.controller=guard;
  const observer=observeHealth(D,()=>G.t),enemyObserver=observeHealth(A,()=>G.t),random=rng(seed+104729);
- const study=installIberianBeat(G.combat,{gain,yieldSeconds,impulseCap});
- const r={gain,yieldSeconds,impulseCap,seed,atk,policy,seconds,gap,weapon,reaction,book,commands:[],timeline:[],aiTechniques:{},clashes:[],flows:[],postFlow:[]};
+ const study=installIberianBeat(G.combat,{gain,yieldSeconds,impulseCap,recoilDegrees,recoilSeconds});
+ const r={gain,yieldSeconds,impulseCap,recoilDegrees,recoilSeconds,seed,atk,policy,seconds,gap,weapon,reaction,book,commands:[],timeline:[],aiTechniques:{},clashes:[],flows:[],postFlow:[]};
  let counterDue=Infinity,slashUntil=0,slashX=-1;
  r.slashFrames=[];
  const previousClash=G.combat.hooks.onClash;

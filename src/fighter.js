@@ -14,7 +14,7 @@ import { STAMINA, BODY, WEAPON, VITALS, BALANCE, SKILL, SKILL_BODY, GRIP, STEEL,
 import { COMBAT_HOOKS } from './combat.js';
 import { Skill } from './skill.js';
 import { Stamina } from './stamina.js';
-import { beatArmScale } from './iberian_beat.js';
+import { beatArmScale, beatAim } from './iberian_beat.js';
 import { Gait, hybridJointDefs } from './gait.js';
 import { guardAt, finishAt } from './guards.js';
 import { resolveSwordArt, applySwordArt } from './sword_art.js'; // 검술 풀이: 자세표·동작 라이브러리·덧씌우기·쥠·HUD 이름을 한 곳에서 (10/8 ① 구조)
@@ -3056,6 +3056,7 @@ export class Fighter {
       this.aimLagBehind = sd ? Math.max(0, -Math.sign(sd) * Math.atan2(_lagC.y, bl.dot(mapAim))) : 0;
     }
     // 목표 방향이 도는 속도: 손목 감쇠는 이 속도를 향한다 (멈추려는 게 아니라 목표를 따라가는 감쇠)
+    beatAim(this, aim); // optional contact recoil, after body-follow map, before wrist/second-hand target
     const wAim = _v5.set(0, 0, 0);
     if (this.prevAim && this.lastDt > 0) {
       wAim.crossVectors(this.prevAim, aim).multiplyScalar(1 / this.lastDt);
