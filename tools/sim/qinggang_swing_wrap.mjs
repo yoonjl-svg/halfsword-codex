@@ -9,7 +9,7 @@ const w = WEAPONS[process.env.W_ID];
 if (process.env.W_STYLE) w.style = process.env.W_STYLE;
 if (process.env.W_WRIST) w.controlOverrides = { ...(w.controlOverrides ?? {}), wristVmax: +process.env.W_WRIST };
 if (process.env.W_HYBRID === '1') {
-  const CHAMBER = ['지붕 (Vom Tag)', '어깨 지붕 (Vom Tag)', '옆 자세', '바꿈 (Wechsel)', '옆 지킴 (Nebenhut)', '왼쪽 어깨 지붕', '왼쪽 옆 자세', '왼쪽 바꿈'];
+  const CHAMBER = ['지붕 (폼 타크)', '어깨 지붕 (폼 타크)', '옆 자세', '바꿈 (베크셀)', '옆 지킴 (네벤후트)', '왼 어깨 지붕 (폼 타크)', '왼 옆 자세', '왼 바꿈 (베크셀)'];
   for (let i = 0; i < GUARD_BASE_ONE_THRUST.length; i++) if (CHAMBER.includes(GUARD_BASE_ONE_THRUST[i].name)) GUARD_BASE_ONE_THRUST[i] = GUARD_BASE_ONE_SABRE[i];
 }
 const [script, ...rest] = process.argv.slice(2);

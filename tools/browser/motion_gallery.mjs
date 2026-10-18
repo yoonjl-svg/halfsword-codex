@@ -54,7 +54,7 @@ for (const [wid, label, pads, mode] of SETS) {
       const P = window.game.player;
       const T = P.guardPose.table;
       const i = P.guardPose.nearest;
-      return (T ? T[i]?.name : null) ?? ['지붕 (Vom Tag)', '어깨 지붕 (Vom Tag)', '황소 (Ochs)', '긴 자세 (Langort)', '옆 자세', '쟁기 (Pflug)', '바꿈 (Wechsel)', '옆 지킴 (Nebenhut)', '바보 (Alber)', '왼쪽 어깨 지붕', '왼쪽 황소', '왼쪽 옆 자세', '왼쪽 쟁기', '왼쪽 바꿈'][i];
+      return (T ? T[i]?.name : null) ?? ['지붕 (폼 타크)', '어깨 지붕 (폼 타크)', '황소 (옥스)', '긴 자세 (랑오르트)', '옆 자세', '쟁기 (플루크)', '바꿈 (베크셀)', '옆 지킴 (네벤후트)', '바보 (알버)', '왼 어깨 지붕 (폼 타크)', '왼 황소 (옥스)', '왼 옆 자세', '왼 쟁기 (플루크)', '왼 바꿈 (베크셀)'][i];
     });
     // 카메라: 주인공 칼 든 쪽 앞 비스듬히, 가슴 높이
     await page.evaluate(() => {

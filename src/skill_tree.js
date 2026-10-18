@@ -134,14 +134,14 @@ export function mountSkillTree(root, { test = false, onWallet = () => {}, announ
     $('.detail-thumb').dataset.tier = b.rarity;
     $('.detail-thumb').innerHTML = bookImg(school, b.tier);
     $('.detail-head').dataset.state = st;
-    $('#bookTitle').textContent = b.title;
+    $('#bookTitle').textContent = b.orig ? `${b.title} (${b.orig})` : b.title; // 원어는 스킬북에서만 (10/19 3차)
     $('#bookTitle').dataset.tier = b.rarity;
     // 급 · 등급 · 유파 · 지금 상태(사용 중 = 싸움에서 켜짐 · 봉인 = 꺼짐) 한 줄 — 폰 가로의 좁은 판에서도 단추까지 한눈에 들어오게
     $('#bookMeta').textContent = `${ROMAN[b.tier]}급 · ${b.rarityKo} · ${b.schoolKo} 유파${test ? '' : st === 'use' ? ' · 사용 중' : st === 'sealed' ? ' · 봉인' : ''}`;
     $('#bookMeta').dataset.tier = b.rarity;
-    $('#bookEffect').textContent = b.effect + (b.provisional ? ' (임시)' : '');
+    $('#bookEffect').textContent = b.effect; // '(임시)' 꼬리는 개발 말이라 뺌 (10/19 글 방침 2판 — 자료 provisional 은 그대로)
     $('#bookList').hidden = !b.list;
-    $('#bookList').innerHTML = (b.list ?? []).map((n) => `<li>${short(n)}</li>`).join(''); // 고유 공격 넷 — 한글 이름만 이어서(원어는 싸움 화면 기술 칸에)
+    $('#bookList').innerHTML = (b.list ?? []).map((n) => `<li>${n}</li>`).join(''); // 고유 공격 넷 — 한글 이름만 이어서(원어는 싸움 화면 기술 칸에)
     $('#bookSource').textContent = `출처 · ${b.source}`;
     const head = headPriceOf(b.tier); // 머리로 사는 값 — 사장님 확인 전 (지금 null — 단추 없음)
     const note = test ? '테스트 경로 — 모든 책이 열려 있습니다'

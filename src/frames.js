@@ -69,23 +69,23 @@ export const FRAME_GUARDS = {
   //  몬탄테(고디뉴 1599·피게이레두 1651)의 "어깨에서 탈류(talho)·레베스(revés)를 번갈아", 일본 오다치의 상단·팔상.
   //  칼끝을 뒤로 눕혀 두면 무거운 칼끝이 내려오는 길이 길어 가속할 시간을 번다(롱소드 지붕 100° → 상단 135°)
   heavy: {
-    '지붕 (Vom Tag)': { name: '조단', desc: '칼자루를 이마 위로, 칼끝은 뒤로 눕힌다 · 한 칼로 내려벤다', hand: [0.2, 0.46, 0.05], blade: [115, 0], pelvisYaw: 15, chestYaw: 15, pitch: -2, drop: 0.05, src: 'kendo jōdan: 이마 위 한 주먹, 칼 45°, 칼끝 뒤 [원전 2차]' },
-    '어깨 지붕 (Vom Tag)': { name: '핫소 · 어깨 메기', desc: '칼자루를 오른 어깨 앞에 세우고 칼끝을 뒤로 · 사선으로 내려벤다', hand: [0.12, 0.22, 0.2], blade: [70, 165], pelvisYaw: 35, chestYaw: 45, pitch: 2, drop: 0.06, src: 'hassō: 칼자루 오른 어깨 앞, 칼 약 45°로 뒤로 기움 [원전 2차] · 츠바이핸더는 어깨에 메고 다녔다 [원전 2차]' },
-    '왼쪽 어깨 지붕': { name: '왼 핫소 · 레베스 준비', desc: '칼을 왼 어깨에 세운 자세 · 반대쪽 사선 베기 (revez)', hand: [0.16, 0.22, -0.12], blade: [70, -165], pelvisYaw: -30, chestYaw: -40, pitch: 2, drop: 0.06, src: '몬탄테 탈류·레베스 좌우 번갈아(피게이레두 1651 여러 규칙). 첫 규칙(단Ⅰ)은 어깨가 아니라 칼끝을 땅에 두고 시작해 탈류를 올려 얼굴 앞 곧은 자세(postura recta)에 멈춘다 [원전 2차 요약의 오류 고침 10/9]' },
+    '지붕 (폼 타크)': { name: '높이 들기', desc: '한 칼로 내려벤다', hand: [0.2, 0.46, 0.05], blade: [115, 0], pelvisYaw: 15, chestYaw: 15, pitch: -2, drop: 0.05, src: 'kendo jōdan: 이마 위 한 주먹, 칼 45°, 칼끝 뒤 [원전 2차]' },
+    '어깨 지붕 (폼 타크)': { name: '어깨 메기', desc: '어깨에서 비스듬히 내려벤다', hand: [0.12, 0.22, 0.2], blade: [70, 165], pelvisYaw: 35, chestYaw: 45, pitch: 2, drop: 0.06, src: 'hassō: 칼자루 오른 어깨 앞, 칼 약 45°로 뒤로 기움 [원전 2차] · 츠바이핸더는 어깨에 메고 다녔다 [원전 2차]' },
+    '왼 어깨 지붕 (폼 타크)': { name: '왼 어깨 메기', desc: '왼 어깨에서 비스듬히 내려벤다', hand: [0.16, 0.22, -0.12], blade: [70, -165], pelvisYaw: -30, chestYaw: -40, pitch: 2, drop: 0.06, src: '몬탄테 탈류·레베스 좌우 번갈아(피게이레두 1651 여러 규칙). 첫 규칙(단Ⅰ)은 어깨가 아니라 칼끝을 땅에 두고 시작해 탈류를 올려 얼굴 앞 곧은 자세(postura recta)에 멈춘다 [원전 2차 요약의 오류 고침 10/9]' },
     // (시도했다 뺌) 황소·옆 자세를 무거운 칼이 버티게 고치면(손을 몸 쪽으로, 칼을 세움) 자세는 버티지만(16.9 → 6.1 cm, 20.1 → 2.6 cm)
     //  두 자리가 베기 경유점이라 싸움은 나빠졌다(참치 25 → 10%, 모노호시자오 46 → 33%) — 규칙 1 (docs/weapon_motions.md §5-2).
     //  왼 팔상도 손을 앞으로 [0.24, 0.2, −0.1] 옮기면 츠바이핸더는 17.7 → 13.2 cm 로 버티지만 모노호시자오가 46 → 31% (왼 분노의 베기 시작점)
-    '긴 자세 (Langort)': { name: '추단', desc: '칼끝을 상대 목에 두고 손은 배꼽 앞 · 무거운 칼을 오래 뻗지 않는다', hand: [0.38, -0.1, 0.03], blade: [12, 0], pelvisYaw: -5, chestYaw: -5, pitch: 4, drop: 0.07, src: 'chūdan [원전 2차] · 무거운 칼끝을 뻗어 들고 있기 어렵다 [추정]' },
-    '옆 지킴 (Nebenhut)': { name: '와키가마에', desc: '칼을 오른 허리 뒤로 숨겨 칼끝을 뒤 아래로 · 길이를 감춘다', hand: [0.05, -0.25, 0.2], blade: [-35, 160], pelvisYaw: 45, chestYaw: 50, pitch: 4, drop: 0.08, src: 'waki-gamae: 칼 길이를 몸 뒤로 감추고 칼끝 45° 아래 [원전 2차]' },
+    '긴 자세 (랑오르트)': { name: '가운데 겨눔', desc: '무거운 칼을 오래 뻗지 않는다', hand: [0.38, -0.1, 0.03], blade: [12, 0], pelvisYaw: -5, chestYaw: -5, pitch: 4, drop: 0.07, src: 'chūdan [원전 2차] · 무거운 칼끝을 뻗어 들고 있기 어렵다 [추정]' },
+    '옆 지킴 (네벤후트)': { name: '허리 뒤 숨김', desc: '칼 길이를 감춘다', hand: [0.05, -0.25, 0.2], blade: [-35, 160], pelvisYaw: 45, chestYaw: 50, pitch: 4, drop: 0.08, src: 'waki-gamae: 칼 길이를 몸 뒤로 감추고 칼끝 45° 아래 [원전 2차]' },
   },
 
   // C 한손 (세이버·팔쉬온·청강검·레이피어·나뭇가지·고무 닭): 한손 자세표(10라운드 R2) 위에 한손 칼 교본 자세.
   //  세이버(앵젤로 1798·로워스·허턴 1889)의 걸친 막기·머리 막기, 레이피어(카포 페로 1610)의 3번·4번 자세
   one: {
-    '긴 자세 (Langort)': { name: '3번 자세 (Terza)', desc: '팔을 곧게 뻗어 칼끝으로 겨누고 몸을 옆으로 세운다 · 런지로 찌른다', src: '카포 페로 3번 자세 [해석] — 손 위치는 R2 한손 뻗기 값' },
-    '쟁기 (Pflug)': { name: '바깥 막기 (Seconda)', desc: '손을 허리 바깥에, 칼끝은 상대 얼굴 · 바깥 선을 닫는다', src: '[해석] — 손 위치는 R2 값' },
+    '긴 자세 (랑오르트)': { name: '3번 자세 (테르차)', desc: '뻗어 겨누고 런지로 찌른다', src: '카포 페로 3번 자세 [해석] — 손 위치는 R2 한손 뻗기 값' },
+    '쟁기 (플루크)': { name: '바깥 막기 (세콘다)', desc: '바깥 선을 닫는다', src: '[해석] — 손 위치는 R2 값' },
     // 안쪽 막기(Quarta)는 이름만 붙인다: 손·칼끝을 바꾸면(손 [0.42,−0.10,0.05]·칼끝 [15,8]) 청강검이 50% → 31% (값 그대로 두면 44%) — 이 자리도 베기 길이 지난다
-    '왼쪽 쟁기': { name: '안쪽 막기 (Quarta)', desc: '손바닥을 위로 돌려 안쪽 선에, 칼끝은 상대 얼굴 · 안쪽 선을 닫는다', src: '레이피어 4번 자세(quarta) = 손목을 돌린 상태 [원전 2차 카포 페로] — 손 위치는 롱소드 왼쪽 쟁기 그대로' },
+    '왼 쟁기 (플루크)': { name: '안쪽 막기 (콰르타)', desc: '안쪽 선을 닫는다', src: '레이피어 4번 자세(quarta) = 손목을 돌린 상태 [원전 2차 카포 페로] — 손 위치는 롱소드 왼쪽 쟁기 그대로' },
   },
 
   //  머리 막기(St. George)·걸친 막기(Hanging)는 표에 넣지 않는다 → 아래 COVERS (측정: 표의 지붕·황소 자리를 이 막기 자세로 바꾸자
@@ -103,8 +103,8 @@ export const STYLE_GUARDS = {
   'one:thrust': {
     // 3번 자세는 이름만(손은 R2 한손 뻗기 값): 카포 페로식으로 팔을 굽히고 옆으로 세우면(손 [0.50,−0.05,0.20]·골반 −55·가슴 −65·낮춤 0.12)
     //  칼끝이 덜 나가 레이피어가 진다 — 96판: 굽힌 3번 39% · 뻗은 3번 47% · 라이브러리 끔 45%. 런지가 굽힌 팔을 메워 주지만 다 메우지는 못한다
-    '긴 자세 (Langort)': { name: '3번 자세 (Terza)', desc: '팔을 뻗어 칼끝으로 상대 얼굴을 겨누고 몸을 옆으로 세운다 · 런지로 찌른다', src: '카포 페로 3번 자세 [원전 2차] — 손 위치는 R2 한손 뻗기 값(굽힌 팔은 싸움에서 졌다)' },
-    '쟁기 (Pflug)': { name: '2번 자세 (Seconda)', desc: '손을 어깨 높이로 뻗고 손바닥을 아래로 · 칼끝은 상대 가슴', hand: [0.5, 0.08, 0.24], blade: [-3, -3], pelvisYaw: -50, chestYaw: -60, pitch: 2, drop: 0.12, src: '카포 페로 2번 자세: 손바닥 아래, 어깨 높이 [원전 2차]' },
+    '긴 자세 (랑오르트)': { name: '3번 자세 (테르차)', desc: '뻗어 겨누고 런지로 찌른다', src: '카포 페로 3번 자세 [원전 2차] — 손 위치는 R2 한손 뻗기 값(굽힌 팔은 싸움에서 졌다)' },
+    '쟁기 (플루크)': { name: '2번 자세 (세콘다)', desc: '어깨 높이에서 가슴을 찌른다', hand: [0.5, 0.08, 0.24], blade: [-3, -3], pelvisYaw: -50, chestYaw: -60, pitch: 2, drop: 0.12, src: '카포 페로 2번 자세: 손바닥 아래, 어깨 높이 [원전 2차]' },
     // 1번 자세(Prima: 손을 머리 위로, 칼끝을 내려 겨눔)는 뺐다 — 황소 자리는 찌르기·베기 길의 경유점이라 칼끝을 내리면 길이 휜다
     //  (측정 48판: 넣으면 15%, 빼면 40%. 한손 막기 자세와 같은 까닭 — COVERS)
   },
@@ -115,8 +115,8 @@ export const STYLE_GUARDS = {
 //  패드 자리는 베기 길의 경유점이라, 막기 자세를 자세표에 넣으면 그 자리를 지나는 모든 베기가 휜다(§ FRAME_GUARDS.one 주석, docs/weapon_motions.md §5)
 export const COVERS = {
   one: {
-    highC: { name: '머리 막기 (St. George)', desc: '칼을 머리 위로 가로 눕힌다 · 위에서 오는 칼을 받아 곧바로 되벤다', hand: [0.3, 0.4, 0.08], blade: [5, -80], pelvisYaw: -20, chestYaw: -30, pitch: 0, drop: 0.06, src: '허턴 Cold Steel(1889) 도판 VII "St. George\'s guard" [원전 2차] · 가로 막기 모양 [해석]' },
-    highR: { name: '걸친 막기 (Hanging guard)', desc: '팔꿈치를 들어 손을 머리 높이로, 칼끝은 상대 가슴으로 늘어뜨린다 · 머리·어깨·가슴을 한 번에 덮는다', hand: [0.4, 0.38, 0.12], blade: [-35, -20], pelvisYaw: -25, chestYaw: -40, pitch: 5, drop: 0.08, src: '페이지 The Use of the Broad Sword(1746): 칼 팔 팔꿈치를 들고 칼끝을 상대 가슴에, 자기 머리를 덮는다 [원전 2차]' },
+    highC: { name: '머리 막기 (세인트 조지)', desc: '머리 위로 받아 곧장 되벤다', hand: [0.3, 0.4, 0.08], blade: [5, -80], pelvisYaw: -20, chestYaw: -30, pitch: 0, drop: 0.06, src: '허턴 Cold Steel(1889) 도판 VII "St. George\'s guard" [원전 2차] · 가로 막기 모양 [해석]' },
+    highR: { name: '걸친 막기 (행잉 가드)', desc: '머리·어깨·가슴을 한 번에 덮는다', hand: [0.4, 0.38, 0.12], blade: [-35, -20], pelvisYaw: -25, chestYaw: -40, pitch: 5, drop: 0.08, src: '페이지 The Use of the Broad Sword(1746): 칼 팔 팔꿈치를 들고 칼끝을 상대 가슴에, 자기 머리를 덮는다 [원전 2차]' },
   },
 };
 
@@ -124,8 +124,8 @@ export const COVERS = {
 export function frameTableWithCovers(frame, style = null) {
   const c = COVERS[frame] ?? {};
   const o = { ...(FRAME_GUARDS[frame] ?? {}), ...(STYLE_GUARDS[`${frame}:${style}`] ?? {}) };
-  if (c.highC) o['지붕 (Vom Tag)'] = c.highC;
-  if (c.highR) o['황소 (Ochs)'] = c.highR;
+  if (c.highC) o['지붕 (폼 타크)'] = c.highC;
+  if (c.highR) o['황소 (옥스)'] = c.highR;
   return table(frame === 'one' || frame === 'gun' ? GUARD_BASE_ONE : GUARD_BASE, o);
 }
 
@@ -144,12 +144,12 @@ export function buildFrameTable(frame, style = null, skip = [], base = null) {
 // E 자루 무기 자세표 초안 (docs/pole_frame_design.md) — 데이터만. 두 손 간격·뒤로 뻗은 자루·미끄러지는 쥔 점 물리가 먼저라 아무 데서도 읽지 않는다.
 //  hand = 앞손(칼 원점), rear = 뒷손. 마이어 봉 자세 [원전 2차], 수치 [추정]. 몸은 왼발 앞(골반 yaw +)
 export const POLE_GUARDS = {
-  '긴 자세 (Langort)': { name: 'Mittelhut (Gerade Versatzung)', hand: [0.45, -0.05, -0.05], rear: [0.1, -0.25, 0.15], blade: [10, 0], pelvisYaw: 35, chestYaw: 30 },
-  '지붕 (Vom Tag)': { name: 'Oberhut', hand: [0.25, 0.5, 0.05], rear: [0.15, 0.0, 0.05], blade: [85, 0], pelvisYaw: 30, chestYaw: 25 },
-  '바보 (Alber)': { name: 'Unterhut', hand: [0.4, -0.25, 0.0], rear: [0.05, 0.0, 0.2], blade: [-30, 0], pelvisYaw: 35, chestYaw: 30 },
-  '쟁기 (Pflug)': { name: 'Steurhut', hand: [0.25, -0.1, -0.2], rear: [0.3, 0.35, 0.15], blade: [-60, -30], pelvisYaw: 30, chestYaw: 20 },
-  '왼쪽 바꿈': { name: 'Nebenhut', hand: [0.05, -0.3, -0.25], rear: [0.15, -0.1, 0.1], blade: [-20, -150], pelvisYaw: 45, chestYaw: 50 },
-  '옆 지킴 (Nebenhut)': { name: 'Wechselhut', hand: [0.0, -0.35, 0.25], rear: [0.1, -0.15, 0.0], blade: [-25, 150], pelvisYaw: 20, chestYaw: 10 },
+  '긴 자세 (랑오르트)': { name: 'Mittelhut (Gerade Versatzung)', hand: [0.45, -0.05, -0.05], rear: [0.1, -0.25, 0.15], blade: [10, 0], pelvisYaw: 35, chestYaw: 30 },
+  '지붕 (폼 타크)': { name: 'Oberhut', hand: [0.25, 0.5, 0.05], rear: [0.15, 0.0, 0.05], blade: [85, 0], pelvisYaw: 30, chestYaw: 25 },
+  '바보 (알버)': { name: 'Unterhut', hand: [0.4, -0.25, 0.0], rear: [0.05, 0.0, 0.2], blade: [-30, 0], pelvisYaw: 35, chestYaw: 30 },
+  '쟁기 (플루크)': { name: 'Steurhut', hand: [0.25, -0.1, -0.2], rear: [0.3, 0.35, 0.15], blade: [-60, -30], pelvisYaw: 30, chestYaw: 20 },
+  '왼 바꿈 (베크셀)': { name: 'Nebenhut', hand: [0.05, -0.3, -0.25], rear: [0.15, -0.1, 0.1], blade: [-20, -150], pelvisYaw: 45, chestYaw: 50 },
+  '옆 지킴 (네벤후트)': { name: 'Wechselhut', hand: [0.0, -0.35, 0.25], rear: [0.1, -0.15, 0.0], blade: [-25, 150], pelvisYaw: 20, chestYaw: 10 },
 };
 // 자세마다 어느 끝이 앞인가(frontEnd): 봉은 모두 'head'. 폴액스·나기나타는 꼬리(butt) 앞 자세가 있어 자세 칸 값으로 둔다 (docs/pole_frame_design.md §4-2)
 for (const g of Object.values(POLE_GUARDS)) g.frontEnd = 'head';

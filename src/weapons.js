@@ -53,6 +53,26 @@ export const TIER_DEFAULTS = {
   mystery: { power: 1.0, durability: 0.8 },
 };
 /** 카드에 쓰는 등급 이름 (main.js TIER_KO 대신 이것을 쓰면 ??? 도 나온다) */
+// 대기실 아이템 창 스펙 (사장님 10/19 02:0x '무기는 대기실 아이템 창에서만 스펙 병기 — 설명 뒤에 한 칸 띄고 (무기 종류, 길이, 무게)').
+//  길이 · 무게는 몸체 자료(buildParts — 물리와 같은 수)에서 셈: 길이 = 부품 끝에서 끝 · 무게 = 부품 질량 합
+const KIND_KO = {
+  longsword: '양손검', zweihander: '대형 양손검', estoc: '찌르기검', sabre: '한손 곡도', rapier: '한손 찌르기검', falchion: '한손 외날검',
+  monohoshizao: '노다치', uchigatana: '일본도', qinggang: '한손 양날검', excalibur: '양손검', excalibur_replica: '양손검', lightsaber: '빛의 칼',
+  tree_branch: '나뭇가지', rubber_chicken: '장난감', frozen_tuna: '생선', pistol: '권총', morgenstern: '한손 철퇴', ganjiang: '한손 양날검',
+  moye: '한손 양날검', sain: '한손 양날검', ice: '대형 양손검', flamberge: '대형 양손검', goujian: '한손 청동검', brothers_sword: '한손검',
+};
+/** '종류, 길이 cm, 무게 kg' (예: '한손 양날검, 95 cm, 0.95 kg') — 자료가 없으면 '' */
+export function weaponSpecText(spec) {
+  let parts;
+  try { parts = spec?.buildParts?.({}) ?? []; } catch { return ''; }
+  if (!parts.length) return '';
+  const ext = (sh) => (sh[0] === 'box' ? sh[2] : sh[1]);
+  const lo = Math.min(...parts.map((q) => q[1] - ext(q[0])));
+  const hi = Math.max(...parts.map((q) => q[1] + ext(q[0])));
+  const kg = parts.reduce((a, q) => a + q[2][0], 0);
+  const kind = KIND_KO[spec.id] ?? (spec.grip === 'two-hand' ? '양손 무기' : '한손 무기');
+  return `${kind}, ${Math.round((hi - lo) * 100)} cm, ${String(+kg.toFixed(2))} kg`;
+}
 export const TIER_LABEL = { trash: '쓰레기', common: '커먼', rare: '레어', epic: '에픽', legend: '레전드', mystery: '???' };
 
 // ── 무기 카드 뽑기 확률 (사장님 결정): 등급을 먼저 뽑고, 그 등급 안에서 무기를 고르게 뽑는다 ──
@@ -404,7 +424,7 @@ function finalizeSpec(id, s) {
 // ═════════════════════════════════════════════════════════════
 const longsword = finalizeSpec('longsword', {
   nameKo: '롱소드', nameEn: 'Longsword',
-  desc: '두 손으로 쥐는 균형 잡힌 장검.\n베기도 찌르기도 두루 잘한다.',
+  desc: '중세 말 독일 검객들이 익히던 양손 장검.\n리히테나워는 그 비결을 수수께끼 같은 시로 남겼다.',
   grip: 'two-hand', material: 'steel',
   hiltLength: 0.13, bladeLength: 1.05, gripAlong: -0.14,
   // 겉모습만 (물리·질량은 위 실측 그대로, 한 글자도 안 바뀐다): 양날 마름모 단면 + 날 세움 면, 칼몸 절반까지 피홈,
@@ -461,7 +481,7 @@ const ZW_FORMS = {
 const ZW = ZW_FORMS[MONTANTE.hand] ?? ZW_FORMS.mid; // 모르는 이름은 기본(중간)
 const zweihander = finalizeSpec('zweihander', {
   nameKo: '츠바이핸더 (대형 양손검)', nameEn: 'Zweihänder',
-  desc: '정예 용병이 쓰던 거대한 양손검.\n느리지만 맞으면 묵직하게 부순다.',
+  desc: '두 배 급료를 받고 창 숲 맨 앞을 깨던 용병의 칼.\n느리지만 맞으면 묵직하게 부순다.',
   grip: 'two-hand', material: 'steel',
   tier: 'common', // 사장님 10/11 01:4x '츠바이핸더는 커먼으로' (전: 레어 — 도펠죌트너만 다루던 특수 대검, power 1.05) → power 1.0
   // 쥠 (사장님 10/10 '쥠은 고증대로 넓혀', 확인표 680~): 고디뉴 몬탄테 규칙 3 '오른손 날밑 가까이, 왼손 폼멜 가까이'.
@@ -523,7 +543,7 @@ const zweihander = finalizeSpec('zweihander', {
 // ═════════════════════════════════════════════════════════════
 const estoc = finalizeSpec('estoc', {
   nameKo: '에스톡 (찌르기검)', nameEn: 'Estoc',
-  desc: '갑옷 틈을 파고드는 찌르기검.\n찌르기로 싸워야 제값을 한다.',
+  desc: '판금 갑옷의 틈을 찌르려 날 대신 끝을 벼린 칼.\n찌르기로 싸워야 제값을 한다.',
   grip: 'hand-and-half', material: 'steel',
   hiltLength: 0.14, bladeLength: 1.15, gripAlong: -0.15,
   mCut: 0.55, mThrust: 1.35, mBlunt: 0.9, // 날이 거의 없어 베기는 약하고, 갑옷 틈을 노리는 찌르기는 뛰어나다
@@ -559,7 +579,7 @@ const estoc = finalizeSpec('estoc', {
 // ═════════════════════════════════════════════════════════════
 const sabre = finalizeSpec('sabre', {
   nameKo: '세이버 (기병도)', nameEn: 'Cavalry Sabre',
-  desc: '가볍게 휘어진 기병의 한손 칼.\n빠르게 베고 빠지기 좋다.',
+  desc: '말 위에서 내리베기 좋게 휘어진 기병의 칼.\n빠르게 베고 빠진다.',
   grip: 'one-hand', material: 'steel',
   enterParry: true, // 들어가며 막기 (10라운드 R3, skill.js): 상대 칼을 받아 낸 순간 한 걸음 안쪽으로 — 짧은 한손 칼
   hiltLength: 0.11, bladeLength: 0.83,
@@ -605,7 +625,7 @@ const sabre = finalizeSpec('sabre', {
 // ═════════════════════════════════════════════════════════════
 const rapier = finalizeSpec('rapier', {
   nameKo: '레이피어', nameEn: 'Rapier',
-  desc: '길고 가는 르네상스 결투검.\n가장 빨리 찌르지만 베기는 약하다.',
+  desc: '르네상스 신사들이 평상복에 차고 다니던 결투검.\n가장 빨리 찌르지만 베기는 약하다.',
   grip: 'one-hand', material: 'steel',
   tier: 'rare', // 감독 확정: 레어 — 르네상스 결투검, 로스터 유일의 찌르기 전용. power 1.05, 파손 계수 0.032
   hiltLength: 0.1, bladeLength: 0.95,
@@ -649,7 +669,7 @@ const rapier = finalizeSpec('rapier', {
 // ═════════════════════════════════════════════════════════════
 const falchion = finalizeSpec('falchion', {
   nameKo: '팔쉬온 (반달칼)', nameEn: 'Falchion',
-  desc: '끝이 넓고 무거운 외날 칼.\n내려찍듯 베면 도끼처럼 들어간다.',
+  desc: '잉글랜드의 한 가문은 이 칼로 용을 베었다고 전한다.\n내려찍듯 베면 도끼처럼 들어간다.',
   grip: 'one-hand', material: 'steel',
   enterParry: true, // 들어가며 막기 (10라운드 R3, skill.js): 상대 칼을 받아 낸 순간 한 걸음 안쪽으로 — 짧은 한손 칼
   hiltLength: 0.1, bladeLength: 0.8,
@@ -701,14 +721,14 @@ const falchion = finalizeSpec('falchion', {
 // ═════════════════════════════════════════════════════════════
 const monohoshizao = finalizeSpec('monohoshizao', {
   nameKo: '모노호시자오', nameEn: 'Monohoshizao',
-  desc: '사사키 코지로의 노다치.\n빨랫줄 장대라 불린 칼, 매섭게 벤다.',
+  desc: '간류지마에서 무사시와 겨룬 사사키 코지로의 긴 칼.\n빨래 장대라 불릴 만큼 길었다.',
   grip: 'two-hand', material: 'steel',
   school: 'japanese', // 유파(schools.js TRADITIONS): 틀은 앞무게(이베리아가 기본)지만 일본 도검술 — 10/8 ① 구조 (일본 유파는 아직 이베리아와 같은 내용의 자리만)
   tier: 'epic',
   ability: '제비 베기: 출혈',
   // 동작 라이브러리(motion_library.js, 기본 꺼짐)의 앞무게 자세표에서 상단(上段)은 쓰지 않는다: 긴 자루·앞무게 칼이 칼끝을 뒤로 눕힌
   //  상단에서 빠르게 내리면 날이 서지 않는다(날 세움 0~0.7) → 실제 싸움 48판 31% (상단 빼면 46%, 라이브러리 끔 50%). 지붕 자세 그대로
-  motionSkip: ['지붕 (Vom Tag)'],
+  motionSkip: ['지붕 (폼 타크)'],
   bleedMult: 2, // 에픽 특수 능력 '제비 베기: 출혈' (사장님 b안): 이 칼에 베이고 찔린 상처의 출혈 ×2 (롱소드 상대 ×1 38% · ×1.5 44% · ×2 50%, 48판씩 — 에픽 폭 45~65% 안)
   hiltLength: 0.25, bladeLength: 0.9, gripAlong: -0.22,
   mCut: 1.7, mThrust: 0.85, mBlunt: 0.95, // 1.5 로는 롱소드 상대 4% (긴 칼이라 간격에서 이기지 못한다) → 1.7 (실효 1.87)
@@ -778,7 +798,7 @@ const monohoshizao = finalizeSpec('monohoshizao', {
 // ═════════════════════════════════════════════════════════════
 const uchigatana = finalizeSpec('uchigatana', {
   nameKo: '우치가타나', nameEn: 'Uchigatana',
-  desc: '무사가 허리에 꽂던 보통 크기의 카타나.\n한 칼에 내려벤다.',
+  desc: '날을 위로 하여 허리띠에 꽂던 무사의 칼.\n뽑는 동작이 곧 베기다.',
   grip: 'two-hand', material: 'steel',
   school: 'japanese', // 일본 유파: 이름표·가중치(two:*)·고유 동작·패시브를 traditionOf 로 받는다
   frame: 'two', // 경계 고정 (제안서 §0-3: 카타나 가족이 무게 몇십 g 차이로 앞무게로 넘어가지 않게)
@@ -839,7 +859,7 @@ const uchigatana = finalizeSpec('uchigatana', {
 const QINGGANG_LOOK = { grip: 0x17171f, hilt: 0x8a6d3b };
 const qinggang = finalizeSpec('qinggang', {
   nameKo: '청강검', nameEn: 'Qinggang Sword',
-  desc: '쇠도 진흙처럼 벤다던 전설의 검.\n가볍고 빠른 한손 양날검.',
+  desc: '장판파에서 조자룡이 조조의 장수에게서 빼앗은 보검.\n쇠를 진흙처럼 벤다.',
   grip: 'one-hand', material: 'steel',
   school: 'chinese', // 유파(schools.js TRADITIONS): 틀은 한손 두루(독일이 기본)지만 劍 — 10/8 ① 구조 (중국 유파 = 전 지안 꾸러미 그대로)
   enterParry: true, // 들어가며 막기 (10라운드 R3, skill.js): 상대 칼을 받아 낸 순간 한 걸음 안쪽으로 — 짧은 한손 칼
@@ -950,7 +970,7 @@ function excaliburGems(group) {
 
 const excalibur = finalizeSpec('excalibur', {
   nameKo: '엑스칼리버', nameEn: 'Excalibur',
-  desc: '금빛 기운이 감도는 진짜 왕의 검.',
+  desc: '호수의 여인이 아서왕에게 내린 왕의 검.\n금빛 기운이 감돈다.',
   grip: 'two-hand', material: 'steel',
   tier: 'legend', // 감독 등급: 레전드 → power 1.2·durability 1.0. 진품은 플레이어 카드와 아르토리아(사장님 10/10 20:3x '진품 그대로') — 하인리히는 복제품
   hiltLength: 0.13, bladeLength: 1.0, gripAlong: -0.15,
@@ -1202,7 +1222,7 @@ const pistol = finalizeSpec('pistol', {
 // ═════════════════════════════════════════════════════════════
 const morgenstern = finalizeSpec('morgenstern', {
   nameKo: '모르겐슈테른 (가시 철퇴)', nameEn: 'Morgenstern', // 카드 글 초안 — 줄 148 (문구는 사장님 확인 전)
-  desc: '가시 박은 쇠 공을 자루 끝에 단 둔기.\n갑옷 위로도 충격이 들어가고 투구를 벗긴다.',
+  desc: '독일 말로 ‘샛별’. 가시 돋친 쇠머리를 별에 빗댔다.\n갑옷 위로도 충격이 들어가고 투구를 벗긴다.',
   grip: 'one-hand', material: 'steel', // 틀 C 한손 → 세이버 자세표 guardBaseOne('blunt'); 대안 'hand-and-half'(B 앞무게) — 줄 133. 재질 steel: 자루에 쇠 보강띠·소리는 쇠 (줄 146)
   tier: 'rare', // 등급표 기본값 power 1.05 · durability 0.85 · fragility 0.032 — 줄 136 (확인만)
   edged: false, // 날 없음 → 늘 둔기 (classifyStyle 'blunt')
@@ -1369,9 +1389,9 @@ function legendaryJianSpec(id, nameKo, nameEn, desc) {
 // 카드 문구 (10/10 에셋 리뷰 §1-3): 카드 한 칸에 둘 중 하나가 뜨는 한 쌍이라 첫 줄에 짝 이름을 넣고, 길이 표기는 사인검·아이스와 같은 '전체 N cm'
 //  (화면 문구 규칙 docs/ui/hud_copy_rules_2026-10-10.md §4-7 숫자와 단위 사이 한 칸 · §4-6 카드 설명 두 문장 40 자 안 — 36.5)
 const ganjiang = legendaryJianSpec('ganjiang', '간장', 'Ganjiang',
-  '막야와 한 쌍인 회금빛 귀갑문 명검.\n전체 95 cm, 질량 0.95 kg의 한손 양날검.');
+  '오나라 대장장이 간장이 아내 막야와 벼린 한 쌍의 칼.\n거북 등 무늬가 회금빛으로 감돈다.');
 const moye = legendaryJianSpec('moye', '막야', 'Moye',
-  '간장과 한 쌍인 은빛 물결무늬 명검.\n전체 91 cm, 질량 1.12 kg의 한손 양날검.');
+  '쇠가 녹지 않자 막야는 머리카락과 손톱을 화로에 던졌다.\n은빛 물결무늬가 감도는 간장의 짝.');
 
 // ═════════════════════════════════════════════════════════════
 //  19) 사인검 (레어) — 샛별 저장소에서 가져옴 (6e71ba2, 기준 5a4e96c). 조선 왕실의 벽사 의례검(네 寅이 겹친 때 만든다).
@@ -1392,7 +1412,7 @@ const moye = legendaryJianSpec('moye', '막야', 'Moye',
 // ═════════════════════════════════════════════════════════════
 const sain = finalizeSpec('sain', {
   nameKo: '사인검', nameEn: 'Sain Sword',
-  desc: '별자리와 금은 명문을 새긴 의례검.\n전체 100 cm, 질량 1 kg의 한손 양날검.',
+  desc: '범의 해·달·날·시에 벼린 조선 왕실의 벽사검.\n칼몸에 새긴 별자리가 삿된 것을 벤다.',
   grip: 'one-hand', material: 'steel', tier: 'rare',
   school: 'chinese', // 중국 유파 — 바탕 글이 조선세법·본국검 (위 머리말)
   enterParry: true, // 들어가며 막기 (짧은 한손 칼 관례 — 간장·막야와 같은 까닭)
@@ -1417,7 +1437,7 @@ const sain = finalizeSpec('sain', {
 
 const ice = finalizeSpec('ice', {
   nameKo: '북부 대공의 검', nameEn: 'Sword of the Northern Grand Duke', // 사장님 10/11 01:4x 이름 바꿈(전 '아이스' — 설명에 '북부 가문의 검')
-  desc: '세 줄의 홈과 황동 장식을 지닌 대검.\n전체 168 cm, 질량 3.5 kg의 양손검.', // 사장님 10/10 20:0x: '스타크의 대검' → '북부 가문의 검' (이름 '아이스'는 일반명사로 그대로)
+  desc: '세 줄의 홈과 황동 장식을 지닌 북부의 대검.\n두 손으로도 버거울 만큼 무겁다.', // 사장님 10/10 20:0x: '스타크의 대검' → '북부 가문의 검' (이름 '아이스'는 일반명사로 그대로)
   grip: 'two-hand', material: 'steel', tier: 'rare',
   hiltLength: 0.20, bladeLength: 1.21, gripAlong: -0.22, // 칼날 1.25 → 1.21 (사장님 10/11 01:5x '4cm 줄여' — 쥠을 넓히며 172 cm 가 된 전체를 처음 정한 168 cm 로, 칼날 무게중심·관성은 칼날 길이 비율 그대로)
   // 쥠 (10/10 23:5x 사장님 지시 '이베리아 유파는 츠바이핸더처럼 쥐는 걸 기본으로 해서 아이스도 그렇게 — 0.22~0.24 사이', 확인표 825·826 — 몬탄테 문서 §17):
@@ -1470,7 +1490,7 @@ const FL = {
 };
 const flamberge = finalizeSpec('flamberge', {
   nameKo: '플랑베르주 (물결 날 양손검)', nameEn: 'Flamberge',
-  desc: '불꽃처럼 물결치는 날을 지닌 대검.\n전체 169 cm, 질량 3.0 kg의 양손검.',
+  desc: '독일 용병 란츠크네히트가 들던 불꽃 날 대검.\n물결 날은 벼리기 어려워 값비싼 칼이었다.',
   grip: 'two-hand', material: 'steel', tier: 'epic',
   hiltLength: FLAMBERGE_HILT, bladeLength: FLAMBERGE_MUSEUM.blade, gripAlong: -0.24,
   mCut: 1.1, mThrust: 0.85, mBlunt: 1.15,
@@ -1507,7 +1527,7 @@ const goujian = finalizeSpec('goujian', {
   nameKo: '월왕구천검', nameEn: 'Sword of Goujian',
   // 카드 글 (우리 글 규칙 — 숫자와 단위 띄움 · 두 문장 40 자 안). 감독 예 '월나라 왕 구천의 청동검. / 전체 85 cm, 질량 1.21 kg의 한손검.' 은 작은 가로 폰(568×320 · 844×340)
   //  카드 폭 150 px 에서 설명 세 줄 + 능력 줄 두 줄이 되어, 고른 카드('내 무기' 꼬리표가 붙음)의 글이 앞면 아래로 3.6 px 넘쳤다 → 설명을 두 줄로 줄임
-  desc: '월왕 구천의 청동검.\n전체 85 cm, 1.21 kg의 한손검.',
+  desc: '이천오백 년을 묻혀 있고도 녹슬지 않은 월왕의 청동검.\n복수의 저주를 받아 다칠수록 매서워진다.',
   grip: 'one-hand', material: 'steel', tier: 'epic', // 에픽 (사장님 결정 10/14) → power 1.1 · 내구 0.95 · 파손 0.0104 (등급표 그대로)
   school: 'chinese', // 동방 유파 (사장님 결정 10/14 — 청강검·간장·막야·사인검과 같은 劍)
   enterParry: true, // 들어가며 막기 (짧은 한손 칼 관례 — 간장·막야·사인검과 같은 까닭, 샛별 쪽엔 없음)

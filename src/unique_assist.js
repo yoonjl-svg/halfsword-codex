@@ -54,7 +54,7 @@ export const PLAYER_UNIQUE = {
   italian: [
     { stage: 1, name: 'inquartata', body: [18, 10, 5, 0.025], on: [{ tech: 'stichPflugL' }] }, // 비껴서며 찌르기 ← 왼 쟁기 찌르기
     { stage: 2, name: 'imbroccata', body: [10, 12, 8, 0.04], on: [{ tech: 'stichOchs' }] }, // 위에서 내려 찌르기 ← 황소 찌르기
-    { stage: 3, name: 'cavazione', nameKo: '칼끝 돌려 빼기 (cavazione)', body: [5, 8, 4, 0.02], on: [{ prev: 'thrust', when: 'bound' }, { prev: 'thrust', when: 'turn' }] }, // 칼끝 돌려 빼기(속임 then 길) ← 내 찌르기가 맞물림 · 찌르다 꺾음
+    { stage: 3, name: 'cavazione', nameKo: '칼끝 돌려 빼기 (카바치오네)', orig: 'cavazione', body: [5, 8, 4, 0.02], on: [{ prev: 'thrust', when: 'bound' }, { prev: 'thrust', when: 'turn' }] }, // 칼끝 돌려 빼기(속임 then 길) ← 내 찌르기가 맞물림 · 찌르다 꺾음
     { stage: 4, name: 'passataSotto', body: [8, 5, 12, 0.08], on: [{ tech: 'stichPflug' }] }, // 밑으로 들어가 찌르기 ← 쟁기 찌르기 (런지 자세는 이탈리아 비기 몫 — 붙이지 않음)
   ],
   iberian: [
@@ -72,9 +72,9 @@ export const PLAYER_UNIQUE = {
   chinese: [
     { stage: 1, name: 'chebuYaoji', body: [-15, -20, 1.5, 0.02], on: [{ tech: 'zwerch' }] }, // 체보요격 ← 가로베기
     { stage: 2, name: 'zuoyi', anchor: 'start', body: [5, 3, 5, 0.015], on: [{ pad: 'langort', dir: 'down' }] }, // 좌익격 ← 코테와 같음
-    { stage: 3, name: 'lianchi', body: [-15, -20, 0, 0], on: [{ prev: 'stichPflug', when: 'turn' }] }, // 염시(속임 then 길) ← 쟁기 찌르기를 시작했다가 짧은 창 안에 거둠
+    { stage: 3, name: 'lianchi', nameKo: '날개 접기 (염시)', orig: '斂翅', body: [-15, -20, 0, 0], on: [{ prev: 'stichPflug', when: 'turn' }] }, // 염시(속임 then 길) ← 쟁기 찌르기를 시작했다가 짧은 창 안에 거둠
     // 자→격 (刺→擊): 새 표 항목이지만 새 길은 없다 — yaoji 길(긴 자세 자리에서 시작하는 허리 베기). 출처는 schools.js ciji 패시브와 같은 「向前進步腰擊」
-    { stage: 4, name: 'ciji', path: 'yaoji', nameKo: '자→격 (刺→擊)', body: [-15, -20, 1.5, 0.015], on: [{ prev: 'thrust', when: 'any', dir: 'horiz' }] }, // ← 내 찌르기(맞든 빗나가든) 뒤 짧은 창 안의 가로 긋기
+    { stage: 4, name: 'ciji', path: 'yaoji', nameKo: '찌르고 베기 (자→격)', orig: '刺→擊', body: [-15, -20, 1.5, 0.015], on: [{ prev: 'thrust', when: 'any', dir: 'horiz' }] }, // ← 내 찌르기(맞든 빗나가든) 뒤 짧은 창 안의 가로 긋기
   ],
 };
 
@@ -133,10 +133,10 @@ export function uniqueDef(tradition, e) {
     if (!fk) return null;
     const a = u.feint.at;
     const p0 = [fk.from[0] + (fk.path[0][0] - fk.from[0]) * a, fk.from[1] + (fk.path[0][1] - fk.from[1]) * a]; // 가짜 기술을 at 만큼 간 자리 (ai.js startStrike 와 같은 점)
-    return { name: e.name, nameKo: e.nameKo ?? u.nameKo ?? u.feint.name, kind: u.feint.open === 'C' ? 'thrust' : 'cut', pts: [p0, ...u.feint.then.map((p) => p.slice())], step: null };
+    return { name: e.name, nameKo: e.nameKo ?? u.nameKo ?? u.feint.name, orig: e.orig ?? u.orig ?? null, kind: u.feint.open === 'C' ? 'thrust' : 'cut', pts: [p0, ...u.feint.then.map((p) => p.slice())], step: null };
   }
   if (!u.path?.length) return null; // 길 없는 것(맞받아치기 목록 등)은 플레이어 몫이 아니다
-  return { name: e.name, nameKo: e.nameKo ?? u.nameKo ?? u.name, kind: u.kind, pts: [u.from.slice(), ...u.path.map((p) => p.slice())], step: u.step ?? null };
+  return { name: e.name, nameKo: e.nameKo ?? u.nameKo ?? u.name, orig: e.orig ?? u.orig ?? null, kind: u.kind, pts: [u.from.slice(), ...u.path.map((p) => p.slice())], step: u.step ?? null };
 }
 
 // 해금은 이 파일 밖 — 플레이어에게 무엇이 열리는지는 스킬북 하나(skill_books.js playerKit · kitUniqueStage → 아래 PlayerUniqueAssist 의 stage).

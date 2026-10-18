@@ -68,7 +68,7 @@ test('책 값 100~500 · 산 책만 열림 · 금화가 모자라면 못 삼 · 
   assert.deepEqual(BOOK_TIERS.map((b) => b.price), [100, 200, 300, 400, 500]);
   assert.equal(booksOf('german').length, 5);
   assert.equal(bookOf('german', 1).title, '보법: 리히테나워');
-  assert.equal(bookOf('japanese', 5).title, '비기: 고노센');
+  assert.equal(bookOf('japanese', 5).title, '비기: 뒤에서 앞서기');
   assert.equal(bookOf('german', 3).list.length, 4); assert.equal(bookOf('german', 3).provisional, true);
   assert.equal(bookOf('italian', 4).planned, true);
   assert.equal(readProgress().coins, 100);

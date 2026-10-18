@@ -89,7 +89,7 @@ window.__cue = (kind, text, tag) => {
 };`;
 // 장면 글 (편집자 문구 정리 뒤 서양 유파 이름은 '한국어 (원어)')
 const TXT = AFTER
-  ? { passive: '맞받기 (Indes)', secret: '받아 베기 (Versetzen)', nach: '따라 들어가기 (Nachreisen)', tagP: '상대 독일 · 패시브', tagMe: '내 독일 · 비기', tagArm: '내 일본 · 비기', tagStiff: '상대 독일 · 비기' }
+  ? { passive: '맞받기 (인데스)', secret: '받아 베기 (페어제첸)', nach: '따라 들어가기 (나흐라이젠)', tagP: '상대 독일 · 패시브', tagMe: '내 독일 · 비기', tagArm: '내 일본 · 비기', tagStiff: '상대 독일 · 비기' }
   : { passive: 'Indes (맞받기)', secret: 'Versetzen (받아 베기)', nach: 'Nachreisen (따라 들어가기)', tagP: '독일 · 패시브', tagMe: '내 독일 · 비기', tagArm: '내 일본 · 비기', tagStiff: '상대 독일 · 비기 뒤' };
 const R2 = AFTER ? 'techSlot' : 'techCue';
 const R3 = AFTER ? 'secretSlot' : 'techCue';
@@ -136,7 +136,7 @@ async function before(o) {
   await page.evaluate((r2) => {
     const g = window.game;
     __pin(r2);
-    __guard(g.player.swordArt.names[3] ?? { name: '황소 (Ochs)', desc: '칼자루는 머리 옆, 칼끝은 상대 얼굴 · 찌르기 준비' });
+    __guard(g.player.swordArt.names[3] ?? { name: '황소 (옥스)', desc: '칼자루는 머리 옆, 칼끝은 상대 얼굴 · 찌르기 준비' });
     const em = __pin('emoMsg');
     em.textContent = '분노가 폭발한다';
     em.dataset.emotion = 'anger';
@@ -269,7 +269,7 @@ async function v2(o) {
   await page.evaluate(() => {
     document.querySelectorAll('#techSlot .slot').forEach(__pinEl);
     __pin('techCue');
-    __guard(window.game.player.swordArt.names[3] ?? { name: '황소 (Ochs)', desc: '칼자루는 머리 옆, 칼끝은 상대 얼굴 · 찌르기 준비' });
+    __guard(window.game.player.swordArt.names[3] ?? { name: '황소 (옥스)', desc: '칼자루는 머리 옆, 칼끝은 상대 얼굴 · 찌르기 준비' });
     for (const id of ['toast', 'hint', 'foeIntro']) document.getElementById(id).classList.remove('show');
   });
   await page.waitForTimeout(500);
@@ -338,7 +338,7 @@ async function v3(o) {
   await page.evaluate(() => {
     document.querySelectorAll('#techSlot .slot').forEach(__pinEl);
     __pin('techCue');
-    __guard(window.game.player.swordArt.names[3] ?? { name: '황소 (Ochs)', desc: '칼자루는 머리 옆, 칼끝은 상대 얼굴 · 찌르기 준비' });
+    __guard(window.game.player.swordArt.names[3] ?? { name: '황소 (옥스)', desc: '칼자루는 머리 옆, 칼끝은 상대 얼굴 · 찌르기 준비' });
     for (const id of ['toast', 'hint', 'foeIntro']) document.getElementById(id).classList.remove('show');
   });
   await page.waitForTimeout(500);

@@ -167,7 +167,7 @@ export function htmlTexts(src) {
 
 // ── 판정 ──
 /**
- * 중국 꼴: 한자는 모두 '(漢字)' 괄호 안에만, 괄호 바로 앞(빈칸 하나 허용) 낱말이 그 한글 독음 — 음절 수가 한자 수와 같아야 한다.
+ * 중국 꼴: 한자는 모두 괄호 안에만. 새 꼴(10/19) '뜻 (漢字 독음)' — 괄호 안 한자 뒤에 그 한글 독음 · 옛 꼴 '독음 (漢字)' — 괄호 바로 앞(빈칸 하나 허용) 낱말이 독음. 둘 다 음절 수가 한자 수와 같아야 한다.
  *  괄호 안에 허용하는 것: 한자·'→'·'·'·빈칸. 돌려줌: null(맞음) 또는 까닭
  */
 export function chineseFormProblem(s) {
@@ -177,6 +177,15 @@ export function chineseFormProblem(s) {
   for (const g of groups) {
     const inner = g[1];
     if (!HAN.test(inner)) continue;
+    // 10/19 글 방침 2판 (docs/text/text_style_v2_2026-10-19.md): '뜻 (漢字 독음)' — 괄호 안에 한자 뒤 빈칸 하나, 한국 한자음 (음절 수 = 한자 수)
+    const nu = /^(\S+) ([가-힣→·]+)$/u.exec(inner);
+    if (nu && HAN.test(nu[1]) && nu[1].replace(HAN_G, '').replace(/[→·]/g, '') === '') {
+      const hanN = nu[1].match(HAN_G).length;
+      const sylN = nu[2].replace(/[→·]/g, '').length;
+      if (sylN !== hanN) return `독음 '${nu[2]}' 의 음절 수(${sylN})와 한자 수(${hanN})가 다르다: (${inner})`;
+      covered += hanN;
+      continue;
+    }
     if (/[^㐀-䶿一-鿿豈-﫿→·\s]/u.test(inner)) return `괄호 안에 한자 말고 다른 글자: (${inner})`;
     const hanCount = inner.match(HAN_G).length;
     covered += hanCount;

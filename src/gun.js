@@ -17,7 +17,7 @@ import { ANATOMY, ARENA, COMBAT } from './config.js';
 import { prepareRevolverReload, playRevolverReload } from './revolver_reload_audio.js';
 
 /** 권총을 든 동안 화면에 띄우는 자세 이름 (사장님: "사격 자세 라고 써") — main.js 자세 이름 표시가 GUARDS 대신 쓴다 */
-export const GUN_STANCE = { name: '사격 자세', desc: '총이 저절로 상대를 겨누며 흔들린다 · 레이저가 몸에 걸린 순간 탭으로 쏜다' };
+export const GUN_STANCE = { name: '사격 자세', desc: '레이저가 몸에 걸리면 탭으로 쏜다' };
 
 export const GUN = {
   // 리볼버 사격 방식 (사장님 10/12 지시로 샛별 저장소 a3f96b2·666c07f 의 값을 가져옴 — docs/import/saetbyeol_round2_2026-10-12.md, 확인표 950~952)

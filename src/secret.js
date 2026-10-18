@@ -355,8 +355,8 @@ export function montanteFlowSeq(hand, dir, D, f = null) {
     seq.push({ kind: 'cut', reach: 0, base: 1, ...t, from: at.slice(), pre: [] });
     at = t.path[t.path.length - 1].slice();
   };
-  const fall = (sd, path) => push({ name: sd > 0 ? 'flowFallR' : 'flowFallL', nameKo: sd > 0 ? '오른쪽으로 떨어뜨림 (altibaxo)' : '왼쪽으로 떨어뜨림 (altibaxo de revez)', path, gate: { low: sd }, open: 'H' });
-  const rise = (sd, path) => push({ name: sd > 0 ? 'flowTalhoBaixo' : 'flowRevezBaixo', nameKo: sd > 0 ? '올려 탈류 (talho de baxo)' : '올려 레베스 (revez de baxo)', path, gate: { cross: -sd }, open: sd > 0 ? 'LL' : 'LR' }); // 빈틈 = unterhau · unterhauL
+  const fall = (sd, path) => push({ name: sd > 0 ? 'flowFallR' : 'flowFallL', nameKo: sd > 0 ? '오른쪽으로 떨어뜨림 (알티바슈)' : '왼쪽으로 떨어뜨림 (알티바슈 드 레베스)', path, gate: { low: sd }, open: 'H' });
+  const rise = (sd, path) => push({ name: sd > 0 ? 'flowTalhoBaixo' : 'flowRevezBaixo', nameKo: sd > 0 ? '올려 탈류 (탈류 드 바슈)' : '올려 레베스 (레베스 드 바슈)', path, gate: { cross: -sd }, open: sd > 0 ? 'LL' : 'LR' }); // 빈틈 = unterhau · unterhauL
   const mid = (sd) => [sd * D.riseMid, -0.08];
   // 첫 토막: 지금 손에서 곧장 (순간이동·멈춤 없음)
   if (rising) {

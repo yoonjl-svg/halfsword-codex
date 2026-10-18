@@ -22,23 +22,23 @@ import { SKILL, JOINTS } from './config.js';
 
 const RAW = [
   // 이름, 패드 [x, y], 손 [앞, 위, 옆], 칼끝 [올려본 각, 옆 각], 골반 yaw, 가슴 yaw, 숙이기, 낮추기(m)
-  { name: '지붕 (Vom Tag)', desc: '칼을 머리 위로 세운 자세 · 위에서 내려베기 준비', pad: [0.02, 0.52], hand: [0.18, 0.55, 0.06], blade: [100, 0], pelvisYaw: 25, chestYaw: 30, pitch: 0, drop: 0.05 },
+  { name: '지붕 (폼 타크)', desc: '머리 위에서 내려벤다', pad: [0.02, 0.52], hand: [0.18, 0.55, 0.06], blade: [100, 0], pelvisYaw: 25, chestYaw: 30, pitch: 0, drop: 0.05 },
   // 어깨 위 지붕: 칼을 오른쪽 어깨에 얹어 뒤로 눕힌 자세. 사선 베기(분노의 베기)가 여기서 시작한다
-  { name: '어깨 지붕 (Vom Tag)', desc: '칼을 오른 어깨에 얹은 자세 · 사선 베기 준비', pad: [0.42, 0.42], hand: [0.12, 0.14, 0.2], blade: [55, 170], pelvisYaw: 35, chestYaw: 45, pitch: 3, drop: 0.06 },
-  { name: '황소 (Ochs)', desc: '칼자루는 머리 옆, 칼끝은 상대 얼굴 · 찌르기 준비', pad: [0.22, 0.26], hand: [0.28, 0.29, 0.22], blade: [-15, -12], pelvisYaw: 25, chestYaw: 30, pitch: 3, drop: 0.07 },
-  { name: '긴 자세 (Langort)', desc: '팔을 쭉 뻗어 칼끝으로 겨눈 자세', pad: [0.0, 0.03], hand: [0.57, 0.07, 0.03], blade: [-3, 0], pelvisYaw: -20, chestYaw: -20, pitch: 8, drop: 0.07 },
+  { name: '어깨 지붕 (폼 타크)', desc: '어깨에서 비스듬히 내려벤다', pad: [0.42, 0.42], hand: [0.12, 0.14, 0.2], blade: [55, 170], pelvisYaw: 35, chestYaw: 45, pitch: 3, drop: 0.06 },
+  { name: '황소 (옥스)', desc: '머리 옆에서 얼굴을 찌른다', pad: [0.22, 0.26], hand: [0.28, 0.29, 0.22], blade: [-15, -12], pelvisYaw: 25, chestYaw: 30, pitch: 3, drop: 0.07 },
+  { name: '긴 자세 (랑오르트)', desc: '칼끝을 뻗어 거리를 잰다', pad: [0.0, 0.03], hand: [0.57, 0.07, 0.03], blade: [-3, 0], pelvisYaw: -20, chestYaw: -20, pitch: 8, drop: 0.07 },
   // 옆 자세: 가로베기(Mittelhau/Zwerchhau)를 준비하려고 칼을 옆으로 눕혀 뒤로 뺀 자세 (추정)
-  { name: '옆 자세', desc: '칼을 옆으로 눕혀 뒤로 뺀 자세 · 가로베기 준비', pad: [0.52, 0.03], hand: [0.15, 0.12, 0.28], blade: [5, 110], pelvisYaw: 30, chestYaw: 45, pitch: 2, drop: 0.06 },
-  { name: '쟁기 (Pflug)', desc: '칼자루는 허리, 칼끝은 상대 얼굴 · 기본 자세', pad: [0.18, -0.28], hand: [0.28, -0.31, 0.15], blade: [30, -12], pelvisYaw: 25, chestYaw: 25, pitch: 5, drop: 0.07 },
-  { name: '바꿈 (Wechsel)', desc: '칼끝을 오른쪽 아래로 · 올려베기 준비', pad: [0.38, -0.44], hand: [0.25, -0.33, 0.2], blade: [-45, 40], pelvisYaw: 10, chestYaw: 15, pitch: 5, drop: 0.07 },
-  { name: '옆 지킴 (Nebenhut)', desc: '칼을 오른쪽 뒤 아래로 숨긴 자세', pad: [0.55, -0.26], hand: [0.08, -0.31, 0.24], blade: [-35, 150], pelvisYaw: 40, chestYaw: 45, pitch: 5, drop: 0.08 },
-  { name: '바보 (Alber)', desc: '칼끝을 땅으로 내린 자세 · 상대를 끌어들인다', pad: [0.0, -0.5], hand: [0.4, -0.33, 0.02], blade: [-40, 0], pelvisYaw: -15, chestYaw: -10, pitch: 8, drop: 0.07 },
+  { name: '옆 자세', desc: '옆으로 젖혀 가로로 벤다', pad: [0.52, 0.03], hand: [0.15, 0.12, 0.28], blade: [5, 110], pelvisYaw: 30, chestYaw: 45, pitch: 2, drop: 0.06 },
+  { name: '쟁기 (플루크)', desc: '허리에서 겨누는 기본 자세', pad: [0.18, -0.28], hand: [0.28, -0.31, 0.15], blade: [30, -12], pelvisYaw: 25, chestYaw: 25, pitch: 5, drop: 0.07 },
+  { name: '바꿈 (베크셀)', desc: '아래에서 올려벤다', pad: [0.38, -0.44], hand: [0.25, -0.33, 0.2], blade: [-45, 40], pelvisYaw: 10, chestYaw: 15, pitch: 5, drop: 0.07 },
+  { name: '옆 지킴 (네벤후트)', desc: '칼을 뒤로 숨겨 길이를 감춘다', pad: [0.55, -0.26], hand: [0.08, -0.31, 0.24], blade: [-35, 150], pelvisYaw: 40, chestYaw: 45, pitch: 5, drop: 0.08 },
+  { name: '바보 (알버)', desc: '빈틈을 보여 끌어들인다', pad: [0.0, -0.5], hand: [0.4, -0.33, 0.02], blade: [-40, 0], pelvisYaw: -15, chestYaw: -10, pitch: 8, drop: 0.07 },
   // 왼쪽 (칼 든 반대쪽): 오른쪽 자세를 거울에 비춘 것 + 사선 베기가 끝나는 왼쪽 바꿈 자세
-  { name: '왼쪽 어깨 지붕', desc: '칼을 왼 어깨에 얹은 자세 · 반대쪽 사선 베기 준비', pad: [-0.4, 0.42], hand: [0.16, 0.14, -0.14], blade: [55, -170], pelvisYaw: -30, chestYaw: -40, pitch: 3, drop: 0.06 },
-  { name: '왼쪽 황소', desc: '칼자루는 머리 왼쪽, 칼끝은 상대 얼굴', pad: [-0.22, 0.26], hand: [0.28, 0.29, -0.12], blade: [-15, 12], pelvisYaw: -20, chestYaw: -30, pitch: 3, drop: 0.07 },
-  { name: '왼쪽 옆 자세', desc: '칼을 왼쪽으로 눕혀 뒤로 뺀 자세 · 반대쪽 가로베기 준비', pad: [-0.52, 0.03], hand: [0.2, 0.12, -0.18], blade: [5, -110], pelvisYaw: -30, chestYaw: -45, pitch: 2, drop: 0.06 },
-  { name: '왼쪽 쟁기', desc: '칼자루는 왼 허리, 칼끝은 상대 얼굴', pad: [-0.18, -0.28], hand: [0.28, -0.31, -0.06], blade: [30, 12], pelvisYaw: -20, chestYaw: -20, pitch: 5, drop: 0.07 },
-  { name: '왼쪽 바꿈', desc: '칼끝을 왼쪽 아래로 · 사선 베기가 끝나는 자리', pad: [-0.4, -0.42], hand: [0.32, -0.31, -0.1], blade: [-45, -40], pelvisYaw: -30, chestYaw: -40, pitch: 12, drop: 0.08 },
+  { name: '왼 어깨 지붕 (폼 타크)', desc: '왼 어깨에서 비스듬히 내려벤다', pad: [-0.4, 0.42], hand: [0.16, 0.14, -0.14], blade: [55, -170], pelvisYaw: -30, chestYaw: -40, pitch: 3, drop: 0.06 },
+  { name: '왼 황소 (옥스)', desc: '왼쪽 머리 옆에서 찌른다', pad: [-0.22, 0.26], hand: [0.28, 0.29, -0.12], blade: [-15, 12], pelvisYaw: -20, chestYaw: -30, pitch: 3, drop: 0.07 },
+  { name: '왼 옆 자세', desc: '왼쪽으로 젖혀 가로로 벤다', pad: [-0.52, 0.03], hand: [0.2, 0.12, -0.18], blade: [5, -110], pelvisYaw: -30, chestYaw: -45, pitch: 2, drop: 0.06 },
+  { name: '왼 쟁기 (플루크)', desc: '왼 허리에서 겨눈다', pad: [-0.18, -0.28], hand: [0.28, -0.31, -0.06], blade: [30, 12], pelvisYaw: -20, chestYaw: -20, pitch: 5, drop: 0.07 },
+  { name: '왼 바꿈 (베크셀)', desc: '사선 베기가 끝나는 자리', pad: [-0.4, -0.42], hand: [0.32, -0.31, -0.1], blade: [-45, -40], pelvisYaw: -30, chestYaw: -40, pitch: 12, drop: 0.08 },
 ];
 
 const D2R = Math.PI / 180;
@@ -59,8 +59,8 @@ const BASE = RAW.map((g) => {
 //  (여기 값은 이름 표시용). 아래쪽 자세 자리에 겹쳐 놓여서, 마무리 중엔 그 자리의 교본 자세 대신 쓰인다.
 //   겨눔(쟁기·옆 지킴 자리) = 찍기 겨눔 (두 손 머리 위, 칼끝 아래로 누운 몸), 지붕 → 내려찍기(바보·바꿈 자리) = 내려베기
 const FINISH_GUARDS = [
-  { name: '내려찍기 겨눔', desc: '두 손을 머리 위로 들고 칼날을 아래로 돌려 쥐어 쓰러진 상대를 겨눈다', finish: 'hover', pads: [[0.18, -0.28], [-0.18, -0.28], [0.55, -0.26]] },
-  { name: '내려찍기', desc: '쓰러진 상대를 칼끝이 땅에 닿도록 찍는다 · 위에서 오면 내려베기', finish: 'strike', pads: [[0.0, -0.5], [0.38, -0.44], [-0.4, -0.42]] },
+  { name: '내려찍기 겨눔', desc: '쓰러진 상대를 내려 겨눈다', finish: 'hover', pads: [[0.18, -0.28], [-0.18, -0.28], [0.55, -0.26]] },
+  { name: '내려찍기', desc: '쓰러진 상대를 찍는다', finish: 'strike', pads: [[0.0, -0.5], [0.38, -0.44], [-0.4, -0.42]] },
 ];
 const NBASE = BASE.length;
 // GUARDS 뒤쪽 두 개는 마무리 자세 (자세 이름 표시·nearest 용. 평소 섞기에는 들어가지 않는다)
@@ -80,36 +80,36 @@ export const GUARDS = [...BASE, ...FINISH_GUARDS.map((g) => ({ ...g, pad: g.pads
 //   ('mixed' 기본 = VERSATILE · 'thrust' = 10/9 고침 전 THRUST · 'cut' = SABRE 통째, 안 B), 그 밖('cut'·'blunt') → SABRE.
 //   guardBaseOne(style) 이 표를 돌려준다. GUARD_BASE_ONE 은 예전 이름 그대로 SABRE 표(뜻이 같은 기본값).
 const ONE_HAND_THRUST = {
-  '지붕 (Vom Tag)': { hand: [0.32, 0.38, 0.1], blade: [-25, -6], pelvisYaw: -20, chestYaw: -35, pitch: 4 },
-  '어깨 지붕 (Vom Tag)': { hand: [0.38, 0.18, 0.24], blade: [-12, -10], pelvisYaw: -20, chestYaw: -35, pitch: 4 },
-  '황소 (Ochs)': { hand: [0.4, 0.24, 0.17], blade: [-15, -10], pelvisYaw: -15, chestYaw: -30 },
-  '긴 자세 (Langort)': { hand: [0.68, 0.08, 0.1], blade: [-3, 0], pelvisYaw: -35, chestYaw: -45, pitch: 10 },
+  '지붕 (폼 타크)': { hand: [0.32, 0.38, 0.1], blade: [-25, -6], pelvisYaw: -20, chestYaw: -35, pitch: 4 },
+  '어깨 지붕 (폼 타크)': { hand: [0.38, 0.18, 0.24], blade: [-12, -10], pelvisYaw: -20, chestYaw: -35, pitch: 4 },
+  '황소 (옥스)': { hand: [0.4, 0.24, 0.17], blade: [-15, -10], pelvisYaw: -15, chestYaw: -30 },
+  '긴 자세 (랑오르트)': { hand: [0.68, 0.08, 0.1], blade: [-3, 0], pelvisYaw: -35, chestYaw: -45, pitch: 10 },
   '옆 자세': { hand: [0.36, -0.04, 0.26], blade: [2, -16], pelvisYaw: -20, chestYaw: -35, pitch: 4 },
-  '쟁기 (Pflug)': { hand: [0.4, -0.22, 0.13], blade: [30, -12], pelvisYaw: -10, chestYaw: -25, pitch: 5 },
-  '바꿈 (Wechsel)': { hand: [0.38, -0.3, 0.18], blade: [-10, -10], pelvisYaw: -15, chestYaw: -30, pitch: 6 },
-  '옆 지킴 (Nebenhut)': { hand: [0.24, -0.24, 0.24], blade: [12, -8], pelvisYaw: -10, chestYaw: -25, pitch: 5 },
-  '바보 (Alber)': { hand: [0.46, -0.28, 0.07], blade: [-20, 0], pelvisYaw: -25, chestYaw: -25, pitch: 8 },
-  '왼쪽 어깨 지붕': { hand: [0.42, 0.2, -0.04], blade: [-12, 10], pelvisYaw: -25, chestYaw: -40, pitch: 4 },
-  '왼쪽 황소': { hand: [0.44, 0.22, -0.02], blade: [-12, 8], pelvisYaw: -25, chestYaw: -40, pitch: 4 },
-  '왼쪽 옆 자세': { hand: [0.44, 0.0, -0.08], blade: [0, 12], pelvisYaw: -25, chestYaw: -40, pitch: 4 },
-  '왼쪽 쟁기': { hand: [0.42, -0.2, -0.04], blade: [22, 12], pelvisYaw: -25, chestYaw: -40, pitch: 5 },
-  '왼쪽 바꿈': { hand: [0.42, -0.3, -0.06], blade: [-15, 10], pelvisYaw: -25, chestYaw: -40, pitch: 8 },
+  '쟁기 (플루크)': { hand: [0.4, -0.22, 0.13], blade: [30, -12], pelvisYaw: -10, chestYaw: -25, pitch: 5 },
+  '바꿈 (베크셀)': { hand: [0.38, -0.3, 0.18], blade: [-10, -10], pelvisYaw: -15, chestYaw: -30, pitch: 6 },
+  '옆 지킴 (네벤후트)': { hand: [0.24, -0.24, 0.24], blade: [12, -8], pelvisYaw: -10, chestYaw: -25, pitch: 5 },
+  '바보 (알버)': { hand: [0.46, -0.28, 0.07], blade: [-20, 0], pelvisYaw: -25, chestYaw: -25, pitch: 8 },
+  '왼 어깨 지붕 (폼 타크)': { hand: [0.42, 0.2, -0.04], blade: [-12, 10], pelvisYaw: -25, chestYaw: -40, pitch: 4 },
+  '왼 황소 (옥스)': { hand: [0.44, 0.22, -0.02], blade: [-12, 8], pelvisYaw: -25, chestYaw: -40, pitch: 4 },
+  '왼 옆 자세': { hand: [0.44, 0.0, -0.08], blade: [0, 12], pelvisYaw: -25, chestYaw: -40, pitch: 4 },
+  '왼 쟁기 (플루크)': { hand: [0.42, -0.2, -0.04], blade: [22, 12], pelvisYaw: -25, chestYaw: -40, pitch: 5 },
+  '왼 바꿈 (베크셀)': { hand: [0.42, -0.3, -0.06], blade: [-15, 10], pelvisYaw: -25, chestYaw: -40, pitch: 8 },
 };
 const ONE_HAND_SABRE = {
-  '지붕 (Vom Tag)': { hand: [0.2, 0.45, 0.12], blade: [95, 0], pelvisYaw: 5, chestYaw: -10, pitch: 0 },
-  '어깨 지붕 (Vom Tag)': { hand: [0.2, 0.18, 0.24], blade: [40, 170], pelvisYaw: 10, chestYaw: 0, pitch: 3 },
-  '황소 (Ochs)': { hand: [0.36, 0.26, 0.17], blade: [-15, -12], pelvisYaw: 0, chestYaw: -15, pitch: 3 },
-  '긴 자세 (Langort)': { hand: [0.68, 0.08, 0.1], blade: [-3, 0], pelvisYaw: -35, chestYaw: -45, pitch: 10 },
+  '지붕 (폼 타크)': { hand: [0.2, 0.45, 0.12], blade: [95, 0], pelvisYaw: 5, chestYaw: -10, pitch: 0 },
+  '어깨 지붕 (폼 타크)': { hand: [0.2, 0.18, 0.24], blade: [40, 170], pelvisYaw: 10, chestYaw: 0, pitch: 3 },
+  '황소 (옥스)': { hand: [0.36, 0.26, 0.17], blade: [-15, -12], pelvisYaw: 0, chestYaw: -15, pitch: 3 },
+  '긴 자세 (랑오르트)': { hand: [0.68, 0.08, 0.1], blade: [-3, 0], pelvisYaw: -35, chestYaw: -45, pitch: 10 },
   '옆 자세': { hand: [0.14, 0.24, 0.3], blade: [30, 150], pelvisYaw: 10, chestYaw: 5, pitch: 2 },
-  '쟁기 (Pflug)': { hand: [0.4, -0.22, 0.13], blade: [30, -12], pelvisYaw: -10, chestYaw: -25, pitch: 5 },
-  '바꿈 (Wechsel)': { hand: [0.3, -0.25, 0.2], blade: [-40, 30], pelvisYaw: -5, chestYaw: -15, pitch: 5 },
-  '옆 지킴 (Nebenhut)': { hand: [0.1, -0.2, 0.26], blade: [-35, 150], pelvisYaw: 10, chestYaw: 5, pitch: 5 },
-  '바보 (Alber)': { hand: [0.46, -0.28, 0.07], blade: [-40, 0], pelvisYaw: -25, chestYaw: -25, pitch: 8 },
-  '왼쪽 어깨 지붕': { hand: [0.24, 0.2, -0.04], blade: [45, -160], pelvisYaw: -25, chestYaw: -40, pitch: 3 },
-  '왼쪽 황소': { hand: [0.34, 0.28, 0.0], blade: [-15, 12], pelvisYaw: -20, chestYaw: -35, pitch: 3 },
-  '왼쪽 옆 자세': { hand: [0.24, 0.14, -0.02], blade: [25, -150], pelvisYaw: -25, chestYaw: -40, pitch: 2 },
-  '왼쪽 쟁기': { hand: [0.36, -0.22, 0.0], blade: [25, 12], pelvisYaw: -20, chestYaw: -35, pitch: 5 },
-  '왼쪽 바꿈': { hand: [0.36, -0.28, -0.02], blade: [-45, -40], pelvisYaw: -25, chestYaw: -40, pitch: 10 },
+  '쟁기 (플루크)': { hand: [0.4, -0.22, 0.13], blade: [30, -12], pelvisYaw: -10, chestYaw: -25, pitch: 5 },
+  '바꿈 (베크셀)': { hand: [0.3, -0.25, 0.2], blade: [-40, 30], pelvisYaw: -5, chestYaw: -15, pitch: 5 },
+  '옆 지킴 (네벤후트)': { hand: [0.1, -0.2, 0.26], blade: [-35, 150], pelvisYaw: 10, chestYaw: 5, pitch: 5 },
+  '바보 (알버)': { hand: [0.46, -0.28, 0.07], blade: [-40, 0], pelvisYaw: -25, chestYaw: -25, pitch: 8 },
+  '왼 어깨 지붕 (폼 타크)': { hand: [0.24, 0.2, -0.04], blade: [45, -160], pelvisYaw: -25, chestYaw: -40, pitch: 3 },
+  '왼 황소 (옥스)': { hand: [0.34, 0.28, 0.0], blade: [-15, 12], pelvisYaw: -20, chestYaw: -35, pitch: 3 },
+  '왼 옆 자세': { hand: [0.24, 0.14, -0.02], blade: [25, -150], pelvisYaw: -25, chestYaw: -40, pitch: 2 },
+  '왼 쟁기 (플루크)': { hand: [0.36, -0.22, 0.0], blade: [25, 12], pelvisYaw: -20, chestYaw: -35, pitch: 5 },
+  '왼 바꿈 (베크셀)': { hand: [0.36, -0.28, -0.02], blade: [-45, -40], pelvisYaw: -25, chestYaw: -40, pitch: 10 },
 };
 // 한손 칼끝 고침 (10/9 사장님 '칼끝이 지면으로 누운 채 내 쪽을 향해 칼을 거꾸로 든 것 같다' · 10/10 '칼끝 계속 이상하더라' — docs/motion/onehand_tip_2026-10-10.md, 확인표 524·525).
 //  위 세이버 표의 감는 자리 다섯은 두손 롱소드 감기(칼끝 뒤 145~170°)를 옮긴 값이라 칼끝이 누운 채(올림 −36~47°) 몸 뒤쪽을 본다 — 쉼 무게가 이 표로 끌면
@@ -119,18 +119,18 @@ const ONE_HAND_SABRE = {
 //  (10/9 첫 안의 옆 자세 [30, ±110] 은 칼끝을 옆으로 누인 채라 사장님 10/10 화면의 꼴 그대로여서 버림.)
 //  JOINTS.oneTip 'off' (`?onetip=off`·ONETIP=off) = 전 값. 청강검 두루 표(감는 8 곳 = 세이버 값)도 함께 따른다
 const ONE_HAND_SABRE_TIP = {
-  '어깨 지붕 (Vom Tag)': [60, 165], // 전 [40, 170]
+  '어깨 지붕 (폼 타크)': [60, 165], // 전 [40, 170]
   '옆 자세': [60, 120], // 전 [30, 150]
-  '옆 지킴 (Nebenhut)': [-45, 60], // 전 [-35, 150]
-  '왼쪽 어깨 지붕': [60, -160], // 전 [45, -160]
-  '왼쪽 옆 자세': [55, -120], // 전 [25, -150]
+  '옆 지킴 (네벤후트)': [-45, 60], // 전 [-35, 150]
+  '왼 어깨 지붕 (폼 타크)': [60, -160], // 전 [45, -160]
+  '왼 옆 자세': [55, -120], // 전 [25, -150]
 };
 if (JOINTS.oneTip !== 'off') for (const [k, b] of Object.entries(ONE_HAND_SABRE_TIP)) ONE_HAND_SABRE[k] = { ...ONE_HAND_SABRE[k], blade: b };
 // 두루 한손 표 (10/9 청강검 바닥 고침 안 A): 찌르기 표에서 베기를 감는 8 곳만 세이버 표 값으로 바꾼다.
 //  찌르기 표의 이 자리들은 칼끝이 늘 상대 쪽(올려본 각 −25~+12°)이라 자세에서 자세로 가는 베기 길에서 칼이 돌지 않았다
 //  (zornhau 7.7 m/s · 45 J → 섞은 표 17.8 m/s · 261 J). 황소·긴 자세·쟁기·바보·왼쪽 황소·왼쪽 쟁기(겨눔 6 곳)는 찌르기 표 그대로.
 //  자리 이름(name)은 바탕 그대로라 유파 이름 덮개(schools.js names)·frames.js FRAME_GUARDS 열쇠가 그대로 맞는다
-const VERSATILE_CHAMBER = ['지붕 (Vom Tag)', '어깨 지붕 (Vom Tag)', '옆 자세', '바꿈 (Wechsel)', '옆 지킴 (Nebenhut)', '왼쪽 어깨 지붕', '왼쪽 옆 자세', '왼쪽 바꿈'];
+const VERSATILE_CHAMBER = ['지붕 (폼 타크)', '어깨 지붕 (폼 타크)', '옆 자세', '바꿈 (베크셀)', '옆 지킴 (네벤후트)', '왼 어깨 지붕 (폼 타크)', '왼 옆 자세', '왼 바꿈 (베크셀)'];
 const ONE_HAND_VERSATILE = { ...ONE_HAND_THRUST };
 for (const k of VERSATILE_CHAMBER) ONE_HAND_VERSATILE[k] = ONE_HAND_SABRE[k];
 function oneHandTable(over) {
@@ -151,20 +151,20 @@ function oneHandTable(over) {
 //  (Fiore Posta Longa·Breve·Finestra·Porta di Ferro Mezzana, 독일식 Ochs·Pflug 변형. 하프소딩은 넣지 않음).
 //  황소·쟁기·긴 자세·왼쪽 황소·왼쪽 쟁기는 두손 표 값 그대로. 손 = 앞손, 빈손은 칼자루 끝(폼멜)을 잡는다 — 두 손 모두 두손 표의 끝값 안
 const TWO_HAND_THRUST = {
-  '지붕 (Vom Tag)': { hand: [0.24, 0.38, 0.08], blade: [-22, -4], pelvisYaw: 20, chestYaw: 25, pitch: 2, drop: 0.05 },
-  '어깨 지붕 (Vom Tag)': { hand: [0.22, 0.35, 0.21], blade: [-20, -14], pelvisYaw: 30, chestYaw: 35, pitch: 3, drop: 0.06 },
-  '황소 (Ochs)': { hand: [0.28, 0.29, 0.22], blade: [-15, -12], pelvisYaw: 25, chestYaw: 30, pitch: 3, drop: 0.07 },
-  '긴 자세 (Langort)': { hand: [0.57, 0.07, 0.03], blade: [-3, 0], pelvisYaw: -20, chestYaw: -20, pitch: 8, drop: 0.07 },
+  '지붕 (폼 타크)': { hand: [0.24, 0.38, 0.08], blade: [-22, -4], pelvisYaw: 20, chestYaw: 25, pitch: 2, drop: 0.05 },
+  '어깨 지붕 (폼 타크)': { hand: [0.22, 0.35, 0.21], blade: [-20, -14], pelvisYaw: 30, chestYaw: 35, pitch: 3, drop: 0.06 },
+  '황소 (옥스)': { hand: [0.28, 0.29, 0.22], blade: [-15, -12], pelvisYaw: 25, chestYaw: 30, pitch: 3, drop: 0.07 },
+  '긴 자세 (랑오르트)': { hand: [0.57, 0.07, 0.03], blade: [-3, 0], pelvisYaw: -20, chestYaw: -20, pitch: 8, drop: 0.07 },
   '옆 자세': { hand: [0.26, 0.0, 0.18], blade: [5, -14], pelvisYaw: 25, chestYaw: 30, pitch: 4, drop: 0.07 },
-  '쟁기 (Pflug)': { hand: [0.28, -0.31, 0.15], blade: [30, -12], pelvisYaw: 25, chestYaw: 25, pitch: 5, drop: 0.07 },
-  '바꿈 (Wechsel)': { hand: [0.26, -0.28, 0.12], blade: [18, -14], pelvisYaw: 20, chestYaw: 20, pitch: 5, drop: 0.07 },
-  '옆 지킴 (Nebenhut)': { hand: [0.2, -0.22, 0.18], blade: [15, -10], pelvisYaw: 30, chestYaw: 35, pitch: 5, drop: 0.08 },
-  '바보 (Alber)': { hand: [0.32, -0.28, 0.04], blade: [15, 0], pelvisYaw: -10, chestYaw: -5, pitch: 6, drop: 0.07 },
-  '왼쪽 어깨 지붕': { hand: [0.22, 0.35, -0.12], blade: [-20, 14], pelvisYaw: -20, chestYaw: -30, pitch: 3, drop: 0.06 },
-  '왼쪽 황소': { hand: [0.28, 0.29, -0.12], blade: [-15, 12], pelvisYaw: -20, chestYaw: -30, pitch: 3, drop: 0.07 },
-  '왼쪽 옆 자세': { hand: [0.3, 0.0, -0.04], blade: [5, 14], pelvisYaw: -20, chestYaw: -25, pitch: 4, drop: 0.07 },
-  '왼쪽 쟁기': { hand: [0.28, -0.31, -0.06], blade: [30, 12], pelvisYaw: -20, chestYaw: -20, pitch: 5, drop: 0.07 },
-  '왼쪽 바꿈': { hand: [0.3, -0.3, -0.05], blade: [15, 14], pelvisYaw: -25, chestYaw: -30, pitch: 8, drop: 0.08 },
+  '쟁기 (플루크)': { hand: [0.28, -0.31, 0.15], blade: [30, -12], pelvisYaw: 25, chestYaw: 25, pitch: 5, drop: 0.07 },
+  '바꿈 (베크셀)': { hand: [0.26, -0.28, 0.12], blade: [18, -14], pelvisYaw: 20, chestYaw: 20, pitch: 5, drop: 0.07 },
+  '옆 지킴 (네벤후트)': { hand: [0.2, -0.22, 0.18], blade: [15, -10], pelvisYaw: 30, chestYaw: 35, pitch: 5, drop: 0.08 },
+  '바보 (알버)': { hand: [0.32, -0.28, 0.04], blade: [15, 0], pelvisYaw: -10, chestYaw: -5, pitch: 6, drop: 0.07 },
+  '왼 어깨 지붕 (폼 타크)': { hand: [0.22, 0.35, -0.12], blade: [-20, 14], pelvisYaw: -20, chestYaw: -30, pitch: 3, drop: 0.06 },
+  '왼 황소 (옥스)': { hand: [0.28, 0.29, -0.12], blade: [-15, 12], pelvisYaw: -20, chestYaw: -30, pitch: 3, drop: 0.07 },
+  '왼 옆 자세': { hand: [0.3, 0.0, -0.04], blade: [5, 14], pelvisYaw: -20, chestYaw: -25, pitch: 4, drop: 0.07 },
+  '왼 쟁기 (플루크)': { hand: [0.28, -0.31, -0.06], blade: [30, 12], pelvisYaw: -20, chestYaw: -20, pitch: 5, drop: 0.07 },
+  '왼 바꿈 (베크셀)': { hand: [0.3, -0.3, -0.05], blade: [15, 14], pelvisYaw: -25, chestYaw: -30, pitch: 8, drop: 0.08 },
 };
 const BASE_ONE_THRUST = oneHandTable(ONE_HAND_THRUST);
 const BASE_ONE_SABRE = oneHandTable(ONE_HAND_SABRE);
@@ -203,20 +203,20 @@ export const IBERIAN_TABLE = {
   //  · 「always you will stop the montante in front of the face」(복Ⅶ) · 몸은 곧게(「place your body straight」 단Ⅰ). 손 = 눈 아래 얼굴 앞, 칼끝 앞으로 조금 들어 [해석]
   //  칼끝 20 → 30° (10/10 14:5x 사장님 '빈손 놓침 ①만 고쳐' — 확인표 684·686~, 문서 §11): 손 뒤 0.30 m 의 폼멜(왼손 쥘 자리)이 가슴 겉면(앞 0.11)에 붙어 있어
   //   자세를 옮길 때 가슴 안으로 들어가 왼손이 놓쳤다. 칼끝을 10° 더 들어 폼멜을 가슴 밖·아래로 — 손 자리는 그대로(「hands high in front of the eyes」), 칼끝은 여전히 앞(「the point forward」) [해석]
-  '긴 자세 (Langort)': { hand: [0.4, 0.22, 0.04], blade: [30, 0], pelvisYaw: 0, chestYaw: 0, pitch: 0, drop: 0.06, src: '피 단Ⅰ·단Ⅱ·복Ⅰ·복Ⅶ [원문] · 손 높이·칼끝 30° [해석]' },
+  '긴 자세 (랑오르트)': { hand: [0.4, 0.22, 0.04], blade: [30, 0], pelvisYaw: 0, chestYaw: 0, pitch: 0, drop: 0.06, src: '피 단Ⅰ·단Ⅱ·복Ⅰ·복Ⅶ [원문] · 손 높이·칼끝 30° [해석]' },
   // 오른 높이 비낌: 레베스를 아래에서 올려 「ending with the montante high along the right diagonal in an obtuse line」(복ⅩⅤ) · 「raise the montante with the point forward in front of the right ear」(복Ⅱ)
   //  올려본 각 30 → 45° (10/10 14:5x 빈손 ①, 문서 §11): 놓침 ① 의 가장 큰 자리 — 30° 에선 폼멜이 가슴 안(가슴 몸체 앞 0.04 m)으로 들어갔다.
   //   'obtuse line' = 칼끝이 수평 위(0~90°)로 든 줄이라 45° 도 원문 안 — 그 가운데 [해석]. 손 자리·옆 각은 그대로
-  '황소 (Ochs)': { hand: [0.3, 0.3, 0.18], blade: [45, 15], pelvisYaw: 15, chestYaw: 20, pitch: 2, drop: 0.06, src: '피 복Ⅱ·복ⅩⅤ [원문] · 각 45° [해석]' },
+  '황소 (옥스)': { hand: [0.3, 0.3, 0.18], blade: [45, 15], pelvisYaw: 15, chestYaw: 20, pitch: 2, drop: 0.06, src: '피 복Ⅱ·복ⅩⅤ [원문] · 각 45° [해석]' },
   // 왼 높이 비낌: 탈류를 아래에서 올려 「bringing the montante to stop high in front of the head on the left side, in obtuse line along the diagonal」(복ⅩⅤ)
   //  올려본 각 30 → 45° (10/10 빈손 ①, 문서 §11): 같은 원문 줄(복ⅩⅤ 'obtuse line')의 거울 — 오른쪽과 같게
-  '왼쪽 황소': { hand: [0.3, 0.3, -0.08], blade: [45, -15], pelvisYaw: -15, chestYaw: -20, pitch: 2, drop: 0.06, src: '피 복ⅩⅤ [원문] · 각 45° [해석]' },
+  '왼 황소 (옥스)': { hand: [0.3, 0.3, -0.08], blade: [45, -15], pelvisYaw: -15, chestYaw: -20, pitch: 2, drop: 0.06, src: '피 복ⅩⅤ [원문] · 각 45° [해석]' },
   // 비낀 자세: 「the montante in obtuse angle along the right diagonal, such that the right hand rests in front of the belt to deflect the thrust」(복ⅩⅣ 첫 자세)
-  '쟁기 (Pflug)': { hand: [0.3, -0.22, 0.1], blade: [40, 20], pelvisYaw: 10, chestYaw: 10, pitch: 4, drop: 0.07, src: '피 복ⅩⅣ [원문] · 각 [해석]' },
+  '쟁기 (플루크)': { hand: [0.3, -0.22, 0.1], blade: [40, 20], pelvisYaw: 10, chestYaw: 10, pitch: 4, drop: 0.07, src: '피 복ⅩⅣ [원문] · 각 [해석]' },
   // 왼 비낀 자세: 「the montante in obtuse angle along the left diagonal to deflect by revez the thrusts aimed at the right side」(복ⅩⅣ 둘째 자세)
-  '왼쪽 쟁기': { hand: [0.3, -0.22, -0.04], blade: [40, -20], pelvisYaw: -10, chestYaw: -10, pitch: 4, drop: 0.07, src: '피 복ⅩⅣ [원문] · 각 [해석]' },
+  '왼 쟁기 (플루크)': { hand: [0.3, -0.22, -0.04], blade: [40, -20], pelvisYaw: -10, chestYaw: -10, pitch: 4, drop: 0.07, src: '피 복ⅩⅣ [원문] · 각 [해석]' },
   // 칼끝 땅에: 「your body straight with the left foot in front, the montante with the point on the ground」 — 모든 규칙이 여기서 시작해 여기로 끝난다(단Ⅰ)
-  '바보 (Alber)': { hand: [0.38, -0.33, 0.02], blade: [-55, 0], pelvisYaw: 0, chestYaw: 0, pitch: 4, drop: 0.05, src: '피 단Ⅰ [원문] · 각 [해석]' },
+  '바보 (알버)': { hand: [0.38, -0.33, 0.02], blade: [-55, 0], pelvisYaw: 0, chestYaw: 0, pitch: 4, drop: 0.05, src: '피 단Ⅰ [원문] · 각 [해석]' },
   // ── 지나는 자리 8 (10/10 23:3x 사장님 '빌려온 자세 다 고치고' — 문서 §16, 확인표 820~). 전: 앞무게 틀 값(일본 검도 조단·핫소·왼 핫소·와키가마에) · 교본 표 값(롱소드 옆 자세 둘·바꿈 둘).
   //  원전 바탕: 피게이레두의 베기는 '뒤에서(por detras) 아래에서 위로' 올리고, 머리 위로 넘겨 어깨 뒤로(복Ⅱ 「por sima da cabeça às espaldas」), 몸에 둘러 감고(cingido — 복Ⅱ·복Ⅺ·복ⅩⅢ·복ⅩⅤ),
   //  내려 벤 칼(altabaxo)은 그 쪽에 떨어져 멈췄다가 거기서 다시 올라간다(복Ⅰ 「deyxará cair o Montante pela parte dereyta … e da parte donde veo o Montante a parar se dará hũ talho de baxo para sima」).
@@ -226,28 +226,28 @@ export const IBERIAN_TABLE = {
   //   원문의 베기 흐름에서 꼴을 추론한 자리 = 바꿈 둘(피 복Ⅰ)·옆 자세·옆 지킴(피 복Ⅺ·고 규칙 8·9) · 유파 일관성(거울)으로 만든 자리 = 왼 옆 자세. 왼 바꿈 옆 각은 직접 판단(아래)
   // 머리 위(altibaxo): 머리 위로 넘기는 자리 — 손은 머리 위(날밑이 머리를 덮음, 고 규칙 4·5), 칼은 어깨 뒤로 넘어가는 중(피 복Ⅱ·복ⅩⅥ). 곧게 내려베기(altabaxo)는 몸을 곧게(피 단Ⅰ)
   //  (처음 안 손 [0.10, 0.50] · 135° 는 손이 21 cm 못 미치고 정수리 베기에서 빈손을 놓쳐(쥔 6 %) 손을 앞으로·칼을 덜 눕힘 — tools/sim/montante_pass.mjs)
-  '지붕 (Vom Tag)': { hand: [0.16, 0.45, 0.02], blade: [125, 0], pelvisYaw: 5, chestYaw: 5, pitch: 0, drop: 0.05, src: '피 복Ⅱ·복ⅩⅥ 머리 위로 넘김 · 고 규칙 3·4·5 [원문] · 손 높이·각 125° [해석]' },
+  '지붕 (폼 타크)': { hand: [0.16, 0.45, 0.02], blade: [125, 0], pelvisYaw: 5, chestYaw: 5, pitch: 0, drop: 0.05, src: '피 복Ⅱ·복ⅩⅥ 머리 위로 넘김 · 고 규칙 3·4·5 [원문] · 손 높이·각 125° [해석]' },
   // 탈류 준비: 손은 머리 오른쪽 높이, 칼은 오른 어깨 뒤로 늘어뜨려 칼끝은 땅 쪽 — '뒤에서(por detras)' 감는 자리(피 단Ⅰ·단Ⅲ) · 「zum Tajo aufgezogen … Ort zum Boden … Parierstange den Kopf deckt」(고 규칙 4)
   //  · 어깨에서 감음(고 규칙 6 「bei der Schulter aufgezogen」) · 「cingir o montante com o braço dereyto」(피 복ⅩⅤ)
   //  칼끝 −15°: −30°(고디뉴 '땅으로' 끝) 은 분노의 베기 지표 166 → 97 J(날 맞춤 82) 로 휘어 −15° 로 — 여전히 땅 쪽, 어깨 뒤 [해석]
-  '어깨 지붕 (Vom Tag)': { hand: [0.08, 0.36, 0.18], blade: [-15, 150], pelvisYaw: 30, chestYaw: 40, pitch: 0, drop: 0.06, src: '피 단Ⅰ·단Ⅲ·복ⅩⅤ · 고 규칙 4·6 [원문] · 손·각 [해석]' },
+  '어깨 지붕 (폼 타크)': { hand: [0.08, 0.36, 0.18], blade: [-15, 150], pelvisYaw: 30, chestYaw: 40, pitch: 0, drop: 0.06, src: '피 단Ⅰ·단Ⅲ·복ⅩⅤ · 고 규칙 4·6 [원문] · 손·각 [해석]' },
   // 레베스 준비: 머리 위로 넘긴 칼이 어깨 뒤로 「falls over the left arm to give a circling revez」(피 복Ⅱ) · 「cingindo o montante ao hombro esquerdo」(피 복ⅩⅤ) · 「talho para o hombro esquerdo」(피 단Ⅰ 끝)
   //  · 「aufgezogen zu einem Reves … Ort zum Boden … Parierstange deckt deinen Kopf」(고 규칙 4) · 오른팔이 왼팔 위로 엇갈림(피 복Ⅰ 「cruzando o braço direito sobre o esquerdo」)
-  '왼쪽 어깨 지붕': { hand: [0.06, 0.36, -0.1], blade: [-30, -150], pelvisYaw: -25, chestYaw: -30, pitch: 0, drop: 0.06, src: '피 복Ⅰ·복Ⅱ·복ⅩⅤ·단Ⅰ · 고 규칙 4 [원문] · 손·각 [해석]' },
+  '왼 어깨 지붕 (폼 타크)': { hand: [0.06, 0.36, -0.1], blade: [-30, -150], pelvisYaw: -25, chestYaw: -30, pitch: 0, drop: 0.06, src: '피 복Ⅰ·복Ⅱ·복ⅩⅤ·단Ⅰ · 고 규칙 4 [원문] · 손·각 [해석]' },
   // 가로 탈류: 칼을 오른쪽 몸 가운데 높이에 눕혀 뒤로 감아 둔다 — 「talho orizontal」(피 단Ⅺ·복Ⅺ) · 「in mittlerer Höhe」(고 규칙 9) · 가로 베기를 몸에 둘러 감음(피 복Ⅺ 「revez orizontal cingido」)
   '옆 자세': { hand: [0.14, 0.04, 0.26], blade: [10, 130], pelvisYaw: 35, chestYaw: 45, pitch: 2, drop: 0.06, src: '피 단Ⅺ·복Ⅺ · 고 규칙 9 [원문] · 손·각 [해석]' },
   // 가로 레베스: 거울 — 오른팔이 왼팔 위로 엇갈려(피 복Ⅰ) 왼쪽 몸 가운데 높이, 칼은 왼쪽 뒤로 감김(피 복Ⅺ 「revez orizontal cingido」)
-  '왼쪽 옆 자세': { hand: [0.18, 0.04, -0.14], blade: [10, -130], pelvisYaw: -30, chestYaw: -40, pitch: 2, drop: 0.06, src: '피 단Ⅺ·복Ⅰ·복Ⅺ · 고 규칙 9 [원문] · 손·각 [해석]' },
+  '왼 옆 자세': { hand: [0.18, 0.04, -0.14], blade: [10, -130], pelvisYaw: -30, chestYaw: -40, pitch: 2, drop: 0.06, src: '피 단Ⅺ·복Ⅰ·복Ⅺ · 고 규칙 9 [원문] · 손·각 [해석]' },
   // 아래 탈류: 오른쪽으로 떨어진 칼이 멈춘 자리, 거기서 '뒤에서 아래에서 위로' 탈류를 올린다 — 「deyxará cair o Montante pela parte dereyta … e da parte donde veo o Montante a parar se dará hũ talho de baxo para sima」(피 복Ⅰ)
   //  · 「talho por detras, de baxo para sima」(피 단Ⅰ). 칼끝은 오른쪽 아래 뒤로(뒤에서 올라오는 길의 시작) [해석]
-  '바꿈 (Wechsel)': { hand: [0.2, -0.3, 0.22], blade: [-50, 130], pelvisYaw: 25, chestYaw: 30, pitch: 4, drop: 0.07, src: '피 단Ⅰ·복Ⅰ [원문] · 손·각 [해석]' },
+  '바꿈 (베크셀)': { hand: [0.2, -0.3, 0.22], blade: [-50, 130], pelvisYaw: 25, chestYaw: 30, pitch: 4, drop: 0.07, src: '피 단Ⅰ·복Ⅰ [원문] · 손·각 [해석]' },
   // 뒤 탈류: 칼이 오른 갈비를 휘감은 자리 — 「umgürtet das Montante die gesamten Rippen, auch den gesamten Körper herumdrehend」(고 규칙 8) · 「cingir o montante com o braço dereyto」(피 복ⅩⅤ) · 뒤에서 앞으로 탈류(피 단Ⅲ 「talho por detraz」)
   //  갈비 높이(손 위 −0.12)·칼 수평은 몸에 걸려 칼끝 오차 85°·빈손 0 % — 아래 갈비 높이(−0.18)·칼 −15° 로 [해석]
-  '옆 지킴 (Nebenhut)': { hand: [0.08, -0.18, 0.26], blade: [-15, 160], pelvisYaw: 40, chestYaw: 50, pitch: 3, drop: 0.07, src: '고 규칙 8 · 피 단Ⅲ·복ⅩⅤ [원문] · 손·각 [해석]' },
+  '옆 지킴 (네벤후트)': { hand: [0.08, -0.18, 0.26], blade: [-15, 160], pelvisYaw: 40, chestYaw: 50, pitch: 3, drop: 0.07, src: '고 규칙 8 · 피 단Ⅲ·복ⅩⅤ [원문] · 손·각 [해석]' },
   // 아래 레베스: 왼쪽으로 떨궈(오른팔이 왼팔 위로 엇갈려) 내려 벤 칼이 멈춘 자리, 거기서 레베스를 아래에서 위로 — 「deyxará cair o montante pella parte esquerda cruzando o braço deryeto sobre o esquerdo, e se dará hũ altabaxo de revez …
   //  e da parte donde ficou o montante se dará hũ revez de baxo para sima」(피 복Ⅰ) · 「altibaxo pella mesma parte esquerda cingindo o montante ao hombro esquerdo」(피 복ⅩⅤ)
   //  옆 각 −110°(오른쪽 130° 보다 덜 뒤): 엇갈린 오른팔이 왼 허리로 오면 칼이 덜 뒤로 돈다 [해석] — −130° 는 왼 올려베기 날 맞춤 101 → 40 J
-  '왼쪽 바꿈': { hand: [0.24, -0.28, -0.1], blade: [-50, -110], pelvisYaw: -25, chestYaw: -35, pitch: 6, drop: 0.07, src: '피 복Ⅰ·복ⅩⅤ [원문] · 손·각 [해석]' },
+  '왼 바꿈 (베크셀)': { hand: [0.24, -0.28, -0.1], blade: [-50, -110], pelvisYaw: -25, chestYaw: -35, pitch: 6, drop: 0.07, src: '피 복Ⅰ·복ⅩⅤ [원문] · 손·각 [해석]' },
 };
 
 /**

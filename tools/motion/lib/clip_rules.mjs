@@ -53,9 +53,9 @@ export const TOL = {
 
 /** 게임 자세 id (build 도구·clip 필드 이름) → src/guards.js 자세 이름 */
 export const GUARD_NAMES = {
-  tag: '지붕 (Vom Tag)', tagR: '어깨 지붕 (Vom Tag)', ochs: '황소 (Ochs)', langort: '긴 자세 (Langort)', side: '옆 자세',
-  pflug: '쟁기 (Pflug)', wechsel: '바꿈 (Wechsel)', neben: '옆 지킴 (Nebenhut)', alber: '바보 (Alber)',
-  tagL: '왼쪽 어깨 지붕', ochsL: '왼쪽 황소', sideL: '왼쪽 옆 자세', pflugL: '왼쪽 쟁기', wechselL: '왼쪽 바꿈',
+  tag: '지붕 (폼 타크)', tagR: '어깨 지붕 (폼 타크)', ochs: '황소 (옥스)', langort: '긴 자세 (랑오르트)', side: '옆 자세',
+  pflug: '쟁기 (플루크)', wechsel: '바꿈 (베크셀)', neben: '옆 지킴 (네벤후트)', alber: '바보 (알버)',
+  tagL: '왼 어깨 지붕 (폼 타크)', ochsL: '왼 황소 (옥스)', sideL: '왼 옆 자세', pflugL: '왼 쟁기 (플루크)', wechselL: '왼 바꿈 (베크셀)',
 };
 
 const J = Object.fromEntries(JOINTS.map((n, i) => [n, i]));

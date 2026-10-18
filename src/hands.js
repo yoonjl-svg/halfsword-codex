@@ -26,10 +26,10 @@ function rapierPostureA(f) {
   const i = f.guardPose?.nearest;
   if (!(i >= 0) || i >= RAPIER_A_BY_INDEX.length) return 0;
   const name = f.guardPose?.table?.[i]?.name ?? '';
-  if (name.includes('Prima')) return 180;
-  if (name.includes('Seconda')) return 90;
-  if (name.includes('Terza')) return 0;
-  if (name.includes('Quarta')) return -90;
+  if (name.includes('프리마')) return 180;
+  if (name.includes('세콘다')) return 90;
+  if (name.includes('테르차')) return 0;
+  if (name.includes('콰르타')) return -90;
   return RAPIER_A_BY_INDEX[i];
 }
 

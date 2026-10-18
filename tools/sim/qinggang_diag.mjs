@@ -51,7 +51,7 @@ if (env.QG_TECH || env.QG_THRUSTK) {
   SCHOOLS[schoolId] = { ...S, tech, techByName: Object.fromEntries(tech.map((t) => [t.name, t])) };
 }
 // 섞은 표: 찌르기 표에서 베기를 감는 자세(칼이 어깨·머리·허리 옆으로 돌아가는 자리)만 세이버 표로
-const CHAMBER = ['지붕 (Vom Tag)', '어깨 지붕 (Vom Tag)', '옆 자세', '바꿈 (Wechsel)', '옆 지킴 (Nebenhut)', '왼쪽 어깨 지붕', '왼쪽 옆 자세', '왼쪽 바꿈'];
+const CHAMBER = ['지붕 (폼 타크)', '어깨 지붕 (폼 타크)', '옆 자세', '바꿈 (베크셀)', '옆 지킴 (네벤후트)', '왼 어깨 지붕 (폼 타크)', '왼 옆 자세', '왼 바꿈 (베크셀)'];
 const HYBRID = GUARD_BASE_ONE_THRUST.map((g, i) => (CHAMBER.includes(g.name) ? GUARD_BASE_ONE_SABRE[i] : g));
 const spec = WEAPONS[bodyId];
 if (env.QG_MCUT) spec.mCut = +env.QG_MCUT;

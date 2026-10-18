@@ -22,7 +22,7 @@ import { readProfile, renamePlayer } from './player_profile.js';
 import { readProgress, titleOptions, selectTitle } from './lobby_progress.js';
 import { mountSkillTree } from './skill_tree.js';
 import { convertSeals, takeSealNotice } from './seal_coins.js';
-import { getWeapon, TIER_LABEL } from './weapons.js';
+import { getWeapon, TIER_LABEL, weaponSpecText } from './weapons.js';
 import { COIN_ICON, POUCH_ICON } from './wallet_icons.js'; // 금화 · 머리 그림 — 결과 창 금화 줄과 같은 그림
 
 // 칸 그림 맞춤 (사장님 ⑨ — 감독 검토 §2 '케틀 햇이 칸 폭의 약 45 %'): 그림 파일의 투명한 가장자리를 빼고, 보이는 부분의 긴 쪽이 칸의 80 % 가 되게 키우고 가운데에 둔다.
@@ -200,7 +200,8 @@ export function mountLobby({ root, game, choice, onDepart, onBack }) {
   const itemCard = item => {
     if (item.kind === 'armor') { const a = armorOf(item.id); return { name: a.nameKo, tier: a.tier, description: a.description, ability: a.ability }; }
     const spec = getWeapon(item.id);
-    return { name: spec.nameKo, tier: TIER_LABEL[spec.tier] ? spec.tier : 'common', description: spec.desc || '', ability: '' };
+    const sp = weaponSpecText(spec); // 스펙은 대기실 아이템 창에서만 — 설명 뒤 한 칸 띄고 (종류, 길이, 무게) (사장님 10/19 02:0x)
+    return { name: spec.nameKo, tier: TIER_LABEL[spec.tier] ? spec.tier : 'common', description: `${spec.desc || ''}${sp ? ` (${sp})` : ''}`.trim(), ability: '' };
   };
   // 칸: 그림 = 칸의 80 % · 매끈하게 줄임 · 뒤에 등급 빛(무기 카드 앞면 .wthumb 와 같은 원 빛 — data-tier · lobby.css) — 사장님 ⑨ 1 단계(감독 검토 §2)
   //  칸 수 = 24(빈 칸이 채움) · 물건이 24 개보다 많으면 6 칸씩 줄을 더한다 — 판 높이는 4 줄 그대로라 판 안에서 내려 본다(숨기지 않음 · 담는 수 규칙 없음)

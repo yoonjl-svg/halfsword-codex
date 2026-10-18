@@ -39,56 +39,83 @@ export const headPriceOf = (tier) => BOOK_HEAD_PRICE?.[tier] ?? null;
 // 책 이름(급 갈래 + 이름 — 표시 '보법: 리히테나워')과 짧은 출처 줄. 5급 이름은 지금 게임의 비기 이름을 읽는다(비기 판을 바꾸면 같이 바뀜)
 const BOOK_TEXT = {
   german: [
-    ['리히테나워', '리히테나워 전승(14세기) · 걸음은 마이어 1570 I.23v'],
+    ['리히테나워', '리히테나워 전승(14세기) · 요아힘 마이어(1570)'],
     ['마이어', '요아힘 마이어 『Gründtliche Beschreibung』(1570) — 막기·자세'],
     ['링게크', '지그문트 링게크의 리히테나워 주해(15세기)'],
     ['인데스', '리히테나워 운문의 Indes · 링게크 주해'],
-    [null, '링게크 주해 · 마이어(1570) — 게임 해석'],
+    [null, '링게크 주해 · 마이어(1570)'],
   ],
   italian: [
     ['카포 페로', '리돌포 카포 페로 『Gran Simulacro』(1610) — 거리·내딛기'],
     ['기간티', '니콜레토 기간티 『Scola, overo Teatro』(1606) — 자세와 맞자세'],
     ['파브리스', '살바토르 파브리스 『Lo Schermo』(1606) — 자세 도판'],
     ['카바치오네', '카포 페로(1610)의 cavazione'],
-    [null, '카포 페로(1610) 박자·낮은 찌르기 — 게임 해석'],
+    [null, '카포 페로(1610)의 박자와 낮은 찌르기'],
   ],
   iberian: [
     ['피게이레두', '디오구 고메스 드 피게이레두 『Memorial da Prattica do Montante』(1651)'],
     ['고디뉴', '도밍구 루이스 고디뉴 『Arte de Esgrima』(1599) 몬탄테 장'],
     ['몬탄테', '몬탄테 규칙 — 피게이레두(1651) · 고디뉴(1599)'],
     ['이어 돌기', '두 문헌의 이어 베기'],
-    [null, '피게이레두 규칙 VII · XI — 게임 해석'],
+    [null, '피게이레두(1651) 규칙 7 · 11'],
   ],
   japanese: [
     ['일본검도형', '『일본검도형』(1912) — 현대 교본'],
     ['오륜서', '미야모토 무사시 『오륜서』(1645) — 세 가지 받기'],
     ['왜검', '『무예도보통지』(1790) 권2 왜검·교전'],
-    ['잔심', '야규 무네노리 『병법가전서』(1632)'],
-    [null, '받아서 먼저 치는 박자의 전승 — 게임 해석'],
+    ['잔신', '야규 무네노리 『병법가전서』(1632)'],
+    [null, '받아서 먼저 치는 박자의 전승'],
   ],
   chinese: [
     ['조선세법', '모원의 『무비지』(1621) 권86 조선세법 — 체보'],
     ['무예도보통지', '『무예도보통지』(1790) 권2 예도 — 거정·요략'],
     ['예도', '『무예도보통지』(1790) 권2 예도 · 권3 본국검'],
     ['검결가', '『무비지』(1621) 검결가'],
-    [null, '조선세법의 이어 치기 — 게임 해석'],
+    [null, '조선세법의 이어 치기'],
   ],
 };
 const short = (t) => String(t ?? '').replace(/\s*[(·].*$/, '');
+// 원어 (사장님 10/19 02:0x '대기실 스킬북에서만 원어 병기') — 책 이름의 원어. 기술 이름은 '뜻 (독음 · 원어)' (bookLabel)
+const BOOK_ORIG = {
+  german: ['Liechtenauer', 'Meyer', 'Ringeck', 'Indes'],
+  italian: ['Capo Ferro', 'Giganti', 'Fabris', 'cavazione'],
+  iberian: ['Figueiredo', 'Godinho', 'montante', null],
+  japanese: ['日本剣道形', '五輪書', '倭劍', '残心'],
+  chinese: ['朝鮮勢法', '武藝圖譜通志', '銳刀', '劍訣歌'],
+};
+/** 스킬북 기술 이름: '뜻 (독음)' + 원어 → '뜻 (독음 · 원어)'. 원어가 없으면 그대로 */
+export function bookLabel(nameKo, orig) {
+  const m = /^(.*?)\s*\(([^()]*)\)\s*$/.exec(nameKo ?? '');
+  if (!orig) return nameKo ?? '';
+  return m ? `${m[1]} (${m[2]} · ${orig})` : `${nameKo} (${orig})`;
+}
 // 효과 한 줄 — 지금 게임에 있는 그 유파 몫 (docs/strike/school_kit_map.md §2 · 공지 글과 같은 말)
 const FOOTWORK_TEXT = {
-  german: '뒤로 박차는 첫걸음 · 상대가 헛치면 간격 잡기',
-  italian: '짧은 디딤 둘 · 긴 디딤 둘을 번갈아 밟는 박자 걸음',
-  iberian: '넓은 보폭 · 옆으로 박차는 첫걸음',
-  japanese: '낮은 자세 · 흔들려도 버티는 몸',
+  german: '뒤로 박차 빠지고, 헛친 상대와 거리를 잰다',
+  italian: '짧게 둘, 길게 둘 — 박자를 타는 걸음',
+  iberian: '넓은 보폭으로 옆으로 박차 돈다',
+  japanese: '낮게 깔려 흔들려도 버티는 몸',
   chinese: '가볍게 떼고 멈추는 발',
 };
 const PARRY_TEXT = {
-  german: '머리 위는 왕관으로 받는 독일 막기 자리',
-  italian: '이탈리아 막기 자리 (왼쪽 위 · 머리 위가 다르다)',
-  iberian: '왼쪽 위 · 오른쪽 위는 탈류 · 레베스 쳐내기(베어 쳐내 머리 앞에 멈춤)로 받는 이베리아 막기 자리',
-  japanese: '머리 위는 우케나가시(칼 지붕으로 받아 내려오는 칼을 미끄러뜨림)로 받는 일본 막기 자리',
-  chinese: '거정세 · 어거세 · 요략세(칼끝을 드리워 다리까지)로 받는 동방 막기',
+  german: '머리 위로 오는 칼을 칼자루로 받는다 (왕관)',
+  italian: '곧게 뻗은 칼로 치며 막는다',
+  iberian: '높이 오는 칼을 베어 쳐낸다 · 막는 동안 피해 20% 감소',
+  japanese: '머리 위로 오는 칼을 흘려 받아 상대 기력을 깎는다 · 막는 동안 피해 20% 감소',
+  chinese: '위 · 가운데 · 아래를 세 자세로 받는다 · 막는 동안 피해 절반',
+};
+
+// 비기 책 한 줄 — 언제 공격하면 무엇이 나가는지 (비기 판 이름 열쇠 — 주소 스위치로 판을 바꿔도 맞는 글. 10/19 글 방침 2판)
+const SECRET_TEXT = {
+  versetzen: '치명적인 칼이 들어올 때 공격하면, 받아내며 동시에 벤다',
+  indesWinden: '높이 막아 칼이 맞붙은 동안 공격하면, 감아 들어 친다 — 오래 붙을수록 세다',
+  passataContratempo: '상대가 칼을 들거나 달려들 때 공격하면, 밑으로 들어가 찌른다',
+  gilmok: '칼끝 거리 밖에서 기다리다 상대가 넘어올 때 공격하면, 크게 둘러 벤다',
+  montanteFlow: '상대가 칼 호 안으로 밀고 들 때 공격하면, 끊임없이 이어 벤다',
+  molineteTalho: '상대가 칼 호 안으로 밀고 들 때 공격하면, 비켜 서며 크게 가로 벤다',
+  goNoSen: '간격 밖에서 기다리다 상대가 치려 할 때 공격하면, 먼저 벤다',
+  lianhuanParry: '높이 막아 낸 직후 공격하면, 세 번 이어 친다',
+  lianhuanSanji: '쉬었다 들어가며 친 첫 칼이 맞으면, 세 번 이어 친다',
 };
 
 export const bookId = (school, tier) => `${school}:${tier}`;
@@ -100,16 +127,18 @@ export function bookOf(school, tier) {
   if (!T || !B || !text) return null;
   const name = text[0] ?? short(T.secret?.nameKo);
   const book = { id: bookId(school, tier), school, schoolKo: T.nameKo, tier, kind: B.kind, label: B.label, rarity: B.rarity, rarityKo: BOOK_RARITY_LABEL[B.rarity], price: B.price, name, title: `${B.label}: ${name}`, source: text[1] };
-  if (B.kind === 'footwork') book.effect = `${FOOTWORK_TEXT[school]} — 없거나 봉인하면 기본 걸음`;
-  else if (B.kind === 'parry') book.effect = `막기 단추: ${PARRY_TEXT[school]} — 없거나 봉인하면 무유파 자리`;
+  const reading = /\(([^()]*)\)/.exec(T.secret?.nameKo ?? '')?.[1];
+  book.orig = B.kind === 'secret' ? [reading, T.secret?.orig].filter(Boolean).join(' · ') || null : BOOK_ORIG[school]?.[tier - 1] ?? null; // 스킬북에서만 원어
+  if (B.kind === 'footwork') book.effect = FOOTWORK_TEXT[school];
+  else if (B.kind === 'parry') book.effect = PARRY_TEXT[school];
   else if (B.kind === 'unique') {
-    book.effect = '고유 공격 넷이 한꺼번에 열린다';
-    book.list = (PLAYER_UNIQUE[school] ?? []).map((e) => uniqueDef(school, e)?.nameKo).filter(Boolean);
+    book.effect = '고유 공격 넷을 쓸 수 있다';
+    book.list = (PLAYER_UNIQUE[school] ?? []).map((e) => { const u = uniqueDef(school, e); return u?.nameKo ? bookLabel(u.nameKo, u.orig) : null; }).filter(Boolean); // '뜻 (독음 · 원어)'
     book.provisional = true; // 사장님 04:0x '나중에 바꿔도 되니까' — 고유자세 한 가지로 바꿀 때까지 임시
   } else if (B.kind === 'passive') {
-    book.effect = '개발 예정 — 사람이 쓰는 패시브는 아직 없다';
+    book.effect = '준비 중';
     book.planned = true;
-  } else book.effect = `비기 '${short(T.secret?.nameKo)}' — 조건이 차면 짧은 창 안의 공격 입력 하나가 비기`;
+  } else book.effect = SECRET_TEXT[T.secret?.name] ?? '';
   return book;
 }
 export const booksOf = (school) => BOOK_TIERS.map((B) => bookOf(school, B.tier)).filter(Boolean);
