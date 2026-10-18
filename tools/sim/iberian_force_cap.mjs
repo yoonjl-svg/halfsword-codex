@@ -14,7 +14,7 @@ export function forceTrial(options,cfg){
   control=installForceCap(G.enemy,cfg);
   linkSweepRecovery(g,G.player.skill._contactSweep,G.player,control,ob,()=>G.t);
  },onFrame(G){ob.step(G);const s=control.scale();minimum=Math.min(minimum,s);if(s<1)activeFrames++;}});
- return {...r,forceConfig:{...cfg,recovery:.24},controlEvents:control.events,observation:ob.finish(),capAudit:{activeFrames,minimum}};
+ return {...r,forceConfig:{...cfg,recovery:cfg.recovery??.24},controlEvents:control.events,observation:ob.finish(),capAudit:{activeFrames,minimum}};
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
  mkdirSync(`${OUT}/raw`,{recursive:true});
