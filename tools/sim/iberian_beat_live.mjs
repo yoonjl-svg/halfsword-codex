@@ -6,7 +6,7 @@ import {PlayerParryGuard} from '../../src/parry_button.js';
 import {installIberianBeat} from '../../src/iberian_beat.js';
 import * as THREE from 'three';
 function rng(seed){let a=seed>>>0;return()=>{a=(a+0x6d2b79f5)>>>0;let t=Math.imul(a^a>>>15,a|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296;};}
-export function live({gain=0,yieldSeconds=0,impulseCap=3,recoilDegrees=0,recoilSeconds=.28,seed=101,atk='longsword',policy='riposte',seconds=30,gap=2.2,onFrame,onStart,GuardOverride,weapon='zweihander',reaction=.22,book=true}={}){
+export function live({gain=0,yieldSeconds=0,impulseCap=3,speedCap=4,recoilDegrees=0,recoilSeconds=.28,recoilMode="offset",seed=101,atk='longsword',policy='riposte',seconds=30,gap=2.2,onFrame,onStart,GuardOverride,weapon='zweihander',reaction=.22,book=true}={}){
  SKILL.parryAssist=0;
  const G=newRound({weapon,weapon2:atk,gap,seed});
  const D=G.player,A=G.enemy;
@@ -14,8 +14,8 @@ export function live({gain=0,yieldSeconds=0,impulseCap=3,recoilDegrees=0,recoilS
  D.schoolFootwork=true;D.schoolParry=book;
  const Guard=GuardOverride??PlayerParryGuard,guard=new Guard(D,A);D.stamina.controller=guard;
  const observer=observeHealth(D,()=>G.t),enemyObserver=observeHealth(A,()=>G.t),random=rng(seed+104729);
- const study=installIberianBeat(G.combat,{gain,yieldSeconds,impulseCap,recoilDegrees,recoilSeconds});
- const r={gain,yieldSeconds,impulseCap,recoilDegrees,recoilSeconds,seed,atk,policy,seconds,gap,weapon,reaction,book,commands:[],timeline:[],aiTechniques:{},clashes:[],flows:[],postFlow:[]};
+ const study=installIberianBeat(G.combat,{gain,yieldSeconds,impulseCap,speedCap,recoilDegrees,recoilSeconds,recoilMode});
+ const r={gain,yieldSeconds,impulseCap,speedCap,recoilDegrees,recoilSeconds,recoilMode,seed,atk,policy,seconds,gap,weapon,reaction,book,commands:[],timeline:[],aiTechniques:{},clashes:[],flows:[],postFlow:[]};
  let counterDue=Infinity,slashUntil=0,slashX=-1;
  r.slashFrames=[];
  const previousClash=G.combat.hooks.onClash;
@@ -62,7 +62,7 @@ export function live({gain=0,yieldSeconds=0,impulseCap=3,recoilDegrees=0,recoilS
 if(process.argv[1]?.endsWith('/iberian_beat_live.mjs')){
  const {writeFileSync,mkdirSync}=await import('node:fs');
  const out=process.env.OUT??'docs/research/iberian_beat_20261018/raw';mkdirSync(out,{recursive:true});
- const configs=JSON.parse(process.env.CONFIGS??'[{"gain":0},{"gain":.7}]'.replace(':.',':0.'));
+ const configs=JSON.parse(process.env.CONFIGS??'[{"gain":0},{"gain":1.4,"impulseCap":6,"speedCap":8}]');
  const cases=JSON.parse(process.env.CASES??'null')??[701,702].flatMap(seed=>['longsword','qinggang','uchigatana','zweihander'].flatMap(atk=>['reactive','slash'].map(policy=>({seed,atk,policy}))));
  for(const cfg of configs){const rows=[];for(const c of cases){const r=live({...c,...cfg,seconds:+(process.env.SECONDS??30)});rows.push(r);writeFileSync(`${out}/${process.env.LABEL??'live'}-${cfg.gain}-${cfg.yieldSeconds??0}.json`,JSON.stringify(rows));console.log(JSON.stringify({cfg,...c,t:r.duration,beats:r.beats.length,alive:r.health.end.alive,enemyAlive:r.enemy.end.alive,blood:r.health.bloodLost,limb:r.health.limbLost,enemyLimb:r.enemy.limbLost,concussion:r.health.concussion}));}}
 }

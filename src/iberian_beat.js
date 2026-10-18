@@ -7,12 +7,13 @@ const along = (f, p) => {
   return {u, p:a.addScaledVector(ab,u)};
 };
 const velocity = (s,p) => s.w.clone().cross(V(p).sub(s.com)).add(s.v);
-export const IBERIAN_BEAT = Object.freeze({gain:.7, speedCap:4, impulseCap:3, minSpeed:.6, coverWeight:.15, cooldown:.6, direction:'side', yieldSeconds:0, yieldScale:.35, recoilDegrees:0, recoilSeconds:.28});
+export const IBERIAN_BEAT = Object.freeze({gain:1.4, speedCap:8, impulseCap:6, minSpeed:.6, coverWeight:.15, cooldown:.6, direction:'side', yieldSeconds:0, yieldScale:.35, recoilDegrees:0, recoilSeconds:.28, recoilMode:'offset'});
 export function beatAim(f,aim) {
   const s=f.iberianRecoil;if(!s)return;
   const t=f.stamina.time-s.start;
   if(t>=s.duration||!f.alive||!f.armed){f.iberianRecoil=null;return;}
   const attack=THREE.MathUtils.smoothstep(t,0,.06),decay=1-THREE.MathUtils.smoothstep(t,.10,s.duration);
+  if(s.mode==='catch') {aim.lerp(V(s.target),attack*decay).normalize();return;}
   const side=V(s.dir).addScaledVector(aim,-V(s.dir).dot(aim));
   if(side.lengthSq()<.01)return;
   aim.addScaledVector(side.normalize(),Math.tan(s.degrees*Math.PI/180)*attack*decay).normalize();
@@ -52,7 +53,12 @@ export function installIberianBeat(combat, options={}) {
       const beforeO=V(O.sword.velocityAtPoint(po.p)),beforeD=V(D.sword.velocityAtPoint(pd.p));
       if(impulse>0){O.sword.applyImpulseAtPoint(dir.clone().multiplyScalar(impulse),po.p,true);D.sword.applyImpulseAtPoint(dir.clone().multiplyScalar(-impulse),pd.p,true);}
       if(impulse>0&&cfg.yieldSeconds>0)O.iberianYield={start:O.stamina.time,duration:cfg.yieldSeconds,scale:cfg.yieldScale};
-      if(impulse>0&&cfg.recoilDegrees>0)O.iberianRecoil={start:O.stamina.time,duration:cfg.recoilSeconds,degrees:cfg.recoilDegrees,dir:dir.toArray().reduce((a,v,i)=>(a[['x','y','z'][i]]=v,a),{})};
+      if(impulse>0&&cfg.recoilDegrees>0){
+        const axis=O.bladePoint(1,new THREE.Vector3()).sub(O.bladePoint(0,new THREE.Vector3())).normalize();
+        const side=dir.clone().addScaledVector(axis,-dir.dot(axis));
+        if(side.lengthSq()>.01)axis.addScaledVector(side.normalize(),Math.tan(cfg.recoilDegrees*Math.PI/180)).normalize();
+        O.iberianRecoil={start:O.stamina.time,duration:cfg.recoilSeconds,degrees:cfg.recoilDegrees,mode:cfg.recoilMode,dir:{x:dir.x,y:dir.y,z:dir.z},target:{x:axis.x,y:axis.y,z:axis.z}};
+      }
       const e={...row,dir:dir.toArray(),md,mo,dv,impulse,point:V(point).toArray(),deltaO:V(O.sword.velocityAtPoint(po.p)).sub(beforeO).toArray(),deltaD:V(D.sword.velocityAtPoint(pd.p)).sub(beforeD).toArray()};
       events.push(e);combat.lastIberianBeat=e;return;
     }

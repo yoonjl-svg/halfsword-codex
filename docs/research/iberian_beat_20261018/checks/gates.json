@@ -1,0 +1,120 @@
+[
+  {
+    "gate": "fights12",
+    "mode": "baseline",
+    "command": [
+      "node",
+      "--import",
+      "./tools/sim/iberian_baseline_loader.mjs",
+      "tools/sim/fights12.mjs"
+    ],
+    "code": 0,
+    "sha256": "5dfe035ccc206fcc6ccc12fc21c70d85b047c103f8d8fe51ae7647d37488fe7d"
+  },
+  {
+    "gate": "fights12",
+    "mode": "candidate",
+    "command": [
+      "node",
+      "tools/sim/fights12.mjs"
+    ],
+    "code": 0,
+    "sha256": "5dfe035ccc206fcc6ccc12fc21c70d85b047c103f8d8fe51ae7647d37488fe7d"
+  },
+  {
+    "gate": "live_battery",
+    "mode": "baseline",
+    "command": [
+      "node",
+      "--import",
+      "./tools/sim/iberian_baseline_loader.mjs",
+      "tools/sim/live_battery.mjs"
+    ],
+    "code": 0,
+    "sha256": "648aca6674af94a06ca3530d6352d479f6a96ff3ead6d5cf87b8e303a41adda7"
+  },
+  {
+    "gate": "live_battery",
+    "mode": "candidate",
+    "command": [
+      "node",
+      "tools/sim/live_battery.mjs"
+    ],
+    "code": 0,
+    "sha256": "648aca6674af94a06ca3530d6352d479f6a96ff3ead6d5cf87b8e303a41adda7"
+  },
+  {
+    "gate": "finish_thrust",
+    "mode": "baseline",
+    "command": [
+      "node",
+      "--import",
+      "./tools/sim/iberian_baseline_loader.mjs",
+      "tools/sim/finish_thrust.mjs",
+      "1",
+      "--stand"
+    ],
+    "code": 0,
+    "sha256": "2de06c0349330957cfcd9fb44ab1e7ea58ad70332e1c0431c7781e00344b3e8c"
+  },
+  {
+    "gate": "finish_thrust",
+    "mode": "candidate",
+    "command": [
+      "node",
+      "tools/sim/finish_thrust.mjs",
+      "1",
+      "--stand"
+    ],
+    "code": 0,
+    "sha256": "2de06c0349330957cfcd9fb44ab1e7ea58ad70332e1c0431c7781e00344b3e8c"
+  },
+  {
+    "gate": "corr_s0",
+    "mode": "baseline",
+    "command": [
+      "node",
+      "--import",
+      "./tools/sim/iberian_baseline_loader.mjs",
+      "tools/sim/corr_s0.mjs",
+      "--limits=off,on",
+      "--scenes=a,b"
+    ],
+    "code": 0,
+    "sha256": "0c047953b52ebbabe113a719bf70a5a41ae60a4bfa040ec0c59cfb1071caf58b"
+  },
+  {
+    "gate": "corr_s0",
+    "mode": "candidate",
+    "command": [
+      "node",
+      "tools/sim/corr_s0.mjs",
+      "--limits=off,on",
+      "--scenes=a,b"
+    ],
+    "code": 0,
+    "sha256": "b0e3bc64ca2a72e126ee9a58cb76496676e6f23df8b0f49a7a8334b71e32f6c5"
+  },
+  {
+    "gate": "weapon_smoke",
+    "mode": "baseline",
+    "command": [
+      "node",
+      "--import",
+      "./tools/sim/iberian_baseline_loader.mjs",
+      "tools/sim/weapon_smoke.mjs"
+    ],
+    "code": 0,
+    "sha256": "e06f14ed741ef193062568b76c780df6f597fe2580b7eb0199b9c156e7383c91"
+  },
+  {
+    "gate": "weapon_smoke",
+    "mode": "candidate",
+    "command": [
+      "node",
+      "tools/sim/weapon_smoke.mjs"
+    ],
+    "code": 0,
+    "sha256": "e06f14ed741ef193062568b76c780df6f597fe2580b7eb0199b9c156e7383c91"
+  }
+]
