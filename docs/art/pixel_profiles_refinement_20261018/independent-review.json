@@ -1,0 +1,464 @@
+{
+  "version": "independent-eight-character-refinement-20261018",
+  "reviewer": "portrait_references",
+  "scopeCount": 8,
+  "isFinalUserApproval": false,
+  "previousReviewLimitation": "Previous review overemphasized eye existence and fixed-grid consistency and did not adequately reject facial positioning and weak form. This pass compares the actual face, expression, silhouette and volume with all eight high-quality originals.",
+  "blockingIssues": [],
+  "summary": "Eight targeted corrections are visibly addressed. Facial-expression fidelity remains deliberately limited by the 22x22 grid and is not claimed to match the originals in full.",
+  "readOnlyAssetReview": true,
+  "writtenFiles": [
+    "/workspace/portrait-six-20261018/final-independent-review.json"
+  ],
+  "characters": [
+    {
+      "id": "isolde_mad",
+      "verdict": "targeted-correction-accepted",
+      "blockingIssues": [],
+      "concern": "눈이 큰 네모 덩어리로 보임",
+      "result": "큰 눈 주위 어두운 덩어리가 피부색으로 정리되고 붉은 눈은 작은 단위로 구분된다. 얼굴 폭에 비해 눈이 덩어리처럼 압도하던 인상은 줄었다.",
+      "expressionLimit": "고화질 원본의 날카로운 눈썹·입매까지 복원되지는 않는다. 단순한 low 표현으로 보되 동일한 얼굴로 읽히는 범위다.",
+      "after": {
+        "file": "/workspace/halfsword-codex/public/encounters/pixel-profiles-low128-20261017/isolde_mad/low.png",
+        "sha256": "a61c41e6c70b11358068274819fab661b7fd34040db799894e6c13b2f98b2bfc",
+        "bytes": 202324
+      },
+      "before": {
+        "file": "/workspace/portrait-six-20261018/isolde_mad-before.png",
+        "sha256": "ae76dc27f09e8735cc45114bc5fea018e02662bd35e71709517de059cbd42dbd",
+        "bytes": 202336
+      },
+      "original": {
+        "file": "/workspace/halfsword-codex/public/encounters/pixel-profiles-low128-20261017/isolde_mad/original.png",
+        "sha256": "02ca48e494dbfaf714eef7db4f40ee587e4614528a74c8e772cbe2ace034bb15",
+        "bytes": 2048718
+      },
+      "visualMethod": "Individual original/low views and eight-after contact sheet compared; semantic facial location/form and perceived volume considered, not eye presence alone.",
+      "gridCheck": {
+        "canvas": [
+          1254,
+          1254
+        ],
+        "origin": [
+          77,
+          77
+        ],
+        "grid": [
+          22,
+          22
+        ],
+        "cellPx": 50,
+        "interiorNonuniformCells": [],
+        "renderedBoundaryCellsWithFrameOverlay": 84,
+        "note": "The high-resolution common frame overlaps outermost sprite cells. Rendered edge cells intentionally contain frame pixels; the fully interior 20x20 cells are uniform 50px blocks. This check does not classify the preserved high-resolution frame as a sprite-grid error."
+      },
+      "exteriorFrameSha256": "599503eb11e6cf29ebcc6a75d0e141cec4b89f83d96e7118210e207e6029661f",
+      "frameMatchesFirst": true,
+      "changedLogicalCellCount": 9
+    },
+    {
+      "id": "artoria_mad",
+      "verdict": "targeted-correction-accepted",
+      "blockingIssues": [],
+      "concern": "한쪽 눈이 얼굴 아래로 처짐",
+      "result": "화면 오른쪽 먼 눈이 위로 올라가 양쪽 눈선이 얼굴의 기울기에 맞는 범위에 들어왔다. 이전의 아래쪽 붉은 잔여 셀이 피부색으로 없어져 눈이 뺨에 걸린 인상도 해소됐다.",
+      "expressionLimit": "고화질 원본의 미세한 우월감·한쪽 입꼬리는 이 격자에서 온전히 읽히지 않는다.",
+      "after": {
+        "file": "/workspace/halfsword-codex/public/encounters/pixel-profiles-low128-20261017/artoria_mad/low.png",
+        "sha256": "1ea81ef20851d77f6b9a3defa542c09c6b7d77c3079685500ad1b9bcfdea0948",
+        "bytes": 202137
+      },
+      "before": {
+        "file": "/workspace/portrait-six-20261018/artoria_mad-before.png",
+        "sha256": "25fb04cb36b6e5d0dbfac051e80f4deab72718d5e6aaac2b18ae5a0fc542a636",
+        "bytes": 202135
+      },
+      "original": {
+        "file": "/workspace/halfsword-codex/public/encounters/pixel-profiles-low128-20261017/artoria_mad/original.png",
+        "sha256": "56f8b9884b3e2cbb7b74561ae68631bd8f69c9bec3eb7d4eb2f72375f19e9b3b",
+        "bytes": 1997247
+      },
+      "visualMethod": "Individual original/low views and eight-after contact sheet compared; semantic facial location/form and perceived volume considered, not eye presence alone.",
+      "gridCheck": {
+        "canvas": [
+          1254,
+          1254
+        ],
+        "origin": [
+          77,
+          77
+        ],
+        "grid": [
+          22,
+          22
+        ],
+        "cellPx": 50,
+        "interiorNonuniformCells": [],
+        "renderedBoundaryCellsWithFrameOverlay": 84,
+        "note": "The high-resolution common frame overlaps outermost sprite cells. Rendered edge cells intentionally contain frame pixels; the fully interior 20x20 cells are uniform 50px blocks. This check does not classify the preserved high-resolution frame as a sprite-grid error."
+      },
+      "exteriorFrameSha256": "599503eb11e6cf29ebcc6a75d0e141cec4b89f83d96e7118210e207e6029661f",
+      "frameMatchesFirst": true,
+      "changedLogicalCellCount": 6
+    },
+    {
+      "id": "chanda",
+      "verdict": "targeted-correction-accepted",
+      "blockingIssues": [],
+      "concern": "한쪽 눈만 읽힘",
+      "result": "검은 앞머리 아래에서 두 눈의 밝고 어두운 부분이 구분된다. 가까운 눈과 먼 눈의 간격·기울기가 코 방향과 맞고, 사라진 눈을 단순 점으로 아무 데나 추가한 형태는 아니다.",
+      "expressionLimit": "원본의 긴 눈썹과 부드러운 눈매는 압축되어 있으나 한눈처럼 읽히는 문제는 해소됐다.",
+      "after": {
+        "file": "/workspace/halfsword-codex/public/encounters/pixel-profiles-low128-20261017/chanda/low.png",
+        "sha256": "7884b7ea1330b59046e4a6f9859a13c1893408095c2a4f4e5b7de7834cd077f4",
+        "bytes": 202301
+      },
+      "before": {
+        "file": "/workspace/portrait-six-20261018/chanda-before.png",
+        "sha256": "0ca2b726766ddedf96f5d3ebd6d553fc406c07ca300eade1e7461313366d5915",
+        "bytes": 202266
+      },
+      "original": {
+        "file": "/workspace/halfsword-codex/public/encounters/pixel-profiles-low128-20261017/chanda/original.png",
+        "sha256": "923cecae7d026d0fd110c850fda7082d89398e83757917e306e613326adfd6b0",
+        "bytes": 1840175
+      },
+      "visualMethod": "Individual original/low views and eight-after contact sheet compared; semantic facial location/form and perceived volume considered, not eye presence alone.",
+      "gridCheck": {
+        "canvas": [
+          1254,
+          1254
+        ],
+        "origin": [
+          77,
+          77
+        ],
+        "grid": [
+          22,
+          22
+        ],
+        "cellPx": 50,
+        "interiorNonuniformCells": [],
+        "renderedBoundaryCellsWithFrameOverlay": 84,
+        "note": "The high-resolution common frame overlaps outermost sprite cells. Rendered edge cells intentionally contain frame pixels; the fully interior 20x20 cells are uniform 50px blocks. This check does not classify the preserved high-resolution frame as a sprite-grid error."
+      },
+      "exteriorFrameSha256": "599503eb11e6cf29ebcc6a75d0e141cec4b89f83d96e7118210e207e6029661f",
+      "frameMatchesFirst": true,
+      "changedLogicalCellCount": 11
+    },
+    {
+      "id": "terracotta",
+      "verdict": "targeted-correction-accepted",
+      "blockingIssues": [],
+      "concern": "토우의 형체가 불분명",
+      "result": "관·옆머리/귀·눈홈·돌출된 코·콧수염·턱수염·갑옷 깃이 연속된 명암 덩어리로 구분된다. 얼굴이 파편처럼 흩어졌던 전판보다 사람 형상을 가진 토우로 읽힌다. 한 계열의 흙빛과 적갈색 채색 흔적도 유지된다.",
+      "expressionLimit": "토우의 긴장된 입매와 얇은 눈홈은 단순하지만 살아 있는 사람 눈동자로 바뀌지 않았다.",
+      "after": {
+        "file": "/workspace/halfsword-codex/public/encounters/pixel-profiles-low128-20261017/terracotta/low.png",
+        "sha256": "90c1e0124bc1832c73d526d60745e81870c2383d12171683e79e5dba844ecbfc",
+        "bytes": 201756
+      },
+      "before": {
+        "file": "/workspace/portrait-six-20261018/terracotta-before.png",
+        "sha256": "8a1f867cfe5be9d5b76d2eaaa2fd1fb225562e1808023a16161c27afcf3bc5b3",
+        "bytes": 201970
+      },
+      "original": {
+        "file": "/workspace/halfsword-codex/public/encounters/pixel-profiles-low128-20261017/terracotta/original.png",
+        "sha256": "145f140b94e02cb73b9669c0956d339b44abe2b1aa85f6380d3fa498d1ec9444",
+        "bytes": 2339670
+      },
+      "visualMethod": "Individual original/low views and eight-after contact sheet compared; semantic facial location/form and perceived volume considered, not eye presence alone.",
+      "gridCheck": {
+        "canvas": [
+          1254,
+          1254
+        ],
+        "origin": [
+          77,
+          77
+        ],
+        "grid": [
+          22,
+          22
+        ],
+        "cellPx": 50,
+        "interiorNonuniformCells": [],
+        "renderedBoundaryCellsWithFrameOverlay": 84,
+        "note": "The high-resolution common frame overlaps outermost sprite cells. Rendered edge cells intentionally contain frame pixels; the fully interior 20x20 cells are uniform 50px blocks. This check does not classify the preserved high-resolution frame as a sprite-grid error."
+      },
+      "exteriorFrameSha256": "599503eb11e6cf29ebcc6a75d0e141cec4b89f83d96e7118210e207e6029661f",
+      "frameMatchesFirst": true,
+      "changedLogicalCellCount": 296
+    },
+    {
+      "id": "liao_mad",
+      "verdict": "targeted-correction-accepted",
+      "blockingIssues": [],
+      "concern": "머리와 얼굴이 평평함",
+      "result": "머리의 윗면과 옆면, 눈가리개 밝기, 뺨/코의 밝은 면과 턱/목의 어두운 면이 이어져 이전 단색 색면보다 부피가 읽힌다. 고화질 원본의 오른쪽 3/4 방향, 눈을 전부 가린 천, 붉은 띠, 입에 문 풀은 유지된다.",
+      "expressionLimit": "닫힌 입과 턱의 긴장은 여전히 매우 단순하다. 고화질 표정 재현이 완전하다고 보지는 않는다.",
+      "after": {
+        "file": "/workspace/halfsword-codex/public/encounters/pixel-profiles-low128-20261017/liao_mad/low.png",
+        "sha256": "0d49a9cd56612a727a82e484ffe544a3117cef6d86079aef9d4ae5d19ad7d843",
+        "bytes": 202460
+      },
+      "before": {
+        "file": "/workspace/portrait-six-20261018/liao_mad-before.png",
+        "sha256": "5652d818b29f0560a266f6b0127cfa5bb4e2eb3c9664f5b536c94230b1c35284",
+        "bytes": 202044
+      },
+      "original": {
+        "file": "/workspace/halfsword-codex/public/encounters/pixel-profiles-low128-20261017/liao_mad/original.png",
+        "sha256": "d5d4faca414995f057316f234cd81da6c8d16fdc67ff583b8c2f2100c00e2163",
+        "bytes": 2207614
+      },
+      "visualMethod": "Individual original/low views and eight-after contact sheet compared; semantic facial location/form and perceived volume considered, not eye presence alone.",
+      "gridCheck": {
+        "canvas": [
+          1254,
+          1254
+        ],
+        "origin": [
+          77,
+          77
+        ],
+        "grid": [
+          22,
+          22
+        ],
+        "cellPx": 50,
+        "interiorNonuniformCells": [],
+        "renderedBoundaryCellsWithFrameOverlay": 84,
+        "note": "The high-resolution common frame overlaps outermost sprite cells. Rendered edge cells intentionally contain frame pixels; the fully interior 20x20 cells are uniform 50px blocks. This check does not classify the preserved high-resolution frame as a sprite-grid error."
+      },
+      "exteriorFrameSha256": "599503eb11e6cf29ebcc6a75d0e141cec4b89f83d96e7118210e207e6029661f",
+      "frameMatchesFirst": true,
+      "changedLogicalCellCount": 99
+    },
+    {
+      "id": "bran",
+      "verdict": "targeted-correction-accepted",
+      "blockingIssues": [],
+      "concern": "양눈을 각각 한 셀 위로",
+      "result": "두 눈과 연결된 윗부분이 각각 한 셀 위로 옮겨졌다. 눈과 이마의 위치가 올라가 이전보다 눈~턱 비율이 자연스럽게 읽힌다.",
+      "expressionLimit": "굵은 눈썹의 연결감은 남지만 새 눈 위치 자체의 명백한 오류는 없다.",
+      "after": {
+        "file": "/workspace/halfsword-codex/public/encounters/pixel-profiles-low128-20261017/bran/low.png",
+        "sha256": "1471af8bf50e45137b6ae30f18953ffa28faab43bbcd6e13ec2b60fe13d1f2da",
+        "bytes": 202765
+      },
+      "before": {
+        "file": "/workspace/portrait-six-20261018/bran-before.png",
+        "sha256": "fe23472bcdc805c7d1cec3a43880f58f2cb33b7c734e5221b9219d79d5f9e27f",
+        "bytes": 202774
+      },
+      "original": {
+        "file": "/workspace/halfsword-codex/public/encounters/pixel-profiles-low128-20261017/bran/original.png",
+        "sha256": "74c157b9d255d178635472e7a8df2edc6e378f8f7c3206f124dd8580a4a3f0a6",
+        "bytes": 2322720
+      },
+      "visualMethod": "Individual original/low views and eight-after contact sheet compared; semantic facial location/form and perceived volume considered, not eye presence alone.",
+      "gridCheck": {
+        "canvas": [
+          1254,
+          1254
+        ],
+        "origin": [
+          77,
+          77
+        ],
+        "grid": [
+          22,
+          22
+        ],
+        "cellPx": 50,
+        "interiorNonuniformCells": [],
+        "renderedBoundaryCellsWithFrameOverlay": 84,
+        "note": "The high-resolution common frame overlaps outermost sprite cells. Rendered edge cells intentionally contain frame pixels; the fully interior 20x20 cells are uniform 50px blocks. This check does not classify the preserved high-resolution frame as a sprite-grid error."
+      },
+      "exteriorFrameSha256": "599503eb11e6cf29ebcc6a75d0e141cec4b89f83d96e7118210e207e6029661f",
+      "frameMatchesFirst": true,
+      "changedLogicalCellCount": 6,
+      "eyeMovement": {
+        "leftOnScreen": {
+          "before": [
+            11,
+            9
+          ],
+          "after": [
+            11,
+            8
+          ]
+        },
+        "rightOnScreen": {
+          "before": [
+            14,
+            10
+          ],
+          "after": [
+            14,
+            9
+          ]
+        },
+        "bothMovedRows": -1,
+        "method": "Before/current sprites JSON color locations also compared."
+      }
+    },
+    {
+      "id": "samira_mad",
+      "verdict": "targeted-correction-accepted",
+      "blockingIssues": [],
+      "concern": "얼굴·머리의 평평한 명암",
+      "result": "머리의 둥근 덩어리와 땋은 부분에 밝은 면과 그림자가 연결되고, 뺨/코·턱·목이 다른 밝기로 분리됐다. 분홍 머리, 붉은 묶음, 갈색 피부, 아이보리 옷과 남색 부분이 고화질 원본과 대응한다.",
+      "expressionLimit": "입술과 눈은 매우 적은 셀로 남으므로 원본의 미묘한 웃음을 동일하게 보존했다고 평가하지 않는다.",
+      "after": {
+        "file": "/workspace/halfsword-codex/public/encounters/pixel-profiles-low128-20261017/samira_mad/low.png",
+        "sha256": "0fdad15e60c7b9803fd393364a01ab95a9ab25e2dd856b2cacd4740ebaa8e629",
+        "bytes": 202547
+      },
+      "before": {
+        "file": "/workspace/portrait-six-20261018/samira_mad-before.png",
+        "sha256": "62f875b4db2b87bfd9be005568808e20115822d733c091e0fc5585eae92cc3e0",
+        "bytes": 201863
+      },
+      "original": {
+        "file": "/workspace/halfsword-codex/public/encounters/pixel-profiles-low128-20261017/samira_mad/original.png",
+        "sha256": "55b9f5732a178e41d87717f7b638119791b976e69eafe5a2fb015f5baea1d2ec",
+        "bytes": 2084422
+      },
+      "visualMethod": "Individual original/low views and eight-after contact sheet compared; semantic facial location/form and perceived volume considered, not eye presence alone.",
+      "gridCheck": {
+        "canvas": [
+          1254,
+          1254
+        ],
+        "origin": [
+          77,
+          77
+        ],
+        "grid": [
+          22,
+          22
+        ],
+        "cellPx": 50,
+        "interiorNonuniformCells": [],
+        "renderedBoundaryCellsWithFrameOverlay": 84,
+        "note": "The high-resolution common frame overlaps outermost sprite cells. Rendered edge cells intentionally contain frame pixels; the fully interior 20x20 cells are uniform 50px blocks. This check does not classify the preserved high-resolution frame as a sprite-grid error."
+      },
+      "exteriorFrameSha256": "599503eb11e6cf29ebcc6a75d0e141cec4b89f83d96e7118210e207e6029661f",
+      "frameMatchesFirst": true,
+      "changedLogicalCellCount": 152
+    },
+    {
+      "id": "minami",
+      "verdict": "targeted-correction-accepted",
+      "blockingIssues": [],
+      "concern": "화면 왼눈에서 정확히 1~2셀만 축소",
+      "result": "화면 왼눈의 아래 양끝 두 셀만 피부색으로 바뀌어 큰 어두운 눈덩어리가 작아졌다. 다른 눈·머리·얼굴·옷·액자는 그대로다.",
+      "expressionLimit": "격자상 눈의 표현은 단순하지만 요청 범위를 넘긴 얼굴 재구성은 없다.",
+      "after": {
+        "file": "/workspace/halfsword-codex/public/encounters/pixel-profiles-low128-20261017/minami/low.png",
+        "sha256": "96cec809e19f3035169d5726928be073853590e4b43d54b3d9718dfafac56558",
+        "bytes": 202893
+      },
+      "before": {
+        "file": "/workspace/portrait-six-20261018/minami-before.png",
+        "sha256": "a987236683a486065be6b19ce2acb46ad56bae870368be6115b366cb35c90e85",
+        "bytes": 202886
+      },
+      "original": {
+        "file": "/workspace/halfsword-codex/public/encounters/pixel-profiles-low128-20261017/minami/original.png",
+        "sha256": "7b9e8b059fba55d5e34c7693e6512b897be31b261d22ce8197f8a187085570f4",
+        "bytes": 1967887
+      },
+      "visualMethod": "Individual original/low views and eight-after contact sheet compared; semantic facial location/form and perceived volume considered, not eye presence alone.",
+      "gridCheck": {
+        "canvas": [
+          1254,
+          1254
+        ],
+        "origin": [
+          77,
+          77
+        ],
+        "grid": [
+          22,
+          22
+        ],
+        "cellPx": 50,
+        "interiorNonuniformCells": [],
+        "renderedBoundaryCellsWithFrameOverlay": 84,
+        "note": "The high-resolution common frame overlaps outermost sprite cells. Rendered edge cells intentionally contain frame pixels; the fully interior 20x20 cells are uniform 50px blocks. This check does not classify the preserved high-resolution frame as a sprite-grid error."
+      },
+      "exteriorFrameSha256": "599503eb11e6cf29ebcc6a75d0e141cec4b89f83d96e7118210e207e6029661f",
+      "frameMatchesFirst": true,
+      "changedLogicalCellCount": 2,
+      "exactRequestedChange": {
+        "changedCells": [
+          {
+            "cell": [
+              10,
+              9
+            ],
+            "before": [
+              66,
+              57,
+              56,
+              255
+            ],
+            "after": [
+              218,
+              154,
+              121,
+              255
+            ]
+          },
+          {
+            "cell": [
+              12,
+              9
+            ],
+            "before": [
+              93,
+              51,
+              50,
+              255
+            ],
+            "after": [
+              252,
+              200,
+              161,
+              255
+            ]
+          }
+        ],
+        "changedPixelCount": 5000,
+        "expectedChangedPixelCount": 5000,
+        "onlyRequestedTwoCells": true
+      }
+    }
+  ],
+  "sprites": {
+    "file": "/workspace/halfsword-codex/docs/art/pixel_profiles_strict_20261018/sprites.json",
+    "sha256": "7cbe826cfddaca865f1981f999ba5ea43a44758456bb2cc5aea271a9f1096b74",
+    "bytes": 678916
+  },
+  "contactSheets": [
+    {
+      "file": "/workspace/portrait-six-20261018/eight-after.png",
+      "sha256": "c20920c01c298830f4a57ae2e50f1f9094a9c28091f35bb77c87407f213601ad",
+      "bytes": 116838
+    },
+    {
+      "file": "/workspace/portrait-six-20261018/low-before.png",
+      "sha256": "68f1be11208e7356514b28a7853cc6fe0a6511782bc6cf418675f0952add48f1",
+      "bytes": 124810
+    }
+  ],
+  "limitations": [
+    "Visual approval concerns these eight targeted changes only; not a fresh audit of all 34.",
+    "Exact cell/frame checks are independent read-only checks; no image was edited in this review.",
+    "Sparse eyes and mouths are accepted as low-resolution simplification only where they remain in a plausible facial location."
+  ]
+}
