@@ -11,7 +11,7 @@ export const OUT='docs/research/iberian_ai_league_20261019';
 const motion=JSON.parse(readFileSync('docs/research/iberian_contact_20261018/candidate-outward.json'));
 export const opponents=[['german','longsword'],['italian','rapier'],['iberian','zweihander'],['japanese','uchigatana'],['chinese','qinggang'],['none','morgenstern']];
 export const cases=opponents.flatMap(([school,weapon2])=>['zweihander','flamberge'].flatMap(weapon=>[3101,3102,3103].flatMap(seed=>[0,1].map(slot=>({school,weapon2,weapon,seed,slot,seconds:30,proficiency:5})))));
-export function duel(c,variant,{plain=false}={}){
+export function duel(c,variant,{plain=false,onStart,onFrame}={}){
  const p=c.slot===0?c.weapon:c.weapon2,e=c.slot===0?c.weapon2:c.weapon;
  const G=newRound({seed:c.seed,weapon:p,weapon2:e,gap:2.6,walls:true,sameLook:true,
   AI2Class:AI,difficulty:'normal',difficulty2:'normal',persona:{proficiency:c.proficiency},persona2:{proficiency:c.proficiency}});
@@ -34,10 +34,12 @@ export function duel(c,variant,{plain=false}={}){
  const breakTimes={self:[],foe:[]};
  for(const [f,key] of [[D,'self'],[A,'foe']]){const br=f.breakWeapon.bind(f);f.breakWeapon=(...args)=>{const old=f.weaponBroken;const r=br(...args);if(!old&&f.weaponBroken)breakTimes[key].push(G.t);return r;};}
  const modes={self:{},foe:{}},attacks={self:0,foe:0},motionPhases={};let prev=[0,0];
+ onStart?.(G,D,A,ai);
  try{
   while(G.t+1e-9<c.seconds&&D.alive&&A.alive){
    if(first===null)prefix.update(JSON.stringify([G.t,...[D,A].map(f=>[f.bodies.chest.translation(),f.sword.translation(),f.sword.linvel(),f.handOffset.toArray(),f.stamina.value,f.stamina.attackId])]));
    G.step();health.step(DT);enemy.step(DT);
+   onFrame?.(G,D,A,ai);
    if(state)motionPhases[state.phase]=(motionPhases[state.phase]??0)+1;
    const s=cap?.scale()??1;if(s<1)activeFrames++;minScale=Math.min(minScale,s);
    for(const [i,f,key] of [[0,D,'self'],[1,A,'foe']]){const ctl=f.stamina.controller; modes[key][ctl.mode]=(modes[key][ctl.mode]??0)+DT;if(f.stamina.attackId!==prev[i]){attacks[key]++;prev[i]=f.stamina.attackId;}}
