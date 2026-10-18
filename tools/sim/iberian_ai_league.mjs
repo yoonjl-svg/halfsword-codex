@@ -33,15 +33,16 @@ export function duel(c,variant,{plain=false}={}){
  }
  const breakTimes={self:[],foe:[]};
  for(const [f,key] of [[D,'self'],[A,'foe']]){const br=f.breakWeapon.bind(f);f.breakWeapon=(...args)=>{const old=f.weaponBroken;const r=br(...args);if(!old&&f.weaponBroken)breakTimes[key].push(G.t);return r;};}
- const modes={self:{},foe:{}},attacks={self:0,foe:0};let prev=[0,0];
+ const modes={self:{},foe:{}},attacks={self:0,foe:0},motionPhases={};let prev=[0,0];
  try{
   while(G.t+1e-9<c.seconds&&D.alive&&A.alive){
    if(first===null)prefix.update(JSON.stringify([G.t,...[D,A].map(f=>[f.bodies.chest.translation(),f.sword.translation(),f.sword.linvel(),f.handOffset.toArray(),f.stamina.value,f.stamina.attackId])]));
    G.step();health.step(DT);enemy.step(DT);
+   if(state)motionPhases[state.phase]=(motionPhases[state.phase]??0)+1;
    const s=cap?.scale()??1;if(s<1)activeFrames++;minScale=Math.min(minScale,s);
    for(const [i,f,key] of [[0,D,'self'],[1,A,'foe']]){const ctl=f.stamina.controller; modes[key][ctl.mode]=(modes[key][ctl.mode]??0)+DT;if(f.stamina.attackId!==prev[i]){attacks[key]++;prev[i]=f.stamina.attackId;}}
   }
-  return {case:c,variant,plain,duration:G.t,result:!D.alive&&!A.alive?'D':!D.alive?'L':!A.alive?'W':'D',health:health.finish(),enemy:enemy.finish(),first,prefixHash:prefix.digest('hex'),events,motions:state?.events??[],effects:cap?.events??[],activeFrames,twistFrames,minScale,breakTimes,modes,attacks,
+  return {case:c,variant,plain,duration:G.t,result:!D.alive&&!A.alive?'D':!D.alive?'L':!A.alive?'W':'D',health:health.finish(),enemy:enemy.finish(),first,prefixHash:prefix.digest('hex'),events,motions:state?.events??[],effects:cap?.events??[],activeFrames,twistFrames,minScale,breakTimes,modes,attacks,motionPhases,
    settings:{schools:[D.swordArt.tradition,A.swordArt.tradition],proficiency:[ai.proficiency,A.stamina.controller.proficiency],bothAI:true,forceBenefit:false,controlBenefit:false,shoulderTwist:false,look:'same player look',gap:2.6}};
  }finally{G.eventQueue.free();G.world.free();}
 }
