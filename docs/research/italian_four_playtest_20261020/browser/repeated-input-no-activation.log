@@ -1,0 +1,8 @@
+file:///tmp/italian-four-20261020/tools/browser/italian_four_contact.mjs:8
+ const s=await f.evaluate(()=>({state:rapierLab,events:rapierLabDebug.events(),t:game.stats.simTime,alive:game.player.alive}));await p.screenshot({path:'/tmp/italian-four-20261020/browser/activation.png'});if(!s.state.starts||s.state.starts!==s.state.beats)throw Error('no real contact/beat mismatch');writeFileSync('/tmp/italian-four-20261020/browser/contact.json',JSON.stringify({s,errors},null,2));console.log('PASS real blade contact activation and single impulse',s.state.starts);
+                                                                                                                                                                                                                                                                       ^
+
+Error: no real contact/beat mismatch
+    at file:///tmp/italian-four-20261020/tools/browser/italian_four_contact.mjs:8:264
+
+Node.js v24.19.0
