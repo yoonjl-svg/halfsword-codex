@@ -1,0 +1,10 @@
+--- a/src/parry_button.js
++++ b/src/parry_button.js
+@@ -183,6 +183,7 @@
+     //  둘째 짧은 디딤을 뗀 때(shortPair 0)의 디딤 수 z 를 적고, 그 뒤 처음 디딘 때 끝. 걸 때 자세 고치던 발이 떠 있으면 그 발은 걷는 걸음으로 바뀌어(셈 밖) 한 디딤 더 물러선다
+     //  스스로 물러서기(itRetreat 1 · 2 둘 다): 막는 동안 스틱을 뒤로(뒤 90° 부채꼴 — fighter.closeStep 의 밂과 같은 기하, 새 수 없음) 당기면 그 두 디딤을 짧은 디딤으로 센다 — 스틱은 플레이어 것 그대로 · 뒤에서 떼면 끝
+     //  스틱이 이긴다(itRetreat 1): 막기 단추가 물러서는 중 플레이어가 스틱을 대면 — 뒤로면 스스로 물러서기로 이어 세고, 다른 쪽이면 그 자리에서 끝(스틱을 돌려줌)
++    this.researchHook?.({dt,s,th}); // isolated study hook, no default behavior
+     const back = -me.stickY > Math.abs(me.stickX);
+     if (SKILL.itRetreat && !this.retreat && back) this.ownRetreat();
+     if (this.retreat) {

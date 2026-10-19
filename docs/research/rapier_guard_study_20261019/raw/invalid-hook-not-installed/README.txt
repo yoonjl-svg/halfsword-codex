@@ -1,0 +1,1 @@
+INVALID instrumentation: optional researchHook callback was assigned but initial source string insertion did not match. Fixed-direction/hold variants did not run. These are not candidate results. Preserved for audit; reruns add hookFrames and trace validation. noFollow wrapper was independent.
