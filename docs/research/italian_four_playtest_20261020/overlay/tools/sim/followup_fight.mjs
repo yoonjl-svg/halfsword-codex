@@ -3,6 +3,7 @@ import {PlayerParryGuard} from '../../src/parry_button.js';
 import {installFollowup as installBinding} from '../../src/italian_followup_research.js';
 import {SKILL,ARENA} from '../../src/config.js';
 import {writeFileSync} from 'node:fs';
+if(process.env.PRESS_WINDOW)SKILL.itOppositionVals={...SKILL.itOppositionVals,window:Number(process.env.PRESS_WINDOW)};
 const variant=process.env.VARIANT??'current',role=process.env.ROLE??'defender';
 const W=(process.env.WEAPONS??'longsword,uchigatana,zweihander,qinggang,rapier,flamberge').split(',');
 const snapshot=f=>({blood:f.blood,consciousness:f.consciousness,limbs:{...f.limbs},bleed:f.bleed,stamina:f.stamina.value,alive:f.alive,armed:f.armed,weaponBroken:f.weaponBroken,cause:f.causeOfDeath});
@@ -42,7 +43,7 @@ function trial(weapon,seed,delay){
  };
  for(let i=0;i<Math.round(30/DT);i++){g.step();const anchor=mod.events.find(e=>e.type==='start');if(anchor&&g.t-anchor.t>=.15&&!tipSamples.length){tipSamples.push({t:g.t,serial:anchor.serial,tip:a.bladePoint(1).toArray(),chest:[p.bodies.chest.translation().x,p.bodies.chest.translation().y,p.bodies.chest.translation().z],axis:mod.events.find(e=>e.type==='beat')?.dir??null});}if(process.env.CAPTURE&&i%3===0)frames.push({t:g.t,fighters:[p,a].map(f=>f.meshes.map(({rb})=>({p:rb.translation(),q:rb.rotation()})))});if(!p.alive||!a.alive)break;}
  if(process.env.CAPTURE)frames.push({t:g.t,final:true,alive:p.alive,fighters:[p,a].map(f=>f.meshes.map(({rb})=>({p:rb.translation(),q:rb.rotation()})))});
- const result={after:process.env.AFTER??'counter',rollChecks:mod.rollChecks,policy:process.env.POLICY??'reactive',weapon,seed,delay,role,variant,t:g.t,p:snapshot(p),a:snapshot(a),tries,taps,hits,firstCover,peakCover,coverTime,events,timeline,aiParries:g.ai.stats.parries,triggers:mod.events,samples:mod.samples,diagnostics,frames,tipSamples};if(mod.run)mod.cancel('round-end');result.triggers=mod.events;g.world.free();return result;
+ const result={pressWindow:SKILL.itOppositionVals.window,after:process.env.AFTER??'counter',rollChecks:mod.rollChecks,policy:process.env.POLICY??'reactive',weapon,seed,delay,role,variant,t:g.t,p:snapshot(p),a:snapshot(a),tries,taps,hits,firstCover,peakCover,coverTime,events,timeline,aiParries:g.ai.stats.parries,triggers:mod.events,samples:mod.samples,diagnostics,frames,tipSamples};if(mod.run)mod.cancel('round-end');result.triggers=mod.events;g.world.free();return result;
 }
 const rows=[];for(const w of W)for(const seed of (process.env.SEEDS??'10301').split(',').map(Number))for(const delay of (process.env.DELAYS??'.12,.22').split(',').map(Number))rows.push(trial(w,seed,delay));
 writeFileSync(process.env.OUT,JSON.stringify({variant,role,results:rows}));console.log(JSON.stringify({variant,role,n:rows.length,pDead:rows.filter(x=>!x.p.alive).length,aDead:rows.filter(x=>!x.a.alive).length,taps:rows.reduce((n,r)=>n+r.taps,0),hits:rows.reduce((n,r)=>n+r.hits,0),fired:rows.reduce((n,r)=>n+r.triggers.filter(e=>e.type==='start').length,0)}));

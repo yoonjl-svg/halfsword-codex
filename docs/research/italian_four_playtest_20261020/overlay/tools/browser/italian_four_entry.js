@@ -1,9 +1,11 @@
 import {installFollowup} from '../../src/italian_followup_research.js';
 import {PlayerParryGuard} from '../../src/parry_button.js';
-import {ARENA} from '../../src/config.js';
+import {ARENA,SKILL} from '../../src/config.js';
+// Human feel trial only: longer fresh-press window, all other contact gates unchanged.
+SKILL.itOppositionVals={...SKILL.itOppositionVals,window:1};
 const ids=['usefulNear','usefulRoll','strongBind','strongThrust'];
 const q=new URLSearchParams(location.search),id=ids.includes(q.get('mode'))?q.get('mode'):ids[0];
-const state=window.rapierLab={id,role:q.get('role')==='attacker'?'attacker':'defender',impulse:q.get('impulse')!=='0',starts:0,beats:0,lastJ:0};
+const state=window.rapierLab={id,role:q.get('role')==='attacker'?'attacker':'defender',impulse:q.get('impulse')!=='0',windowSeconds:SKILL.itOppositionVals.window,starts:0,beats:0,lastJ:0};
 const memory=new Map();
 for(const name of ['localStorage','sessionStorage'])Object.defineProperty(window,name,{configurable:true,value:{getItem:k=>memory.get(`${name}:${k}`)??null,setItem:(k,v)=>memory.set(`${name}:${k}`,String(v)),removeItem:k=>memory.delete(`${name}:${k}`),clear:()=>{for(const k of memory.keys())if(k.startsWith(name+':'))memory.delete(k);},key:i=>[...memory.keys()].filter(k=>k.startsWith(name+':'))[i]?.slice(name.length+1)??null,get length(){return [...memory.keys()].filter(k=>k.startsWith(name+':')).length;}}});
 // Repeatable initial world; human timing and rendered effects can consume RNG later.
