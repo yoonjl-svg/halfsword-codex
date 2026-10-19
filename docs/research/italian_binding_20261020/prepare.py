@@ -9,7 +9,7 @@ m=json.loads((root/'source.json').read_text())
 for name,h in m['files'].items():assert hashlib.sha256((a.output/name).read_bytes()).hexdigest()==h,name
 (a.output/'base.txt').write_text(m['sha']+'\n');(a.output/'node_modules').symlink_to(a.dependencies.resolve(),target_is_directory=True)
 shutil.copy2(root/'tools/italian_binding_research.js',a.output/'src/italian_binding_research.js');shutil.copy2(root/'tools/binding_fight.mjs',a.output/'tools/sim/binding_fight.mjs')
-for n in ['analyze_binding.py','verify_binding.py','replay.html','replay.js','capture.mjs','failure.html','failure.js','capture-failure.mjs']:shutil.copy2(root/n,a.output/n)
+for n in ['tradeoff_binding.py','analyze_binding.py','verify_binding.py','replay.html','replay.js','capture.mjs','failure.html','failure.js','capture-failure.mjs']:shutil.copy2(root/n,a.output/n)
 with tarfile.open(root/'raw-results.tar.gz') as t:t.extractall(a.output,filter='data')
 for n,suffix in [('replay','capture'),('failure','failure')]:
  rows=[json.loads((a.output/'raw'/f'{v}-{suffix}.json').read_text())['results'][0] for v in ['current','bind26']]
