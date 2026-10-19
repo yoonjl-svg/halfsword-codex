@@ -53,3 +53,5 @@ A는5초 평균 이득이나 한 쌍 제외하면 부호가 바뀐다. B는 사�
 추가 기록: 방향·접촉을 조작하지 않고 기존 베기 길을 재생한 브라우저 단일공격2회도 발동을 얻지 못했다. 생명주기 synthetic 접촉 검사나384판 성공을 실제 브라우저 손맛 검증으로 대체하지 않는다. 해당 실패 로그/접촉 이력 보존. 최종빌드에서 UI/터치/역할/충격토글/재시작/저장격리 재검사 통과. 보존소스를 깨끗한 폴더에 복원해451개 빌드 파일 완전일치.
 
 공개 main `9bb0e1075849b7260b3f7f8226708ff063a89514`,483파일 원격 일치·일반게임src 그대로. [Pages39292578385 성공](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/39292578385). [시험 링크](https://yoonjl-svg.github.io/halfsword-codex/encounters/italian-four-20261020/?mode=strongBind&role=defender&impulse=1). 기본 충격 켬, 연습 설정에서 역할/충격 비교 가능.
+
+[후속1초 조건의192판 발동 빈도](FREQUENCY_WINDOW1.md): A/C/D각18회, B15회. 모두14/48판에서발동. 이전384판 맞교환수치와구별한다.
