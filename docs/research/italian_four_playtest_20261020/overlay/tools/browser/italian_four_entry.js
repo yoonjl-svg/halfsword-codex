@@ -1,8 +1,8 @@
 import {installFollowup} from '../../src/italian_followup_research.js';
 import {PlayerParryGuard} from '../../src/parry_button.js';
 import {ARENA,SKILL} from '../../src/config.js';
-// Human feel trial only: longer fresh-press window, all other contact gates unchanged.
-SKILL.itOppositionVals={...SKILL.itOppositionVals,window:1};
+// Human feel trial only: no expiry after a fresh press, all other contact gates unchanged.
+SKILL.itOppositionVals={...SKILL.itOppositionVals,window:Infinity};
 const ids=['usefulNear','usefulRoll','strongBind','strongThrust'];
 const q=new URLSearchParams(location.search),id=ids.includes(q.get('mode'))?q.get('mode'):ids[0];
 const state=window.rapierLab={id,role:q.get('role')==='attacker'?'attacker':'defender',impulse:q.get('impulse')!=='0',windowSeconds:SKILL.itOppositionVals.window,starts:0,beats:0,lastJ:0};
