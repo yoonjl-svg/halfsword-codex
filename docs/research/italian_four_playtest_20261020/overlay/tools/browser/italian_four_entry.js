@@ -16,7 +16,7 @@ function setup(g){
  fighter=g.player;state.starts=state.beats=state.lastJ=0;
  if(state.role==='defender'){
   mod=installFollowup(g.player,g.enemy,g.playerGuard,id+(state.impulse?'':'Off'));
-  const tech=g.ai.school.tech.find(t=>t.name==='zornhau');
+  const tech=g.ai.school.tech.find(t=>t.name==='zwerchL');
   if(tech){g.ai.pickTech=()=>tech;const update=g.ai.update.bind(g.ai);let next=.8;
    g.ai.update=dt=>{update(dt);const f=g.enemy,t=f.stamina.time;
     if(t>=next&&f.alive&&f.armed&&f.state==='stand'&&!f.stamina.exhausted&&g.ai.mode!=='attack'&&f.foeDistance()<2.3)
