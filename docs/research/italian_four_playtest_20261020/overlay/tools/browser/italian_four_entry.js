@@ -1,11 +1,12 @@
 import {installFollowup} from '../../src/italian_followup_research.js';
 import {PlayerParryGuard} from '../../src/parry_button.js';
 import {ARENA,SKILL} from '../../src/config.js';
-// Human feel trial only: no expiry after a fresh press, all other contact gates unchanged.
-SKILL.itOppositionVals={...SKILL.itOppositionVals,window:Infinity};
+// Human trial only: count actual weapon contact without tip/chest direction, attack expiry, distance or recent-injury gates.
+// Keep a real collision, held/active guard, one trigger per press/attack, and interruption safety.
+SKILL.itOppositionVals={...SKILL.itOppositionVals,window:Infinity,relaxedContact:true,minVn:.2,maxGap:Infinity,injuryGrace:0};
 const ids=['usefulNear','usefulRoll','strongBind','strongThrust'];
 const q=new URLSearchParams(location.search),id=ids.includes(q.get('mode'))?q.get('mode'):ids[0];
-const state=window.rapierLab={id,role:q.get('role')==='attacker'?'attacker':'defender',impulse:q.get('impulse')!=='0',windowSeconds:SKILL.itOppositionVals.window,starts:0,beats:0,lastJ:0};
+const state=window.rapierLab={id,role:q.get('role')==='attacker'?'attacker':'defender',impulse:q.get('impulse')!=='0',windowSeconds:SKILL.itOppositionVals.window,relaxedContact:true,starts:0,beats:0,lastJ:0};
 const memory=new Map();
 for(const name of ['localStorage','sessionStorage'])Object.defineProperty(window,name,{configurable:true,value:{getItem:k=>memory.get(`${name}:${k}`)??null,setItem:(k,v)=>memory.set(`${name}:${k}`,String(v)),removeItem:k=>memory.delete(`${name}:${k}`),clear:()=>{for(const k of memory.keys())if(k.startsWith(name+':'))memory.delete(k);},key:i=>[...memory.keys()].filter(k=>k.startsWith(name+':'))[i]?.slice(name.length+1)??null,get length(){return [...memory.keys()].filter(k=>k.startsWith(name+':')).length;}}});
 // Repeatable initial world; human timing and rendered effects can consume RNG later.
