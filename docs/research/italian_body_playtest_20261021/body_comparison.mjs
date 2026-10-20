@@ -42,7 +42,8 @@ function trial(seed,policy,body){
  };
  const initial=fingerprint();
  for(let i=0;i<Math.round(30/DT);i++){
-  g.step();
+  const sampleBefore=mod.bodySamples.length;g.step();
+  for(const sample of mod.bodySamples.slice(sampleBefore))sample.chestRotationAfterPhysics={...p.bodies.chest.rotation()};
   for(const f of [p,a]){const j=f.index;if(!f.alive&&!down[j]){deaths.push({t:g.t,vic:j,cause:f.causeOfDeath});down[j]=true;}if(f.weaponBroken&&!broken[j]){breaks.push({t:g.t,vic:j});broken[j]=true;}if(f.stamina.exhausted&&!exhausted[j])actions.push({t:g.t,kind:'exhaust',vic:j});exhausted[j]=f.stamina.exhausted;}
   if(i%12===0)timeline.push({t:g.t,p:snap(p),a:snap(a),held:guard.held,active:guard.active,gap:p.foeDistance()});
   if(!p.alive||!a.alive)break;
