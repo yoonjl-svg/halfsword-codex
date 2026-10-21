@@ -1,0 +1,11 @@
+--- a/docs/research/italian_press_v2_20261021/overlay/src/italian_press_research.js
++++ b/docs/research/italian_press_v2_20261021/overlay/src/italian_press_research.js
+@@ -16,7 +16,7 @@
+   const block=f.stamina.block.bind(f.stamina);
+   f.stamina.block=att=>{if(!this.run)return block(att);}; // One normal thrust cost includes its receiving contact.
+  }
+- eligible(){const f=this.f,sk=f.skill;return f.weapon?.id==='rapier'&&f.swordArt?.tradition==='italian'&&f.schoolParry!==false
++ eligible(){const f=this.f,sk=f.skill;return f.swordArt?.tradition==='italian'&&f.schoolParry!==false
+   &&f.alive&&this.foe.alive&&f.armed&&!f.stamina.exhausted&&['stand','kneel'].includes(f.state)
+   &&!sk.tap&&!sk.pom&&!sk.sec&&!f.secretStiff&&!this.guard.broken;}
+  beginGuardStep(){

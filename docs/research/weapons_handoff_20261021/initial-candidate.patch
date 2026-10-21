@@ -1,0 +1,298 @@
+diff --git a/public/ui/weapons/dartagnan.webp b/public/ui/weapons/dartagnan.webp
+new file mode 100644
+index 00000000..d19522b0
+Binary files /dev/null and b/public/ui/weapons/dartagnan.webp differ
+diff --git a/public/ui/weapons/kusanagi.webp b/public/ui/weapons/kusanagi.webp
+new file mode 100644
+index 00000000..6029f173
+Binary files /dev/null and b/public/ui/weapons/kusanagi.webp differ
+diff --git a/public/ui/weapons/rapier.webp b/public/ui/weapons/rapier.webp
+index dbee2563..c4f5b910 100644
+Binary files a/public/ui/weapons/rapier.webp and b/public/ui/weapons/rapier.webp differ
+diff --git a/src/frames.js b/src/frames.js
+index 17f4bf27..207f6366 100644
+--- a/src/frames.js
++++ b/src/frames.js
+@@ -228,6 +228,7 @@ export const LIB_PARRY = {
+   sabre: { highL: [-0.52, 0.03], highR: [0, 0.03], highC: [-0.4, -0.42], lowL: [-0.4, -0.42], lowR: [-0.18, -0.28], thrust: [-0.4, -0.42] },
+   falchion: { highL: [-0.52, 0.03], highR: [-0.4, -0.42], highC: [0.42, 0.42], lowL: [0.42, 0.42], lowR: [0.22, 0.26], thrust: [-0.4, -0.42] },
+   rapier: { highL: [0.52, 0.03], highR: [-0.52, 0.03], highC: [0.42, 0.42], lowL: [0.55, -0.26], lowR: [-0.4, -0.42], thrust: [-0.22, 0.26] },
++  dartagnan: { highL: [0.52, 0.03], highR: [-0.52, 0.03], highC: [0.42, 0.42], lowL: [0.55, -0.26], lowR: [-0.4, -0.42], thrust: [-0.22, 0.26] }, // 동일 물리의 레이피어 막기 자리
+   qinggang: { highL: [-0.4, -0.42], highR: [-0.22, 0.26], highC: [0.42, 0.42], lowL: [0.42, 0.42], lowR: [-0.4, -0.42], thrust: [-0.4, -0.42] },
+   tree_branch: { highL: [-0.18, -0.28], highR: [0, 0.03], highC: [0.18, -0.28], lowL: [0.52, 0.03], lowR: [-0.4, 0.42], thrust: [-0.52, 0.03] },
+ };
+@@ -240,10 +241,12 @@ export const HAND_GRIPS = {
+   _two: { a: 0, b: 15, t: 0, off: 'grip' }, // 두손 악수 쥠 (롱소드·엑스칼리버·라이트세이버·에스톡·츠바이핸더)
+   monohoshizao: { a: 0, b: 20, t: 0, off: 'grip' },
+   uchigatana: { a: 0, b: 20, t: 0, off: 'grip' }, // 打刀 (제안 가지): 모노호시자오와 같은 츠카 쥠
++  kusanagi: { a: 0, b: 20, t: 0, off: 'grip' }, // 기존 일본 유파 양손 쥠을 재사용.
+   frozen_tuna: { a: 0, b: 0, t: 0, off: 'grip' }, // 몽둥이 망치 쥠
+   sabre: { a: 0, b: 15, t: 60, off: 'fist' }, // 엄지를 칼등에
+   falchion: { a: 0, b: 5, t: 0, off: 'fist' },
+   rapier: { a: 0, b: 25, t: 70, off: 'open', turn: 'posture' }, // 집게 쥠 (테르차, 엄지 위) · 자세별 손 돌림(10/8)
++  dartagnan: { a: 0, b: 25, t: 70, off: 'open', turn: 'posture' }, // 동일한 이탈리아 집게 쥠
+   qinggang: { a: 0, b: 15, t: 0, off: 'fist' },
+   tree_branch: { a: 0, b: 0, t: 0, off: 'fist' },
+   rubber_chicken: { a: 0, b: 0, t: 0, off: 'fist' },
+diff --git a/src/italian_opposition.js b/src/italian_opposition.js
+index da15bd1a..90e07244 100644
+--- a/src/italian_opposition.js
++++ b/src/italian_opposition.js
+@@ -16,7 +16,7 @@ export class ItalianOpposition {
+ 
+   eligible() {
+     const f = this.f, sk = f.skill, g = this.guard;
+-    return SKILL.itOpposition && f.weapon?.id === 'rapier' && f.swordArt?.tradition === 'italian'
++    return SKILL.itOpposition && ['rapier', 'dartagnan'].includes(f.weapon?.id) && f.swordArt?.tradition === 'italian'
+       && f.schoolParry !== false && g.held && !g.broken && f.alive && this.foe.alive
+       && f.armed && !f.stamina.exhausted && ['stand', 'kneel'].includes(f.state)
+       && !sk.tap && !sk.sec && !sk.pom && !f.secretStiff && sk.sec?.stage !== 'stiff';
+diff --git a/src/kusanagi_details.js b/src/kusanagi_details.js
+new file mode 100644
+index 00000000..53203b45
+--- /dev/null
++++ b/src/kusanagi_details.js
+@@ -0,0 +1,96 @@
++// 쿠사나기: 승인된 신화 시안의 창작 외형. 실제 신기 복원 아님.
++// 물리 부품/질량은 weapons.js, 여기서는 기존 swordKit 기반 시각 요소만 만든다.
++import * as THREE from 'three';
++import { swordKit, metalMat } from './weapon_looks.js';
++
++export const KUSANAGI_COLORS = { blade: 0xc0d7d3, grip: 0x204d49, gold: 0xb49b60 };
++const width = t => 0.86 + 0.14 * Math.sin(Math.PI * t) - 0.15 * t;
++const bladeKit = swordKit({ blade: { edge: 'double', width, thick: 0.0035,
++  tip: 'spear', tipLen: 0.115, overshoot: 0, bevel: 0.0035,
++  fuller: { to: 0.81, width: 0.28, depth: 0.4 } } });
++
++function add(group, geometry, material, x = 0, y = 0, z = 0) {
++  const mesh = new THREE.Mesh(geometry, material);
++  mesh.position.set(x, y, z); mesh.castShadow = true; group.add(mesh);
++  return mesh;
++}
++function plate(points, depth) {
++  const shape = new THREE.Shape();
++  points.forEach(([x, y], i) => i ? shape.lineTo(x, y) : shape.moveTo(x, y));
++  shape.closePath();
++  const geo = new THREE.ExtrudeGeometry(shape, { depth, bevelEnabled: false, curveSegments: 3 });
++  geo.translate(0, 0, -depth / 2);
++  return geo;
++}
++function bead(group, metal) {
++  const outer = add(group, new THREE.CylinderGeometry(0.024, 0.024, 0.012, 10), metal);
++  outer.rotation.x = Math.PI / 2; outer.scale.z = 1.17;
++  for (const side of [-1, 1]) {
++    const inset = add(group, new THREE.CircleGeometry(0.018, 12), metalMat(0x244943, { rough: 0.5, side: THREE.DoubleSide }), 0, 0, side * 0.0062);
++    inset.scale.y = 1.17;
++    // 곡옥: 둥근 머리에서 가늘어지는 꼬리, 양면에 같은 세공.
++    const sh = new THREE.Shape();
++    sh.moveTo(-0.003, 0.013);
++    sh.bezierCurveTo(0.012, 0.016, 0.013, 0.003, 0.004, -0.002);
++    sh.bezierCurveTo(0.002, -0.009, -0.006, -0.014, -0.013, -0.009);
++    sh.quadraticCurveTo(-0.003, -0.010, -0.003, -0.001);
++    sh.bezierCurveTo(-0.012, 0.003, -0.011, 0.011, -0.003, 0.013);
++    const jade = add(group, new THREE.ExtrudeGeometry(sh, { depth: 0.0015, bevelEnabled: false, curveSegments: 3 }),
++      metalMat(0x559784, { rough: 0.34, metal: 0.12 }), 0, 0, side * 0.0064);
++    if (side < 0) jade.rotation.y = Math.PI;
++    add(group, new THREE.CircleGeometry(0.0018, 6), metalMat(0x18352f, { side: THREE.DoubleSide }), side * 0.001, 0.008, side * 0.0081);
++  }
++}
++
++export function kusanagiPartMesh(index, isBlade, shape, color, opts, look, tier) {
++  if (isBlade) return bladeKit(index, isBlade, shape, color, opts, look, tier);
++  const group = new THREE.Group();
++  const gold = metalMat(KUSANAGI_COLORS.gold, { rough: 0.4 });
++  if (index === 0) {
++    const grip = add(group, new THREE.CylinderGeometry(0.014, 0.015, 0.30, 8),
++      new THREE.MeshStandardMaterial({ color: KUSANAGI_COLORS.grip, roughness: 0.88 }));
++    grip.scale.z = 1.15;
++    // 교차 끈은 양면에서 읽히되 자루를 굵게 만들지 않는다.
++    const silk = new THREE.MeshStandardMaterial({ color: 0x316c63, roughness: 0.92 });
++    for (const side of [-1, 1]) for (let y = -0.13; y < 0.14; y += 0.025) for (const sign of [-1, 1]) {
++      const strip = add(group, new THREE.BoxGeometry(0.004, 0.034, 0.001), silk, 0, y, side * 0.0173);
++      strip.rotation.z = sign * 0.8;
++    }
++    for (const y of [-0.15, 0.15]) {
++      const collar = add(group, new THREE.CylinderGeometry(0.017, 0.017, 0.012, 8), gold, 0, y);
++      collar.scale.z = 1.12;
++    }
++  } else if (index === 1) bead(group, gold);
++  else if (index === 2) {
++    const leaf = [[0.008,-0.012],[0.029,-0.010],[0.045,0.004],[0.06,0.028],
++      [0.065,0.036],[0.045,0.024],[0.025,0.020],[0.011,0.008]];
++    for (const side of [-1, 1]) {
++      add(group, plate(leaf.map(([x,y]) => [side*x,y]), 0.011), gold);
++      const inlay = leaf.map(([x,y]) => [side*(0.028+(x-0.028)*0.72), 0.008+(y-0.008)*0.56]);
++      for (const face of [-1, 1]) add(group, plate(inlay, 0.0005), metalMat(0x35645a, { rough: 0.48 }), 0, 0, face * 0.0058);
++    }
++    add(group, new THREE.BoxGeometry(0.036, 0.024, 0.023), gold);
++  }
++  return group;
++}
++
++export function kusanagiDecorate(group) {
++  const h = this.hiltLength, L = this.bladeLength;
++  const gold = metalMat(KUSANAGI_COLORS.gold, { rough: 0.4 });
++  add(group, new THREE.BoxGeometry(0.033, 0.023, 0.010), gold, 0, h + 0.0115);
++  // 피홈 바닥의 녹청색. 칼 전체 발광·별도 이펙트는 쓰지 않는다.
++  const verts = [];
++  for (const side of [-1, 1]) for (let i = 0; i < 20; i++) {
++    const point = (n, edge) => {
++      const t = 0.08 + 0.70 * n / 20;
++      const fade = Math.max(0, Math.min(1, (0.81-t)/0.08));
++      const w = 0.0205 * width(t) * 0.28 * 0.7 * fade * Math.min(1,(t-0.08)/0.05);
++      return [edge*w, h+t*L, side*(0.0035*(1-0.35*t)*(1-0.4*fade)+0.00008)];
++    };
++    const a=point(i,-1), b=point(i,1), c=point(i+1,1), d=point(i+1,-1);
++    verts.push(...a,...b,...c,...a,...c,...d);
++  }
++  const geometry = new THREE.BufferGeometry();
++  geometry.setAttribute('position', new THREE.Float32BufferAttribute(verts,3)); geometry.computeVertexNormals();
++  add(group, geometry, metalMat(0x4b7971, { rough: 0.48, metal: 0.5, side: THREE.DoubleSide }));
++}
+diff --git a/src/weapon_measured.js b/src/weapon_measured.js
+index 3658c20d..a1a0c39d 100644
+--- a/src/weapon_measured.js
++++ b/src/weapon_measured.js
+@@ -27,6 +27,7 @@ export const MEASURED = {
+   estoc: [1.57, 1.99, 1.22, 0.42], // 균형 재분배(칼날 0.72·폼멜 0.6kg) 후 재실측 1.75 → 유효 간격(칼 중간이 닿는 안쪽)
+   sabre: [1.39, 1.58, 1.07, 0.36],
+   rapier: [1.54, 1.68, 1.19, 0.29],
++  dartagnan: [1.54, 1.68, 1.19, 0.29], // 레이피어와 콜라이더·질량·관성이 같아 기존 실측을 공유 (새 실측 아님).
+   falchion: [1.37, 1.56, 1.06, 0.33],
+   monohoshizao: [1.58, 1.87, 1.22, 0.47], // 균형 재분배(칼날 0.72·츠카 0.3kg) 후 재실측
+   qinggang: [1.35, 1.52, 1.04, 0.33],
+@@ -42,6 +43,9 @@ export const MEASURED = {
+   // 打刀 (제안 가지 10/9, 사장님 확인 전): `with_config ARENA.startHold=0 weapon_measures.mjs --gen --down` 생성 값(contact 1.41 · reach 1.53 · clinch 1.09 · 날것 0.27 s,
+   //  같은 생성의 롱소드 1.62/1.73/1.25/0.28)을 롱소드 손 값(1.57/1.8/1.25/0.41)에 비율로 붙인 값 — docs/strike/weapon_measures_review_2026-10-09.md §4 '비율값' 규칙
+   uchigatana: [1.37, 1.59, 1.09, 0.4],
++  // 쿠사나기 10/21 자루 단축 후: startHold=0/--down 생성1.23/1.31/.95/.21를
++  // 같은 실행 롱소드1.62/1.75/1.25/.28 대비 기존 손 값으로 보정. 원자료 docs/design/kusanagi_20261021/measured.json.
++  kusanagi: [1.19, 1.35, 0.95, 0.31],
+   // 샛별 저장소에서 가져온 넷 (10/10, 사장님 확인 전): 打刀 와 같은 규칙 — `with_config ARENA.startHold=0 weapon_measures.mjs --gen --down` 생성 값을
+   //  같은 생성의 롱소드(1.62/1.77/1.25/0.28)에 대한 비율로 롱소드 손 값(1.57/1.8/1.25/0.41)에 붙임. 생성: 간장 1.39/1.47/1.07/0.24 · 막야 1.35/1.41/1.04/0.25 ·
+   //  사인검 1.41/1.50/1.09/0.25 · 아이스 1.91/2.28/1.47/0.47 (샛별 쪽은 청강검·츠바이핸더 간격을 칼 길이 비율로 늘인 추정값이었다 — 우리는 잰 값)
+@@ -69,6 +73,7 @@ export const CUT_TIME_30 = {
+   estoc: 0.31,
+   sabre: 0.26,
+   rapier: 0.21,
++  dartagnan: 0.21,
+   falchion: 0.24,
+   monohoshizao: 0.34,
+   qinggang: 0.24,
+@@ -80,6 +85,7 @@ export const CUT_TIME_30 = {
+   frozen_tuna: 0.32,
+   morgenstern: 0.29, // 0.30 × 0.39/0.41
+   uchigatana: 0.29, // 0.30 × 0.27/0.28 (같은 생성의 롱소드 날것에 대한 비율)
++  kusanagi: 0.23, // 0.30 × 0.21/0.28, 같은 실행의 롱소드에 대한 비율.
+   ganjiang: 0.26, // 0.30 × 0.24/0.28 (샛별 저장소에서 가져온 넷 — 위 MEASURED 와 같은 생성)
+   moye: 0.27, // 0.30 × 0.25/0.28
+   sain: 0.27, // 0.30 × 0.25/0.28
+diff --git a/src/weapons.js b/src/weapons.js
+index 457121a3..400ae16f 100644
+--- a/src/weapons.js
++++ b/src/weapons.js
+@@ -20,6 +20,7 @@ import { swordKit, metalMat, weaponEnv, hiddenParts, drawTreeBranch, drawRubberC
+ import { SAIN_COLORS, ICE_COLORS, sainPartMesh, sainDecorate, icePartMesh, iceDecorate } from './rare_sword_details.js'; // 사인검·아이스 겉모습 (샛별 저장소에서 가져옴 6e71ba2·4a425f9)
+ import { FLAMBERGE_MUSEUM, FLAMBERGE_HILT, FLAMBERGE_COLORS, flambergePartMesh, flambergeDecorate } from './flamberge_look.js'; // 플랑베르주 겉모습 (샛별 저장소 325a5c38 의 생김새를 옮겨 고침)
+ import { GOUJIAN_COLORS, goujianPartMesh, goujianDecorate } from './goujian_details.js'; // 월왕구천검 겉모습 (샛별 저장소 7684c732 에서 가져옴 — 바이트 그대로)
++import { KUSANAGI_COLORS, kusanagiPartMesh, kusanagiDecorate } from './kusanagi_details.js';
+ 
+ // 재질별 되튐(반발 계수). 칼끼리 부딪히면 곱해진다(Multiply 규칙) → 강철끼리 0.7² 정도,
+ //  고무 대 강철처럼 하나가 낮으면 거의 튕기지 않는다(고무 닭이 칼에 그냥 맞고 만다).
+@@ -57,6 +58,7 @@ export const TIER_DEFAULTS = {
+ //  길이 · 무게는 몸체 자료(buildParts — 물리와 같은 수)에서 셈: 길이 = 부품 끝에서 끝 · 무게 = 부품 질량 합
+ //  종류 = 싸우는 방식의 무기 갈래(한손검 · 양손검 · 한손 둔기 …) — 물건 이름(나뭇가지 · 장난감 · 생선)은 쓰지 않는다 (사장님 10/19 03:1x '나뭇가지 x')
+ const KIND_KO = {
++  dartagnan: '한손 찌르기검', kusanagi: '양손 직검',
+   longsword: '양손검', zweihander: '대형 양손검', estoc: '찌르기검', sabre: '한손 곡도', rapier: '한손 찌르기검', falchion: '한손 외날검',
+   monohoshizao: '노다치', uchigatana: '일본도', qinggang: '한손 양날검', excalibur: '양손검', excalibur_replica: '양손검', lightsaber: '양손검',
+   tree_branch: '한손 둔기', rubber_chicken: '한손 둔기', frozen_tuna: '양손 둔기', pistol: '권총', morgenstern: '한손 철퇴', ganjiang: '한손 양날검',
+@@ -624,11 +626,11 @@ const sabre = finalizeSpec('sabre', {
+ //  7) 레이피어 — Albion "Munich" rapier 1.56kg·칼날 83.5cm·균형점 6cm(코등이 바로 앞,
+ //     화려한 컵 힐트가 무게추 역할) [M]. 좀 더 가벼운 버전(1.1kg급)으로 잡는다 [I]
+ // ═════════════════════════════════════════════════════════════
+-const rapier = finalizeSpec('rapier', {
++const RAPIER_SPEC = {
+   nameKo: '레이피어', nameEn: 'Rapier',
+   desc: '르네상스 신사들이 평상복에 차고 다니던 결투검.\n가장 빨리 찌르지만 베기는 약하다.',
+   grip: 'one-hand', material: 'steel',
+-  tier: 'rare', // 감독 확정: 레어 — 르네상스 결투검, 로스터 유일의 찌르기 전용. power 1.05, 파손 계수 0.032
++  tier: 'common', // 사용자10/21: 기본 레이피어 커먼. 공통 등급 계수 적용.
+   hiltLength: 0.1, bladeLength: 0.95,
+   mCut: 0.5, mThrust: 1.3, mBlunt: 0.7,
+   thrustStyle: THRUST_STYLE.rapier,
+@@ -662,8 +664,32 @@ const rapier = finalizeSpec('rapier', {
+       bar.castShadow = true;
+     }
+   },
++};
++const rapier = finalizeSpec('rapier', RAPIER_SPEC);
++
++// 달타냥: 뒤마의 소설 속 총사를 모티프로 한 창작 무기 [I]. 실존 인물의 유물 복원이 아니다.
++// 날·질량·관성·사거리는 레이피어와 같고, 등급의 공통 공격력/파손 차이만 적용한다.
++// finalizeSpec 이전 원본을 공유해야 커먼의 계산된 power/fragility가 에픽에 섞이지 않는다.
++const DARTAGNAN_COLORS = { grip: 0x203b6c, hilt: 0xa1834e };
++const dartagnan = finalizeSpec('dartagnan', {
++  ...RAPIER_SPEC,
++  nameKo: '달타냥', nameEn: "D’Artagnan", tier: 'epic',
++  desc: '푸른 가죽 손잡이와 빛바랜 금빛 코등이.\n세 벗과 맹세를 나눈 총사의 검.',
++  partMesh: swordKit({
++    blade: { edge: 'double', width: (t) => 1 - 0.4 * t, thick: 0.0045, bevel: 0.0015, tip: 'needle', tipLen: 0.12 },
++    grip: { style: 'leather', color: DARTAGNAN_COLORS.grip },
++    pommel: { style: 'pear', color: DARTAGNAN_COLORS.hilt },
++    guard: { style: 'cup', color: DARTAGNAN_COLORS.hilt },
++  }),
++  buildParts(look) {
++    return RAPIER_SPEC.buildParts.call(this, { ...look, ...DARTAGNAN_COLORS });
++  },
++  decorate(group, look) {
++    RAPIER_SPEC.decorate(group, { ...look, ...DARTAGNAN_COLORS });
++  },
+ });
+ 
++
+ // ═════════════════════════════════════════════════════════════
+ //  8) 팔쉬온 — Thorpe falchion(13세기 원본) 0.904kg·칼날 80.3cm [M]. 균형점 자료 없음
+ //     → 넓고 앞이 무거운 외날 반달칼 형태라 무게중심이 앞쪽이라고 추정 [I]
+@@ -790,6 +816,32 @@ const monohoshizao = finalizeSpec('monohoshizao', {
+   },
+ });
+ 
++// 쿠사나기: 신화 시안 선택 승인(2026-10-21). 치수는 게임용 창작이며 유물 실측이 아니다.
++const kusanagi = finalizeSpec('kusanagi', {
++  nameKo: '쿠사나기', nameEn: 'Kusanagi',
++  desc: '큰 뱀의 꼬리에서 나온 신검. 풀을 베어 불길 속의 길을 열었다.',
++  grip: 'two-hand', material: 'steel', school: 'japanese',
++  frame: 'two', style: 'versatile', tier: 'legend',
++  hiltLength: 0.10, bladeLength: 0.75, gripAlong: -0.2,
++  mCut: 1.2, mThrust: 1.1, mBlunt: 0.95,
++  partMesh: kusanagiPartMesh, decorate: kusanagiDecorate,
++  buildParts() {
++    // 창작 사양: 총1.10kg. 사용자 자루 비례 지적 후 실제 양손 자루31cm로 단축. 손 간격20cm 유지.
++    const L = this.bladeLength;
++    const grip = boxInertia(0.28, 0.014, 0.15, 0.017);
++    const pommel = sphereInertia(0.10, 0.024);
++    const guard = boxInertia(0.12, 0.065, 0.025, 0.012);
++    const blade = bladeInertia(0.60, L, 0.395, 0.26, 0.041, 0.007);
++    return [
++      partTuple(['box', 0.014, 0.15, 0.017], -0.08, 0.28, 0, grip.Ie, grip.It, KUSANAGI_COLORS.grip),
++      partTuple(['ball', 0.024], -0.25, 0.10, 0, pommel.Ie, pommel.It, KUSANAGI_COLORS.gold),
++      partTuple(['box', 0.065, 0.025, 0.012], 0.09, 0.12, 0, guard.Ie, guard.It, KUSANAGI_COLORS.gold),
++      partTuple(['box', 0.0205, L / 2, 0.0035], 0.10 + L / 2, 0.60, blade.comY, blade.Ie, blade.It, KUSANAGI_COLORS.blade, true),
++    ];
++  },
++});
++
++
+ // ═════════════════════════════════════════════════════════════
+ //  9b) 우치가타나 (打刀, uchigatana) — 보통 크기 카타나 (커먼). 10/9 카타나·劍 로스터 제안서
+ //      (docs/weapons/katana_jian_roster_proposal_2026-10-09.md §2-2) 의 스펙 초안 그대로 넣은 **제안 가지** 무기다
+@@ -1598,6 +1650,8 @@ export const WEAPONS = {
+   flamberge, // 샛별 저장소 생김새를 옮겨 고침 (10/14, 사장님 확인 전) — 같은 까닭으로 끝에 둔다
+   goujian, // 샛별 저장소에서 가져옴 (10/14 — 에픽·뽑기에 넣음·와신상담은 사장님 결정) — 같은 까닭으로 끝에 둔다
+   brothers_sword: brothersSword,
++  dartagnan, // 사용자10/21: 이탈리아 에픽
++  kusanagi, // 사용자10/21: 일본 레전드
+ };
+ 
+ // 다른 담당이 쓰는 짧은 이름 → 정식 id (characters.js의 'branch', URL 파라미터의 'chicken' 등)
