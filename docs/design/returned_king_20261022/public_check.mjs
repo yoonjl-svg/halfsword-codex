@@ -1,0 +1,7 @@
+import {chromium}from'playwright';import fs from'node:fs';import assert from'node:assert/strict';
+const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']}),rows=[];
+const p=await browser.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));
+for(const width of [320,390,844,1200]){
+ await p.setViewportSize({width,height:800});await p.goto('http://127.0.0.1:5200/encounters/returned-king-20261022/');await p.waitForFunction(()=>[...document.images].every(i=>i.complete&&i.naturalWidth>0));assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert.equal(await p.locator('img').count(),5);rows.push({width,images:5,overflow:false});
+}
+await p.locator('nav a').first().click();await p.waitForFunction(()=>window.game?.state==='menu');assert(await p.locator('#testRouteNote').textContent().then(t=>t.includes('세바스티앙')));await p.locator('#btnStart').click();await p.waitForFunction(()=>game.state==='fight');assert.equal(await p.evaluate(()=>game.enemy.helmetType),'royal_close');assert.equal(errors.length,0);await browser.close();fs.writeFileSync(new URL('./public-checks.json',import.meta.url),JSON.stringify({rows,errors,nestedGame:true},null,2));console.log({rows,errors,nestedGame:true});
