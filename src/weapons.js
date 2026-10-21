@@ -20,6 +20,7 @@ import { swordKit, metalMat, weaponEnv, hiddenParts, drawTreeBranch, drawRubberC
 import { SAIN_COLORS, ICE_COLORS, sainPartMesh, sainDecorate, icePartMesh, iceDecorate } from './rare_sword_details.js'; // 사인검·아이스 겉모습 (샛별 저장소에서 가져옴 6e71ba2·4a425f9)
 import { FLAMBERGE_MUSEUM, FLAMBERGE_HILT, FLAMBERGE_COLORS, flambergePartMesh, flambergeDecorate } from './flamberge_look.js'; // 플랑베르주 겉모습 (샛별 저장소 325a5c38 의 생김새를 옮겨 고침)
 import { GOUJIAN_COLORS, goujianPartMesh, goujianDecorate } from './goujian_details.js'; // 월왕구천검 겉모습 (샛별 저장소 7684c732 에서 가져옴 — 바이트 그대로)
+import { KUSANAGI_COLORS, kusanagiPartMesh, kusanagiDecorate } from './kusanagi_details.js';
 
 // 재질별 되튐(반발 계수). 칼끼리 부딪히면 곱해진다(Multiply 규칙) → 강철끼리 0.7² 정도,
 //  고무 대 강철처럼 하나가 낮으면 거의 튕기지 않는다(고무 닭이 칼에 그냥 맞고 만다).
@@ -57,6 +58,7 @@ export const TIER_DEFAULTS = {
 //  길이 · 무게는 몸체 자료(buildParts — 물리와 같은 수)에서 셈: 길이 = 부품 끝에서 끝 · 무게 = 부품 질량 합
 //  종류 = 싸우는 방식의 무기 갈래(한손검 · 양손검 · 한손 둔기 …) — 물건 이름(나뭇가지 · 장난감 · 생선)은 쓰지 않는다 (사장님 10/19 03:1x '나뭇가지 x')
 const KIND_KO = {
+  dartagnan: '한손 찌르기검', kusanagi: '양손 직검',
   longsword: '양손검', zweihander: '대형 양손검', estoc: '찌르기검', sabre: '한손 곡도', rapier: '한손 찌르기검', falchion: '한손 외날검',
   monohoshizao: '노다치', uchigatana: '일본도', qinggang: '한손 양날검', excalibur: '양손검', excalibur_replica: '양손검', lightsaber: '양손검',
   tree_branch: '한손 둔기', rubber_chicken: '한손 둔기', frozen_tuna: '양손 둔기', pistol: '권총', morgenstern: '한손 철퇴', ganjiang: '한손 양날검',
@@ -624,11 +626,11 @@ const sabre = finalizeSpec('sabre', {
 //  7) 레이피어 — Albion "Munich" rapier 1.56kg·칼날 83.5cm·균형점 6cm(코등이 바로 앞,
 //     화려한 컵 힐트가 무게추 역할) [M]. 좀 더 가벼운 버전(1.1kg급)으로 잡는다 [I]
 // ═════════════════════════════════════════════════════════════
-const rapier = finalizeSpec('rapier', {
+const RAPIER_SPEC = {
   nameKo: '레이피어', nameEn: 'Rapier',
   desc: '르네상스 신사들이 평상복에 차고 다니던 결투검.\n가장 빨리 찌르지만 베기는 약하다.',
   grip: 'one-hand', material: 'steel',
-  tier: 'rare', // 감독 확정: 레어 — 르네상스 결투검, 로스터 유일의 찌르기 전용. power 1.05, 파손 계수 0.032
+  tier: 'common', // 사용자10/21: 기본 레이피어 커먼. 공통 등급 계수 적용.
   hiltLength: 0.1, bladeLength: 0.95,
   mCut: 0.5, mThrust: 1.3, mBlunt: 0.7,
   thrustStyle: THRUST_STYLE.rapier,
@@ -662,7 +664,31 @@ const rapier = finalizeSpec('rapier', {
       bar.castShadow = true;
     }
   },
+};
+const rapier = finalizeSpec('rapier', RAPIER_SPEC);
+
+// 달타냥: 뒤마의 소설 속 총사를 모티프로 한 창작 무기 [I]. 실존 인물의 유물 복원이 아니다.
+// 날·질량·관성·사거리는 레이피어와 같고, 등급의 공통 공격력/파손 차이만 적용한다.
+// finalizeSpec 이전 원본을 공유해야 커먼의 계산된 power/fragility가 에픽에 섞이지 않는다.
+const DARTAGNAN_COLORS = { grip: 0x203b6c, hilt: 0xa1834e };
+const dartagnan = finalizeSpec('dartagnan', {
+  ...RAPIER_SPEC,
+  nameKo: '달타냥', nameEn: "D’Artagnan", tier: 'epic',
+  desc: '푸른 가죽 손잡이와 빛바랜 금빛 코등이.\n세 벗과 맹세를 나눈 총사의 검.',
+  partMesh: swordKit({
+    blade: { edge: 'double', width: (t) => 1 - 0.4 * t, thick: 0.0045, bevel: 0.0015, tip: 'needle', tipLen: 0.12 },
+    grip: { style: 'leather', color: DARTAGNAN_COLORS.grip },
+    pommel: { style: 'pear', color: DARTAGNAN_COLORS.hilt },
+    guard: { style: 'cup', color: DARTAGNAN_COLORS.hilt },
+  }),
+  buildParts(look) {
+    return RAPIER_SPEC.buildParts.call(this, { ...look, ...DARTAGNAN_COLORS });
+  },
+  decorate(group, look) {
+    RAPIER_SPEC.decorate(group, { ...look, ...DARTAGNAN_COLORS });
+  },
 });
+
 
 // ═════════════════════════════════════════════════════════════
 //  8) 팔쉬온 — Thorpe falchion(13세기 원본) 0.904kg·칼날 80.3cm [M]. 균형점 자료 없음
@@ -792,6 +818,32 @@ const monohoshizao = finalizeSpec('monohoshizao', {
     addTsukaIto(group, silk, -0.178);
   },
 });
+
+// 쿠사나기: 신화 시안 선택 승인(2026-10-21). 치수는 게임용 창작이며 유물 실측이 아니다.
+const kusanagi = finalizeSpec('kusanagi', {
+  nameKo: '쿠사나기', nameEn: 'Kusanagi',
+  desc: '큰 뱀의 꼬리에서 나온 신검. 풀을 베어 불길 속의 길을 열었다.',
+  grip: 'two-hand', material: 'steel', school: 'japanese',
+  frame: 'two', style: 'versatile', tier: 'legend',
+  hiltLength: 0.10, bladeLength: 0.75, gripAlong: -0.2,
+  mCut: 1.2, mThrust: 1.1, mBlunt: 0.95,
+  partMesh: kusanagiPartMesh, decorate: kusanagiDecorate,
+  buildParts() {
+    // 창작 사양: 총1.10kg. 사용자 자루 비례 지적 후 실제 양손 자루31cm로 단축. 손 간격20cm 유지.
+    const L = this.bladeLength;
+    const grip = boxInertia(0.28, 0.014, 0.15, 0.017);
+    const pommel = sphereInertia(0.10, 0.024);
+    const guard = boxInertia(0.12, 0.065, 0.025, 0.012);
+    const blade = bladeInertia(0.60, L, 0.395, 0.26, 0.041, 0.007);
+    return [
+      partTuple(['box', 0.014, 0.15, 0.017], -0.08, 0.28, 0, grip.Ie, grip.It, KUSANAGI_COLORS.grip),
+      partTuple(['ball', 0.024], -0.25, 0.10, 0, pommel.Ie, pommel.It, KUSANAGI_COLORS.gold),
+      partTuple(['box', 0.065, 0.025, 0.012], 0.09, 0.12, 0, guard.Ie, guard.It, KUSANAGI_COLORS.gold),
+      partTuple(['box', 0.0205, L / 2, 0.0035], 0.10 + L / 2, 0.60, blade.comY, blade.Ie, blade.It, KUSANAGI_COLORS.blade, true),
+    ];
+  },
+});
+
 
 // ═════════════════════════════════════════════════════════════
 //  9b) 우치가타나 (打刀, uchigatana) — 보통 크기 카타나 (커먼). 10/9 카타나·劍 로스터 제안서
@@ -1601,6 +1653,8 @@ export const WEAPONS = {
   flamberge, // 샛별 저장소 생김새를 옮겨 고침 (10/14, 사장님 확인 전) — 같은 까닭으로 끝에 둔다
   goujian, // 샛별 저장소에서 가져옴 (10/14 — 에픽·뽑기에 넣음·와신상담은 사장님 결정) — 같은 까닭으로 끝에 둔다
   brothers_sword: brothersSword,
+  dartagnan, // 사용자10/21: 이탈리아 에픽
+  kusanagi, // 사용자10/21: 일본 레전드
 };
 
 // 다른 담당이 쓰는 짧은 이름 → 정식 id (characters.js의 'branch', URL 파라미터의 'chicken' 등)

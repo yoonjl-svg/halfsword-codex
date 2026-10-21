@@ -16,7 +16,7 @@ export class ItalianOpposition {
 
   eligible() {
     const f = this.f, sk = f.skill, g = this.guard;
-    return SKILL.itOpposition && f.weapon?.id === 'rapier' && f.swordArt?.tradition === 'italian'
+    return SKILL.itOpposition && ['rapier', 'dartagnan'].includes(f.weapon?.id) && f.swordArt?.tradition === 'italian'
       && f.schoolParry !== false && g.held && !g.broken && f.alive && this.foe.alive
       && f.armed && !f.stamina.exhausted && ['stand', 'kneel'].includes(f.state)
       && !sk.tap && !sk.sec && !sk.pom && !f.secretStiff && sk.sec?.stage !== 'stiff';
