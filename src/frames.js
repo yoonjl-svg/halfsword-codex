@@ -227,6 +227,7 @@ export const LIB_PARRY = {
   sabre: { highL: [-0.52, 0.03], highR: [0, 0.03], highC: [-0.4, -0.42], lowL: [-0.4, -0.42], lowR: [-0.18, -0.28], thrust: [-0.4, -0.42] },
   falchion: { highL: [-0.52, 0.03], highR: [-0.4, -0.42], highC: [0.42, 0.42], lowL: [0.42, 0.42], lowR: [0.22, 0.26], thrust: [-0.4, -0.42] },
   rapier: { highL: [0.52, 0.03], highR: [-0.52, 0.03], highC: [0.42, 0.42], lowL: [0.55, -0.26], lowR: [-0.4, -0.42], thrust: [-0.22, 0.26] },
+  dartagnan: { highL: [0.52, 0.03], highR: [-0.52, 0.03], highC: [0.42, 0.42], lowL: [0.55, -0.26], lowR: [-0.4, -0.42], thrust: [-0.22, 0.26] }, // 동일 물리의 레이피어 막기 자리
   qinggang: { highL: [-0.4, -0.42], highR: [-0.22, 0.26], highC: [0.42, 0.42], lowL: [0.42, 0.42], lowR: [-0.4, -0.42], thrust: [-0.4, -0.42] },
   tree_branch: { highL: [-0.18, -0.28], highR: [0, 0.03], highC: [0.18, -0.28], lowL: [0.52, 0.03], lowR: [-0.4, 0.42], thrust: [-0.52, 0.03] },
 };
@@ -243,6 +244,7 @@ export const HAND_GRIPS = {
   sabre: { a: 0, b: 15, t: 60, off: 'fist' }, // 엄지를 칼등에
   falchion: { a: 0, b: 5, t: 0, off: 'fist' },
   rapier: { a: 0, b: 25, t: 70, off: 'open', turn: 'posture' }, // 집게 쥠 (테르차, 엄지 위) · 자세별 손 돌림(10/8)
+  dartagnan: { a: 0, b: 25, t: 70, off: 'open', turn: 'posture' }, // 동일한 이탈리아 집게 쥠
   qinggang: { a: 0, b: 15, t: 0, off: 'fist' },
   tree_branch: { a: 0, b: 0, t: 0, off: 'fist' },
   rubber_chicken: { a: 0, b: 0, t: 0, off: 'fist' },
