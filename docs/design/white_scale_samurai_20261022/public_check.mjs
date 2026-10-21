@@ -1,0 +1,8 @@
+import {chromium}from'playwright';import fs from'node:fs';import assert from'node:assert/strict';
+const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']}),rows=[];
+const p=await browser.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));
+for(const width of [320,390,844,1200]){
+ await p.setViewportSize({width,height:800});await p.goto('http://127.0.0.1:5200/encounters/white-scale-20261022/');await p.waitForFunction(()=>[...document.images].every(i=>i.complete&&i.naturalWidth>0));assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert.equal(await p.locator('img').count(),6);rows.push({width,images:6,overflow:false});
+}
+await p.setViewportSize({width:1200,height:900});await p.locator('.pair').first().screenshot({path:new URL('./inspection-pair.png',import.meta.url).pathname});
+await p.locator('nav a').first().click();await p.waitForFunction(()=>window.game?.state==='menu');assert(await p.locator('#testRouteNote').textContent().then(t=>t.includes('백린의 전사')));await p.locator('#btnStart').click();await p.waitForFunction(()=>game.state==='fight');assert.equal(await p.evaluate(()=>game.enemy.helmetType),'kabuto_masked');assert(await p.evaluate(()=>!!game.enemy.helmetGroup.getObjectByName('white-scale-helm-hornR')));assert.equal(errors.length,0);await browser.close();fs.writeFileSync(new URL('./public-checks.json',import.meta.url),JSON.stringify({rows,errors,nestedGame:true},null,2));console.log({rows,errors,nestedGame:true});
