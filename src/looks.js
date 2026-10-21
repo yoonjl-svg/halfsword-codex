@@ -14,6 +14,11 @@ export const LOOK_ARCHIVE = {
     hoseUpper:0x541f2a,hoseLower:0x352e28,shoes:0x655c48,skin:0xbfa78c,hands:0xc2b79d,
     helmet:'royal_close',metal:0xd7cfba,hair:0x4d4b43,headband:null,
     grip:0xcab995,hilt:0xae8e49,accent:0x541f2a,outfit:'returned_king',armor:'plate',
+  }, v2: {
+    tunic:0x352e28,quilt:0x352e28,sleeve:0x352e28,straps:null,belt:0x4a4134,
+    hoseUpper:0x541f2a,hoseLower:0x352e28,shoes:0x655c48,skin:0xbfa78c,hands:0xc2b79d,
+    helmet:'royal_close',metal:0xd7cfba,hair:0x4d4b43,headband:null,
+    grip:0xcab995,hilt:0xae8e49,accent:0x541f2a,outfit:'returned_king_v2',armor:'plate',
   } },
   // 누비 상의(갬비슨) + 가죽 끈 + 챙 넓은 투구(케틀햇). 감독 지시: 주인공 외형은 그대로 둔다.
   player: {
@@ -857,7 +862,7 @@ LOOK_ARCHIVE.terracotta.v2 = { ...LOOK_ARCHIVE.terracotta.v1, terracottaRevision
 
 // 지금 게임에서 실제로 쓰는 버전 (감독/오너가 확정하면 여기만 바꾸면 됨)
 export const CHARACTER_LOOK_VERSION = {
-  sebastian: 'v1',
+  sebastian: 'v2',
   bran: 'v1',
   isolde: 'v2',
   liao: 'v6',

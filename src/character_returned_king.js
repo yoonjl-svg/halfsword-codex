@@ -20,7 +20,7 @@ export function createReturnedKing(baseline) {
     temperament:'승리한 왕의 위엄을 잃지 않았으나, 상대를 보는지 그 너머의 행군을 보는지 알 수 없다.',
     movementNotes:'새 전용 기술 없이 기존 이베리아 동작과 판금 감속을 적용한다. 전투 수치는 검토용 시작값이다.',
     weaknesses:'무거운 판금과 큰 검의 회수. 목은 기존 판금 규칙대로 보호하지 않는다.',
-    weapon:'tizona',voice:'tome',ai,look:getLook('sebastian'),lookVersion:'v1',
+    weapon:'tizona',voice:'tome',ai,look:getLook('sebastian'),lookVersion:'v2',
     taunt:'성문을 열어라. 아직 돌아올 자들이 있다.',
     lines:{
       intro:['성문을 열어라. 아직 돌아올 자들이 있다.','…너도 저 발소리가 들리느냐.'],
