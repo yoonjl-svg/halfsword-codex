@@ -1,0 +1,2219 @@
+{
+  "longsword": {
+    "spec": "{\"nameKo\":\"롱소드\",\"nameEn\":\"Longsword\",\"desc\":\"중세 말 독일 검객들이 익히던 양손 장검.\\n리히테나워는 그 비결을 수수께끼 같은 시로 남겼다.\",\"grip\":\"two-hand\",\"material\":\"steel\",\"hiltLength\":0.13,\"bladeLength\":1.05,\"gripAlong\":-0.14,\"partMesh\":\"(idx, isBlade, shape, color, matOpts, look, tier) => {\\n    const F = finishOf(tier);\\n    if (isBlade) {\\n      if (o.bladeMesh) return o.bladeMesh(shape, color, matOpts);\\n      if (shape[0] !== 'box') return undefined;\\n      const [, hx, hy, hz] = shape;\\n      const mat = new THREE.MeshStandardMaterial({\\n        color,\\n        vertexColors: true,\\n        roughness: F.blade,\\n        metalness: F.metal,\\n        envMap: weaponEnv(),\\n        envMapIntensity: F.env,\\n        side: THREE.DoubleSide,\\n        ...(F.sheen ? { emissive: F.sheen, emissiveIntensity: 0.06 } : {}),\\n      });\\n      const m = new THREE.Mesh(bladeGeometry(hx, hy, hz, o.blade), mat);\\n      m.castShadow = true;\\n      return m;\\n    }\\n    const metalColor = o.metal ?? look?.hilt ?? 0x9aa3ad;\\n    if (idx === 0 && shape[0] === 'box' && o.grip) {\\n      const [, hx, hy, hz] = shape;\\n      return gripMesh(hx, hy, hz, o.grip.color ?? color, o.grip.style ?? 'leather', F, o.pommel?.color ?? metalColor);\\n    }\\n    if (idx === 1 && shape[0] === 'ball' && o.pommel) return pommelMesh(shape[1], o.pommel.color ?? color, o.pommel.style ?? 'wheel', F);\\n    if (idx === 2 && o.guard) return guardMesh(shape, o.guard.color ?? color, o.guard.style ?? 'bar', F);\\n    return undefined;\\n  }\",\"buildParts\":\"buildParts(look) {\\n    const L = this.bladeLength;\\n    const grip = boxInertia(0.16, 0.018, 0.1, 0.018);\\n    const pommel = sphereInertia(0.418, 0.03);\\n    const cross = boxInertia(0.18, 0.11, 0.015, 0.022);\\n    const blade = bladeInertia(0.842, L, 0.344, 0.253, 0.048, 0.016);\\n    return [\\n      partTuple(['box', 0.018, 0.1, 0.018], 0, 0.16, 0, grip.Ie, grip.It, look.grip),\\n      partTuple(['ball', 0.03], -0.12, 0.418, 0, pommel.Ie, pommel.It, look.hilt),\\n      partTuple(['box', 0.11, 0.015, 0.022], 0.115, 0.18, 0, cross.Ie, cross.It, look.hilt),\\n      partTuple(['box', 0.024, L / 2, 0.008], 0.13 + L / 2, 0.842, blade.comY, blade.Ie, blade.It, 0xd8dde3, true),\\n    ];\\n  }\",\"id\":\"longsword\",\"edged\":true,\"mCut\":1,\"mThrust\":1,\"mBlunt\":1,\"tier\":\"common\",\"power\":1,\"durability\":0.8,\"fragility\":0.056,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":true,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"twoHand\":true,\"oneHandStance\":false,\"soundMaterial\":\"steel\",\"controlOverrides\":{\"maxAimTorque\":26},\"capFromGrip\":true,\"frame\":\"two\",\"style\":\"versatile\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.018,
+          0.1,
+          0.018
+        ],
+        0,
+        [
+          0.16,
+          0,
+          0.0005506133333333334,
+          0.000034559999999999994
+        ],
+        4861466,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.03
+        ],
+        -0.12,
+        [
+          0.418,
+          0,
+          0.00015048,
+          0.00015048
+        ],
+        10134445,
+        false
+      ],
+      [
+        [
+          "box",
+          0.11,
+          0.015,
+          0.022
+        ],
+        0.115,
+        [
+          0.18,
+          0,
+          0.0007394999999999998,
+          0.0007550399999999999
+        ],
+        10134445,
+        false
+      ],
+      [
+        [
+          "box",
+          0.024,
+          0.525,
+          0.008
+        ],
+        0.655,
+        [
+          0.842,
+          -0.16380000000000003,
+          0.05941987474499999,
+          0.0000736
+        ],
+        14212579,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 1.6,
+      "com": 0.24008149999999998,
+      "I": 0.27241577255833327,
+      "length": 1.1800000000000002
+    }
+  },
+  "zweihander": {
+    "spec": "{\"nameKo\":\"츠바이핸더 (대형 양손검)\",\"nameEn\":\"Zweihänder\",\"desc\":\"두 배 급료를 받고 창 숲 맨 앞을 깨던 용병의 칼.\\n느리지만 맞으면 묵직하게 부순다.\",\"grip\":\"two-hand\",\"material\":\"steel\",\"tier\":\"common\",\"hiltLength\":0.145,\"bladeLength\":1.215,\"gripAlong\":-0.24,\"mCut\":1.1,\"mThrust\":0.85,\"mBlunt\":1.15,\"partMesh\":\"(idx, isBlade, shape, color, matOpts, look, tier) => {\\n    const F = finishOf(tier);\\n    if (isBlade) {\\n      if (o.bladeMesh) return o.bladeMesh(shape, color, matOpts);\\n      if (shape[0] !== 'box') return undefined;\\n      const [, hx, hy, hz] = shape;\\n      const mat = new THREE.MeshStandardMaterial({\\n        color,\\n        vertexColors: true,\\n        roughness: F.blade,\\n        metalness: F.metal,\\n        envMap: weaponEnv(),\\n        envMapIntensity: F.env,\\n        side: THREE.DoubleSide,\\n        ...(F.sheen ? { emissive: F.sheen, emissiveIntensity: 0.06 } : {}),\\n      });\\n      const m = new THREE.Mesh(bladeGeometry(hx, hy, hz, o.blade), mat);\\n      m.castShadow = true;\\n      return m;\\n    }\\n    const metalColor = o.metal ?? look?.hilt ?? 0x9aa3ad;\\n    if (idx === 0 && shape[0] === 'box' && o.grip) {\\n      const [, hx, hy, hz] = shape;\\n      return gripMesh(hx, hy, hz, o.grip.color ?? color, o.grip.style ?? 'leather', F, o.pommel?.color ?? metalColor);\\n    }\\n    if (idx === 1 && shape[0] === 'ball' && o.pommel) return pommelMesh(shape[1], o.pommel.color ?? color, o.pommel.style ?? 'wheel', F);\\n    if (idx === 2 && o.guard) return guardMesh(shape, o.guard.color ?? color, o.guard.style ?? 'bar', F);\\n    return undefined;\\n  }\",\"buildParts\":\"buildParts(look) {\\n    const L = this.bladeLength;\\n    // 자루: 코등이 밑에서 폼멜(ZW.pommelY)까지 — 중간(기본) 0.115 → −0.25 (0.365 m) · 날밑 꼴 0.07 → −0.31 · 아침 꼴 ±0.16. 부품 질량은 그대로(합 2.9 kg)\\n    //  날밑: 가운데 ZW.crossY · 칼날: 손 위 ZW.hilt 부터 — 칼날 질량 분포(무게중심 자리·그 둘레 관성)는 모든 꼴이 같다 (위 ZW 머리말)\\n    const grip = boxInertia(0.26, 0.02, ZW.gripH, 0.02);\\n    const pommel = sphereInertia(0.62, 0.038);\\n    const cross = boxInertia(0.32, 0.14, 0.02, 0.026);\\n    const blade = bladeInertia(1.7, L, ZW.com, ZW.gyr, 0.056, 0.018);\\n    return [\\n      partTuple(['box', 0.02, ZW.gripH, 0.02], ZW.gripY, 0.26, 0, grip.Ie, grip.It, look.grip),\\n      partTuple(['ball', 0.038], ZW.pommelY, 0.62, 0, pommel.Ie, pommel.It, look.hilt),\\n      partTuple(['box', 0.14, 0.02, 0.026], ZW.crossY, 0.32, 0, cross.Ie, cross.It, look.hilt),\\n      partTuple(['box', 0.028, L / 2, 0.009], this.hiltLength + L / 2, 1.7, blade.comY, blade.Ie, blade.It, 0xd8dde3, true),\\n    ];\\n  }\",\"decorate\":\"decorate(group, look) {\\n    const mat = metalMat(look.hilt, { rough: 0.34 });\\n    const base = this.hiltLength;\\n    const ricY = base + 0.02;\\n    const leather = new THREE.MeshStandardMaterial({ color: 0x4a2f1c, roughness: 0.9 });\\n    const wrap = addMesh(group, new THREE.BoxGeometry(0.06, 0.1, 0.022), leather, [0, ricY + 0.06, 0]);\\n    wrap.castShadow = true;\\n    for (const s of [-1, 1]) {\\n      const hook = addMesh(group, new THREE.ConeGeometry(0.008, 0.04, 8), mat, [s * 0.045, ricY + 0.13, 0]);\\n      hook.rotation.z = -s * 0.9; // 코등이 평면(x) 바깥으로, 칼끝 쪽으로 비스듬히\\n      hook.castShadow = true;\\n    }\\n  }\",\"id\":\"zweihander\",\"edged\":true,\"power\":1,\"durability\":0.8,\"fragility\":0.056,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":true,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"twoHand\":true,\"oneHandStance\":false,\"soundMaterial\":\"steel\",\"controlOverrides\":{\"maxAimTorque\":26},\"capFromGrip\":true,\"frame\":\"heavy\",\"style\":\"cut\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.02,
+          0.1825,
+          0.02
+        ],
+        -0.0675,
+        [
+          0.26,
+          0,
+          0.002921208333333333,
+          0.00006933333333333334
+        ],
+        4861466,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.038
+        ],
+        -0.25,
+        [
+          0.62,
+          0,
+          0.000358112,
+          0.000358112
+        ],
+        10134445,
+        false
+      ],
+      [
+        [
+          "box",
+          0.14,
+          0.02,
+          0.026
+        ],
+        0.13,
+        [
+          0.32,
+          0,
+          0.002133333333333334,
+          0.0021627733333333334
+        ],
+        10134445,
+        false
+      ],
+      [
+        [
+          "box",
+          0.028,
+          0.6075,
+          0.009
+        ],
+        0.7525000000000001,
+        [
+          1.7,
+          -0.16470000000000007,
+          0.14895726417,
+          0.00019503562945368173
+        ],
+        14212579,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 2.9,
+      "com": 0.2994172413793103,
+      "I": 0.7870775708366665,
+      "length": 1.36
+    }
+  },
+  "estoc": {
+    "spec": "{\"nameKo\":\"에스톡 (찌르기검)\",\"nameEn\":\"Estoc\",\"desc\":\"판금 갑옷의 틈을 찌르려 날 대신 끝을 벼린 칼.\\n찌르기로 싸워야 제값을 한다.\",\"grip\":\"hand-and-half\",\"material\":\"steel\",\"hiltLength\":0.14,\"bladeLength\":1.15,\"gripAlong\":-0.15,\"mCut\":0.55,\"mThrust\":1.35,\"mBlunt\":0.9,\"thrustStyle\":{\"recover\":0.7,\"reach\":0.12,\"gap\":0.5,\"window\":0.1},\"partMesh\":\"(idx, isBlade, shape, color, matOpts, look, tier) => {\\n    const F = finishOf(tier);\\n    if (isBlade) {\\n      if (o.bladeMesh) return o.bladeMesh(shape, color, matOpts);\\n      if (shape[0] !== 'box') return undefined;\\n      const [, hx, hy, hz] = shape;\\n      const mat = new THREE.MeshStandardMaterial({\\n        color,\\n        vertexColors: true,\\n        roughness: F.blade,\\n        metalness: F.metal,\\n        envMap: weaponEnv(),\\n        envMapIntensity: F.env,\\n        side: THREE.DoubleSide,\\n        ...(F.sheen ? { emissive: F.sheen, emissiveIntensity: 0.06 } : {}),\\n      });\\n      const m = new THREE.Mesh(bladeGeometry(hx, hy, hz, o.blade), mat);\\n      m.castShadow = true;\\n      return m;\\n    }\\n    const metalColor = o.metal ?? look?.hilt ?? 0x9aa3ad;\\n    if (idx === 0 && shape[0] === 'box' && o.grip) {\\n      const [, hx, hy, hz] = shape;\\n      return gripMesh(hx, hy, hz, o.grip.color ?? color, o.grip.style ?? 'leather', F, o.pommel?.color ?? metalColor);\\n    }\\n    if (idx === 1 && shape[0] === 'ball' && o.pommel) return pommelMesh(shape[1], o.pommel.color ?? color, o.pommel.style ?? 'wheel', F);\\n    if (idx === 2 && o.guard) return guardMesh(shape, o.guard.color ?? color, o.guard.style ?? 'bar', F);\\n    return undefined;\\n  }\",\"buildParts\":\"buildParts(look) {\\n    const L = this.bladeLength;\\n    const grip = boxInertia(0.14, 0.019, 0.12, 0.019);\\n    // 균형 재분배: 무승부투성이(13/24)의 근본 원인이 굼뜬 칼끝(칼날 0.84kg, 손 기준 관성 ~0.40)이라,\\n    // 총중량(1.6kg)은 지키고 칼날을 가볍게 해 그 몫을 폼멜로 옮긴다 — 실물 에스톡도 좁은 단면\\n    // 칼날에 유난히 큰 폼멜로 손 쪽에 균형을 모은 물건이다.\\n    const pommel = sphereInertia(0.6, 0.032);\\n    const cross = boxInertia(0.14, 0.1, 0.015, 0.02);\\n    const blade = bladeInertia(0.72, L, 0.42, 0.27, 0.022, 0.022); // 각진(사각/육각) 단면: 폭≈두께\\n    return [\\n      partTuple(['box', 0.019, 0.12, 0.019], 0, 0.14, 0, grip.Ie, grip.It, look.grip),\\n      partTuple(['ball', 0.032], -0.13, 0.6, 0, pommel.Ie, pommel.It, look.hilt),\\n      partTuple(['box', 0.1, 0.015, 0.02], 0.125, 0.14, 0, cross.Ie, cross.It, look.hilt),\\n      partTuple(['box', 0.011, L / 2, 0.011], 0.14 + L / 2, 0.72, blade.comY, blade.Ie, blade.It, 0xc7ccd2, true),\\n    ];\\n  }\",\"id\":\"estoc\",\"edged\":true,\"tier\":\"common\",\"power\":1,\"durability\":0.8,\"fragility\":0.056,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":true,\"ignoreArmor\":false,\"spike\":false,\"breakY\":null,\"twoHand\":true,\"oneHandStance\":false,\"soundMaterial\":\"steel\",\"controlOverrides\":{\"maxAimTorque\":22},\"capFromGrip\":true,\"frame\":\"two\",\"style\":\"thrust\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.019,
+          0.12,
+          0.019
+        ],
+        0,
+        [
+          0.14,
+          0,
+          0.0006888466666666667,
+          0.00003369333333333333
+        ],
+        4861466,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.032
+        ],
+        -0.13,
+        [
+          0.6,
+          0,
+          0.00024576000000000003,
+          0.00024576000000000003
+        ],
+        10134445,
+        false
+      ],
+      [
+        [
+          "box",
+          0.1,
+          0.015,
+          0.02
+        ],
+        0.125,
+        [
+          0.14,
+          0,
+          0.00047716666666666675,
+          0.00048533333333333344
+        ],
+        10134445,
+        false
+      ],
+      [
+        [
+          "box",
+          0.011,
+          0.575,
+          0.011
+        ],
+        0.715,
+        [
+          0.72,
+          -0.09200000000000001,
+          0.06941538,
+          0.0000396627078384798
+        ],
+        13094098,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 1.6,
+      "com": 0.24253749999999996,
+      "I": 0.3626075333333333,
+      "length": 1.29
+    }
+  },
+  "sabre": {
+    "spec": "{\"nameKo\":\"세이버 (기병도)\",\"nameEn\":\"Cavalry Sabre\",\"desc\":\"말 위에서 내리베기 좋게 휘어진 기병의 칼.\\n빠르게 베고 빠진다.\",\"grip\":\"one-hand\",\"material\":\"steel\",\"enterParry\":true,\"hiltLength\":0.11,\"bladeLength\":0.83,\"mCut\":1.25,\"mThrust\":0.7,\"mBlunt\":0.9,\"controlOverrides\":{\"maxAimTorque\":22,\"wristVmax\":34},\"partMesh\":\"(idx, isBlade, shape, color, matOpts, look, tier) => {\\n    const F = finishOf(tier);\\n    if (isBlade) {\\n      if (o.bladeMesh) return o.bladeMesh(shape, color, matOpts);\\n      if (shape[0] !== 'box') return undefined;\\n      const [, hx, hy, hz] = shape;\\n      const mat = new THREE.MeshStandardMaterial({\\n        color,\\n        vertexColors: true,\\n        roughness: F.blade,\\n        metalness: F.metal,\\n        envMap: weaponEnv(),\\n        envMapIntensity: F.env,\\n        side: THREE.DoubleSide,\\n        ...(F.sheen ? { emissive: F.sheen, emissiveIntensity: 0.06 } : {}),\\n      });\\n      const m = new THREE.Mesh(bladeGeometry(hx, hy, hz, o.blade), mat);\\n      m.castShadow = true;\\n      return m;\\n    }\\n    const metalColor = o.metal ?? look?.hilt ?? 0x9aa3ad;\\n    if (idx === 0 && shape[0] === 'box' && o.grip) {\\n      const [, hx, hy, hz] = shape;\\n      return gripMesh(hx, hy, hz, o.grip.color ?? color, o.grip.style ?? 'leather', F, o.pommel?.color ?? metalColor);\\n    }\\n    if (idx === 1 && shape[0] === 'ball' && o.pommel) return pommelMesh(shape[1], o.pommel.color ?? color, o.pommel.style ?? 'wheel', F);\\n    if (idx === 2 && o.guard) return guardMesh(shape, o.guard.color ?? color, o.guard.style ?? 'bar', F);\\n    return undefined;\\n  }\",\"buildParts\":\"buildParts(look) {\\n    const L = this.bladeLength;\\n    const grip = boxInertia(0.11, 0.017, 0.06, 0.017);\\n    const pommel = sphereInertia(0.16, 0.02);\\n    const cross = boxInertia(0.05, 0.04, 0.01, 0.013);\\n    const blade = bladeInertia(0.63, L, 0.46, 0.24, 0.032, 0.009);\\n    return [\\n      partTuple(['box', 0.017, 0.06, 0.017], 0, 0.11, 0, grip.Ie, grip.It, look.grip),\\n      partTuple(['ball', 0.02], -0.08, 0.16, 0, pommel.Ie, pommel.It, look.hilt),\\n      partTuple(['box', 0.04, 0.01, 0.013], 0.09, 0.05, 0, cross.Ie, cross.It, look.hilt),\\n      partTuple(['box', 0.016, L / 2, 0.0045], 0.11 + L / 2, 0.63, blade.comY, blade.Ie, blade.It, 0xd2d8dd, true),\\n    ];\\n  }\",\"decorate\":\"decorate(group, look) {\\n    // 손등 가리개(나크본) 고리 (연구 세션 디자인, 물리 무관)\\n    const guard = new THREE.Mesh(new THREE.TorusGeometry(0.055, 0.005, 8, 20, Math.PI), metalMat(look?.hilt ?? 0x8a7a5a, { rough: 0.4 }));\\n    guard.position.set(0, 0.035, 0.02);\\n    guard.rotation.set(0, Math.PI / 2, Math.PI / 2);\\n    guard.castShadow = true;\\n    group.add(guard);\\n  }\",\"id\":\"sabre\",\"edged\":true,\"tier\":\"common\",\"power\":1,\"durability\":0.8,\"fragility\":0.056,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":true,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"gripAlong\":-0.14,\"twoHand\":false,\"oneHandStance\":true,\"soundMaterial\":\"steel\",\"capFromGrip\":true,\"frame\":\"one\",\"style\":\"cut\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.017,
+          0.06,
+          0.017
+        ],
+        0,
+        [
+          0.11,
+          0,
+          0.00014259666666666666,
+          0.000021193333333333336
+        ],
+        4861466,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.02
+        ],
+        -0.08,
+        [
+          0.16,
+          0,
+          0.000025600000000000002,
+          0.000025600000000000002
+        ],
+        10134445,
+        false
+      ],
+      [
+        [
+          "box",
+          0.04,
+          0.01,
+          0.013
+        ],
+        0.09,
+        [
+          0.05,
+          0,
+          0.000028333333333333335,
+          0.000029483333333333336
+        ],
+        10134445,
+        false
+      ],
+      [
+        [
+          "box",
+          0.016,
+          0.415,
+          0.0045
+        ],
+        0.525,
+        [
+          0.63,
+          -0.03319999999999998,
+          0.0249988032,
+          0.00002478099762470309
+        ],
+        13818077,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 0.95,
+      "com": 0.3174042105263158,
+      "I": 0.1790006944,
+      "length": 0.94
+    }
+  },
+  "rapier": {
+    "spec": "{\"nameKo\":\"레이피어\",\"nameEn\":\"Rapier\",\"desc\":\"르네상스 신사들이 평상복에 차고 다니던 결투검.\\n가장 빨리 찌르지만 베기는 약하다.\",\"grip\":\"one-hand\",\"material\":\"steel\",\"tier\":\"common\",\"hiltLength\":0.1,\"bladeLength\":0.95,\"mCut\":0.5,\"mThrust\":1.3,\"mBlunt\":0.7,\"thrustStyle\":{\"recover\":0.6,\"reach\":0.1,\"gap\":0.3,\"window\":0.12},\"partMesh\":\"(idx, isBlade, shape, color, matOpts, look, tier) => {\\n    const F = finishOf(tier);\\n    if (isBlade) {\\n      if (o.bladeMesh) return o.bladeMesh(shape, color, matOpts);\\n      if (shape[0] !== 'box') return undefined;\\n      const [, hx, hy, hz] = shape;\\n      const mat = new THREE.MeshStandardMaterial({\\n        color,\\n        vertexColors: true,\\n        roughness: F.blade,\\n        metalness: F.metal,\\n        envMap: weaponEnv(),\\n        envMapIntensity: F.env,\\n        side: THREE.DoubleSide,\\n        ...(F.sheen ? { emissive: F.sheen, emissiveIntensity: 0.06 } : {}),\\n      });\\n      const m = new THREE.Mesh(bladeGeometry(hx, hy, hz, o.blade), mat);\\n      m.castShadow = true;\\n      return m;\\n    }\\n    const metalColor = o.metal ?? look?.hilt ?? 0x9aa3ad;\\n    if (idx === 0 && shape[0] === 'box' && o.grip) {\\n      const [, hx, hy, hz] = shape;\\n      return gripMesh(hx, hy, hz, o.grip.color ?? color, o.grip.style ?? 'leather', F, o.pommel?.color ?? metalColor);\\n    }\\n    if (idx === 1 && shape[0] === 'ball' && o.pommel) return pommelMesh(shape[1], o.pommel.color ?? color, o.pommel.style ?? 'wheel', F);\\n    if (idx === 2 && o.guard) return guardMesh(shape, o.guard.color ?? color, o.guard.style ?? 'bar', F);\\n    return undefined;\\n  }\",\"buildParts\":\"buildParts(look) {\\n    const L = this.bladeLength;\\n    const grip = boxInertia(0.08, 0.014, 0.055, 0.014);\\n    const pommel = sphereInertia(0.09, 0.018);\\n    const cup = sphereInertia(0.55, 0.05); // 컵 힐트: 손을 덮는 둥근 방패\\n    const blade = bladeInertia(0.38, L, 0.3, 0.24, 0.018, 0.012); // 가늘고 뻣뻣한(다이아몬드 단면) 찌르기 전용\\n    return [\\n      partTuple(['box', 0.014, 0.055, 0.014], 0, 0.08, 0, grip.Ie, grip.It, look.grip),\\n      partTuple(['ball', 0.018], -0.07, 0.09, 0, pommel.Ie, pommel.It, look.hilt),\\n      partTuple(['ball', 0.05], 0.06, 0.55, 0, cup.Ie, cup.It, look.hilt),\\n      partTuple(['box', 0.009, L / 2, 0.006], 0.1 + L / 2, 0.38, blade.comY, blade.Ie, blade.It, 0xdfe4e8, true),\\n    ];\\n  }\",\"decorate\":\"decorate(group, look) {\\n    const mat = metalMat(look.hilt, { rough: 0.34 });\\n    for (const a of [0, Math.PI / 2, Math.PI, (Math.PI * 3) / 2]) {\\n      const bar = addMesh(group, new THREE.TorusGeometry(0.05, 0.0035, 6, 12, Math.PI * 0.6), mat, [0, -0.02, 0]);\\n      bar.rotation.y = a;\\n      bar.rotation.z = Math.PI / 2.3;\\n      bar.castShadow = true;\\n    }\\n  }\",\"id\":\"rapier\",\"edged\":true,\"power\":1,\"durability\":0.8,\"fragility\":0.056,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":true,\"ignoreArmor\":false,\"spike\":false,\"breakY\":null,\"gripAlong\":-0.14,\"twoHand\":false,\"oneHandStance\":true,\"soundMaterial\":\"steel\",\"controlOverrides\":{\"maxAimTorque\":22},\"capFromGrip\":true,\"frame\":\"one\",\"style\":\"thrust\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.014,
+          0.055,
+          0.014
+        ],
+        0,
+        [
+          0.08,
+          0,
+          0.00008589333333333333,
+          0.000010453333333333335
+        ],
+        4861466,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.018
+        ],
+        -0.07,
+        [
+          0.09,
+          0,
+          0.000011663999999999997,
+          0.000011663999999999997
+        ],
+        10134445,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.05
+        ],
+        0.06,
+        [
+          0.55,
+          0,
+          0.0005500000000000001,
+          0.0005500000000000001
+        ],
+        10134445,
+        false
+      ],
+      [
+        [
+          "box",
+          0.009,
+          0.475,
+          0.006
+        ],
+        0.575,
+        [
+          0.38,
+          -0.19,
+          0.019753919999999994,
+          0.00001494726840855107
+        ],
+        14673128,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 1.1,
+      "com": 0.15727272727272726,
+      "I": 0.07914797733333331,
+      "length": 1.05
+    }
+  },
+  "falchion": {
+    "spec": "{\"nameKo\":\"팔쉬온 (반달칼)\",\"nameEn\":\"Falchion\",\"desc\":\"잉글랜드의 한 가문은 이 칼로 용을 베었다고 전한다.\\n내려찍듯 베면 도끼처럼 들어간다.\",\"grip\":\"one-hand\",\"material\":\"steel\",\"enterParry\":true,\"hiltLength\":0.1,\"bladeLength\":0.8,\"mCut\":1.15,\"mThrust\":0.6,\"mBlunt\":1.4,\"techReachScale\":1,\"partMesh\":\"(idx, isBlade, shape, color, matOpts, look, tier) => {\\n    const F = finishOf(tier);\\n    if (isBlade) {\\n      if (o.bladeMesh) return o.bladeMesh(shape, color, matOpts);\\n      if (shape[0] !== 'box') return undefined;\\n      const [, hx, hy, hz] = shape;\\n      const mat = new THREE.MeshStandardMaterial({\\n        color,\\n        vertexColors: true,\\n        roughness: F.blade,\\n        metalness: F.metal,\\n        envMap: weaponEnv(),\\n        envMapIntensity: F.env,\\n        side: THREE.DoubleSide,\\n        ...(F.sheen ? { emissive: F.sheen, emissiveIntensity: 0.06 } : {}),\\n      });\\n      const m = new THREE.Mesh(bladeGeometry(hx, hy, hz, o.blade), mat);\\n      m.castShadow = true;\\n      return m;\\n    }\\n    const metalColor = o.metal ?? look?.hilt ?? 0x9aa3ad;\\n    if (idx === 0 && shape[0] === 'box' && o.grip) {\\n      const [, hx, hy, hz] = shape;\\n      return gripMesh(hx, hy, hz, o.grip.color ?? color, o.grip.style ?? 'leather', F, o.pommel?.color ?? metalColor);\\n    }\\n    if (idx === 1 && shape[0] === 'ball' && o.pommel) return pommelMesh(shape[1], o.pommel.color ?? color, o.pommel.style ?? 'wheel', F);\\n    if (idx === 2 && o.guard) return guardMesh(shape, o.guard.color ?? color, o.guard.style ?? 'bar', F);\\n    return undefined;\\n  }\",\"buildParts\":\"buildParts(look) {\\n    const L = this.bladeLength;\\n    const grip = boxInertia(0.08, 0.018, 0.06, 0.018);\\n    const pommel = sphereInertia(0.16, 0.022);\\n    const cross = boxInertia(0.05, 0.06, 0.012, 0.016);\\n    const blade = bladeInertia(0.614, L, 0.4, 0.26, 0.05, 0.007); // 끝으로 갈수록 넓어지는 칼날\\n    return [\\n      partTuple(['box', 0.018, 0.06, 0.018], 0, 0.08, 0, grip.Ie, grip.It, look.grip),\\n      partTuple(['ball', 0.022], -0.08, 0.16, 0, pommel.Ie, pommel.It, look.hilt),\\n      partTuple(['box', 0.06, 0.012, 0.016], 0.09, 0.05, 0, cross.Ie, cross.It, look.hilt),\\n      partTuple(['box', 0.03, L / 2, 0.005], 0.1 + L / 2, 0.614, blade.comY, blade.Ie, blade.It, 0xd4dae0, true),\\n    ];\\n  }\",\"id\":\"falchion\",\"edged\":true,\"tier\":\"common\",\"power\":1,\"durability\":0.8,\"fragility\":0.056,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":true,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"gripAlong\":-0.14,\"twoHand\":false,\"oneHandStance\":true,\"soundMaterial\":\"steel\",\"controlOverrides\":{\"maxAimTorque\":22},\"capFromGrip\":true,\"frame\":\"one\",\"style\":\"cut\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.018,
+          0.06,
+          0.018
+        ],
+        0,
+        [
+          0.08,
+          0,
+          0.00010463999999999999,
+          0.000017279999999999997
+        ],
+        4861466,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.022
+        ],
+        -0.08,
+        [
+          0.16,
+          0,
+          0.000030975999999999996,
+          0.000030975999999999996
+        ],
+        10134445,
+        false
+      ],
+      [
+        [
+          "box",
+          0.06,
+          0.012,
+          0.016
+        ],
+        0.09,
+        [
+          0.05,
+          0,
+          0.0000624,
+          0.00006426666666666668
+        ],
+        10134445,
+        false
+      ],
+      [
+        [
+          "box",
+          0.03,
+          0.4,
+          0.005
+        ],
+        0.5,
+        [
+          0.614,
+          -0.07999999999999999,
+          0.026564096000000006,
+          0.000024459125098970707
+        ],
+        13949664,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 0.9039999999999999,
+      "com": 0.2760840707964602,
+      "I": 0.13650071200000002,
+      "length": 0.9
+    }
+  },
+  "monohoshizao": {
+    "spec": "{\"nameKo\":\"모노호시자오\",\"nameEn\":\"Monohoshizao\",\"desc\":\"간류지마에서 무사시와 겨룬 사사키 코지로의 칼.\\n빨래 장대라 불릴 만큼 길었다. (비검: 진 · 츠바메가에시)\",\"grip\":\"two-hand\",\"material\":\"steel\",\"school\":\"japanese\",\"tier\":\"epic\",\"ability\":\"비검: 진 · 츠바메가에시\",\"motionSkip\":[\"지붕 (폼 타크)\"],\"secretBlade\":{\"tech\":\"tsubameGaeshi\",\"k\":1,\"upY\":0.2,\"open\":true,\"kin\":0.5,\"hold\":0.2},\"hiltLength\":0.25,\"bladeLength\":0.9,\"gripAlong\":-0.22,\"mCut\":1.7,\"mThrust\":0.85,\"mBlunt\":0.95,\"controlOverrides\":{\"maxAimTorque\":26,\"aimStiffness\":70,\"wristVmax\":34},\"partMesh\":\"(idx, isBlade, shape, ...rest) => {\\n    if (idx === 0 && gripExt && shape[0] === 'box') {\\n      const m = kit(idx, isBlade, ['box', shape[1], shape[2] + gripExt / 2, shape[3]], ...rest);\\n      if (m) for (const c of m.children) c.position.y -= gripExt / 2;\\n      return m;\\n    }\\n    const m = kit(idx, isBlade, shape, ...rest);\\n    if (idx === 1 && m) for (const c of m.children) c.position.y += dy;\\n    return m;\\n  }\",\"buildParts\":\"buildParts(look) {\\n    const L = this.bladeLength;\\n    // 균형 재분배 (밸런스 시뮬로 확인한 근본 원인 — 3라운드 카타나와 같은 처방): 칼날 0.85kg(총중량의 74%)이\\n    //  0.9m 끝까지 실려 손 기준 휘두름 관성이 커서, 긴 칼인데 늦게 돌아 간격 싸움에서 진다(13%).\\n    //  총중량(1.15kg)은 그대로 두고 칼날 0.72kg, 긴 츠카(목심+상어가죽+비단 끈, 실물 0.3kg대) 0.3kg,\\n    //  카시라 0.09kg 로 손 쪽에 무게를 옮긴다.\\n    const grip = boxInertia(0.3, 0.014, 0.14, 0.017); // 츠카: 길고 타원 단면\\n    const pommel = sphereInertia(0.09, 0.014); // 카시라(자루끝 마개)\\n    const cross = boxInertia(0.04, 0.04, 0.005, 0.04); // 츠바: 얇고 넓은 원반\\n    const blade = bladeInertia(0.72, L, 0.42, 0.25, 0.03, 0.007);\\n    return [\\n      partTuple(['box', 0.014, 0.14, 0.017], 0, 0.3, 0, grip.Ie, grip.It, look.grip),\\n      partTuple(['ball', 0.014], -0.2, 0.09, 0, pommel.Ie, pommel.It, look.hilt),\\n      partTuple(['box', 0.04, 0.005, 0.04], 0.24, 0.04, 0, cross.Ie, cross.It, look.hilt),\\n      partTuple(['box', 0.015, L / 2, 0.0035], 0.25 + L / 2, 0.72, blade.comY, blade.Ie, blade.It, 0xc1d3db, true), // 같은 에픽 청강검과 광도를 맞춘 강철색 (하몬은 꼭짓점 색으로 더 밝다)\\n    ];\\n  }\",\"decorate\":\"decorate(group) {\\n    const iron = metalMat(0x2b2e33, { rough: 0.45 });\\n    const gold = metalMat(0xc9a14a, { rough: 0.22 });\\n    const rim = addMesh(group, new THREE.TorusGeometry(0.0455, 0.0026, 8, 32), gold, [0, 0.24, 0]);\\n    rim.rotation.x = Math.PI / 2;\\n    const habaki = addMesh(group, new THREE.BoxGeometry(0.034, 0.03, 0.011), gold, [0, 0.262, 0]); // 칼날 밑동을 감싼다\\n    habaki.castShadow = true;\\n    const silk = new THREE.MeshStandardMaterial({ color: 0x1b1d2e, roughness: 0.85 });\\n    const same = new THREE.MeshStandardMaterial({ color: 0xe8e2d0, roughness: 0.7 });\\n    for (const [yc, h] of [[0.186, 0.092], [-0.201, 0.122]]) {\\n      const ext = addMesh(group, new THREE.CylinderGeometry(0.0132, 0.0132, h, 14), same, [0, yc, 0]); // 츠카 연장 (츠바 쪽·카시라 쪽)\\n      ext.scale.z = 1.2;\\n      ext.castShadow = true;\\n    }\\n    const fuchi = addMesh(group, new THREE.CylinderGeometry(0.0148, 0.0148, 0.008, 14), iron, [0, 0.231, 0]);\\n    fuchi.scale.z = 1.2;\\n    // 츠카이토: 납작한 비단 끈이 앞뒤 면에서 X 자로 엇갈려 감기고, 엇갈린 사이사이로 흰 사메가 마름모꼴로 드러난다\\n    //  (고리 모양으로 감으면 장난감처럼 보였다). 옆면에서는 끈이 꺾여 넘어가는 매듭이 보인다. 끈 56 · 매듭 28 상자가 메쉬 하나\\n    //  (10/21 츠카를 카시라 쪽으로 늘인 만큼 두 줄 더 — 같은 간격 그대로 −0.178 → −0.246 부터)\\n    addTsukaIto(group, silk, -0.246);\\n  }\",\"id\":\"monohoshizao\",\"edged\":true,\"power\":1.1,\"durability\":0.95,\"fragility\":0.0104,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":true,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"twoHand\":true,\"oneHandStance\":false,\"soundMaterial\":\"steel\",\"capFromGrip\":true,\"frame\":\"heavy\",\"style\":\"cut\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.014,
+          0.14,
+          0.017
+        ],
+        0,
+        [
+          0.3,
+          0,
+          0.0019796,
+          0.000048500000000000007
+        ],
+        4861466,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.014
+        ],
+        -0.2,
+        [
+          0.09,
+          0,
+          0.000007056,
+          0.000007056
+        ],
+        10134445,
+        false
+      ],
+      [
+        [
+          "box",
+          0.04,
+          0.005,
+          0.04
+        ],
+        0.24,
+        [
+          0.04,
+          0,
+          0.00002166666666666667,
+          0.000042666666666666676
+        ],
+        10134445,
+        false
+      ],
+      [
+        [
+          "box",
+          0.015,
+          0.45,
+          0.0035
+        ],
+        0.7,
+        [
+          0.72,
+          -0.07200000000000002,
+          0.03645,
+          0.000028321140142517815
+        ],
+        12702683,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 1.15,
+      "com": 0.3858782608695651,
+      "I": 0.3283188026666666,
+      "length": 1.15
+    }
+  },
+  "qinggang": {
+    "spec": "{\"nameKo\":\"청강검\",\"nameEn\":\"Qinggang Sword\",\"desc\":\"장판파에서 조자룡이 하후은에게서 빼앗은 보검.\\n쇠도 진흙처럼 자른다. (창천: 무기 절단)\",\"grip\":\"one-hand\",\"material\":\"steel\",\"school\":\"chinese\",\"enterParry\":true,\"tier\":\"epic\",\"ability\":\"창천: 무기 절단\",\"fragility\":0.0052,\"breakMult\":3,\"hiltLength\":0.12,\"bladeLength\":0.74,\"mCut\":1.25,\"mThrust\":1.15,\"mBlunt\":0.95,\"partMesh\":\"(idx, isBlade, shape, color, matOpts, look, tier) => {\\n    const F = finishOf(tier);\\n    if (isBlade) {\\n      if (o.bladeMesh) return o.bladeMesh(shape, color, matOpts);\\n      if (shape[0] !== 'box') return undefined;\\n      const [, hx, hy, hz] = shape;\\n      const mat = new THREE.MeshStandardMaterial({\\n        color,\\n        vertexColors: true,\\n        roughness: F.blade,\\n        metalness: F.metal,\\n        envMap: weaponEnv(),\\n        envMapIntensity: F.env,\\n        side: THREE.DoubleSide,\\n        ...(F.sheen ? { emissive: F.sheen, emissiveIntensity: 0.06 } : {}),\\n      });\\n      const m = new THREE.Mesh(bladeGeometry(hx, hy, hz, o.blade), mat);\\n      m.castShadow = true;\\n      return m;\\n    }\\n    const metalColor = o.metal ?? look?.hilt ?? 0x9aa3ad;\\n    if (idx === 0 && shape[0] === 'box' && o.grip) {\\n      const [, hx, hy, hz] = shape;\\n      return gripMesh(hx, hy, hz, o.grip.color ?? color, o.grip.style ?? 'leather', F, o.pommel?.color ?? metalColor);\\n    }\\n    if (idx === 1 && shape[0] === 'ball' && o.pommel) return pommelMesh(shape[1], o.pommel.color ?? color, o.pommel.style ?? 'wheel', F);\\n    if (idx === 2 && o.guard) return guardMesh(shape, o.guard.color ?? color, o.guard.style ?? 'bar', F);\\n    return undefined;\\n  }\",\"buildParts\":\"buildParts(look) {\\n    const L = this.bladeLength;\\n    const grip = boxInertia(0.1, 0.015, 0.09, 0.015);\\n    const pommel = sphereInertia(0.1, 0.02);\\n    const cross = boxInertia(0.04, 0.035, 0.008, 0.012);\\n    const blade = bladeInertia(0.61, L, 0.36, 0.25, 0.028, 0.009);\\n    return [\\n      partTuple(['box', 0.015, 0.09, 0.015], 0, 0.1, 0, grip.Ie, grip.It, QINGGANG_LOOK.grip),\\n      partTuple(['ball', 0.02], -0.09, 0.1, 0, pommel.Ie, pommel.It, QINGGANG_LOOK.hilt),\\n      partTuple(['box', 0.035, 0.008, 0.012], 0.11, 0.04, 0, cross.Ie, cross.It, QINGGANG_LOOK.hilt),\\n      partTuple(['box', 0.014, L / 2, 0.0045], 0.12 + L / 2, 0.61, blade.comY, blade.Ie, blade.It, 0xc4dbe1, true), // 푸른 강철(청강) — 같은 에픽 모노호시자오와 광도를 맞춤\\n    ];\\n  }\",\"decorate\":\"decorate(group, look) {\\n    const bronze = metalMat(QINGGANG_LOOK.hilt, { rough: 0.28 });\\n    // 호심 코등이: 납작 마름모 (물리 콜라이더는 그대로 상자)\\n    const flourish = addMesh(group, new THREE.OctahedronGeometry(0.03, 0), bronze, [0, 0.11, 0]);\\n    flourish.scale.set(1, 0.32, 0.55);\\n    flourish.castShadow = true;\\n    // 탄커우(吞口): 칼날 밑동을 한 뼘 감싸는 청동 목띠 — 명검의 \\\"세공\\\" 포인트\\n    const collar = addMesh(group, new THREE.CylinderGeometry(0.012, 0.014, 0.035, 8), bronze, [0, 0.145, 0]);\\n    collar.scale.set(1.15, 1, 0.55); // 칼날 단면(넓고 얇음)에 맞춰 눌러 준다\\n    collar.castShadow = true;\\n    // 자루의 가는 청동 선 두 가닥 (옻칠 위 상감 느낌)\\n    for (const y of [0.035, 0.075]) {\\n      const ring = addMesh(group, new THREE.TorusGeometry(0.0165, 0.0022, 6, 14), bronze, [0, y, 0]);\\n      ring.rotation.x = Math.PI / 2;\\n    }\\n    // 붉은 검수(劍穗): 검 끝이 아니라 자루 끝에 매다는 술\\n    const cordMat = new THREE.MeshStandardMaterial({ color: 0x7a1414, roughness: 0.9 });\\n    const tuftMat = new THREE.MeshStandardMaterial({ color: 0xb01818, roughness: 0.95 });\\n    const cord = addMesh(group, new THREE.CylinderGeometry(0.004, 0.004, 0.09, 6), cordMat, [0, -0.14, 0]);\\n    cord.castShadow = true;\\n    addMesh(group, new THREE.SphereGeometry(0.018, 8, 6), tuftMat, [0, -0.185, 0]);\\n  }\",\"id\":\"qinggang\",\"edged\":true,\"power\":1.1,\"durability\":0.95,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":true,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"gripAlong\":-0.14,\"twoHand\":false,\"oneHandStance\":true,\"soundMaterial\":\"steel\",\"controlOverrides\":{\"maxAimTorque\":22},\"capFromGrip\":true,\"frame\":\"one\",\"style\":\"versatile\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.015,
+          0.09,
+          0.015
+        ],
+        0,
+        [
+          0.1,
+          0,
+          0.00027749999999999997,
+          0.000015
+        ],
+        1513247,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.02
+        ],
+        -0.09,
+        [
+          0.1,
+          0,
+          0.000016000000000000003,
+          0.000016000000000000003
+        ],
+        9071931,
+        false
+      ],
+      [
+        [
+          "box",
+          0.035,
+          0.008,
+          0.012
+        ],
+        0.11,
+        [
+          0.04,
+          0,
+          0.00001718666666666667,
+          0.000018253333333333337
+        ],
+        9071931,
+        false
+      ],
+      [
+        [
+          "box",
+          0.014,
+          0.37,
+          0.0045
+        ],
+        0.49,
+        [
+          0.61,
+          -0.10360000000000001,
+          0.02087725,
+          0.000023994299287410926
+        ],
+        12901345,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 0.85,
+      "com": 0.27188705882352937,
+      "I": 0.11355796226666665,
+      "length": 0.86
+    }
+  },
+  "excalibur": {
+    "spec": "{\"nameKo\":\"엑스칼리버\",\"nameEn\":\"Excalibur\",\"desc\":\"호수의 여인이 아서에게 내린 왕의 검.\\n왕이 죽자 호수에 던져졌고, 물속의 손이 받아 갔다.\",\"grip\":\"two-hand\",\"material\":\"steel\",\"tier\":\"legend\",\"hiltLength\":0.13,\"bladeLength\":1,\"gripAlong\":-0.15,\"mCut\":1.2,\"mThrust\":1.2,\"mBlunt\":1.1,\"partMesh\":\"(idx, isBlade, shape, color, matOpts, look, tier) => {\\n    const F = finishOf(tier);\\n    if (isBlade) {\\n      if (o.bladeMesh) return o.bladeMesh(shape, color, matOpts);\\n      if (shape[0] !== 'box') return undefined;\\n      const [, hx, hy, hz] = shape;\\n      const mat = new THREE.MeshStandardMaterial({\\n        color,\\n        vertexColors: true,\\n        roughness: F.blade,\\n        metalness: F.metal,\\n        envMap: weaponEnv(),\\n        envMapIntensity: F.env,\\n        side: THREE.DoubleSide,\\n        ...(F.sheen ? { emissive: F.sheen, emissiveIntensity: 0.06 } : {}),\\n      });\\n      const m = new THREE.Mesh(bladeGeometry(hx, hy, hz, o.blade), mat);\\n      m.castShadow = true;\\n      return m;\\n    }\\n    const metalColor = o.metal ?? look?.hilt ?? 0x9aa3ad;\\n    if (idx === 0 && shape[0] === 'box' && o.grip) {\\n      const [, hx, hy, hz] = shape;\\n      return gripMesh(hx, hy, hz, o.grip.color ?? color, o.grip.style ?? 'leather', F, o.pommel?.color ?? metalColor);\\n    }\\n    if (idx === 1 && shape[0] === 'ball' && o.pommel) return pommelMesh(shape[1], o.pommel.color ?? color, o.pommel.style ?? 'wheel', F);\\n    if (idx === 2 && o.guard) return guardMesh(shape, o.guard.color ?? color, o.guard.style ?? 'bar', F);\\n    return undefined;\\n  }\",\"buildParts\":\"function excaliburParts(look) {\\n  const L = this.bladeLength;\\n  const grip = boxInertia(0.14, 0.019, 0.1, 0.019);\\n  const pommel = sphereInertia(0.36, 0.032); // 보석 박힌 폼멜\\n  const cross = boxInertia(0.15, 0.115, 0.016, 0.024);\\n  const blade = bladeInertia(0.7, L, 0.34, 0.253, 0.05, 0.016);\\n  return [\\n    partTuple(['box', 0.019, 0.1, 0.019], 0, 0.14, 0, grip.Ie, grip.It, 0x2a2440),\\n    partTuple(['ball', 0.032], -0.13, 0.36, 0, pommel.Ie, pommel.It, 0xf2c94c),\\n    partTuple(['box', 0.115, 0.016, 0.024], 0.115, 0.15, 0, cross.Ie, cross.It, 0xf2c94c),\\n    partTuple(['box', 0.025, L / 2, 0.008], 0.13 + L / 2, 0.7, blade.comY, blade.Ie, blade.It, 0xeef3f8, true),\\n  ];\\n}\",\"decorate\":\"function excaliburGems(group) {\\n  const gems = [\\n    { color: 0xd63b3b, pos: [0, -0.13, 0.0165], r: 0.011 }, // 폼멜 앞면\\n    { color: 0xd63b3b, pos: [0, -0.13, -0.0165], r: 0.011 }, // 폼멜 뒷면\\n    { color: 0x2f6fd6, pos: [0.055, 0.115, 0.019], r: 0.008 }, // 코등이 오른팔 앞\\n    { color: 0x2fa85a, pos: [-0.055, 0.115, 0.019], r: 0.008 }, // 코등이 왼팔 앞\\n    { color: 0x2f6fd6, pos: [0.055, 0.115, -0.019], r: 0.008 }, // 뒷면\\n    { color: 0x2fa85a, pos: [-0.055, 0.115, -0.019], r: 0.008 },\\n  ];\\n  for (const { color, pos, r } of gems) {\\n    const gem = addMesh(group, new THREE.OctahedronGeometry(r, 0), new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 0.35, roughness: 0.08, metalness: 0.1, envMap: weaponEnv(), envMapIntensity: 1.2 }), pos);\\n    gem.scale.z = 0.55;\\n    gem.castShadow = true;\\n  }\\n}\",\"id\":\"excalibur\",\"edged\":true,\"power\":1.2,\"durability\":1,\"fragility\":0,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":false,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"twoHand\":true,\"oneHandStance\":false,\"soundMaterial\":\"steel\",\"controlOverrides\":{\"maxAimTorque\":26},\"capFromGrip\":true,\"frame\":\"two\",\"style\":\"versatile\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.019,
+          0.1,
+          0.019
+        ],
+        0,
+        [
+          0.14,
+          0,
+          0.00048351333333333346,
+          0.00003369333333333333
+        ],
+        2761792,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.032
+        ],
+        -0.13,
+        [
+          0.36,
+          0,
+          0.00014745600000000002,
+          0.00014745600000000002
+        ],
+        15911244,
+        false
+      ],
+      [
+        [
+          "box",
+          0.115,
+          0.016,
+          0.024
+        ],
+        0.115,
+        [
+          0.15,
+          0,
+          0.0006740499999999999,
+          0.0006900500000000001
+        ],
+        15911244,
+        false
+      ],
+      [
+        [
+          "box",
+          0.025,
+          0.5,
+          0.008
+        ],
+        0.63,
+        [
+          0.7,
+          -0.15999999999999998,
+          0.04480629999999999,
+          0.00006373713380839273
+        ],
+        15660024,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 1.35,
+      "com": 0.2218148148148148,
+      "I": 0.20880906933333335,
+      "length": 1.13
+    }
+  },
+  "excalibur_replica": {
+    "spec": "{\"nameKo\":\"엑스칼리버\",\"nameEn\":\"Excalibur\",\"desc\":\"일단은 왕의 검 엑스칼리버, 라고 쓰여 있다.\",\"grip\":\"two-hand\",\"material\":\"steel\",\"tier\":\"common\",\"finishTier\":\"legend\",\"hiltLength\":0.13,\"bladeLength\":1,\"gripAlong\":-0.15,\"partMesh\":\"(idx, isBlade, shape, color, matOpts, look, tier) => {\\n    const F = finishOf(tier);\\n    if (isBlade) {\\n      if (o.bladeMesh) return o.bladeMesh(shape, color, matOpts);\\n      if (shape[0] !== 'box') return undefined;\\n      const [, hx, hy, hz] = shape;\\n      const mat = new THREE.MeshStandardMaterial({\\n        color,\\n        vertexColors: true,\\n        roughness: F.blade,\\n        metalness: F.metal,\\n        envMap: weaponEnv(),\\n        envMapIntensity: F.env,\\n        side: THREE.DoubleSide,\\n        ...(F.sheen ? { emissive: F.sheen, emissiveIntensity: 0.06 } : {}),\\n      });\\n      const m = new THREE.Mesh(bladeGeometry(hx, hy, hz, o.blade), mat);\\n      m.castShadow = true;\\n      return m;\\n    }\\n    const metalColor = o.metal ?? look?.hilt ?? 0x9aa3ad;\\n    if (idx === 0 && shape[0] === 'box' && o.grip) {\\n      const [, hx, hy, hz] = shape;\\n      return gripMesh(hx, hy, hz, o.grip.color ?? color, o.grip.style ?? 'leather', F, o.pommel?.color ?? metalColor);\\n    }\\n    if (idx === 1 && shape[0] === 'ball' && o.pommel) return pommelMesh(shape[1], o.pommel.color ?? color, o.pommel.style ?? 'wheel', F);\\n    if (idx === 2 && o.guard) return guardMesh(shape, o.guard.color ?? color, o.guard.style ?? 'bar', F);\\n    return undefined;\\n  }\",\"buildParts\":\"function excaliburParts(look) {\\n  const L = this.bladeLength;\\n  const grip = boxInertia(0.14, 0.019, 0.1, 0.019);\\n  const pommel = sphereInertia(0.36, 0.032); // 보석 박힌 폼멜\\n  const cross = boxInertia(0.15, 0.115, 0.016, 0.024);\\n  const blade = bladeInertia(0.7, L, 0.34, 0.253, 0.05, 0.016);\\n  return [\\n    partTuple(['box', 0.019, 0.1, 0.019], 0, 0.14, 0, grip.Ie, grip.It, 0x2a2440),\\n    partTuple(['ball', 0.032], -0.13, 0.36, 0, pommel.Ie, pommel.It, 0xf2c94c),\\n    partTuple(['box', 0.115, 0.016, 0.024], 0.115, 0.15, 0, cross.Ie, cross.It, 0xf2c94c),\\n    partTuple(['box', 0.025, L / 2, 0.008], 0.13 + L / 2, 0.7, blade.comY, blade.Ie, blade.It, 0xeef3f8, true),\\n  ];\\n}\",\"decorate\":\"function excaliburGems(group) {\\n  const gems = [\\n    { color: 0xd63b3b, pos: [0, -0.13, 0.0165], r: 0.011 }, // 폼멜 앞면\\n    { color: 0xd63b3b, pos: [0, -0.13, -0.0165], r: 0.011 }, // 폼멜 뒷면\\n    { color: 0x2f6fd6, pos: [0.055, 0.115, 0.019], r: 0.008 }, // 코등이 오른팔 앞\\n    { color: 0x2fa85a, pos: [-0.055, 0.115, 0.019], r: 0.008 }, // 코등이 왼팔 앞\\n    { color: 0x2f6fd6, pos: [0.055, 0.115, -0.019], r: 0.008 }, // 뒷면\\n    { color: 0x2fa85a, pos: [-0.055, 0.115, -0.019], r: 0.008 },\\n  ];\\n  for (const { color, pos, r } of gems) {\\n    const gem = addMesh(group, new THREE.OctahedronGeometry(r, 0), new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 0.35, roughness: 0.08, metalness: 0.1, envMap: weaponEnv(), envMapIntensity: 1.2 }), pos);\\n    gem.scale.z = 0.55;\\n    gem.castShadow = true;\\n  }\\n}\",\"id\":\"excalibur_replica\",\"edged\":true,\"mCut\":1,\"mThrust\":1,\"mBlunt\":1,\"power\":1,\"durability\":0.8,\"fragility\":0.056,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":true,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"twoHand\":true,\"oneHandStance\":false,\"soundMaterial\":\"steel\",\"controlOverrides\":{\"maxAimTorque\":26},\"capFromGrip\":true,\"frame\":\"two\",\"style\":\"versatile\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.019,
+          0.1,
+          0.019
+        ],
+        0,
+        [
+          0.14,
+          0,
+          0.00048351333333333346,
+          0.00003369333333333333
+        ],
+        2761792,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.032
+        ],
+        -0.13,
+        [
+          0.36,
+          0,
+          0.00014745600000000002,
+          0.00014745600000000002
+        ],
+        15911244,
+        false
+      ],
+      [
+        [
+          "box",
+          0.115,
+          0.016,
+          0.024
+        ],
+        0.115,
+        [
+          0.15,
+          0,
+          0.0006740499999999999,
+          0.0006900500000000001
+        ],
+        15911244,
+        false
+      ],
+      [
+        [
+          "box",
+          0.025,
+          0.5,
+          0.008
+        ],
+        0.63,
+        [
+          0.7,
+          -0.15999999999999998,
+          0.04480629999999999,
+          0.00006373713380839273
+        ],
+        15660024,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 1.35,
+      "com": 0.2218148148148148,
+      "I": 0.20880906933333335,
+      "length": 1.13
+    }
+  },
+  "lightsaber": {
+    "spec": "{\"nameKo\":\"라이트세이버\",\"nameEn\":\"Lightsaber\",\"desc\":\"먼 은하에서 온 빛의 칼.\\n무게가 없어 맞대면 밀린다. (고온 플라스마: 갑옷 무시)\",\"grip\":\"two-hand\",\"material\":\"plasma\",\"oneHandStance\":false,\"tier\":\"epic\",\"hiltLength\":0.15,\"bladeLength\":0.9,\"ability\":\"고온 플라스마: 갑옷 무시\",\"edged\":true,\"ignoreArmor\":true,\"mCut\":1.35,\"mThrust\":1.3,\"controlOverrides\":{\"maxAimTorque\":26,\"wristVmax\":36,\"aimDamping\":9},\"partMesh\":\"(idx, isBlade, shape, ...rest) => {\\n    if (idx === 0 && gripExt && shape[0] === 'box') {\\n      const m = kit(idx, isBlade, ['box', shape[1], shape[2] + gripExt / 2, shape[3]], ...rest);\\n      if (m) for (const c of m.children) c.position.y -= gripExt / 2;\\n      return m;\\n    }\\n    const m = kit(idx, isBlade, shape, ...rest);\\n    if (idx === 1 && m) for (const c of m.children) c.position.y += dy;\\n    return m;\\n  }\",\"buildParts\":\"buildParts(look) {\\n    const L = this.bladeLength;\\n    const grip = boxInertia(0.25, 0.016, 0.11, 0.016);\\n    const pommel = sphereInertia(0.35, 0.018); // 배터리·이미터 쪽에 무게가 쏠린다\\n    const cross = boxInertia(0.05, 0.017, 0.01, 0.017);\\n    // 플라스마 기둥: 테이퍼가 없는 균일한 막대라 무게중심은 정확히 가운데(50%),\\n    //  회전반경은 균일봉 이론값(1/√12 ≈ 0.289)에 가깝다\\n    const blade = bladeInertia(0.12, L, 0.5, 0.289, 0.024, 0.024);\\n    return [\\n      partTuple(['box', 0.016, 0.11, 0.016], 0, 0.25, 0, grip.Ie, grip.It, look.metal ?? 0x9aa3ad),\\n      partTuple(['ball', 0.018], -0.12, 0.35, 0, pommel.Ie, pommel.It, 0x4a4f57),\\n      partTuple(['box', 0.017, 0.01, 0.017], 0.13, 0.05, 0, cross.Ie, cross.It, 0x2b2e33),\\n      partTuple(['box', 0.012, L / 2, 0.012], 0.15 + L / 2, 0.12, blade.comY, blade.Ie, blade.It, 0x3fa9f5, true),\\n    ];\\n  }\",\"decorate\":\"decorate(group) {\\n    const L = this.bladeLength;\\n    const glow = new THREE.Mesh(\\n      new THREE.CylinderGeometry(0.028, 0.028, L, 12, 1, true),\\n      new THREE.MeshBasicMaterial({ color: 0x8fd4ff, transparent: true, opacity: 0.35, side: THREE.DoubleSide, toneMapped: false, depthWrite: false }),\\n    );\\n    glow.position.y = 0.15 + L / 2;\\n    group.add(glow);\\n  }\",\"id\":\"lightsaber\",\"mBlunt\":1,\"power\":1.1,\"durability\":0.95,\"fragility\":0.0104,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"gripAlong\":-0.14,\"twoHand\":true,\"soundMaterial\":\"plasma\",\"capFromGrip\":true,\"frame\":\"two\",\"style\":\"versatile\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.016,
+          0.11,
+          0.016
+        ],
+        0,
+        [
+          0.25,
+          0,
+          0.0010296666666666666,
+          0.00004266666666666666
+        ],
+        12173511,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.018
+        ],
+        -0.12,
+        [
+          0.35,
+          0,
+          0.00004535999999999999,
+          0.00004535999999999999
+        ],
+        4869975,
+        false
+      ],
+      [
+        [
+          "box",
+          0.017,
+          0.01,
+          0.017
+        ],
+        0.13,
+        [
+          0.05,
+          0,
+          0.000006483333333333334,
+          0.000009633333333333335
+        ],
+        2829875,
+        false
+      ],
+      [
+        [
+          "box",
+          0.012,
+          0.45,
+          0.012
+        ],
+        0.6,
+        [
+          0.12,
+          0,
+          0.0081182412,
+          0.000007866983372921616
+        ],
+        4172277,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 0.77,
+      "com": 0.0474025974025974,
+      "I": 0.0582847512,
+      "length": 1.05
+    }
+  },
+  "tree_branch": {
+    "spec": "{\"nameKo\":\"나뭇가지\",\"nameEn\":\"Tree Branch\",\"desc\":\"길에서 주운 나뭇가지. 날이 없다.\\n세게 부딪히면 부러진다. 행운을 빈다.\",\"grip\":\"one-hand\",\"material\":\"wood\",\"hiltLength\":0.15,\"bladeLength\":0.71,\"tier\":\"trash\",\"edged\":false,\"partMesh\":\"() => new THREE.Group()\",\"buildParts\":\"buildParts(look) {\\n    const L = this.bladeLength;\\n    const grip = boxInertia(0.05, 0.02, 0.08, 0.018);\\n    const pommel = sphereInertia(0.02, 0.015); // 뭉툭한 밑동\\n    const blade = bladeInertia(0.22, L, 0.55, 0.29, 0.036, 0.03); // 울퉁불퉁, 거의 균일한 막대 (0.25 → 0.22: 10/8 10 % 단축)\\n    return [\\n      partTuple(['box', 0.02, 0.08, 0.018], 0, 0.05, 0, grip.Ie, grip.It, 0x5a4530),\\n      partTuple(['ball', 0.015], -0.1, 0.02, 0, pommel.Ie, pommel.It, 0x5a4530),\\n      partTuple(['box', 0.018, L / 2, 0.015], 0.15 + L / 2, 0.22, blade.comY, blade.Ie, blade.It, 0x6b4423, false),\\n    ];\\n  }\",\"decorate\":\"decorate(group) {\\n    drawTreeBranch(group);\\n  }\",\"id\":\"tree_branch\",\"mCut\":1,\"mThrust\":1,\"mBlunt\":1,\"power\":0.7,\"durability\":0.4,\"fragility\":0.4,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":true,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"gripAlong\":-0.14,\"twoHand\":false,\"oneHandStance\":true,\"soundMaterial\":\"wood\",\"controlOverrides\":{\"maxAimTorque\":22},\"capFromGrip\":true,\"frame\":\"one\",\"style\":\"blunt\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.02,
+          0.08,
+          0.018
+        ],
+        0,
+        [
+          0.05,
+          0,
+          0.00011333333333333334,
+          0.00001206666666666667
+        ],
+        5915952,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.015
+        ],
+        -0.1,
+        [
+          0.02,
+          0,
+          0.0000018,
+          0.0000018
+        ],
+        5915952,
+        false
+      ],
+      [
+        [
+          "box",
+          0.018,
+          0.355,
+          0.015
+        ],
+        0.505,
+        [
+          0.22,
+          0.03550000000000003,
+          0.009326858199999998,
+          0.000027042755344418052
+        ],
+        7029795,
+        false
+      ]
+    ],
+    "phys": {
+      "mass": 0.29000000000000004,
+      "com": 0.4031379310344827,
+      "I": 0.07391284653333333,
+      "length": 0.86
+    }
+  },
+  "rubber_chicken": {
+    "spec": "{\"nameKo\":\"고무 닭\",\"nameEn\":\"Rubber Chicken\",\"desc\":\"누르면 삑 소리 나는 고무 닭.\",\"grip\":\"one-hand\",\"material\":\"rubber\",\"tier\":\"trash\",\"fragility\":0.95,\"hiltLength\":0.1,\"bladeLength\":0.35,\"edged\":false,\"mBlunt\":1.2,\"controlOverrides\":{\"maxAimTorque\":22,\"aimStiffness\":34},\"partMesh\":\"() => new THREE.Group()\",\"buildParts\":\"buildParts(look) {\\n    const L = this.bladeLength;\\n    const grip = boxInertia(0.05, 0.02, 0.05, 0.02); // 목 부분을 쥔다\\n    const pommel = sphereInertia(0.03, 0.02); // 다리 쪽\\n    const blade = bladeInertia(0.12, L, 0.5, 0.3, 0.06, 0.05); // 몸통+머리\\n    return [\\n      partTuple(['box', 0.02, 0.05, 0.02], 0, 0.05, 0, grip.Ie, grip.It, 0xf5d020),\\n      partTuple(['ball', 0.02], -0.08, 0.03, 0, pommel.Ie, pommel.It, 0xe8b830),\\n      partTuple(['box', 0.035, L / 2, 0.03], 0.1 + L / 2, 0.12, blade.comY, blade.Ie, blade.It, 0xf7d84a, false),\\n    ];\\n  }\",\"decorate\":\"decorate(group) {\\n    drawRubberChicken(group);\\n  }\",\"id\":\"rubber_chicken\",\"mCut\":1,\"mThrust\":1,\"power\":0.7,\"durability\":0.4,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":true,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"gripAlong\":-0.14,\"twoHand\":false,\"oneHandStance\":true,\"soundMaterial\":\"rubber\",\"capFromGrip\":true,\"frame\":\"one\",\"style\":\"blunt\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.02,
+          0.05,
+          0.02
+        ],
+        0,
+        [
+          0.05,
+          0,
+          0.00004833333333333334,
+          0.000013333333333333335
+        ],
+        16109600,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.02
+        ],
+        -0.08,
+        [
+          0.03,
+          0,
+          0.000004800000000000001,
+          0.000004800000000000001
+        ],
+        15251504,
+        false
+      ],
+      [
+        [
+          "box",
+          0.035,
+          0.175,
+          0.03
+        ],
+        0.275,
+        [
+          0.12,
+          0,
+          0.0013229999999999997,
+          0.00004097387173396675
+        ],
+        16242762,
+        false
+      ]
+    ],
+    "phys": {
+      "mass": 0.2,
+      "com": 0.153,
+      "I": 0.010643133333333334,
+      "length": 0.44999999999999996
+    }
+  },
+  "frozen_tuna": {
+    "spec": "{\"nameKo\":\"냉동 참치\",\"nameEn\":\"Frozen Tuna\",\"desc\":\"얼어붙은 참치.\\n절대 부서지지 않는다.\",\"grip\":\"two-hand\",\"material\":\"frozen\",\"hiltLength\":0.15,\"bladeLength\":0.75,\"gripAlong\":-0.17,\"tier\":\"mystery\",\"edged\":false,\"mBlunt\":2.4,\"fragility\":0,\"techReachScale\":1,\"controlOverrides\":{\"maxAimTorque\":16,\"aimStiffness\":46},\"partMesh\":\"() => new THREE.Group()\",\"buildParts\":\"buildParts(look) {\\n    const L = this.bladeLength;\\n    const grip = boxInertia(0.15, 0.025, 0.12, 0.025); // 꼬리 쪽을 쥔다\\n    const pommel = sphereInertia(0.1, 0.03); // 꼬리지느러미\\n    const blade = bladeInertia(1.25, L, 0.45, 0.3, 0.1, 0.09); // 얼어붙은 몸통\\n    return [\\n      partTuple(['box', 0.025, 0.12, 0.025], 0, 0.15, 0, grip.Ie, grip.It, 0x8fa5b0),\\n      partTuple(['ball', 0.03], -0.15, 0.1, 0, pommel.Ie, pommel.It, 0x7d94a0),\\n      partTuple(['box', 0.05, L / 2, 0.045], 0.15 + L / 2, 1.25, blade.comY, blade.Ie, blade.It, 0xc3d8de, false),\\n    ];\\n  }\",\"decorate\":\"decorate(group) {\\n    drawFrozenTuna(group);\\n  }\",\"id\":\"frozen_tuna\",\"mCut\":1,\"mThrust\":1,\"power\":1,\"durability\":0.8,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":false,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"twoHand\":true,\"oneHandStance\":false,\"soundMaterial\":\"wood\",\"capFromGrip\":false,\"frame\":\"heavy\",\"style\":\"blunt\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.025,
+          0.12,
+          0.025
+        ],
+        0,
+        [
+          0.15,
+          0,
+          0.0007512500000000001,
+          0.00006250000000000001
+        ],
+        9414064,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.03
+        ],
+        -0.15,
+        [
+          0.1,
+          0,
+          0.000036,
+          0.000036
+        ],
+        8230048,
+        false
+      ],
+      [
+        [
+          "box",
+          0.05,
+          0.375,
+          0.045
+        ],
+        0.525,
+        [
+          1.25,
+          -0.03749999999999999,
+          0.06328124999999998,
+          0.0012804334916864607
+        ],
+        12835038,
+        false
+      ]
+    ],
+    "phys": {
+      "mass": 1.5,
+      "com": 0.39625,
+      "I": 0.3633888125,
+      "length": 0.9
+    }
+  },
+  "pistol": {
+    "spec": "{\"nameKo\":\"건슬링어의 리볼버\",\"nameEn\":\"The Gunslinger's Revolver\",\"desc\":\"어느 왕의 검을 녹여 총신을 만들었다.\\n“검은 옷의 사내는 사막을 가로질러 달아났고, 총잡이는 그 뒤를 쫓았다.”\",\"grip\":\"one-hand\",\"material\":\"steel\",\"soundMaterial\":\"steel\",\"tier\":\"mystery\",\"gun\":true,\"controlOverrides\":{\"maxAimTorque\":22,\"twistScale\":0.25,\"aimDamping\":0.45,\"releaseDamping\":0.45},\"moveMul\":1.2,\"fragility\":0,\"edged\":false,\"mBlunt\":0,\"hiltLength\":0.05,\"bladeLength\":0.15,\"partMesh\":\"() => new THREE.Group()\",\"buildParts\":\"buildParts(look) {\\n    // 손잡이: 총신에서 PISTOL_GRIP.deg(105°) 꺾여 아래(칼 몸체 +x)·뒤로 내려온다 — 그림(weapon_looks.js drawPistol)과 같은 치수.\\n    //  사장님: \\\"손잡이를 그려야지 무게중심을 잘 맞추고\\\" → 손잡이도 실제 콜라이더·무게를 가진다 (전엔 칼 축 위 일자 상자였다)\\n    const G = PISTOL_GRIP;\\n    const a = (G.deg * Math.PI) / 180;\\n    const dx = Math.sin(a), dy = Math.cos(a);\\n    const hx = G.len / 2, hy = 0.014, hz = 0.012; // 손잡이 상자: 긴 쪽이 부품 x 축\\n    const gm = 0.35;\\n    // 무게도 제자리에: 손잡이는 주먹(원점) 둘레, 몸통은 주먹 위 총신 축 — 총 무게중심이 주먹 조금 위·앞\\n    //  손잡이 자체 관성은 방향 없이(가장 큰 축 값으로 고르게) 준다 — 상자 그대로의 관성(긴 축만 작다)이면 가만히 있을 때 떨림이\\n    //  평균 2.4° → 4.6° 로 커졌다(잰 값). 무게·무게중심 자리는 그대로다\\n    const gIso = (gm * ((2 * hx) ** 2 + (2 * hy) ** 2)) / 12;\\n    const gI = { x: gIso, y: gIso, z: gIso };\\n    const cap = sphereInertia(0.05, 0.015); // 손잡이 끝 마개\\n    // 몸통(틀·약실·총신): 총신 축(PISTOL_BORE_X, 주먹 위)을 따라 공이치기 뒤(y −0.03)부터 총구(y 0.20)까지\\n    const L = this.hiltLength + this.bladeLength + 0.03;\\n    const yMid = (this.hiltLength + this.bladeLength - 0.03) / 2;\\n    // 몸통 콜라이더는 보이는 길이 그대로. 다만 짧고 가벼운 몸체는 손목 제어가 못 잡아 가만히 있어도 총구가 떨렸다\\n    //  → 회전 관성·무게중심만 inertiaLength 몸체 값을 준다 (무게 0.55 kg 는 그대로). 손잡이 무게가 축에서 비켜 있으면 더 떨려서\\n    //  (손잡이 제자리 무게: 0.2 → 평균 5.4°, 0.25 → 2.4°) 0.25 로 둔다\\n    const IL = Math.max(L, this.inertiaLength ?? 0.25);\\n    const frame = boxInertia(0.55, 0.016, IL / 2, 0.013);\\n    const comY = (IL - L) / 2;\\n    return [\\n      partTuple(['box', hx, hy, hz], G.from[1] + dy * hx, gm, 0, 0, 0, 0x6b4226, false, { x: G.from[0] + dx * hx, rotZ: Math.atan2(dy, dx), I: gI }),\\n      partTuple(['ball', 0.015], G.from[1] + dy * G.len, 0.05, 0, cap.Ie, cap.It, 0xb08d3c, false, { x: G.from[0] + dx * G.len }),\\n      partTuple(['box', 0.022, L / 2, 0.012], yMid, 0.55, comY, frame.Ie, frame.It, 0x2c2f35, false, { x: PISTOL_BORE_X + 0.006 }),\\n    ];\\n  }\",\"muzzleX\":-0.08,\"thumbScale\":0.6,\"decorate\":\"decorate(group) {\\n    drawPistol(group);\\n  }\",\"id\":\"pistol\",\"mCut\":1,\"mThrust\":1,\"power\":1,\"durability\":0.8,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":false,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"gripAlong\":-0.14,\"twoHand\":false,\"oneHandStance\":true,\"capFromGrip\":true,\"frame\":\"gun\",\"style\":\"shoot\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.0525,
+          0.014,
+          0.012
+        ],
+        0,
+        [
+          0.35,
+          0,
+          0,
+          0
+        ],
+        7029286,
+        false,
+        {
+          "x": 0,
+          "rotZ": -0.2617993877991495,
+          "I": {
+            "x": 0.0003444291666666666,
+            "y": 0.0003444291666666666,
+            "z": 0.0003444291666666666
+          }
+        }
+      ],
+      [
+        [
+          "ball",
+          0.015
+        ],
+        -0.013587999867882344,
+        [
+          0.05,
+          0,
+          0.0000045,
+          0.0000045
+        ],
+        11570492,
+        false,
+        {
+          "x": 0.050711105880176084
+        }
+      ],
+      [
+        [
+          "box",
+          0.022,
+          0.115,
+          0.012
+        ],
+        0.085,
+        [
+          0.55,
+          0.009999999999999995,
+          0.002911516666666667,
+          0.00007791666666666667
+        ],
+        2895669,
+        false,
+        {
+          "x": -0.074
+        }
+      ]
+    ],
+    "phys": {
+      "mass": 0.95,
+      "com": 0.05428484211221673,
+      "I": 0.007888998353687145,
+      "length": 0.2
+    }
+  },
+  "morgenstern": {
+    "spec": "{\"nameKo\":\"모르겐슈테른 (가시 철퇴)\",\"nameEn\":\"Morgenstern\",\"desc\":\"독일 말로 ‘샛별’. 가시 돋친 쇠머리를 별에 빗댔다.\\n갑옷 위로도 충격이 들어가고 투구를 벗긴다.\",\"grip\":\"one-hand\",\"material\":\"steel\",\"tier\":\"rare\",\"edged\":false,\"mBlunt\":1.6,\"spike\":true,\"mThrust\":0.35,\"mCut\":0,\"ignoreArmorDamage\":true,\"controlOverrides\":{\"maxAimTorque\":28},\"hiltLength\":0.54,\"bladeLength\":0.14,\"breakY\":0.4,\"partMesh\":\"() => new THREE.Group()\",\"buildParts\":\"buildParts(look) {\\n    // 질량 분포 — 줄 130 (후보 M-B): 자루 0.60 kg(물푸레 Ø 3.2 cm × 0.67 m 0.37 + 쇠 보강띠 2줄 0.2 + 끈 [D]) + 밑마개 0.08 [I] + 연철 공 Ø 6.5 cm 1.13 + 가시 12개 0.13 ≈ 1.20 [D]\\n    //  = 1.88 kg, 무게중심 손에서 0.45 m, 손 기준 휘두름 관성 0.50 kg·m² (롱소드 0.27 · 세이버 0.18 · 츠바이핸더 0.77), 가시 끝 유효질량 1.0 kg (롱소드 칼끝 0.18)\\n    //  대안 M-A 1.73 / M-C 2.05 / M-D 2.20 kg (설계 1-1 표). 손 기준 관성의 89 % 가 머리의 m·r² 라 공 모양 자체는 거의 안 중요하다\\n    // 10/8 14:30 사장님 '외형은 그대로 두고 무게 10 % 만 줄이자' → 세 부품 모두 ×0.9 (자루 0.60 → 0.54 · 마개 0.08 → 0.072 · 철구 1.9 → 1.71, 전체 2.58 → 2.32 kg, 무게중심 0.49 m 그대로, 손 기준 관성 0.76 → 0.68).\\n    //  계측(docs/decisions.md 10/8 14:30): 대본 사선 8.2 → 9.3 m/s(묶음 9.1 → 9.6), 세로 머리 164 → 170 J, AI 승률 6 → 4 %(소음 폭 안). 겉모습(drawMorgenstern)은 질량과 무관해 그대로\\n    // 10/14 03:5x 사장님 '모르겐슈테른 좀 가볍게 해야겠더라' → 세 부품 모두 ×0.85 (자루 0.54 → 0.46 · 마개 0.072 → 0.061 · 철구 1.71 → 1.45, 전체 2.32 → 1.97 kg — 사료 범위 1.2~2.5 kg 안).\\n    //  무게중심·길이·겉모습 그대로(관성도 ×0.85). 길이(손~가시 끝 0.68 · 전체 0.82 m)는 사료 범위 0.6~0.9 m 안이라 그대로 — 확인표 1085\\n    const haft = boxInertia(0.46, 0.016, 0.335, 0.016); // 자루 한 상자: y −0.13 ~ 0.54 (쥐는 곳 0.16 m 포함)\\n    const cap = sphereInertia(0.061, 0.02); // 밑마개 (쇠 캡)\\n    // 10/8 사장님 '지금보다 확실히 육중하고 공포스럽게' → 한손 대안(확인표 167): 몸체 Ø 6.5 → 9 cm(r 0.045), 머리 1.2 → 1.9 kg, 전체 ≈ 2.58 kg, 무게중심 ≈ 0.49 m, 손 기준 관성 ≈ 0.76 kg·m²(츠바이핸더 0.77)\\n    const head = sphereInertia(1.45, 0.045); // 연철 공 (가시 질량 포함; 10/8 14:30 ×0.9 · 10/14 ×0.85)\\n    return [\\n      partTuple(['box', 0.016, 0.335, 0.016], 0.205, 0.46, 0, haft.Ie, haft.It, null),\\n      partTuple(['ball', 0.02], -0.135, 0.061, 0, cap.Ie, cap.It, null),\\n      // 철구 = 'blade' 부품 (isBlade 참 → colliderInfo.part 'blade': 가시 찌르기 t·가르기 예측 훅이 머리에서 돈다. 날 없음이라 예측은 늘 \\\"부딪힘\\\").\\n      //  콜라이더 공 r 0.05 — 줄 132: 몸체 r 0.0325 보다 1.75 cm 밖, 가시 끝(0.0625) 보다 1.25 cm 안 ('가시 사이로 미끄러진다'. 겉모습 약속 ~1 cm 의 예외)\\n      //  콜라이더 공 r 0.06(10/8): 몸체 r 0.045 보다 1.5 cm 밖, 가시 끝(0.075) 보다 1.5 cm 안 — 줄 132 와 같은 규칙\\n      partTuple(['ball', 0.06], 0.61, 1.45, 0, head.Ie, head.It, null, true),\\n    ];\\n  }\",\"decorate\":\"decorate(group, look) {\\n    drawMorgenstern(group, look, 'rare');\\n  }\",\"id\":\"morgenstern\",\"power\":1.05,\"durability\":0.85,\"fragility\":0.032,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":true,\"ignoreArmor\":false,\"thrustStyle\":null,\"gripAlong\":-0.14,\"twoHand\":false,\"oneHandStance\":true,\"soundMaterial\":\"steel\",\"capFromGrip\":false,\"frame\":\"one\",\"style\":\"blunt\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.016,
+          0.335,
+          0.016
+        ],
+        0.205,
+        [
+          0.46,
+          0,
+          0.01724708666666667,
+          0.00007850666666666666
+        ],
+        null,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.02
+        ],
+        -0.135,
+        [
+          0.061,
+          0,
+          0.000009760000000000001,
+          0.000009760000000000001
+        ],
+        null,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.06
+        ],
+        0.61,
+        [
+          1.45,
+          0,
+          0.0011745,
+          0.0011745
+        ],
+        null,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 1.971,
+      "com": 0.49242262810755955,
+      "I": 0.5784195716666666,
+      "length": 0.68
+    }
+  },
+  "uchigatana": {
+    "spec": "{\"nameKo\":\"우치가타나\",\"nameEn\":\"Uchigatana\",\"desc\":\"날을 위로 하여 허리띠에 꽂던 무사의 칼.\\n뽑는 동작이 곧 베기다.\",\"grip\":\"two-hand\",\"material\":\"steel\",\"school\":\"japanese\",\"frame\":\"two\",\"style\":\"versatile\",\"tier\":\"common\",\"strayPick\":false,\"hiltLength\":0.075,\"bladeLength\":0.71,\"gripAlong\":-0.2,\"mCut\":1.2,\"mThrust\":0.9,\"mBlunt\":0.95,\"partMesh\":\"(idx, isBlade, shape, color, matOpts, look, tier) => {\\n    const F = finishOf(tier);\\n    if (isBlade) {\\n      if (o.bladeMesh) return o.bladeMesh(shape, color, matOpts);\\n      if (shape[0] !== 'box') return undefined;\\n      const [, hx, hy, hz] = shape;\\n      const mat = new THREE.MeshStandardMaterial({\\n        color,\\n        vertexColors: true,\\n        roughness: F.blade,\\n        metalness: F.metal,\\n        envMap: weaponEnv(),\\n        envMapIntensity: F.env,\\n        side: THREE.DoubleSide,\\n        ...(F.sheen ? { emissive: F.sheen, emissiveIntensity: 0.06 } : {}),\\n      });\\n      const m = new THREE.Mesh(bladeGeometry(hx, hy, hz, o.blade), mat);\\n      m.castShadow = true;\\n      return m;\\n    }\\n    const metalColor = o.metal ?? look?.hilt ?? 0x9aa3ad;\\n    if (idx === 0 && shape[0] === 'box' && o.grip) {\\n      const [, hx, hy, hz] = shape;\\n      return gripMesh(hx, hy, hz, o.grip.color ?? color, o.grip.style ?? 'leather', F, o.pommel?.color ?? metalColor);\\n    }\\n    if (idx === 1 && shape[0] === 'ball' && o.pommel) return pommelMesh(shape[1], o.pommel.color ?? color, o.pommel.style ?? 'wheel', F);\\n    if (idx === 2 && o.guard) return guardMesh(shape, o.guard.color ?? color, o.guard.style ?? 'bar', F);\\n    return undefined;\\n  }\",\"buildParts\":\"buildParts(look) {\\n    const L = this.bladeLength;\\n    const grip = boxInertia(0.26, 0.014, 0.15, 0.017); // 츠카: 츠바 아랫면(0.065) ~ 카시라 윗면(−0.235)\\n    const pommel = sphereInertia(0.06, 0.014); // 카시라\\n    const cross = boxInertia(0.12, 0.04, 0.005, 0.04); // 츠바 (커먼 철 츠바라 모노호시자오보다 무겁다)\\n    const blade = bladeInertia(0.66, L, 0.4, 0.26, 0.03, 0.007);\\n    return [\\n      partTuple(['box', 0.014, 0.15, 0.017], -0.085, 0.26, 0, grip.Ie, grip.It, look.grip),\\n      partTuple(['ball', 0.014], -0.245, 0.06, 0, pommel.Ie, pommel.It, look.hilt),\\n      partTuple(['box', 0.04, 0.005, 0.04], 0.07, 0.12, 0, cross.Ie, cross.It, look.hilt),\\n      partTuple(['box', 0.015, L / 2, 0.0035], this.hiltLength + L / 2, 0.66, blade.comY, blade.Ie, blade.It, 0xc9d1d6, true),\\n    ];\\n  }\",\"decorate\":\"decorate(group) {\\n    const iron = metalMat(0x2b2e33, { rough: 0.45 });\\n    const copper = metalMat(0xa0623a, { rough: 0.35 });\\n    const habaki = addMesh(group, new THREE.BoxGeometry(0.034, 0.03, 0.011), copper, [0, this.hiltLength + 0.012, 0]);\\n    habaki.castShadow = true;\\n    const silk = new THREE.MeshStandardMaterial({ color: 0x1b1d2e, roughness: 0.85 });\\n    const fuchi = addMesh(group, new THREE.CylinderGeometry(0.0148, 0.0148, 0.008, 14), iron, [0, 0.061, 0]);\\n    fuchi.scale.z = 1.2;\\n    addTsukaIto(group, silk, -0.215, 0.03); // 모노호시자오와 같은 끈 — 카시라 위 −0.215 부터 후치 밑 0.03 까지 여덟 줄 (끈 32 · 매듭 16 상자가 메쉬 하나)\\n  }\",\"id\":\"uchigatana\",\"edged\":true,\"power\":1,\"durability\":0.8,\"fragility\":0.056,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":true,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"twoHand\":true,\"oneHandStance\":false,\"soundMaterial\":\"steel\",\"controlOverrides\":{\"maxAimTorque\":26},\"capFromGrip\":true}",
+    "parts": [
+      [
+        [
+          "box",
+          0.014,
+          0.15,
+          0.017
+        ],
+        -0.085,
+        [
+          0.26,
+          0,
+          0.0019669866666666667,
+          0.00004203333333333334
+        ],
+        4861466,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.014
+        ],
+        -0.245,
+        [
+          0.06,
+          0,
+          0.000004704,
+          0.000004704
+        ],
+        10134445,
+        false
+      ],
+      [
+        [
+          "box",
+          0.04,
+          0.005,
+          0.04
+        ],
+        0.07,
+        [
+          0.12,
+          0,
+          0.000065,
+          0.000128
+        ],
+        10134445,
+        false
+      ],
+      [
+        [
+          "box",
+          0.015,
+          0.355,
+          0.0035
+        ],
+        0.43,
+        [
+          0.66,
+          -0.07099999999999998,
+          0.0224909256,
+          0.00002596104513064133
+        ],
+        13226454,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 1.1,
+      "com": 0.18958181818181816,
+      "I": 0.11565707626666667,
+      "length": 0.7849999999999999
+    }
+  },
+  "ganjiang": {
+    "spec": "{\"nameKo\":\"간장\",\"nameEn\":\"Ganjiang\",\"desc\":\"오나라 대장장이 간장이 아내 막야와 벼린 한 쌍의 칼.\\n거북 등 무늬가 회금빛으로 감돈다.\",\"grip\":\"one-hand\",\"material\":\"steel\",\"tier\":\"legend\",\"school\":\"chinese\",\"enterParry\":true,\"drawGroup\":\"ganjiang_moye\",\"hiltLength\":0.12,\"bladeLength\":0.72,\"mCut\":1.25,\"mThrust\":1.15,\"mBlunt\":0.95,\"partMesh\":\"(idx, isBlade, shape, color, matOpts, look, tier) => {\\n    const F = finishOf(tier);\\n    if (isBlade) {\\n      if (o.bladeMesh) return o.bladeMesh(shape, color, matOpts);\\n      if (shape[0] !== 'box') return undefined;\\n      const [, hx, hy, hz] = shape;\\n      const mat = new THREE.MeshStandardMaterial({\\n        color,\\n        vertexColors: true,\\n        roughness: F.blade,\\n        metalness: F.metal,\\n        envMap: weaponEnv(),\\n        envMapIntensity: F.env,\\n        side: THREE.DoubleSide,\\n        ...(F.sheen ? { emissive: F.sheen, emissiveIntensity: 0.06 } : {}),\\n      });\\n      const m = new THREE.Mesh(bladeGeometry(hx, hy, hz, o.blade), mat);\\n      m.castShadow = true;\\n      return m;\\n    }\\n    const metalColor = o.metal ?? look?.hilt ?? 0x9aa3ad;\\n    if (idx === 0 && shape[0] === 'box' && o.grip) {\\n      const [, hx, hy, hz] = shape;\\n      return gripMesh(hx, hy, hz, o.grip.color ?? color, o.grip.style ?? 'leather', F, o.pommel?.color ?? metalColor);\\n    }\\n    if (idx === 1 && shape[0] === 'ball' && o.pommel) return pommelMesh(shape[1], o.pommel.color ?? color, o.pommel.style ?? 'wheel', F);\\n    if (idx === 2 && o.guard) return guardMesh(shape, o.guard.color ?? color, o.guard.style ?? 'bar', F);\\n    return undefined;\\n  }\",\"buildParts\":\"function legendaryJianParts() {\\n  const d = LEGENDARY_JIAN[this.id], L = this.bladeLength;\\n  const grip = boxInertia(d.gripMass, 0.015, 0.09, 0.015);\\n  const pommel = sphereInertia(d.pommelMass, 0.02);\\n  const guard = boxInertia(d.guardMass, 0.035, 0.008, 0.012);\\n  const blade = bladeInertia(d.bladeMass, L, 0.36, 0.25, 2 * d.halfWidth, 0.009);\\n  return [\\n    partTuple(['box', 0.015, 0.09, 0.015], 0, d.gripMass, 0, grip.Ie, grip.It, d.grip),\\n    partTuple(['ball', 0.02], -0.09, d.pommelMass, 0, pommel.Ie, pommel.It, d.metal),\\n    partTuple(['box', 0.035, 0.008, 0.012], 0.11, d.guardMass, 0, guard.Ie, guard.It, d.metal),\\n    partTuple(['box', d.halfWidth, L / 2, 0.0045], 0.12 + L / 2, d.bladeMass,\\n      blade.comY, blade.Ie, blade.It, d.steel, true),\\n  ];\\n}\",\"decorate\":\"function legendaryJianDecorate(group) {\\n  const d = LEGENDARY_JIAN[this.id], L = this.bladeLength;\\n  const metal = metalMat(d.metal, { rough: 0.23 });\\n  const dark = this.id === 'ganjiang';\\n  const guard = addMesh(group, new THREE.OctahedronGeometry(0.034, 0), metal, [0, 0.11, 0]);\\n  guard.scale.set(1.06, 0.35, 0.52);\\n  guard.castShadow = true;\\n  const collar = addMesh(group, new THREE.CylinderGeometry(0.012, 0.014, 0.036, 8), metal, [0, 0.144, 0]);\\n  collar.scale.set(1.2, 1, 0.55);\\n  collar.castShadow = true;\\n  // 자루 목띠와 이중 원반 상감.\\n  for (const y of [-0.065, 0.073]) {\\n    const ring = addMesh(group, new THREE.TorusGeometry(0.016, 0.0014, 5, 16), metal, [0, y, 0]);\\n    ring.rotation.x = Math.PI / 2;\\n  }\\n  for (const side of [-1, 1]) {\\n    addMesh(group, new THREE.TorusGeometry(0.014, 0.0008, 5, 20), metal, [0, -0.09, side * 0.008]);\\n    const seal = addMesh(group, new THREE.OctahedronGeometry(0.006, 0), metal, [0, -0.09, side * 0.008]);\\n    seal.scale.set(1, 1, 0.3);\\n    const heart = addMesh(group, new THREE.TorusGeometry(0.007, 0.0007, 5, 16), metal, [0, 0.11, side * 0.017]);\\n    heart.scale.y = 0.62;\\n  }\\n  const vertices = [];\\n  const surface = (x, y, side) => {\\n    const t = (y - 0.12) / L;\\n    return [x, y, side * (d.thick * (1 - 0.35 * t) + 0.00012)];\\n  };\\n  const stroke = (a, b) => {\\n    const dx = b[0] - a[0], dy = b[1] - a[1], len = Math.hypot(dx, dy);\\n    if (len < 1e-6) return;\\n    const nx = -dy / len * 0.00014, ny = dx / len * 0.00014;\\n    for (const side of [-1, 1]) {\\n      const p = surface(a[0] + nx, a[1] + ny, side);\\n      const q = surface(a[0] - nx, a[1] - ny, side);\\n      const r = surface(b[0] - nx, b[1] - ny, side);\\n      const s = surface(b[0] + nx, b[1] + ny, side);\\n      vertices.push(...p, ...q, ...r, ...p, ...r, ...s);\\n    }\\n  };\\n  if (dark) {\\n    // 귀갑문: 두 줄의 육각 세공이 칼끝 방향으로 가늘어진다.\\n    for (let y = 0.195; y < 0.12 + L - 0.105; y += 0.023) {\\n      const taper = 1 - 0.25 * (y - 0.12) / L;\\n      for (const x of [-0.0046, 0.0046]) {\\n        const points = Array.from({ length: 7 }, (_, k) => {\\n          const a = k * Math.PI / 3;\\n          return [(x + Math.cos(a) * 0.0045) * taper, y + Math.sin(a) * 0.0115];\\n        });\\n        for (let k = 0; k < 6; k++) stroke(points[k], points[k + 1]);\\n      }\\n    }\\n  } else {\\n    // 흐르는 담금질 결: 날선을 가리지 않는 다섯 줄의 은은한 물결.\\n    for (let line = -2; line <= 2; line++) {\\n      let prev;\\n      for (let k = 0; k <= 80; k++) {\\n        const t = k / 80, y = 0.185 + t * (L - 0.165);\\n        const x = (line * 0.0032 + Math.sin(t * 5 * Math.PI + line * 0.65) * 0.0012) * (1 - 0.3 * t);\\n        const point = [x, y];\\n        if (prev) stroke(prev, point);\\n        prev = point;\\n      }\\n    }\\n  }\\n  const geo = new THREE.BufferGeometry();\\n  geo.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));\\n  geo.computeVertexNormals();\\n  addMesh(group, geo, metalMat(d.pattern, { rough: 0.42, metal: 0.6, side: THREE.DoubleSide }));\\n}\",\"id\":\"ganjiang\",\"edged\":true,\"power\":1.2,\"durability\":1,\"fragility\":0,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":false,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"gripAlong\":-0.14,\"twoHand\":false,\"oneHandStance\":true,\"soundMaterial\":\"steel\",\"controlOverrides\":{\"maxAimTorque\":22},\"capFromGrip\":true,\"frame\":\"one\",\"style\":\"versatile\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.015,
+          0.09,
+          0.015
+        ],
+        0,
+        [
+          0.11,
+          0,
+          0.00030524999999999997,
+          0.000016499999999999998
+        ],
+        2104859,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.02
+        ],
+        -0.09,
+        [
+          0.14,
+          0,
+          0.000022400000000000002,
+          0.000022400000000000002
+        ],
+        10125909,
+        false
+      ],
+      [
+        [
+          "box",
+          0.035,
+          0.008,
+          0.012
+        ],
+        0.11,
+        [
+          0.06,
+          0,
+          0.000025780000000000004,
+          0.000027380000000000002
+        ],
+        10125909,
+        false
+      ],
+      [
+        [
+          "box",
+          0.015,
+          0.36,
+          0.0045
+        ],
+        0.48,
+        [
+          0.64,
+          -0.1008,
+          0.020736,
+          0.00002517434679334917
+        ],
+        6447709,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 0.95,
+      "com": 0.24914526315789473,
+      "I": 0.1149767196,
+      "length": 0.84
+    }
+  },
+  "moye": {
+    "spec": "{\"nameKo\":\"막야\",\"nameEn\":\"Moye\",\"desc\":\"쇠가 녹지 않자 막야는 머리카락과 손톱을 화로에 던졌다.\\n은빛 물결무늬가 감도는 간장의 짝.\",\"grip\":\"one-hand\",\"material\":\"steel\",\"tier\":\"legend\",\"school\":\"chinese\",\"enterParry\":true,\"drawGroup\":\"ganjiang_moye\",\"hiltLength\":0.12,\"bladeLength\":0.68,\"mCut\":1.25,\"mThrust\":1.15,\"mBlunt\":0.95,\"partMesh\":\"(idx, isBlade, shape, color, matOpts, look, tier) => {\\n    const F = finishOf(tier);\\n    if (isBlade) {\\n      if (o.bladeMesh) return o.bladeMesh(shape, color, matOpts);\\n      if (shape[0] !== 'box') return undefined;\\n      const [, hx, hy, hz] = shape;\\n      const mat = new THREE.MeshStandardMaterial({\\n        color,\\n        vertexColors: true,\\n        roughness: F.blade,\\n        metalness: F.metal,\\n        envMap: weaponEnv(),\\n        envMapIntensity: F.env,\\n        side: THREE.DoubleSide,\\n        ...(F.sheen ? { emissive: F.sheen, emissiveIntensity: 0.06 } : {}),\\n      });\\n      const m = new THREE.Mesh(bladeGeometry(hx, hy, hz, o.blade), mat);\\n      m.castShadow = true;\\n      return m;\\n    }\\n    const metalColor = o.metal ?? look?.hilt ?? 0x9aa3ad;\\n    if (idx === 0 && shape[0] === 'box' && o.grip) {\\n      const [, hx, hy, hz] = shape;\\n      return gripMesh(hx, hy, hz, o.grip.color ?? color, o.grip.style ?? 'leather', F, o.pommel?.color ?? metalColor);\\n    }\\n    if (idx === 1 && shape[0] === 'ball' && o.pommel) return pommelMesh(shape[1], o.pommel.color ?? color, o.pommel.style ?? 'wheel', F);\\n    if (idx === 2 && o.guard) return guardMesh(shape, o.guard.color ?? color, o.guard.style ?? 'bar', F);\\n    return undefined;\\n  }\",\"buildParts\":\"function legendaryJianParts() {\\n  const d = LEGENDARY_JIAN[this.id], L = this.bladeLength;\\n  const grip = boxInertia(d.gripMass, 0.015, 0.09, 0.015);\\n  const pommel = sphereInertia(d.pommelMass, 0.02);\\n  const guard = boxInertia(d.guardMass, 0.035, 0.008, 0.012);\\n  const blade = bladeInertia(d.bladeMass, L, 0.36, 0.25, 2 * d.halfWidth, 0.009);\\n  return [\\n    partTuple(['box', 0.015, 0.09, 0.015], 0, d.gripMass, 0, grip.Ie, grip.It, d.grip),\\n    partTuple(['ball', 0.02], -0.09, d.pommelMass, 0, pommel.Ie, pommel.It, d.metal),\\n    partTuple(['box', 0.035, 0.008, 0.012], 0.11, d.guardMass, 0, guard.Ie, guard.It, d.metal),\\n    partTuple(['box', d.halfWidth, L / 2, 0.0045], 0.12 + L / 2, d.bladeMass,\\n      blade.comY, blade.Ie, blade.It, d.steel, true),\\n  ];\\n}\",\"decorate\":\"function legendaryJianDecorate(group) {\\n  const d = LEGENDARY_JIAN[this.id], L = this.bladeLength;\\n  const metal = metalMat(d.metal, { rough: 0.23 });\\n  const dark = this.id === 'ganjiang';\\n  const guard = addMesh(group, new THREE.OctahedronGeometry(0.034, 0), metal, [0, 0.11, 0]);\\n  guard.scale.set(1.06, 0.35, 0.52);\\n  guard.castShadow = true;\\n  const collar = addMesh(group, new THREE.CylinderGeometry(0.012, 0.014, 0.036, 8), metal, [0, 0.144, 0]);\\n  collar.scale.set(1.2, 1, 0.55);\\n  collar.castShadow = true;\\n  // 자루 목띠와 이중 원반 상감.\\n  for (const y of [-0.065, 0.073]) {\\n    const ring = addMesh(group, new THREE.TorusGeometry(0.016, 0.0014, 5, 16), metal, [0, y, 0]);\\n    ring.rotation.x = Math.PI / 2;\\n  }\\n  for (const side of [-1, 1]) {\\n    addMesh(group, new THREE.TorusGeometry(0.014, 0.0008, 5, 20), metal, [0, -0.09, side * 0.008]);\\n    const seal = addMesh(group, new THREE.OctahedronGeometry(0.006, 0), metal, [0, -0.09, side * 0.008]);\\n    seal.scale.set(1, 1, 0.3);\\n    const heart = addMesh(group, new THREE.TorusGeometry(0.007, 0.0007, 5, 16), metal, [0, 0.11, side * 0.017]);\\n    heart.scale.y = 0.62;\\n  }\\n  const vertices = [];\\n  const surface = (x, y, side) => {\\n    const t = (y - 0.12) / L;\\n    return [x, y, side * (d.thick * (1 - 0.35 * t) + 0.00012)];\\n  };\\n  const stroke = (a, b) => {\\n    const dx = b[0] - a[0], dy = b[1] - a[1], len = Math.hypot(dx, dy);\\n    if (len < 1e-6) return;\\n    const nx = -dy / len * 0.00014, ny = dx / len * 0.00014;\\n    for (const side of [-1, 1]) {\\n      const p = surface(a[0] + nx, a[1] + ny, side);\\n      const q = surface(a[0] - nx, a[1] - ny, side);\\n      const r = surface(b[0] - nx, b[1] - ny, side);\\n      const s = surface(b[0] + nx, b[1] + ny, side);\\n      vertices.push(...p, ...q, ...r, ...p, ...r, ...s);\\n    }\\n  };\\n  if (dark) {\\n    // 귀갑문: 두 줄의 육각 세공이 칼끝 방향으로 가늘어진다.\\n    for (let y = 0.195; y < 0.12 + L - 0.105; y += 0.023) {\\n      const taper = 1 - 0.25 * (y - 0.12) / L;\\n      for (const x of [-0.0046, 0.0046]) {\\n        const points = Array.from({ length: 7 }, (_, k) => {\\n          const a = k * Math.PI / 3;\\n          return [(x + Math.cos(a) * 0.0045) * taper, y + Math.sin(a) * 0.0115];\\n        });\\n        for (let k = 0; k < 6; k++) stroke(points[k], points[k + 1]);\\n      }\\n    }\\n  } else {\\n    // 흐르는 담금질 결: 날선을 가리지 않는 다섯 줄의 은은한 물결.\\n    for (let line = -2; line <= 2; line++) {\\n      let prev;\\n      for (let k = 0; k <= 80; k++) {\\n        const t = k / 80, y = 0.185 + t * (L - 0.165);\\n        const x = (line * 0.0032 + Math.sin(t * 5 * Math.PI + line * 0.65) * 0.0012) * (1 - 0.3 * t);\\n        const point = [x, y];\\n        if (prev) stroke(prev, point);\\n        prev = point;\\n      }\\n    }\\n  }\\n  const geo = new THREE.BufferGeometry();\\n  geo.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));\\n  geo.computeVertexNormals();\\n  addMesh(group, geo, metalMat(d.pattern, { rough: 0.42, metal: 0.6, side: THREE.DoubleSide }));\\n}\",\"id\":\"moye\",\"edged\":true,\"power\":1.2,\"durability\":1,\"fragility\":0,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":false,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"gripAlong\":-0.14,\"twoHand\":false,\"oneHandStance\":true,\"soundMaterial\":\"steel\",\"controlOverrides\":{\"maxAimTorque\":22},\"capFromGrip\":true,\"frame\":\"one\",\"style\":\"versatile\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.015,
+          0.09,
+          0.015
+        ],
+        0,
+        [
+          0.12,
+          0,
+          0.00033299999999999996,
+          0.000018
+        ],
+        13224382,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.02
+        ],
+        -0.09,
+        [
+          0.18,
+          0,
+          0.0000288,
+          0.0000288
+        ],
+        12174791,
+        false
+      ],
+      [
+        [
+          "box",
+          0.035,
+          0.008,
+          0.012
+        ],
+        0.11,
+        [
+          0.075,
+          0,
+          0.000032225000000000004,
+          0.000034225000000000005
+        ],
+        12174791,
+        false
+      ],
+      [
+        [
+          "box",
+          0.016,
+          0.34,
+          0.0045
+        ],
+        0.46,
+        [
+          0.745,
+          -0.09520000000000002,
+          0.021530500000000004,
+          0.000029304513064133018
+        ],
+        14936813,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 1.12,
+      "com": 0.23555892857142854,
+      "I": 0.12343390980000002,
+      "length": 0.8
+    }
+  },
+  "sain": {
+    "spec": "{\"nameKo\":\"사인검\",\"nameEn\":\"Sain Sword\",\"desc\":\"범의 해·달·날·시에 벼린 조선 왕실의 벽사검.\\n칼몸에 새긴 별자리가 삿된 것을 벤다.\",\"grip\":\"one-hand\",\"material\":\"steel\",\"tier\":\"rare\",\"school\":\"chinese\",\"enterParry\":true,\"hiltLength\":0.125,\"bladeLength\":0.75,\"gripAlong\":-0.12,\"mCut\":1.1,\"mThrust\":1,\"mBlunt\":0.95,\"partMesh\":\"function sainPartMesh(index, isBlade, shape, color, opts, look, tier) {\\n  if (isBlade) return sainKit(index, isBlade, shape, color, opts, look, tier);\\n  const group = new THREE.Group(), metal = metalMat(SAIN_COLORS.metal, { rough: 0.35 });\\n  const dark = metalMat(SAIN_COLORS.grip, { rough: 0.58, metal: 0.5 });\\n  if (index === 0) {\\n    // The museum's flat, ornamented hilt narrowed to the approved hand grip.\\n    group.add(plate([[-0.016, -0.10], [-0.012, -0.04], [-0.012, 0.04], [-0.016, 0.10],\\n      [0.016, 0.10], [0.012, 0.04], [0.012, -0.04], [0.016, -0.10]], 0.027, dark));\\n    for (const y of [-0.083, 0.083]) mesh(group, new THREE.BoxGeometry(0.033, 0.006, 0.029), metal, [0, y, 0]);\\n  } else if (index === 1) {\\n    // Four-lobed flower plate, entirely within the physical pommel's ±25mm.\\n    const outline = Array.from({ length: 65 }, (_, k) => {\\n      const a = k * Math.PI / 32, r = 0.021 + 0.004 * Math.cos(4 * a);\\n      return [r * Math.cos(a), r * Math.sin(a)];\\n    });\\n    group.add(plate(outline, 0.011, dark));\\n    const p = inlay((x, y, side) => [x, y, side * 0.0057]);\\n    for (const side of [-1, 1]) {\\n      p.path([...outline, outline[0]].map(([x, y]) => [x * 0.94, y * 0.94]), side, 0.0007);\\n      for (let k = 0; k < 8; k++) {\\n        const a = k * Math.PI / 4;\\n        p.dot(Math.cos(a) * 0.011, Math.sin(a) * 0.011, 0.0012, side);\\n      }\\n      mesh(group, new THREE.TorusGeometry(0.006, 0.001, 5, 16), metal, [0, 0, side * 0.006]);\\n      const boss = mesh(group, new THREE.SphereGeometry(0.004, 10, 6), metal, [0, 0, side * 0.006]);\\n      boss.scale.z = 0.45;\\n    }\\n    p.finish(group, SAIN_COLORS.metal);\\n  } else if (index === 2) {\\n    // Short broad plate guard; no Japanese disc or European crossguard.\\n    const guard = mesh(group, new THREE.CylinderGeometry(0.04, 0.04, 0.009, 32), dark);\\n    guard.scale.z = 0.325;\\n    const border = mesh(group, new THREE.TorusGeometry(0.038, 0.0008, 5, 32), metal);\\n    border.rotation.x = Math.PI / 2;\\n    border.scale.y = 0.325;\\n  }\\n  group.traverse(o => { if (o.isMesh) o.castShadow = true; });\\n  return group;\\n}\",\"decorate\":\"function sainDecorate(group) {\\n  const h = this.hiltLength, L = this.bladeLength;\\n  const blade = inlay((x, y, side) => [x, y, side * (0.0036 * (1 - 0.35 * (y - h) / L) + 0.00013)]);\\n  // Seven-star groups echo the Big Dipper; other small stars suggest the celestial field.\\n  const stars = [[-0.005, 0], [0.003, 0.016], [0.006, 0.035], [-0.002, 0.048],\\n    [-0.006, 0.071], [0, 0.086], [0.004, 0.108]];\\n  for (let band = 0; band < 4; band++) {\\n    const points = stars.map(([x, y]) => [x * (1 - band * 0.055), h + 0.075 + band * 0.135 + y]);\\n    blade.path(points, 1, 0.00035);\\n    for (const [x, y] of points) blade.dot(x, y, 0.00115, 1);\\n  }\\n  for (let i = 0; i < 8; i++) {\\n    const y = h + 0.075 + i * 0.067;\\n    for (const points of SEAL[i % SEAL.length]) {\\n      blade.path(points.map(([x, v]) => [x * 0.005, y + v * 0.011]), -1, 0.0005);\\n    }\\n  }\\n  blade.finish(group, 0xbca360);\\n  const silver = inlay((x, y, side) => [x, y, side * (0.0036 * (1 - 0.35 * (y - h) / L) + 0.00014)]);\\n  for (const side of [-1, 1]) for (const x of [-0.0105, 0.0105]) {\\n    silver.stroke([x, h + 0.06], [x * 0.88, h + L - 0.095], side, 0.00024);\\n  }\\n  silver.finish(group, 0xc7cdd0);\\n  // Hilt borders and flower rivets stay inside the physical handle.\\n  const hilt = inlay((x, y, side) => [x, y, side * 0.0137]);\\n  for (const side of [-1, 1]) {\\n    for (const x of [-0.010, 0.010]) hilt.stroke([x, -0.075], [x, 0.075], side, 0.00045);\\n    for (const y of [-0.044, 0.044]) {\\n      hilt.dot(0, y, 0.003, side);\\n      for (let k = 0; k < 6; k++) {\\n        const a = k * Math.PI / 3;\\n        hilt.dot(Math.cos(a) * 0.0045, y + Math.sin(a) * 0.0045, 0.0013, side);\\n      }\\n    }\\n    for (const points of SEAL[0]) hilt.path(points.map(([x, y]) => [x * 0.006, y * 0.012]), side, 0.0004);\\n  }\\n  hilt.finish(group, SAIN_COLORS.metal);\\n  const collar = mesh(group, new THREE.BoxGeometry(0.0355, 0.025, 0.0094),\\n    metalMat(SAIN_COLORS.metal, { rough: 0.35 }), [0, h + 0.0125, 0]);\\n  collar.castShadow = true;\\n}\",\"buildParts\":\"buildParts() {\\n    const L = this.bladeLength;\\n    const grip = boxInertia(0.10, 0.016, 0.1, 0.014);\\n    const pommel = sphereInertia(0.16, 0.025);\\n    const guard = boxInertia(0.09, 0.04, 0.01, 0.013);\\n    const blade = bladeInertia(0.65, L, 0.36, 0.25, 0.035, 0.009);\\n    return [\\n      partTuple(['box', 0.016, 0.1, 0.014], 0, 0.10, 0, grip.Ie, grip.It, SAIN_COLORS.grip),\\n      partTuple(['ball', 0.025], -0.1, 0.16, 0, pommel.Ie, pommel.It, SAIN_COLORS.metal),\\n      partTuple(['box', 0.04, 0.01, 0.013], 0.11, 0.09, 0, guard.Ie, guard.It, SAIN_COLORS.metal),\\n      partTuple(['box', 0.0175, L / 2, 0.0045], this.hiltLength + L / 2, 0.65,\\n        blade.comY, blade.Ie, blade.It, SAIN_COLORS.blade, true),\\n    ];\\n  }\",\"id\":\"sain\",\"edged\":true,\"power\":1.05,\"durability\":0.85,\"fragility\":0.032,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":true,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"twoHand\":false,\"oneHandStance\":true,\"soundMaterial\":\"steel\",\"controlOverrides\":{\"maxAimTorque\":22},\"capFromGrip\":true,\"frame\":\"one\",\"style\":\"versatile\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.016,
+          0.1,
+          0.014
+        ],
+        0,
+        [
+          0.1,
+          0,
+          0.0003418666666666667,
+          0.00001506666666666667
+        ],
+        2631467,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.025
+        ],
+        -0.1,
+        [
+          0.16,
+          0,
+          0.00004,
+          0.00004
+        ],
+        10783309,
+        false
+      ],
+      [
+        [
+          "box",
+          0.04,
+          0.01,
+          0.013
+        ],
+        0.11,
+        [
+          0.09,
+          0,
+          0.000051,
+          0.000053070000000000005
+        ],
+        10783309,
+        false
+      ],
+      [
+        [
+          "box",
+          0.0175,
+          0.375,
+          0.0045
+        ],
+        0.5,
+        [
+          0.65,
+          -0.10500000000000001,
+          0.022851562500000002,
+          0.00002556769596199525
+        ],
+        10397096,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 1,
+      "com": 0.25065000000000004,
+      "I": 0.12738967916666669,
+      "length": 0.875
+    }
+  },
+  "ice": {
+    "spec": "{\"nameKo\":\"북부 대공의 검\",\"nameEn\":\"Sword of the Northern Grand Duke\",\"desc\":\"세 줄의 홈과 황동 장식을 지닌 북부의 대검.\\n두 손으로도 버거울 만큼 무겁다.\",\"grip\":\"two-hand\",\"material\":\"steel\",\"tier\":\"rare\",\"hiltLength\":0.2,\"bladeLength\":1.21,\"gripAlong\":-0.22,\"mCut\":1.1,\"mThrust\":0.85,\"mBlunt\":1.15,\"partMesh\":\"function icePartMesh(index, isBlade, shape) {\\n  if (isBlade) {\\n    // fighter.js colors this mesh directly when blood accumulates.\\n    const blade = new THREE.Mesh(iceBladeGeometry(shape), metalMat(ICE_COLORS.blade,\\n      { rough: 0.25, metal: 0.76, env: 1.25, vertexColors: true, side: THREE.DoubleSide }));\\n    blade.castShadow = true;\\n    return blade;\\n  }\\n  const group = new THREE.Group();\\n  const brass = metalMat(ICE_COLORS.metal, { rough: 0.30, metal: 0.82 });\\n  const steel = metalMat(0x7d858b, { rough: 0.27, metal: 0.78, env: 1.2 });\\n  if (index === 0) {\\n    mesh(group, iceWoodGeometry(shape), new THREE.MeshStandardMaterial({\\n      color: ICE_COLORS.grip, roughness: 0.63, metalness: 0, vertexColors: true }));\\n  } else if (index === 1) {\\n    // The detailed HBO reference shows an oval recess, not a through-hole.\\n    const outline = new THREE.Shape();\\n    outline.moveTo(0, -0.0250);\\n    outline.bezierCurveTo(-0.024, -0.0250, -0.027, -0.012, -0.018, 0.003);\\n    outline.bezierCurveTo(-0.010, 0.018, -0.010, 0.018, -0.009, 0.0288);\\n    outline.lineTo(0.009, 0.0288);\\n    outline.bezierCurveTo(0.010, 0.018, 0.010, 0.018, 0.018, 0.003);\\n    outline.bezierCurveTo(0.027, -0.012, 0.024, -0.0250, 0, -0.0250);\\n    const hole = new THREE.Path();\\n    hole.absellipse(0, -0.009, 0.012, 0.013, 0, 2 * Math.PI, true);\\n    outline.holes.push(hole);\\n    group.add(icePlate(outline, 0.017, brass));\\n    const recess = [];\\n    for (const side of [-1, 1]) for (let band = 0; band < 4; band++) for (let k = 0; k < 32; k++) {\\n      const point = (r, angle) => [Math.cos(angle) * 0.012 * r,\\n        -0.009 + Math.sin(angle) * 0.013 * r, side * (0.005 + 0.0035 * r * r)];\\n      const a = k * Math.PI / 16, b = (k + 1) * Math.PI / 16, r0 = band / 4, r1 = (band + 1) / 4;\\n      const p = point(r0, a), q = point(r0, b), r = point(r1, b), s = point(r1, a);\\n      recess.push(...p, ...q, ...r, ...p, ...r, ...s);\\n    }\\n    const geometry = new THREE.BufferGeometry();\\n    geometry.setAttribute('position', new THREE.Float32BufferAttribute(recess, 3));\\n    geometry.computeVertexNormals();\\n    mesh(group, geometry, metalMat(ICE_COLORS.metal,\\n      { rough: 0.33, metal: 0.78, side: THREE.DoubleSide }));\\n    mesh(group, new THREE.CylinderGeometry(0.003, 0.0035, 0.006, 8), steel, [0, -0.027, 0]);\\n  } else if (index === 2) {\\n    // Steel quillons and a broad shield plate; the brass is confined to the ends.\\n    const bar = new THREE.Shape();\\n    bar.moveTo(-0.130, -0.006);\\n    for (const [x, y] of [[-0.042, -0.009], [0.042, -0.009], [0.130, -0.006],\\n      [0.130, 0.006], [0.042, 0.009], [-0.042, 0.009], [-0.130, 0.006]]) bar.lineTo(x, y);\\n    bar.closePath();\\n    group.add(icePlate(bar, 0.018, steel));\\n    const shield = new THREE.Shape();\\n    shield.moveTo(-0.044, 0);\\n    for (const [x, y] of [[-0.026, -0.012], [0.026, -0.012], [0.044, 0],\\n      [0.037, 0.015], [0, 0.029], [-0.037, 0.015]]) shield.lineTo(x, y);\\n    shield.closePath();\\n    group.add(icePlate(shield, 0.025, steel, 0.0014));\\n    for (const sign of [-1, 1]) {\\n      const knob = mesh(group, new THREE.CylinderGeometry(0.0125, 0.0125, 0.012, 24), brass,\\n        [sign * 0.130, 0, 0]);\\n      knob.rotation.z = Math.PI / 2;\\n      const grooves = [], shades = [];\\n      const p = (radius, k) => {\\n        const a = k * Math.PI / 24;\\n        return [sign * (0.137 + (k % 2) * 0.00065), Math.cos(a) * radius, Math.sin(a) * radius];\\n      };\\n      for (let k = 0; k < 48; k++) {\\n        const a = p(0.005, k), b = p(0.0107, k), c = p(0.0107, k + 1), d = p(0.005, k + 1);\\n        grooves.push(...a, ...b, ...c, ...a, ...c, ...d);\\n        for (const j of [k, k, k + 1, k, k + 1, k + 1]) {\\n          const shade = j % 2 ? 1 : 0.72; shades.push(shade, shade, shade);\\n        }\\n      }\\n      const grooveGeo = new THREE.BufferGeometry();\\n      grooveGeo.setAttribute('position', new THREE.Float32BufferAttribute(grooves, 3));\\n      grooveGeo.setAttribute('color', new THREE.Float32BufferAttribute(shades, 3));\\n      grooveGeo.computeVertexNormals();\\n      mesh(group, grooveGeo, metalMat(ICE_COLORS.metal,\\n        { rough: 0.36, metal: 0.82, vertexColors: true, side: THREE.DoubleSide }));\\n      const boss = mesh(group, new THREE.CylinderGeometry(0.0055, 0.0055, 0.003, 16), brass,\\n        [sign * 0.1385, 0, 0]);\\n      boss.rotation.z = Math.PI / 2;\\n      const pin = mesh(group, new THREE.CylinderGeometry(0.003, 0.0035, 0.004, 6), brass,\\n        [sign * 0.141, 0, 0]);\\n      pin.rotation.z = Math.PI / 2;\\n      const collar = mesh(group, new THREE.CylinderGeometry(0.009, 0.009, 0.008, 12), brass, [sign * 0.124, 0, 0]);\\n      collar.rotation.z = Math.PI / 2;\\n      for (const side of [-1, 1]) {\\n        const rivet = mesh(group, new THREE.SphereGeometry(0.003, 8, 6), steel, [sign * 0.027, 0.018, side * 0.012]);\\n        rivet.scale.z = 0.5;\\n      }\\n    }\\n  }\\n  group.traverse(o => { if (o.isMesh) o.castShadow = true; });\\n  return group;\\n}\",\"decorate\":\"function iceDecorate(group) {\\n  const steel = metalMat(0x7d858b, { rough: 0.27, metal: 0.78 });\\n  const brass = metalMat(ICE_COLORS.metal, { rough: 0.30, metal: 0.82 });\\n  // 자루 아래 황동 띠: 자루 아래 끝 + 0.011 (10/10 아이스 쥠 넓힘 — 자루 아래 끝 −0.185 → −0.223, weapons.js ice 머리말) · 위 띠 그대로\\n  for (const [y, radius, material] of [[-0.212, 0.0135, brass], [0.173, 0.018, steel]]) {\\n    mesh(group, new THREE.CylinderGeometry(radius, radius, 0.018, 16), material, [0, y, 0]);\\n  }\\n}\",\"buildParts\":\"buildParts() {\\n    const L = this.bladeLength;\\n    const grip = boxInertia(0.30, 0.022, 0.204, 0.020);\\n    const pommel = sphereInertia(0.70, 0.030);\\n    const guard = boxInertia(0.35, 0.14, 0.015, 0.022);\\n    const blade = bladeInertia(2.15, L, 0.33, 0.25, 0.09, 0.009);\\n    return [\\n      partTuple(['box', 0.022, 0.204, 0.020], -0.019, 0.30, 0, grip.Ie, grip.It, ICE_COLORS.grip),\\n      partTuple(['ball', 0.030], -0.238, 0.70, 0, pommel.Ie, pommel.It, ICE_COLORS.metal),\\n      partTuple(['box', 0.14, 0.015, 0.022], 0.185, 0.35, 0, guard.Ie, guard.It, ICE_COLORS.metal),\\n      partTuple(['box', 0.045, L / 2, 0.0045], this.hiltLength + L / 2, 2.15,\\n        blade.comY, blade.Ie, blade.It, ICE_COLORS.blade, true),\\n    ];\\n  }\",\"id\":\"ice\",\"edged\":true,\"power\":1.05,\"durability\":0.85,\"fragility\":0.032,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":true,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"twoHand\":true,\"oneHandStance\":false,\"soundMaterial\":\"steel\",\"controlOverrides\":{\"maxAimTorque\":26},\"capFromGrip\":true,\"frame\":\"heavy\",\"style\":\"cut\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.022,
+          0.204,
+          0.02
+        ],
+        -0.019,
+        [
+          0.3,
+          0,
+          0.004209999999999999,
+          0.0000884
+        ],
+        7884082,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.03
+        ],
+        -0.238,
+        [
+          0.7,
+          0,
+          0.000252,
+          0.000252
+        ],
+        11967065,
+        false
+      ],
+      [
+        [
+          "box",
+          0.14,
+          0.015,
+          0.022
+        ],
+        0.185,
+        [
+          0.35,
+          0,
+          0.0023129166666666667,
+          0.0023431333333333334
+        ],
+        11967065,
+        false
+      ],
+      [
+        [
+          "box",
+          0.045,
+          0.605,
+          0.0045
+        ],
+        0.8049999999999999,
+        [
+          2.15,
+          -0.20569999999999997,
+          0.19673843749999997,
+          0.00019821110451306411
+        ],
+        11910080,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 3.5,
+      "com": 0.33741285714285707,
+      "I": 1.0274462576666663,
+      "length": 1.41
+    }
+  },
+  "flamberge": {
+    "spec": "{\"nameKo\":\"플랑베르주 (물결 날 양손검)\",\"nameEn\":\"Flamberge\",\"desc\":\"독일 용병 란츠크네히트가 들던 불꽃 날 대검.\\n물결 날은 벼리기 어려워 값비싼 칼이었다.\",\"grip\":\"two-hand\",\"material\":\"steel\",\"tier\":\"epic\",\"hiltLength\":0.085,\"bladeLength\":1.187,\"gripAlong\":-0.24,\"mCut\":1.1,\"mThrust\":0.85,\"mBlunt\":1.15,\"partMesh\":\"(index, isBlade, shape, color, opts, look, tier) => {\\n    const y0 = partY[index];\\n    if (isBlade) {\\n      const group = new THREE.Group();\\n      group.add(bladeMesh(y0, tier));\\n      return group;\\n    }\\n    if (index === 0) return gripGroup(y0);\\n    if (index === 1) return pommelGroup(y0);\\n    if (index === 2) return guardGroup(y0);\\n    return new THREE.Group();\\n  }\",\"decorate\":\"function flambergeDecorate(group) {\\n  const steel = metalMat(FLAMBERGE_COLORS.steel, { rough: 0.34 });\\n  const darkSteel = metalMat(FLAMBERGE_COLORS.darkSteel, { rough: 0.44 });\\n  const add = (geo, mat, name) => {\\n    const m = new THREE.Mesh(geo, mat);\\n    m.name = name;\\n    m.castShadow = true;\\n    group.add(m);\\n    return m;\\n  };\\n  add(bake(new THREE.BoxGeometry(0.031, 0.237, 0.007), [0, Y(ROOT_SB + 0.237 / 2), 0]), darkSteel, 'straight-ricasso');\\n  const hook = [[0, 0], [0.032, 0.004], [0.061, 0.017], [0.083, 0.039], [0.089, 0.050], [0.072, 0.035], [0.047, 0.025], [0.019, 0.021], [0, 0.020]];\\n  add(mergeGeometries([\\n    ...[-1, 1].map((s) => bake(plate(hook.map(([x, y]) => [s * x, y]), 0.007, 0.0007), [0, Y(ROOT_SB + 0.220), 0])),\\n    bake(new THREE.BoxGeometry(0.027, 0.034, 0.006), [0, Y(EDGE_SB - 0.017), 0]),\\n  ].map((g) => {\\n    for (const k of Object.keys(g.attributes)) if (k !== 'position' && k !== 'normal' && k !== 'uv') g.deleteAttribute(k);\\n    return g;\\n  }), false), steel, 'parrying-lugs');\\n  // 피는 물결 날에 묻는다 (리카소는 날을 안 세운 자리)\\n  group.traverse((o) => {\\n    if (o.name === 'waved-double-edge') group.userData.bladeMesh = o;\\n  });\\n}\",\"buildParts\":\"buildParts() {\\n    const L = this.bladeLength;\\n    const M = FL.mass;\\n    const grip = boxInertia(M.grip, 0.019, 0.2275, 0.0165);\\n    const pommel = sphereInertia(M.pommel, 0.03);\\n    const guard = boxInertia(M.guard, 0.2525, 0.03, 0.0155);\\n    const blade = bladeInertia(M.blade, L, 0.353, 0.272, 0.04, 0.009);\\n    return [\\n      partTuple(['box', 0.019, 0.2275, 0.0165], FL.y[0], M.grip, 0, grip.Ie, grip.It, FLAMBERGE_COLORS.leather),\\n      partTuple(['ball', 0.03], FL.y[1], M.pommel, 0, pommel.Ie, pommel.It, FLAMBERGE_COLORS.bronze),\\n      partTuple(['box', 0.2525, 0.03, 0.0155], FL.y[2], M.guard, 0, guard.Ie, guard.It, FLAMBERGE_COLORS.steel),\\n      partTuple(['box', 0.02, L / 2, 0.0045], FL.y[3], M.blade, blade.comY, blade.Ie, blade.It, FLAMBERGE_COLORS.blade, true),\\n    ];\\n  }\",\"id\":\"flamberge\",\"edged\":true,\"power\":1.1,\"durability\":0.95,\"fragility\":0.0104,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":true,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"twoHand\":true,\"oneHandStance\":false,\"soundMaterial\":\"steel\",\"controlOverrides\":{\"maxAimTorque\":26},\"capFromGrip\":true,\"frame\":\"heavy\",\"style\":\"cut\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.019,
+          0.2275,
+          0.0165
+        ],
+        -0.1575,
+        [
+          0.325,
+          0,
+          0.005646035416666667,
+          0.00006860208333333334
+        ],
+        3154717,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.03
+        ],
+        -0.385,
+        [
+          0.43,
+          0,
+          0.00015480000000000002,
+          0.00015480000000000002
+        ],
+        7823428,
+        false
+      ],
+      [
+        [
+          "box",
+          0.2525,
+          0.03,
+          0.0155
+        ],
+        0.097,
+        [
+          0.58,
+          0,
+          0.012500208333333332,
+          0.012372656666666664
+        ],
+        10199458,
+        false
+      ],
+      [
+        [
+          "box",
+          0.02,
+          0.5935,
+          0.0045
+        ],
+        0.6785,
+        [
+          1.665,
+          -0.17448900000000003,
+          0.17356153555584006,
+          0.00006822149643705461
+        ],
+        10726836,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 3,
+      "com": 0.226233605,
+      "I": 0.692073682277305,
+      "length": 1.272
+    }
+  },
+  "goujian": {
+    "spec": "{\"nameKo\":\"월왕구천검\",\"nameEn\":\"Sword of Goujian\",\"desc\":\"이천오백 년을 묻혀 있고도 녹슬지 않은 월왕의 청동검.\\n복수의 저주를 받아 다칠수록 매서워진다. (와신상담: 다칠수록 공격력 증폭)\",\"grip\":\"one-hand\",\"material\":\"steel\",\"tier\":\"epic\",\"school\":\"chinese\",\"enterParry\":true,\"ability\":\"와신상담: 다칠수록 공격력 증폭\",\"woundRage\":0.3,\"hiltLength\":0.09,\"bladeLength\":0.67,\"gripAlong\":-0.1,\"mCut\":1.05,\"mThrust\":1.05,\"mBlunt\":1,\"partMesh\":\"function goujianPartMesh(index, isBlade, shape, color, opts, look, tier) {\\n  if (isBlade) {\\n    const [, hx, hy, hz] = shape, surface = bladeSurface(hx, hy, hz);\\n    const blade = new THREE.Mesh(surface.geometry, metalMat(GOUJIAN_COLORS.blade, {\\n      rough: 0.32, metal: 0.82, env: 1.15, vertexColors: true, side: THREE.DoubleSide,\\n    }));\\n    blade.name = 'goujian-faceted-bronze-blade';\\n    blade.castShadow = true;\\n    decorateBlade(blade, surface.front, hy);\\n    return blade;\\n  }\\n  const group = new THREE.Group(), bronze = metalMat(GOUJIAN_COLORS.metal, { rough: 0.40, metal: 0.8 });\\n  if (index === 0) {\\n    const body = new THREE.CylinderGeometry(0.0124, 0.0128, shape[2] * 2, 24);\\n    body.scale(1.08, 1, 1);\\n    const rings = [-0.030, 0.032].map(y => {\\n      const g = new THREE.TorusGeometry(0.013, 0.0017, 6, 32);\\n      g.rotateX(Math.PI / 2); g.scale(1, 1, 0.91); g.translate(0, y, 0);\\n      return g;\\n    });\\n    add(group, merged([body, ...rings]), metalMat(GOUJIAN_COLORS.grip, { rough: 0.45, metal: 0.78 }), 'goujian-cylindrical-two-ring-hilt');\\n  } else if (index === 1) {\\n    const disk = new THREE.CylinderGeometry(0.0248, 0.026, 0.0078, 64);\\n    disk.translate(0, 0.0001, 0);\\n    add(group, disk, bronze, 'goujian-round-disk-pommel');\\n    const vertices = [];\\n    // Eleven very fine concentric incised circles on the pommel's underside.\\n    for (let ring = 0; ring < 11; ring++) for (let k = 0; k < 64; k++) {\\n      const radius = 0.002 + ring * 0.00203, a = k * Math.PI / 32, b = (k + 1) * Math.PI / 32;\\n      const p = (r, angle) => [r * Math.cos(angle), -0.00385, r * Math.sin(angle)];\\n      const A = p(radius - 0.00013, a), B = p(radius + 0.00013, a);\\n      const C = p(radius + 0.00013, b), D = p(radius - 0.00013, b);\\n      vertices.push(...A, ...B, ...C, ...A, ...C, ...D);\\n    }\\n    const lines = add(group, geometry(vertices), metalMat(0x68582d, {\\n      rough: 0.53, metal: 0.65, side: THREE.DoubleSide,\\n    }), 'goujian-eleven-pommel-circles');\\n    lines.castShadow = false;\\n  } else if (index === 2) {\\n    add(group, guardGeometry(), bronze, 'goujian-compact-boat-guard');\\n    add(group, guardInlays(), new THREE.MeshStandardMaterial({\\n      color: 0xffffff, roughness: 0.28, metalness: 0.22, vertexColors: true,\\n      side: THREE.DoubleSide,\\n    }), 'goujian-turquoise-and-blue-guard-inlays');\\n  }\\n  return group;\\n}\",\"decorate\":\"function goujianDecorate(group) {\\n  // All details belong to their physical part so fracture/dropped fragments\\n  // retain the correct local ornament. No animation, random placement or aura.\\n  group.userData.goujian = { inscription: 'simplified-bird-worm-style', pommelCircles: 11 };\\n}\",\"buildParts\":\"buildParts() {\\n    const L = this.bladeLength;\\n    const bladeMass = 0.78 * L / 0.62; // 같은 단면·재질: 80 cm 판 날 0.78 kg 을 날 길이 비로 늘림 (샛별 식 그대로 — 0.843 kg)\\n    const grip = boxInertia(0.13, 0.016, 0.079, 0.014);\\n    const pommel = boxInertia(0.14, 0.026, 0.004, 0.026); // 원반 폼멜 (상자 콜라이더 — 샛별 그대로)\\n    const guard = boxInertia(0.10, 0.034, 0.007, 0.016);\\n    const blade = bladeInertia(bladeMass, L, 0.38, 0.26, 0.046, 0.009);\\n    return [\\n      partTuple(['box', 0.016, 0.079, 0.014], -0.001, 0.13, 0, grip.Ie, grip.It, GOUJIAN_COLORS.grip),\\n      partTuple(['box', 0.026, 0.004, 0.026], -0.086, 0.14, 0, pommel.Ie, pommel.It, GOUJIAN_COLORS.metal),\\n      partTuple(['box', 0.034, 0.007, 0.016], 0.083, 0.10, 0, guard.Ie, guard.It, GOUJIAN_COLORS.metal),\\n      partTuple(['box', 0.023, L / 2, 0.0045], this.hiltLength + L / 2, bladeMass,\\n        blade.comY, blade.Ie, blade.It, GOUJIAN_COLORS.blade, true),\\n    ];\\n  }\",\"id\":\"goujian\",\"edged\":true,\"power\":1.1,\"durability\":0.95,\"fragility\":0.0104,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":true,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"twoHand\":false,\"oneHandStance\":true,\"soundMaterial\":\"steel\",\"controlOverrides\":{\"maxAimTorque\":22},\"capFromGrip\":true,\"frame\":\"one\",\"style\":\"versatile\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.016,
+          0.079,
+          0.014
+        ],
+        -0.001,
+        [
+          0.13,
+          0,
+          0.0002815366666666667,
+          0.00001958666666666667
+        ],
+        9072953,
+        false
+      ],
+      [
+        [
+          "box",
+          0.026,
+          0.004,
+          0.026
+        ],
+        -0.086,
+        [
+          0.14,
+          0,
+          0.00003229333333333333,
+          0.00006309333333333333
+        ],
+        11506763,
+        false
+      ],
+      [
+        [
+          "box",
+          0.034,
+          0.007,
+          0.016
+        ],
+        0.083,
+        [
+          0.1,
+          0,
+          0.00004016666666666667,
+          0.000047066666666666675
+        ],
+        11506763,
+        false
+      ],
+      [
+        [
+          "box",
+          0.023,
+          0.335,
+          0.0045
+        ],
+        0.42500000000000004,
+        [
+          0.8429032258064517,
+          -0.0804,
+          0.0255784378451613,
+          0.00003971755995709142
+        ],
+        11903575,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 1.2129032258064516,
+      "com": 0.23628797872340432,
+      "I": 0.12775095453763446,
+      "length": 0.76
+    }
+  },
+  "brothers_sword": {
+    "spec": "{\"nameKo\":\"황약사의 검\",\"nameEn\":\"Huang Yaoshi's Sword\",\"desc\":\"흰 천으로 감싼 검. 오랫동안 풀지 않은 듯 단단히 매여 있다.\\n“번뇌는 기억력 때문이라더군.” (취생몽사: 몽롱한 일격)\",\"grip\":\"one-hand\",\"material\":\"wood\",\"soundMaterial\":\"wood\",\"tier\":\"epic\",\"ability\":\"취생몽사: 몽롱한 일격\",\"edged\":false,\"spike\":false,\"mCut\":0,\"mThrust\":0,\"mBlunt\":1.6,\"fragility\":0,\"durability\":1,\"hiltLength\":0.12,\"bladeLength\":0.81,\"partMesh\":\"() => new THREE.Group()\",\"buildParts\":\"buildParts() {\\n    // 1.60 kg: 롱소드와 같은 총량 — 천에 싸인 칼 · 칼집 몸이 대부분의 질량 (자루 0.28 · 끝 0.10 · 몸 1.22)\\n    const grip = boxInertia(.28, .019, .12, .019);\\n    const cap = sphereInertia(.10, .015);\\n    const body = boxInertia(1.22, .021, .405, .021);\\n    return [\\n      partTuple(['box', .019, .12, .019], -.012, .28, 0, grip.Ie, grip.It, null),\\n      partTuple(['ball', .015], -.121, .10, 0, cap.Ie, cap.It, null),\\n      partTuple(['box', .021, .405, .021], .525, 1.22, 0, body.Ie, body.It, null, true),\\n    ];\\n  }\",\"decorate\":\"function drawBrothersSword(group){\\n const profile=[[-1,-.65],[-.82,-1],[.82,-1],[1,-.65],[1,.65],[.82,1],[-.82,1],[-1,.65]];\\n const section=y=>{\\n  const t=T.MathUtils.clamp((y-.12)/.81,0,1),end=T.MathUtils.smoothstep(t,.89,1);\\n  return {x:-.012*t*t,w:.031-.006*t-.005*end,d:.0108-.0015*t};\\n };\\n const add=(geo,color,name)=>{\\n  const m=new T.Mesh(geo,new T.MeshStandardMaterial({color,roughness:.97,metalness:0,side:T.DoubleSide}));\\n  m.name=name;m.castShadow=true;group.add(m);return m;\\n };\\n const shell=(levels,shape)=>{\\n  const p=[],ix=[];\\n  for(const y of levels){const s=shape(y);for(const [x,z]of profile)p.push(s.x+x*s.w,y,z*s.d)}\\n  for(let j=0;j<levels.length-1;j++)for(let i=0;i<8;i++){\\n   const a=j*8+i,b=j*8+(i+1)%8;ix.push(a,a+8,b,b,a+8,b+8);\\n  }\\n  for(const [j,flip]of [[0,false],[levels.length-1,true]])for(let i=1;i<7;i++){\\n   const a=j*8,b=a+i,c=b+1;ix.push(...(flip?[a,c,b]:[a,b,c]));\\n  }\\n  const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(p,3));g.setIndex(ix);g.computeVertexNormals();return g;\\n };\\n add(shell([.105,.15,.32,.52,.72,.86,.91,.933],section),0xd6cfbf,'renji-sword-wrap');\\n add(shell([-.13,-.115,-.03,.065,.106],y=>({x:0,w:.0185+.001*Math.cos(y*20),d:.012})),0xd1c8b6,'wrapped-sword-grip');\\n // 천으로 감싼 타원 코등이 — 죽도의 둥근 츠바가 아니다\\n add(shell([.102,.109,.122],()=>({x:0,w:.042,d:.014})),0xded7c9,'wrapped-sword-collar');\\n // 넓은 사선 천 일곱 겹이 납작한 면을 덮고 칼날 쪽 모서리를 돌아간다.\\n // 고르지 않은 간격 · 옅은 이음매 — 고른 간격의 어두운 대나무 마디처럼 보이지 않게\\n const p=[],ix=[],colors=[];\\n for(let k=0;k<7;k++){\\n  const start=.145+k*.105+.006*Math.sin(k*2.7),width=.113+.012*Math.cos(k*1.9),first=p.length/3;\\n  for(let i=0;i<=8;i++)for(const side of [0,1]){\\n   const [x,z]=profile[i%8],y=T.MathUtils.clamp(start+i/8*.055+(side-.5)*width,.127,.931),s=section(y);\\n   p.push(s.x+x*(s.w+.0008),y,z*(s.d+.0011));\\n   const c=.965+.025*Math.sin(k*1.8)+(side?-.018:.006);colors.push(c,c,c);\\n  }\\n  for(let i=0;i<8;i++){const a=first+i*2;ix.push(a,a+1,a+2,a+1,a+3,a+2)}\\n }\\n const strips=new T.BufferGeometry();strips.setAttribute('position',new T.Float32BufferAttribute(p,3));strips.setAttribute('color',new T.Float32BufferAttribute(colors,3));strips.setIndex(ix);strips.computeVertexNormals();\\n add(strips,0xe2dbce,'wrapped-sword-overlapping-cloth').material.vertexColors=true;\\n const seams=[],seamIndex=[];\\n for(let k=0;k<7;k++)for(const face of [-1,1]){\\n  const mid=.19+k*.104+.008*Math.sin(k*2.7),first=seams.length/3;\\n  for(const [edge,offset]of [[-1,-.002],[-1,.002],[1,-.002],[1,.002]]){\\n   const y=mid+edge*(.022+.005*Math.sin(k))+offset,s=section(y);\\n   seams.push(s.x+edge*s.w*.86,y,face*(s.d+.0018));\\n  }\\n  seamIndex.push(first,first+1,first+2,first+1,first+3,first+2);\\n }\\n const crease=new T.BufferGeometry();crease.setAttribute('position',new T.Float32BufferAttribute(seams,3));crease.setIndex(seamIndex);crease.computeVertexNormals();\\n add(crease,0xa99f8e,'wrapped-sword-soft-creases');\\n // 접어 넣은 작은 천 귀퉁이와 고르지 않은 자루 끈 둘 — 칼몸에 되풀이되는 고리 없음\\n const flap=new T.BufferGeometry();flap.setAttribute('position',new T.Float32BufferAttribute([.029,.78,.012,.048,.752,.014,.036,.715,.018,.026,.744,.013],3));flap.setIndex([0,1,2,0,2,3]);flap.computeVertexNormals();\\n add(flap,0xdcd4c5,'wrapped-sword-tucked-corner');\\n const ties=[];\\n for(const y of [-.075,.035]){\\n  const geo=bake(new T.TorusGeometry(.0195,.0018,4,12),[0,y,0],[Math.PI/2+.16,0,0]);geo.scale(1,1,.67);ties.push(geo);\\n }\\n const knots=mergeGeometries(ties);ties.forEach(g=>g.dispose());add(knots,0xa49a87,'wrapped-sword-grip-ties');\\n}\",\"id\":\"brothers_sword\",\"power\":1.1,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":false,\"ignoreArmor\":false,\"thrustStyle\":null,\"breakY\":null,\"gripAlong\":-0.14,\"twoHand\":false,\"oneHandStance\":true,\"controlOverrides\":{\"maxAimTorque\":22},\"capFromGrip\":true,\"frame\":\"one\",\"style\":\"blunt\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.019,
+          0.12,
+          0.019
+        ],
+        -0.012,
+        [
+          0.28,
+          0,
+          0.0013776933333333333,
+          0.00006738666666666666
+        ],
+        null,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.015
+        ],
+        -0.121,
+        [
+          0.1,
+          0,
+          0.000009,
+          0.000009
+        ],
+        null,
+        false
+      ],
+      [
+        [
+          "box",
+          0.021,
+          0.405,
+          0.021
+        ],
+        0.525,
+        [
+          1.22,
+          0,
+          0.06688284000000001,
+          0.00035868000000000006
+        ],
+        null,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 1.6,
+      "com": 0.39064999999999994,
+      "I": 0.4060364533333333,
+      "length": 0.93
+    }
+  },
+  "dartagnan": {
+    "spec": "{\"nameKo\":\"달타냥\",\"nameEn\":\"D’Artagnan\",\"desc\":\"세 벗과 맹세를 나눈 총사의 검.\\n푸른 가죽 손잡이와 빛바랜 금빛 코등이.\",\"grip\":\"one-hand\",\"material\":\"steel\",\"tier\":\"epic\",\"hiltLength\":0.1,\"bladeLength\":0.95,\"mCut\":0.5,\"mThrust\":1.3,\"mBlunt\":0.7,\"thrustStyle\":{\"recover\":0.6,\"reach\":0.1,\"gap\":0.3,\"window\":0.12},\"partMesh\":\"(idx, isBlade, shape, color, matOpts, look, tier) => {\\n    const F = finishOf(tier);\\n    if (isBlade) {\\n      if (o.bladeMesh) return o.bladeMesh(shape, color, matOpts);\\n      if (shape[0] !== 'box') return undefined;\\n      const [, hx, hy, hz] = shape;\\n      const mat = new THREE.MeshStandardMaterial({\\n        color,\\n        vertexColors: true,\\n        roughness: F.blade,\\n        metalness: F.metal,\\n        envMap: weaponEnv(),\\n        envMapIntensity: F.env,\\n        side: THREE.DoubleSide,\\n        ...(F.sheen ? { emissive: F.sheen, emissiveIntensity: 0.06 } : {}),\\n      });\\n      const m = new THREE.Mesh(bladeGeometry(hx, hy, hz, o.blade), mat);\\n      m.castShadow = true;\\n      return m;\\n    }\\n    const metalColor = o.metal ?? look?.hilt ?? 0x9aa3ad;\\n    if (idx === 0 && shape[0] === 'box' && o.grip) {\\n      const [, hx, hy, hz] = shape;\\n      return gripMesh(hx, hy, hz, o.grip.color ?? color, o.grip.style ?? 'leather', F, o.pommel?.color ?? metalColor);\\n    }\\n    if (idx === 1 && shape[0] === 'ball' && o.pommel) return pommelMesh(shape[1], o.pommel.color ?? color, o.pommel.style ?? 'wheel', F);\\n    if (idx === 2 && o.guard) return guardMesh(shape, o.guard.color ?? color, o.guard.style ?? 'bar', F);\\n    return undefined;\\n  }\",\"buildParts\":\"buildParts(look) {\\n    return RAPIER_SPEC.buildParts.call(this, { ...look, ...DARTAGNAN_COLORS });\\n  }\",\"decorate\":\"decorate(group, look) {\\n    RAPIER_SPEC.decorate(group, { ...look, ...DARTAGNAN_COLORS });\\n  }\",\"id\":\"dartagnan\",\"edged\":true,\"power\":1.1,\"durability\":0.95,\"fragility\":0.0104,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":true,\"ignoreArmor\":false,\"spike\":false,\"breakY\":null,\"gripAlong\":-0.14,\"twoHand\":false,\"oneHandStance\":true,\"soundMaterial\":\"steel\",\"controlOverrides\":{\"maxAimTorque\":22},\"capFromGrip\":true,\"frame\":\"one\",\"style\":\"thrust\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.014,
+          0.055,
+          0.014
+        ],
+        0,
+        [
+          0.08,
+          0,
+          0.00008589333333333333,
+          0.000010453333333333335
+        ],
+        2112364,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.018
+        ],
+        -0.07,
+        [
+          0.09,
+          0,
+          0.000011663999999999997,
+          0.000011663999999999997
+        ],
+        10584910,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.05
+        ],
+        0.06,
+        [
+          0.55,
+          0,
+          0.0005500000000000001,
+          0.0005500000000000001
+        ],
+        10584910,
+        false
+      ],
+      [
+        [
+          "box",
+          0.009,
+          0.475,
+          0.006
+        ],
+        0.575,
+        [
+          0.38,
+          -0.19,
+          0.019753919999999994,
+          0.00001494726840855107
+        ],
+        14673128,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 1.1,
+      "com": 0.15727272727272726,
+      "I": 0.07914797733333331,
+      "length": 1.05
+    }
+  },
+  "kusanagi": {
+    "spec": "{\"nameKo\":\"쿠사나기\",\"nameEn\":\"Kusanagi\",\"desc\":\"큰 뱀의 꼬리에서 나온 신검.\\n풀을 베어 불길 속의 길을 열었다.\",\"grip\":\"two-hand\",\"material\":\"steel\",\"school\":\"japanese\",\"frame\":\"two\",\"style\":\"versatile\",\"tier\":\"legend\",\"hiltLength\":0.1,\"bladeLength\":0.75,\"gripAlong\":-0.2,\"mCut\":1.2,\"mThrust\":1.1,\"mBlunt\":0.95,\"partMesh\":\"function kusanagiPartMesh(index, isBlade, shape, color, opts, look, tier) {\\n  if (isBlade) return bladeKit(index, isBlade, shape, color, opts, look, tier);\\n  const group = new THREE.Group();\\n  const gold = metalMat(KUSANAGI_COLORS.gold, { rough: 0.4 });\\n  if (index === 0) {\\n    const grip = add(group, new THREE.CylinderGeometry(0.014, 0.015, 0.30, 8),\\n      new THREE.MeshStandardMaterial({ color: KUSANAGI_COLORS.grip, roughness: 0.88 }));\\n    grip.scale.z = 1.15;\\n    // 교차 끈은 양면에서 읽히되 자루를 굵게 만들지 않는다.\\n    const silk = new THREE.MeshStandardMaterial({ color: 0x316c63, roughness: 0.92 });\\n    for (const side of [-1, 1]) for (let y = -0.13; y < 0.14; y += 0.025) for (const sign of [-1, 1]) {\\n      const strip = add(group, new THREE.BoxGeometry(0.004, 0.034, 0.001), silk, 0, y, side * 0.0173);\\n      strip.rotation.z = sign * 0.8;\\n    }\\n    for (const y of [-0.15, 0.15]) {\\n      const collar = add(group, new THREE.CylinderGeometry(0.017, 0.017, 0.012, 8), gold, 0, y);\\n      collar.scale.z = 1.12;\\n    }\\n  } else if (index === 1) bead(group, gold);\\n  else if (index === 2) {\\n    const leaf = [[0.008,-0.012],[0.029,-0.010],[0.045,0.004],[0.06,0.028],\\n      [0.065,0.036],[0.045,0.024],[0.025,0.020],[0.011,0.008]];\\n    for (const side of [-1, 1]) {\\n      add(group, plate(leaf.map(([x,y]) => [side*x,y]), 0.011), gold);\\n      const inlay = leaf.map(([x,y]) => [side*(0.028+(x-0.028)*0.72), 0.008+(y-0.008)*0.56]);\\n      for (const face of [-1, 1]) add(group, plate(inlay, 0.0005), metalMat(0x35645a, { rough: 0.48 }), 0, 0, face * 0.0058);\\n    }\\n    add(group, new THREE.BoxGeometry(0.036, 0.024, 0.023), gold);\\n  }\\n  return group;\\n}\",\"decorate\":\"function kusanagiDecorate(group) {\\n  const h = this.hiltLength, L = this.bladeLength;\\n  const gold = metalMat(KUSANAGI_COLORS.gold, { rough: 0.4 });\\n  add(group, new THREE.BoxGeometry(0.033, 0.023, 0.010), gold, 0, h + 0.0115);\\n  // 피홈 바닥의 녹청색. 칼 전체 발광·별도 이펙트는 쓰지 않는다.\\n  const verts = [];\\n  for (const side of [-1, 1]) for (let i = 0; i < 20; i++) {\\n    const point = (n, edge) => {\\n      const t = 0.08 + 0.70 * n / 20;\\n      const fade = Math.max(0, Math.min(1, (0.81-t)/0.08));\\n      const w = 0.0205 * width(t) * 0.28 * 0.7 * fade * Math.min(1,(t-0.08)/0.05);\\n      return [edge*w, h+t*L, side*(0.0035*(1-0.35*t)*(1-0.4*fade)+0.00008)];\\n    };\\n    const a=point(i,-1), b=point(i,1), c=point(i+1,1), d=point(i+1,-1);\\n    verts.push(...a,...b,...c,...a,...c,...d);\\n  }\\n  const geometry = new THREE.BufferGeometry();\\n  geometry.setAttribute('position', new THREE.Float32BufferAttribute(verts,3)); geometry.computeVertexNormals();\\n  add(group, geometry, metalMat(0x4b7971, { rough: 0.48, metal: 0.5, side: THREE.DoubleSide }));\\n}\",\"buildParts\":\"buildParts() {\\n    // 창작 사양: 총 1.10 kg. 사장님 자루 비례 지적 뒤 양손 자루 30 cm 로 줄임 · 손 간격 20 cm 유지(샛별 저장소)\\n    const L = this.bladeLength;\\n    const grip = boxInertia(0.28, 0.014, 0.15, 0.017);\\n    const pommel = sphereInertia(0.10, 0.024);\\n    const guard = boxInertia(0.12, 0.065, 0.025, 0.012);\\n    const blade = bladeInertia(0.60, L, 0.395, 0.26, 0.041, 0.007);\\n    return [\\n      partTuple(['box', 0.014, 0.15, 0.017], -0.08, 0.28, 0, grip.Ie, grip.It, KUSANAGI_COLORS.grip),\\n      partTuple(['ball', 0.024], -0.25, 0.10, 0, pommel.Ie, pommel.It, KUSANAGI_COLORS.gold),\\n      partTuple(['box', 0.065, 0.025, 0.012], 0.09, 0.12, 0, guard.Ie, guard.It, KUSANAGI_COLORS.gold),\\n      partTuple(['box', 0.0205, L / 2, 0.0035], 0.10 + L / 2, 0.60, blade.comY, blade.Ie, blade.It, KUSANAGI_COLORS.blade, true),\\n    ];\\n  }\",\"id\":\"kusanagi\",\"edged\":true,\"power\":1.2,\"durability\":1,\"fragility\":0,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":false,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"twoHand\":true,\"oneHandStance\":false,\"soundMaterial\":\"steel\",\"controlOverrides\":{\"maxAimTorque\":26},\"capFromGrip\":true}",
+    "parts": [
+      [
+        [
+          "box",
+          0.014,
+          0.15,
+          0.017
+        ],
+        -0.08,
+        [
+          0.28,
+          0,
+          0.002118293333333334,
+          0.000045266666666666685
+        ],
+        2116937,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.024
+        ],
+        -0.25,
+        [
+          0.1,
+          0,
+          0.000023040000000000006,
+          0.000023040000000000006
+        ],
+        11836256,
+        false
+      ],
+      [
+        [
+          "box",
+          0.065,
+          0.025,
+          0.012
+        ],
+        0.09,
+        [
+          0.12,
+          0,
+          0.00019399999999999997,
+          0.00017476000000000001
+        ],
+        11836256,
+        false
+      ],
+      [
+        [
+          "box",
+          0.0205,
+          0.375,
+          0.0035
+        ],
+        0.475,
+        [
+          0.6,
+          -0.07874999999999999,
+          0.022815000000000002,
+          0.000023600950118764847
+        ],
+        12638163,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 1.1,
+      "com": 0.18286363636363634,
+      "I": 0.12837277083333332,
+      "length": 0.85
+    }
+  },
+  "hwando": {
+    "spec": "{\"nameKo\":\"환도\",\"nameEn\":\"Hwando\",\"tier\":\"common\",\"desc\":\"조선 군졸의 외날 도검.\\n조금 휜 날과 무늬를 뚫은 코등이를 지녔다.\",\"school\":\"chinese\",\"grip\":\"one-hand\",\"material\":\"steel\",\"enterParry\":true,\"hiltLength\":0.085,\"bladeLength\":0.72,\"mCut\":1.1,\"mThrust\":0.95,\"mBlunt\":0.95,\"partMesh\":\"(...args) => historicalPartMesh('hwando', ...args)\",\"decorate\":\"function historicalDecorate(group){\\n if(this.id==='hwando'){\\n  const m=box(group,.035,.019,.009,brass(),0,this.hiltLength+.0095);m.name='hwando-blade-collar';\\n }else{\\n  const band=box(group,.030,.012,.035,steel(),0,.081);band.name='knecht-grip-ferrule';\\n }\\n}\",\"dressWeapon\":\"dressWeapon(pelvis) {\\n    const scabbard=hwandoScabbard(this.bladeLength);\\n    scabbard.position.set(-.07,.075,.23);scabbard.rotation.set(-.08,0,-.45);\\n    pelvis.add(scabbard);\\n  }\",\"buildParts\":\"buildParts() {\\n    const L=this.bladeLength, grip=boxInertia(.12,.015,.0625,.013), pommel=sphereInertia(.08,.011),\\n      cross=boxInertia(.08,.0355,.002,.0275), blade=bladeInertia(.62,L,.37,.25,.036,.0062);\\n    return [\\n      partTuple(['box',.015,.0625,.013],0,.12,0,grip.Ie,grip.It,0x856444),\\n      partTuple(['ball',.011],-.073,.08,0,pommel.Ie,pommel.It,0x9a8050),\\n      partTuple(['box',.0355,.002,.0275],.072,.08,0,cross.Ie,cross.It,0x39372f),\\n      partTuple(['box',.024,L/2,.0031],.085+L/2,.62,blade.comY,blade.Ie,blade.It,0xc4c8c7,true),\\n    ];\\n  }\",\"id\":\"hwando\",\"edged\":true,\"power\":1,\"durability\":0.8,\"fragility\":0.056,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":true,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"gripAlong\":-0.14,\"twoHand\":false,\"oneHandStance\":true,\"soundMaterial\":\"steel\",\"controlOverrides\":{\"maxAimTorque\":22},\"capFromGrip\":true,\"frame\":\"one\",\"style\":\"versatile\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.015,
+          0.0625,
+          0.013
+        ],
+        0,
+        [
+          0.12,
+          0,
+          0.00016525,
+          0.000015759999999999998
+        ],
+        8741956,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.011
+        ],
+        -0.073,
+        [
+          0.08,
+          0,
+          0.0000038719999999999995,
+          0.0000038719999999999995
+        ],
+        10125392,
+        false
+      ],
+      [
+        [
+          "box",
+          0.0355,
+          0.002,
+          0.0275
+        ],
+        0.072,
+        [
+          0.08,
+          0,
+          0.000033713333333333335,
+          0.000053773333333333336
+        ],
+        3749679,
+        false
+      ],
+      [
+        [
+          "box",
+          0.024,
+          0.36,
+          0.0031
+        ],
+        0.445,
+        [
+          0.62,
+          -0.0936,
+          0.020087999999999998,
+          0.000024387648456057008
+        ],
+        12896455,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 0.9,
+      "com": 0.24198666666666668,
+      "I": 0.09769069053333333,
+      "length": 0.8049999999999999
+    }
+  },
+  "kriegsmesser": {
+    "spec": "{\"nameKo\":\"크리그스메서\",\"nameEn\":\"Kriegsmesser\",\"tier\":\"rare\",\"desc\":\"독일권의 양손 외날검.\\n날의 긴 홈과 나겔이 달린 나무 자루를 지녔다.\",\"school\":\"german\",\"grip\":\"two-hand\",\"material\":\"steel\",\"hiltLength\":0.1,\"bladeLength\":0.95,\"gripAlong\":-0.14,\"mCut\":1.12,\"mThrust\":0.9,\"mBlunt\":1,\"partMesh\":\"(...args) => historicalPartMesh('kriegsmesser', ...args)\",\"decorate\":\"function historicalDecorate(group){\\n if(this.id==='hwando'){\\n  const m=box(group,.035,.019,.009,brass(),0,this.hiltLength+.0095);m.name='hwando-blade-collar';\\n }else{\\n  const band=box(group,.030,.012,.035,steel(),0,.081);band.name='knecht-grip-ferrule';\\n }\\n}\",\"buildParts\":\"buildParts() {\\n    const L=this.bladeLength, grip=boxInertia(.18,.015,.1175,.017), pommel=sphereInertia(.14,.021),\\n      cross=boxInertia(.21,.125,.007,.043), blade=bladeInertia(.97,L,.35,.253,.0445,.0074);\\n    return [\\n      partTuple(['box',.015,.1175,.017],-.035,.18,0,grip.Ie,grip.It,0x573827),\\n      partTuple(['ball',.021],-.159,.14,0,pommel.Ie,pommel.It,0x858b89),\\n      partTuple(['box',.125,.007,.043],.092,.21,0,cross.Ie,cross.It,0x858b89),\\n      partTuple(['box',.028,L/2,.0037],.10+L/2,.97,blade.comY,blade.Ie,blade.It,0xc9ced1,true),\\n    ];\\n  }\",\"id\":\"kriegsmesser\",\"edged\":true,\"power\":1.05,\"durability\":0.85,\"fragility\":0.032,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":true,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"twoHand\":true,\"oneHandStance\":false,\"soundMaterial\":\"steel\",\"controlOverrides\":{\"maxAimTorque\":26},\"capFromGrip\":true,\"frame\":\"two\",\"style\":\"versatile\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.015,
+          0.1175,
+          0.017
+        ],
+        -0.035,
+        [
+          0.18,
+          0,
+          0.0008418749999999999,
+          0.00003084
+        ],
+        5716007,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.021
+        ],
+        -0.159,
+        [
+          0.14,
+          0,
+          0.000024696000000000005,
+          0.000024696000000000005
+        ],
+        8752009,
+        false
+      ],
+      [
+        [
+          "box",
+          0.125,
+          0.007,
+          0.043
+        ],
+        0.092,
+        [
+          0.21,
+          0,
+          0.00109718,
+          0.00122318
+        ],
+        8752009,
+        false
+      ],
+      [
+        [
+          "box",
+          0.028,
+          0.475,
+          0.0037
+        ],
+        0.575,
+        [
+          0.97,
+          -0.14250000000000002,
+          0.05603507882499999,
+          0.00003815486935866984
+        ],
+        13225681,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 1.5,
+      "com": 0.2735233333333333,
+      "I": 0.24498067232499993,
+      "length": 1.05
+    }
+  },
+  "balisarda": {
+    "spec": "{\"nameKo\":\"발리사르다\",\"nameEn\":\"Balisarda\",\"desc\":\"마녀 팔레리나가 마법의 갑옷을 베도록 만든 검.\\n은과 금의 덩굴이 상아색 자루를 감싼다.\",\"grip\":\"one-hand\",\"material\":\"steel\",\"tier\":\"legend\",\"hiltLength\":0.1,\"bladeLength\":0.95,\"mCut\":0.5,\"mThrust\":1.3,\"mBlunt\":0.7,\"thrustStyle\":{\"recover\":0.6,\"reach\":0.1,\"gap\":0.3,\"window\":0.12},\"partMesh\":\"function balisardaPartMesh(...args) {\\n  const [index,isBlade]=args;\\n  if(isBlade)return blade(args);\\n  if(index===0)return grip();\\n  if(index===1)return pommel();\\n  if(index===2)return guard();\\n}\",\"buildParts\":\"buildParts(look) {\\n    const parts = RAPIER_SPEC.buildParts.call(this, { ...look, ...BALISARDA_COLORS });\\n    parts[3][3] = BALISARDA_COLORS.blade;\\n    return parts;\\n  }\",\"school\":\"italian\",\"id\":\"balisarda\",\"edged\":true,\"power\":1.2,\"durability\":1,\"fragility\":0,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":false,\"ignoreArmor\":false,\"spike\":false,\"breakY\":null,\"gripAlong\":-0.14,\"twoHand\":false,\"oneHandStance\":true,\"soundMaterial\":\"steel\",\"controlOverrides\":{\"maxAimTorque\":22},\"capFromGrip\":true,\"frame\":\"one\",\"style\":\"thrust\"}",
+    "parts": [
+      [
+        [
+          "box",
+          0.014,
+          0.055,
+          0.014
+        ],
+        0,
+        [
+          0.08,
+          0,
+          0.00008589333333333333,
+          0.000010453333333333335
+        ],
+        14800568,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.018
+        ],
+        -0.07,
+        [
+          0.09,
+          0,
+          0.000011663999999999997,
+          0.000011663999999999997
+        ],
+        13021562,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.05
+        ],
+        0.06,
+        [
+          0.55,
+          0,
+          0.0005500000000000001,
+          0.0005500000000000001
+        ],
+        13021562,
+        false
+      ],
+      [
+        [
+          "box",
+          0.009,
+          0.475,
+          0.006
+        ],
+        0.575,
+        [
+          0.38,
+          -0.19,
+          0.019753919999999994,
+          0.00001494726840855107
+        ],
+        14475744,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 1.1,
+      "com": 0.15727272727272726,
+      "I": 0.07914797733333331,
+      "length": 1.05
+    }
+  },
+  "muramasa": {
+    "spec": "{\"nameKo\":\"무라마사\",\"nameEn\":\"Muramasa\",\"desc\":\"이세의 도공 무라마사 일문의 칼.\\n적갈색 감개와 거친 물결무늬의 날을 지녔다.\",\"grip\":\"two-hand\",\"material\":\"steel\",\"school\":\"japanese\",\"frame\":\"two\",\"style\":\"versatile\",\"tier\":\"rare\",\"strayPick\":false,\"hiltLength\":0.075,\"bladeLength\":0.71,\"gripAlong\":-0.2,\"mCut\":1.2,\"mThrust\":0.9,\"mBlunt\":0.95,\"partMesh\":\"function muramasaPartMesh(...args){\\n  if(args[0]===2&&!args[1])return tsuba();\\n  const m=kit(...args);\\n  if(args[1]){\\n    // Both blade faces have the same boundary, a frequent Muramasa trait.\\n    // Slightly stronger pale temper band, while the blade stays steel rather than a red glow.\\n    const colors=m.geometry.attributes.color;\\n    for(let i=0;i<colors.count;i++)if(colors.getX(i)>1.29)colors.setXYZ(i,1.43,1.45,1.48);\\n    colors.needsUpdate=true;\\n  }\\n  return m;\\n}\",\"buildParts\":\"buildParts(look) {\\n    const parts = UCHIGATANA_SPEC.buildParts.call(this, { ...look, ...MURAMASA_COLORS });\\n    parts[3][3] = MURAMASA_COLORS.blade;\\n    return parts;\\n  }\",\"decorate\":\"function muramasaDecorate(group){\\n  const bronze=metalMat(0x9b7c51,{rough:.38}),iron=metalMat(0x2b292c,{rough:.45});\\n  add(group,new THREE.BoxGeometry(.034,.030,.011),bronze,[0,this.hiltLength+.012,0]);\\n  const fuchi=add(group,new THREE.CylinderGeometry(.0148,.0148,.008,14),iron,[0,.061,0]);fuchi.scale.z=1.2;\\n  for(const y of[.056,-.232]){const band=add(group,new THREE.CylinderGeometry(.015,.015,.0028,14),bronze,[0,y,0]);band.scale.z=1.2;}\\n  const cloth=new THREE.MeshStandardMaterial({color:0x793c37,roughness:.88,metalness:0});\\n  const geos=[],start=-.225,end=.045,pitch=.033;\\n  // Two flat helical tapes conform to the oval tsuka; straight boxes floated at the sides.\\n  for(const direction of [-1,1]){\\n    const verts=[],N=144,rings=[];\\n    for(let i=0;i<=N;i++){\\n      const y=start+(end-start)*i/N,a=direction*(y-start)/pitch*Math.PI*2+(direction===-1?Math.PI:0);\\n      const relief=direction===1?.00055:0;\\n      rings.push([[-1,0],[1,0],[1,1],[-1,1]].map(([side,out])=>[\\n        Math.cos(a)*(.0141+relief+out*.0008),\\n        Math.max(start,Math.min(end,y+side*.0055)),\\n        Math.sin(a)*(.0175+relief+out*.0008)]));\\n    }\\n    const tri=(a,b,c)=>direction===1?verts.push(...a,...b,...c):verts.push(...a,...c,...b);\\n    for(let i=1;i<rings.length;i++)for(let j=0;j<4;j++){\\n      const a=rings[i-1][j],b=rings[i][j],c=rings[i][(j+1)%4],d=rings[i-1][(j+1)%4];tri(a,b,c);tri(a,c,d);\\n    }\\n    const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(verts,3));geo.computeVertexNormals();geos.push(geo);\\n  }\\n  add(group,mergeGeometries(geos),cloth);for(const geo of geos)geo.dispose();\\n}\",\"id\":\"muramasa\",\"edged\":true,\"power\":1.05,\"durability\":0.85,\"fragility\":0.032,\"breakChance\":\"breakChance(J) { return breakChance(J, this.fragility, this.material); }\",\"breakAt\":0.5,\"fragile\":true,\"ignoreArmor\":false,\"thrustStyle\":null,\"spike\":false,\"breakY\":null,\"twoHand\":true,\"oneHandStance\":false,\"soundMaterial\":\"steel\",\"controlOverrides\":{\"maxAimTorque\":26},\"capFromGrip\":true}",
+    "parts": [
+      [
+        [
+          "box",
+          0.014,
+          0.15,
+          0.017
+        ],
+        -0.085,
+        [
+          0.26,
+          0,
+          0.0019669866666666667,
+          0.00004203333333333334
+        ],
+        2631466,
+        false
+      ],
+      [
+        [
+          "ball",
+          0.014
+        ],
+        -0.245,
+        [
+          0.06,
+          0,
+          0.000004704,
+          0.000004704
+        ],
+        2631467,
+        false
+      ],
+      [
+        [
+          "box",
+          0.04,
+          0.005,
+          0.04
+        ],
+        0.07,
+        [
+          0.12,
+          0,
+          0.000065,
+          0.000128
+        ],
+        2631467,
+        false
+      ],
+      [
+        [
+          "box",
+          0.015,
+          0.355,
+          0.0035
+        ],
+        0.43,
+        [
+          0.66,
+          -0.07099999999999998,
+          0.0224909256,
+          0.00002596104513064133
+        ],
+        11449789,
+        true
+      ]
+    ],
+    "phys": {
+      "mass": 1.1,
+      "com": 0.18958181818181816,
+      "I": 0.11565707626666667,
+      "length": 0.7849999999999999
+    }
+  }
+}
