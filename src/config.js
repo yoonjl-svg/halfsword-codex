@@ -592,6 +592,8 @@ export const ARMOR = {
   //  제대로 된 타격(solidJ 이상) 한 번에 perHit + E/wear: 45J → 0.32(4번에 부서짐), 60J → 0.35, 100J → 0.40, 150J → 0.47(3번),
   //  200J 넘게 → 0.55(2번). 가벼운 30J 는 0.04 — 스무 번 넘게 맞아야 부서진다
   helmets: {
+    // Masked lamellar warrior: existing horned steel thresholds, closed mask.
+    kabuto_masked: {cut:80,stab:50,blunt:.5,guardMin:.25,fullUntil:.5,wear:700,perHit:.26,knockBlunt:200,coverMinY:-.116,shed:[[.9,['horn']],[.45,['horn','crest']]]},
     // Returned king's closed visor: existing steel-helmet thresholds, full face
     // coverage only for this new type. Neck remains unarmored.
     royal_close: { cut:80,stab:50,blunt:.5,guardMin:.25,fullUntil:.5,wear:700,perHit:.26,knockBlunt:200,coverMinY:-.116,shed:[[.45,['crest']]] },

@@ -29,6 +29,7 @@ import { createChandaOutfit } from './outfit_chanda.js'; // 찬다 복식 (샛�
 import { createTerracottaOutfit } from './outfit_terracotta.js'; // 병마용 복식 (샛별 저장소에서 가져옴 10/14 — 샛별 v1 + 우리 v2 잔선 덜기)
 import { createReturnedKingOutfit } from './outfit_returned_king.js';
 import { createReturnedKingOutfitV2 } from './outfit_returned_king_v2.js';
+import { createWhiteScaleOutfit } from './outfit_white_scale.js';
 
 const _m4 = new THREE.Matrix4();
 const _euler = new THREE.Euler();
@@ -2846,6 +2847,7 @@ const RENJI_V1 = createRenjiOutfit(newOutfitHelpers); // 김씨 v1 (v2 가 하�
 export const OUTFITS = {
   returned_king: createReturnedKingOutfit(newOutfitHelpers),
   returned_king_v2: createReturnedKingOutfitV2(newOutfitHelpers),
+  white_scale: createWhiteScaleOutfit(newOutfitHelpers),
   artoria_ballroom: createArtoriaBallroomOutfit(newOutfitHelpers, ARTORIA_OUTFIT.head), // 광기의 아르토리아 (outfit_alter.js alterLook) — 머리는 원래 아르토리아 머리 위에 땋은 올림머리 · 백합 금관
   // 샛별 저장소에서 가져온 인물 넷 (10/10) — 위 머리말
   artoria_silver_v2: ARTORIA_OUTFIT_V2,

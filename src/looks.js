@@ -9,6 +9,12 @@
 //  수염 등을 덧붙인다. look.accent는 outfits.js에서만 쓰는 보조색(트림 등)이라 dressPart는 무시한다.
 // ─────────────────────────────────────────────────────────────
 export const LOOK_ARCHIVE = {
+  white_scale: {v1:{
+    tunic:0x242827,quilt:0x3d413b,sleeve:0x3c4037,straps:null,belt:0x473c30,
+    hoseUpper:0x252d2c,hoseLower:0x3e423a,shoes:0x473c30,skin:0xb49c7c,hands:0x4e493b,
+    helmet:'kabuto_masked',metal:0xc3c4b7,hair:0x282b25,headband:null,
+    grip:0x4d2525,hilt:0x8e804f,accent:0x79282d,outfit:'white_scale',armor:'plate',
+  }},
   sebastian: { v1: {
     tunic:0x352e28,quilt:0x352e28,sleeve:0x352e28,straps:null,belt:0x4a4134,
     hoseUpper:0x541f2a,hoseLower:0x352e28,shoes:0x655c48,skin:0xbfa78c,hands:0xc2b79d,
@@ -862,6 +868,7 @@ LOOK_ARCHIVE.terracotta.v2 = { ...LOOK_ARCHIVE.terracotta.v1, terracottaRevision
 
 // 지금 게임에서 실제로 쓰는 버전 (감독/오너가 확정하면 여기만 바꾸면 됨)
 export const CHARACTER_LOOK_VERSION = {
+  white_scale: 'v1',
   sebastian: 'v2',
   bran: 'v1',
   isolde: 'v2',
