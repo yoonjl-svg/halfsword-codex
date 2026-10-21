@@ -1,3 +1,4 @@
+import { DRUID, druidParts, drawDruidWhip } from './druid_whip.js';
 import { TIZONA_COLORS, tizonaPartMesh } from './tizona_details.js';
 import { MURAMASA_COLORS, MURAMASA_PROFILE, muramasaPartMesh, muramasaDecorate } from './muramasa_details.js';
 import { BALISARDA_COLORS, balisardaPartMesh } from './balisarda_details.js';
@@ -62,6 +63,7 @@ export const TIER_DEFAULTS = {
 //  길이 · 무게는 몸체 자료(buildParts — 물리와 같은 수)에서 셈: 길이 = 부품 끝에서 끝 · 무게 = 부품 질량 합
 //  종류 = 싸우는 방식의 무기 갈래(한손검 · 양손검 · 한손 둔기 …) — 물건 이름(나뭇가지 · 장난감 · 생선)은 쓰지 않는다 (사장님 10/19 03:1x '나뭇가지 x')
 const KIND_KO = {
+  druid_whip: '한손 채찍',
   tizona: '대형 양손검',
   hwando: '한손 외날도', kriegsmesser: '양손 외날검',
   muramasa: '일본도', balisarda: '한손 찌르기검', dartagnan: '한손 찌르기검', kusanagi: '양손 직검',
@@ -1780,7 +1782,17 @@ const tizona = finalizeSpec('tizona', {
   },
 });
 
+const druidWhip = finalizeSpec('druid_whip', {
+  nameKo: '드루이드의 채찍', nameEn: "Druid's Whip", tier: 'mystery',
+  desc: '질긴 식물 줄기를 엮은 채찍.\n손을 떠난 힘이 덩굴 끝에서 뒤늦게 맺힌다.',
+  grip: 'one-hand', school: 'none', material: 'wood', flexible: true,
+  hiltLength: .13, bladeLength: DRUID.lash, edged: false, mCut: 0, mThrust: 0, mBlunt: 1.5,
+  controlOverrides: { aimStiffness: 24, aimDamping: 1.2, releaseDamping: .6, maxAimTorque: 10, twistScale: .08 },
+  partMesh: hiddenParts, buildParts: druidParts, decorate: drawDruidWhip,
+});
+
 export const WEAPONS = {
+  druid_whip: druidWhip,
   longsword, zweihander, estoc, sabre, rapier, falchion,
   monohoshizao, qinggang, excalibur, excalibur_replica: excaliburReplica, lightsaber, tree_branch: treeBranch,
   rubber_chicken: rubberChicken, frozen_tuna: frozenTuna, pistol, morgenstern,

@@ -1,3 +1,4 @@
+import { attachDruidWhip } from './druid_whip.js';
 // ─────────────────────────────────────────────────────────────
 //  검투사 한 명 = "액티브 래그돌"
 //
@@ -715,7 +716,9 @@ export class Fighter {
     );
     if (HL) this.gripConeOn();
     this.swordGroup = group;
-    this.swordMass = sword.mass();
+    const fullWeaponMass = sword.mass();
+    if (spec.flexible) this.flexWeapon = attachDruidWhip(this);
+    this.swordMass = spec.flexible ? fullWeaponMass : sword.mass();
     this.stamina.captureMass(this.swordMass); // 파손 전 질량 고정
     // 타격 계산용: 칼의 질량·주관성 모멘트(몸체 기준)와 손 기준 회전 관성
     const pI = sword.principalInertia();
@@ -797,6 +800,7 @@ export class Fighter {
 
   /** 칼날 위의 한 지점(0=손잡이, 1=칼끝)의 월드 좌표 */
   bladePoint(t, out = new THREE.Vector3()) {
+    if (this.flexWeapon) return this.flexWeapon.point(t, out);
     const p = this.sword.translation();
     rot(this.sword, _q1);
     return out.set(0, this.weaponCfg.hiltLength + this.weaponCfg.bladeLength * t, 0).applyQuaternion(_q1).add(_v1.set(p.x, p.y, p.z));
@@ -1368,6 +1372,7 @@ export class Fighter {
     this.driveJoints(); // 모든 관절 근육을 움직인다
     this.elbowGravity();
     if (jm().soft) this.anatSoft(); // 관절 가동 범위 교정 ⓑ 범위 끝 되돌림 (JOINTS, 끔이면 부르지 않는다)
+    this.flexWeapon?.step(dt);
     this.trackBlade(dt);
     if (this.chainDbg) this.chainProbe(dt); // 탐색판 HUD 측정만 (public/r2p/?chain=…)
 
@@ -2056,6 +2061,7 @@ export class Fighter {
   breakWeapon() {
     if (this.weaponBroken) return; // 한 번만 부러진다
     this.weaponBroken = true;
+    if (this.flexWeapon) { this.flexWeapon.break(); return; }
     const cfg = this.weaponCfg;
     let cutY;
     if (this.weapon.breakY != null) {
@@ -3577,6 +3583,7 @@ export class Fighter {
       return o;
     };
     c.sword = put(this.sword, c.sword);
+    this.flexWeapon?.cache(put);
     for (const name in this.bodies) c.parts[name] = put(this.bodies[name], c.parts[name]);
   }
 
@@ -3592,6 +3599,7 @@ export class Fighter {
       group.position.set(t.x, t.y, t.z);
       group.quaternion.set(r.x, r.y, r.z, r.w);
     }
+    this.flexWeapon?.sync();
   }
 }
 

@@ -165,7 +165,7 @@ export class Combat {
     const att = pr.w.fighter;
     const vic = pr.v.fighter;
     if (!att.cache || !vic.cache) return null;
-    const S = att.cache.sword;
+    const S = pr.w.state || att.cache.sword;
     const P = vic.cache.parts[pr.v.part];
     const HL = att.weaponCfg.hiltLength;
     const a = _a.set(0, HL, 0).applyQuaternion(S.q).add(S.p);
@@ -201,8 +201,8 @@ export class Combat {
     const isBlade = pr.w.part === 'blade' && local.y > HL - 0.01 && att.weaponCfg.edged && (!att.weaponBroken || BREAK.stubEdge);
 
     // 유효 질량: 맞은 점에서의 강체 칼의 실제 유효 질량 + 팔·몸의 도움
-    const mFree = freeMass(pr.w.fighter.swordProps, S, point, dir);
-    let mEff = mFree + STRIKE.armAssist;
+    const mFree = freeMass(pr.w.props || pr.w.fighter.swordProps, S, point, dir);
+    let mEff = mFree + (pr.w.flexible ? .12 : STRIKE.armAssist);
     let ephys = 0.5 * mEff * speed * speed; // 실제 운동 에너지 (J)
     // 게임 속 판정용 에너지: 실제 에너지 × 보정값. 이 모델의 베는 속도가 실제(칼날 치는 부분 약 20m/s)보다
     // 조금 낮아서, 상처 문턱값(ANATOMY)과 기절·비틀거림 같은 효과가 예전과 같은 세기로 나오게 맞춘 값이다
@@ -550,8 +550,8 @@ export class Combat {
     const nrm = n.clone();
     // 부딪히기 직전 상대 속도 (스텝 전 저장값) — 부딪힌 뒤엔 엔진이 이미 속도를 꺾어 놓았다
     //  vn = 맞닿는 방향으로 다가오던 빠르기(부딪히는 세기), vt = 칼날을 따라 스치던 빠르기
-    const SA = A.fighter.cache?.sword;
-    const SB = B.fighter.cache?.sword;
+    const SA = A.state || A.fighter.cache?.sword;
+    const SB = B.state || B.fighter.cache?.sword;
     let vn = 0;
     let vt = 0;
     if (SA && SB && J > 0) {
@@ -780,6 +780,7 @@ export class Combat {
    * 을 칼과 맞은 부위에 같은 크기, 반대 방향으로 준다 → 운동량은 그대로 보존된다.
    */
   rebound(pr, point, n) {
+    if (pr.w.flexible) return;
     const key = `${pr.wc}:${pr.vc}`;
     const last = this.touching.get(key);
     this.touching.set(key, this.stepNo);
@@ -837,7 +838,7 @@ export class Combat {
     const vic = pr.v.fighter;
     const key = `${att.index}:${pr.v.part}`;
     // 속도는 스텝 "직전" 값을 쓴다. 튕긴 충돌은 스텝 뒤엔 이미 속도가 꺾여 있어서 에너지가 작게 나온다.
-    const S = att.cache?.sword || liveState(pr.w.body);
+    const S = pr.w.state || att.cache?.sword || liveState(pr.w.body);
     const P = vic.cache?.parts[pr.v.part] || liveState(pr.v.body);
     if (vic.hitCooldowns.has(key)) {
       // 같은 부위에 방금 상처가 났으면 새 상처는 없지만, 가르고 지나가는 칼은 여전히 저항을 받는다
