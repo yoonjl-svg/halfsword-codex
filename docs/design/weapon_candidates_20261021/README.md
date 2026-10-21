@@ -13,7 +13,7 @@
 
 ## 문헌·유물 근거와 한계
 
-1. Ariosto, *Orlando furioso*, Gutenberg 이탈리아어 원문 [3747](https://www.gutenberg.org/ebooks/3747), 영어 Rose 번역 [615](https://www.gutenberg.org/ebooks/615), 2026-10-21 열람. 이탈리아어 전자본문에서 Balisarda 출현 대목과 주변 문맥을 확인했다. XXX.55–59/ XLI.75–84/ XLVI.120은 마법의 갑옷·방패를 베는 능력을 강조한다. **확인한 대목에서는 색·코등이 형태·보석·정확한 치수의 묘사를 찾지 못했다.** 모든 판본·Boiardo 원작 전체에 외형 묘사가 없다는 주장은 아니다. 원전은 베기도 강하게 묘사하며 레이피어 전용이라는 근거는 없다.
+1. Ariosto, *Orlando furioso*, Gutenberg 이탈리아어 원문 [3747](https://www.gutenberg.org/ebooks/3747), 영어 Rose 번역 [615](https://www.gutenberg.org/ebooks/615), 2026-10-21 열람. 이탈리아어 전자본문에서 Balisarda 출현 대목과 주변 문맥을 확인했다. [발췌 10연](primary-excerpts.json)의 XXX.55–59/ XLI.75–84/ XLVI.120은 마법의 갑옷·방패를 베는 능력을 강조한다. **확인한 대목에서는 색·코등이 형태·보석·정확한 치수의 묘사를 찾지 못했다.** 모든 판본·Boiardo 원작 전체에 외형 묘사가 없다는 주장은 아니다. 원전은 베기도 강하게 묘사하며 레이피어 전용이라는 근거는 없다.
 2. Antoni Romuald Chodyński, “The 12th century sword of San Galgano in the Hermitage of Montesiepi in Tuscany. A Transmission of the Arthurian Legend?”, *Fasciculi Archaeologiae Historicae* 27 (2014), 21–30. [논문 페이지/초록](https://journals.iaepan.pl/fah/article/view/1469) 열람. 초록은 돌 위로 코등이·끝장식이 드러나 십자 형태를 이룬다고 설명한다. PDF 다운로드는403으로 전문은 읽지 못했다. 따라서 초록·사진 이상의 분류/실측 검증을 주장하지 않는다.
 3. [Wikimedia Commons 실물 사진](https://commons.wikimedia.org/wiki/File:San_Galgano_Spada_nella_roccia.JPG)을 실제 열어 둥근 끝장식·단순 십자 코등이를 관찰했다. 박힌 날의 전체 길이/형태는 사진으로 알 수 없다. 참고사진을 배포 게임 에셋으로 복제하지 않았다.
 4. [발리사르다 개요](https://it.wikipedia.org/wiki/Balisarda), [가네사다 계보](https://ja.wikipedia.org/wiki/%E5%92%8C%E6%B3%89%E5%AE%88%E5%85%BC%E5%AE%9A). 무라마사 사실/전설은 이전 [검토](../dartagnan_20261021/README.md) 참고. 두 일본 후보의 특정 현존 한 자루·치수·외장 고증은 선택 후 필요하다.
