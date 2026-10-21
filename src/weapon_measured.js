@@ -24,8 +24,9 @@
 export const MEASURED = {
   // 10/21 startHold=0/--down, 같은 실행 롱소드에 대한 비율 보정.
   // 원자료: docs/design/hwando_kriegsmesser_20261021/measured.json.
-  hwando: [1.34, 1.54, 1.06, 0.35],
-  kriegsmesser: [1.57, 1.77, 1.25, 0.42],
+  // 10/21 실물 반영: 동일 생성 롱소드 비율로 보정. docs/design/weapon_historical_finish_20261021/measured.json
+  hwando: [1.33, 1.53, 1.06, 0.35],
+  kriegsmesser: [1.50, 1.69, 1.20, 0.41],
   longsword: [1.57, 1.8, 1.25, 0.41], // 10/8 16:35: 1.62/1.9 → 1.57/1.8 (두 손 서보 상한 26 뒤 AI 박자 재조정, 확인표 192) — 다른 무기는 이 값에 대한 비율로 간격을 받는다
   zweihander: [1.71, 2.08, 1.32, 0.48],
   estoc: [1.57, 1.99, 1.22, 0.42], // 균형 재분배(칼날 0.72·폼멜 0.6kg) 후 재실측 1.75 → 유효 간격(칼 중간이 닿는 안쪽)
@@ -73,7 +74,7 @@ export const MEASURED = {
 // 유파 꾸러미의 베는 시간 (롱소드 0.30 기준) — 나뭇가지·청강검·복제품 줄은 전 schools.js 인물 꾸러미(브란·랴오·하인리히)의 measure 값
 export const CUT_TIME_30 = {
   hwando: 0.26,
-  kriegsmesser: 0.31,
+  kriegsmesser: 0.30,
   longsword: 0.3,
   zweihander: 0.35,
   estoc: 0.31,

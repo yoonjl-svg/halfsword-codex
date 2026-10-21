@@ -1,3 +1,4 @@
+import { historicalPartMesh, historicalDecorate, hwandoScabbard } from './historical_weapon_details.js';
 // ─────────────────────────────────────────────────────────────
 //  무기고: 실제 자료 기반(+부족한 곳은 물리적으로 추정) 데이터 중심 무기 목록.
 //
@@ -1649,65 +1650,47 @@ const brothersSword = finalizeSpec('brothers_sword', {
 // 치수·질량은 게임용 조정값 [I], 특정 유물의 실측 복원이 아니다.
 const hwando = finalizeSpec('hwando', {
   nameKo: '환도', nameEn: 'Hwando', tier: 'common',
-  desc: '조선 군졸이 허리에 차던 외날 도검.\n짧고 조금 휜 칼날을 지녔다.',
+  desc: '조선 군졸의 외날 도검.\n조금 휜 날과 무늬를 뚫은 코등이를 지녔다.',
   school: 'chinese', grip: 'one-hand', material: 'steel', enterParry: true,
-  hiltLength: 0.10, bladeLength: 0.72,
-  mCut: 1.10, mThrust: 0.95, mBlunt: 0.95,
-  partMesh: swordKit({
-    blade: { edge: 'single', width: t => 1 - 0.23 * t, thick: 0.0035, curve: 0.010, tip: 'clip', tipLen: 0.085, overshoot: 0.005 },
-    grip: { style: 'cord', color: 0x333c31 },
-    pommel: { style: 'cap', color: 0x585043 },
-    guard: { style: 'disc', color: 0x585043 },
-  }),
+  hiltLength: .085, bladeLength: .72,
+  mCut: 1.10, mThrust: .95, mBlunt: .95,
+  partMesh: (...args) => historicalPartMesh('hwando', ...args),
+  decorate: historicalDecorate,
+  dressWeapon(pelvis) {
+    const scabbard=hwandoScabbard(this.bladeLength);
+    scabbard.position.set(-.07,.075,.23);scabbard.rotation.set(-.08,0,-.45);
+    pelvis.add(scabbard);
+  },
   buildParts() {
-    const L = this.bladeLength;
-    const grip = boxInertia(0.13, 0.014, 0.08, 0.013);
-    const pommel = sphereInertia(0.09, 0.018);
-    const cross = boxInertia(0.06, 0.034, 0.005, 0.026);
-    const blade = bladeInertia(0.62, L, 0.37, 0.25, 0.032, 0.007);
+    const L=this.bladeLength, grip=boxInertia(.12,.015,.0625,.013), pommel=sphereInertia(.08,.011),
+      cross=boxInertia(.08,.0355,.002,.0275), blade=bladeInertia(.62,L,.37,.25,.036,.0062);
     return [
-      partTuple(['box', 0.014, 0.08, 0.013], 0, 0.13, 0, grip.Ie, grip.It, 0x333c31),
-      partTuple(['ball', 0.018], -0.09, 0.09, 0, pommel.Ie, pommel.It, 0x585043),
-      partTuple(['box', 0.034, 0.005, 0.026], 0.09, 0.06, 0, cross.Ie, cross.It, 0x585043),
-      partTuple(['box', 0.016, L / 2, 0.0035], 0.10 + L / 2, 0.62, blade.comY, blade.Ie, blade.It, 0xc4c8c7, true),
+      partTuple(['box',.015,.0625,.013],0,.12,0,grip.Ie,grip.It,0x856444),
+      partTuple(['ball',.011],-.073,.08,0,pommel.Ie,pommel.It,0x9a8050),
+      partTuple(['box',.0355,.002,.0275],.072,.08,0,cross.Ie,cross.It,0x39372f),
+      partTuple(['box',.024,L/2,.0031],.085+L/2,.62,blade.comY,blade.Ie,blade.It,0xc4c8c7,true),
     ];
   },
 });
 
 const kriegsmesser = finalizeSpec('kriegsmesser', {
   nameKo: '크리그스메서', nameEn: 'Kriegsmesser', tier: 'rare',
-  desc: '독일권에서 쓰던 양손 외날검.\n나무 자루 옆으로 작은 손 보호대가 돌출되어 있다.',
+  desc: '독일권의 양손 외날검.\n날의 긴 홈과 나겔이 달린 나무 자루를 지녔다.',
   school: 'german', grip: 'two-hand', material: 'steel',
-  hiltLength: 0.13, bladeLength: 1.00, gripAlong: -0.14,
-  mCut: 1.12, mThrust: 0.90, mBlunt: 1.0,
-  partMesh: swordKit({
-    blade: { edge: 'single', width: t => 1 - 0.17 * t, thick: 0.0040, curve: 0.010, tip: 'clip', tipLen: 0.14, overshoot: 0.005 },
-    grip: { style: 'plain', color: 0x51392d },
-    pommel: { style: 'cap', color: 0x676b6d },
-    guard: { style: 'curved', color: 0x676b6d },
-  }),
+  // Knecht Mark II: blade85cm / total113cm / 1.38kg; user adds10cm /120g (final 1.50kg).
+  hiltLength: .10, bladeLength: .95, gripAlong: -.14,
+  mCut: 1.12, mThrust: .90, mBlunt: 1,
+  partMesh: (...args) => historicalPartMesh('kriegsmesser', ...args),
+  decorate: historicalDecorate,
   buildParts() {
-    const L = this.bladeLength;
-    const grip = boxInertia(0.23, 0.018, 0.125, 0.016);
-    const pommel = sphereInertia(0.28, 0.027);
-    const cross = boxInertia(0.20, 0.10, 0.015, 0.024);
-    const blade = bladeInertia(0.94, L, 0.35, 0.253, 0.048, 0.008);
+    const L=this.bladeLength, grip=boxInertia(.18,.015,.1175,.017), pommel=sphereInertia(.14,.021),
+      cross=boxInertia(.21,.125,.007,.043), blade=bladeInertia(.97,L,.35,.253,.0445,.0074);
     return [
-      partTuple(['box', 0.018, 0.125, 0.016], -0.025, 0.23, 0, grip.Ie, grip.It, 0x51392d),
-      partTuple(['ball', 0.027], -0.155, 0.28, 0, pommel.Ie, pommel.It, 0x676b6d),
-      partTuple(['box', 0.10, 0.015, 0.024], 0.115, 0.20, 0, cross.Ie, cross.It, 0x676b6d),
-      partTuple(['box', 0.024, L / 2, 0.004], 0.13 + L / 2, 0.94, blade.comY, blade.Ie, blade.It, 0xc9ced1, true),
+      partTuple(['box',.015,.1175,.017],-.035,.18,0,grip.Ie,grip.It,0x573827),
+      partTuple(['ball',.021],-.159,.14,0,pommel.Ie,pommel.It,0x858b89),
+      partTuple(['box',.125,.007,.043],.092,.21,0,cross.Ie,cross.It,0x858b89),
+      partTuple(['box',.028,L/2,.0037],.10+L/2,.97,blade.comY,blade.Ie,blade.It,0xc9ced1,true),
     ];
-  },
-  decorate(group) {
-    const steel = metalMat(0x676b6d, { rough: 0.46 });
-    // 한쪽으로 나온 나겔(Nagel). 장식이며 기존 코등이 콜라이더에서 약 1 cm 안.
-    addMesh(group, new THREE.BoxGeometry(0.014, 0.017, 0.035), steel, [0, 0.111, 0.017]);
-    const pin = metalMat(0x9a9385, { rough: 0.65 });
-    for (const y of [-0.10, -0.025, 0.05]) for (const z of [-0.017, 0.017]) {
-      const rivet = addMesh(group, new THREE.CylinderGeometry(0.003, 0.003, 0.002, 8), pin, [0, y, z]);
-      rivet.rotation.x = Math.PI / 2;
-    }
   },
 });
 
