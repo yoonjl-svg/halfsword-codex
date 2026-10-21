@@ -603,11 +603,11 @@ const sabre = finalizeSpec('sabre', {
 //  7) 레이피어 — Albion "Munich" rapier 1.56kg·칼날 83.5cm·균형점 6cm(코등이 바로 앞,
 //     화려한 컵 힐트가 무게추 역할) [M]. 좀 더 가벼운 버전(1.1kg급)으로 잡는다 [I]
 // ═════════════════════════════════════════════════════════════
-const rapier = finalizeSpec('rapier', {
+const RAPIER_SPEC = {
   nameKo: '레이피어', nameEn: 'Rapier',
   desc: '길고 가는 르네상스 결투검.\n가장 빨리 찌르지만 베기는 약하다.',
   grip: 'one-hand', material: 'steel',
-  tier: 'rare', // 감독 확정: 레어 — 르네상스 결투검, 로스터 유일의 찌르기 전용. power 1.05, 파손 계수 0.032
+  tier: 'common', // 10/21 감독 결정: 기본 레이피어는 커먼. 등급 공통 power 1.0 / 파손 계수 .056.
   hiltLength: 0.1, bladeLength: 0.95,
   mCut: 0.5, mThrust: 1.3, mBlunt: 0.7,
   thrustStyle: THRUST_STYLE.rapier,
@@ -640,6 +640,29 @@ const rapier = finalizeSpec('rapier', {
       bar.rotation.z = Math.PI / 2.3;
       bar.castShadow = true;
     }
+  },
+};
+const rapier = finalizeSpec('rapier', RAPIER_SPEC);
+
+// 달타냥: 뒤마의 소설 속 총사를 모티프로 한 창작 무기 [I]. 실존 인물의 유물 복원이 아니다.
+// 날·질량·관성·사거리는 레이피어와 같고, 등급의 공통 공격력/파손 차이만 적용한다.
+// finalizeSpec 이전 원본을 공유해야 커먼의 계산된 power/fragility가 에픽에 섞이지 않는다.
+const DARTAGNAN_COLORS = { grip: 0x203b6c, hilt: 0xa1834e };
+const dartagnan = finalizeSpec('dartagnan', {
+  ...RAPIER_SPEC,
+  nameKo: '달타냥', nameEn: "D’Artagnan", tier: 'epic',
+  desc: '푸른 가죽 손잡이와 빛바랜 금빛 코등이.\n세 벗과 맹세를 나눈 총사의 검.',
+  partMesh: swordKit({
+    blade: { edge: 'double', width: (t) => 1 - 0.4 * t, thick: 0.0045, bevel: 0.0015, tip: 'needle', tipLen: 0.12 },
+    grip: { style: 'leather', color: DARTAGNAN_COLORS.grip },
+    pommel: { style: 'pear', color: DARTAGNAN_COLORS.hilt },
+    guard: { style: 'cup', color: DARTAGNAN_COLORS.hilt },
+  }),
+  buildParts(look) {
+    return RAPIER_SPEC.buildParts.call(this, { ...look, ...DARTAGNAN_COLORS });
+  },
+  decorate(group, look) {
+    RAPIER_SPEC.decorate(group, { ...look, ...DARTAGNAN_COLORS });
   },
 });
 
@@ -1571,6 +1594,7 @@ export const WEAPONS = {
   flamberge, // 샛별 저장소 생김새를 옮겨 고침 (10/14, 사장님 확인 전) — 같은 까닭으로 끝에 둔다
   goujian, // 샛별 저장소에서 가져옴 (10/14 — 에픽·뽑기에 넣음·와신상담은 사장님 결정) — 같은 까닭으로 끝에 둔다
   brothers_sword: brothersSword,
+  dartagnan, // 10/21: 에픽 이탈리아 결투검. 기존 목록의 순서를 보존한다.
 };
 
 // 다른 담당이 쓰는 짧은 이름 → 정식 id (characters.js의 'branch', URL 파라미터의 'chicken' 등)
