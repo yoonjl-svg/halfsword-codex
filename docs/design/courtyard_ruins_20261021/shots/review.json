@@ -1,0 +1,64 @@
+{
+  "errors": [],
+  "shots": [
+    "01_fight",
+    "02_overview",
+    "03_gate_and_well",
+    "04_reverse_arcade",
+    "05_conference",
+    "06_mobile"
+  ],
+  "runtime": {
+    "state": "fight",
+    "stage": {
+      "id": "courtyard_night",
+      "pinned": "courtyard_night",
+      "buildMs": 0,
+      "clearMs": 0,
+      "warmMs": 0
+    },
+    "weapon": "sabre",
+    "obstacle": {
+      "colliderCount": 9,
+      "navigation": {
+        "x": 0,
+        "z": 0,
+        "radius": 1.45,
+        "seekSight": true
+      }
+    },
+    "render": {
+      "frame": 18,
+      "calls": 353,
+      "triangles": 131223,
+      "geometries": 190,
+      "textures": 16,
+      "programs": 36
+    },
+    "smokeSprites": 36,
+    "finite": true
+  },
+  "smokeMoves": true,
+  "swaps": [
+    {
+      "stage": "courtyard",
+      "obstacle": 9,
+      "smoke": false
+    },
+    {
+      "stage": "courtyard_night",
+      "obstacle": 9,
+      "smoke": true
+    },
+    {
+      "stage": "courtyard",
+      "obstacle": 9,
+      "smoke": false
+    },
+    {
+      "stage": "courtyard_night",
+      "obstacle": 9,
+      "smoke": true
+    }
+  ]
+}

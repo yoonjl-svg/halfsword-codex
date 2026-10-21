@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#15100d}canvas{display:block;width:100vw;height:100vh}</style></head><body><canvas id="view"></canvas><script type="module">
+window.process={env:{}};
+const {newRound,THREE,RAPIER}=await import('/tools/sim/harness_m.mjs');
+const {buildCourtyard}=await import('/src/stage_courtyard.js');
+const {createFighterLight}=await import('/src/fighter_light.js');
+const {CHARACTERS_BY_ID}=await import('/src/characters.js');
+const {CAMERA}=await import('/src/config.js');
+const params=new URLSearchParams(location.search),mode=params.get('mode')||'base',n=+(params.get('frame')||1),data=await(await fetch('/visual/'+mode+'.json')).json(),snap=data.visualSnapshots[n],c=CHARACTERS_BY_ID.samira;
+const G=newRound({seed:110,weapon:'longsword',weapon2:'pistol',look2:c.look,persona:c.ai.persona});
+const scene=G.player.scene||G.player.meshes[0].group?.parent;
+// Fighter owns the harness scene indirectly; gather it from a rendered mesh root.
+let root=G.player.meshes.find(m=>m.group)?.group;while(root.parent)root=root.parent;const s=root;
+const hemi=new THREE.HemisphereLight(0xe3e6e8,0x716c63,1.2),sun=new THREE.DirectionalLight(0xffe7cb,1.7);s.add(hemi,sun,sun.target);sun.castShadow=true;
+const st=buildCourtyard(s,{hemi,sun});Object.assign(sun.shadow.camera,st.shadow);sun.shadow.mapSize.set(1024,1024);sun.shadow.bias=0;sun.shadow.normalBias=0;
+for(const [f,poses]of [[G.player,snap.player],[G.enemy,snap.enemy]]){for(const [name,v]of Object.entries(poses)){const body=f.bodies[name]||f[name];body.setTranslation(v.p,true);body.setRotation(v.q,true);}f.syncMeshes();}
+const renderer=new THREE.WebGLRenderer({canvas:document.getElementById('view'),antialias:true,preserveDrawingBuffer:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(1);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;
+const camera=new THREE.PerspectiveCamera(CAMERA.fov,innerWidth/innerHeight,.1,700);camera.position.set(snap.cam.x,snap.cam.y,snap.cam.z);camera.lookAt(snap.look.x,snap.look.y,snap.look.z);
+const fl=createFighterLight({hemi,sun});fl.setStage(st);const meshes=[...G.player.meshes,...G.enemy.meshes].map(m=>m.group).filter(Boolean);fl.update(meshes);st.update(.001);s.updateMatrixWorld(true);renderer.render(s,camera);window.ready={mode,t:snap.t,covered:snap.covered,renderer:'source-stage and recorded rigid-body replay; no game HUD',objects:s.children.length};
+</script></body></html>

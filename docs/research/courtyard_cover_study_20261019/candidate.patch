@@ -1,0 +1,59 @@
+--- a/src/arena_obstacle.js
++++ b/src/arena_obstacle.js
+@@ -1,3 +1,4 @@
++import { COVER_STUDY, coverSight } from './courtyard_cover_study.js';
+ // ─────────────────────────────────────────────────────────────
+ //  결투장 가운데 장애물(잠든 습지 말레이곰 석상 · 봉인의 중정 급수정)의 물리: 고정 충돌체 · AI 돌아가기 · 카메라 보호
+ //   출처: 샛별 저장소 origin/main 325a5c38 의 src/arena_obstacle.js 를 옮겨 고침 — 우리 석상 꼴(받침 원기둥 + 캡슐, stage_sluice_bear.js)과
+@@ -55,6 +56,7 @@
+     if (s.rotation) d.setRotation(s.rotation);
+     handles.add(world.createCollider(d, body).handle);
+   }
++  if(courtyard) COVER_STUDY.handles.set(world, handles);
+   return { world, body, handles, navigation: courtyard ? COURTYARD_NAVIGATION : BEAR_NAVIGATION };
+ }
+ 
+@@ -90,7 +92,20 @@
+   }
+   const c = Math.cos(f.heading);
+   const s = Math.sin(f.heading);
+-  const seekingShot = obstacle.seekSight && f.weapon?.gun; // 중정 급수정만(seekSight — stage_courtyard_cover.js): 사선이 막힌 총수는 쏠 각을 찾아 걸어 돈다 (샛별 저장소 10/17). 석상(습지)은 전 그대로
++  let seekingShot = obstacle.seekSight && f.weapon?.gun;
++  if (COVER_STUDY.on && seekingShot) {
++    seekingShot = coverSight(f,foe).blocked;
++    const len=Math.hypot(f.move.x,f.move.y);
++    const vx=f.move.x*s+f.move.y*c, vz=f.move.x*c-f.move.y*s;
++    // Keep conservative local movement clearance; do not call the whole target line a firing LOS.
++    const ahead={x:p.x+vx/Math.max(len,1e-9)*.75,z:p.z+vz/Math.max(len,1e-9)*.75};
++    const inward=vx*(obstacle.x-p.x)+vz*(obstacle.z-p.z)>0;
++    const localBlocked=len>.01&&inward&&obstacleSegmentBlocked(p,ahead,clearRadius,obstacle);
++    COVER_STUDY.stats.samples=(COVER_STUDY.stats.samples??0)+1;
++    if(!seekingShot&&!localBlocked){COVER_STUDY.stats.suppressed=(COVER_STUDY.stats.suppressed??0)+1;ai.obstacleSide=null;return;}
++    COVER_STUDY.stats[seekingShot?'sightRoute':'movementRoute']=(COVER_STUDY.stats[seekingShot?'sightRoute':'movementRoute']??0)+1;
++  }
++  // // 중정 급수정만(seekSight — stage_courtyard_cover.js): 사선이 막힌 총수는 쏠 각을 찾아 걸어 돈다 (샛별 저장소 10/17). 석상(습지)은 전 그대로
+   const speed = Math.max(seekingShot ? .65 : 0, Math.hypot(f.move.x, f.move.y));
+   const mx = f.move.x * s + f.move.y * c;
+   const mz = f.move.x * c - f.move.y * s;
+--- /dev/null
++++ b/src/courtyard_cover_study.js
+@@ -0,0 +1,19 @@
++// Research only: exact fixed-cover sight sample; no firing/rate/damage change.
++import * as THREE from 'three';
++export const COVER_STUDY={on:false,handles:new WeakMap(),stats:{}};
++export function coverSight(shooter,target){
++ const q=shooter.sword.rotation(),p=shooter.sword.translation();
++ const origin=new THREE.Vector3(shooter.weapon.muzzleX??0,shooter.weaponCfg.hiltLength+shooter.weaponCfg.bladeLength,0).applyQuaternion(new THREE.Quaternion(q.x,q.y,q.z,q.w)).add(new THREE.Vector3(p.x,p.y,p.z));
++ const handles=COVER_STUDY.handles.get(shooter.world);const samples=[];
++ for(const name of ['pelvis','abdomen','chest','head']){
++  if(name==='head'&&target.decapitated)continue;
++  const b=target.bodies[name];if(!b)continue;const p=b.translation(),r=b.rotation();
++  for(const side of name==='chest'?[-.14,0,.14]:[0]){
++   const point=new THREE.Vector3(0,0,side).applyQuaternion(new THREE.Quaternion(r.x,r.y,r.z,r.w)).add(new THREE.Vector3(p.x,p.y,p.z));
++   const dir=point.clone().sub(origin),length=dir.length();dir.multiplyScalar(1/Math.max(length,1e-9));
++   const hit=handles&&shooter.world.castRay({origin,dir},Math.max(0,length-.01),true,undefined,undefined,undefined,undefined,c=>handles.has(c.handle));
++   samples.push({name,side,blocked:!!hit});
++  }
++ }
++ return {origin:{...origin},samples,blocked:samples.length>0&&samples.every(s=>s.blocked),fraction:samples.filter(s=>s.blocked).length/Math.max(1,samples.length)};
++}

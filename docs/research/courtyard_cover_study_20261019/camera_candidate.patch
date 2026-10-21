@@ -1,0 +1,11 @@
+--- a/src/arena_obstacle.js
++++ b/src/arena_obstacle.js
+@@ -289,7 +289,7 @@
+   if (!cameraClear(bodies, origin, camera.x, camera.y, camera.z)) {
+     const need = { [-1]: clearAngle(bodies, origin, camera, -1), [1]: clearAngle(bodies, origin, camera, 1) };
+     side = st?.side || -1; // 고른 쪽 (처음엔 어깨 쪽)
+-    if (need[side] == null || (need[-side] != null && need[-side] + (G.sideBias * Math.PI) / 180 < need[side])) side = -side;
++    if (need[side] == null) side = -side; // Research: keep chosen shoulder while its route remains feasible
+     if (need[side] != null) target = side * need[side];
+     else side = 0; // 양쪽 모두 막힘 — 평소 자리 그대로 (바닥 지도에서는 없음)
+   }
