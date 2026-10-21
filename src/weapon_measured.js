@@ -29,6 +29,7 @@ export const MEASURED = {
   kriegsmesser: [1.50, 1.69, 1.20, 0.41],
   longsword: [1.57, 1.8, 1.25, 0.41], // 10/8 16:35: 1.62/1.9 → 1.57/1.8 (두 손 서보 상한 26 뒤 AI 박자 재조정, 확인표 192) — 다른 무기는 이 값에 대한 비율로 간격을 받는다
   zweihander: [1.71, 2.08, 1.32, 0.48],
+  tizona: [1.71, 2.08, 1.32, 0.48], // Same physics as zweihander, reuse existing measurements.
   estoc: [1.57, 1.99, 1.22, 0.42], // 균형 재분배(칼날 0.72·폼멜 0.6kg) 후 재실측 1.75 → 유효 간격(칼 중간이 닿는 안쪽)
   sabre: [1.39, 1.58, 1.07, 0.36],
   rapier: [1.54, 1.68, 1.19, 0.29],
@@ -80,6 +81,7 @@ export const CUT_TIME_30 = {
   kriegsmesser: 0.30,
   longsword: 0.3,
   zweihander: 0.35,
+  tizona: 0.35,
   estoc: 0.31,
   sabre: 0.26,
   rapier: 0.21,

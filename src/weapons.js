@@ -1,3 +1,4 @@
+import { TIZONA_COLORS, tizonaPartMesh } from './tizona_details.js';
 import { MURAMASA_COLORS, MURAMASA_PROFILE, muramasaPartMesh, muramasaDecorate } from './muramasa_details.js';
 import { BALISARDA_COLORS, balisardaPartMesh } from './balisarda_details.js';
 import { historicalPartMesh, historicalDecorate, hwandoScabbard } from './historical_weapon_details.js';
@@ -61,6 +62,7 @@ export const TIER_DEFAULTS = {
 //  길이 · 무게는 몸체 자료(buildParts — 물리와 같은 수)에서 셈: 길이 = 부품 끝에서 끝 · 무게 = 부품 질량 합
 //  종류 = 싸우는 방식의 무기 갈래(한손검 · 양손검 · 한손 둔기 …) — 물건 이름(나뭇가지 · 장난감 · 생선)은 쓰지 않는다 (사장님 10/19 03:1x '나뭇가지 x')
 const KIND_KO = {
+  tizona: '대형 양손검',
   hwando: '한손 외날도', kriegsmesser: '양손 외날검',
   muramasa: '일본도', balisarda: '한손 찌르기검', dartagnan: '한손 찌르기검', kusanagi: '양손 직검',
   longsword: '양손검', zweihander: '대형 양손검', estoc: '찌르기검', sabre: '한손 곡도', rapier: '한손 찌르기검', falchion: '한손 외날검',
@@ -1761,6 +1763,23 @@ const kriegsmesser = finalizeSpec('kriegsmesser', {
   },
 });
 
+// Tizona: user-approved epic, Iberian two-handed adaptation of a literary sword.
+// Existing montante physics/grip reused exactly; these are game dimensions, not relic measurements.
+const tizona = finalizeSpec('tizona', {
+  nameKo: '티소나', nameEn: 'Tizona', tier: 'epic', school: 'iberian',
+  desc: '엘 시드가 적장을 꺾고 얻었다는 명검.\n상아색 감개와 잿불빛 각인에 옛 명예가 남아 있다.',
+  grip: 'two-hand', material: 'steel',
+  hiltLength: ZW.hilt, bladeLength: ZW.blade, gripAlong: ZW.gripAlong,
+  ...(ZW.cap ? { controlOverrides: { maxAimTorque: ZW.cap } } : {}),
+  mCut: 1.1, mThrust: 0.85, mBlunt: 1.15,
+  partMesh: tizonaPartMesh,
+  buildParts() {
+    const colors = [TIZONA_COLORS.grip, TIZONA_COLORS.hilt, TIZONA_COLORS.hilt, TIZONA_COLORS.blade];
+    return zweihander.buildParts.call(this, { grip: TIZONA_COLORS.grip, hilt: TIZONA_COLORS.hilt })
+      .map((part, i) => { part[3] = colors[i]; return part; });
+  },
+});
+
 export const WEAPONS = {
   longsword, zweihander, estoc, sabre, rapier, falchion,
   monohoshizao, qinggang, excalibur, excalibur_replica: excaliburReplica, lightsaber, tree_branch: treeBranch,
@@ -1772,7 +1791,7 @@ export const WEAPONS = {
   brothers_sword: brothersSword,
   dartagnan, // 사장님 10/21(샛별 저장소 경유): 이탈리아 에픽
   kusanagi, // 사장님 10/21(샛별 저장소 경유): 일본 레전드
-  hwando, kriegsmesser, balisarda, muramasa,
+  hwando, kriegsmesser, balisarda, muramasa, tizona,
 };
 
 // 다른 담당이 쓰는 짧은 이름 → 정식 id (characters.js의 'branch', URL 파라미터의 'chicken' 등)
