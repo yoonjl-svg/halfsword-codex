@@ -1,0 +1,28 @@
+{
+ "note": "생성 측정값 (비교란 — 게임은 src/weapon_measured.js 손 표를 읽는다). node tools/sim/weapon_measures.mjs --gen",
+ "method": "weapon_measure.mjs measureAll: zornhau 0.35 s 를 혼자 휘둘러 칼날 70% 가 머리 높이(1.45~1.75 m)를 지나는 가장 먼 앞 거리 × (1.62 / 롱소드 raw), reach 는 같은 베기 + 앞으로 걷기, clinch = contact × 1.25/1.62, cutTime 날것",
+ "conditions": {
+  "ARENA.startHold": 0,
+  "down": true
+ },
+ "longswordRaw": 1.2709,
+ "calibration": 1.2747,
+ "rows": {
+  "longsword": {"contact":1.62,"reach":1.75,"clinch":1.25,"cutTime":0.28},
+  "uchigatana": {"contact":1.44,"reach":1.43,"clinch":1.11,"cutTime":0.25},
+  "kusanagi": {"contact":1.23,"reach":1.31,"clinch":0.95,"cutTime":0.21}
+ },
+ "diffsFromHand": [
+  "longsword.contact 1.57 → 1.62",
+  "longsword.reach 1.8 → 1.75",
+  "longsword.cutTime 0.41 → 0.28",
+  "uchigatana.contact 1.37 → 1.44",
+  "uchigatana.reach 1.59 → 1.43",
+  "uchigatana.clinch 1.09 → 1.11",
+  "uchigatana.cutTime 0.4 → 0.25",
+  "kusanagi.contact 1.33 → 1.23",
+  "kusanagi.reach 1.47 → 1.31",
+  "kusanagi.clinch 1.06 → 0.95",
+  "kusanagi.cutTime 0.35 → 0.21"
+ ]
+}
