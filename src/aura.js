@@ -26,6 +26,8 @@ import * as THREE from 'three';
 //   간장: 흰 아지랑이 1.1 배 + 흰 불티 6 개. 점 조명 그대로, 칼날 발광 없음(어두운 칼몸 그대로).
 //   막야: 먹 아지랑이 1.2 배(보통 섞기라 밝은 바닥 위에서 옅은 먹 그림자) + 먹 연기 8 개. 점 조명·칼날 발광 없음 — 먹은 빛을 내지 않는다.
 export const AURA_PROFILES = Object.freeze({
+  // 은금 덩굴의 발리사르다: 기존 레전드와 같은 세기의 옅은 샴페인빛.
+  balisarda: { tone: 'champagne', color: [1.0, 0.91, 0.70], light: 0xffedc2, emissive: 0xffebbc, gain: 0.8 },
   excalibur: { tone: 'gold', color: [1.0, 0.82, 0.45], light: 0xffd98a, emissive: 0xffe2a0 },
   ganjiang: { tone: 'white', color: [0.92, 0.96, 1.0], light: 0xf3f7ff, emissive: null,
     gain: 1.1,

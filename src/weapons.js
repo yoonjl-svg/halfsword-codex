@@ -1,3 +1,4 @@
+import { BALISARDA_COLORS, balisardaPartMesh } from './balisarda_details.js';
 import { historicalPartMesh, historicalDecorate, hwandoScabbard } from './historical_weapon_details.js';
 // ─────────────────────────────────────────────────────────────
 //  무기고: 실제 자료 기반(+부족한 곳은 물리적으로 추정) 데이터 중심 무기 목록.
@@ -60,7 +61,7 @@ export const TIER_DEFAULTS = {
 //  종류 = 싸우는 방식의 무기 갈래(한손검 · 양손검 · 한손 둔기 …) — 물건 이름(나뭇가지 · 장난감 · 생선)은 쓰지 않는다 (사장님 10/19 03:1x '나뭇가지 x')
 const KIND_KO = {
   hwando: '한손 외날도', kriegsmesser: '양손 외날검',
-  dartagnan: '한손 찌르기검', kusanagi: '양손 직검',
+  balisarda: '한손 찌르기검', dartagnan: '한손 찌르기검', kusanagi: '양손 직검',
   longsword: '양손검', zweihander: '대형 양손검', estoc: '찌르기검', sabre: '한손 곡도', rapier: '한손 찌르기검', falchion: '한손 외날검',
   monohoshizao: '노다치', uchigatana: '일본도', qinggang: '한손 양날검', excalibur: '양손검', excalibur_replica: '양손검', lightsaber: '양손검',
   tree_branch: '한손 둔기', rubber_chicken: '한손 둔기', frozen_tuna: '양손 둔기', pistol: '권총', morgenstern: '한손 철퇴', ganjiang: '한손 양날검',
@@ -707,6 +708,22 @@ const dartagnan = finalizeSpec('dartagnan', {
   },
 });
 
+
+// 발리사르다: 사장님 10/21 승인 시안. 문학 속 마법검을 이탈리아 찌르기검으로 각색 [I].
+// 레이피어와 같은 95cm/1.10kg/관성·충돌/동작. 레전드 공통 1.2배·비파손만 적용한다.
+// 전승의 마법 갑옷 절단은 별도 방어 무시 효과로 구현하지 않았다.
+const balisarda = finalizeSpec('balisarda', {
+  ...RAPIER_SPEC,
+  nameKo: '발리사르다', nameEn: 'Balisarda', tier: 'legend', school: 'italian',
+  desc: '마녀 팔레리나가 마법의 갑옷을 베도록 만든 검.\n은과 금의 덩굴이 상아색 자루를 감싼다.',
+  partMesh: balisardaPartMesh,
+  buildParts(look) {
+    const parts = RAPIER_SPEC.buildParts.call(this, { ...look, ...BALISARDA_COLORS });
+    parts[3][3] = BALISARDA_COLORS.blade;
+    return parts;
+  },
+  decorate: undefined, // 열린 덩굴 코등이는 partMesh에서 완성한다. 구 컵 장식 중복 금지.
+});
 
 // ═════════════════════════════════════════════════════════════
 //  8) 팔쉬온 — Thorpe falchion(13세기 원본) 0.904kg·칼날 80.3cm [M]. 균형점 자료 없음
@@ -1728,7 +1745,7 @@ export const WEAPONS = {
   brothers_sword: brothersSword,
   dartagnan, // 사장님 10/21(샛별 저장소 경유): 이탈리아 에픽
   kusanagi, // 사장님 10/21(샛별 저장소 경유): 일본 레전드
-  hwando, kriegsmesser,
+  hwando, kriegsmesser, balisarda,
 };
 
 // 다른 담당이 쓰는 짧은 이름 → 정식 id (characters.js의 'branch', URL 파라미터의 'chicken' 등)
