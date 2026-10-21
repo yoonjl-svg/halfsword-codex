@@ -1,5 +1,7 @@
 # 샛별 개발 인계 · 새 공통 기준
 
+- [무기·이탈리아 유파 전체 지시 전달 영수증](WEAPONS_HANDOFF_20261021.json): 최신6e1e9eca→c1b01487, 원본103파일/50검사·5관문, [우화 메시지](https://github.com/yoonjl-svg/halfsword-codex/blob/72ac144c09b4518b63e785121f7cf0cfb5f854ef/docs/devmeet/messages/2026-10-21-weapons.md). 전용무대/밤 누락 점검 포함. 실제 열람/채택 미확인.
+
 - [일본 흘림 뒤 회복 지연 · 양 역할 시험](JAPANESE_RECOVERY_20261017.md): 0.36초 추천 시험값, 생존 개선과 씨앗 편중/공격자 검증 한계, 별도 테스트 링크.
 
 - [일본 막기·흘림 1차 연구](JAPANESE_FLOW_20261017.md): 6후보·입력 간섭 확인, 독립 사망17→17/36. 찌르기 이득/베기 손해로 기본 적용 보류, 실제 화면·원자료 보존.
