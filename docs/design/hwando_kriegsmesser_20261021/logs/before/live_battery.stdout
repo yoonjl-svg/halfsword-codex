@@ -1,0 +1,49 @@
+{
+ "commit": "live ../../src",
+ "cuts": {
+  "tip": 19.3,
+  "tipMin": 16.7,
+  "tipMax": 23,
+  "phasePk": 0.7,
+  "vZone": 14.2,
+  "onset": 64,
+  "b10_90": 139,
+  "over": 11.6,
+  "settle": 589,
+  "a33": 273,
+  "handA50": 50.7,
+  "satW": 1,
+  "impDrive": 3.6,
+  "impBrake": -4.5
+ },
+ "steps": {
+  "wristOver_pct": 10.5,
+  "wristSettle_s": 0.7,
+  "bladeSettle_s": 0.36,
+  "bladeSettleMax_s": 0.61,
+  "chestPitch_deg": 9.1
+ },
+ "kata": {
+  "chestW_rms": 1.94,
+  "guardHoldChestW_rms": 0.25,
+  "wristErr_mean": 0.145,
+  "wristErr_p95": 0.46,
+  "bladeErr_mean": 19,
+  "holdBladeSpeed_rms": 3.94,
+  "tipV_p95": 15.2,
+  "state": "stand"
+ },
+ "walk": {
+  "walkTipBob_mm": 232
+ },
+ "jitter": {
+  "bladeStepDelta_rms": 0.556,
+  "worst": 1.626
+ },
+ "hits": [
+  "oberhau@1.2 {\"first\":\"chest:cut/PASS\",\"E_J\":105,\"mEff\":0.67,\"tipPre\":17,\"tip1\":15.5,\"tip3\":7.7,\"tip6\":1.5,\"maxAfter\":16.5}",
+  "zwerch@1.2 {\"first\":\"chest:cut/PASS\",\"E_J\":177,\"mEff\":0.81,\"tipPre\":21,\"tip1\":22.3,\"tip3\":4.5,\"tip6\":2,\"maxAfter\":22.3}",
+  "oberhau@1.4 {\"first\":\"chest:cut/PASS\",\"E_J\":114,\"mEff\":0.53,\"tipPre\":17,\"tip1\":15.5,\"tip3\":2.5,\"tip6\":0.4,\"maxAfter\":16.5}",
+  "zornhau@1.3 {\"first\":\"pelvis:cut/PASS\",\"E_J\":133,\"mEff\":0.56,\"tipPre\":17.3,\"tip1\":18,\"tip3\":6,\"tip6\":3.9,\"maxAfter\":18}"
+ ]
+}
