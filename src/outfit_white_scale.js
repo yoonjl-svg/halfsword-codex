@@ -21,7 +21,7 @@ export function createWhiteScaleOutfit(h) {
   const scaleOutline=[[-.49,.48],[.49,.48],[.49,-.16],[.37,-.39],[0,-.53],[-.37,-.39],[-.49,-.16]];
   function scale(rows,y,a,w,H,lift){
     const p=at(rows,y,a,lift+.002),uv=[.5,.5],ix=[],N=scaleOutline.length;
-    for(const k of [.82,1])for(const[u,v]of scaleOutline){p.push(...at(rows,y+v*H,a+u*w,lift+(k<1?.0015:0)));uv.push(u+.5,v+.5);}
+    for(const k of [.82,1])for(const[u,v]of scaleOutline){p.push(...at(rows,y+v*H*k,a+u*w*k,lift+(k<1?.0025:0)));uv.push(u+.5,v+.5);}
     for(let i=0;i<N;i++){const j=(i+1)%N;ix.push(0,1+i,1+j,1+i,1+N+i,1+N+j,1+i,1+N+j,1+j);}return mesh(p,uv,ix);
   }
   function lamellar(g,rows,top,bottom,bands,cols,a0=-Math.PI,a1=Math.PI,{color=SILVER,laces=false}={}){
@@ -43,7 +43,7 @@ export function createWhiteScaleOutfit(h) {
   function ribbon(g,rows,side=1){
     const p=[],uv=[],ix=[];for(let i=0;i<=24;i++)for(let edge=0;edge<2;edge++){
       const t=i/24,y=.125-.256*t,a=(side>0?0:Math.PI)+(-.88+1.56*t)+(edge?1:-1)*.16;
-      p.push(...at(rows,y,a,.016));uv.push(edge,t);if(i<24&&edge===0){const n=i*2;ix.push(n,n+1,n+2,n+1,n+3,n+2);}
+      p.push(...at(rows,y,a,.017+.002*Math.sin(t*7*Math.PI)+(edge?0:.001)));uv.push(edge,t);if(i<24&&edge===0){const n=i*2;ix.push(n,n+1,n+2,n+1,n+3,n+2);}
     }add(g,[mesh(p,uv,ix)],RED,cloth);
     const cords=[];for(const edge of [-1,1])cords.push(curve(Array.from({length:25},(_,i)=>{const t=i/24;return at(rows,.125-.256*t,(side>0?0:Math.PI)-.88+1.56*t+edge*.16,.017);}),.0014,24));add(g,cords,0x9e4c45,cloth);
   }
@@ -74,9 +74,9 @@ export function createWhiteScaleOutfit(h) {
     const mask=[[-.118,.066,.048,.027],[-.093,.092,.074,.020],[-.058,.114,.087,.011],[-.021,.120,.091,.008],[.004,.116,.092,.007]];
     const maskGroup=piece('mask',[shell(mask,-Math.PI*.58,Math.PI*.58)],0x434947,{...metal,side:THREE.DoubleSide});
     const nose=bake(new THREE.ConeGeometry(.016,.047,4),[.135,-.026,0],[0,0,-Math.PI/2],[1,1,.72]);add(maskGroup,[nose],0x67716b);
-    const lips=[curve([[.125,-.063,-.036],[.139,-.066,0],[.125,-.063,.036]],.0028,12),curve([[.113,-.091,-.026],[.127,-.096,0],[.113,-.091,.026]],.0022,12)];add(maskGroup,lips,INK);
+    const lips=[curve([[.127,-.067,-.032],[.141,-.062,0],[.127,-.067,.032]],.0033,12),curve([[.117,-.089,-.025],[.130,-.094,0],[.117,-.089,.025]],.0018,12)];add(maskGroup,lips,0x101613);
     for(const s of [-1,1]){
-      add(maskGroup,[curve([[.103,-.031,s*.064],[.118,-.050,s*.048],[.123,-.059,s*.028]],.0022,12)],STEEL);
+      add(maskGroup,[curve([[.103,-.028,s*.064],[.120,-.042,s*.046],[.129,-.048,s*.027]],.0016,12)],STEEL);
       stud(maskGroup,[.081,-.064,s*.080],.008);
     }
     // A dark backing closes the eye band while the brow casts a deep shadow.
@@ -92,34 +92,61 @@ export function createWhiteScaleOutfit(h) {
     for(const s of [-1,1])add(tie,[curve([[.015,-.017,s*.112],[.087,-.105,s*.061],[.102,-.126,0]],.0032,18)],RED,cloth);
   }
   function shoulder(g){
-    const rows=[[-.108,.071,.090,0],[-.025,.078,.095,0],[.075,.078,.096,0],[.127,.067,.085,0],[.156,.041,.054,0]];
-    base(g,[[-.190,.048,.050,0],[-.110,.060,.067,0],...rows.slice(1).map(([y,d,w,x])=>[y,d-.009,w-.009,x]),[.177,.006,.008,0]]);add(g,[shell(rows)],INK);lamellar(g,rows,.137,-.092,9,18,-Math.PI,Math.PI,{laces:true});
-    add(g,[ring(rows,-.104,-Math.PI,Math.PI,.003),ring(rows,.121,-Math.PI,Math.PI,.0025)],GOLD);
-    const binding=[];for(const s of [-1,1])binding.push(curve([at(rows,.108,s*.8,.014),at(rows,.013,s*.8,.018),at(rows,-.101,s*.8,.011)],.0033,20));add(g,binding,RED,cloth);
+    // Broad hanging sode: a flatter cap, clearer step between overlapping rows,
+    // and tied mounting plates. Keep the arm and joint positions unchanged.
+    const rows=[[-.115,.069,.093,0],[-.020,.069,.099,0],[.070,.070,.100,0],[.126,.064,.083,0],[.156,.039,.049,0]];
+    base(g,[[-.190,.048,.050,0],[-.110,.057,.063,0],...rows.slice(1).map(([y,d,w,x])=>[y,d-.009,w-.009,x]),[.177,.006,.008,0]]);
+    const cap=add(g,[shell(rows)],INK);lamellar(cap,rows,.132,-.099,9,18,-Math.PI,Math.PI,{laces:true});
+    add(cap,[ring(rows,-.114,-Math.PI,Math.PI,.003),ring(rows,.120,-Math.PI,Math.PI,.0025)],STEEL);
+    const binding=[],fasteners=[];
+    for(const s of [-1,1]){
+      binding.push(curve([at(rows,.130,s*.8,.013),at(rows,.063,s*.8,.017),at(rows,-.103,s*.8,.014)],.0032,20));
+      for(const y of [.126,.064,-.020])fasteners.push(ball(.003,6,4,at(rows,y,s*.8,.017)));
+    }add(cap,binding,RED,cloth);add(cap,fasteners,GOLD);
+    const mount=artoriaCloth(g,'white-scale-sode-mount');add(mount,[curve([[.014,.165,-.032],[.030,.172,0],[.014,.165,.032]],.005,12),curve([[.005,.163,0],[.025,.171,-.016],[.028,.156,0],[.025,.171,.016],[.005,.163,0]],.003,16)],RED,cloth);
+    const under=artoriaCloth(g,'white-scale-elbow-fabric');
+    const cuff=[[-.191,.047,.050,0],[-.148,.055,.060,0],[-.090,.058,.064,0]];
+    add(under,[shell(cuff)],0x303632,cloth);brocade(under,cuff,-.176,-.100,4,18);
+  }
+  function brocade(g,rows,bottom,top,bands,cols){
+    const pattern=[],dw=Math.PI*2/cols,dy=(top-bottom)/bands;
+    for(let r=0;r<bands;r++)for(let c=0;c<cols;c++){
+      const y=bottom+(r+.5)*dy,a=(c+.5+(r%2)*.5)*dw;
+      pattern.push(curve([at(rows,y-dy*.35,a,.003),at(rows,y,a-dw*.28,.003),at(rows,y+dy*.35,a,.003),at(rows,y,a+dw*.28,.003),at(rows,y-dy*.35,a,.003)],.0009,4));
+    }add(g,pattern,0x666652,cloth);
   }
   function bracer(g){
     const rows=[[-.117,.047,.047,0],[-.060,.050,.049,0],[.040,.057,.056,0],[.114,.058,.057,0]];
-    add(g,[shell(rows)],LEATHER,cloth);
-    const slats=[];for(let i=-2;i<=2;i++)slats.push(shell([[-.099,.053,.051,0],[.075,.063,.060,0]],i*.35-.12,i*.35+.12,3));add(g,slats,0x4d5751);
+    const backing=add(g,[shell(rows)],0x383b31,cloth);brocade(backing,rows,-.103,.075,6,20);
+    const slats=[];for(let i=-2;i<=2;i++)slats.push(shell([[-.099,.053,.051,0],[.075,.063,.060,0]],i*.35-.12,i*.35+.12,3));const brace=add(g,slats,0x4d5751);const edges=[],rivets=[];for(let i=-2;i<=2;i++){for(const edge of [-.12,.12])edges.push(curve([at(rows,-.094,i*.35+edge,.007),at(rows,.069,i*.35+edge,.007)],.0009,2));for(const y of [-.090,.064])rivets.push(ball(.002,6,4,at(rows,y,i*.35,.009)));}add(brace,edges,STEEL);add(brace,rivets,GOLD);
     add(g,[ring(rows,-.082,-Math.PI,Math.PI,.004,.009),ring(rows,.060,-Math.PI,Math.PI,.004,.009)],RED,cloth);
     lamellar(g,rows,.111,.084,2,18,-Math.PI,Math.PI,{laces:true});
     const pattern=[];for(let row=0;row<4;row++)for(let i=-2;i<=2;i++)pattern.push(curve([at(rows,-.060+row*.032,Math.PI+i*.26,.003),at(rows,-.048+row*.032,Math.PI+i*.26+.13,.003),at(rows,-.036+row*.032,Math.PI+i*.26,.003)],.001,2));add(g,pattern,0x8d7f60,cloth);
   }
   function skirtPanel(g,rows,a0,a1){
-    add(g,[shell(rows,a0,a1,9)],INK,{...metal,side:THREE.DoubleSide});
-    const trim=[curve(rows.map(([y])=>at(rows,y,a0,.002)),.0022,14),curve(rows.map(([y])=>at(rows,y,a1,.002)),.0022,14),ring(rows,rows[0][0],a0,a1,.0022)];add(g,trim,GOLD);
-    const lacing=[];for(let row=0;row<5;row++){
-      const y=rows.at(-1)[0]-.040-row*.057;
-      add(g,[ring(rows,y,a0,a1,.0035,.002)],RED,cloth);
-      for(let j=0;j<5;j++){
-        const a=a0+(j+.5)/5*(a1-a0);lacing.push(curve([at(rows,y+.014,a-.045,.004),at(rows,y-.012,a+.045,.005)],.0015,2));
+    const structuralRows=rows.map(([y,...r])=>[Math.min(y,.178),...r]);
+    const panel=add(g,[shell(structuralRows,a0,a1,9)],INK,{...metal,side:THREE.DoubleSide});
+    const trim=[curve(structuralRows.map(([y])=>at(structuralRows,y,a0,.002)),.0022,14),curve(structuralRows.map(([y])=>at(structuralRows,y,a1,.002)),.0022,14),ring(structuralRows,structuralRows[0][0],a0,a1,.0022)];
+    const lames=[],edges=[],lacing=[],holes=[];
+    for(let row=0;row<5;row++){
+      const y=rows.at(-1)[0]-.012-row*.063,edge=y-.062;
+      const section=[edge,y-.020,y].map(Y=>{const [,d,w,x]=profile(rows,Y);return[Y,d+.004,w+.004,x]});
+      lames.push(shell(section,a0+.025,a1-.025,12));edges.push(ring(section,edge,a0+.025,a1-.025,.0013,.0005));
+      for(let j=0;j<6;j++){
+        const a=a0+(j+.5)/6*(a1-a0);
+        for(const sign of [-1,1]){
+          const aa=a+sign*.023;
+          holes.push(ball(.0018,5,3,at(rows,y-.010,aa,.0055)));
+          lacing.push(curve([at(rows,y-.009,aa,.006),at(rows,y-.031,aa+sign*.009,.008),at(rows,y-.049,aa,.006)],.0015,4));
+        }
       }
-    }add(g,lacing,0xa2564a,cloth);
+    }
+    add(panel,lames,0x303633);add(panel,edges,0x68706a);add(panel,holes,0x111815);add(panel,lacing,RED,cloth);add(g,trim,STEEL);
   }
   function thigh(g){
-    const fabric=artoriaCloth(g,'white-scale-trousers');add(fabric,[shell([[-.235,.057,.060,0],[-.19,.068,.070,0],[.10,.078,.083,0],[.19,.074,.078,0]])],0x252d2c,cloth);
+    const fabric=artoriaCloth(g,'white-scale-trousers');const pants=[[-.235,.057,.060,0],[-.19,.068,.070,0],[.10,.078,.083,0],[.19,.074,.078,0]];add(fabric,[shell(pants)],0x252d2c,cloth);brocade(fabric,pants,-.226,-.155,4,20);
     // Each divided skirt panel follows its own leg; no solid hoop bridges legs.
-    const rows=[[-.155,.133,.164,0],[-.085,.126,.149,0],[.060,.105,.113,0],[.178,.087,.085,0]];
+    const rows=[[-.155,.133,.164,0],[-.085,.126,.149,0],[.060,.105,.113,0],[.205,.087,.085,0]];
     skirtPanel(g,rows,-1.38,-.12);skirtPanel(g,rows,.12,1.38);skirtPanel(g,rows,1.62,3.02);skirtPanel(g,rows,-3.02,-1.62);
   }
   function shin(g){
@@ -127,6 +154,7 @@ export function createWhiteScaleOutfit(h) {
     add(g,[shell(rows)],LEATHER,cloth);
     const plates=[];for(let i=-1;i<=1;i++)plates.push(shell([[-.169,.056,.051,0],[.139,.063,.058,0]],i*.44-.16,i*.44+.16,4));add(g,plates,0x4d5751);
     const pattern=[];for(let row=0;row<8;row++)for(const a of [-.44,0,.44]){const y=-.145+row*.035;pattern.push(curve([at(rows,y,a-.10,.012),at(rows,y+.010,a,.014),at(rows,y,a+.10,.012)],.0012,3));}add(g,pattern,0x948e75,cloth);
+    const welt=artoriaCloth(g,'white-scale-knee-wrap');add(welt,[shell([[.132,.058,.056,0],[.172,.059,.057,0],[.193,.051,.049,0]])],0x333a34,cloth);brocade(welt,[[.132,.058,.056,0],[.193,.051,.049,0]],.138,.183,3,18);
     const ties=[];for(const y of [-.136,-.052,.058,.132])ties.push(ring(rows,y,-Math.PI,Math.PI,.003,.009));add(g,ties,0x282b26,cloth);
     for(const s of [-1,1])add(g,[curve([at(rows,.13,s*.7,.009),at(rows,-.167,s*.7,.009)],.0016)],GOLD);
   }
@@ -141,7 +169,9 @@ export function createWhiteScaleOutfit(h) {
       const lining=artoriaCloth(g,'white-scale-neck-lining');clothNeck(lining,look);
       const collar=[[.120,.078,.105,0],[.180,.066,.078,0],[.220,.060,.068,0]];add(lining,[shell(collar)],INK,cloth);
       const rows=[[-.143,.109,.148,0],[-.070,.126,.169,0],[.038,.135,.182,-.004],[.103,.119,.165,-.004],[.147,.073,.105,0]];
-      base(g,rows.map(([y,d,w,x])=>[y,d-.008,w-.008,x]));add(g,[shell(rows)],INK);lamellar(g,rows,.132,-.128,12,28,-Math.PI,Math.PI,{laces:false});
+      base(g,rows.map(([y,d,w,x])=>[y,d-.008,w-.008,x]));add(g,[shell(rows)],INK);lamellar(g,rows,.104,-.128,11,28,-Math.PI,Math.PI,{laces:false});
+      const yoke=add(g,[shell([[.105,.120,.165,-.004],[.135,.096,.131,-.002],[.150,.073,.106,0]])],INK);add(yoke,[ring(rows,.107,-Math.PI,Math.PI,.0028,.004)],STEEL);
+      const knots=[];for(const side of [-1,1])for(const a of [.65,1.1,2.1,2.5])knots.push(curve([at(rows,.106,side*a-.035,.008),at(rows,.130,side*a,.008),at(rows,.106,side*a+.035,.008)],.0022,5));add(yoke,knots,RED,cloth);
       add(g,[ring(rows,-.140,-Math.PI,Math.PI,.0035),ring(rows,.117,-Math.PI,Math.PI,.003)],GOLD);ribbon(g,rows,1);ribbon(g,rows,-1);
       for(const s of [-1,1]){
         const y=.127,pts=[];for(let i=0;i<=8;i++){const a=.17+i/8*1.0;pts.push(at(rows,y-.026*Math.sin(a),s*a,.005));}add(g,[curve(pts,.006,16)],LEATHER,cloth);
@@ -157,6 +187,9 @@ export function createWhiteScaleOutfit(h) {
       add(g,[box(.010,.039,.051,[.127,.016,-.013])],GOLD);add(g,[box(.011,.024,.036,[.132,.016,-.013])],0x302a22,cloth);
       const rivets=[];for(let i=-5;i<=5;i++)if(i!==0)rivets.push(ball(.003,6,4,at(belt,.016,i*.20,.005)));add(g,rivets,GOLD);
       const layer=artoriaCloth(g,'white-scale-belt-ties');
+      const band=[[-.020,.129,.170,0],[.005,.128,.168,0],[.031,.124,.164,0]];add(layer,[shell(band)],0x59473a,cloth);
+      for(const y of [-.013,.0,.017,.026])add(layer,[ring(band,y,-Math.PI,Math.PI,.0014)],0x8b7360,cloth);
+      const knot=[];for(const side of [-1,1])knot.push(curve([[.135,.012,0],[.149,.021,side*.027],[.145,-.004,side*.033],[.136,.007,0]],.004,18));add(layer,knot,RED,cloth);
       for(const s of [-1,1])add(layer,[curve([[.134,.012,s*.059],[.141,-.054,s*.083],[.127,-.123,s*.095]],.007,15)],RED,cloth);
     },
     uarmS:shoulder,uarmO:shoulder,farmS:bracer,farmO:bracer,thighF:thigh,thighB:thigh,shinF:shin,shinB:shin,footF:foot,footB:foot,
