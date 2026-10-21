@@ -120,32 +120,33 @@ export function createReturnedKingOutfitV2(h) {
     const cheek=piece('engraving',[],GOLD); // populated below; own wear piece
     for(const s of [-1,1])laurel(cheek,(y,z)=>f(y,z),-.082,s*.061,.070,s,.46);
   }
-  function shoulder(g){
+  function raisedShoulderWing(parent,side){
+    // A thin, upright plate, not an engraved pattern. Its swept tip stands
+    // about 6 cm above the old cap. It follows and breaks away with that cap;
+    // ornamental children do not enlarge its existing combat armor boxes.
+    const shape=new THREE.Shape();
+    shape.moveTo(-.040,.102);shape.quadraticCurveTo(-.059,.153,-.030,.185);
+    shape.quadraticCurveTo(.006,.220,.038,.231);shape.quadraticCurveTo(.052,.224,.059,.197);
+    shape.quadraticCurveTo(.073,.151,.052,.112);shape.quadraticCurveTo(.005,.096,-.040,.102);
+    const point=(y,z,depth=0)=>[-.018+depth-.014*(y-.12)/.11+.007*(z/.07)**2,y,side*z];
+    const plate=new THREE.ExtrudeGeometry(shape,{depth:.004,bevelEnabled:true,bevelThickness:.0012,bevelSize:.0012,bevelSegments:2,curveSegments:12,steps:1});
+    const p=plate.attributes.position;for(let i=0;i<p.count;i++)p.setXYZ(i,...point(p.getY(i),p.getX(i),p.getZ(i)));plate.computeVertexNormals();
+    const wing=add(parent,[plate],IVORY,{...metal,side:THREE.DoubleSide});wing.name='royal-shoulder-upright-wing';
+    const trim=[curve(shape.getPoints(48).map(p=>point(p.y,p.x,.0055)),.0018,96)];
+    for(const [dy,dz]of [[.214,.027],[.199,.045],[.177,.055]])trim.push(curve([point(.122,-.026,.006),point(.158,-.012,.008),point(dy,dz,.006)],.0015,24));
+    add(wing,trim,GOLD,{...metal,side:THREE.DoubleSide});
+  }
+  function shoulder(g,side=1){
     const cap=[[-.021,.088,.092,0],[.019,.100,.104,0],[.084,.094,.096,0],[.134,.056,.061,0],[.173,.009,.012,0]];
     const geo=flute(shell(cap),.003,10),p=geo.attributes.position;
-    for(let i=0;i<p.count;i++){const y=p.getY(i),a=Math.atan2(p.getZ(i),p.getX(i));p.setY(i,y+(1-THREE.MathUtils.clamp((y+.021)/.155,0,1))*.016*Math.cos(2*a));}geo.computeVertexNormals();add(g,[geo]);
+    for(let i=0;i<p.count;i++){const y=p.getY(i),a=Math.atan2(p.getZ(i),p.getX(i));p.setY(i,y+(1-THREE.MathUtils.clamp((y+.021)/.155,0,1))*.016*Math.cos(2*a));}geo.computeVertexNormals();const capMesh=add(g,[geo]);
+    raisedShoulderWing(capMesh,side);
     const edgePts=[];for(let i=0;i<=40;i++){const a=i/40*Math.PI*2;edgePts.push([.089*Math.cos(a),-.021+.016*Math.cos(2*a),.093*Math.sin(a)]);}add(g,[curve(edgePts,.0023,40)],GOLD);
     // Two slim overlapping lames, then a long tapered rerebrace. No tire rings.
     for(let i=0;i<2;i++){const y=-.026-i*.032,r=.084-i*.009,rows=[[y-.038,r-.009,r-.008,0],[y,r,r,0]];add(g,[flute(shell(rows),.002,8)]);add(g,[ring(rows,y-.036,-Math.PI,Math.PI,.0015)],GOLD);}
     const arm=[[-.147,.047,.047,0],[-.101,.055,.055,0],[-.074,.065,.065,0]];add(g,[flute(shell(arm),.002,8)]);mail(g,-.140);
     const f=(y,z)=>surface(cap,y,z,.004);castle(g,f,.025,0,.86);
     for(const s of [-1,1])laurel(g,f,.002,s*.055,.085,s,.52);
-    // A shallow chased leaf spray on the formerly bare shoulder crown. Keep
-    // it inside the existing cap silhouette and its native armor bounds.
-    const crown=(y,z)=>{
-      const p=surface(cap,y,z,.003),a=Math.atan2(p[2],p[0]),r=Math.hypot(p[0],p[2]);
-      const ridge=.003*Math.pow(Math.max(0,Math.cos(10*a)),6);
-      p[0]+=p[0]/r*ridge;p[2]+=p[2]/r*ridge;
-      p[1]+=(1-THREE.MathUtils.clamp((y+.021)/.155,0,1))*.016*Math.cos(2*a);
-      return p;
-    };
-    const leaves=[leaf(.124,0,.034,0,crown)],stems=[curve([[.091,0],[.111,.003],[.137,-.002],[.158,0]].map(([y,z])=>crown(y,z)),.0012,22)];
-    for(const s of [-1,1]){
-      leaves.push(leaf(.112,s*.002,.019,s*.021,crown),leaf(.132,s*.002,.017,s*.012,crown));
-      const scroll=[];for(let i=0;i<=22;i++){const t=i/22,a=t*Math.PI*1.65,r=.011*(1-t*.72);scroll.push(crown(.106+r*Math.sin(a),s*(.019-r*Math.cos(a))));}
-      stems.push(curve([crown(.095,0),...scroll],.0011,24));
-    }
-    const ornament=add(g,[...leaves,...stems],GOLD,{...metal,side:THREE.DoubleSide});ornament.name='royal-shoulder-leaf-engraving';
     const rivets=[];for(const z of [-.065,-.036,0,.036,.065])rivets.push(ball(.0025,6,4,surface(cap,-.009,z,.004)));add(g,rivets,LIGHT);
   }
   function forearm(g){
@@ -231,6 +232,6 @@ export function createReturnedKingOutfitV2(h) {
         for(let i=0;i<3;i++)add(g,[ball(.0028,6,4,f(.011,s*(.051+i*.019)))],LIGHT);
       }
     },
-    uarmS:shoulder,uarmO:shoulder,farmS:forearm,farmO:forearm,thighF:thigh,thighB:thigh,shinF:shin,shinB:shin,footF:foot,footB:foot,
+    uarmS(g){shoulder(g,1);},uarmO(g){shoulder(g,-1);},farmS:forearm,farmO:forearm,thighF:thigh,thighB:thigh,shinF:shin,shinB:shin,footF:foot,footB:foot,
   };
 }
