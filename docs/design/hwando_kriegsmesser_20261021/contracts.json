@@ -1,0 +1,158 @@
+{
+  "physics": {
+    "longsword": {
+      "mass": 1.6,
+      "com": 0.24008149999999998,
+      "I": 0.27241577255833327,
+      "length": 1.1800000000000002,
+      "text": "양손검, 133 cm, 1.6 kg"
+    },
+    "kriegsmesser": {
+      "mass": 1.65,
+      "com": 0.25760606060606056,
+      "I": 0.2882462813333333,
+      "length": 1.13,
+      "text": "양손 외날검, 131 cm, 1.65 kg"
+    },
+    "hwando": {
+      "mass": 0.9,
+      "com": 0.24940888888888882,
+      "I": 0.10485846586666664,
+      "length": 0.82,
+      "text": "한손 외날도, 93 cm, 0.9 kg"
+    }
+  },
+  "inertiaRatio": 1.0581115719781247,
+  "actions": [
+    {
+      "weapon": "hwando",
+      "action": "cut",
+      "active": true,
+      "travel": 6.840310460040957,
+      "clashes": 1,
+      "stamina": 100,
+      "mass": 0.8999999761581421
+    },
+    {
+      "weapon": "hwando",
+      "action": "thrust",
+      "active": true,
+      "travel": 7.648558305087291,
+      "clashes": 0,
+      "stamina": 100,
+      "mass": 0.8999999761581421
+    },
+    {
+      "weapon": "hwando",
+      "action": "guard",
+      "active": true,
+      "travel": 7.972300995023629,
+      "clashes": 34,
+      "stamina": 100,
+      "mass": 0.8999999761581421
+    },
+    {
+      "weapon": "hwando",
+      "action": "ai",
+      "active": true,
+      "travel": 4.958543747251393,
+      "clashes": 0,
+      "stamina": 100,
+      "mass": 0.8999999761581421
+    },
+    {
+      "weapon": "kriegsmesser",
+      "action": "cut",
+      "active": true,
+      "travel": 9.153866975869436,
+      "clashes": 0,
+      "stamina": 100,
+      "mass": 1.649999976158142
+    },
+    {
+      "weapon": "kriegsmesser",
+      "action": "thrust",
+      "active": true,
+      "travel": 9.387394659311068,
+      "clashes": 0,
+      "stamina": 100,
+      "mass": 1.649999976158142
+    },
+    {
+      "weapon": "kriegsmesser",
+      "action": "guard",
+      "active": true,
+      "travel": 6.708974547872866,
+      "clashes": 31,
+      "stamina": 100,
+      "mass": 1.649999976158142
+    },
+    {
+      "weapon": "kriegsmesser",
+      "action": "ai",
+      "active": true,
+      "travel": 6.900652221292878,
+      "clashes": 18,
+      "stamina": 79.08137058244792,
+      "mass": 1.649999976158142
+    }
+  ],
+  "draw": {
+    "paths": 550,
+    "total": 1.0000000000000009,
+    "pool": 24,
+    "first": {
+      "longsword": 0.08000000000000002,
+      "zweihander": 0.08000000000000002,
+      "rapier": 0.08000000000000002,
+      "uchigatana": 0.08000000000000002,
+      "hwando": 0.08000000000000002,
+      "monohoshizao": 0.022857142857142864,
+      "qinggang": 0.022857142857142864,
+      "lightsaber": 0.022857142857142864,
+      "flamberge": 0.022857142857142864,
+      "goujian": 0.022857142857142864,
+      "brothers_sword": 0.022857142857142864,
+      "dartagnan": 0.022857142857142864,
+      "excalibur": 0.01666666666666667,
+      "ganjiang": 0.008333333333333333,
+      "moye": 0.008333333333333333,
+      "kusanagi": 0.016666666666666666,
+      "tree_branch": 0.035,
+      "rubber_chicken": 0.035,
+      "frozen_tuna": 0.02500000000000001,
+      "pistol": 0.02500000000000001,
+      "morgenstern": 0.06750000000000003,
+      "sain": 0.06750000000000003,
+      "ice": 0.06750000000000003,
+      "kriegsmesser": 0.06750000000000003
+    },
+    "any": {
+      "longsword": 0.16,
+      "zweihander": 0.16,
+      "rapier": 0.15999999999999998,
+      "uchigatana": 0.15999999999999998,
+      "hwando": 0.15999999999999998,
+      "monohoshizao": 0.04571428571428572,
+      "qinggang": 0.04571428571428572,
+      "lightsaber": 0.04571428571428572,
+      "flamberge": 0.04571428571428572,
+      "goujian": 0.04571428571428572,
+      "brothers_sword": 0.04571428571428572,
+      "dartagnan": 0.04571428571428572,
+      "excalibur": 0.033333333333333354,
+      "ganjiang": 0.016666666666666673,
+      "moye": 0.016666666666666673,
+      "kusanagi": 0.03333333333333335,
+      "tree_branch": 0.07000000000000003,
+      "rubber_chicken": 0.07000000000000005,
+      "frozen_tuna": 0.05000000000000002,
+      "pistol": 0.05000000000000002,
+      "morgenstern": 0.13499999999999998,
+      "sain": 0.13499999999999998,
+      "ice": 0.13499999999999998,
+      "kriegsmesser": 0.13499999999999998
+    }
+  },
+  "limitations": "Compatibility/finite-state checks and exact draw enumeration; not a balance win-rate or human-feel study."
+}
