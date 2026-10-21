@@ -52,3 +52,7 @@
 일반 무기 뽑기에 등록했다. 시작 지급품에는 추가하지 않는다. 직전 선택 무기 제외/등급 가중치는 기존 규칙을 따른다. 첫 뽑기 기준 쿠사나기는 첫 카드 **1.6667%**, 두 장 중 하나 이상 **3.3333%**. 간장·막야가 한 추첨칸인 점을 포함해 실제 함수의9,580경로를 정확 열거했다. [원자료](draw.json).
 
 아메노하바키리·NPC 고정 무기는 변경하지 않았다. 기존 연구 시험판도 유지한다. 공개 배포 상태와 검증 SHA는 후속 `release.json`에 기록한다.
+
+## 공개 반영
+
+자체 포크 main `4257fe88e246f41331e1042783b77b05392898d0`, [Pages39549098800](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/39549098800) 성공. 원격47파일/전체src가 검증 소스와 일치하고 기존 연구 경로를 보존했다. [쿠사나기 테스트](https://yoonjl-svg.github.io/halfsword-codex/?test=1&weapon=kusanagi&foe=bran&foeWeapon=tree_branch&stage=clearing). 공개 도메인 직접 브라우저 확인은 환경 허용 목록 밖으로 미실행이며, 로컬 최종 빌드/터치 검사와 배포 성공을 구분한다. [영수증](release.json).
