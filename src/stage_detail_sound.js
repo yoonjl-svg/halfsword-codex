@@ -43,7 +43,7 @@ export const WETLAND_THUNDER_VARIANTS = Object.freeze([
   Object.freeze({ name: 'extended', duration: 6.2 }),
 ]);
 
-const detailBase = stage => ['loggia_night','corsair_night','sacred_grove_night','sluice_night','etna_night','qinglan_night','dunhuang_night','dayr_night'].includes(stage) ? stage.slice(0,-6) : stage;
+const detailBase = stage => ['courtyard_night','loggia_night','corsair_night','sacred_grove_night','sluice_night','etna_night','qinglan_night','dunhuang_night','dayr_night'].includes(stage) ? stage.slice(0,-6) : stage;
 export const hasStageDetails = (id) => {const stage=detailBase(id);return stage === 'courtyard' || stage === 'loggia' || stage === 'corsair' || stage === 'sacred_grove' || stage === 'frozen_bay' || stage === 'qinglan' || stage === 'sluice' || stage === 'dayr' || stage === 'dunhuang' || stage === 'etna';};
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 const TAU = Math.PI * 2;
