@@ -1,0 +1,14 @@
+import fs from 'node:fs';import {newRound,DT,CONFIG,THREE} from '../../../tools/sim/harness_m.mjs';import {WEAPONS} from '../../../src/weapons.js';
+CONFIG.ARENA.startHold=0;class Quiet{update(){}}
+const data=JSON.parse(fs.readFileSync(new URL('./mass-only-touch.json',import.meta.url))),old=JSON.parse(fs.readFileSync(new URL('./old-parts.json',import.meta.url))),w=WEAPONS.druid_whip,finalParts=w.buildParts,rows=[];
+for(const profile of [{name:'old',damp:1.3,bend:.035},...[{damp:1.3,bend:.035},{damp:1.3,bend:.1},{damp:.15,bend:.035},{damp:.15,bend:.1}].map(p=>({...p,name:`new-${p.damp}-${p.bend}`}))])for(const gesture of ['down','cross'])for(const hold of [.25,.4,.55]){
+ w.buildParts=profile.name==='old'?()=>structuredClone(old):finalParts;
+ const g=newRound({weapon:'druid_whip',weapon2:'tree_branch',gap:1.3,seed:11,AIClass:Quiet});g.park();const f=g.player,samples=data.find(r=>r.variant==='before'&&r.gesture===gesture).samples;
+ for(const s of f.flexWeapon.segments)s.body.setAngularDamping(profile.damp);
+ const orig=f.flexWeapon.step;f.flexWeapon.step=dt=>{orig(dt);for(let i=0;i<8;i++){const child=f.flexWeapon.segments[i].body,parent=i?f.flexWeapon.segments[i-1].body:f.sword;const a=new THREE.Vector3(0,1,0).applyQuaternion(new THREE.Quaternion().copy(parent.rotation())),b=new THREE.Vector3(0,1,0).applyQuaternion(new THREE.Quaternion().copy(child.rotation()));const t=b.cross(a).multiplyScalar((profile.bend-.035)*(1-i/10));child.addTorque(t,true);parent.addTorque({x:-t.x,y:-t.y,z:-t.z},true)}};
+ g.before=t=>{let x=.18,y=-.28;if(t>=.5&&t<.66){const u=(t-.5)/.16;x=.18-.06*u;y=-.28+.84*u;f.inputActive=true}else if(t>=.66&&t<(.66+hold)){const u=(t-.66)/hold;x=.12;y=.56+u*(samples[0].hand[1]-.56);f.inputActive=false}else if(t>=(.66+hold)){const u=Math.min(39,(t-(.66+hold))/.032),i=Math.min(38,Math.floor(u)),k=u-i;x=samples[i].hand[0]*(1-k)+samples[i+1].hand[0]*k;y=samples[i].hand[1]*(1-k)+samples[i+1].hand[1]*k;f.inputActive=u<11;}f.handOffset.set(x,y)};
+ let maxForward=0,bandTime=0,maxSpeed=0,torsoForward=0;
+ for(let i=0;i<(1.95+hold)/DT;i++){g.step();if(g.t<(.66+hold))continue;const p=f.bladePoint(1).clone(),c=new THREE.Vector3().copy(f.bodies.chest.translation());const rel=p.clone().sub(c).applyQuaternion(f.yaw.clone().invert());maxSpeed=Math.max(maxSpeed,f.tipVel.length());if(p.y>.45)maxForward=Math.max(maxForward,rel.x);if(p.y>.85&&p.y<1.8){torsoForward=Math.max(torsoForward,rel.x);if(rel.x>.7)bandTime+=DT}}
+ rows.push({...profile,gesture,hold,maxForward,torsoForward,bandTime,maxSpeed});g.world.free();
+}
+w.buildParts=finalParts;fs.writeFileSync(new URL('./replay-robust.json',import.meta.url),JSON.stringify(rows,null,2));for(const name of [...new Set(rows.map(r=>r.name))]){const a=rows.filter(r=>r.name===name),avg=k=>a.reduce((s,r)=>s+r[k],0)/a.length;console.log(JSON.stringify({name,forward:avg('maxForward'),torso:avg('torsoForward'),bandTime:avg('bandTime'),peakSpeed:Math.max(...a.map(r=>r.maxSpeed))}));}
