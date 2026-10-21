@@ -1,0 +1,56 @@
+[
+  {
+    "name": "fights12",
+    "command": [
+      "node",
+      "tools/sim/fights12.mjs"
+    ],
+    "code": 0,
+    "seconds": 24.98,
+    "sha256": "05b9c6f2869d212df0606c9d4146593fa98347365c91f734883f39d27dcd71f0"
+  },
+  {
+    "name": "live_battery",
+    "command": [
+      "node",
+      "tools/sim/live_battery.mjs"
+    ],
+    "code": 0,
+    "seconds": 8.75,
+    "sha256": "289eeb43e3439593225e108f5f26148c0ec4e8b95416b680fe8634087b093845"
+  },
+  {
+    "name": "finish_thrust",
+    "command": [
+      "node",
+      "tools/sim/finish_thrust.mjs",
+      "1",
+      "--stand"
+    ],
+    "code": 0,
+    "seconds": 5.32,
+    "sha256": "015fdd7c262be95266cf68d5761558681ea231ec6c6721aa0d3c34ba1081a786"
+  },
+  {
+    "name": "corr_s0",
+    "command": [
+      "node",
+      "tools/sim/corr_s0.mjs",
+      "--limits=off,on",
+      "--scenes=a,b"
+    ],
+    "code": 0,
+    "seconds": 32.91,
+    "sha256": "acd3c87b9dc677e63b3e4ec739b0aaac3ab99f517a48337ff2eb17f0624896e7"
+  },
+  {
+    "name": "weapon_smoke",
+    "command": [
+      "node",
+      "tools/sim/weapon_smoke.mjs"
+    ],
+    "code": 0,
+    "seconds": 13.65,
+    "sha256": "bef9ec0264e10acdfacc8795078ae8bfe98f116ea0146fbf3851fde368b4bd4d"
+  }
+]

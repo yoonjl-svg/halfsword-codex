@@ -1,0 +1,89 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: rapier metadata
++ actual - expected
+... Skipped lines
+
+  {
+    bladeLength: 0.95,
+    breakAt: 0.5,
+    breakY: null,
+    capFromGrip: true,
+...
+    desc: '르네상스 신사들이 평상복에 차고 다니던 결투검.\n가장 빨리 찌르지만 베기는 약하다.',
++   durability: 0.8,
+-   durability: 0.85,
+    edged: true,
+    fragile: true,
+    frame: 'one',
+    grip: 'one-hand',
+    gripAlong: -0.14,
+
+    at file:///tmp/halfsword-weapons-handoff-20261021/docs/research/weapons_handoff_20261021/preservation.mjs:15:9 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: {
+    nameKo: '레이피어',
+    nameEn: 'Rapier',
+    desc: '르네상스 신사들이 평상복에 차고 다니던 결투검.\n가장 빨리 찌르지만 베기는 약하다.',
+    grip: 'one-hand',
+    material: 'steel',
+    hiltLength: 0.1,
+    bladeLength: 0.95,
+    mCut: 0.5,
+    mThrust: 1.3,
+    mBlunt: 0.7,
+    thrustStyle: { recover: 0.6, reach: 0.1, gap: 0.3, window: 0.12 },
+    id: 'rapier',
+    edged: true,
+    durability: 0.8,
+    breakAt: 0.5,
+    fragile: true,
+    ignoreArmor: false,
+    spike: false,
+    breakY: null,
+    gripAlong: -0.14,
+    twoHand: false,
+    oneHandStance: true,
+    soundMaterial: 'steel',
+    controlOverrides: { maxAimTorque: 22 },
+    capFromGrip: true,
+    frame: 'one',
+    style: 'thrust'
+  },
+  expected: {
+    nameKo: '레이피어',
+    nameEn: 'Rapier',
+    desc: '르네상스 신사들이 평상복에 차고 다니던 결투검.\n가장 빨리 찌르지만 베기는 약하다.',
+    grip: 'one-hand',
+    material: 'steel',
+    hiltLength: 0.1,
+    bladeLength: 0.95,
+    mCut: 0.5,
+    mThrust: 1.3,
+    mBlunt: 0.7,
+    thrustStyle: { recover: 0.6, reach: 0.1, gap: 0.3, window: 0.12 },
+    id: 'rapier',
+    edged: true,
+    durability: 0.85,
+    breakAt: 0.5,
+    fragile: true,
+    ignoreArmor: false,
+    spike: false,
+    breakY: null,
+    gripAlong: -0.14,
+    twoHand: false,
+    oneHandStance: true,
+    soundMaterial: 'steel',
+    controlOverrides: { maxAimTorque: 22 },
+    capFromGrip: true,
+    frame: 'one',
+    style: 'thrust'
+  },
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0
