@@ -1,0 +1,187 @@
+{
+  "config": {
+    "extend": 0.28,
+    "hold": 0.12,
+    "recover": 0.16,
+    "reach": 0.42,
+    "damageKeep": 0.6,
+    "damageCut": 0.65,
+    "track": 0.1,
+    "bodyTarget": true,
+    "nearArm": true,
+    "trackUntil": 0.18,
+    "v2": true,
+    "aim": 0.1,
+    "chamber": 0.1,
+    "shieldTail": 0.16,
+    "shieldCap": 0.85,
+    "actualAim": true,
+    "targetChest": true,
+    "targetPart": "uarmS",
+    "coverBlend": 0.4,
+    "lead": 0.15,
+    "steer": 12,
+    "steerRate": 60,
+    "hitRecover": false
+  },
+  "capture": {
+    "inputAt": 3.9999999999999885,
+    "captured": true,
+    "t": 4.316666666666671,
+    "runT": 0.3250000000000002,
+    "held": true,
+    "protection": 0.65,
+    "input": 0,
+    "gap": 1.5115005742888405,
+    "target": {
+      "w": 1,
+      "hand": [
+        0.8944529297187349,
+        0.040788881942881744,
+        0.0680963702017707
+      ],
+      "dir": [
+        0.9186269460073074,
+        0.11748458254934206,
+        -0.37725575798454597
+      ],
+      "pelvisYaw": -0.34906585039886584,
+      "chestYaw": -0.34906585039886595,
+      "pitch": 0.13962634015954636,
+      "drop": 0.07
+    },
+    "tip": {
+      "x": 0.8795776746015032,
+      "y": 1.1423047522085228,
+      "z": 0.12169198259801137
+    },
+    "events": [
+      {
+        "type": "start",
+        "serial": 1,
+        "t": 4.008333333333322,
+        "line": "point",
+        "target": "uarmS",
+        "cost": 5.804093446022122,
+        "gap": 1.5340819424746992
+      }
+    ]
+  },
+  "events": [
+    {
+      "type": "start",
+      "serial": 1,
+      "t": 4.008333333333322,
+      "line": "point",
+      "target": "uarmS",
+      "cost": 5.804093446022122,
+      "gap": 1.5340819424746992
+    }
+  ],
+  "probe": {
+    "sparks": [],
+    "sounds": [],
+    "freezeParticles": true
+  },
+  "hits": [
+    {
+      "t": 4.141666666666662,
+      "att": 0,
+      "vic": 1,
+      "type": "blunt",
+      "severity": 0,
+      "trade": {
+        "dealt": 0.6,
+        "kept": 1,
+        "rawSeverity": 0,
+        "rawEnergy": 12.224883296448919
+      }
+    },
+    {
+      "t": 4.308333333333337,
+      "att": 1,
+      "vic": 0,
+      "type": "cut",
+      "severity": 0.27197192448872765,
+      "trade": {
+        "dealt": 1,
+        "kept": 0.35,
+        "rawSeverity": 0.7770626413963648,
+        "rawEnergy": 113.70936936583011
+      }
+    }
+  ],
+  "held": true,
+  "alive": true,
+  "t": 4.325000000000005,
+  "release": {
+    "held": false,
+    "active": false,
+    "protection": 0,
+    "firstRelease": {
+      "held": false,
+      "t": 4.333333333333338,
+      "protection": 0.65
+    },
+    "hits": [
+      {
+        "t": 4.141666666666662,
+        "att": 0,
+        "vic": 1,
+        "type": "blunt",
+        "severity": 0,
+        "trade": {
+          "dealt": 0.6,
+          "kept": 1,
+          "rawSeverity": 0,
+          "rawEnergy": 12.224883296448919
+        }
+      },
+      {
+        "t": 4.308333333333337,
+        "att": 1,
+        "vic": 0,
+        "type": "cut",
+        "severity": 0.27197192448872765,
+        "trade": {
+          "dealt": 1,
+          "kept": 0.35,
+          "rawSeverity": 0.7770626413963648,
+          "rawEnergy": 113.70936936583011
+        }
+      },
+      {
+        "t": 4.341666666666672,
+        "att": 1,
+        "vic": 0,
+        "type": "cut",
+        "severity": 0.25658820741297234,
+        "trade": {
+          "dealt": 1,
+          "kept": 0.35,
+          "rawSeverity": 0.7331091640370638,
+          "rawEnergy": 109.79866803580978
+        }
+      }
+    ],
+    "starts": 1,
+    "events": [
+      {
+        "type": "start",
+        "serial": 1,
+        "t": 4.008333333333322,
+        "line": "point",
+        "target": "uarmS",
+        "cost": 5.804093446022122,
+        "gap": 1.5340819424746992
+      },
+      {
+        "type": "end",
+        "serial": 1,
+        "t": 4.35833333333334,
+        "reason": "interrupt"
+      }
+    ]
+  },
+  "errors": []
+}

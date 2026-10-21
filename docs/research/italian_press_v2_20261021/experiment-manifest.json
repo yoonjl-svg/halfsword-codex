@@ -1,0 +1,628 @@
+{
+  "executions": 408,
+  "experiments": [
+    {
+      "file": "base.json",
+      "sha256": "5286f82c2a0560dade6150503d774799711aeaa204a946bd042363d8f11f483d",
+      "runs": 4,
+      "steerRate": 60,
+      "inputGap": 1.75,
+      "pathConfig": {},
+      "configs": {
+        "shield45": null
+      }
+    },
+    {
+      "file": "aligned.json",
+      "sha256": "b28fb210dd6ce00ca95ef6912ed072b4958bbd8bd529b9a094b0589515ed73cf",
+      "runs": 4,
+      "steerRate": 60,
+      "inputGap": 1.75,
+      "pathConfig": {
+        "v2": true,
+        "shieldTail": 0.18,
+        "shieldCap": 0.85
+      },
+      "configs": {
+        "shield45": null
+      }
+    },
+    {
+      "file": "fast.json",
+      "sha256": "013136fe709a003a2c14e28fbb25c6dd96e30599fd526214ac0e021d550f0c38",
+      "runs": 4,
+      "steerRate": 60,
+      "inputGap": 1.75,
+      "pathConfig": {
+        "v2": true,
+        "extend": 0.18,
+        "chamber": 0.12,
+        "shieldTail": 0.18,
+        "shieldCap": 0.85
+      },
+      "configs": {
+        "shield45": null
+      }
+    },
+    {
+      "file": "shield.json",
+      "sha256": "ca057e125cf289e9a4f1661855c679643f63b2d0800aed990b0e8725045deec9",
+      "runs": 4,
+      "steerRate": 60,
+      "inputGap": 1.75,
+      "pathConfig": {
+        "v2": true,
+        "extend": 0.18,
+        "chamber": 0.12,
+        "shieldTail": 0.24,
+        "shieldCap": 0.9
+      },
+      "configs": {
+        "shield65": null
+      }
+    },
+    {
+      "file": "covered.json",
+      "sha256": "9b91f23b3d1a0f40827a5b19608f3a4444c778beb11f812aaa3993244465aaa5",
+      "runs": 4,
+      "steerRate": 60,
+      "inputGap": 1.75,
+      "pathConfig": {
+        "v2": true,
+        "shieldTail": 0.24,
+        "shieldCap": 1
+      },
+      "configs": {
+        "shield65": null
+      }
+    },
+    {
+      "file": "narrow.json",
+      "sha256": "90581d998b2a33a232d2a4a957ddf2d6f4aa5b23a4a4b00163613f5368d5c73b",
+      "runs": 4,
+      "steerRate": 60,
+      "inputGap": 1.75,
+      "pathConfig": {
+        "v2": true,
+        "shieldTail": 0.24,
+        "shieldCap": 1,
+        "chamber": 0,
+        "actualAim": false
+      },
+      "configs": {
+        "shield65": null
+      }
+    },
+    {
+      "file": "validation1.json",
+      "sha256": "1a3d16901804a707fe2ab0c18683647ce8fef791381ff25f5861e7ba27596737",
+      "runs": 24,
+      "steerRate": 60,
+      "inputGap": 1.75,
+      "pathConfig": {},
+      "configs": {
+        "old": {
+          "v2": false,
+          "damageCut": 0.45
+        },
+        "aligned": {
+          "v2": true,
+          "shieldTail": 0.18,
+          "shieldCap": 0.85,
+          "damageCut": 0.45
+        },
+        "covered": {
+          "v2": true,
+          "shieldTail": 0.24,
+          "shieldCap": 1,
+          "damageCut": 0.65
+        }
+      }
+    },
+    {
+      "file": "validation2.json",
+      "sha256": "808ad434067870b8e7bfa3d660ec5f3daed97f4eee513ba0bfbfe0750a032816",
+      "runs": 36,
+      "steerRate": 60,
+      "inputGap": 1.75,
+      "pathConfig": {},
+      "configs": {
+        "old": {
+          "v2": false,
+          "damageCut": 0.45
+        },
+        "aligned": {
+          "v2": true,
+          "shieldTail": 0.18,
+          "shieldCap": 0.85,
+          "damageCut": 0.45
+        },
+        "covered": {
+          "v2": true,
+          "shieldTail": 0.24,
+          "shieldCap": 1,
+          "damageCut": 0.65
+        }
+      }
+    },
+    {
+      "file": "targets.json",
+      "sha256": "f0a8964354c8392a92c228604bca2fe58feb84e8d2ecb99b343ecb189befcc81",
+      "runs": 16,
+      "steerRate": 60,
+      "inputGap": 1.75,
+      "pathConfig": {},
+      "configs": {
+        "arm": {
+          "v2": true,
+          "targetChest": false,
+          "shieldTail": 0.18,
+          "shieldCap": 0.85,
+          "damageCut": 0.45
+        },
+        "upper": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "shieldTail": 0.18,
+          "shieldCap": 0.85,
+          "damageCut": 0.45
+        },
+        "compact": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "shieldTail": 0.18,
+          "shieldCap": 0.85,
+          "damageCut": 0.45
+        },
+        "point": {
+          "v2": true,
+          "coverBlend": 0.4,
+          "shieldTail": 0.18,
+          "shieldCap": 0.85,
+          "damageCut": 0.45
+        }
+      }
+    },
+    {
+      "file": "body.json",
+      "sha256": "881fc35fb41a53d0fbf97c1177b727c5faffae26a59369a50046e02618518d36",
+      "runs": 4,
+      "steerRate": 60,
+      "inputGap": 1.75,
+      "pathConfig": {
+        "v2": true,
+        "targetPart": "uarmS",
+        "coverBlend": 0.4,
+        "bodyTarget": false,
+        "shieldTail": 0.18,
+        "shieldCap": 0.85
+      },
+      "configs": {
+        "shield45": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "bodyTarget": false,
+          "shieldTail": 0.18,
+          "shieldCap": 0.85,
+          "damageCut": 0.45
+        }
+      }
+    },
+    {
+      "file": "recover.json",
+      "sha256": "3675cb5b01c99801a544208d80b8506f4d92984aaef48943059cd4cc71aad165",
+      "runs": 4,
+      "steerRate": 60,
+      "inputGap": 1.75,
+      "pathConfig": {
+        "v2": true,
+        "targetPart": "uarmS",
+        "coverBlend": 0.4,
+        "recover": 0.5,
+        "shieldTail": 0.4,
+        "shieldCap": 1.2
+      },
+      "configs": {
+        "shield45": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "recover": 0.5,
+          "shieldTail": 0.4,
+          "shieldCap": 1.2,
+          "damageCut": 0.45
+        }
+      }
+    },
+    {
+      "file": "validation3.json",
+      "sha256": "f371a42b2374aa376789a355226b17c6009530064281e651bd03528c7a9c51a9",
+      "runs": 48,
+      "steerRate": 60,
+      "inputGap": 1.75,
+      "pathConfig": {},
+      "configs": {
+        "old": {
+          "v2": false,
+          "damageCut": 0.45
+        },
+        "compact": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "shieldTail": 0.18,
+          "shieldCap": 0.85,
+          "damageCut": 0.45
+        },
+        "compact65": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "shieldTail": 0.24,
+          "shieldCap": 1,
+          "damageCut": 0.65
+        },
+        "short": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "recover": 0.16,
+          "shieldTail": 0.16,
+          "shieldCap": 0.85,
+          "damageCut": 0.45
+        }
+      }
+    },
+    {
+      "file": "validation4.json",
+      "sha256": "bf046ccfa71aa89c1d40560e95a6023b9ae3d8394faf242d34143a69b6a7e858",
+      "runs": 32,
+      "steerRate": 60,
+      "inputGap": 1.75,
+      "pathConfig": {},
+      "configs": {
+        "old": {
+          "v2": false,
+          "damageCut": 0.45
+        },
+        "compact": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "shieldTail": 0.18,
+          "shieldCap": 0.85,
+          "damageCut": 0.45
+        },
+        "compact65": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "shieldTail": 0.24,
+          "shieldCap": 1,
+          "damageCut": 0.65
+        },
+        "short": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "recover": 0.16,
+          "shieldTail": 0.16,
+          "shieldCap": 0.85,
+          "damageCut": 0.45
+        }
+      }
+    },
+    {
+      "file": "aiming.json",
+      "sha256": "757e0434111b6d7825a90258ccf670c6f87f45dcb4ac51304eb47e483f849265",
+      "runs": 16,
+      "steerRate": 0,
+      "inputGap": 1.75,
+      "pathConfig": {},
+      "configs": {
+        "lead": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "lead": 0.15,
+          "shieldTail": 0.24,
+          "shieldCap": 1,
+          "damageCut": 0.65
+        },
+        "steer": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "steer": 12,
+          "shieldTail": 0.24,
+          "shieldCap": 1,
+          "damageCut": 0.65
+        },
+        "chestSteer": {
+          "v2": true,
+          "coverBlend": 0.4,
+          "steer": 12,
+          "shieldTail": 0.24,
+          "shieldCap": 1,
+          "damageCut": 0.65
+        },
+        "armSteer": {
+          "v2": true,
+          "targetChest": false,
+          "coverBlend": 0.4,
+          "steer": 12,
+          "shieldTail": 0.24,
+          "shieldCap": 1,
+          "damageCut": 0.65
+        }
+      }
+    },
+    {
+      "file": "combine.json",
+      "sha256": "a1ee3ae375a2e22a23d1d94aeb539bbd4df207814ed821ebf1295edafd2539ba",
+      "runs": 32,
+      "steerRate": 0,
+      "inputGap": 1.75,
+      "pathConfig": {},
+      "configs": {
+        "leadShort": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "lead": 0.15,
+          "recover": 0.16,
+          "shieldTail": 0.16,
+          "shieldCap": 0.85,
+          "damageCut": 0.65
+        },
+        "steerShort": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "steer": 12,
+          "recover": 0.16,
+          "shieldTail": 0.16,
+          "shieldCap": 0.85,
+          "damageCut": 0.65
+        },
+        "bothShort": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "lead": 0.15,
+          "steer": 12,
+          "recover": 0.16,
+          "shieldTail": 0.16,
+          "shieldCap": 0.85,
+          "damageCut": 0.65
+        },
+        "both45": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "lead": 0.15,
+          "steer": 12,
+          "recover": 0.16,
+          "shieldTail": 0.16,
+          "shieldCap": 0.85,
+          "damageCut": 0.45
+        }
+      }
+    },
+    {
+      "file": "validation5.json",
+      "sha256": "65e216a027131b1fc730046c1334f96b4c036e1028d8ba544219191c8d696e73",
+      "runs": 60,
+      "steerRate": 60,
+      "inputGap": 1.75,
+      "pathConfig": {},
+      "configs": {
+        "old": {
+          "v2": false,
+          "damageCut": 0.45
+        },
+        "leadShort": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "lead": 0.15,
+          "recover": 0.16,
+          "shieldTail": 0.16,
+          "shieldCap": 0.85,
+          "damageCut": 0.65
+        },
+        "steerShort": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "steer": 12,
+          "recover": 0.16,
+          "shieldTail": 0.16,
+          "shieldCap": 0.85,
+          "damageCut": 0.65
+        },
+        "bothShort": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "lead": 0.15,
+          "steer": 12,
+          "recover": 0.16,
+          "shieldTail": 0.16,
+          "shieldCap": 0.85,
+          "damageCut": 0.65
+        },
+        "both45": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "lead": 0.15,
+          "steer": 12,
+          "recover": 0.16,
+          "shieldTail": 0.16,
+          "shieldCap": 0.85,
+          "damageCut": 0.45
+        }
+      }
+    },
+    {
+      "file": "validation6.json",
+      "sha256": "35e786b5f8cec1b28ef652f78e81a8b79a7b4de547f0822bf3bbf38335f96a57",
+      "runs": 48,
+      "steerRate": 60,
+      "inputGap": 1.75,
+      "pathConfig": {},
+      "configs": {
+        "old": {
+          "v2": false,
+          "damageCut": 0.45
+        },
+        "bothShort": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "lead": 0.15,
+          "steer": 12,
+          "recover": 0.16,
+          "shieldTail": 0.16,
+          "shieldCap": 0.85,
+          "damageCut": 0.65
+        },
+        "withdraw": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "lead": 0.15,
+          "steer": 12,
+          "recover": 0.16,
+          "shieldTail": 0.16,
+          "shieldCap": 0.85,
+          "damageCut": 0.65,
+          "hitRecover": true
+        },
+        "bothNone": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "lead": 0.15,
+          "steer": 12,
+          "recover": 0.16,
+          "shieldTail": 0.16,
+          "shieldCap": 0.85,
+          "damageCut": 0
+        }
+      }
+    },
+    {
+      "file": "withdraw-recheck.json",
+      "sha256": "2b896d32ec7e7321e442d5e0fdae1367852344c1173f5ffd932f2ce52343a8a4",
+      "runs": 12,
+      "steerRate": 60,
+      "inputGap": 1.75,
+      "pathConfig": {},
+      "configs": {
+        "withdraw": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "lead": 0.15,
+          "steer": 12,
+          "recover": 0.16,
+          "shieldTail": 0.16,
+          "shieldCap": 0.85,
+          "damageCut": 0.65,
+          "hitRecover": true
+        }
+      }
+    },
+    {
+      "file": "final.json",
+      "sha256": "e7923af4914364e42a92131b7b63f722598a4108e0347bb3c663f116d5a58ae3",
+      "runs": 36,
+      "steerRate": 60,
+      "inputGap": 1.75,
+      "pathConfig": {},
+      "configs": {
+        "old": {
+          "v2": false,
+          "damageCut": 0.45
+        },
+        "bothShort": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "lead": 0.15,
+          "steer": 12,
+          "recover": 0.16,
+          "shieldTail": 0.16,
+          "shieldCap": 0.85,
+          "damageCut": 0.65
+        },
+        "withdraw": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "lead": 0.15,
+          "steer": 12,
+          "recover": 0.16,
+          "shieldTail": 0.16,
+          "shieldCap": 0.85,
+          "damageCut": 0.65,
+          "hitRecover": true
+        }
+      }
+    },
+    {
+      "file": "near.json",
+      "sha256": "ec0cb417da3c2c70aa202b34dba55c578e21d0076b3d82c5daf5e1319f4a4432",
+      "runs": 16,
+      "steerRate": 60,
+      "inputGap": 1.45,
+      "pathConfig": {},
+      "configs": {
+        "old": {
+          "v2": false,
+          "damageCut": 0.45
+        },
+        "bothShort": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "lead": 0.15,
+          "steer": 12,
+          "recover": 0.16,
+          "shieldTail": 0.16,
+          "shieldCap": 0.85,
+          "damageCut": 0.65
+        },
+        "near": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "lead": 0.15,
+          "steer": 12,
+          "recover": 0.16,
+          "shieldTail": 0.16,
+          "shieldCap": 0.85,
+          "damageCut": 0.65,
+          "closeChamber": true
+        },
+        "wide": {
+          "v2": true,
+          "targetPart": "uarmS",
+          "coverBlend": 0.4,
+          "lead": 0.15,
+          "steer": 20,
+          "recover": 0.16,
+          "shieldTail": 0.16,
+          "shieldCap": 0.85,
+          "damageCut": 0.65,
+          "closeChamber": true
+        }
+      }
+    }
+  ],
+  "note": "Candidate screens reused seeds. Validation5/6/final contribute the selected comparison; 12 seeds x 3 scripts x 2 modes = 72 runs. Paired conditions are not 72 independent seeds."
+}
