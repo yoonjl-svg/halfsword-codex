@@ -1,0 +1,18 @@
+import{chromium}from'playwright';import fs from'node:fs';
+const base=process.argv[2]||'http://127.0.0.1:4531',out=new URL('./',import.meta.url).pathname;
+const b=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});const rows=[];
+for(const id of ['hwando','kriegsmesser']){
+ const p=await b.newPage({viewport:{width:960,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
+ await p.clock.install({time:new Date('2026-10-21T11:00:00Z')});await p.clock.pauseAt(new Date('2026-10-21T11:00:01Z'));
+ await p.goto(`${base}/?test=1&weapon=${id}&foe=bran&foeWeapon=tree_branch&stage=clearing&foeWhiff=1`);await p.waitForFunction(()=>window.game?.state==='menu',null,{timeout:120000});
+ await p.evaluate(()=>{game.renderCap.tick=()=>false;document.querySelector('#btnStart').click();});
+ for(let i=0;i<130&&await p.evaluate(()=>game.state!=='fight');i++)await p.clock.runFor(16);
+ await p.evaluate(()=>game.ai.update=()=>{});await p.clock.runFor(1000);
+ await p.addStyleTag({content:'body > :not(#game){visibility:hidden!important}'});
+ await p.evaluate(()=>{game.freeCam=true;for(const m of game.enemy.meshes)m.group.visible=false;game.renderCap.tick=()=>true;});
+ for(const view of ['front','hip']){
+ await p.evaluate(view=>{const g=game,T=g.THREE,f=g.player,v=f.bodies.pelvis.translation(),ahead=new T.Vector3(1,0,0).applyQuaternion(f.yaw),side=new T.Vector3(0,0,1).applyQuaternion(f.yaw);const dist=view==='hip'?1.8:3.9;g.camera.position.set(v.x+ahead.x*dist+side.x*.75,view==='hip'?1.1:1.45,v.z+ahead.z*dist+side.z*.75);g.camera.lookAt(v.x,view==='hip'?.72:.95,v.z);g.camera.fov=view==='hip'?33:37;g.camera.updateProjectionMatrix();},view);await p.clock.runFor(16);await p.screenshot({path:out+`${id}-${view}.png`});
+ }
+ rows.push(await p.evaluate(()=>({id:game.player.weapon.id,mass:game.player.sword.mass(),frame:game.player.weapon.frame,scabbards:game.player.groups.pelvis.children.filter(o=>o.name==='hwando-black-scabbard').length,triangles:game.renderer?.info?.render?.triangles})));if(errors.length)throw Error(errors.join('\n'));await p.close();
+}
+await b.close();fs.writeFileSync(out+'equipment.json',JSON.stringify(rows,null,2));console.log(JSON.stringify(rows));
