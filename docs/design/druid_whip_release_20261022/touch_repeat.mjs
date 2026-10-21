@@ -1,0 +1,23 @@
+import{chromium}from'playwright';import fs from'node:fs';import assert from'node:assert/strict';
+const dir=new URL('./',import.meta.url).pathname,b=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']}),rows=[];
+for(const variant of ['before','after']){
+ const c=await b.newContext({viewport:{width:960,height:640},deviceScaleFactor:1,isMobile:true,hasTouch:true}),p=await c.newPage(),cdp=await c.newCDPSession(p),errors=[];p.on('pageerror',e=>errors.push(e.message));
+ await p.clock.install({time:new Date('2026-10-22T00:00:00+09:00')});await p.clock.pauseAt(new Date('2026-10-22T00:00:01+09:00'));
+ await p.goto('http://127.0.0.1:5199/?test=1&weapon=druid_whip&foe=bran&foeWeapon=tree_branch&stage=clearing&uniqueStage=5&foeWhiff=1&openSweep=0&nosw=1');await p.waitForFunction(()=>window.game?.state==='menu');await p.evaluate(()=>{game.renderCap.tick=()=>false;document.querySelector('#btnStart').click()});for(let i=0;i<180&&await p.evaluate(()=>game.state!=='fight');i++)await p.clock.runFor(16);
+ const stored=await p.evaluate(()=>JSON.stringify(localStorage));
+ await p.evaluate(variant=>{const g=game,f=g.player,T=g.THREE;g.config.ARENA.startHold=0;g.ai.update=()=>{};for(const m of g.enemy.meshes){const t=m.rb.translation();m.rb.setTranslation({x:t.x+3,y:t.y,z:t.z},true);m.group.visible=false}const a=g.enemy.anchor.translation();g.enemy.anchor.setTranslation({x:a.x+3,y:a.y,z:a.z},true);
+ if(variant==='before'){for(const s of f.flexWeapon.segments)s.col.setCollisionGroups(s.col.collisionGroups()|256);f.flexWeapon.step=()=>{const q1=new T.Quaternion(),q2=new T.Quaternion(),a=new T.Vector3(),b=new T.Vector3(),torque=new T.Vector3();for(let i=0;i<8;i++){const parent=i?f.flexWeapon.segments[i-1].body:f.sword,child=f.flexWeapon.segments[i].body;a.set(0,1,0).applyQuaternion(q1.copy(parent.rotation()));b.set(0,1,0).applyQuaternion(q2.copy(child.rotation()));torque.crossVectors(b,a).multiplyScalar(.035*(1-i/10));child.addTorque(torque,true);parent.addTorque({x:-torque.x,y:-torque.y,z:-torque.z},true)}}}
+ const flex=f.flexWeapon,orig=flex.step;window.wrapProbe={time:0,contact:0,fold:0,maxSpeed:0};flex.step=dt=>{orig(dt);const z=window.wrapProbe,p=f.bladePoint(1).clone(),h=new T.Vector3().copy(f.sword.translation());z.time+=dt;if(p.distanceTo(h)<.6)z.fold+=dt;z.maxSpeed=Math.max(z.maxSpeed,f.tipVel.length());let active=false;for(const s of flex.segments)g.world.contactPairsWith(s.col,c=>{const info=f.colliderInfo.get(c.handle);if(info?.fighter===f&&info.kind!=='weapon')g.world.contactPair(s.col,c,m=>{if(m.numSolverContacts()>0)active=true})});if(active)z.contact+=dt;};
+ g.freeCam=true;const v=f.pelvisPos,front=new T.Vector3(1,0,0).applyQuaternion(f.yaw),side=new T.Vector3(0,0,1).applyQuaternion(f.yaw);g.camera.position.set(v.x+front.x*3.1+side.x*1.9,1.85,v.z+front.z*3.1+side.z*1.9);g.camera.lookAt(v.x,1.12,v.z);g.camera.fov=47;g.camera.updateProjectionMatrix();},variant);
+ await p.addStyleTag({content:'body > :not(#game){visibility:hidden!important}'});await p.clock.runFor(1000);
+ async function drag(a,z,steps=8){await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:a[0],y:a[1]}]});for(let i=1;i<=steps;i++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:a[0]+(z[0]-a[0])*i/steps,y:a[1]+(z[1]-a[1])*i/steps}]});await p.clock.runFor(32)}await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]})}
+ const strokes=[];
+ for(let i=0;i<6;i++){
+  await drag([720,360],[570,160]);await p.clock.runFor(120);await drag([570,160],[760,365]);await p.clock.runFor(100);
+  await p.evaluate(()=>game.renderCap.tick=()=>true);await p.clock.runFor(16);await p.screenshot({path:dir+`${variant}-swing-${i+1}.png`});await p.evaluate(()=>game.renderCap.tick=()=>false);
+  await p.clock.runFor(300);strokes.push(await p.evaluate(()=>{const f=game.player,T=game.THREE;return{...wrapProbe,hand:[f.handOffset.x,f.handOffset.y],span:f.bladePoint(1).distanceTo(new T.Vector3().copy(f.sword.translation())),active:f.flexWeapon.active,broken:f.weaponBroken,state:game.state}}));
+ }
+ await p.evaluate(()=>game.renderCap.tick=()=>true);await p.clock.runFor(16);await p.screenshot({path:dir+`${variant}-ready.png`});
+ assert.equal(await p.evaluate(()=>JSON.stringify(localStorage)),stored);assert(strokes.every(r=>r.active===8&&!r.broken&&r.state==='fight'));assert.equal(errors.length,0);if(variant==='after')assert.equal(strokes.at(-1).contact,0);
+ rows.push({variant,strokes,errors,storedUnchanged:true});fs.writeFileSync(dir+'touch-repeat.json',JSON.stringify(rows,null,2));console.log(JSON.stringify({variant,final:strokes.at(-1)}));await c.close();
+}await b.close();
