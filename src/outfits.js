@@ -30,6 +30,7 @@ import { createTerracottaOutfit } from './outfit_terracotta.js'; // 병마용 �
 import { createReturnedKingOutfit } from './outfit_returned_king.js';
 import { createReturnedKingOutfitV2 } from './outfit_returned_king_v2.js';
 import { createWhiteScaleOutfit } from './outfit_white_scale.js';
+import { createRoyalConceptOutfit } from './outfit_royal_concepts.js';
 
 const _m4 = new THREE.Matrix4();
 const _euler = new THREE.Euler();
@@ -2845,6 +2846,8 @@ export const newOutfitHelpers = { THREE, bake, box, cyl, ball, cone, addMerged, 
 const RENJI_V1 = createRenjiOutfit(newOutfitHelpers); // 김씨 v1 (v2 가 하카마 밖 전부를 이어 받는다)
 
 export const OUTFITS = {
+  chain_hero: createRoyalConceptOutfit(newOutfitHelpers, 'chain'),
+  black_king: createRoyalConceptOutfit(newOutfitHelpers, 'black'),
   returned_king: createReturnedKingOutfit(newOutfitHelpers),
   returned_king_v2: createReturnedKingOutfitV2(newOutfitHelpers),
   white_scale: createWhiteScaleOutfit(newOutfitHelpers),

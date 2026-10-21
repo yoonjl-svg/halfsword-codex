@@ -1,6 +1,7 @@
 import { alterLook } from './outfit_alter.js';
 import { createReturnedKing } from './character_returned_king.js';
 import { createWhiteScaleWarrior } from './character_white_scale.js';
+import { createRoyalConceptGuests } from './character_royal_concepts.js';
 // ─────────────────────────────────────────────────────────────
 //  상대 캐릭터 12인(다섯 + 샛별 저장소에서 가져온 셋 6~8 · 넷 9~12): 저마다 다른 유파·성격·자세 전환 습관을 가진 검객들.
 //
@@ -885,6 +886,7 @@ export const CHARACTER_GUESTS = [
 ];
 CHARACTER_GUESTS.push(createReturnedKing(CHARACTERS.find(c => c.id === 'artoria')));
 CHARACTER_GUESTS.push(createWhiteScaleWarrior());
+CHARACTER_GUESTS.push(...createRoyalConceptGuests(CHARACTERS.find(c => c.id === 'artoria')));
 for (const c of CHARACTER_GUESTS) finishAI(c);
 
 // Guests are declared after the base rotation. Register Ratna's visual variant
