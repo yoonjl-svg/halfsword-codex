@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import {chromium} from 'playwright';
 const base=process.argv[2]||'http://127.0.0.1:4523';
-const out=process.argv[3]||'docs/design/courtyard_ruins_20261021/shots';
+const out=process.argv[3]||'docs/design/courtyard_cover_damage_20261021/shots';
 fs.mkdirSync(out,{recursive:true});
 const report={errors:[],shots:[],runtime:{}};
 const browser=await chromium.launch({executablePath:process.env.PW_CHROMIUM||'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--autoplay-policy=no-user-gesture-required']});
@@ -25,10 +25,16 @@ try{
   await cam([12,6,13],[32,4,1],55);await shot('03_gate_and_well');
   await cam([12,5,-10],[-10,3,24],55);await shot('04_reverse_arcade');
   await cam([5,4,12],[12,1.2,16],48);await shot('05_conference');
+  await cam([-4.6,2.9,3.2],[0,1.8,0],46);await shot('07_damaged_cover');
+  await cam([-2.6,1.3,1.0],[-.6,.75,.15],44);await shot('08_leaking_basin');
+  const leakBefore=await page.evaluate(()=>({...game.scene.getObjectByName('courtyard-damaged-cover-water')?.userData}));
   const before=await page.evaluate(()=>game.scene.getObjectByName('courtyard-black-artillery-smoke').children.map(x=>x.position.toArray()));
   await page.clock.runFor(2300);
   const after=await page.evaluate(()=>game.scene.getObjectByName('courtyard-black-artillery-smoke').children.map(x=>x.position.toArray()));
   report.smokeMoves=JSON.stringify(before)!==JSON.stringify(after);
+  const leakAfter=await page.evaluate(()=>({...game.scene.getObjectByName('courtyard-damaged-cover-water')?.userData}));
+  report.leak={before:leakBefore,after:leakAfter};
+  if(!(leakAfter.emitted>leakBefore.emitted&&leakAfter.impacts>leakBefore.impacts))report.errors.push('leak must emit and hit the basin/ground');
   await page.setViewportSize({width:844,height:390});
   await page.evaluate(()=>{game.freeCam=false;game.camera.fov=55;game.camera.updateProjectionMatrix();});
   await page.clock.runFor(350);await shot('06_mobile');
@@ -36,13 +42,13 @@ try{
   const swaps=[];
   for(const id of ['courtyard','courtyard_night','courtyard','courtyard_night']){
     await page.evaluate(id=>game.setStage(id),id);await page.clock.runFor(100);
-    swaps.push(await page.evaluate(()=>({stage:game.stage.id,obstacle:game.arenaObstacle?.colliderCount,smoke:!!game.scene.getObjectByName('courtyard-black-artillery-smoke')})));
+    swaps.push(await page.evaluate(()=>({stage:game.stage.id,obstacle:game.arenaObstacle?.colliderCount,smoke:!!game.scene.getObjectByName('courtyard-black-artillery-smoke'),leak:!!game.scene.getObjectByName('courtyard-damaged-cover-water')})));
   }
   report.swaps=swaps;
   if(report.runtime.obstacle?.colliderCount!==9)report.errors.push('night central obstacle is not 9 colliders');
   if(report.runtime.weapon!=='sabre')report.errors.push('alter Maya weapon mismatch');
   if(!report.runtime.finite||!report.smokeMoves)report.errors.push('nonfinite body or static smoke');
-  if(swaps.some(s=>s.obstacle!==9||s.smoke!==(s.stage==='courtyard_night')))report.errors.push('scene switching contract');
+  if(swaps.some(s=>s.obstacle!==9||s.smoke!==(s.stage==='courtyard_night')||s.leak!==(s.stage==='courtyard_night')))report.errors.push('scene switching contract');
   fs.writeFileSync(`${out}/review.json`,JSON.stringify(report,null,2)+'\n');
   console.log(JSON.stringify(report));
   await page.close();

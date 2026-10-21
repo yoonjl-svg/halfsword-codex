@@ -5,7 +5,8 @@
 import * as THREE from 'three';
 import { warGate, warArchitecture, ruinedPavilion, warTraces, blackWarSmoke } from './stage_courtyard_ruins_detail.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { buildCourtyardCover, courtyardCoverTexture, COURTYARD_NAVIGATION } from './stage_courtyard_cover.js';
+import { courtyardCoverTexture, COURTYARD_NAVIGATION } from './stage_courtyard_cover.js';
+import { buildDamagedCourtyardCover, damagedCoverLeak } from './stage_courtyard_damaged_cover.js';
 import { obstacleBlocksRay } from './arena_obstacle.js';
 import { ARENA } from './config.js';
 import { Kit, box, cyl, limb, canvasTex, rng } from './stage_kit.js';
@@ -495,7 +496,7 @@ export function buildCourtyardNight(scene,{hemi,sun}) {
     K.put('earth',box(x1-x0,.5,z1-z0),0xb08468,[(x0+x1)/2,-.35,(z0+z1)/2],[0,0,0],1,{vary:.025,noise:.015});
   architecture(K);stepwell(K);traces(K);surroundings(K);warTraces(K,P);
   // 급수정: 세상에서 늘 같은 방향(배경을 어떻게 돌려도 — 충돌체 COURTYARD_COVER_SHAPES · 시작 자리 · 총수 우회가 세상 좌표라서)
-  K.push([0,0,0],-Math.PI/2-TURN);buildCourtyardCover(K,P);K.pop();
+  K.push([0,0,0],-Math.PI/2-TURN);buildDamagedCourtyardCover(K,P);K.pop();
   for(let i=0;i<75;i++){
     const a=r()*Math.PI*2,rad=12+r()*22,px=Math.cos(a)*rad,pz=Math.sin(a)*rad;
     if(px<x-hx||px>30||pz<-28||pz>24||(px<x+hx&&pz>z-hz&&pz<z+hz))continue;
@@ -540,6 +541,7 @@ export function buildCourtyardNight(scene,{hemi,sun}) {
   const starsGeo=new THREE.BufferGeometry();starsGeo.setAttribute('position',new THREE.Float32BufferAttribute(starPositions,3));
   const stars=new THREE.Points(starsGeo,new THREE.PointsMaterial({color:0x8c929b,size:.14,transparent:true,opacity:.4,fog:false,depthWrite:false}));stars.name='courtyard-faint-stars';world.add(stars);
   const smoke=blackWarSmoke(root);
+  const leak=damagedCoverLeak(world);
   const ring=new THREE.Mesh(new THREE.RingGeometry(ARENA.radius-.05,ARENA.radius+.07,96),new THREE.MeshStandardMaterial({color:0x9a6f5a,roughness:1,side:THREE.DoubleSide}));
   ring.name='courtyard-duel-boundary';ring.rotation.x=-Math.PI/2;ring.position.y=.014;ring.receiveShadow=true;world.add(ring);
   const water=new THREE.Mesh(new THREE.PlaneGeometry(5.1,9.1,12,12),new THREE.MeshStandardMaterial({color:0x426c65,roughness:.7,metalness:.04}));
@@ -576,6 +578,7 @@ export function buildCourtyardNight(scene,{hemi,sun}) {
     fighterShade(px,py,pz){let lit=0;for(const v of SHADE_RAYS)if(!obstacleBlocksRay(COURTYARD_NAVIGATION,px,py,pz,v.x,v.y,v.z,14))lit++;return lit/SHADE_RAYS.length;},
     update(dt){
       if(!Number.isFinite(dt)||dt<=0)return;const step=Math.min(dt,.1);time+=step;smoke.update(time+7);
+      leak.update(step,pos=>stage.onEvent?.('stageDetail',{kind:'courtyardDrip',amp:.12,pos,seed:211041,time}));
       if(time>=nextGust){
         gustStart=nextGust;nextGust+=GUST.gapMin+windRng()*GUST.gapRand;gustDuration=GUST.durMin+windRng()*GUST.durRand;gustCalled=false;ringCalled=false;
         stage.emit?.('stageDetail',{kind:'courtyardGust',amp:1,duration:gustDuration,seed:161029,time});
