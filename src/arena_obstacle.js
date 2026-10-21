@@ -39,7 +39,7 @@ export const CAMERA_GUARD = Object.freeze({
 //  곰 3.0 m 에서 0.45 → 사장님 10/14 10:3x 곰 3.2 m 에서 0.50 (0.45 면 열림 1 카메라 → 상대 가슴 오른쪽 0.2 광선 하나가 석상에 닿는다)
 export const START_SIDE = 0.5;
 // who 0 = 플레이어 · 1 = 상대. 중정은 비대칭(사장님 10/20 00:4x — 샛별 제안 ②: 처음엔 마야가 보이고 한 번 옆걸음이면 급수정 뒤로)
-export const stageStartZ = (stageId, who = 0) => (stageId === 'courtyard' ? (who ? COURTYARD_START_Z_FOE : COURTYARD_START_Z) : stageId === 'sluice' || stageId === 'sluice_night' ? START_SIDE : 0);
+export const stageStartZ = (stageId, who = 0) => ((stageId === 'courtyard' || stageId === 'courtyard_night') ? (who ? COURTYARD_START_Z_FOE : COURTYARD_START_Z) : stageId === 'sluice' || stageId === 'sluice_night' ? START_SIDE : 0);
 
 /**
  * 판(물리 세계)마다 부른다: 습지 석상 또는 중정 급수정의 고정 충돌체를 만들고, 다른 무대는 null. previous 가 같은 세계의 것이면 먼저 지운다.
@@ -47,7 +47,7 @@ export const stageStartZ = (stageId, who = 0) => (stageId === 'courtyard' ? (who
  */
 export function configureStageObstacle(RAPIER, world, stageId, groups, previous = null) {
   if (previous?.world === world) world.removeRigidBody(previous.body);
-  const courtyard=stageId==='courtyard';
+  const courtyard=stageId==='courtyard'||stageId==='courtyard_night';
   if (!courtyard && stageId !== 'sluice' && stageId !== 'sluice_night') return null;
   const body = world.createRigidBody(RAPIER.RigidBodyDesc.fixed());
   const handles = new Set();

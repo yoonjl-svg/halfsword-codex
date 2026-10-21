@@ -1658,7 +1658,8 @@ const SAMPLES = {
 // 배경(스테이지)마다 다른 것: 발소리 녹음(step), 쓰러질 때 바닥 알갱이(grit), 전투 소리가 벽에 되울리는 방(room).
 // room: reverbIR 모양 + 쇳소리(metal)·몸 소리(flesh)를 울림으로 보내는 양. 바깥(포세이돈·산사)은 울림 없음
 const STAGE_SOUND = {
-  courtyard: { step: 'stepStone', grit: 'stepStone', room: { dur: .35, rt: .2, e0: .04, e1: .08, lp: 3400, metal: .07, flesh: .025 } }, // 봉인의 중정: 사암 판석 · 담장에 짧게 되울림 (샛별 저장소 10/17)
+  courtyard: { step: 'stepStone', grit: 'stepStone', room: { dur: .35, rt: .2, e0: .04, e1: .08, lp: 3400, metal: .07, flesh: .025 } },
+  courtyard_night: { step: 'stepStone', grit: 'stepStone', room: { dur: .25, rt: .14, e0: .03, e1: .07, lp: 3400, metal: .06, flesh: .025 } }, // 봉인의 중정: 사암 판석 · 담장에 짧게 되울림 (샛별 저장소 10/17)
   temple_night: { step: 'stepGravel', grit: 'stepGravel', night: true },
   loggia: { step: 'stepStone', grit: 'stepStone', room: { dur: 0.65, rt: 0.45, e0: 0.04, e1: 0.09, lp: 4500, metal: 0.16, flesh: 0.06 } },
   corsair: { step: 'step', grit: 'step' }, // 다져진 모래흙 선착장: 돌 판석 대신 모래가 눌리는 발소리
