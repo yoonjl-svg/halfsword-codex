@@ -949,7 +949,7 @@ const UCHIGATANA_SPEC = {
 const uchigatana = finalizeSpec('uchigatana', UCHIGATANA_SPEC);
 
 // 무라마사: 10/21 승인. 일본 레어 빈칸. 도공 계열은 실존하지만 외장/게임 규격은 각색 [I].
-// 10/21 후속 확정: 날70cm·소리2cm. 양손 파지와1.10kg 유지, 단축 관성은 재계산.
+// 10/21 후속 확정: 날70cm·소리2cm·총1.12kg. 추가20g은 날에 분배, 관성 함께 계산.
 const muramasa = finalizeSpec('muramasa', {
   ...UCHIGATANA_SPEC,
   nameKo: '무라마사', nameEn: 'Muramasa', tier: 'rare',
@@ -960,6 +960,11 @@ const muramasa = finalizeSpec('muramasa', {
   buildParts(look) {
     const parts = UCHIGATANA_SPEC.buildParts.call(this, { ...look, ...MURAMASA_COLORS });
     parts[3][3] = MURAMASA_COLORS.blade;
+    const bladeMass=MURAMASA_PROFILE.mass-parts.slice(0,3).reduce((sum,p)=>sum+p[2][0],0);
+    const massRatio=bladeMass/parts[3][2][0];
+    parts[3][2][0]=bladeMass;
+    parts[3][2][2]*=massRatio;
+    parts[3][2][3]*=massRatio;
     // Widen the existing box approximation to cover the bow within ~1cm.
     // Keep the mass axis centred: an offset box rotates Rapier's principal
     // inertia frame, which the current two-hand servo does not handle stably.

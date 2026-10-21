@@ -6,7 +6,7 @@ import { swordKit, metalMat } from './weapon_looks.js';
 
 export const MURAMASA_COLORS = { grip: 0x28272a, hilt: 0x28272b, blade: 0xaeb5bd };
 // 사용자 확정: 날 길이는 등 밑동~칼끝의 직선, 소리는 그 직선~등의 최대 수직 거리.
-export const MURAMASA_PROFILE = { length: .70, sori: .020, colliderHalfWidth: .024 };
+export const MURAMASA_PROFILE = { length: .70, sori: .020, mass: 1.12, colliderHalfWidth: .024 };
 const kit = swordKit({
   blade: { edge: 'single', width: t => 1-.28*t, thick: .0035, ridge: .3,
     hamon: true, hamonWave: (_t,y) => .31+.105*Math.sin(y*51)+.045*Math.sin(y*123+.8)+.023*Math.sin(y*89),
