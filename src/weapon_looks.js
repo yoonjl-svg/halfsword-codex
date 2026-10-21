@@ -100,6 +100,7 @@ export function metalMat(color, { rough = 0.35, metal = 0.9, env = 1, ...rest } 
  *  o.fuller    { to, width, depth }  피홈: 자루에서 t=to 까지, 반폭 배율 width, 반두께 배율 depth
  *  o.ridge     외날 등마루(시노기) 위치 — 등에서 날까지의 비율 (0 이면 등이 두꺼운 쐐기)
  *  o.hamon     외날 날 쪽 흰 담금질 무늬(하몬)
+ *  o.hamonWave(t,y) 선택적 무늬 폭 비율. 없으면 기존 무늬 그대로.
  */
 export function bladeGeometry(hx, hy, hz, o = {}) {
   const double = o.edge !== 'single';
@@ -206,7 +207,7 @@ export function bladeGeometry(hx, hy, hz, o = {}) {
       const xs = xb + span * r; // 등마루(시노기)
       const tb = r > 0 ? th * 0.72 : th; // 칼등(무네) 두께
       // 하몬(담금질 무늬) 경계: 날에서 폭의 35% 안쪽, 물결치며(자루→칼끝) 칼끝에선 날을 따라 돈다
-      const hamonW = span * (0.3 + 0.07 * Math.sin(y * 55) + 0.04 * Math.sin(y * 131));
+      const hamonW = span * (o.hamonWave ? o.hamonWave(t,y) : (0.3 + 0.07 * Math.sin(y * 55) + 0.04 * Math.sin(y * 131)));
       const xh = Math.max(xs + 0.001, xe - b - Math.max(0.002, hamonW));
       const zOn = (x) => te + ((x - (xe - b)) / (xs - (xe - b) || 1)) * (th - te); // 날 세움 면~등마루 사이 평면의 두께
       const hamon = o.hamon ? HAMON : 1;

@@ -1,3 +1,4 @@
+import { MURAMASA_COLORS, muramasaPartMesh, muramasaDecorate } from './muramasa_details.js';
 import { BALISARDA_COLORS, balisardaPartMesh } from './balisarda_details.js';
 import { historicalPartMesh, historicalDecorate, hwandoScabbard } from './historical_weapon_details.js';
 // ─────────────────────────────────────────────────────────────
@@ -61,7 +62,7 @@ export const TIER_DEFAULTS = {
 //  종류 = 싸우는 방식의 무기 갈래(한손검 · 양손검 · 한손 둔기 …) — 물건 이름(나뭇가지 · 장난감 · 생선)은 쓰지 않는다 (사장님 10/19 03:1x '나뭇가지 x')
 const KIND_KO = {
   hwando: '한손 외날도', kriegsmesser: '양손 외날검',
-  balisarda: '한손 찌르기검', dartagnan: '한손 찌르기검', kusanagi: '양손 직검',
+  muramasa: '일본도', balisarda: '한손 찌르기검', dartagnan: '한손 찌르기검', kusanagi: '양손 직검',
   longsword: '양손검', zweihander: '대형 양손검', estoc: '찌르기검', sabre: '한손 곡도', rapier: '한손 찌르기검', falchion: '한손 외날검',
   monohoshizao: '노다치', uchigatana: '일본도', qinggang: '한손 양날검', excalibur: '양손검', excalibur_replica: '양손검', lightsaber: '양손검',
   tree_branch: '한손 둔기', rubber_chicken: '한손 둔기', frozen_tuna: '양손 둔기', pistol: '권총', morgenstern: '한손 철퇴', ganjiang: '한손 양날검',
@@ -897,7 +898,7 @@ const kusanagi = finalizeSpec('kusanagi', {
 //      방식은 두루(찌르기 0.9 > 0.85) — 일본 가중치(two:* 真向 ×1.3 · 袈裟 ×1.2 · 胴 ×0.8 · 突き ×0.8)가 처음 일하는 무기.
 //      겉모습은 모노호시자오의 칼 꼴(외날·시노기·하몬·키사키)을 칼날 0.71 m 로 그대로 쓰고, 금 장식을 뺀 커먼 마감.
 // ═════════════════════════════════════════════════════════════
-const uchigatana = finalizeSpec('uchigatana', {
+const UCHIGATANA_SPEC = {
   nameKo: '우치가타나', nameEn: 'Uchigatana',
   desc: '날을 위로 하여 허리띠에 꽂던 무사의 칼.\n뽑는 동작이 곧 베기다.',
   grip: 'two-hand', material: 'steel',
@@ -943,6 +944,22 @@ const uchigatana = finalizeSpec('uchigatana', {
     const fuchi = addMesh(group, new THREE.CylinderGeometry(0.0148, 0.0148, 0.008, 14), iron, [0, 0.061, 0]);
     fuchi.scale.z = 1.2;
     addTsukaIto(group, silk, -0.215, 0.03); // 모노호시자오와 같은 끈 — 카시라 위 −0.215 부터 후치 밑 0.03 까지 여덟 줄 (끈 32 · 매듭 16 상자가 메쉬 하나)
+  },
+};
+const uchigatana = finalizeSpec('uchigatana', UCHIGATANA_SPEC);
+
+// 무라마사: 10/21 승인. 일본 레어 빈칸. 도공 계열은 실존하지만 외장/게임 규격은 각색 [I].
+// 기존 우치가타나의 최신 양손 파지·71cm/1.10kg 물리를 재사용; 레어 공통 보정만 다르다.
+const muramasa = finalizeSpec('muramasa', {
+  ...UCHIGATANA_SPEC,
+  nameKo: '무라마사', nameEn: 'Muramasa', tier: 'rare',
+  desc: '이세의 도공 무라마사 일문의 칼.\n적갈색 감개와 거친 물결무늬의 날을 지녔다.',
+  partMesh: muramasaPartMesh,
+  decorate: muramasaDecorate,
+  buildParts(look) {
+    const parts = UCHIGATANA_SPEC.buildParts.call(this, { ...look, ...MURAMASA_COLORS });
+    parts[3][3] = MURAMASA_COLORS.blade;
+    return parts;
   },
 });
 
@@ -1745,7 +1762,7 @@ export const WEAPONS = {
   brothers_sword: brothersSword,
   dartagnan, // 사장님 10/21(샛별 저장소 경유): 이탈리아 에픽
   kusanagi, // 사장님 10/21(샛별 저장소 경유): 일본 레전드
-  hwando, kriegsmesser, balisarda,
+  hwando, kriegsmesser, balisarda, muramasa,
 };
 
 // 다른 담당이 쓰는 짧은 이름 → 정식 id (characters.js의 'branch', URL 파라미터의 'chicken' 등)

@@ -241,6 +241,7 @@ export const LIB_PARRY = {
 export const HAND_GRIPS = {
   _two: { a: 0, b: 15, t: 0, off: 'grip' }, // 두손 악수 쥠 (롱소드·엑스칼리버·라이트세이버·에스톡·츠바이핸더)
   monohoshizao: { a: 0, b: 20, t: 0, off: 'grip' },
+  muramasa: { a: 0, b: 20, t: 0, off: 'grip' }, // 우치가타나와 같은 일본 양손 파지
   uchigatana: { a: 0, b: 20, t: 0, off: 'grip' }, // 打刀 (제안 가지): 모노호시자오와 같은 츠카 쥠
   kusanagi: { a: 0, b: 20, t: 0, off: 'grip' }, // 기존 일본 유파 양손 쥠을 재사용.
   frozen_tuna: { a: 0, b: 0, t: 0, off: 'grip' }, // 몽둥이 망치 쥠
