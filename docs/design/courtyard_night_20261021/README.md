@@ -5,3 +5,5 @@
 [실제 시안·스크린샷·검증](../courtyard_ruins_20261021/README.md)이 최신이다. 우화222c35de 위 독립 구현, 소스 `10c6b5e39b99b7097120a4f454b9a0f61bda7b58`, 가지 `codex/courtyard-ruins-20261021`. 상대 저장소 쓰기/전달 없음.
 
 기존 문서고/개전 중지 왕명/죽은 수신자를 기다리는 얼터는 [미확정4안](CONCEPT_V4.md)이다. 군마·계절 기후 중심 [3안](CONCEPT_V3.md), 장맛비 [2안](CONCEPT_V2.md), 탈출/명령서 소각 [1안](CONCEPT_V1.md)도 보존된 이력이며 현행 설정이 아니다.
+
+후속 사용자 승인: [정수탑 부분 파손·누수](../courtyard_cover_damage_20261021/README.md).
