@@ -1,0 +1,11 @@
+using deprecated parameters for the initialization function; pass a single object instead
+file:///tmp/rapier-guard-study-20261019/tools/sim/rapier_probe.mjs:136
+  if(['read','shape','combined'].includes(variant))installRapierCandidate(D,A,guard,variant);
+                                          ^
+
+ReferenceError: Cannot access 'variant' before initialization
+    at trialRun (file:///tmp/rapier-guard-study-20261019/tools/sim/rapier_probe.mjs:136:43)
+    at trial (file:///tmp/rapier-guard-study-20261019/tools/sim/rapier_probe.mjs:112:12)
+    at file:///tmp/rapier-guard-study-20261019/tools/sim/rapier_probe.mjs:345:151
+
+Node.js v24.19.0

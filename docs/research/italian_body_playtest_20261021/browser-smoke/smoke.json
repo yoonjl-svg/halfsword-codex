@@ -1,0 +1,90 @@
+{
+  "rows": [
+    {
+      "id": "baseline",
+      "config": {
+        "aim": 0,
+        "extend": 0.24,
+        "hold": 0.08,
+        "recover": 0.2,
+        "reach": 0.28,
+        "turn": 0.15,
+        "side": 0.04,
+        "bind": 0.1,
+        "near": true,
+        "roll": 40,
+        "beat": 0.8,
+        "bodyEnabled": false
+      },
+      "weapon": "rapier",
+      "foe": "sain",
+      "edged": true,
+      "privateStorage": true,
+      "starts": 0,
+      "windowUnlimited": true,
+      "actualWindowUnlimited": true,
+      "relaxed": true,
+      "minVn": 0.2,
+      "noGap": true,
+      "injuryGrace": 0
+    },
+    {
+      "id": "body",
+      "config": {
+        "aim": 0,
+        "extend": 0.24,
+        "hold": 0.08,
+        "recover": 0.2,
+        "reach": 0.28,
+        "turn": 0.15,
+        "side": 0.04,
+        "bind": 0.1,
+        "near": true,
+        "roll": 40,
+        "beat": 0.8,
+        "bodyEnabled": true
+      },
+      "weapon": "rapier",
+      "foe": "sain",
+      "edged": true,
+      "privateStorage": true,
+      "starts": 0,
+      "windowUnlimited": true,
+      "actualWindowUnlimited": true,
+      "relaxed": true,
+      "minVn": 0.2,
+      "noGap": true,
+      "injuryGrace": 0
+    },
+    {
+      "touch": true
+    },
+    {
+      "role": "attacker",
+      "weapon": "longsword",
+      "foe": "rapier",
+      "guard": true,
+      "config": {
+        "aim": 0,
+        "extend": 0.24,
+        "hold": 0.08,
+        "recover": 0.2,
+        "reach": 0.28,
+        "turn": 0.15,
+        "side": 0.04,
+        "bind": 0.1,
+        "near": true,
+        "roll": 40,
+        "beat": 0.8,
+        "bodyEnabled": true
+      }
+    },
+    {
+      "off": true,
+      "reset": true,
+      "storage": true,
+      "overflow": false
+    }
+  ],
+  "errors": []
+}

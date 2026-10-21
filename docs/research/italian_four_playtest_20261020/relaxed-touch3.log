@@ -1,0 +1,11 @@
+{"captured":false,"t":11.849999999999968,"starts":0,"alive":false,"errors":[]}
+file:///tmp/italian-four-20261020/tools/browser/italian_relaxed_touch.mjs:13
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await f.evaluate(()=>game.config.PHYSICS.maxStepsPerFrame=8);await f.waitForFunction(()=>!game.playerGuard.held&&!game.playerGuard.opposition.run);if(!snap.touchProbe.captured)throw Error('No physical touch activation');
+                                                                                                                                                                                                                                                                   ^
+
+Error: No physical touch activation
+    at file:///tmp/italian-four-20261020/tools/browser/italian_relaxed_touch.mjs:13:260
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at process.processImmediate (node:internal/timers:502:9)
+
+Node.js v24.19.0

@@ -1,0 +1,10 @@
+  // 흘려 받기(우케나가시 — combat.js nagashi) 한 번 (사장님 10/18 23:4x '흘림을 보이고 들리게. 지친 표시는 X'): 긴 "스르르릉" · 미끄러진 쪽으로 흐르는 불꽃 줄 · 짧은 멈칫.
+  //  사람 · AI 누가 흘려도 같다. 보통 부딪힘 연출(아래)은 이 순간 건너뛴다 — 흘림은 '쨍' 대신 미끄러짐으로 읽히게
+  if (touch?.nagashi) {
+    sound.flow(Math.max(touch.vn ?? 0, 3));
+    particles.flowSparks(point, combat?.lastNagashi?.dir);
+    hitStop = Math.max(hitStop, 0.035);
+    clashCooldown = Math.max(clashCooldown, 0.12);
+    haptic(0.5);
+    return;
+  }
