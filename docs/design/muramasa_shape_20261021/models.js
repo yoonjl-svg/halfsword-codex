@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { weaponPhysics } from '../../../src/weapon_class.js';
 import { WEAPONS, weaponMatOpts, weaponSpecText } from '../../../src/weapons.js';
 import { muramasaPartMesh as previousMesh, muramasaDecorate as previousDecorate } from './previous_details.js';
 import previous from './before.json';
@@ -16,8 +17,8 @@ function render(g,name,caption,where,{center=.46,range=.7,tilt=.22,lean=0}={}){
 for(const id of ['uchigatana','muramasa','monohoshizao']){const w=WEAPONS[id];render(weapon(id),w.nameKo,weaponSpecText(w),'#out',{center:.44,range:.72,tilt:.22});}
 render(weapon('muramasa'),'적갈색 감개','검은 마름모 · 각형 철 코등이','#details',{center:-.08,range:.20,tilt:0,lean:0});
 render(weapon('muramasa'),'물결 하몬','은빛 담금질 무늬 · 단면의 능선','#details',{center:.40,range:.23,tilt:.25});
-for(const id of ['balisarda','muramasa']){const w=WEAPONS[id];render(weapon(id),w.nameKo,`${w.tier==='legend'?'이탈리아 · 레전드':'일본 · 레어'} · 칼날 ${Math.round(w.bladeLength*100)}cm · 1.10kg`,'#pair',{center:.44,range:.70,tilt:.25});}
+for(const id of ['balisarda','muramasa']){const w=WEAPONS[id];render(weapon(id),w.nameKo,`${w.tier==='legend'?'이탈리아 · 레전드':'일본 · 레어'} · 칼날 ${Math.round(w.bladeLength*100)}cm · ${weaponPhysics(w).mass.toFixed(2)}kg`,'#pair',{center:.44,range:.70,tilt:.25});}
 const old=new THREE.Group();previous.muramasa.parts.forEach(([shape,y,,color,blade,pose],i)=>{const m=previousMesh(i,blade,shape,color,weaponMatOpts('steel',blade,'rare'),LOOKS.player,'rare');m.position.set(pose?.x??0,y,0);old.add(m);});previousDecorate.call({...WEAPONS.muramasa,bladeLength:.71},old);
 render(old,'수정 전','날71cm · 거의 곧은 날','#shape-comparison',{center:.28,range:.56,tilt:0});
-render(weapon('muramasa'),'수정 후','날70cm · 휨2cm · 1.10kg','#shape-comparison',{center:.28,range:.56,tilt:0});
+render(weapon('muramasa'),'수정 후','날70cm · 휨2cm · 1.12kg','#shape-comparison',{center:.28,range:.56,tilt:0});
 window.modelsReady=true;

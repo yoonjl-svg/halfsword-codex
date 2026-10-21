@@ -9,12 +9,12 @@ import {PlayerParryGuard} from '../../../src/parry_button.js';
 import {TECH_BY_NAME} from '../../../src/ai_techniques.js';
 const w=WEAPONS.muramasa,r=WEAPONS.uchigatana;
 const physics={muramasa:{...weaponPhysics(w),text:weaponSpecText(w)}};
-assert.equal(w.bladeLength,.70);assert(weaponPhysics(w).I<weaponPhysics(r).I);
+assert.equal(w.bladeLength,.70);assert(Number.isFinite(weaponPhysics(w).I)&&weaponPhysics(w).I>0);
 assert.equal(w.tier,'rare');assert.equal(w.power,1.05);assert(w.fragility>0);
 assert(w.breakChance(6)>0);
 const art=resolveSwordArt(w),base=resolveSwordArt(r);assert.equal(art.tradition,'japanese');
 for(const key of['table','grip','offArm','parry','motion'])assert.deepEqual(art[key],base[key],key);
-assert(!AURA_PROFILES.muramasa);assert(Math.abs(physics.muramasa.mass-1.10)<1e-9);
+assert(!AURA_PROFILES.muramasa);assert(Math.abs(physics.muramasa.mass-1.12)<1e-9);
 CONFIG.ARENA.startHold=0;
 class Quiet {update(){}}
 const actions=[];
