@@ -120,41 +120,19 @@ export function createReturnedKingOutfitV2(h) {
     const cheek=piece('engraving',[],GOLD); // populated below; own wear piece
     for(const s of [-1,1])laurel(cheek,(y,z)=>f(y,z),-.082,s*.061,.070,s,.46);
   }
-  function shoulderLion(parent,side){
-    // A sculpted lion head seated on the pauldron. The mane has a solid
-    // underside and curls around a projecting feline muzzle; no upright fin.
-    // All ornament stays a child of the existing plate, including on shedding.
-    const z0=side*.013, pos=(x,y,z)=>[x,y,z0+z];
-    const ell=(x,y,z,rx,ry,rz)=>bake(ball(1,18,12),pos(x,y,z),null,[rx,ry,rz]);
-    const lion=add(parent,[ell(.002,.166,0,.052,.069,.055)],GOLD);lion.name='royal-shoulder-lion';
-    const mane=[],ridges=[];
-    for(const sign of [-1,1])for(let i=0;i<8;i++){
-      const y=.218-i*.011,z=sign*(.025+.023*Math.sin((i+.5)/9*Math.PI));
-      const path=[pos(.039,y,z*.72),pos(.041,y-.006,z),pos(.020,y-.022,z*1.17),pos(.007,y-.027,z*.98)];
-      mane.push(taperedTube(path,[.008,.010,.006,.0009],16,7));
-      ridges.push(curve(path.map(([x,y,z])=>[x+.005,y,z]),.0009,16));
-    }
-    for(const z of [-.018,-.009,0,.009,.018])mane.push(taperedTube([pos(.040,.211,z),pos(.022,.232,z*1.3),pos(-.008,.231,z*1.6)],[.006,.008,.001],14,7));
-    add(lion,mane,GOLD);add(lion,ridges,LIGHT);
-    // Forehead, cheeks, rounded ears, divided muzzle and a separate lower jaw.
-    const face=[ell(.040,.179,0,.030,.043,.034),ell(.057,.158,0,.025,.024,.028),ell(.067,.140,0,.017,.013,.024)];
-    for(const s of [-1,1])face.push(ell(.025,.216,s*.032,.010,.012,.010),ell(.061,.169,s*.023,.016,.022,.017),ell(.079,.158,s*.010,.011,.009,.012));
-    add(lion,face,IVORY);
-    const recess=[],brow=[];
-    for(const s of [-1,1]){
-      recess.push(ell(.035,.217,s*.032,.002,.005,.004),ell(.066,.187,s*.019,.004,.0045,.008));
-      brow.push(curve([pos(.057,.201,s*.030),pos(.071,.195,s*.019),pos(.073,.191,s*.008)],.0045,12));
-    }
-    add(lion,recess,DARK);add(lion,brow,LIGHT);
-    const nose=bake(new THREE.ConeGeometry(.010,.009,3),pos(.094,.166,0),[0,0,-Math.PI/2],[1,1,.75]);
-    add(lion,[nose,curve([pos(.090,.159,0),pos(.090,.150,0)],.0012,2),curve([pos(.080,.148,-.020),pos(.088,.145,0),pos(.080,.148,.020)],.0014,14)],DARK);
-    const whiskers=[];for(const s of [-1,1])for(let j=0;j<3;j++)whiskers.push(ball(.0012,5,3,pos(.092-j*.002,.158-j*.003,s*(.012+j*.003))));add(lion,whiskers,GOLD);
+  function shoulderPoint(parent,side){
+    // One short, solid four-sided finial. Ornament follows the existing cap
+    // through its normal movement and damage, without adding armor coverage.
+    const z=side*.012;
+    const point=add(parent,[bake(new THREE.ConeGeometry(.026,.065,4),[0,.181,z],[0,Math.PI/4,0])],IVORY);
+    point.name='royal-shoulder-simple-point';
+    add(point,[cyl(.026,.029,.008,8,false,[0,.152,z]),cyl(.021,.025,.005,8,false,[0,.159,z])],GOLD);
   }
   function shoulder(g,side=1){
     const cap=[[-.021,.088,.092,0],[.019,.100,.104,0],[.084,.094,.096,0],[.134,.056,.061,0],[.173,.009,.012,0]];
     const geo=flute(shell(cap),.003,10),p=geo.attributes.position;
     for(let i=0;i<p.count;i++){const y=p.getY(i),a=Math.atan2(p.getZ(i),p.getX(i));p.setY(i,y+(1-THREE.MathUtils.clamp((y+.021)/.155,0,1))*.016*Math.cos(2*a));}geo.computeVertexNormals();const capMesh=add(g,[geo]);
-    shoulderLion(capMesh,side);
+    shoulderPoint(capMesh,side);
     const edgePts=[];for(let i=0;i<=40;i++){const a=i/40*Math.PI*2;edgePts.push([.089*Math.cos(a),-.021+.016*Math.cos(2*a),.093*Math.sin(a)]);}add(g,[curve(edgePts,.0023,40)],GOLD);
     // Two slim overlapping lames, then a long tapered rerebrace. No tire rings.
     for(let i=0;i<2;i++){const y=-.026-i*.032,r=.084-i*.009,rows=[[y-.038,r-.009,r-.008,0],[y,r,r,0]];add(g,[flute(shell(rows),.002,8)]);add(g,[ring(rows,y-.036,-Math.PI,Math.PI,.0015)],GOLD);}
