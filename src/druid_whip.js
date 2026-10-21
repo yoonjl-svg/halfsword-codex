@@ -106,7 +106,7 @@ export function attachDruidWhip(f) {
     f.colliderInfo.delete(old.handle); world.removeCollider(old, true);
     const pos = new THREE.Vector3(0, part[1], 0).applyQuaternion(q0).add(p0);
     const body = world.createRigidBody(R.RigidBodyDesc.dynamic().setTranslation(pos.x, pos.y, pos.z).setRotation(q0)
-      .setAngularDamping(1.3).setLinearDamping(.15).setAdditionalSolverIterations(8).setSoftCcdPrediction(.12));
+      .setAngularDamping(.15).setLinearDamping(.15).setAdditionalSolverIterations(8).setSoftCcdPrediction(.12));
     const [m, , Ie, It] = part[2];
     const col = world.createCollider(R.ColliderDesc.cuboid(part[0][1], L / 2, part[0][3])
       .setMassProperties(m, { x: 0, y: 0, z: 0 }, { x: Ie, y: It, z: Ie }, { x: 0, y: 0, z: 0, w: 1 })

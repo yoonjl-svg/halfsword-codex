@@ -22,7 +22,7 @@
 // ─────────────────────────────────────────────────────────────
 
 export const MEASURED = {
-  druid_whip: [1.03, 1.03, .79, .49], // articulated lash: weapon_measure.mjs 2026-10-21, not straight length.
+  druid_whip: [.99, .99, .76, .48], // articulated lash: weapon_measure.mjs 2026-10-21, not straight length.
   // 10/21 startHold=0/--down, 같은 실행 롱소드에 대한 비율 보정.
   // 원자료: docs/design/hwando_kriegsmesser_20261021/measured.json.
   // 10/21 실물 반영: 동일 생성 롱소드 비율로 보정. docs/design/weapon_historical_finish_20261021/measured.json
@@ -78,7 +78,7 @@ export const MEASURED = {
 
 // 유파 꾸러미의 베는 시간 (롱소드 0.30 기준) — 나뭇가지·청강검·복제품 줄은 전 schools.js 인물 꾸러미(브란·랴오·하인리히)의 measure 값
 export const CUT_TIME_30 = {
-  druid_whip: .49,
+  druid_whip: .48,
   hwando: 0.26,
   kriegsmesser: 0.30,
   longsword: 0.3,
