@@ -1786,7 +1786,7 @@ const druidWhip = finalizeSpec('druid_whip', {
   nameKo: '드루이드의 채찍', nameEn: "Druid's Whip", tier: 'mystery',
   desc: '질긴 식물 줄기를 엮은 채찍.\n손을 떠난 힘이 덩굴 끝에서 뒤늦게 맺힌다.',
   grip: 'one-hand', school: 'none', material: 'wood', flexible: true,
-  hiltLength: .13, bladeLength: DRUID.lash, edged: false, mCut: 0, mThrust: 0, mBlunt: 1.5,
+  hiltLength: .13, bladeLength: DRUID.lash, edged: false, mCut: 0, mThrust: 0, mBlunt: 1.5, fragility: 0, // 감독 지시: 줄기가 끊어지지 않음
   controlOverrides: { aimStiffness: 24, aimDamping: 1.2, releaseDamping: .6, maxAimTorque: 10, twistScale: .08 },
   partMesh: hiddenParts, buildParts: druidParts, decorate: drawDruidWhip,
 });

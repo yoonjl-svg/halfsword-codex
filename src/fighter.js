@@ -2059,9 +2059,8 @@ export class Fighter {
    *  겉모습: 절단선 위 메쉬는 조각이 되어 날아가 사라지고(debris.js), 남는 끝엔 톱니 모양 부러진 면을 얹는다.
    */
   breakWeapon() {
-    if (this.weaponBroken) return; // 한 번만 부러진다
+    if (this.weaponBroken || this.flexWeapon) return; // 비파손 채찍은 길이·질량 유지
     this.weaponBroken = true;
-    if (this.flexWeapon) { this.flexWeapon.break(); return; }
     const cfg = this.weaponCfg;
     let cutY;
     if (this.weapon.breakY != null) {

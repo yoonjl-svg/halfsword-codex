@@ -2,7 +2,7 @@
 // Dimensions are fictional game values, shared by the model and colliders.
 import * as THREE from 'three';
 
-export const DRUID = Object.freeze({ grip: .26, lash: 1.44, count: 8, mass: .65, handleMass: .21 });
+export const DRUID = Object.freeze({ grip: .26, lash: 1.44, count: 8, mass: .77, handleMass: .21, tipWeight: .12 });
 const Y = new THREE.Vector3(0, 1, 0);
 const palette = [0x69704a, 0xa59a70, 0x67533c];
 export function druidParts() {
@@ -14,8 +14,10 @@ export function druidParts() {
   const weights = [1.8, 1.65, 1.5, 1.35, 1.2, 1.05, .9, .75];
   const sum = weights.reduce((a, b) => a + b, 0);
   for (let i = 0; i < DRUID.count; i++) {
-    const m = (DRUID.mass - DRUID.handleMass) * weights[i] / sum;
-    const r = .022 - .016 * i / (DRUID.count - 1);
+    // Keep the light cord; concentrate the added root bundle in the final two links.
+    const added = i === 7 ? DRUID.tipWeight * .75 : i === 6 ? DRUID.tipWeight * .25 : 0;
+    const m = (DRUID.mass - DRUID.handleMass - DRUID.tipWeight) * weights[i] / sum + added;
+    const r = i === 7 ? .024 : i === 6 ? .012 : .022 - .016 * i / (DRUID.count - 1);
     out.push([['box', r, L / 2, r], .13 + (i + .5) * L,
       [m, 0, m * (L * L + 4 * r * r) / 12, m * r * r * 2 / 3], null, true]);
   }
@@ -49,7 +51,10 @@ export function makeBraid(steps = 72) {
       curve.getPoint(t, point); curve.getTangent(t, tangent).normalize();
       n.set(0, 0, 1); if (Math.abs(n.dot(tangent)) > .95) n.set(1, 0, 0);
       n.addScaledVector(tangent, -n.dot(tangent)).normalize(); bin.crossVectors(tangent, n).normalize();
-      const radius = handle ? .0195 : .022 * (1 - .76 * along);
+      // A thicker bound root tip makes the concentrated mass readable.
+      const bundle = Math.max(0, Math.min(1, (along - .76) / .14));
+      const tipRound = along > .97 ? 1 - .35 * (along - .97) / .03 : 1;
+      const radius = handle ? .0195 : (.022 * (1 - .76 * along) + .018 * bundle) * tipRound;
       for (let s = 0; s < 3; s++) {
         const a = (handle ? t * 5 : along * 21) * Math.PI * 2 + s * Math.PI * 2 / 3;
         for (let k = 0; k < sides; k++) {
@@ -118,20 +123,11 @@ export function attachDruidWhip(f) {
     segments.push({ body, col, state, info, group }); previous = body;
   }
   root.recomputeMassPropertiesFromColliders();
-  const flex = { segments, joints, active: DRUID.count, L, age: 0 };
+  const flex = { segments, joints, active: DRUID.count, L };
   const lash = f.swordGroup.userData.bladeMesh;
   const qa = new THREE.Quaternion(), qb = new THREE.Quaternion(), a = new THREE.Vector3(), b = new THREE.Vector3(), torque = new THREE.Vector3();
   flex.step = dt => {
-    if (flex.tail && !flex.tailExpired) {
-      flex.age += dt;
-      if (flex.age > 6) {
-        flex.tail.visible = false; flex.tailExpired = true;
-        for (const s of segments.slice(flex.active)) s.body.setBodyType(R.RigidBodyType.Fixed, true);
-      }
-    }
     for (let i = 0; i < segments.length; i++) {
-      if (flex.tailExpired && i >= flex.active) continue;
-      if (i === flex.active) continue; // severed joint: no spring across the cut
       const parent = i === 0 ? root : segments[i - 1].body, child = segments[i].body;
       qa.copy(parent.rotation()); qb.copy(child.rotation());
       a.copy(Y).applyQuaternion(qa); b.copy(Y).applyQuaternion(qb);
@@ -153,23 +149,6 @@ export function attachDruidWhip(f) {
     points.push(new THREE.Vector3(0, .13, 0));
     for (let i = 0; i < flex.active; i++) points.push(new THREE.Vector3(0, L / 2, 0).applyQuaternion(qb.copy(segments[i].body.rotation())).add(a.copy(segments[i].body.translation())).applyMatrix4(inv));
     lash.userData.bend(points, 0, flex.active / DRUID.count);
-    if (flex.tail && !flex.tailExpired) {
-      const pts = [];
-      for (let i = flex.active; i < segments.length; i++) {
-        const body = segments[i].body;
-        if (i === flex.active) pts.push(new THREE.Vector3(0, -L / 2, 0).applyQuaternion(qb.copy(body.rotation())).add(a.copy(body.translation())).applyMatrix4(inv));
-        pts.push(new THREE.Vector3(0, L / 2, 0).applyQuaternion(qb.copy(body.rotation())).add(a.copy(body.translation())).applyMatrix4(inv));
-      }
-      flex.tail.userData.bend(pts, flex.active / DRUID.count, 1);
-    }
-  };
-  flex.break = () => {
-    flex.active = 4; world.removeImpulseJoint(joints[flex.active], true);
-    for (const s of segments.slice(flex.active)) { f.detachCollider(s.col); s.info.detached = true; }
-    f.weaponCfg.bladeLength = L * flex.active;
-    f.swordMass = DRUID.handleMass + parts.slice(2, 2 + flex.active).reduce((sum, p) => sum + p[2][0], 0);
-    flex.tail = makeBraid(36); f.swordGroup.add(flex.tail);
-    f.tipPrev = null; f.hitPointPrev = null;
   };
   return flex;
 }
