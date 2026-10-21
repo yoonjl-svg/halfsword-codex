@@ -20,6 +20,7 @@ import { swordKit, metalMat, weaponEnv, hiddenParts, drawTreeBranch, drawRubberC
 import { SAIN_COLORS, ICE_COLORS, sainPartMesh, sainDecorate, icePartMesh, iceDecorate } from './rare_sword_details.js'; // 사인검·아이스 겉모습 (샛별 저장소에서 가져옴 6e71ba2·4a425f9)
 import { FLAMBERGE_MUSEUM, FLAMBERGE_HILT, FLAMBERGE_COLORS, flambergePartMesh, flambergeDecorate } from './flamberge_look.js'; // 플랑베르주 겉모습 (샛별 저장소 325a5c38 의 생김새를 옮겨 고침)
 import { GOUJIAN_COLORS, goujianPartMesh, goujianDecorate } from './goujian_details.js'; // 월왕구천검 겉모습 (샛별 저장소 7684c732 에서 가져옴 — 바이트 그대로)
+import { KUSANAGI_COLORS, kusanagiPartMesh, kusanagiDecorate } from './kusanagi_details.js';
 
 // 재질별 되튐(반발 계수). 칼끼리 부딪히면 곱해진다(Multiply 규칙) → 강철끼리 0.7² 정도,
 //  고무 대 강철처럼 하나가 낮으면 거의 튕기지 않는다(고무 닭이 칼에 그냥 맞고 만다).
@@ -785,6 +786,31 @@ const monohoshizao = finalizeSpec('monohoshizao', {
     // 츠카이토: 납작한 비단 끈이 앞뒤 면에서 X 자로 엇갈려 감기고, 엇갈린 사이사이로 흰 사메가 마름모꼴로 드러난다
     //  (고리 모양으로 감으면 장난감처럼 보였다). 옆면에서는 끈이 꺾여 넘어가는 매듭이 보인다. 끈 48 · 매듭 24 상자가 메쉬 하나
     addTsukaIto(group, silk, -0.178);
+  },
+});
+
+// 쿠사나기: 신화 시안 선택 승인(2026-10-21). 치수는 게임용 창작이며 유물 실측이 아니다.
+const kusanagi = finalizeSpec('kusanagi', {
+  nameKo: '쿠사나기', nameEn: 'Kusanagi',
+  desc: '큰 뱀의 꼬리에서 나온 신검. 풀을 베어 불길 속의 길을 열었다.',
+  grip: 'two-hand', material: 'steel', school: 'japanese',
+  frame: 'two', style: 'versatile', tier: 'legend',
+  hiltLength: 0.10, bladeLength: 0.75, gripAlong: -0.2,
+  mCut: 1.2, mThrust: 1.1, mBlunt: 0.95,
+  partMesh: kusanagiPartMesh, decorate: kusanagiDecorate,
+  buildParts() {
+    // 창작 사양: 총1.10kg. 사용자 자루 비례 지적 후 실제 양손 자루31cm로 단축. 손 간격20cm 유지.
+    const L = this.bladeLength;
+    const grip = boxInertia(0.28, 0.014, 0.15, 0.017);
+    const pommel = sphereInertia(0.10, 0.024);
+    const guard = boxInertia(0.12, 0.065, 0.025, 0.012);
+    const blade = bladeInertia(0.60, L, 0.395, 0.26, 0.041, 0.007);
+    return [
+      partTuple(['box', 0.014, 0.15, 0.017], -0.08, 0.28, 0, grip.Ie, grip.It, KUSANAGI_COLORS.grip),
+      partTuple(['ball', 0.024], -0.25, 0.10, 0, pommel.Ie, pommel.It, KUSANAGI_COLORS.gold),
+      partTuple(['box', 0.065, 0.025, 0.012], 0.09, 0.12, 0, guard.Ie, guard.It, KUSANAGI_COLORS.gold),
+      partTuple(['box', 0.0205, L / 2, 0.0035], 0.10 + L / 2, 0.60, blade.comY, blade.Ie, blade.It, KUSANAGI_COLORS.blade, true),
+    ];
   },
 });
 
@@ -1595,6 +1621,7 @@ export const WEAPONS = {
   goujian, // 샛별 저장소에서 가져옴 (10/14 — 에픽·뽑기에 넣음·와신상담은 사장님 결정) — 같은 까닭으로 끝에 둔다
   brothers_sword: brothersSword,
   dartagnan, // 10/21: 에픽 이탈리아 결투검. 기존 목록의 순서를 보존한다.
+  kusanagi, // 10/21: 사용자 선택 일본 레전드 신검.
 };
 
 // 다른 담당이 쓰는 짧은 이름 → 정식 id (characters.js의 'branch', URL 파라미터의 'chicken' 등)
