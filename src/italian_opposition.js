@@ -1,4 +1,4 @@
-// 막아찌르기 — 플레이어 레이피어의 실제 칼 접촉에서만 시작한다.
+// 막아찌르기 — 플레이어 이탈리아 유파의 실제 칼 접촉에서만 시작한다.
 // 연구 slow v3의 물리 궤적. docs/strike/italian_opposition_2026-10-20.md
 import * as THREE from 'three';
 import { SKILL } from './config.js';
@@ -16,7 +16,7 @@ export class ItalianOpposition {
 
   eligible() {
     const f = this.f, sk = f.skill, g = this.guard;
-    return SKILL.itOpposition && ['rapier', 'dartagnan'].includes(f.weapon?.id) && f.swordArt?.tradition === 'italian'
+    return SKILL.itOpposition && f.swordArt?.tradition === 'italian'
       && f.schoolParry !== false && g.held && !g.broken && f.alive && this.foe.alive
       && f.armed && !f.stamina.exhausted && ['stand', 'kneel'].includes(f.state)
       && !sk.tap && !sk.sec && !sk.pom && !f.secretStiff && sk.sec?.stage !== 'stiff';

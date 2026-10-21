@@ -39,13 +39,13 @@ for (const mode of ['release', 'exhaustion', 'manual', 'repeat', 'move', 'comple
     } finally { g.world.free(); }
   });
 }
-for (const mode of ['late', 'bookOff', 'otherWeapon', 'noAttack', 'outgoing', 'injured', 'disabled', 'slowContact', 'inactive', 'broken', 'distant']) {
+for (const mode of ['late', 'bookOff', 'otherSchool', 'noAttack', 'outgoing', 'injured', 'disabled', 'slowContact', 'inactive', 'broken', 'distant']) {
   test(`reject invalid contact: ${mode}`, () => {
     const { g, f, a, guard, mod, clash } = fixture();
     try {
       if (mode === 'late') guard.clock += CONFIG.SKILL.itOppositionVals.window + .01; // 창(10/21 0.4 s) 바로 뒤
       if (mode === 'bookOff') f.schoolParry = false;
-      if (mode === 'otherWeapon') f.weapon = { id: 'longsword' };
+      if (mode === 'otherSchool') f.swordArt = { ...f.swordArt, tradition: 'german' };
       if (mode === 'noAttack') a.stamina.attackId = 0;
       if (mode === 'outgoing') a.tipVel.multiplyScalar(-1);
       if (mode === 'injured') f.applyWound({ severity: .01, part: 'farmS', type: 'cut', zone: 'arm', point: new THREE.Vector3(), local: new THREE.Vector3(), bleedPerSev: .1, energy: 1 });
@@ -89,4 +89,15 @@ test('real blade collision starts one paid thrust without synthetic contact call
     assert.equal(guard.opposition.lastEnd.reason, 'complete');
     assert.ok(Math.abs(p.stamina.spent.attack + p.stamina.spent.block - 7 * p.stamina.weight) < 1e-8);
   } finally { g.world.free(); }
+});
+
+test('Italian school membership permits a future weapon ID without a whitelist', () => {
+  const {g,f,mod,clash}=fixture();
+  try { f.weapon={...f.weapon,id:'future_italian_weapon'}; clash(); assert.equal(mod.starts,1); assert.ok(mod.run); }
+  finally { g.world.free(); }
+});
+test('a familiar weapon ID cannot override a non-Italian school', () => {
+  const {g,f,mod,clash}=fixture();
+  try { f.swordArt={...f.swordArt,tradition:'japanese'}; clash(); assert.equal(mod.starts,0); }
+  finally { g.world.free(); }
 });
