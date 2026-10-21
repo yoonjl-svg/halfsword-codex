@@ -8,3 +8,5 @@
 | C-PARRY-20261017 | 2026-10-17 | 샛별 | [MSG-S-012 답신·막기 연구7묶음](https://github.com/yoonjl-svg/halfsword-codex/blob/daefdc98726df0f5d136301e3efb061d9c67c207/docs/dev_exchange/messages/2026-10-17-parry-research.md) | 부분 개선/팔·입력 여유 미해결·기본 적용0 | c7c2131e (기준89a0996c) | 연구/원자료/실제 사진 | 미확인 | 교환41e5c90e 원격 검증 |
 
 | C-IT-OPPOSITION-20261020 | 2026-10-20 | 샛별 | [사장님 명령으로 우화 main 직접 적용](messages/2026-10-20-italian-opposition-direct.md) | 81검사·12조건 일치·PC/터치 발동, 종합 우위 미확정 | 9a8f4bcc (기준bcc5dd9a) | 이미 main 적용 | 실제 열람 미확인 | 발행 |
+
+| C-WEAPONS-20261021 | 2026-10-21 | 샛별 | [무기6묶음·이탈리아 전체·무대 점검](messages/2026-10-21-weapons.md) | 5관문·50검사·원자료103보존 | c1b01487 (기준6e1e9eca) | 독립4커밋 | 실제 열람 미확인 | 발행 |
