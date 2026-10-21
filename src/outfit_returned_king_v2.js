@@ -130,6 +130,22 @@ export function createReturnedKingOutfitV2(h) {
     const arm=[[-.147,.047,.047,0],[-.101,.055,.055,0],[-.074,.065,.065,0]];add(g,[flute(shell(arm),.002,8)]);mail(g,-.140);
     const f=(y,z)=>surface(cap,y,z,.004);castle(g,f,.025,0,.86);
     for(const s of [-1,1])laurel(g,f,.002,s*.055,.085,s,.52);
+    // A shallow chased leaf spray on the formerly bare shoulder crown. Keep
+    // it inside the existing cap silhouette and its native armor bounds.
+    const crown=(y,z)=>{
+      const p=surface(cap,y,z,.003),a=Math.atan2(p[2],p[0]),r=Math.hypot(p[0],p[2]);
+      const ridge=.003*Math.pow(Math.max(0,Math.cos(10*a)),6);
+      p[0]+=p[0]/r*ridge;p[2]+=p[2]/r*ridge;
+      p[1]+=(1-THREE.MathUtils.clamp((y+.021)/.155,0,1))*.016*Math.cos(2*a);
+      return p;
+    };
+    const leaves=[leaf(.124,0,.034,0,crown)],stems=[curve([[.091,0],[.111,.003],[.137,-.002],[.158,0]].map(([y,z])=>crown(y,z)),.0012,22)];
+    for(const s of [-1,1]){
+      leaves.push(leaf(.112,s*.002,.019,s*.021,crown),leaf(.132,s*.002,.017,s*.012,crown));
+      const scroll=[];for(let i=0;i<=22;i++){const t=i/22,a=t*Math.PI*1.65,r=.011*(1-t*.72);scroll.push(crown(.106+r*Math.sin(a),s*(.019-r*Math.cos(a))));}
+      stems.push(curve([crown(.095,0),...scroll],.0011,24));
+    }
+    const ornament=add(g,[...leaves,...stems],GOLD,{...metal,side:THREE.DoubleSide});ornament.name='royal-shoulder-leaf-engraving';
     const rivets=[];for(const z of [-.065,-.036,0,.036,.065])rivets.push(ball(.0025,6,4,surface(cap,-.009,z,.004)));add(g,rivets,LIGHT);
   }
   function forearm(g){
