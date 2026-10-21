@@ -717,7 +717,7 @@ export class Fighter {
     if (HL) this.gripConeOn();
     this.swordGroup = group;
     const fullWeaponMass = sword.mass();
-    if (spec.flexible) this.flexWeapon = attachDruidWhip(this);
+    if (spec.flexible) this.flexWeapon = attachDruidWhip(this, myTorso);
     this.swordMass = spec.flexible ? fullWeaponMass : sword.mass();
     this.stamina.captureMass(this.swordMass); // 파손 전 질량 고정
     // 타격 계산용: 칼의 질량·주관성 모멘트(몸체 기준)와 손 기준 회전 관성

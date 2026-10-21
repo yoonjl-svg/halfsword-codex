@@ -95,14 +95,18 @@ export function drawDruidWhip(group) {
   }
 }
 
-export function attachDruidWhip(f) {
+export function attachDruidWhip(f, ownTorsoBit) {
   const R = f.R, world = f.world, root = f.sword;
   const parts = f.weapon.buildParts({}), L = DRUID.lash / DRUID.count;
   const p0 = new THREE.Vector3().copy(root.translation()), q0 = new THREE.Quaternion().copy(root.rotation());
   const segments = [], joints = [];
   let previous = root;
   for (let i = 0; i < DRUID.count; i++) {
-    const part = parts[i + 2], old = f.swordColliders[i + 2], groups = old.collisionGroups();
+    const part = parts[i + 2], old = f.swordColliders[i + 2];
+    // Rigid grips still respect the human joint/body limits. The flexible lash
+    // must slide past its owner instead of wrapping frictionally around them.
+    // Preserve every opponent/ground/obstacle collision bit.
+    const groups = old.collisionGroups() & ~ownTorsoBit;
     f.colliderInfo.delete(old.handle); world.removeCollider(old, true);
     const pos = new THREE.Vector3(0, part[1], 0).applyQuaternion(q0).add(p0);
     const body = world.createRigidBody(R.RigidBodyDesc.dynamic().setTranslation(pos.x, pos.y, pos.z).setRotation(q0)
@@ -131,8 +135,12 @@ export function attachDruidWhip(f) {
       const parent = i === 0 ? root : segments[i - 1].body, child = segments[i].body;
       qa.copy(parent.rotation()); qb.copy(child.rotation());
       a.copy(Y).applyQuaternion(qa); b.copy(Y).applyQuaternion(qb);
-      // Small bend stiffness, equal-and-opposite physical torque. No aim lock or damage bonus.
-      torque.crossVectors(b, a).multiplyScalar(.035 * (1 - i / 10));
+      // Firmer roots transmit the next hand sweep; a progressive bend spring
+      // releases tight folds without turning the whole lash into a rigid rod.
+      // Equal-and-opposite joint torque only: no teleport, aim lock or tip boost.
+      const folded = Math.max(0, .5 - a.dot(b));
+      const stiffness = .035 * (1 - i / 10) + (i < 2 ? .08 : .025) + folded * .12;
+      torque.crossVectors(b, a).multiplyScalar(stiffness);
       child.addTorque(torque, true); parent.addTorque({ x: -torque.x, y: -torque.y, z: -torque.z }, true);
     }
   };
