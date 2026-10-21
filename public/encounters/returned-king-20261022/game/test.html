@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#1b1410" />
+    <link rel="icon" href="data:," />
+    <title>Stillness 테스트</title>
+    <!-- 테스트 전용 경로 (사장님 10/10 16:5x): 무기·캐릭터를 고르고 상대·무대는 무작위. docs/test_route_2026-10-10.md -->
+    <!-- 화면 글꼴: index.html 과 같은 프리텐다드 + Cinzel (10/14 웹폰트 3안 — docs/ui/webfont_2026-10-14.md · public/fonts). 이 화면 첫 줄에 쓰는 프리텐다드 굵기 셋을 미리 받는다
+         (라틴 글자가 첫 화면에 없어 Cinzel 은 쓰일 때 받는다) -->
+    <link rel="preload" href="./fonts/Pretendard-Regular.subset.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./fonts/Pretendard-SemiBold.subset.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./fonts/Pretendard-Bold.subset.woff2" as="font" type="font/woff2" crossorigin />
+    <style>@font-face{font-family:Cinzel;src:url(fonts/Cinzel-latin.woff2)format("woff2");font-weight:400 900;font-style:normal;font-display:swap;unicode-range:U+41-5A,U+61-7A,U+C0-D6,U+D8-F6,U+F8-FF,U+102,U+131,U+152-153}@font-face{font-family:Cinzel;src:url(fonts/Cinzel-latin-ext.woff2)format("woff2");font-weight:400 900;font-style:normal;font-display:swap;unicode-range:U+100-101,U+103-107,U+10A-113,U+116-11B,U+11E-123,U+126-127,U+12A-12B,U+12E-130,U+132-133,U+136-137,U+139-148,U+14A-14D,U+150-151,U+154-15B,U+15E-167,U+16A-16B,U+16E-17E,U+218-21B,U+1E80-1E85,U+1EF2-1EF3}@font-face{font-family:Pretendard;src:url(fonts/Pretendard-Regular.subset.woff2)format("woff2");font-weight:400;font-style:normal;font-display:swap}@font-face{font-family:Pretendard;src:url(fonts/Pretendard-SemiBold.subset.woff2)format("woff2");font-weight:600;font-style:normal;font-display:swap}@font-face{font-family:Pretendard;src:url(fonts/Pretendard-Bold.subset.woff2)format("woff2");font-weight:700;font-style:normal;font-display:swap}@font-face{font-family:Noto Sans TC;src:url(fonts/NotoSansTC-hanja.woff2)format("woff2");font-weight:100 900;font-style:normal;font-display:swap;unicode-range:U+2160-2161,U+4E09,U+523A,U+528D,U+52E2,U+53E3,U+53F3,U+5766,U+593E,U+5B88,U+5DE6,U+5FA1,U+6380,U+63A0,U+63A3,U+6492,U+64A9,U+64CA,U+6582,U+66F8,U+6B65,U+74B0,U+76F4,U+770B,U+7B26,U+7FC5,U+7FFC,U+8170,U+8179,U+82B1,U+84CB,U+864E,U+8C79,U+8DE8,U+8E72,U+8ECA,U+9001,U+9006,U+9023,U+9802,U+982D,U+9C57,U+9CF3,U+9EDE}@font-face{font-family:Noto Sans Math;src:url(fonts/NotoSansMath-symbols.woff2)format("woff2");font-weight:100 900;font-style:normal;font-display:swap;unicode-range:U+21BB,U+25AE-25AF}:root{--c-text:#f3e9d8;--c-sub:#b8a88e;--c-accent:#d9a441;--c-on-accent:#1b1410;--ink:var(--c-text);--dim:var(--c-sub);--accent:var(--c-accent);--panel:#18120ee0;--line:#f3e9d82e;--bg:#1b1410;--font-ui:"Cinzel", "Pretendard", "Noto Sans TC", "Noto Sans Math", system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;--fs-s:12px;--fs-m:14px;--fs-l:17px;--fw-body:400;--fw-label:600;--fw-head:700;--ls-label:.04em;--tier-trash:#b8b6b0;--tier-common:#fff3c4;--tier-rare:#8cc4ff;--tier-epic:#d6a8ff;--tier-legend:#ffd24a;--tier-mystery:#8fe3c6}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{background:var(--bg);color:var(--c-text);-webkit-text-size-adjust:100%;-moz-text-size-adjust:100%;text-size-adjust:100%;margin:0}html{overflow-x:hidden}body{font-family:var(--font-ui);font-weight:var(--fw-body);font-synthesis:none;min-height:100dvh}main{max-width:880px;padding:max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left));margin:0 auto}h1{font-size:var(--fs-l);font-weight:var(--fw-head);letter-spacing:var(--ls-label);margin:4px 0 2px}.lead{color:var(--c-sub);font-size:var(--fs-m);margin:0 0 14px;line-height:1.5}h2{font-size:var(--fs-m);font-weight:var(--fw-label);align-items:baseline;gap:8px;margin:18px 0 8px;display:flex}h2 small{color:var(--c-sub);font-weight:var(--fw-body);font-size:var(--fs-s)}h3{font-size:var(--fs-s);color:var(--c-sub);font-weight:var(--fw-label);letter-spacing:var(--ls-label);margin:10px 0 6px}.grid{grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:8px;display:grid}.grid.big{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}.pick{text-align:left;width:100%;min-width:0;min-height:56px;font:inherit;color:var(--c-text);background:var(--panel);border:1px solid var(--line);cursor:pointer;border-radius:8px;align-items:center;gap:10px;padding:8px 10px;display:flex}.pick[aria-pressed=true]{border-color:var(--c-accent);box-shadow:inset 0 0 0 1px var(--c-accent);background:#d9a4411f}.pick:focus-visible{outline:2px solid var(--c-accent);outline-offset:2px}.pick .txt{flex-direction:column;gap:2px;min-width:0;display:flex}.pick b{font-size:var(--fs-m);font-weight:var(--fw-label);overflow-wrap:anywhere}.pick .txt>span{font-size:var(--fs-s);color:var(--c-sub);overflow-wrap:anywhere}.pick b small{font-size:var(--fs-s);font-weight:var(--fw-body);color:var(--c-sub);display:block}.grid.big .pick{min-height:72px}.grid.big .pick b{font-size:var(--fs-m)}.thumb{background:radial-gradient(closest-side, var(--tg), transparent) center / contain no-repeat;border-radius:6px;flex:none;width:40px;height:40px}.thumb img{object-fit:contain;width:100%;height:100%;display:block}.grid.big .thumb{width:52px;height:52px}.tier{color:var(--tc);font-weight:var(--fw-label)}[data-tier]{--tc:var(--tier-common);--tg:#ffecbe47}[data-tier=trash]{--tc:var(--tier-trash);--tg:#bebcb433}[data-tier=rare]{--tc:var(--tier-rare);--tg:#6eaaff73}[data-tier=epic]{--tc:var(--tier-epic);--tg:#be82ff80}[data-tier=legend]{--tc:var(--tier-legend);--tg:#ffd24a99}[data-tier=mystery]{--tc:var(--tier-mystery);--tg:#78dcbe73}.pick[data-tier]{border-left:3px solid var(--tc)}.mark{border:1px solid var(--line);width:40px;height:40px;color:var(--c-sub);font-size:var(--fs-m);font-weight:var(--fw-label);border-radius:50%;flex:none;place-items:center;display:grid}.pick[aria-pressed=true] .mark{color:var(--c-on-accent);background:var(--c-accent);border-color:var(--c-accent)}.note{color:var(--c-sub);font-size:var(--fs-s);margin:10px 0 0;line-height:1.55}.bar{z-index:1;padding:10px max(16px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));border-top:1px solid var(--line);background:#1b1410f5;margin-top:18px;position:sticky;bottom:0}.bar-in{align-items:center;gap:12px;max-width:880px;margin:0 auto;display:flex}#summary{min-width:0;font-size:var(--fs-s);color:var(--c-sub);overflow-wrap:anywhere;flex:1;line-height:1.4}#summary b{color:var(--c-text);font-weight:var(--fw-label)}#btnGo{min-width:120px;min-height:48px;font:inherit;font-size:var(--fs-m);font-weight:var(--fw-head);background:var(--c-accent);color:var(--c-on-accent);cursor:pointer;border:0;border-radius:8px;flex:none;padding:0 22px}.back{min-height:44px;color:var(--c-sub);font-size:var(--fs-s);align-items:center;text-decoration:none;display:inline-flex}.back:hover{color:var(--c-text)}@media (orientation:landscape) and (height<=500px){h1{font-size:var(--fs-l)}h2{margin-top:12px}.lead{margin-bottom:8px}}</style>
+    <script type="module" crossorigin src="./assets/test-CAV6Rh0d.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/config-BEGVTmlP.js">
+    <link rel="modulepreload" crossorigin href="./assets/modulepreload-polyfill-P2Xu9kJm.js">
+    <link rel="modulepreload" crossorigin href="./assets/characters-M5kCrU4n.js">
+  </head>
+  <body>
+    <main>
+      <h1>테스트 경로</h1>
+      <p class="lead">무기와 캐릭터를 고르세요. 상대(무작위를 고르면)와 무대는 판마다 무작위로 바뀌고(무대는 아래에서 여정 밖 무대로 고정할 수 있어요), 이기든 지든 다음 판으로 넘어갑니다.</p>
+
+      <h2>무기 <small id="weaponCount"></small></h2>
+      <h3>오늘 바뀐 무기</h3>
+      <div class="grid big" id="weaponsNew" role="group" aria-label="오늘 바뀐 무기"></div>
+      <h3>나머지 무기</h3>
+      <div class="grid" id="weaponsRest" role="group" aria-label="나머지 무기"></div>
+
+      <h2>캐릭터 <small>겉모습만 바뀝니다 · 유파·비기는 무기를 따릅니다</small></h2>
+      <div class="grid" id="heroes" role="group" aria-label="캐릭터"></div>
+      <p class="note" id="heroNote"></p>
+
+      <h2>상대 <small>무작위 = 본판 인물 · 여정 밖 인물은 여기서만</small></h2>
+      <div class="grid" id="foes" role="group" aria-label="상대"></div>
+
+      <h2>이베리아 비기 <small>츠바이핸더·북부 대공의 검 — 나와 상대 모두</small></h2>
+      <div class="grid" id="ibSecret" role="group" aria-label="이베리아 비기 판"></div>
+
+      <h2>동방 비기 <small>청강검·간장·막야·사인검 — 나와 상대 모두</small></h2>
+      <div class="grid" id="cnSecret" role="group" aria-label="동방 비기 판"></div>
+
+      <h2>독일 비기 <small>롱소드·에스톡·세이버 등 — 나와 상대 모두</small></h2>
+      <div class="grid" id="deSecret" role="group" aria-label="독일 비기 판"></div>
+
+      <h2>무대 <small>기본은 무작위 · 여정 밖 무대는 여기서만</small></h2>
+      <div class="grid" id="stagePick" role="group" aria-label="무대"></div>
+
+      <h2>상대 헛스윙 <small>독일 간격 잡기 시험용 · 기본 끔</small></h2>
+      <div class="grid" id="whiffPick" role="group" aria-label="상대 헛스윙"></div>
+
+      <h2>이베리아 시험 <small>츠바이핸더·북부 대공의 검 — 나와 상대 모두 · 이어 긋기 흐름 · 손목 힘 패시브</small></h2>
+      <div class="grid" id="ibFlowPick" role="group" aria-label="이베리아 시험"></div>
+
+      <h2>이탈리아 걸음 <small>레이피어·달타냥 — 나와 상대 모두 · 오늘 바꾼 걸음과 이전 비교</small></h2>
+      <div class="grid" id="itWalkPick" role="group" aria-label="이탈리아 걸음"></div>
+
+      <a class="back" href="./index.html">← 본판으로</a>
+    </main>
+    <div class="bar">
+      <div class="bar-in">
+        <div id="summary"></div>
+        <button id="btnGo" type="button">시작</button>
+      </div>
+    </div>
+  </body>
+</html>
