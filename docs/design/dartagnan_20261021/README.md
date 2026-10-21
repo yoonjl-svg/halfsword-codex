@@ -57,3 +57,7 @@
 ## 범위와 후속
 
 우화 main 및 기존 연구 시험판에는 적용하지 않았다. 후속 전달 시 우화 최신 코드의 레이피어 전용 판정이 새 `dartagnan`에도 연결되는지 별도로 확인해야 한다. 현재 포크의 일반 게임에 최신 입력형 막아찌르기가 이식됐다는 뜻이 아니다. 사용자의 검토 후 필요한 전달 규약을 따른다.
+
+## 공개 반영 확인
+
+자체포크 main `c69c8925f66e92c80e7b57a6f48ffecc71399f58`, [Pages 39544062046](https://github.com/yoonjl-svg/halfsword-codex/actions/runs/39544062046) 성공. 원격 40파일 바이트와 src 전체가 검사 소스와 동일함을 확인했다. 기존 시험판은 main의 트리를 그대로 보존했다. [달타냥 테스트](https://yoonjl-svg.github.io/halfsword-codex/?test=1&weapon=dartagnan&foe=bran&foeWeapon=tree_branch&stage=clearing). 브론은 나뭇가지로 지정했다. 공개 도메인은 현재 환경 허용 목록 밖이므로 공개 URL 직접 브라우저 검사는 하지 않았으며, 로컬 실제 빌드/터치 검사와 배포 성공을 구분한다. `release.json`은 작업 가지의 후속 영수증이다.
