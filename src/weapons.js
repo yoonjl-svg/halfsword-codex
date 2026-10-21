@@ -1,4 +1,4 @@
-import { MURAMASA_COLORS, muramasaPartMesh, muramasaDecorate } from './muramasa_details.js';
+import { MURAMASA_COLORS, MURAMASA_PROFILE, muramasaPartMesh, muramasaDecorate } from './muramasa_details.js';
 import { BALISARDA_COLORS, balisardaPartMesh } from './balisarda_details.js';
 import { historicalPartMesh, historicalDecorate, hwandoScabbard } from './historical_weapon_details.js';
 // ─────────────────────────────────────────────────────────────
@@ -949,16 +949,21 @@ const UCHIGATANA_SPEC = {
 const uchigatana = finalizeSpec('uchigatana', UCHIGATANA_SPEC);
 
 // 무라마사: 10/21 승인. 일본 레어 빈칸. 도공 계열은 실존하지만 외장/게임 규격은 각색 [I].
-// 기존 우치가타나의 최신 양손 파지·71cm/1.10kg 물리를 재사용; 레어 공통 보정만 다르다.
+// 10/21 후속 확정: 날70cm·소리2cm. 양손 파지와1.10kg 유지, 단축 관성은 재계산.
 const muramasa = finalizeSpec('muramasa', {
   ...UCHIGATANA_SPEC,
   nameKo: '무라마사', nameEn: 'Muramasa', tier: 'rare',
+  bladeLength: MURAMASA_PROFILE.length,
   desc: '이세의 도공 무라마사 일문의 칼.\n적갈색 감개와 거친 물결무늬의 날을 지녔다.',
   partMesh: muramasaPartMesh,
   decorate: muramasaDecorate,
   buildParts(look) {
     const parts = UCHIGATANA_SPEC.buildParts.call(this, { ...look, ...MURAMASA_COLORS });
     parts[3][3] = MURAMASA_COLORS.blade;
+    // Widen the existing box approximation to cover the bow within ~1cm.
+    // Keep the mass axis centred: an offset box rotates Rapier's principal
+    // inertia frame, which the current two-hand servo does not handle stably.
+    parts[3][0][1] = MURAMASA_PROFILE.colliderHalfWidth;
     return parts;
   },
 });

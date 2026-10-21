@@ -5,10 +5,12 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { swordKit, metalMat } from './weapon_looks.js';
 
 export const MURAMASA_COLORS = { grip: 0x28272a, hilt: 0x28272b, blade: 0xaeb5bd };
+// 사용자 확정: 날 길이는 등 밑동~칼끝의 직선, 소리는 그 직선~등의 최대 수직 거리.
+export const MURAMASA_PROFILE = { length: .70, sori: .020, colliderHalfWidth: .024 };
 const kit = swordKit({
   blade: { edge: 'single', width: t => 1-.28*t, thick: .0035, ridge: .3,
     hamon: true, hamonWave: (_t,y) => .31+.105*Math.sin(y*51)+.045*Math.sin(y*123+.8)+.023*Math.sin(y*89),
-    curve: .008, tip: 'kissaki', tipLen: .05, overshoot: .008, segs: 52 },
+    curve: 0, tip: 'kissaki', tipLen: .05, overshoot: 0, segs: 52 },
   grip: { style: 'plain', color: MURAMASA_COLORS.grip },
   pommel: { style: 'cap', color: MURAMASA_COLORS.hilt },
 });
@@ -26,8 +28,26 @@ function tsuba() {
 }
 export function muramasaPartMesh(...args){
   if(args[0]===2&&!args[1])return tsuba();
+  if(args[1])args[2]=[...args[2].slice(0,1),.015,...args[2].slice(2)];
   const m=kit(...args);
   if(args[1]){
+    // Warp only this blade. Preserve its cross-sections/hamon; measure sori on
+    // the actual back, not a tip-offset setting or the centre line.
+    const [,hx,hy]=args[2],L=hy*2,dx=.3*hx,spanY=Math.sqrt(L*L-dx*dx);
+    const tTip=1-.05/L,apex=-.7*hx,p=m.geometry.attributes.position;
+    for(let i=0;i<p.count;i++){
+      const t=Math.max(0,Math.min(1,(p.getY(i)+hy)/L));
+      const rawBack=-hx*(1-.28*Math.min(t,tTip));
+      const s=Math.max(0,(t-tTip)/(1-tTip));
+      const back=rawBack+(apex-rawBack)*s*s*s;
+      const target=-hx+dx*t+4*MURAMASA_PROFILE.sori*L/spanY*t*(1-t);
+      // The shared hamon seam protrudes 0.5mm past the collapsed tip. Close it
+      // here so the actual tip/back, including the seam, obey the dimensions.
+      const x=t>1-1e-7?target:Math.max(back,p.getX(i))+target-back;
+      p.setXYZ(i,x,-hy+t*spanY,t>1-1e-7?0:p.getZ(i));
+    }
+    p.needsUpdate=true;m.geometry.computeVertexNormals();
+    m.geometry.computeBoundingBox();m.geometry.computeBoundingSphere();
     // Both blade faces have the same boundary, a frequent Muramasa trait.
     // Slightly stronger pale temper band, while the blade stays steel rather than a red glow.
     const colors=m.geometry.attributes.color;
