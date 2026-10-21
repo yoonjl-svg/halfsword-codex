@@ -698,6 +698,8 @@ export class Fighter {
       }
     }
     isolatedVisual(() => spec.decorate?.(group, o.look), 0);
+    // Optional weapon-specific clothing prop, no mass or combat collision.
+    if (spec.dressWeapon) isolatedVisual(() => spec.dressWeapon(this.groups.pelvis), 0);
     if (group.userData.bladeMesh) {
       this.bladeMesh = group.userData.bladeMesh; // decorate 가 칼날을 따로 그렸으면 피는 거기에 묻는다
       this.bladeBaseColor = this.bladeMesh.material.color.clone();

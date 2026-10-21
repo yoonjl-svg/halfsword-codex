@@ -1,3 +1,4 @@
+import { historicalPartMesh, historicalDecorate, hwandoScabbard } from './historical_weapon_details.js';
 // ─────────────────────────────────────────────────────────────
 //  무기고: 실제 자료 기반(+부족한 곳은 물리적으로 추정) 데이터 중심 무기 목록.
 //
@@ -58,6 +59,7 @@ export const TIER_DEFAULTS = {
 //  길이 · 무게는 몸체 자료(buildParts — 물리와 같은 수)에서 셈: 길이 = 부품 끝에서 끝 · 무게 = 부품 질량 합
 //  종류 = 싸우는 방식의 무기 갈래(한손검 · 양손검 · 한손 둔기 …) — 물건 이름(나뭇가지 · 장난감 · 생선)은 쓰지 않는다 (사장님 10/19 03:1x '나뭇가지 x')
 const KIND_KO = {
+  hwando: '한손 외날도', kriegsmesser: '양손 외날검',
   dartagnan: '한손 찌르기검', kusanagi: '양손 직검',
   longsword: '양손검', zweihander: '대형 양손검', estoc: '찌르기검', sabre: '한손 곡도', rapier: '한손 찌르기검', falchion: '한손 외날검',
   monohoshizao: '노다치', uchigatana: '일본도', qinggang: '한손 양날검', excalibur: '양손검', excalibur_replica: '양손검', lightsaber: '양손검',
@@ -1667,6 +1669,54 @@ const brothersSword = finalizeSpec('brothers_sword', {
 // 무기마다 적은 desc 는 무기 뽑기 카드(main.js)의 앞면에 쓰는 한두 줄 설명이다 (\n 으로 줄을 나눈다).
 //  글자 데이터일 뿐 물리·밸런스와는 상관없다. 카드 앞면의 작은 그림은 public/ui/weapons/<id>.webp
 //  (tools/browser/weapon_thumbs.mjs 로 이 무기 모델을 그대로 찍어 만든다 — 겉모습을 바꾸면 다시 돌린다).
+// 10/21 사용자 선택: 동방 커먼 환도 / 독일 레어 크리그스메서.
+// 치수·질량은 게임용 조정값 [I], 특정 유물의 실측 복원이 아니다.
+const hwando = finalizeSpec('hwando', {
+  nameKo: '환도', nameEn: 'Hwando', tier: 'common',
+  desc: '조선 군졸의 외날 도검.\n조금 휜 날과 무늬를 뚫은 코등이를 지녔다.',
+  school: 'chinese', grip: 'one-hand', material: 'steel', enterParry: true,
+  hiltLength: .085, bladeLength: .72,
+  mCut: 1.10, mThrust: .95, mBlunt: .95,
+  partMesh: (...args) => historicalPartMesh('hwando', ...args),
+  decorate: historicalDecorate,
+  dressWeapon(pelvis) {
+    const scabbard=hwandoScabbard(this.bladeLength);
+    scabbard.position.set(-.07,.075,.23);scabbard.rotation.set(-.08,0,-.45);
+    pelvis.add(scabbard);
+  },
+  buildParts() {
+    const L=this.bladeLength, grip=boxInertia(.12,.015,.0625,.013), pommel=sphereInertia(.08,.011),
+      cross=boxInertia(.08,.0355,.002,.0275), blade=bladeInertia(.62,L,.37,.25,.036,.0062);
+    return [
+      partTuple(['box',.015,.0625,.013],0,.12,0,grip.Ie,grip.It,0x856444),
+      partTuple(['ball',.011],-.073,.08,0,pommel.Ie,pommel.It,0x9a8050),
+      partTuple(['box',.0355,.002,.0275],.072,.08,0,cross.Ie,cross.It,0x39372f),
+      partTuple(['box',.024,L/2,.0031],.085+L/2,.62,blade.comY,blade.Ie,blade.It,0xc4c8c7,true),
+    ];
+  },
+});
+
+const kriegsmesser = finalizeSpec('kriegsmesser', {
+  nameKo: '크리그스메서', nameEn: 'Kriegsmesser', tier: 'rare',
+  desc: '독일권의 양손 외날검.\n날의 긴 홈과 나겔이 달린 나무 자루를 지녔다.',
+  school: 'german', grip: 'two-hand', material: 'steel',
+  // Knecht Mark II: blade85cm / total113cm / 1.38kg; user adds10cm /120g (final 1.50kg).
+  hiltLength: .10, bladeLength: .95, gripAlong: -.14,
+  mCut: 1.12, mThrust: .90, mBlunt: 1,
+  partMesh: (...args) => historicalPartMesh('kriegsmesser', ...args),
+  decorate: historicalDecorate,
+  buildParts() {
+    const L=this.bladeLength, grip=boxInertia(.18,.015,.1175,.017), pommel=sphereInertia(.14,.021),
+      cross=boxInertia(.21,.125,.007,.043), blade=bladeInertia(.97,L,.35,.253,.0445,.0074);
+    return [
+      partTuple(['box',.015,.1175,.017],-.035,.18,0,grip.Ie,grip.It,0x573827),
+      partTuple(['ball',.021],-.159,.14,0,pommel.Ie,pommel.It,0x858b89),
+      partTuple(['box',.125,.007,.043],.092,.21,0,cross.Ie,cross.It,0x858b89),
+      partTuple(['box',.028,L/2,.0037],.10+L/2,.97,blade.comY,blade.Ie,blade.It,0xc9ced1,true),
+    ];
+  },
+});
+
 export const WEAPONS = {
   longsword, zweihander, estoc, sabre, rapier, falchion,
   monohoshizao, qinggang, excalibur, excalibur_replica: excaliburReplica, lightsaber, tree_branch: treeBranch,
@@ -1678,6 +1728,7 @@ export const WEAPONS = {
   brothers_sword: brothersSword,
   dartagnan, // 사장님 10/21(샛별 저장소 경유): 이탈리아 에픽
   kusanagi, // 사장님 10/21(샛별 저장소 경유): 일본 레전드
+  hwando, kriegsmesser,
 };
 
 // 다른 담당이 쓰는 짧은 이름 → 정식 id (characters.js의 'branch', URL 파라미터의 'chicken' 등)
