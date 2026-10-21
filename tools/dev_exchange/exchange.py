@@ -404,6 +404,36 @@ def publish(day, root, output, now=None, gh=api):
     lines.append(rendered_note)
     markdown = ('\n'.join(lines) + '\n').encode()
     if len(markdown) > MAX_MD:
+        # Keep the original cutoff source and hashes. A long authored log can
+        # exceed the transport limit after pinned-link expansion; publish an
+        # explicitly labelled excerpt, never silently discard or rewrite it.
+        full_url = f"https://github.com/{cfg['repo']}/blob/{selected}/{note_path}"
+        excerpts = []
+        matches = note_sections(rendered_note)
+        for i, match in enumerate(matches):
+            body = rendered_note[match.end():matches[i + 1].start() if i + 1 < len(matches) else len(rendered_note)]
+            rows = body.splitlines()
+            first, last = [], []
+            used = 0
+            for row in rows:
+                size = len((row + '\n').encode())
+                if used + size > 2700: break
+                first.append(row); used += size
+            used = 0
+            remaining = rows[len(first):]
+            for row in reversed(remaining):
+                size = len((row + '\n').encode())
+                if used + size > 1800: break
+                last.insert(0, row); used += size
+            omitted = len(remaining) > len(last)
+            excerpts += [match[0], *first]
+            if omitted: excerpts += ['', f'> 일부 기록은 [마감 시점 전체 원문]({full_url})을 참조하십시오.', '']
+            excerpts += last
+        lines[-1] = '\n'.join(excerpts)
+        lines.insert(-1, f'> 전송 크기 제한으로 각 절의 앞·뒤를 발췌했습니다. 원문은 변경하지 않았으며, 전체 결정·커밋 기록은 [원문]({full_url})과 같은 날짜 JSON에 보존됩니다.\n')
+        manifest['notes_excerpt'] = {'policy': 'six-sections-head-tail-byte-bounded-v1', 'full_notes_url': full_url, 'raw_notes_hash_preserved': True}
+        markdown = ('\n'.join(lines) + '\n').encode()
+    if len(markdown) > MAX_MD:
         raise ValueError('Generated markdown exceeds size limit')
     manifest['markdown_sha256'] = digest(markdown)
     raw = serialized(manifest)
