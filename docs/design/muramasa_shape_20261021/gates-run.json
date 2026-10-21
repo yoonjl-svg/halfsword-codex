@@ -1,0 +1,46 @@
+{
+  "fights12": {
+    "command": [
+      "node",
+      "tools/sim/fights12.mjs"
+    ],
+    "exit": 0,
+    "seconds": 54.75
+  },
+  "live_battery": {
+    "command": [
+      "node",
+      "tools/sim/live_battery.mjs"
+    ],
+    "exit": 0,
+    "seconds": 18.91
+  },
+  "finish_thrust": {
+    "command": [
+      "node",
+      "tools/sim/finish_thrust.mjs",
+      "1",
+      "--stand"
+    ],
+    "exit": 0,
+    "seconds": 9.9
+  },
+  "corr_s0": {
+    "command": [
+      "node",
+      "tools/sim/corr_s0.mjs",
+      "--limits=off,on",
+      "--scenes=a,b"
+    ],
+    "exit": 0,
+    "seconds": 75.1
+  },
+  "weapon_smoke": {
+    "command": [
+      "node",
+      "tools/sim/weapon_smoke.mjs"
+    ],
+    "exit": 0,
+    "seconds": 44.6
+  }
+}
