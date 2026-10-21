@@ -76,7 +76,7 @@ export function captureVitalPose(f) {
   return {
     targetId: f.index, state: f.state, alive: !!f.alive, armed: !!f.armed, headOff: !!f.decapitated,
     head, chest: xyz(f.bodies.chest.translation()), pelvis: xyz(f.bodies.pelvis.translation()), headQ, chestQ,
-    headRadius: f.headR, hasHelmet: !!f.hasHelmet,
+    headRadius: f.headR, hasHelmet: !!f.hasHelmet, helmetMinY: f.helmetSpec?.coverMinY ?? -0.01,
     // 목 점: 우리 목 구역 가운데 (finish.js FINISH.neckAt — 머리 몸체 아래 −0.10 ~ 투구 끝 −0.01 의 가운데)
     neck: localPoint(head, headQ, 0, FINISH.neckAt, 0),
     face: localPoint(head, headQ, VITAL.faceLocalX, VITAL.faceLocalY, 0),
@@ -131,7 +131,7 @@ function thrustCandidates(snap, origin, axis) {
       const along = toCenter.dot(ray);
       const disc = along * along - (toCenter.lengthSq() - radius * radius);
       const entry = disc >= 0 ? along - Math.sqrt(disc) : -1;
-      const covered = snap.hasHelmet && entry >= 0 && from.clone().addScaledVector(ray, entry).sub(center).applyQuaternion(inv).y > -0.01;
+      const covered = snap.hasHelmet && entry >= 0 && from.clone().addScaledVector(ray, entry).sub(center).applyQuaternion(inv).y > (snap.helmetMinY ?? -0.01);
       return { zone, point, fallback, covered: !!covered, alignment: ray.dot(dir) };
     })
     .filter(Boolean)

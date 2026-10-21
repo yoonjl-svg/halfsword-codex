@@ -267,8 +267,8 @@ export class Combat {
     //  갑옷·옷·살 문턱을 그대로 거친다. 문턱을 못 넘으면 보통처럼 멍(판금·투구가 막음). 치명상(목·머리)으로 죽으면 부활 없음(fighter.applyWound)
     const finishPower = finish && FINISH.mode === 'power25';
     if (finishPower) finish = false;
-    // 투구: 머리 윗부분(눈썹 위)만 덮는다. 종류별 값은 ARMOR.helmets (케틀햇 = 예전 ANATOMY.helmet 그대로)
-    const helmet = zone === 'head' && vic.hasHelmet && vicLocal.y > -0.01;
+    // 기본 투구는 눈썹 위, 닫힌 투구는 종류별 coverMinY까지. 기존 종류의 범위는 그대로.
+    const helmet = zone === 'head' && vic.hasHelmet && vicLocal.y > (vic.helmetSpec?.coverMinY ?? -0.01);
     const hs = helmet ? vic.helmetSpec || ARMOR.helmets.kettle : null;
     // ignoreArmor 무기(라이트세이버 '고온 플라스마: 갑옷 무시', 사장님 확정)는 모든 투구를 무시한다: 맨머리 판정(투구는 베여 닳기만 한다).
     //  (예전엔 플레이어 케틀햇만 빼서 라이트세이버가 케틀햇 문턱 200 J 를 그대로 받았다 — 주석 의도와 반대였다. 디렉터 12:38)
@@ -796,7 +796,7 @@ export class Combat {
     const zone = zoneOf(pr.v, vicLocal);
     let e = 0;
     const noArmor = att.weaponCfg.ignoreArmor; // 라이트세이버: 투구·판금에 튕기지 않는다 (맨머리·맨몸처럼)
-    if (zone === 'head') e = !noArmor && vic.hasHelmet && vicLocal.y > -0.01 ? STEEL.steel : STEEL.bone; // 투구 / 맨머리
+    if (zone === 'head') e = !noArmor && vic.hasHelmet && vicLocal.y > (vic.helmetSpec?.coverMinY ?? -0.01) ? STEEL.steel : STEEL.bone; // 투구 / 맨머리
     else if (!noArmor && zone !== 'neck' && vic.platedAt?.(pr.v.part, vicLocal)) e = STEEL.steel; // 판금 (ARMOR.on 일 때만, 판이 덮은 곳)
     else if (pr.v.kind === 'arm' || pr.v.kind === 'leg') e = STEEL.bone; // 팔다리 뼈
     if (e <= 0) return;

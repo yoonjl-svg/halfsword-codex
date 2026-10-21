@@ -27,6 +27,7 @@ import { createSilverWandererOutfit } from './outfit_silver_wanderer.js'; // 다
 import { createSilverWandererDetail } from './outfit_silver_wanderer_detail.js'; // 다라이시 v2~ (장식 · 긴 머리 · 반묶음 · 땋음 — 샛별 v2·v4~v6 + 우리 v7~v10)
 import { createChandaOutfit } from './outfit_chanda.js'; // 찬다 복식 (샛별 저장소에서 가져옴 10/14 — 샛별 v1 + 우리 v2 무릎)
 import { createTerracottaOutfit } from './outfit_terracotta.js'; // 병마용 복식 (샛별 저장소에서 가져옴 10/14 — 샛별 v1 + 우리 v2 잔선 덜기)
+import { createReturnedKingOutfit } from './outfit_returned_king.js';
 
 const _m4 = new THREE.Matrix4();
 const _euler = new THREE.Euler();
@@ -2842,6 +2843,7 @@ export const newOutfitHelpers = { THREE, bake, box, cyl, ball, cone, addMerged, 
 const RENJI_V1 = createRenjiOutfit(newOutfitHelpers); // 김씨 v1 (v2 가 하카마 밖 전부를 이어 받는다)
 
 export const OUTFITS = {
+  returned_king: createReturnedKingOutfit(newOutfitHelpers),
   artoria_ballroom: createArtoriaBallroomOutfit(newOutfitHelpers, ARTORIA_OUTFIT.head), // 광기의 아르토리아 (outfit_alter.js alterLook) — 머리는 원래 아르토리아 머리 위에 땋은 올림머리 · 백합 금관
   // 샛별 저장소에서 가져온 인물 넷 (10/10) — 위 머리말
   artoria_silver_v2: ARTORIA_OUTFIT_V2,

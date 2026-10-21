@@ -592,6 +592,9 @@ export const ARMOR = {
   //  제대로 된 타격(solidJ 이상) 한 번에 perHit + E/wear: 45J → 0.32(4번에 부서짐), 60J → 0.35, 100J → 0.40, 150J → 0.47(3번),
   //  200J 넘게 → 0.55(2번). 가벼운 30J 는 0.04 — 스무 번 넘게 맞아야 부서진다
   helmets: {
+    // Returned king's closed visor: existing steel-helmet thresholds, full face
+    // coverage only for this new type. Neck remains unarmored.
+    royal_close: { cut:80,stab:50,blunt:.5,guardMin:.25,fullUntil:.5,wear:700,perHit:.26,knockBlunt:200,coverMinY:-.116,shed:[[.45,['crest']]] },
     // 플레이어 케틀햇: 예전 숫자 그대로 (ANATOMY.helmet, 0.25 + 0.75 × 내구도, ÷450, 200J 둔타) — 바꾸지 않는다
     kettle: { ...ANATOMY.helmet, guardMin: 0.25, wear: 450, knockBlunt: 200 },
     // 마르그레테 뿔 투구: 케틀햇(200J·120J)보다 한참 약하게 — 맨머리(30J·20J)의 2.5배쯤. 80J 까지의 베기는 한두 번 막고,

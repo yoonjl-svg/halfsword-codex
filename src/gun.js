@@ -404,7 +404,7 @@ export function bulletHit(f, vi, point, dir, combat) {
   const br = b.rotation();
   const local = point.clone().sub(_l.set(bp.x, bp.y, bp.z)).applyQuaternion(_q.set(br.x, br.y, br.z, br.w).invert());
   const zone = vi.kind === 'head' ? (local.y < -0.05 ? 'neck' : 'head') : vi.kind === 'chest' ? (local.y > 0.11 ? 'neck' : 'chest') : vi.kind;
-  const helmet = zone === 'head' && vic.hasHelmet && local.y > -0.01;
+  const helmet = zone === 'head' && vic.hasHelmet && local.y > (vic.helmetSpec?.coverMinY ?? -0.01);
   const plate = !helmet && zone !== 'neck' && !!vic.platedAt?.(vi.part, local);
   const E = GUN.energy * (f.weaponCfg.power ?? 1);
   if (helmet || plate) return armorStop(f, vi, vic, point, local, zone, helmet, E, combat);
