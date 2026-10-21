@@ -1,0 +1,82 @@
+{
+  "errors": [],
+  "shots": [
+    "01_fight",
+    "02_overview",
+    "03_gate_and_well",
+    "04_reverse_arcade",
+    "05_conference",
+    "07_damaged_cover",
+    "08_leaking_basin",
+    "06_mobile"
+  ],
+  "runtime": {
+    "state": "fight",
+    "stage": {
+      "id": "courtyard_night",
+      "pinned": "courtyard_night",
+      "buildMs": 0,
+      "clearMs": 0,
+      "warmMs": 0
+    },
+    "weapon": "sabre",
+    "obstacle": {
+      "colliderCount": 9,
+      "navigation": {
+        "x": 0,
+        "z": 0,
+        "radius": 1.45,
+        "seekSight": true
+      }
+    },
+    "render": {
+      "frame": 18,
+      "calls": 367,
+      "triangles": 131305,
+      "geometries": 197,
+      "textures": 17,
+      "programs": 39
+    },
+    "smokeSprites": 36,
+    "finite": true
+  },
+  "smokeMoves": true,
+  "leak": {
+    "before": {
+      "emitted": 16,
+      "impacts": 15,
+      "time": 4.6380000000000035
+    },
+    "after": {
+      "emitted": 24,
+      "impacts": 24,
+      "time": 6.9420000000000055
+    }
+  },
+  "swaps": [
+    {
+      "stage": "courtyard",
+      "obstacle": 9,
+      "smoke": false,
+      "leak": false
+    },
+    {
+      "stage": "courtyard_night",
+      "obstacle": 9,
+      "smoke": true,
+      "leak": true
+    },
+    {
+      "stage": "courtyard",
+      "obstacle": 9,
+      "smoke": false,
+      "leak": false
+    },
+    {
+      "stage": "courtyard_night",
+      "obstacle": 9,
+      "smoke": true,
+      "leak": true
+    }
+  ]
+}
