@@ -9,6 +9,25 @@
 //  수염 등을 덧붙인다. look.accent는 outfits.js에서만 쓰는 보조색(트림 등)이라 dressPart는 무시한다.
 // ─────────────────────────────────────────────────────────────
 export const LOOK_ARCHIVE = {
+  bernardo:{v1:{tunic:0x303239,quilt:0x303239,sleeve:0x632c34,straps:null,belt:0x522d27,hoseUpper:0x632c34,hoseLower:0x303239,shoes:0x4e4c42,skin:0xb98e6d,hands:0x697b8b,helmet:'royal_open',metal:0x697b8b,hair:0x3d3c37,headband:null,grip:0x692c32,hilt:0xad8849,accent:0x6b2933,outfit:'chain_hero',armor:'plate'}},
+  black_king:{v1:{tunic:0x252d2d,quilt:0x252d2d,sleeve:0x164653,straps:null,belt:0x42372b,hoseUpper:0x164653,hoseLower:0x252d2d,shoes:0x373d37,skin:0xc39b7c,hands:0x303b3e,helmet:'royal_open',metal:0x303b3e,hair:0x49382c,headband:null,grip:0x282c29,hilt:0xad8849,accent:0x164653,outfit:'black_king',armor:'plate'},v2:{tunic:0x28252c,quilt:0x28252c,sleeve:0x59445f,straps:null,belt:0x42372b,hoseUpper:0x59445f,hoseLower:0x28252c,shoes:0x393338,skin:0xc39b7c,hands:0x353237,helmet:'royal_open',metal:0x353237,hair:0x49382c,headband:null,grip:0x282c29,hilt:0xa18b60,accent:0x59445f,outfit:'black_king_v2',armor:'plate'},v3:{tunic:0x282721,quilt:0x282721,sleeve:0xbfb358,straps:null,belt:0x42372b,hoseUpper:0xbfb358,hoseLower:0x282721,shoes:0x39372d,skin:0xc39b7c,hands:0x353237,helmet:'royal_close',metal:0x353237,hair:0x49382c,headband:null,grip:0x282c29,hilt:0xa18b60,accent:0xbfb358,outfit:'black_king_v3',armor:'plate'},v4:{tunic:0x292b29,quilt:0x34352f,sleeve:0x47473c,straps:null,belt:0x493a2c,hoseUpper:0x393a30,hoseLower:0x2c2d28,shoes:0x39352b,skin:0xa67553,hands:0x393b38,helmet:null,metal:0x393b38,hair:0x1e1d1a,headband:null,grip:0x282c29,hilt:0x887548,accent:0x89763c,outfit:'olivier_v4',armor:'plate',stockEyes:true}},
+  white_scale: {v1:{
+    tunic:0x242827,quilt:0x3d413b,sleeve:0x3c4037,straps:null,belt:0x473c30,
+    hoseUpper:0x252d2c,hoseLower:0x3e423a,shoes:0x473c30,skin:0xb49c7c,hands:0x4e493b,
+    helmet:'kabuto_masked',metal:0xc3c4b7,hair:0x282b25,headband:null,
+    grip:0x4d2525,hilt:0x8e804f,accent:0x79282d,outfit:'white_scale',armor:'plate',
+  }},
+  sebastian: { v1: {
+    tunic:0x352e28,quilt:0x352e28,sleeve:0x352e28,straps:null,belt:0x4a4134,
+    hoseUpper:0x541f2a,hoseLower:0x352e28,shoes:0x655c48,skin:0xbfa78c,hands:0xc2b79d,
+    helmet:'royal_close',metal:0xd7cfba,hair:0x4d4b43,headband:null,
+    grip:0xcab995,hilt:0xae8e49,accent:0x541f2a,outfit:'returned_king',armor:'plate',
+  }, v2: {
+    tunic:0x352e28,quilt:0x352e28,sleeve:0x352e28,straps:null,belt:0x4a4134,
+    hoseUpper:0x541f2a,hoseLower:0x352e28,shoes:0x655c48,skin:0xbfa78c,hands:0xc2b79d,
+    helmet:'royal_close',metal:0xd7cfba,hair:0x4d4b43,headband:null,
+    grip:0xcab995,hilt:0xae8e49,accent:0x541f2a,outfit:'returned_king_v2',armor:'plate',
+  } },
   // 누비 상의(갬비슨) + 가죽 끈 + 챙 넓은 투구(케틀햇). 감독 지시: 주인공 외형은 그대로 둔다.
   player: {
     v0: {
@@ -851,6 +870,10 @@ LOOK_ARCHIVE.terracotta.v2 = { ...LOOK_ARCHIVE.terracotta.v1, terracottaRevision
 
 // 지금 게임에서 실제로 쓰는 버전 (감독/오너가 확정하면 여기만 바꾸면 됨)
 export const CHARACTER_LOOK_VERSION = {
+  bernardo: 'v1',
+  black_king: 'v4',
+  white_scale: 'v1',
+  sebastian: 'v2',
   bran: 'v1',
   isolde: 'v2',
   liao: 'v6',

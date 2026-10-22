@@ -27,6 +27,13 @@ import { createSilverWandererOutfit } from './outfit_silver_wanderer.js'; // 다
 import { createSilverWandererDetail } from './outfit_silver_wanderer_detail.js'; // 다라이시 v2~ (장식 · 긴 머리 · 반묶음 · 땋음 — 샛별 v2·v4~v6 + 우리 v7~v10)
 import { createChandaOutfit } from './outfit_chanda.js'; // 찬다 복식 (샛별 저장소에서 가져옴 10/14 — 샛별 v1 + 우리 v2 무릎)
 import { createTerracottaOutfit } from './outfit_terracotta.js'; // 병마용 복식 (샛별 저장소에서 가져옴 10/14 — 샛별 v1 + 우리 v2 잔선 덜기)
+import { createReturnedKingOutfit } from './outfit_returned_king.js';
+import { createReturnedKingOutfitV2 } from './outfit_returned_king_v2.js';
+import { createWhiteScaleOutfit } from './outfit_white_scale.js';
+import { createRoyalConceptOutfit } from './outfit_royal_concepts.js';
+import { createBlackKingOutfitV2 } from './outfit_black_king_v2.js';
+import { createOlivierOutfit } from './outfit_olivier.js';
+import { createBlackKingOutfitV3 } from './outfit_black_king_v3.js';
 
 const _m4 = new THREE.Matrix4();
 const _euler = new THREE.Euler();
@@ -2842,6 +2849,14 @@ export const newOutfitHelpers = { THREE, bake, box, cyl, ball, cone, addMerged, 
 const RENJI_V1 = createRenjiOutfit(newOutfitHelpers); // 김씨 v1 (v2 가 하카마 밖 전부를 이어 받는다)
 
 export const OUTFITS = {
+  olivier_v4: createOlivierOutfit(newOutfitHelpers),
+  chain_hero: createRoyalConceptOutfit(newOutfitHelpers, 'chain'),
+  black_king_v3: createBlackKingOutfitV3(newOutfitHelpers),
+  black_king_v2: createBlackKingOutfitV2(newOutfitHelpers),
+  black_king: createRoyalConceptOutfit(newOutfitHelpers, 'black'),
+  returned_king: createReturnedKingOutfit(newOutfitHelpers),
+  returned_king_v2: createReturnedKingOutfitV2(newOutfitHelpers),
+  white_scale: createWhiteScaleOutfit(newOutfitHelpers),
   artoria_ballroom: createArtoriaBallroomOutfit(newOutfitHelpers, ARTORIA_OUTFIT.head), // 광기의 아르토리아 (outfit_alter.js alterLook) — 머리는 원래 아르토리아 머리 위에 땋은 올림머리 · 백합 금관
   // 샛별 저장소에서 가져온 인물 넷 (10/10) — 위 머리말
   artoria_silver_v2: ARTORIA_OUTFIT_V2,
@@ -2922,6 +2937,7 @@ export function decorateOutfit(dressTo, d, look, groups) {
  *  stockEyes = quietFace 가 눌러 둔 눈을 기본 크기로(eyeColor 가 있으면 눈 색) · tailoring 'soft-shoulders' = 몸통 모서리 둥글리기·견장 눌러 펴기·위팔 판 6 % 좁히기.
  *  표시 없는 인물은 아무 일도 없다. 샛별 쪽의 마르그레테 가슴판 다듬기 가지는 우리 마르그레테가 그 표시를 안 써서 뺐다. */
 export function polishOutfit(g, d, look) {
+  if (look.outfit === 'black_king_v2' || look.outfit === 'black_king_v3') g.userData.finishBlackKing?.();
   if (look.stockEyes && d.name === 'head') {
     for (const eye of g.children.slice(1, 3)) {
       eye.scale.set(1, 1, 1);
