@@ -40,7 +40,7 @@ test('값: 사람 독일 비기 = 죽음의 일격 (사장님 결정 1.5 s · �
   assert.deepEqual(SECRET.aiOpenSchools, ['japanese']);
   const S = TRADITIONS.german.playerSecret;
   assert.equal(S.name, 'mordschlag');
-  assert.equal(S.nameKo, '죽음의 일격 (모르트슐라크)');
+  assert.equal(S.nameKo, '모르트슐라크');
   assert.equal(S.when, 'press');
   assert.notEqual(TRADITIONS.german.secret.name, 'mordschlag'); // AI 몫(TRADITIONS.german.secret)은 옛 판 그대로
 });

@@ -192,7 +192,7 @@ test('스위치: 칼끝 빠르기 몫 SECRET.gyeoksal.share(10/22 확정 0.6) ·
 test('스킬트리 C9 막아 죽이기: 열림 · 익히면 비기 몫 · 글은 숫자 없는 온전한 한 문장', () => {
   const n = D.nodeOf('chinese', 'C9');
   assert.equal(D.isClosed('chinese', n), false);
-  assert.equal(n.name, '막아 죽이기');
+  assert.equal(n.name, '격살');
   assert.ok(!/[0-9]/.test(n.eff) && !/ · /.test(n.eff) && /다$/.test(n.eff), n.eff);
   assert.equal(D.kitFromNodes('chinese', D.allNodeIds('chinese')).secret, true);
 });

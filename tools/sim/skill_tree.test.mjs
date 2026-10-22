@@ -562,3 +562,14 @@ test('칸 오의(lore · src — 사장님 10/22 00:5x 원전의 오의를 밝�
   }
   assert.equal(n, 55);
 });
+
+test('10/23 비기 이름 = 원어 독음 (동방은 한자 한국식 독음) · 스킬 화면 제목은 원어를 괄호로 함께', async () => {
+  const { nodeTitle } = await import('../../src/skill_tree.js');
+  const { TREE } = await import('../../src/skill_tree_data.js');
+  const want = { german: ['모르트슐라크', 'Mordschlag'], italian: ['안다레 리솔루토', 'andare risoluto'], iberian: ['싱지르', 'cingir'], japanese: ['고노센', '後の先'], chinese: ['격살', '格殺'] };
+  for (const [school, [ko, orig]] of Object.entries(want)) {
+    const n = TREE[school].nodes.find((x) => x.cat === 'secret');
+    assert.equal(n.name, ko, school);
+    assert.equal(nodeTitle(school, n).title, `비기 · ${ko} (${orig})`, school);
+  }
+});

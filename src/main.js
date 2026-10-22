@@ -2380,7 +2380,7 @@ function updateTechCue(dt) {
   const pArmed = !!arm?.armed;
   if (liveMine && pArmed && !pPhase && !playerSecret.open && !techLine.over) {
     const armHold = () => (arm.armed && !player?.skill?.secretPhase && !playerSecret.open ? true : 'end');
-    showTechCue({ text: arm === playerSecret.gilArm ? '길목 지키기 준비' : '뒤에서 앞서기 준비', kind: 'secretArm', who: 'me', schoolKo: TRADITIONS[player?.swordArt?.tradition]?.nameKo ?? '' }, armHold);
+    showTechCue({ text: arm === playerSecret.gilArm ? '길목 지키기 준비' : '고노센 준비', kind: 'secretArm', who: 'me', schoolKo: TRADITIONS[player?.swordArt?.tradition]?.nameKo ?? '' }, armHold);
   }
   // 경직 글 (STIFF_TEXT, 기본 끔): 켜면 경직이 시작될 때 감정 줄에 한 번
   const myStiff = liveMine && pPhase === 'stiff';

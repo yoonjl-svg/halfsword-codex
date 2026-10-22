@@ -611,7 +611,7 @@ const CHINESE_PASSIVES = [
 // 독일 Versetzen (받아 베기): 치명적인 칼이 높이·찌르기로 들어오면 그 줄을 깨는 비밀 베기로 한 박자에 받아내며 친다. 칼이 맞물리면 Duplieren 으로 잇는다
 const GERMAN_SECRET = {
   name: 'versetzen',
-  nameKo: '받아 베기 (페어제첸)', orig: 'Versetzen',
+  nameKo: '페어제첸', orig: 'Versetzen', // 10/23 사장님 '비기 이름은 모든 유파가 원어를 독음한 것으로' (전 '받아 베기 (페어제첸)')
   when: 'threat',
   cond: { lethal: true, range: 'counter' }, // 10/10: lethal = 궤적(칼끝 길이 내 머리·목 곁 SECRET.lethalDist 안, 칼끝 ≥ lethalSpeed — secret.js lethalPath). 줄 조건(high*·thrust)은 궤적이 맡아 뺌 (전: line ['highL','highR','highC','thrust'] · lethalJ 136 → 247 J)
   // 높은 베기(지붕 Vom Tag 에서) → Zwerch · 높은 찌르기(황소 Ochs) → Krumphau · 가운데·낮은 찌르기(쟁기 Pflug) → Schielhau · 낮은 베기(바보 Alber 쪽) → Scheitelhau(정수리)
@@ -622,7 +622,7 @@ const GERMAN_SECRET = {
 // 이탈리아 Passata in contratempo: 상대가 칼을 들거나 달려드는 박자에, 높은 칼 밑으로 뒷발을 지나 보내며 찌른다 (고유 passata sotto 길 + 런지)
 const ITALIAN_SECRET = {
   name: 'passataContratempo',
-  nameKo: '엇박 찌르기 (파사타 인 콘트라템포)', orig: 'passata in contratempo',
+  nameKo: '파사타 인 콘트라템포', orig: 'passata in contratempo', // 10/23 원어 독음 (전 '엇박 찌르기 (…)')
   when: ['foeRaise', 'foeCharge'],
   cond: { dist: 'italianDist', commit: 'italianCommit' }, // commit: 칼을 드는 사건은 결심한 공격(손 빠르기 문턱)만 — 10/9 23:5x 발동 줄이기
   do: { tech: 'passataSotto', step: { lat: 0, fwd: 'italianStep', when: 'strike', kind: 'lunge', push: 'stepPush' }, stance: 'lunge' }, // 10/10 04:2x 런지 사진: 앞발을 멀리(lunge — 전: 뒷발 지나 보내기 pass), 찌르는 동안 런지 자세(SECRET.stance.lunge) // push: 10/9 4차 걸음 밀기
@@ -635,7 +635,7 @@ const ITALIAN_SECRET = {
 //  beginFlowRecovery — FLOW_RECOVERY 0.4 s) + 비기 배율(SECRET.power 서보 힘 · hitMul 판정). 새 힘 · 새 문턱 없음. 끝나면 굳음 SECRET.stiff.italian
 const ITALIAN_RISOLUTO = {
   name: 'andareRisoluto',
-  nameKo: '거침없이 나아가 찌르기 (안다레 리솔루토)', orig: 'andare risoluto',
+  nameKo: '안다레 리솔루토', orig: 'andare risoluto', // 10/23 원어 독음 (전 '거침없이 나아가 찌르기 (…)')
   when: 'risoluto', // secret.js PlayerSecretWatch → italian_risoluto.js RisolutoWatch (덮인 채 나아가기)
   do: { risoluto: true, tapOnly: true, power: 'power' }, // tapOnly: 창 안의 탭(찌르기 입력)만 비기 — 끌기(베기)는 보통 베기로 (main.js) · 내가 베기를 시작하면 창이 닫힘
   src: 'Fabris 1606 둘째 책 [153] 「andare di risolutione」 · [155] 「che quando la nimica si moue para essere legata dalla propria … che siano sempre unite」 · [156] 「tenendo fermo il braccio andare scorrendo il filo di detta nimica sino al corpo auerso senza mai abbandonarla」 [원문 — Wiktenauer 전사 · A. F. Johnson 영역] · 덮음을 칼 모양으로 재기 · 상대 팔 늦춤 [해석] · 수 [추정]',
@@ -644,7 +644,7 @@ const ITALIAN_RISOLUTO = {
 //  (그 전: Molinete altibaixo 휘돌려 내려치기 — 끊기지 않은 베기 셋 뒤, 옆으로 비껴 딛으며 칼을 한 바퀴 휘돌려(몰리넬로 고리) 지붕에서 곧게 내려친다)
 export const IBERIAN_SECRET_V4 = {
   name: 'molineteTalho',
-  nameKo: '비켜 서며 크게 가로베기 (탈류 드 트라베스)', orig: 'talho de través', // 이름은 가칭(사장님 확인 전) — 화면에선 '· 가칭' 꼬리를 뺌 (10/10 17:1x 문구 정리) // 10/10 04:4x 고리를 뺀 큰 가로 베기 (전: 'Molinete talho (휘돌려 사선 베기)') — 안 이름 molineteTalho 는 재기 칸 이름이라 그대로
+  nameKo: '탈류 드 트라베스', orig: 'talho de través', // 10/23 원어 독음 // 이름은 가칭(사장님 확인 전) — 화면에선 '· 가칭' 꼬리를 뺌 (10/10 17:1x 문구 정리) // 10/10 04:4x 고리를 뺀 큰 가로 베기 (전: 'Molinete talho (휘돌려 사선 베기)') — 안 이름 molineteTalho 는 재기 칸 이름이라 그대로
   // 10/10 04:4x 사장님: 상대가 내 칼 호 안쪽으로 밀고 들어오면(가슴 거리 < reach − SECRET.iberianInside, 다가오는 중이거나 SECRET.iberianInsideDwell 초 머묾 — secret.js insideEvent)
   //  옆으로 비켜 딛으며(반걸음 뒤 섞음) 칼을 오른 어깨 뒤로 멀리 감았다가 몸 전체를 돌려 크게 한 번 가로로 쓸어 벤다(secret_instant.js sweepPose — 고리 없음). 막히면 밀어냄(SECRET.iberianShove)
   when: 'inside',
@@ -667,7 +667,7 @@ export const IBERIAN_SECRET_V4 = {
 //  수는 secret.js montanteFlowSeq 가 비기를 내는 순간의 손 자리·움직임으로 짓는다 (AI ai.js secretGo · 플레이어 skill.js secret 같은 함수)
 const IBERIAN_SECRET = {
   name: 'montanteFlow',
-  nameKo: '멈추지 않는 흐름 (탈류 이 레베스)', orig: 'talho e revez', // 이름은 가칭(사장님 확인 전)
+  nameKo: '탈류 이 레베스', orig: 'talho e revez', // 10/23 원어 독음 // 이름은 가칭(사장님 확인 전)
   // 조건 = v4 의 '호 안쪽' 그대로 (secret.js insideEvent · SECRET.iberianInside 0.7 — 사장님 10/10 '그대로 둬'): 피 단Ⅶ 「This rule serves to deter people in a street and impede them moving」·
   //  복Ⅶ 「in each step you must give a blow, always from low to high, alternating talho and revez, until the people stop」 [원문 영역] — 번갈아 올려베기는 밀고 들어오는 사람을 멈추는 규칙이다
   when: 'inside',
@@ -731,7 +731,7 @@ const IBERIAN_SECRET_GILMOK = {
 //   한 바퀴를 도는 대본 · 무장 틀 · 수 [해석 · 추정]. 이름 = 원전 낱말 cingir(띠를 두르다 — 칼이 몸을 휘감음)
 const IBERIAN_SECRET_SPIN = {
   name: 'ibSpin',
-  nameKo: '휘감아 돌기 (싱지르)', orig: 'cingir',
+  nameKo: '싱지르', orig: 'cingir', // 10/23 원어 독음 (전 '휘감아 돌기 (싱지르)')
   when: 'spinArm', // 상대 사건 없음 — 무장 셈만 (secret.js PlayerSecretWatch)
   do: {
     spin: true, // 실행 = skill.js secret → iberian_spin.js requestSpin · 서보 힘 창 · 판정 배율은 SECRET.ibSpin.power · hit
@@ -741,7 +741,7 @@ const IBERIAN_SECRET_SPIN = {
 // 일본 後の先 (가칭): 상대가 헛친 순간 ① 빠르게 물러서며 칼을 오른 허리 뒤(脇構え 꼴)로 끌어 담고 ② 앞발을 강하게 내딛으며 팔을 다 뻗어 真向 ③ 경직 ④ 맞았으면 残心
 const JAPANESE_SECRET = {
   name: 'goNoSen',
-  nameKo: '뒤에서 앞서기 (고노센)', orig: '後の先', // 이름은 가칭(사장님 확인 전) — 화면에선 '· 가칭' 꼬리를 뺌 (10/10 17:1x 문구 정리)
+  nameKo: '고노센', orig: '後の先', // 10/23 사장님 '원어를 독음한 것으로 ex 고노센. 그게 멋져' (전 '뒤에서 앞서기 (고노센)') // 이름은 가칭(사장님 확인 전) — 화면에선 '· 가칭' 꼬리를 뺌 (10/10 17:1x 문구 정리)
   // 10/9 사장님 추가 지시: 헛스윙을 본 뒤가 아니라 한 박자 빠르게 — 상대가 '내 비기는 닿고 상대는 명백히 안 닿을 간격에서 무의미하게 허점을 노출하는 공격 동작'을
   //  시작하는 순간(칼을 듦·달려듦, 지금 모습). 헛침(foeRecover)은 같은 창에서 보조 사건(칼끝 추정 에너지 문턱 whiff)
   when: ['foeRaise', 'foeCharge', 'foeRecover'],
@@ -766,7 +766,7 @@ const JAPANESE_SECRET = {
 // 중국 連環三擊 (가칭): 들어가며 친 첫 칼이 닿으면 멈추지 않고 두 수를 물 흐르듯 더 잇는다 — 조선세법의 세 끝 이음(腰擊 → 逆鱗刺 → 左翼擊 → 逆鱗刺)
 const CHINESE_SECRET = {
   name: 'lianhuanSanji',
-  nameKo: '첫 칼 이어 치기 (연환삼격)', orig: '連環三擊', // 옛 판 (`?cnSecret=v1`) — 전 '옛 연환삼격 (첫 칼이 맞으면 잇는 판) · 가칭'
+  nameKo: '연환삼격', orig: '連環三擊', // 10/23 동방은 한자를 한국식으로 독음 // 옛 판 (`?cnSecret=v1`) — 전 '옛 연환삼격 (첫 칼이 맞으면 잇는 판) · 가칭'
   when: 'firstHit',
   cond: { landed: true, rest: 'chineseRest' }, // 첫 칼이 맞았을 때만 (막힘 제외 — 10/9 23:5x) · 그 앞에 내 공격 없이 SECRET.chineseRest 초 이상 (10/10 01:2x 사장님 '쉬었다가'의 값)
   // 10/9 23:5x 사장님 '중국 비기는 꽤 자주 나오는데 어떤 상황이 벌어지는지 전혀 모르겠더라. 타격도 크지 않고 동작이 화려한 것도 아니어서' → 보이는 삼연격:
@@ -803,7 +803,7 @@ const step25 = { lat: 0, fwd: 'chineseStep', when: 'strike', kind: 'lunge' }; //
 const stepBack25 = { lat: 0, fwd: 'chineseStep', when: 'strike', kind: 'retreat', back: true }; // 10/12 3 연격 마지막 수: 반걸음 물러남 退步·掣步 (같은 칸 SECRET.chineseStep — 부르는 쪽이 fwd 를 음수로 푼다)
 const CHINESE_SECRET_PARRY = {
   name: 'lianhuanParry',
-  get nameKo() { return SECRET.cnCombo === 2 ? '이어 치기 (연환)' : '세 번 이어 치기 (연환삼격)'; },
+  get nameKo() { return SECRET.cnCombo === 2 ? '연환' : '연환삼격'; }, // 10/23 한국식 독음만 (전 '이어 치기 (연환)' · '세 번 이어 치기 (연환삼격)')
   get orig() { return SECRET.cnCombo === 2 ? '連環' : '連環三擊'; }, // 스킬북 원어 (10/19 3차) // 10/12 사장님 '3연격(이름 뭘로 하지?)' → 디렉터 제안 연환삼격(초기 계획 이름 · 검결가 「滾手連環」) · `?cnCombo=2` 전 두 수 판은 '연환'
   when: 'parry',
   // 거정세(highC — 擧鼎格 「鼎格上殺」, 몸꼴 덧씌우기)·표두세(highR — 칼을 세운 표두세 자리)·봉두세(highL — 10/12 더함, SECRET.cnBongdu). 어거세(thrust)·요략세(lowL·lowR)는 아님
@@ -923,7 +923,7 @@ const GK_ARM = [GK_CUT('gkArm', '팔 깎기 (삭살)', '削殺', 'arm', [0.3, 0.
 const GK_ARM_DOWN = [GK_CUT('gkArmDown', '팔 내려 깎기 (삭살)', '削殺', 'arm', [0.1, 0.4], [[0.05, 0.1], [-0.05, -0.3]], { side: -1, yaw: [-10, 10], el: [40, -40], at: 0.8 }, 'UL')];
 const CHINESE_SECRET_GYEOKSAL = {
   name: 'gyeoksal',
-  nameKo: '막아 죽이기 (격살)', orig: '格殺',
+  nameKo: '격살', orig: '格殺', // 10/23 동방은 한자를 한국식으로 독음 (전 '막아 죽이기 (격살)')
   when: 'gyeoksal',
   cond: { stances: GYEOKSAL_STANCE, time: 'playerWindow' }, // time: 미리 받은 입력을 칼이 붙은 채 이 초까지 기다림 (막기 연환 cnParryWindow 와 같은 0.6)
   do: {
@@ -955,7 +955,7 @@ const CHINESE_SECRET_GYEOKSAL = {
 const deStep = { lat: 0, fwd: 'chineseStep', when: 'strike', kind: 'lunge' };
 const GERMAN_SECRET_PARRY = {
   name: 'indesWinden',
-  nameKo: '감아 들기 (인데스)', orig: 'Indes',
+  nameKo: '인데스', orig: 'Indes', // 10/23 원어 독음 (전 '감아 들기 (인데스)')
   when: 'parry',
   cond: {
     get slots() {
@@ -978,7 +978,7 @@ const GERMAN_SECRET_PARRY = {
 //  when 'press' = 밀치기 누르기(fighter.barge 'press')가 cond.press 초(SECRET.mordPress) 끊기지 않고 이어짐 (secret.js PlayerSecretWatch) · do.mord = mordschlag.js 덧씌우기 동작
 const GERMAN_MORDSCHLAG = {
   name: 'mordschlag',
-  nameKo: '죽음의 일격 (모르트슐라크)', orig: 'Mordschlag',
+  nameKo: '모르트슐라크', orig: 'Mordschlag', // 10/23 원어 독음 (전 '죽음의 일격 (모르트슐라크)')
   when: 'press',
   cond: { press: 'mordPress' },
   do: { mord: true },

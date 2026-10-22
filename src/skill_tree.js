@@ -66,7 +66,7 @@ export function nodeTitle(school, n) {
     return { title: U ? withOrig(U.nameKo, U.orig) : nameOf(n), kind: e ? `${cat.label} · ${ROLE_KO[e.role] ?? ''}`.replace(/ · $/, '') : cat.label };
   }
   if (n.cat === 'passive') { const [nm, o] = PASSIVE_NAME[school] ?? [n.l2, null]; return { title: `패시브 · ${withOrig(nm, o)}`, kind: cat.label }; }
-  if (n.cat === 'secret') { const S = playerSecretDef(school), rd = /\(([^()]*)\)/.exec(S?.nameKo ?? '')?.[1]; return { title: `비기 · ${S?.orig && rd ? `${S.nameKo.replace(/\s*\(.*$/, '')} (${rd} · ${S.orig})` : S?.nameKo ?? n.l2}`, kind: cat.label }; }
+  if (n.cat === 'secret') { const S = playerSecretDef(school); return { title: `비기 · ${S ? withOrig(S.nameKo, S.orig) : n.l2}`, kind: cat.label }; } // 10/23 비기 이름 = 원어 독음 → '고노센 (後の先)' · 옛 '뜻 (소리)' 꼴이면 '뜻 (소리 · 원어)'
   return { title: withOrig(n.title ?? `${n.l1} · ${n.l2}`, n.orig), kind: cat.label };
 }
 

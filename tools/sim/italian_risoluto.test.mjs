@@ -124,7 +124,7 @@ test('사람 길만: 이탈리아 무기 사람 비기 = 거침없이 나아가 
   assert.ok(SECRET.openSchools.includes('italian'));
   assert.ok(!SECRET.aiOpenSchools.includes('italian'));
   assert.equal(playerSecretDef('italian').name, 'andareRisoluto');
-  assert.equal(playerSecretDef('italian').nameKo, '거침없이 나아가 찌르기 (안다레 리솔루토)');
+  assert.equal(playerSecretDef('italian').nameKo, '안다레 리솔루토');
   assert.equal(TRADITIONS.italian.secret.name, 'passataContratempo'); // AI 가 보는 칸 그대로
   assert.equal(keep(SECRET, 'itSecret', 'contratempo', () => playerSecretDef('italian').name), 'passataContratempo');
   assert.equal(playerSecretDef('japanese'), TRADITIONS.japanese.secret);
