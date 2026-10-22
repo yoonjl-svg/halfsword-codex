@@ -2,7 +2,9 @@ from pathlib import Path
 import shutil,json,subprocess
 root=Path(__file__).resolve().parents[3]; doc=Path(__file__).resolve().parent
 preview=Path('/workspace/halfsword-weapons-preview/public/encounters/wander-20261023'); preview.mkdir(parents=True,exist_ok=True)
-shutil.copytree(root/'review-dist',preview/'game',dirs_exist_ok=True)
+shutil.copytree(root/'review-dist',preview/'game',dirs_exist_ok=True, ignore=lambda path, names: [n for n in names if Path(path) == root/'review-dist' and n in {'corr','r2p','support','wb','encounters'}])
+for unused in ['corr','r2p','support','wb','encounters']:
+ if (preview/'game'/unused).is_dir(): shutil.rmtree(preview/'game'/unused)
 # This classic head script executes before any game module. All writes, including
 # skill books, equipment, campaign and auth state, use a separate preview prefix.
 setup=r'''<script>
