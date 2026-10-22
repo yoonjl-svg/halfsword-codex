@@ -10,7 +10,7 @@ export function createReturnedKing(baseline) {
   delete ai.persona.pers.techPref;
   ai.persona.idle={guard:'wechselR',gesture:'still'};
   return {
-    id:'sebastian',name:'세바스티앙',epithet:'돌아온 왕',age:null,
+    id:'sebastian',name:'롤랑',epithet:'돌아온 왕',age:null,
     origin:'이베리아 서쪽 · 바다 너머에서 사라진 왕국',
     backstory:'왕이 군대를 이끌고 바다를 건넌 뒤, 누구도 돌아오지 않았다. 오랜 세월이 지나 안개가 성문을 덮은 밤, 왕의 문장을 새긴 기사가 홀로 돌아왔다. 상아빛 갑옷과 포도주색 망토는 출정하던 날 그대로였으나, 얼굴을 가린 투구는 끝내 열리지 않았다. 그를 뒤따르던 군대가 어디에 있는지, 귀환한 것이 정말 왕인지 아는 이는 없다.',
     want:'돌아오지 못한 군대의 길을 다시 여는 것. 그 길이 고향으로 이어지는지는 말하지 않는다.',

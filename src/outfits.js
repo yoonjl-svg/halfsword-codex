@@ -32,6 +32,7 @@ import { createReturnedKingOutfitV2 } from './outfit_returned_king_v2.js';
 import { createWhiteScaleOutfit } from './outfit_white_scale.js';
 import { createRoyalConceptOutfit } from './outfit_royal_concepts.js';
 import { createBlackKingOutfitV2 } from './outfit_black_king_v2.js';
+import { createOlivierOutfit } from './outfit_olivier.js';
 import { createBlackKingOutfitV3 } from './outfit_black_king_v3.js';
 
 const _m4 = new THREE.Matrix4();
@@ -2848,6 +2849,7 @@ export const newOutfitHelpers = { THREE, bake, box, cyl, ball, cone, addMerged, 
 const RENJI_V1 = createRenjiOutfit(newOutfitHelpers); // 김씨 v1 (v2 가 하카마 밖 전부를 이어 받는다)
 
 export const OUTFITS = {
+  olivier_v4: createOlivierOutfit(newOutfitHelpers),
   chain_hero: createRoyalConceptOutfit(newOutfitHelpers, 'chain'),
   black_king_v3: createBlackKingOutfitV3(newOutfitHelpers),
   black_king_v2: createBlackKingOutfitV2(newOutfitHelpers),
