@@ -10,7 +10,7 @@
 // ─────────────────────────────────────────────────────────────
 export const LOOK_ARCHIVE = {
   bernardo:{v1:{tunic:0x303239,quilt:0x303239,sleeve:0x632c34,straps:null,belt:0x522d27,hoseUpper:0x632c34,hoseLower:0x303239,shoes:0x4e4c42,skin:0xb98e6d,hands:0x697b8b,helmet:'royal_open',metal:0x697b8b,hair:0x3d3c37,headband:null,grip:0x692c32,hilt:0xad8849,accent:0x6b2933,outfit:'chain_hero',armor:'plate'}},
-  black_king:{v1:{tunic:0x252d2d,quilt:0x252d2d,sleeve:0x164653,straps:null,belt:0x42372b,hoseUpper:0x164653,hoseLower:0x252d2d,shoes:0x373d37,skin:0xc39b7c,hands:0x303b3e,helmet:'royal_open',metal:0x303b3e,hair:0x49382c,headband:null,grip:0x282c29,hilt:0xad8849,accent:0x164653,outfit:'black_king',armor:'plate'}},
+  black_king:{v1:{tunic:0x252d2d,quilt:0x252d2d,sleeve:0x164653,straps:null,belt:0x42372b,hoseUpper:0x164653,hoseLower:0x252d2d,shoes:0x373d37,skin:0xc39b7c,hands:0x303b3e,helmet:'royal_open',metal:0x303b3e,hair:0x49382c,headband:null,grip:0x282c29,hilt:0xad8849,accent:0x164653,outfit:'black_king',armor:'plate'},v2:{tunic:0x28252c,quilt:0x28252c,sleeve:0x59445f,straps:null,belt:0x42372b,hoseUpper:0x59445f,hoseLower:0x28252c,shoes:0x393338,skin:0xc39b7c,hands:0x353237,helmet:'royal_open',metal:0x353237,hair:0x49382c,headband:null,grip:0x282c29,hilt:0xa18b60,accent:0x59445f,outfit:'black_king_v2',armor:'plate'}},
   white_scale: {v1:{
     tunic:0x242827,quilt:0x3d413b,sleeve:0x3c4037,straps:null,belt:0x473c30,
     hoseUpper:0x252d2c,hoseLower:0x3e423a,shoes:0x473c30,skin:0xb49c7c,hands:0x4e493b,
@@ -871,7 +871,7 @@ LOOK_ARCHIVE.terracotta.v2 = { ...LOOK_ARCHIVE.terracotta.v1, terracottaRevision
 // 지금 게임에서 실제로 쓰는 버전 (감독/오너가 확정하면 여기만 바꾸면 됨)
 export const CHARACTER_LOOK_VERSION = {
   bernardo: 'v1',
-  black_king: 'v1',
+  black_king: 'v2',
   white_scale: 'v1',
   sebastian: 'v2',
   bran: 'v1',
