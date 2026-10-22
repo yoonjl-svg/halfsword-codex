@@ -297,6 +297,8 @@ input:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
 .detail-lore[hidden] { display: none; }
 .detail-lore::before { content: '\201C'; position: absolute; left: 3px; top: -4px; font-family: Georgia, 'Times New Roman', serif; font-size: 20px; line-height: 1; color: var(--tc); opacity: .55; }
 .detail-lore blockquote { margin: 0; font-size: var(--fs-s); line-height: 1.36; color: var(--c-text); }
+/* 닫는 따옴표 (10/23 사장님 '따옴표가 시작에만 있어서 어색') — 글 끝에 여는 따옴표와 같은 글꼴 · 색 · 옅기로 */
+.detail-lore blockquote::after { content: '\201D'; margin-left: 2px; font-family: Georgia, 'Times New Roman', serif; font-size: 20px; line-height: 0; position: relative; top: 5px; color: var(--tc); opacity: .55; }
 .detail-lore figcaption { margin-top: 1px; font-size: 10.5px; line-height: 1.35; color: var(--c-sub); opacity: .85; }
 .detail-lore figcaption[hidden] { display: none; }
 .node-detail p { margin: 0; }

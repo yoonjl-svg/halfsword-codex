@@ -1,4 +1,4 @@
-import { historicalPartMesh, historicalDecorate, hwandoScabbard } from './historical_weapon_details.js';
+import { historicalPartMesh, historicalDecorate } from './historical_weapon_details.js'; // 환도 칼집(hwandoScabbard)은 10/23 사장님 '환도에 검집까지 나오는 거 없애'로 뺌
 // ─────────────────────────────────────────────────────────────
 //  무기고: 실제 자료 기반(+부족한 곳은 물리적으로 추정) 데이터 중심 무기 목록.
 //
@@ -1778,11 +1778,6 @@ const hwando = finalizeSpec('hwando', {
   mCut: 1.10, mThrust: .95, mBlunt: .95,
   partMesh: (...args) => historicalPartMesh('hwando', ...args),
   decorate: historicalDecorate,
-  dressWeapon(pelvis) {
-    const scabbard=hwandoScabbard(this.bladeLength);
-    scabbard.position.set(-.07,.075,.23);scabbard.rotation.set(-.08,0,-.45);
-    pelvis.add(scabbard);
-  },
   buildParts() {
     const L=this.bladeLength, grip=boxInertia(.12,.015,.0625,.013), pommel=sphereInertia(.08,.011),
       cross=boxInertia(.08,.0355,.002,.0275), bladeMass=.62*L/.72, blade=bladeInertia(bladeMass,L,.37,.25,.036,.0062); // 칼날 질량: 처음 날(0.72 m · 0.62 kg)과 같은 단면으로 날 길이 비

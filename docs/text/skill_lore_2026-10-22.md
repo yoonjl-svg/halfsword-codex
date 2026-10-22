@@ -36,7 +36,7 @@
 | G5 | 곁눈 베기 | 곁눈 베기는 들소 같은 자가 치고 찌르는 것을 꺾는다 | 리히테나워 『Zettel』(14세기) — 곁눈 베기 | v58 「Schiler enpricht waß puffler slecht oder sticht」 (The squinter breaks into whatever the buffalo strikes or thrusts) · 저장소 `src/schools.js:462` · `docs/motion/longsword_cuts.md:100` | [원문] |
 | G8 | 비껴 딛는 가로베기 | 가로베기를 잘하는 자는 뛰어 딛으며 머리를 위협한다 | 리히테나워 『Zettel』(14세기) — 가로베기 | v52 「Was sich wol twert / mit sprüngen dem haupt gevert」 (He who thwarts well, with springing endangers the head) — 로마 사본. 같은 묶음 v49 「Zwerch benimpt / was vom tag dar kümpt」 는 `src/schools.js:470` · `docs/motion/longsword_cuts.md:89` | [원문] |
 | G3 | 세워 받기 | 젖혀 막기를 배워, 치고 찌르는 것을 솜씨 있게 막아라 | 리히테나워 『Zettel』(14세기) — 젖혀 막기 | v83 「leren abseczenn hawe stich chunstiglichenn leczenn」 (Learn to set aside, to skillfully hinder stroke and thrust) — 고타 사본 | [원문] |
-| G11 | 뉘른베르크에서 온 편지 | 좋은 칼이 나거든 네게 먼저 보내라고 대장장이들에게 일러 두었다 | (없음) | — | [편지] |
+| G11 | 뉘른베르크에서 온 편지 | 뉘른베르크 장인 조합이 네 칼의 길이와 무게를 적어 갔다 (10/23 고침) | (없음) | — | [편지] |
 | G7 | 겹치기 | 위에서는 겹쳐 치고, 아래에서는 바르게 바꿔 쳐라 | 리히테나워 『Zettel』(14세기) — 겹치기와 바꾸기 | v39 「Oben duplir / Nyden recht mutir」 (double above, transmute below correctly) — 로마 사본. 맞물림에서 다시 그어 듦은 Ringeck 주해 Duplieren(`src/schools.js:464`) | [원문] |
 | G6 | 무릎 꺾기 | 세게 몰아치려거든 온몸으로 싸워라 | 리히테나워 『Zettel』(14세기) — 긴 칼 첫 가르침 | v14 「mit ganczem leib / vicht waß du starck gerest czu treyben」 (Fight with the entire body, what you powerfully want to do) — 고타 사본. 곁눈 베기 구절(v58~62)에 쓰러뜨림 · 무릎 말이 없어 힘의 이치로 가장 가까운 첫 가르침을 씀 | [풀이] |
 | G4 | 왕관 | 그에게서 오는 것은 무엇이든 왕관이 걷어 낸다 | 리히테나워 『Zettel』(14세기) — 정수리 베기와 왕관 | v65 「waß võ Im chömet dy kron das abnymet」 (Whatever comes from him, the crown will take it) · Ringeck 주해 「versetzt er mit dem gehiltz hoch ob seinem haupt, die versatzung heist die kran」 — 저장소 `docs/strike/kron_shape_2026-10-12.md:23` · `src/schools.js:983` | [원문] |
@@ -69,7 +69,7 @@
 | B3 | 돌며 베기 | 같은 오른발을 다시 들이며, 왼발 위로 나사처럼 돌아 걸어라 | 피게이레두 『Memorial da Prattica do Montante』(1651) — 단순 규칙 13 | 「e outro tornando a meter o mesmo pé dereyto andando como em parafuzo sobre o esquerdo」 (and another again putting in the same right foot, walking like a screw over the left) — 저장소 `src/schools.js:536` · `docs/motion/iberian_montante_2026-10-10.md:885` | [원문] |
 | B4 | 머리 위 돌려 베기 | 칼을 머리 위로 넘겨 어깨 뒤로 보내, 왼팔 위로 떨어뜨리며 둘러 벤다 | 피게이레두 『Memorial da Prattica do Montante』(1651) — 복합 규칙 2 | 「para o passar por sima da cabeça às espaldas de sorte que caya sobre o braço esquerdo para dar hũ revez cingido」 (pass it over the head and behind the shoulders, such that it falls over the left arm to give a circling revez) — 저장소 `docs/motion/iberian_montante_2026-10-10.md:602` · `src/schools.js:526` | [원문] |
 | B8 | 쳐내기 | 맞선 무기가 오는 쪽에 따라, 탈류로 아니면 레베스로 쳐내라 | 피게이레두 『Memorial da Prattica do Montante』(1651) — 단순 규칙 14 | 「desviandoo para o lado esquerdo … ou desviar de revez conforme o lado a que se dirigir a armas contraria」 (deflect it to the left side … or else deflect with a revez, according to which side the opposing weapon is aimed) — 저장소 `docs/strike/ukenagashi_talho_2026-10-17.md:114` | [원문] |
-| B11 | 리스본에서 온 편지 | 리스본 항구에 큰 칼이 들거든, 가장 먼저 네게 실어 보내마 | (없음) | — | [편지] |
+| B11 | 리스본에서 온 편지 | 부두에 큰 칼이 내릴 때마다, 선원들이 네게 먼저 보이자고 한다 (10/23 고침) | (없음) | — | [편지] |
 | B5 | 흐르는 긋기 | 탈류에서 다른 탈류가 나고, 레베스에서 다른 레베스가 난다 | 피게이레두 『Memorial da Prattica do Montante』(1651) — 맺음말 | 「E que ultimamente do talhos nacem outros talhos, e dos revezes outros revezes」 (from talhos are born other talhos, and from revezes other revezes) — 저장소 `docs/motion/iberian_montante_2026-10-10.md:29` | [원문] |
 | B9 | 굳은 받기 | 큰 칼의 쳐내기와 막기와 치기는 모두 몸놀림이 거들어야 한다 | 피게이레두 『Memorial da Prattica do Montante』(1651) — 복합 규칙 6 | 'all the deflections, parries and attacks of the montante must be helped by the movements of the body' (영역) — 저장소 `docs/motion/iberian_montante_2026-10-10.md:25` · `src/schools.js:1230` | [원문] |
 | B7 | 휘감아 돌기 (10/22 — 전 길목 지키기) | 큰 칼로 갈비를 온통 휘감고, 온몸을 돌려라 | 고디뉴 『Arte de Esgrima』(1599) — 몬탄테 장 규칙 8 | 「umgürtet das Montante die gesamten Rippen, auch den gesamten Körper herumdrehend」 (독일어 역 — 몬탄테가 갈비 전체를 휘감고, 온몸을 돌리며) — 저장소 `docs/motion/iberian_montante_2026-10-10.md:25` · `:612` · 원문은 서술(…하며)이라 명령꼴로 옮김 | [풀이] |
@@ -83,7 +83,7 @@
 | J6 | 비껴 베기 | 벨 때도 물러설 때도 받을 때도, 좌우를 번갈아 디뎌라 | 미야모토 무사시 『오륜서』(1645) — 물의 권 음양의 발 | 足づかひ p20 「きる時、ひく時、うくる時迄も、陰陽とて左右々々踏む足なり」 — `gorin_no_sho.md:62` · 저장소 `src/schools.js:214` | [원문] |
 | J7 | 손목 치기 | 적이 치고 들 때, 아래에서 그 손을 쳐라 | 미야모토 무사시 『오륜서』(1645) — 물의 권 다섯 겉 | 다섯 겉 셋째(下段) p23 「敵の打ちかく所を下より手をはる也」 — `gorin_no_sho.md:15` · 저장소 `src/schools.js:207` 「手をはる」 | [원문] |
 | J2 | 머리 위 받기 | 받는 것도 쳐내는 것도 붙는 것도, 모두 적을 베는 계기로 여겨라 | 미야모토 무사시 『오륜서』(1645) — 물의 권 자세 있고 자세 없음 | 有構無構 p25-26 「敵の太刀を受くる、はる、あたる、ねばる、さはるなどいふ事あれども、皆々敵を切る縁也と心得べし」 — `gorin_no_sho.md:24` | [원문] |
-| J11 | 에도에서 온 편지 | 좋은 칼은 좋은 손을 찾아간다고, 에도의 스승이 적어 보냈다 | (없음) | — | [편지] |
+| J11 | 에도에서 온 편지 | 도공이 새 칼을 벼리다 말고, 이 칼의 주인은 너라 하였다 (10/23 고침) | (없음) | — | [편지] |
 | J9 | 제비 베기 | 빗나간 칼을 그대로 두었다가, 적이 칠 때 아래에서 퍼 올려 쳐라 | 미야모토 무사시 『오륜서』(1645) — 물의 권 다섯 겉 | 다섯 겉 둘째(上段) p23 「敵を打ちはづしたる太刀其儘置きて、又敵の打つ所を下よりすくひ上げて打つ」 — `gorin_no_sho.md:13` · 저장소 `src/schools.js:205` | [원문] |
 | J8 | 손목 치기 심화 (닫힘) | 손을 친 칼을 적이 쳐 떨구려 하면, 넘기는 박자로 팔을 가로 베라 | 미야모토 무사시 『오륜서』(1645) — 물의 권 다섯 겉 | 다섯 겉 셋째 p23-24 「手をはる所を亦敵そのはる太刀を打落さんとする所をこす拍子にて、敵打ちたるあと二腕を(?)横にきる心也」 — `gorin_no_sho.md:15`. 「二腕」 읽기가 불확실(읽기표 불확실 1)해 '팔'로 줄여 옮김 | [풀이] |
 | J3 | 흘려 받기 | 적의 눈을 찌르듯 하며, 그 칼을 오른 어깨로 끌어 흘려 받아라 | 미야모토 무사시 『오륜서』(1645) — 세 가지 받기 | 三つの受 (1) p32-33 「我太刀にて敵の目をつく樣にして、敵の太刀を我が右の肩へ引流して受くべし」 — `gorin_no_sho.md:45` · 저장소 `src/schools.js:183` | [원문] |
@@ -99,7 +99,7 @@
 | C2 | 덜 지치는 걸음 | 열 걸음에 한 사람을 베고, 천 리를 가도 걸음을 멈추지 않는다 | 『장자』 설검편 | 「臣之劍，十步一人，千里不留行」 — 위키문헌 『남화진경』(사부총간본) 권10 설검. 조선세법 · 예도에 지치지 않는 걸음을 말하는 대목이 없어, 동방 유파가 이미 쓰는 『장자』에서 걸음을 멈추지 않는 칼의 대목을 씀 | [풀이] |
 | C3 | 허리 베기 | 몸과 걸음과 손과 칼이 빠른 우레 같으니, 이 한 칼이 칼의 으뜸이다 | 모원의 『무비지』(1621) 권86 조선세법 — 요격세 | 쪽166/0580 「腰擊勢者, 卽腰擊也. 法能橫衝中殺. 身步手劍疾若迅雷, 此一擊者, 劍中之首擊也」 — `docs/motion/schools/school_chinese_draft.md:58` · `choseon_sebeop.md:47` · 저장소 `src/schools.js:439` | [원문] |
 | C7 | 세 자세 받기 | 손을 굴려 이어 가며 위아래를 막는다 | 모원의 『무비지』(1621) 권86 — 검결가 | 검결가 쪽151 「搖頭進步風雷嚮, 滾手連環上下防」 — `choseon_sebeop.md:6` | [원문] |
-| C11 | 한양에서 온 편지 | 훈련도감에 쓸 만한 칼이 들면, 네 쪽으로 먼저 돌려 두마 | (없음) | — | [편지] |
+| C11 | 한양에서 온 편지 | 훈련도감 군기 장부 끝에 네 이름을 올려 두었으니 기다려라 (10/23 고침) | (없음) | — | [편지] |
 | C4 | 깊은 허리 베기 | 가로로 내질러 가운데를 죽이는 것이 그 법이다 | 『무예도보통지』(1790) 권2 예도 — 요격세 | p041 「腰擊勢 卽腰擊, 法能橫衝中殺」 — `docs/motion/schools/muyedobotongji_vol2.md:65` | [원문] |
 | C5 | 끌어 딛고 허리 베기 | 앞발을 내딛고 뒷발을 끌어 붙이며, 나아가 허리를 친다 | 모원의 『무비지』(1621) 권86 조선세법 — 체보 | 掣步 국역 쪽156 '앞발을 내딛고 뒷발은 당겨 붙여 끌면서'(`choseon_sebeop.md:45`) + 「向前進步腰擊」 쪽158/0572(저장소 `src/schools.js:447`). 걸음 대목과 허리 베기 대목을 합쳐 옮김 | [풀이] |
 | C6 | 날개 접기 | 거짓으로 지는 척 적을 꾀어, 물러나다 문득 나아가 허리를 친다 | 모원의 『무비지』(1621) 권86 조선세법 — 염시세 | 斂翅勢 쪽174/0588 「法能佯北誘賺 … 倒退進步腰擊」 — 저장소 `src/schools.js:444` · `choseon_sebeop.md:36`. 무예도보통지 권2 p045 읽기는 「法能伴佯誘賺」(`muyedobotongji_vol2.md:73`) | [원문] |
