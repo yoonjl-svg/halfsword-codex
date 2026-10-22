@@ -384,3 +384,9 @@ input:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
 /* 여정으로 넘어가며 대기실을 걷어 내는 동안 (game_entry.js — 0.3 s, 뒤의 카드·싸움 화면이 비쳐 보인다) */
 .lobby[data-leaving] { opacity: 0; transition: opacity .3s ease; }
 @media (prefers-reduced-motion: reduce) { .lobby[data-leaving] { transition: none; } }
+
+/* 방랑: 기존 Stage 입장과 나란한 위계, 프로필 아래에 같은 폭으로 배치. */
+.departure-options { width: var(--card-w); max-width: 100%; display: flex; flex-direction: column; gap: 8px; }
+.character-panel .departure-options .depart { width: 100%; padding-left: 4px; padding-right: 4px; }
+.wander-hint { margin: 0; font: inherit; font-size: 11px; line-height: 1.45; color: var(--c-sub, #b7a88b); text-align: center; word-break: keep-all; }
+@media (max-height: 420px) and (min-width: 680px) { .departure-options { gap: 5px; } .wander-hint { font-size: 10px; } }

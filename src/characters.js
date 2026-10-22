@@ -1,3 +1,4 @@
+import {WANDER_EXCLUSIVE} from './wander_rules.js';
 import {createReturnedKing} from './character_returned_king.js';
 import {createWhiteScaleWarrior} from './character_white_scale.js';
 import {createRoyalConceptGuests} from './character_royal_concepts.js';
@@ -989,6 +990,6 @@ export function lineSourceOf(char, line) {
 
 /** id가 없거나 목록에 없으면 무작위 캐릭터 (excludeId가 있으면 그 캐릭터는 뺀다) */
 export function randomCharacter(excludeId) {
-  const pool = excludeId ? CHARACTERS.filter((c) => c.id !== excludeId) : CHARACTERS;
+  const pool = CHARACTERS.filter(c=>c.id!==excludeId && !WANDER_EXCLUSIVE.includes(c.id));
   return pool[Math.floor(Math.random() * pool.length)];
 }
