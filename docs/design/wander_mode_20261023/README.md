@@ -50,4 +50,4 @@
 
 ## 공개와 다음
 
-공개 검토 주소 및 원격 검증은 `publication.json`에 별도 기록한다. 사용자의 이름/패배 처리/화면 확인 뒤 보완. 전달 지시가 있으면 그때 우화 최신 main에 맞춘 별도 전달 가지와 원본 소스를 준비한다.
+공개 검토: https://yoonjl-svg.github.io/halfsword-codex/encounters/wander-20261023/ . Pages39807785631 성공/공개477파일 SHA256 일치(10/23 00:47KST). 원격 영수증은 `publication.json`. 사용자의 이름/패배 처리/화면 확인 뒤 보완. 전달 지시가 있으면 그때 우화 최신 main에 맞춘 별도 전달 가지와 원본 소스를 준비한다.
