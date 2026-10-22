@@ -12,10 +12,10 @@ import { FLOW_RECOVERY } from './nagashi_recovery.js'; // 흘림당한 뒤 팔 �
 import { Fighter, GROUND_GROUPS } from './fighter.js';
 import { createStaminaHud } from './stamina_hud.js';
 import { createScreenTint } from './screen_tint.js';
-import { readJourney, writeJourney, addJourneyClear } from './journey_save.js'; // 여정 이어하기 지점 · 깬 무대 수(통계) (첫 화면 '이어하기' — 샛별 저장소 215d7b7e 를 우리 여정에 맞춤, docs/import/lobby_port_2026-10-16.md §5)
+import { readJourney, writeJourney, addJourneyClear, journeyClears } from './journey_save.js'; // 여정 이어하기 지점 · 깬 무대 수(통계) (첫 화면 '이어하기' — 샛별 저장소 215d7b7e 를 우리 여정에 맞춤, docs/import/lobby_port_2026-10-16.md §5)
 import { readProfile, recordDuel } from './player_profile.js'; // 대기실 이름 · 대면 결과 (샛별 저장소 817db21c)
 import { readLobbyEquipment, readLobbyArmor, readLobbyNeck, LOBBY_ARMOR, HERO_TEAR } from './lobby_equipment.js'; // 대기실 장착을 싸움에 (사장님 10/16 03:5x '장착하면 실제 전투에 가져나가게 해' — docs/import/lobby_fix_2026-10-16.md §3 · 용사의 눈물 hero_tear_2026-10-17.md)
-import { journeyCoins, awardHead } from './lobby_progress.js'; // 여정 판 끝 금화 · 상대의 목을 베면 머리 1 (사장님 10/16 04:3x)
+import { journeyCoins, awardHead, readProgress, recordCampaignStage, migrateCampaignStages, ensureWanderRun, saveWanderLoadout, awardWanderHead, settleWander } from './lobby_progress.js'; // 여정 판 끝 금화 · 상대의 목을 베면 머리 1 (사장님 10/16 04:3x)
 import { COIN_ICON, POUCH_ICON } from './wallet_icons.js'; // 결과 창 금화 줄 = 대기실 금화 · 천 주머니 그림 (사장님 10/16 14:0x)
 import { readBooks, playerKit, kitUniqueStage, bookTierParam } from './skill_books.js'; // 대기실 스킬북 = 플레이어 유파 몫 — 모든 판 (사장님 10/16 04:1x 산 책만 · 08:1x 인장 없앰, docs/strike/school_kit_map.md §2 · §3)
 import { convertSeals } from './seal_coins.js'; // 이미 받은 인장 → 금화 한 번 — 판을 처음 연 때 어느 길이든 (아래 testRoute 다음 · 10/16 08:1x 인장 없앰)
@@ -30,7 +30,8 @@ import { attachAura } from './aura.js';
 import { Particles, haptic, stickDecal, rebuildDecal, disposeDecals, decalWarmMesh } from './effects.js';
 import { Sound, BodySounds } from './sound.js';
 import { Combat, woundDegree, woundRageMult, COMBAT_HOOKS } from './combat.js';
-import { Stages, nextStage, STAGE_IDS, STAGE_ORDER, STAGE_FOE, STAGE_FOE_EXTRA, stageFoeId, stageLabel } from './stages.js';
+import { WANDER_NAME, WANDER_EXCLUSIVE, chooseWanderEncounter } from './wander_rules.js';
+import { Stages, nextStage, STAGE_IDS, STAGE_ORDER, STAGE_FOE, STAGE_FOE_EXTRA, stageFoeId, stageLabel, STAGE_NAME_KO } from './stages.js';
 import { installGunFx, clearGunFx, warmGunFx } from './gun_fx.js';
 import { GUN_STANCE } from './gun.js';
 import { attachMadEyes } from './mad_eyes.js';
@@ -340,6 +341,11 @@ let lastRoundWon = false; // 지난 판을 이겼나 (사장님 결정: 이겨�
 // 첫 화면·대기실에서 연 여정 (game_entry.js → launchJourney — docs/import/lobby_port_2026-10-16.md §5): 이어하기 지점 저장 · 대면 결과 기록 · 대기실 이름은 이 판들에서만.
 //  주소로 무대·상대·무기를 고정했거나 테스트 경로면 여정이 아니다 (아래 checkRoundEnd 의 '무대 깸' 조건 + 고정 무기 없음)
 let journeyMode = false;
+let wanderMode = false;
+// 실제 완성한 무대/등장인물만. 보관용 화전 터·어두운 홀·미확정 왕 시안은 제외.
+const WANDER_STAGES = [...STAGE_ORDER, 'courtyard_night'];
+const WANDER_FOES = [...new Set([...WANDER_STAGES.map(id => STAGE_FOE[id]), ...WANDER_EXCLUSIVE])].filter(id => CHARACTERS_BY_ID[id]);
+const careerSaves = () => (journeyMode || wanderMode) && JOURNEY_PURE;
 let pendingJourney = null; // 이어하기: 다음 startFight 가 되살릴 무대 시작 지점 (validJourney 가 고른 것)
 const JOURNEY_PURE = foeParam === 'stage' && !STAGE_PIN && !testRoute.active && !FIXED_WEAPON;
 const journeySaves = () => journeyMode && JOURNEY_PURE;
@@ -347,14 +353,19 @@ const journeySaves = () => journeyMode && JOURNEY_PURE;
 //  weapon = 대기실 무기(있으면 무대마다 카드 없이 그 무기 · 없으면 카드) · armor = 케틀 햇(있으면 투구 + 최대 기력 130 · 없으면 맨머리) ·
 //  neck = 용사의 눈물(있으면 플레이어 기력 무한 + 내 기력 막대 없음 · 겉모습 그대로 — 10/17, docs/import/hero_tear_2026-10-17.md).
 //  스킬북(유파 몫)은 여기가 아니라 모든 판이 읽는다 — newRound 의 playerKit (10/16 08:1x 인장 없앰)
-const journeyLoadout = () => (journeySaves() ? { weapon: readLobbyEquipment(), armor: readLobbyArmor(), neck: readLobbyNeck() } : null);
+const journeyLoadout = () => (careerSaves() ? { weapon: readLobbyEquipment(), armor: readLobbyArmor(), neck: readLobbyNeck() } : null);
 const LOOK_BAREHEAD = { ...LOOKS.player, helmet: null }; // 케틀 햇을 벗은 주인공 — 겉모습·머리 방어 둘 다 없음 (fighter.js look.helmet)
 // 이번 판 금화 · 머리 (결과 창 한 줄 — showRewardLine). 첫 화면·대기실 여정만 바뀐다 (주소 고정 판 · 테스트 경로 · 옛 메뉴 판은 그대로)
 let roundReward = null;
 // 머리 (사장님 결정 10/16 04:3x '적의 머리를 베면 1개씩 주는 재화'): 참수가 일어난 순간 한 번 부르는 자리(combat.js COMBAT_HOOKS.onDecapitate — fighter.js applyWound ·
 //  흙 몸의 머리 떨어짐 detachHeadFromWound)에 건다. 이 판 상대만 · 한 상대에 한 번(lobby_progress.js awardHead). 시뮬은 이 훅을 걸지 않는다(null)
 COMBAT_HOOKS.onDecapitate = (f) => {
-  if (f !== enemy || !journeySaves() || !awardHead(f)) return;
+  if (f !== enemy || !careerSaves()) return;
+  if (wanderMode) {
+    if (awardWanderHead()) roundReward = { coins: 0, heads: 2 };
+    return;
+  }
+  if (!awardHead(f)) return;
   roundReward = { coins: roundReward?.coins ?? 0, heads: (roundReward?.heads ?? 0) + 1 };
 };
 function useStage(id) {
@@ -371,6 +382,7 @@ function useStage(id) {
  *  지거나 도중에 "처음부터 다시"를 누르면 같은 배경 — 상대도 배경을 따르니 같은 상대와 다시 싸운다 (사장님 결정)
  */
 function nextRoundStage() {
+  if (wanderMode) { stageFought = true; lastRoundWon = false; return; }
   const advance = stageFought && testRoute.advance(lastRoundWon); // test=1: 이기든 지든 다음 판으로
   lastRoundWon = false;
   if (advance && useStage(STAGE_PIN || testRoute.nextStage(stages.id) || nextStage(stages.id))) {
@@ -599,7 +611,7 @@ function newRound(weaponId) {
   const kit = playerKit(traditionOf(getWeapon(weaponId)), readBooks(), { test: testRoute.active, upTo: UNIQUE_STAGE });
   player = new Fighter(RAPIER, world, scene, colliderInfo, {
     index: 0,
-    name: journeyMode ? readProfile().name : '나', // 대기실 이름 (첫 화면에서 연 여정만 — 화면에 플레이어 이름이 나오는 자리는 없다. 메뉴 뒤 판·주소 판은 그대로 '나')
+    name: careerSaves() ? readProfile().name : '나', // 대기실 이름 (첫 화면에서 연 여정만 — 화면에 플레이어 이름이 나오는 자리는 없다. 메뉴 뒤 판·주소 판은 그대로 '나')
     x: -ARENA.startGap / 2,
     z: startZ,
     heading: 0,
@@ -1072,7 +1084,7 @@ const stageInfo = $('stageInfo');
 const drawGuide = stageInfo.querySelector('em'); // 카드 안내 줄
 /** 판을 열 때(startFight): 무대 줄을 쓴다 */
 function showStageInfo() {
-  stageInfo.querySelector('.stg').textContent = stageLabel(stages.id);
+  stageInfo.querySelector('.stg').textContent = wanderMode ? `${WANDER_NAME} ${readProgress().wander.run?.round ?? 1} · ${STAGE_NAME_KO[stages.id]}` : stageLabel(stages.id);
   stageInfo.classList.add('show');
 }
 /** 카드 안내 줄: 'on' = 고르는 동안 보임 · 'off' = 카드를 고른 뒤 숨김(자리는 둔다) · null = 비움(뽑기가 끝남 — 자리도 없앤다) */
@@ -1389,9 +1401,22 @@ function showHint(text, ms = 3500) {
 }
 
 async function startFight() {
+  if (wanderMode) {
+    const run = ensureWanderRun(() => {
+      const encounter = chooseWanderEncounter(WANDER_STAGES, WANDER_FOES);
+      return { ...encounter, foeWeapon: pickCharacterWeapon(CHARACTERS_BY_ID[encounter.foe]) };
+    });
+    if (!run) throw new Error('Wander locked');
+    pendingJourney = run;
+    stageFought = false;
+    lastPlayerWeapon = run.lastWeapon;
+    if (useStage(run.stage)) stages.warm(renderer, camera);
+    sound.setStage(stages.id);
+  }
+  $('btnStart').hidden = false;
   const savedRound = pendingJourney; // 이어하기로 연 판이면 저장된 무대 시작 지점 (launchJourney 가 넣는다 — 한 번만 쓴다)
   pendingJourney = null;
-  roundReward = null;
+  roundReward = wanderMode && savedRound?.headTaken ? { coins: 0, heads: 2 } : null;
   $('menuReward').hidden = true;
   sound.unlock();
   sound.ambience(); // 배경의 고요 (포세이돈: 파도·바람, 산사: 산바람·풍경·산새). 아주 작게, 처음 한 번만 켜진다
@@ -1459,6 +1484,10 @@ async function startFight() {
 //  저장 단위는 무대 시작 자리: 카드를 펼치면 { 무대 · 상대 · 상대 무기 · 내 카드 둘 }, 고르면 { … · 내 무기 }, 이기면 곧바로 { 다음 무대 } (같은 승리를 다시 받지 않게).
 //  무대 차례 = STAGE_ORDER (nextStage), 깬 수(통계)는 checkRoundEnd 의 addJourneyClear 만 센다 — 이어하기 지점은 깬 수를 바꾸지 않는다.
 function saveJourneyRound(weapon, cards = null) {
+  if (wanderMode && careerSaves()) {
+    saveWanderLoadout({ weapon, cards, lastWeapon: lastPlayerWeapon });
+    return;
+  }
   if (journeySaves()) writeJourney({ stage: stages.id, foe: currentFoe?.id ?? null, foeWeapon: getWeapon(foeWeaponId).id, weapon, cards, lastWeapon: lastPlayerWeapon });
 }
 /** 저장된 이어하기 지점을 지금 여정에 맞춘다: 무대가 STAGE_ORDER 에 없으면 없음. 상대가 그 무대의 상대(STAGE_FOE · 후보)가 아니거나
@@ -1480,6 +1509,23 @@ function validJourney() {
   return out;
 }
 export const canContinueJourney = () => !!validJourney();
+export function getWanderStatus() {
+  if (JOURNEY_PURE) migrateCampaignStages(validJourney(), journeyClears(), STAGE_ORDER);
+  const w = readProgress().wander;
+  return { unlocked: JOURNEY_PURE && w.unlocked, cleared: STAGE_ORDER.filter(id => w.cleared.includes(id)).length,
+    total: STAGE_ORDER.length, ongoing: !!w.run && w.run.status !== 'lost', name: WANDER_NAME };
+}
+export async function launchWander() {
+  if (!getWanderStatus().unlocked) return false;
+  const run = readProgress().wander.run;
+  if (run && (!WANDER_STAGES.includes(run.stage) || !WANDER_FOES.includes(run.foe) || !WEAPON_LIST.some(w => w.id === run.foeWeapon))) return false;
+  journeyMode = false;
+  wanderMode = true;
+  pendingJourney = null;
+  lastRoundWon = false;
+  await startFight();
+  return true;
+}
 // (10/18 04:1x 사장님 '옛 3d 지워': 대기실 3D 캐릭터 몸에 주던 lobbyRigSpec · 겉모습 복제용 getLobbyPlayer 를 지움 — 대기실 ① 칸은 10/17 부터 프로필 그림)
 /** 대기실 스킬북 화면이 읽는 이 판의 갈래: test = 테스트 경로(책 모두 열림 · 이미 받은 인장을 금화로 바꾸지 않음) */
 export const getSkillBookContext = () => ({ test: testRoute.active });
@@ -1495,6 +1541,8 @@ export function setLobbyFps(enabled) {
 export async function launchJourney(choice) {
   const saved = choice === 'continue' ? validJourney() : null;
   if (choice === 'continue' && !saved) return false;
+  getWanderStatus(); // 기존 순차 진행을 새 무대별 클리어 기록으로 한 번 옮긴다.
+  wanderMode = false;
   journeyMode = true;
   pendingJourney = saved;
   stageFought = false; // 메뉴 뒤 판처럼 '이 무대 첫 판' — nextRoundStage 가 넘기지 않는다
@@ -1544,6 +1592,7 @@ function pause() {
   input.enabled = false;
   input.resetTransient();
   document.exitPointerLock?.();
+  $('btnStart').hidden = false;
   $('menuTitle').textContent = '일시정지';
   $('menuSub').textContent = '설정을 바꾸거나 계속할 수 있습니다.';
   $('menuReward').hidden = true;
@@ -1580,13 +1629,14 @@ let lobbyReturn = null;
 export function setLobbyReturn(fn) {
   lobbyReturn = typeof fn === 'function' ? fn : null;
 }
-const lobbyMenu = () => journeySaves() && !!lobbyReturn;
+const lobbyMenu = () => careerSaves() && !!lobbyReturn;
 function toLobby() {
   if (!lobbyMenu()) return;
   const back = lobbyReturn;
   pauseOpen = false;
   state = 'menu';
   journeyMode = false; // 대기실에서 다시 출발하면 launchJourney 가 켠다
+  wanderMode = false;
   input.enabled = false;
   input.resetTransient();
   document.exitPointerLock?.();
@@ -1824,6 +1874,7 @@ function showRewardLine() {
   if (!r) return;
   const sign = (n) => (n > 0 ? `+${n}` : n < 0 ? `−${-n}` : '±0');
   el.innerHTML = `${COIN_ICON}<span>금화 ${sign(r.coins)}</span>${r.heads ? `<span class="sep"> · </span>${POUCH_ICON}<span>머리 +${r.heads}</span>` : ''}`;
+  if (r.bonus?.coins || r.bonus?.heads) { const note = document.createElement('span'); note.className = 'boss-reward'; note.textContent = ` (특별 보상 ${r.bonus.coins ? '금화 +' + r.bonus.coins : '머리 +' + r.bonus.heads} 포함)`; el.append(note); }
   for (const icon of el.querySelectorAll('img')) { icon.alt = ''; icon.setAttribute('aria-hidden', 'true'); } // 매끈한 그림(wallet_icons.js — 10/16 15:3x ⑦): 빈 alt = 꾸밈
 }
 
@@ -1833,7 +1884,10 @@ function checkRoundEnd(dt) {
       roundOver = true;
       resultShown = false;
       const win = !enemy.alive;
-      if (journeySaves()) {
+      if (wanderMode && careerSaves()) {
+        const reward = settleWander(win);
+        if (reward) { recordDuel(win); roundReward = reward; }
+      } else if (journeySaves()) {
         recordDuel(win); // 대기실 '대면 결과' — 첫 화면에서 연 여정의 판마다 한 번
         // 금화 (사장님 결정 10/16 04:3x '승리시 랜덤으로 벌어. 5~15원 중 랜덤. 패배시 1~5원 감소' — 0 아래로는 안 내려감, lobby_progress.js journeyCoins)
         roundReward = { heads: roundReward?.heads ?? 0, coins: journeyCoins(win).delta };
@@ -1841,8 +1895,9 @@ function checkRoundEnd(dt) {
       lastRoundWon = win; // 다음 판을 열 때 다음 무대로 넘어갈지 (nextRoundStage)
       // 여정(무대마다 그곳 검객 — 이기면 다음 무대로 넘어간다: nextRoundStage 의 advance)에서 이긴 판 = 무대 하나 깸 → 깬 수 +1 (통계 — journey_save.js).
       //  인장은 없다(사장님 10/16 08:1x '인장 제도 없애' — 얻지도 알리지도 않는다 · 유파 몫은 스킬북)
-      if (win && foeParam === 'stage' && !STAGE_PIN && !testRoute.active) {
+      if (win && !wanderMode && foeParam === 'stage' && !STAGE_PIN && !testRoute.active) {
         addJourneyClear();
+        if (journeySaves()) recordCampaignStage(stages.id, STAGE_ORDER);
         // 이긴 순간 이어하기 지점을 다음 무대로 — 다시 열어 같은 승리를 또 받지 않게 (첫 화면에서 연 여정만)
         if (journeySaves()) writeJourney({ stage: nextStage(stages.id), lastWeapon: player.weapon.id });
       }
@@ -1871,10 +1926,11 @@ function checkRoundEnd(dt) {
     $('menuTitle').textContent = win ? '승리' : '패배';
     // 부제 = 이 한 줄뿐 (사장님 10/16 14:4x '패배 후의 팝업창에선 대사 빼버리자') — 10/17 22:1x 패배 창은 새 결정: 나를 쓰러뜨린 상대의 프로필 + 그 오른쪽에 승리 대사(싸움 화면 3.4 s 와 같은 줄 · 출처 줄 같은 꼴)
     //  — showDefeatFoe. 이긴 판은 그대로(부제 한 줄). 금화 줄은 그 위 글과 빈 줄 하나 띄고 (index.html .reward)
-    $('menuSub').textContent = cause;
+    $('menuSub').textContent = wanderMode ? `${WANDER_NAME} ${readProgress().wander.run?.round ?? 1} · ${cause}${win ? '' : ' · 방랑 종료'}` : cause;
     showDefeatFoe(win ? null : defeatFoe);
     // 여정(무대마다 그곳 검객): 이기면 다음 상대, 지면 같은 상대와 다시 (주소로 상대·배경을 고정했으면 그냥 다시 싸우기)
     $('btnStart').textContent = win && foeParam === 'stage' && !STAGE_PIN ? '다음 여정' : '다시 겨루기'; // 사장님 10/14 11:1x '다음 여정. 다시 겨루기.' (전 '다음 상대' · '다시 싸우기')
+    if (wanderMode) { $('btnStart').textContent = '다음 대면'; $('btnStart').hidden = !win; }
     $('btnResume').style.display = 'none';
     // 첫 화면·대기실 여정 (사장님 10/16 08:3x '팝업에선 얻은 금화나 잃은 금화 표시하고, 그 화면에서 설정은 빼고, 다음 여정과 대기실 선택지로'): 금화 줄(showRewardLine) ·
     //  '다음 여정'(진 판은 '다시 겨루기' — 같은 무대) · '대기실'. 설정 줄은 정지 창 · 첫 화면 설정에만. 그 밖 판은 지금 그대로

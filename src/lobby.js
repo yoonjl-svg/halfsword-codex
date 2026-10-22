@@ -51,13 +51,13 @@ function fitThumb(img) {
 const CHEVRON = '<svg class="chevron" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3.5 5 6.5 8 3.5"/></svg>';
 const CHECK = '<svg class="check" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.5 5 9 9.5 3.5"/></svg>';
 
-export function mountLobby({ root, game, choice, onDepart, onBack }) {
+export function mountLobby({ root, game, choice, onDepart, onWander, onBack }) {
   const ctx = game.getSkillBookContext?.() ?? { test: false };
   root.innerHTML = `<style>${uiStyle}\n${style}\n${typeStyle}</style><main class="lobby" aria-labelledby="lobbyHeading">
     <canvas class="lobby-backdrop" id="lobbyGrove" aria-hidden="true"></canvas><div class="lobby-shade" aria-hidden="true"></div>
     <header class="lobby-header"><h1 id="lobbyHeading" tabindex="-1"><span>대기실</span></h1><p id="lobbyStatus" class="lobby-status" role="status"></p><button id="lobbyBack" class="secondary small on-art utility">첫 화면</button></header>
     <div class="lobby-columns">
-      <section class="character-panel"><figure class="portrait-card" id="lobbyPortrait" aria-label="내 캐릭터 프로필"><img id="lobbyPortraitImg" alt="" draggable="false" decoding="async"></figure><button class="primary depart" id="lobbyDepart">Stage 입장</button></section>
+      <section class="character-panel"><figure class="portrait-card" id="lobbyPortrait" aria-label="내 캐릭터 프로필"><img id="lobbyPortraitImg" alt="" draggable="false" decoding="async"></figure><div class="departure-options"><button class="primary depart" id="lobbyDepart">Stage 입장</button><button class="secondary depart" id="lobbyWander" aria-describedby="wanderHint">방랑</button><p class="wander-hint" id="wanderHint"></p></div></section>
       <section class="profile-panel" aria-label="내 정보">
         <dl class="profile-data"><dt class="sr-only">레벨과 호칭</dt><dd id="lobbyRank" class="rank-row"><span id="lobbyLevel"></span><span class="title-picker"><button type="button" id="titleSelect" class="title-select" aria-haspopup="listbox" aria-expanded="false" aria-controls="titleList" aria-labelledby="titleLabel titleCurrent"><span id="titleLabel" class="sr-only">호칭</span><span id="titleCurrent"></span>${CHEVRON}</button><ul id="titleList" class="title-list" role="listbox" aria-labelledby="titleLabel" hidden></ul></span></dd><dt class="sr-only">이름</dt><dd class="name-row"><span id="lobbyName"></span><button class="edit-name" id="editName" aria-label="이름 수정"><svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m3 10 7-7 3 3-7 7-4 1 1-4ZM9 4l3 3M2 14h12"/></svg></button></dd></dl>
         <p class="duel-record"><span>대면 결과</span><b id="duelRecord"></b></p>
@@ -267,11 +267,19 @@ export function mountLobby({ root, game, choice, onDepart, onBack }) {
   });
   listen($('lobbyBack'), 'click', onBack);
   let departing = false;
-  listen($('lobbyDepart'), 'click', async () => {
-    if (departing) return; departing = true; $('lobbyDepart').disabled = true; $('lobbyBack').disabled = true;
-    try { await onDepart(); } catch { status('여정을 열지 못했습니다. 다시 시도해 주십시오.'); }
-    finally { departing = false; $('lobbyDepart').disabled = false; $('lobbyBack').disabled = false; }
-  });
+  const wander = game.getWanderStatus?.() ?? { unlocked: false, cleared: 0, total: 29, name: '방랑' };
+  $('lobbyWander').disabled = !wander.unlocked;
+  $('lobbyWander').textContent = wander.ongoing ? `${wander.name} 이어가기` : wander.name;
+  $('wanderHint').textContent = wander.unlocked ? '무작위 대면 · 보상 2배' : `전체 무대 클리어 후 개방 · ${wander.cleared}/${wander.total}`;
+  async function leave(action) {
+    if (departing) return;
+    departing = true;
+    for (const id of ['lobbyDepart', 'lobbyWander', 'lobbyBack']) $(id).disabled = true;
+    try { await action(); } catch { status('대면을 열지 못했습니다. 다시 시도해 주십시오.'); }
+    finally { departing = false; $('lobbyDepart').disabled = false; $('lobbyWander').disabled = !wander.unlocked; $('lobbyBack').disabled = false; }
+  }
+  listen($('lobbyDepart'), 'click', () => leave(onDepart));
+  listen($('lobbyWander'), 'click', () => { if (wander.unlocked && onWander) leave(onWander); });
   $('lobbyHeading').focus();
   return {
     tree, // 시험·사진 도구: lobby.tree.show('german', 2)

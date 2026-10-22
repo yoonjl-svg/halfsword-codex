@@ -8,14 +8,16 @@
 //  호칭 (사장님 10/16 15:3x ⑥ "호칭 시스템을 나중에 추가할 거라서 '여행자'는 내림박스 같은 기능을 만들어서 호칭 선택할 수 있게 해" · 16:0x "… 이미 가진 호칭인 여행자가 보이고"
 //   — docs/import/ui_unify_2026-10-16.md §5): 기본 호칭 '여행자'는 늘 가짐 · 얻은 호칭은 titles(unlockEventTitle — 앞으로 호칭 제도가 부른다) · 고른 호칭은 title(selectTitle).
 //   호칭을 새로 지어 넣지 않는다(지금 얻을 수 있는 호칭은 없다).
+import { normalizeWander, wanderReward } from './wander_rules.js';
 export const PROGRESS_KEY = 'stillness.lobby.progress.v1';
 export const DEFAULT_TITLE = '여행자';
-let session = { acquisitions: [], coins: 100, heads: 0, titles: [], title: DEFAULT_TITLE };
+let session = { acquisitions: [], coins: 100, heads: 0, titles: [], title: DEFAULT_TITLE, wander: normalizeWander(null) };
+let pendingSave = null;
 const validText = s => typeof s === 'string' && s.length > 0 && s.length <= 160;
 const count = n => Number.isSafeInteger(n) && n >= 0;
 export function readProgress() {
   try {
-    const value = JSON.parse(localStorage.getItem(PROGRESS_KEY));
+    const value = JSON.parse(pendingSave ?? localStorage.getItem(PROGRESS_KEY));
     if (value?.version === 1) {
       const seen = new Set();
       const acquisitions = (Array.isArray(value.acquisitions) ? value.acquisitions : []).filter(a => {
@@ -24,14 +26,86 @@ export function readProgress() {
       }).map(({receipt, kind}) => ({receipt, kind}));
       const titles = (Array.isArray(value.titles) ? value.titles : []).filter(t => t && validText(t.event) && validText(t.name));
       session = { acquisitions, titles, title: titles.some(t => t.name === value.title) ? value.title : DEFAULT_TITLE,
-        coins: count(value.coins) ? value.coins : 100, heads: count(value.heads) ? value.heads : 0 };
+        coins: count(value.coins) ? value.coins : 100, heads: count(value.heads) ? value.heads : 0, wander: normalizeWander(value.wander) };
     }
   } catch { /* 이번 실행 동안 유지한다. */ }
   return { ...structuredClone(session), level: 1 + session.acquisitions.length };
 }
 function save() {
-  try { localStorage.setItem(PROGRESS_KEY, JSON.stringify({ version: 1, ...session })); return true; }
-  catch { return false; }
+  const text = JSON.stringify({ version: 1, ...session });
+  try { localStorage.setItem(PROGRESS_KEY, text); pendingSave = null; return true; }
+  catch { pendingSave = text; return false; }
+}
+
+// 무대 클리어와 방랑 저장. 보상·방랑 판 상태를 같은 localStorage 항목에 써서
+// 새로고침/대기실 복귀/다시 겨루기로 같은 보스 보상을 두 번 받지 않는다.
+export function recordCampaignStage(stage, required) {
+  readProgress();
+  if (!required.includes(stage)) return false;
+  const w = session.wander;
+  if (!w.cleared.includes(stage)) w.cleared.push(stage);
+  w.unlocked ||= required.every(s => w.cleared.includes(s));
+  save();
+  return w.unlocked;
+}
+export function migrateCampaignStages(checkpoint, clears, required) {
+  readProgress();
+  const w = session.wander;
+  if (w.legacyChecked) return;
+  w.legacyChecked = true;
+  // 기존 순차 여정의 저장 위치 앞 무대만 증거로 인정한다.
+  // 누적 29승은 Stage 1을 29번 반복한 것일 수도 있어 그것만으로 해금하지 않는다.
+  const index = required.indexOf(checkpoint?.stage);
+  if (index > 0 && clears >= index) w.cleared = [...new Set([...w.cleared, ...required.slice(0, index)])];
+  w.unlocked ||= required.every(s => w.cleared.includes(s));
+  save();
+}
+export function ensureWanderRun(makeEncounter) {
+  readProgress();
+  if (!session.wander.unlocked) return null;
+  const old = session.wander.run;
+  if (old?.status === 'active') return structuredClone(old);
+  const next = makeEncounter();
+  session.wander.run = {
+    id: old?.status === 'won' ? old.id : (globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`),
+    round: old?.status === 'won' ? old.round + 1 : 1,
+    wins: old?.status === 'won' ? old.wins : 0,
+    ...next, status: 'active', weapon: null, cards: null,
+    lastWeapon: old?.status === 'won' ? old.weapon || old.lastWeapon : null,
+    headTaken: false, reward: null,
+  };
+  save();
+  return structuredClone(session.wander.run);
+}
+export function saveWanderLoadout({ weapon, cards, lastWeapon }) {
+  readProgress();
+  const run = session.wander.run;
+  if (!run || run.status !== 'active') return false;
+  Object.assign(run, { weapon, cards, lastWeapon });
+  return save();
+}
+export function awardWanderHead() {
+  readProgress();
+  const run = session.wander.run;
+  if (!run || run.headTaken || run.status !== 'active') return false;
+  run.headTaken = true;
+  session.heads += 2;
+  save();
+  return true;
+}
+export function settleWander(win, roll = rollInt) {
+  readProgress();
+  const run = session.wander.run;
+  if (!run || run.status !== 'active') return null;
+  const reward = wanderReward(win, run.foe, roll(...(win ? JOURNEY_COINS.win : JOURNEY_COINS.loss)));
+  const before = session.coins;
+  session.coins = Math.max(0, before + reward.coins);
+  session.heads += reward.heads;
+  run.status = win ? 'won' : 'lost';
+  if (win) run.wins++;
+  run.reward = { coins: session.coins - before, heads: reward.heads + (run.headTaken ? 2 : 0), bonus: reward.bonus };
+  save();
+  return structuredClone(run.reward);
 }
 export function recordAcquisition({ receipt, kind, source }) {
   readProgress();

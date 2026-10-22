@@ -124,7 +124,8 @@ export const STAGE_FOE = { courtyard_night: 'samira_mad', dayr_night: 'silver_wa
 //  10/10 23:3x 사장님 '아르토리아는 대성당으로 반반, 사미라는 볼로냐 도서관으로 반반' → 짝을 바꿨다(대성당 = 마르그레테·아르토리아, 붉은 회랑 = 토메·사미라)
 //  10/17 14:xx 사장님 '전용 얼터 캐릭터들은 바로 여정에' → 밤의 대성당 후보는 광기의 아르토리아(샛별 저장소 셋째 들여오기 — 궁정 예복 · 갑옷 없음). 낮 대성당은 아르토리아 그대로
 //  10/17 사장님 '봉인의 중정 이식이 끝나면 마야는 거기서만 나올거야' → 중정이 여정에 들어가(15:4x '다 고쳐서 올려') 붉은 회랑의 마야 후보를 뺐다 — 붉은 회랑은 늘 토메, 마야는 중정(STAGE_FOE)에서만
-export const STAGE_FOE_EXTRA = { cathedral_night: ['artoria_mad'], cathedral: ['artoria'] };
+// 10/23: 아르토리아의 두 모습은 전체 클리어 후 방랑에서만 등장한다.
+export const STAGE_FOE_EXTRA = {};
 /** 이번 판 무대의 검객 id: 후보가 없으면 STAGE_FOE 그대로(난수 안 씀). 지난 상대(prevId)가 이 무대 후보면 그 사람 그대로(진 뒤 다시 싸우기) */
 export function stageFoeId(stageId, prevId = null, rnd = Math.random) {
   const base = STAGE_FOE[stageId];
