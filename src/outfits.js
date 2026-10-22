@@ -32,6 +32,7 @@ import { createReturnedKingOutfitV2 } from './outfit_returned_king_v2.js';
 import { createWhiteScaleOutfit } from './outfit_white_scale.js';
 import { createRoyalConceptOutfit } from './outfit_royal_concepts.js';
 import { createBlackKingOutfitV2 } from './outfit_black_king_v2.js';
+import { createBlackKingOutfitV3 } from './outfit_black_king_v3.js';
 
 const _m4 = new THREE.Matrix4();
 const _euler = new THREE.Euler();
@@ -2848,6 +2849,7 @@ const RENJI_V1 = createRenjiOutfit(newOutfitHelpers); // 김씨 v1 (v2 가 하�
 
 export const OUTFITS = {
   chain_hero: createRoyalConceptOutfit(newOutfitHelpers, 'chain'),
+  black_king_v3: createBlackKingOutfitV3(newOutfitHelpers),
   black_king_v2: createBlackKingOutfitV2(newOutfitHelpers),
   black_king: createRoyalConceptOutfit(newOutfitHelpers, 'black'),
   returned_king: createReturnedKingOutfit(newOutfitHelpers),
@@ -2933,7 +2935,7 @@ export function decorateOutfit(dressTo, d, look, groups) {
  *  stockEyes = quietFace 가 눌러 둔 눈을 기본 크기로(eyeColor 가 있으면 눈 색) · tailoring 'soft-shoulders' = 몸통 모서리 둥글리기·견장 눌러 펴기·위팔 판 6 % 좁히기.
  *  표시 없는 인물은 아무 일도 없다. 샛별 쪽의 마르그레테 가슴판 다듬기 가지는 우리 마르그레테가 그 표시를 안 써서 뺐다. */
 export function polishOutfit(g, d, look) {
-  if (look.outfit === 'black_king_v2') g.userData.finishBlackKing?.();
+  if (look.outfit === 'black_king_v2' || look.outfit === 'black_king_v3') g.userData.finishBlackKing?.();
   if (look.stockEyes && d.name === 'head') {
     for (const eye of g.children.slice(1, 3)) {
       eye.scale.set(1, 1, 1);
