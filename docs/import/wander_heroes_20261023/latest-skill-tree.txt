@@ -1,158 +1,43 @@
 using deprecated parameters for the initialization function; pass a single object instead
-✔ 설계 자료(data.mjs)와 같다: 유파마다 11 칸 · id · 갈래 · 앞 칸(모두) · 금화 · 머리 · 곁가지 · 줄 · 가로 자리 (2.474496ms)
-✔ 값 규칙 (사장님 19:0x): 편지 금화 100 · 패시브 머리 10(금화 0) · 보법 II 금화 100 · 비기 금화 400 + 머리 20 (0.234805ms)
-✔ 처음엔 뿌리(보법 I)만 배울 수 있음 · 곁가지(편지 · 보법 II 곁가지)는 아무것도 막지 않는다 (0.447195ms)
-✔ 독일 관문: 2단계 셋(곁눈 베기 · 비껴 딛는 가로베기 · 막기 I)을 모두 익혀야 3단계(겹치기 · 심화 · 막기 II) — 하나라도 빠지면 잠김 · 보법 II → 패시브 (0.184939ms)
-✔ 이탈리아 줄기: 보법 II(물러서기)를 거쳐야 찌르기 · 막기 줄기 · 편지는 보법 I 곁가지 (0.133292ms)
-✔ 이베리아: 손목 힘 패시브는 보법 바로 아래 · 비기는 패시브 + 둥근 걸음 + 이어 긋기 흐름 모두 (0.110667ms)
-✔ 닫힌 칸: 비기는 열린 유파만(SECRET.openSchools — 10/22 사람 쪽 다섯 유파 — 일본 고노센 · 독일 죽음의 일격 · 이탈리아 거침없이 나아가 찌르기 · 이베리아 휘감아 돌기 · 동방 막아 죽이기) · 일본 손목 치기 심화(J8)는 준비 중 · 닫힌 칸은 못 배우고 판 몫도 없음 (2.320755ms)
-✔ 배우기: 금화 · 머리를 낸다 · 앞 칸 · 모자람 · 이미 익힘 · 낸 값이 남는다 · 칸 하나 = Lv +1 (1.008853ms)
-✔ 유파 초기화: 머리 1 · 그 유파 칸에 쓴 금화 · 머리를 모두 돌려받음 · 다른 유파 그대로 · 레벨이 내려감 · 익힌 칸 없음 / 머리 0 이면 못 함 (1.158029ms)
-✖ 유파 초기화는 저장이 막혀도 금화를 잃지 않는다 (이번 실행 동안만 · 저장된 값은 그대로) (1.361315ms)
-✖ 옮기기: 산 책을 모두 거두고 쓴 금화를 돌려준 뒤 금화 500 · 레벨은 물건만 · 옛 봉인 기록 지움 · 알림 한 번 · 두 번 하지 않음 (0.540136ms)
-✖ 옮기기: 새 플레이어(저장 없음)도 금화 500 · 알림 · 한 번 (0.283438ms)
-✖ 옮기기: 저장이 막히면 이번 실행 동안만 — 저장된 옛 값은 그대로라 다음 실행에서 정확히 한 번 (금화를 잃지도 두 번 받지도 않음) (0.783222ms)
-✖ 옮기기: 옛 판(다른 탭)이 진행 저장의 기록 칸을 떨어뜨려도 500 을 두 번 주지 않음 · 그 뒤 생긴 옛 책은 돌려주기만 (0.673988ms)
-✔ 편지 없음 = 지금 뽑기와 같다: 같은 난수 · 같은 결과(난수 600 벌 · 두 장) · 확률 = 칸 무게 셈(배율 1) (266.779004ms)
-✔ 편지 하나: 그 유파 칸만 × 배율 · 나머지 칸은 같은 비로 줄어듦(쓰레기 · ??? 도) — 실제 함수 = 정확한 셈 (1375.371735ms)
-✔ 편지 다섯: 쓰레기 4 → 약 2.1 % · ??? 6 → 약 3.2 % (지금 무기 — 정확한 셈과 실제 함수) (282.430388ms)
-✔ 둘째 장: 첫 장 칸(묶음째)을 뺀 남은 칸으로 다시 셈 — 실제 함수 = 정확한 셈 (786.171836ms)
-✔ 배율은 config 한 곳(LETTER.mult — 사장님 결정 2) · 편지 칸 글에는 배율 숫자를 쓰지 않음(10/22 사장님 '뽑기 무게 2배' 빼) (284.070766ms)
-✔ 편지 가진 유파 읽기 · 테스트 경로는 모두 (0.743233ms)
-✔ 칸 하나 = 제 몫 하나: 칸만 켠 몫과 빈 몫의 차이 = 그 칸의 f · u · perk 뿐 · 편지 · 닫힌 칸은 몫 없음 (1.01981ms)
-✔ 칸 → 몫 표 (IMPLEMENTATION.md §2): 보기 칸들 · 사람 고유 공격은 모두 한 칸씩 · 강화동작 이점은 그 강화동작의 심화 칸 (0.66859ms)
-✔ 판 몫 차례: ?skillNodes → ?uniqueStage(옛 급 N 까지의 칸) → 테스트 경로(모두) → 익힌 칸 · 무유파 null (0.608429ms)
-✔ 몫 읽기(skill_kit.js): skillKit 이 없는 몸(AI · 시뮬)은 늘 켜짐 (0.18488ms)
-✔ 실제 몸 — 보법: 이탈리아 I1 = 박자 걸음(뒤 느려짐 그대로) · I3 = 뒤 느려짐 없앰 / 이베리아 B1 = 넓은 옆걸음 · B2 = 옆 박차기 / 보법 I 없음 = 기본 걸음 · 상대는 그대로 (145.583525ms)
-✔ 실제 몸 — 독일 간격 잡기: G1 만이면 상대 헛침에 창이 안 열림 · G1 + G2 면 열림 (583.850787ms)
-✔ 실제 몸 — 걷기 기력: 동방 C1 만 = 보통 1.4 · C1 + C2 = 0.7 · 일본 J1 = 2.1 (1.141363ms)
-✔ 실제 몸 — 막기: 독일 G3 = 독일 자리만(왕관 몸꼴 없음) · G4 = 왕관 / 일본 J2 = 우케나가시 + 피해 20 % / 이베리아 B8 만 = 피해 감소 없음 · B9 = 20 % (76.552163ms)
-✔ 실제 몸 — 흘린 칼(J4): 흘린 공격 피해 감소는 J4 를 익혀야 · AI(몫 없음)는 그대로 (0.243608ms)
-✔ 실제 몸 — 강화동작 이점은 심화 칸: 곁눈 베기 무릎 꺾기(G6) · 돌려 베기 쌓기(B6) / 이어 긋기 흐름(B5) (23.853208ms)
-✔ 실제 몸 — 고유 공격 · 비기: 익힌 칸의 기술만 · 비기는 비기 칸(열린 유파만) (26.043186ms)
-✔ 판 칸 이름(name)이 모든 칸에 있고 갈래 말(보법 · 막기 · 패시브 · 비기 · 심화)로 시작하지 않음 (사장님 10/22) (0.468557ms)
-✔ 칸 오의(lore · src — 사장님 10/22 00:5x 원전의 오의를 밝힌 예전 방식): 모든 칸에 lore · 45 자 안 · 숫자 · 로마자 · 한자 · 가나 없음 / 편지 아닌 칸은 src 있음 · 편지 칸은 src 없음(편지에 한한 예외 — 10/22 01:1x) (0.865156ms)
-✔ 10/23 비기 이름 = 원어 독음 (동방은 한자 한국식 독음) · 스킬 화면 제목은 원어를 괄호로 함께 (4.732216ms)
+✔ 설계 자료(data.mjs)와 같다: 유파마다 11 칸 · id · 갈래 · 앞 칸(모두) · 금화 · 머리 · 곁가지 · 줄 · 가로 자리 (2.347394ms)
+✔ 값 규칙 (사장님 19:0x): 편지 금화 100 · 패시브 머리 10(금화 0) · 보법 II 금화 100 · 비기 금화 400 + 머리 20 (0.230057ms)
+✔ 처음엔 뿌리(보법 I)만 배울 수 있음 · 곁가지(편지 · 보법 II 곁가지)는 아무것도 막지 않는다 (0.340404ms)
+✔ 독일 관문: 2단계 셋(곁눈 베기 · 비껴 딛는 가로베기 · 막기 I)을 모두 익혀야 3단계(겹치기 · 심화 · 막기 II) — 하나라도 빠지면 잠김 · 보법 II → 패시브 (0.17216ms)
+✔ 이탈리아 줄기: 보법 II(물러서기)를 거쳐야 찌르기 · 막기 줄기 · 편지는 보법 I 곁가지 (0.165259ms)
+✔ 이베리아: 손목 힘 패시브는 보법 바로 아래 · 비기는 패시브 + 둥근 걸음 + 이어 긋기 흐름 모두 (0.117157ms)
+✔ 닫힌 칸: 비기는 열린 유파만(SECRET.openSchools — 10/22 사람 쪽 다섯 유파 — 일본 고노센 · 독일 죽음의 일격 · 이탈리아 거침없이 나아가 찌르기 · 이베리아 휘감아 돌기 · 동방 막아 죽이기) · 일본 손목 치기 심화(J8)는 준비 중 · 닫힌 칸은 못 배우고 판 몫도 없음 (2.382377ms)
+✔ 배우기: 금화 · 머리를 낸다 · 앞 칸 · 모자람 · 이미 익힘 · 낸 값이 남는다 · 칸 하나 = Lv +1 (1.131819ms)
+✔ 유파 초기화: 머리 1 · 그 유파 칸에 쓴 금화 · 머리를 모두 돌려받음 · 다른 유파 그대로 · 레벨이 내려감 · 익힌 칸 없음 / 머리 0 이면 못 함 (1.398532ms)
+✔ 유파 초기화는 저장이 막혀도 금화를 잃지 않는다 (이번 실행 동안만 · 저장된 값은 그대로) (0.650442ms)
+✔ 옮기기: 산 책을 모두 거두고 쓴 금화를 돌려준 뒤 금화 500 · 레벨은 물건만 · 옛 봉인 기록 지움 · 알림 한 번 · 두 번 하지 않음 (13.430498ms)
+✔ 옮기기: 새 플레이어(저장 없음)도 금화 500 · 알림 · 한 번 (0.338591ms)
+✔ 옮기기: 저장이 막히면 이번 실행 동안만 — 저장된 옛 값은 그대로라 다음 실행에서 정확히 한 번 (금화를 잃지도 두 번 받지도 않음) (0.333043ms)
+✔ 옮기기: 옛 판(다른 탭)이 진행 저장의 기록 칸을 떨어뜨려도 500 을 두 번 주지 않음 · 그 뒤 생긴 옛 책은 돌려주기만 (0.52347ms)
+✔ 편지 없음 = 지금 뽑기와 같다: 같은 난수 · 같은 결과(난수 600 벌 · 두 장) · 확률 = 칸 무게 셈(배율 1) (276.574696ms)
+✔ 편지 하나: 그 유파 칸만 × 배율 · 나머지 칸은 같은 비로 줄어듦(쓰레기 · ??? 도) — 실제 함수 = 정확한 셈 (1402.501334ms)
+✔ 편지 다섯: 쓰레기 4 → 약 2.1 % · ??? 6 → 약 3.2 % (지금 무기 — 정확한 셈과 실제 함수) (272.300878ms)
+✔ 둘째 장: 첫 장 칸(묶음째)을 뺀 남은 칸으로 다시 셈 — 실제 함수 = 정확한 셈 (747.740678ms)
+✔ 배율은 config 한 곳(LETTER.mult — 사장님 결정 2) · 편지 칸 글에는 배율 숫자를 쓰지 않음(10/22 사장님 '뽑기 무게 2배' 빼) (288.948424ms)
+✔ 편지 가진 유파 읽기 · 테스트 경로는 모두 (0.84094ms)
+✔ 칸 하나 = 제 몫 하나: 칸만 켠 몫과 빈 몫의 차이 = 그 칸의 f · u · perk 뿐 · 편지 · 닫힌 칸은 몫 없음 (1.099851ms)
+✔ 칸 → 몫 표 (IMPLEMENTATION.md §2): 보기 칸들 · 사람 고유 공격은 모두 한 칸씩 · 강화동작 이점은 그 강화동작의 심화 칸 (1.069465ms)
+✔ 판 몫 차례: ?skillNodes → ?uniqueStage(옛 급 N 까지의 칸) → 테스트 경로(모두) → 익힌 칸 · 무유파 null (0.720117ms)
+✔ 몫 읽기(skill_kit.js): skillKit 이 없는 몸(AI · 시뮬)은 늘 켜짐 (0.1127ms)
+✔ 실제 몸 — 보법: 이탈리아 I1 = 박자 걸음(뒤 느려짐 그대로) · I3 = 뒤 느려짐 없앰 / 이베리아 B1 = 넓은 옆걸음 · B2 = 옆 박차기 / 보법 I 없음 = 기본 걸음 · 상대는 그대로 (162.803673ms)
+✔ 실제 몸 — 독일 간격 잡기: G1 만이면 상대 헛침에 창이 안 열림 · G1 + G2 면 열림 (581.65679ms)
+✔ 실제 몸 — 걷기 기력: 동방 C1 만 = 보통 1.4 · C1 + C2 = 0.7 · 일본 J1 = 2.1 (1.254915ms)
+✔ 실제 몸 — 막기: 독일 G3 = 독일 자리만(왕관 몸꼴 없음) · G4 = 왕관 / 일본 J2 = 우케나가시 + 피해 20 % / 이베리아 B8 만 = 피해 감소 없음 · B9 = 20 % (84.372918ms)
+✔ 실제 몸 — 흘린 칼(J4): 흘린 공격 피해 감소는 J4 를 익혀야 · AI(몫 없음)는 그대로 (0.239882ms)
+✔ 실제 몸 — 강화동작 이점은 심화 칸: 곁눈 베기 무릎 꺾기(G6) · 돌려 베기 쌓기(B6) / 이어 긋기 흐름(B5) (26.456614ms)
+✔ 실제 몸 — 고유 공격 · 비기: 익힌 칸의 기술만 · 비기는 비기 칸(열린 유파만) (22.769128ms)
+✔ 판 칸 이름(name)이 모든 칸에 있고 갈래 말(보법 · 막기 · 패시브 · 비기 · 심화)로 시작하지 않음 (사장님 10/22) (0.352532ms)
+✔ 칸 오의(lore · src — 사장님 10/22 00:5x 원전의 오의를 밝힌 예전 방식): 모든 칸에 lore · 45 자 안 · 숫자 · 로마자 · 한자 · 가나 없음 / 편지 아닌 칸은 src 있음 · 편지 칸은 src 없음(편지에 한한 예외 — 10/22 01:1x) (0.95379ms)
+✔ 10/23 비기 이름 = 원어 독음 (동방은 한자 한국식 독음) · 스킬 화면 제목은 원어를 괄호로 함께 (3.229425ms)
 ℹ tests 34
 ℹ suites 0
-ℹ pass 29
-ℹ fail 5
+ℹ pass 34
+ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 3882.630774
-
-✖ failing tests:
-
-test at tools/sim/skill_tree.test.mjs:179:1
-✖ 유파 초기화는 저장이 막혀도 금화를 잃지 않는다 (이번 실행 동안만 · 저장된 값은 그대로) (1.361315ms)
-  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
-  
-  1000 !== 700
-  
-      at TestContext.<anonymous> (file:///workspace/halfsword-wander-handoff/tools/sim/skill_tree.test.mjs:188:10)
-      at Test.runInAsyncScope (node:async_hooks:227:14)
-      at Test.run (node:internal/test_runner/test:1382:25)
-      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
-      at Test.postRun (node:internal/test_runner/test:1522:19)
-      at Test.run (node:internal/test_runner/test:1447:12)
-      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
-    generatedMessage: true,
-    code: 'ERR_ASSERTION',
-    actual: 1000,
-    expected: 700,
-    operator: 'strictEqual',
-    diff: 'simple'
-  }
-
-test at tools/sim/skill_tree.test.mjs:197:1
-✖ 옮기기: 산 책을 모두 거두고 쓴 금화를 돌려준 뒤 금화 500 · 레벨은 물건만 · 옛 봉인 기록 지움 · 알림 한 번 · 두 번 하지 않음 (0.540136ms)
-  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
-  
-  1 !== 6
-  
-      at TestContext.<anonymous> (file:///workspace/halfsword-wander-handoff/tools/sim/skill_tree.test.mjs:200:10)
-      at Test.runInAsyncScope (node:async_hooks:227:14)
-      at Test.run (node:internal/test_runner/test:1382:25)
-      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
-      at Test.postRun (node:internal/test_runner/test:1522:19)
-      at Test.run (node:internal/test_runner/test:1447:12)
-      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
-    generatedMessage: true,
-    code: 'ERR_ASSERTION',
-    actual: 1,
-    expected: 6,
-    operator: 'strictEqual',
-    diff: 'simple'
-  }
-
-test at tools/sim/skill_tree.test.mjs:215:1
-✖ 옮기기: 새 플레이어(저장 없음)도 금화 500 · 알림 · 한 번 (0.283438ms)
-  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
-  
-  1000 !== 100
-  
-      at TestContext.<anonymous> (file:///workspace/halfsword-wander-handoff/tools/sim/skill_tree.test.mjs:218:10)
-      at Test.runInAsyncScope (node:async_hooks:227:14)
-      at Test.run (node:internal/test_runner/test:1382:25)
-      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
-      at Test.postRun (node:internal/test_runner/test:1522:19)
-      at Test.run (node:internal/test_runner/test:1447:12)
-      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
-    generatedMessage: true,
-    code: 'ERR_ASSERTION',
-    actual: 1000,
-    expected: 100,
-    operator: 'strictEqual',
-    diff: 'simple'
-  }
-
-test at tools/sim/skill_tree.test.mjs:224:1
-✖ 옮기기: 저장이 막히면 이번 실행 동안만 — 저장된 옛 값은 그대로라 다음 실행에서 정확히 한 번 (금화를 잃지도 두 번 받지도 않음) (0.783222ms)
-  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
-  
-  1500 !== 50
-  
-      at TestContext.<anonymous> (file:///workspace/halfsword-wander-handoff/tools/sim/skill_tree.test.mjs:233:10)
-      at Test.runInAsyncScope (node:async_hooks:227:14)
-      at Test.run (node:internal/test_runner/test:1382:25)
-      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
-      at Test.postRun (node:internal/test_runner/test:1522:19)
-      at Test.run (node:internal/test_runner/test:1447:12)
-      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
-    generatedMessage: true,
-    code: 'ERR_ASSERTION',
-    actual: 1500,
-    expected: 50,
-    operator: 'strictEqual',
-    diff: 'simple'
-  }
-
-test at tools/sim/skill_tree.test.mjs:238:1
-✖ 옮기기: 옛 판(다른 탭)이 진행 저장의 기록 칸을 떨어뜨려도 500 을 두 번 주지 않음 · 그 뒤 생긴 옛 책은 돌려주기만 (0.673988ms)
-  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
-  + actual - expected
-  
-    [
-      false,
-  -   1,
-  -   200,
-      0,
-  +   0,
-  +   0
-    ]
-  
-      at TestContext.<anonymous> (file:///workspace/halfsword-wander-handoff/tools/sim/skill_tree.test.mjs:245:10)
-      at Test.runInAsyncScope (node:async_hooks:227:14)
-      at Test.run (node:internal/test_runner/test:1382:25)
-      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
-      at Test.postRun (node:internal/test_runner/test:1522:19)
-      at Test.run (node:internal/test_runner/test:1447:12)
-      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
-    generatedMessage: true,
-    code: 'ERR_ASSERTION',
-    actual: [Array],
-    expected: [Array],
-    operator: 'deepStrictEqual',
-    diff: 'simple'
-  }
+ℹ duration_ms 3917.764341

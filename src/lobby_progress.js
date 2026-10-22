@@ -17,7 +17,7 @@ export const DEFAULT_TITLE = '여행자';
 /** 얻은 것 갈래: item 물건 · skill 스킬트리 칸(10/21) · skillbook 옛 스킬북(읽기만 — 옮기기가 거둔다) */
 export const ACQ_KINDS = Object.freeze(['item', 'skill', 'skillbook']);
 let session = { acquisitions: [], coins: 100, heads: 0, titles: [], title: DEFAULT_TITLE, tree: null, wander: normalizeWander(null) };
-let pendingSave = null;
+let pendingSave = null, pendingBase = null, pendingStore = null;
 const validText = s => typeof s === 'string' && s.length > 0 && s.length <= 160;
 const count = n => Number.isSafeInteger(n) && n >= 0;
 const paidOf = p => (p && count(p.coins) && count(p.heads) ? { coins: p.coins, heads: p.heads } : null);
@@ -26,7 +26,10 @@ const treeOf = t => (t?.v === 1 && count(t.books) && count(t.coins) && count(t.h
   ? { v: 1, at: validText(t.at) ? t.at : '', books: t.books, coins: t.coins, heads: t.heads, bonus: t.bonus, notice: t.notice === true } : null);
 export function readProgress() {
   try {
-    const value = JSON.parse(pendingSave ?? localStorage.getItem(PROGRESS_KEY));
+    const stored = localStorage.getItem(PROGRESS_KEY);
+    // An explicit external wallet replacement/reset supersedes our failed write.
+    if (pendingSave != null && (pendingStore !== localStorage || stored !== pendingBase)) pendingSave = null;
+    const value = JSON.parse(pendingSave ?? stored);
     if (value?.version === 1) {
       const seen = new Set();
       const acquisitions = (Array.isArray(value.acquisitions) ? value.acquisitions : []).filter(a => {
@@ -40,10 +43,16 @@ export function readProgress() {
   } catch { /* 이번 실행 동안 유지한다. */ }
   return { ...structuredClone(session), level: 1 + session.acquisitions.length };
 }
-function save() {
+function save(retainOnFailure = false) {
   const text = JSON.stringify({ version: 1, ...session });
+  let before; try { before = localStorage.getItem(PROGRESS_KEY); } catch {}
   try { localStorage.setItem(PROGRESS_KEY, text); pendingSave = null; return true; }
-  catch { pendingSave = text; return false; }
+  catch {
+    // Preserve the upstream purchase/reset/migration rollback contract. Only
+    // unfinished wander transactions need an in-session duplicate-reward guard.
+    if (retainOnFailure || pendingSave != null) { pendingSave = text; pendingBase = before; pendingStore = globalThis.localStorage; }
+    return false;
+  }
 }
 
 // 무대 클리어와 방랑 저장. 보상·방랑 판 상태를 같은 localStorage 항목에 써서
@@ -54,7 +63,7 @@ export function recordCampaignStage(stage, required) {
   const w = session.wander;
   if (!w.cleared.includes(stage)) w.cleared.push(stage);
   w.unlocked ||= required.every(s => w.cleared.includes(s));
-  save();
+  save(true);
   return w.unlocked;
 }
 export function migrateCampaignStages(checkpoint, clears, required) {
@@ -67,7 +76,7 @@ export function migrateCampaignStages(checkpoint, clears, required) {
   const index = required.indexOf(checkpoint?.stage);
   if (index > 0 && clears >= index) w.cleared = [...new Set([...w.cleared, ...required.slice(0, index)])];
   w.unlocked ||= required.every(s => w.cleared.includes(s));
-  save();
+  save(true);
 }
 export function ensureWanderRun(makeEncounter) {
   readProgress();
@@ -83,7 +92,7 @@ export function ensureWanderRun(makeEncounter) {
     lastWeapon: old?.status === 'won' ? old.weapon || old.lastWeapon : null,
     headTaken: false, reward: null,
   };
-  save();
+  save(true);
   return structuredClone(session.wander.run);
 }
 export function saveWanderLoadout({ weapon, cards, lastWeapon }) {
@@ -91,7 +100,7 @@ export function saveWanderLoadout({ weapon, cards, lastWeapon }) {
   const run = session.wander.run;
   if (!run || run.status !== 'active') return false;
   Object.assign(run, { weapon, cards, lastWeapon });
-  return save();
+  return save(true);
 }
 export function awardWanderHead() {
   readProgress();
@@ -99,7 +108,7 @@ export function awardWanderHead() {
   if (!run || run.headTaken || run.status !== 'active') return false;
   run.headTaken = true;
   session.heads += 2;
-  save();
+  save(true);
   return true;
 }
 export function settleWander(win, roll = rollInt) {
@@ -114,7 +123,7 @@ export function settleWander(win, roll = rollInt) {
   run.status = win ? 'won' : 'lost';
   if (win) run.wins++;
   run.reward = { coins: session.coins - before, heads: reward.heads + (run.headTaken ? 2 : 0), bonus: reward.bonus };
-  save();
+  save(true);
   return structuredClone(run.reward);
 }
 export function recordAcquisition({ receipt, kind, source }) {

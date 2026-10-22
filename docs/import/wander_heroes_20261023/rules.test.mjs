@@ -57,4 +57,8 @@ p.ensureWanderRun(()=>({stage:'poseidon_night',foe:'bran',foeWeapon:'longsword'}
 assert.equal(p.settleWander(true,(lo,hi)=>{assert.deepEqual([lo,hi],[20,60]);return hi;}).coins,120);
 p.ensureWanderRun(()=>({stage:'poseidon',foe:'bran',foeWeapon:'longsword'}));
 assert.equal(p.settleWander(true,(lo,hi)=>{assert.deepEqual([lo,hi],[10,30]);return lo;}).coins,20);
+// An explicit external replacement must invalidate pending wander memory.
+p.ensureWanderRun(encounter());localStorage.setItem=()=>{throw Error('quota');};p.settleWander(true,()=>10);localStorage.setItem=realSet;
+localStorage.setItem(p.PROGRESS_KEY,JSON.stringify({version:1,coins:123,heads:7,acquisitions:[],titles:[],title:'여행자'}));
+assert.equal(p.readProgress().coins,123);assert.equal(p.readProgress().wander.run,null);
 console.log('PASS: unlock, legacy migration, exclusive roster, independent draw, ordinary and boss rewards, reload/idempotency, defeat, equipment and quota fallback');
