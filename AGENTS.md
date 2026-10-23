@@ -1,5 +1,7 @@
 # 샛별 — 재포크 이후 작업 지침
 
+- **10/24 뒤랑달 전달 완료:** 사용자 “우화에게 보내” 승인. 최신 수신9b6c5745 위 기능c039bcc7+자료695ff48b, 가지codex/durandal-handoff-20261024. 전체155cm/날115.9cm/2.20kg/이베리아레전드·롤랑배정. 최신 채찍/베르나르도 변경보존·5검사/빌드/모바일 재검증. dev-exchange052a6cbb 메시지4파일·전달34파일 원격확인. [영수증](docs/codex_team/DURANDAL_HANDOFF_20261024.json). 상대쓰기0·실제읽음/채택미확인. 아래 검토대기는 이번 사용자 승인이 대체.
+
 - **10/24 뒤랑달 새 규격·155cm:** 사용자 이베리아 레전드/독립 스펙/전체155cm 요청. 우화 수신59deba27 기준 우리 포크 `codex/durandal-20261024`, 기능c146adf6/길이42d4ecfd. 날115.9cm·전체155cm·2.20kg·손22cm/기존몬탄테동작, 금빛십자코등이·붉은감개·성물함/상아빛기운. 롤랑 기본무기 연결·기존31종 보존, 공통5관문/모바일/카드/양역할검토 통과. [실제사진·규격](docs/design/durandal_20261024/README.md). 별도공개검토판, 일반공개소스교체0·우화쓰기/새전달0·사용자화면검토대기. 공개는publication.json.
 
 - **10/24 확정 프로필3명 전달 완료:** 우화 최신59deba27 기반 단일커밋0aef88d4, 가지 `codex/hero-profiles-handoff-20261024`; 원본/low/grid9장·액자/셀소스 등17파일. 메시지250364bd를 dev-exchange에 발행·원격4파일 확인, 공개13파일 해시 일치. 롤랑 sebastian→roland / 백린 white_scale / 올리비에 black_king→bernardo 대응과 수신측v2복식차이를 명시. 실제게임/수신저장소쓰기0·읽음/채택미확인. [영수증](docs/codex_team/HERO_PROFILES_HANDOFF_20261024.json).
