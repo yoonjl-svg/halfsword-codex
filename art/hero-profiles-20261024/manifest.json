@@ -4,7 +4,7 @@
   "source": {
     "from": "샛별 저장소",
     "commit": "0aef88d4a7397dc727641f0d773b8a49d2878533",
-    "note": "받은 묶음의 그림 9 장 · sprites.json 은 바이트 그대로 · 경로만 우리 id 로. 받은 frame1.png 는 우리 art/portraits-px-20261018/frame1.png 와 같은 바이트라 다시 두지 않음"
+    "note": "최초 3인물 묶음은 아래 commit. 베르나르도 복식 후속 원본은 characters[].revision.sourceCommit에 별도 기록. 롤랑·백린은 최초 수신 그림 그대로."
   },
   "ownerDecision": {
     "date": "2026-10-24",
@@ -31,8 +31,8 @@
   },
   "sprites": {
     "path": "art/hero-profiles-20261024/sprites.json",
-    "sha256": "3f0afd64a58c68aa006459ddcf6660d3029e3ca1d6a34ac94f2ae3d1cda42fab",
-    "bytes": 33611,
+    "sha256": "e78fac4fdc6d9049590a6f5d7bda025bb993e205db1e9b01602831552f0c128b",
+    "bytes": 38683,
     "keys": "샛별 id — 아래 characters[].sourceId"
   },
   "conversion": {
@@ -109,24 +109,24 @@
       "files": {
         "original": {
           "path": "art/hero-profiles-20261024/bernardo/original.png",
-          "sha256": "4568038eb8586be00dc63477e4f4e6914da2bf2bfe8d6f00c25e7a67a9917750",
-          "bytes": 1818493
+          "sha256": "41607f4b2d754219e5a9d3f670675201da97302a9f6e8ad1c160a4438e66a5b2",
+          "bytes": 1902431
         },
         "low": {
           "path": "art/hero-profiles-20261024/bernardo/low.png",
-          "sha256": "2c27f5c724e43ed35e7dc94dc2acdaec015ea21051326356d7be9df93f46136b",
-          "bytes": 202607
+          "sha256": "a641508d1e3c79f6f70b98bc6f5a8155b37ff0206cd9f22bd183770d1f222d41",
+          "bytes": 202592
         },
         "grid": {
           "path": "art/hero-profiles-20261024/bernardo/grid.png",
-          "sha256": "b256745a89159830504685bc02e767380a9800bf6d7369cbee4a855f6ace8366",
-          "bytes": 208634
+          "sha256": "0c36e9adba0dff94b38f53145b0a8d7b54166482ca6a6bb09f81ff48c420bed2",
+          "bytes": 208898
         }
       },
       "game": {
         "path": "public/ui/portraits/bernardo.webp",
-        "sha256": "1584f9d5d9bdc4ec91000f09226ba914fa29a5ac8b8b093ebd1468a4060a66c9",
-        "bytes": 29648
+        "sha256": "4c58ad9e84293dd22d117537da36812e10750a3249278b312a0c34137f819f35",
+        "bytes": 30322
       },
       "eyeCells": {
         "cells": [
@@ -143,7 +143,14 @@
         "before": "#6E503B",
         "note": "칸 좌표 0 부터 (열, 행) — 받은 최종본의 지정 눈끝 두 칸"
       },
-      "note": "받은 그림은 v1 복식(먹빛 리벳 갑옷 · 한쪽 어깨의 황토빛 짧은 망토 · 덥수룩한 수염 · 머리띠 없음)이다. 지금 모델 v2(흰 겉옷 · 금관 사자 · 긴 금빛 망토 · 금테 · 금 머리띠 · 다듬은 수염)와 다르며, 사장님 10/24 \"모두 적용해\"대로 다시 그리지 않고 그대로 쓴다."
+      "note": "MSG-S-014 복식 수정: 얼굴·머리·확정 눈과 액자·크롭 보존. 흰 금테 겉옷·금관을 쓴 검은 사자·금빛 망토. 사용자 “good. 우화에게 보내.” 승인본. 원본/low/grid는 승인 파일 그대로, low 복식 82셀 변경.",
+      "revision": {
+        "date": "2026-10-24",
+        "sourceCommit": "82c606873fe812ed7cb5bb59a647a650e05faca0",
+        "request": "MSG-S-014",
+        "approval": "good. 우화에게 보내.",
+        "cellEdits": "docs/import/bernardo_profile_20261024/cell-edits.json"
+      }
     }
   ]
 }
