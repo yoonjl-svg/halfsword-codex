@@ -6,7 +6,7 @@ const before=JSON.parse(fs.readFileSync(new URL('./before.json',import.meta.url)
 for(const[id,old]of Object.entries(before.weapons))assert.deepEqual(JSON.parse(JSON.stringify({...WEAPONS[id],parts:WEAPONS[id].buildParts({grip:0xaaaaaa,hilt:0x888888})})),old,id);
 for(const[id,old]of Object.entries(before.characters))if(id!=='roland')assert.deepEqual(JSON.parse(JSON.stringify(CHARACTERS_BY_ID[id])),old,id);
 const physics=Object.fromEntries(['durandal','zweihander','tizona'].map(id=>[id,{...weaponPhysics(WEAPONS[id]),text:weaponSpecText(WEAPONS[id])}]));
-assert.equal(w.tier,'legend');assert.equal(w.power,1.2);assert.equal(w.fragility,0);assert.equal(w.breakChance(100000),0);assert.equal(w.bladeLength,1.12);assert(Math.abs(physics.durandal.mass-2.2)<1e-9);assert(physics.durandal.I<physics.zweihander.I);assert.equal(w.gripAlong,-.22);
+assert.equal(w.tier,'legend');assert.equal(w.power,1.2);assert.equal(w.fragility,0);assert.equal(w.breakChance(100000),0);assert.equal(w.bladeLength,1.159);assert(Math.abs(physics.durandal.mass-2.2)<1e-9);assert(physics.durandal.I<physics.zweihander.I);assert.equal(w.gripAlong,-.22);assert(physics.durandal.text.includes('155 cm'));
 assert.equal(CHARACTERS_BY_ID.roland.weapon,'durandal');assert.equal(CHARACTERS_BY_ID.roland.ai.persona.school,'durandal');assert(AURA_PROFILES.durandal);assert(!w.awe&&!w.ignoreArmor);
 const art=resolveSwordArt(w),base=resolveSwordArt(WEAPONS.zweihander);assert.equal(art.tradition,'iberian');for(const key of['table','grip','offArm','parry','motion'])assert.deepEqual(art[key],base[key],key);
 for(const y of[0,w.gripAlong]){const p=w.buildParts({})[0];assert(Math.abs(y-p[1])<=p[0][2]);}
