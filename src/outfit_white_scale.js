@@ -1,6 +1,6 @@
-// Silver lamellar warrior: follow the supplied reference armor closely.
+// Silver lamellar warrior with black horns and red cords.
 // Mongol origin belongs to the story, not a separate costume reinterpretation.
-// Reference-inspired fantasy equipment, not a reconstruction of a single relic.
+// Fantasy equipment, not a reconstruction of a single relic.
 export function createWhiteScaleOutfit(h) {
   const {THREE,bake,box,cyl,ball,addMerged,artoriaCloth,artoriaRoundedBox,taperedTube,clothNeck}=h;
   const SILVER=0xc3c4b7,PALE=0xd6d5c8,STEEL=0x8e958d,INK=0x242827,RED=0x79282d,GOLD=0xa38953,LEATHER=0x473c30;
