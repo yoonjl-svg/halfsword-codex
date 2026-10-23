@@ -22,6 +22,7 @@ import { SAIN_COLORS, sainPartMesh, sainDecorate } from './rare_sword_details.js
 import { FLAMBERGE_GAME, FLAMBERGE_HILT, FLAMBERGE_COLORS, flambergePartMesh, flambergeDecorate } from './flamberge_look.js'; // 플랑베르주 겉모습 (샛별 저장소 325a5c38 의 생김새를 옮겨 고침)
 import { GOUJIAN_COLORS, goujianPartMesh, goujianDecorate } from './goujian_details.js'; // 월왕구천검 겉모습 (샛별 저장소 7684c732 에서 가져옴 — 바이트 그대로)
 import { KUSANAGI_COLORS, kusanagiPartMesh, kusanagiDecorate } from './kusanagi_details.js';
+import { DURANDAL_COLORS, durandalPartMesh } from './durandal_details.js';
 import { TIZONA_COLORS, tizonaPartMesh } from './tizona_details.js'; // 티소나 겉모습 (샛별 저장소 f9aea01a 에서 가져옴 — 10/21)
 import { WHIP, WHIP_NOW, druidParts, drawDruidWhip } from './druid_whip.js'; // 드루이드의 채찍 몸 · 겉모습 (샛별 저장소 69ef7dac8 에서 가져옴 — 10/23)
 import { BALISARDA_COLORS, balisardaPartMesh } from './balisarda_details.js'; // 발리사르다 겉모습 (샛별 저장소 c89e827c6 — 10/21)
@@ -63,7 +64,7 @@ export const TIER_DEFAULTS = {
 //  길이 · 무게는 몸체 자료(buildParts — 물리와 같은 수)에서 셈: 길이 = 부품 끝에서 끝 · 무게 = 부품 질량 합
 //  종류 = 싸우는 방식의 무기 갈래(한손검 · 양손검 · 한손 둔기 …) — 물건 이름(나뭇가지 · 장난감 · 생선)은 쓰지 않는다 (사장님 10/19 03:1x '나뭇가지 x')
 const KIND_KO = {
-  hwando: '한손 외날도', kriegsmesser: '양손 외날검', tizona: '대형 양손검',
+  durandal: '대형 양손검', hwando: '한손 외날도', kriegsmesser: '양손 외날검', tizona: '대형 양손검',
   balisarda: '한손 찌르기검', muramasa: '일본도',
   dartagnan: '한손 찌르기검', kusanagi: '양손 직검',
   longsword: '양손검', zweihander: '대형 양손검', estoc: '찌르기검', sabre: '한손 곡도', rapier: '한손 찌르기검', falchion: '한손 외날검',
@@ -1881,6 +1882,31 @@ const druidWhip = finalizeSpec('druid_whip', {
 // 덩굴 길이는 판 고르기(druid_whip.js WHIP.lash — `?whip=src` · 시험 도구)를 따른다: 싸움꾼이 만들어질 때 읽는다
 Object.defineProperty(druidWhip, 'bladeLength', { get: () => WHIP.lash, enumerable: true });
 
+// 뒤랑달 — 사용자 레전드/새 독립 규격 요청 (10/24). 전승의 검을 게임용 양손검으로 각색.
+// 사용자 후속 길이 지정: 날115.9cm · 전체155cm · 총2.20kg · 손 사이22cm.
+// 관성은 날/자루/코등이/끝장식 각각 계산; 무게가 줄어도 이베리아 몬탄테 몸 틀은 유지.
+const durandal = finalizeSpec('durandal', {
+  nameKo: '뒤랑달', nameEn: 'Durandal', tier: 'legend', school: 'iberian',
+  desc: '롤랑이 바위에 내리쳐도 부서지지 않았다는 성검.\n금빛 자루에는 성인들의 유물이 봉해져 있다.',
+  grip: 'two-hand', material: 'steel', frame: 'heavy', style: 'cut',
+  hiltLength: .13, bladeLength: 1.159, gripAlong: -.22,
+  mCut: 1.15, mThrust: .90, mBlunt: 1.05,
+  partMesh: durandalPartMesh,
+  buildParts() {
+    const L = this.bladeLength;
+    const grip = boxInertia(.24, .02, .164, .018);
+    const pommel = sphereInertia(.42, .036);
+    const cross = boxInertia(.24, .13, .02, .026);
+    const blade = bladeInertia(1.30, L, .36, .245, .060, .018);
+    return [
+      partTuple(['box', .02, .164, .018], -.061, .24, 0, grip.Ie, grip.It, DURANDAL_COLORS.grip),
+      partTuple(['ball', .036], -.225, .42, 0, pommel.Ie, pommel.It, DURANDAL_COLORS.hilt),
+      partTuple(['box', .13, .02, .026], .115, .24, 0, cross.Ie, cross.It, DURANDAL_COLORS.hilt),
+      partTuple(['box', .030, L/2, .009], this.hiltLength+L/2, 1.30, blade.comY, blade.Ie, blade.It, DURANDAL_COLORS.blade, true),
+    ];
+  },
+});
+
 export const WEAPONS = {
   longsword, zweihander, estoc, sabre, rapier, falchion,
   monohoshizao, qinggang, excalibur, excalibur_replica: excaliburReplica, lightsaber, tree_branch: treeBranch,
@@ -1895,6 +1921,7 @@ export const WEAPONS = {
   hwando, kriegsmesser,
   balisarda, muramasa, // 사장님 10/21 23:3x(샛별 저장소 경유): 이탈리아 레전드 · 일본 레어
   tizona, // 사장님 10/21(샛별 저장소 경유): 이베리아 에픽 · 능력 '위세'
+  durandal, // 이베리아 레전드 · 롤랑의 성검
   druid_whip: druidWhip, // 10/23 샛별 저장소에서 들여옴: ??? · 휘는 마디 채찍 — 같은 까닭으로 끝에 둔다
 };
 
