@@ -1,0 +1,13 @@
+import fs from 'node:fs';
+import {ARENA} from '../../../src/config.js';
+import {SCHOOL_ART} from '../../../src/schools.js';
+import {measureAll} from '../../../tools/sim/weapon_measure.mjs';
+import {MEASURED} from '../../../src/weapon_measured.js';
+ARENA.startHold=0;SCHOOL_ART.table=false;
+const res=measureAll(['longsword','zweihander','tizona','durandal'],{down:true});
+const base=res.rows.find(r=>r.id==='longsword'),d=res.rows.find(r=>r.id==='durandal');
+const keys=['contact','reach','clinch','cutTime'];
+const calibrated=keys.map((k,i)=>+(d[k]/base[k]*MEASURED.longsword[i]).toFixed(2));
+if(!calibrated.every(v=>Number.isFinite(v)&&v>0))throw Error('Invalid measured range');
+fs.writeFileSync(new URL('./measured.json',import.meta.url),JSON.stringify({conditions:{startHold:0,schoolTable:false,down:true},raw:res,calibrated,cutTime30:+(.30*calibrated[3]/MEASURED.longsword[3]).toFixed(2)},null,2));
+console.log(JSON.stringify({base,d,calibrated,cutTime30:+(.30*calibrated[3]/MEASURED.longsword[3]).toFixed(2)}));
