@@ -13,3 +13,5 @@
 [전후 비교](https://yoonjl-svg.github.io/halfsword-codex/encounters/hero-profiles-20261023/details-20261024/comparison.png)
 
 후속 색 보정: 사용자 요청으로 방금 내린 두 셀만 `#6E503B`→`#4F3829`로 한 톤 어둡게 했다. 위치·나머지 그림 불변, 실제 PNG 차분5000픽셀 확인. `darkening-validation.json` / 최신 색 배포는 `darkening-publication.json`.
+
+최종 승인: 사용자 “그래 이렇게 확정. 우화에게 보내. 셋 다 보내”. 이 올리비에 low/grid를 정본 갤러리로 승격했다. 최신 배포/전달은 상위 `final-publication.json` 및 `docs/codex_team/HERO_PROFILES_HANDOFF_20261024.json`에서 확인한다.

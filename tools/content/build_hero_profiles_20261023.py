@@ -60,7 +60,7 @@ def main():
             arr=np.array(Image.open(dst/(kind+'.png')))
             assert np.array_equal(arr[fa[:,:,3]==255],fa[fa[:,:,3]==255])
         row={'id':id,'name':NAMES[id],'epithet':'','lookVersion':{'sebastian':'v2','white_scale':'v1','black_king':'v4'}[id],
-             'group':'base','baseId':id,'added':'2026-10-23','status':'user-review-pending','frame':1,
+             'group':'base','baseId':id,'added':'2026-10-23','status':'user-approved','frame':1,
              'angleLabel':{'sebastian':'왼쪽 3/4','white_scale':'오른쪽 3/4','black_king':'오른쪽 3/4'}[id],
              'original':asset(dst/'original.png'),
              'low':{**asset(dst/'low.png'),'method':'fixed-grid-individually-edited-pixel-art','targetScale':128,'exactFixedGrid':True,
@@ -71,7 +71,7 @@ def main():
                        'faceBoxCells':box,'chinRow':chin,'bottomOpaqueCells':int(np.count_nonzero(rgba[21,:,3])),
                        'original':row['original'],'low':row['low'],'gridPreview':row['gridPreview']})
     manifest['counts']={'total':len(manifest['characters']),'base':sum(c['group']=='base' for c in manifest['characters']),'alter':sum(c['group']=='alter' for c in manifest['characters'])}
-    manifest['status']='existing-34-approved; new-3-user-review-pending'
+    manifest['status']='all-37-user-approved'
     manifest['version']='low128-strict-grid-20261023'
     manifest['originalPolicy']='existing 34 original masters preserved; new 3 transparent masters with identical shared frame'
     (ART/'profiles.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
