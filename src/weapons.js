@@ -1883,13 +1883,13 @@ const druidWhip = finalizeSpec('druid_whip', {
 Object.defineProperty(druidWhip, 'bladeLength', { get: () => WHIP.lash, enumerable: true });
 
 // 뒤랑달 — 사용자 레전드/새 독립 규격 요청 (10/24). 전승의 검을 게임용 양손검으로 각색.
-// 날112cm · 전체151.1cm · 총2.20kg · 손 사이22cm. 다른 검의 부품/질량을 복사하지 않는다.
+// 사용자 후속 길이 지정: 날115.9cm · 전체155cm · 총2.20kg · 손 사이22cm.
 // 관성은 날/자루/코등이/끝장식 각각 계산; 무게가 줄어도 이베리아 몬탄테 몸 틀은 유지.
 const durandal = finalizeSpec('durandal', {
   nameKo: '뒤랑달', nameEn: 'Durandal', tier: 'legend', school: 'iberian',
   desc: '롤랑이 바위에 내리쳐도 부서지지 않았다는 성검.\n금빛 자루에는 성인들의 유물이 봉해져 있다.',
   grip: 'two-hand', material: 'steel', frame: 'heavy', style: 'cut',
-  hiltLength: .13, bladeLength: 1.12, gripAlong: -.22,
+  hiltLength: .13, bladeLength: 1.159, gripAlong: -.22,
   mCut: 1.15, mThrust: .90, mBlunt: 1.05,
   partMesh: durandalPartMesh,
   buildParts() {
