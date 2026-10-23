@@ -11,3 +11,5 @@
 재현: `python3 tools/content/refine_portrait_details_20261024.py`. 셀 단위 변경·이동 검증 및 공통 액자/격자/alpha 검사 기록은 `*-changes.json`, `validation.json`과 상위 `asset-validation.json`에 있다. 배포 결과는 `publication.json`.
 
 [전후 비교](https://yoonjl-svg.github.io/halfsword-codex/encounters/hero-profiles-20261023/details-20261024/comparison.png)
+
+후속 색 보정: 사용자 요청으로 방금 내린 두 셀만 `#6E503B`→`#4F3829`로 한 톤 어둡게 했다. 위치·나머지 그림 불변, 실제 PNG 차분5000픽셀 확인. `darkening-validation.json` / 최신 색 배포는 `darkening-publication.json`.

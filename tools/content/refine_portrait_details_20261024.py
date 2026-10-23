@@ -32,7 +32,10 @@ for x,y in [(13,6),(16,7)]:
     assert color==[110,80,59,255]
     edits.append(setcell(rec,x,y,[166,117,83,255]))
     edits.append(setcell(rec,x,y+1,color))
+for x,y in [(13,7),(16,8)]:
+    edits.append(setcell(rec,x,y,[79,56,41,255]))
 rec['review']['notes']+=' Last raised-eye candidate: only the rightmost pixel of each eye moved down one row.'
+rec['review']['notes']+=' Follow-up: darken only those two lowered pixels from #6E503B to #4F3829.'
 (DOC/'olivier-sprite.json').write_text(json.dumps(rec,ensure_ascii=False,indent=2)+'\n')
 (DOC/'olivier-changes.json').write_text(json.dumps({'base':'eye-alternative-up2','edits':edits},indent=2)+'\n')
 rgba=np.array([[rec['palette'][i] for i in row] for row in rec['cells']],dtype=np.uint8)
