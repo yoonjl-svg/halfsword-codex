@@ -28,7 +28,8 @@ def main():
     for id in IDS:
         dst=ART/id;dst.mkdir(exist_ok=True)
         # Full-quality artwork is preserved separately; frame is the exact shared layer.
-        master=Image.open(DOC/'master-figures'/f'{id}.png').convert('RGBA')
+        master_file='black_king-clean.png' if id=='black_king' else f'{id}.png'
+        master=Image.open(DOC/'master-figures'/master_file).convert('RGBA')
         assert master.width==master.height and master.width>=1024
         interior=Image.new('RGBA',(1100,1100))
         interior.alpha_composite(master.resize((1100,1100),Image.Resampling.LANCZOS),(0,70 if id=='sebastian' else 0))
