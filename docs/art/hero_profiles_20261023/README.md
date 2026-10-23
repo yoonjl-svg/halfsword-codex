@@ -2,7 +2,7 @@
 
 2026-10-23 사용자 요청: 세 캐릭터의 프로필을 기존 생성 규칙에 맞춰 제작. 기존 34개 확정 초상에 세 기본형을 추가했다. 새 3개는 사용자 검토 전이며, 게임 UI 연결과 우화 발송은 아직 하지 않았다.
 
-후속 눈 표현 수정은 [eyes-v2](eyes-v2/README.md)가 최신이다. 롤랑 low 눈틈 경사·올리비에 두 눈 높이와 대비를 20셀에서 조정했으며 고화질 원본은 보존했다. 아래 제작·초기 검수 기록의 올리비에 눈 높이 차이는 후속 수정으로 대체된다.
+후속 눈 표현 수정은 [eyes-v3](eyes-v3/README.md)가 최신이다. 롤랑은 직전 경사형 눈틈의 회색 한 칸을 검게, 올리비에는 최초 눈매로 복원하고 흰자위 두 칸만 피부 음영색으로 수정했다. 고화질 원본은 보존했다. v2의 올리비에 눈높이 수정은 사용자 지시로 철회했다.
 
 ![고화질 원본](originals-desktop.png)
 ![low](lows-desktop.png)
@@ -38,6 +38,7 @@
 ```sh
 python3 tools/content/refine_hero_cells_20261023.py  # 편집 기록 재현, 필요할 때만
 python3 tools/content/refine_hero_eyes_20261023.py  # 후속 눈 표현까지 재현
+python3 tools/content/refine_hero_eyes_v3_20261023.py  # 사용자 지정 한 칸 / 최초 눈매의 흰자위 교정
 python3 tools/content/build_hero_profiles_20261023.py
 python3 -m http.server 5230 --directory public
 node docs/art/hero_profiles_20261023/browser.mjs
