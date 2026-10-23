@@ -1,5 +1,9 @@
 # 샛별 — 재포크 이후 작업 지침
 
+- **10/24 베르나르도 복식 전달 완료:** 사용자 승인본 원본/low/grid·82셀 편집·마스크·게임용WebP. 수신323ad40f→독립100a5971/codex/bernardo-profile-handoff-20261024, 전달21파일 원격 바이트일치. dev-exchange73dbbf8d 메시지4파일 fresh fetch 확인. 14파일/9PNG·격자/눈/얼굴/alpha·프로필4/4·빌드 통과. 대기실/일반패배 실제사진, 방랑결과는 입장 대기 시간초과로 미검증 명시. [영수증](docs/codex_team/BERNARDO_PROFILE_HANDOFF_20261024.json). 상대쓰기0·새수정본 읽음/채택미확인.
+
+- **10/24 베르나르도 복식 확정·전달 승인:** 사용자 “good. 우화에게 보내.”. 흰 금테 겉옷/금관 검은 사자/금빛 망토의 새 원본·low·grid·82셀 자료를 확정. 얼굴/머리/지정 눈끝·공통액자·크롭 유지. 아래 미감 검토/우화 전달 대기 문구는 과거 이력. 최신 수신 main323ad40f 기반 전달 가지에서 기존 bernardo 경로에 맞춤. 완료 여부는 `docs/codex_team/BERNARDO_PROFILE_HANDOFF_20261024.json`을 확인.
+
 - **10/24 베르나르도 복식 프로필 수정안:** 사용자 MSG-S-014 실행 승인 “해”. 얼굴/머리/확정눈·공통액자·크롭 보존, 원본 부분생성→마스크합성/low22×22 옷82셀(흰금테겉옷·금관검은사자·금빛망토), original/low/grid·셀자료 ZIP. [자료](docs/art/bernardo_profile_20261024/README.md), 별도공개encounters/bernardo-profile-20261024. 기존37프로필111이미지 그대로/게임UI변경0, 새결과 사용자미감검토·우화전달대기. 아래 열람만 상태는 제작 승인으로 대체. 공개는publication.json.
 
 - **10/24 우화 메시지 MSG-S-014 확인:** 사용자 메시지 확인 요청, 수신a2a5f135. 베르나르도(기존 올리비에) 프로필은 얼굴/머리/확정눈 유지·흰 금테 겉옷/금관 검은사자·금빛망토만 수정 먼저, 어색하면 다시 그리기 요청. 시안C는 방향 참고. original/low/grid/셀자료 요구. [수신 원문·참고그림·영수증](docs/dev_exchange/inbox/2026-10-24/bernardo-profile-request/receipt.json). 승인3인물 원본/low/grid9장 수신본판에서 바이트 동일 확인(088e4d0 적용기록). 이번에는 열람/보고만, 이미지편집·답신0.
