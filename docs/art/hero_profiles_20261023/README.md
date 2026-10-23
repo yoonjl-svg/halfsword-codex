@@ -4,6 +4,8 @@
 
 후속 눈 표현 수정은 [eyes-v4](eyes-v4/README.md)가 최신이다. 롤랑은 v3 그대로, 올리비에는 v3 가로 눈매 아래로 내려온 검은 두 칸만 피부색으로 메웠다. 고화질 원본과 다른 셀은 보존했다. v2의 올리비에 눈높이 수정은 사용자 지시로 철회했다.
 
+사용자 추가 요청에 따른 [별도 눈매 시안](eye-alternative/README.md)도 보존했다. 기존 갤러리 v4와 별도이며 선택은 아직 미정이다.
+
 ![고화질 원본](originals-desktop.png)
 ![low](lows-desktop.png)
 
