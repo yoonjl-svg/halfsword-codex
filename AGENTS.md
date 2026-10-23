@@ -1,5 +1,7 @@
 # 샛별 — 재포크 이후 작업 지침
 
+- **10/23 새 세 인물 프로필:** 사용자 생성 규칙 준수 요청. 롤랑(sebastian)·백린(white_scale)·올리비에(black_king) 원본/low/grid9장, 공통액자1/1254정사각·22×22/50px·원점77·투명. 기존34쌍과grid/액자107파일 불변, 전체37개. [제작·검수](docs/art/hero_profiles_20261023/README.md). 새3개 사용자 검토 전/게임UI연결0·우화발송0. 공개 여부는publication.json. 새 인물은 기존확정34개와 승인상태를 구별.
+
 - **10/23 최종 올리비에·방랑 전달 승인:** 사용자 롤랑/올리비에 개명(안정ID유지), 투구 제거·먹빛 리벳갑/짧은 저채도 황토망토·짙은피부/풍성수염/검은곱슬중단발. 올리비에 v4/9f88d2ef, 눈실제크기10→15mm 복원·머리방어제거. 모델+방랑을 우화 최신6773aa2c에 맞춤(모델0d2f67ca/방랑2652516c/저장보완6084d16e, 결과36642642), 스킬트리저장/30무대/최신낮밤보상보존. 올리비에 방랑풀은 미지정. [사진](docs/design/olivier_20261023/README.md), [전달자료](https://github.com/yoonjl-svg/halfsword-codex/tree/codex/wander-heroes-handoff-20261023/docs/import/wander_heroes_20261023). 발송·배포 원격검증 완료: [영수증](docs/codex_team/WANDER_HEROES_HANDOFF_20261023.json). 스킬트리34/34·저장실패범위보완 포함. 상대읽음/적용은 미확인.
 
 - **10/23 검은 왕 후속 면갑·노랑:** 사용자 절반이상폐쇄형 지시/금색과다른노랑제안. a06b866f, v3/새모듈. 눈만열고 코·입·턱 곡면면갑/실제숨구멍, 무광노랑#BFB358은 검토시안. 기존royal_close 연결→얼굴방어확대(재질·내구계수같음), 목·몸13판금·AI/유파/무기/35인물·방랑풀 그대로. 작은눈틈/숨구멍 물리세분없음. [사진·검사](docs/design/black_king_helmet_20261023/README.md), 공개publication.json. v1/v2보존/helmet-*새사진, 우화전달0/미감컨펌대기.
