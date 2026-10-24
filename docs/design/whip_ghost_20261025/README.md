@@ -35,3 +35,5 @@
 기능 파일: characters.js, blood_palette.js, fighter.js의 칼 혈흔 매개변수, effects.js/decap_fx.js/limb_fx.js, main.js의 피해자 색 전달; config/sound/whip_sound와 새 contact 음원/출처. 두 변화 모두 사용자 지시 범위. 기존 기본형/일반 캐릭터/무기/보법을 덮어쓰는 전면 이식이 아니다. 되돌릴 때 기능 커밋을 역적용하면 직전 C2 피격음/광기 토우 숙련도3으로 돌아간다. 새 자료/비교 음원은 보존한다.
 
 일반 공개게임 또는 우화 본판 적용 완료로 표시하지 않는다. 자체 검토판 공개 결과는 publication.json에 기록. 화면/청감 검토 뒤 별도 전달 지시를 받으면 수신 최신 기준에 다시 맞춰 전달한다.
+
+공개 주소 검사에서 복사형 빌드의 절대 `/fonts/` 경로3개가404였다(최상위 로컬 서버에서는 드러나지 않음). 검토판 Vite 후처리로 preload와 CSS 글꼴 경로를 상대 경로로 바꾸고 하위경로 검사를 통과했다. 최종 공개 재검증은 publication.json/review-public.json에 기록한다. 게임/음원 기능 변화 없음. 첫 실패 로그도 보존.

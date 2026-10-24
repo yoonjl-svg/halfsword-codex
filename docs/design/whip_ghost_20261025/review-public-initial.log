@@ -1,0 +1,20 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: ["404:https://yoonjl-svg.github.io/fonts/Pretendard-Regular.subset.woff2","404:https://yoonjl-svg.github.io/fonts/Pretendard-Bold.subset.woff2","404:https://yoonjl-svg.github.io/fonts/Cinzel-latin.woff2"]
+
+3 !== 0
+
+    at file:///workspace/halfsword-whip-ghost/tools/browser/whip_review_check.mjs:14:573
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at process.processImmediate (node:internal/timers:502:9) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 3,
+  expected: 0,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0
