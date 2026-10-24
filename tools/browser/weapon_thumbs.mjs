@@ -26,6 +26,13 @@ await page.goto(`${base}/tools/browser/weapon_thumbs.html${ids.length ? '?ids=' 
 await page.waitForFunction(() => window.thumbs?.done, null, { timeout: 180000 });
 const list = await page.evaluate(() => window.thumbs.list);
 for (const { id, url } of list) {
+  // 사용자 확정 원형 채찍 섬네일은 게임 모델 재촬영으로 덮어쓰지 않는다.
+  if (id === 'druid_whip') {
+    const master = new URL('../../art/weapons/druid_whip_coiled_20261024/game.webp', import.meta.url);
+    fs.copyFileSync(master, new URL(`${id}.webp`, outDir));
+    console.log(`${id.padEnd(18)} approved coiled thumbnail master`);
+    continue;
+  }
   if (!url.startsWith('data:image/webp')) throw new Error(`${id}: webp 로 저장되지 않았다 (${url.slice(0, 30)})`);
   const buf = Buffer.from(url.slice(url.indexOf(',') + 1), 'base64');
   fs.writeFileSync(new URL(`${id}.webp`, outDir), buf);
