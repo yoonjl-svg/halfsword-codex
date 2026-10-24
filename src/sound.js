@@ -1656,7 +1656,7 @@ const SAMPLES = {
   // 드루이드의 채찍 (10/23 사장님 '휘두르고 때릴 때 실제 채찍 소리 넣어줘' — 녹음만 · 출처 public/sfx/LICENSE.txt whip/): 없으면 그 소리는 나지 않는다(합성으로 대신하지 않음)
   whipSwish: nums('whip/swish', 4), // 휘두르는 바람 "휙" (qubodup 대나무 막대 휘두르기 녹음 · CC0)
   whipCrack: nums('whip/crack', 3), // 끝이 터지는 "딱" (스위스 퀴스나흐트 클라우스야겐 채찍 치기 녹음 · 퍼블릭 도메인)
-  whipHit: nums('whip/hit', 3), // 살 · 옷을 치는 "찰싹" (AntumDeluge Thwack — 물건을 때린 녹음 · CC0)
+  whipHit: ['whip/hit-mike-koenig-a'], // 10/24 사용자 선택 A: Mike Koenig "Whip", CC BY 3.0 · 살/옷 타격용 0.285초, 크레딧 sfx/LICENSE.txt
   whipArmor: nums('whip/armor', 3), // 투구 · 판금을 치는 "탱" (Kenney impactPlate_light · CC0)
   whipClash: nums('whip/clash', 3), // 칼에 감기며 부딪는 "칭" (Kenney impactMetal_light · CC0)
 };

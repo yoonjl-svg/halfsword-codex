@@ -63,7 +63,8 @@ for (const preset of presets) {
       const loaded = Object.fromEntries(['whipSwish', 'whipCrack', 'whipHit', 'whipArmor', 'whipClash'].map((k) => [k, s.samples?.[k]?.length ?? 0]));
       return { loaded, calls: window.__whipCalls, kneels: (g.combat.whipKneelLog ?? []).map((x) => `${x.part}:${x.hit ? '꿇음' : '버팀'}`), hits: g.enemy.wounds?.length ?? null, strokes: g.player.flexWeapon?.strokes };
     });
-    if (Object.values(report.sound.loaded).some((n) => n < 3)) errors.push(`채찍 녹음 못 읽음 ${JSON.stringify(report.sound.loaded)}`);
+    const expectedWhipSamples = { whipSwish: 4, whipCrack: 3, whipHit: 1, whipArmor: 3, whipClash: 3 };
+    if (Object.entries(expectedWhipSamples).some(([k, n]) => report.sound.loaded[k] !== n)) errors.push(`채찍 녹음 못 읽음 ${JSON.stringify(report.sound.loaded)}`);
     await ctx.close();
     continue;
   }
