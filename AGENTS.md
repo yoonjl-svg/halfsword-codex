@@ -1,5 +1,7 @@
 # 샛별 — 재포크 이후 작업 지침
 
+- **10/24 채찍 소리 후보·말린 섬네일:** 사용자 최신 우화 타격음 불만/실제 찰싹 소리 검색·둥글게 말린 채찍 섬네일 요청. 수신488fa7ca 기반 codex/whip-audio-thumb-20261024/9f757e4d. SoundBible CC BY3.0 두 녹음 A(Mike Koenig Whip)/B(snottyboi Whip Crack), 원본·타격편집·3회비교·출처 보존, A 우선추천/실제청취선택전. 게임소리/물리0변경. 새 투명 코일 섬네일/재생성보존, 실제카드3화면·비교페이지4폭/8음원디코딩·재생/빌드 확인. [자료](docs/audio/whip_20261024/README.md), 공개검토 encounters/whip-sound-20261024/는 publication.json 확인. 우화쓰기/새전달0·사용자미감/음원선택대기.
+
 - **10/24 베르나르도 복식 전달 완료:** 사용자 승인본 원본/low/grid·82셀 편집·마스크·게임용WebP. 수신323ad40f→독립100a5971/codex/bernardo-profile-handoff-20261024, 전달21파일 원격 바이트일치. dev-exchange73dbbf8d 메시지4파일 fresh fetch 확인. 14파일/9PNG·격자/눈/얼굴/alpha·프로필4/4·빌드 통과. 대기실/일반패배 실제사진, 방랑결과는 입장 대기 시간초과로 미검증 명시. [영수증](docs/codex_team/BERNARDO_PROFILE_HANDOFF_20261024.json). 상대쓰기0·새수정본 읽음/채택미확인.
 
 - **10/24 베르나르도 복식 확정·전달 승인:** 사용자 “good. 우화에게 보내.”. 흰 금테 겉옷/금관 검은 사자/금빛 망토의 새 원본·low·grid·82셀 자료를 확정. 얼굴/머리/지정 눈끝·공통액자·크롭 유지. 아래 미감 검토/우화 전달 대기 문구는 과거 이력. 최신 수신 main323ad40f 기반 전달 가지에서 기존 bernardo 경로에 맞춤. 완료 여부는 `docs/codex_team/BERNARDO_PROFILE_HANDOFF_20261024.json`을 확인.
