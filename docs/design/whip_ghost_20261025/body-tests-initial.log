@@ -1,0 +1,34 @@
+using deprecated parameters for the initialization function; pass a single object instead
+BLEED [{"id":"terracotta_mad","alive":false,"blood":0.4497644710904387,"bleed":0.44597173653085265,"head":true,"decapitated":false,"cause":"출혈"},{"id":"bran","alive":false,"blood":0.4497644710904387,"bleed":0.44597173653085265,"head":true,"decapitated":false,"cause":"출혈"},{"id":"terracotta","alive":true,"blood":1,"bleed":0,"head":true,"decapitated":false,"cause":null}]
+DEATH puncture 머리
+DEATH concussion 기절
+DEATH finish 내려찍기
+✔ base clay remains proficiency2, ghost proficiency5 is reflected in actual Chinese skill table and voice (1.170019ms)
+✔ ghost and normal human bleed and die from the same torso wound while head remains attached; clay does neither (83.917459ms)
+✔ ghost dies from head puncture, concussion and finishing torso attack without forced decapitation (37.63216ms)
+✔ white/red drops and ground residue coexist without a global color change; blood-off suppresses drops (1.512144ms)
+✔ white and human severed neck/limb materials stay separate, white spray and blood-off work (2.216893ms)
+✖ silent ghost never schedules voiced hurt/death/revive sounds (0.471038ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 472.763212
+
+✖ failing tests:
+
+test at tools/sim/ghost_body.test.mjs:43:1
+✖ silent ghost never schedules voiced hurt/death/revive sounds (0.471038ms)
+  Error: unexpected voice sample
+      at Sound.pickSample (file:///workspace/halfsword-whip-ghost/tools/sim/ghost_body.test.mjs:43:191)
+      at Sound.revive (file:///workspace/halfsword-whip-ghost/src/sound.js:2555:24)
+      at TestContext.<anonymous> (file:///workspace/halfsword-whip-ghost/tools/sim/ghost_body.test.mjs:43:316)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

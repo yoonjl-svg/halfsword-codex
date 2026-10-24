@@ -11,6 +11,7 @@
 //     사람 단면 재질은 '피 표현' 켬/끔에 따라 프레임마다 색을 바꾸는데, 같은 재질을 쓰면 같은 판의 흙 단면까지 핏빛·회색으로 바뀌고 흙 단면 색이 사람 단면에 번진다(샛별도 겪고 나눔).
 // ─────────────────────────────────────────────────────────────
 import * as THREE from 'three';
+import { bloodPalette } from './blood_palette.js';
 
 const SPRAY_T = 1.5; // 초: 몸통 단면의 강한 분출
 const HEAD_T = 0.8; // 초: 머리 쪽 핏방울
@@ -18,13 +19,15 @@ const NECK_R = 0.046; // m: 목 단면 반지름
 const FLESH = 0x4a0a0c; // 검붉은 살
 const FLESH_OFF = 0x3a3634; // 피 끄기: 어두운 회색
 const BONE = 0xcfc4b2; // 목뼈 단면
-const RED = 0x8a0000;
+const WHITE = bloodPalette({ physiology: { blood: 'white' } });
 
 const geoFlesh = new THREE.CircleGeometry(NECK_R, 16);
 const geoRing = new THREE.RingGeometry(NECK_R * 0.82, NECK_R, 16); // 가장자리를 조금 밝게 — 단면이 둥근 목으로 읽히게
 const geoBone = new THREE.CircleGeometry(NECK_R * 0.28, 10);
 const matFlesh = new THREE.MeshStandardMaterial({ color: FLESH, roughness: 0.55, side: THREE.DoubleSide });
 const matRing = new THREE.MeshStandardMaterial({ color: 0x6a1a18, roughness: 0.6, side: THREE.DoubleSide });
+const matWhiteFlesh = matFlesh.clone(); matWhiteFlesh.color.setHex(WHITE.flesh);
+const matWhiteRing = matRing.clone(); matWhiteRing.color.setHex(WHITE.rim);
 const matBone = new THREE.MeshStandardMaterial({ color: BONE, roughness: 0.8, side: THREE.DoubleSide });
 const CLAY = 0x8b887a; // 흙 단면 (샛별 값)
 const CLAY_RIM = 0xaaa697; // 흙 단면 가장자리 (샛별 값)
@@ -32,10 +35,10 @@ const matClay = new THREE.MeshStandardMaterial({ color: CLAY, roughness: 1, side
 const matClayRim = new THREE.MeshStandardMaterial({ color: CLAY_RIM, roughness: 1, side: THREE.DoubleSide });
 
 /** 단면 원판 하나 (그룹 기준 pos 에, 법선 n 쪽을 보게). clay = 흙 몸: 흙 재질 · 뼈 없음 */
-function stumpDisc(group, pos, n, clay = false) {
+function stumpDisc(group, pos, n, clay = false, white = false) {
   const g = new THREE.Group();
-  const flesh = new THREE.Mesh(geoFlesh, clay ? matClay : matFlesh);
-  const ring = new THREE.Mesh(geoRing, clay ? matClayRim : matRing);
+  const flesh = new THREE.Mesh(geoFlesh, clay ? matClay : white ? matWhiteFlesh : matFlesh);
+  const ring = new THREE.Mesh(geoRing, clay ? matClayRim : white ? matWhiteRing : matRing);
   ring.position.z = 0.0005;
   g.add(flesh, ring);
   if (!clay) {
@@ -71,9 +74,10 @@ export function createDecapFx(particles) {
     const local = w ? w.local.clone() : new THREE.Vector3(0, 0.17, 0);
     local.y = Math.max(local.y, 0.176); // 옷깃(원기둥) 위에 얹는다
     const clay = f.physiology?.body === 'clay';
-    const body = f.groups.chest ? stumpDisc(f.groups.chest, local, UP, clay) : null;
-    const head = f.groups.head ? stumpDisc(f.groups.head, new THREE.Vector3(0, -0.072, 0), DOWN, clay) : null;
-    const st = { t: 0, body, head, local, acc: 0, hacc: 0, clay };
+    const palette = bloodPalette(f), white = palette.key === 'white';
+    const body = f.groups.chest ? stumpDisc(f.groups.chest, local, UP, clay, white) : null;
+    const head = f.groups.head ? stumpDisc(f.groups.head, new THREE.Vector3(0, -0.072, 0), DOWN, clay, white) : null;
+    const st = { t: 0, body, head, local, acc: 0, hacc: 0, clay, palette };
     done.set(f, st);
     return st;
   };
@@ -84,6 +88,8 @@ export function createDecapFx(particles) {
       const st = done.get(f) ?? attach(f);
       st.t += dt;
       const blood = particles.bloodOn;
+      matWhiteFlesh.color.setHex(blood ? WHITE.flesh : FLESH_OFF);
+      matWhiteRing.color.setHex(blood ? WHITE.rim : 0x4a4644);
       const col = blood ? FLESH : FLESH_OFF;
       if (matFlesh.color.getHex() !== col) {
         matFlesh.color.setHex(col);
@@ -103,7 +109,7 @@ export function createDecapFx(particles) {
           st.acc -= 1;
           const sp = (1.4 + 2.6 * k) * (0.7 + 0.5 * rnd());
           const v = new THREE.Vector3(_n.x * sp + (rnd() - 0.5) * 0.9, _n.y * sp + (rnd() - 0.5) * 0.6, _n.z * sp + (rnd() - 0.5) * 0.9);
-          particles.add(_p, v, RED, 0.012 + rnd() * 0.02, 3 + rnd() * 2, true);
+          particles.add(_p, v, st.palette.splash, 0.012 + rnd() * 0.02, 3 + rnd() * 2, true);
         }
       }
       // 머리 쪽: 떨어지는 머리에서 몇 방울
@@ -113,7 +119,7 @@ export function createDecapFx(particles) {
         while (st.hacc >= 1) {
           st.hacc -= 1;
           g.localToWorld(_p.set(0, -0.075, 0));
-          particles.add(_p, new THREE.Vector3((rnd() - 0.5) * 0.6, -0.3 - rnd() * 0.4, (rnd() - 0.5) * 0.6), RED, 0.01 + rnd() * 0.012, 3, true);
+          particles.add(_p, new THREE.Vector3((rnd() - 0.5) * 0.6, -0.3 - rnd() * 0.4, (rnd() - 0.5) * 0.6), st.palette.splash, 0.01 + rnd() * 0.012, 3, true);
         }
       }
     }

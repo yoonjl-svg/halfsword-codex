@@ -1389,7 +1389,7 @@ export const SOUND = {
   // 사장님이 고르시기 전까지 'legacy' (게임 소리 그대로). sounds.html "칼→몸 소리 후보" 에서 비교
   // 드루이드의 채찍 살 · 옷 맞음 소리 (10/24 사장님 'c2로 할게' · 샛별 저장소 3912e1ec — src/sound.js whip · src/whip_sound.js · docs/import/bernardo_whip_import_2026-10-24.md)
   //  'c2' = SciFiSounds 'Whip Crack'(freesound 529925 · CC0)의 딱 부분(public/sfx/whip/lash1.mp3) · 'old' = 10/23 AntumDeluge Thwack (주소 ?whipHit=old)
-  whipHit: 'c2',
+  whipHit: 'contact', // 10/25 몸·옷 접촉: MWsfx 가죽 찰싹3종(CC0). 휙/끝 딱/판금은 그대로.
   whipLashGain: 1, // C2 맞음 녹음 한 겹 음량 (event 음량은 칼 둔타와 같은 눈금 그대로 · 파일 최고 −1 dBFS 는 다른 채찍 녹음과 같음) — 확인표 2443 · 사장님 확인 전
   whipLashGap: 0.2, // s: C2 맞음 뒤 이 시간 안의 끝 '딱' · 다른 C2 맞음은 내지 않음 (한 맞음이 두 번 터지지 않게) — 확인표 2444 · 사장님 확인 전
   whipFlam: 0.06, // s: 끝 '딱' 뒤 이 시간 안의 C2 맞음은 내지 않음 (거의 같은 때 — 이미 난 '딱'이 대신) — 확인표 2444 · 사장님 확인 전

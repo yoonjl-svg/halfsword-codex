@@ -16,8 +16,8 @@ export function whipTipStep(W, v) {
   return out;
 }
 
-/** 주소 ?whipHit=old → 10/23 판 살 · 옷 맞음 소리(AntumDeluge Thwack) · 그 밖 = base(기본 'c2' — SciFiSounds 'Whip Crack' 의 딱 부분). main.js 가 SOUND.whipHit 에 넣는다 */
-export const whipHitMode = (params, base = 'c2') => (params.get('whipHit') === 'old' ? 'old' : base);
+/** 기본 contact = 가죽 찰싹. ?whipHit=c2/old 는 이전 피격음 비교; main.js가 SOUND.whipHit에 넣는다. */
+export const whipHitMode = (params, base = 'contact') => ['old', 'c2', 'contact'].includes(params.get('whipHit')) ? params.get('whipHit') : base;
 
 /**
  * C2 맞음('lash') · 끝 '딱'('crack') 겹침 막기 (10/24 — C2 는 그 자체가 채찍 '딱' 이라 한 맞음이 두 번 터지지 않게). 낼 소리면 true (그때만 G 에 때를 적음).

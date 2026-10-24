@@ -9,29 +9,32 @@
 //     사람 단면 재질은 '피 표현' 켬/끔에 따라 프레임마다 색이 바뀌므로, 같이 쓰면 같은 판에서 두 몸의 단면 색이 서로 섞인다 (decap_fx 와 같은 까닭)
 // ─────────────────────────────────────────────────────────────
 import * as THREE from 'three';
+import { bloodPalette } from './blood_palette.js';
 
 const PARENT_T = 0.6; // 초: 몸 쪽 단면의 분출
 const CHILD_T = 0.35; // 초: 떨어진 부위 쪽 몇 방울
 const FLESH = 0x4a0a0c;
 const FLESH_OFF = 0x3a3634;
 const BONE = 0xcfc4b2;
-const RED = 0x8a0000;
+const WHITE = bloodPalette({ physiology: { blood: 'white' } });
 const RADIUS = { uarmS: 0.045, uarmO: 0.045, farmS: 0.04, farmO: 0.04, thighF: 0.065, thighB: 0.065, shinF: 0.05, shinB: 0.05 }; // fighter.js 몸체 캡슐 반지름
 const STUMP_R = { elbow: ['farmS', 'farmS'], shoulder: ['uarmS', 'uarmS'], knee: ['shinF', 'shinF'], hip: ['thighF', 'thighF'] }; // [몸 쪽 단면, 떨어진 쪽 단면]의 굵기 기준 부위
 
 const matFlesh = new THREE.MeshStandardMaterial({ color: FLESH, roughness: 0.55, side: THREE.DoubleSide });
 const matRing = new THREE.MeshStandardMaterial({ color: 0x6a1a18, roughness: 0.6, side: THREE.DoubleSide });
+const matWhiteFlesh = matFlesh.clone(); matWhiteFlesh.color.setHex(WHITE.flesh);
+const matWhiteRing = matRing.clone(); matWhiteRing.color.setHex(WHITE.rim);
 const matBone = new THREE.MeshStandardMaterial({ color: BONE, roughness: 0.8, side: THREE.DoubleSide });
 const matClay = new THREE.MeshStandardMaterial({ color: 0x8b887a, roughness: 1, side: THREE.DoubleSide }); // 흙 몸 전용 단면 (샛별 값 — decap_fx 와 같은 색), 피 표현과 상관없이 늘 이 색
 const matClayRim = new THREE.MeshStandardMaterial({ color: 0xaaa697, roughness: 1, side: THREE.DoubleSide });
 const geos = new Map();
 const geo = (r) => { if (!geos.has(r)) geos.set(r, { flesh: new THREE.CircleGeometry(r, 14), ring: new THREE.RingGeometry(r * 0.8, r, 14), bone: new THREE.CircleGeometry(r * 0.3, 8) }); return geos.get(r); };
 
-function stumpDisc(group, pos, n, r, clay = false) {
+function stumpDisc(group, pos, n, r, clay = false, white = false) {
   const g = new THREE.Group();
   const G = geo(r);
-  const flesh = new THREE.Mesh(G.flesh, clay ? matClay : matFlesh);
-  const ring = new THREE.Mesh(G.ring, clay ? matClayRim : matRing);
+  const flesh = new THREE.Mesh(G.flesh, clay ? matClay : white ? matWhiteFlesh : matFlesh);
+  const ring = new THREE.Mesh(G.ring, clay ? matClayRim : white ? matWhiteRing : matRing);
   ring.position.z = 0.0005;
   g.add(flesh, ring);
   if (!clay) { // 흙 몸: 뼈 단면 없음
@@ -62,9 +65,10 @@ export function createLimbFx(particles) {
     const cLocal = new THREE.Vector3(s.childLocal.x, s.childLocal.y, s.childLocal.z);
     const cN = cLocal.lengthSq() > 1e-6 ? cLocal.clone().normalize() : new THREE.Vector3(0, 1, 0);
     const clay = f.physiology?.body === 'clay';
-    if (pg) stumpDisc(pg, pLocal, pN, RADIUS[rp] ?? 0.045, clay);
-    if (cg) stumpDisc(cg, cLocal, cN, RADIUS[rc] ?? 0.04, clay);
-    if (!clay) live.push({ f, t: 0, pg, pLocal, pN, cg, cLocal, acc: 0, cacc: 0 }); // 흙 몸은 분출이 없어 분출 목록에 넣지 않는다
+    const palette = bloodPalette(f), white = palette.key === 'white';
+    if (pg) stumpDisc(pg, pLocal, pN, RADIUS[rp] ?? 0.045, clay, white);
+    if (cg) stumpDisc(cg, cLocal, cN, RADIUS[rc] ?? 0.04, clay, white);
+    if (!clay) live.push({ f, t: 0, pg, pLocal, pN, cg, cLocal, acc: 0, cacc: 0, palette }); // 흙 몸은 분출이 없어 분출 목록에 넣지 않는다
   };
   const update = (fighters, dt) => {
     for (const f of fighters) {
@@ -75,6 +79,8 @@ export function createLimbFx(particles) {
       if (k !== n) seen.set(f, n);
     }
     const blood = particles.bloodOn;
+    matWhiteFlesh.color.setHex(blood ? WHITE.flesh : FLESH_OFF);
+    matWhiteRing.color.setHex(blood ? WHITE.rim : 0x4a4644);
     const col = blood ? FLESH : FLESH_OFF;
     if (matFlesh.color.getHex() !== col) { matFlesh.color.setHex(col); matRing.color.setHex(blood ? 0x6a1a18 : 0x4a4644); }
     if (dt <= 0) return;
@@ -92,7 +98,7 @@ export function createLimbFx(particles) {
         while (st.acc >= 1) {
           st.acc -= 1;
           const sp = (1.0 + 2.0 * kk) * (0.7 + 0.5 * rnd());
-          particles.add(_p, new THREE.Vector3(_n.x * sp + (rnd() - 0.5) * 0.8, _n.y * sp + (rnd() - 0.5) * 0.6, _n.z * sp + (rnd() - 0.5) * 0.8), RED, 0.01 + rnd() * 0.016, 3 + rnd() * 2, true);
+          particles.add(_p, new THREE.Vector3(_n.x * sp + (rnd() - 0.5) * 0.8, _n.y * sp + (rnd() - 0.5) * 0.6, _n.z * sp + (rnd() - 0.5) * 0.8), st.palette.splash, 0.01 + rnd() * 0.016, 3 + rnd() * 2, true);
         }
       }
       if (st.cg && st.t < CHILD_T) {
@@ -100,7 +106,7 @@ export function createLimbFx(particles) {
         while (st.cacc >= 1) {
           st.cacc -= 1;
           st.cg.localToWorld(_p.copy(st.cLocal));
-          particles.add(_p, new THREE.Vector3((rnd() - 0.5) * 0.6, -0.2 - rnd() * 0.4, (rnd() - 0.5) * 0.6), RED, 0.01 + rnd() * 0.012, 3, true);
+          particles.add(_p, new THREE.Vector3((rnd() - 0.5) * 0.6, -0.2 - rnd() * 0.4, (rnd() - 0.5) * 0.6), st.palette.splash, 0.01 + rnd() * 0.012, 3, true);
         }
       }
     }

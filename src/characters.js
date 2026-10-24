@@ -926,10 +926,13 @@ for(const id of ['chanda','renji']){
  finishAI(alter);CHARACTER_VARIANTS.push(alter);
 }
 
-// 밤 여섯째 (철불 절벽 — 오·월 망령): 채색 갑옷 · 창백한 사람 얼굴 · 흰 망토. 외양만 — 원래 몸 · 전투 그대로
+// 밤 철불 절벽: 창백한 사람 얼굴·흰 망토 유지. 10/25 사용자: 인간형 사망/흰 피/숙련도5/무음.
 const terracottaBase=CHARACTER_GUESTS.find(c=>c.id==='terracotta');
-const terracottaAlter={...terracottaBase,id:'terracotta_mad',variantOf:'terracotta',mad:true,appearanceOnly:true,
+const terracottaAlter={...terracottaBase,id:'terracotta_mad',variantOf:'terracotta',mad:true,appearanceOnly:false,retainBaseStats:true,proficiencyOverride:5,
  name:`광기의 ${terracottaBase.name}`,ai:JSON.parse(JSON.stringify(terracottaBase.ai)),
+ voice:'silent',physiology:{body:'human',bleeds:true,deathRequiresHeadDetachment:false,blood:'white'},
+ movementNotes:'기존 사람의 부상·출혈·의식 손상·사망 규칙을 쓴다. 흰 피가 흐르며 목소리는 없다. 동방 유파 숙련도는 5다.',
+ weaknesses:'일반 인간처럼 출혈과 치명상으로 쓰러진다. 목을 베어야만 죽는 토우의 몸 규칙은 없다.',
  look:alterLook(terracottaBase.look,'terracotta'),lookVersion:terracottaBase.lookVersion+'-alter2',eyes:'madGlow'};
 finishAI(terracottaAlter);CHARACTER_VARIANTS.push(terracottaAlter);
 
@@ -956,7 +959,7 @@ for(const id of ['samira','artoria']){
 //  시트를 복사해 만든 새 얼터가 +1 을 빠뜨려도 여기서 맞추고 실력 숫자·유파 표를 다시 채운다 (이미 맞으면 손대지 않음 — 광기의 하인리히 등)
 for (const c of CHARACTER_VARIANTS) {
   const base = [...CHARACTERS, ...CHARACTER_GUESTS].find((x) => x.id === c.variantOf);
-  const want = base ? Math.min(AI_PROFICIENCY.max, base.ai.proficiency + VARIANT_PLUS) : c.ai.proficiency;
+  const want = c.proficiencyOverride ?? (base ? Math.min(AI_PROFICIENCY.max, base.ai.proficiency + VARIANT_PLUS) : c.ai.proficiency);
   if (c.ai.proficiency !== want) {
     c.ai.proficiency = want;
     finishAI(c);

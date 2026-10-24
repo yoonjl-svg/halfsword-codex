@@ -1990,10 +1990,10 @@ export class Fighter {
   }
 
   /** 칼날에 피가 묻는다 */
-  bloodyBlade(amount) {
+  bloodyBlade(amount, color = 0x5a0808) {
     if (!this.bladeMesh) return;
     this.bladeBlood = Math.min(0.65, (this.bladeBlood || 0) + amount);
-    this.bladeMesh.material.color.copy(this.bladeBaseColor).lerp(_bloodColor, this.bladeBlood);
+    this.bladeMesh.material.color.copy(this.bladeBaseColor).lerp(_bloodColor.setHex(color), this.bladeBlood);
   }
 
   dropSword() {

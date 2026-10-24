@@ -12,7 +12,8 @@ const { Sound } = await import('../../src/sound.js');
 const root = (p) => new URL(`../../${p}`, import.meta.url);
 
 /** 소리 카드 없이 Sound.whip 만 돌리는 가짜 — 어떤 녹음을 어느 묶음 · 음량으로 냈나만 적는다 */
-function fakeSound() {
+function fakeSound(mode = 'c2') {
+  SOUND.whipHit = mode; // These legacy comparisons explicitly exercise the retained C2 path.
   const s = Object.create(Sound.prototype), played = [];
   Object.assign(s, { _on: true, ctx: { currentTime: 0 }, useSamples: true, master: 'master', fleshBus: 'flesh', metalBus: 'metal' });
   s.samples = Object.fromEntries(['whipSwish', 'whipCrack', 'whipHit', 'whipLash', 'whipArmor', 'whipClash'].map((k) => [k, [{ name: k }]]));
@@ -30,10 +31,10 @@ test('휙 · 딱 걸쇠 (main.js whipWhoosh 에서 옮김 — 값 · 셈 그대�
   assert.deepEqual(run([4, 8, 10, 16, 13]), [['swish', 10], ['crack', 16]]);
 });
 
-test('주소 스위치: 기본 = C2 · ?whipHit=old = 10/23 Thwack (그 밖의 값은 기본)', () => {
-  assert.equal(SOUND.whipHit, 'c2');
+test('주소 스위치: 기본 = contact · ?whipHit=old = 10/23 Thwack (그 밖의 값은 기본)', () => {
+  assert.equal(SOUND.whipHit, 'contact');
   const q = (s) => whipHitMode(new URLSearchParams(s));
-  assert.deepEqual(['', 'whipHit=old', 'whipHit=c2', 'whipHit=1', 'weapon=druid_whip&whipHit=old'].map(q), ['c2', 'old', 'c2', 'c2', 'old']);
+  assert.deepEqual(['', 'whipHit=old', 'whipHit=c2', 'whipHit=1', 'weapon=druid_whip&whipHit=old'].map(q), ['contact', 'old', 'c2', 'contact', 'old']);
 });
 
 test('맞음 소리 고르기: 살 · 옷 = C2(whipLash · 몸 묶음 · 음량 SOUND.whipLashGain) · 투구 · 판금 = 그대로 · 5 J 아래 소리 없음 · old 판 = Thwack', () => {
@@ -46,7 +47,7 @@ test('맞음 소리 고르기: 살 · 옷 = C2(whipLash · 몸 묶음 · 음량 
   const keep = SOUND.whipHit;
   try {
     SOUND.whipHit = 'old';
-    const o = fakeSound();
+    const o = fakeSound('old');
     assert.deepEqual(o.at(0, 'hit', 40, false), { t: 0, name: 'whipHit', bus: 'flesh', layer: 1 });
     assert.equal(o.at(0.01, 'crack', 20)?.name, 'whipCrack'); // old 판은 10/23 그대로 — 겹침 막기 없음
     assert.equal(o.at(0.02, 'hit', 40, false)?.name, 'whipHit');

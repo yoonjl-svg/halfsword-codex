@@ -1,0 +1,27 @@
+using deprecated parameters for the initialization function; pass a single object instead
+BLEED [{"id":"terracotta_mad","alive":false,"blood":0.4497644710904387,"bleed":0.44597173653085265,"head":true,"decapitated":false,"cause":"출혈"},{"id":"bran","alive":false,"blood":0.4497644710904387,"bleed":0.44597173653085265,"head":true,"decapitated":false,"cause":"출혈"},{"id":"terracotta","alive":true,"blood":1,"bleed":0,"head":true,"decapitated":false,"cause":null}]
+DEATH puncture 머리
+DEATH concussion 기절
+DEATH finish 내려찍기
+✔ base clay remains proficiency2, ghost proficiency5 is reflected in actual Chinese skill table and voice (0.814094ms)
+✔ ghost and normal human bleed and die from the same torso wound while head remains attached; clay does neither (52.798574ms)
+✔ ghost dies from head puncture, concussion and finishing torso attack without forced decapitation (21.869327ms)
+✔ white/red drops and ground residue coexist without a global color change; blood-off suppresses drops (1.558744ms)
+✔ white and human severed neck/limb materials stay separate, white spray and blood-off work (2.66789ms)
+✔ silent ghost has no voiced hurt/death samples; normal impact sounds are independent (0.380232ms)
+✔ contact is default; previous C2/old remain explicit comparisons (1.087795ms)
+✔ body contact plays after a crack; repeated segments suppressed; swish/crack/armor/clash retained (0.89074ms)
+✔ three different contact recordings match provenance and existing crack/swish assets remain separate (1.151922ms)
+✔ 휙 · 딱 걸쇠 (main.js whipWhoosh 에서 옮김 — 값 · 셈 그대로 · 확인표 2259) (1.308878ms)
+✔ 주소 스위치: 기본 = contact · ?whipHit=old = 10/23 Thwack (그 밖의 값은 기본) (0.226901ms)
+✔ 맞음 소리 고르기: 살 · 옷 = C2(whipLash · 몸 묶음 · 음량 SOUND.whipLashGain) · 투구 · 판금 = 그대로 · 5 J 아래 소리 없음 · old 판 = Thwack (0.580092ms)
+✔ 겹침 막기: C2 뒤 whipLashGap 안의 끝 딱 · C2 는 안 냄 · 끝 딱 뒤 whipFlam 안의 C2 는 안 냄 · 그보다 늦으면 둘 다 · 투구 · 휙 · 칼은 막지 않음 (0.324068ms)
+✔ 녹음 파일: lash1.mp3 = provenance 해시 · 모노 44.1 kHz MP3 · 옛 hit1 ~ 3 남음 · 출처 · CC0 기록 (2.021179ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 302.925552
