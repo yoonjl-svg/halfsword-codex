@@ -2319,6 +2319,11 @@ export class Fighter {
     const terrainScale = fighterWetlandMoveScale(this, p.x, p.z);
     this.surfaceSpeedScale = terrainScale;
     const mv = this.state === 'stand' ? { x: mvIn.x * terrainScale * this.stamina.speed * (1 - st.length()) + st.x, y: mvIn.y * terrainScale * this.stamina.speed * (1 - st.length()) + st.y } : { x: 0, y: 0 };
+    // 특별전의 조종 이동만 가속한다. 균형 회복·피격 밀림·공격 속도와 기존 유파 정의는 그대로.
+    if (this.encounterMoveScale && this.state === 'stand') {
+      mv.x += mvIn.x * terrainScale * this.stamina.speed * (1 - st.length()) * (this.encounterMoveScale - 1);
+      mv.y += mvIn.y * terrainScale * this.stamina.speed * (1 - st.length()) * (this.encounterMoveScale - 1);
+    }
     if (this.state === 'stand' && this.daze > 0.2) {
       // 멍하면 발이 제멋대로 움찔거린다
       mv.x += Math.sin(this.stateTime * 3.1) * this.daze * 0.5;
