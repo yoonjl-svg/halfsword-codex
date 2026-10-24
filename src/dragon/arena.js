@@ -34,7 +34,13 @@ export function createDragonArena(scene,R,world) {
     mesh(new T.BoxGeometry(1.5,6.8,1.65),dark,[11,3.3,z]);
     for(let j=0;j<5;j++)mesh(new T.BoxGeometry(1.6,.15,1.75),stone,[11,.65+j*1.25,z]);
   }
-  for(let i=0;i<11;i++){const a=i/10*Math.PI;if(i===2)continue;const m=mesh(new T.BoxGeometry(1.5,1,.9),stone,[11,5.5+Math.sin(a)*3.8,Math.cos(a)*3.8]);m.rotation.x=a-Math.PI/2;}
+  // 하중을 받치는 쐐기돌 아치: 빠진 중간 돌/공중에 뜬 상부 조각을 만들지 않는다.
+  for(let i=0;i<13;i++){
+    const a=i/13*Math.PI+.004,b=(i+1)/13*Math.PI-.004,shape=new T.Shape();
+    shape.moveTo(Math.cos(a)*4.25,Math.sin(a)*4.25*.62);shape.lineTo(Math.cos(b)*4.25,Math.sin(b)*4.25*.62);
+    shape.lineTo(Math.cos(b)*3.35,Math.sin(b)*3.35*.62);shape.lineTo(Math.cos(a)*3.35,Math.sin(a)*3.35*.62);shape.closePath();
+    const m=mesh(new T.ExtrudeGeometry(shape,{depth:1.5,bevelEnabled:false}),stone,[10.25,6.7,0]);m.rotation.y=Math.PI/2;
+  }
   const covers=[{x:-3,z:-4.6,r:.65,h:2.4},{x:-2,z:5.6,r:.65,h:2.35},{x:-7,z:-4,r:.65,h:2.0}];
   for(const c of covers){
     mesh(new T.BoxGeometry(1.65,.25,1.65),dark,[c.x,.125,c.z]);
