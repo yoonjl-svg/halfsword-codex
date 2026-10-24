@@ -5,9 +5,10 @@ export function mergeStaticPieces(group) {
   for(const c of [...group.children])if(c.isGroup)mergeStaticPieces(c);
   const sets=new Map();
   for(const c of group.children)if(c.isMesh&&!c.isInstancedMesh&&!Array.isArray(c.material)){
-    if(!sets.has(c.material))sets.set(c.material,[]);sets.get(c.material).push(c);
+    const key=c.material.uuid+':'+c.castShadow+':'+c.receiveShadow;if(!sets.has(key))sets.set(key,[]);sets.get(key).push(c);
   }
-  for(const [mat,parts]of sets) {
+  for(const parts of sets.values()) {
+    const mat=parts[0].material;
     if(parts.length<2)continue;
     const geos=parts.map(m=>{m.updateMatrix();const g=m.geometry.index?m.geometry.toNonIndexed():m.geometry.clone();return g.applyMatrix4(m.matrix);});
     const geo=mergeGeometries(geos,false);for(const g of geos)g.dispose();if(!geo)continue;

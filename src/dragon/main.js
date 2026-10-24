@@ -14,13 +14,14 @@ import { DragonGuard } from './guard.js';
 import { DragonEncounter } from './encounter.js';
 import { createDragonArena } from './arena.js';
 import { DragonAudio } from './audio.js';
+import { groundShadows } from './shadows.js';
 
 const TEMPO=1.1; // 일반 대련과 동일한 전체 템포
 const $=id=>document.getElementById(id),params=new URLSearchParams(location.search);
 const canvas=$('game'),input=new Input(canvas),sound=new DragonAudio();
-let renderer,scene,camera,world,eventQueue,player,guard,dragon,combat,arena;
+let renderer,scene,camera,world,eventQueue,player,guard,dragon,combat,arena,shadows;
 let state='menu',weaponId='longsword',acc=0,last=performance.now(),feedbackLeft=0,resultDelay=0,guardPointer=null,stickPointer=null;
-let running=true,frames=0,frameTimes=[],timePlayed=0,cameraReady=false,guardKey=false;
+let running=true,frames=0,frameTimes=[],timePlayed=0,cameraReady=false,guardKey=false,lastStaminaText="",lastHealth=-1,qualityTime=0,qualityFrames=0,qualitySlow=0,qualityFast=0,qualityGood=0;
 const chosen=['longsword','rapier','uchigatana','qinggang','zweihander','morgenstern','druid_whip','pistol'];
 for(const id of chosen){const w=getWeapon(id);if(w.id!==id)continue;const o=document.createElement('option');o.value=id;o.textContent=w.nameKo;$('weapon').append(o);}
 if(chosen.includes(params.get('weapon')))weaponId=params.get('weapon');$('weapon').value=weaponId;
@@ -43,6 +44,7 @@ function cue(title,detail='',kind=''){const e=$('cue');e.querySelector('b').text
 function flash(text){$('feedback').textContent=text;$('feedback').classList.add('show');feedbackLeft=1.2;}
 function resetInput(){input.resetTransient();input.keys.clear();guardPointer=null;guardKey=false;stickPointer=null;$('stick').querySelector('i').style.transform='';$('guard').classList.remove('held');if(guard){guard.held=false;guard.broken=false;}}
 function disposeRound(){
+  shadows?.dispose();shadows=null;
   if(world)world.free();if(eventQueue)eventQueue.free();
   if(scene){const geo=new Set(),mat=new Set();scene.traverse(o=>{if(o.geometry)geo.add(o.geometry);if(o.material)for(const m of Array.isArray(o.material)?o.material:[o.material])mat.add(m);});for(const g of geo)g.dispose();for(const m of mat)m.dispose();}
 }
@@ -52,7 +54,7 @@ function round() {
   arena=createDragonArena(scene,RAPIER,world);const info=new Map();
   player=new Fighter(RAPIER,world,scene,info,{index:0,name:'여행자',x:-5.8,z:0,heading:0,look:LOOKS.player,weapon:weaponId});
   configureDragonPlayer(player);player.skill.level=.7;player.skill.corr=SKILL.corr;player.skill.autoGuard=true;player.canShove=false;
-  guard=new DragonGuard(player);dragon=new DragonEncounter(scene,RAPIER,world,player,guard,arena.covers,event);
+  guard=new DragonGuard(player);dragon=new DragonEncounter(scene,RAPIER,world,player,guard,arena.covers,event);shadows=groundShadows(scene,arena.covers);
   combat=new Combat(info,{onWound:()=>{},onClash:()=>{}});
   GUN_HOOKS.onImpact=(_f,p)=>dragon.bulletImpact(p);
   GUN_HOOKS.onShot=()=>sound.noiseSound(.2,2100,.35);
@@ -90,36 +92,29 @@ function readInput(dt) {
 }
 function step() {
   const dt=PHYSICS.timestep;
-  dragon.beforeStep(dt);player.faceTarget=dragon.position;guard.step(dt);
+  dragon.beforeStep(dt);player.faceTarget=dragon.focus;guard.step(dt);
   player.step(dt);player.cacheState();world.step(eventQueue,combat.physicsHooks);combat.afterStep(world,eventQueue);dragon.afterStep(dt);
   if(state==='fight'){timePlayed+=dt;if(!player.alive)finish(false);}
   if(feedbackLeft>0){feedbackLeft-=dt;if(feedbackLeft<=0)$('feedback').classList.remove('show');}
 }
 function updateCamera(dt,snap=false) {
-  const p=player.bodies.pelvis.translation(),head=dragon.model.pose.head;
-  if(state==='menu') {
-    cameraTarget.set(-9.7,4.5,8.2);target.set(.1,1.1,0);
-  } else {
-    viewDir.set(head.x-p.x,0,head.z-p.z).normalize();side.set(-viewDir.z,0,viewDir.x);
-    const portrait=camera.aspect<1,d=Math.hypot(head.x-p.x,head.z-p.z),back=(portrait?7:5.2)+Math.min(2,d*.25);
-    cameraTarget.set(p.x,p.y,p.z).addScaledVector(viewDir,-back).addScaledVector(side,portrait?1.25:2.3);cameraTarget.y=(portrait?3.75:3.15)+Math.min(1,d*.16);
-    target.set(p.x,1.15,p.z).lerp(new T.Vector3(head.x,1.55,head.z),.63);
-    // 기둥/성벽 안으로 들어가는 카메라는 즉시 앞쪽으로 당긴다.
-    const ray=cameraTarget.clone().sub(target),len=ray.length();ray.normalize();
-    const hit=world.castRay({origin:target,dir:ray},len,true,undefined,undefined,undefined,undefined,c=>arena.covers.some(o=>o.collider.handle===c.handle));
-    if(hit&&hit.timeOfImpact>1.5)cameraTarget.copy(target).addScaledVector(ray,hit.timeOfImpact-.25);
-  }
+  shadows?.update(player,dragon);
+  // 머리/물리 골반의 흔들림에 카메라가 따라 돌지 않는다. 고정 방향의 넓은 전면 전장.
+  const portrait=camera.aspect<1;
+  target.set(1.15,1.65,0);cameraTarget.set(-8.5,6.8,14.5);
+  if(portrait)cameraTarget.sub(target).multiplyScalar(1.32).add(target);
+  if(state==='menu'){target.set(2.2,2,0);cameraTarget.set(-8,7.3,15);}
   const k=snap||!cameraReady?1:1-Math.exp(-dt*5);camera.position.lerp(cameraTarget,k);look.lerp(target,k);camera.lookAt(look);cameraReady=true;
-  arena.sun.position.set(p.x-10,18,p.z-7);arena.sun.target.position.set(p.x,0,p.z);if(!arena.sun.target.parent)scene.add(arena.sun.target);
 }
 function updateHud(){
-  const ratio=dragon.health/DRAGON.health;$('bossFill').style.transform=`scaleX(${ratio})`;$('bossFill').parentElement.setAttribute('aria-valuenow',String(Math.round(dragon.health)));
-  const st=player.stamina;$('staminaReadout').innerHTML=`${st.exhausted?'탈진':'기력'} <b>${Math.round(st.value)}</b><span> / ${st.max}</span>`;
+  const ratio=dragon.health/DRAGON.health;if(lastHealth!==dragon.health){lastHealth=dragon.health;$('bossFill').style.transform=`scaleX(${ratio})`;$('bossFill').parentElement.setAttribute('aria-valuenow',String(Math.round(dragon.health)));}
+  const st=player.stamina,html=`${st.exhausted?'탈진':'기력'} <b>${Math.round(st.value)}</b><span> / ${st.max}</span>`;if(lastStaminaText!==html){lastStaminaText=html;$('staminaReadout').innerHTML=html;}
   hud.update([player],camera,state==='fight');
 }
-function resize(){if(!renderer)return;renderer.setPixelRatio(Math.min(devicePixelRatio,1,1000/window.innerWidth));renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.fov=innerWidth/innerHeight<1?67:55;camera.updateProjectionMatrix();}
+function resize(){if(!renderer)return;renderer.setPixelRatio(1);renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.fov=innerWidth/innerHeight<1?55:40;camera.updateProjectionMatrix();}
 function frame(now){
-  if(!running)return;requestAnimationFrame(frame);const dt=Math.min(.08,(now-last)/1000);last=now;
+  if(!running)return;requestAnimationFrame(frame);const rawDt=(now-last)/1000,dt=Math.min(.08,rawDt);last=now;
+  if(state==='fight'&&!params.has('manual')){qualityTime+=rawDt;qualityFrames++;if(rawDt>.045)qualitySlow++;if(rawDt<.020)qualityFast++;if(qualityTime>3){const ratio=renderer.getPixelRatio(),maxRatio=Math.max(1,Math.min(devicePixelRatio,1.5,1800/innerWidth));let next=ratio;if(qualitySlow/qualityFrames>.35){next=Math.max(1,ratio-.25);qualityGood=0;}else if(qualityFast/qualityFrames>.9){qualityGood+=qualityTime;if(qualityGood>=8){next=Math.min(maxRatio,ratio+.25);qualityGood=0;}}else qualityGood=0;if(next!==ratio){renderer.setPixelRatio(next);renderer.setSize(innerWidth,innerHeight);}qualityTime=0;qualityFrames=0;qualitySlow=0;qualityFast=0;}}
   frames++;frameTimes.push(dt*1000);if(frameTimes.length>240)frameTimes.shift();
   if(state==='fight'&&!params.has('manual')) {
     readInput(dt);acc+=dt*TEMPO;
@@ -131,7 +126,7 @@ function frame(now){
   }
   updateCamera(dt);updateHud();renderer.render(scene,camera);
 }
-function snapshot(){const p=player.bodies.pelvis.translation();return {state,weapon:weaponId,player:{position:{...p},state:player.state,alive:player.alive,blood:player.blood,consciousness:player.consciousness,stamina:player.stamina.value,max:player.stamina.max,ratio:player.stamina.ratio,exhausted:player.stamina.exhausted,moveScale:player.encounterMoveScale,spent:{...player.stamina.spent},guard:guard.held},dragon:dragon.snapshot(),events:[...eventLog],render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,meanFrameMs:frameTimes.reduce((a,b)=>a+b,0)/(frameTimes.length||1)}};}
+function snapshot(){const p=player.bodies.pelvis.translation();return {state,weapon:weaponId,player:{position:{...p},state:player.state,alive:player.alive,blood:player.blood,consciousness:player.consciousness,stamina:player.stamina.value,max:player.stamina.max,ratio:player.stamina.ratio,exhausted:player.stamina.exhausted,moveScale:player.encounterMoveScale,spent:{...player.stamina.spent},guard:guard.held},dragon:dragon.snapshot(),events:[...eventLog],render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,pixelRatio:renderer.getPixelRatio(),meanFrameMs:frameTimes.reduce((a,b)=>a+b,0)/(frameTimes.length||1)}};}
 
 $('start').onclick=start;$('pause').onclick=pause;$('resume').onclick=resume;$('restart').onclick=start;$('restartPause').onclick=start;$('choose').onclick=choose;$('choosePause').onclick=choose;
 $('weapon').onchange=()=>{weaponId=$('weapon').value;round();};
@@ -146,11 +141,13 @@ function stickMove(e){if(e.pointerId!==stickPointer)return;const r=stick.getBoun
 stick.addEventListener('pointerdown',e=>{if(state!=='fight')return;e.preventDefault();stickPointer=e.pointerId;stick.setPointerCapture(e.pointerId);stickMove(e);});stick.addEventListener('pointermove',stickMove);
 for(const type of ['pointerup','pointercancel','lostpointercapture'])stick.addEventListener(type,e=>{if(e.pointerId!==stickPointer)return;stickPointer=null;input.stickMove={x:0,y:0};knob.style.transform='';});
 canvas.addEventListener('contextmenu',e=>e.preventDefault());
+canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();pause();$('fatal').hidden=false;$('fatal').textContent='화면을 복구하고 있습니다. 잠시 기다려 주세요.';});
+canvas.addEventListener('webglcontextrestored',()=>{$('fatal').hidden=true;flash('화면이 복구되었습니다');});
 window.addEventListener('error',e=>{running=false;$('fatal').hidden=false;$('fatal').textContent=`전투를 불러오지 못했습니다. 새로고침해 주세요.\n${e.message}`;});
 
 try {
   await RAPIER.init();
-  renderer=new T.WebGLRenderer({canvas,antialias:false,powerPreference:'high-performance'});renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;
+  renderer=new T.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});renderer.shadowMap.enabled=false;renderer.shadowMap.type=T.PCFShadowMap;renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.NoToneMapping;
   camera=new T.PerspectiveCamera(55,innerWidth/innerHeight,.1,150);resize();round();
   $('start').disabled=false;$('start').textContent='용과 마주하기';
   globalThis.__dragon={snapshot};

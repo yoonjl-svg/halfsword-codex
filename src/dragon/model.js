@@ -3,15 +3,15 @@ import { smooth, clamp } from './rules.js';
 import { mergeStaticPieces } from './merge.js';
 
 const Y=new T.Vector3(0,1,0);
-const sphere=new T.IcosahedronGeometry(1,1);
+const sphere=new T.SphereGeometry(1,16,10);
 const eyeGeo=new T.SphereGeometry(1,8,6);
 const mats={
-  scale:new T.MeshStandardMaterial({color:0x354340,roughness:.87}),
-  ridge:new T.MeshStandardMaterial({color:0x776e55,roughness:.72,metalness:.13}),
-  belly:new T.MeshStandardMaterial({color:0x96917c,roughness:.9}),
+  scale:new T.MeshStandardMaterial({color:0x3e494d,roughness:.87}),
+  ridge:new T.MeshStandardMaterial({color:0x747269,roughness:.72,metalness:.13}),
+  belly:new T.MeshStandardMaterial({color:0x938b78,roughness:.9}),
   horn:new T.MeshStandardMaterial({color:0xc3b79a,roughness:.63}),
   dark:new T.MeshStandardMaterial({color:0x172421,roughness:.88}),
-  wing:new T.MeshStandardMaterial({color:0x55483b,roughness:.95,side:T.DoubleSide}),
+  wing:new T.MeshStandardMaterial({color:0x434348,roughness:.95,side:T.DoubleSide}),
   eye:new T.MeshStandardMaterial({color:0xd59a45,emissive:0x8c4a16,emissiveIntensity:.38}),
   mouth:new T.MeshStandardMaterial({color:0x442e29,roughness:.95}),
   iron:new T.MeshStandardMaterial({color:0x70634d,roughness:.58,metalness:.55}),
@@ -66,14 +66,11 @@ export function createDragonModel(scene) {
     for(let k=0;k<3;k++)horn(g,[[ankle[0]+.19,-1.2,ankle[2]+(k-1)*.14],[ankle[0]+.48,-1.23,ankle[2]+(k-1)*.15],[ankle[0]+.55,-1.31,ankle[2]+(k-1)*.15]],.046);
     legs.push({g,x,s,foot});
   }
-  const neck=[];
-  for(let i=0;i<6;i++) {
-    const g=new T.Group();root.add(g);
-    ell(g,[0,0,0],[1,1,1]);
-    ell(g,[.03,-.23,0],[.28,.07,.25],mats.belly);
-    mesh(g,new T.ConeGeometry(.09,.23,4),mats.ridge,[0,.31,0]);
-    neck.push(g);
-  }
+  // 목은 겹친 구슬 여섯 개 대신 이어진 한 표면. 한 번 할당하고 꼭짓점만 갱신한다.
+  const rings=12,sides=12,neckPos=new Float32Array((rings+1)*(sides+1)*3),neckNorm=new Float32Array(neckPos.length),indices=[];
+  for(let i=0;i<rings;i++)for(let j=0;j<sides;j++){const a=i*(sides+1)+j,b=a+sides+1;indices.push(a,a+1,b,a+1,b+1,b);}
+  const neckGeo=new T.BufferGeometry();neckGeo.setAttribute('position',new T.BufferAttribute(neckPos,3).setUsage(T.DynamicDrawUsage));neckGeo.setAttribute('normal',new T.BufferAttribute(neckNorm,3).setUsage(T.DynamicDrawUsage));neckGeo.setIndex(indices);
+  const neckMesh=mesh(root,neckGeo,mats.scale);neckMesh.frustumCulled=false;
   const head=new T.Group();root.add(head);
   ell(head,[-.04,.02,0],[.57,.30,.32]);
   ell(head,[.58,-.07,0],[.55,.15,.255]);
@@ -94,8 +91,12 @@ export function createDragonModel(scene) {
   const collar=mesh(root,new T.TorusGeometry(.40,.045,5,12),mats.iron,[1.02,1.84,0]);collar.rotation.y=Math.PI/2;
   const seal=mesh(root,new T.BoxGeometry(.08,.22,.18),mats.iron,[1.1,1.49,0]);seal.rotation.z=.1;
   for(const s of[-1,1])beam(root,[1,1.62,s*.35],[.74,1.27,s*.43],.025,.025,mats.iron,5);
-  const tail=[];
-  for(let i=0;i<9;i++) {const g=new T.Group();root.add(g);ell(g,[0,0,0],[1,1,1]);if(i<7)mesh(g,new T.ConeGeometry(.08,.2,4),mats.ridge,[0,.22,0]);tail.push(g);}
+  const tailCurve=new T.CatmullRomCurve3([new T.Vector3(-1.25,1.1,0),new T.Vector3(-2,.65,.4),new T.Vector3(-2.8,.3,1.1),new T.Vector3(-3.65,.15,1.8)]);
+  const tailGeo=new T.TubeGeometry(tailCurve,18,.23,8,false),tv=tailGeo.attributes.position;
+  for(let i=0;i<tv.count;i++){const u=Math.floor(i/9)/18,c=tailCurve.getPointAt(u);tv.setXYZ(i,c.x+(tv.getX(i)-c.x)*(1-u*.9),c.y+(tv.getY(i)-c.y)*(1-u*.9),c.z+(tv.getZ(i)-c.z)*(1-u*.9));}tailGeo.computeVertexNormals();mesh(torso,tailGeo,mats.scale);
+  // 움직이지 않는 날개와 뒷다리는 몸통 재질별로 합친다.
+  for(const w of wings){w.updateMatrix();for(const c of [...w.children]){c.applyMatrix4(w.matrix);torso.add(c);}torso.remove(w);}
+  for(const l of legs.filter(l=>l.x<0)){l.g.updateMatrix();for(const c of [...l.g.children]){c.applyMatrix4(l.g.matrix);torso.add(c);}root.remove(l.g);}
   const zones=[
     {id:'chest',r:.78,damage:.38,anchor:new T.Vector3(.65,1.65,0)},
     {id:'body',r:.87,damage:.3,anchor:new T.Vector3(-.55,1.55,0)},
@@ -103,34 +104,38 @@ export function createDragonModel(scene) {
     {id:'snout',r:.34,damage:.85,anchor:new T.Vector3()},
     {id:'throat',r:.34,damage:1.4,anchor:new T.Vector3()},
     ...[-1,1].map(s=>({id:s>0?'legR':'legL',r:.36,damage:.7,anchor:new T.Vector3(.96,.75,s*.78)})),
-    {id:'tail',r:.29,damage:.25,anchor:new T.Vector3()},
+
   ].map(z=>({...z,p:new T.Vector3(),prev:new T.Vector3(),velocity:new T.Vector3()}));
   const pose={head:new T.Vector3(),mouth:new T.Vector3(),claw:new T.Vector3(),tail:new T.Vector3()};
   function update(d,dt=0) {
-    root.position.copy(d.position);root.rotation.y=-d.heading;
+    root.position.copy(d.position);root.rotation.y=-d.heading;root.scale.setScalar(2.1);
     const t=d.time,phase=d.phase,u=d.phaseU,attack=d.attack;
-    let hx=2.24,hy=1.56,hz=0,jawOpen=.09,tilt=-.03;
-    const walk=d.walking?Math.sin(t*4.1):0;
-    torso.position.y=Math.sin(t*1.6)*.025+(d.walking?Math.abs(walk)*.03:0);
+    let hx=2.24,hy=.93,hz=d.aimZ||0,jawOpen=.09,tilt=-.03;
+    const walk=0;
+    torso.position.y=Math.sin(t*1.6)*.012;
     if(phase==='tell') {
-      const k=smooth(u);hx-=.48*k;hy+=.45*k;jawOpen=.1+.48*k;
-      if(attack==='claw') {hy=1.65;hx=2.1;}
-      if(attack==='fire') {hx=2.24+.16*k;hy=1.56+k*.14;tilt=-.05*k;jawOpen=.09+.49*k;}
+      const k=smooth(u);hx-=.48*k;hy+=.56*k;jawOpen=.1+.48*k;
+      if(attack==='claw') {hy=1.15;hx=2.1;}
+      if(attack==='fire') {hx=2.24+.16*k;hy=.93+k*.32;tilt=-.05*k;jawOpen=.09+.49*k;}
       if(attack==='tail')hz=Math.sin(t*2)*.3*k;
     } else if(phase==='active') {
-      if(attack==='nip'||attack==='bite') {const peak=2.24+(attack==='bite'?1:.65);if(u<.6){const k=smooth(u/.6);hx=1.76+(peak-1.76)*k;hy=2.01-.88*k;}else{const k=smooth((u-.6)/.4);hx=peak+(2.54-peak)*k;hy=1.13-.05*k;}jawOpen=.58*(1-smooth(u));tilt=-.14;}
-      if(attack==='claw') {hy=1.65-.57*smooth(u);hx=2.1+.44*smooth(u);jawOpen=.12;}
-      if(attack==='fire') {hx=2.4;hy=1.7;hz=Math.sin((u-.5)*1.4)*.55;jawOpen=.58;tilt=-.05;}
-    } else if(phase==='recover') {const k=1-smooth(u);hx+=.3*k;hy-=.48*k;jawOpen=.12*k;}
-    if(phase==='stagger') {hy=.85;hx=2.5;tilt=.1;torso.position.y=-.25;}
-    if(!d.alive) {const fall=smooth(d.deadTime/1.8);hy=1.56-fall*.95;hx=2.4;torso.position.y=-fall*.85;torso.rotation.x=-fall*.18;tilt=-.1;jawOpen=.2;}
+      if(attack==='nip'||attack==='bite') {const peak=d.reach||3.2;if(u<.6){const k=smooth(u/.6);hx=1.76+(peak-1.76)*k;hy=1.49-.82*k;}else{const k=smooth((u-.6)/.4);hx=peak+(2.54-peak)*k;hy=.67+.02*k;}jawOpen=.58*(1-smooth(u));tilt=-.14;}
+      if(attack==='claw') {hy=1.15-.42*smooth(u);hx=2.1+.44*smooth(u);jawOpen=.12;}
+      if(attack==='fire') {hx=2.4;hy=1.25;hz+=(u-.5)*.3;jawOpen=.58;tilt=-.05;}
+    } else if(phase==='recover') {const k=1-smooth(u);hx+=.3*k;hy-=.28*k;jawOpen=.12*k;}
+    if(phase==='stagger') {hy=.57;hx=2.5;tilt=.1;torso.position.y=-.25;}
+    if(!d.alive) {const fall=smooth(d.deadTime/1.8);hy=.93-fall*.58;hx=2.4;torso.position.y=-fall*.85;torso.rotation.x=-fall*.18;tilt=-.1;jawOpen=.2;}
     head.position.lerp(new T.Vector3(hx,hy,hz),dt>0?1-Math.exp(-dt*22):1);hx=head.position.x;hy=head.position.y;hz=head.position.z;head.rotation.z=tilt;head.rotation.y=-hz*.2;jaw.rotation.z=-jawOpen;
-    for(let i=0;i<neck.length;i++) {
-      const a=(i+1)/(neck.length+1),g=neck[i];
-      g.position.set(.8+(hx-.8)*a,1.89+(hy-1.89)*a+Math.sin(a*Math.PI)*.10,hz*a);
-      g.scale.set(.29,.37-a*.12,.39-a*.13);g.rotation.z=Math.atan2(hy-1.89,hx-.8);
+    for(let i=0;i<=rings;i++){
+      const a=i/rings,cx=.8+(hx-.8)*a,cy=1.89+(hy-1.89)*a+Math.sin(a*Math.PI)*.20,cz=hz*a;
+      const dx=hx-.8,dy=hy-1.89+Math.cos(a*Math.PI)*.20*Math.PI,len=Math.hypot(dx,dy)||1;
+      for(let j=0;j<=sides;j++){const th=j/sides*Math.PI*2,co=Math.cos(th),si=Math.sin(th),k=(i*(sides+1)+j)*3,r=.48-a*.2;
+        neckPos[k]=cx-dy/len*co*r;neckPos[k+1]=cy+dx/len*co*r;neckPos[k+2]=cz+si*r;
+        neckNorm[k]=-dy/len*co;neckNorm[k+1]=dx/len*co;neckNorm[k+2]=si;
+      }
     }
-    for(const {g,x,s} of legs) {
+    neckGeo.attributes.position.needsUpdate=true;neckGeo.attributes.normal.needsUpdate=true;
+    for(const {g,x,s} of legs.filter(l=>l.x>0)) {
       g.rotation.z=walk*(x>0?s:-s)*.16;g.rotation.x=0;g.rotation.y=0;
       if(!d.alive)g.rotation.z=-.7*s*s*smooth(d.deadTime/1.8);
       if(attack==='claw'&&x>0&&s===d.side) {
@@ -138,34 +143,25 @@ export function createDragonModel(scene) {
         if(phase==='active')g.rotation.z=.85-1.0*smooth(Math.max(0,(u-.38)/.62));
         if(phase==='recover')g.rotation.z=-.15*(1-smooth(u));
         g.rotation.x=phase==='active'?s*.12*Math.sin(u*Math.PI):0;
-        g.rotation.y=phase==='active'?s*.55*Math.sin(u*Math.PI):0;
+        g.rotation.y=phase==='active'?s*.22*Math.sin(u*Math.PI):0;
       }
     }
-    for(let i=0;i<tail.length;i++) {
-      const a=i/(tail.length-1),g=tail[i];
-      let sweep=.15*Math.sin(t*1.3-a*3);
-      if(attack==='tail'&&phase==='tell')sweep+=d.side*.6*smooth(u);
-      if(attack==='tail'&&phase==='active')sweep+=d.side*(.6-1.7*smooth(u));
-      if(attack==='tail'&&phase==='recover')sweep-=d.side*1.1*(1-smooth(u));
-      g.position.set(-1.43-a*2.35,.98-a*.72,Math.sin(a*1.2)*sweep*2.2);
-      g.scale.set(.32,.29*(1-a)+.035,.31*(1-a)+.035);g.rotation.y=-sweep*.7;
-    }
-    for(let i=0;i<wings.length;i++)wings[i].rotation.x=(i?1:-1)*(.025*Math.sin(t*1.3)+(attack==='fire'&&phase==='tell'?.12*smooth(u):0));
     root.updateMatrixWorld(true);
     for(const z of zones) {
       z.prev.copy(z.p);
       if(z.id==='head')z.anchor.copy(head.position).add(new T.Vector3(.15,-.03,0));
       if(z.id==='snout')z.anchor.copy(head.position).add(new T.Vector3(.77,-.08,0));
       if(z.id==='throat')z.anchor.set(hx-.43,hy-.18,hz*.8);
-      if(z.id==='tail')z.anchor.copy(tail[6].position);
+      if(z.id==='legL'||z.id==='legR'){const l=legs.find(l=>l.x>0&&l.s===(z.id==='legR'?1:-1));z.anchor.set(.58,-.9,l.s*.3).applyMatrix4(l.g.matrix);}
       z.p.copy(z.anchor).applyMatrix4(root.matrixWorld);
       z.velocity.copy(z.p).sub(z.prev).multiplyScalar(dt>0?1/dt:0);
     }
     pose.head.copy(head.position).applyMatrix4(root.matrixWorld);
     pose.mouth.set(1.02,-.08,0).applyMatrix4(head.matrixWorld);
     const l=legs.find(l=>l.x>0&&l.s===d.side);pose.claw.set(1.1,-1.25,l.s*.34).applyMatrix4(l.g.matrixWorld);
-    pose.tail.copy(tail[7].position).applyMatrix4(root.matrixWorld);
+    pose.tail.set(-2.8,.3,1.1).applyMatrix4(root.matrixWorld);
   }
+  for(const z of zones)z.r*=2.1;
   mergeStaticPieces(root);
   return {root,zones,pose,update,head,jaw};
 }
