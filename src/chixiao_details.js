@@ -64,7 +64,9 @@ function blade(shape, opts) {
   const heights=[0,.22,.44,.84,.75,.97,1,.97,.75,.84,.44,.22,0];
   // Muted red-brown steel faces; freshly honed edges and spine reflect silver-grey.
   const palette=[0xc7cbc9,0x9b9d9a,0x84504a,0x513638,0x95827a,0x71413c,0x9e9790,0x513b3a,0x9c847b,0x80504b,0x9d9f9c,0xc8cdcb].map(c=>new THREE.Color(c));
-  const width=t=>t<=.84?1-.075*t:.937*(1-t)/.16;
+  // Broad ancient-style forte, narrowing continuously toward the point.
+  // Display only: original collision shape, mass, centre and inertia remain in weapons.js.
+  const width=t=>1.20*(1-.50*t-.50*Math.pow(t,6));
   const thick=t=>(1-.25*t)*(t>.90?(1-t)/.10:1);
   const point=(t,k,side)=>[xs[k]*hx*width(t),-hy+2*hy*t,side*hz*heights[k]*thick(t)];
   function tri(a,b,c,col){pos.push(...a,...b,...c);for(const p of[a,b,c]){cols.push(col.r,col.g,col.b);uv.push(p[0]/(2*hx)+.5,(p[1]+hy)/(2*hy));}}
