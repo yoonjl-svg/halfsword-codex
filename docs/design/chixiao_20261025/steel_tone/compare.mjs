@@ -1,0 +1,3 @@
+import {chromium} from 'playwright';
+const b=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+const p=await b.newPage({viewport:{width:960,height:690}}),errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto((process.argv[2]||'http://127.0.0.1:5266')+'/docs/design/chixiao_20261025/steel_tone/compare.html');await p.waitForFunction(()=>window.ready);await p.evaluate(()=>document.fonts.ready);await p.screenshot({path:new URL('./before-after.png',import.meta.url).pathname});await b.close();if(errors.length)throw Error(errors.join('\n'));
