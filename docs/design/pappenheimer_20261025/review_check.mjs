@@ -1,0 +1,12 @@
+import {chromium} from 'playwright';
+import fs from 'node:fs/promises';
+import assert from 'node:assert/strict';
+const base=process.argv[2],out=process.argv[3]||'review-local.json';
+const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+const context=await browser.newContext({viewport:{width:390,height:844},hasTouch:true,deviceScaleFactor:1});const page=await context.newPage(),errors=[],http=[],views=[];
+page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)http.push({url:r.url(),status:r.status()});});
+await page.goto(base,{waitUntil:'networkidle'});await page.evaluate(()=>{for(const img of document.images)img.loading='eager';});await page.waitForFunction(()=>[...document.images].every(i=>i.complete&&i.naturalWidth>0));await page.evaluate(()=>document.fonts.ready);
+for(const [width,height]of [[320,740],[390,844],[844,390],[1280,720]]){await page.setViewportSize({width,height});await page.waitForTimeout(150);const result=await page.evaluate(()=>({width:innerWidth,height:innerHeight,overflow:document.documentElement.scrollWidth>innerWidth,images:[...document.images].every(i=>i.complete&&i.naturalWidth>0)}));assert(!result.overflow&&result.images);views.push(result);if(width===390)await page.screenshot({path:new URL('./screens/review-mobile.png',import.meta.url).pathname,fullPage:true});}
+await page.setViewportSize({width:844,height:390});await page.locator('#play').click();await page.waitForFunction(()=>window.game?.state==='menu',null,{timeout:120000});await page.locator('#btnStart').click();await page.waitForFunction(()=>game.state==='fight');await page.waitForTimeout(600);
+const gameState=await page.evaluate(()=>({weapon:game.player.weapon.id,tier:game.player.weapon.tier,school:game.player.swordArt.tradition,mass:game.player.sword.mass(),blade:game.player.weapon.bladeLength,foe:game.enemy.charId,position:game.player.sword.translation()}));assert.equal(gameState.weapon,'pappenheimer');assert.equal(gameState.tier,'rare');assert.equal(gameState.school,'italian');assert(Object.values(gameState.position).every(Number.isFinite));
+await browser.close();const result={base,views,game:gameState,errors,http};await fs.writeFile(new URL('./'+out,import.meta.url),JSON.stringify(result,null,2));console.log(JSON.stringify(result));assert.deepEqual(errors,[]);assert.deepEqual(http,[]);

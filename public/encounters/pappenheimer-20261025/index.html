@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#201d18"><title>파펜하이머 · Stillness</title>
+<style>
+@font-face{font-family:Game;src:url('./play/fonts/Pretendard-Regular.subset.woff2')}*{box-sizing:border-box}body{margin:0;background:#201d18;color:#d5c7ae;font:17px/1.75 Game,sans-serif}main{max-width:1050px;margin:auto;padding:36px 20px 60px}h1,h2{font-weight:400;line-height:1.3}h1{font-size:32px;margin:8px 0 16px}h2{font-size:22px;margin:0 0 16px}.eyebrow{font-size:12px;letter-spacing:.18em;color:#aaa18f}p{margin:10px 0 20px}a{color:#e5ce9d}a.button{display:inline-block;text-decoration:none;border:1px solid #9a8760;background:#312c22;padding:10px 19px;box-shadow:inset 0 0 0 2px #201d18;margin:0 10px 10px 0}a:focus-visible,summary:focus-visible{outline:2px solid #e5ce9d;outline-offset:4px}section{border-top:1px solid #554c3c;margin-top:28px;padding-top:26px}figure{margin:16px 0}img{display:block;width:100%;height:auto;border:1px solid #554c3c}figcaption,.small{font-size:14px;color:#ada38f;margin-top:7px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0}.stat{border:1px solid #554c3c;padding:12px 14px}.stat span{display:block;font-size:13px;color:#ada38f}.stat strong{font-size:22px;font-weight:400;white-space:nowrap}.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.museum img{max-height:520px;object-fit:contain;background:#10100e}blockquote{border-left:2px solid #9a8760;margin:18px 0;padding-left:17px}summary{cursor:pointer}details p{font-size:15px}.links{display:flex;flex-wrap:wrap;gap:12px}footer{margin-top:32px;font-size:13px;color:#ada38f}@media(max-width:600px){main{padding:24px 14px 40px}h1{font-size:28px}.stats{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.stat{padding:10px 12px}}
+</style>
+<main>
+<div class="eyebrow">STILLNESS · 무기 제작 검토</div>
+<h1>파펜하이머</h1>
+<p>이탈리아 유파 · 레어 · 한손 찌르기검<br>겹친 고리와 투각 방호판으로 손을 감싸는, 묵직한 결투검입니다.</p>
+<a class="button" id="play" href="./play/?test=1&amp;weapon=pappenheimer&amp;foe=bran&amp;foeWeapon=tree_branch&amp;stage=clearing&amp;uniqueStage=5">직접 휘둘러 보기</a>
+<a class="button" href="./play/?test=1&amp;weapon=pappenheimer&amp;foe=tome&amp;foeWeapon=rapier&amp;stage=clearing&amp;uniqueStage=5">레이피어 상대와 대련</a>
+<p class="small">첫 링크의 상대는 나뭇가지를 든 브론입니다. 시작 화면의 전투 시작을 누르면 파펜하이머를 장착합니다.</p>
+<div class="stats"><div class="stat"><span>전체 길이</span><strong>111.1 cm</strong></div><div class="stat"><span>칼날 길이</span><strong>89.2 cm</strong></div><div class="stat"><span>코등이 폭</span><strong>21.3 cm</strong></div><div class="stat"><span>무게</span><strong>1.34 kg</strong></div></div>
+<figure><a href="details.webp"><img src="details.webp" alt="게임 모델 확대: 두 장의 투각 방호판, 손등 고리와 금속선 자루, 금장 명문"></a><figcaption>새 게임 모델을 직접 촬영한 확대 화면입니다. 사진을 누르면 원본 크기로 볼 수 있습니다.</figcaption></figure>
+<section><h2>실물을 기준으로 만든 형태</h2>
+<p>클리블랜드 미술관 소장품 <a href="https://www.clevelandart.org/art/1916.697">1916.697</a>을 기준으로 삼았습니다. 약 1620~30년 독일 솔링겐의 검이며, 길이와 무게는 박물관 공개 수치입니다. 게임에서는 이탈리아 검술로 사용합니다.</p>
+<p>검푸른 강철, 금속선 감개, 홈이 팬 끝장식, 양면 금장 명문을 반영했습니다. 방호판의 구멍은 실제로 뚫려 있습니다. 세부 장식은 게임 크기에 맞춰 간략화했습니다.</p>
+<div class="grid"><figure class="museum"><img loading="lazy" src="museum-reference.jpg" alt="Cleveland Museum of Art 1916.697 기준 실물"><figcaption>기준 실물 · Cleveland Museum of Art, Gift of Mr. and Mrs. John L. Severance. Public Domain / CC0.</figcaption></figure><figure><a href="pappenheimer-grip.webp"><img loading="lazy" src="pappenheimer-grip.webp" alt="실제 게임 캐릭터가 파펜하이머를 손에 쥔 모습"></a><figcaption>실제 게임 장착 모습 · 손과 방호구의 비례 확인.</figcaption></figure></div>
+</section>
+<section><h2>기존 검과의 차이</h2><p>커먼 레이피어보다 날은 5.8cm 짧고, 무게는 240g 더 나갑니다. 넓은 방호구를 갖췄지만 무게와 관성의 부담도 있습니다. 기존 이탈리아 찌르기·막아찌르기 동작을 그대로 사용합니다.</p><figure><a href="models.webp"><img loading="lazy" src="models.webp" alt="같은 축척의 레이피어, 파펜하이머, 달타냥 비교"></a><figcaption>동일한 축척과 조명으로 비교한 게임 모델.</figcaption></figure>
+<blockquote>투각 방호판과 겹친 고리가 손을 감싸는 결투검.<br>검푸른 강철과 금장 칼날에 장인의 솜씨가 남아 있다.</blockquote>
+<figure><a href="cards-mobile.webp"><img loading="lazy" src="cards-mobile.webp" alt="모바일 화면에서 파펜하이머 레어 카드와 설명"></a><figcaption>실제 게임 무기 카드 · 새 모델로 만든 섬네일.</figcaption></figure>
+<details><summary>조사·게임 수치·검증 기록</summary><p>박물관 3곳의 소장품을 대조했습니다. 무게중심과 부품별 질량, 베기 0.60·찌르기 1.30·둔타 0.70은 게임용 추정값입니다. 레어 공통 계수가 적용되며 별도 마법 능력은 없습니다. 손 보호 충돌은 기존 물리 방식으로 근사합니다.</p><p>기존 32종 무기와 캐릭터 정의를 보존했으며 공통 검사 5종, 새 무기의 파손·기력·실제 모바일 터치 조작을 확인했습니다. 사람의 손맛과 최종 밸런스는 별도 판단이 필요합니다.</p><p><a href="https://github.com/yoonjl-svg/halfsword-codex/blob/ec5da036/docs/design/pappenheimer_20261025/README.md">실물 자료·상세 설계·검증 원문</a></p></details>
+</section><footer>2026.10.25 · 자체 포크의 독립 검토판</footer>
+</main></html>

@@ -1,0 +1,361 @@
+Sound effects in this folder come from Kenney (www.kenney.nl), released under
+Creative Commons Zero (CC0): http://creativecommons.org/publicdomain/zero/1.0/
+They were trimmed, high-passed, peak-normalized and converted to mono MP3.
+
+  punch1-5.mp3  <- "Impact Sounds" (1.0): impactPunch_heavy_000-004.ogg
+  crack1.mp3    <- "RPG Audio": chop.ogg        (used as a bone-crack layer)
+  slide1-2.mp3  <- "RPG Audio": knifeSlice.ogg, knifeSlice2.ogg (blade glance layer)
+
+Thank you, Kenney!
+
+-------------------------------------------------------------------------------
+voice/  — death vocals and short hurt grunts, one small set per character (trimmed, high-passed at
+70 Hz, peak-normalized to -1 dBFS, converted to mono MP3). Sources and licences:
+
+  CC0 (public domain) — HaelDB, "Male Grunt/Yelling sounds"
+    https://opengameart.org/content/male-gruntyelling-sounds
+      player_ko1.mp3      <- 3grunt3.wav       player_ko2.mp3   <- 3grunt5.wav
+      player_bleed1.mp3   <- 3yell10.wav       player_bleed2.mp3 <- 3yell13.wav
+      generic_ko1.mp3     <- yell12.wav        generic_ko2.mp3  <- yell13.wav
+      generic_bleed1.mp3  <- yell3.wav
+      heinrich_ko1.mp3    <- 2yell1.wav        heinrich_ko2.mp3 <- 2yell10.wav
+      heinrich_bleed1.mp3 <- 2yell6.wav
+      liao_ko1.mp3        <- 2yell11.wav (0.33-0.78 s, -4.3 dB)
+      liao_bleed1.mp3     <- 2yell3.wav        liao_bleed2.mp3  <- 2yell9.wav
+      generic_bleed2.mp3  <- yell8.wav         heinrich_bleed2.mp3 <- 2yell8.wav
+    short hurt grunts (<name>_hurt<n>.mp3, cut to 0.6 s at most):
+      player_hurt1.mp3    <- 3grunt1.wav       player_hurt2.mp3   <- 3grunt4.wav
+      generic_hurt1.mp3   <- yell7.wav         generic_hurt2.mp3  <- yell9.wav
+      heinrich_hurt1.mp3  <- 2yell7.wav        heinrich_hurt2.mp3 <- 2yell2.wav
+      liao_hurt1.mp3      <- 2yell4.wav (0.6-1.02 s)   liao_hurt2.mp3 <- 2yell5.wav (0.2-0.72 s)
+    (the pack page lists both OGA-BY 3.0 and CC0; we use it under CC0)
+
+  CC-BY 3.0 — Michel Baradari, "11 male human pain/death sounds"
+    https://opengameart.org/content/11-male-human-paindeath-sounds
+    http://creativecommons.org/licenses/by/3.0/
+      bran_ko1.mp3 <- die1.wav   bran_ko2.mp3 <- deathh.wav   bran_bleed1.mp3 <- die2.wav
+      bran_hurt1.mp3 <- pain1.wav   bran_hurt2.mp3 <- pain3.wav
+
+  CC0 (public domain) — Freesound (https://freesound.org), preview MP3s, cut, high-passed
+  at 70 Hz, peak-normalized to -1 dBFS, not pitch-shifted:
+      bran_bleed2.mp3       <- kanyonwyvern, "Male Groan in Exhaustion"
+                               https://freesound.org/people/kanyonwyvern/sounds/736662/
+                               (level lowered ~5 dB to match the file it replaced)
+      margarethe_ko1.mp3    <- hisoul, "Zisa, Relief, Moan, Tired, Exhale_2.wav"
+      margarethe_bleed1.mp3    (the same clip in both files)
+                               https://freesound.org/people/hisoul/sounds/520276/
+      margarethe_hurt1.mp3  <- hisoul, "Zisa, Pain, Shout Short, Impact_6.wav"
+                               https://freesound.org/people/hisoul/sounds/520275/
+      isolde_ko1.mp3        <- mvVoiceActing, "girl damage" (3.3-4.4 s)
+                               https://freesound.org/people/mvVoiceActing/sounds/855460/
+      isolde_bleed1.mp3     <- mvVoiceActing, "girl damage" (7.8-8.9 s)
+                               https://freesound.org/people/mvVoiceActing/sounds/855460/
+      isolde_hurt1.mp3, isolde_hurt2.mp3 <- mvVoiceActing, "girl damage" (0.4-1.3 s, 1.9-2.7 s)
+                               https://freesound.org/people/mvVoiceActing/sounds/855460/
+      isolde_revive1.mp3    <- mvVoiceActing, "girl damage" (6.55-7.02 s), the short intake of
+                               breath when she gets back up
+      isolde_ko2.mp3        <- mvVoiceActing, "girl damage" (5.54-5.94 s), a short falling
+                               voiced grunt not used elsewhere (added 2026-10-13, see below)
+      isolde_bleed2.mp3     <- mvVoiceActing, "exhaustion / sighs / woman voice acting" (7.87-8.62 s),
+                               the fourth breath of a second take (added 2026-10-14, see below)
+
+Thank you, HaelDB, Michel Baradari, kanyonwyvern, hisoul and mvVoiceActing!
+
+(generic_bleed2 and heinrich_bleed2 were raised ~2 dB with a soft limiter to match the
+files they replaced: VoiceBosch CC-BY-SA 4.0 groans, removed on 2026-09-28.)
+
+-------------------------------------------------------------------------------
+step/mud1-8.mp3 — the clearing's wet ash and soil. CC0 (public domain):
+  Kenney "Impact Sounds" footstep_carpet_000-004.ogg (heel thump, www.kenney.nl) mixed with
+  BenDrain, Freesound "Footsteps_Mud_01" (https://freesound.org/people/BenDrain/sounds/488068/,
+  eight single steps cut from it), "Footsteps_Mud_Single_01" (488077) and "_03" (488082):
+  the mud layer band-limited 160 Hz-1.8 kHz, -8 dB, +8-16 ms, pitched down 5-15%; the mix
+  low-passed at 2.6 kHz, faded by 200 ms, peak-normalized.
+
+stage/chant1.mp3 — a short choir phrase, chant-like, for Isolde's revive. CC0 (public domain), Freesound:
+  chant1.mp3 <- Patrick_Corra, "Choir" (0-4.3 s, high-passed at 90 Hz, faded out over 0.9 s,
+                peak-normalized)
+                https://freesound.org/people/Patrick_Corra/sounds/500862/
+
+stage/crow1-3.mp3 — distant crows for the clearing. CC0 (public domain), Freesound:
+  crow1.mp3 <- TheKingOfGeeks360, "Corvids - Fish Crow, Single, One Caw, Distant"
+               https://freesound.org/people/TheKingOfGeeks360/sounds/856323/
+  crow2.mp3 <- TheKingOfGeeks360, "Corvids - American Crow, Single"
+               https://freesound.org/people/TheKingOfGeeks360/sounds/860982/
+  crow3.mp3 <- deadrobotmusic, "Crow SFX 9"
+               https://freesound.org/people/deadrobotmusic/sounds/673554/
+  (cut to one caw, band-limited 350 Hz-3.2 kHz to sit far off, peak-normalized)
+
+breath/  — the player's own breathing while bleeding. CC0 (public domain), Freesound:
+  breath1.mp3  <- Sadiquecat, "Catching breath (Genuine)" (0.05-2.35 s, high-passed at 70 Hz,
+                  low-passed at 5 kHz, peak-normalized to -1 dBFS)
+                  https://freesound.org/people/Sadiquecat/sounds/792641/
+
+-------------------------------------------------------------------------------
+step/ and hit/  — CC0 (public domain), Kenney (www.kenney.nl), fetched from the
+open-game-sfx-index mirror (github.com/Mcamento8/open-game-sfx-index, SHA-256
+checked against its catalog). Trimmed, peak-normalized, mono MP3.
+
+  step/sand1-8.mp3        <- "Impact Sounds": footstep_carpet_000-004.ogg (heel) mixed with
+                             footstep_snow_000-004.ogg (crunch, -6 dB, +12 ms), pitched down
+                             ~10%, low-passed at 2.2 kHz, faded by 200 ms
+  hit/punch_med1-5.mp3    <- "Impact Sounds": impactPunch_medium_000-004.ogg
+  hit/soft1-5.mp3         <- "Impact Sounds": impactSoft_heavy_000-004.ogg
+  hit/wood1-5.mp3         <- "Impact Sounds": impactWood_medium_000-004.ogg
+  hit/wood_heavy1-3.mp3   <- "Impact Sounds": impactWood_heavy_000-002.ogg
+
+-------------------------------------------------------------------------------
+step/gravel1-8.mp3 and stage/leaves1-2.mp3 — CC0 (public domain).
+Fetched from the open-game-sfx-index mirror (SHA-256 checked against its catalog).
+
+  step/gravel1-8.mp3  <- Kenney "Impact Sounds" footstep_carpet_000-004.ogg (heel), mixed with
+                         "Different steps on wood, stone, leaves, gravel and mud" (OpenGameArt,
+                         CC0) gravel.ogg (crunch, -5 dB, +8-20 ms, pitched down 5-22%),
+                         low-passed at 2.6 kHz, faded by 200 ms
+                         https://opengameart.org/content/different-steps-on-wood-stone-leaves-gravel-and-mud
+  stage/leaves1-2.mp3 <- same OpenGameArt pack, leaves01.ogg / leaves02.ogg
+                         (band-limited 300 Hz-7 kHz, peak-normalized)
+
+step/snow1-8.mp3 and step/stone1-8.mp3 — CC0 (public domain), Kenney "Impact Sounds" via the same mirror.
+  step/snow1-8.mp3    <- footstep_carpet_000-004.ogg (heel) + footstep_snow_000-004.ogg (crunch, -2 dB,
+                         +6-16 ms, pitched down 5-15%), low-passed at 3 kHz, faded by 200 ms
+  step/stone1-8.mp3   <- footstep_carpet_000-004.ogg (heel) + footstep_concrete_000-004.ogg (-4 dB,
+                         +6-16 ms, pitched down 10-20%), low-passed at 2.4 kHz, faded by 200 ms
+
+-------------------------------------------------------------------------------
+flesh/  — sword-on-body hit candidate "녹음" (round 33; used only when SOUND.fleshHit is 'rec').
+CC0 (public domain), Freesound preview MP3s, cut to one hit, high-passed at 150 Hz (edge) / 70 Hz (wet),
+low-passed as noted, peak-normalized to -1 dBFS, not pitch-shifted:
+  edge1-4.mp3          <- SoundsForHim, "Knife/sword stab #3.MP3" (hits at 0.95, 3.76, 5.72, 11.63 s, LP 12 kHz)
+                          https://freesound.org/people/SoundsForHim/sounds/399616/
+  edge5.mp3            <- jawbutch, "Knife Stab Melon.wav" (LP 12 kHz)
+                          https://freesound.org/people/jawbutch/sounds/344404/
+    (both found through Freesound's CC0 license filter on 2026-09-30; the sound pages could not be opened
+     that day — Freesound answered 403 — so the page check is still to do before this candidate ships)
+  wet1.mp3             <- _stubb, "Blood Spatter_Squelch_Near_Mono" (LP 3.5 kHz)
+                          https://freesound.org/people/_stubb/sounds/406582/
+  wet2.mp3             <- magnuswaker, "Burst Flesh" (LP 3.5 kHz)
+                          https://freesound.org/people/magnuswaker/sounds/581092/
+
+-------------------------------------------------------------------------------
+2026-10-12 voice update (imported on the owner's instruction from the Saetbyeol repository,
+commits 77db8c5, 1ea73c5, 11860b0, 04311ff, 200269d; files copied byte-for-byte):
+
+  voice/reitanna_gasp.mp3, voice/reitanna_long_sigh.mp3 — CC0 (public domain), Reitanna
+    "gasp.wav":      https://freesound.org/people/Reitanna/sounds/241563/
+    "long sigh.wav": https://freesound.org/people/Reitanna/sounds/242690/
+    Same bytes as docs/sound_reserve/ (kept there after the owner's approval).
+    70 Hz high-pass, peak -1 dBFS, mono MP3, no pitch shift.
+    Voice 'soft_female' (Eira, Artoria): gasp for hurt/KO, sigh for bleeding.
+  Voice 'tome' (Tome, Kim) reuses generic_* (HaelDB, CC0, listed above) at rate 1, gain 0.7.
+    Not a new actor and not a verified elderly performance.
+
+  voice/player_exhale.mp3 — CC0, Sadiquecat, "Catching breath (Genuine)"
+    https://freesound.org/people/Sadiquecat/sounds/792641/
+    <- existing breath/breath1.mp3 source, 0.88-1.78 s; low-pass 2800 Hz, 60 ms fade-in,
+    650 ms fade-out starting at 250 ms, mono 44.1 kHz MP3. No pitch shift.
+    The player's quiet death breath (gain 0.25). Tinnitus and muffling are unchanged.
+
+  voice/omari_hurt1.mp3, omari_hurt2.mp3, omari_ko1_short.mp3, omari_bleed1_short2.mp3
+    — CC0 1.0, thebardofblasphemy, "grunts of male death and pain"
+    https://opengameart.org/content/grunts-male-death-and-pain
+    https://creativecommons.org/publicdomain/zero/1.0/
+    https://opengameart.org/sites/default/files/death%20pain%20grunts.wav
+    Original SHA-256: 3f00fba827f20ff9ccea1bc07d2c21ab8d3a36e81b48a6005cf8459f02779586
+    omari_hurt1 <- 6.90-7.47 s; omari_hurt2 <- 8.31-9.26 s
+    omari_ko1_short <- 0.450-1.863 s; omari_bleed1_short2 <- 3.900-5.556 s
+      (the KO/bleed takes shortened by 20 %, then 10 % more, by trimming the tail)
+    Edits: high-pass 70 Hz, low-pass 6000 Hz, peak scaled to 0.8, 15 ms fade-in,
+    fade-out 100 ms (hurt/KO) / 150 ms (bleed), mono 44.1 kHz MP3. No pitch or tempo change.
+    The intermediate files (omari_ko1, omari_bleed1, omari_bleed1_short) were not imported.
+
+  liao_bleed2.mp3 stays on disk but is no longer selected (owner did not pick it).
+
+-------------------------------------------------------------------------------
+2026-10-13 voice update (imported on the owner's instruction from the Saetbyeol repository,
+commits 3f330f7, 87c8e77, b728e34, b75013b, 7b6b079, 9d1b56a — final state of its main;
+18 files copied byte-for-byte, SHA-256 below; notes: docs/import/saetbyeol_voice3_2026-10-13.md).
+Opponents: hurt 2 / KO 2 / bleed 2, hurt and KO use different recordings. The player keeps the
+single quiet death exhale (player_exhale) and the tinnitus. Bran, Heinrich and mad Heinrich
+are unchanged. Unless stated, edits are trim, 70 Hz high-pass, low-pass, level, short fades,
+mono 44.1 kHz MP3, and no pitch or tempo change.
+
+  CC0 1.0 (public domain) — AuraVoice, posted by Nocturnal_Vanguard, "Female Hurt Grunts & Groans"
+    https://opengameart.org/content/female-hurt-grunts-groans
+    https://creativecommons.org/publicdomain/zero/1.0/
+    Original OGG SHA-256: 80a9fb09203bb8feb065ba15197609b118cbe167c9a2264670a31ee22c384adb
+    Voice 'maya' (Maya Rathore):
+    voice/maya_hurt1_single.mp3  <- 5.565-6.095 s; 6500 Hz LP; 15 ms in / 55 ms out
+      b878699f33a2bc335f23be730c059a1db16bd362ce05bd8368e944ef1791e3d9
+    voice/maya_hurt2.mp3         <- 3.68-4.16 s; 6500 Hz LP
+      6b8c9f6911bc1b2e4aef271caf6af2d24acb8b6463a80a995a4755a4515d54b6
+    voice/maya_ko1.mp3           <- 0.30-1.18 s; 6500 Hz LP
+      118f8a54a94247cece911e96beafbe51e5e83b90028536e604d9247ea80d8439
+    voice/maya_ko2.mp3           <- 7.30-8.15 s; 6500 Hz LP
+      2bbc75e6c5740e71640a709cb504a9b39f7bf9ef5c46613abf05414a30c3acc1
+    voice/maya_bleed1_single.mp3 <- 4.925-5.520 s; 6500 Hz LP; pitch-preserving stretch
+      (rubberband tempo 0.892857, pitch 1); 25 ms in / 200 ms out
+      7a122bfa731bbdc6be2aeaedf8f1b6975f91d2d4a0703412b71778d9e31c3a38
+    voice/maya_bleed2_light.mp3  <- 9.805-10.285 s; same stretch; 350 Hz bell -1 dB (Q 0.7);
+      RMS matched; 25 ms in / 180 ms out
+      4f4a40699ff9a06e92827ad6ce6ed8f35d839e4c60885983075e5c09f7975b08
+    The single-breath files are non-overlapping excerpts of existing performances, not new
+    takes; bleed1_single and hurt1_single are the front and back of the same performance.
+
+  CC0 1.0 (public domain) — Cici Fyre (cicifyre), "RPG Voice Starter Pack"
+    https://opengameart.org/content/female-rpg-voice-starter-pack
+    https://creativecommons.org/publicdomain/zero/1.0/
+    voice/tuyana_hurt1.mp3 <- Type 2 / damaged1.wav, 0.00-0.34 s; 6000 Hz LP
+      2607613fd1842e057480a5a2c7b2d040d592e77d461895bb048a5842360c50a8
+    voice/tuyana_hurt2.mp3 <- Type 2 / damaged2.wav, 0.00-0.33 s; 6000 Hz LP
+      65a8551593b95fa1509c53e0e3821b9c3d8e86b51c15c6e08556b4da92262e13
+    voice/tuyana_ko2_exhale.mp3 <- Type 2 / healed2.wav, 0.125-0.500 s; 5000 Hz LP
+      900227553ad1744fcd4e7d2d73ffad6dda93a0d65e7b55bf5bf2aef17fc15a61
+    voice/margarethe_ko2_exhale.mp3 <- Type 3 / healed2.wav, 0.065-0.580 s; 4000 Hz LP
+      78203b5bfc91bc124513038018555d1c67f30319f1454604a87a92302d4b96f0
+    Supplementary actor. The source is labeled "healed", not death; the excerpts are the
+    fading part of the take.
+
+  CC0 1.0 (public domain) — Reitanna
+    "deep sigh and exhale.wav": https://freesound.org/people/Reitanna/sounds/351160/
+    voice/tuyana_bleed2_breath.mp3 <- preview MP3, 1.10-1.60 s; 4000 Hz LP; 25 ms in / 200 ms out
+      cc313fa786794ac4890e5eaa99371aa053853bd7816d18feec3a193e0a572e67
+    "long sigh.wav": https://freesound.org/people/Reitanna/sounds/242690/
+    voice/margarethe_bleed2_fade.mp3 <- 0.38-1.28 s; 3600 Hz LP; 25 ms in / 400 ms out
+      2e81721cb338010d2a44a4d9b46e521ed81be1d7634d1467492a691a07185b40
+      (an excerpt of the same sigh as reitanna_long_sigh, shared across voice banks)
+    Voice 'soft_female' (Tuyana, Artoria): KO = reitanna_gasp + tuyana_ko2_exhale,
+      bleed = reitanna_long_sigh + tuyana_bleed2_breath, hurt = tuyana_hurt1/2.
+    Voice 'margarethe' (Schwarz): KO1 now uses the existing reitanna_gasp (shared with Tuyana).
+
+  CC-BY 3.0 — SkyRae, "Female Warrior Grunts", "Grunts HD Deep.mp3"
+    https://opengameart.org/content/female-warrior-grunts
+    https://creativecommons.org/licenses/by/3.0/
+    voice/margarethe_hurt2.mp3 <- 0.15-0.57 s; 5500 Hz LP; 12 ms in / 45 ms out
+      024b0c89eef94830fbfae80adc9a36862f41fdc19222dd67599d2fbf83058df6
+    Modified excerpt of SkyRae's recording, distributed under CC-BY 3.0.
+    Changes: trimming, filtering, level, fades, mono MP3 encoding.
+    Attribution does not imply endorsement.
+
+  CC0 1.0 (public domain) — HaelDB, "Male Grunt/Yelling sounds"
+    https://opengameart.org/content/male-gruntyelling-sounds
+    voice/liao_ko2.mp3    <- 2yell1.wav, 0.39-0.82 s; 6000 Hz LP
+      e633819187a2c9cd16c443d8f2973ebb045c4aed40f8fff32c8aab58f915ceee
+    voice/liao_bleed3.mp3 <- 2yell8.wav, 0.14-1.32 s; 6000 Hz LP (not derived from 2yell9.wav)
+      8dc2e08c7b1c27deebb880f3035e1c547bfea5691609564cbf063dcc7dd99808
+    voice/tome_ko1_clean.mp3 <- yell12.wav, 0.144625-0.944625 s (same take as generic_ko1);
+      lowered by direct rate change 44.1 kHz -> 39290 Hz (SoXR resampling, no phase vocoder),
+      1.8 kHz bell -3 dB, 3 kHz shelf -2 dB, RMS matched, 128 kbps; 0.800 -> 0.898 s
+      5fea16e53a4e7ca9ce42b2993b1895a6869a9f26e4f65996234df9e74377b67f
+    Voice 'tome' (Tome, Kim) uses tome_ko1_clean for KO1 only; generic_ko1 is unchanged.
+
+  CC0 1.0 (public domain) — thebardofblasphemy, "grunts of male death and pain"
+    https://opengameart.org/content/grunts-male-death-and-pain
+    Original SHA-256: 3f00fba827f20ff9ccea1bc07d2c21ab8d3a36e81b48a6005cf8459f02779586
+    voice/omari_ko2.mp3    <- 17.40-18.69 s; 6000 Hz LP
+      bf86971a6d22779ae7d5844cc4c06316d741cda1171917b370f55d555edae83c
+    voice/omari_bleed2.mp3 <- 20.31-21.95 s; 6000 Hz LP
+      e215ca6df78f23dfc009c5f278619ff8e2085db6eb5db596cd25707c1626fce3
+
+  Voice 'isolde' (Isolde, Minami): KO = isolde_ko1 + isolde_ko2, bleed = isolde_bleed1 +
+    isolde_bleed2 (mvVoiceActing excerpts, CC0). isolde_revive1 is the revive breath only.
+
+  CC0 1.0 (public domain) — mvVoiceActing, "girl damage" (Freesound 855460); preview handed over
+    by Saetbyeol, cut here (not a copy of a Saetbyeol file)
+    https://freesound.org/people/mvVoiceActing/sounds/855460/
+    https://creativecommons.org/publicdomain/zero/1.0/
+    Public HQ preview MP3 SHA-256: ce834bc7c0755ec0b73dc3c93d38eddf7f51fd10b852be5e42ba4a6ae243ef7c
+    voice/isolde_ko2.mp3 <- 5.54-5.94 s (voice 5.59-5.71 s); decoded once to PCM, L+R mono,
+      70 Hz HP, 5 ms in / 80 ms out, peak-normalized to -1 dBFS, mono MP3 (VBR q4); not pitch-shifted
+      97f52164ca22b0989be61ed2c526af5d09d4c8744c0c81c0f7f568e711c7b37f
+    The only unused performance left in the take. bleed2 now comes from a second take (below).
+
+  CC0 1.0 (public domain) — mvVoiceActing, "exhaustion / sighs / woman voice acting" (Freesound 855463);
+    same performer as "girl damage"; preview and excerpt prepared and handed over by Saetbyeol (2026-10-14)
+    https://freesound.org/people/mvVoiceActing/sounds/855463/
+    https://creativecommons.org/publicdomain/zero/1.0/
+    Public HQ preview MP3 SHA-256: 608ec40ed1e59317d062db6858b8b34da8cd000eee60776aea803b865979cfb7
+    voice/isolde_bleed2.mp3 <- 7.87-8.62 s (the fourth breath); decoded once to PCM, mono,
+      70 Hz HP, 6500 Hz LP, peak 0.62, 35 ms in / 240 ms out, MP3 96 kbps; no pitch or tempo change
+      4ce5c34d78037f7c3b071b68dbf68d484657c965948cc7cbfcf4efd61ba81ca8
+
+  Not imported (discarded or not selected at the source): maya_hurt1, maya_bleed1, maya_bleed2,
+    maya_bleed2_single, margarethe_ko2, margarethe_bleed2, tuyana_bleed2_fade, tome_ko1_warm,
+    player_exhale2. margarethe_ko1.mp3 and liao_bleed2.mp3 stay on disk but are not selected.
+
+-------------------------------------------------------------------------------
+revolver/  — 2026-10-12, imported on the owner's instruction from the Saetbyeol repository
+(commits fe8b170, 666c07f, b6c83ab), copied byte-for-byte. CC0 1.0 (public domain).
+  open.wav, insert1-6.wav, close.wav <- AugustSandberg, "Revolver Reload" (Ruger GP100 .357)
+    https://freesound.org/people/AugustSandberg/sounds/508744/
+    https://creativecommons.org/publicdomain/zero/1.0/
+    Public HQ preview: https://cdn.freesound.org/previews/508/508744_1934171-hq.mp3
+    (preview SHA-256 05bcb3971d11396050ffbe24be9f9c49b29ceecf90630f982dec61c4a9a8755a)
+    Handling transients only, mono, 90 Hz high-pass / 9.5 kHz low-pass, 3 ms fade-in /
+    28 ms fade-out, peak 0.78, 48 kHz 16-bit WAV. No pitch shift, no synthesized layers.
+    Ranges, gains and per-file SHA-256: revolver/provenance.json, notes: revolver/README.md.
+  The gunshot itself is still synthesized in sound.js (SYNTH.gunshot), now 15 % louder.
+  The owner confirmed on 2026-10-12 00:5x that all revolver sound sources are clear, and that
+  any revolver file without source information was supplied by the owner directly
+  (none of the eight files above lacks source information).
+
+Thank you, Reitanna, Sadiquecat, thebardofblasphemy, AugustSandberg, AuraVoice,
+Nocturnal_Vanguard, Cici Fyre, SkyRae and HaelDB!
+
+-------------------------------------------------------------------------------
+whip/  — 2026-10-23, Druid's Whip sounds (the owner asked for real whip sounds; recordings only, no synthesis).
+Every file: decoded once to PCM, mono 44.1 kHz, high-passed / low-passed as below, short fade in / out,
+peak-normalized to -1 dBFS, MP3 (LAME VBR q4). No pitch or tempo change, no synthesized layers.
+Exact ranges, filters, gains and SHA-256 of every source and output: whip/provenance.json.
+
+  Public domain — Wikimedia Commons user "Basel", "Peitschen.ogg" (own work, 5 December 2008):
+    "Men (Geislechlepfer) cracking whips. Klausjagen, Küssnacht, Switzerland."
+    https://commons.wikimedia.org/wiki/File:Peitschen.ogg
+    Released by the copyright holder into the public domain (attribution not required).
+    The original OGG was rate-limited at download time; Commons' own MP3 transcode of the same file was used:
+    https://upload.wikimedia.org/wikipedia/commons/transcoded/3/30/Peitschen.ogg/Peitschen.ogg.mp3
+    (SHA-256 238a2b6093c592bb80e806987e7e6d089d49cbd78c666c36b1fa4e1ae268e746). Three isolated cracks were picked by isolation and crest factor
+    (250 Hz high-pass, 12 kHz low-pass, 3 ms in / 90 ms out):
+      whip/crack1.mp3 <- Peitschen.mp3 15.928+0.210 s, gain -0.6 dB (sha256 e2df41bcd784e708…)
+      whip/crack2.mp3 <- Peitschen.mp3 18.023+0.210 s, gain -0.7 dB (sha256 80283b14f7ea77c3…)
+      whip/crack3.mp3 <- Peitschen.mp3 19.683+0.210 s, gain +4.3 dB (sha256 b797e1b90e722350…)
+  CC0 (public domain) — qubodup, "Swish - bamboo stick weapon swhoshes" ("I waved my bamboo stick in front of the mic")
+    https://opengameart.org/content/swish-bamboo-stick-weapon-swhoshes  (swoshes.7z)
+    120 Hz high-pass, 4 ms in / 50-80 ms out:
+      whip/swish1.mp3 <- swosh-01.flac 0.000+0.280 s, gain +1.8 dB (sha256 e36e9ec4f4e34796…)
+      whip/swish2.mp3 <- swosh-06.flac 0.000+0.280 s, gain +11.7 dB (sha256 21a61ca881293bd5…)
+      whip/swish3.mp3 <- swosh-09.flac 0.000+0.190 s, gain +6.4 dB (sha256 3fb2d998f1e72811…)
+      whip/swish4.mp3 <- swosh-12.flac 0.000+0.300 s, gain +0.3 dB (sha256 9f625291921f4bf0…)
+  CC0 (public domain) — Jordan Irwin (AntumDeluge), "Thwack Sounds" 1.0 ("made by hitting things")
+    https://opengameart.org/content/thwack-sounds  (thwack-1.0.zip, PCM/*.wav)
+    80 Hz high-pass, 1 ms in / 50-80 ms out:
+      whip/hit1.mp3 <- thwack-02.wav 0.000+0.160 s, gain -0.2 dB (sha256 db49a2d4910b9141…)
+      whip/hit2.mp3 <- thwack-03.wav 0.000+0.140 s, gain +1.0 dB (sha256 fd5d59f24ac4a347…)
+      whip/hit3.mp3 <- thwack-05.wav 0.000+0.260 s, gain -0.3 dB (sha256 9e260783df7fc0d0…)
+  CC0 (public domain) — Kenney (www.kenney.nl), "Impact Sounds" (kenney_impact-sounds.zip)
+    impactPlate_light_000-002.ogg (whip on helmet / plate) and impactMetal_light_000-002.ogg (whip on a blade),
+    90 Hz high-pass, 1 ms in / 50 ms out:
+      whip/armor1.mp3 <- impactPlate_light_000.ogg 0.000+0.542 s, gain +1.9 dB (sha256 97a82b963d8007bb…)
+      whip/armor2.mp3 <- impactPlate_light_001.ogg 0.000+0.655 s, gain +2.1 dB (sha256 7174180031244dd0…)
+      whip/armor3.mp3 <- impactPlate_light_002.ogg 0.000+0.489 s, gain +1.0 dB (sha256 3c093f257bd64c2d…)
+      whip/clash1.mp3 <- impactMetal_light_000.ogg 0.000+0.351 s, gain +0.7 dB (sha256 fd781533ea14f02c…)
+      whip/clash2.mp3 <- impactMetal_light_001.ogg 0.000+0.252 s, gain +0.7 dB (sha256 c23bec83c5a71a51…)
+      whip/clash3.mp3 <- impactMetal_light_002.ogg 0.000+0.236 s, gain +0.7 dB (sha256 078d8e07c85e8a31…)
+  CC0 1.0 (public domain) — SciFiSounds, "Whip Crack" (Whip Crack.m4a), added 2026-10-24 as the default whip hit
+  on flesh / cloth (the owner picked this recording, "C2"; received from the Saetbyeol repository, commit 3912e1ec):
+    https://freesound.org/people/SciFiSounds/sounds/529925/
+    https://creativecommons.org/publicdomain/zero/1.0/  (no attribution required; kept here for the record)
+    Source used: the site's public HQ preview MP3 (stereo; SHA-256 5273b7064ed9da3807f97d48e7d6e806097fef816b797c363567e780a19546e7),
+    not the uploaded M4A. The 0.534 s single the owner listened to (SHA-256 ebff24d3fdd3e4c3…) is the same audio
+    (mono, -6 dBFS). The recording is a swing whoosh followed by the crack at 0.212 s; only the crack is used so the
+    sound lands on the hit (the game already plays its own swing whoosh). L+R averaged to mono, 80 Hz high-pass,
+    12 kHz low-pass, 1 ms in / 80 ms out:
+      whip/lash1.mp3 <- C2-hq-preview.mp3 0.210+0.300 s, gain +3.0 dB (sha256 deeeb2d8ce671525…)
+    The earlier hit sounds whip/hit1-3.mp3 (Thwack) stay on disk; the URL switch ?whipHit=old plays them instead.
+
+Whip body/clothing contact (2026-10-25): whip/contact1.mp3 – contact3.mp3
+MWsfx — Leather belt Slaps.wav
+https://freesound.org/people/MWsfx/sounds/574189/
+CC0 1.0: https://creativecommons.org/publicdomain/zero/1.0/
+Three different strikes extracted from HQ MP3 preview; trimmed, mono 44.1kHz, gentle high/low-pass, gain and fades. Original recording description: Zoom H4N Pro internal stereo microphones.
+Previous C2 lash1.mp3 retained for ?whipHit=c2 comparison; swish/crack/armor/clash unchanged.
