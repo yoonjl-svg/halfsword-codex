@@ -13,6 +13,7 @@ import { historicalPartMesh, historicalDecorate } from './historical_weapon_deta
 //  실측이 없어 물리적으로 그럴듯하게 추정/창작한 값. 아래 각 무기 설명에 표기해 둔다.
 // ─────────────────────────────────────────────────────────────
 import { classifyWeapon } from './weapon_class.js';
+import { CHIXIAO_COLORS, chixiaoPartMesh } from './chixiao_details.js';
 import { drawBrothersSword } from './renji_sword_wrap.js'; // 황약사의 검(형의 칼)의 흰 천 감싼 겉모습 (샛별 저장소에서 가져옴 10/17)
 import { MONTANTE } from './config.js';
 import * as THREE from 'three';
@@ -72,7 +73,7 @@ const KIND_KO = {
   monohoshizao: '노다치', uchigatana: '일본도', qinggang: '한손 양날검', excalibur: '양손검', excalibur_replica: '양손검', lightsaber: '양손검',
   tree_branch: '한손 둔기', rubber_chicken: '한손 둔기', frozen_tuna: '양손 둔기', pistol: '권총', morgenstern: '한손 철퇴', ganjiang: '한손 양날검',
   moye: '한손 양날검', sain: '한손 양날검', flamberge: '대형 양손검', goujian: '한손 청동검', brothers_sword: '한손 둔기',
-  druid_whip: '한손 채찍', pappenheimer: '한손 찌르기검',
+  druid_whip: '한손 채찍', pappenheimer: '한손 찌르기검', chixiao: '한손 양날검',
 };
 /** '종류, 길이 cm, 무게 kg' (예: '한손 양날검, 95 cm, 0.95 kg') — 자료가 없으면 '' */
 export function weaponSpecText(spec) {
@@ -1955,6 +1956,36 @@ const durandal = finalizeSpec('durandal', {
   },
 });
 
+// 적소검 (2026-10-25 사용자 시안 선택·제작 승인).
+// 날 .80m / 질량1.30kg / 손 기준 중심.42m / 관성.26kg·m².
+// 실물 자료가 없는 신화 속 검의 게임 설정이다. 부품 질량·중심·관성은 이 목표에서 역산.
+// 특히 낮은 자체 관성과 앞쪽 중심을 함께 지정한 유효 강체 모형이며, 균질 강철 단면의 실측값이 아니다.
+// 별도의 내려베기 속도/힘 배율·강제 회수 지연은 없음: 기존 물리와 동방 동작으로 다룬다.
+const chixiao = finalizeSpec('chixiao', {
+  nameKo: '적소검', nameEn: 'Chixiao', tier: 'legend', school: 'chinese', style: 'versatile',
+  desc: '한 고조 유방이 길을 막은 흰 뱀을 두 동강 낸 붉은 검.\n한나라를 세운 신화의 시작입니다.',
+  grip: 'one-hand', material: 'steel', enterParry: true,
+  hiltLength: .085, bladeLength: .80, gripAlong: -.10,
+  // 기존 한손검 범위의 베기/찌르기 계수. 레전드 공통 배율 1.2는 finalizeSpec에서 적용.
+  mCut: 1.10, mThrust: .85, mBlunt: 1.0,
+  partMesh: chixiaoPartMesh,
+  buildParts() {
+    const L=this.bladeLength, gm=.040, pm=.015, cm=.025, bm=1.220;
+    const gy=-.005, py=-.098, cy=.078;
+    const grip=boxInertia(gm,.014,.072,.012),pommel=boxInertia(pm,.023,.023,.0105),cross=boxInertia(cm,.067,.020,.015);
+    const bladeY=(1.30*.42-gm*gy-pm*py-cm*cy)/bm;
+    const otherI=grip.Ie+gm*gy*gy+pommel.Ie+pm*py*py+cross.Ie+cm*cy*cy;
+    const bladeIe=.26-otherI-bm*bladeY*bladeY;
+    const blade=bladeInertia(bm,L,(bladeY-this.hiltLength)/L,Math.sqrt(bladeIe/bm)/L,.045,.010);
+    return [
+      partTuple(['box',.014,.072,.012],gy,gm,0,grip.Ie,grip.It,CHIXIAO_COLORS.grip),
+      partTuple(['box',.023,.023,.0105],py,pm,0,pommel.Ie,pommel.It,CHIXIAO_COLORS.gold),
+      partTuple(['box',.067,.020,.015],cy,cm,0,cross.Ie,cross.It,CHIXIAO_COLORS.gold),
+      partTuple(['box',.0225,L/2,.005],this.hiltLength+L/2,bm,blade.comY,blade.Ie,blade.It,CHIXIAO_COLORS.blade,true),
+    ];
+  },
+});
+
 export const WEAPONS = {
   longsword, zweihander, estoc, sabre, rapier, falchion,
   monohoshizao, qinggang, excalibur, excalibur_replica: excaliburReplica, lightsaber, tree_branch: treeBranch,
@@ -1972,6 +2003,7 @@ export const WEAPONS = {
   druid_whip: druidWhip, // 10/23 샛별 저장소에서 들여옴: ??? · 휘는 마디 채찍 — 같은 까닭으로 끝에 둔다
   durandal, // 10/24 샛별 저장소에서 들여옴: 이베리아 레전드 · 롤랑의 성검 — 같은 까닭으로 끝에 둔다
   pappenheimer, // 10/25 샛별 저장소에서 들여옴: 이탈리아 레어 (사장님 10/25 결정 — 베기 0.85 · 찌르기 1.10 · 사장님 글) — 같은 까닭으로 끝에 둔다
+  chixiao, // 새 무기는 끝에 추가하여 기존 목록 순서 보존.
 };
 
 // 다른 담당이 쓰는 짧은 이름 → 정식 id (characters.js의 'branch', URL 파라미터의 'chicken' 등)
