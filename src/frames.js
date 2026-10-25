@@ -229,6 +229,7 @@ export const LIB_PARRY = {
   sabre: { highL: [-0.52, 0.03], highR: [0, 0.03], highC: [-0.4, -0.42], lowL: [-0.4, -0.42], lowR: [-0.18, -0.28], thrust: [-0.4, -0.42] },
   falchion: { highL: [-0.52, 0.03], highR: [-0.4, -0.42], highC: [0.42, 0.42], lowL: [0.42, 0.42], lowR: [0.22, 0.26], thrust: [-0.4, -0.42] },
   rapier: { highL: [0.52, 0.03], highR: [-0.52, 0.03], highC: [0.42, 0.42], lowL: [0.55, -0.26], lowR: [-0.4, -0.42], thrust: [-0.22, 0.26] },
+  pappenheimer: { highL: [0.52, 0.03], highR: [-0.52, 0.03], highC: [0.42, 0.42], lowL: [0.55, -0.26], lowR: [-0.4, -0.42], thrust: [-0.22, 0.26] }, // 기존 이탈리아 막기 경로
   dartagnan: { highL: [0.52, 0.03], highR: [-0.52, 0.03], highC: [0.42, 0.42], lowL: [0.55, -0.26], lowR: [-0.4, -0.42], thrust: [-0.22, 0.26] }, // 레이피어 막기 자리를 빌림 (10/21 23:xx 제 몸으로 나눈 뒤 — 날 0.85 m · 같은 컵 힐트 한손 — 다시 찾지 않음)
   balisarda: { highL: [0.52, 0.03], highR: [-0.52, 0.03], highC: [0.42, 0.42], lowL: [0.55, -0.26], lowR: [-0.4, -0.42], thrust: [-0.22, 0.26] }, // 레이피어 막기 자리 재사용 (같은 단면 · 칼날만 4 cm 김 — 샛별 저장소 c89e827c6)
   qinggang: { highL: [-0.4, -0.42], highR: [-0.22, 0.26], highC: [0.42, 0.42], lowL: [0.42, 0.42], lowR: [-0.4, -0.42], thrust: [-0.4, -0.42] },
@@ -249,6 +250,7 @@ export const HAND_GRIPS = {
   sabre: { a: 0, b: 15, t: 60, off: 'fist' }, // 엄지를 칼등에
   falchion: { a: 0, b: 5, t: 0, off: 'fist' },
   rapier: { a: 0, b: 25, t: 70, off: 'open', turn: 'posture' }, // 집게 쥠 (테르차, 엄지 위) · 자세별 손 돌림(10/8)
+  pappenheimer: { a: 0, b: 25, t: 70, off: 'open', turn: 'posture' },
   dartagnan: { a: 0, b: 25, t: 70, off: 'open', turn: 'posture' }, // 동일한 이탈리아 집게 쥠
   balisarda: { a: 0, b: 25, t: 70, off: 'open', turn: 'posture' }, // 이탈리아 집게 쥠 · 자세별 돌림 재사용 (샛별 저장소 c89e827c6)
   qinggang: { a: 0, b: 15, t: 0, off: 'fist' },
