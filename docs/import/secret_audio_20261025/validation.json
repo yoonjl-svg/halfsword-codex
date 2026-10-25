@@ -1,0 +1,101 @@
+{
+  "receiverBase": "069104fa58b158778870a46584c68ec860657ed7",
+  "selectedFiles": 6,
+  "sourceAndRuntimeConfigUnchanged": true,
+  "rawAudioSameAsPreview": true,
+  "reproductionDecodedSignalsIdentical": true,
+  "firstCheckFailure": "Initial byte assertion on regenerated OGG failed. Difference narrowed to random Ogg stream serial number + CRC only; decoded float PCM and Vorbis payload are identical. Original approved OGG files preserved unchanged.",
+  "checks": [
+    {
+      "file": "public/sfx/secret/g1-clank.wav",
+      "bytes": 49062,
+      "sha256": "b16b9cbe7b55f17619e376ac66d304541d44a6e6b7a9ef35ce3cde6476fe2414",
+      "sameAsUserPreview": true,
+      "reproducedByteIdentical": true,
+      "reproducedDecodedSignalIdentical": true,
+      "oggDifference": null
+    },
+    {
+      "file": "public/sfx/secret/g1-clank.mp3",
+      "bytes": 5516,
+      "sha256": "46c496a05a1b9e4d14a367eeea48ff12aec36e6b7f0fa08a2392b22b79782d48",
+      "sameAsUserPreview": true,
+      "reproducedByteIdentical": true,
+      "reproducedDecodedSignalIdentical": true,
+      "oggDifference": null
+    },
+    {
+      "file": "public/sfx/secret/g1-clank.ogg",
+      "bytes": 7550,
+      "sha256": "557b5a50bd07ebd11992f06d541d6911f7463779be1c417014d73d3318f8ea74",
+      "sameAsUserPreview": true,
+      "reproducedByteIdentical": false,
+      "reproducedDecodedSignalIdentical": true,
+      "oggDifference": "Only Ogg stream serial number and page CRC fields differ; Vorbis payload is identical."
+    },
+    {
+      "file": "public/sfx/secret/g2-dry.wav",
+      "bytes": 46182,
+      "sha256": "befa662d1c6cbac4ab4ad8e7285199b7bc4f6e3b0b059af8a176d7771bf988c6",
+      "sameAsUserPreview": true,
+      "reproducedByteIdentical": true,
+      "reproducedDecodedSignalIdentical": true,
+      "oggDifference": null
+    },
+    {
+      "file": "public/sfx/secret/g2-dry.mp3",
+      "bytes": 5084,
+      "sha256": "f82fb61b07b41b220e0f28cac1cf99c36ff870ae4fe94456a159218a217b030a",
+      "sameAsUserPreview": true,
+      "reproducedByteIdentical": true,
+      "reproducedDecodedSignalIdentical": true,
+      "oggDifference": null
+    },
+    {
+      "file": "public/sfx/secret/g2-dry.ogg",
+      "bytes": 7750,
+      "sha256": "fa0f9b45fdb7960e408a2b5e0b490d0b83cebce54bcf5bb6bf6298b5506c932f",
+      "sameAsUserPreview": true,
+      "reproducedByteIdentical": false,
+      "reproducedDecodedSignalIdentical": true,
+      "oggDifference": "Only Ogg stream serial number and page CRC fields differ; Vorbis payload is identical."
+    },
+    {
+      "compatibilityFile": "src/sound.js",
+      "sha256": "ea62a2908d9f1db875cf51a0eab7c5ee0c49a69d2666d22174698f5d21932679",
+      "unchangedFromReceiver": true
+    },
+    {
+      "compatibilityFile": "src/main.js",
+      "sha256": "23a26babe5cf415c59432ec5f9220d4cb1dde7be916a665efc27498da07d47a5",
+      "unchangedFromReceiver": true
+    },
+    {
+      "compatibilityFile": "src/skill.js",
+      "sha256": "c3454633e38aba2d32bc8afd671aa47330561a7153e4419e18b3389592fac1b6",
+      "unchangedFromReceiver": true
+    },
+    {
+      "compatibilityFile": "src/ai.js",
+      "sha256": "48d96fe24b761f5fe0a116cfd4084c07aa8341216e680778672002182f347b6d",
+      "unchangedFromReceiver": true
+    },
+    {
+      "compatibilityFile": "src/config.js",
+      "sha256": "ff7c93b62c552e29b473a3a771eee8f909f8aa05700ccf11285e8e1e2c33b6d2",
+      "unchangedFromReceiver": true
+    },
+    {
+      "compatibilityFile": "package-lock.json",
+      "sha256": "2230e8c718b9839b45fd06a39ebaaf1663da82f9617ca474cda34ac2e0d962c2",
+      "unchangedFromReceiver": true
+    }
+  ],
+  "eventIntegrationTested": false,
+  "reason": "Assets only; runtime triggering/final mix belongs to U-hwa.",
+  "build": {
+    "command": "npm run build",
+    "exitCode": 0,
+    "runtimeSourceUnchanged": true
+  }
+}

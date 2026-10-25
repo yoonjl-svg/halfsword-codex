@@ -1,0 +1,39 @@
+
+> halfsword@0.1.0 build
+> vite build && node tools/pwa/build.mjs
+
+vite v8.3.1 building client environment for production...
+transforming...
+✓ 255 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/sounds.html                                    3.43 kB │ gzip:     1.69 kB
+dist/voices.html                                    3.92 kB │ gzip:     1.97 kB
+dist/test.html                                     10.94 kB │ gzip:     3.97 kB
+dist/index.html                                    35.68 kB │ gzip:    10.96 kB
+dist/assets/soundgen-Cr5lPmaZ.js                   41.72 kB
+dist/assets/frame1_portrait-DO8kidxT.png           65.12 kB
+dist/assets/modulepreload-polyfill-P2Xu9kJm.js      0.67 kB │ gzip:     0.38 kB
+dist/assets/wander_rules-Ds885fur.js                2.37 kB │ gzip:     1.27 kB
+dist/assets/voices-CkEq889a.js                      6.50 kB │ gzip:     3.01 kB
+dist/assets/test-GR09EdjD.js                       11.48 kB │ gzip:     4.49 kB
+dist/assets/gun-CNLZs3bN.js                        13.40 kB │ gzip:     6.06 kB
+dist/assets/pixel_grove-CRjroDhf.js                14.12 kB │ gzip:     5.10 kB
+dist/assets/config-ZujV9XTs.js                     16.40 kB │ gzip:     7.52 kB
+dist/assets/sounds-TUcHstp2.js                     20.77 kB │ gzip:     9.05 kB
+dist/assets/lobby_progress-DTKVbD-q.js             34.54 kB │ gzip:    12.20 kB
+dist/assets/lobby-CSsiwCpG.js                      60.35 kB │ gzip:    19.00 kB
+dist/assets/main-Bd9kp9MH.js                       64.35 kB │ gzip:    21.95 kB
+dist/assets/sound-cHGguSU7.js                     101.14 kB │ gzip:    32.34 kB
+dist/assets/seal_coins-8uCPXOcd.js                177.28 kB │ gzip:    64.05 kB
+dist/assets/title_account-DAg5D70s.js             219.44 kB │ gzip:    57.21 kB
+dist/assets/characters-DMJAuHLB.js                671.03 kB │ gzip:   202.91 kB
+dist/assets/main-B4ahAkGf.js                    3,872.58 kB │ gzip: 1,389.37 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 968ms
+{"pwa":true,"version":"1bee8e37aaab3225cbd9f286","files":510,"totalBytes":12858436}
