@@ -254,6 +254,7 @@ async function enterBattle() {
       root,
       style: ui,
       pending: structuredClone(state.pending),
+      isCurrent: () => token === loadToken && view === "battle",
       onCheckpoint: (checkpoint) =>
         change((s) => {
           if (s.pending) s.pending.checkpoint = checkpoint;
@@ -268,6 +269,7 @@ async function enterBattle() {
       },
       onComplete: (r) => completeBattle(r, true),
     });
+    if (!mounted) return;
     if (token !== loadToken) {
       mounted.dispose();
       return;

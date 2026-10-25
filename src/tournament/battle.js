@@ -17,9 +17,11 @@ export async function mountBattle({
   onCheckpoint,
   onLeave,
   onComplete,
+  isCurrent = () => true,
 }) {
   rapierReady ??= RAPIER.init();
   await rapierReady;
+  if (!isCurrent()) return null;
   root.innerHTML = `<style>${style}</style><main class="battle-screen"><canvas aria-label="생사전 동시 전투. 드래그로 베기, 톡 눌러 찌르기"></canvas><div class="battle-top"><div><b class="battle-title">생사전 · 3인의 맹약</b><div class="battle-roster" id="allyHud"></div></div><button id="battlePause">잠시 멈춤</button><div><div class="battle-roster" id="foeHud"></div></div></div><div id="battleLabels"></div><div class="battle-controls"><div class="battle-stick" id="movePad" aria-label="이동 조이스틱"><span class="battle-knob"></span></div><div class="battle-actions"><button id="targetNext">목표 전환</button><button class="guard" id="guardButton">막기</button></div></div><p class="battle-hint">드래그 베기 · 톡 찌르기 · 왼쪽 이동 / PC WASD · F 막기</p><section class="battle-center" id="battleModal"><h2>${pending.allies.length} 대 ${pending.enemies.length}</h2><p>${shortName(pending.allies[0].id)} 직접 조작${pending.allies[1] ? ` · ${shortName(pending.allies[1].id)} AI 동료` : ""}<br>아군에게는 피해를 주지 않습니다.</p><button class="primary" id="battleGo">전투 시작</button></section></main>`;
   const $ = (id) => root.getElementById(id),
     canvas = root.querySelector("canvas"),
