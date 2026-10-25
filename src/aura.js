@@ -33,7 +33,7 @@ import * as THREE from 'three';
 export const AURA_PROFILES = Object.freeze({
   // 적소검: 사용자 규격의 붉은빛. 기존 레전드 기운을 절제된 진홍색으로 연결.
   // 새 입자/불꽃/전투 효과 없음. 붉은 금속 바탕이 남도록 칼날 발광은 낮춘다.
-  chixiao: { tone: 'crimson', color: [1.0, 0.20, 0.12], light: 0xe66b54, emissive: 0xb63d30,
+  chixiao: { tone: 'crimson', color: [0.64, 0.43, 0.40], light: 0xa1897c, emissive: 0x6c514d,
     gain: 0.45, glow: 0.18, lightGain: 0.25 },
   // 뒤랑달 (10/24): 샛별 저장소 c039bcc7 의 옅은 상아빛 0.8 배는 은빛 칼몸 위에서 거의 안 보였고(사장님 10:2x '은은한 빛이 없어?') →
   //  10:2x 1차 성유물 금빛은 엑스칼리버 금빛과 겹침(사장님 10:4x '뒤랑달 빛 색을 바꿔 ex 일본 레전드 초록색이잖아') → 2차 하늘빛:

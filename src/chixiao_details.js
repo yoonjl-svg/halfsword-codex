@@ -62,7 +62,8 @@ function blade(shape, opts) {
   // Sharpened edge, narrow fillet, broad red face, slim recessed fuller, raised spine.
   const xs=[-1,-.92,-.77,-.18,-.13,-.055,0,.055,.13,.18,.77,.92,1];
   const heights=[0,.22,.44,.84,.75,.97,1,.97,.75,.84,.44,.22,0];
-  const palette=[0xe4b2a3,0xc17e6d,0x8d3028,0x4f1916,0xad5341,0x6b201c,0xa34a38,0x4f1916,0xb15a44,0x9b352a,0xc58370,0xe5b6a6].map(c=>new THREE.Color(c));
+  // Muted red-brown steel faces; freshly honed edges and spine reflect silver-grey.
+  const palette=[0xc7cbc9,0x9b9d9a,0x84504a,0x513638,0x95827a,0x71413c,0x9e9790,0x513b3a,0x9c847b,0x80504b,0x9d9f9c,0xc8cdcb].map(c=>new THREE.Color(c));
   const width=t=>t<=.84?1-.075*t:.937*(1-t)/.16;
   const thick=t=>(1-.25*t)*(t>.90?(1-t)/.10:1);
   const point=(t,k,side)=>[xs[k]*hx*width(t),-hy+2*hy*t,side*hz*heights[k]*thick(t)];
