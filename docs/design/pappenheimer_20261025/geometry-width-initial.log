@@ -1,0 +1,19 @@
+using deprecated parameters for the initialization function; pass a single object instead
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(bounds.max.x-bounds.min.x<=.214)
+
+    at file:///workspace/halfsword-pappenheimer/docs/design/pappenheimer_20261025/verify.mjs:19:56 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

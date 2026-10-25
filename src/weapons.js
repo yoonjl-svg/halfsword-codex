@@ -27,6 +27,7 @@ import { TIZONA_COLORS, tizonaPartMesh } from './tizona_details.js'; // 티소�
 import { WHIP, WHIP_NOW, druidParts, drawDruidWhip } from './druid_whip.js'; // 드루이드의 채찍 몸 · 겉모습 (샛별 저장소 69ef7dac8 에서 가져옴 — 10/23)
 import { BALISARDA_COLORS, balisardaPartMesh } from './balisarda_details.js'; // 발리사르다 겉모습 (샛별 저장소 c89e827c6 — 10/21)
 import { MURAMASA_COLORS, MURAMASA_PROFILE, muramasaPartMesh, muramasaDecorate } from './muramasa_details.js'; // 무라마사 겉모습 (샛별 저장소 29e543555 · d46e09b96 · 82818cc3d — 10/21)
+import {PAPPENHEIMER_COLORS,PAPPENHEIMER_DIM,pappenheimerPartMesh} from './pappenheimer_details.js';
 
 // 재질별 되튐(반발 계수). 칼끼리 부딪히면 곱해진다(Multiply 규칙) → 강철끼리 0.7² 정도,
 //  고무 대 강철처럼 하나가 낮으면 거의 튕기지 않는다(고무 닭이 칼에 그냥 맞고 만다).
@@ -64,6 +65,7 @@ export const TIER_DEFAULTS = {
 //  길이 · 무게는 몸체 자료(buildParts — 물리와 같은 수)에서 셈: 길이 = 부품 끝에서 끝 · 무게 = 부품 질량 합
 //  종류 = 싸우는 방식의 무기 갈래(한손검 · 양손검 · 한손 둔기 …) — 물건 이름(나뭇가지 · 장난감 · 생선)은 쓰지 않는다 (사장님 10/19 03:1x '나뭇가지 x')
 const KIND_KO = {
+  pappenheimer: '한손 찌르기검',
   durandal: '대형 양손검', hwando: '한손 외날도', kriegsmesser: '양손 외날검', tizona: '대형 양손검',
   balisarda: '한손 찌르기검', muramasa: '일본도',
   dartagnan: '한손 찌르기검', kusanagi: '양손 직검',
@@ -711,6 +713,29 @@ const RAPIER_SPEC = {
   },
 };
 const rapier = finalizeSpec('rapier', RAPIER_SPEC);
+
+// CMA 1916.697 [M]: total111.1/blade89.2/quillons21.3cm,1.34kg.
+// Part mass/COM, thickness and handling multipliers are [I] estimates.
+const pappenheimer=finalizeSpec('pappenheimer',{
+  nameKo:'파펜하이머',nameEn:'Pappenheimer',tier:'rare',school:'italian',style:'thrust',
+  desc:'투각 방호판과 겹친 고리가 손을 감싸는 결투검.\n검푸른 강철과 금장 칼날에 장인의 솜씨가 남아 있다.',
+  grip:'one-hand',material:'steel',hiltLength:PAPPENHEIMER_DIM.bladeBase,bladeLength:PAPPENHEIMER_DIM.blade,
+  mCut:.60,mThrust:1.30,mBlunt:.70,thrustStyle:THRUST_STYLE.rapier,partMesh:pappenheimerPartMesh,
+  buildParts(){
+    const L=this.bladeLength,C=PAPPENHEIMER_COLORS;
+    const grip=boxInertia(.09,.014,.056,.013),pommel=sphereInertia(.24,.0255),shell=sphereInertia(.37,.055);
+    const cross=boxInertia(.10,.1065,.0035,.004),blade=bladeInertia(.54,L,.36,.25,.026,.0084);
+    return[
+      partTuple(['box',.014,.056,.013],-.006,.09,0,grip.Ie,grip.It,C.grip),
+      partTuple(['ball',.0255],-.0855,.24,0,pommel.Ie,pommel.It,C.hilt),
+      partTuple(['ball',.055],.075,.37,0,shell.Ie,shell.It,C.hilt),
+      partTuple(['box',.013,L/2,.0042],.108+L/2,.54,blade.comY,blade.Ie,blade.It,C.blade,true),
+      // Cross is drawn in part2, this hidden collider supplies its actual width.
+      // Pierced shells use the game's normal solid guard approximation.
+      partTuple(['box',.1065,.0035,.004],.050,.10,0,cross.Ie,cross.It,null),
+    ];
+  },
+});
 
 // 달타냥: 뒤마의 소설 속 총사를 모티프로 한 창작 무기 [I]. 실존 인물의 유물 복원이 아니다.
 //  처음(10/21 샛별 저장소)에는 날 · 질량 · 관성 · 사거리가 레이피어와 같았다(RAPIER_SPEC 통째로 물려받음 — '같은 몸' 문제).
@@ -1932,6 +1957,7 @@ export const WEAPONS = {
   tizona, // 사장님 10/21(샛별 저장소 경유): 이베리아 에픽 · 능력 '위세'
   druid_whip: druidWhip, // 10/23 샛별 저장소에서 들여옴: ??? · 휘는 마디 채찍 — 같은 까닭으로 끝에 둔다
   durandal, // 10/24 샛별 저장소에서 들여옴: 이베리아 레전드 · 롤랑의 성검 — 같은 까닭으로 끝에 둔다
+  pappenheimer, // 10/25 사용자 선택 · 이탈리아 레어
 };
 
 // 다른 담당이 쓰는 짧은 이름 → 정식 id (characters.js의 'branch', URL 파라미터의 'chicken' 등)
