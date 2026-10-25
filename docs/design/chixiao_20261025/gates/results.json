@@ -1,0 +1,61 @@
+{
+  "fights12": {
+    "command": [
+      "node",
+      "tools/sim/fights12.mjs"
+    ],
+    "exit": 0,
+    "seconds": 24.96,
+    "sha256": "f3bd3ce2e9ff74bea5f267f954f09c931216da7669785a1100a86b96bdabcaf8",
+    "baseline_unchanged": true,
+    "pass": true
+  },
+  "live_battery": {
+    "command": [
+      "node",
+      "tools/sim/live_battery.mjs"
+    ],
+    "exit": 0,
+    "seconds": 7.5,
+    "sha256": "67a000a7a59aa998fd86f1cca266b9ad1fda91d3a880d31a5e65bf3ae5406d9d",
+    "baseline_unchanged": true,
+    "pass": true
+  },
+  "finish_thrust": {
+    "command": [
+      "node",
+      "tools/sim/finish_thrust.mjs",
+      "1",
+      "--stand"
+    ],
+    "exit": 0,
+    "seconds": 3.6,
+    "sha256": "9081251863de49ee0f49a4390f2e4ae55eaff306965f6d8ce778709c9acb2b18",
+    "baseline_unchanged": true,
+    "pass": true
+  },
+  "corr_s0": {
+    "command": [
+      "node",
+      "tools/sim/corr_s0.mjs",
+      "--limits=off,on",
+      "--scenes=a,b"
+    ],
+    "exit": 0,
+    "seconds": 35.21,
+    "sha256": "9021777fed27735d63fd20de7e8dfd4e69df0624341985291259027286befbda",
+    "baseline_unchanged": true,
+    "pass": true
+  },
+  "weapon_smoke": {
+    "command": [
+      "node",
+      "tools/sim/weapon_smoke.mjs"
+    ],
+    "exit": 0,
+    "seconds": 17.04,
+    "sha256": "2da50bc42662777ae49dd93cee2b65b80780935ae6fe5e97b678f64251b5ddde",
+    "baseline_unchanged": true,
+    "pass": true
+  }
+}
