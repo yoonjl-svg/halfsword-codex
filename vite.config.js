@@ -18,7 +18,7 @@ export default defineConfig({
   server: { host: true },
   build: {
     rolldownOptions: {
-      input: { main: 'index.html', sounds: 'sounds.html', voices: 'voices.html', test: 'test.html' }, // voices: 인물 목소리·리볼버 소리 듣기 (10/12)
+      input: { main: 'index.html', sounds: 'sounds.html', voices: 'voices.html', test: 'test.html', tournament: 'tournament.html' }, // 생사전은 별도 저장을 쓰는 검토 페이지
     },
   },
 });

@@ -1,0 +1,740 @@
+:host {
+  display: block;
+  color: var(--c-text);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 1.4;
+  background: #211a13;
+}
+* {
+  box-sizing: border-box;
+}
+button,
+select,
+input {
+  font: inherit;
+  color: inherit;
+}
+button {
+  touch-action: manipulation;
+}
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 3px;
+}
+button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+button,
+select {
+  border-radius: 6px;
+}
+button {
+  border: 1px solid var(--line);
+  background: #332719;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+button.primary {
+  background: var(--c-accent);
+  color: var(--c-on-accent);
+  border-color: var(--c-accent);
+  font-weight: 600;
+}
+button.secondary {
+  background: transparent;
+}
+input,
+select {
+  background: #211a13;
+  border: 1px solid var(--line);
+  padding: 7px;
+  min-width: 0;
+}
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+h1,
+h2 {
+  font-size: 17px;
+}
+h3 {
+  font-size: 14px;
+}
+small,
+.muted {
+  font-size: 12px;
+  color: var(--c-sub);
+}
+.gold {
+  color: var(--c-accent);
+}
+.alert {
+  color: var(--c-alert);
+}
+[hidden] {
+  display: none !important;
+}
+#panelEvent {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+#tournamentSetup {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.oath-setup {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.setup-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding-right: 3px;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+.setup-scroll h3 {
+  color: var(--c-accent);
+  font-size: 17px;
+}
+.setup-copy {
+  font-size: 12px;
+  color: var(--c-sub);
+  line-height: 1.6;
+}
+.setup-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.setup-field span {
+  font-size: 12px;
+  flex: none;
+}
+.setup-field input {
+  width: 100%;
+}
+.setup-person {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.setup-person img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+.setup-person .person-body {
+  flex: 1;
+  min-width: 0;
+}
+.setup-person select {
+  width: 100%;
+  padding: 4px;
+  font-size: 12px;
+}
+.setup-person small {
+  display: block;
+}
+.setup-schedule {
+  font-size: 12px;
+  color: var(--c-sub);
+  border-top: 1px solid var(--line);
+  padding-top: 6px;
+}
+.setup-bottom {
+  flex: none;
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+  display: grid;
+  gap: 4px;
+}
+.setup-bottom button {
+  width: 100%;
+}
+.setup-bottom small {
+  font-size: 12px;
+}
+.oath-page {
+  min-height: 100dvh;
+  padding: 20px 28px 45px;
+  background: radial-gradient(
+    ellipse at 50% 0,
+    #3c3020 0,
+    #211a13 55%,
+    #16120e 100%
+  );
+}
+.oath-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  max-width: 1180px;
+  margin: auto auto 16px;
+}
+.oath-header h1 {
+  color: var(--c-accent);
+  letter-spacing: 0.1em;
+}
+.oath-header p {
+  color: var(--c-sub);
+  font-size: 12px;
+  margin-top: 3px;
+}
+.oath-shell {
+  max-width: 1180px;
+  margin: auto;
+  display: grid;
+  gap: 14px;
+}
+.oath-frame {
+  border: 13px solid transparent;
+  border-image: url("../../public/ui/frame1_portrait.png") 122 / 13px / 0
+    stretch;
+  background: #241b13;
+  padding: 12px;
+  min-width: 0;
+}
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.section-head p {
+  font-size: 12px;
+  color: var(--c-sub);
+}
+.bracket {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+}
+.bracket-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 9px;
+  min-width: 0;
+}
+.bracket-column h3 {
+  color: var(--c-sub);
+  font-size: 12px;
+  font-weight: 400;
+  margin-bottom: 2px;
+  text-align: center;
+}
+.match {
+  position: relative;
+  text-align: left;
+  width: 100%;
+  padding: 8px 10px;
+  background: #1c1711;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  min-height: 63px;
+  display: block;
+}
+.match:after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  width: 31px;
+  border-top: 1px solid #6d5839;
+  pointer-events: none;
+}
+.bracket-column:last-child .match:after {
+  display: none;
+}
+.match.ours {
+  border-color: #a78a52;
+}
+.match.active {
+  background: #49361d;
+  border-color: var(--c-accent);
+}
+.match-team {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  font-size: 12px;
+  padding: 2px 0;
+}
+.match-team.win {
+  color: var(--c-accent);
+  font-weight: 600;
+}
+.match-team.lost {
+  opacity: 0.5;
+}
+.match-note {
+  font-size: 11px;
+  display: block;
+  color: var(--c-sub);
+  padding-top: 3px;
+}
+.match-detail {
+  background: #19140f;
+  border: 1px solid var(--line);
+  padding: 10px;
+  font-size: 12px;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+.match-detail img {
+  width: 27px;
+  height: 27px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+.squad-section {
+  display: grid;
+  gap: 10px;
+}
+.squad-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.fighter-card {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #1b160f;
+  min-width: 0;
+}
+.fighter-card.selected {
+  border-color: var(--c-accent);
+  box-shadow: inset 0 0 0 1px #8c6a32;
+}
+.fighter-card.dead {
+  opacity: 0.55;
+}
+.choose-fighter {
+  width: 100%;
+  border: 0;
+  border-radius: 0;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  text-align: left;
+  background: none;
+  padding: 8px;
+}
+.choose-fighter img {
+  width: 78px;
+  height: 78px;
+  flex: none;
+  object-fit: contain;
+}
+.choose-fighter h3 {
+  font-size: 14px;
+  color: var(--c-text);
+  margin-bottom: 4px;
+}
+.choice-role {
+  font-size: 12px;
+  color: var(--c-accent);
+}
+.fighter-details {
+  padding: 0 10px 10px;
+}
+.health-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+.health-meter {
+  height: 5px;
+  background: #4a3527;
+  margin: 4px 0 6px;
+}
+.health-meter span {
+  display: block;
+  height: 100%;
+  background: #bea57c;
+}
+.injury {
+  font-size: 12px;
+  min-height: 17px;
+  color: var(--c-sub);
+  margin-bottom: 7px;
+}
+.skill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  font-size: 11px;
+  margin: 6px 0;
+  color: var(--c-sub);
+}
+.skill-row .current {
+  color: var(--c-accent);
+}
+.gear {
+  border-top: 1px solid var(--line);
+  padding-top: 7px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.gear img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  flex: none;
+}
+.gear label {
+  min-width: 0;
+  flex: 1;
+  font-size: 12px;
+}
+.gear select {
+  width: 100%;
+  font-size: 12px;
+  padding: 5px;
+}
+.round-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+.round-footer p {
+  font-size: 12px;
+  color: var(--c-sub);
+  margin-bottom: 4px;
+}
+.round-footer button {
+  min-width: 160px;
+}
+.history {
+  font-size: 12px;
+  color: var(--c-sub);
+  line-height: 1.7;
+}
+.history summary {
+  cursor: pointer;
+}
+.history ul {
+  padding-left: 20px;
+  margin-bottom: 0;
+}
+.result-banner {
+  border: 1px solid #806338;
+  background: #44331d;
+  padding: 12px;
+  display: grid;
+  gap: 5px;
+}
+.result-banner h2 {
+  color: var(--c-accent);
+}
+.battle-screen {
+  position: fixed;
+  inset: 0;
+  background: #15120e;
+  z-index: 10;
+}
+.battle-screen canvas {
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+.battle-top {
+  position: absolute;
+  top: max(10px, env(safe-area-inset-top));
+  left: 14px;
+  right: 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  pointer-events: none;
+  text-shadow: 1px 1px 3px #000;
+}
+.battle-top button {
+  pointer-events: auto;
+  background: #1c160edb;
+  padding: 6px 12px;
+}
+.battle-title {
+  font-size: 14px;
+  color: var(--c-accent);
+}
+.battle-roster {
+  display: flex;
+  gap: 8px;
+  margin-top: 5px;
+}
+.battle-fighter {
+  background: #1c160ebd;
+  padding: 4px 7px;
+  font-size: 12px;
+  border-bottom: 2px solid #c7b28a;
+}
+.battle-fighter.foe {
+  border-color: #b75b48;
+}
+.battle-center {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  transform: translate(-50%, -50%);
+  max-width: 400px;
+  width: 85%;
+  background: #20180ff0;
+  border: 1px solid #876c47;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  display: grid;
+  gap: 12px;
+}
+.battle-center h2 {
+  font-size: 22px;
+  color: var(--c-accent);
+}
+.battle-center p {
+  font-size: 14px;
+  color: var(--c-sub);
+}
+.battle-controls {
+  position: absolute;
+  bottom: 36px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  pointer-events: none;
+}
+.battle-stick {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 1px solid #bca78666;
+  background: #211a1355;
+  position: relative;
+  touch-action: none;
+  pointer-events: auto;
+}
+.battle-knob {
+  position: absolute;
+  inset: 32px;
+  border: 1px solid #bca78688;
+  border-radius: 50%;
+  background: #211a1388;
+}
+.battle-actions {
+  display: flex;
+  gap: 10px;
+  align-items: end;
+  pointer-events: auto;
+}
+.battle-actions button {
+  background: #211a13aa;
+  min-width: 70px;
+  min-height: 55px;
+  touch-action: none;
+}
+.battle-actions .guard {
+  height: 95px;
+  width: 95px;
+  border-radius: 50%;
+}
+.battle-hint {
+  position: absolute;
+  bottom: 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: var(--c-sub);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.fighter-label {
+  position: absolute;
+  pointer-events: none;
+  transform: translate(-50%, -100%);
+  font-size: 12px;
+  text-shadow: 1px 1px 2px #000;
+  text-align: center;
+}
+.fighter-label i {
+  display: block;
+  height: 3px;
+  background: #ccb58e;
+  max-width: 60px;
+}
+.fighter-label.foe {
+  color: #e4ab92;
+}
+.fighter-label.foe i {
+  background: #b96754;
+}
+@media (max-height: 500px) {
+  .oath-page {
+    padding: 10px 14px 35px;
+  }
+  .oath-header {
+    margin-bottom: 8px;
+  }
+  .oath-frame {
+    padding: 7px;
+    border-width: 10px;
+    border-image-width: 10px;
+  }
+  .oath-shell {
+    gap: 8px;
+  }
+  .bracket {
+    gap: 20px;
+  }
+  .match:after {
+    width: 21px;
+  }
+  .match {
+    min-height: 49px;
+    padding: 5px 7px;
+  }
+  .match-note {
+    font-size: 10px;
+  }
+  .bracket-column {
+    gap: 5px;
+  }
+  .choose-fighter img {
+    width: 60px;
+    height: 60px;
+  }
+  .choose-fighter {
+    padding: 5px;
+    gap: 6px;
+  }
+  .fighter-details {
+    padding: 0 7px 7px;
+  }
+  .setup-scroll {
+    gap: 4px;
+  }
+  .setup-person img {
+    width: 34px;
+    height: 34px;
+  }
+  .setup-copy {
+    line-height: 1.4;
+  }
+  .setup-bottom {
+    padding-top: 5px;
+  }
+  .battle-roster {
+    max-width: 44vw;
+    flex-wrap: wrap;
+  }
+  .battle-fighter {
+    font-size: 11px;
+  }
+  .battle-stick {
+    width: 100px;
+    height: 100px;
+  }
+}
+@media (max-width: 679px) {
+  .oath-page {
+    padding: 12px 10px 45px;
+  }
+  .bracket {
+    gap: 12px;
+  }
+  .match {
+    padding: 6px 4px;
+  }
+  .match:after {
+    width: 13px;
+  }
+  .match-team {
+    font-size: 11px;
+  }
+  .squad-grid {
+    gap: 6px;
+  }
+  .choose-fighter {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 3px;
+  }
+  .choose-fighter img {
+    width: 70px;
+    height: 70px;
+  }
+  .gear img {
+    display: none;
+  }
+  .skill-row {
+    gap: 3px;
+    font-size: 10px;
+  }
+  .round-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .round-footer button {
+    width: 100%;
+  }
+  .section-head {
+    align-items: start;
+  }
+  .oath-frame {
+    padding: 5px;
+    border-width: 9px;
+    border-image-width: 9px;
+  }
+  .oath-header {
+    align-items: start;
+  }
+}
+
+.bracket {
+  position: relative;
+}
+.bracket-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.bracket-lines path {
+  stroke: #80653d;
+  stroke-width: 1;
+  fill: none;
+}
+.match:after {
+  display: none;
+}
+.match {
+  z-index: 1;
+}

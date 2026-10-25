@@ -74,7 +74,7 @@ export function mountLobby({ root, game, choice, onDepart, onWander, onBack }) {
           <button role="tab" id="tabItems" aria-controls="panelInventory" aria-selected="true" data-panel="Inventory">아이템</button>
           <button role="tab" id="tabShop" aria-controls="panelShop" aria-selected="false" tabindex="-1" data-panel="Shop">상점</button>
           <button role="tab" id="tabSkills" aria-controls="panelSkills" aria-selected="false" tabindex="-1" data-panel="Skills">스킬</button>
-          <button role="tab" id="tabEvent" aria-controls="panelEvent" aria-selected="false" tabindex="-1" data-panel="Event">이벤트</button>
+          <button role="tab" id="tabEvent" aria-controls="panelEvent" aria-selected="false" tabindex="-1" data-panel="Event">생사전</button>
         </nav>
       </section>
       <section class="contents-panel" aria-label="대기실 상세">
@@ -86,7 +86,7 @@ export function mountLobby({ root, game, choice, onDepart, onWander, onBack }) {
         </div>
         <div role="tabpanel" id="panelShop" aria-labelledby="tabShop" hidden><div class="panel-heading"><h2>상점</h2></div><p class="empty-panel">아직 판매 중인 물품이 없습니다.</p></div>
         <div role="tabpanel" id="panelSkills" aria-labelledby="tabSkills" hidden><div class="panel-heading"><h2>스킬</h2><span class="wallet panel-wallet">${COIN_ICON}<b id="skillCoins"></b>${POUCH_ICON}<b id="skillHeads"></b></span></div><div id="skillTreeHost" class="skill-tree-host"></div><p id="skillStatus" class="sr-only" role="status"></p></div>
-        <div role="tabpanel" id="panelEvent" aria-labelledby="tabEvent" hidden><div class="panel-heading"><h2>이벤트</h2></div><p class="empty-panel">아직 진행 중인 이벤트가 없습니다.</p></div>
+        <div role="tabpanel" id="panelEvent" aria-labelledby="tabEvent" hidden><div class="panel-heading"><h2>생사전</h2></div><div id="tournamentSetup"><p class="empty-panel">3인의 맹약</p><a href="tournament.html">생사전 시험판 열기</a></div></div>
       </section>
     </div>
   </main><dialog class="name-dialog" id="nameDialog" aria-labelledby="nameHeading"><form id="nameForm"><h2 id="nameHeading">이름 수정</h2><label for="playerNameInput">이름 · 최대 16자</label><input id="playerNameInput" name="playerName" autocomplete="off" required maxlength="32"><p class="name-error" id="nameError" role="status"></p><div class="dialog-actions"><button type="button" id="cancelName" class="secondary">취소</button><button type="submit" class="primary">저장</button></div></form></dialog>
