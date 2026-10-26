@@ -1,0 +1,24 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   'HTTP 503 https://yoonjl-svg.github.io/halfsword/ui/cardbacks/px_corsair_frame_foe.png'
++ ]
+- []
+
+    at file:///workspace/halfsword-title-lobby/docs/import/title_lobby_2026-10-27/check.mjs:99:10 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [
+    'HTTP 503 https://yoonjl-svg.github.io/halfsword/ui/cardbacks/px_corsair_frame_foe.png'
+  ],
+  expected: [],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0
