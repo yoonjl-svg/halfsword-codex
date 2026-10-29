@@ -13,3 +13,5 @@
 ## 재현
 
 루트에서 이 폴더의 check.mjs, gates.py를 실행한 뒤 vite.julia-alter.config.js로 빌드한다. 필요한 public 자산을 복사하고 browser.mjs에 JULIA_GAME/BROWSER_OUT을 지정한다. 정형 사진은 부모 capture.mjs의 SOURCE_ROOT/CAPTURE_BASE와 출력 폴더를 지정한다. 공개 배포/해시 확인 결과는 publication.json에 별도 보존한다.
+
+공개 확인: 보존 소스f51d7820162bd89ee8148e16ea4b3844a704d75d, 공개5ada777127a6d71a27f49ed45c610d564c8ff8b8, Pages40917984662 성공. 핵심35파일 원격 해시 일치. 공개판 양역할 진입·터치 막기/공격·저장불변·HTTP/JS오류0, 갤러리390/844/1280폭·전후펼침 통과. [검토 페이지](https://yoonjl-svg.github.io/halfsword-codex/encounters/julia-alter-20261029/?v=anatomical). 실제 휴대폰 성능과 사용자 미감은 미확정.
