@@ -40,6 +40,8 @@ export function wetlandMoveScale(x, z) {
 }
 /** 싸움꾼 하나의 배율: 습지 무대가 아니면 1 (곱해도 값이 비트 단위로 같다) */
 export function fighterWetlandMoveScale(fighter, x, z) {
+  // Optional stage-owned surface contract (isolated capital ford trial). Existing string/null paths are unchanged.
+  if (typeof fighter.movementSurface?.moveScaleAt === 'function') return fighter.movementSurface.moveScaleAt(x, z);
   return fighter.movementSurface === 'wetland' ? wetlandMoveScale(x, z) : 1;
 }
 export function configureWetlandMovement(fighter, stageId) {
