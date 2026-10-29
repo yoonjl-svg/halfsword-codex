@@ -2,7 +2,7 @@ import {createJuliaOutfit} from './outfit_julia.js';
 
 // Native body/face/hand proportions. These are costume meshes, not armor/colliders.
 export function createJuliaAlterOutfit(h) {
-  const {THREE:T,bake,box,cyl,ball,addMerged,artoriaCloth,taperedTube,reshapeMain}=h;
+  const {THREE:T,bake,box,cyl,ball,addMerged,artoriaCloth,taperedTube,reshapeMain,clothPanel,CLOTH}=h;
   const base=createJuliaOutfit(h,{GREEN:0x293340,DARK_GREEN:0x202832,LINEN:0xc0c0b7,
     RUST:0xb5b6ae,RUST_DARK:0x777d7d,GOLD:0x988c6d,BROWN:0x433d36,COLLAR:0xd0d0c6});
   const STEEL=0x879091,EDGE=0xa5adaa,DARK=0x323c40,BRASS=0x8b7956;
@@ -33,6 +33,33 @@ export function createJuliaAlterOutfit(h) {
       ...[[.045,.052],[-.037,.063]].map(p=>ball(.0026,8,6,facePoint(p,.009)))],BRASS,metal);
     addMerged(group,[cyl(.0065,.0065,.002,12,false,[.112,.016,.035],[0,0,Math.PI/2])],0x6c1720,{metalness:.25,roughness:.4,emissive:0x4b0810,emissiveIntensity:.22});
   }
+  function chest(g,look){
+    base.chest(g,look);
+    const group=artoriaCloth(g,'julia-mechanical-chest');
+    // A small irregular opening in the right waistcoat, exposing inner framework.
+    // Flush layering gives depth without changing the native torso or armor coverage.
+    const opening=[[.099,.076],[.081,.104],[.066,.141],[.033,.153],
+      [.005,.148],[-.031,.151],[-.079,.128],[-.096,.100],[-.071,.068],
+      [-.039,.058],[-.014,.064],[.022,.052],[.052,.055],[.079,.060]];
+    addMerged(group,[clothPanel(.140,opening,.002)],0x1c252a,{...CLOTH,roughness:.9});
+    // Three curved ribs span the dark cavity; a narrow side rail joins their ends.
+    const ribs=[.054,.004,-.045].map((y,i)=>tube([[.151,y,.069+i*.004],
+      [.158,y+.006,.087],[.160,y+.003,.111],[.151,y-.009,.135-i*.003]],.0055));
+    ribs.push(tube([[.150,.078,.117],[.153,.044,.141],[.153,-.012,.139],[.149,-.070,.122]],.005));
+    // A short clavicle brace emerges below the turned shirt collar.
+    ribs.push(tube([[.135,.118,.015],[.140,.112,.044],[.149,.089,.076]],.0045));
+    addMerged(group,ribs,EDGE,metal);
+    addMerged(group,[cyl(.009,.009,.041,10,false,[.149,-.046,.088]),
+      cyl(.004,.004,.033,10,false,[.150,-.009,.088]),
+      cyl(.012,.012,.008,14,false,[.151,.070,.085],[0,0,Math.PI/2])],STEEL,metal);
+    addMerged(group,[bake(new T.TorusGeometry(.009,.0018,6,14),[.156,.070,.085],[0,Math.PI/2,0]),
+      ...[.052,.002,-.047].map(y=>ball(.0026,7,5,[.160,y,.128]))],BRASS,metal);
+    // Uneven folded cloth edges, not a metal border or a second breastplate.
+    const edge=opening.concat([opening[0]]).map(([y,z])=>[.146,y,z]);
+    addMerged(group,[tube(edge,.003),
+      clothPanel(.148,[[.076,.060],[.056,.055],[.060,.071],[.067,.074]],.002),
+      clothPanel(.148,[[-.072,.069],[-.094,.101],[-.081,.102],[-.067,.082]],.002)],0x293340,CLOTH);
+  }
   function handPlates(mesh,closed){
     const group=new T.Group();group.name='julia-mechanical-hand';mesh.add(group);
     const y=closed?-.002:-.15,z=closed?.043:-.033;
@@ -58,5 +85,5 @@ export function createJuliaAlterOutfit(h) {
     sphere.material=sphere.material.clone();sphere.material.color.setHex(STEEL);sphere.material.metalness=.55;sphere.material.roughness=.56;
     sphere.userData.decorateNativeHand=handPlates;
   }
-  return {...base,head,farmS:forearm};
+  return {...base,head,chest,farmS:forearm};
 }
