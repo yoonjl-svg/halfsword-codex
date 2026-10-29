@@ -59,61 +59,98 @@ export function createJuliaAlterOutfit(h) {
       out.normalizeNormals();reshapeMain(mesh,out);
     }
   }
-  function ribBand(y){
-    const positions=[],uv=[],indices=[],steps=24;
-    for(let i=0;i<=steps;i++){
-      const a=i/steps*Math.PI;
-      for(const [r,dy]of [[0,-.010],[1,-.010],[1,.010],[0,.010]]){
-        positions.push((.096+r*.016)*Math.cos(a),y+dy+.009*Math.sin(a),-(.150+r*.021)*Math.sin(a));uv.push(i/steps,dy);
-      }
-      if(i<steps)for(let j=0;j<4;j++){const k=i*4+j,n=i*4+(j+1)%4;indices.push(k,n,k+4,n,n+4,k+4);}
+  const chrome={metalness:.82,roughness:.31,steel:.85};
+  const graphite={metalness:.57,roughness:.50,steel:.45};
+  // Compact actuators and shaped braces follow the existing torso, not a new rig.
+  function between(a,b,r1,r2=r1){
+    const p=new T.Vector3(...a),q=new T.Vector3(...b),delta=q.clone().sub(p);
+    const geo=new T.CylinderGeometry(r2,r1,delta.length(),10,1);
+    geo.applyQuaternion(new T.Quaternion().setFromUnitVectors(new T.Vector3(0,1,0),delta.clone().normalize()));
+    geo.translate(...p.add(q).multiplyScalar(.5).toArray());return geo;
+  }
+  function actuator(a,b,r=.009){
+    const p=new T.Vector3(...a),q=new T.Vector3(...b),mix=t=>p.clone().lerp(q,t).toArray();
+    return [between(a,mix(.62),r),between(mix(.48),b,r*.48),
+      ball(r*1.25,10,7,a),ball(r*.94,10,7,b)];
+  }
+  function hose(pts,r=.006,n=13){
+    const curve=new T.CatmullRomCurve3(pts.map(p=>new T.Vector3(...p))),ridges=[];
+    for(let i=0;i<n;i++){
+      const t=i/(n-1),p=curve.getPoint(t),q=new T.Quaternion().setFromUnitVectors(new T.Vector3(0,0,1),curve.getTangent(t));
+      const ring=new T.TorusGeometry(r*1.2,r*.21,5,10);ring.applyQuaternion(q);ring.translate(...p.toArray());ridges.push(ring);
     }
-    indices.push(0,2,1,0,3,2,steps*4,steps*4+1,steps*4+2,steps*4,steps*4+2,steps*4+3);
-    const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(positions,3));geo.setAttribute('uv',new T.Float32BufferAttribute(uv,2));geo.setIndex(indices);geo.computeVertexNormals();return geo;
+    return {core:tube(pts,r*.87),ridges};
+  }
+  // A closed gently convex casing with rounded boundary and a tapered outline.
+  function casing(outline,x=.105,bulge=.012){
+    const c=new T.Vector2();for(const p of outline)c.add(new T.Vector2(...p));c.divideScalar(outline.length);
+    const boundary=new T.CatmullRomCurve3(outline.map(p=>new T.Vector3(0,...p)),true,'centripetal').getSpacedPoints(48).slice(0,-1);
+    const area=boundary.reduce((sum,p,i)=>{const q=boundary[(i+1)%boundary.length];return sum+p.y*q.z-p.z*q.y;},0);
+    if(area<0)boundary.reverse();
+    const pos=[],uv=[],idx=[],rings=5,n=boundary.length;
+    for(let j=0;j<=rings;j++){
+      const t=j/rings;for(const p of boundary){pos.push(x+bulge*(1-t*t),c.x+(p.y-c.x)*t,c.y+(p.z-c.y)*t);uv.push(t,p.y);}
+    }
+    for(let j=0;j<rings;j++)for(let i=0;i<n;i++){const a=j*n+i,b=j*n+(i+1)%n;idx.push(a,b,a+n,b,b+n,a+n);}
+    const edge=pos.length/3;for(const p of boundary){pos.push(x-.006,p.y,p.z);uv.push(0,p.y);}
+    const center=pos.length/3;pos.push(x-.006,c.x,c.y);uv.push(0,0);
+    for(let i=0;i<n;i++){const a=rings*n+i,b=rings*n+(i+1)%n,aa=edge+i,bb=edge+(i+1)%n;idx.push(a,aa,b,b,aa,bb,center,bb,aa);}
+    const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(pos,3));g.setAttribute('uv',new T.Float32BufferAttribute(uv,2));g.setIndex(idx);g.computeVertexNormals();return g;
   }
   function chest(g,look){
-    base.chest(g,look);
-    // Left half: negative local Z, opposite the existing face and weapon-arm machinery.
-    trimSurface(g,p=>p.z-(.006+.045*p.y));
+    base.chest(g,look);trimSurface(g,p=>p.z-(.006+.045*p.y));
     const group=artoriaCloth(g,'julia-mechanical-chest');
-    // Narrow inner chassis leaves actual depth and gaps between the outer rib brackets.
-    addMerged(group,[bake(artoriaRoundedBox(.12,.235,.085,.018),[-.012,-.003,-.063]),
-      box(.205,.278,.011,[0,0,.004],[.045,0,0]),
-      cyl(.034,.032,.21,14,false,[-.040,-.010,-.111])],DARK,metal);
-    addMerged(group,[ribBand(.086),ribBand(.005),ribBand(-.078),
-      tube([[.005,.149,-.006],[.024,.151,-.070],[.016,.123,-.146],[0,.100,-.195]],.016),
-      tube([[-.085,.113,-.075],[-.090,.01,-.105],[-.078,-.119,-.089]],.008),
-      bake(new T.CylinderGeometry(.041,.047,.065,16,1,false,Math.PI/2,Math.PI),[0,.174,0]),
-      box(.076,.065,.016,[0,.174,.006])],STEEL,metal);
-    // Shoulder bearing is part of the torso silhouette, not a decorative shoulder pad.
-    addMerged(group,[cyl(.046,.046,.035,18,false,[0,.103,-.188],[Math.PI/2,0,0]),
-      cyl(.034,.034,.040,16,false,[0,.103,-.192],[Math.PI/2,0,0]),
-      cyl(.038,.038,.026,20,false,[.073,.021,-.082],[0,0,Math.PI/2])],DARK,metal);
-    addMerged(group,[bake(new T.TorusGeometry(.038,.006,7,22),[0,.103,-.209]),
-      bake(new T.TorusGeometry(.033,.005,7,20),[.088,.021,-.082],[0,Math.PI/2,0]),
-      cyl(.015,.015,.065,12,false,[.075,-.071,-.064]),
-      cyl(.007,.007,.064,10,false,[.075,-.114,-.064]),
-      tube([[.102,.112,-.012],[.109,.034,-.018],[.107,-.105,-.014]],.006)],EDGE,metal);
-    const teeth=[];for(let i=0;i<10;i++){const a=i/10*Math.PI*2;teeth.push(box(.007,.010,.008,[.093,.021+Math.cos(a)*.025,-.082+Math.sin(a)*.025],[a,0,0]));}
-    addMerged(group,[...teeth,cyl(.010,.010,.009,12,false,[.094,.021,-.082],[0,0,Math.PI/2]),
-      ...[.089,.008,-.075].map(y=>ball(.0035,7,5,[.112,y,-.025]))],BRASS,metal);
-    addMerged(group,[tube([[-.010,.11,-.139],[.039,.05,-.139],[.044,-.030,-.128],[.015,-.121,-.108]],.005),
-      tube([[.040,.135,-.043],[.061,.084,-.061],[.051,.030,-.045]],.004)],0x252d31,{...metal,roughness:.84});
-    // Cloth ends near the sternum; it does not continue under the exposed half.
-    addMerged(group,[tube([[.121,.137,.012],[.122,.06,.009],[.121,-.04,.004],[.113,-.135,0]],.003),
-      tube([[-.122,.12,.012],[-.123,0,.006],[-.116,-.132,0]],.003)],0x35404a,CLOTH);
+    const clavicleHose=hose([[-.010,.168,-.030],[.004,.164,-.088],[.012,.145,-.145],[.006,.110,-.185]],.006,16);
+    const sideHose=hose([[-.074,.109,-.117],[-.087,.052,-.144],[-.078,-.050,-.135],[-.041,-.132,-.103]],.005,12);
+    // Narrow spinal block and sockets stay behind the open diagonal framework.
+    addMerged(group,[tube([[-.047,.145,-.026],[-.050,.040,-.034],[-.046,-.13,-.027]],.019),
+      bake(artoriaRoundedBox(.085,.135,.047,.017),[-.028,-.010,-.040]),
+      bake(ball(.045,16,12),[0,.103,-.186]),
+      clavicleHose.core,sideHose.core,
+      bake(new T.CylinderGeometry(.038,.044,.065,14,1,false,Math.PI/2,Math.PI),[0,.174,0]),
+      box(.060,.060,.016,[0,.176,.006])],DARK,graphite);
+    // Curved sternum and pectoral brace replace the former shelf-like rib bands.
+    const sternum=[[.148,.004],[.137,-.026],[.089,-.044],[.034,-.038],[-.025,-.059],[-.077,-.047],[-.106,-.002]];
+    addMerged(group,[casing(sternum,.096,.014),
+      bake(casing([[.119,.013],[.100,.092],[.036,.109],[-.054,.079],[-.096,.018]],.077,.009),null,[0,Math.PI,0]),
+      tube([[.105,.084,-.038],[.108,.119,-.075],[.083,.137,-.126],[.022,.111,-.181]],.012),
+      tube([[-.075,.114,-.020],[-.090,.137,-.074],[-.069,.138,-.130],[-.005,.111,-.180]],.010),
+      tube([[.097,-.082,-.029],[.103,-.065,-.073],[.066,-.036,-.128],[.004,.020,-.166]],.009),
+      ...[.108,.054,-.007,-.067,-.121].map(y=>cyl(.025,.027,.019,14,false,[-.047,y,-.027]))],STEEL,chrome);
+    addMerged(group,[...clavicleHose.ridges,...sideHose.ridges,
+      ...actuator([.074,.064,-.124],[.090,-.070,-.055],.009),
+      ...actuator([.015,.087,-.165],[.039,-.117,-.106],.011),
+      ...actuator([-.076,.075,-.105],[-.048,-.122,-.085],.009),
+      ...actuator([.042,.149,-.024],[.036,.205,-.021],.0055),
+      ...actuator([-.042,.151,-.026],[-.036,.204,-.021],.0055),
+      ...[.155,.176,.197].map(y=>bake(new T.TorusGeometry(.039,.0025,5,15,Math.PI),[0,y,0],[-Math.PI/2,0,0]))],EDGE,chrome);
+    // Recessed shoulder pivot, with an outer socket and small central axle.
+    addMerged(group,[bake(new T.TorusGeometry(.031,.006,7,20),[.006,.105,-.216]),
+      cyl(.020,.020,.009,14,false,[.006,.105,-.217],[Math.PI/2,0,0]),
+      ...[[.108,.101,-.029],[.114,.033,-.027],[.110,-.070,-.031]].map(p=>ball(.0037,8,6,p))],0xadb5b5,chrome);
+    addMerged(group,[cyl(.009,.009,.011,10,false,[.006,.105,-.224],[Math.PI/2,0,0]),
+      ...[[.112,.100,-.029],[.118,.033,-.027],[.114,-.070,-.031]].map(p=>ball(.0017,6,4,p))],DARK,graphite);
+    // The untouched half remains cloth; the edge is slightly folded into the join.
+    addMerged(group,[tube([[.121,.137,.012],[.122,.060,.009],[.121,-.040,.004],[.113,-.135,0]],.0025),
+      tube([[-.122,.120,.012],[-.123,0,.006],[-.116,-.132,0]],.0025),
+      clothPanel(.121,[[.117,.013],[.100,.010],[.105,-.003]],.002),
+      clothPanel(.120,[[-.069,.003],[-.096,.001],[-.085,-.008]],.002)],0x35404a,CLOTH);
   }
   function abdomen(g,look){
     base.abdomen(g,look);trimSurface(g,p=>p.z-.001);
     const group=artoriaCloth(g,'julia-mechanical-waist');
-    addMerged(group,[bake(artoriaRoundedBox(.13,.13,.09,.015),[-.005,.008,-.06]),
-      cyl(.028,.032,.11,14,false,[0,.012,-.108])],DARK,metal);
-    addMerged(group,[cyl(.011,.011,.085,12,false,[.065,.014,-.071]),
-      cyl(.006,.006,.11,10,false,[.065,.017,-.113]),
-      box(.134,.019,.127,[0,.047,-.071]),box(.14,.019,.13,[0,-.016,-.071])],STEEL,metal);
-    addMerged(group,[box(.144,.005,.127,[0,.056,-.071]),
-      cyl(.014,.014,.009,12,false,[.067,-.026,-.071])],BRASS,metal);
-    // Retain the continuous native belt and buckle below the exposed waist joint.
+    addMerged(group,[cyl(.027,.031,.115,14,false,[-.020,.015,-.044]),
+      bake(artoriaRoundedBox(.090,.090,.080,.022),[-.017,.006,-.060])],DARK,graphite);
+    const vertebra=[];
+    for(const y of [.055,.025,-.005]){
+      vertebra.push(cyl(.037,.039,.015,16,false,[-.013,y,-.044]));
+      vertebra.push(bake(ball(.028,12,8),[.045,y,-.045],null,[.45,.28,1.20]));
+    }
+    addMerged(group,[...vertebra,
+      ...actuator([.036,.078,-.106],[.042,-.032,-.109],.010),
+      ...actuator([-.056,.076,-.090],[-.037,-.032,-.102],.009)],STEEL,chrome);
+    addMerged(group,[...actuator([.060,.072,-.028],[.058,-.030,-.026],.0055),
+      ...[.055,.025,-.005].map(y=>ball(.003,8,5,[.059,y,-.044]))],EDGE,chrome);
     addMerged(group,[box(.22,.036,.313,[0,-.051,0])],0x433d36,CLOTH);
     addMerged(group,[box(.012,.029,.035,[.117,-.051,-.02])],0x988c6d,CLOTH);
     addMerged(group,[box(.013,.017,.024,[.125,-.051,-.02])],0x433d36,CLOTH);
@@ -121,9 +158,10 @@ export function createJuliaAlterOutfit(h) {
   function upperOff(g,look){
     base.uarmO(g,look);trimSurface(g,p=>.068-p.y);
     const group=artoriaCloth(g,'julia-mechanical-shoulder');
-    addMerged(group,[cyl(.043,.039,.075,14,false,[0,.104,0])],DARK,metal);
-    addMerged(group,[cyl(.045,.044,.016,16,false,[0,.131,0]),
-      cyl(.042,.042,.012,16,false,[0,.073,0])],STEEL,metal);
+    addMerged(group,[bake(ball(.040,14,10),[0,.112,0],null,[1,1.06,1]),
+      cyl(.038,.037,.019,14,false,[0,.073,0])],STEEL,chrome);
+    addMerged(group,[cyl(.039,.039,.006,14,false,[0,.075,0]),
+      tube([[.028,.120,.006],[.033,.097,.008],[.025,.075,.006]],.003)],DARK,graphite);
   }
   function handPlates(mesh,closed){
     const group=new T.Group();group.name='julia-mechanical-hand';mesh.add(group);
