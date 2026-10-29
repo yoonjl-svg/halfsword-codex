@@ -7,9 +7,9 @@
 //  판금 판정(outfits.js decorateOutfit — 판금 부위에 얹은 메쉬가 userData.armor): 판 · 금띠 · 팔꿈치와 오금 사슬은 판 목록(v1 의 위팔 사슬과 같게) — 판이 덮은 곳(fighter.js armorBoxes)은 v1 과 같게 맞췄다.
 //   겉옷 앞판 · 허리띠 · 뿔피리 · 겨드랑이 사슬 · 넓적다리 속치마 · 무릎 위 사슬은 천 층(artoriaCloth — 판 목록 밖: 덮은 곳 · 파손에 안 듦 · 판이 다 부서져도 남는다)
 //  좌표: +X 앞 · +Y 위 · +Z 오른쪽 (다른 복식 모듈과 같다)
-export function createRolandOutfitV2(h) {
+export function createRolandOutfitV2(h, palette = {}) {
   const { THREE, bake, cyl, addMerged, artoriaCloth, taperedTube, capeSway } = h;
-  const IVORY = 0xd7cfba, GOLD = 0xad8848, WINE = 0x541f2a, MAIL = 0x5b5d61, LEATHER = 0x463727, HORN = 0xe4d9bf;
+  const IVORY = palette.iron ?? 0xd7cfba, GOLD = palette.trim ?? 0xad8848, WINE = palette.cloth ?? 0x541f2a, MAIL = 0x5b5d61, LEATHER = 0x463727, HORN = 0xe4d9bf;
   const metal = { metalness: 0.73, roughness: 0.34, steel: 0.9 }, cloth = { roughness: 0.96, metalness: 0, side: THREE.DoubleSide };
   const chain = { metalness: 0.62, roughness: 0.5, steel: 0.55 };
   const add = (g, p, c = IVORY, m = metal) => addMerged(g, p, c, m);

@@ -2,6 +2,7 @@ import { alterLook } from './outfit_alter.js';
 import { createRoland } from './character_roland.js'; // 손님 인물 롤랑 (10/23 — 방랑 전용, docs/import/wander_heroes_import_2026-10-23.md)
 import { createWhiteScaleWarrior } from './character_white_scale.js'; // 손님 인물 백린의 전사(가칭 — 방랑 전용)
 import { createBernardo } from './character_bernardo.js'; // 손님 인물 베르나르도 (롤랑의 숙적 — 방랑 전용)
+import { createRoyalAlter } from './character_royal_alters.js';
 import { WANDER_EXCLUSIVE } from './wander_rules.js'; // 방랑에서만 나오는 상대 — 무작위 상대에서 뺀다 (사장님 10/23 18:3x '아르토리아 방랑 전용')
 // ─────────────────────────────────────────────────────────────
 //  상대 캐릭터 12인(다섯 + 샛별 저장소에서 가져온 셋 6~8 · 넷 9~12): 저마다 다른 유파·성격·자세 전환 습관을 가진 검객들.
@@ -986,6 +987,10 @@ for (const c of CHARACTER_VARIANTS) {
 
 /** id → 시트. 기본 회전·변형·손님 인물까지 (변형은 여정의 정해진 자리·?foe=id, 손님 인물은 여정의 제 무대(STAGE_FOE)·테스트 경로의 상대 고르기·?foe=id) */
 export const CHARACTERS_BY_ID = Object.fromEntries([...CHARACTERS, ...CHARACTER_VARIANTS, ...CHARACTER_GUESTS].map((c) => [c.id, c]));
+// Approved appearance prototypes: explicit test links only until visual review.
+for (const id of ['roland','bernardo']) {
+  const c=createRoyalAlter(CHARACTERS_BY_ID[id]);finishAI(c);CHARACTERS_BY_ID[c.id]=c;
+}
 
 /**
  * 이번 판에 캐릭터가 실제로 드는 무기 id. weaponAlt 가 있으면 그 확률로 대체 무기를 고른다.

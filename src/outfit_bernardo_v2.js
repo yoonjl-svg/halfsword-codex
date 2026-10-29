@@ -15,10 +15,10 @@
 //  판금(look.armor 'plate'): 부위마다 판금 메쉬 = 그 부위에 바로 붙인 메쉬(outfits.js decorateOutfit) — 겉옷 · 망토 · 허리띠는 몸 바탕 메쉬에 매단
 //   천 층(artoriaCloth)이라 판금이 아니다(덮은 곳 · 닳음 · 부서져 날아감에서 빠지고, 판이 다 부서져도 남는다). 쇠 깃 · 테 · 금테 · 놋쇠 고리 · 무릎 덮개는 판의 자식이라 판과 같이 움직이고 떨어진다.
 //  삼각형은 tools/sim/look_tris.mjs (몸 하나 · 칼 뺌) — 확인표 2318 · 2321 ~ 2325. 좌표: +X 앞 · +Y 위 · +Z 오른쪽
-export function createBernardoOutfitV2(h) {
+export function createBernardoOutfitV2(h, palette = {}) {
   const { THREE, bake, box, cyl, ball, addMerged, artoriaCloth, quietFace, taperedTube, capeSway } = h;
   const IRON = 0x484b46, EDGE = 0x858575, BRASS = 0x9c7b36, MAIL = 0x50534e, LEATHER = 0x4a3526;
-  const TABARD = 0xe6e0d0, SABLE = 0x221f1c, GOLD = 0xb08a2c, GOLD_IN = 0x705222, TRIM = 0xc29b40;
+  const TABARD = palette.tabard ?? 0xe6e0d0, SABLE = 0x221f1c, GOLD = palette.cloak ?? 0xb08a2c, GOLD_IN = palette.lining ?? 0x705222, TRIM = 0xc29b40;
   const metal = { metalness: 0.68, roughness: 0.52, steel: 0.75, side: THREE.DoubleSide };
   const gilt = { metalness: 0.72, roughness: 0.36, steel: 0.6, side: THREE.DoubleSide };
   const mailMat = { metalness: 0.6, roughness: 0.6, steel: 0.55, side: THREE.DoubleSide, vertexColors: true };
@@ -353,7 +353,7 @@ export function createBernardoOutfitV2(h) {
     if (look?.lion === 'gold') {
       const o = 0.0035 / S, decal = (m, k) => { m.renderOrder = k; m.material.depthWrite = k === 4; return m; };
       decal(add(layer, lion().map(poly => onTabard(grownPoly(poly, o), 0.0025)), SABLE, cloth), 1).name = 'bernardo-lion-outline';
-      decal(add(layer, lion().map(poly => onTabard(poly, 0.003)), GOLD, cloth), 2).name = 'bernardo-lion';
+      decal(add(layer, lion().map(poly => onTabard(poly, 0.003)), palette.lion ?? GOLD, cloth), 2).name = 'bernardo-lion';
       decal(add(layer, [onTabard(grownPoly(lionCrown, o), 0.0035)], SABLE, cloth), 3).name = 'bernardo-lion-crown-outline';
       decal(add(layer, [onTabard(lionCrown, 0.004)], TRIM, gilt), 4).name = 'bernardo-lion-crown';
     } else {
