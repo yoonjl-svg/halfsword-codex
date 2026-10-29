@@ -49,3 +49,7 @@ node tools/capital_ford/browser.mjs http://localhost:5293/
 
 ![전체 지형](screens/overview.png)
 ![휴대폰 인물 시점](screens/explore-844.png)
+
+## 공개 확인
+
+자체 main `f9991042` / Pages Actions `40870952798` 성공. 공개181파일5,859,828bytes가 빌드와 SHA-256 모두 일치했다. 공개 주소의844×390 실제터치 탐방 이동/4인입장·저장비변경·HTTP/JS오류0도 확인했다. [발행 영수증](publication.json), [공개 브라우저](public-browser.json).
