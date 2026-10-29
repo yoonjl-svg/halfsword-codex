@@ -8,4 +8,6 @@
 
 front/angle은 기존 Fighter를 동일 조명·카메라의 검사 자세로 촬영한 외형 사진. game-close/foe-gameplay/hero-gameplay는 실제 컴파일 게임 화면이다. 이전 원본 사진은 상위 폴더에 보존했다. 이번 기록은 10/29 23:30 KST 마감 후이므로 10/30 일지에 남긴다.
 
-재현: 저장소 루트에서 `node docs/design/julia_alter_20261029/torso/check.mjs`, `python docs/design/julia_alter_20261029/torso/gates.py`, `npx vite build --config vite.julia-alter.config.js`. 부모 browser.mjs에 BROWSER_OUT을 이 torso 폴더로 지정해 새 사진·결과를 저장한다.
+재현: 저장소 루트에서 `node docs/design/julia_alter_20261029/torso/check.mjs`, `python docs/design/julia_alter_20261029/torso/gates.py`, `npx vite build --config vite.julia-alter.config.js`. 이 폴더의 browser.mjs에 BROWSER_OUT을 이 torso 폴더로 지정해 새 사진·결과를 저장한다.
+
+공개: a7a23d51e8c8a785d58eb96497e46842448a5f20 / Pages40910362362 성공. 핵심27파일 해시 일치와 공개 실제양역할 터치/저장불변/오류0, 갤러리3폭/수정전후 펼침 확인. 소스 기능8d4d56eb·정면 전투 촬영244d0a68. [검토 페이지](https://yoonjl-svg.github.io/halfsword-codex/encounters/julia-alter-20261029/?v=torso). publication.json·public-browser·public-gallery-qa.json 참조.
