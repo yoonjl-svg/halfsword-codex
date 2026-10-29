@@ -2,7 +2,7 @@ import {createJuliaOutfit} from './outfit_julia.js';
 
 // Native body/face/hand proportions. These are costume meshes, not armor/colliders.
 export function createJuliaAlterOutfit(h) {
-  const {THREE:T,bake,box,cyl,ball,addMerged,artoriaCloth,taperedTube,reshapeMain,clothPanel,CLOTH}=h;
+  const {THREE:T,bake,box,cyl,ball,addMerged,artoriaCloth,taperedTube,reshapeMain,clothPanel,CLOTH,artoriaRoundedBox}=h;
   const base=createJuliaOutfit(h,{GREEN:0x293340,DARK_GREEN:0x202832,LINEN:0xc0c0b7,
     RUST:0xb5b6ae,RUST_DARK:0x777d7d,GOLD:0x988c6d,BROWN:0x433d36,COLLAR:0xd0d0c6});
   const STEEL=0x879091,EDGE=0xa5adaa,DARK=0x323c40,BRASS=0x8b7956;
@@ -33,32 +33,97 @@ export function createJuliaAlterOutfit(h) {
       ...[[.045,.052],[-.037,.063]].map(p=>ball(.0026,8,6,facePoint(p,.009)))],BRASS,metal);
     addMerged(group,[cyl(.0065,.0065,.002,12,false,[.112,.016,.035],[0,0,Math.PI/2])],0x6c1720,{metalness:.25,roughness:.4,emissive:0x4b0810,emissiveIntensity:.22});
   }
+  // Remove the selected half of the actual garment/body surface, not an overlay.
+  // The cut is cosmetic only: native collider, mass and joint descriptors stay intact.
+  function trimSurface(g,keep){
+    const meshes=[];g.traverseVisible(o=>{if(o.isMesh)meshes.push(o);});
+    for(const mesh of meshes){
+      const geo=mesh.geometry,attrs=geo.attributes,keys=Object.keys(attrs),rows=Object.fromEntries(keys.map(k=>[k,[]]));
+      const matrix=new T.Matrix4();let node=mesh;
+      while(node!==g){node.updateMatrix();matrix.premultiply(node.matrix);node=node.parent;}
+      const vertex=i=>Object.fromEntries(keys.map(k=>[k,Array.from({length:attrs[k].itemSize},(_,n)=>attrs[k].array[i*attrs[k].itemSize+n])]));
+      const dist=v=>keep(new T.Vector3(...v.position).applyMatrix4(matrix));
+      const mix=(a,b,t)=>Object.fromEntries(keys.map(k=>[k,a[k].map((v,i)=>v+(b[k][i]-v)*t)]));
+      const count=geo.index?.count??attrs.position.count;
+      for(let i=0;i<count;i+=3){
+        const tri=[0,1,2].map(n=>vertex(geo.index?geo.index.getX(i+n):i+n)),poly=[];
+        for(let j=0;j<3;j++){
+          const a=tri[j],b=tri[(j+1)%3],da=dist(a),db=dist(b);
+          if(da>=0)poly.push(a);
+          if((da>=0)!==(db>=0))poly.push(mix(a,b,da/(da-db)));
+        }
+        for(let j=1;j+1<poly.length;j++)for(const v of [poly[0],poly[j],poly[j+1]])for(const k of keys)rows[k].push(...v[k]);
+      }
+      if(!rows.position.length){mesh.visible=false;continue;}
+      const out=new T.BufferGeometry();for(const k of keys)out.setAttribute(k,new T.Float32BufferAttribute(rows[k],attrs[k].itemSize));
+      out.normalizeNormals();reshapeMain(mesh,out);
+    }
+  }
+  function ribBand(y){
+    const positions=[],uv=[],indices=[],steps=24;
+    for(let i=0;i<=steps;i++){
+      const a=i/steps*Math.PI;
+      for(const [r,dy]of [[0,-.010],[1,-.010],[1,.010],[0,.010]]){
+        positions.push((.096+r*.016)*Math.cos(a),y+dy+.009*Math.sin(a),-(.150+r*.021)*Math.sin(a));uv.push(i/steps,dy);
+      }
+      if(i<steps)for(let j=0;j<4;j++){const k=i*4+j,n=i*4+(j+1)%4;indices.push(k,n,k+4,n,n+4,k+4);}
+    }
+    indices.push(0,2,1,0,3,2,steps*4,steps*4+1,steps*4+2,steps*4,steps*4+2,steps*4+3);
+    const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(positions,3));geo.setAttribute('uv',new T.Float32BufferAttribute(uv,2));geo.setIndex(indices);geo.computeVertexNormals();return geo;
+  }
   function chest(g,look){
     base.chest(g,look);
+    // Left half: negative local Z, opposite the existing face and weapon-arm machinery.
+    trimSurface(g,p=>p.z-(.006+.045*p.y));
     const group=artoriaCloth(g,'julia-mechanical-chest');
-    // A small irregular opening in the right waistcoat, exposing inner framework.
-    // Flush layering gives depth without changing the native torso or armor coverage.
-    const opening=[[.099,.076],[.081,.104],[.066,.141],[.033,.153],
-      [.005,.148],[-.031,.151],[-.079,.128],[-.096,.100],[-.071,.068],
-      [-.039,.058],[-.014,.064],[.022,.052],[.052,.055],[.079,.060]];
-    addMerged(group,[clothPanel(.140,opening,.002)],0x1c252a,{...CLOTH,roughness:.9});
-    // Three curved ribs span the dark cavity; a narrow side rail joins their ends.
-    const ribs=[.054,.004,-.045].map((y,i)=>tube([[.151,y,.069+i*.004],
-      [.158,y+.006,.087],[.160,y+.003,.111],[.151,y-.009,.135-i*.003]],.0055));
-    ribs.push(tube([[.150,.078,.117],[.153,.044,.141],[.153,-.012,.139],[.149,-.070,.122]],.005));
-    // A short clavicle brace emerges below the turned shirt collar.
-    ribs.push(tube([[.135,.118,.015],[.140,.112,.044],[.149,.089,.076]],.0045));
-    addMerged(group,ribs,EDGE,metal);
-    addMerged(group,[cyl(.009,.009,.041,10,false,[.149,-.046,.088]),
-      cyl(.004,.004,.033,10,false,[.150,-.009,.088]),
-      cyl(.012,.012,.008,14,false,[.151,.070,.085],[0,0,Math.PI/2])],STEEL,metal);
-    addMerged(group,[bake(new T.TorusGeometry(.009,.0018,6,14),[.156,.070,.085],[0,Math.PI/2,0]),
-      ...[.052,.002,-.047].map(y=>ball(.0026,7,5,[.160,y,.128]))],BRASS,metal);
-    // Uneven folded cloth edges, not a metal border or a second breastplate.
-    const edge=opening.concat([opening[0]]).map(([y,z])=>[.146,y,z]);
-    addMerged(group,[tube(edge,.003),
-      clothPanel(.148,[[.076,.060],[.056,.055],[.060,.071],[.067,.074]],.002),
-      clothPanel(.148,[[-.072,.069],[-.094,.101],[-.081,.102],[-.067,.082]],.002)],0x293340,CLOTH);
+    // Narrow inner chassis leaves actual depth and gaps between the outer rib brackets.
+    addMerged(group,[bake(artoriaRoundedBox(.12,.235,.085,.018),[-.012,-.003,-.063]),
+      box(.205,.278,.011,[0,0,.004],[.045,0,0]),
+      cyl(.034,.032,.21,14,false,[-.040,-.010,-.111])],DARK,metal);
+    addMerged(group,[ribBand(.086),ribBand(.005),ribBand(-.078),
+      tube([[.005,.149,-.006],[.024,.151,-.070],[.016,.123,-.146],[0,.100,-.195]],.016),
+      tube([[-.085,.113,-.075],[-.090,.01,-.105],[-.078,-.119,-.089]],.008),
+      bake(new T.CylinderGeometry(.041,.047,.065,16,1,false,Math.PI/2,Math.PI),[0,.174,0]),
+      box(.076,.065,.016,[0,.174,.006])],STEEL,metal);
+    // Shoulder bearing is part of the torso silhouette, not a decorative shoulder pad.
+    addMerged(group,[cyl(.046,.046,.035,18,false,[0,.103,-.188],[Math.PI/2,0,0]),
+      cyl(.034,.034,.040,16,false,[0,.103,-.192],[Math.PI/2,0,0]),
+      cyl(.038,.038,.026,20,false,[.073,.021,-.082],[0,0,Math.PI/2])],DARK,metal);
+    addMerged(group,[bake(new T.TorusGeometry(.038,.006,7,22),[0,.103,-.209]),
+      bake(new T.TorusGeometry(.033,.005,7,20),[.088,.021,-.082],[0,Math.PI/2,0]),
+      cyl(.015,.015,.065,12,false,[.075,-.071,-.064]),
+      cyl(.007,.007,.064,10,false,[.075,-.114,-.064]),
+      tube([[.102,.112,-.012],[.109,.034,-.018],[.107,-.105,-.014]],.006)],EDGE,metal);
+    const teeth=[];for(let i=0;i<10;i++){const a=i/10*Math.PI*2;teeth.push(box(.007,.010,.008,[.093,.021+Math.cos(a)*.025,-.082+Math.sin(a)*.025],[a,0,0]));}
+    addMerged(group,[...teeth,cyl(.010,.010,.009,12,false,[.094,.021,-.082],[0,0,Math.PI/2]),
+      ...[.089,.008,-.075].map(y=>ball(.0035,7,5,[.112,y,-.025]))],BRASS,metal);
+    addMerged(group,[tube([[-.010,.11,-.139],[.039,.05,-.139],[.044,-.030,-.128],[.015,-.121,-.108]],.005),
+      tube([[.040,.135,-.043],[.061,.084,-.061],[.051,.030,-.045]],.004)],0x252d31,{...metal,roughness:.84});
+    // Cloth ends near the sternum; it does not continue under the exposed half.
+    addMerged(group,[tube([[.121,.137,.012],[.122,.06,.009],[.121,-.04,.004],[.113,-.135,0]],.003),
+      tube([[-.122,.12,.012],[-.123,0,.006],[-.116,-.132,0]],.003)],0x35404a,CLOTH);
+  }
+  function abdomen(g,look){
+    base.abdomen(g,look);trimSurface(g,p=>p.z-.001);
+    const group=artoriaCloth(g,'julia-mechanical-waist');
+    addMerged(group,[bake(artoriaRoundedBox(.13,.13,.09,.015),[-.005,.008,-.06]),
+      cyl(.028,.032,.11,14,false,[0,.012,-.108])],DARK,metal);
+    addMerged(group,[cyl(.011,.011,.085,12,false,[.065,.014,-.071]),
+      cyl(.006,.006,.11,10,false,[.065,.017,-.113]),
+      box(.134,.019,.127,[0,.047,-.071]),box(.14,.019,.13,[0,-.016,-.071])],STEEL,metal);
+    addMerged(group,[box(.144,.005,.127,[0,.056,-.071]),
+      cyl(.014,.014,.009,12,false,[.067,-.026,-.071])],BRASS,metal);
+    // Retain the continuous native belt and buckle below the exposed waist joint.
+    addMerged(group,[box(.22,.036,.313,[0,-.051,0])],0x433d36,CLOTH);
+    addMerged(group,[box(.012,.029,.035,[.117,-.051,-.02])],0x988c6d,CLOTH);
+    addMerged(group,[box(.013,.017,.024,[.125,-.051,-.02])],0x433d36,CLOTH);
+  }
+  function upperOff(g,look){
+    base.uarmO(g,look);trimSurface(g,p=>.068-p.y);
+    const group=artoriaCloth(g,'julia-mechanical-shoulder');
+    addMerged(group,[cyl(.043,.039,.075,14,false,[0,.104,0])],DARK,metal);
+    addMerged(group,[cyl(.045,.044,.016,16,false,[0,.131,0]),
+      cyl(.042,.042,.012,16,false,[0,.073,0])],STEEL,metal);
   }
   function handPlates(mesh,closed){
     const group=new T.Group();group.name='julia-mechanical-hand';mesh.add(group);
@@ -85,5 +150,5 @@ export function createJuliaAlterOutfit(h) {
     sphere.material=sphere.material.clone();sphere.material.color.setHex(STEEL);sphere.material.metalness=.55;sphere.material.roughness=.56;
     sphere.userData.decorateNativeHand=handPlates;
   }
-  return {...base,head,chest,farmS:forearm};
+  return {...base,head,chest,abdomen,uarmO:upperOff,farmS:forearm};
 }
