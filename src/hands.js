@@ -123,6 +123,9 @@ export function attachHands(f) {
   for (const m of [fistS, fistO]) m.castShadow = true;
   f.swordGroup.add(fistS, fistO);
   fistO.visible = false;
+  // Optional cosmetic plates follow the real open/closed hand; no grip or physics changes.
+  const decorateHand = sphS.userData.decorateNativeHand;
+  const handDetails = decorateHand ? [decorateHand(openS, false), decorateHand(fistS, true)] : [];
   // 한손 무기의 빈손이 '가볍게 쥔 주먹'이면: 아래팔 끝에 주먹 (구멍이 아래팔과 직각)
   const armFistO = new THREE.Mesh(fistGeometry(0), matO);
   armFistO.position.set(0, -0.145, 0);
@@ -167,6 +170,10 @@ export function attachHands(f) {
       openO.visible = !twoHold && !armFistO.visible;
     },
     dispose() {
+      for (const detail of handDetails) {
+        detail.traverse(o => { if (o.isMesh) { o.geometry.dispose(); for (const m of [o.material].flat()) m.dispose(); } });
+        detail.removeFromParent();
+      }
       openS.removeFromParent();
       openO.removeFromParent();
       armFistO.removeFromParent();

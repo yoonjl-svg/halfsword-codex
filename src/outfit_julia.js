@@ -8,11 +8,11 @@ export const JULIA_LOOK = {
   outfit:'julia_merchant', armor:null, stockEyes:true, stockFace:true, eyeColor:0x38291c,
 };
 
-export function createJuliaOutfit(h) {
+export function createJuliaOutfit(h, palette = {}) {
   const {THREE:T,bake,box,cyl,ball,addMerged,CLOTH,quietFace,isoldeLock,artoriaCloth,
     sleeveVolume,clothNeck,clothPanel,taperedTube,reshapeMain,artoriaRoundedBox}=h;
-  const GREEN=0x465038, DARK_GREEN=0x343e2b, LINEN=0xe5d9be, RUST=0x944c37,
-    RUST_DARK=0x713727, GOLD=0xb09a66, BROWN=0x523b29;
+  const {GREEN=0x465038, DARK_GREEN=0x343e2b, LINEN=0xe5d9be, RUST=0x944c37,
+    RUST_DARK=0x713727, GOLD=0xb09a66, BROWN=0x523b29, COLLAR=0xeee3ce}=palette;
   const ds={...CLOTH,side:T.DoubleSide};
   const layer=g=>artoriaCloth(g,'julia-cloth');
   const add=(g,p,c,m=CLOTH)=>addMerged(layer(g),p,c,m);
@@ -59,7 +59,7 @@ export function createJuliaOutfit(h) {
     // Ivory shirt at the front, with a shallow open neck and two small turned collars.
     add(g,[clothPanel(.118,[[.137,-.071],[.137,.071],[-.132,.021],[-.132,-.021]],.004)],LINEN);
     add(g,[clothPanel(.122,[[.145,-.035],[.145,.035],[.048,.008],[.048,-.008]],.003)],look.skin);
-    add(g,[-1,1].map(s=>clothPanel(.126,[[.148,s*.035],[.133,s*.077],[.012,s*.047],[.047,s*.017]],.003)),0xeee3ce);
+    add(g,[-1,1].map(s=>clothPanel(.126,[[.148,s*.035],[.133,s*.077],[.012,s*.047],[.047,s*.017]],.003)),COLLAR);
     const seams=[];for(const s of [-1,1]){
       seams.push(line([[.124,.137,s*.074],[.125,.018,s*.048],[.125,-.135,s*.025]],.002));
       for(let i=0;i<7;i++){const y=.1-i*.035,z=s*(.07-(.1-y)*.16);seams.push(box(.003,.006,.004,[.128,y,z+s*.008]));}
