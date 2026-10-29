@@ -1,0 +1,32 @@
+name: Developer exchange regression tests
+
+on:
+  pull_request:
+    paths:
+      - 'tools/dev_exchange/**'
+      - 'docs/dev_exchange/config.json'
+      - '.github/workflows/dev-exchange*.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/dev_exchange/**'
+      - 'docs/dev_exchange/config.json'
+      - '.github/workflows/dev-exchange*.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            tools/dev_exchange
+            docs/dev_exchange
+            .github/workflows
+      - name: Test with local fixtures only
+        run: python3 -B -m unittest discover -s tools/dev_exchange -p 'test_*.py'

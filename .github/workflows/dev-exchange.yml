@@ -9,8 +9,8 @@ on:
       - '.github/workflows/dev-exchange.yml'
   schedule:
     - cron: '30 14 * * *' # 23:30 Asia/Seoul: publish today's report
-    - cron: '45 14,15 * * *' # 23:45 / 00:45 KST: idempotent catch-up if the first run was delayed
-    - cron: '0 15 * * *'  # 00:00 Asia/Seoul: receive the previous day's peer report
+    - cron: '45 14,15 * * *' # 23:45 / 00:45 KST: publication-only catch-up
+    - cron: '2,7,12,17 15 * * *' # 00:02/07/12/17 KST: bounded receive retries; actual clock is authoritative
   workflow_dispatch:
     inputs:
       mode:
@@ -69,23 +69,16 @@ jobs:
         shell: bash
         run: |
           python3 - <<'PY'
-          import datetime as dt, os, subprocess, sys
-          from zoneinfo import ZoneInfo
+          import os, subprocess, sys
           sys.path.insert(0, 'source/tools/dev_exchange')
           import exchange
-          mode = os.environ.get('REQUEST_MODE') or ('receive' if os.environ['GITHUB_EVENT_NAME'] == 'schedule' and os.environ['SCHEDULE'] == '0 15 * * *' else 'publish')
-          if mode not in {'validate', 'publish', 'receive'}:
-              raise SystemExit('Invalid mode')
           created = subprocess.check_output(['gh', 'api', 'repos/' + os.environ['GITHUB_REPOSITORY'] + '/actions/runs/' + os.environ['GITHUB_RUN_ID'], '--jq', '.created_at'], text=True).strip()
-          queued = dt.datetime.fromisoformat(created.replace('Z', '+00:00')).astimezone(ZoneInfo('Asia/Seoul'))
-          requested = os.environ.get('REQUEST_DATE')
-          day = dt.date.fromisoformat(requested) if requested else queued.date()
-          if not requested:
-              day = dt.date.fromisoformat(exchange.latest_closed_day(exchange.config('source'), queued)) if mode == 'publish' else queued.date() - dt.timedelta(days=1)
+          request = exchange.resolve_request(exchange.config('source'), os.environ['GITHUB_EVENT_NAME'], os.environ.get('SCHEDULE'), os.environ.get('REQUEST_MODE'), os.environ.get('REQUEST_DATE'), created)
+          mode, day = request['mode'], request['date']
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
-              f.write(f'mode={mode}\ndate={day.isoformat()}\n')
+              f.write(f'mode={mode}\ndate={day}\nretry_deferred={str(request["retry_deferred"]).lower()}\n')
           with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
-              f.write(f'Mode: `{mode}`. Reporting day (Korea): `{day}`. Run created: `{created}`.\n\nScheduled Actions may be delayed; this is not an exact-time observation or a semantic AI review.\n')
+              f.write(f'Mode: `{mode}`. Reporting day (Korea): `{day}`. Run created: `{created}`. Trigger schedule (UTC): `{os.environ.get("SCHEDULE", "")}`.\n\nScheduled Actions may be delayed; this is not an exact-time observation or a semantic AI review.\n')
           PY
       - name: Validate current authored notes before publication
         if: steps.request.outputs.mode == 'publish' || steps.request.outputs.mode == 'validate'
@@ -104,23 +97,20 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           EXCHANGE_MODE: ${{ steps.request.outputs.mode }}
           EXCHANGE_DATE: ${{ steps.request.outputs.date }}
+          RETRY_DEFERRED: ${{ steps.request.outputs.retry_deferred }}
         shell: bash
         run: |
-          set +e
-          python3 -B source/tools/dev_exchange/exchange.py "$EXCHANGE_MODE" --date "$EXCHANGE_DATE" --repo-root source --output-root reports > "$RUNNER_TEMP/exchange-result.json"
-          result=$?
+          set -euo pipefail
+          args=()
+          if [[ "$EXCHANGE_MODE" == receive && "$RETRY_DEFERRED" == true ]]; then
+            args+=(--retry-deferred)
+          fi
+          result=0
+          python3 -B source/tools/dev_exchange/exchange.py "$EXCHANGE_MODE" --date "$EXCHANGE_DATE" --repo-root source --output-root reports "${args[@]}" > "$RUNNER_TEMP/exchange-result.json" || result=$?
           cat "$RUNNER_TEMP/exchange-result.json"
-          python3 - <<'PY'
-          import json, os
-          from pathlib import Path
-          path = Path(os.environ['RUNNER_TEMP']) / 'exchange-result.json'
-          value = json.loads(path.read_text()) if path.stat().st_size else {}
-          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as f:
-              f.write(f"\nDocument status: `{value.get('status', 'failed_before_receipt')}`. Semantic AI review: **not performed**.\n")
-          PY
-          exit "$result"
+          python3 -B source/tools/dev_exchange/workflow.py --result "$RUNNER_TEMP/exchange-result.json" --exit-code "$result"
       - name: Archive only in the document branch
-        if: steps.request.outputs.mode != 'validate'
+        if: ${{ !cancelled() && (steps.collect.outcome == 'success' || steps.collect.outcome == 'failure') }}
         env:
           EXCHANGE_MODE: ${{ steps.request.outputs.mode }}
           EXCHANGE_DATE: ${{ steps.request.outputs.date }}
@@ -150,7 +140,7 @@ jobs:
           EXCHANGE_DATE: ${{ steps.request.outputs.date }}
         run: python3 -B source/tools/dev_exchange/exchange.py check-publication --repo-root source --date "$EXCHANGE_DATE"
       - name: Surface failure after preserving its receipt
-        if: steps.collect.outcome == 'failure'
+        if: ${{ !cancelled() && steps.collect.outcome == 'failure' }}
         run: |
-          printf 'Publication/reception failed or is not verified. Any available failure receipt was archived; semantic review is still pending.\n' >> "$GITHUB_STEP_SUMMARY"
+          printf 'Publication/reception failed. Check the archive step for receipt persistence. Semantic review is still pending.\n' >> "$GITHUB_STEP_SUMMARY"
           exit 1

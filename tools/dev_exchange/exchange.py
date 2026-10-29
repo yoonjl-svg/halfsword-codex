@@ -15,6 +15,9 @@ from urllib.parse import quote, urlsplit
 
 MAX_JSON = 100_000
 MAX_MD = 64_000
+DEFERRED = 'deferred_outside_exchange_window'
+RECEIVE_SCHEDULE = '2,7,12,17 15 * * *'
+PUBLISH_SCHEDULES = ('30 14 * * *', '45 14,15 * * *')
 
 
 class APIError(RuntimeError):
@@ -37,6 +40,60 @@ def check_exchange_window(cfg, clock):
     end = time.fromisoformat(cfg.get('exchange_window_end', '00:20'))
     if not start <= local.time() < end:
         raise ExchangeWindowClosed(clock)
+
+
+def next_exchange_window(cfg, clock):
+    local = clock.astimezone(ZoneInfo(cfg['timezone']))
+    start = datetime.combine(local.date(), time.fromisoformat(cfg['exchange_window_start']), local.tzinfo)
+    if local >= start:
+        start += timedelta(days=1)
+    return start.isoformat()
+
+
+def result_outcome(result):
+    """A clean process exit can mean deferred, never proof of receipt/review."""
+    status = result.get('status')
+    if status == 'receive_batch':
+        results = result.get('results', [])
+        outcomes = [result_outcome(item) for item in results]
+        if not outcomes or 'failed' in outcomes:
+            return 'failed'
+        return 'deferred' if 'deferred' in outcomes else 'completed'
+    if status == DEFERRED:
+        return 'deferred'
+    if status in ('published', 'unchanged', 'peer_received', 'already_received',
+                  'document_received_unverified'):
+        return 'completed'
+    return 'failed'
+
+
+def resolve_request(cfg, event, schedule, mode, requested, created):
+    """Pin the report date to run creation, including on a later rerun.
+
+    GitHub does not expose a guaranteed original cron delivery timestamp.
+    This reference is not evidence of an on-time observation.
+    """
+    queued = iso(created).astimezone(ZoneInfo(cfg['timezone']))
+    if event == 'schedule':
+        if schedule in (RECEIVE_SCHEDULE, '0 15 * * *'):
+            mode = 'receive'
+        elif schedule in PUBLISH_SCHEDULES:
+            mode = 'publish'
+        else:
+            raise ValueError('Unknown exchange schedule')
+    elif event == 'push':
+        mode = 'publish'
+    elif event != 'workflow_dispatch':
+        raise ValueError('Unsupported exchange event')
+    if mode not in ('validate', 'publish', 'receive'):
+        raise ValueError('Invalid mode')
+    if requested:
+        day = date.fromisoformat(requested).isoformat()
+        if day != requested:
+            raise ValueError('Use YYYY-MM-DD')
+    else:
+        day = latest_closed_day(cfg, queued) if mode == 'publish' else (queued.date() - timedelta(days=1)).isoformat()
+    return {'mode': mode, 'date': day, 'retry_deferred': event == 'schedule' and mode == 'receive'}
 
 
 def digest(data):
@@ -586,9 +643,13 @@ def receive(day, root, output, gh=api, now=None):
         for path in reversed(created_snapshots):
             path.unlink(missing_ok=True)
         if isinstance(error, ExchangeWindowClosed):
-            receipt['status'] = 'deferred_outside_exchange_window'
+            receipt['status'] = DEFERRED
             receipt['deferred_at'] = error.checked_at.isoformat()
             receipt['exchange_window'] = {'timezone': cfg['timezone'], 'start_inclusive': cfg['exchange_window_start'], 'end_exclusive': cfg['exchange_window_end']}
+            receipt['next_eligible_at'] = next_exchange_window(cfg, error.checked_at)
+            receipt['retry_policy'] = 'next_exchange_window_same_reporting_day'
+            receipt['reason'] = str(error)
+            return append_receipt(directory, clock, receipt)
         elif phase == 'provenance':
             receipt['status'] = 'provenance_unverified'
         elif isinstance(error, APIError):
@@ -610,6 +671,59 @@ def append_receipt(directory, clock, receipt):
         path = directory / (stamp + f'-{suffix}.json')
     write_once(path, serialized(receipt))
     return receipt
+
+
+def deferred_days(output, before, cfg):
+    """Read only our attempt metadata, never peer bodies, to find pending days.
+
+    A later non-deferred receipt resolves the deferral (or exposes a real error
+    for operator review). Historical error_type=ExchangeWindowClosed works too.
+    """
+    pending = []
+    for directory in sorted((Path(output) / 'docs/dev_exchange/inbox').glob('????-??-??')):
+        if not directory.is_dir() or directory.name >= before:
+            continue
+        window(directory.name, cfg)
+        attempts = sorted(p for p in directory.glob('*.json')
+                          if re.fullmatch(r'\d{8}T\d{6}\.\d{6}Z(?:-\d+)?\.json', p.name))
+        latest = None
+        latest_key = None
+        completed = False
+        for path in attempts:
+            if path.stat().st_size > MAX_JSON:
+                raise ValueError('Oversized receipt: ' + str(path))
+            value = json.loads(path.read_bytes())
+            if not isinstance(value, dict) or value.get('date') != directory.name:
+                raise ValueError('Invalid receipt: ' + str(path))
+            if value.get('peer_repo') != cfg['peer_repo'] or value.get('peer_ref') != cfg['peer_ref']:
+                continue
+            completed |= value.get('status') in ('peer_received', 'document_received_unverified')
+            # Numeric suffix ordering also handles identical mocked timestamps.
+            suffix = re.search(r'Z-(\d+)\.json$', path.name)
+            key = (iso(value['received_at']), int(suffix[1]) if suffix else 0)
+            if latest_key is None or key > latest_key:
+                latest, latest_key = value, key
+        if not completed and latest and latest.get('status') == DEFERRED:
+            pending.append(directory.name)
+    return pending
+
+
+def receive_with_deferred(day, root, output, gh=api, now=None):
+    """Try the requested day, then at most three oldest deferred dates.
+
+    No sleep or clock override: receive checks the real clock on every request.
+    Stop immediately on a deferral or genuine error, preserving earlier results.
+    """
+    results = [receive(day, root, output, gh=gh, now=now)]
+    pending = deferred_days(output, day, config(root))
+    if result_outcome(results[-1]) == 'completed':
+        for pending_day in pending[:3]:
+            results.append(receive(pending_day, root, output, gh=gh, now=now))
+            if result_outcome(results[-1]) != 'completed':
+                break
+    return {'status': 'receive_batch', 'date': day, 'results': results,
+            'deferred_dates_remaining': deferred_days(output, day, config(root)),
+            'semantic_review_performed': False, 'review_status': 'review_pending'}
 
 
 def latest_closed_day(cfg, now=None):
@@ -700,6 +814,9 @@ def main():
         p.add_argument('--date', required=True)
         p.add_argument('--repo-root', required=True)
         p.add_argument('--output-root', required=True)
+        if command == 'receive':
+            p.add_argument('--retry-deferred', action='store_true',
+                           help='Also retry up to three older deferred dates in the current allowed window')
     args = parser.parse_args()
     try:
         if args.command == 'validate-notes':
@@ -709,9 +826,10 @@ def main():
             check = check_publication_git if args.transport == 'git' else check_publication
             print(json.dumps(check(args.repo_root, args.date), ensure_ascii=False))
             return 0
-        result = globals()[args.command](args.date, args.repo_root, args.output_root)
+        operation = receive_with_deferred if args.command == 'receive' and args.retry_deferred else globals()[args.command]
+        result = operation(args.date, args.repo_root, args.output_root)
         print(json.dumps(result, ensure_ascii=False))
-        return 0 if args.command == 'publish' or result['status'] in ('peer_received', 'already_received', 'document_received_unverified') else 1
+        return 1 if result_outcome(result) == 'failed' else 0
     except (ValueError, OSError, subprocess.SubprocessError, APIError) as error:
         parser.exit(1, str(error) + '\n')
 
