@@ -17,3 +17,5 @@
 ## 재현
 
 저장소 루트에서 `node docs/design/julia_alter_20261029/hemibody/check.mjs`, `python docs/design/julia_alter_20261029/hemibody/gates.py`, `npx vite build --config vite.julia-alter.config.js`. 필요한 public 폴더를 빌드로 복사한 뒤 이 폴더의 browser.mjs에 JULIA_GAME/BROWSER_OUT을 지정한다. capture.mjs는 부모 폴더의 기존 도구에 SOURCE_ROOT/CAPTURE_BASE 및 출력 폴더를 지정한다.
+
+공개 확인: 보존 소스1d07a8da873fbb84c5a1faec2ed9cd43c2ab6dfe, 공개4484af9c5b0663b3718e4d03c9d2515f47b5af2d, Pages40913295581 성공. 핵심31파일 원격해시 동일·공개양역할 새기계허리 존재/터치막기·공격/저장불변/HTTP·JS오류0, 갤러리390/844/1280폭·전후 펼침 통과. [검토 페이지](https://yoonjl-svg.github.io/halfsword-codex/encounters/julia-alter-20261029/?v=hemibody). 실제 수신/채택/미감 승인을 뜻하지 않는다.
