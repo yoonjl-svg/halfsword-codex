@@ -1,5 +1,5 @@
 import {chromium}from'playwright';import fs from'node:fs';import assert from'node:assert/strict';
-const root=new URL('./',import.meta.url).pathname,base=process.env.JULIA_GAME||'http://127.0.0.1:5233/';
+const root=process.env.JULIA_QA_OUT||new URL('./',import.meta.url).pathname,base=process.env.JULIA_GAME||'http://127.0.0.1:5233/';
 const b=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']}),rows=[];
 for(const role of ['foe','hero']){
  const c=await b.newContext({viewport:{width:1100,height:700},isMobile:true,hasTouch:true}),p=await c.newPage(),errors=[],bad=[];p.on('pageerror',e=>errors.push(e.message));p.on('response',r=>{if(r.status()>=400&&!r.url().endsWith('favicon.ico'))bad.push([r.status(),r.url()]);});await p.clock.install({time:new Date('2026-10-29T13:00:00Z')});await p.clock.pauseAt(new Date('2026-10-29T13:00:01Z'));

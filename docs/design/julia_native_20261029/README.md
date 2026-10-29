@@ -28,3 +28,5 @@
 `npx vite build --config vite.julia.config.js` 후 public의 fonts/icons/sfx/ui/wb/support를 dist-julia에 복사. 5233에서 정적으로 서비스하고 `node docs/design/julia_native_20261029/browser.mjs` 실행.
 
 초기 브라우저 탐침은 Fighter에 없는 `look` 속성을 읽어 실패했다. 실제 생성된 이름·머리 그룹·유파·AI 숙련도 검사로 수정 후 두 역할 모두 통과했다. 게임 런타임 실패가 아닌 검증 코드의 오류다.
+
+공개 검증: 자체 main0b840bb3 / Pages40880752978 성공. 갤러리·핵심 컴파일 자산26파일 원격해시일치, 공개 실제게임 두역할·터치막기/공격·AI숙련도4·저장불변/HTTP·JS오류0, 휴대폰폭390갤러리와 이전주소리디렉션 통과. 상세 publication.json/public-check 참조. 소스는 자체 codex/julia-native-20261029의46fa690c.
