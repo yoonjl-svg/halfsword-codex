@@ -11,7 +11,7 @@
 ## 기준과 적용 범위
 
 - 우화 기준4f1faf07b25366bb533eb5223856cc67e2ad7e34의 native 쥘리아 자체46fa690ce547136daa5eb66937295e28984e4cec에 이어 구현.
-- 자체 가지 `codex/julia-alter-20261029`. `julia_mad` 검토용 등록만. 일반 여정/방랑/보상/상점/프로필 미변경.
+- 자체 소스40bb8097, 가지 `codex/julia-alter-20261029`. `julia_mad` 검토용 등록만. 일반 여정/방랑/보상/상점/프로필 미변경.
 - 기본과 동일한 이탈리아 숙련도4·레이피어·AI·신체질량/관성/관절/콜라이더·생리/출혈/목소리. 금속 외형으로 인한 방어력·불사·공격력 상승 없음.
 - 일반 공개 게임 소스를 덮어쓰지 않고 `encounters/julia-alter-20261029/`에 별도 빌드를 게시한다. 우화 저장소 쓰기/전송 없음. 미감은 사용자 검토 대기.
 
@@ -33,3 +33,7 @@ JULIA_GAME=http://127.0.0.1:5278/ node docs/design/julia_alter_20261029/browser.
 ```
 
 빌드 뒤 public의 fonts/icons/sfx/ui/wb/support와 webmanifest를 빌드 폴더로 복사한다. 캡처는 SOURCE_ROOT를 소스 절대경로로, CAPTURE_BASE를 같은 체크아웃의 Vite URL로 지정한다. 소스 해시가 다르면 촬영을 거부한다. 공개 성공은 별도 publication.json 영수증으로 확인한다.
+
+## 공개 확인
+
+자체 main ddcfdb7cb074fdc42cd33354b9cf6baada217495, Pages40890810312 성공(2026-10-29 14:24:29 UTC). [검토 페이지](https://yoonjl-svg.github.io/halfsword-codex/encounters/julia-alter-20261029/). `publication.json`의 핵심24파일 원격해시 일치. 공개 게임에서도 상대/플레이어 양역할 진입·터치막기/공격·숙련4·저장불변·오류0, 390/844/1280폭 갤러리·사진·터치 펼침 확인. 정규 등장 편성/우화 게임 적용과는 구별한다.
