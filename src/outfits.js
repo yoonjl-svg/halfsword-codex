@@ -1,3 +1,5 @@
+import { createJuliaAlterOutfit } from './outfit_julia_alter.js';
+import { createJuliaOutfit } from './outfit_julia.js';
 import { decorateAlter } from './outfit_alter.js';
 // ─────────────────────────────────────────────────────────────
 //  겉모습 장식 레이어. fighter.js의 dressPart가 만든 기본 몸통(상자·캡슐) 위에
@@ -2852,6 +2854,8 @@ export const newOutfitHelpers = { THREE, bake, box, cyl, ball, cone, addMerged, 
 const RENJI_V1 = createRenjiOutfit(newOutfitHelpers); // 김씨 v1 (v2 가 하카마 밖 전부를 이어 받는다)
 
 export const OUTFITS = {
+  julia_merchant: createJuliaOutfit(newOutfitHelpers),
+  julia_mechanical: createJuliaAlterOutfit(newOutfitHelpers),
   artoria_ballroom: createArtoriaBallroomOutfit(newOutfitHelpers, ARTORIA_OUTFIT.head), // 광기의 아르토리아 (outfit_alter.js alterLook) — 머리는 원래 아르토리아 머리 위에 땋은 올림머리 · 백합 금관
   // 샛별 저장소에서 가져온 인물 넷 (10/10) — 위 머리말
   artoria_silver_v2: ARTORIA_OUTFIT_V2,

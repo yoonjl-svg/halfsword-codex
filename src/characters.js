@@ -1,3 +1,5 @@
+import { createJuliaAlter } from './character_julia_alter.js';
+import { createJulia } from './character_julia.js';
 import { alterLook } from './outfit_alter.js';
 import { createRoland } from './character_roland.js'; // 손님 인물 롤랑 (10/23 — 방랑 전용, docs/import/wander_heroes_import_2026-10-23.md)
 import { createWhiteScaleWarrior } from './character_white_scale.js'; // 손님 인물 백린의 전사(가칭 — 방랑 전용)
@@ -1009,6 +1011,9 @@ for (const c of [...CHARACTERS, ...CHARACTER_VARIANTS, ...CHARACTER_GUESTS]) if 
 
 /** id → 시트. 기본 회전·변형·손님 인물까지 (변형은 여정의 정해진 자리·?foe=id, 손님 인물은 여정의 제 무대(STAGE_FOE)·테스트 경로의 상대 고르기·?foe=id) */
 export const CHARACTERS_BY_ID = Object.fromEntries([...CHARACTERS, ...CHARACTER_VARIANTS, ...CHARACTER_GUESTS].map((c) => [c.id, c]));
+// Appearance review entry; not added to journey or random/wander reward pools.
+const juliaReview = createJulia(); finishAI(juliaReview); CHARACTERS_BY_ID.julia = juliaReview;
+const juliaAlterReview = createJuliaAlter(juliaReview); finishAI(juliaAlterReview); CHARACTERS_BY_ID.julia_mad = juliaAlterReview;
 
 /**
  * 이번 판에 캐릭터가 실제로 드는 무기 id. weaponAlt 가 있으면 그 확률로 대체 무기를 고른다.
