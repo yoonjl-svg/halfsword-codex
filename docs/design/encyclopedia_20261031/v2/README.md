@@ -50,3 +50,9 @@ node tools/browser/encyclopedia_v2_game_check.mjs
 캐릭터 외형/무기 모델이 나중에 바뀌면 해당 ID를 재촬영해야 한다. 새 ID를 코드에 등록할 때 전신 이미지도 함께 제공한다. 현재 데이터의 설명·수치는 여전히 코드 표에서 읽는다.
 
 우화 전달 후보는 1차의 대기실 연결·도감 모듈 + 이번 CSS/모달/데이터 경로 + public/ui/encyclopedia 자산. 미리보기 도구/검증자료는 별도. 상대 main 쓰기·메시지 발송 없음. 사용자 화면 검토 후 전송 시점의 대기실 변경과 다시 동기화한다. 공개 주소는 기존 도감 주소를 갱신하며 1차 정본은 encyclopedia-20261031-v1/에 보존한다.
+
+## 공개 확인
+
+[새 도감](https://yoonjl-svg.github.io/halfsword-codex/encounters/encyclopedia-20261031/?view=characters&v=2) · [1차 보존본](https://yoonjl-svg.github.io/halfsword-codex/encounters/encyclopedia-20261031-v1/)
+
+공개 커밋 `10de88e72dd5773f5365f3747e188e0261c7ba4a`, Pages `41091856885` 성공. 현재와 보존본278파일9,433,627bytes 원격SHA256일치. 실제 공개주소5폭/148이미지·전체그림/모달/키보드/목록복귀·저장불변검증통과, 오류0. `publication.json`, `remote-assets.json`, `public-check/` 참조.
