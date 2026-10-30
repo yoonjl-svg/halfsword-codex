@@ -36,9 +36,9 @@ if(!handsHook)throw new Error('Selected source has no supported native hand appe
 const report={
   createdAt:new Date().toISOString(),sourceRoot,sourceHead:process.env.SOURCE_HEAD||execFileSync('git',['rev-parse','HEAD'],{cwd:sourceRoot,encoding:'utf8'}).trim(),
   sourceBase:base,assetDir,
-  method:'Selected source production Fighter constructor and registry looks in an isolated inspection scene. Fresh uninjured body parts remain at their constructor positions; both arm mesh groups are lowered by rigid transforms into the same slightly open resting pose. The source-native hand appearance hook/update supplies open hands using an unarmed inspection state; held weapons and their aura are omitted. No geometry, materials, body scale, costume children, game source, or physical body transforms are changed, and physics is not stepped. The production mad-eye effect is included for all registered madGlow variants at fixed time 1.2. Camera is exactly front (+X), orthographic, level, and shared across every subject. No character-specific reframing or height normalization. Default battle hemisphere/key lighting with a small neutral fill and transparent background; no tone mapping. No stage-specific adaptive fill. These are design inspection renders, not gameplay pose or lighting claims.',
+  method:'Selected source production Fighter constructor and registry looks in an isolated inspection scene. Fresh uninjured body parts remain at their constructor positions; both arm mesh groups are lowered by rigid transforms into the same slightly open resting pose. The source-native hand appearance hook/update supplies open hands using an unarmed inspection state; held weapons and their aura are omitted. No geometry, materials, body scale, costume children, game source, or physical body transforms are changed, and physics is not stepped. The production mad-eye effect is included for all registered madGlow variants at fixed time 1.2. Camera is exactly front (+X), orthographic, level, and shared across every subject. No character-specific reframing or height normalization. Original October 14 atlas studio lights, ACES filmic tone mapping at exposure 1, with a transparent background for the lobby palette (user rejected the original pale grey on October 31). This deliberately reproduces the approved atlas presentation; no stage-specific adaptive fill. These are design inspection renders, not gameplay pose or lighting claims.',
   handsHook,
-  settings:{width:720,height:960,webpQuality:.85,frontAxis:'+X',cameraPosition:[6,.98,0],cameraTarget:[0,.98,0],orthographicHeight:2.08,orthographicWidth:1.56,background:'transparent',weaponsVisible:false,armAbductionDegrees:8},
+  settings:{width:720,height:960,webpQuality:.85,frontAxis:'+X',cameraPosition:[6,.98,0],cameraTarget:[0,.98,0],orthographicHeight:2.08,orthographicWidth:1.56,background:'transparent',toneMapping:'ACESFilmicToneMapping',exposure:1,weaponsVisible:false,armAbductionDegrees:8},
   expectedIds:allIds,capturedIds:ids,sourceHashes:before,results:[],errors:[],
 };
 const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--disable-background-networking']});
@@ -74,14 +74,14 @@ try{
     await RAPIER.init();
     const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});
     renderer.setPixelRatio(1);renderer.setSize(720,960);renderer.outputColorSpace=THREE.SRGBColorSpace;
-    renderer.toneMapping=THREE.NoToneMapping;renderer.setClearColor(0,0);
+    renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1;renderer.setClearColor(0,0);
     document.body.append(renderer.domElement);
     const camera=new THREE.OrthographicCamera(-.78,.78,1.04,-1.04,.01,50);
     camera.position.set(6,.98,0);camera.lookAt(0,.98,0);camera.updateMatrixWorld();
     const scene=new THREE.Scene();
-    scene.add(new THREE.HemisphereLight(0xe3e6e8,0x716c63,1.2));
-    const key=new THREE.DirectionalLight(0xffe7cb,1.7);key.position.set(4,9,3);scene.add(key);
-    const fill=new THREE.DirectionalLight(0xd4e4ff,.35);fill.position.set(4,2.5,3);scene.add(fill);
+    scene.add(new THREE.HemisphereLight(0xeaf1ff,0x62604e,2.0));
+    const key=new THREE.DirectionalLight(0xffedd2,3);key.position.set(4,5,-3);scene.add(key);
+    const fill=new THREE.DirectionalLight(0xd4e4ff,1.2);fill.position.set(4,2.5,3);scene.add(fill);
     const stageChildren=new Set(scene.children);
     window.rosterCapture={THREE,RAPIER,Fighter,CHARACTERS_BY_ID,LOOKS,attachMadEyes,attachHands,renderer,camera,scene,stageChildren};
   },handsHook);

@@ -5,26 +5,17 @@
 .encyclopedia { display: flex; flex-direction: column; height: 100%; min-height: 0; }
 .ec-heading { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; margin-bottom: 12px; }
 .ec-heading h2 { margin: 0; font-size: var(--fs-m); font-weight: var(--fw-head); }
-.ec-total, .ec-meta, .ec-count, .ec-note { font-size: var(--fs-s); color: var(--c-sub); font-weight: var(--fw-body); }
+.ec-meta, .ec-note { font-size: var(--fs-s); color: var(--c-sub); font-weight: var(--fw-body); }
 .ec-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
 .ec-tabs button { flex: 1; }
 .ec-panel, .ec-browse { flex: 1; display: flex; flex-direction: column; min-height: 0; }
-.ec-search { display: flex; gap: 8px; margin-bottom: 8px; }
-.ec-search input { width: 100%; min-width: 0; padding: 7px 10px; background: transparent; border: 1px solid var(--line); border-radius: 8px; font-size: var(--fs-s); font-family: var(--font-plain); }
-.ec-search input::placeholder { color: var(--c-sub); opacity: 1; }
-.ec-reset { flex: none; color: var(--c-sub); font-size: var(--fs-s); padding: 4px; }
-.ec-filters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-.ec-filters.ec-two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.ec-filters select { width: 100%; min-width: 0; padding: 5px 3px; border: 1px solid var(--line); border-radius: 6px; font: inherit; font-size: var(--fs-s); color: var(--c-sub); background: var(--panel); }
-.ec-filters select:focus-visible { outline: 2px solid var(--c-accent); }
-.ec-count { margin: 8px 0; line-height: 1; }
 .ec-scroll { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; padding: 3px; }
 .ec-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px 8px; width: 100%; max-width: 500px; margin-inline: auto; }
 .ec-card { min-width: 0; display: flex; flex-direction: column; align-items: stretch; width: 100%; height: 100%; text-align: center; gap: 4px; border-radius: 4px; }
 .ec-art { width: 100%; aspect-ratio: 1; display: grid; place-items: center; border: 1px solid var(--line); background: radial-gradient(ellipse, color-mix(in srgb, var(--tc, var(--c-sub)) 10%, transparent), transparent 70%); }
 .ec-art img { width: 95%; height: 95%; object-fit: contain; }
-.ec-art.ec-model { aspect-ratio: 3 / 4; border: 0; border-bottom: 1px solid var(--line); background: radial-gradient(ellipse at 50% 85%, var(--line), transparent 70%); }
-.ec-art.ec-model img { width: 100%; height: 100%; }
+.ec-art.ec-model { position: relative; aspect-ratio: 3 / 4; border: 0; background: #30261c; }
+.ec-art.ec-model img { width: 100%; height: 100%; display: block; image-rendering: auto; }
 .ec-name { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; font-size: var(--fs-s); line-height: var(--lh-text); font-weight: var(--fw-label); color: var(--c-text); }
 .ec-card .ec-meta { font-size: var(--fs-s); color: var(--tc, var(--c-sub)); }
 .ec-card[data-tier="trash"], .ec-detail [data-tier="trash"] { --tc: var(--tier-trash); }
@@ -53,7 +44,7 @@
 .ec-facts dd { margin: 0; }
 .ec-description, .ec-ability { white-space: pre-line; font-size: var(--fs-s); line-height: 1.7; }
 .ec-ability { color: var(--c-accent); }
-.ec-empty, .ec-missing { text-align: center; color: var(--c-sub); font-size: var(--fs-s); }
+.ec-missing { text-align: center; color: var(--c-sub); font-size: var(--fs-s); }
 @media (hover: hover) { .ec-card:hover .ec-name { color: var(--c-accent); } .ec-card:hover .ec-art { outline: 1px solid var(--c-sub); } }
 @media (max-height: 540px) and (min-width: 680px) {
   .ec-heading { margin-bottom: 8px; } .ec-tabs { margin-bottom: 8px; }
@@ -64,13 +55,17 @@
 
 .ec-card-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 
-@media (max-height: 540px) and (min-width: 680px) {
-  .ec-masthead { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
-  .ec-masthead .ec-total { display: none; }
-  .ec-masthead .ec-heading, .ec-masthead .ec-tabs { margin: 0; }
-  .ec-masthead .ec-tabs { margin-left: auto; width: 70%; }
-  .ec-search input { padding-block: 5px; }
-}
+/* Approved atlas cards and three columns, with the existing lobby portrait background. */
+.ec-masthead { display: flex; align-items: center; gap: 16px; margin-bottom: 12px; }
+.ec-masthead .ec-heading, .ec-masthead .ec-tabs { margin: 0; }
+.ec-masthead .ec-tabs { margin-left: auto; width: 70%; }
+.ec-models { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: none; gap: 12px 10px; }
+.ec-models .ec-card { padding: 0; gap: 0; overflow: hidden; text-align: left; border: 1px solid var(--line); border-radius: 7px; background: var(--panel); }
+.ec-models .ec-card-text { padding: 8px; gap: 3px; }
+.ec-models .ec-name { display: block; overflow: visible; -webkit-line-clamp: unset; }
+.ec-card-facts { color: var(--c-sub); font-size: var(--fs-s); line-height: var(--lh-text); overflow-wrap: anywhere; }
+.ec-number { position: absolute; left: 5px; top: 5px; z-index: 1; min-width: 22px; padding: 1px 4px; border-radius: 3px; background: var(--panel); color: var(--c-sub); font-size: 10px; line-height: 1.5; text-align: center; }
+@media (max-height: 540px) and (min-width: 680px) { .ec-masthead { margin-bottom: 8px; } }
 
 @media (max-width: 599px) {
   .ec-dialog { width: calc(100vw - 24px); height: min(700px, calc(100dvh - 24px)); }
@@ -81,3 +76,5 @@
 }
 /* This gallery popup also works when the standalone preview is opened upright. */
 @media (orientation: portrait) and (pointer: coarse) { dialog.ec-dialog[open], dialog.ec-dialog[open]::backdrop { display: block; } }
+
+@media (max-width: 599px) { .ec-models { gap: 10px 6px; } .ec-models .ec-card-text { padding: 7px 6px; } }
