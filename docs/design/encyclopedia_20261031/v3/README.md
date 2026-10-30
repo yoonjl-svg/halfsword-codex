@@ -31,3 +31,7 @@
 기존도감브랜치위 `src/encyclopedia.js/css`,전신38WebP,캡처도구를수정.옛필터도구함수는과거검증자료참조용으로data모듈에남지만현재화면에서사용하지않음.
 
 우리독립예시주소를갱신하고이전v2보존. 우화전달/본판쓰기0. 사용자화면검토전.
+
+## 공개 확인
+
+[새 시안](https://yoonjl-svg.github.io/halfsword-codex/encounters/encyclopedia-20261031/?view=characters&v=3). 공개7f71451b/Pages41096377261성공,현재+v2보존본354파일11,872,846bytes원격SHA256일치. 공개5폭/148그림·3열/5열·배색/팝업/저장불변/오류0확인. `publication.json`, `public-check/`, `remote-assets.json`.
