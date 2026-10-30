@@ -56,3 +56,5 @@ node tools/browser/encyclopedia_game_check.mjs
 ## 개발일지 복구
 
 시작 확인에서 10/30 일지 미발행 발견. 기존 마감 원고로 수동 발행 복구: Actions `41086304275` 성공, dev-exchange `00df41d742a90ed1b6b8ee10ccbe396468065538`, source `c829517c71d5b31f5eaf47d27ef980ab4dfe92e0`. fresh HTTPS git fetch 해시 확인. 정시 자동발행으로 표현하지 않는다. 이번 새 작업은 10/31 노트에 기록한다.
+
+최신은 [3차 카드형·3열·대기실 배색](v3/README.md). 사용자3열승인후밝은회색배경을거절하여대기실프로필갈색으로수정했다.
