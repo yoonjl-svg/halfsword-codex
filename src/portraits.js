@@ -22,11 +22,13 @@ const GUEST_IDS = ['roland', 'white_scale', 'bernardo'];
 export const GUEST_PORTRAIT_IDS = Object.freeze([...GUEST_IDS]);
 // 임시 그림 (게임 모델을 찍어 도트 프로필 꼴로 줄인 그림 — tools/browser/portrait_temp_shots.mjs → tools/ui/portraits_temp_build.py): 지금은 없음.
 //  10/23 손님 인물 셋의 임시 그림은 10/24 확정본으로 바뀜(옛 마스터 art/portraits-temp-20261023/ 는 기록으로 둠). 새 인물에 그림이 없으면 여기에 두고, 진짜 그림이 오면 뺀다.
+// 쥘리아 기본/얼터 — 확정 원본·low·grid는 art/julia-profiles-20261030.
+export const JULIA_PORTRAIT_IDS = Object.freeze(['julia', 'julia_mad']);
 const TEMP_IDS = [];
 /** 임시 그림 id (위) */
 export const TEMP_PORTRAIT_IDS = Object.freeze([...TEMP_IDS]);
-/** 기본 판(pixel)에 그림이 있는 id 36 (바탕 17 + 얼터 16 + 손님 3) */
-export const PORTRAIT_IDS = Object.freeze([...BASE_IDS, ...ALTER_IDS, ...GUEST_IDS, ...TEMP_IDS]);
+/** 기본 판(pixel)에 그림이 있는 id 38 (바탕 17 + 얼터 16 + 손님 3 + 쥘리아 2) */
+export const PORTRAIT_IDS = Object.freeze([...BASE_IDS, ...ALTER_IDS, ...GUEST_IDS, ...TEMP_IDS, ...JULIA_PORTRAIT_IDS]);
 /** 예비 판(hd · low)에 그림이 있는 id 17 (얼터는 바탕 인물 그림) */
 export const BACKUP_PORTRAIT_IDS = Object.freeze([...BASE_IDS]);
 export const PORTRAIT_FILES = Object.freeze({

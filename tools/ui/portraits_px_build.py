@@ -20,6 +20,7 @@ SRC, OUT = 'art/portraits-px-20261018', 'public/ui/portraits'
 SIDE, QUALITY, ALPHA_Q, METHOD = 768, 95, 100, 6
 PLAYER_FROM = 'player2'
 SKIP = {'player1', 'player2', 'frame1'}
+JULIA_SRC, JULIA_IDS = 'art/julia-profiles-20261030', ('julia', 'julia_mad')
 HERO_SRC, HERO_IDS = 'art/hero-profiles-20261024', ('roland', 'white_scale', 'bernardo')  # <id>/low.png (original · grid 는 마스터만)
 
 
@@ -27,6 +28,7 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     jobs = [('player', os.path.join(SRC, PLAYER_FROM + '.png'))] + [(f[:-4], os.path.join(SRC, f)) for f in sorted(os.listdir(SRC)) if f.endswith('.png') and f[:-4] not in SKIP]
     jobs += [(i, os.path.join(HERO_SRC, i, 'low.png')) for i in HERO_IDS]
+    jobs += [(i, os.path.join(JULIA_SRC, i, 'low.png')) for i in JULIA_IDS]
     for out_id, src in jobs:
         im = Image.open(src).convert('RGBA')
         assert im.size == (1254, 1254), (src, im.size)
