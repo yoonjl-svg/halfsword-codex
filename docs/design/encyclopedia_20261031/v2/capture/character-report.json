@@ -1,0 +1,1993 @@
+{
+  "createdAt": "2026-10-30T16:29:38.904Z",
+  "sourceRoot": "/workspace/halfsword-encyclopedia-20261031",
+  "sourceHead": "dce07c0e79f1ea697fa731dc2b954017df0f5709",
+  "sourceBase": "http://127.0.0.1:4194",
+  "assetDir": "/workspace/halfsword-encyclopedia-20261031/public/ui/encyclopedia/characters",
+  "method": "Selected source production Fighter constructor and registry looks in an isolated inspection scene. Fresh uninjured body parts remain at their constructor positions; both arm mesh groups are lowered by rigid transforms into the same slightly open resting pose. The source-native hand appearance hook/update supplies open hands using an unarmed inspection state; held weapons and their aura are omitted. No geometry, materials, body scale, costume children, game source, or physical body transforms are changed, and physics is not stepped. The production mad-eye effect is included for all registered madGlow variants at fixed time 1.2. Camera is exactly front (+X), orthographic, level, and shared across every subject. No character-specific reframing or height normalization. Default battle hemisphere/key lighting with a small neutral fill and transparent background; no tone mapping. No stage-specific adaptive fill. These are design inspection renders, not gameplay pose or lighting claims.",
+  "handsHook": "attachHands",
+  "settings": {
+    "width": 720,
+    "height": 960,
+    "webpQuality": 0.85,
+    "frontAxis": "+X",
+    "cameraPosition": [
+      6,
+      0.98,
+      0
+    ],
+    "cameraTarget": [
+      0,
+      0.98,
+      0
+    ],
+    "orthographicHeight": 2.08,
+    "orthographicWidth": 1.56,
+    "background": "transparent",
+    "weaponsVisible": false,
+    "armAbductionDegrees": 8
+  },
+  "expectedIds": [
+    "player",
+    "bran",
+    "isolde",
+    "liao",
+    "heinrich",
+    "margarethe",
+    "tome",
+    "omari",
+    "minami",
+    "artoria",
+    "samira",
+    "renji",
+    "eira",
+    "heinrich_mad",
+    "eira_mad",
+    "liao_mad",
+    "margarethe_mad",
+    "isolde_mad",
+    "tome_mad",
+    "omari_mad",
+    "bran_mad",
+    "minami_mad",
+    "ratna_mad",
+    "chanda_mad",
+    "renji_mad",
+    "terracotta_mad",
+    "silver_wanderer_mad",
+    "samira_mad",
+    "artoria_mad",
+    "julia_mad",
+    "ratna",
+    "silver_wanderer",
+    "chanda",
+    "terracotta",
+    "roland",
+    "white_scale",
+    "bernardo",
+    "julia"
+  ],
+  "capturedIds": [
+    "player",
+    "bran",
+    "isolde",
+    "liao",
+    "heinrich",
+    "margarethe",
+    "tome",
+    "omari",
+    "minami",
+    "artoria",
+    "samira",
+    "renji",
+    "eira",
+    "heinrich_mad",
+    "eira_mad",
+    "liao_mad",
+    "margarethe_mad",
+    "isolde_mad",
+    "tome_mad",
+    "omari_mad",
+    "bran_mad",
+    "minami_mad",
+    "ratna_mad",
+    "chanda_mad",
+    "renji_mad",
+    "terracotta_mad",
+    "silver_wanderer_mad",
+    "samira_mad",
+    "artoria_mad",
+    "julia_mad",
+    "ratna",
+    "silver_wanderer",
+    "chanda",
+    "terracotta",
+    "roland",
+    "white_scale",
+    "bernardo",
+    "julia"
+  ],
+  "sourceHashes": {
+    "src/account/config.js": "32326a772edc8dbd8e828f9cb7d82313ed29fc0255d3292c767cfcfb2a81696a",
+    "src/account/title_account.js": "ba4dde5231078ab73d8df5d84ee2b48bd139832e764fe5dc0f325acf6ae18a82",
+    "src/ai.js": "ace39d176c3ff9e056ab06d44b0bff0ea4e07218da3d7fb09162b38d864f30f9",
+    "src/ai_sense.js": "d01f4c1757ed41b9481cc5e74d69e517a53808eb1f8bebf7069b16dfa4ccd516",
+    "src/ai_techniques.js": "6cf2173f500b1db17395b80483e74c4e2c069299084461eeb958c8f42e13ac79",
+    "src/arena.js": "a7f93249975b7c0c922d5842f7048cf970629bc2b5aeb74f2598d1f7b6922d1e",
+    "src/arena_obstacle.js": "739a7ba39833ffab481c8b1a3657039424767f5920f2e94f5478e454e41e6b4f",
+    "src/attack_circle.js": "424e1b10bf1a822857cc0f15648d449496b3e1f19e29a4d47d5be3bdacfca34f",
+    "src/attack_stroke.js": "ae70227edf3d717f5f3e437106ba84f24cb48d73221eb7964596a0917761dfa6",
+    "src/attack_tempo.js": "1e5972a6aa755753e96ce8b7a257828fd59c97834d6cbe4cb8a3f087575f22d9",
+    "src/aura.js": "9fd46c1404c2803950a52d1a71411bc11ce36c5c63e155b340decca5f98fe944",
+    "src/balisarda_details.js": "6b9f352a6877954bcb8080424a25545851be45124ef34e3d81e0d56a8505807a",
+    "src/blood_palette.js": "2f9a20e74e1adb3c046f97d4dab77a689677154c57144b3db7fad41f209926f6",
+    "src/camera_rig.js": "334af427ee122432298a08fdcf6718d3477a8e4c429f80f6f1ae346cf16ab2b1",
+    "src/cape_sway.js": "e1fcd7d8f9d9b2116c6462428f10e8ad85ef79777db37e11afd99894b9050f38",
+    "src/character_bernardo.js": "8c6a3a423e7c2920ddc08fd9845cfd57354bc0b2ec0f4fd0309d2d048927d929",
+    "src/character_julia.js": "f9ed4ebd9f99e927b626539395279b05a726565d0b04fa9e6dfdf5fa706235ac",
+    "src/character_julia_alter.js": "2e3c8efb94333200fff1a916d7cc79891910f04b91892961a33dd403b21e0f8a",
+    "src/character_roland.js": "5b973eb2cea28c202dc3d45a22fbe091c4ac7ba6634e488d5789fb2f80512fb4",
+    "src/character_white_scale.js": "78326926cd51f41bc711efb729bd223cdda2c9f35e62a4bf861f8c46ba93c4ea",
+    "src/characters.js": "8bddbd036d9a1c350d4eafae094f1043ca178d9ba7a6b8bf615351bccb02d34e",
+    "src/chixiao_details.js": "2baaa23e29157995209ceff7845200e1271862d84b5f0f94f41d66ea6d14e5ce",
+    "src/chixiao_profile.js": "cf28105eadc3bc033cf1b641f03a10a0a0359145ad986994c884a182e518d664",
+    "src/combat.js": "4ef5b5289e76010077c1b7c776fb938c42d7579454ee2ea1e8bf4e4cfdacbb3d",
+    "src/config.js": "b1837d31bf8a3171e9a6397b466a767cabfbe55d87fd01783c20bb01c3b147f4",
+    "src/corr.js": "b7d6188eead7dcf68b05ca7957b70f199c7150b72c9c94b79ab17398946cf6da",
+    "src/courtyard_cover.js": "ab46133ae86173013b1324afe98eec5c5338ec77ce03b62cc52cff62238f6bd3",
+    "src/debris.js": "59cfdb537ba05816485e02cb34743457bc477b2e531a05a175a0239281f9e655",
+    "src/decap_fx.js": "3c8cd29738a295b71fceea3f2e11c1fb4ff1a3256da2467f9d70f81bdb9839bb",
+    "src/druid_whip.js": "4fe44c18b1293a17dafce3cd929048c54041d3614004272d1af03e2af63cfd45",
+    "src/durandal_details.js": "fc1da943c4c45c7257794526239b988c5602ed1649d5626046cb1007e1c7dee2",
+    "src/effects.js": "dfff51bc041b77bd6c4c4c23d6ec1a938613c61ca557894ebf9bba5e37613604",
+    "src/emotions.js": "d08eea27322a256632687ca43b5a9ff04e2b321964eb1e0fdb45fc7b9d70fe9a",
+    "src/etna_ground.js": "8bac6ef85969738db6d4239b09096f041dbaf3b6df371768016d5c1aa0d47550",
+    "src/fight_snapshot.js": "1749cb34beb8bb965f99fd537b81da84ce315f666b28378dd8cf7c2cb248c378",
+    "src/fighter.js": "cce038090ffb58447140fcb40c2157ace2d8cb71e71c13b62bc7e4367cfb5ebf",
+    "src/fighter_light.js": "e6e5dfcf0aa2fc7d039d5b6206b0c479eb01afdd433e5ccef39f50cdb628ad6b",
+    "src/finish.js": "e1bc0461529aa9e9a93f5ee1bd7c1b57d37eb07df56aa81d29db2bb76163183d",
+    "src/finish_entry.js": "5b13cd87cc38b4ed92a3e55e80c71e27dcd030004ac4a037127271faf00770c8",
+    "src/flamberge_look.js": "159937797229261dc4e39272f72d5e0aaffdf1e16ef5ca5f3997db03e6852c33",
+    "src/frames.js": "b33f47f9d4cad2ccc98535f06767d8ab39007c1f4087156b9c79be661ebb47d4",
+    "src/gait.js": "72cda5e038e301dc3971041ff35e855ba13fae4e1e272b0c712b5d53840d3450",
+    "src/game_entry.js": "9b15a6378968987d8908901ef55369e8e654405d5b31fe1f0295408473b9a936",
+    "src/goujian_details.js": "fadbbdb708d2fdf1488f8e28114f1b507bd50fa4954907a7208652413e7d1e6f",
+    "src/guards.js": "050f90f1d1a78d51cfa7b5c24c096191fc7c8753c1a50a59b1b26a2fa05f9a3d",
+    "src/gun.js": "0c7dfcdee2023f79e1fafecb58787dc47e4e6c20ad2db1e5165c5b9e5081d732",
+    "src/gun_fx.js": "0d7a31056726c8ea73add54adb9f3165107647435829a0d9a61e68e57530f7f9",
+    "src/hands.js": "c5501ab3fcb54900252e48fd76ed8747e3ef354ad86a657ca8382ff87ea1c6cd",
+    "src/historical_weapon_details.js": "935bb0474b5c788c494c69831f65cbc326493fe3cb0bbcbcbf57174267deb826",
+    "src/iberian_redondo.js": "aecaafb4d2c62d6dbec0e76a44a6c95a4b6416d19817f66a1d69bd0c6d5df81f",
+    "src/iberian_spin.js": "1bad2bfdace71cc75dd7296cd2a6837d429508609347fd7db4d7e71a3acce376",
+    "src/impact_fx.js": "afcc139c46b7249c8af63a89b0438af9657ce5319e073263d5ff2ac66764fc4b",
+    "src/input.js": "800faa84e1176bbeb00d86d258db086a68e4c630cd83deac7fd8b2d97f768fdc",
+    "src/italian_opposition.js": "e6aea75f3044d0876c2186f71227ec0381a9c0934c5fea703ae8650446b46d64",
+    "src/italian_risoluto.js": "377fb3ef796d6d51eddbb41f3aa7d6782422611e19ea38e339c5655106188c2e",
+    "src/journey_save.js": "f1a17963623cbadef512ca5b723dd4f49e109c1331f17b1eb1b4d29ef40949aa",
+    "src/kusanagi_details.js": "688635ef94ec88f482574e1a12e7154881243b3b3631491ae9ee863d7a3401eb",
+    "src/limb_fx.js": "6db466abaac47dcba4f38a94a33a0d10dba37f3c9e30c708c2b82bdca9b7fbf3",
+    "src/looks.js": "9aed7e61b7151871a0561b1491914a33907e295b043b73b1ba893482fe7429f7",
+    "src/mad_eyes.js": "24f16509edbdf97c92dee93190435208cfab824f2fedfbd447fd87d970ced807",
+    "src/main.js": "9482de926ec563ce3e2e41fb1bc5f63c7c076505d72ec131bf441f6474311f72",
+    "src/mobile_intent.js": "cee7d3e35f2e5291c517bc43e629a4ddc28cc230ab272b754a1a2d5297b2e034",
+    "src/mordschlag.js": "017465fbc228a0b67f27e08e5f55a88956475114bf01760a1e039880a898b47c",
+    "src/motion_library.js": "bc0724a4cd01ad678edb3100262f6348468c8b2c00a7be11fe90c659afcd2d7a",
+    "src/muramasa_details.js": "be9e418a77ef01e1b6e8eaecebef46165c1e26bf0180e61a11a4b2020633a3b8",
+    "src/nagashi_recovery.js": "2f9853e55ebda1f0c66a5507aae1fc7a6f2f7a9dfccd29a47901090cf3888ec2",
+    "src/nagashi_redesign.js": "6268da8c3d047dda894a46971bee0d3c7b4da94d131e6d734983b4c4ddc76d42",
+    "src/outfit_alter.js": "bd497b327081746a0b83ddd7bdb6b406be37fb0ce45a1831823d6fbb96399a46",
+    "src/outfit_alter_daraishi.js": "365622e52369065c01f284b4217bfc262500d45c7aa0ddaea882ae0c6f01d9da",
+    "src/outfit_alter_fifth.js": "b603232c86e47a212fb5e43e79b8b18255f36a60812465dc4277beb0fcfff0fd",
+    "src/outfit_alter_fourth.js": "846a9494fe62435b784e8b322e2f8d9203d8cc6212b20d61dc1aafa86f07d0df",
+    "src/outfit_alter_royal_messenger.js": "7065ab4740cbe1472757f2aadedc889b5a8fed9ee6be19da4e6be17bed10397c",
+    "src/outfit_alter_terracotta.js": "73136374c24bfa9a2168b0c854f86279ecc48b74d49f7bd25040761bdbe68205",
+    "src/outfit_artoria_ballroom.js": "ee02d2201492caeb25b5c1df20096bb645c2cc1a7d5831cdb50be4144e9e3d17",
+    "src/outfit_bernardo.js": "db8205a9a8e8642ac69874d9de2bfe3b27e9ef25472c4b96f15db2f9e5708916",
+    "src/outfit_bernardo_v2.js": "c90374f3882bf87beb63879bb26ba2afe710b51a20d489f74e2c4c559f9d1a2e",
+    "src/outfit_chanda.js": "b6903b4eca51ccf1813b0eeb603f2117efb4550bb8897ac7700d9119ba4da0e4",
+    "src/outfit_daraishi_front.js": "97e6a5b204bc965320c82c30320eb89227902d4c655929ea787bf536dd2b6b89",
+    "src/outfit_eira.js": "4317b76f97284e68d9981148b641bce35556a46fc1e6cfc24f744a01239f77f4",
+    "src/outfit_guild_badge.js": "58574ca64a4aba643af57eab511381c8e5c500dfd9832171ebc8a21e6453059a",
+    "src/outfit_julia.js": "30a87c4f0e34c48d6126036b9ce70f3ffd03a142098070d2fdb7c1661978b249",
+    "src/outfit_julia_alter.js": "37a5ac765f643d26bae598508032a261d20f1ad026e8f19999e62d4885dfa7a9",
+    "src/outfit_ratna.js": "ea44aefd1518c9d704729820e9c83d1c789f0fbbf68aa8d92d7c58dc15e080bd",
+    "src/outfit_renji.js": "d9fdef35abcfea92ae858d836b7b0de2be01416adcdb0498b324c524880fe28b",
+    "src/outfit_renji_baji.js": "3e8c756af15972e2932352b66916c4a0fba2a4b63e2f7ca99be6027a02ebb6a2",
+    "src/outfit_renji_head.js": "3b1fd556fd0926ee9da555f3e67bb3c77292e001e04aa8779b9fa5bb362ea673",
+    "src/outfit_roland.js": "3cd5929b212ee0c7d548d90eea67d1d16a18323372d0fe8de1db5f8a033fcab2",
+    "src/outfit_roland_v2.js": "dc9a45951b5a45f7a71bc5efbddfc91033712fb1a79716ae604b376b052655d0",
+    "src/outfit_samira.js": "d58dcb689e018eba27425271655bbfb4c490609e1b1a22b4bf00e7bc08d69fb7",
+    "src/outfit_silver_wanderer.js": "bab1e7bd308523080135fb9f9e0ffbcb3d002cadca38fc2358869f07fa448a4b",
+    "src/outfit_silver_wanderer_court_hair.js": "f31abba709661f1b89fbeb6d03c191c4e66ac9b907e73b88eab276b79431dc2a",
+    "src/outfit_silver_wanderer_detail.js": "eae6fcea9df1d5fb2d80626c5081e1ea9119d2ae017719dcaefc0c62efe77d91",
+    "src/outfit_silver_wanderer_full_hair.js": "12eeca380be8817159be1095731128e235e1b1398da9decdb29aea27b420c289",
+    "src/outfit_silver_wanderer_qaba.js": "d9cc06fc8808f2e955852085dc4d03fb7347c8e5f44e18749e4f29e0d6bad7d6",
+    "src/outfit_silver_wanderer_v10.js": "b2038733fcd2a515aa9ce8956e6c1b60d13a7bb4fe3417a4ac187a7b8f8a5b14",
+    "src/outfit_silver_wanderer_v9.js": "0cdbd39f54689a18b2ff6ca401df1aaa786b6ec3aa82ed06f19e7b5d02cff7bd",
+    "src/outfit_terracotta.js": "ed960e8568c1a788e030389e4b07294115a54b0ae7ba1827df0bdad93fc69e24",
+    "src/outfit_tuyana.js": "66d84c2d7d3e5c54f46efcf27af2e3e115afb70fd8340b9742054aafc9f6ec1f",
+    "src/outfit_white_scale.js": "4b3d6e5b677c7b8bfcea45f602507265c535f44315cfcb5b7444ad71eacbd93d",
+    "src/outfit_yue_cloak.js": "46cdac3acbf84e8606333fc27d516e4207ae3581e6439bafaa7a0a92145ffb4a",
+    "src/outfits.js": "cfaceb3267f7f879afa256b1c135c749170c3e8a08b18c45ac0b8c026ac014ef",
+    "src/pappenheimer_details.js": "b9feca5a16be9cd9291a778dbb9da757d1648b7607c8e77eb9f6119dff940e08",
+    "src/parry_button.js": "afc4f1c4a38d2f91e1e86b67491e43abc6e2a5ee7375f3f8ec14b965c08331bf",
+    "src/perfmeter.js": "b902388794d171a82794f623bccdc41006230c40846dd378dc73b5010e918afa",
+    "src/pixel_grove.js": "81cb0926cf118254d8c5f9c9d604995828935cb279fee82a5cf373b2e6b446ab",
+    "src/player_profile.js": "b4cf8e91a7e633281bf2c88a326e4c0b486a895bf2027ce45234b795028cc693",
+    "src/portraits.js": "7fef8b26a0116b142e2ee6e0ef15b729aab073c7bd97185c7b4738bae5c1f7ce",
+    "src/pwa.js": "352fef2fec94bc2a71d8a8e277f1221e6578568ec1b02986f30f13c0dd666a13",
+    "src/r2p_probe.js": "9a08810990b57a5b52c210d834f4f94879605f96fa783ec8c0b418a51eedfaab",
+    "src/rare_sword_details.js": "8fdaca15168881b61598de89c79b4de352efa594afe30a35c189b7817d22d6a5",
+    "src/render_cap.js": "ee998f59fb452148dac7b9334d64a3cdb0f6f990965e6192bdc561d926543f8e",
+    "src/renji_sword_wrap.js": "0538cb156665e17780adea06d4eb20b959b3671227bb3be1ba56c3d08c3be856",
+    "src/revive.js": "a9ea1f06a01d4ab13f4ba7e76a01c438e81aad7861310d18c9cef2471c78662c",
+    "src/revive_fx.js": "92882d7e57eadeefb5e8be6bd42b056f4fbd9e1455c33fcafa7b2af6d06d18dd",
+    "src/revolver_reload_audio.js": "bc3445d7fe2d9873aedf5eef72502161acb070cf90967621d6a70f71d6704d23",
+    "src/school_passive.js": "9346e6f0875c54370bb874425af23c353b455e583205543397ca0c3292e366a2",
+    "src/schools.js": "5c756d648f39516cf2e7497f096b15edac7ff62489d16130ae79c800cca82b13",
+    "src/screen_tint.js": "0b8aa0a5dd520651c25b184ca06108c0c58e7ee3f95969975d9a8603344ec551",
+    "src/seal_coins.js": "7b4a7df0babf0b99c7619e2a4511dcebefeb66d6bb77dbf5286cc9daf1938f1c",
+    "src/secret.js": "191595e30591765cb615bc53bbce28c4dac274bdb134ac56eb6756fc964e11dd",
+    "src/secret_instant.js": "d0e6a2aaba2d7554f927e4afd3b688ca8d82e5c3d098d093b774b81049a59290",
+    "src/secret_sfx.js": "1e925e7125d3a15f161d4ddb83cca044ded786902cc17d4d8e7e547921b420e3",
+    "src/skill.js": "139939c52489eb46e3485ec62ca8b0340c65d90fd470577532a1a4664b35ee6f",
+    "src/skill_kit.js": "3e57b45e14986a5b082b524551352e943cc09e8fbd2d56c5916f410acebeb656",
+    "src/skill_tree.js": "6f3461bed24fbc1ee7bd45653e5d56582016886720b6fddd648efddb4320491b",
+    "src/skill_tree_data.js": "e8465b8661e8631e3ed0de73db2d4dac44b75837c39f5b8b2af16857266aab17",
+    "src/skill_tree_icon_fit.js": "a04c1dc82c967f9b702eab02586b54fccea06b436eb32629f32c8991a88027d4",
+    "src/skill_tree_icons.js": "98014ed1a2d69f96d629c150a39c2e5ec0c26992efe24c1738a1a30dca30df7a",
+    "src/skill_tree_store.js": "6980110260b20597720fe5b92f2e483c4527ac4ab0ec67ac65390e0ae6a97691",
+    "src/slash_draw.js": "eb2bda4298637485dd5a41d4c981dada9ff9c8588140fb621d14833a212270cb",
+    "src/sound.js": "1c3af3b458425dff60e9b3c4baa5d9c60a3f6959bddad2ff74a7a5ed3d43eb9c",
+    "src/soundgen.js": "8c3dffc0c15849fbda0d14d9300331b0e00330959fa2726e26caf80838643a78",
+    "src/soundlab.js": "6c7f4cf88f7870612ec4f2b8ee1c732a886c850eed27ffc97032ab87208932b7",
+    "src/stage_castle.js": "c4c1684c03ccee912dd9bbb0882a28b2b5d59a5658ccef9137773d822d8b27ec",
+    "src/stage_cathedral.js": "e147b02b4efdb72a01b46d3042a7c8d7c1bf0063ed3b2feb67f22fa25d4abba3",
+    "src/stage_clearing.js": "3a64039b787527d2c5db180e151d52c29120bbe39b7016503ceeda1a9eeb00e5",
+    "src/stage_clearing_b.js": "2ea91a14d3b84fbad6b2321ce666b82f9211cfe5497865244f034d14d401e2d4",
+    "src/stage_corsair.js": "d57a762d09ee10e05703e7b504c0c3d8b340bc0eff03491b7a63925ca244b592",
+    "src/stage_courtyard.js": "6b5ee72f3d6ffffbdef38cb2573ade734074a4db25a01408f1606ae10819594b",
+    "src/stage_courtyard_cover.js": "d93a039ef8f240cd15c52873ccdc438063d348de740c0d46f98cff034663d8bd",
+    "src/stage_courtyard_damaged_cover.js": "ded321ad7a925426e973ba047777a623fd422d111ad6bdf00aff314a56a6e882",
+    "src/stage_courtyard_night.js": "85d89c45941c0d725af66880ff9368556f98963494d22e9d1c9dad32b08e7dc6",
+    "src/stage_courtyard_ruins_detail.js": "548a67685728eaa2903102998629ac9aa6b6c9c0ac88d84c78883a46f7f1441e",
+    "src/stage_darkhall.js": "012c546115887dea9fd0364bafee8cecb757b39537e6732f0dfbda94c677005d",
+    "src/stage_dayr.js": "d631a23f7870d2cab3fdb0bef69581d7c1faee3758fb30cfe0f25c38a2929037",
+    "src/stage_dayr_blood.js": "d6a5ab05d1ac8031be253db1bcf355fda8723ae7d6ebe6cddf4d9bb7ae6f6eb5",
+    "src/stage_dayr_caravan.js": "9b98f93afd24508e93ba9bce9c5c3a4b685ab350bb91be1e1716ec89f5aa7dc6",
+    "src/stage_dayr_far_side.js": "653319a246bb446f543045f00c1edbf35c709a2d2bda70db900d17f07a3708ce",
+    "src/stage_dayr_night.js": "a31f6bdd78103236d3b977da137d7fa419924cffad2741318c3d3170605bb24f",
+    "src/stage_detail_sound.js": "f9be6d0d7d5eaa86a97988e8e163ddc8d2de33291bcaf1a42951d99acdfb0fb8",
+    "src/stage_dunhuang.js": "e44eb3f7986909dbd6e2bae7d98d28ba1765df3b9a47ef8fe2c0d44bf34bec0b",
+    "src/stage_dunhuang_night.js": "05b002e13143fa9fb02bd21d04228be34deecc3ebf5bbe73f217a6bf35711485",
+    "src/stage_etna.js": "ae3257172932f98d8f4533d1feaf44443153f09abc256dc015193707932bf73d",
+    "src/stage_frozen_bay.js": "5453189311f4946a700a6abcfd95f88597e92a6fd874b78dc93acc91e7e1119c",
+    "src/stage_frozen_bay_shore.js": "cbb9074704cd662f9a7335d9e383114adf7c1be47b5f1f23e9324cbb52432bdc",
+    "src/stage_kit.js": "9a7b577bc8fd368aa86ae37d934c9628708227b639203c8add80f4ccc3868304",
+    "src/stage_loggia.js": "454002eaf2c2cd09a885f4c4ed653ac5ffcea4fa622944b927a28f5d0ecc88e7",
+    "src/stage_night_fifth.js": "8c4644a07e3118f2de6d95a1d0232692aefdc5978d57036f5e47b8a48ffab786",
+    "src/stage_night_lamps.js": "80a6b501d3595c427502f5e063172adbf132e0876ca21a68e3083686a79da452",
+    "src/stage_night_second.js": "fd006398024dfd1caa5796111a14a18b89dc7fb5c508ebdcc68281ab3fc5d5b2",
+    "src/stage_night_third.js": "df350c7851b818bdf75a12d7d0ec983daf3d43af4e622f963d0cfd1b0b93c187",
+    "src/stage_night_variants.js": "a7c92f30c9f7b1d2db2892b3a808539a96f1b37a91af602af0b89cbcfda9daa8",
+    "src/stage_poseidon_night.js": "022eb731762cc10dba25685594ba2c5029842a761bee2a39a4f68ae129e7bf5a",
+    "src/stage_qinglan.js": "6648bbe03ae89345efffc59030a561bb671a8d9116beea6ccd0fe82752292cf3",
+    "src/stage_qinglan_vista.js": "3cf9d3a180691210aa97834c5459a907a3c688d56f8f8b7c9d34319992a5ab53",
+    "src/stage_sacred_grove.js": "90e32f232cd127a1503a91c917b66d901d91f14665d061f2521f8d4ae77c546b",
+    "src/stage_sluice.js": "2b7cced1abcc68d6cde96df13c6b0eb80f866f1a571c7f358237c58f5c0da897",
+    "src/stage_sluice_bear.js": "e48e496e7a0758cd79e49c81e5c21e7fe3dd879ffa43be01fa09ad6d87508670",
+    "src/stage_sluice_night.js": "ee8780839dc8e3b133cd7a4bc21df88c358a8b3cb70211ae39c35ba1460dde42",
+    "src/stage_sluice_weather.js": "741b2f985f4ac1676b795f37cfbb7f48356651eb14e8a092704051c41cc6902f",
+    "src/stage_temple.js": "62974a3fb7c5b39f0722fd3ad4f8d9b1be81e645e713efaf52c63ff59177f849",
+    "src/stage_yue_apparitions.js": "af09065084eb6bc78899e03767774ad4a4de0bb7a9dcedf1ad48ad39d1c9e510",
+    "src/stages.js": "7ca61b02198342c35b20576f069c38915baa7f021736f9e44d824d29ee2a6516",
+    "src/stamina.js": "2aabb9587d53566ae729ad4eb328201dbfc50c0d05a6f9deb1fad2389ae90aae",
+    "src/stamina_hud.js": "6f3a52ad14c7b552e550be264f8614c5b6874c759da1ed429159873a8800cb0f",
+    "src/stamina_stroke.js": "eb758ab12f70f4f3346fb42e02aaf962041f613b53028d30e4b39cf71f65f2bf",
+    "src/start_screen.js": "3895316e70f79b4b1ae88d0b17bc561af38a0306b9db90eb7d709bb2c21fbf63",
+    "src/stick_turn.js": "d8e5a60c4b855c14d66004db9343be6297ba67b0282f5ed27ed543f35178162b",
+    "src/strike_cue.js": "25b5494d4eee0ba397fde5a2805bca2bfbf3259d46d1dcb6ce1b566cd4e75265",
+    "src/sword_art.js": "42a7f656328cb583b9798beec441e225432ea2b320023b5d3c20c9f2f640bd5e",
+    "src/sword_trail.js": "6ee2f1dbdc77914b5a7a56dd9709834952b00cf41d820ccb075507da2281ce66",
+    "src/terrain_navigation.js": "5cd546cfd913392e303583dd1e27f6de3ab8253ba099cd2826243452dba6b299",
+    "src/test_pick.js": "9a3b5847ff626ecd4bcc8c7fad0f0ee5b6c204e302107dd2ce6cd6c48ee57004",
+    "src/test_route.js": "f81797d9813fee93a614c6eda6deb552198d0377e4354cdf35e163b31d39b33e",
+    "src/title_notice.js": "613138a694ebb25ca3d360772018102a7cfa97bbfaaf1e95d414e3d259d93e1d",
+    "src/title_rules.js": "18d0d5ea3d2560283e548fbd290fbc4b41fb7f7bd0f14f2e348d8e7314d9f6fe",
+    "src/tizona_details.js": "5ef2000cf1e6b5740bf631d9bca03a08488a59e2624b065ae39ffa1d53ad1709",
+    "src/trail.js": "853929be7c9b0cede22c923cdb95caa2b143b2e79d031edb65268309c64c4b32",
+    "src/ui_sound.js": "e0e432bf9e546b8ff0cf31af6ad1e9efba9936285ec411e376a8455b411b803f",
+    "src/unique_assist.js": "5831884f9a8542600af8198ea9994abbb6e3bdaafbcf736d32022dadb8861eee",
+    "src/update_notes.js": "a8e6fdde7edbfa5dc72883da099fd0120bc224643090e3d7a7478ec5f78a5f89",
+    "src/vital_target.js": "4ba2704e7dc9f0a0a643b24163692508dc6a5ecff654664e3a191d397c7bcd09",
+    "src/voicelab.js": "4731fe8e2159971dfdc8b5f26b6923e0a88603c5cc883be93920fcc58ebcfda6",
+    "src/wallet_icons.js": "7afc46f5b5150bb6051abfb1c1379b746b5065bd05ceae2042fc29baeb1ebde8",
+    "src/wander_rules.js": "948ee6c7707158e5b1d9ce90bda2c2e66abcf2774c5849c892054c9515fc3d4a",
+    "src/weapon_class.js": "7d7851d2a9c48dce6f5fc8e9df8d566eebc973fcd545d549e5e2343adc8cae3b",
+    "src/weapon_looks.js": "0efe05edcee7568d1dd4491094b1ed304990eb24df91108f50f7986b338f29c5",
+    "src/weapon_measured.js": "e033a420b76adf62b51808c40bdc56861090d8eb8eddb92beed5e0537017c74c",
+    "src/weapons.js": "67cb78c4b34bf88d40afed2c65eb14427aca5a08bb2b88d7d70e0a917b23b5d6",
+    "src/wetland_ground.js": "10834a3e2f3d7631889d954c48e98307d5592fe78f11f77932db98c0f94ad51f",
+    "src/wetland_storm.js": "00b63f8e5fbeee133b923a4edbcb8e313daf041f152e4b3f86ec60b2250fbf32",
+    "src/whiff_drill.js": "751115c58ea20f9cb36e61d501a5e52c6093c5ce5f73e13ca9fda03d51b4cf53",
+    "src/whip_sound.js": "5ed8c86b2ab020d600a03ff345bbdc34da77f4d818173a0657a7a78f36a74beb"
+  },
+  "results": [
+    {
+      "id": "player",
+      "name": "나",
+      "lookVersion": "v0",
+      "eyes": null,
+      "weaponOmitted": "longsword",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 41,
+      "vertices": 3842,
+      "bounds": {
+        "min": [
+          -0.2150000035762787,
+          0.007500000298023224,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.2150000035762787,
+          1.7595000047907234,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 120.23076701966615,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 1,
+        "calls": 41,
+        "triangles": 3254,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/player.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 11072,
+      "sha256": "dab9c5e9f2b0d2b54248e5ae9b7a5a882389bb6f5366cf4bcf0299f633c40f4a",
+      "registryLookVersion": "v0"
+    },
+    {
+      "id": "bran",
+      "name": "브론 오소리",
+      "lookVersion": "v1",
+      "eyes": null,
+      "weaponOmitted": "tree_branch",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 44,
+      "vertices": 3905,
+      "bounds": {
+        "min": [
+          -0.2096095085144043,
+          0.007500000298023224,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.2736373543739319,
+          1.7612000543050454,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 119.44612878228675,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 2,
+        "calls": 44,
+        "triangles": 3252,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/bran.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 11022,
+      "sha256": "6d469046f4040edc2b1e89d819733b782e5bbf444ea6e1a938a47874775efa50",
+      "registryLookVersion": "v1"
+    },
+    {
+      "id": "isolde",
+      "name": "이졸데 반 아커러",
+      "lookVersion": "v2",
+      "eyes": null,
+      "weaponOmitted": "longsword",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 42,
+      "vertices": 3916,
+      "bounds": {
+        "min": [
+          -0.2096095085144043,
+          0.007500000298023224,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.2096095085144043,
+          1.7612000543050454,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 119.44612878228675,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 3,
+        "calls": 42,
+        "triangles": 3276,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/isolde.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 9824,
+      "sha256": "e52caea5f99060cd5b6bef18f0cc260aa430458b8323878672b60ea7c5780cad",
+      "registryLookVersion": "v2"
+    },
+    {
+      "id": "liao",
+      "name": "랴오 쓰위엔",
+      "lookVersion": "v6",
+      "eyes": null,
+      "weaponOmitted": "qinggang",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 51,
+      "vertices": 5192,
+      "bounds": {
+        "min": [
+          -0.2924647331237793,
+          0.007500000298023224,
+          -0.3581753765636908
+        ],
+        "max": [
+          0.2096095085144043,
+          1.7619536966085434,
+          0.3581753765636908
+        ]
+      },
+      "frameBounds": {
+        "left": 194.68828773983438,
+        "right": 525.3117122601644,
+        "top": 119.09829387297998,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 4,
+        "calls": 51,
+        "triangles": 5079,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/liao.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 12712,
+      "sha256": "b35e1b0366b30df879d05c13b7385d44ef319ad9e6758bac1ecb844a3ae40ed5",
+      "registryLookVersion": "v6"
+    },
+    {
+      "id": "heinrich",
+      "name": "하인리히 도른",
+      "lookVersion": "v2",
+      "eyes": null,
+      "weaponOmitted": "excalibur_replica",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 60,
+      "vertices": 4681,
+      "bounds": {
+        "min": [
+          -0.2240000069141388,
+          0.007500000298023224,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.2550961971282959,
+          1.7612000543050454,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 119.44612878228675,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 20,
+        "calls": 59,
+        "triangles": 4112,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/heinrich.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 11720,
+      "sha256": "6271938bac07f0734a0ddfb1997e341b116882d7390b2fafc01c47458c0b2033",
+      "registryLookVersion": "v2"
+    },
+    {
+      "id": "margarethe",
+      "name": "마르그레테 슈바르츠",
+      "lookVersion": "v3",
+      "eyes": null,
+      "weaponOmitted": "longsword",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 57,
+      "vertices": 5326,
+      "bounds": {
+        "min": [
+          -0.2511919999201613,
+          0.007500000298023224,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.23499999940395355,
+          1.8725834483395936,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 68.03840845864914,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 21,
+        "calls": 57,
+        "triangles": 4810,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/margarethe.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 10476,
+      "sha256": "674cd040324f302103c4cc3a3c831118aa724a66101167c2c4705739e7afcd6e",
+      "registryLookVersion": "v3"
+    },
+    {
+      "id": "tome",
+      "name": "토메 비달",
+      "lookVersion": "v2",
+      "eyes": null,
+      "weaponOmitted": "rapier",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 60,
+      "vertices": 8104,
+      "bounds": {
+        "min": [
+          -0.1419108361005783,
+          0.007500000298023224,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.17500000074505806,
+          1.7454117983579636,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 126.7330161424784,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 22,
+        "calls": 60,
+        "triangles": 9022,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/tome.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 12698,
+      "sha256": "3138884e1d0efaac68b4f916a90c9860ed4b688c5f26de9ecc512cc86d46b7f3",
+      "registryLookVersion": "v2"
+    },
+    {
+      "id": "omari",
+      "name": "오마리",
+      "lookVersion": "v2",
+      "eyes": null,
+      "weaponOmitted": "zweihander",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 48,
+      "vertices": 9335,
+      "bounds": {
+        "min": [
+          -0.16138304769992828,
+          0.007500000298023224,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.1885165125131607,
+          1.7430118471384048,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 127.84068593612085,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 23,
+        "calls": 48,
+        "triangles": 12222,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/omari.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 12088,
+      "sha256": "a117a4f7146c3abd5a97a7335df7395c9325de5bee2b8d4dbb334a187a8d82d3",
+      "registryLookVersion": "v2"
+    },
+    {
+      "id": "minami",
+      "name": "미나미",
+      "lookVersion": "v5",
+      "eyes": null,
+      "weaponOmitted": "kusanagi",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 60,
+      "vertices": 15097,
+      "bounds": {
+        "min": [
+          -0.18622764945030212,
+          0.006000000983476639,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.17600000277161598,
+          1.731000005543232,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 133.38461282620062,
+        "bottom": 929.5384610845492
+      },
+      "feetBottomPixels": 30.461538915450774,
+      "renderer": {
+        "frame": 24,
+        "calls": 60,
+        "triangles": 12332,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/minami.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 14228,
+      "sha256": "12f6e90aa32c21ef8d7c8acc8d0ca3fbf385f285c7f6f1ec1c25e4f4f5b69a9b",
+      "registryLookVersion": "v5"
+    },
+    {
+      "id": "artoria",
+      "name": "아르토리아",
+      "lookVersion": "v4",
+      "eyes": null,
+      "weaponOmitted": "excalibur",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 57,
+      "vertices": 14713,
+      "bounds": {
+        "min": [
+          -0.27700841426849365,
+          0.007500000298023224,
+          -0.37794360518455505
+        ],
+        "max": [
+          0.2029999941587448,
+          1.731000005543232,
+          0.3821277618408203
+        ]
+      },
+      "frameBounds": {
+        "left": 183.63334068885152,
+        "right": 534.4355100851786,
+        "top": 133.38461282620062,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 25,
+        "calls": 57,
+        "triangles": 21168,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/artoria.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 19006,
+      "sha256": "adaa7a46253989176b70ecec0c6bf624b91e07ecdd5195d17037e3483b298fdc",
+      "registryLookVersion": "v4"
+    },
+    {
+      "id": "samira",
+      "name": "마야 라토르",
+      "lookVersion": "v4",
+      "eyes": null,
+      "weaponOmitted": "pistol",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 79,
+      "vertices": 14908,
+      "bounds": {
+        "min": [
+          -0.19941598176956177,
+          0.006000000983476639,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.18699999526143074,
+          1.7483525574207306,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 125.3757427288936,
+        "bottom": 929.5384610845492
+      },
+      "feetBottomPixels": 30.461538915450774,
+      "renderer": {
+        "frame": 26,
+        "calls": 79,
+        "triangles": 20858,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/samira.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 16170,
+      "sha256": "60e9dacef7af26b44370228dc4f9824340b9d388c80580400191c83769fdc963",
+      "registryLookVersion": "v4"
+    },
+    {
+      "id": "renji",
+      "name": "김씨",
+      "lookVersion": "v3",
+      "eyes": null,
+      "weaponOmitted": "morgenstern",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 66,
+      "vertices": 19751,
+      "bounds": {
+        "min": [
+          -0.69084221757605,
+          0.006000000983476639,
+          -0.3985905643260296
+        ],
+        "max": [
+          0.2930000126361847,
+          1.752360001206398,
+          0.45100000500679016
+        ]
+      },
+      "frameBounds": {
+        "left": 151.84615153532692,
+        "right": 543.9648758427822,
+        "top": 123.52615328935478,
+        "bottom": 929.5384610845492
+      },
+      "feetBottomPixels": 30.461538915450774,
+      "renderer": {
+        "frame": 27,
+        "calls": 66,
+        "triangles": 21920,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/renji.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 16296,
+      "sha256": "c77bfde747579e165467dbba945aefaf71fe42c36e0d964fd978735d59410622",
+      "registryLookVersion": "v3"
+    },
+    {
+      "id": "eira",
+      "name": "투야나 니콜라예바",
+      "lookVersion": "v5",
+      "eyes": null,
+      "weaponOmitted": "rapier",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 64,
+      "vertices": 16578,
+      "bounds": {
+        "min": [
+          -0.21237751841545105,
+          3.725290298461914e-9,
+          -0.3874606701195699
+        ],
+        "max": [
+          0.2178841531276703,
+          1.738000008225441,
+          0.33999997340242594
+        ]
+      },
+      "frameBounds": {
+        "left": 203.07693535272585,
+        "right": 538.8280015936471,
+        "top": 130.1538423574888,
+        "bottom": 932.3076905883274
+      },
+      "feetBottomPixels": 27.692309411672568,
+      "renderer": {
+        "frame": 28,
+        "calls": 64,
+        "triangles": 22814,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/eira.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 15470,
+      "sha256": "7926c3c8eded78a7f175db0586a99741159e0c72c80aa9ccbd39c21df84114bd",
+      "registryLookVersion": "v5"
+    },
+    {
+      "id": "heinrich_mad",
+      "name": "광기의 하인리히 도른",
+      "lookVersion": "v2",
+      "eyes": "madGlow",
+      "weaponOmitted": "pappenheimer",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 60,
+      "vertices": 4681,
+      "bounds": {
+        "min": [
+          -0.2240000069141388,
+          0.007500000298023224,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.2550961971282959,
+          1.7612000543050454,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 119.44612878228675,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 29,
+        "calls": 65,
+        "triangles": 4150,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/heinrich_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 13492,
+      "sha256": "00b2bdaf06e8fdbfdc7a436d9b38dec857662774f1da3c3eb878c8de27498ca9",
+      "registryLookVersion": "v2"
+    },
+    {
+      "id": "eira_mad",
+      "name": "광기의 투야나 니콜라예바",
+      "lookVersion": "v5-alter1",
+      "eyes": "madGlow",
+      "weaponOmitted": "rapier",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 67,
+      "vertices": 17122,
+      "bounds": {
+        "min": [
+          -0.2290000021457672,
+          3.725290298461914e-9,
+          -0.3874606701195699
+        ],
+        "max": [
+          0.2178841531276703,
+          1.809720441699028,
+          0.33999997340242594
+        ]
+      },
+      "frameBounds": {
+        "left": 203.07693535272585,
+        "right": 538.8280015936471,
+        "top": 97.05210383121786,
+        "bottom": 932.3076905883274
+      },
+      "feetBottomPixels": 27.692309411672568,
+      "renderer": {
+        "frame": 30,
+        "calls": 72,
+        "triangles": 23688,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/eira_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 17950,
+      "sha256": "d6d35ff29d221c71ae960560eada6b3ec2f51e24b4d8802e24d43fd9baf71e22",
+      "registryLookVersion": "v5-alter1"
+    },
+    {
+      "id": "liao_mad",
+      "name": "광기의 랴오 쓰위엔",
+      "lookVersion": "v6-alter1",
+      "eyes": "clothGlow",
+      "weaponOmitted": "qinggang",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 57,
+      "vertices": 5234,
+      "bounds": {
+        "min": [
+          -0.2924647331237793,
+          0.007500000298023224,
+          -0.3581753765636908
+        ],
+        "max": [
+          0.2096095085144043,
+          1.7619536966085434,
+          0.3581753765636908
+        ]
+      },
+      "frameBounds": {
+        "left": 194.68828773983438,
+        "right": 525.3117122601644,
+        "top": 119.09829387297998,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 31,
+        "calls": 57,
+        "triangles": 5043,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/liao_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 12974,
+      "sha256": "38ec929772c2416945dfff17b468e74e74700050d99cdee90b2286bc156fd43a",
+      "registryLookVersion": "v6-alter1"
+    },
+    {
+      "id": "margarethe_mad",
+      "name": "광기의 마르그레테 슈바르츠",
+      "lookVersion": "v3-alter2",
+      "eyes": "madGlow",
+      "weaponOmitted": "longsword",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 57,
+      "vertices": 5326,
+      "bounds": {
+        "min": [
+          -0.2511919999201613,
+          0.007500000298023224,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.23499999940395355,
+          1.8725834483395936,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 68.03840845864914,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 32,
+        "calls": 62,
+        "triangles": 4820,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/margarethe_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 13552,
+      "sha256": "203c670ad06f90792849e154b55cbd36896b3729e13b562373a4c8cde7c3d42a",
+      "registryLookVersion": "v3-alter2"
+    },
+    {
+      "id": "isolde_mad",
+      "name": "광기의 이졸데 반 아커러",
+      "lookVersion": "v2-alter3",
+      "eyes": "madGlow",
+      "weaponOmitted": "longsword",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 45,
+      "vertices": 7624,
+      "bounds": {
+        "min": [
+          -0.2096095085144043,
+          0.007500000298023224,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.2096095085144043,
+          1.7612000543050454,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 119.44612878228675,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 33,
+        "calls": 50,
+        "triangles": 5362,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/isolde_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 11790,
+      "sha256": "f66c8f7b3c181c78d1ca2d4b9c20f63362840c51439fd7f31dcc4c63e8339ee5",
+      "registryLookVersion": "v2-alter3"
+    },
+    {
+      "id": "tome_mad",
+      "name": "광기의 토메 비달",
+      "lookVersion": "v2-alter2",
+      "eyes": "madGlow",
+      "weaponOmitted": "rapier",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 59,
+      "vertices": 7536,
+      "bounds": {
+        "min": [
+          -0.1419108361005783,
+          0.007500000298023224,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.17500000074505806,
+          1.7454117983579636,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 126.7330161424784,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 34,
+        "calls": 64,
+        "triangles": 8252,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/tome_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 16512,
+      "sha256": "98cda2b4ba5137dc6f50d2f02a175431c40a09a44e74cd65455dafa0ac245e08",
+      "registryLookVersion": "v2-alter2"
+    },
+    {
+      "id": "omari_mad",
+      "name": "광기의 오마리",
+      "lookVersion": "v2-alter1",
+      "eyes": "madGlow",
+      "weaponOmitted": "zweihander",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 53,
+      "vertices": 9509,
+      "bounds": {
+        "min": [
+          -0.17820000648498535,
+          0.007500000298023224,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.1885165125131607,
+          1.7430118471384048,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 127.84068593612085,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 35,
+        "calls": 58,
+        "triangles": 12376,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/omari_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 15348,
+      "sha256": "4ca6901b873beafb7019aad09b233a9864a5654743e02e497bd154f651fd2c91",
+      "registryLookVersion": "v2-alter1"
+    },
+    {
+      "id": "bran_mad",
+      "name": "광기의 브론 오소리",
+      "lookVersion": "v1-alter2",
+      "eyes": "madGlow",
+      "weaponOmitted": "falchion",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 47,
+      "vertices": 4196,
+      "bounds": {
+        "min": [
+          -0.2150000035762787,
+          0.007500000298023224,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.2736373543739319,
+          1.7612000543050454,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 119.44612878228675,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 36,
+        "calls": 52,
+        "triangles": 3672,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/bran_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 11200,
+      "sha256": "98f364d3c82ec0c870744d8d83a5bb8ab2b132ea3f805e6db8bc7c21bb46c428",
+      "registryLookVersion": "v1-alter2"
+    },
+    {
+      "id": "minami_mad",
+      "name": "광기의 미나미",
+      "lookVersion": "v5-alter1",
+      "eyes": "madGlow",
+      "weaponOmitted": "muramasa",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 56,
+      "vertices": 15999,
+      "bounds": {
+        "min": [
+          -0.17919999361038208,
+          0.006000000983476639,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.17600000277161598,
+          1.731000005543232,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 133.38461282620062,
+        "bottom": 929.5384610845492
+      },
+      "feetBottomPixels": 30.461538915450774,
+      "renderer": {
+        "frame": 37,
+        "calls": 61,
+        "triangles": 12094,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/minami_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 16624,
+      "sha256": "ab4ec23373e908494012063ab551583aa0d4644d33f7b8b9e909228a887a5c98",
+      "registryLookVersion": "v5-alter1"
+    },
+    {
+      "id": "ratna_mad",
+      "name": "광기의 라트나 위라세타쿤",
+      "lookVersion": "v4-alter4",
+      "eyes": "madGlow",
+      "weaponOmitted": "zweihander",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 61,
+      "vertices": 30149,
+      "bounds": {
+        "min": [
+          -0.35254871010780336,
+          -0.0004999972879886627,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.21300000324845314,
+          1.761000007390976,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 119.53845812724191,
+        "bottom": 932.538460286764
+      },
+      "feetBottomPixels": 27.461539713235993,
+      "renderer": {
+        "frame": 38,
+        "calls": 68,
+        "triangles": 23857,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/ratna_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 18044,
+      "sha256": "ecfa11571e57ee418cfc78051fc4d35eee3fd50928dd1436bd91f8504d772d93",
+      "registryLookVersion": "v4-alter4"
+    },
+    {
+      "id": "chanda_mad",
+      "name": "광기의 찬다",
+      "lookVersion": "v2-alter1",
+      "eyes": "madGlow",
+      "weaponOmitted": "hwando",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 62,
+      "vertices": 11153,
+      "bounds": {
+        "min": [
+          -0.13496807217597961,
+          0.0025000013411045074,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.1785000003874302,
+          1.834507867693901,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 85.61175337204571,
+        "bottom": 931.1538455348748
+      },
+      "feetBottomPixels": 28.84615446512521,
+      "renderer": {
+        "frame": 39,
+        "calls": 68,
+        "triangles": 14826,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/chanda_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 17958,
+      "sha256": "73e4e229d42090c5bdc618092d05cdd9fcf770e297c0c115a05ef1a632702e85",
+      "registryLookVersion": "v2-alter1"
+    },
+    {
+      "id": "renji_mad",
+      "name": "광기의 김씨",
+      "lookVersion": "v3-alter1",
+      "eyes": "madGlow",
+      "weaponOmitted": "brothers_sword",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 64,
+      "vertices": 19487,
+      "bounds": {
+        "min": [
+          -0.3478042185306549,
+          0.006000000983476639,
+          -0.3985905643260296
+        ],
+        "max": [
+          0.2930000126361847,
+          1.752360001206398,
+          0.45100000500679016
+        ]
+      },
+      "frameBounds": {
+        "left": 151.84615153532698,
+        "right": 543.9648758427822,
+        "top": 123.52615328935478,
+        "bottom": 929.5384610845492
+      },
+      "feetBottomPixels": 30.461538915450774,
+      "renderer": {
+        "frame": 40,
+        "calls": 69,
+        "triangles": 21960,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/renji_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 16952,
+      "sha256": "eea636e13d783af691c57060893e2fc34df56b80c41456ebd2e0beaf0749d3ee",
+      "registryLookVersion": "v3-alter1"
+    },
+    {
+      "id": "terracotta_mad",
+      "name": "광기의 병마용",
+      "lookVersion": "v2-alter2",
+      "eyes": "madGlow",
+      "weaponOmitted": "goujian",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 67,
+      "vertices": 27491,
+      "bounds": {
+        "min": [
+          -0.37599971890449524,
+          0.006000000983476639,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.17948000505566597,
+          1.8036039471626282,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050143,
+        "right": 513.8485129194974,
+        "top": 99.87510130955624,
+        "bottom": 929.5384610845492
+      },
+      "feetBottomPixels": 30.461538915450774,
+      "renderer": {
+        "frame": 41,
+        "calls": 72,
+        "triangles": 16234,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/terracotta_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 19036,
+      "sha256": "22696419aa5cd97866d6d082a14408a5a7f5e0b2189eb9e38706ac091d7e7888",
+      "registryLookVersion": "v2-alter2"
+    },
+    {
+      "id": "silver_wanderer_mad",
+      "name": "광기의 다라이시",
+      "lookVersion": "v7-alter2",
+      "eyes": "madGlow",
+      "weaponOmitted": "monohoshizao",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 78,
+      "vertices": 16606,
+      "bounds": {
+        "min": [
+          -0.2972581684589386,
+          0.007500000298023224,
+          -0.3734223544597626
+        ],
+        "max": [
+          0.17500000074505806,
+          1.7467267513275146,
+          0.33519583670885117
+        ]
+      },
+      "frameBounds": {
+        "left": 205.2942292112988,
+        "right": 532.3487789814283,
+        "top": 126.12611477191635,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 42,
+        "calls": 83,
+        "triangles": 22358,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/silver_wanderer_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 13912,
+      "sha256": "e0d4f2f03ead8903680011ded173efd7e0c97a76906346005342ad66658b1fca",
+      "registryLookVersion": "v7-alter2"
+    },
+    {
+      "id": "samira_mad",
+      "name": "광기의 마야 라토르",
+      "lookVersion": "v4-alter1",
+      "eyes": "madGlow",
+      "weaponOmitted": "sabre",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 94,
+      "vertices": 16206,
+      "bounds": {
+        "min": [
+          -0.19941598176956177,
+          0.006000000983476639,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.2020000000949949,
+          1.7483525574207306,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 125.3757427288936,
+        "bottom": 929.5384610845492
+      },
+      "feetBottomPixels": 30.461538915450774,
+      "renderer": {
+        "frame": 43,
+        "calls": 99,
+        "triangles": 22486,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/samira_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 18164,
+      "sha256": "23268d844334539632bb1899ee035e17fd4ec2b464130ea4a85c51e8a023993d",
+      "registryLookVersion": "v4-alter1"
+    },
+    {
+      "id": "artoria_mad",
+      "name": "광기의 아르토리아",
+      "lookVersion": "v4-alter13",
+      "eyes": "madGlow",
+      "weaponOmitted": "excalibur",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 176,
+      "vertices": 133429,
+      "bounds": {
+        "min": [
+          -0.37880897521972656,
+          -0.004499997943639755,
+          -0.4221906363964081
+        ],
+        "max": [
+          0.4766875207424164,
+          1.8093040072917936,
+          0.420299768447876
+        ]
+      },
+      "frameBounds": {
+        "left": 166.01549148559505,
+        "right": 554.8572167983416,
+        "top": 97.24430432686448,
+        "bottom": 934.3846144355259
+      },
+      "feetBottomPixels": 25.61538556447408,
+      "renderer": {
+        "frame": 44,
+        "calls": 181,
+        "triangles": 204214,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/artoria_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 21980,
+      "sha256": "d1553d9165e8e6b11360e3c3be0e234aceec4b9a22f30d3b777c1a2a053f9000",
+      "registryLookVersion": "v4-alter13"
+    },
+    {
+      "id": "julia_mad",
+      "name": "광기의 쥘리아 크리스테바",
+      "lookVersion": "v4-native-mechanical",
+      "eyes": "madGlow",
+      "weaponOmitted": "rapier",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 80,
+      "vertices": 23811,
+      "bounds": {
+        "min": [
+          -0.18701867759227753,
+          0.007000003010034561,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.17500000074505806,
+          1.751000002026558,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 124.15384521851178,
+        "bottom": 929.0769216876763
+      },
+      "feetBottomPixels": 30.923078312323696,
+      "renderer": {
+        "frame": 45,
+        "calls": 85,
+        "triangles": 26344,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/julia_mad.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 17906,
+      "sha256": "a2f22ff16c85c52d5dcbd8152297e605f62cd37cb21d7a402222370f90d00624",
+      "registryLookVersion": "v4-native-mechanical"
+    },
+    {
+      "id": "ratna",
+      "name": "라트나 위라세타쿤",
+      "lookVersion": "v4",
+      "eyes": null,
+      "weaponOmitted": "zweihander",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 62,
+      "vertices": 20844,
+      "bounds": {
+        "min": [
+          -0.34297748148441315,
+          -0.0004999972879886627,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.21300000324845314,
+          1.7488820850849152,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 125.1313453454238,
+        "bottom": 932.538460286764
+      },
+      "feetBottomPixels": 27.461539713235993,
+      "renderer": {
+        "frame": 46,
+        "calls": 64,
+        "triangles": 22395,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/ratna.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 17380,
+      "sha256": "354598cba62cda24e790105ad605b6cad786ec8666f3cd4a13d998667ec7deb6",
+      "registryLookVersion": "v4"
+    },
+    {
+      "id": "silver_wanderer",
+      "name": "다라이시",
+      "lookVersion": "v7-silver-c",
+      "eyes": null,
+      "weaponOmitted": "uchigatana",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 75,
+      "vertices": 16521,
+      "bounds": {
+        "min": [
+          -0.2972581684589386,
+          0.007500000298023224,
+          -0.3512759804725647
+        ],
+        "max": [
+          0.17500000074505806,
+          1.7467267513275146,
+          0.33519583670885117
+        ]
+      },
+      "frameBounds": {
+        "left": 205.2942292112988,
+        "right": 522.1273756027216,
+        "top": 126.12611477191635,
+        "bottom": 928.8461537086047
+      },
+      "feetBottomPixels": 31.153846291395325,
+      "renderer": {
+        "frame": 47,
+        "calls": 75,
+        "triangles": 22250,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/silver_wanderer.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 16734,
+      "sha256": "672ef3eb89b23f41a33b239baf76542f57a291c5eade14952a698b0e0aef4846",
+      "registryLookVersion": "v7-silver-c"
+    },
+    {
+      "id": "chanda",
+      "name": "찬다",
+      "lookVersion": "v2",
+      "eyes": null,
+      "weaponOmitted": "hwando",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 58,
+      "vertices": 10613,
+      "bounds": {
+        "min": [
+          -0.13496807217597961,
+          0.0025000013411045074,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.1785000003874302,
+          1.834507867693901,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 85.61175337204571,
+        "bottom": 931.1538455348748
+      },
+      "feetBottomPixels": 28.84615446512521,
+      "renderer": {
+        "frame": 48,
+        "calls": 58,
+        "triangles": 13424,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/chanda.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 14528,
+      "sha256": "8ca463820676d915a1e531f315a60ba224e13ac9d2d2af3105bb99bb32f2989e",
+      "registryLookVersion": "v2"
+    },
+    {
+      "id": "terracotta",
+      "name": "병마용",
+      "lookVersion": "v2",
+      "eyes": null,
+      "weaponOmitted": "goujian",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 48,
+      "vertices": 25292,
+      "bounds": {
+        "min": [
+          -0.13379999995231628,
+          0.006000000983476639,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.17948000505566597,
+          1.8036039471626282,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 99.87510130955624,
+        "bottom": 929.5384610845492
+      },
+      "feetBottomPixels": 30.461538915450774,
+      "renderer": {
+        "frame": 49,
+        "calls": 48,
+        "triangles": 12400,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/terracotta.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 12072,
+      "sha256": "30142cae48eac8a1b13852a8f6a67216d0531c15d8b534c3e89c4bea4a2930eb",
+      "registryLookVersion": "v2"
+    },
+    {
+      "id": "roland",
+      "name": "롤랑",
+      "lookVersion": "v2",
+      "eyes": null,
+      "weaponOmitted": "durandal",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 105,
+      "vertices": 12183,
+      "bounds": {
+        "min": [
+          -0.2919999957084656,
+          0.008000001311302185,
+          -0.3421491348351533
+        ],
+        "max": [
+          0.20099999383091927,
+          1.894497126340866,
+          0.3421491348351533
+        ]
+      },
+      "frameBounds": {
+        "left": 202.08501469146708,
+        "right": 517.9149853085318,
+        "top": 57.924403227292615,
+        "bottom": 928.6153840101681
+      },
+      "feetBottomPixels": 31.3846159898319,
+      "renderer": {
+        "frame": 50,
+        "calls": 105,
+        "triangles": 14839,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/roland.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 19318,
+      "sha256": "abfc0b746f7ba1207d272db014638f951ec38f341f226ebba349a55c76af6f36",
+      "registryLookVersion": "v2"
+    },
+    {
+      "id": "white_scale",
+      "name": "백린의 전사",
+      "lookVersion": "v2",
+      "eyes": null,
+      "weaponOmitted": "muramasa",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 201,
+      "vertices": 27152,
+      "bounds": {
+        "min": [
+          -0.17324574291706085,
+          0.002500005066394806,
+          -0.37753356218338013
+        ],
+        "max": [
+          0.18599999323487282,
+          1.9136252063512802,
+          0.3775765669345856
+        ]
+      },
+      "frameBounds": {
+        "left": 185.7338921840368,
+        "right": 534.2462594692518,
+        "top": 49.0960586071015,
+        "bottom": 931.1538438155101
+      },
+      "feetBottomPixels": 28.846156184489928,
+      "renderer": {
+        "frame": 51,
+        "calls": 201,
+        "triangles": 26872,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/white_scale.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 36392,
+      "sha256": "493c119b44d57f33e20b5d8de7470e16b3d84bc1a778d934d694c2806d5050de",
+      "registryLookVersion": "v2"
+    },
+    {
+      "id": "bernardo",
+      "name": "베르나르도 델 카르피오",
+      "lookVersion": "v2",
+      "eyes": null,
+      "weaponOmitted": "tizona",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 102,
+      "vertices": 16937,
+      "bounds": {
+        "min": [
+          -0.3662009835243225,
+          0.010999999940395355,
+          -0.3428824643610444
+        ],
+        "max": [
+          0.1770000047981739,
+          1.7384180799126625,
+          0.3428824643610444
+        ]
+      },
+      "frameBounds": {
+        "left": 201.74655491028653,
+        "right": 518.2534450897122,
+        "top": 129.9608861941558,
+        "bottom": 927.230769258279
+      },
+      "feetBottomPixels": 32.769230741721,
+      "renderer": {
+        "frame": 52,
+        "calls": 102,
+        "triangles": 22758,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/bernardo.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 16996,
+      "sha256": "653a3f34336a8c0d0a527f76af8820355f8a5c26c65ceb8fb1c2922292ded920",
+      "registryLookVersion": "v2"
+    },
+    {
+      "id": "julia",
+      "name": "쥘리아 크리스테바",
+      "lookVersion": "v1-native",
+      "eyes": null,
+      "weaponOmitted": "dartagnan",
+      "handsAttached": true,
+      "handsState": "native open hands (unarmed inspection pose)",
+      "meshCount": 57,
+      "vertices": 9913,
+      "bounds": {
+        "min": [
+          -0.18701867759227753,
+          0.007000003010034561,
+          -0.3333384446589121
+        ],
+        "max": [
+          0.17500000074505806,
+          1.751000002026558,
+          0.33333844465891216
+        ]
+      },
+      "frameBounds": {
+        "left": 206.15148708050148,
+        "right": 513.8485129194974,
+        "top": 124.15384521851178,
+        "bottom": 929.0769216876763
+      },
+      "feetBottomPixels": 30.923078312323696,
+      "renderer": {
+        "frame": 53,
+        "calls": 57,
+        "triangles": 12832,
+        "points": 0,
+        "lines": 0
+      },
+      "errors": [],
+      "image": "ui/encyclopedia/characters/julia.webp",
+      "width": 720,
+      "height": 960,
+      "bytes": 14236,
+      "sha256": "0a0b1fdee76a5dac44a9105f9fda3202d6d7391b052f8e115dd4a25a74796b56",
+      "registryLookVersion": "v1-native"
+    }
+  ],
+  "errors": [],
+  "servedSourceMatches": true,
+  "sourceStable": true,
+  "complete": true
+}
