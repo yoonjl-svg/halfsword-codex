@@ -20,3 +20,7 @@ Python Pillow/NumPy: refine.py는 최초 격자 초안에 셀 편집을 재적�
 [검토 페이지](https://yoonjl-svg.github.io/halfsword-codex/encounters/julia-alter-profile-20261030/)
 
 브라우저 alpha 검사 첫 지점(90,90)은 공통 액자 모서리 장식 위여서255로 실패했다. 인물·액자가 없는 상단 안쪽 여백(627,127)으로 검사 위치를 바로잡았다. 자산을 투명하게 지워 통과시킨 것이 아니다.
+
+공개 브라우저 검증에서 별도 Node HTTP 클라이언트의 ZIP 조회가 직접 IPv6 경로 ENETUNREACH로 실패했다. 다운로드 검사를 실제 브라우저의 동일 출처 fetch로 옮겼다. 원격 ZIP 자체는 별도 환경 프록시 경유 해시 검증에서 이미 일치했다.
+
+공개a2efc31b35b0646066b570137fca99720e498f64·Pages40982920753 성공. 공개7파일(이미지/HTML/ZIP) 원격 SHA256 일치. 공개 갤러리390/844/1280폭·격자전환/비교펼침·alpha/ZIP다운로드·HTTP/JS오류0. publication.json 및 public-browser/browser-qa.json 확인. 사용자 미감 승인은 대기.

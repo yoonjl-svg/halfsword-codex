@@ -12,6 +12,6 @@ for(const width of [390,844,1280]){
  await p.locator('summary').tap();assert(await p.locator('details').evaluate(e=>e.open));
  await p.screenshot({path:out+'gallery-'+width+'.png',fullPage:true});
  const alpha=await p.evaluate(async()=>{const image=document.querySelector('#pixel');await image.decode();const canvas=document.createElement('canvas');canvas.width=canvas.height=1254;const ctx=canvas.getContext('2d');ctx.drawImage(image,0,0);return ctx.getImageData(627,127,1,1).data[3]});assert.equal(alpha,0);
- const dl=await p.request.get(base+'julia-alter-profile.zip');assert.equal(dl.status(),200);assert.equal((await dl.body()).subarray(0,2).toString(),'PK');
+ const dl=await p.evaluate(async()=>{const r=await fetch('julia-alter-profile.zip');const data=new Uint8Array(await r.arrayBuffer());return {status:r.status,signature:String.fromCharCode(data[0],data[1])}});assert.equal(dl.status,200);assert.equal(dl.signature,'PK');
  assert.equal(errors.length,0);rows.push({width,imagesLoaded:true,gridSwitch:true,comparisonExpanded:true,noOverflow:true,backgroundAlpha:alpha,zipDownload:true,errors});await c.close();
 }await b.close();fs.writeFileSync(out+'browser-qa.json',JSON.stringify({base,rows},null,2));console.log(rows);
