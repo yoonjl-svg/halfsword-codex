@@ -9,12 +9,12 @@ import * as THREE from 'three';
 import { WEAPONS, weaponMatOpts } from '../../src/weapons.js';
 import { LOOKS } from '../../src/looks.js';
 
-const SIZE = 256; // 저장 크기 (카드에는 폰 약 60~110px, PC 약 210px 로 보인다 → 폰 레티나 2배까지 선명)
+const params = new URLSearchParams(location.search);
+const SIZE = Math.max(256, Math.min(1024, Number(params.get('size')) || 256)); // 저장 크기 (카드에는 폰 약 60~110px, PC 약 210px 로 보인다 → 폰 레티나 2배까지 선명)
 const SS = 2; // 두 배로 그린 뒤 줄여서 가장자리를 곱게
-const QUALITY = 0.86; // webp 품질 (한 장 20KB 아래가 목표)
+const QUALITY = SIZE > 256 ? .94 : .86; // webp 품질 (한 장 20KB 아래가 목표)
 const PAD = 0.07; // 틀 가장자리 여백 (비율)
 
-const params = new URLSearchParams(location.search);
 const ids = params.get('ids') ? params.get('ids').split(',') : Object.keys(WEAPONS);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });

@@ -2,7 +2,7 @@ import { build } from 'vite';
 import { cp, mkdir, rename, writeFile } from 'node:fs/promises';
 import { CATALOG_ITEMS, CATALOG_CHARACTERS } from '../../src/encyclopedia_data.js';
 await build({ configFile: 'vite.encyclopedia.config.js' });
-const files = new Set([...CATALOG_ITEMS, ...CATALOG_CHARACTERS].map(e => e.image).filter(Boolean));
+const files = new Set([...CATALOG_ITEMS, ...CATALOG_CHARACTERS].flatMap(e => [e.image, e.model, e.illustration]).filter(Boolean));
 files.add('ui/portraits/grid-overlay.svg');
 files.add('ui/wallet/coins.webp');
 files.add('ui/wallet/pouch.webp');

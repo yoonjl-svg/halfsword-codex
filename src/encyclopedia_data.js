@@ -9,10 +9,10 @@ export const CATALOG_SCHOOLS = Object.entries(TRADITIONS).map(([id, t]) => ({ id
 export const schoolName = id => TRADITIONS[id]?.nameKo ?? '선택에 따라';
 export const CATALOG_ITEMS = Object.freeze([
   ...WEAPON_LIST.map(w => ({ id: w.id, kind: 'weapon', name: w.nameKo, tier: w.tier, school: traditionOf(w),
-    image: `ui/weapons/${w.id}.webp`, description: w.desc ?? '', ability: w.ability ?? '',
+    image: `ui/weapons/${w.id}.webp`, illustration: `ui/encyclopedia/items/${w.id}.${w.id === 'druid_whip' ? 'png' : 'webp'}`, description: w.desc ?? '', ability: w.ability ?? '',
     retired: RETIRED_WEAPONS.has(w.id), spec: w })).sort((a, b) => Number(a.retired) - Number(b.retired)),
   ...LOBBY_ARMORS.map(a => ({ id: a.id, kind: 'armor', name: a.nameKo, tier: a.tier, school: '',
-    image: a.thumbnail, description: a.description, ability: a.ability, slot: armorSlot(a.id) })),
+    image: a.thumbnail, illustration: `ui/encyclopedia/items/${a.id}.webp`, description: a.description, ability: a.ability, slot: armorSlot(a.id) })),
 ]);
 const characters = Object.values(CHARACTERS_BY_ID);
 const orderedCharacters = [], seen = new Set();
@@ -24,10 +24,10 @@ function appendCharacter(c) {
 characters.filter(c => !c.variantOf).forEach(appendCharacter);
 characters.forEach(appendCharacter); // Orphaned or nested variants must not disappear.
 export const CATALOG_CHARACTERS = Object.freeze([
-  { id: 'player', kind: 'player', name: '플레이어', image: portraitSrc('player', 'pixel'), school: '', description: '' },
+  { id: 'player', kind: 'player', name: '플레이어', image: portraitSrc('player', 'pixel'), model: 'ui/encyclopedia/characters/player.webp', school: '', description: '' },
   ...orderedCharacters,
 ].map(c => c.id === 'player' ? c : ({ id: c.id, kind: c.variantOf ? 'alter' : 'base', name: c.name,
-  image: portraitSrc(c.id, 'pixel'), school: traditionOf(getWeapon(c.weapon)), epithet: c.epithet,
+  image: portraitSrc(c.id, 'pixel'), model: `ui/encyclopedia/characters/${c.id}.webp`, school: traditionOf(getWeapon(c.weapon)), epithet: c.epithet,
   age: c.age, origin: c.origin, description: c.backstory ?? '', proficiency: c.ai?.proficiency,
   weapon: c.weapon, variantOf: c.variantOf, reviewOnly: !!c.reviewOnly })));
 

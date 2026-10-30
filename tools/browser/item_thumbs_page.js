@@ -1065,7 +1065,8 @@ for (const s of BOOK_SCHOOLS) {
 const list = [];
 const out = document.getElementById('out'), real = document.getElementById('real');
 for (const j of jobs) {
-  const obj = j.build(), { url, pad } = shoot(obj, j.w, j.h, j.school ? bookFrame[j.school] : null);
+  const scale = Math.max(1, Math.min(4, Number(params.get('scale')) || 1));
+  const obj = j.build(), { url, pad } = shoot(obj, j.w * scale, j.h * scale, j.school ? bookFrame[j.school] : null);
   list.push({ path: j.path, url, w: j.w, h: j.h, bytes: Math.round(((url.length - url.indexOf(',') - 1) * 3) / 4), pad });
   const fig = document.createElement('figure'), img = document.createElement('img'), cap = document.createElement('figcaption');
   img.src = url; img.style.width = `${j.w / 2}px`; img.style.height = `${j.h / 2}px`;
