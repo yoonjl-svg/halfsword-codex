@@ -5,6 +5,6 @@
 | ID | 날짜 | 팀 | 요지 | 판정 | 본판 커밋 | 가져갈 수 있나 | 상대 검토 | 상태 |
 |---|---|---|---|---|---|---|---|---|
 | C-REFORK-01 | 2026-10-15 | 샛별 | 사용자 지정 fdd6455로 기준 전환, 기존 이력/공개 형식/교환 보존 | 5관문·공개 조작 확인 | af340e10 | 게임은 공통 기준, 운영은 우리 팀 전용 | 사용자 전달 기준 | 닫힘 |
-| C-PARRY-20261017 | 2026-10-17 | 샛별 | [MSG-S-012 답신·막기 연구7묶음](https://github.com/yoonjl-svg/halfsword-codex/blob/546e6d1388882a5ed7053bcbabe2377db9da4804/docs/dev_exchange/messages/2026-10-17-parry-research.md) | 부분 개선/팔·입력 여유 미해결·기본 적용0 | c7c2131e (기준89a0996c) | 연구/원자료/실제 사진 | 미확인 | 교환41e5c90e 원격 검증 |
+| C-PARRY-20261017 | 2026-10-17 | 샛별 | [MSG-S-012 답신·막기 연구7묶음](https://github.com/yoonjl-svg/halfsword-codex/blob/c829517c71d5b31f5eaf47d27ef980ab4dfe92e0/docs/dev_exchange/messages/2026-10-17-parry-research.md) | 부분 개선/팔·입력 여유 미해결·기본 적용0 | c7c2131e (기준89a0996c) | 연구/원자료/실제 사진 | 미확인 | 교환41e5c90e 원격 검증 |
 
 | C-WEAPONS-20261021 | 2026-10-21 | 샛별 | [무기·이탈리아 전체·무대 점검](https://github.com/yoonjl-svg/halfsword-codex/blob/72ac144c09b4518b63e785121f7cf0cfb5f854ef/docs/devmeet/messages/2026-10-21-weapons.md) | 50검사·5관문·원본103보존 | c1b01487 (기준6e1e9eca) | 독립4커밋 | 미확인 | 원격72ac144c 검증 |
