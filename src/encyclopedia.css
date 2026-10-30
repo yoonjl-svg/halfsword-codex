@@ -1,0 +1,72 @@
+/* Same type, colors and buttons as the lobby. Only the third pane changes. */
+#tabEncyclopedia { grid-column: 1 / -1; }
+#panelEncyclopedia { height: 100%; min-height: 0; }
+#encyclopediaHost { height: 100%; }
+.encyclopedia { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+.ec-heading { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; margin-bottom: 12px; }
+.ec-heading h2 { margin: 0; font-size: var(--fs-m); font-weight: var(--fw-head); }
+.ec-total, .ec-meta, .ec-count, .ec-note { font-size: var(--fs-s); color: var(--c-sub); font-weight: var(--fw-body); }
+.ec-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+.ec-tabs button { flex: 1; }
+.ec-panel, .ec-browse { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.ec-search { display: flex; gap: 8px; margin-bottom: 8px; }
+.ec-search input { width: 100%; min-width: 0; padding: 7px 10px; background: transparent; border: 1px solid var(--line); border-radius: 8px; font-size: var(--fs-s); font-family: var(--font-plain); }
+.ec-search input::placeholder { color: var(--c-sub); opacity: 1; }
+.ec-reset { flex: none; color: var(--c-sub); font-size: var(--fs-s); padding: 4px; }
+.ec-filters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.ec-filters.ec-two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ec-filters select { width: 100%; min-width: 0; padding: 5px 3px; border: 1px solid var(--line); border-radius: 6px; font: inherit; font-size: var(--fs-s); color: var(--c-sub); background: var(--panel); }
+.ec-filters select:focus-visible { outline: 2px solid var(--c-accent); }
+.ec-count { margin: 8px 0; line-height: 1; }
+.ec-scroll { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; padding: 3px; }
+.ec-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: 12px 10px; }
+.ec-card { display: flex; flex-direction: column; align-items: stretch; width: 100%; height: 100%; text-align: center; gap: 4px; border-radius: 4px; }
+.ec-art { width: 100%; aspect-ratio: 1; display: grid; place-items: center; border: 1px solid var(--line); background: radial-gradient(ellipse, color-mix(in srgb, var(--tc, var(--c-sub)) 10%, transparent), transparent 70%); }
+.ec-art img { width: 95%; height: 95%; object-fit: contain; }
+.ec-art.ec-portrait { border: 0; background: transparent; }
+.ec-art.ec-portrait img { width: 100%; height: 100%; }
+.ec-name { font-size: var(--fs-s); line-height: var(--lh-text); font-weight: var(--fw-label); color: var(--c-text); }
+.ec-card .ec-meta { font-size: var(--fs-s); color: var(--tc, var(--c-sub)); }
+.ec-card[data-tier="trash"], .ec-detail [data-tier="trash"] { --tc: var(--tier-trash); }
+.ec-card[data-tier="common"], .ec-detail [data-tier="common"] { --tc: var(--tier-common); }
+.ec-card[data-tier="rare"], .ec-detail [data-tier="rare"] { --tc: var(--tier-rare); }
+.ec-card[data-tier="epic"], .ec-detail [data-tier="epic"] { --tc: var(--tier-epic); }
+.ec-card[data-tier="legend"], .ec-detail [data-tier="legend"] { --tc: var(--tier-legend); }
+.ec-card[data-tier="mystery"], .ec-detail [data-tier="mystery"] { --tc: var(--tier-mystery); }
+.ec-detail { flex: 1; min-height: 0; overflow-y: auto; scrollbar-width: thin; padding: 2px; }
+.ec-detail .ec-back, .ec-detail .ec-related { padding: 6px 10px; }
+.ec-detail-top { display: grid; grid-template-columns: minmax(80px, 34%) 1fr; align-items: center; gap: 16px; margin: 12px 0; }
+.ec-hero { width: 100%; aspect-ratio: 1; display: grid; place-items: center; }
+.ec-hero img { width: 100%; height: 100%; object-fit: contain; }
+.ec-detail h3 { margin: 6px 0; font-size: var(--fs-l); font-weight: var(--fw-head); }
+.ec-detail .ec-meta { margin: 0; color: var(--tc, var(--c-sub)); }
+.ec-note { margin: 8px 0 0; }
+.ec-facts { margin: 12px 0; padding: 10px 0; border-block: 1px solid var(--line); font-size: var(--fs-s); }
+.ec-facts > div { display: grid; grid-template-columns: 65px 1fr; gap: 12px; margin: 5px 0; }
+.ec-facts dt { color: var(--c-sub); }
+.ec-facts dd { margin: 0; }
+.ec-description, .ec-ability { white-space: pre-line; font-size: var(--fs-s); line-height: 1.7; }
+.ec-ability { color: var(--c-accent); }
+.ec-empty, .ec-missing { text-align: center; color: var(--c-sub); font-size: var(--fs-s); }
+@media (hover: hover) { .ec-card:hover .ec-name { color: var(--c-accent); } .ec-card:hover .ec-art { outline: 1px solid var(--c-sub); } }
+@media (max-height: 540px) and (min-width: 680px) {
+  .ec-heading { margin-bottom: 8px; } .ec-tabs { margin-bottom: 8px; }
+  .ec-grid { grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 10px 8px; }
+  .ec-detail-top { grid-template-columns: 96px 1fr; margin: 8px 0; }
+}
+@media (max-width: 679px) { #panelEncyclopedia { height: 540px; } .ec-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.ec-card-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.ec-grid.ec-roster { grid-template-columns: 1fr; gap: 8px; }
+.ec-roster .ec-card { display: grid; grid-template-columns: 64px minmax(0, 1fr) 76px; align-items: center; text-align: left; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 8px; border-radius: 0; }
+.ec-roster .ec-name { font-size: var(--fs-m); }
+.ec-roster-stat { display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-s); text-align: right; }
+@media (max-height: 540px) and (min-width: 680px) { .ec-roster .ec-card { grid-template-columns: 52px minmax(0, 1fr) 65px; gap: 8px; } .ec-roster .ec-name { font-size: var(--fs-s); } }
+
+@media (max-height: 540px) and (min-width: 680px) {
+  .ec-masthead { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
+  .ec-masthead .ec-total { display: none; }
+  .ec-masthead .ec-heading, .ec-masthead .ec-tabs { margin: 0; }
+  .ec-masthead .ec-tabs { margin-left: auto; width: 70%; }
+  .ec-search input { padding-block: 5px; }
+}

@@ -28,6 +28,7 @@ import { readProgress, titleOptions, selectTitle, markWanderNotice, checkTitles,
 import { TITLE_NOTICE_HEAD, NO_TITLE_TEXT } from './title_rules.js'; // 호칭 알림 창 (10/24 — 싸움 결과 창 위 title_notice.js 와 같은 글) · 호칭이 없을 때 글
 import { WANDER_NOTICE_TEXT } from './wander_rules.js'; // 방랑 알림 창 글 (결과 창 위 알림 창과 같은 글)
 import { mountSkillTree } from './skill_tree.js';
+import { mountEncyclopedia } from './encyclopedia.js';
 import { convertSeals, takeSealNotice } from './seal_coins.js';
 import { migrateSkillBooks, takeTreeNotice, treeNoticeText } from './skill_tree_store.js'; // 옛 스킬북 → 스킬트리 (10/21 — 한 번)
 import { getWeapon, TIER_LABEL, weaponSpecText } from './weapons.js';
@@ -75,6 +76,7 @@ export function mountLobby({ root, game, choice, onDepart, onWander, onBack }) {
           <button role="tab" id="tabShop" aria-controls="panelShop" aria-selected="false" tabindex="-1" data-panel="Shop">상점</button>
           <button role="tab" id="tabSkills" aria-controls="panelSkills" aria-selected="false" tabindex="-1" data-panel="Skills">스킬</button>
           <button role="tab" id="tabEvent" aria-controls="panelEvent" aria-selected="false" tabindex="-1" data-panel="Event">이벤트</button>
+          <button role="tab" id="tabEncyclopedia" aria-controls="panelEncyclopedia" aria-selected="false" tabindex="-1" data-panel="Encyclopedia">도감</button>
         </nav>
       </section>
       <section class="contents-panel" aria-label="대기실 상세">
@@ -84,6 +86,7 @@ export function mountLobby({ root, game, choice, onDepart, onWander, onBack }) {
           <div class="item-detail" id="itemDetail" hidden><p class="item-head"><b id="itemName"></b><span id="itemRarity"></span></p><p id="itemDescription"></p><div class="equipment-actions"><button type="button" id="equipItem" disabled>장착</button><button type="button" id="unequipItem" disabled>해제</button></div></div></div>
           <p id="equipmentStatus" class="sr-only" role="status"></p>
         </div>
+        <div role="tabpanel" id="panelEncyclopedia" aria-labelledby="tabEncyclopedia" hidden><div id="encyclopediaHost"></div></div>
         <div role="tabpanel" id="panelShop" aria-labelledby="tabShop" hidden><div class="panel-heading"><h2>상점</h2></div><p class="empty-panel">아직 판매 중인 물품이 없습니다.</p></div>
         <div role="tabpanel" id="panelSkills" aria-labelledby="tabSkills" hidden><div class="panel-heading"><h2>스킬</h2><span class="wallet panel-wallet">${COIN_ICON}<b id="skillCoins"></b>${POUCH_ICON}<b id="skillHeads"></b></span></div><div id="skillTreeHost" class="skill-tree-host"></div><p id="skillStatus" class="sr-only" role="status"></p></div>
         <div role="tabpanel" id="panelEvent" aria-labelledby="tabEvent" hidden><div class="panel-heading"><h2>이벤트</h2></div><p class="empty-panel">아직 진행 중인 이벤트가 없습니다.</p></div>
@@ -201,6 +204,7 @@ export function mountLobby({ root, game, choice, onDepart, onWander, onBack }) {
   const equipped = { weapon: readLobbyEquipment(), head: readLobbyArmor(), neck: readLobbyNeck() };
   const tree = mountSkillTree($('skillTreeHost'), { test: ctx.test, onWallet: () => { renderWallet(); showTitleNotice(); }, announce: text => { $('skillStatus').textContent = text; } }); // 칸을 사서 호칭을 얻으면 스킬 화면 위에 알림 창
   const tabs = [...root.querySelectorAll('.lobby-tabs [role=tab]')]; // 차례 = 2 × 2 칸 차례(윗줄 아이템 · 상점 · 아랫줄 스킬북 · 이벤트) — ↑ ↓ 는 같은 칸 줄, ← → 는 다음 · 앞
+  let encyclopedia = null;
   function selectTab(tab) {
     for (const item of tabs) {
       const selected = item === tab; item.setAttribute('aria-selected', String(selected)); item.tabIndex = selected ? 0 : -1;
@@ -208,6 +212,7 @@ export function mountLobby({ root, game, choice, onDepart, onWander, onBack }) {
     for (const panel of root.querySelectorAll('.contents-panel > [role=tabpanel]')) panel.hidden = panel.id !== 'panel' + tab.dataset.panel;
     if (tab.dataset.panel === 'Inventory') { selectedItem = null; renderInventory(); } // 아이템 칸으로 오면 고른 것 없이 (전 무기 · 방어구 탭과 같게)
     if (tab.dataset.panel === 'Skills') tree.refresh();
+    if (tab.dataset.panel === 'Encyclopedia' && !encyclopedia) encyclopedia = mountEncyclopedia($('encyclopediaHost'));
     root.querySelector('.contents-panel').scrollTop = 0;
   }
   for (const tab of tabs) {
@@ -349,6 +354,6 @@ export function mountLobby({ root, game, choice, onDepart, onWander, onBack }) {
   $('lobbyHeading').focus();
   return {
     tree, // 시험·사진 도구: lobby.tree.show('german', 2)
-    destroy() { events.abort(); tree.destroy(); $('nameDialog').close(); $('treeDialog').close(); $('wanderDialog').close(); $('titleDialog').close(); grove.dispose(); },
+    destroy() { events.abort(); encyclopedia?.destroy(); tree.destroy(); $('nameDialog').close(); $('treeDialog').close(); $('wanderDialog').close(); $('titleDialog').close(); grove.dispose(); },
   };
 }

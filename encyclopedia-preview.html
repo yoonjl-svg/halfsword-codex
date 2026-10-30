@@ -1,0 +1,63 @@
+<!doctype html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Stillness · 대기실 도감</title><style>@font-face { font-family: 'Cinzel'; src: url('./fonts/Cinzel-latin.woff2') format('woff2'); font-weight: 400 900; font-style: normal; font-display: swap;
+        unicode-range: U+0041-005A, U+0061-007A, U+00C0-00D6, U+00D8-00F6, U+00F8-00FF, U+0102, U+0131, U+0152-0153; }
+@font-face { font-family: 'Cinzel'; src: url('./fonts/Cinzel-latin-ext.woff2') format('woff2'); font-weight: 400 900; font-style: normal; font-display: swap;
+        unicode-range: U+0100-0101, U+0103-0107, U+010A-0113, U+0116-011B, U+011E-0123, U+0126-0127, U+012A-012B, U+012E-0130, U+0132-0133, U+0136-0137, U+0139-0148, U+014A-014D, U+0150-0151, U+0154-015B, U+015E-0167, U+016A-016B, U+016E-017E, U+0218-021B, U+1E80-1E85, U+1EF2-1EF3; }
+@font-face { font-family: 'Pretendard'; src: url('./fonts/Pretendard-Regular.subset.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Pretendard'; src: url('./fonts/Pretendard-SemiBold.subset.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Pretendard'; src: url('./fonts/Pretendard-Bold.subset.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Noto Sans TC'; src: url('./fonts/NotoSansTC-hanja.woff2') format('woff2'); font-weight: 100 900; font-style: normal; font-display: swap;
+        unicode-range: U+2160-2161, U+4E09, U+523A, U+528D, U+52E2, U+53E3, U+53F3, U+5766, U+593E, U+5B88, U+5DE6, U+5FA1, U+6380, U+63A0, U+63A3, U+6492, U+64A9, U+64CA, U+6582, U+66F8, U+6B65, U+74B0, U+76F4, U+770B, U+7B26, U+7FC5, U+7FFC, U+8170, U+8179, U+82B1, U+84CB, U+864E, U+8C79, U+8DE8, U+8E72, U+8ECA, U+9001, U+9006, U+9023, U+9802, U+982D, U+9C57, U+9CF3, U+9EDE; }
+@font-face { font-family: 'Noto Sans Math'; src: url('./fonts/NotoSansMath-symbols.woff2') format('woff2'); font-weight: 100 900; font-style: normal; font-display: swap;
+        unicode-range: U+21BA-21BB, U+25AE-25AF; }:root {
+        
+        
+        --c-text: #f3e9d8; 
+        --c-sub: #b8a88e; 
+        --c-accent: #d9a441; 
+        --c-alert: #e48e8b; 
+        --c-on-accent: #1b1410; 
+        
+        --c-wander: #3d6b62;
+        --c-wander-line: #6f9c8f;
+        --ink: var(--c-text);
+        --dim: var(--c-sub);
+        --accent: var(--c-accent);
+        --panel: rgba(24, 18, 14, 0.88);
+        --line: rgba(243, 233, 216, 0.18);
+        --red: #b3261e;
+        --blue: #3f6fb5;
+        --font-ui: 'Cinzel', 'Pretendard', 'Noto Sans TC', 'Noto Sans Math', system-ui, -apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif; 
+        
+        --fs-s: 12px; 
+        --fs-m: 14px; 
+        --fs-l: 17px; 
+        
+        --fs-display: clamp(32px, 9vmin, 56px); 
+        --fs-wordmark: 20px; 
+        
+        --fw-body: 400;
+        --fw-label: 600; 
+        --fw-head: 700; 
+        --lh-tight: 1.25;
+        --lh-text: 1.4;
+        --ls-display: .06em;
+        --ls-label: .04em;
+        
+        --outline-c: #0d0907;
+        --hud-outline: 1px 0 0 var(--outline-c), -1px 0 0 var(--outline-c), 0 1px 0 var(--outline-c), 0 -1px 0 var(--outline-c), 0 1px 3px rgba(13, 9, 7, .85), 0 0 8px rgba(13, 9, 7, .5);
+        --hud-outline-display: 0 2px 0 var(--outline-c), 0 0 2px var(--outline-c), 0 3px 10px rgba(13, 9, 7, .7);
+        
+        --hud-guide-bg: rgba(13, 9, 7, .5); 
+        
+        --tier-trash: #b8b6b0; --tier-common: #fff3c4; --tier-rare: #8cc4ff; --tier-epic: #d6a8ff; --tier-legend: #ffd24a; --tier-mystery: #8fe3c6;
+        --foe: #b0473b;
+        
+        --safe-t: max(12px, env(safe-area-inset-top));
+        --safe-r: max(14px, env(safe-area-inset-right));
+        --safe-l: max(14px, env(safe-area-inset-left));
+        --safe-b: max(12px, env(safe-area-inset-bottom));
+        --side-w: min(34vw, 300px);
+        --slot-gap: 6px;
+        --hint-b: var(--safe-b);
+        --notice-up: 34px;
+      }html,body{margin:0;background:#30291e;color:var(--c-text);font-family:var(--font-ui)}#previewNote{position:fixed;bottom:2px;left:50%;transform:translateX(-50%);z-index:2;margin:0;font:12px Pretendard;color:var(--c-sub);pointer-events:none}#previewNote:empty{display:none}</style></head><body><div id="lobbyHost"></div><p id="previewNote" role="status"></p><script type="module" src="/src/encyclopedia_preview.js"></script></body></html>
