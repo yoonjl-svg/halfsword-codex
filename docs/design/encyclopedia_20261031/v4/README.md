@@ -8,3 +8,7 @@
 기존v3브라우저검사의기대열수만4로바꿔실행.320/390/740/844/1280에서실제4열/아이템5열·148그림·카드텍스트넘침/그림비율/배색·팝업·초점/스크롤복귀·저장불변통과. 미리보기빌드성공. 첫검사는환경재시작으로로컬서버가꺼져연결거부→서버기동후통과. UI배치만바뀌어모델재촬영/전투관문반복없음(이전5관문자료v3보존).
 
 이전3열예시보존. 우화쓰기/전달0,사용자검토용.
+
+## 공개 확인
+
+[4열 시안](https://yoonjl-svg.github.io/halfsword-codex/encounters/encyclopedia-20261031/?view=characters&v=4) · [이전3열](https://yoonjl-svg.github.io/halfsword-codex/encounters/encyclopedia-20261031-v3/?view=characters). 공개58861c1b/Pages41104041756성공. 현재+3열보존본352파일11,821,281bytes원격SHA256일치. 공개5폭148그림/4열·5열/팝업/스크롤·저장불변검사오류0. 배포상태조회중GitHub일시502로watch종료→재조회최종success와실제공개파일/브라우저확인.
