@@ -89,11 +89,15 @@ test('휘청 고침 — 네 칼(츠바이핸더 · 플랑베르주 · 티소나 
         assert.equal(s.fell, false, `${mode} ${weapon}`);
       } finally { B.free(); }
     }
+  // 고치기 전 재현은 10/29 판 손 매핑 배수에서 (10/31 대검 배수 SKILL.frameScale 'heavy' 전 — docs/motion/guard_arms_2026-10-31.md): 'heavy' 에선 손가락을 댄 쉼 손이
+  //  13 % 앞으로 나와 rdSteady 0 이어도 휘청이 안 남(발 둘레 밖 0 cm · 기울기 8°) — 옛 결함 장면만 그때 배수로 묶음
+  const fs = CONFIG.SKILL.frameScale;
+  CONFIG.SKILL.frameScale = 'off';
   const B = body({ set: { rdSteady: 0 } });
   try {
     const s = sway(B, 1.2);
     assert.ok(s.off > 0.2 || s.dTilt > 20, `고치기 전 재현 — 발 둘레 밖 ${(s.off * 100).toFixed(1)} cm · 기울기 ${s.dTilt.toFixed(1)}°`);
-  } finally { B.free(); }
+  } finally { B.free(); CONFIG.SKILL.frameScale = fs; }
 });
 
 test('휘청 고침 — 감는 동안 손목 원뿔 · 칼 어깨 면 밧줄을 떼고, 내려침이 끝나면 · 그만둔 팔을 내려놓으면 다시 건다', () => {

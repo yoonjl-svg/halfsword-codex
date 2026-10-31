@@ -391,6 +391,8 @@ if (params.has('specialCoolFrom') && ['free', 'motion', 'fire'].includes(params.
 if (params.has('secretUses')) CONFIG.UNIQUE_ASSIST.secretUses = parseSecretUses(params.get('secretUses')); // 유파 비기 판당 쓸 수 (기본 1 · 동방 3 · 'inf' = 끝없음 · 사장님 10/29 19:5x)
 if (params.has('dupTap')) CONFIG.UNIQUE_ASSIST.dupTap = +params.get('dupTap') ? 1 : 0; // 사람 겹치기 탭 (사장님 10/28 01:2x — 맞물린 채 탭 · 기본 1)
 if (params.has('rdHold')) CONFIG.UNIQUE_ASSIST.rdHold = +params.get('rdHold') ? 1 : 0; // 사람 풍차 베기 길게 누름 (이베리아 B4 — 사장님 10/29 · 기본 1)
+if (['heavy', 'all', 'off'].includes(params.get('frameScale'))) CONFIG.SKILL.frameScale = params.get('frameScale'); // 날것 매핑 반지름 잣대 — 대검은 덮기 전 무기 틀 표로 (10/31 · 기본 'heavy' · 사장님 확인 전) · `?frameScale=off` = 전 판
+if (params.has('restTouch')) CONFIG.SKILL.restTouch = +params.get('restTouch') ? 1 : 0; // 얹은 손가락은 뗀 것과 같게 — 쉼 자세 그대로 (10/31 · 기본 1 · 사장님 확인 전) · `?restTouch=0` = 전 판
 if (params.has('dupGrace')) CONFIG.UNIQUE_ASSIST.dupGrace = Math.max(0, +params.get('dupGrace') || 0); // 겹치기 시제품: 닿음이 끝난 뒤 받는 초 (10/31 · 기본 0 · 사장님 확인 전 — 확인표 3100)
 if (params.has('dupAny')) CONFIG.UNIQUE_ASSIST.dupAny = +params.get('dupAny') ? 1 : 0; // 겹치기 시제품: 칼끼리 닿음이면 모두 (기본 0 · 확인표 3101)
 if (params.has('dupStep')) CONFIG.UNIQUE_ASSIST.dupStep = Math.max(0, +params.get('dupStep') || 0); // 겹치기 시제품: 앞 걸음 m (기본 0 · 확인표 3102)

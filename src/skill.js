@@ -1760,14 +1760,22 @@ export class Skill {
       this.cutPending = true;
       this.recovering = false;
     }
-    this.idle = f.inputActive || this.tempoInput?.pending ? 0 : this.idle + dt;
+    // 얹은 손가락 (10/31 SKILL.restTouch — 사장님 11/01 결정): 닿은 자리에서 길게 누름 한도(INPUT.holdPx)를 넘게 끌지 않은 손가락(main.js handGrip 거짓)은
+    //  손을 뗀 것과 같다 — 닿음(touched) · 움직임(moved) 둘 다 아님(엄지 떨림 · 떠돎이 쉼 자세를 날것으로 끌어내리지 않게). 풍차 베기 감는 동안은 전과 같이 쥠.
+    //  handGrip 이 없는 몸(AI · 시뮬 대본)은 handHeld · inputActive 그대로.
+    //  손을 쥐는 다른 길은 그대로 쥠(11/01): 막기 단추가 이 스텝 손을 쥠(parryGuard.active — 단추가 inputActive 를 켜 쉼 무게를 비킴) · 채찍 톡(flick — 손가락이 움직이는 것처럼 알림) ·
+    //  손가락이 닿지 않은 때(handHeld 거짓 — main.js handGrip 이 inputActive 를 그대로 받음)
+    const restFinger = !!SKILL.restTouch && !!f.handHeld && f.handGrip === false && !this.uniq?.winding && !this.flick && !f.parryGuard?.active;
+    const touched = !!f.handHeld && !restFinger;
+    const moved = !!f.inputActive && !restFinger;
+    this.idle = moved || this.tempoInput?.pending ? 0 : this.idle + dt;
     // 보정 v2 사건: 손 뗌 = 손가락이 화면에서 떨어진 스텝 (handHeld 참 → 거짓, main.js — 입력 쪽 사건이라 공포 떨림에 속지 않음)
     this.lift = !!this.heldPrev && !f.handHeld;
     this.heldPrev = !!f.handHeld;
     const canRecover = this.autoGuard && !this.sec && L >= 0.35 && f.alive && f.armed && (f.state === 'stand' || f.state === 'kneel'); // 비기 실행 중엔 자세로 돌아가지 않는다 (비기 길이 손을 쥔다)
     // 보정 v2 ③ 되돌아옴 겨눔 (s > 0, 선 자세·총 아님·상대 있음): 걷는 목적지만 바꾼다 dest = lerp(homeGuard, pad*, s). 무릎은 오늘 걷기
     const v2r = this.corr === 'v2' && L > 0 && f.state === 'stand' && !f.weapon?.gun && !!f.foe;
-    if (canRecover && this.cutPending && !swinging && !f.handHeld && this.idle > SKILL.recoverDelay) {
+    if (canRecover && this.cutPending && !swinging && !touched && this.idle > SKILL.recoverDelay) {
       this.recovering = true;
       this.cutPending = false;
       if (v2r) {
@@ -1791,7 +1799,7 @@ export class Skill {
     }
     if (this.recovering && v2r && this.recoverD0 != null) {
       // 보정 v2: 같은 빠르기(recoverSpeed)로 pad* 쪽 목적지로 걷는다. 겨눔 덧씌우기 없음 → 다음 손길에 튐 없음. 진행 p = 1 − d/d0 (② 붙잡음을 푼다)
-      if (f.inputActive || !canRecover) this.recovering = false;
+      if (moved || !canRecover) this.recovering = false;
       else {
         const hx = this.recoverDest[0] - off.x;
         const hy = this.recoverDest[1] - off.y;
@@ -1808,7 +1816,7 @@ export class Skill {
         }
       }
     } else if (this.recovering) {
-      if (f.inputActive || !canRecover) this.recovering = false; // 다시 조작하면 바로 조작이 우선
+      if (moved || !canRecover) this.recovering = false; // 다시 조작하면 바로 조작이 우선
       else {
         const home = f.swordArt?.restGuard?.pad ?? SKILL.homeGuard; // 유파 쉴 자세 (10/9 ②③, 스위치 끔 = homeGuard)
         const hx = home[0] - off.x;
@@ -1846,7 +1854,7 @@ export class Skill {
       // 보정 v2 쉼 무게의 목표 (fighter.updateBodyPose 가 SKILL_BODY 따라가기로 쫓고 driveSword 가 손·칼끝을 그만큼 옛 자세 지도 쪽으로 섞는다):
       //  손가락이 닿았거나 움직이거나 휘두르는 중 = 0 (날것), 되돌아오는 동안 = 걷기 진행 recoverP (무릎 걷기는 진행 값이 없어 끝날 때까지 0),
       //  벤 뒤 되돌아옴을 기다리는 동안 = 0, 그 밖(쉼, 되돌아옴 끝) = 1. 새 수·시계 없음 — 있는 사건만 읽는다
-      this.idleGoal = f.handHeld || f.inputActive || swinging || this.sec ? 0 : this.recovering ? (this.recoverD0 != null ? this.recoverP : 0) : this.cutPending && canRecover ? 0 : 1;
+      this.idleGoal = touched || moved || swinging || this.sec ? 0 : this.recovering ? (this.recoverD0 != null ? this.recoverP : 0) : this.cutPending && canRecover ? 0 : 1;
     }
     if (this.lunge > 0) {
       this.lunge -= dt;

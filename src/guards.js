@@ -301,7 +301,7 @@ export function applySchoolGuardTable(table, tradition) {
   const over = tradition?.guardTable;
   if (!over) return table;
   const src = table ?? BASE;
-  return src.map((g, i) => {
+  const res = src.map((g, i) => {
     const o = BASE[i] && over[BASE[i].name];
     if (!o) return g;
     const out = { ...g };
@@ -320,6 +320,11 @@ export function applySchoolGuardTable(table, tradition) {
     if (o.desc) out.desc = o.desc;
     return out;
   });
+  // 덮기 전 무기 틀 표 (10/31 — fighter.js corrScale 이 읽는다): 유파 자세표가 쉼 자리(SKILL.homeGuard = 쟁기 자리) 칸을 덮어도
+  //  보정 v2 날것 매핑 반지름(배수 k)은 무기 틀 표로 잰다 — 10/10 이베리아 · 일본 자세표가 이 칸을 덮으면서 k 가 0.866 → 0.752 · 0.757 로 줄어
+  //  손가락을 대거나 휘두르는 동안 손이 어깨 쪽으로 13 % 끌려온 것(docs/motion/guard_arms_2026-10-31.md)을 되돌린다. 보이는 자세 칸은 그대로
+  Object.defineProperty(res, 'frameTable', { value: src.frameTable ?? src });
+  return res;
 }
 
 const SIGMA2 = 0.15 * 0.15;
