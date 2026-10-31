@@ -6,7 +6,7 @@
 //    칼끝 · 손(칼자루) · 골반 · 가슴(세계 — 낸 때 몸 틀: x 상대 쪽 · y 위 · z 칼 든 쪽 옆) · 발(딛음 · 디딘 자리 · 걸음 갈래) · 운동학 칼(끄는 중 · 베는 토막) · 손목(wrist_audit) · 날 앞장 cos ·
 //    상대 칼 지나감(duplieren_check sample far) · 넘어짐 · 기울기 · 맞음(때 · 곳 · 에너지 · 심각도)
 //   잼: 휨(tsubame_trace bendOf — 칼끝 길의 곧은 줄 대비 몫 · 꺾임 · 몸 틀(가슴 따라)과 세계 둘) · 때 맞춤(칼 시작 · 첫 맞음 · 칼 끝 ↔ 앞발 뜸 · 디딤) · 손 ↔ 골반 빠르기(앞 몫 상관 · 늦음)
-//  갈래: old = 10/28 길 · 몫 0.5 · 박차기 없음 (`?dupOld=1`) · new:<몫>:<박차기 m>[:<손발 순서 1|2|0>[:<박차기 시간 실제 초 — 0 = GAIT.burstT>[:<몸 꼴 dupBurstMatch 0|1|2>]]] (예 new:0.3:0.45 · new:0.5:0 = 단순 길만 · new:0.3:0.45:0 = 칼은 몫 빠르기 그대로 · new:0.3:0.45:1:0:1 = 첫 걸음 박차기 물리)
+//  갈래: old = 10/28 길 · 몫 0.5 · 박차기 없음 (`?dupOld=1`) · new:<몫>:<박차기 m>[:<손발 순서 1|2|0>[:<박차기 시간 실제 초 — 0 = GAIT.burstT>[:<몸 꼴 dupBurstMatch 0|1|2>[:<길이 맞춤 칼날 자리 — 0 끔 · 0.6 = dupBurstFit 1 · dupFitPoint 0.6>]]]] (예 new:0.3:0.45 · new:0.5:0 = 단순 길만 · new:0.3:0.45:0 = 칼은 몫 빠르기 그대로 · new:0.3:0.45:1:0:1 = 첫 걸음 박차기 물리)
 //  node tools/sim/duplieren_simple.mjs [--variants=old,new:0.1:0.45] [--weapons=longsword,sabre,kriegsmesser] [--opps=longsword,uchigatana,zweihander,rapier] [--seeds=901,902,903,904] [--dur=30] [--json=파일] [--v]
 // ─────────────────────────────────────────────────────────────
 import { writeFileSync } from 'node:fs';
@@ -20,14 +20,14 @@ import { isMain } from './is_main.mjs';
 
 const UA = CONFIG.UNIQUE_ASSIST;
 const r3 = (x) => (x == null || !Number.isFinite(x) ? null : +x.toFixed(3));
-const KEYS = ['dupOld', 'dupBurst', 'dupBurstFree', 'dupBurstT', 'dupBurstSync', 'dupBurstMatch'];
+const KEYS = ['dupOld', 'dupBurst', 'dupBurstFree', 'dupBurstT', 'dupBurstSync', 'dupBurstMatch', 'dupBurstFit', 'dupFitPoint'];
 
 /** 갈래 → 게임 값 (old · new:몫:박차기) */
 export function parseVariant(v) {
   if (typeof v === 'object') return v;
   if (v === 'old') return { key: v, dupOld: 1, share: UA.dupOldShare ?? 0.5, dupBurst: 0 };
-  const [, s, b, sy, bt, mt] = String(v).split(':');
-  return { key: v, dupOld: 0, share: s != null && s !== '' ? +s : UA.specialShare.duplieren, dupBurst: b != null && b !== '' ? +b : UA.dupBurst, ...(sy != null && sy !== '' ? { dupBurstSync: +sy } : {}), ...(bt && +bt > 0 ? { dupBurstT: CONFIG.realS(+bt) } : {}), ...(mt != null && mt !== '' ? { dupBurstMatch: +mt } : {}) };
+  const [, s, b, sy, bt, mt, fp] = String(v).split(':');
+  return { key: v, dupOld: 0, share: s != null && s !== '' ? +s : UA.specialShare.duplieren, dupBurst: b != null && b !== '' ? +b : UA.dupBurst, ...(sy != null && sy !== '' ? { dupBurstSync: +sy } : {}), ...(bt && +bt > 0 ? { dupBurstT: CONFIG.realS(+bt) } : {}), ...(mt != null && mt !== '' ? { dupBurstMatch: +mt } : {}), ...(fp != null && fp !== '' ? (+fp > 0 ? { dupBurstFit: 1, dupFitPoint: +fp } : { dupBurstFit: 0 }) : {}) };
 }
 function apply(v) {
   const save = { ...Object.fromEntries(KEYS.map((k) => [k, UA[k]])), share: UA.specialShare.duplieren };
@@ -37,6 +37,8 @@ function apply(v) {
   if (p.dupBurstFree != null) UA.dupBurstFree = p.dupBurstFree;
   if (p.dupBurstT != null) UA.dupBurstT = p.dupBurstT;
   if (p.dupBurstMatch != null) UA.dupBurstMatch = p.dupBurstMatch;
+  if (p.dupBurstFit != null) UA.dupBurstFit = p.dupBurstFit;
+  if (p.dupFitPoint != null) UA.dupFitPoint = p.dupFitPoint;
   if (p.dupBurstSync != null) UA.dupBurstSync = p.dupBurstSync;
   UA.specialShare.duplieren = p.share;
   return () => {
@@ -277,6 +279,7 @@ export function measure(tr) {
     v0: bu?.v0 ?? null, match: bu?.match ?? null, Tb, Tf: bu?.Tf ?? null, plantT: bu?.plantT ?? null, launchT: bu?.launchT ?? null,
     pelPeak: r3(Math.max(...vPel.filter((x, i) => x != null && S[i].t <= 0.6))), pelMean: Tb ? r3(pelD(Tb) / Tb) : null, pel22: r3(pelD(0.22)), pel30: r3(pelD(0.3)), pelAtTb: Tb ? r3(pelD(Tb)) : null, pelCurve: curve,
     still: r3(still), tipPeak: r3(Math.max(0, ...vTip.filter((x) => x != null))),
+    fitS: tr.dup?.fitStep?.s ?? null, tB: tr.dup?.tB ?? null, dFace: bu?.launchT != null && tr.dup?.t0 != null && S.length ? at(bu.launchT + tr.dup.t0).d : tr.dup?.tFace != null && S.length ? at(tr.dup.tFace).d : null,
     travel: tr.dup?.t0 ?? null, faceAfterLaunch: near && bu?.launchT != null ? r3(near.t - bu.launchT) : null, stopToLaunch: Tb != null && bu?.launchT != null ? r3(bu.launchT - Tb) : null,
   };
 }

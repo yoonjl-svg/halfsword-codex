@@ -18,6 +18,7 @@ test('기본값 — 단순 길(dupOld 0) · 앞 박차기 걸음 사다리 칸 �
   assert.equal(UA.dupBurstT, 0, '박차기 시간 = 박찬 걸음 GAIT.burstT');
   assert.equal(UA.dupStrikeLag, undefined, '사장님 10/31 00:xx — 칼이 닿는 때는 정해 두지 않음(길 ÷ 몫 빠르기)');
   assert.equal(UA.dupBurstMatch, 0, '몸 꼴 고르게 (첫 걸음 박차기 물리는 `?dupBurstMatch=1` — 사장님 확인 전)');
+  assert.equal(UA.dupBurstFit, 0, '박차기 길이 고정 (가장 잘 드는 거리까지는 `?dupBurstFit=1` — 사장님 확인 전)');
   assert.equal(UA.dupOldShare, 0.5);
   assert.equal(UA.specialShare.duplieren, 0.3, `몫 ${UA.specialShare.duplieren}`); // 사장님 확인 전 (말씀은 '10% 정도?')
   assert.equal(UA.dupBurstSync, 1, '몸 · 발 먼저 · 칼은 디딤에 출발');
@@ -27,7 +28,7 @@ test('기본값 — 단순 길(dupOld 0) · 앞 박차기 걸음 사다리 칸 �
 
 /** 사람 롱소드 몸 + 겹치기 (판을 돌리지 않음 — 가슴 사이를 d 로 두고 겹치기를 바로 냄) */
 function body(set = {}, gap = 1.25) {
-  const keys = ['dupOld', 'dupBurst', 'dupBurstFree', 'dupBurstSync', 'dupBurstT', 'dupBurstMatch', 'specialCooldown'];
+  const keys = ['dupOld', 'dupBurst', 'dupBurstFree', 'dupBurstSync', 'dupBurstT', 'dupBurstMatch', 'dupBurstFit', 'dupFitPoint', 'dupFitMin', 'specialCooldown'];
   const save = Object.fromEntries(keys.map((k) => [k, UA[k]]));
   const share0 = UA.specialShare.duplieren;
   Object.assign(UA, { specialCooldown: 0, ...set });
@@ -209,6 +210,34 @@ test('몸 꼴 첫 걸음 박차기 물리(dupBurstMatch 1 · 2 — 감독 10/31 
       // 몸이 칼보다 오래 가면 끝 자세 그대로 몸이 설 때까지 (맞힘 없음)
       const segT = first.segs.reduce((x, sg) => x + sg.T, 0);
       assert.ok(segT >= T - 1e-3, `토막 ${segT} · 몸 ${T}`);
+    } finally {
+      B.free();
+    }
+  }
+});
+
+test('박차기 길이 맞춤(dupBurstFit 1 — 사장님 11/01 00:xx): 낸 자리에서 짠 얼굴 베기가 얼굴을 칼날 dupFitPoint 자리에서 지나는 거리까지 · 첫 걸음 박차기 물리 · 죽음의 일격 거리 안으로는 안 감 · 짧으면 걸음 없음', () => {
+  for (const gap of [1.5, 1.0, 0.82]) {
+    const B = body({ dupBurst: 0.45, dupBurstFit: 1, dupFitPoint: 0.6, share: 0.3 }, gap);
+    try {
+      const d0 = B.P.foeDistance();
+      const R = B.fire();
+      const first = R.steps.find((s) => s.on);
+      assert.ok(first?.dup?.line === 1, '단순 길');
+      const F = first.dup.fitStep;
+      const S = first.slide;
+      if (d0 <= SECRET.mordCloseN + 1e-3) {
+        assert.equal(S, null, `걸음 없음 (가슴 사이 ${d0})`);
+        continue;
+      }
+      assert.ok(F, `맞춤 ${JSON.stringify(first.dup)}`);
+      assert.ok(F.sMax <= d0 - SECRET.mordCloseN + 0.02, `한도 ${F.sMax} · 가슴 사이 ${d0}`);
+      if (S) {
+        assert.ok(S.slide >= UA.dupFitMin - 1e-9 && S.slide <= F.sMax + 1e-9, `걸음 ${S.slide}`);
+        assert.equal(first.dup.match, 1, '첫 걸음 박차기 물리');
+        assert.ok(Math.abs(F.err) < 0.1 || S.slide >= F.sMax - 1e-3, `어긋남 ${F.err} · 걸음 ${S.slide}`);
+        assert.ok(first.burst.Tf <= CONFIG.GAIT.burstT + 1e-6 && first.burst.Tf >= 0.1 - 1e-6, `앞발 ${first.burst.Tf}`);
+      } else assert.equal(F.s, 0, '짧으면 걸음 없음');
     } finally {
       B.free();
     }

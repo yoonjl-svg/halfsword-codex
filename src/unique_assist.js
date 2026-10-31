@@ -593,7 +593,7 @@ export class PlayerUniqueAssist {
     //  10/31 19:xx 사장님 '가장 효율적이고 단순한 움직임 … 박차기를 앞으로 쓰면서 치는 효과': 길 = 맞닿은 자리 축 한 번 돌림(dupOld 0) · 앞 박차기 dupBurst m(겹치기와 함께만 — 죽음의 일격 거리에서 멈춤 · 기력 pushCost — dupBurstFree 면 안 냄)
     if (e.tapDup && UA.enhance > 0) {
       const old = !!UA.dupOld;
-      if (requestArtDup(f, { share: specialShare(e.name), maxT: UA.dupSnapTime, tech: U.name, face: UA.dupFace, follow: UA.dupFollow, plan: UA.dupPlan, body: UA.dupBody, edge: UA.dupEdge, step: UA.dupStep > 0 ? { kind: 'lunge', fwd: UA.dupStep } : null, old, burst: !old && UA.dupBurst > 0 ? { fwd: UA.dupBurst, free: !!UA.dupBurstFree, sync: UA.dupBurstSync ?? 1, T: UA.dupBurstT ?? 0, match: UA.dupBurstMatch ?? 0 } : null })) {
+      if (requestArtDup(f, { share: specialShare(e.name), maxT: UA.dupSnapTime, tech: U.name, face: UA.dupFace, follow: UA.dupFollow, plan: UA.dupPlan, body: UA.dupBody, edge: UA.dupEdge, step: UA.dupStep > 0 ? { kind: 'lunge', fwd: UA.dupStep } : null, old, burst: !old && UA.dupBurst > 0 ? { fwd: UA.dupBurst, free: !!UA.dupBurstFree, sync: UA.dupBurstSync ?? 1, T: UA.dupBurstT ?? 0, match: UA.dupBurstMatch ?? 0, fit: UA.dupBurstFit ? { point: UA.dupFitPoint ?? 0.6, min: UA.dupFitMin ?? 0.05 } : null } : null })) {
         this.stats.snap = (this.stats.snap ?? 0) + 1;
         return true;
       }
