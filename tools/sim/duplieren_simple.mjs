@@ -6,7 +6,7 @@
 //    칼끝 · 손(칼자루) · 골반 · 가슴(세계 — 낸 때 몸 틀: x 상대 쪽 · y 위 · z 칼 든 쪽 옆) · 발(딛음 · 디딘 자리 · 걸음 갈래) · 운동학 칼(끄는 중 · 베는 토막) · 손목(wrist_audit) · 날 앞장 cos ·
 //    상대 칼 지나감(duplieren_check sample far) · 넘어짐 · 기울기 · 맞음(때 · 곳 · 에너지 · 심각도)
 //   잼: 휨(tsubame_trace bendOf — 칼끝 길의 곧은 줄 대비 몫 · 꺾임 · 몸 틀(가슴 따라)과 세계 둘) · 때 맞춤(칼 시작 · 첫 맞음 · 칼 끝 ↔ 앞발 뜸 · 디딤) · 손 ↔ 골반 빠르기(앞 몫 상관 · 늦음)
-//  갈래: old = 10/28 길 · 몫 0.5 · 박차기 없음 (`?dupOld=1`) · new:<몫>:<박차기 m>[:<때 맞춤 1|0>[:<끄는 시간 상한 실제 초>]] (예 new:0.1:0.45 · new:0.5:0 = 단순 길만 · new:0.3:0.45:0 = 칼은 몫 빠르기 그대로)
+//  갈래: old = 10/28 길 · 몫 0.5 · 박차기 없음 (`?dupOld=1`) · new:<몫>:<박차기 m>[:<손발 순서 1|2|0>[:<박차기 시간 실제 초>[:<칼 늦음 실제 초>]]] (예 new:0.3:0.45 · new:0.5:0 = 단순 길만 · new:0.3:0.45:0 = 칼은 몫 빠르기 그대로 · new:0.3:0.45:1:0.2)
 //  node tools/sim/duplieren_simple.mjs [--variants=old,new:0.1:0.45] [--weapons=longsword,sabre,kriegsmesser] [--opps=longsword,uchigatana,zweihander,rapier] [--seeds=901,902,903,904] [--dur=30] [--json=파일] [--v]
 // ─────────────────────────────────────────────────────────────
 import { writeFileSync } from 'node:fs';
@@ -20,14 +20,14 @@ import { isMain } from './is_main.mjs';
 
 const UA = CONFIG.UNIQUE_ASSIST;
 const r3 = (x) => (x == null || !Number.isFinite(x) ? null : +x.toFixed(3));
-const KEYS = ['dupOld', 'dupBurst', 'dupBurstFree', 'dupSnapTime', 'dupBurstSync'];
+const KEYS = ['dupOld', 'dupBurst', 'dupBurstFree', 'dupBurstT', 'dupBurstSync', 'dupStrikeLag'];
 
 /** 갈래 → 게임 값 (old · new:몫:박차기) */
 export function parseVariant(v) {
   if (typeof v === 'object') return v;
   if (v === 'old') return { key: v, dupOld: 1, share: UA.dupOldShare ?? 0.5, dupBurst: 0 };
-  const [, s, b, sy, cap] = String(v).split(':');
-  return { key: v, dupOld: 0, share: s != null && s !== '' ? +s : UA.specialShare.duplieren, dupBurst: b != null && b !== '' ? +b : UA.dupBurst, ...(sy != null && sy !== '' ? { dupBurstSync: +sy } : {}), ...(cap ? { dupSnapTime: CONFIG.realS(+cap) } : {}) };
+  const [, s, b, sy, bt, lag] = String(v).split(':');
+  return { key: v, dupOld: 0, share: s != null && s !== '' ? +s : UA.specialShare.duplieren, dupBurst: b != null && b !== '' ? +b : UA.dupBurst, ...(sy != null && sy !== '' ? { dupBurstSync: +sy } : {}), ...(bt ? { dupBurstT: CONFIG.realS(+bt) } : {}), ...(lag ? { dupStrikeLag: CONFIG.realS(+lag) } : {}) };
 }
 function apply(v) {
   const save = { ...Object.fromEntries(KEYS.map((k) => [k, UA[k]])), share: UA.specialShare.duplieren };
@@ -35,7 +35,8 @@ function apply(v) {
   UA.dupOld = p.dupOld;
   UA.dupBurst = p.dupBurst;
   if (p.dupBurstFree != null) UA.dupBurstFree = p.dupBurstFree;
-  if (p.dupSnapTime != null) UA.dupSnapTime = p.dupSnapTime;
+  if (p.dupBurstT != null) UA.dupBurstT = p.dupBurstT;
+  if (p.dupStrikeLag != null) UA.dupStrikeLag = p.dupStrikeLag;
   if (p.dupBurstSync != null) UA.dupBurstSync = p.dupBurstSync;
   UA.specialShare.duplieren = p.share;
   return () => {
