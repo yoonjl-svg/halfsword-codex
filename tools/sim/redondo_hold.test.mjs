@@ -20,7 +20,7 @@ test('기본값 — 길게 누름 실제 0.6 s · 기력 초당 붙어 버티기
   assert.equal(UA.rdHold, 1);
   assert.ok(Math.abs(UA.rdHoldTime - realS(0.6)) < 1e-12); // 사장님 '0.6초'
   assert.equal(UA.rdDrain, STAMINA.clinchPerSecond);
-  assert.equal(UA.specialShare.redondo, 0.3); // 10/31 13:5x 사장님 '배율을 0.5에서 0.3으로 낮춰' (전 0.5) // 10/29 02:0x 사장님 '풍차베기는 50%' (전 싱지르 × 0.6 = 고노센 × 0.42)
+  assert.equal(UA.specialShare.redondo, 0.2); // 11/01 00:xx 사장님 '고노센의 20%로 바꿔' (전 0.3) // 10/31 13:5x 사장님 '배율을 0.5에서 0.3으로 낮춰' (전 0.5) // 10/29 02:0x 사장님 '풍차베기는 50%' (전 싱지르 × 0.6 = 고노센 × 0.42)
   assert.ok(Math.abs(UA.rdSnapTime - realS(0.4)) < 1e-12); // 10/31 0.2 → 0.4 [사장님 확인 전] — 칼끝 × 0.3 의 벰(0.265 s)을 끊지 않게 (redondo_motion 내려침 길 시험)
   assert.ok(Math.abs(UA.specialCooldown - realS(3.0)) < 1e-12); // 10/29 19:5x 사장님 '특수공격 3초(발동이 완료된 시점부터)' (전 6 s · 나간 순간부터)
   assert.equal(UA.specialCoolFrom, 'free');
@@ -91,7 +91,7 @@ test('짧은 누름 · 끈 누름은 감지 않음 / 0.6 s 넘게 누르면 감�
     assert.equal(uq.stats.fired.redondo, 1, '떼면 내려침');
     assert.equal(uq.coolT.redondo, Infinity, '내려침이 도는 동안 식힘 중 (끝난 때부터 셈 — 10/29 19:5x)');
     assert.ok(P.iai || P.instantResult?.combo, '운동학 칼');
-    steps(0.8); // 내려침(10/31 19:xx 멘 어깨에서 — 실제 약 0.40 s) + 끝 자세 풀기 0.2 s 뒤
+    steps(1.1); // 내려침(10/31 19:xx 멘 어깨에서 — 11/01 빠르기 0.2 에서 실제 약 0.67 s) + 끝 자세 풀기 0.2 s 뒤
     assert.equal(P.instantResult?.tech, 'redondo');
     const run = uq.stats.coolRuns?.at(-1);
     assert.ok(run?.name === 'redondo' && Number.isFinite(uq.coolT.redondo), '내려침 · 풀기가 끝나면 식힘을 셈');
